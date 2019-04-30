@@ -2,23 +2,23 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 60F07E0B5
-	for <lists+linux-man@lfdr.de>; Mon, 29 Apr 2019 12:43:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 296DFFD32
+	for <lists+linux-man@lfdr.de>; Tue, 30 Apr 2019 17:50:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727868AbfD2Knn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 29 Apr 2019 06:43:43 -0400
-Received: from unassigned-102-a.cspirefiber.net ([173.235.82.102]:47638 "EHLO
-        clearos.ia.lan" rhost-flags-OK-FAIL-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1727774AbfD2Knm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Apr 2019 06:43:42 -0400
-X-Greylist: delayed 7347 seconds by postgrey-1.27 at vger.kernel.org; Mon, 29 Apr 2019 06:43:42 EDT
-Received: from User (localhost [127.0.0.1])
-        by clearos.ia.lan (Postfix) with SMTP id 7C06C4C29E6;
-        Mon, 29 Apr 2019 02:23:20 -0500 (CDT)
-Reply-To: <acmccamey@zoominternet.net>
+        id S1726449AbfD3PuN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 30 Apr 2019 11:50:13 -0400
+Received: from [213.251.40.226] ([213.251.40.226]:60693 "EHLO
+        trixbox1.localdomain" rhost-flags-FAIL-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1726061AbfD3PuM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 30 Apr 2019 11:50:12 -0400
+X-Greylist: delayed 35830 seconds by postgrey-1.27 at vger.kernel.org; Tue, 30 Apr 2019 11:50:12 EDT
+Received: from User (trixbox1.localdomain [127.0.0.1])
+        by trixbox1.localdomain (Postfix) with SMTP id 0928D93326;
+        Tue, 30 Apr 2019 09:09:33 +0200 (CEST)
+Reply-To: <Hr@homebg.in>
 From:   "Mr Hans Erich Helmut" <linnane@monaco.mc>
-Subject: Re:contact me as soon as you receive it
-Date:   Mon, 29 Apr 2019 07:23:27 -0000
+Subject: Re:contact me as soon as you receive it sir
+Date:   Tue, 30 Apr 2019 00:34:20 -0000
 MIME-Version: 1.0
 Content-Type: text/plain;
         charset="Windows-1251"
@@ -27,7 +27,7 @@ X-Priority: 3
 X-MSMail-Priority: Normal
 X-Mailer: Microsoft Outlook Express 6.00.2600.0000
 X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
-Message-Id: <20190429072320.7C06C4C29E6@clearos.ia.lan>
+Message-Id: <20190430070934.0928D93326@trixbox1.localdomain>
 To:     undisclosed-recipients:;
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
