@@ -2,68 +2,114 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id DF05EF32D
-	for <lists+linux-man@lfdr.de>; Tue, 30 Apr 2019 11:38:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8B6991005F
+	for <lists+linux-man@lfdr.de>; Tue, 30 Apr 2019 21:37:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726436AbfD3Jis (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 30 Apr 2019 05:38:48 -0400
-Received: from mail-ed1-f41.google.com ([209.85.208.41]:40754 "EHLO
-        mail-ed1-f41.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726129AbfD3Jir (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 30 Apr 2019 05:38:47 -0400
-Received: by mail-ed1-f41.google.com with SMTP id e56so5393045ede.7
-        for <linux-man@vger.kernel.org>; Tue, 30 Apr 2019 02:38:46 -0700 (PDT)
+        id S1726024AbfD3ThA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 30 Apr 2019 15:37:00 -0400
+Received: from mail-lj1-f194.google.com ([209.85.208.194]:46186 "EHLO
+        mail-lj1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726015AbfD3ThA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 30 Apr 2019 15:37:00 -0400
+Received: by mail-lj1-f194.google.com with SMTP id h21so13857479ljk.13
+        for <linux-man@vger.kernel.org>; Tue, 30 Apr 2019 12:36:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20161025;
         h=mime-version:from:date:message-id:subject:to:cc;
-        bh=Xkth7vjDsU+VxxFxWsrlCpc8PHycOUTenPUCc/1arHI=;
-        b=S3AoktLT3ZS0RHATYGFZ6CEMEtniUMb+IM6MneATBiuynjqmSneTRjgBmWr40hyrXJ
-         eAywUVdXjFKADiHeLMjcgO6rrnch4lMGEuGuLENiwo5vwJYOV4amMmpfRRD5XWPAmXLh
-         I4/nQxYgZllGKDtSdwAEEEFNDWS8UZsMMK6YM8udpN9WI1fcTkPnE5lZIuuFq3PMZQOY
-         4AVbpY58Ljis9BXyL40OtbG/HHej0NH190sowtaeSdkoZFsKmNASJWby4eahU9sp9e3O
-         9lprG0uqhGzGW6r7T66SOTbYwFy6HXhngGLMFiAsbmr3MkzIdWqf5SmBkkF9HJRJrHRZ
-         Ib/w==
+        bh=1XDbbgTKh9qySB1D4roTqX6OJKt0g/8X9LjiKycdgSg=;
+        b=XKtqdf0Y7mB0/IZR476lpLpo7YMokYHLC266s1etZqASSGh0VcvkSL5PlI2e6BdEPF
+         ZbZaGUo6lvA4f3xqWm4wiAnSTTLKWyzPFiD4l2ntyWmnvOxoO9Zab5WMkZA1KK1ecO7q
+         oZHbr21FKlEzAfW93+IYjbfN0vDWVIZX6W/xAF5yHuV9VzDyUpTQFFZOcHkjTvoFwW83
+         Vurc4OALZZLWn/nrGgR3fKQvsJ3pBX+1KKco46NdWAZQ29Wx4T/E6mmxxxRkbyiTBu54
+         LwqTvF9xmkpErA1z+U8mMyESvpW0yKlOFtMyG4KODBXALIK7laiTNZxbJAOblEf5UzEi
+         iEtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
-        bh=Xkth7vjDsU+VxxFxWsrlCpc8PHycOUTenPUCc/1arHI=;
-        b=O5cyH0ts2rBQKJ2mhcMQTItINMptrnJ38qQLevFh9h2UK10ZO/c93ZwxgIczAX9uPG
-         WCCus43NiZAIQh2E8WDEql42q1TrKd9by0mXVbNVvP0t2XtU+Jz2x7K2TyH/kc4yD7S1
-         d+XRP4/sG15EUvbCCIEGFqt1xrlgy8RT9hJoX8c9kdno/ea1bf+d2EGBRp4dyPFLrHYD
-         4GhZpOVcTkF+WD2/mlDHdVpQ71d5LAnFspEMGdh4KpL5TYjZuLfagwDxOvMpMbByaQkS
-         3anSID7Lr/Vf7kVCsqegvO5cXIK46juUnefFwlePIUjWGjcvvhPM1JdbET4FprkGbI2R
-         IyFQ==
-X-Gm-Message-State: APjAAAVU5g+0orCT7gddnRTmUEf+S8XghZEAxOTS3ezRkXald/wPsaW9
-        ngjmsrE1RlEbqJX1UWcpZZoW+j33i0aoMsxc75aiww==
-X-Google-Smtp-Source: APXvYqyQzL4bTZLDQL01W/Rocyys8a8pA4nAyzxFSw2ppteO9HFAcTI+eM5frQrtucK33FIJheZpvrxMq8nbv8RjTpA=
-X-Received: by 2002:a50:b835:: with SMTP id j50mr6733669ede.63.1556617125440;
- Tue, 30 Apr 2019 02:38:45 -0700 (PDT)
+        bh=1XDbbgTKh9qySB1D4roTqX6OJKt0g/8X9LjiKycdgSg=;
+        b=Exue5tZhBO/mkNpMM+vAhPEGGVmxKGagXrBJt3bwYlZfnhcDV4+QPP5VcJPR+TQ16g
+         Ud1ZZisROzBlmc51V6KQPU4+zuPRC7d73XgSxbSbIRwwtq6Pqi07VbTwbxf2srmJHzDz
+         KPAlvKb7zo7PIkOpATkVugYXp7knA3+BNO3+VimgyAGWWXGsuBET9OpOh/W5o0SAscK3
+         C8tqPjVSoJRBQp715Z1oC3oFrBXswEuLmJKlIeY78iP9e5VAMQt5GweULt3eQBWqdnjt
+         hoV1SQ2FHgJGqpOVGIQ4WzdDq8MA/FjzEMlpJhIGHPsIrimV/7DtJi0u1DgF85YAQZNb
+         ef2g==
+X-Gm-Message-State: APjAAAWca7dvpw59pekucDaURZ4l3tz5hzcsdAp8Ot0J12HLnESk5sJD
+        geRHog4eL95F9WVxDF7zMzle5hU9kBYp/wUA2/LnqM5yGkih3w==
+X-Google-Smtp-Source: APXvYqwIQnwhb1se1+m5L7NLdhbDS/5Rr4gzy7Brm5PQCiIkgqcS9QqevD2XQVfXyNDk1RQjUTsEcUJiJBt96V+ZI+o=
+X-Received: by 2002:a2e:7c0f:: with SMTP id x15mr23415372ljc.154.1556653017805;
+ Tue, 30 Apr 2019 12:36:57 -0700 (PDT)
 MIME-Version: 1.0
-From:   Hugues Evrard <hevrard@google.com>
-Date:   Tue, 30 Apr 2019 10:38:34 +0100
-Message-ID: <CAFOVhR1Fqg9L718yEYVoECwAeNx+KKztfEKBvgLP7F7psFWcpg@mail.gmail.com>
-Subject: Typo in mmap(2) : _SC_PAGE_SIZE -> _SC_PAGESIZE
-To:     mtk.manpages@gmail.com
+From:   enh <enh@google.com>
+Date:   Tue, 30 Apr 2019 12:36:46 -0700
+Message-ID: <CAJgzZoo37xEyOdQcbevR3wce6=8kNtEu0+DQ82M8LQiqfCnEOw@mail.gmail.com>
+Subject: [PATCH] mallinfo.3: discourage use.
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/mixed; boundary="0000000000002ab3cc0587c4868a"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi,
+--0000000000002ab3cc0587c4868a
+Content-Type: text/plain; charset="UTF-8"
 
-mmap(2) currently reads:
+The BUGS section already explains why you need to be cautious about
+using mallinfo, but given the number of bug reports we see on Android,
+it seems not many people are reading that far. Call it out up front.
+---
+ man3/mallinfo.3 | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-    offset must be a multiple of the page size as returned by
-sysconf(_SC_PAGE_SIZE).
-
-Yet sysconf(3) only advertise a _SC_PAGESIZE variable, so I think
-mmap(2) should be corrected to:
-
-    offset must be a multiple of the page size as returned by
-sysconf(_SC_PAGESIZE).
-
-Thanks,
+diff --git a/man3/mallinfo.3 b/man3/mallinfo.3
+index 0cf773882..677a9a1cf 100644
+--- a/man3/mallinfo.3
++++ b/man3/mallinfo.3
+@@ -37,7 +37,14 @@ function returns a copy of a structure containing
+information about
+ memory allocations performed by
+ .BR malloc (3)
+ and related functions.
+-This structure is defined as follows:
++.PP
++Note that not all allocations are visible to
++.BR mallinfo ();
++see BUGS and consider using
++.BR malloc_info (3)
++instead.
++.PP
++The returned structure is defined as follows:
+ .PP
+ .in +4n
+ .EX
 -- 
-Hugues
+2.21.0.1020.gf2820cf01a-goog
+
+--0000000000002ab3cc0587c4868a
+Content-Type: text/x-patch; charset="US-ASCII"; name="0001-mallinfo.3-discourage-use.patch"
+Content-Disposition: attachment; 
+	filename="0001-mallinfo.3-discourage-use.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_jv46zokl0>
+X-Attachment-Id: f_jv46zokl0
+
+RnJvbSBkM2Q2YzM5ODM3Nzk2ODI2ZWE5MTM4YWJhNjQ4NGQ2MzliMThhOGU3IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBFbGxpb3R0IEh1Z2hlcyA8ZW5oQGdvb2dsZS5jb20+CkRhdGU6
+IFR1ZSwgMzAgQXByIDIwMTkgMTI6Mjg6MjMgLTA3MDAKU3ViamVjdDogW1BBVENIXSBtYWxsaW5m
+by4zOiBkaXNjb3VyYWdlIHVzZS4KClRoZSBCVUdTIHNlY3Rpb24gYWxyZWFkeSBleHBsYWlucyB3
+aHkgeW91IG5lZWQgdG8gYmUgY2F1dGlvdXMgYWJvdXQKdXNpbmcgbWFsbGluZm8sIGJ1dCBnaXZl
+biB0aGUgbnVtYmVyIG9mIGJ1ZyByZXBvcnRzIHdlIHNlZSBvbiBBbmRyb2lkLAppdCBzZWVtcyBu
+b3QgbWFueSBwZW9wbGUgYXJlIHJlYWRpbmcgdGhhdCBmYXIuIENhbGwgaXQgb3V0IHVwIGZyb250
+LgotLS0KIG1hbjMvbWFsbGluZm8uMyB8IDkgKysrKysrKystCiAxIGZpbGUgY2hhbmdlZCwgOCBp
+bnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvbWFuMy9tYWxsaW5mby4z
+IGIvbWFuMy9tYWxsaW5mby4zCmluZGV4IDBjZjc3Mzg4Mi4uNjc3YTlhMWNmIDEwMDY0NAotLS0g
+YS9tYW4zL21hbGxpbmZvLjMKKysrIGIvbWFuMy9tYWxsaW5mby4zCkBAIC0zNyw3ICszNywxNCBA
+QCBmdW5jdGlvbiByZXR1cm5zIGEgY29weSBvZiBhIHN0cnVjdHVyZSBjb250YWluaW5nIGluZm9y
+bWF0aW9uIGFib3V0CiBtZW1vcnkgYWxsb2NhdGlvbnMgcGVyZm9ybWVkIGJ5CiAuQlIgbWFsbG9j
+ICgzKQogYW5kIHJlbGF0ZWQgZnVuY3Rpb25zLgotVGhpcyBzdHJ1Y3R1cmUgaXMgZGVmaW5lZCBh
+cyBmb2xsb3dzOgorLlBQCitOb3RlIHRoYXQgbm90IGFsbCBhbGxvY2F0aW9ucyBhcmUgdmlzaWJs
+ZSB0bworLkJSIG1hbGxpbmZvICgpOworc2VlIEJVR1MgYW5kIGNvbnNpZGVyIHVzaW5nCisuQlIg
+bWFsbG9jX2luZm8gKDMpCitpbnN0ZWFkLgorLlBQCitUaGUgcmV0dXJuZWQgc3RydWN0dXJlIGlz
+IGRlZmluZWQgYXMgZm9sbG93czoKIC5QUAogLmluICs0bgogLkVYCi0tIAoyLjIxLjAuMTAyMC5n
+ZjI4MjBjZjAxYS1nb29nCgo=
+--0000000000002ab3cc0587c4868a--
