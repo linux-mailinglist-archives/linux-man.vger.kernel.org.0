@@ -2,60 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 7594714184
-	for <lists+linux-man@lfdr.de>; Sun,  5 May 2019 19:33:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2CAB5141B4
+	for <lists+linux-man@lfdr.de>; Sun,  5 May 2019 20:05:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727916AbfEERde (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 5 May 2019 13:33:34 -0400
-Received: from mail-vs1-f46.google.com ([209.85.217.46]:45399 "EHLO
-        mail-vs1-f46.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726905AbfEERde (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 5 May 2019 13:33:34 -0400
-Received: by mail-vs1-f46.google.com with SMTP id o10so6749016vsp.12
-        for <linux-man@vger.kernel.org>; Sun, 05 May 2019 10:33:33 -0700 (PDT)
+        id S1727343AbfEESFP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 5 May 2019 14:05:15 -0400
+Received: from mail-ua1-f66.google.com ([209.85.222.66]:39241 "EHLO
+        mail-ua1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727232AbfEESFP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 5 May 2019 14:05:15 -0400
+Received: by mail-ua1-f66.google.com with SMTP id v7so1557790ual.6
+        for <linux-man@vger.kernel.org>; Sun, 05 May 2019 11:05:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=wx9pnqVPA/tbyratcZFf9staO4jroPC9M/0ficpwKYs=;
-        b=p/V07pQgJLwyxgJPbA2OWCxdk070osaBlaQco8zRsjoo2XeFRZcsJGvk2lDGlHiHQI
-         TP/3fu5HKCcME/8lFOu2tRXx6jJM7NhFS2GQGwCSXYCxlW+PaLPuHUzXGl6TvvMU9akg
-         lGxZUTHpJhfpJ3W1q0jRP35yzqVrRdEJTESuS1Wqcb93Vu5VtlGa+CkVXcUZQKDZXnyq
-         fGvip5Jz22eKVva7yp2CH0WFyR4HlYX8O5pzjUnmZXfYA1UulHgYJhjfOx90DUFN7Wxo
-         uN1vvKcK71/AWlJ4KLLVDNc2YTntuYJ/dP3xpS8KvLd1IO9f+wkPfwTgMDvkDmcNwddX
-         qozQ==
+        bh=9GBHBn0YElwXw5xGuWMh2X0QOWc4gGffC6jRZeUL3hk=;
+        b=p2ALZSrvkyHGyGLCZl/KRwG4tqNr1y4VyACWJEwVOz6lgVv6jpFBukt/YmhgRb7aKt
+         cNLqjBO+Oz6IjF012CTH3MycRTJZ66sNRJpIi61KQubyQAMCbz2dA4AjKJ2Ns1aXRFxl
+         b3VlX6R6iEKfoj0mRX6HugrUirvh285TAuNIAn9kIx3TtfZdHwkdWvuelRVUJy+mevdm
+         LYCHkUnkpfWQDWVjf9RLwmlT/IARC+eFIsgfGHSaXWmGghBdVyC+YfJTZK06rGWOrqZh
+         ufsrV4qz2AhIcKcm0ZFVR5Ua7oJXMHojXJqkfQ3NTEXFHUKOAxLTLpc2753ZNNnLuOCF
+         Y3aQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=wx9pnqVPA/tbyratcZFf9staO4jroPC9M/0ficpwKYs=;
-        b=XLvPQCZu1C6LiJNYf3648EW1DUIuwLuX1FnE3b4Y0ztfR5l4Xe/XOY6a8wa5Ij9Ull
-         eynT2HgErdK7yI+ugW19Zn+4jvtljmMo/7+i/wTl9CV3Ens/4c0ZeYASTDi6lnu1p2RI
-         /jfdlOiADE6iHzeomTdZDsBJyw1O+jlBpxBqTa4O7OadU5R4Nvej0pEkPZ06813BpkV8
-         cR29E1jG6igZvFVrpQxM0YidozCODVLhuEfgRwhEN91hoteT7fw/6kEQPXCNeCq8FBGH
-         uUC2pjck0B/3MfcqgCd+rf6jSsDUHBOJbu05LIlF9aWJY5Mcps2vDo7aKTl72X4ZVxGR
-         P3Iw==
-X-Gm-Message-State: APjAAAXK1IVIIGq1oF4vGgvlKhJaNWLwVQclKAHfzIE75fsXBXgqV0hk
-        D+pfll5nNsoqMS2WfXEDlln0wE61
-X-Google-Smtp-Source: APXvYqwXSbekeH7nnqtrcSJNJSf+xYbkKenFkfERxMkE5XsjLBTds7kqT8Hl8D5rJQ3CXFVydsHOEA==
-X-Received: by 2002:a67:eecb:: with SMTP id o11mr9203870vsp.66.1557077612601;
-        Sun, 05 May 2019 10:33:32 -0700 (PDT)
+        bh=9GBHBn0YElwXw5xGuWMh2X0QOWc4gGffC6jRZeUL3hk=;
+        b=IDzZeUf5xrNVbjh069LrOmY1dfa24Zux+gFQwJBYL8GOB7dyBga/YmLskj79s6oyuM
+         A/SOFkBNOimUfe3I7mBVvsg26GbYquup9fJtBaeJcTsTcQK22pCGdsTK+zCi+RrlUOx+
+         C2uRCzXVRhhMrTLBn3XqtL61BQrf+ntvJR9drDi81gVpDvMJSnW61zf6FVXTr3KHsMWh
+         uWVYWfSRHsHGIGt3tKKupCjzjV1W3Qt/mPYBra3ZWE0Wspk8achnmeLw3JBkJs7gKzun
+         pzLGbh5OdJH3j0do8UykUrvTkgfrz6jnypmAf2w8tkbIrzV/njBP6oPSV7gPRDOcESSG
+         4OmA==
+X-Gm-Message-State: APjAAAXvlb7o8gE34Q0ORFz8VJyrlOfwIJehhnTE2SPLYKM1eoB6sjjJ
+        jL8xeV5t5A64A15S0rax+50vPmzp
+X-Google-Smtp-Source: APXvYqxO3jlXREqctQazgQ/6HGEahujhBlQq/6Y6wgirMeqCyGeaxpDhFfy9TgOwX0Jj18OBfYfemg==
+X-Received: by 2002:ab0:984:: with SMTP id x4mr2274530uag.2.1557079514368;
+        Sun, 05 May 2019 11:05:14 -0700 (PDT)
 Received: from [192.168.0.8] (dynamic-190-25-35-141.dynamic.etb.net.co. [190.25.35.141])
-        by smtp.gmail.com with ESMTPSA id w69sm5080614vsc.8.2019.05.05.10.33.30
+        by smtp.gmail.com with ESMTPSA id e76sm2642028vke.48.2019.05.05.11.05.12
         (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
-        Sun, 05 May 2019 10:33:31 -0700 (PDT)
+        Sun, 05 May 2019 11:05:12 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Typo in mmap(2) : _SC_PAGE_SIZE -> _SC_PAGESIZE
-To:     Hugues Evrard <hevrard@google.com>
-References: <CAFOVhR1Fqg9L718yEYVoECwAeNx+KKztfEKBvgLP7F7psFWcpg@mail.gmail.com>
+Subject: Re: [PATCH] sched_setaffinity.2: sched_getaffinity returns the number
+ of bytes copied
+To:     Brice Goglin <Brice.Goglin@inria.fr>
+References: <e4daf130-b509-44f8-6fbd-4bfbcef587b6@inria.fr>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <d161215f-d3ff-1a34-2b24-aad83c09046e@gmail.com>
-Date:   Sun, 5 May 2019 12:33:28 -0500
+Message-ID: <13d3a8ba-b5cf-6e0a-a0fd-58347e0c750b@gmail.com>
+Date:   Sun, 5 May 2019 13:05:11 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <CAFOVhR1Fqg9L718yEYVoECwAeNx+KKztfEKBvgLP7F7psFWcpg@mail.gmail.com>
+In-Reply-To: <e4daf130-b509-44f8-6fbd-4bfbcef587b6@inria.fr>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -64,34 +65,56 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Hugues,
+Hello Brice,
 
-On 4/30/19 4:38 AM, Hugues Evrard wrote:
-> Hi,
+On 5/5/19 12:19 PM, Brice Goglin wrote:
+> sched_setaffinity.2: sched_getaffinity returns the number of bytes copied
 > 
-> mmap(2) currently reads:
+> On success, it returns min(len, cpumask_size()) where len is
+> the output buffer size (see the syscall definition in kernel/sched/core.c).
+>
+> Signed-off-by: Brice Goglin <Brice.Goglin@inria.fr>
+> ---
+>   man2/sched_setaffinity.2 | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
->      offset must be a multiple of the page size as returned by
-> sysconf(_SC_PAGE_SIZE).
-> 
-> Yet sysconf(3) only advertise a _SC_PAGESIZE variable, so I think
-> mmap(2) should be corrected to:
-> 
->      offset must be a multiple of the page size as returned by
-> sysconf(_SC_PAGESIZE).
+> diff --git a/man2/sched_setaffinity.2 b/man2/sched_setaffinity.2
+> index 74bbde81c..277edd0fb 100644
+> --- a/man2/sched_setaffinity.2
+> +++ b/man2/sched_setaffinity.2
+> @@ -107,9 +107,9 @@ is zero, then the mask of the calling thread is returned.
+>   .SH RETURN VALUE
+>   On success,
+>   .BR sched_setaffinity ()
+> -and
+> +returns 0, while
+>   .BR sched_getaffinity ()
+> -return 0.
+> +returns the number of bytes copied to the destination mask.
+>   On error, \-1 is returned, and
+>   .I errno
+>   is set appropriately.
 
-The fault rather is in the sysconf(3) page, which should more clearly
-advertise that PAGESIZE and PAGE_SIZE are synonyms. I've adjusted the 
-page to say:
+Thanks for adding some detail. However, did you take a look at the
+glibc wrapper, and also this text in the manual page:
 
-    PAGESIZE - _SC_PAGESIZE
-           Size of a page in bytes.  Must not be less than 1.
+    C library/kernel differences
+       [...]   On  success,  the raw sched_getaffinity() system call
+       returns the size (in bytes) of the cpumask_t  data  type  that  is
+       used internally by the kernel to represent the CPU set bit mask.
 
-    PAGE_SIZE - _SC_PAGE_SIZE
-           A  synonym  for  PAGESIZE/_SC_PAGESIZE.  (Both PAGESIZE and
-           PAGE_SIZE are specified in POSIX.)
+Of course, looking at your patch, it's clear that that text is no longer
+fully accurate (since Linux 2.6.34, commit cd3d8031eb4311e). I've now
+adjusted it to say:
 
+       On  success,  the  raw sched_getaffinity() system call returns the
+       number of bytes placed copied into the mask buffer; this  will  be
+       the minimum of cpusetsize and the size (in bytes) of the cpumask_t
+       data type that is used internally by the kernel to  represent  the
+       CPU set bit mask.
 
-Thanks,
+Thanks for report!
+
+Cheers,
 
 Michael
