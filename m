@@ -2,141 +2,94 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4A7C3141F6
-	for <lists+linux-man@lfdr.de>; Sun,  5 May 2019 20:48:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A6B5114445
+	for <lists+linux-man@lfdr.de>; Mon,  6 May 2019 07:41:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727454AbfEESs3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 5 May 2019 14:48:29 -0400
-Received: from mail2-relais-roc.national.inria.fr ([192.134.164.83]:17946 "EHLO
-        mail2-relais-roc.national.inria.fr" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1727232AbfEESs3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 5 May 2019 14:48:29 -0400
-X-IronPort-AV: E=Sophos;i="5.60,435,1549926000"; 
-   d="scan'208";a="381749917"
-Received: from 91-160-5-165.subs.proxad.net (HELO [192.168.44.23]) ([91.160.5.165])
-  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/AES128-SHA; 05 May 2019 20:48:26 +0200
-Subject: Re: [PATCH] sched_setaffinity.2: sched_getaffinity returns the number
- of bytes copied
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <e4daf130-b509-44f8-6fbd-4bfbcef587b6@inria.fr>
- <13d3a8ba-b5cf-6e0a-a0fd-58347e0c750b@gmail.com>
-From:   Brice Goglin <Brice.Goglin@inria.fr>
-Openpgp: preference=signencrypt
-Autocrypt: addr=Brice.Goglin@inria.fr; prefer-encrypt=mutual; keydata=
- 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
-Message-ID: <cc08588f-4fbe-ee7f-ca11-f07530fd6379@inria.fr>
-Date:   Sun, 5 May 2019 20:48:26 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+        id S1725834AbfEFFlO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 May 2019 01:41:14 -0400
+Received: from mail-vs1-f66.google.com ([209.85.217.66]:34397 "EHLO
+        mail-vs1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725830AbfEFFlO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 May 2019 01:41:14 -0400
+Received: by mail-vs1-f66.google.com with SMTP id b23so7410271vso.1
+        for <linux-man@vger.kernel.org>; Sun, 05 May 2019 22:41:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=e93Yi33ePgB7ArN0aiP/UPhmKpoDEOl3In37a+axkGU=;
+        b=TKp8oLUysJjNYVysaM0YEhqG1RMiZcUz6zbxDIGZbZu6sLmJYLd9VP1GCzoyndrgzE
+         vqyswegcl1cKoj3eZN/fzQcHvlBJ+2DpcIyZSE7jzXLi+tXEIcolrXprwUW1z09IOr+t
+         6Xjie7xmZ0jfsu1g8voT0G3vJkhvHMBz8vSmZCd7hgMTZRBkTKf57paEF6JDdhy5SqfO
+         FTtyH0PUGdZPOjPy0elm+bMyo8rBWbsqdBH0/eS1tzXD1kML9PV2EJzVJG+iuBvBiH1L
+         mzAmTZXK8yrFuwlIrfzxIJ9Z67OUS0DHm69J4PYmQRRxLcgW9DCqzOP65JhrOKQP76GR
+         bTQg==
+X-Gm-Message-State: APjAAAWjMGzx6w/GbWZJMt1k5H847PGk2NriF6SwVMTZsIepCcpX6MBi
+        O+su1MAmUhZ245ELN5SLSVgVXPV/YpabxA==
+X-Google-Smtp-Source: APXvYqzZxhYsOSLZxMQfq/10IEGNmsKcUSwsyn7VvKxLRhpHywCdoYpXGi05cg3voOjS/iuh95t9xA==
+X-Received: by 2002:a67:ed89:: with SMTP id d9mr11325899vsp.150.1557121273289;
+        Sun, 05 May 2019 22:41:13 -0700 (PDT)
+Received: from localhost.localdomain ([2800:200:e480:37:4d90:9234:4ca6:5cae])
+        by smtp.gmail.com with ESMTPSA id s78sm2952726vke.17.2019.05.05.22.41.12
+        (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+        Sun, 05 May 2019 22:41:12 -0700 (PDT)
+From:   Shawn Landden <shawn@git.icu>
+Cc:     linux-man@vger.kernel.org, Shawn Landden <shawn@git.icu>
+Subject: [PATCH] read/write: documentation of limits
+Date:   Mon,  6 May 2019 00:41:07 -0500
+Message-Id: <20190506054107.25321-1-shawn@git.icu>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <13d3a8ba-b5cf-6e0a-a0fd-58347e0c750b@gmail.com>
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+To:     unlisted-recipients:; (no To-header on input)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+---
+ man2/read.2  | 4 ++++
+ man2/write.2 | 4 ++++
+ 2 files changed, 8 insertions(+)
 
-Le 05/05/2019 à 20:05, Michael Kerrisk (man-pages) a écrit :
-> Hello Brice,
->
-> On 5/5/19 12:19 PM, Brice Goglin wrote:
->> sched_setaffinity.2: sched_getaffinity returns the number of bytes
->> copied
->>
->> On success, it returns min(len, cpumask_size()) where len is
->> the output buffer size (see the syscall definition in
->> kernel/sched/core.c).
->>
->> Signed-off-by: Brice Goglin <Brice.Goglin@inria.fr>
->> ---
->>   man2/sched_setaffinity.2 | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/man2/sched_setaffinity.2 b/man2/sched_setaffinity.2
->> index 74bbde81c..277edd0fb 100644
->> --- a/man2/sched_setaffinity.2
->> +++ b/man2/sched_setaffinity.2
->> @@ -107,9 +107,9 @@ is zero, then the mask of the calling thread is
->> returned.
->>   .SH RETURN VALUE
->>   On success,
->>   .BR sched_setaffinity ()
->> -and
->> +returns 0, while
->>   .BR sched_getaffinity ()
->> -return 0.
->> +returns the number of bytes copied to the destination mask.
->>   On error, \-1 is returned, and
->>   .I errno
->>   is set appropriately.
->
-> Thanks for adding some detail. However, did you take a look at the
-> glibc wrapper, and also this text in the manual page:
->
->    C library/kernel differences
->       [...]   On  success,  the raw sched_getaffinity() system call
->       returns the size (in bytes) of the cpumask_t  data  type  that  is
->       used internally by the kernel to represent the CPU set bit mask.
->
-> Of course, looking at your patch, it's clear that that text is no longer
-> fully accurate (since Linux 2.6.34, commit cd3d8031eb4311e). I've now
-> adjusted it to say:
->
->       On  success,  the  raw sched_getaffinity() system call returns the
->       number of bytes placed copied into the mask buffer; this  will  be
->       the minimum of cpusetsize and the size (in bytes) of the cpumask_t
->       data type that is used internally by the kernel to  represent  the
->       CPU set bit mask.
->
-
-Oh, good point. I discovered the issue when playing with the raw syscall
-for ugly reasons. I didn't expect the wrapper to change that return
-value. Thanks for the clarification.
-
-Brice
-
+diff --git a/man2/read.2 b/man2/read.2
+index 6e5123fa4..850dead86 100644
+--- a/man2/read.2
++++ b/man2/read.2
+@@ -151,10 +151,14 @@ and the wrong size buffer was given to
+ .BR read ();
+ see
+ .BR timerfd_create (2)
+ for further information.
+ .TP
++.B EINVAL
++.\" MAX_RW_COUNT in include/linux/fs.h
++The read amount is greater than INT_MAX % PAGE_SIZE.
++.TP
+ .B EIO
+ I/O error.
+ This will happen for example when the process is in a
+ background process group, tries to read from its controlling terminal,
+ and either it is ignoring or blocking
+diff --git a/man2/write.2 b/man2/write.2
+index 4df56cd48..32b17cdc0 100644
+--- a/man2/write.2
++++ b/man2/write.2
+@@ -190,10 +190,14 @@ flag, and either the address specified in
+ .IR buf ,
+ the value specified in
+ .IR count ,
+ or the file offset is not suitably aligned.
+ .TP
++.B EINVAL
++.\" MAX_RW_COUNT in include/linux/fs.h
++The read amount is greater than INT_MAX % PAGE_SIZE.
++.TP
+ .B EIO
+ A low-level I/O error occurred while modifying the inode.
+ This error may relate to the write-back of data written by an earlier
+ .BR write (2),
+ which may have been issued to a different file descriptor on
+-- 
+2.20.1
 
