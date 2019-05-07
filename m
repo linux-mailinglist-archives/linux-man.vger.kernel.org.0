@@ -2,107 +2,126 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 11AA616587
-	for <lists+linux-man@lfdr.de>; Tue,  7 May 2019 16:19:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1CEB216D00
+	for <lists+linux-man@lfdr.de>; Tue,  7 May 2019 23:17:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726265AbfEGOTi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 7 May 2019 10:19:38 -0400
-Received: from mail-io1-f68.google.com ([209.85.166.68]:41741 "EHLO
-        mail-io1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726399AbfEGOTi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 7 May 2019 10:19:38 -0400
-Received: by mail-io1-f68.google.com with SMTP id a17so6200253iot.8
-        for <linux-man@vger.kernel.org>; Tue, 07 May 2019 07:19:38 -0700 (PDT)
+        id S1728506AbfEGVRk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 7 May 2019 17:17:40 -0400
+Received: from mail-wr1-f52.google.com ([209.85.221.52]:46514 "EHLO
+        mail-wr1-f52.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727257AbfEGVRk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 7 May 2019 17:17:40 -0400
+Received: by mail-wr1-f52.google.com with SMTP id r7so24191075wrr.13
+        for <linux-man@vger.kernel.org>; Tue, 07 May 2019 14:17:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=PQygpln5qHr5dk9WjVI62nlTEqhJbZilsnT4YqjBjAw=;
-        b=Ua/RolF3JPC2Ak03bLCpkKU0IJds5tEqusSkj12fe0yvRIg9SvCrktx9HSCdA408hL
-         +8o/ZGmS+IyI3vJ9AbOaOzS/phxXsKLHUJJ17CK3NqCd5oxg69SPeNAXR/SqsJn1JO9f
-         PCex3knmWd5LSqwdiB/18V9O2UL81AnGJdYbBq20FUuAUarVrJdXW1zX9Ayghw4UfQ4l
-         S14qS31csBC4Dh+CRq0A9hTPkqrMRi3+lV+xYCFlvxY2Vc8CGPOF2y50LIiuvyKzfX3N
-         OIvwcovMZ4iTaRPNEMRunM4f6wXDLg9hd/nKmcZ3nyTi9u6xo96RoEZLkTXUVhRIuJIy
-         2hPw==
+        h=sender:from:to:cc:subject:date:message-id:mime-version:organization
+         :content-transfer-encoding;
+        bh=yKoGWp1ppQ0A+2KeSzhadmLEKllK5sj3E/XyV+WNBdM=;
+        b=CqxpnTwTQ+xLF5E0yF9/wjzSG3YSm45+TxUAFF+pUnEmTK1ekVfqvDL46lOSvI7BpL
+         ApqCzqVtCwql7KH2TolZe7/qesIvG4+GtTuteUt6EzZwV/ucfxoAzza8/sNMYYF+FtVQ
+         sYQP9tLN+r3O+vl+VM2MPTBPh2ttdIPyyz6YUYrd5ccpHqDLuzbubYxu5dbBG/t80HRk
+         53gL8M+ltEnhIyLiUY3zKCATCoifno/Y3KfdU99rPVOVKqdAOM/fwN/r3OfTTdlZUoyU
+         vfIsgvJQgOTBYSLd2hbez0yfxjeDPRyFMh4UI8PcwUbTJhYeio00Tch+3NuSJwkQAsSw
+         fZSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=PQygpln5qHr5dk9WjVI62nlTEqhJbZilsnT4YqjBjAw=;
-        b=lwtYJXadVtDN46gBKWL69bjTKO5kHc8w0FRZLcCvBXOLzTEmPxLwWrF7B7igwiJjj2
-         R2u0fdpoMtH5AZqJYaiNDDhgwZi5lC8AB/BGdSp8hOra4Qov5KjYZqX3ERzlfZfEq2/c
-         qgIGSuPazof1pvQCwXqcDKub8J51deP9CG7hRuvjMjPuqIn+kKSOZNCXvhIx47HHWIGt
-         u8Fpq/RKEkFd7DCIbQK+UugwHIwKrelQpjWAJ2YrSyStZj0JeMipVLvwtKxZKvZLMGoc
-         MBcKHxi2h9CVuNSRDcvMWtXRrq3EAvHAib5pqsZAMPs3RhL4xHJ/4iSpZ9dVhPV3MvLy
-         cBEQ==
-X-Gm-Message-State: APjAAAX8YmZ4xqqBdgc91BybDQAcslmYbxSPzXDKvjH0UramhqkTmR7X
-        UPvQOKb4rXyZWvcr78EtkLzR2B4L8LztvPE3A66+Hg==
-X-Google-Smtp-Source: APXvYqy0d4DHKen//K+OonpmOqfhws1wK8ymz61uMiW7bs/Um7AR/LDoDgv/uQKZHIqCo6VW0UqkZRqfKz8WSs0QOzE=
-X-Received: by 2002:a6b:c886:: with SMTP id y128mr10325327iof.220.1557238777469;
- Tue, 07 May 2019 07:19:37 -0700 (PDT)
+        h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+         :mime-version:organization:content-transfer-encoding;
+        bh=yKoGWp1ppQ0A+2KeSzhadmLEKllK5sj3E/XyV+WNBdM=;
+        b=YiFDAPsST0lmhcgPCtClgBxzJgQ9GcrOprDOZnF7+lywU/Bn8vSzwP9fpEL18frbe4
+         8RtYqBDmBxT8fTPN7WV6nyDFBod8oGv4guA7hTxE89WFuUeJP/CmKM6dLiTmGz4nf/vc
+         1g6gRRpXdMMAEeuxCRFDYr2eY/qilbhzMjrRjdOLSjCp0eE5p05A6tYguPOXzom6sQnU
+         5p8bqydnK2slFyul5Y43x4pkMJrhn8wz35VAbVvYWKobRD8J7cyp1fY7fWTrXX/c7TRD
+         OTl75BBWhcJ1gc2yTugHzD4YksKB2xmKhaCmQkcuoKLLpKo2mLK5pgZ3cO1PtLov8VGa
+         cB8Q==
+X-Gm-Message-State: APjAAAXLig7yweNrZIxWwXyn4w0orPR2vEEoY0AmUMsRKQ6GsACdAWwX
+        y0Z/C5iRyD+wTGJTDj13Nzw=
+X-Google-Smtp-Source: APXvYqxFp9IZPgfN8t5aL80Q0ht/UPmHaZAxisbH60BRx/c2LicOjRHo9d3MTGDLRvO367HBi6aymw==
+X-Received: by 2002:adf:ec06:: with SMTP id x6mr2079363wrn.159.1557263858399;
+        Tue, 07 May 2019 14:17:38 -0700 (PDT)
+Received: from localhost (82-71-26-41.dsl.in-addr.zen.co.uk. [82.71.26.41])
+        by smtp.gmail.com with ESMTPSA id j13sm46928720wrd.88.2019.05.07.14.17.37
+        (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+        Tue, 07 May 2019 14:17:37 -0700 (PDT)
+From:   Sami Kerola <kerolasa@iki.fi>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, Sami Kerola <kerolasa@iki.fi>
+Subject: [patch] on_exit.3: Add example code
+Date:   Tue,  7 May 2019 22:17:35 +0100
+Message-Id: <20190507211735.31785-1-kerolasa@iki.fi>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-References: <CAG+x03ByjP2jdimjENgnOsNMwHgpgCVv==Fna_aLhj_d7Eh+ZA@mail.gmail.com>
- <5CD17675.80800@bfs.de>
-In-Reply-To: <5CD17675.80800@bfs.de>
-From:   Francesco Sanesi <francesco.sanesi@gmail.com>
-Date:   Tue, 7 May 2019 16:19:26 +0200
-Message-ID: <CAG+x03A7fQpYkxVQjRt=y1SN6-ysP3_6NA7r0d7JXdnv3SrB6Q@mail.gmail.com>
-Subject: Re: [patch] awk.1p: tilde rendered as " " in man page and online HTML page
-To:     wharms@bfs.de
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Organization: Cloudflare
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Thank you for your prompt reply.
-I came up with a patch mainly because it synthetically conveys lots of
-info, but being quite inexperienced in the *roff galaxy I'm glad to
-see my proposal improved.
+Example tries to clarify one should not refer to variables that are not in
+on_exit() scope.  Such variables include heap in main().  In short only
+variables allocated from stack make is sense when calling on_exit().
+Possible referal to global variables would technically work, but at the same
+go makes function argument pointless and in such case one ought to prefer
+atexit() instead.
 
-Best regards,
+Signed-off-by: Sami Kerola <kerolasa@iki.fi>
+---
+ man3/on_exit.3 | 40 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
 
-Francesco Sanesi
+diff --git a/man3/on_exit.3 b/man3/on_exit.3
+index d2c2c3b17..c074cda76 100644
+--- a/man3/on_exit.3
++++ b/man3/on_exit.3
+@@ -100,6 +100,46 @@ It no longer occurs in Solaris (SunOS 5).
+ Portable application should avoid this function, and use the standard
+ .BR atexit (3)
+ instead.
++.SH EXAMPLE
++Following program uses
++.BR on_exit (3)
++to display data, that is allocated until processing is done.
++Notice that variables main() in heap are not in on_exit() scope.
++.PP
++.EX
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <unistd.h>
++
++struct data {
++    int argc;
++    char *argv;
++};
++
++static void run_on_exit(int exit_val, void *arg)
++{
++    struct data *d = (struct data *)arg;
++
++    printf("argc: %d argv: %s\n", d->argc, d->argv);
++    free(d->argv);
++    free(d);
++    _exit(exit_val);
++}
++
++int main(int argc, char **argv)
++{
++    struct data *d;
++
++    if (1 < argc) {
++        d = malloc(sizeof(*d));
++        d->argc = argc;
++        d->argv = strdup(argv[1]);
++        on_exit(run_on_exit, d);
++    }
++    return 0;
++}
++.EE
+ .SH SEE ALSO
+ .BR _exit (2),
+ .BR atexit (3),
+-- 
+2.21.0
 
-On Tue, May 7, 2019 at 2:13 PM walter harms <wharms@bfs.de> wrote:
->
->
->
-> Am 07.05.2019 13:54, schrieb Francesco Sanesi:
-> > In awk's POSIX documentation,
-> > both online at:
-> > http://man7.org/linux/man-pages/man1/awk.1p.html
-> > and in the awk(1p) man page:
-> > man-pages-posix-2013-a/man1p/awk.1p
-> > bundled in the archive man-pages-posix-2013-a.tar.xz downloaded from:
-> > https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/man-pages-posix/
-> > some instances of '~' (tilde) have been rendered as ' " " ' (space -
-> > double quotes - space - double quotes - space).
-> >
-> > Referring to man-pages-posix-2013-a/man1p/awk.1p, these instances are
-> > fixed in the attached patch.
-> > It has been created with plain "git diff". Since I was not able to
-> > find any SCM repository for the POSIX man pages, the commits it refers
-> > to are obviously not meaningful (I created a local git repository to
-> > test "git diff" and "git apply").
-> >
-> > The list of fixes has been determined comparing the above documents
-> > with "The Open Group Base Specifications Issue 7, IEEE Std 1003.1,
-> > 2013 Edition" at
-> > http://pubs.opengroup.org/onlinepubs/9699919799.2013edition/utilities/awk.html
-> >
-> > Thank you for your great job.
-> > Best regards.
-> >
->
-> good catch,
-> but perhaps it is better to use the groff character description: \[ti]
-> this will avoid possible translations by less then perfect tools.
-> (see man grof_char).
->
->
-> re,
->  wh
->
->
