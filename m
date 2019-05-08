@@ -2,136 +2,82 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id DFC2A1701F
-	for <lists+linux-man@lfdr.de>; Wed,  8 May 2019 06:34:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9DB3D17FF7
+	for <lists+linux-man@lfdr.de>; Wed,  8 May 2019 20:42:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726179AbfEHEed (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 May 2019 00:34:33 -0400
-Received: from [178.216.49.100] ([178.216.49.100]:50294 "EHLO WIN-ZY15IU028UN"
-        rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1725866AbfEHEed (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 8 May 2019 00:34:33 -0400
-From:   postmaster@WIN-ZY15IU028UN
-To:     linux-man@vger.kernel.org
-Date:   Wed, 8 May 2019 10:06:00 -0700
+        id S1726915AbfEHSka (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 May 2019 14:40:30 -0400
+Received: from mail-ed1-f49.google.com ([209.85.208.49]:35838 "EHLO
+        mail-ed1-f49.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727196AbfEHSka (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 May 2019 14:40:30 -0400
+Received: by mail-ed1-f49.google.com with SMTP id p26so5156057edr.2
+        for <linux-man@vger.kernel.org>; Wed, 08 May 2019 11:40:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=AWfJ8MGVXuGFIjr+PanZTpWsh7IS8uu6eKvZ/jr0cfE=;
+        b=T72zOXVlR3dMoPm8scBz9cf9U3QRefa4bDaDMdqyW2nM+LYMuZRBYH5027k0ST7SN6
+         Lbqm9OEPvSs4XN4zqVsVKpYDw0nJbA53AQraFj/E23h9WVoQOAk13DQM7eOTjzXABGnK
+         S2ZDI9jyutPuyJ3jx05ZA1japN4Wp3YxNWEVSUYjTsInsk6cxXA+4S60MgQPRIvn3wcx
+         yh/akiOTc17ctZTml4nQnHgIjm4sm58wOgfHQT3lOdtBppP5V+CBrWXN2P7mG34HPLdz
+         bhlTJo2KWvzzjcsb4EvVztr4ei7+X2vWIMOx+vUF9j4P6fOmKqc5FJ8vRgbjuuN3F8a9
+         fJvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=AWfJ8MGVXuGFIjr+PanZTpWsh7IS8uu6eKvZ/jr0cfE=;
+        b=J7kKe806AOk8GPiotgLYn/h8d2c7o0aBjryx0LhF+qarfazoNT8P/AZUHC2rvdb24V
+         OgDFXBUe4pvDqUaZP1UWQsjzlj7LmHS0Op6MuGqmTKos09+rJF7pBMwPOn6cJCl/0fHw
+         jtMGWuSfSfg9FZfxB3zyXPuv8h1k7KNBtBVcYgItYPC6xBnBJiPQ9iqASUUKampZssHp
+         YmuyFLzEKfHdQ4u0Bs4CzLzJ82OUjpeXq1wSSaOfUy3HGRZXG9Qp0xNbKBMUQprpEecx
+         21Z9koYgIxz97+I/0Euyh26ieR+fgdeF3aW+nIJu1qFTBHY9CqznLygcady9MwyRS1Ch
+         p/IA==
+X-Gm-Message-State: APjAAAX9gGT1szzEdFNQBoC/qhf1kSTuRG/6damWZ+NJ+oKeZuSUAqms
+        5+SIOtOobN99gto+ZY80zuA9S5AaRacI5jYEvTF5Yw==
+X-Google-Smtp-Source: APXvYqzQuv0h2VpveuovySgtyNzIYz3FrjNRZ3Z0F7BUYq62FBhWjPc+Qfb3TbPSY5x+CVsHrstzG0TFjFjpCSAMMhQ=
+X-Received: by 2002:a17:906:c782:: with SMTP id cw2mr8131848ejb.102.1557340828737;
+ Wed, 08 May 2019 11:40:28 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/report; report-type=delivery-status;
-        boundary="9B095B5ADSN=_01D505A0B150F94E0001D15EWIN?ZY15IU028UN"
-X-DSNContext: 7ce717b1 - 1196 - 00000002 - 00000000
-Message-ID: <YCxMNJ0nJ000104cb@WIN-ZY15IU028UN>
-Subject: Delivery Status Notification (Failure)
+References: <e2ace30b-b8ca-6dc5-a0d2-b5e56bfc8fad@jguk.org> <20190319153117.rti2udmkfvileho3@jwilk.net>
+In-Reply-To: <20190319153117.rti2udmkfvileho3@jwilk.net>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Wed, 8 May 2019 20:40:17 +0200
+Message-ID: <CAKgNAkgY9qzAa5jZiKSxdJDwqzLDPfeOme5tHPrM+n6FEyhimw@mail.gmail.com>
+Subject: Re: REALPATH(1)
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     Jonny Grant <jg@jguk.org>, linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a MIME-formatted message.  
-Portions of this message may be unreadable without a MIME-capable mail program.
+On Tue, 19 Mar 2019 at 16:31, Jakub Wilk <jwilk@jwilk.net> wrote:
+>
+> * Jonny Grant <jg@jguk.org>, 2019-03-19, 11:54:
+> >Could the SEE ALSO be hyperlinks?
+> >
+> >http://man7.org/linux/man-pages/man1/realpath.1.html
+> >
+> >SEE ALSO         top
+> >       readlink(1), readlink(2), realpath(3)
+>
+> It's a known problem with coreutils man pages:
+> https://www.spinics.net/lists/linux-man/msg13234.html
 
---9B095B5ADSN=_01D505A0B150F94E0001D15EWIN?ZY15IU028UN
-Content-Type: text/plain; charset=unicode-1-1-utf-7
+Yep. And this annoyed me enough that finally I've made some tweaks to
+catch at least some of these xrefs in my scripts. So, there should be
+some improvement in the next refresh of the online pages.
 
-This is an automatically generated Delivery Status Notification.
+Thanks,
 
-Delivery to the following recipients failed.
+Michael
 
-       linux-man@vger.kernel.org
-
-
-
-
---9B095B5ADSN=_01D505A0B150F94E0001D15EWIN?ZY15IU028UN
-Content-Type: message/delivery-status
-
-Reporting-MTA: dns;WIN-ZY15IU028UN
-Received-From-MTA: dns;vger.kernel.org
-Arrival-Date: Wed, 8 May 2019 09:46:39 -0700
-
-Final-Recipient: rfc822;linux-man@vger.kernel.org
-Action: failed
-Status: 4.7.1
-Diagnostic-Code: smtp;451 4.7.1 Hello [178.216.49.100], for recipient address <linux-man@vger.kernel.org> the policy analysis reported: Greylisted, see http://postgrey.schweikert.ch/help/vger.kernel.org.html
-
---9B095B5ADSN=_01D505A0B150F94E0001D15EWIN?ZY15IU028UN
-Content-Type: message/rfc822
-
-Received: from vger.kernel.org ([127.0.0.1]) by WIN-ZY15IU028UN with Microsoft SMTPSVC(7.0.6001.18485);
-	 Wed, 8 May 2019 09:46:39 -0700
-Reply-To: polyprosolution@gmail.com
-From: "" <linux-man@vger.kernel.org>
-To: linux-man@vger.kernel.org
-Subject: To Your Notice
-Date: 08 May 2019 09:46:39 -0700
-Message-ID: <20190508094638.C1A5C1A619D32ADD@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-Return-Path: linux-man@vger.kernel.org
-X-OriginalArrivalTime: 08 May 2019 16:46:39.0414 (UTC) FILETIME=[9B8FAD60:01D505BD]
-
-Hello!
-
-As you may have noticed, I sent you an email from your account.
-This means that I have full access to your device.
-
-I've been watching you for a few months now.
-The fact is that you were infected with malware through an adult=20
-site that you visited.
-
-If you are not familiar with this, I will explain.
-Trojan Virus gives me full access and control over a computer or=20
-other device.
-This means that I can see everything on your screen, turn on the=20
-camera and microphone, but you do not know about it.
-
-I also have access to all your contacts and all your=20
-correspondence.
-
-Why your antivirus did not detect malware?
-Answer: My malware uses the driver, I update its signatures every=20
-4 hours so that your antivirus is silent.
-
-I made a video showing how you satisfy yourself in the left half=20
-of the screen, and in the right half you see the video that you=20
-watched.
-With one click of the mouse, I can send this video to all your=20
-emails and contacts on social networks.
-I can also post access to all your e-mail correspondence and=20
-messengers that you use.
-
-If you want to prevent this,
-transfer the amount of $708 to my bitcoin address (if you do not=20
-know how to do this, write to Google: "Buy Bitcoin").
-
-Step 1: Create an account on www.localbitcoins.com
-Step 2: Buy 0.12 BITCOIN
-Step 3: Send the amount on this BTC address:=20
-3EYbsPv9fN9KwhCnYp4cCHn4XvLRXAkCrD
-Step 4: Contact me on this email address=20
-polyprosolution@gmail.com with this subject: 012VIPERMARVO-
-RESTOREKEYPC4102934
-After this steps you will receive through email the key and a=20
-decrypt tutorial.
-
-Here is another list where you can buy bitcoin:
-https://bitcoin.org/en/exchanges
-
-After receiving the payment, I will delete the video and you will=20
-never hear me again.
-I give you 50 hours (more than 2 days) to pay.
-I have a notice reading this letter, and the timer will work when=20
-you see this letter.
-
-Filing a complaint somewhere does not make sense because this=20
-email cannot be tracked like my bitcoin address.
-I do not make any mistakes.
-
-If I find that you have shared this message with someone else,=20
-the video will be immediately distributed.
-
-Best regards!
-
-
-
---9B095B5ADSN=_01D505A0B150F94E0001D15EWIN?ZY15IU028UN--
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
