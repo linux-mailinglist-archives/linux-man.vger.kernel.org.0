@@ -2,144 +2,344 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 3435C1A6ED
-	for <lists+linux-man@lfdr.de>; Sat, 11 May 2019 08:49:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D029A1A70D
+	for <lists+linux-man@lfdr.de>; Sat, 11 May 2019 09:21:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726941AbfEKGtZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 11 May 2019 02:49:25 -0400
-Received: from mail-wm1-f68.google.com ([209.85.128.68]:51324 "EHLO
-        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726849AbfEKGtZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 11 May 2019 02:49:25 -0400
-Received: by mail-wm1-f68.google.com with SMTP id o189so9444325wmb.1
-        for <linux-man@vger.kernel.org>; Fri, 10 May 2019 23:49:23 -0700 (PDT)
+        id S1727831AbfEKHVF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 11 May 2019 03:21:05 -0400
+Received: from mail-pf1-f169.google.com ([209.85.210.169]:40753 "EHLO
+        mail-pf1-f169.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726849AbfEKHVE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 11 May 2019 03:21:04 -0400
+Received: by mail-pf1-f169.google.com with SMTP id u17so4405402pfn.7
+        for <linux-man@vger.kernel.org>; Sat, 11 May 2019 00:21:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brauner.io; s=google;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=15R+Mj5JqRjOWFH2mRtqWd3w0ueT/appKnqsK1sr18U=;
-        b=RhYxIg/jN6HzfWTffw/uHJbOTU16H4VpgEud6NYzqrfDOLxhdQreLA65XDN9orjkp3
-         jklTDuTrJAE2/25zpd6NbcQg4EdkL7033Q7F3Amh9pCyLt8OqDaOe7JJa2Zqbj75l1Ce
-         ojysVRex3BIch2csBVThhJcH78c8vD95aXb8m57J5AGZZwxPDoZlJm9gV1n06RC8MKNS
-         8/BtI/RR+QJUKGMQK83LcwDJnoZ6kFc3pbddEq27hAohNm4jElKXOXG2q6XzlGbhamHv
-         jN85HGgNcRQw1lS/Pc3vzUBS5Bww3nywoKsTjUSZkUn8nar2meh6FQPbUJEcn34+Q5zR
-         CceA==
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:mime-version:content-disposition
+         :user-agent;
+        bh=JnCOHSR66vdVPGLgu/N56uYJJgjRenJctcWL9x851PU=;
+        b=mwENelGmt0ssD9c/bHJr+IjBH1ffeeQs19EpsWe+aZDLdxhkZZzDWxHRELNBZefE74
+         oAqdY0Sx2Wntxwq+NNav3X6Eej5vr1IN7y+gaUUXLVtckO4cst3h+Uj4SWjbO/aFKi9N
+         7rIE0wdY6Hh6ZpZYPPu89UCBqtywtUsnUfVcFE2DNnQAuBGBIjH25LLgusv0SUiPvN2g
+         12ryoPrgixdxdWd1WC0xWvTeZLzSTui9ghWaer5zaFn3Nw/lU86luU1uV+w4hVRofV8s
+         AgsF/Dy5A9Q+F4Rgn8mAjpSOgIUhyhGQcr91tspjmMkIC28LEB3mOphP+KcDt2P1XpQU
+         QMow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=15R+Mj5JqRjOWFH2mRtqWd3w0ueT/appKnqsK1sr18U=;
-        b=LP+aBmgq8qjI/PtkiS/eB51m6IMSeVhXrOJ2LumpzpTvWE/9DHO6557h41/drtocpI
-         2GCqIWS6USut/UBuaiecyfp4qNo4E/Bkn+rJc6wDJaysL+r7JVs2/N14+x7qtBzqwoYr
-         Awc86itjk+pmeLlLk3gQPCC1XLFOlPQHoHw18ML9rCWmNitriJDe4uOXeK4MAeZxvdxi
-         RxZTZxAlZaTh2GTpOFHu7WhoNBeVOfwiA4EhBfJrsK24a3dMLIzrE6bUx9RcMcl7QAdc
-         3KBmd+qjoH1+FKN2TskCW8zhaN0ehbKEdB3Z8ol7VuTiD7K2dr5SS+JESHw+8z9jhdsi
-         CKuw==
-X-Gm-Message-State: APjAAAWwAuWJJ8u/Cxd4Ehhiilsxmy3Sf1RIqoZOiIQDKYnqxQH/awz2
-        hwrAd3ORdlFnBcJFaFPRqV3ppo8zPco8pA==
-X-Google-Smtp-Source: APXvYqzIAwsOnAGTgEJB1RtbuMw3Fj2LRwcNCQUdkLSeCQNihZrtFlLgS9v0vUyKiU9Aw6faerYsrA==
-X-Received: by 2002:a1c:1a47:: with SMTP id a68mr2870645wma.88.1557557362340;
-        Fri, 10 May 2019 23:49:22 -0700 (PDT)
-Received: from localhost.localdomain ([46.183.103.17])
-        by smtp.gmail.com with ESMTPSA id h188sm6099714wmf.48.2019.05.10.23.49.16
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 10 May 2019 23:49:18 -0700 (PDT)
-From:   Christian Brauner <christian@brauner.io>
-X-Google-Original-From: Christian Brauner <christian.brauner@ubuntu.com>
-To:     linux-man@vger.kernel.org
-Cc:     jannh@google.com, oleg@redhat.com, mtk.manpages@gmail.com,
-        Christian Brauner <christian@brauner.io>
-Subject: [PATCH] clone.2: add CLONE_PIDFD entry
-Date:   Sat, 11 May 2019 08:49:08 +0200
-Message-Id: <20190511064908.21956-1-christian.brauner@ubuntu.com>
-X-Mailer: git-send-email 2.21.0
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+         :content-disposition:user-agent;
+        bh=JnCOHSR66vdVPGLgu/N56uYJJgjRenJctcWL9x851PU=;
+        b=OuL81XCxb3eaP3TDMmTjeFQdeXN07bjCHZAUPjA8lbC9Ys4Y1mUt0Dh/6ZHrGkLQ14
+         QEiotwEJl5GJeq6lZD03R0b7vVKrHFOdV6ZbIsRa6MfsJ5ToDuvY/seF2yxJuwqf/w6K
+         je1A2xJaO1EKlW+nuNHuV70NeE2GtsupkCTUT3evPRI9x23IYXQbtSQijUbxFzCfdjhk
+         so/mse9O0zpZuaUgi2wrIrF1/3I9wzyQmbY3AUClG7dH+Z29JSWrenbMW3+Mx5WyshSO
+         8vwmEVGK89PLXbQxpDURwEH2+0I7RWu3NwKW/v+AgObnUoTYNRKNroMbm9HwAQfiIbCl
+         SprA==
+X-Gm-Message-State: APjAAAWtp62Uv5v/uLzxhOCUg/UJidym/OeTOW259Chl9MdnLhhoY9OK
+        TPvBMtF7j9YUrlRLmRLdois=
+X-Google-Smtp-Source: APXvYqxMaM/EXHY0YqnMh3pHI6599s3UpaQUlNh3nASiz4JxmRK40RYjEuZkdA7W4Gevun1bQtTJBg==
+X-Received: by 2002:a63:d347:: with SMTP id u7mr18962624pgi.254.1557559263743;
+        Sat, 11 May 2019 00:21:03 -0700 (PDT)
+Received: from localhost.localdomain ([1.144.144.86])
+        by smtp.gmail.com with ESMTPSA id r9sm7618271pfc.173.2019.05.11.00.20.54
+        (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+        Sat, 11 May 2019 00:21:02 -0700 (PDT)
+Date:   Sat, 11 May 2019 17:20:52 +1000
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org
+Subject: [PATCH] pldd.1: Document glibc's unbreakage of tool.
+Message-ID: <20190511072049.2w7pp723iszp3gra@localhost.localdomain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="3jafyofmn22qvrgx"
+Content-Disposition: inline
+User-Agent: NeoMutt/20180716
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Christian Brauner <christian@brauner.io>
 
-Add an entry for CLONE_PIDFD. This flag is available starting with
-kernel 5.2. If specified, a process file descriptor ("pidfd") referring
-to the child process will be returned in the ptid argument.
+--3jafyofmn22qvrgx
+Content-Type: multipart/mixed; boundary="rmlfq7rrptpr7inz"
+Content-Disposition: inline
 
-Signed-off-by: Christian Brauner <christian@brauner.io>
+
+--rmlfq7rrptpr7inz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+...plus a patch with some suggested wording fixes.
+
+...plus a patch with some suggestions on improving the formatting and
+markup.
+
+Regards,
+Branden
+
+--rmlfq7rrptpr7inz
+Content-Type: text/x-diff; charset=us-ascii
+Content-Disposition: attachment; filename="0001-pldd.1-Document-glibc-s-unbreakage-of-tool.patch"
+Content-Transfer-Encoding: quoted-printable
+
+=46rom fddc56cb731f711143bad6202210d974ace7b7fe Mon Sep 17 00:00:00 2001
+=46rom: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Date: Sat, 11 May 2019 16:25:54 +1000
+Subject: [PATCH 1/3] pldd.1: Document glibc's unbreakage of tool.
+
+glibc 2.30 isn't released yet, but a fix has been committed, and Debian
+has even cherry-picked it for Debian GNU/Linux 10 ("buster").  pldd
+works nicely now.
+
+Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
 ---
- man2/clone.2 | 51 +++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 51 insertions(+)
+ man1/pldd.1 | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/man2/clone.2 b/man2/clone.2
-index 7e880beb8..ee08aeb42 100644
---- a/man2/clone.2
-+++ b/man2/clone.2
-@@ -539,6 +539,42 @@ The flag disappeared completely from the kernel sources in Linux 2.5.16.
- Since then, the kernel silently ignores this bit if it is specified in
- .IR flags .
- .TP
-+.BR CLONE_PIDFD " (since Linux 5.2)"
-+If
-+.B CLONE_PIDFD
-+is set,
-+.BR clone ()
-+stores a process file descriptor ("pidfd") referring to the child process at
-+the location
-+.I ptid
-+in the parent's memory. Note, that the kernel verifies that the value for
-+.I ptid
-+is zero. If it is not an error will be returned. This ensures that
-+.I ptid
-+can potentially be used to specify additional options for
-+.B CLONE_PIDFD
-+in the future.
-+.IP
-+Since the
-+.I ptid
-+argument is used to return the pidfd,
-+.B CLONE_PIDFD
-+cannot be used with
-+.B CLONE_PARENT_SETTID.
-+.IP
-+It is currently not possible to use this flag together with
-+.B CLONE_THREAD.
-+This means that the process identified by the pidfd will always be a
-+thread-group leader.
-+.IP
-+For a while there was a
-+.B CLONE_DETACHED
-+flag. This flag is usually ignored when passed along with other flags.
-+However, when passed alongside
-+.B CLONE_PIDFD
-+an error will be returned. This ensures that this flag can be reused
-+for further pidfd features in the future.
-+.TP
- .BR CLONE_PTRACE " (since Linux 2.2)"
- If
- .B CLONE_PTRACE
-@@ -1122,6 +1158,21 @@ For example, on aarch64,
- .I child_stack
- must be a multiple of 16.
- .TP
-+.B EINVAL
-+.B CLONE_PIDFD
-+was specified together with
-+.B CLONE_DETACHED.
-+.TP
-+.B EINVAL
-+.B CLONE_PIDFD
-+was specified together with
-+.B CLONE_PARENT_SETTID.
-+.TP
-+.B EINVAL
-+.B CLONE_PIDFD
-+was specified together with
-+.B CLONE_THREAD.
-+.TP
- .B ENOMEM
- Cannot allocate sufficient memory to allocate a task structure for the
- child, or to copy those parts of the caller's context that need to be
--- 
-2.21.0
+diff --git a/man1/pldd.1 b/man1/pldd.1
+index 90e259989..dab6cb32c 100644
+--- a/man1/pldd.1
++++ b/man1/pldd.1
+@@ -97,11 +97,11 @@ $ \fBgdb \-ex "set confirm off" \-ex "set height 0" \-e=
+x "info shared" \e\fP
+ .EE
+ .in
+ .SH BUGS
+-Since glibc 2.19,
++From glibc 2.19 to 2.29,
+ .B pldd
+-is broken: it just hangs when executed.
+-.\" FIXME . https://sourceware.org/bugzilla/show_bug.cgi?id=3D18035
+-It is unclear if it will ever be fixed.
++was broken: it just hung when executed.
++.\" glibc commit 1a4c27355e146b6d8cc6487b998462c7fdd1048f
++This problem was fixed in glibc 2.30.
+ .SH EXAMPLE
+ .EX
+ $ \fBecho $$\fP               # Display PID of shell
+--=20
+2.20.1
 
+
+--rmlfq7rrptpr7inz
+Content-Type: text/x-diff; charset=us-ascii
+Content-Disposition: attachment; filename="0002-pldd.1-wfix.patch"
+Content-Transfer-Encoding: quoted-printable
+
+=46rom d1ee216ecb3400c2f14aed4a8689b34ec9d2d3da Mon Sep 17 00:00:00 2001
+=46rom: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Date: Sat, 11 May 2019 16:30:10 +1000
+Subject: [PATCH 2/3] pldd.1: wfix
+
+* Establish the abbreviations DSO and PID in the lead paragraph since
+  they are used later.
+* Parallelize descriptions of help, usage, and version options with the
+  "and exit" language used in getent(1), iconv(1), locale(1),
+  localedef(1), memusage(1), memusagestat(1), mtrace(1), pldd(1),
+  sprof(1), time(1), iconvconfig(8), zdump(8), and zic(8).
+
+Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
+---
+ man1/pldd.1 | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/man1/pldd.1 b/man1/pldd.1
+index dab6cb32c..035368e20 100644
+--- a/man1/pldd.1
++++ b/man1/pldd.1
+@@ -33,20 +33,20 @@ pldd \- display dynamic shared objects linked into a pr=
+ocess
+ .SH DESCRIPTION
+ The
+ .B pldd
+-command displays a list of the dynamic shared objects that are
+-linked into the process with the specified process ID.
++command displays a list of the dynamic shared objects (DSOs) that are
++linked into the process with the specified process ID (PID).
+ The list includes the libraries that have been dynamically loaded using
+ .BR dlopen (3).
+ .SH OPTIONS
+ .TP
+ .BR \-? ", " \-\-help
+-Display program help message.
++Display a help message and exit.
+ .TP
+ .B \-\-usage
+-Display a short usage message.
++Display a short usage message and exit.
+ .TP
+ .BR \-V ", " \-\-version
+-Display the program version.
++Display program version information and exit.
+ .SH EXIT STATUS
+ On success,
+ .B pldd
+--=20
+2.20.1
+
+
+--rmlfq7rrptpr7inz
+Content-Type: text/x-diff; charset=us-ascii
+Content-Disposition: attachment; filename="0003-pldd.1-srcfix-ffix-wfix-wsfix.patch"
+Content-Transfer-Encoding: quoted-printable
+
+=46rom 9285fe1b80cfbb52cfeff33372338a8c4728d47b Mon Sep 17 00:00:00 2001
+=46rom: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Date: Sat, 11 May 2019 16:38:39 +1000
+Subject: [PATCH 3/3] pldd.1: srcfix, ffix, wfix, wsfix
+
+* [srcfix] Migrate Synopsis section from no-fill mode to no-adjust mode.
+  This way you can break the pieces of a synopsis output line across
+  multiple input lines, use the easy one-font macros, and worry less
+  about quotation issues.  (My best recommendation would be to go ahead
+  and use groff_man's .SY/.YS extensions--but not .OP--for synopsis
+  sections, but I think this was considered and rejected a couple of
+  years ago.)
+
+* [wfix] Actually list the available options in the synopsis.  There
+  aren't many for pldd and they won't even line-wrap on an 80-column
+  terminal.  (not technically a ffix)
+
+* [srcfix] Use .RS for indentation instead of low-level .in requests.
+  It's my belief that .RS and .RE pairs require less bookkeeping.
+
+* [srcfix] Use \c (the output line continuation escape) in examples to
+  facilitate style (bold, italic) changes within a line.  The result is
+  more attractive and intuitive, particularly enabling italicization of
+  paramaters in examples.
+
+* [srcfix] Use font macros instead of font escapes in examples.  This is
+  more readable, and helped to expose the next problem.
+
+* [ffix] Consistently escape all hyphens used as option dashes in gdb
+  example.
+
+* [wsfix] Eliminate hard tab from input file, replacing it (in an
+  example) with an appropriate number of non-adjustable spaces.
+  (Whether this is a srcfix or wsfix depends on the output device and
+  user configuration, which is, I submit, why we don't want to use hard
+  tabs in the first place.)
+
+Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
+---
+ man1/pldd.1 | 48 +++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 31 insertions(+), 17 deletions(-)
+
+diff --git a/man1/pldd.1 b/man1/pldd.1
+index 035368e20..33245d0d5 100644
+--- a/man1/pldd.1
++++ b/man1/pldd.1
+@@ -26,10 +26,15 @@
+ .SH NAME
+ pldd \- display dynamic shared objects linked into a process
+ .SH SYNOPSIS
+-.nf
+-.BI "pldd " "pid"
+-.BI pldd " option"
+-.fi
++.na
++.B pldd
++.I pid
++.PP
++.B pldd
++.RB [ \-? | \-\-help ]
++.RB [ \-\-usage ]
++.RB [ \-V | \-\-version ]
++.ad
+ .SH DESCRIPTION
+ The
+ .B pldd
+@@ -71,14 +76,17 @@ have a similar command.
+ .SH NOTES
+ The command
+ .PP
+-.in +4n
++.RS 4n
+ .EX
+-lsof \-p PID
++$ \c
++.B lsof \-p \c
++.I pid
+ .EE
+-.in
++.RE
+ .PP
+ also shows output that includes the dynamic shared objects
+-that are linked into a process.
++that are linked into the process
++.IR pid .
+ .PP
+ The
+ .BR gdb (1)
+@@ -87,15 +95,19 @@ command also shows the shared libraries being used by a=
+ process,
+ so that one can obtain similar output to
+ .B pldd
+ using a command such as the following
+-(to monitor the process with the specified
+-.IR pid ):
++(to monitor the process with the specified PID):
+ .PP
+-.in +4n
++.RS 4n
+ .EX
+-$ \fBgdb \-ex "set confirm off" \-ex "set height 0" \-ex "info shared" \e\=
+fP
+-        \fB-ex "quit" \-p $pid | grep '^0x.*0x'\fP
++$ \c
++.B gdb \-ex "set confirm off" \-ex "set height 0" \-ex "info shared" \e
++.RS 8n
++.B \-ex quit \-p \c
++.I pid \c
++.B | grep \(aq\(ti0x.*0x\(aq
++.RE
+ .EE
+-.in
++.RE
+ .SH BUGS
+ From glibc 2.19 to 2.29,
+ .B pldd
+@@ -104,10 +116,12 @@ was broken: it just hung when executed.
+ This problem was fixed in glibc 2.30.
+ .SH EXAMPLE
+ .EX
+-$ \fBecho $$\fP               # Display PID of shell
++$ \c
++.BR "echo $$" "              # Display PID of the running shell."
+ 1143
+-$ \fBpldd $$\fP               # Display DSOs linked into the shell
+-1143:	/usr/bin/bash
++$ \c
++.BR "pldd $$" "              # Display DSOs linked into the shell."
++1143:\ \ \ /usr/bin/bash
+ linux\-vdso.so.1
+ /lib64/libtinfo.so.5
+ /lib64/libdl.so.2
+--=20
+2.20.1
+
+
+--rmlfq7rrptpr7inz--
+
+--3jafyofmn22qvrgx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAlzWd8kACgkQ0Z6cfXEm
+bc75AA/+OV9U+B32lDCU69GeizOYwzVYCQkYzIXX4zlquNfAE6H6xOJqWjp7IWCX
+lOrRmrmCgupNP0G/vooZAOyj+hdcIC0RNN/gRopS6qJQHHm7EXRU84urP1Vk04I2
+OrE2fIj4yJgzZhUVx8zU6nDjp9OxAeSB75JAcPi8K1wg9E8+mjEIYROTzLE5M7EL
+v/wzagFuJjdLbL/snHlBFPFzNuJZVqW1jJZQjmpiALeJE9nAuFz+TuFg1VxyjfS+
+sV6Sf7Dzzrb0LykbjtrkdHc/2TW9yJA+4ny8ouwO1+jSJC8UPL3Uz3WxwBeDr53r
++SPkplVzZ7MHp9aEni7AJeAMlib5dREsWv0MNCe2Qj+xvUwGOV4fjw5Fz+bVAtU4
+SDVuFTrOcByHP6mGeoFmlHPufuSCn8V7dPRwbrh0HfRJkcLcBb7Vra6bcNJn3DDY
+ZJ199RiFha45YuhoFPF4a4eytjfdjroBTk5dmvRIAHufabAaoCh8+1gWLe81bWRu
+D1JwjttJoZmZW9hy2qn+GRAIpXXvLw8lSq7np/RKDG5yfZ4+nt3beEIB8evBe8Is
+M+OE977U9y2IaN1FhXNsXlOSwmhNJZFpwXXNcpZXJLMn6tqY4KmcQRR160FEITRG
++EQ4JBpa+TGL9hh2saTTYMvvHZ123tMKqpt9XHCSzyWQX861l3g=
+=8SuR
+-----END PGP SIGNATURE-----
+
+--3jafyofmn22qvrgx--
