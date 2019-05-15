@@ -2,115 +2,155 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 9C8CE1CEFA
-	for <lists+linux-man@lfdr.de>; Tue, 14 May 2019 20:22:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 59C041F965
+	for <lists+linux-man@lfdr.de>; Wed, 15 May 2019 19:38:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726324AbfENSWm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 14 May 2019 14:22:42 -0400
-Received: from mail-qk1-f195.google.com ([209.85.222.195]:39761 "EHLO
-        mail-qk1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726281AbfENSWm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 14 May 2019 14:22:42 -0400
-Received: by mail-qk1-f195.google.com with SMTP id z128so10913984qkb.6
-        for <linux-man@vger.kernel.org>; Tue, 14 May 2019 11:22:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:mime-version:content-disposition
-         :user-agent;
-        bh=icbhaHOnHItEloUS20lFTPXuwmr4U8ZQ4KfrPV3v60U=;
-        b=dTbLeQL5it7o36XuMGs+SslvKAHKqRzAuonph0q6kqmv3z6LsKmMAvxzUnkdrq3qao
-         GI/UATULvrgTDQW5HPSG8mrB51orsAgmDsm0gBhQdL2TPy2G7MmZ/CGG+WA8NSj4gIVR
-         pebwX7FMlmUrnMSVrafblzo7YdrqkCrv6GlJ4zpBPVAVHNpjzM6+hbIfgMdDDO2Oor55
-         eiqEVbD0cwR0GhZgXR+XPnTXB5Vw5adIYv7V43tdgXuefYv69CQPLuNf3nh/CnkLhche
-         VtCWqIajIHFT6w7lwHExsnPU6ZqVOlGh30q0vMJw+pIzwCedZcFSJrkEIDYgICSBWycw
-         9qiA==
+        id S1726865AbfEORiA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 15 May 2019 13:38:00 -0400
+Received: from mail-vs1-f67.google.com ([209.85.217.67]:38722 "EHLO
+        mail-vs1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725974AbfEORiA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 15 May 2019 13:38:00 -0400
+Received: by mail-vs1-f67.google.com with SMTP id v9so480247vse.5
+        for <linux-man@vger.kernel.org>; Wed, 15 May 2019 10:37:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
-         :content-disposition:user-agent;
-        bh=icbhaHOnHItEloUS20lFTPXuwmr4U8ZQ4KfrPV3v60U=;
-        b=PrINMbY61LrPk7tErFVmlvreRlLijZpbpTv5NmSY+L3qvJK923LQrGFYwR2QKbRdcn
-         ywfw27lOafWPg0Sr1LAI82uagNLGYeS1w+LwUPGEeCHbj7Fv1RLZ0e2zUbUpRNiqjMZ6
-         +6wQho+0GFEktzhpivhKuiu1LLAWSTfo/9iVpEDKIZgtQ37X9wQxmP/1aFEVzMi/AOG7
-         F4YCjIGXCWGmFmlw+XPZMcAQT9inb9p3ZE6oOdWcFggjh1LXguXcDtkcAUSJLcDZFEv/
-         VAnjZbZXZ9sryL2te6hW8TB4MvJvjtIr/BnmocLpAWPUcYCQDP2yFrn/s2T+OYrQzxfZ
-         ibxw==
-X-Gm-Message-State: APjAAAXYjlZgqMc1pMHgBqYH5Fri0jXwI1vABw19HD1jzo8FaqAhKH6Z
-        hwFGQbk5ONXgkZZACuZucXiaxptPvvc=
-X-Google-Smtp-Source: APXvYqxCKgwdLmtkqxam7jXBZ9OsK+g8mzw3I4Ygu1AzMUh6iY7rrZ6IQm2HGgVwCiqPiOLX2pXudw==
-X-Received: by 2002:a37:6596:: with SMTP id z144mr27424081qkb.341.1557858161794;
-        Tue, 14 May 2019 11:22:41 -0700 (PDT)
-Received: from localhost.localdomain ([201.37.66.8])
-        by smtp.gmail.com with ESMTPSA id g12sm9355703qkk.88.2019.05.14.11.22.40
-        (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
-        Tue, 14 May 2019 11:22:41 -0700 (PDT)
-Date:   Tue, 14 May 2019 15:22:36 -0300
-From:   Ricardo Biehl Pasquali <pasqualirb@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v2] socket.7: Add description of SO_SELECT_ERR_QUEUE
-Message-ID: <20190514182236.GA8200@localhost.localdomain>
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=CV5grmFp58LsyIikkuNqMU8bbjM8mx4mBfRhmvsV+Z0=;
+        b=CkOZg37UBdsXsADo9mGj8pfJ40fdhs91bJMLezaeMZuTUCC1yqv8iicKotL0CSVK3q
+         ObdDYewt9SjUq5himtAWfaWq5TLugJU2ldLhnLM4CAL4xLatBoa62j28X2pLWUjzLBAN
+         JmMHdzY+yMRo2PrZOGCAgreWZHXOvMgDH3ri/k+d/1IhUXETS4lcHbKD3YgwShoyi+Q9
+         pEQf4IV3o6+ieDuiSNcNeibGHP13JJ1ZQhVZyESHaaa/JQx7YGt2UXeYx5LNox9OkoD1
+         ehTzO/8FkKe2AfW5gYbU79cOqYOS09wnlc6ovtR8quOOM3LG2tA4ZCaNzs2Hm5h3E00f
+         +ToA==
+X-Gm-Message-State: APjAAAXVRQJlCbqRtAOkLMSRVG6qKTWkZ0rFoLz3Cxg2+8oOeXtG22SI
+        xwBfCuuf2OyOZo6Ct447Jz48dq6a
+X-Google-Smtp-Source: APXvYqzD13lS6m2tksuVyyNqOsZzTUEEUKL8rJBGc/ekUGdLei8LkvQi5m/yzWXv5WSnGqjO0Ac1QA==
+X-Received: by 2002:a67:ea46:: with SMTP id r6mr6412130vso.3.1557941879019;
+        Wed, 15 May 2019 10:37:59 -0700 (PDT)
+Received: from shawn-ThinkPad-L420.hitronhub.home ([190.233.49.202])
+        by smtp.gmail.com with ESMTPSA id y5sm841770vsc.19.2019.05.15.10.37.57
+        (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+        Wed, 15 May 2019 10:37:58 -0700 (PDT)
+From:   Shawn Landden <shawn@git.icu>
+To:     linux-man@vger.kernel.org
+Cc:     Shawn Landden <shawn@git.icu>
+Subject: [PATCH] Glibc no long provides such a wrapper, and requires Linux 2.6.32.
+Date:   Wed, 15 May 2019 12:37:51 -0500
+Message-Id: <20190515173751.10386-1-shawn@git.icu>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/1.11.3 (2019-02-01)
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Ricardo Biehl Pasquali <pasqualirb@gmail.com>
+Signed-off-by: Shawn Landden <shawn@git.icu>
 ---
- man7/socket.7 | 26 ++++++++++++++++++++++----
- 1 file changed, 22 insertions(+), 4 deletions(-)
+ man2/chown.2    | 6 ------
+ man2/getuid.2   | 5 -----
+ man2/setfsuid.2 | 3 ---
+ man2/setgid.2   | 3 ---
+ man2/setuid.2   | 3 ---
+ 5 files changed, 20 deletions(-)
 
-It's the third time I'm sending this.
-
-version 2: Rewrite the description for greater clarity.
-
-diff --git a/man7/socket.7 b/man7/socket.7
-index b8d053dfe..b43075185 100644
---- a/man7/socket.7
-+++ b/man7/socket.7
-@@ -49,10 +49,6 @@
- .\"	commit a8fc92778080c845eaadc369a0ecf5699a03bef0
- .\"	Author: Pavel Emelyanov <xemul@parallels.com>
+diff --git a/man2/chown.2 b/man2/chown.2
+index 332516632..a815b4aee 100644
+--- a/man2/chown.2
++++ b/man2/chown.2
+@@ -423,16 +423,10 @@ Subsequently, Linux 2.4 added
+ .BR chown32 (),
+ .BR fchown32 (),
+ and
+ .BR lchown32 (),
+ supporting 32-bit IDs.
+-The glibc
+-.BR chown (),
+-.BR fchown (),
+-and
+-.BR lchown ()
+-wrapper functions transparently deal with the variations across kernel versions.
+ .PP
+ In versions of Linux prior to 2.1.81 (and distinct from 2.1.46),
+ .BR chown ()
+ did not follow symbolic links.
+ Since Linux 2.1.81,
+diff --git a/man2/getuid.2 b/man2/getuid.2
+index ca2ccecc4..612c42e52 100644
+--- a/man2/getuid.2
++++ b/man2/getuid.2
+@@ -63,15 +63,10 @@ system calls supported only 16-bit user IDs.
+ Subsequently, Linux 2.4 added
+ .BR getuid32 ()
+ and
+ .BR geteuid32 (),
+ supporting 32-bit IDs.
+-The glibc
+-.BR getuid ()
+-and
+-.BR geteuid ()
+-wrapper functions transparently deal with the variations across kernel versions.
+ .PP
+ On Alpha, instead of a pair of
+ .BR getuid ()
+ and
+ .BR geteuid ()
+diff --git a/man2/setfsuid.2 b/man2/setfsuid.2
+index 47bb37cc6..539000913 100644
+--- a/man2/setfsuid.2
++++ b/man2/setfsuid.2
+@@ -106,13 +106,10 @@ The original Linux
+ .BR setfsuid ()
+ system call supported only 16-bit user IDs.
+ Subsequently, Linux 2.4 added
+ .BR setfsuid32 ()
+ supporting 32-bit IDs.
+-The glibc
+-.BR setfsuid ()
+-wrapper function transparently deals with the variation across kernel versions.
+ .SS C library/kernel differences
+ In glibc 2.15 and earlier,
+ when the wrapper for this system call determines that the argument can't be
+ passed to the kernel without integer truncation (because the kernel
+ is old and does not support 32-bit user IDs),
+diff --git a/man2/setgid.2 b/man2/setgid.2
+index fedb9ed95..72a245451 100644
+--- a/man2/setgid.2
++++ b/man2/setgid.2
+@@ -78,13 +78,10 @@ The original Linux
+ .BR setgid ()
+ system call supported only 16-bit group IDs.
+ Subsequently, Linux 2.4 added
+ .BR setgid32 ()
+ supporting 32-bit IDs.
+-The glibc
+-.BR setgid ()
+-wrapper function transparently deals with the variation across kernel versions.
  .\"
--.\" SO_SELECT_ERR_QUEUE (3.10)
--.\"	commit 7d4c04fc170087119727119074e72445f2bb192b
--.\"	Author: Keller, Jacob E <jacob.e.keller@intel.com>
--.\"
- .\" SO_MAX_PACING_RATE (3.13)
- .\"	commit 62748f32d501f5d3712a7c372bbb92abc7c62bc7
- .\"	Author: Eric Dumazet <edumazet@google.com>
-@@ -869,6 +865,28 @@ Indicates that an unsigned 32-bit value ancillary message (cmsg)
- should be attached to received skbs indicating
- the number of packets dropped by the socket since its creation.
- .TP
-+.BR SO_SELECT_ERR_QUEUE " (since Linux 3.10)"
-+.\"	commit 7d4c04fc170087119727119074e72445f2bb192b
-+.\"	Author: Keller, Jacob E <jacob.e.keller@intel.com>
-+Makes poll adding
-+.B POLLPRI
-+when
-+.B POLLERR
-+event is returned. It does not affect wake up.
-+.IP
-+Background: The flag was added when waking up on
-+.B POLLERR
-+required requesting
-+.B POLLIN
-+or
-+.B POLLPRI.
-+After the commit 6e5d58fdc9bedd0255a8 ("skbuff: Fix not
-+waking applications when errors are enqueued"), introduced
-+in Linux 4.16, waking up on
-+.B POLLERR
-+does not require requesting other events. The flag is kept
-+only for backwards compatibility.
-+.TP
- .B SO_SNDBUF
- Sets or gets the maximum socket send buffer in bytes.
- The kernel doubles this value (to allow space for bookkeeping overhead)
+ .SS C library/kernel differences
+ At the kernel level, user IDs and group IDs are a per-thread attribute.
+ However, POSIX requires that all threads in a process
+ share the same credentials.
+diff --git a/man2/setuid.2 b/man2/setuid.2
+index f4726dcf0..82b2b56a9 100644
+--- a/man2/setuid.2
++++ b/man2/setuid.2
+@@ -140,13 +140,10 @@ The original Linux
+ .BR setuid ()
+ system call supported only 16-bit user IDs.
+ Subsequently, Linux 2.4 added
+ .BR setuid32 ()
+ supporting 32-bit IDs.
+-The glibc
+-.BR setuid ()
+-wrapper function transparently deals with the variation across kernel versions.
+ .\"
+ .SS C library/kernel differences
+ At the kernel level, user IDs and group IDs are a per-thread attribute.
+ However, POSIX requires that all threads in a process
+ share the same credentials.
 -- 
-2.19.1
+2.20.1
+
