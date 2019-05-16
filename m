@@ -2,60 +2,103 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id EB82120F68
-	for <lists+linux-man@lfdr.de>; Thu, 16 May 2019 21:56:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 13F272107C
+	for <lists+linux-man@lfdr.de>; Fri, 17 May 2019 00:23:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726901AbfEPT4P (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 16 May 2019 15:56:15 -0400
-Received: from 3.mo68.mail-out.ovh.net ([46.105.58.60]:47640 "EHLO
-        3.mo68.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726519AbfEPT4P (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 16 May 2019 15:56:15 -0400
-Received: from player771.ha.ovh.net (unknown [10.109.159.159])
-        by mo68.mail-out.ovh.net (Postfix) with ESMTP id 4A54112CB90
-        for <linux-man@vger.kernel.org>; Thu, 16 May 2019 21:39:23 +0200 (CEST)
-Received: from jwilk.net (ip-5-172-255-49.free.aero2.net.pl [5.172.255.49])
-        (Authenticated sender: jwilk@jwilk.net)
-        by player771.ha.ovh.net (Postfix) with ESMTPSA id 671B35D933A6;
-        Thu, 16 May 2019 19:39:20 +0000 (UTC)
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] Changes.old: tfix
-Date:   Thu, 16 May 2019 21:39:17 +0200
-Message-Id: <20190516193917.3682-1-jwilk@jwilk.net>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
+        id S1728122AbfEPWXr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 16 May 2019 18:23:47 -0400
+Received: from mail-pl1-f196.google.com ([209.85.214.196]:35261 "EHLO
+        mail-pl1-f196.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726762AbfEPWXr (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 16 May 2019 18:23:47 -0400
+Received: by mail-pl1-f196.google.com with SMTP id g5so2314610plt.2
+        for <linux-man@vger.kernel.org>; Thu, 16 May 2019 15:23:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:subject:in-reply-to:cc:from:to:message-id
+         :mime-version:content-transfer-encoding;
+        bh=aZRZJMhC8F676azi0pCpUQrwuWHw2gfjrzu8OXtc9zQ=;
+        b=IBOn5EwgFVrldVZWKpgbce2IymU/7balOjiiGXpRAsV+YjlnFYS2vcwpL8A0w5mPPb
+         qwZv/zwwY2JiLljjUVvU0u8XS9V3GDInpAFhPpG1y1K+85WSulI9W+789FTXkejsdDC0
+         u6mGd6HyJAqWagjGTxpDp4hoObuNFdBJox51YNgiT3NigRUz1daHM3nJ9VOOh8Car4ou
+         Dps0f+XkMmINkZ7c8TLRbMxP1JmxfdxrazvewX+8q+hKSUqnWYXuAETHkca5f4L/byFu
+         3ruQKBr31ghPc+Jx7i5sMMW6nbEYjnvTQLRW/RvGqwsHfGR+XDMTwmkI2a/WpTjnJR2h
+         /AJg==
+X-Gm-Message-State: APjAAAXjwDGSP6YZuqsVA78Gqha6iZi9oJckTI0lCBeC0+AazUIfVYGL
+        J+q8eaCN4L5dSB5w7l931LlyxQ==
+X-Google-Smtp-Source: APXvYqwi4CeslffBT+XjG8XcBoz4B/7+za3kVOe40AbrYTf1fBgf84DLz3koPeHCH5e+j7oZHCCRfw==
+X-Received: by 2002:a17:902:6bc8:: with SMTP id m8mr51956930plt.227.1558045426028;
+        Thu, 16 May 2019 15:23:46 -0700 (PDT)
+Received: from localhost ([12.206.222.5])
+        by smtp.gmail.com with ESMTPSA id a18sm12495503pfr.22.2019.05.16.15.23.45
+        (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+        Thu, 16 May 2019 15:23:45 -0700 (PDT)
+Date:   Thu, 16 May 2019 15:23:45 -0700 (PDT)
+X-Google-Original-Date: Thu, 16 May 2019 15:03:52 PDT (-0700)
+Subject:     Re: [PATCH] vdso.7: document vDSO for RISCV
+In-Reply-To: <20190516094132.8850-1-tklauser@distanz.ch>
+CC:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+From:   Palmer Dabbelt <palmer@sifive.com>
+To:     tklauser@distanz.ch
+Message-ID: <mhng-9d7065a2-56aa-4039-bd33-f115ac554b4c@palmer-si-x1e>
+Mime-Version: 1.0 (MHng)
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 13576945502265333629
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduuddruddttddgudefjecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecu
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Remove duplicated word.
+On Thu, 16 May 2019 02:41:32 PDT (-0700), tklauser@distanz.ch wrote:
+> Document the symbols exported by the RISCV vDSO which is present
+> from kernel 4.15 onwards.
+>
+> See https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/log/arch/riscv/vdso
+>
+> Signed-off-by: Tobias Klauser <tklauser@distanz.ch>
+> ---
+>  man7/vdso.7 | 22 ++++++++++++++++++++++
+>  1 file changed, 22 insertions(+)
+>
+> diff --git a/man7/vdso.7 b/man7/vdso.7
+> index 8375df527ffa..8ac6c12d2c2f 100644
+> --- a/man7/vdso.7
+> +++ b/man7/vdso.7
+> @@ -153,6 +153,7 @@ ia64	linux\-gate.so.1
+>  mips	linux\-vdso.so.1
+>  ppc/32	linux\-vdso32.so.1
+>  ppc/64	linux\-vdso64.so.1
+> +riscv	linux\-vdso.so.1
+>  s390	linux\-vdso32.so.1
+>  s390x	linux\-vdso64.so.1
+>  sh	linux\-gate.so.1
+> @@ -433,6 +434,27 @@ and
+>  .I __kernel_clock_gettime
+>  interfaces;
+>  the kernel falls back to the real system call.
+> +.SS riscv functions
+> +.\" See linux/arch/riscv/kernel/vdso/vdso.lds.S
+> +The table below lists the symbols exported by the vDSO.
+> +.if t \{\
+> +.ft CW
+> +\}
+> +.TS
+> +l l.
+> +symbol	version
+> +_
+> +__kernel_rt_sigreturn	LINUX_4.15
+> +__kernel_gettimeofday	LINUX_4.15
+> +__kernel_clock_gettime	LINUX_4.15
+> +__kernel_clock_getres	LINUX_4.15
+> +__kernel_getcpu	LINUX_4.15
+> +__kernel_flush_icache	LINUX_4.15
+> +.TE
+> +.if t \{\
+> +.in
+> +.ft P
+> +\}
+>  .SS s390 functions
+>  .\" See linux/arch/s390/kernel/vdso32/vdso32.lds.S
+>  The table below lists the symbols exported by the vDSO.
 
-Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
----
- Changes.old | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/Changes.old b/Changes.old
-index 6f48d5bea..008d80c58 100644
---- a/Changes.old
-+++ b/Changes.old
-@@ -49305,7 +49305,7 @@ setfsuid.2
-     Michael Kerrisk
-         Rewrite for improved clarity and to hint history more explicitly
-             The current text reads somewhat clumsily. Rewrite it to introduce
--            the eUID and fsUID in parallel, and more clearly hint at the the
-+            the eUID and fsUID in parallel, and more clearly hint at the
-             historical rationale for the fsUID, which is detailed lower in
-             the page.
- 
--- 
-2.20.1
-
+Reviewed-by: Palmer Dabbelt <palmer@sifive.com>
