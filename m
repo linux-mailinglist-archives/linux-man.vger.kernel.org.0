@@ -2,103 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 13F272107C
-	for <lists+linux-man@lfdr.de>; Fri, 17 May 2019 00:23:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E2CFA21AE6
+	for <lists+linux-man@lfdr.de>; Fri, 17 May 2019 17:45:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728122AbfEPWXr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 16 May 2019 18:23:47 -0400
-Received: from mail-pl1-f196.google.com ([209.85.214.196]:35261 "EHLO
-        mail-pl1-f196.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726762AbfEPWXr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 16 May 2019 18:23:47 -0400
-Received: by mail-pl1-f196.google.com with SMTP id g5so2314610plt.2
-        for <linux-man@vger.kernel.org>; Thu, 16 May 2019 15:23:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:subject:in-reply-to:cc:from:to:message-id
-         :mime-version:content-transfer-encoding;
-        bh=aZRZJMhC8F676azi0pCpUQrwuWHw2gfjrzu8OXtc9zQ=;
-        b=IBOn5EwgFVrldVZWKpgbce2IymU/7balOjiiGXpRAsV+YjlnFYS2vcwpL8A0w5mPPb
-         qwZv/zwwY2JiLljjUVvU0u8XS9V3GDInpAFhPpG1y1K+85WSulI9W+789FTXkejsdDC0
-         u6mGd6HyJAqWagjGTxpDp4hoObuNFdBJox51YNgiT3NigRUz1daHM3nJ9VOOh8Car4ou
-         Dps0f+XkMmINkZ7c8TLRbMxP1JmxfdxrazvewX+8q+hKSUqnWYXuAETHkca5f4L/byFu
-         3ruQKBr31ghPc+Jx7i5sMMW6nbEYjnvTQLRW/RvGqwsHfGR+XDMTwmkI2a/WpTjnJR2h
-         /AJg==
-X-Gm-Message-State: APjAAAXjwDGSP6YZuqsVA78Gqha6iZi9oJckTI0lCBeC0+AazUIfVYGL
-        J+q8eaCN4L5dSB5w7l931LlyxQ==
-X-Google-Smtp-Source: APXvYqwi4CeslffBT+XjG8XcBoz4B/7+za3kVOe40AbrYTf1fBgf84DLz3koPeHCH5e+j7oZHCCRfw==
-X-Received: by 2002:a17:902:6bc8:: with SMTP id m8mr51956930plt.227.1558045426028;
-        Thu, 16 May 2019 15:23:46 -0700 (PDT)
-Received: from localhost ([12.206.222.5])
-        by smtp.gmail.com with ESMTPSA id a18sm12495503pfr.22.2019.05.16.15.23.45
-        (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
-        Thu, 16 May 2019 15:23:45 -0700 (PDT)
-Date:   Thu, 16 May 2019 15:23:45 -0700 (PDT)
-X-Google-Original-Date: Thu, 16 May 2019 15:03:52 PDT (-0700)
-Subject:     Re: [PATCH] vdso.7: document vDSO for RISCV
-In-Reply-To: <20190516094132.8850-1-tklauser@distanz.ch>
-CC:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-From:   Palmer Dabbelt <palmer@sifive.com>
-To:     tklauser@distanz.ch
-Message-ID: <mhng-9d7065a2-56aa-4039-bd33-f115ac554b4c@palmer-si-x1e>
-Mime-Version: 1.0 (MHng)
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+        id S1729363AbfEQPox (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 17 May 2019 11:44:53 -0400
+Received: from mx1.redhat.com ([209.132.183.28]:48526 "EHLO mx1.redhat.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1729361AbfEQPox (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 17 May 2019 11:44:53 -0400
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mx1.redhat.com (Postfix) with ESMTPS id 37B5C2E97D3;
+        Fri, 17 May 2019 15:44:53 +0000 (UTC)
+Received: from oldenburg2.str.redhat.com (ovpn-117-42.ams2.redhat.com [10.36.117.42])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A8A81001E61;
+        Fri, 17 May 2019 15:44:48 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        libc-alpha@sourceware.org
+Subject: Re: [PATCH] pldd.1: Document glibc's unbreakage of tool.
+References: <20190511072049.2w7pp723iszp3gra@localhost.localdomain>
+        <8736liit24.fsf@oldenburg2.str.redhat.com>
+        <20190513141746.mail6ny43wh4t5oj@localhost.localdomain>
+Date:   Fri, 17 May 2019 17:44:41 +0200
+In-Reply-To: <20190513141746.mail6ny43wh4t5oj@localhost.localdomain>
+        (G. Branden Robinson's message of "Tue, 14 May 2019 00:17:48 +1000")
+Message-ID: <87y335m6fq.fsf@oldenburg2.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1 (gnu/linux)
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]); Fri, 17 May 2019 15:44:53 +0000 (UTC)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, 16 May 2019 02:41:32 PDT (-0700), tklauser@distanz.ch wrote:
-> Document the symbols exported by the RISCV vDSO which is present
-> from kernel 4.15 onwards.
->
-> See https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/log/arch/riscv/vdso
->
-> Signed-off-by: Tobias Klauser <tklauser@distanz.ch>
-> ---
->  man7/vdso.7 | 22 ++++++++++++++++++++++
->  1 file changed, 22 insertions(+)
->
-> diff --git a/man7/vdso.7 b/man7/vdso.7
-> index 8375df527ffa..8ac6c12d2c2f 100644
-> --- a/man7/vdso.7
-> +++ b/man7/vdso.7
-> @@ -153,6 +153,7 @@ ia64	linux\-gate.so.1
->  mips	linux\-vdso.so.1
->  ppc/32	linux\-vdso32.so.1
->  ppc/64	linux\-vdso64.so.1
-> +riscv	linux\-vdso.so.1
->  s390	linux\-vdso32.so.1
->  s390x	linux\-vdso64.so.1
->  sh	linux\-gate.so.1
-> @@ -433,6 +434,27 @@ and
->  .I __kernel_clock_gettime
->  interfaces;
->  the kernel falls back to the real system call.
-> +.SS riscv functions
-> +.\" See linux/arch/riscv/kernel/vdso/vdso.lds.S
-> +The table below lists the symbols exported by the vDSO.
-> +.if t \{\
-> +.ft CW
-> +\}
-> +.TS
-> +l l.
-> +symbol	version
-> +_
-> +__kernel_rt_sigreturn	LINUX_4.15
-> +__kernel_gettimeofday	LINUX_4.15
-> +__kernel_clock_gettime	LINUX_4.15
-> +__kernel_clock_getres	LINUX_4.15
-> +__kernel_getcpu	LINUX_4.15
-> +__kernel_flush_icache	LINUX_4.15
-> +.TE
-> +.if t \{\
-> +.in
-> +.ft P
-> +\}
->  .SS s390 functions
->  .\" See linux/arch/s390/kernel/vdso32/vdso32.lds.S
->  The table below lists the symbols exported by the vDSO.
+* G. Branden Robinson:
 
-Reviewed-by: Palmer Dabbelt <palmer@sifive.com>
+>> I'm not sure if it makes sense to document this in the manual page.
+>
+> It might not; another resonable approach might be to nuke the "Bugs"
+> section of the man page entirely.  However, see below.
+>
+>> I expect that the fix will propagate to affected distributions fairly
+>> quickly, now that it is available upstream.
+>
+> True for fast-moving distributions; as I noted in the commit message,
+> Debian 10 has already got it backported to its glibc 2.29.
+
+I'm pretty sure Debian 10 does not use glibc 2.28.
+
+My point is that the glibc change will get backported, but any man-pages
+change will not, so it will be quite some time until the latter shows up
+on developer workstations.  And due to glibc backporting, the version
+information there will be misleading.
+
+Thanks,
+Florian
