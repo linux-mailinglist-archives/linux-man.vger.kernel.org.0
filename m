@@ -2,56 +2,50 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id D3E0729AB1
-	for <lists+linux-man@lfdr.de>; Fri, 24 May 2019 17:12:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 690C1238BC
+	for <lists+linux-man@lfdr.de>; Mon, 20 May 2019 15:49:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2389419AbfEXPMO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 24 May 2019 11:12:14 -0400
-Received: from [154.125.167.248] ([154.125.167.248]:40874 "EHLO raspberrypi"
-        rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S2389079AbfEXPMO (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 24 May 2019 11:12:14 -0400
-X-Greylist: delayed 1555 seconds by postgrey-1.27 at vger.kernel.org; Fri, 24 May 2019 11:12:10 EDT
-Received: from User (localhost [127.0.0.1])
-        by raspberrypi (8.14.4/8.14.4/Debian-8+deb8u2) with SMTP id x4K15M3i027127;
-        Mon, 20 May 2019 01:05:23 GMT
-Message-Id: <201905200105.x4K15M3i027127@raspberrypi>
-Reply-To: <Hr@homebg.in>
-From:   "Colonel Marion Horn Jr" <hisato@venus.dti.ne.jp>
-Subject: Re: Notification payment schedule
-Date:   Mon, 20 May 2019 01:05:44 -0000
+        id S2388466AbfETNtN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 May 2019 09:49:13 -0400
+Received: from smtp181.efor.es ([93.92.232.181]:52054 "EHLO smtp181.efor.es"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1730494AbfETNtM (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 20 May 2019 09:49:12 -0400
+X-Greylist: delayed 8808 seconds by postgrey-1.27 at vger.kernel.org; Mon, 20 May 2019 09:49:12 EDT
+Received: from localhost (unknown [127.0.0.1])
+        by leela.efor.es (Postfix) with ESMTP id 2A2CE1007FF;
+        Mon, 20 May 2019 13:22:10 +0200 (CEST)
+Received: from localhost (unknown [127.0.0.1])
+        by leela.efor.es (Postfix) with ESMTP id E40B01006E1;
+        Mon, 20 May 2019 13:22:09 +0200 (CEST)
+Received: from 154.125.80.243 ([154.125.80.243]) by mail.altorricon.com
+ (Horde Framework) with HTTP; Mon, 20 May 2019 13:22:09 +0200
+Message-ID: <20190520132209.19886mghhji62jmp@mail.altorricon.com>
+Date:   Mon, 20 May 2019 13:22:09 +0200
+From:   "Dr.Henry Biko" <dr.henrybiko@gmail.com>
+To:     undisclosed-recipients:;
+Subject: Hello
 MIME-Version: 1.0
 Content-Type: text/plain;
-        charset="Windows-1251"
+ charset=ISO-8859-1;
+ DelSp="Yes";
+ format="flowed"
+Content-Disposition: inline
 Content-Transfer-Encoding: 7bit
-X-Priority: 3
-X-MSMail-Priority: Normal
-X-Mailer: Microsoft Outlook Express 6.00.2600.0000
-X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
-To:     unlisted-recipients:; (no To-header on input)
+User-Agent: Internet Messaging Program (IMP) H3 (4.3.7)
+X-Horde-Mail-from: sincables@altorricon.com
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Sir
 
 
-This brief introduction to the best way we have to conclude this transaction and have this funds wired to your account without any complication. Having studied your file and understanding limitations to the fund claim and documents limited to back you up as fund beneficiary. It will also cost us nothing and yet legalize the funding immediately.
+Hello
+Mr William Connor gave instructions to send to you $500,000.00 USD ATM  
+VISA CASH CARD to your address before he travel out of this country,  
+please re-confirm your details to enable me proceed to DHL courier for  
+delivery Thanks,
+Best Regards,
+Dr.Henry Biko,
 
-
-I am aware that designated officials will be in North America and have direct beneficiary endorse fund release order in person through there paying bank in United Kingdom.
-
-
-Your name will be included in the payment schedule and beneficiary in London , United Kingdom.
-
-
-Once we have understanding, I will have them open communication with you and let them agree date and venue that will not be difficult for all parties. You will travel to London and have the final release order documents signed and the funds wired to your account as expected.
-
-
-Regards
-
-
-Congratulations
-Colonel Marion Horn Jr.
-Executive trustee.
