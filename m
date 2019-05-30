@@ -2,73 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id C22542E8E9
-	for <lists+linux-man@lfdr.de>; Thu, 30 May 2019 01:15:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1B27D30037
+	for <lists+linux-man@lfdr.de>; Thu, 30 May 2019 18:34:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726540AbfE2XPN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 29 May 2019 19:15:13 -0400
-Received: from wildebeest.demon.nl ([212.238.236.112]:44924 "EHLO
-        gnu.wildebeest.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726189AbfE2XPM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 29 May 2019 19:15:12 -0400
-X-Greylist: delayed 541 seconds by postgrey-1.27 at vger.kernel.org; Wed, 29 May 2019 19:15:12 EDT
-Received: from tarox.wildebeest.org (tarox.wildebeest.org [172.31.17.39])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by gnu.wildebeest.org (Postfix) with ESMTPSA id 2A75B302BBFE;
-        Thu, 30 May 2019 01:08:45 +0200 (CEST)
-Received: by tarox.wildebeest.org (Postfix, from userid 1000)
-        id 18BBC413CC18; Thu, 30 May 2019 01:08:45 +0200 (CEST)
-From:   Mark Wielaard <mark@klomp.org>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, Mark Wielaard <mark@klomp.org>
-Subject: [PATCH] mprotect.2: pkey_mprotect acts like mprotect if pkey is set to -1, not 0.
-Date:   Thu, 30 May 2019 01:08:39 +0200
-Message-Id: <1559171319-13742-1-git-send-email-mark@klomp.org>
-X-Mailer: git-send-email 1.8.3.1
-X-Spam-Flag: NO
-X-Spam-Status: No, score=-2.9 required=5.0 tests=ALL_TRUSTED,BAYES_00
-        autolearn=ham autolearn_force=no version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on gnu.wildebeest.org
+        id S1726430AbfE3QeC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 30 May 2019 12:34:02 -0400
+Received: from omta03.suddenlink.net ([208.180.40.73]:61642 "EHLO
+        omta03.suddenlink.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726045AbfE3QeC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 30 May 2019 12:34:02 -0400
+X-Greylist: delayed 338 seconds by postgrey-1.27 at vger.kernel.org; Thu, 30 May 2019 12:34:01 EDT
+Received: from dalifep05 ([10.130.7.37]) by dalofep04.suddenlink.net
+          (InterMail vM.8.04.03.22.01 201-2389-100-168-20180813) with ESMTP
+          id <20190530162823.UUVU27691.dalofep04.suddenlink.net@dalifep05>;
+          Thu, 30 May 2019 11:28:23 -0500
+Message-ID: <20190530112823.SFL6S.823478.root@dalifep05>
+Date:   Thu, 30 May 2019 11:28:23 -0500
+From:   <mmassssf@suddenlink.net>
+To:     mmassssf@suddenlink.net
+Subject: =?utf-8?B?0J/RgNC40LLQtdGCLCDQvNC+0Lkg0LTQvtGA0L7Qs9C+0Lk=?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+X-Priority: 3 (Normal)
+Sensitivity: Normal
+X-Authentication-Info: Submitted using SMTP AUTH LOGIN at dalofep04.suddenlink.net from [10.130.7.37] using ID mmassssf@suddenlink.net at Thu, 30 May 2019 11:28:23 -0500
+X-CM-Analysis: v=2.3 cv=D8g51cZj c=1 sm=1 tr=0 cx=a_idp_d a=lZHbbgZgGQcmXz2o/tKHrg==:117 a=IkcTkHD0fZMA:10 a=E5NmQfObTbMA:10 a=pGLkceISAAAA:8 a=CjxXgO3LAAAA:8 a=N1ncB6vgmKBXUpGSdAQA:9 a=QEXdDO2ut3YA:10 a=vpcxkRbyLhcA:10 a=Z5ABNNGmrOfJ6cZ5bIyy:22 a=jd6J4Gguk5HxikPWLKER:22
+X-CM-Envelope: MS4wfElbzL5uZdeVXudgvKjZpgdpmc9RzjKT5nshp2tonRmjCFUVwXfGW3ZpOxeahRvLKy+3DwUvId3puF532YnXHF/ugq+pYMu0XN4i8DVYTjNVT8HD8lqr TH7VrrlCL+PFXKzHWEZvmEQdfarJg2DGF+Sw01sx+pyLdiCFyOVyp416NKB9Jgo1zF2LAnWurJyby2j4zUaADNp4Jr6soANsCSOVUMntYMufs8etS1ktoUsy g8etOXCxVSrCcJP7rJk34KparNsl9+2WMCXp7pU6ACpabvA/sOrxbMwSGbNx8nTTWWNNpAeat9jGUMvBU0nklB+CVw/BSfPk8//nTWYrZpQ6QvWSEPShyjTj dkzcNK7O7h8S0ZhQCPJRhPwHFrdr7nF3ekjRV2kxRHSi9ni4EE4w8JwoHWMjy5Pb5U8ZaVLOEFMku/0T8s0+AFHxKgoi+w/ZCQ8H2m/Oz0gezY152iVIipq+ fSmMIar9ElJ2Tnv6mYzoVBg0PC/GcK2qsiQpv8V1aG60f8nerYhmscAIkEaBxhBfQ0TcmQTaC21JG4WQtvItmjyliJowuE5z9E13MWY/PNxrWm48Yf9xdrUH 11siurZe3Hr1sV1qXPxpUDfo6TC8q4oA+oT7yBxLPs+SgFoRQQW7/RIo9pDQpchviC/or3YT8ssTvPjLhlBhuV8b3EVMmyeHafTOQxQRRPKZBbAqfemQUieI EAlyX3TCnTVfh1M13R0IxORLEjcUikQ0mX5WMnlTv3fHoTiMt2f8NDyHSKi2eSf5ZJ3lwEw2b56BvTND0qAB1LzTpB93X6tfKpNdjX7piK2Cq4TK/6x7qmUu q7ERQ3eauW0AJXtkn9qx4LZX8in/6P6PHcxw/UUn0MHgvpnoQ/BBiaTZZ/G6fm7f3iDnTqi4X80JWjimbwS2Nk3RHsyElkrjsnlVovmyKTsmc0idp/9ETyEj jTFglc9Bg1JsenwSTLMeYhd3/lAf4oRDZ0mZXomWlE70922HxdtGwj67vyAe5Xu8KLXlfZ5O1N6W2tG3YYkfzXw8eWBayHgWrNzuSsK6SWPwUDdq2WuzZ4n9 ZeKb62sg63hZLSQ1qTqS3F/byHfELyJ964e+eZ7HSxrjPzsOhtzAq29BGJnEcFhdEGaDi8iFcYDXzMlV+YIUSu+YncK/pXEc+q+9QEuzTnV9MngE+yqQlT2V A4gNUXmiUSkafzcLgmC2S6tcy/hOrr4VFQWJkDI8Xp6VEbHIKxwqr03evds0iEIr0U/XkIDB6Ul9Awr88FphLDyFWqvPmEuUvzcpjrsR5vYsguWwRv4vnZbH 4iHPg30TKPzMiGZAwFHdUmWnPzDU7MrHg2315JApKP2JRb33ih/y1vRq2hXNW0WzkEu9kfhphk5ZyqL+MlZkdotuOr9RuLQ9w/J5Dcy6znxrjvAk50Gx9yWs PsNXErbsJaxSjbYsDEUFksP6EIkVvSZfG5jL5sVAP/r9Bdl+04juEoa1FaJnUo7lbzwKnmvQBZzCfSfLZjElRxu2+AJwHQ/n5KfbnAC2zvOSR8mRIbxfMSuD X6OxaUWL0xfQ9GgtLFlPg1X/NuOBXCIq/tpuhGKYr5yiC3AfpYhlC/oM4OfZVij2gzCCUG0d4Nml2yeOGoDzURGUWcLua2fa0RqfFbqF4u8f4VsHWb4zwRN2 WTpRqmq8cdX8DyJuFuB2rGn49es7dH4gDUKJSrFbdosdNdYV8qCZd6pNukVhfKLhkCLzzBhZ6f29C1aQ6C5EuwP8ftjawdxPMDFXvGUd4lircyVMo8Fz2wno 0iSANolNCnx6sSHH0qKXIPd9cEpHi37XB0T3497ekxTK5IC5ngfYXiKpMoL4V95ZEqPG/S4kExQDNnYjlXBholBWioOTfmr8nc2z+BtPITbFUs2FsBXqpINd FcYOQ2tuaGlcuVuxwLfZtlIN+1GfqAjPPhNHZ13CmzPRWplk1SrT6Vt8WlW3Xdzb3ZtMskq4WIMX2SxAvYVNPsUlFHEgQVi1ytygSRvAJ5vydhhMh7WKkDFv JNBIdLejIimYDmNwKF3jJNzFkULXGYBeYh5biz5dPGfCiG3mwB/GELh9Kq42CfyUnS1y4qUqwANqJi7D8jQcmuFl55+sVi4ZxTy3RqxS7nkORFUUW8UzZ/Sv /Y2MkVBfYce15d22dG7Bh7MY3mKeX+UDXfnd+BhUfzpLDPjGAf6IgdUTjbIuQb1hIo7j7LmDy4NNKBm7SW0bZsit/keHiGH4McSv8JKKZcRY81VEuJqzlEFD nNs3aHvzyiDotKBHYONAT36fd1jRlJELMLe2+X1m144J27RyM8Fk3HfamuaeLz/ZUzBbxlbs+oG6JBoFUumsoIp90Q4ICkAMFwNwYgAvQpS7NX0ybprOSEks Ojf2fw73yBW4gyKN6P6j0tDJMTRh8tVdxI/Wdu2LWTuZbMlvb37o2OHafnt5MWDhX63D11uvOnJtULH4PXebZDLlFHJ3i06CLB1ZJagC/z5dHQwisUB/mNM5 Pa3SK8aKTOELy6VU6mJCbXh7af7tSnh3sfWWsT308BCmdnmNTFXY9fKHrxHdYLe7kEjSOaJp4DQQc2q5P0T7M35XO54wkWlyMh9VFsuHDQrWQfhlfwm5DPyh NaLexODrkkzoODl6DgIb756sU+qi2pYoFUMtn2OakaiJbobPOkyLAGzmyrZdgeI7sZg+2/SwZ/ltBKFfJbIlcqcxO4dK+CvdRoRjFxvYTAdN/k3G3dXcK3U8 meGMvFE9nYJj+8gN++qWV1nKC4QimeYysS1fkSoqyDqX7rqpWSJDXedworukAFgR9D6EEY1eS1QphCr/mL9FejwYWkIUfR8erH6c2/4PEgg8YMpZCHZotvSp QUMTOzhnOQyf0uWVuJ4YdiFm1vqiJuNf+3IwHo+lKpicIURQdO6cQ1pVmI7i09blcos43J/XFdFsC5d4WhvEhAM9WfCrgMgTsDJOpDGmh4mX2L1ylqCzrJlj YN9pAYmpECOjQVnMSkcVqZei3al5GHf9s4XLqParBsKAHv/TNUrtBqZiQmJDvZBeBJg8pb2gXEGCWoqZkO+IcOpA7ABHTbR1cLTYs4an16QlbLjExXqezttv FH8LvOhsn3hswOshx8Uxu87m0HdezevU/4ebXWGnLUD/FQPR9VGFP7yjoLBPNtkNnC96e+ZqQsz5OQgBi5KFgzY9kP5BlzMkFsxYl1aIW+E9TVpbDJmkdxY3 FscM69KnFwEx7jt/wfZkp87JEDaOasbBNB+GzvACF8eADrKZ25QawGirkxY1E+wVbAbfIs5G6DCvihFiRsi39++cm2Jv2vc0/fQuKIssYwCyWZx/5QefjQSf 6z0VpZsP4W0OIc10msDk6Yne89QI4fMwR0GeOFVeHe3iuEAvARDeAWR5Jpqt/nkQerJ9/Vn61BVTEuRL
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The mprotect.2 NOTES say:
-
-  On systems that do not support protection keys in hardware,
-  pkey_mprotect() may still be used, but pkey must be set to 0.  When
-  called this way, the operation of pkey_mprotect() is equivalent to
-  mprotect().
-
-But this is not what the glibc manual says:
-
-  It is also possible to call pkey_mprotect with a key value of -1,
-  in which case it will behave in the same way as mprotect.
-
-Which is correct. Both the glibc implementation and the kernel check
-whether pkey is -1. 0 is not a valid pkey when memory protection keys
-are not supported in hardware.
-
-Signed-off-by: Mark Wielaard <mark@klomp.org>
----
- man2/mprotect.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/man2/mprotect.2 b/man2/mprotect.2
-index 4d29f66..866ac77 100644
---- a/man2/mprotect.2
-+++ b/man2/mprotect.2
-@@ -278,7 +278,7 @@ On systems that do not support protection keys in hardware,
- .BR pkey_mprotect ()
- may still be used, but
- .IR pkey
--must be set to 0.
-+must be set to -1.
- When called this way, the operation of
- .BR pkey_mprotect ()
- is equivalent to
--- 
-1.8.3.1
-
+0J/RgNC40LLQtdGCLCDQvNC+0Lkg0LTQvtGA0L7Qs9C+0LkNCg0K0JTQsCDQv9GA0LXQsdGD0LTQ
+tdGCINGBINCy0LDQvNC4INC80LjRgCDQvdCw0YjQtdCz0L4g0JLRgdC10LzQvtCz0YPRidC10LPQ
+viDQkdC+0LPQsA0KDQrQn9GA0LjQstC10YLRgdGC0LLRg9GPINCy0L4g0LjQvNGPINC90LDRiNC1
+0LPQviDQktGB0LXQvNC+0LPRg9GJ0LXQs9C+INCR0L7Qs9CwLCDRjyDQttC10LvQsNGOINCy0LDQ
+vCDQuCDQstCw0YjQtdC5INGB0LXQvNGM0LUg0YHRh9Cw0YHRgtC70LjQstGL0YUg0LzQs9C90L7Q
+stC10L3QuNC5INC20LjQt9C90Lgg0YHQtdC50YfQsNGBINC4INC90LDQstGB0LXQs9C00LAsINCw
+0LzQuNC90YwuINCc0LXQvdGPINC30L7QstGD0YIg0LzQuNGB0YHQuNGBINCg0LjRhNGE0LDRgiDQ
+lNGD0YDRgNCw0L3QuCDQnNCw0YHRg9C0LCA2OSDQu9C10YIsINGPINC20LjQstGDINCyINCf0LDQ
+utC40YHRgtCw0L3QtSwg0LIg0JDQsdC40LTQttCw0L3QtSwg0JrQvtGCLdC0J9CY0LLRg9Cw0YAs
+INC/0L7QttCw0LvRg9C50YHRgtCwINGDINC80LXQvdGPINC90LXRgiDQvtGE0LjRhtC40LDQu9GM
+0L3Ri9GFINC+0YLQvdC+0YjQtdC90LjQuSDRgSDQstCw0LzQuCwg0L3QviDQuNC3LdC30LAg0LzQ
+vtC40YUg0L3Ri9C90LXRiNC90LjRhSDQt9Cw0YLRgNGD0LTQvdC10L3QuNC5INC4INC+0LHRgdGC
+0L7Rj9GC0LXQu9GM0YHRgtCyLCDRgSDQutC+0YLQvtGA0YvQvNC4INGPINGB0YLQvtC70LrQvdGD
+0LvRgdGPLCDRjyDRgdGC0YDQsNC00LDRjiDQvtGCINGA0LDQutCwINC4INGDINC80LXQvdGPINC9
+0LXQtNC+0LvQs9Cw0Y8g0LbQuNC30L3RjCwg0Lgg0Y8g0YDQtdGI0LjQuyDQv9C+0LbQtdGA0YLQ
+stC+0LLQsNGC0Ywg0YHQstC+0LUg0L3QsNGB0LvQtdC00YHRgtCy0L4g0LIgMyw1INC80LjQu9C7
+0LjQvtC90LAg0LTQvtC70LvQsNGA0L7QsiDQtNC70Y8g0LzQtdC90LXQtSDQv9GA0LjQstC40LvQ
+tdCz0LjRgNC+0LLQsNC90L3Ri9GFLCDQv9C+0LbQsNC70YPQudGB0YLQsCwg0L/QvtC80L7Qs9C4
+0YLQtSDQvNC90LUg0LLRi9C/0L7Qu9C90LjRgtGMINC80L7QtSDQv9C+0YHQu9C10LTQvdC10LUg
+0LbQtdC70LDQvdC40LUsINC/0L7QttCw0LvRg9C50YHRgtCwLCDRgdCy0Y/QttC40YLQtdGB0Ywg
+0YHQviDQvNC90L7QuSDQt9C00LXRgdGMIC4uIFtycmlmZmF0NDMwQGdtYWlsLmNvbV0NCg0K0L/Q
+vtC20LDQu9GD0LnRgdGC0LAsINGB0LLRj9C20LjRgtC10YHRjCDRgdC+INC80L3QvtC5INCyINC8
+0L7QtdC5INC70LjRh9C90L7QuSDRjdC70LXQutGC0YDQvtC90L3QvtC5INC/0L7Rh9GC0LUgLi4g
+W3JpZmZhdDAxaUB5YWhvby5jb21dDQoNCtCvINC20LTRgywg0YfRgtC+0LHRiyDRg9GB0LvRi9GI
+0LDRgtGMINC+0YIg0LLQsNGBDQoNCtCh0L/QsNGB0LjQsdC+DQoNCtCc0LjRgdGB0LjRgSDQoNC4
+0YTRhNCw0YIg0JTRg9GA0YDQsNC90Lgg0JzQsNGB0YPQtA==
