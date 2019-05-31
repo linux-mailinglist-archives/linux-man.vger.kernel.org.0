@@ -2,91 +2,47 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 546A23045F
-	for <lists+linux-man@lfdr.de>; Thu, 30 May 2019 23:59:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 865B6313C8
+	for <lists+linux-man@lfdr.de>; Fri, 31 May 2019 19:25:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726430AbfE3V6I (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 30 May 2019 17:58:08 -0400
-Received: from mail-wm1-f65.google.com ([209.85.128.65]:40200 "EHLO
-        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726307AbfE3V6H (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 30 May 2019 17:58:07 -0400
-Received: by mail-wm1-f65.google.com with SMTP id 15so4674607wmg.5
-        for <linux-man@vger.kernel.org>; Thu, 30 May 2019 14:58:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:subject:to:cc:message-id:date:user-agent:mime-version
-         :content-language:content-transfer-encoding;
-        bh=w/pMwZzRoycNpp9emeHBB/MxEKBXXcmlBiRsYLuBtC4=;
-        b=r7YF9iHN7I1CtZvRLJytq7Af/SPaYudH3JkRpp1wSEbBLPesF0WmUFxYJDoooR4du7
-         +4MSAeHmzusGupOD8ngaL/J5nNrqAEJyY7fLc9OIgjJ25iCqSe7wY4xWM+OQQMKe6D93
-         0COlf1hDCKlROuXnUEfltk+7FHQ4FPvXyPoHkONKdLeBeI0n8OgqeBdpAsMoXHiu27Pw
-         b2ETv6BcW0/0PGMCKjZtY97+Y5BlTtJkmFa4aKqJnbXkysPOdD1Q7YsiMPlcXOeRulAF
-         M3QjECctkERhdVT8/3Sd89r6/VfPJUivkKL68BQt0J5SEP/fOObqO/TU6akB8REed71n
-         vRgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:subject:to:cc:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=w/pMwZzRoycNpp9emeHBB/MxEKBXXcmlBiRsYLuBtC4=;
-        b=i5ZcDUbN8RFsl/c1UQAIiphCHmPfd63KRluuTxSC9M2Gtkf4YETWVsVQIHXWpkD6Fi
-         CCvp0Qoz6hWvjFnf/xang5Ugx6st08Ab9RAOzjS/vo9j2HHfSLa1ZXqhbzLy6MmU7xVj
-         SWOc7hiOZEcgo7PiJg8MI++fwxGrKycocqD+VjIBKhaDwO442vXxoJOykoBxcy022lAK
-         OK+6ZIwqlYdsSW6bSk9Y6OuvgEmx6jsaQOYCdUQefomTHHDJkaU5J+Fp4pUMHmOJgb7W
-         WhO0iyCMmFLYjHua8y6O3l4vldxv/mjyrlo1D92EslKtjNgn4E6rdXBfXP6PnYVbZ9Jx
-         DU4A==
-X-Gm-Message-State: APjAAAW6DVjI0V1gALs3J0BAkw2dqqKVWXleeGoAnQ87tHO08tur8Ono
-        me6tgBwBScDeCDVc7Q3iK3YQ5LKV
-X-Google-Smtp-Source: APXvYqwCmiTvtmNKrA9zF+YRNBZzIay6gxu7PW5STRtvMhvoqlpRaq0lkrO/Qwin67Tqxflgv1ym2g==
-X-Received: by 2002:a1c:ed07:: with SMTP id l7mr3285986wmh.148.1559253485459;
-        Thu, 30 May 2019 14:58:05 -0700 (PDT)
-Received: from [172.16.8.139] (host-78-151-217-120.as13285.net. [78.151.217.120])
-        by smtp.gmail.com with ESMTPSA id x6sm6482505wru.36.2019.05.30.14.58.03
-        (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
-        Thu, 30 May 2019 14:58:04 -0700 (PDT)
-From:   Alan Jenkins <alan.christopher.jenkins@gmail.com>
-Subject: aio_fsync.3: documented behaviour seems more limited than POSIX
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Message-ID: <a85a0724-8438-4bd6-6985-e74f40c9bc7a@gmail.com>
-Date:   Thu, 30 May 2019 22:58:02 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+        id S1726593AbfEaRZ4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 31 May 2019 13:25:56 -0400
+Received: from mx1.redhat.com ([209.132.183.28]:36848 "EHLO mx1.redhat.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726535AbfEaRZz (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 31 May 2019 13:25:55 -0400
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mx1.redhat.com (Postfix) with ESMTPS id B68673179B4A;
+        Fri, 31 May 2019 17:25:55 +0000 (UTC)
+Received: from oldenburg2.str.redhat.com (dhcp-192-219.str.redhat.com [10.33.192.219])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id ADB1D46E6D;
+        Fri, 31 May 2019 17:25:53 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
+To:     Mark Wielaard <mark@klomp.org>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] pkey_alloc.2, mprotect.2: _GNU_SOURCE is required for the pkey functions.
+References: <1559171155-2044-1-git-send-email-mark@klomp.org>
+Date:   Fri, 31 May 2019 19:25:52 +0200
+In-Reply-To: <1559171155-2044-1-git-send-email-mark@klomp.org> (Mark
+        Wielaard's message of "Thu, 30 May 2019 01:05:55 +0200")
+Message-ID: <871s0eili7.fsf@oldenburg2.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.2 (gnu/linux)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]); Fri, 31 May 2019 17:25:55 +0000 (UTC)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi
+* Mark Wielaard:
 
-> The aio_fsync() function does a sync on all outstanding asynchronous I/O operations associated with aiocbp->aio_fildes
+> To get the pkey_alloc, pkey_free and pkey_mprotect functions
+> _GNU_SOURCE needs to be defined before including sys/mman.h.
 
-I think the word "asynchronous" here is spurious (or confusing, or in 
-the wrong position :-).  Can that word be removed?
+Change looks good to me.  Thanks.
 
-The operation would be much more useful if it synced dirty pages 
-generated by write(), as well as those generated by aio_write().  It 
-should always work that way on Linux, and it is what POSIX appears to 
-say as well:
-
-> The aio_fsync() function shall asynchronously perform a file synchronization operation, as specified by the op argument, for ** I/O operations associated with the file indicated by the file descriptor aio_fildes member of the aiocb structure ** referenced by the aiocbp argument and queued at the time of the call to aio_fsync().
-
-http://pubs.opengroup.org/onlinepubs/9699919799/functions/aio_fsync.html
-
-
-I suspect this manpage was the reason for this quote:
-
-> I'm not even convinced it's possible with the existing interfaces (but I have no experience with AIO). aio_fsync() is only usable with aio_write()
-
-https://lists.debian.org/debian-dpkg/2011/03/msg00022.html
-
-[I've been thinking about whether aio_fsync() would do *exactly* what 
-dpkg wants, and could speed it up further, as I suspect from some points 
-made by Dave Chinner :-).]
-
-Thanks for all the docs!
-Alan
+Florian
