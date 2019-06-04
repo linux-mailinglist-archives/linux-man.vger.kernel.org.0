@@ -2,47 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 865B6313C8
-	for <lists+linux-man@lfdr.de>; Fri, 31 May 2019 19:25:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3DD5434B8B
+	for <lists+linux-man@lfdr.de>; Tue,  4 Jun 2019 17:06:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726593AbfEaRZ4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 31 May 2019 13:25:56 -0400
-Received: from mx1.redhat.com ([209.132.183.28]:36848 "EHLO mx1.redhat.com"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726535AbfEaRZz (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 31 May 2019 13:25:55 -0400
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mx1.redhat.com (Postfix) with ESMTPS id B68673179B4A;
-        Fri, 31 May 2019 17:25:55 +0000 (UTC)
-Received: from oldenburg2.str.redhat.com (dhcp-192-219.str.redhat.com [10.33.192.219])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id ADB1D46E6D;
-        Fri, 31 May 2019 17:25:53 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     Mark Wielaard <mark@klomp.org>
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] pkey_alloc.2, mprotect.2: _GNU_SOURCE is required for the pkey functions.
-References: <1559171155-2044-1-git-send-email-mark@klomp.org>
-Date:   Fri, 31 May 2019 19:25:52 +0200
-In-Reply-To: <1559171155-2044-1-git-send-email-mark@klomp.org> (Mark
-        Wielaard's message of "Thu, 30 May 2019 01:05:55 +0200")
-Message-ID: <871s0eili7.fsf@oldenburg2.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.2 (gnu/linux)
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]); Fri, 31 May 2019 17:25:55 +0000 (UTC)
+        id S1728062AbfFDPGH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 4 Jun 2019 11:06:07 -0400
+Received: from fallback9.mail.ru ([94.100.178.49]:47336 "EHLO
+        fallback9.mail.ru" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727825AbfFDPGH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Jun 2019 11:06:07 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru; s=mail2;
+        h=Message-Id:Date:Subject:Cc:To:From; bh=pTn2ZeCvs/Yp9tvewHOLUsSfrhCBmCuB5Bfgph1ENpI=;
+        b=VgB3tpMKnA3/CDe2nzWl/jVYf26xz55jF+JCMNBP4oFJagHJL2DBYQN6CnB4Ab+q7GwMn0rgZCdpUu1xnRcYz+MF6x7WX5Y+FaG8T5KeaXg2jksWtXmmK8TK9VGFMJdNibOrYhpsYWYx06sAXRy66/m1WDH0upbDvbCn/aRKfjY=;
+Received: from [10.161.64.40] (port=54506 helo=smtp32.i.mail.ru)
+        by fallback9.m.smailru.net with esmtp (envelope-from <jusual@mail.ru>)
+        id 1hYB0m-0006a5-HP
+        for linux-man@vger.kernel.org; Tue, 04 Jun 2019 18:06:04 +0300
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru; s=mail2;
+        h=Message-Id:Date:Subject:Cc:To:From; bh=pTn2ZeCvs/Yp9tvewHOLUsSfrhCBmCuB5Bfgph1ENpI=;
+        b=VgB3tpMKnA3/CDe2nzWl/jVYf26xz55jF+JCMNBP4oFJagHJL2DBYQN6CnB4Ab+q7GwMn0rgZCdpUu1xnRcYz+MF6x7WX5Y+FaG8T5KeaXg2jksWtXmmK8TK9VGFMJdNibOrYhpsYWYx06sAXRy66/m1WDH0upbDvbCn/aRKfjY=;
+Received: by smtp32.i.mail.ru with esmtpa (envelope-from <jusual@mail.ru>)
+        id 1hYB0k-00074j-JT; Tue, 04 Jun 2019 18:06:02 +0300
+From:   Julia Suvorova <jusual@mail.ru>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, Julia Suvorova <jusual@mail.ru>
+Subject: [PATCH] io_submit.2: Add IOCB_CMD_POLL opcode
+Date:   Tue,  4 Jun 2019 18:05:53 +0300
+Message-Id: <20190604150553.2168-1-jusual@mail.ru>
+X-Mailer: git-send-email 2.17.1
+X-77F55803: 260C666A7D66B36A5A78504BD2AC2941F05A5EBCEA5E0924F30759AA9F2EE32BFFE9ABB4AA128D465F20CA317A5B5A61
+X-7FA49CB5: 0D63561A33F958A500990ADF50AF43090EBA71A477C94DAD5A186360440829428941B15DA834481FA18204E546F3947C5B63D382EEF4D896F6B57BC7E64490618DEB871D839B7333395957E7521B51C2545D4CF71C94A83E9FA2833FD35BB23D27C277FBC8AE2E8BF80095D1E77F4578A471835C12D1D977C4224003CC8364767815B9869FA544D8D32BA5DBAC0009BE9E8FC8737B5C22495BA7186B78FCB8103AA81AA40904B5D9CF19DD082D7633A093541453170D46FCD81D268191BDAD3D78DA827A17800CE780D1DAFF5768A5C8CD04E86FAF290E2DBBC930A3941E20C675ECD9A6C639B01B78DA827A17800CE7DE3343AE2A0F3A321E8AC0F48F1361E275ECD9A6C639B01B4E70A05D1297E1BBC6867C52282FAC85084A3168D6E26DF927F269C8F02392CD5571747095F342E88FB05168BE4CE3AF
+X-Mailru-Sender: CC07D204AB7BD32F7BE5F687B6EC8C94312BA64389F6F90E2B74D160C75C41AA6DFFAB98D7634357342D7E53901C55FD6F53C80213D1719C4487B406A59785443329DBF425CF03A167EA787935ED9F1B
+X-Mras: OK
+X-77F55803: E8DB3678F13EF3E07F9F52485CB584D7271FD7DF62800FDCB1E1E7003F681F8BECE30D3FB16482A1D272DE0AA21398EFABF9C8A69048E6F4
+X-7FA49CB5: 0D63561A33F958A5D6043A140AE4CEE6D6BD84E1816A63AA825A2828630B69798941B15DA834481FA18204E546F3947CBC0ADEB1C81BB362F6B57BC7E64490618DEB871D839B7333395957E7521B51C2545D4CF71C94A83E9FA2833FD35BB23D27C277FBC8AE2E8B587F3D2152687E5CA471835C12D1D977C4224003CC836476C0CAF46E325F83A50BF2EBBBDD9D6B0F2EF91E2201DEA5EC574AF45C6390F7469DAA53EE0834AAEE
+X-Mailru-Sender: A5480F10D64C9005ECC5D0D0AB7E92B5678F031F69B96385ECE30D3FB16482A16F956CAC0F52A8E57C4160E8B47E48163DDE9B364B0DF2898CB68AF7A628805D594FB4C9F0DBF412AE208404248635DF
+X-Mras: OK
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Mark Wielaard:
+A new feature of one-shoot polling through io_submit was introduced in
+bfe4037e722ec commit. Keep things up-to-date due to changes in
+linux/aio_abi.h.
 
-> To get the pkey_alloc, pkey_free and pkey_mprotect functions
-> _GNU_SOURCE needs to be defined before including sys/mman.h.
+Signed-off-by: Julia Suvorova <jusual@mail.ru>
+---
+ man2/io_submit.2 | 1 +
+ 1 file changed, 1 insertion(+)
 
-Change looks good to me.  Thanks.
+diff --git a/man2/io_submit.2 b/man2/io_submit.2
+index ed98da46c..58306d549 100644
+--- a/man2/io_submit.2
++++ b/man2/io_submit.2
+@@ -144,6 +144,7 @@ enum {
+     IOCB_CMD_PWRITE = 1,
+     IOCB_CMD_FSYNC = 2,
+     IOCB_CMD_FDSYNC = 3,
++    IOCB_CMD_POLL = 5,
+     IOCB_CMD_NOOP = 6,
+     IOCB_CMD_PREADV = 7,
+     IOCB_CMD_PWRITEV = 8,
+-- 
+2.17.1
 
-Florian
