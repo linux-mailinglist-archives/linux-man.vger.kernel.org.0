@@ -2,34 +2,33 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id C671B3605F
-	for <lists+linux-man@lfdr.de>; Wed,  5 Jun 2019 17:35:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 59B263620C
+	for <lists+linux-man@lfdr.de>; Wed,  5 Jun 2019 19:03:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728510AbfFEPfo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 5 Jun 2019 11:35:44 -0400
-Received: from hosted-by.blazingfast.io ([5.206.225.98]:56379 "EHLO
+        id S1728570AbfFERDo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 5 Jun 2019 13:03:44 -0400
+Received: from hosted-by.blazingfast.io ([5.206.225.98]:59868 "EHLO
         WIN-CI6T0SVTGOL" rhost-flags-OK-FAIL-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1726581AbfFEPfn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 5 Jun 2019 11:35:43 -0400
-X-Greylist: delayed 965 seconds by postgrey-1.27 at vger.kernel.org; Wed, 05 Jun 2019 11:35:41 EDT
+        with ESMTP id S1728762AbfFERDo (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 5 Jun 2019 13:03:44 -0400
 Received: from WIN-CI6T0SVTGOL.blazingfast.io ([127.0.0.1]) by WIN-CI6T0SVTGOL with Microsoft SMTPSVC(10.0.17763.1);
-         Wed, 5 Jun 2019 08:18:37 -0700
-Content-Type: multipart/mixed; boundary="===============1249596419=="
+         Wed, 5 Jun 2019 10:03:26 -0700
+Content-Type: multipart/mixed; boundary="===============0814393651=="
 MIME-Version: 1.0
 Subject: DHL-Shipping#000967
 To:     Recipients <brandon@pureaire.net>
 From:   "DHL International(noreplyservice@dhl.com)" <brandon@pureaire.net>
-Date:   Wed, 05 Jun 2019 08:18:37 -0700
+Date:   Wed, 05 Jun 2019 10:03:26 -0700
 Reply-To: brandon@pureaire.net
-Message-ID: <WIN-CI6T0SVTGOLuX5e00001e6e@WIN-CI6T0SVTGOL>
-X-OriginalArrivalTime: 05 Jun 2019 15:18:37.0299 (UTC) FILETIME=[F2BDE430:01D51BB1]
+Message-ID: <WIN-CI6T0SVTGOL2ire00002e51@WIN-CI6T0SVTGOL>
+X-OriginalArrivalTime: 05 Jun 2019 17:03:26.0159 (UTC) FILETIME=[9731C5F0:01D51BC0]
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 You will not see this in a MIME-aware mail reader.
---===============1249596419==
+--===============0814393651==
 Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
@@ -54,7 +53,7 @@ You can download the file and open it using a Internet Explorer or Mozilla
 
 
 File is clean and contains no virus.
---===============1249596419==
+--===============0814393651==
 Content-Type: application/zip
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -462,4 +461,4 @@ NrbZ/UsSQv8FJYRFKFPCGwmhiEfuhB7Ez+nxUwnZ/viUhV2Gg972k+N/Hht71MF5K3tU4a+29sOm
 8ra2NgM3ZRpvQojWuFm2nIczLNPo6J1lV22WwnbEqHckbfsTO4p//H9QSwECFAAUAAAACABXLcVO
 gFgGNM1YAAD+MgEAFQAAAAAAAAABACAAAAAAAAAAc2hpcHBpbmdEb2MjMDU4NDUuZG9jUEsFBgAA
 AAABAAEAQwAAAABZAAAAAA==
---===============1249596419==--
+--===============0814393651==--
