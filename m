@@ -2,79 +2,92 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 94AA238262
-	for <lists+linux-man@lfdr.de>; Fri,  7 Jun 2019 03:23:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C4262384CE
+	for <lists+linux-man@lfdr.de>; Fri,  7 Jun 2019 09:16:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727184AbfFGBXn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 6 Jun 2019 21:23:43 -0400
-Received: from relayv1.gba.gov.ar ([170.155.5.230]:37963 "EHLO
-        relayv5.gba.gov.ar" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1725784AbfFGBXn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 6 Jun 2019 21:23:43 -0400
-X-Greylist: delayed 396 seconds by postgrey-1.27 at vger.kernel.org; Thu, 06 Jun 2019 21:23:42 EDT
-Received: from zimbra.ada.gba.gov.ar (unknown [10.21.51.1])
-        by relayv5.gba.gov.ar (Postfix) with ESMTPS id BFF76D80DB;
-        Thu,  6 Jun 2019 22:09:58 -0300 (ART)
-Received: from localhost (zimbra.ada.gba.gov.ar [127.0.0.1])
-        by zimbra.ada.gba.gov.ar (Postfix) with ESMTP id 19240119E790;
-        Thu,  6 Jun 2019 21:54:50 -0300 (-03)
-Received: from zimbra.ada.gba.gov.ar ([127.0.0.1])
-        by localhost (zimbra.ada.gba.gov.ar [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id dBGy00OUC3xe; Thu,  6 Jun 2019 21:54:46 -0300 (-03)
-Received: from localhost (zimbra.ada.gba.gov.ar [127.0.0.1])
-        by zimbra.ada.gba.gov.ar (Postfix) with ESMTP id D833F119E791;
-        Thu,  6 Jun 2019 21:54:41 -0300 (-03)
-X-Virus-Scanned: amavisd-new at zimbra.ada.gba.gov.ar
-Received: from zimbra.ada.gba.gov.ar ([127.0.0.1])
-        by localhost (zimbra.ada.gba.gov.ar [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id ceJV4o5Ow8WR; Thu,  6 Jun 2019 21:54:41 -0300 (-03)
-Received: from zimbra.ada.gba.gov.ar (zimbra.ada.gba.gov.ar [127.0.0.1])
-        by zimbra.ada.gba.gov.ar (Postfix) with ESMTP id 348EA119E774;
-        Thu,  6 Jun 2019 21:54:36 -0300 (-03)
-Date:   Thu, 6 Jun 2019 21:54:36 -0300 (ART)
-From:   fernandezf@ada.gba.gov.ar
-Reply-To: Canadian Federal Skilled Worker Program <skllled.cic@gmx.ca>
-Message-ID: <1436089934.238725352.1559868876167.JavaMail.zimbra@ada.gba.gov.ar>
-Subject: CANADIAN FEDERAL SKILLED WORKER PROGRAM
+        id S1727371AbfFGHQR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 7 Jun 2019 03:16:17 -0400
+Received: from smtp1.iitb.ac.in ([103.21.127.13]:48870 "EHLO smtp1.iitb.ac.in"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726711AbfFGHQR (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 7 Jun 2019 03:16:17 -0400
+X-Greylist: delayed 2257 seconds by postgrey-1.27 at vger.kernel.org; Fri, 07 Jun 2019 03:16:16 EDT
+Received: from ldns2.iitb.ac.in (ldns2.iitb.ac.in [10.200.12.2])
+        by smtp1.iitb.ac.in (Postfix) with SMTP id 61D89105CCCE
+        for <linux-man@vger.kernel.org>; Fri,  7 Jun 2019 12:02:11 +0530 (IST)
+Received: (qmail 32253 invoked by uid 510); 7 Jun 2019 12:02:06 +0530
+X-Qmail-Scanner-Diagnostics: from 10.200.1.25 by ldns2 (envelope-from <rws@aero.iitb.ac.in>, uid 501) with qmail-scanner-2.11
+ spamassassin: 3.4.1. mhr: 1.0. {clamdscan: 0.100.0/25472} 
+ Clear:RC:1(10.200.1.25):SA:0(1.5/7.0):. Processed in 3.223095 secs; 07 Jun 2019 12:02:06 +0530
+X-Spam-Checker-Version: SpamAssassin 3.4.1 (2015-04-28) on ldns2.iitb.ac.in
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=7.0 tests=BAYES_50,IITB_ORIG,
+        MISSING_HEADERS,PROPER_IITB_MSGID autolearn=disabled version=3.4.1
+X-Spam-Pyzor: Reported 1 times.
+X-Envelope-From: rws@aero.iitb.ac.in
+X-Qmail-Scanner-Mime-Attachments: |
+X-Qmail-Scanner-Zip-Files: |
+Received: from unknown (HELO ldns2.iitb.ac.in) (10.200.1.25)
+  by ldns2.iitb.ac.in with SMTP; 7 Jun 2019 12:02:03 +0530
+Received: from vayu.aero.iitb.ac.in (vayu.aero.iitb.ac.in [10.101.1.1])
+        by ldns2.iitb.ac.in (Postfix) with ESMTP id E507834194A;
+        Fri,  7 Jun 2019 12:01:54 +0530 (IST)
+Received: from localhost (localhost [127.0.0.1])
+        by vayu.aero.iitb.ac.in (Postfix) with ESMTP id C66148902E548;
+        Fri,  7 Jun 2019 12:01:54 +0530 (IST)
+Received: from vayu.aero.iitb.ac.in ([127.0.0.1])
+        by localhost (vayu.aero.iitb.ac.in [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id Dsp2o8aWBuLF; Fri,  7 Jun 2019 12:01:54 +0530 (IST)
+Received: from localhost (localhost [127.0.0.1])
+        by vayu.aero.iitb.ac.in (Postfix) with ESMTP id CBA298902E540;
+        Fri,  7 Jun 2019 12:01:53 +0530 (IST)
+X-Virus-Scanned: amavisd-new at aero.iitb.ac.in
+Received: from vayu.aero.iitb.ac.in ([127.0.0.1])
+        by localhost (vayu.aero.iitb.ac.in [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id XJzHEtFw4Nf5; Fri,  7 Jun 2019 12:01:53 +0530 (IST)
+Received: from vayu.aero.iitb.ac.in (vayu.aero.iitb.ac.in [10.101.1.1])
+        by vayu.aero.iitb.ac.in (Postfix) with ESMTP id 752AD8902E537;
+        Fri,  7 Jun 2019 12:01:49 +0530 (IST)
+Date:   Fri, 7 Jun 2019 12:01:49 +0530 (IST)
+From:   Martins Henry <rws@aero.iitb.ac.in>
+Message-ID: <630023291.60470.1559889109394.JavaMail.zimbra@aero.iitb.ac.in>
+Subject: Thanks and I wait for your answer
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [154.125.136.171, 170.155.5.210]
-X-Mailer: Zimbra 8.7.11_GA_1854 (ZimbraWebClient - FF67 (Win)/8.7.11_GA_1854)
-Thread-Index: 5EQ5QRmR0NkHVBdyPUiUWHZByUwPQw==
-Thread-Topic: CANADIAN FEDERAL SKILLED WORKER PROGRAM
+X-Originating-IP: [10.101.1.5]
+X-Mailer: Zimbra 8.8.12_GA_3803 (ZimbraWebClient - FF11 (Win)/8.8.12_GA_3794)
+Thread-Index: Z4di5DXkV78PrTTCqXhStc9XBmMYjg==
+Thread-Topic: Thanks and I wait for your answer
 To:     unlisted-recipients:; (no To-header on input)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hello,
 
+I am Martin Henry, An American Citizen; I am the personal secretary to
+Mr. Donald Railton, the controller of a Lottery Company. Please I am
+having big problem now, I have a 6yrs old daughter who has leukemia, a
+disease of the blood, and she needs a bone marrow transplant or she
+will die.
 
-For More Information, Please Contact The Program Coordinator Directly Via E-mail:  skllled.cic@gmx.ca 
+Please I am only asking for your help and you will benefit from it
+also. As an insider with Lottery Firm, working as the personal
+secretary to the controller, I want you to send me your name to play,
+I have some numbers that are going to win, stored in his secret data
+system in the office. The Lottery is an online entry with credit card
+anywhere with a name and address. All I want you to do is to send your
+name to play it and I will send confirmation to you.
 
-Canadian Federal Skilled Worker Program 
-55 Bay St. North - Ground Floor (Market St. entrance)
-Hamilton, ON
-L8R 3P7
+I will play with my card on your name and the Prize will be shared
+equally between us. Immediately the results are released they will
+contact you for payment as the oversea winner. The lotto can be played
+with 9.00 dollars, or 50 dollars but the prize will be Millions.
+Remember that I am playing on your name with my card; I just want to
+front you for this, because I need this money to save the life of my
+little daughter.
 
-Dear Nominee,
-
-We wish to congratulate you for being selected in 2019 Canadian Federal Skilled Worker Program (FSWP). You are among the list of persons selected for the 2019 Federal Skilled Worker Program to Canada with benefits from the Canadian Government, you and your family will be granted permanent resident status with benefits if you meet the basic requirements.
-
-Your nomination code is (FSW00689275115/18) 
-
-Every year a certain number of people are selected via e-mail through our electronic ballot system for resettlement by Canadian Government as part of support to some Countries.
-
-Confirm receipt of this notification by responding immediately to enable us send you all relevant requirements needed to process your nomination.
-
-Sincerely 
-
-Leona Aglukkaq
-Program Coordinator
-Canadian Federal Skilled Worker Program (FSWP) 
-E-mail: skllled.cic@gmx.ca
-
-
---------------------------------------------------------------------------------------------------------------------------------------------------------
-This message (including any attachments) may contain confidential, proprietary, privileged and/or private information. It is the property of The Canadian Government and Sender. The information is intended to be for the use of the individual or entity designated above. If you are not the intended recipient of this message, please notify the sender immediately, and delete the message and any attachments. Any disclosure, reproduction, distribution or other use of this message is prohibited.
+Thanks and I wait for your answer
+Martin Henry.
