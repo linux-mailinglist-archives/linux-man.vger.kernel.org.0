@@ -2,64 +2,79 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 7BCFA3771A
-	for <lists+linux-man@lfdr.de>; Thu,  6 Jun 2019 16:48:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 94AA238262
+	for <lists+linux-man@lfdr.de>; Fri,  7 Jun 2019 03:23:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728667AbfFFOsZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 6 Jun 2019 10:48:25 -0400
-Received: from mail-ot1-f65.google.com ([209.85.210.65]:42886 "EHLO
-        mail-ot1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728011AbfFFOsZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 6 Jun 2019 10:48:25 -0400
-Received: by mail-ot1-f65.google.com with SMTP id l15so2184767otn.9
-        for <linux-man@vger.kernel.org>; Thu, 06 Jun 2019 07:48:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=JGzlnXHrIFEyimhC5I8+tEDc8/4Re61VTl00Rq+fyh0=;
-        b=pXTlVh9n7B6zxpquGPbLq80eqDL8ZJKhh49FebZ6EyY3I530bp+5P+Z/eSecjO2nm1
-         DoR5W9FpVRqqINEizfeEB0NEBzfqhTUHoFktYsPs8VFtSA58bZLZi3QrSpCmGzKKOwJ2
-         zxnxmbBvID92UO/kcXL0mEv0ZJjAaOtsNv23xuZxacQC0zXcLkD6tgGHJTW+6RvW2sOU
-         +UTF40YjZC74gTRfo8W/zkz4S4GvG2KJJnopPUxRN/2xfDbUOqTKewc9TaXLNO7Ox0KI
-         iud0DfHPoIRa3ZCn4vlJzjzn6zk0qqYsAaCmbXf5+2fn1CbUw5TEMzIXXkTTTfHRPQSJ
-         xNHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to:content-transfer-encoding;
-        bh=JGzlnXHrIFEyimhC5I8+tEDc8/4Re61VTl00Rq+fyh0=;
-        b=YB4IYKJoDBNfQrMdR2mQI/POuInOukyG1uu73jgb3CzW9mqfAUT4LF9d/FC5zRc6rb
-         rW04Xoc45a+w/VeN4QnL9xQGY4epfXA4b+JQpchkRSEqyxQzIzcN87KSnC/wMkGG14m2
-         zbXdEE1bgfPPbIta8jQmWZdF6vJEr8KfCYnc4ckTTK/Qly3lQrjyPEdlbml8fK6mQVq9
-         WiAVig8jL2MeXXtD43I/yMPHab6px/JmKtRtA4T328qiPSZ3/b54Ow+SHxxLiX+J8HCF
-         7VqQrfOY5x/WD5F+XXUTcSpo2G88qe2yZrBqPMeoFdQmTWPDQerBreJplXj9ZDd854Ok
-         H40w==
-X-Gm-Message-State: APjAAAV1bUV8w3Mfh1/ZbSf1ll3ArmtYHNnIfilcVazN2zFBACt4LiKW
-        CMxsn021errMGvLBNlIqNmAYAx5EPhPRDGYMDSY=
-X-Google-Smtp-Source: APXvYqwaLZRhAK3RWwwwVkxJn5T05HfAO/9GiSUvRLr1XGSGlxA6cb7Z5M7BaJ9Db4sMN2ePijDVxctXzjpHTYiQxcM=
-X-Received: by 2002:a9d:d4e:: with SMTP id 72mr15712411oti.259.1559832504713;
- Thu, 06 Jun 2019 07:48:24 -0700 (PDT)
+        id S1727184AbfFGBXn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 6 Jun 2019 21:23:43 -0400
+Received: from relayv1.gba.gov.ar ([170.155.5.230]:37963 "EHLO
+        relayv5.gba.gov.ar" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1725784AbfFGBXn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 6 Jun 2019 21:23:43 -0400
+X-Greylist: delayed 396 seconds by postgrey-1.27 at vger.kernel.org; Thu, 06 Jun 2019 21:23:42 EDT
+Received: from zimbra.ada.gba.gov.ar (unknown [10.21.51.1])
+        by relayv5.gba.gov.ar (Postfix) with ESMTPS id BFF76D80DB;
+        Thu,  6 Jun 2019 22:09:58 -0300 (ART)
+Received: from localhost (zimbra.ada.gba.gov.ar [127.0.0.1])
+        by zimbra.ada.gba.gov.ar (Postfix) with ESMTP id 19240119E790;
+        Thu,  6 Jun 2019 21:54:50 -0300 (-03)
+Received: from zimbra.ada.gba.gov.ar ([127.0.0.1])
+        by localhost (zimbra.ada.gba.gov.ar [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id dBGy00OUC3xe; Thu,  6 Jun 2019 21:54:46 -0300 (-03)
+Received: from localhost (zimbra.ada.gba.gov.ar [127.0.0.1])
+        by zimbra.ada.gba.gov.ar (Postfix) with ESMTP id D833F119E791;
+        Thu,  6 Jun 2019 21:54:41 -0300 (-03)
+X-Virus-Scanned: amavisd-new at zimbra.ada.gba.gov.ar
+Received: from zimbra.ada.gba.gov.ar ([127.0.0.1])
+        by localhost (zimbra.ada.gba.gov.ar [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id ceJV4o5Ow8WR; Thu,  6 Jun 2019 21:54:41 -0300 (-03)
+Received: from zimbra.ada.gba.gov.ar (zimbra.ada.gba.gov.ar [127.0.0.1])
+        by zimbra.ada.gba.gov.ar (Postfix) with ESMTP id 348EA119E774;
+        Thu,  6 Jun 2019 21:54:36 -0300 (-03)
+Date:   Thu, 6 Jun 2019 21:54:36 -0300 (ART)
+From:   fernandezf@ada.gba.gov.ar
+Reply-To: Canadian Federal Skilled Worker Program <skllled.cic@gmx.ca>
+Message-ID: <1436089934.238725352.1559868876167.JavaMail.zimbra@ada.gba.gov.ar>
+Subject: CANADIAN FEDERAL SKILLED WORKER PROGRAM
 MIME-Version: 1.0
-Received: by 2002:a9d:7a2:0:0:0:0:0 with HTTP; Thu, 6 Jun 2019 07:48:24 -0700 (PDT)
-Reply-To: verojargeaix2@gmail.com
-From:   =?UTF-8?Q?V=C3=A9ronique_JARGEAIX?= <patluge1@gmail.com>
-Date:   Thu, 6 Jun 2019 14:48:24 +0000
-Message-ID: <CAM+9pV5LnqehFi6mugbrxSgycC1M2EFcDgLT-9avxEHRW78A6Q@mail.gmail.com>
-Subject: Bonjour
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [154.125.136.171, 170.155.5.210]
+X-Mailer: Zimbra 8.7.11_GA_1854 (ZimbraWebClient - FF67 (Win)/8.7.11_GA_1854)
+Thread-Index: 5EQ5QRmR0NkHVBdyPUiUWHZByUwPQw==
+Thread-Topic: CANADIAN FEDERAL SKILLED WORKER PROGRAM
+To:     unlisted-recipients:; (no To-header on input)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Bonjour,
 
-J'aimerais faire votre connaissance pour une amiti=C3=A9 sinc=C3=A8re. si v=
-ous
-=C3=AAtes int=C3=A9ress=C3=A9, pri=C3=A8re de me r=C3=A9pondre: verojargeai=
-x2@gmail.com
 
-Mlle V=C3=A9ronique
+For More Information, Please Contact The Program Coordinator Directly Via E-mail:  skllled.cic@gmx.ca 
+
+Canadian Federal Skilled Worker Program 
+55 Bay St. North - Ground Floor (Market St. entrance)
+Hamilton, ON
+L8R 3P7
+
+Dear Nominee,
+
+We wish to congratulate you for being selected in 2019 Canadian Federal Skilled Worker Program (FSWP). You are among the list of persons selected for the 2019 Federal Skilled Worker Program to Canada with benefits from the Canadian Government, you and your family will be granted permanent resident status with benefits if you meet the basic requirements.
+
+Your nomination code is (FSW00689275115/18) 
+
+Every year a certain number of people are selected via e-mail through our electronic ballot system for resettlement by Canadian Government as part of support to some Countries.
+
+Confirm receipt of this notification by responding immediately to enable us send you all relevant requirements needed to process your nomination.
+
+Sincerely 
+
+Leona Aglukkaq
+Program Coordinator
+Canadian Federal Skilled Worker Program (FSWP) 
+E-mail: skllled.cic@gmx.ca
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+This message (including any attachments) may contain confidential, proprietary, privileged and/or private information. It is the property of The Canadian Government and Sender. The information is intended to be for the use of the individual or entity designated above. If you are not the intended recipient of this message, please notify the sender immediately, and delete the message and any attachments. Any disclosure, reproduction, distribution or other use of this message is prohibited.
