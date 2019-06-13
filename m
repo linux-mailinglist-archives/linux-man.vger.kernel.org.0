@@ -2,54 +2,49 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id EDB5843EE3
-	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2019 17:53:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7235643B76
+	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2019 17:29:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726319AbfFMPxk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 13 Jun 2019 11:53:40 -0400
-Received: from sym2.noone.org ([178.63.92.236]:34400 "EHLO sym2.noone.org"
+        id S1731019AbfFMP3D (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 13 Jun 2019 11:29:03 -0400
+Received: from sym2.noone.org ([178.63.92.236]:59382 "EHLO sym2.noone.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1731603AbfFMJAI (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 13 Jun 2019 05:00:08 -0400
+        id S1728881AbfFMLZ2 (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Thu, 13 Jun 2019 07:25:28 -0400
 Received: by sym2.noone.org (Postfix, from userid 1002)
-        id 45Pd3p28dxzvjc1; Thu, 13 Jun 2019 11:00:06 +0200 (CEST)
-Date:   Thu, 13 Jun 2019 11:00:05 +0200
+        id 45PhHW00p9zvjc1; Thu, 13 Jun 2019 13:25:26 +0200 (CEST)
 From:   Tobias Klauser <tklauser@distanz.ch>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, palmer@sifive.com
-Subject: Re: [PATCH] vdso.7: document vDSO for RISCV
-Message-ID: <20190613090005.rzqanrmtkfzdattq@distanz.ch>
-References: <20190611133356.4937-1-tklauser@distanz.ch>
- <347fd81f-d811-4512-e0cc-2884b15ff20f@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <347fd81f-d811-4512-e0cc-2884b15ff20f@gmail.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
+To:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: [PATCH] vdso.7: Mention removal of Blackfin port
+Date:   Thu, 13 Jun 2019 13:25:26 +0200
+Message-Id: <20190613112526.10285-1-tklauser@distanz.ch>
+X-Mailer: git-send-email 2.11.0
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael
+The Blackfin port was removed in Linux 4.17. Mention this in the section
+concerning Blackfin vDSO functions.
 
-On 2019-06-12 at 23:25:09 +0200, Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
-> On 6/11/19 3:33 PM, Tobias Klauser wrote:
-> > Document the symbols exported by the RISCV vDSO which is present
-> > from kernel 4.15 onwards.
-> 
-> Thanks! Patch applied.
-> 
-> > See https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/log/arch/riscv/vdso
-> 
-> The above URL was missing a piece, but I've amended it.
+Signed-off-by: Tobias Klauser <tklauser@distanz.ch>
+---
+ man7/vdso.7 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thank you for fixing it up
+diff --git a/man7/vdso.7 b/man7/vdso.7
+index 8ac6c12d2c2f..182acba00ea8 100644
+--- a/man7/vdso.7
++++ b/man7/vdso.7
+@@ -235,7 +235,7 @@ __kernel_clock_getres	LINUX_2.6.39
+ .in
+ .ft P
+ \}
+-.SS bfin (Blackfin) functions
++.SS bfin (Blackfin) functions (port removed in Linux 4.17)
+ .\" See linux/arch/blackfin/kernel/fixed_code.S
+ .\" See http://docs.blackfin.uclinux.org/doku.php?id=linux-kernel:fixed-code
+ As this CPU lacks a memory management unit (MMU),
+-- 
+2.20.0
 
-> > Signed-off-by: Tobias Klauser <tklauser@distanz.ch>
-> 
-> Salutations de Bienne / Grüezi aus Biel.
-
-Grüsse aus Zürich :)
-Tobias
