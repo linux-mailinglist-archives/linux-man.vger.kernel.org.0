@@ -2,100 +2,140 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 9993044C26
-	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2019 21:33:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DC4A144C4D
+	for <lists+linux-man@lfdr.de>; Thu, 13 Jun 2019 21:39:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726945AbfFMTdL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 13 Jun 2019 15:33:11 -0400
-Received: from mail-ed1-f65.google.com ([209.85.208.65]:34136 "EHLO
-        mail-ed1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726370AbfFMTdL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 13 Jun 2019 15:33:11 -0400
-Received: by mail-ed1-f65.google.com with SMTP id s49so3037705edb.1
-        for <linux-man@vger.kernel.org>; Thu, 13 Jun 2019 12:33:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Wedg14k/Opn2lWy1fmXsA6Q1gH4aDgUbMgsn8q3dd5I=;
-        b=WpbUhBWD1lRtdkRl6OszsIztcBO/g/gA5iIPaY8p09gQMFJZc4yWOtyKn+wQZwIWe/
-         hCyNLoHv6nJVfY6XVymLq4SHbdAC9cBZUeIdXvFMJktSDMuNMt/9MCa39bZCor7N/iMd
-         Y10x7yEP1Y17T9Ef6X+dMFfAf3q7J5hb76yqqB2LqtFjcVYjaAy+tLq83Cst0xjUV+z1
-         FaR5YamWnvEXdM9UkA0Kl7SVS71J895iU3Y07rkhmiJJk2rSLYjr29cefjH2nbAkMgx3
-         xY3PJJ1A8FuYANqVdgqApf5AfksdvGSfMbqQ6cxOnUWh/gXY4JN4qRPQKq5d5LkUOrLA
-         QmOg==
+        id S1727427AbfFMTjt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 13 Jun 2019 15:39:49 -0400
+Received: from mail-io1-f68.google.com ([209.85.166.68]:46911 "EHLO
+        mail-io1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725809AbfFMTjt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 13 Jun 2019 15:39:49 -0400
+Received: by mail-io1-f68.google.com with SMTP id i10so407702iol.13
+        for <linux-man@vger.kernel.org>; Thu, 13 Jun 2019 12:39:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=Wedg14k/Opn2lWy1fmXsA6Q1gH4aDgUbMgsn8q3dd5I=;
-        b=LgSWJOYO2CmtTQ28XBUPcPuaSGIj+Kmww4pqisJlS6h49AIk+JQU0U3GSsTYJAtHLW
-         yooWZWYMPO8zbU/ne7AwNYz5YVB9FQwEbSFdnBDojklDdCNVMorbfNBpBhL94H7z3MFS
-         sAQ/482X3wp5/rCPXaaxQ2AHxjduYE9GgeIqXQ5LP/cMYKMUdVmG2HF28L7u8zXkXN7Y
-         lX9oQz+uDHQVH3QsoOAlmOGXwal5vzuU7vtgPT1UNpyVWfkjdMM8H67IJewszHS3Bj1Y
-         xEhjy9ulaoKX0P2q/QYtEJ1GIJKR9iFWKDyMTx3Dtey4jbBL3Nb/PCx+6lyLMzmRP4Y1
-         0GMw==
-X-Gm-Message-State: APjAAAVnRLh5C9jxn0DhCmD/+Ky6cL9Q9UdEfsMm/Ri3Kb9Hz4lmihwa
-        qfArr56sbDWZ8BWP3lXoGb4=
-X-Google-Smtp-Source: APXvYqxR3cj86CpWwyPbPvj4O6Tae2dJf80nsEEzXa6X5xIlluVTaGaJ8xBKa5SfRWLcCHTybA2Kew==
-X-Received: by 2002:a17:906:4d88:: with SMTP id s8mr54980135eju.225.1560454389179;
-        Thu, 13 Jun 2019 12:33:09 -0700 (PDT)
-Received: from [192.168.8.116] ([194.230.158.110])
-        by smtp.gmail.com with ESMTPSA id u15sm181100edi.10.2019.06.13.12.33.08
-        (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
-        Thu, 13 Jun 2019 12:33:08 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com
-Subject: Re: [PATCH] vdso.7: Mention removal of Blackfin port
-To:     Tobias Klauser <tklauser@distanz.ch>, linux-man@vger.kernel.org
-References: <20190613112526.10285-1-tklauser@distanz.ch>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <65e3e387-7709-e79e-2bcd-5f161d09d091@gmail.com>
-Date:   Thu, 13 Jun 2019 21:33:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=x89+4lDj+kTw8WLjeL1PlQvPvhvox2MqDv/wqT0EqUM=;
+        b=C8N5uVGZ+Zi/Gs73MTvfDPku1zqTiz24ffsoBK7j6XZ8V+CWiq8EXpJan5R1Hvkdeg
+         SLDGnpH3tNsVDOh7So5k5766W1I/xQklJnrv5vdrwG3tt4yOL1952vxhVr4d1KqnHe95
+         J4CjDWTUI5vzbyr/W8JJbtp8vAHWVeBcj3GM9obU9zYlBM/1bf1xJpxiouxfCsK8upfC
+         TnQ3uZTLbtso8prmB8w679n7BSGA08KndWlAJNQxM7TARyoSCU1FS4YIfjLq1bpYxoC8
+         WdUGb4847T7js52+d0js9Y3gAq0Ze5yqe7tjBJRfS1toryWQwiHDzuPjyvdT8HPXCpoe
+         dWow==
+X-Gm-Message-State: APjAAAUF9eSFHC7ZqIGLqTGG+MIkCIiwhjmLHuDSR4rgqya0pIJaXPKl
+        vz/ekZjAclCNgjkjKJHXwCU03LoTBFWx+372tls=
+X-Google-Smtp-Source: APXvYqxeT1ijjgXD5feTMRqMG7O2HA5i6mAncWIVx6IsMovR5nyzt9MfHDCQZhQUSfl9M2uojEy3T2iYCW+POJDOUzE=
+X-Received: by 2002:a6b:5115:: with SMTP id f21mr1813257iob.173.1560454788315;
+ Thu, 13 Jun 2019 12:39:48 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190613112526.10285-1-tklauser@distanz.ch>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20190507211735.31785-1-kerolasa@iki.fi> <CAKgNAkjArBeBeYU4A7OPFi5jx7aVfAbxN7kb7E-vcDpkMsYrnA@mail.gmail.com>
+In-Reply-To: <CAKgNAkjArBeBeYU4A7OPFi5jx7aVfAbxN7kb7E-vcDpkMsYrnA@mail.gmail.com>
+Reply-To: kerolasa@gmail.com
+From:   Sami Kerola <kerolasa@iki.fi>
+Date:   Thu, 13 Jun 2019 20:39:37 +0100
+Message-ID: <CAG27Bk1HN5Ku93ZU9hv0+Te=rt5f5JKOFe5RmRf45=xex5P0NA@mail.gmail.com>
+Subject: Re: [patch] on_exit.3: Add example code
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Tobias,
+On Wed, 12 Jun 2019 at 23:20, Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+> On Tue, 7 May 2019 at 23:17, Sami Kerola <kerolasa@iki.fi> wrote:
+> >
+> > Example tries to clarify one should not refer to variables that are not in
+> > on_exit() scope.  Such variables include heap in main().  In short only
+>
+> I must confess I never thought about this one at length. Why are heap
+> variable not in scope for fcuntions registered with
+> on_exit()/atexit()?
 
+Hello Michael,
 
-On 6/13/19 1:25 PM, Tobias Klauser wrote:
-> The Blackfin port was removed in Linux 4.17. Mention this in the section
-> concerning Blackfin vDSO functions.
-> 
-> Signed-off-by: Tobias Klauser <tklauser@distanz.ch>
-> ---
->   man7/vdso.7 | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man7/vdso.7 b/man7/vdso.7
-> index 8ac6c12d2c2f..182acba00ea8 100644
-> --- a/man7/vdso.7
-> +++ b/man7/vdso.7
-> @@ -235,7 +235,7 @@ __kernel_clock_getres	LINUX_2.6.39
->   .in
->   .ft P
->   \}
-> -.SS bfin (Blackfin) functions
-> +.SS bfin (Blackfin) functions (port removed in Linux 4.17)
+To be honest I do not know why heap variables do not work.  If I must guess
+I would say probably something to do with when during execution main() heap
+is returned back to free memory - that is before on_exit() runs.
 
-Thanks! That's exactly how I'd want to document it.
+Any way the following shell script will print 42 when on_exit() refers
+variable that is allocated.  At least with up to date (2019-06-13) arch
+linux (glibc 2.29-1) compiled either gcc or clang will print 0 when
+executing broken version.  I suppose zero is just co-incident.  More
+probably value does not have any guarantees.
 
-Patch applied.
+Whether on_exit() update should example code showing how to use function
+properly, or a warning in BUGS section is matter of taste.  Either way it
+would be nice if others would not need wonder what is this function doing.
 
-Cheers,
+-- snip
+#!/bin/sh
 
-Michael
+cat > ./broken.c <<EOF
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
->   .\" See linux/arch/blackfin/kernel/fixed_code.S
->   .\" See http://docs.blackfin.uclinux.org/doku.php?id=linux-kernel:fixed-code
->   As this CPU lacks a memory management unit (MMU),
-> 
+static void run_on_exit(int exit_val, void *arg)
+{
+        int *i = (int *)arg;
+
+        printf("%d\n", *i);
+        _exit(exit_val);
+}
+
+int main(int argc, char **argv)
+{
+        int i = 42;
+
+        on_exit(run_on_exit, &i);
+        return 0;
+}
+EOF
+
+cat > ./works.c <<EOF
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+static void run_on_exit(int exit_val, void *arg)
+{
+        int *i = (int *)arg;
+
+        printf("%d\n", *i);
+        free(i);
+        _exit(exit_val);
+}
+
+int main(int argc, char **argv)
+{
+        int *i = malloc(sizeof(int));
+
+        *i = 42;
+        on_exit(run_on_exit, i);
+        return 0;
+}
+EOF
+
+gcc -Wall -pedantic -o broken broken.c
+gcc -Wall -pedantic -o works works.c
+set -x
+./broken
+./works
+-- snip
+
+$ ./snip.sh
++ ./broken
+0
++ ./works
+42
+
+-- 
+Sami Kerola
+http://www.iki.fi/kerolasa/
