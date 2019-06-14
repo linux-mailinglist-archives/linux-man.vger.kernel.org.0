@@ -2,62 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 25275462FD
-	for <lists+linux-man@lfdr.de>; Fri, 14 Jun 2019 17:36:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 61E38462FC
+	for <lists+linux-man@lfdr.de>; Fri, 14 Jun 2019 17:36:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725996AbfFNPgX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 14 Jun 2019 11:36:23 -0400
-Received: from mail-wm1-f65.google.com ([209.85.128.65]:55504 "EHLO
-        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725780AbfFNPgX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 14 Jun 2019 11:36:23 -0400
-Received: by mail-wm1-f65.google.com with SMTP id a15so2810214wmj.5
-        for <linux-man@vger.kernel.org>; Fri, 14 Jun 2019 08:36:22 -0700 (PDT)
+        id S1726319AbfFNPgC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 14 Jun 2019 11:36:02 -0400
+Received: from mail-wr1-f67.google.com ([209.85.221.67]:35241 "EHLO
+        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725780AbfFNPgB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 14 Jun 2019 11:36:01 -0400
+Received: by mail-wr1-f67.google.com with SMTP id m3so3025784wrv.2
+        for <linux-man@vger.kernel.org>; Fri, 14 Jun 2019 08:36:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=njLAmT/E9TRJtErViQRyHPNwZ6UJmuKlfhffe62DJBI=;
-        b=a0GDnB+LMj3x3qOCi4tiA2Z3m5S1Ql9RsMCDIUZ8ysNg0b4jYgMpk8YLvn+TN+RNW7
-         uSYt3MSMruX+a75Qa7tcD9jfLWv3aIQldSuxDXdpyAFEiaR8i0/PcYa7zJe1Z1wjH3Td
-         rrxy/If702T6/DMCCI1xAHG13ymM1VpJV/ESW2OMRru0TIEbz9rSN2yMR2PTGy8DVI5+
-         z/EAydJr92n2q9KwZd7VRZ21FrDd0y7gDCsYe30b4aHIvnazrT9Boysp7czfImfseEy5
-         8/B/nGBMM12qMKdeQQw0Uak3fPvpVp48U7Blcx8IAnTY4BPV1XJdx1d4YLeOr3g6zPRi
-         Y6NQ==
+        bh=k/fbgsfncR29wNRvNjKp9aqkT6/E6DzuVuL2rWRJm94=;
+        b=WX5wiIUZQ3u1fLr9xPjfUmO3shRC4Q3ZdjNlADiAWVbbDB12SB2qOcuEHUTpby/49N
+         IKSoDgHYNWDVKWq4RtOmbOY4radcyu/B52FseHpN/gX2SvqlL9d7B8tqK6sn5YCnry7E
+         Ef9bwnXVtCZAlwejONBKFmh70SZrBDJcIVmrg/6QN7GBil62gQCYZ6uwzoxfzj8P1SLK
+         /pIIH+b6/d0T2+wfRDvI1DwnpoNHwjuGLGVrwHuOJNT4dnsZvXjhYi/CS7rd7kqn+jns
+         oStTCvTofjX1ydgpI9BKB6Lsp8L+Squ5EJ/MFljGPBcS/epEiIst9nOARhsuZdNvlxN0
+         bzLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=njLAmT/E9TRJtErViQRyHPNwZ6UJmuKlfhffe62DJBI=;
-        b=JiT+jdYzkS6umZbSHTdAGi4TvuwvGHCMO5weQgC97VWgLfY/GLEtfr15znOIwPhKli
-         fCRRt9a5E0btS5KpN5/X6TcUxs22qsodtGUkrUyNdNm/V2rXBLZSl2IY7NitHAQa62eS
-         gahe8UZujcrx5v6XwFlzmM/rzCGtyicd0XyUwa/9O/NHbKLd+Vk9p8kcqvyCtmzjEiXO
-         tNBoixysWT3bUU/+O9FoohC6dNf9n4TnIKQ5GN5hBwg7hxe9MEGwHi9Z3lFJJgG9wpcO
-         I0M38LJhyk81UEE4Dg61lZ/A9A5eGT0v1MoZEYY6hasvyBebPsL4KYqBPq+cGwvQbGFR
-         Y65g==
-X-Gm-Message-State: APjAAAUR4cPYA445V2QR5Zb5kV5M/pA+qhq6yAnPXCbXcFlM7tUiFCrh
-        XAWDkMNeA3KqMlGUEhu4GMc=
-X-Google-Smtp-Source: APXvYqxxEaxu6/2gfxgdbW/AL6XBcjUI8oHst5S9bmcwBNMaERtA8J+YxIEqDKuODdpuR8alonQ9dw==
-X-Received: by 2002:a1c:df46:: with SMTP id w67mr8122323wmg.69.1560526581301;
-        Fri, 14 Jun 2019 08:36:21 -0700 (PDT)
+        bh=k/fbgsfncR29wNRvNjKp9aqkT6/E6DzuVuL2rWRJm94=;
+        b=G5dVLgNuDdMH6xXoSsaf1ZfApQi7TaxxelMsd+4NttRUFxWNKLuQjmYzLgL3fzHk/l
+         bpetisdFJ6j/sucmYTMbRZJGsXC50P4BDGR3G/7953jreOMuNAtS2yJUZ4DKTYOaNYWT
+         nuIL/U8k7CY9MLv1cKtSCQfsWXbWkyt4ctYnYz8gAJAs/fIVO0YvrazIzKEitihLJDbR
+         PY8ypei6XDxSsQM0UY7Uy+ClApcCCM/Z8lNYjZv7tjbWQf2yNer8PyLJ/J2j08kiHMZy
+         yGsnaOorCKdc1O5zS1fw57GYyna+e1239F2kj3r5ck6jAcHGLcVk/kVXtJSS+6O0EwV6
+         kStA==
+X-Gm-Message-State: APjAAAVwzWu2HRvDN4Dx6glS4dOnkqKl2RYd2rFfBQjXHB8aUSCzFLBp
+        si80t6GJ+L6zq4rAgyTOFYxkk1q3CdA=
+X-Google-Smtp-Source: APXvYqxtEArYqpb4UPhvkNtsdAwCChXh4z9K2SrjHdzUm5USPMf9a0YfK1wvkkb7Y/sOx0KwFkFuYw==
+X-Received: by 2002:adf:ef48:: with SMTP id c8mr43692969wrp.352.1560526559574;
+        Fri, 14 Jun 2019 08:35:59 -0700 (PDT)
 Received: from [192.168.43.179] (x527179a7.dyn.telefonica.de. [82.113.121.167])
-        by smtp.gmail.com with ESMTPSA id b8sm3118966wrr.88.2019.06.14.08.36.19
+        by smtp.gmail.com with ESMTPSA id l17sm5492473wrq.37.2019.06.14.08.35.58
         (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
-        Fri, 14 Jun 2019 08:36:20 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Florian Weimer <fweimer@redhat.com>
-Subject: Re: [PATCH] pkey_alloc.2, mprotect.2: _GNU_SOURCE is required for the
- pkey functions.
+        Fri, 14 Jun 2019 08:35:59 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] mprotect.2: pkey_mprotect acts like mprotect if pkey is
+ set to -1, not 0.
 To:     Mark Wielaard <mark@klomp.org>
-References: <1559171155-2044-1-git-send-email-mark@klomp.org>
+References: <1559171319-13742-1-git-send-email-mark@klomp.org>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <6097969b-eaa5-ee5a-ec1b-cf347b953c8c@gmail.com>
-Date:   Fri, 14 Jun 2019 17:35:31 +0200
+Message-ID: <e0aa33c6-813a-86a1-bdfd-405ff018b970@gmail.com>
+Date:   Fri, 14 Jun 2019 17:35:59 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <1559171155-2044-1-git-send-email-mark@klomp.org>
+In-Reply-To: <1559171319-13742-1-git-send-email-mark@klomp.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -66,53 +65,48 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Mark,
+Hello Mark,
 
-On 5/30/19 1:05 AM, Mark Wielaard wrote:
-> To get the pkey_alloc, pkey_free and pkey_mprotect functions
-> _GNU_SOURCE needs to be defined before including sys/mman.h.
+On 5/30/19 1:08 AM, Mark Wielaard wrote:
+> The mprotect.2 NOTES say:
+> 
+>    On systems that do not support protection keys in hardware,
+>    pkey_mprotect() may still be used, but pkey must be set to 0.  When
+>    called this way, the operation of pkey_mprotect() is equivalent to
+>    mprotect().
+> 
+> But this is not what the glibc manual says:
+> 
+>    It is also possible to call pkey_mprotect with a key value of -1,
+>    in which case it will behave in the same way as mprotect.
+> 
+> Which is correct. Both the glibc implementation and the kernel check
+> whether pkey is -1. 0 is not a valid pkey when memory protection keys
+> are not supported in hardware.
+> 
+> Signed-off-by: Mark Wielaard <mark@klomp.org>
 
-Thanks for the patch, Mark.
-
-Florian, thanks for the review.
-
-Patch applied.
+Thanks. Patch applied.
 
 Cheers,
 
 Michael
 
-> Signed-off-by: Mark Wielaard <mark@klomp.org>
 > ---
->   man2/mprotect.2   | 4 ++++
->   man2/pkey_alloc.2 | 1 +
->   2 files changed, 5 insertions(+)
+>   man2/mprotect.2 | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 > diff --git a/man2/mprotect.2 b/man2/mprotect.2
-> index 9bb02eb..4d29f66 100644
+> index 4d29f66..866ac77 100644
 > --- a/man2/mprotect.2
 > +++ b/man2/mprotect.2
-> @@ -38,6 +38,10 @@ mprotect, pkey_mprotect \- set protection on a region of memory
->   .B #include <sys/mman.h>
->   .PP
->   .BI "int mprotect(void *" addr ", size_t " len ", int " prot );
-> +
-> +.BR "#define _GNU_SOURCE" "             /* See feature_test_macros(7) */"
-> +.B #include <sys/mman.h>
-> +.PP
->   .BI "int pkey_mprotect(void *" addr ", size_t " len ", int " prot ", int " pkey ");
->   .fi
->   .SH DESCRIPTION
-> diff --git a/man2/pkey_alloc.2 b/man2/pkey_alloc.2
-> index ce9bd96..d82f316 100644
-> --- a/man2/pkey_alloc.2
-> +++ b/man2/pkey_alloc.2
-> @@ -27,6 +27,7 @@
->   pkey_alloc, pkey_free \- allocate or free a protection key
->   .SH SYNOPSIS
->   .nf
-> +.BR "#define _GNU_SOURCE" "             /* See feature_test_macros(7) */"
->   .B #include <sys/mman.h>
->   .PP
->   .BI "int pkey_alloc(unsigned int " flags ", unsigned int " access_rights ");"
+> @@ -278,7 +278,7 @@ On systems that do not support protection keys in hardware,
+>   .BR pkey_mprotect ()
+>   may still be used, but
+>   .IR pkey
+> -must be set to 0.
+> +must be set to -1.
+>   When called this way, the operation of
+>   .BR pkey_mprotect ()
+>   is equivalent to
 > 
