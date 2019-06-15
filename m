@@ -2,43 +2,55 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id CE9F946E6E
-	for <lists+linux-man@lfdr.de>; Sat, 15 Jun 2019 07:15:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0129946FAE
+	for <lists+linux-man@lfdr.de>; Sat, 15 Jun 2019 12:47:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725820AbfFOFPj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 15 Jun 2019 01:15:39 -0400
-Received: from mail-io1-f66.google.com ([209.85.166.66]:34545 "EHLO
-        mail-io1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725786AbfFOFPi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jun 2019 01:15:38 -0400
-Received: by mail-io1-f66.google.com with SMTP id k8so10437796iot.1
-        for <linux-man@vger.kernel.org>; Fri, 14 Jun 2019 22:15:38 -0700 (PDT)
+        id S1726523AbfFOKrZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 15 Jun 2019 06:47:25 -0400
+Received: from mail-ed1-f67.google.com ([209.85.208.67]:43805 "EHLO
+        mail-ed1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725999AbfFOKrZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jun 2019 06:47:25 -0400
+Received: by mail-ed1-f67.google.com with SMTP id e3so7473705edr.10
+        for <linux-man@vger.kernel.org>; Sat, 15 Jun 2019 03:47:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=G12jopWoj53Q2Q6k/yc8W+AS/L1f1wiNl5bAIqGQI5s=;
+        b=fkzsWxGX3P24aDyabLeOXRFK9ByBwy2vjcW/4AK96OI8zc4mx/LEX/iyyErDxmwWTl
+         V2cRcYqfT1Dx4udRCXxY4bZOsZHJpz2IFNmVnL2ahJheGmQUNMMf7vVpOjhYl1MVvc49
+         xgrITqCq+WWRtSaKPOG43C13K6Saq4xaOEowC1Demv3mAuanscN2D8EIIhNZ9Tc2QXzj
+         VJJYEm2aO0jLvLHsXcmhXqRhBVzxdJA0HuBIPIFOke0iad3XQH4YSrHt7GWG5SZjqbP8
+         MCSELeSy5XOF+fkurE+Gwks6+++GB79Mif8KARAW+c3cfCjaRaXvEUZXQkJfv4Ouf3U5
+         WfmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
          :from:date:message-id:subject:to:cc;
-        bh=p0ZFpdGc/1K1QbJheMDLzOr4TZfl1GEBorb3h5uUCUY=;
-        b=BUa8fHAO/8HV/sG516Jia8UxINdr4Kn6lEIuLko6TpjIYO/jAstLDAtWo3MSj9+V+s
-         D0YMAPc6W82EnOXZG45mZ+Xlo9Oixw5fSqrv7NdS4kMLYOlHBe3nCUFFKWR2Znk7IjiF
-         PAw1TzRrTwWAbEnw/PY32hDMoperIKLOQ27SjvzcddhHLhjK3D1L3dzCgmRBBm6Ypyvn
-         83etZs8eeofJVbxJ71rE+VaPFONUrqhf6AdTeCkdgVVavF4ewwol/MLXJvhNNFG/u+Ym
-         p33M4op8HV8WgPCQBS61dqusBkg4myx1ShzuhfJMSaKQbkOCbaI03xey47SYBmkjP6FX
-         Pj2w==
-X-Gm-Message-State: APjAAAVbWkfqsaC8AcZOO02ZhHcOW4+wFunjNamhMIu0MGVN3jbZhsFA
-        VIFjTG2/FtwE0R373gSG0CmJQmNXHoAYpPKGRxKZOBujziM=
-X-Google-Smtp-Source: APXvYqyT2GfCT/XnTMifabul41vjZ6mwPRTUiq8Srub2PPtqtnv64K3bJC+QGkbUosG2skOGZuYsGLnFXucTxN7fbyw=
-X-Received: by 2002:a5e:820a:: with SMTP id l10mr5265844iom.283.1560575737996;
- Fri, 14 Jun 2019 22:15:37 -0700 (PDT)
+        bh=G12jopWoj53Q2Q6k/yc8W+AS/L1f1wiNl5bAIqGQI5s=;
+        b=nOBPay0vV8KF9zsNcCjf1ltX4+M0SywMNd6SXA9RK6pPTTC0WmhZQHiesP1eD0hP/+
+         alx8ZOTZIh4QckZfXIAh6g/pxZN/PN8cFuY399GRXHrBbavsjSMjp2LgTfIPe/NyHqi2
+         YVZhW0XuJ9Mly/ByBV6J6rpwNQNIIYjAQn+WXalzAbZ0sGpZbkabpXXDiuqYIyyp9Jr6
+         nTd3Nj3RWIyvaHCdA3hYQLkXB3+wsYm20xBGqTbgnrmEmz0zjZrJjVghAd4dcPIplPqB
+         bb9hvX5vGdZ3HqnpPGphk/t4mnImG2FjkzYlyH2ecmZHXStT3SELNPFl/GJf7rC05vzv
+         x42A==
+X-Gm-Message-State: APjAAAWFxNWTQaeqIi6fQWsqAxx+r1Xac38e7vAsB85rCO9dcwB/7YtO
+        3Vb5z9pnspg8/lOmSG+GGSYk3A5rPMG4RGTB9wg=
+X-Google-Smtp-Source: APXvYqwWQJMDTPuC2Pb5xTC5jNZj/V3/UDPRk1xiwRwBN9bNcyxm7z8XIz3Qyxwaw4KMsNNa/zvGIMHP82iBAPbkMgg=
+X-Received: by 2002:a50:9929:: with SMTP id k38mr84506175edb.4.1560595643244;
+ Sat, 15 Jun 2019 03:47:23 -0700 (PDT)
 MIME-Version: 1.0
 References: <20190507211735.31785-1-kerolasa@iki.fi> <CAKgNAkjArBeBeYU4A7OPFi5jx7aVfAbxN7kb7E-vcDpkMsYrnA@mail.gmail.com>
- <CAG27Bk1HN5Ku93ZU9hv0+Te=rt5f5JKOFe5RmRf45=xex5P0NA@mail.gmail.com> <6cabac85-5762-d36f-4c74-71683320ba2b@gmail.com>
-In-Reply-To: <6cabac85-5762-d36f-4c74-71683320ba2b@gmail.com>
-Reply-To: kerolasa@gmail.com
-From:   Sami Kerola <kerolasa@iki.fi>
-Date:   Sat, 15 Jun 2019 06:15:26 +0100
-Message-ID: <CAG27Bk3VCcEAJrzbX97wTEE4D2LAvz=znwWHcAV2n1kR5D76xw@mail.gmail.com>
+ <CAG27Bk1HN5Ku93ZU9hv0+Te=rt5f5JKOFe5RmRf45=xex5P0NA@mail.gmail.com>
+ <6cabac85-5762-d36f-4c74-71683320ba2b@gmail.com> <CAG27Bk3VCcEAJrzbX97wTEE4D2LAvz=znwWHcAV2n1kR5D76xw@mail.gmail.com>
+In-Reply-To: <CAG27Bk3VCcEAJrzbX97wTEE4D2LAvz=znwWHcAV2n1kR5D76xw@mail.gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Sat, 15 Jun 2019 12:47:11 +0200
+Message-ID: <CAKgNAkgo5qmFNxJSVkD2BzBaaG6Yjo9WxRvmYfc-FVQgwGZN4A@mail.gmail.com>
 Subject: Re: [patch] on_exit.3: Add example code
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+To:     Sami Kerola <kerolasa@gmail.com>
 Cc:     linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
@@ -46,53 +58,53 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, 14 Jun 2019 at 15:22, Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
-> I'm quite confused by your terminology and your example.
->
-> Above you've talked about heap variables not being in scope for
-> the exit handler established by on_exit(). And in your initial mail,
-> you said "In short only variables allocated from stack make is
-> sense when calling on_exit()."
->
-> But your code examples above demonstrate exactly the opposite, as
-> far as I can see. 'broken.c' use *a stack variable from main()*
-> as the argument for the exit handler, and that does not work.
-> 'works.c' used a *heap variable* as as the argument for the
-> exit handler, and that *does* work, as your example demonstrates.
->
-> The fact that stack variable from main() are not in scope for
-> on_exit() after a return from main() is pretty much expected,
-> since main() has gone out of scope already.
->
-> However, it's not clear to me that heap variables are out of
-> scope for the exit handler. Your example doesn't demonstrate
-> that. And, offhand, I can see no reason why heap variables
-> would have to be out of scope. And my own experiments (see test
-> program below) seem to indicate that heap variables are in
-> scope. My only doubt is what the standards have to say on the
-> issue, but I did not so far spot any relevant text.
->
-> Your thoughts on the above?
+Hello Sami,
 
-Hi Michael,
+[...]
 
-Oh sorry, I mixed up terminology.  I should have said 'allocated memory' and
-'local variable' in function that calls on_exit() instead of heap and stack.
-Trouble of non-native english and words that at least I associate nothing
-but large quantities and piles os stuff without much distinction.
+> Oh sorry, I mixed up terminology.
 
-Anyway, the code example in my previous email demonstrated how one might
-think local variables could be used (incorrectly).  In hindsight use of
-local variables is wrong, and that is the point.  Allocated memory can be
-passed to on_exit() and nothing else makes sense.  While one could pass
-global variable to on_exit() in that case more portable atexit() is better
-option.
+Okay.
 
-Recommendation in 'confirming to' section to avoid this function in portable
-applications is good.  Whether telling on_exit() is mostly useful as a hook
-to unallocate memory just before exit might be worth while.
+> Allocated memory can be
+> passed to on_exit() and nothing else makes sense.  While one could pass
+> global variable to on_exit() in that case more portable atexit() is better
+> option.
+
+I'm not sure that's correct. Particularly as the same exit handler
+function may be registered with pointers to different global
+variables.
+
+I applied the patch below.
+
+Thanks,
+
+Michael
+
+diff --git a/man3/on_exit.3 b/man3/on_exit.3
+index d2c2c3b17..e78b5c818 100644
+--- a/man3/on_exit.3
++++ b/man3/on_exit.3
+@@ -100,6 +100,16 @@ It no longer occurs in Solaris (SunOS 5).
+ Portable application should avoid this function, and use the standard
+ .BR atexit (3)
+ instead.
++.SH NOTES
++By the time
++.I function
++is executed, stack
++.RI ( auto )
++variables may already have gone out of scope.
++Therefore,
++.I arg
++should not be a pointer to a stack variable;
++it may however be a pointer to a heap variable or a global variable.
+ .SH SEE ALSO
+ .BR _exit (2),
+ .BR atexit (3),
+
 
 -- 
-Sami Kerola
-http://www.iki.fi/kerolasa/
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
