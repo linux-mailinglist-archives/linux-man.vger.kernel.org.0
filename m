@@ -2,111 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 61E38462FC
-	for <lists+linux-man@lfdr.de>; Fri, 14 Jun 2019 17:36:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CE9F946E6E
+	for <lists+linux-man@lfdr.de>; Sat, 15 Jun 2019 07:15:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726319AbfFNPgC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 14 Jun 2019 11:36:02 -0400
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:35241 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725780AbfFNPgB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 14 Jun 2019 11:36:01 -0400
-Received: by mail-wr1-f67.google.com with SMTP id m3so3025784wrv.2
-        for <linux-man@vger.kernel.org>; Fri, 14 Jun 2019 08:36:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=k/fbgsfncR29wNRvNjKp9aqkT6/E6DzuVuL2rWRJm94=;
-        b=WX5wiIUZQ3u1fLr9xPjfUmO3shRC4Q3ZdjNlADiAWVbbDB12SB2qOcuEHUTpby/49N
-         IKSoDgHYNWDVKWq4RtOmbOY4radcyu/B52FseHpN/gX2SvqlL9d7B8tqK6sn5YCnry7E
-         Ef9bwnXVtCZAlwejONBKFmh70SZrBDJcIVmrg/6QN7GBil62gQCYZ6uwzoxfzj8P1SLK
-         /pIIH+b6/d0T2+wfRDvI1DwnpoNHwjuGLGVrwHuOJNT4dnsZvXjhYi/CS7rd7kqn+jns
-         oStTCvTofjX1ydgpI9BKB6Lsp8L+Squ5EJ/MFljGPBcS/epEiIst9nOARhsuZdNvlxN0
-         bzLw==
+        id S1725820AbfFOFPj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 15 Jun 2019 01:15:39 -0400
+Received: from mail-io1-f66.google.com ([209.85.166.66]:34545 "EHLO
+        mail-io1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725786AbfFOFPi (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jun 2019 01:15:38 -0400
+Received: by mail-io1-f66.google.com with SMTP id k8so10437796iot.1
+        for <linux-man@vger.kernel.org>; Fri, 14 Jun 2019 22:15:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=k/fbgsfncR29wNRvNjKp9aqkT6/E6DzuVuL2rWRJm94=;
-        b=G5dVLgNuDdMH6xXoSsaf1ZfApQi7TaxxelMsd+4NttRUFxWNKLuQjmYzLgL3fzHk/l
-         bpetisdFJ6j/sucmYTMbRZJGsXC50P4BDGR3G/7953jreOMuNAtS2yJUZ4DKTYOaNYWT
-         nuIL/U8k7CY9MLv1cKtSCQfsWXbWkyt4ctYnYz8gAJAs/fIVO0YvrazIzKEitihLJDbR
-         PY8ypei6XDxSsQM0UY7Uy+ClApcCCM/Z8lNYjZv7tjbWQf2yNer8PyLJ/J2j08kiHMZy
-         yGsnaOorCKdc1O5zS1fw57GYyna+e1239F2kj3r5ck6jAcHGLcVk/kVXtJSS+6O0EwV6
-         kStA==
-X-Gm-Message-State: APjAAAVwzWu2HRvDN4Dx6glS4dOnkqKl2RYd2rFfBQjXHB8aUSCzFLBp
-        si80t6GJ+L6zq4rAgyTOFYxkk1q3CdA=
-X-Google-Smtp-Source: APXvYqxtEArYqpb4UPhvkNtsdAwCChXh4z9K2SrjHdzUm5USPMf9a0YfK1wvkkb7Y/sOx0KwFkFuYw==
-X-Received: by 2002:adf:ef48:: with SMTP id c8mr43692969wrp.352.1560526559574;
-        Fri, 14 Jun 2019 08:35:59 -0700 (PDT)
-Received: from [192.168.43.179] (x527179a7.dyn.telefonica.de. [82.113.121.167])
-        by smtp.gmail.com with ESMTPSA id l17sm5492473wrq.37.2019.06.14.08.35.58
-        (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
-        Fri, 14 Jun 2019 08:35:59 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] mprotect.2: pkey_mprotect acts like mprotect if pkey is
- set to -1, not 0.
-To:     Mark Wielaard <mark@klomp.org>
-References: <1559171319-13742-1-git-send-email-mark@klomp.org>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <e0aa33c6-813a-86a1-bdfd-405ff018b970@gmail.com>
-Date:   Fri, 14 Jun 2019 17:35:59 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=p0ZFpdGc/1K1QbJheMDLzOr4TZfl1GEBorb3h5uUCUY=;
+        b=BUa8fHAO/8HV/sG516Jia8UxINdr4Kn6lEIuLko6TpjIYO/jAstLDAtWo3MSj9+V+s
+         D0YMAPc6W82EnOXZG45mZ+Xlo9Oixw5fSqrv7NdS4kMLYOlHBe3nCUFFKWR2Znk7IjiF
+         PAw1TzRrTwWAbEnw/PY32hDMoperIKLOQ27SjvzcddhHLhjK3D1L3dzCgmRBBm6Ypyvn
+         83etZs8eeofJVbxJ71rE+VaPFONUrqhf6AdTeCkdgVVavF4ewwol/MLXJvhNNFG/u+Ym
+         p33M4op8HV8WgPCQBS61dqusBkg4myx1ShzuhfJMSaKQbkOCbaI03xey47SYBmkjP6FX
+         Pj2w==
+X-Gm-Message-State: APjAAAVbWkfqsaC8AcZOO02ZhHcOW4+wFunjNamhMIu0MGVN3jbZhsFA
+        VIFjTG2/FtwE0R373gSG0CmJQmNXHoAYpPKGRxKZOBujziM=
+X-Google-Smtp-Source: APXvYqyT2GfCT/XnTMifabul41vjZ6mwPRTUiq8Srub2PPtqtnv64K3bJC+QGkbUosG2skOGZuYsGLnFXucTxN7fbyw=
+X-Received: by 2002:a5e:820a:: with SMTP id l10mr5265844iom.283.1560575737996;
+ Fri, 14 Jun 2019 22:15:37 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1559171319-13742-1-git-send-email-mark@klomp.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20190507211735.31785-1-kerolasa@iki.fi> <CAKgNAkjArBeBeYU4A7OPFi5jx7aVfAbxN7kb7E-vcDpkMsYrnA@mail.gmail.com>
+ <CAG27Bk1HN5Ku93ZU9hv0+Te=rt5f5JKOFe5RmRf45=xex5P0NA@mail.gmail.com> <6cabac85-5762-d36f-4c74-71683320ba2b@gmail.com>
+In-Reply-To: <6cabac85-5762-d36f-4c74-71683320ba2b@gmail.com>
+Reply-To: kerolasa@gmail.com
+From:   Sami Kerola <kerolasa@iki.fi>
+Date:   Sat, 15 Jun 2019 06:15:26 +0100
+Message-ID: <CAG27Bk3VCcEAJrzbX97wTEE4D2LAvz=znwWHcAV2n1kR5D76xw@mail.gmail.com>
+Subject: Re: [patch] on_exit.3: Add example code
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Mark,
+On Fri, 14 Jun 2019 at 15:22, Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+> I'm quite confused by your terminology and your example.
+>
+> Above you've talked about heap variables not being in scope for
+> the exit handler established by on_exit(). And in your initial mail,
+> you said "In short only variables allocated from stack make is
+> sense when calling on_exit()."
+>
+> But your code examples above demonstrate exactly the opposite, as
+> far as I can see. 'broken.c' use *a stack variable from main()*
+> as the argument for the exit handler, and that does not work.
+> 'works.c' used a *heap variable* as as the argument for the
+> exit handler, and that *does* work, as your example demonstrates.
+>
+> The fact that stack variable from main() are not in scope for
+> on_exit() after a return from main() is pretty much expected,
+> since main() has gone out of scope already.
+>
+> However, it's not clear to me that heap variables are out of
+> scope for the exit handler. Your example doesn't demonstrate
+> that. And, offhand, I can see no reason why heap variables
+> would have to be out of scope. And my own experiments (see test
+> program below) seem to indicate that heap variables are in
+> scope. My only doubt is what the standards have to say on the
+> issue, but I did not so far spot any relevant text.
+>
+> Your thoughts on the above?
 
-On 5/30/19 1:08 AM, Mark Wielaard wrote:
-> The mprotect.2 NOTES say:
-> 
->    On systems that do not support protection keys in hardware,
->    pkey_mprotect() may still be used, but pkey must be set to 0.  When
->    called this way, the operation of pkey_mprotect() is equivalent to
->    mprotect().
-> 
-> But this is not what the glibc manual says:
-> 
->    It is also possible to call pkey_mprotect with a key value of -1,
->    in which case it will behave in the same way as mprotect.
-> 
-> Which is correct. Both the glibc implementation and the kernel check
-> whether pkey is -1. 0 is not a valid pkey when memory protection keys
-> are not supported in hardware.
-> 
-> Signed-off-by: Mark Wielaard <mark@klomp.org>
+Hi Michael,
 
-Thanks. Patch applied.
+Oh sorry, I mixed up terminology.  I should have said 'allocated memory' and
+'local variable' in function that calls on_exit() instead of heap and stack.
+Trouble of non-native english and words that at least I associate nothing
+but large quantities and piles os stuff without much distinction.
 
-Cheers,
+Anyway, the code example in my previous email demonstrated how one might
+think local variables could be used (incorrectly).  In hindsight use of
+local variables is wrong, and that is the point.  Allocated memory can be
+passed to on_exit() and nothing else makes sense.  While one could pass
+global variable to on_exit() in that case more portable atexit() is better
+option.
 
-Michael
+Recommendation in 'confirming to' section to avoid this function in portable
+applications is good.  Whether telling on_exit() is mostly useful as a hook
+to unallocate memory just before exit might be worth while.
 
-> ---
->   man2/mprotect.2 | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man2/mprotect.2 b/man2/mprotect.2
-> index 4d29f66..866ac77 100644
-> --- a/man2/mprotect.2
-> +++ b/man2/mprotect.2
-> @@ -278,7 +278,7 @@ On systems that do not support protection keys in hardware,
->   .BR pkey_mprotect ()
->   may still be used, but
->   .IR pkey
-> -must be set to 0.
-> +must be set to -1.
->   When called this way, the operation of
->   .BR pkey_mprotect ()
->   is equivalent to
-> 
+-- 
+Sami Kerola
+http://www.iki.fi/kerolasa/
