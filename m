@@ -2,73 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id B18B747AD9
-	for <lists+linux-man@lfdr.de>; Mon, 17 Jun 2019 09:28:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 522C549162
+	for <lists+linux-man@lfdr.de>; Mon, 17 Jun 2019 22:32:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726489AbfFQH2l (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 17 Jun 2019 03:28:41 -0400
-Received: from slot0.nejknio.cf ([89.32.41.233]:34176 "EHLO slot0.nejknio.cf"
+        id S1726023AbfFQUcU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 17 Jun 2019 16:32:20 -0400
+Received: from mail.ispras.ru ([83.149.199.45]:53460 "EHLO mail.ispras.ru"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726469AbfFQH2l (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 17 Jun 2019 03:28:41 -0400
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; s=dkim; d=nejknio.cf;
- h=Content-Type:MIME-Version:Content-Transfer-Encoding:Content-Description:Subject:To:From:Date:Reply-To:Message-ID; i=trade1@nejknio.cf;
- bh=73Xs4LxjK+lP+h5mKCyFyWTpkoQ=;
- b=OJyFwAl05MHcACyC8k/Xk5CDPcSa5uA04ruufbewcyxa4ojmrrlVleF92VfscDbXdOtMjGie80eA
-   Hqp1OUBUPKnF5HOQtIYMcM+wQ2MY7SF2UhFh8LGjQzHJW2mz2fsHABgOMoVGU0pPsjbXclOxQWN4
-   Aj/fcOEFedu5HP+UMMJGDXq+dXnHylsAIO1E9tAdVqeJ0QQlqpGYKPt5z8Wq+kDd4voUVNX8tgVx
-   JhE/e32DOeIe+uaO+9gHyEDNr43DQrEy+U21dSJDK/t+RcoToX9+HZ1StwNs5tc+CAcHGl2lftlp
-   1DgRmw8+gJa5nM0LbgsQN6/H3CC9kXBN4uSpUg==
-DomainKey-Signature: a=rsa-sha1; c=nofws; q=dns; s=dkim; d=nejknio.cf;
- b=PBu56GjJo0MO/eJirt4ehfGcqSPKfBpxTRSXV0+lZyt+xfB8ho5yc2jMzmuCIhFExEhVHHZNhJex
-   OOxIXgrqTSmMx8C8m0Y/9LiuVx6QD2q0T7kOLDQLSswBbMAxz9mMNJdxWAKsdPOEXQ/NBO1EfGNv
-   SNWTk2g/934pm/Y5+mMqvtjS2IOICG/cqcpepifMsWwFzgjWikIjJe65sjfjz3g/xiNTFj3tzQr4
-   hv9M3ZVaUCe9N/fKh+FUeElcwAZlHiRgpdw8QBJ3EJ+VWRmDA6JZhmmBSD5kMAyQ5gwA3u0Dj1XB
-   IWoK+Lz+7VyVaD5nOxBcSVT72XLMKVmrv1E7OA==;
-Content-Type: text/plain; charset="iso-8859-1"
+        id S1725844AbfFQUcU (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 17 Jun 2019 16:32:20 -0400
+X-Greylist: delayed 540 seconds by postgrey-1.27 at vger.kernel.org; Mon, 17 Jun 2019 16:32:19 EDT
+Received: from mail.ispras.ru (localhost [127.0.0.1])
+        by mail.ispras.ru (Postfix) with ESMTPSA id 98E79540081;
+        Mon, 17 Jun 2019 23:23:18 +0300 (MSK)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
-Subject: PRODUCT INQUIRY FOR EXPORT SHIPMENT
-To:     Recipients <trade1@nejknio.cf>
-From:   "Mark Maths" <trade1@nejknio.cf>
-Date:   Mon, 17 Jun 2019 10:09:02 +0300
-Reply-To: purchase_m.maths@aol.com
-Message-ID: <0.0.1.D92.1D524DB7FFDEEEE.0@slot0.nejknio.cf>
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+Date:   Mon, 17 Jun 2019 23:23:18 +0300
+From:   Alexey Izbyshev <izbyshev@ispras.ru>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: A small bug in ptrace(2) "Ptrace access mode checking"
+Message-ID: <edd3812727362d9acb4fa0e9ef1a2840@ispras.ru>
+X-Sender: izbyshev@ispras.ru
+User-Agent: Roundcube Webmail/1.1.2
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Dear Sales team,
- =
+Hello, Michael!
 
-In furtherance to our market research, we have reviewed all your products t=
-ypes and we have finally interested in your product for our market here in =
+I've noticed a small bug in ptrace(2) man page at NOTES -> Ptrace access 
+mode checking -> 5(b):
+
+b) Deny access if neither of the following is true:
+
+              · The caller and the target process are in the same user
+                namespace, and the caller's capabilities are a proper
+                superset of the target process's permitted capabilities.
+
+              · The caller has the CAP_SYS_PTRACE capability in the 
+target
+                process's user namespace.
+
+The usage of "*proper* superset" seems wrong because (a) it'd deny 
+access in a common case when both the caller and the target have the 
+same capabilities and (b) it doesn't correspond to the kernel code, 
+which checks for a non-strict superset[1].
+
+I believe that "proper superset" should be replaced with just 
+"superset".
+
+[1] 
+https://elixir.bootlin.com/linux/v5.1.11/source/security/commoncap.c#L152
+
+Thanks for your great work on the man pages!
+
+--Alexey
 
 
-United State for your production. We introduce ourselves as Emilxa Tram SRL=
-, A general group of company located in the United State. =
-
-
-We are sourcing for new suppliers from your location =
-
-
-Kindly advice us if you accept new purchase orders, I will forward our PO f=
-or urgent order.
-
-Waiting for your response to send order. Reply to ( purchase_m.maths@aol.co=
-m)
-
-Best regards.
-Mark Maths
-Company Address:
-Emilxa Tram SRL Company Limited
-P.O. Box 978
-Road Town
-Tortola
-British Virgin Islands
-Contact information:
-Tel: +1 (284) 493 7235
-Email: purchase_m.maths@aol.com
-https://meridianbvi.com/contact-us/
