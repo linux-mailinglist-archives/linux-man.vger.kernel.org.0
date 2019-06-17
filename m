@@ -2,109 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 0129946FAE
-	for <lists+linux-man@lfdr.de>; Sat, 15 Jun 2019 12:47:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B18B747AD9
+	for <lists+linux-man@lfdr.de>; Mon, 17 Jun 2019 09:28:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726523AbfFOKrZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 15 Jun 2019 06:47:25 -0400
-Received: from mail-ed1-f67.google.com ([209.85.208.67]:43805 "EHLO
-        mail-ed1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725999AbfFOKrZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jun 2019 06:47:25 -0400
-Received: by mail-ed1-f67.google.com with SMTP id e3so7473705edr.10
-        for <linux-man@vger.kernel.org>; Sat, 15 Jun 2019 03:47:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=G12jopWoj53Q2Q6k/yc8W+AS/L1f1wiNl5bAIqGQI5s=;
-        b=fkzsWxGX3P24aDyabLeOXRFK9ByBwy2vjcW/4AK96OI8zc4mx/LEX/iyyErDxmwWTl
-         V2cRcYqfT1Dx4udRCXxY4bZOsZHJpz2IFNmVnL2ahJheGmQUNMMf7vVpOjhYl1MVvc49
-         xgrITqCq+WWRtSaKPOG43C13K6Saq4xaOEowC1Demv3mAuanscN2D8EIIhNZ9Tc2QXzj
-         VJJYEm2aO0jLvLHsXcmhXqRhBVzxdJA0HuBIPIFOke0iad3XQH4YSrHt7GWG5SZjqbP8
-         MCSELeSy5XOF+fkurE+Gwks6+++GB79Mif8KARAW+c3cfCjaRaXvEUZXQkJfv4Ouf3U5
-         WfmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=G12jopWoj53Q2Q6k/yc8W+AS/L1f1wiNl5bAIqGQI5s=;
-        b=nOBPay0vV8KF9zsNcCjf1ltX4+M0SywMNd6SXA9RK6pPTTC0WmhZQHiesP1eD0hP/+
-         alx8ZOTZIh4QckZfXIAh6g/pxZN/PN8cFuY399GRXHrBbavsjSMjp2LgTfIPe/NyHqi2
-         YVZhW0XuJ9Mly/ByBV6J6rpwNQNIIYjAQn+WXalzAbZ0sGpZbkabpXXDiuqYIyyp9Jr6
-         nTd3Nj3RWIyvaHCdA3hYQLkXB3+wsYm20xBGqTbgnrmEmz0zjZrJjVghAd4dcPIplPqB
-         bb9hvX5vGdZ3HqnpPGphk/t4mnImG2FjkzYlyH2ecmZHXStT3SELNPFl/GJf7rC05vzv
-         x42A==
-X-Gm-Message-State: APjAAAWFxNWTQaeqIi6fQWsqAxx+r1Xac38e7vAsB85rCO9dcwB/7YtO
-        3Vb5z9pnspg8/lOmSG+GGSYk3A5rPMG4RGTB9wg=
-X-Google-Smtp-Source: APXvYqwWQJMDTPuC2Pb5xTC5jNZj/V3/UDPRk1xiwRwBN9bNcyxm7z8XIz3Qyxwaw4KMsNNa/zvGIMHP82iBAPbkMgg=
-X-Received: by 2002:a50:9929:: with SMTP id k38mr84506175edb.4.1560595643244;
- Sat, 15 Jun 2019 03:47:23 -0700 (PDT)
+        id S1726489AbfFQH2l (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 17 Jun 2019 03:28:41 -0400
+Received: from slot0.nejknio.cf ([89.32.41.233]:34176 "EHLO slot0.nejknio.cf"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726469AbfFQH2l (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 17 Jun 2019 03:28:41 -0400
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; s=dkim; d=nejknio.cf;
+ h=Content-Type:MIME-Version:Content-Transfer-Encoding:Content-Description:Subject:To:From:Date:Reply-To:Message-ID; i=trade1@nejknio.cf;
+ bh=73Xs4LxjK+lP+h5mKCyFyWTpkoQ=;
+ b=OJyFwAl05MHcACyC8k/Xk5CDPcSa5uA04ruufbewcyxa4ojmrrlVleF92VfscDbXdOtMjGie80eA
+   Hqp1OUBUPKnF5HOQtIYMcM+wQ2MY7SF2UhFh8LGjQzHJW2mz2fsHABgOMoVGU0pPsjbXclOxQWN4
+   Aj/fcOEFedu5HP+UMMJGDXq+dXnHylsAIO1E9tAdVqeJ0QQlqpGYKPt5z8Wq+kDd4voUVNX8tgVx
+   JhE/e32DOeIe+uaO+9gHyEDNr43DQrEy+U21dSJDK/t+RcoToX9+HZ1StwNs5tc+CAcHGl2lftlp
+   1DgRmw8+gJa5nM0LbgsQN6/H3CC9kXBN4uSpUg==
+DomainKey-Signature: a=rsa-sha1; c=nofws; q=dns; s=dkim; d=nejknio.cf;
+ b=PBu56GjJo0MO/eJirt4ehfGcqSPKfBpxTRSXV0+lZyt+xfB8ho5yc2jMzmuCIhFExEhVHHZNhJex
+   OOxIXgrqTSmMx8C8m0Y/9LiuVx6QD2q0T7kOLDQLSswBbMAxz9mMNJdxWAKsdPOEXQ/NBO1EfGNv
+   SNWTk2g/934pm/Y5+mMqvtjS2IOICG/cqcpepifMsWwFzgjWikIjJe65sjfjz3g/xiNTFj3tzQr4
+   hv9M3ZVaUCe9N/fKh+FUeElcwAZlHiRgpdw8QBJ3EJ+VWRmDA6JZhmmBSD5kMAyQ5gwA3u0Dj1XB
+   IWoK+Lz+7VyVaD5nOxBcSVT72XLMKVmrv1E7OA==;
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
-References: <20190507211735.31785-1-kerolasa@iki.fi> <CAKgNAkjArBeBeYU4A7OPFi5jx7aVfAbxN7kb7E-vcDpkMsYrnA@mail.gmail.com>
- <CAG27Bk1HN5Ku93ZU9hv0+Te=rt5f5JKOFe5RmRf45=xex5P0NA@mail.gmail.com>
- <6cabac85-5762-d36f-4c74-71683320ba2b@gmail.com> <CAG27Bk3VCcEAJrzbX97wTEE4D2LAvz=znwWHcAV2n1kR5D76xw@mail.gmail.com>
-In-Reply-To: <CAG27Bk3VCcEAJrzbX97wTEE4D2LAvz=znwWHcAV2n1kR5D76xw@mail.gmail.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Sat, 15 Jun 2019 12:47:11 +0200
-Message-ID: <CAKgNAkgo5qmFNxJSVkD2BzBaaG6Yjo9WxRvmYfc-FVQgwGZN4A@mail.gmail.com>
-Subject: Re: [patch] on_exit.3: Add example code
-To:     Sami Kerola <kerolasa@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: PRODUCT INQUIRY FOR EXPORT SHIPMENT
+To:     Recipients <trade1@nejknio.cf>
+From:   "Mark Maths" <trade1@nejknio.cf>
+Date:   Mon, 17 Jun 2019 10:09:02 +0300
+Reply-To: purchase_m.maths@aol.com
+Message-ID: <0.0.1.D92.1D524DB7FFDEEEE.0@slot0.nejknio.cf>
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Sami,
+Dear Sales team,
+ =
 
-[...]
-
-> Oh sorry, I mixed up terminology.
-
-Okay.
-
-> Allocated memory can be
-> passed to on_exit() and nothing else makes sense.  While one could pass
-> global variable to on_exit() in that case more portable atexit() is better
-> option.
-
-I'm not sure that's correct. Particularly as the same exit handler
-function may be registered with pointers to different global
-variables.
-
-I applied the patch below.
-
-Thanks,
-
-Michael
-
-diff --git a/man3/on_exit.3 b/man3/on_exit.3
-index d2c2c3b17..e78b5c818 100644
---- a/man3/on_exit.3
-+++ b/man3/on_exit.3
-@@ -100,6 +100,16 @@ It no longer occurs in Solaris (SunOS 5).
- Portable application should avoid this function, and use the standard
- .BR atexit (3)
- instead.
-+.SH NOTES
-+By the time
-+.I function
-+is executed, stack
-+.RI ( auto )
-+variables may already have gone out of scope.
-+Therefore,
-+.I arg
-+should not be a pointer to a stack variable;
-+it may however be a pointer to a heap variable or a global variable.
- .SH SEE ALSO
- .BR _exit (2),
- .BR atexit (3),
+In furtherance to our market research, we have reviewed all your products t=
+ypes and we have finally interested in your product for our market here in =
 
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+United State for your production. We introduce ourselves as Emilxa Tram SRL=
+, A general group of company located in the United State. =
+
+
+We are sourcing for new suppliers from your location =
+
+
+Kindly advice us if you accept new purchase orders, I will forward our PO f=
+or urgent order.
+
+Waiting for your response to send order. Reply to ( purchase_m.maths@aol.co=
+m)
+
+Best regards.
+Mark Maths
+Company Address:
+Emilxa Tram SRL Company Limited
+P.O. Box 978
+Road Town
+Tortola
+British Virgin Islands
+Contact information:
+Tel: +1 (284) 493 7235
+Email: purchase_m.maths@aol.com
+https://meridianbvi.com/contact-us/
