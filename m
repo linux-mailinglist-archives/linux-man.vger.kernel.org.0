@@ -2,102 +2,104 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 126AE4E033
-	for <lists+linux-man@lfdr.de>; Fri, 21 Jun 2019 08:03:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B71C14E03E
+	for <lists+linux-man@lfdr.de>; Fri, 21 Jun 2019 08:06:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726008AbfFUGDn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 21 Jun 2019 02:03:43 -0400
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:44889 "EHLO
-        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725911AbfFUGDn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Jun 2019 02:03:43 -0400
-Received: by mail-wr1-f66.google.com with SMTP id r16so5241620wrl.11
-        for <linux-man@vger.kernel.org>; Thu, 20 Jun 2019 23:03:41 -0700 (PDT)
+        id S1726057AbfFUGGz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 21 Jun 2019 02:06:55 -0400
+Received: from mail-wr1-f67.google.com ([209.85.221.67]:34873 "EHLO
+        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725911AbfFUGGz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Jun 2019 02:06:55 -0400
+Received: by mail-wr1-f67.google.com with SMTP id m3so5309639wrv.2
+        for <linux-man@vger.kernel.org>; Thu, 20 Jun 2019 23:06:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=+Thau2xycgYVZYw3DlXxKoOv+nUeedtASgitWjqU6fI=;
-        b=WqVrXBGn9sJByhWgkNuthSTUCbh/5DpCw81iE8U16h8Cdmn6xT+w2sLayLMi+mLY4r
-         HQCMwO3LUrlmmpaLb2lP8b8/TJu71XlToie7qllC3AVyXqGDepWDOsASyV6xJD9OdUab
-         msEHwf3d9AvKdr+XYbb1EnHK1cvassoFYNVWDhzv7bWqAnbmD6V3KtsQB2sOJVRPsU4b
-         1jp4WE6kWlmIe1Yn7VfnIy9efndIGqnPO7zuR+Axkcy1CEwzAtTmu+G0Daado1wT+nQD
-         b3WEDcPNe1BHcOf+/rOH41naEqYYNuyfJZfTWWEmgjBR6t08Kudz1bnVm6Ks3DIr0lAa
-         HQlQ==
+        bh=IwWz7MdEkvioGQUnLO0c6GhY+i3+aCe9BRVzUehhzUE=;
+        b=km/HpcmXw2c3PE2Nqipb7+YfrqTTVmyFQcCndESCTkhIn6HnwyIfJ4K0u+VLbtl3Po
+         oa0OYzV0fs7P5fC7XcgN9N15DZdDR3vjSOWWBbBKN3pmgPRBITD9XICWerKCOnYkDPE6
+         wix201NqNx48MA0nOBHlISQIoscsoPmMN6Zka4idMACWMRSSyVa7kKkc92DRC+IKnyGo
+         B8XP3AE7+vgYb0zvb9lNDUU2s6mJgFb/3N+EKxv0RJ+s2DZXh3pU/lvkRO+60zeOnpXz
+         PciIJkJ/yovH8xhCyRo/A99h3Hlx36xS4dOmyH9T7iW7PSdnJy8P1QC52y9/SiorYyEc
+         ymWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=+Thau2xycgYVZYw3DlXxKoOv+nUeedtASgitWjqU6fI=;
-        b=mGQ3czFcm9/qTaCALlNFQpAjwL8+JB+5A9ULs/vmMeU7qXW/airYDe9gKvvrnrgXyE
-         2dvtal/awcoknndAJ4KG0TD2ZCpWeFmQX8P5IwZu/zdbZ0yYEDP0SRqtAr9JEKm8p+2/
-         Lp7+rYtT9hfRIQ7H3TPzieNQ5H+Zy8qs9wii1RJW8BA1Jp8oh+qMkGHVU2NCoxoeRvGo
-         1+mwp13COyJek79Gl8/JCuMvppmkYzxSxt+7H1voJCrl7pjaDqhnrVfO4kU3AmaziYGe
-         SAxeZZDTWjxtIvlJtHJWbioV0o4S5OL4eDtws8gv0ySDLDmX2Qq1Q5xEd4HYNVs2Bmu3
-         uKbw==
-X-Gm-Message-State: APjAAAXutZvtwaUvG0cet+vt9Re/TV2gHGgo6+9gc4+CN6NzT2XbyqVS
-        L++Igo3VkSXJam7QMMIyrylbKI9HtA0=
-X-Google-Smtp-Source: APXvYqx7b3hIjYMKpOe2OPJS3hwaM40KkXRtlXsG8QExx5qvqj7Jid+mjc2Jtp+E6XyNeqvUNZETAA==
-X-Received: by 2002:adf:f28a:: with SMTP id k10mr12982648wro.343.1561097020865;
-        Thu, 20 Jun 2019 23:03:40 -0700 (PDT)
+        bh=IwWz7MdEkvioGQUnLO0c6GhY+i3+aCe9BRVzUehhzUE=;
+        b=GXJ81kiauzRYhBL1hfI5bIheeFeOAg/F0ztUYnqgxC6drODVAwa3tMnyBquCSte5W/
+         KaRhv0nfVzlPpuZdKmz4xCWma7xvf4xxuJtXP3BNkGH6sOYxBltfdnnMR8qgUFPkksP5
+         CNn7tTP/Uca44NEKTMio3+5VgHmRjYwseDNY928PMpv78yP3A6f+L7lQHCd5f8FwWYJD
+         N8GIfXDCJLHrkUMvaG8DYFpuI/cDdxzRVnZlMQmClnw1N8zz6MbleXbCBfDIxa0IM8BT
+         eNoupZRuCiCNTTjEnt/BNnAkofLpzRFBrq4JPc7IY/3V6pRxtzk7DhX1x6M32jBxMVQ9
+         z2zQ==
+X-Gm-Message-State: APjAAAUYqTBoEj8NZlLdzjp3DurV8E+v2+lyRHnhGAYrdyhiOEGR79ag
+        trqHHIGbDvS90XpdL/yoyjaMUIXN8wA=
+X-Google-Smtp-Source: APXvYqzEKKUJIyAhW3+9j+XVRrL+34DBqwZdn8GAhBC0zQE+bsKrOPW6jDQY78ExRglHNO8PZXt70w==
+X-Received: by 2002:adf:f582:: with SMTP id f2mr38246126wro.144.1561097212611;
+        Thu, 20 Jun 2019 23:06:52 -0700 (PDT)
 Received: from ?IPv6:2a01:cb04:634:1500:8c89:e6ef:c939:511c? (2a01cb04063415008c89e6efc939511c.ipv6.abo.wanadoo.fr. [2a01:cb04:634:1500:8c89:e6ef:c939:511c])
-        by smtp.gmail.com with ESMTPSA id o14sm1319223wrp.77.2019.06.20.23.03.39
+        by smtp.gmail.com with ESMTPSA id r4sm1268427wrv.34.2019.06.20.23.06.52
         (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
-        Thu, 20 Jun 2019 23:03:39 -0700 (PDT)
+        Thu, 20 Jun 2019 23:06:52 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] execve.2: add more detail about Shebangs
-To:     Shawn Landden <shawn@git.icu>
-References: <20190321232349.20023-1-shawn@git.icu>
+Subject: Re: A small bug in ptrace(2) "Ptrace access mode checking"
+To:     Alexey Izbyshev <izbyshev@ispras.ru>
+References: <edd3812727362d9acb4fa0e9ef1a2840@ispras.ru>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <ba75771a-610a-da2f-4550-f3def8960d6c@gmail.com>
-Date:   Fri, 21 Jun 2019 08:03:36 +0200
+Message-ID: <ad91b9a7-bab4-fb55-2b1e-1c3c175b47d2@gmail.com>
+Date:   Fri, 21 Jun 2019 08:06:51 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <20190321232349.20023-1-shawn@git.icu>
+In-Reply-To: <edd3812727362d9acb4fa0e9ef1a2840@ispras.ru>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Shawn,
+Hello Alexey,
 
-On 3/22/19 12:23 AM, Shawn Landden wrote:
-> Signed-off-by: Shawn Landden <shawn@git.icu>
-> ---
->  man2/execve.2 | 8 ++++++++
->  1 file changed, 8 insertions(+)
+On 6/17/19 10:23 PM, Alexey Izbyshev wrote:
+> Hello, Michael!
 > 
-> diff --git a/man2/execve.2 b/man2/execve.2
-> index a052f34b0..c363214c0 100644
-> --- a/man2/execve.2
-> +++ b/man2/execve.2
-> @@ -336,6 +336,14 @@ For portable use,
->  should either be absent, or be specified as a single word (i.e., it
->  should not contain white space); see NOTES below.
->  .PP
-> +The maximum length of the shebang line is 128 bytes, and excess bytes will be truncated.
-> +.\" https://lwn.net/Articles/779997/ The case of the supersized shebang
-> +The interpreter is passed the absolute filename to the file. There is no way to get the argv[0]
-> +that was passed to the kernel via execve(2).
-> +.\" See the P - preserve-argv[0] option.
-> +.\" Documentation/admin-guide/binfmt-misc.rst
-> +.\" https://www.kernel.org/doc/html/latest/admin-guide/binfmt-misc.html
-> +.PP
->  Since Linux 2.6.28,
->  .\" commit bf2a9a39639b8b51377905397a5005f444e9a892
->  the kernel permits the interpreter of a script to itself be a script.
+> I've noticed a small bug in ptrace(2) man page at NOTES -> Ptrace access 
+> mode checking -> 5(b):
+> 
+> b) Deny access if neither of the following is true:
+> 
+>               · The caller and the target process are in the same user
+>                 namespace, and the caller's capabilities are a proper
+>                 superset of the target process's permitted capabilities.
+> 
+>               · The caller has the CAP_SYS_PTRACE capability in the 
+> target
+>                 process's user namespace.
+> 
+> The usage of "*proper* superset" seems wrong because (a) it'd deny 
+> access in a common case when both the caller and the target have the 
+> same capabilities and (b) it doesn't correspond to the kernel code, 
+> which checks for a non-strict superset[1].
+> 
+> I believe that "proper superset" should be replaced with just 
+> "superset".
 
-Thanks!
+Yes. My mistake. Thanks for the report. Fixed now.
 
-I've applied most of this patch, except for the first changed line,
-and made some further tweaks.
+> [1] 
+> https://elixir.bootlin.com/linux/v5.1.11/source/security/commoncap.c#L152
+> 
+> Thanks for your great work on the man pages!
 
-Cheers,
+You're welcome!
+
+Thanks,
 
 Michael
 
