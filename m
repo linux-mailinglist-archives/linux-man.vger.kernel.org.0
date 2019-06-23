@@ -2,64 +2,249 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 017F84F70A
-	for <lists+linux-man@lfdr.de>; Sat, 22 Jun 2019 18:29:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0ED7A4FC95
+	for <lists+linux-man@lfdr.de>; Sun, 23 Jun 2019 18:03:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726468AbfFVQ3Q (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 22 Jun 2019 12:29:16 -0400
-Received: from sonic316-11.consmr.mail.bf2.yahoo.com ([74.6.130.121]:33630
-        "EHLO sonic316-11.consmr.mail.bf2.yahoo.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726469AbfFVQ3J (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 22 Jun 2019 12:29:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1561220948; bh=3fXYToOZXvh5MOJ1JSawYDThjnynC/Ekt2gucIg6zZg=; h=Date:From:Reply-To:Subject:From:Subject; b=Sqmma7rQCC9csXbuiUU3W2/3JNoNH7S8264Vtax3p6vjP/GOy3xpD3wbU2PRR9kt9Hpkf+FIWW9PMCnOCaw1O79buHof/+e4XCSgtAjG8InDhCml6NU6QqPjKJ3zDc6ntgnpVqWtJnbhtjoUqIbv1W6GU8NTi8qVdCcmhrTc1IZ6aiOxpvBar7FQmN3jAwZcqruMWVYBgbk1LAoNqGvQ8jjOiTjNhCDJjpcLi94EE60gk+qIfYgu1AQDdd9wVo7X6i3XlVR9KCYw0l7ikZmlDSVkcSrrmJBlognD3+QlW4wko0RiyOGAXy+sEMAa8UXhFfxEEhf+A0WfqKBKwkVQbg==
-X-YMail-OSG: 3TA6aNEVM1mHk4tfSNROwYxIcekGBuzt5YSl8uAf.0_HHQ2LGDBhX2FGT2.Do_z
- _0DV280q.YGRxDLoRDSJM82e2d5hsgoPZVcKxWsle6Z3oHX8Omo6hY9bu5QjJLY68zQNKFXygJQb
- l1z62dHRy69xOFvl6tq.81EbMsOh1_cirrcCk2fMX_Jmwx0sebG__1rhE6wzzo_NDP9VbvIqZ9bR
- 2icQk1E4jS_eT.9i5S8Sf0xsdShl9dMibpAXRU93yOYuHTQIa_P77tZTcStgCsIVxKiDvC3a0NxY
- 8gZtRhwFdS641nFzLb368UTov.mB4xMHIDhTJv9NazaTg1j8sw18ET29s.TqlBmXHg8vLU94qBpd
- 5PlUttniCcoNFEJpnLF3UUydECDiL8Z11cc18YJXwsIeDfFkYqHGX5XdA4jNj054mfKUIhoNEakn
- WUKps59xvPMOhDCVBujS9v_vJClG4fXrBtjl.W_LQqwsSCutxIcdvaqHEtURhc6MkAEPdp4bTGI.
- srA9smb.rYGHYAQmfGBYSrMpzCORaFwD3sLBOdwCdBjEVVdu.sBEOGddWsx2T8AZRYYy5nvR9Foz
- bPsz41tE4__SqGjxrktEJ2_s2wIQAUza2deZFDGXc6T62eXwgZpA4Pp2nGTmGbFQ6h4nAMd51HJh
- T3GzQn8s4GOn.0BKRwZDpwf7w10rv6JPk5nAgLZOaX7LfFs2yeq7fnFrg4OCOiG9MCMxrUNq6gf7
- VomHdE0MTMCDmL3Ebk4K0YUhXaCTht27MRDaoJusaRVRGavzgn0vj3Z4n7xxu27l7AAqrNZTRmUI
- n_b8fWLMzkIFoI7ZcmL_O5d2bYctv7x0WqIS4U6onMjRr4HtPSPFTejqwRtmzChG01EgeDt1Xu9J
- 3fp8ciCxthupmhAtFqCrukMze7VttucN.DpeM8bKmVw1EDgn.s_L.L9fVdDwg2umGkLNazDxoP0_
- dzbgtjASRdO1.JaxkowN5gRT6rna4oVoAmbHsjQ4rLTjBWSWz8ZqQDlV43apY.buigbJvn4Qmvf1
- GxhsPAlHlnnGfjZ9pr3BSAVXKd_Qs83vYaBOYxWdXDlwxBl9.1.bnCTqFBLXCTND1BZASE2pli5W
- fu842ttK3BMCdw5COU_fvmE4HTFnTUQ5tN2a6KHryWZiInkZpWdo8I9xFucw8IlPI3qY2rDSegZk
- LLEiGCawsrUj04Yg3uv6LVIzJaVvTytAzboyOeQVTgoj.0EfkvEtgpXm3
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic316.consmr.mail.bf2.yahoo.com with HTTP; Sat, 22 Jun 2019 16:29:08 +0000
-Date:   Sat, 22 Jun 2019 16:29:03 +0000 (UTC)
-From:   "Miss.Fatima Yusuf" <fatimayusuf5@outlook.fr>
-Reply-To: miss.fmayusuf11@gmail.com
-Message-ID: <1743094696.311303.1561220943310@mail.yahoo.com>
-Subject: From:Miss: Fatima Yusuf.
+        id S1726829AbfFWQDo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 23 Jun 2019 12:03:44 -0400
+Received: from mail-pf1-f194.google.com ([209.85.210.194]:38422 "EHLO
+        mail-pf1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726674AbfFWQDn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 23 Jun 2019 12:03:43 -0400
+Received: by mail-pf1-f194.google.com with SMTP id y15so1443013pfn.5
+        for <linux-man@vger.kernel.org>; Sun, 23 Jun 2019 09:03:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=ECQYpz3lzrmYoiRGuIqzIf7mBZiKogh+xVb3BuuS13Y=;
+        b=WYhFemi/XkE1Yks8i9HquW6kHQTRPsEq37j2PTaHX+wqTdWk0YnfopPu5TeoxVo0+c
+         iz5MzmrUToEYjzGo1iNr3p3nlUNYFojNtMXLS14ZNhpL7m2o/LLgn8jPoHBnjr2BkhQW
+         NkFBHbVfJsReehuHp9cS4YVFwTIxq4Ep+jzQBIlzNiIWoTPuZn83gxWK4nqSJ8ftdeS3
+         IyDBF4Y4vT7gevaKCnmFDS7wKpSb2ITG9up/T2DSokLw/9UyrWfbnivJm75XAmbCoF2b
+         fwA5vdS/rZSmznZuVsSg6mk97Gxsgk/P/iwpDC47BUrXYC6mYchwD+6c9B/Ew+3cD/GR
+         PB3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=ECQYpz3lzrmYoiRGuIqzIf7mBZiKogh+xVb3BuuS13Y=;
+        b=a31Uqz0g7cQX/3qwE45hww2cN6xeQoKWR1DXsjZ3KatxOdjVag/KHLb4IF4ov9Ec9M
+         cTQBRr7fKD38ragwNoSB/SIV8WY+Q7dbq6Eof7Hq/CANdckn5nfnblR+yql+Wg/QHHkY
+         NEe/8meyCqV3Fg5NAi6sEFyhpQ0pebMNZxC1BhK6sslRuJa04MQachqjLYXyzoj2LzB2
+         WHSyw/xJWFmW+Iqz+RA2SfC8tTumIPqWTbdrMq0zzChWtR9CmrXpEKAjlkBoqP5Bq/Sb
+         +7c23f9OJ62CEgIzkULtgLnVeR2jQBm3PvwySBWSwMnBdIXMRQYluM1tZ/8GcnbV/i7K
+         wrMQ==
+X-Gm-Message-State: APjAAAU9HziOvcqPHcNBv7tK/W5mm3B09989KxymuGimBCyiP+rrDDf7
+        3l+6AjwRPL760baBMO85eXKXpr9PhHtD66izRIE=
+X-Google-Smtp-Source: APXvYqzqPizwU4rv+8//S5KOiQfCjaR+ER2FgHpu6AzvYGSW/LL7yHyP6dDxl3s3aay2lHz1U/aojA4A6GJoCZOS9ew=
+X-Received: by 2002:a17:90a:a385:: with SMTP id x5mr19266449pjp.76.1561305822495;
+ Sun, 23 Jun 2019 09:03:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-To:     unlisted-recipients:; (no To-header on input)
+References: <CAAAu3XtbB=Y0s2emVJoj5Vt4UXSjvk_3EBw_f=gRKssVxbK0=A@mail.gmail.com>
+In-Reply-To: <CAAAu3XtbB=Y0s2emVJoj5Vt4UXSjvk_3EBw_f=gRKssVxbK0=A@mail.gmail.com>
+From:   Naveen Iyer <iyernaveenr@gmail.com>
+Date:   Sun, 23 Jun 2019 09:03:31 -0700
+Message-ID: <CAAAu3XtsLqvVEnMO5A_LMEF5qP64pJFB2+aey4yhCnhvY_F79Q@mail.gmail.com>
+Subject: Re: [BUG] [man syscall] x86_64 error code / return value must be
+ placed in rdi
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi,
+
+As suggested by
+https://www.kernel.org/doc/man-pages/reporting_bugs.html , I looked up
+the online man page as well:
+http://man7.org/linux/man-pages/man2/syscall.2.html
+
+In the table in "Architecture calling conventions" section:
+arch/ABI    instruction           syscall #  retval  error    Notes
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80
+x86-64       syscall                   rax        rax        -        [5]
+
+Retval must be placed in rdi as per the following link:
+https://w3challs.com/syscalls/?arch=3Dx86_64
+
+I ran the test to verify that the retval is indeed supposed to be
+placed in rdi, and not rax as the man page incorrectly suggests.
+My man page version:
+$ man --version
+man 2.8.3
+
+Steps to replicate this issue:
+Step 1)
+Write test code 'startup.c':
+void _start()
+{
+        /*
+           Source: $: man syscall
+           arch/ABI    instruction           syscall #  retval  error    No=
+tes
+           =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80
+           i386        int $0x80             eax        eax     -
+           ia64        break 0x100000        r15        r8      r10      [1=
+]
+           x86-64      syscall               rax        rax     -        [5=
+]
+        */
+
+        // Specify the return value/error code in ebx for x86 and rdi for x=
+86_64
+        asm volatile (
+                "movq $97, %rdi"
+        );
+
+        // Specify the type of system call (1 is the exit syscall) in
+eax register.
+        asm volatile (
+                "movq $0x3c, %rax"
+        );
+
+        // Transition to kernel mode.
+        asm volatile (
+                "syscall"
+        );
+}
+
+Step 2) Compile and execute:
+$ gcc -nostdlib -c startup.c
+$ ld startup.o -o startup
+$ ./startup
+$ echo $?
+97
+
+My system details:
+$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description: Ubuntu 18.04.1 LTS
+Release: 18.04
+Codename: bionic
+
+$ uname -a
+Linux user 4.15.0-51-generic #55-Ubuntu SMP Wed May 15 14:27:21 UTC
+2019 x86_64 x86_64 x86_64 GNU/Linux
+
+Please let me know if there's anything else you need to rectify this issue.
+
+Thanks
+Naveen
 
 
-From:Miss: Fatima Yusuf.
-
-For sure this mail would definitely come to you as a surprise, but do take your good time to go through it, My name is Ms. Fatima Yusuf,i am from Ivory Coast.
-
-I lost my parents a year and couple of months ago. My father was a serving director of the Agro-exporting board until his death. He was assassinated by his business partners.Before his death, he made a deposit of US$9.7 Million Dollars here in Cote d'ivoire which was for the purchase of cocoa processing machine and development of another factory before his untimely death.
-
-Being that this part of the world experiences political and crises time without number, there is no guarantee of lives and properties. I cannot invest this money here any long, despite the fact it had been my late father's industrial plans.
-
-I want you to do me a favor to receive this funds into your country or any safer place as the beneficiary, I have plans to invest this money in continuation with the investment vision of my late father, but not in this place again rather in your country. I have the vision of going into real estate and industrial production or any profitable business venture.
-
-I will be ready to compensate you with 20% of the total Amount, now all my hope is banked on you and i really wants to invest this money in your country, where there is stability of Government, political and economic welfare.
-
-My greatest worry now is how to move out of this country because my uncle is threatening to kill me as he killed my father,Please do not let anybody hear about this, it is between me and you alone because of my security reason.
-
-I am waiting to hear from you.
-Yours Sincerely,
-Miss.Fatima Yusuf.
+On Sun, Jun 23, 2019 at 8:57 AM Naveen Iyer <iyernaveenr@gmail.com> wrote:
+>
+> Hi,
+>
+> As sugegsted by https://www.kernel.org/doc/man-pages/reporting_bugs.html =
+, I looked up the online man page as well:
+> http://man7.org/linux/man-pages/man2/syscall.2.html
+>
+> In the table in "Architecture calling conventions" section:
+>
+> arch/ABI    instruction           syscall #  retval  error    Notes
+> =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80
+> x86-64      syscall               rax        rax     -        [5]
+>
+> Retval must be placed in rdi as per the following link:
+> https://w3challs.com/syscalls/?arch=3Dx86_64
+>
+> I personally ran the test to verify that the retval is indeed supposed to=
+ be placed in rdi, not rax.
+> My man page version:
+> $ man --version
+> man 2.8.3
+>
+> Steps to replicate this issue:
+> Step 1)
+> Write test code 'startup.c':
+> void _start()
+> {
+>         /*
+>            Source: $: man syscall
+>            arch/ABI    instruction           syscall #  retval  error    =
+Notes
+>            =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80
+>            i386        int $0x80             eax        eax     -
+>            ia64        break 0x100000        r15        r8      r10      =
+[1]
+>            x86-64      syscall               rax        rax     -        =
+[5]
+>         */
+>
+>         // Specify the return value/error code in ebx for x86 and rdi for=
+ x86_64
+>         asm volatile (
+>                 "movq $97, %rdi"
+>         );
+>
+>         // Specify the type of system call (1 is the exit syscall) in eax=
+ register.
+>         asm volatile (
+>                 "movq $0x3c, %rax"
+>         );
+>
+>         // Transition to kernel mode.
+>         asm volatile (
+>                 "syscall"
+>         );
+> }
+>
+> Step 2) Compile and execute:
+> $ gcc -nostdlib -c startup.c
+> $ ld startup.o -o startup
+> $ ./startup
+> $ echo $?
+> 97
+>
+> My system details:
+> $ lsb_release -a
+> No LSB modules are available.
+> Distributor ID: Ubuntu
+> Description: Ubuntu 18.04.1 LTS
+> Release: 18.04
+> Codename: bionic
+>
+> $ uname -a
+> Linux user 4.15.0-51-generic #55-Ubuntu SMP Wed May 15 14:27:21 UTC 2019 =
+x86_64 x86_64 x86_64 GNU/Linux
+>
+> Please let me know if there's anything else you need to rectify this issu=
+e.
+>
+> Thanks
+> Naveen
