@@ -2,84 +2,51 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 42CD95AB02
-	for <lists+linux-man@lfdr.de>; Sat, 29 Jun 2019 14:45:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A01ED5AF29
+	for <lists+linux-man@lfdr.de>; Sun, 30 Jun 2019 09:16:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727013AbfF2MpH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 29 Jun 2019 08:45:07 -0400
-Received: from mail-lf1-f67.google.com ([209.85.167.67]:39829 "EHLO
-        mail-lf1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726906AbfF2MpH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 29 Jun 2019 08:45:07 -0400
-Received: by mail-lf1-f67.google.com with SMTP id p24so5738908lfo.6
-        for <linux-man@vger.kernel.org>; Sat, 29 Jun 2019 05:45:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=6Fk3MqiyjbWioqoD64OziOKsJT5m7pOMLyqnG/8w8As=;
-        b=P9GtUi8lD+NvuGnOdgS3SYXJPrRbYOIYcq8fle9AcPsO0U5udU4kmrDt+4KaZY6F03
-         4+yHt1HLggxd5MAoDjC2663RbVyuOoVaMmyDz+mNZ4N48kbSJfo+BqojSTW0EB9iCP8N
-         uZrH+CCa3gpzb7AgNxC10Lh1EtkcLTuVoIpoTF8bG6FoubPJtf/bMn4qu0fHqmhSQVm1
-         03x+qA4be7MEgzuXPrDMmJPaWcZzyoemcvIW0YzbJh08KPnXDjk7ra5+0V+0DL3FfBUQ
-         +7drIvrVbY+uYOX8y2kh/SNZPbTZ/JP+EsdVV69R+xm7kXqgQbaEAp99j6QTRx4PVGRP
-         1Ljg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=6Fk3MqiyjbWioqoD64OziOKsJT5m7pOMLyqnG/8w8As=;
-        b=o3+GaKPfO4GEq0hznqu998Uv1KhWC0CDzkYs9hspNkXimVPLsFihphxdFOHpfwrJ0a
-         F+xyUWmkWIgmpGh9wSmVIgs+8YEMXDIWZDYoj9oUD4FkA07Ner2lJW/roIp3cJVh0e6p
-         0ChZ/8FHrIyfgrY0zgubrL3F8Gh3Uay32Z6ZsdlGDyZUIpcEc6bK9gLcOE63aDXICoGl
-         S243KfIZdkdiz7IUWMZrmvWVot9//3N6t06PE0ahVyJO68wubcstdzn7YBx2wG2McJgo
-         YrCvCPkbLLx0/MrCIquyKxEhiUFsaQCva07VEQthCReHG8/cDTjEx+xhd6TwhP+ZGE5o
-         QVUg==
-X-Gm-Message-State: APjAAAUvLMDTyQNlDFCc3imnlD2c68tGXfnxgHZfvhgYZ+OQo0997Av+
-        vTSziw82MU1fwRj9IsJuyBPKJI1MV3kbyKFHSsM=
-X-Google-Smtp-Source: APXvYqwxns1pX9PljBnl0uK2ObiWH24cADPJlf2PVh2xO83po5Q/Y2D93qd/S3QoA/wYgynTpes+5TirKgggjCOSdYo=
-X-Received: by 2002:a19:8cc:: with SMTP id 195mr7684075lfi.150.1561812305476;
- Sat, 29 Jun 2019 05:45:05 -0700 (PDT)
+        id S1726472AbfF3HQp convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Sun, 30 Jun 2019 03:16:45 -0400
+Received: from omta02.suddenlink.net ([208.180.40.72]:35484 "EHLO
+        omta02.suddenlink.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725959AbfF3HQp (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 30 Jun 2019 03:16:45 -0400
+X-Greylist: delayed 303 seconds by postgrey-1.27 at vger.kernel.org; Sun, 30 Jun 2019 03:16:45 EDT
+Received: from dalofep01 ([10.130.7.41]) by dalofep04.suddenlink.net
+          (InterMail vM.8.04.03.22.01 201-2389-100-168-20180813) with ESMTP
+          id <20190630071142.BCHX14735.dalofep04.suddenlink.net@dalofep01>;
+          Sun, 30 Jun 2019 02:11:42 -0500
+Message-ID: <20190630021142.04R7R.624546.root@dalofep01>
+Date:   Sun, 30 Jun 2019 2:11:42 -0500
+From:   <riffay00i@suddenlink.net>
+To:     riffay00i@suddenlink.net
+Subject: Hola querido.
 MIME-Version: 1.0
-Received: by 2002:ac2:538f:0:0:0:0:0 with HTTP; Sat, 29 Jun 2019 05:45:04
- -0700 (PDT)
-From:   dav1ask4cole <dav1ask4cole@gmail.com>
-Date:   Sat, 29 Jun 2019 05:45:04 -0700
-Message-ID: <CALYsZvBiRQB+W8ehi_fD8P8JXMAKmZx9cy2mByKoxKWQSjUAAQ@mail.gmail.com>
-Subject: Greetings Dear Friend,
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8BIT
+X-Priority: 3 (Normal)
+Sensitivity: Normal
+X-Authentication-Info: Submitted using SMTP AUTH LOGIN at dalofep04.suddenlink.net from [10.130.7.41] using ID riffay00i@suddenlink.net at Sun, 30 Jun 2019 02:11:42 -0500
+X-CM-Analysis: v=2.3 cv=PfaBeRpd c=1 sm=1 tr=0 cx=a_idp_d a=z6mtCvffjuDeMgWKCv6P6A==:117 a=IkcTkHD0fZMA:10 a=dq6fvYVFJ5YA:10 a=CjxXgO3LAAAA:8 a=gBO9zXEbSPNVqkDIu14A:9 a=QEXdDO2ut3YA:10
+X-CM-Envelope: MS4wfLgTXFgzAZKOzaJ5nlHeUCUIFJ0co2qlXEIpm1YeDPAr+m7ytX9D/i79wj3QFlvOOyQJ1C2dNVIZ6c8xeR+6MXPtg+HAMb8fstt+FLnqKhk2rvH0puhb iCoCy3rYWCjSjbRKeTCfFIkWEEfVsJze1wqWg2PI7dQrvPN/0hWE6TffBSWEuKw4ZFx3RsWjM6K7TmYcjuZ2q9BvFG2Ob9Im8xkZI0XUAFDJnZurxTJrt6Gm e35dpFSs1wf0nGNxq6Yiikl+I4m39O5ilIwsi0KWo0jAeBLd4J7+sgiDYmGh5lj/3s5yyQ46c3eVNaxEZk9lAQ4l28SWtnI45k1m4eg5biKK055J4UVsiZ+V a3HfETLppp0BhAWaxUOEOe6MWYj7uWGsHj58Cgj5uMFS4FfSrzHiWW1fLeP0rmLiBumULXOCPM4T3yy+p2GmCtgjuJxUcdYoDtVySX89U3DfpRfBPa88eqAV ctlaD4UeRmvIJWixsDFDzh7JpIJ6HvwZpllsG6cfi4Wa2LpImcRa/kp2kUj8O3B7TMzgyELdTFNOkSy2GgAdYkyX2kdqRouIIduBUQa/2J4/JkY2XmmbFhZU XY2N7aLfKaAhVeoEiLypo5ZCE9dV7eXuZ8Ro4voTuQz78nE4T2LNnr79qFyaO5qz/s2HleVJ+axjCcf0SRAUxKRpNsmzkXcT9Khs0c3bCXjNABPorK3Dmfqo +fwpjZc8abjCpHADr7pyFJYj5fyrjj1npMxTp2zhW1VD9iYcDG3uYTW2lOXGCSajkTo4zjArzORuY6mxr1GmFMRQK+fbL44NB1DroEXKpM6vqVVlRZqwa4af ic2+JGvSzZpPEvQKtBzb+QqAx8NgWOFDyDBvIsj3SxjNfhWRabRiyvKazTmztvYUyNa4DitrRScadRMRqUobSi0y3eUNcTPEmCj5L8WbucNmmVxA0VCUhATj ZnM+Ky1qWGLT5NJGNeB1UGsJa/1Pgn8q6ctboR8Yht2zzcH/BEM9JTIm56tmmc/icuAmEcxOPOjbpFJs0SLy3VzpvLAYGu7UfwT4WxmYY0Lqn5AZdAXe6KfJ QLO2mW7TQbgLlnLbkl8wBdZBR5t8q+GIhrFYSC0HqLMr7mslpKPMxTzvGYia33yIw5l8+EeE189+XkT5r42YhS2J/RkyzqqYOIrnJRqQJb+BopvvpWMXh6tO RW4Brcd95eYqvjOxQlovHfHTyZihekO7++uNY7BNvQg0Zih+MpLK1ta0FfwkHYRGWKeMjbaB3jhR02zIYP3rgszQ71AR7YesQppUW27/hv5ikUJp8Mc+Fw9h rZqtUHFC/ekXR2TwideTOcCKiaQhs/ZKiwa7vzlVb/g56gfHFL5YNSyH48k7oeUPv+Kwfiua8nww+tl/wSEY1G7clIrKkkU52KeJolzdC+GzNq9ssF47hm9R qmVlOs4P7DAdK5OL
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Greetings Dear Friend,
+Hola querido.
 
-Please do not be offended that I wrote surprising mail to you. I am
-the audit manager in one of the largest bank here in republic of Togo.
-I want you to help me receive this money into your bank account
+Por favor, no se sienta perturbado por contactarlo, debido a la condición crítica en la que me encuentro, pero no es un problema financiero, pero mi salud, es posible que sepa que el cáncer no es de lo que se puede hablar, estoy casado con el Sr. Karimpour Behrouz, quien trabajó con la embajada de Dubai en cote d'ivoire durante nueve años antes de morir en el año 2016.
 
-The total amount is $5,700, 000.00 Five Million Seven Hundred Thousand
-Dollars I want to present you as the next of kin so that the fund will
-be transferred to your account for investment. I guarantee that this
-will be done under legitimate arrangements that will protect both of
-us. Reply so that I can give more details. I have in mind to share the
-money 50/50 with you
+Estuvimos casados ​​durante once años sin un hijo. Murió después de una breve enfermedad que duró cinco días.
 
-Send your reply with the following information of yours,I will use it
-to prepare a legalization paper on your behalf to enable the immediate
-finalization of this transaction
+Desde su muerte, decidí no volver a casarme. Cuando mi difunto esposo estaba vivo, depositó la suma de US $ 4,5 millones (cuatro millones quinientos mil dólares) en un banco de Cote d'ivoire. Actualmente, este dinero todavía está en el banco. Y mi doctor me dijo que no tengo mucho tiempo para vivir debido al problema del cáncer. Al conocer mi condición, decidí entregarle este cariño para cuidar de las personas menos privilegiadas, utilizará este dinero de la manera Voy a instruir aquí. Quiero que tomes el 10 por ciento del dinero total para tu uso personal, mientras que el 90% del dinero se destinará a organizaciones benéficas y al orfanato.
 
-Your Full Names:...
-Residential Address:..
-Private Email Address:..
-Telephone Numbers:..
-Age:...
-Occupation:...
-Marital status:..
 
-Have a nice day and God bless  Anticipating your prompt response
-Thank you.
-Yours sincerely
-Cole Davidson
-BTCI Banque(Audit and account manager)
-Lome Republique du Togo
+No quiero que el gobierno utilice los esfuerzos de mi esposo. Crecí siendo huérfana y no tengo a nadie como miembro de mi familia,
+
+Estoy esperando su respuesta. [massouma003i@yahoo.com]
+
+Saludos,
+Sra. Massouma Karimpour Behrouz
+escrito desde el hospital.
