@@ -2,76 +2,75 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id B650261493
-	for <lists+linux-man@lfdr.de>; Sun,  7 Jul 2019 11:36:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7120B615BA
+	for <lists+linux-man@lfdr.de>; Sun,  7 Jul 2019 19:43:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727259AbfGGJg7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 7 Jul 2019 05:36:59 -0400
-Received: from smtp687out1.syd.oss-core.net ([210.50.30.228]:40716 "EHLO
-        smtp687out1.syd.oss-core.net" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725822AbfGGJg6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 7 Jul 2019 05:36:58 -0400
-X-Greylist: delayed 1802 seconds by postgrey-1.27 at vger.kernel.org; Sun, 07 Jul 2019 05:36:57 EDT
-DomainKey-Signature: s=iprimus-dk; d=iprimus.com.au; c=simple; q=dns;
-  h=X-IronPort-AV:Received:MIME-Version:Content-Type:
-   Content-Transfer-Encoding:Date:From:To:Subject:Reply-To:
-   Mail-Reply-To:Message-ID:X-Sender:User-Agent:
-   X-Originating-IP;
-  b=AVpK4FWX+FDZIML7wQbfUUuqrP3xa8UL4APfdgGjbnv37+ORJT0YoJME
-   3Hu4e8ah22BN6RhbRdQ3DyyBJFB6TpIWUJPLqKjEnKx2yBFd3XeEEOvSe
-   5bqKzAsL0WHGj1egFQCdSvYKrInRMDPs6vXUM2IG6fXOz8eUb6FV2vR/9
-   s=;
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=iprimus.com.au; i=@iprimus.com.au; l=621; q=dns/txt;
-  s=iprimus-dkim; t=1562492217; x=1594028217;
-  h=mime-version:content-transfer-encoding:date:from:to:
-   subject:reply-to:message-id;
-  bh=ivpcteUi7YpXzRTLywLlS5+wbYXiyI+hPjDTfTUnXTk=;
-  b=Oy3FHcDmKtxL6Q3Klfm/vlHo7VhTU4tU7ScrSYgSxbbAGltQIZk25II6
-   uXFDsjA67m2EAVnHT5TkyUUvxttbhWqRb8i6jd22GO79RVaCkmxWsDJ7D
-   jOzmZL8p2NgKyo106FseIMnJweCFHPx0d6fqOPJ7KkxDSkayv7KW/3j25
-   Y=;
-X-IronPort-AV: E=Sophos;i="5.63,462,1557151200"; 
-   d="scan'208";a="426980102"
-Received: from 154.11.134.203.sta.m2core.net.au (HELO 0.0.0.0) ([203.134.11.154])
-  by smtp687.syd.oss-core.net with ESMTP; 07 Jul 2019 19:06:52 +1000
+        id S1726382AbfGGRng (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 7 Jul 2019 13:43:36 -0400
+Received: from mail-pf1-f195.google.com ([209.85.210.195]:45215 "EHLO
+        mail-pf1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725928AbfGGRng (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 7 Jul 2019 13:43:36 -0400
+Received: by mail-pf1-f195.google.com with SMTP id r1so6421664pfq.12
+        for <linux-man@vger.kernel.org>; Sun, 07 Jul 2019 10:43:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:date:to:cc:subject:message-id:mime-version:content-disposition
+         :user-agent;
+        bh=l2FkPDpJVs0nAjLyGSuTy4Vj5E70phdgQIUOlYKoBp8=;
+        b=te3LQYxyD0rKOZvnS2wxVO3P+0NhA+PH/byjpzzqJr5g9KCFCYqpl2IvuoVdpq+mVu
+         m3swJGqbpHQVHdAu9fjfBAunrfpkWAb5vBQCqjAOQnJJOiiAKaAxRnH+8I0/gJBLh3R3
+         QrhSlCc5r7w9Hvny7ED0uh1oOGWj09pC3PlfjPSY1aMlFmCPkTqTh9wPIWrQ5VFanXLm
+         oWKHifrIUyhCXslA12NEEcH0IeD4FK/uPWB3mkOrHalmnn87peevYHcQzISTFaT9G6Mm
+         WHJOBKA7yjjDNW0Fnk069+go1a9Tfe9NGcy6mzT/yXvqsTmPxYkDH3bMm6Za7ZxE2Eo1
+         kQlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:date:to:cc:subject:message-id:mime-version
+         :content-disposition:user-agent;
+        bh=l2FkPDpJVs0nAjLyGSuTy4Vj5E70phdgQIUOlYKoBp8=;
+        b=a4U7uuGVmsPZCrSjHe0apvV1H6P11W0T7Y13ahEcS3+BOtsQz31JEJT56TGj+IEqnX
+         kSKeOPq+RrqhZbSLfYVYZpGkEMDeRcnp60Nl2zh+USTCeLVz7waDAIJ9fhPnYDHoEt7B
+         kPgJGY7z1vbgfrhqVUnCN71TAdbqifgPYsrQ5P9OVZ6cckJ/75Fbs6d4vr+szlvkR6S1
+         ouZRMCwBPMPu9U/3idoE5y23c50ffchMXsfJYvLJmPTxhnABQETqOWdToTPCL8s701u2
+         FkSqyUFnXzTynIqrICUlxLZUdmjWzZ4T8QWynJC2jfLtSb296SpfA+s3E2OCvbRVjs1h
+         oUfA==
+X-Gm-Message-State: APjAAAU/hqIPiVUvbXITPth4IYyEaklaNyleeZQvQWNFER9vo71J8Cxk
+        8QODgjF1wnSFfzRFcA9ZSC0=
+X-Google-Smtp-Source: APXvYqynY7Y39ukL18z5VnZXA7HbLDXpTi2bpGvHH6aNOBUUZa/19b+xjXkEcwxQgQ27QGAtlmwuYA==
+X-Received: by 2002:a65:4087:: with SMTP id t7mr8113597pgp.10.1562521415744;
+        Sun, 07 Jul 2019 10:43:35 -0700 (PDT)
+Received: from Journey.localdomain ([115.96.198.70])
+        by smtp.gmail.com with ESMTPSA id t2sm13181842pgo.61.2019.07.07.10.43.33
+        (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+        Sun, 07 Jul 2019 10:43:34 -0700 (PDT)
+From:   Hritik Vijay <hritikxx8@gmail.com>
+X-Google-Original-From: Hritik Vijay <Hritikxx8@gmail.com>
+Date:   Sun, 7 Jul 2019 23:13:30 +0530
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: FIXME in Manual pages from other packages
+Message-ID: <20190707174330.GA10203@Journey.localdomain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-Date:   Sun, 07 Jul 2019 09:06:52 +0000
-From:   Riffat durrani masood <joannebros@iprimus.com.au>
-To:     joannebros@iprimus.com.au
-Subject: Ciao mio caro
-Reply-To: riffat00i@yahoo.com
-Mail-Reply-To: riffat00i@yahoo.com
-Message-ID: <5780f11f225b77358e16d4e087403234@iprimus.com.au>
-X-Sender: joannebros@iprimus.com.au
-User-Agent: Roundcube Webmail/1.2.9
-X-Originating-IP: [103.250.231.42]
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.12.1 (2019-06-15)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Ciao mio caro
+The page at https://www.kernel.org/doc/man-pages/man_pages_other.html
+misses documentation for Arch Linx. I'd like to add the following.
 
-Possa la Pace del nostro Dio Onnipotente essere per voi
+Arch Linux
+On Arch, [pacman](https://wiki.archlinux.org/index.php/Pacman) can be
+used to query the database to know which package a file in the file
+system belongs to.
 
-Il mio nome è Mrs Riffat durrani masood, 69 anni del pakistan che vive 
-ad Abidjan, Costa d'Avorio, Please, I Sono fatto per contattarti,
+After finding out the package name, the Arch [Web Package
+Search](https://www.archlinux.org/packages/) can be used to find more
+about the package such as maintainer's contact details.
 
-Ho sofferto di cancro e ho una vita breve per andarmene, ho deciso di 
-donare la mia eredità di 3,5 milioni di dollari ai meno privilegiati, 
-per favore aiutami a soddisfare il mio ultimo desiderio, per favore 
-contattami
-qui ... [Riffat00i@yahoo.com]
-
-per favore contattami nella mia email personale ..
-[Rriffat430@gmail.com]
-
-Aspetto di sentirti
-
-grazie
-
-Signora Riffat durrani masood
+If the package belongs to AUR (Arch User Repository), it can be searched
+[here](https://aur.archlinux.org/packages/)
