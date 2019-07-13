@@ -2,60 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id AC8D867B34
-	for <lists+linux-man@lfdr.de>; Sat, 13 Jul 2019 18:16:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EFEAC67C40
+	for <lists+linux-man@lfdr.de>; Sun, 14 Jul 2019 00:21:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727751AbfGMQQU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 13 Jul 2019 12:16:20 -0400
-Received: from mail-io1-f68.google.com ([209.85.166.68]:42677 "EHLO
-        mail-io1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727678AbfGMQQU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 13 Jul 2019 12:16:20 -0400
-Received: by mail-io1-f68.google.com with SMTP id u19so26921653ior.9
-        for <linux-man@vger.kernel.org>; Sat, 13 Jul 2019 09:16:19 -0700 (PDT)
+        id S1727983AbfGMWVc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 13 Jul 2019 18:21:32 -0400
+Received: from mail-pl1-f193.google.com ([209.85.214.193]:34909 "EHLO
+        mail-pl1-f193.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727978AbfGMWVb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 13 Jul 2019 18:21:31 -0400
+Received: by mail-pl1-f193.google.com with SMTP id w24so6467636plp.2
+        for <linux-man@vger.kernel.org>; Sat, 13 Jul 2019 15:21:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ZwsDlgezVgU71g96jAPbtlGesTTowoUVW1lGeshn+Dk=;
-        b=t9Xlffyo8njVlzAaStKRzKZ0O+iypX66CidWkDzC6QukPWnipa8vRtjz0ofUcJt1yR
-         bQJ13X1LcuPChSA+/9TRwSkdr/C1rXTIS+a5ibI5RykDfsaGQSmTwC/u2KDs7CPXJC15
-         l0RIOQbVKPxmpKgiOYPaAjbfNtZMU8wNQgXa8wN7uGcfqZMVIwLB92uwmOhA7Kyz8dvu
-         VHHGLFq343TwYhOGVGcv3RcHTO2vY7yRTDeHgARDXQvHJaI8qLLunFc+O99ask5W+QBV
-         nNiVN/Nur8fO7Rsxt4SglmK5YpOagU7GFOyPSYndzqq5+EdaVL1rITeW+1Ga6CQtCIbO
-         7qRg==
+        bh=OkzgR29QIPiDNPiam9bZBe62r3ccGKV/koxGUP8/4zI=;
+        b=WYA3OaUJhh891UdV7OEKqCh3/W7ajMNOnjH3XqjlbKOb0IKiYdo0CUEJl136AKJKYk
+         d6572l9pfSLtAiwyxj853Qqf0ymILGVYMZiTzGvEsd+DnMXDthcaht9GF5TdqhQU0oLt
+         J3+cmTvF/QaF5yTEMSXMeGFLDdo1CV1kwzhag7Q7rfLchilC6K1FZRNMx5ZAaMFlb2a4
+         zjmTm2zmDW2GOlUKALn59H7iRk47pHMJ+/gguRw4ey8o4jycdMtgWbJbzTEpUuz0ODV7
+         UAxatFX+CAX5WNWf+QrdkU7f/vSy5TVg3E4DuAF3RWnAQqf0gGWtxKnMxRZNxX2TH1Zm
+         ViWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=ZwsDlgezVgU71g96jAPbtlGesTTowoUVW1lGeshn+Dk=;
-        b=GrOPmoBAmwCGAFXnMU7GkoUUSxD+W9DXOCAgMU9A/lFkHSZjOTEqR3WQl+OUUHzHRw
-         qLnzh0EEdBBNwnkhGeZXaD4x9BCEo07oT3kuCOQ4OdY1oHROWeXGAD23fIY62I+/j96Y
-         cPrecf/K6e9MbduGdTLXfTqwc7J/+yTqf1ZsyZK0aiUPMmnLv7S71bGjAOoLypo9eUIQ
-         LwVW/BsT2xLyZGRgdwZer6l/WsO0Dx4iEW7C+n3e/tjPh8Kodc430bD2oGLjOJZuXuvt
-         8SUbhEqaccUbs0BO78M9BRFeig/8TCe0hSN2kD8mfsrvLO7vVBgpdgqsWBLj7ce1pHFW
-         y24g==
-X-Gm-Message-State: APjAAAUmAu8ryHQMg/0a1cY8bt6LTQHGxyRHqp9uLnoooQVgkF6M3vSd
-        ynStofkmWD6O2olGBr7aTLCJW51/
-X-Google-Smtp-Source: APXvYqx+HGCN7rMesgEy4wWymyH+5d10BQfEgnAykd/zbRXcdkmaUsQbkSyxtliWQ+aowhWPX/z5/w==
-X-Received: by 2002:a5d:8b52:: with SMTP id c18mr16528057iot.89.1563034578927;
-        Sat, 13 Jul 2019 09:16:18 -0700 (PDT)
-Received: from [172.30.248.236] ([67.133.97.99])
-        by smtp.gmail.com with ESMTPSA id i23sm8562030ioj.24.2019.07.13.09.16.11
+        bh=OkzgR29QIPiDNPiam9bZBe62r3ccGKV/koxGUP8/4zI=;
+        b=AKN6xwooVOa1ufZ5B0ZlbBuFQb08u96SDX9GfFoNKJAnDboQF8gBhw8RZdQ4VQbOge
+         1AML2O5aTM/ZASHRSlE3w4pyftqlKl6Pdf8NKYa4FNwzpwmYnJpDMQ1UqdoU+gnVwzaV
+         LfSXOtxz4I76gCiqmwwrYxR0vqx7FBm7hYkb8EF5aCWvZAqBPAZhliuD4veCPN31x4fR
+         qma9qz2kFi4HoEeAvjAXRiOXrQMqNBWdGevH3DIx6v2ys5vgvNzzhxSsaCmz3q0OIw2j
+         9ADmUufT9dM7Fss30ya3l4geCfq6beP5PhITtxXts0ikiQG+SbCgxltqgBDmDrHJ3Kao
+         0QSg==
+X-Gm-Message-State: APjAAAV5k0VNOhya0wcqXReZk2NDegPU9U4UtIuKRfmDfHOo/HfIjBmh
+        xE0q3QB67rCKYoqLVX5r8RI=
+X-Google-Smtp-Source: APXvYqzyfl8H7SSA9HbzmZPcHyzOs1e+uGKGCW9BWntASGmqRrfEI/F4AnyJb7AxvZiuCpyiS3QSQw==
+X-Received: by 2002:a17:902:8d97:: with SMTP id v23mr19238888plo.157.1563056490913;
+        Sat, 13 Jul 2019 15:21:30 -0700 (PDT)
+Received: from ?IPv6:2605:e000:1313:4b3e::90f? ([2605:e000:1313:4b3e::90f])
+        by smtp.gmail.com with ESMTPSA id 64sm12902995pfe.128.2019.07.13.15.21.29
         (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
-        Sat, 13 Jul 2019 09:16:17 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] execve.2: tfix
-To:     Jakub Wilk <jwilk@jwilk.net>
-References: <20190710172749.9569-1-jwilk@jwilk.net>
+        Sat, 13 Jul 2019 15:21:29 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Oleg Nesterov <oleg@redhat.com>,
+        Lennart Poettering <lennart@poettering.net>
+Subject: Re: [PATCH] signal.7: clarify that siginfo_t isn't changed on
+ coalescing
+To:     Michal Sekletar <msekleta@redhat.com>
+References: <20190711125324.4740-1-msekleta@redhat.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <de7976fc-d192-1909-8b58-33546c4cb586@gmail.com>
-Date:   Sat, 13 Jul 2019 10:16:11 -0600
+Message-ID: <7a9b8ed3-b012-6138-ae15-b8c9e3bc1a4f@gmail.com>
+Date:   Sat, 13 Jul 2019 15:21:28 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <20190710172749.9569-1-jwilk@jwilk.net>
+In-Reply-To: <20190711125324.4740-1-msekleta@redhat.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -64,30 +67,40 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 7/10/19 11:27 AM, Jakub Wilk wrote:
-> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+Hello Michael and Oleg,
 
-Thanks, Jakub. Patch applied.
+On 7/11/19 6:53 AM, Michal Sekletar wrote:
+> Cc: Oleg Nesterov <oleg@redhat.com>
+> Cc: Lennart Poettering <lennart@poettering.net>
+ >
+> Signed-off-by: Michal Sekletar <msekleta@redhat.com>
+> ---
+>   man7/signal.7 | 5 +++++
+>   1 file changed, 5 insertions(+)
+> 
+> diff --git a/man7/signal.7 b/man7/signal.7
+> index 0501fefc5..14c846699 100644
+> --- a/man7/signal.7
+> +++ b/man7/signal.7
+> @@ -426,6 +426,11 @@ Real-time signals are distinguished by the following:
+>   Multiple instances of real-time signals can be queued.
+>   By contrast, if multiple instances of a standard signal are delivered
+>   while that signal is currently blocked, then only one instance is queued.
+> +Note that the
+> +.I siginfo_t
+> +structure associated with the signal already in queue is not overwritten
+> +on arrival of subsequent instances of the same signal hence the process would
+> +receive metadata associated with the first instance of the signal.
+>   .IP 2. 4
+>   If the signal is sent using
+>   .BR sigqueue (3),
 
-Cheers,
+Thanks. I independently verified this also with a small test program.
+
+Patch applied, with some some subsequent edits and relocation
+of the text within the page. Thanks for sending it.
+
+Thanks,
 
 Michael
 
-> ---
->   man2/execve.2 | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man2/execve.2 b/man2/execve.2
-> index 840562e38..0266adc54 100644
-> --- a/man2/execve.2
-> +++ b/man2/execve.2
-> @@ -325,7 +325,7 @@ will be invoked with the following arguments:
->   .PP
->   where
->   .I pathname
-> -is te absolute pathname of the file specified as the first argument of
-> +is the absolute pathname of the file specified as the first argument of
->   .BR execve (),
->   and
->   .I arg...
-> 
