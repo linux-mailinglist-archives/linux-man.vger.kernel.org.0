@@ -2,49 +2,49 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4962E687C3
-	for <lists+linux-man@lfdr.de>; Mon, 15 Jul 2019 13:04:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4C3CA6A6C9
+	for <lists+linux-man@lfdr.de>; Tue, 16 Jul 2019 12:53:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729916AbfGOLEU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 15 Jul 2019 07:04:20 -0400
-Received: from mail-pf1-f194.google.com ([209.85.210.194]:42317 "EHLO
-        mail-pf1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729915AbfGOLES (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 15 Jul 2019 07:04:18 -0400
-Received: by mail-pf1-f194.google.com with SMTP id q10so7244892pff.9
-        for <linux-man@vger.kernel.org>; Mon, 15 Jul 2019 04:04:17 -0700 (PDT)
+        id S1732524AbfGPKwK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 16 Jul 2019 06:52:10 -0400
+Received: from mail-pg1-f194.google.com ([209.85.215.194]:46744 "EHLO
+        mail-pg1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728235AbfGPKwK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 16 Jul 2019 06:52:10 -0400
+Received: by mail-pg1-f194.google.com with SMTP id i8so9235511pgm.13
+        for <linux-man@vger.kernel.org>; Tue, 16 Jul 2019 03:52:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:from:date:message-id:subject:to;
-        bh=at1U0zLzNGQlxAxn9clrRSHSPpGB2zlKGmciYViXmzQ=;
-        b=Iux65787KeJtZlk/UWQ8a71sdq3L+JuOBHwZwxVHUOu0Hal0brUmaUtWDT+1EakAhq
-         MtJF/vbEQagCDLqdjzXV0tE8x5YNwPsclB57z/jA+URpkAaidKGibNAiJ897B2Q2rv9p
-         uYOBtZylJRmtRio8wDP4GwRiBknU84/FmWsMFw620mFEJwR9vSM1QlmEIUdghWeLiQPg
-         3/o6A/ASY/U2XQTJeOVMsZoeyZcCfYvLw2Rbw2pE/fk67uX5NyEzWB6tv7TG5MeHZvc/
-         X3yp2nduS0Os162TiWKhkMGOmC5wMIt1cVEoe4V7hwUEXyYLehvgYaVidvFk20QbqjFn
-         kL9A==
+        bh=5d76LCWMIyReNESEB4Drmz4MJjVgWvDNInVwTHtwXug=;
+        b=rjISCsuOUc8I80miWp0h71j29sHbIehm60GshpkZ2Ebmt/if8d+JAYyHFoFnXBRssG
+         qx9oqVnhsNmprF6pqPWr3vBXzx4fAHxii/w+hLJv1YnCSItjPFSfKidCKP6FxlCP+RIC
+         t8AC5TaW2X9TL6nUMHIXp+heC17hfVp31/BjUkKeF4UbM8tmUYcxgCG6t69cs8q2Qx62
+         HoPpC232zrVMKCKOX5eVng7s0HPbIyNHkkOg/ax4FzfivJ3PVG80dindPW8WMIhNt8Jh
+         kPZspZCBGrePTmyc4OnGKd5AsoRzseozM+EyFgH3q+Jw3QLZY/h1W+qj6PxRL3YlE3Rr
+         ON5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=at1U0zLzNGQlxAxn9clrRSHSPpGB2zlKGmciYViXmzQ=;
-        b=dXZ5hbtbl9U1pTkKSTYKX1mRjFpzLGg/12LzmBw731knBkbs7VyVTl14FPnET09xIV
-         3PLEKK1H5rtKbgs/Ws5MgDwNdrfXhXjkcSjzQv1nXy+w+x9GgDLW2Zh05PtW/PleGwF7
-         Yuq4QtAVp7J3Ug0xBiuC6+oA+BEAC8LafMgm++DJai13t8q4h8dWRWTrHx0OEiGExw/s
-         wCqt84ZUQQH92yaeXSjAplIJKv+M+Buq6OEE836bVocmDd1r/kQfpX2bX2u3B8FQCL6q
-         Xju3UkxnxMpAGbqInV7tO9ZTWO0SN/cd9jOAvXljPHacdsOVCmtsXRwyP95Xyb8J5zOt
-         Vu8A==
-X-Gm-Message-State: APjAAAWUcUssWiISjskd/5/GUuElB5oLGOe1+MhSxf0wVF8ZGitEfgFg
-        xjhmHXuLCgccJzpztsuXHmBkh2sDAjHLB0j0wYE=
-X-Google-Smtp-Source: APXvYqwI9SCHvCHLnvHckfwL+oW1shcNAvZVS/wk3iQ3LTmyEMELfYQBoBiEv/cUvggIHp2fQao9ul2L5mSBnKj2EDA=
-X-Received: by 2002:a63:ad07:: with SMTP id g7mr24480194pgf.405.1563188657092;
- Mon, 15 Jul 2019 04:04:17 -0700 (PDT)
+        bh=5d76LCWMIyReNESEB4Drmz4MJjVgWvDNInVwTHtwXug=;
+        b=avXh1Jom/1wA/oy9PoVYiK4Z+euYaC9gRwXogArYmot3Nsux84H9aUpTR+6rz/kdZ7
+         Ge9KueB46+enNzxy/14ZrSbGkUkltoshSId9TOzbw3AxCVeQynQDbjF855yUftFQGR36
+         MZwYu0wlIyauPxzzYz/gmyEOHayUnueKAMZ+pfSWDMysa1D3DCfPt/gBqzwaFYqJJvqR
+         v76QvdvgljEvjm6iCBtq6203tFVOUjsW6H3Iu91UeiCtVHuj43oySq0xAu5I6lYf4qbl
+         YCW/Uz+ZxovEGfjaSRhdT00TBPF42TC+pamURjjJBvMw5zSd/80A9S4+edSkJijK/lBZ
+         SaIw==
+X-Gm-Message-State: APjAAAU1rjFoZxom6ZrdPuwPN0NyRn6+Ey6TgK0rBDou60fTCNORi1kz
+        M4swwTAMUpWu8KBewBOp3zCZXmi8zyiqkl0UXy0=
+X-Google-Smtp-Source: APXvYqzgVryZv8yxrQqtB+cdVOk3ndsljTVJpnf1ztjnoLNvGhoSP5SzI7llAtbUQcr/TaC674kbK5yGE/nNedHyYxk=
+X-Received: by 2002:a63:7d05:: with SMTP id y5mr33030675pgc.425.1563274329707;
+ Tue, 16 Jul 2019 03:52:09 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a17:90a:b78d:0:0:0:0 with HTTP; Mon, 15 Jul 2019 04:04:16
+Received: by 2002:a17:90b:8c2:0:0:0:0 with HTTP; Tue, 16 Jul 2019 03:52:09
  -0700 (PDT)
-From:   Donald Douglas <ddouglasng@gmail.com>
-Date:   Mon, 15 Jul 2019 04:04:16 -0700
-Message-ID: <CALVR28EP4VMYZDqzau6uFTJmxHs6we+nYre3JstaZ5qSsvppFQ@mail.gmail.com>
-Subject: Kindly Respond
+From:   Galid Baus <galidbaus3@gmail.com>
+Date:   Tue, 16 Jul 2019 03:52:09 -0700
+Message-ID: <CALZckWtjp8Ryv_+wFYZUEeGySaq8umWqi+V5CrzC3m7Owsb4wg@mail.gmail.com>
+Subject: Hello
 To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
@@ -52,16 +52,28 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello,
-I am Barr Fredrick Mbogo a business consultant i have a lucrative
-business to discuss with you from the Eastern part of Africa Uganda to
-be precise aimed at agreed percentage upon your acceptance of my hand
-in business and friendship. Kindly respond to me if you are interested
-to partner with me for an update. Very important.
+Hello Friend,
 
-Yours Sincerely,
-Donald Douglas,
-For,
-Barr Frederick Mbogo
-Legal Consultant.
-Reply to: barrfredmbogo@consultant.com
+How are you doing today?? My name is Mr. Ghalid Bagus, I am the CEO of
+a Gold company in Accra Ghana, I am here to offer you our business
+cooperation.
+
+We are the one of the top 5 mining companies here in Accra Ghana which
+have strong supply authority by Government and We offer all our buyers
+the best price, We have ability to supply 500 kgs Gold bars, details
+stated below:
+
+Products and offer
+1. Gold Bars
+2. Purity: 97% + 24k guaranteed
+3. Ability to supply: 500 Kgs Per month
+4, First trial order: 50 - 100 kgs
+5. Unit Price: US$25,000 per Kg CIF Buyer Destination.
+8. Buyer come to Accra Ghana for inspection before proceeding with
+shipment after sign the contract.
+9. Payment within 72 hours after final assaying report to the buyer
+destination: LC at sight, T/T or cash.
+
+Thanks
+Ghalid
+C E O
