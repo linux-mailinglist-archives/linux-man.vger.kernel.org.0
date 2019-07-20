@@ -2,41 +2,23 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 644686F065
-	for <lists+linux-man@lfdr.de>; Sat, 20 Jul 2019 20:50:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BC7066F075
+	for <lists+linux-man@lfdr.de>; Sat, 20 Jul 2019 21:34:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725801AbfGTSul (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 20 Jul 2019 14:50:41 -0400
-Received: from mail-qk1-f179.google.com ([209.85.222.179]:45903 "EHLO
-        mail-qk1-f179.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725780AbfGTSul (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Jul 2019 14:50:41 -0400
-Received: by mail-qk1-f179.google.com with SMTP id s22so25755102qkj.12;
-        Sat, 20 Jul 2019 11:50:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=K1DjJdNnl+zka9s8zl8TpnQj9JyccYfNCrdgUGT2JBc=;
-        b=E0Z9AYzsZ5A+FkVMOHPFogm4Q3Zy261XHb3O8qqBw+NPtSFvrRR3r9pVDAogOIlLHA
-         0UtoVhxWsC/ziDJCqkqCypTBaL4SoK8wqXwBbJuG2es2KigAqB2th+fdX3p+1jGPSI5H
-         kVNrplbfvGwAKoTpRtbYrBSgHTyHHg8Mj5cH1YteEA43gSa4HbpyhdHAMPYsUVGKfyfV
-         B0zOFKof9uyzh6Ln1urU8CnzjrjUUhVwRR4UPS5CzKqAylTFUwOSfU9ItK5+ox8tgTIO
-         ueUhn627l1gXxKK/AYv4OaB5wsJsTfQtRiTKrHHaukvnQsW09u4mr4m4MD8hRnFsvpev
-         uxuA==
-X-Gm-Message-State: APjAAAXHIRaqQwCJ4qWtnjNfnR87+tFy/mdH9EQGiKHwihkIA0nI1XM1
-        zyHmygxLPizB5hkWsU3cuQFc/vNfmSgZ4uSsE/E=
-X-Google-Smtp-Source: APXvYqwOgP5JyfSYb+na0Yw3siiSnE4qFFFhH9b1DMjUEZg8Ra4RTQ8jwZpCHV3GgMemx0iWkTj65t0WRcrRnMXGEsk=
-X-Received: by 2002:a37:76c5:: with SMTP id r188mr39763653qkc.394.1563648640160;
- Sat, 20 Jul 2019 11:50:40 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190720174844.4b989d34@sf> <87wogca86l.fsf@mid.deneb.enyo.de>
-In-Reply-To: <87wogca86l.fsf@mid.deneb.enyo.de>
-From:   Arnd Bergmann <arnd@arndb.de>
-Date:   Sat, 20 Jul 2019 20:50:23 +0200
-Message-ID: <CAK8P3a3s3OeBj1MviaJV2UR0eUhF0GKPBi1iFf_3QKQyNPkuqw@mail.gmail.com>
-Subject: Re: linux-headers-5.2 and proper use of SIOCGSTAMP
-To:     Florian Weimer <fw@deneb.enyo.de>
+        id S1726131AbfGTTet (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 20 Jul 2019 15:34:49 -0400
+Received: from albireo.enyo.de ([5.158.152.32]:37712 "EHLO albireo.enyo.de"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1725940AbfGTTes (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sat, 20 Jul 2019 15:34:48 -0400
+Received: from [172.17.203.2] (helo=deneb.enyo.de)
+        by albireo.enyo.de with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+        id 1hov80-0005v7-Fe; Sat, 20 Jul 2019 19:34:44 +0000
+Received: from fw by deneb.enyo.de with local (Exim 4.92)
+        (envelope-from <fw@deneb.enyo.de>)
+        id 1hov80-0004M4-AR; Sat, 20 Jul 2019 21:34:44 +0200
+From:   Florian Weimer <fw@deneb.enyo.de>
+To:     Arnd Bergmann <arnd@arndb.de>
 Cc:     Sergei Trofimovich <slyfox@gentoo.org>,
         Networking <netdev@vger.kernel.org>,
         Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
@@ -44,35 +26,56 @@ Cc:     Sergei Trofimovich <slyfox@gentoo.org>,
         "David S. Miller" <davem@davemloft.net>,
         Michael Kerrisk <mtk.manpages@gmail.com>,
         linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: linux-headers-5.2 and proper use of SIOCGSTAMP
+References: <20190720174844.4b989d34@sf> <87wogca86l.fsf@mid.deneb.enyo.de>
+        <CAK8P3a3s3OeBj1MviaJV2UR0eUhF0GKPBi1iFf_3QKQyNPkuqw@mail.gmail.com>
+Date:   Sat, 20 Jul 2019 21:34:44 +0200
+In-Reply-To: <CAK8P3a3s3OeBj1MviaJV2UR0eUhF0GKPBi1iFf_3QKQyNPkuqw@mail.gmail.com>
+        (Arnd Bergmann's message of "Sat, 20 Jul 2019 20:50:23 +0200")
+Message-ID: <87muh8a4a3.fsf@mid.deneb.enyo.de>
+MIME-Version: 1.0
+Content-Type: text/plain
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sat, Jul 20, 2019 at 8:10 PM Florian Weimer <fw@deneb.enyo.de> wrote:
->
-> * Sergei Trofimovich:
->
-> > Should #include <linux/sockios.h> always be included by user app?
-> > Or should glibc tweak it's definition of '#include <sys/socket.h>'
-> > to make it available on both old and new version of linux headers?
->
-> What is the reason for dropping SIOCGSTAMP from <asm/socket.h>?
->
-> If we know that, it will be much easier to decide what to do about
-> <sys/socket.h>.
+* Arnd Bergmann:
 
-As far as I can tell, nobody thought it would be a problem to move it
-from asm/sockios.h to linux/sockios.h, as the general rule is that one
-should use the linux/*.h version if both exist, and that the asm/*.h
-version only contains architecture specific definitions. The new
-definition is the same across all architectures, so it made sense to
-have it in the common file.
+> On Sat, Jul 20, 2019 at 8:10 PM Florian Weimer <fw@deneb.enyo.de> wrote:
+>>
+>> * Sergei Trofimovich:
+>>
+>> > Should #include <linux/sockios.h> always be included by user app?
+>> > Or should glibc tweak it's definition of '#include <sys/socket.h>'
+>> > to make it available on both old and new version of linux headers?
+>>
+>> What is the reason for dropping SIOCGSTAMP from <asm/socket.h>?
+>>
+>> If we know that, it will be much easier to decide what to do about
+>> <sys/socket.h>.
+>
+> As far as I can tell, nobody thought it would be a problem to move it
+> from asm/sockios.h to linux/sockios.h, as the general rule is that one
+> should use the linux/*.h version if both exist, and that the asm/*.h
+> version only contains architecture specific definitions. The new
+> definition is the same across all architectures, so it made sense to
+> have it in the common file.
 
-If the assumption was wrong, the obvious solution is to duplicate the
-definitions everywhere or move the common parts into
-asm-generic/sockios.h, but it would have been better to hear about
-that earlier.
+Most of the socket-related constants are not exposed in UAPI headers,
+although userspace is expected to use them.  It seems to me that due
+to the lack of other options among the UAPI headers, <asm/socket.h>
+has been a dumping ground for various socket-related things in the
+past, whether actually architecture-specific or not.
 
-      Arnd
+<linux/socket.h> does not include <asm/socket.h>, so that's why we
+usually end up with including <asm/socket.h> (perhaps indirectly via
+<sys/socket.h>), which used to include <asm/sockios.h> on most (all?)
+architectures.  That in turn provided some of the SIOC* constants in
+the past, so people didn't investigate other options.
+
+I think we can change glibc to include <linux/sockios.h> in addition
+to <asm/socket.h>.  <linux/sockios.h> looks reasonably clean to me,
+much better than <asm/socket.h>.  I'm still working on the other
+breakage, and I'm severely limited by the machine resources I have
+access to.
