@@ -2,128 +2,80 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id B3CC66F0A9
-	for <lists+linux-man@lfdr.de>; Sat, 20 Jul 2019 22:41:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F3FAA6F12B
+	for <lists+linux-man@lfdr.de>; Sun, 21 Jul 2019 03:17:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726238AbfGTUlH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 20 Jul 2019 16:41:07 -0400
-Received: from mail-qk1-f195.google.com ([209.85.222.195]:39410 "EHLO
-        mail-qk1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726166AbfGTUlH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Jul 2019 16:41:07 -0400
-Received: by mail-qk1-f195.google.com with SMTP id w190so25837794qkc.6;
-        Sat, 20 Jul 2019 13:41:06 -0700 (PDT)
+        id S1725995AbfGUBRu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 20 Jul 2019 21:17:50 -0400
+Received: from mail-io1-f67.google.com ([209.85.166.67]:43778 "EHLO
+        mail-io1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725812AbfGUBRu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Jul 2019 21:17:50 -0400
+Received: by mail-io1-f67.google.com with SMTP id k20so66306679ios.10
+        for <linux-man@vger.kernel.org>; Sat, 20 Jul 2019 18:17:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to
+         :content-transfer-encoding;
+        bh=WaStWiHhMtzdB0C6hHUMuzKkk8IpubUQD/b1CfnRjfc=;
+        b=jDEEXEjFp6W682xM8J6RXZgNxrfa0lby0/4t9HVlN6LvpZnRIMpxsNyV4vKaXb3kAC
+         0zsH7dqpwkg/IU8AkW3rifJdkj+mdv7T8Oz2XkDC2Lj2npY2MIerTPGBa3cXQ4caWR84
+         7EejfnLaF/KDrWhizTFc7WN059F1nFa1GpVn7K3idsk8UFbJ86N72/wJv5z7fK2paIhJ
+         1p085+tlhbdYRZqPb7UVqFhIVZXGlOopA5zUuJibjS/G3M1dnmE+ltvN/UiU4cueutS7
+         LmNgSwS2quP2KjBePOXDZKyryDdBf5GqrUgyOpDPlAyeYZZOpI2Uk6JAJ4XV01bWtktG
+         rPwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=2GRr87CeGDH1apo6Nj6AffI/k+fZI6HJLojelJvUYsg=;
-        b=k5++5qdVQwSiqTF8qv03J4xxcCaGrRYUZDM99y8C3GdrRjRZaXZGGx+lrQNAg3sV1U
-         t9+6XULkckNk2AZWWD0AAvPXx0X3RMGYgM+ppWHax6DTu8trgo0rPUIbZf1D4UV44btH
-         sc1qaxSl32KFgR2ea64PvANas921BK38m1HtuUqimJCL13hR1oC9YUIBiQ2pjA+S/xtJ
-         xKlQ8Gl1k177x6hyRqUUCRGl4rRC//xFpi2ygcTGkjLwiTzwA4JLhL3ob0G8+tOrGmZ7
-         qs5MV9sDzbXgVQ/IKxaGvB6mHMrkgcTJ6aRs8YYVvpvLO2FGr3sYwmC8D/IKaM1glGva
-         aNCA==
-X-Gm-Message-State: APjAAAWlkMcpKXrvz6CgKtHyrR6Y/jHGp6+s/qrNNAPGyMfxg4rzwTcA
-        4NhWPASRmMkThhPladD/V5sHZ06EmOxMzNo72plN27hA5OE=
-X-Google-Smtp-Source: APXvYqxcKeJXxpW+eX3DLO4xxR6TFNLNqwLWUasGBjw1iTSLzVThHf8vr1kbmBrHjH5cExUz15aPcmJtiAtNL45Bmms=
-X-Received: by 2002:a37:4ac3:: with SMTP id x186mr39214231qka.138.1563655265830;
- Sat, 20 Jul 2019 13:41:05 -0700 (PDT)
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to:content-transfer-encoding;
+        bh=WaStWiHhMtzdB0C6hHUMuzKkk8IpubUQD/b1CfnRjfc=;
+        b=JNkjVuJAd7kDfj2dKkweYuVKw8KvwttazEstq77bWIYokHzmuOmTPEvoPSyuTRS9Jr
+         +Byy5d7zTM7XyqvwcKRr/Jo3go87usTnjWK0psPtGBpCTl68FV/7dAHZjzUsaHPo2AYU
+         3plwh+XWZxTK6fLoRS9J0ZQR52x2zTkz2IPhDfZ5lbkMszexRfxLz2r7McSKkHRH3pIu
+         gnC66iztlbhLWs7fQw7X91asl3gafOBqoYjtkhSZ8oQA5ay6GfldCwB7g72sZdnuQdKJ
+         9vi9Ju7Bnken+m4HVnXm6Rf83CLajbYBpr0v/wwb3gRhKWVoxeuEKcz4cSoL3Aj02UgL
+         05yg==
+X-Gm-Message-State: APjAAAXqhjl8sY2DEbFSBQOxZuZ0iO0DAuEZDVBoYh0k7q6Q2wCnPc9x
+        rHCagDaX9Zgvzid/SqNhWioH3FJnF8+Sb2a4K8OdKCZr
+X-Google-Smtp-Source: APXvYqzcNlCJNlkORvbO1SFc0f6VLnGC+Ae6/iFHXAiaL9ZJP3OPRMTGEIxV5SD+/PlCoGa+2ovGGWqImPth1NUGd4g=
+X-Received: by 2002:a5d:8c87:: with SMTP id g7mr54411994ion.85.1563671869863;
+ Sat, 20 Jul 2019 18:17:49 -0700 (PDT)
 MIME-Version: 1.0
-References: <20190720174844.4b989d34@sf> <87wogca86l.fsf@mid.deneb.enyo.de>
- <CAK8P3a3s3OeBj1MviaJV2UR0eUhF0GKPBi1iFf_3QKQyNPkuqw@mail.gmail.com> <87muh8a4a3.fsf@mid.deneb.enyo.de>
-In-Reply-To: <87muh8a4a3.fsf@mid.deneb.enyo.de>
-From:   Arnd Bergmann <arnd@arndb.de>
-Date:   Sat, 20 Jul 2019 22:40:49 +0200
-Message-ID: <CAK8P3a049MYvvu3pDONanYEosweYYQH1qJMg+CuMK-NcULtXTA@mail.gmail.com>
-Subject: Re: linux-headers-5.2 and proper use of SIOCGSTAMP
-To:     Florian Weimer <fw@deneb.enyo.de>
-Cc:     Sergei Trofimovich <slyfox@gentoo.org>,
-        Networking <netdev@vger.kernel.org>,
-        Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-        GNU C Library <libc-alpha@sourceware.org>,
-        "David S. Miller" <davem@davemloft.net>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
+Received: by 2002:a92:9a11:0:0:0:0:0 with HTTP; Sat, 20 Jul 2019 18:17:49
+ -0700 (PDT)
+Reply-To: ninajohn2266@gmail.com
+From:   Nina Johnson <jfferyevans@gmail.com>
+Date:   Sun, 21 Jul 2019 01:17:49 +0000
+Message-ID: <CAHbZzTrdMp1A5g_S7h+MC1=qJOUf+vnLC5GP=0gf1LPPbGxxug@mail.gmail.com>
+Subject: =?UTF-8?B?56eB44Gr5oi744Gj44Gm44GP44Gg44GV44GE?=
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sat, Jul 20, 2019 at 9:34 PM Florian Weimer <fw@deneb.enyo.de> wrote:
-> * Arnd Bergmann:
-> > On Sat, Jul 20, 2019 at 8:10 PM Florian Weimer <fw@deneb.enyo.de> wrote:
-> > As far as I can tell, nobody thought it would be a problem to move it
-> > from asm/sockios.h to linux/sockios.h, as the general rule is that one
-> > should use the linux/*.h version if both exist, and that the asm/*.h
-> > version only contains architecture specific definitions. The new
-> > definition is the same across all architectures, so it made sense to
-> > have it in the common file.
->
-> Most of the socket-related constants are not exposed in UAPI headers,
-> although userspace is expected to use them.  It seems to me that due
-> to the lack of other options among the UAPI headers, <asm/socket.h>
-> has been a dumping ground for various socket-related things in the
-> past, whether actually architecture-specific or not.
->
-> <linux/socket.h> does not include <asm/socket.h>, so that's why we
-> usually end up with including <asm/socket.h> (perhaps indirectly via
-> <sys/socket.h>), which used to include <asm/sockios.h> on most (all?)
-> architectures.  That in turn provided some of the SIOC* constants in
-> the past, so people didn't investigate other options.
-
-It seems that both the missing constants and the fact that
-linux/socket.h doesn't include asm/socket.h and linux/sockios.h
-goes back to a 21 year old commit:
-
-commit 74f513101058f7585176ea8cdf6fb026faea8a7e
-Author: linus1 <torvalds@linuxfoundation.org>
-Date:   Wed May 20 11:00:00 1998 -0800
-
-    [tytso] include/asm-i386/posix_types.h
-    This quick fix eliminates a lot of warning messages when
-    compiling e2fsprogs under glibc.  This is because the glibc header files
-    defines its own version of FD_SET, FD_ZERO, etc., and so if you need to
-    #include the kernel include files, you get a lot of duplicate defined
-    macro warning messages.  This patch simply #ifdef's out the kernel
-    versions of these function if the kernel is not being compiled and the
-    glibc header files are in use.
-
-diff --git a/include/linux/socket.h b/include/linux/socket.h
-index 08f0d281401c..35a7629b6b70 100644
---- a/include/linux/socket.h
-+++ b/include/linux/socket.h
-@@ -1,6 +1,8 @@
- #ifndef _LINUX_SOCKET_H
- #define _LINUX_SOCKET_H
-
-+#if defined(__KERNEL__) || !defined(__GLIBC__) || (__GLIBC__ < 2)
-+
- #include <asm/socket.h>                        /* arch-dependent
-defines       */
- #include <linux/sockios.h>             /* the SIOCxxx I/O controls     */
- #include <linux/uio.h>                 /* iovec support                */
-@@ -256,4 +258,5 @@ extern int move_addr_to_user(void *kaddr, int
-klen, void *uaddr, int *ulen);
- extern int move_addr_to_kernel(void *uaddr, int ulen, void *kaddr);
- extern int put_cmsg(struct msghdr*, int level, int type, int len, void *data);
- #endif
-+#endif /* not kernel and not glibc */
- #endif /* _LINUX_SOCKET_H */
-
-(the same commit did similar changes in linux/stat.h and asm/posix_types.h)
-
-Over time, the check for glibc was removed (to allow including linux/socket.h
-before sys/socket.h), and all the #ifdef __KERNEL__ bits were removed
-from the installed header as part of the uapi header split.
-
-> I think we can change glibc to include <linux/sockios.h> in addition
-> to <asm/socket.h>.  <linux/sockios.h> looks reasonably clean to me,
-> much better than <asm/socket.h>.
-
-That seems reasonable to me, but overall my fear is that these headers
-are already so broken that any change will risk breaking something
-in more or less unexpected ways.
-
-        Arnd
+5pyA5oSb44Gu5pa5DQoNCuengeOBr+OBk+OBruOCteOCpOODiOOCkumAmuOBl+OBpuOBguOBquOB
+n+OBrumAo+e1oeWFiOaDheWgseOCkuW+l+OBvuOBl+OBn+OAgeOBneOBl+OBpuengeOBr+OBguOB
+quOBn+OBq+mAo+e1oeOBmeOCi+OBk+OBqOOBq+OBl+OBvuOBl+OBn+OAguelnuOBruaBteOBv+OB
+q+OCiOOBo+OBpuOBguOBquOBn+OBjOengeOBrueKtuazgeOBi+OCieengeOCkuWKqeOBkeOBpuOB
+j+OCjOOCi+OBk+OBqOOCkumhmOOBo+OBpuOBhOOBvuOBmeOAguengeOBr+ODn+OCueODu+ODi+OD
+vOODiuODu+OCuOODp+ODs+OCveODs++8iDIw5q2z77yJ44Gn44GZ44CC44Ki44Kk44Oc44Oq44O8
+44Kz44O844K544OI44Gu57WM5riI6aaW6YO944Ki44OT44K444Oj44Oz44Gr5oug54K544KS572u
+44GP44CB5pyJ5ZCN44Gn6KOV56aP44Gq44Kz44Kz44Ki5ZWG5Lq644Gg44Gj44Gf77yI5b6M5pyf
+44OB44O844OV44CB44OK44OJ44O744K444On44Oz44K944Oz77yJ44CCDQoNCuS4jeWLleeUo+eu
+oeeQhuOChOagquW8j+W4guWgtOOBquOBqeOBruaKleizh+ebrueahOOBqOOBl+OBpuOAgTg4MOS4
+h+exs+ODieODq+OBruWQiOihhuWbveODieODq+OCkuOBguOBquOBn+OBruaMh+WQjeOBleOCjOOB
+n+mKgOihjOWPo+W6p+OBrua1t+WkluOBq+aMr+OCiui+vOOCgOOBruOCkuaJi+WKqeOBkeOBmeOC
+i+OBn+OCgeOBq+OAgeengeOBr+OBguOBquOBn+OBrue3iuaApeOBruazqOaEj+OCkuaxguOCgeOB
+puOBhOOBvuOBmeOAguWfuumHkeOBr+WbuuWumuOBleOCjOOBn+S4gOaZguWBnOatouWPo+W6p+OB
+q+mgkOOBkeOCieOCjOOBvuOBl+OBn+OAguengeOBq+OBguOBquOBn+OBrue3iuaApeaPtOWKqeOB
+ruOBn+OCgeOBruOBguOBquOBn+OBruaJi+aVsOaWmeOBqOOBl+OBpuengeOBjOOBguOBquOBn+OB
+q+OBk+OBruengeOBrue3j+izh+mHkeOBrjIw77yF44KS5o+Q5L6b44GZ44KL44Gk44KC44KK44Gn
+44GZ44CCDQoNCuOBk+OBruengeOBruebuOS6kuOBruWPluW8leOBq+mWouOBmeOCi+OCguOBo+OB
+qOmHjeimgeOBquips+e0sOOBq+OBpOOBhOOBpuOBr+OAgeengeOBruODl+ODqeOCpOODmeODvOOD
+iEXjg6Hjg7zjg6vjgafjgYLjgarjgZ/jga7ljbPmmYLjga7ov5TkuovjgpLlvoXjgaPjgabjgYTj
+govjga7jgafjgIHjgZnjgZDjgavopqrliIfjgavmm7jjgYTjgabjgY/jgaDjgZXjgYTjgIINCuen
+geOBr+elnuOBjOengeOBn+OBoeOBqOWFseOBq+OBiuOCieOCjOOCi+OBk+OBqOOCkueliOOCiuOB
+vuOBmQ0KDQoNCuaVrOWFtw0K44OL44O844OK44O744K444On44Oz44K944OzDQo=
