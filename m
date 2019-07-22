@@ -2,71 +2,82 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 580126F3FE
-	for <lists+linux-man@lfdr.de>; Sun, 21 Jul 2019 17:32:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 56CC96FEBB
+	for <lists+linux-man@lfdr.de>; Mon, 22 Jul 2019 13:31:20 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726405AbfGUPcR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 21 Jul 2019 11:32:17 -0400
-Received: from netrider.rowland.org ([192.131.102.5]:55983 "HELO
-        netrider.rowland.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with SMTP id S1726366AbfGUPcR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 21 Jul 2019 11:32:17 -0400
-Received: (qmail 16615 invoked by uid 500); 21 Jul 2019 11:32:16 -0400
-Received: from localhost (sendmail-bs@127.0.0.1)
-  by localhost with SMTP; 21 Jul 2019 11:32:16 -0400
-Date:   Sun, 21 Jul 2019 11:32:16 -0400 (EDT)
-From:   Alan Stern <stern@rowland.harvard.edu>
-X-X-Sender: stern@netrider.rowland.org
-To:     mtk.manpages@gmail.com, <linux-man@vger.kernel.org>,
-        Kernel development list <linux-kernel@vger.kernel.org>
-Subject: Error (?) in man page for ppoll(2)
-Message-ID: <Pine.LNX.4.44L0.1907211104350.15063-100000@netrider.rowland.org>
+        id S1729726AbfGVLbQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 22 Jul 2019 07:31:16 -0400
+Received: from mx1.redhat.com ([209.132.183.28]:21629 "EHLO mx1.redhat.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726339AbfGVLbP (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 22 Jul 2019 07:31:15 -0400
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mx1.redhat.com (Postfix) with ESMTPS id 733C58535C;
+        Mon, 22 Jul 2019 11:31:15 +0000 (UTC)
+Received: from oldenburg2.str.redhat.com (dhcp-192-200.str.redhat.com [10.33.192.200])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id D73EF9CD3;
+        Mon, 22 Jul 2019 11:31:13 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
+To:     libc-alpha@sourceware.org, Sergei Trofimovich <slyfox@gentoo.org>
+Cc:     netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Arnd Bergmann <arnd@arndb.de>,
+        "David S. Miller" <davem@davemloft.net>, mtk.manpages@gmail.com,
+        linux-man@vger.kernel.org
+Subject: [PATCH glibc] Linux: Include <linux/sockios.h> in <bits/socket.h> under __USE_MISC
+Date:   Mon, 22 Jul 2019 13:31:12 +0200
+Message-ID: <87ftmys3un.fsf@oldenburg2.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.2 (gnu/linux)
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]); Mon, 22 Jul 2019 11:31:15 +0000 (UTC)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Here are two extracts from the man page for ppoll(2) (from the
-man-pages 4.16 package; the 5.01 version is the same):
+Historically, <asm/socket.h> (which is included from <bits/socket.h>)
+provided ioctl operations for sockets.  User code accessed them
+through <sys/socket.h>.  The kernel UAPI headers have removed these
+definitions in favor of <linux/sockios.h>.  This commit makes them
+available via <sys/socket.h> again.
 
-       Specifying a negative value in timeout means an infinite timeout.
+[[[
+This is related to this thread:
 
+From: Sergei Trofimovich <slyfox@gentoo.org>
+Subject: linux-headers-5.2 and proper use of SIOCGSTAMP
+To: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
+Cc: Arnd Bergmann <arnd@arndb.de>, "David S. Miller" <davem@davemloft.net>,
+ mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Date: Sat, 20 Jul 2019 17:48:44 +0100 (1 day, 18 hours, 40 minutes ago)
+Message-ID: <20190720174844.4b989d34@sf>
 
-       Other than the difference in the precision of the timeout argument, the
-       following ppoll() call:
+I have tried to verify this against our 3.10 kernel headers and the 5.2
+headers, and I do not see any failures in glibc itself (the latter with
+build-many-glibcs.py).  Impact on application code is unclear at this
+point, of course.
 
-           ready = ppoll(&fds, nfds, tmo_p, &sigmask);
+This patch depends on the earlier Linux 5.2 compatibility patch which
+introduced <bits/socket-constants.h>.
+]]]
 
-       is equivalent to atomically executing the following calls:
+2019-07-22  Florian Weimer  <fweimer@redhat.com>
 
-           sigset_t origmask;
-           int timeout;
+	* sysdeps/unix/sysv/linux/bits/socket.h [__USE_MISC]: Include
+	<linux/sockios.h>.
 
-           timeout = (tmo_p == NULL) ? -1 :
-                     (tmo_p->tv_sec * 1000 + tmo_p->tv_nsec / 1000000);
-           pthread_sigmask(SIG_SETMASK, &sigmask, &origmask);
-           ready = poll(&fds, nfds, timeout);
-           pthread_sigmask(SIG_SETMASK, &origmask, NULL);
-
-But if tmo_p->tv_sec is negative, the ppoll() call is not equivalent to 
-the corresponding poll() call.  The kernel rejects negative values of 
-tv_sec with an EINVAL error; it does not interpret the value as meaning 
-an infinite timeout.
-
-(Yes, the kernel interprets tmo_p == NULL as an infinite timeout, but 
-the man page is still wrong for the case tmo_p->tv_sec < 0.)
-
-Suggested fix: Following the end of the second extract above, add:
-
-	except that negative time values in tmo_p are not interpreted
-	as an infinite timeout.
-
-Also, in the ERRORS section, change the text for EINVAL to:
-
-	EINVAL The nfds value exceeds the RLIMIT_NOFILE value or
-	*tmo_p contains an invalid (negative) time value.
-
-Alan Stern
-
+diff --git a/sysdeps/unix/sysv/linux/bits/socket.h b/sysdeps/unix/sysv/linux/bits/socket.h
+index 082f8b9031..ff5b705f41 100644
+--- a/sysdeps/unix/sysv/linux/bits/socket.h
++++ b/sysdeps/unix/sysv/linux/bits/socket.h
+@@ -352,6 +352,7 @@ struct ucred
+ #ifdef __USE_MISC
+ # include <bits/types/time_t.h>
+ # include <asm/socket.h>
++# include <linux/sockios.h>
+ #else
+ # define SO_DEBUG 1
+ # include <bits/socket-constants.h>
