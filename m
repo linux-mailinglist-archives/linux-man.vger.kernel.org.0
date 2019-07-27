@@ -2,94 +2,51 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 9511C776AC
-	for <lists+linux-man@lfdr.de>; Sat, 27 Jul 2019 06:44:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1C3DD77759
+	for <lists+linux-man@lfdr.de>; Sat, 27 Jul 2019 08:51:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725875AbfG0Eo6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 27 Jul 2019 00:44:58 -0400
-Received: from mx4.hspherefilter.com ([65.99.202.136]:51134 "EHLO
-        mx4.hspherefilter.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725816AbfG0Eo5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 27 Jul 2019 00:44:57 -0400
-X-Greylist: delayed 4144 seconds by postgrey-1.27 at vger.kernel.org; Sat, 27 Jul 2019 00:44:56 EDT
-Received: from mail17.dynamicnet.net ([3.14.42.7])
-        by mx4.hspherefilter.com with esmtps (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
-        (Exim 4.89)
-        (envelope-from <rajani@nds.com.np>)
-        id 1hrDUf-0006Py-RG; Fri, 26 Jul 2019 22:35:42 -0500
-Received: from webmail.nds.com.np (localhost.localdomain [IPv6:::1])
-        by mail17.dynamicnet.net (Postfix) with ESMTPSA id 6135F453CB9;
-        Fri, 26 Jul 2019 22:34:51 -0500 (CDT)
-Authentication-Results: web17.dynamicnet.net;
-        spf=pass (sender IP is ::1) smtp.mailfrom=rajani@nds.com.np smtp.helo=webmail.nds.com.np
-Received-SPF: pass (web17.dynamicnet.net: connection is authenticated)
+        id S1726806AbfG0Gvv convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Sat, 27 Jul 2019 02:51:51 -0400
+Received: from omta04.suddenlink.net ([208.180.40.74]:46324 "EHLO
+        omta04.suddenlink.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725905AbfG0Gvv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 27 Jul 2019 02:51:51 -0400
+X-Greylist: delayed 738 seconds by postgrey-1.27 at vger.kernel.org; Sat, 27 Jul 2019 02:51:50 EDT
+Received: from dalifep01 ([10.130.7.33]) by dalofep01.suddenlink.net
+          (InterMail vM.8.04.03.22.01 201-2389-100-168-20180813) with ESMTP
+          id <20190727063932.ZBQF27689.dalofep01.suddenlink.net@dalifep01>;
+          Sat, 27 Jul 2019 01:39:32 -0500
+Message-ID: <20190727013932.HCH8L.1044248.root@dalifep01>
+Date:   Sat, 27 Jul 2019 1:39:32 -0500
+From:   <dffffddsdf@suddenlink.net>
+To:     dffffddsdf@suddenlink.net
+Subject: Hola querido.
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date:   Sat, 27 Jul 2019 04:34:51 +0100
-From:   Clara Cowell <rajani@nds.com.np>
-To:     undisclosed-recipients:;
-Subject: Hi
-Reply-To: missclaracowell@aol.com
-Mail-Reply-To: missclaracowell@aol.com
-Message-ID: <5c3ab7143e6e0bb83f0205ae98779318@nds.com.np>
-X-Sender: rajani@nds.com.np
-User-Agent: Roundcube Webmail/1.3.8
-X-PPP-Message-ID: <20190727033451.3934808.83389@web17.dynamicnet.net>
-X-PPP-Vhost: nds.com.np
-X-Originating-IP: 3.14.42.7
-X-DynamicNet-Domain: mail.dynamicnet.net
-X-DynamicNet-Username: 3.14.42.7
-Authentication-Results: hspherefilter.com; auth=pass smtp.auth=3.14.42.7@mail.dynamicnet.net
-X-DynamicNet-Outgoing-Class: unsure
-X-DynamicNet-Outgoing-Evidence: Combined (0.63)
-X-Recommended-Action: accept
-X-Filter-ID: Mvzo4OR0dZXEDF/gcnlw0QR3kh8pms4IGrDTloUGIkypSDasLI4SayDByyq9LIhVlAeEkXlUqk9B
- pkJcPLS+K0TNWdUk1Ol2OGx3IfrIJKyP9eGNFz9TW9u+Jt8z2T3KWX8yKBE6sxeSfVHx1/ndsRXn
- i/494IDZiBjpR592CKINe4Cn+00WcTdtlxSV6nvBB+rxrzzWXHNZDj+kjl1xxxMkY/SyfsRldsdt
- RXBXNyi0qTYAKSKKROax31+QIazOS3MEiyq/ihPQT4Lybwb5M7+BOQlZBWEI/mfHC4M0Ob+e+EHE
- GpskNAqfdjt/XzcDgsTWuq9GaiFrCBlnIMRcFf10Zq3UfmcDmxkRl8b0QW8ramxnyad0gXEOXfxg
- f8lUOjj+dYKs+Ivn1xYfTxYD6bXHUOm+3xML7Nq4jOBMsHdcs6eAeUH8TxjLas91DnRSN86QP1RO
- W2dCUsGKSyY1ICVXX7H9dfYXAcF4/DkapGELuaoY45w/TEiRlqRmhk6TxnoRoa7zR1jeyiZZ3SE1
- uQfPAnsE0xg/GyrlpbZfAUyV4aLWAqXxQUShGE504R35uNu2AXlefHOng7BZoSQjKviM8pWQYZSi
- VbplR7eE4sugOk+oMMFzVucrczKS4lXqTFWm953/PRb16p5A5fN5o8ceQqhsstbE6VYl//Vr7bb4
- w4HehKSYshxbVV/UnSxuf+aVKhwNJImtLkRDjIFiBeTFYVRGZLRtf8+MUkCWTGFpDxQytChJqxFo
- 9OcQl/kVRMcki3F1dFRGLdWz+nGYkankw/3zcx21V8OE3T1ZiPbZTLzKOzTdjpl6PhraXPrda4g5
- sumIjInNKvA/Xzlc1gwAr6M7iXle6c/CqTsdqyqQrO+H8h/9YNRCWP8xhKgNf1q/BNWVtRJA9Y0a
- ZuIa0G9MFJbc5Fz2qKOYko8p8dPKjTI4j8gCJH0RIbjBsnDxG5R2yMiFOg1Tlj0mVBQnYen5L4aw
- viQ63yBD0kpOFhoefdRiocw484ZxZt8h0SVRylDTxD5nfEtTzKwln1JRh69+Gp010kyz95DOnPlS
- IAvOSCc6HY5N7vMe8ny86n53KWn3CW6wyK4lYZbB8kXw9kS1coHxjPrupcMIY1GY4bts0pLE/5YA
- kb501BGC5kIQnnnw72bXDGyUWnJkUTUCQc099kLFUSnN+oufF7qrSd/nuv798d2mASpJfHDFhP9b
- mEmNuuDrdfLzNnFIdHtQgM70AtqFnRxXZTPF0pw2LFCaOcoxjXG4qDhwX5pO+y1O4DnfT4ovsbWU
- c9asywlkcEYQjLDGXkVxsEAu1XDS5Y+IfmIcD4UrPAihLrTPUOkcTK12JAQekjYRu+xHf7LQKFo/
- XloTfRKGsBi7NhaCqQfPIv1B3v6cfntDcpT7a1E85LKiIfzmHwgMT48EUiCF3x2QR2oNkDv/JHbq
- 0RgthU2DQ6kWcHn87Uf38gDToL2yVNipWImP2cLB6BuarinQXzg9pGqKRtITr3Kx+BDa+7ND7jGU
- AcLCd0WQGdf0jrBKxAjStneJ1DwFtR5qU83jcW4bW9tcqOzK3Zkd/CeGdpXZR1rukzGDB0lKnCDe
- YhYX1CcNiO/6cRos97es0XHkPNqVUyyKrm6PPEEby9Cv2hSgEhVhPYeoFain7hEZGrHH7hOjb2Sm
- JvGNaBsmAx69qFVvEuatk/329k32OpjwZrcyZwZZef0QN2vNjHIKtOjn4pWx7WxWFZpsjT/483ew
- go3V4U65/h3DPtEEcz51R9YpF0JJiLnkKE+TkkLGqekk+M7M5Ffl6teHNhCM5/6JyHrHR/4YtQOK
- Q4fLnVtxDUw+uEYCO5GmPMaVEK255hJiMqT7sw/+uSYfF1UFxxQ1sZCpMwbtC/aih9tiKTdvN0os
- qdBZ8PRERD6HMgyPNfwVD2rNyEim2uA9pd+nl25NG04bTeLfQg/zbA0oqiaEbwhXT4av3ucEeY82
- EDNWPKgCytlLaL3yqYhngDRLHoyZ/D3dKxLhoxcmaInYbR5vlqFOh/Hhqd6PSr4ATVAqcWN1bFc9
- olciO4wKf43SBNuIF6is9XYpV5M9WOOINLr8l9R6EipRzMVZ5LqwTx7Vvn9Sp+DyR1pHg+6tcX2c
- 6iyfuBs1eYRjXo+uXlZBI28n7feSgc4t7lbSsQzLC1RiEZGWQrvBhSoQZ2VmtVxwd4gkckIbgxh4
- 42xxB+jk8FmuUvzODG50926SkqiG/gbpCCYNYDakacqlXRjw2B9IkvRrQfdjzQ6YC7Heg3Xf7O1T
- Od6GgA32H1wp530Qp+kiRdBcFmlZEuIKJKsL8RXsYx0SyAOt0wIN/t7ebN2IGuw0FaHF/L9/iz6Q
- Q9dCuu+GEcZXIbtf63VNbf0lrvssY+k7AJMBmPgTAtmMf5HNuDz2kpXrjuU3A3io6xJmD59iFVkb
- qYG1ZM7KQQVJ4mvvt4pJwlJg6QLHHn+paKgEulEiMXywoCjItbq6ffe+KB3WwxosPKCYOUgx8jX1
- phEXZRWjBde5uJJbvbVl26pE2c7gyFSEzdyo7H/hqJkw9CQlwFqi8KCUpLSdIYEd88Mc1vuVCA==
-X-Report-Abuse-To: spam@mx1.hspherefilter.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8BIT
+X-Priority: 3 (Normal)
+Sensitivity: Normal
+X-Authentication-Info: Submitted using SMTP AUTH LOGIN at dalofep01.suddenlink.net from [10.130.7.33] using ID dffffddsdf@suddenlink.net at Sat, 27 Jul 2019 01:39:32 -0500
+X-CM-Analysis: v=2.3 cv=L91jvNb8 c=1 sm=1 tr=0 cx=a_idp_d a=gwGxBDJYB4KUBgJOPdl6RQ==:117 a=IkcTkHD0fZMA:10 a=0o9FgrsRnhwA:10 a=CjxXgO3LAAAA:8 a=gBO9zXEbSPNVqkDIu14A:9 a=QEXdDO2ut3YA:10
+X-CM-Envelope: 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
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hola querido.
+
+Por favor, no se sienta perturbado por contactarlo, debido a la condición crítica en la que me encuentro, pero no es un problema financiero, pero mi salud, es posible que sepa que el cáncer no es de lo que se puede hablar, estoy casado con el Sr. Karimpour Behrouz, quien trabajó con la embajada de Dubai en cote d'ivoire durante nueve años antes de morir en el año 2016.
+
+Estuvimos casados ​​durante once años sin un hijo. Murió después de una breve enfermedad que duró cinco días.
+
+Desde su muerte, decidí no volver a casarme. Cuando mi difunto esposo estaba vivo, depositó la suma de US $ 4,5 millones (cuatro millones quinientos mil dólares) en un banco de Cote d'ivoire. Actualmente, este dinero todavía está en el banco. Y mi doctor me dijo que no tengo mucho tiempo para vivir debido al problema del cáncer. Al conocer mi condición, decidí entregarle este cariño para cuidar de las personas menos privilegiadas, utilizará este dinero de la manera Voy a instruir aquí. Quiero que tomes el 10 por ciento del dinero total para tu uso personal, mientras que el 90% del dinero se destinará a organizaciones benéficas y al orfanato.
 
 
--- 
-Hello my dear, My name is Clara, Please can we discuss something very 
-important
+No quiero que el gobierno utilice los esfuerzos de mi esposo. Crecí siendo huérfana y no tengo a nadie como miembro de mi familia,
 
-Regards.
-Clara.
+Estoy esperando su respuesta. [massouma002i@yahoo.com]
+
+Saludos,
+Massouma Karimpour Behrouz
+escrito desde el hospital.
