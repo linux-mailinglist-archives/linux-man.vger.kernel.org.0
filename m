@@ -2,69 +2,92 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 26DAC7B816
-	for <lists+linux-man@lfdr.de>; Wed, 31 Jul 2019 04:57:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A3DA17CDA3
+	for <lists+linux-man@lfdr.de>; Wed, 31 Jul 2019 22:03:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728244AbfGaC5a (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 30 Jul 2019 22:57:30 -0400
-Received: from szxga04-in.huawei.com ([45.249.212.190]:3661 "EHLO huawei.com"
-        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1726691AbfGaC5a (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 30 Jul 2019 22:57:30 -0400
-Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.60])
-        by Forcepoint Email with ESMTP id BD64B86C73D9FB5B7E30;
-        Wed, 31 Jul 2019 10:57:27 +0800 (CST)
-Received: from huawei.com (10.90.53.225) by DGGEMS402-HUB.china.huawei.com
- (10.3.19.202) with Microsoft SMTP Server id 14.3.439.0; Wed, 31 Jul 2019
- 10:57:17 +0800
-From:   "zhangyi (F)" <yi.zhang@huawei.com>
-To:     <mtk.manpages@gmail.com>
-CC:     <linux-man@vger.kernel.org>, <linux-aio@kvack.org>,
-        <linux-fsdevel@vger.kernel.org>, <bcrl@kvack.org>,
-        <viro@zeniv.linux.org.uk>, <jmoyer@redhat.com>, <arnd@arndb.de>,
-        <deepa.kernel@gmail.com>, <yi.zhang@huawei.com>,
-        <wangkefeng.wang@huawei.com>
-Subject: [PATCH] io_getevents.2: Add EINVAL for case of timeout parameter out of range
-Date:   Wed, 31 Jul 2019 11:03:13 +0800
-Message-ID: <1564542193-89171-1-git-send-email-yi.zhang@huawei.com>
-X-Mailer: git-send-email 2.7.4
+        id S1726096AbfGaUC3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 31 Jul 2019 16:02:29 -0400
+Received: from latitanza.investici.org ([82.94.249.234]:42891 "EHLO
+        latitanza.investici.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729094AbfGaUC2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 31 Jul 2019 16:02:28 -0400
+X-Greylist: delayed 542 seconds by postgrey-1.27 at vger.kernel.org; Wed, 31 Jul 2019 16:02:27 EDT
+Received: from contumacia-webmail.investici.org (contumacia.vpn0.investici.org [10.0.0.11])
+        by latitanza.investici.org (Postfix) with ESMTP id 0D95E1204D3;
+        Wed, 31 Jul 2019 19:53:24 +0000 (UTC)
+Received: from 1.webmail.investici.org (localhost [127.0.0.1])
+        (Authenticated sender: gallefray@inventati.org)
+        by contumacia-webmail.investici.org (Postfix) with ESMTPA id DD8F6C06D3;
+        Wed, 31 Jul 2019 19:53:19 +0000 (UTC)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.90.53.225]
-X-CFilter-Loop: Reflected
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date:   Wed, 31 Jul 2019 19:53:19 +0000
+From:   Finn O'Leary <finnoleary@inventati.org>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [patch] setxattr.2: Add ERANGE to 'ERRORS' section
+Message-ID: <e7cde98960e380f638406b7ef359eb8c@inventati.org>
+X-Sender: finnoleary@inventati.org
+User-Agent: Roundcube Webmail
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-io_[p]getevents syscall should return -EINVAL if timeout is out of
-range, update description of this error return value.
+Hi,
 
-Link: https://lore.kernel.org/lkml/1564451504-27906-1-git-send-email-yi.zhang@huawei.com/
-Signed-off-by: zhangyi (F) <yi.zhang@huawei.com>
-Cc: Jeff Moyer <jmoyer@redhat.com>
-Cc: Arnd Bergmann <arnd@arndb.de>
-Cc: Deepa Dinamani <deepa.kernel@gmail.com>
----
- man2/io_getevents.2 | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Both the Ext2 filesystem handler and the Ext4 filesystem handler will
+return the ERANGE error code. Ext2 will return it if the name or value 
+is
+too long to be able to be stored, Ext4 will return it if the name is too
+long. For reference, the relevant files/lines (with excerpts) are:
 
-diff --git a/man2/io_getevents.2 b/man2/io_getevents.2
-index 0eb4b385e..5560bb8ee 100644
---- a/man2/io_getevents.2
-+++ b/man2/io_getevents.2
-@@ -73,8 +73,9 @@ Interrupted by a signal handler; see
- .TP
- .B EINVAL
- \fIctx_id\fP is invalid.
--\fImin_nr\fP is out of range or \fInr\fP is
--out of range.
-+\fImin_nr\fP is out of range or \fInr\fP is out of range, or
-+\fItimeout\fP is out of range (\fItv_sec\fP was less than zero, or
-+\fItv_nsec\fP was not less than 1,000,000,000).
- .TP
- .B ENOSYS
- .BR io_getevents ()
+fs/ext2/xattr.c: lines 394 to 396 in ext2_xattr_set
+>  394         name_len = strlen(name);
+>  395         if (name_len > 255 || value_len > sb->s_blocksize)
+>  396                 return -ERANGE;
+
+fs/ext4/xattr.c: lines 2317 to 2318 in ext4_xattr_set_handle
+> 2317         if (strlen(name) > 255)
+> 2318                 return -ERANGE;
+
+Other filesystems also return this code:
+
+xfs/libxfs/xfs_attr.h: lines 53 to 55
+> * The maximum size (into the kernel or returned from the kernel) of an
+> * attribute value or the buffer used for an attr_list() call.  Larger
+> * sizes will result in an ERANGE return code.
+
+It's possible that more filesystem handlers do this, a cursory grep 
+shows
+that most of the filesystem xattr handler files mention ERANGE in some
+form. A suggested patch is below (I'm not 100% sure on the wording 
+through).
+
+Thanks
+
 -- 
-2.20.1
+- Finn
 
+
+diff --git a/man2/setxattr.2 b/man2/setxattr.2
+index 66272ac..f8edad0 100644
+--- a/man2/setxattr.2
++++ b/man2/setxattr.2
+@@ -138,6 +138,13 @@ The namespace prefix of
+  .I name
+  is not valid.
+  .TP
++.B ERANGE
++The given
++.I name
++or
++.I value
++is too long for the filesystem to store.
++.TP
+  .B ENOTSUP
+  Extended attributes are not supported by the filesystem, or are 
+disabled,
+  .TP
