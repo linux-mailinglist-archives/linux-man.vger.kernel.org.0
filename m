@@ -2,110 +2,123 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 52F0D7DC65
-	for <lists+linux-man@lfdr.de>; Thu,  1 Aug 2019 15:17:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3D4807DC9F
+	for <lists+linux-man@lfdr.de>; Thu,  1 Aug 2019 15:39:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729638AbfHANRW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Aug 2019 09:17:22 -0400
-Received: from mail-lj1-f195.google.com ([209.85.208.195]:33939 "EHLO
-        mail-lj1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728592AbfHANRW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Aug 2019 09:17:22 -0400
-Received: by mail-lj1-f195.google.com with SMTP id p17so69360570ljg.1
-        for <linux-man@vger.kernel.org>; Thu, 01 Aug 2019 06:17:20 -0700 (PDT)
+        id S1726756AbfHANjI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Aug 2019 09:39:08 -0400
+Received: from mail-ed1-f68.google.com ([209.85.208.68]:34465 "EHLO
+        mail-ed1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725804AbfHANjI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Aug 2019 09:39:08 -0400
+Received: by mail-ed1-f68.google.com with SMTP id s49so34394522edb.1;
+        Thu, 01 Aug 2019 06:39:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=5+NHzguXl6Ok+njz3QS3rsO/K+2oxqxv3C/OvlSg80g=;
-        b=N33veXzqjMBf1yYX8jXJ6AgGhEbOV3q89hYNXC3Wuk9IDokxs1BoqDIsNWT/n3en0J
-         VowKIMQXPYRUz7dUP6J8LAkoUzJ75+TXvZeqJlwzoRct/UMvjHIP8a4E+Ar0buXqT2UM
-         he7YFcOtF9nhrtdRHiIIFcTxz+4L5NxYVmZUduzpi10006sObwC/zd2U1FhgZ8CtrjOX
-         HZwoX40kF4pU3vW5U1lA8NAR+ZXTCt8pw41kwZ90chRNmMSQer4Nq2XVRENDsAU4KwQB
-         6fi02EGOoxtq8XdEdL28vlU5b6Gadis7RFoLmnlAbCE/RBg4S0N6pzqQLmVN1F+PbbLF
-         OLpw==
+        h=mime-version:reply-to:from:date:message-id:subject:to:cc;
+        bh=PtC9Ul3xyUxdsRp//n5huG8WK8UIuyHf5FNaAaoJ6lI=;
+        b=j22DCmujTkp1v6xERjlBb9cv6AvS/qdCv2Ql+oavpsT37ofS20BqLBl8lAcfMAgq9F
+         tGQMMashEiIyv3f5VrQ2S/5je4mCuPyUCOKW7Yq62iBRniubibWUQ0ooI/h5qWv/Etvn
+         aLCz/MDeC033FQJ23SX7Qh9Q/MxbpQIgDg5Tnnl4Pj6cC+AeHNz5fbJx7aZb1ufoWAFI
+         ZJLZlrleUqpNRee7wXM1LPyZz/q15V52XXRJkeZPSU2D6aHl5KKH3vMVI0qyi86PFI2u
+         VGkJmbW+TQZXRnLyRAWZ0gz8O+2AEC3gITGMposPZVQNMkdvOV/gHc/ZhZIApIcjh498
+         cV1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=5+NHzguXl6Ok+njz3QS3rsO/K+2oxqxv3C/OvlSg80g=;
-        b=fQEuKpHJ0j4q8IHpnphJHVogDc03yJ+lTOwaWdiB/7UfPDhLN42ZldEu1uPdblpy97
-         l7V4eMONX2FH9xGL/t9VeE8MGIdwemyxlBOoEfvgKjpi5uXFeF41tXm5/cw942Fou+ce
-         DzjUvLe8ZSWhIsdYnXPmovgxsvzVWSR+MPu3EcAPuGnOD6sONzz7ZmFHjTFxj7Bak+0L
-         Siwc1aC0gNnbkKoJw3HOyz85z9CaoI8vkaqwpkMb/QnMcVDfyEAhtzv9rYWfJg//+d3H
-         e0a7ygVR0ijHmu8G4CDd73CG8CODelEJ5Wr/addG/jUVOTBJWkADQRV3grF4tIWQzoFv
-         39/g==
-X-Gm-Message-State: APjAAAUa/cpR8XmzKjkc3Z8vFZmYf5ZjMWb2UDieOqsaVIh5+Ae9h5TO
-        WZXuoC83284Di/erbORDYvLNmcmyO+q8PGXfx+E=
-X-Google-Smtp-Source: APXvYqxCMDniJr1mCdfWvo2yQKd9MUAZc+/vKrawuu8MSIL8mbMvQzNFyOQCdMA/N81OjTKsOE3+rgQ19Y23sJ1VmQg=
-X-Received: by 2002:a2e:9a87:: with SMTP id p7mr67874974lji.133.1564665440004;
- Thu, 01 Aug 2019 06:17:20 -0700 (PDT)
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=PtC9Ul3xyUxdsRp//n5huG8WK8UIuyHf5FNaAaoJ6lI=;
+        b=MTcZm/EzpVuWcZgezNnENGxzqnJXX/5H+S7pc9vupWQmzAfO8Bfom0aTniPJu9rFv7
+         6hz6PoMfwk96VDyI/BAV1q5FrQN4gR+mMQ3dWntEjOndLO2lc6krZxDlKYd8rlASp7UA
+         NTq2SXMcsfWzR/ehvTILzbI2moayUzukpKKfUalai05tkbulAY5UWc1jfyH4MNj8DbW6
+         5GmE/mC+BA6lmovq95Z12y3cIEBsR6kjCx/7qaYrl89gS3OR9+YV4Eo0Zlpp+ZhLOBku
+         mlRRdyBdVsIkwwlUFqnNrCxoJa6eXhjsr+JIYrzhTrcSYNsf1qIUyc6o+8VKDZ3Zw+dB
+         qpHQ==
+X-Gm-Message-State: APjAAAU4+HS72L5NuQ+yQdlpvdVDHflPfXYwcC+HbW54vX2T3h0/Vz+C
+        JtIMaG2+N9oGMbG0SB3E2RzOQKaQXKo64O4b2ng=
+X-Google-Smtp-Source: APXvYqz/UPRwrcD8HLFhptruuLqlej5jY1qcmnxYS+lhO1UyrzSeq19BRip4q5EHDq0cEi0M/T7Hr4ryE8t/rdHlioU=
+X-Received: by 2002:a17:906:154f:: with SMTP id c15mr99070580ejd.268.1564666746270;
+ Thu, 01 Aug 2019 06:39:06 -0700 (PDT)
 MIME-Version: 1.0
-References: <20190624014047.GA14572@localhost.localdomain> <f053fe2c-20e5-4754-8b13-89cddfbfb52d@gmail.com>
-In-Reply-To: <f053fe2c-20e5-4754-8b13-89cddfbfb52d@gmail.com>
-From:   Stefan Puiu <stefan.puiu@gmail.com>
-Date:   Thu, 1 Aug 2019 16:17:08 +0300
-Message-ID: <CACKs7VB6ujOhV55MRXSVyJwr=S7AJp0Vun7_9_nxssMftm00SA@mail.gmail.com>
-Subject: Re: [PATCH v2] socket.7: Add description of SO_SELECT_ERR_QUEUE
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Ricardo Biehl Pasquali <pasqualirb@gmail.com>, corbet@lwn.net,
-        lnx-man <linux-man@vger.kernel.org>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Thu, 1 Aug 2019 15:38:54 +0200
+Message-ID: <CAKgNAki0bR5zZr+kp_xjq+bNUky6-F+s2ep+jnR0YrjHhNMB1g@mail.gmail.com>
+Subject: pivot_root(".", ".") and the fchdir() dance
+To:     "Serge E. Hallyn" <serge@hallyn.com>
+Cc:     Andy Lutomirski <luto@amacapital.net>,
+        Containers <containers@lists.linux-foundation.org>,
+        =?UTF-8?Q?St=C3=A9phane_Graber?= <stgraber@ubuntu.com>,
+        Christian Brauner <christian@brauner.io>,
+        Al Viro <viro@ftp.linux.org.uk>,
+        lkml <linux-kernel@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Jordan Ogas <jogas@lanl.gov>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Hi Serge, Andy, et al,
 
-2 cents from me :).
+I've been looking at doing some updates for the rather inaccurate
+pivot_root(2) manual page, and I noticed this 2014 commit in LXC
 
-On Mon, Jul 29, 2019 at 10:30 PM Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
-> What would you think of something like this:
->        SO_SELECT_ERR_QUEUE (since Linux 3.10)
->               When this option is set on a socket, an error condition  on
->               a socket causes notification not only via the exceptfds set
->               of select(2).  Similarly, poll(2) also  returns  a  POLLPRI
->               whenever an POLLERR event is returned.
->
->               Background:  this  option  was  added  when waking up on an
->               error condition occurred occured only via the  readfds  and
+[[commit 2d489f9e87fa0cccd8a1762680a43eeff2fe1b6e
+Author: Serge Hallyn <serge.hallyn@ubuntu.com>
+Date:   Sat Sep 20 03:15:44 2014 +0000
 
-Spurious 'occured' on the line above.
+    pivot_root: switch to a new mechanism (v2)
 
->               writefds  sets of select(2).  The option was added to allow
->               monitoring for error conditions via the exceptfds  argument
->               without simultaneously having to receive notifications (via
->               readfds) for regular data that can be read from the socket.
->               After changes in Linux 4.16, in Linux 4.16, the use of this
+    This idea came from Andy Lutomirski.  Instead of using a
+    temporary directory for the pivot_root put-old, use "." both
+    for new-root and old-root.  Then fchdir into the old root
+    temporarily in order to unmount the old-root, and finally
+    chdir back into our '/'.
+]]
 
-Duplicate 'Linux 4.16' here.
+I'd like to add some documentation about the pivot_root(".", ".")
+idea, but I have a doubt/question. In the lxc_pivot_root() code we
+have these steps
 
->               flag to achieve the desired notifications is no longer nec=
-=E2=80=90
->               essary.  This option is nevertheless retained for backwards
->               compatibility.
->
-> ?
+        oldroot = open("/", O_DIRECTORY | O_RDONLY | O_CLOEXEC);
+        newroot = open(rootfs, O_DIRECTORY | O_RDONLY | O_CLOEXEC);
 
-I haven't looked at the kernel commit; just by reading the text, I'm
-not sure I understand the feature: is the idea to tell select() to
-notify you of errors when a read or write fails? That's what I
-understand from the sentence starting with "Background:". The next
-sentence, however, suggests it gives you the ability to only select()
-for errors, without caring for read/write fd events. Your description
-is definitely an improvement on the original text, but still somewhat
-ambiguous.
+        fchdir(newroot);
+        pivot_root(".", ".");
 
->
-> Thanks,
->
-> Michael
->
->
-> --
-> Michael Kerrisk
-> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-> Linux/UNIX System Programming Training: http://man7.org/training/
+        fchdir(oldroot);      // ****
+
+        mount("", ".", "", MS_SLAVE | MS_REC, NULL);
+        umount2(".", MNT_DETACH);
+
+        fchdir(newroot);      // ****
+
+My question: are the two fchdir() calls marked "****" really
+necessary? I suspect not. My reasoning:
+1. By this point, both the CWD and root dir of the calling process are
+in newroot (and so do not keep newroot busy, and thus don't prevent
+the unmount).
+2. After the pivot_root() operation, there are two mount points
+stacked at "/": oldroot and newroot, with oldroot a child mount
+stacked on top of newroot (I did some experiments to verify that this
+is so, by examination of /proc/self/mountinfo).
+3. The umount(".") operation unmounts the topmost mount from the pair
+of mounts stacked at "/".
+
+At least, in some separate tests that I've done, things seem to work
+as I describe above without the use of the marked fchdir() calls. (My
+tests omit the mount(MS_SLAVE) piece, since in my tests I do a
+more-or-less equivalent step at an earlier point.
+
+Am I missing something?
+
+Thanks,
+
+Michael
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
