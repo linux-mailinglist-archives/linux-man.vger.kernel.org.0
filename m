@@ -2,104 +2,92 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 39B868061B
-	for <lists+linux-man@lfdr.de>; Sat,  3 Aug 2019 14:00:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F123E80CB6
+	for <lists+linux-man@lfdr.de>; Sun,  4 Aug 2019 23:24:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2389929AbfHCMAC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 3 Aug 2019 08:00:02 -0400
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:42815 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2389812AbfHCMAC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Aug 2019 08:00:02 -0400
-Received: by mail-wr1-f67.google.com with SMTP id x1so29921613wrr.9
-        for <linux-man@vger.kernel.org>; Sat, 03 Aug 2019 05:00:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=cEIrczSius0GJonSwnudp7oO2YCD8tJdHDX8JUWaLKk=;
-        b=qIlTzypuYyVRQThdG6jQlLoOwYVEmYS3z1dMvb2dMD0M/iXpsilE8OlpxeWfm6SwTT
-         n5LMcGFRwptaUdQlBpXdlwq5rP1i5klA3kyrwZc9r1tQLjJpDA366R6tKNWzxk0WrApQ
-         TN1A/n+7AHk3DV/tuQcDvGcAKOhUgLV7m1yofY3sKbCgwd3bqTG+UHuxua2ZY+/cwzU7
-         buPBAYAwVFPRq+2N7BTj8BFLvBtRC25t5+kWz/rf/gGNqfWBx0u9hHfLG8S77yyDDkxn
-         skWFksbVQiJVNFV057dEsUTZAOU8WVueAf0W2OTWrGFIWnGNp+JV1dSX0r2l0YZc6k/q
-         +bFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=cEIrczSius0GJonSwnudp7oO2YCD8tJdHDX8JUWaLKk=;
-        b=IMbEiJ74yIoFQhDHFbQpt1XLAvkTk0E/9ftyaL9weOnOUGIGh5T0dtWTb5XLmukeBX
-         QrZSMhJQaYBG+W5xdXwcdnT5henBkXtYtCocDmwsaP6Umj5mhxBPSGALJdwk4LDXqc+D
-         OAtHQHnU3nit9qugUmovmIS/GB+rfuOWqXg40iyBHkBSMxcXiY3nmfLqqim6MenJaaNc
-         6kIYjKDlYbicPY1g0AiJVs3jIwQ0quargWoLoR6qBo/TilXwy77hqemzwKwWFwCdSMVv
-         2Jr7vFX705mdstSL/mqxEL9Vf0rqN880ICjcYWcJjdi/yXz28Pwu/CKA69cxawfOSxSZ
-         /Buw==
-X-Gm-Message-State: APjAAAXqkQPh3RMKuFRtbcDH+NJPS+68jNjz9KxmPYsdycmkZhOus5EX
-        5j1riGu1mf31xMK15tmcPwLzKEkN
-X-Google-Smtp-Source: APXvYqw9ggdJ5sizyfHC8N42ukFtWx2xfhixkCn8fYLEUx9e8UNQ9i6YmuxNlzdwZmrJeLIN6eY59Q==
-X-Received: by 2002:a5d:54c7:: with SMTP id x7mr122681429wrv.39.1564833600074;
-        Sat, 03 Aug 2019 05:00:00 -0700 (PDT)
-Received: from ?IPv6:2001:a61:3aff:2d01:3e8:cefd:7d80:b611? ([2001:a61:3aff:2d01:3e8:cefd:7d80:b611])
-        by smtp.gmail.com with ESMTPSA id m7sm65589174wrx.65.2019.08.03.04.59.58
-        (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
-        Sat, 03 Aug 2019 04:59:58 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] proc.5: tfix
-To:     Jakub Wilk <jwilk@jwilk.net>
-References: <20190802214656.5468-1-jwilk@jwilk.net>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <ecce1fdf-84a0-4edb-6aa7-608f7495d362@gmail.com>
-Date:   Sat, 3 Aug 2019 13:59:56 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+        id S1726687AbfHDVY5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 4 Aug 2019 17:24:57 -0400
+Received: from lekensteyn.nl ([178.21.112.251]:33015 "EHLO lekensteyn.nl"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726561AbfHDVY5 (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sun, 4 Aug 2019 17:24:57 -0400
+X-Greylist: delayed 1860 seconds by postgrey-1.27 at vger.kernel.org; Sun, 04 Aug 2019 17:24:56 EDT
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lekensteyn.nl; s=s2048-2015-q1;
+        h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:From; bh=X5gpk4lm+i+m9UzCnxM5i6Q9YO0ZcDFBQlf5ZYD8GVE=;
+        b=L/HAgjqPM9PEqP9Lj2Ck2jCyiB5q6Xjl9+1HFCxAqifWzRAG18wOjQrboErcEvRYGGyeBEerEPmBuSB2bRD9ukpOmfspM0Fh1++DpZMPAtzHmiNTuND6CwoxXEe0LwBBoVr5Q0i67cTnpJ0acH3uApTwGgwTQiKcpYH+OkQ62jcg9k8SjKznsL0nEw8uo+iQf5UicjGk/zHzOjBIV6+SilVEDme3x7mAjoNiQ+K+sS0KtCoYXUDTZQlFnqZWu4AWI4F/GEf2PwRB8M8x+CX0QK+wl05n7KL17xlE4IQ/1G8ZboefZ7n4KqqB4mwoNIByAfu1y7YpegJ5JDcMYEMnQg==;
+Received: by lekensteyn.nl with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+        (Exim 4.84_2)
+        (envelope-from <peter@lekensteyn.nl>)
+        id 1huNVq-0006PH-Jc; Sun, 04 Aug 2019 22:53:55 +0200
+From:   Peter Wu <peter@lekensteyn.nl>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] bpf.2: update enum bpf_map_type and enum bpf_prog_type
+Date:   Sun,  4 Aug 2019 21:53:53 +0100
+Message-Id: <20190804205353.2956-1-peter@lekensteyn.nl>
+X-Mailer: git-send-email 2.22.0
 MIME-Version: 1.0
-In-Reply-To: <20190802214656.5468-1-jwilk@jwilk.net>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: 0.8 (/)
+X-Spam-Status: No, hits=0.8 required=5.0 tests=NO_RELAYS=-0.001,UPPERCASE_50_75=0.791 autolearn=no autolearn_force=no
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 8/2/19 11:46 PM, Jakub Wilk wrote:
-> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+Taken from Linux v5.3-rc2. Add a reference to the header file to save
+the future reader some time figuring out whether more entries exist.
 
-Thanks, Jakub. Applied.
+Signed-off-by: Peter Wu <peter@lekensteyn.nl>
+---
+ man2/bpf.2 | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-Cheers,
-
-Michael
-
-> ---
->  man5/proc.5 | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/man5/proc.5 b/man5/proc.5
-> index 5461eb285..dd05db6c6 100644
-> --- a/man5/proc.5
-> +++ b/man5/proc.5
-> @@ -2648,12 +2648,12 @@ and
->  .BR signal (7)).
->  .IP *
->  .IR SigBlk ", " SigIgn ", " SigCgt :
-> -Masks (expressed in hexadeximal)
-> +Masks (expressed in hexadecimal)
->  indicating signals being blocked, ignored, and caught (see
->  .BR signal (7)).
->  .IP *
->  .IR CapInh ", " CapPrm ", " CapEff :
-> -Masks (expressed in hexadeximal)
-> +Masks (expressed in hexadecimal)
->  of capabilities enabled in inheritable, permitted, and effective sets
->  (see
->  .BR capabilities (7)).
-> 
-
-
+diff --git a/man2/bpf.2 b/man2/bpf.2
+index 5a766aaa8..51e3bd111 100644
+--- a/man2/bpf.2
++++ b/man2/bpf.2
+@@ -367,6 +367,14 @@ enum bpf_map_type {
+     BPF_MAP_TYPE_DEVMAP,
+     BPF_MAP_TYPE_SOCKMAP,
+     BPF_MAP_TYPE_CPUMAP,
++    BPF_MAP_TYPE_XSKMAP,
++    BPF_MAP_TYPE_SOCKHASH,
++    BPF_MAP_TYPE_CGROUP_STORAGE,
++    BPF_MAP_TYPE_REUSEPORT_SOCKARRAY,
++    BPF_MAP_TYPE_PERCPU_CGROUP_STORAGE,
++    BPF_MAP_TYPE_QUEUE,
++    BPF_MAP_TYPE_STACK,
++    /* See /usr/include/linux/bpf.h for the full list. */
+ };
+ .EE
+ .in
+@@ -756,6 +764,25 @@ enum bpf_prog_type {
+     BPF_PROG_TYPE_KPROBE,
+     BPF_PROG_TYPE_SCHED_CLS,
+     BPF_PROG_TYPE_SCHED_ACT,
++    BPF_PROG_TYPE_TRACEPOINT,
++    BPF_PROG_TYPE_XDP,
++    BPF_PROG_TYPE_PERF_EVENT,
++    BPF_PROG_TYPE_CGROUP_SKB,
++    BPF_PROG_TYPE_CGROUP_SOCK,
++    BPF_PROG_TYPE_LWT_IN,
++    BPF_PROG_TYPE_LWT_OUT,
++    BPF_PROG_TYPE_LWT_XMIT,
++    BPF_PROG_TYPE_SOCK_OPS,
++    BPF_PROG_TYPE_SK_SKB,
++    BPF_PROG_TYPE_CGROUP_DEVICE,
++    BPF_PROG_TYPE_SK_MSG,
++    BPF_PROG_TYPE_RAW_TRACEPOINT,
++    BPF_PROG_TYPE_CGROUP_SOCK_ADDR,
++    BPF_PROG_TYPE_LWT_SEG6LOCAL,
++    BPF_PROG_TYPE_LIRC_MODE2,
++    BPF_PROG_TYPE_SK_REUSEPORT,
++    BPF_PROG_TYPE_FLOW_DISSECTOR,
++    /* See /usr/include/linux/bpf.h for the full list. */
+ };
+ .EE
+ .in
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.22.0
+
