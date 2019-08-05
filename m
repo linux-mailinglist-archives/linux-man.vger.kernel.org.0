@@ -2,92 +2,112 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id F123E80CB6
-	for <lists+linux-man@lfdr.de>; Sun,  4 Aug 2019 23:24:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 97FB581727
+	for <lists+linux-man@lfdr.de>; Mon,  5 Aug 2019 12:36:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726687AbfHDVY5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 4 Aug 2019 17:24:57 -0400
-Received: from lekensteyn.nl ([178.21.112.251]:33015 "EHLO lekensteyn.nl"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726561AbfHDVY5 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sun, 4 Aug 2019 17:24:57 -0400
-X-Greylist: delayed 1860 seconds by postgrey-1.27 at vger.kernel.org; Sun, 04 Aug 2019 17:24:56 EDT
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lekensteyn.nl; s=s2048-2015-q1;
-        h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:From; bh=X5gpk4lm+i+m9UzCnxM5i6Q9YO0ZcDFBQlf5ZYD8GVE=;
-        b=L/HAgjqPM9PEqP9Lj2Ck2jCyiB5q6Xjl9+1HFCxAqifWzRAG18wOjQrboErcEvRYGGyeBEerEPmBuSB2bRD9ukpOmfspM0Fh1++DpZMPAtzHmiNTuND6CwoxXEe0LwBBoVr5Q0i67cTnpJ0acH3uApTwGgwTQiKcpYH+OkQ62jcg9k8SjKznsL0nEw8uo+iQf5UicjGk/zHzOjBIV6+SilVEDme3x7mAjoNiQ+K+sS0KtCoYXUDTZQlFnqZWu4AWI4F/GEf2PwRB8M8x+CX0QK+wl05n7KL17xlE4IQ/1G8ZboefZ7n4KqqB4mwoNIByAfu1y7YpegJ5JDcMYEMnQg==;
-Received: by lekensteyn.nl with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
-        (Exim 4.84_2)
-        (envelope-from <peter@lekensteyn.nl>)
-        id 1huNVq-0006PH-Jc; Sun, 04 Aug 2019 22:53:55 +0200
-From:   Peter Wu <peter@lekensteyn.nl>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] bpf.2: update enum bpf_map_type and enum bpf_prog_type
-Date:   Sun,  4 Aug 2019 21:53:53 +0100
-Message-Id: <20190804205353.2956-1-peter@lekensteyn.nl>
-X-Mailer: git-send-email 2.22.0
+        id S1727739AbfHEKgJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 5 Aug 2019 06:36:09 -0400
+Received: from mx2.suse.de ([195.135.220.15]:41924 "EHLO mx1.suse.de"
+        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
+        id S1727230AbfHEKgJ (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 5 Aug 2019 06:36:09 -0400
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+        by mx1.suse.de (Postfix) with ESMTP id CF319AB92;
+        Mon,  5 Aug 2019 10:36:07 +0000 (UTC)
+Date:   Mon, 5 Aug 2019 20:36:30 +1000
+From:   Aleksa Sarai <asarai@suse.de>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     "Serge E. Hallyn" <serge@hallyn.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        Containers <containers@lists.linux-foundation.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Jordan Ogas <jogas@lanl.gov>, Al Viro <viro@ftp.linux.org.uk>
+Subject: Re: pivot_root(".", ".") and the fchdir() dance
+Message-ID: <20190805103630.tu4kytsbi5evfrhi@mikami>
+References: <CAKgNAki0bR5zZr+kp_xjq+bNUky6-F+s2ep+jnR0YrjHhNMB1g@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: 0.8 (/)
-X-Spam-Status: No, hits=0.8 required=5.0 tests=NO_RELAYS=-0.001,UPPERCASE_50_75=0.791 autolearn=no autolearn_force=no
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="6qypzrljzt2mkjjn"
+Content-Disposition: inline
+In-Reply-To: <CAKgNAki0bR5zZr+kp_xjq+bNUky6-F+s2ep+jnR0YrjHhNMB1g@mail.gmail.com>
+User-Agent: NeoMutt/20180716
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Taken from Linux v5.3-rc2. Add a reference to the header file to save
-the future reader some time figuring out whether more entries exist.
 
-Signed-off-by: Peter Wu <peter@lekensteyn.nl>
----
- man2/bpf.2 | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+--6qypzrljzt2mkjjn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/man2/bpf.2 b/man2/bpf.2
-index 5a766aaa8..51e3bd111 100644
---- a/man2/bpf.2
-+++ b/man2/bpf.2
-@@ -367,6 +367,14 @@ enum bpf_map_type {
-     BPF_MAP_TYPE_DEVMAP,
-     BPF_MAP_TYPE_SOCKMAP,
-     BPF_MAP_TYPE_CPUMAP,
-+    BPF_MAP_TYPE_XSKMAP,
-+    BPF_MAP_TYPE_SOCKHASH,
-+    BPF_MAP_TYPE_CGROUP_STORAGE,
-+    BPF_MAP_TYPE_REUSEPORT_SOCKARRAY,
-+    BPF_MAP_TYPE_PERCPU_CGROUP_STORAGE,
-+    BPF_MAP_TYPE_QUEUE,
-+    BPF_MAP_TYPE_STACK,
-+    /* See /usr/include/linux/bpf.h for the full list. */
- };
- .EE
- .in
-@@ -756,6 +764,25 @@ enum bpf_prog_type {
-     BPF_PROG_TYPE_KPROBE,
-     BPF_PROG_TYPE_SCHED_CLS,
-     BPF_PROG_TYPE_SCHED_ACT,
-+    BPF_PROG_TYPE_TRACEPOINT,
-+    BPF_PROG_TYPE_XDP,
-+    BPF_PROG_TYPE_PERF_EVENT,
-+    BPF_PROG_TYPE_CGROUP_SKB,
-+    BPF_PROG_TYPE_CGROUP_SOCK,
-+    BPF_PROG_TYPE_LWT_IN,
-+    BPF_PROG_TYPE_LWT_OUT,
-+    BPF_PROG_TYPE_LWT_XMIT,
-+    BPF_PROG_TYPE_SOCK_OPS,
-+    BPF_PROG_TYPE_SK_SKB,
-+    BPF_PROG_TYPE_CGROUP_DEVICE,
-+    BPF_PROG_TYPE_SK_MSG,
-+    BPF_PROG_TYPE_RAW_TRACEPOINT,
-+    BPF_PROG_TYPE_CGROUP_SOCK_ADDR,
-+    BPF_PROG_TYPE_LWT_SEG6LOCAL,
-+    BPF_PROG_TYPE_LIRC_MODE2,
-+    BPF_PROG_TYPE_SK_REUSEPORT,
-+    BPF_PROG_TYPE_FLOW_DISSECTOR,
-+    /* See /usr/include/linux/bpf.h for the full list. */
- };
- .EE
- .in
--- 
-2.22.0
+On 2019-08-01, Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
+> I'd like to add some documentation about the pivot_root(".", ".")
+> idea, but I have a doubt/question. In the lxc_pivot_root() code we
+> have these steps
+>=20
+>         oldroot =3D open("/", O_DIRECTORY | O_RDONLY | O_CLOEXEC);
+>         newroot =3D open(rootfs, O_DIRECTORY | O_RDONLY | O_CLOEXEC);
+>=20
+>         fchdir(newroot);
+>         pivot_root(".", ".");
+>=20
+>         fchdir(oldroot);      // ****
 
+This one is "required" because (as the pivot_root(2) man page states),
+it's technically not guaranteed by the kernel that the process's cwd
+will be the same after pivot_root(2):
+
+> pivot_root() may or may not change the current root and the current
+> working directory of any processes or threads which use the old root
+> directory.
+
+Now, if it turns out that we can rely on the current behaviour (and the
+man page you're improving is actually inaccurate on this point) then
+you're right that this fchdir(2) isn't required.
+
+>         mount("", ".", "", MS_SLAVE | MS_REC, NULL);
+>         umount2(".", MNT_DETACH);
+
+>         fchdir(newroot);      // ****
+
+And this one is required because we are in @oldroot at this point, due
+to the first fchdir(2). If we don't have the first one, then switching
+=66rom "." to "/" in the mount/umount2 calls should fix the issue.
+
+We do something very similar to this in runc as well[1] (though, as the
+commit message says, I "borrowed" the idea from LXC).
+
+[1]: https://github.com/opencontainers/runc/commit/f8e6b5af5e120ab7599885bd=
+13a932d970ccc748
+
+--=20
+Aleksa Sarai
+Senior Software Engineer (Containers)
+SUSE Linux GmbH
+<https://www.cyphar.com/>
+
+--6qypzrljzt2mkjjn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEXzbGxhtUYBJKdfWmnhiqJn3bjbQFAl1IBqsACgkQnhiqJn3b
+jbTjfw/+Pnh6zFLbDf4UKFZiPT2tLK91Q5TuWjlmjWxJxZMtGNxvDyQiyYXaNXn7
+rskiOzCFTl2i3N5BJZCuT3LPfT9+jdHQ1lYowlGZh0AVSQrWksAUsEEumyMFxqpo
+/ltTRWeQG51pqiqW+Nutd5VH3qsaHT2WfNYHnGSuzyHn+lykwgLymnE7MzjgGPZV
+vm9IGDEQmpHMZuc6cAxKzC74Fa98QDmKS0K0R32GaLFc7Y28HNnDq/fnNbzAkVYO
+OwGDY1p97vVk6Zc0MOQuyjAYng+lnaD+wp1uEYai8hpPud5AZ6WBxFke5l83TKjk
+lJgYx+CT+/inlUcRZ7X8/8MofET/P8K65fteEL+SvoSpBakVmztMVKIvasll+eja
+81rffEeIy+3X8pRhSSN8R3yFLk29uw+oQxj5FJlr6IGX0uiRnk1m93KuphlsBg4w
+jedZ9O+LE2DbjHT43Xz7u0oeeUYVF+Hs2aZXOXbxRGeJl1HiQYlJqW1mdWGwQKKf
+1r3zSxaTfXz8svNsHA0fRlZi7S5psoUMRdNEhsQGW/GKr3KTtojUvEqeGGKhW6H4
+KgJR6OHlmfRwwgCtiaLx09736H3/m/zG5gPsGTKZGP51LnQWYjpUaUMm+55tSUg9
+waJ52wsLxsmJiJ6zYGHzih7sK6LJZMT0ZvqWUXAO5DPK5P2UPqc=
+=Ti2z
+-----END PGP SIGNATURE-----
+
+--6qypzrljzt2mkjjn--
