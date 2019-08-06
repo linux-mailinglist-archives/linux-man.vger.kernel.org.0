@@ -2,124 +2,138 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 7D9C382DD9
-	for <lists+linux-man@lfdr.de>; Tue,  6 Aug 2019 10:36:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D45CD83120
+	for <lists+linux-man@lfdr.de>; Tue,  6 Aug 2019 14:03:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732256AbfHFIgt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 6 Aug 2019 04:36:49 -0400
-Received: from mx2.suse.de ([195.135.220.15]:57862 "EHLO mx1.suse.de"
-        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1730068AbfHFIgs (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 6 Aug 2019 04:36:48 -0400
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
-        by mx1.suse.de (Postfix) with ESMTP id A0BBEAF90;
-        Tue,  6 Aug 2019 08:36:46 +0000 (UTC)
-Subject: Re: [PATCH] mm/mempolicy.c: Remove unnecessary nodemask check in
- kernel_migrate_pages()
-To:     Kefeng Wang <wangkefeng.wang@huawei.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        linux-kernel@vger.kernel.org
-Cc:     Andrea Arcangeli <aarcange@redhat.com>,
-        Dan Williams <dan.j.williams@intel.com>,
-        Michal Hocko <mhocko@suse.com>,
-        Oscar Salvador <osalvador@suse.de>, linux-mm@kvack.org,
-        Linux API <linux-api@vger.kernel.org>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-References: <20190806023634.55356-1-wangkefeng.wang@huawei.com>
-From:   Vlastimil Babka <vbabka@suse.cz>
-Message-ID: <80f8da83-f425-1aab-f47e-8da41ec6dcbf@suse.cz>
-Date:   Tue, 6 Aug 2019 10:36:40 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+        id S1728056AbfHFMD1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 6 Aug 2019 08:03:27 -0400
+Received: from mail-ed1-f67.google.com ([209.85.208.67]:40057 "EHLO
+        mail-ed1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726092AbfHFMD0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Aug 2019 08:03:26 -0400
+Received: by mail-ed1-f67.google.com with SMTP id k8so82026365eds.7;
+        Tue, 06 Aug 2019 05:03:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=0ibbfjjlcjqJhBjocgI23MMIU0ZjpMBB8zJJ1s3Y/U8=;
+        b=Vg2eXa17xUoxRlChCoci37B6L/lyFDQ9plgCkdnEBxPZZckdHS7JzDElMclSVP4BCs
+         6zMFs6pqODtDeABCJeeU8KejTPacxF2bnpBiWL0zZ4WuZHTbI3AiQgRv+9IuUww2QfGA
+         vkFHmcU2hTkcqElqT7JuyGeYI0KDIFC76+jKny/eH/HHqDFxyn9fAQhfAmDTKr9BVPlk
+         rDlITcAs+hZFUgu85dxCcJnGdZJTcyYd2Ied31JG7/FFawFT2gZyh+dqq3tGpSdMejCL
+         8avIearjdAdvw8Xvg87WzqmymgZWriEhz/yPMnrZJgCNILb0RwDD6/vb98/taFJdtVwF
+         +D3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=0ibbfjjlcjqJhBjocgI23MMIU0ZjpMBB8zJJ1s3Y/U8=;
+        b=pK7PU4n0vhfSPZ+7jQClH+K9xt8lWRW26LSzbrNvb/lqWjIwX9aosSnUL2UfhvT9Np
+         eBXaZ23yVhSBWFmwORpvFcuE151RSQXWKd4lPdkAJZJ3HM7LSSGMfNcd7ejKnMpYD9A+
+         YVVsG07TuVvCtFDc8oaPeZV90Kk9Rr+QiKLAM4Su/cg5Bouv2M3lnBPoqbzelsaFjc9f
+         GLjKz3lHXGvAUPhAIqjL4WW3MhmAxgzgArQPxaafeLE4Fgd/5ELFSbQtiKBhB/0p9/SJ
+         ddLBSTQMy8NWRM8Hj5Rz91SHGjy6aTY+5/b5AouZY2QFW5Exp5p6dgx2YyxxjvtseXJK
+         CTdw==
+X-Gm-Message-State: APjAAAXUQVqF+Vq0wruIN95YAS8Sz5KNkiTOUMd5HLqQtK81ndk+W6rv
+        8fd7pYvnCZ/IiCyuTT5Efen5X9DaODJswz2K/2s=
+X-Google-Smtp-Source: APXvYqw1I4EIWuPevu8wlirFV9J2GRKXYhv53MxSJBZOnAKpdcJeuHzCogMPbneXuIRWGHA9eGhBF1r/1dMNvJ8UrqA=
+X-Received: by 2002:a17:906:154f:: with SMTP id c15mr2756640ejd.268.1565093005065;
+ Tue, 06 Aug 2019 05:03:25 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190806023634.55356-1-wangkefeng.wang@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <CAKgNAki0bR5zZr+kp_xjq+bNUky6-F+s2ep+jnR0YrjHhNMB1g@mail.gmail.com>
+ <20190805103630.tu4kytsbi5evfrhi@mikami> <3a96c631-6595-b75e-f6a7-db703bf89bcf@gmail.com>
+ <da747415-4c7a-f931-6f2e-2962da63c161@philippwendler.de>
+In-Reply-To: <da747415-4c7a-f931-6f2e-2962da63c161@philippwendler.de>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Tue, 6 Aug 2019 14:03:13 +0200
+Message-ID: <CAKgNAkjS+x7aMVUiVSgCRwgi8rnukqJv=svtTARE-tt-oxQxWw@mail.gmail.com>
+Subject: Re: pivot_root(".", ".") and the fchdir() dance
+To:     Philipp Wendler <ml@philippwendler.de>
+Cc:     Aleksa Sarai <asarai@suse.de>,
+        linux-man <linux-man@vger.kernel.org>,
+        Containers <containers@lists.linux-foundation.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Jordan Ogas <jogas@lanl.gov>, werner@almesberger.net,
+        Al Viro <viro@ftp.linux.org.uk>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 8/6/19 4:36 AM, Kefeng Wang wrote:
-> 1) task_nodes = cpuset_mems_allowed(current);
->    -> cpuset_mems_allowed() guaranteed to return some non-empty
->       subset of node_states[N_MEMORY].
+Hello Philipp,
 
-Right, there's an explicit guarantee.
+On Tue, 6 Aug 2019 at 10:12, Philipp Wendler <ml@philippwendler.de> wrote:
+>
+> Hello Michael, hello Aleksa,
+>
+> Am 05.08.19 um 14:29 schrieb Michael Kerrisk (man-pages):
+>
+> > On 8/5/19 12:36 PM, Aleksa Sarai wrote:
+> >> On 2019-08-01, Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
+> >>> I'd like to add some documentation about the pivot_root(".", ".")
+> >>> idea, but I have a doubt/question. In the lxc_pivot_root() code we
+> >>> have these steps
+> >>>
+> >>>         oldroot = open("/", O_DIRECTORY | O_RDONLY | O_CLOEXEC);
+> >>>         newroot = open(rootfs, O_DIRECTORY | O_RDONLY | O_CLOEXEC);
+> >>>
+> >>>         fchdir(newroot);
+> >>>         pivot_root(".", ".");
+> >>>
+> >>>         fchdir(oldroot);      // ****
+> >>>
+> >>>         mount("", ".", "", MS_SLAVE | MS_REC, NULL);
+> >>>         umount2(".", MNT_DETACH);
+> >>
+> >>>         fchdir(newroot);      // ****
+> >>
+> >> And this one is required because we are in @oldroot at this point, due
+> >> to the first fchdir(2). If we don't have the first one, then switching
+> >> from "." to "/" in the mount/umount2 calls should fix the issue.
+> >
+> > See my notes above for why I therefore think that the second fchdir()
+> > is also not needed (and therefore why switching from "." to "/" in the
+> > mount()/umount2() calls is unnecessary.
+> >
+> > Do you agree with my analysis?
+>
+> If both the second and third fchdir are not required,
+> then we do not need to bother with file descriptors at all, right?
 
-> 2) nodes_and(*new, *new, task_nodes);
->    -> after nodes_and(), the 'new' should be empty or appropriate
->       nodemask(online node and with memory).
-> 
-> After 1) and 2), we could remove unnecessary check whether the 'new'
-> AND node_states[N_MEMORY] is empty.
+Exactly.
 
-Yeah looks like the check is there due to evolution of the code, where initially
-it was added to prevent calling the syscall with bogus nodes, but now that's
-achieved by cpuset_mems_allowed().
+> Indeed, my tests show that the following seems to work fine:
+>
+> chdir(rootfs)
+> pivot_root(".", ".")
+> umount2(".", MNT_DETACH)
 
-> Cc: Andrea Arcangeli <aarcange@redhat.com>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Dan Williams <dan.j.williams@intel.com>
-> Cc: Michal Hocko <mhocko@suse.com>
-> Cc: Oscar Salvador <osalvador@suse.de>
-> Cc: Vlastimil Babka <vbabka@suse.cz>
-> Cc: linux-mm@kvack.org
-> Signed-off-by: Kefeng Wang <wangkefeng.wang@huawei.com>
+Thanks for the confirmation, That's also exactly what I tested.
 
-Acked-by: Vlastimil Babka <vbabka@suse.cz>
+> I tested that with my own tool[1] that uses user namespaces and marks
+> everything MS_PRIVATE before, so I do not need the mount(MS_SLAVE) here.
+>
+> And it works the same with both umount2("/") and umount2(".").
 
-> ---
-> 
-> [QUESTION]
-> 
-> SYSCALL_DEFINE4(migrate_pages, pid_t, pid, unsigned long, maxnode,
->                 const unsigned long __user *, old_nodes,
->                 const unsigned long __user *, new_nodes)
-> {
->         return kernel_migrate_pages(pid, maxnode, old_nodes, new_nodes);
-> }
-> 
-> The migrate_pages() takes pid argument, witch is the ID of the process
-> whose pages are to be moved. should the cpuset_mems_allowed(current) be
-> cpuset_mems_allowed(task)?
+Yes.
 
-The check for cpuset_mems_allowed(task) is just above the code you change, so
-the new nodes have to be subset of the target task's cpuset.
-But they also have to be allowed by the calling task's cpuset. In manpage of
-migrate_pages(2), this is hinted by the NOTES "Use get_mempolicy(2) with the
-MPOL_F_MEMS_ALLOWED flag to obtain the set of nodes that are allowed by the
-calling process's cpuset..."
+> Did I overlook something that makes the file descriptors required?
 
-But perhaps the manpage should be better clarified:
+No.
 
-- the EINVAL case includes "Or, none of the node IDs specified by new_nodes are
-on-line and allowed by the process's current cpuset context, or none of the
-specified nodes contain memory." - this should probably say "calling process" to
-disambiguate
-- the EPERM case should mention that new_nodes have to be subset of the target
-process' cpuset context. The caller should also have CAP_SYS_NICE and
-ptrace_may_access()
+> If not, wouldn't the above snippet make sense as example in the man page?
 
->  mm/mempolicy.c | 4 ----
->  1 file changed, 4 deletions(-)
-> 
-> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-> index f48693f75b37..fceb44066184 100644
-> --- a/mm/mempolicy.c
-> +++ b/mm/mempolicy.c
-> @@ -1467,10 +1467,6 @@ static int kernel_migrate_pages(pid_t pid, unsigned long maxnode,
->  	if (nodes_empty(*new))
->  		goto out_put;
->  
-> -	nodes_and(*new, *new, node_states[N_MEMORY]);
-> -	if (nodes_empty(*new))
-> -		goto out_put;
-> -
->  	err = security_task_movememory(task);
->  	if (err)
->  		goto out_put;
-> 
+I have exactly that snippet in a pending change for the manual page :-).
 
+Cheers,
+
+Michael
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
