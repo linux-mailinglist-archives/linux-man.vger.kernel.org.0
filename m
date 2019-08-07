@@ -2,67 +2,81 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 808D484B48
-	for <lists+linux-man@lfdr.de>; Wed,  7 Aug 2019 14:17:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A1A8584B56
+	for <lists+linux-man@lfdr.de>; Wed,  7 Aug 2019 14:23:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727096AbfHGMRV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 7 Aug 2019 08:17:21 -0400
-Received: from mx1.redhat.com ([209.132.183.28]:37718 "EHLO mx1.redhat.com"
+        id S1727171AbfHGMXb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 7 Aug 2019 08:23:31 -0400
+Received: from mx1.redhat.com ([209.132.183.28]:43321 "EHLO mx1.redhat.com"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726773AbfHGMRV (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 7 Aug 2019 08:17:21 -0400
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+        id S1726873AbfHGMXb (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 7 Aug 2019 08:23:31 -0400
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
         (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
         (No client certificate requested)
-        by mx1.redhat.com (Postfix) with ESMTPS id 90093F0D03;
-        Wed,  7 Aug 2019 12:17:21 +0000 (UTC)
+        by mx1.redhat.com (Postfix) with ESMTPS id B35D630EA18E;
+        Wed,  7 Aug 2019 12:23:31 +0000 (UTC)
 Received: from unused-4-132.brq.redhat.com (unknown [10.43.2.25])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id E4CA1600C6;
-        Wed,  7 Aug 2019 12:17:20 +0000 (UTC)
-Message-ID: <6b42e1b7643304db9de9586858919eb2ae465703.camel@redhat.com>
-Subject: [PATCH] resolv.conf.5: update information about search list
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 135F4261A7;
+        Wed,  7 Aug 2019 12:23:30 +0000 (UTC)
+Message-ID: <4a8e2d3e55b07975b4e194d819c25c0fa67b2fdd.camel@redhat.com>
+Subject: Re: [PATCH] mmap.2: fix EINVAL conditions
 From:   Nikola =?ISO-8859-1?Q?Forr=F3?= <nforro@redhat.com>
 Reply-To: nforro@redhat.com
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Date:   Wed, 07 Aug 2019 14:17:19 +0200
+Date:   Wed, 07 Aug 2019 14:23:29 +0200
+In-Reply-To: <ba87bced44ac346f45887c6e91d0d29b0632a7f9.camel@redhat.com>
+References: <ba87bced44ac346f45887c6e91d0d29b0632a7f9.camel@redhat.com>
 Organization: Red Hat
 Content-Type: text/plain; charset="UTF-8"
 User-Agent: Evolution 3.32.4 (3.32.4-1.fc30) 
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Wed, 07 Aug 2019 12:17:21 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]); Wed, 07 Aug 2019 12:23:31 +0000 (UTC)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Reference:
-https://sourceware.org/git/?p=glibc.git;a=commitdiff;h=3f853f22c87f0b671c0366eb290919719fa56c0e
+Ping.
 
-Signed-off-by: Nikola Forró <nforro@redhat.com>
----
- man5/resolv.conf.5 | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/man5/resolv.conf.5 b/man5/resolv.conf.5
-index 57f0a13df..c500864d1 100644
---- a/man5/resolv.conf.5
-+++ b/man5/resolv.conf.5
-@@ -104,8 +104,10 @@ traffic if the servers for the listed domains are not local,
- and that queries will time out if no server is available
- for one of the domains.
- .IP
--The search list is currently limited to six domains
-+In glibc 2.25 and earlier, the search list is limited to six domains
- with a total of 256 characters.
-+.\" commit 3f853f22c87f0b671c0366eb290919719fa56c0e
-+Since glibc 2.26, the search list is unlimited.
- .TP
- \fBsortlist\fP
- This option allows addresses returned by
--- 
-2.21.0
-
+On Mon, 2019-06-24 at 13:20 +0200, Nikola Forró wrote:
+> Since introduction of MAP_SHARED_VALIDATE, in case flags contain
+> both MAP_PRIVATE and MAP_SHARED, mmap() doesn't fail with EINVAL,
+> it succeeds.
+> 
+> The reason for that is that MAP_SHARED_VALIDATE is in fact equal
+> to MAP_PRIVATE | MAP_SHARED.
+> 
+> This is intended behavior, see:
+> https://lwn.net/Articles/758594/
+> https://lwn.net/Articles/758598/
+> 
+> Signed-off-by: Nikola Forró <nforro@redhat.com>
+> ---
+>  man2/mmap.2 | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/man2/mmap.2 b/man2/mmap.2
+> index cea0bd372..b41e8b9ca 100644
+> --- a/man2/mmap.2
+> +++ b/man2/mmap.2
+> @@ -565,11 +565,11 @@ was 0.
+>  .TP
+>  .B EINVAL
+>  .I flags
+> -contained neither
+> -.B MAP_PRIVATE
+> +contained none of
+> +.BR MAP_PRIVATE ,
+> +.B MAP_SHARED
+>  or
+> -.BR MAP_SHARED ,
+> -or contained both of these values.
+> +.BR MAP_SHARED_VALIDATE .
+>  .TP
+>  .B ENFILE
+>  .\" This is for shared anonymous segments
 
