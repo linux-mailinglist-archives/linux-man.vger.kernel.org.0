@@ -2,74 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 1B62284210
-	for <lists+linux-man@lfdr.de>; Wed,  7 Aug 2019 04:05:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 808D484B48
+	for <lists+linux-man@lfdr.de>; Wed,  7 Aug 2019 14:17:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728484AbfHGCF1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 6 Aug 2019 22:05:27 -0400
-Received: from smtp.bonedaddy.net ([45.33.94.42]:35000 "EHLO
-        smtp.bonedaddy.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727651AbfHGCF1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Aug 2019 22:05:27 -0400
-X-Greylist: delayed 334 seconds by postgrey-1.27 at vger.kernel.org; Tue, 06 Aug 2019 22:05:27 EDT
-Received: from chianamo (unknown [114.111.153.40])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        id S1727096AbfHGMRV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 7 Aug 2019 08:17:21 -0400
+Received: from mx1.redhat.com ([209.132.183.28]:37718 "EHLO mx1.redhat.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726773AbfHGMRV (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 7 Aug 2019 08:17:21 -0400
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
         (No client certificate requested)
-        (Authenticated sender: pabs3@bonedaddy.net)
-        by smtp.bonedaddy.net (Postfix) with ESMTPSA id 2AC7B1803A7;
-        Tue,  6 Aug 2019 22:00:05 -0400 (EDT)
-Message-ID: <6f60b6ee9df9fa677d09a44ca4d79d94a6618ce1.camel@bonedaddy.net>
-Subject: please add linux-man@vger.kernel.org list to lore.kernel.org
-From:   Paul Wise <pabs3@bonedaddy.net>
-To:     helpdesk@kernel.org
+        by mx1.redhat.com (Postfix) with ESMTPS id 90093F0D03;
+        Wed,  7 Aug 2019 12:17:21 +0000 (UTC)
+Received: from unused-4-132.brq.redhat.com (unknown [10.43.2.25])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id E4CA1600C6;
+        Wed,  7 Aug 2019 12:17:20 +0000 (UTC)
+Message-ID: <6b42e1b7643304db9de9586858919eb2ae465703.camel@redhat.com>
+Subject: [PATCH] resolv.conf.5: update information about search list
+From:   Nikola =?ISO-8859-1?Q?Forr=F3?= <nforro@redhat.com>
+Reply-To: nforro@redhat.com
+To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Content-Type: multipart/signed; micalg="pgp-sha512";
-        protocol="application/pgp-signature"; boundary="=-ICZzaDDiKHFgsEFkIvB3"
-Date:   Wed, 07 Aug 2019 09:59:48 +0800
+Date:   Wed, 07 Aug 2019 14:17:19 +0200
+Organization: Red Hat
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.32.4 (3.32.4-1.fc30) 
 MIME-Version: 1.0
-User-Agent: Evolution 3.30.5-1.1 
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Wed, 07 Aug 2019 12:17:21 +0000 (UTC)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Reference:
+https://sourceware.org/git/?p=glibc.git;a=commitdiff;h=3f853f22c87f0b671c0366eb290919719fa56c0e
 
---=-ICZzaDDiKHFgsEFkIvB3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Nikola Forró <nforro@redhat.com>
+---
+ man5/resolv.conf.5 | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Hi,
+diff --git a/man5/resolv.conf.5 b/man5/resolv.conf.5
+index 57f0a13df..c500864d1 100644
+--- a/man5/resolv.conf.5
++++ b/man5/resolv.conf.5
+@@ -104,8 +104,10 @@ traffic if the servers for the listed domains are not local,
+ and that queries will time out if no server is available
+ for one of the domains.
+ .IP
+-The search list is currently limited to six domains
++In glibc 2.25 and earlier, the search list is limited to six domains
+ with a total of 256 characters.
++.\" commit 3f853f22c87f0b671c0366eb290919719fa56c0e
++Since glibc 2.26, the search list is unlimited.
+ .TP
+ \fBsortlist\fP
+ This option allows addresses returned by
+-- 
+2.21.0
 
-Please add the linux-man@vger.kernel.org mailing list to the
-lore.kernel.org archiving system so that it is easier to refer to
-patches and mail sent to that list.
-
---=20
-bye,
-pabs
-
-https://bonedaddy.net/pabs3/
-
---=-ICZzaDDiKHFgsEFkIvB3
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEYQsotVz8/kXqG1Y7MRa6Xp/6aaMFAl1KMJMACgkQMRa6Xp/6
-aaN6hxAAiDaaDBLSDkBACOvcVZTLZPBxe7hjnrFdLbqOTsrWMIo3eiTFvq6yXqQB
-fJq9ceTgKMRBjc1+ePxVIxzCuG0PUxcUrJ7dNxfETTRfDaMUnffpYNEkaABZnVoN
-t930ncG32ciWxFSo6Y11d8j6DIzVS3JNOAYQqoauxZzjjyF3d69evXK5bhaT4rw6
-MV4M/f69s6vpGH9QXtP0NNW+aexY/JAd6nbUA9g/J2S3/TaQjSP/tQO+r/fNcns/
-48JgPHnXMJBHuU6OZ2NMDIvPecpwbkfCDJDTddnapYseiJqXM2ROe/WCc5v7Zf4l
-Bf4l7VngEnumwpj5DWpJXFnaaBZpVWd/P/EKFHjvOsaBi+FiGikM2+JF3K81yqMB
-2R34EOjK1IP122w4ZhZsaq+dl2tYsuOLvW2M/pdMOHtSKOgXPBTvRmyGtv9SHmNM
-7RtrLtrv51bnpMUPJEpWv/sDeOg87MvIxG7RB6fbvB4u2VmHLsJg7VtK66I5i1ST
-QqtBemdoPKAEXnlLs5VmLz3JpB6JAdevHD/29H2liZDHYQlIJEmzfUwC6HDRwOxC
-/yJKfJ23zpJ4mQcHpNAvmDmkI/vnEYx0aE70jVNFbp/kDZfTluAoQIgzNuhNssH+
-3i/J53cK1FGzv6oKs4htcl4i4q/C+Ibf9Ss/F8M1HNp1tPVweDQ=
-=O4/P
------END PGP SIGNATURE-----
-
---=-ICZzaDDiKHFgsEFkIvB3--
 
