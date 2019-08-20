@@ -2,59 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 75B299605D
-	for <lists+linux-man@lfdr.de>; Tue, 20 Aug 2019 15:41:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D53D4966FB
+	for <lists+linux-man@lfdr.de>; Tue, 20 Aug 2019 18:58:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729992AbfHTNkN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 20 Aug 2019 09:40:13 -0400
-Received: from joooj.vinc17.net ([155.133.131.76]:56140 "EHLO joooj.vinc17.net"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1728248AbfHTNkN (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 20 Aug 2019 09:40:13 -0400
-X-Greylist: delayed 307 seconds by postgrey-1.27 at vger.kernel.org; Tue, 20 Aug 2019 09:40:13 EDT
-Received: from smtp-zira.vinc17.net (2a02-8429-80cd-3101-328d-99ff-fe25-ad3f.rev.sfr.net [IPv6:2a02:8429:80cd:3101:328d:99ff:fe25:ad3f])
-        by joooj.vinc17.net (Postfix) with ESMTPSA id 68A7E9C;
-        Tue, 20 Aug 2019 15:35:04 +0200 (CEST)
-Received: by zira.vinc17.org (Postfix, from userid 1000)
-        id 0E653C20167; Tue, 20 Aug 2019 15:35:04 +0200 (CEST)
-Date:   Tue, 20 Aug 2019 15:35:04 +0200
-From:   Vincent Lefevre <vincent@vinc17.net>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] printf.3: Add detail on the first digit with the %e format
-Message-ID: <20190820133504.GA30665@zira.vinc17.org>
+        id S1729852AbfHTQ6o (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 20 Aug 2019 12:58:44 -0400
+Received: from plasma31.jpberlin.de ([80.241.56.82]:24721 "EHLO
+        plasma31.jpberlin.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729827AbfHTQ6n (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 20 Aug 2019 12:58:43 -0400
+Received: from spamfilter04.heinlein-hosting.de (spamfilter04.heinlein-hosting.de [80.241.56.122])
+        by plasma.jpberlin.de (Postfix) with ESMTP id BC2C1100542;
+        Tue, 20 Aug 2019 18:58:39 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at heinlein-support.de
+Received: from plasma.jpberlin.de ([80.241.56.76])
+        by spamfilter04.heinlein-hosting.de (spamfilter04.heinlein-hosting.de [80.241.56.122]) (amavisd-new, port 10030)
+        with ESMTP id aP6HhrhUsf9l; Tue, 20 Aug 2019 18:58:38 +0200 (CEST)
+Received: from webmail.opensynergy.com (unknown [217.66.60.5])
+        (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+        (Client CN "webmail.opensynergy.com", Issuer "GeoTrust EV RSA CA 2018" (not verified))
+        (Authenticated sender: opensynergy@jpberlin.de)
+        by plasma.jpberlin.de (Postfix) with ESMTPSA id B0D10100524;
+        Tue, 20 Aug 2019 18:58:38 +0200 (CEST)
+Received: from mmo.open-synergy.com (10.25.255.1) by MXS02.open-synergy.com
+ (10.25.10.18) with Microsoft SMTP Server (TLS) id 14.3.468.0; Tue, 20 Aug
+ 2019 18:58:37 +0200
+Subject: Re: [PATCH] io_submit.2: Fix kernel version numbers for
+ 'aio_rw_flags' flags
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+CC:     <linux-man@vger.kernel.org>,
+        Damir Shaikhutdinov <Damir.Shaikhutdinov@opensynergy.com>
+References: <0718906b-181c-e04c-288a-e6097e6d7e89@opensynergy.com>
+ <b91eb798-27da-a9ac-8ea0-3142a489840b@gmail.com>
+From:   Matti Moell <Matti.Moell@opensynergy.com>
+Openpgp: preference=signencrypt
+Message-ID: <9759bf64-23b0-b073-e526-16d56f830aee@opensynergy.com>
+Date:   Tue, 20 Aug 2019 18:58:37 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer-Info: https://www.vinc17.net/mutt/
-User-Agent: Mutt/1.12.1+33 (6a74e24e) vl-117499 (2019-06-23)
+In-Reply-To: <b91eb798-27da-a9ac-8ea0-3142a489840b@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.25.255.1]
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This requirement on the first digit with the %e format comes from
-the ISO C standard. It ensures that all the digits in the output are
-significant and forbids output with a precision less than requested.
+Hi Michael,
 
-Signed-off-by: Vincent Lefevre <vincent@vinc17.net>
----
- man3/printf.3 | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On 19.08.19 23:44, Michael Kerrisk (man-pages) wrote:
+> Is the version number you propose correct? When I check:
+> 
+> $ git describe --contains 9830f4be159b
+> v4.13-rc1~70^2~30
+> 
+> So, should be 4.13, no?
 
-diff --git a/man3/printf.3 b/man3/printf.3
-index fb40b7077..66ad6af02 100644
---- a/man3/printf.3
-+++ b/man3/printf.3
-@@ -658,7 +658,8 @@ The
- .I double
- argument is rounded and converted in the style
- .RB [\-]d \&. ddd e \(+-dd
--where there is one digit before the decimal-point character and the number
-+where there is one digit (which is nonzero if the argument is nonzero)
-+before the decimal-point character and the number
- of digits after it is equal to the precision; if the precision is missing,
- it is taken as 6; if the precision is zero, no decimal-point character
- appears.
--- 
-2.23.0.rc1
+Yes indeed, it should be. I will resend the patch, with the corrected
+version.
+
+> 
+> Thanks,
+> 
+> Michael
+> 
