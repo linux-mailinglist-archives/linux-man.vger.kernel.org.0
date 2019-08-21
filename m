@@ -2,99 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id CB1079670B
-	for <lists+linux-man@lfdr.de>; Tue, 20 Aug 2019 19:04:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 44CEE98073
+	for <lists+linux-man@lfdr.de>; Wed, 21 Aug 2019 18:45:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726345AbfHTREa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 20 Aug 2019 13:04:30 -0400
-Received: from plasma31.jpberlin.de ([80.241.56.82]:57039 "EHLO
-        plasma31.jpberlin.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725983AbfHTREa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 20 Aug 2019 13:04:30 -0400
-Received: from spamfilter05.heinlein-hosting.de (spamfilter05.heinlein-hosting.de [80.241.56.123])
-        by plasma.jpberlin.de (Postfix) with ESMTP id 9FD151005BF;
-        Tue, 20 Aug 2019 19:04:26 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at heinlein-support.de
-Received: from plasma.jpberlin.de ([80.241.56.76])
-        by spamfilter05.heinlein-hosting.de (spamfilter05.heinlein-hosting.de [80.241.56.123]) (amavisd-new, port 10030)
-        with ESMTP id pnm3VR5ODmXj; Tue, 20 Aug 2019 19:04:19 +0200 (CEST)
-Received: from webmail.opensynergy.com (unknown [217.66.60.5])
-        (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
-        (Client CN "webmail.opensynergy.com", Issuer "GeoTrust EV RSA CA 2018" (not verified))
-        (Authenticated sender: opensynergy@jpberlin.de)
-        by plasma.jpberlin.de (Postfix) with ESMTPSA id AE83710059D;
-        Tue, 20 Aug 2019 19:04:19 +0200 (CEST)
-Received: from mmo.open-synergy.com (10.25.255.1) by MXS02.open-synergy.com
- (10.25.10.18) with Microsoft SMTP Server (TLS) id 14.3.468.0; Tue, 20 Aug
- 2019 19:04:19 +0200
-From:   Matti Moell <Matti.Moell@opensynergy.com>
-Subject: [PATCH v2] io_submit.2: Fix kernel version numbers for 'aio_rw_flags'
- flags
-To:     <mtk.manpages@gmail.com>
-CC:     <linux-man@vger.kernel.org>, <linux-aio@vger.kernel.org>,
-        Damir Shaikhutdinov <Damir.Shaikhutdinov@opensynergy.com>
-Openpgp: preference=signencrypt
-Message-ID: <852f4b43-b2ca-6823-7c42-2e8c766f79e9@opensynergy.com>
-Date:   Tue, 20 Aug 2019 19:04:19 +0200
+        id S1726828AbfHUQow (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 21 Aug 2019 12:44:52 -0400
+Received: from jojo.truelite.it ([144.76.21.38]:49896 "EHLO jojo.truelite.it"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726252AbfHUQow (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 21 Aug 2019 12:44:52 -0400
+Received: from localhost (localhost.localdomain [127.0.0.1])
+        by jojo.truelite.it (Postfix) with ESMTP id 6A531C1B3B;
+        Wed, 21 Aug 2019 18:44:50 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at truelite.it
+Received: from jojo.truelite.it ([127.0.0.1])
+        by localhost (jojo.truelite.it [127.0.0.1]) (amavisd-new, port 10024)
+        with ESMTP id 11HOmfQrIVyV; Wed, 21 Aug 2019 18:44:48 +0200 (CEST)
+Received: from [192.168.1.154] (unknown [151.61.7.163])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+        (No client certificate requested)
+        by jojo.truelite.it (Postfix) with ESMTPSA id DDFD6C1B27;
+        Wed, 21 Aug 2019 18:44:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=truelite.it; s=mail;
+        t=1566405888; bh=wVVKagiVo41CLBCGV8Y50zpGSgo9EI0iBX+5+mW1ut0=;
+        h=To:Cc:From:Subject:Date:From;
+        b=F4XzmR+vRLxCsjKwEjTF34vMtrgT3nqxLHQVFyT/zkXot2Fs05Zw5i54UbzrgiibI
+         Uj3+ZthToBmRuQj+4rE5dZ97lmcDkS57dY5Xl/s8lI0WJSqQGWdsCN/P/I6FWFY0JY
+         HfLFjxiehU15awbKvRc9CuJnOpxiW75AxMHTi8svSXOlzJWKpnj2EUCPIYeE4mV+ug
+         qJAbPk9dKx4nOCRbhpq9oqHGOhtYbK7vNhfC4YVkn4bYzNyAWyoH2hXVMxXi9LX9Vg
+         EY3joE8PiCe0mFTtY7bfingq7nkwt7FI1yHuoOSHu8ENnnpCkuvevx+2zUd7mCZVUx
+         84XJFTfXJ5/rQ==
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+From:   Simone Piccardi <piccardi@truelite.it>
+Subject: fececve man page
+Message-ID: <044d4f18-fe49-7e25-ddae-844ce6a50b7a@truelite.it>
+Date:   Wed, 21 Aug 2019 18:44:47 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ Thunderbird/60.7.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=iso-8859-15; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.25.255.1]
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Even though the RFW_* flags were first introduced in Linux 4.6, they
-could not be used with aio until 4.13 where the aio_rw_flags field was
-added to struct iocb (9830f4be159b "fs: Use RWF_* flags for AIO
-operations"). Correct the stated version for each flag.
 
-Fixes: 2f72816f8680 ("io_submit.2: Add kernel version numbers for various 'aio_rw_flags' flags")
-Signed-off-by: Matti Möll <Matti.Moell@opensynergy.com>
----
-Changelog:
-v2:
- - Fix kernel version from 4.12 to 4.13
----
- man2/io_submit.2 | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+In http://man7.org/linux/man-pages/man3/fexecve.3.html in the reported 
+errors there are only EINVAL and ENOSYS but in the BUGS section is cited 
+also ENOENT (I suppose coming from execveat) for trying to use a script.
 
-diff --git a/man2/io_submit.2 b/man2/io_submit.2
-index ed98da46c999..1b5fd405a00e 100644
---- a/man2/io_submit.2
-+++ b/man2/io_submit.2
-@@ -91,7 +91,7 @@ The
- field is ignored.
- The file offset is not changed.
- .TP
--.BR RWF_DSYNC " (since Linux 4.7)"
-+.BR RWF_DSYNC " (since Linux 4.13)"
- Write operation complete according to requirement of
- synchronized I/O data integrity.
- See the description of the flag of the same name in
-@@ -101,7 +101,7 @@ as well the description of
- in
- .BR open (2).
- .TP
--.BR RWF_HIPRI " (since Linux 4.6)"
-+.BR RWF_HIPRI " (since Linux 4.13)"
- High priority request, poll if possible
- .TP
- .BR RWF_NOWAIT " (since Linux 4.14)"
-@@ -118,7 +118,7 @@ field of the
- structure (see
- .BR io_getevents (2)).
- .TP
--.BR RWF_SYNC " (since Linux 4.7)"
-+.BR RWF_SYNC " (since Linux 4.13)"
- Write operation complete according to requirement of
- synchronized I/O file integrity.
- See the description of the flag of the same name in
--- 
-2.21.0
+Furthermore I think that ENOSYS should be cited as present only when 
+fexecve is not implemented using execveat.
 
-
+Regards
+Simone
