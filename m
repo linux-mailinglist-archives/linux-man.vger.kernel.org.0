@@ -2,104 +2,81 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 07D269B532
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2019 19:09:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9FC8C9B74D
+	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2019 21:49:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1733074AbfHWRJz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 23 Aug 2019 13:09:55 -0400
-Received: from esa6.microchip.iphmx.com ([216.71.154.253]:54569 "EHLO
-        esa6.microchip.iphmx.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1733103AbfHWRJz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 23 Aug 2019 13:09:55 -0400
-Authentication-Results: esa6.microchip.iphmx.com; dkim=none (message not signed) header.i=none; spf=Pass smtp.mailfrom=don.brace@microsemi.com; spf=None smtp.helo=postmaster@smtp.microsemi.com
-Received-SPF: Pass (esa6.microchip.iphmx.com: domain of
-  don.brace@microsemi.com designates 208.19.100.22 as permitted
-  sender) identity=mailfrom; client-ip=208.19.100.22;
-  receiver=esa6.microchip.iphmx.com;
-  envelope-from="don.brace@microsemi.com";
-  x-sender="don.brace@microsemi.com"; x-conformance=spf_only;
-  x-record-type="v=spf1"; x-record-text="v=spf1
-  ip4:208.19.100.20 ip4:208.19.100.21 ip4:208.19.100.22
-  ip4:208.19.100.23 ip4:208.19.99.221 ip4:208.19.99.222
-  ip4:208.19.99.223 ip4:208.19.99.225 -all"
-Received-SPF: None (esa6.microchip.iphmx.com: no sender
-  authenticity information available from domain of
-  postmaster@smtp.microsemi.com) identity=helo;
-  client-ip=208.19.100.22; receiver=esa6.microchip.iphmx.com;
-  envelope-from="don.brace@microsemi.com";
-  x-sender="postmaster@smtp.microsemi.com";
-  x-conformance=spf_only
-X-Ironport-Dmarc-Check-Result: validskip
-IronPort-SDR: SFxmtIMA0XRe1bd6w+LhDkw6QGsoNwi/nDekctRJpr885YBZ2drFBpG02ZCjU0oZ2MZr1W6Tf2
- /olzwQ4fVyLluSbdS4mh4XXMtRDuzjGTKEutGd/EKUzczLcxlMbloLLIAr/6Ht1bAgZ7DdpSvt
- A4tHxpfzDudOQn9lBWTFQpdXPbMPJGPxkb9UEXht9oTI7WtFqVFRJeU5BU5qT5UHVkU9wkE6H7
- CbMDly0ot+x3BBAnHq80cCnNKxvGCB6E8/H5gqwtJrVLqD//NHrcXiqIB/5mBvBhQ1HGP/Skwe
- /yA=
-X-IronPort-AV: E=Sophos;i="5.64,422,1559545200"; 
-   d="scan'208";a="43481543"
-Received: from unknown (HELO smtp.microsemi.com) ([208.19.100.22])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256; 23 Aug 2019 10:09:54 -0700
-Received: from AVMBX3.microsemi.net (10.100.34.33) by AVMBX2.microsemi.net
- (10.100.34.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 23 Aug
- 2019 10:09:53 -0700
-Received: from AVMBX2.microsemi.net (10.100.34.32) by AVMBX3.microsemi.net
- (10.100.34.33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 23 Aug
- 2019 10:09:52 -0700
-Received: from [127.0.1.1] (10.238.32.34) by avmbx2.microsemi.net
- (10.100.34.32) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 23 Aug 2019 10:09:51 -0700
-Subject: [PATCH V2 6/6] smartpqi: correct lockup action table
-From:   Don Brace <don.brace@microsemi.com>
-To:     <mtk.manpages@gmail.com>
-CC:     <linux-man@vger.kernel.org>, <Kevin.Barnett@microchip.com>,
-        <scott.teel@microchip.com>, <Justin.Lindley@microchip.com>,
-        <scott.benesh@microchip.com>, <bader.alisaleh@microchip.com>,
-        <gerry.morong@microchip.com>, <mahesh.rajashekhara@microchip.com>
-Date:   Fri, 23 Aug 2019 12:09:51 -0500
-Message-ID: <156658019169.6969.9703957231113751364.stgit@brunhilda>
-In-Reply-To: <156658004701.6969.3969396310784177369.stgit@brunhilda>
-References: <156658004701.6969.3969396310784177369.stgit@brunhilda>
-User-Agent: StGit/0.19
+        id S2391750AbfHWTsw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 23 Aug 2019 15:48:52 -0400
+Received: from omta01.suddenlink.net ([208.180.40.71]:40716 "EHLO
+        omta01.suddenlink.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2391525AbfHWTsw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 23 Aug 2019 15:48:52 -0400
+X-Greylist: delayed 991 seconds by postgrey-1.27 at vger.kernel.org; Fri, 23 Aug 2019 15:48:51 EDT
+Received: from dalifep05 ([10.130.7.37]) by dalofep02.suddenlink.net
+          (InterMail vM.8.04.03.22.02 201-2389-100-169-20190213) with ESMTP
+          id <20190823193219.GBGT20957.dalofep02.suddenlink.net@dalifep05>;
+          Fri, 23 Aug 2019 14:32:19 -0500
+Message-ID: <20190823143219.6B4TS.105978.root@dalifep05>
+Date:   Fri, 23 Aug 2019 14:32:19 -0500
+From:   <whjdhdh0000@suddenlink.net>
+To:     whjdhdh0000@suddenlink.net
+Subject: =?utf-8?B?0J/RgNC40LLQtdGCLCDQvNC+0Lkg0LTQvtGA0L7Qs9C+0LkuICA=?=
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+X-Priority: 3 (Normal)
+Sensitivity: Normal
+X-Authentication-Info: Submitted using SMTP AUTH LOGIN at dalofep02.suddenlink.net from [10.130.7.37] using ID whjdhdh0000@suddenlink.net at Fri, 23 Aug 2019 14:32:19 -0500
+X-CM-Analysis: v=2.3 cv=XMBOtjpE c=1 sm=1 tr=0 cx=a_idp_d a=lZHbbgZgGQcmXz2o/tKHrg==:117 a=IkcTkHD0fZMA:10 a=FmdZ9Uzk2mMA:10 a=5KLPUuaC_9wA:10 a=CjxXgO3LAAAA:8 a=pPd3AIuR1ajItuN113AA:9 a=QEXdDO2ut3YA:10 a=Z5ABNNGmrOfJ6cZ5bIyy:22 a=jd6J4Gguk5HxikPWLKER:22
+X-CM-Envelope: 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 mz+VfZbVlQr+dAX6
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Reviewed-by: Matt Perricone <matt.perricone@microsemi.com>
-Reviewed-by: Scott Benesh <scott.benesh@microsemi.com>
-Signed-off-by: Don Brace <don.brace@microsemi.com>
----
- man4/smartpqi.4 |   10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/man4/smartpqi.4 b/man4/smartpqi.4
-index 6e2cd1328..43e1d1cb2 100644
---- a/man4/smartpqi.4
-+++ b/man4/smartpqi.4
-@@ -84,15 +84,15 @@ Specifies the action the driver takes when a controller
- lockup is detected.
- The default action is
- .BR none .
--.TP
--.TS
--l l
-----
--l l.
-+.nf
-+.ta 10n +10n
-+
- parameter	action
-+---------	----------------------------
- \fBnone\fP	take controller offline only
- \fBreboot\fP	reboot the system
- \fBpanic\fP	panic the system
-+.fi
- .TP
- .BR expose_ld_first= { 0 | 1 }
- This option enables support for exposing logical devices to OS before physical devices.
-
+0J/RgNC40LLQtdGCLCDQvNC+0Lkg0LTQvtGA0L7Qs9C+0LkuICANCg0K0J/QvtC20LDQu9GD0LnR
+gdGC0LAsINC90LUg0LHQtdGB0L/QvtC60L7QudGC0LXRgdGMINC40Lct0LfQsCDRgtC+0LPQviwg
+0YfRgtC+INGB0LLRj9C30LDQu9C40YHRjCDRgSDQstCw0LzQuCDQuNC3LdC30LAg0LrRgNC40YLQ
+uNGH0LXRgdC60L7Qs9C+INGB0L7RgdGC0L7Rj9C90LjRjywg0LrQvtGC0L7RgNC+0LUg0Y8g0L3Q
+sNGF0L7QttGDINC00LvRjyDRgdC10LHRjywg0YXQvtGC0Y8g0Y3RgtC+INC90LUg0YTQuNC90LDQ
+vdGB0L7QstCw0Y8g0L/RgNC+0LHQu9C10LzQsCwg0L3QviDQvNC+0LUg0LfQtNC+0YDQvtCy0YzQ
+tSwg0LLRiyDQvNC+0LPQu9C4INCx0Ysg0LfQvdCw0YLRjCwg0YfRgtC+INGA0LDQuiAtINGN0YLQ
+viDQvdC1INGC0L4sINC+INGH0LXQvCDQs9C+0LLQvtGA0LjRgtGMINC00L7QvNCwLCDRjyDQttC1
+0L3QsNGCINC90LAg0LzQuNGB0YLQtdGA0LUg0KDQtdC30LAg0J3QvtCx0LDRhdGC0LgsINC60L7R
+gtC+0YDRi9C5INGA0LDQsdC+0YLQsNC7INGBINC/0L7RgdC+0LvRjNGB0YLQstC+0Lwg0JTRg9Cx
+0LjQuCDQsiDQmtC+0YIt0LQn0JjQstGD0LDRgNC1INCyINGC0LXRh9C10L3QuNC1INC00LXQstGP
+0YLQuCDQu9C10YIsINC/0YDQtdC20LTQtSDRh9C10Lwg0L7QvSDRg9C80LXRgCDQsiAyMDE2INCz
+0L7QtNGDLg0KDQrQnNGLINCx0YvQu9C4INC20LXQvdCw0YLRiyDQvtC00LjQvdC90LDQtNGG0LDR
+gtGMINC70LXRgiDQsdC10Lcg0YDQtdCx0LXQvdC60LAuINCe0L0g0YPQvNC10YAg0L/QvtGB0LvQ
+tSDQvdC10L/RgNC+0LTQvtC70LbQuNGC0LXQu9GM0L3QvtC5INCx0L7Qu9C10LfQvdC4LCDQutC+
+0YLQvtGA0LDRjyDQtNC70LjQu9Cw0YHRjCDQv9GP0YLRjCDQtNC90LXQuS4NCg0K0J/QvtGB0LvQ
+tSDQtdCz0L4g0YHQvNC10YDRgtC4INGPINGA0LXRiNC40Lsg0L3QtSDQstGB0YLRg9C/0LDRgtGM
+INCyINC/0L7QstGC0L7RgNC90YvQuSDQsdGA0LDQui4g0JrQvtCz0LTQsCDQvNC+0Lkg0L/QvtC6
+0L7QudC90YvQuSDQvNGD0LYg0LHRi9C7INC20LjQsiwg0L7QvSDQv9C+0LvQvtC20LjQuyDRgdGD
+0LzQvNGDINCyIDMsNSDQvNC40LvQu9C40L7QvdCwINC00L7Qu9C70LDRgNC+0LIg0KHQqNCQICjR
+gtGA0Lgg0LzQuNC70LvQuNC+0L3QsCDQv9GP0YLRjNGB0L7RgiDRgtGL0YHRj9GHINC00L7Qu9C7
+0LDRgNC+0LIpINCyINCx0LDQvdC6INCyINCa0L7Rgi3QtCfQmNCy0YPQsNGA0LUuINCSINC90LDR
+gdGC0L7Rj9GJ0LXQtSDQstGA0LXQvNGPINGN0YLQuCDQtNC10L3RjNCz0Lgg0LLRgdC1INC10YnQ
+tSDQvdCw0YXQvtC00Y/RgtGB0Y8g0LIg0LHQsNC90LrQtS4g0Jgg0JzQvtC5INCU0L7QutGC0L7R
+gCDRgdC60LDQt9Cw0Lsg0LzQvdC1LCDRh9GC0L4g0YMg0LzQtdC90Y8g0L3QtSDRgtCw0Log0LzQ
+vdC+0LPQviDQstGA0LXQvNC10L3QuCwg0YfRgtC+0LHRiyDQttC40YLRjCDQuNC3LdC30LAg0L/R
+gNC+0LHQu9C10LzRiyDRgSDRgNCw0LrQvtC8LiDQo9C30L3QsNCyINC+INC80L7QtdC8INGB0L7R
+gdGC0L7Rj9C90LjQuCwg0Y8g0YDQtdGI0LjQuyDQv9C10YDQtdC00LDRgtGMINCy0LDQvCDRjdGC
+0L7RgiDRhNC+0L3QtCwg0YfRgtC+0LHRiyDQt9Cw0LHQvtGC0LjRgtGM0YHRjyDQviDQvNC10L3Q
+tdC1INC/0YDQuNCy0LjQu9C10LPQuNGA0L7QstCw0L3QvdGL0YUg0LvRjtC00Y/RhSwg0Lgg0LLR
+iyDQsdGD0LTQtdGC0LUg0LjRgdC/0L7Qu9GM0LfQvtCy0LDRgtGMINGN0YLQuCDQtNC10L3RjNCz
+0Lgg0YLQsNC6LCDQutCw0Log0Y3RgtC+INC90YPQttC90L4uINCvINGB0L7QsdC40YDQsNGO0YHR
+jCDQv9GA0L7QuNC90YHRgtGA0YPQutGC0LjRgNC+0LLQsNGC0Ywg0LfQtNC10YHRjC4g0K8g0YXQ
+vtGH0YMsINGH0YLQvtCx0Ysg0LLRiyDQstC30Y/Qu9C4IDEwINC/0YDQvtGG0LXQvdGC0L7QsiDQ
+vtGCINC+0LHRidC10Lkg0YHRg9C80LzRiyDQtNC10L3QtdCzINC00LvRjyDQstCw0YjQtdCz0L4g
+0LvQuNGH0L3QvtCz0L4g0LjRgdC/0L7Qu9GM0LfQvtCy0LDQvdC40Y8sINCyINGC0L4g0LLRgNC1
+0LzRjyDQutCw0LogOTAlINC00LXQvdC10LMg0L/QvtC50LTRg9GCINC90LAg0LHQu9Cw0LPQvtGC
+0LLQvtGA0LjRgtC10LvRjNC90L7RgdGC0YwgItC70Y7QtNGP0Lwg0Lgg0L3QsCDQv9C+0LzQvtGJ
+0Ywg0LTQtdGC0YHQutC+0LzRgyDQtNC+0LzRgy4NCg0KDQrQryDQvdC1INGF0L7Rh9GDLCDRh9GC
+0L7QsdGLINGD0YHQuNC70LjRjyDQvNC+0LXQs9C+INC80YPQttCwINC40YHQv9C+0LvRjNC30L7Q
+stCw0LvQuNGB0Ywg0L/RgNCw0LLQuNGC0LXQu9GM0YHRgtCy0L7QvC4g0K8g0LLRi9GA0L7RgSDQ
+utCw0Log0YHQuNGA0L7RgtCwLCDQuCDQsiDQvNC+0LXQuSDRgdC10LzRjNC1INC90LjQutC+0LPQ
+viDQvdC10YIsDQoNCtCvINC20LTRgyDQstCw0YjQtdCz0L4g0L7RgtCy0LXRgtCwLiBbYmFoYWR1
+cnIxaUB5YWhvby5jb21dDQoNCtChINCj0LLQsNC20LXQvdC40LXQvCwNCtCc0LjRgdGB0LjRgSDQ
+kdCw0YXQsNC00YPRgCDQoNC10LfQsCDQndC+0LHQsNGF0YLQuA0K0L3QsNC/0LjRgdCw0L3QviDQ
+uNC3INCx0L7Qu9GM0L3QuNGG0YsuDQo=
