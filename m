@@ -2,52 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 336C09BFA2
-	for <lists+linux-man@lfdr.de>; Sat, 24 Aug 2019 21:00:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8773B9C04B
+	for <lists+linux-man@lfdr.de>; Sat, 24 Aug 2019 23:11:50 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728072AbfHXTAe convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Sat, 24 Aug 2019 15:00:34 -0400
-Received: from smtp2.osep.mendoza.gov.ar ([200.16.135.145]:52922 "HELO
-        smtp2.osep.mendoza.gov.ar" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with SMTP id S1728012AbfHXTAe (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 24 Aug 2019 15:00:34 -0400
-Received: (qmail 402 invoked from network); 24 Aug 2019 14:14:38 -0000
-Received: from unknown (HELO zimbra.servers.dg.intranet) (10.10.195.224)
-  by smtp2.osep.mendoza.gov.ar with SMTP; 24 Aug 2019 14:14:38 -0000
-Received: from localhost (localhost [127.0.0.1])
-        by zimbra.servers.dg.intranet (Postfix) with ESMTP id DB8B3CF7CC66;
-        Sat, 24 Aug 2019 11:14:37 -0300 (ART)
-Received: from zimbra.servers.dg.intranet ([127.0.0.1])
-        by localhost (zimbra.servers.dg.intranet [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id RViPrJdL95bg; Sat, 24 Aug 2019 11:14:37 -0300 (ART)
-Received: from localhost (localhost [127.0.0.1])
-        by zimbra.servers.dg.intranet (Postfix) with ESMTP id 877BBCF7CC58;
-        Sat, 24 Aug 2019 11:14:37 -0300 (ART)
-X-Virus-Scanned: amavisd-new at osep.mendoza.gov.ar
-Received: from zimbra.servers.dg.intranet ([127.0.0.1])
-        by localhost (zimbra.servers.dg.intranet [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id 9n2-6F1Dy9XD; Sat, 24 Aug 2019 11:14:37 -0300 (ART)
-Received: from zimbra.servers.dg.intranet (zimbra.servers.dg.intranet [10.10.195.224])
-        by zimbra.servers.dg.intranet (Postfix) with ESMTP id BAAEBCF7CC40;
-        Sat, 24 Aug 2019 11:14:36 -0300 (ART)
-Date:   Sat, 24 Aug 2019 11:14:36 -0300 (ART)
-From:   "Herr.Robert Jackson" <liliana.marinero@osep.mendoza.gov.ar>
-Reply-To: SKY GROUP FINANCIAL <skygroupfinancial0@gmail.com>
-Message-ID: <1268244548.24999093.1566656076742.JavaMail.zimbra@osep.mendoza.gov.ar>
-Subject: 
+        id S1727907AbfHXVLt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 24 Aug 2019 17:11:49 -0400
+Received: from mail.kernel.org ([198.145.29.99]:53140 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1727777AbfHXVLt (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sat, 24 Aug 2019 17:11:49 -0400
+Received: from sol.localdomain (c-24-5-143-220.hsd1.ca.comcast.net [24.5.143.220])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+        (No client certificate requested)
+        by mail.kernel.org (Postfix) with ESMTPSA id CA87120870;
+        Sat, 24 Aug 2019 21:11:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=default; t=1566681108;
+        bh=gW9WBX2j0CKKO/pFh4YFuv/x5jdIuPYIXiEFLUn9oS4=;
+        h=From:To:Cc:Subject:Date:From;
+        b=uyFKtHS6twMXUOE77JsBPoYa6XDnIjTuELU3sm66R2LmZo78VX4ptpGvQfSz55Tk2
+         O/8SxIMatNfyHembhSXXEsW3AOA+7Tr27yyYhwUD2emILIVy4thgyMwbmcPVcBGTXU
+         cm9JIyzNAhSETqHvr6vIiFpnfwlZ39OQ+euiSDUE=
+From:   Eric Biggers <ebiggers@kernel.org>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] socket.2: tfix
+Date:   Sat, 24 Aug 2019 14:11:07 -0700
+Message-Id: <20190824211107.16912-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8BIT
-X-Originating-IP: [172.16.3.2]
-X-Mailer: Zimbra 8.6.0_GA_1153 (zclient/8.6.0_GA_1153)
-Thread-Topic: 
-Thread-Index: 9gdTMQJ8JBu8cvpzdFVmtKjzn0qahQ==
-To:     unlisted-recipients:; (no To-header on input)
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+From: Eric Biggers <ebiggers@google.com>
 
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ man2/socket.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Wir sind zuverlässige, vertrauenswürdige Kreditgeber, leihen wir Unternehmen und Einzelpersonen zu einem niedrigen Zinssatz von 2%, Sind Sie auf der Suche nach einem Geschäftskredit, Privatkredite, Schuldenkonsolidierung, unbesicherte Kredite, Risikokapital, wenn ja Kontaktieren Sie uns jetzt für weitere Einzelheiten.
+diff --git a/man2/socket.2 b/man2/socket.2
+index 14f832022..0b3b90bb8 100644
+--- a/man2/socket.2
++++ b/man2/socket.2
+@@ -151,7 +151,7 @@ T}
+ T{
+ .B AF_PPPOX
+ T}:T{
+-Generic PPP transport layer, for setting up up L2 tunnels
++Generic PPP transport layer, for setting up L2 tunnels
+ (L2TP and PPPoE)
+ T}
+ T{
+-- 
+2.23.0
+
