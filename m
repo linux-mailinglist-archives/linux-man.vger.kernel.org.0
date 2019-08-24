@@ -2,81 +2,123 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 9FC8C9B74D
-	for <lists+linux-man@lfdr.de>; Fri, 23 Aug 2019 21:49:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DB8139BA17
+	for <lists+linux-man@lfdr.de>; Sat, 24 Aug 2019 03:33:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2391750AbfHWTsw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 23 Aug 2019 15:48:52 -0400
-Received: from omta01.suddenlink.net ([208.180.40.71]:40716 "EHLO
-        omta01.suddenlink.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2391525AbfHWTsw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 23 Aug 2019 15:48:52 -0400
-X-Greylist: delayed 991 seconds by postgrey-1.27 at vger.kernel.org; Fri, 23 Aug 2019 15:48:51 EDT
-Received: from dalifep05 ([10.130.7.37]) by dalofep02.suddenlink.net
-          (InterMail vM.8.04.03.22.02 201-2389-100-169-20190213) with ESMTP
-          id <20190823193219.GBGT20957.dalofep02.suddenlink.net@dalifep05>;
-          Fri, 23 Aug 2019 14:32:19 -0500
-Message-ID: <20190823143219.6B4TS.105978.root@dalifep05>
-Date:   Fri, 23 Aug 2019 14:32:19 -0500
-From:   <whjdhdh0000@suddenlink.net>
-To:     whjdhdh0000@suddenlink.net
-Subject: =?utf-8?B?0J/RgNC40LLQtdGCLCDQvNC+0Lkg0LTQvtGA0L7Qs9C+0LkuICA=?=
+        id S1725886AbfHXBdl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 23 Aug 2019 21:33:41 -0400
+Received: from mail-pf1-f195.google.com ([209.85.210.195]:32923 "EHLO
+        mail-pf1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725857AbfHXBdk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 23 Aug 2019 21:33:40 -0400
+Received: by mail-pf1-f195.google.com with SMTP id g2so7687087pfq.0
+        for <linux-man@vger.kernel.org>; Fri, 23 Aug 2019 18:33:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=8+nrLkzJmHJNEhNNE7A6THw7y72o3a5tt9G/fwbZUTU=;
+        b=YdxETOoDBjtKByXMNLRXfypqBAnA2ZSQz+7prBKkJGmKYtCH4SKHhRjWWvYx22YyeY
+         Uvyf1avHBnc/1h3YN5uVWufhHHYEPYNEtaz669FNaXvxBBXf0x+pAALpE8WS7yWMx5Ev
+         GXNfaLwViJ0TFcWyu98/3/16KWcEOj6TgSlWyqb+1fFqa8HfNZNgm6DuJKwFL5VXITLN
+         kwiOy7waFrqn4pRredcmaKDbcIF7dgU9F5WFSqyOPtFi+nAiKueotJXtZ0oA2jotroBF
+         JAZI2KaGhrqWge5O3qSqTP/A9EzbSH70qGdWkD0kM7ltSBRbl4QGweSf9Pea48dz141E
+         Zwcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=8+nrLkzJmHJNEhNNE7A6THw7y72o3a5tt9G/fwbZUTU=;
+        b=HdGe+JreN7YR9ZuDcTZBAqE86eoy3Rdkuyga7uaP5u+/FJ2C8pB1yoprgAbyPfiNu2
+         D4YMEmaZ6udWYHO6/VBpfXSIZUiNcKpbHtuOdQGrAINqT5UdVjZKGPGdQY539qJRqyyZ
+         Zd/sx3aSs6VRWJhwfbB4VK7LChZXaMf7UBEgDLyMgSHjXqFT+3N+8kPCWer37+A1frvB
+         zsotSqNc3zHpsnMjzBAWsZkk/WtACDrwrKeSkZEFhPT7XA+XCv/jDWyvQ/XA6YkC8O4U
+         e8+uC+IZ5G0fABhljvAn9hidipoqYuFgoywQK1gE7895KakBFX8euc3uBCe+ysUOSX4I
+         Va1w==
+X-Gm-Message-State: APjAAAX+DQYUpwcx2VwWsEqKWpCiky1GhzukQyxndZTZMkRKprrHrc0H
+        LGTcNzmUxMTPD377l9m9ZIw=
+X-Google-Smtp-Source: APXvYqw/QL0wOhevDO5pZmAdzEQtOU+0V4PUEJ9CSSaFVWgA8EPKu0eCDEHAdB9WzT95chTi3ZH/YQ==
+X-Received: by 2002:a65:6406:: with SMTP id a6mr5150017pgv.393.1566610420075;
+        Fri, 23 Aug 2019 18:33:40 -0700 (PDT)
+Received: from localhost.localdomain ([1.144.177.123])
+        by smtp.gmail.com with ESMTPSA id j15sm4126199pfe.3.2019.08.23.18.33.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Aug 2019 18:33:39 -0700 (PDT)
+Date:   Sat, 24 Aug 2019 11:33:32 +1000
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Don Brace <don.brace@microsemi.com>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Kevin.Barnett@microchip.com, scott.teel@microchip.com,
+        Justin.Lindley@microchip.com, scott.benesh@microchip.com,
+        bader.alisaleh@microchip.com, gerry.morong@microchip.com,
+        mahesh.rajashekhara@microchip.com
+Subject: Re: [PATCH V2 3/6] smartpqi: add module param expose ld first
+Message-ID: <20190824013329.lozyyuiv3qe57jyu@localhost.localdomain>
+References: <156658004701.6969.3969396310784177369.stgit@brunhilda>
+ <156658017256.6969.6788339572032916967.stgit@brunhilda>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
-X-Priority: 3 (Normal)
-Sensitivity: Normal
-X-Authentication-Info: Submitted using SMTP AUTH LOGIN at dalofep02.suddenlink.net from [10.130.7.37] using ID whjdhdh0000@suddenlink.net at Fri, 23 Aug 2019 14:32:19 -0500
-X-CM-Analysis: v=2.3 cv=XMBOtjpE c=1 sm=1 tr=0 cx=a_idp_d a=lZHbbgZgGQcmXz2o/tKHrg==:117 a=IkcTkHD0fZMA:10 a=FmdZ9Uzk2mMA:10 a=5KLPUuaC_9wA:10 a=CjxXgO3LAAAA:8 a=pPd3AIuR1ajItuN113AA:9 a=QEXdDO2ut3YA:10 a=Z5ABNNGmrOfJ6cZ5bIyy:22 a=jd6J4Gguk5HxikPWLKER:22
-X-CM-Envelope: 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 mz+VfZbVlQr+dAX6
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="i5nbphywkpfe4wg6"
+Content-Disposition: inline
+In-Reply-To: <156658017256.6969.6788339572032916967.stgit@brunhilda>
+User-Agent: NeoMutt/20180716
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-0J/RgNC40LLQtdGCLCDQvNC+0Lkg0LTQvtGA0L7Qs9C+0LkuICANCg0K0J/QvtC20LDQu9GD0LnR
-gdGC0LAsINC90LUg0LHQtdGB0L/QvtC60L7QudGC0LXRgdGMINC40Lct0LfQsCDRgtC+0LPQviwg
-0YfRgtC+INGB0LLRj9C30LDQu9C40YHRjCDRgSDQstCw0LzQuCDQuNC3LdC30LAg0LrRgNC40YLQ
-uNGH0LXRgdC60L7Qs9C+INGB0L7RgdGC0L7Rj9C90LjRjywg0LrQvtGC0L7RgNC+0LUg0Y8g0L3Q
-sNGF0L7QttGDINC00LvRjyDRgdC10LHRjywg0YXQvtGC0Y8g0Y3RgtC+INC90LUg0YTQuNC90LDQ
-vdGB0L7QstCw0Y8g0L/RgNC+0LHQu9C10LzQsCwg0L3QviDQvNC+0LUg0LfQtNC+0YDQvtCy0YzQ
-tSwg0LLRiyDQvNC+0LPQu9C4INCx0Ysg0LfQvdCw0YLRjCwg0YfRgtC+INGA0LDQuiAtINGN0YLQ
-viDQvdC1INGC0L4sINC+INGH0LXQvCDQs9C+0LLQvtGA0LjRgtGMINC00L7QvNCwLCDRjyDQttC1
-0L3QsNGCINC90LAg0LzQuNGB0YLQtdGA0LUg0KDQtdC30LAg0J3QvtCx0LDRhdGC0LgsINC60L7R
-gtC+0YDRi9C5INGA0LDQsdC+0YLQsNC7INGBINC/0L7RgdC+0LvRjNGB0YLQstC+0Lwg0JTRg9Cx
-0LjQuCDQsiDQmtC+0YIt0LQn0JjQstGD0LDRgNC1INCyINGC0LXRh9C10L3QuNC1INC00LXQstGP
-0YLQuCDQu9C10YIsINC/0YDQtdC20LTQtSDRh9C10Lwg0L7QvSDRg9C80LXRgCDQsiAyMDE2INCz
-0L7QtNGDLg0KDQrQnNGLINCx0YvQu9C4INC20LXQvdCw0YLRiyDQvtC00LjQvdC90LDQtNGG0LDR
-gtGMINC70LXRgiDQsdC10Lcg0YDQtdCx0LXQvdC60LAuINCe0L0g0YPQvNC10YAg0L/QvtGB0LvQ
-tSDQvdC10L/RgNC+0LTQvtC70LbQuNGC0LXQu9GM0L3QvtC5INCx0L7Qu9C10LfQvdC4LCDQutC+
-0YLQvtGA0LDRjyDQtNC70LjQu9Cw0YHRjCDQv9GP0YLRjCDQtNC90LXQuS4NCg0K0J/QvtGB0LvQ
-tSDQtdCz0L4g0YHQvNC10YDRgtC4INGPINGA0LXRiNC40Lsg0L3QtSDQstGB0YLRg9C/0LDRgtGM
-INCyINC/0L7QstGC0L7RgNC90YvQuSDQsdGA0LDQui4g0JrQvtCz0LTQsCDQvNC+0Lkg0L/QvtC6
-0L7QudC90YvQuSDQvNGD0LYg0LHRi9C7INC20LjQsiwg0L7QvSDQv9C+0LvQvtC20LjQuyDRgdGD
-0LzQvNGDINCyIDMsNSDQvNC40LvQu9C40L7QvdCwINC00L7Qu9C70LDRgNC+0LIg0KHQqNCQICjR
-gtGA0Lgg0LzQuNC70LvQuNC+0L3QsCDQv9GP0YLRjNGB0L7RgiDRgtGL0YHRj9GHINC00L7Qu9C7
-0LDRgNC+0LIpINCyINCx0LDQvdC6INCyINCa0L7Rgi3QtCfQmNCy0YPQsNGA0LUuINCSINC90LDR
-gdGC0L7Rj9GJ0LXQtSDQstGA0LXQvNGPINGN0YLQuCDQtNC10L3RjNCz0Lgg0LLRgdC1INC10YnQ
-tSDQvdCw0YXQvtC00Y/RgtGB0Y8g0LIg0LHQsNC90LrQtS4g0Jgg0JzQvtC5INCU0L7QutGC0L7R
-gCDRgdC60LDQt9Cw0Lsg0LzQvdC1LCDRh9GC0L4g0YMg0LzQtdC90Y8g0L3QtSDRgtCw0Log0LzQ
-vdC+0LPQviDQstGA0LXQvNC10L3QuCwg0YfRgtC+0LHRiyDQttC40YLRjCDQuNC3LdC30LAg0L/R
-gNC+0LHQu9C10LzRiyDRgSDRgNCw0LrQvtC8LiDQo9C30L3QsNCyINC+INC80L7QtdC8INGB0L7R
-gdGC0L7Rj9C90LjQuCwg0Y8g0YDQtdGI0LjQuyDQv9C10YDQtdC00LDRgtGMINCy0LDQvCDRjdGC
-0L7RgiDRhNC+0L3QtCwg0YfRgtC+0LHRiyDQt9Cw0LHQvtGC0LjRgtGM0YHRjyDQviDQvNC10L3Q
-tdC1INC/0YDQuNCy0LjQu9C10LPQuNGA0L7QstCw0L3QvdGL0YUg0LvRjtC00Y/RhSwg0Lgg0LLR
-iyDQsdGD0LTQtdGC0LUg0LjRgdC/0L7Qu9GM0LfQvtCy0LDRgtGMINGN0YLQuCDQtNC10L3RjNCz
-0Lgg0YLQsNC6LCDQutCw0Log0Y3RgtC+INC90YPQttC90L4uINCvINGB0L7QsdC40YDQsNGO0YHR
-jCDQv9GA0L7QuNC90YHRgtGA0YPQutGC0LjRgNC+0LLQsNGC0Ywg0LfQtNC10YHRjC4g0K8g0YXQ
-vtGH0YMsINGH0YLQvtCx0Ysg0LLRiyDQstC30Y/Qu9C4IDEwINC/0YDQvtGG0LXQvdGC0L7QsiDQ
-vtGCINC+0LHRidC10Lkg0YHRg9C80LzRiyDQtNC10L3QtdCzINC00LvRjyDQstCw0YjQtdCz0L4g
-0LvQuNGH0L3QvtCz0L4g0LjRgdC/0L7Qu9GM0LfQvtCy0LDQvdC40Y8sINCyINGC0L4g0LLRgNC1
-0LzRjyDQutCw0LogOTAlINC00LXQvdC10LMg0L/QvtC50LTRg9GCINC90LAg0LHQu9Cw0LPQvtGC
-0LLQvtGA0LjRgtC10LvRjNC90L7RgdGC0YwgItC70Y7QtNGP0Lwg0Lgg0L3QsCDQv9C+0LzQvtGJ
-0Ywg0LTQtdGC0YHQutC+0LzRgyDQtNC+0LzRgy4NCg0KDQrQryDQvdC1INGF0L7Rh9GDLCDRh9GC
-0L7QsdGLINGD0YHQuNC70LjRjyDQvNC+0LXQs9C+INC80YPQttCwINC40YHQv9C+0LvRjNC30L7Q
-stCw0LvQuNGB0Ywg0L/RgNCw0LLQuNGC0LXQu9GM0YHRgtCy0L7QvC4g0K8g0LLRi9GA0L7RgSDQ
-utCw0Log0YHQuNGA0L7RgtCwLCDQuCDQsiDQvNC+0LXQuSDRgdC10LzRjNC1INC90LjQutC+0LPQ
-viDQvdC10YIsDQoNCtCvINC20LTRgyDQstCw0YjQtdCz0L4g0L7RgtCy0LXRgtCwLiBbYmFoYWR1
-cnIxaUB5YWhvby5jb21dDQoNCtChINCj0LLQsNC20LXQvdC40LXQvCwNCtCc0LjRgdGB0LjRgSDQ
-kdCw0YXQsNC00YPRgCDQoNC10LfQsCDQndC+0LHQsNGF0YLQuA0K0L3QsNC/0LjRgdCw0L3QviDQ
-uNC3INCx0L7Qu9GM0L3QuNGG0YsuDQo=
+
+--i5nbphywkpfe4wg6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+At 2019-08-23T12:09:32-0500, Don Brace wrote:
+> @@ -82,6 +83,7 @@ Specifies the action the driver takes when a controller
+>  lockup is detected.
+>  The default action is
+>  .BR none .
+> +.TP
+>  .TS
+>  l l
+>  ---
+
+Can you explain the purpose of the above change?
+
+Your subsequent patch to correct the table, by reformatting it using
+tabs instead of tbl(1) macros, might have been provoked by the above.
+
+The .TP macro is for tagged paragraphs.  .TP consumes the next input
+line as a tag for a tagged paragraph.  In man pages, .TP is often used
+for definition lists.
+
+However, because the page was being preprocessed by tbl, the .TS macro
+was getting substituted with something else, and that something was
+getting "eaten" by the .TP macro.
+
+Try removing the above hunk of the patch and see if the table comes back
+to life, fixed.
+
+Regards,
+Branden
+
+--i5nbphywkpfe4wg6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl1gk98ACgkQ0Z6cfXEm
+bc6bgQ//YtDBLUNsp/bQknAI9iX0m1WJ+WflKnqBVsdeQ0AlFfPFoWNZp14QIVsv
+/hioJwPtMpwfb2E6b8xJny4itCAqiYXxpujNTf3IjlsMIbae0vAfrtXJWz+9NNnN
+wR4/hPTFxsNDpx2NXeXstbZU0slCqkmt9DHDqbdjE1CeIrAxgzEaQYQlez2Vcvp7
+uFqyP4oezcWtn3fcATMDFDZDGUV7E2/I5077p6M2rSCdfyTNnn9FRAWoEJDr6j3u
+sD/Y4Rbos6tOi+56GuQjrQ27Yt27+qrDRHerm9M/HGnl/Ymusyr/zovpY8dsgQdU
+Mw7P6OaD7H/EgtMwHpybvTlgjIbjMbgklaaLIdA5swXvQRhkOgoQ2MUvVL+2MQG3
+HfEdc2ezVyEbtHBIRmvZ9jsZ/Qc5VWXvyFI0QT7/0sReAd1iAE5GfaLHt2wSPQBZ
+xBHVogWai/+wz8zSYNxt2YWgce50VSaX68RgRgrl7s/nSZsLPbTfC5aKvjvtMHfm
+WVaSYhEg8Z+ipsNV82j8MRp3MJfri0CY1Rox9tqHvXHP+8m5WtkTSFxDmME0vrVs
+JjpHTFYiBQ9WXBWxT6uqgM70gGaffS4g5BUSRmOzb1Lixap9U51D14NKoMR4IkxB
+CIzcTrnpB3KrsVBxIe5MOUYIoOtDoJH61Cwp3ogGzHttiwiibJg=
+=jkhf
+-----END PGP SIGNATURE-----
+
+--i5nbphywkpfe4wg6--
