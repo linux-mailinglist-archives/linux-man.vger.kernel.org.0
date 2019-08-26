@@ -2,59 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 26C599CFA7
-	for <lists+linux-man@lfdr.de>; Mon, 26 Aug 2019 14:29:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8D26A9D32C
+	for <lists+linux-man@lfdr.de>; Mon, 26 Aug 2019 17:41:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731702AbfHZM3l (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 26 Aug 2019 08:29:41 -0400
-Received: from 2.mo1.mail-out.ovh.net ([178.32.119.250]:54580 "EHLO
-        2.mo1.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731737AbfHZM3l (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 26 Aug 2019 08:29:41 -0400
-X-Greylist: delayed 2401 seconds by postgrey-1.27 at vger.kernel.org; Mon, 26 Aug 2019 08:29:40 EDT
-Received: from player750.ha.ovh.net (unknown [10.109.143.18])
-        by mo1.mail-out.ovh.net (Postfix) with ESMTP id 69FE018C8CA
-        for <linux-man@vger.kernel.org>; Mon, 26 Aug 2019 13:12:00 +0200 (CEST)
-Received: from jwilk.net (user-5-173-51-112.play-internet.pl [5.173.51.112])
-        (Authenticated sender: jwilk@jwilk.net)
-        by player750.ha.ovh.net (Postfix) with ESMTPSA id 9F1E1935F14F;
-        Mon, 26 Aug 2019 11:11:57 +0000 (UTC)
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] gethostname.2: wfix
-Date:   Mon, 26 Aug 2019 13:11:55 +0200
-Message-Id: <20190826111155.9223-1-jwilk@jwilk.net>
-X-Mailer: git-send-email 2.23.0
+        id S1728524AbfHZPlW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 26 Aug 2019 11:41:22 -0400
+Received: from esa6.microchip.iphmx.com ([216.71.154.253]:43849 "EHLO
+        esa6.microchip.iphmx.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728221AbfHZPlW (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 26 Aug 2019 11:41:22 -0400
+Authentication-Results: esa6.microchip.iphmx.com; dkim=none (message not signed) header.i=none; spf=Pass smtp.mailfrom=don.brace@microsemi.com; spf=None smtp.helo=postmaster@smtp.microsemi.com
+Received-SPF: Pass (esa6.microchip.iphmx.com: domain of
+  don.brace@microsemi.com designates 208.19.100.22 as permitted
+  sender) identity=mailfrom; client-ip=208.19.100.22;
+  receiver=esa6.microchip.iphmx.com;
+  envelope-from="don.brace@microsemi.com";
+  x-sender="don.brace@microsemi.com"; x-conformance=spf_only;
+  x-record-type="v=spf1"; x-record-text="v=spf1
+  ip4:208.19.100.20 ip4:208.19.100.21 ip4:208.19.100.22
+  ip4:208.19.100.23 ip4:208.19.99.221 ip4:208.19.99.222
+  ip4:208.19.99.223 ip4:208.19.99.225 -all"
+Received-SPF: None (esa6.microchip.iphmx.com: no sender
+  authenticity information available from domain of
+  postmaster@smtp.microsemi.com) identity=helo;
+  client-ip=208.19.100.22; receiver=esa6.microchip.iphmx.com;
+  envelope-from="don.brace@microsemi.com";
+  x-sender="postmaster@smtp.microsemi.com";
+  x-conformance=spf_only
+X-Ironport-Dmarc-Check-Result: validskip
+IronPort-SDR: bFQJ6H/TowCrszkcLQSRRqhkgNANamXvv9zHz/pP2jnCWQbDwd1tE3XXUgYsjgfvU8Z5rQCBd0
+ jgGG7Vdk/xpOxc/Izb+MVcAdiOt1rEZe3EK3AM7vfbxlhTKauYbKNjIczz3opcBqTd6NeI3Ad2
+ 3HNMYz2wY6T5ClMkQIIosDZbFZF2xx+IU595dkoR5Td9ipoiW5YpiHHocdTp8xgGEoV70Gm/hj
+ vSwzYx42cGqTQ97clkFWVfPTZvRtBdt4PJisYQJDkQrFoi81s+2KlpD2J/mKPFgx1dhx3dv2x0
+ FMg=
+X-IronPort-AV: E=Sophos;i="5.64,433,1559545200"; 
+   d="scan'208";a="43717103"
+Received: from unknown (HELO smtp.microsemi.com) ([208.19.100.22])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256; 26 Aug 2019 08:41:21 -0700
+Received: from AVMBX3.microsemi.net (10.100.34.33) by AVMBX2.microsemi.net
+ (10.100.34.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 26 Aug
+ 2019 08:41:20 -0700
+Received: from [127.0.1.1] (10.238.32.34) by avmbx3.microsemi.net
+ (10.100.34.33) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Mon, 26 Aug 2019 08:41:20 -0700
+Subject: [PATCH V3 0/5] smartpqi man page update
+From:   Don Brace <don.brace@microsemi.com>
+To:     <mtk.manpages@gmail.com>
+CC:     <linux-man@vger.kernel.org>, <Kevin.Barnett@microchip.com>,
+        <scott.teel@microchip.com>, <Justin.Lindley@microchip.com>,
+        <scott.benesh@microchip.com>, <bader.alisaleh@microchip.com>,
+        <gerry.morong@microchip.com>, <mahesh.rajashekhara@microchip.com>
+Date:   Mon, 26 Aug 2019 10:41:20 -0500
+Message-ID: <156683390892.32298.878243674084910282.stgit@brunhilda>
+User-Agent: StGit/0.19
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 13726971665431189373
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduvddrudehgedgfeekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenuc
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+These patches are based on the man pages in kernel.org
+
+Changes since V1:
+ - corrected copyright.
+
+Changes since V2:
+ - redacted patch to change the lockup action table
+ - removed an unneeded .TP entry.
+ - both changes from G. Branden Robinson's review.
+ - thanks for your review input.
+
 ---
- man2/gethostname.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man2/gethostname.2 b/man2/gethostname.2
-index 4659337cc..5d6c20b0b 100644
---- a/man2/gethostname.2
-+++ b/man2/gethostname.2
-@@ -68,7 +68,7 @@ _BSD_SOURCE || _XOPEN_SOURCE\ >=\ 500
- .ad
- .SH DESCRIPTION
- These system calls are used to access or to change the hostname of the
--current processor.
-+current machine.
- .PP
- .BR sethostname ()
- sets the hostname to the value given in the character array
--- 
-2.23.0
+Dave Carroll (1):
+      smartpqi: add module param to hide vsep
 
+Don Brace (2):
+      smartpqi: fix spelling error
+      smartpqi: update copyright
+
+Gilbert Wu (1):
+      smartpqi: add module param expose ld first
+
+Murthy Bhat (1):
+      smartpqi: add sysfs entries
+
+
+ man4/smartpqi.4 |   95 ++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 93 insertions(+), 2 deletions(-)
+
+--
+Signature
