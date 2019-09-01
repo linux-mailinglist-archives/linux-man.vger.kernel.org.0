@@ -2,111 +2,111 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 8262DA49E2
-	for <lists+linux-man@lfdr.de>; Sun,  1 Sep 2019 16:47:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5190BA4C59
+	for <lists+linux-man@lfdr.de>; Sun,  1 Sep 2019 23:43:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728949AbfIAOrI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 1 Sep 2019 10:47:08 -0400
-Received: from mail-ed1-f65.google.com ([209.85.208.65]:33845 "EHLO
-        mail-ed1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728928AbfIAOrI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 1 Sep 2019 10:47:08 -0400
-Received: by mail-ed1-f65.google.com with SMTP id s49so13501875edb.1
-        for <linux-man@vger.kernel.org>; Sun, 01 Sep 2019 07:47:07 -0700 (PDT)
+        id S1729031AbfIAVne (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 1 Sep 2019 17:43:34 -0400
+Received: from mail-pl1-f196.google.com ([209.85.214.196]:41280 "EHLO
+        mail-pl1-f196.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728773AbfIAVne (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 1 Sep 2019 17:43:34 -0400
+Received: by mail-pl1-f196.google.com with SMTP id m9so5698497pls.8
+        for <linux-man@vger.kernel.org>; Sun, 01 Sep 2019 14:43:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=DMCsoRzLnEZ2xclfIK+SWt01XGobO+9dhT03ACXtSQ0=;
-        b=bdanMe09ZFbpn/NwZVPO0smAJBZjgfwFw3KXsA/KMH9vtCMHEtVjMv0CYx/DSeLqWX
-         FYeRi0jFBOWdPimerG4W1oRq55DOrdcEAWi1y7cHdRytcaiHwE4IgypzqG+X2lLh0BaQ
-         SNMFaF3EYkRbWxglwqrvdjKZfzHu3DrpPiyRcGZatHKnsPW/GQeBUUAp4hxpwV0REAuD
-         ozlCAdO0L5/uAixKVH8FZF2AVxLko+hF/48h5AAwjwrOThVhrzN8FxI1b5tLDrhz1haS
-         rZGbpvwwxLK1ZxZOQnSCvwt4/i0lqIM5lVoe7CV5AS7y4nq/Q3iC+Pt575KduSNm7ogr
-         6zgQ==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=8hZfyyQ1C4B/fjWBGblu5SxOUCXjlcgV2UHBCoGE10k=;
+        b=e3QVldueX7TYdpoLzcuzb9J6fiGTtSRdhKkyWN3ajlGD8BSg1tewh6y/H1aOjET7tZ
+         ScqDsjeS3ROYsXslLnG3iqZboI1MxyvtZT1Siguq5bBZ70xYDbRSsP5hwEgdgXBGvUuF
+         l8TNhs23hdiRsZtV7abkIMyl0qiGCSRwFM6z56EQspDfcYppLkro9Py2J1pK4CWvvCkM
+         2FQhJN+/oQHqvaoCCqaINMdyaI6E4nuKdM/nYAShfGe7gFuD5EfwWBCvj7l5+lopdcWP
+         FkgJC64NWK/ObR/x9Kc0IPsFuU5EO6JIt4afuE9zZxmJw++386HbiLFwmmRdRfrfv8De
+         AerA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=DMCsoRzLnEZ2xclfIK+SWt01XGobO+9dhT03ACXtSQ0=;
-        b=lu9v6S+zh2iSgaZZPMC1L08Cy8O0HUX5driBZhLiFaiT7QNuewadnAKMcOlR6YV2RA
-         kLx1WCVPKRaJPruPYMCIWaRz8XXNx/9n7QnvEeUMdwfohCZBIpNoXhAy/fQqmSwjOX3X
-         tRTL+AOBXVqTbRh5B6SS7iMrrLjL3N/0khRzXLhrTfhcGu7vP9IRmQoiJ/UFrgaL+LsR
-         2BAA9XWZFk+AtYZA5dPufzC78wwUc8Hy9CSCXj04SREaCYho4+NyTZtKDUwe2vrh9Ykx
-         KsK/i8taI+ppdqGBtIfhiLgPpAnzEQDQQShLL5n5yXVjO0oS+M0YE/3oWOpV7QCuPybp
-         sykQ==
-X-Gm-Message-State: APjAAAWZDTWjhHo9hdGVS8rMsanZ7PXTXjcADzkwYgnRNO6DWC66wa4i
-        Ezx81d/P6t+AGyWOnNz7zBUFtuHAsBQ=
-X-Google-Smtp-Source: APXvYqwwgM8p5xIq+PeMq0FCl7DnpY2SDEJYkzeczMpU4CcylfOTA1NksLz7rqOnOZuh6u/e9TlYJw==
-X-Received: by 2002:a17:906:2458:: with SMTP id a24mr3300630ejb.69.1567349226473;
-        Sun, 01 Sep 2019 07:47:06 -0700 (PDT)
-Received: from [192.168.101.104] ([138.62.237.157])
-        by smtp.gmail.com with ESMTPSA id jx11sm1350246ejb.19.2019.09.01.07.47.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Sep 2019 07:47:05 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] errno.3: add some comments on EAGAIN/EWOULDBLOCK and
- EDEADLK/EDEADLOCK
-To:     Rasmus Villemoes <rv@rasmusvillemoes.dk>
-References: <20190829100621.11386-1-rv@rasmusvillemoes.dk>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <663e645a-0397-2589-6085-449fa0d3682b@gmail.com>
-Date:   Sun, 1 Sep 2019 16:47:02 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=8hZfyyQ1C4B/fjWBGblu5SxOUCXjlcgV2UHBCoGE10k=;
+        b=hnO0Wl3fziJlwzfXsuUNZmr57g/JJOEsDuMrUDwnE/18dOoeVsZ/BVDIjcvg4/NAHk
+         maONxT6cUGJKHO0M9mMetIRu1he58mLjoEW38blF9a+8uk5Po1YfqDc1YdOnZqhMW8O/
+         ScChjnqm0OZY53eVSxewfFMnTebjr2FBe7zZhBbI0TUi1ip3oE/C3BHmiHqR00wBKILl
+         us7kg2QIEOEmBCLWrksGF2rLFJB3cGFf5V+uIaowcmVErbWJ77rRpWQqLWgik05ueaaZ
+         eonog3n6+mRMzT4WHmC3DgnIJJMHE6mFKMXBeEk9eiNKxIZUDgU0QxXu7uVfccc8TD/Z
+         56Yw==
+X-Gm-Message-State: APjAAAVs7GRgsExRcJlGvOjXdEujSaiO1hMvC973CrJN2bUVLAx9X7Vp
+        WjyWGyaig6emDY4NyUcBpsDy/9pFb8BFX00C+Ec=
+X-Google-Smtp-Source: APXvYqwyCZIyxU6YfaF4jW6fSwn1PfQImCasS4gIPZJ6WRrEzO9JCcW0MzmcqS+7jHDef1yIJlh6j9WQl9R+sS93SIg=
+X-Received: by 2002:a17:902:41:: with SMTP id 59mr27619322pla.268.1567374213889;
+ Sun, 01 Sep 2019 14:43:33 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190829100621.11386-1-rv@rasmusvillemoes.dk>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <CAAAu3XtbB=Y0s2emVJoj5Vt4UXSjvk_3EBw_f=gRKssVxbK0=A@mail.gmail.com>
+ <CAAAu3XtsLqvVEnMO5A_LMEF5qP64pJFB2+aey4yhCnhvY_F79Q@mail.gmail.com> <20190623171706.GA23943@altlinux.org>
+In-Reply-To: <20190623171706.GA23943@altlinux.org>
+From:   Naveen Iyer <iyernaveenr@gmail.com>
+Date:   Sun, 1 Sep 2019 14:43:22 -0700
+Message-ID: <CAAAu3Xt6S5ODyn_d1Yu-H8q89zTYfSicMfhKsGAgVzhLo2XGbg@mail.gmail.com>
+Subject: Re: [BUG] [man syscall] x86_64 error code / return value must be
+ placed in rdi
+To:     "Dmitry V. Levin" <ldv@altlinux.org>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Rasmus,
+On Sun, Jun 23, 2019 at 10:17 AM Dmitry V. Levin <ldv@altlinux.org> wrote:
+>
+> Hi,
+>
+> On Sun, Jun 23, 2019 at 09:03:31AM -0700, Naveen Iyer wrote:
+> > Hi,
+> >
+> > As suggested by
+> > https://www.kernel.org/doc/man-pages/reporting_bugs.html , I looked up
+> > the online man page as well:
+> > http://man7.org/linux/man-pages/man2/syscall.2.html
+> >
+> > In the table in "Architecture calling conventions" section:
+> > arch/ABI    instruction           syscall #  retval  error    Notes
+> > =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80
+> > x86-64       syscall                   rax        rax        -        [=
+5]
+> >
+> > Retval must be placed in rdi
+>
+> Why?
+>
+> > as per the following link:
+> > https://w3challs.com/syscalls/?arch=3Dx86_64
+>
+> This link doesn't claim that.
+>
+The link states that rdi contains the int error_code. I am able to
+return whatever int I want to return by placing the int value of my
+choice in rdi.
+Why do you say that this link doesn't claim that when it clearly does?
+Am I misreading it?
 
-On 8/29/19 12:06 PM, Rasmus Villemoes wrote:
-> Signed-off-by: Rasmus Villemoes <rv@rasmusvillemoes.dk>
-> ---
->  man3/errno.3 | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-
-Thanks. I applied and tweaked a little.
-
-Thanks,
-
-Michael
-
-> diff --git a/man3/errno.3 b/man3/errno.3
-> index 6cbbafed5..794be7c7b 100644
-> --- a/man3/errno.3
-> +++ b/man3/errno.3
-> @@ -94,7 +94,7 @@ must have distinct values, with the exception of
->  .B EAGAIN
->  and
->  .BR EWOULDBLOCK ,
-> -which may be the same.
-> +which may be the same. On Linux, these two always have the same value.
->  .PP
->  The error numbers that correspond to each symbolic name
->  vary across UNIX systems,
-> @@ -240,8 +240,9 @@ Connection reset (POSIX.1-2001).
->  Resource deadlock avoided (POSIX.1-2001).
->  .TP
->  .B EDEADLOCK
-> -Synonym for
-> +On most platforms, a synonym for
->  .BR EDEADLK .
-> +On some (e.g. Linux mips, powerpc, sparc), it is a separate error code "File locking deadlock error".
->  .TP
->  .B EDESTADDRREQ
->  Destination address required (POSIX.1-2001).
-> 
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+> > }
+> >
+> > Step 2) Compile and execute:
+> > $ gcc -nostdlib -c startup.c
+> > $ ld startup.o -o startup
+> > $ ./startup
+> > $ echo $?
+> > 97
+>
+> So your test invokes "exit" syscall with 97 as its first argument.
+> The return value of this syscall has no meaning because it does not retur=
+n.
+> Most of syscalls do return and their return value is in %rax on x86_64.
+I am checking for the program's return status and not the return of
+syscall itself.
