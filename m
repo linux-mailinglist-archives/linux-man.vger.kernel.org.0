@@ -2,186 +2,178 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 9B1BFA1FC5
-	for <lists+linux-man@lfdr.de>; Thu, 29 Aug 2019 17:51:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BF916A498F
+	for <lists+linux-man@lfdr.de>; Sun,  1 Sep 2019 15:24:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727860AbfH2Put (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 29 Aug 2019 11:50:49 -0400
-Received: from mx1.redhat.com ([209.132.183.28]:58612 "EHLO mx1.redhat.com"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1728158AbfH2Pus (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 29 Aug 2019 11:50:48 -0400
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mx1.redhat.com (Postfix) with ESMTPS id 9E1E312E5;
-        Thu, 29 Aug 2019 15:50:47 +0000 (UTC)
-Received: from [10.3.116.234] (ovpn-116-234.phx2.redhat.com [10.3.116.234])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id 3304A19C4F;
-        Thu, 29 Aug 2019 15:50:47 +0000 (UTC)
-To:     glibc list <libc-alpha@sourceware.org>, mtk.manpages@gmail.com
-From:   Eric Blake <eblake@redhat.com>
-Subject: f_owner_ex vs. POSIX
-Openpgp: preference=signencrypt
-Autocrypt: addr=eblake@redhat.com; keydata=
- xsBNBEvHyWwBCACw7DwsQIh0kAbUXyqhfiKAKOTVu6OiMGffw2w90Ggrp4bdVKmCaEXlrVLU
- xphBM8mb+wsFkU+pq9YR621WXo9REYVIl0FxKeQo9dyQBZ/XvmUMka4NOmHtFg74nvkpJFCD
- TUNzmqfcjdKhfFV0d7P/ixKQeZr2WP1xMcjmAQY5YvQ2lUoHP43m8TtpB1LkjyYBCodd+LkV
- GmCx2Bop1LSblbvbrOm2bKpZdBPjncRNob73eTpIXEutvEaHH72LzpzksfcKM+M18cyRH+nP
- sAd98xIbVjm3Jm4k4d5oQyE2HwOur+trk2EcxTgdp17QapuWPwMfhaNq3runaX7x34zhABEB
- AAHNHkVyaWMgQmxha2UgPGVibGFrZUByZWRoYXQuY29tPsLAegQTAQgAJAIbAwULCQgHAwUV
- CgkICwUWAgMBAAIeAQIXgAUCS8fL9QIZAQAKCRCnoWtKJSdDahBHCACbl/5FGkUqJ89GAjeX
- RjpAeJtdKhujir0iS4CMSIng7fCiGZ0fNJCpL5RpViSo03Q7l37ss+No+dJI8KtAp6ID+PMz
- wTJe5Egtv/KGUKSDvOLYJ9WIIbftEObekP+GBpWP2+KbpADsc7EsNd70sYxExD3liwVJYqLc
- Rw7so1PEIFp+Ni9A1DrBR5NaJBnno2PHzHPTS9nmZVYm/4I32qkLXOcdX0XElO8VPDoVobG6
- gELf4v/vIImdmxLh/w5WctUpBhWWIfQDvSOW2VZDOihm7pzhQodr3QP/GDLfpK6wI7exeu3P
- pfPtqwa06s1pae3ad13mZGzkBdNKs1HEm8x6zsBNBEvHyWwBCADGkMFzFjmmyqAEn5D+Mt4P
- zPdO8NatsDw8Qit3Rmzu+kUygxyYbz52ZO40WUu7EgQ5kDTOeRPnTOd7awWDQcl1gGBXgrkR
- pAlQ0l0ReO57Q0eglFydLMi5bkwYhfY+TwDPMh3aOP5qBXkm4qIYSsxb8A+i00P72AqFb9Q7
- 3weG/flxSPApLYQE5qWGSXjOkXJv42NGS6o6gd4RmD6Ap5e8ACo1lSMPfTpGzXlt4aRkBfvb
- NCfNsQikLZzFYDLbQgKBA33BDeV6vNJ9Cj0SgEGOkYyed4I6AbU0kIy1hHAm1r6+sAnEdIKj
- cHi3xWH/UPrZW5flM8Kqo14OTDkI9EtlABEBAAHCwF8EGAEIAAkFAkvHyWwCGwwACgkQp6Fr
- SiUnQ2q03wgAmRFGDeXzc58NX0NrDijUu0zx3Lns/qZ9VrkSWbNZBFjpWKaeL1fdVeE4TDGm
- I5mRRIsStjQzc2R9b+2VBUhlAqY1nAiBDv0Qnt+9cLiuEICeUwlyl42YdwpmY0ELcy5+u6wz
- mK/jxrYOpzXKDwLq5k4X+hmGuSNWWAN3gHiJqmJZPkhFPUIozZUCeEc76pS/IUN72NfprZmF
- Dp6/QDjDFtfS39bHSWXKVZUbqaMPqlj/z6Ugk027/3GUjHHr8WkeL1ezWepYDY7WSoXwfoAL
- 2UXYsMAr/uUncSKlfjvArhsej0S4zbqim2ZY6S8aRWw94J3bSvJR+Nwbs34GPTD4Pg==
-Organization: Red Hat, Inc.
-Cc:     linux-man@vger.kernel.org
-Message-ID: <a6d65cee-a909-449c-484d-66cd26093958@redhat.com>
-Date:   Thu, 29 Aug 2019 10:50:46 -0500
+        id S1728677AbfIANYQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 1 Sep 2019 09:24:16 -0400
+Received: from mail-lj1-f195.google.com ([209.85.208.195]:37702 "EHLO
+        mail-lj1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726275AbfIANYP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 1 Sep 2019 09:24:15 -0400
+Received: by mail-lj1-f195.google.com with SMTP id t14so10493788lji.4
+        for <linux-man@vger.kernel.org>; Sun, 01 Sep 2019 06:24:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=FGlKYxwVkF16dsMi56F6dB5YDK4b99wPlaC9ANhE8oQ=;
+        b=Y2HKWNViO4BFvtUi+yY8/7P//FL4seLeLANATUnsoonkY9mt39rbLYy2tZ+ZXaLF0w
+         zB9/mMVTbv33hk//aiyZ3NFLxdwjkI2XtxGW86RAOOHKnPB3uHQC/1nJoWpfy5uX+7/R
+         uDZnMvJm1JdWOHHFeb2VRt9kVfA1QYEEgjdz14+5RO2ZGt22lPKBE7Bur2GTSGxPrz5S
+         Of5AYNQ2KUdTycOthXkqoXifAwU1QuvmDReAtf+PPfQJlgeKJUcSEg955T4PWsGHMTcx
+         +NIsoXdZBmmY1bcQvnGh5+gY5UXfuu7aMZMsYA+agEi6Tqf5tjB8vVqaI3WTPR6bgrU8
+         C4kQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=FGlKYxwVkF16dsMi56F6dB5YDK4b99wPlaC9ANhE8oQ=;
+        b=ZNlLEf8Q5pxRhA0sOGapREs6GrWsZQe1ndbA8eA9IbzfzGMVLAqDpfU0ZnGWZHlpzs
+         3LL3ypRYQAzaUo38VKiMKBVKI65iS6GfcTJCY+GUv226743SAaLRResBBx6edWLseGWQ
+         NO2sxVtqxhA04YcpO/rURWzEa8RWPLgiSkKw3WN3YsCFWMbRJi2wNeVGOv1CkE2z6Nwc
+         zSxHWDXFrjNascAosXEQ/m1fJIEwPKmX0oqAWZTEp1F++c3Ux9Q/s5s+bbs/iL+4J+gT
+         3SJcNyYI8d0ORdHvtqPx0dppa3XYzK1Xs3oGi4hL/wIyjftHGB6VUy9KPC3+WsUlZofC
+         n1cg==
+X-Gm-Message-State: APjAAAUGmMk/V+USvkDY8ncAFd+H+dBPOLu6up2T0v0iu/Z0Aa36bAwf
+        mtQU1l3Ku1UmLodCXemQQ8Y=
+X-Google-Smtp-Source: APXvYqylvnP8C94b9UDMaVzhfQbnQ+2np8l7I1h6I5tpX8NtlJ210pDzKTzHydCOhK6muvaMzIvxjw==
+X-Received: by 2002:a2e:80d0:: with SMTP id r16mr13392025ljg.17.1567344252888;
+        Sun, 01 Sep 2019 06:24:12 -0700 (PDT)
+Received: from [192.168.251.0] ([195.69.9.25])
+        by smtp.gmail.com with ESMTPSA id w77sm1975705lff.49.2019.09.01.06.24.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Sep 2019 06:24:11 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Florian Weimer <fweimer@redhat.com>
+Subject: Re: f_owner_ex vs. POSIX
+To:     Eric Blake <eblake@redhat.com>,
+        glibc list <libc-alpha@sourceware.org>
+References: <a6d65cee-a909-449c-484d-66cd26093958@redhat.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <bdc9527b-6595-9f4e-b35d-3796967e044c@gmail.com>
+Date:   Sun, 1 Sep 2019 15:23:36 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="GaE4FxL05iyL7iVw5byzf3Xs8NwAZ8AfQ"
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]); Thu, 29 Aug 2019 15:50:47 +0000 (UTC)
+In-Reply-To: <a6d65cee-a909-449c-484d-66cd26093958@redhat.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---GaE4FxL05iyL7iVw5byzf3Xs8NwAZ8AfQ
-Content-Type: multipart/mixed; boundary="9Cu5yXyn8pRAKVttOffoue2HjFtl8K3NE";
- protected-headers="v1"
-From: Eric Blake <eblake@redhat.com>
-To: glibc list <libc-alpha@sourceware.org>, mtk.manpages@gmail.com
-Cc: linux-man@vger.kernel.org
-Message-ID: <a6d65cee-a909-449c-484d-66cd26093958@redhat.com>
-Subject: f_owner_ex vs. POSIX
+[Explicitly CCing Florian Weimer, since he may have some thoughts.]
 
---9Cu5yXyn8pRAKVttOffoue2HjFtl8K3NE
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+Hello Eric,
 
-The Austin Group is considering standardizing a subset of the Linux
-fcntl(F_GETOWN_EX), because of its ability to overcome the limitation
-that fcntl(F_GETOWN) must fail for some valid pids if pid_t is permitted
-to be wider than int (whether or not Linux ever reaches a point where
-pid_t is wider than int, POSIX did not want to make that restriction on
-other implementations).  See http://austingroupbugs.net/view.php?id=3D127=
-4
+On 8/29/19 5:50 PM, Eric Blake wrote:
+> The Austin Group is considering standardizing a subset of the Linux
+> fcntl(F_GETOWN_EX), because of its ability to overcome the limitation
+> that fcntl(F_GETOWN) must fail for some valid pids if pid_t is permitted
+> to be wider than int (whether or not Linux ever reaches a point where
+> pid_t is wider than int, POSIX did not want to make that restriction on
+> other implementations).  See http://austingroupbugs.net/view.php?id=1274
+> 
+> However, we've run into a minor issue which implies that man-pages
+> and/or glibc is buggy:
+> 
+> The man page for fcntl() (as of Fedora 30 man-pages-4.16-4.fc30) states:
+> 
+>                    struct f_owner_ex {
+>                        int   type;
+>                        pid_t pid;
+>                    };
+> 
+> but in the headers under /usr/include, there are two different
+> definitions, which raises the question on what the real type of 'type'
+> should be:
+> 
+> /usr/include/asm-generic/fcntl.h (from kernel-headers-5.2.9-200.fc30):
+> struct f_owner_ex {
+>          int     type;
+>          __kernel_pid_t  pid;
+> };
+> 
+> /usr/include/bits/fcntl-linux.h (from glibc-headers-2.29-15.fc30):
+> 
+> struct f_owner_ex
+>    {
+>      enum __pid_type type;       /* Owner type of ID.  */
+>      __pid_t pid;                /* ID of owner.  */
+>    };
+> 
+> 
+> Note that an enum instead of an int matters as to whether this will
+> complain when compiled:
+> struct f_owner_ex s;
+> int *foo = &s.type;
+> 
+> Therefore, we want to confirm whether requiring the eventual POSIX
+> definition to use enum f_pid_type (as currently worded in
+> austingroupbugs.net/view.php?id=1274#c4536) is okay (in which case,
+> there is a bug in the man page for documenting int instead of enum
+> f_pid_type), or if POSIX should not bother defining enum f_pid_type (and
+> instead just provide F_OWNER_PID and F_OWNER_PGRP as macros) with
+> f_owner_ex being defined with an int (in which case, the glibc <fcntl.h>
+> header needs a change to use int, and the Austin Group proposal needs to
+> be tweaked to match).
 
-However, we've run into a minor issue which implies that man-pages
-and/or glibc is buggy:
+So, a little background.
 
-The man page for fcntl() (as of Fedora 30 man-pages-4.16-4.fc30) states:
+The kernel feature was added in Linux 2.6.32, which was tagged in
+December 2009.
 
-                  struct f_owner_ex {
-                      int   type;
-                      pid_t pid;
-                  };
+I added the manual page text at the start of October 2009, based on
+the types used in the kernel structure.
 
-but in the headers under /usr/include, there are two different
-definitions, which raises the question on what the real type of 'type'
-should be:
+By chance, the glibc structure definition was added at the end of the 
+same month. (I do not recall, but I suspect that I did not notice
+the glibc addition.)
 
-/usr/include/asm-generic/fcntl.h (from kernel-headers-5.2.9-200.fc30):
-struct f_owner_ex {
-        int     type;
-        __kernel_pid_t  pid;
-};
+I do not know what the rationale was for the addition of the 'enum',
+and it wouldn't surprise me if there was no public discussion about
+it. The use of an 'enum' strikes me as a slightly odd decision (given
+that the kernel uses 'int') but, related to your point below, there
+is precedent in, for example, the use of an 'enum' for 'idtype_t' in
+waitid() inside glibc, while the kernel type for the argument in
+the underlying system call is 'int'.
 
-/usr/include/bits/fcntl-linux.h (from glibc-headers-2.29-15.fc30):
+> Note that the use of an enum in a public struct makes that struct
+> dependent on ABI issues (if the library is compiled with one set of
+> compiler flags where enums occupy the space of 'int', but an application
+> compiles with a different set of flags where an enum occupies only the
+> space of 'char', this could result in the application being unable to
+> correctly call into libc), if that helps sway the decision on which of
+> the two projects needs to change.  However, the exact layout of the
+> struct and any padding space was not deemed to be a showstopper (that
+> is, similar to struct stat, the standard intends only to require that at
+> least two members be present in f_owner_ex without any further
+> restrictions on what layout those two members occupy).
+> 
+> A side note was also raised during discussion: POSIX already
+> standardizes the type idtype_t for use in waitid(), and on Linux, we
+> happen to have P_PID==F_OWNER_PID==1 and P_PGID==F_OWNER_PGRP==2 (which
+> are the only values that POSIX is considering adding), which on the
+> surface looks like unnecessary duplication.  So at one point, the
+> question was raised whether POSIX should reuse the existing idtype_t
+> instead of inventing something new for f_owner_ex.  However, it was then
+> pointed out that idtype_t also includes P_ALL (which on Linux is 0), and
+> that Linux uses F_OWNER_TID==0 as an extension to what POSIX would
+> require, but since Linux' F_OWNER_TID semantics for F_SETOWN_EX are not
+> the same semantics as P_ALL in waitid(); furthermore, <fcntl.h> has free
+> reign to add more F_* into the namespace but not P_*, where reuse of the
+> idtype_t type would then require dragging in the <sys/wait.h> header
+> just to populate f_owner_ex.  Thus, this reuse of types was deemed
+> unpalatable.
 
-struct f_owner_ex
-  {
-    enum __pid_type type;       /* Owner type of ID.  */
-    __pid_t pid;                /* ID of owner.  */
-  };
+I'm agnostic on whether it's the manual page of glibc that should
+be fixed. The ABI issues that you note above are unfortunate, of
+course. (Do they not suggest that standard really should use 'int'?)
 
+Cheers,
 
-Note that an enum instead of an int matters as to whether this will
-complain when compiled:
-struct f_owner_ex s;
-int *foo =3D &s.type;
-
-Therefore, we want to confirm whether requiring the eventual POSIX
-definition to use enum f_pid_type (as currently worded in
-austingroupbugs.net/view.php?id=3D1274#c4536) is okay (in which case,
-there is a bug in the man page for documenting int instead of enum
-f_pid_type), or if POSIX should not bother defining enum f_pid_type (and
-instead just provide F_OWNER_PID and F_OWNER_PGRP as macros) with
-f_owner_ex being defined with an int (in which case, the glibc <fcntl.h>
-header needs a change to use int, and the Austin Group proposal needs to
-be tweaked to match).
-
-Note that the use of an enum in a public struct makes that struct
-dependent on ABI issues (if the library is compiled with one set of
-compiler flags where enums occupy the space of 'int', but an application
-compiles with a different set of flags where an enum occupies only the
-space of 'char', this could result in the application being unable to
-correctly call into libc), if that helps sway the decision on which of
-the two projects needs to change.  However, the exact layout of the
-struct and any padding space was not deemed to be a showstopper (that
-is, similar to struct stat, the standard intends only to require that at
-least two members be present in f_owner_ex without any further
-restrictions on what layout those two members occupy).
-
-A side note was also raised during discussion: POSIX already
-standardizes the type idtype_t for use in waitid(), and on Linux, we
-happen to have P_PID=3D=3DF_OWNER_PID=3D=3D1 and P_PGID=3D=3DF_OWNER_PGRP=
-=3D=3D2 (which
-are the only values that POSIX is considering adding), which on the
-surface looks like unnecessary duplication.  So at one point, the
-question was raised whether POSIX should reuse the existing idtype_t
-instead of inventing something new for f_owner_ex.  However, it was then
-pointed out that idtype_t also includes P_ALL (which on Linux is 0), and
-that Linux uses F_OWNER_TID=3D=3D0 as an extension to what POSIX would
-require, but since Linux' F_OWNER_TID semantics for F_SETOWN_EX are not
-the same semantics as P_ALL in waitid(); furthermore, <fcntl.h> has free
-reign to add more F_* into the namespace but not P_*, where reuse of the
-idtype_t type would then require dragging in the <sys/wait.h> header
-just to populate f_owner_ex.  Thus, this reuse of types was deemed
-unpalatable.
-
---=20
-Eric Blake, Principal Software Engineer
-Red Hat, Inc.           +1-919-301-3226
-Virtualization:  qemu.org | libvirt.org
-
-
---9Cu5yXyn8pRAKVttOffoue2HjFtl8K3NE--
-
---GaE4FxL05iyL7iVw5byzf3Xs8NwAZ8AfQ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEccLMIrHEYCkn0vOqp6FrSiUnQ2oFAl1n9FYACgkQp6FrSiUn
-Q2oVzAf/XxCgyErm64uRPNq13UadZkJC3jE/zQj+s/NRxTx8bSLV/zGvEt1Hoqo2
-FUrfgEVVPMoIWk+s3DvxdzF09zHo0HhdRA6f2pJ16v9fSBsyx2xWS1YUQSVDFMlU
-sdB1xpaN9HMLb7MZ1XSLWRUT+viK6MLwwvPrAnODFM+mLsvxIWQ1OnZd5ZYI3bLl
-RdBNi5qwIFwWnYEF6X438sHG/LutzRlxQhrALWTd7bLuUdC9ZoM1IKo+xOqHcjEd
-0AiYsYC+9BQEQnYyMNVmS9qhvbNUxh74tXNa347GCDcyabHCnsDZ7YBFwd/phJn5
-HwusvkmijqKUqHQjF7HwhBZLq2D0XQ==
-=r5i3
------END PGP SIGNATURE-----
-
---GaE4FxL05iyL7iVw5byzf3Xs8NwAZ8AfQ--
+Michael
