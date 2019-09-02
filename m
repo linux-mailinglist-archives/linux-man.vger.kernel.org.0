@@ -2,75 +2,88 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id CB8B5A5654
-	for <lists+linux-man@lfdr.de>; Mon,  2 Sep 2019 14:39:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7B80EA578F
+	for <lists+linux-man@lfdr.de>; Mon,  2 Sep 2019 15:19:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729690AbfIBMjB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 2 Sep 2019 08:39:01 -0400
-Received: from vmicros1.altlinux.org ([194.107.17.57]:52250 "EHLO
-        vmicros1.altlinux.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729658AbfIBMjB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 2 Sep 2019 08:39:01 -0400
-Received: from mua.local.altlinux.org (mua.local.altlinux.org [192.168.1.14])
-        by vmicros1.altlinux.org (Postfix) with ESMTP id 1645C72CC6C;
-        Mon,  2 Sep 2019 15:38:59 +0300 (MSK)
-Received: by mua.local.altlinux.org (Postfix, from userid 508)
-        id E33767CC7AF; Mon,  2 Sep 2019 15:38:58 +0300 (MSK)
-Date:   Mon, 2 Sep 2019 15:38:58 +0300
-From:   "Dmitry V. Levin" <ldv@altlinux.org>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     Elvira Khabirova <lineprinter@altlinux.org>,
-        linux-man@vger.kernel.org
-Subject: [PATCH] ptrace.2: document PTRACE_GET_SYSCALL_INFO
-Message-ID: <20190902123858.GA8956@altlinux.org>
+        id S1726408AbfIBNSg convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Mon, 2 Sep 2019 09:18:36 -0400
+Received: from smtpout14.timeweb.ru ([92.53.116.149]:42189 "EHLO
+        smtpout14.timeweb.ru" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726253AbfIBNSg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 2 Sep 2019 09:18:36 -0400
+X-Greylist: delayed 315 seconds by postgrey-1.27 at vger.kernel.org; Mon, 02 Sep 2019 09:18:35 EDT
+Received: from [192.168.0.60] (helo=smtp.timeweb.ru)
+        by smtp-spam.timeweb.ru with esmtps (TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128)
+        (Exim 4.82)
+        (envelope-from <office@promintsib.ru>)
+        id 1i4m90-0002Sb-CR
+        for linux-man@vger.kernel.org; Mon, 02 Sep 2019 16:13:18 +0300
+Received: from [177.21.195.121] (helo=[127.0.0.1])
+        by smtp.timeweb.ru with esmtpsa (TLS1.0:DHE_RSA_AES_256_CBC_SHA1:256)
+        (Exim 4.82)
+        (envelope-from <office@promintsib.ru>)
+        id 1i4m8y-0003O5-Pt
+        for linux-man@vger.kernel.org; Mon, 02 Sep 2019 16:13:18 +0300
+From:   Alejandra <office@promintsib.ru>
+Message-ID: <OyAZOzzfcoDqjVFAOfjSUzIsOsDpwBYBJOCRZbgrFYSgtEaFiej@promintsib.ru>
+To:     linux-man@vger.kernel.org
+Date:   Mon, 2 Sep 2019 16:13:18 +0300
+Content-Transfer-Encoding: 8BIT
+Content-Type: text/plain; charset=UTF-8
+Subject: Security Alert. Your accounts were hacked by a criminal group.
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-Felis-L: 028
+User-Agent: 4937287_48816818
+X-KLMS-Rule-ID: 1
+X-KLMS-Message-Action: skipped, AntiSpam
+X-KLMS-AntiSpam-Lua-Profiles: 139416 [May 13 2019]
+X-KLMS-AntiSpam-Version: 5.8.6.0
+X-KLMS-AntiSpam-Envelope-From: office@promintsib.ru
+X-KLMS-AntiSpam-Rate: 100
+X-KLMS-AntiSpam-Status: spam
+X-KLMS-AntiSpam-Method: content [recent terms]
+X-KLMS-AntiSpam-Info: LuaCore: 270 270 6c51353dd3ca3e23ee775cfa699b78fb2292d8a9, {rep_avail}, {Content: Spam}, ApMailHostAddress: 177.21.195.121
+X-KLMS-AntiSpam-Interceptor-Info: scan successful
+X-KLMS-AntiVirus: Kaspersky Security 8.0 for Linux Mail Server 8.0.0.455, not checked
+X-KLMS-AntiVirus-Status: NotChecked: not checked, skipped
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-PTRACE_GET_SYSCALL_INFO request was introduced by Linux kernel commit
-201766a20e30f982ccfe36bebfad9602c3ff574a aka v5.3-rc1~65^2~23.
+Hello!
 
-Signed-off-by: Dmitry V. Levin <ldv@altlinux.org>
----
- man2/ptrace.2 | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+I am a hacker who has access to your operating system.
+I also have full access to your account.
 
-diff --git a/man2/ptrace.2 b/man2/ptrace.2
-index 8b8daf238..3b774f87b 100644
---- a/man2/ptrace.2
-+++ b/man2/ptrace.2
-@@ -1005,6 +1005,27 @@ of the
- .IR "struct user_desc"
- is ignored; in other words,
- this ptrace operation can't be used to allocate a free TLS entry.)
-+.TP
-+.BR PTRACE_GET_SYSCALL_INFO " (since Linux 5.3)"
-+.\" commit 201766a20e30f982ccfe36bebfad9602c3ff574a
-+Retrieve information about the syscall that caused the stop.
-+The information is placed into the buffer pointed by
-+.I data
-+argument, which should be a pointer to a buffer of type
-+.IR "struct ptrace_syscall_info" .
-+The
-+.I addr
-+argument contains the size of the buffer pointed to
-+by
-+.I data
-+argument (i.e.,
-+.IR "sizeof(struct ptrace_syscall_info)" ).
-+The return value contains the number of bytes available
-+to be written by the kernel.
-+If the size of data to be written by the kernel exceeds the size
-+specified by
-+.I addr
-+argument, the output is truncated.
- .\"
- .SS Death under ptrace
- When a (possibly multithreaded) process receives a killing signal
+I've been watching you for a few months now.
+The fact is that you were infected with malware through an adult site that you visited.
 
--- 
-ldv
+If you are not familiar with this, I will explain.
+Trojan Virus gives me full access and control over a computer or other device.
+This means that I can see everything on your screen, turn on the camera and microphone, but you do not know about it.
+
+I also have access to all your contacts and all your correspondence.
+
+Why your antivirus did not detect malware?
+Answer: My malware uses the driver, I update its signatures every 4 hours so that your antivirus is silent.
+
+I made a video showing how you satisfy yourself in the left half of the screen, and in the right half you see the video that you watched.
+With one click of the mouse, I can send this video to all your emails and contacts on social networks.
+I can also post access to all your e-mail correspondence and messengers that you use.
+
+If you want to prevent this,
+transfer the amount of $500 to my bitcoin address (if you do not know how to do this, write to Google: "Buy Bitcoin").
+
+My bitcoin address (BTC Wallet) is:  3B9JVzL9LX4c59gdRoEsTsjTPnZnBGYrhV
+
+After receiving the payment, I will delete the video and you will never hear me again.
+I give you 50 hours (more than 2 days) to pay.
+I have a notice reading this letter, and the timer will work when you see this letter.
+
+Filing a complaint somewhere does not make sense because this email cannot be tracked like my bitcoin address.
+I do not make any mistakes.
+
+If I find that you have shared this message with someone else, the video will be immediately distributed.
+
+Best regards!
