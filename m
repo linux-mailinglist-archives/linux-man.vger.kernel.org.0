@@ -2,59 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id EA6F1A5FFF
-	for <lists+linux-man@lfdr.de>; Tue,  3 Sep 2019 06:05:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 42712A60DF
+	for <lists+linux-man@lfdr.de>; Tue,  3 Sep 2019 07:56:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725821AbfICEFp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 3 Sep 2019 00:05:45 -0400
-Received: from 216-12-86-13.cv.mvl.ntelos.net ([216.12.86.13]:47712 "EHLO
-        brightrain.aerifal.cx" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725818AbfICEFp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 3 Sep 2019 00:05:45 -0400
-X-Greylist: delayed 844 seconds by postgrey-1.27 at vger.kernel.org; Tue, 03 Sep 2019 00:05:45 EDT
-Received: from dalias by brightrain.aerifal.cx with local (Exim 3.15 #2)
-        id 1i4zqu-0003qd-00; Tue, 03 Sep 2019 03:51:32 +0000
-Date:   Mon, 2 Sep 2019 23:51:32 -0400
-From:   Rich Felker <dalias@libc.org>
-To:     Florian Weimer <fweimer@redhat.com>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Eric Blake <eblake@redhat.com>,
-        glibc list <libc-alpha@sourceware.org>,
-        linux-man@vger.kernel.org
-Subject: Re: f_owner_ex vs. POSIX
-Message-ID: <20190903035132.GV9017@brightrain.aerifal.cx>
-References: <a6d65cee-a909-449c-484d-66cd26093958@redhat.com>
- <bdc9527b-6595-9f4e-b35d-3796967e044c@gmail.com>
- <87mufmvmlm.fsf@oldenburg2.str.redhat.com>
+        id S1725878AbfICF4v (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 3 Sep 2019 01:56:51 -0400
+Received: from omta03.suddenlink.net ([208.180.40.73]:53008 "EHLO
+        omta03.suddenlink.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725886AbfICF4v (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 3 Sep 2019 01:56:51 -0400
+X-Greylist: delayed 360 seconds by postgrey-1.27 at vger.kernel.org; Tue, 03 Sep 2019 01:56:51 EDT
+Received: from dalofep02 ([10.130.7.42]) by dalofep01.suddenlink.net
+          (InterMail vM.8.04.03.22.02 201-2389-100-169-20190213) with ESMTP
+          id <20190903055050.MASN24921.dalofep01.suddenlink.net@dalofep02>;
+          Tue, 3 Sep 2019 00:50:50 -0500
+Message-ID: <20190903005050.9O9U9.150926.root@dalofep02>
+Date:   Tue, 3 Sep 2019 0:50:50 -0500
+From:   <mmkaissd@suddenlink.net>
+To:     mmkaissd@suddenlink.net
+Subject: =?utf-8?B?4Liq4Lin4Lix4Liq4LiU4Li14LiX4Li14LmI4Lij4Lix4LiB?=
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87mufmvmlm.fsf@oldenburg2.str.redhat.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+X-Priority: 3 (Normal)
+Sensitivity: Normal
+X-Authentication-Info: Submitted using SMTP AUTH LOGIN at dalofep01.suddenlink.net from [10.130.7.42] using ID mmkaissd@suddenlink.net at Tue, 3 Sep 2019 00:50:50 -0500
+X-CM-Analysis: v=2.3 cv=H/mlPNQi c=1 sm=1 tr=0 cx=a_idp_d a=lGpoaNPOHPS+hLw/It43iA==:117 a=IkcTkHD0fZMA:10 a=J70Eh1EUuV4A:10 a=5KLPUuaC_9wA:10 a=CjxXgO3LAAAA:8 a=QKJZ0zh0nnIAy6ID-bcA:9 a=QEXdDO2ut3YA:10 a=WAlWG5UDhR4A:10
+X-CM-Envelope: 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 9ho0BbKJfA2hoIlS1ETrgFjUT+eWmBkrku0ASQ==
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Sep 02, 2019 at 03:44:53PM +0200, Florian Weimer wrote:
-> * Michael Kerrisk:
-> 
-> > I do not know what the rationale was for the addition of the 'enum',
-> > and it wouldn't surprise me if there was no public discussion about
-> > it. The use of an 'enum' strikes me as a slightly odd decision (given
-> > that the kernel uses 'int') but, related to your point below, there
-> > is precedent in, for example, the use of an 'enum' for 'idtype_t' in
-> > waitid() inside glibc, while the kernel type for the argument in
-> > the underlying system call is 'int'.
-> 
-> There is also the issue of -fshort-enum.  Some people probably expect
-> that they can use that option and still use glibc headers.
-> 
-> I do not have any inside knowledge why things are like they are.
-> Presumably we can switch the type member to int.
-
-I'm strongly in favor of switch to int. enum types are an
-ABI/compatibility nightmare and have little purpose (unlike enum
-constants which are actually useful).
-
-Rich
+4Liq4Lin4Lix4Liq4LiU4Li14LiX4Li14LmI4Lij4Lix4LiBDQoNCuC4guC4reC4quC4seC4meC4
+leC4tOC4quC4uOC4guC4iOC4suC4geC4nuC4o+C4sOC5gOC4iOC5ieC4suC4nOC4ueC5ieC4l+C4
+o+C4h+C4pOC4l+C4mOC4suC4meC4uOC4oOC4suC4nuC4guC4reC4h+C5gOC4o+C4sg0KDQrguITg
+uLPguK3guKfguKLguJ7guKPguYPguJnguJnguLLguKHguILguK3guIfguJ7guKPguLDguYDguIjg
+uYnguLLguJzguLnguYnguKLguLTguYjguIfguYPguKvguI3guYjguILguK3guIfguYDguKPguLLg
+uInguLHguJnguILguK3guYPguKvguYnguITguLjguJPguYHguKXguLDguITguKPguK3guJrguITg
+uKPguLHguKfguKHguLXguITguKfguLLguKHguKrguLjguILguIrguYjguKfguIfguYDguKfguKXg
+uLLguYHguKvguYjguIfguIrguLXguKfguLTguJXguJXguK3guJnguJnguLXguYnguYHguKXguLDg
+uJXguKXguK3guJTguYTguJvguKHguLLguIHguILguLbguYnguJnguKrguLLguJjguLjguInguLHg
+uJnguIrguLfguYjguK0gTXJzIFJpZmZhdCBkdXJyYW5pIG1hc29vZCDguK3guLLguKLguLggNjkg
+4Lib4Li14LiI4Liy4LiB4Lib4Liy4LiB4Li14Liq4LiW4Liy4LiZ4Lit4Liy4Lio4Lix4Lii4Lit
+4Lii4Li54LmI4LmD4LiZIEFiaWRqYW4sIENvdGUgZMK0SXZvaXJlLCDguYLguJvguKPguJTguIng
+uLHguJkg4LmE4Lih4LmI4Lih4Li14LiE4Lin4Liy4Lih4Liq4Lix4Lih4Lie4Lix4LiZ4LiY4LmM
+4Lit4Lii4LmI4Liy4LiH4LmA4Lib4LmH4LiZ4LiX4Liy4LiH4LiB4Liy4Lij4LiB4Lix4Lia4LiE
+4Li44LiTIOC5geC4leC5iOC5gOC4meC4t+C5iOC4reC4h+C4iOC4suC4geC4quC4luC4suC4meC4
+geC4suC4o+C4k+C5jOC5geC4peC4sOC4quC4luC4suC4meC4geC4suC4o+C4k+C5jOC4m+C4seC4
+iOC4iOC4uOC4muC4seC4meC4guC4reC4h+C4ieC4seC4meC4l+C4teC5iOC4ieC4seC4meC4leC4
+tOC4lOC4leC5iOC4reC4hOC4uOC4k+C4ieC4seC4meC5hOC4lOC5ieC4o+C4seC4muC4hOC4p+C4
+suC4oeC4l+C4uOC4geC4guC5jOC4l+C4o+C4oeC4suC4meC4iOC4suC4geC5guC4o+C4hOC4oeC4
+sOC5gOC4o+C5h+C4h+C5geC4peC4sOC4oeC4teC4iuC4teC4p+C4tOC4leC4quC4seC5ieC4mSDg
+uYYg4LiX4Li14LmI4LiI4Liw4LiI4Liy4LiB4LmE4Lib4LiJ4Lix4LiZ4LiI4Li24LiH4LiV4Lix
+4LiU4Liq4Li04LiZ4LmD4LiI4Lia4Lij4Li04LiI4Liy4LiE4Lia4Lij4Li04LiI4Liy4LiEIDMu
+NSDguKXguYnguLLguJnguJTguK3guKXguKXguLLguKPguYwg4LmA4Lie4Li34LmI4Lit4Liq4Li0
+4LiX4LiY4Li04Lie4Li04LmA4Lio4Lip4LiZ4LmJ4Lit4Lii4LmC4Lib4Lij4LiU4LiK4LmI4Lin
+4Lii4LiJ4Lix4LiZ4LmA4LiV4Li04Lih4LmA4LiV4LmH4Lih4LiE4Lin4Liy4Lih4Lib4Lij4Liy
+4Lij4LiW4LiZ4Liy4Liq4Li44LiU4LiX4LmJ4Liy4Lii4LiC4Lit4LiH4LiJ4Lix4LiZ4LmC4Lib
+4Lij4LiU4LiV4Li04LiU4LiV4LmI4Lit4LiJ4Lix4LiZ4LiX4Li14LmI4LiZ4Li14LmIDQoNCuC5
+guC4m+C4o+C4lOC4leC4tOC4lOC4leC5iOC4reC4ieC4seC4meC4l+C4suC4h+C4reC4teC5gOC4
+oeC4peC4quC5iOC4p+C4meC4leC4seC4p+C4guC4reC4h+C4ieC4seC4mSBbcmlmZmF0MDBpQHlh
+aG9vLmNvbV0NCuC4ieC4seC4meC4o+C4reC4n+C4seC4h+C4iOC4suC4geC4hOC4uOC4kw0KDQrg
+uILguK3guJrguITguLjguJMNCg0K4LiE4Li44LiTIFJpZmZhdCBkdXJyYW5pIG1hc29vZA0KU8yE
+d+G6oXPMhGTEqyB0aMSrzIBy4bqhaw==
