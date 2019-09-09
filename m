@@ -2,195 +2,148 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id B8D8DADB76
-	for <lists+linux-man@lfdr.de>; Mon,  9 Sep 2019 16:48:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0084CADBF3
+	for <lists+linux-man@lfdr.de>; Mon,  9 Sep 2019 17:15:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728035AbfIIOsQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 9 Sep 2019 10:48:16 -0400
-Received: from mail-ed1-f67.google.com ([209.85.208.67]:39928 "EHLO
-        mail-ed1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726070AbfIIOsP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 9 Sep 2019 10:48:15 -0400
-Received: by mail-ed1-f67.google.com with SMTP id u6so13212080edq.6;
-        Mon, 09 Sep 2019 07:48:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=N/yK7JSjBp5v601PHMThZ4kXYL7w9+ErKdA50finnzs=;
-        b=bxgeopkWx4dgutSnoqzFRdHuelMTcnnPN5ictFDJdvPIf2qSj+B18TTwelEnaoXcfg
-         PQL8FRPQG+8t5Wv3bPpi39jDNQSCKaP77u5d8YRfLA61QY9eIWZYpRc9Poz1cVaW708K
-         mSy+nfX0fOtIzz538icU0kicTAnv/E5n84R9FmVAJLk5Lkby4cLkXyn+eewO/mvx5Zn2
-         cUgWAVCj3jtcn105wXtUGIbWC4JdGQJFOFKjCk/eOt9JxKFBlkyJXGYHZT3Yg3EaJKSe
-         Ert0T6Xw+enu/Gx0fgxTZdAVJl7V31d4nki+CBm5STPE/qktgeNGGWZWTYQ6FnhwUSrn
-         voOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=N/yK7JSjBp5v601PHMThZ4kXYL7w9+ErKdA50finnzs=;
-        b=h2X9Pctf69T/Ds/PDtlw2USyY2YjbG2SEJYOyV6VOp9vOyGFF2WJhgwSzvlvHTsB0M
-         abPIl3A39oxTFJBeZOc8oAsJ6m/T2Ad7MXFl6y1NH+Eofl54HGlwPzYVQY5ClZKMUA/Z
-         qhqW2IkJ7nW9jBrlxDIlpog3EgkFVgJwSMRgxZzzWJJ/ZSmugcSZu6O93IsxUH5uRqjm
-         aIRTyAFk2TwWUTcBpDhGmkLlFKoHeCTWtAdAS3p3yTvmSrNsevDQZFNGJ/z6v2xbI5SA
-         SgJveYV5u1YlbarbquRO09siMW0s9laTXn6sR8IzDgQZSkAOTP8++/FZpxu9geD7cg7p
-         F4lQ==
-X-Gm-Message-State: APjAAAWpzokIttJ9VH9RNf6V2/tefUlHaI1quQgXO+f8vLPU54h4tQJw
-        yXaNkUFV/rZ7/xEju7Iyye7BqCQ13qhUVMXKnuE=
-X-Google-Smtp-Source: APXvYqyGDn7Dg9+KvRz1jvEr97VRxWaMUb5uBidER0RktI7wCJlWaiWg6lg+W5FvLYd5xiQDVDO+mMYAgtiIQiBdvOs=
-X-Received: by 2002:a50:eb93:: with SMTP id y19mr17985975edr.65.1568040493269;
- Mon, 09 Sep 2019 07:48:13 -0700 (PDT)
+        id S1728527AbfIIPPc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 9 Sep 2019 11:15:32 -0400
+Received: from mx1.redhat.com ([209.132.183.28]:41740 "EHLO mx1.redhat.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1727049AbfIIPPc (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 9 Sep 2019 11:15:32 -0400
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mx1.redhat.com (Postfix) with ESMTPS id 76ED269EE7;
+        Mon,  9 Sep 2019 15:15:31 +0000 (UTC)
+Received: from [10.3.116.234] (ovpn-116-234.phx2.redhat.com [10.3.116.234])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 3DE7A5D6B7;
+        Mon,  9 Sep 2019 15:15:30 +0000 (UTC)
+Subject: Re: f_owner_ex vs. POSIX
+To:     Rich Felker <dalias@libc.org>, Florian Weimer <fweimer@redhat.com>
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        glibc list <libc-alpha@sourceware.org>,
+        linux-man@vger.kernel.org,
+        Adhemerval Zanella <adhemerval.zanella@linaro.org>
+References: <a6d65cee-a909-449c-484d-66cd26093958@redhat.com>
+ <bdc9527b-6595-9f4e-b35d-3796967e044c@gmail.com>
+ <87mufmvmlm.fsf@oldenburg2.str.redhat.com>
+ <20190903035132.GV9017@brightrain.aerifal.cx>
+From:   Eric Blake <eblake@redhat.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=eblake@redhat.com; keydata=
+ xsBNBEvHyWwBCACw7DwsQIh0kAbUXyqhfiKAKOTVu6OiMGffw2w90Ggrp4bdVKmCaEXlrVLU
+ xphBM8mb+wsFkU+pq9YR621WXo9REYVIl0FxKeQo9dyQBZ/XvmUMka4NOmHtFg74nvkpJFCD
+ TUNzmqfcjdKhfFV0d7P/ixKQeZr2WP1xMcjmAQY5YvQ2lUoHP43m8TtpB1LkjyYBCodd+LkV
+ GmCx2Bop1LSblbvbrOm2bKpZdBPjncRNob73eTpIXEutvEaHH72LzpzksfcKM+M18cyRH+nP
+ sAd98xIbVjm3Jm4k4d5oQyE2HwOur+trk2EcxTgdp17QapuWPwMfhaNq3runaX7x34zhABEB
+ AAHNHkVyaWMgQmxha2UgPGVibGFrZUByZWRoYXQuY29tPsLAegQTAQgAJAIbAwULCQgHAwUV
+ CgkICwUWAgMBAAIeAQIXgAUCS8fL9QIZAQAKCRCnoWtKJSdDahBHCACbl/5FGkUqJ89GAjeX
+ RjpAeJtdKhujir0iS4CMSIng7fCiGZ0fNJCpL5RpViSo03Q7l37ss+No+dJI8KtAp6ID+PMz
+ wTJe5Egtv/KGUKSDvOLYJ9WIIbftEObekP+GBpWP2+KbpADsc7EsNd70sYxExD3liwVJYqLc
+ Rw7so1PEIFp+Ni9A1DrBR5NaJBnno2PHzHPTS9nmZVYm/4I32qkLXOcdX0XElO8VPDoVobG6
+ gELf4v/vIImdmxLh/w5WctUpBhWWIfQDvSOW2VZDOihm7pzhQodr3QP/GDLfpK6wI7exeu3P
+ pfPtqwa06s1pae3ad13mZGzkBdNKs1HEm8x6zsBNBEvHyWwBCADGkMFzFjmmyqAEn5D+Mt4P
+ zPdO8NatsDw8Qit3Rmzu+kUygxyYbz52ZO40WUu7EgQ5kDTOeRPnTOd7awWDQcl1gGBXgrkR
+ pAlQ0l0ReO57Q0eglFydLMi5bkwYhfY+TwDPMh3aOP5qBXkm4qIYSsxb8A+i00P72AqFb9Q7
+ 3weG/flxSPApLYQE5qWGSXjOkXJv42NGS6o6gd4RmD6Ap5e8ACo1lSMPfTpGzXlt4aRkBfvb
+ NCfNsQikLZzFYDLbQgKBA33BDeV6vNJ9Cj0SgEGOkYyed4I6AbU0kIy1hHAm1r6+sAnEdIKj
+ cHi3xWH/UPrZW5flM8Kqo14OTDkI9EtlABEBAAHCwF8EGAEIAAkFAkvHyWwCGwwACgkQp6Fr
+ SiUnQ2q03wgAmRFGDeXzc58NX0NrDijUu0zx3Lns/qZ9VrkSWbNZBFjpWKaeL1fdVeE4TDGm
+ I5mRRIsStjQzc2R9b+2VBUhlAqY1nAiBDv0Qnt+9cLiuEICeUwlyl42YdwpmY0ELcy5+u6wz
+ mK/jxrYOpzXKDwLq5k4X+hmGuSNWWAN3gHiJqmJZPkhFPUIozZUCeEc76pS/IUN72NfprZmF
+ Dp6/QDjDFtfS39bHSWXKVZUbqaMPqlj/z6Ugk027/3GUjHHr8WkeL1ezWepYDY7WSoXwfoAL
+ 2UXYsMAr/uUncSKlfjvArhsej0S4zbqim2ZY6S8aRWw94J3bSvJR+Nwbs34GPTD4Pg==
+Organization: Red Hat, Inc.
+Message-ID: <7eaf8ea9-88a6-6531-acf4-46710b3e122b@redhat.com>
+Date:   Mon, 9 Sep 2019 10:15:29 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-References: <CAKgNAki0bR5zZr+kp_xjq+bNUky6-F+s2ep+jnR0YrjHhNMB1g@mail.gmail.com>
- <20190805103630.tu4kytsbi5evfrhi@mikami> <3a96c631-6595-b75e-f6a7-db703bf89bcf@gmail.com>
- <da747415-4c7a-f931-6f2e-2962da63c161@philippwendler.de> <CAKgNAkjS+x7aMVUiVSgCRwgi8rnukqJv=svtTARE-tt-oxQxWw@mail.gmail.com>
- <87r24piwhm.fsf@x220.int.ebiederm.org>
-In-Reply-To: <87r24piwhm.fsf@x220.int.ebiederm.org>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 9 Sep 2019 16:48:01 +0200
-Message-ID: <CAKgNAkhK2qBbz5aVY9VdK0UzvpZ=c7c7LWQ1MK2gu-rVKUz9_g@mail.gmail.com>
-Subject: Re: pivot_root(".", ".") and the fchdir() dance
-To:     "Eric W. Biederman" <ebiederm@xmission.com>
-Cc:     Philipp Wendler <ml@philippwendler.de>,
-        linux-man <linux-man@vger.kernel.org>,
-        Containers <containers@lists.linux-foundation.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Andy Lutomirski <luto@amacapital.net>,
-        Jordan Ogas <jogas@lanl.gov>, werner@almesberger.net,
-        Al Viro <viro@ftp.linux.org.uk>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20190903035132.GV9017@brightrain.aerifal.cx>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="2n7iKXJ9ohVtUySCfkJBndYpXQ9OpVFaR"
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]); Mon, 09 Sep 2019 15:15:31 +0000 (UTC)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Eric,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--2n7iKXJ9ohVtUySCfkJBndYpXQ9OpVFaR
+Content-Type: multipart/mixed; boundary="XlrJGLNf2oyIZb0PpMC9h84jjaAEwSmjS";
+ protected-headers="v1"
+From: Eric Blake <eblake@redhat.com>
+To: Rich Felker <dalias@libc.org>, Florian Weimer <fweimer@redhat.com>
+Cc: "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+ glibc list <libc-alpha@sourceware.org>, linux-man@vger.kernel.org,
+ Adhemerval Zanella <adhemerval.zanella@linaro.org>
+Message-ID: <7eaf8ea9-88a6-6531-acf4-46710b3e122b@redhat.com>
+Subject: Re: f_owner_ex vs. POSIX
+References: <a6d65cee-a909-449c-484d-66cd26093958@redhat.com>
+ <bdc9527b-6595-9f4e-b35d-3796967e044c@gmail.com>
+ <87mufmvmlm.fsf@oldenburg2.str.redhat.com>
+ <20190903035132.GV9017@brightrain.aerifal.cx>
+In-Reply-To: <20190903035132.GV9017@brightrain.aerifal.cx>
 
-Thanks for chiming in; I should have thought to CC you at the start. I
-have a question or two, below.
+--XlrJGLNf2oyIZb0PpMC9h84jjaAEwSmjS
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 9 Sep 2019 at 12:40, Eric W. Biederman <ebiederm@xmission.com> wrote:
->
-> "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> writes:
->
-> > Hello Philipp,
-> >
-> > On Tue, 6 Aug 2019 at 10:12, Philipp Wendler <ml@philippwendler.de> wrote:
-> >>
-> >> Hello Michael, hello Aleksa,
-> >>
-> >> Am 05.08.19 um 14:29 schrieb Michael Kerrisk (man-pages):
-> >>
-> >> > On 8/5/19 12:36 PM, Aleksa Sarai wrote:
-> >> >> On 2019-08-01, Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
-> >> >>> I'd like to add some documentation about the pivot_root(".", ".")
-> >> >>> idea, but I have a doubt/question. In the lxc_pivot_root() code we
-> >> >>> have these steps
-> >> >>>
-> >> >>>         oldroot = open("/", O_DIRECTORY | O_RDONLY | O_CLOEXEC);
-> >> >>>         newroot = open(rootfs, O_DIRECTORY | O_RDONLY | O_CLOEXEC);
-> >> >>>
-> >> >>>         fchdir(newroot);
-> >> >>>         pivot_root(".", ".");
-> >> >>>
-> >> >>>         fchdir(oldroot);      // ****
-> >> >>>
-> >> >>>         mount("", ".", "", MS_SLAVE | MS_REC, NULL);
-> >> >>>         umount2(".", MNT_DETACH);
-> >> >>
-> >> >>>         fchdir(newroot);      // ****
-> >> >>
-> >> >> And this one is required because we are in @oldroot at this point, due
-> >> >> to the first fchdir(2). If we don't have the first one, then switching
-> >> >> from "." to "/" in the mount/umount2 calls should fix the issue.
-> >> >
-> >> > See my notes above for why I therefore think that the second fchdir()
-> >> > is also not needed (and therefore why switching from "." to "/" in the
-> >> > mount()/umount2() calls is unnecessary.
-> >> >
-> >> > Do you agree with my analysis?
-> >>
-> >> If both the second and third fchdir are not required,
-> >> then we do not need to bother with file descriptors at all, right?
-> >
-> > Exactly.
-> >
-> >> Indeed, my tests show that the following seems to work fine:
-> >>
-> >> chdir(rootfs)
-> >> pivot_root(".", ".")
-> >> umount2(".", MNT_DETACH)
-> >
-> > Thanks for the confirmation, That's also exactly what I tested.
-> >
-> >> I tested that with my own tool[1] that uses user namespaces and marks
-> >> everything MS_PRIVATE before, so I do not need the mount(MS_SLAVE) here.
-> >>
-> >> And it works the same with both umount2("/") and umount2(".").
-> >
-> > Yes.
-> >
-> >> Did I overlook something that makes the file descriptors required?
-> >
-> > No.
-> >
-> >> If not, wouldn't the above snippet make sense as example in the man page?
-> >
-> > I have exactly that snippet in a pending change for the manual page :-).
->
-> I have just spotted this conversation and I expect if you are going
-> to use this example it is probably good to document what is going
-> on so that people can follow along.
+On 9/2/19 10:51 PM, Rich Felker wrote:
+> On Mon, Sep 02, 2019 at 03:44:53PM +0200, Florian Weimer wrote:
+>> * Michael Kerrisk:
+>>
+>>> I do not know what the rationale was for the addition of the 'enum',
+>>> and it wouldn't surprise me if there was no public discussion about
+>>> it. The use of an 'enum' strikes me as a slightly odd decision (given=
 
-(Sounds reasonable.)
+>>> that the kernel uses 'int') but, related to your point below, there
+>>> is precedent in, for example, the use of an 'enum' for 'idtype_t' in
+>>> waitid() inside glibc, while the kernel type for the argument in
+>>> the underlying system call is 'int'.
+>>
+>> There is also the issue of -fshort-enum.  Some people probably expect
+>> that they can use that option and still use glibc headers.
+>>
+>> I do not have any inside knowledge why things are like they are.
+>> Presumably we can switch the type member to int.
+>=20
+> I'm strongly in favor of switch to int. enum types are an
+> ABI/compatibility nightmare and have little purpose (unlike enum
+> constants which are actually useful).
 
-> >> chdir(rootfs)
-> >> pivot_root(".", ".")
->
-> At this point the mount stack should be:
-> old_root
-> new_root
-> rootfs
+I'm also in favor of 'int' (but not the 'int32_t' proposal mentioned in
+note 4538).  Does anyone volunteer to write up the glibc patch, while I
+report back to the Austin Group that 'int' is the preferred type for
+standardization?
 
-In this context, what is 'rootfs'? The initramfs? At least, when I
-examine /proc/PID/mountinfo. When I look at the / mount point in
-/proc/PID/mountinfo, I see just
-
-   old_root
-   new_root
-
-But nothing below 'new_root'. So, I'm a little puzzled.
-
-By the way, why is 'old_root' stacked above 'new_root', do you know? I
-mean, in this scenario it turns out to be useful, but it's kind of the
-opposite from what I would have expected. (And if this was a
-deliverate design decision in pivot_root(), it was never made
-explicit.)
-
-> With "." and "/" pointing to new_root.
->
-> >> umount2(".", MNT_DETACH)
->
-> At this point resolving "." starts with new_root and follows up the
-> mount stack to old-root.
-
-Okay.
-
-> Ordinarily if you unmount "/" as is happening above you then need to
-> call chroot and possibly chdir to ensure neither "/" nor "." point to
-> somewhere other than the unmounted root filesystem.  In this specific
-> case because "/" and "." resolve to new_root under the filesystem that is
-> being unmounted that all is well.
-
-s/that/then/ ?
-
-Thanks,
-
-Michael
+--=20
+Eric Blake, Principal Software Engineer
+Red Hat, Inc.           +1-919-301-3226
+Virtualization:  qemu.org | libvirt.org
 
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+--XlrJGLNf2oyIZb0PpMC9h84jjaAEwSmjS--
+
+--2n7iKXJ9ohVtUySCfkJBndYpXQ9OpVFaR
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEccLMIrHEYCkn0vOqp6FrSiUnQ2oFAl12bJEACgkQp6FrSiUn
+Q2ocYQf/fyEyj1Y7vMXz9Hei3EB7YqpMHsi8EICKPlzWiYn/w/KEhDd/+CaVLvVz
+onvWFDrQyHhLbiG1w7eEPxRh9kJFbiKPwKnDibVO2Uc+di5TeUnk7sLTK7r/ssEs
+iIDgmDSiEczfHApHXoxOvEHRwxuMeO+eyJ1EXfuCZ5mFGq6SPDxaByi4iBqV5m5n
+I4WndblpuVUUZ4kJ82qQ65PzZ375oxVcmy432JyBTIxEYZKhuu63/F7e+afqHmOx
+dFloraRm/OaiKsaaAZBZro5GFcl2vcTgN6b39mSBuDKY6eYbvO+02pc/YAOvzDDC
+i86i1tCqs6UeGf6E4M6pOO6pmeZ6iw==
+=jLt1
+-----END PGP SIGNATURE-----
+
+--2n7iKXJ9ohVtUySCfkJBndYpXQ9OpVFaR--
