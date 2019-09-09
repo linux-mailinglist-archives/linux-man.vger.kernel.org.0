@@ -2,105 +2,99 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 5AB92AC3F6
-	for <lists+linux-man@lfdr.de>; Sat,  7 Sep 2019 03:36:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 48E46AD51C
+	for <lists+linux-man@lfdr.de>; Mon,  9 Sep 2019 10:53:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731824AbfIGBgZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 6 Sep 2019 21:36:25 -0400
-Received: from mail-vk1-f193.google.com ([209.85.221.193]:43803 "EHLO
-        mail-vk1-f193.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2406351AbfIGBgZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 6 Sep 2019 21:36:25 -0400
-Received: by mail-vk1-f193.google.com with SMTP id p189so1674208vkf.10
-        for <linux-man@vger.kernel.org>; Fri, 06 Sep 2019 18:36:24 -0700 (PDT)
+        id S2389303AbfIIIxI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 9 Sep 2019 04:53:08 -0400
+Received: from mail-ed1-f65.google.com ([209.85.208.65]:36827 "EHLO
+        mail-ed1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2389292AbfIIIxI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 9 Sep 2019 04:53:08 -0400
+Received: by mail-ed1-f65.google.com with SMTP id f2so5858458edw.3
+        for <linux-man@vger.kernel.org>; Mon, 09 Sep 2019 01:53:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=C+0rVi6PzTMFYTcbcIBgVtgcdKuod3fbgGTlJ3s1Cbc=;
-        b=Kth8Yn8aqwQ1dhbwv8aljGXK+vO+aYz2h+EwTzc6TJdoDTjm26cqgjCKCFYRHpukrq
-         yFGAv4Zx4wzTUBgH3rjYAhuCwrGmyX4BdnlQjlmXCq1J6OSpbrVLDUEWZBQHoKfcz9gq
-         +DFt4QKyeCdT3HCRFFYGZJpbK6XQo62gcPX4skasse3Aa9JY9/kgqheoZ/CjJEzPMoZs
-         8TcDL6ToAtBldB0xTMBobwfnDZHHwiCI+zlrnzWJ7iynAgP0T0Bqlm8M2cZvSXnJvlP1
-         Hi6GBOsBkOmZZCvMPwxQo2WeO4n2XX2XHaaRhb0S0Q8Ef5uW5Hzz0IRBH2APyJkvsjun
-         V3NQ==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=qlWmGYDW3l4dNVFkHNQh1zi8HLrcAu1ucejSLMvAYk4=;
+        b=ebsvpFUh8IUXAfcMdPDIvlyfqGfQdeOdICTsVspdkvQukmxs8e8aV+7uL4D7yUQpbY
+         lfBvJWMuk7MKp8w8KY0qgwYEj+V4+HXWma8zgNnjCouFk31/AGffU1hQjlx3fhl8sbw9
+         lXkIeiU1rTZncqVbphL4oRopdz0aBF7RHOLRTW0DLV2Bl21V6mgEaZ1D/9yPoZHTRtEn
+         kMxeXuvHa8dXCCJ579W2wAnfarsYZQsi4mHqMB381rFW5kVKOOW0AooMie0LRu/PuGbD
+         A8pdS1A3R+NBUUNsNA0mEXgupXoHjt/KR/c4n8KH2A4EyiXYKB/akwVpxqHdM5wfwF8z
+         HpNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to:content-transfer-encoding;
-        bh=C+0rVi6PzTMFYTcbcIBgVtgcdKuod3fbgGTlJ3s1Cbc=;
-        b=NbmpADvwl9vBP7y2hK7DxQvC2m6xb/+AW94C1CCBjIBUy3UJoGIsyo17bKKxz3d1LY
-         8QYSWVBK23UFtGAGOJX5Dmi+2bC500O+78t8E+E6N4xiREJ4UDolu6QktPn3d3FoJAMo
-         DnLs9nrX+I8OQ0q1vw31i1V4k9Rrbafjb4a00/lhj9iTbz9OQhytw22M1ab0m13GDwaO
-         +rDVoJkP1HdNQpJo+dLEe5DqtMlu//IjMMcPBZdKuTtR4fQzAblgM0V7eJcxhlqP4lj+
-         rzC/RNE1XZZXwyAJZy158iisXMcI0pKdvm/2VNEj8++Dv4uUCAtuTNrYcSNfux6qDWGO
-         Io9w==
-X-Gm-Message-State: APjAAAV6eEt+qClJFYSIFVDUQFyguns9N4PfKAuNEYV+R80GP2xbsPI4
-        MVMQ/a9Omt8yqQiizInkqlgcu5vtf9jAedP0/1Y=
-X-Google-Smtp-Source: APXvYqz1GfU0vDtDXeK0mLFRBtS62H7V36hYGsFYnoEydiORGIr+Qtqo7DhRnADq4IEXbFXiL26+YfYJSNooKcpNnIo=
-X-Received: by 2002:ac5:c659:: with SMTP id j25mr1551208vkl.30.1567820183862;
- Fri, 06 Sep 2019 18:36:23 -0700 (PDT)
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=qlWmGYDW3l4dNVFkHNQh1zi8HLrcAu1ucejSLMvAYk4=;
+        b=D2amBIkkWyzqtL68Qpoj3bpOIjC9LLXEGl/R7SEVjiLtslt2lMui7anpBvrq8JHj3L
+         QLiYV8H1M1b6jGhicBsPTM+1NfSidBy0oD3pHGR9vITR1cj6iRUbeu4qt69N1PUWLWak
+         RnT9MnoZd3Cj/ejlAn02JlUHUOjr7BUDdaWF81r0Mwr69PwW6BaQCxXScws/bIQ5YOKg
+         Zepse/7cWHmPv84QLi1cwIUk2+zVhKoEU8kmE7LZXHrE0QoWacXzteMmKa1Xab1JAbDI
+         vsAI8tIlqSWeoRjjGolS2FYSyKlNHOozTGOF9UU61nfTuvKPk5meGiDMfC8WhsesaLEn
+         58/Q==
+X-Gm-Message-State: APjAAAWvT2b3j2rcujOsajmxM0jd7/8eROTmGQ1CzL1H82YQQCP/rzE8
+        V1w1G3Aobn3Gb9C7oRv4nu2nAvy+/ZNEwHmv5jE=
+X-Google-Smtp-Source: APXvYqycLifz3XABw3IwN5n/6A9s1z4RdRVjR2hP2sQb2Zj3tR1cg21ffKFkKaIhOStEurdKgSbSp7kLcL0qmRWoGes=
+X-Received: by 2002:a17:906:edcb:: with SMTP id sb11mr18259622ejb.144.1568019186822;
+ Mon, 09 Sep 2019 01:53:06 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a1f:c545:0:0:0:0:0 with HTTP; Fri, 6 Sep 2019 18:36:23 -0700 (PDT)
-Reply-To: waltonalice41@gmail.com
-From:   Alice Walton <saraharmony501@gmail.com>
-Date:   Sat, 7 Sep 2019 02:36:23 +0100
-Message-ID: <CAHoQAbXM9q3oYC7yxf2PeVUcncM7eCNNjMqy+D5BsXQ_86hp6w@mail.gmail.com>
-Subject: Please forgive me
-To:     undisclosed-recipients:;
+References: <CAMkHNDzkn10oZLyK9S8-UnjGn=OyMy=P8Bx7+vf0iEBwpc5p2g@mail.gmail.com>
+In-Reply-To: <CAMkHNDzkn10oZLyK9S8-UnjGn=OyMy=P8Bx7+vf0iEBwpc5p2g@mail.gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 9 Sep 2019 10:52:55 +0200
+Message-ID: <CAKgNAkhOCxB_go-+qSJBAabJxi67c=iBXfajTY09CXUMUj=hnQ@mail.gmail.com>
+Subject: Re: Quick fix for syscall man page
+To:     Florin Blanaru <florin.blanaru96@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        Adam Borowski <kilobyte@angband.pl>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-My Dearest,
+[Adding Adam Borowski in CC, since he wrote the riscv text back at the
+start of 2018, andand he may have a comment.]
 
-Please forgive me for stressing you with my predicaments as I know
-that this letter may come to you as a big surprise.
+On Thu, 5 Sep 2019 at 18:35, Florin Blanaru <florin.blanaru96@gmail.com> wrote:
+>
+> http://man7.org/linux/man-pages/man2/syscall.2.html
+>
+> In the first table, for the riscv Arch/ABI, the instruction should be
+> ecall instead of scall.
+>
+> According the official manual, the instruction has been renamed.
+> https://content.riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf
+>
+> "The SCALL and SBREAK instructions have been renamed to ECALL and
+> EBREAK, re-spectively. Their encoding and functionality are
+> unchanged."
 
-Actually, I came across your E-mail from my personal search afterward
-I decided to email you directly believing that you will be honest to
-fulfil my final wish before anything happens to me. Meanwhile, I am
-Madam Alice Walton, 71 years old childless widow from France but i
-reside and doing Gold mining business in Africa before i fall sick.
+Thanks for all of the details. I've applied the patch below.
 
-I am suffering from Adenocarcinoma Cancer of the lungs for the past 8
-years and from all indication my condition is really deteriorating as
-my doctors have confirmed and courageously advised me that I may not
-live beyond 3 weeks from now for the reason that my tumor has reached
-a critical stage which has defiled all forms of medical treatment.
+Cheers,
 
-Since my days are numbered, I=E2=80=99ve decided willingly to fulfil my
-long-time vow to donate to the less privileges the sum of($18.5
-million dollars) I deposited in my offshore account over 7 years now
-because I have tried to handle this project by myself but I have seen
-that my health could not allow me to do so anymore.
+Michael
 
-My promise to God includes building of well-equipped charity
-foundation/hospital and a technical school for the orphans and less
-privileges.
+diff --git a/man2/syscall.2 b/man2/syscall.2
+index 77e6bccdd..33e5ea655 100644
+--- a/man2/syscall.2
++++ b/man2/syscall.2
+@@ -196,7 +196,7 @@ mips        syscall v0      v0      v1      a3      1, 6
+ nios2  trap    r2      r2      -       r7
+ parisc ble 0x100(%sr2, %r0)    r20     r28     -       -
+ powerpc        sc      r0      r3      -       r0      1
+-riscv  scall   a7      a0      a1      -
++riscv  ecall   a7      a0      a1      -
+ s390   svc 0   r1      r2      r3      -       3
+ s390x  svc 0   r1      r2      r3      -       3
+ superh trap #0x17      r3      r0      r1      -       4, 6
 
-Since i am not capable to handle this again myself due to my critical
-health condition,please i need your consent to help me receive my
-money from the bank and use it to do this divine works of God in your
-country in my name so that my soul can be at rest if anything happens
-to me.
-
-If you will be honest, kind and willing to assist me handle this
-charity project as I=E2=80=99ve mentioned here, I will like you to provide =
-me
-your personal data like,
-
-(1) Your full name:
-(2) country:
-(3) Occupation:
-(4) phone number:
-(5) Age:
-
-Let me have this data so that i can link you up with my bank as my
-representative and receiver of the funds now that i am still alive.
-
-Warmest Regards!
-Mrs. Alice Walton
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
