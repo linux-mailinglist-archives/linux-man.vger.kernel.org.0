@@ -2,121 +2,177 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 5FF11AD553
-	for <lists+linux-man@lfdr.de>; Mon,  9 Sep 2019 11:08:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 335B1AD7C1
+	for <lists+linux-man@lfdr.de>; Mon,  9 Sep 2019 13:16:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728044AbfIIJIo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 9 Sep 2019 05:08:44 -0400
-Received: from mx01-fr.bfs.de ([193.174.231.67]:48731 "EHLO mx01-fr.bfs.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726496AbfIIJIo (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 9 Sep 2019 05:08:44 -0400
-Received: from mail-fr.bfs.de (mail-fr.bfs.de [10.177.18.200])
-        by mx01-fr.bfs.de (Postfix) with ESMTPS id CCBF120380;
-        Mon,  9 Sep 2019 11:08:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
-        t=1568020116; h=from:from:sender:reply-to:reply-to:subject:subject:date:date:
-         message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-         content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=N4Yy6ed+T3KEimqXYOwWKr1VSawehXf/ERjcjmN86Rk=;
-        b=Jj7gBBW1BVjk814eXlYsT01c4Ua57phLePKQ0smp8AIXs3lIOQcp1//5GJmToM4Low1vfX
-        57jGagzxHgHMiHIZyZFk2tQrTGXr3T155nCTFRfUuLecdyfxF6z6arQYFTPT2VJ/kaaF+U
-        T3p3FJ98Jo9p5/OCdsO00WqreP8ffy/ZQ1HrShYpYyzzMZ9vG/mkHMU/hzLeX0PsdBBulc
-        cqeQWCyr+X1V323el9X3lAe9v7GbUhw7TeX6HmLCV3qYPu+mfii1AFdTLGNK6z5WWzsVEB
-        H3Jy2bHaosnQlib63fJAlwvcB8RBPXNLP1gnNdm93F8psuBSTB8dE9CVWSHaQw==
-Received: from [134.92.181.33] (unknown [134.92.181.33])
-        by mail-fr.bfs.de (Postfix) with ESMTPS id B344CBEEBD;
-        Mon,  9 Sep 2019 11:08:35 +0200 (CEST)
-Message-ID: <5D761692.9090905@bfs.de>
-Date:   Mon, 09 Sep 2019 11:08:34 +0200
-From:   walter harms <wharms@bfs.de>
-Reply-To: wharms@bfs.de
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; de; rv:1.9.1.16) Gecko/20101125 SUSE/3.0.11 Thunderbird/3.0.11
-MIME-Version: 1.0
-To:     mtk.manpages@gmail.com
-CC:     Florin Blanaru <florin.blanaru96@gmail.com>,
+        id S1731526AbfIILQG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 9 Sep 2019 07:16:06 -0400
+Received: from out02.mta.xmission.com ([166.70.13.232]:48032 "EHLO
+        out02.mta.xmission.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1731115AbfIILQG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 9 Sep 2019 07:16:06 -0400
+X-Greylist: delayed 2135 seconds by postgrey-1.27 at vger.kernel.org; Mon, 09 Sep 2019 07:16:05 EDT
+Received: from in02.mta.xmission.com ([166.70.13.52])
+        by out02.mta.xmission.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+        (Exim 4.87)
+        (envelope-from <ebiederm@xmission.com>)
+        id 1i7H5v-00043v-EB; Mon, 09 Sep 2019 04:40:27 -0600
+Received: from 110.8.30.213.rev.vodafone.pt ([213.30.8.110] helo=x220.xmission.com)
+        by in02.mta.xmission.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+        (Exim 4.87)
+        (envelope-from <ebiederm@xmission.com>)
+        id 1i7H5t-00072P-An; Mon, 09 Sep 2019 04:40:27 -0600
+From:   ebiederm@xmission.com (Eric W. Biederman)
+To:     "Michael Kerrisk \(man-pages\)" <mtk.manpages@gmail.com>
+Cc:     Philipp Wendler <ml@philippwendler.de>,
         linux-man <linux-man@vger.kernel.org>,
-        Adam Borowski <kilobyte@angband.pl>
-Subject: Re: Quick fix for syscall man page
-References: <CAMkHNDzkn10oZLyK9S8-UnjGn=OyMy=P8Bx7+vf0iEBwpc5p2g@mail.gmail.com> <CAKgNAkhOCxB_go-+qSJBAabJxi67c=iBXfajTY09CXUMUj=hnQ@mail.gmail.com>
-In-Reply-To: <CAKgNAkhOCxB_go-+qSJBAabJxi67c=iBXfajTY09CXUMUj=hnQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-3.10
-Authentication-Results: mx01-fr.bfs.de
-X-Spamd-Result: default: False [-3.10 / 7.00];
-         ARC_NA(0.00)[];
-         HAS_REPLYTO(0.00)[wharms@bfs.de];
-         BAYES_HAM(-3.00)[100.00%];
-         FROM_HAS_DN(0.00)[];
-         RCPT_COUNT_THREE(0.00)[4];
-         TO_DN_SOME(0.00)[];
-         TO_MATCH_ENVRCPT_ALL(0.00)[];
-         TAGGED_RCPT(0.00)[];
-         MIME_GOOD(-0.10)[text/plain];
-         REPLYTO_ADDR_EQ_FROM(0.00)[];
-         HAS_WP_URI(0.00)[];
-         FREEMAIL_ENVRCPT(0.00)[gmail.com];
-         DKIM_SIGNED(0.00)[];
-         NEURAL_HAM(-0.00)[-0.999,0];
-         FREEMAIL_TO(0.00)[gmail.com];
-         FROM_EQ_ENVFROM(0.00)[];
-         MIME_TRACE(0.00)[0:+];
-         FREEMAIL_CC(0.00)[gmail.com];
-         MID_RHS_MATCH_FROM(0.00)[];
-         RCVD_TLS_ALL(0.00)[];
-         RCVD_COUNT_TWO(0.00)[2]
+        Containers <containers@lists.linux-foundation.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Jordan Ogas <jogas@lanl.gov>, werner@almesberger.net,
+        Al Viro <viro@ftp.linux.org.uk>
+References: <CAKgNAki0bR5zZr+kp_xjq+bNUky6-F+s2ep+jnR0YrjHhNMB1g@mail.gmail.com>
+        <20190805103630.tu4kytsbi5evfrhi@mikami>
+        <3a96c631-6595-b75e-f6a7-db703bf89bcf@gmail.com>
+        <da747415-4c7a-f931-6f2e-2962da63c161@philippwendler.de>
+        <CAKgNAkjS+x7aMVUiVSgCRwgi8rnukqJv=svtTARE-tt-oxQxWw@mail.gmail.com>
+Date:   Mon, 09 Sep 2019 05:40:05 -0500
+In-Reply-To: <CAKgNAkjS+x7aMVUiVSgCRwgi8rnukqJv=svtTARE-tt-oxQxWw@mail.gmail.com>
+        (Michael Kerrisk's message of "Tue, 6 Aug 2019 14:03:13 +0200")
+Message-ID: <87r24piwhm.fsf@x220.int.ebiederm.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1 (gnu/linux)
+MIME-Version: 1.0
+Content-Type: text/plain
+X-XM-SPF: eid=1i7H5t-00072P-An;;;mid=<87r24piwhm.fsf@x220.int.ebiederm.org>;;;hst=in02.mta.xmission.com;;;ip=213.30.8.110;;;frm=ebiederm@xmission.com;;;spf=neutral
+X-XM-AID: U2FsdGVkX18c6MeuT4/YbjCiKID4z0Z9syV2XRq6dMM=
+X-SA-Exim-Connect-IP: 213.30.8.110
+X-SA-Exim-Mail-From: ebiederm@xmission.com
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on sa07.xmission.com
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.2 required=8.0 tests=ALL_TRUSTED,BAYES_50,
+        DCC_CHECK_NEGATIVE,TVD_RCVD_IP,T_TM2_M_HEADER_IN_MSG,T_TooManySym_01,
+        T_TooManySym_02 autolearn=disabled version=3.4.2
+X-Spam-Report: * -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.4566]
+        *  0.0 TVD_RCVD_IP Message was received from an IP address
+        *  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
+        * -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
+        *      [sa07 1397; Body=1 Fuz1=1 Fuz2=1]
+        *  0.0 T_TooManySym_02 5+ unique symbols in subject
+        *  0.0 T_TooManySym_01 4+ unique symbols in subject
+X-Spam-DCC: XMission; sa07 1397; Body=1 Fuz1=1 Fuz2=1 
+X-Spam-Combo: ;"Michael Kerrisk \(man-pages\)" <mtk.manpages@gmail.com>
+X-Spam-Relay-Country: 
+X-Spam-Timing: total 1533 ms - load_scoreonly_sql: 0.04 (0.0%),
+        signal_user_changed: 2.8 (0.2%), b_tie_ro: 1.95 (0.1%), parse: 1.20
+        (0.1%), extract_message_metadata: 13 (0.8%), get_uri_detail_list: 2.2
+        (0.1%), tests_pri_-1000: 4.9 (0.3%), tests_pri_-950: 1.31 (0.1%),
+        tests_pri_-900: 1.08 (0.1%), tests_pri_-90: 32 (2.1%), check_bayes: 30
+        (2.0%), b_tokenize: 8 (0.5%), b_tok_get_all: 11 (0.7%), b_comp_prob:
+        2.4 (0.2%), b_tok_touch_all: 4.9 (0.3%), b_finish: 2.0 (0.1%),
+        tests_pri_0: 521 (34.0%), check_dkim_signature: 0.76 (0.0%),
+        check_dkim_adsp: 2.8 (0.2%), poll_dns_idle: 935 (61.0%), tests_pri_10:
+        3.0 (0.2%), tests_pri_500: 950 (61.9%), rewrite_mail: 0.00 (0.0%)
+Subject: Re: pivot_root(".", ".") and the fchdir() dance
+X-Spam-Flag: No
+X-SA-Exim-Version: 4.2.1 (built Thu, 05 May 2016 13:38:54 -0600)
+X-SA-Exim-Scanned: Yes (on in02.mta.xmission.com)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+"Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> writes:
 
-
-Am 09.09.2019 10:52, schrieb Michael Kerrisk (man-pages):
-> [Adding Adam Borowski in CC, since he wrote the riscv text back at the
-> start of 2018, andand he may have a comment.]
-> 
-> On Thu, 5 Sep 2019 at 18:35, Florin Blanaru <florin.blanaru96@gmail.com> wrote:
+> Hello Philipp,
+>
+> On Tue, 6 Aug 2019 at 10:12, Philipp Wendler <ml@philippwendler.de> wrote:
 >>
->> http://man7.org/linux/man-pages/man2/syscall.2.html
+>> Hello Michael, hello Aleksa,
 >>
->> In the first table, for the riscv Arch/ABI, the instruction should be
->> ecall instead of scall.
+>> Am 05.08.19 um 14:29 schrieb Michael Kerrisk (man-pages):
 >>
->> According the official manual, the instruction has been renamed.
->> https://content.riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf
+>> > On 8/5/19 12:36 PM, Aleksa Sarai wrote:
+>> >> On 2019-08-01, Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
+>> >>> I'd like to add some documentation about the pivot_root(".", ".")
+>> >>> idea, but I have a doubt/question. In the lxc_pivot_root() code we
+>> >>> have these steps
+>> >>>
+>> >>>         oldroot = open("/", O_DIRECTORY | O_RDONLY | O_CLOEXEC);
+>> >>>         newroot = open(rootfs, O_DIRECTORY | O_RDONLY | O_CLOEXEC);
+>> >>>
+>> >>>         fchdir(newroot);
+>> >>>         pivot_root(".", ".");
+>> >>>
+>> >>>         fchdir(oldroot);      // ****
+>> >>>
+>> >>>         mount("", ".", "", MS_SLAVE | MS_REC, NULL);
+>> >>>         umount2(".", MNT_DETACH);
+>> >>
+>> >>>         fchdir(newroot);      // ****
+>> >>
+>> >> And this one is required because we are in @oldroot at this point, due
+>> >> to the first fchdir(2). If we don't have the first one, then switching
+>> >> from "." to "/" in the mount/umount2 calls should fix the issue.
+>> >
+>> > See my notes above for why I therefore think that the second fchdir()
+>> > is also not needed (and therefore why switching from "." to "/" in the
+>> > mount()/umount2() calls is unnecessary.
+>> >
+>> > Do you agree with my analysis?
 >>
->> "The SCALL and SBREAK instructions have been renamed to ECALL and
->> EBREAK, re-spectively. Their encoding and functionality are
->> unchanged."
-> 
+>> If both the second and third fchdir are not required,
+>> then we do not need to bother with file descriptors at all, right?
+>
+> Exactly.
+>
+>> Indeed, my tests show that the following seems to work fine:
+>>
+>> chdir(rootfs)
+>> pivot_root(".", ".")
+>> umount2(".", MNT_DETACH)
+>
+> Thanks for the confirmation, That's also exactly what I tested.
+>
+>> I tested that with my own tool[1] that uses user namespaces and marks
+>> everything MS_PRIVATE before, so I do not need the mount(MS_SLAVE) here.
+>>
+>> And it works the same with both umount2("/") and umount2(".").
+>
+> Yes.
+>
+>> Did I overlook something that makes the file descriptors required?
+>
+> No.
+>
+>> If not, wouldn't the above snippet make sense as example in the man page?
+>
+> I have exactly that snippet in a pending change for the manual page :-).
 
-Maybe it would be helpful to add a "footnote" that this is a rename only.
-Otherwise people may get confused.
+I have just spotted this conversation and I expect if you are going
+to use this example it is probably good to document what is going
+on so that people can follow along.
 
-jm2c
-wh
+>> chdir(rootfs)
+>> pivot_root(".", ".")
 
-> Thanks for all of the details. I've applied the patch below.
-> 
-> Cheers,
-> 
-> Michael
-> 
-> diff --git a/man2/syscall.2 b/man2/syscall.2
-> index 77e6bccdd..33e5ea655 100644
-> --- a/man2/syscall.2
-> +++ b/man2/syscall.2
-> @@ -196,7 +196,7 @@ mips        syscall v0      v0      v1      a3      1, 6
->  nios2  trap    r2      r2      -       r7
->  parisc ble 0x100(%sr2, %r0)    r20     r28     -       -
->  powerpc        sc      r0      r3      -       r0      1
-> -riscv  scall   a7      a0      a1      -
-> +riscv  ecall   a7      a0      a1      -
->  s390   svc 0   r1      r2      r3      -       3
->  s390x  svc 0   r1      r2      r3      -       3
->  superh trap #0x17      r3      r0      r1      -       4, 6
-> 
+At this point the mount stack should be:
+old_root
+new_root
+rootfs
+
+With "." and "/" pointing to new_root.
+
+>> umount2(".", MNT_DETACH)
+
+At this point resolving "." starts with new_root and follows up the
+mount stack to old-root.
+
+Ordinarily if you unmount "/" as is happening above you then need to
+call chroot and possibly chdir to ensure neither "/" nor "." point to
+somewhere other than the unmounted root filesystem.  In this specific
+case because "/" and "." resolve to new_root under the filesystem that is
+being unmounted that all is well.
+
+Eric
