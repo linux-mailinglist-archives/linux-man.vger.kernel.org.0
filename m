@@ -2,146 +2,127 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 1E585AE894
-	for <lists+linux-man@lfdr.de>; Tue, 10 Sep 2019 12:46:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1DD1DAE8A8
+	for <lists+linux-man@lfdr.de>; Tue, 10 Sep 2019 12:51:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729604AbfIJKqA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 10 Sep 2019 06:46:00 -0400
-Received: from mx01-fr.bfs.de ([193.174.231.67]:21455 "EHLO mx01-fr.bfs.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1728238AbfIJKqA (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 10 Sep 2019 06:46:00 -0400
-Received: from mail-fr.bfs.de (mail-fr.bfs.de [10.177.18.200])
-        by mx01-fr.bfs.de (Postfix) with ESMTPS id A0E7520358;
-        Tue, 10 Sep 2019 12:45:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
-        t=1568112353; h=from:from:sender:reply-to:reply-to:subject:subject:date:date:
-         message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-         content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=FHoJ618uOSDpnhJjaDquP/wIT7cljtjIK7QSJC1BE88=;
-        b=RdN/U1kG2gceFViaPJxQCcPtLJ1w4XHj7gnTYXUzAKXOc0/P4cPhb6OBQPZ3bRhdReMU5D
-        zMK5SFs7ISlS/N2z39hICZZ2i3IrzGPgyHwrSjfJvT7kciRXznFbq1Af0Q/8OvIS6+EjDj
-        wMuw5aqRxtrmy7rVdL9E6G9+STeNsjCrU3QA0T9nJ9cqrxRbJ16aMGeCkCbGwi5GOSrdhm
-        5J13xblkq8PoZoR+Ni8JAQEMLXLS65T97BaeaZBcmdSkCpf5G2b2/LdVXLOkYkevXoGosC
-        zuSSV3dRIHjJOspJS5mTP3/+hBf2YS2fnWGt14wG4KZEXhoXK1JsHJds8XpXHQ==
-Received: from [134.92.181.33] (unknown [134.92.181.33])
-        by mail-fr.bfs.de (Postfix) with ESMTPS id 9E7C7BEEBD;
-        Tue, 10 Sep 2019 12:45:52 +0200 (CEST)
-Message-ID: <5D777EE0.6030906@bfs.de>
-Date:   Tue, 10 Sep 2019 12:45:52 +0200
-From:   walter harms <wharms@bfs.de>
-Reply-To: wharms@bfs.de
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; de; rv:1.9.1.16) Gecko/20101125 SUSE/3.0.11 Thunderbird/3.0.11
+        id S1729465AbfIJKv6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 10 Sep 2019 06:51:58 -0400
+Received: from mail-wr1-f66.google.com ([209.85.221.66]:46878 "EHLO
+        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729301AbfIJKv6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 10 Sep 2019 06:51:58 -0400
+Received: by mail-wr1-f66.google.com with SMTP id d17so6453343wrq.13
+        for <linux-man@vger.kernel.org>; Tue, 10 Sep 2019 03:51:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=OBBGedRY5HdSw8Zb1LAB6rkms2jD1tntil6Dt2Mqadk=;
+        b=iRVel/fPud1/wsGwLbVyLHMWCIZxub6LkO611/eI8pFprI+p6Eijr8lbWhwkfD9+D7
+         74EnbtSGAVgd6ekIG2KVGx/FBggyYXsOK/mKQLpu4Gon+5llNGBsSBXGY7FJ3DnxnPJK
+         LDvnwD76un0LZdm1AZ9LNKprGqr4tC+FmO+kyiiXrBH/DgMj/Me6UH0FYzS23DnImQeH
+         4AO89lqM1tUcZdkqXPNEgWJYXnW/uERzL0jPrsMFu0FlYh7x19gX6cdapc11WndCj76J
+         LXuY0FBmzu/5gAJtuifdOLvX3HBT2odkKedzYq4nuiA5lEA/W//ZehCqXE4Zwx8tWY23
+         2jrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=OBBGedRY5HdSw8Zb1LAB6rkms2jD1tntil6Dt2Mqadk=;
+        b=Kq6K+1y3Ytw44d6+p1zIBvtEVujXXV7V+9dCSulmV5QetkIeMDRc32AaJBIK3be+eh
+         /WNGtrCBqoSNPWkmtZYoUy23I8jjQkKJzGuKCCWsXNvUVkgh1IsfQYRqIjONvUbNj6t0
+         IyrZiTygXu9pu8wEcIhmGDN/xj1+I14NmBW0z9puDNTVt9dBjoFfUHnrZmaX8al5+g8d
+         UTZyMG7NujGefYKpATmkkqpXVAMiPjywPDJ4Uzc52Hp4wk7ShzkWyPRZ4Gch+CyEDjp5
+         kb7tMdk9fUe7jOd5MH461haQs+cjK1BXaSzacG/DoqdNC2yX8HcAq9mwiR9jm6d4p8wA
+         zodA==
+X-Gm-Message-State: APjAAAV3huyyrsXaC1S2RRXpGhy7SCqTMFctVmS5enVq7FPEIZIX14V7
+        mq/Npzx6fMd2O/2vMlcx5MVXYUve
+X-Google-Smtp-Source: APXvYqyreMHm19WGDOWgj2s3qxkuE/qzBpO5QVlqX0cEk3v+pWTeLzLA+8npJih3Q3CUh/4UAlxIOg==
+X-Received: by 2002:adf:ecc6:: with SMTP id s6mr10355305wro.333.1568112716260;
+        Tue, 10 Sep 2019 03:51:56 -0700 (PDT)
+Received: from [10.0.20.253] ([95.157.63.22])
+        by smtp.gmail.com with ESMTPSA id c10sm21723796wrf.58.2019.09.10.03.51.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Sep 2019 03:51:55 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com,
+        Elvira Khabirova <lineprinter@altlinux.org>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH] ptrace.2: document PTRACE_GET_SYSCALL_INFO
+To:     "Dmitry V. Levin" <ldv@altlinux.org>
+References: <20190902123858.GA8956@altlinux.org>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <0eb09cbc-8035-ee82-9c75-6525d91e7138@gmail.com>
+Date:   Tue, 10 Sep 2019 12:51:55 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-CC:     Adam Borowski <kilobyte@angband.pl>,
-        Florin Blanaru <florin.blanaru96@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: Quick fix for syscall man page
-References: <CAMkHNDzkn10oZLyK9S8-UnjGn=OyMy=P8Bx7+vf0iEBwpc5p2g@mail.gmail.com> <CAKgNAkhOCxB_go-+qSJBAabJxi67c=iBXfajTY09CXUMUj=hnQ@mail.gmail.com> <5D761692.9090905@bfs.de> <20190909182747.GA12602@angband.pl> <6da7ef65-c9aa-b670-7305-25c7f4e9f9f8@gmail.com>
-In-Reply-To: <6da7ef65-c9aa-b670-7305-25c7f4e9f9f8@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20190902123858.GA8956@altlinux.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-3.10
-Authentication-Results: mx01-fr.bfs.de
-X-Spamd-Result: default: False [-3.10 / 7.00];
-         ARC_NA(0.00)[];
-         HAS_REPLYTO(0.00)[wharms@bfs.de];
-         BAYES_HAM(-3.00)[100.00%];
-         FROM_HAS_DN(0.00)[];
-         RCPT_COUNT_THREE(0.00)[4];
-         TO_MATCH_ENVRCPT_ALL(0.00)[];
-         FREEMAIL_ENVRCPT(0.00)[gmail.com];
-         TAGGED_RCPT(0.00)[];
-         MIME_GOOD(-0.10)[text/plain];
-         REPLYTO_ADDR_EQ_FROM(0.00)[];
-         HAS_WP_URI(0.00)[];
-         TO_DN_ALL(0.00)[];
-         DKIM_SIGNED(0.00)[];
-         NEURAL_HAM(-0.00)[-0.999,0];
-         FREEMAIL_TO(0.00)[gmail.com];
-         FROM_EQ_ENVFROM(0.00)[];
-         MIME_TRACE(0.00)[0:+];
-         RCVD_COUNT_TWO(0.00)[2];
-         MID_RHS_MATCH_FROM(0.00)[];
-         RCVD_TLS_ALL(0.00)[]
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hello Dmitry,
 
-
-Am 10.09.2019 10:26, schrieb Michael Kerrisk (man-pages):
-> Hello Adam,
+On 9/2/19 2:38 PM, Dmitry V. Levin wrote:
+> PTRACE_GET_SYSCALL_INFO request was introduced by Linux kernel commit
+> 201766a20e30f982ccfe36bebfad9602c3ff574a aka v5.3-rc1~65^2~23.
 > 
-> Thanks for jumping in.
-> On 9/9/19 8:27 PM, Adam Borowski wrote:
->> On Mon, Sep 09, 2019 at 11:08:34AM +0200, walter harms wrote:
->>> Am 09.09.2019 10:52, schrieb Michael Kerrisk (man-pages):
->>>> [Adding Adam Borowski in CC, since he wrote the riscv text back at the
->>>> start of 2018, andand he may have a comment.]
->>
->> I don't know RISCV; I needed to learn how to issue syscalls to port
->> something -- so I've searched for relevant documentation, tested that it
->> indeed works, then submitted that line to make the man page complete.
->>
->>>> On Thu, 5 Sep 2019 at 18:35, Florin Blanaru <florin.blanaru96@gmail.com> wrote:
->>>>> http://man7.org/linux/man-pages/man2/syscall.2.html
->>>>>
->>>>> In the first table, for the riscv Arch/ABI, the instruction should be
->>>>> ecall instead of scall.
->>>>>
->>>>> According the official manual, the instruction has been renamed.
->>>>> https://content.riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf
->>
->> What matters for us, and the vast majority of programmers, is that the
->> rename predates merging into official releases of binutils.  Thus, there is
->> no reason to ever use the old name in actual code.
->>
->>> Maybe it would be helpful to add a "footnote" that this is a rename only.
->>> Otherwise people may get confused.
->>
->> I wonder, perhaps just a commit message would be enough?  The alias is
->> historic only; new documentation is supposed to use the new name.  Man pages
->> contain a lot of data that has been obsolete for decades -- it might be good
->> to avoid stuff that became obsolete before the official release.
->>
->> But it's up to you -- you know better what's your policy about historical
->> information.
+> Signed-off-by: Dmitry V. Levin <ldv@altlinux.org>
+> ---
+>  man2/ptrace.2 | 21 +++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
 > 
-> On reflection, I agree. I'll trim this back to a note in the commit
-> message only. (Nevertheless, thanks, Walter.)
-> 
+> diff --git a/man2/ptrace.2 b/man2/ptrace.2
+> index 8b8daf238..3b774f87b 100644
+> --- a/man2/ptrace.2
+> +++ b/man2/ptrace.2
+> @@ -1005,6 +1005,27 @@ of the
+>  .IR "struct user_desc"
+>  is ignored; in other words,
+>  this ptrace operation can't be used to allocate a free TLS entry.)
+> +.TP
+> +.BR PTRACE_GET_SYSCALL_INFO " (since Linux 5.3)"
+> +.\" commit 201766a20e30f982ccfe36bebfad9602c3ff574a
+> +Retrieve information about the syscall that caused the stop.
+> +The information is placed into the buffer pointed by
+> +.I data
+> +argument, which should be a pointer to a buffer of type
+> +.IR "struct ptrace_syscall_info" .
+> +The
+> +.I addr
+> +argument contains the size of the buffer pointed to
+> +by
+> +.I data
+> +argument (i.e.,
+> +.IR "sizeof(struct ptrace_syscall_info)" ).
+> +The return value contains the number of bytes available
+> +to be written by the kernel.
+> +If the size of data to be written by the kernel exceeds the size
+> +specified by
+> +.I addr
+> +argument, the output is truncated.
+>  .\"
+>  .SS Death under ptrace
+>  When a (possibly multithreaded) process receives a killing signal
 
-Just my view on this:
+Thanks for this patch. I've applied, tweaked the wording very
+slightly, and pushed.
 
-most people that work on this level may know about that. NTL they also
-tend to stick what worked last time. IMHO is the note important since
-this is a naming only, you look at the man page not at the archive when
-you are in doubt.
+However, this patch lacks an important piece: documentation of
+'struct ptrace_syscall_info'. I could take a shot at this, but 
+I see you already wrote a test program for this ptrace operation. 
+Would you be willing to add a patch that documents the structure?
 
-Something like: "In 2017 scall war renamed as ecall" is a harmless note.
+Thanks,
 
-note; i am not a risc programmer. it is just a general concern.
+Michael
 
-re,
- wh
-
-> Cheers,
-> 
-> Michael
-> 
->>>> --- a/man2/syscall.2
->>>> +++ b/man2/syscall.2
->>>> @@ -196,7 +196,7 @@ mips        syscall v0      v0      v1      a3      1, 6
->>>> -riscv  scall   a7      a0      a1      -
->>>> +riscv  ecall   a7      a0      a1      -
->>
->>
->> Meow!
->>
-> 
-> 
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
