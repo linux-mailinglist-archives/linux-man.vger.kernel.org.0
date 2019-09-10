@@ -2,127 +2,168 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 1DD1DAE8A8
-	for <lists+linux-man@lfdr.de>; Tue, 10 Sep 2019 12:51:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F3D05AE8EC
+	for <lists+linux-man@lfdr.de>; Tue, 10 Sep 2019 13:15:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729465AbfIJKv6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 10 Sep 2019 06:51:58 -0400
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:46878 "EHLO
-        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729301AbfIJKv6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 10 Sep 2019 06:51:58 -0400
-Received: by mail-wr1-f66.google.com with SMTP id d17so6453343wrq.13
-        for <linux-man@vger.kernel.org>; Tue, 10 Sep 2019 03:51:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=OBBGedRY5HdSw8Zb1LAB6rkms2jD1tntil6Dt2Mqadk=;
-        b=iRVel/fPud1/wsGwLbVyLHMWCIZxub6LkO611/eI8pFprI+p6Eijr8lbWhwkfD9+D7
-         74EnbtSGAVgd6ekIG2KVGx/FBggyYXsOK/mKQLpu4Gon+5llNGBsSBXGY7FJ3DnxnPJK
-         LDvnwD76un0LZdm1AZ9LNKprGqr4tC+FmO+kyiiXrBH/DgMj/Me6UH0FYzS23DnImQeH
-         4AO89lqM1tUcZdkqXPNEgWJYXnW/uERzL0jPrsMFu0FlYh7x19gX6cdapc11WndCj76J
-         LXuY0FBmzu/5gAJtuifdOLvX3HBT2odkKedzYq4nuiA5lEA/W//ZehCqXE4Zwx8tWY23
-         2jrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=OBBGedRY5HdSw8Zb1LAB6rkms2jD1tntil6Dt2Mqadk=;
-        b=Kq6K+1y3Ytw44d6+p1zIBvtEVujXXV7V+9dCSulmV5QetkIeMDRc32AaJBIK3be+eh
-         /WNGtrCBqoSNPWkmtZYoUy23I8jjQkKJzGuKCCWsXNvUVkgh1IsfQYRqIjONvUbNj6t0
-         IyrZiTygXu9pu8wEcIhmGDN/xj1+I14NmBW0z9puDNTVt9dBjoFfUHnrZmaX8al5+g8d
-         UTZyMG7NujGefYKpATmkkqpXVAMiPjywPDJ4Uzc52Hp4wk7ShzkWyPRZ4Gch+CyEDjp5
-         kb7tMdk9fUe7jOd5MH461haQs+cjK1BXaSzacG/DoqdNC2yX8HcAq9mwiR9jm6d4p8wA
-         zodA==
-X-Gm-Message-State: APjAAAV3huyyrsXaC1S2RRXpGhy7SCqTMFctVmS5enVq7FPEIZIX14V7
-        mq/Npzx6fMd2O/2vMlcx5MVXYUve
-X-Google-Smtp-Source: APXvYqyreMHm19WGDOWgj2s3qxkuE/qzBpO5QVlqX0cEk3v+pWTeLzLA+8npJih3Q3CUh/4UAlxIOg==
-X-Received: by 2002:adf:ecc6:: with SMTP id s6mr10355305wro.333.1568112716260;
-        Tue, 10 Sep 2019 03:51:56 -0700 (PDT)
-Received: from [10.0.20.253] ([95.157.63.22])
-        by smtp.gmail.com with ESMTPSA id c10sm21723796wrf.58.2019.09.10.03.51.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Sep 2019 03:51:55 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com,
-        Elvira Khabirova <lineprinter@altlinux.org>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH] ptrace.2: document PTRACE_GET_SYSCALL_INFO
-To:     "Dmitry V. Levin" <ldv@altlinux.org>
-References: <20190902123858.GA8956@altlinux.org>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <0eb09cbc-8035-ee82-9c75-6525d91e7138@gmail.com>
-Date:   Tue, 10 Sep 2019 12:51:55 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+        id S1731132AbfIJLP5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 10 Sep 2019 07:15:57 -0400
+Received: from youngberry.canonical.com ([91.189.89.112]:35281 "EHLO
+        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729270AbfIJLP5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 10 Sep 2019 07:15:57 -0400
+Received: from [148.69.85.38] (helo=wittgenstein)
+        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+        (Exim 4.86_2)
+        (envelope-from <christian.brauner@ubuntu.com>)
+        id 1i7e7l-0001zI-BD; Tue, 10 Sep 2019 11:15:53 +0000
+Date:   Tue, 10 Sep 2019 13:15:52 +0200
+From:   Christian Brauner <christian.brauner@ubuntu.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     "Eric W. Biederman" <ebiederm@xmission.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        Containers <containers@lists.linux-foundation.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Jordan Ogas <jogas@lanl.gov>, werner@almesberger.net,
+        Al Viro <viro@ftp.linux.org.uk>
+Subject: Re: pivot_root(".", ".") and the fchdir() dance
+Message-ID: <20190910111551.scam5payogqqvlri@wittgenstein>
+References: <CAKgNAki0bR5zZr+kp_xjq+bNUky6-F+s2ep+jnR0YrjHhNMB1g@mail.gmail.com>
+ <20190805103630.tu4kytsbi5evfrhi@mikami>
+ <3a96c631-6595-b75e-f6a7-db703bf89bcf@gmail.com>
+ <da747415-4c7a-f931-6f2e-2962da63c161@philippwendler.de>
+ <CAKgNAkjS+x7aMVUiVSgCRwgi8rnukqJv=svtTARE-tt-oxQxWw@mail.gmail.com>
+ <87r24piwhm.fsf@x220.int.ebiederm.org>
+ <CAKgNAkhK2qBbz5aVY9VdK0UzvpZ=c7c7LWQ1MK2gu-rVKUz9_g@mail.gmail.com>
+ <87ftl5donm.fsf@x220.int.ebiederm.org>
+ <b8b9d8bd-e959-633f-b879-4bfe4eb0df23@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20190902123858.GA8956@altlinux.org>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b8b9d8bd-e959-633f-b879-4bfe4eb0df23@gmail.com>
+User-Agent: NeoMutt/20180716
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Dmitry,
-
-On 9/2/19 2:38 PM, Dmitry V. Levin wrote:
-> PTRACE_GET_SYSCALL_INFO request was introduced by Linux kernel commit
-> 201766a20e30f982ccfe36bebfad9602c3ff574a aka v5.3-rc1~65^2~23.
+On Tue, Sep 10, 2019 at 12:27:27PM +0200, Michael Kerrisk (man-pages) wrote:
+> Hello Eric,
 > 
-> Signed-off-by: Dmitry V. Levin <ldv@altlinux.org>
-> ---
->  man2/ptrace.2 | 21 +++++++++++++++++++++
->  1 file changed, 21 insertions(+)
+> On 9/10/19 1:40 AM, Eric W. Biederman wrote:
 > 
-> diff --git a/man2/ptrace.2 b/man2/ptrace.2
-> index 8b8daf238..3b774f87b 100644
-> --- a/man2/ptrace.2
-> +++ b/man2/ptrace.2
-> @@ -1005,6 +1005,27 @@ of the
->  .IR "struct user_desc"
->  is ignored; in other words,
->  this ptrace operation can't be used to allocate a free TLS entry.)
-> +.TP
-> +.BR PTRACE_GET_SYSCALL_INFO " (since Linux 5.3)"
-> +.\" commit 201766a20e30f982ccfe36bebfad9602c3ff574a
-> +Retrieve information about the syscall that caused the stop.
-> +The information is placed into the buffer pointed by
-> +.I data
-> +argument, which should be a pointer to a buffer of type
-> +.IR "struct ptrace_syscall_info" .
-> +The
-> +.I addr
-> +argument contains the size of the buffer pointed to
-> +by
-> +.I data
-> +argument (i.e.,
-> +.IR "sizeof(struct ptrace_syscall_info)" ).
-> +The return value contains the number of bytes available
-> +to be written by the kernel.
-> +If the size of data to be written by the kernel exceeds the size
-> +specified by
-> +.I addr
-> +argument, the output is truncated.
->  .\"
->  .SS Death under ptrace
->  When a (possibly multithreaded) process receives a killing signal
+> [...]
+> 
+> >>> I have just spotted this conversation and I expect if you are going
+> >>> to use this example it is probably good to document what is going
+> >>> on so that people can follow along.
+> >>
+> >> (Sounds reasonable.)
+> >>
+> >>>>> chdir(rootfs)
+> >>>>> pivot_root(".", ".")
+> >>>
+> >>> At this point the mount stack should be:
+> >>> old_root
+> >>> new_root
+> >>> rootfs
+> >>
+> >> In this context, what is 'rootfs'? The initramfs? At least, when I
+> >> examine /proc/PID/mountinfo. When I look at the / mount point in
+> >> /proc/PID/mountinfo, I see just
+> >>
+> >>    old_root
+> >>    new_root
+> >>
+> >> But nothing below 'new_root'. So, I'm a little puzzled.
+> > 
+> > I think that is because Al changed /proc/mounts to not display mounts
+> > that are outside of your current root.  But yes there is typically
+> > the initramfs of file system type rootfs on their.  Even when it isn't
+> > used you have one.  Just to keep everything simple I presume.
+> > 
+> > I haven't double checked lately to be certain it is there but I expect
+> > it is.
+> > 
+> >> By the way, why is 'old_root' stacked above 'new_root', do you know? I
+> >> mean, in this scenario it turns out to be useful, but it's kind of the
+> >> opposite from what I would have expected. (And if this was a
+> >> deliverate design decision in pivot_root(), it was never made
+> >> explicit.)
+> > 
+> > Oh.  It is absolutely explicit and part of the design and it has nothing
+> > to do with this case.
+> > 
+> > The pivot_root system calls takes two parameters:  new_root and put_old.
+> > 
+> > In this case the old root is put on put_old (which is the new_root).
+> > And new_root is made the current root.
+> > 
+> > The pivot_root code looks everything up before it moves anything.   With
+> > the result it is totally immaterrial which order the moves actually
+> > happen in the code.  Further it is pretty much necessary to look
+> > everything up before things are moved because the definition of paths
+> > change.
+> > 
+> > So it would actually be difficult to have pivot_root(.,.) to do anything
+> > except what it does today.
+> > 
+> > 
+> >>> With "." and "/" pointing to new_root.
+> >>>
+> >>>>> umount2(".", MNT_DETACH)
+> >>>
+> >>> At this point resolving "." starts with new_root and follows up the
+> >>> mount stack to old-root.
+> >>
+> >> Okay.
+> >>
+> >>> Ordinarily if you unmount "/" as is happening above you then need to
+> >>> call chroot and possibly chdir to ensure neither "/" nor "." point to
+> >>> somewhere other than the unmounted root filesystem.  In this specific
+> >>> case because "/" and "." resolve to new_root under the filesystem that is
+> >>> being unmounted that all is well.
+> >>
+> >> s/that/then/ ?
+> 
+> Thanks for the further clarifications.
+> 
+> All: I plan to add the following text to the manual page:
+> 
+>        new_root and put_old may be the same  directory.   In  particular,
+>        the following sequence allows a pivot-root operation without need‐
+>        ing to create and remove a temporary directory:
+> 
+>            chdir(new_root);
+>            pivot_root(".", ".");
+>            umount2(".", MNT_DETACH);
 
-Thanks for this patch. I've applied, tweaked the wording very
-slightly, and pushed.
+Hm, should we mention that MS_PRIVATE or MS_SLAVE is usually needed
+before the umount2()? Especially for the container case... I think we
+discussed this briefly yesterday in person.
 
-However, this patch lacks an important piece: documentation of
-'struct ptrace_syscall_info'. I could take a shot at this, but 
-I see you already wrote a test program for this ptrace operation. 
-Would you be willing to add a patch that documents the structure?
-
-Thanks,
-
-Michael
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+> 
+>        This sequence succeeds because the pivot_root()  call  stacks  the
+>        old root mount point (old_root) on top of the new root mount point
+>        at /.  At that point, the calling  process's  root  directory  and
+>        current  working  directory  refer  to  the  new  root mount point
+>        (new_root).  During the subsequent umount()  call,  resolution  of
+>        "."   starts  with  new_root  and then moves up the list of mounts
+>        stacked at /, with the result that old_root is unmounted.
+> 
+> Look okay?
+> 
+> Thanks,
+> 
+> Michael
+> 
+> 
+> -- 
+> Michael Kerrisk
+> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+> Linux/UNIX System Programming Training: http://man7.org/training/
+> _______________________________________________
+> Containers mailing list
+> Containers@lists.linux-foundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/containers
