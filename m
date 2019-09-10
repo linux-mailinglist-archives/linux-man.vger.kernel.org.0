@@ -2,187 +2,146 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4262DAE811
-	for <lists+linux-man@lfdr.de>; Tue, 10 Sep 2019 12:27:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1E585AE894
+	for <lists+linux-man@lfdr.de>; Tue, 10 Sep 2019 12:46:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731115AbfIJK1c (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 10 Sep 2019 06:27:32 -0400
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:38804 "EHLO
-        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727351AbfIJK1c (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 10 Sep 2019 06:27:32 -0400
-Received: by mail-wr1-f66.google.com with SMTP id l11so19044491wrx.5;
-        Tue, 10 Sep 2019 03:27:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=M85dYA6fKUdS8cNZUlRB8i8xXiXNdMyPlT7kR2zJfY4=;
-        b=IIf2HgcpMQ/6IV9JyPXRsFZFYNsE3UwR1A5lVgWRc8As8QqlFea1rDke0w7srDu7T1
-         PQ0O+XZHkRlVhBzGCH2MPVR8Oz9khv6NF6fbThWVLhwNgAknw04dlGai9aeREvU7tb+3
-         XiS7eDg8RSMKAMuY6mEbe2A3n+WlQEM8XrrXXuxnHawwjEE7rEZ8RKSCUOCaO9zk9lmS
-         SRUUUrA7V2RXiOKb3ye5uUTo16TeDQQMwtFYoOW2Yaf+yNId0TMLqP3JwKvHyylD/dGR
-         TT+1ebROQD7+GDEfdF2K5dxW6ozmo09TWdyka0/vwi6xKEJuLRIFKiQm9F87rgKRKKWs
-         ibFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=M85dYA6fKUdS8cNZUlRB8i8xXiXNdMyPlT7kR2zJfY4=;
-        b=YaqRfCV1WcFYYwp/VKJx7qazq2sbcVMAXEiLmJgJl+nCo+AMQMhNdwB3Jq5k70PF7D
-         v+BEHJlzOU5CDvBpLUlLhe4HvziZzZyvumDuVQ2oOHjukRcKhmyZkOLOUY+kZFqWVEwL
-         /KpKryhJ7WCcgBq0WhoG5T5vETGK7yWQs6IQ0ZMwTycuGDSEQ7FLE0gnaLY0oICzEFOH
-         19gWQDkFRoS7iv1RHDbw04eg4AG6GYDqYO3fmF/danNrswQH9YCLU1jH5Sp6SpUYBlbk
-         OvLMp3jd+MEEyG08QBPhYLVORaCTvdEOFE0CZgXKvPHhrAwFDG4T4LknFct74LoKm79i
-         eyuA==
-X-Gm-Message-State: APjAAAWr7UlU/w7H9epZyY057sGrkiAzg8DRS8N6Ax6ni+sLAmK/dQZC
-        izz7DgQcqWGKHJ9m43DOTKU=
-X-Google-Smtp-Source: APXvYqypUbFHWsoNHMa1dV57+CY7bAYepQfdO71py9akvpcdwjKBe1GlbyKdI41QrIH3//lAGjy9iw==
-X-Received: by 2002:adf:8444:: with SMTP id 62mr18215631wrf.202.1568111248962;
-        Tue, 10 Sep 2019 03:27:28 -0700 (PDT)
-Received: from [10.0.20.253] ([95.157.63.22])
-        by smtp.gmail.com with ESMTPSA id y3sm15820210wrl.78.2019.09.10.03.27.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Sep 2019 03:27:28 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Philipp Wendler <ml@philippwendler.de>,
-        linux-man <linux-man@vger.kernel.org>,
-        Containers <containers@lists.linux-foundation.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Andy Lutomirski <luto@amacapital.net>,
-        Jordan Ogas <jogas@lanl.gov>, werner@almesberger.net,
-        Al Viro <viro@ftp.linux.org.uk>
-Subject: Re: pivot_root(".", ".") and the fchdir() dance
-To:     "Eric W. Biederman" <ebiederm@xmission.com>
-References: <CAKgNAki0bR5zZr+kp_xjq+bNUky6-F+s2ep+jnR0YrjHhNMB1g@mail.gmail.com>
- <20190805103630.tu4kytsbi5evfrhi@mikami>
- <3a96c631-6595-b75e-f6a7-db703bf89bcf@gmail.com>
- <da747415-4c7a-f931-6f2e-2962da63c161@philippwendler.de>
- <CAKgNAkjS+x7aMVUiVSgCRwgi8rnukqJv=svtTARE-tt-oxQxWw@mail.gmail.com>
- <87r24piwhm.fsf@x220.int.ebiederm.org>
- <CAKgNAkhK2qBbz5aVY9VdK0UzvpZ=c7c7LWQ1MK2gu-rVKUz9_g@mail.gmail.com>
- <87ftl5donm.fsf@x220.int.ebiederm.org>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <b8b9d8bd-e959-633f-b879-4bfe4eb0df23@gmail.com>
-Date:   Tue, 10 Sep 2019 12:27:27 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+        id S1729604AbfIJKqA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 10 Sep 2019 06:46:00 -0400
+Received: from mx01-fr.bfs.de ([193.174.231.67]:21455 "EHLO mx01-fr.bfs.de"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1728238AbfIJKqA (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 10 Sep 2019 06:46:00 -0400
+Received: from mail-fr.bfs.de (mail-fr.bfs.de [10.177.18.200])
+        by mx01-fr.bfs.de (Postfix) with ESMTPS id A0E7520358;
+        Tue, 10 Sep 2019 12:45:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
+        t=1568112353; h=from:from:sender:reply-to:reply-to:subject:subject:date:date:
+         message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+         content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=FHoJ618uOSDpnhJjaDquP/wIT7cljtjIK7QSJC1BE88=;
+        b=RdN/U1kG2gceFViaPJxQCcPtLJ1w4XHj7gnTYXUzAKXOc0/P4cPhb6OBQPZ3bRhdReMU5D
+        zMK5SFs7ISlS/N2z39hICZZ2i3IrzGPgyHwrSjfJvT7kciRXznFbq1Af0Q/8OvIS6+EjDj
+        wMuw5aqRxtrmy7rVdL9E6G9+STeNsjCrU3QA0T9nJ9cqrxRbJ16aMGeCkCbGwi5GOSrdhm
+        5J13xblkq8PoZoR+Ni8JAQEMLXLS65T97BaeaZBcmdSkCpf5G2b2/LdVXLOkYkevXoGosC
+        zuSSV3dRIHjJOspJS5mTP3/+hBf2YS2fnWGt14wG4KZEXhoXK1JsHJds8XpXHQ==
+Received: from [134.92.181.33] (unknown [134.92.181.33])
+        by mail-fr.bfs.de (Postfix) with ESMTPS id 9E7C7BEEBD;
+        Tue, 10 Sep 2019 12:45:52 +0200 (CEST)
+Message-ID: <5D777EE0.6030906@bfs.de>
+Date:   Tue, 10 Sep 2019 12:45:52 +0200
+From:   walter harms <wharms@bfs.de>
+Reply-To: wharms@bfs.de
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; de; rv:1.9.1.16) Gecko/20101125 SUSE/3.0.11 Thunderbird/3.0.11
 MIME-Version: 1.0
-In-Reply-To: <87ftl5donm.fsf@x220.int.ebiederm.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+CC:     Adam Borowski <kilobyte@angband.pl>,
+        Florin Blanaru <florin.blanaru96@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>
+Subject: Re: Quick fix for syscall man page
+References: <CAMkHNDzkn10oZLyK9S8-UnjGn=OyMy=P8Bx7+vf0iEBwpc5p2g@mail.gmail.com> <CAKgNAkhOCxB_go-+qSJBAabJxi67c=iBXfajTY09CXUMUj=hnQ@mail.gmail.com> <5D761692.9090905@bfs.de> <20190909182747.GA12602@angband.pl> <6da7ef65-c9aa-b670-7305-25c7f4e9f9f8@gmail.com>
+In-Reply-To: <6da7ef65-c9aa-b670-7305-25c7f4e9f9f8@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=-3.10
+Authentication-Results: mx01-fr.bfs.de
+X-Spamd-Result: default: False [-3.10 / 7.00];
+         ARC_NA(0.00)[];
+         HAS_REPLYTO(0.00)[wharms@bfs.de];
+         BAYES_HAM(-3.00)[100.00%];
+         FROM_HAS_DN(0.00)[];
+         RCPT_COUNT_THREE(0.00)[4];
+         TO_MATCH_ENVRCPT_ALL(0.00)[];
+         FREEMAIL_ENVRCPT(0.00)[gmail.com];
+         TAGGED_RCPT(0.00)[];
+         MIME_GOOD(-0.10)[text/plain];
+         REPLYTO_ADDR_EQ_FROM(0.00)[];
+         HAS_WP_URI(0.00)[];
+         TO_DN_ALL(0.00)[];
+         DKIM_SIGNED(0.00)[];
+         NEURAL_HAM(-0.00)[-0.999,0];
+         FREEMAIL_TO(0.00)[gmail.com];
+         FROM_EQ_ENVFROM(0.00)[];
+         MIME_TRACE(0.00)[0:+];
+         RCVD_COUNT_TWO(0.00)[2];
+         MID_RHS_MATCH_FROM(0.00)[];
+         RCVD_TLS_ALL(0.00)[]
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Eric,
 
-On 9/10/19 1:40 AM, Eric W. Biederman wrote:
 
-[...]
-
->>> I have just spotted this conversation and I expect if you are going
->>> to use this example it is probably good to document what is going
->>> on so that people can follow along.
+Am 10.09.2019 10:26, schrieb Michael Kerrisk (man-pages):
+> Hello Adam,
+> 
+> Thanks for jumping in.
+> On 9/9/19 8:27 PM, Adam Borowski wrote:
+>> On Mon, Sep 09, 2019 at 11:08:34AM +0200, walter harms wrote:
+>>> Am 09.09.2019 10:52, schrieb Michael Kerrisk (man-pages):
+>>>> [Adding Adam Borowski in CC, since he wrote the riscv text back at the
+>>>> start of 2018, andand he may have a comment.]
 >>
->> (Sounds reasonable.)
+>> I don't know RISCV; I needed to learn how to issue syscalls to port
+>> something -- so I've searched for relevant documentation, tested that it
+>> indeed works, then submitted that line to make the man page complete.
 >>
->>>>> chdir(rootfs)
->>>>> pivot_root(".", ".")
->>>
->>> At this point the mount stack should be:
->>> old_root
->>> new_root
->>> rootfs
+>>>> On Thu, 5 Sep 2019 at 18:35, Florin Blanaru <florin.blanaru96@gmail.com> wrote:
+>>>>> http://man7.org/linux/man-pages/man2/syscall.2.html
+>>>>>
+>>>>> In the first table, for the riscv Arch/ABI, the instruction should be
+>>>>> ecall instead of scall.
+>>>>>
+>>>>> According the official manual, the instruction has been renamed.
+>>>>> https://content.riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf
 >>
->> In this context, what is 'rootfs'? The initramfs? At least, when I
->> examine /proc/PID/mountinfo. When I look at the / mount point in
->> /proc/PID/mountinfo, I see just
+>> What matters for us, and the vast majority of programmers, is that the
+>> rename predates merging into official releases of binutils.  Thus, there is
+>> no reason to ever use the old name in actual code.
 >>
->>    old_root
->>    new_root
+>>> Maybe it would be helpful to add a "footnote" that this is a rename only.
+>>> Otherwise people may get confused.
 >>
->> But nothing below 'new_root'. So, I'm a little puzzled.
-> 
-> I think that is because Al changed /proc/mounts to not display mounts
-> that are outside of your current root.  But yes there is typically
-> the initramfs of file system type rootfs on their.  Even when it isn't
-> used you have one.  Just to keep everything simple I presume.
-> 
-> I haven't double checked lately to be certain it is there but I expect
-> it is.
-> 
->> By the way, why is 'old_root' stacked above 'new_root', do you know? I
->> mean, in this scenario it turns out to be useful, but it's kind of the
->> opposite from what I would have expected. (And if this was a
->> deliverate design decision in pivot_root(), it was never made
->> explicit.)
-> 
-> Oh.  It is absolutely explicit and part of the design and it has nothing
-> to do with this case.
-> 
-> The pivot_root system calls takes two parameters:  new_root and put_old.
-> 
-> In this case the old root is put on put_old (which is the new_root).
-> And new_root is made the current root.
-> 
-> The pivot_root code looks everything up before it moves anything.   With
-> the result it is totally immaterrial which order the moves actually
-> happen in the code.  Further it is pretty much necessary to look
-> everything up before things are moved because the definition of paths
-> change.
-> 
-> So it would actually be difficult to have pivot_root(.,.) to do anything
-> except what it does today.
-> 
-> 
->>> With "." and "/" pointing to new_root.
->>>
->>>>> umount2(".", MNT_DETACH)
->>>
->>> At this point resolving "." starts with new_root and follows up the
->>> mount stack to old-root.
+>> I wonder, perhaps just a commit message would be enough?  The alias is
+>> historic only; new documentation is supposed to use the new name.  Man pages
+>> contain a lot of data that has been obsolete for decades -- it might be good
+>> to avoid stuff that became obsolete before the official release.
 >>
->> Okay.
+>> But it's up to you -- you know better what's your policy about historical
+>> information.
+> 
+> On reflection, I agree. I'll trim this back to a note in the commit
+> message only. (Nevertheless, thanks, Walter.)
+> 
+
+Just my view on this:
+
+most people that work on this level may know about that. NTL they also
+tend to stick what worked last time. IMHO is the note important since
+this is a naming only, you look at the man page not at the archive when
+you are in doubt.
+
+Something like: "In 2017 scall war renamed as ecall" is a harmless note.
+
+note; i am not a risc programmer. it is just a general concern.
+
+re,
+ wh
+
+> Cheers,
+> 
+> Michael
+> 
+>>>> --- a/man2/syscall.2
+>>>> +++ b/man2/syscall.2
+>>>> @@ -196,7 +196,7 @@ mips        syscall v0      v0      v1      a3      1, 6
+>>>> -riscv  scall   a7      a0      a1      -
+>>>> +riscv  ecall   a7      a0      a1      -
 >>
->>> Ordinarily if you unmount "/" as is happening above you then need to
->>> call chroot and possibly chdir to ensure neither "/" nor "." point to
->>> somewhere other than the unmounted root filesystem.  In this specific
->>> case because "/" and "." resolve to new_root under the filesystem that is
->>> being unmounted that all is well.
 >>
->> s/that/then/ ?
-
-Thanks for the further clarifications.
-
-All: I plan to add the following text to the manual page:
-
-       new_root and put_old may be the same  directory.   In  particular,
-       the following sequence allows a pivot-root operation without need‐
-       ing to create and remove a temporary directory:
-
-           chdir(new_root);
-           pivot_root(".", ".");
-           umount2(".", MNT_DETACH);
-
-       This sequence succeeds because the pivot_root()  call  stacks  the
-       old root mount point (old_root) on top of the new root mount point
-       at /.  At that point, the calling  process's  root  directory  and
-       current  working  directory  refer  to  the  new  root mount point
-       (new_root).  During the subsequent umount()  call,  resolution  of
-       "."   starts  with  new_root  and then moves up the list of mounts
-       stacked at /, with the result that old_root is unmounted.
-
-Look okay?
-
-Thanks,
-
-Michael
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+>> Meow!
+>>
+> 
+> 
