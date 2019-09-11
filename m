@@ -2,100 +2,104 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 6A8E2AFD49
-	for <lists+linux-man@lfdr.de>; Wed, 11 Sep 2019 15:00:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 13A79B02C7
+	for <lists+linux-man@lfdr.de>; Wed, 11 Sep 2019 19:38:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726781AbfIKNAy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 11 Sep 2019 09:00:54 -0400
-Received: from mail-wm1-f66.google.com ([209.85.128.66]:40920 "EHLO
-        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726198AbfIKNAy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Sep 2019 09:00:54 -0400
-Received: by mail-wm1-f66.google.com with SMTP id t9so3439123wmi.5
-        for <linux-man@vger.kernel.org>; Wed, 11 Sep 2019 06:00:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=F3KPp3ZYdCAK8mznuPJrub/Z/FFlCWFVbTx8KJuCK48=;
-        b=N3XFWYlAdQgFTK6Weggmbjuka0l9KhbCimmBTO1Gt5ezcio/sm83qaxAGcBmCPegAA
-         FWtZc2ZdD0QqRYUNz0dMW5HaOp1aqamuJdlCGvQ9G0LCjxUM1K5jVrM0GnM+z+w0gjKH
-         wHj3tYwi3s5A46TcDByfhE/eTejqtwzXN5qRmM1Qeg0cYKGbgeU6B6TGCNdqbQFb2WqM
-         uCwHguw2sMa9oD9A+8clBqR69X2tCo1xNSBcrbP7edxuQR+eNa4C76Z9p0PPIiZyU9oZ
-         ub34ziER9IDjgn+tMBqCcPXNAZCBiLEsY5+AmQLFK2udmW4QFAbTKhSzoTS9tEM5IsT/
-         xHXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=F3KPp3ZYdCAK8mznuPJrub/Z/FFlCWFVbTx8KJuCK48=;
-        b=m4qj2pfhXp9M0X8BDLx/1SzkIxS4zHeXK43ipoh4Qpde+okPYHNr2N6MHXCSeqw2sZ
-         MYAEsn1kKbiAttNj3is6KJlpg7UAZCyfn3DfMCOcBsOqBj58ZjLmp6GDqa4ZnS/EX2jC
-         yYx0fKeAukQspsCMMhmFd0f20FRui8HkJLA5530VGmcsRahUXrCVH4ZDwbE4ZVyVHCWr
-         dF8gnRWByawKkrzBVW+iSNBQSQMb2/zNZWlrcWPaxD0Ui8m2NCgHZjsyTh/TmtplbxaT
-         f5MitIXmtZxtRvdlKBaWnZzbveClo2T3AR9sj2VcZIFgY2xwTH5PoSsrlVaruMEmuPLa
-         5L1g==
-X-Gm-Message-State: APjAAAWkXo7irH78q2utrSI6HGWNZ+k0Webj4GtuHfvi/ZlPV30mcpXA
-        YNn5VqK8GvFuv9ZQbYTJPSjcVP16
-X-Google-Smtp-Source: APXvYqx7ilvh25sisQIkK8jTlKeet48rRO4rjAFAgotN1bZgSJ/R5fPY0R3N1JH43B1bumkDtvLkLw==
-X-Received: by 2002:a05:600c:240a:: with SMTP id 10mr4205500wmp.113.1568206852758;
-        Wed, 11 Sep 2019 06:00:52 -0700 (PDT)
-Received: from [10.0.20.253] ([95.157.63.22])
-        by smtp.gmail.com with ESMTPSA id v8sm32741783wra.79.2019.09.11.06.00.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Sep 2019 06:00:52 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] mprotect.2: wfix
-To:     "Christopher M. Riedl" <cmr@informatik.wtf>
-References: <20190911125639.2083-1-cmr@informatik.wtf>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <87894514-8cbe-4ff0-9e44-2caa375424a4@gmail.com>
-Date:   Wed, 11 Sep 2019 15:00:51 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+        id S1729349AbfIKRiL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 11 Sep 2019 13:38:11 -0400
+Received: from vmicros1.altlinux.org ([194.107.17.57]:53676 "EHLO
+        vmicros1.altlinux.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729145AbfIKRiL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Sep 2019 13:38:11 -0400
+Received: from mua.local.altlinux.org (mua.local.altlinux.org [192.168.1.14])
+        by vmicros1.altlinux.org (Postfix) with ESMTP id 2422772CC6C;
+        Wed, 11 Sep 2019 20:38:08 +0300 (MSK)
+Received: by mua.local.altlinux.org (Postfix, from userid 508)
+        id 162357CCB47; Wed, 11 Sep 2019 20:38:08 +0300 (MSK)
+Date:   Wed, 11 Sep 2019 20:38:08 +0300
+From:   "Dmitry V. Levin" <ldv@altlinux.org>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Elvira Khabirova <lineprinter@altlinux.org>,
+        linux-man@vger.kernel.org
+Subject: [PATCH] ptrace.2: document struct ptrace_syscall_info
+Message-ID: <20190911173807.GA25385@altlinux.org>
+References: <20190902123858.GA8956@altlinux.org>
+ <0eb09cbc-8035-ee82-9c75-6525d91e7138@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20190911125639.2083-1-cmr@informatik.wtf>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0eb09cbc-8035-ee82-9c75-6525d91e7138@gmail.com>
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Christopher,
+Signed-off-by: Dmitry V. Levin <ldv@altlinux.org>
+---
+ man2/ptrace.2 | 51 ++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 50 insertions(+), 1 deletion(-)
 
-On 9/11/19 2:56 PM, Christopher M. Riedl wrote:
-> Signed-off-by: Christopher M. Riedl <cmr@informatik.wtf>
-
-Thanks. Patch applied.
-
-Cheers,
-
-Michael
-
-> ---
->  man2/mprotect.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man2/mprotect.2 b/man2/mprotect.2
-> index a65d80f3e..f96b41560 100644
-> --- a/man2/mprotect.2
-> +++ b/man2/mprotect.2
-> @@ -271,7 +271,7 @@ is used with
->  .IR prot
->  set to
->  .B PROT_EXEC
-> -a pkey is may be allocated and set on the memory implicitly
-> +a pkey may be allocated and set on the memory implicitly
->  by the kernel, but only when the pkey was 0 previously.
->  .PP
->  On systems that do not support protection keys in hardware,
-> 
-
-
+diff --git a/man2/ptrace.2 b/man2/ptrace.2
+index ff897bb19..b030247e6 100644
+--- a/man2/ptrace.2
++++ b/man2/ptrace.2
+@@ -1026,7 +1026,56 @@ If the size of the data to be written by the kernel exceeds the size
+ specified by the
+ .I addr
+ argument, the output data is truncated.
+-.\" FIXME Document 'struct ptrace_syscall_info'
++.IP
++The
++.I ptrace_syscall_info
++structure contains the following fields:
++.IP
++.in
++.EX
++struct ptrace_syscall_info {
++    __u8 op;                    /* PTRACE_SYSCALL_INFO_* value
++                                   describing the kind
++                                   of system call stop,
++                                   see <linux/ptrace.h> */
++    __u32 arch;                 /* AUDIT_ARCH_* value,
++                                   see seccomp(2) */
++    __u64 instruction_pointer;  /* CPU instruction pointer */
++    __u64 stack_pointer;        /* CPU stack pointer */
++    union {
++        struct {
++            __u64 nr;           /* System call number */
++            __u64 args[6];      /* System call arguments */
++        } entry;                /* Information specific to
++                                   system call entry stops */
++        struct {
++            __s64 rval;         /* System call return value */
++            __u8 is_error;      /* System call error flag */
++        } exit;                 /* Information specific to
++                                   system call exit stops */
++        struct {
++            __u64 nr;           /* System call number */
++            __u64 args[6];      /* System call arguments */
++            __u32 ret_data;     /* The SECCOMP_RET_DATA portion
++                                   of SECCOMP_RET_TRACE return
++                                   value */
++        } seccomp;              /* Information specific to
++                                   PTRACE_EVENT_SECCOMP stops */
++    };
++};
++.EE
++.in
++.IP
++.IR op ,
++.IR arch ,
++.IR instruction_pointer ,
++and
++.I stack_pointer
++fields are defined for all kinds of ptrace system call stops.
++The rest of the structure is a union, one should read only those fields
++that are meaningful for the kind of system call stop specified by the
++.IR op
++field.
+ .\"
+ .SS Death under ptrace
+ When a (possibly multithreaded) process receives a killing signal
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+ldv
