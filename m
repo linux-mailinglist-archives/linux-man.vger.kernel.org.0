@@ -2,61 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 137AAB1DC9
-	for <lists+linux-man@lfdr.de>; Fri, 13 Sep 2019 14:38:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 828FFB1DE4
+	for <lists+linux-man@lfdr.de>; Fri, 13 Sep 2019 14:55:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729801AbfIMMi0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 13 Sep 2019 08:38:26 -0400
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:43881 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726771AbfIMMi0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Sep 2019 08:38:26 -0400
-Received: by mail-wr1-f67.google.com with SMTP id q17so27239332wrx.10
-        for <linux-man@vger.kernel.org>; Fri, 13 Sep 2019 05:38:24 -0700 (PDT)
+        id S2387443AbfIMMzK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 13 Sep 2019 08:55:10 -0400
+Received: from mail-wr1-f65.google.com ([209.85.221.65]:36726 "EHLO
+        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726771AbfIMMzK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Sep 2019 08:55:10 -0400
+Received: by mail-wr1-f65.google.com with SMTP id y19so31994560wrd.3
+        for <linux-man@vger.kernel.org>; Fri, 13 Sep 2019 05:55:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=GzmR9CBVkbiWm0QeGJ/9lk0eU01eZrz9Yoryc28jwg0=;
-        b=OTSLl9TklWNJ+c8sM5Ztlp36IfbdWmAf/XiOVCE864OFIMiFTeO21H7usiSTXhhHVE
-         LBrgCPpPxE7UmnbwrKCIhYEo7KSkyb0tN/iQI+5G/SMfIAha1sI7RgdcmYH7PSpN/aXD
-         ef2otK4d2wcNELRwxSubs3S55Q42azziowAl+4pM4oKpcDFp2I7Plsd9wp7yGxNKt3R8
-         rxd6iLPlsLL1MSjqMvPjeZghShi6vMb0iFlOeIu/Fs1Eh4LS5DhM1mvCqI6wBADXVdv7
-         +UCbSX4ceepUq/prU7Wa5Qunqlqt51FfZZ9o7VFL6v2CgdLHiEPI0T2oMLU6RCl5zEPB
-         G4nw==
+        bh=Xh9qvKkaHbrbSRaUE8wvMdjOeOcRk60L7JlLBZQx9jc=;
+        b=EFAENpnHE0IE6f1mk0QYRx4APl+bC8yA5ekmuCm1JrrvILlwmK1eAQaX5yFvFHlUd8
+         YigdOWHGexF6CGEn2iez+dUp3shz30CUq+395Wu8Vl3Z1Ehv3EgGMXCOrqFpkBeOEhnY
+         fAhAGQCobHORIuk74t4C2VuYxXEYqSWnnJQK3FnFiO7iV+yfXwv3Qc0E1OBa3up2vVHb
+         HseIAFeYC4lq3bJrtmdcolSu1ZD7YOYGf3O6o6Hp5Qzkatv5xatTX9lLMvg2pGhTH5aq
+         sddcS/KL1YnbKzHpy4d18EEfuBeoEgoCodStW5wvPDwIXFOfsKiIqUMNq3B/sFtc5/js
+         bAnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=GzmR9CBVkbiWm0QeGJ/9lk0eU01eZrz9Yoryc28jwg0=;
-        b=cg0HAZUoFiMPp0d4Z69eib7XhHkb38CHGMDmj4eH4TivmQuQydJE6y68XcwQN+fVB4
-         jAP9fPpqc8eivbDEsoWKPciMVTCIgpBjxfwrHKr6q/zXZj9SYY4ohQ7LBgABB6xIQvbn
-         UuIxM0BqzjoFdhlaeLFIupjrhChKDkfiCB8r6zPmW3NdO60ufyorz25u6au9JbTck45m
-         Um/ouIqFGEvSAvVs27UkVnurILki4U4zhCrIitR/q/gpst2UwBK5Ja8KESPaCKJ40GID
-         x/xyrAd/P+QY27htvMQUcO8Q1fEbY8X+Anas1CNC+FQddUZsLC3OcGd1bEmk+LnzrqBo
-         eKJA==
-X-Gm-Message-State: APjAAAXsfFvWhY5zMDzAX4qK7Maekqlt+DlK5ZxkM6GIqD5Ttq4OAE/H
-        nAzvJl+ZFC9bCbL8b2+ZB+4+kR+V
-X-Google-Smtp-Source: APXvYqxjaSlCbtNCn9POBtnvYEnijsIPfbH1oaweI2iq1p7vF43rxJiroyjad8g9x5v648/jiUzpLw==
-X-Received: by 2002:adf:f790:: with SMTP id q16mr26942220wrp.164.1568378303708;
-        Fri, 13 Sep 2019 05:38:23 -0700 (PDT)
+        bh=Xh9qvKkaHbrbSRaUE8wvMdjOeOcRk60L7JlLBZQx9jc=;
+        b=ZoyYt2vf8EDY2xDxCdMSvGqWDkboNn4zHMRGCVzWsdULOfsk3vUuBdRQpHcIa7CLcp
+         MTujVtWV+ctf5vZ4BKDgapiQn26RMzwBjB5CsEHMpibr3Zxl4qB/QpUpzGgdb9kEb5Yd
+         IoCTytdRrer06uawNCt6GpIYVGiaRAVxWXtiup3vGs1VZ6XayIZw/1g76ppBfQeEgVow
+         F8etv6PopeOtDdQZW3O/a7WS+X/+OeYdd6ns6kvNYMJpY+qB3pNYiCC5Ge0JJ73V3vQY
+         UKv88U0nC+b3t6VrzbkEeoDYZPOuk/JjGuTQLY153cuOzfuiNOzZcMeS08WQXhxpMR3E
+         1h7g==
+X-Gm-Message-State: APjAAAWcaGVO8nDPWvB+OjKQyZJZhIkTWAWhQPgX0ih4QGMPTyPbecXA
+        QY9qvIwhyhm6wwtWy3WvR+50uuyl
+X-Google-Smtp-Source: APXvYqwahYMHm0z4OSmEdEpYAEYulsEt7efE+tQSR+/1MWOjM0llUWwnYsCg7AuD3QtsfDSwg4aj5Q==
+X-Received: by 2002:a5d:4b4e:: with SMTP id w14mr11233189wrs.191.1568379308117;
+        Fri, 13 Sep 2019 05:55:08 -0700 (PDT)
 Received: from [10.0.20.253] ([95.157.63.22])
-        by smtp.gmail.com with ESMTPSA id n4sm2496042wmd.45.2019.09.13.05.38.22
+        by smtp.gmail.com with ESMTPSA id f24sm1846067wmb.16.2019.09.13.05.55.07
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Sep 2019 05:38:23 -0700 (PDT)
+        Fri, 13 Sep 2019 05:55:07 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] printf.3: Add detail on the first digit with the %e
- format
-To:     Vincent Lefevre <vincent@vinc17.net>
-References: <20190820133504.GA30665@zira.vinc17.org>
+Subject: Re: [PATCH] vmsplice.2: SPLICE_F_GIFT became no-op
+To:     Leonardo Bras <leonardo@linux.ibm.com>,
+        Jens Axboe <axboe@kernel.dk>
+References: <20190801222417.14413-1-leonardo@linux.ibm.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <5b14fb36-26b2-ba24-b4a3-54dd00e66e5a@gmail.com>
-Date:   Fri, 13 Sep 2019 14:38:22 +0200
+Message-ID: <b65e1f8f-34b4-0db6-bd7a-7b866b29af7a@gmail.com>
+Date:   Fri, 13 Sep 2019 14:55:06 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <20190820133504.GA30665@zira.vinc17.org>
+In-Reply-To: <20190801222417.14413-1-leonardo@linux.ibm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -65,38 +65,48 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Vincent,
+Hello Jens,
 
-On 8/20/19 3:35 PM, Vincent Lefevre wrote:
-> This requirement on the first digit with the %e format comes from
-> the ISO C standard. It ensures that all the digits in the output are
-> significant and forbids output with a precision less than requested.
+Would you be willing to take a look at this man-pages bug report
+relating to vmsplice()?
 
-Thanks. Patch applied.
-
-Cheers,
+Thanks,
 
 Michael
 
-> Signed-off-by: Vincent Lefevre <vincent@vinc17.net>
-> ---
->  man3/printf.3 | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+On 8/2/19 12:24 AM, Leonardo Bras wrote:
+> As explained in splice.2, SPLICE_F_MOVE became a no-op, and since it
+> is needed to use page gifting, it made SPLICE_F_GIFT a no-op too.
 > 
-> diff --git a/man3/printf.3 b/man3/printf.3
-> index fb40b7077..66ad6af02 100644
-> --- a/man3/printf.3
-> +++ b/man3/printf.3
-> @@ -658,7 +658,8 @@ The
->  .I double
->  argument is rounded and converted in the style
->  .RB [\-]d \&. ddd e \(+-dd
-> -where there is one digit before the decimal-point character and the number
-> +where there is one digit (which is nonzero if the argument is nonzero)
-> +before the decimal-point character and the number
->  of digits after it is equal to the precision; if the precision is missing,
->  it is taken as 6; if the precision is zero, no decimal-point character
->  appears.
+> I took a look in current code, and found no use of this flag:
+> When enabled, it sets PIPE_BUF_FLAG_GIFT,which is only checked in
+> user_page_pipe_buf_steal, which is only used on
+> user_page_pipe_buf_ops, as a .steal component.
+> 
+> But, in the whole kernel code, there is no calling of a steal()
+> function, making me believe this flag is not used anymore.
+> 
+> Signed-off-by: Leonardo Bras <leonardo@linux.ibm.com>
+> ---
+>  man2/vmsplice.2 | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/man2/vmsplice.2 b/man2/vmsplice.2
+> index 17834607b..94fb86142 100644
+> --- a/man2/vmsplice.2
+> +++ b/man2/vmsplice.2
+> @@ -123,6 +123,11 @@ if this flag is not specified, then a subsequent
+>  .B SPLICE_F_MOVE
+>  must copy the pages.
+>  Data must also be properly page aligned, both in memory and length.
+> +Starting in Linux 2.6.21, it is a no-op, because the
+> +.B SPLICE_F_MOVE
+> +also became a no-op on
+> +.BR splice (2)
+> +.
+>  .\" FIXME
+>  .\" It looks like the page-alignment requirement went away with
+>  .\" commit bd1a68b59c8e3bce45fb76632c64e1e063c3962d
 > 
 
 
