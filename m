@@ -2,61 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 828FFB1DE4
-	for <lists+linux-man@lfdr.de>; Fri, 13 Sep 2019 14:55:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BF77FB1E12
+	for <lists+linux-man@lfdr.de>; Fri, 13 Sep 2019 15:02:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2387443AbfIMMzK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 13 Sep 2019 08:55:10 -0400
-Received: from mail-wr1-f65.google.com ([209.85.221.65]:36726 "EHLO
-        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726771AbfIMMzK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Sep 2019 08:55:10 -0400
-Received: by mail-wr1-f65.google.com with SMTP id y19so31994560wrd.3
-        for <linux-man@vger.kernel.org>; Fri, 13 Sep 2019 05:55:08 -0700 (PDT)
+        id S1729826AbfIMNCK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 13 Sep 2019 09:02:10 -0400
+Received: from mail-wr1-f68.google.com ([209.85.221.68]:45070 "EHLO
+        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729766AbfIMNCJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Sep 2019 09:02:09 -0400
+Received: by mail-wr1-f68.google.com with SMTP id l16so31918927wrv.12
+        for <linux-man@vger.kernel.org>; Fri, 13 Sep 2019 06:02:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Xh9qvKkaHbrbSRaUE8wvMdjOeOcRk60L7JlLBZQx9jc=;
-        b=EFAENpnHE0IE6f1mk0QYRx4APl+bC8yA5ekmuCm1JrrvILlwmK1eAQaX5yFvFHlUd8
-         YigdOWHGexF6CGEn2iez+dUp3shz30CUq+395Wu8Vl3Z1Ehv3EgGMXCOrqFpkBeOEhnY
-         fAhAGQCobHORIuk74t4C2VuYxXEYqSWnnJQK3FnFiO7iV+yfXwv3Qc0E1OBa3up2vVHb
-         HseIAFeYC4lq3bJrtmdcolSu1ZD7YOYGf3O6o6Hp5Qzkatv5xatTX9lLMvg2pGhTH5aq
-         sddcS/KL1YnbKzHpy4d18EEfuBeoEgoCodStW5wvPDwIXFOfsKiIqUMNq3B/sFtc5/js
-         bAnw==
+        bh=ArmjDDEDNq07ITs8F+Hv/YxgXEepcApQoKOoYHm7Zjg=;
+        b=W6yeIQeQCmjzamd/BpBibgFfLp9xTZjG1uTXt1q8ycjW2ElHjZ657Zn9c3BTVq+u1f
+         yD0pM6bkW27bFxNV+mpviBa9gsxichT1sA1xxEnohqWKk46RRpLxmKDxVhPmSQd/S31G
+         0ZjfQCDNRDNCMl5Rj94TuHrUx0iQTG540MbI67LBrpJLycOl7rsJ8rShK+HEL+OprqCO
+         np/KaZw8hbR06s5E4KK13xa8D3QlOSokqw04mVaHi0x/xbDvDz1STlNu/Q4TsHm+eoN4
+         GTUXAJuk+6Z9AWF/6bjylQkx1MLnZdc4uUL6nZP3p+BiGCtpO2rb2JiHm5d3ppbP3isl
+         VTPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=Xh9qvKkaHbrbSRaUE8wvMdjOeOcRk60L7JlLBZQx9jc=;
-        b=ZoyYt2vf8EDY2xDxCdMSvGqWDkboNn4zHMRGCVzWsdULOfsk3vUuBdRQpHcIa7CLcp
-         MTujVtWV+ctf5vZ4BKDgapiQn26RMzwBjB5CsEHMpibr3Zxl4qB/QpUpzGgdb9kEb5Yd
-         IoCTytdRrer06uawNCt6GpIYVGiaRAVxWXtiup3vGs1VZ6XayIZw/1g76ppBfQeEgVow
-         F8etv6PopeOtDdQZW3O/a7WS+X/+OeYdd6ns6kvNYMJpY+qB3pNYiCC5Ge0JJ73V3vQY
-         UKv88U0nC+b3t6VrzbkEeoDYZPOuk/JjGuTQLY153cuOzfuiNOzZcMeS08WQXhxpMR3E
-         1h7g==
-X-Gm-Message-State: APjAAAWcaGVO8nDPWvB+OjKQyZJZhIkTWAWhQPgX0ih4QGMPTyPbecXA
-        QY9qvIwhyhm6wwtWy3WvR+50uuyl
-X-Google-Smtp-Source: APXvYqwahYMHm0z4OSmEdEpYAEYulsEt7efE+tQSR+/1MWOjM0llUWwnYsCg7AuD3QtsfDSwg4aj5Q==
-X-Received: by 2002:a5d:4b4e:: with SMTP id w14mr11233189wrs.191.1568379308117;
-        Fri, 13 Sep 2019 05:55:08 -0700 (PDT)
+        bh=ArmjDDEDNq07ITs8F+Hv/YxgXEepcApQoKOoYHm7Zjg=;
+        b=cUmFvuQcMKZ57PfJMihWTJS8+8SQbAc3WHEtw83ECYn9qxl9odfKwvOaYIl6hEvnOw
+         HutOfZDDUrjQcr4IQwWfS7bi4naWk8MtpQw//rfo3330eY7z2wy/qT6ATb92x4I6J54O
+         s89oSD4mCXgozzS8BtFVj5IMJQHDDgi6epepSvLrYL91mYXJib7PRjPF3H6KgtM+JbwA
+         LhMf9JHOuJQn3uCDXCtprJ9b5bXIOK52qv/n6tRgN8wAV/q8DqJ0Ov4SEy07Cr9pJVUh
+         EnjosOewEoiMnkYjasUGMDJcVcxUMLikwNngo44h2hBTKIN4MP6kCfI+8XtUBs6QnQ53
+         ZUCg==
+X-Gm-Message-State: APjAAAVs2CNTMFCzoy1lpbpOh9VAJncffFvwnUOqoeUSg66GFtdWynWR
+        uQPp3NgZYJVwN3M10ileflbhDoIQ
+X-Google-Smtp-Source: APXvYqzH/EvBv7bXuo5YhBI3MSQfD4t+SQQRrSghvxEyNluJFVglYX+4mROg7MZws8egeYgYO5PCig==
+X-Received: by 2002:a05:6000:1189:: with SMTP id g9mr41547141wrx.117.1568379727344;
+        Fri, 13 Sep 2019 06:02:07 -0700 (PDT)
 Received: from [10.0.20.253] ([95.157.63.22])
-        by smtp.gmail.com with ESMTPSA id f24sm1846067wmb.16.2019.09.13.05.55.07
+        by smtp.gmail.com with ESMTPSA id c132sm3034742wme.27.2019.09.13.06.02.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Sep 2019 05:55:07 -0700 (PDT)
+        Fri, 13 Sep 2019 06:02:06 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] vmsplice.2: SPLICE_F_GIFT became no-op
-To:     Leonardo Bras <leonardo@linux.ibm.com>,
-        Jens Axboe <axboe@kernel.dk>
-References: <20190801222417.14413-1-leonardo@linux.ibm.com>
+Subject: Re: [PATCH] core.5: explain the new situation with argument splitting
+To:     Paul Wise <pabs3@bonedaddy.net>
+References: <20190807014525.24825-1-pabs3@bonedaddy.net>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <b65e1f8f-34b4-0db6-bd7a-7b866b29af7a@gmail.com>
-Date:   Fri, 13 Sep 2019 14:55:06 +0200
+Message-ID: <b8907375-5bee-dfda-4836-d728920eede3@gmail.com>
+Date:   Fri, 13 Sep 2019 15:02:05 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <20190801222417.14413-1-leonardo@linux.ibm.com>
+In-Reply-To: <20190807014525.24825-1-pabs3@bonedaddy.net>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -65,48 +64,47 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Jens,
+Hello Paul,
 
-Would you be willing to take a look at this man-pages bug report
-relating to vmsplice()?
+On 8/7/19 3:45 AM, Paul Wise wrote:
+> It changed in Linux v5.3-rc3 commit 315c69261dd3 from
+> splitting after template expansion to splitting beforehand.
 
-Thanks,
+Thanks. Patch applied.
+
+Cheers,
 
 Michael
 
-On 8/2/19 12:24 AM, Leonardo Bras wrote:
-> As explained in splice.2, SPLICE_F_MOVE became a no-op, and since it
-> is needed to use page gifting, it made SPLICE_F_GIFT a no-op too.
-> 
-> I took a look in current code, and found no use of this flag:
-> When enabled, it sets PIPE_BUF_FLAG_GIFT,which is only checked in
-> user_page_pipe_buf_steal, which is only used on
-> user_page_pipe_buf_ops, as a .steal component.
-> 
-> But, in the whole kernel code, there is no calling of a steal()
-> function, making me believe this flag is not used anymore.
-> 
-> Signed-off-by: Leonardo Bras <leonardo@linux.ibm.com>
 > ---
->  man2/vmsplice.2 | 5 +++++
->  1 file changed, 5 insertions(+)
+>  man5/core.5 | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
 > 
-> diff --git a/man2/vmsplice.2 b/man2/vmsplice.2
-> index 17834607b..94fb86142 100644
-> --- a/man2/vmsplice.2
-> +++ b/man2/vmsplice.2
-> @@ -123,6 +123,11 @@ if this flag is not specified, then a subsequent
->  .B SPLICE_F_MOVE
->  must copy the pages.
->  Data must also be properly page aligned, both in memory and length.
-> +Starting in Linux 2.6.21, it is a no-op, because the
-> +.B SPLICE_F_MOVE
-> +also became a no-op on
-> +.BR splice (2)
-> +.
->  .\" FIXME
->  .\" It looks like the page-alignment requirement went away with
->  .\" commit bd1a68b59c8e3bce45fb76632c64e1e063c3962d
+> diff --git a/man5/core.5 b/man5/core.5
+> index d3efca3f8..ddc0352b8 100644
+> --- a/man5/core.5
+> +++ b/man5/core.5
+> @@ -267,6 +267,20 @@ file.
+>  If the first character of this file is a pipe symbol (\fB|\fP),
+>  then the remainder of the line is interpreted as the command-line for
+>  a user-space program (or script) that is to be executed.
+> +.PP
+> +.\" 315c69261dd3fa12dbc830d4fa00d1fad98d3b03
+> +Since kernel 5.3.0, the pipe template is split on spaces into an
+> +argument list before the template parameters are expanded.
+> +In earlier kernels the template parameters are expanded first and
+> +the resulting string is split on spaces into an argument list.
+> +This means that in earlier kernels executable names added by the
+> +%e and %E template parameters could get split into multiple arguments.
+> +So the core dump handler needs to put the executable names as the last
+> +argument and ensure it joins all parts of the executable name using spaces.
+> +Executable names with multiple spaces in them are not correctly represented
+> +in earlier kernels so the core dump handler needs to use mechanisms to find
+> +the executable name.
+> +.PP
+>  Instead of being written to a disk file, the core dump is given as
+>  standard input to the program.
+>  Note the following points:
 > 
 
 
