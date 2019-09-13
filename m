@@ -2,134 +2,103 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id BC6F2B2180
-	for <lists+linux-man@lfdr.de>; Fri, 13 Sep 2019 15:59:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E46ECB2188
+	for <lists+linux-man@lfdr.de>; Fri, 13 Sep 2019 16:02:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2388357AbfIMN7Y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 13 Sep 2019 09:59:24 -0400
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:45876 "EHLO
+        id S2388675AbfIMOCn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 13 Sep 2019 10:02:43 -0400
+Received: from mail-wr1-f66.google.com ([209.85.221.66]:36809 "EHLO
         mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388191AbfIMN7Y (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Sep 2019 09:59:24 -0400
-Received: by mail-wr1-f66.google.com with SMTP id l16so32112040wrv.12
-        for <linux-man@vger.kernel.org>; Fri, 13 Sep 2019 06:59:22 -0700 (PDT)
+        with ESMTP id S2388084AbfIMOCn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Sep 2019 10:02:43 -0400
+Received: by mail-wr1-f66.google.com with SMTP id y19so32222601wrd.3
+        for <linux-man@vger.kernel.org>; Fri, 13 Sep 2019 07:02:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=DcF8bq+QtoZIj7P3/oFncaOmxEDjB0p9OD+5XMxy9Q4=;
-        b=VaQF60O2u8YVPuNK8Qo8VOGXQXIBvXOXq7KnLQfznkWMZEf+i4v/oApHNAOx4c2W5+
-         Qkbk+GPNRivS0IKR8F9/BrxaFm8TVywJTDE3CrPYD4gw0E5+g9ugEKpDQp/3agKjTp4J
-         O9Fe+qllEcYcldOO2rWXmXzoAgpjKi9Is07J8dtLpMtFO1b96sTCxjNbazYAb+2G1rr1
-         CPEMKgWKTOsUr8lvTyX2pPbyO2FaIOmqSZ6goCCXCNmY7RhFy94iOb+DEvjTbRBfktlq
-         nI+3YSh+wqIjJZQ76O+JHhH+Vjhj4q5LK2r8Hatx8kG6OXIUUsZKy+lWzM3/HsoN31sG
-         16bA==
+        bh=n/gqFujmTWgKvnGv8gsIqUL/buJSjeNLOjb8vZnbhiw=;
+        b=AXnQDZycYSgchDPA7gTwQiI1v/gHsHeFr62sQicUvqUQiMF/VO+IfZ5zcT9tXEQLWj
+         +VaR1PUbGQaYzQEgf3R77eoBugDcEWFmM61CQiM03BaOzkJrOxUwVp0yw0CP1ATT8PaS
+         Bis7BhMLf3d4Sr+M7E3RogwJoWCee9n/VixV2BIAVJ47v68Lk2k8TG7pwXzpQy8FPyuB
+         xlGw54fiPU9F7dtFNEsQsmNx/Z3dxUPp+uosyOSuE6anzibP+SHPh09B1OpeYPSsBSyS
+         xn37UdvmBzybUDaM9Zdd7eamtTQdFkN+gOpueFngMURqS5h+/ZjSZQGdfbPPMa3720MC
+         o5yA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=DcF8bq+QtoZIj7P3/oFncaOmxEDjB0p9OD+5XMxy9Q4=;
-        b=n9NmGOA5btrNcdMsg6liOFVlXJP4fx5yEJIaP+SNBqqf83+XTzXQuE7GGDUPXbVgZK
-         w8gZHvQtShO6xy93Wh9hXqAdUL7iIdfk+CIL4Wy6NKWSc/n3oyxlCJY7WxtIY5FFLdIU
-         k1p3Snfv2kh4lJ1DDK4d4aqPG4RlF0wr6ucfOAz9mw92uJeFl3q27Op17lelY57bCFK7
-         YGTUfWqsE4jiHjqDbku7hir77JAcDnK44ZGGNzEV4qFF30ntmCPTvpft++XXBu+RjSjD
-         ZhjqghaISqlM1I2m5D1sW5fNPCu4gBbt19zHGgmc+xuhCkgs4gDKvgFFzaz0bqiMbpEl
-         YGlg==
-X-Gm-Message-State: APjAAAXeF6IcTzLypC3leCE8k8RoiKs7H6f3mP8p5Nmr18EXYGX7cpSo
-        +W2k/y5z7B7+ASFwGg/8s5U1mtwO
-X-Google-Smtp-Source: APXvYqxeZ5QExtN9vhFXVgllCklzdGFLwppdsPRjT3McRnErCfPvpOH0g+z0Ho9k/FBZIOhj4TON/Q==
-X-Received: by 2002:adf:dd4d:: with SMTP id u13mr7796235wrm.112.1568383161370;
-        Fri, 13 Sep 2019 06:59:21 -0700 (PDT)
+        bh=n/gqFujmTWgKvnGv8gsIqUL/buJSjeNLOjb8vZnbhiw=;
+        b=LmjSD1FARKDWn3EGb9CyqAFc6aemu+E4Sq1HHT9ENNu35YgPJAvzPPIhhC2V331KzX
+         gGG/uxKUFHMtWwwT6u1yhAS6vj/x6fzYw69WJCVSGzbPNPad/e00216IY0NXrv8oLMz7
+         q+rAzkJEaeYt17KJ4p8hI0smqZEyADuS+IEru2nffhaBe/RPeDXkYwlIsJsTT5Px1Es3
+         3pWyj4bQXUGHgAT8y/Y1piX69EWBr7tfr/kbJp2TVjlkPqqQIW74M3pZpsqwymhYagBT
+         I+gD3+09fJyxIkNzjTW4MrN60aP/UlI1hz32qEIYM+cUPW4Bb7iQq2WsCWS7vftzVL7k
+         VUiQ==
+X-Gm-Message-State: APjAAAUrEhdh72mW106l5kr+xAQu7MjEg/MAERIs44RLAfsEEk2Nk2T7
+        8+ayQZfXqbdQQpQWlzELY0ZBsT7d
+X-Google-Smtp-Source: APXvYqwXise7N4Odw4MX9ThF05qx6DsCP1CT0YXh9b2rD9tYtIP8QnYnNO5n/rFlDpypKQIkBMzPOg==
+X-Received: by 2002:adf:fa10:: with SMTP id m16mr34414324wrr.322.1568383360699;
+        Fri, 13 Sep 2019 07:02:40 -0700 (PDT)
 Received: from [10.0.20.253] ([95.157.63.22])
-        by smtp.gmail.com with ESMTPSA id t13sm51657908wra.70.2019.09.13.06.59.20
+        by smtp.gmail.com with ESMTPSA id o9sm36491934wrh.46.2019.09.13.07.02.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Sep 2019 06:59:20 -0700 (PDT)
+        Fri, 13 Sep 2019 07:02:40 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] Add some tips for how to contribute
-To:     Paul Wise <pabs3@bonedaddy.net>
-References: <20190807015026.26519-1-pabs3@bonedaddy.net>
+Subject: Re: [PATCH] resolv.conf.5: update information about search list
+To:     nforro@redhat.com
+References: <6b42e1b7643304db9de9586858919eb2ae465703.camel@redhat.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <024e7740-9f1f-af1c-fe7e-41e92af91da4@gmail.com>
-Date:   Fri, 13 Sep 2019 15:59:20 +0200
+Message-ID: <8b1db7ac-6904-c4b9-37e7-dddd4b0dc802@gmail.com>
+Date:   Fri, 13 Sep 2019 16:02:39 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <20190807015026.26519-1-pabs3@bonedaddy.net>
+In-Reply-To: <6b42e1b7643304db9de9586858919eb2ae465703.camel@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Paul,
+Hello Nikola,
 
-
-On 8/7/19 3:50 AM, Paul Wise wrote:
-> Written-by: Michael Kerrisk <mtk.manpages@gmail.com>
-> ---
->  CONTRIBUTING | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
->  create mode 100644 CONTRIBUTING
+On 8/7/19 2:17 PM, Nikola Forró wrote:
+> Reference:
+> https://sourceware.org/git/?p=glibc.git;a=commitdiff;h=3f853f22c87f0b671c0366eb290919719fa56c0e
 > 
-> diff --git a/CONTRIBUTING b/CONTRIBUTING
-> new file mode 100644
-> index 000000000..db947b5af
-> --- /dev/null
-> +++ b/CONTRIBUTING
-> @@ -0,0 +1,16 @@
-> +Commit style:
-> +
-> +When referring to Linux kernel versions, please add a
-> +comment before it that shows the kernel commit hash.
-> +
-> +Use .PP rather than blank lines as paragraph separators.
-> +
-> +Starting new sentences on new source lines makes future patches against
-> +the source easier to grok. This is known as semantic newlines:
-> +
-> +https://rhodesmill.org/brandon/2012/one-sentence-per-line/
-> +
-> +Sending patches:
-> +
-> +To: Michael Kerrisk (man-pages) <mtk.manpages@gmail.com>
-> +CC: linux-man@vger.kernel.org
+> Signed-off-by: Nikola Forró <nforro@redhat.com>
 
-Pretty much all of the above is covered either on the
-project website, or in man-pages(7). (I just added a note
-to man-pages(7) about avoiding blank lines as separators, 
-and further enhanced the discussion of semantic newlines.)
-
-But of course, your meta-point is: let's make things more
-visible. I instead added a CONTRIBUTING file as below.
-
-Thanks for the idea!
+Thanks. Patch applied.
 
 Cheers,
 
 Michael
 
-diff --git a/CONTRIBUTING b/CONTRIBUTING
-new file mode 100644
-index 000000000..383bae5b3
---- /dev/null
-+++ b/CONTRIBUTING
-@@ -0,0 +1,13 @@
-+For general information about how to contribute, see:
-+https://www.kernel.org/doc/man-pages/contributing.html
-+
-+For information on how to send patches, see:
-+https://www.kernel.org/doc/man-pages/patches.html
-+
-+For a description of the preferred layout of manual pages,
-+as well as some style guide notes, see:
-+
-+    $ man 7 man-pages
-+
-+For information about reporting bugs, see:
-+https://www.kernel.org/doc/man-pages/reporting_bugs.html
+> ---
+>  man5/resolv.conf.5 | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/man5/resolv.conf.5 b/man5/resolv.conf.5
+> index 57f0a13df..c500864d1 100644
+> --- a/man5/resolv.conf.5
+> +++ b/man5/resolv.conf.5
+> @@ -104,8 +104,10 @@ traffic if the servers for the listed domains are not local,
+>  and that queries will time out if no server is available
+>  for one of the domains.
+>  .IP
+> -The search list is currently limited to six domains
+> +In glibc 2.25 and earlier, the search list is limited to six domains
+>  with a total of 256 characters.
+> +.\" commit 3f853f22c87f0b671c0366eb290919719fa56c0e
+> +Since glibc 2.26, the search list is unlimited.
+>  .TP
+>  \fBsortlist\fP
+>  This option allows addresses returned by
+> 
 
 
 -- 
