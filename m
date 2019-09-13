@@ -2,61 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 6EEC9B1DC5
-	for <lists+linux-man@lfdr.de>; Fri, 13 Sep 2019 14:37:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 137AAB1DC9
+	for <lists+linux-man@lfdr.de>; Fri, 13 Sep 2019 14:38:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728521AbfIMMhA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 13 Sep 2019 08:37:00 -0400
-Received: from mail-wr1-f65.google.com ([209.85.221.65]:39445 "EHLO
-        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726771AbfIMMhA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Sep 2019 08:37:00 -0400
-Received: by mail-wr1-f65.google.com with SMTP id r3so1795425wrj.6
-        for <linux-man@vger.kernel.org>; Fri, 13 Sep 2019 05:36:59 -0700 (PDT)
+        id S1729801AbfIMMi0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 13 Sep 2019 08:38:26 -0400
+Received: from mail-wr1-f67.google.com ([209.85.221.67]:43881 "EHLO
+        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726771AbfIMMi0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Sep 2019 08:38:26 -0400
+Received: by mail-wr1-f67.google.com with SMTP id q17so27239332wrx.10
+        for <linux-man@vger.kernel.org>; Fri, 13 Sep 2019 05:38:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=TlQMpAOsoJ0jL44CHVjqZ93W7sR10+ReIvi6F7bsj5o=;
-        b=OqHevAfC2yty8eUQO+P+j3rJnhqoYXCDwMcFC8sr59Tzm16dXKVknL0aC987cv8bOq
-         L7BONvA3cK8zqr0TC1Slew4QfFpzH/HE9lrCBrwLIA4+uPDL5e2neghCcvjFa79ddaOR
-         +RwnH6T1CVdOSNv9TE+ORorqtr3cr4pccf22UeB5PLEA9NOzzA1/mZHYUs6xkVyy9EOo
-         iFbeo4ot0gXUv4oLkSHhL0+K3d81nlcmcm0KKo7Z79lr5vera1IUZOaNwR8Kmsj0pzpb
-         1O91POUnxz0JA71a322LIQxigzfB6wSbvwqWe2t5+nkJnVu74lbqMgrvXl+WzNJnrVZ4
-         LEbA==
+        bh=GzmR9CBVkbiWm0QeGJ/9lk0eU01eZrz9Yoryc28jwg0=;
+        b=OTSLl9TklWNJ+c8sM5Ztlp36IfbdWmAf/XiOVCE864OFIMiFTeO21H7usiSTXhhHVE
+         LBrgCPpPxE7UmnbwrKCIhYEo7KSkyb0tN/iQI+5G/SMfIAha1sI7RgdcmYH7PSpN/aXD
+         ef2otK4d2wcNELRwxSubs3S55Q42azziowAl+4pM4oKpcDFp2I7Plsd9wp7yGxNKt3R8
+         rxd6iLPlsLL1MSjqMvPjeZghShi6vMb0iFlOeIu/Fs1Eh4LS5DhM1mvCqI6wBADXVdv7
+         +UCbSX4ceepUq/prU7Wa5Qunqlqt51FfZZ9o7VFL6v2CgdLHiEPI0T2oMLU6RCl5zEPB
+         G4nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=TlQMpAOsoJ0jL44CHVjqZ93W7sR10+ReIvi6F7bsj5o=;
-        b=UeYW/rAzveo81P02edhJ4RkzEOkA9uRa+PE8undnQcythHjGtBwr4P7jP3pElyAxY2
-         UoXgp27qUu1yWTR4ExJo3yC2ORNr8opzpHuXYl0p9UPM9v17EgBC61GSHNLbkdKUm6Zo
-         3zQlcqpliWzfcTsLpQ0YzpTqKivZxYWl9aGknCAHvkYU+X4Ga4dYTcHa1AZIWbopcFxZ
-         RXNshkW5haVjmVz5fTLJxr9ZsOYC45918vgA+la2PQ72zTjn0dtqeQHUbAu6VDX7zwLY
-         bqeIVgGM++68sHHQum6OJv0U3vWZF5vYtjcuTyE6IUz8wYh5ynD3oiE2MwoiiMOxyWmm
-         j1nw==
-X-Gm-Message-State: APjAAAWszMn1mowhWmpsLox9O9f1OevJwdBMmZjtzJopUBRFdh6s3eNq
-        QiTuDpEC0FEogj/ZdYt02L3p5hhx
-X-Google-Smtp-Source: APXvYqyXX7e7ayLnI/iZcikITnmncwMsg0RMuFW13+17zYSntKw3DXBMT2MJ4b9Xpkv8XZpwaqOV5A==
-X-Received: by 2002:adf:e881:: with SMTP id d1mr19344030wrm.301.1568378218306;
-        Fri, 13 Sep 2019 05:36:58 -0700 (PDT)
+        bh=GzmR9CBVkbiWm0QeGJ/9lk0eU01eZrz9Yoryc28jwg0=;
+        b=cg0HAZUoFiMPp0d4Z69eib7XhHkb38CHGMDmj4eH4TivmQuQydJE6y68XcwQN+fVB4
+         jAP9fPpqc8eivbDEsoWKPciMVTCIgpBjxfwrHKr6q/zXZj9SYY4ohQ7LBgABB6xIQvbn
+         UuIxM0BqzjoFdhlaeLFIupjrhChKDkfiCB8r6zPmW3NdO60ufyorz25u6au9JbTck45m
+         Um/ouIqFGEvSAvVs27UkVnurILki4U4zhCrIitR/q/gpst2UwBK5Ja8KESPaCKJ40GID
+         x/xyrAd/P+QY27htvMQUcO8Q1fEbY8X+Anas1CNC+FQddUZsLC3OcGd1bEmk+LnzrqBo
+         eKJA==
+X-Gm-Message-State: APjAAAXsfFvWhY5zMDzAX4qK7Maekqlt+DlK5ZxkM6GIqD5Ttq4OAE/H
+        nAzvJl+ZFC9bCbL8b2+ZB+4+kR+V
+X-Google-Smtp-Source: APXvYqxjaSlCbtNCn9POBtnvYEnijsIPfbH1oaweI2iq1p7vF43rxJiroyjad8g9x5v648/jiUzpLw==
+X-Received: by 2002:adf:f790:: with SMTP id q16mr26942220wrp.164.1568378303708;
+        Fri, 13 Sep 2019 05:38:23 -0700 (PDT)
 Received: from [10.0.20.253] ([95.157.63.22])
-        by smtp.gmail.com with ESMTPSA id v4sm43418215wrg.56.2019.09.13.05.36.57
+        by smtp.gmail.com with ESMTPSA id n4sm2496042wmd.45.2019.09.13.05.38.22
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Sep 2019 05:36:57 -0700 (PDT)
+        Fri, 13 Sep 2019 05:38:23 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: fececve man page
-To:     Simone Piccardi <piccardi@truelite.it>
-References: <044d4f18-fe49-7e25-ddae-844ce6a50b7a@truelite.it>
+Subject: Re: [PATCH] printf.3: Add detail on the first digit with the %e
+ format
+To:     Vincent Lefevre <vincent@vinc17.net>
+References: <20190820133504.GA30665@zira.vinc17.org>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <1a7418f3-8c05-ff91-1635-5c448ea304ec@gmail.com>
-Date:   Fri, 13 Sep 2019 14:36:56 +0200
+Message-ID: <5b14fb36-26b2-ba24-b4a3-54dd00e66e5a@gmail.com>
+Date:   Fri, 13 Sep 2019 14:38:22 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <044d4f18-fe49-7e25-ddae-844ce6a50b7a@truelite.it>
-Content-Type: text/plain; charset=iso-8859-15
+In-Reply-To: <20190820133504.GA30665@zira.vinc17.org>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
@@ -64,46 +65,39 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 8/21/19 6:44 PM, Simone Piccardi wrote:
-> 
-> In http://man7.org/linux/man-pages/man3/fexecve.3.html in the reported 
-> errors there are only EINVAL and ENOSYS but in the BUGS section is cited 
-> also ENOENT (I suppose coming from execveat) for trying to use a script.
-> 
-> Furthermore I think that ENOSYS should be cited as present only when 
-> fexecve is not implemented using execveat.
+Hello Vincent,
 
-Thanks, Simone. I've applied the following diff.
+On 8/20/19 3:35 PM, Vincent Lefevre wrote:
+> This requirement on the first digit with the %e format comes from
+> the ISO C standard. It ensures that all the digits in the output are
+> significant and forbids output with a precision less than requested.
+
+Thanks. Patch applied.
 
 Cheers,
 
 Michael
 
-diff --git a/man3/fexecve.3 b/man3/fexecve.3
-index 25cf049dc..73b086881 100644
---- a/man3/fexecve.3
-+++ b/man3/fexecve.3
-@@ -86,8 +86,18 @@ is NULL, or
- .I envp
- is NULL.
- .TP
-+.B ENOENT
-+The close-on-exec flag is set on
-+.IR fd ,
-+and
-+.I fd
-+refers to a script.
-+See BUGS.
-+.TP
- .B ENOSYS
--The
-+The kernel does not provide the
-+.BR execveat (2)
-+system call, and the
- .I /proc
- filesystem could not be accessed.
- .SH VERSIONS
-
+> Signed-off-by: Vincent Lefevre <vincent@vinc17.net>
+> ---
+>  man3/printf.3 | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/man3/printf.3 b/man3/printf.3
+> index fb40b7077..66ad6af02 100644
+> --- a/man3/printf.3
+> +++ b/man3/printf.3
+> @@ -658,7 +658,8 @@ The
+>  .I double
+>  argument is rounded and converted in the style
+>  .RB [\-]d \&. ddd e \(+-dd
+> -where there is one digit before the decimal-point character and the number
+> +where there is one digit (which is nonzero if the argument is nonzero)
+> +before the decimal-point character and the number
+>  of digits after it is equal to the precision; if the precision is missing,
+>  it is taken as 6; if the precision is zero, no decimal-point character
+>  appears.
+> 
 
 
 -- 
