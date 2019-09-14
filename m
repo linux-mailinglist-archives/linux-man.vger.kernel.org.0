@@ -2,138 +2,85 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 29C72B2627
-	for <lists+linux-man@lfdr.de>; Fri, 13 Sep 2019 21:37:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A746EB291D
+	for <lists+linux-man@lfdr.de>; Sat, 14 Sep 2019 02:35:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2388377AbfIMTh2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 13 Sep 2019 15:37:28 -0400
-Received: from vmicros1.altlinux.org ([194.107.17.57]:52732 "EHLO
-        vmicros1.altlinux.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388245AbfIMTh2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Sep 2019 15:37:28 -0400
-Received: from mua.local.altlinux.org (mua.local.altlinux.org [192.168.1.14])
-        by vmicros1.altlinux.org (Postfix) with ESMTP id C02A172CCAE;
-        Fri, 13 Sep 2019 22:37:24 +0300 (MSK)
-Received: by mua.local.altlinux.org (Postfix, from userid 508)
-        id B20907CCB47; Fri, 13 Sep 2019 22:37:24 +0300 (MSK)
-Date:   Fri, 13 Sep 2019 22:37:24 +0300
-From:   "Dmitry V. Levin" <ldv@altlinux.org>
+        id S2388491AbfINAfh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 13 Sep 2019 20:35:37 -0400
+Received: from smtp.bonedaddy.net ([45.33.94.42]:40004 "EHLO
+        smtp.bonedaddy.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2387751AbfINAfg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Sep 2019 20:35:36 -0400
+X-Greylist: delayed 539 seconds by postgrey-1.27 at vger.kernel.org; Fri, 13 Sep 2019 20:35:36 EDT
+Received: from chianamo (unknown [114.111.153.40])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        (Authenticated sender: pabs3@bonedaddy.net)
+        by smtp.bonedaddy.net (Postfix) with ESMTPSA id 1EE6C180098;
+        Fri, 13 Sep 2019 20:27:02 -0400 (EDT)
+Message-ID: <8c59a8826bd5a49a2c5967c2714d6c344e1e0202.camel@bonedaddy.net>
+Subject: Re: [PATCH] Add some tips for how to contribute
+From:   Paul Wise <pabs3@bonedaddy.net>
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Elvira Khabirova <lineprinter@altlinux.org>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH] ptrace.2: document struct ptrace_syscall_info
-Message-ID: <20190913193724.GA26196@altlinux.org>
-References: <20190902123858.GA8956@altlinux.org>
- <0eb09cbc-8035-ee82-9c75-6525d91e7138@gmail.com>
- <20190911173807.GA25385@altlinux.org>
- <226a075d-5486-85fa-eee4-f13db6ee5448@gmail.com>
- <20190913154013.GA23393@altlinux.org>
- <4bcd01d4-fd94-1802-d600-08eb55c649ab@gmail.com>
+Cc:     linux-man@vger.kernel.org
+In-Reply-To: <024e7740-9f1f-af1c-fe7e-41e92af91da4@gmail.com>
+References: <20190807015026.26519-1-pabs3@bonedaddy.net>
+         <024e7740-9f1f-af1c-fe7e-41e92af91da4@gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+        protocol="application/pgp-signature"; boundary="=-minQO9YaZfYuDMUeWGT5"
+Date:   Sat, 14 Sep 2019 08:26:31 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4bcd01d4-fd94-1802-d600-08eb55c649ab@gmail.com>
+User-Agent: Evolution 3.30.5-1.1 
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Sep 13, 2019 at 08:48:21PM +0200, Michael Kerrisk (man-pages) wrote:
-> On 9/13/19 5:40 PM, Dmitry V. Levin wrote:
-> > On Thu, Sep 12, 2019 at 11:17:52AM +0200, Michael Kerrisk (man-pages) wrote:
-> >> Hello Dmitry,
-> >>
-> >> On 9/11/19 7:38 PM, Dmitry V. Levin wrote:
-> >>> Signed-off-by: Dmitry V. Levin <ldv@altlinux.org>
-> >>> ---
-> >>>  man2/ptrace.2 | 51 ++++++++++++++++++++++++++++++++++++++++++++++++++-
-> >>>  1 file changed, 50 insertions(+), 1 deletion(-)
-> >>>
-> >>> diff --git a/man2/ptrace.2 b/man2/ptrace.2
-> >>> index ff897bb19..b030247e6 100644
-> >>> --- a/man2/ptrace.2
-> >>> +++ b/man2/ptrace.2
-> >>> @@ -1026,7 +1026,56 @@ If the size of the data to be written by the kernel exceeds the size
-> >>>  specified by the
-> >>>  .I addr
-> >>>  argument, the output data is truncated.
-> >>> -.\" FIXME Document 'struct ptrace_syscall_info'
-> >>> +.IP
-> >>> +The
-> >>> +.I ptrace_syscall_info
-> >>> +structure contains the following fields:
-> >>> +.IP
-> >>> +.in
-> >>> +.EX
-> >>> +struct ptrace_syscall_info {
-> >>> +    __u8 op;                    /* PTRACE_SYSCALL_INFO_* value
-> >>> +                                   describing the kind
-> >>> +                                   of system call stop,
-> >>> +                                   see <linux/ptrace.h> */
-> >>> +    __u32 arch;                 /* AUDIT_ARCH_* value,
-> >>> +                                   see seccomp(2) */
-> >>> +    __u64 instruction_pointer;  /* CPU instruction pointer */
-> >>> +    __u64 stack_pointer;        /* CPU stack pointer */
-> >>> +    union {
-> >>> +        struct {
-> >>> +            __u64 nr;           /* System call number */
-> >>> +            __u64 args[6];      /* System call arguments */
-> >>> +        } entry;                /* Information specific to
-> >>> +                                   system call entry stops */
-> >>> +        struct {
-> >>> +            __s64 rval;         /* System call return value */
-> >>> +            __u8 is_error;      /* System call error flag */
-> >>> +        } exit;                 /* Information specific to
-> >>> +                                   system call exit stops */
-> >>> +        struct {
-> >>> +            __u64 nr;           /* System call number */
-> >>> +            __u64 args[6];      /* System call arguments */
-> >>> +            __u32 ret_data;     /* The SECCOMP_RET_DATA portion
-> >>> +                                   of SECCOMP_RET_TRACE return
-> >>> +                                   value */
-> >>> +        } seccomp;              /* Information specific to
-> >>> +                                   PTRACE_EVENT_SECCOMP stops */
-> >>> +    };
-> >>> +};
-> >>> +.EE
-> >>> +.in
-> >>> +.IP
-> >>> +.IR op ,
-> >>> +.IR arch ,
-> >>> +.IR instruction_pointer ,
-> >>> +and
-> >>> +.I stack_pointer
-> >>> +fields are defined for all kinds of ptrace system call stops.
-> >>> +The rest of the structure is a union, one should read only those fields
-> >>> +that are meaningful for the kind of system call stop specified by the
-> >>> +.IR op
-> >>> +field.
-> >>>  .\"
-> >>>  .SS Death under ptrace
-> >>>  When a (possibly multithreaded) process receives a killing signal
-> >>
-> >> Thanks. I've applied, and done some light editing.
-> >>
-> >> I also added some pieces. Could you please take a look at commits
-> >> f04534d22c69 [1] and 227a3682312 [2] let me know if they are okay.
-> > 
-> > Thanks.  The only thing that needs correction is
-> > "Boolean: is rval != 0?" comment about is_error field.
-> > 
-> > In fact, is_error is a boolean that tells whether rval field
-> > contains a non-error return value (e.g. file descriptor) or
-> > an error value (e.g. -ERRORCODE).
-> 
-> Thanks for checking this Dmitry. I see what I missed before.
-> I've now changed the text here to be:
-> 
->             __u8 is_error;     /* System call error flag;
->                                   Boolean: does rval contain
->                                   an error value (\-ERRCODE) or
->                                   a nonerror return value? */
 
-Yes, that's better, thanks.
+--=-minQO9YaZfYuDMUeWGT5
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, 2019-09-13 at 15:59 +0200, Michael Kerrisk (man-pages) wrote:
 
--- 
-ldv
+> Pretty much all of the above is covered either on the
+> project website, or in man-pages(7). (I just added a note
+> to man-pages(7) about avoiding blank lines as separators,=20
+> and further enhanced the discussion of semantic newlines.)
+
+I see, I hadn't seen that as I just had a git repo checkout.
+
+> But of course, your meta-point is: let's make things more
+> visible. I instead added a CONTRIBUTING file as below.
+
+Exactly. Looks great, thanks for that.
+
+--=20
+bye,
+pabs
+
+https://bonedaddy.net/pabs3/
+
+--=-minQO9YaZfYuDMUeWGT5
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEYQsotVz8/kXqG1Y7MRa6Xp/6aaMFAl18M7YACgkQMRa6Xp/6
+aaMhkQ//cTZZoryEn7t83U2EBQDtOzvBhWAHZndFpiHoklXjbIV+Z3JALi7u4o28
+KMBnxPWK1NehxVeQJU23nJcLQk5Juds2DURkLq919+w7+XHb6RpcnReYKsQEZXwc
+qNaCVmzvGy8kuqvz5eIw+DCI4YV3TWvQkVwCCZdR0GCgoQWoy5Hlm6oN/uF2RGNF
+X64eZNNtM9gGuMXbVt8lNRCrQXS0bspI9eWUSvXQZ/ql7wmg5YTCVl/7eY8IKMh5
+WCZP4IAC5Ykf5hkbBZS4rT+RSygfPFB7TwM0hcp9/1zOptDoDxoO7NcAppjyfQZK
+GIzoTtTjdJY14WUtbe5mzyb44hs71lTJMkv4z3qkVPJkxgHUtSinb5X8wAy7en5l
+c6CFOm/cEPGrK+dKTfINJ762Oz062lGAYg3zxd9mWIXCeHmfK2gAuVf7DYjJyTSA
+opOc7tLDwPrQRHexH3Mow2I+FoQ6TJg7zccOdTaaJrhFd6dh+3bFvKjKn4k3iWKO
+yHwRj+2QTfWi56PaKUI4GRer7IG2tX6nVvVo+BDKg/Rryj/tgm1lRi9VLUo/sYUf
+FaN8jMLIIkXsLIzSmSwFLdhFPSSHhfAwOSDK6oama4Fk1TIqNFPh3FRiLCbUrNQM
+qEK2Uyrt3ect54rD7gkNGIu+Cvki9kvROz92ffi1wmyx6IiKmpQ=
+=IIEE
+-----END PGP SIGNATURE-----
+
+--=-minQO9YaZfYuDMUeWGT5--
+
