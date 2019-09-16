@@ -2,175 +2,119 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 51C6CB35D0
-	for <lists+linux-man@lfdr.de>; Mon, 16 Sep 2019 09:40:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 19896B407E
+	for <lists+linux-man@lfdr.de>; Mon, 16 Sep 2019 20:43:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727834AbfIPHkP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 16 Sep 2019 03:40:15 -0400
-Received: from youngberry.canonical.com ([91.189.89.112]:59061 "EHLO
-        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726366AbfIPHkP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Sep 2019 03:40:15 -0400
-Received: from static-dcd-cqq-121001.business.bouyguestelecom.com ([212.194.121.1] helo=wittgenstein)
-        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
-        (Exim 4.86_2)
-        (envelope-from <christian.brauner@ubuntu.com>)
-        id 1i9lcL-00031J-J9; Mon, 16 Sep 2019 07:40:13 +0000
-Date:   Mon, 16 Sep 2019 09:40:13 +0200
-From:   Christian Brauner <christian.brauner@ubuntu.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, jannh@google.com, oleg@redhat.com
-Subject: Re: [PATCH] clone.2: add CLONE_PIDFD entry
-Message-ID: <20190916074012.dpsfqfwcxh2pyyt7@wittgenstein>
-References: <20190511064908.21956-1-christian.brauner@ubuntu.com>
- <fdc276ee-cf28-0a3b-3fd3-6f5033dae7d6@gmail.com>
+        id S1730076AbfIPSnm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 16 Sep 2019 14:43:42 -0400
+Received: from mx0a-001b2d01.pphosted.com ([148.163.156.1]:37500 "EHLO
+        mx0a-001b2d01.pphosted.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1730015AbfIPSnm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Sep 2019 14:43:42 -0400
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+        by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id x8GIgds5065556;
+        Mon, 16 Sep 2019 14:43:33 -0400
+Received: from pps.reinject (localhost [127.0.0.1])
+        by mx0a-001b2d01.pphosted.com with ESMTP id 2v2fg990ge-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Mon, 16 Sep 2019 14:43:32 -0400
+Received: from m0098409.ppops.net (m0098409.ppops.net [127.0.0.1])
+        by pps.reinject (8.16.0.27/8.16.0.27) with SMTP id x8GIhQjG067818;
+        Mon, 16 Sep 2019 14:43:32 -0400
+Received: from ppma03wdc.us.ibm.com (ba.79.3fa9.ip4.static.sl-reverse.com [169.63.121.186])
+        by mx0a-001b2d01.pphosted.com with ESMTP id 2v2fg990fw-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Mon, 16 Sep 2019 14:43:32 -0400
+Received: from pps.filterd (ppma03wdc.us.ibm.com [127.0.0.1])
+        by ppma03wdc.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id x8GIYbbL027450;
+        Mon, 16 Sep 2019 18:43:31 GMT
+Received: from b01cxnp23033.gho.pok.ibm.com (b01cxnp23033.gho.pok.ibm.com [9.57.198.28])
+        by ppma03wdc.us.ibm.com with ESMTP id 2v0t3d2gef-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Mon, 16 Sep 2019 18:43:31 +0000
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com [9.57.199.111])
+        by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id x8GIhUg448693736
+        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Mon, 16 Sep 2019 18:43:30 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+        by IMSVA (Postfix) with ESMTP id D7281AC05B;
+        Mon, 16 Sep 2019 18:43:30 +0000 (GMT)
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+        by IMSVA (Postfix) with ESMTP id 9127EAC059;
+        Mon, 16 Sep 2019 18:43:30 +0000 (GMT)
+Received: from localhost (unknown [9.86.226.90])
+        by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
+        Mon, 16 Sep 2019 18:43:30 +0000 (GMT)
+From:   Raphael Moreira Zinsly <rzinsly@linux.vnet.ibm.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, benh@kernel.crashing.org,
+        mpe@ellerman.id.au,
+        Raphael Moreira Zinsly <rzinsly@linux.vnet.ibm.com>
+Subject: [PATCH] getauxval.3: Add new cache geometry entries
+Date:   Mon, 16 Sep 2019 15:41:36 -0300
+Message-Id: <20190916184136.13621-1-rzinsly@linux.vnet.ibm.com>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <fdc276ee-cf28-0a3b-3fd3-6f5033dae7d6@gmail.com>
-User-Agent: NeoMutt/20180716
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:,, definitions=2019-09-16_07:,,
+ signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=889 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1908290000 definitions=main-1909160182
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Sep 11, 2019 at 10:58:57AM +0200, Michael Kerrisk (man-pages) wrote:
-> Hello Christian,
-> 
-> On 5/11/19 8:49 AM, Christian Brauner wrote:
-> > From: Christian Brauner <christian@brauner.io>
-> > 
-> > Add an entry for CLONE_PIDFD. This flag is available starting with
-> > kernel 5.2. If specified, a process file descriptor ("pidfd") referring
-> > to the child process will be returned in the ptid argument.
-> 
-> I've applied this patch in a local branch, and made some minor edits
+Add entries for the new cache geometry values of the auxiliary vectors
+that got included in the kernel.
 
-Thank you! :)
+Signed-off-by: Raphael Moreira Zinsly <rzinsly@linux.vnet.ibm.com>
+---
+ man3/getauxval.3 | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-> and added a piece. And I have some questions. See below.
-> 
-> > Signed-off-by: Christian Brauner <christian@brauner.io>
-> > ---
-> >  man2/clone.2 | 51 +++++++++++++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 51 insertions(+)
-> > 
-> > diff --git a/man2/clone.2 b/man2/clone.2
-> > index 7e880beb8..ee08aeb42 100644
-> > --- a/man2/clone.2
-> > +++ b/man2/clone.2
-> > @@ -539,6 +539,42 @@ The flag disappeared completely from the kernel sources in Linux 2.5.16.
-> >  Since then, the kernel silently ignores this bit if it is specified in
-> >  .IR flags .
-> >  .TP
-> > +.BR CLONE_PIDFD " (since Linux 5.2)"
-> > +If
-> > +.B CLONE_PIDFD
-> > +is set,
-> > +.BR clone ()
-> > +stores a process file descriptor ("pidfd") referring to the child process at
-> > +the location
-> > +.I ptid
-> > +in the parent's memory. 
-> 
-> I added a note that the close-on-exec flag is set on the new FD.
+diff --git a/man3/getauxval.3 b/man3/getauxval.3
+index 794bc97b5..30f0757b5 100644
+--- a/man3/getauxval.3
++++ b/man3/getauxval.3
+@@ -123,6 +123,33 @@ The instruction cache block size.
+ .\" .TP
+ .\" .BR AT_NOTELF
+ .TP
++.\" Kernel commit 98a5f361b8625c6f4841d6ba013bbf0e80d08147
++.BR AT_L1D_CACHEGEOMETRY
++Geometry of the L1 data cache, that is, line size and number
++of ways.
++.TP
++.BR AT_L1D_CACHESIZE
++The L1 data cache size.
++.TP
++.BR AT_L1I_CACHEGEOMETRY
++Geometry of the L1 instruction cache, that is, line size and
++number of ways.
++.TP
++.BR AT_L1I_CACHESIZE
++The L1 instruction cache size.
++.TP
++.BR AT_L2_CACHEGEOMETRY
++Geometry of the L2 cache, that is, line size and number of ways.
++.TP
++.BR AT_L2_CACHESIZE
++The L2 cache size.
++.TP
++.BR AT_L3_CACHEGEOMETRY
++Geometry of the L3 cache, that is, line size and number of ways.
++.TP
++.BR AT_L3_CACHESIZE
++The L3 cache size.
++.TP
+ .BR AT_PAGESZ
+ The system page size (the same value returned by
+ .IR sysconf(_SC_PAGESIZE) ).
+-- 
+2.21.0
 
-Ack.
-
-> 
-> > Note, that the kernel verifies that the value for
-> > +.I ptid
-> > +is zero. If it is not an error will be returned. This ensures that
-> > +.I ptid
-> > +can potentially be used to specify additional options for
-> > +.B CLONE_PIDFD
-> > +in the future.
-> 
-> This piece is no longer true, right? At least I can't see such 
-
-Correct.
-
-> a check in the kernel code, and my testing doesn't yield an error
-> when ptid != 0 before the call.(No need to send me a patch; if I'm
-> correct just let me know and I'll edit out this piece.)
-> 
-> > +.IP
-> > +Since the
-> > +.I ptid
-> > +argument is used to return the pidfd,
-> > +.B CLONE_PIDFD
-> > +cannot be used with
-> > +.B CLONE_PARENT_SETTID.
-> > +.IP
-> > +It is currently not possible to use this flag together with
-> > +.B CLONE_THREAD.
-> > +This means that the process identified by the pidfd will always be a
-> > +thread-group leader.
-> > +.IP
-> > +For a while there was a
-> > +.B CLONE_DETACHED
-> > +flag. This flag is usually ignored when passed along with other flags.
-> > +However, when passed alongside
-> > +.B CLONE_PIDFD
-> > +an error will be returned. This ensures that this flag can be reused
-> > +for further pidfd features in the future.
-> > +.TP
-> >  .BR CLONE_PTRACE " (since Linux 2.2)"
-> >  If
-> >  .B CLONE_PTRACE
-> > @@ -1122,6 +1158,21 @@ For example, on aarch64,
-> >  .I child_stack
-> >  must be a multiple of 16.
-> >  .TP
-> > +.B EINVAL
-> > +.B CLONE_PIDFD
-> > +was specified together with
-> > +.B CLONE_DETACHED.
-> > +.TP
-> > +.B EINVAL
-> > +.B CLONE_PIDFD
-> > +was specified together with
-> > +.B CLONE_PARENT_SETTID.
-> > +.TP
-> > +.B EINVAL
-> > +.B CLONE_PIDFD
-> > +was specified together with
-> > +.B CLONE_THREAD.
-> > +.TP
-> >  .B ENOMEM
-> >  Cannot allocate sufficient memory to allocate a task structure for the
-> >  child, or to copy those parts of the caller's context that need to be
-> 
-> One other piece seems to be missing: the returned file descriptor can
-> be fed to poll()/select()/epoll and the FD will test as readable when
-> the child terminates. Right? Did that functionality also land in
-> kernel 5.2? And did it get implemented as a separate commit, or did
-> the behavior just fall naturally out of the implementation of pidfd's?
-> Let me know the details, and I will craft a patch.
-
-It landed in 5.3. The relevant commit is:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b53b0b9d9a613c418057f6cb921c2f40a6f78c24
-and belongs to the following merge:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5450e8a316a64cddcbc15f90733ebc78aa736545
-
-> 
-> Also, as far as I can see (from testing) the FD only gives pollable
-> events on process termination, not on other process transitions such
-> as stop and continue. Right? (Are there any plans to implement such
-
-Correct.
-
-> functionality for stop/contine transitions?
-
-Yes, at some point we will likely want this.
-
-> 
-> By the way, when do you expect the pidfd-wait functionality to land 
-> in the kernel?
-
-I've sent a PR for 5.4:
-https://lkml.org/lkml/2019/9/10/682
-which contains the P_PIDFD extension to waitid().
-
-Thanks for the work, Michael!
-Christian
