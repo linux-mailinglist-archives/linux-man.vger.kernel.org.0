@@ -2,119 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 19896B407E
-	for <lists+linux-man@lfdr.de>; Mon, 16 Sep 2019 20:43:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A0219B47FF
+	for <lists+linux-man@lfdr.de>; Tue, 17 Sep 2019 09:17:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730076AbfIPSnm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 16 Sep 2019 14:43:42 -0400
-Received: from mx0a-001b2d01.pphosted.com ([148.163.156.1]:37500 "EHLO
-        mx0a-001b2d01.pphosted.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1730015AbfIPSnm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Sep 2019 14:43:42 -0400
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
-        by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id x8GIgds5065556;
-        Mon, 16 Sep 2019 14:43:33 -0400
-Received: from pps.reinject (localhost [127.0.0.1])
-        by mx0a-001b2d01.pphosted.com with ESMTP id 2v2fg990ge-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-        Mon, 16 Sep 2019 14:43:32 -0400
-Received: from m0098409.ppops.net (m0098409.ppops.net [127.0.0.1])
-        by pps.reinject (8.16.0.27/8.16.0.27) with SMTP id x8GIhQjG067818;
-        Mon, 16 Sep 2019 14:43:32 -0400
-Received: from ppma03wdc.us.ibm.com (ba.79.3fa9.ip4.static.sl-reverse.com [169.63.121.186])
-        by mx0a-001b2d01.pphosted.com with ESMTP id 2v2fg990fw-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-        Mon, 16 Sep 2019 14:43:32 -0400
-Received: from pps.filterd (ppma03wdc.us.ibm.com [127.0.0.1])
-        by ppma03wdc.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id x8GIYbbL027450;
-        Mon, 16 Sep 2019 18:43:31 GMT
-Received: from b01cxnp23033.gho.pok.ibm.com (b01cxnp23033.gho.pok.ibm.com [9.57.198.28])
-        by ppma03wdc.us.ibm.com with ESMTP id 2v0t3d2gef-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-        Mon, 16 Sep 2019 18:43:31 +0000
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com [9.57.199.111])
-        by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id x8GIhUg448693736
-        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-        Mon, 16 Sep 2019 18:43:30 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
-        by IMSVA (Postfix) with ESMTP id D7281AC05B;
-        Mon, 16 Sep 2019 18:43:30 +0000 (GMT)
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
-        by IMSVA (Postfix) with ESMTP id 9127EAC059;
-        Mon, 16 Sep 2019 18:43:30 +0000 (GMT)
-Received: from localhost (unknown [9.86.226.90])
-        by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
-        Mon, 16 Sep 2019 18:43:30 +0000 (GMT)
-From:   Raphael Moreira Zinsly <rzinsly@linux.vnet.ibm.com>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, benh@kernel.crashing.org,
-        mpe@ellerman.id.au,
-        Raphael Moreira Zinsly <rzinsly@linux.vnet.ibm.com>
-Subject: [PATCH] getauxval.3: Add new cache geometry entries
-Date:   Mon, 16 Sep 2019 15:41:36 -0300
-Message-Id: <20190916184136.13621-1-rzinsly@linux.vnet.ibm.com>
-X-Mailer: git-send-email 2.21.0
+        id S1730666AbfIQHQ6 convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Tue, 17 Sep 2019 03:16:58 -0400
+Received: from mail.11d03.mspz7.gob.ec ([190.214.23.250]:36958 "EHLO
+        mail.11d03.mspz7.gob.ec" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2392552AbfIQHQ6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Sep 2019 03:16:58 -0400
+X-Greylist: delayed 9190 seconds by postgrey-1.27 at vger.kernel.org; Tue, 17 Sep 2019 03:16:58 EDT
+Received: from localhost (localhost [127.0.0.1])
+        by mail.11d03.mspz7.gob.ec (Postfix) with ESMTP id 6E15E4053597A;
+        Mon, 16 Sep 2019 23:19:21 -0500 (-05)
+Received: from mail.11d03.mspz7.gob.ec ([127.0.0.1])
+        by localhost (mail.11d03.mspz7.gob.ec [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id ufJfvchuQ9h3; Mon, 16 Sep 2019 23:19:21 -0500 (-05)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.11d03.mspz7.gob.ec (Postfix) with ESMTP id F34494053597B;
+        Mon, 16 Sep 2019 23:19:20 -0500 (-05)
+X-Virus-Scanned: amavisd-new at 11d03.mspz7.gob.ec
+Received: from mail.11d03.mspz7.gob.ec ([127.0.0.1])
+        by localhost (mail.11d03.mspz7.gob.ec [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id GPeT1IeuAWto; Mon, 16 Sep 2019 23:19:20 -0500 (-05)
+Received: from [10.33.79.142] (unknown [105.4.0.133])
+        by mail.11d03.mspz7.gob.ec (Postfix) with ESMTPSA id 6C02940535964;
+        Mon, 16 Sep 2019 23:19:11 -0500 (-05)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:,, definitions=2019-09-16_07:,,
- signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=889 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1908290000 definitions=main-1909160182
+Content-Transfer-Encoding: 8BIT
+Content-Description: Mail message body
+Subject: =?utf-8?q?Wohlt=C3=A4tigkeitsspende_von_2=2E000=2E000_Millionen_Euro?=
+To:     Recipients <vicenta.sinche@11d03.mspz7.gob.ec>
+From:   ''Tayeb souami'' <vicenta.sinche@11d03.mspz7.gob.ec>
+Date:   Tue, 17 Sep 2019 06:19:01 +0200
+Reply-To: Tayebsouam.spende@gmail.com
+Message-Id: <20190917041911.6C02940535964@mail.11d03.mspz7.gob.ec>
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Add entries for the new cache geometry values of the auxiliary vectors
-that got included in the kernel.
+Lieber Freund,
 
-Signed-off-by: Raphael Moreira Zinsly <rzinsly@linux.vnet.ibm.com>
----
- man3/getauxval.3 | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+Ich bin Herr Tayeb Souami, New Jersey, Vereinigte Staaten von Amerika, der Mega-Gewinner von $ 315million In Mega Millions Jackpot, spende ich an 5 zufällige Personen, wenn Sie diese E-Mail erhalten, dann wurde Ihre E-Mail nach einem Spinball ausgewählt.Ich habe den größten Teil meines Vermögens auf eine Reihe von Wohltätigkeitsorganisationen und Organisationen verteilt.Ich habe mich freiwillig dazu entschieden, die Summe von € 2.000.000,00 an Sie als eine der ausgewählten 5 zu spenden, um meine Gewinne zu überprüfen, sehen Sie bitte meine You Tube Seite unten.
 
-diff --git a/man3/getauxval.3 b/man3/getauxval.3
-index 794bc97b5..30f0757b5 100644
---- a/man3/getauxval.3
-+++ b/man3/getauxval.3
-@@ -123,6 +123,33 @@ The instruction cache block size.
- .\" .TP
- .\" .BR AT_NOTELF
- .TP
-+.\" Kernel commit 98a5f361b8625c6f4841d6ba013bbf0e80d08147
-+.BR AT_L1D_CACHEGEOMETRY
-+Geometry of the L1 data cache, that is, line size and number
-+of ways.
-+.TP
-+.BR AT_L1D_CACHESIZE
-+The L1 data cache size.
-+.TP
-+.BR AT_L1I_CACHEGEOMETRY
-+Geometry of the L1 instruction cache, that is, line size and
-+number of ways.
-+.TP
-+.BR AT_L1I_CACHESIZE
-+The L1 instruction cache size.
-+.TP
-+.BR AT_L2_CACHEGEOMETRY
-+Geometry of the L2 cache, that is, line size and number of ways.
-+.TP
-+.BR AT_L2_CACHESIZE
-+The L2 cache size.
-+.TP
-+.BR AT_L3_CACHEGEOMETRY
-+Geometry of the L3 cache, that is, line size and number of ways.
-+.TP
-+.BR AT_L3_CACHESIZE
-+The L3 cache size.
-+.TP
- .BR AT_PAGESZ
- The system page size (the same value returned by
- .IR sysconf(_SC_PAGESIZE) ).
--- 
-2.21.0
+UHR MICH HIER: https://www.youtube.com/watch?v=Z6ui8ZDQ6Ks
 
+Das ist dein Spendencode: [TS530342018]
+
+Antworten Sie mit dem SPENDE-CODE an diese 
+
+E-Mail:Tayebsouam.spende@gmail.com
+
+Ich hoffe, Sie und Ihre Familie glücklich zu machen.
+
+Grüße
+Herr Tayeb Souami
