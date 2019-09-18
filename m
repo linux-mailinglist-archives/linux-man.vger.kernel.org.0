@@ -2,156 +2,129 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id ED073B5DD2
-	for <lists+linux-man@lfdr.de>; Wed, 18 Sep 2019 09:14:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 91B63B67D8
+	for <lists+linux-man@lfdr.de>; Wed, 18 Sep 2019 18:17:06 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727574AbfIRHOS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 18 Sep 2019 03:14:18 -0400
-Received: from youngberry.canonical.com ([91.189.89.112]:38381 "EHLO
-        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726077AbfIRHOS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 18 Sep 2019 03:14:18 -0400
-Received: from static-dcd-cqq-121001.business.bouyguestelecom.com ([212.194.121.1] helo=wittgenstein)
-        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
-        (Exim 4.86_2)
-        (envelope-from <christian.brauner@ubuntu.com>)
-        id 1iAUAK-0004Wq-9q; Wed, 18 Sep 2019 07:14:16 +0000
-Date:   Wed, 18 Sep 2019 09:14:15 +0200
-From:   Christian Brauner <christian.brauner@ubuntu.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, jannh@google.com, oleg@redhat.com
-Subject: Re: [PATCH] clone.2: add CLONE_PIDFD entry
-Message-ID: <20190918071415.gmxvovgiwgsi62tn@wittgenstein>
-References: <20190511064908.21956-1-christian.brauner@ubuntu.com>
- <fdc276ee-cf28-0a3b-3fd3-6f5033dae7d6@gmail.com>
- <20190916074012.dpsfqfwcxh2pyyt7@wittgenstein>
- <7f115550-c7e6-c803-e47b-a37b7cdfb0a9@gmail.com>
+        id S2387556AbfIRQRF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 18 Sep 2019 12:17:05 -0400
+Received: from mtax.cdmx.gob.mx ([187.141.35.197]:8232 "EHLO mtaw.cdmx.gob.mx"
+        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
+        id S2387555AbfIRQRF (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 18 Sep 2019 12:17:05 -0400
+X-NAI-Header: Modified by McAfee Email Gateway (4500)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cdmx.gob.mx; s=72359050-3965-11E6-920A-0192F7A2F08E;
+        t=1568822832; h=X-Virus-Scanned:Content-Type:
+         MIME-Version:Content-Transfer-Encoding:Content-Description:
+         Subject:To:From:Date:Reply-To:Message-Id:X-AnalysisOut:
+         X-AnalysisOut:X-AnalysisOut:X-AnalysisOut:
+         X-AnalysisOut:X-AnalysisOut:X-AnalysisOut:
+         X-SAAS-TrackingID:X-NAIMIME-Disclaimer:X-NAIMIME-Modified:
+         X-NAI-Spam-Flag:X-NAI-Spam-Threshold:X-NAI-Spam-Score:
+         X-NAI-Spam-Rules:X-NAI-Spam-Version; bh=K
+        jij0GhOpdKSaBiEpb4h9F2ukULK7Zgku7ZRRhmMNN
+        U=; b=tFBjD32CuS5qUjiDuvguG8dHNj/28Mw+KG7aL2CQWm6X
+        Y3NlyGoZdfM+CcoYQkfs6Uaym6dpcTniDOAE0kaPl1j3jvmyQy
+        k/pIdyyg4THCcHTUMJt6qdYxm6nQxI3wKxw7yHYjEuofvdX1mj
+        0jUW3Xcf3UtAwfkZBcCfIT+Im8o=
+Received: from correo.seciti.cdmx.gob.mx (gdf-correo.cdmx.gob.mx [10.250.102.17]) by mtaw.cdmx.gob.mx with smtp
+         id 0318_f269_7ef99fe6_14b9_4a7a_91b7_c274b4927516;
+        Wed, 18 Sep 2019 11:07:11 -0500
+Received: from localhost (localhost [127.0.0.1])
+        by gdf-correo.df.gob.mx (Postfix) with ESMTP id DF4453114;
+        Wed, 18 Sep 2019 11:07:03 -0500 (CDT)
+Received: from correo.seciti.cdmx.gob.mx ([127.0.0.1])
+        by localhost (gdf-correo.df.gob.mx [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id Uq2GxUMOhnTt; Wed, 18 Sep 2019 11:07:03 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+        by gdf-correo.df.gob.mx (Postfix) with ESMTP id 50C9230BC;
+        Wed, 18 Sep 2019 11:07:03 -0500 (CDT)
+X-Virus-Scanned: amavisd-new at gdf-correo.df.gob.mx
+Received: from correo.seciti.cdmx.gob.mx ([127.0.0.1])
+        by localhost (gdf-correo.df.gob.mx [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id ad49Pr1vvlFj; Wed, 18 Sep 2019 11:07:03 -0500 (CDT)
+Received: from [41.148.42.229] (8ta-148-42-229.telkomadsl.co.za [41.148.42.229])
+        by gdf-correo.df.gob.mx (Postfix) with ESMTPSA id F2B0830DF;
+        Wed, 18 Sep 2019 11:06:40 -0500 (CDT)
+Content-Type: text/plain;
+  charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <7f115550-c7e6-c803-e47b-a37b7cdfb0a9@gmail.com>
-User-Agent: NeoMutt/20180716
+Content-Transfer-Encoding: base64
+Content-Description: Mail message body
+Subject: Spende von 5 Millionen Euro
+To:     Recipients <mramirezg@mexicocity.gob.mx>
+From:   "Shane Missler" <mramirezg@mexicocity.gob.mx>
+Date:   Wed, 18 Sep 2019 18:06:28 +0200
+Reply-To: shanemissler3@gmail.com
+Message-Id: <20190918160640.F2B0830DF@gdf-correo.df.gob.mx>
+X-AnalysisOut: [v=2.2 cv=ALO4jLJd c=1 sm=1 tr=0 p=ELT1L0JgSr8A:10 p=09-KjH]
+X-AnalysisOut: [S_CW8A:10 p=bEr4i4eggGkA:10 p=emDABjehN2fqPHqc8RbT:22 p=Ly]
+X-AnalysisOut: [qu6MUUigPyaOuRX7ce:22 a=KsSCQl7LcZej77FuluUcQw==:117 a=oLf]
+X-AnalysisOut: [NtqljNgXPa7RrmTwnGA==:17 a=IkcTkHD0fZMA:10 a=x7bEGLp0ZPQA:]
+X-AnalysisOut: [10 a=J70Eh1EUuV4A:10 a=pGLkceISAAAA:8 a=wN7rT8hNlMSaUXRpxS]
+X-AnalysisOut: [gA:9 a=K7tsimcRO30Sg2YH:21 a=QOCYt1FwmxBrUrRv:21 a=QEXdDO2]
+X-AnalysisOut: [ut3YA:10]
+X-SAAS-TrackingID: 036528d5.0.82671237.00-2396.138897629.s12p02m002.mxlogic.net
+X-NAIMIME-Disclaimer: 1
+X-NAIMIME-Modified: 1
+X-NAI-Spam-Flag: NO
+X-NAI-Spam-Threshold: 3
+X-NAI-Spam-Score: -5000
+X-NAI-Spam-Rules: 1 Rules triggered
+        WHITELISTED=-5000
+X-NAI-Spam-Version: 2.3.0.9418 : core <6637> : inlines <7142> : streams
+ <1833127> : uri <2906032>
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Sep 18, 2019 at 08:49:59AM +0200, Michael Kerrisk (man-pages) wrote:
-> Hello Christian,
-> 
-> On 9/16/19 9:40 AM, Christian Brauner wrote:
-> > On Wed, Sep 11, 2019 at 10:58:57AM +0200, Michael Kerrisk (man-pages) wrote:
-> >> Hello Christian,
-> >>
-> >> On 5/11/19 8:49 AM, Christian Brauner wrote:
-> >>> From: Christian Brauner <christian@brauner.io>
-> >>>
-> >>> Add an entry for CLONE_PIDFD. This flag is available starting with
-> >>> kernel 5.2. If specified, a process file descriptor ("pidfd") referring
-> >>> to the child process will be returned in the ptid argument.
-> >>
-> >> I've applied this patch in a local branch, and made some minor edits
-> > 
-> > Thank you! :)
-> > 
-> >> and added a piece. And I have some questions. See below.
-> >>
-> >>> Signed-off-by: Christian Brauner <christian@brauner.io>
-> >>> ---
-> 
-> [...]
-> 
-> >>> Note, that the kernel verifies that the value for
-> >>> +.I ptid
-> >>> +is zero. If it is not an error will be returned. This ensures that
-> >>> +.I ptid
-> >>> +can potentially be used to specify additional options for
-> >>> +.B CLONE_PIDFD
-> >>> +in the future.
-> >>
-> >> This piece is no longer true, right? At least I can't see such 
-> > 
-> > Correct.
-> 
-> Thanks. Page amended.
-> 
-> >> a check in the kernel code, and my testing doesn't yield an error
-> >> when ptid != 0 before the call.(No need to send me a patch; if I'm
-> >> correct just let me know and I'll edit out this piece.)
-> >>
-> >>> +.IP
-> >>> +Since the
-> >>> +.I ptid
-> >>> +argument is used to return the pidfd,
-> >>> +.B CLONE_PIDFD
-> >>> +cannot be used with
-> >>> +.B CLONE_PARENT_SETTID.
-> >>> +.IP
-> >>> +It is currently not possible to use this flag together with
-> >>> +.B CLONE_THREAD.
-> >>> +This means that the process identified by the pidfd will always be a
-> >>> +thread-group leader.
-> >>> +.IP
-> >>> +For a while there was a
-> >>> +.B CLONE_DETACHED
-> >>> +flag. This flag is usually ignored when passed along with other flags.
-> >>> +However, when passed alongside
-> >>> +.B CLONE_PIDFD
-> >>> +an error will be returned. This ensures that this flag can be reused
-> >>> +for further pidfd features in the future.
-> >>> +.TP
-> >>>  .BR CLONE_PTRACE " (since Linux 2.2)"
-> >>>  If
-> >>>  .B CLONE_PTRACE
-> >>> @@ -1122,6 +1158,21 @@ For example, on aarch64,
-> >>>  .I child_stack
-> >>>  must be a multiple of 16.
-> >>>  .TP
-> >>> +.B EINVAL
-> >>> +.B CLONE_PIDFD
-> >>> +was specified together with
-> >>> +.B CLONE_DETACHED.
-> >>> +.TP
-> >>> +.B EINVAL
-> >>> +.B CLONE_PIDFD
-> >>> +was specified together with
-> >>> +.B CLONE_PARENT_SETTID.
-> >>> +.TP
-> >>> +.B EINVAL
-> >>> +.B CLONE_PIDFD
-> >>> +was specified together with
-> >>> +.B CLONE_THREAD.
-> >>> +.TP
-> >>>  .B ENOMEM
-> >>>  Cannot allocate sufficient memory to allocate a task structure for the
-> >>>  child, or to copy those parts of the caller's context that need to be
-> >>
-> >> One other piece seems to be missing: the returned file descriptor can
-> >> be fed to poll()/select()/epoll and the FD will test as readable when
-> >> the child terminates. Right? Did that functionality also land in
-> >> kernel 5.2? And did it get implemented as a separate commit, or did
-> >> the behavior just fall naturally out of the implementation of pidfd's?
-> >> Let me know the details, and I will craft a patch.
-> > 
-> > It landed in 5.3. The relevant commit is:
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b53b0b9d9a613c418057f6cb921c2f40a6f78c24
-> > and belongs to the following merge:
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5450e8a316a64cddcbc15f90733ebc78aa736545
-> 
-> Thanks for that info. One other questions springs to mind.
-> I haven't looked at the source or tried testing this,
-> but can anything actually be read() from a PIDFD? Presumably,
-
-We had discussed this but decided to not implement this right away.
-Mainly, because we did not have a clear picture what the semantics
-should be. But it is something that we will probably want in the
-future...
-
-> it might be useful to have data generated on the FD, since
-> different values could (ultimately) be used to distinguish
-> between terminate/stopp/continue transitions.
-
-Yes.
-
-Thanks!
-Christian
+RGllcyBpc3QgZWluZSBwZXJzw7ZubGljaGUgTWFpbCwgZGllIGljaCBhbiBTaWUgYWRyZXNzaWVy
+ZS4gSWNoIGJpbiBTSEFORSBNSVNTTEVSIGF1cyBGbG9yaWRhLCBVU0EuIFdpZSBTaWUgYmVyZWl0
+cyB3aXNzZW4sIGhhYmUgaWNoIGVpbmVuIExvdHRvLUphY2twb3QgaW4gSMO2aGUgdm9uIDQ1MSBN
+aW8uIFVTRCAoMzMwIE1pby4gR0JQKSBnZXdvbm5lbiB1bmQgZGFzIEdlbGQgaGF0IG1laW4gTGVi
+ZW4gdW5kIG1laW4gRmFtaWxpZW5sZWJlbiB2ZXLDpG5kZXJ0LCBhYmVyIGVzIHdpcmQgbWVpbiBI
+ZXJ6IG5pY2h0IHZlcsOkbmRlcm4sIHdpZSBpY2ggYW4gZGVtIFRhZyBzYWd0ZSwgYW4gZGVtIGlj
+aCBtZWluIEdlbGQgaGFiZSwgZGFzIGljaCB2ZXJ3ZW5kZW4gd2VyZGUgRGllc2VzIEdlbGQgZsO8
+ciBkaWUgSGlsZmUgZGVyIE1lbnNjaGhlaXQuIEljaCBoYWJlIGJlc2NobG9zc2VuLCBJaG5lbiB1
+bmQgSWhyZXIgR2VtZWluZGUgZWluZW4gQmV0cmFnIHZvbiA1IE1pbGxpb25lbiBFdXJvIHp1IHNw
+ZW5kZW4sIHVtIGRpZXNlIFNwZW5kZSBhbnp1Zm9yZGVybi4gRS1NYWlsOiAoc2hhbmVtaXNzbGVy
+MEBnbWFpbC5jb20pCgoKQ2VjaSBlc3QgdW4gY291cnJpZXIgcGVyc29ubmVsIHF1ZSBqZSB2b3Vz
+IGFkcmVzc2UuIEplIHN1aXMgU0hBTkUgTUlTU0xFUiwgZGUgRmxvcmlkZSwgw4l0YXRzLVVuaXMu
+IENvbW1lIHZvdXMgbGUgc2F2ZXogZMOpasOgLCBqJ2FpIGdhZ27DqSA0NTEgbWlsbGlvbnMgZGUg
+ZG9sbGFycyAoTG90dG8gSmFja3BvdCkgZXQgbCdhcmdlbnQgYSBjaGFuZ8OpIG1hIHZpZSBldCBj
+ZWxsZSBkZSBtYSBmYW1pbGxlLCBtYWlzIGNlbGEgbmUgY2hhbmdlcmEgcGFzIG1vbiBjxZN1ciwg
+Y29tbWUgamUgbCdhaSBkaXQgbGUgam91ciBvw7kgaidhaSBtb24gYXJnZW50LCBqJ3V0aWxpc2Vy
+YWkgY2V0IGFyZ2VudCBwb3VyIGwnYWlkZSBkZSBsJ2h1bWFuaXTDqS5KJ2FpIGTDqWNpZMOpIGRl
+IHZvdXMgZG9ubmVyIGxhIHNvbW1lIGRlIDUgbWlsbGlvbnMgZCdldXJvcyDDoCB2b3VzIGV0IMOg
+IHZvdHJlIGNvbW11bmF1dMOpLCBwb3VyIHLDqWNsYW1lciBjZSBkb24sIGVtYWlsLSAoc2hhbmVt
+aXNzbGVyMEBnbWFpbC5jb20pCgoKCgouLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
+Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
+Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
+Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
+Li4uLi4uLi4KCgpMYSBpbmZvcm1hY2lvbiBjb250ZW5pZGEgZW4gZXN0ZSBjb3JyZW8sIGFzaSBj
+b21vIGxhIGNvbnRlbmlkYSBlbiBsb3MgZG9jdW1lbnRvcyBhbmV4b3MsIHB1ZWRlIGNvbnRlbmVy
+IGRhdG9zIHBlcnNvbmFsZXMsIHBvciBsbyBxdWUgc3UgZGlmdXNpb24gZXMgcmVzcG9uc2FiaWxp
+ZGFkIGRlIHF1aWVuIGxvcyB0cmFuc21pdGUgeSBxdWllbiBsb3MgcmVjaWJlLCBlbiB0w6lybWlu
+b3MgZGUgbG8gZGlzcHVlc3RvIHBvciBsYXMgZnJhY2Npb25lcyBJSSB5IFZJSSBkZWwgYXJ0aWN1
+bG8gNCwgdWx0aW1vIHBhcnJhZm8gZGVsIGFydGljdWxvIDgsIGFydGljdWxvIDM2IHBhcnJhZm8g
+SUksIDM4IGZyYWNjaW9uIEkgeSBkZW1hcyBhcGxpY2FibGVzIGRlIGxhIExleSBkZSBUcmFuc3Bh
+cmVuY2lhIHkgQWNjZXNvIGEgbGEgSW5mb3JtYWNpb24gUHVibGljYSBkZWwgRGlzdHJpdG8gRmVk
+ZXJhbC4NCkxvcyBEYXRvcyBQZXJzb25hbGVzIHNlIGVuY3VlbnRyYW4gcHJvdGVnaWRvcyBwb3Ig
+bGEgTGV5IGRlIFByb3RlY2Npb24gZGUgRGF0b3MgUGVyc29uYWxlcyBkZWwgRGlzdHJpdG8gRmVk
+ZXJhbCwgcG9yIGxvIHF1ZSBzdSBkaWZ1c2lvbiBzZSBlbmN1ZW50cmEgdHV0ZWxhZGEgZW4gc3Vz
+IGFydGljdWxvcyAyLCA1LCAxNiwgMjEsIDQxIHkgZGVtYXMgcmVsYXRpdm9zIHkgYXBsaWNhYmxl
+cywgZGViaWVuZG8gc3VqZXRhcnNlIGVuIHN1IGNhc28sIGEgbGFzIGRpc3Bvc2ljaW9uZXMgcmVs
+YXRpdmFzIGEgbGEgY3JlYWNpb24sIG1vZGlmaWNhY2lvbiBvIHN1cHJlc2lvbiBkZSBkYXRvcyBw
+ZXJzb25hbGVzIHByZXZpc3Rvcy4gQXNpbWlzbW8sIGRlYmVyYSBlc3RhcnNlIGEgbG8gc2XDsWFs
+YWRvIGVuIGxvcyBudW1lcmFsZXMgMSAsIDMsIDEyLCAxOCwgMTksIDIwLCAyMSwgMjMsIDI0LCAy
+OSwgMzUgeSBkZW1hcyBhcGxpY2FibGVzIGRlIGxvcyBMaW5lYW1pZW50b3MgcGFyYSBsYSBQcm90
+ZWNjaW9uIGRlIERhdG9zIFBlcnNvbmFsZXMgZW4gZWwgRGlzdHJpdG8gRmVkZXJhbC4NCkVuIGVs
+IHVzbyBkZSBsYXMgdGVjbm9sb2dpYXMgZGUgbGEgaW5mb3JtYWNpb24geSBjb211bmljYWNpb25l
+cyBkZWwgR29iaWVybm8gZGVsIERpc3RyaXRvIEZlZGVyYWwsIGRlYmVyYSBvYnNlcnZhcnNlIHB1
+bnR1YWxtZW50ZSBsbyBkaXNwdWVzdG8gcG9yIGxhIExleSBHb2JpZXJubyBFbGVjdHJvbmljbyBk
+ZWwgRGlzdHJpdG8gRmVkZXJhbCwgbGEgbGV5IHBhcmEgaGFjZXIgZGUgbGEgQ2l1ZGFkIGRlIE1l
+eGljbyB1bmEgQ2l1ZGFkIE1hcyBBYmllcnRhLCBlbCBhcGFydGFkbyAxMCBkZSBsYSBDaXJjdWxh
+ciBVbm8gdmlnZW50ZSB5IGxhcyBOb3JtYXMgR2VuZXJhbGVzIHF1ZSBkZWJlcmFuIG9ic2VydmFy
+c2UgZW4gbWF0ZXJpYSBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpb24gZW4gbGEgQWRtaW5p
+c3RyYWNpb24gUHVibGljYSBkZWwgRGlzdHJpdG8gRmVkZXJhbC4K
