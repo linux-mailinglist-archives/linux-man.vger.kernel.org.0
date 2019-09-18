@@ -2,129 +2,112 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 91B63B67D8
-	for <lists+linux-man@lfdr.de>; Wed, 18 Sep 2019 18:17:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A20D9B6EA8
+	for <lists+linux-man@lfdr.de>; Wed, 18 Sep 2019 23:15:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2387556AbfIRQRF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 18 Sep 2019 12:17:05 -0400
-Received: from mtax.cdmx.gob.mx ([187.141.35.197]:8232 "EHLO mtaw.cdmx.gob.mx"
-        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
-        id S2387555AbfIRQRF (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 18 Sep 2019 12:17:05 -0400
-X-NAI-Header: Modified by McAfee Email Gateway (4500)
+        id S1729986AbfIRVPP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 18 Sep 2019 17:15:15 -0400
+Received: from mail-wm1-f66.google.com ([209.85.128.66]:51302 "EHLO
+        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725989AbfIRVPP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 18 Sep 2019 17:15:15 -0400
+Received: by mail-wm1-f66.google.com with SMTP id 7so1779323wme.1;
+        Wed, 18 Sep 2019 14:15:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cdmx.gob.mx; s=72359050-3965-11E6-920A-0192F7A2F08E;
-        t=1568822832; h=X-Virus-Scanned:Content-Type:
-         MIME-Version:Content-Transfer-Encoding:Content-Description:
-         Subject:To:From:Date:Reply-To:Message-Id:X-AnalysisOut:
-         X-AnalysisOut:X-AnalysisOut:X-AnalysisOut:
-         X-AnalysisOut:X-AnalysisOut:X-AnalysisOut:
-         X-SAAS-TrackingID:X-NAIMIME-Disclaimer:X-NAIMIME-Modified:
-         X-NAI-Spam-Flag:X-NAI-Spam-Threshold:X-NAI-Spam-Score:
-         X-NAI-Spam-Rules:X-NAI-Spam-Version; bh=K
-        jij0GhOpdKSaBiEpb4h9F2ukULK7Zgku7ZRRhmMNN
-        U=; b=tFBjD32CuS5qUjiDuvguG8dHNj/28Mw+KG7aL2CQWm6X
-        Y3NlyGoZdfM+CcoYQkfs6Uaym6dpcTniDOAE0kaPl1j3jvmyQy
-        k/pIdyyg4THCcHTUMJt6qdYxm6nQxI3wKxw7yHYjEuofvdX1mj
-        0jUW3Xcf3UtAwfkZBcCfIT+Im8o=
-Received: from correo.seciti.cdmx.gob.mx (gdf-correo.cdmx.gob.mx [10.250.102.17]) by mtaw.cdmx.gob.mx with smtp
-         id 0318_f269_7ef99fe6_14b9_4a7a_91b7_c274b4927516;
-        Wed, 18 Sep 2019 11:07:11 -0500
-Received: from localhost (localhost [127.0.0.1])
-        by gdf-correo.df.gob.mx (Postfix) with ESMTP id DF4453114;
-        Wed, 18 Sep 2019 11:07:03 -0500 (CDT)
-Received: from correo.seciti.cdmx.gob.mx ([127.0.0.1])
-        by localhost (gdf-correo.df.gob.mx [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id Uq2GxUMOhnTt; Wed, 18 Sep 2019 11:07:03 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-        by gdf-correo.df.gob.mx (Postfix) with ESMTP id 50C9230BC;
-        Wed, 18 Sep 2019 11:07:03 -0500 (CDT)
-X-Virus-Scanned: amavisd-new at gdf-correo.df.gob.mx
-Received: from correo.seciti.cdmx.gob.mx ([127.0.0.1])
-        by localhost (gdf-correo.df.gob.mx [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id ad49Pr1vvlFj; Wed, 18 Sep 2019 11:07:03 -0500 (CDT)
-Received: from [41.148.42.229] (8ta-148-42-229.telkomadsl.co.za [41.148.42.229])
-        by gdf-correo.df.gob.mx (Postfix) with ESMTPSA id F2B0830DF;
-        Wed, 18 Sep 2019 11:06:40 -0500 (CDT)
-Content-Type: text/plain;
-  charset="utf-8"
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=I8yXMHibszj2VHQlt+S1+oJOQptBsYs/sYyYtWEyoDM=;
+        b=SGzLeNjN9RtxfKPfFRxKDpttLPdBNIAdVqAUW/6qBoK7Rdwr6hhG3WkSHuNaNkVqUB
+         IZDH/WrUM/EDQE4L6yrkg8G2Tu4rS/55SwYwMv692WLvgMefVjb0rX/pfh2WfTnDNLAA
+         RkhCsRxNnIVJVynwenKWP9c49eWIS2m1N8e4USectIBr6l/QVdvKcGmwpkF9YF7+nVEC
+         DFAzRLs730dJDNuL0TI6DDBc2FvJRxsoiPOop4zcGoU5zTO08ViDqGTwq+3dMt0pPNtc
+         RI1uuxwtGLRv+QZtCK4E4ZsP7l3B8i+jWh3JZJeyKZrY2CcaNCT6wvkkQqfEUq8d56/F
+         UrYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=I8yXMHibszj2VHQlt+S1+oJOQptBsYs/sYyYtWEyoDM=;
+        b=kjl09KWBnLJmmJrczlgbr7TywRUzEqF8eY4RAnvwREuM59lIMjdxW7gYsEWrcan9OV
+         /ZKGex+9/qCi1KJRd7nzGu8/Q++3ePULcWDf66PdnfBEuts2FHyQUYJ1kL+zwTIzFFUo
+         LYPL5GhBI41AsRY6wDdtEpjao+NW2ZFgwiuJrsfL/Sj2Z9fTeb+tFfEaYtUTSsMrZJVI
+         uVnMe7mZjpfdw4l+Kavm+QTNYP2k6lZxVsnC85eRu4xewi9b3ZX9DQnbBV0vG2Hoc0Yv
+         8YAYZ6C7W8Em5nzOg5Jj1amUAQyWoqOfh4Nc7RtSq9C99qH5UcueChkPcsoR5A2+LtVL
+         mQAA==
+X-Gm-Message-State: APjAAAUJiAFCrJ07+YW3HPJjrqaLmo7y7nh3ogu0mPq7bMjBblyXJMzk
+        36pfB/zMU5KP3Dxy5SHfx+I=
+X-Google-Smtp-Source: APXvYqywwDo5aqNswzW3Y+s7Aj3EfSnOPHWA+ei2ygDDXyzBDQhbgvA7X5b1d5z5qMXcJPQY2T5TaA==
+X-Received: by 2002:a1c:a6ca:: with SMTP id p193mr4303240wme.103.1568841312486;
+        Wed, 18 Sep 2019 14:15:12 -0700 (PDT)
+Received: from darwi-home-pc ([5.158.153.52])
+        by smtp.gmail.com with ESMTPSA id h9sm4969976wrv.30.2019.09.18.14.15.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Sep 2019 14:15:11 -0700 (PDT)
+Date:   Wed, 18 Sep 2019 23:15:03 +0200
+From:   "Ahmed S. Darwish" <darwish.07@gmail.com>
+To:     Linus Torvalds <torvalds@linux-foundation.org>
+Cc:     Lennart Poettering <mzxreary@0pointer.de>,
+        "Theodore Y. Ts'o" <tytso@mit.edu>,
+        "Eric W. Biederman" <ebiederm@xmission.com>,
+        "Alexander E. Patrakov" <patrakov@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        lkml <linux-kernel@vger.kernel.org>, linux-ext4@vger.kernel.org,
+        linux-man@vger.kernel.org
+Subject: [PATCH RFC v4 0/1] random: WARN on large getrandom() waits and
+ introduce getrandom2()
+Message-ID: <20190918211503.GA1808@darwi-home-pc>
+References: <CAHk-=whW_AB0pZ0u6P9uVSWpqeb5t2NCX_sMpZNGy8shPDyDNg@mail.gmail.com>
+ <CAHk-=wi_yXK5KSmRhgNRSmJSD55x+2-pRdZZPOT8Fm1B8w6jUw@mail.gmail.com>
+ <20190911173624.GI2740@mit.edu>
+ <20190912034421.GA2085@darwi-home-pc>
+ <20190912082530.GA27365@mit.edu>
+ <CAHk-=wjyH910+JRBdZf_Y9G54c1M=LBF8NKXB6vJcm9XjLnRfg@mail.gmail.com>
+ <20190914122500.GA1425@darwi-home-pc>
+ <008f17bc-102b-e762-a17c-e2766d48f515@gmail.com>
+ <20190915052242.GG19710@mit.edu>
+ <CAHk-=wgg2T=3KxrO-BY3nHJgMEyApjnO3cwbQb_0vxsn9qKN8Q@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Description: Mail message body
-Subject: Spende von 5 Millionen Euro
-To:     Recipients <mramirezg@mexicocity.gob.mx>
-From:   "Shane Missler" <mramirezg@mexicocity.gob.mx>
-Date:   Wed, 18 Sep 2019 18:06:28 +0200
-Reply-To: shanemissler3@gmail.com
-Message-Id: <20190918160640.F2B0830DF@gdf-correo.df.gob.mx>
-X-AnalysisOut: [v=2.2 cv=ALO4jLJd c=1 sm=1 tr=0 p=ELT1L0JgSr8A:10 p=09-KjH]
-X-AnalysisOut: [S_CW8A:10 p=bEr4i4eggGkA:10 p=emDABjehN2fqPHqc8RbT:22 p=Ly]
-X-AnalysisOut: [qu6MUUigPyaOuRX7ce:22 a=KsSCQl7LcZej77FuluUcQw==:117 a=oLf]
-X-AnalysisOut: [NtqljNgXPa7RrmTwnGA==:17 a=IkcTkHD0fZMA:10 a=x7bEGLp0ZPQA:]
-X-AnalysisOut: [10 a=J70Eh1EUuV4A:10 a=pGLkceISAAAA:8 a=wN7rT8hNlMSaUXRpxS]
-X-AnalysisOut: [gA:9 a=K7tsimcRO30Sg2YH:21 a=QOCYt1FwmxBrUrRv:21 a=QEXdDO2]
-X-AnalysisOut: [ut3YA:10]
-X-SAAS-TrackingID: 036528d5.0.82671237.00-2396.138897629.s12p02m002.mxlogic.net
-X-NAIMIME-Disclaimer: 1
-X-NAIMIME-Modified: 1
-X-NAI-Spam-Flag: NO
-X-NAI-Spam-Threshold: 3
-X-NAI-Spam-Score: -5000
-X-NAI-Spam-Rules: 1 Rules triggered
-        WHITELISTED=-5000
-X-NAI-Spam-Version: 2.3.0.9418 : core <6637> : inlines <7142> : streams
- <1833127> : uri <2906032>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wgg2T=3KxrO-BY3nHJgMEyApjnO3cwbQb_0vxsn9qKN8Q@mail.gmail.com>
+User-Agent: Mutt/1.12.1 (2019-06-15)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-RGllcyBpc3QgZWluZSBwZXJzw7ZubGljaGUgTWFpbCwgZGllIGljaCBhbiBTaWUgYWRyZXNzaWVy
-ZS4gSWNoIGJpbiBTSEFORSBNSVNTTEVSIGF1cyBGbG9yaWRhLCBVU0EuIFdpZSBTaWUgYmVyZWl0
-cyB3aXNzZW4sIGhhYmUgaWNoIGVpbmVuIExvdHRvLUphY2twb3QgaW4gSMO2aGUgdm9uIDQ1MSBN
-aW8uIFVTRCAoMzMwIE1pby4gR0JQKSBnZXdvbm5lbiB1bmQgZGFzIEdlbGQgaGF0IG1laW4gTGVi
-ZW4gdW5kIG1laW4gRmFtaWxpZW5sZWJlbiB2ZXLDpG5kZXJ0LCBhYmVyIGVzIHdpcmQgbWVpbiBI
-ZXJ6IG5pY2h0IHZlcsOkbmRlcm4sIHdpZSBpY2ggYW4gZGVtIFRhZyBzYWd0ZSwgYW4gZGVtIGlj
-aCBtZWluIEdlbGQgaGFiZSwgZGFzIGljaCB2ZXJ3ZW5kZW4gd2VyZGUgRGllc2VzIEdlbGQgZsO8
-ciBkaWUgSGlsZmUgZGVyIE1lbnNjaGhlaXQuIEljaCBoYWJlIGJlc2NobG9zc2VuLCBJaG5lbiB1
-bmQgSWhyZXIgR2VtZWluZGUgZWluZW4gQmV0cmFnIHZvbiA1IE1pbGxpb25lbiBFdXJvIHp1IHNw
-ZW5kZW4sIHVtIGRpZXNlIFNwZW5kZSBhbnp1Zm9yZGVybi4gRS1NYWlsOiAoc2hhbmVtaXNzbGVy
-MEBnbWFpbC5jb20pCgoKQ2VjaSBlc3QgdW4gY291cnJpZXIgcGVyc29ubmVsIHF1ZSBqZSB2b3Vz
-IGFkcmVzc2UuIEplIHN1aXMgU0hBTkUgTUlTU0xFUiwgZGUgRmxvcmlkZSwgw4l0YXRzLVVuaXMu
-IENvbW1lIHZvdXMgbGUgc2F2ZXogZMOpasOgLCBqJ2FpIGdhZ27DqSA0NTEgbWlsbGlvbnMgZGUg
-ZG9sbGFycyAoTG90dG8gSmFja3BvdCkgZXQgbCdhcmdlbnQgYSBjaGFuZ8OpIG1hIHZpZSBldCBj
-ZWxsZSBkZSBtYSBmYW1pbGxlLCBtYWlzIGNlbGEgbmUgY2hhbmdlcmEgcGFzIG1vbiBjxZN1ciwg
-Y29tbWUgamUgbCdhaSBkaXQgbGUgam91ciBvw7kgaidhaSBtb24gYXJnZW50LCBqJ3V0aWxpc2Vy
-YWkgY2V0IGFyZ2VudCBwb3VyIGwnYWlkZSBkZSBsJ2h1bWFuaXTDqS5KJ2FpIGTDqWNpZMOpIGRl
-IHZvdXMgZG9ubmVyIGxhIHNvbW1lIGRlIDUgbWlsbGlvbnMgZCdldXJvcyDDoCB2b3VzIGV0IMOg
-IHZvdHJlIGNvbW11bmF1dMOpLCBwb3VyIHLDqWNsYW1lciBjZSBkb24sIGVtYWlsLSAoc2hhbmVt
-aXNzbGVyMEBnbWFpbC5jb20pCgoKCgouLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
-Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
-Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
-Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
-Li4uLi4uLi4KCgpMYSBpbmZvcm1hY2lvbiBjb250ZW5pZGEgZW4gZXN0ZSBjb3JyZW8sIGFzaSBj
-b21vIGxhIGNvbnRlbmlkYSBlbiBsb3MgZG9jdW1lbnRvcyBhbmV4b3MsIHB1ZWRlIGNvbnRlbmVy
-IGRhdG9zIHBlcnNvbmFsZXMsIHBvciBsbyBxdWUgc3UgZGlmdXNpb24gZXMgcmVzcG9uc2FiaWxp
-ZGFkIGRlIHF1aWVuIGxvcyB0cmFuc21pdGUgeSBxdWllbiBsb3MgcmVjaWJlLCBlbiB0w6lybWlu
-b3MgZGUgbG8gZGlzcHVlc3RvIHBvciBsYXMgZnJhY2Npb25lcyBJSSB5IFZJSSBkZWwgYXJ0aWN1
-bG8gNCwgdWx0aW1vIHBhcnJhZm8gZGVsIGFydGljdWxvIDgsIGFydGljdWxvIDM2IHBhcnJhZm8g
-SUksIDM4IGZyYWNjaW9uIEkgeSBkZW1hcyBhcGxpY2FibGVzIGRlIGxhIExleSBkZSBUcmFuc3Bh
-cmVuY2lhIHkgQWNjZXNvIGEgbGEgSW5mb3JtYWNpb24gUHVibGljYSBkZWwgRGlzdHJpdG8gRmVk
-ZXJhbC4NCkxvcyBEYXRvcyBQZXJzb25hbGVzIHNlIGVuY3VlbnRyYW4gcHJvdGVnaWRvcyBwb3Ig
-bGEgTGV5IGRlIFByb3RlY2Npb24gZGUgRGF0b3MgUGVyc29uYWxlcyBkZWwgRGlzdHJpdG8gRmVk
-ZXJhbCwgcG9yIGxvIHF1ZSBzdSBkaWZ1c2lvbiBzZSBlbmN1ZW50cmEgdHV0ZWxhZGEgZW4gc3Vz
-IGFydGljdWxvcyAyLCA1LCAxNiwgMjEsIDQxIHkgZGVtYXMgcmVsYXRpdm9zIHkgYXBsaWNhYmxl
-cywgZGViaWVuZG8gc3VqZXRhcnNlIGVuIHN1IGNhc28sIGEgbGFzIGRpc3Bvc2ljaW9uZXMgcmVs
-YXRpdmFzIGEgbGEgY3JlYWNpb24sIG1vZGlmaWNhY2lvbiBvIHN1cHJlc2lvbiBkZSBkYXRvcyBw
-ZXJzb25hbGVzIHByZXZpc3Rvcy4gQXNpbWlzbW8sIGRlYmVyYSBlc3RhcnNlIGEgbG8gc2XDsWFs
-YWRvIGVuIGxvcyBudW1lcmFsZXMgMSAsIDMsIDEyLCAxOCwgMTksIDIwLCAyMSwgMjMsIDI0LCAy
-OSwgMzUgeSBkZW1hcyBhcGxpY2FibGVzIGRlIGxvcyBMaW5lYW1pZW50b3MgcGFyYSBsYSBQcm90
-ZWNjaW9uIGRlIERhdG9zIFBlcnNvbmFsZXMgZW4gZWwgRGlzdHJpdG8gRmVkZXJhbC4NCkVuIGVs
-IHVzbyBkZSBsYXMgdGVjbm9sb2dpYXMgZGUgbGEgaW5mb3JtYWNpb24geSBjb211bmljYWNpb25l
-cyBkZWwgR29iaWVybm8gZGVsIERpc3RyaXRvIEZlZGVyYWwsIGRlYmVyYSBvYnNlcnZhcnNlIHB1
-bnR1YWxtZW50ZSBsbyBkaXNwdWVzdG8gcG9yIGxhIExleSBHb2JpZXJubyBFbGVjdHJvbmljbyBk
-ZWwgRGlzdHJpdG8gRmVkZXJhbCwgbGEgbGV5IHBhcmEgaGFjZXIgZGUgbGEgQ2l1ZGFkIGRlIE1l
-eGljbyB1bmEgQ2l1ZGFkIE1hcyBBYmllcnRhLCBlbCBhcGFydGFkbyAxMCBkZSBsYSBDaXJjdWxh
-ciBVbm8gdmlnZW50ZSB5IGxhcyBOb3JtYXMgR2VuZXJhbGVzIHF1ZSBkZWJlcmFuIG9ic2VydmFy
-c2UgZW4gbWF0ZXJpYSBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpb24gZW4gbGEgQWRtaW5p
-c3RyYWNpb24gUHVibGljYSBkZWwgRGlzdHJpdG8gRmVkZXJhbC4K
+Hi,
+
+This is an RFC, and it obviously needs much more testing beside the
+"it boots" smoke test I've just did.
+
+Interestingly though, on my current system, the triggered WARN()
+**reliably** makes the system get un-stuck... I know this is a very
+crude heuristic, but I would personally prefer it to the other
+proposals that were mentioned in this jumbo thread.
+
+If I get an OK from Linus on this, I'll send a polished v5: further
+real testing, kernel-parameters.txt docs, a new getrandom_wait(7)
+manpage as referenced in the WARN() message, and extensions to the
+getrandom(2) manpage for new getrandom2().
+
+The new getrandom2() system call is basically a summary of Linus',
+Lennart's, and Willy's proposals. Please see the patch #1 commit log,
+and the "Link:" section inside it, for a rationale.
+
+@Lennart, since you obviously represent user-space here, any further
+notes on the new system call?
+
+thanks,
+
+Ahmed S. Darwish (1):
+  random: WARN on large getrandom() waits and introduce getrandom2()
+
+ drivers/char/Kconfig        | 60 ++++++++++++++++++++++++--
+ drivers/char/random.c       | 85 ++++++++++++++++++++++++++++++++-----
+ include/uapi/linux/random.h | 20 +++++++--
+ 3 files changed, 148 insertions(+), 17 deletions(-)
+
+--
+http://darwish.chasingpointers.com
