@@ -2,245 +2,127 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 1C0E8B6FD2
-	for <lists+linux-man@lfdr.de>; Thu, 19 Sep 2019 01:58:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D04A2B721A
+	for <lists+linux-man@lfdr.de>; Thu, 19 Sep 2019 06:05:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730435AbfIRX6V (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 18 Sep 2019 19:58:21 -0400
-Received: from mail-lj1-f194.google.com ([209.85.208.194]:46118 "EHLO
-        mail-lj1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730429AbfIRX6V (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 18 Sep 2019 19:58:21 -0400
-Received: by mail-lj1-f194.google.com with SMTP id e17so1624310ljf.13
-        for <linux-man@vger.kernel.org>; Wed, 18 Sep 2019 16:58:18 -0700 (PDT)
+        id S1729160AbfISEFB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 19 Sep 2019 00:05:01 -0400
+Received: from mail-ed1-f66.google.com ([209.85.208.66]:35362 "EHLO
+        mail-ed1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727805AbfISEFA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 19 Sep 2019 00:05:00 -0400
+Received: by mail-ed1-f66.google.com with SMTP id v8so1894011eds.2
+        for <linux-man@vger.kernel.org>; Wed, 18 Sep 2019 21:04:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=1zErttcOaiKU1bP2k/DQvr6cT00SnNpVB86bxJYh7fI=;
-        b=ZCb9HdLE7t/e9fqbLQFpz6Uww+S/LFf3srLnC/XjheclSssD7LwovbPnZbHp5S9/gZ
-         zY083wpLiWYML9/7n95A16PCB8PF5WlLXFgwd7pM52zgYAlbkq6RZmPedBEUzHcjD3B9
-         kpzOgKJHIwECOuvdXyRm7n5vhxWb2N4hfIA2Y=
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=y0TIjeAWoXjJ15xDZGY5GcLQoj62a+KAsP1F4OrD6Ec=;
+        b=T/fll5V3/ReYRUxgZ1Gbjtzhk+gBx6hNrByvXISQqpa6pQthAT/PsspgFQpccMIeSA
+         wLiBk4dWp8mo1Z0eS9C3AyCMB2+TRHamJYeD+SjpTYQK6GLTScgAjXVxbxnDBPEiAiwE
+         IUH4nu8GjmDp4GK8nTNA6G7QS6sX3+s+OSYm8MdjCzfPOoe4MA3gm9SKYv/WYCtQFOu8
+         ASZZpEJJ3SPKiGdp99ZFJbBGKhsAPhHE8afSxks9qPebNzMSAhsGkdqj9ua2H6l/4gaG
+         e6eet61CbdCmWcVdZq893XvFqnXuRG6CwPplf1CdWmxIwYwxUM9K3RnmwuoyhFzJoWdF
+         MKMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=1zErttcOaiKU1bP2k/DQvr6cT00SnNpVB86bxJYh7fI=;
-        b=ZAKqOE220cJoOeiCLfYrXHS6PUgVIpB3SRIsEjzyNFow0ZC3HDV2w15IrWZ3i2Tbzw
-         ZCEEVKKNtU5o1BdBJoxhsJCNUVny23uEwW7P6U81KuUfWl2nmPMh3A2IulHkd9Oubfj4
-         semshHjzVDTk41FYl2+buTsPivaKWUdFOSxObPVHHVai+3VNvXjnVqyB6CSzctsG7sjs
-         KXtImhcEVJHYbytyRTLFlr/tUGotLlghJGotOAxvJDBUHO1ha9ciI4wuOemPOyF5EccC
-         1kXi8Fl52kAn6uSIlPIhiBOmKNmQNJ1Jmrr4H+PkjtfZLqRf8wE8RHVZb+cNU1LLZg2Q
-         XVZQ==
-X-Gm-Message-State: APjAAAXsrAWowU1B4r91aZZx0viRva2M2JL9w3mE0OLudxCkckFRfs2n
-        i855cyHl0ZjNQcWt81JI+hSF407tthI=
-X-Google-Smtp-Source: APXvYqzmIJqFTrHqUy1fPAyx8Mn2rI/B5YzIqxRm9Qat5Pv6N5vAg1wdQ4apg9lDciRInPUBSR8a+g==
-X-Received: by 2002:a2e:6c0b:: with SMTP id h11mr3664446ljc.130.1568851097340;
-        Wed, 18 Sep 2019 16:58:17 -0700 (PDT)
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com. [209.85.167.47])
-        by smtp.gmail.com with ESMTPSA id n9sm1285387ljh.53.2019.09.18.16.58.15
-        for <linux-man@vger.kernel.org>
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=y0TIjeAWoXjJ15xDZGY5GcLQoj62a+KAsP1F4OrD6Ec=;
+        b=Adx+UFFyQkezctcQ1o5IRb5h8mMA6wSVavrcBu2MUE7nYv/ZIgU707zdjtrYHJwqaP
+         +Gabayee/3scU2dAiGCOoBP+PMoXN0ZKHbM07MsPGKNk/AMHRTJCzv2FP7/1GUcsvtBF
+         +m3QLN4FLsKSV/pnJhE/qRQpBdbIvtBTyUscUS/Qfnsz0S+CjxqRVB3aJFjt45GCHdUV
+         NdTBl6uP1o1kivFkeh4hyGEiQ7iUfv76EVe/x39F8d5awyh77fV5eb2DMabKLY2e/8ht
+         /XaYGao6r4GDuIY09M2bHQyqwcDPHCx3rfrrmoapiT+xKs5/yCrYKrKDSawIW22gzCb6
+         d76w==
+X-Gm-Message-State: APjAAAVwec9pvYfGXHexKrrqpFemQDTTIuqP+G1apW2Rgcl2ciJZOpdV
+        qUbtfbvPi8gXAjsZu6Vml+E=
+X-Google-Smtp-Source: APXvYqx3w41bY9wA7oHABkytekVIR4FsZmKeC98tF4tXyDuHyriahNsmQvsmYP1hKJRkqTN6PCwfhQ==
+X-Received: by 2002:a05:6402:1855:: with SMTP id v21mr12127095edy.242.1568865899235;
+        Wed, 18 Sep 2019 21:04:59 -0700 (PDT)
+Received: from [10.59.0.159] (h87-253-79-154.cust.a3fiber.se. [87.253.79.154])
+        by smtp.gmail.com with ESMTPSA id gj14sm849155ejb.62.2019.09.18.21.04.57
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Sep 2019 16:58:15 -0700 (PDT)
-Received: by mail-lf1-f47.google.com with SMTP id r22so963659lfm.1
-        for <linux-man@vger.kernel.org>; Wed, 18 Sep 2019 16:58:15 -0700 (PDT)
-X-Received: by 2002:ac2:5c11:: with SMTP id r17mr3457443lfp.61.1568851095138;
- Wed, 18 Sep 2019 16:58:15 -0700 (PDT)
+        Wed, 18 Sep 2019 21:04:58 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        jannh@google.com, oleg@redhat.com
+Subject: Re: [PATCH] clone.2: add CLONE_PIDFD entry
+To:     Christian Brauner <christian.brauner@ubuntu.com>
+References: <20190511064908.21956-1-christian.brauner@ubuntu.com>
+ <fdc276ee-cf28-0a3b-3fd3-6f5033dae7d6@gmail.com>
+ <20190916074012.dpsfqfwcxh2pyyt7@wittgenstein>
+ <7f115550-c7e6-c803-e47b-a37b7cdfb0a9@gmail.com>
+ <20190918071415.gmxvovgiwgsi62tn@wittgenstein>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <6a863c6a-3e61-f0b6-963e-a3545d9935d6@gmail.com>
+Date:   Thu, 19 Sep 2019 06:04:55 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-References: <CAHk-=wi_yXK5KSmRhgNRSmJSD55x+2-pRdZZPOT8Fm1B8w6jUw@mail.gmail.com>
- <20190911173624.GI2740@mit.edu> <20190912034421.GA2085@darwi-home-pc>
- <20190912082530.GA27365@mit.edu> <CAHk-=wjyH910+JRBdZf_Y9G54c1M=LBF8NKXB6vJcm9XjLnRfg@mail.gmail.com>
- <20190914122500.GA1425@darwi-home-pc> <008f17bc-102b-e762-a17c-e2766d48f515@gmail.com>
- <20190915052242.GG19710@mit.edu> <CAHk-=wgg2T=3KxrO-BY3nHJgMEyApjnO3cwbQb_0vxsn9qKN8Q@mail.gmail.com>
- <20190918211503.GA1808@darwi-home-pc> <20190918211713.GA2225@darwi-home-pc>
-In-Reply-To: <20190918211713.GA2225@darwi-home-pc>
-From:   Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Wed, 18 Sep 2019 16:57:58 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wiCqDiU7SE3FLn2W26MS_voUAuqj5XFa1V_tiGTrrW-zQ@mail.gmail.com>
-Message-ID: <CAHk-=wiCqDiU7SE3FLn2W26MS_voUAuqj5XFa1V_tiGTrrW-zQ@mail.gmail.com>
-Subject: Re: [PATCH RFC v4 1/1] random: WARN on large getrandom() waits and
- introduce getrandom2()
-To:     "Ahmed S. Darwish" <darwish.07@gmail.com>
-Cc:     Lennart Poettering <mzxreary@0pointer.de>,
-        "Theodore Y. Ts'o" <tytso@mit.edu>,
-        "Eric W. Biederman" <ebiederm@xmission.com>,
-        "Alexander E. Patrakov" <patrakov@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        lkml <linux-kernel@vger.kernel.org>, linux-ext4@vger.kernel.org,
-        linux-man@vger.kernel.org
-Content-Type: multipart/mixed; boundary="0000000000003b5ae10592dc9c8a"
+In-Reply-To: <20190918071415.gmxvovgiwgsi62tn@wittgenstein>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
---0000000000003b5ae10592dc9c8a
-Content-Type: text/plain; charset="UTF-8"
+Hello Christian,
 
-On Wed, Sep 18, 2019 at 2:17 PM Ahmed S. Darwish <darwish.07@gmail.com> wrote:
->
-> Since Linux v3.17, getrandom(2) has been created as a new and more
-> secure interface for pseudorandom data requests.  It attempted to
-> solve three problems, as compared to /dev/urandom:
+On 9/18/19 9:14 AM, Christian Brauner wrote:
+> On Wed, Sep 18, 2019 at 08:49:59AM +0200, Michael Kerrisk (man-pages) wrote:
 
-I don't think your patch is really _wrong_, but I think it's silly to
-introduce a new system call, when we have 30 bits left in the flags of
-the old one, and the old system call checked them.
+>>>> One other piece seems to be missing: the returned file descriptor can
+>>>> be fed to poll()/select()/epoll and the FD will test as readable when
+>>>> the child terminates. Right? Did that functionality also land in
+>>>> kernel 5.2? And did it get implemented as a separate commit, or did
+>>>> the behavior just fall naturally out of the implementation of pidfd's?
+>>>> Let me know the details, and I will craft a patch.
+>>>
+>>> It landed in 5.3. The relevant commit is:
+>>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b53b0b9d9a613c418057f6cb921c2f40a6f78c24
+>>> and belongs to the following merge:
+>>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5450e8a316a64cddcbc15f90733ebc78aa736545
+>>
+>> Thanks for that info. One other questions springs to mind.
+>> I haven't looked at the source or tried testing this,
+>> but can anything actually be read() from a PIDFD? Presumably,
+> 
+> We had discussed this but decided to not implement this right away.
+> Mainly, because we did not have a clear picture what the semantics
+> should be. But it is something that we will probably want in the
+> future...
 
-So it's much simpler and more straightforward to  just introduce a
-single new bit #2 that says "I actually know what I'm doing, and I'm
-explicitly asking for secure/insecure random data".
+That makes sense.
 
-And then say that the existing bit #1 just means "I want to wait for entropy".
+A further question... We now have three ways of getting a
+process file descriptor [*]:
 
-So then you end up with this:
+open() of /proc/PID
+pidfd_open()
+clone()/clone3() with CLONE_PIDFD
 
-    /*
-     * Flags for getrandom(2)
-     *
-     * GRND_NONBLOCK    Don't block and return EAGAIN instead
-     * GRND_WAIT_ENTROPY        Explicitly wait for entropy
-     * GRND_EXPLICIT    Make it clear you know what you are doing
-     */
-    #define GRND_NONBLOCK               0x0001
-    #define GRND_WAIT_ENTROPY   0x0002
-    #define GRND_EXPLICIT               0x0004
+I thought the FD was supposed to be equivalent in all three cases.
+However, if I try (on kernel 5.3) poll() an FD returned by opening
+/proc/PID, poll() tells me POLLNVAL for the FD. Is that difference
+intentional? (I am guessing it is not.)
 
-    #define GRND_SECURE (GRND_EXPLICIT | GRND_WAIT_ENTROPY)
-    #define GRND_INSECURE       (GRND_EXPLICIT | GRND_NONBLOCK)
+Thanks,
 
-    /* Nobody wants /dev/random behavior, nobody should use it */
-    #define GRND_RANDOM 0x0002
+Michael
 
-which is actually fairly easy to understand. So now we have three
-bits, and the values are:
+[*} By the way, going forward, can we call these things
+"process FDs", rather than "PID FDs"? The API names are what
+they are, an that's okay, but these just as we have socket
+FDs that refer to sockets, directory FDs that refer to 
+directories, and timer FDs that refer to timers, and so on,
+these are FDs that refer to *processes*, not "process IDs".
+It's a little thing, but I think the naming better, and
+it's what I propose to use in the manual pages.
 
- 000  - ambiguous "secure or just lazy/ignorant"
- 001 - -EAGAIN or secure
- 010 - blocking /dev/random DO NOT USE
- 011 - nonblocking /dev/random DO NOT USE
- 100 - nonsense, returns -EINVAL
- 101 - /dev/urandom without warnings
- 110 - blocking secure
- 111 - -EAGAIN or secure
-
-and people would be encouraged to use one of these three:
-
- - GRND_INSECURE
- - GRND_SECURE
- - GRND_SECURE | GRND_NONBLOCK
-
-all of which actually make sense, and none of which have any
-ambiguity. And while "GRND_INSECURE | GRND_NONBLOCK" works, it's
-exactly the same as just plain GRND_INSECURE - the point is that it
-doesn't block for entropy anyway, so non-blocking makes no different.
-
-NOTE! This patch looks bigger than it really is. I've changed the
-if-statement in getrandom() to a switch-statement, and I did this:
-
--       if (count > INT_MAX)
--               count = INT_MAX;
-+       count = min_t(size_t, count, INT_MAX >> (ENTROPY_SHIFT + 3));
-
-to match what "urandom_read()" already did. That changes the semantics
-a bit, but only for the /dev/random case, and only for insanity (the
-limit we truncate to is now 32MB read, rather than 2GB - and we
-already had that limit for urandom).
-
-There is *one* other small semantic change: The old code did
-urandom_read() which added warnings, but each warning also _reset_ the
-crng_init_cnt. Until it decided not to warn any more, at which point
-it also stops that resetting of crng_init_cnt.
-
-And that reset of crng_init_cnt, btw, is some cray cray.
-
-It's basically a "we used up entropy" thing, which is very
-questionable to begin with as the whole discussion has shown, but
-since it stops doing it after 10 cases, it's not even good security
-assuming the "use up entropy" case makes sense in the first place.
-
-So I didn't copy that insanity either. And I'm wondering if removing
-it from /dev/urandom might also end up helping Ahmed's case of getting
-entropy earlier, when we don't reset the counter.
-
-But other than those two details, none of the existing semantics
-changed, we just added the three actually _sane_ cases without any
-ambiguity.
-
-In particular, this still leaves the semantics of that nasty
-"getrandom(0)" as the same "blocking urandom" that it currently is.
-But now it's a separate case, and we can make that perhaps do the
-timeout, or at least the warning.
-
-And the new cases are defined to *not* warn. In particular,
-GRND_INSECURE very much does *not* warn about early urandom access
-when crng isn't ready. Because the whole point of that new mode is
-that the user knows it isn't secure.
-
-So that should make getrandom(GRND_INSECURE) palatable to the systemd
-kind of use that wanted to avoid the pointless kernel warning.
-
-And we could mark this for stable and try to get it backported so that
-it will have better coverage, and encourage people to use the new sane
-_explicit_ waiting (or not) for entropy.
-
-Comments? Full patch as attachment.
-
-                  Linus
-
---0000000000003b5ae10592dc9c8a
-Content-Type: text/x-patch; charset="US-ASCII"; name="patch.diff"
-Content-Disposition: attachment; filename="patch.diff"
-Content-Transfer-Encoding: base64
-Content-ID: <f_k0px7z250>
-X-Attachment-Id: f_k0px7z250
-
-IGRyaXZlcnMvY2hhci9yYW5kb20uYyAgICAgICB8IDUwICsrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKystLS0tLS0tLQogaW5jbHVkZS91YXBpL2xpbnV4L3JhbmRvbS5oIHwgMTIg
-KysrKysrKysrLS0KIDIgZmlsZXMgY2hhbmdlZCwgNTIgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRp
-b25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9jaGFyL3JhbmRvbS5jIGIvZHJpdmVycy9jaGFy
-L3JhbmRvbS5jCmluZGV4IDVkNWVhNGNlMTQ0Mi4uYzE0ZmE0NzgwMDY2IDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2NoYXIvcmFuZG9tLmMKKysrIGIvZHJpdmVycy9jaGFyL3JhbmRvbS5jCkBAIC0yMTIz
-LDIzICsyMTIzLDU3IEBAIFNZU0NBTExfREVGSU5FMyhnZXRyYW5kb20sIGNoYXIgX191c2VyICos
-IGJ1Ziwgc2l6ZV90LCBjb3VudCwKIHsKIAlpbnQgcmV0OwogCi0JaWYgKGZsYWdzICYgfihHUk5E
-X05PTkJMT0NLfEdSTkRfUkFORE9NKSkKKwlpZiAoZmxhZ3MgJiB+KEdSTkRfTk9OQkxPQ0t8R1JO
-RF9XQUlUX0VOVFJPUFl8R1JORF9FWFBMSUNJVCkpCiAJCXJldHVybiAtRUlOVkFMOwogCi0JaWYg
-KGNvdW50ID4gSU5UX01BWCkKLQkJY291bnQgPSBJTlRfTUFYOworCWNvdW50ID0gbWluX3Qoc2l6
-ZV90LCBjb3VudCwgSU5UX01BWCA+PiAoRU5UUk9QWV9TSElGVCArIDMpKTsKIAotCWlmIChmbGFn
-cyAmIEdSTkRfUkFORE9NKQorCXN3aXRjaCAoZmxhZ3MpIHsKKwljYXNlIEdSTkRfU0VDVVJFOgor
-CQlyZXQgPSB3YWl0X2Zvcl9yYW5kb21fYnl0ZXMoKTsKKwkJaWYgKHJldCkKKwkJCXJldHVybiBy
-ZXQ7CisJCWJyZWFrOworCisJY2FzZSBHUk5EX1NFQ1VSRSB8IEdSTkRfTk9OQkxPQ0s6CisJCWlm
-ICghY3JuZ19yZWFkeSgpKQorCQkJcmV0dXJuIC1FQUdBSU47CisJCWJyZWFrOworCisJY2FzZSBH
-Uk5EX0lOU0VDVVJFOgorCQlicmVhazsKKworCWRlZmF1bHQ6CisJCXJldHVybiAtRUlOVkFMOwor
-CisJLyogQkFELiBMZWdhY3kgZmxhZ3MuICovCisJY2FzZSBHUk5EX1JBTkRPTSB8IEdSTkRfTk9O
-QkxPQ0s6CisJY2FzZSBHUk5EX1JBTkRPTToKIAkJcmV0dXJuIF9yYW5kb21fcmVhZChmbGFncyAm
-IEdSTkRfTk9OQkxPQ0ssIGJ1ZiwgY291bnQpOwogCi0JaWYgKCFjcm5nX3JlYWR5KCkpIHsKLQkJ
-aWYgKGZsYWdzICYgR1JORF9OT05CTE9DSykKKwljYXNlIEdSTkRfTk9OQkxPQ0s6CisJCWlmICgh
-Y3JuZ19yZWFkeSgpKQogCQkJcmV0dXJuIC1FQUdBSU47CisJCWJyZWFrOworCisJLyoKKwkgKiBQ
-ZW9wbGUgYXJlIHJlYWxseSBjb25mdXNlZCBhYm91dCB3aGV0aGVyCisJICogdGhpcyBpcyBzZWN1
-cmUgb3IgaW5zZWN1cmUuIFRyYWRpdGlvbmFsCisJICogYmVoYXZpb3IgaXMgc2VjdXJlLCBidXQg
-dGhlcmUgYXJlIHVzZXJzCisJICogd2hvIGNsZWFybHkgZGlkbid0IHdhbnQgdGhhdCwgYW5kIGp1
-c3QKKwkgKiBuZXZlciB0aG91Z2h0IGFib3V0IGl0LgorCSAqLworCWNhc2UgMDoKIAkJcmV0ID0g
-d2FpdF9mb3JfcmFuZG9tX2J5dGVzKCk7Ci0JCWlmICh1bmxpa2VseShyZXQpKQorCQlpZiAocmV0
-KQogCQkJcmV0dXJuIHJldDsKKwkJYnJlYWs7CiAJfQotCXJldHVybiB1cmFuZG9tX3JlYWQoTlVM
-TCwgYnVmLCBjb3VudCwgTlVMTCk7CisKKwkvKiBlcXVpdmFsZW50IHRvIHVyYW5kb21fcmVhZCgp
-IHdpdGhvdXQgdGhlIGNyYXp5ICovCisJcmV0ID0gZXh0cmFjdF9jcm5nX3VzZXIoYnVmLCBjb3Vu
-dCk7CisJdHJhY2VfdXJhbmRvbV9yZWFkKDggKiBjb3VudCwgMCwgRU5UUk9QWV9CSVRTKCZpbnB1
-dF9wb29sKSk7CisJcmV0dXJuIHJldDsKIH0KIAogLyoqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqCmRpZmYgLS1naXQgYS9p
-bmNsdWRlL3VhcGkvbGludXgvcmFuZG9tLmggYi9pbmNsdWRlL3VhcGkvbGludXgvcmFuZG9tLmgK
-aW5kZXggMjZlZTkxMzAwZTNlLi5mOTMzZjJhODQzYzAgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvdWFw
-aS9saW51eC9yYW5kb20uaAorKysgYi9pbmNsdWRlL3VhcGkvbGludXgvcmFuZG9tLmgKQEAgLTQ4
-LDkgKzQ4LDE3IEBAIHN0cnVjdCByYW5kX3Bvb2xfaW5mbyB7CiAgKiBGbGFncyBmb3IgZ2V0cmFu
-ZG9tKDIpCiAgKgogICogR1JORF9OT05CTE9DSwlEb24ndCBibG9jayBhbmQgcmV0dXJuIEVBR0FJ
-TiBpbnN0ZWFkCi0gKiBHUk5EX1JBTkRPTQkJVXNlIHRoZSAvZGV2L3JhbmRvbSBwb29sIGluc3Rl
-YWQgb2YgL2Rldi91cmFuZG9tCisgKiBHUk5EX1dBSVRfRU5UUk9QWQlFeHBsaWNpdGx5IHdhaXQg
-Zm9yIGVudHJvcHkKKyAqIEdSTkRfRVhQTElDSVQJTWFrZSBpdCBjbGVhciB5b3Uga25vdyB3aGF0
-IHlvdSBhcmUgZG9pbmcKICAqLwotI2RlZmluZSBHUk5EX05PTkJMT0NLCTB4MDAwMQorI2RlZmlu
-ZSBHUk5EX05PTkJMT0NLCQkweDAwMDEKKyNkZWZpbmUgR1JORF9XQUlUX0VOVFJPUFkJMHgwMDAy
-CisjZGVmaW5lIEdSTkRfRVhQTElDSVQJCTB4MDAwNAorCisjZGVmaW5lIEdSTkRfU0VDVVJFCShH
-Uk5EX0VYUExJQ0lUIHwgR1JORF9XQUlUX0VOVFJPUFkpCisjZGVmaW5lIEdSTkRfSU5TRUNVUkUJ
-KEdSTkRfRVhQTElDSVQgfCBHUk5EX05PTkJMT0NLKQorCisvKiBOb2JvZHkgd2FudHMgL2Rldi9y
-YW5kb20gYmVoYXZpb3IsIG5vYm9keSBzaG91bGQgdXNlIGl0ICovCiAjZGVmaW5lIEdSTkRfUkFO
-RE9NCTB4MDAwMgogCiAjZW5kaWYgLyogX1VBUElfTElOVVhfUkFORE9NX0ggKi8K
---0000000000003b5ae10592dc9c8a--
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
