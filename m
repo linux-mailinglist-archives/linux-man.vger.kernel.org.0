@@ -2,123 +2,148 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 61208B7362
-	for <lists+linux-man@lfdr.de>; Thu, 19 Sep 2019 08:47:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F265CB7CED
+	for <lists+linux-man@lfdr.de>; Thu, 19 Sep 2019 16:35:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2387824AbfISGrx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 19 Sep 2019 02:47:53 -0400
-Received: from youngberry.canonical.com ([91.189.89.112]:49621 "EHLO
-        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2387758AbfISGrx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 19 Sep 2019 02:47:53 -0400
-Received: from static-dcd-cqq-121001.business.bouyguestelecom.com ([212.194.121.1] helo=wittgenstein)
-        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
-        (Exim 4.86_2)
-        (envelope-from <christian.brauner@ubuntu.com>)
-        id 1iAqEJ-0004br-Gi; Thu, 19 Sep 2019 06:47:51 +0000
-Date:   Thu, 19 Sep 2019 08:47:51 +0200
-From:   Christian Brauner <christian.brauner@ubuntu.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, jannh@google.com, oleg@redhat.com
-Subject: Re: [PATCH] clone.2: add CLONE_PIDFD entry
-Message-ID: <20190919064750.tyxc7lut3mc2lcrx@wittgenstein>
-References: <20190511064908.21956-1-christian.brauner@ubuntu.com>
- <fdc276ee-cf28-0a3b-3fd3-6f5033dae7d6@gmail.com>
- <20190916074012.dpsfqfwcxh2pyyt7@wittgenstein>
- <7f115550-c7e6-c803-e47b-a37b7cdfb0a9@gmail.com>
- <20190918071415.gmxvovgiwgsi62tn@wittgenstein>
- <6a863c6a-3e61-f0b6-963e-a3545d9935d6@gmail.com>
+        id S1732393AbfISOej (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 19 Sep 2019 10:34:39 -0400
+Received: from outgoing-auth-1.mit.edu ([18.9.28.11]:46914 "EHLO
+        outgoing.mit.edu" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1732082AbfISOej (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 19 Sep 2019 10:34:39 -0400
+Received: from callcc.thunk.org (guestnat-104-133-0-98.corp.google.com [104.133.0.98] (may be forged))
+        (authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+        by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id x8JEYRHU016692
+        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Thu, 19 Sep 2019 10:34:29 -0400
+Received: by callcc.thunk.org (Postfix, from userid 15806)
+        id 6085D420811; Thu, 19 Sep 2019 10:34:27 -0400 (EDT)
+Date:   Thu, 19 Sep 2019 10:34:27 -0400
+From:   "Theodore Y. Ts'o" <tytso@mit.edu>
+To:     Linus Torvalds <torvalds@linux-foundation.org>
+Cc:     "Ahmed S. Darwish" <darwish.07@gmail.com>,
+        Lennart Poettering <mzxreary@0pointer.de>,
+        "Eric W. Biederman" <ebiederm@xmission.com>,
+        "Alexander E. Patrakov" <patrakov@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        lkml <linux-kernel@vger.kernel.org>, linux-ext4@vger.kernel.org,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH RFC v4 1/1] random: WARN on large getrandom() waits and
+ introduce getrandom2()
+Message-ID: <20190919143427.GQ6762@mit.edu>
+References: <20190912034421.GA2085@darwi-home-pc>
+ <20190912082530.GA27365@mit.edu>
+ <CAHk-=wjyH910+JRBdZf_Y9G54c1M=LBF8NKXB6vJcm9XjLnRfg@mail.gmail.com>
+ <20190914122500.GA1425@darwi-home-pc>
+ <008f17bc-102b-e762-a17c-e2766d48f515@gmail.com>
+ <20190915052242.GG19710@mit.edu>
+ <CAHk-=wgg2T=3KxrO-BY3nHJgMEyApjnO3cwbQb_0vxsn9qKN8Q@mail.gmail.com>
+ <20190918211503.GA1808@darwi-home-pc>
+ <20190918211713.GA2225@darwi-home-pc>
+ <CAHk-=wiCqDiU7SE3FLn2W26MS_voUAuqj5XFa1V_tiGTrrW-zQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <6a863c6a-3e61-f0b6-963e-a3545d9935d6@gmail.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <CAHk-=wiCqDiU7SE3FLn2W26MS_voUAuqj5XFa1V_tiGTrrW-zQ@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Sep 19, 2019 at 06:04:55AM +0200, Michael Kerrisk (man-pages) wrote:
-> Hello Christian,
-> 
-> On 9/18/19 9:14 AM, Christian Brauner wrote:
-> > On Wed, Sep 18, 2019 at 08:49:59AM +0200, Michael Kerrisk (man-pages) wrote:
-> 
-> >>>> One other piece seems to be missing: the returned file descriptor can
-> >>>> be fed to poll()/select()/epoll and the FD will test as readable when
-> >>>> the child terminates. Right? Did that functionality also land in
-> >>>> kernel 5.2? And did it get implemented as a separate commit, or did
-> >>>> the behavior just fall naturally out of the implementation of pidfd's?
-> >>>> Let me know the details, and I will craft a patch.
-> >>>
-> >>> It landed in 5.3. The relevant commit is:
-> >>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b53b0b9d9a613c418057f6cb921c2f40a6f78c24
-> >>> and belongs to the following merge:
-> >>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5450e8a316a64cddcbc15f90733ebc78aa736545
-> >>
-> >> Thanks for that info. One other questions springs to mind.
-> >> I haven't looked at the source or tried testing this,
-> >> but can anything actually be read() from a PIDFD? Presumably,
-> > 
-> > We had discussed this but decided to not implement this right away.
-> > Mainly, because we did not have a clear picture what the semantics
-> > should be. But it is something that we will probably want in the
-> > future...
-> 
-> That makes sense.
-> 
-> A further question... We now have three ways of getting a
-> process file descriptor [*]:
-> 
-> open() of /proc/PID
-> pidfd_open()
-> clone()/clone3() with CLONE_PIDFD
-> 
-> I thought the FD was supposed to be equivalent in all three cases.
-> However, if I try (on kernel 5.3) poll() an FD returned by opening
-> /proc/PID, poll() tells me POLLNVAL for the FD. Is that difference
-> intentional? (I am guessing it is not.)
+(Adding linux-api since this patch proposes an API change; both by
+changing the existing behavior, and adding new flags and possibly a
+new system call.)
 
-It's intentional.
-The short answer is that /proc/<pid> is a convenience for sending
-signals.
-The longer answer is that this stems from a heavy debate about what a
-process file descriptor was supposed to be and some people pushing for
-at least being able to use /proc/<pid> dirfds while ignoring security
-problems as soon as you're talking about returning those fds from
-clone(); not to mention the additional problems discovered when trying
-to implementing this.
-A "real" pidfd is one from CLONE_PIDFD or pidfd_open() and all features
-such as exit notification, read, and other future extensions will only
-be implemented on top of them.
-As much as we'd have liked to get rid of two different file descriptor
-types it doesn't hurt us much and is not that much different from what
-we will e.g. see with fsinfo() in the new mount api which needs to work
-on regular fds gotten via open()/openat() and mountfds gotten from
-fsopen() and fspick(). The mountfds will also allow for advanced
-operations that the other ones will not. There's even an argument to be
-made that fds you will get from open()/openat() and openat2() are
-different types since they have very different behavior; openat2()
-returning fds that are non arbitrarily upgradable etc.
-
+On Wed, Sep 18, 2019 at 04:57:58PM -0700, Linus Torvalds wrote:
+> On Wed, Sep 18, 2019 at 2:17 PM Ahmed S. Darwish <darwish.07@gmail.com> wrote:
+> >
+> > Since Linux v3.17, getrandom(2) has been created as a new and more
+> > secure interface for pseudorandom data requests.  It attempted to
+> > solve three problems, as compared to /dev/urandom:
 > 
-> Thanks,
-> 
-> Michael
-> 
-> [*} By the way, going forward, can we call these things
-> "process FDs", rather than "PID FDs"? The API names are what
-> they are, an that's okay, but these just as we have socket
-> FDs that refer to sockets, directory FDs that refer to 
-> directories, and timer FDs that refer to timers, and so on,
-> these are FDs that refer to *processes*, not "process IDs".
-> It's a little thing, but I think the naming better, and
-> it's what I propose to use in the manual pages.
+> I don't think your patch is really _wrong_, but I think it's silly to
+> introduce a new system call, when we have 30 bits left in the flags of
+> the old one, and the old system call checked them.
 
-The naming was another debate and we ended with this compromise.
-I would just clarify that a pidfd is a process file descriptor. I
-wouldn't make too much of a deal of hiding the shortcut "pidfd". People
-are already using it out there in the wild and it's never proven a good
-idea to go against accepted practice.
+The only reason to introduce a new system call is if we were going to
+keep the existing behavior of getrandom.  Given that the patch changes
+what getrandom(0), I agree there's no point to adding a new system
+call.
 
-Christian
+> There is *one* other small semantic change: The old code did
+> urandom_read() which added warnings, but each warning also _reset_ the
+> crng_init_cnt. Until it decided not to warn any more, at which point
+> it also stops that resetting of crng_init_cnt.
+> 
+> And that reset of crng_init_cnt, btw, is some cray cray.
+> 
+> It's basically a "we used up entropy" thing, which is very
+> questionable to begin with as the whole discussion has shown, but
+> since it stops doing it after 10 cases, it's not even good security
+> assuming the "use up entropy" case makes sense in the first place.
+
+It was a bug that it stopped doing it after 10 tries, and there's a
+really good reason for it.  Yes, the "using up entropy" thing doesn't
+make much sense in the general case.  But we still need some threshold
+for deciding whether or not it's been sufficiently initialized such
+that we consider the CRNG initialized.
+
+The reason for zeroing it after we expose state is because otherwise
+if the pool starts in a known state (the attacker knows the starting
+configuration, knows the DMI table that we're mixing into the pool
+since that's a constant, etc.), then after we've injected a small
+amount of uncertainty in the pool --- say, we started with a single
+known state of the pool, and after injecting some randomness, there
+are 64 possible states of the pool.  If the attacker can read from
+/dev/urandom, the attacker can know which of the 64 possible states of
+the pool it's in.  Now suppose we inject more uncertainty, so that
+there's another 64 unknown states, and the attacker is able to
+constantly read from /dev/urandom in a tight loop; it'll be able to
+keep up with the injection of entropy insertion, and so even though
+we've injected 256 "bits" of uncertainty, the attacker will still know
+the state of the pool.  That's why when we read from the pool, we need
+to clear the entropy bits.
+
+This is sometimes called a "state extension attack", and there have
+been attacks that have been carried out against RNG's that's don't
+protect against it.  What happened is when I added the rate-limiting
+to the uninitialized /dev/urandom warning, I accidentally wiped out
+the protection.  But it was there for a reason.
+
+> And the new cases are defined to *not* warn. In particular,
+> GRND_INSECURE very much does *not* warn about early urandom access
+> when crng isn't ready. Because the whole point of that new mode is
+> that the user knows it isn't secure.
+> 
+> So that should make getrandom(GRND_INSECURE) palatable to the systemd
+> kind of use that wanted to avoid the pointless kernel warning.
+
+Yes, that's clearly the right thing to do.  I do think we need to
+restore the state extension attack protections, though.
+
+> +	/*
+> +	 * People are really confused about whether
+> +	 * this is secure or insecure. Traditional
+> +	 * behavior is secure, but there are users
+> +	 * who clearly didn't want that, and just
+> +	 * never thought about it.
+> +	 */
+> +	case 0:
+>  		ret = wait_for_random_bytes();
+> -		if (unlikely(ret))
+> +		if (ret)
+>  			return ret;
+> +		break;
+
+I'm happy this proposed is not changing the behavior of getrandom(0).
+Why not just remap 0 to GRND_EXPLICIT | GRND_WAIT_ENTROPY, though?  It
+will have the same effect, and it's make it clear what we're doing.
+
+Later on, when we rip out /dev/random pool code (and make reading from
+/dev/random the equivalent of getrandom(GRND_SECURE)), we'll need to
+similarly map the legacy combination of flags for GRND_RANDOM and
+GRND_RANDOM | GRND_NONBLOCK.
+
+						- Ted
