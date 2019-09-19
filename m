@@ -2,104 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id DB4E0B7257
-	for <lists+linux-man@lfdr.de>; Thu, 19 Sep 2019 06:44:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DA4E0B72CB
+	for <lists+linux-man@lfdr.de>; Thu, 19 Sep 2019 07:43:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729098AbfISEoD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 19 Sep 2019 00:44:03 -0400
-Received: from mail-ed1-f66.google.com ([209.85.208.66]:45338 "EHLO
-        mail-ed1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725320AbfISEoC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 19 Sep 2019 00:44:02 -0400
-Received: by mail-ed1-f66.google.com with SMTP id h33so1884089edh.12
-        for <linux-man@vger.kernel.org>; Wed, 18 Sep 2019 21:44:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=11AuSpnRMcnkCO5GscpGoLwofh+zE9xIVmTCYDtvRxw=;
-        b=iO4br3E53U5oKIsMeE7CuzkGugdK3nculmf3Hda6Il6fCsC/Z2OTs70/lS1rB+0zEH
-         22Jg46XtvDH22mlbWCRH60XRSVkfg19C2W+iEJBS4lLf2LyE7eI5Z+gQ0wxVnQM0RZ8t
-         WmKEjj0JZr7LhdwLCRaqJg8RMWALMnQ7LvpxyJc3HNE914NzidbNZEHapr6nXxRZRZGI
-         M3YxnOh52cTbT6yiREswiL7UcB6ijxspWLwrfjbWnMBVf01XVAdtYk+N6UfltAgGu8IK
-         gvC4PYW1ZJ1+A2N7KJ+PXxHtcYFrF951ZU4/PLwes9hTM3wCwl4UJaMLkfhSuCPuilNx
-         Kvfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=11AuSpnRMcnkCO5GscpGoLwofh+zE9xIVmTCYDtvRxw=;
-        b=Ockf6S/QeSMqONTrr4hQpFgi9S8gDYoLIdMVUbPS8zQiUqgoG4hIDeAe/14ncvKlsy
-         jVW3vn4NcalgLQRskSKKXRQ0n+c7gz9na7xPcez4PuujW67RGuokJB0TF+3oLu5gK4ww
-         V0dkMq2BnT9oCCnzRxbEFyq/BpS2pYS5oUHsGzA79C0nAavwvYWsN7qIX95ZX75Duve1
-         AHvu87qGLy9GVp24EDOKcI2tl94PU2Wh7hBTbph8QUIR1pvNlDRxREEJQ5QUrB9HJMXA
-         2Rwjj2iPdkubE06Clc6wFVMV4BO6vlbVxyCusb3ef+boTSvkh51TB5LYeNRjra500IYh
-         UZ1A==
-X-Gm-Message-State: APjAAAUB4SKk772xoGqQWzBbVWzQc2CgrMi4yD7FYlDi7K7aZoTWVDoQ
-        H8dsAhksvuM2xmRZG5yR84I=
-X-Google-Smtp-Source: APXvYqxtE6IQ1Ii5Nrf5urcxUTL/fLJ9DWRekZFutG4kaQv8nejdPTq4uoO0oJOeexM3k2CkudsQTg==
-X-Received: by 2002:a05:6402:346:: with SMTP id r6mr13799524edw.124.1568868239650;
-        Wed, 18 Sep 2019 21:43:59 -0700 (PDT)
-Received: from [10.59.0.159] (h87-253-79-154.cust.a3fiber.se. [87.253.79.154])
-        by smtp.gmail.com with ESMTPSA id v4sm1328444edy.54.2019.09.18.21.43.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Sep 2019 21:43:58 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        jannh@google.com, oleg@redhat.com
-Subject: Re: [PATCH] clone.2: add CLONE_PIDFD entry
-To:     Christian Brauner <christian.brauner@ubuntu.com>
-References: <20190511064908.21956-1-christian.brauner@ubuntu.com>
- <fdc276ee-cf28-0a3b-3fd3-6f5033dae7d6@gmail.com>
- <20190916074012.dpsfqfwcxh2pyyt7@wittgenstein>
- <7f115550-c7e6-c803-e47b-a37b7cdfb0a9@gmail.com>
- <20190918071415.gmxvovgiwgsi62tn@wittgenstein>
- <6a863c6a-3e61-f0b6-963e-a3545d9935d6@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <91e5e4fe-e09e-7f9b-1a53-0bc31c63ddce@gmail.com>
-Date:   Thu, 19 Sep 2019 06:43:56 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+        id S1727305AbfISFn4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 19 Sep 2019 01:43:56 -0400
+Received: from smtp.gentoo.org ([140.211.166.183]:52958 "EHLO smtp.gentoo.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1725887AbfISFn4 (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Thu, 19 Sep 2019 01:43:56 -0400
+Received: from vapier.lan (localhost [127.0.0.1])
+        by smtp.gentoo.org (Postfix) with ESMTP id BCF2834B1E5;
+        Thu, 19 Sep 2019 05:43:54 +0000 (UTC)
+From:   Mike Frysinger <vapier@gentoo.org>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] setns.2: fix CLONE_NEWNS restriction info
+Date:   Thu, 19 Sep 2019 01:43:42 -0400
+Message-Id: <20190919054342.5405-1-vapier@gentoo.org>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-In-Reply-To: <6a863c6a-3e61-f0b6-963e-a3545d9935d6@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Christian,
+Threads are allowed to switch mount namespaces if the filesystem
+details aren't being shared.  That's the purpose of the check in
+the kernel quoted by the comment:
+    if (fs->users != 1)
+        return -EINVAL;
 
-A tweak to one point from my mail of a few minutes ago...
+It's been this way since the code was originally merged in v3.8.
 
-On 9/19/19 6:04 AM, Michael Kerrisk (man-pages) wrote:
+Signed-off-by: Mike Frysinger <vapier@gentoo.org>
+---
+ man2/setns.2 | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-> A further question... We now have three ways of getting a
-> process file descriptor [*]:
-> 
-> open() of /proc/PID
-> pidfd_open()
-> clone()/clone3() with CLONE_PIDFD
-> 
-> I thought the FD was supposed to be equivalent in all three cases.
-> However, if I try (on kernel 5.3) poll() an FD returned by opening
-> /proc/PID, poll() tells me POLLNVAL for the FD. Is that difference
-> intentional? (I am guessing it is not.)
-
-Okay -- I made a misstep there, although my question remains.
-I got the POLLNVAL return because I had opened /proc/PID with
-the O_PATH flag. When I open /proc/PID with O_RDONLY, then poll()
-on the FD always returns immediately (i.e., before the target
-process has terminated), and the returned events are
-POLLIN+POLLOUT.
-
-Thanks,
-
-Michael
-
+diff --git a/man2/setns.2 b/man2/setns.2
+index 18e80202326a..5985c099b464 100644
+--- a/man2/setns.2
++++ b/man2/setns.2
+@@ -131,8 +131,12 @@ capabilities in its own user namespace and
+ .BR CAP_SYS_ADMIN
+ in the user namespace that owns the target mount namespace.
+ .IP
+-A process may not be reassociated with a new mount namespace if it is
+-multithreaded.
++A process can't join a new mount namespace if it is sharing
++filesystem-related attributes
++(the attributes whose sharing is controlled by the
++.BR clone (2)
++.B CLONE_FS
++flag) with another process.
+ .\" Above check is in fs/namespace.c:mntns_install() [3.8 source]
+ .IP
+ See
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.23.0
+
