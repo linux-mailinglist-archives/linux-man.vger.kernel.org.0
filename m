@@ -2,113 +2,123 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 8BBFBB7342
-	for <lists+linux-man@lfdr.de>; Thu, 19 Sep 2019 08:38:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 61208B7362
+	for <lists+linux-man@lfdr.de>; Thu, 19 Sep 2019 08:47:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2388106AbfISGij (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 19 Sep 2019 02:38:39 -0400
-Received: from mail-lf1-f67.google.com ([209.85.167.67]:42733 "EHLO
-        mail-lf1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388094AbfISGij (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 19 Sep 2019 02:38:39 -0400
-Received: by mail-lf1-f67.google.com with SMTP id c195so1455778lfg.9
-        for <linux-man@vger.kernel.org>; Wed, 18 Sep 2019 23:38:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=CSYdXoN7fy1ClsdByj1ImRjCmeqNrRNvzkOxUMCLKW0=;
-        b=rpBOPxxl1B3VzVdY5iOvmnnjNqWjYex83MpFR/GBfDpd2JUEwFGNmWozqhU+seu1/f
-         5cWLYuD20fg6/QLpSY+XK7F1UHIvXMskaZDMmah8PmOYMcrOukvva3NqReaRZSNu6o47
-         piwAzg+PmyJIsoGgxoIdDUOYKFTvOTX3KFmNUqHHokeAwol/zMlt6XhTPdRwke5gqAVu
-         T+SutVntwpK0WqSzkoufqOmn/ataTF7NESUx5d2Ky1Mn9Fd4eo8DJ3s7uscIbGsWDxZS
-         +W4in9/W96As7vMPANVQv7BpKRsWZ97wa1iSvmukLeGKHkVkEiGSZJWT6+2e0wHAuDQA
-         /idg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=CSYdXoN7fy1ClsdByj1ImRjCmeqNrRNvzkOxUMCLKW0=;
-        b=KSkZNV6k6PpURn8fPVLXx2I5S7/ajxROOWKr7LyHjRJ9jJQ7Zz7eTWswhQLw+yhAEJ
-         vZNRiUA/MWJdW4MVCv5gyOlCWvuP+n2VsNuXHrhRNHAtEseUQrCZ+CYHIcNVp9+1b+0j
-         LYyawsYwmyCMNYIItAN7Hntor/YtTytkwfboOFoE1Keh6w6ZjwSktD5ly6fddi2JD27A
-         wzT9lbpaipD61zlLw6YS0IH04UWL+dujp6RvJ2V0F/VRZTx3OE7KMkCGywCh/dMS1xmk
-         NPsfGmzHGGrxcib1lumNQjxntsmNSxFvXDqnKn5PTUqbyswlYUPhwODtYfxo04jdgQVU
-         YEIw==
-X-Gm-Message-State: APjAAAU8/5pgGsmzhv2k8BmwHUOyQ1lYeU5pQUy5aHyL8J6ZjFrZs5MG
-        fuzwVeVT9ejOLvS680DNDlJHOy0KG5g=
-X-Google-Smtp-Source: APXvYqzJ6Qw46XeCrHA8/Vyn6ntFfRQVlGJtUY+xyfJwhWeMMCbku918RiYFtZARZBPBG7xGKhxM5g==
-X-Received: by 2002:ac2:54b4:: with SMTP id w20mr4053809lfk.3.1568875117131;
-        Wed, 18 Sep 2019 23:38:37 -0700 (PDT)
-Received: from [10.6.5.246] ([85.235.16.11])
-        by smtp.gmail.com with ESMTPSA id 77sm1423969ljj.84.2019.09.18.23.38.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Sep 2019 23:38:36 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] setns.2: fix CLONE_NEWNS restriction info
-To:     Mike Frysinger <vapier@gentoo.org>
-References: <20190919054342.5405-1-vapier@gentoo.org>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <0f6c29d9-5c1f-acf4-c771-3c780961bb0b@gmail.com>
-Date:   Thu, 19 Sep 2019 08:38:36 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+        id S2387824AbfISGrx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 19 Sep 2019 02:47:53 -0400
+Received: from youngberry.canonical.com ([91.189.89.112]:49621 "EHLO
+        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2387758AbfISGrx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 19 Sep 2019 02:47:53 -0400
+Received: from static-dcd-cqq-121001.business.bouyguestelecom.com ([212.194.121.1] helo=wittgenstein)
+        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+        (Exim 4.86_2)
+        (envelope-from <christian.brauner@ubuntu.com>)
+        id 1iAqEJ-0004br-Gi; Thu, 19 Sep 2019 06:47:51 +0000
+Date:   Thu, 19 Sep 2019 08:47:51 +0200
+From:   Christian Brauner <christian.brauner@ubuntu.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, jannh@google.com, oleg@redhat.com
+Subject: Re: [PATCH] clone.2: add CLONE_PIDFD entry
+Message-ID: <20190919064750.tyxc7lut3mc2lcrx@wittgenstein>
+References: <20190511064908.21956-1-christian.brauner@ubuntu.com>
+ <fdc276ee-cf28-0a3b-3fd3-6f5033dae7d6@gmail.com>
+ <20190916074012.dpsfqfwcxh2pyyt7@wittgenstein>
+ <7f115550-c7e6-c803-e47b-a37b7cdfb0a9@gmail.com>
+ <20190918071415.gmxvovgiwgsi62tn@wittgenstein>
+ <6a863c6a-3e61-f0b6-963e-a3545d9935d6@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20190919054342.5405-1-vapier@gentoo.org>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+In-Reply-To: <6a863c6a-3e61-f0b6-963e-a3545d9935d6@gmail.com>
+User-Agent: NeoMutt/20180716
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Mike,
-
-On 9/19/19 7:43 AM, Mike Frysinger wrote:
-> Threads are allowed to switch mount namespaces if the filesystem
-> details aren't being shared.  That's the purpose of the check in
-> the kernel quoted by the comment:
->     if (fs->users != 1)
->         return -EINVAL;
+On Thu, Sep 19, 2019 at 06:04:55AM +0200, Michael Kerrisk (man-pages) wrote:
+> Hello Christian,
 > 
-> It's been this way since the code was originally merged in v3.8.
-
-Thanks. Patch applied.
-
-Cheers,
-
-Michael
-
-> Signed-off-by: Mike Frysinger <vapier@gentoo.org>
-> ---
->  man2/setns.2 | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
+> On 9/18/19 9:14 AM, Christian Brauner wrote:
+> > On Wed, Sep 18, 2019 at 08:49:59AM +0200, Michael Kerrisk (man-pages) wrote:
 > 
-> diff --git a/man2/setns.2 b/man2/setns.2
-> index 18e80202326a..5985c099b464 100644
-> --- a/man2/setns.2
-> +++ b/man2/setns.2
-> @@ -131,8 +131,12 @@ capabilities in its own user namespace and
->  .BR CAP_SYS_ADMIN
->  in the user namespace that owns the target mount namespace.
->  .IP
-> -A process may not be reassociated with a new mount namespace if it is
-> -multithreaded.
-> +A process can't join a new mount namespace if it is sharing
-> +filesystem-related attributes
-> +(the attributes whose sharing is controlled by the
-> +.BR clone (2)
-> +.B CLONE_FS
-> +flag) with another process.
->  .\" Above check is in fs/namespace.c:mntns_install() [3.8 source]
->  .IP
->  See
+> >>>> One other piece seems to be missing: the returned file descriptor can
+> >>>> be fed to poll()/select()/epoll and the FD will test as readable when
+> >>>> the child terminates. Right? Did that functionality also land in
+> >>>> kernel 5.2? And did it get implemented as a separate commit, or did
+> >>>> the behavior just fall naturally out of the implementation of pidfd's?
+> >>>> Let me know the details, and I will craft a patch.
+> >>>
+> >>> It landed in 5.3. The relevant commit is:
+> >>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b53b0b9d9a613c418057f6cb921c2f40a6f78c24
+> >>> and belongs to the following merge:
+> >>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5450e8a316a64cddcbc15f90733ebc78aa736545
+> >>
+> >> Thanks for that info. One other questions springs to mind.
+> >> I haven't looked at the source or tried testing this,
+> >> but can anything actually be read() from a PIDFD? Presumably,
+> > 
+> > We had discussed this but decided to not implement this right away.
+> > Mainly, because we did not have a clear picture what the semantics
+> > should be. But it is something that we will probably want in the
+> > future...
 > 
+> That makes sense.
+> 
+> A further question... We now have three ways of getting a
+> process file descriptor [*]:
+> 
+> open() of /proc/PID
+> pidfd_open()
+> clone()/clone3() with CLONE_PIDFD
+> 
+> I thought the FD was supposed to be equivalent in all three cases.
+> However, if I try (on kernel 5.3) poll() an FD returned by opening
+> /proc/PID, poll() tells me POLLNVAL for the FD. Is that difference
+> intentional? (I am guessing it is not.)
 
+It's intentional.
+The short answer is that /proc/<pid> is a convenience for sending
+signals.
+The longer answer is that this stems from a heavy debate about what a
+process file descriptor was supposed to be and some people pushing for
+at least being able to use /proc/<pid> dirfds while ignoring security
+problems as soon as you're talking about returning those fds from
+clone(); not to mention the additional problems discovered when trying
+to implementing this.
+A "real" pidfd is one from CLONE_PIDFD or pidfd_open() and all features
+such as exit notification, read, and other future extensions will only
+be implemented on top of them.
+As much as we'd have liked to get rid of two different file descriptor
+types it doesn't hurt us much and is not that much different from what
+we will e.g. see with fsinfo() in the new mount api which needs to work
+on regular fds gotten via open()/openat() and mountfds gotten from
+fsopen() and fspick(). The mountfds will also allow for advanced
+operations that the other ones will not. There's even an argument to be
+made that fds you will get from open()/openat() and openat2() are
+different types since they have very different behavior; openat2()
+returning fds that are non arbitrarily upgradable etc.
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+> 
+> Thanks,
+> 
+> Michael
+> 
+> [*} By the way, going forward, can we call these things
+> "process FDs", rather than "PID FDs"? The API names are what
+> they are, an that's okay, but these just as we have socket
+> FDs that refer to sockets, directory FDs that refer to 
+> directories, and timer FDs that refer to timers, and so on,
+> these are FDs that refer to *processes*, not "process IDs".
+> It's a little thing, but I think the naming better, and
+> it's what I propose to use in the manual pages.
+
+The naming was another debate and we ended with this compromise.
+I would just clarify that a pidfd is a process file descriptor. I
+wouldn't make too much of a deal of hiding the shortcut "pidfd". People
+are already using it out there in the wild and it's never proven a good
+idea to go against accepted practice.
+
+Christian
