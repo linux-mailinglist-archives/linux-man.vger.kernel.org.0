@@ -2,62 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 27ACEB9B02
-	for <lists+linux-man@lfdr.de>; Sat, 21 Sep 2019 02:10:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6B2C3B9BAD
+	for <lists+linux-man@lfdr.de>; Sat, 21 Sep 2019 02:23:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726997AbfIUAKS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 20 Sep 2019 20:10:18 -0400
-Received: from 17.mo4.mail-out.ovh.net ([46.105.41.16]:36046 "EHLO
-        17.mo4.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726947AbfIUAKS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 20 Sep 2019 20:10:18 -0400
-X-Greylist: delayed 23398 seconds by postgrey-1.27 at vger.kernel.org; Fri, 20 Sep 2019 20:10:17 EDT
-Received: from player695.ha.ovh.net (unknown [10.109.160.93])
-        by mo4.mail-out.ovh.net (Postfix) with ESMTP id 63DEC2056EE
-        for <linux-man@vger.kernel.org>; Fri, 20 Sep 2019 19:00:48 +0200 (CEST)
-Received: from jwilk.net (user-5-173-80-176.play-internet.pl [5.173.80.176])
-        (Authenticated sender: jwilk@jwilk.net)
-        by player695.ha.ovh.net (Postfix) with ESMTPSA id A025B9F36B34;
-        Fri, 20 Sep 2019 17:00:45 +0000 (UTC)
-Date:   Fri, 20 Sep 2019 19:00:42 +0200
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Rick Stanley <rstanley@rsiny.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-Subject: Re: Man page pre & post operators error
-Message-ID: <20190920170042.444behwks42xvs6a@jwilk.net>
-References: <a1683c1cc450bf969aca13d8f7a99f08cc07635d.camel@rsiny.com>
+        id S2405090AbfIUAWF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 20 Sep 2019 20:22:05 -0400
+Received: from mu.digital-domain.net ([108.61.197.113]:39580 "EHLO
+        mu.digital-domain.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2404801AbfIUAWE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 20 Sep 2019 20:22:04 -0400
+X-Greylist: delayed 2375 seconds by postgrey-1.27 at vger.kernel.org; Fri, 20 Sep 2019 20:22:03 EDT
+Received: from kappa.digital-domain.net (kappa.digital-domain.net [IPv6:2001:8b0:36c:cc91::ac])
+        (authenticated bits=0)
+        by mu.digital-domain.net (8.14.7/8.14.7) with ESMTP id x8KNgNgk025042
+        (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+        Sat, 21 Sep 2019 00:42:26 +0100
+From:   Andrew Clayton <andrew@digital-domain.net>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org,
+        Andrew Clayton <andrew@digital-domain.net>
+Subject: [PATCH 0/1] Point out the interactions of signalfd with epoll & fork
+Date:   Sat, 21 Sep 2019 00:42:10 +0100
+Message-Id: <20190920234211.57596-1-andrew@digital-domain.net>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <a1683c1cc450bf969aca13d8f7a99f08cc07635d.camel@rsiny.com>
-User-Agent: NeoMutt/20180716
-X-Ovh-Tracer-Id: 414331166658123572
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedufedrvddvgddutdejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Rick Stanley <rstanley@rsiny.com>, 2019-09-20, 10:19:
->In the man pages, both in Linux and online in multiple sites, the pre 
->and post operators are listed as equal precedence.  Two different web 
->sites list them on different levels:
->
->http://man7.org/linux/man-pages/man7/precedence.7.html
->	Level 1
->
->https://linux.die.net/man/7/operator
->	Level 2
+Hi Michael,
 
-FWIW, they are not on different levels. In fact, the operator tables are 
-identical; the only difference is that the one on linux.die.net is badly 
-formatted.
+I was just hit by this interaction of signalfd with epoll & fork.
+Basically if you add a signalfd file descriptor to epoll and then fork,
+you won't receive notifications for sent signals,
 
-In general, I would recommend avoiding linux.die.net. Their manpages are 
-often out-of-date, but you can't easily tell, because they removed 
-version information.
+Hopefully this addition to the man page will help avoid people head
+scratching in the future.
+
+I've added links and quotes to the sources for this problem in the
+commit message.
+
+Hopefully the text is OK. I don't really understand what is going on
+underneath.
+
+Cheers,
+Andrew
+
+Andrew Clayton (1):
+  signalfd.2: Note about interactions with epoll & fork
+
+ man2/signalfd.2 | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
 -- 
-Jakub Wilk
+2.21.0
+
