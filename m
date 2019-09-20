@@ -2,128 +2,155 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id C72C8B8EC1
-	for <lists+linux-man@lfdr.de>; Fri, 20 Sep 2019 13:01:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B3EB2B905D
+	for <lists+linux-man@lfdr.de>; Fri, 20 Sep 2019 15:09:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2438069AbfITLBc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 20 Sep 2019 07:01:32 -0400
-Received: from mtax.cdmx.gob.mx ([187.141.35.197]:9528 "EHLO mtaw.cdmx.gob.mx"
-        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
-        id S2438061AbfITLBb (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 20 Sep 2019 07:01:31 -0400
-X-NAI-Header: Modified by McAfee Email Gateway (4500)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cdmx.gob.mx; s=72359050-3965-11E6-920A-0192F7A2F08E;
-        t=1568961758; h=X-Virus-Scanned:Content-Type:
-         MIME-Version:Content-Transfer-Encoding:Content-Description:
-         Subject:To:From:Date:Reply-To:Message-Id:X-AnalysisOut:
-         X-AnalysisOut:X-AnalysisOut:X-AnalysisOut:
-         X-AnalysisOut:X-AnalysisOut:X-SAAS-TrackingID:
-         X-NAIMIME-Disclaimer:X-NAIMIME-Modified:X-NAI-Spam-Flag:
-         X-NAI-Spam-Threshold:X-NAI-Spam-Score:X-NAI-Spam-Rules:
-         X-NAI-Spam-Version; bh=p7gWlwfEWOsbONfopC
-        8BPhtqdzKUJiGtXCGJ3YtSNOM=; b=I8RWx86COWnjpKJZBgCD
-        kfO6PdpMnOoxdSKe5KtPYjNzoVccIcUm6wnf/A0ElRtQKLZ1c/
-        Lynw5QLNldNCxF6ojfWh3I5pfJUI3VaV9099DE9aGbz6qnX6oO
-        28mrvayrqTiSGviJyq2N6bG+84wymFy+EFRZiz6Q2gDT+SRD1j
-        k=
-Received: from correo.seciti.cdmx.gob.mx (gdf-correo.cdmx.gob.mx [10.250.102.17]) by mtaw.cdmx.gob.mx with smtp
-         id 0865_4d2d_cb782c45_9590_42f4_a356_d2a91da94256;
-        Fri, 20 Sep 2019 01:42:37 -0500
-Received: from localhost (localhost [127.0.0.1])
-        by gdf-correo.df.gob.mx (Postfix) with ESMTP id 7440533EB;
-        Fri, 20 Sep 2019 01:42:36 -0500 (CDT)
-Received: from correo.seciti.cdmx.gob.mx ([127.0.0.1])
-        by localhost (gdf-correo.df.gob.mx [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id 2c49aKQoHZ4Y; Fri, 20 Sep 2019 01:42:36 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-        by gdf-correo.df.gob.mx (Postfix) with ESMTP id 37173CD7;
-        Fri, 20 Sep 2019 01:42:36 -0500 (CDT)
-X-Virus-Scanned: amavisd-new at gdf-correo.df.gob.mx
-Received: from correo.seciti.cdmx.gob.mx ([127.0.0.1])
-        by localhost (gdf-correo.df.gob.mx [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id XreaSpmFJdii; Fri, 20 Sep 2019 01:42:36 -0500 (CDT)
-Received: from [100.80.130.141] (8ta-250-0-72.telkomadsl.co.za [102.250.0.72])
-        by gdf-correo.df.gob.mx (Postfix) with ESMTPSA id 9059D33DA;
-        Fri, 20 Sep 2019 01:42:27 -0500 (CDT)
-Content-Type: text/plain;
-  charset="utf-8"
+        id S1727283AbfITNJI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 20 Sep 2019 09:09:08 -0400
+Received: from outgoing-auth-1.mit.edu ([18.9.28.11]:51553 "EHLO
+        outgoing.mit.edu" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1725842AbfITNJH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 20 Sep 2019 09:09:07 -0400
+Received: from callcc.thunk.org (guestnat-104-133-0-98.corp.google.com [104.133.0.98] (may be forged))
+        (authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+        by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id x8KD8v4h017107
+        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Fri, 20 Sep 2019 09:08:58 -0400
+Received: by callcc.thunk.org (Postfix, from userid 15806)
+        id 017D7420811; Fri, 20 Sep 2019 09:08:56 -0400 (EDT)
+Date:   Fri, 20 Sep 2019 09:08:56 -0400
+From:   "Theodore Y. Ts'o" <tytso@mit.edu>
+To:     Linus Torvalds <torvalds@linux-foundation.org>
+Cc:     "Ahmed S. Darwish" <darwish.07@gmail.com>,
+        Lennart Poettering <mzxreary@0pointer.de>,
+        "Eric W. Biederman" <ebiederm@xmission.com>,
+        "Alexander E. Patrakov" <patrakov@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        lkml <linux-kernel@vger.kernel.org>, linux-ext4@vger.kernel.org,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH RFC v4 1/1] random: WARN on large getrandom() waits and
+ introduce getrandom2()
+Message-ID: <20190920130856.GA16111@mit.edu>
+References: <CAHk-=wjyH910+JRBdZf_Y9G54c1M=LBF8NKXB6vJcm9XjLnRfg@mail.gmail.com>
+ <20190914122500.GA1425@darwi-home-pc>
+ <008f17bc-102b-e762-a17c-e2766d48f515@gmail.com>
+ <20190915052242.GG19710@mit.edu>
+ <CAHk-=wgg2T=3KxrO-BY3nHJgMEyApjnO3cwbQb_0vxsn9qKN8Q@mail.gmail.com>
+ <20190918211503.GA1808@darwi-home-pc>
+ <20190918211713.GA2225@darwi-home-pc>
+ <CAHk-=wiCqDiU7SE3FLn2W26MS_voUAuqj5XFa1V_tiGTrrW-zQ@mail.gmail.com>
+ <20190919143427.GQ6762@mit.edu>
+ <CAHk-=wgqbBy84ovtr8wPFqRo6U8jvp59rvQ8a6TvXuoyb-4L-Q@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Description: Mail message body
-Subject: Spende von 5 Millionen Euro
-To:     Recipients <mramirezg@mexicocity.gob.mx>
-From:   "Shane Missler" <mramirezg@mexicocity.gob.mx>
-Date:   Fri, 20 Sep 2019 08:42:33 +0200
-Reply-To: "shanemissler.spende11@gmail.comshanemissler.spende11"@gmail.com
-Message-Id: <20190920064227.9059D33DA@gdf-correo.df.gob.mx>
-X-AnalysisOut: [v=2.2 cv=eelNR/MH c=1 sm=1 tr=0 p=09-KjHS_CW8A:10 p=bEr4i4]
-X-AnalysisOut: [eggGkA:10 p=Lyqu6MUUigPyaOuRX7ce:22 a=KsSCQl7LcZej77FuluUc]
-X-AnalysisOut: [Qw==:117 a=+/zS2XqOcqrzxqj0Epa8oQ==:17 a=IkcTkHD0fZMA:10 a]
-X-AnalysisOut: [=x7bEGLp0ZPQA:10 a=J70Eh1EUuV4A:10 a=pGLkceISAAAA:8 a=wN7r]
-X-AnalysisOut: [T8hNlMSaUXRpxSgA:9 a=K7tsimcRO30Sg2YH:21 a=QOCYt1FwmxBrUrR]
-X-AnalysisOut: [v:21 a=QEXdDO2ut3YA:10]
-X-SAAS-TrackingID: ed4748d5.0.774120.00-2305.1320516.s12p02m004.mxlogic.net
-X-NAIMIME-Disclaimer: 1
-X-NAIMIME-Modified: 1
-X-NAI-Spam-Flag: NO
-X-NAI-Spam-Threshold: 3
-X-NAI-Spam-Score: -5000
-X-NAI-Spam-Rules: 1 Rules triggered
-        WHITELISTED=-5000
-X-NAI-Spam-Version: 2.3.0.9418 : core <6638> : inlines <7144> : streams
- <1833281> : uri <2907325>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wgqbBy84ovtr8wPFqRo6U8jvp59rvQ8a6TvXuoyb-4L-Q@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-RGllcyBpc3QgZWluZSBwZXJzw7ZubGljaGUgTWFpbCwgZGllIGljaCBhbiBTaWUgYWRyZXNzaWVy
-ZS4gSWNoIGJpbiBTSEFORSBNSVNTTEVSIGF1cyBGbG9yaWRhLCBVU0EuIFdpZSBTaWUgYmVyZWl0
-cyB3aXNzZW4sIGhhYmUgaWNoIGVpbmVuIExvdHRvLUphY2twb3QgaW4gSMO2aGUgdm9uIDQ1MSBN
-aW8uIFVTRCAoMzMwIE1pby4gR0JQKSBnZXdvbm5lbiB1bmQgZGFzIEdlbGQgaGF0IG1laW4gTGVi
-ZW4gdW5kIG1laW4gRmFtaWxpZW5sZWJlbiB2ZXLDpG5kZXJ0LCBhYmVyIGVzIHdpcmQgbWVpbiBI
-ZXJ6IG5pY2h0IHZlcsOkbmRlcm4sIHdpZSBpY2ggYW4gZGVtIFRhZyBzYWd0ZSwgYW4gZGVtIGlj
-aCBtZWluIEdlbGQgaGFiZSwgZGFzIGljaCB2ZXJ3ZW5kZW4gd2VyZGUgRGllc2VzIEdlbGQgZsO8
-ciBkaWUgSGlsZmUgZGVyIE1lbnNjaGhlaXQuIEljaCBoYWJlIGJlc2NobG9zc2VuLCBJaG5lbiB1
-bmQgSWhyZXIgR2VtZWluZGUgZWluZW4gQmV0cmFnIHZvbiA1IE1pbGxpb25lbiBFdXJvIHp1IHNw
-ZW5kZW4sIHVtIGRpZXNlIFNwZW5kZSBhbnp1Zm9yZGVybi4gRS1NYWlsOiAoc2hhbmVtaXNzbGVy
-MEBnbWFpbC5jb20pCgpDZWNpIGVzdCB1biBjb3VycmllciBwZXJzb25uZWwgcXVlIGplIHZvdXMg
-YWRyZXNzZS4gSmUgc3VpcyBTSEFORSBNSVNTTEVSLCBkZSBGbG9yaWRlLCDDiXRhdHMtVW5pcy4g
-Q29tbWUgdm91cyBsZSBzYXZleiBkw6lqw6AsIGonYWkgZ2FnbsOpIDQ1MSBtaWxsaW9ucyBkZSBk
-b2xsYXJzIChMb3R0byBKYWNrcG90KSBldCBsJ2FyZ2VudCBhIGNoYW5nw6kgbWEgdmllIGV0IGNl
-bGxlIGRlIG1hIGZhbWlsbGUsIG1haXMgY2VsYSBuZSBjaGFuZ2VyYSBwYXMgbW9uIGPFk3VyLCBj
-b21tZSBqZSBsJ2FpIGRpdCBsZSBqb3VyIG/DuSBqJ2FpIG1vbiBhcmdlbnQsIGondXRpbGlzZXJh
-aSBjZXQgYXJnZW50IHBvdXIgbCdhaWRlIGRlIGwnaHVtYW5pdMOpLkonYWkgZMOpY2lkw6kgZGUg
-dm91cyBkb25uZXIgbGEgc29tbWUgZGUgNSBtaWxsaW9ucyBkJ2V1cm9zIMOgIHZvdXMgZXQgw6Ag
-dm90cmUgY29tbXVuYXV0w6ksIHBvdXIgcsOpY2xhbWVyIGNlIGRvbiwgZW1haWwtIChzaGFuZW1p
-c3NsZXIwQGdtYWlsLmNvbSkKCgoKLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
-Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
-Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
-Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
-Li4uLi4uCgoKTGEgaW5mb3JtYWNpb24gY29udGVuaWRhIGVuIGVzdGUgY29ycmVvLCBhc2kgY29t
-byBsYSBjb250ZW5pZGEgZW4gbG9zIGRvY3VtZW50b3MgYW5leG9zLCBwdWVkZSBjb250ZW5lciBk
-YXRvcyBwZXJzb25hbGVzLCBwb3IgbG8gcXVlIHN1IGRpZnVzaW9uIGVzIHJlc3BvbnNhYmlsaWRh
-ZCBkZSBxdWllbiBsb3MgdHJhbnNtaXRlIHkgcXVpZW4gbG9zIHJlY2liZSwgZW4gdMOpcm1pbm9z
-IGRlIGxvIGRpc3B1ZXN0byBwb3IgbGFzIGZyYWNjaW9uZXMgSUkgeSBWSUkgZGVsIGFydGljdWxv
-IDQsIHVsdGltbyBwYXJyYWZvIGRlbCBhcnRpY3VsbyA4LCBhcnRpY3VsbyAzNiBwYXJyYWZvIElJ
-LCAzOCBmcmFjY2lvbiBJIHkgZGVtYXMgYXBsaWNhYmxlcyBkZSBsYSBMZXkgZGUgVHJhbnNwYXJl
-bmNpYSB5IEFjY2VzbyBhIGxhIEluZm9ybWFjaW9uIFB1YmxpY2EgZGVsIERpc3RyaXRvIEZlZGVy
-YWwuDQpMb3MgRGF0b3MgUGVyc29uYWxlcyBzZSBlbmN1ZW50cmFuIHByb3RlZ2lkb3MgcG9yIGxh
-IExleSBkZSBQcm90ZWNjaW9uIGRlIERhdG9zIFBlcnNvbmFsZXMgZGVsIERpc3RyaXRvIEZlZGVy
-YWwsIHBvciBsbyBxdWUgc3UgZGlmdXNpb24gc2UgZW5jdWVudHJhIHR1dGVsYWRhIGVuIHN1cyBh
-cnRpY3Vsb3MgMiwgNSwgMTYsIDIxLCA0MSB5IGRlbWFzIHJlbGF0aXZvcyB5IGFwbGljYWJsZXMs
-IGRlYmllbmRvIHN1amV0YXJzZSBlbiBzdSBjYXNvLCBhIGxhcyBkaXNwb3NpY2lvbmVzIHJlbGF0
-aXZhcyBhIGxhIGNyZWFjaW9uLCBtb2RpZmljYWNpb24gbyBzdXByZXNpb24gZGUgZGF0b3MgcGVy
-c29uYWxlcyBwcmV2aXN0b3MuIEFzaW1pc21vLCBkZWJlcmEgZXN0YXJzZSBhIGxvIHNlw7FhbGFk
-byBlbiBsb3MgbnVtZXJhbGVzIDEgLCAzLCAxMiwgMTgsIDE5LCAyMCwgMjEsIDIzLCAyNCwgMjks
-IDM1IHkgZGVtYXMgYXBsaWNhYmxlcyBkZSBsb3MgTGluZWFtaWVudG9zIHBhcmEgbGEgUHJvdGVj
-Y2lvbiBkZSBEYXRvcyBQZXJzb25hbGVzIGVuIGVsIERpc3RyaXRvIEZlZGVyYWwuDQpFbiBlbCB1
-c28gZGUgbGFzIHRlY25vbG9naWFzIGRlIGxhIGluZm9ybWFjaW9uIHkgY29tdW5pY2FjaW9uZXMg
-ZGVsIEdvYmllcm5vIGRlbCBEaXN0cml0byBGZWRlcmFsLCBkZWJlcmEgb2JzZXJ2YXJzZSBwdW50
-dWFsbWVudGUgbG8gZGlzcHVlc3RvIHBvciBsYSBMZXkgR29iaWVybm8gRWxlY3Ryb25pY28gZGVs
-IERpc3RyaXRvIEZlZGVyYWwsIGxhIGxleSBwYXJhIGhhY2VyIGRlIGxhIENpdWRhZCBkZSBNZXhp
-Y28gdW5hIENpdWRhZCBNYXMgQWJpZXJ0YSwgZWwgYXBhcnRhZG8gMTAgZGUgbGEgQ2lyY3VsYXIg
-VW5vIHZpZ2VudGUgeSBsYXMgTm9ybWFzIEdlbmVyYWxlcyBxdWUgZGViZXJhbiBvYnNlcnZhcnNl
-IGVuIG1hdGVyaWEgZGUgU2VndXJpZGFkIGRlIGxhIEluZm9ybWFjaW9uIGVuIGxhIEFkbWluaXN0
-cmFjaW9uIFB1YmxpY2EgZGVsIERpc3RyaXRvIEZlZGVyYWwuCg==
+On Thu, Sep 19, 2019 at 08:20:57AM -0700, Linus Torvalds wrote:
+> And unlike your theoretical state extension attack, I can point you to
+> black hat presentations that literally talk about using the fact that
+> we delay m,ixing in the input pull hash to know what's going on:
+> 
+>   https://www.blackhat.com/docs/eu-14/materials/eu-14-Kedmi-Attacking-The-Linux-PRNG-On-Android-Weaknesses-In-Seeding-Of-Entropic-Pools-And-Low-Boot-Time-Entropy.pdf
+> 
+> That's a real attack. Based on the REAL fact that we currently have to
+> use the urandom logic because the entropy-waiting one is useless, and
+> in fact depends on the re-seeding happening too late.
+
+Actually, that particular case proves my point.
+
+In that particular attack was against Android 4.3 (Android KitKat).
+In the 3.4 kernel used by KitKat, before the urandom pool is
+considered initialized, 100% of the entropy from
+add_interrupt_randomness() goes to the urandom pool, NOT the input
+pool.  add_device_entropy() also fed the urandom pool.  And on an
+Android device, it doesn't have a keyboard, mouse, or spinning HDD, so
+add_timer_randomness() and add_disk_randomness() weren't a factor.
+
+The real problem was that the Android zygote process sampled the the
+urandom pool too early, and what the attack did was essentially one
+where they were trying to determine the state of the pool by looking
+at that sampled output of /dev/urandom.
+
+If we make getrandom(0) work like /dev/urandom, it doesn't solve the
+problem, because if you read from the entropy pool before we can get
+high quality randomness, you're screwed.  The only real answers are
+(a) try to get better entropy early, or (b) get userspace to wait
+until it's safe to read from /dev/urandom.
+
+Long-term, (a) is the only real way to solve the problem, and whether
+you trust the bootloader, or trust the built-in hardware random number
+generator (whether it's RDRAND, or some secure element in the device,
+etc), we can't control userspace.  We can try to enforce userspace to
+be safe by blocking, but that makes people unhappy.  We can certainly
+try to influence userspace by annoying them with WARN() stack traces
+in the logs, and hope they pay attention, but that's not guaranteed.
+
+> But honestly, this isn't realistic. I can point to emails where *you*
+> are  arguing against other hashing algorithms because the whole state
+> extension attack simply isn't realistic.
+
+The blackhat presentation which you pointed at *was* actually a state
+extension attack.  When I argued against state extension attacks, that
+was in cases where people worried about recovery after the pool is
+exposed --- and my argument was if you can read from kernel memory
+enough to grab the pool state, you have other problems.  Your
+observation that if you can install malware that runs at system
+initscript/userspace bootup time, you probably have other problems, is
+a similar argument, and it's a fair one.  But it *has* happened, as
+the blackhat paper demonstrates.
+
+My thinking at the time is that if people are reading from the CRNG
+before it's initialized (which could only happen via /dev/urandom),
+that was kind of a disaster anyway, so resetting the initialization
+count would at least get us to the point where when the CRNG *was*
+declared to be initialized, that was something could state with high
+confidence that we were in a secure state.  
+
+> > I'm happy this proposed is not changing the behavior of getrandom(0).
+> > Why not just remap 0 to GRND_EXPLICIT | GRND_WAIT_ENTROPY, though?  It
+> > will have the same effect, and it's make it clear what we're doing.
+> 
+> Have you you not followed the whole discussion? Didn't you read the comment?
+> 
+> People use "getrandom(0)" not because they want secure randomness, but
+> because that's the default.
+> 
+> And we *will* do something about it. This patch didn't, because I want
+> to be able to backport it to stable, so that everybody is happier with
+> saying "ok, I'll use the new getrandom(GRND_INSECURE)".
+> 
+> Because getrandom(0) will NOT be the the same as GRND_EXPLICIT |
+> GRND_WAIT_ENTROPY.
+
+No, I did read the comment.  And I agree that at the moment, that yes,
+it is ambiguous.  What I really care about though, is the HUGE
+DEPLOYED BASE which is using getrandom(0) *because* they are
+generating cryptographic keys, and we will be changing things out from
+under them.
+
+We agree that we don't want to change things out from under the stable
+users.  I'm pleading that we not screw over existing userspace --- at
+least not right away.  Give them *time* to release update their source
+bases to use getrandom(GRND_SECURE).  So what if we make getrandom(0)
+print a ratelimited KERN_ERR deprecation notice that program should
+switch to either specify either GRND_INSECURE or GRND_SECURE, and not
+change the current semantics of getrandom(0) for some period of time?
+Say, a year.  Or even six months.
+
+If that's not good enough, what if we change getrandom(0) immediately,
+but only for those platforms which have a functional
+arch_get_random_long() or random_get_entropy()?  That gets us the x86
+platform, which is where pretty much all of the users who have
+complained have been coming from.  For the IOT/embedded user cases,
+blocking is actually a feature, because the problem will be caught
+while the product is in development, when the userspace code can be
+fixed.
+
+						- Ted
