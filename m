@@ -2,108 +2,80 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id D39CEB9BAE
-	for <lists+linux-man@lfdr.de>; Sat, 21 Sep 2019 02:23:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7B9DBB9C06
+	for <lists+linux-man@lfdr.de>; Sat, 21 Sep 2019 05:06:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2407384AbfIUAWG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 20 Sep 2019 20:22:06 -0400
-Received: from mu.digital-domain.net ([108.61.197.113]:39580 "EHLO
-        mu.digital-domain.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2404801AbfIUAWG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 20 Sep 2019 20:22:06 -0400
-X-Greylist: delayed 2375 seconds by postgrey-1.27 at vger.kernel.org; Fri, 20 Sep 2019 20:22:03 EDT
-Received: from kappa.digital-domain.net (kappa.digital-domain.net [IPv6:2001:8b0:36c:cc91::ac])
-        (authenticated bits=0)
-        by mu.digital-domain.net (8.14.7/8.14.7) with ESMTP id x8KNgNgl025042
-        (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-        Sat, 21 Sep 2019 00:42:27 +0100
-From:   Andrew Clayton <andrew@digital-domain.net>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org,
-        Andrew Clayton <andrew@digital-domain.net>
-Subject: [PATCH 1/1] signalfd.2: Note about interactions with epoll & fork
-Date:   Sat, 21 Sep 2019 00:42:11 +0100
-Message-Id: <20190920234211.57596-2-andrew@digital-domain.net>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20190920234211.57596-1-andrew@digital-domain.net>
-References: <20190920234211.57596-1-andrew@digital-domain.net>
+        id S2405078AbfIUDGC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 20 Sep 2019 23:06:02 -0400
+Received: from wtarreau.pck.nerim.net ([62.212.114.60]:49432 "EHLO 1wt.eu"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1729387AbfIUDGC (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 20 Sep 2019 23:06:02 -0400
+Received: (from willy@localhost)
+        by pcw.home.local (8.15.2/8.15.2/Submit) id x8L35l8v002407;
+        Sat, 21 Sep 2019 05:05:47 +0200
+Date:   Sat, 21 Sep 2019 05:05:47 +0200
+From:   Willy Tarreau <w@1wt.eu>
+To:     Andy Lutomirski <luto@kernel.org>
+Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
+        "Ahmed S. Darwish" <darwish.07@gmail.com>,
+        Lennart Poettering <mzxreary@0pointer.de>,
+        "Theodore Y. Ts'o" <tytso@mit.edu>,
+        "Eric W. Biederman" <ebiederm@xmission.com>,
+        "Alexander E. Patrakov" <patrakov@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Matthew Garrett <mjg59@srcf.ucam.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Ext4 Developers List <linux-ext4@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>
+Subject: Re: [PATCH RFC v4 1/1] random: WARN on large getrandom() waits and
+ introduce getrandom2()
+Message-ID: <20190921030547.GF1889@1wt.eu>
+References: <20190920134609.GA2113@pc>
+ <CALCETrWvE5es3i+to33y6jw=Yf0Tw6ZfV-6QWjZT5v0fo76tWw@mail.gmail.com>
+ <CAHk-=wgW8rN2EVL_Rdn63V9vQO0GkZ=RQFeqqsYJM==8fujpPg@mail.gmail.com>
+ <CALCETrV=4TX2a4uV5t2xOFzv+zM_jnOtMLJna8Vb7uXz6S=wSw@mail.gmail.com>
+ <CAHk-=wjpTWgpo6d24pTv+ubfea_uEomX-sHjjOkdACfV-8Nmkg@mail.gmail.com>
+ <CALCETrUEqjFmPvpcJQwJe3dNbz8eaJ4k3_AV2u0v96MffjLn+g@mail.gmail.com>
+ <CAHk-=whJ3kmcZp=Ws+uXnRB9KokG6nXSQCSuBnerG--jkAfP5w@mail.gmail.com>
+ <CALCETrXMp3dJaKDm+RQijQEUuPNPmpKWr8Ljf+RqycXChGnKrw@mail.gmail.com>
+ <CAHk-=whz7Okts01ygAP6GZWBvCV7s==CKjghmOp+r+LWketBYQ@mail.gmail.com>
+ <CALCETrWCjGHKnKikj+YVw22Ufpmnh1TCdGPjG2RL-qzsF=wisA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CALCETrWCjGHKnKikj+YVw22Ufpmnh1TCdGPjG2RL-qzsF=wisA@mail.gmail.com>
+User-Agent: Mutt/1.6.1 (2016-04-27)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Using signalfd(2) with epoll(7) and fork(2) can lead to some
-head scratching.
+On Fri, Sep 20, 2019 at 04:30:20PM -0700, Andy Lutomirski wrote:
+> So I think that just improving the
+> getrandom()-is-blocking-on-x86-and-arm behavior, adding GRND_INSECURE
+> and GRND_SECURE_BLOCKING, and adding the warning if 0 is passed is
+> good enough.
 
-It seems that when a signalfd file descriptor is added to epoll you will
-only get notifications for signals sent to the process that added the
-file descriptor to epoll.
+I think so as well. Anyway, keep in mind that *with a sane API*,
+userland can improve very quickly (faster than kernel deployments in
+field). But userland developers need reliable and testable support for
+features. If it's enough to do #ifndef GRND_xxx/#define GRND_xxx and
+call getrandom() with these flags to detect support, it's basically 5
+reliable lines of code to add to userland to make a warning disappear
+and/or to allow a system that previously failed to boot to now boot. So
+this gives strong incentive to userland to adopt the new API, provided
+there's a way for the developer to understand what's happening (which
+the warning does).
 
-So if you have a signalfd fd registered with epoll and then call
-fork(2), perhaps by way of daemon(3) for example. Then you will find
-that you no longer get notifications for signals sent to the newly
-forked process.
+If we do it right, all we'll hear are userland developers complaining
+that those stupid kernel developers have changed their API again and
+really don't know what they want. That will be a good sign that the
+warning flows back to them and that adoption is taking.
 
-User kentonv on ycombinator[0] explained it thus
+And if the change is small enough, maybe it could make sense to backport
+it to stable versions to fix boot issues. With a testable feature it
+does make sense.
 
-    "One place where the inconsistency gets weird is when you use
-     signalfd with epoll. The epoll will flag events on the signalfd
-     based on the process where the signalfd was registered with epoll,
-     not the process where the epoll is being used. One case where this
-     can be surprising is if you set up a signalfd and an epoll and then
-     fork() for the purpose of daemonizing -- now you will find that
-     your epoll mysteriously doesn't deliver any events for the signalfd
-     despite the signalfd otherwise appearing to function as expected."
-
-And another post from the same person[1].
-
-And then there is this snippet from this kernel commit message[2]
-
-    "If you share epoll fd which contains our sigfd with another process
-     you should blame yourself. signalfd is "really special"."
-
-So add a note to the man page that points this out where people will
-hopefully find it sooner rather than later!
-
-[0]: https://news.ycombinator.com/item?id=9564975
-[1]: https://stackoverflow.com/questions/26701159/sending-signalfd-to-another-process/29751604#29751604
-[2]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d80e731ecab420ddcb79ee9d0ac427acbc187b4b
-
-Signed-off-by: Andrew Clayton <andrew@digital-domain.net>
----
- man2/signalfd.2 | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/man2/signalfd.2 b/man2/signalfd.2
-index 497ee4cbd..a96ff6441 100644
---- a/man2/signalfd.2
-+++ b/man2/signalfd.2
-@@ -261,6 +261,23 @@ itself and the signals that are directed to the process
- (i.e., the entire thread group).
- (A thread will not be able to read signals that are directed
- to other threads in the process.)
-+.SS epoll(7) semantics
-+If you add a signalfd file descriptor to
-+.BR epoll(7)
-+then
-+.BR epoll_wait(2)
-+will only return events for signals received by the process that did
-+the
-+.BR epoll_ctl(2).
-+If you then
-+.BR fork(2),
-+say by calling
-+.BR daemon(3),
-+then you will find that you don't get any notifications for sent
-+signals. For this to work, you need to add the signalfd file
-+descriptor to
-+.BR epoll(7)
-+after forking.
- .SH RETURN VALUE
- On success,
- .BR signalfd ()
--- 
-2.21.0
-
+Willy
