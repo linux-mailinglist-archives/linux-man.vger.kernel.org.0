@@ -2,81 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 2F4EFB9C8B
-	for <lists+linux-man@lfdr.de>; Sat, 21 Sep 2019 08:07:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3BD13BA306
+	for <lists+linux-man@lfdr.de>; Sun, 22 Sep 2019 18:00:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730924AbfIUGHY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 21 Sep 2019 02:07:24 -0400
-Received: from mx1.redhat.com ([209.132.183.28]:45896 "EHLO mx1.redhat.com"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1730891AbfIUGHV (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 21 Sep 2019 02:07:21 -0400
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mx1.redhat.com (Postfix) with ESMTPS id 37FF518C4269;
-        Sat, 21 Sep 2019 06:07:18 +0000 (UTC)
-Received: from oldenburg2.str.redhat.com (ovpn-116-24.ams2.redhat.com [10.36.116.24])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id D86AB5D9C9;
-        Sat, 21 Sep 2019 06:07:13 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     Linus Torvalds <torvalds@linux-foundation.org>
-Cc:     Andy Lutomirski <luto@kernel.org>,
-        "Ahmed S. Darwish" <darwish.07@gmail.com>,
-        Lennart Poettering <mzxreary@0pointer.de>,
-        "Theodore Y. Ts'o" <tytso@mit.edu>,
-        "Eric W. Biederman" <ebiederm@xmission.com>,
-        "Alexander E. Patrakov" <patrakov@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Willy Tarreau <w@1wt.eu>,
-        Matthew Garrett <mjg59@srcf.ucam.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Ext4 Developers List <linux-ext4@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: [PATCH RFC v4 1/1] random: WARN on large getrandom() waits and introduce getrandom2()
-References: <20190912034421.GA2085@darwi-home-pc>
-        <20190912082530.GA27365@mit.edu>
-        <CAHk-=wjyH910+JRBdZf_Y9G54c1M=LBF8NKXB6vJcm9XjLnRfg@mail.gmail.com>
-        <20190914122500.GA1425@darwi-home-pc>
-        <008f17bc-102b-e762-a17c-e2766d48f515@gmail.com>
-        <20190915052242.GG19710@mit.edu>
-        <CAHk-=wgg2T=3KxrO-BY3nHJgMEyApjnO3cwbQb_0vxsn9qKN8Q@mail.gmail.com>
-        <20190918211503.GA1808@darwi-home-pc>
-        <20190918211713.GA2225@darwi-home-pc>
-        <CAHk-=wiCqDiU7SE3FLn2W26MS_voUAuqj5XFa1V_tiGTrrW-zQ@mail.gmail.com>
-        <20190920134609.GA2113@pc>
-        <CALCETrWvE5es3i+to33y6jw=Yf0Tw6ZfV-6QWjZT5v0fo76tWw@mail.gmail.com>
-        <CAHk-=wgW8rN2EVL_Rdn63V9vQO0GkZ=RQFeqqsYJM==8fujpPg@mail.gmail.com>
-        <CALCETrV=4TX2a4uV5t2xOFzv+zM_jnOtMLJna8Vb7uXz6S=wSw@mail.gmail.com>
-        <CAHk-=wjpTWgpo6d24pTv+ubfea_uEomX-sHjjOkdACfV-8Nmkg@mail.gmail.com>
-Date:   Sat, 21 Sep 2019 08:07:12 +0200
-In-Reply-To: <CAHk-=wjpTWgpo6d24pTv+ubfea_uEomX-sHjjOkdACfV-8Nmkg@mail.gmail.com>
-        (Linus Torvalds's message of "Fri, 20 Sep 2019 11:09:53 -0700")
-Message-ID: <87blvefai7.fsf@oldenburg2.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.2 (gnu/linux)
+        id S2387489AbfIVQAv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 22 Sep 2019 12:00:51 -0400
+Received: from mail-io1-f43.google.com ([209.85.166.43]:34223 "EHLO
+        mail-io1-f43.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2387552AbfIVQAv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Sep 2019 12:00:51 -0400
+Received: by mail-io1-f43.google.com with SMTP id q1so27508475ion.1
+        for <linux-man@vger.kernel.org>; Sun, 22 Sep 2019 09:00:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=Iy+XlI6f8hkwWftJVNro5hING+zLxF8N3FpZvlIIIkI=;
+        b=Mm4eSd4qe6sUgTVnyM2BAsZsfCHFaL072A7iLsjMuHtMeZMfmp8B2HNB9EOCSQUKT0
+         8HC+gelTJWpp7v5DMrYWqsZuwSWXsaONLoNHoA/hyEke7nxIFrmhuh3c/S+RVK4wdlya
+         84Ao9cpjsjQdcO06ch+y9+PPYMbJa4duELHl1Jx6ltnegPAnWfVynciEI/s7Qb2rrzv/
+         bcWOo9DxNrP0s+SWLrTLNEVc3z/lFf5jqYweDVHLwxkHDzbn0P5L0XzVVSC5OJQ2GnRV
+         lQP8VLVhnp4negA5lmiEhQS9tGYpjcDhfq1RyFr/8Wyky01tix5UJDKVK+fqUQBUBZrj
+         c4bA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=Iy+XlI6f8hkwWftJVNro5hING+zLxF8N3FpZvlIIIkI=;
+        b=rBJa5MN9PU1uqWOBuvzDtuJYhGli174AO/GHwLXGuyIbKNb2PdpPoC6fH9agU5Hj9a
+         7CP1jxsRNKEpAHRz4+PqevoIIhMg7XKF8ubuJfG0RMgyvgW4N2661aghOMAjr6B4XERX
+         fvbdaxXNTxaiw0IVh6EI0W8GB1OYbeOX7U59M10CP59ScO/W4j2WTpTIFPwB+YvQ0Ydt
+         AA6jb5uGAem7R8gXusAdhFD/iB7mpiYSelW0/TH/JAdIZzYvkDFGq3XQgZMDJ2NY2Nt/
+         z5yeS/bMtUwzzGwz/2I997xEsq5q48a332k4WapvXj9tz7bpId6mdKMydd+0dShk3x5r
+         XYnA==
+X-Gm-Message-State: APjAAAUVftunDp945bgVEZxajgPhLUJ/LRixbM6DGuQ+OCgo6qXbwkMz
+        ym4jiog8qUx476yhBtKnN/oPcDFp1go96MsPM10=
+X-Google-Smtp-Source: APXvYqye+3SH0PvSgDJHSDYTa336xjlTv5CXRnQQNCSbb7U9cCxx+549JooOog7bTNdlD4G3L9WO6ESCYRFqfATSmaI=
+X-Received: by 2002:a5d:9714:: with SMTP id h20mr14545826iol.294.1569168049311;
+ Sun, 22 Sep 2019 09:00:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.62]); Sat, 21 Sep 2019 06:07:18 +0000 (UTC)
+From:   "killaken2000@gmail.com" <killaken2000@gmail.com>
+Date:   Sun, 22 Sep 2019 12:00:14 -0400
+Message-ID: <CAEOuZD4tWLPLY+zptXsn3JHFALdgsQR0XYcB8HqrkQoJQ1+EVA@mail.gmail.com>
+Subject: typo in SHUTDOWN(8)
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Linus Torvalds:
+http://man7.org/linux/man-pages/man8/shutdown.8.html
 
-> Violently agreed. And that's kind of what the GRND_EXPLICIT is really
-> aiming for.
->
-> However, it's worth noting that nobody should ever use GRND_EXPLICIT
-> directly. That's just the name for the bit. The actual users would use
-> GRND_INSECURE or GRND_SECURE.
+       -c
+           Cancel a pending shutdown. This may be used [to] cancel the effect of
+           an invocation of shutdown with a time argument that is not "+0"
+           or "now".
 
-Should we switch glibc's getentropy to GRND_EXPLICIT?  Or something
-else?
+I might be able to rewrite the second sentence to make it a bit more
+clear but I don't want to overstep.
 
-I don't think we want to print a kernel warning for this function.
-
-Thanks,
-Florian
+have a great day,
+Rich
