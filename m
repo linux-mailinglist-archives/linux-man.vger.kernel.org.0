@@ -2,153 +2,207 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 2C30FBAEF7
-	for <lists+linux-man@lfdr.de>; Mon, 23 Sep 2019 10:11:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E4E02BB119
+	for <lists+linux-man@lfdr.de>; Mon, 23 Sep 2019 11:12:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2390677AbfIWILz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 23 Sep 2019 04:11:55 -0400
-Received: from mail-wm1-f68.google.com ([209.85.128.68]:36106 "EHLO
-        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388953AbfIWILz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Sep 2019 04:11:55 -0400
-Received: by mail-wm1-f68.google.com with SMTP id m18so8165976wmc.1
-        for <linux-man@vger.kernel.org>; Mon, 23 Sep 2019 01:11:52 -0700 (PDT)
+        id S1732062AbfIWJL5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 23 Sep 2019 05:11:57 -0400
+Received: from mail-wr1-f66.google.com ([209.85.221.66]:45814 "EHLO
+        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1730067AbfIWJL5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Sep 2019 05:11:57 -0400
+Received: by mail-wr1-f66.google.com with SMTP id r5so12977998wrm.12;
+        Mon, 23 Sep 2019 02:11:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=vtZIK84hYSlFXPi4Pw3auH+dysv4/2SKz5DtoAi099Y=;
-        b=WyUrca/i+lGTXBUxSdNLc1anpp0jcLfOktppvA4cbSoSiChGgP1VMsaaX0MRW3YrnJ
-         BmjQkGN0fPETOFyTtrKexaQbuO3iuZQuYn5FohuCC1A1gZFhnM4TCbihYtzXOFJNuaJm
-         +UeeImwtXpiakHjaWKTGrZaQhhkXq7z4CHwj/6RcMbsMTY+t+iOUWrKTF4HZoF+D4c7/
-         PR/wRbO6b3QWCn0gqFD9M88CCHRKwGlJX+72Q5nEscAJmN8Vd27yLWXabWA2pV6DO72o
-         3vOEAFU8NDbmoQ+0wa8t/TZhr5VanJPilH/Xe68uqrB6hAhbVHKS7c/lCmTOhsd1m1kA
-         viIA==
+        h=cc:to:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=TyHsy1K1DQHEShIDELro/SCThFG2dVqERrGj3Si+c7M=;
+        b=Z/+vRohuSiTJzXZsAA4UHymFCHbjNjbiXveMN5ZeSBCg8IlWvjJ2G+h1htO4cT5RA1
+         f4YdOYTTfzYtY6bZndKDHCW1YXUoUzCZWblAbyDzh/dqamgB4+mW8FrpbucmUkJZIox2
+         QGDui9cdenDZwsC+m30G6Ux1/yo0YR7D32b/E858FUb+lwhSjud+jZjtGDToVrHEXJvy
+         4GSLbpMMghrX+FFv23H5ulk4TmEvzM0Rdt7fu7hMvkpUcJqHANSM1DtX5LKdCpqm8lLD
+         TDEzcpnxV3TOu/zpwXLv78d+aXpmtxXHuxNtvPKTNJChktytOAtpVxKu5m0swXjLgepd
+         QxBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=vtZIK84hYSlFXPi4Pw3auH+dysv4/2SKz5DtoAi099Y=;
-        b=miTRAgVIsQcxaVa2f/p7uIZNurj2ajunNNN38OP5Ccod/Y9VqPdtedymiD687X8ZZF
-         EZgW1vXrXMCLw/OTro1OPrUhA3NcO9+L1wDnnD6U1obaXDtsr0ltjw6lxXGwmQtehCFZ
-         L1IOgC4Lly6VJKjDcOzFnV9GLG2XOi9xh8Oit62/VjOFfnW0i+RgfgbT3k5WW5NzEp+e
-         uY+5VSj3fsAQuBGUTAt7SqM+wD8IIhT4UgF+X6yKL8s+LWhciXPE6+YQxC/OrXISPh+C
-         YT4pd0W5NyTUCgEIr4+HoqSdRvLNj4bE624mjgQVSiLs03oYIurOBnx6ycjY+YWwEuIz
-         wErw==
-X-Gm-Message-State: APjAAAWQy9C1KjYDsJJWx3+hbnsnbTnNqYVgMSx7dU+FvyNzfWODdr6H
-        4EYcuWCzu4lTj8VUo21egHs=
-X-Google-Smtp-Source: APXvYqwJ0swXLqP61ASoTqImZvodODA8wBmRJU1JTwTeFZG3mdJ1t682IhSd6cbQoSfKB4Bzc6XLPA==
-X-Received: by 2002:a7b:c7d4:: with SMTP id z20mr12980407wmk.49.1569226312131;
-        Mon, 23 Sep 2019 01:11:52 -0700 (PDT)
+        h=x-gm-message-state:cc:to:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=TyHsy1K1DQHEShIDELro/SCThFG2dVqERrGj3Si+c7M=;
+        b=VAyr9GrgMNQMbuZVIKd4/yNSDQVNakUAxjkQtnPKp4+/AwhtvsZtBV6PWIFUVRuIXZ
+         FOTG0I8UgQPYY76GNO6NZ0VAaLTBnYuQUbW9D7WOIW/9pZ/krM5+57bDkSzw5db3Zgal
+         EdD74w7rv6r8muX+ZitH7VBwHFTcGYqZdByaVMn1gd5mGdf0kIkYS/emW9YD8lLVyFTy
+         2vmnf+Spa6w9Y52WmR1+eLSvHpeDvqaV0Q4Xv1CHqmEtjB41I3uEgKqPv+r85V/mWlXU
+         ms6nBlnKznW/BCFCzus5DM4/M/FAHqSnC0AQQnVfTYgdVQW7iM+jrzul4/2fKTHK8JBH
+         vqHg==
+X-Gm-Message-State: APjAAAWvgJp61ag6GbSywFvrmmZ+nQAbGowPbywX7PdkRSesvIupWK64
+        8EbpZ54sz0MHDmb5MKSVodA=
+X-Google-Smtp-Source: APXvYqyX7TQi2FYiyba1WGCuTIwKh9tFSXG43jGs7gRKvoMi4+lCG5QNDi9QC9W6fv3HfsPiCsV+eg==
+X-Received: by 2002:a5d:51d2:: with SMTP id n18mr19920738wrv.10.1569229914922;
+        Mon, 23 Sep 2019 02:11:54 -0700 (PDT)
 Received: from [10.0.20.253] ([95.157.63.22])
-        by smtp.gmail.com with ESMTPSA id q10sm26073251wrd.39.2019.09.23.01.11.50
+        by smtp.gmail.com with ESMTPSA id y72sm15396020wmc.26.2019.09.23.02.11.54
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Sep 2019 01:11:51 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        jannh@google.com, oleg@redhat.com
-Subject: Re: [PATCH] clone.2: add CLONE_PIDFD entry
-To:     Christian Brauner <christian.brauner@ubuntu.com>
-References: <20190511064908.21956-1-christian.brauner@ubuntu.com>
- <fdc276ee-cf28-0a3b-3fd3-6f5033dae7d6@gmail.com>
- <20190916074012.dpsfqfwcxh2pyyt7@wittgenstein>
- <7f115550-c7e6-c803-e47b-a37b7cdfb0a9@gmail.com>
- <20190918071415.gmxvovgiwgsi62tn@wittgenstein>
- <6a863c6a-3e61-f0b6-963e-a3545d9935d6@gmail.com>
- <20190919064750.tyxc7lut3mc2lcrx@wittgenstein>
+        Mon, 23 Sep 2019 02:11:54 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, Linux API <linux-api@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Oleg Nesterov <oleg@redhat.com>
+To:     Christian Brauner <christian@brauner.io>,
+        Jann Horn <jannh@google.com>,
+        Daniel Colascione <dancol@google.com>,
+        "Eric W. Biederman" <ebiederm@xmission.com>,
+        Joel Fernandes <joel@joelfernandes.org>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <89da7209-b81c-9c7d-39bf-6a3b61a0e8c1@gmail.com>
-Date:   Mon, 23 Sep 2019 10:11:45 +0200
+Subject: For review: pidfd_open(2) manual page
+Message-ID: <90399dee-53d8-a82c-3871-9ec8f94601ce@gmail.com>
+Date:   Mon, 23 Sep 2019 11:11:53 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <20190919064750.tyxc7lut3mc2lcrx@wittgenstein>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Christian,
+Hello Christian and all,
 
-On 9/19/19 8:47 AM, Christian Brauner wrote:
-> On Thu, Sep 19, 2019 at 06:04:55AM +0200, Michael Kerrisk (man-pages) wrote:
+Below, I have the rendered version of the current draft of
+the pidfd_open(2) manual page that I have written.
+The page source can be found in a Git branch at:
+https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/log/?h=draft_pidfd
 
-[...]
+I would be pleased to receive corrections and notes on any
+details that should be added. (For example, are there error
+cases that I have missed?)
 
->>>> Thanks for that info. One other questions springs to mind.
->>>> I haven't looked at the source or tried testing this,
->>>> but can anything actually be read() from a PIDFD? Presumably,
->>>
->>> We had discussed this but decided to not implement this right away.
->>> Mainly, because we did not have a clear picture what the semantics
->>> should be. But it is something that we will probably want in the
->>> future...
->>
->> That makes sense.
->>
->> A further question... We now have three ways of getting a
->> process file descriptor [*]:
->>
->> open() of /proc/PID
->> pidfd_open()
->> clone()/clone3() with CLONE_PIDFD
->>
->> I thought the FD was supposed to be equivalent in all three cases.
->> However, if I try (on kernel 5.3) poll() an FD returned by opening
->> /proc/PID, poll() tells me POLLNVAL for the FD. Is that difference
->> intentional? (I am guessing it is not.)
-> 
-> It's intentional.
-> The short answer is that /proc/<pid> is a convenience for sending
-> signals.
-> The longer answer is that this stems from a heavy debate about what a
-> process file descriptor was supposed to be and some people pushing for
-> at least being able to use /proc/<pid> dirfds while ignoring security
-> problems as soon as you're talking about returning those fds from
-> clone(); not to mention the additional problems discovered when trying
-> to implementing this.
-> A "real" pidfd is one from CLONE_PIDFD or pidfd_open() and all features
-> such as exit notification, read, and other future extensions will only
-> be implemented on top of them.
-> As much as we'd have liked to get rid of two different file descriptor
-> types it doesn't hurt us much and is not that much different from what
-> we will e.g. see with fsinfo() in the new mount api which needs to work
-> on regular fds gotten via open()/openat() and mountfds gotten from
-> fsopen() and fspick(). The mountfds will also allow for advanced
-> operations that the other ones will not. There's even an argument to be
-> made that fds you will get from open()/openat() and openat2() are
-> different types since they have very different behavior; openat2()
-> returning fds that are non arbitrarily upgradable etc.
-
-Okay. So, it would be fair to say (in the man pages) that
-pidfd_open() is the preferred way of obtaining a PID file
-descriptor for an already existing process?
-
->> [*} By the way, going forward, can we call these things
->> "process FDs", rather than "PID FDs"? The API names are what
->> they are, an that's okay, but these just as we have socket
->> FDs that refer to sockets, directory FDs that refer to 
->> directories, and timer FDs that refer to timers, and so on,
->> these are FDs that refer to *processes*, not "process IDs".
->> It's a little thing, but I think the naming better, and
->> it's what I propose to use in the manual pages.
-> 
-> The naming was another debate and we ended with this compromise.
-> I would just clarify that a pidfd is a process file descriptor. I
-> wouldn't make too much of a deal of hiding the shortcut "pidfd". People
-> are already using it out there in the wild and it's never proven a good
-> idea to go against accepted practice.
-
-Okay.
-
-I have a draft pidfd_open(2) page that I will send out soon.
+Would you be able to review please?
 
 Thanks,
 
 Michael
+
+
+NAME
+       pidfd_open - obtain a file descriptor that refers to a process
+
+SYNOPSIS
+       int pidfd_open(pid_t pid, unsigned int flags);
+
+DESCRIPTION
+       The  pidfd_open()  system creates a file descriptor that refers to
+       the process whose PID is specified in pid.  The file descriptor is
+       returned  as the function result; the close-on-exec flag is set on
+       the file descriptor.
+
+       The flags argument is reserved for  future  use;  currently,  this
+       argument must be specified as 0.
+
+RETURN VALUE
+       On  success,  pidfd_open()  returns a nonnegative file descriptor.
+       On success, -1 is returned and errno is set to indicate the  cause
+       of the error.
+
+ERRORS
+       EINVAL flags is not 0.
+
+       EINVAL pid is not valid.
+
+       ESRCH  The process specified by pid does not exist.
+
+VERSIONS
+       pidfd_open() first appeared in Linux 5.3.
+
+CONFORMING TO
+       pidfd_open() is Linux specific.
+
+NOTES
+       Currently, there is no glibc wrapper for this system call; call it
+       using syscall(2).
+
+       The pidfd_send_signal(2) system call can be used to send a  signal
+       to the process referred to by a PID file descriptor.
+
+       A  PID  file descriptor can be monitored using poll(2), select(2),
+       and epoll(7).  When the process that it refers to terminates,  the
+       file descriptor indicates as readable.  Note, however, that in the
+       current implementation, nothing can be read from the file descrip‐
+       tor.
+
+       The  pidfd_open()  system call is the preferred way of obtaining a
+       PID file descriptor.  The alternative is to obtain a file descrip‐
+       tor by opening a /proc/[pid] directory.  However, the latter tech‐
+       nique is possible only if the proc(5) file system is mounted; fur‐
+       thermore,  the  file  descriptor  obtained in this way is not pol‐
+       lable.
+
+       See also the discussion of the CLONE_PIDFD flag in clone(2).
+
+EXAMPLE
+       The program below opens a PID  file  descriptor  for  the  process
+       whose PID is specified as its command-line argument.  It then mon‐
+       itors the file descriptor for readability (POLLIN) using  poll(2).
+       When  the  process  with  the specified by PID terminates, poll(2)
+       returns, and indicates that the file descriptor is readable.
+
+   Program source
+
+       #define _GNU_SOURCE
+       #include <sys/syscall.h>
+       #include <unistd.h>
+       #include <poll.h>
+       #include <stdlib.h>
+       #include <stdio.h>
+
+       #ifndef __NR_pidfd_open
+       #define __NR_pidfd_open 434
+       #endif
+
+       static
+       int pidfd_open(pid_t pid, unsigned int flags)
+       {
+           return syscall(__NR_pidfd_open, pid, flags);
+       }
+
+       int
+       main(int argc, char *argv[])
+       {
+           struct pollfd pollfd;
+           int pidfd, ready;
+
+           if (argc != 2) {
+               fprintf(stderr, "Usage: %s <pid>\n", argv[0]);
+               exit(EXIT_SUCCESS);
+           }
+
+           pidfd = pidfd_open(atoi(argv[1]), 0);
+           if (pidfd == -1) {
+               perror("pidfd_open");
+               exit(EXIT_FAILURE);
+           }
+
+           pollfd.fd = pidfd;
+           pollfd.events = POLLIN;
+
+           ready = poll(&pollfd, 1, -1);
+           if (ready == -1) {
+               perror("poll");
+               exit(EXIT_FAILURE);
+           }
+
+           printf("Events (0x%x): POLLIN is %sset\n", pollfd.revents,
+                   (pollfd.revents & POLLIN) ? "" : "not ");
+
+           exit(EXIT_SUCCESS);
+       }
+
+SEE ALSO
+       clone(2),  kill(2),  pidfd_send_signal(2),   poll(2),   select(2),
+       epoll(7)
+
 
 -- 
 Michael Kerrisk
