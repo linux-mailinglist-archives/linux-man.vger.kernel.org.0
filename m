@@ -2,87 +2,202 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 3F168BB28A
-	for <lists+linux-man@lfdr.de>; Mon, 23 Sep 2019 13:00:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B2226BB2A6
+	for <lists+linux-man@lfdr.de>; Mon, 23 Sep 2019 13:11:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729847AbfIWLA6 convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Mon, 23 Sep 2019 07:00:58 -0400
-Received: from mailout.enyo.de ([116.203.30.208]:47613 "EHLO mailout.enyo.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1727273AbfIWLA6 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 23 Sep 2019 07:00:58 -0400
-X-Greylist: delayed 460 seconds by postgrey-1.27 at vger.kernel.org; Mon, 23 Sep 2019 07:00:57 EDT
-Received: from [172.17.203.2] (helo=deneb.enyo.de)
-        by albireo.enyo.de with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        id 1iCLxt-0007C5-AJ; Mon, 23 Sep 2019 10:53:09 +0000
-Received: from fw by deneb.enyo.de with local (Exim 4.92)
-        (envelope-from <fw@deneb.enyo.de>)
-        id 1iCLxt-0001IF-7K; Mon, 23 Sep 2019 12:53:09 +0200
-From:   Florian Weimer <fw@deneb.enyo.de>
-To:     "Michael Kerrisk \(man-pages\)" <mtk.manpages@gmail.com>
-Cc:     Christian Brauner <christian@brauner.io>,
-        Jann Horn <jannh@google.com>,
-        Daniel Colascione <dancol@google.com>,
-        "Eric W. Biederman" <ebiederm@xmission.com>,
-        Joel Fernandes <joel@joelfernandes.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
+        id S1727240AbfIWLLB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 23 Sep 2019 07:11:01 -0400
+Received: from mail-wr1-f65.google.com ([209.85.221.65]:37202 "EHLO
+        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727145AbfIWLLB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Sep 2019 07:11:01 -0400
+Received: by mail-wr1-f65.google.com with SMTP id i1so13443826wro.4;
+        Mon, 23 Sep 2019 04:10:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=qtQ45fwloWjBlifREEUJV5bQdHg/Ixd1tAtGl3/qHQY=;
+        b=o8SDD/2Icte4oZCfSphkKpTh1ZO8m6SvLc4ALLi+3AK9muyEWmsAjKuureFZ0oGs7D
+         WHQcG9wcTUqcaLrGUOtN9Ihb49re8ZbwjVJC2htaCP7Ps8V/HJr1ztuGfCvE3WNWx10q
+         gSU/0+LaaEazotMFOy0lCbO7hy0C6U0TyBOl4QPt7Ha+oXXDlRBD6wfXzjGXr6ty0g8N
+         y6yNmzJUFV1+jaWcwWSvwmkhVC2VrFhdxH8DrauXJRBEH38WPL4zZgiVEELxYeFT4i7Y
+         WgMVBKW7thyvW3jIRsWrWrJBf/HmJQ6xX/zzObiSqd995zwd38jC6r6Np+fr/p2yGR1h
+         q6Zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=qtQ45fwloWjBlifREEUJV5bQdHg/Ixd1tAtGl3/qHQY=;
+        b=S0CFrgMx836FKFrB+RDV8+Tl1ibFc+kg6d3YGmQJUEdKbhSbfkx/8OlCKBtyQJO0EK
+         ZQzeZQul/7cMaStBcxm0lSZtaLNHhO2FwwPx2ORKKpnJ1iAI/sJOYKy10c+u5DtgX5TP
+         qfqadgk8SFj/3Q6KU5YIw2395wH8n1YVsUB9T61iqToDacga43VsbAi5/nsXppycPKI6
+         uA1guaYvUbX507N0CaTZ5Au3i23MNuEVywhP/FWbPhz6mIDkr+5lulV9T4RO7jo4iaKj
+         3p0w/OyQwb07u0mb73P2JNx5PgVT7K0qLxQHTm7uzx11fMJmN4LT02gePg72yaUW32c7
+         u03g==
+X-Gm-Message-State: APjAAAUdEyikRiF4e5jMMZVweDRWTQsJJIVk2gxO+BPi3G8jXXwXYge4
+        S3i1f1pe/O7bwgXjQX/ltEo=
+X-Google-Smtp-Source: APXvYqyyAhG5GzXGG0OOBrW89t4gOdDg7ww0VFg0o4kN5sqV0yxdpjnqFaCIJmaMng/Nln/0Qzo35w==
+X-Received: by 2002:a5d:6785:: with SMTP id v5mr22057575wru.9.1569237058047;
+        Mon, 23 Sep 2019 04:10:58 -0700 (PDT)
+Received: from [10.0.20.253] ([95.157.63.22])
+        by smtp.gmail.com with ESMTPSA id 207sm20220357wme.17.2019.09.23.04.10.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Sep 2019 04:10:57 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com,
+        Christian Brauner <christian.brauner@ubuntu.com>,
         linux-man <linux-man@vger.kernel.org>,
-        Oleg Nesterov <oleg@redhat.com>
-Subject: Re: For review: pidfd_open(2) manual page
-References: <90399dee-53d8-a82c-3871-9ec8f94601ce@gmail.com>
-Date:   Mon, 23 Sep 2019 12:53:09 +0200
-In-Reply-To: <90399dee-53d8-a82c-3871-9ec8f94601ce@gmail.com> (Michael
-        Kerrisk's message of "Mon, 23 Sep 2019 11:11:53 +0200")
-Message-ID: <87tv939td6.fsf@mid.deneb.enyo.de>
+        Containers <containers@lists.linux-foundation.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Jordan Ogas <jogas@lanl.gov>, werner@almesberger.net,
+        Al Viro <viro@ftp.linux.org.uk>
+Subject: Re: pivot_root(".", ".") and the fchdir() dance
+To:     "Eric W. Biederman" <ebiederm@xmission.com>
+References: <CAKgNAki0bR5zZr+kp_xjq+bNUky6-F+s2ep+jnR0YrjHhNMB1g@mail.gmail.com>
+ <20190805103630.tu4kytsbi5evfrhi@mikami>
+ <3a96c631-6595-b75e-f6a7-db703bf89bcf@gmail.com>
+ <da747415-4c7a-f931-6f2e-2962da63c161@philippwendler.de>
+ <CAKgNAkjS+x7aMVUiVSgCRwgi8rnukqJv=svtTARE-tt-oxQxWw@mail.gmail.com>
+ <87r24piwhm.fsf@x220.int.ebiederm.org>
+ <CAKgNAkhK2qBbz5aVY9VdK0UzvpZ=c7c7LWQ1MK2gu-rVKUz9_g@mail.gmail.com>
+ <87ftl5donm.fsf@x220.int.ebiederm.org>
+ <b8b9d8bd-e959-633f-b879-4bfe4eb0df23@gmail.com>
+ <20190910111551.scam5payogqqvlri@wittgenstein>
+ <30545c5c-ff4c-8b87-e591-40cc0a631304@gmail.com>
+ <871rwnda47.fsf@x220.int.ebiederm.org>
+ <448138b8-0d0c-5eb3-d5e5-04a26912d3a8@gmail.com>
+ <87ef0hbezt.fsf@x220.int.ebiederm.org>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <cc21557f-1568-68c3-e322-47ceb52fdf53@gmail.com>
+Date:   Mon, 23 Sep 2019 13:10:56 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
+In-Reply-To: <87ef0hbezt.fsf@x220.int.ebiederm.org>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8BIT
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Michael Kerrisk:
+Hello Eric,
 
-> SYNOPSIS
->        int pidfd_open(pid_t pid, unsigned int flags);
+On 9/15/19 8:17 PM, Eric W. Biederman wrote:
+> "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> writes:
+> 
+>> Hello Eric,
+>>
+>> On 9/11/19 1:06 AM, Eric W. Biederman wrote:
+>>> "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> writes:
+>>>
+>>>> Hello Christian,
+>>>>
+>>>>>> All: I plan to add the following text to the manual page:
+>>>>>>
+>>>>>>        new_root and put_old may be the same  directory.   In  particular,
+>>>>>>        the following sequence allows a pivot-root operation without need‐
+>>>>>>        ing to create and remove a temporary directory:
+>>>>>>
+>>>>>>            chdir(new_root);
+>>>>>>            pivot_root(".", ".");
+>>>>>>            umount2(".", MNT_DETACH);
+>>>>>
+>>>>> Hm, should we mention that MS_PRIVATE or MS_SLAVE is usually needed
+>>>>> before the umount2()? Especially for the container case... I think we
+>>>>> discussed this briefly yesterday in person.
+>>>> Thanks for noticing. That detail (more precisely: not MS_SHARED) is
+>>>> already covered in the numerous other changes that I have pending
+>>>> for this page:
+>>>>
+>>>>        The following restrictions apply:
+>>>>        ...
+>>>>        -  The propagation type of new_root and its parent mount must  not
+>>>>           be MS_SHARED; similarly, if put_old is an existing mount point,
+>>>>           its propagation type must not be MS_SHARED.
+>>>
+>>> Ugh.  That is close but not quite correct.
+>>>
+>>> A better explanation:
+>>>
+>>>     The pivot_root system call will never propagate any changes it makes.
+>>>     The pivot_root system call ensures this is safe by verifying that
+>>>     none of put_old, the parent of new_root, and parent of the root directory
+>>>     have a propagation type of MS_SHARED.
+>>
+>> Thanks for that. However, another question. You text has two changes.
+>> First, I understand why you reword the discussion to indicate the
+>> _purpose_ of the rules. However, you also, AFAICS, list a different set of
+>> of directories that can't be MS_SHARED:
+>>
+>> I said: new_root, the parent of new_root, and put_old
+>> You said: the parent of new_root, and put_old, and parent of the
+>> root directory.
+> 
+> 
+>> Was I wrong on this detail also?
+> 
+> That is how I read the code.  The code says:
+> 
+> 	if (IS_MNT_SHARED(old_mnt) ||
+> 		IS_MNT_SHARED(new_mnt->mnt_parent) ||
+> 		IS_MNT_SHARED(root_mnt->mnt_parent))
+> 		goto out4;
+> 
+> We both agree on put_old and the parent of new_mnt.
+> 
+> When I look at the code root_mnt comes from the root directory, not new_mnt.
 
-Should this mention <sys/types.h> for pid_t?
+Hmm -- I had checked the code when I wrote my text, but somehow
+I misread things. Going back to recheck the code, you are obviously
+correct. Thanks for catching that.
 
-> ERRORS
->        EINVAL flags is not 0.
->
->        EINVAL pid is not valid.
->
->        ESRCH  The process specified by pid does not exist.
+> Furthermore those checks fundamentally makes sense as the root directory
+> and new_root that are moving.  The directory put_old simply has
+> something moving onto it.
+> 
+>>> The concern from our conversation at the container mini-summit was that
+>>> there is a pathology if in your initial mount namespace all of the
+>>> mounts are marked MS_SHARED like systemd does (and is almost necessary
+>>> if you are going to use mount propagation), that if new_root itself
+>>> is MS_SHARED then unmounting the old_root could propagate.
+>>>
+>>> So I believe the desired sequence is:
+>>>
+>>>>>>            chdir(new_root);
+>>> +++            mount("", ".", MS_SLAVE | MS_REC, NULL);
+>>>>>>            pivot_root(".", ".");
+>>>>>>            umount2(".", MNT_DETACH);
+>>>
+>>> The change to new new_root could be either MS_SLAVE or MS_PRIVATE.  So
+>>> long as it is not MS_SHARED the mount won't propagate back to the
+>>> parent mount namespace.
+>>
+>> Thanks. I made that change.
+> 
+> For what it is worth.  The sequence above without the change in mount
+> attributes will fail if it is necessary to change the mount attributes
+> as "." is both put_old as well as new_root.
+> 
+> When I initially suggested the change I saw "." was new_root and forgot
+> "." was also put_old.  So I thought there was a silent danger without
+> that sequence.
 
-Presumably, EMFILE and ENFILE are also possible errors, and so is
-ENOMEM.
+So, now I am a little confused by the comments you added here. Do you
+now mean that the 
 
->        A  PID  file descriptor can be monitored using poll(2), select(2),
->        and epoll(7).  When the process that it refers to terminates,  the
->        file descriptor indicates as readable.  Note, however, that in the
->        current implementation, nothing can be read from the file descrip‐
->        tor.
+mount("", ".", MS_SLAVE | MS_REC, NULL);
 
-“is indicated as readable” or “becomes readable”?  Will reading block?
+call is not actually necessary?
 
->        The  pidfd_open()  system call is the preferred way of obtaining a
->        PID file descriptor.  The alternative is to obtain a file descrip‐
->        tor by opening a /proc/[pid] directory.  However, the latter tech‐
->        nique is possible only if the proc(5) file system is mounted; fur‐
->        thermore,  the  file  descriptor  obtained in this way is not pol‐
->        lable.
+Thanks,
 
-One question is whether the glibc wrapper should fall back back to the
-/proc subdirectory if it is not available.  Probably not.
+Michael
 
->        static
->        int pidfd_open(pid_t pid, unsigned int flags)
->        {
->            return syscall(__NR_pidfd_open, pid, flags);
->        }
-
-Please call this function something else (not pidfd_open), so that the
-example continues to work if glibc provides the system call wrapper.
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
