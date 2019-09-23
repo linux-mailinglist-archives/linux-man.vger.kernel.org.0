@@ -2,122 +2,112 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 95910BBD6E
-	for <lists+linux-man@lfdr.de>; Mon, 23 Sep 2019 22:57:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5BAF0BBDD2
+	for <lists+linux-man@lfdr.de>; Mon, 23 Sep 2019 23:24:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2502772AbfIWU5p (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 23 Sep 2019 16:57:45 -0400
-Received: from mail-wr1-f65.google.com ([209.85.221.65]:46282 "EHLO
-        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388071AbfIWU5p (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Sep 2019 16:57:45 -0400
-Received: by mail-wr1-f65.google.com with SMTP id o18so15463037wrv.13;
-        Mon, 23 Sep 2019 13:57:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=OLBQZbK2HasfWG8V4RApxBrTplzod7fgm8tE6bUCPDs=;
-        b=KoIKc9S3pbAgzcihcu3qbm80TsRKNOgm4FSlPIxRcBRJOG7FgspTleW5SGTBFA5CKn
-         gd+4dXIdGnxXGb4sbxDpIkfY2eMW0VB4IJBm/eJ2ldP3gsSwfVcoY/8ZzMeGMnlB1ztG
-         a2nCy/md6tzBz80QwilmloibxzVGeBNZxb9zWEX4FIaeqqEEOmYhTlCUK42wRfMwZ4Rm
-         sSKxVmfdayjZkQru5KmHpQIB9go7vgrBjrQmTls04k2km3485VbEaGvtqu3Ppu2Bq7h+
-         u7PuCkTAzYUZFvTvG6TmIPF9ffN9cO9CwZjZXSYamfPlsXtZgAHnea6vTv5343tXVtfj
-         jJdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=OLBQZbK2HasfWG8V4RApxBrTplzod7fgm8tE6bUCPDs=;
-        b=EJx5ZzvobiW99gLG3RpeQ/nXIwakcDvtrwcEMh0nY1KjpZ+d7TD8QMH2jJa5McIdEm
-         iHnysf2N8bYQAdTiDA2aNNbFqxO+Xw+cnkXmkV9du7m0MFc5+9O99JrVoebU3/w0pdph
-         foXo0btjHJxkG3AxBqJXg+nekybNTQefRP+vAwI+pD8EwrNxHhj6eEt4BFy1rxoyF0cC
-         2mIM26KgVsK1uQFKaSAO/WJNwZkScUehz8rMSap8Jl+9a9fO+lypp4RY4obE1EQM1Fq3
-         IlTKk1WfmyUCQJYng41XI6x1M/eztEBA9hCVMHIZnNNwEC2I/BAgISj+t+MCociGLOYH
-         214A==
-X-Gm-Message-State: APjAAAWkXxgs16LZzSd7YP2pz5KFLM/JgF2CDdBqV8iyqEjTQuDtrPNY
-        REAs9BKtMPbADRYUzWp8ayQ=
-X-Google-Smtp-Source: APXvYqyJEv/t1EFf7sy1b3LzgVqzb1KlROudtGp5p0ld0UzcHU6l//Fao9QoebjO69SSci2XqJeaiQ==
-X-Received: by 2002:adf:ed8f:: with SMTP id c15mr911444wro.83.1569272262395;
-        Mon, 23 Sep 2019 13:57:42 -0700 (PDT)
-Received: from ?IPv6:2001:a61:243d:bf01:c49e:ef23:e680:96b1? ([2001:a61:243d:bf01:c49e:ef23:e680:96b1])
-        by smtp.gmail.com with ESMTPSA id 132sm15568431wma.7.2019.09.23.13.57.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Sep 2019 13:57:41 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Christian Brauner <christian@brauner.io>,
-        Jann Horn <jannh@google.com>,
-        Daniel Colascione <dancol@google.com>,
-        "Eric W. Biederman" <ebiederm@xmission.com>,
-        Joel Fernandes <joel@joelfernandes.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Oleg Nesterov <oleg@redhat.com>
-Subject: Re: For review: pidfd_open(2) manual page
-To:     Florian Weimer <fw@deneb.enyo.de>
-References: <90399dee-53d8-a82c-3871-9ec8f94601ce@gmail.com>
- <87tv939td6.fsf@mid.deneb.enyo.de>
- <63566f1f-667d-50ca-ae85-784924d09af4@gmail.com>
- <874l12924w.fsf@mid.deneb.enyo.de>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <d3f5191a-3026-6ce1-5cf2-6be8e0f4a989@gmail.com>
-Date:   Mon, 23 Sep 2019 22:57:40 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+        id S2503035AbfIWVYS convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Mon, 23 Sep 2019 17:24:18 -0400
+Received: from mu.digital-domain.net ([108.61.197.113]:33504 "EHLO
+        mu.digital-domain.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2388395AbfIWVYR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Sep 2019 17:24:17 -0400
+Received: from kappa.digital-domain.net (kappa.digital-domain.net [IPv6:2001:8b0:36c:cc91::ac])
+        (authenticated bits=0)
+        by mu.digital-domain.net (8.14.7/8.14.7) with ESMTP id x8NLOE3o012503
+        (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+        Mon, 23 Sep 2019 22:24:14 +0100
+Date:   Mon, 23 Sep 2019 22:24:13 +0100
+From:   Andrew Clayton <andrew@digital-domain.net>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/1] signalfd.2: Note about interactions with epoll &
+ fork
+Message-ID: <20190923222413.5c79b179@kappa.digital-domain.net>
+In-Reply-To: <99e8bcda-c6f2-18bb-d28d-56d65693f233@gmail.com>
+References: <20190920234211.57596-1-andrew@digital-domain.net>
+        <20190920234211.57596-2-andrew@digital-domain.net>
+        <99e8bcda-c6f2-18bb-d28d-56d65693f233@gmail.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <874l12924w.fsf@mid.deneb.enyo.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Florian,
+On Mon, 23 Sep 2019 16:49:29 +0200
+"Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> wrote:
 
-On 9/23/19 10:41 PM, Florian Weimer wrote:
-> * Michael Kerrisk:
+> Hello Andrew,
+
+Hi Michael,
+
+Thanks for the extensive reply!
+
+[...]
+ 
+> Thanks for all of the detail in the commit message! That's funky! But I
+> suppose in the end it's not completely surprising, because of the fact
+> that epoll is really notifying events on the open file description,
+> and there may be multiple file descriptors that refer to that description
+> (as for example, after fork()). It is however, still surprising to users 
+> that you can read() from the FD, even though epoll doesn't say it's ready.
+
+Ah, I gotta remember there's a distinction between descriptors &
+descriptions ;) 
+
+[...]
+
+> Thanks for the proposed text. But I prefer to avoid mentioning 
+> daemon(3), which has a longstanding bug described in its manual
+> page). Also, I think we need to bring out the fact that the
+> signalfd still makes signals available for reading, even though
+
+Yes, true.
+
+> epoll does not say the FD is ready. Also, your text might
+> lead the reader to think that this sequence might be possible:
 > 
->>>>        static
->>>>        int pidfd_open(pid_t pid, unsigned int flags)
->>>>        {
->>>>            return syscall(__NR_pidfd_open, pid, flags);
->>>>        }
->>>
->>> Please call this function something else (not pidfd_open), so that the
->>> example continues to work if glibc provides the system call wrapper.
->>
->> I figured that if the syscall does get added to glibc, then I would
->> modify the example. In the meantime, this does seem the most natural
->> way of doing things, since the example then uses the real syscall
->> name as it would be used if there were a wrapper function.
+> create signalfd
+> create epoll instance
+> add signalfd to epoll instance
+> fork()
+>        In child: add signalfd to epoll instance
 > 
-> The problem is that programs do this as well, so they fail to build
-> once they are built on a newer glibc version.
+> That last step will of course give an EEXIST error from
+> epoll_ctl(), because  that FD is already in the epoll
+> instance.
 
-But isn't such a failure a good thing? I mean: it encourages
-people to rid their programs of uses of syscall(2).
-
->> But, this leads to the question: what do you think the likelihood
->> is that this system call will land in glibc?
+Yup.
+ 
+> So, I've applied your patch, but then done a fairly major rewrite,
+> so that the text now looks like:
 > 
-> Quite likely.  It's easy enough to document, there are no P&C issues,
-> and it doesn't need any new types.
+>    epoll(7) semantics
+>        If a process adds (via epoll_ctl(2)) a signalfd file descriptor to
+>        an epoll(7) instance, then epoll_wait(2) returns events  only  for
+>        signals  sent to that process.  In particular, if the process then
+>        uses fork() to create a child process, then the child will be able
+>        to  read(2)  signals  that  are sent to it using the signalfd file
+>        descriptor, but epoll_wait(2) will not indicate that the  signalfd
+>        file descriptor is ready.  In this scenario, a possible workaround
+>        is that after the fork(2), the child process can  close  the  sig‐
+>        nalfd  file  descriptor  that it inherited from the parent process
+>        and then create another signalfd file descriptor and add it to the
+>        epoll  instance.   Alternatively,  the  parent and the child could
+>        delay creating their  (separate)  signalfd  file  descriptors  and
+>        adding them to the epoll instance until after the call to fork(2).
+> 
+> Seem okay to you?
 
-Okay.
+Yes, looks good.
+ 
+> I also verified this weirness using the program shown below:
 
-> pidfd_send_signal is slightly more difficult because we probably need
-> to add rt_sigqueueinfo first, for consistency.
+Nice example.
 
-Okay. I see that's a little more problematic.
+[...]
 
 Cheers,
-
-Michael
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Andrew
