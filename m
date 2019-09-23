@@ -2,148 +2,150 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 569F8BB582
-	for <lists+linux-man@lfdr.de>; Mon, 23 Sep 2019 15:36:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 637CDBB5C3
+	for <lists+linux-man@lfdr.de>; Mon, 23 Sep 2019 15:50:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730312AbfIWNgg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 23 Sep 2019 09:36:36 -0400
-Received: from mx0a-001b2d01.pphosted.com ([148.163.156.1]:47368 "EHLO
-        mx0a-001b2d01.pphosted.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1728926AbfIWNgg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Sep 2019 09:36:36 -0400
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
-        by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id x8NDWHdi095076;
-        Mon, 23 Sep 2019 09:36:25 -0400
-Received: from pps.reinject (localhost [127.0.0.1])
-        by mx0a-001b2d01.pphosted.com with ESMTP id 2v6xw50jys-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-        Mon, 23 Sep 2019 09:36:25 -0400
-Received: from m0098396.ppops.net (m0098396.ppops.net [127.0.0.1])
-        by pps.reinject (8.16.0.27/8.16.0.27) with SMTP id x8NDWbdi097113;
-        Mon, 23 Sep 2019 09:36:25 -0400
-Received: from ppma05wdc.us.ibm.com (1b.90.2fa9.ip4.static.sl-reverse.com [169.47.144.27])
-        by mx0a-001b2d01.pphosted.com with ESMTP id 2v6xw50jy4-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-        Mon, 23 Sep 2019 09:36:25 -0400
-Received: from pps.filterd (ppma05wdc.us.ibm.com [127.0.0.1])
-        by ppma05wdc.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id x8NDZUqb029859;
-        Mon, 23 Sep 2019 13:36:24 GMT
-Received: from b01cxnp22033.gho.pok.ibm.com (b01cxnp22033.gho.pok.ibm.com [9.57.198.23])
-        by ppma05wdc.us.ibm.com with ESMTP id 2v5bg6upqy-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-        Mon, 23 Sep 2019 13:36:24 +0000
-Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com [9.57.199.109])
-        by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id x8NDaNk942926384
-        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-        Mon, 23 Sep 2019 13:36:23 GMT
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
-        by IMSVA (Postfix) with ESMTP id 95FDA112064;
-        Mon, 23 Sep 2019 13:36:23 +0000 (GMT)
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
-        by IMSVA (Postfix) with ESMTP id 94803112065;
-        Mon, 23 Sep 2019 13:36:22 +0000 (GMT)
-Received: from [9.86.226.90] (unknown [9.86.226.90])
-        by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP;
-        Mon, 23 Sep 2019 13:36:22 +0000 (GMT)
-Subject: Re: [PATCH] getauxval.3: Add new cache geometry entries
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, benh@kernel.crashing.org,
-        mpe@ellerman.id.au
-References: <20190916184136.13621-1-rzinsly@linux.vnet.ibm.com>
- <3a8ec98c-f93e-f186-b365-82857ec46395@gmail.com>
-From:   Raphael M Zinsly <rzinsly@linux.vnet.ibm.com>
-Message-ID: <91faffae-777b-7e77-2986-463dc01508be@linux.vnet.ibm.com>
-Date:   Mon, 23 Sep 2019 10:36:16 -0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.0
+        id S2407858AbfIWNu4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 23 Sep 2019 09:50:56 -0400
+Received: from ngcobalt01.manitu.net ([217.11.48.101]:45108 "EHLO
+        ngcobalt01.manitu.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2407710AbfIWNu4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Sep 2019 09:50:56 -0400
+X-Greylist: delayed 434 seconds by postgrey-1.27 at vger.kernel.org; Mon, 23 Sep 2019 09:50:55 EDT
+Received: from server.passau (ipbcc3eb9d.dynamic.kabel-deutschland.de [188.195.235.157])
+        (Authenticated sender: smtp-send)
+        by ngcobalt01.manitu.net (Postfix) with ESMTPSA id A4F2033E076A;
+        Mon, 23 Sep 2019 15:43:39 +0200 (CEST)
+Received: from [172.18.159.113] (unknown [46.183.103.17])
+        by server.passau (Postfix) with ESMTPSA id E6E0F814C1;
+        Mon, 23 Sep 2019 15:43:10 +0200 (CEST)
+Subject: Re: For review: rewritten pivot_root(2) manual page
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        "Eric W. Biederman" <ebiederm@xmission.com>,
+        "Serge E. Hallyn" <serge@hallyn.com>,
+        Christian Brauner <christian@brauner.io>,
+        Aleksa Sarai <asarai@suse.de>,
+        Reid Priedhorsky <reidpr@lanl.gov>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Yang Bo <rslovers@yandex.com>, Jakub Wilk <jwilk@jwilk.net>,
+        Joseph Sible <josephcsible@gmail.com>,
+        Al Viro <viro@ftp.linux.org.uk>, werner@almesberger.net
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Containers <containers@lists.linux-foundation.org>,
+        =?UTF-8?Q?St=c3=a9phane_Graber?= <stgraber@ubuntu.com>
+References: <620c691a-065e-b894-4f06-7453012bc8d3@gmail.com>
+From:   Philipp Wendler <ml@philippwendler.de>
+Message-ID: <d449305b-f87c-f26e-e43f-d193fd8f4332@philippwendler.de>
+Date:   Mon, 23 Sep 2019 15:42:47 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <3a8ec98c-f93e-f186-b365-82857ec46395@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <620c691a-065e-b894-4f06-7453012bc8d3@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:,, definitions=2019-09-23_05:,,
- signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1908290000 definitions=main-1909230132
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 23/09/2019 09:27, Michael Kerrisk (man-pages) wrote:
-> Hello Raphael,
-> 
-> Thanks for this patch. I have a question below.
-> 
-> 
-> On 9/16/19 8:41 PM, Raphael Moreira Zinsly wrote:
->> Add entries for the new cache geometry values of the auxiliary vectors
->> that got included in the kernel.
->>
->> Signed-off-by: Raphael Moreira Zinsly <rzinsly@linux.vnet.ibm.com>
->> ---
->>   man3/getauxval.3 | 27 +++++++++++++++++++++++++++
->>   1 file changed, 27 insertions(+)
->>
->> diff --git a/man3/getauxval.3 b/man3/getauxval.3
->> index 794bc97b5..30f0757b5 100644
->> --- a/man3/getauxval.3
->> +++ b/man3/getauxval.3
->> @@ -123,6 +123,33 @@ The instruction cache block size.
->>   .\" .TP
->>   .\" .BR AT_NOTELF
->>   .TP
->> +.\" Kernel commit 98a5f361b8625c6f4841d6ba013bbf0e80d08147
->> +.BR AT_L1D_CACHEGEOMETRY
->> +Geometry of the L1 data cache, that is, line size and number
->> +of ways.
-> 
-> What is "number of ways"?
-> 
+Hello Michael,
 
-It is the cache associativity, e.g.: 8 means the cache is 8-way set 
-associative.
+Am 23.09.19 um 14:04 schrieb Michael Kerrisk (man-pages):
 
+> I'm considering to rewrite these pieces to exactly
+> describe what the system call does (which I already
+> do in the third paragraph) and remove the "may or may not"
+> pieces in the second paragraph. I'd welcome comments
+> on making that change.
 
-> Thanks,
+I think that it would make the man page significantly easier to
+understand if if the vague wording and the meta discussion about it are
+removed.
+
+> DESCRIPTION
+[...]>        pivot_root()  changes  the
+>        root  directory  and the current working directory of each process
+>        or thread in the same mount namespace to new_root if they point to
+>        the  old  root  directory.   (See also NOTES.)  On the other hand,
+>        pivot_root() does not change the caller's current  working  direc‐
+>        tory  (unless it is on the old root directory), and thus it should
+>        be followed by a chdir("/") call.
+
+There is a contradiction here with the NOTES (cf. below).
+
+>        The following restrictions apply:
 > 
-> Michael
+>        -  new_root and put_old must be directories.
 > 
->> +.TP
->> +.BR AT_L1D_CACHESIZE
->> +The L1 data cache size.
->> +.TP
->> +.BR AT_L1I_CACHEGEOMETRY
->> +Geometry of the L1 instruction cache, that is, line size and
->> +number of ways.
->> +.TP
->> +.BR AT_L1I_CACHESIZE
->> +The L1 instruction cache size.
->> +.TP
->> +.BR AT_L2_CACHEGEOMETRY
->> +Geometry of the L2 cache, that is, line size and number of ways.
->> +.TP
->> +.BR AT_L2_CACHESIZE
->> +The L2 cache size.
->> +.TP
->> +.BR AT_L3_CACHEGEOMETRY
->> +Geometry of the L3 cache, that is, line size and number of ways.
->> +.TP
->> +.BR AT_L3_CACHESIZE
->> +The L3 cache size.
->> +.TP
->>   .BR AT_PAGESZ
->>   The system page size (the same value returned by
->>   .IR sysconf(_SC_PAGESIZE) ).
->>
+>        -  new_root and put_old must not be on the same filesystem as  the
+>           current root.  In particular, new_root can't be "/" (but can be
+>           a bind mounted directory on the current root filesystem).
+
+Wouldn't "must not be on the same mountpoint" or something similar be
+more clear, at least for new_root? The note in parentheses indicates
+that new_root can actually be on the same filesystem as the current
+note. However, ...
+
+>        -  put_old must be at or underneath new_root; that  is,  adding  a
+>           nonnegative  number  of /.. to the string pointed to by put_old
+>           must yield the same directory as new_root.
 > 
-> 
-Thanks,
--- 
-Raphael Moreira Zinsly
-IBM
-Linux on Power Toolchain
+>        -  new_root must be a mount point.  (If  it  is  not  otherwise  a
+>           mount  point,  it  suffices  to  bind  mount new_root on top of
+>           itself.)
+
+... this item actually makes the above item almost redundant regarding
+new_root (except for the "/") case. So one could replace this item with
+something like this:
+
+- new_root must be a mount point different from "/". (If it is not
+  otherwise a mount point, it suffices  to bind mount new_root on top
+  of itself.)
+
+The above item would then only mention put_old (and maybe use clarified
+wording on whether actually a different file system is necessary for
+put_old or whether a different mount point is enough).
+
+> NOTES
+[...]
+>        pivot_root() allows the caller to switch to a new root  filesystem
+>        while  at  the  same time placing the old root mount at a location
+>        under new_root from where it can subsequently be unmounted.   (The
+>        fact  that  it  moves  all processes that have a root directory or
+>        current working directory on the old root filesystem  to  the  new
+>        root  filesystem  frees the old root filesystem of users, allowing
+>        it to be unmounted more easily.)
+
+Here is the contradiction:
+The DESCRIPTION says that root and current working dir are only changed
+"if they point to the old root directory". Here in the NOTES it says
+that any root or working directories on the old root file system (i.e.,
+even if somewhere below the root) are changed.
+
+Which is correct?
+
+If it indeed affects all processes with root and/or current working
+directory below the old root, the text here does not clearly state what
+the new root/current working directory of theses processes is.
+E.g., if a process is at /foo and we pivot to /bar, will the process be
+moved to /bar (i.e., at / after pivot_root), or will the kernel attempt
+to move it to some location like /bar/foo? Because the latter might not
+even exist, I suspect that everything is just moved to new_root, but
+this could be stated explicitly by replacing "to the new root
+filesystem" in the above paragraph with "to the new root directory"
+(after checking whether this is true).
+
+> EXAMPLE>        The program below demonstrates the use of  pivot_root()  inside  a
+>        mount namespace that is created using clone(2).  After pivoting to
+>        the root directory named in the program's first command-line argu‐
+>        ment,  the  child  created  by  clone(2) then executes the program
+>        named in the remaining command-line arguments.
+
+Why not use the pivot_root(".", ".") in the example program?
+It would make the example shorter, and also works if the process cannot
+write to new_root (e..g., in a user namespace).
+
+Regards,
+Philipp
