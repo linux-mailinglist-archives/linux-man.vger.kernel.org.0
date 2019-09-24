@@ -2,121 +2,113 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 02118BD1F2
-	for <lists+linux-man@lfdr.de>; Tue, 24 Sep 2019 20:42:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 97332BD26B
+	for <lists+linux-man@lfdr.de>; Tue, 24 Sep 2019 21:11:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2437037AbfIXSmD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 24 Sep 2019 14:42:03 -0400
-Received: from mail-qt1-f195.google.com ([209.85.160.195]:39081 "EHLO
-        mail-qt1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2394062AbfIXSmD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 24 Sep 2019 14:42:03 -0400
-Received: by mail-qt1-f195.google.com with SMTP id n7so3392561qtb.6
-        for <linux-man@vger.kernel.org>; Tue, 24 Sep 2019 11:42:02 -0700 (PDT)
+        id S2437064AbfIXTK7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 24 Sep 2019 15:10:59 -0400
+Received: from mail-wr1-f66.google.com ([209.85.221.66]:42092 "EHLO
+        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2437011AbfIXTK7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 24 Sep 2019 15:10:59 -0400
+Received: by mail-wr1-f66.google.com with SMTP id n14so3207773wrw.9;
+        Tue, 24 Sep 2019 12:10:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=XI1CMQzu+192Aoi8nQ8KFu0OXQw6lN1mMT4ZlwHd9IA=;
-        b=bUCd5j5FsdoiLTHvmR/7k/l0G8+jfm+UN8oN5+oKQ9AWfvdfRpOed4IoaVcHdrG3B5
-         qANDzHcyyGXHBOEEeZWRjrYWaYodmETpJCodJR2jkEVDrt9177L6Dn974QaqTcg0LQIT
-         C5ENx+qHGTTNhntzPtm/eRCb03lohgxFqFJqneIsrFGkyvXZsGYYzjJ7Coz9TZImqZu4
-         UyG6hkgWWeA26J9Zq5IxQr6kos1qXAFZ6aFPYg99BQUBfjyvov/M1fZ67gL83AZTpi3q
-         bpH+DNVnfHkmBPq5UpcpdrGX0noDeS+tF6nJ92g+pdfkIEoS1ZtU22tgxlCDol7GwUPm
-         5u+A==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=lWZ9+6E2t/Zd1vfDJA5ykQoAoEiNVoNl8UGWaG+7/DY=;
+        b=kKCSYyE4MZc1CkdVEicqexOA8OzslqU3jMsv4Meen9NNe8Ay0KFUd+VlAImX5JMxQS
+         nSDRpgqoYfJ0VaN96TX1toPpDG/8YkYVZJINNHAXhYHkOXm1K/mEp2E5kLHVmKNj2Lxk
+         LQMrU4yYkaMDf+KBBQkkYsS4kSY6ovZAHYkO+ajr/U2C6SPyrgp4V0Bt+nwSL6MpsGW9
+         GU7blrpXuj64+cwgmRVHzfSYRHOr7asqgQ1hLnja9haycKNnOLr2JwiCKE6qFBdOxnnY
+         gXkMEIrJc+XF26m86fmTNxw206ELihr95f8gUyEJuaL5H0kDW5Idm2glysUAX9L/Brve
+         A1Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=XI1CMQzu+192Aoi8nQ8KFu0OXQw6lN1mMT4ZlwHd9IA=;
-        b=ftdgD1TOGhpQ7jA66hgNRl9OvNddRxJ9O2EzugqAx4hUC/90TUR6+zCwBmI3LLrRmY
-         OT9nmCTsTUoiEhyiuVl6p0le8FTKiFSciJbohuxa62sSYpMnw361R1fiEfFcvvA9jPMk
-         eSH8FJuTTYJGuXjecUrgkRE98xdxQ/h9TRjrzJltzWn4XxVB+AhbUg7JJR/LukeKR2Se
-         pSD3AoyX6gTkF4u/BgoQhjrp7+/vZeIYxJQhZvm6lW+z7bzNRfHjCFa1N78kcIbtkA03
-         WQgXdwvmAss3cvMQ9LbGg+FLUpQNs33x55McTRK4rwb4LPF5m0gYDZ/QW9LLBL+fLIb+
-         wlsQ==
-X-Gm-Message-State: APjAAAWon08265qSq1VYLYUQwyMiTELyVkrpfQPtkhpaKN1EdNYe3PeY
-        SCWiSgXMVvZZVe2O0VnLfS1VdMQB
-X-Google-Smtp-Source: APXvYqwKh/IKOasFsVqOjJOrN5F8JH25/4QJqv3TEq1gNQnEP7NuUYkQt6wpdfn8lIYkqvM6H9baag==
-X-Received: by 2002:ac8:3f72:: with SMTP id w47mr4448093qtk.362.1569350522101;
-        Tue, 24 Sep 2019 11:42:02 -0700 (PDT)
-Received: from localhost.localdomain (208.37.145.56.ptr.us.xo.net. [208.37.145.56])
-        by smtp.gmail.com with ESMTPSA id g194sm1920950qke.46.2019.09.24.11.42.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Sep 2019 11:42:01 -0700 (PDT)
-Date:   Wed, 25 Sep 2019 04:41:59 +1000
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org, benh@kernel.crashing.org,
-        mpe@ellerman.id.au
-Subject: Re: [PATCH] getauxval.3: Add new cache geometry entries
-Message-ID: <20190924184158.3f3au7aqnitasrrn@localhost.localdomain>
-References: <20190916184136.13621-1-rzinsly@linux.vnet.ibm.com>
- <3a8ec98c-f93e-f186-b365-82857ec46395@gmail.com>
- <91faffae-777b-7e77-2986-463dc01508be@linux.vnet.ibm.com>
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=lWZ9+6E2t/Zd1vfDJA5ykQoAoEiNVoNl8UGWaG+7/DY=;
+        b=kDdLFymjCWs0fnXvmsd/t3NIkYBkWrRDFWzlKkhOhk8q/1F1ovr9gRrUGbwkFoWXL8
+         6e2Rrl1nZinMNrqYEe21jkospsQjTdzFTAci71m1lzYaQp4K+4Dqv46WH/lu6qr8FVsf
+         1J2APtist1jopM7fer4xuggKBCzcFkmqT3s90ZsGsNwHRE+yu/56F96vSRJq2ZySpTkD
+         7GAIW1muM/hV2rXxQAKBNfrCtGr9+cFBbobe2WHhd4oeRNmduMXs9AjgDwsfJMV8LUVh
+         Y+jFei3WaxgrcaBaf/h1dHXDYuevYc9QOp0kTCwEBLf0dZuIQgQ3yW+m2BI8omf/pDRi
+         FbRA==
+X-Gm-Message-State: APjAAAWdOpKaelbaS8oG8HcjvRJEbk5u302O9iZp+s1tQ3X+OpLzXUJt
+        J9XCBXfzFSXR5Mm4fNjVVWwnmTJP
+X-Google-Smtp-Source: APXvYqzSDLM1ZB5GuTpOKhQeRIUvWBrnS/vyWQ2rMDtNU40T9Md44pf+kYybsKXuk1x6A9cgSE7dnw==
+X-Received: by 2002:a5d:4646:: with SMTP id j6mr3823993wrs.173.1569352256834;
+        Tue, 24 Sep 2019 12:10:56 -0700 (PDT)
+Received: from ?IPv6:2001:a61:24d6:4e01:ef75:e978:47cd:1c50? ([2001:a61:24d6:4e01:ef75:e978:47cd:1c50])
+        by smtp.gmail.com with ESMTPSA id 132sm1388250wma.7.2019.09.24.12.10.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Sep 2019 12:10:56 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, Oleg Nesterov <oleg@redhat.com>,
+        Christian Brauner <christian@brauner.io>,
+        Jann Horn <jannh@google.com>,
+        Daniel Colascione <dancol@google.com>,
+        Joel Fernandes <joel@joelfernandes.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>
+Subject: Re: For review: pidfd_send_signal(2) manual page
+To:     "Eric W. Biederman" <ebiederm@xmission.com>
+References: <f21dbd73-5ef4-fb5b-003f-ff4fec34a1de@gmail.com>
+ <87ftkmu2i6.fsf@x220.int.ebiederm.org>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <d6f72bcc-613b-45c5-98f5-67f904ace644@gmail.com>
+Date:   Tue, 24 Sep 2019 21:10:54 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="gbw6b7f7lpvpn4xz"
-Content-Disposition: inline
-In-Reply-To: <91faffae-777b-7e77-2986-463dc01508be@linux.vnet.ibm.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <87ftkmu2i6.fsf@x220.int.ebiederm.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On 9/23/19 11:27 PM, Eric W. Biederman wrote:
+> "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> writes:
+> 
+>> Hello Christian and all,
+>>
+>> Below, I have the rendered version of the current draft of
+>> the pidfd_send_signal(2) manual page that I have written.
+>> The page source can be found in a Git branch at:
+>> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/log/?h=draft_pidfd
+>>
+>> I would be pleased to receive corrections and notes on any
+>> details that should be added. (For example, are there error
+>> cases that I have missed?)
+>>
+>> Would you be able to review please?
+>>
+>> Thanks,
+>>
+>> Michael
+>>
+>>
+>> NAME
+>>        pidfd_send_signal - send a signal to a process specified by a file
+>>        descriptor
+>>
+>> SYNOPSIS
+>>        int pidfd_send_signal(int pidfd, int sig, siginfo_t info,
+> 
+>  This needs to be "siginfo_t *info," -----------------------^
 
---gbw6b7f7lpvpn4xz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks, Eric. Fixed.
 
-At 2019-09-23T10:36:16-0300, Raphael M Zinsly wrote:
-> > > +Geometry of the L1 data cache, that is, line size and number
-> > > +of ways.
-> >=20
-> > What is "number of ways"?
->=20
-> It is the cache associativity, e.g.: 8 means the cache is 8-way set
-> associative.
+Cheers,
 
-Yup.  At some point when I wasn't looking, the "-way" in "n-way cache"
-got promoted from a partial adjective along the lines of "all cars must
-halt at the four-way stop sign" to a full-blooded noun and term of art.
-I bumped into it while proofreading a Ph.D. thesis[1].
+Michael
 
-To help familiarize practitioners with the new cloak of terminology
-draped over this hoary descendant of Old English "weg", I suggest adding
-a parenthetical:
-
-  Geometry of the L1 data cache; that is, line size and number of ways
-  (e.g., \(lq4-way associative\(rq).
-
-Regards,
-Branden
-
-[1] Ge, Qian, "Mitigating Microarchitecture-based Timing Channels with
-Lightweight Operating System Mechanisms", Ph.D. thesis, University of
-New South Wales, in press.
-
---gbw6b7f7lpvpn4xz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl2KY1wACgkQ0Z6cfXEm
-bc5saA/8Ci1PEA1web9wazvxOpz4BmxG0IhmUyjFhDqTka/XJdSYr1DuMsgRbgKf
-8N+0bX1Chhm2ckrTwmWrgRKipaN2nwblqXkNFaUp7tApddnxgYa1/gI1IOAJzaRn
-6vdJjtQwFffoaNaz7mIvW56DsomDYDla/2izuKTgn5kY3HK4gFkyLwMSxdeESnwN
-X0ydnTag6OR/TkOIdq46pUOVRbng9UTM/G+zMVctV32K1L4BduZDoGek1CUGYCnS
-2w71qz77Do+S9I6TMfJRZKz3aRb4vPvZtMeu/KOYhI6zrmysjxF4lcjtT2rnXw5o
-7j0Y/zF920QoL1fayuthBNKoUjzd45rYvfZiYr5/8TnoqGHm5MIo1FbuVBkEMhB5
-/VTJZ7CWOC9XDllMt3y9j23ks4gP7NLCEucXgpqmzP3R1Us/8V9h+yfxjqOjcdfB
-825jInyovYS+fbYKKO7LDl5trVnzGN1JLMDoH0K6XbpmXBskFUUiIC/KerpITe1f
-klA+D/XInoN1J8e1bt2JR9TFExIlnSGSThcIngmabLFN+fHvLmg+WDILMCfHGFM6
-NVgwWqLhwrEv7Q1Kdvf416Hr5jd49deH5RWmn5k9peYhIr5cW9rM4TarPpmv8vuO
-yno+8bv3u3fAQ3ITA59AoUucPyfpR+7Cp/RkD0BPO94AKFbrouA=
-=EdGU
------END PGP SIGNATURE-----
-
---gbw6b7f7lpvpn4xz--
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
