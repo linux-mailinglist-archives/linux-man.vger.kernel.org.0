@@ -2,83 +2,122 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id E060EBC2C7
-	for <lists+linux-man@lfdr.de>; Tue, 24 Sep 2019 09:38:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AB438BC89F
+	for <lists+linux-man@lfdr.de>; Tue, 24 Sep 2019 15:12:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2502747AbfIXHif (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 24 Sep 2019 03:38:35 -0400
-Received: from youngberry.canonical.com ([91.189.89.112]:38148 "EHLO
-        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388489AbfIXHif (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 24 Sep 2019 03:38:35 -0400
-Received: from [185.81.136.22] (helo=wittgenstein)
-        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
-        (Exim 4.86_2)
-        (envelope-from <christian.brauner@ubuntu.com>)
-        id 1iCfOv-0004Up-Tc; Tue, 24 Sep 2019 07:38:22 +0000
-Date:   Tue, 24 Sep 2019 09:38:18 +0200
-From:   Christian Brauner <christian.brauner@ubuntu.com>
-To:     Florian Weimer <fw@deneb.enyo.de>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Jann Horn <jannh@google.com>,
-        Daniel Colascione <dancol@google.com>,
-        "Eric W. Biederman" <ebiederm@xmission.com>,
-        Joel Fernandes <joel@joelfernandes.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Oleg Nesterov <oleg@redhat.com>
-Subject: Re: For review: pidfd_open(2) manual page
-Message-ID: <20190924073817.zb7vr5he4wbibl7j@wittgenstein>
-References: <90399dee-53d8-a82c-3871-9ec8f94601ce@gmail.com>
- <87tv939td6.fsf@mid.deneb.enyo.de>
- <63566f1f-667d-50ca-ae85-784924d09af4@gmail.com>
- <874l12924w.fsf@mid.deneb.enyo.de>
+        id S2439092AbfIXNMV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 24 Sep 2019 09:12:21 -0400
+Received: from mx0a-001b2d01.pphosted.com ([148.163.156.1]:17114 "EHLO
+        mx0a-001b2d01.pphosted.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S2439036AbfIXNMV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 24 Sep 2019 09:12:21 -0400
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+        by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id x8OD6eOo020153;
+        Tue, 24 Sep 2019 09:12:14 -0400
+Received: from pps.reinject (localhost [127.0.0.1])
+        by mx0a-001b2d01.pphosted.com with ESMTP id 2v7jm2kqdw-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Tue, 24 Sep 2019 09:12:14 -0400
+Received: from m0098394.ppops.net (m0098394.ppops.net [127.0.0.1])
+        by pps.reinject (8.16.0.27/8.16.0.27) with SMTP id x8OD7BjS025410;
+        Tue, 24 Sep 2019 09:12:13 -0400
+Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com [169.62.189.11])
+        by mx0a-001b2d01.pphosted.com with ESMTP id 2v7jm2kqdb-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Tue, 24 Sep 2019 09:12:13 -0400
+Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
+        by ppma03dal.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id x8ODAxhI009979;
+        Tue, 24 Sep 2019 13:12:12 GMT
+Received: from b01cxnp23033.gho.pok.ibm.com (b01cxnp23033.gho.pok.ibm.com [9.57.198.28])
+        by ppma03dal.us.ibm.com with ESMTP id 2v5bg73u85-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Tue, 24 Sep 2019 13:12:12 +0000
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com [9.57.199.111])
+        by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id x8ODCCWa53674252
+        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Tue, 24 Sep 2019 13:12:12 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+        by IMSVA (Postfix) with ESMTP id E834EAC05E;
+        Tue, 24 Sep 2019 13:12:11 +0000 (GMT)
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+        by IMSVA (Postfix) with ESMTP id 911B8AC05F;
+        Tue, 24 Sep 2019 13:12:11 +0000 (GMT)
+Received: from localhost (unknown [9.86.226.90])
+        by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
+        Tue, 24 Sep 2019 13:12:11 +0000 (GMT)
+From:   Raphael Moreira Zinsly <rzinsly@linux.vnet.ibm.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, benh@kernel.crashing.org,
+        mpe@ellerman.id.au,
+        Raphael Moreira Zinsly <rzinsly@linux.vnet.ibm.com>
+Subject: [PATCH v2] getauxval.3: Add new cache geometry entries
+Date:   Tue, 24 Sep 2019 10:11:42 -0300
+Message-Id: <20190924131142.6126-1-rzinsly@linux.vnet.ibm.com>
+X-Mailer: git-send-email 2.21.0
+In-Reply-To: <9f0ee256-bc65-c850-a8ae-a833ca7a124d@gmail.com>
+References: <9f0ee256-bc65-c850-a8ae-a833ca7a124d@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <874l12924w.fsf@mid.deneb.enyo.de>
-User-Agent: NeoMutt/20180716
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:,, definitions=2019-09-24_05:,,
+ signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1908290000 definitions=main-1909240130
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Sep 23, 2019 at 10:41:19PM +0200, Florian Weimer wrote:
-> * Michael Kerrisk:
-> 
-> >>>        static
-> >>>        int pidfd_open(pid_t pid, unsigned int flags)
-> >>>        {
-> >>>            return syscall(__NR_pidfd_open, pid, flags);
-> >>>        }
-> >> 
-> >> Please call this function something else (not pidfd_open), so that the
-> >> example continues to work if glibc provides the system call wrapper.
-> >
-> > I figured that if the syscall does get added to glibc, then I would
-> > modify the example. In the meantime, this does seem the most natural
-> > way of doing things, since the example then uses the real syscall
-> > name as it would be used if there were a wrapper function.
-> 
-> The problem is that programs do this as well, so they fail to build
-> once they are built on a newer glibc version.
-> 
-> > But, this leads to the question: what do you think the likelihood
-> > is that this system call will land in glibc?
-> 
-> Quite likely.  It's easy enough to document, there are no P&C issues,
-> and it doesn't need any new types.
+Add entries for the new cache geometry values of the auxiliary vectors
+that got included in the kernel.
 
-My previous mail probably didn't make it so here it is again: I think
-especially with the recently established glibc consensus to provide
-wrappers for all new system calls (with some sensible exceptions) I'd
-expect this to be the case.
+Signed-off-by: Raphael Moreira Zinsly <rzinsly@linux.vnet.ibm.com>
+---
+ man3/getauxval.3 | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-> 
-> pidfd_send_signal is slightly more difficult because we probably need
-> to add rt_sigqueueinfo first, for consistency.
+diff --git a/man3/getauxval.3 b/man3/getauxval.3
+index 794bc97b5..b78a63225 100644
+--- a/man3/getauxval.3
++++ b/man3/getauxval.3
+@@ -123,6 +123,34 @@ The instruction cache block size.
+ .\" .TP
+ .\" .BR AT_NOTELF
+ .TP
++.\" Kernel commit 98a5f361b8625c6f4841d6ba013bbf0e80d08147
++.BR AT_L1D_CACHEGEOMETRY
++Geometry of the L1 data cache, encoded with the cache line size in
++bytes in the bottom 16 bits and the cache associativity in the next 16
++bits. The associativity is such that if N is the 16-bit value, the cache
++is N-way set associative.
++.TP
++.BR AT_L1D_CACHESIZE
++The L1 data cache size.
++.TP
++.BR AT_L1I_CACHEGEOMETRY
++Geometry of the L1 instruction cache, encoded as for AT_L1D_CACHEGEOMETRY.
++.TP
++.BR AT_L1I_CACHESIZE
++The L1 instruction cache size.
++.TP
++.BR AT_L2_CACHEGEOMETRY
++Geometry of the L2 cache, encoded as for AT_L1D_CACHEGEOMETRY.
++.TP
++.BR AT_L2_CACHESIZE
++The L2 cache size.
++.TP
++.BR AT_L3_CACHEGEOMETRY
++Geometry of the L3 cache, encoded as for AT_L1D_CACHEGEOMETRY.
++.TP
++.BR AT_L3_CACHESIZE
++The L3 cache size.
++.TP
+ .BR AT_PAGESZ
+ The system page size (the same value returned by
+ .IR sysconf(_SC_PAGESIZE) ).
+-- 
+2.21.0
 
-Oh, huh. Somehow I thought we already provide that.
-
-Christian
