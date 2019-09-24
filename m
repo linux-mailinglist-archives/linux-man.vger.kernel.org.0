@@ -2,111 +2,111 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 97332BD26B
-	for <lists+linux-man@lfdr.de>; Tue, 24 Sep 2019 21:11:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5CA8DBD2ED
+	for <lists+linux-man@lfdr.de>; Tue, 24 Sep 2019 21:42:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2437064AbfIXTK7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 24 Sep 2019 15:10:59 -0400
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:42092 "EHLO
-        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2437011AbfIXTK7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 24 Sep 2019 15:10:59 -0400
-Received: by mail-wr1-f66.google.com with SMTP id n14so3207773wrw.9;
-        Tue, 24 Sep 2019 12:10:57 -0700 (PDT)
+        id S2441488AbfIXTmn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 24 Sep 2019 15:42:43 -0400
+Received: from mail-wm1-f68.google.com ([209.85.128.68]:53840 "EHLO
+        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1731683AbfIXTmm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 24 Sep 2019 15:42:42 -0400
+Received: by mail-wm1-f68.google.com with SMTP id i16so1588470wmd.3;
+        Tue, 24 Sep 2019 12:42:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=lWZ9+6E2t/Zd1vfDJA5ykQoAoEiNVoNl8UGWaG+7/DY=;
-        b=kKCSYyE4MZc1CkdVEicqexOA8OzslqU3jMsv4Meen9NNe8Ay0KFUd+VlAImX5JMxQS
-         nSDRpgqoYfJ0VaN96TX1toPpDG/8YkYVZJINNHAXhYHkOXm1K/mEp2E5kLHVmKNj2Lxk
-         LQMrU4yYkaMDf+KBBQkkYsS4kSY6ovZAHYkO+ajr/U2C6SPyrgp4V0Bt+nwSL6MpsGW9
-         GU7blrpXuj64+cwgmRVHzfSYRHOr7asqgQ1hLnja9haycKNnOLr2JwiCKE6qFBdOxnnY
-         gXkMEIrJc+XF26m86fmTNxw206ELihr95f8gUyEJuaL5H0kDW5Idm2glysUAX9L/Brve
-         A1Xg==
+        bh=b7EGVdn+nnErrmGv5RJiQcuJyaitYDwDzx3KEC+djho=;
+        b=uj3bWR2VmK/66QR3ZlIpHLNCWKskaomPDlxA986ZhyJdIkhOF543pFW+O9RG/fbmQX
+         rbqG9SKkRXDpU5j1GeHSYEZVNPdfTudYeFd5/QPixtahL3wobxZsc3DmlQl4DztOGP+b
+         LEp3h2FPigjl4dn5VlDB/aokilgqvkSA+tPElAh7v5V5+AyNV7/7vE/RiZjBcpdF5APG
+         aEcTgvHRM92XkEKNbuPgde/IL6FmHLB/+r76Pfnzf/KiwtcVuJJS41jaOycM1UoNuAXz
+         6bT5xCras6yas1HVSbanZ9XyE5KbrLEs/SuljQD5bdr6Gl/kHtsCSHTzUYEcjvA0kYI/
+         EbWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=lWZ9+6E2t/Zd1vfDJA5ykQoAoEiNVoNl8UGWaG+7/DY=;
-        b=kDdLFymjCWs0fnXvmsd/t3NIkYBkWrRDFWzlKkhOhk8q/1F1ovr9gRrUGbwkFoWXL8
-         6e2Rrl1nZinMNrqYEe21jkospsQjTdzFTAci71m1lzYaQp4K+4Dqv46WH/lu6qr8FVsf
-         1J2APtist1jopM7fer4xuggKBCzcFkmqT3s90ZsGsNwHRE+yu/56F96vSRJq2ZySpTkD
-         7GAIW1muM/hV2rXxQAKBNfrCtGr9+cFBbobe2WHhd4oeRNmduMXs9AjgDwsfJMV8LUVh
-         Y+jFei3WaxgrcaBaf/h1dHXDYuevYc9QOp0kTCwEBLf0dZuIQgQ3yW+m2BI8omf/pDRi
-         FbRA==
-X-Gm-Message-State: APjAAAWdOpKaelbaS8oG8HcjvRJEbk5u302O9iZp+s1tQ3X+OpLzXUJt
-        J9XCBXfzFSXR5Mm4fNjVVWwnmTJP
-X-Google-Smtp-Source: APXvYqzSDLM1ZB5GuTpOKhQeRIUvWBrnS/vyWQ2rMDtNU40T9Md44pf+kYybsKXuk1x6A9cgSE7dnw==
-X-Received: by 2002:a5d:4646:: with SMTP id j6mr3823993wrs.173.1569352256834;
-        Tue, 24 Sep 2019 12:10:56 -0700 (PDT)
+        bh=b7EGVdn+nnErrmGv5RJiQcuJyaitYDwDzx3KEC+djho=;
+        b=a0ht4fG69t5tK2Q3FANstXJGd8x9gAgOayyfBxNVCBeuCXJhN1BpjaDwU8Km3gQpPu
+         tJJt+XVlXiK1QAcX3hQVw6PbcGOje4nDgUfhll530tAbTb7++XLcFrHn3+OF9wCZpzT1
+         f2hkc8xa8QvN5COOjmxAZH33+wbWVko7pZlpbMslGzd2urYdJX8Kh8tXXj0kWQ/57xmj
+         +4fdblRICLPB1NK/WuzJrq89KEwJbn+fmwIQIRCgiw7sNllp4whUHt4Ys8D6wH7SsSRn
+         8jByKeegkRDR5M4COJ1wQ9vfM+FWWJIwx5cgPpulnDzDW7wjatYseweKYdZjPqxRxAGM
+         XJiA==
+X-Gm-Message-State: APjAAAWnSLn+xJCPZO+Gtz6JqEh1NcUK76IJMh/r4hqk2P9z8EmZCeNh
+        hT5CsWDxukE1DYB4amUxbUodGN3P
+X-Google-Smtp-Source: APXvYqzIcQwSY3wPxHgBCsVt3NLor66+QqJSNXyJJRRatW3wyaSbihFydYjkwvJs4CeUb2ZWCmZi2g==
+X-Received: by 2002:a05:600c:24cf:: with SMTP id 15mr2192579wmu.112.1569354159344;
+        Tue, 24 Sep 2019 12:42:39 -0700 (PDT)
 Received: from ?IPv6:2001:a61:24d6:4e01:ef75:e978:47cd:1c50? ([2001:a61:24d6:4e01:ef75:e978:47cd:1c50])
-        by smtp.gmail.com with ESMTPSA id 132sm1388250wma.7.2019.09.24.12.10.55
+        by smtp.gmail.com with ESMTPSA id d193sm1542839wmd.0.2019.09.24.12.42.37
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Sep 2019 12:10:56 -0700 (PDT)
+        Tue, 24 Sep 2019 12:42:38 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, Oleg Nesterov <oleg@redhat.com>,
         Christian Brauner <christian@brauner.io>,
         Jann Horn <jannh@google.com>,
-        Daniel Colascione <dancol@google.com>,
+        "Eric W. Biederman" <ebiederm@xmission.com>,
         Joel Fernandes <joel@joelfernandes.org>,
         linux-man <linux-man@vger.kernel.org>,
         Linux API <linux-api@vger.kernel.org>,
         lkml <linux-kernel@vger.kernel.org>
 Subject: Re: For review: pidfd_send_signal(2) manual page
-To:     "Eric W. Biederman" <ebiederm@xmission.com>
+To:     Daniel Colascione <dancol@google.com>
 References: <f21dbd73-5ef4-fb5b-003f-ff4fec34a1de@gmail.com>
- <87ftkmu2i6.fsf@x220.int.ebiederm.org>
+ <CAKOZuetMK0eRxBrR8wXo_qCaQ7OGKQHqAy15cX437+Q+cvbbvA@mail.gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <d6f72bcc-613b-45c5-98f5-67f904ace644@gmail.com>
-Date:   Tue, 24 Sep 2019 21:10:54 +0200
+Message-ID: <27cc0db0-f3b4-e4c5-70cc-2f93814c460b@gmail.com>
+Date:   Tue, 24 Sep 2019 21:42:35 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <87ftkmu2i6.fsf@x220.int.ebiederm.org>
+In-Reply-To: <CAKOZuetMK0eRxBrR8wXo_qCaQ7OGKQHqAy15cX437+Q+cvbbvA@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 9/23/19 11:27 PM, Eric W. Biederman wrote:
-> "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> writes:
+On 9/23/19 1:31 PM, Daniel Colascione wrote:
+> On Mon, Sep 23, 2019 at 2:12 AM Michael Kerrisk (man-pages)
+> <mtk.manpages@gmail.com> wrote:
+>>        The  pidfd_send_signal()  system call allows the avoidance of race
+>>        conditions that occur when using traditional interfaces  (such  as
+>>        kill(2)) to signal a process.  The problem is that the traditional
+>>        interfaces specify the target process via a process ID (PID), with
+>>        the  result  that the sender may accidentally send a signal to the
+>>        wrong process if the originally intended target process has termi‐
+>>        nated  and its PID has been recycled for another process.  By con‐
+>>        trast, a PID file descriptor is a stable reference to  a  specific
+>>        process;  if  that  process  terminates,  then the file descriptor
+>>        ceases to be  valid
 > 
->> Hello Christian and all,
->>
->> Below, I have the rendered version of the current draft of
->> the pidfd_send_signal(2) manual page that I have written.
->> The page source can be found in a Git branch at:
->> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/log/?h=draft_pidfd
->>
->> I would be pleased to receive corrections and notes on any
->> details that should be added. (For example, are there error
->> cases that I have missed?)
->>
->> Would you be able to review please?
->>
->> Thanks,
->>
->> Michael
->>
->>
->> NAME
->>        pidfd_send_signal - send a signal to a process specified by a file
->>        descriptor
->>
->> SYNOPSIS
->>        int pidfd_send_signal(int pidfd, int sig, siginfo_t info,
-> 
->  This needs to be "siginfo_t *info," -----------------------^
+> The file *descriptor* remains valid even after the process to which it
+> refers exits. You can close(2) the file descriptor without getting
+> EBADF. I'd say, instead, that "a PID file descriptor is a stable
+> reference to a specific process; process-related operations on a PID
+> file descriptor fail after that process exits".
 
-Thanks, Eric. Fixed.
+Thanks, Daniel. I like that rephrasing, but, since pidfd_send_signal()
+is (so far as I know) currently the only relevant process-related
+operation (and because this is the manual page describing that
+syscall), I made it:
 
-Cheers,
+[[
+By contrast, a PID file descriptor is a stable reference to a
+specific process; if that process terminates, pidfd_send_signal()
+fails with the error ESRCH.
+]]
+
+Thanks,
 
 Michael
+
 
 -- 
 Michael Kerrisk
