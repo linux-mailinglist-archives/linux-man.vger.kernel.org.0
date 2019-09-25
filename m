@@ -2,75 +2,186 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 8B598BE647
-	for <lists+linux-man@lfdr.de>; Wed, 25 Sep 2019 22:23:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2E9BCBE905
+	for <lists+linux-man@lfdr.de>; Thu, 26 Sep 2019 01:40:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732204AbfIYUXd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 25 Sep 2019 16:23:33 -0400
-Received: from mail-ed1-f49.google.com ([209.85.208.49]:39539 "EHLO
-        mail-ed1-f49.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1732181AbfIYUXd (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Sep 2019 16:23:33 -0400
-Received: by mail-ed1-f49.google.com with SMTP id a15so4294560edt.6
-        for <linux-man@vger.kernel.org>; Wed, 25 Sep 2019 13:23:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=MMeZZ//mGvk6VPuLkQt5Y8gcCSSbS7FSpRBm+Aun0Xg=;
-        b=t1yj3y20JuTxxC52Ezzp9LlMuZRan9spzeQC7cihwdMwRLDw4ZbylQHc1gPRYO/mnO
-         xnCacZEe3iniwXsqkKl0xziCBicpb7PGfbdMt+AhSSbnQBljY//wGIUeTvaX98IAz98P
-         n3Db+H8IBca/4OJKPinuYKDQIT5BI8tetouikrHN9jCbMZMfKpWATGlyUzoZYE9GvALy
-         z1dmlo5xuuhWx6hsPH27pog19msAQVGmUdlkvEzM2BMqDgEVp5N+5hhPU87ntUTSmTxI
-         Hk/ytfyWrBM7RMht9lq8OG3X8pij2saPZsdf20kD/KU6QR3mK1uTzDrA7w/jX1ImFhgn
-         OAwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=MMeZZ//mGvk6VPuLkQt5Y8gcCSSbS7FSpRBm+Aun0Xg=;
-        b=VLp0avJEExl5PUb7oMcdFvXFcoiZyDLGu4snGqBNxdmk+W0EMyXwtrioOr7Rhw8ry1
-         bIEl0+h7d1qFpdZ+rr5b8oPan9WgkERUf+oZrrtza/Qm4iEGguz/YicYf8mBNwf5Sj/W
-         /U1O/J0JQlhyWzdRyhprQi7cSkKd5P8Z3rrj7X4vBtYRE0c4paUszIg4pHyXCEX3g4A7
-         nyWrVortm2gXpymuMnrZlgTQn1g7RsuQXLIQ2Au+lt0MX4CQc92w9VBSRKzwxrU7Q9gL
-         hpMKq9n5T98VKOT3QBa+9VQCcFQgSfgvY7q0mwjW8dV0E5YxOfNJp13AocL/y9ypqwxA
-         v05Q==
-X-Gm-Message-State: APjAAAVJ7YIEhe0V2UMgRRr5Zvewo63jSVG6fRqSAfhTs/gxsipv86ce
-        WMMTE0aKj/LnugKmSPFZSSVIbNcT7nPGuyGGHyM=
-X-Google-Smtp-Source: APXvYqwAwh2/n1i4NuVW5uAsxogpbIW042xyc4TxAFvgpdV2zzOlqiVBS5WjyrECmmX4hgWDAyvEBDjRs70R+IfKGsY=
-X-Received: by 2002:a05:6402:1858:: with SMTP id v24mr5075017edy.130.1569443011324;
- Wed, 25 Sep 2019 13:23:31 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAMzzPGLKmjvTMJV=VAbi_Vz79Y3dSsNKDY4toJk4pRnUgg93eA@mail.gmail.com>
-In-Reply-To: <CAMzzPGLKmjvTMJV=VAbi_Vz79Y3dSsNKDY4toJk4pRnUgg93eA@mail.gmail.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Wed, 25 Sep 2019 22:23:20 +0200
-Message-ID: <CAKgNAkhiCe7EAWRbhAtvEus=jsMDr_DrD0cM_j0CN7z5Nuuz5A@mail.gmail.com>
-Subject: Re: https://www.manpagez.com/man/5/launchd.plist/
-To:     Dick Guertin <dick.guertin@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
+        id S1731995AbfIYXkm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 25 Sep 2019 19:40:42 -0400
+Received: from gateway36.websitewelcome.com ([192.185.179.26]:31688 "EHLO
+        gateway36.websitewelcome.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1731772AbfIYXkm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Sep 2019 19:40:42 -0400
+X-Greylist: delayed 1500 seconds by postgrey-1.27 at vger.kernel.org; Wed, 25 Sep 2019 19:40:41 EDT
+Received: from cm14.websitewelcome.com (cm14.websitewelcome.com [100.42.49.7])
+        by gateway36.websitewelcome.com (Postfix) with ESMTP id 81CCC400FC98E
+        for <linux-man@vger.kernel.org>; Wed, 25 Sep 2019 17:21:07 -0500 (CDT)
+Received: from gator3203.hostgator.com ([198.57.247.167])
+        by cmsmtp with SMTP
+        id DGA9i6RriBnGaDGAAiI8xl; Wed, 25 Sep 2019 17:53:34 -0500
+X-Authority-Reason: nr=8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rsiny.com;
+         s=default; h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:
+        In-Reply-To:Date:Cc:To:Reply-To:From:Subject:Message-ID:Sender:Content-ID:
+        Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+        :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+        List-Post:List-Owner:List-Archive;
+        bh=g/uQ5NJEuenyEDiwMXwZxsFmqtsLRLQ0cs4ahThZ5sQ=; b=bGQl4Igaa38k6z282IvhuCIDRk
+        yoyNdMi3hueyvnCwqhhtRJs4n1fk8UdVYictqNaaROFZh4E8YnX7vDu8ExiOOv9dEKS0m64hSV1x8
+        t7pe6g73GsO5lod1WHj8qPCxE0BwsF7lOwHQBCOUtUBId49vdqy4+qP2lMbD4JcBmcD2DyJGFFawl
+        O91ZI8gk10DZJV3KoXCaizsJXx1yuiHGE58VxyuVi/9UFp4vxNj9oMG7F8CeZ1dnxVQoKfLNaLvgQ
+        81Jaf5gJnAfAyppem5FX6aWt3fTNgqh2RQSWiOx5TH93T/AqNIMlbci1xnkV5e+dR5Oo6eS86h1cX
+        qxpJLhDQ==;
+Received: from pool-100-37-189-229.nycmny.fios.verizon.net ([100.37.189.229]:51226 helo=[192.168.1.4])
+        by gator3203.hostgator.com with esmtpsa (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+        (Exim 4.92)
+        (envelope-from <rstanley@rsiny.com>)
+        id 1iDGA9-002uxG-Dt; Wed, 25 Sep 2019 17:53:33 -0500
+Message-ID: <c9d561ab9053da5e1e3a1d095001b39e2da88258.camel@rsiny.com>
+Subject: Re: Man page pre & post operators error
+From:   Rick Stanley <rstanley@rsiny.com>
+Reply-To: rstanley@rsiny.com
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Date:   Wed, 25 Sep 2019 18:53:32 -0400
+In-Reply-To: <b26c24c2-63ae-bb99-4df9-653f9d33f20d@gmail.com>
+References: <a1683c1cc450bf969aca13d8f7a99f08cc07635d.camel@rsiny.com>
+         <47a9114e-4e31-45fc-131a-ca0c2571066d@gmail.com>
+         <a872f7e970a7d2048243f21b9fb40ad5fa929ffe.camel@rsiny.com>
+         <65c8c525eb718aa77816f3fe0b47e33d3504e623.camel@rsiny.com>
+         <3cdbcb38-734a-2b1e-ba12-f5e85a89b805@gmail.com>
+         <b26c24c2-63ae-bb99-4df9-653f9d33f20d@gmail.com>
+Organization: RSI
 Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.30.5-1.1 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator3203.hostgator.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - rsiny.com
+X-BWhitelist: no
+X-Source-IP: 100.37.189.229
+X-Source-L: No
+X-Exim-ID: 1iDGA9-002uxG-Dt
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: pool-100-37-189-229.nycmny.fios.verizon.net ([192.168.1.4]) [100.37.189.229]:51226
+X-Source-Auth: rstanley@rsiny.com
+X-Email-Count: 1
+X-Source-Cap: cnN0YW5sZXk7cnN0YW5sZXk7Z2F0b3IzMjAzLmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Sorry Dirk, this is still not the right place to report this bug. This
-manual page is part of *some* other project.
+Michael:
 
-On Wed, 25 Sep 2019 at 22:15, Dick Guertin <dick.guertin@gmail.com> wrote:
->
-> I'm reporting a deficiency in 'launchd.plist(5)' for
-> 'StartCalendarInterval'.  The numeric ranges are NOT shown, as they
-> were for 'crontab(5)'.  I'm referring to HOUR, MINUTE, MONTH, and
-> DAY-OF-MONTH and DAY-OF-WEEK.  Some of these ranges begin with 0,
-> and some with 1.  That's why it's important to SHOW THE RANGES in the
-> documentation.  Dick.Guertin
+I have made the assumption that the current manpage operator table was
+based on the C89/90 C Standard. This was a bad assumption!
 
+Please throw out what I have sent and I will create a new more detailed
+interpretation of the Draft Standards, with more detailed explanation.
+I do not work with anything but the Draft Standards documents.  (With
+one possible additional source. Will explain later)
 
+Thanks!
 
+Rick 
+
+--
+RSI (Rick Stanley, Inc.)
+(917) 822-7771
+www.rsiny.com
+Computer  Consulting
+Linux & Open Source Specialist
+On Sep 25, 2019, at 4:08 PM, "Michael Kerrisk (man-pages)" <
+mtk.manpages@gmail.com> wrote:
+> Hello Rick,
+> 
+> (Im reflecting more.)
+> 
+> On 9/25/19 9:42 PM, Michael Kerrisk (man-pages) wrote:
+> >  Hello Rick,
+> >  
+> >  On 9/25/19 5:23 PM, Rick Stanley wrote:
+> > >  Hello again!
+> > > 
+> > >  In an effort to bring the current manpage for the C operator
+> > > table up
+> > >  to the current official Standard, I went back and compared the
+> > > current
+> > >  manpage operator table against the C99, C11, and C17(18) Draft
+> > >  Standards documents.  I do not have access to the Official ISO C
+> > >  Standards documents.
+> > > 
+> > >  I have attached a PDF to document my interpretation of the
+> > > Standards
+> > >  against the current `man operator` manpage
+> > > 
+> > >  In addition to the pre & postfix ++ & -- operators, I have found
+> > > one
+> > >  additional change & three additions to the table.  Because of
+> > > these
+> > >  appearing in 6.5.x, and A.2.1, I assume they should be included
+> > > in the
+> > >  operator table.
+> > > 
+> > >  The current table consists of 15 levels of precedence, C99 adds
+> > > one new
+> > >  level and C11 adds one more.
+> > > 
+> > >  (type) cast operator change
+> > > 
+> > >  In the current table, the cast operator is listed on level 2 of
+> > > 15
+> > >  levels, along with other operators.  In C99 this operator has
+> > > been
+> > >  demoted to a new level inserted between level 2 & 3 of the
+> > > current
+> > >  level, expanding the table to 16 levels of precedence.  I assume
+> > > the
+> > >  associativity is also "right to left", as is level 2.
+> 
+> How do you deduce that this changed between C89/90 and c99?
+> I'm not so convinced now that '(type) cast' changed in precedence.
+> 
+> > >  _Generic operator/keyword addition
+> > > 
+> > >  This new operator/keyword was added in C11.  A new top level was
+> > >  created and the remainder of the table has been demoted by one
+> > > level.
+> 
+> But, is it really an operator? How do you deduce that?
+> 
+> > >  default operator/keyword addition
+> > > 
+> > >  This too has been added to the new top level in C11
+> >  
+> >  But, 'default' is not an operator as far as I can tell?
+> >  (It is part of the '_Generic' construct, not an operator
+> >  in its own right.)
+> >  
+> > >  _Alignof operator/keyword addition
+> 
+> This seems clearly correct to me, and I find other sources
+> that agree on this.
+> 
+> My general problem is that I find no other sources
+> that confirm your interpretation of the standard that _Generic
+> is a new operator at a new level and that '(type) cast' has
+> changed in precedence.
+> 
+> Thanks,
+> 
+> Michael
+> 
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+RSI (Rick Stanley, Inc.)
+(917) 822-7771
+www.rsiny.com
+Computer Systems Consulting
+Linux & Open Source Specialists
+
