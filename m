@@ -2,141 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4D65DBE61C
-	for <lists+linux-man@lfdr.de>; Wed, 25 Sep 2019 22:08:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3E341BE638
+	for <lists+linux-man@lfdr.de>; Wed, 25 Sep 2019 22:15:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732726AbfIYUIV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 25 Sep 2019 16:08:21 -0400
-Received: from mail-wr1-f47.google.com ([209.85.221.47]:43204 "EHLO
-        mail-wr1-f47.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731229AbfIYUIV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Sep 2019 16:08:21 -0400
-Received: by mail-wr1-f47.google.com with SMTP id q17so8358705wrx.10
-        for <linux-man@vger.kernel.org>; Wed, 25 Sep 2019 13:08:19 -0700 (PDT)
+        id S1732945AbfIYUPm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 25 Sep 2019 16:15:42 -0400
+Received: from mail-io1-f44.google.com ([209.85.166.44]:33068 "EHLO
+        mail-io1-f44.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1731062AbfIYUPm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Sep 2019 16:15:42 -0400
+Received: by mail-io1-f44.google.com with SMTP id z19so370081ior.0
+        for <linux-man@vger.kernel.org>; Wed, 25 Sep 2019 13:15:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=y0H4U9rM4q+trHkwk0NDlX1wfTuCNX7nT0DsBlKAuqo=;
-        b=JDIC5ifYP9gDC12ArD1yLgNcqMqb6vWo/hAPSC3PL2WE5kydXQ1mbmgayMVVmsW+he
-         HlZGwV6YKKmKcRJMNmg8xrHYJ6h1CebQnVBgse2OXL2J5fRjy/UjaF7PoMo24O9CP/7H
-         VFH4Yt878YG8aPpigd7g/6JaQkv9PQWGM4hvcVHkh487EXHDw8Pvhz+XRYvLxV8ijJ9U
-         Mx40bnLcB8lgMJPrkjQANfPm8tlhxcjbebbvX3lpN+5vExmELyd5g076M8dykct3GHAs
-         dQriTuYNYvyeBX4Wykqv9cnGgcmVFkNZua2yxHkmG+o2kOhj3RixOLwSn78e2N0OZGD9
-         6shA==
+        h=mime-version:from:date:message-id:subject:to;
+        bh=CV4w+HPInoMkCCRsgS/RMt7zvvK1H5XvnqXQ7aAwAUA=;
+        b=oOwsxGDSZm7t48F26KL0earFwW7I/R8UCl1QMQPLx5ZVlyhv1aboQ7hAepF6Bljmq/
+         CoTT+PQVcz9n+qx0jdPok59FaAkWhAyBtSsymV3ycyeOiLyBAEVwmODlWhGIRqkVpR6e
+         vsV+SMtO80s+CAaiQ/e0uPSAbbi5eEK5EUZqzCzRL73dzJcAjYcdArm5cf/1fn08NTL/
+         ZNjLSQcIl/Behel1BYBMM+0Yf/pCTZ9qeT5a1TXj88eCgrpmSD+s9cXuE3yjVijwbD6k
+         hkn0sixRezFCp3njIOTmKR0NU+vnyj0oxzD6sVURAZTOhIcafCmNQqptqCYvHFKQtTSF
+         G/6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=y0H4U9rM4q+trHkwk0NDlX1wfTuCNX7nT0DsBlKAuqo=;
-        b=kZBn/XCsiPTf0/ahl59THqMP5yxwiUq9gy4oozN3ETAD5VHTCShIjUKgucrfKbS9AH
-         CKxwnb6dvxde6INOtHsaChqpRWWKYI68upDrnyP3qZjNZVGMjPwtNnL3dnuTeu7sM14e
-         nhJKsaK+enrAJB3o+vRRQir47GswZYW0REfKDI4NC5ObtjBcwlXRAoUwlXYz7YsbrQ//
-         NsNv/OzGrTawCHNczaxd+hG8kOUjiJjHHLClRCk7mPe6TIyheIG25xOB4dku6fr5W4SC
-         c5u16ahmQCaQD7PJrtSSinfhjuTZqfmDTkA8ESS0LDpLO9JNOEVKi2+Ehk7iAfdeLafN
-         GoSg==
-X-Gm-Message-State: APjAAAU0v8rvNxAFsVDT6+B37JHou/B9ugCnJlEYXOz8MQga6Aw7offM
-        4RdQ4trVe8Qa5FBipG8HmxePKvfk
-X-Google-Smtp-Source: APXvYqxhZOW4CSZmsKUmgOFGlTqLAkXNnfr7QicA+Jwba4Wu3fMZz8YRuMcHUfF96Gapb3TVcjqjvg==
-X-Received: by 2002:adf:de08:: with SMTP id b8mr91547wrm.200.1569442098662;
-        Wed, 25 Sep 2019 13:08:18 -0700 (PDT)
-Received: from ?IPv6:2001:a61:24d6:4e01:ef75:e978:47cd:1c50? ([2001:a61:24d6:4e01:ef75:e978:47cd:1c50])
-        by smtp.gmail.com with ESMTPSA id y186sm25915wmb.41.2019.09.25.13.08.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Sep 2019 13:08:17 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Man page pre & post operators error
-To:     rstanley@rsiny.com
-References: <a1683c1cc450bf969aca13d8f7a99f08cc07635d.camel@rsiny.com>
- <47a9114e-4e31-45fc-131a-ca0c2571066d@gmail.com>
- <a872f7e970a7d2048243f21b9fb40ad5fa929ffe.camel@rsiny.com>
- <65c8c525eb718aa77816f3fe0b47e33d3504e623.camel@rsiny.com>
- <3cdbcb38-734a-2b1e-ba12-f5e85a89b805@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <b26c24c2-63ae-bb99-4df9-653f9d33f20d@gmail.com>
-Date:   Wed, 25 Sep 2019 22:08:16 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=CV4w+HPInoMkCCRsgS/RMt7zvvK1H5XvnqXQ7aAwAUA=;
+        b=dUAZ2XkE+vB0rDleZEwNJe1A7oNKbOHsDYuIvEFtdngpuK1Nv66vc/v+yy/x2Ve69q
+         cWqss4apbAzjgs8WeVKlmXwRll0WPg/TGRK0cI1ZLvyO6DdBFCCrq4FLST2giYNUSq6F
+         k3bu+/1HEFWoNsFzLvE2+2O3ETTILgRXKDfbgYDE6nepAPwouxQ0Uz0wOghw+8AlujVT
+         KtKIf6awu3RVQQ3qoN75MtmmQKf/ZDh8U+qdleQaqdKFJ05g1EEuPJ7ZgVrxJbzqC7gI
+         ykZqqHh2yhv+1/b7Dw7Ad+76I6ABJJPI9KfhDnEodKXimLTSV3uOGX714ynr+VVGynuL
+         k4Xg==
+X-Gm-Message-State: APjAAAX4xJf6JqFTNCa9f9lbEpAhTJWGw6160tGELo2WpXuapt+y6MMY
+        4si+b7Q1Ue7GDeEEAZkVEq8EXjJSl1/0GAsEqiBJ3g==
+X-Google-Smtp-Source: APXvYqx4PmAfTJM8d/sq8UYL+Yh+TovqgmxxuLuzjvjz930DveXBUX0KKBFn3FRRRWigUqtZfecNy9u2rlI4EvQp4hU=
+X-Received: by 2002:a5d:9814:: with SMTP id a20mr1385770iol.19.1569442541177;
+ Wed, 25 Sep 2019 13:15:41 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <3cdbcb38-734a-2b1e-ba12-f5e85a89b805@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Received: by 2002:a05:6602:d1:0:0:0:0 with HTTP; Wed, 25 Sep 2019 13:15:40
+ -0700 (PDT)
+From:   Dick Guertin <dick.guertin@gmail.com>
+Date:   Wed, 25 Sep 2019 13:15:40 -0700
+Message-ID: <CAMzzPGLKmjvTMJV=VAbi_Vz79Y3dSsNKDY4toJk4pRnUgg93eA@mail.gmail.com>
+Subject: https://www.manpagez.com/man/5/launchd.plist/
+To:     linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Rick,
-
-(Im reflecting more.)
-
-On 9/25/19 9:42 PM, Michael Kerrisk (man-pages) wrote:
-> Hello Rick,
-> 
-> On 9/25/19 5:23 PM, Rick Stanley wrote:
->> Hello again!
->>
->> In an effort to bring the current manpage for the C operator table up
->> to the current official Standard, I went back and compared the current
->> manpage operator table against the C99, C11, and C17(18) Draft
->> Standards documents.  I do not have access to the Official ISO C
->> Standards documents.
->>
->> I have attached a PDF to document my interpretation of the Standards
->> against the current `man operator` manpage
->>
->> In addition to the pre & postfix ++ & -- operators, I have found one
->> additional change & three additions to the table.  Because of these
->> appearing in 6.5.x, and A.2.1, I assume they should be included in the
->> operator table.
->>
->> The current table consists of 15 levels of precedence, C99 adds one new
->> level and C11 adds one more.
->>
->> (type) cast operator change
->>
->> In the current table, the cast operator is listed on level 2 of 15
->> levels, along with other operators.  In C99 this operator has been
->> demoted to a new level inserted between level 2 & 3 of the current
->> level, expanding the table to 16 levels of precedence.  I assume the
->> associativity is also "right to left", as is level 2.
-
-How do you deduce that this changed between C89/90 and c99?
-I'm not so convinced now that '(type) cast' changed in precedence.
-
->> _Generic operator/keyword addition
->>
->> This new operator/keyword was added in C11.  A new top level was
->> created and the remainder of the table has been demoted by one level.
-
-But, is it really an operator? How do you deduce that?
-
->> default operator/keyword addition
->>
->> This too has been added to the new top level in C11
-> 
-> But, 'default' is not an operator as far as I can tell?
-> (It is part of the '_Generic' construct, not an operator
-> in its own right.)
-> 
->> _Alignof operator/keyword addition
-
-This seems clearly correct to me, and I find other sources
-that agree on this.
-
-My general problem is that I find no other sources
-that confirm your interpretation of the standard that _Generic
-is a new operator at a new level and that '(type) cast' has
-changed in precedence.
-
-Thanks,
-
-Michael
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+I'm reporting a deficiency in 'launchd.plist(5)' for
+'StartCalendarInterval'.  The numeric ranges are NOT shown, as they
+were for 'crontab(5)'.  I'm referring to HOUR, MINUTE, MONTH, and
+DAY-OF-MONTH and DAY-OF-WEEK.  Some of these ranges begin with 0,
+and some with 1.  That's why it's important to SHOW THE RANGES in the
+documentation.  Dick.Guertin
