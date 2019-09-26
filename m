@@ -2,158 +2,130 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id D4A92BFAB4
-	for <lists+linux-man@lfdr.de>; Thu, 26 Sep 2019 22:45:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1576EBFADE
+	for <lists+linux-man@lfdr.de>; Thu, 26 Sep 2019 23:12:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728846AbfIZUpH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 26 Sep 2019 16:45:07 -0400
-Received: from mail-qt1-f194.google.com ([209.85.160.194]:42135 "EHLO
-        mail-qt1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728816AbfIZUpH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Sep 2019 16:45:07 -0400
-Received: by mail-qt1-f194.google.com with SMTP id w14so4559153qto.9
-        for <linux-man@vger.kernel.org>; Thu, 26 Sep 2019 13:45:05 -0700 (PDT)
+        id S1728813AbfIZVMD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 26 Sep 2019 17:12:03 -0400
+Received: from mail-wm1-f65.google.com ([209.85.128.65]:37065 "EHLO
+        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725919AbfIZVMD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Sep 2019 17:12:03 -0400
+Received: by mail-wm1-f65.google.com with SMTP id f22so4011156wmc.2;
+        Thu, 26 Sep 2019 14:11:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:subject:message-id:mime-version:content-disposition
-         :in-reply-to:user-agent;
-        bh=2DsqF2yRVeGg6vE9ynoMiVVMCD1zsH+SgL+z5GvT2Gg=;
-        b=OQCTXuCpOX0hQ2u/rsLctRAmkPGeC0BFRw4/RjpDigyE/sh+GoF84a6ay5riUQGZ1i
-         t3VWGHCzvEByWlCW5gXl5LvVtjhwVtxYIQnPGKezwXfz+p4tef+gS+I2BeKPjFAz80ek
-         tezwtOrAXJAggZA0kuzXkKxp+5hWucOwp8knEuRmzeGMrElUqNIIJKAjkQnF7dl/Jvma
-         smmN3jnBJOsh8Ged+Ih8iS21RVKoRLegTH5To/rarlIK45bb+czUfAjRwQZsUGfpeZVd
-         PV5vTZUd09J503lH1m8z4CJcqU5b1U/vBRhAA8Xn9cbB54bdJfpi8bigsAc7+MaD9/26
-         l4GQ==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=FI1xrP5jjBsQPaMVmci1V+BqiWwo6aK8tEQUUDKJq3s=;
+        b=AbFfvazGXAD0zLF3y6MQ+8btH+FUTb+dZuhxQtKDxqx3mkfuG65NeUr1xRvbqmcuLq
+         6LfIYygjn4F2QFxnjc5nhYV0lkjExxvDNgnAfOILhCrT1w+kjwOaAvFFtIErhLvagaTq
+         m+WXGwXtHTv1IcmqgX4KzmJBWiiItqLoE5zpmSjhb5JDfp5wY48C8btfTQmHv10fK1sZ
+         yPFI2gEWkVRyWgFxN5236PXiZlyibuJHUj1U0UQsXnXY6fV5/EP/WHYeNoI6Vri/QI4c
+         KR7Yi1ZGpMVvU9M3Z9t4mOFgtIfaLEdjmVCLbkkQgGpKcwy2hfZQqaT9Y1sitRcnGphd
+         a6vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:subject:message-id:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=2DsqF2yRVeGg6vE9ynoMiVVMCD1zsH+SgL+z5GvT2Gg=;
-        b=in/Oxl8bzF5NcdlVyMb2upI8gytzi3bl6Qyj4HFTgWHb7BdBgX5fiFLXAkLdAyymOn
-         oQWBlLG24rDoP9SnORU2S4KoBCwwIDIn0qE8B6PhxMTZKdJw1NssYa/KiOwLGw7bC7Vr
-         gbo14TziecLPURqUymH+iKi/q8+k/c95H5gNbOlsFX7rjr6BqBHLlKqK+WzSZy+LEiFN
-         V2KavpzfA+N9imDnLdDtFSz8uTtsfwxR1d5KmY7BYAauNnIXZriNZmewoEg18FWWNpFQ
-         LZRDyzFHLuqDDcS2qYWaIPxIr9IfWT5FOpIMaTFSsrRxrOIMs5wAEl1PsyBd6RhpinwO
-         gZSg==
-X-Gm-Message-State: APjAAAVEFf2lpM6HDnFUfc5TU/d9wOBpQxpcTMqYU0jAc8RcT6Gl8KLQ
-        ONKwLSFq9rdRGrRm64P7oI4=
-X-Google-Smtp-Source: APXvYqy3JDGMG0wHZEzP619+mb0jexDnA92Ipwog4/DY8wC+8EYffzXtNcrEurKGuUkDUdUtcSo9UQ==
-X-Received: by 2002:a0c:e94b:: with SMTP id n11mr4585580qvo.11.1569530704932;
-        Thu, 26 Sep 2019 13:45:04 -0700 (PDT)
-Received: from localhost.localdomain ([38.127.166.254])
-        by smtp.gmail.com with ESMTPSA id j17sm2085456qta.0.2019.09.26.13.45.03
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=FI1xrP5jjBsQPaMVmci1V+BqiWwo6aK8tEQUUDKJq3s=;
+        b=AT2CyH4uO3MrY9MEXXYGKjWhYO3l0JzKv+GKqYNVM6m3OBJAcoUZEzG69ZiLCC5XWo
+         vLiUfHTZymNymT/UVsZZ28jOJTFF8CouhANzod8ckUflUV65TbWB5TLhGJ4g16lxlKfQ
+         XW7ASwU3ol1OrsK2niMjkdMwWC+a+4B5zIKBxKUWAg0QyeTdqoK1rw2A/QTH9A3WVrVu
+         ah4Sde6znN5TYyF3qf/IewT19BXHR2dseiqDQ4tM+4KU+629TeapLXUdaa9383LJaLwb
+         uYsthzkNfYO5NeKkaaBU1J+j/n9Yndq/IJT9E+nPLIm55u0ZLR1m9dZ8s/+KvisH0q8W
+         P40Q==
+X-Gm-Message-State: APjAAAXTnPaI9B15Dq4bcJEJBqUXYxa7BdF7GmRhk4f++AtlahOxQ4OH
+        xn32KM5MJjcr/rVvfnvcMYQ=
+X-Google-Smtp-Source: APXvYqxGVxier8ZJkkzbhZRUj2Md+Fotcwwj2JqZVqJYIFwEMitoJ12K0uooWAW12Ewj20nujf4mgQ==
+X-Received: by 2002:a7b:c932:: with SMTP id h18mr2178427wml.86.1569532319027;
+        Thu, 26 Sep 2019 14:11:59 -0700 (PDT)
+Received: from darwi-home-pc ([5.158.153.52])
+        by smtp.gmail.com with ESMTPSA id g185sm8031301wme.10.2019.09.26.14.11.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Sep 2019 13:45:04 -0700 (PDT)
-Date:   Fri, 27 Sep 2019 06:45:02 +1000
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Ian Hunter <ian@ianhunter.me>
-Subject: Re: Error in read.1p
-Message-ID: <20190926204500.yywdgn3dnxnkzigu@localhost.localdomain>
+        Thu, 26 Sep 2019 14:11:58 -0700 (PDT)
+Date:   Thu, 26 Sep 2019 23:11:50 +0200
+From:   "Ahmed S. Darwish" <darwish.07@gmail.com>
+To:     Andy Lutomirski <luto@kernel.org>
+Cc:     Florian Weimer <fweimer@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Lennart Poettering <mzxreary@0pointer.de>,
+        "Theodore Y. Ts'o" <tytso@mit.edu>,
+        "Eric W. Biederman" <ebiederm@xmission.com>,
+        "Alexander E. Patrakov" <patrakov@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Willy Tarreau <w@1wt.eu>,
+        Matthew Garrett <mjg59@srcf.ucam.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Ext4 Developers List <linux-ext4@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>
+Subject: Re: [PATCH RFC v4 1/1] random: WARN on large getrandom() waits and
+ introduce getrandom2()
+Message-ID: <20190926211150.GA1085@darwi-home-pc>
+References: <20190918211503.GA1808@darwi-home-pc>
+ <20190918211713.GA2225@darwi-home-pc>
+ <CAHk-=wiCqDiU7SE3FLn2W26MS_voUAuqj5XFa1V_tiGTrrW-zQ@mail.gmail.com>
+ <20190920134609.GA2113@pc>
+ <CALCETrWvE5es3i+to33y6jw=Yf0Tw6ZfV-6QWjZT5v0fo76tWw@mail.gmail.com>
+ <CAHk-=wgW8rN2EVL_Rdn63V9vQO0GkZ=RQFeqqsYJM==8fujpPg@mail.gmail.com>
+ <CALCETrV=4TX2a4uV5t2xOFzv+zM_jnOtMLJna8Vb7uXz6S=wSw@mail.gmail.com>
+ <CAHk-=wjpTWgpo6d24pTv+ubfea_uEomX-sHjjOkdACfV-8Nmkg@mail.gmail.com>
+ <87blvefai7.fsf@oldenburg2.str.redhat.com>
+ <CALCETrWM9opVj+BBrHnnTakTLunW_fB9RM+VSNpNSkR9drDjMw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="edfdnjvhj7vd2sfc"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20190926181754.GA15754@comp.lan>
- <20190926182357.GA20390@comp.lan>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <CALCETrWM9opVj+BBrHnnTakTLunW_fB9RM+VSNpNSkR9drDjMw@mail.gmail.com>
+User-Agent: Mutt/1.12.1 (2019-06-15)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On Mon, Sep 23, 2019 at 11:33:21AM -0700, Andy Lutomirski wrote:
+> On Fri, Sep 20, 2019 at 11:07 PM Florian Weimer <fweimer@redhat.com> wrote:
+> >
+> > * Linus Torvalds:
+> >
+> > > Violently agreed. And that's kind of what the GRND_EXPLICIT is really
+> > > aiming for.
+> > >
+> > > However, it's worth noting that nobody should ever use GRND_EXPLICIT
+> > > directly. That's just the name for the bit. The actual users would use
+> > > GRND_INSECURE or GRND_SECURE.
+> >
+> > Should we switch glibc's getentropy to GRND_EXPLICIT?  Or something
+> > else?
+> >
+> > I don't think we want to print a kernel warning for this function.
+> >
+> 
+> Contemplating this question, I think the answer is that we should just
+> not introduce GRND_EXPLICIT or anything like it.  glibc is going to
+> have to do *something*, and getentropy() is unlikely to just go away.
+> The explicitly documented semantics are that it blocks if the RNG
+> isn't seeded.
+> 
+> Similarly, FreeBSD has getrandom():
+> 
+> https://www.freebsd.org/cgi/man.cgi?query=getrandom&sektion=2&manpath=freebsd-release-ports
+> 
+> and if we make getrandom(..., 0) warn, then we have a situation where
+> the *correct* (if regrettable) way to use the function on FreeBSD
+> causes a warning on Linux.
+> 
+> Let's just add GRND_INSECURE, make the blocking mode work better, and,
+> if we're feeling a bit more adventurous, add GRND_SECURE_BLOCKING as a
+> better replacement for 0, ...
 
---edfdnjvhj7vd2sfc
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This is what's now done in the just-submitted V5, except the "make the
+blocking mode work better" part:
 
-Hi Ian & Arkadiusz,
+    https://lkml.kernel.org/r/20190926204217.GA1366@pc
 
-There are a few issues here.
+It's a very conservative patch so far IMHO (minus the loud warning).
 
-At 2019-09-26T20:17:54+0200, Arkadiusz Drabczyk wrote:
-> On Wed, Sep 25, 2019 at 09:41:30PM -0500, Ian Hunter wrote:
-> > Hello,
-> >=20
-> > The man page for read.1p incorrectly uses a unicode minus ("=E2=88=92")
-> > instead of a hyphen ("-") in places where flags are being used or
-> > described.
-
-First is that the above pages are not maintained by the Linux man-pages
-project.  They are maintained by the Austin Group, the folks behind the
-POSIX standard.  They have an issue reporting site[1].
-
-I believe you will have to register on the site to actually file a
-report, however.  (Issues can be _viewed_ anonymously.)
-
-> A quick ag '\(mi' done in man-pages-posix-2013-a.tar.xz shows that
-> a lot of manpages in this tarball have this problem.
-
-Yes.  Using the character escape for "minus" is a bad idea in prose
-contexts.  The nroff and troff of the 1970s defined this to be a minus
-in the "special font", i.e., one used for equation displays, which may
-not have the same metrics as the so-calld normal fonts used to typeset
-prose.
-
-Long story short, writers of man pages and *roff documents generally
-should use the escape sequence "\-" when they require the hybrid
-"hyphen-minus" character that is used in programming languages, the Unix
-command line, and for similar purposes.  The hyphens used in phrases
-like "mother-in-law" can be typed as-is (i.e., ASCII 45).
-
-I invite readers to the groff mailing list[2] if they wish to know more
-about the complexities of typesetting, the myriad variety of dashes and
-dash-like symbols available, their semantics, the reasons why the *roff
-authors made the choices they did for the input language, why these
-choices are sometimes surprising to or frustrating for man page writers,
-and related issues.
-
-At 2019-09-26T20:23:57+0200, Arkadiusz Drabczyk wrote:
-> ... but it can be solved by setting non-UTF LANG:
->=20
-> $ LANG=3Den_US  man ./read.1p
-
-That solution gives up a lot of output glyps ("man groff_char" to see a
-large list).  There are better ways to get these hyphens to output as
-ASCII 45 characters without having to patch every (or even any) man
-page.
-
-For instance, adding the line:
-
-=2Echar \- \N'45'
-
-to an appropriate configuration file (like /etc/groff/man.local) could
-do the trick, but this is a crude fix and I think I can come up with
-better solutions if I know a little bit more.
-
-What *roff implementation are you using (Ian, Arkadiusz)?  If you don't
-know how to ask the system, try "troff -v" at the shell prompt.
-
-Regards,
-Branden
-
-[1] http://austingroupbugs.net/main_page.php
-[2] groff@gnu.org
-
---edfdnjvhj7vd2sfc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl2NI0QACgkQ0Z6cfXEm
-bc7fNhAAl5nazZofx+OZV1ILXCG6qD3yf1c0kAo1drEC8DClOouLScozemBcCsxs
-gpWQnOGCTlOQf8yqOi1MJE/kgvRSHlItPD5iLGmWW8mXvrJgrTKTc81FGSRTZTrF
-+UeVgXqr4cz+cMxDoWLjbnqDLB639wRkfjJzd259Z5Hfa73nOtZDExWHTCZii4bS
-IW1AFQp0qh33KboqXJz0dGqhbIe12HwFLhU+m6dwpCZOBsBrVc9sMFN40Ta+oLV6
-ad7WdOLo7hskcYC5nSkQNkRFSgP7PWi+msLKOX0Ci9cx2tMPE8TlHyEEhon0XyHT
-LBnxDKt9rMBLqDLJOoiLwWx7spRM+9idmLXotzIc5HUN6Sy78t9ILqFtK5JZNgR5
-VcV57V58j8LqkZcK7MTrNTb1UJCiNhKq9CrENTrxld7p8NHCDFIFcsEwUAUK7Ozk
-BtFuysozCInpswWgYh/IJ1b0EEvRkfF2S/XvnkHAZkj50wqj1UfQQjXeEbaft90A
-9B5NxVCdCkPfsXGoI7g5vIVQyvql/d5mhWS/bwjUL7ZEHT0iFI1wjO+nzOHXnFKs
-pnbloadkrkieFkFswqBW76IFhLz2/EMseG+WA1yjLCpM9Uoqj6TqR6Qvc6oAQ9nM
-s+CORHXYV6xL7x00NUgNOZv++oyMvAPIk2JG4wi76qa1sOULudE=
-=fPSw
------END PGP SIGNATURE-----
-
---edfdnjvhj7vd2sfc--
+Thanks,
+--
+Ahmed Darwish
