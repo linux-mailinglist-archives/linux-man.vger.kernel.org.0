@@ -2,186 +2,118 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 2E9BCBE905
-	for <lists+linux-man@lfdr.de>; Thu, 26 Sep 2019 01:40:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8EDE1BE9E4
+	for <lists+linux-man@lfdr.de>; Thu, 26 Sep 2019 03:10:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731995AbfIYXkm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 25 Sep 2019 19:40:42 -0400
-Received: from gateway36.websitewelcome.com ([192.185.179.26]:31688 "EHLO
-        gateway36.websitewelcome.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1731772AbfIYXkm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Sep 2019 19:40:42 -0400
-X-Greylist: delayed 1500 seconds by postgrey-1.27 at vger.kernel.org; Wed, 25 Sep 2019 19:40:41 EDT
-Received: from cm14.websitewelcome.com (cm14.websitewelcome.com [100.42.49.7])
-        by gateway36.websitewelcome.com (Postfix) with ESMTP id 81CCC400FC98E
-        for <linux-man@vger.kernel.org>; Wed, 25 Sep 2019 17:21:07 -0500 (CDT)
-Received: from gator3203.hostgator.com ([198.57.247.167])
-        by cmsmtp with SMTP
-        id DGA9i6RriBnGaDGAAiI8xl; Wed, 25 Sep 2019 17:53:34 -0500
-X-Authority-Reason: nr=8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rsiny.com;
-         s=default; h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:
-        In-Reply-To:Date:Cc:To:Reply-To:From:Subject:Message-ID:Sender:Content-ID:
-        Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-        :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-        List-Post:List-Owner:List-Archive;
-        bh=g/uQ5NJEuenyEDiwMXwZxsFmqtsLRLQ0cs4ahThZ5sQ=; b=bGQl4Igaa38k6z282IvhuCIDRk
-        yoyNdMi3hueyvnCwqhhtRJs4n1fk8UdVYictqNaaROFZh4E8YnX7vDu8ExiOOv9dEKS0m64hSV1x8
-        t7pe6g73GsO5lod1WHj8qPCxE0BwsF7lOwHQBCOUtUBId49vdqy4+qP2lMbD4JcBmcD2DyJGFFawl
-        O91ZI8gk10DZJV3KoXCaizsJXx1yuiHGE58VxyuVi/9UFp4vxNj9oMG7F8CeZ1dnxVQoKfLNaLvgQ
-        81Jaf5gJnAfAyppem5FX6aWt3fTNgqh2RQSWiOx5TH93T/AqNIMlbci1xnkV5e+dR5Oo6eS86h1cX
-        qxpJLhDQ==;
-Received: from pool-100-37-189-229.nycmny.fios.verizon.net ([100.37.189.229]:51226 helo=[192.168.1.4])
-        by gator3203.hostgator.com with esmtpsa (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
-        (Exim 4.92)
-        (envelope-from <rstanley@rsiny.com>)
-        id 1iDGA9-002uxG-Dt; Wed, 25 Sep 2019 17:53:33 -0500
-Message-ID: <c9d561ab9053da5e1e3a1d095001b39e2da88258.camel@rsiny.com>
-Subject: Re: Man page pre & post operators error
-From:   Rick Stanley <rstanley@rsiny.com>
-Reply-To: rstanley@rsiny.com
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Date:   Wed, 25 Sep 2019 18:53:32 -0400
-In-Reply-To: <b26c24c2-63ae-bb99-4df9-653f9d33f20d@gmail.com>
-References: <a1683c1cc450bf969aca13d8f7a99f08cc07635d.camel@rsiny.com>
-         <47a9114e-4e31-45fc-131a-ca0c2571066d@gmail.com>
-         <a872f7e970a7d2048243f21b9fb40ad5fa929ffe.camel@rsiny.com>
-         <65c8c525eb718aa77816f3fe0b47e33d3504e623.camel@rsiny.com>
-         <3cdbcb38-734a-2b1e-ba12-f5e85a89b805@gmail.com>
-         <b26c24c2-63ae-bb99-4df9-653f9d33f20d@gmail.com>
-Organization: RSI
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.30.5-1.1 
+        id S1729212AbfIZBKF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 25 Sep 2019 21:10:05 -0400
+Received: from out01.mta.xmission.com ([166.70.13.231]:33241 "EHLO
+        out01.mta.xmission.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727374AbfIZBKE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Sep 2019 21:10:04 -0400
+Received: from in02.mta.xmission.com ([166.70.13.52])
+        by out01.mta.xmission.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+        (Exim 4.87)
+        (envelope-from <ebiederm@xmission.com>)
+        id 1iDIIA-0005Bo-Ez; Wed, 25 Sep 2019 19:09:58 -0600
+Received: from ip68-227-160-95.om.om.cox.net ([68.227.160.95] helo=x220.xmission.com)
+        by in02.mta.xmission.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+        (Exim 4.87)
+        (envelope-from <ebiederm@xmission.com>)
+        id 1iDII8-0000OW-DU; Wed, 25 Sep 2019 19:09:58 -0600
+From:   ebiederm@xmission.com (Eric W. Biederman)
+To:     Jann Horn <jannh@google.com>
+Cc:     Andy Lutomirski <luto@kernel.org>, Theodore Tso <tytso@google.com>,
+        LKML <linux-kernel@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        Kees Cook <keescook@chromium.org>,
+        "Jason A. Donenfeld" <Jason@zx2c4.com>,
+        "Ahmed S. Darwish" <darwish.07@gmail.com>,
+        Lennart Poettering <mzxreary@0pointer.de>,
+        "Alexander E. Patrakov" <patrakov@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Willy Tarreau <w@1wt.eu>,
+        Matthew Garrett <mjg59@srcf.ucam.org>,
+        Ext4 Developers List <linux-ext4@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>
+References: <cover.1568990048.git.luto@kernel.org>
+        <66b16acf2953fc033abc9641b9cf43d23e75a8e9.1568990048.git.luto@kernel.org>
+        <CAG48ez2tnJzLNCgAqCC+AOKuLGBSvBRi2_HZ97bEJ0zP1kWLHg@mail.gmail.com>
+Date:   Wed, 25 Sep 2019 20:09:26 -0500
+In-Reply-To: <CAG48ez2tnJzLNCgAqCC+AOKuLGBSvBRi2_HZ97bEJ0zP1kWLHg@mail.gmail.com>
+        (Jann Horn's message of "Tue, 24 Sep 2019 22:30:55 +0200")
+Message-ID: <87sgoj2795.fsf@x220.int.ebiederm.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1 (gnu/linux)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator3203.hostgator.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - rsiny.com
-X-BWhitelist: no
-X-Source-IP: 100.37.189.229
-X-Source-L: No
-X-Exim-ID: 1iDGA9-002uxG-Dt
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: pool-100-37-189-229.nycmny.fios.verizon.net ([192.168.1.4]) [100.37.189.229]:51226
-X-Source-Auth: rstanley@rsiny.com
-X-Email-Count: 1
-X-Source-Cap: cnN0YW5sZXk7cnN0YW5sZXk7Z2F0b3IzMjAzLmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
+Content-Type: text/plain
+X-XM-SPF: eid=1iDII8-0000OW-DU;;;mid=<87sgoj2795.fsf@x220.int.ebiederm.org>;;;hst=in02.mta.xmission.com;;;ip=68.227.160.95;;;frm=ebiederm@xmission.com;;;spf=neutral
+X-XM-AID: U2FsdGVkX1/1fUlC8WTamoL7df9TU6CVtkUKkHX1bNM=
+X-SA-Exim-Connect-IP: 68.227.160.95
+X-SA-Exim-Mail-From: ebiederm@xmission.com
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on sa08.xmission.com
+X-Spam-Level: 
+X-Spam-Status: No, score=0.5 required=8.0 tests=ALL_TRUSTED,BAYES_50,
+        DCC_CHECK_NEGATIVE,T_TM2_M_HEADER_IN_MSG,T_TooManySym_01,
+        T_TooManySym_02,XMSubLong autolearn=disabled version=3.4.2
+X-Spam-Report: * -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.4943]
+        *  0.7 XMSubLong Long Subject
+        *  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
+        * -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
+        *      [sa08 1397; Body=1 Fuz1=1 Fuz2=1]
+        *  0.0 T_TooManySym_02 5+ unique symbols in subject
+        *  0.0 T_TooManySym_01 4+ unique symbols in subject
+X-Spam-DCC: XMission; sa08 1397; Body=1 Fuz1=1 Fuz2=1 
+X-Spam-Combo: ;Jann Horn <jannh@google.com>
+X-Spam-Relay-Country: 
+X-Spam-Timing: total 1620 ms - load_scoreonly_sql: 0.06 (0.0%),
+        signal_user_changed: 4.6 (0.3%), b_tie_ro: 3.2 (0.2%), parse: 1.22
+        (0.1%), extract_message_metadata: 3.3 (0.2%), get_uri_detail_list:
+        1.17 (0.1%), tests_pri_-1000: 4.4 (0.3%), tests_pri_-950: 1.55 (0.1%),
+        tests_pri_-900: 1.28 (0.1%), tests_pri_-90: 24 (1.5%), check_bayes: 22
+        (1.4%), b_tokenize: 6 (0.4%), b_tok_get_all: 7 (0.4%), b_comp_prob:
+        2.2 (0.1%), b_tok_touch_all: 4.0 (0.2%), b_finish: 1.04 (0.1%),
+        tests_pri_0: 1557 (96.1%), check_dkim_signature: 0.52 (0.0%),
+        check_dkim_adsp: 3.2 (0.2%), poll_dns_idle: 1.17 (0.1%), tests_pri_10:
+        4.2 (0.3%), tests_pri_500: 10 (0.6%), rewrite_mail: 0.00 (0.0%)
+Subject: Re: [PATCH v2 7/7] random: Remove kernel.random.read_wakeup_threshold
+X-Spam-Flag: No
+X-SA-Exim-Version: 4.2.1 (built Thu, 05 May 2016 13:38:54 -0600)
+X-SA-Exim-Scanned: Yes (on in02.mta.xmission.com)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Michael:
+Jann Horn <jannh@google.com> writes:
 
-I have made the assumption that the current manpage operator table was
-based on the C89/90 C Standard. This was a bad assumption!
+> On Fri, Sep 20, 2019 at 4:37 PM Andy Lutomirski <luto@kernel.org> wrote:
+>> It has no effect any more, so remove it.  We can revert this if
+>> there is some user code that expects to be able to set this sysctl.
+>>
+>> Signed-off-by: Andy Lutomirski <luto@kernel.org>
+>> ---
+>>  drivers/char/random.c | 18 +-----------------
+>>  1 file changed, 1 insertion(+), 17 deletions(-)
+>>
+>> diff --git a/drivers/char/random.c b/drivers/char/random.c
+> [...]
+>> -       {
+>> -               .procname       = "read_wakeup_threshold",
+>
+> There's a line in bin_random_table in kernel/sysctl_binary.c that
+> refers to this sysctl, that should probably also be deleted?
 
-Please throw out what I have sent and I will create a new more detailed
-interpretation of the Draft Standards, with more detailed explanation.
-I do not work with anything but the Draft Standards documents.  (With
-one possible additional source. Will explain later)
+I think it should be safe to leave in kernel/sysctl_binary.c
 
-Thanks!
+This reminds me.  I think we may finally be at a point where we can
+remove practically all of kernel/sysctl_binary.c
 
-Rick 
+I need to double check but last I looked no distro enables
+COINFIG_SYSCTL_SYSCALL anymore.  Ubunutu was the last distro I know of
+that enabled it, and I think it has been a year or more since Ubuntu
+disabled CONFIG_SYSCTL_SYSCALL.
 
---
-RSI (Rick Stanley, Inc.)
-(917) 822-7771
-www.rsiny.com
-Computer  Consulting
-Linux & Open Source Specialist
-On Sep 25, 2019, at 4:08 PM, "Michael Kerrisk (man-pages)" <
-mtk.manpages@gmail.com> wrote:
-> Hello Rick,
-> 
-> (Im reflecting more.)
-> 
-> On 9/25/19 9:42 PM, Michael Kerrisk (man-pages) wrote:
-> >  Hello Rick,
-> >  
-> >  On 9/25/19 5:23 PM, Rick Stanley wrote:
-> > >  Hello again!
-> > > 
-> > >  In an effort to bring the current manpage for the C operator
-> > > table up
-> > >  to the current official Standard, I went back and compared the
-> > > current
-> > >  manpage operator table against the C99, C11, and C17(18) Draft
-> > >  Standards documents.  I do not have access to the Official ISO C
-> > >  Standards documents.
-> > > 
-> > >  I have attached a PDF to document my interpretation of the
-> > > Standards
-> > >  against the current `man operator` manpage
-> > > 
-> > >  In addition to the pre & postfix ++ & -- operators, I have found
-> > > one
-> > >  additional change & three additions to the table.  Because of
-> > > these
-> > >  appearing in 6.5.x, and A.2.1, I assume they should be included
-> > > in the
-> > >  operator table.
-> > > 
-> > >  The current table consists of 15 levels of precedence, C99 adds
-> > > one new
-> > >  level and C11 adds one more.
-> > > 
-> > >  (type) cast operator change
-> > > 
-> > >  In the current table, the cast operator is listed on level 2 of
-> > > 15
-> > >  levels, along with other operators.  In C99 this operator has
-> > > been
-> > >  demoted to a new level inserted between level 2 & 3 of the
-> > > current
-> > >  level, expanding the table to 16 levels of precedence.  I assume
-> > > the
-> > >  associativity is also "right to left", as is level 2.
-> 
-> How do you deduce that this changed between C89/90 and c99?
-> I'm not so convinced now that '(type) cast' changed in precedence.
-> 
-> > >  _Generic operator/keyword addition
-> > > 
-> > >  This new operator/keyword was added in C11.  A new top level was
-> > >  created and the remainder of the table has been demoted by one
-> > > level.
-> 
-> But, is it really an operator? How do you deduce that?
-> 
-> > >  default operator/keyword addition
-> > > 
-> > >  This too has been added to the new top level in C11
-> >  
-> >  But, 'default' is not an operator as far as I can tell?
-> >  (It is part of the '_Generic' construct, not an operator
-> >  in its own right.)
-> >  
-> > >  _Alignof operator/keyword addition
-> 
-> This seems clearly correct to me, and I find other sources
-> that agree on this.
-> 
-> My general problem is that I find no other sources
-> that confirm your interpretation of the standard that _Generic
-> is a new operator at a new level and that '(type) cast' has
-> changed in precedence.
-> 
-> Thanks,
-> 
-> Michael
-> 
--- 
-RSI (Rick Stanley, Inc.)
-(917) 822-7771
-www.rsiny.com
-Computer Systems Consulting
-Linux & Open Source Specialists
+Eric
 
