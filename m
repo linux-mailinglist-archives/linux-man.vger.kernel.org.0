@@ -2,60 +2,256 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 356E0BEAC6
-	for <lists+linux-man@lfdr.de>; Thu, 26 Sep 2019 04:57:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A88E8BF747
+	for <lists+linux-man@lfdr.de>; Thu, 26 Sep 2019 19:01:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728625AbfIZC5J convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Wed, 25 Sep 2019 22:57:09 -0400
-Received: from sender4-of-o52.zoho.com ([136.143.188.52]:21232 "EHLO
-        sender4-of-o52.zoho.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726824AbfIZC5J (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Sep 2019 22:57:09 -0400
-X-Greylist: delayed 904 seconds by postgrey-1.27 at vger.kernel.org; Wed, 25 Sep 2019 22:57:08 EDT
-ARC-Seal: i=1; a=rsa-sha256; t=1569465720; cv=none; 
-        d=zoho.com; s=zohoarc; 
-        b=mQBUahaxMYN7ryKU3t3STBOH/M4MVFHqmAKvcsp6KBw+Oe19ivl+ehw2KxqBENmoe0kuKsica4LvmZYosSybVMurVTOl/7ZE5o5QIh+Mglw5vZzVkAHRv0/SR6CYxAPXMWK7aastbZOwdxXy1ZwKgAw4ZSMPBiAUVZohH4+IKDk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zoho.com; s=zohoarc; 
-        t=1569465720; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To:ARC-Authentication-Results; 
-        bh=By1mS7XtMXSW6amLKqzKtEPZIMQWbhFUbl2l8+7e2Ew=; 
-        b=EpYb8EYLPoAfyFIPUshVHsQOsBONGcBMHNG2M5stcoKycXhWRs+GAAN1ncwag4un8iONedrTUFVQqxt9K0XUE6ip9vSnNkoWvvNumtZsNIyplxGcI69ChrFPDLBWfCh+au0Aq4HN5jmUdtkotReyOY2Umo8xHBTOKbFMvjhKT6E=
-ARC-Authentication-Results: i=1; mx.zoho.com;
-        dkim=pass  header.i=ianhunter.me;
-        spf=pass  smtp.mailfrom=ian@ianhunter.me;
-        dmarc=pass header.from=<ian@ianhunter.me> header.from=<ian@ianhunter.me>
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41]) by mx.zohomail.com
-        with SMTPS id 1569465718158695.3393517937299; Wed, 25 Sep 2019 19:41:58 -0700 (PDT)
-Received: by mail-ed1-f41.google.com with SMTP id t3so505004edw.13
-        for <linux-man@vger.kernel.org>; Wed, 25 Sep 2019 19:41:57 -0700 (PDT)
-X-Gm-Message-State: APjAAAWvVqCO40uMwh7BlMc4D3pZu/vSNrJUznAvlmt8d2DzxrRIIwVq
-        1r2P+4lui6dNmdnFbVTX+w1zwiZqB2hupfu8g8w=
-X-Google-Smtp-Source: APXvYqzAL7WAB9G3T7zVPnD9e0W4Taka1JJCaS3G2svnRjDU9HQgF6RocVSCq9iheZ42Bt0nfCDSlWJuwEWB8lSNEUo=
-X-Received: by 2002:a17:906:4e8f:: with SMTP id v15mr1197718eju.57.1569465716626;
- Wed, 25 Sep 2019 19:41:56 -0700 (PDT)
-MIME-Version: 1.0
-From:   Ian Hunter <ian@ianhunter.me>
-Date:   Wed, 25 Sep 2019 21:41:30 -0500
-X-Gmail-Original-Message-ID: <CAB+My4xQ8w=8E71JzzhG+kwZ+x8OM1W1Jtoya_gDMwbcyVoBbA@mail.gmail.com>
-Message-ID: <CAB+My4xQ8w=8E71JzzhG+kwZ+x8OM1W1Jtoya_gDMwbcyVoBbA@mail.gmail.com>
-Subject: Error in read.1p
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8BIT
-X-ZohoMailClient: External
+        id S1727444AbfIZRBd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 26 Sep 2019 13:01:33 -0400
+Received: from mail-wm1-f67.google.com ([209.85.128.67]:51683 "EHLO
+        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727539AbfIZRBd (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Sep 2019 13:01:33 -0400
+Received: by mail-wm1-f67.google.com with SMTP id 7so3621120wme.1;
+        Thu, 26 Sep 2019 10:01:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id;
+        bh=pW/uWGaE7bNMEfsOi4tJVr90SEqgSV1Za5MlIXTYbVY=;
+        b=khzuJx2CmcKxY0oDA1ja5glKR9v2zqGQhA5lZ3LZMziW5D28nWQoq4J3XHh2jIm7Co
+         d3X73Jb/rsuRyQclBnOziWZXm8bneFMB53z8TzTTWoKRSP0dlBynWHkP4g+jZLXTu+ev
+         XpjoVNc6HnbWqXLY24BOiyyVvCYClUseSHwyl2Wgv5lIzvMwll3zahWmNrcZnSQxKGMf
+         TjX/v9SgXZK/hgPKXIophZPSlmuV49Gn/y8bizpZC0rUte0HcBaaIIeYNZ5YBAYwBVMW
+         0Xl5VaEccfM4raNfU38J6A7OPcBqjihmfF2VuG4FcxtB0jpM7xHizQ+br1Oc0TX/Ogu2
+         Kqzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=pW/uWGaE7bNMEfsOi4tJVr90SEqgSV1Za5MlIXTYbVY=;
+        b=jBl/OIuk/4omDpFr4fQYADjG6iFUHh9xElEQZb0TqHmokwBKs6HoBn++1ivBdS3ax3
+         Qq63gIG0udDjvysQ/F1YReW5EKdtNqcPzV+Y9nrkPRqOn5RW1MbsrXRMvMshFkc2boRN
+         MJ9IqTYVwHEqgN4BQu9KeerwrxUxI755Vbg+gQK4QabbwwJbDxjqI8IfBKNTRHEcaCHK
+         f3DBnB35vpkBc87bYTEca4ID1a4davhZeWvRb2Ee1ZG8Iu8tj10ihwWYg55kQHunGmv9
+         dXzNOOUdbd9AqKtFvYQVSABdX2Bmn5sPMiMrWNsUQYQUOjted0RWt8evbsVjcc3ddnEU
+         DRRw==
+X-Gm-Message-State: APjAAAUp95xpeomvswX1spxUKD/9/fUiqK6pmNmQX8J8BAMuZYWJjITT
+        H5qgVRqU7KKNqM78mlIhk2Y=
+X-Google-Smtp-Source: APXvYqzXQpsb2NY5D4I5jEPzskqvHAftDGctxyewMKth9Dkb4G3ViHHVUjWQdbubYWF4LCoRSqgT0w==
+X-Received: by 2002:a7b:cd99:: with SMTP id y25mr3501859wmj.152.1569517290843;
+        Thu, 26 Sep 2019 10:01:30 -0700 (PDT)
+Received: from localhost.localdomain ([5.102.239.49])
+        by smtp.gmail.com with ESMTPSA id t203sm5155459wmf.42.2019.09.26.10.01.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Sep 2019 10:01:30 -0700 (PDT)
+From:   Amir Goldstein <amir73il@gmail.com>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     Dave Chinner <david@fromorbit.com>,
+        "Darrick J . Wong" <darrick.wong@oracle.com>,
+        linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org,
+        Dave Chinner <dchinner@redhat.com>
+Subject: [PATCH] copy_file_range.2: kernel v5.3 updates
+Date:   Thu, 26 Sep 2019 20:01:19 +0300
+Message-Id: <20190926170119.10284-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.17.1
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello,
+Update with all the missing errors the syscall can return, the
+behaviour the syscall should have w.r.t. to copies within single
+files, etc.
 
-The man page for read.1p incorrectly uses a unicode minus ("−")
-instead of a hyphen ("-") in places where flags are being used or
-described. It made searching for the information on the "-r" flag
-difficult. :)
+[Amir] updates for final released version.
 
-Thanks for your help and hard work
+Signed-off-by: Dave Chinner <dchinner@redhat.com>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+---
 
-Ian
+Hi Michael,
+
+Following update reflects the changes that went into v5.3.
+This man page update was initially authored by Dave Chinner and I updated it
+to reflect the changed that finally went in.
+
+Most of the changes are introduced by commits:
+
+* 5dae222a5ff0 ("vfs: allow copy_file_range to copy across devices") - stop
+returning -EXDEV for the common case.
+
+* 96e6e8f4a68d ("vfs: add missing checks to copy_file_range") started to return
+-EPERM, -ETXTBSY, -EOVERFLOW and short read instead of EINVAL when
+offset+length exceeds input file size.
+
+Thanks,
+Amir.
+
+ man2/copy_file_range.2 | 89 ++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 76 insertions(+), 13 deletions(-)
+
+diff --git a/man2/copy_file_range.2 b/man2/copy_file_range.2
+index 2438b63c8..05429b3c9 100644
+--- a/man2/copy_file_range.2
++++ b/man2/copy_file_range.2
+@@ -42,9 +42,9 @@ without the additional cost of transferring data from the kernel to user space
+ and then back into the kernel.
+ It copies up to
+ .I len
+-bytes of data from file descriptor
++bytes of data from the source file descriptor
+ .I fd_in
+-to file descriptor
++to the target file descriptor
+ .IR fd_out ,
+ overwriting any data that exists within the requested range of the target file.
+ .PP
+@@ -74,6 +74,12 @@ is not changed, but
+ .I off_in
+ is adjusted appropriately.
+ .PP
++.I fd_in
++and
++.I fd_out
++can refer to the same file.
++If they refer to the same file, then the source and target ranges are not
++allowed to overlap.
+ .PP
+ The
+ .I flags
+@@ -84,6 +90,11 @@ Upon successful completion,
+ .BR copy_file_range ()
+ will return the number of bytes copied between files.
+ This could be less than the length originally requested.
++If the file offset of
++.I fd_in
++is at or past the end of file, no bytes are copied, and
++.BR copy_file_range ()
++returns zero.
+ .PP
+ On error,
+ .BR copy_file_range ()
+@@ -93,12 +104,16 @@ is set to indicate the error.
+ .SH ERRORS
+ .TP
+ .B EBADF
+-One or more file descriptors are not valid; or
++One or more file descriptors are not valid.
++.TP
++.B EBADF
+ .I fd_in
+ is not open for reading; or
+ .I fd_out
+-is not open for writing; or
+-the
++is not open for writing.
++.TP
++.B EBADF
++The
+ .B O_APPEND
+ flag is set for the open file description (see
+ .BR open (2))
+@@ -106,24 +121,52 @@ referred to by the file descriptor
+ .IR fd_out .
+ .TP
+ .B EFBIG
+-An attempt was made to write a file that exceeds the implementation-defined
+-maximum file size or the process's file size limit,
+-or to write at a position past the maximum allowed offset.
++An attempt was made to write at a position past the maximum file offset the
++kernel supports.
++.TP
++.B EFBIG
++An attempt was made to write a range that exceeds the allowed maximum file size.
++The maximum file size differs between filesystem implementations and can be
++different from the maximum allowed file offset.
++.TP
++.B EFBIG
++An attempt was made to write beyond the process's file size resource limit.
++This may also result in the process receiving a
++.I SIGXFSZ
++signal.
+ .TP
+ .B EINVAL
+-Requested range extends beyond the end of the source file; or the
++The
+ .I flags
+ argument is not 0.
+ .TP
+-.B EIO
+-A low-level I/O error occurred while copying.
++.B EINVAL
++.I fd_in
++and
++.I fd_out
++refer to the same file and the source and target ranges overlap.
++.TP
++.B EINVAL
++Either
++.I fd_in
++or
++.I fd_out
++is not a regular file.
+ .TP
+ .B EISDIR
++Either
+ .I fd_in
+ or
+ .I fd_out
+ refers to a directory.
+ .TP
++.B EOVERFLOW
++The requested source or destination range is too large to represent in the
++specified data types.
++.TP
++.B EIO
++A low-level I/O error occurred while copying.
++.TP
+ .B ENOMEM
+ Out of memory.
+ .TP
+@@ -133,13 +176,33 @@ There is not enough space on the target filesystem to complete the copy.
+ .B EXDEV
+ The files referred to by
+ .IR file_in " and " file_out
+-are not on the same mounted filesystem.
++are not on the same mounted filesystem (pre Linux 5.3).
++.TP
++.B TXTBSY
++Either
++.I fd_in
++or
++.I fd_out
++refers to an active swap file.
++.TP
++.B EPERM
++.I fd_out
++refers to an immutable file.
++.TP
+ .SH VERSIONS
+ The
+ .BR copy_file_range ()
+ system call first appeared in Linux 4.5, but glibc 2.27 provides a user-space
+ emulation when it is not available.
+ .\" https://sourceware.org/git/?p=glibc.git;a=commit;f=posix/unistd.h;h=bad7a0c81f501fbbcc79af9eaa4b8254441c4a1f
++.PP
++A major rework of the kernel implementation occurred in 5.3.
++Areas of the API that weren't clearly defined were clarified and the API bounds
++are much more strictly checked than on earlier kernels.
++Applications should target the behaviour and requirements of 5.3 kernels.
++.PP
++First support for cross-filesystem copies was introduced in Linux 5.3.
++Older kernels will return -EXDEV when cross-filesystem copies are attempted.
+ .SH CONFORMING TO
+ The
+ .BR copy_file_range ()
+@@ -224,7 +287,7 @@ main(int argc, char **argv)
+         }
+ 
+         len \-= ret;
+-    } while (len > 0);
++    } while (len > 0 && ret > 0);
+ 
+     close(fd_in);
+     close(fd_out);
+-- 
+2.17.1
 
