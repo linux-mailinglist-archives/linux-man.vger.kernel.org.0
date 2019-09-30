@@ -2,49 +2,86 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 07D80C2022
-	for <lists+linux-man@lfdr.de>; Mon, 30 Sep 2019 13:51:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 79874C2858
+	for <lists+linux-man@lfdr.de>; Mon, 30 Sep 2019 23:12:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729326AbfI3LvE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 30 Sep 2019 07:51:04 -0400
-Received: from mail4.protonmail.ch ([185.70.40.27]:56633 "EHLO
-        mail4.protonmail.ch" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726784AbfI3LvE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Sep 2019 07:51:04 -0400
-Date:   Mon, 30 Sep 2019 11:50:54 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me; s=proton;
-        t=1569844262; bh=Cl2Oln2fSS7+Z22E/GghzFcQiioAUlrRDHUy0jW+X1c=;
-        h=Date:To:From:Cc:Reply-To:Subject:Feedback-ID:From;
-        b=agdM1XAEOWVo68paVzCc6q3FvY3tp2ChDxwYsSchV7VR0iTwPOIxRJMfpYt7EtGHV
-         ShnpfhxhY3QlgZyf8UusIBPAYP2H+i1N1mzFw07z16gqBjBq8BKpFBEIwDwuEjktkC
-         l/xOOJP4//VN6Zu9wiJXsJisK4AiwsDSCxA1PBng2VXzZZGGvVMo2KnDCcXuKy+kId
-         gUpYFZyz/xNajYYf7RKpXGXGOZSNg0HPbOqUDpm20+/tNLP7LV+aWa1EORMrR0+jrB
-         Hlt14UuO2cMN+HrrKEpbKXrnRLc6VZmGT2lxtN1UjTeQyRcf5MwSlpLquGwge9JhsC
-         MKJ/gKXkocMsg==
-To:     mtk.manpages@gmail.com
-From:   Toni Kontinen <toni.kontinen@pm.me>
-Cc:     linux-man@vger.kernel.org
-Reply-To: Toni Kontinen <toni.kontinen@pm.me>
-Subject: Bug: Small typo in gnutls_x509_crq_get_pk_oid(3)
-Message-ID: <db037e4d-5e89-ef11-5dce-61939326b316@pm.me>
-Feedback-ID: 7sREIc3YEzKrUpE1pVuK1RUrrKwCO0BHDutPHPe3e_T9v75rtE-btSju5B9RMTb5qxdiSwycC9oji0BtqkSdfw==:Ext:ProtonMail
+        id S1731991AbfI3VMU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 30 Sep 2019 17:12:20 -0400
+Received: from mail-wr1-f66.google.com ([209.85.221.66]:42803 "EHLO
+        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1731050AbfI3VMU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Sep 2019 17:12:20 -0400
+Received: by mail-wr1-f66.google.com with SMTP id n14so12911067wrw.9
+        for <linux-man@vger.kernel.org>; Mon, 30 Sep 2019 14:12:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=guG+UYqmKwQweVDX64MqXehhkwBENdrl9FLgBwZkBN4=;
+        b=R3rxaWp7s7WPDT6+fLEbHu42NQwJVifpPaDyU2eDCnsefK2EB4ycpzYXcVWsxFv4P/
+         FkBDdgZjcxuMpRcPf+qRazwYx4raEfvwF3ow/XEV9mhN59O45gHK+rirwh1BuVv/fGqe
+         dOkYUDegT3t1RDCJQiaZgod6haPwHkKajl3KksJiOCVE/WM/PgyUVXaDPcuNfYoxOJvi
+         0/GND1ciBAmv0UQjjTvIwAucaCY88VllIBOVE3l3JuSBqUCQfXokl+lYZsdjLUuXRsAr
+         TLjYV1go7isAE77u3JJociu6NJLcnGMMvDZ5fibDbVpPFetkSngYB5qIPyTRwliELQ4/
+         Ku3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=guG+UYqmKwQweVDX64MqXehhkwBENdrl9FLgBwZkBN4=;
+        b=qdF5mVXbgeUIaHlEodPeRWwhU+DLzNwKSQ0/iay3fmTHU5J8J7zIhJ0mcHeXkT7KrB
+         MEk5MzTowQNOz3U2zM4gpn2kzLhU72/CRH5Yw90kFZwU5qeARYzuxtJ7D5qIkIx8g5uU
+         aZmyH2QUDTsCs4lMbzQfwZSYdcm+nfQNyb335ZG36wfFYFv3SBxqq06SVhTZvhUsYr5i
+         sDWT+8OVElM27OjLFel5dF3e7DiFGkbRmD1Q/+Budeh/5uK/Ta3dcm8ZohYpi/oDLyEk
+         vKIs//EjQezjlhWjAngOePATikUanYmLJ1HLCYwrDfoMz8pw6DEftMHAH6R1avqvfJJX
+         eoJQ==
+X-Gm-Message-State: APjAAAUYPsMap6WaUw+mfNMQbkivOKe9orduQuGEbNYOqFoq1SAyBCQa
+        PfRjm2ygGi/nKlmA9+n1clLKFCKc
+X-Google-Smtp-Source: APXvYqzVzUWF+gYCg6vqM/Upqy7ERrrUx4V3UU4dLO9AAT2Rkm1xhTvHhzQs3hkVsfnNIs+TMeQY+Q==
+X-Received: by 2002:adf:eb42:: with SMTP id u2mr14699872wrn.307.1569877938138;
+        Mon, 30 Sep 2019 14:12:18 -0700 (PDT)
+Received: from ?IPv6:2001:a61:24d6:4e01:ef75:e978:47cd:1c50? ([2001:a61:24d6:4e01:ef75:e978:47cd:1c50])
+        by smtp.gmail.com with ESMTPSA id w12sm22749757wrg.47.2019.09.30.14.12.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 30 Sep 2019 14:12:17 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Bug: Small typo in gnutls_x509_crq_get_pk_oid(3)
+To:     Toni Kontinen <toni.kontinen@pm.me>
+References: <db037e4d-5e89-ef11-5dce-61939326b316@pm.me>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <1b6e8acf-0ff3-67cd-b41b-789af7d9055d@gmail.com>
+Date:   Mon, 30 Sep 2019 23:12:15 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-1.2 required=7.0 tests=ALL_TRUSTED,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF autolearn=ham
-        autolearn_force=no version=3.4.2
-X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on mail.protonmail.ch
+In-Reply-To: <db037e4d-5e89-ef11-5dce-61939326b316@pm.me>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hey,
+Hello Toni,
 
-There's a small typo in the description section of=20
-"gnutls_x509_crq_get_pk_oid(3)" page. It reads "This is function is..."=20
-when it should read "This function is..."
+On 9/30/19 1:50 PM, Toni Kontinen wrote:
+> Hey,
+> 
+> There's a small typo in the description section of 
+> "gnutls_x509_crq_get_pk_oid(3)" page. It reads "This is function is..." 
+> when it should read "This function is..."
 
-Regards, Toni Kontinen
+For bug reports on this page, please see:
+http://man7.org/linux/man-pages/man3/gnutls_x509_crq_get_pk_oid.3.html#COLOPHON
 
+Thanks,
+
+Michael
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
