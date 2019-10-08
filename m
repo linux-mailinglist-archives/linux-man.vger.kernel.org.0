@@ -2,141 +2,145 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4795ACF08E
-	for <lists+linux-man@lfdr.de>; Tue,  8 Oct 2019 03:34:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 96A9DCFC5E
+	for <lists+linux-man@lfdr.de>; Tue,  8 Oct 2019 16:27:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729285AbfJHBeF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 7 Oct 2019 21:34:05 -0400
-Received: from mx2.mailbox.org ([80.241.60.215]:31464 "EHLO mx2.mailbox.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726917AbfJHBeF (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 7 Oct 2019 21:34:05 -0400
-Received: from smtp2.mailbox.org (smtp1.mailbox.org [80.241.60.240])
-        (using TLSv1.2 with cipher ECDHE-RSA-CHACHA20-POLY1305 (256/256 bits))
-        (No client certificate requested)
-        by mx2.mailbox.org (Postfix) with ESMTPS id D7967A33B3;
-        Tue,  8 Oct 2019 03:34:01 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at heinlein-support.de
-Received: from smtp2.mailbox.org ([80.241.60.240])
-        by spamfilter01.heinlein-hosting.de (spamfilter01.heinlein-hosting.de [80.241.56.115]) (amavisd-new, port 10030)
-        with ESMTP id oK7UU0kzyVpP; Tue,  8 Oct 2019 03:33:57 +0200 (CEST)
-Date:   Tue, 8 Oct 2019 12:33:46 +1100
-From:   Aleksa Sarai <cyphar@cyphar.com>
-To:     Jann Horn <jannh@google.com>
-Cc:     Al Viro <viro@zeniv.linux.org.uk>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Christian Brauner <christian@brauner.io>,
-        Aleksa Sarai <asarai@suse.de>,
+        id S1725908AbfJHO1b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 8 Oct 2019 10:27:31 -0400
+Received: from mail-wm1-f67.google.com ([209.85.128.67]:54489 "EHLO
+        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725900AbfJHO1b (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 8 Oct 2019 10:27:31 -0400
+Received: by mail-wm1-f67.google.com with SMTP id p7so3391204wmp.4;
+        Tue, 08 Oct 2019 07:27:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=CL2CjFqr/gvx4UlhjNVujT9/noY+ERwIiRCikO9IMQY=;
+        b=LEeiApTaiq7CfDNq5uCLKajW+ZEy2fWSgKnxKJ9Lg752aMUR8cQhi9xUgKy1FIrJra
+         Sa/Adp/MiQIG9W8YCUrWGbinyiwzKl4V9RZbPCSic6tZ6zFv55oiwyWxkrr7aoO2lBvk
+         Molo2zpKRcfJs/0AwXi7McLziq233XCJbYTrexhJNrnQjtZwUDyvBlCdJJ8XzIbwPnf4
+         sjEXS9LAb/B44GvsdOdDGEuGzDT+s+ONWzW/b9QASEcClhKjuti2eg/5XZKPYJmKK/JZ
+         MYpF0mOTZrLgFV7nDApB4gQwK3ESRHYgFC8nzkR8Hd+bZPT2TxxcKRk1T9GQUtaaFvP5
+         Caaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=CL2CjFqr/gvx4UlhjNVujT9/noY+ERwIiRCikO9IMQY=;
+        b=XjbHWm0WfJ4t/faicGEyH6wDI3mI8T2VPhhkHqum9E8865J9uOGh1BQFZvjQPQoi0D
+         XdFGQHuWHKTx8IdAmP/qFly0JYKelebzrJbjeKxUiDHN7UeUEw8Kt5MBOo0DWUluB4Xu
+         MWI3cKJZMPfs4kClIAgOvivb4V4CW5iyVx7NDCqabHK0gcXtnGheqHEihFkS3DKQwi4K
+         K3mol0+LzhhmyiHi+fo/FzZ91aCKVIzmdSfAymukvLKvMzLn6tukHY3PnypkHh++Pgh/
+         DbVno9FRbpcjrBsIqdyvq05FQaEe7+RwWpzVVSZ1MtdNkScngTMbRgT1gYKdBtQQfal4
+         hFSw==
+X-Gm-Message-State: APjAAAWEpmbuTlyL0jd/oHlPkRzOd8QdZ4CBslgRNwG+HId8cTk1Ocrg
+        IFf3Cclr+1WxxOSoJDAYm7a5Jf8p
+X-Google-Smtp-Source: APXvYqwuwmMmSFL5Shm5tAx7yjvMTFKADXBaHLGWBHrHcBLifllEkCr0OcX7qpOWrWct1Ybyc4d/AQ==
+X-Received: by 2002:a1c:7c16:: with SMTP id x22mr4379378wmc.113.1570544847653;
+        Tue, 08 Oct 2019 07:27:27 -0700 (PDT)
+Received: from [10.0.20.253] ([95.157.63.22])
+        by smtp.gmail.com with ESMTPSA id m16sm2898141wml.11.2019.10.08.07.27.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Oct 2019 07:27:26 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com,
+        Christian Brauner <christian.brauner@ubuntu.com>,
         linux-man <linux-man@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        kernel list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH RFC 1/3] symlink.7: document magic-links more completely
-Message-ID: <20191008013346.7qft2qqz4wz7ld35@yavin.dot.cyphar.com>
-References: <20191003145542.17490-1-cyphar@cyphar.com>
- <20191003145542.17490-2-cyphar@cyphar.com>
- <CAG48ez2LuOGAXgKftZKfDKxhdb6xcBTdoK468-HXdcpxCW4r4w@mail.gmail.com>
+        Containers <containers@lists.linux-foundation.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Jordan Ogas <jogas@lanl.gov>, werner@almesberger.net,
+        Al Viro <viro@ftp.linux.org.uk>
+Subject: Re: pivot_root(".", ".") and the fchdir() dance
+To:     "Eric W. Biederman" <ebiederm@xmission.com>
+References: <CAKgNAki0bR5zZr+kp_xjq+bNUky6-F+s2ep+jnR0YrjHhNMB1g@mail.gmail.com>
+ <20190805103630.tu4kytsbi5evfrhi@mikami>
+ <3a96c631-6595-b75e-f6a7-db703bf89bcf@gmail.com>
+ <da747415-4c7a-f931-6f2e-2962da63c161@philippwendler.de>
+ <CAKgNAkjS+x7aMVUiVSgCRwgi8rnukqJv=svtTARE-tt-oxQxWw@mail.gmail.com>
+ <87r24piwhm.fsf@x220.int.ebiederm.org>
+ <CAKgNAkhK2qBbz5aVY9VdK0UzvpZ=c7c7LWQ1MK2gu-rVKUz9_g@mail.gmail.com>
+ <87ftl5donm.fsf@x220.int.ebiederm.org>
+ <b8b9d8bd-e959-633f-b879-4bfe4eb0df23@gmail.com>
+ <20190910111551.scam5payogqqvlri@wittgenstein>
+ <30545c5c-ff4c-8b87-e591-40cc0a631304@gmail.com>
+ <871rwnda47.fsf@x220.int.ebiederm.org>
+ <448138b8-0d0c-5eb3-d5e5-04a26912d3a8@gmail.com>
+ <87ef0hbezt.fsf@x220.int.ebiederm.org>
+ <cc21557f-1568-68c3-e322-47ceb52fdf53@gmail.com>
+ <71cad40b-0f9f-24de-b650-8bc4fce78fa8@gmail.com>
+ <87y2y6j9i1.fsf@x220.int.ebiederm.org>
+ <7e4b23df-ab83-3d5a-3dc5-54025e3682cf@gmail.com>
+ <87k19geey0.fsf@x220.int.ebiederm.org>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <c7041c6a-a4c6-75f2-5380-4fed67cd60b1@gmail.com>
+Date:   Tue, 8 Oct 2019 16:27:25 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="2q45tajd22yttzl5"
-Content-Disposition: inline
-In-Reply-To: <CAG48ez2LuOGAXgKftZKfDKxhdb6xcBTdoK468-HXdcpxCW4r4w@mail.gmail.com>
+In-Reply-To: <87k19geey0.fsf@x220.int.ebiederm.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hello Eric,
 
---2q45tajd22yttzl5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+>>> Creating of a mount namespace in a user namespace automatically does
+>>> 'mount("", "/", MS_SLAVE | MS_REC, NULL);' if the starting mount
+>>> namespace was not created in that user namespace.  AKA creating
+>>> a mount namespace in a user namespace does the unshare for you.
+>>
+>> Oh -- I had forgotten that detail. But it is documented
+>> (by you, I think) in mount_namespaces(7):
+>>
+>>        *  A  mount  namespace  has  an  owner user namespace.  A
+>>           mount namespace whose owner user namespace is  differ‐
+>>           ent  from the owner user namespace of its parent mount
+>>           namespace is considered a less privileged mount names‐
+>>           pace.
+>>
+>>        *  When  creating  a  less  privileged  mount  namespace,
+>>           shared mounts are reduced to  slave  mounts.   (Shared
+>>           and  slave  mounts are discussed below.)  This ensures
+>>           that  mappings  performed  in  less  privileged  mount
+>>           namespaces will not propagate to more privileged mount
+>>           namespaces.
+>>
+>> There's one point that description that troubles me. There is a
+>> reference to "parent mount namespace", but as I understand things
+>> there is no parental relationship among mount namespaces instances
+>> (or am I wrong?). Should that wording not be rather something
+>> like "the mount namespace of the process that created this mount
+>> namespace"?
+> 
+> How about "the mount namespace this mount namespace started as a copy of"
+> 
+> You are absolutely correct there is no relationship between mount
+> namespaces.  There is just the propagation tree between mounts.  (Which
+> acts similarly to a parent/child relationship but is not at all the same
+> thing).
 
-On 2019-10-07, Jann Horn <jannh@google.com> wrote:
-> On Thu, Oct 3, 2019 at 4:56 PM Aleksa Sarai <cyphar@cyphar.com> wrote:
-> > Traditionally, magic-links have not been a well-understood topic in
-> > Linux. Given the new changes in their semantics (related to the link
-> > mode of trailing magic-links), it seems like a good opportunity to shine
-> > more light on magic-links and their semantics.
-> [...]
-> > +++ b/man7/symlink.7
-> > @@ -84,6 +84,25 @@ as they are implemented on Linux and other systems,
-> >  are outlined here.
-> >  It is important that site-local applications also conform to these rul=
-es,
-> >  so that the user interface can be as consistent as possible.
-> > +.SS Magic-links
-> > +There is a special class of symlink-like objects known as "magic-links=
-" which
->=20
-> I think names like that normally aren't hypenated in english, and
-> instead of "magic-links", it'd be "magic links"? Just like how you
-> wouldn't write "symbolic-link", but "symbolic link". But this is
-> bikeshedding, and if you disagree, feel free to ignore this comment.
+Thanks. I made the text as follows:
 
-Looking at it now, I think you're right -- I hyphenated it here because
-that's how I wrote it when documenting the feature in comments. But I
-think that's because "symlink" and "magic-link" (the "abbreviated"
-versions) seem to match better than "symlink" and "magic link".
+       *  Each  mount  namespace  has  an owner user namespace.  As noted
+          above, when a new mount namespace is  created,  it  inherits  a
+          copy  of  the  mount  points  from  the  mount namespace of the
+          process that created the new mount namespace.  If the two mount
+          namespaces are owned by different user namespaces, then the new
+          mount namespace is considered less privileged.
 
-I'll use "magic link" in documentation, but "magic-link" for all cases
-where I would normally write "symlink".
+Cheers,
 
-> > +can be found in certain pseudo-filesystems such as
-> > +.BR proc (5)
-> > +(examples include
-> > +.IR /proc/[pid]/exe " and " /proc/[pid]/fd/* .)
-> > +Unlike normal symlinks, magic-links are not resolved through
->=20
-> nit: AFAICS symlinks are always referred to as "symbolic links"
-> throughout the manpages.
+Michael
 
-:+1:
 
-> > +pathname-expansion, but instead act as direct references to the kernel=
-'s own
-> > +representation of a file handle. As such, these magic-links allow user=
-s to
-> > +access files which cannot be referenced with normal paths (such as unl=
-inked
-> > +files still referenced by a running program.)
->=20
-> Could maybe add "and files in different mount namespaces" as another
-> example here; at least for me, that's the main usecases for
-> /proc/*/root.
-
-Will do.
-
-> [...]
-> > +However, magic-links do not follow this rule. They can have a non-0777=
- mode,
-> > +which is used for permission checks when the final
-> > +component of an
-> > +.BR open (2)'s
->=20
-> Maybe leave out the "open" part, since the same restriction has to
-> also apply to other syscalls operating on files, like truncate() and
-> so on?
-
-Yes (though I've just realised I hadn't implemented that -- oops.) Given
-how expansive this patchset will get -- I might end up splitting it into
-the magic-link stuff (and O_EMPTYPATH) and a separate series for
-openat2(2) and the path resolution restrictions.
-
---=20
-Aleksa Sarai
-Senior Software Engineer (Containers)
-SUSE Linux GmbH
-<https://www.cyphar.com/>
-
---2q45tajd22yttzl5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQSxZm6dtfE8gxLLfYqdlLljIbnQEgUCXZvndgAKCRCdlLljIbnQ
-Em8rAP9zDYU4BspEqrhHWm9St1g7MKKDDBGjzIBK742FA4EA6gD9FXqkmZPXhZHY
-m/PlSBGP4lC67Pms1YwaoDM1pk2x+Ak=
-=dsvW
------END PGP SIGNATURE-----
-
---2q45tajd22yttzl5--
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
