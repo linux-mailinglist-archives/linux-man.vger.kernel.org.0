@@ -2,62 +2,141 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 44E8ACEFDC
-	for <lists+linux-man@lfdr.de>; Tue,  8 Oct 2019 02:19:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4795ACF08E
+	for <lists+linux-man@lfdr.de>; Tue,  8 Oct 2019 03:34:06 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729575AbfJHATf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 7 Oct 2019 20:19:35 -0400
-Received: from mail-pg1-f179.google.com ([209.85.215.179]:39911 "EHLO
-        mail-pg1-f179.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729285AbfJHATf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Oct 2019 20:19:35 -0400
-Received: by mail-pg1-f179.google.com with SMTP id e1so9211976pgj.6
-        for <linux-man@vger.kernel.org>; Mon, 07 Oct 2019 17:19:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=networkplumber-org.20150623.gappssmtp.com; s=20150623;
-        h=date:from:to:cc:subject:message-id:mime-version
-         :content-transfer-encoding;
-        bh=JMkIKUT4WbSF5s7SBru0znxxJn7AtkbsbJ0099/wMuU=;
-        b=WkZh7UjdPvKcBz16ZGbFzRpdmFGg/AOtPvX6XoOg+5VGW//ibau95E822GfxgEKb55
-         VxrLQADRTucprv2frxMOCoXklAcHBYqqtZ4pEGDu7oBwyKc2CVWF3r7OdaC6woIdr2qZ
-         NeZ/Kihql314S/GqffQqWnWdWkGCFyx5U/HLB6mp6swO+wdq9XvW2XOsO+2KAhyFjuv0
-         fnxxnusjeXBCYaTY4aq3D+6kwl4jf3OL++LWayP8rDMrC4slZewoOMMUeRVetQ+fIvK2
-         3nQqFS0vWWCPVYDMXcFhi2jthHsQRwsKmRuSqu/XXH0irz7JBO7yMirIb8zWktM4Qw7P
-         VQMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
-         :content-transfer-encoding;
-        bh=JMkIKUT4WbSF5s7SBru0znxxJn7AtkbsbJ0099/wMuU=;
-        b=ZgRzgENQjMIUYlw3NmelqKM7e9Tk0y9jl6uXz4d0Zy6s4TKMBlX+HdvuASeheuPL3h
-         2DwBk1GPHRkGwjGBN57p5scixnNxkF2wkWlRy0u+H+kEPijCte5qOk93vgpdYLh3lIIZ
-         cGC8JemAiqiJVUTEzhM7J9mzrZr/Puv/qKCuIiEoK/W0U9DPSD2obSiR+ZYsFQ0Ng14/
-         JNV22cn12HwMy8p1nX8//yejHn6vJVf/x4df+6aSS5JUd4ZObN9bcqaygQNYLWo+CELS
-         m0/c02edaX0Dk97Rkr5ngDZe1P8whpq5mO1z+A17GkOuQjvJCJL5rUcZwBIV59EBi7gH
-         Hbow==
-X-Gm-Message-State: APjAAAUXBaxApiU5WV2dUMs5X4UT2j2rpNkTu4CnPmGP3ND0xEPzfpAp
-        YMFDPVuL3zt5k1Qe4UDexE8ixj4InqEAhw==
-X-Google-Smtp-Source: APXvYqwqxfluIiiHdz5Lp+xISUR0agYui49n0sEs2mQ/osls3G/gQwjYQ+qbfiyl3gBQq+zwZzKFxg==
-X-Received: by 2002:a17:90a:380a:: with SMTP id w10mr2328208pjb.104.1570493974318;
-        Mon, 07 Oct 2019 17:19:34 -0700 (PDT)
-Received: from hermes.lan (204-195-22-127.wavecable.com. [204.195.22.127])
-        by smtp.gmail.com with ESMTPSA id u5sm19501571pfl.25.2019.10.07.17.19.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Oct 2019 17:19:34 -0700 (PDT)
-Date:   Mon, 7 Oct 2019 17:19:26 -0700
-From:   Stephen Hemminger <stephen@networkplumber.org>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Subject: leftover reference to ipfw
-Message-ID: <20191007171926.788988d2@hermes.lan>
+        id S1729285AbfJHBeF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 7 Oct 2019 21:34:05 -0400
+Received: from mx2.mailbox.org ([80.241.60.215]:31464 "EHLO mx2.mailbox.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726917AbfJHBeF (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 7 Oct 2019 21:34:05 -0400
+Received: from smtp2.mailbox.org (smtp1.mailbox.org [80.241.60.240])
+        (using TLSv1.2 with cipher ECDHE-RSA-CHACHA20-POLY1305 (256/256 bits))
+        (No client certificate requested)
+        by mx2.mailbox.org (Postfix) with ESMTPS id D7967A33B3;
+        Tue,  8 Oct 2019 03:34:01 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at heinlein-support.de
+Received: from smtp2.mailbox.org ([80.241.60.240])
+        by spamfilter01.heinlein-hosting.de (spamfilter01.heinlein-hosting.de [80.241.56.115]) (amavisd-new, port 10030)
+        with ESMTP id oK7UU0kzyVpP; Tue,  8 Oct 2019 03:33:57 +0200 (CEST)
+Date:   Tue, 8 Oct 2019 12:33:46 +1100
+From:   Aleksa Sarai <cyphar@cyphar.com>
+To:     Jann Horn <jannh@google.com>
+Cc:     Al Viro <viro@zeniv.linux.org.uk>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Christian Brauner <christian@brauner.io>,
+        Aleksa Sarai <asarai@suse.de>,
+        linux-man <linux-man@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        kernel list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH RFC 1/3] symlink.7: document magic-links more completely
+Message-ID: <20191008013346.7qft2qqz4wz7ld35@yavin.dot.cyphar.com>
+References: <20191003145542.17490-1-cyphar@cyphar.com>
+ <20191003145542.17490-2-cyphar@cyphar.com>
+ <CAG48ez2LuOGAXgKftZKfDKxhdb6xcBTdoK468-HXdcpxCW4r4w@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="2q45tajd22yttzl5"
+Content-Disposition: inline
+In-Reply-To: <CAG48ez2LuOGAXgKftZKfDKxhdb6xcBTdoK468-HXdcpxCW4r4w@mail.gmail.com>
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-There is no ipfw command or api on Linux.
-Yet there is still a reference to it on the ip(7) man page.
 
+--2q45tajd22yttzl5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On 2019-10-07, Jann Horn <jannh@google.com> wrote:
+> On Thu, Oct 3, 2019 at 4:56 PM Aleksa Sarai <cyphar@cyphar.com> wrote:
+> > Traditionally, magic-links have not been a well-understood topic in
+> > Linux. Given the new changes in their semantics (related to the link
+> > mode of trailing magic-links), it seems like a good opportunity to shine
+> > more light on magic-links and their semantics.
+> [...]
+> > +++ b/man7/symlink.7
+> > @@ -84,6 +84,25 @@ as they are implemented on Linux and other systems,
+> >  are outlined here.
+> >  It is important that site-local applications also conform to these rul=
+es,
+> >  so that the user interface can be as consistent as possible.
+> > +.SS Magic-links
+> > +There is a special class of symlink-like objects known as "magic-links=
+" which
+>=20
+> I think names like that normally aren't hypenated in english, and
+> instead of "magic-links", it'd be "magic links"? Just like how you
+> wouldn't write "symbolic-link", but "symbolic link". But this is
+> bikeshedding, and if you disagree, feel free to ignore this comment.
+
+Looking at it now, I think you're right -- I hyphenated it here because
+that's how I wrote it when documenting the feature in comments. But I
+think that's because "symlink" and "magic-link" (the "abbreviated"
+versions) seem to match better than "symlink" and "magic link".
+
+I'll use "magic link" in documentation, but "magic-link" for all cases
+where I would normally write "symlink".
+
+> > +can be found in certain pseudo-filesystems such as
+> > +.BR proc (5)
+> > +(examples include
+> > +.IR /proc/[pid]/exe " and " /proc/[pid]/fd/* .)
+> > +Unlike normal symlinks, magic-links are not resolved through
+>=20
+> nit: AFAICS symlinks are always referred to as "symbolic links"
+> throughout the manpages.
+
+:+1:
+
+> > +pathname-expansion, but instead act as direct references to the kernel=
+'s own
+> > +representation of a file handle. As such, these magic-links allow user=
+s to
+> > +access files which cannot be referenced with normal paths (such as unl=
+inked
+> > +files still referenced by a running program.)
+>=20
+> Could maybe add "and files in different mount namespaces" as another
+> example here; at least for me, that's the main usecases for
+> /proc/*/root.
+
+Will do.
+
+> [...]
+> > +However, magic-links do not follow this rule. They can have a non-0777=
+ mode,
+> > +which is used for permission checks when the final
+> > +component of an
+> > +.BR open (2)'s
+>=20
+> Maybe leave out the "open" part, since the same restriction has to
+> also apply to other syscalls operating on files, like truncate() and
+> so on?
+
+Yes (though I've just realised I hadn't implemented that -- oops.) Given
+how expansive this patchset will get -- I might end up splitting it into
+the magic-link stuff (and O_EMPTYPATH) and a separate series for
+openat2(2) and the path resolution restrictions.
+
+--=20
+Aleksa Sarai
+Senior Software Engineer (Containers)
+SUSE Linux GmbH
+<https://www.cyphar.com/>
+
+--2q45tajd22yttzl5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQSxZm6dtfE8gxLLfYqdlLljIbnQEgUCXZvndgAKCRCdlLljIbnQ
+Em8rAP9zDYU4BspEqrhHWm9St1g7MKKDDBGjzIBK742FA4EA6gD9FXqkmZPXhZHY
+m/PlSBGP4lC67Pms1YwaoDM1pk2x+Ak=
+=dsvW
+-----END PGP SIGNATURE-----
+
+--2q45tajd22yttzl5--
