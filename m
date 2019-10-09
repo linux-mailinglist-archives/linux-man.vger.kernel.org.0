@@ -2,233 +2,160 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id E2406D08FD
-	for <lists+linux-man@lfdr.de>; Wed,  9 Oct 2019 10:01:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A46A7D0974
+	for <lists+linux-man@lfdr.de>; Wed,  9 Oct 2019 10:18:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725914AbfJIIBK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 9 Oct 2019 04:01:10 -0400
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:46766 "EHLO
-        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725776AbfJIIBJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 9 Oct 2019 04:01:09 -0400
-Received: by mail-wr1-f66.google.com with SMTP id o18so1515750wrv.13;
-        Wed, 09 Oct 2019 01:01:07 -0700 (PDT)
+        id S1725776AbfJIISl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 9 Oct 2019 04:18:41 -0400
+Received: from mail-pg1-f195.google.com ([209.85.215.195]:42711 "EHLO
+        mail-pg1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726765AbfJIISl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 9 Oct 2019 04:18:41 -0400
+Received: by mail-pg1-f195.google.com with SMTP id z12so912054pgp.9;
+        Wed, 09 Oct 2019 01:18:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=2DTwESPW6g8Sb3sli7ex/7+wAywGokSECc13e5k3bwI=;
-        b=Ocr81+FXBcc4X4vkaVve0Cz16SMH54/ksm5B0DqGEBY1ElLUIk7HPx3S1I+QH7HGti
-         F7OG+RDQoNxUBBNpS9bqzFl+FkUngaNQzdaQRupmYf76C4+MxtF8gnvIjv5Ma6MtuFqU
-         QkczgJVW4QPLuyFPVUfyl04NuXCdEWIO0fLSdaOYdSTpdj4oNkbx2GtKoTgG6ttX7d1M
-         ec9CW/sYOaq1zg6mB35vxDRqbxODBaXmjMgq8Av312vfxhuFEE6EdgEqeUzhe99EHWdB
-         E9MEJVfGnuQ1p22GMVojurjFQyJyyy9myj6XjJhc3uImCpVJZO2tMRi8v5+MzN7OkWge
-         Vwnw==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=QpAyimoASf/ySZNb9gSEKfdKcZEXPK7su5sGdAVCoO8=;
+        b=XrNJ+DdAH9P1JBeU1vRmJaFaoLTz9sLQDr6mIIrydIWD5G0xo9cAMywvwM/j4thHAO
+         rM7Nj12+k8bmh4EOfebZ3IC3Xvgh/qS/gChkHYZLg62E9Q1ZMKz28oco6Nkop+b9N6sO
+         yPpFtJx0Kuf9BNZ6otV2IBRZG79MtKBENvdzwWdIgas3P3UX7XyCIy/0Wej+IR4Yf2+E
+         u0NbIAB9eZMUV+9eYLhpKIOp97nES5hgOGqZcLiiolSBI8rfbm3bavYEqc+2Zjym8C/s
+         OVZRt3ny41FZOUX7LFHV6oxbaLlMgCbgsNRqlJXjGwe4eLU9ZN/g/Epni0DT9rajNj+B
+         YIgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=2DTwESPW6g8Sb3sli7ex/7+wAywGokSECc13e5k3bwI=;
-        b=AYKNNazQBlR5GOlEVihmsC4FrUnp574N1vaDiO/iQSmsFUcaPA4uds6U1MbTgry6Vm
-         n01it9SbjEt4OWvH+nDc5ybnzL/0KImspUXUsovXfq5mYVFT/A1xV5tAQuUoBZSRsrNK
-         +M8EJEt5JnSgYypNVHYw4RM+gpMvY6l2JM9HCxpstSErJpWmY0Z7y/cO7+6B0M5nBKUq
-         3IvwElWvwah0KbpcYDlhO/zOvjYeh+fy9jEDoySUO0i5yTBzzvPJJL3/UO/Xn086qWOG
-         LBUJUNp23ZEeqG/8K7x+VQIsLm5EwdJ1aqzpbKBCnaDwmt6SIB+ISIK++thJqL6I75dN
-         l1dg==
-X-Gm-Message-State: APjAAAWgQ3vykgzMC8Mo5kB+iP0ZLML/Kajh+cf9xN1ssZ39+Fn35zdz
-        cFCBfx1lP4DxICzZBu7aB1IdXUhO
-X-Google-Smtp-Source: APXvYqzOLPPSDu25xkKCUAlxH+SBDgn7aC1u1Mb3sU7asfYrydDF48a/xu1pIFRSqQFUYdsNKFOf+A==
-X-Received: by 2002:adf:db47:: with SMTP id f7mr1817888wrj.348.1570608065912;
-        Wed, 09 Oct 2019 01:01:05 -0700 (PDT)
-Received: from [10.0.20.253] ([95.157.63.22])
-        by smtp.gmail.com with ESMTPSA id l18sm1286973wrc.18.2019.10.09.01.01.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Oct 2019 01:01:05 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Christian Brauner <christian@brauner.io>,
-        Aleksa Sarai <asarai@suse.de>, linux-man@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 2/3] open.2: add O_EMPTYPATH documentation
-To:     Aleksa Sarai <cyphar@cyphar.com>, Al Viro <viro@zeniv.linux.org.uk>
-References: <20191003145542.17490-1-cyphar@cyphar.com>
- <20191003145542.17490-3-cyphar@cyphar.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <c4485b10-692d-ed24-a1d9-a047bb1054bf@gmail.com>
-Date:   Wed, 9 Oct 2019 10:01:04 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=QpAyimoASf/ySZNb9gSEKfdKcZEXPK7su5sGdAVCoO8=;
+        b=g9jfq7meaptLlEZeU6V1v2FwVwcfAdYaIuczwjbcO5PjQBf1CjA2wZTv7KJGkVo923
+         vqSdgcFxSNJGc4YzoHmDEWLk6PvyfoIn+4ODps0A2A5jfa8JJluBEnZy6oUe9zQBzoVd
+         JHVO4J6xdh3xO3hk+PGScyJNUBAEzsCxP8wywxsjAmzfV7TP5+FKeqvS1rb0+h5CRN39
+         N8kBR2MaZ+5SNMabY8/gONNeh9nF47eXxK8jvlY1k/2VLC22qIcgrQjPnUxDmYCEsRsG
+         DFNaMXITrtsoRfsU+PZldCrO0W5PBNn8fS+if6QFRBHXnQS5dlXN8zb3B46oURJRDYIl
+         2rMw==
+X-Gm-Message-State: APjAAAVet7ikKl4uOfVBxkEiQuTahTEx4xRXVeazEYB1yvsrJQ8136uw
+        v2E6wvpfz0pwNrVfimGbEZA=
+X-Google-Smtp-Source: APXvYqxCoYJ8GAdWpUZQXwykKiy+cFpHjK1ZkFdBliLUNjI2OMIWyCS+GtTZb7w9xGkMqkzJMTLWOQ==
+X-Received: by 2002:aa7:8dd4:: with SMTP id j20mr2480490pfr.36.1570609120311;
+        Wed, 09 Oct 2019 01:18:40 -0700 (PDT)
+Received: from localhost.localdomain ([1.129.226.199])
+        by smtp.gmail.com with ESMTPSA id b18sm1661374pfi.157.2019.10.09.01.18.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Oct 2019 01:18:39 -0700 (PDT)
+Date:   Wed, 9 Oct 2019 19:18:30 +1100
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Philipp Wendler <ml@philippwendler.de>,
+        "Eric W. Biederman" <ebiederm@xmission.com>,
+        "Serge E. Hallyn" <serge@hallyn.com>,
+        Christian Brauner <christian@brauner.io>,
+        Aleksa Sarai <asarai@suse.de>,
+        Reid Priedhorsky <reidpr@lanl.gov>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Yang Bo <rslovers@yandex.com>, Jakub Wilk <jwilk@jwilk.net>,
+        Joseph Sible <josephcsible@gmail.com>,
+        Al Viro <viro@ftp.linux.org.uk>, werner@almesberger.net,
+        linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Containers <containers@lists.linux-foundation.org>,
+        =?utf-8?B?U3TDqXBoYW5l?= Graber <stgraber@ubuntu.com>
+Subject: Re: For review: rewritten pivot_root(2) manual page
+Message-ID: <20191009081811.u4p3bd3bqvppgvcf@localhost.localdomain>
+References: <620c691a-065e-b894-4f06-7453012bc8d3@gmail.com>
+ <d449305b-f87c-f26e-e43f-d193fd8f4332@philippwendler.de>
+ <e51e454c-b0e7-e5d1-7810-e8f023574aa2@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20191003145542.17490-3-cyphar@cyphar.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="wjvmnzdal332aq42"
+Content-Disposition: inline
+In-Reply-To: <e51e454c-b0e7-e5d1-7810-e8f023574aa2@gmail.com>
+User-Agent: NeoMutt/20180716
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Aleksa,
 
-You write "5.FOO" in these patches. When do you expect these changes to 
-land in the kernel?
+--wjvmnzdal332aq42
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 10/3/19 4:55 PM, Aleksa Sarai wrote:
-> Some of the wording around empty paths in path_resolution(7) also needed
-> to be reworked since it's now legal (if you pass O_EMPTYPATH).
-> 
-> Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
-> ---
->  man2/open.2            | 42 +++++++++++++++++++++++++++++++++++++++++-
->  man7/path_resolution.7 | 17 ++++++++++++++++-
->  2 files changed, 57 insertions(+), 2 deletions(-)
-> 
-> diff --git a/man2/open.2 b/man2/open.2
-> index b0f485b41589..7217fe056e5e 100644
-> --- a/man2/open.2
-> +++ b/man2/open.2
-> @@ -48,7 +48,7 @@
->  .\" FIXME . Apr 08: The next POSIX revision has O_EXEC, O_SEARCH, and
->  .\" O_TTYINIT.  Eventually these may need to be documented.  --mtk
->  .\"
-> -.TH OPEN 2 2018-04-30 "Linux" "Linux Programmer's Manual"
-> +.TH OPEN 2 2019-10-03 "Linux" "Linux Programmer's Manual"
+At 2019-10-09T09:41:34+0200, Michael Kerrisk (man-pages) wrote:
+> I'm not sure. Some people have a bit of trouble to wrap their head
+> around the pivot_root(".", ".") idea. (I possibly am one of them.)
+> I'd be quite keen to hear other opinions on this. Unfortunately,
+> few people have commented on this manual page rewrite.
 
-No need to update the timestamp. I have scripts that handle this
-automatically.
+pivot_root(".", ".") seems as ineffable to me as chdir(".").
 
->  .SH NAME
->  open, openat, creat \- open and possibly create a file
->  .SH SYNOPSIS
-> @@ -421,6 +421,21 @@ was followed by a call to
->  .BR fdatasync (2)).
->  .IR "See NOTES below" .
->  .TP
-> +.BR O_EMPTYPATH " (since Linux 5.FOO)"
-> +If \fIpathname\fP is an empty string, re-open the the file descriptor given as
+Meaning mostly, but not completely.
 
-In general, I prefer the general form
+I have an external drive with a USB cable that's a little dodgy.  If it
+moves around a bit the external drive gets auto-unmounted, and then
+remounted in the same place, so I can experience the otherwise-baffling
+shell experience of:
 
-.I pathname
+[disconnect/reconnect happens; the device is mounted again now]
+$ ls .
+Input/output error
+$ cd .
+$ ls .
+[perfectly fine listing]
 
-over \fIpathname\fP. 
+What's happened is that the meaning of "." has subtly changed in a way
+that I suppose would never have been seen back in Version 7 Unix days.
+Maybe I've been reading too much historical documentation (I'm currently
+enjoying McKusick et al.'s _Design and Implementation of the 4.4BSD
+Operations System_), but the way we describe and teach Unixlike systems
+in operating systems classes and, more to the point, in our man pages I
+think continues to be strongly informed by the invariants we learned in
+our youth, and which are slowly but steadily being invalidated.
 
-If you would be willing to cahnge that, it would  save me a little work.
-(And likewise throughout the rest of the patch.)
+Concretely, I recommend having pivot_root(".", ".") in the man page as
+an example, but perhaps as an alternate.  Because it is
+counterintuitive (to some minds), it's worth spending some time to
+explain it.  But I would offer it because it's a valid use of the system
+call and because it makes sense to a domain expert (Eric Biedermann).
 
-> +the \fIdirfd\fP argument to
-> +.BR openat (2).
-> +This can be used with both ordinary (file and directory) and \fBO_PATH\fP file
-> +descriptors, but cannot be used with
-> +.BR AT_FDCWD
-> +(or as an argument to plain
-> +.BR open (2).) When re-opening an \fBO_PATH\fP file descriptor, the same "link
+I would try to offer an explanation myself but I lack the understanding.
+_If_ I'm following the discussion correctly, which I doubt, then what I
+imagine to happen is that a sequence point occurs between the function
+parameters, and "." changes its meaning as with my "cd ." example above.
+I am probably reasoning by analogy, and perhaps not by a good one.
 
-There's a formatting problem here which can be fixed by inserting a 
-newline before "When".
+Also, it is okay if the language of this page continues to evolve over
+time.  I appreciate your desire to get it "perfect" (or at least to some
+local optimum) now since you're most of the way through an overhaul of
+it, but it is not just the system that changes with time--the audience
+does too.
 
-> +mode" restrictions apply as with re-opening through
-> +.BR proc (5)
-> +(see
-> +.BR path_resolution "(7) and " symlink (7)
-> +for more details.)
-> +.TP
->  .B O_EXCL
->  Ensure that this call creates the file:
->  if this flag is specified in conjunction with
-> @@ -668,6 +683,13 @@ with
->  (or via procfs using
->  .BR AT_SYMLINK_FOLLOW )
->  even if the file is not a directory.
-> +You can even "re-open" (or upgrade) an
-> +.BR O_PATH
-> +file descriptor by using
-> +.BR O_EMPTYPATH
-> +(see the section for
-> +.BR O_EMPTYPATH
-> +for more details.)
->  .IP *
->  Passing the file descriptor to another process via a UNIX domain socket
->  (see
-> @@ -958,6 +980,15 @@ is not allowed.
->  (See also
->  .BR path_resolution (7).)
->  .TP
-> +.B EBADF
-> +.I pathname
-> +was an empty string (and
-> +.B O_EMPTYPATH
-> +was passed) with
-> +.BR open (2)
-> +(instead of
-> +.BR openat (2).)
-> +.TP
->  .B EDQUOT
->  Where
->  .B O_CREAT
-> @@ -1203,6 +1234,15 @@ The following additional errors can occur for
->  .I dirfd
->  is not a valid file descriptor.
->  .TP
-> +.B EBADF
-> +.I pathname
-> +was an empty string (and
-> +.B O_EMPTYPATH
-> +was passed), but the provided
-> +.I dirfd
-> +was an invalid file descriptor (or was
-> +.BR AT_FDCWD .)
-> +.TP
->  .B ENOTDIR
->  .I pathname
->  is a relative pathname and
-> diff --git a/man7/path_resolution.7 b/man7/path_resolution.7
-> index 46f25ec4cdfa..85dd354e9a93 100644
-> --- a/man7/path_resolution.7
-> +++ b/man7/path_resolution.7
-> @@ -22,7 +22,7 @@
->  .\" the source, must acknowledge the copyright and authors of this work.
->  .\" %%%LICENSE_END
->  .\"
-> -.TH PATH_RESOLUTION 7 2017-11-26 "Linux" "Linux Programmer's Manual"
-> +.TH PATH_RESOLUTION 7 2019-10-03 "Linux" "Linux Programmer's Manual"
->  .SH NAME
->  path_resolution \- how a pathname is resolved to a file
->  .SH DESCRIPTION
-> @@ -198,6 +198,21 @@ successfully.
->  Linux returns
->  .B ENOENT
->  in this case.
-> +.PP
-> +As of Linux 5.FOO, an empty path argument can be used to indicate the "re-open"
-> +an existing file descriptor if
-> +.B O_EMPTYPATH
-> +is passed as a flag argument to
-> +.BR openat (2),
-> +with the
-> +.I dfd
-> +argument indicating which file descriptor to "re-open". This is approximately
-> +equivalent to opening
-> +.I /proc/self/fd/$fd
+Maybe in 5 or 10 years, the kids will be au fait with pivot_root(".",
+".") and only some graybeards will continue to think of it as a bit
+strange.
 
-.IR /proc/self/fd/$fd ,
+Regards,
+Branden
 
-> +where
-> +.I $fd
-> +is the open file descriptor to be "re-opened".
-> +
+--wjvmnzdal332aq42
+Content-Type: application/pgp-signature; name="signature.asc"
 
-No blank line here.
+-----BEGIN PGP SIGNATURE-----
 
->  .SS Permissions
->  The permission bits of a file consist of three groups of three bits; see
->  .BR chmod (1)
-> 
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl2dl9QACgkQ0Z6cfXEm
+bc6iQw//Wj9DRlvFekN/bWAFUHQFeVgm41LiCTNACrM37qSpuUf6oBcodnylh7XX
+VYfDss1uVUNWNPPaYfX+QCIaKVOdGFhnEcRcRtNFmEObnNJ8EsA5JbfLQ1/n+DCq
+80UZjCZJNVQC9FK+Oy9VfByJA29hEhDP+sn7DyS7t6mdJmue9Edc9cBdT7TYq9We
+uCrUBhk/yF2hmjyIsMPJxwNG7gHVkKoasVwwXDEZhsT0Y5EOZ/ZmG1HMaEEXu3tw
+JCpK+vfuweMzoBRgq/wxmZpPTTvdPuwFf1CIBsyPpn5pY1d+1khQAbzmCwCIlRHc
+XYf31M/5ajh7y1Ksbg2YDffVck4l+Z4kYHVySkEWEtZYOtHLNXxnAI1k9c3mXSFF
+ebtezKXzFE35peNirzf9ev7hHDfDiL5szNKWvvLfCR4xTknR7nIQpq5J3BV+6l+D
+nFZ/4l8iLYcEMBUorfNZSaCWfm97XY2eBHwjQeWa/bDnLG/r2lpK6Eby5Ne6Az/s
+uOeBCgmgS7gK8r7Tc6DrsA0Ttk5FInLGXLcl9gm4niUKVle0+blMqGw3O3ZD6s+2
+3uqw7cB4ojF9qUqG7l8CoCS2Lh5EE1eARGV7Qx/QUR72GmxcSJEqMYz6cxTIzpR7
+JBRbZKpE526rNq0mbMJQJFqd9guJGRn8OXMBZMf6vJ2goEJLxro=
+=agT8
+-----END PGP SIGNATURE-----
 
-Thanks,
-
-Michael
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+--wjvmnzdal332aq42--
