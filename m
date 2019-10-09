@@ -2,220 +2,199 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 3CA63D0890
-	for <lists+linux-man@lfdr.de>; Wed,  9 Oct 2019 09:41:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DE929D08E2
+	for <lists+linux-man@lfdr.de>; Wed,  9 Oct 2019 09:55:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730179AbfJIHlk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 9 Oct 2019 03:41:40 -0400
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:35117 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725935AbfJIHlj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 9 Oct 2019 03:41:39 -0400
-Received: by mail-wr1-f67.google.com with SMTP id v8so1496773wrt.2;
-        Wed, 09 Oct 2019 00:41:36 -0700 (PDT)
+        id S1725914AbfJIHzN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 9 Oct 2019 03:55:13 -0400
+Received: from mail-wm1-f66.google.com ([209.85.128.66]:39685 "EHLO
+        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725903AbfJIHzM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 9 Oct 2019 03:55:12 -0400
+Received: by mail-wm1-f66.google.com with SMTP id v17so1335163wml.4;
+        Wed, 09 Oct 2019 00:55:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=9UY2QbIEGmOf3Zlgv93V9GQZjtls83MvwklkIbK7UcU=;
-        b=JMiEwo3kLUZJRv2GBcyt2r2G8LVII7f8OPxj12em9L3VP3COd7cFJ33hUC9hRAd7WZ
-         feuVyW9Sp9WZh4QGXupeNhxrMGL6+S/8UsHsTL2g4jiFPaO166TnOKYgt/wsc6z4DCTx
-         hi3bXzh873VRscdE8Da5DtsvMmDR0FNzjFRDEDWD9GpdLX4jg9l5Y7l1Nbn0ku3C+u6P
-         WbmHyeXaGxegWzc4jXi/lDrydbY3lRCpn4uCEr6OHj/NnQtg77Lbvx8iIC7zC3pRclYh
-         v1nRtZ7sPbKrQ09XOwFGTv3uxdb6HIMjtp0Ctt5t3Sfj2F64BwgUCpuMwZnqblmCnRJj
-         SV7g==
+        bh=IL43E3a4vEuIX1bXl8WBoZ420raidLdkMkzdVHu6VyY=;
+        b=Uc+IQZoT3dj7FFk7OEo+Gt39fnbx+Mq9gUo5iX5Q36BNwpEDCsNI6ddNzBSKCarOcE
+         1PXAdSbV0eDtYGxRgy5ETzqQDCnmxesgYeYN8zuLK+RTVY63Kq8lqnWMAPsA8mpjy4TT
+         jHCMgeyWfLFtSXVOxLWcUMolNQczVufuAHSk3OunZvvVpp/EcuO6OlmtEKCW1T20Lors
+         1wunMqdLZ0AUROZfqO6uSIe5Moi3EnqepmMrH/AAXvLo84ys422g84sMbNrb5i57isPQ
+         ffUurUenZ3b4/1XAS5+8b02FUfDEHPeeYby5OFA5VOyIqmNW3MCX4t0T04/HuwL0+WXv
+         wY/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=9UY2QbIEGmOf3Zlgv93V9GQZjtls83MvwklkIbK7UcU=;
-        b=XPyhM6JHS+v9SEayuTivjg3GK/U0eif2omTDPZduCffEoRRCd7Qy2MBm5bNciyUpz1
-         a+JBbFg9SY/m6t0ZysU2HvU7Gy1rJuSMurh28pwTn2or1Ng67H0sbZL7Fw9s0x+ctUmy
-         w1YgxtYRVZKhEV9pYJhaPbHQzqWF5CzDllqUzCSZbNxZHm4SNw0FqGtNiElWe2WQCEA2
-         RQNhJynfCQrK7LI/jVX8k+txs2uR9KYP9Nqc9rnzzIYcJcPeYG0rexixZX576rCmddTn
-         iQ5C03yEKv/aLh6ap7pVrgmjCGvCh3C54KS3RVhEfD7qIbtcinBgym6SzFNbdbob6iJq
-         Rfug==
-X-Gm-Message-State: APjAAAVho1kV8LeV+mRa92EOpzNVEXh39wv4+8V5suR+l0En9hwpqfnx
-        g0E+CKBzQHu44RJYtI7iGKU=
-X-Google-Smtp-Source: APXvYqw4KVm55RedrhNoQvGBxTLCBpdNABz/XYNmtniV22b3bGHJOBJ4Ro7i6BxQYdm2QGYdCZ+stg==
-X-Received: by 2002:adf:c143:: with SMTP id w3mr1678433wre.77.1570606895856;
-        Wed, 09 Oct 2019 00:41:35 -0700 (PDT)
+        bh=IL43E3a4vEuIX1bXl8WBoZ420raidLdkMkzdVHu6VyY=;
+        b=rd6QnNs/aXxyNorgyor4YSXUUSE20UZ5YIRyt/lVxl+CiIgM1iffkcDfDS/6tML+rf
+         nyr1kGL3rqE35427JRN283kt8JRYACF/FsnfRmBhFfqAYFowjismdZvqlhAvWNZb0VkS
+         TBzkFlMqWrwCg5veBLUK4WSSBtU8TiDbKVsGZ334zbAVfP+QT5GBGukt5cfKDvzEt0w7
+         8vlfn2qhkIVXNoER9JJUvgOkURv+o4nF24ie+KZAtWj5CM8ODTkDwYretymJBZmDxa+o
+         wi1AXQTiFYiHDyFgNb1W0m67R+ofBLfHsBI1P/qiHmbU27X8NfV+J93FLp31VRK3jnxM
+         P3ZA==
+X-Gm-Message-State: APjAAAUWOdqkZOKkw7jrC8/GNp5eUULoqfIv8p4eFAFL8ijMId5my28k
+        S3B2Hiohl3PX9VY1XgtHO/k6j/ch
+X-Google-Smtp-Source: APXvYqxaNioJYq6FZZ185dHSdZfmm/Xv2YkqnhfPXa4a0kdU7ungo8D4jDJCw2rWvDScIh6BmvJHJg==
+X-Received: by 2002:a1c:7401:: with SMTP id p1mr1445015wmc.144.1570607709357;
+        Wed, 09 Oct 2019 00:55:09 -0700 (PDT)
 Received: from [10.0.20.253] ([95.157.63.22])
-        by smtp.gmail.com with ESMTPSA id s1sm1742156wrg.80.2019.10.09.00.41.34
+        by smtp.gmail.com with ESMTPSA id g185sm1949016wme.10.2019.10.09.00.55.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Oct 2019 00:41:35 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Containers <containers@lists.linux-foundation.org>,
-        =?UTF-8?Q?St=c3=a9phane_Graber?= <stgraber@ubuntu.com>
-Subject: Re: For review: rewritten pivot_root(2) manual page
-To:     Philipp Wendler <ml@philippwendler.de>,
-        "Eric W. Biederman" <ebiederm@xmission.com>,
-        "Serge E. Hallyn" <serge@hallyn.com>,
-        Christian Brauner <christian@brauner.io>,
-        Aleksa Sarai <asarai@suse.de>,
-        Reid Priedhorsky <reidpr@lanl.gov>,
-        Andy Lutomirski <luto@amacapital.net>,
-        Yang Bo <rslovers@yandex.com>, Jakub Wilk <jwilk@jwilk.net>,
-        Joseph Sible <josephcsible@gmail.com>,
-        Al Viro <viro@ftp.linux.org.uk>, werner@almesberger.net
-References: <620c691a-065e-b894-4f06-7453012bc8d3@gmail.com>
- <d449305b-f87c-f26e-e43f-d193fd8f4332@philippwendler.de>
+        Wed, 09 Oct 2019 00:55:08 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, Christian Brauner <christian@brauner.io>,
+        Aleksa Sarai <asarai@suse.de>, linux-man@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 1/3] symlink.7: document magic-links more completely
+To:     Aleksa Sarai <cyphar@cyphar.com>, Al Viro <viro@zeniv.linux.org.uk>
+References: <20191003145542.17490-1-cyphar@cyphar.com>
+ <20191003145542.17490-2-cyphar@cyphar.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <e51e454c-b0e7-e5d1-7810-e8f023574aa2@gmail.com>
-Date:   Wed, 9 Oct 2019 09:41:34 +0200
+Message-ID: <2fd9e82d-2a9c-cda9-0c17-3a20034eca1d@gmail.com>
+Date:   Wed, 9 Oct 2019 09:55:08 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <d449305b-f87c-f26e-e43f-d193fd8f4332@philippwendler.de>
+In-Reply-To: <20191003145542.17490-2-cyphar@cyphar.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Philipp,
+Hello Aleksa,
 
-My apologies that it has taken a while to reply. (I had been hoping
-and waiting that a few more people might weigh in on this thread.)
 
-On 9/23/19 3:42 PM, Philipp Wendler wrote:
-> Hello Michael,
+On 10/3/19 4:55 PM, Aleksa Sarai wrote:
+> Traditionally, magic-links have not been a well-understood topic in
+> Linux. Given the new changes in their semantics (related to the link
+> mode of trailing magic-links), it seems like a good opportunity to shine
+> more light on magic-links and their semantics.
 > 
-> Am 23.09.19 um 14:04 schrieb Michael Kerrisk (man-pages):
+> Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
+
+Thanks for doing this. Some comments below.
+
+> ---
+>  man7/path_resolution.7 | 15 +++++++++++++++
+>  man7/symlink.7         | 39 ++++++++++++++++++++++++++++++---------
+>  2 files changed, 45 insertions(+), 9 deletions(-)
 > 
->> I'm considering to rewrite these pieces to exactly
->> describe what the system call does (which I already
->> do in the third paragraph) and remove the "may or may not"
->> pieces in the second paragraph. I'd welcome comments
->> on making that change.
-> 
-> I think that it would make the man page significantly easier to
-> understand if if the vague wording and the meta discussion about it are
-> removed.
+> diff --git a/man7/path_resolution.7 b/man7/path_resolution.7
+> index 07664ed8faec..46f25ec4cdfa 100644
+> --- a/man7/path_resolution.7
+> +++ b/man7/path_resolution.7
+> @@ -136,6 +136,21 @@ we are just creating it.
+>  The details on the treatment
+>  of the final entry are described in the manual pages of the specific
+>  system calls.
+> +.PP
+> +Since Linux 5.FOO, if the final entry is a "magic-link" (see
 
-It is my inclination to make this change, but I'd love to get more
-feedback on this point.
+"magic link". As Jann points out, this is more normal English usage.
 
->> DESCRIPTION
-> [...]>        pivot_root()  changes  the
->>        root  directory  and the current working directory of each process
->>        or thread in the same mount namespace to new_root if they point to
->>        the  old  root  directory.   (See also NOTES.)  On the other hand,
->>        pivot_root() does not change the caller's current  working  direc‐
->>        tory  (unless it is on the old root directory), and thus it should
->>        be followed by a chdir("/") call.
-> 
-> There is a contradiction here with the NOTES (cf. below).
+> +.BR symlink (7)),
+> +and the user is attempting to
+> +.BR open (2)
+> +it, then there is an additional permission-related restriction applied to the
+> +operation: the requested access mode must not exceed the "link mode" of the
+> +magic-link (unlike ordinary symlinks, magic-links have their own file mode.)
 
-See below.
+Remove the hyphens (magic link). And also, as someone else pointed out,
+manual pages fairly consistently uses the term "symbolic link"
+(written in full).
 
->>        The following restrictions apply:
->>
->>        -  new_root and put_old must be directories.
->>
->>        -  new_root and put_old must not be on the same filesystem as  the
->>           current root.  In particular, new_root can't be "/" (but can be
->>           a bind mounted directory on the current root filesystem).
-> 
-> Wouldn't "must not be on the same mountpoint" or something similar be
-> more clear, at least for new_root? The note in parentheses indicates
-> that new_root can actually be on the same filesystem as the current
-> note. However, ...
+You use the term "file mode" here. Do you mean the file permissions bits?
+If yes, it is a bit misleading to suggest that symbolic links don't
+have these mode bits. They do, but--as noted in the existing symlink(7)
+manual page text--these bits are ignored. I suggest just removing the
+parenthesized text.
 
-For 'put_old', it really is "filesystem".
+> +For example, if
+> +.I /proc/[pid]/fd/[num]
+> +has a link mode of
+> +.BR 0500 ,
+> +unprivileged users are not permitted to
+> +.BR open ()
+> +the magic-link for writing.
+>  .SS . and ..
+>  By convention, every directory has the entries "." and "..",
+>  which refer to the directory itself and to its parent directory,
+> diff --git a/man7/symlink.7 b/man7/symlink.7
+> index 9f5bddd5dc21..33f0ec703acd 100644
+> --- a/man7/symlink.7
+> +++ b/man7/symlink.7
+> @@ -84,6 +84,25 @@ as they are implemented on Linux and other systems,
+>  are outlined here.
+>  It is important that site-local applications also conform to these rules,
+>  so that the user interface can be as consistent as possible.
+> +.SS Magic-links
+> +There is a special class of symlink-like objects known as "magic-links" which
 
-For 'new_root', see below.
+"magic links" (and through the rest of the page).
 
->>        -  put_old must be at or underneath new_root; that  is,  adding  a
->>           nonnegative  number  of /.. to the string pointed to by put_old
->>           must yield the same directory as new_root.
->>
->>        -  new_root must be a mount point.  (If  it  is  not  otherwise  a
->>           mount  point,  it  suffices  to  bind  mount new_root on top of
->>           itself.)
-> 
-> ... this item actually makes the above item almost redundant regarding
-> new_root (except for the "/") case. So one could replace this item with
-> something like this:
-> 
-> - new_root must be a mount point different from "/". (If it is not
->   otherwise a mount point, it suffices  to bind mount new_root on top
->   of itself.)
-> 
-> The above item would then only mention put_old (and maybe use clarified
-> wording on whether actually a different file system is necessary for
-> put_old or whether a different mount point is enough).
+> +can be found in certain pseudo-filesystems such as
 
-Thanks. That's a good suggestion. I simplified the earlier bullet
-point as you suggested, and changed the text here to say:
+pseudofilesystems
 
-       -  new_root must be a mount point, but can't be "/".  If it is not
-          otherwise  a mount point, it suffices to bind mount new_root on
-          top of itself.  (new_root can be a bind  mounted  directory  on
-          the current root filesystem.)
+> +.BR proc (5)
+> +(examples include
+> +.IR /proc/[pid]/exe " and " /proc/[pid]/fd/* .)
+> +Unlike normal symlinks, magic-links are not resolved through
 
->> NOTES
-> [...]
->>        pivot_root() allows the caller to switch to a new root  filesystem
->>        while  at  the  same time placing the old root mount at a location
->>        under new_root from where it can subsequently be unmounted.   (The
->>        fact  that  it  moves  all processes that have a root directory or
->>        current working directory on the old root filesystem  to  the  new
->>        root  filesystem  frees the old root filesystem of users, allowing
->>        it to be unmounted more easily.)
-> 
-> Here is the contradiction:
-> The DESCRIPTION says that root and current working dir are only changed
-> "if they point to the old root directory". Here in the NOTES it says
-> that any root or working directories on the old root file system (i.e.,
-> even if somewhere below the root) are changed.
-> 
-> Which is correct?
+symbolic links
 
-The first text is correct. I must have accidentally inserted
-"filesystem" into the paragraph just here during a global edit.
-Thanks for catching that.
+> +pathname-expansion, but instead act as direct references to the kernel's own
 
-> If it indeed affects all processes with root and/or current working
-> directory below the old root, the text here does not clearly state what
-> the new root/current working directory of theses processes is.
-> E.g., if a process is at /foo and we pivot to /bar, will the process be
-> moved to /bar (i.e., at / after pivot_root), or will the kernel attempt
-> to move it to some location like /bar/foo? Because the latter might not
-> even exist, I suspect that everything is just moved to new_root, but
-> this could be stated explicitly by replacing "to the new root
-> filesystem" in the above paragraph with "to the new root directory"
-> (after checking whether this is true).
+pathname expansion
 
-The text here now reads:
-
-       pivot_root() allows the caller to switch to a new root  filesystem
-       while  at  the  same time placing the old root mount at a location
-       under new_root from where it can subsequently be unmounted.   (The
-       fact  that  it  moves  all processes that have a root directory or
-       current working directory on the old root  directory  to  the  new
-       root  frees the old root directory of users, allowing the old root
-       filesystem to be unmounted more easily.)
-
-
->> EXAMPLE>        The program below demonstrates the use of  pivot_root()  inside  a
->>        mount namespace that is created using clone(2).  After pivoting to
->>        the root directory named in the program's first command-line argu‐
->>        ment,  the  child  created  by  clone(2) then executes the program
->>        named in the remaining command-line arguments.
-> 
-> Why not use the pivot_root(".", ".") in the example program?
-> It would make the example shorter, and also works if the process cannot
-> write to new_root (e..g., in a user namespace).
-
-I'm not sure. Some people have a bit of trouble to wrap their head
-around the pivot_root(".", ".") idea. (I possibly am one of them.)
-I'd be quite keen to hear other opinions on this. Unfortunately,
-few people have commented on this manual page rewrite.
+> +representation of a file handle. As such, these magic-links allow users to
+> +access files which cannot be referenced with normal paths (such as unlinked
+> +files still referenced by a running program.)
+> +.PP
+> +Because they can bypass ordinary
+> +.BR mount_namespaces (7)-based
+> +restrictions, magic-links have been used as attack vectors in various exploits.
+> +As such (since Linux 5.FOO), there are additional restrictions placed on the
+> +re-opening of magic-links (see
+> +.BR path_resolution (7)
+> +for more details.)
+>  .SS Symbolic link ownership, permissions, and timestamps
+>  The owner and group of an existing symbolic link can be changed
+>  using
+> @@ -99,16 +118,18 @@ of a symbolic link can be changed using
+>  or
+>  .BR lutimes (3).
+>  .PP
+> -On Linux, the permissions of a symbolic link are not used
+> -in any operations; the permissions are always
+> -0777 (read, write, and execute for all user categories),
+>  .\" Linux does not currently implement an lchmod(2).
+> -and can't be changed.
+> -(Note that there are some "magic" symbolic links in the
+> -.I /proc
+> -directory tree\(emfor example, the
+> -.IR /proc/[pid]/fd/*
+> -files\(emthat have different permissions.)
+> +On Linux, the permissions of an ordinary symbolic link are not used in any
+> +operations; the permissions are always 0777 (read, write, and execute for all
+> +user categories), and can't be changed.
+> +.PP
+> +However, magic-links do not follow this rule. They can have a non-0777 mode,
+> +which is used for permission checks when the final
+> +component of an
+> +.BR open (2)'s
+> +path is a magic-link (see
+> +.BR path_resolution (7).)
+> +
+>  .\"
+>  .\" The
+>  .\" 4.4BSD
 
 Thanks,
 
