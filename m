@@ -2,77 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 2FE2DD2AFB
-	for <lists+linux-man@lfdr.de>; Thu, 10 Oct 2019 15:18:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 163A6D4966
+	for <lists+linux-man@lfdr.de>; Fri, 11 Oct 2019 22:44:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2388154AbfJJNR4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 10 Oct 2019 09:17:56 -0400
-Received: from mail-ot1-f66.google.com ([209.85.210.66]:34483 "EHLO
-        mail-ot1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388270AbfJJNRo (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 10 Oct 2019 09:17:44 -0400
-Received: by mail-ot1-f66.google.com with SMTP id m19so4842732otp.1
-        for <linux-man@vger.kernel.org>; Thu, 10 Oct 2019 06:17:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ub-ac-id.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=QTZIdVmjWEaVgfwGRupI4vAqJVGET3VIX90hz2R16m0=;
-        b=kbDD0ETnfb+9T5ky4afnuU19WL5B3TgSTtrvr8/78l52RfSJ/bD7cjcm8C45XsJ4wr
-         kY8zUv/ms1sLDr56E/0rqAcpldgbTirzVsO1TqrlTRt5AL5IhxusLfWbWkCQZqSDApog
-         xVZixZPZF5pv+wD9wYHHFszyBuRJ0Z0/71+2E/SGgHwnMzv66/86w9uplcX1z0grTv9p
-         1TYZ7MtIagYr+hnMPgyspL8CH18dkY1RexU6NSgr6L6/lGHi7jHNMmmGOoiBuh2azqNd
-         aWHFVXbx5cxjkbX5kJe7PAp4IU2wf06fogqa+YoO9ylF7jna+POCU+xNsHXT6R2wFQg9
-         YqYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=QTZIdVmjWEaVgfwGRupI4vAqJVGET3VIX90hz2R16m0=;
-        b=NJaGBVcGHxh/ABAEHxg0sglfirn8uHYEpOj3+IuG7eDnbS9pzeA51EK4YUe0QGxVsE
-         m8v1zMJ4b9uVD2wK5j7/SSVIRmmBuUQ0POjj2eHBaB3fQbteh5VxH7dCDCGx7/YMv021
-         FOm4CI61hXZTTEdR8xsS7JKylLGxd6H69yrgCvOsPunt9+Lver+Z7UWLDVwXMrZHH5cl
-         rSHF+UqK7q1k9pLQUJ9lVUyrYnicxo/7ZxP2HkE8e2ameoBjLJl75QiVR+DXc7DFnzeP
-         6uET5zBdir+lDOdNVm7+jn0daxqyyYhFsuvG6UlzGgF4PPYuQrpAWo6lUhW6FTo2l/Tb
-         2r/Q==
-X-Gm-Message-State: APjAAAV/bWhO32UwrJy9ocIL9JfM/hbJOUSz9YIjNds7YxIEPr5yjsw4
-        YiAO/h3mw+M3C2Q6J3ROAcEdquLbangaFLW2WnN+
-X-Google-Smtp-Source: APXvYqwe5B6z/3dUuNDQtQ0n2oQYOsdY3HQR3dkIin1gqVhu0NNteov05tKzv4DhJBBR4bjK2RG7Phnj6WUHoBrkRYc=
-X-Received: by 2002:a05:6830:1103:: with SMTP id w3mr7909437otq.312.1570713462861;
- Thu, 10 Oct 2019 06:17:42 -0700 (PDT)
+        id S1726705AbfJKUov (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Oct 2019 16:44:51 -0400
+Received: from 4.mo173.mail-out.ovh.net ([46.105.34.219]:46186 "EHLO
+        4.mo173.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726354AbfJKUov (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Oct 2019 16:44:51 -0400
+X-Greylist: delayed 1193 seconds by postgrey-1.27 at vger.kernel.org; Fri, 11 Oct 2019 16:44:50 EDT
+Received: from player746.ha.ovh.net (unknown [10.109.159.140])
+        by mo173.mail-out.ovh.net (Postfix) with ESMTP id C8EA310E3E9
+        for <linux-man@vger.kernel.org>; Fri, 11 Oct 2019 22:24:55 +0200 (CEST)
+Received: from jwilk.net (user-5-173-40-116.play-internet.pl [5.173.40.116])
+        (Authenticated sender: jwilk@jwilk.net)
+        by player746.ha.ovh.net (Postfix) with ESMTPSA id 0FF87AF8560A;
+        Fri, 11 Oct 2019 20:24:52 +0000 (UTC)
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] strptime.3: tfix
+Date:   Fri, 11 Oct 2019 22:24:50 +0200
+Message-Id: <20191011202450.2067-1-jwilk@jwilk.net>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-Received: by 2002:a4a:3346:0:0:0:0:0 with HTTP; Thu, 10 Oct 2019 06:17:41
- -0700 (PDT)
-Reply-To: sunrisefundingltd50@gmail.com
-From:   Valentina Yurina <v_yurina@ub.ac.id>
-Date:   Thu, 10 Oct 2019 14:17:41 +0100
-Message-ID: <CAKoEkvu4vc5Yn9-hzxQ5dYmUL=oO69=GSP0FC7O+CGz9Jni8+Q@mail.gmail.com>
-Subject: Apply For Financial investment at a lower rate 2%
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 16507662959519258493
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedufedrieehgdduhedtucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenuc
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Escape hyphens.
+
+Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+---
+ man3/strptime.3 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/man3/strptime.3 b/man3/strptime.3
+index 6a82b04f4..29366339e 100644
+--- a/man3/strptime.3
++++ b/man3/strptime.3
+@@ -142,7 +142,7 @@ to non-Americans, especially since
+ .B %d/%m/%y
+ is widely used in Europe.
+ The ISO 8601 standard format is
+-.BR %Y-%m-%d .)
++.BR %Y\-%m\-%d .)
+ .TP
+ .B %H
+ The hour (0\(en23).
+@@ -362,7 +362,7 @@ This leads to
+ .TP
+ .B %F
+ Equivalent to
+-.BR %Y-%m-%d ,
++.BR %Y\-%m\-%d ,
+ the ISO 8601 date format.
+ .TP
+ .B %g
 -- 
-Hello,
+2.23.0
 
-We are private lenders based in UK.
-
-Do you need a loan (credit) as soon as possible. Are you in search of
-money to solve your personal needs or finance your business venture,
-then get Your desired loan today! Consult us at Sunrise Funding Ltd.
-
-* We offer personal loan & huge capital loan at 2% interest rate to
-the general public both locally and internationally.
-* Credit amount range from $5,000.00 -- $500,000.00 and above.
-* Special $10,000,000.00 Loan offer for huge project also available.
-* Loan period of 6 months -- 10 years.
-* Loan is granted 24 hours after approval and accredited, directly in
-hand or bank account.
-
-Please note that you are advised to contact us for more details via
-the following e-mail address below;
-
-EMAIL : sunrisefundingltd50@gmail.com
-FIRM : Sunrise Funding Ltd UK.
