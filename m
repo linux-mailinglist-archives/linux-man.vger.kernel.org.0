@@ -2,61 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 869EDD4D1E
-	for <lists+linux-man@lfdr.de>; Sat, 12 Oct 2019 07:13:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 388B3D54F1
+	for <lists+linux-man@lfdr.de>; Sun, 13 Oct 2019 09:36:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726671AbfJLFNr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 12 Oct 2019 01:13:47 -0400
-Received: from 3.mo5.mail-out.ovh.net ([46.105.40.108]:55807 "EHLO
-        3.mo5.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726177AbfJLFNr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Oct 2019 01:13:47 -0400
-X-Greylist: delayed 27602 seconds by postgrey-1.27 at vger.kernel.org; Sat, 12 Oct 2019 01:13:46 EDT
-Received: from player718.ha.ovh.net (unknown [10.108.35.131])
-        by mo5.mail-out.ovh.net (Postfix) with ESMTP id ECD172529F7
-        for <linux-man@vger.kernel.org>; Fri, 11 Oct 2019 22:58:17 +0200 (CEST)
-Received: from jwilk.net (user-5-173-40-116.play-internet.pl [5.173.40.116])
-        (Authenticated sender: jwilk@jwilk.net)
-        by player718.ha.ovh.net (Postfix) with ESMTPSA id 15F84ACE3FAF;
-        Fri, 11 Oct 2019 20:58:15 +0000 (UTC)
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] mount_namespaces.7: tfix
-Date:   Fri, 11 Oct 2019 22:58:11 +0200
-Message-Id: <20191011205811.3214-1-jwilk@jwilk.net>
-X-Mailer: git-send-email 2.23.0
+        id S1728760AbfJMHgC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Oct 2019 03:36:02 -0400
+Received: from [206.81.8.171] ([206.81.8.171]:56546 "EHLO varon.localdomain"
+        rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
+        id S1728198AbfJMHgB (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sun, 13 Oct 2019 03:36:01 -0400
+Received: from 127.0.0.1 (varon [127.0.0.1])
+        by varon.localdomain (Postfix) with SMTP id 290C355D635;
+        Fri, 11 Oct 2019 10:21:17 +0000 (UTC)
+Received: from (HELO 1iqb) [176.71.184.19] by 127.0.0.1 for <linhao63@jlonline.com>; Fri, 11 Oct 2019 03:19:21 -0700
+Message-ID: <4-806$5o5$$r$as6q109r731c@hkg.so2qo8>
+From:   "Mr Barrister Hans Erich" <dave@dbsoundfactory.com>
+Reply-To: "Mr Barrister Hans Erich" <dave@dbsoundfactory.com>
+To:     linhao63@jlonline.com
+Subject: RE:PERSONAL LETTER FROM MRS RASHIA AMIRA ??
+Date:   Fri, 11 Oct 19 03:19:21 GMT
+X-Mailer: Microsoft Outlook IMO, Build 9.0.2416 (9.0.2910.0)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 17071175864565421949
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedufedrieehgdduheejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenuc
+Content-Type: multipart/alternative;
+        boundary="C.F387.BA..3D"
+X-Priority: 3
+X-MSMail-Priority: Normal
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Remove duplicated word.
 
-Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
----
- man7/mount_namespaces.7 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--C.F387.BA..3D
+Content-Type: text/plain;
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/man7/mount_namespaces.7 b/man7/mount_namespaces.7
-index 2447e3067..5c5d3f6c0 100644
---- a/man7/mount_namespaces.7
-+++ b/man7/mount_namespaces.7
-@@ -1097,7 +1097,7 @@ An application that creates a new mount namespace directly using
- or
- .BR unshare (2)
- may desire to prevent propagation of mount events to other mount namespaces
--(as is is done by
-+(as is done by
- .BR unshare (1)).
- This can be done by changing the propagation type of
- mount points in the new namespace to either
--- 
-2.23.0
+Greetings
+
+My name is Barrister Hans Erich.
+
+I have a client who is interested to invest in your country, she is a well=
+ known politician in her country and deserve a lucrative investment partne=
+rship with you outside her country without any delay   Please can you mana=
+ge such investment please Kindly reply for further details.
+
+Your full nameS -----------
+
+
+Your urgent response will be appreciated
+
+Thank you and God bless you.
+
+Barrister Hans Erich
+
+Yours sincerely,
+Barrister Hans Erich
+
+--C.F387.BA..3D--
 
