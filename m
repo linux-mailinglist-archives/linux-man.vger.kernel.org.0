@@ -2,61 +2,50 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 388B3D54F1
-	for <lists+linux-man@lfdr.de>; Sun, 13 Oct 2019 09:36:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A4295D572F
+	for <lists+linux-man@lfdr.de>; Sun, 13 Oct 2019 20:09:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728760AbfJMHgC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Oct 2019 03:36:02 -0400
-Received: from [206.81.8.171] ([206.81.8.171]:56546 "EHLO varon.localdomain"
-        rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1728198AbfJMHgB (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sun, 13 Oct 2019 03:36:01 -0400
-Received: from 127.0.0.1 (varon [127.0.0.1])
-        by varon.localdomain (Postfix) with SMTP id 290C355D635;
-        Fri, 11 Oct 2019 10:21:17 +0000 (UTC)
-Received: from (HELO 1iqb) [176.71.184.19] by 127.0.0.1 for <linhao63@jlonline.com>; Fri, 11 Oct 2019 03:19:21 -0700
-Message-ID: <4-806$5o5$$r$as6q109r731c@hkg.so2qo8>
-From:   "Mr Barrister Hans Erich" <dave@dbsoundfactory.com>
-Reply-To: "Mr Barrister Hans Erich" <dave@dbsoundfactory.com>
-To:     linhao63@jlonline.com
-Subject: RE:PERSONAL LETTER FROM MRS RASHIA AMIRA ??
-Date:   Fri, 11 Oct 19 03:19:21 GMT
-X-Mailer: Microsoft Outlook IMO, Build 9.0.2416 (9.0.2910.0)
+        id S1727909AbfJMSJQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Oct 2019 14:09:16 -0400
+Received: from smtpcmd0641.aruba.it ([62.149.156.41]:48747 "EHLO
+        smtpcmd0641.aruba.it" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727141AbfJMSJQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Oct 2019 14:09:16 -0400
+X-Greylist: delayed 426 seconds by postgrey-1.27 at vger.kernel.org; Sun, 13 Oct 2019 14:09:16 EDT
+Received: from habitatbisceglie.it ([10.10.10.162])
+        by smtpcmd06.ad.aruba.it with bizsmtp
+        id D60u2100A3VlxUi0160uDB; Sun, 13 Oct 2019 20:02:07 +0200
+Date:   Sun, 13 Oct 2019 20:00:53 +0200
+Message-Id: <PZBRDI$A28E32348FA5034FBB1CBEE1173ABBB8@habitatbisceglie.it>
+Subject: hi
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
-        boundary="C.F387.BA..3D"
-X-Priority: 3
-X-MSMail-Priority: Normal
+X-Sensitivity: 3
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From:   =?utf-8?b?QW5uYWJlbGxlIEl2w6Fu?= <michelangelo@habitatbisceglie.it>
+X-XaM3-API-Version: V4(R2)
+X-SenderIP: 41.202.83.148
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aruba.it; s=a1;
+        t=1570989727; bh=ySzXIn+eErCySQoSJTJE/WB3efIH28D446d2TB/epU8=;
+        h=Date:Subject:MIME-Version:Content-Type:From;
+        b=VKMapL+cWlxthwWU3tszvOtR5EsWZBy+Dv2AmUKfqdLFvdqE1pZJQlxxFYUizciSG
+         4mgDboCyqF+z0clECtRZewnW2ZSfyiEGKhYxwNp0nCSSQUpmzv3Gx8FKwdAgE1scY8
+         zDQlYwz7RCtrTld5Pbo3h787o1SVBeCdtlAOTKcoSa/+8IEdKDnpgaPdqZNNNLRsyG
+         yKUc3xZXgP6in60T3X3kS+Yd2sCxtmbKZ+X36J5kWkWQcOHtoiYFBCnQo3/oWKJUzF
+         oDt+fFmtZXjdsplubnWxgRs2BU1NQi89zjaBP2Z6w5V+f98GzgRBtA0HbicT+TZaJe
+         SmlrwKfbe1A+g==
+To:     unlisted-recipients:; (no To-header on input)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-
---C.F387.BA..3D
-Content-Type: text/plain;
-Content-Transfer-Encoding: quoted-printable
-
-Greetings
-
-My name is Barrister Hans Erich.
-
-I have a client who is interested to invest in your country, she is a well=
- known politician in her country and deserve a lucrative investment partne=
-rship with you outside her country without any delay   Please can you mana=
-ge such investment please Kindly reply for further details.
-
-Your full nameS -----------
-
-
-Your urgent response will be appreciated
-
-Thank you and God bless you.
-
-Barrister Hans Erich
-
-Yours sincerely,
-Barrister Hans Erich
-
---C.F387.BA..3D--
-
+=0ADear,=0A=0A=0APlease forgive me for stressing you with my predicaments=
+ as I know that this letter may come to you as big surprise.I came across=
+ your E-mail from my personal search afterward I decided to email you dir=
+ectly believing that you will be honest to fulfill my final wish before i=
+ die.=0A=0AI have sum of Four Million Five Hundred Thousand Euro with my =
+late husband, I want to give it out to orphanages homes and Charity organ=
+izations as a vow.=0A=0APlease let me know if I can trust you on this to =
+carry out this favour for me.  I look forward to your prompt reply for mo=
+re details =0A=0AThanks and God bless you.=0A=0AMrs. Annabelle Iv=C3=A1n
