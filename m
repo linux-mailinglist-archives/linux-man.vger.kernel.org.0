@@ -2,50 +2,92 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A4295D572F
-	for <lists+linux-man@lfdr.de>; Sun, 13 Oct 2019 20:09:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 080ABD58D2
+	for <lists+linux-man@lfdr.de>; Mon, 14 Oct 2019 01:40:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727909AbfJMSJQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Oct 2019 14:09:16 -0400
-Received: from smtpcmd0641.aruba.it ([62.149.156.41]:48747 "EHLO
-        smtpcmd0641.aruba.it" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727141AbfJMSJQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Oct 2019 14:09:16 -0400
-X-Greylist: delayed 426 seconds by postgrey-1.27 at vger.kernel.org; Sun, 13 Oct 2019 14:09:16 EDT
-Received: from habitatbisceglie.it ([10.10.10.162])
-        by smtpcmd06.ad.aruba.it with bizsmtp
-        id D60u2100A3VlxUi0160uDB; Sun, 13 Oct 2019 20:02:07 +0200
-Date:   Sun, 13 Oct 2019 20:00:53 +0200
-Message-Id: <PZBRDI$A28E32348FA5034FBB1CBEE1173ABBB8@habitatbisceglie.it>
-Subject: hi
+        id S1728691AbfJMXkU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Oct 2019 19:40:20 -0400
+Received: from lucaswerkmeister.de ([94.130.58.99]:48276 "EHLO
+        lucaswerkmeister.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728413AbfJMXkU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Oct 2019 19:40:20 -0400
+X-Greylist: delayed 429 seconds by postgrey-1.27 at vger.kernel.org; Sun, 13 Oct 2019 19:40:18 EDT
+Received: from theoden.lucaswerkmeister.de.home (unknown [IPv6:2a02:8109:92c0:22bb:d412:2b0:339e:ab21])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+        (No client certificate requested)
+        (Authenticated sender: mail@lucaswerkmeister.de)
+        by lucaswerkmeister.de (Postfix) with ESMTPSA id C5A408439A8;
+        Mon, 14 Oct 2019 01:33:05 +0200 (CEST)
+Authentication-Results: lucaswerkmeister.de; dmarc=fail (p=none dis=none) header.from=lucaswerkmeister.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lucaswerkmeister.de;
+        s=mail; t=1571009585;
+        bh=NiIfwU12TER5EVUOqsovqTq7G+CyeabrSyinz+vLrlA=;
+        h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type:
+         Content-Transfer-Encoding:From:Reply-To:Subject:Date:To:Cc:
+         In-Reply-To:References:Message-Id:Sender:Content-Type:
+         Content-Transfer-Encoding:Content-Disposition:Mime-Version;
+        b=SqXD9uooJD9HRRkNusyEvV5w7JNKVtAh3PvNNouchZiT1NRDzcDzf99p06bihp78g
+         TE/WG8Tl4Ink/zbFwovmANtDdGJdbdy95HEHVwLlujulVI2E+k85aZAjtAUXyx5oCI
+         89oqpL2Y8j+/Oe9kh5N7fsiuRzOBjZ32qSZauDA0=
+From:   Lucas Werkmeister <mail@lucaswerkmeister.de>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org,
+        Lucas Werkmeister <mail@lucaswerkmeister.de>
+Subject: [PATCH] proc.5: Add /proc/[pid]/loginuid
+Date:   Mon, 14 Oct 2019 01:32:53 +0200
+Message-Id: <20191013233253.110036-1-mail@lucaswerkmeister.de>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-X-Sensitivity: 3
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From:   =?utf-8?b?QW5uYWJlbGxlIEl2w6Fu?= <michelangelo@habitatbisceglie.it>
-X-XaM3-API-Version: V4(R2)
-X-SenderIP: 41.202.83.148
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aruba.it; s=a1;
-        t=1570989727; bh=ySzXIn+eErCySQoSJTJE/WB3efIH28D446d2TB/epU8=;
-        h=Date:Subject:MIME-Version:Content-Type:From;
-        b=VKMapL+cWlxthwWU3tszvOtR5EsWZBy+Dv2AmUKfqdLFvdqE1pZJQlxxFYUizciSG
-         4mgDboCyqF+z0clECtRZewnW2ZSfyiEGKhYxwNp0nCSSQUpmzv3Gx8FKwdAgE1scY8
-         zDQlYwz7RCtrTld5Pbo3h787o1SVBeCdtlAOTKcoSa/+8IEdKDnpgaPdqZNNNLRsyG
-         yKUc3xZXgP6in60T3X3kS+Yd2sCxtmbKZ+X36J5kWkWQcOHtoiYFBCnQo3/oWKJUzF
-         oDt+fFmtZXjdsplubnWxgRs2BU1NQi89zjaBP2Z6w5V+f98GzgRBtA0HbicT+TZaJe
-         SmlrwKfbe1A+g==
-To:     unlisted-recipients:; (no To-header on input)
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-=0ADear,=0A=0A=0APlease forgive me for stressing you with my predicaments=
- as I know that this letter may come to you as big surprise.I came across=
- your E-mail from my personal search afterward I decided to email you dir=
-ectly believing that you will be honest to fulfill my final wish before i=
- die.=0A=0AI have sum of Four Million Five Hundred Thousand Euro with my =
-late husband, I want to give it out to orphanages homes and Charity organ=
-izations as a vow.=0A=0APlease let me know if I can trust you on this to =
-carry out this favour for me.  I look forward to your prompt reply for mo=
-re details =0A=0AThanks and God bless you.=0A=0AMrs. Annabelle Iv=C3=A1n
+Signed-off-by: Lucas Werkmeister <mail@lucaswerkmeister.de>
+---
+
+Notes:
+    On my system, this file is used by logname(1), but I decided against
+    mentioning the command, since it’s an indirect relation at best (via
+    getlogin(3)) that’s not mentioned in other documentation either.
+
+ man5/proc.5 | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
+
+diff --git a/man5/proc.5 b/man5/proc.5
+index dd05db6c6..25a971afc 100644
+--- a/man5/proc.5
++++ b/man5/proc.5
+@@ -1190,9 +1190,23 @@ this file is protected to allow reading only by the real UID of the process.
+ Since Linux 2.6.36,
+ .\" commit 3036e7b490bf7878c6dae952eec5fb87b1106589
+ this file is readable by all users on the system.
+-.\" FIXME Describe /proc/[pid]/loginuid
+-.\"       Added in 2.6.11; updating requires CAP_AUDIT_CONTROL
+-.\"       CONFIG_AUDITSYSCALL
++.TP
++.IR /proc/[pid]/loginuid " (since Linux 2.6.11)"
++This file contains the login user ID of the process,
++which is typically set by
++.BR pam_loginuid (8)
++during the login process and not influenced by later user changes
++such as through commands like
++.BR su (1)
++or
++.BR sudo (8).
++A process must be privileged
++.RB ( CAP_AUDIT_CONTROL )
++to update this file.
++This file is present only if the kernel was configured with
++.BR CONFIG_AUDIT " (since Linux 5.1),"
++previously
++.BR CONFIG_AUDITSYSCALL .
+ .TP
+ .IR /proc/[pid]/map_files/ " (since kernel 3.3)
+ .\" commit 640708a2cff7f81e246243b0073c66e6ece7e53e
+-- 
+2.23.0
+
