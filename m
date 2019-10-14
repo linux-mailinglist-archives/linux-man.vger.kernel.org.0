@@ -2,92 +2,153 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 080ABD58D2
-	for <lists+linux-man@lfdr.de>; Mon, 14 Oct 2019 01:40:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A684AD6956
+	for <lists+linux-man@lfdr.de>; Mon, 14 Oct 2019 20:19:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728691AbfJMXkU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Oct 2019 19:40:20 -0400
-Received: from lucaswerkmeister.de ([94.130.58.99]:48276 "EHLO
-        lucaswerkmeister.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728413AbfJMXkU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Oct 2019 19:40:20 -0400
-X-Greylist: delayed 429 seconds by postgrey-1.27 at vger.kernel.org; Sun, 13 Oct 2019 19:40:18 EDT
-Received: from theoden.lucaswerkmeister.de.home (unknown [IPv6:2a02:8109:92c0:22bb:d412:2b0:339e:ab21])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-        (No client certificate requested)
-        (Authenticated sender: mail@lucaswerkmeister.de)
-        by lucaswerkmeister.de (Postfix) with ESMTPSA id C5A408439A8;
-        Mon, 14 Oct 2019 01:33:05 +0200 (CEST)
-Authentication-Results: lucaswerkmeister.de; dmarc=fail (p=none dis=none) header.from=lucaswerkmeister.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lucaswerkmeister.de;
-        s=mail; t=1571009585;
-        bh=NiIfwU12TER5EVUOqsovqTq7G+CyeabrSyinz+vLrlA=;
-        h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type:
-         Content-Transfer-Encoding:From:Reply-To:Subject:Date:To:Cc:
-         In-Reply-To:References:Message-Id:Sender:Content-Type:
-         Content-Transfer-Encoding:Content-Disposition:Mime-Version;
-        b=SqXD9uooJD9HRRkNusyEvV5w7JNKVtAh3PvNNouchZiT1NRDzcDzf99p06bihp78g
-         TE/WG8Tl4Ink/zbFwovmANtDdGJdbdy95HEHVwLlujulVI2E+k85aZAjtAUXyx5oCI
-         89oqpL2Y8j+/Oe9kh5N7fsiuRzOBjZ32qSZauDA0=
-From:   Lucas Werkmeister <mail@lucaswerkmeister.de>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org,
-        Lucas Werkmeister <mail@lucaswerkmeister.de>
-Subject: [PATCH] proc.5: Add /proc/[pid]/loginuid
-Date:   Mon, 14 Oct 2019 01:32:53 +0200
-Message-Id: <20191013233253.110036-1-mail@lucaswerkmeister.de>
-X-Mailer: git-send-email 2.23.0
+        id S1730596AbfJNSTi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 14 Oct 2019 14:19:38 -0400
+Received: from escher.lru.li ([217.146.132.159]:57616 "EHLO escher.lru.li"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1729950AbfJNSTh (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 14 Oct 2019 14:19:37 -0400
+X-Greylist: delayed 532 seconds by postgrey-1.27 at vger.kernel.org; Mon, 14 Oct 2019 14:19:37 EDT
+Received: from dell12.lru.li (unknown [IPv6:2001:1a80:303a:0:faca:b8ff:fe50:d072])
+        (Authenticated sender: georg)
+        by escher.lru.li (Postfix) with ESMTPSA id 68EE7811ADE5;
+        Mon, 14 Oct 2019 20:10:43 +0200 (CEST)
+Received: by dell12.lru.li (Postfix, from userid 1000)
+        id 1E24C33F102; Mon, 14 Oct 2019 20:10:43 +0200 (CEST)
+Date:   Mon, 14 Oct 2019 20:10:43 +0200
+From:   Georg Sauthoff <mail@gms.tf>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: Bugs in futex(2) example - fix for deadlock/busy-waiting and output
+Message-ID: <20191014181043.GA21106@dell12.lru.li>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.12.1 (2019-06-15)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Lucas Werkmeister <mail@lucaswerkmeister.de>
----
+Hello,
 
-Notes:
-    On my system, this file is used by logname(1), but I decided against
-    mentioning the command, since it’s an indirect relation at best (via
-    getlogin(3)) that’s not mentioned in other documentation either.
+I've noticed that the example in the current
+http://man7.org/linux/man-pages/man2/futex.2.html page has 2 issues:
 
- man5/proc.5 | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+1) The quoted output mismatches the actual output, i.e. the parent/child
+order is reversed.
 
-diff --git a/man5/proc.5 b/man5/proc.5
-index dd05db6c6..25a971afc 100644
---- a/man5/proc.5
-+++ b/man5/proc.5
-@@ -1190,9 +1190,23 @@ this file is protected to allow reading only by the real UID of the process.
- Since Linux 2.6.36,
- .\" commit 3036e7b490bf7878c6dae952eec5fb87b1106589
- this file is readable by all users on the system.
--.\" FIXME Describe /proc/[pid]/loginuid
--.\"       Added in 2.6.11; updating requires CAP_AUDIT_CONTROL
--.\"       CONFIG_AUDITSYSCALL
-+.TP
-+.IR /proc/[pid]/loginuid " (since Linux 2.6.11)"
-+This file contains the login user ID of the process,
-+which is typically set by
-+.BR pam_loginuid (8)
-+during the login process and not influenced by later user changes
-+such as through commands like
-+.BR su (1)
-+or
-+.BR sudo (8).
-+A process must be privileged
-+.RB ( CAP_AUDIT_CONTROL )
-+to update this file.
-+This file is present only if the kernel was configured with
-+.BR CONFIG_AUDIT " (since Linux 5.1),"
-+previously
-+.BR CONFIG_AUDITSYSCALL .
- .TP
- .IR /proc/[pid]/map_files/ " (since kernel 3.3)
- .\" commit 640708a2cff7f81e246243b0073c66e6ece7e53e
+Man page output:
+
+    $ ./futex_demo
+    Parent (18534) 0
+    Child  (18535) 0
+    Parent (18534) 1
+    Child  (18535) 1
+    [..]
+
+Actual output:
+
+    Child  (21215) 0
+    Parent (21214) 0
+    Child  (21215) 1
+    Parent (21214) 1
+    [..]
+
+Fix:
+
+--- futex_demo.c.orig	2019-10-14 19:36:23.292238650 +0200
++++ futex_demo.c	2019-10-14 19:36:58.599464636 +0200
+@@ -108,8 +108,8 @@
+     futex1 = &iaddr[0];
+     futex2 = &iaddr[1];
+ 
+-    *futex1 = 0;        /* State: unavailable */
+-    *futex2 = 1;        /* State: available */
++    *futex1 = 1;        /* State: unavailable */
++    *futex2 = 0;        /* State: available */
+ 
+     /* Create a child process that inherits the shared anonymous
+	mapping */
+
+Note that this also fixes the comments.
+
+2) As is, the fwait() either busy-waits or waits forever:
+
+    static void
+    fwait(int *futexp)
+    {
+	int s;
+	while (1) {
+
+	    /* Is the futex available? */
+	    const int zero = 0;
+	    if (atomic_compare_exchange_strong(futexp, &zero, 1))
+		break;      /* Yes */
+
+	    /* Futex is not available; wait */
+
+	    s = futex(futexp, FUTEX_WAIT, 0, NULL, NULL, 0);
+
+            // XXX => because 3rd arg (val) is 0 and not 1 this call
+            //        likely return s==-1 and sets errno==EAGAIN
+            //        (in our context)
+
+	    if (s == -1 && errno != EAGAIN)
+		errExit("futex-FUTEX_WAIT");
+	}
+    }
+
+See also:
+
+    $ strace -o log -f ./futex_demo
+    $ grep 'futex.*'EAGAIN log -c
+    17
+
+The number varies, of course.
+
+Depending on the scheduling, this also may lead to a deadlock - most easily
+reproducible when running it multiple times under strace, e.g.:
+
+    $ strace -o log -f ./futex_demo
+    Parent (21488) 0
+    Child  (21489) 0
+    ^C
+    $ 
+
+Reason: There is a race between atomic_compare_exchange_strong() and
+futex(.., FUTEX_WAIT, ..) where the first observes the futex value as 1
+but the second as 0.
+
+
+Fix: set val argument of futex() to 1, i.e. the same value that failed to be
+set atomically:
+
+
+--- futex_demo.c.orig	2019-10-14 19:36:23.292238650 +0200
++++ futex_demo.c	2019-10-14 19:49:02.696404149 +0200
+@@ -60,7 +60,7 @@
+ 
+         /* Futex is not available; wait */
+ 
+-        s = futex(futexp, FUTEX_WAIT, 0, NULL, NULL, 0);
++        s = futex(futexp, FUTEX_WAIT, 1, NULL, NULL, 0);
+         if (s == -1 && errno != EAGAIN)
+             errExit("futex-FUTEX_WAIT");
+     }
+
+With that: no deadlocks and:
+
+	$strace -o log -f ./futex_demo
+	$ grep 'futex.*'EAGAIN log -c
+	0
+
+
+Best regards
+Georg
 -- 
-2.23.0
-
+Hofstadter's Law: "It always takes longer than you think it will
+take, even when you take into account Hofstadter's Law"
