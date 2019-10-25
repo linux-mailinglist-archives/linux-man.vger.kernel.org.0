@@ -2,79 +2,155 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id BBDF4E520D
-	for <lists+linux-man@lfdr.de>; Fri, 25 Oct 2019 19:09:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C23DDE5286
+	for <lists+linux-man@lfdr.de>; Fri, 25 Oct 2019 19:45:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2505796AbfJYRJB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 25 Oct 2019 13:09:01 -0400
-Received: from youngberry.canonical.com ([91.189.89.112]:51551 "EHLO
-        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2505797AbfJYRHa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 25 Oct 2019 13:07:30 -0400
-Received: from [213.220.153.21] (helo=wittgenstein)
-        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
-        (Exim 4.86_2)
-        (envelope-from <christian.brauner@ubuntu.com>)
-        id 1iO33g-0000qH-Bv; Fri, 25 Oct 2019 17:07:28 +0000
-Date:   Fri, 25 Oct 2019 19:07:27 +0200
-From:   Christian Brauner <christian.brauner@ubuntu.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Christian Brauner <christian@brauner.io>,
-        lkml <linux-kernel@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Kees Cook <keescook@chromium.org>,
-        Florian Weimer <fweimer@redhat.com>,
-        Oleg Nesterov <oleg@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
-        David Howells <dhowells@redhat.com>,
-        Pavel Emelyanov <xemul@virtuozzo.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Adrian Reber <adrian@lisas.de>,
-        Andrei Vagin <avagin@gmail.com>,
-        Linux API <linux-api@vger.kernel.org>,
-        Jann Horn <jannh@google.com>
-Subject: Re: For review: documentation of clone3() system call
-Message-ID: <20191025170726.rqsquw4v4cuhduek@wittgenstein>
-References: <CAKgNAkjo2WHq+zESU1iuCHJJ0x-fTNrakS9-d1+BjzUuV2uf2Q@mail.gmail.com>
+        id S2387847AbfJYRpa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 25 Oct 2019 13:45:30 -0400
+Received: from georg.so ([89.238.75.224]:37586 "EHLO georg.so"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S2387597AbfJYRp3 (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 25 Oct 2019 13:45:29 -0400
+X-Greylist: delayed 597 seconds by postgrey-1.27 at vger.kernel.org; Fri, 25 Oct 2019 13:45:29 EDT
+Received: from dell12.lru.li (unknown [IPv6:2001:1a80:303a:0:faca:b8ff:fe50:d072])
+        (Authenticated sender: georg)
+        by georg.so (Postfix) with ESMTPSA id BC7514AE910;
+        Fri, 25 Oct 2019 19:35:26 +0200 (CEST)
+Received: by dell12.lru.li (Postfix, from userid 1000)
+        id 1BEFD33F3C6; Fri, 25 Oct 2019 19:35:26 +0200 (CEST)
+Date:   Fri, 25 Oct 2019 19:35:26 +0200
+From:   Georg Sauthoff <mail@gms.tf>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: Re: Bugs in futex(2) example - fix for deadlock/busy-waiting and
+ output
+Message-ID: <20191025173526.GA32433@dell12.lru.li>
+References: <20191014181043.GA21106@dell12.lru.li>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAKgNAkjo2WHq+zESU1iuCHJJ0x-fTNrakS9-d1+BjzUuV2uf2Q@mail.gmail.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <20191014181043.GA21106@dell12.lru.li>
+User-Agent: Mutt/1.12.1 (2019-06-15)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Oct 25, 2019 at 06:59:31PM +0200, Michael Kerrisk (man-pages) wrote:
-> Hello Christian and all,
-> 
-> I've made a first shot at adding documentation for clone3(). You can
-> see the diff here:
-> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=faa0e55ae9e490d71c826546bbdef954a1800969
-> 
-> In the end, I decided that the most straightforward approach was to
-> add the documentation as part of the existing clone(2) page. This has
-> the advantage of avoiding duplication of information across two pages,
-> and perhaps also makes it easier to see the commonality of the two
-> APIs.
-> 
-> Because the new text is integrated into the existing page, I think it
-> makes most sense to just show that page text for review purposes. I
-> welcome input on the below.
-> 
-> The notable changes are:
-> * In the first part of the page, up to and including the paragraph
-> with the subheading "The flags bit mask"
-> * Minor changes in the description of CLONE_CHILD_CLEARTID,
-> CLONE_CHILD_SETTID, CLONE_PARENT_SETTID, and CLONE_PIDFD, to reflect
-> the argument differences between clone() and clone2()
-> 
-> Most of the resy of page is unchanged.
-> 
-> I welcome fixes, suggestions for improvements, etc.
+On Mon, Oct 14, 2019 at 08:10:43PM +0200, Georg Sauthoff wrote:
 
-Thank you Michael, for doing this. I will hopefully get around to
-reviewing this soon but it might take a few days (latest after next week
-:( because of OSS/LSS).
+Hello,
 
-Christian
+> I've noticed that the example in the current
+> http://man7.org/linux/man-pages/man2/futex.2.html page has 2 issues:
+[output,deadlock]
+
+meanwhile, I've updated some more outdated comments and fixed const
+correctness issues.
+
+Example:
+
+    -        const int zero = 0;
+    -        if (atomic_compare_exchange_strong(futexp, &zero, 1))
+    -            break;      /* Yes */
+    +        int expected = 0;
+    +        if (atomic_compare_exchange_strong(futexp, &expected, 1))
+    +            break;
+
+Since atomic_compare_exchange_strong() overwrites the expected value if
+it doesn't match, declaring it as const yields undefined behavior.
+
+Also, a reader unfamilar with atomic_compare_exchange() might wrongly
+deduce that it doesn't modify its second argument.
+
+You can find the complete modified example online:
+https://gist.github.com/gsauthof/6eb6c648e483005191c37f86e759906e
+
+And inline the updated patch:
+
+--- futex_demo.c.orig	2019-10-14 19:36:23.292238650 +0200
++++ futex_demo.c	2019-10-20 10:13:32.268350668 +0200
+@@ -36,38 +36,46 @@
+ }
+ 
+ /* Acquire the futex pointed to by 'futexp': wait for its value to
+-   become 1, and then set the value to 0. */
++   become 0, and then set the value to 1. */
+ 
+ static void
+ fwait(int *futexp)
+ {
+     int s;
+ 
+-    /* atomic_compare_exchange_strong(ptr, oldval, newval)
+-       atomically performs the equivalent of:
++    /* atomic_compare_exchange_strong atomically performs
++       the equivalent of:
+ 
+-           if (*ptr == *oldval)
+-               *ptr = newval;
++       bool cmpexch(int *val, int *exp, int newval)
++       {
++           if (*val == *exp) {
++               *val = newval;
++               return true;
++           } else {
++               *exp = *val;
++               return false;
++           }
++       }
+ 
+-       It returns true if the test yielded true and *ptr was updated. */
++       */
+ 
+     while (1) {
+ 
+         /* Is the futex available? */
+-        const int zero = 0;
+-        if (atomic_compare_exchange_strong(futexp, &zero, 1))
+-            break;      /* Yes */
++        int expected = 0;
++        if (atomic_compare_exchange_strong(futexp, &expected, 1))
++            break;
+ 
+         /* Futex is not available; wait */
+ 
+-        s = futex(futexp, FUTEX_WAIT, 0, NULL, NULL, 0);
++        s = futex(futexp, FUTEX_WAIT, 1, NULL, NULL, 0);
+         if (s == -1 && errno != EAGAIN)
+             errExit("futex-FUTEX_WAIT");
+     }
+ }
+ 
+ /* Release the futex pointed to by 'futexp': if the futex currently
+-   has the value 0, set its value to 1 and the wake any futex waiters,
++   has the value 1, set its value to 0 and the wake any futex waiters,
+    so that if the peer is blocked in fpost(), it can proceed. */
+ 
+ static void
+@@ -77,8 +85,8 @@
+ 
+     /* atomic_compare_exchange_strong() was described in comments above */
+ 
+-    const int one = 1;
+-    if (atomic_compare_exchange_strong(futexp, &one, 0)) {
++    int expected = 1;
++    if (atomic_compare_exchange_strong(futexp, &expected, 0)) {
+         s = futex(futexp, FUTEX_WAKE, 1, NULL, NULL, 0);
+         if (s  == -1)
+             errExit("futex-FUTEX_WAKE");
+@@ -108,8 +116,8 @@
+     futex1 = &iaddr[0];
+     futex2 = &iaddr[1];
+ 
+-    *futex1 = 0;        /* State: unavailable */
+-    *futex2 = 1;        /* State: available */
++    *futex1 = 1;        /* State: unavailable */
++    *futex2 = 0;        /* State: available */
+ 
+     /* Create a child process that inherits the shared anonymous
+        mapping */
+
+
+Best regards
+Georg
+
