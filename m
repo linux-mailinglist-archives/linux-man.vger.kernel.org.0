@@ -2,155 +2,102 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id C23DDE5286
-	for <lists+linux-man@lfdr.de>; Fri, 25 Oct 2019 19:45:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 308FCE5813
+	for <lists+linux-man@lfdr.de>; Sat, 26 Oct 2019 04:28:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2387847AbfJYRpa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 25 Oct 2019 13:45:30 -0400
-Received: from georg.so ([89.238.75.224]:37586 "EHLO georg.so"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S2387597AbfJYRp3 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 25 Oct 2019 13:45:29 -0400
-X-Greylist: delayed 597 seconds by postgrey-1.27 at vger.kernel.org; Fri, 25 Oct 2019 13:45:29 EDT
-Received: from dell12.lru.li (unknown [IPv6:2001:1a80:303a:0:faca:b8ff:fe50:d072])
-        (Authenticated sender: georg)
-        by georg.so (Postfix) with ESMTPSA id BC7514AE910;
-        Fri, 25 Oct 2019 19:35:26 +0200 (CEST)
-Received: by dell12.lru.li (Postfix, from userid 1000)
-        id 1BEFD33F3C6; Fri, 25 Oct 2019 19:35:26 +0200 (CEST)
-Date:   Fri, 25 Oct 2019 19:35:26 +0200
-From:   Georg Sauthoff <mail@gms.tf>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Subject: Re: Bugs in futex(2) example - fix for deadlock/busy-waiting and
- output
-Message-ID: <20191025173526.GA32433@dell12.lru.li>
-References: <20191014181043.GA21106@dell12.lru.li>
+        id S1726069AbfJZC2N (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 25 Oct 2019 22:28:13 -0400
+Received: from mail-pf1-f178.google.com ([209.85.210.178]:32791 "EHLO
+        mail-pf1-f178.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725955AbfJZC2N (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 25 Oct 2019 22:28:13 -0400
+Received: by mail-pf1-f178.google.com with SMTP id c184so2927770pfb.0
+        for <linux-man@vger.kernel.org>; Fri, 25 Oct 2019 19:28:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=7Grl2S/CEAinky1HXtUiL67iPCFSPJILb0aonUtYb/4=;
+        b=UmXXBTxhxV3+tJgXa3+pcJ3fLvkPN/D6BqAOz2beNNuQRgi7T2ZfHxroMgyQ7p+GGL
+         zWi8qwaoY1TLLJSNP8Hlw0sQZW0yW3zS+UVtrirTBhyNdmHhlImGCBTUxUZoPoCem+Ss
+         0QWUWeJXV7kGnuUU7xz36suzIWrpfs0KUQG//eSnQ7eD7xsdXsGQ7s6HIar0A81lk79t
+         0drPe4Nky+hait6Vo824pA0a+7I3HYmqxmNHLE7i5xcR1gkgspwzs/5v5JIFUNMrRc4O
+         tynK2oQVgYNf0SBiPwvgRG6QXYOp1LbZp968z8kbE6pjj2lwjFSoLN1tJ8eVvA4Ypitj
+         iVOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=7Grl2S/CEAinky1HXtUiL67iPCFSPJILb0aonUtYb/4=;
+        b=JMwmgXFx1jnIW+s0zGhYDDZL77oqf1wlp2Cu/SMVJzpGQt/1bS9UpEjaRhNTjsZUrq
+         xvm5AHYgGMzquNhwRqdRufVJUz2UA9n9UIQfwNqfCc3CkEyzc4N+htKixq+WBdBX17ot
+         Ed3+zBVdcfCGXgNU0cWLNzPSSJ/Eu49V5tFuuTTq9wkKcw3F2wLKHQkv4ngPOGQZeyHH
+         Sq1JesDZ6Q3nk+iGE+zAjJavj0brZnlydlK4JZ/dYYQE4+vPe5RnNmHX3vVdecnCP71H
+         WYse0iYbgbnoEs4Pow/rzeZAS3jslqxklTh9JunNdQAw8SUpJdmxID5Y0jT0QOCpDqlM
+         +BOw==
+X-Gm-Message-State: APjAAAWztaRF02xSg8b7l3uniRVrjOtEQHVnD9o2kl04Nww72UExyxqz
+        dvFgPz+Xqe5btyxcKdY/2n4=
+X-Google-Smtp-Source: APXvYqyp0jiJrpcWGdfqGmD0qVSXyrjJVdDJ3pUeAakmSwCXl3pJVpArUpPahyEXgsfZYCKyJtblRw==
+X-Received: by 2002:a17:90a:fd8d:: with SMTP id cx13mr7924115pjb.66.1572056892555;
+        Fri, 25 Oct 2019 19:28:12 -0700 (PDT)
+Received: from localhost.localdomain ([1.144.212.230])
+        by smtp.gmail.com with ESMTPSA id z29sm4209938pff.23.2019.10.25.19.28.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Oct 2019 19:28:11 -0700 (PDT)
+Date:   Sat, 26 Oct 2019 13:28:07 +1100
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Subject: Re: For review: documentation of clone3() system call
+Message-ID: <20191026022805.nwdjdnteapbudnyi@localhost.localdomain>
+References: <CAKgNAkjo2WHq+zESU1iuCHJJ0x-fTNrakS9-d1+BjzUuV2uf2Q@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="6dxis2igztl3btsm"
 Content-Disposition: inline
-In-Reply-To: <20191014181043.GA21106@dell12.lru.li>
-User-Agent: Mutt/1.12.1 (2019-06-15)
+In-Reply-To: <CAKgNAkjo2WHq+zESU1iuCHJJ0x-fTNrakS9-d1+BjzUuV2uf2Q@mail.gmail.com>
+User-Agent: NeoMutt/20180716
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Oct 14, 2019 at 08:10:43PM +0200, Georg Sauthoff wrote:
 
-Hello,
+--6dxis2igztl3btsm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> I've noticed that the example in the current
-> http://man7.org/linux/man-pages/man2/futex.2.html page has 2 issues:
-[output,deadlock]
+At 2019-10-25T18:59:31+0200, Michael Kerrisk (man-pages) wrote:
+[...]
+>               clone()         clone(3)        Notes
+[...]
+>        Glibc does not provide a  wrapper  for  clone(3);  call  it  using
+>        syscall(2).
+[...]
 
-meanwhile, I've updated some more outdated comments and fixed const
-correctness issues.
+"clone3()" is probably what was intended.
 
-Example:
+Regards,
+Branden
 
-    -        const int zero = 0;
-    -        if (atomic_compare_exchange_strong(futexp, &zero, 1))
-    -            break;      /* Yes */
-    +        int expected = 0;
-    +        if (atomic_compare_exchange_strong(futexp, &expected, 1))
-    +            break;
+--6dxis2igztl3btsm
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Since atomic_compare_exchange_strong() overwrites the expected value if
-it doesn't match, declaring it as const yields undefined behavior.
+-----BEGIN PGP SIGNATURE-----
 
-Also, a reader unfamilar with atomic_compare_exchange() might wrongly
-deduce that it doesn't modify its second argument.
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl2zrxkACgkQ0Z6cfXEm
+bc6yUhAAnxiNxBdsByzVLsMenDYZwrVUO5HyzrabWOhoTVr429VMJjBDrO4IopaF
+tk4l4WOHt6kNXkuxy+iPvRQ3M9L2nkFVWrUvtPx39CeSJL8CJ/ve64q5Ltks77Vb
+f1Gb4qnVsEV9Oh45Zq15qme3Nyc3p7vNLkLXdGuKjuczztr8o92OEklK7GlwNyEy
+NFtCfT3EbllGeuBsYN4PuceeBKHb8mYBfU3a5gmILjoANRTX2xsfyCQO6m1Jx6eY
+0mGlJS7SBnbC+w4QHla4ttTEczFwNYCBD2/XUGM36l54M/61bOm2w85gYbQnx+eZ
+TyyE8tMKiXJc8TNCSFFyGgzGozmFSbYbsNS3RJsLPeHoLvSntGD7VGzep3qPOHym
+WObnnxLVefsdRJz7zl2izHyvOGtLCPGg2B/v2+HZsZoAA0bBAqDo85Bo/lI/YE/D
+3PdL1yzFcE5dm9KYxq0dXwSqdhxi9vm9gPXrLURbvZfkyoTuz+bep4ywg9/rLTkZ
+tX5u5JG2b8tu28HLHytf+MPY0XEwGsvZQd1OoiNQ71Kb1mQla3YDmNZuu/aAQfwm
+q574yUveUTXlR85OARq1Zy2pEgNgvNvr/5+od9ZUufNwpnWFxfaWM6j2zpRZZy+P
+Aa9KDfXoGKBQWcQ1MFq9+QoamQdOcnXrs601brGsaESVci0QLTg=
+=0PtG
+-----END PGP SIGNATURE-----
 
-You can find the complete modified example online:
-https://gist.github.com/gsauthof/6eb6c648e483005191c37f86e759906e
-
-And inline the updated patch:
-
---- futex_demo.c.orig	2019-10-14 19:36:23.292238650 +0200
-+++ futex_demo.c	2019-10-20 10:13:32.268350668 +0200
-@@ -36,38 +36,46 @@
- }
- 
- /* Acquire the futex pointed to by 'futexp': wait for its value to
--   become 1, and then set the value to 0. */
-+   become 0, and then set the value to 1. */
- 
- static void
- fwait(int *futexp)
- {
-     int s;
- 
--    /* atomic_compare_exchange_strong(ptr, oldval, newval)
--       atomically performs the equivalent of:
-+    /* atomic_compare_exchange_strong atomically performs
-+       the equivalent of:
- 
--           if (*ptr == *oldval)
--               *ptr = newval;
-+       bool cmpexch(int *val, int *exp, int newval)
-+       {
-+           if (*val == *exp) {
-+               *val = newval;
-+               return true;
-+           } else {
-+               *exp = *val;
-+               return false;
-+           }
-+       }
- 
--       It returns true if the test yielded true and *ptr was updated. */
-+       */
- 
-     while (1) {
- 
-         /* Is the futex available? */
--        const int zero = 0;
--        if (atomic_compare_exchange_strong(futexp, &zero, 1))
--            break;      /* Yes */
-+        int expected = 0;
-+        if (atomic_compare_exchange_strong(futexp, &expected, 1))
-+            break;
- 
-         /* Futex is not available; wait */
- 
--        s = futex(futexp, FUTEX_WAIT, 0, NULL, NULL, 0);
-+        s = futex(futexp, FUTEX_WAIT, 1, NULL, NULL, 0);
-         if (s == -1 && errno != EAGAIN)
-             errExit("futex-FUTEX_WAIT");
-     }
- }
- 
- /* Release the futex pointed to by 'futexp': if the futex currently
--   has the value 0, set its value to 1 and the wake any futex waiters,
-+   has the value 1, set its value to 0 and the wake any futex waiters,
-    so that if the peer is blocked in fpost(), it can proceed. */
- 
- static void
-@@ -77,8 +85,8 @@
- 
-     /* atomic_compare_exchange_strong() was described in comments above */
- 
--    const int one = 1;
--    if (atomic_compare_exchange_strong(futexp, &one, 0)) {
-+    int expected = 1;
-+    if (atomic_compare_exchange_strong(futexp, &expected, 0)) {
-         s = futex(futexp, FUTEX_WAKE, 1, NULL, NULL, 0);
-         if (s  == -1)
-             errExit("futex-FUTEX_WAKE");
-@@ -108,8 +116,8 @@
-     futex1 = &iaddr[0];
-     futex2 = &iaddr[1];
- 
--    *futex1 = 0;        /* State: unavailable */
--    *futex2 = 1;        /* State: available */
-+    *futex1 = 1;        /* State: unavailable */
-+    *futex2 = 0;        /* State: available */
- 
-     /* Create a child process that inherits the shared anonymous
-        mapping */
-
-
-Best regards
-Georg
-
+--6dxis2igztl3btsm--
