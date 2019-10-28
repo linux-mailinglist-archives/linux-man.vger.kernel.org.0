@@ -2,53 +2,24 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id D8EC4E7497
-	for <lists+linux-man@lfdr.de>; Mon, 28 Oct 2019 16:12:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 84402E7784
+	for <lists+linux-man@lfdr.de>; Mon, 28 Oct 2019 18:21:53 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2390559AbfJ1PMi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 28 Oct 2019 11:12:38 -0400
-Received: from mail-oi1-f193.google.com ([209.85.167.193]:38000 "EHLO
-        mail-oi1-f193.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730015AbfJ1PMh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Oct 2019 11:12:37 -0400
-Received: by mail-oi1-f193.google.com with SMTP id v186so6176084oie.5
-        for <linux-man@vger.kernel.org>; Mon, 28 Oct 2019 08:12:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=wXxhu/tmc9YP1XTfcQJ3HjAvQlCmqGJP256WPTj2XSc=;
-        b=GJ40qGJD7TtbIgudDFm2N7LHOQ6aSoOljrrxXlqEik+9bXO7yJallt9amumZdHCmjG
-         27n00ClQMzIia2m9uAlnK3x919OrGWy4dvA3Xp1pJJUzxWBIIZwvxmBpryE3+luDzYyq
-         b8x8CaYNpg/Ya0dz6dBgKfc41xtBqIwIUMNVHhp1ncWHdN0rxm/9FplrQ64sV3AsycdO
-         AkAmBf3pHs9hUKE9iRHFo5EEM1vKHq/iolqALxq8JXvSyZB1rgKMDHS+teXambVzbsnp
-         7zLsscjgNQF6ZVIJu3TXD+HhwdAbPJfVw1QH9JGup9MKa3Ac8UhSRm3Yn7ZX6LRxdZYj
-         8L7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=wXxhu/tmc9YP1XTfcQJ3HjAvQlCmqGJP256WPTj2XSc=;
-        b=JAqToRABgJ8NubeL7sOIprQ+VnkExqJOxOQHk3zoRnIruxIQ7HSph4oE1wxqNQJoTU
-         3ZejFhSc76bU35/tYWx9B+LjHtVbf5wlSG4GxPu4GAJO7N2g8UIexD5YsBj/aVlicXhR
-         D5iQu4oSE0zue/rwk6KHAy9XNTbUz9CFsRip1avNQ/GY3zpNZ4ueO0cfY+JPek2aXv0I
-         m+3n6/xIA+HLI6u1HKDTWJladvxErqXax8x7W7pwNQT/jW8uGkbTXwNZ17S3MeEZV0KQ
-         gpJWoYNSDwA1QRfKlEONjmXvyQ7OUtS+6qLTkR9LwUSotT4bM2gqx9Wj67pnedmVtfXn
-         ZfCg==
-X-Gm-Message-State: APjAAAXMW4H7/EgHUByeSNWOs50o0ZtZuNoMbCl/YsmsksJwkHIJb1OK
-        W6yP5V0FE0xqSd6BvikvJl5ZdW+g/yxfpOZBe1TSxw==
-X-Google-Smtp-Source: APXvYqxIzAhUAQY2YqVi0DY+JV//TbVaQUHYNtEBARj1hmmiyo+CWdT7zgmtQj1uFTHVHbc9HcDYJREjaSWSkiT75mw=
-X-Received: by 2002:a05:6808:b30:: with SMTP id t16mr367143oij.157.1572275556022;
- Mon, 28 Oct 2019 08:12:36 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAKgNAkjo2WHq+zESU1iuCHJJ0x-fTNrakS9-d1+BjzUuV2uf2Q@mail.gmail.com>
-In-Reply-To: <CAKgNAkjo2WHq+zESU1iuCHJJ0x-fTNrakS9-d1+BjzUuV2uf2Q@mail.gmail.com>
-From:   Jann Horn <jannh@google.com>
-Date:   Mon, 28 Oct 2019 16:12:09 +0100
-Message-ID: <CAG48ez3q=BeNcuVTKBN79kJui4vC6nw0Bfq6xc-i0neheT17TA@mail.gmail.com>
-Subject: Re: For review: documentation of clone3() system call
-To:     Michael Kerrisk-manpages <mtk.manpages@gmail.com>
-Cc:     Christian Brauner <christian@brauner.io>,
+        id S1730626AbfJ1RVt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 28 Oct 2019 13:21:49 -0400
+Received: from youngberry.canonical.com ([91.189.89.112]:40877 "EHLO
+        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1730212AbfJ1RVs (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Oct 2019 13:21:48 -0400
+Received: from [91.217.168.176] (helo=wittgenstein)
+        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+        (Exim 4.86_2)
+        (envelope-from <christian.brauner@ubuntu.com>)
+        id 1iP8i8-0004dS-SK; Mon, 28 Oct 2019 17:21:44 +0000
+Date:   Mon, 28 Oct 2019 18:21:44 +0100
+From:   Christian Brauner <christian.brauner@ubuntu.com>
+To:     Jann Horn <jannh@google.com>
+Cc:     Michael Kerrisk-manpages <mtk.manpages@gmail.com>,
         lkml <linux-kernel@vger.kernel.org>,
         linux-man <linux-man@vger.kernel.org>,
         Kees Cook <keescook@chromium.org>,
@@ -60,97 +31,120 @@ Cc:     Christian Brauner <christian@brauner.io>,
         Adrian Reber <adrian@lisas.de>,
         Andrei Vagin <avagin@gmail.com>,
         Linux API <linux-api@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: For review: documentation of clone3() system call
+Message-ID: <20191028172143.4vnnjpdljfnexaq5@wittgenstein>
+References: <CAKgNAkjo2WHq+zESU1iuCHJJ0x-fTNrakS9-d1+BjzUuV2uf2Q@mail.gmail.com>
+ <CAG48ez3q=BeNcuVTKBN79kJui4vC6nw0Bfq6xc-i0neheT17TA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAG48ez3q=BeNcuVTKBN79kJui4vC6nw0Bfq6xc-i0neheT17TA@mail.gmail.com>
+User-Agent: NeoMutt/20180716
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Oct 25, 2019 at 6:59 PM Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
-> I've made a first shot at adding documentation for clone3(). You can
-> see the diff here:
-> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3D=
-faa0e55ae9e490d71c826546bbdef954a1800969
-[...]
->    clone3()
->        The  clone3() system call provides a superset of the functionality
->        of the older clone() interface.  It also provides a number of  API
->        improvements,  including: space for additional flags bits; cleaner
->        separation in the use of various arguments;  and  the  ability  to
->        specify the size of the child's stack area.
+On Mon, Oct 28, 2019 at 04:12:09PM +0100, Jann Horn wrote:
+> On Fri, Oct 25, 2019 at 6:59 PM Michael Kerrisk (man-pages)
+> <mtk.manpages@gmail.com> wrote:
+> > I've made a first shot at adding documentation for clone3(). You can
+> > see the diff here:
+> > https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=faa0e55ae9e490d71c826546bbdef954a1800969
+> [...]
+> >    clone3()
+> >        The  clone3() system call provides a superset of the functionality
+> >        of the older clone() interface.  It also provides a number of  API
+> >        improvements,  including: space for additional flags bits; cleaner
+> >        separation in the use of various arguments;  and  the  ability  to
+> >        specify the size of the child's stack area.
+> 
+> You might want to note somewhere that its flags can't be
+> seccomp-filtered because they're stored in memory, making it
+> inappropriate to use in heavily sandboxed processes.
 
-You might want to note somewhere that its flags can't be
-seccomp-filtered because they're stored in memory, making it
-inappropriate to use in heavily sandboxed processes.
+Hm, I don't think that belongs on the clone manpage. Granted that
+process creation is an important syscall but so are a bunch of others
+that aren't filterable because of pointer arguments.
+We can probably mention on the seccomp manpage that seccomp can't filter
+on pointer arguments and then provide a list of examples. If you setup a
+seccomp filter and don't know that you can't filter syscalls with
+pointer args that seems pretty bad to begin with.
 
->            struct clone_args {
->                u64 flags;        /* Flags bit mask */
->                u64 pidfd;        /* Where to store PID file descriptor
->                                     (int *) */
->                u64 child_tid;    /* Where to store child TID,
->                                     in child's memory (int *) */
->                u64 parent_tid;   /* Where to store child TID,
->                                     in parent's memory (int *) */
->                u64 exit_signal;  /* Signal to deliver to parent on
->                                     child termination */
->                u64 stack;        /* Pointer to lowest byte of stack */
->                u64 stack_size;   /* Size of stack */
->                u64 tls;          /* Location of new TLS */
->            };
->
->        The size argument that is supplied to clone3() should be  initial=
-=E2=80=90
->        ized  to  the  size of this structure.  (The existence of the size
->        argument permits future extensions to the clone_args structure.)
->
->        The stack for the child process is  specified  via  cl_args.stack,
->        which   points   to  the  lowest  byte  of  the  stack  area,  and
+> 
+> >            struct clone_args {
+> >                u64 flags;        /* Flags bit mask */
+> >                u64 pidfd;        /* Where to store PID file descriptor
+> >                                     (int *) */
+> >                u64 child_tid;    /* Where to store child TID,
+> >                                     in child's memory (int *) */
+> >                u64 parent_tid;   /* Where to store child TID,
+> >                                     in parent's memory (int *) */
+> >                u64 exit_signal;  /* Signal to deliver to parent on
+> >                                     child termination */
+> >                u64 stack;        /* Pointer to lowest byte of stack */
+> >                u64 stack_size;   /* Size of stack */
+> >                u64 tls;          /* Location of new TLS */
+> >            };
+> >
+> >        The size argument that is supplied to clone3() should be  initial‐
+> >        ized  to  the  size of this structure.  (The existence of the size
+> >        argument permits future extensions to the clone_args structure.)
+> >
+> >        The stack for the child process is  specified  via  cl_args.stack,
+> >        which   points   to  the  lowest  byte  of  the  stack  area,  and
+> 
+> Here and in the comment in the struct above, you say that .stack
+> "points to the lowest byte of the stack area", but isn't that
+> architecture-dependent? For most architectures, I think it should
+> instead be "is the initial stack pointer", with the exception of IA64
+> (and maybe others, I'm not sure). For example, on X86, when launching
+> a thread with an initially empty stack, it points directly *after* the
+> end of the stack area.
 
-Here and in the comment in the struct above, you say that .stack
-"points to the lowest byte of the stack area", but isn't that
-architecture-dependent? For most architectures, I think it should
-instead be "is the initial stack pointer", with the exception of IA64
-(and maybe others, I'm not sure). For example, on X86, when launching
-a thread with an initially empty stack, it points directly *after* the
-end of the stack area.
+re arch and stack_size: You mentioned ia64 below (I snipped this part.)
+but it's not the only one. With legacy clone it's _passed_ for any
+architecture that has CONFIG_CLONE_BACKWARDS3. That includes at least
+microblaze and ia64 I think. But only ia64 makes _actual use_ of this in
+copy_thread() by doing user_stack_base + user_stack_size - 16. I think ia64
+only needs stack_size because of the split page-table layout where two
+stacks grow in different directions; so the stack doesn't grow
+dynamically. Afair, stack_size is mainly used when PF_KTHREAD is true
+but that can't be set from userspace anyway, so _shrug_.
 
->        cl_args.stack_size, which specifies  the  size  of  the  stack  in
->        bytes.   In the case where the CLONE_VM flag (see below) is speci=
-=E2=80=90
+One thing I never liked about clone() was that userspace had to know
+about stack direction. And there is a lot of ugly code in userspace that
+has nasty clone() wrappers like:
 
-stack_size is ignored on most architectures.
+pid_t wrap_clone(int (*fn)(void *), void *arg, int flags, int *pidfd)
+{
+	pid_t ret;
+	void *stack;
 
->        fied, a stack must be explicitly allocated and specified.   Other=
-=E2=80=90
->        wise,  these  two  fields  can  be  specified as NULL and 0, which
->        causes the child to use the same stack area as the parent (in  the
->        child's own virtual address space).
-[...]
->    Equivalence between clone() and clone3() arguments
->        Unlike  the  older  clone()  interface, where arguments are passed
->        individually, in the newer clone3() interface  the  arguments  are
->        packaged  into  the clone_args structure shown above.  This struc=
-=E2=80=90
->        ture allows for a superset  of  the  information  passed  via  the
->        clone() arguments.
->
->        The following table shows the equivalence between the arguments of
->        clone() and the fields in  the  clone_args  argument  supplied  to
->        clone3():
->
->               clone()         clone(3)        Notes
->                               cl_args field
->               flags & ~0xff   flags
->               parent_tid      pidfd           See CLONE_PIDFD
->               child_tid       child_tid       See CLONE_CHILD_SETTID
->               parent_tid      parent_tid      See CLONE_PARENT_SETTID
->               flags & 0xff    exit_signal
->               stack           stack
->
->               ---             stack_size
+	stack = malloc(__STACK_SIZE);
+	if (!stack) {
+		SYSERROR("Failed to allocate clone stack");
+		return -ENOMEM;
+	}
 
-(except that on ia64, stack_size also exists in clone2(), and if
-you're not on ia64, stack_size doesn't do anything, at least on X86,
-so showing them side by side like this doesn't really make sense)
+#ifdef __ia64__
+	ret = __clone2(fn, stack, __STACK_SIZE, flags | SIGCHLD, arg, pidfd);
+#else
+	ret = clone(fn, stack + __STACK_SIZE, flags | SIGCHLD, arg, pidfd);
+#endif
+	return ret;
+}
+
+where stack + stack_size is addition on a void pointer which usually
+clang and gcc are not very happy about.
+I wanted to bring this up on the mailing list soon: If possible, I don't
+want userspace to need to know about stack direction and just have stack
+point to the beginning and then have the kernel do the + stack_size
+after the copy_clone_args_from_user() if the arch needs it. For example,
+by having a dumb helder similar to copy_thread_tls()/coyp_thread() that
+either does the + stack_size or not. Right now, clone3() is supported on
+parisc and afaict, the stack grows upwards for it. I'm not sure if there
+are obvious reasons why that won't work or it would be a bad idea...
+
+Christian
