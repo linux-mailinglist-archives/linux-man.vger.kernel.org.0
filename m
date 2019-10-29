@@ -2,47 +2,108 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 0122DE8293
-	for <lists+linux-man@lfdr.de>; Tue, 29 Oct 2019 08:37:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id ACE44E86CB
+	for <lists+linux-man@lfdr.de>; Tue, 29 Oct 2019 12:27:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726826AbfJ2Hhs convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Tue, 29 Oct 2019 03:37:48 -0400
-Received: from s0090.ppsmtp.net ([91.90.154.91]:47222 "EHLO s0090.ppsmtp.net"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726222AbfJ2Hhs (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 29 Oct 2019 03:37:48 -0400
-X-Greylist: delayed 2597 seconds by postgrey-1.27 at vger.kernel.org; Tue, 29 Oct 2019 03:37:46 EDT
-Received: from pps.filterd (s0090.ppsmtp.net [127.0.0.1])
-        by s0090.ppsmtp.net (8.16.0.27/8.16.0.27) with SMTP id x9T6hJRP017131;
-        Tue, 29 Oct 2019 07:54:22 +0100
-Received: from mail.schuetz.net ([212.185.169.233])
-        by s0090.ppsmtp.net with ESMTP id 2vx8bh8a09-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-        Tue, 29 Oct 2019 07:54:22 +0100
-Received: from julia02 (localhost [127.0.0.1])
-        by mail.schuetz.net (Postfix) with ESMTP id E6ACC20221B5;
-        Tue, 29 Oct 2019 07:53:08 +0100 (CET)
+        id S1727412AbfJ2L1L (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 29 Oct 2019 07:27:11 -0400
+Received: from youngberry.canonical.com ([91.189.89.112]:37084 "EHLO
+        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725839AbfJ2L1K (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Oct 2019 07:27:10 -0400
+Received: from [91.217.168.176] (helo=wittgenstein)
+        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+        (Exim 4.86_2)
+        (envelope-from <christian.brauner@ubuntu.com>)
+        id 1iPPeW-0005r1-8D; Tue, 29 Oct 2019 11:27:08 +0000
+Date:   Tue, 29 Oct 2019 12:27:07 +0100
+From:   Christian Brauner <christian.brauner@ubuntu.com>
+To:     Jann Horn <jannh@google.com>
+Cc:     Michael Kerrisk-manpages <mtk.manpages@gmail.com>,
+        lkml <linux-kernel@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Kees Cook <keescook@chromium.org>,
+        Florian Weimer <fweimer@redhat.com>,
+        Oleg Nesterov <oleg@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
+        David Howells <dhowells@redhat.com>,
+        Pavel Emelyanov <xemul@virtuozzo.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Adrian Reber <adrian@lisas.de>,
+        Andrei Vagin <avagin@gmail.com>,
+        Linux API <linux-api@vger.kernel.org>
+Subject: Re: For review: documentation of clone3() system call
+Message-ID: <20191029112706.p5dd5yzpcgouo6n5@wittgenstein>
+References: <CAKgNAkjo2WHq+zESU1iuCHJJ0x-fTNrakS9-d1+BjzUuV2uf2Q@mail.gmail.com>
+ <CAG48ez3q=BeNcuVTKBN79kJui4vC6nw0Bfq6xc-i0neheT17TA@mail.gmail.com>
+ <20191028172143.4vnnjpdljfnexaq5@wittgenstein>
+ <CAG48ez20hn8vToY+=C62nA-rbUfxh=JD6N-f7XVS3_GZOoPjxw@mail.gmail.com>
 MIME-Version: 1.0
-Subject: Dear Friend,
-To:     Recipients <infocarfer1@aim.com>
-From:   "Mr.R.C" <infocarfer1@aim.com>
-Date:   Tue, 29 Oct 2019 06:52:52 +0000
-Reply-To: infocarfer@aim.com
-X-TNEFEvaluated: 1
-Message-ID: <OF5484746A.23EACC97-ON882584A2.0025D2D0@schuetz.net>
-Content-Transfer-Encoding: 8BIT
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Description: Mail message body
-X-Proofpoint-ID: SID=2vx8bh8a09 QID=2vx8bh8a09-1
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:,, definitions=2019-10-29_03:,,
- signatures=0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAG48ez20hn8vToY+=C62nA-rbUfxh=JD6N-f7XVS3_GZOoPjxw@mail.gmail.com>
+User-Agent: NeoMutt/20180716
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Dear Friend,
+On Mon, Oct 28, 2019 at 08:09:13PM +0100, Jann Horn wrote:
+> On Mon, Oct 28, 2019 at 6:21 PM Christian Brauner
+> <christian.brauner@ubuntu.com> wrote:
+> > On Mon, Oct 28, 2019 at 04:12:09PM +0100, Jann Horn wrote:
+> > > On Fri, Oct 25, 2019 at 6:59 PM Michael Kerrisk (man-pages)
+> > > <mtk.manpages@gmail.com> wrote:
+> > > > I've made a first shot at adding documentation for clone3(). You can
+> > > > see the diff here:
+> > > > https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=faa0e55ae9e490d71c826546bbdef954a1800969
+> [...]
+> > > You might want to note somewhere that its flags can't be
+> > > seccomp-filtered because they're stored in memory, making it
+> > > inappropriate to use in heavily sandboxed processes.
+> >
+> > Hm, I don't think that belongs on the clone manpage. Granted that
+> > process creation is an important syscall but so are a bunch of others
+> > that aren't filterable because of pointer arguments.
+> > We can probably mention on the seccomp manpage that seccomp can't filter
+> > on pointer arguments and then provide a list of examples. If you setup a
+> > seccomp filter and don't know that you can't filter syscalls with
+> > pointer args that seems pretty bad to begin with.
+> 
+> Fair enough.
+> 
+> [...]
+> > One thing I never liked about clone() was that userspace had to know
+> > about stack direction. And there is a lot of ugly code in userspace that
+> > has nasty clone() wrappers like:
+> [...]
+> > where stack + stack_size is addition on a void pointer which usually
+> > clang and gcc are not very happy about.
+> > I wanted to bring this up on the mailing list soon: If possible, I don't
+> > want userspace to need to know about stack direction and just have stack
+> > point to the beginning and then have the kernel do the + stack_size
+> > after the copy_clone_args_from_user() if the arch needs it. For example,
+> > by having a dumb helder similar to copy_thread_tls()/coyp_thread() that
+> > either does the + stack_size or not. Right now, clone3() is supported on
+> > parisc and afaict, the stack grows upwards for it. I'm not sure if there
+> > are obvious reasons why that won't work or it would be a bad idea...
+> 
+> That would mean adding a new clone flag that redefines how those
+> parameters work and describing the current behavior in the manpage as
+> the behavior without the flag (which doesn't exist on 5.3), right?
 
-I am Vice Chairman of Hang Seng Bank, I have Important Matter to Discuss with you concerning my late client, Died without a NEXT OF KIN. Send me your private email for full details information. email me at (infocarfer@aim.com)
-Mail:
-Regards
+I would break API and if someone reports breakage we'll revert and go
+the more complicated route you outlined (see [1]).
+But I don't think it will a big deal. First, we haven't documented how
+stack needs to be passed so who knows what people currently do. Second,
+clone3() has not been out for a long time and currently does _not_
+provide features that legacy clone() does not provide apart from a
+cleaner interface. So userspace has no incentive to use clone3() over
+clone() right now. That'll change latest with v5.5 where we have new
+features on top of clone3() (CLONE_CLEAR_SIGHAND). So let's just try and
+fix it.
+
+[1]: This is basically what Linus has repeatedly said: it's not about
+     never breaking api in principle but rather about whether this
+     breaks someones usecase. And if it does break, we need to revert.
+
+Christian
