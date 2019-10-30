@@ -2,94 +2,94 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id DC871E8C61
-	for <lists+linux-man@lfdr.de>; Tue, 29 Oct 2019 17:05:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id AC77CEA66F
+	for <lists+linux-man@lfdr.de>; Wed, 30 Oct 2019 23:39:36 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2390181AbfJ2QFc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 29 Oct 2019 12:05:32 -0400
-Received: from youngberry.canonical.com ([91.189.89.112]:45836 "EHLO
-        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2389902AbfJ2QFb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Oct 2019 12:05:31 -0400
-Received: from [91.217.168.176] (helo=wittgenstein)
-        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
-        (Exim 4.86_2)
-        (envelope-from <christian.brauner@ubuntu.com>)
-        id 1iPTzr-0008CT-3h; Tue, 29 Oct 2019 16:05:27 +0000
-Date:   Tue, 29 Oct 2019 17:05:26 +0100
-From:   Christian Brauner <christian.brauner@ubuntu.com>
-To:     Jann Horn <jannh@google.com>
-Cc:     Florian Weimer <fweimer@redhat.com>,
-        Michael Kerrisk-manpages <mtk.manpages@gmail.com>,
-        lkml <linux-kernel@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Kees Cook <keescook@chromium.org>,
-        Oleg Nesterov <oleg@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
-        David Howells <dhowells@redhat.com>,
-        Pavel Emelyanov <xemul@virtuozzo.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Adrian Reber <adrian@lisas.de>,
-        Andrei Vagin <avagin@gmail.com>,
-        Linux API <linux-api@vger.kernel.org>
-Subject: Re: For review: documentation of clone3() system call
-Message-ID: <20191029160525.2zn6vnnyai5ahdj3@wittgenstein>
-References: <CAKgNAkjo2WHq+zESU1iuCHJJ0x-fTNrakS9-d1+BjzUuV2uf2Q@mail.gmail.com>
- <CAG48ez3q=BeNcuVTKBN79kJui4vC6nw0Bfq6xc-i0neheT17TA@mail.gmail.com>
- <20191028172143.4vnnjpdljfnexaq5@wittgenstein>
- <CAG48ez20hn8vToY+=C62nA-rbUfxh=JD6N-f7XVS3_GZOoPjxw@mail.gmail.com>
- <20191029112706.p5dd5yzpcgouo6n5@wittgenstein>
- <20191029142622.jxmssu4s4ndui7bw@wittgenstein>
- <CAG48ez1pH9fGacQF6m7=R39bDMRqNR_ML7d2v-e=-kVLJhBuPA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAG48ez1pH9fGacQF6m7=R39bDMRqNR_ML7d2v-e=-kVLJhBuPA@mail.gmail.com>
-User-Agent: NeoMutt/20180716
+        id S1727250AbfJ3Wjg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 30 Oct 2019 18:39:36 -0400
+Received: from mx0a-001b2d01.pphosted.com ([148.163.156.1]:48042 "EHLO
+        mx0a-001b2d01.pphosted.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1726268AbfJ3Wjf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Oct 2019 18:39:35 -0400
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+        by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id x9UMb2VT080595
+        for <linux-man@vger.kernel.org>; Wed, 30 Oct 2019 18:39:35 -0400
+Received: from e06smtp04.uk.ibm.com (e06smtp04.uk.ibm.com [195.75.94.100])
+        by mx0a-001b2d01.pphosted.com with ESMTP id 2vyggjwp1x-1
+        (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+        for <linux-man@vger.kernel.org>; Wed, 30 Oct 2019 18:39:34 -0400
+Received: from localhost
+        by e06smtp04.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only! Violators will be prosecuted
+        for <linux-man@vger.kernel.org> from <rppt@linux.ibm.com>;
+        Wed, 30 Oct 2019 22:39:32 -0000
+Received: from b06avi18878370.portsmouth.uk.ibm.com (9.149.26.194)
+        by e06smtp04.uk.ibm.com (192.168.101.134) with IBM ESMTP SMTP Gateway: Authorized Use Only! Violators will be prosecuted;
+        (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+        Wed, 30 Oct 2019 22:39:30 -0000
+Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com [9.149.105.59])
+        by b06avi18878370.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id x9UMdSHn46268850
+        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Wed, 30 Oct 2019 22:39:29 GMT
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+        by IMSVA (Postfix) with ESMTP id DB735A407E;
+        Wed, 30 Oct 2019 22:39:28 +0000 (GMT)
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+        by IMSVA (Postfix) with ESMTP id 11E86A406B;
+        Wed, 30 Oct 2019 22:39:27 +0000 (GMT)
+Received: from rapoport-lnx (unknown [9.148.205.249])
+        by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+        Wed, 30 Oct 2019 22:39:26 +0000 (GMT)
+Received: by rapoport-lnx (sSMTP sendmail emulation); Wed, 30 Oct 2019 23:39:24 +0100
+From:   Mike Rapoport <rppt@linux.ibm.com>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, Mike Rapoport <rppt@linux.ibm.com>
+Subject: [PATCH] memfd_create.2: fix typos
+Date:   Wed, 30 Oct 2019 23:39:18 +0100
+X-Mailer: git-send-email 2.7.4
+X-TM-AS-GCONF: 00
+x-cbid: 19103022-0016-0000-0000-000002BF4820
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19103022-0017-0000-0000-00003320A801
+Message-Id: <1572475158-14919-1-git-send-email-rppt@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:,, definitions=2019-10-30_09:,,
+ signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=901 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1908290000 definitions=main-1910300201
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Oct 29, 2019 at 04:20:37PM +0100, Jann Horn wrote:
-> On Tue, Oct 29, 2019 at 3:26 PM Christian Brauner
-> <christian.brauner@ubuntu.com> wrote:
-> > On Tue, Oct 29, 2019 at 12:27:07PM +0100, Christian Brauner wrote:
-> > > On Mon, Oct 28, 2019 at 08:09:13PM +0100, Jann Horn wrote:
-> > > > On Mon, Oct 28, 2019 at 6:21 PM Christian Brauner
-> > > > <christian.brauner@ubuntu.com> wrote:
-> > > > > where stack + stack_size is addition on a void pointer which usually
-> > > > > clang and gcc are not very happy about.
-> > > > > I wanted to bring this up on the mailing list soon: If possible, I don't
-> > > > > want userspace to need to know about stack direction and just have stack
-> > > > > point to the beginning and then have the kernel do the + stack_size
-> > > > > after the copy_clone_args_from_user() if the arch needs it. For example,
-> > > > > by having a dumb helder similar to copy_thread_tls()/coyp_thread() that
-> > > > > either does the + stack_size or not. Right now, clone3() is supported on
-> > > > > parisc and afaict, the stack grows upwards for it. I'm not sure if there
-> > > > > are obvious reasons why that won't work or it would be a bad idea...
-> > > >
-> > > > That would mean adding a new clone flag that redefines how those
-> > > > parameters work and describing the current behavior in the manpage as
-> > > > the behavior without the flag (which doesn't exist on 5.3), right?
-> > >
-> > > I would break API and if someone reports breakage we'll revert and go
-> > > the more complicated route you outlined (see [1]).
-> >
-> > @Jann, I think the following patch might even be enough?...
-> [...]
-> > +static inline void clone3_prepare_stack(struct kernel_clone_args *kargs)
-> > +{
-> > +#if !defined(CONFIG_STACK_GROWSUP) && !defined(CONFIG_IA64)
-> > +       kargs->stack += kargs->stack_size;
-> > +#endif
-> > +}
-> 
-> I guess it might work as long as nobody is actually using clone3 yet
-> and you can get this patch into the 5.3 stable tree and any distro
-> kernels on 5.3 before people do start using clone3?
+Signed-off-by: Mike Rapoport <rppt@linux.ibm.com>
+---
+ man2/memfd_create.2 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Yes, that would be my preferred approach. As I said doing it this way is
-pretty common. A recent example where we did this is the file_max
-sysctl.
+diff --git a/man2/memfd_create.2 b/man2/memfd_create.2
+index 15b1362..9be8f3c 100644
+--- a/man2/memfd_create.2
++++ b/man2/memfd_create.2
+@@ -221,7 +221,7 @@ used with the file-sealing APIs provided by
+ .PP
+ The
+ .BR memfd_create ()
+-system call also has uses without file sealing
++system call also have uses without file sealing
+ (which is why file-sealing is disabled, unless explicitly requested with the
+ .BR MFD_ALLOW_SEALING
+ flag).
+@@ -254,7 +254,7 @@ signal.)
+ Dealing with untrusted peers imposes extra complexity on
+ code that employs shared memory.
+ Memory sealing enables that extra complexity to be eliminated,
+-by allowing a process to operate secure in the knowledge that
++by allowing a process to operate securely in the knowledge that
+ its peer can't modify the shared memory in an undesired fashion.
+ .PP
+ An example of the usage of the sealing mechanism is as follows:
+-- 
+2.7.4
 
-Christian
