@@ -2,92 +2,123 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 3A80AEAA56
-	for <lists+linux-man@lfdr.de>; Thu, 31 Oct 2019 06:25:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D17B5EAA89
+	for <lists+linux-man@lfdr.de>; Thu, 31 Oct 2019 07:01:07 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726575AbfJaFZR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 31 Oct 2019 01:25:17 -0400
-Received: from mail-wm1-f68.google.com ([209.85.128.68]:56001 "EHLO
-        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726552AbfJaFZR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 31 Oct 2019 01:25:17 -0400
-Received: by mail-wm1-f68.google.com with SMTP id g24so4472454wmh.5
-        for <linux-man@vger.kernel.org>; Wed, 30 Oct 2019 22:25:16 -0700 (PDT)
+        id S1726607AbfJaGBH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 31 Oct 2019 02:01:07 -0400
+Received: from mail-lf1-f67.google.com ([209.85.167.67]:45527 "EHLO
+        mail-lf1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726479AbfJaGBH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 31 Oct 2019 02:01:07 -0400
+Received: by mail-lf1-f67.google.com with SMTP id v8so3542040lfa.12;
+        Wed, 30 Oct 2019 23:01:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=UDO0mIg1xmtlKwce7Y5s8JMhqo8lp1JNNgKB+3EFYJs=;
-        b=kRskl6O1BscDJI6Y5MkUcBqD7Xa4K3mFJcyFB2YfsIYGUgpcPXOt+MuBNUxizmehRM
-         Jc7Vk6fMp6FgMcXEuQSye4aMF8+mC77ziFMrDV5mt1xewa1grMQRHrYtqC2e36uqdsQM
-         V6TJCdVeXKmFFqB4sPj6emYd7c5jvN4OrQZNOZTnDJykJqDJukWuA9mMZY3twSPrxFSy
-         qmfMdQ1hlvkXs8OkjAdDtr28wx/Xn6TcsMznKeB5DPADcIOVlSmpGDl+ofv3XhPOVkqO
-         gm+oXsXlaGFBLPUqSRnJtO7kC0jVTcGmkyQRMCPoiMSH3zQ85Xzl/W4QiNrVUX/llsPr
-         DOOw==
+        h=date:from:to:cc:subject:references:mime-version:message-id
+         :content-transfer-encoding;
+        bh=B9pBKnFjfixHWQ/ZEyIY+63diOqN5jpX/fJTCisM0+M=;
+        b=Fkp6Syx6mHbOLRCg/THpgtyk4gCS05UCGwcgJi5cBfBcrSgo/HwFigMnvXxvLOM5F2
+         vGwlHeDPxUrySg3tOOeyorFr6FS/BAtjxRo/umHFbdq1mFwg5minYcuBXrauE1e39W1i
+         SVJt6mccSS61DEOTkSLgFSBZJVEVaNFkOC7cynYKAX5TbhFOLln8ol90SkxWOy4ofFOG
+         JiuxNf9+PFjVyC24JJaahEzYu6ZhUaCLu5VOHthNl/rrUeYoItKi0pU5Zp76DdnIlZ3e
+         KGRP1tN6mASAs4LLHZBP6AwdfpOEjA4Yy+zK8YpQ2y1XcDjIBo07T8+GEHw+hjvlQK9e
+         K5zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=UDO0mIg1xmtlKwce7Y5s8JMhqo8lp1JNNgKB+3EFYJs=;
-        b=rlUfqCbxer9bsj9PgFF6mjLdsG/ksHvaQC3FpKUQkTQpTqMloZiS6U1DX6QXUJ9Tjb
-         gVPowqONxUiaOoRpeBdcwNle2wlKTOJgmLdH4GmZJhA+clA/cUK3IhzM7XvZQXkpx0xm
-         Jidt/rY0ozmnKZ3y4VQoa0PPKwCh/5jjDq/ZM1zRbmqnVQBaB0U81B+eOIGettCHBUO+
-         pZntA7o/psnPnmI/GvzmXnJGkL+rZLHdwZdwzGD6k2PFNvW+IMO4bCso2XySKt23NwR5
-         UtPMtJ0T8Y85GDmwlEa/YyhySIEcicjkV3EuXukUMyG1gGbZj8WjFdcAgbB3Q/4yZrJ2
-         eknw==
-X-Gm-Message-State: APjAAAV7c/ICxMJmP3hkuHY0OnwC87FcW9eK/KU7vS5c9ta7B0urmXKe
-        nv2ARNu6EbGf7cEJCnzBhtShP9+IJ5E=
-X-Google-Smtp-Source: APXvYqyNGA0sngTWx5eJCzLac8i0xrcbO7+db6KN/DzwjkPS36Wfvl55Zs9FGnPW3Bp06WaJj69xNw==
-X-Received: by 2002:a1c:6854:: with SMTP id d81mr3245776wmc.75.1572499515634;
-        Wed, 30 Oct 2019 22:25:15 -0700 (PDT)
-Received: from ?IPv6:2a01:e35:2f38:d7b0:e8b5:a4a9:346b:8c65? ([2a01:e35:2f38:d7b0:e8b5:a4a9:346b:8c65])
-        by smtp.gmail.com with ESMTPSA id x127sm2823245wmx.18.2019.10.30.22.25.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Oct 2019 22:25:15 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] copy_file_range.2: tfix
-To:     Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-References: <1571714423-12086-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <8979d26f-9abd-3592-6390-823eda85bea4@gmail.com>
-Date:   Thu, 31 Oct 2019 06:25:14 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
-MIME-Version: 1.0
-In-Reply-To: <1571714423-12086-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+        h=x-gm-message-state:date:from:to:cc:subject:references:mime-version
+         :message-id:content-transfer-encoding;
+        bh=B9pBKnFjfixHWQ/ZEyIY+63diOqN5jpX/fJTCisM0+M=;
+        b=eSqy0osA8RoSNC6GPnFyGXQVdvfe9wCHVypXaeQuWeMAM9T/f06gsnC5jsrN47j5eW
+         tyyVRjglaObBx3bPqC9MOapqjnf6M/8RvHqRCm7ODT2u08d7XZVN1crptIUrKwtLzoTV
+         aev4PHHT8ACwAXh3Zw2cNUjl0RqH/ifW2jJ2hhyqjYhCyKuuenICcwKpRHmKKlpjWY2t
+         F7ziL6GZQweetrurc7wpnpdRVv9yiPD2caV5bNnGnW4/8aYROboWjKPr3usi4Gve2ZWt
+         OTLP59VhIwjpzDnY8g9u74ioVvIYvb2OQCct6Sb/AHPeEkgf8pgUPC5X5cvmtp1LivSs
+         iX7g==
+X-Gm-Message-State: APjAAAWjvGFlFqE9ZWXYlnA+hVmZixM+RzIKb6AmhtfpqFWL/qyVC9FW
+        rPp4CvntRZtzXkTfO5XG5IE=
+X-Google-Smtp-Source: APXvYqzKGcjgiqWDmZQtkX4i4E9Z6uMkIO9vy8g/Qcy7z1Y1exXSWj23ipY0ULxG9VWMivkMsEKdTQ==
+X-Received: by 2002:ac2:5496:: with SMTP id t22mr839811lfk.31.1572501663756;
+        Wed, 30 Oct 2019 23:01:03 -0700 (PDT)
+Received: from N-20L6PF1KTYA2 ([131.228.2.20])
+        by smtp.gmail.com with ESMTPSA id t4sm704967lji.40.2019.10.30.23.01.00
+        (version=TLS1_2 cipher=AES128-GCM-SHA256 bits=128/128);
+        Wed, 30 Oct 2019 23:01:02 -0700 (PDT)
+Date:   Thu, 31 Oct 2019 14:01:00 +0800
+From:   "Li Xinhai" <lixinhai.lxh@gmail.com>
+To:     akpm <akpm@linux-foundation.org>
+Cc:     "linux-mm@kvack.org" <linux-mm@kvack.org>,
+        "Vlastimil Babka" <vbabka@suse.cz>,
+        "Michal Hocko" <mhocko@kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "Linux API" <linux-api@vger.kernel.org>,
+        "Hugh Dickins" <hughd@google.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        n-horiguchi <n-horiguchi@ah.jp.nec.com>
+Subject: Re: [PATCH v2] mm: Fix checking unmapped holes for mbind
+References: <201910291756045288126@gmail.com>, 
+        <20191030210836.a17c0649354b59961903d1a8@linux-foundation.org>
+X-Priority: 3
+X-GUID: 6300A385-0B3A-4454-B5DB-0B15FEDE58AA
+X-Has-Attach: no
+X-Mailer: Foxmail 7.2.13.365[cn]
+Mime-Version: 1.0
+Message-ID: <2019103114005855855689@gmail.com>
+Content-Type: text/plain;
+        charset="utf-8"
+Content-Transfer-Encoding: base64
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Thanks, Yang Zu. Patch applied.
+T24gMjAxOS0xMC0zMcKgYXQgMTI6MDjCoEFuZHJldyBNb3J0b27CoHdyb3RlOgo+KGNjIGxpbnV4
+LW1hbkB2Z2VyLmtlcm5lbC5vcmcpCj4KPk9uIFR1ZSwgMjkgT2N0IDIwMTkgMTc6NTY6MDYgKzA4
+MDAgIkxpIFhpbmhhaSIgPGxpeGluaGFpLmx4aEBnbWFpbC5jb20+IHdyb3RlOgo+Cj4+IHF1ZXVl
+X3BhZ2VzX3JhbmdlKCkgd2lsbCBjaGVjayBmb3IgdW5tYXBwZWQgaG9sZXMgYmVzaWRlcyBxdWV1
+ZSBwYWdlcyBmb3IKPj4gbWlncmF0aW9uLiBUaGUgcnVsZXMgZm9yIGNoZWNraW5nIHVubWFwcGVk
+IGhvbGVzIGFyZToKPj4gMSBVbm1hcHBlZCBob2xlcyBhdCBhbnkgcGFydCBvZiB0aGUgc3BlY2lm
+aWVkIHJhbmdlIHNob3VsZCBiZSByZXBvcnRlZCBhcwo+PiDCoCBFRkFVTFQgaWYgbWJpbmQoKSBm
+b3Igbm9uZSBNUE9MX0RFRkFVTFQgY2FzZXM7Cj4+IDIgVW5tYXBwZWQgaG9sZXMgYXQgYW55IHBh
+cnQgb2YgdGhlIHNwZWNpZmllZCByYW5nZSBzaG91bGQgYmUgaWdub3JlZCBpZgo+PiDCoCBtYmlu
+ZCgpIGZvciBNUE9MX0RFRkFVTFQgY2FzZTsKPj4gTm90ZSB0aGF0IHRoZSBzZWNvbmQgcnVsZSBp
+cyB0aGUgY3VycmVudCBpbXBsZW1lbnRhdGlvbiwgYnV0IGl0IHNlZW1zCj4+IGNvbmZsaWN0cyB0
+aGUgTGludXggQVBJIGRlZmluaXRpb24uCj4KPkNhbiB5b3UgcXVvdGUgdGhlIHBhcnQgb2YgdGhl
+IEFQSSBkZWZpbml0aW9uIHdoaWNoIHlvdSdyZSBsb29raW5nIGF0Pwo+Cj5NeSBtYmluZCgyKSBt
+YW5wYWdlIHNheXMKPgo+RVJST1JTCj7CoMKgwqDCoMKgwqAgRUZBVUxUIFBhcnQgb3IgYWxsIG9m
+IHRoZSBtZW1vcnkgcmFuZ2Ugc3BlY2lmaWVkIGJ5IG5vZGVtYXNrIGFuZCBtYXhuLQo+wqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgb2RlIHBvaW50cyBvdXRzaWRlIHlvdXIgYWNjZXNzaWJsZSBh
+ZGRyZXNzIHNwYWNlLsKgIE9yLCB0aGVyZSB3YXMKPsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IGFuIHVubWFwcGVkIGhvbGUgaW4gdGhlIHNwZWNpZmllZCBtZW1vcnkgcmFuZ2Ugc3BlY2lmaWVk
+IGJ5IGFkZHIKPsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFuZCBsZW4uCj4KPihJIGFzc3Vt
+ZSB0aGUgZmlyc3Qgc2VudGVuY2UgbWVhbnQgdG8gc2F5ICJzcGVjaWZpZWQgYnkgYWRkciBhbmQg
+bGVuIikKPiAKCnRoaXMgcGFydDrCoAoiT3IsIHRoZXJlIHdhcyBhbiB1bm1hcHBlZCBob2xlIGlu
+IHRoZSBzcGVjaWZpZWQgbWVtb3J5IHJhbmdlIHNwZWNpZmllZCBieSBhZGRyIAphbmQgbGVuLiIK
+aXMgY29uY2VybmVkIGJ5IG15IHBhdGNoLgoKPkkgYWdyZWUgd2l0aCB5b3VyIGludGVycHJldGF0
+aW9uLCBidXQgdGhlcmUncyBubyBtZW50aW9uIGhlcmUgdGhhdAo+TVBPTF9ERUZBVUxUIGlzIHRy
+ZWF0ZWQgZGlmZmVyZW50bHkgYW5kIEkgZG9uJ3Qgc2VlIHdoeSBpdCBzaG91bGQgYmUuCj4gClRo
+ZSBmaXJzdCBydWxlIG1hdGNoIHRoZSBtYW5wYWdlLCBidXQgdGhlIGN1cnJlbnQgbWVtcG9saWN5
+IGltcGxlbWVudGF0aW9uIG9ubHnCoApyZXBvcnRzIEVGQVVMVCBpZiBob2xlcyBhcmUgd2l0aGlu
+IHJhbmdlLCBvciBhdCB0aGUgaGVhZCBzaWRlIG9mIHJhbmdlLiBObyBFRkFVTFTCoApyZXBvcnRl
+ZCBpZiBob2xlIGF0IHRhaWwgc2lkZSBvZiByYW5nZS4gSSBzdXBwb3NlIHRoZSBmaXJzdCBydWxl
+IGhhcyB0byBiZSBmaXhlZC4KClRoZSBzZWNvbmRlIHJ1bGUsIHdoZW4gTVBPTF9ERUZBVUxUIGlz
+IHVzZWQsIHdhcyBzdW1tYXJpemVkIGJ5IG1lIGFjY29yZGluZ8KgCnRvIG1lbXBvbGljeSBpbXBs
+ZW1lbnRhdGlvbi4gQWN0dWFsbHksIHRoaXMgcnVsZSBkb2VzIG5vdCBmb2xsb3cgbWFucGFnZSBh
+bmQgZXhzaXRzwqAKZm9yIGxvbmcgZGF5cy4gSW4gbXkgdW5kZXJzdGFuZGluZywgdGhpcyBydWxl
+IGlzIHJlYXNvbmFibGUgKGluIGNvZGUsIMKgdGhlIGludGVybmFsIGZsYWcgCk1QT0xfTUZfRElT
+Q09OVElHX09LIGlzIHVzZWQgZm9yIHRoYXQgcHVycG9zZSwgdGhlcmUgaXMgY29tbWVudHMgZm9y
+IHJlYXNvbikgCmFuZCB3ZSdkIGJldHRlcsKga2VlcCBpdC4KCj4KPk1vcmUgYnJvYWRseSwgSSB3
+b3JyeSB0aGF0IGl0J3MgdG9vIGxhdGUgdG8gY2hhbmdlIHRoaXMgLSBleGlzdGluZwo+YXBwbGlj
+YXRpb25zIG1pZ2h0IGZhaWwgaWYgd2UgY2hhbmdlIHRoZSBpbXBsZW1lbnRhdGlvbiBpbiB0aGUg
+cHJvcG9zZWQKPmZhc2hpb24uwqAgU28gcGVyaGFwcyB3aGF0IHdlIHNob3VsZCBkbyBoZXJlIGlz
+IHRvIGNoYW5nZSB0aGUgbWFucGFnZSB0bwo+bWF0Y2ggcmVhbGl0eT8KPiAKSSBwcmVmZXIgYWRk
+IGRlc2NyaXB0aW9uIGluIG1hbnBhZ2UgZm9yIHRoZSBzZWNvbmQgcnVsZSwgc28gbm8gY2hhbmdl
+IHRvIG91ciBjb2RlLiAKT25seSBmaXggZm9yIGZpcnN0IHJ1bGUuCgo+SXMgdGhlIGN1cnJlbnQg
+YmVoYXZpb3IgY2F1c2luZyB5b3UgYW55IHByb2JsZW1zIGluIGEgcmVhbC13b3JsZCB1c2UKPmNh
+c2U/IApJIHdhcyB1c2luZyBtYmluZCgpIHdpdGjCoE1QT0xfREVGQVVMVChvciBNUE9MX0JJTkQp
+IHRvIHJlc2V0IGEgcmFuZ2Ugb2YgYWRkcmVzcyAKKHdoaWNoIG1heWJlIGNvbnRpZ3VvdXMgb3Ig
+bm90IGluIHRoZSB3aG9sZSByYW5nZSkgdG8gdGhlIGRlZmF1bHQgcG9saWN5ICh0byBhIHNwZWNp
+ZmljIApub2RlKSwgYW5kIG9ic2VydmVkIHRoaXMgaXNzdWUuIElmIG1iaW5kKCkgY2FsbCBmb3Ig
+ZWFjaCBtYXBwaW5nIG9uZSBieSBvbmUsIHdlIGRvbid0IHNlZSB0aGXCoAppc3N1ZS4KCi0gWGlu
+aGFpCgo=
 
-Cheers,
-
-Michael
-
-
-On 10/22/19 5:20 AM, Yang Xu wrote:
-> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-> ---
->   man2/copy_file_range.2 | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man2/copy_file_range.2 b/man2/copy_file_range.2
-> index c6ae11a8f..9ed0cc31a 100644
-> --- a/man2/copy_file_range.2
-> +++ b/man2/copy_file_range.2
-> @@ -177,7 +177,7 @@ specified data types.
->   .I fd_out
->   refers to an immutable file.
->   .TP
-> -.B TXTBSY
-> +.B ETXTBSY
->   Either
->   .I fd_in
->   or
-> 
