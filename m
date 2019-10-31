@@ -2,78 +2,77 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 60D18EAED7
-	for <lists+linux-man@lfdr.de>; Thu, 31 Oct 2019 12:26:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A2266EB4B3
+	for <lists+linux-man@lfdr.de>; Thu, 31 Oct 2019 17:26:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726658AbfJaL0M (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 31 Oct 2019 07:26:12 -0400
-Received: from mx2.suse.de ([195.135.220.15]:45560 "EHLO mx1.suse.de"
-        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1726455AbfJaL0M (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 31 Oct 2019 07:26:12 -0400
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
-        by mx1.suse.de (Postfix) with ESMTP id 8C7B6B5F1;
-        Thu, 31 Oct 2019 11:26:10 +0000 (UTC)
-Date:   Thu, 31 Oct 2019 12:26:09 +0100
-From:   Michal Hocko <mhocko@kernel.org>
-To:     Andrew Morton <akpm@linux-foundation.org>
-Cc:     Li Xinhai <lixinhai.lxh@gmail.com>,
-        "linux-mm@kvack.org" <linux-mm@kvack.org>, Babka <vbabka@suse.cz>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        API <linux-api@vger.kernel.org>, Dickins <hughd@google.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] mm: Fix checking unmapped holes for mbind
-Message-ID: <20191031112609.GG13102@dhcp22.suse.cz>
-References: <201910291756045288126@gmail.com>
- <20191030210836.a17c0649354b59961903d1a8@linux-foundation.org>
+        id S1728428AbfJaQ0z (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 31 Oct 2019 12:26:55 -0400
+Received: from us-smtp-delivery-1.mimecast.com ([207.211.31.120]:43209 "EHLO
+        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1726540AbfJaQ0z (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 31 Oct 2019 12:26:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1572539214;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding;
+        bh=YXM9o0vi4XYbm6bPfsOReuPjdQ6dzWst/YyYtICLWlU=;
+        b=CuzN08Mu257QPvLqxfDCxsoYseT+65w1pZcZRkvzlcChXhLevYgG4neEmpa3KV3s9Z02mR
+        FS2xIZFdTYzklqhvleTtgGPR9TAPvncBQjnuS1jurSG4vUB88uM7GLof2CIHid0XvLsORK
+        74Tb94gqqaWvgjtnVwzR2pJGMX7PYAw=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-223-XpLOJV9iP8Sb6pgD0kmr-g-1; Thu, 31 Oct 2019 12:26:52 -0400
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E53811005500;
+        Thu, 31 Oct 2019 16:26:51 +0000 (UTC)
+Received: from cicero.redhat.com (unknown [10.33.36.109])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id A80D25DA60;
+        Thu, 31 Oct 2019 16:26:50 +0000 (UTC)
+From:   Andrew Price <anprice@redhat.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] fallocate.2: Add gfs2 to the list of punch hole-capable filesystems
+Date:   Thu, 31 Oct 2019 16:26:47 +0000
+Message-Id: <20191031162647.1224-1-anprice@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20191030210836.a17c0649354b59961903d1a8@linux-foundation.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-MC-Unique: XpLOJV9iP8Sb6pgD0kmr-g-1
+X-Mimecast-Spam-Score: 0
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed 30-10-19 21:08:36, Andrew Morton wrote:
-> (cc linux-man@vger.kernel.org)
-> 
-> On Tue, 29 Oct 2019 17:56:06 +0800 "Li Xinhai" <lixinhai.lxh@gmail.com> wrote:
-> 
-> > queue_pages_range() will check for unmapped holes besides queue pages for
-> > migration. The rules for checking unmapped holes are:
-> > 1 Unmapped holes at any part of the specified range should be reported as
-> >   EFAULT if mbind() for none MPOL_DEFAULT cases;
-> > 2 Unmapped holes at any part of the specified range should be ignored if
-> >   mbind() for MPOL_DEFAULT case;
-> > Note that the second rule is the current implementation, but it seems
-> > conflicts the Linux API definition.
-> 
-> Can you quote the part of the API definition which you're looking at?
-> 
-> My mbind(2) manpage says
-> 
-> ERRORS
->        EFAULT Part or all of the memory range specified by nodemask and maxn-
->               ode points outside your accessible address space.  Or, there was
->               an unmapped hole in the specified memory range specified by addr
->               and len.
-> 
-> (I assume the first sentence meant to say "specified by addr and len")
+Also remove a stray " from the previous item.
 
-My understanding is that this really refers to area pointed to by nodemask.
-Btw. why there is any special casing around the unmapped holes with the
-address space range? This looks like an antipattern to other address
-space operations to me. E.g. munmap simply unmaps all existing vmas in
-the given range, mprotect, madvise etc. behave the same.
+Signed-off-by: Andrew Price <anprice@redhat.com>
+---
+ man2/fallocate.2 | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-So my question is, do we want to remove that weird restriction and
-simply act on all existing VMAs in the range? The only situation this
-could regress would be if somebody used mbind to probe for existing VMAs
-and that sounds a more than sensible to me. Or am I missing anything?
--- 
-Michal Hocko
-SUSE Labs
+diff --git a/man2/fallocate.2 b/man2/fallocate.2
+index 35a319e39..0ea6ad55f 100644
+--- a/man2/fallocate.2
++++ b/man2/fallocate.2
+@@ -133,8 +133,12 @@ ext4 (since Linux 3.0)
+ Btrfs (since Linux 3.7)
+ .IP *
+ .BR tmpfs (5)
+-(since Linux 3.5)"
++(since Linux 3.5)
+ .\" commit 83e4fa9c16e4af7122e31be3eca5d57881d236fe
++.IP *
++.BR gfs2 (5)
++(since Linux 4.16)
++.\" commit 4e56a6411fbce6f859566e17298114c2434391a4
+ .SS Collapsing file space
+ .\" commit 00f5e61998dd17f5375d9dfc01331f104b83f841
+ Specifying the
+--=20
+2.21.0
+
