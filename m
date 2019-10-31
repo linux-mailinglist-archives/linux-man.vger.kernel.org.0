@@ -2,123 +2,129 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id D17B5EAA89
-	for <lists+linux-man@lfdr.de>; Thu, 31 Oct 2019 07:01:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6E989EAA8D
+	for <lists+linux-man@lfdr.de>; Thu, 31 Oct 2019 07:04:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726607AbfJaGBH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 31 Oct 2019 02:01:07 -0400
-Received: from mail-lf1-f67.google.com ([209.85.167.67]:45527 "EHLO
-        mail-lf1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726479AbfJaGBH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 31 Oct 2019 02:01:07 -0400
-Received: by mail-lf1-f67.google.com with SMTP id v8so3542040lfa.12;
-        Wed, 30 Oct 2019 23:01:04 -0700 (PDT)
+        id S1726370AbfJaGEP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 31 Oct 2019 02:04:15 -0400
+Received: from mail-wr1-f65.google.com ([209.85.221.65]:44135 "EHLO
+        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726331AbfJaGEP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 31 Oct 2019 02:04:15 -0400
+Received: by mail-wr1-f65.google.com with SMTP id z11so4826933wro.11
+        for <linux-man@vger.kernel.org>; Wed, 30 Oct 2019 23:04:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:references:mime-version:message-id
-         :content-transfer-encoding;
-        bh=B9pBKnFjfixHWQ/ZEyIY+63diOqN5jpX/fJTCisM0+M=;
-        b=Fkp6Syx6mHbOLRCg/THpgtyk4gCS05UCGwcgJi5cBfBcrSgo/HwFigMnvXxvLOM5F2
-         vGwlHeDPxUrySg3tOOeyorFr6FS/BAtjxRo/umHFbdq1mFwg5minYcuBXrauE1e39W1i
-         SVJt6mccSS61DEOTkSLgFSBZJVEVaNFkOC7cynYKAX5TbhFOLln8ol90SkxWOy4ofFOG
-         JiuxNf9+PFjVyC24JJaahEzYu6ZhUaCLu5VOHthNl/rrUeYoItKi0pU5Zp76DdnIlZ3e
-         KGRP1tN6mASAs4LLHZBP6AwdfpOEjA4Yy+zK8YpQ2y1XcDjIBo07T8+GEHw+hjvlQK9e
-         K5zg==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=0erFY0Xh1bBZn5JpWNrrvmbxjJCpVfqDnqzgpMiPPZM=;
+        b=ffRmS+1Czq4WeowpFt3AkmbVFojZBR6pJyfheLB1nKtfKV0g42Opkbv/us/PNgDEr/
+         mtpiW8vEDpoVPNv0r0xDk1C+gLxoTFZNsX5fMs6SqreJaiwRt+WvAvBkmZM6Yq2cRwBQ
+         VoJySdLSKBmjMVTyUaeJN4YE+d3rDSsoiJKhLyfmAXP4GgPbGrzUAhNW6Ef3PVAdEZYJ
+         XgxMeEP3qpPH8eOpFwqGhp4HnyKA4LABEYMLQS22O24pbQLyhvfpxwjJalGf9Otw6XFu
+         MallHv7U8j1BqEn8kClsKix0LbsthFyLo38LmhVqsZUpJSGuZ4QmtQ0Y+6aZ0KqA2EQe
+         tWVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:references:mime-version
-         :message-id:content-transfer-encoding;
-        bh=B9pBKnFjfixHWQ/ZEyIY+63diOqN5jpX/fJTCisM0+M=;
-        b=eSqy0osA8RoSNC6GPnFyGXQVdvfe9wCHVypXaeQuWeMAM9T/f06gsnC5jsrN47j5eW
-         tyyVRjglaObBx3bPqC9MOapqjnf6M/8RvHqRCm7ODT2u08d7XZVN1crptIUrKwtLzoTV
-         aev4PHHT8ACwAXh3Zw2cNUjl0RqH/ifW2jJ2hhyqjYhCyKuuenICcwKpRHmKKlpjWY2t
-         F7ziL6GZQweetrurc7wpnpdRVv9yiPD2caV5bNnGnW4/8aYROboWjKPr3usi4Gve2ZWt
-         OTLP59VhIwjpzDnY8g9u74ioVvIYvb2OQCct6Sb/AHPeEkgf8pgUPC5X5cvmtp1LivSs
-         iX7g==
-X-Gm-Message-State: APjAAAWjvGFlFqE9ZWXYlnA+hVmZixM+RzIKb6AmhtfpqFWL/qyVC9FW
-        rPp4CvntRZtzXkTfO5XG5IE=
-X-Google-Smtp-Source: APXvYqzKGcjgiqWDmZQtkX4i4E9Z6uMkIO9vy8g/Qcy7z1Y1exXSWj23ipY0ULxG9VWMivkMsEKdTQ==
-X-Received: by 2002:ac2:5496:: with SMTP id t22mr839811lfk.31.1572501663756;
-        Wed, 30 Oct 2019 23:01:03 -0700 (PDT)
-Received: from N-20L6PF1KTYA2 ([131.228.2.20])
-        by smtp.gmail.com with ESMTPSA id t4sm704967lji.40.2019.10.30.23.01.00
-        (version=TLS1_2 cipher=AES128-GCM-SHA256 bits=128/128);
-        Wed, 30 Oct 2019 23:01:02 -0700 (PDT)
-Date:   Thu, 31 Oct 2019 14:01:00 +0800
-From:   "Li Xinhai" <lixinhai.lxh@gmail.com>
-To:     akpm <akpm@linux-foundation.org>
-Cc:     "linux-mm@kvack.org" <linux-mm@kvack.org>,
-        "Vlastimil Babka" <vbabka@suse.cz>,
-        "Michal Hocko" <mhocko@kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "Linux API" <linux-api@vger.kernel.org>,
-        "Hugh Dickins" <hughd@google.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        n-horiguchi <n-horiguchi@ah.jp.nec.com>
-Subject: Re: [PATCH v2] mm: Fix checking unmapped holes for mbind
-References: <201910291756045288126@gmail.com>, 
-        <20191030210836.a17c0649354b59961903d1a8@linux-foundation.org>
-X-Priority: 3
-X-GUID: 6300A385-0B3A-4454-B5DB-0B15FEDE58AA
-X-Has-Attach: no
-X-Mailer: Foxmail 7.2.13.365[cn]
-Mime-Version: 1.0
-Message-ID: <2019103114005855855689@gmail.com>
-Content-Type: text/plain;
-        charset="utf-8"
-Content-Transfer-Encoding: base64
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=0erFY0Xh1bBZn5JpWNrrvmbxjJCpVfqDnqzgpMiPPZM=;
+        b=SlK5SR6bwVWn7kUYsVyou628gQFEMvnCrlufHP3hH3hzD/IyjTzLnwHEC8pYZvmjKq
+         4k+MxOoEnhnSO71a+6Tz2Lh35/KpoN0aUqIsYWk6DmXN9eNXYHk1n6VOpM8rzlhlrfp/
+         b3q3giRjE8f0zcpDJmqIKZU4hTBV24G6d+ApaN+os8vOfhdKuVv3t+EjFhqDFX5Lczed
+         5vlTuhJmKcYyi6d5c4HgmyP18nfKp+gzRNlrMn51tLF2EbjoX29Gt98iquPWKcuTPLKN
+         MEJINArX8O2gC9VxD53Vt+0BGqpNwbgVzpB02POz8GKfdn7XsxnKhmbpIDM9ezbhBcV1
+         jEDA==
+X-Gm-Message-State: APjAAAWgq9QbwgUvtjp2Q1V5CS1pt++Nd8QGQFvzw1AeN6aZlZLqIJ3e
+        V9p24KaOdQSeOT2n5O4dQ1gRW6/s2R4=
+X-Google-Smtp-Source: APXvYqwzCr73Xyn+3y7eJ6VHa4sE9cHafSRZvRZpFKvuAks2+ZqL6LqI6g1W7WL3xmall6+r7vqFhA==
+X-Received: by 2002:adf:f684:: with SMTP id v4mr3452545wrp.336.1572501852266;
+        Wed, 30 Oct 2019 23:04:12 -0700 (PDT)
+Received: from ?IPv6:2a01:e35:2f38:d7b0:e8b5:a4a9:346b:8c65? ([2a01:e35:2f38:d7b0:e8b5:a4a9:346b:8c65])
+        by smtp.gmail.com with ESMTPSA id 74sm3660653wrm.92.2019.10.30.23.04.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Oct 2019 23:04:11 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] quotactl.2: Add some details about Q_QUOTAON
+To:     Yang Xu <xuyang2018.jy@cn.fujitsu.com>, jack@suse.cz
+References: <20191024095558.GL31271@quack2.suse.cz>
+ <1571983585-8224-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <da661e9a-2155-5abc-f2fb-7feefd6b6a43@gmail.com>
+Date:   Thu, 31 Oct 2019 07:04:10 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
+MIME-Version: 1.0
+In-Reply-To: <1571983585-8224-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-T24gMjAxOS0xMC0zMcKgYXQgMTI6MDjCoEFuZHJldyBNb3J0b27CoHdyb3RlOgo+KGNjIGxpbnV4
-LW1hbkB2Z2VyLmtlcm5lbC5vcmcpCj4KPk9uIFR1ZSwgMjkgT2N0IDIwMTkgMTc6NTY6MDYgKzA4
-MDAgIkxpIFhpbmhhaSIgPGxpeGluaGFpLmx4aEBnbWFpbC5jb20+IHdyb3RlOgo+Cj4+IHF1ZXVl
-X3BhZ2VzX3JhbmdlKCkgd2lsbCBjaGVjayBmb3IgdW5tYXBwZWQgaG9sZXMgYmVzaWRlcyBxdWV1
-ZSBwYWdlcyBmb3IKPj4gbWlncmF0aW9uLiBUaGUgcnVsZXMgZm9yIGNoZWNraW5nIHVubWFwcGVk
-IGhvbGVzIGFyZToKPj4gMSBVbm1hcHBlZCBob2xlcyBhdCBhbnkgcGFydCBvZiB0aGUgc3BlY2lm
-aWVkIHJhbmdlIHNob3VsZCBiZSByZXBvcnRlZCBhcwo+PiDCoCBFRkFVTFQgaWYgbWJpbmQoKSBm
-b3Igbm9uZSBNUE9MX0RFRkFVTFQgY2FzZXM7Cj4+IDIgVW5tYXBwZWQgaG9sZXMgYXQgYW55IHBh
-cnQgb2YgdGhlIHNwZWNpZmllZCByYW5nZSBzaG91bGQgYmUgaWdub3JlZCBpZgo+PiDCoCBtYmlu
-ZCgpIGZvciBNUE9MX0RFRkFVTFQgY2FzZTsKPj4gTm90ZSB0aGF0IHRoZSBzZWNvbmQgcnVsZSBp
-cyB0aGUgY3VycmVudCBpbXBsZW1lbnRhdGlvbiwgYnV0IGl0IHNlZW1zCj4+IGNvbmZsaWN0cyB0
-aGUgTGludXggQVBJIGRlZmluaXRpb24uCj4KPkNhbiB5b3UgcXVvdGUgdGhlIHBhcnQgb2YgdGhl
-IEFQSSBkZWZpbml0aW9uIHdoaWNoIHlvdSdyZSBsb29raW5nIGF0Pwo+Cj5NeSBtYmluZCgyKSBt
-YW5wYWdlIHNheXMKPgo+RVJST1JTCj7CoMKgwqDCoMKgwqAgRUZBVUxUIFBhcnQgb3IgYWxsIG9m
-IHRoZSBtZW1vcnkgcmFuZ2Ugc3BlY2lmaWVkIGJ5IG5vZGVtYXNrIGFuZCBtYXhuLQo+wqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgb2RlIHBvaW50cyBvdXRzaWRlIHlvdXIgYWNjZXNzaWJsZSBh
-ZGRyZXNzIHNwYWNlLsKgIE9yLCB0aGVyZSB3YXMKPsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGFuIHVubWFwcGVkIGhvbGUgaW4gdGhlIHNwZWNpZmllZCBtZW1vcnkgcmFuZ2Ugc3BlY2lmaWVk
-IGJ5IGFkZHIKPsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFuZCBsZW4uCj4KPihJIGFzc3Vt
-ZSB0aGUgZmlyc3Qgc2VudGVuY2UgbWVhbnQgdG8gc2F5ICJzcGVjaWZpZWQgYnkgYWRkciBhbmQg
-bGVuIikKPiAKCnRoaXMgcGFydDrCoAoiT3IsIHRoZXJlIHdhcyBhbiB1bm1hcHBlZCBob2xlIGlu
-IHRoZSBzcGVjaWZpZWQgbWVtb3J5IHJhbmdlIHNwZWNpZmllZCBieSBhZGRyIAphbmQgbGVuLiIK
-aXMgY29uY2VybmVkIGJ5IG15IHBhdGNoLgoKPkkgYWdyZWUgd2l0aCB5b3VyIGludGVycHJldGF0
-aW9uLCBidXQgdGhlcmUncyBubyBtZW50aW9uIGhlcmUgdGhhdAo+TVBPTF9ERUZBVUxUIGlzIHRy
-ZWF0ZWQgZGlmZmVyZW50bHkgYW5kIEkgZG9uJ3Qgc2VlIHdoeSBpdCBzaG91bGQgYmUuCj4gClRo
-ZSBmaXJzdCBydWxlIG1hdGNoIHRoZSBtYW5wYWdlLCBidXQgdGhlIGN1cnJlbnQgbWVtcG9saWN5
-IGltcGxlbWVudGF0aW9uIG9ubHnCoApyZXBvcnRzIEVGQVVMVCBpZiBob2xlcyBhcmUgd2l0aGlu
-IHJhbmdlLCBvciBhdCB0aGUgaGVhZCBzaWRlIG9mIHJhbmdlLiBObyBFRkFVTFTCoApyZXBvcnRl
-ZCBpZiBob2xlIGF0IHRhaWwgc2lkZSBvZiByYW5nZS4gSSBzdXBwb3NlIHRoZSBmaXJzdCBydWxl
-IGhhcyB0byBiZSBmaXhlZC4KClRoZSBzZWNvbmRlIHJ1bGUsIHdoZW4gTVBPTF9ERUZBVUxUIGlz
-IHVzZWQsIHdhcyBzdW1tYXJpemVkIGJ5IG1lIGFjY29yZGluZ8KgCnRvIG1lbXBvbGljeSBpbXBs
-ZW1lbnRhdGlvbi4gQWN0dWFsbHksIHRoaXMgcnVsZSBkb2VzIG5vdCBmb2xsb3cgbWFucGFnZSBh
-bmQgZXhzaXRzwqAKZm9yIGxvbmcgZGF5cy4gSW4gbXkgdW5kZXJzdGFuZGluZywgdGhpcyBydWxl
-IGlzIHJlYXNvbmFibGUgKGluIGNvZGUsIMKgdGhlIGludGVybmFsIGZsYWcgCk1QT0xfTUZfRElT
-Q09OVElHX09LIGlzIHVzZWQgZm9yIHRoYXQgcHVycG9zZSwgdGhlcmUgaXMgY29tbWVudHMgZm9y
-IHJlYXNvbikgCmFuZCB3ZSdkIGJldHRlcsKga2VlcCBpdC4KCj4KPk1vcmUgYnJvYWRseSwgSSB3
-b3JyeSB0aGF0IGl0J3MgdG9vIGxhdGUgdG8gY2hhbmdlIHRoaXMgLSBleGlzdGluZwo+YXBwbGlj
-YXRpb25zIG1pZ2h0IGZhaWwgaWYgd2UgY2hhbmdlIHRoZSBpbXBsZW1lbnRhdGlvbiBpbiB0aGUg
-cHJvcG9zZWQKPmZhc2hpb24uwqAgU28gcGVyaGFwcyB3aGF0IHdlIHNob3VsZCBkbyBoZXJlIGlz
-IHRvIGNoYW5nZSB0aGUgbWFucGFnZSB0bwo+bWF0Y2ggcmVhbGl0eT8KPiAKSSBwcmVmZXIgYWRk
-IGRlc2NyaXB0aW9uIGluIG1hbnBhZ2UgZm9yIHRoZSBzZWNvbmQgcnVsZSwgc28gbm8gY2hhbmdl
-IHRvIG91ciBjb2RlLiAKT25seSBmaXggZm9yIGZpcnN0IHJ1bGUuCgo+SXMgdGhlIGN1cnJlbnQg
-YmVoYXZpb3IgY2F1c2luZyB5b3UgYW55IHByb2JsZW1zIGluIGEgcmVhbC13b3JsZCB1c2UKPmNh
-c2U/IApJIHdhcyB1c2luZyBtYmluZCgpIHdpdGjCoE1QT0xfREVGQVVMVChvciBNUE9MX0JJTkQp
-IHRvIHJlc2V0IGEgcmFuZ2Ugb2YgYWRkcmVzcyAKKHdoaWNoIG1heWJlIGNvbnRpZ3VvdXMgb3Ig
-bm90IGluIHRoZSB3aG9sZSByYW5nZSkgdG8gdGhlIGRlZmF1bHQgcG9saWN5ICh0byBhIHNwZWNp
-ZmljIApub2RlKSwgYW5kIG9ic2VydmVkIHRoaXMgaXNzdWUuIElmIG1iaW5kKCkgY2FsbCBmb3Ig
-ZWFjaCBtYXBwaW5nIG9uZSBieSBvbmUsIHdlIGRvbid0IHNlZSB0aGXCoAppc3N1ZS4KCi0gWGlu
-aGFpCgo=
+Hello Yang Xu and Jan
 
+On 10/25/19 8:06 AM, Yang Xu wrote:
+> For Q_QUOTAON, on old kernel we can use quotacheck -ug to
+> generate quota files. But in current kernel, we can also hide them
+> in system inodes and indicate them by using "quota" or project feature.
+> 
+> For user or group quota, we can do as below(etc ext4):
+> mkfs.ext4 -F -o quota /dev/sda5
+> mount /dev/sda5 /mnt
+> quotactl(QCMD(Q_QUOTAON, USRQUOTA), /dev/sda5, QFMT_VFS_V0, NULL);
+> 
+> For project quota, we can do as below(etc ext4)
+> mkfs.ext4 -F -o quota,project /dev/sda5
+> mount /dev/sda5 /mnt
+> quotactl(QCMD(Q_QUOTAON, PRJQUOTA), /dev/sda5, QFMT_VFS_V0, NULL);
+
+Thanks for the patch, Yang Xu, and thanks for the additional input,
+Jan.
+
+Patch applied, and a few wording tweaks added.
+
+Thanks,
+
+Michael
+
+> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+> ---
+>   man2/quotactl.2 | 13 +++++++++++--
+>   1 file changed, 11 insertions(+), 2 deletions(-)
+> 
+> diff --git a/man2/quotactl.2 b/man2/quotactl.2
+> index e0d40a2be..215ec6252 100644
+> --- a/man2/quotactl.2
+> +++ b/man2/quotactl.2
+> @@ -117,7 +117,15 @@ argument points to the pathname of a file containing the quotas for
+>   the filesystem.
+>   The quota file must exist; it is normally created with the
+>   .BR quotacheck (8)
+> -program.
+> +program. Quota information can be also stored in hidden system inodes
+> +for ext4, xfs and other filesystems if the filesystem is configured so.
+> +In this case, there are no visible quota files and there is no need to
+> +use
+> +.BR quotacheck (8).
+> +Quota information is always kept consistent by the filesystem and Q_QUOTAON
+> +quotactl only enables enforcement of quota limits. The presence of hidden
+> +system inodes with quota information is indicated by DQF_SYS_FILE flag in
+> +Q_GETINFO output.
+>   This operation requires privilege
+>   .RB ( CAP_SYS_ADMIN ).
+>   .TP 8
+> @@ -638,7 +646,8 @@ The
+>   .I id
+>   argument is ignored.
+>   .TP
+> -.B Q_XQUOTARM
+> +.B Q_XQUOTARM() " (since Linux 3.16)"
+> +.\" 9da93f9b7cdf8ab28da6b364cdc1fafc8670b4dc
+>   Free the disk space taken by disk quotas. The
+>   .I addr
+>   argument should be a pointer to an
+> 
