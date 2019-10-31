@@ -2,85 +2,91 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 3FD2EEA9D1
-	for <lists+linux-man@lfdr.de>; Thu, 31 Oct 2019 05:08:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2624EEAA21
+	for <lists+linux-man@lfdr.de>; Thu, 31 Oct 2019 06:19:00 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726246AbfJaEIi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 31 Oct 2019 00:08:38 -0400
-Received: from mail.kernel.org ([198.145.29.99]:55576 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726127AbfJaEIi (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 31 Oct 2019 00:08:38 -0400
-Received: from localhost.localdomain (c-73-231-172-41.hsd1.ca.comcast.net [73.231.172.41])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id A54C620859;
-        Thu, 31 Oct 2019 04:08:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1572494917;
-        bh=S7ZWRS5+YaKNt1ZrSgoOeGZ5/gjvA8XfW9lupuyOdjQ=;
-        h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-        b=aLY8g0Jui+5kmsZK4RQSjTJ9dR7W0t9sZShnderrSOwzvwVa0C8BIOBxtUdSfAi4J
-         xQebDq0Gwg3kOG7PXV3YyZVNRen9jQdCx2F54K64YEJZog5Bcm6elmoAZBAF7T3THk
-         mYicnjSxGysRcugJKpD5TQAG8H+eRi8GBiOeERrM=
-Date:   Wed, 30 Oct 2019 21:08:36 -0700
-From:   Andrew Morton <akpm@linux-foundation.org>
-To:     "Li Xinhai" <lixinhai.lxh@gmail.com>
-Cc:     "linux-mm@kvack.org" <linux-mm@kvack.org>, Babka <vbabka@suse.cz>,
-        Hocko <mhocko@kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        API <linux-api@vger.kernel.org>, Dickins <hughd@google.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] mm: Fix checking unmapped holes for mbind
-Message-Id: <20191030210836.a17c0649354b59961903d1a8@linux-foundation.org>
-In-Reply-To: <201910291756045288126@gmail.com>
-References: <201910291756045288126@gmail.com>
-X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.31; x86_64-pc-linux-gnu)
-Mime-Version: 1.0
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+        id S1726646AbfJaFS7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 31 Oct 2019 01:18:59 -0400
+Received: from mail-wm1-f65.google.com ([209.85.128.65]:34363 "EHLO
+        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726552AbfJaFS7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 31 Oct 2019 01:18:59 -0400
+Received: by mail-wm1-f65.google.com with SMTP id v3so5728137wmh.1
+        for <linux-man@vger.kernel.org>; Wed, 30 Oct 2019 22:18:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=Lt2IN0TeR/56cS7kozyiXbapJLRyssgwaNmetPnKr4k=;
+        b=YBm8yJsMf/+c2Tej0vWGsYgEUdshTOq2Im+ZJ+ld45WAF2ZwS7K4aiet5gPB/0RTM3
+         y5MOHZJ3CTf5ncZyz983Xq7oTKJtjrCEIhde/W3IxwpR6blVWLxvBh/YaRTdLyA8fo6R
+         x9Ocg787LBVG2zt3R4swDrmdFgIeVxqh9aVc/sgAeb9vtNBS25k39c8pWQDI4BYdDNNV
+         a9m9SoqLdl6jqXPtABzMyBa1ssdca+QZ4O8KaU4f4KSh7Z/PG5BEdtPLMb+VV4Ld11qi
+         JXEP6f8fjMv5K7fffjAxcXduCiqlmtFe5nbJQ0YlxPLe5MVDRHd8kMBF1pW8blrXn1oD
+         Atcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=Lt2IN0TeR/56cS7kozyiXbapJLRyssgwaNmetPnKr4k=;
+        b=gCJRLTLbzOKmrnDCC/AVzxUsUdLL3KDH7XujV7JilXt16uaTlEAPIwNYWFb5Qsv/gR
+         2WIs3L2h0B7PlfmxY+DN+Tv7DO5gVm/uH/2F7IQb8Ns3Wjuc6eEhezGlFHEdjOG9YWRV
+         4ys5uNpuOINewWTmYw3xYxIi0vIapWtuCilVkoPWb5hPf/uIHGNBHBZCTEYrwIVOq3mE
+         IhMsgZcfmyqJ4pyxQBrzx6oEf7alL90N4+NxHgcg+CDQdbsMB6ofZjkhkDZz1saeVO/6
+         zxWIii3jlGdUMN9r3YDNcYVUKDEaY8yswgR7LMbTDrtlLuIogRedRmzleWWYhkgpG3E7
+         zmzg==
+X-Gm-Message-State: APjAAAV+Yw2LgkKqxWTJPy5BEiNn1B7rq2BUHiUoldKgt8wd5uOlJP1g
+        cIDaUUA0wCPxsZEYItMpRXOXOl7kTq8=
+X-Google-Smtp-Source: APXvYqzyEq+ugRPQv3qtV18lPpiN+32H7vH/vz4vgdVkwe+iFpbUkNyaUUua0AtFrWXW6Yju7Iv88Q==
+X-Received: by 2002:a05:600c:230d:: with SMTP id 13mr36136wmo.159.1572499136868;
+        Wed, 30 Oct 2019 22:18:56 -0700 (PDT)
+Received: from ?IPv6:2a01:e35:2f38:d7b0:e8b5:a4a9:346b:8c65? ([2a01:e35:2f38:d7b0:e8b5:a4a9:346b:8c65])
+        by smtp.gmail.com with ESMTPSA id h205sm2548041wmf.35.2019.10.30.22.18.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Oct 2019 22:18:56 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] unix.7: tfix
+To:     Torin Carey <torin@tcarey.uk>
+References: <20191029124153.GA14599@kappa>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <902dbf36-8b5f-ba99-fca8-62c567cbbb60@gmail.com>
+Date:   Thu, 31 Oct 2019 06:18:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
+MIME-Version: 1.0
+In-Reply-To: <20191029124153.GA14599@kappa>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-(cc linux-man@vger.kernel.org)
+Thanks, Torin. Patch applied.
 
-On Tue, 29 Oct 2019 17:56:06 +0800 "Li Xinhai" <lixinhai.lxh@gmail.com> wro=
-te:
+Cheers,
 
-> queue_pages_range() will check for unmapped holes besides queue pages for
-> migration. The rules for checking unmapped holes are:
-> 1 Unmapped holes at any part of the specified range should be reported as
-> =A0 EFAULT if mbind() for none MPOL_DEFAULT cases;
-> 2 Unmapped holes at any part of the specified range should be ignored if
-> =A0 mbind() for MPOL_DEFAULT case;
-> Note that the second rule is the current implementation, but it seems
-> conflicts the Linux API definition.
+Michael
 
-Can you quote the part of the API definition which you're looking at?
-
-My mbind(2) manpage says
-
-ERRORS
-       EFAULT Part or all of the memory range specified by nodemask and max=
-n-
-              ode points outside your accessible address space.  Or, there =
-was
-              an unmapped hole in the specified memory range specified by a=
-ddr
-              and len.
-
-(I assume the first sentence meant to say "specified by addr and len")
-
-I agree with your interpretation, but there's no mention here that
-MPOL_DEFAULT is treated differently and I don't see why it should be.
-
-
-More broadly, I worry that it's too late to change this - existing
-applications might fail if we change the implementation in the proposed
-fashion.  So perhaps what we should do here is to change the manpage to
-match reality?
-
-Is the current behavior causing you any problems in a real-world use
-case?
+On 10/29/19 1:41 PM, Torin Carey wrote:
+> Signed-off-by: Torin Carey <torin@tcarey.uk>
+> ---
+>   man7/unix.7 | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/man7/unix.7 b/man7/unix.7
+> index a9d54c8c0..594894268 100644
+> --- a/man7/unix.7
+> +++ b/man7/unix.7
+> @@ -479,7 +479,7 @@ This can be used for authentication.
+>   The credentials are passed as a
+>   .I struct ucred
+>   ancillary message.
+> -Thus structure is defined in
+> +This structure is defined in
+>   .I <sys/socket.h>
+>   as follows:
+>   .IP
+> 
