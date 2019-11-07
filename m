@@ -2,62 +2,75 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id BF31CF39CD
-	for <lists+linux-man@lfdr.de>; Thu,  7 Nov 2019 21:50:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id AAD4EF3AE5
+	for <lists+linux-man@lfdr.de>; Thu,  7 Nov 2019 23:05:40 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725906AbfKGUuD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 7 Nov 2019 15:50:03 -0500
-Received: from str.strettonhost2.com ([162.241.136.216]:37941 "EHLO
-        str.strettonhost2.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725828AbfKGUuC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 7 Nov 2019 15:50:02 -0500
-X-Greylist: delayed 4116 seconds by postgrey-1.27 at vger.kernel.org; Thu, 07 Nov 2019 15:50:02 EST
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-        d=birchhouselakes.com; s=default; h=Message-ID:Reply-To:Subject:To:From:Date:
-        Content-Transfer-Encoding:Content-Type:MIME-Version:Sender:Cc:Content-ID:
-        Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-        :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-        List-Subscribe:List-Post:List-Owner:List-Archive;
-        bh=6VaWzFeFQ9WgOVBJjlkrYxDfwwxKnozUfCOT01+RSos=; b=juSIuXQTS9bXuXJzAM2z7+cmfp
-        NRVANdLaHtwzB/p5HR8l+khfQc5axYtKa7I8a25sh0oT2zYNf5uwc/8QASvmR5SK9Yv3pL8Cir5kF
-        bmR7526W652qna8i9cjIz4GtV/R2NwNWySyBxhOr1h2vyUh5674eeHhzz12EuM5gchLQ=;
-Received: from localhost ([127.0.0.1]:52584 helo=str.strettonhost2.com)
-        by str.strettonhost2.com with esmtpa (Exim 4.92)
-        (envelope-from <mr.goerge.clifford@birchhouselakes.com>)
-        id 1iSmhU-0002Em-KU; Thu, 07 Nov 2019 18:40:08 +0000
+        id S1725912AbfKGWFj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 7 Nov 2019 17:05:39 -0500
+Received: from mail.kernel.org ([198.145.29.99]:36220 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1725882AbfKGWFj (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Thu, 7 Nov 2019 17:05:39 -0500
+Received: from ebiggers-linuxstation.mtv.corp.google.com (unknown [104.132.1.77])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+        (No client certificate requested)
+        by mail.kernel.org (Postfix) with ESMTPSA id 75F1820679;
+        Thu,  7 Nov 2019 22:05:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=default; t=1573164338;
+        bh=cygUg6uzZhrE0QtmMOaogM8YgrVMvUUpNVFQTtn+FhQ=;
+        h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+        b=U2ahxXJfpD62ZZyL2kWYVQCil+YiEuYvGM8qrEkDSjEVJjfGgM3GEvh0BPqaKZlR2
+         3AK1LyQIj/blgbUFME6KpJ1OgdutTDdk902RgybzDOjQPJjSSRYVTaCtNIbbKUWQO7
+         BxkzKA5F71d6dLX4jWeEJPrEmQnD9ad5nJk92Dt0=
+From:   Eric Biggers <ebiggers@kernel.org>
+To:     linux-man@vger.kernel.org
+Cc:     darrick.wong@oracle.com, dhowells@redhat.com, jaegeuk@kernel.org,
+        linux-api@vger.kernel.org, linux-ext4@vger.kernel.org,
+        linux-f2fs-devel@lists.sourceforge.net,
+        linux-fscrypt@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        tytso@mit.edu, victorhsieh@google.com
+Subject: [man-pages RFC PATCH] statx.2: document STATX_ATTR_VERITY
+Date:   Thu,  7 Nov 2019 14:02:48 -0800
+Message-Id: <20191107220248.32025-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.24.0.rc1.363.gb1bccd3e3d-goog
+In-Reply-To: <20191107014420.GD15212@magnolia>
+References: <20191107014420.GD15212@magnolia>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date:   Thu, 07 Nov 2019 18:40:07 +0000
-From:   "mr.goerge.clifford " <mr.goerge.clifford@birchhouselakes.com>
-To:     undisclosed-recipients:;
-Subject: RE RE
-Reply-To: george_clifford4@aol.com
-Mail-Reply-To: george_clifford4@aol.com
-Message-ID: <75c0fa790f1810bfa385590a813d3f53@birchhouselakes.com>
-X-Sender: mr.goerge.clifford@birchhouselakes.com
-User-Agent: Roundcube Webmail/1.3.8
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - str.strettonhost2.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - birchhouselakes.com
-X-Get-Message-Sender-Via: str.strettonhost2.com: authenticated_id: mr.goerge.clifford@birchhouselakes.com
-X-Authenticated-Sender: str.strettonhost2.com: mr.goerge.clifford@birchhouselakes.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+From: Eric Biggers <ebiggers@google.com>
 
+Document the verity attribute for statx().
 
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ man2/statx.2 | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+RFC since the kernel patches are currently under review.
+The kernel patches can be found here:
+https://lkml.kernel.org/linux-fscrypt/20191029204141.145309-1-ebiggers@kernel.org/T/#u
+
+diff --git a/man2/statx.2 b/man2/statx.2
+index d2f1b07b8..713bd1260 100644
+--- a/man2/statx.2
++++ b/man2/statx.2
+@@ -461,6 +461,10 @@ See
+ .TP
+ .B STATX_ATTR_ENCRYPTED
+ A key is required for the file to be encrypted by the filesystem.
++.TP
++.B STATX_ATTR_VERITY
++The file has fs-verity enabled.  It cannot be written to, and all reads from it
++will be verified against a Merkle tree.
+ .SH RETURN VALUE
+ On success, zero is returned.
+ On error, \-1 is returned, and
 -- 
-This message is the last notification about USD14.5 million bearing our
-Name as Beneficiary, all effort to reach you have not be successful,
-Please if you receive this message kindly respond back stating your
-Desire To make the claim, reconfirm your full name and age Mr. George
+2.24.0.rc1.363.gb1bccd3e3d-goog
 
