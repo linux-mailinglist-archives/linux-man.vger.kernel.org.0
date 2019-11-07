@@ -2,104 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 1D692F346A
-	for <lists+linux-man@lfdr.de>; Thu,  7 Nov 2019 17:11:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BF31CF39CD
+	for <lists+linux-man@lfdr.de>; Thu,  7 Nov 2019 21:50:03 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2389041AbfKGQLH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 7 Nov 2019 11:11:07 -0500
-Received: from us-smtp-delivery-1.mimecast.com ([207.211.31.120]:38144 "EHLO
-        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S2387470AbfKGQLG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 7 Nov 2019 11:11:06 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1573143065;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=j9Yv2ADBEuYgu7K06bm3FCwi5kL7EfkBgwC6m+V6GpE=;
-        b=R/DXhK0xFWcwMuS7U1Kq0qkTX5Sz0mPlxlphtTW0RecuVyHrQHmGsyv0/iwbZC9rhmKV1r
-        3Q6woV75MjFUmg4fc8DPT5K6+PYuU4N6hHRnAA7omLr+ajNnBMmjQLPo2DKsc4NkVctKjx
-        qzipNouenVOzNEgRl2E1uNURgy6ifrI=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-383-7T61eBXcOASiyFVjHgEPgA-1; Thu, 07 Nov 2019 11:11:02 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 21EB41800D6B;
-        Thu,  7 Nov 2019 16:11:00 +0000 (UTC)
-Received: from oldenburg2.str.redhat.com (ovpn-117-20.ams2.redhat.com [10.36.117.20])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id 22B5B5D9E5;
-        Thu,  7 Nov 2019 16:10:52 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     Christian Brauner <christian.brauner@ubuntu.com>
-Cc:     "Michael Kerrisk \(man-pages\)" <mtk.manpages@gmail.com>,
-        Christian Brauner <christian@brauner.io>,
-        lkml <linux-kernel@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Kees Cook <keescook@chromium.org>,
-        Oleg Nesterov <oleg@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
-        David Howells <dhowells@redhat.com>,
-        Pavel Emelyanov <xemul@virtuozzo.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Adrian Reber <adrian@lisas.de>,
-        Andrei Vagin <avagin@gmail.com>,
-        Linux API <linux-api@vger.kernel.org>,
-        Jann Horn <jannh@google.com>
-Subject: Re: For review: documentation of clone3() system call
-References: <CAKgNAkjo2WHq+zESU1iuCHJJ0x-fTNrakS9-d1+BjzUuV2uf2Q@mail.gmail.com>
-        <20191107151941.dw4gtul5lrtax4se@wittgenstein>
-Date:   Thu, 07 Nov 2019 17:10:51 +0100
-In-Reply-To: <20191107151941.dw4gtul5lrtax4se@wittgenstein> (Christian
-        Brauner's message of "Thu, 7 Nov 2019 16:19:43 +0100")
-Message-ID: <87y2wrbras.fsf@oldenburg2.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.2 (gnu/linux)
+        id S1725906AbfKGUuD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 7 Nov 2019 15:50:03 -0500
+Received: from str.strettonhost2.com ([162.241.136.216]:37941 "EHLO
+        str.strettonhost2.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725828AbfKGUuC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 7 Nov 2019 15:50:02 -0500
+X-Greylist: delayed 4116 seconds by postgrey-1.27 at vger.kernel.org; Thu, 07 Nov 2019 15:50:02 EST
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+        d=birchhouselakes.com; s=default; h=Message-ID:Reply-To:Subject:To:From:Date:
+        Content-Transfer-Encoding:Content-Type:MIME-Version:Sender:Cc:Content-ID:
+        Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+        :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+        List-Subscribe:List-Post:List-Owner:List-Archive;
+        bh=6VaWzFeFQ9WgOVBJjlkrYxDfwwxKnozUfCOT01+RSos=; b=juSIuXQTS9bXuXJzAM2z7+cmfp
+        NRVANdLaHtwzB/p5HR8l+khfQc5axYtKa7I8a25sh0oT2zYNf5uwc/8QASvmR5SK9Yv3pL8Cir5kF
+        bmR7526W652qna8i9cjIz4GtV/R2NwNWySyBxhOr1h2vyUh5674eeHhzz12EuM5gchLQ=;
+Received: from localhost ([127.0.0.1]:52584 helo=str.strettonhost2.com)
+        by str.strettonhost2.com with esmtpa (Exim 4.92)
+        (envelope-from <mr.goerge.clifford@birchhouselakes.com>)
+        id 1iSmhU-0002Em-KU; Thu, 07 Nov 2019 18:40:08 +0000
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-MC-Unique: 7T61eBXcOASiyFVjHgEPgA-1
-X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date:   Thu, 07 Nov 2019 18:40:07 +0000
+From:   "mr.goerge.clifford " <mr.goerge.clifford@birchhouselakes.com>
+To:     undisclosed-recipients:;
+Subject: RE RE
+Reply-To: george_clifford4@aol.com
+Mail-Reply-To: george_clifford4@aol.com
+Message-ID: <75c0fa790f1810bfa385590a813d3f53@birchhouselakes.com>
+X-Sender: mr.goerge.clifford@birchhouselakes.com
+User-Agent: Roundcube Webmail/1.3.8
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - str.strettonhost2.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - birchhouselakes.com
+X-Get-Message-Sender-Via: str.strettonhost2.com: authenticated_id: mr.goerge.clifford@birchhouselakes.com
+X-Authenticated-Sender: str.strettonhost2.com: mr.goerge.clifford@birchhouselakes.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Christian Brauner:
 
-> I've always been confused by the "..." for the glibc wrapper. The glibc
-> prototype in bits/sched.h also looks like this:
->
-> extern int clone (int (*__fn) (void *__arg), void *__child_stack, int __f=
-lags, void *__arg, ...) __THROW;
->
-> The additionl args parent_tid, tls, and child_tid are present in _all_
-> clone version in the same order. In fact the glibc wrapper here give the
-> illusion that it's parent_tid, tls, child_tid. The underlying syscall
-> has a different order parent_tidptr, child_tidptr, tls.
->
-> Florian, can you advise what prototype we should mention for the glibc
-> clone() wrapper here. I'd like it to be as simple as possible and get
-> rid of the ...
-> Architectural differences are explained in detail below anyway.
 
-Our header has:
-
-/* Clone current process.  */
-extern int clone (int (*__fn) (void *__arg), void *__child_stack,
-                  int __flags, void *__arg, ...) __THROW;
-
-I have not checked all assembler implementations.  In theory there could
-be one that relies on the different calling convention for variadic
-functions (e.g., the existence of a parameter save area on POWER).  Or
-that swaps arguments in some architecure-specific way. 8-(
-
-I don't have much guidance on this matter, sorry.  I expect that for
-clone3, we'll provide a same-stack variant as well (for fork/vfork-like
-usage), which will be much closer to the kernel interface.  clone/clone2
-doesn't seem very fixable to me at this point.
-
-Thanks,
-Florian
+-- 
+This message is the last notification about USD14.5 million bearing our
+Name as Beneficiary, all effort to reach you have not be successful,
+Please if you receive this message kindly respond back stating your
+Desire To make the claim, reconfirm your full name and age Mr. George
 
