@@ -2,29 +2,29 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 40F7CF6736
-	for <lists+linux-man@lfdr.de>; Sun, 10 Nov 2019 05:48:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id F4104F6C64
+	for <lists+linux-man@lfdr.de>; Mon, 11 Nov 2019 02:43:40 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726583AbfKJEs4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 9 Nov 2019 23:48:56 -0500
-Received: from static-dsl-170.87-197-152.telecom.sk ([87.197.152.170]:40140
+        id S1726749AbfKKBnk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 10 Nov 2019 20:43:40 -0500
+Received: from static-dsl-170.87-197-152.telecom.sk ([87.197.152.170]:45708
         "EHLO sldom.sldom" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1726569AbfKJEs4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 9 Nov 2019 23:48:56 -0500
+        with ESMTP id S1726743AbfKKBnk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 10 Nov 2019 20:43:40 -0500
 Received: from Shop01 (localhost [127.0.0.1])
-        by sldom.sldom (Postfix) with SMTP id A5BBC1EDCB5;
-        Fri,  8 Nov 2019 14:30:44 +0100 (CET)
-Received: from [80.16.228.96] by Shop01 SMTP id 1zvX4s6piW124D; Fri, 08 Nov 2019 12:24:05 -0100
-Message-ID: <1$--78e$7$$mw-$1w$-l6@zfrs.iehh>
+        by sldom.sldom (Postfix) with SMTP id C5FFE1D101E;
+        Fri,  8 Nov 2019 10:22:18 +0100 (CET)
+Received: from [65.109.109.68] by Shop01 with ESMTP id 1776ACE1EF1; Fri, 08 Nov 2019 09:19:29 +0000
+Message-ID: <0x8$f3e451$1eas487506q-6$9@4qhdh>
 From:   "Simon Oliver" <olivia_simon@lihat.dds-akaun.com>
 Reply-To: "Simon Oliver" <olivia_simon@lihat.dds-akaun.com>
-To:     aleenord@yahoo.com.cn
+To:     litp@mail.ihep.ac.cn
 Subject: Seeking Investment Opportunities
-Date:   Fri, 08 Nov 19 12:24:05 GMT
-X-Mailer: Microsoft Outlook Express 6.00.2462.0000
+Date:   Fri, 08 Nov 19 09:19:29 GMT
+X-Mailer: Internet Mail Service (5.5.2650.21)
 MIME-Version: 1.0
 Content-Type: multipart/alternative;
-        boundary="1099.CE..BB64F1_5_"
+        boundary="EA.9C..BB_CBC..C_9"
 X-Priority: 3
 X-MSMail-Priority: Normal
 Sender: linux-man-owner@vger.kernel.org
@@ -33,7 +33,7 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---1099.CE..BB64F1_5_
+--EA.9C..BB_CBC..C_9
 Content-Type: text/plain;
 Content-Transfer-Encoding: quoted-printable
 
@@ -51,5 +51,5 @@ one number and Occupation.
 Thank you
 Oliver Simon
 
---1099.CE..BB64F1_5_--
+--EA.9C..BB_CBC..C_9--
 
