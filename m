@@ -2,103 +2,142 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 73A73F57B2
-	for <lists+linux-man@lfdr.de>; Fri,  8 Nov 2019 21:06:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1DF3EF57F6
+	for <lists+linux-man@lfdr.de>; Fri,  8 Nov 2019 21:06:54 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732007AbfKHTgA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 8 Nov 2019 14:36:00 -0500
-Received: from mail.kernel.org ([198.145.29.99]:57468 "EHLO mail.kernel.org"
+        id S2388074AbfKHT4S (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 8 Nov 2019 14:56:18 -0500
+Received: from mail.kernel.org ([198.145.29.99]:36262 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1727233AbfKHTgA (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 8 Nov 2019 14:36:00 -0500
-Received: from gmail.com (unknown [104.132.1.77])
+        id S2387487AbfKHT4R (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 8 Nov 2019 14:56:17 -0500
+Received: from localhost.localdomain (c-73-231-172-41.hsd1.ca.comcast.net [73.231.172.41])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id 87FDD206A3;
-        Fri,  8 Nov 2019 19:35:59 +0000 (UTC)
+        by mail.kernel.org (Postfix) with ESMTPSA id 0DC402067B;
+        Fri,  8 Nov 2019 19:56:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1573241759;
-        bh=98CTD1etW9H20E3cCNEDvFQ8V8zeVFrjcPnYMXN0TNs=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=YL8EudJ2mTqL3pUp/TSoID2WBaJpPHg+ADaqLXn1jqLGmHvlaLYR3UnW2P6DQsqDy
-         hV8LrIuDKB+LHVoJFh1iFtkiQLVDIi+oDuT9s4TmmuxU74xjAfDqCvjqIb+aPmQQuO
-         imgrJJhWQe+dSiyRjbRkA+rBs9WhRvt9xvMGvGas=
-Date:   Fri, 8 Nov 2019 11:35:58 -0800
-From:   Eric Biggers <ebiggers@kernel.org>
-To:     walter harms <wharms@bfs.de>
-Cc:     linux-man@vger.kernel.org, darrick.wong@oracle.com,
-        dhowells@redhat.com, jaegeuk@kernel.org, linux-api@vger.kernel.org,
-        linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
-        linux-fscrypt@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        tytso@mit.edu, victorhsieh@google.com
-Subject: Re: [man-pages RFC PATCH] statx.2: document STATX_ATTR_VERITY
-Message-ID: <20191108193557.GA12997@gmail.com>
-Mail-Followup-To: walter harms <wharms@bfs.de>, linux-man@vger.kernel.org,
-        darrick.wong@oracle.com, dhowells@redhat.com, jaegeuk@kernel.org,
-        linux-api@vger.kernel.org, linux-ext4@vger.kernel.org,
-        linux-f2fs-devel@lists.sourceforge.net,
-        linux-fscrypt@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        tytso@mit.edu, victorhsieh@google.com
-References: <20191107014420.GD15212@magnolia>
- <20191107220248.32025-1-ebiggers@kernel.org>
- <5DC525E8.4060705@bfs.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5DC525E8.4060705@bfs.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+        s=default; t=1573242975;
+        bh=SyYo7pIDh21TesJn66RLbSpOBbZhE99jMXq7iWb7fmw=;
+        h=Date:From:To:Subject:From;
+        b=w6tjVN1vQbCFRue0eTQDS4xB/wi+6c7jOe3BLwVjJ+keJDxQnevCasepsvZYoILBg
+         qPm8n1DuLlUlQ4sRIfa5DzHNFGmdm/68sEZ15n12Qb4/C+9eNfz6un7mRTsk2zl/OV
+         AxjKJ/bmPh3LWSut46GB1khA15XbGbIcYnyUMgBk=
+Date:   Fri, 08 Nov 2019 11:56:14 -0800
+From:   akpm@linux-foundation.org
+To:     hughd@google.com, linux-man@vger.kernel.org,
+        lixinhai.lxh@gmail.com, mhocko@suse.com,
+        mm-commits@vger.kernel.org, n-horiguchi@ah.jp.nec.com,
+        vbabka@suse.cz
+Subject:  + mm-check-range-first-in-queue_pages_test_walk.patch
+ added to -mm tree
+Message-ID: <20191108195614.6VicBAzof%akpm@linux-foundation.org>
+User-Agent: s-nail v14.8.16
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Nov 08, 2019 at 09:23:04AM +0100, walter harms wrote:
-> 
-> 
-> Am 07.11.2019 23:02, schrieb Eric Biggers:
-> > From: Eric Biggers <ebiggers@google.com>
-> > 
-> > Document the verity attribute for statx().
-> > 
-> > Signed-off-by: Eric Biggers <ebiggers@google.com>
-> > ---
-> >  man2/statx.2 | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> > 
-> > RFC since the kernel patches are currently under review.
-> > The kernel patches can be found here:
-> > https://lkml.kernel.org/linux-fscrypt/20191029204141.145309-1-ebiggers@kernel.org/T/#u
-> > 
-> > diff --git a/man2/statx.2 b/man2/statx.2
-> > index d2f1b07b8..713bd1260 100644
-> > --- a/man2/statx.2
-> > +++ b/man2/statx.2
-> > @@ -461,6 +461,10 @@ See
-> >  .TP
-> >  .B STATX_ATTR_ENCRYPTED
-> >  A key is required for the file to be encrypted by the filesystem.
-> > +.TP
-> > +.B STATX_ATTR_VERITY
-> > +The file has fs-verity enabled.  It cannot be written to, and all reads from it
-> > +will be verified against a Merkle tree.
-> 
-> Using "Merkle tree" opens a can of worm and what will happen when the methode will change ?
-> Does it matter at all ? i would suggest "filesystem" here.
-> 
 
-Fundamentally, fs-verity guarantees that all data read is verified against a
-cryptographic hash that covers the entire file.  I think it will be helpful to
-convey that here, e.g. to avoid confusion with non-cryptographic, individual
-block checksums supported by filesystems like btrfs and zfs.
+The patch titled
+     Subject: mm/mempolicy.c: check range first in queue_pages_test_walk
+has been added to the -mm tree.  Its filename is
+     mm-check-range-first-in-queue_pages_test_walk.patch
 
-Now, the only sane way to implement this model is with a Merkle tree, and this
-is part of the fs-verity UAPI (via the file hash), so that's where I'm coming
-from here.  Perhaps the phrase "Merkle tree" could be interpreted too strictly,
-though, so it would be better to emphasize the more abstract model.  How about
-the following?:
+This patch should soon appear at
+    http://ozlabs.org/~akpm/mmots/broken-out/mm-check-range-first-in-queue_pages_test_walk.patch
+and later at
+    http://ozlabs.org/~akpm/mmotm/broken-out/mm-check-range-first-in-queue_pages_test_walk.patch
 
-	The file has fs-verity enabled.  It cannot be written to, and all reads
-	from it will be verified against a cryptographic hash that covers the
-	entire file, e.g. via a Merkle tree.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-- Eric
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next and is updated
+there every 3-4 working days
+
+------------------------------------------------------
+From: Li Xinhai <lixinhai.lxh@gmail.com>
+Subject: mm/mempolicy.c: check range first in queue_pages_test_walk
+
+Checking unmapped hole and updating the previous vma must be handled
+first, otherwise the unmapped hole could be calculated from a wrong
+previous vma.
+
+Several commits were relevant to this error:
+commit 6f4576e3687b
+("mempolicy: apply page table walker on queue_pages_range()"),
+This commit was correct, the VM_PFNMAP check was after updating previous
+vma
+
+commit 48684a65b4e3
+(mm: pagewalk: fix misbehavior of walk_page_range for vma(VM_PFNMAP)),
+This commit added VM_PFNMAP check before updating previous vma. Then,
+there were two VM_PFNMAP check did same thing twice.
+
+commit acda0c334028
+(mm/mempolicy.c: get rid of duplicated check for vma(VM_PFNMAP) in queue_page
+s_range()),
+This commit tried to fix the duplicated VM_PFNMAP check, but it wrongly
+removed the one which was after updating vma.
+
+Link: http://lkml.kernel.org/r/1573218104-11021-2-git-send-email-lixinhai.lxh@gmail.com
+Fixes: acda0c334028 (mm/mempolicy.c: get rid of duplicated check for vma(VM_PFNMAP) in queue_pages_range())
+Signed-off-by: Li Xinhai <lixinhai.lxh@gmail.com>
+Cc: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: linux-man <linux-man@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/mempolicy.c |   19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
+
+--- a/mm/mempolicy.c~mm-check-range-first-in-queue_pages_test_walk
++++ a/mm/mempolicy.c
+@@ -618,6 +618,16 @@ static int queue_pages_test_walk(unsigne
+ 	unsigned long endvma = vma->vm_end;
+ 	unsigned long flags = qp->flags;
+ 
++	/* range check first */
++	if (!(flags & MPOL_MF_DISCONTIG_OK)) {
++		if (!vma->vm_next && vma->vm_end < end)
++			return -EFAULT;
++		if (qp->prev && qp->prev->vm_end < vma->vm_start)
++			return -EFAULT;
++	}
++
++	qp->prev = vma;
++
+ 	/*
+ 	 * Need check MPOL_MF_STRICT to return -EIO if possible
+ 	 * regardless of vma_migratable
+@@ -631,15 +641,6 @@ static int queue_pages_test_walk(unsigne
+ 	if (vma->vm_start > start)
+ 		start = vma->vm_start;
+ 
+-	if (!(flags & MPOL_MF_DISCONTIG_OK)) {
+-		if (!vma->vm_next && vma->vm_end < end)
+-			return -EFAULT;
+-		if (qp->prev && qp->prev->vm_end < vma->vm_start)
+-			return -EFAULT;
+-	}
+-
+-	qp->prev = vma;
+-
+ 	if (flags & MPOL_MF_LAZY) {
+ 		/* Similar to task_numa_work, skip inaccessible VMAs */
+ 		if (!is_vm_hugetlb_page(vma) &&
+_
+
+Patches currently in -mm which might be from lixinhai.lxh@gmail.com are
+
+mm-check-range-first-in-queue_pages_test_walk.patch
+mm-fix-checking-unmapped-holes-for-mbind.patch
+
