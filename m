@@ -2,68 +2,42 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 5D9B3F85D4
-	for <lists+linux-man@lfdr.de>; Tue, 12 Nov 2019 02:01:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D5C2BF97DA
+	for <lists+linux-man@lfdr.de>; Tue, 12 Nov 2019 18:58:01 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726952AbfKLBBe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 11 Nov 2019 20:01:34 -0500
-Received: from omta04.suddenlink.net ([208.180.40.74]:45905 "EHLO
-        omta04.suddenlink.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726912AbfKLBBe (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 11 Nov 2019 20:01:34 -0500
-X-Greylist: delayed 433 seconds by postgrey-1.27 at vger.kernel.org; Mon, 11 Nov 2019 20:01:33 EST
-Received: from dalifep03 ([10.130.7.35]) by dalofep03.suddenlink.net
-          (InterMail vM.8.04.03.22.02 201-2389-100-169-20190213) with ESMTP
-          id <20191112005419.ZWXV25615.dalofep03.suddenlink.net@dalifep03>;
-          Mon, 11 Nov 2019 18:54:19 -0600
-Message-ID: <20191111185419.EIDCS.424061.root@dalifep03>
-Date:   Mon, 11 Nov 2019 18:54:19 -0600
-From:   <rezeas7812@suddenlink.net>
-To:     rezeas7812@suddenlink.net
-Subject: =?utf-8?B?4Liq4Lin4Lix4Liq4LiU4Li14LiX4Li14LmI4Lij4Lix4LiB?=
+        id S1726965AbfKLR6B (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 12 Nov 2019 12:58:01 -0500
+Received: from [211.53.128.215] ([211.53.128.215]:24668 "EHLO MAIL.isd.co.kr"
+        rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
+        id S1726952AbfKLR6B (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 12 Nov 2019 12:58:01 -0500
+Received: from 192.168.1.163 (217.217.179.17) by MAIL.isd.co.kr (10.10.10.22)
+ with Microsoft SMTP Server id 14.3.123.3; Wed, 13 Nov 2019 02:57:02 +0900
+Date:   Tue, 12 Nov 2019 18:57:03 +0100
+From:   Peter Wong <choimj@isd.co.kr>
+Reply-To: Peter Wong <pw178484@gmail.com>
+To:     <linux-man@vger.kernel.org>
+Message-ID: <28990998.155075.1573581425438.JavaMail.cash@webmail.isd.co.kr>
+Subject: Investment opportunity
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
-X-Priority: 3 (Normal)
-Sensitivity: Normal
-X-Authentication-Info: Submitted using SMTP AUTH LOGIN at dalofep03.suddenlink.net from [10.130.7.35] using ID rezeas7812@suddenlink.net at Mon, 11 Nov 2019 18:54:19 -0600
-X-CM-Analysis: v=2.3 cv=JvWPU/wC c=1 sm=1 tr=0 cx=a_idp_d a=klDIBXj+Y2ON7Ris7qByQA==:117 a=IkcTkHD0fZMA:10 a=MeAgGD-zjQ4A:10 a=5KLPUuaC_9wA:10 a=CjxXgO3LAAAA:8 a=cPfr0k3z74S8NfwX9bQA:9 a=QEXdDO2ut3YA:10 a=0-W3HcrAkYYA:10
-X-CM-Envelope: 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 mmYRMbaiavZROu0nIgPaEBItl+1WnW47ZBixLQ==
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [217.217.179.17]
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-4Liq4Lin4Lix4Liq4LiU4Li14LiX4Li14LmI4Lij4Lix4LiBDQoNCg0K4LiC4Lit4Liq4Lix4LiZ
-4LiV4Li04Liq4Li44LiC4LiI4Liy4LiB4Lie4Lij4Liw4LmA4LiI4LmJ4Liy4Lic4Li54LmJ4Lii
-4Li04LmI4LiH4LmD4Lir4LiN4LmI4LiC4Lit4LiH4LmA4Lij4LiyDQoNCuC4hOC4s+C4reC4p+C4
-ouC4nuC4o+C5g+C4meC4meC4suC4oeC4guC4reC4h+C4nuC4o+C4sOC5gOC4iOC5ieC4suC4nOC4
-ueC5ieC4ouC4tOC5iOC4h+C5g+C4q+C4jeC5iOC4guC4reC4h+C5gOC4o+C4suC4ieC4seC4meC4
-guC4reC5g+C4q+C5ieC4hOC4uOC4k+C5geC4peC4sOC4hOC4o+C4reC4muC4hOC4o+C4seC4p+C4
-oeC4teC4hOC4p+C4suC4oeC4quC4uOC4guC4iuC5iOC4p+C4h+C5gOC4p+C4peC4suC5geC4q+C5
-iOC4h+C4iuC4teC4p+C4tOC4leC4leC4reC4meC4meC4teC5ieC5geC4peC4sOC4leC4peC4reC4
-lOC5hOC4m+C4oeC4suC4geC4guC4tuC5ieC4mSBhbWVuLm15IOC4iuC4t+C5iOC4rSBNZWxpbmRh
-IEtlZWZlciBQYXVsLCDguK3guLLguKLguLggNjkg4Lib4Li14LiI4Liy4LiB4LmB4LiE4LiZ4Liy
-4LiU4Liy4Lit4Liy4Lio4Lix4Lii4Lit4Lii4Li54LmI4LmD4LiZ4Lib4Lij4Liw4LmA4LiX4Lio
-IGFiaWRqYW4sIGNvdGUgZMK0aXZvaXJlIOC5guC4m+C4o+C4lOC4ieC4seC4meC5hOC4oeC5iOC5
-hOC4lOC5iSDguKHguLXguITguKfguLLguKHguKrguLHguKHguJ7guLHguJnguJjguYzguK3guKLg
-uYjguLLguIfguYDguJvguYfguJnguJfguLLguIfguIHguLLguKPguIHguLHguJrguITguLjguJMg
-4LmB4LiV4LmI4LmA4LiZ4Li34LmI4Lit4LiH4LiI4Liy4LiB4Liq4LiW4Liy4LiZ4LiB4Liy4Lij
-4LiT4LmM4LmB4Lil4Liw4Liq4LiW4Liy4LiZ4LiB4Liy4Lij4LiT4LmM4Lib4Lix4LiI4LiI4Li4
-4Lia4Lix4LiZ4LiC4Lit4LiH4LiJ4Lix4LiZ4LiJ4Lix4LiZ4LiX4Liz4LmA4Lie4Li34LmI4Lit
-4LiV4Li04LiU4LiV4LmI4Lit4LiE4Li44LiT4LiJ4Lix4LiZ4LmE4LiU4LmJ4Lij4Lix4Lia4LiE
-4Lin4Liy4Lih4LiX4Li44LiB4LiC4LmM4LiX4Lij4Lih4Liy4LiZ4LiI4Liy4LiB4LmC4Lij4LiE
-4Lih4Liw4LmA4Lij4LmH4LiH4LmB4Lil4Liw4Lih4Li14LiK4Li14Lin4Li04LiV4Liq4Lix4LmJ
-4LiZIOC5hiDguJfguLXguYjguIjguLDguIjguLLguIHguYTguJvguInguLHguJnguYTguJTguYng
-uJXguLHguJTguKrguLTguJnguYPguIjguYHguKXguYnguKfguKfguYjguLLguIjguLDguJrguKPg
-uLTguIjguLLguITguKHguKPguJTguIEgMy41IOC4peC5ieC4suC4meC5gOC4q+C4o+C4teC4ouC4
-jeC4quC4q+C4o+C4seC4kOC5g+C4q+C5ieC4geC4seC4miDguKrguLTguJfguJjguLTguJ7guLTg
-uYDguKjguKnguJnguYnguK3guKLguYLguJvguKPguJTguIrguYjguKfguKLguInguLHguJnguYDg
-uJXguLTguKHguYDguJXguYfguKHguITguKfguLLguKHguJvguKPguLLguKPguJbguJnguLLguKrg
-uLjguJTguJfguYnguLLguKLguILguK3guIfguInguLHguJnguYLguJvguKPguJTguJXguLTguJTg
-uJXguYjguK3guInguLHguJnguJfguLXguYjguJnguLXguYgNCg0KW21rZWVmZXI0NEB5YWhvby5j
-b21dDQoNCuC4geC4o+C4uOC4k+C4suC4leC4tOC4lOC4leC5iOC4reC4ieC4seC4meC5g+C4meC4
-reC4teC5gOC4oeC4peC4quC5iOC4p+C4meC4leC4seC4p+C4guC4reC4h+C4ieC4seC4mSAuLiBb
-bWtlZWZlcjQ0QHlhaG9vLmNvbV0NCg0K4LiJ4Lix4LiZ4Lij4Lit4Lif4Lix4LiH4LiI4Liy4LiB
-4LiE4Li44LiTDQoNCuC4guC4reC4muC4hOC4uOC4kw0KDQpNcnMgTWVsaW5kYSBLZWVmZXIgUGF1
-bA==
+Greetings,
+
+Find attached email very confidential. reply for more details
+
+Thanks.
+Peter Wong
+
+
+
+
+----------------------------------------------------
+This email was sent by the shareware version of Postman Professional.
+
