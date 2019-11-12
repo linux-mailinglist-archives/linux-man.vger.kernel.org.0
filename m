@@ -2,29 +2,33 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A35B9F9C73
-	for <lists+linux-man@lfdr.de>; Tue, 12 Nov 2019 22:45:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0184EF9C9C
+	for <lists+linux-man@lfdr.de>; Tue, 12 Nov 2019 22:52:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726923AbfKLVpx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 12 Nov 2019 16:45:53 -0500
-Received: from albireo.enyo.de ([37.24.231.21]:37480 "EHLO albireo.enyo.de"
+        id S1726953AbfKLVwp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 12 Nov 2019 16:52:45 -0500
+Received: from albireo.enyo.de ([37.24.231.21]:37664 "EHLO albireo.enyo.de"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726376AbfKLVpx (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 12 Nov 2019 16:45:53 -0500
+        id S1726936AbfKLVwp (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 12 Nov 2019 16:52:45 -0500
 Received: from [172.17.203.2] (helo=deneb.enyo.de)
         by albireo.enyo.de with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        id 1iUdyx-0006DT-Tq
-        for linux-man@vger.kernel.org; Tue, 12 Nov 2019 21:45:51 +0000
+        id 1iUe5Z-0006wt-6D; Tue, 12 Nov 2019 21:52:41 +0000
 Received: from fw by deneb.enyo.de with local (Exim 4.92)
         (envelope-from <fw@deneb.enyo.de>)
-        id 1iUdyx-0006RX-S0
-        for linux-man@vger.kernel.org; Tue, 12 Nov 2019 22:45:51 +0100
+        id 1iUe5Z-0006dR-3p; Tue, 12 Nov 2019 22:52:41 +0100
 From:   Florian Weimer <fw@deneb.enyo.de>
-To:     linux-man@vger.kernel.org
-Subject: [PATCH] bpf-helpers.7: Remove duplicated words and add missing
- articles
-Date:   Tue, 12 Nov 2019 22:45:51 +0100
-Message-ID: <87bltgdb00.fsf@mid.deneb.enyo.de>
+To:     enh <enh@google.com>
+Cc:     "Michael Kerrisk \(man-pages\)" <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH] pthread_kill.3: Update to match POSIX.
+References: <CAJgzZoojiRmTV_5sAXhqQciAKsQ_d+znT1OnxT0Rpa_-N_G5-Q@mail.gmail.com>
+        <87imnodbct.fsf@mid.deneb.enyo.de>
+        <CAJgzZoo+oSkwgCZ3CMUdP-t+Y4h4PkvJO-As15kjz0Ad+nx9fA@mail.gmail.com>
+Date:   Tue, 12 Nov 2019 22:52:41 +0100
+In-Reply-To: <CAJgzZoo+oSkwgCZ3CMUdP-t+Y4h4PkvJO-As15kjz0Ad+nx9fA@mail.gmail.com>
+        (enh's message of "Tue, 12 Nov 2019 13:40:54 -0800")
+Message-ID: <877e44daom.fsf@mid.deneb.enyo.de>
 MIME-Version: 1.0
 Content-Type: text/plain
 Sender: linux-man-owner@vger.kernel.org
@@ -32,35 +36,35 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Florian Weimer <fw@deneb.enyo.de>
----
- man7/bpf-helpers.7 | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+* enh:
 
-diff --git a/man7/bpf-helpers.7 b/man7/bpf-helpers.7
-index 6f07f476e..0ac569c1d 100644
---- a/man7/bpf-helpers.7
-+++ b/man7/bpf-helpers.7
-@@ -1546,8 +1546,8 @@ Where t_enabled is the time enabled for event and t_running is
- the time running for event since last normalization. The
- enabled and running times are accumulated since the perf event
- open. To achieve scaling factor between two invocations of an
--eBPF program, users can can use CPU id as the key (which is
--typical for perf array usage model) to remember the previous
-+eBPF program, users can use the CPU id as the key (which is
-+typical for the perf array usage model) to remember the previous
- value and do the calculation inside the eBPF program.
- .TP
- .B Return
-@@ -1605,7 +1605,7 @@ the return value of the probed function, and to set it to \fIrc\fP\&.
- The first argument is the context \fIregs\fP on which the kprobe
- works.
- .sp
--This helper works by setting setting the PC (program counter)
-+This helper works by setting the PC (program counter)
- to an override function which is run in place of the original
- probed function. This means the probed function is not run at
- all. The replacement function just returns with the required
--- 
-2.20.1
+> On Tue, Nov 12, 2019 at 1:38 PM Florian Weimer <fw@deneb.enyo.de> wrote:
+>>
+>> * enh:
+>>
+>> > POSIX removed ESRCH years ago.
+>> >
+>> > In resolving http://austingroupbugs.net/view.php?id=1214 it was made
+>> > clear that callers can't rely on using signal 0 to test for the
+>> > continued existence of a thread. Update the man page to make it clearer
+>> > that this doesn't generally work (even if it sometimes seems to).
+>> >
+>> > See also the long explanation of why this is the case (and how to fix
+>> > your code) here:
+>> >
+>> > https://android.googlesource.com/platform/bionic/+/master/docs/status.md#invalid-handling-targetsdkversion-o
+>>
+>> Well, if you fix the thread exit race (like musl did, and glibc should
+>> as well, see bug 12889), you could get a reliable ESRCH as a side
+>> effect.  Pity that POSIX doesn't allow that.
+>
+> this isn't about the tid stored *in* the object that the pthread_t points to.
+>
+> like i (briefly) said in the commit message, this is because a
+> pthread_t is a pointer, so if you have an old pthread_t that's been
+> recycled... boom!
 
+Backing storage for a pthread_t object denoting a joinable thread
+cannot be recycled, so that's not the case here.  POSIX mandates
+returning success even if the implementation has detected that it must
+not send the signal because the thread has already terminated.
