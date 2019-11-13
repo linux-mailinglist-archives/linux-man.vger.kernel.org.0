@@ -2,96 +2,124 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 23BE6FB8F3
-	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2019 20:36:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6A42EFB9E7
+	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2019 21:31:51 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726155AbfKMTge (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 13 Nov 2019 14:36:34 -0500
-Received: from mail-ed1-f68.google.com ([209.85.208.68]:34057 "EHLO
-        mail-ed1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726120AbfKMTge (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Nov 2019 14:36:34 -0500
-Received: by mail-ed1-f68.google.com with SMTP id b72so2901349edf.1
-        for <linux-man@vger.kernel.org>; Wed, 13 Nov 2019 11:36:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=GRES9sXnDD1l/hbHWN/QJWGUTjuuz9Lfhip9fgX1Gnw=;
-        b=M90jLBbwyTvRHQJR3jlsBYkyAXGlbREbf6yoJ5q3CwM+hjjGFsKEU8EKRatuHbjgxP
-         FsVXclfl+AzEBGVE9EwUHujn1M1GI2v5vRjgA06U2odPPT356+xNMfCFC9wN6ObqZZSX
-         Omzxjh5tRmnplm54x+S24brNLnRDa3HleO4Nqt6qjOvKn6JAnpxVHgn0ahkhMjl+bGwi
-         9qJmXy4uiraRQXMsyOfdbeQGI3akGOKRo++seyon+Hh6WZwtvbGxgc9aSCEgkkG2tD4v
-         TidOuiqzbOFwsRlB4CVPFlcq3KP7+o3G4gdk4ptRkXzQAk2nyQBYmPveuzs0Nj7b/cR9
-         JAMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=GRES9sXnDD1l/hbHWN/QJWGUTjuuz9Lfhip9fgX1Gnw=;
-        b=TNjbW7uHMn8E7b3xx7xgJTJQ1aot8cf5neqd0tXx7+ed/3uBltCu+EwjdFSM1fojVv
-         JTKhx/s6Vrvzyr1kNek1Bwf0rJxchXTPumW/Uz/uEIgtoKMjB85gKJT22UbY5+awRcLa
-         lQWzjsQCNjBagmP9gIRqKp+FJcoyVIfI3HIyaanazjCXmD9WsOsJZck8n7pgFcshJnA9
-         7Bcb1xk6pNAhUj7WXmNcvOgxEOmQSq1v11GLYPDQbHXal0i7fgx7xjNFMiidFl5j62ZS
-         RHZ9a30N3CF0noa3KO5H4/uApA3bx+Q1mLwe08yWNHN00Xr9HBmzx1bWBafQllYWcbvg
-         9Klg==
-X-Gm-Message-State: APjAAAVDarxDRJCSbhwNj0DsGA2iK6ElzyQZBJ8CBhi0kzqT7Zsmm/eA
-        Ik5zTOtzwSx4j2yRsad2HRgnJTUSQCgD89Cy3yk=
-X-Google-Smtp-Source: APXvYqxzy1q3jNIRXlclRqPZNM9BwAFlSL3yjR9ii+zl3Qj6pHWTxdYL8YTso45xFV/18E8RKN5aRidgukV6MZMEXd8=
-X-Received: by 2002:a50:984b:: with SMTP id h11mr5736439edb.248.1573673792295;
- Wed, 13 Nov 2019 11:36:32 -0800 (PST)
+        id S1726543AbfKMUbu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 13 Nov 2019 15:31:50 -0500
+Received: from mail.kernel.org ([198.145.29.99]:52288 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726418AbfKMUbu (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 13 Nov 2019 15:31:50 -0500
+Received: from gmail.com (unknown [104.132.1.77])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by mail.kernel.org (Postfix) with ESMTPSA id 4A2A2206EC;
+        Wed, 13 Nov 2019 20:31:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=default; t=1573677109;
+        bh=05ooIT3YbJ/fHw6k555x4s32E0dixclBOdSSgJz8rso=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=S0mHiSipc5QBPv7QRZhJSWtDlMjLjk4z2sj+8cfsJMlOx/sVhBWJ8dS/+N7+yNVDb
+         KF55x6fWjF9icemuoHDIDMBKOw2FsurKp16lRC1XNpJ6c7gHewEtwBegNRXI6heVW6
+         48kWapw6ynxD6/+2aK+SQYPQ3WRFiOxsU29zFvvY=
+Date:   Wed, 13 Nov 2019 12:31:47 -0800
+From:   Eric Biggers <ebiggers@kernel.org>
+To:     walter harms <wharms@bfs.de>
+Cc:     linux-man@vger.kernel.org, darrick.wong@oracle.com,
+        dhowells@redhat.com, jaegeuk@kernel.org, linux-api@vger.kernel.org,
+        linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+        linux-fscrypt@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        tytso@mit.edu, victorhsieh@google.com
+Subject: Re: [man-pages RFC PATCH] statx.2: document STATX_ATTR_VERITY
+Message-ID: <20191113203145.GH221701@gmail.com>
+Mail-Followup-To: walter harms <wharms@bfs.de>, linux-man@vger.kernel.org,
+        darrick.wong@oracle.com, dhowells@redhat.com, jaegeuk@kernel.org,
+        linux-api@vger.kernel.org, linux-ext4@vger.kernel.org,
+        linux-f2fs-devel@lists.sourceforge.net,
+        linux-fscrypt@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        tytso@mit.edu, victorhsieh@google.com
+References: <20191107014420.GD15212@magnolia>
+ <20191107220248.32025-1-ebiggers@kernel.org>
+ <5DC525E8.4060705@bfs.de>
+ <20191108193557.GA12997@gmail.com>
+ <5DC714DB.9060007@bfs.de>
 MIME-Version: 1.0
-References: <20191113142840.9469-1-jwilk@jwilk.net>
-In-Reply-To: <20191113142840.9469-1-jwilk@jwilk.net>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Wed, 13 Nov 2019 20:36:21 +0100
-Message-ID: <CAKgNAkjZf-yt66ixkRDY9OL4imQKogKoe+ietecpZuHiE+QMLg@mail.gmail.com>
-Subject: Re: [PATCH] strftime.3: wfix
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5DC714DB.9060007@bfs.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Jakub,
+On Sat, Nov 09, 2019 at 08:34:51PM +0100, walter harms wrote:
+> Am 08.11.2019 20:35, schrieb Eric Biggers:
+> > On Fri, Nov 08, 2019 at 09:23:04AM +0100, walter harms wrote:
+> >>
+> >>
+> >> Am 07.11.2019 23:02, schrieb Eric Biggers:
+> >>> From: Eric Biggers <ebiggers@google.com>
+> >>>
+> >>> Document the verity attribute for statx().
+> >>>
+> >>> Signed-off-by: Eric Biggers <ebiggers@google.com>
+> >>> ---
+> >>>  man2/statx.2 | 4 ++++
+> >>>  1 file changed, 4 insertions(+)
+> >>>
+> >>> RFC since the kernel patches are currently under review.
+> >>> The kernel patches can be found here:
+> >>> https://lkml.kernel.org/linux-fscrypt/20191029204141.145309-1-ebiggers@kernel.org/T/#u
+> >>>
+> >>> diff --git a/man2/statx.2 b/man2/statx.2
+> >>> index d2f1b07b8..713bd1260 100644
+> >>> --- a/man2/statx.2
+> >>> +++ b/man2/statx.2
+> >>> @@ -461,6 +461,10 @@ See
+> >>>  .TP
+> >>>  .B STATX_ATTR_ENCRYPTED
+> >>>  A key is required for the file to be encrypted by the filesystem.
+> >>> +.TP
+> >>> +.B STATX_ATTR_VERITY
+> >>> +The file has fs-verity enabled.  It cannot be written to, and all reads from it
+> >>> +will be verified against a Merkle tree.
+> >>
+> >> Using "Merkle tree" opens a can of worm and what will happen when the methode will change ?
+> >> Does it matter at all ? i would suggest "filesystem" here.
+> >>
+> > 
+> > Fundamentally, fs-verity guarantees that all data read is verified against a
+> > cryptographic hash that covers the entire file.  I think it will be helpful to
+> > convey that here, e.g. to avoid confusion with non-cryptographic, individual
+> > block checksums supported by filesystems like btrfs and zfs.
+> > 
+> > Now, the only sane way to implement this model is with a Merkle tree, and this
+> > is part of the fs-verity UAPI (via the file hash), so that's where I'm coming
+> > from here.  Perhaps the phrase "Merkle tree" could be interpreted too strictly,
+> > though, so it would be better to emphasize the more abstract model.  How about
+> > the following?:
+> > 
+> > 	The file has fs-verity enabled.  It cannot be written to, and all reads
+> > 	from it will be verified against a cryptographic hash that covers the
+> > 	entire file, e.g. via a Merkle tree.
+> > 
+> 
+> "feels" better,. but from a programmers perspective it is important at what level
+> this is actually done. To see my point look at the line before.
+> "encrypted by the filesystem" mean i have to read the documentation of the fs first
+> so if encryption is supported at all. Or do i think to complicated ?
+> 
 
-On Wed, 13 Nov 2019 at 15:28, Jakub Wilk <jwilk@jwilk.net> wrote:
->
-> Fix comma splice.
+It's filesystem-specific whether encryption and verity are supported.  I'm not
+sure what your concern is, as statx() won't return the bits if the filesystem
+doesn't support them.
 
-Thank you. Patch applied.
+Also note, if someone really wants the details about fscrypt and fsverity, they
+really should read the documentation we maintain in the kernel tree [1][2].
 
-Cheers,
+[1] https://www.kernel.org/doc/html/latest/filesystems/fscrypt.html
+[2] https://www.kernel.org/doc/html/latest/filesystems/fsverity.html
 
-Michael
-
-> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
-> ---
->  man3/strftime.3 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/man3/strftime.3 b/man3/strftime.3
-> index d6e6e3407..cea27072c 100644
-> --- a/man3/strftime.3
-> +++ b/man3/strftime.3
-> @@ -562,7 +562,7 @@ complain about the use of
->  .IR "warning: `%c' yields only last 2 digits of year in some locales" .
->  Of course programmers are encouraged to use
->  .BR %c ,
-> -it gives the preferred date and time representation.
-> +as it gives the preferred date and time representation.
->  One meets all kinds of strange obfuscations
->  to circumvent this
->  .BR gcc (1)
-> --
-> 2.24.0
->
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+- Eric
