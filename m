@@ -2,102 +2,113 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 05F30F9DAA
-	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2019 00:03:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B945EFA9A0
+	for <lists+linux-man@lfdr.de>; Wed, 13 Nov 2019 06:27:37 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726958AbfKLXDa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 12 Nov 2019 18:03:30 -0500
-Received: from mail-pf1-f193.google.com ([209.85.210.193]:39425 "EHLO
-        mail-pf1-f193.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726932AbfKLXDa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 12 Nov 2019 18:03:30 -0500
-Received: by mail-pf1-f193.google.com with SMTP id x28so160664pfo.6
-        for <linux-man@vger.kernel.org>; Tue, 12 Nov 2019 15:03:29 -0800 (PST)
+        id S1726010AbfKMF1g (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 13 Nov 2019 00:27:36 -0500
+Received: from mail-lj1-f196.google.com ([209.85.208.196]:41077 "EHLO
+        mail-lj1-f196.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725976AbfKMF1g (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Nov 2019 00:27:36 -0500
+Received: by mail-lj1-f196.google.com with SMTP id d22so1044701lji.8
+        for <linux-man@vger.kernel.org>; Tue, 12 Nov 2019 21:27:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=soAK6mR7/nlH57wscE6Anu+LxHtbszZd20gXy3dqtds=;
-        b=bNxjrx04Kt52AdGurWf++izr0TcUWE+iYJy7xJCbvM+w+E/MiddxwrF5h3mu5PeZKw
-         DHa4bg/tfGyMpe1pGUgEUT8A6iMzek4x5HopvI+08asWwi2Rb65z1gdA8Q9/z6PVbQaq
-         iRhFfpwdXXcp981sv9EZnSPA4rEl9wDxUloj0=
+        d=google.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=sN8NVftBFC09SdgqQ3W/0UtnKzXzjH1P2t5cnfUd5lc=;
+        b=Fcn2HgckpMRaD9NAgjvcy1NpUusiJchTrxjkOf0r15R6I/kT6HFLyOCIcLmVf8GwaV
+         dVHfOJzvWOYljuVzwUzJIrKCUzZ031BkP9rklsOB4mXZtd9i5qRZItJqKbiipLjuY5DY
+         QCHaJp3AmKBpi7XgJADHTFDAIXg2zx4ea5uEmE5FEPWLp84eNoJ1hp/EJWjwlv9fn5EE
+         /SEy9SHnIVTSb7S243fgzCAWhWo18V1HHP4BOZtuWmysbKCHvAXGv3mHvGlrI+6ZHTSB
+         SZTZ9WP58n1kv2itN+F8Lzunj16wlchvvA8ua4tM8zrnORbpJHf5ZHx9IRjdoGXiRIrE
+         KJEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=soAK6mR7/nlH57wscE6Anu+LxHtbszZd20gXy3dqtds=;
-        b=M9NKh1BUktsVJLcYfvG38m5qu/rxLni1ZxLkhvyZW+hY4fyRFrwU4f0vGatRarNB06
-         B2Owfw0jVO9oLL8+Cz0RpZQeVNRVZcp9Edrg8ptP9Q/IUg5mDTL/Xaj96HlsHnVoRBBN
-         1kQ4Dl9icyFhtn6q3zYBz6YE32V3DkkEUSVo1FJf5A4SU2dNWt78t54svQ9yr3Jr0nid
-         krjVtmbLqS9DBJ+LnYlXJlBaU0zTWUPsUZ9xq9TV94LpcwwpuoHQqrWRGTN1+u/TyVN6
-         6zesUxyikMO0RCs1SsDhfhpalh1nYLSCUB1kUVX9ZCvDt1JKOywL1M5v8GCOuGwCJFu0
-         rGZw==
-X-Gm-Message-State: APjAAAUMja60CJq9YUcFqZBHdRBiiNICdP18ERb4XikAa2wVOr3BMKu+
-        zvejFuwMH1plBaU3y8EaFUIPHQ==
-X-Google-Smtp-Source: APXvYqyTTxwcPuc1qZNwB4971E9nj9vEsULrk0Nc2D0CgwZfZ4ItP+YMjk1mY+/0xAfOV9FfqS32+A==
-X-Received: by 2002:a63:3cd:: with SMTP id 196mr31871pgd.150.1573599809214;
-        Tue, 12 Nov 2019 15:03:29 -0800 (PST)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
-        by smtp.gmail.com with ESMTPSA id r22sm33477pfg.54.2019.11.12.15.03.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 Nov 2019 15:03:28 -0800 (PST)
-Date:   Tue, 12 Nov 2019 15:03:27 -0800
-From:   Kees Cook <keescook@chromium.org>
-To:     Jann Horn <jannh@google.com>
-Cc:     "Theodore Y. Ts'o" <tytso@mit.edu>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Christian Brauner <christian.brauner@ubuntu.com>,
-        Florian Weimer <fweimer@redhat.com>,
-        Christian Brauner <christian@brauner.io>,
-        lkml <linux-kernel@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Oleg Nesterov <oleg@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
-        David Howells <dhowells@redhat.com>,
-        Pavel Emelyanov <xemul@virtuozzo.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Adrian Reber <adrian@lisas.de>,
-        Andrei Vagin <avagin@gmail.com>,
-        Linux API <linux-api@vger.kernel.org>,
-        Ingo Molnar <mingo@elte.hu>
-Subject: Re: For review: documentation of clone3() system call
-Message-ID: <201911121502.3CADFBE3@keescook>
-References: <CAKgNAkjo2WHq+zESU1iuCHJJ0x-fTNrakS9-d1+BjzUuV2uf2Q@mail.gmail.com>
- <20191107151941.dw4gtul5lrtax4se@wittgenstein>
- <2eb2ab4c-b177-29aa-cdc4-420b24cfd7b3@gmail.com>
- <CAG48ez2of684J6suPZpko7JFV6hg5KQsrP0KAn8B8-C3PM9OfQ@mail.gmail.com>
- <20191111165800.GD7017@mit.edu>
- <CAG48ez3K6g7NSFmeuw-4paqPQTDYmNkZ-nVvufk25EB+Us850w@mail.gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=sN8NVftBFC09SdgqQ3W/0UtnKzXzjH1P2t5cnfUd5lc=;
+        b=J8y+ht7kCDGCzng9nEXnygnYBdnkjhhdD3Lu2aZk9TmNR3a0sNFjJ+Tod8/XUyC9n7
+         dVFw4W3vR1e17100Ms8B5E38aGfv1ZjNSRRVFn0fXCZ/4fsS6ho2nZYUpjdzNFsfZAhn
+         wDXbiXX1lb+LeV5EPIrTxkJenbhvWj8IpHNRYz9/G3c1JzTtNooYpwrC3WCvOFwA8sY8
+         EudSqJ6lpKEQsERgbBGv2NgaCCAKTbmdE9CkV6ejb1gxU+AnklgpszgmBCmxvbEEPCqm
+         z8IkH7TbPDOmdG/CvoRcc+ivqQoXOwoHr9Cru22DK+Di2j7iFt4EZUNGEnujamHKBQAo
+         vt1A==
+X-Gm-Message-State: APjAAAWnOYW+1IZiGeSb5zBfRsM0PHl9sqOXJCz+7ukzuz/Qq8CgsU+E
+        r3OUSFSQ3QntU/hCImKqCnYZT3NGLzG+3nvr19D13A==
+X-Google-Smtp-Source: APXvYqyiSWC91rVEW21Abio5efNK7h95weccFJR3vGPpAt2ppNirkQMl3Ipp3JHAIr9n5QRq4BQ/slXvp7obs5/ljhw=
+X-Received: by 2002:a2e:b4e1:: with SMTP id s1mr1007163ljm.5.1573622854075;
+ Tue, 12 Nov 2019 21:27:34 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAG48ez3K6g7NSFmeuw-4paqPQTDYmNkZ-nVvufk25EB+Us850w@mail.gmail.com>
+References: <CAJgzZoojiRmTV_5sAXhqQciAKsQ_d+znT1OnxT0Rpa_-N_G5-Q@mail.gmail.com>
+ <87imnodbct.fsf@mid.deneb.enyo.de> <CAJgzZoo+oSkwgCZ3CMUdP-t+Y4h4PkvJO-As15kjz0Ad+nx9fA@mail.gmail.com>
+ <877e44daom.fsf@mid.deneb.enyo.de> <CAJgzZopuKoGFUq0GrB6ioFpLXzCY1iwGRddRRcAhzsNisjutuQ@mail.gmail.com>
+ <87woc4bv9c.fsf@mid.deneb.enyo.de> <CAJgzZorosDN58Zp6TUDJbzY3fmR-rJeWbELtw_H3nzMyaWondg@mail.gmail.com>
+ <87imnobufy.fsf@mid.deneb.enyo.de>
+In-Reply-To: <87imnobufy.fsf@mid.deneb.enyo.de>
+From:   enh <enh@google.com>
+Date:   Tue, 12 Nov 2019 21:27:21 -0800
+Message-ID: <CAJgzZorB99W2PzjQ5ZU1nBiYb81Ubm=VvaF50BOm9sTFUHeE4A@mail.gmail.com>
+Subject: Re: [PATCH] pthread_kill.3: Update to match POSIX.
+To:     Florian Weimer <fw@deneb.enyo.de>
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Nov 11, 2019 at 09:24:33PM +0100, Jann Horn wrote:
-> On Mon, Nov 11, 2019 at 5:58 PM Theodore Y. Ts'o <tytso@mit.edu> wrote:
-> > On Mon, Nov 11, 2019 at 03:55:35PM +0100, Jann Horn wrote:
-> > > Not on Linux, but on OpenBSD, they do use MAP_STACK now AFAIK; this
-> > > was announced here:
-> > > <http://openbsd-archive.7691.n7.nabble.com/stack-register-checking-td338238.html>.
-> > > Basically they periodically check whether the userspace stack pointer
-> > > points into a MAP_STACK region, and if not, they kill the process. So
-> > > even if it's a no-op on Linux...
-> >
-> > Hmm, is that something we should do in Linux?  Even if we only check
-> > on syscall entry, which should be pretty inexpensive, it seems like it
-> > would be very effective in protecting various ROP techniques.
-> 
-> I'm not a big fan, especially if that would only happen on syscall
-> entry; at the point where you have enough control to perform syscalls,
-> it probably isn't too difficult to move your ROP stack over to a
-> legitimate stack.
+On Tue, Nov 12, 2019 at 2:28 PM Florian Weimer <fw@deneb.enyo.de> wrote:
+>
+> * enh:
+>
+> > but this is all about *invalid* threads, which obviously can't be
+> > joinable. i'm really not sure what you're trying to say.
+>
+> Uhm, people try use pthread_kill to probe for thread termination.
 
-It does have "your process is doing something unexpected" checking,
-though, if we want to declare (and enforce) the expected behavior of
-userspace stack usage. (i.e. not strictly as a ROP defense.)
+yes, that's why i'm keen that we make it clearer that this doesn't work.
 
--- 
-Kees Cook
+> Termintation of a non-detached thread doesn't make a thread
+> non-joinable, so from a temporal memory safety perspective, that's
+> totally fine.  Except that POSIX requires implementations to hide this
+> information from callers.
+>
+> Maybe we are talking past each other, though.
+>
+> Let's look at what musl does:
+>
+> int pthread_kill(pthread_t t, int sig)
+> {
+>         int r;
+>         LOCK(t->killlock);
+>         r = t->tid ? -__syscall(SYS_tkill, t->tid, sig)
+>                 : (sig+0U >= _NSIG ? EINVAL : 0);
+>         UNLOCK(t->killlock);
+>         return r;
+> }
+>
+> The 0 could be ESRCH to support probing for termination.
+
+no, because the C library has two choices when a thread exits:
+
+1. unmap the thread.
+
+2. keep the thread around for recycling.
+
+if you choose 1 (optimizing for space, like Android), your dereference
+is illegal.
+
+if you choose 2 (optimizing for time, as i believe glibc does), your
+dereference is fine and you read the zero that the kernel put there
+... until the thread is reused. now you're actually looking at a
+different thread than the one you think you're looking at. and as a
+caller who by definition doesn't know the current state of the thread,
+you've no idea whether it's been reused or not. (this is also strictly
+the case on Android if ASLR has put a new thread's stack where the old
+one used to be.)
+
+there's more detail about this -- and some less unreliable options --
+in the Android documentation i linked to in the commit message.
