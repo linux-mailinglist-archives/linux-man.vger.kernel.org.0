@@ -2,216 +2,145 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id AC4F0FE138
-	for <lists+linux-man@lfdr.de>; Fri, 15 Nov 2019 16:29:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CF998FE14B
+	for <lists+linux-man@lfdr.de>; Fri, 15 Nov 2019 16:33:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727507AbfKOP3E (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 15 Nov 2019 10:29:04 -0500
-Received: from mail-pl1-f194.google.com ([209.85.214.194]:45556 "EHLO
-        mail-pl1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727412AbfKOP3D (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 15 Nov 2019 10:29:03 -0500
-Received: by mail-pl1-f194.google.com with SMTP id w7so4870456plz.12
-        for <linux-man@vger.kernel.org>; Fri, 15 Nov 2019 07:29:03 -0800 (PST)
+        id S1727599AbfKOPdR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 15 Nov 2019 10:33:17 -0500
+Received: from mail-lf1-f67.google.com ([209.85.167.67]:45751 "EHLO
+        mail-lf1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727566AbfKOPdR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 15 Nov 2019 10:33:17 -0500
+Received: by mail-lf1-f67.google.com with SMTP id v8so8297814lfa.12
+        for <linux-man@vger.kernel.org>; Fri, 15 Nov 2019 07:33:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id;
-        bh=vpMmpk2iFEnj8y0QkqI43ompgmnFwk5ZKVJJu7bsWBo=;
-        b=aj0AHUPF7QInmjcbAtOPITbgZVzRStfF+WoKwqErATFS6oRR0vcq3G55/blhPTUW9o
-         XX8mOP7MyT3rxRmSWclv7LkVDftEjXOmcx2/+dNdm2alSDTLLPQpgFpwOW2xUCU55y/h
-         61jmmXxLadXstgA05y0QRsB/T8hVC0MY5t7XQVT8yY3wJC80xYz51pDk47J/vzvP8x3V
-         YSavhFwu7U5xFXm0672fAe5+cDBwtwzxboc/GBs1DmZCysMZQlF2Z8pxMpaslu1ZEua9
-         VC9s4gNCJcWh104FaUZsNqfybyBQCEdctKQ+4GiWJ2hyZY+kcAhnNszGgaR0pfdeb5c/
-         7hUQ==
+        h=date:from:to:cc:subject:references:mime-version:message-id
+         :content-transfer-encoding;
+        bh=L3Im+pvVw3C7aiYNO5AL3MuuLl3SJzqV6gtRSmU6l1E=;
+        b=UFgi3HaePpBMQbDhXFkYrzm9RiPm/sDrRjirw4XsoMVnmHY5rTsS9PWLBzB9n6Kqho
+         GgFF4tk0OMYJjfUw29CtNyboIsJvmYw79S+0uzDnI64lxg0ZfSzsDw1qgQRpy1YlY71f
+         HdFXAtRUef0ZYuexUPx1s0qrVuZt/ZQ1aj9sHZD8n4KtcgEAafJAiprwqj085YHlUNtT
+         yPLVTbT7PEis7jFtJ07Wg3Oj5w9XIlG9yts+6JtI/6o12cX9eR/+cQDedDcWECobrRAV
+         6QP+t7fz7l5rsn3OR+J0KispSfva4ZEfeVaaD0ntB2mpqnmjyvfDV7D5ed9K9uSwKjdU
+         2Lkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=vpMmpk2iFEnj8y0QkqI43ompgmnFwk5ZKVJJu7bsWBo=;
-        b=ucD7tvci+a6pip3uogcapucN8WvI/9/ddEDq8Q8KnvccgLwjp1rmB2Xt29HXVU0m+B
-         rq+nxsUzJhhncx5kcTaPf6Gba97s9R1pONQB2ut2Z3wEU4p7a14Uc8o4StWQ1zcD7fMc
-         mbOpGtRa1VfbGYfYORf5QXJACeQNboNegyKMRpDL54+kJOJRwf5CpGPejGZ/lnu00hil
-         oXyBKTRHooevdaG9GoakKLAkCcACPW8I724Bv46x/gXVdgAPAV22j6XT42Ys//OO65Gk
-         ygb3ZHpjB9r+2zG2QFwuUFePOX0rJB1Y0vQwvZ1OqjOQPl5a8Mv+BYqZt1A/Xb1V7Zc3
-         pvLA==
-X-Gm-Message-State: APjAAAUoOqrkp51DKjMG4WTDiXpRWdZYVUyirxi4K4FZD/Bdc2PEwfP9
-        Dug/y/4J2MtnGNEnUSIP6ds=
-X-Google-Smtp-Source: APXvYqzyMfFEp3XqbK4oc3IHTq7CHUrjmffAsdK6oHQsITGLDpjeJYUXXG9sLuA3hxwp+mGv9iuJbg==
-X-Received: by 2002:a17:90b:30cc:: with SMTP id hi12mr20189706pjb.80.1573831742617;
-        Fri, 15 Nov 2019 07:29:02 -0800 (PST)
-Received: from binjiang-hz-dhcp091254.china.nsn-net.net ([131.228.2.20])
-        by smtp.gmail.com with ESMTPSA id a28sm11949513pfg.51.2019.11.15.07.28.55
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 15 Nov 2019 07:29:01 -0800 (PST)
-From:   Li Xinhai <lixinhai.lxh@gmail.com>
-To:     linux-mm@kvack.org
-Cc:     Andrew Morton <akpm@linux-foundation.org>,
-        Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>,
-        Michal Hocko <mhocko@suse.com>,
-        Vlastimil Babka <vbabka@suse.cz>,
-        Hugh Dickins <hughd@google.com>,
+        h=x-gm-message-state:date:from:to:cc:subject:references:mime-version
+         :message-id:content-transfer-encoding;
+        bh=L3Im+pvVw3C7aiYNO5AL3MuuLl3SJzqV6gtRSmU6l1E=;
+        b=Aelwk5RGjZJusYI1/83JUm/NTvfUy0drACutTf188zMPOyU2iDHU7GDyVhAm/Ym325
+         SHuKiWnA09yMej2UJvb9jjU43QY58aefci06v+DSz+wizPauGGDL2EyNiblUCJ3YkAUL
+         vyff9rGfZ7QNvsV8vqT8oynZcgoEiN1kMwp+fd0sRLG3eDe/aS6cp9SAjMRAFEDjY0f2
+         hvW6KHYb8/H0V9nIIAaeCa70QKrLt15Cv/khOtsIpwMtlVSerRA2lflqKmIMEtsyk3Pa
+         sp1eW+VOXaZr4GsVYd32yif8u/W2BRTDoYc8Cjd40RrNXb3PqgI9DV3VYx6kR9aYOopR
+         8pqA==
+X-Gm-Message-State: APjAAAXMEEI3czVeSRcWJtRUTNy6JTfIcUkPuI4uGjfEM39DGGMca2IQ
+        NkvleUFjG9GNvbMK8qRiKjOJ6pAE
+X-Google-Smtp-Source: APXvYqzcC71EA/v4uAB0QLtKsj1tT03S04jWhzRsaYEuyV9kNY2QfFOtTLHTgs2C04Ugkl2OaGFxAQ==
+X-Received: by 2002:ac2:4c16:: with SMTP id t22mr11568033lfq.124.1573831995020;
+        Fri, 15 Nov 2019 07:33:15 -0800 (PST)
+Received: from N-20L6PF1KTYA2 ([131.228.2.20])
+        by smtp.gmail.com with ESMTPSA id n1sm4083199ljg.44.2019.11.15.07.33.12
+        (version=TLS1_2 cipher=AES128-GCM-SHA256 bits=128/128);
+        Fri, 15 Nov 2019 07:33:14 -0800 (PST)
+Date:   Fri, 15 Nov 2019 23:33:12 +0800
+From:   "lixinhai.lxh@gmail.com" <lixinhai.lxh@gmail.com>
+To:     n-horiguchi <n-horiguchi@ah.jp.nec.com>
+Cc:     "linux-mm@kvack.org" <linux-mm@kvack.org>,
+        akpm <akpm@linux-foundation.org>, mhocko <mhocko@suse.com>,
+        "Vlastimil Babka" <vbabka@suse.cz>,
+        "Hugh Dickins" <hughd@google.com>,
         linux-man <linux-man@vger.kernel.org>
-Subject: [PATCH v4 2/2] mm: Fix checking unmapped holes for mbind
-Date:   Fri, 15 Nov 2019 23:28:18 +0800
-Message-Id: <1573831698-7700-1-git-send-email-lixinhai.lxh@gmail.com>
-X-Mailer: git-send-email 1.8.3.1
+Subject: Re: [PATCH v4 2/2] mm: Fix checking unmapped holes for mbind
+References: <1573218104-11021-1-git-send-email-lixinhai.lxh@gmail.com>, 
+        <1573218104-11021-3-git-send-email-lixinhai.lxh@gmail.com>, 
+        <20191114093018.GA2144@hori.linux.bs1.fc.nec.co.jp>
+X-Priority: 3
+X-GUID: 7AA44B45-3441-49B2-9C12-4FDB1FEA677A
+X-Has-Attach: no
+X-Mailer: Foxmail 7.2.13.365[cn]
+Mime-Version: 1.0
+Message-ID: <2019111523331059776833@gmail.com>
+Content-Type: text/plain;
+        charset="utf-8"
+Content-Transfer-Encoding: base64
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-mbind() is required to report EFAULT if range, specified by addr and len,
-contains unmapped holes. In current implementation, below rules are applied
-for this checking:
-1 Unmapped holes at any part of the specified range should be reported as
-  EFAULT if mbind() for none MPOL_DEFAULT cases;
-2 Unmapped holes at any part of the specified range should be ignored (do
-  not reprot EFAULT) if mbind() for MPOL_DEFAULT case;
-3 The whole range in an unmapped hole should be reported as EFAULT;
-Note that rule 2 does not fullfill the mbind() API definition, but since
-that behavior has existed for long days (the internal flag
-MPOL_MF_DISCONTIG_OK is for this purpose), this patch does not plan to
-change it.
-
-In current code, application observed inconsistent behavior on rule 1 and
-rule 2 respectively. That inconsistency is fixed as below details.
-
-Cases of rule 1:
-1) Hole at head side of range. Current code reprot EFAULT, no change by
-this patch.
-[  vma  ][ hole ][  vma  ]
-            [  range  ]
-2) Hole at middle of range. Current code report EFAULT, no change by
-this patch.
-[  vma  ][ hole ][ vma ]
-   [     range      ]
-3) Hole at tail side of range. Current code do not report EFAULT, this
-patch fix it.
-[  vma  ][ hole ][ vma ]
-   [  range  ]
-
-Cases of rule 2:
-1) Hole at head side of range. Current code reprot EFAULT, this patch
-fix it.
-[  vma  ][ hole ][  vma  ]
-            [  range  ]
-2) Hole at middle of range. Current code do not report EFAULT, no change
-by this patch.
-this patch.
-[  vma  ][ hole ][ vma]
-   [     range      ]
-3) Hole at tail side of range. Current code do not report EFAULT, no
-change by this patch.
-[  vma  ][ hole ][ vma]
-   [  range  ]
-
-This patch has no changes to rule 3.
-
-The unmapped hole checking can also be handled by using .pte_hole(),
-instead of .test_walk(). But .pte_hole() is called for holes inside and
-outside vma, which causes more cost, so this patch keeps the original
-design with .test_walk().
-
-Fixes: 6f4576e3687b ("mempolicy: apply page table walker on queue_pages_range()")
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Vlastimil Babka <vbabka@suse.cz>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: linux-man <linux-man@vger.kernel.org>
-Signed-off-by: Li Xinhai <lixinhai.lxh@gmail.com>
----
-send again for removing space
-
- mm/mempolicy.c | 40 +++++++++++++++++++++++++++-------------
- 1 file changed, 27 insertions(+), 13 deletions(-)
-
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 807f06f..c697b29 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -410,7 +410,9 @@ struct queue_pages {
- 	struct list_head *pagelist;
- 	unsigned long flags;
- 	nodemask_t *nmask;
--	struct vm_area_struct *prev;
-+	unsigned long start;
-+	unsigned long end;
-+	struct vm_area_struct *first;
- };
- 
- /*
-@@ -619,14 +621,20 @@ static int queue_pages_test_walk(unsigned long start, unsigned long end,
- 	unsigned long flags = qp->flags;
- 
- 	/* range check first */
--	if (!(flags & MPOL_MF_DISCONTIG_OK)) {
--		if (!vma->vm_next && vma->vm_end < end)
--			return -EFAULT;
--		if (qp->prev && qp->prev->vm_end < vma->vm_start)
-+	VM_BUG_ON((vma->vm_start > start) || (vma->vm_end < end));
-+
-+	if (!qp->first) {
-+		qp->first = vma;
-+		if (!(flags & MPOL_MF_DISCONTIG_OK) &&
-+			(qp->start < vma->vm_start))
-+			/* hole at head side of range */
- 			return -EFAULT;
- 	}
--
--	qp->prev = vma;
-+	if (!(flags & MPOL_MF_DISCONTIG_OK) &&
-+		((vma->vm_end < qp->end) &&
-+		(!vma->vm_next || vma->vm_end < vma->vm_next->vm_start)))
-+		/* hole at middle or tail of range */
-+		return -EFAULT;
- 
- 	/*
- 	 * Need check MPOL_MF_STRICT to return -EIO if possible
-@@ -638,8 +646,6 @@ static int queue_pages_test_walk(unsigned long start, unsigned long end,
- 
- 	if (endvma > end)
- 		endvma = end;
--	if (vma->vm_start > start)
--		start = vma->vm_start;
- 
- 	if (flags & MPOL_MF_LAZY) {
- 		/* Similar to task_numa_work, skip inaccessible VMAs */
-@@ -680,14 +686,23 @@ static int queue_pages_test_walk(unsigned long start, unsigned long end,
- 		nodemask_t *nodes, unsigned long flags,
- 		struct list_head *pagelist)
- {
-+	int err;
- 	struct queue_pages qp = {
- 		.pagelist = pagelist,
- 		.flags = flags,
- 		.nmask = nodes,
--		.prev = NULL,
-+		.start = start,
-+		.end = end,
-+		.first = NULL,
- 	};
- 
--	return walk_page_range(mm, start, end, &queue_pages_walk_ops, &qp);
-+	err = walk_page_range(mm, start, end, &queue_pages_walk_ops, &qp);
-+
-+	if (!qp.first)
-+		/* whole range in hole */
-+		err = -EFAULT;
-+
-+	return err;
- }
- 
- /*
-@@ -739,8 +754,7 @@ static int mbind_range(struct mm_struct *mm, unsigned long start,
- 	unsigned long vmend;
- 
- 	vma = find_vma(mm, start);
--	if (!vma || vma->vm_start > start)
--		return -EFAULT;
-+	VM_BUG_ON(!vma);
- 
- 	prev = vma->vm_prev;
- 	if (start > vma->vm_start)
--- 
-1.8.3.1
+T24gMjAxOS0xMS0xNMKgYXQgMTc6MzDCoE5hb3lhIEhvcmlndWNoacKgd3JvdGU6Cj5PbiBGcmks
+IE5vdiAwOCwgMjAxOSBhdCAwOTowMTo0NFBNICswODAwLCBMaSBYaW5oYWkgd3JvdGU6Cj4+IG1i
+aW5kKCkgaXMgcmVxdWlyZWQgdG8gcmVwb3J0IEVGQVVMVCBpZiByYW5nZSwgc3BlY2lmaWVkIGJ5
+IGFkZHIgYW5kIGxlbiwKPj4gY29udGFpbnMgdW5tYXBwZWQgaG9sZXMuIEluIGN1cnJlbnQgaW1w
+bGVtZW50YXRpb24sIGJlbG93IHJ1bGVzIGFyZSBhcHBsaWVkCj4+IGZvciB0aGlzIGNoZWNraW5n
+Ogo+PiAxIFVubWFwcGVkIGhvbGVzIGF0IGFueSBwYXJ0IG9mIHRoZSBzcGVjaWZpZWQgcmFuZ2Ug
+c2hvdWxkIGJlIHJlcG9ydGVkIGFzCj4+wqDCoCBFRkFVTFQgaWYgbWJpbmQoKSBmb3Igbm9uZSBN
+UE9MX0RFRkFVTFQgY2FzZXM7Cj4+IDIgVW5tYXBwZWQgaG9sZXMgYXQgYW55IHBhcnQgb2YgdGhl
+IHNwZWNpZmllZCByYW5nZSBzaG91bGQgYmUgaWdub3JlZCAoZG8KPj7CoMKgIG5vdCByZXByb3Qg
+RUZBVUxUKSBpZiBtYmluZCgpIGZvciBNUE9MX0RFRkFVTFQgY2FzZTsKPj4gMyBUaGUgd2hvbGUg
+cmFuZ2UgaW4gYW4gdW5tYXBwZWQgaG9sZSBzaG91bGQgYmUgcmVwb3J0ZWQgYXMgRUZBVUxUOwo+
+PiBOb3RlIHRoYXQgcnVsZSAyIGRvZXMgbm90IGZ1bGxmaWxsIHRoZSBtYmluZCgpIEFQSSBkZWZp
+bml0aW9uLCBidXQgc2luY2UKPj4gdGhhdCBiZWhhdmlvciBoYXMgZXhpc3RlZCBmb3IgbG9uZyBk
+YXlzICh0aGUgaW50ZXJuYWwgZmxhZwo+PiBNUE9MX01GX0RJU0NPTlRJR19PSyBpcyBmb3IgdGhp
+cyBwdXJwb3NlKSwgdGhpcyBwYXRjaCBkb2VzIG5vdCBwbGFuIHRvCj4+IGNoYW5nZSBpdC4KPj4K
+Pj4gSW4gY3VycmVudCBjb2RlLCBhcHBsaWNhdGlvbiBvYnNlcnZlZCBpbmNvbnNpc3RlbnQgYmVo
+YXZpb3Igb24gcnVsZSAxIGFuZAo+PiBydWxlIDIgcmVzcGVjdGl2ZWx5LiBUaGF0IGluY29uc2lz
+dGVuY3kgaXMgZml4ZWQgYXMgYmVsb3cgZGV0YWlscy4KPj4KPj4gQ2FzZXMgb2YgcnVsZSAxOgo+
+PiAxKSBIb2xlIGF0IGhlYWQgc2lkZSBvZiByYW5nZS4gQ3VycmVudCBjb2RlIHJlcHJvdCBFRkFV
+TFQsIG5vIGNoYW5nZSBieQo+PiB0aGlzIHBhdGNoLgo+PiBbwqAgdm1hwqAgXVsgaG9sZSBdW8Kg
+IHZtYcKgIF0KPj7CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgW8KgIHJhbmdlwqAgXQo+PiAyKSBI
+b2xlIGF0IG1pZGRsZSBvZiByYW5nZS4gQ3VycmVudCBjb2RlIHJlcG9ydCBFRkFVTFQsIG5vIGNo
+YW5nZSBieQo+PiB0aGlzIHBhdGNoLgo+PiBbwqAgdm1hwqAgXVsgaG9sZSBdWyB2bWEgXQo+PsKg
+wqDCoCBbwqDCoMKgwqAgcmFuZ2XCoMKgwqDCoMKgIF0KPj4gMykgSG9sZSBhdCB0YWlsIHNpZGUg
+b2YgcmFuZ2UuIEN1cnJlbnQgY29kZSBkbyBub3QgcmVwb3J0IEVGQVVMVCwgdGhpcwo+PiBwYXRj
+aCBmaXggaXQuCj4+IFvCoCB2bWHCoCBdWyBob2xlIF1bIHZtYSBdCj4+wqDCoMKgIFvCoCByYW5n
+ZcKgIF0KPj4KPj4gQ2FzZXMgb2YgcnVsZSAyOgo+PiAxKSBIb2xlIGF0IGhlYWQgc2lkZSBvZiBy
+YW5nZS4gQ3VycmVudCBjb2RlIHJlcHJvdCBFRkFVTFQsIHRoaXMgcGF0Y2gKPj4gZml4IGl0Lgo+
+PiBbwqAgdm1hwqAgXVsgaG9sZSBdW8KgIHZtYcKgIF0KPj7CoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgW8KgIHJhbmdlwqAgXQo+PiAyKSBIb2xlIGF0IG1pZGRsZSBvZiByYW5nZS4gQ3VycmVudCBj
+b2RlIGRvIG5vdCByZXBvcnQgRUZBVUxULCBubyBjaGFuZ2UKPj4gYnkgdGhpcyBwYXRjaC4KPj4g
+dGhpcyBwYXRjaC4KPj4gW8KgIHZtYcKgIF1bIGhvbGUgXVsgdm1hXQo+PsKgwqDCoCBbwqDCoMKg
+wqAgcmFuZ2XCoMKgwqDCoMKgIF0KPj4gMykgSG9sZSBhdCB0YWlsIHNpZGUgb2YgcmFuZ2UuIEN1
+cnJlbnQgY29kZSBkbyBub3QgcmVwb3J0IEVGQVVMVCwgbm8KPj4gY2hhbmdlIGJ5IHRoaXMgcGF0
+Y2guCj4+IFvCoCB2bWHCoCBdWyBob2xlIF1bIHZtYV0KPj7CoMKgwqAgW8KgIHJhbmdlwqAgXQo+
+Pgo+PiBUaGlzIHBhdGNoIGhhcyBubyBjaGFuZ2VzIHRvIHJ1bGUgMy4KPj4KPj4gVGhlIHVubWFw
+cGVkIGhvbGUgY2hlY2tpbmcgY2FuIGFsc28gYmUgaGFuZGxlZCBieSB1c2luZyAucHRlX2hvbGUo
+KSwKPj4gaW5zdGVhZCBvZiAudGVzdF93YWxrKCkuIEJ1dCAucHRlX2hvbGUoKSBpcyBjYWxsZWQg
+Zm9yIGhvbGVzIGluc2lkZSBhbmQKPj4gb3V0c2lkZSB2bWEsIHdoaWNoIGNhdXNlcyBtb3JlIGNv
+c3QsIHNvIHRoaXMgcGF0Y2gga2VlcHMgdGhlIG9yaWdpbmFsCj4+IGRlc2lnbiB3aXRoIC50ZXN0
+X3dhbGsoKS4KPj4KPj4gRml4ZXM6IDZmNDU3NmUzNjg3YiAoIm1lbXBvbGljeTogYXBwbHkgcGFn
+ZSB0YWJsZSB3YWxrZXIgb24gcXVldWVfcGFnZXNfcmFuZ2UoKSIpCj4+IENjOiBBbmRyZXcgTW9y
+dG9uIDxha3BtQGxpbnV4LWZvdW5kYXRpb24ub3JnPgo+PiBDYzogTmFveWEgSG9yaWd1Y2hpIDxu
+LWhvcmlndWNoaUBhaC5qcC5uZWMuY29tPgo+PiBDYzogTWljaGFsIEhvY2tvIDxtaG9ja29Ac3Vz
+ZS5jb20+Cj4+IENjOiBWbGFzdGltaWwgQmFia2EgPHZiYWJrYUBzdXNlLmN6Pgo+PiBDYzogSHVn
+aCBEaWNraW5zIDxodWdoZEBnb29nbGUuY29tPgo+PiBDYzogbGludXgtbWFuIDxsaW51eC1tYW5A
+dmdlci5rZXJuZWwub3JnPgo+PiBTaWduZWQtb2ZmLWJ5OiBMaSBYaW5oYWkgPGxpeGluaGFpLmx4
+aEBnbWFpbC5jb20+Cj4+IC0tLQo+PsKgIG1tL21lbXBvbGljeS5jIHwgNDAgKysrKysrKysrKysr
+KysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLQo+PsKgIDEgZmlsZSBjaGFuZ2VkLCAyNyBpbnNl
+cnRpb25zKCspLCAxMyBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL21tL21lbXBvbGlj
+eS5jIGIvbW0vbWVtcG9saWN5LmMKPj4gaW5kZXggODA3ZjA2Zi4uYzY5N2IyOSAxMDA2NDQKPj4g
+LS0tIGEvbW0vbWVtcG9saWN5LmMKPj4gKysrIGIvbW0vbWVtcG9saWN5LmMKPj4gQEAgLTQxMCw3
+ICs0MTAsOSBAQCBzdHJ1Y3QgcXVldWVfcGFnZXMgewo+PsKgIHN0cnVjdCBsaXN0X2hlYWQgKnBh
+Z2VsaXN0Owo+PsKgIHVuc2lnbmVkIGxvbmcgZmxhZ3M7Cj4+wqAgbm9kZW1hc2tfdCAqbm1hc2s7
+Cj4+IC0Jc3RydWN0IHZtX2FyZWFfc3RydWN0ICpwcmV2Owo+PiArCXVuc2lnbmVkIGxvbmcgc3Rh
+cnQ7Cj4+ICsJdW5zaWduZWQgbG9uZyBlbmQ7Cj4+ICsJc3RydWN0IHZtX2FyZWFfc3RydWN0ICpm
+aXJzdDsKPj7CoCB9Owo+PsKgCj4+wqAgLyoKPj4gQEAgLTYxOSwxNCArNjIxLDIwIEBAIHN0YXRp
+YyBpbnQgcXVldWVfcGFnZXNfdGVzdF93YWxrKHVuc2lnbmVkIGxvbmcgc3RhcnQsIHVuc2lnbmVk
+IGxvbmcgZW5kLAo+PsKgIHVuc2lnbmVkIGxvbmcgZmxhZ3MgPSBxcC0+ZmxhZ3M7Cj4+wqAKPj7C
+oCAvKiByYW5nZSBjaGVjayBmaXJzdCAqLwo+PiAtCWlmICghKGZsYWdzICYgTVBPTF9NRl9ESVND
+T05USUdfT0spKSB7Cj4+IC0JaWYgKCF2bWEtPnZtX25leHQgJiYgdm1hLT52bV9lbmQgPCBlbmQp
+Cj4+IC0JcmV0dXJuIC1FRkFVTFQ7Cj4+IC0JaWYgKHFwLT5wcmV2ICYmIHFwLT5wcmV2LT52bV9l
+bmQgPCB2bWEtPnZtX3N0YXJ0KQo+PiArCVZNX0JVR19PTigodm1hLT52bV9zdGFydCA+IHN0YXJ0
+KSB8fCAodm1hLT52bV9lbmQgPCBlbmQpKTsKPj4gKwo+PiArCWlmICghcXAtPmZpcnN0KSB7Cj4+
+ICsJcXAtPmZpcnN0ID0gdm1hOwo+PiArCWlmICghKGZsYWdzICYgTVBPTF9NRl9ESVNDT05USUdf
+T0spICYmCj4+ICsJKHFwLT5zdGFydCA8IHZtYS0+dm1fc3RhcnQpKQo+PiArCS8qIGhvbGUgYXQg
+aGVhZCBzaWRlIG9mIHJhbmdlICovCj4+wqAgcmV0dXJuIC1FRkFVTFQ7Cj4+wqAgfQo+PiAtCj4+
+IC0JcXAtPnByZXYgPSB2bWE7Cj4+ICsJaWYgKCEoZmxhZ3MgJiBNUE9MX01GX0RJU0NPTlRJR19P
+SykgJiYKPj4gKwkoKHZtYS0+dm1fZW5kIDwgcXAtPmVuZCkgJiYKPgo+WW91IGhlcmUgaGF2ZSBh
+IHRyYWlsaW5nIHdoaXRlc3BhY2UuCj4KPk90aGVyd2lzZSwgbG9va3MgZ29vZCB0byBtZS4KPgo+
+UmV2aWV3ZWQtYnk6IE5hb3lhIEhvcmlndWNoaSA8bi1ob3JpZ3VjaGlAYWguanAubmVjLmNvbT4g
+CgpUaGFua3MgZm9yIHJldmlldywgSSd2IHNlbnQgb3V0IG5ldyBwYXRjaCB3aXRoIHNhbWUgdGl0
+bGUKLSBYaW5oYWkKCgo=
 
