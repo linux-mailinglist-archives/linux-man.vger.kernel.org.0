@@ -2,53 +2,54 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 5ECAAFE1F4
-	for <lists+linux-man@lfdr.de>; Fri, 15 Nov 2019 16:50:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4BECBFE23E
+	for <lists+linux-man@lfdr.de>; Fri, 15 Nov 2019 17:06:32 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727560AbfKOPtz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 15 Nov 2019 10:49:55 -0500
-Received: from mail-io1-f66.google.com ([209.85.166.66]:45028 "EHLO
-        mail-io1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727677AbfKOPtn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 15 Nov 2019 10:49:43 -0500
-Received: by mail-io1-f66.google.com with SMTP id j20so10879412ioo.11
-        for <linux-man@vger.kernel.org>; Fri, 15 Nov 2019 07:49:43 -0800 (PST)
+        id S1727520AbfKOQGb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 15 Nov 2019 11:06:31 -0500
+Received: from mail-qk1-f196.google.com ([209.85.222.196]:47085 "EHLO
+        mail-qk1-f196.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727423AbfKOQGb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 15 Nov 2019 11:06:31 -0500
+Received: by mail-qk1-f196.google.com with SMTP id h15so8461916qka.13
+        for <linux-man@vger.kernel.org>; Fri, 15 Nov 2019 08:06:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=X5NAAOrJ3bS32ihsXavVCESX6DNfXdWEE7aVqtLVIHM=;
-        b=T96mBsWswYjsm0w7ecYkWpV509ib/ulk9bHbI0Xwo0rzkePegh7rSfOcmzGbyf8vTc
-         lns/HOXyf4/6jOYDVIgZ/CZyIfN2m2y88qVdmXSABhNsP0MXDIRsHGSOOd7wWkwuGiQx
-         ehcoBpFXp6INIFq3jwmveina1L3fsWjpzHRhMvlhwo8OJ8Dy4xuFXwCrYZiL/Ja/dmiU
-         sEvBblBcC09ww5H/W1Li3rJXBc1TYjMn46kjeboNwYGUiqFeNnjz46iJxarBlBzUTpau
-         7EU4w1MkRxjhgPFrJ2/ipVqnuE4IawmENFYcW1JVUg9OFLrEKZvfb77T8+3XayPV4Zd+
-         KrHA==
+        h=mime-version:reply-to:in-reply-to:references:from:date:message-id
+         :subject:to;
+        bh=Od7gX6NqSAkTQlsMPuruQtN+fCIEjcpGrc8p0Hbdnws=;
+        b=ksjz7Nz1/7KLROXSdWCood/1ferjdo6rXZY41eSdLMoE+G3Lh4PbOyMKXWMF44/SBM
+         Z4xifwB68/DLuVKDc9T3cMRZudyhOEEEzpGR8lBFTcU7mcdL0/jd5AxF8sgPXHWcSDw2
+         X/wC8GRPu0oxSm2geGwKj5LX9tmZMo3IQwjogHC37PYkvjCfnNlvHciqNus8IEl06Ov5
+         E3UQED3HFQpgZswO9J7VyI/wJj0RKPSG9ki/xnn80imnqrHPPKhY4pAY+pT2S8D6SXVR
+         ryPXX2hMOPVdZYshiE6ijUuQEDc+RBD/nKEkWpObA6yHhrtP+hsUNqx6rnSq5zpWa53J
+         fZxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=X5NAAOrJ3bS32ihsXavVCESX6DNfXdWEE7aVqtLVIHM=;
-        b=JhIdKyZwWQLPy7+C4fyu4hV38r+eHH8wJ4sgIetmXZB4ZVeaM9AlNzlW4uoAXbfiEl
-         VPF4bBPRw2i5iSF794lwCl55HOO5Z1sQgiU2EBOxMHuufxVAciIxKoGDTI1guFsCZY7t
-         ptsyeIiaP/e2BgmuVNNdv7lgHOcxwhKhoAxbVeevkz+c+b1MyaeerjRcVjqhZJ1Wwq0p
-         bShrAMOCOxarQKffICMPGsWJkmy6gW4oZfjQLVAlCwFHjiYXwk0V/Dfg6jCSNhvjd70f
-         nCVAq6dUL00Wl4IFrIQmN73/1E3otMLbzaRJ3/uHnYU/o9ogeVtWaLtxssPcSo8Tqcoz
-         /hCw==
-X-Gm-Message-State: APjAAAVvXInsc8zbld/8d6eORRTbSk3o2cRZFQBwiVAOnNaFwIdXTTpx
-        FlQ3h7CWSFKp9dO08q04DpOBY8FYSs1NqBOFUQ==
-X-Google-Smtp-Source: APXvYqxEj1beLI6zhjihT/lmX2Dk324PGcIr8veC5c+0F/PFQKT7AeNYgljOGh72OwNqCMMZvqGkvMbSAqCkDjgGkjg=
-X-Received: by 2002:a5e:8e02:: with SMTP id a2mr1343031ion.269.1573832982053;
- Fri, 15 Nov 2019 07:49:42 -0800 (PST)
+        h=x-gm-message-state:mime-version:reply-to:in-reply-to:references
+         :from:date:message-id:subject:to;
+        bh=Od7gX6NqSAkTQlsMPuruQtN+fCIEjcpGrc8p0Hbdnws=;
+        b=oWP/oa80mXWRv5Ly0QdQq2JZNyAMUgW0K7yAfzQ0AcKU4HwtwGgydMz3dl1YMw7ToT
+         moVnWlrc05xgBVd9P1QD7ox+7KigQp9FXQrxwDs66tmQbIO/yVWTzBZX8TX4Gc8tfVqV
+         MoxOpprsc4mtCHvlrBaFdm+QFG0DPTuC3ZmNZOT0OCkNUWNzOfzi4cQ1/z6hjBLDsRwi
+         kI0VZqABu5zObslKskBD1whDn5xNNpzuHzam++NKm+zJVX1zWVOPgRPA20JXTlK8LS/8
+         voUTqyzCK81Y8ilYnyX6xh5HW02WqNKBRGhTphBPzPs1ctHggVKwA+BMq9LETpHilVom
+         4HsA==
+X-Gm-Message-State: APjAAAWel4e4M8Rml893bq/jxJrDrvynuuAhd4KDL6FBKcb2q9QV0ySk
+        6kHFy1oF46yduVJH+Xgns9WVSBCOPDgtIR1OzgM=
+X-Google-Smtp-Source: APXvYqygKZwqWq8XhJKmfPt8zs+ZUARlUfp+SW1ijT/4fea6OreHib/CC6qhrCXsw1YCraeTtDmmYcxBVJKDRnw//kU=
+X-Received: by 2002:a37:9cc2:: with SMTP id f185mr2934721qke.2.1573833990342;
+ Fri, 15 Nov 2019 08:06:30 -0800 (PST)
 MIME-Version: 1.0
-Received: by 2002:a02:7749:0:0:0:0:0 with HTTP; Fri, 15 Nov 2019 07:49:41
+Received: by 2002:a0c:d4c4:0:0:0:0:0 with HTTP; Fri, 15 Nov 2019 08:06:29
  -0800 (PST)
-Reply-To: moneygram.1820@outlook.fr
-From:   "Ms.Mary Coster" <info.zennitbankplcnigerian@gmail.com>
-Date:   Fri, 15 Nov 2019 16:49:41 +0100
-Message-ID: <CABHzvrkUQbbmg0Gr7foD3OjAJiY7Fd37=SW3mU=fnOPOcOyNdQ@mail.gmail.com>
-Subject: Goodnews, I have deposited your transfer total amount US$4.8million
- Dollars with Money Gram this morning. we agreed you will be receiving it
- $5000.00 daily.
+Reply-To: siginvestmentfzco1@gmail.com
+In-Reply-To: <CAJ6sChe0Yrp4yT7AwEEPLxi=Cv1OjEJs5KPnEHR-pF6axg0BVQ@mail.gmail.com>
+References: <CAJ6sChe0Yrp4yT7AwEEPLxi=Cv1OjEJs5KPnEHR-pF6axg0BVQ@mail.gmail.com>
+From:   SIG Investment <kristyjones910@gmail.com>
+Date:   Fri, 15 Nov 2019 20:06:29 +0400
+Message-ID: <CAJ6sChcS2zFSF-VDvVjcGj+dAg3UWfM6uPGtpe=5YDrj_Aj1+A@mail.gmail.com>
+Subject: Loan opportunity!
 To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
@@ -56,32 +57,24 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Attn, Dear
-Goodnews, I have deposited your transfer total amount US$4.8million
-Dollars with Money Gram this morning. we agreed you will be receiving
-it $5000.00 daily.
-Contact Mr. John Dave Director, Money Gram to pick up your first Money
-Gram payment $5000.00 today.
-Contact Person; Mr. John Dave Director, Money Gram,International
-Remittance-Benin
-Email; moneygram.1820@outlook.fr
-Telephone; +229 62619517
-Please re-confirm your address to him once again such as listed below.
-1.Your Full Name..............................
-2.Address.........................
-3.Country....................
-4.Sex.........................................
-5.Your telephone numbers..........................
-6. Copy of your ID...........................
-This is to avoid sending your funds to wrong person, He is waiting to
-hear from you urgent today.
-Let me know once you pick up your transfer $5000.00 today.
-Finally, Note I have paid for the service fees, but only money will
-send to him is $90.00 transfer fee before you can pick up the transfer
-today.
-Ask, Mr. John Dave Director, Money Gram to give you direction where to
-send your transfer fee $90.00 only to Him Immediately so that you can
-pick up $5000.00 us dollars today.
-Thanks for undrstanding.
-Mary Coster
-m.coster@aol.com
+Greetings ,
+
+I am Contacting you to find out if you / your  company
+is in need of funding for your project/business? We have developed a
+new method of funding
+which does not take longer time for our clients to receive funding.
+
+We are into project sponsorship, loan financing, project funding, fund
+investment etc. If you are looking for fund to finance your Project
+or Business or if you are willing to work as our agent in your country
+to source for clients in need of funding and earn commission, then get
+back to us more details.
+
+I will share more to you once i get your respond on your willingness
+to secure funding from us.
+
+Kind Regards,
+Mr Rabah Mohammad
+SIG Investment FZCO
+Email : siginvestmentfzco1@gmail.com
+Email : rabahmohammad@siginvestments-ae.com
