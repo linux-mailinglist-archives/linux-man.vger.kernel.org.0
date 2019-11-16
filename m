@@ -2,33 +2,32 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 26015FEB99
-	for <lists+linux-man@lfdr.de>; Sat, 16 Nov 2019 11:03:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6F97DFEBB0
+	for <lists+linux-man@lfdr.de>; Sat, 16 Nov 2019 11:51:51 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726748AbfKPKDc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 16 Nov 2019 05:03:32 -0500
-Received: from omta03.suddenlink.net ([208.180.40.73]:49057 "EHLO
-        omta03.suddenlink.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726679AbfKPKDc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 16 Nov 2019 05:03:32 -0500
-X-Greylist: delayed 318 seconds by postgrey-1.27 at vger.kernel.org; Sat, 16 Nov 2019 05:03:31 EST
-Received: from dalifep05 ([10.130.7.37]) by dalofep02.suddenlink.net
+        id S1727115AbfKPKvu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 16 Nov 2019 05:51:50 -0500
+Received: from omta01.suddenlink.net ([208.180.40.71]:50661 "EHLO
+        omta01.suddenlink.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726794AbfKPKvu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 16 Nov 2019 05:51:50 -0500
+Received: from dalifep05 ([10.130.7.37]) by dalofep01.suddenlink.net
           (InterMail vM.8.04.03.22.02 201-2389-100-169-20190213) with ESMTP
-          id <20191116095812.JUVC11295.dalofep02.suddenlink.net@dalifep05>;
-          Sat, 16 Nov 2019 03:58:12 -0600
-Message-ID: <20191116035812.9VK4P.430265.root@dalifep05>
-Date:   Sat, 16 Nov 2019 3:58:12 -0600
+          id <20191116105149.HJHY9650.dalofep01.suddenlink.net@dalifep05>;
+          Sat, 16 Nov 2019 04:51:49 -0600
+Message-ID: <20191116045149.86LHJ.430358.root@dalifep05>
+Date:   Sat, 16 Nov 2019 4:51:49 -0600
 From:   <dawnbell@suddenlink.net>
+To:     dawnbell@suddenlink.net
 Subject: =?utf-8?B?0J/RgNC40LLQtdGCLCDQvNC+0Lkg0LTQvtGA0L7Qs9C+0Lk=?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: base64
 X-Priority: 3 (Normal)
 Sensitivity: Normal
-X-Authentication-Info: Submitted using SMTP AUTH LOGIN at dalofep02.suddenlink.net from [10.130.7.37] using ID dawnbell@suddenlink.net at Sat, 16 Nov 2019 03:58:12 -0600
-X-CM-Analysis: v=2.3 cv=PfaBeRpd c=1 sm=1 tr=0 cx=a_idp_d a=lZHbbgZgGQcmXz2o/tKHrg==:117 a=9cW_t1CCXrUA:10 a=IkcTkHD0fZMA:10 a=MeAgGD-zjQ4A:10 a=5KLPUuaC_9wA:10 a=CjxXgO3LAAAA:8 a=82NUwKOrpq2HZR-xpZAA:9 a=QEXdDO2ut3YA:10 a=WAlWG5UDhR4A:10 a=p-dnK0njbqwfn1k4-x12:22 a=MURpYVOlrLSSKvKaDb7l:22
-X-CM-Envelope: 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
-To:     unlisted-recipients:; (no To-header on input)
+X-Authentication-Info: Submitted using SMTP AUTH LOGIN at dalofep01.suddenlink.net from [10.130.7.37] using ID dawnbell@suddenlink.net at Sat, 16 Nov 2019 04:51:49 -0600
+X-CM-Analysis: v=2.3 cv=H/mlPNQi c=1 sm=1 tr=0 cx=a_idp_d a=lZHbbgZgGQcmXz2o/tKHrg==:117 a=IkcTkHD0fZMA:10 a=MeAgGD-zjQ4A:10 a=5KLPUuaC_9wA:10 a=CjxXgO3LAAAA:8 a=82NUwKOrpq2HZR-xpZAA:9 a=QEXdDO2ut3YA:10 a=WAlWG5UDhR4A:10 a=p-dnK0njbqwfn1k4-x12:22 a=7aar8cbMflRChVwg8ngv:22
+X-CM-Envelope: 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 4iuHPA==
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
