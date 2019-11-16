@@ -2,79 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4BECBFE23E
-	for <lists+linux-man@lfdr.de>; Fri, 15 Nov 2019 17:06:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 26015FEB99
+	for <lists+linux-man@lfdr.de>; Sat, 16 Nov 2019 11:03:33 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727520AbfKOQGb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 15 Nov 2019 11:06:31 -0500
-Received: from mail-qk1-f196.google.com ([209.85.222.196]:47085 "EHLO
-        mail-qk1-f196.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727423AbfKOQGb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 15 Nov 2019 11:06:31 -0500
-Received: by mail-qk1-f196.google.com with SMTP id h15so8461916qka.13
-        for <linux-man@vger.kernel.org>; Fri, 15 Nov 2019 08:06:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:in-reply-to:references:from:date:message-id
-         :subject:to;
-        bh=Od7gX6NqSAkTQlsMPuruQtN+fCIEjcpGrc8p0Hbdnws=;
-        b=ksjz7Nz1/7KLROXSdWCood/1ferjdo6rXZY41eSdLMoE+G3Lh4PbOyMKXWMF44/SBM
-         Z4xifwB68/DLuVKDc9T3cMRZudyhOEEEzpGR8lBFTcU7mcdL0/jd5AxF8sgPXHWcSDw2
-         X/wC8GRPu0oxSm2geGwKj5LX9tmZMo3IQwjogHC37PYkvjCfnNlvHciqNus8IEl06Ov5
-         E3UQED3HFQpgZswO9J7VyI/wJj0RKPSG9ki/xnn80imnqrHPPKhY4pAY+pT2S8D6SXVR
-         ryPXX2hMOPVdZYshiE6ijUuQEDc+RBD/nKEkWpObA6yHhrtP+hsUNqx6rnSq5zpWa53J
-         fZxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:in-reply-to:references
-         :from:date:message-id:subject:to;
-        bh=Od7gX6NqSAkTQlsMPuruQtN+fCIEjcpGrc8p0Hbdnws=;
-        b=oWP/oa80mXWRv5Ly0QdQq2JZNyAMUgW0K7yAfzQ0AcKU4HwtwGgydMz3dl1YMw7ToT
-         moVnWlrc05xgBVd9P1QD7ox+7KigQp9FXQrxwDs66tmQbIO/yVWTzBZX8TX4Gc8tfVqV
-         MoxOpprsc4mtCHvlrBaFdm+QFG0DPTuC3ZmNZOT0OCkNUWNzOfzi4cQ1/z6hjBLDsRwi
-         kI0VZqABu5zObslKskBD1whDn5xNNpzuHzam++NKm+zJVX1zWVOPgRPA20JXTlK8LS/8
-         voUTqyzCK81Y8ilYnyX6xh5HW02WqNKBRGhTphBPzPs1ctHggVKwA+BMq9LETpHilVom
-         4HsA==
-X-Gm-Message-State: APjAAAWel4e4M8Rml893bq/jxJrDrvynuuAhd4KDL6FBKcb2q9QV0ySk
-        6kHFy1oF46yduVJH+Xgns9WVSBCOPDgtIR1OzgM=
-X-Google-Smtp-Source: APXvYqygKZwqWq8XhJKmfPt8zs+ZUARlUfp+SW1ijT/4fea6OreHib/CC6qhrCXsw1YCraeTtDmmYcxBVJKDRnw//kU=
-X-Received: by 2002:a37:9cc2:: with SMTP id f185mr2934721qke.2.1573833990342;
- Fri, 15 Nov 2019 08:06:30 -0800 (PST)
+        id S1726748AbfKPKDc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 16 Nov 2019 05:03:32 -0500
+Received: from omta03.suddenlink.net ([208.180.40.73]:49057 "EHLO
+        omta03.suddenlink.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726679AbfKPKDc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 16 Nov 2019 05:03:32 -0500
+X-Greylist: delayed 318 seconds by postgrey-1.27 at vger.kernel.org; Sat, 16 Nov 2019 05:03:31 EST
+Received: from dalifep05 ([10.130.7.37]) by dalofep02.suddenlink.net
+          (InterMail vM.8.04.03.22.02 201-2389-100-169-20190213) with ESMTP
+          id <20191116095812.JUVC11295.dalofep02.suddenlink.net@dalifep05>;
+          Sat, 16 Nov 2019 03:58:12 -0600
+Message-ID: <20191116035812.9VK4P.430265.root@dalifep05>
+Date:   Sat, 16 Nov 2019 3:58:12 -0600
+From:   <dawnbell@suddenlink.net>
+Subject: =?utf-8?B?0J/RgNC40LLQtdGCLCDQvNC+0Lkg0LTQvtGA0L7Qs9C+0Lk=?=
 MIME-Version: 1.0
-Received: by 2002:a0c:d4c4:0:0:0:0:0 with HTTP; Fri, 15 Nov 2019 08:06:29
- -0800 (PST)
-Reply-To: siginvestmentfzco1@gmail.com
-In-Reply-To: <CAJ6sChe0Yrp4yT7AwEEPLxi=Cv1OjEJs5KPnEHR-pF6axg0BVQ@mail.gmail.com>
-References: <CAJ6sChe0Yrp4yT7AwEEPLxi=Cv1OjEJs5KPnEHR-pF6axg0BVQ@mail.gmail.com>
-From:   SIG Investment <kristyjones910@gmail.com>
-Date:   Fri, 15 Nov 2019 20:06:29 +0400
-Message-ID: <CAJ6sChcS2zFSF-VDvVjcGj+dAg3UWfM6uPGtpe=5YDrj_Aj1+A@mail.gmail.com>
-Subject: Loan opportunity!
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+X-Priority: 3 (Normal)
+Sensitivity: Normal
+X-Authentication-Info: Submitted using SMTP AUTH LOGIN at dalofep02.suddenlink.net from [10.130.7.37] using ID dawnbell@suddenlink.net at Sat, 16 Nov 2019 03:58:12 -0600
+X-CM-Analysis: v=2.3 cv=PfaBeRpd c=1 sm=1 tr=0 cx=a_idp_d a=lZHbbgZgGQcmXz2o/tKHrg==:117 a=9cW_t1CCXrUA:10 a=IkcTkHD0fZMA:10 a=MeAgGD-zjQ4A:10 a=5KLPUuaC_9wA:10 a=CjxXgO3LAAAA:8 a=82NUwKOrpq2HZR-xpZAA:9 a=QEXdDO2ut3YA:10 a=WAlWG5UDhR4A:10 a=p-dnK0njbqwfn1k4-x12:22 a=MURpYVOlrLSSKvKaDb7l:22
+X-CM-Envelope: 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
+To:     unlisted-recipients:; (no To-header on input)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Greetings ,
-
-I am Contacting you to find out if you / your  company
-is in need of funding for your project/business? We have developed a
-new method of funding
-which does not take longer time for our clients to receive funding.
-
-We are into project sponsorship, loan financing, project funding, fund
-investment etc. If you are looking for fund to finance your Project
-or Business or if you are willing to work as our agent in your country
-to source for clients in need of funding and earn commission, then get
-back to us more details.
-
-I will share more to you once i get your respond on your willingness
-to secure funding from us.
-
-Kind Regards,
-Mr Rabah Mohammad
-SIG Investment FZCO
-Email : siginvestmentfzco1@gmail.com
-Email : rabahmohammad@siginvestments-ae.com
+0J/RgNC40LLQtdGCLCDQvNC+0Lkg0LTQvtGA0L7Qs9C+0LkNCg0K0JTQsCDQv9GA0LXQsdGD0LTQ
+tdGCINGBINCy0LDQvNC4INC80LjRgCDQktGB0LXQvNC+0LPRg9GJ0LXQs9C+INCR0L7Qs9CwINC9
+0LDRiNC10LPQvg0KDQrQn9GA0LjQstC10YLRgdGC0LLRg9GPINCy0L4g0LjQvNGPINC90LDRiNC1
+0LPQviDQktGB0LXQvNC+0LPRg9GJ0LXQs9C+INCR0L7Qs9CwLCDRjyDQttC10LvQsNGOINCy0LDQ
+vCDQuCDQstCw0YjQtdC5INGB0LXQvNGM0LUg0YHRh9Cw0YHRgtC70LjQstGL0YUg0LzQs9C90L7Q
+stC10L3QuNC5INC20LjQt9C90Lgg0YHQtdC50YfQsNGBINC4INC90LDQstGB0LXQs9C00LAsINCw
+0LzQuNC90YwuINCc0LXQvdGPINC30L7QstGD0YIg0LMt0LbQsCDQoNC40YTRhNCw0YIg0JTRg9GA
+0YDQsNC90Lgg0JzQsNGB0YPQtCwgNjkg0LvQtdGCINC40Lcg0J/QsNC60LjRgdGC0LDQvdCwLCDQ
+v9GA0L7QttC40LLQsNGO0YnQtdCz0L4g0LIg0JDQsdC40LTQttCw0L3QtSwg0JrQvtGCLdC0J9CY
+0LLRg9Cw0YAsINC/0L7QttCw0LvRg9C50YHRgtCwLCDRjyDRgyDQvNC10L3RjyDQvdC10YIg0L7R
+hNC40YbQuNCw0LvRjNC90YvRhSDQvtGC0L3QvtGI0LXQvdC40Lkg0YEg0LLQsNC80LgsINC90L4g
+0LjQty3Qt9CwINC80L7QtdCz0L4g0L3Ri9C90LXRiNC90LXQs9C+INC30LDRgtGA0YPQtNC90LXQ
+vdC40Y8g0Lgg0L7QsdGB0YLQvtGP0YLQtdC70YzRgdGC0LIsINGBINC60L7RgtC+0YDRi9C80Lgg
+0Y8g0YHRgtC+0LvQutC90YPQu9GB0Y8sINGPINGB0YLRgNCw0LTQsNGOINC+0YIg0YDQsNC60LAg
+0Lgg0YMg0LzQtdC90Y8g0L3QtdC00L7Qu9Cz0LDRjyDQttC40LfQvdGMLCDRjyDRgNC10YjQuNC7
+INC/0L7QttC10YDRgtCy0L7QstCw0YLRjCDRgdCy0L7QtSDQvdCw0YHQu9C10LTRgdGC0LLQviDQ
+siAzLDUg0LzQuNC70LvQuNC+0L3QsCDQtNC+0LvQu9Cw0YDQvtCyINC00LvRjyDQvNC10L3QtdC1
+INC/0YDQuNCy0LjQu9C10LPQuNGA0L7QstCw0L3QvdGL0YUsINC/0L7QttCw0LvRg9C50YHRgtCw
+LCDQv9C+0LzQvtCz0LjRgtC1INC80L3QtSDQstGL0L/QvtC70L3QuNGC0Ywg0LzQvtC1INC/0L7R
+gdC70LXQtNC90LXQtSDQttC10LvQsNC90LjQtSwg0L/QvtC20LDQu9GD0LnRgdGC0LAsINGB0LLR
+j9C20LjRgtC10YHRjCDRgdC+INC80L3QvtC5INC30LTQtdGB0YwuDQoNCtC/0L7QttCw0LvRg9C5
+0YHRgtCwLCDRgdCy0Y/QttC40YLQtdGB0Ywg0YHQviDQvNC90L7QuSDQv9C+INC80L7QtdC5INC7
+0LjRh9C90L7QuSDRjdC70LXQutGC0YDQvtC90L3QvtC5INC/0L7Rh9GC0LUuIDxyaWZmYXQwMGlA
+eWFob28uY29tPg0K0K8g0LbQtNGDLCDRh9GC0L7QsdGLINGD0YHQu9GL0YjQsNGC0Ywg0L7RgiDQ
+stCw0YENCg0K0KHQv9Cw0YHQuNCx0L4NCg0K0JzQuNGB0YHQuNGBINCg0LjRhNGE0LDRgiDQlNGD
+0YDRgNCw0L3QuCDQnNCw0YHRg9C0
