@@ -2,60 +2,98 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 6F97DFEBB0
-	for <lists+linux-man@lfdr.de>; Sat, 16 Nov 2019 11:51:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B727EFEBE4
+	for <lists+linux-man@lfdr.de>; Sat, 16 Nov 2019 12:41:43 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727115AbfKPKvu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 16 Nov 2019 05:51:50 -0500
-Received: from omta01.suddenlink.net ([208.180.40.71]:50661 "EHLO
-        omta01.suddenlink.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726794AbfKPKvu (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 16 Nov 2019 05:51:50 -0500
-Received: from dalifep05 ([10.130.7.37]) by dalofep01.suddenlink.net
-          (InterMail vM.8.04.03.22.02 201-2389-100-169-20190213) with ESMTP
-          id <20191116105149.HJHY9650.dalofep01.suddenlink.net@dalifep05>;
-          Sat, 16 Nov 2019 04:51:49 -0600
-Message-ID: <20191116045149.86LHJ.430358.root@dalifep05>
-Date:   Sat, 16 Nov 2019 4:51:49 -0600
-From:   <dawnbell@suddenlink.net>
-To:     dawnbell@suddenlink.net
-Subject: =?utf-8?B?0J/RgNC40LLQtdGCLCDQvNC+0Lkg0LTQvtGA0L7Qs9C+0Lk=?=
+        id S1727530AbfKPLlc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 16 Nov 2019 06:41:32 -0500
+Received: from mail-wm1-f67.google.com ([209.85.128.67]:52985 "EHLO
+        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727448AbfKPLl1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 16 Nov 2019 06:41:27 -0500
+Received: by mail-wm1-f67.google.com with SMTP id l1so12223846wme.2
+        for <linux-man@vger.kernel.org>; Sat, 16 Nov 2019 03:41:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=brauner.io; s=google;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=9qrbBm1fL62NwECBN+3glE+N1as0J/NyBOFPV+RHSPg=;
+        b=FUWeFJQPe7xIzamd5joY0TZn2ICzDMAdR0UP0/kbwZecxanpjgHKCIH2HiHcTW3IrD
+         HHMsF0uOQlBekIwAo2lKkzSBGRs9meIn2OcL1EagZ4kF+ogadMnEVSnv/UMtpZKs4z58
+         06mxx/5O0wGASoSt+sxQhEfx5lGOTuHh+2/cMOsvwIRV4hw89sADsQZAWtuIPMPURJ0j
+         ErQ6DcMtJTDWnJf4cQy8qBA8ktgbmnmvoqur3vl5XWBN35DDnNtVcH3IF7iAlWkP/I6p
+         YcQTfD2GPho+PkD/38XEIbT5oQHET5Om0OqgsaWJEyAlBCUeE8zOvCUTpC4juDBHFJoZ
+         TjmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=9qrbBm1fL62NwECBN+3glE+N1as0J/NyBOFPV+RHSPg=;
+        b=tBgWcbaZXtL8muA+8CTAb+eYizNK6My9AtNRmu4Xr0ysI1CUitBViW4NkoFew7gJ87
+         n1r91o8G4ayLEIcorNsy0NjmewH6YtpZV+JwL0j3hjy4LEgM1Kt6X/JVDdmTvLP3stZv
+         n9yto5/45f8wLjd4UPXIMbXTFkS0oFCR12wrh9O38O/0pyaFpZfVwrqhJzLnWUPFgZ8q
+         nkCiBQ/p3fSSgFpmm3sXEy4lxwybiYosZ+2M5M99KBAeb+O8QrqmNst3xkNctfOazHQO
+         6HAw7rQJ8lLUjSjeI3hM+daX8uZB9N3Ac40jksJ9Sm5peVWSPHKfxa6vYnoleB9rQhjQ
+         w8mg==
+X-Gm-Message-State: APjAAAW9OG5uD+AJqZc8sLjnOapRoTKi2BjXAXPfXWP2LDWtN4e3Hsc9
+        lOoJ7R352FD9LLJbokl1YM5+tw==
+X-Google-Smtp-Source: APXvYqxd3+/pvXHp+aXQvAUHFjmjZyEe3Wr02QAA/72ZOBUitdXD7hE7GEdnDudUfo1+6/HqB0HC5A==
+X-Received: by 2002:a1c:9917:: with SMTP id b23mr19488879wme.42.1573904483443;
+        Sat, 16 Nov 2019 03:41:23 -0800 (PST)
+Received: from localhost.localdomain ([213.220.153.21])
+        by smtp.gmail.com with ESMTPSA id x5sm12539189wmj.7.2019.11.16.03.41.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 16 Nov 2019 03:41:22 -0800 (PST)
+From:   Christian Brauner <christian@brauner.io>
+To:     mtk.manpages@gmail.com
+Cc:     adrian@lisas.de, akpm@linux-foundation.org, arnd@arndb.de,
+        avagin@gmail.com, christian.brauner@ubuntu.com,
+        dhowells@redhat.com, fweimer@redhat.com, jannh@google.com,
+        keescook@chromium.org, linux-api@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
+        mingo@elte.hu, oleg@redhat.com, xemul@virtuozzo.com
+Subject: [PATCH 1/3] clone.2: Fix typos
+Date:   Sat, 16 Nov 2019 12:41:12 +0100
+Message-Id: <20191116114114.7066-1-christian@brauner.io>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
-X-Priority: 3 (Normal)
-Sensitivity: Normal
-X-Authentication-Info: Submitted using SMTP AUTH LOGIN at dalofep01.suddenlink.net from [10.130.7.37] using ID dawnbell@suddenlink.net at Sat, 16 Nov 2019 04:51:49 -0600
-X-CM-Analysis: v=2.3 cv=H/mlPNQi c=1 sm=1 tr=0 cx=a_idp_d a=lZHbbgZgGQcmXz2o/tKHrg==:117 a=IkcTkHD0fZMA:10 a=MeAgGD-zjQ4A:10 a=5KLPUuaC_9wA:10 a=CjxXgO3LAAAA:8 a=82NUwKOrpq2HZR-xpZAA:9 a=QEXdDO2ut3YA:10 a=WAlWG5UDhR4A:10 a=p-dnK0njbqwfn1k4-x12:22 a=7aar8cbMflRChVwg8ngv:22
-X-CM-Envelope: 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 4iuHPA==
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-0J/RgNC40LLQtdGCLCDQvNC+0Lkg0LTQvtGA0L7Qs9C+0LkNCg0K0JTQsCDQv9GA0LXQsdGD0LTQ
-tdGCINGBINCy0LDQvNC4INC80LjRgCDQktGB0LXQvNC+0LPRg9GJ0LXQs9C+INCR0L7Qs9CwINC9
-0LDRiNC10LPQvg0KDQrQn9GA0LjQstC10YLRgdGC0LLRg9GPINCy0L4g0LjQvNGPINC90LDRiNC1
-0LPQviDQktGB0LXQvNC+0LPRg9GJ0LXQs9C+INCR0L7Qs9CwLCDRjyDQttC10LvQsNGOINCy0LDQ
-vCDQuCDQstCw0YjQtdC5INGB0LXQvNGM0LUg0YHRh9Cw0YHRgtC70LjQstGL0YUg0LzQs9C90L7Q
-stC10L3QuNC5INC20LjQt9C90Lgg0YHQtdC50YfQsNGBINC4INC90LDQstGB0LXQs9C00LAsINCw
-0LzQuNC90YwuINCc0LXQvdGPINC30L7QstGD0YIg0LMt0LbQsCDQoNC40YTRhNCw0YIg0JTRg9GA
-0YDQsNC90Lgg0JzQsNGB0YPQtCwgNjkg0LvQtdGCINC40Lcg0J/QsNC60LjRgdGC0LDQvdCwLCDQ
-v9GA0L7QttC40LLQsNGO0YnQtdCz0L4g0LIg0JDQsdC40LTQttCw0L3QtSwg0JrQvtGCLdC0J9CY
-0LLRg9Cw0YAsINC/0L7QttCw0LvRg9C50YHRgtCwLCDRjyDRgyDQvNC10L3RjyDQvdC10YIg0L7R
-hNC40YbQuNCw0LvRjNC90YvRhSDQvtGC0L3QvtGI0LXQvdC40Lkg0YEg0LLQsNC80LgsINC90L4g
-0LjQty3Qt9CwINC80L7QtdCz0L4g0L3Ri9C90LXRiNC90LXQs9C+INC30LDRgtGA0YPQtNC90LXQ
-vdC40Y8g0Lgg0L7QsdGB0YLQvtGP0YLQtdC70YzRgdGC0LIsINGBINC60L7RgtC+0YDRi9C80Lgg
-0Y8g0YHRgtC+0LvQutC90YPQu9GB0Y8sINGPINGB0YLRgNCw0LTQsNGOINC+0YIg0YDQsNC60LAg
-0Lgg0YMg0LzQtdC90Y8g0L3QtdC00L7Qu9Cz0LDRjyDQttC40LfQvdGMLCDRjyDRgNC10YjQuNC7
-INC/0L7QttC10YDRgtCy0L7QstCw0YLRjCDRgdCy0L7QtSDQvdCw0YHQu9C10LTRgdGC0LLQviDQ
-siAzLDUg0LzQuNC70LvQuNC+0L3QsCDQtNC+0LvQu9Cw0YDQvtCyINC00LvRjyDQvNC10L3QtdC1
-INC/0YDQuNCy0LjQu9C10LPQuNGA0L7QstCw0L3QvdGL0YUsINC/0L7QttCw0LvRg9C50YHRgtCw
-LCDQv9C+0LzQvtCz0LjRgtC1INC80L3QtSDQstGL0L/QvtC70L3QuNGC0Ywg0LzQvtC1INC/0L7R
-gdC70LXQtNC90LXQtSDQttC10LvQsNC90LjQtSwg0L/QvtC20LDQu9GD0LnRgdGC0LAsINGB0LLR
-j9C20LjRgtC10YHRjCDRgdC+INC80L3QvtC5INC30LTQtdGB0YwuDQoNCtC/0L7QttCw0LvRg9C5
-0YHRgtCwLCDRgdCy0Y/QttC40YLQtdGB0Ywg0YHQviDQvNC90L7QuSDQv9C+INC80L7QtdC5INC7
-0LjRh9C90L7QuSDRjdC70LXQutGC0YDQvtC90L3QvtC5INC/0L7Rh9GC0LUuIDxyaWZmYXQwMGlA
-eWFob28uY29tPg0K0K8g0LbQtNGDLCDRh9GC0L7QsdGLINGD0YHQu9GL0YjQsNGC0Ywg0L7RgiDQ
-stCw0YENCg0K0KHQv9Cw0YHQuNCx0L4NCg0K0JzQuNGB0YHQuNGBINCg0LjRhNGE0LDRgiDQlNGD
-0YDRgNCw0L3QuCDQnNCw0YHRg9C0
+From: Christian Brauner <christian.brauner@ubuntu.com>
+
+Fix two spelling mistakes in manpage describing the clone{2,3}()
+syscalls/syscall wrappers.
+
+Signed-off-by: Christian Brauner <christian.brauner@ubuntu.com>
+---
+ man2/clone.2 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/man2/clone.2 b/man2/clone.2
+index f67a60067..57a9eaba7 100644
+--- a/man2/clone.2
++++ b/man2/clone.2
+@@ -70,12 +70,12 @@ create a new ("child") process, in a manner similar to
+ .PP
+ By contrast with
+ .BR fork (2),
+-these system cals provide more precise control over what pieces of execution
++these system calls provide more precise control over what pieces of execution
+ context are shared between the calling process and the child process.
+ For example, using these system calls, the caller can control whether
+ or not the two processes share the virtual address space,
+ the table of file descriptors, and the table of signal handlers.
+-These system calls also allow the new child process to placed
++These system calls also allow the new child process to be placed
+ in separate
+ .BR namespaces (7).
+ .PP
+
+base-commit: 91243dad42a7a62df73e3b1dfbb810adc1b8b654
+-- 
+2.24.0
+
