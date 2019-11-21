@@ -2,66 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A5FAA104FB5
-	for <lists+linux-man@lfdr.de>; Thu, 21 Nov 2019 10:54:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 71321105047
+	for <lists+linux-man@lfdr.de>; Thu, 21 Nov 2019 11:17:41 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726270AbfKUJx5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 21 Nov 2019 04:53:57 -0500
-Received: from mail-wm1-f65.google.com ([209.85.128.65]:35467 "EHLO
-        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726132AbfKUJx5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 21 Nov 2019 04:53:57 -0500
-Received: by mail-wm1-f65.google.com with SMTP id 8so2957489wmo.0;
-        Thu, 21 Nov 2019 01:53:55 -0800 (PST)
+        id S1726293AbfKUKRI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 21 Nov 2019 05:17:08 -0500
+Received: from mail-wr1-f67.google.com ([209.85.221.67]:33899 "EHLO
+        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726270AbfKUKRI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 21 Nov 2019 05:17:08 -0500
+Received: by mail-wr1-f67.google.com with SMTP id t2so3696473wrr.1
+        for <linux-man@vger.kernel.org>; Thu, 21 Nov 2019 02:17:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=HRI7jMsfZg/6yN9y8QeBJ/0eCsSXgHr+K32uQq/2e9o=;
-        b=h/C2/TL3A8u3PVkEFv2fCeeSVIQB/ieJ6Z4tj51otWleTHIFNWzLtOcklguFdiy1v/
-         QqPPCv96AZ6Qv5X4Q8JdP1x3WOE3Z2vWJ/lNyCUM94jQOzYvmgIS24UXkiID85I+gIhk
-         My+s+CAayNoQhwC0lISLjTYl9bkUWiSIUyLTYz+rcYTWGcVeQc6CyD9sciCiPgbH6YS/
-         Jg++igReFZkZR/69jN6GgCEKAXqF8JAvvrWGIk8u03p3m5rifIixtGuQPbT4/mFjeZvg
-         xlbSFRmC5v8vcehSRybrB6iKobgHaxsGa7JEDRgoI58xDF1J69DhvXlrqgo84g27tOFd
-         mXOA==
+        bh=tSFT8tvq76pMEqGD2+UWeoG7l+6qPFR78Xg64m6wWCg=;
+        b=n3K0ijjpyuSXnQbh24rayJU8l5nlhpdIqRbu3zu5c5QO51nxQ84xxYagEnk4tsS3cX
+         /6564SgB4AJLBc1sVy4Mkhnkgihb0F4IBMcgF93l6KWjexatLtp/pyJb42qQ2O2oCHtQ
+         gao3gNam0GmVoAYMZWfqfwu5O4SHn+hHA1+kOQDLtWIZZmT/vrbJFc1qGw2IV/KHtZg+
+         fQrL4Emdl/eXU5ComKtYNL3QTxwsyL66edZrm4fm8yB0g2nuzYBoYGC+2hpcjqiRBQ5e
+         Baduisk/4h37WWqcqD2cNt8d2KwkLFQg/Pv8T1Sf+sdh/AwWRxXgSVxfgTlSL623YoxO
+         24mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=HRI7jMsfZg/6yN9y8QeBJ/0eCsSXgHr+K32uQq/2e9o=;
-        b=oTb3+Zfkqk7PR+0z2QBUQrn+yzniqka9+npw+5WnadFYIBHtWFWFjmEyMXkPAK6OqD
-         QFPtRDhWOEDz4NXfdkMmFuE11a+4VD/yY6fw0dZ/vJUkznMSjgdBrEC5YfXUMSqQBD6m
-         42FE/OTtMAVQbyeQbLtTHEBkG/RTX+trO9FkA66bHeCvfQ2T3oVrqTjMSQFixWKM21Vw
-         rGOSOirhoDe9Lo+hwNWUyLecAofvW4Zfokgv3S1Kjz4SE7Euba7XGr75jNF5NmPwwaIk
-         6hWDBxbLurvKWdO2hNEkGfoeNP3vtnaahdtxMl1tZNqNg39i8gyt0j1eMfNJWCa5iqgx
-         EM7A==
-X-Gm-Message-State: APjAAAXNlYYElZWViSrfpweOLHtfQGophqOG10pa2XiYTBT7U9h6MG1z
-        XgghHIjgwGMBkosZzdRnlj0=
-X-Google-Smtp-Source: APXvYqxPaiuw+IrHUCpSDRwFSn5UEjFS4ACeKRDkFBKGvOyoSQiRNrDoyvOrqyqMjaWGHDCOPtyZkQ==
-X-Received: by 2002:a7b:c08c:: with SMTP id r12mr8642794wmh.67.1574330034733;
-        Thu, 21 Nov 2019 01:53:54 -0800 (PST)
+        bh=tSFT8tvq76pMEqGD2+UWeoG7l+6qPFR78Xg64m6wWCg=;
+        b=kjMTZajp2Ijb7cpXWM/xsOacZLlJDqv34WAREqh0Mfk2iI93ca89sdTTvYILnRNjV+
+         bvFOFS6AGgNSC4KU0ogNSkvnULUgOXp4Um9bT9LEs+qNiq4Yl+zQOMXhbSmZGdwGmeKd
+         kBOkTQ79s1HJJ1QSl3z03oRE4UgILeOtiUSRb3UYEyCbqdgr8+tjP4s4/ycF8PxyJkSM
+         mQ1URnvOBcY/952pdP61YsNsvxHqjxYuSynwnG4hQ2fWVvgIz90Jw2r+RnyE3SCjfmRL
+         HmdgN/ZJkGYp56iJgP/ewQtl4OxO5+jlHD88nADnUuBVG+iuyPw2nLmsCutMXnvI9KXF
+         +18g==
+X-Gm-Message-State: APjAAAWWTZCCDm5oL0BfFa4/4WfhuIta3HF5nKZCd5n9zeuIYaCVtO28
+        f0s34IlF9AMQfhLzPTNDZYnLehkg
+X-Google-Smtp-Source: APXvYqw2P22RW2+fnndvJaRaWsDfyDWjh2BtixRKHA4wcL5gCWd4BRj2SbngoFfSbYFR8dTDmgwBrg==
+X-Received: by 2002:adf:ec89:: with SMTP id z9mr9464005wrn.153.1574331425331;
+        Thu, 21 Nov 2019 02:17:05 -0800 (PST)
 Received: from ?IPv6:2001:a61:3a4e:101:8d4d:f454:a7e5:543d? ([2001:a61:3a4e:101:8d4d:f454:a7e5:543d])
-        by smtp.gmail.com with ESMTPSA id w4sm2219462wmk.29.2019.11.21.01.53.53
+        by smtp.gmail.com with ESMTPSA id d18sm2833213wrm.85.2019.11.21.02.17.04
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 21 Nov 2019 01:53:53 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, adrian@lisas.de, akpm@linux-foundation.org,
-        arnd@arndb.de, avagin@gmail.com, christian.brauner@ubuntu.com,
-        dhowells@redhat.com, fweimer@redhat.com, jannh@google.com,
-        keescook@chromium.org, linux-api@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
-        mingo@elte.hu, oleg@redhat.com, xemul@virtuozzo.com
-Subject: Re: [PATCH] clone.2: Mention that CLONE_PARENT is off-limits for
- inits
-To:     Christian Brauner <christian@brauner.io>
-References: <20191120104504.22411-1-christian@brauner.io>
+        Thu, 21 Nov 2019 02:17:04 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [patch] vsock.7: Add missing structure element
+To:     Mikhail Golubev <Mikhail.Golubev@opensynergy.com>
+References: <20191119173134.5668-1-Mikhail.Golubev@opensynergy.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <ac6c1644-c6d3-c7eb-48b1-28eb9342a468@gmail.com>
-Date:   Thu, 21 Nov 2019 10:53:50 +0100
+Message-ID: <cb29b489-09cc-0301-67b2-191f6bf06bfe@gmail.com>
+Date:   Thu, 21 Nov 2019 11:17:01 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.2.2
 MIME-Version: 1.0
-In-Reply-To: <20191120104504.22411-1-christian@brauner.io>
+In-Reply-To: <20191119173134.5668-1-Mikhail.Golubev@opensynergy.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -70,76 +64,77 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Christian,
+Hello Mikhail,
 
-On 11/20/19 11:45 AM, Christian Brauner wrote:
-> From: Christian Brauner <christian.brauner@ubuntu.com>
+On 11/19/19 6:31 PM, Mikhail Golubev wrote:
+> The structure 'struct sockaddr_vm' has additional element 'unsigned char
+> svm_zero[]' since version v3.9-rc1 (include/uapi/linux/vm_sockets.h).
+> Linux kernel checks that this element is zeroed
+> (net/vmw_vsock/vsock_addr.c). Reflect this on the vsock man page.
 > 
-> The CLONE_PARENT flag cannot but used by init processes. Let's mention
-> this in the manpages to prevent suprises.
-> 
-> Signed-off-by: Christian Brauner <christian.brauner@ubuntu.com>
+> Fixes: https://bugzilla.kernel.org/show_bug.cgi?id=205583
+> Signed-off-by: Mikhail Golubev <Mikhail.Golubev@opensynergy.com>
 > ---
->  man2/clone.2 | 7 +++++++
->  1 file changed, 7 insertions(+)
+>  man7/vsock.7 | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> diff --git a/man2/clone.2 b/man2/clone.2
-> index f0f29d6f1..aa98ab79b 100644
-> --- a/man2/clone.2
-> +++ b/man2/clone.2
-> @@ -646,6 +646,13 @@ if
->  .B CLONE_PARENT
->  is set, then the parent of the calling process, rather than the
->  calling process itself, will be signaled.
-> +.IP
-> +The kernel will not allow global init and init processes in pid
-> +namespaces to use the
-> +.B CLONE_PARENT
-> +flag. This is done to prevent the creation of multi-rooted process
-> +trees. It also avoids unreapable zombies in the initial pid
-> +namespace.
->  .TP
->  .BR CLONE_PARENT_SETTID " (since Linux 2.5.49)"
->  Store the child thread ID at the location pointed to by
+> diff --git a/man7/vsock.7 b/man7/vsock.7
+> index 23c67548f..145057719 100644
+> --- a/man7/vsock.7
+> +++ b/man7/vsock.7
+> @@ -95,6 +95,7 @@ struct sockaddr_vm {
+>      unsigned short svm_reserved1;
+>      unsigned int   svm_port;       /* Port # in host byte order */
+>      unsigned int   svm_cid;        /* Address in host byte order */
+> +    unsigned char  svm_zero[];
+>  };
+>  .EE
+>  .in
+> @@ -113,6 +114,8 @@ Only a process with the
+>  capability may
+>  .BR bind (2)
+>  to these port numbers.
+> +.I svm_zero
+> +is always set to 0.
+>  .PP
+>  There are several special addresses:
+>  .B VMADDR_CID_ANY
 
-Thank. I applied, and then tweaked the text a little,
-and noted the associated EINVAL error. In the end, the
-change is as below.
+Thanks for the patch. I applied it, and tweaked the wording also.
+In addition, I think we must describe the size of the field,
+since the use of an open-ended array at the end of a struct
+has a specific (different) meaning in C. So, in the end the change
+looks as below.
 
 Cheers,
 
 Michael
 
-index 60e746151..382f6b791 100644
---- a/man2/clone.2
-+++ b/man2/clone.2
-@@ -648,6 +648,14 @@ if
- .B CLONE_PARENT
- is set, then the parent of the calling process, rather than the
- calling process itself, will be signaled.
-+.IP
-+The
-+.B CLONE_PARENT
-+flag can't be used in clone calls by the
-+global init process (PID 1 in the initial PID namespace)
-+and init processes in other PID namespaces.
-+This restriction prevents the creation of multi-rooted process trees
-+as well as the creation of unreapable zombies in the initial PID namespace.
- .TP
- .BR CLONE_PARENT_SETTID " (since Linux 2.5.49)"
- Store the child thread ID at the location pointed to by
-@@ -1273,6 +1281,11 @@ were specified in the
- .IR flags
- mask.
- .TP
-+.BR EINVAL " (since Linux 2.6.32)"
-+.\" commit 123be07b0b399670a7cc3d82fef0cb4f93ef885c
-+.BR CLONE_PARENT
-+was specified, and the caller is an init process.
-+.TP
- .B EINVAL
- Returned by the glibc
- .BR clone ()
+diff --git a/man7/vsock.7 b/man7/vsock.7
+index 23c67548f..1adc3084b 100644
+--- a/man7/vsock.7
++++ b/man7/vsock.7
+@@ -95,6 +95,11 @@ struct sockaddr_vm {
+     unsigned short svm_reserved1;
+     unsigned int   svm_port;       /* Port # in host byte order */
+     unsigned int   svm_cid;        /* Address in host byte order */
++    unsigned char  svm_zero[sizeof(struct sockaddr) \-
++                            sizeof(sa_family_t) \-
++                            sizeof(unsigned short) \-
++                            sizeof(unsigned int) \-
++                            sizeof(unsigned int)];
+ };
+ .EE
+ .in
+@@ -113,6 +118,8 @@ Only a process with the
+ capability may
+ .BR bind (2)
+ to these port numbers.
++.I svm_zero
++must be zero-filled.
+ .PP
+ There are several special addresses:
+ .B VMADDR_CID_ANY
 
 
 
