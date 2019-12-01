@@ -2,151 +2,137 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 3F3A610D674
-	for <lists+linux-man@lfdr.de>; Fri, 29 Nov 2019 14:56:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 99D6010E01D
+	for <lists+linux-man@lfdr.de>; Sun,  1 Dec 2019 02:56:19 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726778AbfK2N4V (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 29 Nov 2019 08:56:21 -0500
-Received: from us-smtp-delivery-1.mimecast.com ([205.139.110.120]:35407 "EHLO
-        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1726770AbfK2N4V (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 29 Nov 2019 08:56:21 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1575035779;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=KXpfI795AWqBJ6c+8Aps9kjGE0yztZdg/b0diGPhWaY=;
-        b=atFS2c7tRmmAxCoSpMwIk2bs4JJypXAOc2LZu5QfxhePvtRltaMIXS2jaqrcDsJ+R3gGkn
-        pWV0n1Wsrp/CmNs0OcgW6U9lZ/VV95FADws0yIqF/M4m9nC9V4eW/L2vfMaVTEyzgYOuwG
-        XUCHMYYhRnzxNcZH3DIP+PxGTKLGx9o=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-388-jEFPci08MrGl_S6VYq-Ytg-1; Fri, 29 Nov 2019 08:56:17 -0500
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        id S1727213AbfLAB4S (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 30 Nov 2019 20:56:18 -0500
+Received: from mail.kernel.org ([198.145.29.99]:58446 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726878AbfLAB4S (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sat, 30 Nov 2019 20:56:18 -0500
+Received: from localhost.localdomain (c-73-231-172-41.hsd1.ca.comcast.net [73.231.172.41])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C419210054E3;
-        Fri, 29 Nov 2019 13:56:18 +0000 (UTC)
-Received: from dcbz.redhat.com (ovpn-116-142.ams2.redhat.com [10.36.116.142])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id 9812360903;
-        Fri, 29 Nov 2019 13:56:15 +0000 (UTC)
-Date:   Fri, 29 Nov 2019 14:56:13 +0100
-From:   Adrian Reber <areber@redhat.com>
-To:     Christian Brauner <christian.brauner@ubuntu.com>
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH 2/2] clone.2: added clone3() set_tid information
-Message-ID: <20191129135613.GS115039@dcbz.redhat.com>
-References: <20191128124650.364810-1-areber@redhat.com>
- <20191128124650.364810-2-areber@redhat.com>
- <20191128172404.xan6vzaoofjeysq2@wittgenstein>
-MIME-Version: 1.0
-In-Reply-To: <20191128172404.xan6vzaoofjeysq2@wittgenstein>
-X-Operating-System: Linux (5.3.11-300.fc31.x86_64)
-X-Load-Average: 0.67 0.61 0.97
-X-Unexpected: The Spanish Inquisition
-X-GnuPG-Key: gpg --recv-keys D3C4906A
-X-Url:  <http://lisas.de/~adrian/>
-Organization: Red Hat
-User-Agent: Mutt/1.12.1 (2019-06-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-MC-Unique: jEFPci08MrGl_S6VYq-Ytg-1
-X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
+        by mail.kernel.org (Postfix) with ESMTPSA id 852FE2084D;
+        Sun,  1 Dec 2019 01:56:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=default; t=1575165375;
+        bh=SaBTKBsd7mt6lHS/YOr773gnLBMgslZzLgdw1dfwTAY=;
+        h=Date:From:To:Subject:From;
+        b=mXybSIMfyXpr7KCPZHv3i9P7+vlKliXmzAKL57KTQqgx0WToYK7q/FvgWIBeOyrBI
+         xTs3/MOSv4bQf5W6lQcVUwQJlAV4I6R4OE/evBwBOY+/6CCArOxCa0h6zQo6iXPAms
+         UgxUNLu8VszY1bA6PqrR0JBTmOnMYzx/6It3gVG0=
+Date:   Sat, 30 Nov 2019 17:56:15 -0800
+From:   akpm@linux-foundation.org
+To:     akpm@linux-foundation.org, hughd@google.com,
+        linux-man@vger.kernel.org, linux-mm@kvack.org,
+        lixinhai.lxh@gmail.com, mhocko@suse.com,
+        mm-commits@vger.kernel.org, n-horiguchi@ah.jp.nec.com,
+        torvalds@linux-foundation.org, vbabka@suse.cz
+Subject:  [patch 118/158] mm/mempolicy.c: check range first in
+ queue_pages_test_walk
+Message-ID: <20191201015615.KPQyOXwfq%akpm@linux-foundation.org>
+User-Agent: s-nail v14.8.16
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Nov 28, 2019 at 06:24:05PM +0100, Christian Brauner wrote:
-> On Thu, Nov 28, 2019 at 01:46:50PM +0100, Adrian Reber wrote:
-> > Signed-off-by: Adrian Reber <areber@redhat.com>
-> > ---
-> >  man2/clone.2 | 90 ++++++++++++++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 90 insertions(+)
-> >=20
-> > diff --git a/man2/clone.2 b/man2/clone.2
-> > index 076b9258e..59c13ec35 100644
-> > --- a/man2/clone.2
-> > +++ b/man2/clone.2
-> > @@ -195,6 +195,8 @@ struct clone_args {
-> >      u64 stack;        /* Pointer to lowest byte of stack */
-> >      u64 stack_size;   /* Size of stack */
-> >      u64 tls;          /* Location of new TLS */
-> > +    u64 set_tid;      /* Pointer to a \fIpid_t\fP array */
-> > +    u64 set_tid_size; /* Number of elements in \fIset_tid\fP */
-> >  };
-> >  .EE
-> >  .in
-> > @@ -262,6 +264,8 @@ flags & 0xff=09exit_signal
-> >  stack=09stack
-> >  \fP---\fP=09stack_size
-> >  tls=09tls=09See CLONE_SETTLS
-> > +\fP---\fP=09set_tid=09See below for details
-> > +\fP---\fP=09set_tid_size
-> >  .TE
-> >  .RE
-> >  .\"
-> > @@ -285,6 +289,74 @@ options when waiting for the child with
-> >  If no signal (i.e., zero) is specified, then the parent process is not=
- signaled
-> >  when the child terminates.
-> >  .\"
-> > +.SS The set_tid array
-> > +.PP
-> > +The
-> > +.I set_tid
-> > +array is used to select a certain PID for the process to be created by
-> > +.BR clone3 ().
-> > +If the PID of the newly created process should only be set for the cur=
-rent
-> > +PID namespace or in the newly created PID namespace (if
-> > +.I flags
-> > +contains
-> > +.BR CLONE_NEWPID )
-> > +then the first element in the
-> > +.I set_tid
-> > +array has to be the desired PID and
-> > +.I set_tid_size
-> > +needs to be 1.
-> > +.PP
-> > +If the PID of the newly created process should have a certain value in
-> > +multiple PID namespaces the
-> > +.I set_tid
-> > +array can have multiple entries. The first entry defines the PID in th=
-e most
-> > +nested PID namespace and all following entries contain the PID of the
-> > +corresponding parent PID namespace. The number of PID namespaces in wh=
-ich a PID
-> > +should be set is defined by
-> > +.I set_tid_size
-> > +which cannot be larger than the number of currently nested PID namespa=
-ces.
->=20
-> "It's upper cap is the kernel-enforced general nesting limit."
-> or sm like that
+From: Li Xinhai <lixinhai.lxh@gmail.com>
+Subject: mm/mempolicy.c: check range first in queue_pages_test_walk
 
-Is that an addition to my sentence or a replacement. I think at this
-point it is more important to point out that it cannot be larger than
-the number of currently nested PID namespaces. Later (at EPERM) I am
-also mentioning that it cannot be larger than the maximum number of
-nested PID namespaces. The code does indeed check if set_tid_size is
-larger than the maximum number of possible nested PID namespaces for
-the user, I think, when calling clone3(), it is more relevant that
-set_tid_size is not larger than the number of currently nested PID
-namespaces. The maximum number of possible nested PID namespaces is more
-likely enforced during unshare() or CLONE_NEWPID (which could be
-happening at the same point in time as set_tid_size larger than maximum
-number of nested PID namespace).
+Patch series "mm: Fix checking unmapped holes for mbind", v4.
 
-This definitely feels like too much discussion for a single sentence ;)
+This patchset fix checking unmapped holes for mbind().
 
-I can add a sentence about the maximum number of nested PID namespaces
-here in addition to the one at EPERM.
-I do not think it is relevant for the user at this point in time.
+First patch makes sure the vma been correctly tracked in .test_walk(),
+so each time when .test_walk() is called, the neighborhood of two vma
+is correct.
 
-=09=09Adrian
+Current problem is that the !vma_migratable() check could cause return
+immediately without update tracking to vma.
 
+Second patch fix the inconsistent report of EFAULT when mbind() is
+called for MPOL_DEFAULT and non MPOL_DEFAULT cases, so application do
+not need to have workaround code to handle this special behavior. 
+Currently there are two problems, one is that the .test_walk() can not
+know there is hole at tail side of range, because .test_walk() only
+call for vma not for hole.  The other one is that mbind_range() checks
+for hole at head side of range but do not consider the
+MPOL_MF_DISCONTIG_OK flag as done in .test_walk().
+
+
+This patch (of 2):
+
+Checking unmapped hole and updating the previous vma must be handled
+first, otherwise the unmapped hole could be calculated from a wrong
+previous vma.
+
+Several commits were relevant to this error:
+commit 6f4576e3687b
+("mempolicy: apply page table walker on queue_pages_range()"),
+This commit was correct, the VM_PFNMAP check was after updating previous
+vma
+
+commit 48684a65b4e3
+(mm: pagewalk: fix misbehavior of walk_page_range for vma(VM_PFNMAP)),
+This commit added VM_PFNMAP check before updating previous vma. Then,
+there were two VM_PFNMAP check did same thing twice.
+
+commit acda0c334028
+(mm/mempolicy.c: get rid of duplicated check for vma(VM_PFNMAP) in queue_page
+s_range()),
+This commit tried to fix the duplicated VM_PFNMAP check, but it wrongly
+removed the one which was after updating vma.
+
+Link: http://lkml.kernel.org/r/1573218104-11021-2-git-send-email-lixinhai.lxh@gmail.com
+Fixes: acda0c334028 (mm/mempolicy.c: get rid of duplicated check for vma(VM_PFNMAP) in queue_pages_range())
+Signed-off-by: Li Xinhai <lixinhai.lxh@gmail.com>
+Reviewed-by: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: linux-man <linux-man@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/mempolicy.c |   19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
+
+--- a/mm/mempolicy.c~mm-check-range-first-in-queue_pages_test_walk
++++ a/mm/mempolicy.c
+@@ -618,6 +618,16 @@ static int queue_pages_test_walk(unsigne
+ 	unsigned long endvma = vma->vm_end;
+ 	unsigned long flags = qp->flags;
+ 
++	/* range check first */
++	if (!(flags & MPOL_MF_DISCONTIG_OK)) {
++		if (!vma->vm_next && vma->vm_end < end)
++			return -EFAULT;
++		if (qp->prev && qp->prev->vm_end < vma->vm_start)
++			return -EFAULT;
++	}
++
++	qp->prev = vma;
++
+ 	/*
+ 	 * Need check MPOL_MF_STRICT to return -EIO if possible
+ 	 * regardless of vma_migratable
+@@ -631,15 +641,6 @@ static int queue_pages_test_walk(unsigne
+ 	if (vma->vm_start > start)
+ 		start = vma->vm_start;
+ 
+-	if (!(flags & MPOL_MF_DISCONTIG_OK)) {
+-		if (!vma->vm_next && vma->vm_end < end)
+-			return -EFAULT;
+-		if (qp->prev && qp->prev->vm_end < vma->vm_start)
+-			return -EFAULT;
+-	}
+-
+-	qp->prev = vma;
+-
+ 	if (flags & MPOL_MF_LAZY) {
+ 		/* Similar to task_numa_work, skip inaccessible VMAs */
+ 		if (!is_vm_hugetlb_page(vma) &&
+_
