@@ -2,199 +2,82 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 1D72610E01E
-	for <lists+linux-man@lfdr.de>; Sun,  1 Dec 2019 02:56:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B08CF10E1CB
+	for <lists+linux-man@lfdr.de>; Sun,  1 Dec 2019 13:16:22 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727011AbfLAB4U (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 30 Nov 2019 20:56:20 -0500
-Received: from mail.kernel.org ([198.145.29.99]:58508 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726878AbfLAB4U (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 30 Nov 2019 20:56:20 -0500
-Received: from localhost.localdomain (c-73-231-172-41.hsd1.ca.comcast.net [73.231.172.41])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id D5A1D208C3;
-        Sun,  1 Dec 2019 01:56:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1575165379;
-        bh=Byuwr/l4raRkXxcjH1j0OkOqNWKztHVTFt5DeNjwufU=;
-        h=Date:From:To:Subject:From;
-        b=W3Y5A1YRGOKcLq6p6hbpxr+stkJ1zUdjPdfj2wES7CX+A3q8+cj1VBaWtHEW8skj2
-         EgDgVRw+mFGpio40zkVUTLfOL+LXsKjtmZXIctOWr/eBh5FGZPLwFOnQPQIxjGj8Vu
-         xGEGfU6AfxairVpSdqo+Of3poB/cR/vSpShcG2Lg=
-Date:   Sat, 30 Nov 2019 17:56:18 -0800
-From:   akpm@linux-foundation.org
-To:     akpm@linux-foundation.org, hughd@google.com,
-        linux-man@vger.kernel.org, linux-mm@kvack.org,
-        lixinhai.lxh@gmail.com, mhocko@suse.com,
-        mm-commits@vger.kernel.org, n-horiguchi@ah.jp.nec.com,
-        torvalds@linux-foundation.org, vbabka@suse.cz
-Subject:  [patch 119/158] mm/mempolicy.c: fix checking unmapped
- holes for mbind
-Message-ID: <20191201015618.fbLx16qnj%akpm@linux-foundation.org>
-User-Agent: s-nail v14.8.16
+        id S1726340AbfLAMQV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 1 Dec 2019 07:16:21 -0500
+Received: from mail-wm1-f48.google.com ([209.85.128.48]:54991 "EHLO
+        mail-wm1-f48.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725993AbfLAMQV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 1 Dec 2019 07:16:21 -0500
+Received: by mail-wm1-f48.google.com with SMTP id b11so18650346wmj.4
+        for <linux-man@vger.kernel.org>; Sun, 01 Dec 2019 04:16:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:references:from:message-id:date:user-agent:mime-version
+         :in-reply-to:content-language:content-transfer-encoding;
+        bh=BhBb19N0eU/3xSZBbS1GKOmYGwuIY2bqzn96ceP5PPo=;
+        b=pgFYsf/lH/iJqIQNsfnkeP06aifu3JR3Zn/CAd8OgPrSXBWU63exBPd5UTQPslm+9l
+         rE3upZAybOJVjBULeaVxzG9kIDbOdYJ27leYzxEETpUyvVjBdSGCptU9ZkaYdeLNskJz
+         /tPGL7VSM3enK6/xQDD5h9fprug+vCsOhhTBdjglvzgWGK0biEVdur26EemZ2CUZPfUi
+         fHEjq9kg9phWZ6RWsmssk+CMeJuhX9RIGFXzBLiBzZwlpWp/zLBh7aJojFux5V5UiDbd
+         lkZdCgoimxGnEX981uVaqfpPQ1GUFUd8ur58bulYC9AwjdV1rKEiTaATD+8NNMIpH6zG
+         HS5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=BhBb19N0eU/3xSZBbS1GKOmYGwuIY2bqzn96ceP5PPo=;
+        b=f3G7U9MFC13RPj+DtlV58kyNLugsQrygcfpt0KV4qP7f2VCwiia0PZF6Mz1TUqANVE
+         +m0ZU9P85V9TMSPyrwn2RkIYNN3kghQCOh4cW8Q9oajeNElCGIZS4Aq+db0L6u0xmCZi
+         cpWfcdCRlWR6iJlj+wCeJcU02fXaZXp1GydiPzkeEYeAm+xK5POnxB8G1Kh3prSSKr6Q
+         7K/zKiKJDzj0yYzd5jZcOVoGAae3mN0F5m57aSryqM6XbVt1Z50gxRoGWoHIN03Wmhr7
+         p4irQQW4goOzcxu2a0q4ACutT2LaVeRfVeP6sxF227sXwmwaH8xOabP0jcUn+Yf1I+WF
+         WeQA==
+X-Gm-Message-State: APjAAAWuj2FFFxWG/zZXuVZb+hwTNlMcZNvrT+hy+n2TThj0gXdANGeB
+        bFcTRP6KZ455BTwudCiNIZX7bfNK
+X-Google-Smtp-Source: APXvYqzVl8mWW6RdCisIEQ7lQwAQXO5qY433OAHWxXgNWcrRSIn1kAmn9FzSiAAyM4SuNhGXJfvg/w==
+X-Received: by 2002:a05:600c:cd:: with SMTP id u13mr14427592wmm.24.1575202579347;
+        Sun, 01 Dec 2019 04:16:19 -0800 (PST)
+Received: from localhost.localdomain (cpc73834-dals21-2-0-cust682.20-2.cable.virginm.net. [82.0.142.171])
+        by smtp.gmail.com with ESMTPSA id a14sm1934956wrx.81.2019.12.01.04.16.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Dec 2019 04:16:18 -0800 (PST)
+Subject: Re: Manpages for C11 thrd_* functions (threads.h)
+To:     Lelanthran Manickum <lelanthran@gmail.com>,
+        linux-man@vger.kernel.org
+References: <CAA+p7YbEJTxyoBHVqjbG66O4PiAiwF8HtnBYj9hnbfzuk2BVzQ@mail.gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <bdb87666-2864-d638-d89d-12c29dde6183@gmail.com>
+Date:   Sun, 1 Dec 2019 13:16:18 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
+MIME-Version: 1.0
+In-Reply-To: <CAA+p7YbEJTxyoBHVqjbG66O4PiAiwF8HtnBYj9hnbfzuk2BVzQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Li Xinhai <lixinhai.lxh@gmail.com>
-Subject: mm/mempolicy.c: fix checking unmapped holes for mbind
+Hello Lelanthran
 
-mbind() is required to report EFAULT if range, specified by addr and len,
-contains unmapped holes.  In current implementation, below rules are
-applied for this checking:
+On 11/27/19 3:34 PM, Lelanthran Manickum wrote:
+> Hello
+> 
+> I'm unable to find manpages for the C11 thread functions.
+> 
+> If anyone is not working on this I have a little time I can devote to
+> writing these pages using the libc docs as a starting point.
 
-1: Unmapped holes at any part of the specified range should be reported
-   as EFAULT if mbind() for none MPOL_DEFAULT cases;
+No one is currently working on this. I suggest to start by submitting 
+one or two pages (rather than a large number), so we can iron out any
+layout, style issues etc.
 
-2: Unmapped holes at any part of the specified range should be ignored
-   (do not reprot EFAULT) if mbind() for MPOL_DEFAULT case;
+Thanks,
 
-3: The whole range in an unmapped hole should be reported as EFAULT;
-
-Note that rule 2 does not fullfill the mbind() API definition, but since
-that behavior has existed for long days (the internal flag
-MPOL_MF_DISCONTIG_OK is for this purpose), this patch does not plan to
-change it.
-
-In current code, application observed inconsistent behavior on rule 1 and
-rule 2 respectively.  That inconsistency is fixed as below details.
-
-Cases of rule 1:
-1) Hole at head side of range. Current code reprot EFAULT, no change by
-this patch.
-[  vma  ][ hole ][  vma  ]
-            [  range  ]
-2) Hole at middle of range. Current code report EFAULT, no change by
-this patch.
-[  vma  ][ hole ][ vma ]
-   [     range      ]
-3) Hole at tail side of range. Current code do not report EFAULT, this
-patch fix it.
-[  vma  ][ hole ][ vma ]
-   [  range  ]
-
-Cases of rule 2:
-1) Hole at head side of range. Current code reprot EFAULT, this patch
-fix it.
-[  vma  ][ hole ][  vma  ]
-            [  range  ]
-2) Hole at middle of range. Current code do not report EFAULT, no change
-by this patch.
-this patch.
-[  vma  ][ hole ][ vma]
-   [     range      ]
-3) Hole at tail side of range. Current code do not report EFAULT, no
-change by this patch.
-[  vma  ][ hole ][ vma]
-   [  range  ]
-
-This patch has no changes to rule 3.
-
-The unmapped hole checking can also be handled by using .pte_hole(),
-instead of .test_walk().  But .pte_hole() is called for holes inside and
-outside vma, which causes more cost, so this patch keeps the original
-design with .test_walk().
-
-Link: http://lkml.kernel.org/r/1573218104-11021-3-git-send-email-lixinhai.lxh@gmail.com
-Fixes: 6f4576e3687b ("mempolicy: apply page table walker on queue_pages_range()")
-Signed-off-by: Li Xinhai <lixinhai.lxh@gmail.com>
-Reviewed-by: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Vlastimil Babka <vbabka@suse.cz>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: linux-man <linux-man@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/mempolicy.c |   40 +++++++++++++++++++++++++++-------------
- 1 file changed, 27 insertions(+), 13 deletions(-)
-
---- a/mm/mempolicy.c~mm-fix-checking-unmapped-holes-for-mbind
-+++ a/mm/mempolicy.c
-@@ -410,7 +410,9 @@ struct queue_pages {
- 	struct list_head *pagelist;
- 	unsigned long flags;
- 	nodemask_t *nmask;
--	struct vm_area_struct *prev;
-+	unsigned long start;
-+	unsigned long end;
-+	struct vm_area_struct *first;
- };
- 
- /*
-@@ -619,14 +621,20 @@ static int queue_pages_test_walk(unsigne
- 	unsigned long flags = qp->flags;
- 
- 	/* range check first */
--	if (!(flags & MPOL_MF_DISCONTIG_OK)) {
--		if (!vma->vm_next && vma->vm_end < end)
--			return -EFAULT;
--		if (qp->prev && qp->prev->vm_end < vma->vm_start)
-+	VM_BUG_ON((vma->vm_start > start) || (vma->vm_end < end));
-+
-+	if (!qp->first) {
-+		qp->first = vma;
-+		if (!(flags & MPOL_MF_DISCONTIG_OK) &&
-+			(qp->start < vma->vm_start))
-+			/* hole at head side of range */
- 			return -EFAULT;
- 	}
--
--	qp->prev = vma;
-+	if (!(flags & MPOL_MF_DISCONTIG_OK) &&
-+		((vma->vm_end < qp->end) &&
-+		(!vma->vm_next || vma->vm_end < vma->vm_next->vm_start)))
-+		/* hole at middle or tail of range */
-+		return -EFAULT;
- 
- 	/*
- 	 * Need check MPOL_MF_STRICT to return -EIO if possible
-@@ -638,8 +646,6 @@ static int queue_pages_test_walk(unsigne
- 
- 	if (endvma > end)
- 		endvma = end;
--	if (vma->vm_start > start)
--		start = vma->vm_start;
- 
- 	if (flags & MPOL_MF_LAZY) {
- 		/* Similar to task_numa_work, skip inaccessible VMAs */
-@@ -682,14 +688,23 @@ queue_pages_range(struct mm_struct *mm,
- 		nodemask_t *nodes, unsigned long flags,
- 		struct list_head *pagelist)
- {
-+	int err;
- 	struct queue_pages qp = {
- 		.pagelist = pagelist,
- 		.flags = flags,
- 		.nmask = nodes,
--		.prev = NULL,
-+		.start = start,
-+		.end = end,
-+		.first = NULL,
- 	};
- 
--	return walk_page_range(mm, start, end, &queue_pages_walk_ops, &qp);
-+	err = walk_page_range(mm, start, end, &queue_pages_walk_ops, &qp);
-+
-+	if (!qp.first)
-+		/* whole range in hole */
-+		err = -EFAULT;
-+
-+	return err;
- }
- 
- /*
-@@ -741,8 +756,7 @@ static int mbind_range(struct mm_struct
- 	unsigned long vmend;
- 
- 	vma = find_vma(mm, start);
--	if (!vma || vma->vm_start > start)
--		return -EFAULT;
-+	VM_BUG_ON(!vma);
- 
- 	prev = vma->vm_prev;
- 	if (start > vma->vm_start)
-_
+Michael
