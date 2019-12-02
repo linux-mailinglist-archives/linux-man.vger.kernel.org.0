@@ -2,89 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 99C6C10E2EE
-	for <lists+linux-man@lfdr.de>; Sun,  1 Dec 2019 19:17:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C93F610EB82
+	for <lists+linux-man@lfdr.de>; Mon,  2 Dec 2019 15:25:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727313AbfLASRX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 1 Dec 2019 13:17:23 -0500
-Received: from mtax.cdmx.gob.mx ([187.141.35.197]:15919 "EHLO mtax.cdmx.gob.mx"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1727295AbfLASRW (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sun, 1 Dec 2019 13:17:22 -0500
-X-Greylist: delayed 6472 seconds by postgrey-1.27 at vger.kernel.org; Sun, 01 Dec 2019 13:17:22 EST
-X-NAI-Header: Modified by McAfee Email Gateway (4500)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cdmx.gob.mx; s=72359050-3965-11E6-920A-0192F7A2F08E;
-        t=1575217593; h=DKIM-Filter:X-Virus-Scanned:
-         Content-Type:MIME-Version:Content-Transfer-Encoding:
-         Content-Description:Subject:To:From:Date:Message-Id:
-         X-AnalysisOut:X-AnalysisOut:X-AnalysisOut:
-         X-AnalysisOut:X-AnalysisOut:X-SAAS-TrackingID:
-         X-NAI-Spam-Flag:X-NAI-Spam-Threshold:X-NAI-Spam-Score:
-         X-NAI-Spam-Rules:X-NAI-Spam-Version; bh=M
-        8rWdUYQ57RAYAgTWJQ4Rsch0kO0UXllaAVDzocOs4
-        8=; b=r3sli2LrqRXiXRkWki94bRkQpsHgRb+pRBymgEuKyLc8
-        zx01AuVFO4TKXiYeoiBnBrd2dwWn1kryyfhkdWyn5i8LhAkK0J
-        /oTafAlw9T7lGiv8r8NwtlxpYZTh6hCAwY2ouZepXEVv6sDPYX
-        iVK47ffO79tcbDraqfjeXITlW2U=
-Received: from cdmx.gob.mx (correo.cdmx.gob.mx [10.250.108.150]) by mtax.cdmx.gob.mx with smtp
-        (TLS: TLSv1/SSLv3,256bits,ECDHE-RSA-AES256-GCM-SHA384)
-         id 1a22_5002_cdbc26d1_f120_4266_88d4_db8244f7e651;
-        Sun, 01 Dec 2019 10:26:32 -0600
-Received: from localhost (localhost [127.0.0.1])
-        by cdmx.gob.mx (Postfix) with ESMTP id 34D201E2781;
-        Sun,  1 Dec 2019 10:18:17 -0600 (CST)
-Received: from cdmx.gob.mx ([127.0.0.1])
-        by localhost (cdmx.gob.mx [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id auXUkr8Sye6L; Sun,  1 Dec 2019 10:18:17 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-        by cdmx.gob.mx (Postfix) with ESMTP id BB7141E29CD;
-        Sun,  1 Dec 2019 10:13:05 -0600 (CST)
-DKIM-Filter: OpenDKIM Filter v2.9.2 cdmx.gob.mx BB7141E29CD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cdmx.gob.mx;
-        s=72359050-3965-11E6-920A-0192F7A2F08E; t=1575216785;
-        bh=M8rWdUYQ57RAYAgTWJQ4Rsch0kO0UXllaAVDzocOs48=;
-        h=Content-Type:MIME-Version:Content-Transfer-Encoding:Subject:To:
-         From:Date:Message-Id;
-        b=r8ccjNIn0QTXL6TYeTeexv/j+NAranSFFGDIzVk1+I7paxzu6xQDBEnjwqdRLFN9D
-         pokdd7qZB1dqO+q/SlLIGxbHYufbzmw0Mg6Y6+3+eSfQEa6UZunxBiNZsKwd46G+cJ
-         Nz1Zdu/yXLZG1ZQthnyqH7x6IYQv7JmgUeBFsT68=
-X-Virus-Scanned: amavisd-new at cdmx.gob.mx
-Received: from cdmx.gob.mx ([127.0.0.1])
-        by localhost (cdmx.gob.mx [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id vycMtcNjgtmr; Sun,  1 Dec 2019 10:13:05 -0600 (CST)
-Received: from [192.168.0.104] (unknown [188.125.168.160])
-        by cdmx.gob.mx (Postfix) with ESMTPSA id 69EB81E2B55;
-        Sun,  1 Dec 2019 10:04:27 -0600 (CST)
-Content-Type: text/plain; charset="iso-8859-1"
+        id S1727423AbfLBOZo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 2 Dec 2019 09:25:44 -0500
+Received: from us-smtp-delivery-1.mimecast.com ([205.139.110.120]:32779 "EHLO
+        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1727431AbfLBOZn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 2 Dec 2019 09:25:43 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1575296743;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=HaliGl57wvmSswxOzwoiHCcQSuuxccEhA8BiKfLK3ZE=;
+        b=TyLXs2xshXXBro6LIFMXBG/2VGCVfDVSknAr/xJfGWaAdzWcF/ntii+O4XoEQce2P1APX+
+        BI92zSo6HWTju3C/tZ2S3Ggr7c8NEVpgqh9OkqLgw7HqLgE+QHM7gAQe2+mb9A43+eoe1T
+        4uQl9reENsDrK0sbb3ocusT4q1oPikU=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-242-cEb2SbgWMJOhRLXXiVtQpg-1; Mon, 02 Dec 2019 09:25:40 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B7366107AD5E;
+        Mon,  2 Dec 2019 14:25:38 +0000 (UTC)
+Received: from dcbz.redhat.com (ovpn-116-141.ams2.redhat.com [10.36.116.141])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id E906210013A7;
+        Mon,  2 Dec 2019 14:25:37 +0000 (UTC)
+Date:   Mon, 2 Dec 2019 15:25:35 +0100
+From:   Adrian Reber <areber@redhat.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Christian Brauner <christian.brauner@ubuntu.com>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH 2/2] clone.2: added clone3() set_tid information
+Message-ID: <20191202142535.GC34164@dcbz.redhat.com>
+References: <20191128124650.364810-1-areber@redhat.com>
+ <20191128124650.364810-2-areber@redhat.com>
+ <20191128172404.xan6vzaoofjeysq2@wittgenstein>
+ <49be41bf-f6e5-c0ea-e6fb-22eeea9656e8@gmail.com>
 MIME-Version: 1.0
+In-Reply-To: <49be41bf-f6e5-c0ea-e6fb-22eeea9656e8@gmail.com>
+X-Operating-System: Linux (5.3.12-300.fc31.x86_64)
+X-Load-Average: 0.93 0.68 0.39
+X-Unexpected: The Spanish Inquisition
+X-GnuPG-Key: gpg --recv-keys D3C4906A
+Organization: Red Hat
+User-Agent: Mutt/1.12.1 (2019-06-15)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-MC-Unique: cEb2SbgWMJOhRLXXiVtQpg-1
+X-Mimecast-Spam-Score: 0
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
-Subject: Congratulations
-To:     Recipients <aac-styfe@cdmx.gob.mx>
-From:   "Bishop Johnr" <aac-styfe@cdmx.gob.mx>
-Date:   Sun, 01 Dec 2019 17:04:20 +0100
-Message-Id: <20191201160428.69EB81E2B55@cdmx.gob.mx>
-X-AnalysisOut: [v=2.2 cv=aPKAkf1m c=1 sm=1 tr=0 p=6K-Ig8iNAUou4E5wYCEA:9 p]
-X-AnalysisOut: [=zRI05YRXt28A:10 a=T6zFoIZ12MK39YzkfxrL7A==:117 a=9152RP8M]
-X-AnalysisOut: [6GQqDhC/mI/QXQ==:17 a=8nJEP1OIZ-IA:10 a=pxVhFHJ0LMsA:10 a=]
-X-AnalysisOut: [pGLkceISAAAA:8 a=wPNLvfGTeEIA:10 a=M8O0W8wq6qAA:10 a=Ygvjr]
-X-AnalysisOut: [iKHvHXA2FhpO6d-:22]
-X-SAAS-TrackingID: 6b9e3ed5.0.105116094.00-2265.176705794.s12p02m016.mxlogic.net
-X-NAI-Spam-Flag: NO
-X-NAI-Spam-Threshold: 3
-X-NAI-Spam-Score: -5000
-X-NAI-Spam-Rules: 1 Rules triggered
-        WHITELISTED=-5000
-X-NAI-Spam-Version: 2.3.0.9418 : core <6686> : inlines <7165> : streams
- <1840193> : uri <2949749>
+Content-Disposition: inline
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Money was donated to you by Mr and Mrs Allen and Violet Large, just contact=
- them with this email for more information =
+Christian and Michael,
 
+thanks for the reviews. I tried to apply all suggested changes in v2
+which I will send out in a few minutes.
 
-EMail: allenandvioletlargeaward@gmail.com
+=09=09Adrian
+
