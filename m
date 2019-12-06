@@ -2,69 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id CE81B114A96
-	for <lists+linux-man@lfdr.de>; Fri,  6 Dec 2019 02:47:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 87B9B114CE0
+	for <lists+linux-man@lfdr.de>; Fri,  6 Dec 2019 08:48:01 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726065AbfLFBri (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 5 Dec 2019 20:47:38 -0500
-Received: from hqemgate16.nvidia.com ([216.228.121.65]:1493 "EHLO
-        hqemgate16.nvidia.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725988AbfLFBrh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Dec 2019 20:47:37 -0500
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by hqemgate16.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
-        id <B5de9b33d0000>; Thu, 05 Dec 2019 17:47:41 -0800
-Received: from hqmail.nvidia.com ([172.20.161.6])
-  by hqpgpgate101.nvidia.com (PGP Universal service);
-  Thu, 05 Dec 2019 17:47:37 -0800
-X-PGP-Universal: processed;
-        by hqpgpgate101.nvidia.com on Thu, 05 Dec 2019 17:47:37 -0800
-Received: from DRHQMAIL107.nvidia.com (10.27.9.16) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Dec
- 2019 01:47:36 +0000
-Received: from [10.110.48.28] (10.124.1.5) by DRHQMAIL107.nvidia.com
- (10.27.9.16) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Dec 2019
- 01:47:36 +0000
+        id S1726331AbfLFHsA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 6 Dec 2019 02:48:00 -0500
+Received: from mail-wm1-f68.google.com ([209.85.128.68]:56076 "EHLO
+        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725858AbfLFHsA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 6 Dec 2019 02:48:00 -0500
+Received: by mail-wm1-f68.google.com with SMTP id q9so6749357wmj.5;
+        Thu, 05 Dec 2019 23:47:58 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=qtb1WWUgl9wqPcOJD9MpTiHXbCPls9RWYFCWxX8gA38=;
+        b=lm8i9v8tLSpKiqaGRPa9F2IzSo+r+1zi8aYqVh7MUfJ26Hi+dxEp5LiNcLbjSLj98U
+         vR6l4ibPkEO2xL76FZoj2WHmrDvg0LuPjh/2pkJEDuDqdCND/b9OY/rfYCmyFSCA3mno
+         y9MPYkL5vfCfrFzFh7A5svvxnS13xLPXWMYRVQn182/5wg6Dtj4E/LE0qydGXE+1pEZN
+         UeH/iSSkoW8WE8UnhawYnReKvsC8cyYhHXsDb7/TTKHM/duUeaLD2N8XU6qyb2op2sbq
+         7QOTJ6aOAFmkITF4W1LfVnAIdSXeONuEtIHf3st98Z60nc39aSt1JgWiByvB38owi1lw
+         80Ug==
+X-Gm-Message-State: APjAAAV/YEvQLlIDxH8V/PFykz7gE/fq4hhI/xTyfwyH8XO6DYA7eWUX
+        vHk4HAa9GNZMC+kgHaDYI8w=
+X-Google-Smtp-Source: APXvYqzgdNukLlA3rCQmi7utZ2az51NLS1sN4LCMUjSaTNjqwhS+410uEl0P6YTtOQzNh9pp1JteSA==
+X-Received: by 2002:a1c:30b:: with SMTP id 11mr9307143wmd.171.1575618478227;
+        Thu, 05 Dec 2019 23:47:58 -0800 (PST)
+Received: from localhost (ip-37-188-170-11.eurotel.cz. [37.188.170.11])
+        by smtp.gmail.com with ESMTPSA id u18sm15209133wrt.26.2019.12.05.23.47.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Dec 2019 23:47:57 -0800 (PST)
+Date:   Fri, 6 Dec 2019 08:47:56 +0100
+From:   Michal Hocko <mhocko@kernel.org>
+To:     Yang Shi <yang.shi@linux.alibaba.com>
+Cc:     mtk.manpages@gmail.com, cl@linux.com, jhubbard@nvidia.com,
+        cai@lca.pw, akpm@linux-foundation.org, linux-man@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org
 Subject: Re: [PATCH] move_pages.2: not return ENOENT if the page are already
  on the target nodes
-To:     Yang Shi <yang.shi@linux.alibaba.com>, <mtk.manpages@gmail.com>,
-        <cl@linux.com>, <mhocko@suse.com>, <cai@lca.pw>,
-        <akpm@linux-foundation.org>
-CC:     <linux-man@vger.kernel.org>, <linux-api@vger.kernel.org>,
-        <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
+Message-ID: <20191206074756.GI28317@dhcp22.suse.cz>
 References: <1575596090-115377-1-git-send-email-yang.shi@linux.alibaba.com>
-X-Nvconfidentiality: public
-From:   John Hubbard <jhubbard@nvidia.com>
-Message-ID: <683f6cae-0e0c-d4e4-0929-7fd1a79a2266@nvidia.com>
-Date:   Thu, 5 Dec 2019 17:47:35 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 In-Reply-To: <1575596090-115377-1-git-send-email-yang.shi@linux.alibaba.com>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
- DRHQMAIL107.nvidia.com (10.27.9.16)
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
-        t=1575596861; bh=hHAqZuqTQkT4Jg75DDaPISOvw/O4fuowgbjbEnHGf64=;
-        h=X-PGP-Universal:Subject:To:CC:References:X-Nvconfidentiality:From:
-         Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
-         X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language:
-         Content-Transfer-Encoding;
-        b=f6tCm1D/suIescD8w+pxCD2rleaR43m1WcZ5BxpODtT57dOMzvFdKTb0ou58JXsBL
-         myUNvQvY77xa9Ds51TSoJjp78o/Ss96pAv4jnfqTGAmWpgdHE1pno3y9pCu365EnXl
-         UHwvY9vmfGltMN1M2EiH3Gn7ZksERB31c1jFtN/DkOOWVrD2zlBg2XBvoSLYH8YsYB
-         iy5jpU3sIw0Wr/mWb4yiyok+YlL/R2wvhRONVgj58Sp/gEFFD8vgj2pGtckc8prZxd
-         J2C0PMS1e6I1UT2M30e+Ytfc/FchC1kDISdWP67a0toIT7CyFw+uE1Y2939yHLoqit
-         xRO8aymsX2TCw==
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 12/5/19 5:34 PM, Yang Shi wrote:
-...
+On Fri 06-12-19 09:34:50, Yang Shi wrote:
+> Since commit e78bbfa82624 ("mm: stop returning -ENOENT
+> from sys_move_pages() if nothing got migrated"), move_pages doesn't
+> return -ENOENT anymore if the pages are already on the target nodes, but
+> this change is never reflected in manpage.
+> 
+> Cc: Michael Kerrisk <mtk.manpages@gmail.com>
+> Cc: Christoph Lameter <cl@linux.com>
+> Cc: John Hubbard <jhubbard@nvidia.com>
+> Cc: Michal Hocko <mhocko@suse.com>
+> Cc: Qian Cai <cai@lca.pw>
+> Signed-off-by: Yang Shi <yang.shi@linux.alibaba.com>
+> ---
+>  man2/move_pages.2 | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
 > 
 > diff --git a/man2/move_pages.2 b/man2/move_pages.2
 > index 2d96468..2a2f3cd 100644
@@ -81,22 +85,10 @@ On 12/5/19 5:34 PM, Yang Shi wrote:
 > +All pages are either not present, had an invalid address or could not be
 >  moved because they were mapped by multiple processes.
 
-How about this wording (ignoring man formatting for the moment):
+I would rather not put any specifics here because those reasons might
+differ in future. I would simply go with "No pages were found that
+require or could be moved."
 
-No pages were moved, because all requested pages fell into one or more of
-the following cases:
-
-* Page not present.
-* Page has an invalid address.
-* Page is mapped by multiple processes.
-
-Reasoning: I don't like the "no pages were found" all by itself, because it
-blindly rewords the meaning of ENOENT. ENOENT is merely the closest
-symbol we have. So we use ENOENT and that's fine, but the descriptive text 
-should describe what really happened, which is "no pages were moved". If we had 
-an ENOPAGESMOVED then we'd use that. :)
-
-thanks,
 -- 
-John Hubbard
-NVIDIA
+Michal Hocko
+SUSE Labs
