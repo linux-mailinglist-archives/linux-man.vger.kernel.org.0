@@ -2,137 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id B468311C84F
-	for <lists+linux-man@lfdr.de>; Thu, 12 Dec 2019 09:36:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2F1C311C850
+	for <lists+linux-man@lfdr.de>; Thu, 12 Dec 2019 09:36:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728202AbfLLIgN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 12 Dec 2019 03:36:13 -0500
-Received: from mail-wm1-f66.google.com ([209.85.128.66]:40449 "EHLO
-        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728192AbfLLIgN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 12 Dec 2019 03:36:13 -0500
-Received: by mail-wm1-f66.google.com with SMTP id t14so1467353wmi.5
-        for <linux-man@vger.kernel.org>; Thu, 12 Dec 2019 00:36:11 -0800 (PST)
+        id S1728190AbfLLIgy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 12 Dec 2019 03:36:54 -0500
+Received: from mail-wm1-f65.google.com ([209.85.128.65]:36441 "EHLO
+        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728192AbfLLIgy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 12 Dec 2019 03:36:54 -0500
+Received: by mail-wm1-f65.google.com with SMTP id p17so1489240wma.1
+        for <linux-man@vger.kernel.org>; Thu, 12 Dec 2019 00:36:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=NOQ2ZrYSWggcKFeQcfiU9VrwJVSnUVbGg78QsavP4y0=;
-        b=RYm9GmNMUcoIuuaity1S4qetgGw85pQCOGpwHj101we030k78P6OWwM7JCZT5ZMllx
-         AsT/8+WexOk0SzNvdpsmEeLtbXw0ao/TO4NjT06rmPgW7H75p/9NzHccF0fulAswYRhE
-         5mDObEBLZMa7kSRLwB3Tyn+zqpcZoWpfGq0z7iySuakCrAzD+Ec4dIRILX2QJOyUo/sS
-         dDKYmVVshcBrzmNFncFfGruhQ90jBFZgErRjfyRG60PB7lvmr6YHEhQWAC86ztjmjFVu
-         Y/a+kpF9Dy/EBx8koSPny/xMFDHjr7DmKWLBJZpGKkE/85OntrC+AUB0DhHbhz7ydeX2
-         SYaw==
+        bh=3lVm5xvPRc/IRfiM0WktOk8Z5N3H6HHiJBCbd8KbNB4=;
+        b=uwkr78JYwQ4dfbeHAm9Zs0VJr3my009HrxMDRDLHrQwsc0Nd4FY4dQF5bYF5MEHYay
+         EksNG1FAMAVvC9A9GPsZYpSuBdrW1r5LGSr8PaOgKe9yECaiF4GjvGB5q9/xWsEbfSGh
+         mktZGRP+UX9XGQJYUeVWZu0m7f/Ztku5oFOA5Od1HJo0lSJnWqDJujhpt0j4Pv5/6uUz
+         e8SWUuqiHQxUgbHNRKzM9vE5TsJFmAp+B3polvTAoYjLE0O450C4yQdaUPvzolY/s37q
+         Be8vLaKKxj9D7PtWm1grQgUmxTRSGyLrXwfm+02PSZ9/XSub/dHfDi3sEftNanFBWqe6
+         8gxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=NOQ2ZrYSWggcKFeQcfiU9VrwJVSnUVbGg78QsavP4y0=;
-        b=MlG99UOMhfHjCB3oDulRMumGQCKGTA1WQzK+mKc+1tQQM4YVPK6iMNcjF4nKFGeZVV
-         2FBZv5rVQ4YAQ/VS+nb1lA+MojxVP7ciQ7fwpmRVWBgH3/nSu+OUw17keyGW3o8Wc7fa
-         fMGINv/pZVDLeRvco8vHQug5OQ47XyGPmmGdwVLTdIJsXx+Du0UAuZWiSi6hSW50HMDv
-         5Jnci0+KsRVdc6ABkImAVIfLtjZ7kiZ1CQ04cSMb38RyTfJ6lDcBy7lHoAIp8bhckBQr
-         d1rjI0xaA89YQDxeEljUuG55yvNxbzVig5XAg7gnU7QjAeSSqa1GutBThJMNPNHKJ0rO
-         WxiA==
-X-Gm-Message-State: APjAAAWbsWCyWT2Ik5VeUc0mM8G1ONyRP38e0Cm1T4e4ogfPSy7dbfOJ
-        ZmuM8WgYmG9+7m8RFSJrKb6/Xq2v
-X-Google-Smtp-Source: APXvYqwLcX8NV51Zk0z51eCNZdv/Qa0Dg3nDce5VJzeFcQlYBVq1EuDDdvbbG3P4uW4bVMjK/la1uQ==
-X-Received: by 2002:a7b:c004:: with SMTP id c4mr4942303wmb.45.1576139770752;
-        Thu, 12 Dec 2019 00:36:10 -0800 (PST)
+        bh=3lVm5xvPRc/IRfiM0WktOk8Z5N3H6HHiJBCbd8KbNB4=;
+        b=DiEFCX1GRs6gXAtuTupfnL74fh2vbqkOhzBfBkGfVl4umFIgC+eDUTiU6m9ueRVGgT
+         Pu6KUT7J0N2ICf0+hfabrRVX/sWsw3uOT711nVrxDLm4geKwM2SjYYfToPY3QzYOlEiv
+         sYFft8OCa9GUcq28zOZFAXVAD9QsbjAU8d9SSRYagACr5VzfnlpLrwk0aGhhMcGv1f8K
+         pZhTPfDc2ehG7muXoVkC/uppSxHrBBu6bGWdZO5XKGm9HTFWIU0bWBTN6ApJQ8YphMOX
+         +/Dgef1+QP1aAXgqi8gZoWOXUGNBpEYMNp1WVAp7xU+AKrSQfi6Ponp/NfX1TZTN3emE
+         T6rg==
+X-Gm-Message-State: APjAAAWOVRzNJjwYOnNsPCmMe1byPZvUgGWeSWWbjEfgmI+5rV8u9X7M
+        xhHNLI6vLpbyhSRBRCZM/kRQfk1c
+X-Google-Smtp-Source: APXvYqwkB5YAr5BIlSo93oAPngvFm74Y+P1RG5IjXoZw7yt6CcW8H/0kFwNRzF9CDJv4+SdYtNyTZQ==
+X-Received: by 2002:a1c:5451:: with SMTP id p17mr4912489wmi.57.1576139811914;
+        Thu, 12 Dec 2019 00:36:51 -0800 (PST)
 Received: from ?IPv6:2001:a61:2426:9c01:6648:18:8d7:e4e0? ([2001:a61:2426:9c01:6648:18:8d7:e4e0])
-        by smtp.gmail.com with ESMTPSA id n189sm4374195wme.33.2019.12.12.00.36.09
+        by smtp.gmail.com with ESMTPSA id z20sm4167143wmi.45.2019.12.12.00.36.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Dec 2019 00:36:10 -0800 (PST)
+        Thu, 12 Dec 2019 00:36:51 -0800 (PST)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] capget.2: Correct info about EPERM error
-To:     Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-References: <1576135435-907-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+Subject: Re: [PATCH] copy_file_range.2: tfix
+To:     nforro@redhat.com
+References: <4c44701f852aba14f40f4b815e8ed0e080c00bea.camel@redhat.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <b3ed28f4-59fb-9bff-4886-57b1126372d9@gmail.com>
-Date:   Thu, 12 Dec 2019 09:36:09 +0100
+Message-ID: <e529a67d-65d7-ceba-0059-4dbf182fd694@gmail.com>
+Date:   Thu, 12 Dec 2019 09:36:50 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.2.2
 MIME-Version: 1.0
-In-Reply-To: <1576135435-907-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+In-Reply-To: <4c44701f852aba14f40f4b815e8ed0e080c00bea.camel@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Yang Xu,
+On 12/9/19 11:56 AM, Nikola Forró wrote:
+> Signed-off-by: Nikola Forró <nforro@redhat.com>
 
-On 12/12/19 8:23 AM, Yang Xu wrote:
-> I see kernel code security/commoncap.c cap_capset function, it only
-> verifies the new_Effective is a subset of the new_Permitted. It doesn't
-> verify whether the new_Inheritable is a subset of the new_Permitted.
-> 
-> I found it when I cleanup ltp capset02 test code.
-> 
-> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-> ---
->  man2/capget.2 | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/man2/capget.2 b/man2/capget.2
-> index 94d38d877..6cad3d5d8 100644
-> --- a/man2/capget.2
-> +++ b/man2/capget.2
-> @@ -195,8 +195,7 @@ One of the arguments was invalid.
->  .TP
->  .B EPERM
->  An attempt was made to add a capability to the Permitted set, or to set
-> -a capability in the Effective or Inheritable sets that is not in the
-> -Permitted set.
-> +a capability in the Effective sets that is not in the Permitted set.
->  .TP
->  .B EPERM
->  The caller attempted to use
+Thanks, Nikola. Patch applied.
 
-Thanks for your note. The manual page is indeed imprecise, but there 
-are checks elsewhere (in cap_capset()) that restrict the kinds
-of changes that can be made to the inheritable set. I applied
-the patch below, which I think correctly captures the details (which
-were already described in capabilities(7)).
-
-Thanks,
+Cheers,
 
 Michael
 
-diff --git a/man2/capget.2 b/man2/capget.2
-index 94d38d877..1d81075ba 100644
---- a/man2/capget.2
-+++ b/man2/capget.2
-@@ -195,10 +195,22 @@ One of the arguments was invalid.
- .TP
- .B EPERM
- An attempt was made to add a capability to the Permitted set, or to set
--a capability in the Effective or Inheritable sets that is not in the
-+a capability in the Effective set that is not in the
- Permitted set.
- .TP
- .B EPERM
-+An attempt was made to add a capability to the inheritable set, and either:
-+.RS
-+.IP * 3
-+that capability was not in the caller's bounding set; or
-+.IP *
-+the capability was not in the caller's permitted set
-+and the caller lacked the
-+.B CAP_SETPCAP
-+capability in its effective set.
-+.RE
-+.TP
-+.B EPERM
- The caller attempted to use
- .BR capset ()
- to modify the capabilities of a thread other than itself,
-
-
+> ---
+>  man2/copy_file_range.2 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/man2/copy_file_range.2 b/man2/copy_file_range.2
+> index 9ed0cc31a..4173b84a2 100644
+> --- a/man2/copy_file_range.2
+> +++ b/man2/copy_file_range.2
+> @@ -84,7 +84,7 @@ allowed to overlap.
+>  The
+>  .I flags
+>  argument is provided to allow for future extensions
+> -and currently must be to 0.
+> +and currently must be set to 0.
+>  .SH RETURN VALUE
+>  Upon successful completion,
+>  .BR copy_file_range ()
+> 
 
 
 -- 
