@@ -2,120 +2,100 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id F073711CCB6
-	for <lists+linux-man@lfdr.de>; Thu, 12 Dec 2019 13:02:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0041F11EFCE
+	for <lists+linux-man@lfdr.de>; Sat, 14 Dec 2019 02:55:09 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729060AbfLLMCI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 12 Dec 2019 07:02:08 -0500
-Received: from us-smtp-1.mimecast.com ([205.139.110.61]:41353 "EHLO
-        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1729043AbfLLMCI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 12 Dec 2019 07:02:08 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1576152126;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=6twjn4Fpcl93L+4j+WEyWNmtS/6Du0BRxF8B/Wcerso=;
-        b=cU7L6Q4dKRfMEnXiykAmyvihSygG8G+xsw0HnPy+zQiq5qn46RsHW5XvLWrHTyLYSGBWm7
-        3cGtY1xpIrycY3sU1WW3WTi/zDROcQV9r9qaYKQqM6RCoi/hSUhem/llTUxakLG4kF2MlD
-        GbU8NWa+hcn6IjVDFmbXalGkCUcSzxs=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-70--k3xLpDbNmuAUfNjrh4lcg-1; Thu, 12 Dec 2019 07:01:59 -0500
-X-MC-Unique: -k3xLpDbNmuAUfNjrh4lcg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BE942800EB5;
-        Thu, 12 Dec 2019 12:01:58 +0000 (UTC)
-Received: from oldenburg2.str.redhat.com (dhcp-192-227.str.redhat.com [10.33.192.227])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id 81F5E5C1C3;
-        Thu, 12 Dec 2019 12:01:57 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     Robin Kuzmin <kuzmin.robin@gmail.com>
-Cc:     mtk@man7.org, linux-man <linux-man@vger.kernel.org>,
-        mjw@fedoraproject.org
-Subject: Re: elf.5.html: Resolving confusion.
-References: <CAAztzVHSQPAxY4zcmxtj8v8geEu=SJiSPPBBsZRxUeacxHO+-w@mail.gmail.com>
-Date:   Thu, 12 Dec 2019 13:01:55 +0100
-In-Reply-To: <CAAztzVHSQPAxY4zcmxtj8v8geEu=SJiSPPBBsZRxUeacxHO+-w@mail.gmail.com>
-        (Robin Kuzmin's message of "Wed, 11 Dec 2019 12:19:24 -0800")
-Message-ID: <87tv65hhvw.fsf@oldenburg2.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.2 (gnu/linux)
+        id S1726170AbfLNBzJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 13 Dec 2019 20:55:09 -0500
+Received: from mail-ot1-f66.google.com ([209.85.210.66]:38255 "EHLO
+        mail-ot1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726046AbfLNBzJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Dec 2019 20:55:09 -0500
+Received: by mail-ot1-f66.google.com with SMTP id h20so1372533otn.5
+        for <linux-man@vger.kernel.org>; Fri, 13 Dec 2019 17:55:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=/9YpEeanzofmVoQxxy2j4GvV/+zRrKhvyqgPGkLwDRM=;
+        b=RbpjQvHhSViN+wMPDbq9Bl69xhlgtf/R78PD3gQlJhfYYToCT7vrraPw9vZT/61trz
+         xLCij7vrljdZVq2d7K9DBdFw+oJzVJPsQjWldcYWwist3H/5wlS/KRobu+674Z+vD2Ea
+         0WP6Fmh5p1uPy/zQQEhl8GNDdswHmMDuH7oo9e2+OH1iQt4dvPUjEpXoPapaPimEGOlQ
+         2LZoU4ihkeuCiqDjAxXIuoQYNipm/obEblUcGzypW5SuI5ydum26lGD+GWXCLDS5t49w
+         XiHeelBqqbvyG2Rb4m1MolArYK1QrT78LOuyjeVMLif5KtFn9cXZdMlTLQBPqkrTRjHL
+         GkJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=/9YpEeanzofmVoQxxy2j4GvV/+zRrKhvyqgPGkLwDRM=;
+        b=kMeIYSkWCRjudu9fR4UZP1Huj0rHT0nL85E23HZL8WcrUKl3Om4De+M7xsBS/wWWZk
+         bQ5MA2dI7lat4FBSY7il4J672k8dEWQUPbXDSBY0wmlr5Uzh5YitgT541vm9MlPVc1l0
+         v8hqBwKq1K25I+X3kBj2fJ6ldSSAnEsXslFrvgdWEarLytPWwhMhzgZUmxcBReiaBjFD
+         MDnO/xewuyaMBlxugxJ9zdJSopkcOQFjwq9/NxA7I1SwUJDKNw3NWUvg6EtTrS9uSf4p
+         Jtcg+vYhtF2RgFTSMPSQ95WMdzrKhdjVhF7kul1HE5dGGjaMMafMqnknQliOEe985Azj
+         ZHFw==
+X-Gm-Message-State: APjAAAUcsVMZ189Pxoqjapsp243PiJhluFy2aU0syAK2gw7Uh6YsYvQq
+        APq8NLcNi6bpfk+g4Oe8BsVEFJGRQOU=
+X-Google-Smtp-Source: APXvYqz9stt8BN/JTXeObeqR/Pb8qpduw8/g3RIm+bFmUpE3YZPszUwztdLmOcXBRiXWC2QQT9AHQw==
+X-Received: by 2002:a05:6830:2306:: with SMTP id u6mr18918236ote.78.1576288508195;
+        Fri, 13 Dec 2019 17:55:08 -0800 (PST)
+Received: from ?IPv6:2600:1700:dac0:2450::38? ([2600:1700:dac0:2450::38])
+        by smtp.gmail.com with ESMTPSA id h132sm3981137oif.44.2019.12.13.17.55.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Dec 2019 17:55:07 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] clone.2: added clone3() set_tid information
+To:     Adrian Reber <areber@redhat.com>,
+        Christian Brauner <christian.brauner@ubuntu.com>
+References: <20191202142740.59402-1-areber@redhat.com>
+ <20191202221452.4obywepdevq5dq2w@wittgenstein>
+ <20191204070012.GE34164@dcbz.redhat.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <1dee03d2-e3f2-2f3d-f5a9-a657ce9ba85d@gmail.com>
+Date:   Sat, 14 Dec 2019 02:55:06 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
+In-Reply-To: <20191204070012.GE34164@dcbz.redhat.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Robin Kuzmin:
+Hi Adrian,
 
-> http://man7.org/linux/man-pages/man5/elf.5.html
->
-> I see the fragment:
->
->        A section header table index is a subscript into this array.  Some
->        section header table indices are reserved: the initial entry and t=
-he
->        indices between SHN_LORESERVE and SHN_HIRESERVE.  The initial entry
->        is used in ELF extensions for e_phnum, e_shnum and e_strndx; in ot=
-her
->        cases, each field in the initial entry is set to zero.  An object
->        file does not have sections for these special indices:
->
->        SHN_UNDEF
->               This value marks an undefined, missing, irrelevant, or othe=
-r=E2=80=90
->               wise meaningless section reference.
->
-> I interpret it like this:
->
->        A section header table index **(e_shstrndx)** is a subscript
-> into this array.
+On 12/4/19 8:00 AM, Adrian Reber wrote:
+> On Mon, Dec 02, 2019 at 11:14:55PM +0100, Christian Brauner wrote:
+>> On Mon, Dec 02, 2019 at 03:27:40PM +0100, Adrian Reber wrote:
+>>> Signed-off-by: Adrian Reber <areber@redhat.com>
+>>
+>> I'm generally fine with all of this, so:
+>>
+>> Acked-by: Christian Brauner <christian.brauner@ubuntu.com>
+>>
+>> but should this maybe also mention that a pid namespace either already
+>> needs to have a pid 1 or if it does not the chosen pid has to be set to
+>> 1. In short:
+>> "Callers may only choose a pid > 1 in a given pid namespace if an init
+>> process (i.e. a process with pid 1) already exists. Otherwise the pid
+>> entry for this pid namespace must be 1."
+>> or something like this. 
+> 
+> I like that. I will add this to v3.
 
-No, e_shstrndx is just one of the possible indices.  It's just the
-string table that is used for section names.
-
->  Some
->        section header table indices are reserved:
->        the initial entry **(index 0)**
->        and the indices **from** SHN_LORESERVE **to** SHN_HIRESERVE **,
-> inclusive**.
->        **Such reserved indices, except SHN_XINDEX (0xffff), cannot be
-> used in e_shstrndx.
->        If e_shstrndx is SHN_XINDEX (0xffff) then the sh_link filed of
-> the initial ElfN_Shdr cannot contain such reserved indices.**
->        The **three fields in the** initial entry ** - sh_info, sh_size
-> and sh_link - can be** used in ELF extensions for e_phnum, e_shnum and
-> **e_shstrndx correspondingly**. **If they are not used then they are
-> set to zero. All other fields of the initial entry are set to zero.**
->        **The section header table entries with the following special
-> indices contain special values,         and in the ELF file there are
-> no sections associated with such entries.**
->
->        SHN_UNDEF
->               This value marks an undefined, missing, irrelevant, or othe=
-r=E2=80=90
->               wise meaningless section reference.
->               **This index can be 0 in which case it means the initial
-> ElfN_Shdr with a special meaning described above.**
->
-> Is such an interpretation correct?
-
-I'm not sure if your clarifications are correct.  I don't think the
-section header extension mechanism is used for extending e_phum.
-
-The main thing that's not clear to me in the current description is
-whether the 256 reserved indices have still entries in the table
-(probably of type SHT_NULL).
-
-Cc:ing Mark, in case he has further comments.
+Do you have that v3?
 
 Thanks,
-Florian
 
+Michael
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
