@@ -2,135 +2,156 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 3303411EFD1
-	for <lists+linux-man@lfdr.de>; Sat, 14 Dec 2019 02:55:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5C12611EFD2
+	for <lists+linux-man@lfdr.de>; Sat, 14 Dec 2019 02:57:41 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726334AbfLNBzV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 13 Dec 2019 20:55:21 -0500
-Received: from mail-ot1-f66.google.com ([209.85.210.66]:39766 "EHLO
-        mail-ot1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726046AbfLNBzU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Dec 2019 20:55:20 -0500
-Received: by mail-ot1-f66.google.com with SMTP id 77so1372727oty.6;
-        Fri, 13 Dec 2019 17:55:20 -0800 (PST)
+        id S1726170AbfLNBz7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 13 Dec 2019 20:55:59 -0500
+Received: from mail-ot1-f68.google.com ([209.85.210.68]:39830 "EHLO
+        mail-ot1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726046AbfLNBz7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Dec 2019 20:55:59 -0500
+Received: by mail-ot1-f68.google.com with SMTP id 77so1374062oty.6
+        for <linux-man@vger.kernel.org>; Fri, 13 Dec 2019 17:55:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=k+FqWQhg3zsQBz5OPBQ/f5P4w/hRAvhzjNsTIeI4VMs=;
-        b=eb40YQJxxFI9nsr+8ZM6C6CNG9Kg++mk4g6aGxotH/5OAQqcVfJYawtKyUfsu4hymC
-         nY1eR6f4dO235g/EebJLzVPWPps3gzeLlT5ilj2pnKiE8hEtqaGza2H38dPa0gAV+6DX
-         liPMCf1DXr9pa0gV9e9sjaQTpIsiaGTziQoU7aCss0OD8ZSjAp4fB1PzU81p5Mkgx5Vb
-         3nsfFiGMmeRrtATBDaAdsfOdrxGP/jiz0mT3Fsuhz0XYtj4xxmj11ljeuuWRx7q91myX
-         cdXu8KQIkGdX1Yxg5sbOEFiaK4P0R+pYz8llSH65XJmqxihk4cDWI9XS6NRqBXUeyGG/
-         04BA==
+        bh=q8bT7L5SWKtfNEkF1UxNyh86GMf9hJ7jBrH+lGtBeoE=;
+        b=YyW5E/opIGuyU7fg3pOL8bKFdbrQjFmEURF/NhzYGhw6tGtnFJnQmy+4Pqln+DrJE5
+         3i0ptLDgYAtMFjrrrTjEPzvwNor+4w8xugR7sn94xgDPZHOnmpuu9eKEjgbcjBhWbOwb
+         MFOz5psv30v139voKLtPLAJBgt5/5PyST57pwOBFMNuCHYpLZbfvnS2TN1x03Aw7yt1d
+         OHSiWmAlce768KPyqKFJUUrFADn2eeysWGrLc8LzdW9NCw9njQ2Opd+b2v94K/7zl16R
+         y/rCPXIBst4rb211BkFhECYENa8U9DyYuLAdSVx15z5peMfyl0zNlYP+26e+xIVGfEXe
+         HwkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=k+FqWQhg3zsQBz5OPBQ/f5P4w/hRAvhzjNsTIeI4VMs=;
-        b=MxSUXKFCLKslbiCKSbIs+d4bwWBVSu4bH3unPNE0qxmYdfdTJtOb6uq2P3cagJuso6
-         rx+lMoysxHpAaw2boba68Xjn+pcZMPKmsBI0F3POo/UNYImkJO1nuMu2QXOGH4tgzSoD
-         RuDoVKiZk86tzMGCHNM7zYvsGCDs09WjAKcakq2RXeQXq57ZS8aQcVOSEmuiRS9nDx3F
-         evTztMLFMdtjjXww2XrhGeUwa2M+z4ZfmR8AUZmr5gagoLUSXtp+d5gmo+gnvNFZyYre
-         UmZqDcfGo3uPyEX7yZfjzOiYql4WIaK3KW5cVnQvhRmfKHVwS8sFB7dILjOs/R/+BtWU
-         cT1w==
-X-Gm-Message-State: APjAAAW8r6ygEFcrJgfpfNPpIrPESV/LA0kPgToVWIxuN+vKV8T6cV8/
-        cIKagZy9uNuhgvkrYmAp0yxXrTFHNj8=
-X-Google-Smtp-Source: APXvYqzR10MlQHC06+el8PqUt6C6XneFN5lEqEgtMDJXXMvHieUzFlqxGcrPDSDiG28/Iyb29eRcdA==
-X-Received: by 2002:a9d:4d01:: with SMTP id n1mr16983744otf.245.1576288519734;
-        Fri, 13 Dec 2019 17:55:19 -0800 (PST)
+        bh=q8bT7L5SWKtfNEkF1UxNyh86GMf9hJ7jBrH+lGtBeoE=;
+        b=MywRNiEsxP9NuuBvVPVsdIDb+EXLaR5C8/huIsxTSmH7kr+QjqBPxQxMgNmTzILFaB
+         TeDbUSTyYj741+R6wFLCWTCCIo/KQXFQAtcb0AORQva8bHYW5r/KXxJLgjt83wAFLp/d
+         mZYZmetis2HNpG/gKQhsutkNn8zQFMOnQOTyoFPRXCLWmyefG3lZG3NHmzpszirCqpUJ
+         vGFFp0dGS24Ng9xXaQeB8Pmg0D4WGphHyTkXEwOdyyBBNLiJqSzBFxmzbYtVJmFdyMf9
+         vZRyU9LWqV9A+yxyLs4hjCI/quAeWw7DwArpOvBLJKuhkA5xHt4QmE8UvC59HRGSC8lJ
+         bYvA==
+X-Gm-Message-State: APjAAAX3LhMQWoDo7BNIwv0+gETc3la2RXDcVmTpjlmLHjJqmbpUhMDp
+        aMxed+lDAhDIkfsY1omt5ROhPX4V9RM=
+X-Google-Smtp-Source: APXvYqyYA39DzmhYPaGBs2f0YtoEy+C/E57ku+z1/1NkHZI2lyd8FI0WFln9pQu8XtrXNJ9LBbJ+Ww==
+X-Received: by 2002:a9d:d0b:: with SMTP id 11mr18675965oti.287.1576288558199;
+        Fri, 13 Dec 2019 17:55:58 -0800 (PST)
 Received: from ?IPv6:2600:1700:dac0:2450::38? ([2600:1700:dac0:2450::38])
-        by smtp.gmail.com with ESMTPSA id s26sm4028031otk.43.2019.12.13.17.55.16
+        by smtp.gmail.com with ESMTPSA id b206sm3976755oif.30.2019.12.13.17.55.56
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Dec 2019 17:55:19 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-mm@kvack.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] move_pages.2: not return ENOENT if the page are already
- on the target nodes
-To:     Yang Shi <yang.shi@linux.alibaba.com>,
-        John Hubbard <jhubbard@nvidia.com>, cl@linux.com,
-        mhocko@suse.com, cai@lca.pw, akpm@linux-foundation.org
-References: <1575596090-115377-1-git-send-email-yang.shi@linux.alibaba.com>
- <0dc96e40-5f2b-a2fe-6e5f-b6f3d5e9ebde@nvidia.com>
- <95170ea5-5b62-9168-fcd9-93b43330a1b4@linux.alibaba.com>
+        Fri, 13 Dec 2019 17:55:57 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] quotactl.2: add EINVAL situation of Q_XQUOTARM call
+To:     Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+References: <1575353153-18936-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <092adc11-7039-9343-7067-0e0199c9dc13@gmail.com>
-Date:   Sat, 14 Dec 2019 02:55:15 +0100
+Message-ID: <ca655f38-5269-d0bc-55df-74a74197e4dd@gmail.com>
+Date:   Sat, 14 Dec 2019 02:55:56 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.2.2
 MIME-Version: 1.0
-In-Reply-To: <95170ea5-5b62-9168-fcd9-93b43330a1b4@linux.alibaba.com>
+In-Reply-To: <1575353153-18936-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 12/6/19 6:26 PM, Yang Shi wrote:
-> 
-> 
-> On 12/6/19 12:25 AM, John Hubbard wrote:
->> On 12/5/19 5:34 PM, Yang Shi wrote:
->>> Since commit e78bbfa82624 ("mm: stop returning -ENOENT
->>> from sys_move_pages() if nothing got migrated"), move_pages doesn't
->>> return -ENOENT anymore if the pages are already on the target nodes, but
->>> this change is never reflected in manpage.
->>>
->>> Cc: Michael Kerrisk <mtk.manpages@gmail.com>
->>> Cc: Christoph Lameter <cl@linux.com>
->>> Cc: John Hubbard <jhubbard@nvidia.com>
->>> Cc: Michal Hocko <mhocko@suse.com>
->>> Cc: Qian Cai <cai@lca.pw>
->>> Signed-off-by: Yang Shi <yang.shi@linux.alibaba.com>
->>> ---
->>>   man2/move_pages.2 | 5 ++---
->>>   1 file changed, 2 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/man2/move_pages.2 b/man2/move_pages.2
->>> index 2d96468..2a2f3cd 100644
->>> --- a/man2/move_pages.2
->>> +++ b/man2/move_pages.2
->>> @@ -192,9 +192,8 @@ was specified or an attempt was made to migrate 
->>> pages of a kernel thread.
->>>   One of the target nodes is not online.
->>>   .TP
->>>   .B ENOENT
->>> -No pages were found that require moving.
->>> -All pages are either already
->>> -on the target node, not present, had an invalid address or could not be
->>> +No pages were found.
->>> +All pages are either not present, had an invalid address or could 
->>> not be
->>>   moved because they were mapped by multiple processes.
->>>   .TP
->>>   .B EPERM
->>>
->>
->> whoa, hold on. If I'm reading through the various error paths 
->> correctly, then this
->> code is *never* going to return ENOENT for the whole function. It can 
->> fill in that
->> value per-page, in the status array, but that's all. Did I get that 
->> right?
-> 
-> Nice catch. Yes, you are right.
-> 
->>
->> If so, we need to redo this part of the man page.
-> 
-> Yes.
+Hello Yang Xu,
 
-So where are things at with this? Is an improved man-pages 
-patch on the way, or is some other action (on the API) planned?
+On 12/3/19 7:05 AM, Yang Xu wrote:
+> Since kernel commit 3dd4d40b4208("xfs: Sanity check flags
+> of Q_XQUOTARM call"), it has added flags check. If it is
+> not usr,grp,prj quota type, it will report EINVAL.
+> 
+> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+> ---
+>  man2/quotactl.2 | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/man2/quotactl.2 b/man2/quotactl.2
+> index 34d3cfca8..d636818bd 100644
+> --- a/man2/quotactl.2
+> +++ b/man2/quotactl.2
+> @@ -666,8 +666,10 @@ value containing flags (the same as in
+>  .I d_flags
+>  field of
+>  .I fs_disk_quota
+> -structure) which identify what types of quota should be removed
+> -(note that the quota type passed in the
+> +structure, check flags since Linux 5.5)
+> +.\" 3dd4d40b420846dd35869ccc8f8627feef2cff32
+> +which identify what types of quota
+> +should be removed(note that the quota type passed in the
+>  .I cmd
+>  argument is ignored, but should remain valid in order to pass preliminary
+>  quotactl syscall handler checks).
+> @@ -736,6 +738,12 @@ is
+>  .BR Q_QUOTAON ,
+>  but the specified quota file is corrupted.
+>  .TP
+> +.B EINVAL
+> +.I cmd
+> +is
+> +.BR Q_XQUOTARM ,
+> +but the addr does not point to valid quota types.
+> +.TP
+>  .B ENOENT
+>  The file specified by
+>  .I special
+
+Thanks. I applied you patch, and then tweaked a little,
+so that the change became as below.
 
 Thanks,
 
 Michael
+
+
+diff --git a/man2/quotactl.2 b/man2/quotactl.2
+index 34d3cfca8..43552a0d6 100644
+--- a/man2/quotactl.2
++++ b/man2/quotactl.2
+@@ -666,11 +666,13 @@ value containing flags (the same as in
+ .I d_flags
+ field of
+ .I fs_disk_quota
+-structure) which identify what types of quota should be removed
+-(note that the quota type passed in the
++structure)
++which identify what types of quota
++should be removed.
++(Note that the quota type passed in the
+ .I cmd
+ argument is ignored, but should remain valid in order to pass preliminary
+-quotactl syscall handler checks).
++quotactl syscall handler checks.)
+ .IP
+ Quotas must have already been turned off.
+ The
+@@ -736,6 +738,15 @@ is
+ .BR Q_QUOTAON ,
+ but the specified quota file is corrupted.
+ .TP
++.BR EINVAL " (since Linux 5.5)"
++.\" 3dd4d40b420846dd35869ccc8f8627feef2cff32
++.I cmd
++is
++.BR Q_XQUOTARM ,
++but
++.I addr
++does not point to valid quota types.
++.TP
+ .B ENOENT
+ The file specified by
+ .I special
 
 
 -- 
