@@ -2,117 +2,107 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id D9DC0124D16
-	for <lists+linux-man@lfdr.de>; Wed, 18 Dec 2019 17:22:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7B744125A6B
+	for <lists+linux-man@lfdr.de>; Thu, 19 Dec 2019 06:13:53 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726985AbfLRQWs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 18 Dec 2019 11:22:48 -0500
-Received: from mx0a-001b2d01.pphosted.com ([148.163.156.1]:26302 "EHLO
-        mx0a-001b2d01.pphosted.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726955AbfLRQWr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 18 Dec 2019 11:22:47 -0500
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
-        by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id xBIGLkPH096854;
-        Wed, 18 Dec 2019 11:22:45 -0500
-Received: from pps.reinject (localhost [127.0.0.1])
-        by mx0a-001b2d01.pphosted.com with ESMTP id 2wyq7dh0e9-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-        Wed, 18 Dec 2019 11:22:45 -0500
-Received: from m0098404.ppops.net (m0098404.ppops.net [127.0.0.1])
-        by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id xBIGLtPE098632;
-        Wed, 18 Dec 2019 11:22:45 -0500
-Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com [169.62.189.10])
-        by mx0a-001b2d01.pphosted.com with ESMTP id 2wyq7dh0d8-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-        Wed, 18 Dec 2019 11:22:45 -0500
-Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
-        by ppma02dal.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id xBIGK8Kj024191;
-        Wed, 18 Dec 2019 16:22:44 GMT
-Received: from b03cxnp07028.gho.boulder.ibm.com (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
-        by ppma02dal.us.ibm.com with ESMTP id 2wvqc70hbt-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-        Wed, 18 Dec 2019 16:22:44 +0000
-Received: from b03ledav004.gho.boulder.ibm.com (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
-        by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id xBIGMhJ421955030
-        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-        Wed, 18 Dec 2019 16:22:43 GMT
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
-        by IMSVA (Postfix) with ESMTP id E79887805E;
-        Wed, 18 Dec 2019 16:22:42 +0000 (GMT)
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
-        by IMSVA (Postfix) with ESMTP id 37F047805C;
-        Wed, 18 Dec 2019 16:22:42 +0000 (GMT)
-Received: from leobras.br.ibm.com (unknown [9.18.235.137])
-        by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP;
-        Wed, 18 Dec 2019 16:22:41 +0000 (GMT)
-Message-ID: <4171feef2b800a453543583e39a241f734cd317a.camel@linux.ibm.com>
-Subject: Re: [PATCH] vmsplice.2: SPLICE_F_GIFT became no-op
-From:   Leonardo Bras <leonardo@linux.ibm.com>
-To:     Jens Axboe <axboe@kernel.dk>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Date:   Wed, 18 Dec 2019 13:22:37 -0300
-In-Reply-To: <258fa69f-9eee-677b-e349-96197761dd3b@kernel.dk>
-References: <20190801222417.14413-1-leonardo@linux.ibm.com>
-         <b65e1f8f-34b4-0db6-bd7a-7b866b29af7a@gmail.com>
-         <de08861a89ca3481fe81e80e509b7572116260c0.camel@linux.ibm.com>
-         <258fa69f-9eee-677b-e349-96197761dd3b@kernel.dk>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-        protocol="application/pgp-signature"; boundary="=-CgiXfzeE0R51cGGeQwTP"
-User-Agent: Evolution 3.34.1 (3.34.1-1.fc31) 
+        id S1725987AbfLSFNw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 19 Dec 2019 00:13:52 -0500
+Received: from hqnvemgate24.nvidia.com ([216.228.121.143]:6125 "EHLO
+        hqnvemgate24.nvidia.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725446AbfLSFNw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 19 Dec 2019 00:13:52 -0500
+Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+        id <B5dfb06f20000>; Wed, 18 Dec 2019 21:13:22 -0800
+Received: from hqmail.nvidia.com ([172.20.161.6])
+  by hqpgpgate102.nvidia.com (PGP Universal service);
+  Wed, 18 Dec 2019 21:13:51 -0800
+X-PGP-Universal: processed;
+        by hqpgpgate102.nvidia.com on Wed, 18 Dec 2019 21:13:51 -0800
+Received: from HQMAIL101.nvidia.com (172.20.187.10) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 19 Dec
+ 2019 05:13:51 +0000
+Received: from rnnvemgw01.nvidia.com (10.128.109.123) by HQMAIL101.nvidia.com
+ (172.20.187.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3 via Frontend
+ Transport; Thu, 19 Dec 2019 05:13:50 +0000
+Received: from blueforge.nvidia.com (Not Verified[10.110.48.28]) by rnnvemgw01.nvidia.com with Trustwave SEG (v7,5,8,10121)
+        id <B5dfb070e0001>; Wed, 18 Dec 2019 21:13:50 -0800
+From:   John Hubbard <jhubbard@nvidia.com>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+CC:     <linux-man@vger.kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Christopher Lameter <cl@linux.com>,
+        <linux-api@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+        <linux-mm@kvack.org>, John Hubbard <jhubbard@nvidia.com>,
+        Michal Hocko <mhocko@suse.com>,
+        Brice Goglin <Brice.Goglin@inria.fr>,
+        Yang Shi <yang.shi@linux.alibaba.com>
+Subject: [PATCH] move_pages.2: remove ENOENT from the list of possible return values
+Date:   Wed, 18 Dec 2019 21:13:47 -0800
+Message-ID: <20191219051347.1278026-1-jhubbard@nvidia.com>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-12-18_05:2019-12-17,2019-12-18 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
- clxscore=1011 malwarescore=0 phishscore=0 spamscore=0 lowpriorityscore=0
- impostorscore=0 bulkscore=0 adultscore=0 mlxlogscore=999 mlxscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-1910280000 definitions=main-1912180134
+X-NVConfidentiality: public
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+        t=1576732402; bh=9R3otvYjxL+EhzYozx6MHy5SVGQPaMnj791NKARfzDo=;
+        h=X-PGP-Universal:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+         MIME-Version:X-NVConfidentiality:Content-Transfer-Encoding:
+         Content-Type;
+        b=pBgP9BeT11sBQ7OaVQILvcGGl6CzWgDqvsaSTzwyqM78gphzm/5LVdioLZNllm+4H
+         y6wt61DriVzx0s62ZtjPFf3KC+wFnjSh3kGMguMxUL1d44VBwbHUGgeCDBiP08YtpT
+         b9t8ZDktVlUsUpS0KJzf41g9Rhcl/MkhwPlXemDu9Tv2PGPGBRomInr51RJD8ql1MA
+         6gb07qWLhsSYuU88apCj3O/0T+Xk9aLsWBut91BSM5NUWvKdbrMCtGQco2elQ4RGJs
+         ZKw+tcWS33OtldT6pfMjEhBw2L2PYBGGbGy5KD/qQL8/HGc21CNe0PcZRNvG4tpun8
+         3Iscb9A7XifEA==
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Linux kernel commit e78bbfa82624 ("mm: stop returning -ENOENT from
+sys_move_pages() if nothing got migrated") had the effect of *never*
+returning -ENOENT, in any situation. So we need to update the man page
+to reflect that ENOENT is not a possible return value.
 
---=-CgiXfzeE0R51cGGeQwTP
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Acked-by: Michal Hocko <mhocko@suse.com>
+Cc: Brice Goglin <Brice.Goglin@inria.fr>
+Cc: Yang Shi <yang.shi@linux.alibaba.com>
+Cc: Christoph Lameter <cl@linux.com>
+Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+---
 
-On Tue, 2019-12-17 at 18:13 -0700, Jens Axboe wrote:
-> Sorry, better late than never?
+Hi,
 
-No problem :)
+This fix for the man page was ACK'd by Michal, here:
 
-> He's right, Nick Piggin removed that flag (and promised to reinstate it,
-> but a decade later I'm not holding my breath).
+https://lore.kernel.org/r/20191218101711.GB21485@dhcp22.suse.cz
 
-Thanks for the feedback!
+thanks,
+John Hubbard
+NVIDIA
 
-Best regards,
-Leonardo Bras
+ man2/move_pages.2 | 6 ------
+ 1 file changed, 6 deletions(-)
 
---=-CgiXfzeE0R51cGGeQwTP
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEMdeUgIzgjf6YmUyOlQYWtz9SttQFAl36Uk0ACgkQlQYWtz9S
-ttQldxAAuBgzVwriy7BU7XiThWkkeJzMRNaEuZ+KNLkMXJWAzuxAouvS9svgwSND
-x6oLlAQ5YtBOMy0f83LogjHEZsR8NE0u1PBYaDh9FKn7JUQ3mrTPusvoFUmCszMQ
-l7zD06jC9cbD01UIj7y/R6xM6go9L6iekHWh/fBXz0M71Fswt2ZpjxS/xxxJlhZ/
-njslSMvfE0LN1a/ulWfMKg7RG70yv9fYONidOVjkU60CIf4a1vQT82gvVKt+7O/E
-R1yoyWWIGnqw+2xffdCS2LZqafgq4X7AVo0oiHYZlzviKQ77+zHjkbTzL+t4+qzG
-4L2Z0Vq4pO9luxokfZWwWsK/+sLHVyPyoa6b9RKbzaCP1sM4Owt3EQNe6ofQtXdv
-GB9ptlTdtDFp3VG6UO5xC6lhbBfTYJ0iNh/mOgD7Huf4Ts1qFnPxMt0LnF/P3mts
-9i/Tv/IFkM91YlGZy7oZjAnIVRX/9OF2YX4suEMZMFTXjmH3VPIscKifJ1egAx+U
-RkHpgU6UXtHDDfQ51QNWBsz4FsI6YWMQem+SzxtPk6Cl6ZTKgVB+JqyJzsGs08lG
-csQ1xvhbXxtdF89wjdkKSTsgzFXXtzhvjAWWEEs/NrIXC8jc6GWq8q2Kb/VIy3zW
-XxASJkkKYQyYpOuCeExsjQBKge9PHvejHl6iCiGb82jugRcL6H4=
-=fnUg
------END PGP SIGNATURE-----
-
---=-CgiXfzeE0R51cGGeQwTP--
+diff --git a/man2/move_pages.2 b/man2/move_pages.2
+index 2d96468fa..1bf1053f2 100644
+--- a/man2/move_pages.2
++++ b/man2/move_pages.2
+@@ -191,12 +191,6 @@ was specified or an attempt was made to migrate pages =
+of a kernel thread.
+ .B ENODEV
+ One of the target nodes is not online.
+ .TP
+-.B ENOENT
+-No pages were found that require moving.
+-All pages are either already
+-on the target node, not present, had an invalid address or could not be
+-moved because they were mapped by multiple processes.
+-.TP
+ .B EPERM
+ The caller specified
+ .B MPOL_MF_MOVE_ALL
+--=20
+2.24.1
 
