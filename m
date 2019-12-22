@@ -2,74 +2,138 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 7DC99128D1A
-	for <lists+linux-man@lfdr.de>; Sun, 22 Dec 2019 07:15:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BD13E128E84
+	for <lists+linux-man@lfdr.de>; Sun, 22 Dec 2019 15:25:24 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725903AbfLVGPf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 22 Dec 2019 01:15:35 -0500
-Received: from mail-lj1-f195.google.com ([209.85.208.195]:44413 "EHLO
-        mail-lj1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725853AbfLVGPf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Dec 2019 01:15:35 -0500
-Received: by mail-lj1-f195.google.com with SMTP id u71so14484404lje.11
-        for <linux-man@vger.kernel.org>; Sat, 21 Dec 2019 22:15:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=URqv4QH1eOVvFgVzxMClXMgPNcEU0cB4oi4i2f7iShQ=;
-        b=e7+YcSPgirSkOEX41WXgbZWPYn16rAer+z/yrAQnXDPvvMnRIaflizNJC0b73OO7W6
-         Vo3XN4Ir0eS+Ow50ObLxBXk84Ybb8NpGb4ZZbrvtwz+ZJwqjNeJf7rLX6+1rAnTxmj2i
-         LcDku5rxYE0AaZ/VBIQWq1vK6pWRKEfwXSSu8DpelCDVAx0yRFNSawmXXAQhHE771IZa
-         UzrgT0tGq1QCOJYKvIeqRL/G3SLtKoLjWZ+LOsO6RirdTDqA7QfRt+hMW+E5CePJ3x3s
-         yNV2KbseUTnzGI4QLfHThRfqhXh/knLiqIWG/+oF7DTzQ+Ch7KpGypy81uby25rsaev7
-         +hEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=URqv4QH1eOVvFgVzxMClXMgPNcEU0cB4oi4i2f7iShQ=;
-        b=dUcFLUYPBceKsOJgv9pRY1ddurSN7X0aVD3YcgGhUQSJ/pI4oUJKnwOgy6yCh2Itbr
-         GAcusfSsKlPhspIeDp/mXn0V3Q4+fAuhtT7iDcLtZ6kn8uJ9yQ7FKe9FcfE4AKF7U5gJ
-         Tj1d4R8fLv2+VnQm3A9m5NF1Zlx98Sjoq1zJPBZ5GgegAH5nCmIOvXuLTheL2jGvWm3K
-         2NqijpUdoc+3ofja/PgSA8Myz/rKpxZ5iI0YhXPt+2cb5pOUsydRhgV7JnF+7PpJBTno
-         lhx7CIj/GF/ezYojmwg4RpqToE2v362Y8ecxHyiF1SmM3w4sN2dezYXMqSQfeFG93iza
-         fuwA==
-X-Gm-Message-State: APjAAAV7xTOBtmlzBLmPk5Hgj15ArScyWa9BIQoSxl1ksCPdr0DFV62b
-        Xfmo2OqPBpAQcL/tW6WthGzHnlD45dkiK2szEtY=
-X-Google-Smtp-Source: APXvYqyIp0zGewoaJSd3iAnq73Bfct/bMmTCdOhthdyEtk3hCG318I1nMJ+XP+kCOOQtZNVo4NgVhDK+AAELlJXTo3Q=
-X-Received: by 2002:a2e:86c8:: with SMTP id n8mr13399579ljj.205.1576995333340;
- Sat, 21 Dec 2019 22:15:33 -0800 (PST)
-MIME-Version: 1.0
-Received: by 2002:ab3:316:0:0:0:0:0 with HTTP; Sat, 21 Dec 2019 22:15:33 -0800 (PST)
-Reply-To: davidanderson7118@gmail.com
-From:   David Anderson <cw4763558@gmail.com>
-Date:   Sun, 22 Dec 2019 07:15:33 +0100
-Message-ID: <CABFr_RXwkyd4_x3GispJkT8K=pyC1XXk2whdOSJ_U2=s--R6hg@mail.gmail.com>
-Subject: Approved to me that you got my mail.
-To:     undisclosed-recipients:;
+        id S1725919AbfLVOZY convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Sun, 22 Dec 2019 09:25:24 -0500
+Received: from wildebeest.demon.nl ([212.238.236.112]:37700 "EHLO
+        gnu.wildebeest.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725852AbfLVOZX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Dec 2019 09:25:23 -0500
+X-Greylist: delayed 490 seconds by postgrey-1.27 at vger.kernel.org; Sun, 22 Dec 2019 09:25:22 EST
+Received: from tarox.wildebeest.org (tarox.wildebeest.org [172.31.17.39])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by gnu.wildebeest.org (Postfix) with ESMTPSA id 7C90B302BB21;
+        Sun, 22 Dec 2019 15:17:10 +0100 (CET)
+Received: by tarox.wildebeest.org (Postfix, from userid 1000)
+        id 4D70A4B70B75; Sun, 22 Dec 2019 15:17:10 +0100 (CET)
+Message-ID: <9b418bcbbd1addbca1fc67ac9d5b5cf5a09f39e7.camel@fedoraproject.org>
+Subject: Re: elf.5.html: Resolving confusion.
+From:   Mark Wielaard <mjw@fedoraproject.org>
+To:     Florian Weimer <fweimer@redhat.com>,
+        Robin Kuzmin <kuzmin.robin@gmail.com>
+Cc:     mtk@man7.org, linux-man <linux-man@vger.kernel.org>
+Date:   Sun, 22 Dec 2019 15:17:10 +0100
+In-Reply-To: <87tv65hhvw.fsf@oldenburg2.str.redhat.com>
+References: <CAAztzVHSQPAxY4zcmxtj8v8geEu=SJiSPPBBsZRxUeacxHO+-w@mail.gmail.com>
+         <87tv65hhvw.fsf@oldenburg2.str.redhat.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8BIT
+X-Mailer: Evolution 3.28.5 (3.28.5-5.el7) 
+Mime-Version: 1.0
+X-Spam-Flag: NO
+X-Spam-Status: No, score=-2.9 required=5.0 tests=ALL_TRUSTED,BAYES_00
+        autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on gnu.wildebeest.org
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
--- 
-*Dear Friend,*
-*I am David Anderson. I work as a procurement assistant. I got your
-contact details in my search for a reliable and neutral company or
-individual to partner with me in area of investment. I need your
-assistance to manage investment fund in a profitable business in your
-region with a good annual return on investment (AROI).*
+Hi,
 
-*I know this mail might come to you as a surprise because we neither
-know each other nor have ever met but please accept it with an open
-and positive mind.*
+On Thu, 2019-12-12 at 13:01 +0100, Florian Weimer wrote:
+> * Robin Kuzmin:
+> 
+> > http://man7.org/linux/man-pages/man5/elf.5.html
+> > 
+> > I see the fragment:
+> > 
+> >        A section header table index is a subscript into this array.  Some
+> >        section header table indices are reserved: the initial entry and the
+> >        indices between SHN_LORESERVE and SHN_HIRESERVE.  The initial entry
+> >        is used in ELF extensions for e_phnum, e_shnum and e_strndx; in other
+> >        cases, each field in the initial entry is set to zero.  An object
+> >        file does not have sections for these special indices:
+> > 
+> >        SHN_UNDEF
+> >               This value marks an undefined, missing, irrelevant, or other‐
+> >               wise meaningless section reference.
+> > 
+> > I interpret it like this:
+> > 
+> >        A section header table index **(e_shstrndx)** is a subscript
+> > into this array.
+> 
+> No, e_shstrndx is just one of the possible indices.  It's just the
+> string table that is used for section names.
 
-*Details of investment and funding will be furnished to you when your
-response which will also facilitate a face to face meeting with the
-investors.*
+I see "this array" refers to: "The section header table is an array of
+Elf32_Shdr or Elf64_Shdr structures."
 
-*Thank you,*
+e_shstrndx is a field of ElfN_Ehdr, which contains an index into the
+section header table array. Unless e_shstrndx is either SHN_UNDEF (0),
+which means there is no section name string table or
+SHN_XINDEX (0xffff), which means the index of the section name string
+table can be found in the sh_link field of the initial (0) section
+header table element.
 
-*Yours Sincerely*
-*David Anderson*
+My English isn't strong enough to know whether all these descriptions
+are the same or not.
+
+> >  Some
+> >        section header table indices are reserved:
+> >        the initial entry **(index 0)**
+> >        and the indices **from** SHN_LORESERVE **to** SHN_HIRESERVE **,
+> > inclusive**.
+> >        **Such reserved indices, except SHN_XINDEX (0xffff), cannot be
+> > used in e_shstrndx.
+> >        If e_shstrndx is SHN_XINDEX (0xffff) then the sh_link filed of
+> > the initial ElfN_Shdr cannot contain such reserved indices.**
+> >        The **three fields in the** initial entry ** - sh_info, sh_size
+> > and sh_link - can be** used in ELF extensions for e_phnum, e_shnum and
+> > **e_shstrndx correspondingly**. **If they are not used then they are
+> > set to zero. All other fields of the initial entry are set to zero.**
+> >        **The section header table entries with the following special
+> > indices contain special values,         and in the ELF file there are
+> > no sections associated with such entries.**
+> > 
+> >        SHN_UNDEF
+> >               This value marks an undefined, missing, irrelevant, or other‐
+> >               wise meaningless section reference.
+> >               **This index can be 0 in which case it means the initial
+> > ElfN_Shdr with a special meaning described above.**
+> > 
+> > Is such an interpretation correct?
+> 
+> I'm not sure if your clarifications are correct.  I don't think the
+> section header extension mechanism is used for extending e_phum.
+
+Yes, on Solaris and GNU/Linux if e_phnum contains the value PN_XNUM
+(0xffff) then the actual number of segments can be found in the sh_info
+field of the initial (0) section header. But if sh_info itself is zero
+then it is interpreted as having 0xffff segments. This seems to be an
+extension that is not standardized beyond GNU and Solaris.
+
+Also note that the "extension mechanism" for e_shnum is different from
+e_phnum and e_shstrndx, which both use an explicit extension value
+(0xffff). e_shnum uses the value zero when the number of sections is
+larger than SHN_LORESERVE (0xff00). In that case you can get the number
+of sections from the sh_size field of the initial section (0) (after
+checking that e_shoff and e_shentsize are not also zero of course,
+otherwise there is simply no section header table).
+
+> The main thing that's not clear to me in the current description is
+> whether the 256 reserved indices have still entries in the table
+> (probably of type SHT_NULL).
+
+The values have special meaning in certain context, but have no special
+section in the section header table. So you can simply have a section
+header at index 0xff12 for example. This would be a normal section
+without special attributes.
+
+Cheers,
+
+Mark
