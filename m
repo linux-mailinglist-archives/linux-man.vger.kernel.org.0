@@ -2,138 +2,133 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id BD13E128E84
-	for <lists+linux-man@lfdr.de>; Sun, 22 Dec 2019 15:25:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 79DC31292FF
+	for <lists+linux-man@lfdr.de>; Mon, 23 Dec 2019 09:21:02 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725919AbfLVOZY convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Sun, 22 Dec 2019 09:25:24 -0500
-Received: from wildebeest.demon.nl ([212.238.236.112]:37700 "EHLO
-        gnu.wildebeest.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725852AbfLVOZX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Dec 2019 09:25:23 -0500
-X-Greylist: delayed 490 seconds by postgrey-1.27 at vger.kernel.org; Sun, 22 Dec 2019 09:25:22 EST
-Received: from tarox.wildebeest.org (tarox.wildebeest.org [172.31.17.39])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        id S1725867AbfLWIU7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 23 Dec 2019 03:20:59 -0500
+Received: from mail.kernel.org ([198.145.29.99]:38512 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1725855AbfLWIU7 (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 23 Dec 2019 03:20:59 -0500
+Received: from localhost (36-236-5-169.dynamic-ip.hinet.net [36.236.5.169])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by gnu.wildebeest.org (Postfix) with ESMTPSA id 7C90B302BB21;
-        Sun, 22 Dec 2019 15:17:10 +0100 (CET)
-Received: by tarox.wildebeest.org (Postfix, from userid 1000)
-        id 4D70A4B70B75; Sun, 22 Dec 2019 15:17:10 +0100 (CET)
-Message-ID: <9b418bcbbd1addbca1fc67ac9d5b5cf5a09f39e7.camel@fedoraproject.org>
-Subject: Re: elf.5.html: Resolving confusion.
-From:   Mark Wielaard <mjw@fedoraproject.org>
-To:     Florian Weimer <fweimer@redhat.com>,
-        Robin Kuzmin <kuzmin.robin@gmail.com>
-Cc:     mtk@man7.org, linux-man <linux-man@vger.kernel.org>
-Date:   Sun, 22 Dec 2019 15:17:10 +0100
-In-Reply-To: <87tv65hhvw.fsf@oldenburg2.str.redhat.com>
-References: <CAAztzVHSQPAxY4zcmxtj8v8geEu=SJiSPPBBsZRxUeacxHO+-w@mail.gmail.com>
-         <87tv65hhvw.fsf@oldenburg2.str.redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8BIT
-X-Mailer: Evolution 3.28.5 (3.28.5-5.el7) 
-Mime-Version: 1.0
-X-Spam-Flag: NO
-X-Spam-Status: No, score=-2.9 required=5.0 tests=ALL_TRUSTED,BAYES_00
-        autolearn=ham autolearn_force=no version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on gnu.wildebeest.org
+        by mail.kernel.org (Postfix) with ESMTPSA id 93FF2206D3;
+        Mon, 23 Dec 2019 08:20:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=default; t=1577089258;
+        bh=p56QVij9RMXU1ekO5M0MbCScJhCEKQdVf0cDyyT/gqs=;
+        h=From:To:Cc:Subject:Date:From;
+        b=UNO/+6nadgj02xrLzwL1eLT2R0lROfKXyYj40CgCFsc6pasSd0w/wMe/hi/rCqYVP
+         +5Uyfily1NngF/S1N12I+3LbDK2WCLkewGj79EnBX/kZ5+/MqVNtpCk5QBBDxU3KCy
+         q3DzXR1yqlajygAzrmf9+gdCln1ac8K3MaJFFQs0=
+From:   Andy Lutomirski <luto@kernel.org>
+To:     Ted Ts'o <tytso@mit.edu>
+Cc:     LKML <linux-kernel@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        Kees Cook <keescook@chromium.org>,
+        "Jason A. Donenfeld" <Jason@zx2c4.com>,
+        "Ahmed S. Darwish" <darwish.07@gmail.com>,
+        Lennart Poettering <mzxreary@0pointer.de>,
+        "Eric W. Biederman" <ebiederm@xmission.com>,
+        "Alexander E. Patrakov" <patrakov@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Willy Tarreau <w@1wt.eu>,
+        Matthew Garrett <mjg59@srcf.ucam.org>,
+        Ext4 Developers List <linux-ext4@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Stephan Mueller <smueller@chronox.de>,
+        Andy Lutomirski <luto@kernel.org>
+Subject: [PATCH v3 0/8] Rework random blocking
+Date:   Mon, 23 Dec 2019 00:20:43 -0800
+Message-Id: <cover.1577088521.git.luto@kernel.org>
+X-Mailer: git-send-email 2.23.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi,
+This makes two major semantic changes to Linux's random APIs:
 
-On Thu, 2019-12-12 at 13:01 +0100, Florian Weimer wrote:
-> * Robin Kuzmin:
-> 
-> > http://man7.org/linux/man-pages/man5/elf.5.html
-> > 
-> > I see the fragment:
-> > 
-> >        A section header table index is a subscript into this array.  Some
-> >        section header table indices are reserved: the initial entry and the
-> >        indices between SHN_LORESERVE and SHN_HIRESERVE.  The initial entry
-> >        is used in ELF extensions for e_phnum, e_shnum and e_strndx; in other
-> >        cases, each field in the initial entry is set to zero.  An object
-> >        file does not have sections for these special indices:
-> > 
-> >        SHN_UNDEF
-> >               This value marks an undefined, missing, irrelevant, or other‐
-> >               wise meaningless section reference.
-> > 
-> > I interpret it like this:
-> > 
-> >        A section header table index **(e_shstrndx)** is a subscript
-> > into this array.
-> 
-> No, e_shstrndx is just one of the possible indices.  It's just the
-> string table that is used for section names.
+It adds getentropy(..., GRND_INSECURE).  This causes getentropy to
+always return *something*.  There is no guarantee whatsoever that
+the result will be cryptographically random or even unique, but the
+kernel will give the best quality random output it can.  The name is
+a big hint: the resulting output is INSECURE.
 
-I see "this array" refers to: "The section header table is an array of
-Elf32_Shdr or Elf64_Shdr structures."
+The purpose of this is to allow programs that genuinely want
+best-effort entropy to get it without resorting to /dev/urandom.
+Plenty of programs do this because they need to do *something*
+during boot and they can't afford to wait.  Calling it "INSECURE" is
+probably the best we can do to discourage using this API for things
+that need security.
 
-e_shstrndx is a field of ElfN_Ehdr, which contains an index into the
-section header table array. Unless e_shstrndx is either SHN_UNDEF (0),
-which means there is no section name string table or
-SHN_XINDEX (0xffff), which means the index of the section name string
-table can be found in the sh_link field of the initial (0) section
-header table element.
+This series also removes the blocking pool and makes /dev/random
+work just like getentropy(..., 0) and makes GRND_RANDOM a no-op.  I
+believe that Linux's blocking pool has outlived its usefulness.
+Linux's CRNG generates output that is good enough to use even for
+key generation.  The blocking pool is not stronger in any material
+way, and keeping it around requires a lot of infrastructure of
+dubious value.
 
-My English isn't strong enough to know whether all these descriptions
-are the same or not.
+This series should not break any existing programs.  /dev/urandom is
+unchanged.  /dev/random will still block just after booting, but it
+will block less than it used to.  getentropy() with existing flags
+will return output that is, for practical purposes, just as strong
+as before.
 
-> >  Some
-> >        section header table indices are reserved:
-> >        the initial entry **(index 0)**
-> >        and the indices **from** SHN_LORESERVE **to** SHN_HIRESERVE **,
-> > inclusive**.
-> >        **Such reserved indices, except SHN_XINDEX (0xffff), cannot be
-> > used in e_shstrndx.
-> >        If e_shstrndx is SHN_XINDEX (0xffff) then the sh_link filed of
-> > the initial ElfN_Shdr cannot contain such reserved indices.**
-> >        The **three fields in the** initial entry ** - sh_info, sh_size
-> > and sh_link - can be** used in ELF extensions for e_phnum, e_shnum and
-> > **e_shstrndx correspondingly**. **If they are not used then they are
-> > set to zero. All other fields of the initial entry are set to zero.**
-> >        **The section header table entries with the following special
-> > indices contain special values,         and in the ELF file there are
-> > no sections associated with such entries.**
-> > 
-> >        SHN_UNDEF
-> >               This value marks an undefined, missing, irrelevant, or other‐
-> >               wise meaningless section reference.
-> >               **This index can be 0 in which case it means the initial
-> > ElfN_Shdr with a special meaning described above.**
-> > 
-> > Is such an interpretation correct?
-> 
-> I'm not sure if your clarifications are correct.  I don't think the
-> section header extension mechanism is used for extending e_phum.
+There are some open questions and future work here:
 
-Yes, on Solaris and GNU/Linux if e_phnum contains the value PN_XNUM
-(0xffff) then the actual number of segments can be found in the sh_info
-field of the initial (0) section header. But if sh_info itself is zero
-then it is interpreted as having 0xffff segments. This seems to be an
-extension that is not standardized beyond GNU and Solaris.
+Should the kernel provide an interface to get software-generated
+"true random" numbers?  I can think of only one legitimate reason to
+use such an interface: compliance with government standards.  If the
+kernel provides such an interface going forward, I think it should
+be a brand new character device, and it should have a default mode
+0440 or similar.  Software-generated "true random numbers" are a
+very limited resource, and resource exhaustion is a big deal.  Ask
+anyone who has twiddled their thumbs while waiting for gnupg to
+generate a key.  If we think the kernel might do such a thing, then
+patches 5-8 could be tabled for now.
 
-Also note that the "extension mechanism" for e_shnum is different from
-e_phnum and e_shstrndx, which both use an explicit extension value
-(0xffff). e_shnum uses the value zero when the number of sections is
-larger than SHN_LORESERVE (0xff00). In that case you can get the number
-of sections from the sh_size field of the initial section (0) (after
-checking that e_shoff and e_shentsize are not also zero of course,
-otherwise there is simply no section header table).
+Alternatively, perhaps the kernel should instead provide a
+privileged interface to read out raw samples from the various
+entropy sources, and users who care could have a user daemon that
+does something intelligent with them.  This would push the mess of
+trying to comply with whatever standards are involved to userspace.
+Userspace could then export "true randomness" via CUSE if it is so
+inclined, or could have a socket with a well-known name, or whatever
+else seems appropriate.
 
-> The main thing that's not clear to me in the current description is
-> whether the 256 reserved indices have still entries in the table
-> (probably of type SHT_NULL).
+I think that each available hwrng device should have its own
+character device, which will make it much easier to use sensibly
+from user mode.  But I don't think this series needs to block on
+this.
 
-The values have special meaning in certain context, but have no special
-section in the section header table. So you can simply have a section
-header at index 0xff12 for example. This would be a normal section
-without special attributes.
+Changes from v2:
+ - Fix some bugs in the conditions that cause warnings.  Patch 2 is new.
+ - Rebase to Linus' tree today.  This didn't change anything.
 
-Cheers,
+Changes from v1:
+ - Rebased to v5.3.  No other changes.
 
-Mark
+Andy Lutomirski (8):
+  random: Don't wake crng_init_wait when crng_init == 1
+  random: Add a urandom_read_nowait() for random APIs that don't warn
+  random: Add GRND_INSECURE to return best-effort non-cryptographic
+    bytes
+  random: Ignore GRND_RANDOM in getentropy(2)
+  random: Make /dev/random be almost like /dev/urandom
+  random: Remove the blocking pool
+  random: Delete code to pull data into pools
+  random: Remove kernel.random.read_wakeup_threshold
+
+ drivers/char/random.c       | 245 +++++-------------------------------
+ include/uapi/linux/random.h |   4 +-
+ 2 files changed, 37 insertions(+), 212 deletions(-)
+
+-- 
+2.23.0
+
