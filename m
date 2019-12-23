@@ -2,108 +2,125 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id C9630129310
-	for <lists+linux-man@lfdr.de>; Mon, 23 Dec 2019 09:21:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 76F78129963
+	for <lists+linux-man@lfdr.de>; Mon, 23 Dec 2019 18:31:48 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726944AbfLWIV1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 23 Dec 2019 03:21:27 -0500
-Received: from mail.kernel.org ([198.145.29.99]:39252 "EHLO mail.kernel.org"
+        id S1726860AbfLWRbs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 23 Dec 2019 12:31:48 -0500
+Received: from l2mail1.panix.com ([166.84.1.75]:54315 "EHLO l2mail1.panix.com"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726198AbfLWIV0 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 23 Dec 2019 03:21:26 -0500
-Received: from localhost (36-236-5-169.dynamic-ip.hinet.net [36.236.5.169])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id 455C520709;
-        Mon, 23 Dec 2019 08:21:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1577089285;
-        bh=CI4damfoVOqesRhxTqcMsarysNXofJvnDHFVbybcD04=;
-        h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-        b=MRMHerIt/URp/OzCxUrh2EDmUXemsUcaWIUOiiLH1WpdG/7lAOapzpbXBzzY4aYtS
-         MOyp2ktirqjyJhppwNO9pcU185y5CBgikxH83s5ZFqV22jH7Lw22EZEEbQeFT2+h3t
-         Y+uVEnCc3byuX6CRprvEp0rJykeo6zISXtRdFXeg=
-From:   Andy Lutomirski <luto@kernel.org>
-To:     Ted Ts'o <tytso@mit.edu>
-Cc:     LKML <linux-kernel@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        Kees Cook <keescook@chromium.org>,
-        "Jason A. Donenfeld" <Jason@zx2c4.com>,
-        "Ahmed S. Darwish" <darwish.07@gmail.com>,
-        Lennart Poettering <mzxreary@0pointer.de>,
-        "Eric W. Biederman" <ebiederm@xmission.com>,
-        "Alexander E. Patrakov" <patrakov@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Willy Tarreau <w@1wt.eu>,
-        Matthew Garrett <mjg59@srcf.ucam.org>,
-        Ext4 Developers List <linux-ext4@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Stephan Mueller <smueller@chronox.de>,
-        Andy Lutomirski <luto@kernel.org>
-Subject: [PATCH v3 8/8] random: Remove kernel.random.read_wakeup_threshold
-Date:   Mon, 23 Dec 2019 00:20:51 -0800
-Message-Id: <a74ed2cf0b5a5451428a246a9239f5bc4e29358f.1577088521.git.luto@kernel.org>
+        id S1726754AbfLWRbr (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 23 Dec 2019 12:31:47 -0500
+Received: from mailbackend.panix.com (mailbackend.panix.com [166.84.1.89])
+        by l2mail1.panix.com (Postfix) with ESMTPS id 47hRH72L5YzDSg
+        for <linux-man@vger.kernel.org>; Mon, 23 Dec 2019 12:31:47 -0500 (EST)
+Received: from panix1.panix.com (panix1.panix.com [166.84.1.1])
+        by mailbackend.panix.com (Postfix) with ESMTP id 47hRH656mqz1bZS;
+        Mon, 23 Dec 2019 12:31:46 -0500 (EST)
+Received: by panix1.panix.com (Postfix, from userid 18676)
+        id 47hRH63r1dzcbc; Mon, 23 Dec 2019 12:31:46 -0500 (EST)
+From:   Zack Weinberg <zackw@panix.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] Document kernel bugs in delivery of signals from CPU exceptions
+Date:   Mon, 23 Dec 2019 12:31:46 -0500
+Message-Id: <20191223173146.6924-1-zackw@panix.com>
 X-Mailer: git-send-email 2.23.0
-In-Reply-To: <cover.1577088521.git.luto@kernel.org>
-References: <cover.1577088521.git.luto@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-It has no effect any more, so remove it.  We can revert this if
-there is some user code that expects to be able to set this sysctl.
+signal.7: Which signal is delivered in response to a CPU exception is
+under-documented and does not always make sense.  See
+<https://bugzilla.kernel.org/show_bug.cgi?id=205831> for an example
+where it doesn’t make sense; per the discussion there, this cannot be
+changed because of backward compatibility concerns, so let’s instead
+document the problem.
 
-Signed-off-by: Andy Lutomirski <luto@kernel.org>
+sigaction.2: For related reasons, the kernel doesn’t always fill in
+all of the fields of the siginfo_t when delivering signals from CPU
+exceptions.  Document this as well.  I imagine this one _could_ be
+fixed, but the problem would still be relevant to anyone using an
+older kernel.
 ---
- drivers/char/random.c | 18 +-----------------
- 1 file changed, 1 insertion(+), 17 deletions(-)
+ man2/sigaction.2 |  8 ++++++++
+ man7/signal.7    | 40 ++++++++++++++++++++++++++++++----------
+ 2 files changed, 38 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/char/random.c b/drivers/char/random.c
-index 920bf771e3e1..2a6818cae2d6 100644
---- a/drivers/char/random.c
-+++ b/drivers/char/random.c
-@@ -369,12 +369,6 @@
- #define ENTROPY_SHIFT 3
- #define ENTROPY_BITS(r) ((r)->entropy_count >> ENTROPY_SHIFT)
- 
--/*
-- * The minimum number of bits of entropy before we wake up a read on
-- * /dev/random.  Should be enough to do a significant reseed.
-- */
--static int random_read_wakeup_bits = 64;
--
- /*
-  * If the entropy count falls under this number of bits, then we
-  * should wake up processes which are selecting or polling on write
-@@ -2053,8 +2047,7 @@ SYSCALL_DEFINE3(getrandom, char __user *, buf, size_t, count,
- 
- #include <linux/sysctl.h>
- 
--static int min_read_thresh = 8, min_write_thresh;
--static int max_read_thresh = OUTPUT_POOL_WORDS * 32;
-+static int min_write_thresh;
- static int max_write_thresh = INPUT_POOL_WORDS * 32;
- static int random_min_urandom_seed = 60;
- static char sysctl_bootid[16];
-@@ -2129,15 +2122,6 @@ struct ctl_table random_table[] = {
- 		.proc_handler	= proc_do_entropy,
- 		.data		= &input_pool.entropy_count,
- 	},
--	{
--		.procname	= "read_wakeup_threshold",
--		.data		= &random_read_wakeup_bits,
--		.maxlen		= sizeof(int),
--		.mode		= 0644,
--		.proc_handler	= proc_dointvec_minmax,
--		.extra1		= &min_read_thresh,
--		.extra2		= &max_read_thresh,
--	},
- 	{
- 		.procname	= "write_wakeup_threshold",
- 		.data		= &random_write_wakeup_bits,
+diff --git a/man2/sigaction.2 b/man2/sigaction.2
+index 8ee878672..10d1c4882 100644
+--- a/man2/sigaction.2
++++ b/man2/sigaction.2
+@@ -1020,6 +1020,14 @@ handler.
+ See the relevant Linux kernel sources for details.
+ This use is obsolete now.
+ .SH BUGS
++When delivering a signal with a
++.B SA_SIGINFO
++handler,
++the kernel does not always provide meaningful values
++for all of the fields of the
++.I siginfo_t
++that are relevant for that signal.
++.PP
+ In kernels up to and including 2.6.13, specifying
+ .B SA_NODEFER
+ in
+diff --git a/man7/signal.7 b/man7/signal.7
+index d34e536f1..a9fe076fd 100644
+--- a/man7/signal.7
++++ b/man7/signal.7
+@@ -796,16 +796,36 @@ Linux 2.4 and earlier:
+ .BR nanosleep (2).
+ .SH CONFORMING TO
+ POSIX.1, except as noted.
+-.\" It must be a *very* long time since this was true:
+-.\" .SH BUGS
+-.\" .B SIGIO
+-.\" and
+-.\" .B SIGLOST
+-.\" have the same value.
+-.\" The latter is commented out in the kernel source, but
+-.\" the build process of some software still thinks that
+-.\" signal 29 is
+-.\" .BR SIGLOST .
++.SH BUGS
++There are six signals that can be delivered
++as a consequence of a hardware exception:
++.BR SIGBUS ,
++.BR SIGEMT ,
++.BR SIGFPE ,
++.BR SIGILL ,
++.BR SIGSEGV ,
++and
++.BR SIGTRAP .
++Which of these signals is delivered,
++for any given hardware exception,
++is not documented and does not always make sense.
++.PP
++For example, an invalid memory access that causes delivery of
++.B SIGSEGV
++on one CPU architecture may cause delivery of
++.B SIGBUS
++on another architecture, or vice versa.
++.PP
++For another example, using the x86
++.I int
++instruction with a forbidden argument
++(any number other than 3 or 128)
++causes delivery of
++.BR SIGSEGV ,
++even though
++.B SIGILL
++would make more sense,
++because of how the CPU reports the forbidden operation to the kernel.
+ .SH NOTES
+ For a discussion of async-signal-safe functions, see
+ .BR signal-safety (7).
 -- 
-2.23.0
+2.24.1
 
