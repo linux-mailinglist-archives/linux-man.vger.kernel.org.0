@@ -2,125 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 76F78129963
-	for <lists+linux-man@lfdr.de>; Mon, 23 Dec 2019 18:31:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 42497129F1C
+	for <lists+linux-man@lfdr.de>; Tue, 24 Dec 2019 09:37:24 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726860AbfLWRbs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 23 Dec 2019 12:31:48 -0500
-Received: from l2mail1.panix.com ([166.84.1.75]:54315 "EHLO l2mail1.panix.com"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726754AbfLWRbr (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 23 Dec 2019 12:31:47 -0500
-Received: from mailbackend.panix.com (mailbackend.panix.com [166.84.1.89])
-        by l2mail1.panix.com (Postfix) with ESMTPS id 47hRH72L5YzDSg
-        for <linux-man@vger.kernel.org>; Mon, 23 Dec 2019 12:31:47 -0500 (EST)
-Received: from panix1.panix.com (panix1.panix.com [166.84.1.1])
-        by mailbackend.panix.com (Postfix) with ESMTP id 47hRH656mqz1bZS;
-        Mon, 23 Dec 2019 12:31:46 -0500 (EST)
-Received: by panix1.panix.com (Postfix, from userid 18676)
-        id 47hRH63r1dzcbc; Mon, 23 Dec 2019 12:31:46 -0500 (EST)
-From:   Zack Weinberg <zackw@panix.com>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] Document kernel bugs in delivery of signals from CPU exceptions
-Date:   Mon, 23 Dec 2019 12:31:46 -0500
-Message-Id: <20191223173146.6924-1-zackw@panix.com>
-X-Mailer: git-send-email 2.23.0
+        id S1726091AbfLXIhS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 24 Dec 2019 03:37:18 -0500
+Received: from mail-il1-f195.google.com ([209.85.166.195]:45780 "EHLO
+        mail-il1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726065AbfLXIhS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 24 Dec 2019 03:37:18 -0500
+Received: by mail-il1-f195.google.com with SMTP id p8so16045195iln.12
+        for <linux-man@vger.kernel.org>; Tue, 24 Dec 2019 00:37:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=LcGU1mt+nAQIi3eKcWZpiy7DqrkNG23tK1MNYV9CB+M=;
+        b=thLznmLowQYlgCkXssGgqDu9lyH9UW6YjKmOssHb1tTK4hOQZrMXPmcN+NyMPf6FCl
+         UvREnc30T4YWVk+0sz5tUX66h6x9TrTk5PLAy+j6B7YQx87dbuBKpJdKp6vHEaeyv/Mk
+         +ugQax6dxzQYdZRO2RuhmUBXO0k1ex+ujK03f0IwAMz2143noOnX/n9FaaLqE/JawMIu
+         cAyyILMJ9qtw2dvj23jE86BJWZZAt8n9o0u6ZQ2NXyeUK9YTazBgzNeXTkC83D8e6w+y
+         LyuzLzl8dZr8HmmG/1asFn/Ndqg1z9wICefdZo1ski0C2gomR8pQBnx9Wa/071qwcZbY
+         xpeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=LcGU1mt+nAQIi3eKcWZpiy7DqrkNG23tK1MNYV9CB+M=;
+        b=meY4Dfqxq1ywxL4AOVlit4WF4O26aPJyWaZAw6nm+dKN0OQ5NknZ9xDpYpyHrbBIOC
+         XRUuTr8eEqDQZvMtR4lI8qsfC5DKqhkmH4U7H85v3ERr80L96hfbW1YNmkY9CRzR7x9D
+         82C8sR52XafedT3ArGwJ0eYy1d5dzTKbemM74SFIADz5ZBuACWRFtVY/KbjLQ8HiTPgl
+         S0kS/OHrQchMEDpv53jHju1QVqnR88jxDN8CSfFxBUGCXPonMc4KJKflYtlo6vS5jb33
+         iGjyvyYaD6EyRocsZS2iLfNkPWtE3T2HAVKRPJrceQXPEvHehK924rYb3NlDevUyiVW9
+         dPcQ==
+X-Gm-Message-State: APjAAAXk8yTOcrjirXfJ48/E30AWsQ22pEZVPeTfH3ZQEkJ5/lrDNu4L
+        QH3hHi8mH40otKcQQAEYTdD6h8h/xnXiJRwOzWA=
+X-Google-Smtp-Source: APXvYqz2tBa4QzKmO6wzSXUBWoAEt+AdW5keElYd0pxn2QCdUk0KRvhLw5nMwIzFzVTuSc6Cp+qr2Z5Nq+YfPm0LYgM=
+X-Received: by 2002:a92:3b98:: with SMTP id n24mr4582447ilh.108.1577176637594;
+ Tue, 24 Dec 2019 00:37:17 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: by 2002:ac0:f302:0:0:0:0:0 with HTTP; Tue, 24 Dec 2019 00:37:16
+ -0800 (PST)
+Reply-To: bethnatividad9@gmail.com
+From:   Beth Nat <clementidibia1960@gmail.com>
+Date:   Tue, 24 Dec 2019 08:37:16 +0000
+Message-ID: <CAEG=icHSiKA+obxr5hSbrz+bX3f1O1rMyddMXXp8YnqnRrxBeQ@mail.gmail.com>
+Subject: 
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-signal.7: Which signal is delivered in response to a CPU exception is
-under-documented and does not always make sense.  See
-<https://bugzilla.kernel.org/show_bug.cgi?id=205831> for an example
-where it doesn’t make sense; per the discussion there, this cannot be
-changed because of backward compatibility concerns, so let’s instead
-document the problem.
-
-sigaction.2: For related reasons, the kernel doesn’t always fill in
-all of the fields of the siginfo_t when delivering signals from CPU
-exceptions.  Document this as well.  I imagine this one _could_ be
-fixed, but the problem would still be relevant to anyone using an
-older kernel.
----
- man2/sigaction.2 |  8 ++++++++
- man7/signal.7    | 40 ++++++++++++++++++++++++++++++----------
- 2 files changed, 38 insertions(+), 10 deletions(-)
-
-diff --git a/man2/sigaction.2 b/man2/sigaction.2
-index 8ee878672..10d1c4882 100644
---- a/man2/sigaction.2
-+++ b/man2/sigaction.2
-@@ -1020,6 +1020,14 @@ handler.
- See the relevant Linux kernel sources for details.
- This use is obsolete now.
- .SH BUGS
-+When delivering a signal with a
-+.B SA_SIGINFO
-+handler,
-+the kernel does not always provide meaningful values
-+for all of the fields of the
-+.I siginfo_t
-+that are relevant for that signal.
-+.PP
- In kernels up to and including 2.6.13, specifying
- .B SA_NODEFER
- in
-diff --git a/man7/signal.7 b/man7/signal.7
-index d34e536f1..a9fe076fd 100644
---- a/man7/signal.7
-+++ b/man7/signal.7
-@@ -796,16 +796,36 @@ Linux 2.4 and earlier:
- .BR nanosleep (2).
- .SH CONFORMING TO
- POSIX.1, except as noted.
--.\" It must be a *very* long time since this was true:
--.\" .SH BUGS
--.\" .B SIGIO
--.\" and
--.\" .B SIGLOST
--.\" have the same value.
--.\" The latter is commented out in the kernel source, but
--.\" the build process of some software still thinks that
--.\" signal 29 is
--.\" .BR SIGLOST .
-+.SH BUGS
-+There are six signals that can be delivered
-+as a consequence of a hardware exception:
-+.BR SIGBUS ,
-+.BR SIGEMT ,
-+.BR SIGFPE ,
-+.BR SIGILL ,
-+.BR SIGSEGV ,
-+and
-+.BR SIGTRAP .
-+Which of these signals is delivered,
-+for any given hardware exception,
-+is not documented and does not always make sense.
-+.PP
-+For example, an invalid memory access that causes delivery of
-+.B SIGSEGV
-+on one CPU architecture may cause delivery of
-+.B SIGBUS
-+on another architecture, or vice versa.
-+.PP
-+For another example, using the x86
-+.I int
-+instruction with a forbidden argument
-+(any number other than 3 or 128)
-+causes delivery of
-+.BR SIGSEGV ,
-+even though
-+.B SIGILL
-+would make more sense,
-+because of how the CPU reports the forbidden operation to the kernel.
- .SH NOTES
- For a discussion of async-signal-safe functions, see
- .BR signal-safety (7).
--- 
-2.24.1
-
+How are you today my dear? i saw your profile and it interests me, i
+am a Military nurse from USA. Can we be friend? I want to know more
+about you.
