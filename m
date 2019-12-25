@@ -2,58 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 42497129F1C
-	for <lists+linux-man@lfdr.de>; Tue, 24 Dec 2019 09:37:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4ADF312A6A3
+	for <lists+linux-man@lfdr.de>; Wed, 25 Dec 2019 08:51:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726091AbfLXIhS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 24 Dec 2019 03:37:18 -0500
-Received: from mail-il1-f195.google.com ([209.85.166.195]:45780 "EHLO
-        mail-il1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726065AbfLXIhS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 24 Dec 2019 03:37:18 -0500
-Received: by mail-il1-f195.google.com with SMTP id p8so16045195iln.12
-        for <linux-man@vger.kernel.org>; Tue, 24 Dec 2019 00:37:17 -0800 (PST)
+        id S1725992AbfLYHv4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 25 Dec 2019 02:51:56 -0500
+Received: from mail-io1-f54.google.com ([209.85.166.54]:42858 "EHLO
+        mail-io1-f54.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725935AbfLYHv4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Dec 2019 02:51:56 -0500
+Received: by mail-io1-f54.google.com with SMTP id n11so14156501iom.9
+        for <linux-man@vger.kernel.org>; Tue, 24 Dec 2019 23:51:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=LcGU1mt+nAQIi3eKcWZpiy7DqrkNG23tK1MNYV9CB+M=;
-        b=thLznmLowQYlgCkXssGgqDu9lyH9UW6YjKmOssHb1tTK4hOQZrMXPmcN+NyMPf6FCl
-         UvREnc30T4YWVk+0sz5tUX66h6x9TrTk5PLAy+j6B7YQx87dbuBKpJdKp6vHEaeyv/Mk
-         +ugQax6dxzQYdZRO2RuhmUBXO0k1ex+ujK03f0IwAMz2143noOnX/n9FaaLqE/JawMIu
-         cAyyILMJ9qtw2dvj23jE86BJWZZAt8n9o0u6ZQ2NXyeUK9YTazBgzNeXTkC83D8e6w+y
-         LyuzLzl8dZr8HmmG/1asFn/Ndqg1z9wICefdZo1ski0C2gomR8pQBnx9Wa/071qwcZbY
-         xpeA==
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=4KQK7lGu6gSmH+xAClHGRk+I+9U/1rt2kRsS9wdc80M=;
+        b=SotHAvc3rRruBCx6eNwLRW7SqM5u209uKOnBzHs0ZdjNo5AoDBGfwJf2KdixerVz5l
+         FuHdBdlN4y+9tO+Gm0ijQgXI1Uhvris65NyLoMHven0/6j/R0sXCyANIxaStrdIGE1OH
+         IT324w2tMg9w1tuzOUtztBu7YBG8NIuIWBB7sBBqYVpjqVxvpPyS2Q0UriMNPe8JmxYe
+         j0rAZuZQYa89QSTGAvXkc/XHN+Ed6G7sOL1iZ2I5hMQf8+7C6DDoBR0xQoSuzzJ49KMJ
+         dbcJOoGegVr5xXn8pBe00hB5brheJoHpGoYIrpfvkau0K4ArJGPFEYTf8EQkg6TnXDJr
+         dOMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=LcGU1mt+nAQIi3eKcWZpiy7DqrkNG23tK1MNYV9CB+M=;
-        b=meY4Dfqxq1ywxL4AOVlit4WF4O26aPJyWaZAw6nm+dKN0OQ5NknZ9xDpYpyHrbBIOC
-         XRUuTr8eEqDQZvMtR4lI8qsfC5DKqhkmH4U7H85v3ERr80L96hfbW1YNmkY9CRzR7x9D
-         82C8sR52XafedT3ArGwJ0eYy1d5dzTKbemM74SFIADz5ZBuACWRFtVY/KbjLQ8HiTPgl
-         S0kS/OHrQchMEDpv53jHju1QVqnR88jxDN8CSfFxBUGCXPonMc4KJKflYtlo6vS5jb33
-         iGjyvyYaD6EyRocsZS2iLfNkPWtE3T2HAVKRPJrceQXPEvHehK924rYb3NlDevUyiVW9
-         dPcQ==
-X-Gm-Message-State: APjAAAXk8yTOcrjirXfJ48/E30AWsQ22pEZVPeTfH3ZQEkJ5/lrDNu4L
-        QH3hHi8mH40otKcQQAEYTdD6h8h/xnXiJRwOzWA=
-X-Google-Smtp-Source: APXvYqz2tBa4QzKmO6wzSXUBWoAEt+AdW5keElYd0pxn2QCdUk0KRvhLw5nMwIzFzVTuSc6Cp+qr2Z5Nq+YfPm0LYgM=
-X-Received: by 2002:a92:3b98:: with SMTP id n24mr4582447ilh.108.1577176637594;
- Tue, 24 Dec 2019 00:37:17 -0800 (PST)
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=4KQK7lGu6gSmH+xAClHGRk+I+9U/1rt2kRsS9wdc80M=;
+        b=gm02OjiUiiM5OsjyE/02zl4Hmxvdwv8x+jClEjvQoRJc4APS+hX7who/3nynVK7/6c
+         US4841b5sbkBqSRgShpkQAwYjdym7SbOOzFRkRW3HIXk8WMIDxpbSIe+wLc8gaWCM+Kl
+         i81j43bzZC4m7sNZfQ5hK4KIgcBXGeovdzEqqFQwDN6ohXs/zFVRYg1f2gbXsvVEgqss
+         Wn3OnYQcwFP2FSZJr/HgeHxttj3DodyxA53tg366usCZn/k/ramhunpG5gCMPPlFlV8H
+         SRzac7b8ZLWA1DRar9cc94G9m496ryfLIN0+0s1BgMcOEdWnneSddC6D7TYaLInu7gmn
+         +1Hg==
+X-Gm-Message-State: APjAAAVBiszjmJgBGndcIRt0QP736FfmpD+INEFJyOVRLfcB0JWUFSkV
+        J1p0/0ZKrTFRybWYKw96vtnqq2+WqQ6xwgWURpY=
+X-Google-Smtp-Source: APXvYqw8ABqG3zIaHK9Z1k1pqFb4I2X+K451CXHLo7M3t8fTMg2LETAt5oVnHgHHMB128mURhdpMXtPMYEmbgAthgpc=
+X-Received: by 2002:a02:662a:: with SMTP id k42mr31891779jac.73.1577260315610;
+ Tue, 24 Dec 2019 23:51:55 -0800 (PST)
 MIME-Version: 1.0
-Received: by 2002:ac0:f302:0:0:0:0:0 with HTTP; Tue, 24 Dec 2019 00:37:16
- -0800 (PST)
-Reply-To: bethnatividad9@gmail.com
-From:   Beth Nat <clementidibia1960@gmail.com>
-Date:   Tue, 24 Dec 2019 08:37:16 +0000
-Message-ID: <CAEG=icHSiKA+obxr5hSbrz+bX3f1O1rMyddMXXp8YnqnRrxBeQ@mail.gmail.com>
-Subject: 
-To:     undisclosed-recipients:;
+From:   Sergey Oskotskiy <sergey.oskotskiy@gmail.com>
+Date:   Wed, 25 Dec 2019 10:51:45 +0300
+Message-ID: <CALzkOGiTYq8t1q_MXYpH4apF6nvhQsL3MNwbsULbKxY3rQe1cQ@mail.gmail.com>
+Subject: typo in ioperm man page
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-How are you today my dear? i saw your profile and it interests me, i
-am a Military nurse from USA. Can we be friend? I want to know more
-about you.
+Hello Michael,
+
+I think the ioperm man page
+(http://man7.org/linux/man-pages/man2/ioperm.2.html) has a typo:
+it says "ioperm() sets the port access permission bits for the calling
+thread for num ___bits___ ...".
+I think it should be "...for num ___bytes___..."
+
+With best Christmas wishes,
+Sergey
