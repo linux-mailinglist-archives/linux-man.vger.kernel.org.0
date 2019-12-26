@@ -2,140 +2,138 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 2AFF812AAD5
-	for <lists+linux-man@lfdr.de>; Thu, 26 Dec 2019 08:45:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2028212AB4E
+	for <lists+linux-man@lfdr.de>; Thu, 26 Dec 2019 10:35:05 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726001AbfLZHpy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 26 Dec 2019 02:45:54 -0500
-Received: from mail-io1-f67.google.com ([209.85.166.67]:39093 "EHLO
-        mail-io1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725815AbfLZHpy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Dec 2019 02:45:54 -0500
-Received: by mail-io1-f67.google.com with SMTP id c16so21177347ioh.6
-        for <linux-man@vger.kernel.org>; Wed, 25 Dec 2019 23:45:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=hgL6jrJ3e8Iy8PzdVJo4Stcrlx2vdH/ME9ytbk6zjDY=;
-        b=rH8ixGpur2eY9j1BDW3/Lhoc7Pxv2t3Z6NhJ0815MFZ8R53L5sZob2+ZnChpgu1Hha
-         pHs8jxGNTgNvyNxv1TOoamzdUB3gjo4mOTj0VIRD76Fqn4s6ZYPSmjNpVg7Z40uaK1vj
-         VHzy8KbgYDw8f+qP4V9sWYhj9/dEnEV6OA5MCsrhAPFftjfOn17vBVFB8KweUTxSJPXw
-         qlk0JW7VEUQQWIOeTBJGJx28awG+No2E+PUE/pjrHaZZAWNvfyvQFrIvEKTf7uKuFSC8
-         XR4bsPRSzoij+87eb7EV/7+0V+d4zMDwnlwp/xx3GyKUHyKZjZCgE8aNxXDwsOGZRgXj
-         vWLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=hgL6jrJ3e8Iy8PzdVJo4Stcrlx2vdH/ME9ytbk6zjDY=;
-        b=gcURqMPVzmSp9XJUpGt5JCPPcyQBLb+QFbGp29C23lkkpkMwgaqdwvJQuOyzPzRD6q
-         pyrslqNXlI52VfS3I0HXdeAlcpjqrdmUxjxO5HEBXbKj+XvuTxpfbHpBjCQJqejJRNkV
-         v9KmHhm/x/4SC2mygHRlQxhKdqsvpOR9MDkvRHnRnN/oo7Xng73u6wjBsgq8KBWDSCMG
-         /J0E8seIS/zYzV3aWlv4l9/K1qfh1X0+bKbr68HPMB5tw42amOkMWe0o+z2Em1oZef3L
-         rx4MYA6/UW0SszttezOyre5qZGJqXYNDaXJX5bf+USCJvpDNWXWczrNpkIbN5nVixBtN
-         rO5Q==
-X-Gm-Message-State: APjAAAVGJb19K2oBEdwSq6H20VzwBzZipycT3JEYZwjh3egV4jB48+nd
-        r6ZOHA+LHLotLGxLNA6jEJV9KW0fS7iQrgSYxcoGTG/C
-X-Google-Smtp-Source: APXvYqxcU3lhaDoYSPs89ENWT78fTyv5aRBkLKXDc3AziMiIWRD2ie7l5ZRSsFAxV1hqpGIWmcSPIixURMursvZjYLA=
-X-Received: by 2002:a02:c6d5:: with SMTP id r21mr24451958jan.129.1577346353338;
- Wed, 25 Dec 2019 23:45:53 -0800 (PST)
+        id S1726336AbfLZJfE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 26 Dec 2019 04:35:04 -0500
+Received: from mo4-p01-ob.smtp.rzone.de ([85.215.255.54]:23782 "EHLO
+        mo4-p01-ob.smtp.rzone.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725878AbfLZJfE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Dec 2019 04:35:04 -0500
+X-Greylist: delayed 312 seconds by postgrey-1.27 at vger.kernel.org; Thu, 26 Dec 2019 04:35:02 EST
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1577352901;
+        s=strato-dkim-0002; d=chronox.de;
+        h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+        X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+        bh=CrhxrHnI4h8bUXWJL2MnJTVPHP2ek6Df7gTpwCbz51M=;
+        b=paoDuqMUEURJYStOUmtanYJybDvF4AqrM1eajy+MOEPWHdMTsug885THknmJQ7mamR
+        clVsWK1Ugs+hbpkfvf7LbkKn29cOhzJb9J8i9w+uMV8JTyfEA4gqOGfp2bzLV8+T5Qth
+        QMdCSZSnMaNmUiTfLeiRbDKcV9n4YPFrMiK3Mttv8EQ5G7iLkv7/DXkqThQo+NeCvBNd
+        B6aGTQxJ9yJZmaHG1M3UYtSlVGrD4cULWbehuqKlsvgfZNU37RSfnMroij/qt4cHlVDw
+        XlIoSsf6C+kMTzLj7RVzYlSJ4nqR3niG7IJZntDqZ+2z8GhyHMhXWQO9mXEmqmKiuC7a
+        qfaw==
+X-RZG-AUTH: ":P2ERcEykfu11Y98lp/T7+hdri+uKZK8TKWEqNyiHySGSa9k9xmwdNnzGHXPaIPSZNQ=="
+X-RZG-CLASS-ID: mo00
+Received: from positron.chronox.de
+        by smtp.strato.de (RZmta 46.1.3 DYNA|AUTH)
+        with ESMTPSA id e09841vBQ9T1B4U
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+        (Client did not present a certificate);
+        Thu, 26 Dec 2019 10:29:01 +0100 (CET)
+From:   Stephan =?ISO-8859-1?Q?M=FCller?= <smueller@chronox.de>
+To:     Andy Lutomirski <luto@kernel.org>
+Cc:     Ted Ts'o <tytso@mit.edu>, LKML <linux-kernel@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        Kees Cook <keescook@chromium.org>,
+        "Jason A. Donenfeld" <Jason@zx2c4.com>,
+        "Ahmed S. Darwish" <darwish.07@gmail.com>,
+        Lennart Poettering <mzxreary@0pointer.de>,
+        "Eric W. Biederman" <ebiederm@xmission.com>,
+        "Alexander E. Patrakov" <patrakov@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Willy Tarreau <w@1wt.eu>,
+        Matthew Garrett <mjg59@srcf.ucam.org>,
+        Ext4 Developers List <linux-ext4@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>
+Subject: Re: [PATCH v3 0/8] Rework random blocking
+Date:   Thu, 26 Dec 2019 10:29:00 +0100
+Message-ID: <9872655.prSdhymlXK@positron.chronox.de>
+In-Reply-To: <cover.1577088521.git.luto@kernel.org>
+References: <cover.1577088521.git.luto@kernel.org>
 MIME-Version: 1.0
-References: <CALzkOGiTYq8t1q_MXYpH4apF6nvhQsL3MNwbsULbKxY3rQe1cQ@mail.gmail.com>
- <8519468f-e9e6-9a7e-8a6c-8ef18cf24213@gmail.com>
-In-Reply-To: <8519468f-e9e6-9a7e-8a6c-8ef18cf24213@gmail.com>
-From:   Sergey Oskotskiy <sergey.oskotskiy@gmail.com>
-Date:   Thu, 26 Dec 2019 10:45:42 +0300
-Message-ID: <CALzkOGjRhD1WCq51iEdsV22fhz=2DZCfetpaSmNDfQ=4y_7O=A@mail.gmail.com>
-Subject: Re: typo in ioperm man page
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Michael,
+Am Montag, 23. Dezember 2019, 09:20:43 CET schrieb Andy Lutomirski:
 
-Thank you for your reply. Sorry if I am wrong about the typo. My
-reasoning is as follows:
-in the GLIBC source code (for versions 2.27 and 2.30) I see the
-following comment before the declaration of the function ioperm(): "If
-TURN_ON is TRUE, request for permission to do direct i/o on the port
-numbers in the range [FROM,FROM+NUM-1]...". As far as I understand,
-port numbers here are individual bytes (not bits) in the I/O address
-space.
+Hi Andy,
+>=20
+> There are some open questions and future work here:
+>=20
+> Should the kernel provide an interface to get software-generated
+> "true random" numbers?  I can think of only one legitimate reason to
+> use such an interface: compliance with government standards.  If the
+> kernel provides such an interface going forward, I think it should
+> be a brand new character device, and it should have a default mode
+> 0440 or similar.  Software-generated "true random numbers" are a
+> very limited resource, and resource exhaustion is a big deal.  Ask
+> anyone who has twiddled their thumbs while waiting for gnupg to
+> generate a key.  If we think the kernel might do such a thing, then
+> patches 5-8 could be tabled for now.
 
-I ran the following sample program under GLIBC 2.27 (under Ubuntu
-18.04, Linux kernel 4.15):
-#include <stdio.h>
-#include <sys/io.h>
-int main(int argc, char* argv[]) {
-  int i;
-  i = ioperm(0x378, 1, 1);
-  printf("ioperm() returned: %d\n", i);
-  outb(0xFF, 0x378);
-  printf("1-st outb() completed\n");
-  outb(0xFF, 0x379);
-  printf("2-nd outb() completed\n");
-  return 0;
-}
+What about offering a compile-time option to enable or disable such code?=20
+Note, with the existing random.c code base, there is no need to have a=20
+separate blocking_pool. The ChaCha20 DRNG could be used for that very same=
+=20
+purpose, provided that in case these true random numbers are generated when=
+=20
+the Chacha20 DRNG received an equal amount of "unused" entropy.
+>=20
+> Alternatively, perhaps the kernel should instead provide a
+> privileged interface to read out raw samples from the various
+> entropy sources, and users who care could have a user daemon that
+> does something intelligent with them.  This would push the mess of
+> trying to comply with whatever standards are involved to userspace.
+> Userspace could then export "true randomness" via CUSE if it is so
+> inclined, or could have a socket with a well-known name, or whatever
+> else seems appropriate.
 
-When I run this program (under privileged user), I see the following output:
-   ioperm() returned: 0
-   1-st outb() completed
-   Segmentation fault
-So, on the second call to outb() the program receives a segmentation
-fault: according to outb man page it means an attempt to access an I/O
-port without prior getting permission to access this port by means of
-ioperm().
+With the patch set v26 of my LRNG I offer another possible alternative=20
+avoiding any additional character device file and preventing the starvation=
+ of=20
+legitimate use cases: the LRNG has an entropy pool that leaves different=20
+levels of entropy in the pool depending on the use cases of this data.
 
-If in the call to ioperm() I change the parameter num (the second
-parameter) from 1 to 2:
-   i = ioperm(0x378, 2, 1);
-then the program runs without segmentation fault and gives the following output:
-   ioperm() returned: 0
-   1-st outb() completed
-   2-nd outb() completed
-i.e. the second call to outb() also succeeded (because ioperm() now
-permits the access to both I/O ports accessed by the program).
+If an unprivileged caller requests true random data, at least 1024 bits of=
+=20
+entropy is left in the pool. I.e. all entropy above that point is available=
+=20
+for this request type. Note, even namespaces fall into this category=20
+considering that unprivileged users can create a user name space in which t=
+hey=20
+can become root.
 
-It makes me think that the num parameter of ioperm() function
-specifies the number of whole bytes (but not bits) in the I/O address
-space.
+If a non-blocking DRNG serving /dev/urandom or getrandom(2) needs reseeding=
+,=20
+at least 512 bits of entropy is left in the pool. Each DRNG seeding operati=
+on=20
+requires at least 128 bits and at most 256 bits of entropy. This means that=
+ at=20
+least 2 reseed operations worth of entropy is found in the entropy pool eve=
+n=20
+though massive amount of true random numbers are requested by unprivileged=
+=20
+users.
 
-Best regards,
-Sergey
+If a privileged caller requests true random numbers, the entropy pool is=20
+allowed to be exhausted.
+
+Access to the true random number generator is provided with getrandom(2) an=
+d=20
+the GRND_TRUERANDOM flag. If the true random number generator (TRNG) is not=
+=20
+compiled or not present, -EOPNOTSUPP is returned.
+
+Entire patch set:
+
+Reviewed-by: Stephan M=FCller <smueller@chronox.de>
+
+Ciao
+Stephan
 
 
-On Wed, Dec 25, 2019 at 9:25 PM Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
->
-> On 12/25/19 8:51 AM, Sergey Oskotskiy wrote:
-> > Hello Michael,
-> >
-> > I think the ioperm man page
-> > (http://man7.org/linux/man-pages/man2/ioperm.2.html) has a typo:
-> > it says "ioperm() sets the port access permission bits for the calling
-> > thread for num ___bits___ ...".
-> > I think it should be "...for num ___bytes___..."
-> >
-> > With best Christmas wishes,
->
-> Sergey,
->
-> Can you say more abut *why* you think it's wrong.[1] That would
-> help me investigate.
->
-> Thanks,
->
-> Michael
->
-> [1] At first glance, I suspect that the existing text *is*
->     correct.
->
-> --
-> Michael Kerrisk
-> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-> Linux/UNIX System Programming Training: http://man7.org/training/
