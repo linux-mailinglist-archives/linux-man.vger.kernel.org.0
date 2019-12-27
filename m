@@ -2,115 +2,96 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 97B4512AFC4
-	for <lists+linux-man@lfdr.de>; Fri, 27 Dec 2019 00:29:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5DEA812B26D
+	for <lists+linux-man@lfdr.de>; Fri, 27 Dec 2019 08:23:20 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727036AbfLZX3Y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 26 Dec 2019 18:29:24 -0500
-Received: from mail-pg1-f195.google.com ([209.85.215.195]:39304 "EHLO
-        mail-pg1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726375AbfLZX3Y (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Dec 2019 18:29:24 -0500
-Received: by mail-pg1-f195.google.com with SMTP id b137so13553632pga.6
-        for <linux-man@vger.kernel.org>; Thu, 26 Dec 2019 15:29:23 -0800 (PST)
+        id S1726329AbfL0HXN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 27 Dec 2019 02:23:13 -0500
+Received: from mail-ed1-f66.google.com ([209.85.208.66]:40795 "EHLO
+        mail-ed1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726310AbfL0HXN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 27 Dec 2019 02:23:13 -0500
+Received: by mail-ed1-f66.google.com with SMTP id b8so24554288edx.7
+        for <linux-man@vger.kernel.org>; Thu, 26 Dec 2019 23:23:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amacapital-net.20150623.gappssmtp.com; s=20150623;
-        h=content-transfer-encoding:mime-version:subject:from:in-reply-to:cc
-         :date:message-id:references:to;
-        bh=TQuMyWny8hWtt1MLws74+aMtByUKKMivFY0g2eakkkM=;
-        b=Z1hFH9rKZoZVwN3HFABEulLkhJJQHdiQ9hXRKpwuucZ8oG4skzgbM1MInEaAM2oNf+
-         Js5I7My4bwh77VhB1FOv4YRNewAKZBDq83zP6m5WXz9Gz9op6r1zchEnoHBIU3/KOXku
-         S5hPxMZ9EpYLYmGPFg3/4umrLgkYcFRiQK2tlvvVPAc3oVRzHjN9OOnxrFqtVcIshTqq
-         jSf0Dt13GHR605MmbOGp0lYTSrdB7dsYwjmOGmLPh5UWKl2uob+KPehVM0r50uzAuJc8
-         VKPPmoyBnPXN7sPihO7YiI3kCULqFDwq8UXURIpE0nwwpCSG6cgjKsbBgfdymzC1Z1Ay
-         arEw==
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc:content-transfer-encoding;
+        bh=9T3MBOvTesIjI5MdbkmKxOLYiHod7uAPDq2+ZJ0RFwo=;
+        b=aktsDONya8EcvgS0PxQTdMl1AKjVFBJ2g3j+5XmQWiLvNyb7ozz4mzO1cx61+Y2qAy
+         sBbgcH35kFbzUQnWxhzPY4hET57EFuI9V/q0JF//UTosAlWAzDXF9ZJBD4dSan8VuAS0
+         UgRB1vBIPIA3LFXMT+KH7J/Cu0Uq3OEp5rMqRgdaWRdrl+37P1sy2ICWLPr+86Oc0IZh
+         VP/lbjMtZyxO7TmG/hiWAvk6PySzwYLHC2NvbX6ql6eP9FfV3TaHk6ccNyFwKUFUOz4n
+         55kvHFcPneHuLa7KI81jIL2SgvQCC8PqnTd/vsqjEtjdw9o3GZ811tZg7iFuaPG3VPnZ
+         DWYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:content-transfer-encoding:mime-version:subject
-         :from:in-reply-to:cc:date:message-id:references:to;
-        bh=TQuMyWny8hWtt1MLws74+aMtByUKKMivFY0g2eakkkM=;
-        b=h7KjSIAt1Bt+MnPzZGr1a40h2b3ND5MXFroxIJownlXDeQO3lDhSgN29iEmD+cmRWz
-         laSGdL3SgDNu4jm9MWTlrAjGhT3GiIhNhmJLBYkCUZDUSaVf4EXnv/nwTlu/LFwmahK8
-         IkrQyxGt5usYSQDOY0CMbuM+YMyeKDlsW8bhhtNpikK4bmZ0Zev4vhyKC0SAAmy4kj0c
-         aEDHHAJZQp0WdrQavkjqjR7ikKvHPKRsRjHi5wQ/NacUhmkHJnCQd/UQCd5WH9LOGwHL
-         GL2b87mrC/nftQTJsA3a1sYHuptnef2zAPkliAo/V0JJhyr03fbqg3c3+Lk8CdR32P5p
-         bgow==
-X-Gm-Message-State: APjAAAVh1c3uXSAyDRc9SQhwu76Mfog59dJTXqq4UDARlCLA9RWb47YI
-        bLvUEZ1bRw4n9dP/GERd/uW9jg==
-X-Google-Smtp-Source: APXvYqw168U7pDuIAoJqCk32EI3yv82F+VAtM7+4RMaW9dlE9+1qYIzcTdTB4z9/E6MkxcZHX7Joiw==
-X-Received: by 2002:a63:1a19:: with SMTP id a25mr52030190pga.447.1577402963260;
-        Thu, 26 Dec 2019 15:29:23 -0800 (PST)
-Received: from [192.168.0.9] (114-27-11-154.dynamic-ip.hinet.net. [114.27.11.154])
-        by smtp.gmail.com with ESMTPSA id l2sm11776754pjt.31.2019.12.26.15.29.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Dec 2019 15:29:22 -0800 (PST)
-Content-Type: text/plain; charset=utf-8
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc:content-transfer-encoding;
+        bh=9T3MBOvTesIjI5MdbkmKxOLYiHod7uAPDq2+ZJ0RFwo=;
+        b=q7C7USIkI97f9VkZcW5uP25hX9zsnCo3V9vGy+MtKu2EpaIpqtOFO6fkRbKlHQbWIx
+         K9phfpqnTu7O0G9XagJ/YfUW2bp0k+/+mZOwaIchEzZB622yE+xSkHPIUlZZdgXtCGLD
+         O7KwxeeiK3zQtB7Ob7gNSWEhf/EtvOw8niT5iAT7mdRRgR6K3Ig6tJTiM9BpJA1A412V
+         nEg18wsKAYgCtlcNRagxAeQLL9F43rPmMv0SltRPEnUyT6alOsS/BFa6xXOIvRB0hY6d
+         A9bhN5DmxfvQ/jeHjbQ708suHEjEgywFcq7hAJjyok90SGBRjpM8Cv16g5J5xdpJi7MW
+         U2aA==
+X-Gm-Message-State: APjAAAVMrPpYlo08xH94M0y4uN/eAPJL5vrfq/xHHy7QWtTC4vQ59cTS
+        joXsN9KyLe0EmGc3B4ZXdEqTN1o6PPkd7oI9ghQfIVTr
+X-Google-Smtp-Source: APXvYqxiO2ZtcEvLg1fto3fXTLX20rHnktZMDahCBCbu+yaDUbo9zPC7XIzrNHhmu2CS5dVK0Kt63jfgXpqFOyYVq1Q=
+X-Received: by 2002:a17:906:27d3:: with SMTP id k19mr52443154ejc.290.1577431391821;
+ Thu, 26 Dec 2019 23:23:11 -0800 (PST)
+MIME-Version: 1.0
+References: <CAF2=S_KmYuApdphsVAHft0QZ8qN9aUD1yC33-6-UGSUbDdDrnw@mail.gmail.com>
+In-Reply-To: <CAF2=S_KmYuApdphsVAHft0QZ8qN9aUD1yC33-6-UGSUbDdDrnw@mail.gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Fri, 27 Dec 2019 08:22:59 +0100
+Message-ID: <CAKgNAkjbRYWYtqxV_UjWv3tU2zX3xMNcZOr2_3SsA5uYwTPnAw@mail.gmail.com>
+Subject: Re: ping entry has typo
+To:     cshaiku@gmail.com
+Cc:     linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH v3 0/8] Rework random blocking
-From:   Andy Lutomirski <luto@amacapital.net>
-In-Reply-To: <20191226140423.GB3158@mit.edu>
-Cc:     Stephan Mueller <smueller@chronox.de>,
-        Andy Lutomirski <luto@kernel.org>,
-        LKML <linux-kernel@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        Kees Cook <keescook@chromium.org>,
-        "Jason A. Donenfeld" <Jason@zx2c4.com>,
-        "Ahmed S. Darwish" <darwish.07@gmail.com>,
-        Lennart Poettering <mzxreary@0pointer.de>,
-        "Eric W. Biederman" <ebiederm@xmission.com>,
-        "Alexander E. Patrakov" <patrakov@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Willy Tarreau <w@1wt.eu>,
-        Matthew Garrett <mjg59@srcf.ucam.org>,
-        Ext4 Developers List <linux-ext4@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>
-Date:   Fri, 27 Dec 2019 07:29:20 +0800
-Message-Id: <26B7EEAE-1166-4B45-9534-E00C5B2767C1@amacapital.net>
-References: <20191226140423.GB3158@mit.edu>
-To:     "Theodore Y. Ts'o" <tytso@mit.edu>
-X-Mailer: iPhone Mail (17C54)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hello Chris,
 
->> On Dec 26, 2019, at 10:04 PM, Theodore Y. Ts'o <tytso@mit.edu> wrote:
->>=20
->> =EF=BB=BFOn Thu, Dec 26, 2019 at 01:03:34PM +0100, Stephan Mueller wrote:=
+Please see http://man7.org/linux/man-pages/man8/ping.8.html#COLOPHON
+for info on how to report bugs for this manual page.
 
->> Agreed. I was just trying to outline that the removal of the blocking_poo=
-l is
->> a good thing. Even when we decide that random.c should receive a TRNG, we=
- do
->> not need to re-add a blocking pool, but can easily use the existing ChaCh=
-a20
->> DRNG (most likely with its own instance).
->=20
-> Well, it depends on what you mean by "TRNG" --- the ChaCha20 DRNG only
-> has a state of 256 bits.  So if you want to only depend on "true
-> entropy" you can't extract more than 256 bits without violating that
-> assumption, at least if you're using a very strict definition of TRNG.
->=20
-> By getting rid of the blocking pool, and making /dev/random work like
-> getrandom with flags set to 0, we're effectively abandoning any kind
-> of assertion that /dev/random is some kind of TRNG.  This is not
-> insane; this is what the *BSD's have always done.
->=20
-> But once we do this, and /dev/random takes on the semantics of "block
-> until the CRNG has been initialized, and then it won't block after
-> that", if we change it so that it now has some different semantics,
-> such as "one you extract a 256-bit key, the read from /dev/random will
-> block until we can refill it, which might take seconds, minutes or
-> hours", will be considered a regression, and we can't do that.
+Cheers,
 
-I don=E2=80=99t think Stephan was proposing that. He was proposing a way to i=
-mplement a new interface that blocks.
+Michael
 
->=20
-> Of course, we can hope that people will be using getrandom() and there
-> will be very few new users of the /dev/random pathname.  But nothing
-> is ever guaranteed..
->=20
->                       - Ted
+On Thu, 26 Dec 2019 at 22:20, Chris Simmons <cs.haiku@gmail.com> wrote:
+>
+> This:
+>
+>        -f
+>            Flood ping. For every ECHO_REQUEST sent a period =E2=80=9C.=E2=
+=80=9D is
+> printed, while for ever ECHO_REPLY received a backspace is
+>
+>
+> Should be:
+>
+>        -f
+>            Flood ping. For every ECHO_REQUEST sent a period =E2=80=9C.=E2=
+=80=9D is
+> printed, while for every ECHO_REPLY received a backspace is
+>
+>
+> Sincerely,
+>
+> Chris Simmons
+> Tech Guru, Fullstack Developer
+
+
+
+--=20
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
