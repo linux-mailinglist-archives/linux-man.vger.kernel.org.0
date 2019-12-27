@@ -2,78 +2,89 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 68C2212BAA3
-	for <lists+linux-man@lfdr.de>; Fri, 27 Dec 2019 19:31:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D670B12BB2C
+	for <lists+linux-man@lfdr.de>; Fri, 27 Dec 2019 22:15:37 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726495AbfL0SbE convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Fri, 27 Dec 2019 13:31:04 -0500
-Received: from mail-qv1-f65.google.com ([209.85.219.65]:46594 "EHLO
-        mail-qv1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726379AbfL0SbE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 27 Dec 2019 13:31:04 -0500
-Received: by mail-qv1-f65.google.com with SMTP id u1so9477805qvk.13
-        for <linux-man@vger.kernel.org>; Fri, 27 Dec 2019 10:31:03 -0800 (PST)
+        id S1726982AbfL0VPh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 27 Dec 2019 16:15:37 -0500
+Received: from mail-oi1-f194.google.com ([209.85.167.194]:41971 "EHLO
+        mail-oi1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726527AbfL0VPg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 27 Dec 2019 16:15:36 -0500
+Received: by mail-oi1-f194.google.com with SMTP id i1so9932213oie.8
+        for <linux-man@vger.kernel.org>; Fri, 27 Dec 2019 13:15:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=qqJfvcGc3yf78nLzZ4sES2gA8TGZMXJ69R9hg/XquS4=;
+        b=WsbYid4YwgqRnbTKo+DINQPRUio/JOm9LSuG+Wh3Tjqg50hFXfhK2rKz+qBhnyjmG3
+         VGE8qxMHLUdOABJO65SSdkAv9ri53nEa/RYbUZBfP4NBx2jbymRktV5IV99Q+8zeSeHO
+         HrRzSJ0GYT9IWLuMah9wiqB1XutYXUckPhLrCRzpPNcL/6LucdF2v5XQwlsNwPVVjPHJ
+         +6XtN1tlZXsd4XXmRVCVdV1XMn5cOUJhz/Ah4HyBuHQMiHvwgBtUpipaw6UiEeOVmKn5
+         06JnlFBqXoUMJEXLUoU7Q1ML5TuiCTHeWLKWy6aWLoyW/mrAIj/hC16VRhtG5o5xfzCv
+         TNEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
-         :content-transfer-encoding:message-id:references:to;
-        bh=xh1x/yIgfj8oB2c9KFtRux9fZOLKyLns5uAfisJItgE=;
-        b=oPhwv+gSpdekspJhl7cgGu9J9suNMA2lLxt0Qce3yH5vy7FVAvuH5UOIBB7cknYQ86
-         uBP7bDy+jbXYw4L41suV9M7A1R/M6vHbjnxdDCR5U4DY7oCTcg6Uh7Kg9CqBT7xMMO6w
-         8xjHO5dhJmsGz2yxR5IWAupZzZpZvbUFMYT181vqBUmG9DAaE9Ec8mnKZggNWLzRkvQd
-         wOuydLeBcdIlKdZPyB4xiquKpjl9uVZTJfP2ZB7pKn9dcwsXrVbiXB3Pd/jEAqhU4Ozr
-         q9WD8rWohqZNDZGTk0tgtLs+9sJOANGuRXhuciLL/12pXf77gdPBxFgcwKnrPso9tR1W
-         mqZw==
-X-Gm-Message-State: APjAAAWhsUGw4JpgS8bAuH2OpWQo916UZeTFokFyirNvSiy4x4tCtZ/a
-        D/2t0np+c47zDqua4qtV+h0=
-X-Google-Smtp-Source: APXvYqxeosMoqyIrpbAWc5YMShyUbj8emJxuDbocBvjKOFgleb64m4Vzyxy+okJwTMSK+2cG8s0z+g==
-X-Received: by 2002:a05:6214:c3:: with SMTP id f3mr40677813qvs.226.1577471463369;
-        Fri, 27 Dec 2019 10:31:03 -0800 (PST)
-Received: from [10.0.1.13] ([66.92.75.42])
-        by smtp.gmail.com with ESMTPSA id n190sm10023947qke.90.2019.12.27.10.31.01
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 27 Dec 2019 10:31:02 -0800 (PST)
-Content-Type: text/plain;
-        charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 11.3 \(3445.6.18\))
-Subject: Re: pic anomalies
-From:   Federico Lucifredi <flucifredi@acm.org>
-In-Reply-To: <201912271608.xBRG84Jr128687@tahoe.cs.Dartmouth.EDU>
-Date:   Fri, 27 Dec 2019 13:31:00 -0500
-Cc:     groff@gnu.org
-Content-Transfer-Encoding: 8BIT
-Message-Id: <CD458CB1-3C1D-42F5-B1BA-DAA604378D51@acm.org>
-References: <201912271608.xBRG84Jr128687@tahoe.cs.Dartmouth.EDU>
-To:     Doug McIlroy <doug@cs.dartmouth.edu>
-X-Mailer: Apple Mail (2.3445.6.18)
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=qqJfvcGc3yf78nLzZ4sES2gA8TGZMXJ69R9hg/XquS4=;
+        b=EafSrkV5Q9UW2DnDOEg1zXxbdS10qQVrQnMNOcbgpFsUYGIKqcYHm/BvVQgsqHHhfS
+         wc1wZZeBp7gAYAP40O4AZhl+STdnmYXm6TSvHZGAAp5GC3Bcuk6hMdZIbqip4ZaXgEUL
+         nwhLENVO/tg6IbHI98YpJhucNok5L7atMcDdYuNRG6s0aFG0zRllwHBNhRcrBkybXjsn
+         RSz3OuZjcNV+tmjwgW2aDof7DGHkIPzhRTsuSasRzAQLLEhRUP+xozBf18lAu2kGOwEc
+         Z6zpvBSwNyjOOwGs57rpSp6nCGFqQLZF2gQn5lJ+o2BfLEb6EJ2tZ6LCITMtmCXPI7mO
+         gxLQ==
+X-Gm-Message-State: APjAAAWX464MYwuDgu0voZbd3Jdc4fU7UHl24KM4VFHWswJ1ps3+ajMi
+        6+wwrXPHCxnrCeWnGJ560MNZtl9bbdmjWVvVehE=
+X-Google-Smtp-Source: APXvYqwEgKdBvllAVVXfgDWBgbPuRyeql2BSQJccJxSfAKm1Iw8VR9HaXW0P5B6mPV+M6SWqTHaUn3iECz5cOlpBBsg=
+X-Received: by 2002:aca:e084:: with SMTP id x126mr3957513oig.97.1577481335987;
+ Fri, 27 Dec 2019 13:15:35 -0800 (PST)
+MIME-Version: 1.0
+From:   =?UTF-8?Q?Antonin_D=C3=A9cimo?= <antonin.decimo@gmail.com>
+Date:   Fri, 27 Dec 2019 22:15:42 +0100
+Message-ID: <CAC=54BKOz_ReXURKh8HCzA67SN=vO9439G7K8J0P19dn-PX_mg@mail.gmail.com>
+Subject: [PATCH] netlink.7: fix alignment issue in example
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Doug,
-  for (1), I am CCing Michael Kerrisk — and the procedure to report issues on the man pages is tracked here https://www.kernel.org/doc/man-pages/reporting_bugs.html (In brief: email mtk.manpages@gmail.com and CC linux-man@vger.kernel.org).
+PVS-Studio reports that in
 
-   Best -Federico
+    char buf[8192];
+    /* ... */
+    nh = (struct nlmsghdr *) buf,
 
+the pointer 'buf' is cast to a more strictly aligned pointer
+type. This is undefined behaviour. One possible solution to make sure
+that buf is correctly aligned is to declare buf as an array of struct
+nlmsghdr. Other solutions include allocating the array on the heap,
+use an union, or stdalign features.
+With this patch, the buffer still contains 8192 bytes.
 
-> On Dec 27, 2019, at 11:08 AM, Doug McIlroy <doug@cs.dartmouth.edu> wrote:
-> 
-> The description of sprintf in the man page pic(1) does not
-> reveal that only a few format codes are permitted.
-> 
-> Eric Raymond's "Making Pictures With GNU PIC" says only
-> %,%e,%f,%g are  permitted. But what does a bare % mean?
-> 
-> In fact pic rejects a bare %. However it does accept
-> %%, which is supposed to print a single %. Pic,
-> however prints %%.
-> 
-> So I believe we have
-> 1. An incompleteness in pic(1)
-> 2. An error in "Making Pictures With GNU PIC"
-> 3. An error in pic itself
-> 
-> Doug
-> 
+This was raised on Stack Overflow:
+https://stackoverflow.com/questions/57745580/netlink-receive-buffer-alignment
+---
+ man7/netlink.7 | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
+diff --git a/man7/netlink.7 b/man7/netlink.7
+index 81d4249..853dee6 100644
+--- a/man7/netlink.7
++++ b/man7/netlink.7
+@@ -533,8 +533,9 @@ And the last example is about reading netlink message.
+ .in +4n
+ .EX
+ int len;
+-char buf[8192];     /* 8192 to avoid message truncation on
+-                       platforms with page size > 4096 */
++/* 8192 to avoid message truncation on platforms with
++   page size > 4096 */
++struct nlmsghdr buf[8192/sizeof(struct nlmsghdr)];
+ struct iovec iov = { buf, sizeof(buf) };
+ struct sockaddr_nl sa;
+ struct msghdr msg;
+-- 
+2.24.1
