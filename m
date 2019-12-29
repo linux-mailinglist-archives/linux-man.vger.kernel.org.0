@@ -2,24 +2,27 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 93D4C12BCEC
-	for <lists+linux-man@lfdr.de>; Sat, 28 Dec 2019 08:01:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E830E12C2DB
+	for <lists+linux-man@lfdr.de>; Sun, 29 Dec 2019 15:50:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725957AbfL1HBb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 28 Dec 2019 02:01:31 -0500
-Received: from wtarreau.pck.nerim.net ([62.212.114.60]:29841 "EHLO 1wt.eu"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1725857AbfL1HBb (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 28 Dec 2019 02:01:31 -0500
-Received: (from willy@localhost)
-        by pcw.home.local (8.15.2/8.15.2/Submit) id xBS71BFU002595;
-        Sat, 28 Dec 2019 08:01:11 +0100
-Date:   Sat, 28 Dec 2019 08:01:11 +0100
-From:   Willy Tarreau <w@1wt.eu>
-To:     "Theodore Y. Ts'o" <tytso@mit.edu>
+        id S1726535AbfL2OuM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 29 Dec 2019 09:50:12 -0500
+Received: from outgoing-auth-1.mit.edu ([18.9.28.11]:45667 "EHLO
+        outgoing.mit.edu" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1726230AbfL2OuM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 29 Dec 2019 09:50:12 -0500
+Received: from callcc.thunk.org (96-72-102-169-static.hfc.comcastbusiness.net [96.72.102.169] (may be forged))
+        (authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+        by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id xBTEn4GM024237
+        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Sun, 29 Dec 2019 09:49:05 -0500
+Received: by callcc.thunk.org (Postfix, from userid 15806)
+        id 83EFA420485; Sun, 29 Dec 2019 09:49:04 -0500 (EST)
+Date:   Sun, 29 Dec 2019 09:49:04 -0500
+From:   "Theodore Y. Ts'o" <tytso@mit.edu>
+To:     Andy Lutomirski <luto@kernel.org>
 Cc:     Stephan Mueller <smueller@chronox.de>,
-        Andy Lutomirski <luto@amacapital.net>,
-        Andy Lutomirski <luto@kernel.org>,
         LKML <linux-kernel@vger.kernel.org>,
         Linux API <linux-api@vger.kernel.org>,
         Kees Cook <keescook@chromium.org>,
@@ -29,70 +32,53 @@ Cc:     Stephan Mueller <smueller@chronox.de>,
         "Eric W. Biederman" <ebiederm@xmission.com>,
         "Alexander E. Patrakov" <patrakov@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>,
+        Willy Tarreau <w@1wt.eu>,
         Matthew Garrett <mjg59@srcf.ucam.org>,
         Ext4 Developers List <linux-ext4@vger.kernel.org>,
         linux-man <linux-man@vger.kernel.org>
 Subject: Re: [PATCH v3 0/8] Rework random blocking
-Message-ID: <20191228070111.GB2519@1wt.eu>
+Message-ID: <20191229144904.GB7177@mit.edu>
 References: <20191226140423.GB3158@mit.edu>
  <4048434.Q8HajmOrkZ@tauon.chronox.de>
  <20191227130436.GC70060@mit.edu>
  <15817620.rmTN4T87Wr@tauon.chronox.de>
  <20191227220857.GD70060@mit.edu>
+ <CALCETrUyVx_qb2yYH8D_z1T2bVu5RAEr71G0MTzEksBKKM1QsA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20191227220857.GD70060@mit.edu>
-User-Agent: Mutt/1.6.1 (2016-04-27)
+In-Reply-To: <CALCETrUyVx_qb2yYH8D_z1T2bVu5RAEr71G0MTzEksBKKM1QsA@mail.gmail.com>
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Dec 27, 2019 at 05:08:57PM -0500, Theodore Y. Ts'o wrote:
-> > Or maybe the terminology of TRNG (i.e. "true") is offending. I have no concern 
-> > to have it replaced with some other terminology. Yet, I was just taking one 
-> > well-defined term.
+On Fri, Dec 27, 2019 at 06:06:56PM -0800, Andy Lutomirski wrote:
 > 
-> But my point is that it *isn't* a well defined term, precisely because
-> it's completely unclear what application programmer can expect when
-> they try to use some hypothetical GRANDOM_TRUERANDOM flag.  What does
-> that *mean*?
+> I'm thinking of having a real class device and chardev for each hwrng
+> device.  Authentication is entirely in userspace: whatever user code
+> is involved can look at the sysfs hierarchy and decide to what extent
+> it trusts a given source.  This could be done based on bus topology or
+> based on anything else.
 
-I've also seen this term used and abused too many times and this bothers
-me because the expectations around it are the cause of the current
-situation.
+Yes, that's what I was thinking.  Another project on my "when I can
+get a round tuit" list is to change how drivers/char/random.c taps
+into the hwrng devices, mixing in a bit from each of these devies in a
+round-robin fashion, instead of just feeding from a single hwrng.
 
-Randomness doesn't exist by itself. It's what characterizes the
-unpredictable nature of something. I.e. our inability to model it and
-guess what will happen based on what we know. 200 years ago we'd have
-considered the weather as a true random source. Now we have super
-computers making this moot. In the current state of art we consider
-that cesium decay or tunnel noise are unpredictable and excellent
-random sources, until one day we figure that magnetic fields,
-temperature or gamma rays strongly affect them.
+> The kernel could also separately expose various noise sources, and the
+> user code can do whatever it wants with them.  But these should be
+> explicitly unconditioned, un-entropy-extracted sources -- user code
+> can run its favorite algorithm to extract something it believes to be
+> useful.  The only conceptually tricky bit is keeping user code like
+> this from interfering with the in-kernel RNG.
 
-So in practice we should only talk about the complexity of the model we
-rely on. The more complex it is (i.e. the most independent variables it
-relies on), the less predictable it is and the more random it is. Jitter
-entropy and RAM contents are good examples of this: they may be highly
-unpredictable on some platforms and almost constant on others. And for
-sure, software cannot fix this, it can at best make the output *look*
-like it's unpredictable. Once someone can model all variables of the
-environment this is not true random anymore.
+The other problem is the unconditioned values of the noise sources may
+leak unacceptable amounts of information about system operation.  The
+most obvious example of this would be keyboard and mouse sources,
+where today we mix in not only the timing information, but the actual
+input values (e.g., the keyboard scancodes) into the entropy pool.
+Exposing this to userspace, even if it is via a privileged system
+call, would be... unwise.
 
-That's why the best we can do is to combine as many sources as possible
-hoping that nobody can model enough of them, and produce an output which
-never ever reveals these sources' internal states. *This* is what software
-can and must do. And once the initial entropy is hidden enough and there
-is enough of it, there's no reason for it to ever get depleted if these
-initial bits cannot be guessed nor brute-forced.
-
-And quite frankly I'd rather just speak about the diversity of sources
-than "true" randomness. Just asking a user to press 10 random keys and
-to enter a random word for some operations can break many assumptions
-an attacker could have about the environment, by just adding one extra,
-less controllable, source.
-
-Just my two cents,
-Willy
+						- Ted
