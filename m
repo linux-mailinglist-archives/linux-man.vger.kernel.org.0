@@ -2,86 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A6B0E12D389
-	for <lists+linux-man@lfdr.de>; Mon, 30 Dec 2019 19:50:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A64F012D39C
+	for <lists+linux-man@lfdr.de>; Mon, 30 Dec 2019 19:55:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727571AbfL3SuD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 30 Dec 2019 13:50:03 -0500
-Received: from mail-pg1-f196.google.com ([209.85.215.196]:45413 "EHLO
-        mail-pg1-f196.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727278AbfL3SuD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Dec 2019 13:50:03 -0500
-Received: by mail-pg1-f196.google.com with SMTP id b9so18392104pgk.12
-        for <linux-man@vger.kernel.org>; Mon, 30 Dec 2019 10:50:03 -0800 (PST)
+        id S1727544AbfL3SzK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 30 Dec 2019 13:55:10 -0500
+Received: from mail-pg1-f195.google.com ([209.85.215.195]:36457 "EHLO
+        mail-pg1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727278AbfL3SzK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Dec 2019 13:55:10 -0500
+Received: by mail-pg1-f195.google.com with SMTP id k3so18416989pgc.3;
+        Mon, 30 Dec 2019 10:55:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=4KSEyoVO99g/YB0i3Xm7t6pJQuoLKfABoKBRCidCwok=;
-        b=t9zWquYyVs8+44O1squ9R9mN5jB9wqSGACg7xXi5N2gzwtf6xHoFLMS84tZ7R9ebMI
-         2f4mWz9kiROwrPiQFwJBFcKFAnwLXAc72NENqvZ6Zp//ObUGvObthk8BmPhkcucm/K28
-         nf/6FFR/o87WxqT2XKhDqNi8F0b9fTtEKAPpnK8v9+SWtAIiVshQlkMHnyrtyG1ZFbvv
-         dyArjano9tmEFVXTFl4m8CAdLR3P+bL5xM6t7zXjRfc50m20yMcLVZe2KEnrkwvpLFAO
-         OHjh8YYVR5GrgIqlxQXXtIvsNZp6NgHn3+7ZoQlvRw4SFwEQc6t6GUnUN9r4hzz9yTTq
-         iuqQ==
+        bh=JdJt+MkTze/hUL4TVQW3KhBaiLuTd3kBvUR3FwEU5Qw=;
+        b=T6AA3Yq/E4xHEiE7UOJsSe1KBwiqHKjsKD3ArwTMGiohKMNoVDMofdNq01gXlwH34r
+         T9XC5fOv6Nj+jsRWl/vRe/kOmd0Q0Hvlg7Iw6wUEh4xZsM1YHHt7FcJif9vPKTsV36jL
+         lYERwYnk3pfk12AySePtOfArgV+PUQjhBeFvtd1DLNfclobWTW4UxjK5UTJmy/toxQuw
+         oklCnQQ1j8Y9F/jrT/NEOS30MnrISV+pqYyzq6InronTrTowXdos+KxnZV9yKUWYJqOs
+         7eyOd6OceiJWsNOJs0j9EgZGZUAIaXhqZLmhmJAWmaPwleHjiMqHFV1Q1Rmpf3SpBsVR
+         kx4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=4KSEyoVO99g/YB0i3Xm7t6pJQuoLKfABoKBRCidCwok=;
-        b=skS3E5hnYA2DL+YsgNopjSRe7LhZQyRTkbrGStsrCSYXfeAND9eWSfJofEnl1GhFty
-         wbW75o9kmQffEqhkP9UkZxUtou1omytTRsO6zf0w1qsWYIiv54TcLMzdWpTjR4MWNtHM
-         7/8g3wJfd/dDMCYmaNM+bvDSQ504OhV2FqXCsUmk6J5eIbWONj5WuBFlvK4RAapEd1g8
-         3uyPxIgcqf0BZzAEt4EMBhhsXwg7pWkJMeBpuxn/roo90acczR6yHRdyvgwOPLKLcidq
-         Zprolfc1Opq0exI5eVdmiQfqrGbtHXougn0IBgSRp+JEBygEaF92Iq1Y/MVjMvY6EMt7
-         tIew==
-X-Gm-Message-State: APjAAAVrsna71KMID5FQBXVBbTtXM8ucqiL+q5fn50o1WL7BLMfv195L
-        uFfjweL4lrON/9NRllsG15uWJ9X2
-X-Google-Smtp-Source: APXvYqx7ko4JO9c280Hv4FOD3CWzh8Wy70DWht1CiEpHZzEd1u/d44PdAypO4kZtA0JO03jIKX+9jQ==
-X-Received: by 2002:a63:e84d:: with SMTP id a13mr76698463pgk.274.1577731802704;
-        Mon, 30 Dec 2019 10:50:02 -0800 (PST)
+        bh=JdJt+MkTze/hUL4TVQW3KhBaiLuTd3kBvUR3FwEU5Qw=;
+        b=aHXSi4LEWjWLln9sFvFIf4XD3F6EZg2bHhRtb63DTQEm72R87NVdeUo5ZYzfmmluDv
+         wNRm1axUQ/p6R7CvocE+jHGTgtC377Lhxtt0QsA9+EeUYlJPih6v/sZTcSNcrLvxOoPx
+         SVSl+Pmns0aLx66e2hXtKaPrDyEy4BOwJ+mmKONRXz1zG9p14wVl7dKHFAQO+RUamPGI
+         uqOrCAwmX4aPuguqwEd32ZUpHOBfgkO1y0MZA5k0CGwu8YasZRdtfjyEUrw1qVpzJLfh
+         BIX7LygcpdT0yqU7zh83EIIJlmLocdqv9hhxqkrONMevw4mzyNPnO3XJfs5ADga4mdQi
+         pdZg==
+X-Gm-Message-State: APjAAAU6m23dxYWZSkEX/e1bPOcIaODzq9sfCPBM4SgKcIX2UiSwjS7k
+        xf5YaHr6SoiBlzQ4Tjhy+SU=
+X-Google-Smtp-Source: APXvYqw/u/vrkEjBsO4sYGwrIEsbNFY8YSrXJiBBJg43B8OEOUKe0HXjYIYafjiDENaioXycrkGe+A==
+X-Received: by 2002:a62:788a:: with SMTP id t132mr73222512pfc.134.1577732109926;
+        Mon, 30 Dec 2019 10:55:09 -0800 (PST)
 Received: from [192.168.178.94] ([121.98.29.40])
-        by smtp.gmail.com with ESMTPSA id y197sm53528389pfc.79.2019.12.30.10.50.00
+        by smtp.gmail.com with ESMTPSA id y7sm44922524pfb.139.2019.12.30.10.55.04
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 30 Dec 2019 10:50:02 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] netlink.7: fix alignment issue in example
-To:     =?UTF-8?Q?Antonin_D=c3=a9cimo?= <antonin.decimo@gmail.com>
-References: <CAC=54BKOz_ReXURKh8HCzA67SN=vO9439G7K8J0P19dn-PX_mg@mail.gmail.com>
+        Mon, 30 Dec 2019 10:55:08 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Christopher Lameter <cl@linux.com>, linux-api@vger.kernel.org,
+        LKML <linux-kernel@vger.kernel.org>, linux-mm@kvack.org,
+        Michal Hocko <mhocko@suse.com>,
+        Brice Goglin <Brice.Goglin@inria.fr>,
+        Yang Shi <yang.shi@linux.alibaba.com>
+Subject: Re: [PATCH] move_pages.2: remove ENOENT from the list of possible
+ return values
+To:     John Hubbard <jhubbard@nvidia.com>
+References: <20191219051347.1278026-1-jhubbard@nvidia.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <eb5aefe0-ab56-d37b-96c5-cec03e373007@gmail.com>
-Date:   Mon, 30 Dec 2019 19:49:58 +0100
+Message-ID: <56530a26-e5b4-1441-521b-8dc6580f90c7@gmail.com>
+Date:   Mon, 30 Dec 2019 19:55:00 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.3.1
 MIME-Version: 1.0
-In-Reply-To: <CAC=54BKOz_ReXURKh8HCzA67SN=vO9439G7K8J0P19dn-PX_mg@mail.gmail.com>
+In-Reply-To: <20191219051347.1278026-1-jhubbard@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Antonin,
+Hello John,
 
-On 12/27/19 10:15 PM, Antonin Décimo wrote:
-> PVS-Studio reports that in
+On 12/19/19 6:13 AM, John Hubbard wrote:
+> Linux kernel commit e78bbfa82624 ("mm: stop returning -ENOENT from
+> sys_move_pages() if nothing got migrated") had the effect of *never*
+> returning -ENOENT, in any situation. So we need to update the man page
+> to reflect that ENOENT is not a possible return value.
 > 
->     char buf[8192];
->     /* ... */
->     nh = (struct nlmsghdr *) buf,
+> Acked-by: Michal Hocko <mhocko@suse.com>
+> Cc: Brice Goglin <Brice.Goglin@inria.fr>
+> Cc: Yang Shi <yang.shi@linux.alibaba.com>
+> Cc: Christoph Lameter <cl@linux.com>
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> ---
 > 
-> the pointer 'buf' is cast to a more strictly aligned pointer
-> type. This is undefined behaviour. One possible solution to make sure
-> that buf is correctly aligned is to declare buf as an array of struct
-> nlmsghdr. Other solutions include allocating the array on the heap,
-> use an union, or stdalign features.
-> With this patch, the buffer still contains 8192 bytes.
+> Hi,
 > 
-> This was raised on Stack Overflow:
-> https://stackoverflow.com/questions/57745580/netlink-receive-buffer-alignment
+> This fix for the man page was ACK'd by Michal, here:
+> 
+> https://lore.kernel.org/r/20191218101711.GB21485@dhcp22.suse.cz
 
 Thanks. Patch applied.
 
@@ -89,26 +98,26 @@ Cheers,
 
 Michael
 
-> ---
->  man7/netlink.7 | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+>  man2/move_pages.2 | 6 ------
+>  1 file changed, 6 deletions(-)
 > 
-> diff --git a/man7/netlink.7 b/man7/netlink.7
-> index 81d4249..853dee6 100644
-> --- a/man7/netlink.7
-> +++ b/man7/netlink.7
-> @@ -533,8 +533,9 @@ And the last example is about reading netlink message.
->  .in +4n
->  .EX
->  int len;
-> -char buf[8192];     /* 8192 to avoid message truncation on
-> -                       platforms with page size > 4096 */
-> +/* 8192 to avoid message truncation on platforms with
-> +   page size > 4096 */
-> +struct nlmsghdr buf[8192/sizeof(struct nlmsghdr)];
->  struct iovec iov = { buf, sizeof(buf) };
->  struct sockaddr_nl sa;
->  struct msghdr msg;
+> diff --git a/man2/move_pages.2 b/man2/move_pages.2
+> index 2d96468fa..1bf1053f2 100644
+> --- a/man2/move_pages.2
+> +++ b/man2/move_pages.2
+> @@ -191,12 +191,6 @@ was specified or an attempt was made to migrate pages of a kernel thread.
+>  .B ENODEV
+>  One of the target nodes is not online.
+>  .TP
+> -.B ENOENT
+> -No pages were found that require moving.
+> -All pages are either already
+> -on the target node, not present, had an invalid address or could not be
+> -moved because they were mapped by multiple processes.
+> -.TP
+>  .B EPERM
+>  The caller specified
+>  .B MPOL_MF_MOVE_ALL
 > 
 
 
