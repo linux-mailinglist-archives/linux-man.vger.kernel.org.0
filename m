@@ -2,60 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 1D3BA12D386
-	for <lists+linux-man@lfdr.de>; Mon, 30 Dec 2019 19:47:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A6B0E12D389
+	for <lists+linux-man@lfdr.de>; Mon, 30 Dec 2019 19:50:04 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727544AbfL3SrX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 30 Dec 2019 13:47:23 -0500
-Received: from mail-pj1-f67.google.com ([209.85.216.67]:54317 "EHLO
-        mail-pj1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727537AbfL3SrX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Dec 2019 13:47:23 -0500
-Received: by mail-pj1-f67.google.com with SMTP id kx11so124860pjb.4
-        for <linux-man@vger.kernel.org>; Mon, 30 Dec 2019 10:47:22 -0800 (PST)
+        id S1727571AbfL3SuD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 30 Dec 2019 13:50:03 -0500
+Received: from mail-pg1-f196.google.com ([209.85.215.196]:45413 "EHLO
+        mail-pg1-f196.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727278AbfL3SuD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Dec 2019 13:50:03 -0500
+Received: by mail-pg1-f196.google.com with SMTP id b9so18392104pgk.12
+        for <linux-man@vger.kernel.org>; Mon, 30 Dec 2019 10:50:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=fTS0qosFXXR/HVKKtj69quE7U5GJWVntKb6PPRIhxEU=;
-        b=JMpUIsC7VotmnDktgbFA8OvZbNtnfXmZ7UKMMRZMJBrZPyhg9eI4lr7M/ubRVwk6H3
-         Qad9Q1yZb3m4wL65+YVAmU8mqlDP4DpOJd7lpbc5PFP+KHpOyE8YLwYIiHVpL7178i7Q
-         i9hNwr9uYqFUuAEQftKemMzD71ADPhgDOp3P3c0L5dXDfD6Elrhzjnr3D3Dt/f7UkVEh
-         zCyQGyPhTpd+3arh3HvX1PVoe+vBW+qFf3ledTdH88sS7EnC1CAf3+I03vroxJju+dI6
-         ldXTgrDyupHN8tkDQr7ZeG11xl586yDA6vv0PKUk6LjPXKkCaZM6vYXc69IMXmpIc4c1
-         K7LQ==
+        bh=4KSEyoVO99g/YB0i3Xm7t6pJQuoLKfABoKBRCidCwok=;
+        b=t9zWquYyVs8+44O1squ9R9mN5jB9wqSGACg7xXi5N2gzwtf6xHoFLMS84tZ7R9ebMI
+         2f4mWz9kiROwrPiQFwJBFcKFAnwLXAc72NENqvZ6Zp//ObUGvObthk8BmPhkcucm/K28
+         nf/6FFR/o87WxqT2XKhDqNi8F0b9fTtEKAPpnK8v9+SWtAIiVshQlkMHnyrtyG1ZFbvv
+         dyArjano9tmEFVXTFl4m8CAdLR3P+bL5xM6t7zXjRfc50m20yMcLVZe2KEnrkwvpLFAO
+         OHjh8YYVR5GrgIqlxQXXtIvsNZp6NgHn3+7ZoQlvRw4SFwEQc6t6GUnUN9r4hzz9yTTq
+         iuqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=fTS0qosFXXR/HVKKtj69quE7U5GJWVntKb6PPRIhxEU=;
-        b=uPYU8N7vII3g+9SIeLfCeRxfEwdOw84N6SjjMHBWFm+dnOjse+GTMWpUnoabevmmCV
-         3RMHpr6KJhNbQkFGAy9i6fgcNld3eY5oJPnUiT0IBPHJPCg2FsOHLdVCYlQ1AArY9xZu
-         FzBPY9VA25+NYmGupUZycvu3l9MbcbaP13MOT5z1q5oHOMmWwP7OeL1ERTe53MImn5IA
-         J7tSAkJJoNsfD0aGK77EKykYCS3RCfYoO9Ml3LsQqL4j69QnYWB6hyVIv4rjZw3iesf9
-         iXIeeMEIwjVR2ELmbyErK4siHBXErdpDA4+657fKpwzJV9+uARQ3Q+VbKiXvURBFx5nS
-         nzIQ==
-X-Gm-Message-State: APjAAAUuC87psuWwIfQTyPktw+YPK0ikWEu/FT5TpJyySmKyZ73av/r6
-        U1Df5/UTGkqkBRQJt5wRaZWIYRPy
-X-Google-Smtp-Source: APXvYqxQsKZozA+kyXrtlKTD66pHbut8pMKBeXNgK75Vm26N6aPO1UgYp0ld1YyaZ5lcsghVKBkd+g==
-X-Received: by 2002:a17:90a:2763:: with SMTP id o90mr640919pje.110.1577731642233;
-        Mon, 30 Dec 2019 10:47:22 -0800 (PST)
+        bh=4KSEyoVO99g/YB0i3Xm7t6pJQuoLKfABoKBRCidCwok=;
+        b=skS3E5hnYA2DL+YsgNopjSRe7LhZQyRTkbrGStsrCSYXfeAND9eWSfJofEnl1GhFty
+         wbW75o9kmQffEqhkP9UkZxUtou1omytTRsO6zf0w1qsWYIiv54TcLMzdWpTjR4MWNtHM
+         7/8g3wJfd/dDMCYmaNM+bvDSQ504OhV2FqXCsUmk6J5eIbWONj5WuBFlvK4RAapEd1g8
+         3uyPxIgcqf0BZzAEt4EMBhhsXwg7pWkJMeBpuxn/roo90acczR6yHRdyvgwOPLKLcidq
+         Zprolfc1Opq0exI5eVdmiQfqrGbtHXougn0IBgSRp+JEBygEaF92Iq1Y/MVjMvY6EMt7
+         tIew==
+X-Gm-Message-State: APjAAAVrsna71KMID5FQBXVBbTtXM8ucqiL+q5fn50o1WL7BLMfv195L
+        uFfjweL4lrON/9NRllsG15uWJ9X2
+X-Google-Smtp-Source: APXvYqx7ko4JO9c280Hv4FOD3CWzh8Wy70DWht1CiEpHZzEd1u/d44PdAypO4kZtA0JO03jIKX+9jQ==
+X-Received: by 2002:a63:e84d:: with SMTP id a13mr76698463pgk.274.1577731802704;
+        Mon, 30 Dec 2019 10:50:02 -0800 (PST)
 Received: from [192.168.178.94] ([121.98.29.40])
-        by smtp.gmail.com with ESMTPSA id h6sm48325323pgq.61.2019.12.30.10.47.19
+        by smtp.gmail.com with ESMTPSA id y197sm53528389pfc.79.2019.12.30.10.50.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 30 Dec 2019 10:47:21 -0800 (PST)
+        Mon, 30 Dec 2019 10:50:02 -0800 (PST)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] rtnetlink.7: ifa_index is an unsigned int
+Subject: Re: [PATCH] netlink.7: fix alignment issue in example
 To:     =?UTF-8?Q?Antonin_D=c3=a9cimo?= <antonin.decimo@gmail.com>
-References: <CAC=54BJP7GrFk=0OMgAtRk6T5W4OLdQDpfC6h0xCr57BuuBaKg@mail.gmail.com>
+References: <CAC=54BKOz_ReXURKh8HCzA67SN=vO9439G7K8J0P19dn-PX_mg@mail.gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <005b7f00-0af1-89f0-8a42-8eab4be56dcf@gmail.com>
-Date:   Mon, 30 Dec 2019 19:47:15 +0100
+Message-ID: <eb5aefe0-ab56-d37b-96c5-cec03e373007@gmail.com>
+Date:   Mon, 30 Dec 2019 19:49:58 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.3.1
 MIME-Version: 1.0
-In-Reply-To: <CAC=54BJP7GrFk=0OMgAtRk6T5W4OLdQDpfC6h0xCr57BuuBaKg@mail.gmail.com>
+In-Reply-To: <CAC=54BKOz_ReXURKh8HCzA67SN=vO9439G7K8J0P19dn-PX_mg@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -64,40 +64,51 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 12/29/19 7:25 PM, Antonin Décimo wrote:
-> See include/linux/if_addr.h.
+Hello Antonin,
 
-Thanks, Antonin. Patch applied.
+On 12/27/19 10:15 PM, Antonin Décimo wrote:
+> PVS-Studio reports that in
+> 
+>     char buf[8192];
+>     /* ... */
+>     nh = (struct nlmsghdr *) buf,
+> 
+> the pointer 'buf' is cast to a more strictly aligned pointer
+> type. This is undefined behaviour. One possible solution to make sure
+> that buf is correctly aligned is to declare buf as an array of struct
+> nlmsghdr. Other solutions include allocating the array on the heap,
+> use an union, or stdalign features.
+> With this patch, the buffer still contains 8192 bytes.
+> 
+> This was raised on Stack Overflow:
+> https://stackoverflow.com/questions/57745580/netlink-receive-buffer-alignment
+
+Thanks. Patch applied.
 
 Cheers,
 
 Michael
 
-> struct ifaddrmsg {
->     __u8        ifa_family;
->     __u8        ifa_prefixlen;    /* The prefix length        */
->     __u8        ifa_flags;    /* Flags            */
->     __u8        ifa_scope;    /* Address scope        */
->     __u32        ifa_index;    /* Link index            */
-> };
-> 
 > ---
->  man7/rtnetlink.7 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  man7/netlink.7 | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> diff --git a/man7/rtnetlink.7 b/man7/rtnetlink.7
-> index 0be59a7..6260545 100644
-> --- a/man7/rtnetlink.7
-> +++ b/man7/rtnetlink.7
-> @@ -134,7 +134,7 @@ struct ifaddrmsg {
->      unsigned char ifa_prefixlen; /* Prefixlength of address */
->      unsigned char ifa_flags;     /* Address flags */
->      unsigned char ifa_scope;     /* Address scope */
-> -    int           ifa_index;     /* Interface index */
-> +    unsigned int  ifa_index;     /* Interface index */
->  };
->  .EE
->  .IP
+> diff --git a/man7/netlink.7 b/man7/netlink.7
+> index 81d4249..853dee6 100644
+> --- a/man7/netlink.7
+> +++ b/man7/netlink.7
+> @@ -533,8 +533,9 @@ And the last example is about reading netlink message.
+>  .in +4n
+>  .EX
+>  int len;
+> -char buf[8192];     /* 8192 to avoid message truncation on
+> -                       platforms with page size > 4096 */
+> +/* 8192 to avoid message truncation on platforms with
+> +   page size > 4096 */
+> +struct nlmsghdr buf[8192/sizeof(struct nlmsghdr)];
+>  struct iovec iov = { buf, sizeof(buf) };
+>  struct sockaddr_nl sa;
+>  struct msghdr msg;
 > 
 
 
