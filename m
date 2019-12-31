@@ -2,126 +2,106 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A64F012D39C
-	for <lists+linux-man@lfdr.de>; Mon, 30 Dec 2019 19:55:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0050612D5D6
+	for <lists+linux-man@lfdr.de>; Tue, 31 Dec 2019 03:49:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727544AbfL3SzK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 30 Dec 2019 13:55:10 -0500
-Received: from mail-pg1-f195.google.com ([209.85.215.195]:36457 "EHLO
-        mail-pg1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727278AbfL3SzK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Dec 2019 13:55:10 -0500
-Received: by mail-pg1-f195.google.com with SMTP id k3so18416989pgc.3;
-        Mon, 30 Dec 2019 10:55:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=JdJt+MkTze/hUL4TVQW3KhBaiLuTd3kBvUR3FwEU5Qw=;
-        b=T6AA3Yq/E4xHEiE7UOJsSe1KBwiqHKjsKD3ArwTMGiohKMNoVDMofdNq01gXlwH34r
-         T9XC5fOv6Nj+jsRWl/vRe/kOmd0Q0Hvlg7Iw6wUEh4xZsM1YHHt7FcJif9vPKTsV36jL
-         lYERwYnk3pfk12AySePtOfArgV+PUQjhBeFvtd1DLNfclobWTW4UxjK5UTJmy/toxQuw
-         oklCnQQ1j8Y9F/jrT/NEOS30MnrISV+pqYyzq6InronTrTowXdos+KxnZV9yKUWYJqOs
-         7eyOd6OceiJWsNOJs0j9EgZGZUAIaXhqZLmhmJAWmaPwleHjiMqHFV1Q1Rmpf3SpBsVR
-         kx4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=JdJt+MkTze/hUL4TVQW3KhBaiLuTd3kBvUR3FwEU5Qw=;
-        b=aHXSi4LEWjWLln9sFvFIf4XD3F6EZg2bHhRtb63DTQEm72R87NVdeUo5ZYzfmmluDv
-         wNRm1axUQ/p6R7CvocE+jHGTgtC377Lhxtt0QsA9+EeUYlJPih6v/sZTcSNcrLvxOoPx
-         SVSl+Pmns0aLx66e2hXtKaPrDyEy4BOwJ+mmKONRXz1zG9p14wVl7dKHFAQO+RUamPGI
-         uqOrCAwmX4aPuguqwEd32ZUpHOBfgkO1y0MZA5k0CGwu8YasZRdtfjyEUrw1qVpzJLfh
-         BIX7LygcpdT0yqU7zh83EIIJlmLocdqv9hhxqkrONMevw4mzyNPnO3XJfs5ADga4mdQi
-         pdZg==
-X-Gm-Message-State: APjAAAU6m23dxYWZSkEX/e1bPOcIaODzq9sfCPBM4SgKcIX2UiSwjS7k
-        xf5YaHr6SoiBlzQ4Tjhy+SU=
-X-Google-Smtp-Source: APXvYqw/u/vrkEjBsO4sYGwrIEsbNFY8YSrXJiBBJg43B8OEOUKe0HXjYIYafjiDENaioXycrkGe+A==
-X-Received: by 2002:a62:788a:: with SMTP id t132mr73222512pfc.134.1577732109926;
-        Mon, 30 Dec 2019 10:55:09 -0800 (PST)
-Received: from [192.168.178.94] ([121.98.29.40])
-        by smtp.gmail.com with ESMTPSA id y7sm44922524pfb.139.2019.12.30.10.55.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 30 Dec 2019 10:55:08 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Christopher Lameter <cl@linux.com>, linux-api@vger.kernel.org,
-        LKML <linux-kernel@vger.kernel.org>, linux-mm@kvack.org,
-        Michal Hocko <mhocko@suse.com>,
-        Brice Goglin <Brice.Goglin@inria.fr>,
-        Yang Shi <yang.shi@linux.alibaba.com>
-Subject: Re: [PATCH] move_pages.2: remove ENOENT from the list of possible
- return values
-To:     John Hubbard <jhubbard@nvidia.com>
-References: <20191219051347.1278026-1-jhubbard@nvidia.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <56530a26-e5b4-1441-521b-8dc6580f90c7@gmail.com>
-Date:   Mon, 30 Dec 2019 19:55:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.1
+        id S1726302AbfLaCth (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 30 Dec 2019 21:49:37 -0500
+Received: from out30-54.freemail.mail.aliyun.com ([115.124.30.54]:45542 "EHLO
+        out30-54.freemail.mail.aliyun.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1725813AbfLaCth (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Dec 2019 21:49:37 -0500
+X-Alimail-AntiSpam: AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=e01f04427;MF=yang.shi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0TmNSLzV_1577760569;
+Received: from US-143344MP.local(mailfrom:yang.shi@linux.alibaba.com fp:SMTPD_---0TmNSLzV_1577760569)
+          by smtp.aliyun-inc.com(127.0.0.1);
+          Tue, 31 Dec 2019 10:49:32 +0800
+Subject: Re: [PATCH] move_pages.2: not return ENOENT if the page are already
+ on the target nodes
+To:     John Hubbard <jhubbard@nvidia.com>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        cl@linux.com, mhocko@suse.com, cai@lca.pw,
+        akpm@linux-foundation.org
+Cc:     linux-man@vger.kernel.org, linux-api@vger.kernel.org,
+        linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <1575596090-115377-1-git-send-email-yang.shi@linux.alibaba.com>
+ <0dc96e40-5f2b-a2fe-6e5f-b6f3d5e9ebde@nvidia.com>
+ <95170ea5-5b62-9168-fcd9-93b43330a1b4@linux.alibaba.com>
+ <092adc11-7039-9343-7067-0e0199c9dc13@gmail.com>
+ <51dd767a-221f-882d-c7f6-45bd0c217a67@nvidia.com>
+From:   Yang Shi <yang.shi@linux.alibaba.com>
+Message-ID: <51a37061-8d95-eca1-a1d9-e6e8f4dc884d@linux.alibaba.com>
+Date:   Mon, 30 Dec 2019 18:49:29 -0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:52.0)
+ Gecko/20100101 Thunderbird/52.7.0
 MIME-Version: 1.0
-In-Reply-To: <20191219051347.1278026-1-jhubbard@nvidia.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <51dd767a-221f-882d-c7f6-45bd0c217a67@nvidia.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello John,
 
-On 12/19/19 6:13 AM, John Hubbard wrote:
-> Linux kernel commit e78bbfa82624 ("mm: stop returning -ENOENT from
-> sys_move_pages() if nothing got migrated") had the effect of *never*
-> returning -ENOENT, in any situation. So we need to update the man page
-> to reflect that ENOENT is not a possible return value.
-> 
-> Acked-by: Michal Hocko <mhocko@suse.com>
-> Cc: Brice Goglin <Brice.Goglin@inria.fr>
-> Cc: Yang Shi <yang.shi@linux.alibaba.com>
-> Cc: Christoph Lameter <cl@linux.com>
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> ---
-> 
-> Hi,
-> 
-> This fix for the man page was ACK'd by Michal, here:
-> 
-> https://lore.kernel.org/r/20191218101711.GB21485@dhcp22.suse.cz
 
-Thanks. Patch applied.
+On 12/17/19 11:36 PM, John Hubbard wrote:
+> On 12/13/19 5:55 PM, Michael Kerrisk (man-pages) wrote:
+> ...
+>>>> whoa, hold on. If I'm reading through the various error paths
+>>>> correctly, then this
+>>>> code is *never* going to return ENOENT for the whole function. It can
+>>>> fill in that
+>>>> value per-page, in the status array, but that's all. Did I get that
+>>>> right?
+>>>
+>>> Nice catch. Yes, you are right.
+>>>
+>>>>
+>>>> If so, we need to redo this part of the man page.
+>>>
+>>> Yes.
+>>
+>> So where are things at with this? Is an improved man-pages
+>> patch on the way, or is some other action (on the API) planned?
+>>
+>
+> I was waiting to see if Yang was going to respond...anyway, I think
+> we're looking at approximately this sort of change:
+>
 
-Cheers,
+Hi John,
 
-Michael
+I apologize for the delay, just came back from vacation. Thanks for 
+taking care of the patch.
 
->  man2/move_pages.2 | 6 ------
->  1 file changed, 6 deletions(-)
-> 
 > diff --git a/man2/move_pages.2 b/man2/move_pages.2
 > index 2d96468fa..1bf1053f2 100644
 > --- a/man2/move_pages.2
 > +++ b/man2/move_pages.2
-> @@ -191,12 +191,6 @@ was specified or an attempt was made to migrate pages of a kernel thread.
->  .B ENODEV
->  One of the target nodes is not online.
->  .TP
+> @@ -191,12 +191,6 @@ was specified or an attempt was made to migrate 
+> pages of a kernel thread.
+>  .B ENODEV
+>  One of the target nodes is not online.
+>  .TP
 > -.B ENOENT
 > -No pages were found that require moving.
 > -All pages are either already
 > -on the target node, not present, had an invalid address or could not be
 > -moved because they were mapped by multiple processes.
 > -.TP
->  .B EPERM
->  The caller specified
->  .B MPOL_MF_MOVE_ALL
-> 
+>  .B EPERM
+>  The caller specified
+>  .B MPOL_MF_MOVE_ALL
+>
+> ...But I'm not sure if we should change the implementation, instead, so
+> that it *can* return ENOENT. That's the main question to resolve before
+> creating any more patches, I think.
+>
+> In addition, Michal mentioned that the page states in the status array 
+> also
+> need updated documentation.
+>
+>
+> thanks,
 
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
