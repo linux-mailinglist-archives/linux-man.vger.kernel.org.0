@@ -2,89 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 838A412DE0E
-	for <lists+linux-man@lfdr.de>; Wed,  1 Jan 2020 08:27:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 475CD12F129
+	for <lists+linux-man@lfdr.de>; Thu,  2 Jan 2020 23:58:42 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725787AbgAAH1W (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Jan 2020 02:27:22 -0500
-Received: from mail-pf1-f193.google.com ([209.85.210.193]:40101 "EHLO
-        mail-pf1-f193.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725783AbgAAH1W (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Jan 2020 02:27:22 -0500
-Received: by mail-pf1-f193.google.com with SMTP id q8so20541760pfh.7
-        for <linux-man@vger.kernel.org>; Tue, 31 Dec 2019 23:27:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=GShxn2G1xP7MV9H02yV9yDH5BGLP22PfKRaI9n+/Sl0=;
-        b=FkV4pPDXo5/FSIvuHed64KfHf2jQXwHFi+TYJu32YS4s4i9NY/NkM9yHkHrclwRgOb
-         Nc/yG576TrL+DAn/4lN6JrTrv5rUm+3zSZWPSRmi8E9fGrtTElTqdKvvKj6Bn7nCY3zG
-         I37IQb4Om73XMa7wpcndS69yyiIZTrI3HDM7HgriZZN76YeV3OzN3aWRQ7JktNenll5R
-         6BJh286xWf5g+ita5ALr3/J8JgfQojgxBnje7dSpRtED2Mr4y09oUJ/3ovM79rtdRd7J
-         fZt0GzL93m3dPGYcyF6yBQoCPNbBLYSKuu0IbyJK7yGzQBsx5oMi8+jlv4gcPFc8qPP4
-         efjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=GShxn2G1xP7MV9H02yV9yDH5BGLP22PfKRaI9n+/Sl0=;
-        b=WGAIiFANhdPU2MxmOpneRDWYiDgsyd+m0AOq4Mdf+Whq8CsK3RnIn71cPbk7/SQXmV
-         LMTpoA5Nds+tSKWYBSPOMS8rhyzs2y6InH1V03Fsg7RmcmziZ7SpKt55ACYpF92xZj/I
-         WrDhaBsjc8LGxc3zIba7sBxz3uX+1Yyku5G7M3C+DU9BLo9SlwfX80tEgn3JcS3UGL7g
-         g1XfrsoiPbIXwuWhJPFxDKjbV1PnpymzYLWN6OMJG2NTut1J5gSZr3eUJt/Q0Weai29o
-         2yErlBy0L7o+FFZtgNM1CQvOZuAwL+JXhOHaMxD5zNS3KDyHgBhoGKnNHIS3tLYTtsEG
-         4wKQ==
-X-Gm-Message-State: APjAAAVJpkysmTA+CH9laNVBi+uwlVS06Azdoq+l0+DlaYo71M4qvJ/9
-        jabT9yxmlx709JaibTWPxRiQ/c1F
-X-Google-Smtp-Source: APXvYqwCaDWv/FORLecUmlWDLeYLqGzQQOp4bamib7GtCmS9zHb28AZntYZisyCt1unzPdDpCcbT1Q==
-X-Received: by 2002:a63:ec0a:: with SMTP id j10mr82927804pgh.178.1577863641947;
-        Tue, 31 Dec 2019 23:27:21 -0800 (PST)
-Received: from [192.168.0.104] (222-154-25-17-vdsl.sparkbb.co.nz. [222.154.25.17])
-        by smtp.gmail.com with ESMTPSA id w11sm53309034pfi.77.2019.12.31.23.27.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 31 Dec 2019 23:27:21 -0800 (PST)
-Cc:     mtk.manpages@gmail.com
-Subject: Re: [PATCH] getpt.3: Remove mention of O_NOCTTY
-To:     Samuel Thibault <samuel.thibault@ens-lyon.org>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org
-References: <20191231170135.gqbv35jdlqfmomee@function>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <a7e44056-0b1f-5890-2820-415c71f52424@gmail.com>
-Date:   Wed, 1 Jan 2020 08:27:16 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.1
+        id S1728767AbgABW6i (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 2 Jan 2020 17:58:38 -0500
+Received: from out30-132.freemail.mail.aliyun.com ([115.124.30.132]:58408 "EHLO
+        out30-132.freemail.mail.aliyun.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1728065AbgABWP1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Jan 2020 17:15:27 -0500
+X-Alimail-AntiSpam: AC=PASS;BC=-1|-1;BR=01201311R231e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=e01e04420;MF=yang.shi@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0TmgPslx_1578003315;
+Received: from US-143344MP.local(mailfrom:yang.shi@linux.alibaba.com fp:SMTPD_---0TmgPslx_1578003315)
+          by smtp.aliyun-inc.com(127.0.0.1);
+          Fri, 03 Jan 2020 06:15:24 +0800
+Subject: Re: [PATCH] move_pages.2: not return ENOENT if the page are already
+ on the target nodes
+To:     "Eric W. Biederman" <ebiederm@xmission.com>
+Cc:     Michal Hocko <mhocko@kernel.org>,
+        John Hubbard <jhubbard@nvidia.com>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        cl@linux.com, cai@lca.pw, akpm@linux-foundation.org,
+        linux-man@vger.kernel.org, linux-api@vger.kernel.org,
+        linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <1575596090-115377-1-git-send-email-yang.shi@linux.alibaba.com>
+ <0dc96e40-5f2b-a2fe-6e5f-b6f3d5e9ebde@nvidia.com>
+ <95170ea5-5b62-9168-fcd9-93b43330a1b4@linux.alibaba.com>
+ <092adc11-7039-9343-7067-0e0199c9dc13@gmail.com>
+ <51dd767a-221f-882d-c7f6-45bd0c217a67@nvidia.com>
+ <20191218101711.GB21485@dhcp22.suse.cz>
+ <0059a598-5726-2488-cd37-b4b7f9b3353e@linux.alibaba.com>
+ <87lfqtcfyo.fsf@x220.int.ebiederm.org>
+From:   Yang Shi <yang.shi@linux.alibaba.com>
+Message-ID: <d081b674-b360-4a0a-eec3-cf7434003cc5@linux.alibaba.com>
+Date:   Thu, 2 Jan 2020 14:15:12 -0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:52.0)
+ Gecko/20100101 Thunderbird/52.7.0
 MIME-Version: 1.0
-In-Reply-To: <20191231170135.gqbv35jdlqfmomee@function>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
+In-Reply-To: <87lfqtcfyo.fsf@x220.int.ebiederm.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Samuel
-
-On 12/31/19 6:01 PM, Samuel Thibault wrote:
-> The glibc implementation of getpt has actually never been setting
-> O_NOCTTY when opening /dev/ptmx or BSD ptys.
-> 
-> Signed-off-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-
-(Inline patches preferred.)
-
-Thanks. Patch applied.
-
-Cheers,
-
-Michael
 
 
+On 12/30/19 7:49 PM, Eric W. Biederman wrote:
+> Yang Shi <yang.shi@linux.alibaba.com> writes:
+>
+>> On 12/18/19 2:17 AM, Michal Hocko wrote:
+>>> On Tue 17-12-19 23:36:09, John Hubbard wrote:
+>>> [...]
+>>>> diff --git a/man2/move_pages.2 b/man2/move_pages.2
+>>>> index 2d96468fa..1bf1053f2 100644
+>>>> --- a/man2/move_pages.2
+>>>> +++ b/man2/move_pages.2
+>>>> @@ -191,12 +191,6 @@ was specified or an attempt was made to migrate pages of a kernel thread.
+>>>>    .B ENODEV
+>>>>    One of the target nodes is not online.
+>>>>    .TP
+>>>> -.B ENOENT
+>>>> -No pages were found that require moving.
+>>>> -All pages are either already
+>>>> -on the target node, not present, had an invalid address or could not be
+>>>> -moved because they were mapped by multiple processes.
+>>>> -.TP
+>>>>    .B EPERM
+>>>>    The caller specified
+>>>>    .B MPOL_MF_MOVE_ALL
+>>>>
+>>>> ...But I'm not sure if we should change the implementation, instead, so
+>>>> that it *can* return ENOENT. That's the main question to resolve before
+>>>> creating any more patches, I think.
+>>> I would start by dropping any note about ENOENT first. I am not really
+>>> sure there is a reasonable usecase for it but maybe somebody comes up
+>>> with something and only then we should consider it.
+>>>
+>>> Feel free to add
+>>> Acked-by: Michal Hocko <mhocko@suse.com>
+>>>
+>>> ideally with a kernel commit which removed the ENOENT.
+>> A quick audit doesn't show kernel code or comment notes about ENOENT
+>> wrongly. The status could be set as ENOENT if the page is not present
+>> (follow_page() returns NULL), and man page does match what kernel
+>> does.
+> Doesn't the function one layer up then consume the ENOENT?
 
+No, it doesn't. The return value would be reset unconditionally by 
+store_status(). This is what the man page patch tries to correct.
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+>
+> Eric
+
