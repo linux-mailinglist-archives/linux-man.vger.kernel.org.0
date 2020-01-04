@@ -2,100 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id D524912FDC5
-	for <lists+linux-man@lfdr.de>; Fri,  3 Jan 2020 21:20:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D2932130493
+	for <lists+linux-man@lfdr.de>; Sat,  4 Jan 2020 22:16:35 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728702AbgACUUS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 3 Jan 2020 15:20:18 -0500
-Received: from mail-qk1-f196.google.com ([209.85.222.196]:43534 "EHLO
-        mail-qk1-f196.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728650AbgACUUJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 3 Jan 2020 15:20:09 -0500
-Received: by mail-qk1-f196.google.com with SMTP id t129so34707193qke.10
-        for <linux-man@vger.kernel.org>; Fri, 03 Jan 2020 12:20:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=40ACnQIUnpge54Cj+EODMXbGQ2AM0yGbootCDBdgIh0=;
-        b=JHYDNcOHsw5Vg59sFwNh4MhnXNKJfQKDhV3JhQemZ8O0wjy4NOClQJHVO9/XZY1B2e
-         7N2r8FlVbF9YCIZf1O8PJKqvP+J732CrXrgkZLQFQD6r8xa5PmtrOPXurr4eE1D10/dY
-         mFNu91hy8xJJRta6mrMYIQyNs0OE0ozgPWJvUT4Jmr91vUmPG9p04hCqKp3daJ6nspkN
-         ZTnUyt7jeaXiRVZmI5OCw3hnhqJr3CafoKv3hfbaHkDpeu4215n4LA4JUWv5RDO6VsPp
-         wo4bmuxUPsJ+VBxSxq4NIVVGqRtUU4TTV0YA8c6/GhqTjpJxCcyOyITBnIawjrG3MRiM
-         hUyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=40ACnQIUnpge54Cj+EODMXbGQ2AM0yGbootCDBdgIh0=;
-        b=cI3wa5Zcwiy95WPaUJzaOKMsk4GzuAasAQda/qx4KYvTTEBKmszeZcF/umv+T/Qs8Z
-         IgRpz5kiw4npuNGnSI/59C5ZtZgpLkSdXAYKwImaZF1k1jHEsz9jKuCxTwUn00XfzSpX
-         cgrXaFVJc9N1po98JMN1ZNFCvvgAuF9mEyWLlfDz4MtnO3uIruWQw15IP+FEpxF03Sj2
-         XRvngnW/ioLDLdXXAlHfWY8+Hoqq6qPtLSTgHxWw8qLfhB1Zm+XNGPdGxErKkJfJOr4Y
-         Zpi1s6BmGATMnLg0xMDAl6XxgZtBoAcEhdVahMZxDSODamwYSnHEwXS/nX+s/gWd3gZF
-         CtXg==
-X-Gm-Message-State: APjAAAVuMT0OBGMiZ69rPyetSwZ0tRLbXbMjaVXQmh7UGPE/1yjWnPVG
-        +yWpPKZzMAZkU0SR8NtCnTnDF7he/VhAVeGgofg=
-X-Google-Smtp-Source: APXvYqzazOZ1eDGwLjA5b5joJwHBsXYUc3xk3mwbut9BpsYKwbpZffl6B/gnfGOg4rASQDOizOWq9gQ5QJjCh6l6GTs=
-X-Received: by 2002:a37:4141:: with SMTP id o62mr70745354qka.282.1578082808591;
- Fri, 03 Jan 2020 12:20:08 -0800 (PST)
+        id S1726219AbgADVQf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 4 Jan 2020 16:16:35 -0500
+Received: from mta.tntech.edu ([149.149.2.87]:41868 "EHLO mta.tntech.edu"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726170AbgADVQf (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sat, 4 Jan 2020 16:16:35 -0500
+X-Greylist: delayed 323 seconds by postgrey-1.27 at vger.kernel.org; Sat, 04 Jan 2020 16:16:35 EST
+Received: from math.tntech.edu (unknown [149.149.102.6])
+        by mta.tntech.edu (Postfix) with ESMTPS id A4A933000055;
+        Sat,  4 Jan 2020 15:11:11 -0600 (CST)
+Received: from norden.tntech.edu ([149.149.102.4] helo=norden.math.tntech.edu)
+        by math.tntech.edu with esmtp (Exim 4.92)
+        (envelope-from <jeff@math.tntech.edu>)
+        id 1inqhN-0004GV-FD; Sat, 04 Jan 2020 15:11:09 -0600
+Received: by norden.math.tntech.edu (Postfix, from userid 742)
+        id 5EF9D2572B73; Sat,  4 Jan 2020 15:11:05 -0600 (CST)
+From:   Jeff Norden <jeff@math.tntech.edu>
+To:     mtk.manpages@gmail.com
+Subject: proc(5) documentation for the cmdline file
+CC:     linux-man@vger.kernel.org
+Date:   Sat, 04 Jan 2020 15:11:05 -0600
+Message-ID: <fda7733p1y.fsf@norden.tntech.edu>
 MIME-Version: 1.0
-Received: by 2002:ac8:4410:0:0:0:0:0 with HTTP; Fri, 3 Jan 2020 12:20:08 -0800 (PST)
-From:   "Rev.Dr Emmanuel Okoye CEO Ecobank-benin" 
-        <westernunion.benin982@gmail.com>
-Date:   Fri, 3 Jan 2020 21:20:08 +0100
-Message-ID: <CAP=nHBJWiJ9KpSSbF4jP9u5UiU5d_kGjSUyPYDmdB2x1uiJFMw@mail.gmail.com>
-Subject: I promise you must be happy today, God has uplifted you and your
- family ok
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+X-SA-Spam-Score: 0.0
+X-SA-Spam-Report: Spam detection software, running on the system "math.tntech.edu",
+ has NOT identified this incoming email as spam.
+ If you have any questions, contact @@CONTACT_ADDRESS@@
+  pts rule name              description
+ ---- ---------------------- --------------------------------------------------
+  0.0 T_SPF_HELO_TEMPERROR   SPF: test of HELO record failed (temperror)
+  0.0 T_SPF_TEMPERROR        SPF: test of record failed (temperror)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Dear Friend
+The following is from the current proc(5) man page:
 
-i hope all is well with you,if so, glory be to God almighty. I'm very
-happy to inform you, about my success in getting payment funds under
-the cooperation of a new partner from United States of
-America.Presently I am in uk for investment projects with my own share
-of the total sum. I didn't forget your past efforts. IMF finally
-approved your compensation payment funds this morning by prepaid (ATM)
-Debit card of US$12,500.000.00Million Dollars, Since you not received
-this payment yet, I was not certified
-but it is not your fault and not my fault, I hold nothing against
-you.than bank official whom has been detaining the transfer in the
-bank, trying to claim your funds by themselves.
+/proc/[pid]/cmdline
+    This read-only file holds the complete command line for the process,
+    unless the process is a zombie.  In the latter case, there is nothing in
+    this file: that is, a read on this file will return 0 characters.  The
+    command-line arguments appear in this file as a set of strings separated
+    by null bytes ('\0'), with a further null byte after the last string.
 
-Therefore, in appreciation of your effort I have raised an
-International prepaid (ATM) Debit card of US$12,500.000.00 in your
-favor as compensation to you.
 
-Now, i want you to contact my Diplomatic Agent, His name is Mike Benz
-on His  e-mail Address (mikebenz550@aol.com
+I believe that the end of the first sentence should say:
+   "unless the process is a kernel process or a zombie."
 
-ask Him to send the Prepaid (ATM) Debit card to you. Bear in mind that
-the money is in Prepaid (ATM) Debit card, not cash, so you need to
-send to him,
-your full name
-address  where the prepaid (ATM) Debit card will be delivered to you,
-including your cell phone number. Finally, I left explicit
-instructions with him, on how to send the (ATM CARD) to you.
+or maybe it would read better as:
+   "unless it is a kernel process or a zombie."
 
-The Prepaid (ATM) Debit card, will be send to you through my
-Diplomatic Agent Mr. Mike Benz immediately you contact him. So contact
-my Diplomatic Agent Mr. Mike Benz immediately you receive this letter.
-Below is his contact information:
+You might also add something like the following at the end:
+   "When cmdline is empty, the stat or status file (below) can be used
+    to determine whether or not a process is a zombie.
 
-NAME : MIKE BENZ
-EMAIL ADDRESS: mikebenz550@aol.com
-Text Him, (256) 284-4886
+I'm no kernel expert, so please make sure this is correct.  It's just
+something I noticed while poking around in /proc/
 
-Request for Delivery of the Prepaid (ATM) Debit card  to you today.
-Note, please I have paid for the whole service fees for you, so the
-only money you will send to my Diplomatic Agent Mr. Mike Benz is
-$50.00 for your prepaid (ATM) Debit card DELIVERY FEE to your address
-ok.
-Let me know once you receive this Card at your address.
-Best regards,
-Rev.Dr, George Adadar
+Thanks, and Happy New Years!
+
+  -Jeff Norden, jeff@math.tntech.edu
+   Dept of Math, Tenn Tech Univ, Cookeville TN 38505  (931)372-3441
