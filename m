@@ -2,70 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id D2932130493
-	for <lists+linux-man@lfdr.de>; Sat,  4 Jan 2020 22:16:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 15823130D78
+	for <lists+linux-man@lfdr.de>; Mon,  6 Jan 2020 07:16:35 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726219AbgADVQf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 4 Jan 2020 16:16:35 -0500
-Received: from mta.tntech.edu ([149.149.2.87]:41868 "EHLO mta.tntech.edu"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726170AbgADVQf (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 4 Jan 2020 16:16:35 -0500
-X-Greylist: delayed 323 seconds by postgrey-1.27 at vger.kernel.org; Sat, 04 Jan 2020 16:16:35 EST
-Received: from math.tntech.edu (unknown [149.149.102.6])
-        by mta.tntech.edu (Postfix) with ESMTPS id A4A933000055;
-        Sat,  4 Jan 2020 15:11:11 -0600 (CST)
-Received: from norden.tntech.edu ([149.149.102.4] helo=norden.math.tntech.edu)
-        by math.tntech.edu with esmtp (Exim 4.92)
-        (envelope-from <jeff@math.tntech.edu>)
-        id 1inqhN-0004GV-FD; Sat, 04 Jan 2020 15:11:09 -0600
-Received: by norden.math.tntech.edu (Postfix, from userid 742)
-        id 5EF9D2572B73; Sat,  4 Jan 2020 15:11:05 -0600 (CST)
-From:   Jeff Norden <jeff@math.tntech.edu>
-To:     mtk.manpages@gmail.com
-Subject: proc(5) documentation for the cmdline file
-CC:     linux-man@vger.kernel.org
-Date:   Sat, 04 Jan 2020 15:11:05 -0600
-Message-ID: <fda7733p1y.fsf@norden.tntech.edu>
+        id S1726695AbgAFGQe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Jan 2020 01:16:34 -0500
+Received: from mail.cn.fujitsu.com ([183.91.158.132]:41022 "EHLO
+        heian.cn.fujitsu.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1726338AbgAFGQe (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jan 2020 01:16:34 -0500
+X-IronPort-AV: E=Sophos;i="5.69,401,1571673600"; 
+   d="scan'208";a="81340927"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+  by heian.cn.fujitsu.com with ESMTP; 06 Jan 2020 14:16:31 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+        by cn.fujitsu.com (Postfix) with ESMTP id 394B04CE20E1;
+        Mon,  6 Jan 2020 14:07:29 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1395.4; Mon, 6 Jan 2020 14:16:27 +0800
+Subject: Re: [PATCH] userfaultfd.2: add EPERM error
+To:     <mtk.manpages@gmail.com>
+CC:     <linux-man@vger.kernel.org>
+References: <1576649587-20008-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+From:   Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <27c9ce8e-c9da-967b-f354-35c2b9978252@cn.fujitsu.com>
+Date:   Mon, 6 Jan 2020 14:16:26 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-SA-Spam-Score: 0.0
-X-SA-Spam-Report: Spam detection software, running on the system "math.tntech.edu",
- has NOT identified this incoming email as spam.
- If you have any questions, contact @@CONTACT_ADDRESS@@
-  pts rule name              description
- ---- ---------------------- --------------------------------------------------
-  0.0 T_SPF_HELO_TEMPERROR   SPF: test of HELO record failed (temperror)
-  0.0 T_SPF_TEMPERROR        SPF: test of record failed (temperror)
+In-Reply-To: <1576649587-20008-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+Content-Type: text/plain; charset="gbk"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 394B04CE20E1.ABBAD
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The following is from the current proc(5) man page:
+Hi
+Ping.
+> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+> ---
+>   man2/userfaultfd.2 | 5 +++++
+>   1 file changed, 5 insertions(+)
+> 
+> diff --git a/man2/userfaultfd.2 b/man2/userfaultfd.2
+> index 8d0a66ed9..2b432f043 100644
+> --- a/man2/userfaultfd.2
+> +++ b/man2/userfaultfd.2
+> @@ -440,6 +440,11 @@ reached.
+>   .TP
+>   .B ENOMEM
+>   Insufficient kernel memory was available.
+> +.TP
+> +.B EPERM
+> +Unprivileged user(without SYS_CAP_PTRACE capability) uses this call when
+> +set unprivileged_userfaultfd to 0. It was introduced since Linux 5.2.
+> +.\" cefdca0a86be517bc390fc4541e3674b8e7803b0
+>   .SH VERSIONS
+>   The
+>   .BR userfaultfd ()
+> 
 
-/proc/[pid]/cmdline
-    This read-only file holds the complete command line for the process,
-    unless the process is a zombie.  In the latter case, there is nothing in
-    this file: that is, a read on this file will return 0 characters.  The
-    command-line arguments appear in this file as a set of strings separated
-    by null bytes ('\0'), with a further null byte after the last string.
 
-
-I believe that the end of the first sentence should say:
-   "unless the process is a kernel process or a zombie."
-
-or maybe it would read better as:
-   "unless it is a kernel process or a zombie."
-
-You might also add something like the following at the end:
-   "When cmdline is empty, the stat or status file (below) can be used
-    to determine whether or not a process is a zombie.
-
-I'm no kernel expert, so please make sure this is correct.  It's just
-something I noticed while poking around in /proc/
-
-Thanks, and Happy New Years!
-
-  -Jeff Norden, jeff@math.tntech.edu
-   Dept of Math, Tenn Tech Univ, Cookeville TN 38505  (931)372-3441
