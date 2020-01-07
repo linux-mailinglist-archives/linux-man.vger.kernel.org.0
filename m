@@ -2,74 +2,78 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id C9C55130E15
-	for <lists+linux-man@lfdr.de>; Mon,  6 Jan 2020 08:42:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7B1BE133012
+	for <lists+linux-man@lfdr.de>; Tue,  7 Jan 2020 20:56:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725887AbgAFHmf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Jan 2020 02:42:35 -0500
-Received: from mail.cn.fujitsu.com ([183.91.158.132]:52447 "EHLO
-        heian.cn.fujitsu.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1725446AbgAFHmf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jan 2020 02:42:35 -0500
-X-IronPort-AV: E=Sophos;i="5.69,401,1571673600"; 
-   d="scan'208";a="81361765"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
-  by heian.cn.fujitsu.com with ESMTP; 06 Jan 2020 15:42:34 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
-        by cn.fujitsu.com (Postfix) with ESMTP id BD48E4B3ED8D;
-        Mon,  6 Jan 2020 15:33:36 +0800 (CST)
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.83) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Mon, 6 Jan 2020 15:42:35 +0800
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Mon, 6 Jan 2020 15:42:32 +0800
-From:   Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To:     <mtk.manpages@gmail.com>
-CC:     <linux-man@vger.kernel.org>, Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Subject: [PATCH v1 2/2] loop.4: Document LOOP_SET_BLOCK_SIZE
-Date:   Mon, 6 Jan 2020 15:42:23 +0800
-Message-ID: <1578296543-4195-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1578296543-4195-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-References: <1578296543-4195-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+        id S1728705AbgAGT4n (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 7 Jan 2020 14:56:43 -0500
+Received: from mail-ed1-f65.google.com ([209.85.208.65]:42202 "EHLO
+        mail-ed1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728713AbgAGT4j (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Jan 2020 14:56:39 -0500
+Received: by mail-ed1-f65.google.com with SMTP id e10so603617edv.9
+        for <linux-man@vger.kernel.org>; Tue, 07 Jan 2020 11:56:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=lUsTd9lJYwK928kai9reachpHe0HC9Hv8/gDLGwtaBI=;
+        b=m/Udengj3famfT4AeeQ1IRW+yMW7VasUnASahB37i/PoeHrkRBk2CGyFKYNukmjW7S
+         L8SRka5Jakx3oOkJPsG2IofN9vOqI+MJeZI3Q0YE0hhIfxJgla/Mvi4GlBIJ0+PXKJyR
+         fGhtIsUmeS9lphgKJPwASTV0Wis5x+akjvA6FztTMBR/K8fgi7sOjdtLa1OeTeeGw/oC
+         WuhGv+1qsxod0shrSr56iRhzuujf6ypC8mQV8JosjFfNeYtuq3xDGNFupimiXFOQL0SO
+         8SxYRsEAywqZcf7WmcQRmN/Qkf20W+/a6rRSJl252WjsQoa/SZxLvQ4mGRJVkfZ3ex9s
+         ABpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=lUsTd9lJYwK928kai9reachpHe0HC9Hv8/gDLGwtaBI=;
+        b=afcGCbXOBsVyRKP7wIwtGpdxY5+jC1THm8ihmCZGhV1gJgrVrBn0zx84MtBHFuU8xn
+         4EsxH3aeajwf75W7ctXYpw1Zuy9jYnHPVMbUu9srkihEDx2w1ud6v9xBiKsBmjcGxwtx
+         NjSnQEOnZcrNYr7OhogvtQ/lkrABu2NsUOBugi4i7uSsPjP6/EQT2qMR4RQ3IdbUU0rA
+         RgGazlPcQWgZpaq4e8RE8Sm+KQaQe9Nfk/1jq2cV5v8JVocdX4Hz8KUHbn2JIV34cuCJ
+         TBPn8Pd5ZPeAYiAm+72PtiWhYLqkJqoasNZCfRQqtN8xAwPuZ+ZsREjyxgJ45dtb04Pn
+         DXXw==
+X-Gm-Message-State: APjAAAVrCrUb7dN6rfgYRJbFAeEaVHkJnIRdL9LKzO4F7UsLJS8cWwKc
+        cpYi3PNSOg22eI1ukGLJN5OnMVjFqMPZ35WCIow=
+X-Google-Smtp-Source: APXvYqzNbcT08PcgNHBR6CjdjGMonF1aREtl3FixKkalZzLFfyP3YZsjOtPyVn2SjFoUiZ8TzNVIEuitC7fnDU0d3Kk=
+X-Received: by 2002:a17:907:20ef:: with SMTP id rh15mr1111482ejb.325.1578426995176;
+ Tue, 07 Jan 2020 11:56:35 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.167.220.84]
-X-yoursite-MailScanner-ID: BD48E4B3ED8D.A274F
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No
+Received: by 2002:a17:906:72c6:0:0:0:0 with HTTP; Tue, 7 Jan 2020 11:56:34
+ -0800 (PST)
+Reply-To: dhlexpresscouriercompany.nyusa@gmail.com
+From:   "Dr. William Johnson" <currency1000000@gmail.com>
+Date:   Tue, 7 Jan 2020 20:56:34 +0100
+Message-ID: <CAPqfnSEyU1pBR_7HT2g1KK7i8caLMBQ8yPA8KRDVm+MN-K_Z4w@mail.gmail.com>
+Subject: contact Dhl office New York to receive your Prepaid ATM Master Card
+ worth $15.8Million US DOLLARS now.
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- man4/loop.4 | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/man4/loop.4 b/man4/loop.4
-index afb1d05c5..9fd2b3eb4 100644
---- a/man4/loop.4
-+++ b/man4/loop.4
-@@ -159,6 +159,13 @@ Set DIRECT IO mode on the loop device. So it can be used to open backing
- file. The (third)
- .BR ioctl(2)
- argument is an unsigned long value. non-zero represents direct IO mode.
-+.TP
-+.BR LOOP_SET_BLOCK_SIZE " (since Linux 4.14)"
-+.\" commit 89e4fdecb51cf5535867026274bc97de9480ade5
-+Set the block size of the loop device. The (third)
-+.BR ioctl(2)
-+argument is an unsigned long value. This value must be 2 to the power of N
-+and in range [512,pagesize]. Otherwise, it will get EINVAL error.
- .PP
- Since Linux 2.6, there are two new
- .BR ioctl (2)
--- 
-2.18.0
-
-
-
+ATTN Dear Beneficiary.
+Goodnews
+I have Registered your Prepaid ATM Master Card
+worth $15.800,000.00 US DOLLARS with Courier company
+asigned to deliver it to you today.
+So contact Dhl office New York to receive your Prepaid ATM Master Card
+worth $15.8Million US DOLLARS now.
+Contact Person: Mrs. Mary Michael, Director, DHL Courier Company-NY USA. 10218
+Email. dhlexpresscouriercompany.nyusa@gmail.com
+Call the office +(202) 890-8752
+Rec-Confirmed your mailing address to the office as I listed below.
+Your Full Name--------------
+House Address-----------
+Your working Phone Number----------------
+ID copy-------------------------
+Sex-----------------------------
+Note,delivery fee to your address is only $25.00. send it to this
+company urgent on itunes card today so that DHL will deliver this
+Prepaid ATM Master Card to you today according to our finally
+agreement.
+Thanks for coperations,
+Dr. William Johnson
