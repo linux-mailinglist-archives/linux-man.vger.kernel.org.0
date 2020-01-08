@@ -2,97 +2,72 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 32E63133DED
-	for <lists+linux-man@lfdr.de>; Wed,  8 Jan 2020 10:10:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CA64713502E
+	for <lists+linux-man@lfdr.de>; Thu,  9 Jan 2020 00:57:59 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727205AbgAHJKB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 Jan 2020 04:10:01 -0500
-Received: from mail-wm1-f48.google.com ([209.85.128.48]:36000 "EHLO
-        mail-wm1-f48.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727112AbgAHJKB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Jan 2020 04:10:01 -0500
-Received: by mail-wm1-f48.google.com with SMTP id p17so1639000wma.1
-        for <linux-man@vger.kernel.org>; Wed, 08 Jan 2020 01:10:00 -0800 (PST)
+        id S1727545AbgAHX55 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Jan 2020 18:57:57 -0500
+Received: from mail-lf1-f66.google.com ([209.85.167.66]:37050 "EHLO
+        mail-lf1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726721AbgAHX54 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Jan 2020 18:57:56 -0500
+Received: by mail-lf1-f66.google.com with SMTP id b15so3805981lfc.4
+        for <linux-man@vger.kernel.org>; Wed, 08 Jan 2020 15:57:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
+        d=google.com; s=20161025;
         h=mime-version:from:date:message-id:subject:to:cc;
-        bh=psvAe+AvioqK8VE8D272MbqPHHr0xb0vuzlRZVgt944=;
-        b=I+22hqFND4xEIlzRsEDIGXO+IO3VZTtpI2B1b6r2+vsQ4KiLPEIFbowTF4STKtYckW
-         jId1Mb2kCmkZLTD9zNmQXsiInppf+qW8jEdB1ej2BZAJ/+V9zGuJvT2NlXagN/BcHWBz
-         Hd2LJtyIf+ywQIt9jPCELdW3Fmb4KPrisVrJ7xijBdtWh5LFs3dv4M23DQFsgM7bGUWt
-         rfajZT5MVHpxgQwy98lmwDoqMZb0OPnkoivK992uredjgJ7hiv+xotApTHy8GDYXnFuK
-         2kuny7TAIWmBwDpSUJguKZxPTGFRuYwcI7wBQ2zWH756iU3ghjVig2O7sJzXyTMzvx7d
-         9MKA==
+        bh=trxhwpp9W8sEe1oHZjs9N67G1YAE2zTo8jEkiN81Tu8=;
+        b=sasPCF/Mj6QsXgcC/reSWoPVUJoQuJJfhOCj73tWTnwfqC9RDxxpqiU3jvRWcqTXvH
+         JdlhE50HY3cOjReCsvmdLMFu0LLCWr21bWWRhsxwsKUkhzgzZ5DRXOG+VdSb3Q2W2U0C
+         HQsIIo7XVjCAib9CmZoJVqs1KbQb1ZhojuQ7xCYO8xdDad2iaqHWEsxLhrxzFRMcPWEj
+         9pu8ym5qPn4JHaToFFEvZGs/+ds2RW82FSt3N6l3XAFPuZxxbcPHPsQcm8O2nUmjVSr7
+         wgeTBzZL/wkY2GF+hFWPjLCUttqO5wWZQn6wrShZQhDVuAkNtRLq4UynAVEkj8/q/4L0
+         o94A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
-        bh=psvAe+AvioqK8VE8D272MbqPHHr0xb0vuzlRZVgt944=;
-        b=VuW7f4sCfordW9dQ4O7oCMfXhrFcByUsL+S2BDDdnrdSXByYXMhYLrBsT95sYZJHhK
-         5z/l94xb/IjmnLws14Fq6gC1NARZceEAR5BVxHPFBbQTWZ99zAn5DwunqpKzZwhQ14Ni
-         5jpWZQibU2b/FEgqeL+pcJf18oV8UQrK+rNPu6+UqnZaQCb4p3vvk8zOMQjycdqE6fc7
-         gUiH2d8X1DMM7hzJ0yEKcYP7K+20ubuRrmqESV0NE9Mr5eIjcsdj2FV/jhZbNJhgIzNu
-         8zIHEC/S1jL5ronIGYZ9rHfpfF9YOkgQMYNagcU13y9p2nn5woBL4poio3gZtPv2fXP6
-         93EQ==
-X-Gm-Message-State: APjAAAXBr+e+WLHH+iwDdHyy3Qm6j7zSaduBh8MXLN273ZAsncNFDEl1
-        daA+uqnqxrpaJDSYqrkqHaF8ZafezULxgS/ojqC1/Bv0VBcYQQ==
-X-Google-Smtp-Source: APXvYqyoGdTjvi3hf/8BtwtDgBl5EGjV1FfJagxkrYjzoKDsZ25GHYir2fZe9A2mBdF6vaMRjRbKBtFdat3dBusNWIU=
-X-Received: by 2002:a1c:de09:: with SMTP id v9mr2496958wmg.170.1578474599811;
- Wed, 08 Jan 2020 01:09:59 -0800 (PST)
+        bh=trxhwpp9W8sEe1oHZjs9N67G1YAE2zTo8jEkiN81Tu8=;
+        b=FL8FoXy/U08ArpmzTJt8UjBXpABR9TvkQDYFAR5tKH4uvoiAByh3sxzfj/ygUDrCre
+         VdIOdgaFhDN5zYIzo1LTxkEqW3U8txCeVerCz9w1ycS+iYF5jhqeKS0USLl0eF4+PnQZ
+         65OjS30bfmP3RM0Y9g0I4WpU2WD0krKgNG+a1AS9NCjHl+x+kXKN6Y4KsG2TMDSVR8jm
+         jYa4oeUnH3nCRoVjjfPYHil4EH/IF6px77V7HvYHlamWg8bVm7etBH7VMQAfBPSW65Dv
+         YaUwO9o43J9D1Hv3O4pagThGuIhwoW1fCIJpOtj5UZSq0FC5CqfBDBWjUV+if6FX9PyU
+         sa/g==
+X-Gm-Message-State: APjAAAVR9f7RjAIZ0eM9FlkJ5VDSrj50ra6CuTSEAhGXZX39XW2RJKEG
+        y7kf3aYiFMIffxxM34piYl6A2BDc9XiV1jnzkSUw5g==
+X-Google-Smtp-Source: APXvYqzPb4f5CeJRE+6kdMVBA8vvIAIJ3Q/e1GukOweSo7h+P9AjD1EmFjuIlBRC6VxsjxwINspowyfX4VS8AvfbX6g=
+X-Received: by 2002:a19:f701:: with SMTP id z1mr4284903lfe.13.1578527874573;
+ Wed, 08 Jan 2020 15:57:54 -0800 (PST)
 MIME-Version: 1.0
-From:   Ponnuvel Palaniyappan <pponnuvel@gmail.com>
-Date:   Wed, 8 Jan 2020 09:09:48 +0000
-Message-ID: <CAOL8xrWJgOLpwx97vOvZ7dTvH9D-1=WvzRNi_a4Sd_BbT850Fg@mail.gmail.com>
-Subject: [patch] futex.2: Fix a bug in the example
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Content-Type: multipart/mixed; boundary="000000000000cf3115059b9d418d"
+From:   Daniel Colascione <dancol@google.com>
+Date:   Wed, 8 Jan 2020 15:57:18 -0800
+Message-ID: <CAKOZuesChdRSgY+W90kPJkg8UQzqt66ngsg8sX1VCLCvVdfDUQ@mail.gmail.com>
+Subject: [PATCH] Mention EINTR for perf_event_open
+To:     Michael Kerrisk-manpages <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        Tim Murray <timmurray@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
---000000000000cf3115059b9d418d
-Content-Type: text/plain; charset="UTF-8"
+Somewhat surprisingly, perf_event_open can fail with EINTR when trying
+to enable perf reporting for a uprobe that's already been configured
+for use with ftrace. Mention this error in the man page.
 
-The man page contains a trivial bug that's discussed here:
-https://stackoverflow.com/q/59628958
-
-The patch was against latest master (commit:
-f7d3e6aac109528e6f22f7c9cc5439a6ceeaa7de) and tested on Ubuntu
-4.15.0-72-generic kernel.
-
--- 
-Regards,
-Ponnuvel P
-
---000000000000cf3115059b9d418d
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0001-futex.2-Fix-a-bug-in-the-example.patch"
-Content-Disposition: attachment; 
-	filename="0001-futex.2-Fix-a-bug-in-the-example.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_k552wpxa0>
-X-Attachment-Id: f_k552wpxa0
-
-RnJvbSAzYWIyZTlkOTY5YzYzYTRmNmNiY2E0MTVhNmEzYWMxNzYzNDQ5ZmQzIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBQb25udXZlbCBQYWxhbml5YXBwYW4gPHBwb25udXZlbEBnbWFp
-bC5jb20+CkRhdGU6IFdlZCwgOCBKYW4gMjAyMCAwOTowMzowNyArMDAwMApTdWJqZWN0OiBbUEFU
-Q0hdIGZ1dGV4LjI6IEZpeCBhIGJ1ZyBpbiB0aGUgZXhhbXBsZQoKLS0tCiBtYW4yL2Z1dGV4LjIg
-fCA4ICsrKystLS0tCiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9u
-cygtKQoKZGlmZiAtLWdpdCBhL21hbjIvZnV0ZXguMiBiL21hbjIvZnV0ZXguMgppbmRleCA4YTAw
-M2UyYmUuLjAxYjM2Y2FjMyAxMDA2NDQKLS0tIGEvbWFuMi9mdXRleC4yCisrKyBiL21hbjIvZnV0
-ZXguMgpAQCAtMTc5Nyw4ICsxNzk3LDggQEAgZndhaXQoaW50ICpmdXRleHApCiAgICAgd2hpbGUg
-KDEpIHsKIAogICAgICAgICAvKiBJcyB0aGUgZnV0ZXggYXZhaWxhYmxlPyAqLwotICAgICAgICBj
-b25zdCBpbnQgemVybyA9IDA7Ci0gICAgICAgIGlmIChhdG9taWNfY29tcGFyZV9leGNoYW5nZV9z
-dHJvbmcoZnV0ZXhwLCAmemVybywgMSkpCisgICAgICAgIGNvbnN0IGludCBvbmUgPSAxOworICAg
-ICAgICBpZiAoYXRvbWljX2NvbXBhcmVfZXhjaGFuZ2Vfc3Ryb25nKGZ1dGV4cCwgJm9uZSwgMCkp
-CiAgICAgICAgICAgICBicmVhazsgICAgICAvKiBZZXMgKi8KIAogICAgICAgICAvKiBGdXRleCBp
-cyBub3QgYXZhaWxhYmxlOyB3YWl0ICovCkBAIC0xODIwLDggKzE4MjAsOCBAQCBmcG9zdChpbnQg
-KmZ1dGV4cCkKIAogICAgIC8qIGF0b21pY19jb21wYXJlX2V4Y2hhbmdlX3N0cm9uZygpIHdhcyBk
-ZXNjcmliZWQgaW4gY29tbWVudHMgYWJvdmUgKi8KIAotICAgIGNvbnN0IGludCBvbmUgPSAxOwot
-ICAgIGlmIChhdG9taWNfY29tcGFyZV9leGNoYW5nZV9zdHJvbmcoZnV0ZXhwLCAmb25lLCAwKSkg
-eworICAgIGNvbnN0IGludCB6ZXJvID0gMDsKKyAgICBpZiAoYXRvbWljX2NvbXBhcmVfZXhjaGFu
-Z2Vfc3Ryb25nKGZ1dGV4cCwgJnplcm8sIDEpKSB7CiAgICAgICAgIHMgPSBmdXRleChmdXRleHAs
-IEZVVEVYX1dBS0UsIDEsIE5VTEwsIE5VTEwsIDApOwogICAgICAgICBpZiAocyAgPT0gXC0xKQog
-ICAgICAgICAgICAgZXJyRXhpdCgiZnV0ZXhcLUZVVEVYX1dBS0UiKTsKLS0gCjIuMTcuMQoK
---000000000000cf3115059b9d418d--
+diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
+index 25876c36c..b9128f542 100644
+--- a/man2/perf_event_open.2
++++ b/man2/perf_event_open.2
+@@ -3228,6 +3228,10 @@ values are out of range or set reserved bits;
+ the generic event selected is not supported; or
+ there is not enough room to add the selected event.
+ .TP
++.B EINTR
++Returned when trying to mix perf and ftrace handling
++for a uprobe.
++.TP
+ .B EMFILE
+ Each opened event uses one file descriptor.
+ If a large number of events are opened,
