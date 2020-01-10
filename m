@@ -2,117 +2,102 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A8637136897
-	for <lists+linux-man@lfdr.de>; Fri, 10 Jan 2020 08:54:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 24D8C137792
+	for <lists+linux-man@lfdr.de>; Fri, 10 Jan 2020 20:58:43 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726276AbgAJHym (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 10 Jan 2020 02:54:42 -0500
-Received: from mo4-p02-ob.smtp.rzone.de ([85.215.255.82]:27725 "EHLO
-        mo4-p02-ob.smtp.rzone.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726608AbgAJHym (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Jan 2020 02:54:42 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1578642879;
-        s=strato-dkim-0002; d=chronox.de;
-        h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-        X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
-        bh=d9JrHFY1UkMhvfJGn6qk0SYl17Rv3ChmBENr96iZE38=;
-        b=s9RRt/QZ/SAqsApT14JzWW4LDTgUp7gO6hsP90nUJcsJTP8I749xpwNPiRgFy0UUuG
-        2JBtYnj0VI9HFivCjLrMDSKkTS2TVkR7T3u6hhet3layTN5l6p8HD2pm0mdoAnjBxYjY
-        NB4GgYzxscd1hInCzBX9ED0hUPANPo/yLbU/4OVTL+I8lAT83MRlOovM8ltgtK4fBlxc
-        x5yITH3PONY9MKuBZoXUOmTAbUR1sBPh0JQxPu0AFQ8cYTAN9g4+tfAOc47XvI0t+g+0
-        t1MjLD5dz0hCaDb0lqCpQVwptGgSWSfgj1uI3eRYY35htK/3NTTYLNPr4L1EZFcy5Ea1
-        BoiA==
-X-RZG-AUTH: ":P2ERcEykfu11Y98lp/T7+hdri+uKZK8TKWEqNyiHySGSa9k9xmwdNnzGHXPZJPScHivh"
-X-RZG-CLASS-ID: mo00
-Received: from tauon.chronox.de
-        by smtp.strato.de (RZmta 46.1.4 DYNA|AUTH)
-        with ESMTPSA id u04585w0A7rs7kX
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-        (Client did not present a certificate);
-        Fri, 10 Jan 2020 08:53:54 +0100 (CET)
-From:   Stephan Mueller <smueller@chronox.de>
-To:     Kurt Roeckx <kurt@roeckx.be>
-Cc:     "Theodore Y. Ts'o" <tytso@mit.edu>,
-        Andy Lutomirski <luto@amacapital.net>,
-        Andy Lutomirski <luto@kernel.org>,
-        LKML <linux-kernel@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        Kees Cook <keescook@chromium.org>,
-        "Jason A. Donenfeld" <Jason@zx2c4.com>,
-        "Ahmed S. Darwish" <darwish.07@gmail.com>,
-        Lennart Poettering <mzxreary@0pointer.de>,
-        "Eric W. Biederman" <ebiederm@xmission.com>,
-        "Alexander E. Patrakov" <patrakov@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Willy Tarreau <w@1wt.eu>,
-        Matthew Garrett <mjg59@srcf.ucam.org>,
-        Ext4 Developers List <linux-ext4@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: [PATCH v3 0/8] Rework random blocking
-Date:   Fri, 10 Jan 2020 08:53:54 +0100
-Message-ID: <7629501.YrHEAiJyVJ@tauon.chronox.de>
-In-Reply-To: <20200109230237.GA2992@roeckx.be>
-References: <20191226140423.GB3158@mit.edu> <20200109224011.GD41242@mit.edu> <20200109230237.GA2992@roeckx.be>
+        id S1727709AbgAJT6m (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 10 Jan 2020 14:58:42 -0500
+Received: from mail-pj1-f67.google.com ([209.85.216.67]:34489 "EHLO
+        mail-pj1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727650AbgAJT6m (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Jan 2020 14:58:42 -0500
+Received: by mail-pj1-f67.google.com with SMTP id s94so2093968pjc.1
+        for <linux-man@vger.kernel.org>; Fri, 10 Jan 2020 11:58:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=iDlPsO13rMyuvBn7PtQdBQqfvK9YYjK4+HZevxaZqZM=;
+        b=cfsdIFGBvDZNxmD1mZR3mNvxGeTcE5+GWhp8K+lpe+kRyx7HIH4d4mEUwVUGExbiCe
+         WJf/aYn7Cir9cagwUnKznRKAj79E0j1PCEC9uNKOkgsQ/eUIIehwxOT2xYYLK7xaFwkk
+         jLc++kDmPB8LGrXC2kbbga9g4veWf0HEUZd6g7qXBbAdphR+kGxPH1CnYfave8PBtQPZ
+         ejFICT4+iXo0KNIwdLpTIVFLak7bXqx7SHelnn79ibtBevs+373nz8P/fgWZ86SZYzpb
+         9kEd53Q4JWNgP8h5PZKWzMgHr7Kpdn3SMlKhBf2vylg8Q28sapE4sjh1h6iHbID3p/UM
+         Nwmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=iDlPsO13rMyuvBn7PtQdBQqfvK9YYjK4+HZevxaZqZM=;
+        b=jDfSjTQZ0uAodKdDt8WsJFaItGhEceGv4gkWwYQ7PkMEy2WN5QV0VotQRNEZEeW+Kg
+         1SdrfEhGrPSNBu/bRWMRhgpxYHWNNGCiwBt+QN22IROJnB2OK2UFXJexLUzmO7z6sUrE
+         NoYi673pAgkcREHvhwilrKxUBxorhuukrR4eIEowmpTRHT9TUUsx1mtF6pxPbrYd68uv
+         LX2FNPHWw0QYE2Cs9LUShVZoBQx5bDqj/0UrBPsMZdST3PqHQcCpbI4gx6zZyEkpguwA
+         IQ+8+BZ0QvCiX0moI/N5mciDjTFiR7uAjb0HykXvprrdSqChqlfO6xP1thv3IITjGfh1
+         XsDA==
+X-Gm-Message-State: APjAAAVgg5Pln+H/wqRnZyVbSMMUtGRAkVH+bh6Ut7e7qNd5KCCTdeF+
+        QhC9sY8QLMbQ4fOewDB9KjXjnWIh
+X-Google-Smtp-Source: APXvYqwH1aKtYsdxuvEiVnlGrTH1QyiXkDqlrDdK6hR/gvcOWApx85WMg3gZajBpkKeJIeXuQUiJZA==
+X-Received: by 2002:a17:902:6b8c:: with SMTP id p12mr258370plk.290.1578686321328;
+        Fri, 10 Jan 2020 11:58:41 -0800 (PST)
+Received: from ?IPv6:2406:e003:5fa:5f01:e752:f840:6823:1947? ([2406:e003:5fa:5f01:e752:f840:6823:1947])
+        by smtp.gmail.com with ESMTPSA id j9sm3821449pff.6.2020.01.10.11.58.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Jan 2020 11:58:40 -0800 (PST)
+Cc:     mtk.manpages@gmail.com
+Subject: Re: [PATCH 1/1] malloc.3: Remove duplicate _DEFAULT_SOURCE
+To:     Petr Vorel <pvorel@suse.cz>, linux-man@vger.kernel.org
+References: <20200109153651.4847-1-pvorel@suse.cz>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <ff59d055-3e9c-4ac3-0731-b0a8b94b1247@gmail.com>
+Date:   Fri, 10 Jan 2020 20:58:34 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+In-Reply-To: <20200109153651.4847-1-pvorel@suse.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Am Freitag, 10. Januar 2020, 00:02:37 CET schrieb Kurt Roeckx:
+Hello Petr,
 
-Hi Kurt,
-
-> On Thu, Jan 09, 2020 at 05:40:11PM -0500, Theodore Y. Ts'o wrote:
-> > On Thu, Jan 09, 2020 at 11:02:30PM +0100, Kurt Roeckx wrote:
-> > > One thing the NIST DRBGs have is prediction resistance, which is
-> > > done by reseeding. If you chain DRBGs, you tell your parent DRBG
-> > > that you want prediction resistance, so your parent will also
-> > > reseed. There currently is no way to tell the kernel to reseed.
-> > 
-> > It would be simple enough to add a new flag, perhaps GRND_RESEED, to
-> > getrandom() which requests that the kernel reseed first.  This would
-> > require sufficient amounts of entropy in the input pool to do the
-> > reseed; if there is not enough, the getrandom() call would block until
-> > there was enough.  If GRND_NONBLOCK is supplied, then getrandom()
-> > would return EAGAIN if there wasn't sufficient entropy.
-> > 
-> > Is this what you want?
+Hello On 1/9/20 4:36 PM, Petr Vorel wrote:
+> Fixes: d8d701003 ("malloc.3: Since glibc 2.29, realloc() is exposed by
+> defining _DEFAULT_SOURCE")
 > 
-> I think some people might want to see it, but I think you
-> shouldn't add it.
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
 
-Just for your information: I played with that already as seen in [1] which 
-does not require any kernel change.
+Thanks. Patch applied.
 
-The only issue that is currently there are the two races noted in [1]. These 
-races seem to be only addressable when the reseeding and the gathering of 
-random numbers are atomic. I was toying with the idea that the RNDRESEEDCRNG 
-allows the user to specify an output buffer which would be filled in an atomic 
-operation when the reseed is invoked. That buffer should only be at most in 
-size of the security strength of the DRNG.
+Cheers,
 
-[1] https://github.com/smuellerDD/lrng/blob/master/test/syscall_test.c#L101
+Michael
+
+> ---
+>  man3/malloc.3 | 1 -
+>  1 file changed, 1 deletion(-)
 > 
-> > > I don't think we want that. As far as I know, the only reason for
-> > > using /dev/random is that /dev/urandom returns data before it
-> > > has sufficient entropy.
-> > 
-> > Is there any objections to just using getrandom(2)?
+> diff --git a/man3/malloc.3 b/man3/malloc.3
+> index 111e2a067..c3b688ab3 100644
+> --- a/man3/malloc.3
+> +++ b/man3/malloc.3
+> @@ -51,7 +51,6 @@ Feature Test Macro Requirements for glibc (see
+>  .PP
+>  .BR reallocarray ():
+>  .ad l
+> -_GNU_SOURCE
+>      Since glibc 2.29:
+>          _DEFAULT_SOURCE
+>      Glibc 2.28 and earlier:
 > 
-> It provides the interface we want, so no. But there are still
-> people who don't have it for various reasons. OpenSSL actually
-> does the system call itself if libc doesn't provider a wrapper for
-> it.
-> 
-> 
-> Kurt
 
 
-
-Ciao
-Stephan
-
-
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
