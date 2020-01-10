@@ -2,58 +2,38 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4C3AA136464
-	for <lists+linux-man@lfdr.de>; Fri, 10 Jan 2020 01:31:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A8637136897
+	for <lists+linux-man@lfdr.de>; Fri, 10 Jan 2020 08:54:48 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730259AbgAJAaw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 9 Jan 2020 19:30:52 -0500
-Received: from mail-pj1-f68.google.com ([209.85.216.68]:53183 "EHLO
-        mail-pj1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730246AbgAJAaw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Jan 2020 19:30:52 -0500
-Received: by mail-pj1-f68.google.com with SMTP id a6so213168pjh.2
-        for <linux-man@vger.kernel.org>; Thu, 09 Jan 2020 16:30:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amacapital-net.20150623.gappssmtp.com; s=20150623;
-        h=content-transfer-encoding:from:mime-version:subject:date:message-id
-         :references:cc:in-reply-to:to;
-        bh=WU93w3AtbVDPqYWtjAM3MuAwVxoBZV4OjJfby5UWG0k=;
-        b=1tZqDa5G0PuPlzu1UjJOEgvTaHSV+roJwZ7hvUYGjH6N+5+UZ75ROicgm6XrVTC01k
-         OMn6l5Gm1UNk3V4jMxJBS3RxSWRzp4+OmamHgL56pd4uQMxR7dPLcH/PYEijw9pJXMpF
-         BylAvmBwoL9jvFw4t1L6iApg5dOlUoTP9Td6VkEZKd7Cb+qcBRTDCHT0XP/o+PGXeQ+M
-         aoVUsJMunUjg7ZjguTqJbaK+ZuZYUrkIlqiUcW4p/YIGQqAJKPejy+NqofKOApJrZIcV
-         V1peHznnppNnEpDN4/cbmUJzqIIVRCz1bfjQ9lTtQC1Sk1kurVw8HhffEOWTivtlRze7
-         eHVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:content-transfer-encoding:from:mime-version
-         :subject:date:message-id:references:cc:in-reply-to:to;
-        bh=WU93w3AtbVDPqYWtjAM3MuAwVxoBZV4OjJfby5UWG0k=;
-        b=DmeozcNvESsSL9OoQGWJugG8ILSHNHfnAQzm/gLkqa6oXVxNUIXAZT5jineXKanntb
-         yO3J9h9aSWRjjBHQXUu8Z+6+dGR/83RSA1OK2Q/S0mOCrKp9TDPcyNn3AUrvMA4Y/obx
-         tFa+EWUSQVj8gnt9Le7lQCtnmhptKyiO+TqOg/Lvowh9IrvMede5ohR0P8pGR5MHjuso
-         dxaFyBoI8JmxEmn2IcYtmh+pfBu7nuAt4wat1YpLUxxoR04Cl2bdUcKYsjXMy3MK8WgB
-         0MTK1mBaF2JAZYIYKXvK8IK4ydPZnlYlRPqmHCcy84sJsxm52P/kM9G4C5cPf8OdTD90
-         c4Sg==
-X-Gm-Message-State: APjAAAVIxJoRcraM/Ip8rB/fQgGkDR69DmrwCkLQZKcAP+4v8VZyWTi2
-        WKblRdD73D9yY0nALonrflHjvA==
-X-Google-Smtp-Source: APXvYqyNkS0EsFX1UycczKNVnCf9IxzBAT68JzKuVVbY09Lf8pIIJ3g6/yVhwwDOQ77iPPekM2G+hw==
-X-Received: by 2002:a17:90a:778a:: with SMTP id v10mr1029789pjk.26.1578616251644;
-        Thu, 09 Jan 2020 16:30:51 -0800 (PST)
-Received: from [10.197.30.113] ([139.104.2.240])
-        by smtp.gmail.com with ESMTPSA id 83sm121404pgh.12.2020.01.09.16.30.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jan 2020 16:30:50 -0800 (PST)
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From:   Andy Lutomirski <luto@amacapital.net>
-Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH v3 0/8] Rework random blocking
-Date:   Thu, 9 Jan 2020 14:30:48 -1000
-Message-Id: <99CB981B-752C-449B-98BE-A4DF80D25A26@amacapital.net>
-References: <20200109220230.GA39185@roeckx.be>
+        id S1726276AbgAJHym (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 10 Jan 2020 02:54:42 -0500
+Received: from mo4-p02-ob.smtp.rzone.de ([85.215.255.82]:27725 "EHLO
+        mo4-p02-ob.smtp.rzone.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726608AbgAJHym (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Jan 2020 02:54:42 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1578642879;
+        s=strato-dkim-0002; d=chronox.de;
+        h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+        X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+        bh=d9JrHFY1UkMhvfJGn6qk0SYl17Rv3ChmBENr96iZE38=;
+        b=s9RRt/QZ/SAqsApT14JzWW4LDTgUp7gO6hsP90nUJcsJTP8I749xpwNPiRgFy0UUuG
+        2JBtYnj0VI9HFivCjLrMDSKkTS2TVkR7T3u6hhet3layTN5l6p8HD2pm0mdoAnjBxYjY
+        NB4GgYzxscd1hInCzBX9ED0hUPANPo/yLbU/4OVTL+I8lAT83MRlOovM8ltgtK4fBlxc
+        x5yITH3PONY9MKuBZoXUOmTAbUR1sBPh0JQxPu0AFQ8cYTAN9g4+tfAOc47XvI0t+g+0
+        t1MjLD5dz0hCaDb0lqCpQVwptGgSWSfgj1uI3eRYY35htK/3NTTYLNPr4L1EZFcy5Ea1
+        BoiA==
+X-RZG-AUTH: ":P2ERcEykfu11Y98lp/T7+hdri+uKZK8TKWEqNyiHySGSa9k9xmwdNnzGHXPZJPScHivh"
+X-RZG-CLASS-ID: mo00
+Received: from tauon.chronox.de
+        by smtp.strato.de (RZmta 46.1.4 DYNA|AUTH)
+        with ESMTPSA id u04585w0A7rs7kX
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+        (Client did not present a certificate);
+        Fri, 10 Jan 2020 08:53:54 +0100 (CET)
+From:   Stephan Mueller <smueller@chronox.de>
+To:     Kurt Roeckx <kurt@roeckx.be>
 Cc:     "Theodore Y. Ts'o" <tytso@mit.edu>,
-        Stephan Mueller <smueller@chronox.de>,
+        Andy Lutomirski <luto@amacapital.net>,
         Andy Lutomirski <luto@kernel.org>,
         LKML <linux-kernel@vger.kernel.org>,
         Linux API <linux-api@vger.kernel.org>,
@@ -68,36 +48,71 @@ Cc:     "Theodore Y. Ts'o" <tytso@mit.edu>,
         Matthew Garrett <mjg59@srcf.ucam.org>,
         Ext4 Developers List <linux-ext4@vger.kernel.org>,
         linux-man <linux-man@vger.kernel.org>
-In-Reply-To: <20200109220230.GA39185@roeckx.be>
-To:     Kurt Roeckx <kurt@roeckx.be>
-X-Mailer: iPhone Mail (17C54)
+Subject: Re: [PATCH v3 0/8] Rework random blocking
+Date:   Fri, 10 Jan 2020 08:53:54 +0100
+Message-ID: <7629501.YrHEAiJyVJ@tauon.chronox.de>
+In-Reply-To: <20200109230237.GA2992@roeckx.be>
+References: <20191226140423.GB3158@mit.edu> <20200109224011.GD41242@mit.edu> <20200109230237.GA2992@roeckx.be>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Am Freitag, 10. Januar 2020, 00:02:37 CET schrieb Kurt Roeckx:
+
+Hi Kurt,
+
+> On Thu, Jan 09, 2020 at 05:40:11PM -0500, Theodore Y. Ts'o wrote:
+> > On Thu, Jan 09, 2020 at 11:02:30PM +0100, Kurt Roeckx wrote:
+> > > One thing the NIST DRBGs have is prediction resistance, which is
+> > > done by reseeding. If you chain DRBGs, you tell your parent DRBG
+> > > that you want prediction resistance, so your parent will also
+> > > reseed. There currently is no way to tell the kernel to reseed.
+> > 
+> > It would be simple enough to add a new flag, perhaps GRND_RESEED, to
+> > getrandom() which requests that the kernel reseed first.  This would
+> > require sufficient amounts of entropy in the input pool to do the
+> > reseed; if there is not enough, the getrandom() call would block until
+> > there was enough.  If GRND_NONBLOCK is supplied, then getrandom()
+> > would return EAGAIN if there wasn't sufficient entropy.
+> > 
+> > Is this what you want?
+> 
+> I think some people might want to see it, but I think you
+> shouldn't add it.
+
+Just for your information: I played with that already as seen in [1] which 
+does not require any kernel change.
+
+The only issue that is currently there are the two races noted in [1]. These 
+races seem to be only addressable when the reseeding and the gathering of 
+random numbers are atomic. I was toying with the idea that the RNDRESEEDCRNG 
+allows the user to specify an output buffer which would be filled in an atomic 
+operation when the reseed is invoked. That buffer should only be at most in 
+size of the security strength of the DRNG.
+
+[1] https://github.com/smuellerDD/lrng/blob/master/test/syscall_test.c#L101
+> 
+> > > I don't think we want that. As far as I know, the only reason for
+> > > using /dev/random is that /dev/urandom returns data before it
+> > > has sufficient entropy.
+> > 
+> > Is there any objections to just using getrandom(2)?
+> 
+> It provides the interface we want, so no. But there are still
+> people who don't have it for various reasons. OpenSSL actually
+> does the system call itself if libc doesn't provider a wrapper for
+> it.
+> 
+> 
+> Kurt
 
 
-> On Jan 9, 2020, at 12:02 PM, Kurt Roeckx <kurt@roeckx.be> wrote:
->=20
 
->=20
-> If the kernel provides a good RNG, the only reason I can see why
-> you would like to have direct access to a hwrng is to verify that
-> it's working correctly. That might mean that you put it in some
-> special mode where it returns raw unprocessed values. If the device
-> is in such a mode, it's output will not provide the same entropy
-> per bit, and so I would expect the kernel to stop using it directly.
+Ciao
+Stephan
 
-I disagree.
 
-If I buy a ChaosKey or a fancy EAL4FIPSOMG key, I presumably have it for a r=
-eason and I want to actually use the thing for real. Maybe it=E2=80=99s for s=
-ome certification reason and maybe it=E2=80=99s just because it=E2=80=99s re=
-ally cool.
-
-As for =E2=80=9Cdirect=E2=80=9D access,  I think AMD provides an interface t=
-o read raw output from the on-die entropy source. Exposing this to user spac=
-e is potentially quite useful for anyone who wants to try to characterize it=
-.  I don=E2=80=99t really think people should use a raw sample interface as a=
- source of production random numbers, though.
