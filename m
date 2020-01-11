@@ -2,89 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 9FACC1377EF
-	for <lists+linux-man@lfdr.de>; Fri, 10 Jan 2020 21:31:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2B8661381E9
+	for <lists+linux-man@lfdr.de>; Sat, 11 Jan 2020 16:00:25 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726595AbgAJUbm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 10 Jan 2020 15:31:42 -0500
-Received: from mail-pf1-f195.google.com ([209.85.210.195]:41091 "EHLO
-        mail-pf1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726582AbgAJUbl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Jan 2020 15:31:41 -0500
-Received: by mail-pf1-f195.google.com with SMTP id w62so1661413pfw.8
-        for <linux-man@vger.kernel.org>; Fri, 10 Jan 2020 12:31:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=z9U+e564BTH7oV5/QgES6KncXae0geLoxIH+RTfM3R8=;
-        b=I45PTQt4lwAsWQKq7OaJiR2jMjBYXUICDGNw2HDUyxViygmvksaPAPDki+oU1Gotex
-         GjSjIVcJMOOoZt+X6J8mTqAF8wTOqWJHexUhpUp5merktFl1EZyfInJ48vzk5haWQTTw
-         IW6TE6be6t/S5eBUa71rgmAh2wPp5CgBOS1ZNMO0OrAIzVd2dXPLoRA+KIVJGDJLac9Z
-         UblOtaiXjNFw7zkeh/uYIuqtv5B0UC/jaFV7EjonN5MIbaBV+7oJ5Va5KhT3K8QDQXNk
-         R3Fg96pbvG5iQZJS5cAOYqVCpvYohtPqoyq22ytyJYeG01dizbgfLfQgOzUUl65IjjYc
-         XNgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=z9U+e564BTH7oV5/QgES6KncXae0geLoxIH+RTfM3R8=;
-        b=oiR8LPCWiYt9ns/DyUrvASIGzbRNu1XS5FfxjK819iGwF8yuh4GLAun5FHY6MWUmPT
-         WkKDAy7AQzTYqqyHpCzJG9XNf80U7HhffKPnAdOdWNENUZT9uozj4p3+nFuazpvjvcLF
-         xc7qwLxNZJ4Gdi1IM57T3uaAP6qmtJn44N1BbSmwh/YaRatUNySRIaaZpbz62ivTdpOn
-         xsk4TL8w/JG7m/TdYv0FoSLdu9atxqf17ttFXa0zgrhod9xow8RnQzrvPeDYgfr2ePPU
-         7eLSJP8BrcItjyRYdO7Ai50VcHxUA7VIAuEPXtaBlGNA7kT3uotlfjJgZFJ8ZxCyRESo
-         LWbA==
-X-Gm-Message-State: APjAAAVHdyVsu3MXMf5S6W9LvdXQnOgwBgdmF6H/xTNoQT5g2L518tUn
-        IzZJWACoTphdrCzTJ0+Uw3qGq+nT
-X-Google-Smtp-Source: APXvYqzhzUau6BnhwbjHJdK/B4IDisOgRox0iHcq0fje1I9wbqqeztCACQnEhW1yd5N5bCEnlFlzYQ==
-X-Received: by 2002:a63:fb05:: with SMTP id o5mr6580815pgh.355.1578688300875;
-        Fri, 10 Jan 2020 12:31:40 -0800 (PST)
-Received: from ?IPv6:2406:e003:5fa:5f01:e752:f840:6823:1947? ([2406:e003:5fa:5f01:e752:f840:6823:1947])
-        by smtp.gmail.com with ESMTPSA id f8sm3981243pfn.2.2020.01.10.12.31.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Jan 2020 12:31:40 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [patch] futex.2: Fix a bug in the example
-To:     Ponnuvel Palaniyappan <pponnuvel@gmail.com>
-References: <CAOL8xrWJgOLpwx97vOvZ7dTvH9D-1=WvzRNi_a4Sd_BbT850Fg@mail.gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <26198107-0996-8196-53bc-cbe3429fe013@gmail.com>
-Date:   Fri, 10 Jan 2020 21:31:34 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.1
+        id S1729863AbgAKPAY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 11 Jan 2020 10:00:24 -0500
+Received: from git.icu ([163.172.180.134]:50676 "EHLO git.icu"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1729696AbgAKPAY (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sat, 11 Jan 2020 10:00:24 -0500
+X-Greylist: delayed 567 seconds by postgrey-1.27 at vger.kernel.org; Sat, 11 Jan 2020 10:00:23 EST
+Received: from localhost.localdomain (unknown [212.58.119.197])
+        by git.icu (Postfix) with ESMTPSA id ED2652200EE;
+        Sat, 11 Jan 2020 14:50:53 +0000 (UTC)
+From:   Shawn Landden <shawn@git.icu>
+Cc:     linux-man@vger.kernel.org, Shawn Landden <shawn@git.icu>
+Subject: [PATCH] bcmp: note that this function is no longer legacy due to LLVM 9
+Date:   Sat, 11 Jan 2020 18:50:49 +0400
+Message-Id: <20200111145049.5393-1-shawn@git.icu>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <CAOL8xrWJgOLpwx97vOvZ7dTvH9D-1=WvzRNi_a4Sd_BbT850Fg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+To:     unlisted-recipients:; (no To-header on input)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Ponnuvel,
+Signed-off-by: Shawn Landden <shawn@git.icu>
+---
+ man3/bcmp.3 | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-On 1/8/20 10:09 AM, Ponnuvel Palaniyappan wrote:
-> The man page contains a trivial bug that's discussed here:
-> https://stackoverflow.com/q/59628958
-> 
-> The patch was against latest master (commit:
-> f7d3e6aac109528e6f22f7c9cc5439a6ceeaa7de) and tested on Ubuntu
-> 4.15.0-72-generic kernel.
-
-(Inline patches arep preferred, rather than attacments.)
-
-Thanks for the patch! Applied.
-
-Cheers,
-
-Michael
-
-
-
+diff --git a/man3/bcmp.3 b/man3/bcmp.3
+index ba9838019..18d238720 100644
+--- a/man3/bcmp.3
++++ b/man3/bcmp.3
+@@ -70,15 +70,21 @@ T{
+ .BR bcmp ()
+ T}	Thread safety	MT-Safe
+ .TE
+ .SH CONFORMING TO
+ 4.3BSD.
+-This function is deprecated (marked as LEGACY in POSIX.1-2001): use
+-.BR memcmp (3)
+-in new programs.
++This function was deprecated (marked as LEGACY) by POSIX.1-2001).
+ POSIX.1-2008 removes the specification of
+ .BR bcmp ().
++LLVM 9, released in 2019, revived
++.BR bcmp ()
++and generates calls to it instead of
++.BR memcmp (3)
++as appropiate as an optimization (as
++.BR bcmp ()
++need not traverse memory in-order).
++.\" http://releases.llvm.org/9.0.0/docs/ReleaseNotes.html#noteworthy-optimizations
+ .SH SEE ALSO
+ .BR bstring (3),
+ .BR memcmp (3),
+ .BR strcasecmp (3),
+ .BR strcmp (3),
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.20.1
+
