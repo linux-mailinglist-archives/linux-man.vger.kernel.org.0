@@ -2,24 +2,34 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 2B8661381E9
-	for <lists+linux-man@lfdr.de>; Sat, 11 Jan 2020 16:00:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D8A101381EC
+	for <lists+linux-man@lfdr.de>; Sat, 11 Jan 2020 16:01:23 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729863AbgAKPAY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 11 Jan 2020 10:00:24 -0500
-Received: from git.icu ([163.172.180.134]:50676 "EHLO git.icu"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1729696AbgAKPAY (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 11 Jan 2020 10:00:24 -0500
-X-Greylist: delayed 567 seconds by postgrey-1.27 at vger.kernel.org; Sat, 11 Jan 2020 10:00:23 EST
-Received: from localhost.localdomain (unknown [212.58.119.197])
-        by git.icu (Postfix) with ESMTPSA id ED2652200EE;
-        Sat, 11 Jan 2020 14:50:53 +0000 (UTC)
+        id S1729896AbgAKPBX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 11 Jan 2020 10:01:23 -0500
+Received: from forward100o.mail.yandex.net ([37.140.190.180]:40972 "EHLO
+        forward100o.mail.yandex.net" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1729696AbgAKPBX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Jan 2020 10:01:23 -0500
+X-Greylist: delayed 331 seconds by postgrey-1.27 at vger.kernel.org; Sat, 11 Jan 2020 10:01:22 EST
+Received: from forward101q.mail.yandex.net (forward101q.mail.yandex.net [IPv6:2a02:6b8:c0e:4b:0:640:4012:bb98])
+        by forward100o.mail.yandex.net (Yandex) with ESMTP id 9EC6F4AC065A
+        for <linux-man@vger.kernel.org>; Sat, 11 Jan 2020 17:55:49 +0300 (MSK)
+Received: from mxback12q.mail.yandex.net (mxback12q.mail.yandex.net [IPv6:2a02:6b8:c0e:1b3:0:640:3818:d096])
+        by forward101q.mail.yandex.net (Yandex) with ESMTP id 9AB34CF40004
+        for <linux-man@vger.kernel.org>; Sat, 11 Jan 2020 17:55:49 +0300 (MSK)
+Received: from vla4-d1b041059520.qloud-c.yandex.net (vla4-d1b041059520.qloud-c.yandex.net [2a02:6b8:c17:914:0:640:d1b0:4105])
+        by mxback12q.mail.yandex.net (mxback/Yandex) with ESMTP id mGmpSMaAE2-tnhmvAxY;
+        Sat, 11 Jan 2020 17:55:49 +0300
+Received: by vla4-d1b041059520.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA id yY0koTSVOD-tmW8jJcR;
+        Sat, 11 Jan 2020 17:55:48 +0300
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+        (Client certificate not present)
 From:   Shawn Landden <shawn@git.icu>
 Cc:     linux-man@vger.kernel.org, Shawn Landden <shawn@git.icu>
 Subject: [PATCH] bcmp: note that this function is no longer legacy due to LLVM 9
-Date:   Sat, 11 Jan 2020 18:50:49 +0400
-Message-Id: <20200111145049.5393-1-shawn@git.icu>
+Date:   Sat, 11 Jan 2020 18:55:44 +0400
+Message-Id: <20200111145544.5592-1-shawn@git.icu>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
