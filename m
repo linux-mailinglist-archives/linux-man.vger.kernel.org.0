@@ -2,72 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A74F6138B3D
-	for <lists+linux-man@lfdr.de>; Mon, 13 Jan 2020 06:52:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D4DA313FB27
+	for <lists+linux-man@lfdr.de>; Thu, 16 Jan 2020 22:15:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2387395AbgAMFw3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 13 Jan 2020 00:52:29 -0500
-Received: from mail-oi1-f195.google.com ([209.85.167.195]:35619 "EHLO
-        mail-oi1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1733291AbgAMFw1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 13 Jan 2020 00:52:27 -0500
-Received: by mail-oi1-f195.google.com with SMTP id k4so7232445oik.2
-        for <linux-man@vger.kernel.org>; Sun, 12 Jan 2020 21:52:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=Rjbe3pVeMfYVPdmVklZ4b2stSqI32LIYp+bn/8NyJvk=;
-        b=El5YZgtDEXJCHEtZrRB1ujEJT5GnrR9nqQvx3oNXkD1KXWKAy5lE4fahagwXmNRBuY
-         Z373bCStdjZZAvrcMmyjZhqXNYKD7qS8gpQ1uKt4Zm/CJYofbOmd6y2KCfdaIf8lu4gx
-         e04Qq2Wd5k0QzXhgODgXLh9+BTAbr7mIJG1kvrHD2cB5892G2QaMtoQjZ8YbwAsn/v/R
-         qN1ulSwy8kLJzDOOwwvDkEa6g0paOaNUUW6lO8NcaOsOsQMTh2eV34LXY/bnRxfyDcL+
-         OFIAYoYpyWTxvo4nB11oXa8J2BNLiFXnr18VfN4DCPOmpXqWPT8f/9GzmZX8VWLxs4VK
-         s+8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=Rjbe3pVeMfYVPdmVklZ4b2stSqI32LIYp+bn/8NyJvk=;
-        b=qfNVTtv6hOtK/FyThZIz6BSiNeqiOYbiIPWypS6/XrjOttnwNhuqBUid5oUUEJJDJf
-         A7kkMkIgCgozdRLY40aZ7QzEGRzB7eeD3tfjQlBrGseeYRUWB8kZ2riEGOL6BXrg4dLy
-         YpDlQ1T/jLtjpjl6OAxnY7il9LKHTp40CP4jp/TtE+VdpfdYKFQepRdRByWWOawtYL8A
-         abAk7pSOIHrTvMEYWPeCDtIXlZ+Zlaitxy3ZLUyBqzeLvL3LobHdS3ggZpOyPQFpy2R7
-         jY87jW9+hwxlVqp8wYFYwPUHVYYKrEfFDc2cgKlCLQ9Nn9WOTL6pR4c3+FDvrT3GvSUd
-         J1FA==
-X-Gm-Message-State: APjAAAXfC8NcFKhCLrJ7CtahtAFXg116uQdh/jLmVR2+BVaf8Jid4Ebu
-        +LY/JCscM9QzzHQVUwwsyYSWWPgIkZyDumdWMMkS6NKX
-X-Google-Smtp-Source: APXvYqy7JhGBt0ZjJ/1t4CT74GIhTuvbOMnCynReBbsGRcTAfZPwoiLBCe9XiPA9xaK1JAPmy14eucUMWI9DLkbKsUo=
-X-Received: by 2002:a54:4713:: with SMTP id k19mr11513430oik.113.1578894745174;
- Sun, 12 Jan 2020 21:52:25 -0800 (PST)
+        id S2387487AbgAPVPM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 16 Jan 2020 16:15:12 -0500
+Received: from youngberry.canonical.com ([91.189.89.112]:51104 "EHLO
+        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729991AbgAPVPM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 16 Jan 2020 16:15:12 -0500
+Received: from 1.general.msalvatore.us.vpn ([10.172.66.92])
+        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+        (Exim 4.86_2)
+        (envelope-from <mike.salvatore@canonical.com>)
+        id 1isCTu-0003Q5-I6; Thu, 16 Jan 2020 21:15:10 +0000
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+From:   Mike Salvatore <mike.salvatore@canonical.com>
+Subject: [patch] getcwd.3: wfix
+Message-ID: <bf93b481-e246-d281-f952-a7ece96aa697@canonical.com>
+Date:   Thu, 16 Jan 2020 16:15:09 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-Received: by 2002:a4a:41cb:0:0:0:0:0 with HTTP; Sun, 12 Jan 2020 21:52:24
- -0800 (PST)
-Reply-To: rickschaech@gmail.com
-From:   Rick Schaech <cathben72@gmail.com>
-Date:   Mon, 13 Jan 2020 01:52:24 -0400
-Message-ID: <CAEcBxO=TAnFn5LzizHa22hUC0Db5FuiZJF28m=yX3_9m--jRqg@mail.gmail.com>
-Subject: I wait for your swift response,
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Dear, I'm Mr Rick Schaech, I am the General Account Auditor, Though i
-know we have not meet each other before but sometimes in life God have
-a reason of bringing two people from two different countries together
-as business partners or life partners.
+This patch is a minor wording fix in getcwd.3 that changes "In the case 
+getcwd()" to "In the case of getcwd()". This patch should apply cleanly to the 
+master branch of the git repository.
 
-My dear friend, I have the sum of 15.7 Million USD i wish to put in
-your name due to the death of my late client who died several years
-ago as his next of kin column still remain blank. Though the internet
-medium is highly abuse these days but am assuring you that this
-transaction is legitimate and I am contacting you that we may have a
-deal, note for your cooperation and collaboration 40% of the sum will
-be for you while the other 60% will be for me as well. I wait for your
-swift response for more details. please forward your response to my
-personal E-mail: rickschaech@gmail.com
+Regards,
+Mike Salvatore
 
-Yours sincerely,
-Rick Schaech.
+ From 3b68ad225dbaada2b1b55153dc57807b04531cd6 Mon Sep 17 00:00:00 2001
+From: Mike Salvatore <mike.salvatore@canonical.com>
+Date: Thu, 16 Jan 2020 16:08:08 -0500
+Subject: [PATCH] getcwd.3: wfix
+
+Signed-off-by: Mike Salvatore <mike.salvatore@canonical.com>
+---
+  man3/getcwd.3 | 2 +-
+  1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/man3/getcwd.3 b/man3/getcwd.3
+index c8a691b4a..e5ed2c5d9 100644
+--- a/man3/getcwd.3
++++ b/man3/getcwd.3
+@@ -155,7 +155,7 @@ is deprecated.
+  .SH RETURN VALUE
+  On success, these functions return a pointer to a string containing
+  the pathname of the current working directory.
+-In the case
++In the case of
+  .BR getcwd ()
+  and
+  .BR getwd ()
+-- 
+2.20.1
+
