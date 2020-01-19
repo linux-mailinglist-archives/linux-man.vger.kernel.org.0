@@ -2,71 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 90987140954
-	for <lists+linux-man@lfdr.de>; Fri, 17 Jan 2020 12:57:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 60F15141F78
+	for <lists+linux-man@lfdr.de>; Sun, 19 Jan 2020 19:44:40 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726892AbgAQL5Y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 17 Jan 2020 06:57:24 -0500
-Received: from us-smtp-delivery-1.mimecast.com ([207.211.31.120]:48114 "EHLO
-        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1726785AbgAQL5X (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 17 Jan 2020 06:57:23 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1579262242;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=aEwealRBtIw9xUaG2+RX3j03LPsjJroyfHVtSVub2iw=;
-        b=esecw//XZrNnS22nFr2tdXDCoAdiVQCsErNV2FhtWyAs415cuAfPLwo89w1Jq62UijZAwj
-        iACwqDlQ+LYM1uOr6zojsyScThQxtvnH5yH5fYJw8ho9e1sU0vnW8Y6kemPRlACUEHVThl
-        f8uYAniISCozImTx7cOIDNY5XcDXjH4=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-103-3s-HEUFDN7e_V2QpxvxVxA-1; Fri, 17 Jan 2020 06:57:17 -0500
-X-MC-Unique: 3s-HEUFDN7e_V2QpxvxVxA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 09F81800D50;
-        Fri, 17 Jan 2020 11:57:16 +0000 (UTC)
-Received: from oldenburg2.str.redhat.com (dhcp-192-227.str.redhat.com [10.33.192.227])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id 4F99460C63;
-        Fri, 17 Jan 2020 11:57:15 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     Shawn Landden <shawn@git.icu>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH] bcmp: note that this function is no longer legacy due to LLVM 9
-In-Reply-To: <20200111145544.5592-1-shawn@git.icu> (Shawn Landden's message of
-        "Sat, 11 Jan 2020 18:55:44 +0400")
-References: <20200111145544.5592-1-shawn@git.icu>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
-Date:   Fri, 17 Jan 2020 12:57:14 +0100
-Message-ID: <87o8v2pa79.fsf@oldenburg2.str.redhat.com>
+        id S1728640AbgASSoj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Jan 2020 13:44:39 -0500
+Received: from mail-pf1-f194.google.com ([209.85.210.194]:45950 "EHLO
+        mail-pf1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728935AbgASSoj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Jan 2020 13:44:39 -0500
+Received: by mail-pf1-f194.google.com with SMTP id 2so14631920pfg.12
+        for <linux-man@vger.kernel.org>; Sun, 19 Jan 2020 10:44:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=/o+CA7VDRA7UR3HGeT8+/tYzwEnOXwq5B8ZHP2/HeYc=;
+        b=gmKBxPx84PXNKr5CdAEsBl4o6OI0Ul1T9kdeNuOonXVMsPZvHaiVfrF6wsqmkO6amC
+         OhpUNNF3SMjaFtPDB5q+oWHWGLwTM1KQcLAEAJsxead1wkkS8vgEkLcKKIbpXv93k89C
+         Il/b6fig8uFQ2ful9dClSdBh6ES0WHCRI487g5LzaF7Sg904xrrN8vXROMW6UBU7S6v1
+         1KY36Pw5SyxrOXfagNts4/xbaFFgof1/AzREyQlil09RYVWfcnHmKvyC/eKHTr8xAdVR
+         8OHIBUIT1uRPI/WtlHnD2gmL8PhGi3ea1Do5nFE3xaprr/6eI7i7Fk2drMcN+8BwExKd
+         ZFxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=/o+CA7VDRA7UR3HGeT8+/tYzwEnOXwq5B8ZHP2/HeYc=;
+        b=Tg8QXxYfzjMMYS911HH82jhTXSwkhnHmBXUC4PlBdDkmzGY0suoAAP579TMtcy/Hza
+         LzolC1M6dNCL/kYTi5dBghYeM9paY2EB1y7HyKBiGfAnuuNQujT3u4M0IFTQKTU+QBu/
+         BVTkeUbENvzR85YGm/U2zkkaZloQoe91kfkZxrxG/Ul2SM07NX41JTKZ6uUHVDyBRaGc
+         8QM4vqmpUtVSm6/zFyTMGYgI0E2a8TET2ZmfZ9LwEC1UxCvrhiJW+jG9PuFfaMyS53f+
+         CVnDYmT4r086Im9SCEz+OA1KUQ9i4PMUBHRjZih/XpScwGztuTDk2kNWDZndeLPHwtXX
+         DvNw==
+X-Gm-Message-State: APjAAAWyaksFW6St4a+IBhkVAfZGkl0NJU3RIRRm2Ze+3ake0prk9eFy
+        QPhb/0H5fqoritX0Cr6lfgi/VQwsfvBOK7538d7jolT+vzCldA==
+X-Google-Smtp-Source: APXvYqw0/+WGODIUvKkziyHBLuQsuF4sA8inGcr6D1fE0jlGptJu92UkXoVDxAQCBYSMyoJXI0/9BUQNIZC+z8C9ask=
+X-Received: by 2002:a92:5c52:: with SMTP id q79mr7225189ilb.11.1579459477506;
+ Sun, 19 Jan 2020 10:44:37 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Received: by 2002:a02:95c8:0:0:0:0:0 with HTTP; Sun, 19 Jan 2020 10:44:37
+ -0800 (PST)
+Reply-To: favordens@email.com
+From:   Favor Desmond <contecindy5@gmail.com>
+Date:   Sun, 19 Jan 2020 18:44:37 +0000
+Message-ID: <CAOfCPNxP6Zd30BF2yc=mXgSsiq_K60AW+CVH-5JzXJEsBrwaJA@mail.gmail.com>
+Subject: HELLO
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Shawn Landden:
-
-> +This function was deprecated (marked as LEGACY) by POSIX.1-2001).
->  POSIX.1-2008 removes the specification of
->  .BR bcmp ().
-> +LLVM 9, released in 2019, revived
-> +.BR bcmp ()
-> +and generates calls to it instead of
-> +.BR memcmp (3)
-> +as appropiate as an optimization (as
-> +.BR bcmp ()
-> +need not traverse memory in-order).
-> +.\" http://releases.llvm.org/9.0.0/docs/ReleaseNotes.html#noteworthy-optimizations
-
-This is a pessimation on GNU/Linux if the program uses memcmp as well
-because it introduces another relocation.
-
-Thanks,
-Florian
-
+Hello Dear
+Greetings to you,I am Favor Desmond from Ivory coast currently living
+in  Togo Republic,I would like to know you more, so that i can tell
+you little amount myself and my photo, email address is
+favordens@email.com
+Thanks
+Favor
