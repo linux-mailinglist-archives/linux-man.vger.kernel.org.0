@@ -2,60 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 2F1D914456C
-	for <lists+linux-man@lfdr.de>; Tue, 21 Jan 2020 20:53:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3AB7C144606
+	for <lists+linux-man@lfdr.de>; Tue, 21 Jan 2020 21:41:13 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727360AbgAUTxO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 21 Jan 2020 14:53:14 -0500
-Received: from mail-pj1-f67.google.com ([209.85.216.67]:36906 "EHLO
-        mail-pj1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726926AbgAUTxO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Jan 2020 14:53:14 -0500
-Received: by mail-pj1-f67.google.com with SMTP id m13so2111170pjb.2
-        for <linux-man@vger.kernel.org>; Tue, 21 Jan 2020 11:53:13 -0800 (PST)
+        id S1728596AbgAUUlL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 21 Jan 2020 15:41:11 -0500
+Received: from mail-pj1-f68.google.com ([209.85.216.68]:36014 "EHLO
+        mail-pj1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728139AbgAUUlL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Jan 2020 15:41:11 -0500
+Received: by mail-pj1-f68.google.com with SMTP id n59so2185408pjb.1
+        for <linux-man@vger.kernel.org>; Tue, 21 Jan 2020 12:41:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=cXz2QIL84r3HcqI3qIYvsBa0Y4bvm3sCeXQzVJZcRrw=;
-        b=ngvqpJ+GKqgIDEFQFhZagTkw7DDUd/8wn3DWpdmsOGHiplyTHRy+t3+TyL9YO+5571
-         jjTHY/P1WsYklKbP9NrTY7Q3stjUxPa3FNMaNIqFNvqfcK6SpvCCIlaJXa/Dpr4P8LeV
-         O6vHN+j5Jk1W2YoNY5uQ/l58lxHAu009Ng6si7M5D9cZbA3XdhMh3fYvQNJBzqfEqg8k
-         PRLHHxS2TgvgJog1C/XTCqVbGVqgvG49uRzeeBZFFkyt93NhRcKRrt+wA90MgFrdJBnb
-         bkbiavDopR8KKh+bMg7MFWA8GTbs4D+bxCjaJyZ7EvIkk1vcm5JSO0RLH6h/l3L8k/QZ
-         9QKQ==
+        bh=tuHPm+Hv+rWPvNU00Z0Kev24CpKwJPlVsAAKDjBj8fM=;
+        b=VTKHm1VvZyAJxMEvHfmTvJqfb0w0DPCrdayQ/Qg6Q68OnNQ42DnRyD+p2723yUDiGK
+         xzDBXN4DDnSVxlb5qO3pLDZhWXrzti5SGeke7k/w0PcHaS6pqxeC8Wd5BUuyFOgJHmqh
+         NQKOYFoUCtakPyLXtAQDVitO6WQsifexZvc94eeXrK/fClyn3nCU9aUZMqYVSa/ch+rt
+         CQ5zo47lz1dcuXA92jKqqRkUV/VS8yZRXiHZh9d3TxDaWl2nJXJEhVWJfaZ8DMPaCVHP
+         AH7OGS5PObhZavd8dbaqDGtw3/i5kMacPy9jILow6vt8MpcL/R+OlN4ttONAhaxhN0Ra
+         5URw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=cXz2QIL84r3HcqI3qIYvsBa0Y4bvm3sCeXQzVJZcRrw=;
-        b=Bef2rzdhBWITVTFTBR06e+Xr972qvTuTGOUG/xLY6XumCpJKA+B0tPqG8oMsShWjIJ
-         wkMN3qkEpmdghTO8qnf/ainNFqLNVWxtpFPGEDUP9DUbUc/e+Gp3qxyj1d49+W0ezqIB
-         OvnxlInSciEsqfmOE+COageFwiODeQtRq/ele28hn+fnBuZC7crYYRFqpwNYiilFyCmP
-         Y5ycMQdVebFKM8I8xLc+zGHT+0CD9cjkLqmNq+uStikoWu2bM1H0LY1LtYPLQMupa8Nl
-         XJbSNqlZmBlbwZMcRzCYOwn0yFTXuy8U4BnnGFGMN+6jONwj6nXCJEF7kv/fiS4kJhbi
-         5xNQ==
-X-Gm-Message-State: APjAAAUNwe5esEyd/DaHvpuWm8osqRsO6f2ox9neBOkI3vZIafU4wXRf
-        QZezuITVsd+e/sW2quRbq6FMMYIJ
-X-Google-Smtp-Source: APXvYqzIHxzpHHUqDkPNWDrmGjlCINdRIGDB6sJBjmmyR3gCS6wMCenk5UmH/E15r7j5bCngWLAEqw==
-X-Received: by 2002:a17:90a:cb96:: with SMTP id a22mr90731pju.96.1579636393538;
-        Tue, 21 Jan 2020 11:53:13 -0800 (PST)
+        bh=tuHPm+Hv+rWPvNU00Z0Kev24CpKwJPlVsAAKDjBj8fM=;
+        b=OMArh3P/wZfk7ZyOw89UHW3Y42fZGLkJnUKUyxxTnXKhL4nG3ONsk/f4Nfus2JIqiu
+         JA3EoKGiHOeVKiJoCnpIbwDUaFntTDFP93gixTExdfiP6JTrz0liEnM3BAGSkKBX4eo3
+         dOSf3eKQEcX+MInbe0M9Unb8B/42EiTVo4laRF3cVBLvhfg0/LJqmixuwy6ovAO448U3
+         cM/oQs4VrMVhB2P6Qbn3PMpQdtnOXxitKp+gXoeGJuxy9xd+CxPPsrCFpipg4gpyto+k
+         svPnuCGOKtD6ayQW/ALcNLAMWAv1gK8obvI3zuncU6YHe+qamzooB9qP6aG02rP3VSX1
+         onLA==
+X-Gm-Message-State: APjAAAXhnthsHwE7urFMQdbmfRibW88bsPf+tgLbo2j+lBUZya5dEyAx
+        i4W6GY1dk+QzvibCwGAstGjw0tHG
+X-Google-Smtp-Source: APXvYqy1/m03YUCUdhaWOFQoXBiw6/FlAAuE0pSPUgtpuX6GrMzvJPkTDeRziRmSVrRWkQXKxNBFnw==
+X-Received: by 2002:a17:902:9687:: with SMTP id n7mr7472015plp.168.1579639270259;
+        Tue, 21 Jan 2020 12:41:10 -0800 (PST)
 Received: from [192.168.1.72] (122-58-99-230-adsl.sparkbb.co.nz. [122.58.99.230])
-        by smtp.gmail.com with ESMTPSA id e2sm44415543pfh.84.2020.01.21.11.53.11
+        by smtp.gmail.com with ESMTPSA id c15sm315468pja.30.2020.01.21.12.41.07
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jan 2020 11:53:12 -0800 (PST)
-Cc:     mtk.manpages@gmail.com
-Subject: Re: [PATCH] memcmp.3: note about optimization to bcmp in LLVM 9
-To:     Shawn Landden <shawn@git.icu>, linux-man@vger.kernel.org
-References: <20200111150216.5956-1-shawn@git.icu>
+        Tue, 21 Jan 2020 12:41:09 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] loop.4: Document LOOP_SET_DIRECT_IO
+To:     Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+References: <1578296543-4195-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <59bec979-87f1-2184-2b48-42c2a5046e87@gmail.com>
-Date:   Tue, 21 Jan 2020 20:53:09 +0100
+Message-ID: <9c39f02d-fe47-a047-4882-8aa31254c2fb@gmail.com>
+Date:   Tue, 21 Jan 2020 21:41:05 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.3.1
 MIME-Version: 1.0
-In-Reply-To: <20200111150216.5956-1-shawn@git.icu>
+In-Reply-To: <1578296543-4195-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -64,41 +64,37 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 1/11/20 4:02 PM, Shawn Landden wrote:
-> ---
->  man3/memcmp.3 | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/man3/memcmp.3 b/man3/memcmp.3
-> index 247eed223..6afca5ea4 100644
-> --- a/man3/memcmp.3
-> +++ b/man3/memcmp.3
-> @@ -84,10 +84,17 @@ because the required CPU time depends on the number of equal bytes.
->  Instead, a function that performs comparisons in constant time is required.
->  Some operating systems provide such a function (e.g., NetBSD's
->  .BR consttime_memequal ()),
->  but no such function is specified in POSIX.
->  On Linux, it may be necessary to implement such a function oneself.
-> +.PP
-> +LLVM 9, released in 2019, and later will optimize a call
-> +.BR memcmp ()
-> +to a call to
-> +.BR bcmp (3)
-> +if the return value is only checked for equilivence to zero.
-> +.\" http://releases.llvm.org/9.0.0/docs/ReleaseNotes.html#noteworthy-optimizations
+On 1/6/20 8:42 AM, Yang Xu wrote:
+> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 
-See my othermail. Wht is it relevant to document this 
-compiler-specific detail?
+Hello Yang Xu. Thanks. Patch applied.
 
-Thanks,
+Cheers,
 
 Michael
 
->  .SH SEE ALSO
->  .BR bcmp (3),
->  .BR bstring (3),
->  .BR strcasecmp (3),
->  .BR strcmp (3),
+> ---
+>  man4/loop.4 | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/man4/loop.4 b/man4/loop.4
+> index a56586fe6..afb1d05c5 100644
+> --- a/man4/loop.4
+> +++ b/man4/loop.4
+> @@ -152,6 +152,13 @@ Resize a live loop device.
+>  One can change the size of the underlying backing store and then use this
+>  operation so that the loop driver learns about the new size.
+>  This operation takes no argument.
+> +.TP
+> +.BR LOOP_SET_DIRECT_IO " (since Linux 4.10)"
+> +.\" commit ab1cb278bc7027663adbfb0b81404f8398437e11
+> +Set DIRECT IO mode on the loop device. So it can be used to open backing
+> +file. The (third)
+> +.BR ioctl(2)
+> +argument is an unsigned long value. non-zero represents direct IO mode.
+>  .PP
+>  Since Linux 2.6, there are two new
+>  .BR ioctl (2)
 > 
 
 
