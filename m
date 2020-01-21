@@ -2,61 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id ACB3814455E
-	for <lists+linux-man@lfdr.de>; Tue, 21 Jan 2020 20:49:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5F40F144562
+	for <lists+linux-man@lfdr.de>; Tue, 21 Jan 2020 20:52:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727847AbgAUTth (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 21 Jan 2020 14:49:37 -0500
-Received: from mail-pf1-f196.google.com ([209.85.210.196]:38274 "EHLO
-        mail-pf1-f196.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727829AbgAUTth (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Jan 2020 14:49:37 -0500
-Received: by mail-pf1-f196.google.com with SMTP id x185so2021920pfc.5
-        for <linux-man@vger.kernel.org>; Tue, 21 Jan 2020 11:49:36 -0800 (PST)
+        id S1727383AbgAUTwJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 21 Jan 2020 14:52:09 -0500
+Received: from mail-pj1-f67.google.com ([209.85.216.67]:40093 "EHLO
+        mail-pj1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727360AbgAUTwJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Jan 2020 14:52:09 -0500
+Received: by mail-pj1-f67.google.com with SMTP id bg7so2099250pjb.5
+        for <linux-man@vger.kernel.org>; Tue, 21 Jan 2020 11:52:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=OouaVjQHMuEXSKzSUXAc1WlydrV/FF4E9fbPEy445R8=;
-        b=S+I9C+U9ezJzAGj/L4W7NZCosINdqzwNACn9Jbz1OidzZD+ISghi27+i24xAwn5LLR
-         z3qJ8fF9DncIIegb+5UTFk68CLo8MEq8QP/LlovHAvNAbqqzTy93rC6nE8M3ZZzo8b4R
-         wd6dZWjGVT9BMBXER/QzbPL74q/JvzC5oBf4jUgmEyhDwef3PtjX6JsYi7lHy3Y5uRa/
-         zP6rAcn8FDlKNxa3EsiCaqRWrBY+0hg1kiVQkXkKfbXrSEDmkXooZ+YN0jqR3+OHTreL
-         9Sgzf6vkhNem9rlspho41NpV2Lk6JrrhYGraSJaf+i7VkH8CEqG1BAMm1/9wltMlLd/V
-         JzmA==
+        bh=Pdo2Ujpr0OHV6/gZiHGyg1Z54w04lgCRYeWd7Y6zcIM=;
+        b=DCOYiBM+dN+mcSICwRuC+ZZTk6vm26zUssKrEQ8Iie3fxJWjCPrjSJISX3dHh/u7p0
+         Dnpi9AZdCZTMhMjsM4/Mh2vSIlM4iz/vFsaCR7OgrNozHXXUhoqhqrbIdWdwv0EWcKqP
+         KRQpqeBinqrZju5K3SJtPue4lcpCVnLNeVjpWw7OX7NurddQXkBESCCeg3lG9OnE/grO
+         7aAr2tYpLhB1rAKeXLSwhn84T1Y/a5bmzBSTAwUWQ/4iJQPBjOLw6PrsTWMF4c+XagNF
+         Ik07NpjVUpotkx7qSGVTFn6suVUU7R9Lj1nxn8pdIK3ZLopNYRw2flRhp+AYotWwd2BC
+         o01Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=OouaVjQHMuEXSKzSUXAc1WlydrV/FF4E9fbPEy445R8=;
-        b=SoN/QbNBsqPINV7vvgabCY0QWjiWnaysntJciQbgpoZGOBeUoABn7JbuTcV0QyE713
-         0l/t9QPF8O0yr82GUu2rVJe5Et4SlhiwmA8To/fJcRzFcx4OUMTHVUDZybRZP97Z5Mpk
-         dZPgGRW7XXBw1YuaL46bbMIoUHGGoChBajNHELs1Vwr1mJGaA+likE28fYPgZ1Lw6wL+
-         ZsUTdadA3aH0rCxij6oHGJLQjORbvEsP43o3HKaEp6SxbbFpeYyKX8aZlrdNp7guQQl5
-         llC8aHxRoEuVGsfXI2fzPfwH3X+3Pc9fszYGA8O5CPkIoz+CXpO1DA2V0knahzAfO4td
-         6bQg==
-X-Gm-Message-State: APjAAAUMstdf/O7EnTO83CWHwDhZV2g+V9EcKP29NIer2mTliMMvIjrB
-        Uj1Juewf3bxGZQE+51GftJ4=
-X-Google-Smtp-Source: APXvYqzKLEyOe5qpauGJQQ8duIkzB/1Hd7GoNEL3om//tIB806LQV1FMSVP2c0P94I0UcshP+KLY8A==
-X-Received: by 2002:a63:9d07:: with SMTP id i7mr7579848pgd.344.1579636176545;
-        Tue, 21 Jan 2020 11:49:36 -0800 (PST)
+        bh=Pdo2Ujpr0OHV6/gZiHGyg1Z54w04lgCRYeWd7Y6zcIM=;
+        b=tvm2JxiNwGb2D6DQNdXHm+B2FOmgLZFXkbEHtEhveYttbiGftwD6RBdZQJ5CZVdzq9
+         6i8Fea1jGYY7o8p2krd3hH5bEuWRy36Eq9FBs5rcxZQU/brx00SYY1PiWyRrL+PqYiXS
+         H7uKUm6JQRUWCHPGsL58ez26JcoIVSmvdZDR5oI+3riUN6IPSNQERiX/7TnNvpe0oDOL
+         tSJEu2zx/op3pZEa4OuRW9lR513UA8i43Y5MUXvSIhBeu7CwjiC+Wbf51GAItCTJpT9W
+         AkTK0/B9rnle2iWoW4eeFLaLoTzxtaai1Tx1CMh+nDPP2qvRxOziE9YMZy6RMHSzgDuF
+         yWIQ==
+X-Gm-Message-State: APjAAAV9o1/2t8prLiOdCNpicgitDTWBiXixzMk8JMsxGf+laMhbil1I
+        4tzAyLyWKbTshw4ejY4tFG5OGQ2F
+X-Google-Smtp-Source: APXvYqwPChgz85y/VTOna1OXZN1LvQNuXRmZKH1Wi/w/EdeUEKDoeq+nF/V7OLWW2T8scqmZfANV2Q==
+X-Received: by 2002:a17:90a:6484:: with SMTP id h4mr86078pjj.84.1579636328776;
+        Tue, 21 Jan 2020 11:52:08 -0800 (PST)
 Received: from [192.168.1.72] (122-58-99-230-adsl.sparkbb.co.nz. [122.58.99.230])
-        by smtp.gmail.com with ESMTPSA id 132sm9607115pgd.76.2020.01.21.11.49.33
+        by smtp.gmail.com with ESMTPSA id j28sm43665561pgb.36.2020.01.21.11.52.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jan 2020 11:49:35 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>,
-        Tim Murray <timmurray@google.com>
-Subject: Re: [PATCH] Mention EINTR for perf_event_open
-To:     Daniel Colascione <dancol@google.com>
-References: <CAKOZuesChdRSgY+W90kPJkg8UQzqt66ngsg8sX1VCLCvVdfDUQ@mail.gmail.com>
+        Tue, 21 Jan 2020 11:52:08 -0800 (PST)
+Cc:     mtk.manpages@gmail.com
+Subject: Re: [PATCH] bcmp: note that this function is no longer legacy due to
+ LLVM 9
+To:     "Dmitry V. Levin" <ldv@altlinux.org>,
+        Shawn Landden <shawn@git.icu>, linux-man@vger.kernel.org
+References: <20200111145049.5393-1-shawn@git.icu>
+ <20200111161126.GA22051@altlinux.org>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <2d5539fb-7b21-64b0-7cee-9ef9858c1738@gmail.com>
-Date:   Tue, 21 Jan 2020 20:49:32 +0100
+Message-ID: <3ba906ad-7668-b420-778d-5e0a9b8d53e9@gmail.com>
+Date:   Tue, 21 Jan 2020 20:52:04 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.3.1
 MIME-Version: 1.0
-In-Reply-To: <CAKOZuesChdRSgY+W90kPJkg8UQzqt66ngsg8sX1VCLCvVdfDUQ@mail.gmail.com>
+In-Reply-To: <20200111161126.GA22051@altlinux.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -65,33 +67,57 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 1/9/20 12:57 AM, Daniel Colascione wrote:
-> Somewhat surprisingly, perf_event_open can fail with EINTR when trying
-> to enable perf reporting for a uprobe that's already been configured
-> for use with ftrace. Mention this error in the man page.
+Shawn,
 
-Thanks, Daniel. Patch applied.
+On 1/11/20 5:11 PM, Dmitry V. Levin wrote:
+> Hi,
+> 
+> On Sat, Jan 11, 2020 at 06:50:49PM +0400, Shawn Landden wrote:
+>> Signed-off-by: Shawn Landden <shawn@git.icu>
+>> ---
+>>  man3/bcmp.3 | 12 +++++++++---
+>>  1 file changed, 9 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/man3/bcmp.3 b/man3/bcmp.3
+>> index ba9838019..18d238720 100644
+>> --- a/man3/bcmp.3
+>> +++ b/man3/bcmp.3
+>> @@ -70,15 +70,21 @@ T{
+>>  .BR bcmp ()
+>>  T}	Thread safety	MT-Safe
+>>  .TE
+>>  .SH CONFORMING TO
+>>  4.3BSD.
+>> -This function is deprecated (marked as LEGACY in POSIX.1-2001): use
+>> -.BR memcmp (3)
+>> -in new programs.
+>> +This function was deprecated (marked as LEGACY) by POSIX.1-2001).
+>>  POSIX.1-2008 removes the specification of
+>>  .BR bcmp ().
+>> +LLVM 9, released in 2019, revived
+>> +.BR bcmp ()
+>> +and generates calls to it instead of
+>> +.BR memcmp (3)
+>> +as appropiate as an optimization (as
+>> +.BR bcmp ()
+>> +need not traverse memory in-order).
+>> +.\" http://releases.llvm.org/9.0.0/docs/ReleaseNotes.html#noteworthy-optimizations
+> 
+> I believe the "CONFORMING TO" is about conformance and therefore
+> shall not be changed.
+> 
+> Any notes about llvm-specific implementation details should go
+> to a different section, e.g. "NOTES".
 
-Cheers,
+I'm not convinced that anything at all needs to be added to the
+manual page. This is an implement-specific detail about a certain
+compiler. Its behavior might change in the future. You do not
+say anything about why t is relevant to document this detail.
+
+Thanks,
 
 Michael
 
-> diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
-> index 25876c36c..b9128f542 100644
-> --- a/man2/perf_event_open.2
-> +++ b/man2/perf_event_open.2
-> @@ -3228,6 +3228,10 @@ values are out of range or set reserved bits;
->  the generic event selected is not supported; or
->  there is not enough room to add the selected event.
->  .TP
-> +.B EINTR
-> +Returned when trying to mix perf and ftrace handling
-> +for a uprobe.
-> +.TP
->  .B EMFILE
->  Each opened event uses one file descriptor.
->  If a large number of events are opened,
-> 
 
 
 -- 
