@@ -2,60 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 38E661444E2
-	for <lists+linux-man@lfdr.de>; Tue, 21 Jan 2020 20:14:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 34CC31444F8
+	for <lists+linux-man@lfdr.de>; Tue, 21 Jan 2020 20:21:14 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727350AbgAUTOl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 21 Jan 2020 14:14:41 -0500
-Received: from mail-pg1-f181.google.com ([209.85.215.181]:45766 "EHLO
-        mail-pg1-f181.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726229AbgAUTOl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Jan 2020 14:14:41 -0500
-Received: by mail-pg1-f181.google.com with SMTP id b9so1989594pgk.12
-        for <linux-man@vger.kernel.org>; Tue, 21 Jan 2020 11:14:41 -0800 (PST)
+        id S1727360AbgAUTVN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 21 Jan 2020 14:21:13 -0500
+Received: from mail-pj1-f49.google.com ([209.85.216.49]:50527 "EHLO
+        mail-pj1-f49.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726926AbgAUTVN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Jan 2020 14:21:13 -0500
+Received: by mail-pj1-f49.google.com with SMTP id r67so1841332pjb.0
+        for <linux-man@vger.kernel.org>; Tue, 21 Jan 2020 11:21:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=AspKPGO5Tka81SpTUnXEkvPHwS/LsNZNXfAIWeNrrkY=;
-        b=gGwxAK7KmMZ8gwWGEpE+CBU8u8F8v8duYCDwyIKH8aQbK06a9QyFfMB5MWI8hBeDvg
-         elXzQ2kPKFZQG+fZOdr7YFujMnW6iYjI9zmZUmir8mdoXMw/Nvp0HkhJ+gRFNE4Xz6ND
-         fNeUXI3hUh8E7mRN1gSlHhd+3ZMEHF2HQTTblU8e9k+z5+zKGj6A6oDKfpygWtzRb9Ph
-         LnbkFkKomAXOYIThQrDPrgob7n1/S69C1wbb4nLsijJH/OwlEEwCYuziuGRhBOBrW30A
-         3ydPpf8X1X1oHXeNpxm9RqgKJfySPnHHIydnONXwSngpUkhZKLa1FZCNH9TRDsj7zUOv
-         d9/g==
+        bh=oZnLoixBWew0WvNIB7K+qyRUb/nXGHGp5H8je4t4lD8=;
+        b=RmiZ5KwnPNTn+ce0EVsdvdqx9HQDDg2cFDqZ2qDYq5FDoSgxX7X+7fH5HbjEbhoSFl
+         543IpuCJO98/NCPWoVjWPcHBvqzNA+Tt9o5k3ghuXkCpAr9Tf0IEZZ+96dZDIDQpfYZ4
+         ulvcne6zdeXbCvLKLTSofzeDpNn/twRia0ahkaTp50CzVhyrjGfRHGrESTOi57OZZIE+
+         mu9PnnrJsARdrMWbBd0BCUG1T6crDFt72qF3NYVvW8yx0BDfYsDNBkJhcPlEH0sw9UAL
+         Z3mEgYy/AkgAN+4FI5beyLO/v5XTXFdkyCPxcOOqBzxV5Fi5Hw+kpWiVHhmYFq/9tgvF
+         czxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=AspKPGO5Tka81SpTUnXEkvPHwS/LsNZNXfAIWeNrrkY=;
-        b=RwQkEzen7O85+IBanDtVDg7M/iPfBeC5Dzx0ELpmTmINS7poudAJhENI9KcQWSqRGW
-         jgkoFD1ChBY2WA/HaLiZ6UgzTHxdOB/wDSkie9u94GGB+jUiabRcbJdXTLnMGmkITAo7
-         FC0RhfPlc+9fWEYTsu4m7sDUXpM/ZvTFDd1ZsxJ/WgHuhVRvA8npbhpVqi+y4y5Lox2T
-         LFyEac5sf3q4dtfKr5/tp/Qq4zXxBSJG3MU1bDoEM32DHcT2oOpg/UGGEwbQillhM7yZ
-         9QOn4owPyRM3AJmLARuIC8P4oXFm4FaJfGyVd6QfwpjF5VWg+uxJ26yTYOtq/G5lpYXs
-         BOGA==
-X-Gm-Message-State: APjAAAVV+cknHe1eIqX3cCL1jQAWLouTy4I9t4vjI+HynfwHRmRCduuZ
-        UCA15miHdtpUuIjK7L/tEe37hfR7
-X-Google-Smtp-Source: APXvYqxjlhBL0tHCb/LqyH5hgE7KPN/F7evMhrsBLBsuexSjs2MBgMn80tg/64YHX53H+wMle4yBoQ==
-X-Received: by 2002:a63:f142:: with SMTP id o2mr6851753pgk.181.1579634080010;
-        Tue, 21 Jan 2020 11:14:40 -0800 (PST)
+        bh=oZnLoixBWew0WvNIB7K+qyRUb/nXGHGp5H8je4t4lD8=;
+        b=a2+wMVOiA+8HBA/VNv1a6neG6+t23/F/Br3Csug3tA9ajBRdsfAGmDGzdQMsnpYsgM
+         Ra9OlT3TDD48vbIQssrXMy2uN7N2FoD1JZVvIHoBe2aMGmFP+NpjEFUuNNyQuyAalP2z
+         awtB2b+e9TrTeHhTMjBaBZwuAe/Et4P335UvasL6VAWktuC10FsPwngvaSj3GqOIY2u8
+         awjf3OPP8AjiLE2Skk8fGcCQdhuTFi/cpv8ArqpgStgqblzkt9KBw/tWc8HW9xY1XrEo
+         auivDRJ81TT+Eo8AddgWu1EskQbrfBFRfId51U2SLWnzNPR6k2e1J/JsElQGbdIqgx6Y
+         Jtkg==
+X-Gm-Message-State: APjAAAVX1UcnzNV/UK4kaXxNxE2eRxsRMbwgW7jbcR1DYnVdwQ4912dd
+        OYwrlvB8OckrCeC2LmuNu5pxFjes
+X-Google-Smtp-Source: APXvYqxkraKIs87IH4xE+m8T6puiy4BgQysQtkdfwUBl9jaEEIHeE4gg15dlWiHo/2mj9oyJPGt90g==
+X-Received: by 2002:a17:90a:8545:: with SMTP id a5mr22717pjw.43.1579634472240;
+        Tue, 21 Jan 2020 11:21:12 -0800 (PST)
 Received: from [192.168.1.72] (122-58-99-230-adsl.sparkbb.co.nz. [122.58.99.230])
-        by smtp.gmail.com with ESMTPSA id l9sm40067452pgh.34.2020.01.21.11.14.37
+        by smtp.gmail.com with ESMTPSA id z14sm12723247pgj.43.2020.01.21.11.21.09
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jan 2020 11:14:39 -0800 (PST)
+        Tue, 21 Jan 2020 11:21:11 -0800 (PST)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [patch] getcwd.3: wfix
-To:     Mike Salvatore <mike.salvatore@canonical.com>
-References: <bf93b481-e246-d281-f952-a7ece96aa697@canonical.com>
+Subject: Re: Small typo in man page "epoll"
+To:     John Jones <jmjatlanta@gmail.com>
+References: <fae37d64-11e3-9441-0ffe-3bc3aac38825@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <44912de5-33ec-dcbc-fcad-5c060f1ba7de@gmail.com>
-Date:   Tue, 21 Jan 2020 20:14:35 +0100
+Message-ID: <f1e60fff-3854-bb50-895a-972ab9c92759@gmail.com>
+Date:   Tue, 21 Jan 2020 20:21:05 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.3.1
 MIME-Version: 1.0
-In-Reply-To: <bf93b481-e246-d281-f952-a7ece96aa697@canonical.com>
+In-Reply-To: <fae37d64-11e3-9441-0ffe-3bc3aac38825@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -64,42 +64,29 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Mike,
+On 1/20/20 12:10 PM, John Jones wrote:
+> Thank you for your efforts.
+> 
+> http://man7.org/linux/man-pages/man7/epoll.7.html
+> 
+> In the section "Level-triggered and edge-triggered note that it says 
+> "waiting on the same the same..."
 
-On 1/16/20 10:15 PM, Mike Salvatore wrote:
-> This patch is a minor wording fix in getcwd.3 that changes "In the case 
-> getcwd()" to "In the case of getcwd()". This patch should apply cleanly to the 
-> master branch of the git repository.
-
-Thanks. Patch applied.
+Thanks, John. Fixed.
 
 Cheers,
 
 Michael
 
->  From 3b68ad225dbaada2b1b55153dc57807b04531cd6 Mon Sep 17 00:00:00 2001
-> From: Mike Salvatore <mike.salvatore@canonical.com>
-> Date: Thu, 16 Jan 2020 16:08:08 -0500
-> Subject: [PATCH] getcwd.3: wfix
+> If multiple threads (or processes, if child processes have inherited
+>         the*epoll *file descriptor acrossfork(2)  <http://man7.org/linux/man-pages/man2/fork.2.html>) are blocked in
+>         epoll_wait(2)  <http://man7.org/linux/man-pages/man2/epoll_wait.2.html>  waiting on the same the same epoll file descriptor and
+>         a file descriptor in the interest list that is marked for edge-
+>         triggered (*EPOLLET*) notification becomes ready, just one of the
+>         threads (or processes) is awoken fromepoll_wait(2)  <http://man7.org/linux/man-pages/man2/epoll_wait.2.html>.  This provides a
+>         useful optimization for avoiding "thundering herd" wake-ups in some
+>         scenarios.
 > 
-> Signed-off-by: Mike Salvatore <mike.salvatore@canonical.com>
-> ---
->   man3/getcwd.3 | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man3/getcwd.3 b/man3/getcwd.3
-> index c8a691b4a..e5ed2c5d9 100644
-> --- a/man3/getcwd.3
-> +++ b/man3/getcwd.3
-> @@ -155,7 +155,7 @@ is deprecated.
->   .SH RETURN VALUE
->   On success, these functions return a pointer to a string containing
->   the pathname of the current working directory.
-> -In the case
-> +In the case of
->   .BR getcwd ()
->   and
->   .BR getwd ()
 > 
 
 
