@@ -2,94 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 0C88B14323F
-	for <lists+linux-man@lfdr.de>; Mon, 20 Jan 2020 20:32:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C3DEB143C42
+	for <lists+linux-man@lfdr.de>; Tue, 21 Jan 2020 12:48:09 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727075AbgATTcD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Jan 2020 14:32:03 -0500
-Received: from mail-ed1-f66.google.com ([209.85.208.66]:39913 "EHLO
-        mail-ed1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728655AbgATTcC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Jan 2020 14:32:02 -0500
-Received: by mail-ed1-f66.google.com with SMTP id t17so595868eds.6
-        for <linux-man@vger.kernel.org>; Mon, 20 Jan 2020 11:32:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=z7I/Kq2V0EnXiuoACdRbnwoAql3KZ080nwyXVjlruyU=;
-        b=kLfnsSTIjE2YEe6HI6GtqXd6cMnhTRLMcstoRngEtLrpsW8Des52P9cJGak3H8TgGi
-         7pI7x0ReUsZVA5020Qw65cEVulbgAqf7PV7Yj5z98jIQHYXuhdjNseji1wTJmoRk9owd
-         jH0nw85bxKb6JNDbbMZz77rTtrhB/lrp1T9+1Yzp1e0fAmiYnPF2y/wqE3N2vxlEpqDg
-         Q62+v45VGQo8fprIjkXGYdl8n0+0lt4RTeTWLmEirmHeh05e1zsbOQ1RyEmjVmqN0eJc
-         PRg9w7tG3wGqyiL8Rgrtjody799fKx6nbHvtMQHhCmcCncWFfzoetJS1edNfQP320vCH
-         Vilg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=z7I/Kq2V0EnXiuoACdRbnwoAql3KZ080nwyXVjlruyU=;
-        b=mO9gDJxOCCtWI9o6In2y6bFww/ZSxLMqtY8NfBzH6OahV14X81lrOvfzBz7wxcl/VZ
-         47wn+9yyKMXxUOrKdy1mL91JxX27ECT5JKrgWfYgHSxUPbT/aQRkPWMNghNXXsXbZcUo
-         MJZWlPcma1xP6FGlWbvUyiYihf7CX6P8Y+ZWd5+IuE30ZtE7eddQepBjHbFvph6IgmZu
-         QFiB++uQYovrNfPzNxpGApE6B/zLL9rIn9LN/WNGB+CjWYW4CJVNjjVtOMUv9WgdaeZU
-         RP2g8lawM3Qxj0JKiNdDxVXzbOXP4gz+ELlt3rydAjCWKc5XTJ9YeE8nPPzEjXnp6CL4
-         VLvA==
-X-Gm-Message-State: APjAAAWeMMOAVmdTeka3YNjW5/s5D9zTA8MNlpUnWK+jlyIJ1RGu+OMp
-        iDm0wOI1VT74rGezkPoc3KYZI5kZmpdss+WnC4Q=
-X-Google-Smtp-Source: APXvYqwPh6D8ihOXjaVWGs/0GLulEekGPU0xOOyxhr7PagnLX+E8xWeQy/UQ09ZNp2jZFCCt0xVGiodDu+D5No4niKg=
-X-Received: by 2002:a05:6402:505:: with SMTP id m5mr609398edv.15.1579548719077;
- Mon, 20 Jan 2020 11:31:59 -0800 (PST)
+        id S1727817AbgAULsJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 21 Jan 2020 06:48:09 -0500
+Received: from 4.mo173.mail-out.ovh.net ([46.105.34.219]:41947 "EHLO
+        4.mo173.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728655AbgAULsI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Jan 2020 06:48:08 -0500
+X-Greylist: delayed 600 seconds by postgrey-1.27 at vger.kernel.org; Tue, 21 Jan 2020 06:48:08 EST
+Received: from player693.ha.ovh.net (unknown [10.108.16.103])
+        by mo173.mail-out.ovh.net (Postfix) with ESMTP id E705E12C985
+        for <linux-man@vger.kernel.org>; Tue, 21 Jan 2020 12:28:38 +0100 (CET)
+Received: from jwilk.net (ip-5-172-255-76.free.aero2.net.pl [5.172.255.76])
+        (Authenticated sender: jwilk@jwilk.net)
+        by player693.ha.ovh.net (Postfix) with ESMTPSA id A2FDEE6B282F;
+        Tue, 21 Jan 2020 11:28:35 +0000 (UTC)
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] keyrings.7: ffix
+Date:   Tue, 21 Jan 2020 12:28:32 +0100
+Message-Id: <20200121112832.9064-1-jwilk@jwilk.net>
+X-Mailer: git-send-email 2.25.0
 MIME-Version: 1.0
-Received: by 2002:a05:6402:22dc:0:0:0:0 with HTTP; Mon, 20 Jan 2020 11:31:57
- -0800 (PST)
-Reply-To: mcclainejohn.13@gmail.com
-From:   "Prof, William Roberts" <eco.bank1204@gmail.com>
-Date:   Mon, 20 Jan 2020 20:31:57 +0100
-Message-ID: <CAOE+jAB9Cv76tHqc-hO92yWjVshCsALoX=zT1ruNmX+0-Bjyxw@mail.gmail.com>
-Subject: Contact Diplomatic Agent, Mr. Mcclaine John to receive your ATM CARD
- valued the sum of $12.8Million United States Dollars
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 16169611516326303613
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedugedrudekgddvkecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertddtnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucfkpheptddrtddrtddrtddphedrudejvddrvdehhedrjeeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepphhlrgihvghrieelfedrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehjfihilhhksehjfihilhhkrdhnvghtpdhrtghpthhtoheplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Attn: Dear Beneficiary,
+Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+---
+ man7/keyrings.7 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I wish to inform you that the diplomatic agent conveying your ATM CARD
-valued the sum of $12.8Million United States Dollars has misplaced
-your address and he is currently stranded at (George Bush
-International Airport) Houston Texas USA now
-We required you to reconfirm the following information's below to him
-so that he can deliver your Payment CARD to you today or tomorrow
-morning as information provided with open communications via email and
-telephone for security reasons.
-HERE IS THE DETAILS  HE NEED FROM YOU URGENT
-YOUR FULL NAME:========
-ADDRESS:========
-MOBILE NO:========
-NAME OF YOUR NEAREST AIRPORT:========
-A COPY OF YOUR IDENTIFICATION :========
+diff --git a/man7/keyrings.7 b/man7/keyrings.7
+index 4270d2e91..3367149ef 100644
+--- a/man7/keyrings.7
++++ b/man7/keyrings.7
+@@ -146,7 +146,7 @@ that should not be readable from user space.
+ The description of a
+ .IR """logon"""
+ key
+-.I must\
++.I must
+ start with a non-empty colon-delimited prefix whose purpose
+ is to identify the service to which the key belongs.
+ (Note that this differs from keys of the
+-- 
+2.25.0
 
-Note; do contact the diplomatic agent immediately through the
-information's listed below
-Contact Person: Diplomatic Agent, Mr. Mcclaine John
-EMAIL: mcclainejohn.13@gmail.com
-Tel:(223) 777-7518
-
-Contact the diplomatic agent immediately
-because he is waiting to hear from you today with the needed information's.
-
-NOTE: The Diplomatic agent does not know that the content of the
-consignment box is $12.800,000,00 Million United States Dollars and on
-no circumstances should you let him know the content. The consignment
-was moved from here as family treasures, so never allow him to open
-the box. Please I have paid delivery fees for you but the only money
-you must send to Mcclaine John is your ATM CARD delivery fee $25.00
-only. text Him as you contact Him Immediately
-
-Thanks,
-with Regards.
-Prof, William Roberts
-Director DHL COURIER SERVICES-Benin
