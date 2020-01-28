@@ -2,49 +2,72 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id B78FD14AAB1
-	for <lists+linux-man@lfdr.de>; Mon, 27 Jan 2020 20:45:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1035A14C0E5
+	for <lists+linux-man@lfdr.de>; Tue, 28 Jan 2020 20:25:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725938AbgA0TpE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 27 Jan 2020 14:45:04 -0500
-Received: from mail-vk1-f175.google.com ([209.85.221.175]:40725 "EHLO
-        mail-vk1-f175.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725845AbgA0TpD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 27 Jan 2020 14:45:03 -0500
-Received: by mail-vk1-f175.google.com with SMTP id c129so2924138vkh.7
-        for <linux-man@vger.kernel.org>; Mon, 27 Jan 2020 11:45:03 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
-        bh=Lt7a/9j0sxHTpX3n2ZYcVzjWiEOE3n6bBEwHcLcdBQQ=;
-        b=aeRIiLDR5LH2ce8QmMY06EMq4/Tlf/3nN9z0BUdyvSqRMgtMIQxQZavI9PCU4JF260
-         EHrvwSemD2V12wxesWKOpp44kxe94PIe/ljTPdAnwKyrQmefY1xpDjLm73qfkfVeRsot
-         YStCFuZlw421NUHdWy0+5cNPeTWv9RAU292S5OJThIUwhZ3/yzb4K/tGPiZDMHMPjQiX
-         GHibshx2Ak/cPu+P00cF+ywX7TvO4mbbjzz5QDGy3jlOMpz+uJY0sqjyqtR3rT76P7AV
-         Pko0kE1ktPiorikYWGYOTj94DE2YYa+j/w961cJJjdjdUhkzm4WqfptgutiUI57vKd9O
-         AOCA==
-X-Gm-Message-State: APjAAAU78FFbjTitpDvAK0LCkmI4IuXPOikPyjvjGYUwA3I4RA+bHnfk
-        KlvNIubFGyyHebx5yE7REFxQns4lgXWJPK4+xffzDtxOPIo=
-X-Google-Smtp-Source: APXvYqy+JYQL65RWzpNACYE0J0MdDHBwlMgzO5yw5VusXLLgX4fR7y/qg9GABmtQLABqBf+Tb8iJgwimd1W8OGmIcy4=
-X-Received: by 2002:a1f:738e:: with SMTP id o136mr9388056vkc.33.1580154302408;
- Mon, 27 Jan 2020 11:45:02 -0800 (PST)
-MIME-Version: 1.0
-From:   Jona Christopher Sahnwaldt <jc@sahnwaldt.de>
-Date:   Mon, 27 Jan 2020 20:44:51 +0100
-Message-ID: <CAEQewpoNS=ZmxuYHhQ-O8+5Qsgk5aYxW8eu4LKzJj9SDzaUXwg@mail.gmail.com>
-Subject: Typo in epoll.7 man page
+        id S1726303AbgA1TZh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 28 Jan 2020 14:25:37 -0500
+Received: from mail.kernel.org ([198.145.29.99]:49548 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726002AbgA1TZh (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 28 Jan 2020 14:25:37 -0500
+Received: from ebiggers-linuxstation.mtv.corp.google.com (unknown [104.132.1.77])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+        (No client certificate requested)
+        by mail.kernel.org (Postfix) with ESMTPSA id 4AA6C2467E;
+        Tue, 28 Jan 2020 19:25:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=default; t=1580239536;
+        bh=M3Y7uG3L87hHEIblJRkwGCUrIWxfUyUuQcFB65l6IOU=;
+        h=From:To:Cc:Subject:Date:From;
+        b=wTXco5V78aTgUxIfwidPR1INdxREciyqDqF7/pont4zqUkKXRrsNfKNTjuIRuIHZi
+         HsblQFNH95dkMKqBw5aclAbH+itf7iLvYRjERPOvlbxYPyvh1sZPAml/cAuxvPEZN8
+         trvb/I0cedRqTxCE15eKdSyDtZLYoF5gFJyGdWOI=
+From:   Eric Biggers <ebiggers@kernel.org>
 To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Cc:     linux-man@vger.kernel.org, linux-fscrypt@vger.kernel.org,
+        linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+        linux-fsdevel@vger.kernel.org
+Subject: [man-pages PATCH v2] statx.2: document STATX_ATTR_VERITY
+Date:   Tue, 28 Jan 2020 11:24:49 -0800
+Message-Id: <20200128192449.260550-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.25.0.341.g760bfbb309-goog
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-http://man7.org/linux/man-pages/man7/epoll.7.html
+From: Eric Biggers <ebiggers@google.com>
 
-"waiting on the same the same"
+Document the verity attribute for statx(), which was added in
+Linux 5.5.
 
-should be
+For more context, see the fs-verity documentation:
+https://www.kernel.org/doc/html/latest/filesystems/fsverity.html
 
-"waiting on the same"
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ man2/statx.2 | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/man2/statx.2 b/man2/statx.2
+index d2f1b07b8..d015ee73d 100644
+--- a/man2/statx.2
++++ b/man2/statx.2
+@@ -461,6 +461,11 @@ See
+ .TP
+ .B STATX_ATTR_ENCRYPTED
+ A key is required for the file to be encrypted by the filesystem.
++.TP
++.B STATX_ATTR_VERITY
++Since Linux 5.5: the file has fs-verity enabled.  It cannot be written to, and
++all reads from it will be verified against a cryptographic hash that covers the
++entire file, e.g. via a Merkle tree.
+ .SH RETURN VALUE
+ On success, zero is returned.
+ On error, \-1 is returned, and
+-- 
+2.25.0.341.g760bfbb309-goog
+
