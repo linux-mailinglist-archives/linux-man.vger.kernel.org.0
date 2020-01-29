@@ -2,72 +2,81 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 1035A14C0E5
-	for <lists+linux-man@lfdr.de>; Tue, 28 Jan 2020 20:25:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 35CB814D083
+	for <lists+linux-man@lfdr.de>; Wed, 29 Jan 2020 19:30:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726303AbgA1TZh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 28 Jan 2020 14:25:37 -0500
-Received: from mail.kernel.org ([198.145.29.99]:49548 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726002AbgA1TZh (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 28 Jan 2020 14:25:37 -0500
-Received: from ebiggers-linuxstation.mtv.corp.google.com (unknown [104.132.1.77])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-        (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id 4AA6C2467E;
-        Tue, 28 Jan 2020 19:25:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1580239536;
-        bh=M3Y7uG3L87hHEIblJRkwGCUrIWxfUyUuQcFB65l6IOU=;
-        h=From:To:Cc:Subject:Date:From;
-        b=wTXco5V78aTgUxIfwidPR1INdxREciyqDqF7/pont4zqUkKXRrsNfKNTjuIRuIHZi
-         HsblQFNH95dkMKqBw5aclAbH+itf7iLvYRjERPOvlbxYPyvh1sZPAml/cAuxvPEZN8
-         trvb/I0cedRqTxCE15eKdSyDtZLYoF5gFJyGdWOI=
-From:   Eric Biggers <ebiggers@kernel.org>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, linux-fscrypt@vger.kernel.org,
-        linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
-        linux-fsdevel@vger.kernel.org
-Subject: [man-pages PATCH v2] statx.2: document STATX_ATTR_VERITY
-Date:   Tue, 28 Jan 2020 11:24:49 -0800
-Message-Id: <20200128192449.260550-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.25.0.341.g760bfbb309-goog
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+        id S1726672AbgA2Sap (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 29 Jan 2020 13:30:45 -0500
+Received: from out30-44.freemail.mail.aliyun.com ([115.124.30.44]:53179 "EHLO
+        out30-44.freemail.mail.aliyun.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1726560AbgA2Sap (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 29 Jan 2020 13:30:45 -0500
+X-Alimail-AntiSpam: AC=PASS;BC=-1|-1;BR=01201311R301e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=e01f04455;MF=yang.shi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0TojljaH_1580322632;
+Received: from localhost(mailfrom:yang.shi@linux.alibaba.com fp:SMTPD_---0TojljaH_1580322632)
+          by smtp.aliyun-inc.com(127.0.0.1);
+          Thu, 30 Jan 2020 02:30:40 +0800
+From:   Yang Shi <yang.shi@linux.alibaba.com>
+To:     mhocko@suse.com, mtk.manpages@gmail.com, akpm@linux-foundation.org
+Cc:     yang.shi@linux.alibaba.com, linux-man@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH] move_pages.2: Returning positive value is a new error case
+Date:   Thu, 30 Jan 2020 02:30:32 +0800
+Message-Id: <1580322632-93332-1-git-send-email-yang.shi@linux.alibaba.com>
+X-Mailer: git-send-email 1.8.3.1
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Eric Biggers <ebiggers@google.com>
+Since commit a49bd4d71637 ("mm, numa: rework do_pages_move"),
+the semantic of move_pages() has changed to return the number of
+non-migrated pages if they were result of a non-fatal reasons (usually a
+busy page).  This was an unintentional change that hasn't been noticed
+except for LTP tests which checked for the documented behavior.
 
-Document the verity attribute for statx(), which was added in
-Linux 5.5.
+There are two ways to go around this change.  We can even get back to the
+original behavior and return -EAGAIN whenever migrate_pages is not able
+to migrate pages due to non-fatal reasons.  Another option would be to
+simply continue with the changed semantic and extend move_pages
+documentation to clarify that -errno is returned on an invalid input or
+when migration simply cannot succeed (e.g. -ENOMEM, -EBUSY) or the
+number of pages that couldn't have been migrated due to ephemeral
+reasons (e.g. page is pinned or locked for other reasons).
 
-For more context, see the fs-verity documentation:
-https://www.kernel.org/doc/html/latest/filesystems/fsverity.html
+We decided to keep the second option in kernel because this behavior is in
+place for some time without anybody complaining and possibly new users
+depending on it.  Also it allows to have a slightly easier error handling
+as the caller knows that it is worth to retry when err > 0.
 
-Signed-off-by: Eric Biggers <ebiggers@google.com>
+Update man pages to reflect the new semantic.
+
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Michael Kerrisk <mtk.manpages@gmail.com>
+Signed-off-by: Yang Shi <yang.shi@linux.alibaba.com>
 ---
- man2/statx.2 | 5 +++++
- 1 file changed, 5 insertions(+)
+ man2/move_pages.2 | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/man2/statx.2 b/man2/statx.2
-index d2f1b07b8..d015ee73d 100644
---- a/man2/statx.2
-+++ b/man2/statx.2
-@@ -461,6 +461,11 @@ See
+diff --git a/man2/move_pages.2 b/man2/move_pages.2
+index 1bf1053..c6cf3f8 100644
+--- a/man2/move_pages.2
++++ b/man2/move_pages.2
+@@ -164,9 +164,13 @@ returns zero.
+ .\" do the right thing?
+ On error, it returns \-1, and sets
+ .I errno
+-to indicate the error.
++to indicate the error. Or positive value to report the number of
++non-migrated pages.
+ .SH ERRORS
  .TP
- .B STATX_ATTR_ENCRYPTED
- A key is required for the file to be encrypted by the filesystem.
-+.TP
-+.B STATX_ATTR_VERITY
-+Since Linux 5.5: the file has fs-verity enabled.  It cannot be written to, and
-+all reads from it will be verified against a cryptographic hash that covers the
-+entire file, e.g. via a Merkle tree.
- .SH RETURN VALUE
- On success, zero is returned.
- On error, \-1 is returned, and
++.B Positive value
++The number of non-migrated pages if they were result of a non-fatal
++reasons since version 4.17.
+ .B E2BIG
+ Too many pages to move.
+ Since Linux 2.6.29,
 -- 
-2.25.0.341.g760bfbb309-goog
+1.8.3.1
 
