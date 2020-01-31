@@ -2,78 +2,105 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 8FDEC14F05A
-	for <lists+linux-man@lfdr.de>; Fri, 31 Jan 2020 17:05:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5226C14F2E2
+	for <lists+linux-man@lfdr.de>; Fri, 31 Jan 2020 20:41:01 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729192AbgAaQFP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 31 Jan 2020 11:05:15 -0500
-Received: from mail-ed1-f66.google.com ([209.85.208.66]:43400 "EHLO
-        mail-ed1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729180AbgAaQFP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 31 Jan 2020 11:05:15 -0500
-Received: by mail-ed1-f66.google.com with SMTP id dc19so8273362edb.10
-        for <linux-man@vger.kernel.org>; Fri, 31 Jan 2020 08:05:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=H0zpFdRIg/rpHAnygY9BMHCn4htlmB3aThDak0w91n4=;
-        b=RBcqGP/L+7tH+k5YY/kzYCKMjiy0zy92LV9Q6XsReM9shA4ag8CL9XcPRZG0XcdloQ
-         ooCEi6Az5RxX4C4rKp3U/L5kWCCl3b/nTEJ+pcyMmqt3vpqSvl0Dh/gmpcdcQKf0h/7T
-         iCnBFNIikOCUdwz/y6ahEhVDvKPthHPjsnC+LncjSjMzPazX5/oeGQnb68+u0vSpO8l5
-         gpZiqUQjRMuX+vfmZHKL0XAwwWDMkyI/4/G0ACzR/81e+K1+GGVOm/dKHirKZ7+utpq7
-         I4vzpCAFwR4IasUzxoqmNJ5S0qLYAxB3e+a7C6hTs8GyYEA/fyG4xWvi+vLDNZMgH/wl
-         sOQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=H0zpFdRIg/rpHAnygY9BMHCn4htlmB3aThDak0w91n4=;
-        b=mbGib9R4kU/rbAuHAgzWDmEVK9OY9/lxb+ghQDOKiqciHgeCqqc3OmGQRje3RqZXyJ
-         hAxzsmYq+xZJge0NfmcHEWFL9Rn+numd0kG2b5p8rhmPq9bDOwvu1URnhz/uzgq0WgZz
-         QRZWawP3lXp1mZYtsWrs7eSVgzGBZ/qOXavvYS9mjn9T7lonPyrnwzi3VvUCQWyLy0ZR
-         PE8YYFnz6YlQsrou9KWJhSIezOGO0acuHUEeFJGxPFLxJYWpYTgUwlx0ou5mcjlfX0OJ
-         dVdQ7dOa2EW8Mu97MycihXMS/Fa9myZE4ARO2XT2+ikSFFcviavETK/R9xaC8rEpOobN
-         67wg==
-X-Gm-Message-State: APjAAAWRGXT5lD3bgrGUk8LGEYxu0hpgYTZ48ZX+ASSRvRNTUHvJlbST
-        brYyDFroLrkGEpCHUJY6eI0K6tz+GG+ogTRDBw==
-X-Google-Smtp-Source: APXvYqzmLCUHt68T8nOvm0L+EXUp30RVBtHH9DWgleaeV4jwCe3M7yg8k48iYJCBV2MGUOPcZr6zO2apK23GPtJcKRw=
-X-Received: by 2002:a05:6402:1d28:: with SMTP id dh8mr930503edb.383.1580486713401;
- Fri, 31 Jan 2020 08:05:13 -0800 (PST)
+        id S1726001AbgAaTlA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 31 Jan 2020 14:41:00 -0500
+Received: from out30-56.freemail.mail.aliyun.com ([115.124.30.56]:60681 "EHLO
+        out30-56.freemail.mail.aliyun.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1725978AbgAaTlA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 31 Jan 2020 14:41:00 -0500
+X-Alimail-AntiSpam: AC=PASS;BC=-1|-1;BR=01201311R381e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=e01e04407;MF=yang.shi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0Tor2FsR_1580499655;
+Received: from US-143344MP.local(mailfrom:yang.shi@linux.alibaba.com fp:SMTPD_---0Tor2FsR_1580499655)
+          by smtp.aliyun-inc.com(127.0.0.1);
+          Sat, 01 Feb 2020 03:40:57 +0800
+Subject: Re: [PATCH] move_pages.2: Returning positive value is a new error
+ case
+To:     David Hildenbrand <david@redhat.com>, mhocko@suse.com,
+        mtk.manpages@gmail.com, akpm@linux-foundation.org
+Cc:     linux-man@vger.kernel.org, linux-api@vger.kernel.org,
+        linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <1580322632-93332-1-git-send-email-yang.shi@linux.alibaba.com>
+ <9aac5bff-3a18-ec5f-5aa0-82c38d367590@redhat.com>
+From:   Yang Shi <yang.shi@linux.alibaba.com>
+Message-ID: <f49736e1-316f-57d4-cd25-5f75b145e033@linux.alibaba.com>
+Date:   Fri, 31 Jan 2020 11:40:54 -0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:52.0)
+ Gecko/20100101 Thunderbird/52.7.0
 MIME-Version: 1.0
-Received: by 2002:a17:906:6608:0:0:0:0 with HTTP; Fri, 31 Jan 2020 08:05:12
- -0800 (PST)
-Reply-To: krabeline5@yahoo.com
-From:   Beline Kra <louganasani123@gmail.com>
-Date:   Fri, 31 Jan 2020 16:05:12 +0000
-Message-ID: <CAPu_WarDGkwnMzKCWgX9hxhhkBxxKhty9QPw1ahHiVRVWWuULA@mail.gmail.com>
-Subject: Donation for charity work of God
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <9aac5bff-3a18-ec5f-5aa0-82c38d367590@redhat.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
--- 
-Donation for charity work of God
 
-Greetings to you and sorry if this message came to you as a surprise.I
-am writing you with the help of my nurse, I am Mrs Beline Kra, a
-widow, I found your email address through my late husbands internet
-dater late Mr. Kra
 
-I am presently admitted at the hospital suffering from a blood cancer
-and Parkinson diseases. I have only about a few months to live and I
-want you to Transfer the sum of ( $4.500,000.00) united states dollars
-to your account so you can assist me Distribute my funds to charity
-homes in your country ,
+On 1/31/20 2:49 AM, David Hildenbrand wrote:
+> On 29.01.20 19:30, Yang Shi wrote:
+>> Since commit a49bd4d71637 ("mm, numa: rework do_pages_move"),
+>> the semantic of move_pages() has changed to return the number of
+>> non-migrated pages if they were result of a non-fatal reasons (usually a
+>> busy page).  This was an unintentional change that hasn't been noticed
+>> except for LTP tests which checked for the documented behavior.
+>>
+>> There are two ways to go around this change.  We can even get back to the
+>> original behavior and return -EAGAIN whenever migrate_pages is not able
+>> to migrate pages due to non-fatal reasons.  Another option would be to
+>> simply continue with the changed semantic and extend move_pages
+>> documentation to clarify that -errno is returned on an invalid input or
+>> when migration simply cannot succeed (e.g. -ENOMEM, -EBUSY) or the
+>> number of pages that couldn't have been migrated due to ephemeral
+>> reasons (e.g. page is pinned or locked for other reasons).
+>>
+>> We decided to keep the second option in kernel because this behavior is in
+>> place for some time without anybody complaining and possibly new users
+>> depending on it.  Also it allows to have a slightly easier error handling
+>> as the caller knows that it is worth to retry when err > 0.
+>>
+>> Update man pages to reflect the new semantic.
+>>
+>> Cc: Michal Hocko <mhocko@suse.com>
+>> Cc: Michael Kerrisk <mtk.manpages@gmail.com>
+>> Signed-off-by: Yang Shi <yang.shi@linux.alibaba.com>
+>> ---
+>>   man2/move_pages.2 | 6 +++++-
+>>   1 file changed, 5 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/man2/move_pages.2 b/man2/move_pages.2
+>> index 1bf1053..c6cf3f8 100644
+>> --- a/man2/move_pages.2
+>> +++ b/man2/move_pages.2
+>> @@ -164,9 +164,13 @@ returns zero.
+>>   .\" do the right thing?
+>>   On error, it returns \-1, and sets
+>>   .I errno
+>> -to indicate the error.
+>> +to indicate the error. Or positive value to report the number of
+>> +non-migrated pages.
+> "If a positive value is returned, it's the number of non-migrated pages".
+>
+>>   .SH ERRORS
+>>   .TP
+>> +.B Positive value
+>> +The number of non-migrated pages if they were result of a non-fatal
+>> +reasons since version 4.17.
+> s/result/the result/ ?
+>
+> s/a reasons/reasons/ ?
+>
+> s/since version 4.17/(since 4.17)/ ?
 
-I have set aside 20% for you and your family keep while you donate 80%
-to the less privilage people,
+Thanks. Will fix in new version.
 
-I will give you more details or full storry as soon as i receive your
-reply as the fund was deposited with a bank
+>
+>>   .B E2BIG
+>>   Too many pages to move.
+>>   Since Linux 2.6.29,
+>>
+>
 
-Remain Blessed
-
-Mrs Beline Kra
