@@ -2,178 +2,81 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 79D01152427
-	for <lists+linux-man@lfdr.de>; Wed,  5 Feb 2020 01:40:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E3A2E152463
+	for <lists+linux-man@lfdr.de>; Wed,  5 Feb 2020 02:11:07 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727706AbgBEAkP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 4 Feb 2020 19:40:15 -0500
-Received: from 216-12-86-13.cv.mvl.ntelos.net ([216.12.86.13]:50314 "EHLO
-        brightrain.aerifal.cx" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727522AbgBEAkP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Feb 2020 19:40:15 -0500
-Received: from dalias by brightrain.aerifal.cx with local (Exim 3.15 #2)
-        id 1iz8jj-0002U3-00; Wed, 05 Feb 2020 00:40:11 +0000
-Date:   Tue, 4 Feb 2020 19:40:11 -0500
-From:   Rich Felker <dalias@libc.org>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Arnd Bergmann <arnd@arndb.de>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: Access to CMSG_DATA
-Message-ID: <20200205004011.GW1663@brightrain.aerifal.cx>
-References: <20191217143609.GA23014@brightrain.aerifal.cx>
- <CAK8P3a2Rv4uEW4acMm_byZQdsH8yNgfuy9qcmT6tmuPrQxvcHA@mail.gmail.com>
- <20191217204751.GI1666@brightrain.aerifal.cx>
- <CAKgNAkhJ3j=v255UPJBeYs4erDOWpinxo0T1dqx_Fdh1MC=7-A@mail.gmail.com>
+        id S1727746AbgBEBLH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 4 Feb 2020 20:11:07 -0500
+Received: from mail-ed1-f67.google.com ([209.85.208.67]:41172 "EHLO
+        mail-ed1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727689AbgBEBLG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Feb 2020 20:11:06 -0500
+Received: by mail-ed1-f67.google.com with SMTP id c26so542326eds.8
+        for <linux-man@vger.kernel.org>; Tue, 04 Feb 2020 17:11:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=Tzy7wMVHVGsylIbDRV1sp0LbucRQL/BdoHUbiMTR4dU=;
+        b=ezyOtQZotW2Fr4/l2CJnO2wCFt9Wz95Nhx9GRFQvTTOH3lRJOPBIE0c27XTo47K31K
+         wjOXd6Fpn6Q7bw8kOf6q94ZZiFAsydp7BRiMxrR+seeH13mhuYEnoxWoh0OR4DXOpHw+
+         Vs0Wu0JXbGXAk0DHVMmOxqxplbl0LoVloveunWuRSiHnkwEJ5quMFbP+Lc5BabSO8CBS
+         d80sKMEXbAR+0yBflkExQ4OGGhQJXuCv3KYWWADvnW5wr8SLmqjHLpB9EsPrRS6jee7M
+         4k/6doGQsBDWdN28ksqjGBTCA2LChfBhGjhH9RzOwD/RbLTT4KAavh6IGJMzgsajkyEO
+         /l9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=Tzy7wMVHVGsylIbDRV1sp0LbucRQL/BdoHUbiMTR4dU=;
+        b=HArVEzX3S5ZB+5yhwSUv06c8jdWYcNe+mCrjWxpmUfClxx6Wshj2JST7j6Lwd3oiXo
+         IoE+lfs3KAuNpYRtmkVVBB7EOSurdVWwn7hLLgELar6gwvUnnRBlukEUd/8Od5waLhXf
+         Wwp162wimxRdgWtKrIkYUQ9ADL+MnGazqkDX0xg+JUeevwkK8uzaToT2py0N/KbNkckc
+         WXhVTZVo0lr6QU59FtGkjlXfoEPV+P6M1MOj8Zw93sN1MWB77dN0daGVCWN+bTkIcP8C
+         +MEwuzRSurxlQItrGXs5uR/mPFXuJvhv3LsPUv8qowVrCZlsOMQLwiRR7pzw+xAZSCR+
+         4e1Q==
+X-Gm-Message-State: APjAAAX6yGdrvIrX7awfESEF22HveD+i5Oh1jgj1slqNI2j1bW/fyY8+
+        kLru2nHrGSlt31W3QShPzFLBSlyimPQPRS7XnY4=
+X-Google-Smtp-Source: APXvYqyWZlOpuG3SN6Q74X3PNxcttxPKWgh3llWcKzSqkr+iR5T945TJYGO3wAk6DGcxa27OwckA9cCkfgnR7RelBd4=
+X-Received: by 2002:aa7:c613:: with SMTP id h19mr2785219edq.184.1580865065060;
+ Tue, 04 Feb 2020 17:11:05 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAKgNAkhJ3j=v255UPJBeYs4erDOWpinxo0T1dqx_Fdh1MC=7-A@mail.gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
+Received: by 2002:a17:906:1a14:0:0:0:0 with HTTP; Tue, 4 Feb 2020 17:11:04
+ -0800 (PST)
+Reply-To: mdzsesszika672@yahoo.com
+From:   "Isabella Dzsesszika." <mrsisabelladz@gmail.com>
+Date:   Wed, 5 Feb 2020 02:11:04 +0100
+Message-ID: <CA+0n1ATiG_AuS6ccB_31HddBzc7HvXSX4+TEJ-n=NwqF-_hNig@mail.gmail.com>
+Subject: From Mrs. Isabella Dzsesszika
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Feb 05, 2020 at 01:30:12AM +0100, Michael Kerrisk (man-pages) wrote:
-> Hello Rich,
-> 
-> My apologies for the delayed reply.
-> 
-> On Tue, 17 Dec 2019 at 21:47, Rich Felker <dalias@libc.org> wrote:
-> >
-> > On Tue, Dec 17, 2019 at 09:00:08PM +0100, Arnd Bergmann wrote:
-> > > On Tue, Dec 17, 2019 at 3:36 PM Rich Felker <dalias@libc.org> wrote:
-> > > >
-> > > > It came to my attention while reviewing possible breakage with move to
-> > > > 64-bit time_t that some applications are dereferencing data in socket
-> > > > control messages (particularly SCM_TIMESTAMP*) in-place as the message
-> > > > type, rather than memcpy'ing it to appropriate storage. This
-> > > > necessarily does not work and is not supportable if the message
-> > > > contains data with greater alignment requirement than the header. In
-> > > > particular, on 32-bit archs, cmsghdr has size 12 and alignment 4, but
-> > > > struct timeval and timespec may have alignment requirement 8.
-> > > >
-> > > > I found at least ptpd, socat, and ssmping doing this via Debian Code
-> > > > Search:
-> > > >
-> > > > https://sources.debian.org/src/ptpd/2.3.1-debian1-4/src/dep/net.c/?hl=1578#L1578
-> > > > https://sources.debian.org/src/socat/1.7.3.3-2/xio-socket.c/?hl=1839#L1839
-> > > > https://sources.debian.org/src/ssmping/0.9.1-3/ssmpngcl.c/?hl=307#L307
-> > > >
-> > > > and I suspect there are a good deal more out there. On most archs they
-> > > > won't break, or will visibly break with SIGBUS, but in theory it's
-> > > > possible that they silently read wrong data and this might happen on
-> > > > some older and more tiny-embedded-oriented archs.
-> > >
-> > > Good find. I suppose this is going to be particularly annoying for
-> > > architectures that are affected because all systems that are in
-> > > widespread use are not affected:
-> > >
-> > > - x86, riscv, ppc and s390 always allow unaligned loads
-> > > - ARMv6+ mostly allows unaligned loads. Some instructions such as ldrd
-> > >   require alignment of four bytes, which is ok, and ARMv5 requires natural
-> > >   alignment up to 32 bits, so this is also ok
-> >
-> > Seems correct.
-> > x
-> > > - On MIPS I think that o32 is fine since there are no 64-bit loads, but
-> > >   n64  would likely be affected, if there are still users remaining (musl
-> > >   supports it, so I assume there are some users).
-> >
-> > I think you mean n32. n64 is the full LP64 ABI. Indeed it seems like
-> > n32 is likely affected unless the kernel traps and fixes up misaligned
-> > accesses.
-> >
-> > > - m68k only requires 16-bit alignment
-> > > - For the other 32-bit architectures that musl supports (microblaze, sh,
-> >                                        ^^^^^^^^^^^^^^^^^^
-> >
-> > FWIW this isn't specific to musl; glibc is also affected, and uclibc
-> > would be too if they ever implement time64.
-> >
-> > >   openrisc), none advertise unaligned-access capability  to the kernel,
-> > >   but I also don't think any of them have a native 64-bit load instruction.
-> > >   armv5, microblaze, sh and nds32 fix up unaligned accesses in an
-> > >   exception handler; openrisc and csky require aligned accesses in user
-> > >   space.
-> >
-> > This sounds correct. Presently J2 (open source SH2 ISA implementation)
-> > has no unaligned trap; it just loads/stores the wrong value. But there
-> > are no 64-bit load/store insns anyway and 32-bit alignment is met.
-> >
-> > > > I think it's clear to someone who understands alignment and who's
-> > > > thought about it that applications just can't do this, but it doesn't
-> > > > seem to be documented, and an example in cmsg(3) even shows access to
-> > > > int payload via *(int *)CMSG_DATA(cmsg) (of course int is safe because
-> > > > its alignment is <= header alignment, but this is not mentioned).
-> > > >
-> > > > Could we add text, and perhaps change the example, to indicate that in
-> > > > general memcpy needs to be used to copy the payload to/from a suitable
-> > > > object?
-> > >
-> > > Yes, I think that would be a good idea.
-> >
-> > How about adding to:
-> >
-> >        *  CMSG_DATA() returns a pointer to the data portion of a cmsghdr.
-> >
-> > "The pointer returned cannot be assumed to be suitably aligned for
-> > accessing arbitrary payload data types. Applications should not cast
-> > it to a pointer type matching the payload, but should use memcpy to
-> > copy data to or from a suitably declared object."
-> >
-> > and doing this in the examples? Are there other places it should be
-> > mentioned to to make sure readers see it?
-> 
-> Thanks for this report! And the nicely worded text that you propose to
-> add to the page.
-> 
-> I've applied the patch below, which is almost exactly your text, plus
-> a suitable change in the code example. Seem okay?
-> 
-> I can't spot any other place in the manual page where this point
-> should be mentioned.
-> 
-> Thanks,
-> 
-> Michael
-> 
-> diff --git a/man3/cmsg.3 b/man3/cmsg.3
-> index 83bb633cc..9dd4c9c10 100644
-> --- a/man3/cmsg.3
-> +++ b/man3/cmsg.3
-> @@ -106,6 +106,12 @@ This is a constant expression.
->  .BR CMSG_DATA ()
->  returns a pointer to the data portion of a
->  .IR cmsghdr .
-> +The pointer returned cannot be assumed to be suitably aligned for
-> +accessing arbitrary payload data types.
-> +Applications should not cast it to a pointer type matching the payload,
-> +but should instead use
-> +.BR memcpy (3)
-> +to copy data to or from a suitably declared object.
->  .IP *
->  .BR CMSG_LEN ()
->  returns the value to store in the
-> @@ -178,7 +184,6 @@ option in a received ancillary buffer:
->  .EX
->  struct msghdr msgh;
->  struct cmsghdr *cmsg;
-> -int *ttlptr;
->  int received_ttl;
-> 
->  /* Receive auxiliary data in msgh */
-> @@ -187,8 +192,7 @@ for (cmsg = CMSG_FIRSTHDR(&msgh); cmsg != NULL;
->          cmsg = CMSG_NXTHDR(&msgh, cmsg)) {
->      if (cmsg\->cmsg_level == IPPROTO_IP
->              && cmsg\->cmsg_type == IP_TTL) {
-> -        ttlptr = (int *) CMSG_DATA(cmsg);
-> -        received_ttl = *ttlptr;
-> +       memcpy(&receive_ttl, CMSG_DATA(cmsg), sizeof(int));
->          break;
->      }
->  }
+-- 
 
-LGTM. Thanks!
+By Mrs. Isabella Dzsesszika
 
-Rich
+I am Ms. Isabella Dzsesszika widow who suffers from long illness
+(cancer), there are funds I have inherited from my late loving husband
+Mr. Mseswa Dzsesszika, the sum of (US $ 1.5 million) that he has in
+the bank before his death, I need an honest and God-fearing person who
+can use these resources for God's work.
+
+I have made this decision because I have no child who inherits this
+money, and I do not want a situation where this money is used in a
+godless way. That is why I make that decision and my doctor has
+confirmed to me that I have less than three weeks to live, knowing
+that I have chosen a charity or a person who uses this money to
+support the poor and who Needy in accordance with my instructions.
+
+I want an organization that will use this fund for orphanages, schools
+and churches, widows, to spread the word and work of God. Please, if
+you could use these resources for the work of the Lord, please answer
+me. As soon as I receive your answer, I will give you further
+instructions on how to meet the requirements of these funds.
+
+Your sister in Christ,
+
+Mrs. Isabella Dzsesszika
