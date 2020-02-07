@@ -2,85 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4CC1B156019
-	for <lists+linux-man@lfdr.de>; Fri,  7 Feb 2020 21:45:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7DCBA155FDE
+	for <lists+linux-man@lfdr.de>; Fri,  7 Feb 2020 21:42:25 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727018AbgBGUo7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 7 Feb 2020 15:44:59 -0500
-Received: from tartarus.angband.pl ([54.37.238.230]:52896 "EHLO
-        tartarus.angband.pl" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726947AbgBGUo7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Feb 2020 15:44:59 -0500
-X-Greylist: delayed 2227 seconds by postgrey-1.27 at vger.kernel.org; Fri, 07 Feb 2020 15:44:58 EST
-Received: from kilobyte by tartarus.angband.pl with local (Exim 4.92)
-        (envelope-from <kilobyte@angband.pl>)
-        id 1j09uo-0008Ju-5u; Fri, 07 Feb 2020 21:07:50 +0100
-Date:   Fri, 7 Feb 2020 21:07:50 +0100
-From:   Adam Borowski <kilobyte@angband.pl>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH 2/3] console_codes.4: \e[38m and \e[48m
-Message-ID: <20200207200750.GA31950@angband.pl>
-References: <20190308194059.9560-1-kilobyte@angband.pl>
- <20190308194059.9560-2-kilobyte@angband.pl>
- <89fad223-3e6c-2b65-17ce-a4e19e45ff32@gmail.com>
+        id S1727546AbgBGUmQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 7 Feb 2020 15:42:16 -0500
+Received: from mail-oi1-f194.google.com ([209.85.167.194]:46460 "EHLO
+        mail-oi1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726947AbgBGUmN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Feb 2020 15:42:13 -0500
+Received: by mail-oi1-f194.google.com with SMTP id a22so3254676oid.13
+        for <linux-man@vger.kernel.org>; Fri, 07 Feb 2020 12:42:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=8cDRXBFOpE9J1p6S5H+HXSQg9q3m7pUJ3iUuQ5MPcDc=;
+        b=YPZJJy834hUJnz7pionGH11ZciL6RrbrPELuvEefyNE4m32c/3BRL7jS6BX3GTRbjW
+         A7PT2XuyoA0DKIOAMXBVLqZDks+EHHVySpQpjboWji0NFQ79t34wrEkdhJ/7mvVnPfcg
+         BPXVuIvRzTGxR9yBINGUBTO7OS1IgYRxQvNJFyy4DMElAWJNigH6Lfy9a++UWnjsZV7K
+         NbU0I3Vhb1neiaj+I96jGm3rPYvdHpbUTw6COrl+fTWEjyjGSvKY6qdov3nXpFudxXNb
+         5mDt4W3AkewRXnJYuxGyMUAK1lkfrMP5hrIUalSBsJd0qxRrK90fgDoK4eboWAVqoACA
+         vQPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=8cDRXBFOpE9J1p6S5H+HXSQg9q3m7pUJ3iUuQ5MPcDc=;
+        b=RnmktZxipBP63dyM0cQ+1Oj3oj5WCVuSMC/UjaL/8OOpzB77n22QLt7xjiKeIbaQCm
+         NtP0CazeeevweTtcZcxHHDRjIKK/Aehxc1XvuxtE0N8kbND0mpDgKfKgtsdUCHJMe9zG
+         Rg9GvOyrK3BnTsRosxN6abENTcCgks55ON6wkJza8lOD3AK3pjjcYejxnx2dWsRAdMPb
+         N0cI/jOS7DkSnZ4Np1Q9gb7vs8CsJZ1T+6rdZxADu3j+OSJh1Lctr7Ka8OlYBt/eixw7
+         M/+W+ptAFvAnVG1AdmUeCiikNpBqZ4Jj1Saq6KcsaL71fNjBHUigqaUzbtBfpJ06xYSK
+         mQ1w==
+X-Gm-Message-State: APjAAAUWieS2ivZf7RzElgKr4DwH/vo16sYYpAAwXnRxmg+D4kSCnkid
+        caZ+RKkcOQt9EBcjatry2xB7uif/jmmoyE67qBCUw8IfltiMlQ==
+X-Google-Smtp-Source: APXvYqwSeJkRlkGgNiWsW1NpF1DiAIFzsJveh9+wRvoFwY/EgylY09EfD37WjburJ+wD5ZF6dcgpmVqlX+UTGTmHly0=
+X-Received: by 2002:aca:c7cb:: with SMTP id x194mr3327726oif.157.1581108131844;
+ Fri, 07 Feb 2020 12:42:11 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <89fad223-3e6c-2b65-17ce-a4e19e45ff32@gmail.com>
-X-Junkbait: aaron@angband.pl, zzyx@angband.pl
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-SA-Exim-Connect-IP: <locally generated>
-X-SA-Exim-Mail-From: kilobyte@angband.pl
-X-SA-Exim-Scanned: No (on tartarus.angband.pl); SAEximRunCond expanded to false
+Received: by 2002:a4a:d508:0:0:0:0:0 with HTTP; Fri, 7 Feb 2020 12:42:11 -0800 (PST)
+Reply-To: auch197722@gmail.com
+From:   "Mr. Theophilus Odadudu" <cristinamedina0010@gmail.com>
+Date:   Fri, 7 Feb 2020 15:42:11 -0500
+Message-ID: <CAPNvSTgeN84MC4a+RJ1wBioXqDfarTE4_m4nbA9Dm=S8bmF0WQ@mail.gmail.com>
+Subject: LETTER OF INQUIRY
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Feb 07, 2020 at 05:26:09PM +0100, Michael Kerrisk (man-pages) wrote:
-> Hello Adam,
-> 
-> On 3/8/19 8:40 PM, Adam Borowski wrote:
-> > Supported since cec5b2a9 (3.16).
-> > 
-> > Signed-off-by: Adam Borowski <kilobyte@angband.pl>
-> > ---
-> >  man4/console_codes.4 | 15 +++++++++++++--
-> >  1 file changed, 13 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/man4/console_codes.4 b/man4/console_codes.4
-> > index d605b058d..4283efe45 100644
-> > --- a/man4/console_codes.4
-> > +++ b/man4/console_codes.4
-> > @@ -271,8 +271,8 @@ T}
-> >  35	set magenta foreground
-> >  36	set cyan foreground
-> >  37	set white foreground
-> > -38	set underscore on, set default foreground color
-> > -39	set underscore off, set default foreground color
-> > +38	256/24-bit foreground color follows, shoehorned into 16 basic colors
-> > +39	set default foreground color
-> 
-> So here, I think it's important to retain the historical info, so
-> I made this text:
-> 
->        38        256/24-bit foreground color follows, shoehorned  into  16
->                  basic  colors  (before Linux 3.16: set underscore on, set
->                  default foreground color)
->        39        set default foreground  color  (before  Linux  3.16:  set
->                  underscore off, set default foreground color)
-> 
-> Okay?
+Good Day,
 
-Sounds good.
+I work as a clerk in a Bank here in Nigeria, I have a very
+confidential Business Proposition for you. There is a said amount of
+money floating in the bank unclaimed, belonging to the bank Foreign
+customer who die with his family in the Ethiopian Airline crash of
+March 11, 2019.
 
+I seek your good collaboration to move the fund for our benefit. we
+have agreed that 40% be yours once you help claim.
 
-Meow!
+Do get back to with 1) Your Full Name: (2) Residential Address: (3)
+Phone, Mobile  (4) Scan Copy of Your ID. to apply for claims of the
+funds.
 
--- 
-⢀⣴⠾⠻⢶⣦⠀ The ill-thought conversion to time64_t will make us suffer from
-⣾⠁⢠⠒⠀⣿⡁ the Y292B problem.  So let's move the Epoch by 435451400064000000
-⢿⡄⠘⠷⠚⠋⠀ (plus a safety margin in case of bad physicists) and make it
-⠈⠳⣄⠀⠀⠀⠀ unsigned -- that'll almost double the range.
+Regards
+Theophilus Odadudu
