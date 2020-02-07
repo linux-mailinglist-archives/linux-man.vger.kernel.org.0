@@ -2,80 +2,101 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id D21EF155A83
-	for <lists+linux-man@lfdr.de>; Fri,  7 Feb 2020 16:19:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E2A67155A96
+	for <lists+linux-man@lfdr.de>; Fri,  7 Feb 2020 16:22:04 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726674AbgBGPTI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 7 Feb 2020 10:19:08 -0500
-Received: from mail-ed1-f48.google.com ([209.85.208.48]:34032 "EHLO
-        mail-ed1-f48.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726899AbgBGPTH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Feb 2020 10:19:07 -0500
-Received: by mail-ed1-f48.google.com with SMTP id r18so2788184edl.1
-        for <linux-man@vger.kernel.org>; Fri, 07 Feb 2020 07:19:06 -0800 (PST)
+        id S1726951AbgBGPWE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 7 Feb 2020 10:22:04 -0500
+Received: from mail-wm1-f66.google.com ([209.85.128.66]:54565 "EHLO
+        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726899AbgBGPWE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Feb 2020 10:22:04 -0500
+Received: by mail-wm1-f66.google.com with SMTP id g1so2953380wmh.4
+        for <linux-man@vger.kernel.org>; Fri, 07 Feb 2020 07:22:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=rvWLGbtdY1Gf0eDN93rwlESogU8DTWwaOsB62sO0tgY=;
-        b=QYa7yVAOFzBJnB2YPce5c8bOmLDa63HDi2r93bdP0X/RLdhEFlEojTDVLgMRQ4Rr6v
-         TvUbb69mdrxICyfmOTubBXJnw79on59el7TrTCU4E2x9sczX1UBVLhx34ZZpDOUQg3ON
-         q3UsTnawPFuGC9F1fxuDUAhcFt1aRz5yR7fbF8BJWgX1coFx8UvN//Bga/eN6VgFLvrs
-         Gl4KxQoLvyTrKzXRawjpQmxdnXcfDd+9IufGVcBm8lX/qF6dE145yfW2LtPUxcSmplka
-         +Twwbd7AjJhXmxjxsItPDqmJ/9iGJFRNOHvsGc7UMjFA2z1lgzlEuVP/VuVMvwcgsMDm
-         zmvg==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=J+Ia3XswisZxpDID4zR5C3hu0DgZNZa1KGX3u7V/Nwc=;
+        b=VNoVK9qYOmPghOex9Xq1Uy5oGCyu9Tsp8Qaj7eJncxi8LK96brn70o8uSPlahewdet
+         sJlKv15WXdqB+Ko1fNhq2wXoKRuebMsAG6g+mQ71RL3G3Nukxpm+Y8UYzmBX/ib0pTca
+         luWq5nwx+Sz11Lcmn1lnaDydx/sQPz7CHMRRqqRY1R6WSL/MuOKKFkTOI/xUBUY4J14P
+         GbwovegkepUWTBN4zF0ncA96JwyGIKcxGzHUG4tRj633BZgMyCLoTA1DnNglIuTdPdpS
+         gI1mAh5eEikneXO8Z77dkSr40ygAJvEuQ2ZQ2LznVCbr3jw+Ypg7bMDjonMU3P0Fg9WX
+         QmEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=rvWLGbtdY1Gf0eDN93rwlESogU8DTWwaOsB62sO0tgY=;
-        b=jScqKiiV4kZft2SU//O2MMPrqag9VQ9yD2rbyKNae6chzITqjxefdjrovtIrmDCLu4
-         WGmwjdqx69q7iU2n5RGYkXbXifv1J8rYorHHTxNh5rS4WZpmc4JCNBVMlzoxLycRskMs
-         5m0LmhjLRWwaND1y3jCfk0rSFFBV7zlJm1rwDhAbp6jFtuAnDUA0M0sQshMzqRNKMBT1
-         nB3Djv9rT6MGtIcSPTbytOs37sKKm7WNcK+a8KfSDPAwlJnAZzpVowTrEuSp9DJgq6GW
-         wwZEYkVO2PRFRuYYnrINUf3L4iwoxkdCAeqXLYJvr4zahx86cdKty91fKc7QRDy2asxE
-         4zCQ==
-X-Gm-Message-State: APjAAAXAavRZ7TNYIuJ7YrUbZZKBJhOPtGWgM4oc3sIYURLMPG1bKbYG
-        q/hm4dRBKNLtWomYs6cEYKGzwuIvjnJGY/Pq2/8bmT0h
-X-Google-Smtp-Source: APXvYqzc4LH/PBehZnTZTNrabaLLleIsxioAVKcWJWb/VTzWqVRytiHTXYY1wja6FNYHaBbOkIsigTA9BqdVv6XDw8k=
-X-Received: by 2002:a17:906:f0d6:: with SMTP id dk22mr8708165ejb.307.1581088746028;
- Fri, 07 Feb 2020 07:19:06 -0800 (PST)
-MIME-Version: 1.0
-References: <CAEQewpoNS=ZmxuYHhQ-O8+5Qsgk5aYxW8eu4LKzJj9SDzaUXwg@mail.gmail.com>
-In-Reply-To: <CAEQewpoNS=ZmxuYHhQ-O8+5Qsgk5aYxW8eu4LKzJj9SDzaUXwg@mail.gmail.com>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=J+Ia3XswisZxpDID4zR5C3hu0DgZNZa1KGX3u7V/Nwc=;
+        b=Jh5VRaXR3C0DBwFTGd/QrWz6m/Yqi6+E47OM7cZ8h1J1UZ0CJzcjBS7AX/d3VYzmxN
+         o9NSMwlMH0ljK8XsHxyRKlWTy3UxNx1uTQC5CusWkbX45rkVM2OzZ8SkI9ql5wDfCq7w
+         V38XBDNUrDoDRbl7+QsVto7koXYomLw0Pg9IVGIWUrSD4NEBVy3i7rUyvBn7SByfRHqF
+         vohuWqFCoe6xrUOasCKNAnmSWcXpK/5xX3pZDFqSn7Vt6g/a7hvKBAn0TO/CQS+UY2u2
+         7gsKDGz/K/eK+wKDVN45zgYUtpCLhJMYSupoXmnIBRnjh1uUAHC12PJzZ6ZQHwNPu0Fh
+         XHvg==
+X-Gm-Message-State: APjAAAWGF+eCNf4DXng+WcYsE9ZqXTblmgTU7+jK1Vwzj3p+rZeZ10H0
+        /8fQhqNmP5YofgKR7MqFkfztSDtTTJo=
+X-Google-Smtp-Source: APXvYqxwDFXSSTxZGyprLpWYIPHq2KneC+JI/H91oUmJR3xyNiYYbBCq01NG5AU7XwdgsqB8HzI1aQ==
+X-Received: by 2002:a1c:541b:: with SMTP id i27mr5195504wmb.137.1581088921546;
+        Fri, 07 Feb 2020 07:22:01 -0800 (PST)
+Received: from ?IPv6:2001:a61:251f:d701:c8c9:6ecf:205c:abb7? ([2001:a61:251f:d701:c8c9:6ecf:205c:abb7])
+        by smtp.gmail.com with ESMTPSA id j5sm3843330wrw.24.2020.02.07.07.22.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 07 Feb 2020 07:22:01 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [patch] ioctl_userfaultfd.2: wfix
+To:     Yu Jian Wu <yujian.wu1@gmail.com>
+References: <CADvajOpe=aBfVCbjXnKXpReixRAtZhjE2O7VzSW+OTYvCjiDOQ@mail.gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Fri, 7 Feb 2020 16:18:55 +0100
-Message-ID: <CAKgNAkhMWu2MRgpNZqmHRfXxKS5G0gfsmPw0vfFdM51HpGAteA@mail.gmail.com>
-Subject: Re: Typo in epoll.7 man page
-To:     Jona Christopher Sahnwaldt <jc@sahnwaldt.de>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <a9b9f4cf-237a-be5d-f1e9-f67c0fce878f@gmail.com>
+Date:   Fri, 7 Feb 2020 16:22:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.1
+MIME-Version: 1.0
+In-Reply-To: <CADvajOpe=aBfVCbjXnKXpReixRAtZhjE2O7VzSW+OTYvCjiDOQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Jona,
+Hello Yu Jian Wu
 
-On Mon, 27 Jan 2020 at 20:45, Jona Christopher Sahnwaldt
-<jc@sahnwaldt.de> wrote:
->
-> http://man7.org/linux/man-pages/man7/epoll.7.html
->
-> "waiting on the same the same"
->
-> should be
->
-> "waiting on the same"
+On 1/30/20 5:02 PM, Yu Jian Wu wrote:
+> Hi,
+> 
+> Patch as attached. I think the comment on the variables in the struct is
+> reversed.
+> 
+> Thanks!
 
-Thanks for the report. By chance someone else reported the same issue
-just a few days earlier, and it has already been fixed in the Git
-repo.
 
-Thanks,
+Thanks. Patch applied.
+
+Cheers,
 
 Michael
+
+> diff --git a/man2/ioctl_userfaultfd.2 b/man2/ioctl_userfaultfd.2
+> index cd3e089b7..d417e30f3 100644
+> --- a/man2/ioctl_userfaultfd.2
+> +++ b/man2/ioctl_userfaultfd.2
+> @@ -421,8 +421,8 @@ structure pointed to by
+>  .in +4n
+>  .EX
+>  struct uffdio_copy {
+> -    __u64 dst;    /* Source of copy */
+> -    __u64 src;    /* Destination of copy */
+> +    __u64 dst;    /* Destination of copy */
+> +    __u64 src;    /* Source of copy */
+>      __u64 len;    /* Number of bytes to copy */
+>      __u64 mode;   /* Flags controlling behavior of copy */
+>      __s64 copy;   /* Number of bytes copied, or negated error */
+> 
 
 
 -- 
