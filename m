@@ -2,62 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 8B59D1563EA
-	for <lists+linux-man@lfdr.de>; Sat,  8 Feb 2020 12:01:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5BFEB156415
+	for <lists+linux-man@lfdr.de>; Sat,  8 Feb 2020 12:58:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726889AbgBHLBE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 8 Feb 2020 06:01:04 -0500
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:46577 "EHLO
-        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726926AbgBHLBE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Feb 2020 06:01:04 -0500
-Received: by mail-wr1-f66.google.com with SMTP id z7so1759251wrl.13
-        for <linux-man@vger.kernel.org>; Sat, 08 Feb 2020 03:01:02 -0800 (PST)
+        id S1727118AbgBHL6N (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 8 Feb 2020 06:58:13 -0500
+Received: from mail-wm1-f67.google.com ([209.85.128.67]:40100 "EHLO
+        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726970AbgBHL6N (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Feb 2020 06:58:13 -0500
+Received: by mail-wm1-f67.google.com with SMTP id t14so5500351wmi.5;
+        Sat, 08 Feb 2020 03:58:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=IcPWbzx05OVIjgj2NUJhrsfYPzKUZz1CvM/eICZzav8=;
-        b=sUd2Cf/vpGJmjY+0rtObbidaeUbAe2XnktZAOM6IIOiwlXkRQk4nZ8y7O6py5ZehkA
-         7pxfUDr9gpJ+96GFvlK2Kuf9icb6TaojGo/k5kG3pRbGg8xeEW0GQWfP16oEJ2als7Xv
-         SF64l1R9w2vcr6b0NbHpzwzePV+1hJRTK2xU4cWaBWMOjBzjGgvvL3h6UhKGx9rOuuKg
-         CUnIlzT+WrHg17dsNz9d5K9VcBcDTKJXndWZz1bxe5sfNtYDPSfYEx+99G7RjTL2eGFv
-         CZCeA9Zq1NEJzN7qFo4RRWn15sX+LFQmXmH4b0qt8Sy3hCBeEkdbtS2OAIFJEMBegdJi
-         pzXA==
+        bh=vBE5AVqXC0jJd2IELgOKKd2Jzb73ungCmQ/Jq8SLGcI=;
+        b=peE/kTj5TpVgBJdlfxiUZ7HXDSWPeUe9DfOIg62trcM3APZC98dqNWTA6fXFuyjtkQ
+         jsDrYKyYH3TEP1ybToSY4wHygUmePyYK0KI/n+iBY01ZXUxJUwVejt9kFL94PZAo95Sf
+         DTlzq+SDWnDi8022/pHuDQ+lClked+nu+0gmbPZ3o2Lh0unwFfDTrs1G36mBkVIOThmU
+         zL/ulG9pkHNfGtZh9WLbZNTTwEzEFLFMc/nsC7KYSEwm+7RKrCO9c4BMv2zy3rnlXAXH
+         HE1vPKsBrKlyTLjP+Ili4ZWrrbaB6k0E3e1UbxI+JePpj0Op1NvQt8/i2Tqe4QoHPvBA
+         v9BQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=IcPWbzx05OVIjgj2NUJhrsfYPzKUZz1CvM/eICZzav8=;
-        b=pYJKsSdUVNjn2bz3mQzEA4SdvuifVMYtF5wam7XSkME1Hr55/Z8RcQOlN/lLSI9/Rm
-         LsBUX3si1KOfw2WVV4T1wJCx0A4kX9ptyPVjJAzdlncNXPTzoxNmE1JUuWyWqRS7JqZG
-         USiSayBYeFTSTNU5m5KKQkZHVqxEQvcIp5bSHqZ0xDntv30SFCDBS/OyRI0Lwepblf9W
-         pU4RZhMqexv8gTfdDn0JC+21rS39nSBpTw3XHgdAxS+RQl6UbZ7ptyYo1lRIkO1gWfPD
-         6Ij4o+VoCnfruHO4p9aMrNPbrF8ydJzKVTGL4ux4ILDTHfMfVyqfg2OkI3U7UibtNFyz
-         Q45Q==
-X-Gm-Message-State: APjAAAUVX2u9Md7tLiNF2MOUG9+WV95Hjzg300jFQm9BNQTECx4ovA50
-        yaCqPkjS8B9/NFQzSsbBaWyTAnGf
-X-Google-Smtp-Source: APXvYqxY6Rsgtls3fdDuTQLQqd+8H239iQ8ACaz+5BPGpHsdea/8E8WgTsCRr/zpkuAy+Wrn1fXFcA==
-X-Received: by 2002:a5d:5381:: with SMTP id d1mr4853733wrv.259.1581159661321;
-        Sat, 08 Feb 2020 03:01:01 -0800 (PST)
+        bh=vBE5AVqXC0jJd2IELgOKKd2Jzb73ungCmQ/Jq8SLGcI=;
+        b=hmOtQ4axgaV6IB5Q4Ey1IvD+367FWyoYyGwqVsVaWp9PHPaK9eWOTp4UZ/Zkz8Kugv
+         9FknO9NewLkzJ7K8/u2SjebdD4/q8NyUxyp0aIxpzkknpNjYWNn8IlZNuc8g9rEY1MtE
+         JboVszkmts3udFuadXWZLVwWHbMIAWy95eCIYiXU4o+9pfWsjYNZ67kX3CK6xRpk7jOj
+         fMfOpOubrvzOSFuWX8AbhWI8NLp1k4ds1CNNkicsTeKXS7tPGoCJzbPGnkYyXq7g6f1s
+         5KiLkMeg68USwjdU5RUnUv7ABwas8EH11z3Gg4FPToyojPHoIjCWu72BNWmWe+V7zUXq
+         /9wQ==
+X-Gm-Message-State: APjAAAUGaHfXUAu4iUJNZinu9N6srYb+cbTRra7Dv8+dJ/JDnU/M9sCp
+        xDpmfWsRs2vqYZNvOPPyP4g=
+X-Google-Smtp-Source: APXvYqxnlY92D1d84fYMChfOF8tvWl+OlsJkPK6jre4MkBM320LFYTLEMMQibJKx9zuinresGyXi8g==
+X-Received: by 2002:a7b:c242:: with SMTP id b2mr4078411wmj.19.1581163089060;
+        Sat, 08 Feb 2020 03:58:09 -0800 (PST)
 Received: from ?IPv6:2001:a61:251f:d701:c8c9:6ecf:205c:abb7? ([2001:a61:251f:d701:c8c9:6ecf:205c:abb7])
-        by smtp.gmail.com with ESMTPSA id n10sm7077117wrt.14.2020.02.08.03.01.00
+        by smtp.gmail.com with ESMTPSA id g7sm7365690wrq.21.2020.02.08.03.58.07
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 08 Feb 2020 03:01:00 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org, jwilk@jwilk.net,
-        Mike Frysinger <vapier@gentoo.org>
-Subject: Re: [PATCH v2] exit.3: Use hex for the status mask.
-To:     Benjamin Peterson <benjamin@python.org>
-References: <1537033056.1989189.1509225696.4324DB3A@webmail.messagingengine.com>
- <20180915173848.19733-1-benjamin@python.org>
+        Sat, 08 Feb 2020 03:58:08 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, Andrew Morton <akpm@linux-foundation.org>,
+        Andy Lutomirski <luto@kernel.org>, dancol@google.com,
+        Jann Horn <jannh@google.com>,
+        John Stultz <john.stultz@linaro.org>, kernel-team@android.com,
+        linux-api@vger.kernel.org, linux-man@vger.kernel.org,
+        linux-mm@kvack.org, Matthew Wilcox <willy@infradead.org>,
+        Mike Kravetz <mike.kravetz@oracle.com>,
+        Shuah Khan <shuah@kernel.org>,
+        Stephen Rothwell <sfr@canb.auug.org.au>
+Subject: Re: [PATCH -manpage 1/2] fcntl.2: Update manpage with new memfd
+ F_SEAL_FUTURE_WRITE seal
+To:     "Joel Fernandes (Google)" <joel@joelfernandes.org>,
+        linux-kernel@vger.kernel.org
+References: <20190314214844.207430-1-joel@joelfernandes.org>
+ <20190314214844.207430-2-joel@joelfernandes.org>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <92a0961f-927c-703a-7d7a-16bdd98324d4@gmail.com>
-Date:   Sat, 8 Feb 2020 12:00:58 +0100
+Message-ID: <11efee1c-0b65-2e51-0aa6-7f61fd2958c5@gmail.com>
+Date:   Sat, 8 Feb 2020 12:58:07 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.3.1
 MIME-Version: 1.0
-In-Reply-To: <20180915173848.19733-1-benjamin@python.org>
+In-Reply-To: <20190314214844.207430-2-joel@joelfernandes.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -66,54 +75,51 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Ben,
+Hello Joel,
 
-On 9/15/18 7:38 PM, Benjamin Peterson wrote:
-> Admittedly, the POSIX specification for exit() also uses octal. However, 0xFF
-> immediately indicates the lowest 8 bits to me whereas I had to think a bit about
-> the octal mask.
+On 3/14/19 10:48 PM, Joel Fernandes (Google) wrote:
+> More details of the seal can be found in the LKML patch:
+> https://lore.kernel.org/lkml/20181120052137.74317-1-joel@joelfernandes.org/T/#t
+>
+> Signed-off-by: Joel Fernandes (Google) <joel@joelfernandes.org>
 
-Thanks. Patch applied. (Mike Frysinger provided a similar patch,
-so I've noted you both in the commit.)
+Thanks. Patch (finally) applied!
 
 Cheers,
 
 Michael
 
+
 > ---
->  man2/_exit.2 | 2 +-
->  man3/exit.3  | 5 ++---
->  2 files changed, 3 insertions(+), 4 deletions(-)
+>  man2/fcntl.2 | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
 > 
-> diff --git a/man2/_exit.2 b/man2/_exit.2
-> index c55d2a612..6e656c8f4 100644
-> --- a/man2/_exit.2
-> +++ b/man2/_exit.2
-> @@ -65,7 +65,7 @@ The process's parent is sent a
->  signal.
->  .PP
->  The value
-> -.I "status & 0377"
-> +.I "status & 0xFF"
->  is returned to the parent process as the process's exit status, and
->  can be collected using one of the
->  .BR wait (2)
-> diff --git a/man3/exit.3 b/man3/exit.3
-> index 4a30fc39f..b47ba17a1 100644
-> --- a/man3/exit.3
-> +++ b/man3/exit.3
-> @@ -38,9 +38,8 @@ exit \- cause normal process termination
->  .SH DESCRIPTION
->  The
->  .BR exit ()
-> -function causes normal process termination and the
-> -value of \fIstatus & 0377\fP is returned to the parent
-> -(see
-> +function causes normal process termination and the value of \fIstatus &
-> +0xFF\fP is returned to the parent (see
->  .BR wait (2)).
->  .PP
->  All functions registered with
+> diff --git a/man2/fcntl.2 b/man2/fcntl.2
+> index fce4f4c2b3bd..e01e2c075b5b 100644
+> --- a/man2/fcntl.2
+> +++ b/man2/fcntl.2
+> @@ -1525,6 +1525,21 @@ Furthermore, if there are any asynchronous I/O operations
+>  .RB ( io_submit (2))
+>  pending on the file,
+>  all outstanding writes will be discarded.
+> +.TP
+> +.BR F_SEAL_FUTURE_WRITE
+> +If this seal is set, the contents of the file can be modified only from
+> +existing writeable mappings that were created prior to the seal being set.
+> +Any attempt to create a new writeable mapping on the memfd via
+> +.BR mmap (2)
+> +will fail with
+> +.BR EPERM.
+> +Also any attempts to write to the memfd via
+> +.BR write (2)
+> +will fail with
+> +.BR EPERM.
+> +This is useful in situations where existing writable mapped regions need to be
+> +kept intact while preventing any future writes. For example, to share a
+> +read-only memory buffer to other processes that only the sender can write to.
+>  .\"
+>  .SS File read/write hints
+>  Write lifetime hints can be used to inform the kernel about the relative
 > 
 
 
