@@ -2,125 +2,111 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id CF044158E83
-	for <lists+linux-man@lfdr.de>; Tue, 11 Feb 2020 13:30:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1F3EE1591B2
+	for <lists+linux-man@lfdr.de>; Tue, 11 Feb 2020 15:17:31 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728800AbgBKMaK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 11 Feb 2020 07:30:10 -0500
-Received: from mail.kernel.org ([198.145.29.99]:51908 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1728467AbgBKMaK (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 11 Feb 2020 07:30:10 -0500
-Received: from localhost (unknown [209.37.97.194])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id 8CD5820714;
-        Tue, 11 Feb 2020 12:30:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1581424209;
-        bh=UOl+tQ/zZd+KwI4FO4cTDXiLUcocDiU1LoF+UqO99S4=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=TyAGYzmBk647Xic8+Af5jY50tMRYt9H5bHtn6wsE10WXBTvj6piI1yGy8Z6MCj+ZS
-         ansTqCI6m6WsvLaA3okd2k0EYZxvvCWq6Iq7nJE8mUUSf4uxk4FoLXexYzdDYJU1te
-         3efECLAoHJQaFnkycH7+U+jvYJPstPYkJ8I0fcYI=
-Date:   Tue, 11 Feb 2020 04:30:09 -0800
-From:   Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To:     Geert Uytterhoeven <geert@linux-m68k.org>
-Cc:     Eugeniu Rosca <erosca@de.adit-jv.com>,
-        "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
-        Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
-        Wolfram Sang <wsa+renesas@sang-engineering.com>,
-        Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-        Ulrich Hecht <uli+renesas@fpond.eu>,
-        "George G . Davis" <george_davis@mentor.com>,
-        Andrew Gabbasov <andrew_gabbasov@mentor.com>,
-        Jiada Wang <jiada_wang@mentor.com>,
-        Yuichi Kusakabe <yuichi.kusakabe@denso-ten.com>,
-        Yasushi Asano <yasano@jp.adit-jv.com>,
-        Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-        Jiri Slaby <jslaby@suse.com>,
-        Fukui Yohhei <yohhei.fukui@denso-ten.com>,
-        Torii Kenichi <torii.ken1@jp.fujitsu.com>,
-        Magnus Damm <magnus.damm@gmail.com>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        id S1730079AbgBKORa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 11 Feb 2020 09:17:30 -0500
+Received: from youngberry.canonical.com ([91.189.89.112]:47721 "EHLO
+        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728495AbgBKOR3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 11 Feb 2020 09:17:29 -0500
+Received: from ip5f5bf7ec.dynamic.kabel-deutschland.de ([95.91.247.236] helo=wittgenstein)
+        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+        (Exim 4.86_2)
+        (envelope-from <christian.brauner@ubuntu.com>)
+        id 1j1WLu-0007U1-J8; Tue, 11 Feb 2020 14:17:26 +0000
+Date:   Tue, 11 Feb 2020 15:17:25 +0100
+From:   Christian Brauner <christian.brauner@ubuntu.com>
+To:     Mike Christie <mchristi@redhat.com>, mtk.manpages@gmail.com
+Cc:     linux-api@vger.kernel.org, david@fromorbit.com, mhocko@suse.com,
+        masato.suzuki@wdc.com, damien.lemoal@wdc.com,
+        darrick.wong@oracle.com, bvanassche@acm.org,
         linux-man@vger.kernel.org
-Subject: Re: [PATCH] serial: sh-sci: Support custom speed setting
-Message-ID: <20200211123009.GB1858119@kroah.com>
-References: <20200129161955.30562-1-erosca@de.adit-jv.com>
- <CAMuHMdWV0kkKq6sKOHsdz+FFGNHphzq_q7rvmYAL=U4fH2H3wQ@mail.gmail.com>
- <20200210205735.GB1347752@kroah.com>
- <CAMuHMdUa0fUHZF03QCLsgvS8LSN_rGUQ1gPtotQ3uNGEHkCm6g@mail.gmail.com>
+Subject: Re: [PATCH 1/1] prctl.2: doc PR_SET/GET_IO_FLUSHER
+Message-ID: <20200211141725.4vbnh3iifbbaquec@wittgenstein>
+References: <20200210221557.8021-1-mchristi@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdUa0fUHZF03QCLsgvS8LSN_rGUQ1gPtotQ3uNGEHkCm6g@mail.gmail.com>
+In-Reply-To: <20200210221557.8021-1-mchristi@redhat.com>
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Feb 11, 2020 at 09:15:02AM +0100, Geert Uytterhoeven wrote:
-> Hi Greg,
+I think you've missed:
+mtk.manpages@gmail.com
+linux-man@vger.kernel.org
+
+:)
+
+Christian
+
+On Mon, Feb 10, 2020 at 04:15:57PM -0600, Mike Christie wrote:
+> This patch documents the PR_SET_IO_FLUSHER and PR_GET_IO_FLUSHER
+> prctl commands added to the linux kernel for 5.6 in commit:
 > 
-> CC man
+> commit 8d19f1c8e1937baf74e1962aae9f90fa3aeab463
+> Author: Mike Christie <mchristi@redhat.com>
+> Date:   Mon Nov 11 18:19:00 2019 -0600
 > 
-> On Mon, Feb 10, 2020 at 9:57 PM Greg Kroah-Hartman
-> <gregkh@linuxfoundation.org> wrote:
-> > On Thu, Jan 30, 2020 at 01:32:50PM +0100, Geert Uytterhoeven wrote:
-> > > On Wed, Jan 29, 2020 at 5:20 PM Eugeniu Rosca <erosca@de.adit-jv.com> wrote:
-> > > > From: Torii Kenichi <torii.ken1@jp.fujitsu.com>
-> > > >
-> > > > This patch is necessary to use BT module and XM module with DENSO TEN
-> > > > development board.
-> > > >
-> > > > This patch supports ASYNC_SPD_CUST flag by ioctl(TIOCSSERIAL), enables
-> > > > custom speed setting with setserial(1).
-> > > >
-> > > > The custom speed is calculated from uartclk and custom_divisor.
-> > > > If custom_divisor is zero, custom speed setting is invalid.
-> > > >
-> > > > Signed-off-by: Torii Kenichi <torii.ken1@jp.fujitsu.com>
-> > > > [erosca: rebase against v5.5]
-> > > > Signed-off-by: Eugeniu Rosca <erosca@de.adit-jv.com>
-> > >
-> > > Thanks for your patch!
-> > >
-> > > While this seems to work fine[*], I have a few comments/questions:
-> > >   1. This feature seems to be deprecated:
-> > >
-> > >          sh-sci e6e68000.serial: setserial sets custom speed on
-> > > ttySC1. This is deprecated.
-> > >
-> > >   2. As the wanted speed is specified as a divider, the resulting speed
-> > >      may be off, cfr. the example for 57600 below.
-> > >      Note that the SCIF device has multiple clock inputs, and can do
-> > >      57600 perfectly if the right crystal has been fitted.
-> > >
-> > >  3. What to do with "[PATCH/RFC] serial: sh-sci: Update uartclk based
-> > >      on selected clock" (https://patchwork.kernel.org/patch/11103703/)?
-> > >      Combined with this, things become pretty complicated and
-> > >      unpredictable, as uartclk now always reflect the frequency of the
-> > >      last used base clock, which was the optimal one for the previously
-> > >      used speed....
-> > >
-> > > I think it would be easier if we just had an API to specify a raw speed.
-> > > Perhaps that already exists?
-> >
-> > Yes, see:
-> >         http://www.panix.com/~grante/arbitrary-baud.c
+>     prctl: PR_{G,S}ET_IO_FLUSHER to support controlling memory reclaim
 > 
-> Thanks a lot!!
-> This must be one of the most guarded secrets of serial port programming ;-)
-
-It really is, I have to look it up each time it comes up :(
-
-> Implemented since 2006, commit edc6afc5496875a6 ("[PATCH] tty: switch to
-> ktermios and new framework"), not documented in today's man-pages.
-
-yeah, serial port control really needs to be documented better, there's
-all sorts of nice ways of controlling them that people don't seem to
-know about.  I used to have a link to a bunch of online examples, but
-can't seem to find that anymore either.  Ugh, another thing for the long
-TODO file...
-
-greg k-h
+> Signed-off-by: Mike Christie <mchristi@redhat.com>
+> ---
+> 
+> V2:
+> - My initial patch for this was very bad. This version is almost 100%
+> taken word for word from Dave Chinner's review comments.
+> 
+> 
+>  man2/prctl.2 | 25 +++++++++++++++++++++++++
+>  1 file changed, 25 insertions(+)
+> 
+> diff --git a/man2/prctl.2 b/man2/prctl.2
+> index 720ec04e4..b481d186b 100644
+> --- a/man2/prctl.2
+> +++ b/man2/prctl.2
+> @@ -1381,6 +1381,30 @@ system call on Tru64).
+>  for information on versions and architectures.)
+>  Return unaligned access control bits, in the location pointed to by
+>  .IR "(unsigned int\ *) arg2" .
+> +.TP
+> +.B PR_SET_IO_FLUSHER (Since Linux 5.6)
+> +An IO_FLUSHER is a user process that the kernel uses to issue IO
+> +that cleans dirty page cache data and/or filesystem metadata. The
+> +kernel may need to clean this memory when under memory pressure in
+> +order to free it. This means there is potential for a memory reclaim
+> +recursion deadlock if the user process attempts to allocate memory
+> +and the kernel then blocks waiting for it to clean memory before it
+> +can make reclaim progress.
+> +
+> +The kernel avoids these recursion problems internally via a special
+> +process state that prevents recursive reclaim from issuing new IO.
+> +If \fIarg2\fP is 1, the \fPPR_SET_IO_FLUSHER\fP control allows a userspace
+> +process to set up this same process state and hence avoid the memory
+> +reclaim recursion deadlocks in the same manner the kernel avoids them.
+> +If \fIarg2\fP is 0, the process will clear the IO_FLUSHER state, and the
+> +default behavior will be used.
+> +
+> +Examples of IO_FLUSHER applications are FUSE daemons, zoned disk
+> +emulation daemons, etc."
+> +.TP
+> +.B PR_GET_IO_FLUSHER (Since Linux 5.6)
+> +Return as the function result 1 if the caller is in the IO_FLUSHER state and
+> +0 if not.
+>  .SH RETURN VALUE
+>  On success,
+>  .BR PR_GET_DUMPABLE ,
+> @@ -1395,6 +1419,7 @@ On success,
+>  .BR PR_GET_SPECULATION_CTRL ,
+>  .BR PR_MCE_KILL_GET ,
+>  .BR PR_CAP_AMBIENT + PR_CAP_AMBIENT_IS_SET ,
+> +.BR PR_GET_IO_FLUSHER ,
+>  and (if it returns)
+>  .BR PR_GET_SECCOMP
+>  return the nonnegative values described above.
+> -- 
+> 2.21.0
+> 
