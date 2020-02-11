@@ -2,50 +2,128 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4AF5415843B
-	for <lists+linux-man@lfdr.de>; Mon, 10 Feb 2020 21:28:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E7DED158B22
+	for <lists+linux-man@lfdr.de>; Tue, 11 Feb 2020 09:15:21 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727056AbgBJU2m (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 10 Feb 2020 15:28:42 -0500
-Received: from 216-12-86-13.cv.mvl.ntelos.net ([216.12.86.13]:50472 "EHLO
-        brightrain.aerifal.cx" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726563AbgBJU2m (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 10 Feb 2020 15:28:42 -0500
-Received: from dalias by brightrain.aerifal.cx with local (Exim 3.15 #2)
-        id 1j1Ffc-0005b2-00; Mon, 10 Feb 2020 20:28:40 +0000
-Date:   Mon, 10 Feb 2020 15:28:40 -0500
-From:   Rich Felker <dalias@libc.org>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Subject: Remove ESRCH from pthread_* man pages or document it as nonstandard
-Message-ID: <20200210202840.GT1663@brightrain.aerifal.cx>
+        id S1727855AbgBKIPO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 11 Feb 2020 03:15:14 -0500
+Received: from mail-ot1-f65.google.com ([209.85.210.65]:38902 "EHLO
+        mail-ot1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727688AbgBKIPO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 11 Feb 2020 03:15:14 -0500
+Received: by mail-ot1-f65.google.com with SMTP id z9so9232613oth.5;
+        Tue, 11 Feb 2020 00:15:14 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=KmW0O3LnLsxSEx5mSsn3yBdnjLfYpE0MC8ooH4ZjjKw=;
+        b=L8Et7rpBPKlE8yhxdqUNJNgm41Kz2j5U49UXgA4ooWFrH0e4reqfa4mIxQOl8Wyy/j
+         NJhfC6TxM7aUO8gCQCoQNNdg9wrgYIa4IAfxFHdGm0DXcVWQfDK9d64IOeqjZCScVsBL
+         HDsrvR2IxCA0kalACn4x9ISGvSFyGv+COG/fS8WJhm2J81bze5Be43asCGKnWw4bcj51
+         XiNez53G/ArftMEDlxXvX5uCmiybWAs9FhG742e2ztZTXUJpMb0YOCruhVpnEUJeT0RW
+         CSS9Ob+kCr45BB82kWx7bXQBRpysHGJs1mXd2gLPE4+uLwGUQI0ncpFTCrjtszJERH6x
+         rnNg==
+X-Gm-Message-State: APjAAAXEdEmktm41ecgO2QsXiimDFLFnt+crmfYridHhKDzRGfiJIOKK
+        muyFlrED9q5X7/aB6y2liDmYszLSOz9F7JhYgDQ=
+X-Google-Smtp-Source: APXvYqwEcmEoNoNDBhoPpH3rDf95d6TYZ5IMsE/ydiUKbXXZLt6L0DPS+W4L0t7jNT1AbdX/CoQwZFbMvimTLVDaeII=
+X-Received: by 2002:a9d:7984:: with SMTP id h4mr4357532otm.297.1581408913600;
+ Tue, 11 Feb 2020 00:15:13 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/1.5.21 (2010-09-15)
+References: <20200129161955.30562-1-erosca@de.adit-jv.com> <CAMuHMdWV0kkKq6sKOHsdz+FFGNHphzq_q7rvmYAL=U4fH2H3wQ@mail.gmail.com>
+ <20200210205735.GB1347752@kroah.com>
+In-Reply-To: <20200210205735.GB1347752@kroah.com>
+From:   Geert Uytterhoeven <geert@linux-m68k.org>
+Date:   Tue, 11 Feb 2020 09:15:02 +0100
+Message-ID: <CAMuHMdUa0fUHZF03QCLsgvS8LSN_rGUQ1gPtotQ3uNGEHkCm6g@mail.gmail.com>
+Subject: Re: [PATCH] serial: sh-sci: Support custom speed setting
+To:     Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc:     Eugeniu Rosca <erosca@de.adit-jv.com>,
+        "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+        Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+        Wolfram Sang <wsa+renesas@sang-engineering.com>,
+        Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+        Ulrich Hecht <uli+renesas@fpond.eu>,
+        "George G . Davis" <george_davis@mentor.com>,
+        Andrew Gabbasov <andrew_gabbasov@mentor.com>,
+        Jiada Wang <jiada_wang@mentor.com>,
+        Yuichi Kusakabe <yuichi.kusakabe@denso-ten.com>,
+        Yasushi Asano <yasano@jp.adit-jv.com>,
+        Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+        Jiri Slaby <jslaby@suse.com>,
+        Fukui Yohhei <yohhei.fukui@denso-ten.com>,
+        Torii Kenichi <torii.ken1@jp.fujitsu.com>,
+        Magnus Damm <magnus.damm@gmail.com>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Use of a pthread_t after its lifetime has ended is undefined behavior.
-Pre-2008 POSIX wrongly had ESRCH errors specified for a number of
-interfaces, conflicting with explicitly making such use UB; this was
-fixed as a result of Austin Group interpretation 142:
+Hi Greg,
 
-https://collaboration.opengroup.org/austin/interps/documents/14366/AI-142.txt
+CC man
 
-However, the man pages still have ESRCH listed for most if not all of
-the pthread_* interfaces that take a pthread_t argument.
+On Mon, Feb 10, 2020 at 9:57 PM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+> On Thu, Jan 30, 2020 at 01:32:50PM +0100, Geert Uytterhoeven wrote:
+> > On Wed, Jan 29, 2020 at 5:20 PM Eugeniu Rosca <erosca@de.adit-jv.com> wrote:
+> > > From: Torii Kenichi <torii.ken1@jp.fujitsu.com>
+> > >
+> > > This patch is necessary to use BT module and XM module with DENSO TEN
+> > > development board.
+> > >
+> > > This patch supports ASYNC_SPD_CUST flag by ioctl(TIOCSSERIAL), enables
+> > > custom speed setting with setserial(1).
+> > >
+> > > The custom speed is calculated from uartclk and custom_divisor.
+> > > If custom_divisor is zero, custom speed setting is invalid.
+> > >
+> > > Signed-off-by: Torii Kenichi <torii.ken1@jp.fujitsu.com>
+> > > [erosca: rebase against v5.5]
+> > > Signed-off-by: Eugeniu Rosca <erosca@de.adit-jv.com>
+> >
+> > Thanks for your patch!
+> >
+> > While this seems to work fine[*], I have a few comments/questions:
+> >   1. This feature seems to be deprecated:
+> >
+> >          sh-sci e6e68000.serial: setserial sets custom speed on
+> > ttySC1. This is deprecated.
+> >
+> >   2. As the wanted speed is specified as a divider, the resulting speed
+> >      may be off, cfr. the example for 57600 below.
+> >      Note that the SCIF device has multiple clock inputs, and can do
+> >      57600 perfectly if the right crystal has been fitted.
+> >
+> >  3. What to do with "[PATCH/RFC] serial: sh-sci: Update uartclk based
+> >      on selected clock" (https://patchwork.kernel.org/patch/11103703/)?
+> >      Combined with this, things become pretty complicated and
+> >      unpredictable, as uartclk now always reflect the frequency of the
+> >      last used base clock, which was the optimal one for the previously
+> >      used speed....
+> >
+> > I think it would be easier if we just had an API to specify a raw speed.
+> > Perhaps that already exists?
+>
+> Yes, see:
+>         http://www.panix.com/~grante/arbitrary-baud.c
 
-Could this be removed, or annotated to clarify that (1) this is not
-standard/portable behavior programmers can rely on (FYI: musl does not
-do it), and (2) like all instances of the pattern "use of resource
-identifier after the resource it refers to has been released/freed",
-passing a pthread_t whose lifetime may have ended is inherently a bug.
+Thanks a lot!!
+This must be one of the most guarded secrets of serial port programming ;-)
 
-This came up again on the musl mailing list today:
+Implemented since 2006, commit edc6afc5496875a6 ("[PATCH] tty: switch to
+ktermios and new framework"), not documented in today's man-pages.
 
-https://www.openwall.com/lists/musl/2020/02/10/3
+Gr{oetje,eeting}s,
 
-Rich
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
