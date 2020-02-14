@@ -2,38 +2,38 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4ABCE15DAFA
+	by mail.lfdr.de (Postfix) with ESMTP id B571715DAFB
 	for <lists+linux-man@lfdr.de>; Fri, 14 Feb 2020 16:29:20 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2387467AbgBNP3L convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Fri, 14 Feb 2020 10:29:11 -0500
-Received: from us-smtp-delivery-1.mimecast.com ([205.139.110.120]:37034 "EHLO
+        id S2387515AbgBNP3N convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Fri, 14 Feb 2020 10:29:13 -0500
+Received: from us-smtp-delivery-1.mimecast.com ([205.139.110.120]:33793 "EHLO
         us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S2387398AbgBNP3L (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 14 Feb 2020 10:29:11 -0500
+        with ESMTP id S2387398AbgBNP3N (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 14 Feb 2020 10:29:13 -0500
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-280-6840BZl7Mh6tbpO0jAoodg-1; Fri, 14 Feb 2020 10:29:06 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-20-DaD0SFeiPd-FEY9CM3ssiQ-1; Fri, 14 Feb 2020 10:29:09 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
         (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
         (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3B5B48014CA;
-        Fri, 14 Feb 2020 15:29:05 +0000 (UTC)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 707B4107ACC9;
+        Fri, 14 Feb 2020 15:29:08 +0000 (UTC)
 Received: from asgard.redhat.com (ovpn-112-64.ams2.redhat.com [10.36.112.64])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id 16D0890F46;
-        Fri, 14 Feb 2020 15:29:03 +0000 (UTC)
-Date:   Fri, 14 Feb 2020 16:29:01 +0100
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 94BD75DA7D;
+        Fri, 14 Feb 2020 15:29:07 +0000 (UTC)
+Date:   Fri, 14 Feb 2020 16:29:05 +0100
 From:   Eugene Syromyatnikov <evgsyr@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] strftime.3: refer to the relevant nl_langinfo items
-Message-ID: <564214d230e0b42e93d938560ff61bb74c2c44b2.1581693625.git.evgsyr@gmail.com>
+Subject: [PATCH] strftime.3: expand %E and %O description
+Message-ID: <f33bd2ea6821cdc89d1f6aa798641137d9ce62e0.1581693625.git.evgsyr@gmail.com>
 References: <cover.1581693624.git.evgsyr@gmail.com>
 MIME-Version: 1.0
 In-Reply-To: <cover.1581693624.git.evgsyr@gmail.com>
 User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-MC-Unique: 6840BZl7Mh6tbpO0jAoodg-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-MC-Unique: DaD0SFeiPd-FEY9CM3ssiQ-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: gmail.com
 Content-Type: text/plain; charset=WINDOWS-1252
@@ -44,145 +44,94 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-As it wasn't clear before where this kind of information can be
-obtained from.
-
-* man3/strftime.3 (%a, %A, %b, %B, %c, %p, %r, %x, %X): Add information
-about the locale elements that can be used to retrieve the relevant
-information using nl_langinfo() library call.
+* man3/strftime.3 (%C): Descibe the meaning of %EC conversion
+specification.
+(%E): Mention the concept of "era" in description.
+(%O): Mention that alternative format is related to numeric
+representation.
+(%y): Describe the meaning of %Ey conversion specification.
+(%Y): Describe the meaning of %EY conversion specification.
+(.SH DESCRIPTION): Mention that the behaviour of %E modifier is governed
+by ERA locale element and provide ja_JP locale as an example.
 
 Signed-off-by: Eugene Syromyatnikov <evgsyr@gmail.com>
 ---
- man3/strftime.3 | 65 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 65 insertions(+)
+ man3/strftime.3 | 29 ++++++++++++++++++++++++++---
+ 1 file changed, 26 insertions(+), 3 deletions(-)
 
 diff --git a/man3/strftime.3 b/man3/strftime.3
-index dd7dec7..20ba057 100644
+index 20ba057..bdbea68 100644
 --- a/man3/strftime.3
 +++ b/man3/strftime.3
-@@ -89,24 +89,55 @@ structure are also shown.
- The abbreviated name of the day of the week according to the current locale.
- (Calculated from
- .IR tm_wday .)
-+(The specific names used in the current locale can be obtained by calling
-+.BR nl_langinfo (3)
-+library call with
-+.BR ABDAY_ { 1 \(en 7 }
-+as an argument.)
+@@ -143,6 +143,9 @@ conversion specification.)
  .TP
- .B %A
- The full name of the day of the week according to the current locale.
+ .B %C
+ The century number (year/100) as a 2-digit integer. (SU)
++(The
++.B %EC
++conversion specification corresponds to the name of the era.)
  (Calculated from
- .IR tm_wday .)
-+(The specific names used in the current locale can be obtained by calling
-+.BR nl_langinfo (3)
-+library call with
-+.BR DAY_ { 1 \(en 7 }
-+as an argument.)
+ .IR tm_year .)
  .TP
- .B %b
- The abbreviated month name according to the current locale.
- (Calculated from
- .IR tm_mon .)
-+(The specific names used in the current locale can be obtained by calling
-+.BR nl_langinfo (3)
-+library call with
-+.BR ABMON_ { 1 \(en 12 }
-+as an argument.)
+@@ -170,7 +173,7 @@ zero is replaced by a space. (SU)
+ .IR tm_mday .)
  .TP
- .B %B
- The full month name according to the current locale.
- (Calculated from
- .IR tm_mon .)
-+(The specific names used in the current locale can be obtained by calling
-+.BR nl_langinfo (3)
-+library call with
-+.BR MON_ { 1 \(en 12 }
-+as an argument.)
+ .B %E
+-Modifier: use alternative format, see below. (SU)
++Modifier: use alternative ("era-based") format, see below. (SU)
  .TP
- .B %c
- The preferred date and time representation for the current locale.
-+(The specific format used in the current locale can be obtained by calling
-+.BR nl_langinfo (3)
-+library call with
-+.B D_T_FMT
-+as an argument for the
-+.B %c
-+conversion specification, and with
-+.B ERA_D_T_FMT
-+for the
-+.B %Ec
+ .B %F
+ Equivalent to
+@@ -253,7 +256,7 @@ The minute as a decimal number (range 00 to 59).
+ A newline character. (SU)
+ .TP
+ .B %O
+-Modifier: use alternative format, see below. (SU)
++Modifier: use alternative numeric symbols, see below. (SU)
+ .TP
+ .B %p
+ Either "AM" or "PM" according to the given time value, or the
+@@ -400,11 +403,20 @@ conversion specification.)
+ .TP
+ .B %y
+ The year as a decimal number without a century (range 00 to 99).
++(The
++.B %Ey
++conversion specification corresponds to the year since the beginning of the era
++denoted by
++.B %EC
 +conversion specification.)
- (In the POSIX locale this is equivalent to
- .BR "%a %b %e %H:%M:%S %Y" .)
- .TP
-@@ -230,6 +261,12 @@ corresponding strings for the current locale.
- Noon is treated as "PM" and midnight as "AM".
  (Calculated from
- .IR tm_hour .)
-+(The specific string representations used for "AM" and "PM"
-+in the current locale can be obtained by calling
+ .IR tm_year )
+ .TP
+ .B %Y
+ The year as a decimal number including the century.
++(The
++.B %EY
++conversion specification corresponds to the full alternative year representation.)
+ (Calculated from
+ .IR tm_year )
+ .TP
+@@ -463,7 +475,18 @@ where the effect of the
+ .B O
+ modifier is to use
+ alternative numeric symbols (say, roman numerals), and that of the
+-E modifier is to use a locale-dependent alternative representation.
++.B E
++modifier is to use a locale-dependent alternative representation.
++The rules governing date representation with the
++.B E
++modifier can be obtained by supplying
++.B ERA
++as an argument to a
 +.BR nl_langinfo (3)
-+library call with
-+.BR AM_STR " and " PM_STR ,
-+respectively.)
- .TP
- .B %P
- Like
-@@ -243,6 +280,11 @@ string for the current locale.
- .B %r
- The time in a.m. or p.m. notation.
- (SU)
-+(The specific format used in the current locale can be obtained by calling
-+.BR nl_langinfo (3)
-+library call with
-+.B T_FMT_AMPM
-+as an argument.)
- (In the POSIX locale this is equivalent to
- .BR "%I:%M:%S %p" .)
- .TP
-@@ -326,11 +368,33 @@ and
- .TP
- .B %x
- The preferred date representation for the current locale without the time.
-+(The specific format used in the current locale can be obtained by calling
-+.BR nl_langinfo (3)
-+library call with
-+.B D_FMT
-+as an argument for the
-+.B %x
-+conversion specification, and with
-+.B ERA_D_FMT
-+for the
-+.B %Ex
-+conversion specification.)
- (In the POSIX locale this is equivalent to
- .BR %m/%d/%y .)
- .TP
- .B %X
- The preferred time representation for the current locale without the date.
-+(The specific format used in the current locale can be obtained by calling
-+.BR nl_langinfo (3)
-+library call with
-+.B T_FMT
-+as an argument for the
-+.B %X
-+conversion specification, and with
-+.B ERA_T_FMT
-+for the
-+.B %EX
-+conversion specification.)
- (In the POSIX locale this is equivalent to
- .BR %H:%M:%S .)
- .TP
-@@ -657,6 +721,7 @@ main(int argc, char *argv[])
- .BR date (1),
- .BR time (2),
- .BR ctime (3),
-+.BR nl_langinfo (3),
- .BR setlocale (3),
- .BR sprintf (3),
- .BR strptime (3)
++library call.
++One example of such alternative forms is Japanese era calendar scheme in the
++.B ja_JP
++glibc locale.
+ .SH RETURN VALUE
+ Provided that the result string,
+ including the terminating null byte, does not exceed
 -- 
 2.1.4
 
