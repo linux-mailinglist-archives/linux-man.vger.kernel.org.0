@@ -2,41 +2,87 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id E6FE5161DC7
-	for <lists+linux-man@lfdr.de>; Tue, 18 Feb 2020 00:20:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3931B1623E9
+	for <lists+linux-man@lfdr.de>; Tue, 18 Feb 2020 10:52:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725927AbgBQXUX convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Mon, 17 Feb 2020 18:20:23 -0500
-Received: from mail.aslcaserta.it ([2.228.254.10]:55178 "EHLO
-        mail.aslcaserta.it" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725987AbgBQXUX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 17 Feb 2020 18:20:23 -0500
-Received: from EXCHANGE2010.aslcaserta1.locale ([::1]) by
- EXCHANGE2010.aslcaserta1.locale ([::1]) with mapi id 14.03.0468.000; Tue, 18
- Feb 2020 00:20:20 +0100
-From:   Giuseppe Chiodi <giuseppe.chiodi@aslcaserta.it>
-Subject: =?iso-8859-1?Q?Dringend_(Antwort_<willuyun@gmail.com>_f=FCr_weitere_Detai?=
- =?iso-8859-1?Q?ls)?=
-Thread-Topic: =?iso-8859-1?Q?Dringend_(Antwort_<willuyun@gmail.com>_f=FCr_weitere_Detai?=
- =?iso-8859-1?Q?ls)?=
-Thread-Index: AdXl6NJEp7ogdYjOQx+N0YBdHcXMZA==
-Date:   Mon, 17 Feb 2020 23:20:20 +0000
-Message-ID: <9A3217AC66F05844942611FC190BA6BC55C070F3@EXCHANGE2010.aslcaserta1.locale>
-Accept-Language: it-IT, en-US
-Content-Language: it-IT
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [31.155.118.77]
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: 8BIT
+        id S1726264AbgBRJwK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 18 Feb 2020 04:52:10 -0500
+Received: from us-smtp-delivery-1.mimecast.com ([207.211.31.120]:21571 "EHLO
+        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1726199AbgBRJwK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Feb 2020 04:52:10 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1582019529;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=zvsrL/rJ3m5DxZHCK8x3pAj/hU9zeFpWdJsILNtPNRY=;
+        b=Lp6xEtfCqy5I5zpIrKzB6U4D7UK1oHh9YqCRxmPmRnto+dPc7KDgoYrSVsoU4+UozQApeZ
+        kO2CI7Qii75rrOfbKjcI9STtk/I7oXWsNNqAgIWEUtmv3JFUqzQeI76a6PnWcHCH8dD3lp
+        kxcNHO3smHDVeNMK910fEArbQHx7/ts=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-381-cOSagk7CPtOvwQsbSgY55Q-1; Tue, 18 Feb 2020 04:52:06 -0500
+X-MC-Unique: cOSagk7CPtOvwQsbSgY55Q-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D2540107ACC4;
+        Tue, 18 Feb 2020 09:52:04 +0000 (UTC)
+Received: from localhost (unknown [10.36.118.13])
+        by smtp.corp.redhat.com (Postfix) with ESMTP id 630E51001281;
+        Tue, 18 Feb 2020 09:52:04 +0000 (UTC)
+Date:   Fri, 14 Feb 2020 19:35:52 +0000
+From:   Stefan Hajnoczi <stefanha@redhat.com>
+To:     Stefano Garzarella <sgarzare@redhat.com>
+Cc:     mtk.manpages@gmail.com, Jorgen Hansen <jhansen@vmware.com>,
+        linux-man@vger.kernel.org, Dexuan Cui <decui@microsoft.com>,
+        netdev@vger.kernel.org
+Subject: Re: [PATCH v2] vsock.7: add VMADDR_CID_LOCAL description
+Message-ID: <20200214193552.GA543933@stefanha-x1.localdomain>
+References: <20200214130749.126603-1-sgarzare@redhat.com>
 MIME-Version: 1.0
-To:     unlisted-recipients:; (no To-header on input)
+In-Reply-To: <20200214130749.126603-1-sgarzare@redhat.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="0OAP2g/MAC+5xKAE"
+Content-Disposition: inline
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Können Sie ein Geschäft von 24,5 Mio. USD abwickeln? Wenn ja, kontaktieren Sie mich bitte per E-Mail: willuyun@gmail.com<mailto:willuyun@gmail.com> für weitere Informationen.
+--0OAP2g/MAC+5xKAE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Grüße,
-William.
+On Fri, Feb 14, 2020 at 02:07:49PM +0100, Stefano Garzarella wrote:
+> @@ -164,6 +164,16 @@ Consider using
+>  .B VMADDR_CID_ANY
+>  when binding instead of getting the local CID with
+>  .BR IOCTL_VM_SOCKETS_GET_LOCAL_CID .
+> +.SS Local communication
+> +The
+
+"The" is unnatural here, I don't think native speakers would use it.
+Simply saying "VMADDR_CID_LOCAL (1) directs packets ..." is more common.
+
+--0OAP2g/MAC+5xKAE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl5G9pgACgkQnKSrs4Gr
+c8i82gf+K9fzbOqDceR1Nx1a6zEZywNQPaHSVFjjqMRWfewDVDNXBd6EtoAF05to
+0/eD5F3Yo2605vNKPorNsrYWjxm5bNtri/UIM9D76Eg8PzusPSiW3DoIXncQjPYk
+QPJPraRmUZBGS2+UbIN7PJ/rfSeViAF+OcG5/XUzXI9Hw1MXlI1ihm/YUNKHUEll
+RvArBvIcPLJxpUctPPecYm52FxQsK4m+xtEUrdhqeWGWEmCTnUBAqUAxa2i0Lqe+
+HzgdEZCHmeIG6/c9JQfXUK1IQmonCMr9PkMvNsUHqtfbieUv1JxLympB7+zxqkgL
+DADZU1vuLJBYPY6oF7CCDPqSOBTCsQ==
+=UpMZ
+-----END PGP SIGNATURE-----
+
+--0OAP2g/MAC+5xKAE--
+
