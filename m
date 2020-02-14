@@ -2,110 +2,129 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id CC81115D7B8
-	for <lists+linux-man@lfdr.de>; Fri, 14 Feb 2020 13:54:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A663415D7EF
+	for <lists+linux-man@lfdr.de>; Fri, 14 Feb 2020 14:07:56 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728336AbgBNMyo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 14 Feb 2020 07:54:44 -0500
-Received: from mail-wm1-f66.google.com ([209.85.128.66]:51036 "EHLO
-        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728036AbgBNMyo (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 14 Feb 2020 07:54:44 -0500
-Received: by mail-wm1-f66.google.com with SMTP id a5so9845176wmb.0;
-        Fri, 14 Feb 2020 04:54:42 -0800 (PST)
+        id S1728121AbgBNNHz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 14 Feb 2020 08:07:55 -0500
+Received: from us-smtp-2.mimecast.com ([207.211.31.81]:35470 "EHLO
+        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1726191AbgBNNHz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 14 Feb 2020 08:07:55 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1581685675;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:
+         content-transfer-encoding:content-transfer-encoding;
+        bh=1832xFEQ/vqOUquw3BW7qf1Tz86S2ygW8Q27WNGEQwM=;
+        b=h3dHIGSXVXXSOZ8dG71ZePINL4PpBi9q/4EfPLEM2VDmYuMKywbewjakEtL+kBPy4EV8BX
+        eTVKA2UNvlpQ1+c9eP/SvoN98zeHLBqZlxrhEbRDJWFoDAQhoq7UNvzbKCWPDH92ot0+uI
+        wF5M6rD5SbAi3MI2gnjeL7bq4AS8HTQ=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-105-MVxsPmt5N6KeqPZj0ezM0Q-1; Fri, 14 Feb 2020 08:07:53 -0500
+X-MC-Unique: MVxsPmt5N6KeqPZj0ezM0Q-1
+Received: by mail-wr1-f72.google.com with SMTP id n23so3974593wra.20
+        for <linux-man@vger.kernel.org>; Fri, 14 Feb 2020 05:07:53 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=Lkpb9rRHo4fujENU2zWmojrjyhDEzbOkLrKwlWGAzHI=;
-        b=odn5KfmkOEXzO5DmlITRe1nM3ky/jX3COFdYW/PAmRWANiKWBpkbn0/aR1Tp43iSho
-         FJ/6XDV29eC+8NMJ3qBq5OS8sIaiOJKYGG8T6JPwrdpdpHMw8sGdXoR5gdZWQ2R/LYqt
-         jHNLDFsuP9JI0ZOuu7yIMgtNBF7zIOAkT2HkYFwhTBGrqFfGeK8GpUYjb5Jsf9cmC2yl
-         VNZQTactkh4iyd9XBo+mJR6EhkI1BPVzkjNu5zrLWMZcevQyVKjPX4yHnWs+0NemFyiw
-         r0dArWS/K1WfGnkGSDLLclEs8FpO8Oq4PeRSW/aUa5kCMHf51CJo2FV7RcV7zz3MU6y1
-         onoA==
-X-Gm-Message-State: APjAAAUROF1TAHjGCg0PJ+J7+WU0qkz6nNBly4TW4HNwWtiysjz+zsgh
-        9enWeLZHsSFQZssqJChXSqI=
-X-Google-Smtp-Source: APXvYqyq/pp3rU9QYSmKa1vtZ4Hxed4XPSCEZDmPn5fcS2btM8vD5y6Td3bglbrjqa48rUNKiEMOJA==
-X-Received: by 2002:a05:600c:2056:: with SMTP id p22mr4406549wmg.136.1581684882003;
-        Fri, 14 Feb 2020 04:54:42 -0800 (PST)
-Received: from localhost (ip-37-188-133-87.eurotel.cz. [37.188.133.87])
-        by smtp.gmail.com with ESMTPSA id r3sm7217635wrn.34.2020.02.14.04.54.40
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=1832xFEQ/vqOUquw3BW7qf1Tz86S2ygW8Q27WNGEQwM=;
+        b=UHfptyuRiOdzAafEAvqhAK+atumJSxsYoQKwDQGCgZygLmgAtZ6Wk2Pl7KlyKpVVV4
+         gSdtjOTttoN3pczgbo56bEi2C0UnuflbP5VKLrEW/JIOXuTM0JA8tvpvw0nKP2g5h6uc
+         v8sFnUTrwTtATKcterFQBHMPAdQiPm1vPA7SFqcXJkuL9IXBGirBi1Ff08VFBAtc/HGv
+         yfNo0W3ZrZGxYtj9tUGMA8z6K6bqw2CB78Lc/tvKoRV173A0E+OdiWsOaJQ3CQoNr+DK
+         TdZhguBZkIEpxx+stW5eTKkEdqjgllcKK78qr/j/JIYLdbNORJcCi33k3+iEhO/qTeA+
+         jjAg==
+X-Gm-Message-State: APjAAAXBLkmcE1stMBZNYP1Va0Taz/vAn89bMaKHdzDVh+txlKFj7UoE
+        kqiliKjFdsilFpFtzB63iICFe+3C6r5O03w48RiTrdFJjVjf0Bxc0IbSsvgO5cldHeFn2gZlmlv
+        asPnAKwy+vLyldwgaLFFc
+X-Received: by 2002:adf:f0cb:: with SMTP id x11mr4034076wro.421.1581685672335;
+        Fri, 14 Feb 2020 05:07:52 -0800 (PST)
+X-Google-Smtp-Source: APXvYqx1+X/LSGJbNFIQIc0zspTRiuWA1SmDcQRTsI0AIgtgMfeDii0ltH/9WQWfhAhTpVQxi8z8YA==
+X-Received: by 2002:adf:f0cb:: with SMTP id x11mr4034045wro.421.1581685672067;
+        Fri, 14 Feb 2020 05:07:52 -0800 (PST)
+Received: from steredhat.redhat.com (host209-4-dynamic.27-79-r.retail.telecomitalia.it. [79.27.4.209])
+        by smtp.gmail.com with ESMTPSA id g15sm6689333wro.65.2020.02.14.05.07.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Feb 2020 04:54:41 -0800 (PST)
-Date:   Fri, 14 Feb 2020 13:54:40 +0100
-From:   Michal Hocko <mhocko@kernel.org>
-To:     Mike Christie <mchristi@redhat.com>
-Cc:     linux-api@vger.kernel.org, david@fromorbit.com,
-        masato.suzuki@wdc.com, damien.lemoal@wdc.com,
-        darrick.wong@oracle.com, bvanassche@acm.org,
-        mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/1] prctl.2: doc PR_SET/GET_IO_FLUSHER
-Message-ID: <20200214125440.GA1839@dhcp22.suse.cz>
-References: <20200213182336.6663-1-mchristi@redhat.com>
+        Fri, 14 Feb 2020 05:07:51 -0800 (PST)
+From:   Stefano Garzarella <sgarzare@redhat.com>
+To:     mtk.manpages@gmail.com
+Cc:     Jorgen Hansen <jhansen@vmware.com>, linux-man@vger.kernel.org,
+        Stefan Hajnoczi <stefanha@redhat.com>,
+        Dexuan Cui <decui@microsoft.com>, netdev@vger.kernel.org
+Subject: [PATCH v2] vsock.7: add VMADDR_CID_LOCAL description
+Date:   Fri, 14 Feb 2020 14:07:49 +0100
+Message-Id: <20200214130749.126603-1-sgarzare@redhat.com>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200213182336.6663-1-mchristi@redhat.com>
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu 13-02-20 12:23:36, Mike Christie wrote:
-> This patch documents the PR_SET_IO_FLUSHER and PR_GET_IO_FLUSHER
-> prctl commands added to the linux kernel for 5.6 in commit:
-> 
-> commit 8d19f1c8e1937baf74e1962aae9f90fa3aeab463
-> Author: Mike Christie <mchristi@redhat.com>
-> Date:   Mon Nov 11 18:19:00 2019 -0600
-> 
->     prctl: PR_{G,S}ET_IO_FLUSHER to support controlling memory reclaim
-> 
-> Signed-off-by: Mike Christie <mchristi@redhat.com>
-> Reviewed-by: Damien Le Moal <damien.lemoal@wdc.com>
-> ---
-> 
-> V3:
-> - Replace emulation device example.
-> 
-> V2:
-> - My initial patch for this was very bad. This version is almost 100%
-> taken word for word from Dave Chinner's review comments.
-> 
-> Signed-off-by: Mike Christie <mchristi@redhat.com>
-> ---
->  man2/prctl.2 | 25 +++++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
-> 
-> diff --git a/man2/prctl.2 b/man2/prctl.2
-> index 720ec04e4..58d77bf2e 100644
-> --- a/man2/prctl.2
-> +++ b/man2/prctl.2
-> @@ -1381,6 +1381,30 @@ system call on Tru64).
->  for information on versions and architectures.)
->  Return unaligned access control bits, in the location pointed to by
->  .IR "(unsigned int\ *) arg2" .
-> +.TP
-> +.B PR_SET_IO_FLUSHER (Since Linux 5.6)
-> +An IO_FLUSHER is a user process that the kernel uses to issue IO
-> +that cleans dirty page cache data and/or filesystem metadata. The
-> +kernel may need to clean this memory when under memory pressure in
-> +order to free it. This means there is potential for a memory reclaim
-> +recursion deadlock if the user process attempts to allocate memory
-> +and the kernel then blocks waiting for it to clean memory before it
-> +can make reclaim progress.
-> +
-> +The kernel avoids these recursion problems internally via a special
-> +process state that prevents recursive reclaim from issuing new IO.
+Linux 5.6 added the new well-known VMADDR_CID_LOCAL for
+local communication.
 
-I would refrain from describing the internal implementation. The
-important part is that this flag tells the kernel that IO_FLUSHER
-process gets a special treatment to workaround the deadlock.
+This patch explains how to use it and remove the legacy
+VMADDR_CID_RESERVED no longer available.
 
-So anytime a process is involved in the IO path and the kernel cannot
-make a forward progress without it then the flag should be set.
+Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
+---
+v2:
+    * rephrased "Local communication" description [Stefan]
+    * added a mention of previous versions that supported
+      loopback only in the guest [Stefan]
+---
+ man7/vsock.7 | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
+diff --git a/man7/vsock.7 b/man7/vsock.7
+index c5ffcf07d..78ac22b1e 100644
+--- a/man7/vsock.7
++++ b/man7/vsock.7
+@@ -127,8 +127,8 @@ There are several special addresses:
+ means any address for binding;
+ .B VMADDR_CID_HYPERVISOR
+ (0) is reserved for services built into the hypervisor;
+-.B VMADDR_CID_RESERVED
+-(1) must not be used;
++.B VMADDR_CID_LOCAL
++(1) is the well-known address for local communication (loopback);
+ .B VMADDR_CID_HOST
+ (2)
+ is the well-known address of the host.
+@@ -164,6 +164,16 @@ Consider using
+ .B VMADDR_CID_ANY
+ when binding instead of getting the local CID with
+ .BR IOCTL_VM_SOCKETS_GET_LOCAL_CID .
++.SS Local communication
++The
++.B VMADDR_CID_LOCAL
++(1) directs packets to the same host that generated them. This is useful
++for testing applications on a single host and for debugging.
++.PP
++The local CID obtained with
++.BR IOCTL_VM_SOCKETS_GET_LOCAL_CID
++can be used for the same purpose, but it is preferable to use
++.B VMADDR_CID_LOCAL .
+ .SH ERRORS
+ .TP
+ .B EACCES
+@@ -222,6 +232,11 @@ are valid.
+ Support for VMware (VMCI) has been available since Linux 3.9.
+ KVM (virtio) is supported since Linux 4.8.
+ Hyper-V is supported since Linux 4.14.
++.PP
++VMADDR_CID_LOCAL is supported since Linux 5.6.
++Local communication in the guest and on the host is available since Linux 5.6.
++Previous versions partially supported it only in the guest and only with some
++transports (VMCI and virtio).
+ .SH SEE ALSO
+ .BR bind (2),
+ .BR connect (2),
 -- 
-Michal Hocko
-SUSE Labs
+2.24.1
+
