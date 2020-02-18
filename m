@@ -2,19 +2,19 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 33C41162FE2
-	for <lists+linux-man@lfdr.de>; Tue, 18 Feb 2020 20:27:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 40B68162FE4
+	for <lists+linux-man@lfdr.de>; Tue, 18 Feb 2020 20:27:14 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726557AbgBRT05 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 18 Feb 2020 14:26:57 -0500
-Received: from namei.org ([65.99.196.166]:46724 "EHLO namei.org"
+        id S1726634AbgBRT1N (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 18 Feb 2020 14:27:13 -0500
+Received: from namei.org ([65.99.196.166]:46736 "EHLO namei.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726539AbgBRT05 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 18 Feb 2020 14:26:57 -0500
+        id S1726296AbgBRT1N (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 18 Feb 2020 14:27:13 -0500
 Received: from localhost (localhost [127.0.0.1])
-        by namei.org (8.14.4/8.14.4) with ESMTP id 01IJP3Ub013606;
-        Tue, 18 Feb 2020 19:25:03 GMT
-Date:   Wed, 19 Feb 2020 06:25:03 +1100 (AEDT)
+        by namei.org (8.14.4/8.14.4) with ESMTP id 01IJPSnR013669;
+        Tue, 18 Feb 2020 19:25:28 GMT
+Date:   Wed, 19 Feb 2020 06:25:28 +1100 (AEDT)
 From:   James Morris <jmorris@namei.org>
 To:     Alexey Budankov <alexey.budankov@linux.intel.com>
 cc:     Serge Hallyn <serge@hallyn.com>,
@@ -43,11 +43,11 @@ cc:     Serge Hallyn <serge@hallyn.com>,
         oprofile-list@lists.sf.net,
         "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
         linux-man@vger.kernel.org
-Subject: Re: [PATCH v7 05/12] drm/i915/perf: open access for CAP_PERFMON
+Subject: Re: [PATCH v7 06/12] trace/bpf_trace: open access for CAP_PERFMON
  privileged process
-In-Reply-To: <8b408c10-9bb0-4b08-8681-93c0f4a1132e@linux.intel.com>
-Message-ID: <alpine.LRH.2.21.2002190624510.10165@namei.org>
-References: <c8de937a-0b3a-7147-f5ef-69f467e87a13@linux.intel.com> <8b408c10-9bb0-4b08-8681-93c0f4a1132e@linux.intel.com>
+In-Reply-To: <fc689865-f8ff-1e85-ac0c-b2f1c28b7eb6@linux.intel.com>
+Message-ID: <alpine.LRH.2.21.2002190625150.10165@namei.org>
+References: <c8de937a-0b3a-7147-f5ef-69f467e87a13@linux.intel.com> <fc689865-f8ff-1e85-ac0c-b2f1c28b7eb6@linux.intel.com>
 User-Agent: Alpine 2.21 (LRH 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -59,7 +59,7 @@ X-Mailing-List: linux-man@vger.kernel.org
 On Mon, 17 Feb 2020, Alexey Budankov wrote:
 
 > 
-> Open access to i915_perf monitoring for CAP_PERFMON privileged process.
+> Open access to bpf_trace monitoring for CAP_PERFMON privileged process.
 > Providing the access under CAP_PERFMON capability singly, without the
 > rest of CAP_SYS_ADMIN credentials, excludes chances to misuse the
 > credentials and makes operation more secure.
@@ -71,9 +71,9 @@ On Mon, 17 Feb 2020, Alexey Budankov wrote:
 > capabilities) necessary to accomplish its legitimate function, and only
 > for the time that such privileges are actually required)
 > 
-> For backward compatibility reasons access to i915_events subsystem
+> For backward compatibility reasons access to bpf_trace monitoring
 > remains open for CAP_SYS_ADMIN privileged processes but CAP_SYS_ADMIN
-> usage for secure i915_events monitoring is discouraged with respect to
+> usage for secure bpf_trace monitoring is discouraged with respect to
 > CAP_PERFMON capability.
 > 
 > Signed-off-by: Alexey Budankov <alexey.budankov@linux.intel.com>
