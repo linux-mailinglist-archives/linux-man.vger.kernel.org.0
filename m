@@ -2,22 +2,31 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A4C4E16307B
-	for <lists+linux-man@lfdr.de>; Tue, 18 Feb 2020 20:46:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B0A80163E40
+	for <lists+linux-man@lfdr.de>; Wed, 19 Feb 2020 08:55:03 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726403AbgBRTqM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 18 Feb 2020 14:46:12 -0500
-Received: from namei.org ([65.99.196.166]:46926 "EHLO namei.org"
+        id S1726385AbgBSHyp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 19 Feb 2020 02:54:45 -0500
+Received: from mga07.intel.com ([134.134.136.100]:6491 "EHLO mga07.intel.com"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726339AbgBRTqM (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 18 Feb 2020 14:46:12 -0500
-Received: from localhost (localhost [127.0.0.1])
-        by namei.org (8.14.4/8.14.4) with ESMTP id 01IJiQMI016417;
-        Tue, 18 Feb 2020 19:44:26 GMT
-Date:   Wed, 19 Feb 2020 06:44:26 +1100 (AEDT)
-From:   James Morris <jmorris@namei.org>
-To:     Alexey Budankov <alexey.budankov@linux.intel.com>
-cc:     Serge Hallyn <serge@hallyn.com>,
+        id S1726156AbgBSHyp (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 19 Feb 2020 02:54:45 -0500
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+  by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384; 18 Feb 2020 23:54:43 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,459,1574150400"; 
+   d="scan'208";a="436148633"
+Received: from linux.intel.com ([10.54.29.200])
+  by fmsmga006.fm.intel.com with ESMTP; 18 Feb 2020 23:54:42 -0800
+Received: from [10.125.252.130] (abudanko-mobl.ccr.corp.intel.com [10.125.252.130])
+        by linux.intel.com (Postfix) with ESMTP id 40E9A580270;
+        Tue, 18 Feb 2020 23:54:36 -0800 (PST)
+Subject: Re: [PATCH v7 01/12] capabilities: introduce CAP_PERFMON to kernel
+ and user space
+To:     James Morris <jmorris@namei.org>
+Cc:     Serge Hallyn <serge@hallyn.com>,
         Stephen Smalley <sds@tycho.nsa.gov>,
         Peter Zijlstra <peterz@infradead.org>,
         Arnaldo Carvalho de Melo <acme@kernel.org>,
@@ -43,33 +52,41 @@ cc:     Serge Hallyn <serge@hallyn.com>,
         oprofile-list@lists.sf.net,
         "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
         linux-man@vger.kernel.org
-Subject: Re: [PATCH v7 10/12] drivers/oprofile: open access for CAP_PERFMON
- privileged process
-In-Reply-To: <046beedf-e074-58e2-579d-df535799169c@linux.intel.com>
-Message-ID: <alpine.LRH.2.21.2002190644070.10165@namei.org>
-References: <c8de937a-0b3a-7147-f5ef-69f467e87a13@linux.intel.com> <046beedf-e074-58e2-579d-df535799169c@linux.intel.com>
-User-Agent: Alpine 2.21 (LRH 202 2017-01-01)
+References: <c8de937a-0b3a-7147-f5ef-69f467e87a13@linux.intel.com>
+ <f56fbb5c-1477-44d5-7346-85a1ca0869dc@linux.intel.com>
+ <alpine.LRH.2.21.2002190621180.10165@namei.org>
+From:   Alexey Budankov <alexey.budankov@linux.intel.com>
+Organization: Intel Corp.
+Message-ID: <4664bbc7-e4ef-5d6e-7f71-96e5567fcf60@linux.intel.com>
+Date:   Wed, 19 Feb 2020 10:54:35 +0300
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <alpine.LRH.2.21.2002190621180.10165@namei.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, 17 Feb 2020, Alexey Budankov wrote:
 
-> For backward compatibility reasons access to the monitoring remains
-> open for CAP_SYS_ADMIN privileged processes but CAP_SYS_ADMIN usage
-> for secure monitoring is discouraged with respect to CAP_PERFMON
-> capability.
+On 18.02.2020 22:21, James Morris wrote:
+> On Mon, 17 Feb 2020, Alexey Budankov wrote:
 > 
-> Signed-off-by: Alexey Budankov <alexey.budankov@linux.intel.com>
+>>
+>> Introduce CAP_PERFMON capability designed to secure system performance
+>> monitoring and observability operations so that CAP_PERFMON would assist
+>> CAP_SYS_ADMIN capability in its governing role for performance
+>> monitoring and observability subsystems.
+> 
+> 
+> Acked-by: James Morris <jamorris@linux.microsoft.com>
 
+Thanks James! 
+I appreciate your involvement and collaboration 
+w.r.t to the whole patch set.
 
-Reviewed-by: James Morris <jamorris@linux.microsoft.com>
-
-
--- 
-James Morris
-<jmorris@namei.org>
-
+Gratefully,
+Alexey
