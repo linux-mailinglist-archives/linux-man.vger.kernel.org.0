@@ -2,101 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 1DC8016433A
-	for <lists+linux-man@lfdr.de>; Wed, 19 Feb 2020 12:21:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 528D0164565
+	for <lists+linux-man@lfdr.de>; Wed, 19 Feb 2020 14:25:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726756AbgBSLVP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 19 Feb 2020 06:21:15 -0500
-Received: from us-smtp-delivery-1.mimecast.com ([205.139.110.120]:27179 "EHLO
-        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1726484AbgBSLVO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Feb 2020 06:21:14 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1582111274;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=sMIqaLUvxpVpSqHa4cuzfmXnunFFKTWJnGv97+0XuCs=;
-        b=SeUOo4IYJA2zkIJ8Q23ZRMJv/WfJq5pAkpXIXrua8g0rdkxaY2pXdrPtwT3H7Ov887fi6b
-        MYXm5JEplqi60yypggMdEf8dEH0rkczlDgyzIxxGv3onwScvwLnQwQkk4zh0JOC/TFTDjW
-        P+9HVhrmTb2TTlBoYDHprYHrde5EFhU=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-212-OzzrGXUWN1esjuycgWsxVQ-1; Wed, 19 Feb 2020 06:21:10 -0500
-X-MC-Unique: OzzrGXUWN1esjuycgWsxVQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0510A800D4E;
-        Wed, 19 Feb 2020 11:21:09 +0000 (UTC)
-Received: from localhost (ovpn-117-59.ams2.redhat.com [10.36.117.59])
-        by smtp.corp.redhat.com (Postfix) with ESMTP id 8C13990F69;
-        Wed, 19 Feb 2020 11:21:08 +0000 (UTC)
-Date:   Wed, 19 Feb 2020 11:21:07 +0000
-From:   Stefan Hajnoczi <stefanha@redhat.com>
-To:     Stefano Garzarella <sgarzare@redhat.com>
-Cc:     mtk.manpages@gmail.com, Jorgen Hansen <jhansen@vmware.com>,
-        netdev@vger.kernel.org, linux-man@vger.kernel.org,
-        Dexuan Cui <decui@microsoft.com>
-Subject: Re: [PATCH v4] vsock.7: add VMADDR_CID_LOCAL description
-Message-ID: <20200219112107.GA1076886@stefanha-x1.localdomain>
-References: <20200218155435.172860-1-sgarzare@redhat.com>
+        id S1727934AbgBSNZo convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Wed, 19 Feb 2020 08:25:44 -0500
+Received: from scm.imp.edu.mx ([132.247.16.103]:53040 "EHLO scm.imp.edu.mx"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1727873AbgBSNZl (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 19 Feb 2020 08:25:41 -0500
+Received: from localhost (localhost [127.0.0.1])
+        by scm.imp.edu.mx (Postfix) with ESMTP id 3B6C6188248;
+        Wed, 19 Feb 2020 06:11:32 -0600 (CST)
+X-Virus-Scanned: by SpamTitan at imp.edu.mx
+Received: from scm.imp.edu.mx (localhost [127.0.0.1])
+        by scm.imp.edu.mx (Postfix) with ESMTP id 05C4E18DA1A;
+        Wed, 19 Feb 2020 04:51:48 -0600 (CST)
+Authentication-Results: scm.imp.edu.mx; none
+Received: from imp.edu.mx (unknown [10.249.93.105])
+        by scm.imp.edu.mx (Postfix) with ESMTP id EC4AE18DA02;
+        Wed, 19 Feb 2020 04:51:43 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+        by imp.edu.mx (Postfix) with ESMTP id CCC03180635F4F;
+        Wed, 19 Feb 2020 04:51:44 -0600 (CST)
+Received: from imp.edu.mx ([127.0.0.1])
+        by localhost (imp.edu.mx [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id p3LURq5euqGS; Wed, 19 Feb 2020 04:51:44 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+        by imp.edu.mx (Postfix) with ESMTP id A871C180635F42;
+        Wed, 19 Feb 2020 04:51:44 -0600 (CST)
+X-Virus-Scanned: amavisd-new at imp.edu.mx
+Received: from imp.edu.mx ([127.0.0.1])
+        by localhost (imp.edu.mx [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id k5jEP27VMrxK; Wed, 19 Feb 2020 04:51:44 -0600 (CST)
+Received: from [45.147.4.119] (unknown [45.147.4.119])
+        by imp.edu.mx (Postfix) with ESMTPSA id 0F277180635F48;
+        Wed, 19 Feb 2020 04:51:43 -0600 (CST)
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
-In-Reply-To: <20200218155435.172860-1-sgarzare@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="UlVJffcvxoiEqYs2"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8BIT
+Content-Description: Mail message body
+Subject: 19-02-2020
+To:     Recipients <mucios@imp.edu.mx>
+From:   "urs portmann" <mucios@imp.edu.mx>
+Date:   Wed, 19 Feb 2020 21:51:40 +1100
+Reply-To: onube@qq.com
+Message-Id: <20200219105143.0F277180635F48@imp.edu.mx>
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
---UlVJffcvxoiEqYs2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Guten Morgen,
+                                          19-02-2020
+Wir haben versucht, Sie zu erreichen und haben noch nichts von Ihnen gehört. Haben Sie unsere letzte E-Mail über Ihre S.p.e.n.d.e erhalten? Wenn nicht, melden Sie sich bitte bei uns, um weitere Informationen zu erhalten.
 
-On Tue, Feb 18, 2020 at 04:54:35PM +0100, Stefano Garzarella wrote:
-> Linux 5.6 added the new well-known VMADDR_CID_LOCAL for
-> local communication.
->=20
-> This patch explains how to use it and remove the legacy
-> VMADDR_CID_RESERVED no longer available.
->=20
-> Reviewed-by: Jorgen Hansen <jhansen@vmware.com>
-> Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
-> ---
-> v4:
->     * removed "The" in the "Local communication" section [Stefan]
-> v3:
->     * rephrased "Previous versions" part [Jorgen]
-> v2:
->     * rephrased "Local communication" description [Stefan]
->     * added a mention of previous versions that supported
->       loopback only in the guest [Stefan]
-> ---
->  man7/vsock.7 | 18 ++++++++++++++++--
->  1 file changed, 16 insertions(+), 2 deletions(-)
+Wir warten darauf, von Ihnen zu hören, sobald Sie diese Nachricht erhalten, die Sie bei der weiteren Vorgehensweise unterstützt.
 
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-
---UlVJffcvxoiEqYs2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl5NGiMACgkQnKSrs4Gr
-c8gWUAf7BlbHBgjT81elIHhVIO5qzu79d2dXxojAmeZPCL6OHTEieM9FvP9BpZ7I
-543FGBQhHETaqkhS0VWlSvapZlFC0ov9ktOCJRgynEMNw3AIUJs7S+9XtELS/QYA
-KfwpOaqIGPeEBr6t+yAWDTblnZ22ODUA550mvoVAZDx1eGI/5QsJMtWoOvQTEJhw
-Pn9frD6xQyns5w9+AuIIzh+KI1nB8N/1V91Xo8B6BAwKRgQHFeyh/4GC7ItMESA4
-wbJBUJDYHyKsmHwNvGrjS2R6oe9xDiIm4dQDpwXpVWAhjxxIwfiVaCqyiM/m/Wtu
-Adq5Syc/BFJ8qC8jRxSQ+wyY+FEUkg==
-=LKjP
------END PGP SIGNATURE-----
-
---UlVJffcvxoiEqYs2--
-
+Mfg
+urs portmann
