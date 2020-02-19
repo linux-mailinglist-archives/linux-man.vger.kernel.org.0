@@ -2,91 +2,101 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id B0A80163E40
-	for <lists+linux-man@lfdr.de>; Wed, 19 Feb 2020 08:55:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1DC8016433A
+	for <lists+linux-man@lfdr.de>; Wed, 19 Feb 2020 12:21:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726385AbgBSHyp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 19 Feb 2020 02:54:45 -0500
-Received: from mga07.intel.com ([134.134.136.100]:6491 "EHLO mga07.intel.com"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726156AbgBSHyp (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 19 Feb 2020 02:54:45 -0500
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
-  by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384; 18 Feb 2020 23:54:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,459,1574150400"; 
-   d="scan'208";a="436148633"
-Received: from linux.intel.com ([10.54.29.200])
-  by fmsmga006.fm.intel.com with ESMTP; 18 Feb 2020 23:54:42 -0800
-Received: from [10.125.252.130] (abudanko-mobl.ccr.corp.intel.com [10.125.252.130])
-        by linux.intel.com (Postfix) with ESMTP id 40E9A580270;
-        Tue, 18 Feb 2020 23:54:36 -0800 (PST)
-Subject: Re: [PATCH v7 01/12] capabilities: introduce CAP_PERFMON to kernel
- and user space
-To:     James Morris <jmorris@namei.org>
-Cc:     Serge Hallyn <serge@hallyn.com>,
-        Stephen Smalley <sds@tycho.nsa.gov>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Arnaldo Carvalho de Melo <acme@kernel.org>,
-        Ingo Molnar <mingo@kernel.org>,
-        "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Will Deacon <will@kernel.org>,
-        Paul Mackerras <paulus@samba.org>,
-        Helge Deller <deller@gmx.de>,
-        Thomas Gleixner <tglx@linutronix.de>,
-        Andi Kleen <ak@linux.intel.com>,
-        Stephane Eranian <eranian@google.com>,
-        Igor Lubashev <ilubashe@akamai.com>,
-        Jiri Olsa <jolsa@redhat.com>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
-        "linux-security-module@vger.kernel.org" 
-        <linux-security-module@vger.kernel.org>,
-        "selinux@vger.kernel.org" <selinux@vger.kernel.org>,
-        linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
-        "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
-        "linux-parisc@vger.kernel.org" <linux-parisc@vger.kernel.org>,
-        oprofile-list@lists.sf.net,
-        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-        linux-man@vger.kernel.org
-References: <c8de937a-0b3a-7147-f5ef-69f467e87a13@linux.intel.com>
- <f56fbb5c-1477-44d5-7346-85a1ca0869dc@linux.intel.com>
- <alpine.LRH.2.21.2002190621180.10165@namei.org>
-From:   Alexey Budankov <alexey.budankov@linux.intel.com>
-Organization: Intel Corp.
-Message-ID: <4664bbc7-e4ef-5d6e-7f71-96e5567fcf60@linux.intel.com>
-Date:   Wed, 19 Feb 2020 10:54:35 +0300
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+        id S1726756AbgBSLVP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 19 Feb 2020 06:21:15 -0500
+Received: from us-smtp-delivery-1.mimecast.com ([205.139.110.120]:27179 "EHLO
+        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1726484AbgBSLVO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Feb 2020 06:21:14 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1582111274;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=sMIqaLUvxpVpSqHa4cuzfmXnunFFKTWJnGv97+0XuCs=;
+        b=SeUOo4IYJA2zkIJ8Q23ZRMJv/WfJq5pAkpXIXrua8g0rdkxaY2pXdrPtwT3H7Ov887fi6b
+        MYXm5JEplqi60yypggMdEf8dEH0rkczlDgyzIxxGv3onwScvwLnQwQkk4zh0JOC/TFTDjW
+        P+9HVhrmTb2TTlBoYDHprYHrde5EFhU=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-212-OzzrGXUWN1esjuycgWsxVQ-1; Wed, 19 Feb 2020 06:21:10 -0500
+X-MC-Unique: OzzrGXUWN1esjuycgWsxVQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0510A800D4E;
+        Wed, 19 Feb 2020 11:21:09 +0000 (UTC)
+Received: from localhost (ovpn-117-59.ams2.redhat.com [10.36.117.59])
+        by smtp.corp.redhat.com (Postfix) with ESMTP id 8C13990F69;
+        Wed, 19 Feb 2020 11:21:08 +0000 (UTC)
+Date:   Wed, 19 Feb 2020 11:21:07 +0000
+From:   Stefan Hajnoczi <stefanha@redhat.com>
+To:     Stefano Garzarella <sgarzare@redhat.com>
+Cc:     mtk.manpages@gmail.com, Jorgen Hansen <jhansen@vmware.com>,
+        netdev@vger.kernel.org, linux-man@vger.kernel.org,
+        Dexuan Cui <decui@microsoft.com>
+Subject: Re: [PATCH v4] vsock.7: add VMADDR_CID_LOCAL description
+Message-ID: <20200219112107.GA1076886@stefanha-x1.localdomain>
+References: <20200218155435.172860-1-sgarzare@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <alpine.LRH.2.21.2002190621180.10165@namei.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20200218155435.172860-1-sgarzare@redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="UlVJffcvxoiEqYs2"
+Content-Disposition: inline
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+--UlVJffcvxoiEqYs2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 18.02.2020 22:21, James Morris wrote:
-> On Mon, 17 Feb 2020, Alexey Budankov wrote:
-> 
->>
->> Introduce CAP_PERFMON capability designed to secure system performance
->> monitoring and observability operations so that CAP_PERFMON would assist
->> CAP_SYS_ADMIN capability in its governing role for performance
->> monitoring and observability subsystems.
-> 
-> 
-> Acked-by: James Morris <jamorris@linux.microsoft.com>
+On Tue, Feb 18, 2020 at 04:54:35PM +0100, Stefano Garzarella wrote:
+> Linux 5.6 added the new well-known VMADDR_CID_LOCAL for
+> local communication.
+>=20
+> This patch explains how to use it and remove the legacy
+> VMADDR_CID_RESERVED no longer available.
+>=20
+> Reviewed-by: Jorgen Hansen <jhansen@vmware.com>
+> Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
+> ---
+> v4:
+>     * removed "The" in the "Local communication" section [Stefan]
+> v3:
+>     * rephrased "Previous versions" part [Jorgen]
+> v2:
+>     * rephrased "Local communication" description [Stefan]
+>     * added a mention of previous versions that supported
+>       loopback only in the guest [Stefan]
+> ---
+>  man7/vsock.7 | 18 ++++++++++++++++--
+>  1 file changed, 16 insertions(+), 2 deletions(-)
 
-Thanks James! 
-I appreciate your involvement and collaboration 
-w.r.t to the whole patch set.
+Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
 
-Gratefully,
-Alexey
+--UlVJffcvxoiEqYs2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl5NGiMACgkQnKSrs4Gr
+c8gWUAf7BlbHBgjT81elIHhVIO5qzu79d2dXxojAmeZPCL6OHTEieM9FvP9BpZ7I
+543FGBQhHETaqkhS0VWlSvapZlFC0ov9ktOCJRgynEMNw3AIUJs7S+9XtELS/QYA
+KfwpOaqIGPeEBr6t+yAWDTblnZ22ODUA550mvoVAZDx1eGI/5QsJMtWoOvQTEJhw
+Pn9frD6xQyns5w9+AuIIzh+KI1nB8N/1V91Xo8B6BAwKRgQHFeyh/4GC7ItMESA4
+wbJBUJDYHyKsmHwNvGrjS2R6oe9xDiIm4dQDpwXpVWAhjxxIwfiVaCqyiM/m/Wtu
+Adq5Syc/BFJ8qC8jRxSQ+wyY+FEUkg==
+=LKjP
+-----END PGP SIGNATURE-----
+
+--UlVJffcvxoiEqYs2--
+
