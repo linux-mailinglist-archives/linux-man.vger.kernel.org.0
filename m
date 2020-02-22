@@ -2,43 +2,47 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 349A4168B88
-	for <lists+linux-man@lfdr.de>; Sat, 22 Feb 2020 02:17:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1756B168F56
+	for <lists+linux-man@lfdr.de>; Sat, 22 Feb 2020 15:35:04 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727167AbgBVBR1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 21 Feb 2020 20:17:27 -0500
-Received: from newman.eecs.umich.edu ([141.212.113.18]:46032 "EHLO
-        newman.eecs.umich.edu" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726912AbgBVBR1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Feb 2020 20:17:27 -0500
-X-Greylist: delayed 771 seconds by postgrey-1.27 at vger.kernel.org; Fri, 21 Feb 2020 20:17:27 EST
-Received: from email.eecs.umich.edu (email.eecs.umich.edu [141.212.113.60])
-        by newman.eecs.umich.edu (8.14.4/8.14.4) with ESMTP id 01M14QVH026646
-        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-        Fri, 21 Feb 2020 20:04:26 -0500
-Received: from email.eecs.umich.edu (localhost [127.0.0.1])
-        by email.eecs.umich.edu (8.14.4/8.13.0) with ESMTP id 01M14PwS018358;
-        Fri, 21 Feb 2020 20:04:25 -0500
-Received: from localhost (tpkelly@localhost)
-        by email.eecs.umich.edu (8.14.4/8.14.4/Submit) with ESMTP id 01M14OVd018354;
-        Fri, 21 Feb 2020 20:04:24 -0500
-Date:   Fri, 21 Feb 2020 20:04:24 -0500 (EST)
-From:   Terence Kelly <tpkelly@eecs.umich.edu>
-To:     mtk.manpages@gmail.com
-cc:     linux-man@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
-        "Michael Kerrisk (man7.org)" <mtk@man7.org>
-Subject: Re: [patch]: mmap.2: New sample code: persistent data structure
-In-Reply-To: <alpine.LRH.2.21.1911260040540.10521@email.eecs.umich.edu>
-Message-ID: <alpine.LRH.2.21.2002212002221.10400@email.eecs.umich.edu>
-References: <alpine.LRH.2.21.1911260040540.10521@email.eecs.umich.edu>
-User-Agent: Alpine 2.21 (LRH 202 2017-01-01)
+        id S1727445AbgBVOfC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 22 Feb 2020 09:35:02 -0500
+Received: from sonic316-11.consmr.mail.bf2.yahoo.com ([74.6.130.121]:36726
+        "EHLO sonic316-11.consmr.mail.bf2.yahoo.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1727030AbgBVOfB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 22 Feb 2020 09:35:01 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1582382100; bh=BwDPrsA2+wE7onqC1JBBbTtzaCQs5syyrmDpzadvHSI=; h=Date:From:Reply-To:Subject:References:From:Subject; b=I7B73B7Du/7lfAIQ7VDJ12j7SoIFWMjozRJS2DAT3gb/n7YwS80fqNfTphYTpKgZ+BTpSEya6uX7x/ZMyc+SlzL9uzeZ22Lk5sQ9aFMGqxwo5s97uk4zIlO8GqIAHicbVHUedwkQ0b8ivrJxEebCpW9/OaqoK3geioUimFEQW0tH/eb7s4rIE8LB4JH6nBWXxAmk2fF+/21xvoTcg1ZVneuVmsxlfgh1jd/PSf/ji25J8iXAO/unLl+JOgowofQsKAy0LvDjeu523og0z7EXCCun85qxPSSFucjuwR1KxUl882uQ2qBVKIAJkKqH7O3pyqE18BAfj0MKDqOJ38xADw==
+X-YMail-OSG: 5vtwVsUVM1nlJTe1KwTRUbz3svlc50sfE96KeUL1f0GHnVqSRdxXySekwgAv2yz
+ fXlhDUD9EPAYIKNYwzSxMREI4z0yS3bGXqtQjEOTx1BM1gPZp0a6MJ6ufQ.oyjHfCF4QayTdQKZT
+ gLQh3EyXODKDZ1uscrEtOqIPU0W9diqUBJEQoLVHyO_GG_ElOYacuijsThTKEdqSWWU.pcRFTuL7
+ ZnVW26aJpqnV0MLAhMA4oZDRRi4duZABiJTqYVWcqC04ukoUfgvBGZNKOEctCrV6Jx5AM1FAN5.g
+ Pn5yM3isf9BBAMfnm3tNT1LaZE_CCwvrU2nYOS3o32WQOtOZR4b6ulHjoiq8jgr0PC0beajB4IZq
+ 06jK4ATxbJrJTebjuRuNXckznN0PZSB_ZYgW1n7ECQ6J74B7UsRxzHQAcz4dZsfdAj5kfiztzWYU
+ Enr_go703NYlT7O0DGP3Ukd33lajeh.I9WN9BFxad020FTjWRJ7BM9gb4vh6ww_TniGX8om09EPf
+ jcM.Czq6Kwie52RGMNUQ4sZaKJP8z0jgM4kqBYm5S9sWRV1cxCpZwcSnPCYXN97pJayImd9C3G3p
+ BcE4FVtdyD84W2AFUV.vDg_f4NI4iwXDg2mGd0jE.riECuci0vieuFATicOpfF0CM3omttZ.3Elu
+ ev.6v15Cv6wwwjURcpBpYkFYwAzdPm5FmJGNT2yiXUI2lMDp8rsP_zBG67vjKnHIacsnjTJyv38S
+ Fc.VcG6ACsCX6zXouy4BM00m6gUQelZlHWww_bNKIchXmrd1Uj0GmQs3dfUgmOiC3sGdUnPlGh9F
+ WNq2SPlgESO5NJ6EMXzFIPH.gk_9iOa75FPTP6PGAwLCX8KcZAS2jMRZ9RBKyJgpNP00PW09UCPl
+ 2pW1JMcX4KAsyHb49R11m.yn4pO4OWFyFxQrygTnQh1U546_RFJmWaKRGllWkKneZTgTVSUGzECP
+ E57VATjEGtF86C3cHEY.5H5aem9K_XN7pF4rBflN.lryadd0JgRXBl57Uqn4BVMEQDVY3yY8XbWk
+ ggBsGXyyTJ.mwewPbjGsOISQ4OHPoiw0E5nB0Z5PzK56YjC088sx4hsuijx7Ad5drPqJzcJmLvC9
+ V842T6Iu6Y1UVmzpOPdTcn3AOlsrjEaiCrinG22dpEOFlKnDArMzWbY24mjEpLjerUbCcq4IdKSD
+ FBbxVAxFN8.xKC6qVzJT9vkPkSMx5G_H4VGoew0onZL_G0Bim4uS1tFftgnUIxKkri0.ONisrSSC
+ aSujVejttvPCK00Hg4cd09VTIgkT_5VtBY0yRkfpke2_HvPmPLt4BsslfPL91RAYsVtz1f76Av8p
+ JpQI-
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic316.consmr.mail.bf2.yahoo.com with HTTP; Sat, 22 Feb 2020 14:35:00 +0000
+Date:   Sat, 22 Feb 2020 14:34:59 +0000 (UTC)
+From:   Lisa Williams <lw82831@gmail.com>
+Reply-To: lisawilam@yahoo.com
+Message-ID: <1557056426.457732.1582382099727@mail.yahoo.com>
+Subject: Hi Dear
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
-X-Spam-Status: No, score=3.3 required=5.0 tests=BAYES_99,BAYES_999,
-        RP_MATCHES_RCVD autolearn=disabled version=3.4.1
-X-Spam-Level: ***
-X-Spam-Checker-Version: SpamAssassin 3.4.1 (2015-04-28) on
-        newman.eecs.umich.edu
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+References: <1557056426.457732.1582382099727.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.15280 YMailNodin Mozilla/5.0 (Windows NT 6.1; rv:72.0) Gecko/20100101 Firefox/72.0
+To:     unlisted-recipients:; (no To-header on input)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -46,262 +50,13 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 
 
+Hi Dear,
 
-Hi Michael,
+ How are you doing hope you are fine and OK?
 
-Do we have an estimate of when a decision might be made regarding my 
-suggesion for man mmap(2)?
+I was just going through the Internet search when I found your email address, I want to make a new and special friend, so I decided to contact you to see how we can make it work out if we can. Please I wish you will have the desire with me so that we can get to know each other better and see what happens in future.
 
-Thanks.
+My name is Lisa Williams, I am an American, but presently I live in the UK, I will be glad to see your reply for us to know each other better to exchange pictures and details about us.
 
--- Terence Kelly
-
-
-
-On Tue, 26 Nov 2019, Terence Kelly wrote:
-
-> [Verbatim re-transmission of my very recent e-mail (below), this time with 
-> the correct TO: and CC: and SUBJECT: fields.  Sorry about the confusion; I'm 
-> new at the manpage patch game.]
->
->
-> ---------- Forwarded message ----------
-> Date: Mon, 25 Nov 2019 23:51:53 -0500 (EST)
-> From: Terence Kelly <tpkelly@email.eecs.umich.edu>
-> To: "Michael Kerrisk (man7.org)" <mtk@man7.org>
-> Cc: Christoph Hellwig <hch@lst.de>
-> Subject: Re: suggesting an enhancement for man mmap(2)
->
->
->
-> Hi Michael,
->
-> Per our earlier conversation, attached is a patch for the mmap(2) manpage
-> (against man-pages-5.04/man2/mmap.2, which I downloaded earlier today and 
-> which
-> I believe is the latest version).  Per the online instructions, the patch is
-> also inline below (apologies if my e-mail software mangles it).
->
-> My intent is to illustrate succinctly mmap()'s versatility and its most
-> important virtues:
->
-> Laying out application data structures in memory-mapped files obviates the 
-> need
-> for serializing/parsing for persistence by enabling applications to 
-> manipulate
-> persistent data with CPU instructions (LOAD and STORE). Moreover mmap() 
-> offers
-> high efficiency:  Only accessed data are faulted in, and only modified data 
-> are
-> pushed back down to durability; in my example program, only the first and 
-> last
-> pages move between storage and memory.
->
-> I've tried to strike a tasteful division of labor between shell commands and 
-> C
-> code.  My code compiles cleanly with all warnings enabled and it checks 
-> syscall
-> return values carefully.
->
-> Regarding my qualifications on this topic:  I've been working on it for 
-> years;
-> search the ACM Digital Library for "persistent memory programming" to see a
-> recent example of my work.
->
-> Please let me know what you think.  I'm willing to iterate with you on this. 
-> I
-> firmly believe that the full power of mmap() should be documented for 
-> developers
-> and I'll do whatever I can toward that end.
->
-> Thanks.
->
-> -- Terence
->
->
->
->
-> --- mmap.2_latest_from_man-pages-5.04	2019-11-25 19:00:44.908460718 -0800
-> +++ mmap.2_modified_by_Terence_Kelly	2019-11-25 20:17:13.843893947 -0800
-> @@ -36,6 +36,7 @@
-> .\" Modified 2006-12-04, mtk, various parts rewritten
-> .\" 2007-07-10, mtk, Added an example program.
-> .\" 2008-11-18, mtk, document MAP_STACK
-> +.\" 2019-11-25, Terence Kelly <tpkelly@eecs.umich.edu>, Added new example
-> program.
-> .\"
-> .TH MMAP 2 2019-10-10 "Linux" "Linux Programmer's Manual"
-> .SH NAME
-> @@ -900,7 +901,7 @@
-> .BR tmpfs (5)
-> (for example, when using the POSIX shared memory interface documented in
-> .BR shm_overview (7)).
-> -.SH EXAMPLE
-> +.SH EXAMPLES
-> .\" FIXME . Add an example here that uses an anonymous shared region for
-> .\" IPC between parent and child.
-> .PP
-> @@ -985,6 +986,100 @@
->     exit(EXIT_SUCCESS);
-> }
-> .EE
-> +.PP
-> +The following program maintains within a memory-mapped file a
-> +.I persistent data structure
-> +that outlives invocations of the program.  Compile the program to
-> +.B a.out
-> +and use the
-> +.B truncate
-> +shell utility to create a sparse file named "pstack" that the program
-> +will populate with a persistent stack-of-integers data structure.
-> +Invoke the program with two kinds of command-line arguments:
-> +integers, which are pushed onto the persistent stack, and the string
-> +"pop," which causes the top integer on the stack to be printed and
-> +removed.  In the sample shell session below, note that values pushed
-> +onto the stack by the first invocation of the program persist beyond
-> +program exit; the second invocation of the program pops these values.
-> +.PP
-> +.in +4n
-> +.EX
-> +.B $ truncate -s `getconf PAGESIZE` pstack
-> +.B $ ./a.out 1 2 3
-> +.B $ ./a.out pop pop pop pop
-> +3
-> +2
-> +1
-> +<stack empty>
-> +.EE
-> +.in
-> +.SS Program source
-> +.EX
-> +#include <fcntl.h>
-> +#include <inttypes.h>
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +#include <string.h>
-> +#include <unistd.h>
-> +#include <sys/mman.h>
-> +#include <sys/stat.h>
-> +#include <sys/types.h>
-> +
-> +#define handle_error(msg) \\
-> +    do { perror(msg); exit(EXIT_FAILURE); } while (0)
-> +
-> +int
-> +main(int argc, char *argv[])
-> +{
-> +    int fd, a;
-> +    struct stat sb;
-> +    size_t len;
-> +    struct pstack {             /* persistent stack header */
-> +        int32_t n;              /* number of items in stack */
-> +        int32_t s[];            /* array containing stack */
-> +    } *p;                       /* ptr to mmap'd stack file */
-> +
-> +    fd = open("pstack", O_RDWR);
-> +    if (fd == \-1)
-> +        handle_error("open");
-> +
-> +    if (fstat(fd, &sb) != 0)    /* to obtain file size */
-> +        handle_error("fstat");
-> +
-> +    len = (size_t) sb.st_size;
-> +
-> +    p = (struct pstack *) mmap(NULL, len, PROT_READ | PROT_WRITE,
-> +                               MAP_SHARED, fd, 0);
-> +    if (p == MAP_FAILED)
-> +        handle_error("mmap");
-> +
-> +    for (a = 1; a < argc; a++) {
-> +        if (strcmp(argv[a], "pop") == 0) {
-> +            if (p->n <= 0) {
-> +                printf("<stack empty>\\n");
-> +                exit(EXIT_FAILURE);
-> +            } else {
-> +                printf("%" PRId32 "\\n", p->s[--p->n]);
-> +            }
-> +        } else {
-> +            if (sizeof *p + (size_t) p->n * sizeof p->n >= len) {
-> +                printf("<stack full>\\n");
-> +                exit(EXIT_FAILURE);
-> +            } else {
-> +                p->s[p->n++] = atoi(argv[a]);
-> +            }
-> +        }
-> +    }
-> +
-> +    if (close(fd) != 0)         /* implicit on exit() */
-> +        handle_error("close");
-> +
-> +    if (munmap(p, len) != 0)    /* implicit on exit() */
-> +        handle_error("munmap");
-> +
-> +    exit(EXIT_SUCCESS);
-> +}
-> +.EE
-> .SH SEE ALSO
-> .BR ftruncate (2),
-> .BR getpagesize (2),
-> @@ -1010,6 +1105,13 @@
-> .IR /proc/[pid]/smaps .
-> .PP
-> B.O. Gallmeister, POSIX.4, O'Reilly, pp. 128\(en129 and 389\(en391.
-> +.PP
-> +T. Kelly, "Persistent Memory Programming on Conventional Hardware,"
-> +ACM
-> +.I
-> +Queue
-> +magazine, Vol. 17, No. 4, July/August 2019
-> +\%https://queue.acm.org/detail.cfm?id=3358957
-> .\"
-> .\" Repeat after me: private read-only mappings are 100% equivalent to
-> .\" shared read-only mappings. No ifs, buts, or maybes. -- Linus
->
->
->
->
-> On Thu, 21 Nov 2019, Michael Kerrisk (man7.org) wrote:
->
->> Hello Terence,
->> 
->> My apologies for the slow reply. Manual page topics should really be
->> directed as per https://www.kernel.org/doc/man-pages/contributing.html
->> 
->> I'm agnostic about your proposal. It could be interesting and useful,
->> but I wonder if the example itself might be a large piece of code?
->> 
->> Thanks,
->> 
->> Michael
->> 
->> On Wed, 18 Sep 2019 at 05:59, Terence Kelly <tpkelly@eecs.umich.edu> wrote:
->> > > > > Mr. Kerrisk,
->> > > First, many thanks for your efforts to improve the Linux man pages, and
->> > for your excellent book.  The community owes you a debt of gratitude.
->> > > I'm writing to suggest an enhancement for man mmap(2).  My goal is to
->> > teach readers that good old fashioned mmap(2) can support what we might
->> > call "the persistent memory style of programming" on conventional 
->> hardware
->> > and OSes.  I've written an article on this subject containing simple
->> > example programs:
->> > > https://queue.acm.org/detail.cfm?id=3358957
->> > > Nowadays often lost in the hype surrounding non-volatile memory 
->> hardware
->> > (Intel Optane) is the simple fact that mmap() alone, together with a few
->> > very simple idioms and tricks, can support a useful software abstraction
->> > of persistent memory on conventional hardware.
->> > > With your permission I'd like to write a new example program for the
->> > mmap(2) man page.  You might also consider including a pointer to the
->> > article above if you deem it appropriate.
->> > > If you're open to my basic suggestion, please advise how I may help.
->> > > Thank you.
->> > > -- Terence Kelly
->> > > P.S.:  I notice from your Web site that you're a Kiwi.  When the
->> > ionosphere is in a cooperative mood I often get my news from Radio New
->> > Zealand via shortwave.
->> > 
->> 
->> -- 
->> Michael Kerrisk, man7.org Training and Consulting
->> mtk@man7.org, http://man7.org/training/
->> "The Linux Programming Interface" -- http://man7.org/tlpi/
+Yours
+Lisa.
