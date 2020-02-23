@@ -2,66 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 7B7E1169A48
-	for <lists+linux-man@lfdr.de>; Sun, 23 Feb 2020 22:36:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1DA3F169A53
+	for <lists+linux-man@lfdr.de>; Sun, 23 Feb 2020 22:43:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726678AbgBWVgd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 23 Feb 2020 16:36:33 -0500
-Received: from mail-wr1-f68.google.com ([209.85.221.68]:43626 "EHLO
-        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726534AbgBWVgc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 23 Feb 2020 16:36:32 -0500
-Received: by mail-wr1-f68.google.com with SMTP id r11so8069390wrq.10
-        for <linux-man@vger.kernel.org>; Sun, 23 Feb 2020 13:36:29 -0800 (PST)
+        id S1726678AbgBWVnP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 23 Feb 2020 16:43:15 -0500
+Received: from mail-wr1-f65.google.com ([209.85.221.65]:40113 "EHLO
+        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726302AbgBWVnP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 23 Feb 2020 16:43:15 -0500
+Received: by mail-wr1-f65.google.com with SMTP id t3so8076251wru.7
+        for <linux-man@vger.kernel.org>; Sun, 23 Feb 2020 13:43:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=WUPAGd/j7HA8vMi0k1W/h+0ia0teef1V/B2V1xSW7sE=;
-        b=V9+vNbE7xS/M5QZLdIERqsS5iDlPJ0/s0ZOY3gIyR0+jRaV7NxOVsy/gwy7RSr+Djn
-         6FuclOBCciNqp9Ao4Vy+lUYPJ4sDicDh6SaQ4G/r6SJkbrmi6jV7pP2/ZsCAUnF2xvOI
-         ggRyAGY8yVzDjJL1msmWrxlXO09gzssBFWAEZRk29cWHD0j0qJkHDgbN8Ws5a9k8euzT
-         VM9BOixwvHkAVfxPGVFmMUTPj+z9R8of5GZtfI/Z/KFXWhHujkVKo17MdvpDs6k3wHI+
-         GQw0xKSzDNkm3+NVwEsDPuNR2/qAwwtxgLEAc5iV9VT5N5yvYToR80KDpVABoRWihEoA
-         7Ocg==
+        bh=H5vbtWA9LSZ4K46cNLgBH6K7yfmAtZMw2SBNPVqlsZk=;
+        b=bVbVdweZu81VMarLny+o2d9kIygQa12StH9OPJ7Wc9UsMnvzVrV57vTF5XsOumWxLf
+         75grLDDhhUOYQHGDy76zeRq206TXC97GQzauC66cI+3uGFnKnCXiFmCwppZjoq5fO1r2
+         CyAq33bo1UN9l2EUSKEHK6kOe3E1QaGOBcmxAtSLjZSZvwtxrvnAUrdwWpZkMTJKyBLk
+         rTi3zAwWE9g00VwuJQ8CamtgzRC57y+TPSdfnl/JoeB1lwUiQ2QJVgIRnORBXGZWjpFd
+         8Px46m7EYXIzqIgEkRinH5XOo0fnY1D9XVH2Tu6DCkI5mieFpQycqiHiIWEwD57JtyV7
+         d8Xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=WUPAGd/j7HA8vMi0k1W/h+0ia0teef1V/B2V1xSW7sE=;
-        b=KxcYLIY/58bjDwfasaDqFrM1s670nEahlGOfTtUUqPRrQE9aNDCS8dERAt2UkdHlTK
-         NlQrsiAT8ZLPFNra/FF/HshwEnJvizmTwKoQOoRwiHDbmLnqx6PISzyAZpJhDmI6e/Cq
-         UZO60AZPKt6iI2MQhpT4VoJP3fTpEfoNlNkRqbgwaBkrgqMhKeQLIFukSISQYH/88XSz
-         BQrf7PGBHBygV/Imv6l4pubW4EQMRzAb955kHqIiEhrLnCTo3jEVOJC+q1QueoWHppu+
-         UQ5FDRrcHkFrPcgC6MwA5K0jlq95OMcsuEsHOrptSBfuisgi8cFjbDw/Q9ioJ2F7n2M7
-         PKJA==
-X-Gm-Message-State: APjAAAUFVW1Er/zmhKr6tD64Ol6NIS1Qy6UBB4phGMXHBsiYc1zbOPeR
-        5VVFu0wQa8LE/QCYSRtz5wTN9Z0C
-X-Google-Smtp-Source: APXvYqxD2xRDk7ZEo9C5WmQ6QzprqiEba2fhdd1d5q5vnlLxUymZNI4pfkwYBBY5aDxGwrLefKuO9g==
-X-Received: by 2002:adf:ea85:: with SMTP id s5mr60929142wrm.75.1582493789057;
-        Sun, 23 Feb 2020 13:36:29 -0800 (PST)
+        bh=H5vbtWA9LSZ4K46cNLgBH6K7yfmAtZMw2SBNPVqlsZk=;
+        b=Yh4kg4p7Zs3pk5u31o93ambZkfNLLlU88yDLjXcDBE55ksL0LuI4xwWR0wEXz7ElK6
+         vDTlnpPW+zB4z2yDE3NTmde2f0aqMP2jetouIQ0P7wbj2lA8yp79H379o8WhXtPnuoqd
+         JIQ9S5Wg2lAS3B+mMxvW+0dFyawfJPyZZPq5YjUoAHC6J5Rhez0nz17Toz19JlHG8NWY
+         eVryxzLq9WPRyAmhBV1x6SF19SjkmYER3MrKj5IoP0O2vJ4N5LuItItwEy6PkY6nTA2G
+         7wuKRcc4Ocw882l1F4OtAKNGpjISUD79YXzbo1JJbmNdQkT/drmwLOz3j1NCrExOA0QK
+         TzgQ==
+X-Gm-Message-State: APjAAAXHx2rBxHYZAsy2PownmoHVhkuHGtJcLQZaDBXdW5RkE7OaaOU2
+        CnD4RdiGqTNJsaa4E3GhwGoimAng
+X-Google-Smtp-Source: APXvYqwsYJixSU9gMfn0EQi+e+kKjDn9oILCZyJ+FQYqfKkZNTDdBHLoRve94yQRikBErDRqTdD6AA==
+X-Received: by 2002:a5d:534b:: with SMTP id t11mr61683596wrv.120.1582494193890;
+        Sun, 23 Feb 2020 13:43:13 -0800 (PST)
 Received: from ?IPv6:2001:a61:3ab0:601:eabf:519f:11af:545d? ([2001:a61:3ab0:601:eabf:519f:11af:545d])
-        by smtp.gmail.com with ESMTPSA id d16sm16019010wrg.27.2020.02.23.13.36.28
+        by smtp.gmail.com with ESMTPSA id k7sm14980070wmi.19.2020.02.23.13.43.13
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 23 Feb 2020 13:36:28 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        John Stultz <john.stultz@linaro.org>,
-        Thomas Gleixner <tglx@linutronix.de>
-Subject: Re: [PATCH][RFC] clock_getres.2: Document that consecutive calls for
- CLOCK_MONOTONIC may return same values
-To:     Helge Deller <deller@gmx.de>
-References: <20200220172441.GA12717@ls3530.fritz.box>
- <0837faa7-a8ec-12ff-e96d-8dfea3e60c50@gmail.com>
- <2c7b2576-0c5a-a40d-55c8-27cf28124767@gmx.de>
+        Sun, 23 Feb 2020 13:43:13 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] strftime.3: expand %E and %O description
+To:     Eugene Syromyatnikov <evgsyr@gmail.com>
+References: <cover.1581693624.git.evgsyr@gmail.com>
+ <f33bd2ea6821cdc89d1f6aa798641137d9ce62e0.1581693625.git.evgsyr@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <16ec6948-6a7c-5f48-d021-e7bb88ef786a@gmail.com>
-Date:   Sun, 23 Feb 2020 22:36:27 +0100
+Message-ID: <a5c52866-7169-d52b-21cb-a9236f407410@gmail.com>
+Date:   Sun, 23 Feb 2020 22:43:12 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <2c7b2576-0c5a-a40d-55c8-27cf28124767@gmx.de>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <f33bd2ea6821cdc89d1f6aa798641137d9ce62e0.1581693625.git.evgsyr@gmail.com>
+Content-Type: text/plain; charset=windows-1252
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
@@ -69,57 +65,105 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 2/23/20 10:26 PM, Helge Deller wrote:
-> On 23.02.20 22:09, Michael Kerrisk (man-pages) wrote:
->> Hello Helge,
->>
->> On 2/20/20 6:24 PM, Helge Deller wrote:
->>> Consecutive calls to clock_gettime(CLOCK_MONOTONIC) are guaranteed to
->>> return MONOTONIC values, which means that they either return the *SAME*
->>> time value like the last call, or a later (higher) time value.
->>>
->>> Due to high resolution counters like TSC on x86 most people see that the
->>> values returned increase, but on other less common platforms it's less
->>> likely that consecutive calls return newer values, and instead users may
->>> unexpectely get back the SAME time value.
->>>
->>> I think it makes sense to document that people should not expect to see
->>> "always-growing" time values. For example in Debian I've seen in quite
->>> some source packages where return values of consecutive calls are
->>> compared against each other and then the package build fails if they are
->>> equal (e.g.  ruby-hitimes, ...).
->>>
->>> The patch below is just for RFC. I'm open for any better wording!
->>>
->>> Signed-off-by: Helge Deller <deller@gmx.de>
->>>
->>> diff --git a/man2/clock_getres.2 b/man2/clock_getres.2
->>> index 646fa37c0..89e9f6a30 100644
->>> --- a/man2/clock_getres.2
->>> +++ b/man2/clock_getres.2
->>> @@ -151,6 +151,10 @@ but is affected by the incremental adjustments performed by
->>>  .BR adjtime (3)
->>>  and NTP.
->>>  This clock does not count time that the system is suspended.
->>> +All
->>> +.B CLOCK_MONOTONIC
->>> +variants guarantee that the time returned by consecutive calls will not go
->>> +backwards, but they may return the identical (not-increased) time value.
->>>  .TP
->>>  .BR CLOCK_MONOTONIC_COARSE " (since Linux 2.6.32; Linux-specific)"
->>>  .\" Added in commit da15cfdae03351c689736f8d142618592e3cebc3
->>
->> Thanks. I applied your patch, and then tweaked slightly, so
->> tha the change looks as below.
+Hello Eugene,
+
+On 2/14/20 4:29 PM, Eugene Syromyatnikov wrote:
+> * man3/strftime.3 (%C): Descibe the meaning of %EC conversion
+> specification.
+> (%E): Mention the concept of "era" in description.
+> (%O): Mention that alternative format is related to numeric
+> representation.
+> (%y): Describe the meaning of %Ey conversion specification.
+> (%Y): Describe the meaning of %EY conversion specification.
+> (.SH DESCRIPTION): Mention that the behaviour of %E modifier is governed
+> by ERA locale element and provide ja_JP locale as an example.
 > 
-> 
-> Looks good.
-> Thanks!
-Thanks for checking!
+> Signed-off-by: Eugene Syromyatnikov <evgsyr@gmail.com>
+
+Thanks! Patch applied.
 
 Cheers,
 
 Michael
+
+> ---
+>  man3/strftime.3 | 29 ++++++++++++++++++++++++++---
+>  1 file changed, 26 insertions(+), 3 deletions(-)
+> 
+> diff --git a/man3/strftime.3 b/man3/strftime.3
+> index 20ba057..bdbea68 100644
+> --- a/man3/strftime.3
+> +++ b/man3/strftime.3
+> @@ -143,6 +143,9 @@ conversion specification.)
+>  .TP
+>  .B %C
+>  The century number (year/100) as a 2-digit integer. (SU)
+> +(The
+> +.B %EC
+> +conversion specification corresponds to the name of the era.)
+>  (Calculated from
+>  .IR tm_year .)
+>  .TP
+> @@ -170,7 +173,7 @@ zero is replaced by a space. (SU)
+>  .IR tm_mday .)
+>  .TP
+>  .B %E
+> -Modifier: use alternative format, see below. (SU)
+> +Modifier: use alternative ("era-based") format, see below. (SU)
+>  .TP
+>  .B %F
+>  Equivalent to
+> @@ -253,7 +256,7 @@ The minute as a decimal number (range 00 to 59).
+>  A newline character. (SU)
+>  .TP
+>  .B %O
+> -Modifier: use alternative format, see below. (SU)
+> +Modifier: use alternative numeric symbols, see below. (SU)
+>  .TP
+>  .B %p
+>  Either "AM" or "PM" according to the given time value, or the
+> @@ -400,11 +403,20 @@ conversion specification.)
+>  .TP
+>  .B %y
+>  The year as a decimal number without a century (range 00 to 99).
+> +(The
+> +.B %Ey
+> +conversion specification corresponds to the year since the beginning of the era
+> +denoted by
+> +.B %EC
+> +conversion specification.)
+>  (Calculated from
+>  .IR tm_year )
+>  .TP
+>  .B %Y
+>  The year as a decimal number including the century.
+> +(The
+> +.B %EY
+> +conversion specification corresponds to the full alternative year representation.)
+>  (Calculated from
+>  .IR tm_year )
+>  .TP
+> @@ -463,7 +475,18 @@ where the effect of the
+>  .B O
+>  modifier is to use
+>  alternative numeric symbols (say, roman numerals), and that of the
+> -E modifier is to use a locale-dependent alternative representation.
+> +.B E
+> +modifier is to use a locale-dependent alternative representation.
+> +The rules governing date representation with the
+> +.B E
+> +modifier can be obtained by supplying
+> +.B ERA
+> +as an argument to a
+> +.BR nl_langinfo (3)
+> +library call.
+> +One example of such alternative forms is Japanese era calendar scheme in the
+> +.B ja_JP
+> +glibc locale.
+>  .SH RETURN VALUE
+>  Provided that the result string,
+>  including the terminating null byte, does not exceed
+> 
 
 
 -- 
