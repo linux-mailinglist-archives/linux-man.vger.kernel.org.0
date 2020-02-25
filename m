@@ -2,286 +2,138 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 066FF16BE00
-	for <lists+linux-man@lfdr.de>; Tue, 25 Feb 2020 10:56:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BE4E516C2B5
+	for <lists+linux-man@lfdr.de>; Tue, 25 Feb 2020 14:48:43 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729317AbgBYJ4D (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 25 Feb 2020 04:56:03 -0500
-Received: from mga03.intel.com ([134.134.136.65]:23639 "EHLO mga03.intel.com"
+        id S1729721AbgBYNsg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 25 Feb 2020 08:48:36 -0500
+Received: from mx2.suse.de ([195.135.220.15]:46416 "EHLO mx2.suse.de"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1725788AbgBYJ4D (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 25 Feb 2020 04:56:03 -0500
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384; 25 Feb 2020 01:56:01 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,483,1574150400"; 
-   d="scan'208";a="317039975"
-Received: from linux.intel.com ([10.54.29.200])
-  by orsmga001.jf.intel.com with ESMTP; 25 Feb 2020 01:56:01 -0800
-Received: from [10.125.253.45] (abudanko-mobl.ccr.corp.intel.com [10.125.253.45])
-        by linux.intel.com (Postfix) with ESMTP id 3429A58052E;
-        Tue, 25 Feb 2020 01:55:54 -0800 (PST)
-From:   Alexey Budankov <alexey.budankov@linux.intel.com>
-Subject: Re: [PATCH v7 00/12] Introduce CAP_PERFMON to secure system
- performance monitoring and observability
-To:     James Morris <jmorris@namei.org>, Serge Hallyn <serge@hallyn.com>,
-        Stephen Smalley <sds@tycho.nsa.gov>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Arnaldo Carvalho de Melo <acme@kernel.org>,
-        Ingo Molnar <mingo@kernel.org>,
-        "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
-        Alexei Starovoitov <ast@kernel.org>,
+        id S1726019AbgBYNsg (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 25 Feb 2020 08:48:36 -0500
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+        by mx2.suse.de (Postfix) with ESMTP id EDF33AD03;
+        Tue, 25 Feb 2020 13:48:33 +0000 (UTC)
+Subject: Re: [PATCH v7 1/2] mm: Add MREMAP_DONTUNMAP to mremap().
+To:     Brian Geffon <bgeffon@google.com>,
+        Andrew Morton <akpm@linux-foundation.org>
+Cc:     "Michael S . Tsirkin" <mst@redhat.com>,
+        Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
+        linux-mm@kvack.org, linux-api@vger.kernel.org,
+        Andy Lutomirski <luto@amacapital.net>,
         Will Deacon <will@kernel.org>,
-        Paul Mackerras <paulus@samba.org>,
-        Helge Deller <deller@gmx.de>,
-        Thomas Gleixner <tglx@linutronix.de>
-Cc:     Andi Kleen <ak@linux.intel.com>,
-        Stephane Eranian <eranian@google.com>,
-        Igor Lubashev <ilubashe@akamai.com>,
-        Jiri Olsa <jolsa@redhat.com>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
-        "linux-security-module@vger.kernel.org" 
-        <linux-security-module@vger.kernel.org>,
-        "selinux@vger.kernel.org" <selinux@vger.kernel.org>,
-        linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
-        "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
-        "linux-parisc@vger.kernel.org" <linux-parisc@vger.kernel.org>,
-        oprofile-list@lists.sf.net,
-        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-        linux-man@vger.kernel.org
-References: <c8de937a-0b3a-7147-f5ef-69f467e87a13@linux.intel.com>
-Organization: Intel Corp.
-Message-ID: <3ae0bed5-204e-de81-7647-5f0d8106cd67@linux.intel.com>
-Date:   Tue, 25 Feb 2020 12:55:54 +0300
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+        Andrea Arcangeli <aarcange@redhat.com>,
+        Sonny Rao <sonnyrao@google.com>,
+        Minchan Kim <minchan@kernel.org>,
+        Joel Fernandes <joel@joelfernandes.org>,
+        Yu Zhao <yuzhao@google.com>,
+        Jesse Barnes <jsbarnes@google.com>,
+        Florian Weimer <fweimer@redhat.com>,
+        "Kirill A . Shutemov" <kirill@shutemov.name>,
+        mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Lokesh Gidra <lokeshgidra@google.com>
+References: <20200221174248.244748-1-bgeffon@google.com>
+From:   Vlastimil Babka <vbabka@suse.cz>
+Autocrypt: addr=vbabka@suse.cz; prefer-encrypt=mutual; keydata=
+ mQINBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
+ KxRWDHX0R2tgpFDXHnzZcQywawu8eSq0LxzxFNYMvtB7sV1pxYwej2qx9B75qW2plBs+7+YB
+ 87tMFA+u+L4Z5xAzIimfLD5EKC56kJ1CsXlM8S/LHcmdD9Ctkn3trYDNnat0eoAcfPIP2OZ+
+ 9oe9IF/R28zmh0ifLXyJQQz5ofdj4bPf8ecEW0rhcqHfTD8k4yK0xxt3xW+6Exqp9n9bydiy
+ tcSAw/TahjW6yrA+6JhSBv1v2tIm+itQc073zjSX8OFL51qQVzRFr7H2UQG33lw2QrvHRXqD
+ Ot7ViKam7v0Ho9wEWiQOOZlHItOOXFphWb2yq3nzrKe45oWoSgkxKb97MVsQ+q2SYjJRBBH4
+ 8qKhphADYxkIP6yut/eaj9ImvRUZZRi0DTc8xfnvHGTjKbJzC2xpFcY0DQbZzuwsIZ8OPJCc
+ LM4S7mT25NE5kUTG/TKQCk922vRdGVMoLA7dIQrgXnRXtyT61sg8PG4wcfOnuWf8577aXP1x
+ 6mzw3/jh3F+oSBHb/GcLC7mvWreJifUL2gEdssGfXhGWBo6zLS3qhgtwjay0Jl+kza1lo+Cv
+ BB2T79D4WGdDuVa4eOrQ02TxqGN7G0Biz5ZLRSFzQSQwLn8fbwARAQABtCBWbGFzdGltaWwg
+ QmFia2EgPHZiYWJrYUBzdXNlLmN6PokCVAQTAQoAPgIbAwULCQgHAwUVCgkICwUWAgMBAAIe
+ AQIXgBYhBKlA1DSZLC6OmRA9UCJPp+fMgqZkBQJcbbyGBQkH8VTqAAoJECJPp+fMgqZkpGoP
+ /1jhVihakxw1d67kFhPgjWrbzaeAYOJu7Oi79D8BL8Vr5dmNPygbpGpJaCHACWp+10KXj9yz
+ fWABs01KMHnZsAIUytVsQv35DMMDzgwVmnoEIRBhisMYOQlH2bBn/dqBjtnhs7zTL4xtqEcF
+ 1hoUFEByMOey7gm79utTk09hQE/Zo2x0Ikk98sSIKBETDCl4mkRVRlxPFl4O/w8dSaE4eczH
+ LrKezaFiZOv6S1MUKVKzHInonrCqCNbXAHIeZa3JcXCYj1wWAjOt9R3NqcWsBGjFbkgoKMGD
+ usiGabetmQjXNlVzyOYdAdrbpVRNVnaL91sB2j8LRD74snKsV0Wzwt90YHxDQ5z3M75YoIdl
+ byTKu3BUuqZxkQ/emEuxZ7aRJ1Zw7cKo/IVqjWaQ1SSBDbZ8FAUPpHJxLdGxPRN8Pfw8blKY
+ 8mvLJKoF6i9T6+EmlyzxqzOFhcc4X5ig5uQoOjTIq6zhLO+nqVZvUDd2Kz9LMOCYb516cwS/
+ Enpi0TcZ5ZobtLqEaL4rupjcJG418HFQ1qxC95u5FfNki+YTmu6ZLXy+1/9BDsPuZBOKYpUm
+ 3HWSnCS8J5Ny4SSwfYPH/JrtberWTcCP/8BHmoSpS/3oL3RxrZRRVnPHFzQC6L1oKvIuyXYF
+ rkybPXYbmNHN+jTD3X8nRqo+4Qhmu6SHi3Vq
+Message-ID: <61fc2045-b5fd-86b4-9092-e7638ad63b1e@suse.cz>
+Date:   Tue, 25 Feb 2020 14:48:31 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <c8de937a-0b3a-7147-f5ef-69f467e87a13@linux.intel.com>
+In-Reply-To: <20200221174248.244748-1-bgeffon@google.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On 2/21/20 6:42 PM, Brian Geffon wrote:
+> When remapping an anonymous, private mapping, if MREMAP_DONTUNMAP is
+> set, the source mapping will not be removed. The remap operation
+> will be performed as it would have been normally by moving over the
+> page tables to the new mapping. The old vma will have any locked
+> flags cleared, have no pagetables, and any userfaultfds that were
+> watching that range will continue watching it.
+> 
+> For a mapping that is shared or not anonymous, MREMAP_DONTUNMAP will cause
+> the mremap() call to fail. Because MREMAP_DONTUNMAP always results in moving
+> a VMA you MUST use the MREMAP_MAYMOVE flag, it's not possible to resize
+> a VMA while also moving with MREMAP_DONTUNMAP so old_len must always
+> be equal to the new_len otherwise it will return -EINVAL.
+> 
+> We hope to use this in Chrome OS where with userfaultfd we could write
+> an anonymous mapping to disk without having to STOP the process or worry
+> about VMA permission changes.
+> 
+> This feature also has a use case in Android, Lokesh Gidra has said
+> that "As part of using userfaultfd for GC, We'll have to move the physical
+> pages of the java heap to a separate location. For this purpose mremap
+> will be used. Without the MREMAP_DONTUNMAP flag, when I mremap the java
+> heap, its virtual mapping will be removed as well. Therefore, we'll
+> require performing mmap immediately after. This is not only time consuming
+> but also opens a time window where a native thread may call mmap and
+> reserve the java heap's address range for its own usage. This flag
+> solves the problem."
+> 
+>   v6 -> v7:
+>     - Don't allow resizing VMA as part of MREMAP_DONTUNMAP.
+>       There is no clear use case at the moment and it can be added
+>       later as it simplifies the implementation for now.
+> 
+>   v5 -> v6:
+>     - Code cleanup suggested by Kirill.
+> 
+>   v4 -> v5:
+>     - Correct commit message to more accurately reflect the behavior.
+>     - Clear VM_LOCKED and VM_LOCKEDONFAULT on the old vma.
+>            
+> Signed-off-by: Brian Geffon <bgeffon@google.com>
+> Reviewed-by: Minchan Kim <minchan@kernel.org>
+> Tested-by: Lokesh Gidra <lokeshgidra@google.com>
 
-Hi,
+Acked-by: Vlastimil Babka <vbabka@suse.cz>
 
-Is there anything else I could do in order to move the changes forward
-or is something still missing from this patch set?
-Could you please share you mind?
+Thanks.
 
-Thanks,
-Alexey
+> diff --git a/mm/mremap.c b/mm/mremap.c
+> index 1fc8a29fbe3f..8b7bf3845e50 100644
+> --- a/mm/mremap.c
+> +++ b/mm/mremap.c
+> @@ -318,8 +318,8 @@ unsigned long move_page_tables(struct vm_area_struct *vma,
+>  static unsigned long move_vma(struct vm_area_struct *vma,
+>  		unsigned long old_addr, unsigned long old_len,
+>  		unsigned long new_len, unsigned long new_addr,
+> -		bool *locked, struct vm_userfaultfd_ctx *uf,
+> -		struct list_head *uf_unmap)
+> +		bool *locked, unsigned long flags,
+> +		struct vm_userfaultfd_ctx *uf, struct list_head *uf_unmap)
 
-On 17.02.2020 11:02, Alexey Budankov wrote:
-> 
-> Currently access to perf_events, i915_perf and other performance
-> monitoring and observability subsystems of the kernel is open only for
-> a privileged process [1] with CAP_SYS_ADMIN capability enabled in the
-> process effective set [2].
-> 
-> This patch set introduces CAP_PERFMON capability designed to secure
-> system performance monitoring and observability operations so that
-> CAP_PERFMON would assist CAP_SYS_ADMIN capability in its governing role
-> for performance monitoring and observability subsystems of the kernel.
-> 
-> CAP_PERFMON intends to harden system security and integrity during
-> performance monitoring and observability operations by decreasing attack
-> surface that is available to a CAP_SYS_ADMIN privileged process [2].
-> Providing the access to performance monitoring and observability
-> operations under CAP_PERFMON capability singly, without the rest of
-> CAP_SYS_ADMIN credentials, excludes chances to misuse the credentials
-> and makes the operation more secure. Thus, CAP_PERFMON implements the
-> principal of least privilege for performance monitoring and
-> observability operations (POSIX IEEE 1003.1e: 2.2.2.39 principle of
-> least privilege: A security design principle that states that a process
-> or program be granted only those privileges (e.g., capabilities)
-> necessary to accomplish its legitimate function, and only for the time
-> that such privileges are actually required)
-> 
-> CAP_PERFMON intends to meet the demand to secure system performance
-> monitoring and observability operations for adoption in security
-> sensitive, restricted, multiuser production environments (e.g. HPC
-> clusters, cloud and virtual compute environments), where root or
-> CAP_SYS_ADMIN credentials are not available to mass users of a system,
-> and securely unblock accessibility of system performance monitoring and
-> observability operations beyond root and CAP_SYS_ADMIN use cases.
-> 
-> CAP_PERFMON intends to take over CAP_SYS_ADMIN credentials related to
-> system performance monitoring and observability operations and balance
-> amount of CAP_SYS_ADMIN credentials following the recommendations in
-> the capabilities man page [2] for CAP_SYS_ADMIN: "Note: this capability
-> is overloaded; see Notes to kernel developers, below." For backward
-> compatibility reasons access to system performance monitoring and
-> observability subsystems of the kernel remains open for CAP_SYS_ADMIN
-> privileged processes but CAP_SYS_ADMIN capability usage for secure
-> system performance monitoring and observability operations is
-> discouraged with respect to the designed CAP_PERFMON capability.
-> 
-> Possible alternative solution to this system security hardening,
-> capabilities balancing task of making performance monitoring and
-> observability operations more secure and accessible could be to use
-> the existing CAP_SYS_PTRACE capability to govern system performance
-> monitoring and observability subsystems. However CAP_SYS_PTRACE
-> capability still provides users with more credentials than are
-> required for secure performance monitoring and observability
-> operations and this excess is avoided by the designed CAP_PERFMON.
-> 
-> Although software running under CAP_PERFMON can not ensure avoidance of
-> related hardware issues, the software can still mitigate those issues
-> following the official hardware issues mitigation procedure [3]. The
-> bugs in the software itself can be fixed following the standard kernel
-> development process [4] to maintain and harden security of system
-> performance monitoring and observability operations. Finally, the patch
-> set is shaped in the way that simplifies backtracking procedure of
-> possible induced issues [5] as much as possible.
-> 
-> The patch set is for tip perf/core repository:
-> git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip perf/core
-> sha1: fdb64822443ec9fb8c3a74b598a74790ae8d2e22
-> 
-> ---
-> Changes in v7:
-> - updated and extended kernel.rst and perf-security.rst documentation 
->   files with the information about CAP_PERFMON capability and its use cases
-> - documented the case of double audit logging of CAP_PERFMON and CAP_SYS_ADMIN
->   capabilities on a SELinux enabled system
-> Changes in v6:
-> - avoided noaudit checks in perfmon_capable() to explicitly advertise
->   CAP_PERFMON usage thru audit logs to secure system performance
->   monitoring and observability
-> Changes in v5:
-> - renamed CAP_SYS_PERFMON to CAP_PERFMON
-> - extended perfmon_capable() with noaudit checks
-> Changes in v4:
-> - converted perfmon_capable() into an inline function
-> - made perf_events kprobes, uprobes, hw breakpoints and namespaces data
->   available to CAP_SYS_PERFMON privileged processes
-> - applied perfmon_capable() to drivers/perf and drivers/oprofile
-> - extended __cmd_ftrace() with support of CAP_SYS_PERFMON
-> Changes in v3:
-> - implemented perfmon_capable() macros aggregating required capabilities
->   checks
-> Changes in v2:
-> - made perf_events trace points available to CAP_SYS_PERFMON privileged
->   processes
-> - made perf_event_paranoid_check() treat CAP_SYS_PERFMON equally to
->   CAP_SYS_ADMIN
-> - applied CAP_SYS_PERFMON to i915_perf, bpf_trace, powerpc and parisc
->   system performance monitoring and observability related subsystems
-> 
-> ---
-> Alexey Budankov (12):
->   capabilities: introduce CAP_PERFMON to kernel and user space
->   perf/core: open access to the core for CAP_PERFMON privileged process
->   perf/core: open access to probes for CAP_PERFMON privileged process
->   perf tool: extend Perf tool with CAP_PERFMON capability support
->   drm/i915/perf: open access for CAP_PERFMON privileged process
->   trace/bpf_trace: open access for CAP_PERFMON privileged process
->   powerpc/perf: open access for CAP_PERFMON privileged process
->   parisc/perf: open access for CAP_PERFMON privileged process
->   drivers/perf: open access for CAP_PERFMON privileged process
->   drivers/oprofile: open access for CAP_PERFMON privileged process
->   doc/admin-guide: update perf-security.rst with CAP_PERFMON information
->   doc/admin-guide: update kernel.rst with CAP_PERFMON information
-> 
->  Documentation/admin-guide/perf-security.rst | 65 +++++++++++++--------
->  Documentation/admin-guide/sysctl/kernel.rst | 16 +++--
->  arch/parisc/kernel/perf.c                   |  2 +-
->  arch/powerpc/perf/imc-pmu.c                 |  4 +-
->  drivers/gpu/drm/i915/i915_perf.c            | 13 ++---
->  drivers/oprofile/event_buffer.c             |  2 +-
->  drivers/perf/arm_spe_pmu.c                  |  4 +-
->  include/linux/capability.h                  |  4 ++
->  include/linux/perf_event.h                  |  6 +-
->  include/uapi/linux/capability.h             |  8 ++-
->  kernel/events/core.c                        |  6 +-
->  kernel/trace/bpf_trace.c                    |  2 +-
->  security/selinux/include/classmap.h         |  4 +-
->  tools/perf/builtin-ftrace.c                 |  5 +-
->  tools/perf/design.txt                       |  3 +-
->  tools/perf/util/cap.h                       |  4 ++
->  tools/perf/util/evsel.c                     | 10 ++--
->  tools/perf/util/util.c                      |  1 +
->  18 files changed, 98 insertions(+), 61 deletions(-)
-> 
-> ---
-> Validation (Intel Skylake, 8 cores, Fedora 29, 5.5.0-rc3+, x86_64):
-> 
-> libcap library [6], [7], [8] and Perf tool can be used to apply
-> CAP_PERFMON capability for secure system performance monitoring and
-> observability beyond the scope permitted by the system wide
-> perf_event_paranoid kernel setting [9] and below are the steps for
-> evaluation:
-> 
->   - patch, build and boot the kernel
->   - patch, build Perf tool e.g. to /home/user/perf
->   ...
->   # git clone git://git.kernel.org/pub/scm/libs/libcap/libcap.git libcap
->   # pushd libcap
->   # patch libcap/include/uapi/linux/capabilities.h with [PATCH 1]
->   # make
->   # pushd progs
->   # ./setcap "cap_perfmon,cap_sys_ptrace,cap_syslog=ep" /home/user/perf
->   # ./setcap -v "cap_perfmon,cap_sys_ptrace,cap_syslog=ep" /home/user/perf
->   /home/user/perf: OK
->   # ./getcap /home/user/perf
->   /home/user/perf = cap_sys_ptrace,cap_syslog,cap_perfmon+ep
->   # echo 2 > /proc/sys/kernel/perf_event_paranoid
->   # cat /proc/sys/kernel/perf_event_paranoid 
->   2
->   ...
->   $ /home/user/perf top
->     ... works as expected ...
->   $ cat /proc/`pidof perf`/status
->   Name:	perf
->   Umask:	0002
->   State:	S (sleeping)
->   Tgid:	2958
->   Ngid:	0
->   Pid:	2958
->   PPid:	9847
->   TracerPid:	0
->   Uid:	500	500	500	500
->   Gid:	500	500	500	500
->   FDSize:	256
->   ...
->   CapInh:	0000000000000000
->   CapPrm:	0000004400080000
->   CapEff:	0000004400080000 => 01000100 00000000 00001000 00000000 00000000
->                                      cap_perfmon,cap_sys_ptrace,cap_syslog
->   CapBnd:	0000007fffffffff
->   CapAmb:	0000000000000000
->   NoNewPrivs:	0
->   Seccomp:	0
->   Speculation_Store_Bypass:	thread vulnerable
->   Cpus_allowed:	ff
->   Cpus_allowed_list:	0-7
->   ...
-> 
-> Usage of cap_perfmon effectively avoids unused credentials excess:
-> 
-> - with cap_sys_admin:
->   CapEff:	0000007fffffffff => 01111111 11111111 11111111 11111111 11111111
-> 
-> - with cap_perfmon:
->   CapEff:	0000004400080000 => 01000100 00000000 00001000 00000000 00000000
->                                     38   34               19
->                                perfmon   syslog           sys_ptrace
-> 
-> ---
-> [1] https://www.kernel.org/doc/html/latest/admin-guide/perf-security.html
-> [2] http://man7.org/linux/man-pages/man7/capabilities.7.html
-> [3] https://www.kernel.org/doc/html/latest/process/embargoed-hardware-issues.html
-> [4] https://www.kernel.org/doc/html/latest/admin-guide/security-bugs.html
-> [5] https://www.kernel.org/doc/html/latest/process/management-style.html#decisions
-> [6] http://man7.org/linux/man-pages/man8/setcap.8.html
-> [7] https://git.kernel.org/pub/scm/libs/libcap/libcap.git
-> [8] https://sites.google.com/site/fullycapable/, posix_1003.1e-990310.pdf
-> [9] http://man7.org/linux/man-pages/man2/perf_event_open.2.html
-> 
+The usage of MREMAP_DONTUNMAP directly in the "flags" parameter seems
+weird for generically named vma manipulation functions, but as they are
+all local to mremap.c then it's probably fine.
+
