@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 206D61765BC
-	for <lists+linux-man@lfdr.de>; Mon,  2 Mar 2020 22:16:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1E6211765C1
+	for <lists+linux-man@lfdr.de>; Mon,  2 Mar 2020 22:16:52 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726859AbgCBVQm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 2 Mar 2020 16:16:42 -0500
-Received: from mail.kernel.org ([198.145.29.99]:52528 "EHLO mail.kernel.org"
+        id S1726918AbgCBVQr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 2 Mar 2020 16:16:47 -0500
+Received: from mail.kernel.org ([198.145.29.99]:52636 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726536AbgCBVQm (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 2 Mar 2020 16:16:42 -0500
+        id S1726846AbgCBVQr (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 2 Mar 2020 16:16:47 -0500
 Received: from localhost.localdomain (c-73-231-172-41.hsd1.ca.comcast.net [73.231.172.41])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id 2E3832465E;
-        Mon,  2 Mar 2020 21:16:41 +0000 (UTC)
+        by mail.kernel.org (Postfix) with ESMTPSA id 264E122B48;
+        Mon,  2 Mar 2020 21:16:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1583183801;
-        bh=zY0TwOtEYxUWvkWB2GMark8DrkdDaAiB+/Al90YnRkM=;
+        s=default; t=1583183805;
+        bh=0HjIgn7FmnLtmcba9D/XBV3KtLqdh7Y0hrRYUfHh1xI=;
         h=Date:From:To:Subject:From;
-        b=qeVOKP4mj4i2L5tD+zINayPuBX78UaHsFShwrLv3TvAbIkH2g0zfuRQ1G7KoMnKUv
-         zIQj91jG7F9Kf2TarXSenm+5IurTEua6z0f/swxQJyAniqfGk3/yvl7AAdL/Uifpp7
-         N2VF40DDPt97G+4YWSRoPThQ65KmIA1EN6sOAjz0=
-Date:   Mon, 02 Mar 2020 13:16:40 -0800
+        b=BMCel5beq2V7goCxL77fqJoXHuFQRyZPEtnboolraMLmGy7tO4xG4elwPE93q+HQo
+         tbSmqgvZuEXRXMS0LjlOn9J83zvaLff4o/8WYnbRGXe3Q+dDIkTLUCFmTWW53NNhL6
+         1dYpx3JRVZVOzswVaHxORnFAGwIp+qfWqGcvUGaE=
+Date:   Mon, 02 Mar 2020 13:16:44 -0800
 From:   akpm@linux-foundation.org
 To:     alexander.h.duyck@linux.intel.com, axboe@kernel.dk,
         bgeffon@google.com, christian@brauner.io, dancol@google.com,
@@ -34,9 +34,9 @@ To:     alexander.h.duyck@linux.intel.com, axboe@kernel.dk,
         shakeelb@google.com, sj38.park@gmail.com, sjpark@amazon.de,
         sonnyrao@google.com, sspatil@google.com, surenb@google.com,
         timmurray@google.com
-Subject:  + pid-move-pidfd_get_pid-function-to-pidc.patch added to
- -mm tree
-Message-ID: <20200302211640.QH6XjiUbx%akpm@linux-foundation.org>
+Subject:  + mm-support-both-pid-and-pidfd-for-process_madvise.patch
+ added to -mm tree
+Message-ID: <20200302211644.74DMEHDn8%akpm@linux-foundation.org>
 User-Agent: s-nail v14.8.16
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
@@ -45,14 +45,14 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 
 The patch titled
-     Subject: pid: move pidfd_get_pid() to pid.c
+     Subject: mm/madvise: support both pid and pidfd for process_madvise
 has been added to the -mm tree.  Its filename is
-     pid-move-pidfd_get_pid-function-to-pidc.patch
+     mm-support-both-pid-and-pidfd-for-process_madvise.patch
 
 This patch should soon appear at
-    http://ozlabs.org/~akpm/mmots/broken-out/pid-move-pidfd_get_pid-function-to-pidc.patch
+    http://ozlabs.org/~akpm/mmots/broken-out/mm-support-both-pid-and-pidfd-for-process_madvise.patch
 and later at
-    http://ozlabs.org/~akpm/mmotm/broken-out/pid-move-pidfd_get_pid-function-to-pidc.patch
+    http://ozlabs.org/~akpm/mmotm/broken-out/mm-support-both-pid-and-pidfd-for-process_madvise.patch
 
 Before you just go and hit "reply", please:
    a) Consider who else should be cc'ed
@@ -67,25 +67,37 @@ there every 3-4 working days
 
 ------------------------------------------------------
 From: Minchan Kim <minchan@kernel.org>
-Subject: pid: move pidfd_get_pid() to pid.c
+Subject: mm/madvise: support both pid and pidfd for process_madvise
 
-process_madvise syscall needs pidfd_get_pid function to translate pidfd to
-pid so this patch move the function to kernel/pid.c.
+There is a demand[1] to support pid as well pidfd for process_madvise to
+reduce unnecessary syscall to get pidfd if the user has control of the
+target process(ie, they could guarantee the process is not gone or pid is
+not reused).
 
-Link: http://lkml.kernel.org/r/20200302193630.68771-5-minchan@kernel.org
+This patch aims for supporting both options like waitid(2).  So, the
+syscall is currently,
+
+	int process_madvise(int which, pid_t pid, void *addr,
+		size_t length, int advise, unsigned long flag);
+
+@which is actually idtype_t for userspace libray and currently, it
+supports P_PID and P_PIDFD.
+
+[1]  https://lore.kernel.org/linux-mm/9d849087-3359-c4ab-fbec-859e8186c509@virtuozzo.com/
+
+Link: http://lkml.kernel.org/r/20200302193630.68771-6-minchan@kernel.org
 Signed-off-by: Minchan Kim <minchan@kernel.org>
+Suggested-by: Kirill Tkhai <ktkhai@virtuozzo.com>
 Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Suggested-by: Alexander Duyck <alexander.h.duyck@linux.intel.com>
-Reviewed-by: Alexander Duyck <alexander.h.duyck@linux.intel.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Jann Horn <jannh@google.com>
-Cc: Brian Geffon <bgeffon@google.com>
 Cc: Christian Brauner <christian@brauner.io>
+Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+Cc: Brian Geffon <bgeffon@google.com>
 Cc: Daniel Colascione <dancol@google.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Jens Axboe <axboe@kernel.dk>
 Cc: Joel Fernandes <joel@joelfernandes.org>
 Cc: Johannes Weiner <hannes@cmpxchg.org>
 Cc: John Dias <joaodias@google.com>
-Cc: Kirill Tkhai <ktkhai@virtuozzo.com>
 Cc: Michal Hocko <mhocko@suse.com>
 Cc: Oleksandr Natalenko <oleksandr@redhat.com>
 Cc: Sandeep Patil <sspatil@google.com>
@@ -98,73 +110,88 @@ Cc: <linux-man@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- include/linux/pid.h |    1 +
- kernel/exit.c       |   17 -----------------
- kernel/pid.c        |   17 +++++++++++++++++
- 3 files changed, 18 insertions(+), 17 deletions(-)
+ include/linux/syscalls.h |    3 ++-
+ mm/madvise.c             |   36 +++++++++++++++++++++++-------------
+ 2 files changed, 25 insertions(+), 14 deletions(-)
 
---- a/include/linux/pid.h~pid-move-pidfd_get_pid-function-to-pidc
-+++ a/include/linux/pid.h
-@@ -75,6 +75,7 @@ extern const struct file_operations pidf
- struct file;
- 
- extern struct pid *pidfd_pid(const struct file *file);
-+struct pid *pidfd_get_pid(unsigned int fd);
- 
- static inline struct pid *get_pid(struct pid *pid)
- {
---- a/kernel/exit.c~pid-move-pidfd_get_pid-function-to-pidc
-+++ a/kernel/exit.c
-@@ -1470,23 +1470,6 @@ end:
- 	return retval;
+--- a/include/linux/syscalls.h~mm-support-both-pid-and-pidfd-for-process_madvise
++++ a/include/linux/syscalls.h
+@@ -876,7 +876,8 @@ asmlinkage long sys_munlockall(void);
+ asmlinkage long sys_mincore(unsigned long start, size_t len,
+ 				unsigned char __user * vec);
+ asmlinkage long sys_madvise(unsigned long start, size_t len, int behavior);
+-asmlinkage long sys_process_madvise(int pidfd, unsigned long start,
++
++asmlinkage long sys_process_madvise(int which, pid_t pid, unsigned long start,
+ 			size_t len, int behavior, unsigned long flags);
+ asmlinkage long sys_remap_file_pages(unsigned long start, unsigned long size,
+ 			unsigned long prot, unsigned long pgoff,
+--- a/mm/madvise.c~mm-support-both-pid-and-pidfd-for-process_madvise
++++ a/mm/madvise.c
+@@ -1182,11 +1182,10 @@ SYSCALL_DEFINE3(madvise, unsigned long,
+ 	return do_madvise(current, current->mm, start, len_in, behavior);
  }
  
--static struct pid *pidfd_get_pid(unsigned int fd)
--{
+-SYSCALL_DEFINE5(process_madvise, int, pidfd, unsigned long, start,
++SYSCALL_DEFINE6(process_madvise, int, which, pid_t, upid, unsigned long, start,
+ 		size_t, len_in, int, behavior, unsigned long, flags)
+ {
+ 	int ret;
 -	struct fd f;
--	struct pid *pid;
--
--	f = fdget(fd);
+ 	struct pid *pid;
+ 	struct task_struct *task;
+ 	struct mm_struct *mm;
+@@ -1197,20 +1196,31 @@ SYSCALL_DEFINE5(process_madvise, int, pi
+ 	if (!process_madvise_behavior_valid(behavior))
+ 		return -EINVAL;
+ 
+-	f = fdget(pidfd);
 -	if (!f.file)
--		return ERR_PTR(-EBADF);
+-		return -EBADF;
 -
 -	pid = pidfd_pid(f.file);
--	if (!IS_ERR(pid))
--		get_pid(pid);
--
--	fdput(f);
--	return pid;
--}
--
- static long kernel_waitid(int which, pid_t upid, struct waitid_info *infop,
- 			  int options, struct rusage *ru)
- {
---- a/kernel/pid.c~pid-move-pidfd_get_pid-function-to-pidc
-+++ a/kernel/pid.c
-@@ -496,6 +496,23 @@ struct pid *find_ge_pid(int nr, struct p
- 	return idr_get_next(&ns->idr, &nr);
- }
+-	if (IS_ERR(pid)) {
+-		ret = PTR_ERR(pid);
+-		goto fdput;
++	switch (which) {
++	case P_PID:
++		if (upid <= 0)
++			return -EINVAL;
++
++		pid = find_get_pid(upid);
++		if (!pid)
++			return -ESRCH;
++		break;
++	case P_PIDFD:
++		if (upid < 0)
++			return -EINVAL;
++
++		pid = pidfd_get_pid(upid);
++		if (IS_ERR(pid))
++			return PTR_ERR(pid);
++		break;
++	default:
++		return -EINVAL;
+ 	}
  
-+struct pid *pidfd_get_pid(unsigned int fd)
-+{
-+	struct fd f;
-+	struct pid *pid;
-+
-+	f = fdget(fd);
-+	if (!f.file)
-+		return ERR_PTR(-EBADF);
-+
-+	pid = pidfd_pid(f.file);
-+	if (!IS_ERR(pid))
-+		get_pid(pid);
-+
-+	fdput(f);
-+	return pid;
-+}
-+
- /**
-  * pidfd_create() - Create a new pid file descriptor.
-  *
+ 	task = get_pid_task(pid, PIDTYPE_PID);
+ 	if (!task) {
+ 		ret = -ESRCH;
+-		goto fdput;
++		goto put_pid;
+ 	}
+ 
+ 	mm = mm_access(task, PTRACE_MODE_ATTACH_FSCREDS);
+@@ -1223,7 +1233,7 @@ SYSCALL_DEFINE5(process_madvise, int, pi
+ 	mmput(mm);
+ release_task:
+ 	put_task_struct(task);
+-fdput:
+-	fdput(f);
++put_pid:
++	put_pid(pid);
+ 	return ret;
+ }
 _
 
 Patches currently in -mm which might be from minchan@kernel.org are
