@@ -2,113 +2,183 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A5B05182B29
-	for <lists+linux-man@lfdr.de>; Thu, 12 Mar 2020 09:26:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CBA37184C24
+	for <lists+linux-man@lfdr.de>; Fri, 13 Mar 2020 17:15:04 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726299AbgCLI0g (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 12 Mar 2020 04:26:36 -0400
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:40188 "EHLO
-        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726194AbgCLI0g (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 12 Mar 2020 04:26:36 -0400
-Received: by mail-wr1-f66.google.com with SMTP id p2so6210518wrw.7;
-        Thu, 12 Mar 2020 01:26:35 -0700 (PDT)
+        id S1726480AbgCMQPE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 13 Mar 2020 12:15:04 -0400
+Received: from mail-pl1-f194.google.com ([209.85.214.194]:38722 "EHLO
+        mail-pl1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726406AbgCMQPE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Mar 2020 12:15:04 -0400
+Received: by mail-pl1-f194.google.com with SMTP id w3so4480491plz.5
+        for <linux-man@vger.kernel.org>; Fri, 13 Mar 2020 09:15:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=VOXwvXmhViXjWlgJNON6/RWwRCogM7s+tZi57Naxvsg=;
-        b=mhVHewWmUn9cWoWob2kV9/oNAU+knm6pV/tEl5GH+wuUorgZf1lRoH9Y/KvDbdViVr
-         +ENcNj2WPCz6KYNCfuWcVXHebOBdQBZHRj3gmvwpIr8LOqlAmo+TDDET0jGelOdAYlfD
-         9aoqakgG+beS11JnyZnpnwEJLnAF+opgngnnov6QiKgiR+ZvawDV97f6S1H3UE0kgTx2
-         iadbe6mRyYqUnadO6XgrWIsfmd8CBhFLh16oc1yLMdebAfvv+yDSGeSiqfqwlBer7cVM
-         D92qxmrk56JOJwuV8yUQcxNuW6PDmtkresyqqlRZCSKBbGFZTEZhiWu6Dvi3vFO8OXQM
-         5w2w==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Md6nazhrhduCDg97SPPXdEJ/4u80EHqXlBSSgSG3qsY=;
+        b=J4uWZYNK74W1zb72C7rBvRBNmENhBfWq1qO2tJTNJdC/rQzqfTZTMGVPouwdY8rUMD
+         FkCTt/pXoF5042YvuQ4ppFF1neGdXUl6oNMy9dkDe28fM1XABakKlVLJWj8894Div5P9
+         5VT5HvXJLQoJT5H0UdTa7rmaeRJj/OXutFddITvCC4/2wCEDA/+fDuzefpwJecCYzm69
+         ULYQ3kSUta7mFnQiu/UmSVo6r8dGE0HEPy6JrQrh0xZF7+k6QKqA3omW/kpG2TXlJ2Nv
+         lX0PI9HJSRXmwqMSjyO5tu/Ee6ym4EG/Zd3OUCAnJhi3Zd74aC3H7CxuR1xu5dtFz9+U
+         KydA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=VOXwvXmhViXjWlgJNON6/RWwRCogM7s+tZi57Naxvsg=;
-        b=AKgeF6fTfFt/f7a+/z2cuL5MM8YQFDQiA+MFw+2I9k5+ZKFScIjHFVLDKPZqrELf3x
-         qm4IvIXRnpwynqx6VKh548NAtmGVBumL6Dexy/tyGj73tOXJZddCZ/X+1LTJTW2EfLKY
-         27A80F8zl0hmZZ8kJVbdkI8G23oopoMtr1Aqc4RRm+Asz8B/zFOGJ3+NCGB2Dpo+vusD
-         UCfY2unuqWyEjZ3I2qKXl0BKPtbN/AgPmw8y8lhU4qglb3r5yg1adNKuDf7+UbFiU+6J
-         5IahCNTqT3PAN+rh30FykyXWkzAtpWz5AfpzCfZcYBmcsWfy4iQ78KWX82uPLdNPXR+9
-         SwFQ==
-X-Gm-Message-State: ANhLgQ0csHOwrkxo3z720NITjchyo5ARUyWHE+leoBnBIvH+WVaBRBab
-        jWbZx1GczvZ/hyrgAqPL5qSrJWqXQvM=
-X-Google-Smtp-Source: ADFU+vvaWP4xGGNO/Jiptk/ZTdyzvml108TVAMDjhO6ya8t9Wsf3jbbjroPrwuYCL6+p5Y9jk1R+GQ==
-X-Received: by 2002:a5d:6782:: with SMTP id v2mr9485138wru.218.1584001594497;
-        Thu, 12 Mar 2020 01:26:34 -0700 (PDT)
-Received: from [10.5.49.236] ([195.171.175.163])
-        by smtp.gmail.com with ESMTPSA id b16sm71865540wrq.14.2020.03.12.01.26.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Mar 2020 01:26:33 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        linux-fscrypt@vger.kernel.org, linux-ext4@vger.kernel.org,
-        linux-f2fs-devel@lists.sourceforge.net,
-        linux-fsdevel@vger.kernel.org
-Subject: Re: [man-pages PATCH v2] statx.2: document STATX_ATTR_VERITY
-To:     Eric Biggers <ebiggers@kernel.org>
-References: <20200128192449.260550-1-ebiggers@kernel.org>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <451297df-2371-336e-d058-4cd6b4ed9754@gmail.com>
-Date:   Thu, 12 Mar 2020 09:26:30 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+        bh=Md6nazhrhduCDg97SPPXdEJ/4u80EHqXlBSSgSG3qsY=;
+        b=Ogyi3IVMerodDoiWj51+sv7kJiu24FCjqpppsdUhaJZ4LTnEjDF2eEqoI/4YrERwlI
+         Vydua41H6mrn4xFIP6mdnskamFRng3Ksyn++fmry8w2c8xkyFYIlN5CybbV1LFGOdg4Z
+         482HYxj/RTurboar2UVETpocQg+3HnRZ4gN5dlQVGmrWposqMIkVKk4zKEn13Mfgdgsw
+         aTRSfwS8jXrn6wzNvEskQbmoW3c3xwju48GdySMVSpyHVHutoBQieHZ6TWYiTiE5+tQq
+         gjTRMcrMhxcZrKAccQua1pdC0xXfOT/fgd78aNZwKcrR2jFon/yVVxHUDUwjtH1IYAC6
+         ZX6A==
+X-Gm-Message-State: ANhLgQ1g9VEC7Me6lqFvJrbcHTil5LelI0deGSec2NRi98CDfqHAIh7E
+        lIQaYN5p4nkAEPh1CTEAEHU=
+X-Google-Smtp-Source: ADFU+vuyp2OrSRLrkXWoy2Jiqp5hxz/3q18cag+9L57l71UgS4rifI6Jz1i6u0KhEWZUxKH9SBT0OA==
+X-Received: by 2002:a17:90a:1b6b:: with SMTP id q98mr8770917pjq.107.1584116102766;
+        Fri, 13 Mar 2020 09:15:02 -0700 (PDT)
+Received: from localhost.localdomain ([73.109.60.165])
+        by smtp.gmail.com with ESMTPSA id u6sm55278202pgj.7.2020.03.13.09.15.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Mar 2020 09:15:01 -0700 (PDT)
+From:   Kir Kolyshkin <kolyshkin@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, Kir Kolyshkin <kolyshkin@gmail.com>
+Subject: [PATCH] proc(5): ffix
+Date:   Fri, 13 Mar 2020 09:14:58 -0700
+Message-Id: <20200313161458.412515-1-kolyshkin@gmail.com>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-In-Reply-To: <20200128192449.260550-1-ebiggers@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Eric,
+Mark some literal strings with bold.
 
-On 1/28/20 8:24 PM, Eric Biggers wrote:
-> From: Eric Biggers <ebiggers@google.com>
-> 
-> Document the verity attribute for statx(), which was added in
-> Linux 5.5.
-> 
-> For more context, see the fs-verity documentation:
-> https://www.kernel.org/doc/html/latest/filesystems/fsverity.html
+Mark some variable strings with italic.
 
-Thanks for the patch! Applied.
+Remove some unneeded R from .BR, .IR etc.
 
-Cheers,
+Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
+---
+ man5/proc.5 | 45 +++++++++++++++++++++++++++++----------------
+ 1 file changed, 29 insertions(+), 16 deletions(-)
 
-Michael
-
-> Signed-off-by: Eric Biggers <ebiggers@google.com>
-> ---
->  man2/statx.2 | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/man2/statx.2 b/man2/statx.2
-> index d2f1b07b8..d015ee73d 100644
-> --- a/man2/statx.2
-> +++ b/man2/statx.2
-> @@ -461,6 +461,11 @@ See
->  .TP
->  .B STATX_ATTR_ENCRYPTED
->  A key is required for the file to be encrypted by the filesystem.
-> +.TP
-> +.B STATX_ATTR_VERITY
-> +Since Linux 5.5: the file has fs-verity enabled.  It cannot be written to, and
-> +all reads from it will be verified against a cryptographic hash that covers the
-> +entire file, e.g. via a Merkle tree.
->  .SH RETURN VALUE
->  On success, zero is returned.
->  On error, \-1 is returned, and
-> 
-
-
+diff --git a/man5/proc.5 b/man5/proc.5
+index a5dbad702..58129cdcf 100644
+--- a/man5/proc.5
++++ b/man5/proc.5
+@@ -131,7 +131,7 @@ but it hides a process's UID and GID,
+ which could otherwise be learned by employing
+ .BR stat (2)
+ on a
+-.IR /proc/[pid]
++.I /proc/[pid]
+ directory.
+ This greatly complicates an attacker's task of gathering
+ information about running processes (e.g., discovering whether
+@@ -144,11 +144,11 @@ whether other users are running any program at all, and so on).
+ .\" commit 0499680a42141d86417a8fbaa8c8db806bea1201
+ Specifies the ID of a group whose members are authorized to
+ learn process information otherwise prohibited by
+-.BR hidepid
++.B hidepid
+ (i.e., users in this group behave as though
+ .I /proc
+ was mounted with
+-.IR hidepid=0 ).
++.BR hidepid=0 ).
+ This group should be used instead of approaches such as putting
+ nonroot users into the
+ .BR sudoers (5)
+@@ -1465,16 +1465,20 @@ mount options: per-mount options (see
+ .BR mount (2)).
+ .TP
+ (7)
+-optional fields: zero or more fields of the form "tag[:value]"; see below.
++optional fields: zero or more fields of the form
++.IR tag [: value ];
++see below.
+ .TP
+ (8)
+ separator: the end of the optional fields is marked by a single hyphen.
+ .TP
+ (9)
+-filesystem type: the filesystem type in the form "type[.subtype]".
++filesystem type: the filesystem type in the form
++.IR type [. subtype ].
+ .TP
+ (10)
+-mount source: filesystem-specific information or "none".
++mount source: filesystem-specific information or
++.BR none .
+ .TP
+ (11)
+ super options: per-superblock options (see
+@@ -1482,11 +1486,11 @@ super options: per-superblock options (see
+ .RE
+ .IP
+ Currently, the possible optional fields are
+-.IR shared ,
+-.IR master ,
+-.IR propagate_from ,
++.BR shared ,
++.BR master ,
++.BR propagate_from ,
+ and
+-.IR unbindable .
++.BR unbindable .
+ See
+ .BR mount_namespaces (7)
+ for a description of these fields.
+@@ -1540,7 +1544,9 @@ The fields in each line are:
+ .TP 5
+ (1)
+ The name of the mounted device
+-(or "nodevice" if there is no corresponding device).
++(or
++.B nodevice
++if there is no corresponding device).
+ .TP
+ (2)
+ The mount point within the filesystem tree.
+@@ -2856,11 +2862,18 @@ Valid only for timers that notify via a signal.
+ .I notify
+ The part before the slash specifies the mechanism
+ that this timer uses to deliver notifications,
+-and is one of "thread", "signal", or "none".
+-Immediately following the slash is either the string "tid" for timers
+-with
++and is one of
++.BR thread ,
++.BR signal ,
++or
++.BR none .
++Immediately following the slash is either the string
++.B tid
++for timers with
+ .B SIGEV_THREAD_ID
+-notification, or "pid" for timers that notify by other mechanisms.
++notification, or
++.B pid
++for timers that notify by other mechanisms.
+ Following the "." is the PID of the process
+ (or the kernel thread ID of the thread)  that will be delivered
+ a signal if the timer delivers notifications via a signal.
+@@ -2868,7 +2881,7 @@ a signal if the timer delivers notifications via a signal.
+ .I ClockID
+ This field identifies the clock that the timer uses for measuring time.
+ For most clocks, this is a number that matches one of the user-space
+-.BR CLOCK_*
++.B CLOCK_*
+ constants exposed via
+ .IR <time.h> .
+ .B CLOCK_PROCESS_CPUTIME_ID
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.24.1
+
