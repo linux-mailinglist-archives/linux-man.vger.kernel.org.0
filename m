@@ -2,183 +2,150 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id CBA37184C24
-	for <lists+linux-man@lfdr.de>; Fri, 13 Mar 2020 17:15:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 31AAF1858BF
+	for <lists+linux-man@lfdr.de>; Sun, 15 Mar 2020 03:23:01 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726480AbgCMQPE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 13 Mar 2020 12:15:04 -0400
-Received: from mail-pl1-f194.google.com ([209.85.214.194]:38722 "EHLO
-        mail-pl1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726406AbgCMQPE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Mar 2020 12:15:04 -0400
-Received: by mail-pl1-f194.google.com with SMTP id w3so4480491plz.5
-        for <linux-man@vger.kernel.org>; Fri, 13 Mar 2020 09:15:03 -0700 (PDT)
+        id S1727289AbgCOCXA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 14 Mar 2020 22:23:00 -0400
+Received: from mail-lj1-f193.google.com ([209.85.208.193]:34001 "EHLO
+        mail-lj1-f193.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727469AbgCOCXA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 14 Mar 2020 22:23:00 -0400
+Received: by mail-lj1-f193.google.com with SMTP id s13so14785374ljm.1;
+        Sat, 14 Mar 2020 19:22:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=Md6nazhrhduCDg97SPPXdEJ/4u80EHqXlBSSgSG3qsY=;
-        b=J4uWZYNK74W1zb72C7rBvRBNmENhBfWq1qO2tJTNJdC/rQzqfTZTMGVPouwdY8rUMD
-         FkCTt/pXoF5042YvuQ4ppFF1neGdXUl6oNMy9dkDe28fM1XABakKlVLJWj8894Div5P9
-         5VT5HvXJLQoJT5H0UdTa7rmaeRJj/OXutFddITvCC4/2wCEDA/+fDuzefpwJecCYzm69
-         ULYQ3kSUta7mFnQiu/UmSVo6r8dGE0HEPy6JrQrh0xZF7+k6QKqA3omW/kpG2TXlJ2Nv
-         lX0PI9HJSRXmwqMSjyO5tu/Ee6ym4EG/Zd3OUCAnJhi3Zd74aC3H7CxuR1xu5dtFz9+U
-         KydA==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=+ZyqDkOF3uWWxVDIECGMJtE168zkXbxMgJTb6gnPSGI=;
+        b=gUxOegdFDOTBDgWyZrf6ugdjgn7IAsexEdEx0Q1nYttVa9a3wV3c40gmawss+oN/tE
+         DWXS+xMAcW3numKqykXq7XYiVb0E42W9P1Qp7FpHSJ5LbgRsBCqqUK4cQphD4kB0aDvQ
+         PRtJP/ter6fSR0ldKEwRHlS404qeA+KOMOxmOeELrcF2csqX1RLcLIK/X8J2JggWE3ge
+         HFYZuVy28dFxgPVJ1/014+ChXzVE8sOrsyK2yBFvecI9wEvKi50g0AE5QX3HsFaxpWtf
+         eKkhVtJdXgEcArl68MGTCerpsXTmxJjEpatb+mlGxOQW/294YauVsfDAWjeHjsQf0ZGg
+         czow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=Md6nazhrhduCDg97SPPXdEJ/4u80EHqXlBSSgSG3qsY=;
-        b=Ogyi3IVMerodDoiWj51+sv7kJiu24FCjqpppsdUhaJZ4LTnEjDF2eEqoI/4YrERwlI
-         Vydua41H6mrn4xFIP6mdnskamFRng3Ksyn++fmry8w2c8xkyFYIlN5CybbV1LFGOdg4Z
-         482HYxj/RTurboar2UVETpocQg+3HnRZ4gN5dlQVGmrWposqMIkVKk4zKEn13Mfgdgsw
-         aTRSfwS8jXrn6wzNvEskQbmoW3c3xwju48GdySMVSpyHVHutoBQieHZ6TWYiTiE5+tQq
-         gjTRMcrMhxcZrKAccQua1pdC0xXfOT/fgd78aNZwKcrR2jFon/yVVxHUDUwjtH1IYAC6
-         ZX6A==
-X-Gm-Message-State: ANhLgQ1g9VEC7Me6lqFvJrbcHTil5LelI0deGSec2NRi98CDfqHAIh7E
-        lIQaYN5p4nkAEPh1CTEAEHU=
-X-Google-Smtp-Source: ADFU+vuyp2OrSRLrkXWoy2Jiqp5hxz/3q18cag+9L57l71UgS4rifI6Jz1i6u0KhEWZUxKH9SBT0OA==
-X-Received: by 2002:a17:90a:1b6b:: with SMTP id q98mr8770917pjq.107.1584116102766;
-        Fri, 13 Mar 2020 09:15:02 -0700 (PDT)
-Received: from localhost.localdomain ([73.109.60.165])
-        by smtp.gmail.com with ESMTPSA id u6sm55278202pgj.7.2020.03.13.09.15.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Mar 2020 09:15:01 -0700 (PDT)
-From:   Kir Kolyshkin <kolyshkin@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, Kir Kolyshkin <kolyshkin@gmail.com>
-Subject: [PATCH] proc(5): ffix
-Date:   Fri, 13 Mar 2020 09:14:58 -0700
-Message-Id: <20200313161458.412515-1-kolyshkin@gmail.com>
-X-Mailer: git-send-email 2.24.1
+        bh=+ZyqDkOF3uWWxVDIECGMJtE168zkXbxMgJTb6gnPSGI=;
+        b=OSV7hICeZz27VHVy5LKqsA26Me5ciApp20YZ6zdZVwIjPjGmgBS5zphbG0qBvbbBHK
+         +eVKQKInsyMsXJITXj2NCRMZfLjhR/8DZ9UAkcMrLstyh2wo0LJ0A3oX9ftEopZraZPV
+         MyEhMKyDUTXEaHtY6UEUGd8uCW4fWrfuiZVdQQ7k/0IggsqbCr1eQJDC9rdEZk1Scg8f
+         AEsxfylRZNLhhjqtuJHMdAYiEhIfPwHFuDFx2LyMxMskb6CbNlGYV4JdQKCHbtxggYEz
+         /sqXHNgN2kPjYJ3nDnrluH80idcImQ3DQXkp4MyCOPZm4DJsabGv4qC3ZVgw/vuKjruB
+         aQlA==
+X-Gm-Message-State: ANhLgQ34NE0kNW4WgXwkT4MBk6qyrBMh8d+Cz20dNl03nZkxXGqMLZ2z
+        x+vPQNiQPdFGyefrHTpdkeydbcwsN2Q=
+X-Google-Smtp-Source: ADFU+vvZCDegguLj8vLsgJ44NEmZgLAGVYr+4JeSWWkjH6ko7oHZAxDmkufT2nNGCx2K1M02gM2NOA==
+X-Received: by 2002:a5d:4a8c:: with SMTP id o12mr26717839wrq.10.1584223340528;
+        Sat, 14 Mar 2020 15:02:20 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
+        by smtp.gmail.com with ESMTPSA id p10sm85897598wrx.81.2020.03.14.15.02.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 14 Mar 2020 15:02:20 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, Jorgen Hansen <jhansen@vmware.com>,
+        netdev@vger.kernel.org, linux-man@vger.kernel.org,
+        Stefan Hajnoczi <stefanha@redhat.com>,
+        Dexuan Cui <decui@microsoft.com>
+Subject: Re: [PATCH v4] vsock.7: add VMADDR_CID_LOCAL description
+To:     Stefano Garzarella <sgarzare@redhat.com>
+References: <20200218155435.172860-1-sgarzare@redhat.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <b3289245-ba42-24d4-b96c-267d09b2e37a@gmail.com>
+Date:   Sat, 14 Mar 2020 23:02:19 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200218155435.172860-1-sgarzare@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Mark some literal strings with bold.
+Hello Stefano,
 
-Mark some variable strings with italic.
+On 2/18/20 4:54 PM, Stefano Garzarella wrote:
+> Linux 5.6 added the new well-known VMADDR_CID_LOCAL for
+> local communication.
+> 
+> This patch explains how to use it and remove the legacy
+> VMADDR_CID_RESERVED no longer available.
+> 
+> Reviewed-by: Jorgen Hansen <jhansen@vmware.com>
+> Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
+> ---
+> v4:
+>     * removed "The" in the "Local communication" section [Stefan]
+> v3:
+>     * rephrased "Previous versions" part [Jorgen]
+> v2:
+>     * rephrased "Local communication" description [Stefan]
+>     * added a mention of previous versions that supported
+>       loopback only in the guest [Stefan]
 
-Remove some unneeded R from .BR, .IR etc.
+Thanks. Patch applied.
 
-Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
----
- man5/proc.5 | 45 +++++++++++++++++++++++++++++----------------
- 1 file changed, 29 insertions(+), 16 deletions(-)
+Cheers,
 
-diff --git a/man5/proc.5 b/man5/proc.5
-index a5dbad702..58129cdcf 100644
---- a/man5/proc.5
-+++ b/man5/proc.5
-@@ -131,7 +131,7 @@ but it hides a process's UID and GID,
- which could otherwise be learned by employing
- .BR stat (2)
- on a
--.IR /proc/[pid]
-+.I /proc/[pid]
- directory.
- This greatly complicates an attacker's task of gathering
- information about running processes (e.g., discovering whether
-@@ -144,11 +144,11 @@ whether other users are running any program at all, and so on).
- .\" commit 0499680a42141d86417a8fbaa8c8db806bea1201
- Specifies the ID of a group whose members are authorized to
- learn process information otherwise prohibited by
--.BR hidepid
-+.B hidepid
- (i.e., users in this group behave as though
- .I /proc
- was mounted with
--.IR hidepid=0 ).
-+.BR hidepid=0 ).
- This group should be used instead of approaches such as putting
- nonroot users into the
- .BR sudoers (5)
-@@ -1465,16 +1465,20 @@ mount options: per-mount options (see
- .BR mount (2)).
- .TP
- (7)
--optional fields: zero or more fields of the form "tag[:value]"; see below.
-+optional fields: zero or more fields of the form
-+.IR tag [: value ];
-+see below.
- .TP
- (8)
- separator: the end of the optional fields is marked by a single hyphen.
- .TP
- (9)
--filesystem type: the filesystem type in the form "type[.subtype]".
-+filesystem type: the filesystem type in the form
-+.IR type [. subtype ].
- .TP
- (10)
--mount source: filesystem-specific information or "none".
-+mount source: filesystem-specific information or
-+.BR none .
- .TP
- (11)
- super options: per-superblock options (see
-@@ -1482,11 +1486,11 @@ super options: per-superblock options (see
- .RE
- .IP
- Currently, the possible optional fields are
--.IR shared ,
--.IR master ,
--.IR propagate_from ,
-+.BR shared ,
-+.BR master ,
-+.BR propagate_from ,
- and
--.IR unbindable .
-+.BR unbindable .
- See
- .BR mount_namespaces (7)
- for a description of these fields.
-@@ -1540,7 +1544,9 @@ The fields in each line are:
- .TP 5
- (1)
- The name of the mounted device
--(or "nodevice" if there is no corresponding device).
-+(or
-+.B nodevice
-+if there is no corresponding device).
- .TP
- (2)
- The mount point within the filesystem tree.
-@@ -2856,11 +2862,18 @@ Valid only for timers that notify via a signal.
- .I notify
- The part before the slash specifies the mechanism
- that this timer uses to deliver notifications,
--and is one of "thread", "signal", or "none".
--Immediately following the slash is either the string "tid" for timers
--with
-+and is one of
-+.BR thread ,
-+.BR signal ,
-+or
-+.BR none .
-+Immediately following the slash is either the string
-+.B tid
-+for timers with
- .B SIGEV_THREAD_ID
--notification, or "pid" for timers that notify by other mechanisms.
-+notification, or
-+.B pid
-+for timers that notify by other mechanisms.
- Following the "." is the PID of the process
- (or the kernel thread ID of the thread)  that will be delivered
- a signal if the timer delivers notifications via a signal.
-@@ -2868,7 +2881,7 @@ a signal if the timer delivers notifications via a signal.
- .I ClockID
- This field identifies the clock that the timer uses for measuring time.
- For most clocks, this is a number that matches one of the user-space
--.BR CLOCK_*
-+.B CLOCK_*
- constants exposed via
- .IR <time.h> .
- .B CLOCK_PROCESS_CPUTIME_ID
+Michael
+
+
+> ---
+>  man7/vsock.7 | 18 ++++++++++++++++--
+>  1 file changed, 16 insertions(+), 2 deletions(-)
+> 
+> diff --git a/man7/vsock.7 b/man7/vsock.7
+> index c5ffcf07d..fa2c6e17e 100644
+> --- a/man7/vsock.7
+> +++ b/man7/vsock.7
+> @@ -127,8 +127,8 @@ There are several special addresses:
+>  means any address for binding;
+>  .B VMADDR_CID_HYPERVISOR
+>  (0) is reserved for services built into the hypervisor;
+> -.B VMADDR_CID_RESERVED
+> -(1) must not be used;
+> +.B VMADDR_CID_LOCAL
+> +(1) is the well-known address for local communication (loopback);
+>  .B VMADDR_CID_HOST
+>  (2)
+>  is the well-known address of the host.
+> @@ -164,6 +164,15 @@ Consider using
+>  .B VMADDR_CID_ANY
+>  when binding instead of getting the local CID with
+>  .BR IOCTL_VM_SOCKETS_GET_LOCAL_CID .
+> +.SS Local communication
+> +.B VMADDR_CID_LOCAL
+> +(1) directs packets to the same host that generated them. This is useful
+> +for testing applications on a single host and for debugging.
+> +.PP
+> +The local CID obtained with
+> +.BR IOCTL_VM_SOCKETS_GET_LOCAL_CID
+> +can be used for the same purpose, but it is preferable to use
+> +.B VMADDR_CID_LOCAL .
+>  .SH ERRORS
+>  .TP
+>  .B EACCES
+> @@ -222,6 +231,11 @@ are valid.
+>  Support for VMware (VMCI) has been available since Linux 3.9.
+>  KVM (virtio) is supported since Linux 4.8.
+>  Hyper-V is supported since Linux 4.14.
+> +.PP
+> +VMADDR_CID_LOCAL is supported since Linux 5.6.
+> +Local communication in the guest and on the host is available since Linux 5.6.
+> +Previous versions only supported local communication within a guest
+> +(not on the host), and only with some transports (VMCI and virtio).
+>  .SH SEE ALSO
+>  .BR bind (2),
+>  .BR connect (2),
+> 
+
+
 -- 
-2.24.1
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
