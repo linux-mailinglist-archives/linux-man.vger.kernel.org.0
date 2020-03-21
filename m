@@ -2,82 +2,75 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id C0CED18D679
-	for <lists+linux-man@lfdr.de>; Fri, 20 Mar 2020 19:02:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 18BB218DDD0
+	for <lists+linux-man@lfdr.de>; Sat, 21 Mar 2020 04:57:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727144AbgCTSCh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 20 Mar 2020 14:02:37 -0400
-Received: from mail-oi1-f193.google.com ([209.85.167.193]:33423 "EHLO
-        mail-oi1-f193.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726666AbgCTSCg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 20 Mar 2020 14:02:36 -0400
-Received: by mail-oi1-f193.google.com with SMTP id r7so7498726oij.0;
-        Fri, 20 Mar 2020 11:02:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=fvStMn4/m/tx0TBrhCIvKk77L1NDam8pfo0tyLB4w2E=;
-        b=C0Q+Ta3uJq5KtxPD7TnvqR83Ltxeegrj/TKyScsQWs39++C2wf9zlos75g7kz8Qlsx
-         HluL83r1mJJIegZxw0bwVfOJ0axL/9Z+/aStlZHTc54tZw8QC+oP48iPdJgSdPMf2Lbq
-         bpvgumoa8Bku7iDoQk1QJ8E5qq0k4RmRac01Uw4fhbD6Ia+3K0X2Z/GnjwRM388p14jN
-         xANG/HPmJyZHEM0wgjYkWPQkBf7yCEA0XZewevAaDu+7MC7ux+9bbMzoyx+tWEehuSTS
-         q1vdJpeoY5qtiVA7XdgDFrCubR0quXznbgU6Dq1aKh35apP2f8a/yFsSKuN72EoQMyq5
-         u63A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=fvStMn4/m/tx0TBrhCIvKk77L1NDam8pfo0tyLB4w2E=;
-        b=PZciTw7doEZaDnjgQBD1W+jHMPF4DHDaGkP+YJC8NZ9L0usOwqC8zYPOUYXw1RDaCW
-         m6eR5yr5jS2zzu3eeSMobfZQtgugvjCjKtVbbBCO7KfwdJqHFexnMAEuEAFw3ryGlKE3
-         SrvLe8EfkpDwWmvGlQFJfkrmJaFRzsUZZhbXbpWvt5aUVv6jJQArmCpTn6TE+hTOQx05
-         p3AIiuwtF4enmvPQG5VmWBWBmc2AcksbpEPgq4zg7BIFvkU+1GWbQ9AM09j2pSgKw9ME
-         M3E12SJ/sg5aA/N7oFZc9SVATnPB/rDMjmoPXdBVFkfGt9alwP9UO41ceXvh6iw5VtjA
-         uwHA==
-X-Gm-Message-State: ANhLgQ37ZjezKOJSozIh8n12wPOYwiY8xe/GdBpKtrvYXx535Po+q8Qq
-        VZLqwYG8tNnbC8nL8fVBK3NZ4/lEijkLtXSUqR2UJsb7+Eo=
-X-Google-Smtp-Source: ADFU+vu2P2R8dYjhSjKEhnrTTNhSXnLsFVBxCF98ni5lArt3hVR+gxPQnCkizRPOi/xDqT+/D/ZEgiPUar2RKoalzLk=
-X-Received: by 2002:aca:61c1:: with SMTP id v184mr7192269oib.123.1584727355628;
- Fri, 20 Mar 2020 11:02:35 -0700 (PDT)
+        id S1727158AbgCUD5L (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 20 Mar 2020 23:57:11 -0400
+Received: from mout-p-202.mailbox.org ([80.241.56.172]:50284 "EHLO
+        mout-p-202.mailbox.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726980AbgCUD5L (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 20 Mar 2020 23:57:11 -0400
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [80.241.60.241])
+        (using TLSv1.2 with cipher ECDHE-RSA-CHACHA20-POLY1305 (256/256 bits))
+        (No client certificate requested)
+        by mout-p-202.mailbox.org (Postfix) with ESMTPS id 48kn0446HYzQlFS;
+        Sat, 21 Mar 2020 04:57:08 +0100 (CET)
+X-Virus-Scanned: amavisd-new at heinlein-support.de
+Received: from smtp2.mailbox.org ([80.241.60.241])
+        by hefe.heinlein-support.de (hefe.heinlein-support.de [91.198.250.172]) (amavisd-new, port 10030)
+        with ESMTP id XfvDeWEXw3H2; Sat, 21 Mar 2020 04:57:05 +0100 (CET)
+Date:   Sat, 21 Mar 2020 14:56:57 +1100
+From:   Aleksa Sarai <cyphar@cyphar.com>
+To:     Eric Rannaud <eric.rannaud@gmail.com>
+Cc:     linux-api@vger.kernel.org, linux-man@vger.kernel.org
+Subject: Re: clock_settime(2) error for non-settable clocks
+Message-ID: <20200321035657.6baexoov65dkpmsb@yavin.dot.cyphar.com>
+References: <CA+zRj8U5_NaY4ZQXj9r=f58KcO3pq5k9HZt9KxRYHnOOk=e1WQ@mail.gmail.com>
 MIME-Version: 1.0
-From:   Eric Rannaud <eric.rannaud@gmail.com>
-Date:   Fri, 20 Mar 2020 11:02:24 -0700
-Message-ID: <CA+zRj8U5_NaY4ZQXj9r=f58KcO3pq5k9HZt9KxRYHnOOk=e1WQ@mail.gmail.com>
-Subject: clock_settime(2) error for non-settable clocks
-To:     linux-api@vger.kernel.org, linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="kzmu4bo7chcvjthj"
+Content-Disposition: inline
+In-Reply-To: <CA+zRj8U5_NaY4ZQXj9r=f58KcO3pq5k9HZt9KxRYHnOOk=e1WQ@mail.gmail.com>
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-If clock_id is a valid clock on the system (i.e. it can be passed to
-clock_gettime(2)), clock_settime(clock_id, &ts) sets errno to, either:
 
-  - EINVAL if CONFIG_POSIX_TIMERS is not enabled (kernel/posix-stubs.c);
-  - EINVAL if CONFIG_POSIX_TIMERS is enabled (kernel/posix-timers.c)
-and the k_clock has no set function (e.g. CLOCK_BOOTTIME);
-  - EACCES for dynamic posix clock devices that lack F_WRITE
-(kernel/posix-time.c);
-  - EOPNOTSUPP for dynamic posix clock devices that have F_WRITE but
-don't have a clock_settime op.
-  - EOPNOTSUPP for drivers/ptp/ptp_kvm.c (they provide a clock_settime
-op that returns -EOPNOTSUPP directly, rather than opt to leave
-clock_settime NULL which would do the same thing, see previous point).
+--kzmu4bo7chcvjthj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The manpage for clock_settime(2) is not very clear:
+On 2020-03-20, Eric Rannaud <eric.rannaud@gmail.com> wrote:
+> Should we update the manpage to more fully explain the range of
+> possible errors or instead try to have more consistent errors? For
+> syscalls, what's the backward-compatibility contract for errno values?
 
-       EINVAL The clk_id specified is not supported on this system.
+It's the same as everything else -- "if it breaks an existing
+application, it's a regression". There was an infamous case of this
+exact scenario happening (changing the errno returned from an ioctl
+broke pulseaudio) in 2012[1].
 
-       EPERM  clock_settime() does not have permission to set the clock  in=
-di=E2=80=90
-              cated.
+[1]: https://lore.kernel.org/lkml/CA+55aFzX56kPPwSO97X=3DUyPaMzV5QRNG9ScN=
+=3DnxnHFjmz=3D_8yA@mail.gmail.com/
 
-To me, the manpage reads like EPERM should be expected when trying to
-set a clock that is not settable.
+--=20
+Aleksa Sarai
+Senior Software Engineer (Containers)
+SUSE Linux GmbH
+<https://www.cyphar.com/>
 
-Should we update the manpage to more fully explain the range of
-possible errors or instead try to have more consistent errors? For
-syscalls, what's the backward-compatibility contract for errno values?
+--kzmu4bo7chcvjthj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQSxZm6dtfE8gxLLfYqdlLljIbnQEgUCXnWQhgAKCRCdlLljIbnQ
+EqYCAQDjcZTklhc1vemF4cPQj5xLzAMOmEkkXWwbAikPkPZtVwEA5+o3SQiZm7Zi
+bSOBdZoOotaxgIYpE1MR1KRl2eFoyg4=
+=c/WG
+-----END PGP SIGNATURE-----
+
+--kzmu4bo7chcvjthj--
