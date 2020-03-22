@@ -2,57 +2,56 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id BEDD618E500
-	for <lists+linux-man@lfdr.de>; Sat, 21 Mar 2020 23:08:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E1F1018E6BD
+	for <lists+linux-man@lfdr.de>; Sun, 22 Mar 2020 06:40:26 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728056AbgCUWIO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 21 Mar 2020 18:08:14 -0400
-Received: from mail.python.org ([188.166.95.178]:33810 "EHLO mail.python.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1728054AbgCUWIO (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 21 Mar 2020 18:08:14 -0400
-Received: from auth1-smtp.messagingengine.com (auth1-smtp.messagingengine.com [66.111.4.227])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by mail.python.org (Postfix) with ESMTPSA id 48lFC00KL3znfq2;
-        Sat, 21 Mar 2020 18:08:11 -0400 (EDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=python.org; s=200901;
-        t=1584828492; bh=d4qwSoe4c37Nmp8Lm7ugkLLRbBaMcPMaczhj+OYb7ws=;
-        h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-        b=y6mKFUl556+8U7t1psHeTLkkJhSjEHk5dSET8fpPb3H/PH6xCksNJtoFgfb9CaGj7
-         cOrK0SZ5tVYi9Lvude7JEvplYGR8x/k98lweWhAKEPVFbawzU95kX4fS4V+B+CFCwf
-         eOTLcHOYlmafKKUNHl9nPs3J5v6go919QSXHi+Hk=
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
-        by mailauth.nyi.internal (Postfix) with ESMTP id A12C627C0054;
-        Sat, 21 Mar 2020 18:08:10 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute2.internal (MEProxy); Sat, 21 Mar 2020 18:08:10 -0400
-X-ME-Sender: <xms:SpB2Xie7lWADA7hqI5qDDU-pog8Fz-n_h0EBqiKinV8SmtnSS4-oDA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrudegfedgudehkecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
-    ertdertddtnecuhfhrohhmpeeuvghnjhgrmhhinhcurfgvthgvrhhsohhnuceosggvnhhj
-    rghmihhnsehphihthhhonhdrohhrgheqnecukfhppeeiiedrgedurddutdegrddvtdenuc
-    evlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegstghpodhm
-    vghsmhhtphgruhhthhhpvghrshhonhgrlhhithihqddvtdduieekfeefjedqudduleeitd
-    eiheefqdgsvghnjhgrmhhinheppehphihthhhonhdrohhrghesfhgrshhtmhgrihhlrdgt
-    ohhm
-X-ME-Proxy: <xmx:SpB2XitZR2WAHGufHjDniujrofAxzQoVJAYrG3Ui_-JxU3OCEExtFw>
-    <xmx:SpB2XhikC1B5X0g6kVDznP5cdgcoQ6MGS_b_FMS4YD8X3je49ChT6Q>
-    <xmx:SpB2Xiu6LK5pQO0huWMkxB1vtCa88nCkk5WhxH04JVxCTtcDUQ2flA>
-    <xmx:SpB2Xqn2a2VAAcubSobuy-Y8an918KR1eFS14KxspUoFR9ZPOv_eyQ>
-Received: from localhost.localdomain (c-66-41-104-20.hsd1.mn.comcast.net [66.41.104.20])
-        by mail.messagingengine.com (Postfix) with ESMTPA id 474503061856;
-        Sat, 21 Mar 2020 18:08:10 -0400 (EDT)
-From:   Benjamin Peterson <benjamin@python.org>
+        id S1725997AbgCVFkZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 22 Mar 2020 01:40:25 -0400
+Received: from mail-pg1-f195.google.com ([209.85.215.195]:43429 "EHLO
+        mail-pg1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725825AbgCVFkZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Mar 2020 01:40:25 -0400
+Received: by mail-pg1-f195.google.com with SMTP id u12so5359867pgb.10;
+        Sat, 21 Mar 2020 22:40:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=sender:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=spP+yCGSzPzhe+8wghduZrLrXmzq5c5ZgZYSiNEqLBI=;
+        b=qpVJsvU7hkYt3W99PKuoEMfwXr92qpJIkIm8CSZQbserjPIxwrAKcNXjpnPNRLTaxu
+         63OYk6p7jtaQHxbxeZLFH5vq/HZSs6i1xJRV/cvQHN64qOrJnaEZFe3GWyoHK/fIHH85
+         knFIj/fBu6TKbQD3We08BnpjmvcLUk+mk4kP7TBRObuAb2h+1eq5fWpUtIhlZh+ue3zP
+         nlmUyP7eKwBoAKlteRpXBhn3/ddzHsu3o97kdvOmF44p6yznbWvN6AQDjiMV+eMBDgrC
+         pLdf0ugcprMtwriWbxr1hPVFUGTuGIKCsWibD5+ElN53wm0RNNIv2l5UBorzSUP+ktTn
+         6ZTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+         :mime-version:content-transfer-encoding;
+        bh=spP+yCGSzPzhe+8wghduZrLrXmzq5c5ZgZYSiNEqLBI=;
+        b=l+w/hLmDwtbl/EiwYguwJAXi/CrLZVElc7v5afKJVPqnRctrFOz03TP4PaV0bkiepr
+         vjWaA6bp7SmK+fCN9numFtYZJppmZ0W0PcJFcRF7rCEw3HDUSLOIa74bCpU+ynhcezcf
+         ROu5tCBR6NwPkbAoQqWv+wX81mxQryMjMas/wd1B7KwDHsD6xyXZqO2FifH8TD1ld/OJ
+         F4m3fFu9kAR2WZsRFemRKeK2xTJGvA42b4SSgNPQH1AJjjGKoNil6aDfmpECx2WHUkWe
+         KJGqbVgIhprpN/jVpEJUCwdXfJXPAjDNGV9+J3cdN/uygzhLsKEUw7GrGaXsam3CFaYi
+         Qv7Q==
+X-Gm-Message-State: ANhLgQ0nWHd+ChzWPXas7GIwLLyNzNkb4Gk2zxGPpDLw5PzvZwR7kfoM
+        4dPw7Gt/L2orazdDhSKBnE8VhitF
+X-Google-Smtp-Source: ADFU+vsv5Jyp3yjIOXaxdDtCfInZ7GyXCcd8Cialhv34o12iz3INqzCy+ClrQ9Ah+p+GlO1fg8HXMg==
+X-Received: by 2002:a62:868a:: with SMTP id x132mr17147262pfd.208.1584855624030;
+        Sat, 21 Mar 2020 22:40:24 -0700 (PDT)
+Received: from xps.vpn2.bfsu.edu.cn ([103.125.232.133])
+        by smtp.gmail.com with ESMTPSA id b23sm910831pft.116.2020.03.21.22.40.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Mar 2020 22:40:23 -0700 (PDT)
+From:   YunQiang Su <syq@debian.org>
 To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] clock_getres.2: Document CLOCK_TAI
-Date:   Sat, 21 Mar 2020 17:08:09 -0500
-Message-Id: <20200321220809.3430-1-benjamin@python.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200321040358.19119-1-benjamin@python.org>
-References: <20200321040358.19119-1-benjamin@python.org>
+Cc:     linux-man@vger.kernel.org, linux-mips@vger.kernel.org,
+        linux-kernel@vger.kernel.org, YunQiang Su <syq@debian.org>
+Subject: [PATCH] getauxval.3: MIPS, AT_BASE_PLATFORM passes ISA level
+Date:   Sun, 22 Mar 2020 13:39:16 +0800
+Message-Id: <20200322053916.391906-1-syq@debian.org>
+X-Mailer: git-send-email 2.26.0.rc2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
@@ -60,32 +59,38 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Benjamin Peterson <benjamin@python.org>
----
- man2/clock_getres.2 | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Since Linux 5.7, on MIPS, we use AT_BASE_PLATFORM to pass ISA level.
+The values may be:
+  mips2, mips3, mips4, mips5,
+  mips32, mips32r2, mips32r6,
+  mips64, mips64r2, mips64r6.
 
-diff --git a/man2/clock_getres.2 b/man2/clock_getres.2
-index 3fb0ac61c..7b25b8f65 100644
---- a/man2/clock_getres.2
-+++ b/man2/clock_getres.2
-@@ -137,6 +137,16 @@ Requires per-architecture support,
- and probably also architecture support for this flag in the
- .BR vdso (7).
+This behaivor is different with PowerPC.
+
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=e585b768da111f2c2d413de6214e83bbdfee8f22
+Signed-off-by: YunQiang Su <syq@debian.org>
+---
+ man3/getauxval.3 | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/man3/getauxval.3 b/man3/getauxval.3
+index 456371c6a..518faf5d3 100644
+--- a/man3/getauxval.3
++++ b/man3/getauxval.3
+@@ -60,9 +60,10 @@ values are present on all architectures.
+ The base address of the program interpreter (usually, the dynamic linker).
  .TP
-+.BR CLOCK_TAI " (since Linux 3.10; Linux-specific)"
-+.\" Added in commit 1ff3c9677bff7e468e0c487d0ffefe4e901d33f4
-+System-wide clock derived from wall time but ignoring leap seconds. This clock does
-+not experience discontinuities and backwards jumps caused by NTP inserting leap
-+seconds as
-+.BR CLOCK_REALTIME
-+does.
-+.IP
-+The acronym TAI refers to International Atomic Time.
-+.TP
- .B CLOCK_MONOTONIC
- Clock that cannot be set and represents monotonic time since\(emas described
- by POSIX\(em"some unspecified point in the past".
+ .BR AT_BASE_PLATFORM
+-A pointer to a string identifying the real platform; may differ from
+-.BR AT_PLATFORM
+-(PowerPC only).
++A pointer to a string (PowerPC and MIPS only).
++On PowerPC, this identifys the real platform; may differ from
++.BR AT_PLATFORM "."
++On MIPS, this identifys the ISA level (Since 5.7).
+ .TP
+ .BR AT_CLKTCK
+ The frequency with which
 -- 
-2.20.1
+2.26.0.rc2
 
