@@ -2,49 +2,84 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A24B018F026
-	for <lists+linux-man@lfdr.de>; Mon, 23 Mar 2020 08:12:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0D62D18F162
+	for <lists+linux-man@lfdr.de>; Mon, 23 Mar 2020 10:04:35 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727341AbgCWHMN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 23 Mar 2020 03:12:13 -0400
-Received: from 74.181.111.109.sta.211.ru ([109.111.181.74]:59577 "EHLO
-        trix1.localdomain" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1727164AbgCWHMM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Mar 2020 03:12:12 -0400
-X-Greylist: delayed 2116 seconds by postgrey-1.27 at vger.kernel.org; Mon, 23 Mar 2020 03:12:12 EDT
-Received: from Shop01 (trixbox1.localdomain [127.0.0.1])
-        by trix1.localdomain (Postfix) with SMTP id 0299A337A82;
-        Mon, 23 Mar 2020 12:33:34 +0600 (NOVT)
-Received: from [242.21.37.119]
-        by Shop01 SMTP id iv6SsyLWgPRrlk;
-        Mon, 23 Mar 2020 05:29:35 -0200
-Message-ID: <6u4x6-9$x337w3@t66fn.roev>
-From:   "Jean Marie" <tbryant6@woh.rr.com>
-Reply-To: "Jean Marie" <tbryant6@woh.rr.com>
-To:     staff@contessa.rocks
-Subject: RESPOND BACK  FOR DISCUSSION
-Date:   Mon, 23 Mar 20 05:29:35 GMT
-X-Mailer: Microsoft Outlook, Build 10.0.2616
+        id S1727647AbgCWJEe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 23 Mar 2020 05:04:34 -0400
+Received: from smtpout1.mo804.mail-out.ovh.net ([79.137.123.220]:59231 "EHLO
+        smtpout1.mo804.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1727587AbgCWJEe (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Mar 2020 05:04:34 -0400
+X-Greylist: delayed 385 seconds by postgrey-1.27 at vger.kernel.org; Mon, 23 Mar 2020 05:04:33 EDT
+Received: from mxplan6.mail.ovh.net (unknown [10.108.16.172])
+        by mo804.mail-out.ovh.net (Postfix) with ESMTPS id 883FB2F857BF;
+        Mon, 23 Mar 2020 09:58:06 +0100 (CET)
+Received: from jwilk.net (37.59.142.98) by DAG4EX2.mxp6.local (172.16.2.32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Mon, 23 Mar
+ 2020 09:58:05 +0100
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+CC:     <linux-man@vger.kernel.org>
+Subject: [PATCH] units.7: tfix
+Date:   Mon, 23 Mar 2020 09:57:50 +0100
+Message-ID: <20200323085750.5833-1-jwilk@jwilk.net>
+X-Mailer: git-send-email 2.26.0.rc2
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
-        boundary="55_7A831C53EF83"
-X-Priority: 3
-X-MSMail-Priority: Normal
+Content-Transfer-Encoding: 7BIT
+Content-Type:   text/plain; charset=US-ASCII
+X-Originating-IP: [37.59.142.98]
+X-ClientProxiedBy: DAG4EX2.mxp6.local (172.16.2.32) To DAG4EX2.mxp6.local
+ (172.16.2.32)
+X-Ovh-Tracer-GUID: 45a5f1d4-503f-4bd4-9360-bc675b7aaa66
+X-Ovh-Tracer-Id: 8799470725828368349
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedugedrudegjedgudduhecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhephffvufffkffoggfgtghisehtkeertdertddtnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddrleeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepmhigphhlrghniedrmhgrihhlrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehjfihilhhksehjfihilhhkrdhnvghtpdhrtghpthhtoheplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Escape hyphens.
 
---55_7A831C53EF83
-Content-Type: text/plain;
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+---
+ man7/units.7 | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-I am a private financial consultant,  I have a client who is interested to=
- invest millions dollar in your country. Get back to me privately for disc=
-ussion hence you have investment experience to manage the above funds.
-Regards
-Mr. Jean Marie .B
-
---55_7A831C53EF83--
+diff --git a/man7/units.7 b/man7/units.7
+index 3df0f28c8..e2191a310 100644
+--- a/man7/units.7
++++ b/man7/units.7
+@@ -35,16 +35,16 @@ Below the standard prefixes.
+ .TS
+ l l l.
+ Prefix	Name	Value
+-y	yocto	10^-24 = 0.000000000000000000000001
+-z	zepto	10^-21 = 0.000000000000000000001
+-a	atto	10^-18 = 0.000000000000000001
+-f	femto	10^-15 = 0.000000000000001
+-p	pico	10^-12 = 0.000000000001
+-n	nano	10^-9  = 0.000000001
+-\(mc	micro	10^-6  = 0.000001
+-m	milli	10^-3  = 0.001
+-c	centi	10^-2  = 0.01
+-d	deci	10^-1  = 0.1
++y	yocto	10^\-24 = 0.000000000000000000000001
++z	zepto	10^\-21 = 0.000000000000000000001
++a	atto	10^\-18 = 0.000000000000000001
++f	femto	10^\-15 = 0.000000000000001
++p	pico	10^\-12 = 0.000000000001
++n	nano	10^\-9  = 0.000000001
++\(mc	micro	10^\-6  = 0.000001
++m	milli	10^\-3  = 0.001
++c	centi	10^\-2  = 0.01
++d	deci	10^\-1  = 0.1
+ da	deka	10^ 1  = 10
+ h	hecto	10^ 2  = 100
+ k	kilo	10^ 3  = 1000
+-- 
+2.26.0.rc2
 
