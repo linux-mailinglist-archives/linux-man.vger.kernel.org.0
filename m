@@ -2,105 +2,110 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id C9788193AD7
-	for <lists+linux-man@lfdr.de>; Thu, 26 Mar 2020 09:31:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A102E193B22
+	for <lists+linux-man@lfdr.de>; Thu, 26 Mar 2020 09:37:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726292AbgCZIbF convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Thu, 26 Mar 2020 04:31:05 -0400
-Received: from mail-qt1-f195.google.com ([209.85.160.195]:34240 "EHLO
-        mail-qt1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726259AbgCZIbE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Mar 2020 04:31:04 -0400
-Received: by mail-qt1-f195.google.com with SMTP id 10so4591412qtp.1;
-        Thu, 26 Mar 2020 01:31:04 -0700 (PDT)
+        id S1727705AbgCZIho (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 26 Mar 2020 04:37:44 -0400
+Received: from mail-wr1-f65.google.com ([209.85.221.65]:39583 "EHLO
+        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726298AbgCZIho (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Mar 2020 04:37:44 -0400
+Received: by mail-wr1-f65.google.com with SMTP id p10so6631337wrt.6;
+        Thu, 26 Mar 2020 01:37:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=IfcMceZk050/1RcDKsZyyg6HjjpIwvox4QWBU9Bf50A=;
+        b=HuuNUZ0uHnuFZ+sJCdz1wTcLiI48YULsKZTNdpZfOQABRfSATrm6LOHvJJc+Vm4CYb
+         5JAsBxAULMYvX1EQa1y17BSdKg+edcBwpyjl1UjglRISD3y6fAnyF2lKy9Y2OATtz5kw
+         D6YOVbhSGruLJmfDWNwDO2zWqNNylXEtvmi766F00hEPJavpy0bLo2ufHax1SX/7g7Ik
+         q0tTIYZKUiyMshcuej1KOd0fPqzLfWmGGLh2j+vP65OC2cKVR8wcZXG/Ff5AP95sJ4Ab
+         /LP0kcNIK8GeWgHcT/NrY/QjKa9e2GR8SWBOizBe4dp6eAIjdqaq7MuRvGA9RH1aw6q6
+         DosA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=1uL6T0AlsEjbmQmM6hXpAIWUikHWCOqgCwWrHStOPM4=;
-        b=JH3O4DFcQPzWFJmBjC/6CSDEMrX1UAowmp4PKE4vqLdFoiKqXriar8u53ExFjXN7wR
-         KapHDumX8ckM5BRYaqLwhT0TzsOvgmkbaJJAJEcpRtaqROujK51FlxjgO/7p8jXaNvWg
-         Pi/r326GHl07uzTo8ZESydPHPwEsKwt2HdD05EQhsNIkUI4BtNNfYXmJr4JPPqvmS0/V
-         JpSbD06R1HVaJXdAMws0Qxhq3bao/4/K9MR1wjGNlCGD+vGApDevKPIXkxXg1oBNVIPN
-         AWSIyWgxpFOxz9+vqGZ6YJQ1Dtemiusnr95jTXYnCaXCmDJx4DD7x1O0Aqj0TONMmsTW
-         rnCQ==
-X-Gm-Message-State: ANhLgQ2fvmi7DBGwwJWpnv8fq30xkfcNcUlKbTndNi9CcuiFKlqTOJv6
-        suub27wH7GWmXgk2evrxJLaWQOvh3b0U0F0M4ic=
-X-Google-Smtp-Source: ADFU+vvrb2nktbpRKwccTTwusZLhub3zTLR2A0M333GepHEiS4/SHtpcUDWp6ciSQJVRM0eIRQ3W5cCMQVXrKGlpkc4=
-X-Received: by 2002:ac8:7449:: with SMTP id h9mr7109717qtr.386.1585211464008;
- Thu, 26 Mar 2020 01:31:04 -0700 (PDT)
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=IfcMceZk050/1RcDKsZyyg6HjjpIwvox4QWBU9Bf50A=;
+        b=Gaz0a2nkpWGpgP0UT1oqD86JEhCyR8quI6pz25/F3KS7nEdRmxBb555z/ulq0SUYlW
+         q5g7/XytDqVgZbwFQUEbBK48WKNV6R9262aw/FePNNwwx2yTiAyefNT2EEh4S4COnVse
+         NU/WOeC9AIwXMQw5JA9hAiJUg03iwSX3SleWMu0tiGgKnnI6rzjLv1NwAZQswsIUCOeo
+         bxZnq+B67Hw0dx7tNb4NWW0LfS8HML6Uy0Nz3uRrEHesxQhqOyzjkUtHJw37pO4TuiZf
+         juwTDu/FP/4y4toR+Zs0kEoBKQiW93FzSdQIz5Z5niZ3RQGw1umUL5kKR1tKqvEPopvX
+         RMyw==
+X-Gm-Message-State: ANhLgQ3dOo8uAPk+S1PfkONxApGl79HIfbOEMJDpGvsT8FRVRfB3W7Y2
+        LEee+wn6lOLwX9yFl92M/rs=
+X-Google-Smtp-Source: ADFU+vs9PqIpXenpBDNxNQdz/1xQJkxGvt3OwiOF9ohtm52FLJXH2rrnXNxztsVvd43rlQ6E9MVm9g==
+X-Received: by 2002:a05:6000:1205:: with SMTP id e5mr8522731wrx.73.1585211861704;
+        Thu, 26 Mar 2020 01:37:41 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
+        by smtp.gmail.com with ESMTPSA id f187sm2505518wme.31.2020.03.26.01.37.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Mar 2020 01:37:41 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, Aleksa Sarai <asarai@suse.de>
+Subject: Re: clock_settime(2) error for non-settable clocks
+To:     Eric Rannaud <eric.rannaud@gmail.com>, linux-api@vger.kernel.org,
+        linux-man@vger.kernel.org
+References: <CA+zRj8U5_NaY4ZQXj9r=f58KcO3pq5k9HZt9KxRYHnOOk=e1WQ@mail.gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <a225bae5-e342-fee4-b7fa-c3093ca52fa0@gmail.com>
+Date:   Thu, 26 Mar 2020 09:37:40 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-References: <20200322095527.397716-1-syq@debian.org> <827f0ae8-2e97-5eeb-387d-275d8aac98ad@gmail.com>
-In-Reply-To: <827f0ae8-2e97-5eeb-387d-275d8aac98ad@gmail.com>
-From:   YunQiang Su <syq@debian.org>
-Date:   Thu, 26 Mar 2020 16:30:52 +0800
-Message-ID: <CAKcpw6XsJVYP=4k+fjSF+JLM_J7ab9sV7nYFwUduzvNvWPzmBw@mail.gmail.com>
-Subject: Re: [PATCH v2] getauxval.3: MIPS, AT_BASE_PLATFORM passes ISA level
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-mips <linux-mips@vger.kernel.org>, linux-man@vger.kernel.org,
-        LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8BIT
+In-Reply-To: <CA+zRj8U5_NaY4ZQXj9r=f58KcO3pq5k9HZt9KxRYHnOOk=e1WQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> 于2020年3月26日周四 下午4:12写道：
->
-> Hello YunQiang Su
->
-> On 3/22/20 10:55 AM, YunQiang Su wrote:
-> > Since Linux 5.7, on MIPS, we use AT_BASE_PLATFORM to pass ISA level.
-> > The values may be:
-> >   mips2, mips3, mips4, mips5,
-> >   mips32, mips32r2, mips32r6,
-> >   mips64, mips64r2, mips64r6.
-> >
-> > This behavior is different with PowerPC.
->
-> Thank you for the patch. I see that this is scheduled for
-> Linux 5.7 (for which the merge window is not yet open).
-> How certain is it that the feature will land in 5.7?
+Eric,
 
-It is in mips-next and linux-next now.
+On 3/20/20 7:02 PM, Eric Rannaud wrote:
+> If clock_id is a valid clock on the system (i.e. it can be passed to
+> clock_gettime(2)), clock_settime(clock_id, &ts) sets errno to, either:
+> 
+>   - EINVAL if CONFIG_POSIX_TIMERS is not enabled (kernel/posix-stubs.c);
+>   - EINVAL if CONFIG_POSIX_TIMERS is enabled (kernel/posix-timers.c)
+> and the k_clock has no set function (e.g. CLOCK_BOOTTIME);
+>   - EACCES for dynamic posix clock devices that lack F_WRITE
+> (kernel/posix-time.c);
+>   - EOPNOTSUPP for dynamic posix clock devices that have F_WRITE but
+> don't have a clock_settime op.
+>   - EOPNOTSUPP for drivers/ptp/ptp_kvm.c (they provide a clock_settime
+> op that returns -EOPNOTSUPP directly, rather than opt to leave
+> clock_settime NULL which would do the same thing, see previous point).
+> 
+> The manpage for clock_settime(2) is not very clear:
+> 
+>        EINVAL The clk_id specified is not supported on this system.
+> 
+>        EPERM  clock_settime() does not have permission to set the clock  indi‐
+>               cated.
+> 
+> To me, the manpage reads like EPERM should be expected when trying to
+> set a clock that is not settable.
+> 
+> Should we update the manpage to more fully explain the range of
+> possible errors or instead try to have more consistent errors? For
+> syscalls, what's the backward-compatibility contract for errno values?
 
->
-> Thanks,
->
-> Michael
->
-> > https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=e585b768da111f2c2d413de6214e83bbdfee8f22
-> > Signed-off-by: YunQiang Su <syq@debian.org>
-> >
-> > ----
-> > v1 -> v2: fix typo
-> > ---
-> >  man3/getauxval.3 | 7 ++++---
-> >  1 file changed, 4 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/man3/getauxval.3 b/man3/getauxval.3
-> > index 456371c6a..bcc116dd2 100644
-> > --- a/man3/getauxval.3
-> > +++ b/man3/getauxval.3
-> > @@ -60,9 +60,10 @@ values are present on all architectures.
-> >  The base address of the program interpreter (usually, the dynamic linker).
-> >  .TP
-> >  .BR AT_BASE_PLATFORM
-> > -A pointer to a string identifying the real platform; may differ from
-> > -.BR AT_PLATFORM
-> > -(PowerPC only).
-> > +A pointer to a string (PowerPC and MIPS only).
-> > +On PowerPC, this identifies the real platform; may differ from
-> > +.BR AT_PLATFORM "."
-> > +On MIPS, this identifies the ISA level (Since 5.7).
-> >  .TP
-> >  .BR AT_CLKTCK
-> >  The frequency with which
-> >
->
->
-> --
-> Michael Kerrisk
-> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-> Linux/UNIX System Programming Training: http://man7.org/training/
+A man-pages patch would be most appropriate. Would you be able to put
+something together?
+
+Thanks,
+
+Michael
+
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
