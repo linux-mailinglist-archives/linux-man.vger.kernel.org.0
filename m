@@ -2,92 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 2AC2319453B
-	for <lists+linux-man@lfdr.de>; Thu, 26 Mar 2020 18:17:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2E1EE194D42
+	for <lists+linux-man@lfdr.de>; Fri, 27 Mar 2020 00:30:52 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727646AbgCZRRO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 26 Mar 2020 13:17:14 -0400
-Received: from sonic311-14.consmr.mail.bf2.yahoo.com ([74.6.131.124]:43416
-        "EHLO sonic311-14.consmr.mail.bf2.yahoo.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726496AbgCZRRO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Mar 2020 13:17:14 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com.ar; s=s2048; t=1585243032; bh=BM67r6iA3jnH23oU7OYKPwpFXOYbFMHMBxjspef12PE=; h=From:Subject:To:Cc:Date:References:From:Subject; b=WRTvitiQ+8aPOVNpG9W1TlHs5AjGkeXFKTu9h9sLUF+L/NqCnZBN9/VSY7fbIivEmofAHhXzSZavT2kkRULwNR6IP6UJSH9V1LIhNxJ5Fe0O7UZA2ocPJ5Kui3FmjotiOltL/UKpxzD6UEMfvNqzo0djvr+4tR6D18XhLu7eoO2rWkFIhDPPjxqnAMUGdFYW0GfvrC8iy771FdGvdMx/2qojSIT51pCrxIf/GdYOZrelDkQJDM5sByW+eWZ7ehZkAEqddiZctzUYxzD2jM258P/c5bjmTJPVpaiJ5CfTflMrSgg2aJjYvf+LCWHN+h87fryBzSLefpY4X12X24c2Cw==
-X-YMail-OSG: X99363YVM1lPepelkgrP5kJZKDwcPw.X.TwcZxLRN7fURRbKMGMB8XEucXP3ezP
- qtc5Yqc516nAAcgr0c58OlcbT2MbQHgeiDrOEXsgflY9yAAelDefarSB2U_e3H7UiiubCNFRtCU5
- NJ9zX6ORyph0ESAiRuJWQ6ISkN2w5ImvwcMGiAlOS7jPEHlsGnhv4.a2ukCbFxnLCG40YS7pt35V
- tbWphKXmimSH9tDNYs0yh.FI_TofOF023ZYZakNnJ1aiaQUSYrV42N7F2u5YdMGXtEz3JitrmLCs
- KL1Ni7GZyzZQaZh4EZv.y7NuU7rA.UlzCJO4ead3LPxAP7KFjekpZEwrpRtwNRZ3Rwd_rtEAAIPU
- knnB_d8O2bjMplZaGFThvhCY1iZQHN_nVio_DueoLYld_047vWEe0iRtXh._fqUm1V7YdVGJjU99
- sPrZAqvo7.jbpsDo_JqOvNg2vBa5uuxavKvJAbUk.u1UTf60I59HPl_ivcWbC0ZU3y2LDTHuu8Ne
- sbQ1oODa_0tZ_cPsYsvXnysWSFOdSChMjyKq9pPDaULBJJAOEBv7S.ToXZjCX.8yivGCU_ryBU28
- lIuTMlZdQZR42bKL8gKTaqJySkv_LJ0Nya8RO0HaDXU4zX9IQrGdBIVZTY3hIZSaFSnjlhhypM6W
- s81JRRJdBZ0k1AVMMKptUClBR_GhRm.2J12IdRwEAjVScoope1C3zRzaYuYZIG8j6jEdv1sc.mCx
- Ri.V2b9zbCYb3Zz23USc_hsQaCiT6uCZOEia0Ck_Z_SA__MuUvb2h7_HpJiHMwklF7WvqspXpfU7
- yf4JUn5Rqli_.MArmA8ryuSRQFSHHmCKnEmvAdgYn3YQETj4wOUHWUjDysG4Dj.yGshcdKDB8b3w
- D17KKfFJF8bkMXMbiLxjZx.0wezuWuGuTdbNiv3M3Am8c0AsP69PXrlmg99Tg7V4usE8mQx_a0KE
- 2MhmOHo3INj7m1BDvHntYZfZTruNNjbK3bUAfH8c_QBcEaX64OJVaKHczVtsV_oRvWtzvhQ6E1P7
- ArM4jt0Xq4kO66Vvfrur3X0Y.AperIub11WTYXd8JCHc2x.MSDYtZKzOJRkHgJhKuHOWQ3jUa1PM
- KeZuOtj5ZQRpL7d3EmOG22bGnz6WSTGjcUXLh7gJKCHeaGI0BM4gb3xuEOYT.NEL_OtllRneYaPz
- P.h4OpjioREhWCjGpeIYccEuHLt9M3LfjYzl9JsitVctdy.AMF1zs6NCiUZ4nOq2ZQBi7vSCi3LA
- C5jXG_PCtoad6Ml65PlORU7ud.9g6D3zoSyAURt4kXh.rMyvL2RDQ9_Wu.bMj5_3BDG2_AgENSM2
- O353RM4SoXenTyjpiEW8eP_pvbzeFHzKyblx7mLcOUnx_Y84XekZ0hUpxP50HTk8jmXCWQATIEqK
- eL9Kc3oIvENT_rITu1wyZHXnpc3X2vMqTJ25njZgJU4ncRz3VcQ--
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic311.consmr.mail.bf2.yahoo.com with HTTP; Thu, 26 Mar 2020 17:17:12 +0000
-Received: by smtp426.mail.gq1.yahoo.com (Oath Hermes SMTP Server) with ESMTPA ID 5eef804ebda789dd0eb346077f45df38;
-          Thu, 26 Mar 2020 17:17:11 +0000 (UTC)
-From:   "Pablo M. Ronchi" <pmronchi@yahoo.com.ar>
-Subject: Typo in man-page: SIGNAL(7)
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Message-ID: <fa469dfc-71ce-e7a2-dd83-b9566cc7ba58@yahoo.com.ar>
-Date:   Thu, 26 Mar 2020 14:17:07 -0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+        id S1727701AbgCZXaa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 26 Mar 2020 19:30:30 -0400
+Received: from namei.org ([65.99.196.166]:43756 "EHLO namei.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726954AbgCZXaa (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Thu, 26 Mar 2020 19:30:30 -0400
+Received: from localhost (localhost [127.0.0.1])
+        by namei.org (8.14.4/8.14.4) with ESMTP id 02QNSlWb015673;
+        Thu, 26 Mar 2020 23:28:47 GMT
+Date:   Fri, 27 Mar 2020 10:28:47 +1100 (AEDT)
+From:   James Morris <jmorris@namei.org>
+To:     Serge Hallyn <serge@hallyn.com>
+cc:     Alexey Budankov <alexey.budankov@linux.intel.com>,
+        Stephen Smalley <sds@tycho.nsa.gov>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Arnaldo Carvalho de Melo <acme@kernel.org>,
+        Ingo Molnar <mingo@kernel.org>,
+        "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Will Deacon <will@kernel.org>,
+        Paul Mackerras <paulus@samba.org>,
+        Helge Deller <deller@gmx.de>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        linux-man@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
+        "linux-parisc@vger.kernel.org" <linux-parisc@vger.kernel.org>,
+        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+        "selinux@vger.kernel.org" <selinux@vger.kernel.org>,
+        "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+        "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+        Igor Lubashev <ilubashe@akamai.com>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        Stephane Eranian <eranian@google.com>,
+        "linux-security-module@vger.kernel.org" 
+        <linux-security-module@vger.kernel.org>,
+        oprofile-list@lists.sf.net, Jiri Olsa <jolsa@redhat.com>,
+        linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Intel-gfx] [PATCH v7 00/12] Introduce CAP_PERFMON to secure
+ system performance monitoring and observability
+In-Reply-To: <20200302001913.GA21145@sl>
+Message-ID: <alpine.LRH.2.21.2003271026290.14767@namei.org>
+References: <c8de937a-0b3a-7147-f5ef-69f467e87a13@linux.intel.com> <3ae0bed5-204e-de81-7647-5f0d8106cd67@linux.intel.com> <20200302001913.GA21145@sl>
+User-Agent: Alpine 2.21 (LRH 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: es-AR
-References: <fa469dfc-71ce-e7a2-dd83-b9566cc7ba58.ref@yahoo.com.ar>
-X-Mailer: WebService/1.1.15518 hermes Apache-HttpAsyncClient/4.1.4 (Java/1.8.0_242)
+Content-Type: text/plain; charset=US-ASCII
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-In the URL:
+On Sun, 1 Mar 2020, Serge Hallyn wrote:
 
-http://man7.org/linux/man-pages/man7/signal.7.html
+> Thanks, this looks good to me, in keeping with the CAP_SYSLOG break.
+> 
+> Acked-by: Serge E. Hallyn <serge@hallyn.com>
+> 
+> for the set.
+> 
+> James/Ingo/Peter, if noone has remaining objections, whose branch
+> should these go in through?
+> 
+> thanks,
+> -serge
+> 
+> On Tue, Feb 25, 2020 at 12:55:54PM +0300, Alexey Budankov wrote:
+> > 
+> > Hi,
+> > 
+> > Is there anything else I could do in order to move the changes forward
+> > or is something still missing from this patch set?
+> > Could you please share you mind?
 
-there is the following duplication typo at the end of the paragraph: "it 
-was it was" (marked in capital letters, below)
+Alexey,
 
-...
-Signal mask and pending signals
-...
-A signal may be blocked, which means that it will not be delivered until 
-it is later unblocked. Between the time when it is generated and when it 
-is delivered a signal is said to be pending. Each thread in a process 
-has an independent signal mask, which indicates the set of signals that 
-the thread is currently blocking. A thread can manipulate its signal 
-mask using pthread_sigmask(3). In a traditional single-threaded 
-application, sigprocmask(2) can be used to manipulate the signal mask. A 
-child created via fork(2) inherits a copy of its parent's signal mask; 
-the signal mask is preserved across execve(2). A signal may be 
-process-directed or thread-directed. A process- directed signal is one 
-that is targeted at (and thus pending for) the process as a whole. A 
-signal may be process-directed because it was generated by the kernel 
-for reasons other than a hardware exception, or because it was sent 
-using kill(2) or sigqueue(3). A thread- directed signal is one that is 
-targeted at a specific thread. A signal may be thread-directed because 
-it was generated as a consequence of executing a specific 
-machine-language instruction that triggered a hardware exception (e.g., 
-SIGSEGV for an invalid memory access, or SIGFPE for a math error), or 
-because IT WAS IT WAS targeted at a specific thread using interfaces 
-such as tgkill(2) or pthread_kill(3).
-...
+It seems some of the previous Acks are not included in this patchset, e.g. 
+https://lkml.org/lkml/2020/1/22/655
+
+Every patch needs a Reviewed-by or Acked-by from maintainers of the code 
+being changed.
+
+You have enough from the security folk, but I can't see any included from 
+the perf folk.
 
 
-Thanks for the great work.
-
-Pablo M. Ronchi
+-- 
+James Morris
+<jmorris@namei.org>
 
