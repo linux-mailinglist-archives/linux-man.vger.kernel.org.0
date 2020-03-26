@@ -2,60 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 12C711939D2
-	for <lists+linux-man@lfdr.de>; Thu, 26 Mar 2020 08:49:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4937E1939D3
+	for <lists+linux-man@lfdr.de>; Thu, 26 Mar 2020 08:50:05 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726332AbgCZHtW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 26 Mar 2020 03:49:22 -0400
-Received: from mail-wm1-f65.google.com ([209.85.128.65]:35197 "EHLO
-        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726138AbgCZHtW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Mar 2020 03:49:22 -0400
-Received: by mail-wm1-f65.google.com with SMTP id m3so5874780wmi.0
-        for <linux-man@vger.kernel.org>; Thu, 26 Mar 2020 00:49:21 -0700 (PDT)
+        id S1726422AbgCZHuE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 26 Mar 2020 03:50:04 -0400
+Received: from mail-wm1-f67.google.com ([209.85.128.67]:40395 "EHLO
+        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726138AbgCZHuE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Mar 2020 03:50:04 -0400
+Received: by mail-wm1-f67.google.com with SMTP id a81so5852624wmf.5
+        for <linux-man@vger.kernel.org>; Thu, 26 Mar 2020 00:50:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=cLWIod1orotHBYgBmHOLKmno+lBvYHTmG3ZYn24wLio=;
-        b=iTc5ZtIvHFpXlpLPAsGCY0u9DF2Ctp9ZLmE0wF/huecVjIZqS2TwnbwPoLCKBiMAzr
-         QXj7kU1PfwCcQ7KYCbpNgQYw/dcOBTxMSXFULsD03IUn0YF6n/JCjKiolHICRsCRvJAh
-         pQbCuK3k68CMMhR84+E0GssqVCIazmYUW4+tylPp6Iqe+kdu9RA64/t6RdKvCXBxr/Qf
-         /Cr/gbyFd1z99e5kTGrk9yjhp/T2lReKwaidnEpTOSuULMawTIzAmvILPzQuUz8Fk1X4
-         r9+1eMIsnQkIx9tB5M687HmvUCxnkmfkNGHqWKd3iKN9LV+gyZQ4d21qhQt7TlK2wgD6
-         7NwQ==
+        bh=N96KxS5ezF8gLhcy1G6mUH2UwSipYG957DB5LoMgTrM=;
+        b=TaIJj6P4vL0cZyIS7mbppDDfU13lWGAy1TVnF1rDRr+dic+y/re+Wjti2HhM/NcCAh
+         0/ipg5EyxAqwLfI12TTdwgGlxnElDAGwR9WIo/h19EDLH7FRfWHHn350YuHYk5p4BCj7
+         xlUcybg9n4id+ip4C20A8iJlwD057JJlu6al4sMMWh/8dv/f/3v3k+P4M6SeSOzmae6+
+         fCNyB0cX008x0YMr35RupuJjesnCf0L2gUywAyAosUEajWaccydxWreeWYe00aNNgcbG
+         0nKahoKT+gQArLKYus+1CW0aAeYiXnfzPrUs1fVObvrbYbNomZipXgWeTrghqp4C3G0O
+         EylQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=cLWIod1orotHBYgBmHOLKmno+lBvYHTmG3ZYn24wLio=;
-        b=Ndn6n08RTQkbK70pVptIIA6UlLoEtHoaYd6XAeTKCOEFzHmGG25FsP59QntWhgQxCO
-         k8Cah+IEKZ5SjWQEXU8LEiHqB6sJsfiEnxoyLc98cTlnlcGhT7F6Iu/kb0rNjUvHOMmj
-         OgJRiQfwtjzbZqmrpjJXlIsDoAO4/XpsqePViZReV7TFCvx8jwQBoUuDoTwhExqXzsVx
-         j9D4ju0RhdrUXzGeKvfxihNy3gpysaYJFcg+tlxrQm6YzVp7jA7symY9jsOygR5dmSZK
-         Vfyw/429N8zBD4O8Vi17NOWpkFdOvyjQr+LBJm+eoBIbKAIoG6dLSbRW2T3me2v1iE72
-         XCvg==
-X-Gm-Message-State: ANhLgQ2+IrDkj5YLFR5NFV9Ce+KtxnRhFcc5OOLo+kqJg4Q1L6D5IIJ1
-        UQE/rDfxktqjN5MtTuqHnt9YVag6
-X-Google-Smtp-Source: ADFU+vuDHbTq9xRGNX4JlTzGT9XpA48MY9Ikq95bejfqfd1Qxfxv03FdeQRI5E6BTazUECyO2PSg2Q==
-X-Received: by 2002:a1c:a4c1:: with SMTP id n184mr1690831wme.174.1585208960825;
-        Thu, 26 Mar 2020 00:49:20 -0700 (PDT)
+        bh=N96KxS5ezF8gLhcy1G6mUH2UwSipYG957DB5LoMgTrM=;
+        b=Apx+KFEP38ZXc/Nvsu8fgnfwQ1CxClVfAPdH6GzmVg6mJhwaBqqVXhIpnINCcyfCmr
+         rTxJsrS7diSI34150K+5qWpcusSpc0HrI0lnqM5XADU/ydCu78KDc+Ot0D8oB5JNibh1
+         ghw0xINN/PS32Ud6zwZKW3kysMI+lN1upmHuzV7O++UTUHYVNLPStHkVS1M21hofi/Gj
+         ZFiLCihQ7QKdBrSjIFl9VpTg5fNZ5EEAo6GdWC86f9of7L91kFvL3XGmqL5vo903M4qt
+         R2EplXBwp+cZbKMwhB4pWCFGBUGxES8kUlzXZbkPDpf6IHYrTfHsg9z5OsNQlmPeZViy
+         8SFA==
+X-Gm-Message-State: ANhLgQ0CLmkiOkT6Lv6RcFFStwpizLQAUG5xrYgAXTunYcsDgmeajkGI
+        68aMML+sFvmkWzytVAkumFBWYsEQ
+X-Google-Smtp-Source: ADFU+vsLdEipGo06nAQ33y4YXUxn7Iycz8UV0BM4bEqlHZ3VI8gShDcwEKWfM+lwpDHfTzrsMYgBEQ==
+X-Received: by 2002:a05:600c:581:: with SMTP id o1mr1790155wmd.111.1585209003019;
+        Thu, 26 Mar 2020 00:50:03 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id w3sm2368117wrn.31.2020.03.26.00.49.20
+        by smtp.gmail.com with ESMTPSA id r3sm2400412wrm.35.2020.03.26.00.50.02
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Mar 2020 00:49:20 -0700 (PDT)
+        Thu, 26 Mar 2020 00:50:02 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] printf.3: ffix
+Subject: Re: [PATCH] units.7: tfix
 To:     Jakub Wilk <jwilk@jwilk.net>
-References: <20200323090038.6129-1-jwilk@jwilk.net>
+References: <20200323085750.5833-1-jwilk@jwilk.net>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <7c02d36f-08d2-bc8d-d1f6-652242c3b833@gmail.com>
-Date:   Thu, 26 Mar 2020 08:49:19 +0100
+Message-ID: <11352bde-8d81-c295-998c-53254dd56f19@gmail.com>
+Date:   Thu, 26 Mar 2020 08:50:02 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200323090038.6129-1-jwilk@jwilk.net>
+In-Reply-To: <20200323085750.5833-1-jwilk@jwilk.net>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -64,34 +64,52 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Jakub,
+On 3/23/20 9:57 AM, Jakub Wilk wrote:
+> Escape hyphens.
 
-On 3/23/20 10:00 AM, Jakub Wilk wrote:
-> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
-
-Thanks. Patch applied.
+Thanks, Jakub. Patch applied.
 
 Cheers,
 
 Michael
 
-> ---
->  man3/printf.3 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/man3/printf.3 b/man3/printf.3
-> index c99c796ce..50e136ba6 100644
-> --- a/man3/printf.3
-> +++ b/man3/printf.3
-> @@ -605,7 +605,7 @@ and
->  as synonyms, so that one can, for example, write
->  .BR llg
->  (as a synonym for the standards-compliant
-> -.RB Lg )
-> +.BR Lg )
->  and
->  .BR Ld
->  (as a synonym for the standards compliant
+> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+> ---
+>  man7/units.7 | 20 ++++++++++----------
+>  1 file changed, 10 insertions(+), 10 deletions(-)
+> 
+> diff --git a/man7/units.7 b/man7/units.7
+> index 3df0f28c8..e2191a310 100644
+> --- a/man7/units.7
+> +++ b/man7/units.7
+> @@ -35,16 +35,16 @@ Below the standard prefixes.
+>  .TS
+>  l l l.
+>  Prefix	Name	Value
+> -y	yocto	10^-24 = 0.000000000000000000000001
+> -z	zepto	10^-21 = 0.000000000000000000001
+> -a	atto	10^-18 = 0.000000000000000001
+> -f	femto	10^-15 = 0.000000000000001
+> -p	pico	10^-12 = 0.000000000001
+> -n	nano	10^-9  = 0.000000001
+> -\(mc	micro	10^-6  = 0.000001
+> -m	milli	10^-3  = 0.001
+> -c	centi	10^-2  = 0.01
+> -d	deci	10^-1  = 0.1
+> +y	yocto	10^\-24 = 0.000000000000000000000001
+> +z	zepto	10^\-21 = 0.000000000000000000001
+> +a	atto	10^\-18 = 0.000000000000000001
+> +f	femto	10^\-15 = 0.000000000000001
+> +p	pico	10^\-12 = 0.000000000001
+> +n	nano	10^\-9  = 0.000000001
+> +\(mc	micro	10^\-6  = 0.000001
+> +m	milli	10^\-3  = 0.001
+> +c	centi	10^\-2  = 0.01
+> +d	deci	10^\-1  = 0.1
+>  da	deka	10^ 1  = 10
+>  h	hecto	10^ 2  = 100
+>  k	kilo	10^ 3  = 1000
 > 
 
 
