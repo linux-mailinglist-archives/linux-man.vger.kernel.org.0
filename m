@@ -2,107 +2,104 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A102E193B22
-	for <lists+linux-man@lfdr.de>; Thu, 26 Mar 2020 09:37:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id F1473193B3F
+	for <lists+linux-man@lfdr.de>; Thu, 26 Mar 2020 09:46:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727705AbgCZIho (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 26 Mar 2020 04:37:44 -0400
-Received: from mail-wr1-f65.google.com ([209.85.221.65]:39583 "EHLO
-        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726298AbgCZIho (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Mar 2020 04:37:44 -0400
-Received: by mail-wr1-f65.google.com with SMTP id p10so6631337wrt.6;
-        Thu, 26 Mar 2020 01:37:42 -0700 (PDT)
+        id S1726270AbgCZIqj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 26 Mar 2020 04:46:39 -0400
+Received: from mail-wr1-f66.google.com ([209.85.221.66]:39530 "EHLO
+        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726210AbgCZIqj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Mar 2020 04:46:39 -0400
+Received: by mail-wr1-f66.google.com with SMTP id p10so6659609wrt.6
+        for <linux-man@vger.kernel.org>; Thu, 26 Mar 2020 01:46:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=IfcMceZk050/1RcDKsZyyg6HjjpIwvox4QWBU9Bf50A=;
-        b=HuuNUZ0uHnuFZ+sJCdz1wTcLiI48YULsKZTNdpZfOQABRfSATrm6LOHvJJc+Vm4CYb
-         5JAsBxAULMYvX1EQa1y17BSdKg+edcBwpyjl1UjglRISD3y6fAnyF2lKy9Y2OATtz5kw
-         D6YOVbhSGruLJmfDWNwDO2zWqNNylXEtvmi766F00hEPJavpy0bLo2ufHax1SX/7g7Ik
-         q0tTIYZKUiyMshcuej1KOd0fPqzLfWmGGLh2j+vP65OC2cKVR8wcZXG/Ff5AP95sJ4Ab
-         /LP0kcNIK8GeWgHcT/NrY/QjKa9e2GR8SWBOizBe4dp6eAIjdqaq7MuRvGA9RH1aw6q6
-         DosA==
+        bh=Diaj29BCs1YmCsXUjORvzik0SNiu8r2iYyEM6mKeaoM=;
+        b=byNNdgBN7yRL6nfMPUtaUsBQoFPBaE1+kQ8Se9z/sirSPhcygkqDBOF/aeteE2V8eW
+         Hw0sf+gnWN45UktM8QlGrOABAVO23/oMP+I8sCHq8SFMQ/B823z0sebOZkAutOfArxI6
+         7AO6W+0pRsCz/dmjRzUioX26Cv92f0vGulAVhFmI3gZdTtBsF+eKXTzUpq4LDpsTlx/G
+         MC5C2xxYT+xzTWMZSmIAJy4V/Z+VgiCuIKthVT1RBEvHR3354I/crga5Xd0G/HbuY9jY
+         tPhPaiJv5dM0uzRGwsgN3dyM2ded+xYvn6cR0SOo0KClxQh6B93RuRGY+eAvoVyLutRL
+         wuWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=IfcMceZk050/1RcDKsZyyg6HjjpIwvox4QWBU9Bf50A=;
-        b=Gaz0a2nkpWGpgP0UT1oqD86JEhCyR8quI6pz25/F3KS7nEdRmxBb555z/ulq0SUYlW
-         q5g7/XytDqVgZbwFQUEbBK48WKNV6R9262aw/FePNNwwx2yTiAyefNT2EEh4S4COnVse
-         NU/WOeC9AIwXMQw5JA9hAiJUg03iwSX3SleWMu0tiGgKnnI6rzjLv1NwAZQswsIUCOeo
-         bxZnq+B67Hw0dx7tNb4NWW0LfS8HML6Uy0Nz3uRrEHesxQhqOyzjkUtHJw37pO4TuiZf
-         juwTDu/FP/4y4toR+Zs0kEoBKQiW93FzSdQIz5Z5niZ3RQGw1umUL5kKR1tKqvEPopvX
-         RMyw==
-X-Gm-Message-State: ANhLgQ3dOo8uAPk+S1PfkONxApGl79HIfbOEMJDpGvsT8FRVRfB3W7Y2
-        LEee+wn6lOLwX9yFl92M/rs=
-X-Google-Smtp-Source: ADFU+vs9PqIpXenpBDNxNQdz/1xQJkxGvt3OwiOF9ohtm52FLJXH2rrnXNxztsVvd43rlQ6E9MVm9g==
-X-Received: by 2002:a05:6000:1205:: with SMTP id e5mr8522731wrx.73.1585211861704;
-        Thu, 26 Mar 2020 01:37:41 -0700 (PDT)
+        bh=Diaj29BCs1YmCsXUjORvzik0SNiu8r2iYyEM6mKeaoM=;
+        b=PJxWjqNe8DPZ47jCDPf233HvmYaenEmSMm+R0KlE+E0FLW2ThAf2sJByGyZALOcEEy
+         8GdLl6lQFzLCo7MnHb11HtHOS4JZ7IXP0B7AbxCwBoF078etDgqajzZhlpMysQ9qxUky
+         DGM39lc+WgZensTP3aTFLH/blKb6x13NCDgO+E8NMurn8FkOmb3GTUQXby7OonETsF/H
+         yP6PrkVXuJuVM8juWA33j9jUG7ocWYRdTjUx+GEd7t5ejo70Ue34w3/gTTubp8lDLGOa
+         SyOUn4e3GI9JzFCQZAQMQJRq5y1W/Q4lO5S5nymJIh4sdY7RMCzy3W56I49iosabKeZ3
+         R4BQ==
+X-Gm-Message-State: ANhLgQ2wFg2KSLk9xBU9bMxkcKJOsknzmC4TR/F5mNBGb3pOdznnDML+
+        GgWqIA54A8+OK6cWFbBaUcMaiFsy
+X-Google-Smtp-Source: ADFU+vuL1+e+DaGLt3wFqZIySQ0ZdbIYvwXTwwAPHaCUwG1Ce5H0BjfN1sC6ShgdMTz5323FqzcoTA==
+X-Received: by 2002:adf:fdd2:: with SMTP id i18mr5887670wrs.165.1585212397305;
+        Thu, 26 Mar 2020 01:46:37 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id f187sm2505518wme.31.2020.03.26.01.37.40
+        by smtp.gmail.com with ESMTPSA id i19sm2613518wmb.44.2020.03.26.01.46.36
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Mar 2020 01:37:41 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Aleksa Sarai <asarai@suse.de>
-Subject: Re: clock_settime(2) error for non-settable clocks
-To:     Eric Rannaud <eric.rannaud@gmail.com>, linux-api@vger.kernel.org,
-        linux-man@vger.kernel.org
-References: <CA+zRj8U5_NaY4ZQXj9r=f58KcO3pq5k9HZt9KxRYHnOOk=e1WQ@mail.gmail.com>
+        Thu, 26 Mar 2020 01:46:36 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] timerfd_create.2: Included return value 0
+To:     "devi R.K" <devi.feb27@gmail.com>
+References: <CAJymdbxJNag1W0vR9Ysm7_y91HwLAu4QaSMKZbed4emT1DYvww@mail.gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <a225bae5-e342-fee4-b7fa-c3093ca52fa0@gmail.com>
-Date:   Thu, 26 Mar 2020 09:37:40 +0100
+Message-ID: <55aa30be-5894-ae52-ffd4-5f2a82aa5ad5@gmail.com>
+Date:   Thu, 26 Mar 2020 09:45:20 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <CA+zRj8U5_NaY4ZQXj9r=f58KcO3pq5k9HZt9KxRYHnOOk=e1WQ@mail.gmail.com>
+In-Reply-To: <CAJymdbxJNag1W0vR9Ysm7_y91HwLAu4QaSMKZbed4emT1DYvww@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Eric,
+Hello Devi,
 
-On 3/20/20 7:02 PM, Eric Rannaud wrote:
-> If clock_id is a valid clock on the system (i.e. it can be passed to
-> clock_gettime(2)), clock_settime(clock_id, &ts) sets errno to, either:
+On 3/18/20 3:04 PM, devi R.K wrote:
+> Added a return value 0 for timerfd_read which happens when there is a
+> bigger backward time drift*.*
 > 
->   - EINVAL if CONFIG_POSIX_TIMERS is not enabled (kernel/posix-stubs.c);
->   - EINVAL if CONFIG_POSIX_TIMERS is enabled (kernel/posix-timers.c)
-> and the k_clock has no set function (e.g. CLOCK_BOOTTIME);
->   - EACCES for dynamic posix clock devices that lack F_WRITE
-> (kernel/posix-time.c);
->   - EOPNOTSUPP for dynamic posix clock devices that have F_WRITE but
-> don't have a clock_settime op.
->   - EOPNOTSUPP for drivers/ptp/ptp_kvm.c (they provide a clock_settime
-> op that returns -EOPNOTSUPP directly, rather than opt to leave
-> clock_settime NULL which would do the same thing, see previous point).
-> 
-> The manpage for clock_settime(2) is not very clear:
-> 
->        EINVAL The clk_id specified is not supported on this system.
-> 
->        EPERM  clock_settime() does not have permission to set the clock  indi‐
->               cated.
-> 
-> To me, the manpage reads like EPERM should be expected when trying to
-> set a clock that is not settable.
-> 
-> Should we update the manpage to more fully explain the range of
-> possible errors or instead try to have more consistent errors? For
-> syscalls, what's the backward-compatibility contract for errno values?
+> Signed-off-by: DEVI RK <devi.feb27@gmail.com>
 
-A man-pages patch would be most appropriate. Would you be able to put
-something together?
+Can you say some more please about how you verified this and/or
+point me at the relevant kernel source code? At a simple attempt,
+I can't replicate the behavior you describe.
 
 Thanks,
 
 Michael
 
+> ---
+>  man2/timerfd_create.2 | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/man2/timerfd_create.2 b/man2/timerfd_create.2
+> index 066e0be..ccced98 100644
+> --- a/man2/timerfd_create.2
+> +++ b/man2/timerfd_create.2
+> @@ -317,6 +317,10 @@ fails with the error
+>  if the real-time clock undergoes a discontinuous change.
+>  (This allows the reading application to discover
+>  such discontinuous changes to the clock.)
+> +.IP
+> +A
+> +.BR read (2)
+> +may return 0 if the system clock undergoes a discontinuous change.
+>  .TP
+>  .BR poll "(2), " select "(2) (and similar)"
+>  The file descriptor is readable
+> 
 
 
 -- 
