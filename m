@@ -2,60 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A7477196B9B
-	for <lists+linux-man@lfdr.de>; Sun, 29 Mar 2020 09:21:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 26701196BA1
+	for <lists+linux-man@lfdr.de>; Sun, 29 Mar 2020 09:23:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727336AbgC2HV3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 29 Mar 2020 03:21:29 -0400
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:37565 "EHLO
+        id S1727286AbgC2HX0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 29 Mar 2020 03:23:26 -0400
+Received: from mail-wr1-f66.google.com ([209.85.221.66]:37683 "EHLO
         mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726342AbgC2HV3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 29 Mar 2020 03:21:29 -0400
-Received: by mail-wr1-f66.google.com with SMTP id w10so17131559wrm.4
-        for <linux-man@vger.kernel.org>; Sun, 29 Mar 2020 00:21:28 -0700 (PDT)
+        with ESMTP id S1727335AbgC2HX0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 29 Mar 2020 03:23:26 -0400
+Received: by mail-wr1-f66.google.com with SMTP id w10so17134117wrm.4
+        for <linux-man@vger.kernel.org>; Sun, 29 Mar 2020 00:23:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=MFS8hQmaDDbQ5W6UA1I/HFW9Fa/tg5ZzSXSACXtBB78=;
-        b=WA4h9AgCCKjGDCZQXhbLcC9roDMbD74/OgF93vWkvOxZJYBhU3LYC9FPlSsU2XkEJ8
-         35C78eShLuGmgnQGtjCPL6eLlBsDCZUsKLRV36mgumHH4cBfMDYyRFqpkx5aIy+D0Z/O
-         e5iTtPfmpVs/0azn0+ZXkFG1v8vhN+Uh/UOnAoKMA0DBSIpuQDAiVSJdCKrskz83cmaJ
-         lRGRpfxAG7eUOcycROTa7sSwkpnmbxYFtLW8AexkytYkKK/hPod5/+FpBgYkFP40vJGe
-         oFtYyoKLm6YpGjH30XjZ7aVqiBs8vgW+NmKWXWrMcJfq0gpYERkKrffasaOWUi4LbVnC
-         5NZQ==
+        bh=pWBn/hdEFB1tZ80ZhbDpNcynr1W0bkeBR+j3I6jsd2U=;
+        b=dsJ0d21BtohdeA0UuQ7R9wyLAx318n8OYhFDfsC9zfgeujkt5RU+/NWmhIxaHJ5F8U
+         ZNHJNIRKB8GfixsJhym8LoE5pHGBl8B/kUhulqQJPXh5I38dRmrLixB1cu/AOvH0ZNyD
+         5DM0qR9YOiKDRaAZHfuMRHy+2ln/HNeVqeipcb99nCsmpM3+89JfbNCbyv/Az30eWH2W
+         P619ZbjRkDrw3SPkSlgQ9+mTkV9f9NsLUCvWUz+hQCjUvQJ+zZpxpIevO0rUJC6j8v96
+         W/bTuylE521dkDlf80JD9KKBRwOchWsNTq0ymKCd8il+NX/CXHEjYRqSPEZhYq/s6mW7
+         71Tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=MFS8hQmaDDbQ5W6UA1I/HFW9Fa/tg5ZzSXSACXtBB78=;
-        b=CyAon5KmmxLggI4f72iKOx/Zv4uQcYUBiOZiNQSqxzHP3WDJWq8QOwa+bnpeOELlnk
-         Q71kfdKemL0eL1AWDu1cWIfgPrwD09eXo9HbCkTs7oiOEFsdtBjaj8yXoNMGhhdU4eyB
-         vpaotxSh6gBb0SGD3S8af6G6abCVIAop6Kjjhs/Yrtd8obJT3MZRytd6p91BzV70Hh2c
-         J+PWn5vT/bXwfQcj2uzSwHaBVbITuk4mwazncR3BKjsnCFMhIj8xm74LWrgDb6R1C7IR
-         08oTswRh2cG++/zYBvQXWTEVyMRjCguTf776fn+TwCsoeUqPZ8e54NqcQlrHiOWUrVMl
-         ZNvQ==
-X-Gm-Message-State: ANhLgQ2cwUvSkTMEC2wPDl0b47Jub5ZU2PyAqhWz5EpAbTtikBFpifna
-        HH20L2mrxaku3XUsH5xYZaOp/V3r
-X-Google-Smtp-Source: ADFU+vu5N2U2Atu5lucWGGhagdRx3B5XVyslY8RT0ZepFKtMeGeOZNFLJvJTyGeo5uCrwz0nxDHivg==
-X-Received: by 2002:adf:9dca:: with SMTP id q10mr8294839wre.11.1585466487345;
-        Sun, 29 Mar 2020 00:21:27 -0700 (PDT)
+        bh=pWBn/hdEFB1tZ80ZhbDpNcynr1W0bkeBR+j3I6jsd2U=;
+        b=KF4rMpOd56yXcY2IFwkrbQSgTu95C6wuVePuVPRUKSsvtNKLjwGA9ZO8Sx1aD4v7P/
+         s3yu/307B1Ji2O5CELZ8XrgtglyDjYj3xlE64iAskDA8MZRWhjRz1DycPA+zgdjYfRWb
+         PI2lZmRmCUjU4i8RsZi2h5H/uYmgoaIazTyXAfwAbOXiKRDnly+4eqVgL7SHEnCWomsU
+         8pJL1UlCxVsRE5rOj5hAfVJ5cwo9dmTIRqYopgEtucZQTPCyXmQwGfOIXIUZN25hr0ms
+         RArlO3bHuWUUbPPVJ3RpgPLhs19qZOaXU9MWLa8Qp0Vjyzitx0x2T5LUAuMBo46ab1RX
+         ujmQ==
+X-Gm-Message-State: ANhLgQ1Ch1yv51wxMohFm/R5DT0Y3EQfi2uwGc31WVoN8P5zx1Hh/JA+
+        ffkA4MiMW35+4Ea2VN2w5IcFt9Kg
+X-Google-Smtp-Source: ADFU+vtVa+JtJ6ZXcGktaNLutl0WtFSxz4Bhrzh1Q2KHJtziWy8ah3/rVN0IfY3254HLLrkyHx8JVA==
+X-Received: by 2002:adf:ef48:: with SMTP id c8mr8111273wrp.379.1585466604501;
+        Sun, 29 Mar 2020 00:23:24 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id c23sm16558477wrb.79.2020.03.29.00.21.26
+        by smtp.gmail.com with ESMTPSA id z129sm15777232wmb.7.2020.03.29.00.23.23
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 29 Mar 2020 00:21:26 -0700 (PDT)
+        Sun, 29 Mar 2020 00:23:23 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] clock_getres.2: tfix
-To:     Benjamin Peterson <benjamin@python.org>
-References: <20200327041749.21337-1-benjamin@python.org>
+Subject: Re: Typo in man-page: SIGNAL(7)
+To:     "Pablo M. Ronchi" <pmronchi@yahoo.com.ar>
+References: <fa469dfc-71ce-e7a2-dd83-b9566cc7ba58.ref@yahoo.com.ar>
+ <fa469dfc-71ce-e7a2-dd83-b9566cc7ba58@yahoo.com.ar>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <16430107-a6a7-7a2d-c9e7-cc0a64a9b3fb@gmail.com>
-Date:   Sun, 29 Mar 2020 09:21:23 +0200
+Message-ID: <c125ebb6-8959-31b2-f6d1-aee7375df9f7@gmail.com>
+Date:   Sun, 29 Mar 2020 09:23:23 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200327041749.21337-1-benjamin@python.org>
+In-Reply-To: <fa469dfc-71ce-e7a2-dd83-b9566cc7ba58@yahoo.com.ar>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -64,34 +65,44 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 3/27/20 5:17 AM, Benjamin Peterson wrote:
-> Signed-off-by: Benjamin Peterson <benjamin@python.org>
+On 3/26/20 6:17 PM, Pablo M. Ronchi wrote:
+> In the URL:
+> 
+> http://man7.org/linux/man-pages/man7/signal.7.html
+> 
+> there is the following duplication typo at the end of the paragraph: "it 
+> was it was" (marked in capital letters, below)
+> 
+> ...
+> Signal mask and pending signals
+> ...
+> A signal may be blocked, which means that it will not be delivered until 
+> it is later unblocked. Between the time when it is generated and when it 
+> is delivered a signal is said to be pending. Each thread in a process 
+> has an independent signal mask, which indicates the set of signals that 
+> the thread is currently blocking. A thread can manipulate its signal 
+> mask using pthread_sigmask(3). In a traditional single-threaded 
+> application, sigprocmask(2) can be used to manipulate the signal mask. A 
+> child created via fork(2) inherits a copy of its parent's signal mask; 
+> the signal mask is preserved across execve(2). A signal may be 
+> process-directed or thread-directed. A process- directed signal is one 
+> that is targeted at (and thus pending for) the process as a whole. A 
+> signal may be process-directed because it was generated by the kernel 
+> for reasons other than a hardware exception, or because it was sent 
+> using kill(2) or sigqueue(3). A thread- directed signal is one that is 
+> targeted at a specific thread. A signal may be thread-directed because 
+> it was generated as a consequence of executing a specific 
+> machine-language instruction that triggered a hardware exception (e.g., 
+> SIGSEGV for an invalid memory access, or SIGFPE for a math error), or 
+> because IT WAS IT WAS targeted at a specific thread using interfaces 
+> such as tgkill(2) or pthread_kill(3).
+> ...
 
-Thanks, Benjamin. Applied.
+Thanks, Pablo. Fixed!
 
 Cheers,
 
 Michael
-
-> ---
->  man2/clock_getres.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man2/clock_getres.2 b/man2/clock_getres.2
-> index d8b02e185..4422d2d00 100644
-> --- a/man2/clock_getres.2
-> +++ b/man2/clock_getres.2
-> @@ -139,7 +139,7 @@ and probably also architecture support for this flag in the
->  .TP
->  .BR CLOCK_TAI " (since Linux 3.10; Linux-specific)"
->  .\" commit 1ff3c9677bff7e468e0c487d0ffefe4e901d33f4
-> -A system-wide clock derived from walli-clock time but ignoring leap seconds.
-> +A system-wide clock derived from wall-clock time but ignoring leap seconds.
->  This clock does
->  not experience discontinuities and backwards jumps caused by NTP
->  inserting leap seconds as
-> 
-
 
 -- 
 Michael Kerrisk
