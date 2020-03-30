@@ -2,129 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 2B238197813
-	for <lists+linux-man@lfdr.de>; Mon, 30 Mar 2020 11:54:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E51151979E5
+	for <lists+linux-man@lfdr.de>; Mon, 30 Mar 2020 12:53:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728386AbgC3JyT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 30 Mar 2020 05:54:19 -0400
-Received: from mout-p-201.mailbox.org ([80.241.56.171]:21378 "EHLO
-        mout-p-201.mailbox.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727874AbgC3JyT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Mar 2020 05:54:19 -0400
-X-Greylist: delayed 324 seconds by postgrey-1.27 at vger.kernel.org; Mon, 30 Mar 2020 05:54:18 EDT
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:105:465:1:2:0])
-        (using TLSv1.2 with cipher ECDHE-RSA-CHACHA20-POLY1305 (256/256 bits))
-        (No client certificate requested)
-        by mout-p-201.mailbox.org (Postfix) with ESMTPS id 48rSMl5DjbzQlJg;
-        Mon, 30 Mar 2020 11:48:51 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at heinlein-support.de
-Received: from smtp2.mailbox.org ([80.241.60.241])
-        by spamfilter05.heinlein-hosting.de (spamfilter05.heinlein-hosting.de [80.241.56.123]) (amavisd-new, port 10030)
-        with ESMTP id JK5Ffe5fM8nK; Mon, 30 Mar 2020 11:48:45 +0200 (CEST)
-Date:   Mon, 30 Mar 2020 20:48:36 +1100
-From:   Aleksa Sarai <cyphar@cyphar.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        Aleksa Sarai <asarai@suse.de>, linux-man@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH man-pages v2 2/2] openat2.2: document new openat2(2)
- syscall
-Message-ID: <20200330094836.lhcipdujroahiu4y@yavin.dot.cyphar.com>
-References: <20200202151907.23587-1-cyphar@cyphar.com>
- <20200202151907.23587-3-cyphar@cyphar.com>
- <4dcea613-60b8-a8af-9688-be93858ab652@gmail.com>
- <20200330092051.umcu2mjnwqazml7a@yavin.dot.cyphar.com>
- <ae275f67-9277-547c-e78c-bca4f388f694@gmail.com>
+        id S1729417AbgC3Kw6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 30 Mar 2020 06:52:58 -0400
+Received: from mail-vs1-f68.google.com ([209.85.217.68]:45391 "EHLO
+        mail-vs1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729440AbgC3Kwp (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Mar 2020 06:52:45 -0400
+Received: by mail-vs1-f68.google.com with SMTP id x82so10623373vsc.12
+        for <linux-man@vger.kernel.org>; Mon, 30 Mar 2020 03:52:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=82B0OONv9gwbZlPp43NzThDz2fRV+KRFwafOQ16joDw=;
+        b=I2bZK+Edwp7f1bl38ZDsYZ8gkHoLOp7N+SgwKjOSdbsqnWhmYlKKFyWTTwwdBuA4Vg
+         rwBHnP7ed1EksF/Uo6wi0daOtai1jA53B5b9RrMCwInP8fTj6xlf+N87Jxy7Sxa+QbUF
+         l2GP0Lv6JzwuZiPJAzgKXNfvaR6mAHzPBfBvakflfZ8B4h5bL4zPFQy+qXgn4TFvbTXz
+         A1ohkR077EumDiarvC1dhS/fXXyUHKbnnxfkdMVlwSlZiAQJvL50ZQklv05R+GT0yrBC
+         3q/4vjuGZ1FGpK3Ogg0O4Ce18OqauZECfFoMpKCzkd0qt9LKtlmIkWUwZqPjuntycFFN
+         I7DQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=82B0OONv9gwbZlPp43NzThDz2fRV+KRFwafOQ16joDw=;
+        b=p/a2VbNFeDm5rrPd4pN6ZrWcDJHKl8HvyGGKDo1K9k8DrdNGVMwMNVI9/koq4dI7e7
+         Df0qm3BscU2RP5bcb0T32vlcKFgPs1pzaQWqZZ0dZ1J2sv+2ALDZgrw8fl2qs/IwBG/Q
+         Hqy9eVj+QvxKkcxKRK7D7DSoEGHJ+uvJ3Nrx4jjUGuxISRjoBo04ntkF98tg/EKmd3ot
+         NXGuJ3GspvcoyF16eORGLTr8xxTpy7wKID1pJ6MZ6cJxNNProa4whXqtNeX3aC8xpJ7I
+         Vi9oP6xOUkIOcJgW/fkiRlKay2E9HvLSLFXEO6HgvYqRAWs9fORgCHYIl07koH8XgLi7
+         3yfw==
+X-Gm-Message-State: AGi0PuYQEagGOrNRhjd9yo9mQaToYEC44tmDOo8FB0a/bWzOW+jZHYOY
+        Y7PQfyhgjsOPr08RDitSWo2GJa2yzd8KgAS9OsY=
+X-Google-Smtp-Source: APiQypIWKERkhJyfw3nllppwlKx4Kg5tACX7YV91IKVmdYpKGJw8tan3l05zjbxOy64C+jzvYjD6e0YtF987t4KsIjw=
+X-Received: by 2002:a67:e24c:: with SMTP id w12mr8442912vse.153.1585565563772;
+ Mon, 30 Mar 2020 03:52:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="zcsmuu77p43qapkn"
-Content-Disposition: inline
-In-Reply-To: <ae275f67-9277-547c-e78c-bca4f388f694@gmail.com>
+Received: by 2002:a67:c005:0:0:0:0:0 with HTTP; Mon, 30 Mar 2020 03:52:43
+ -0700 (PDT)
+Reply-To: maryalice00.12@postribe.com
+From:   Maryalice Williams <maryalicewilliams730@gmail.com>
+Date:   Mon, 30 Mar 2020 08:52:43 -0200
+Message-ID: <CAKwdjsr+YKgJk7z-UHX7Zo55cx5RUN3-bw03sWcArP4vbM2B5g@mail.gmail.com>
+Subject: Reply For More Details.
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+-- 
+My dear,
 
---zcsmuu77p43qapkn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I am Mrs Maryalice Williams, I want to send you donation of two
+million seven hundred thousand Dollars ($2.7M) for volunteer projects
+in your country due to my ill health that could not permit me. Kindly
+reply for more details, and also send me the following details, as per
+below, your full Name ..........,  Address...........,
+Age...............,  Occupation ...............
 
-On 2020-03-30, Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
-> On 3/30/20 11:20 AM, Aleksa Sarai wrote:
-> > On 2020-03-30, Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wro=
-te:
-> >> Hello Aleksa,
-> >>
-> >> On 2/2/20 4:19 PM, Aleksa Sarai wrote:
-> >>> Rather than trying to merge the new syscall documentation into open.2
-> >>> (which would probably result in the man-page being incomprehensible),
-> >>> instead the new syscall gets its own dedicated page with links between
-> >>> open(2) and openat2(2) to avoid duplicating information such as the l=
-ist
-> >>> of O_* flags or common errors.
-> >>>
-> >>> In addition to describing all of the key flags, information about the
-> >>> extensibility design is provided so that users can better understand =
-why
-> >>> they need to pass sizeof(struct open_how) and how their programs will
-> >>> work across kernels. After some discussions with David Laight, I also
-> >>> included explicit instructions to zero the structure to avoid issues
-> >>> when recompiling with new headers.>
-> >>> Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
-> >>
-> >> I'm just editing this page, and have a question on one piece.
-> >>
-> >>> +Unlike
-> >>> +.BR openat (2),
-> >>> +it is an error to provide
-> >>> +.BR openat2 ()
-> >>> +with a
-> >>> +.I mode
-> >>> +which contains bits other than
-> >>> +.IR 0777 ,
-> >>
-> >> This piece appears not to be true, both from my reading of the
-> >> source code, and from testing (i.e., I wrote a a small program that
-> >> successfully called openat2() and created a file that had the
-> >> set-UID, set-GID, and sticky bits set).
-> >>
-> >> Is this a bug in the implementation or a bug in the manual page text?
-> >=20
-> > My bad -- it's a bug in the manual. The actual check (which does work,
-> > there are selftests for this) is:
-> >=20
-> > 	if (how->mode & ~S_IALLUGO)
-> > 		return -EINVAL;
-> >=20
-> > But when writing the man page I forgot that S_IALLUGO also includes
-> > those bits. Do you want me to send an updated version or would you
-> > prefer to clean it up?
->=20
-> I'll clean it up.
->=20
-> So, it should say, "bits other than 07777", right?
-
-Yes, that would be correct.
-
---=20
-Aleksa Sarai
-Senior Software Engineer (Containers)
-SUSE Linux GmbH
-<https://www.cyphar.com/>
-
---zcsmuu77p43qapkn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQSxZm6dtfE8gxLLfYqdlLljIbnQEgUCXoHAcQAKCRCdlLljIbnQ
-EvucAP9GXcbNItNpaRbdUdGWIFNP8w+Mq+hSgnLQuuxq/Zo+kQEAqlkhi7iQyli9
-3DsFmRfEOOZM9ZV1HezhJaFSfwUEpgo=
-=AQVl
------END PGP SIGNATURE-----
-
---zcsmuu77p43qapkn--
+Remain blessed,
+Mrs. Maryalice Williams.
