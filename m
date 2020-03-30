@@ -2,152 +2,114 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 8A70D1970DD
-	for <lists+linux-man@lfdr.de>; Mon, 30 Mar 2020 00:50:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4F906197774
+	for <lists+linux-man@lfdr.de>; Mon, 30 Mar 2020 11:08:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728765AbgC2WuS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 29 Mar 2020 18:50:18 -0400
-Received: from Galois.linutronix.de ([193.142.43.55]:57188 "EHLO
-        Galois.linutronix.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727591AbgC2WuR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 29 Mar 2020 18:50:17 -0400
-Received: from p5de0bf0b.dip0.t-ipconnect.de ([93.224.191.11] helo=nanos.tec.linutronix.de)
-        by Galois.linutronix.de with esmtpsa (TLS1.2:DHE_RSA_AES_256_CBC_SHA256:256)
-        (Exim 4.80)
-        (envelope-from <tglx@linutronix.de>)
-        id 1jIgkv-0003TB-BJ; Mon, 30 Mar 2020 00:50:13 +0200
-Received: by nanos.tec.linutronix.de (Postfix, from userid 1000)
-        id D0BCF101150; Mon, 30 Mar 2020 00:50:12 +0200 (CEST)
-From:   Thomas Gleixner <tglx@linutronix.de>
-To:     "Michael Kerrisk \(man-pages\)" <mtk.manpages@gmail.com>,
-        "devi R.K" <devi.feb27@gmail.com>
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        lkml <linux-kernel@vger.kernel.org>, arul.jeniston@gmail.com
-Subject: Re: [PATCH] timerfd_create.2: Included return value 0
-In-Reply-To: <3cbd0919-c82a-cb21-c10f-0498433ba5d1@gmail.com>
-References: <CAJymdbxJNag1W0vR9Ysm7_y91HwLAu4QaSMKZbed4emT1DYvww@mail.gmail.com> <55aa30be-5894-ae52-ffd4-5f2a82aa5ad5@gmail.com> <CAJymdbwfm7EypQfXRqWZHbfj2SKk7PCP7SMccz6bmJWSauDqPQ@mail.gmail.com> <CAJymdby8pDASq5Xv7DeTJ5cq1NXPe1jUWwApxZ5o-huaEXUrjw@mail.gmail.com> <3cbd0919-c82a-cb21-c10f-0498433ba5d1@gmail.com>
-Date:   Mon, 30 Mar 2020 00:50:12 +0200
-Message-ID: <87a73ywzbv.fsf@nanos.tec.linutronix.de>
+        id S1729839AbgC3JIS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 30 Mar 2020 05:08:18 -0400
+Received: from mail-wr1-f67.google.com ([209.85.221.67]:39565 "EHLO
+        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729827AbgC3JIS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Mar 2020 05:08:18 -0400
+Received: by mail-wr1-f67.google.com with SMTP id p10so20612723wrt.6;
+        Mon, 30 Mar 2020 02:08:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=bTYehEJibc5NpezL2miOM2UdvHHV5lxW3CvlvcvUFZc=;
+        b=skx0J5EJ+LeY2Xp5xogjkpxx/vhzk/uPCt6wTntQ2gWmUK4+NB8zoW0hukUsmSF0nD
+         zKLCtfJ8KVjrhX+J6OiYI2KvdVdUwn1+BSjCHJisv8Zc/UuYqdTnBwYfCowXEU4fuA5o
+         fQWlC0x43Lw2vGrcZjohE4mR/0bTy1D7K2FtD5Ji2ckVuqB/748Uq8wl2YGVxW66k2uM
+         UWVcapTluCjqSkBJGxoHefhA8vtEWcnnqQxBk6NnXYalpp4bL5/46MXB7xGAEG+BZyx8
+         zSJdNdeVzaFPEkrcTpyRCB1f4U3VcLIkfsqn5M7A83+nIJBFduH4VuX98dYjy0Tabvf+
+         /bJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=bTYehEJibc5NpezL2miOM2UdvHHV5lxW3CvlvcvUFZc=;
+        b=DaYNojXtZ2KKItaj0Sz+p9TRebhDp8ZfZsn8LoDKyRM2Yl6soKLuAOU/RlKG+anQRJ
+         HADikK8ASOuKozsdBuxUenFrsMS1IW+Y2HASqg3kmpM2VhidophTzKzsVhrGHB0ECo6d
+         DcXY3YiAAUDm3Gjklj9EpUmdtyCUqhRizr3PBzWX5ItjKWNqYzwAuTzXKiH/lCyrlr7H
+         IWt8HXXTJzLvbIB+qMNd+arRI/QsDWOadRh0TKYpGZQqae+UP1Nk48d1kz5TbpzDCaqv
+         Iks+PRlaR2eu0pD8jTHnhBvRb9WrNSTz8lB6G5m4Cj/ftFQICWBTbmysQYjzsdjSX/+B
+         WvvA==
+X-Gm-Message-State: ANhLgQ0NepTn2fjlDZQZjPulT6Hs0G1NHJHRikP7EwKwRtfxdqDsz9bv
+        Y5kTT2CB3/mjPtx84N3nRgzlLFnB
+X-Google-Smtp-Source: ADFU+vs8+HuLZBtQ3iKO2QQDWy8WQ1tzX+o4NRgABRPSTDnj27IhTo6J75JWGFZDWwYDHYbxmJVT4w==
+X-Received: by 2002:a5d:4284:: with SMTP id k4mr13569324wrq.310.1585559295971;
+        Mon, 30 Mar 2020 02:08:15 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
+        by smtp.gmail.com with ESMTPSA id z1sm9323400wrp.90.2020.03.30.02.08.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 30 Mar 2020 02:08:15 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, Christian Brauner <christian@brauner.io>,
+        Aleksa Sarai <asarai@suse.de>, linux-man@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH man-pages v2 2/2] openat2.2: document new openat2(2)
+ syscall
+To:     Aleksa Sarai <cyphar@cyphar.com>, Al Viro <viro@zeniv.linux.org.uk>
+References: <20200202151907.23587-1-cyphar@cyphar.com>
+ <20200202151907.23587-3-cyphar@cyphar.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <4dcea613-60b8-a8af-9688-be93858ab652@gmail.com>
+Date:   Mon, 30 Mar 2020 11:08:12 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Linutronix-Spam-Score: -1.0
-X-Linutronix-Spam-Level: -
-X-Linutronix-Spam-Status: No , -1.0 points, 5.0 required,  ALL_TRUSTED=-1,SHORTCIRCUIT=-0.0001
+In-Reply-To: <20200202151907.23587-3-cyphar@cyphar.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Micheal,
+Hello Aleksa,
 
-"Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> writes:
-> [Greetings, Thomas; now I recall a conversation we had in Lyon :-) ]
+On 2/2/20 4:19 PM, Aleksa Sarai wrote:
+> Rather than trying to merge the new syscall documentation into open.2
+> (which would probably result in the man-page being incomprehensible),
+> instead the new syscall gets its own dedicated page with links between
+> open(2) and openat2(2) to avoid duplicating information such as the list
+> of O_* flags or common errors.
+> 
+> In addition to describing all of the key flags, information about the
+> extensibility design is provided so that users can better understand why
+> they need to pass sizeof(struct open_how) and how their programs will
+> work across kernels. After some discussions with David Laight, I also
+> included explicit instructions to zero the structure to avoid issues
+> when recompiling with new headers.>
+> Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
 
-Hehe.
+I'm just editing this page, and have a question on one piece.
 
-> I think this patch does not really capture the details
-> properly. The immediately preceding paragraph says:
->
->          If  the  associated  clock  is  either  CLOCK_REALTIME   or
->          CLOCK_REALTIME_ALARM,     the     timer     is     absolute
->          (TFD_TIMER_ABSTIME), and the  flag  TFD_TIMER_CANCEL_ON_SET
->          was  specified when calling timerfd_settime(), then read(2)
->          fails with the  error  ECANCELED  if  the  real-time  clock
->          undergoes a discontinuous change.  (This allows the reading
->          application to discover such discontinuous changes  to  the
->          clock.)
->
-> Following on from that, I think we should have a pargraph that says
-> something like:
->
->          If  the  associated  clock  is  either  CLOCK_REALTIME   or
->          CLOCK_REALTIME_ALARM,     the     timer     is     absolute
->          (TFD_TIMER_ABSTIME), and the  flag  TFD_TIMER_CANCEL_ON_SET
->          was not specified when calling timerfd_settime(), then a
->          discontinuous negative change to the clock 
->          (e.g., clock_settime(2)) may cause read(2) to unblock, but
->          return a value of 0 (i.e., no bytes read), if the clock
->          change occurs after the time expired, but before the
->          read(2) on the timerfd file descriptor.
+> +Unlike
+> +.BR openat (2),
+> +it is an error to provide
+> +.BR openat2 ()
+> +with a
+> +.I mode
+> +which contains bits other than
+> +.IR 0777 ,
 
-Yes, that's correct. Accurate as always!
+This piece appears not to be true, both from my reading of the
+source code, and from testing (i.e., I wrote a a small program that
+successfully called openat2() and created a file that had the
+set-UID, set-GID, and sticky bits set).
 
-This is pretty much in line with clock_nanosleep(CLOCK_REALTIME,
-TIMER_ABSTIME) which has a similar problem vs. observability in user
-space.
-
-clock_nanosleep(2) mutters:
-
-  "POSIX.1 specifies that after changing the value of the CLOCK_REALTIME
-   clock via clock_settime(2), the new clock value shall be used to
-   determine the time at which a thread blocked on an absolute
-   clock_nanosleep() will wake up; if the new clock value falls past the
-   end of the sleep interval, then the clock_nanosleep() call will return
-   immediately."
-
-which can be interpreted as guarantee that clock_nanosleep() never
-returns prematurely, i.e. the assert() in the below code would indicate
-a kernel failure:
-
-   ret = clock_nanosleep(CLOCK_REALTIME, TIMER_ABSTIME, &expiry, NULL);
-   if (!ret) {
-         clock_gettime(CLOCK_REALTIME, &now);
-         assert(now >= expiry);
-   }
-
-But that assert can trigger when CLOCK_REALTIME was modified after the
-timer fired and the kernel decided to wake up the task and let it return
-to user space.
-
-   clock_nanosleep(..., &expiry)
-     arm_timer(expires);
-     schedule();
-
-   -> timer interrupt
-      now = ktime_get_real();
-      if (expires <= now)
-              -------------------------------- After this point
-         wakeup();                             clock_settime(2) or
-                                               adjtimex(2) which
-                                               makes CLOCK_REALTIME
-                                               jump back far enough will
-                                               cause the above assert
-                                               to trigger.
-
-   ...
-   return from syscall (retval == 0)
-
-There is no guarantee against clock_settime() coming after the
-wakeup. Even if we put another check into the return to user path then
-we won't catch a clock_settime() which comes right after that and before
-user space invokes clock_gettime().
-
-POSIX spec Issue 7 (2018 edition) says:
-
- The suspension for the absolute clock_nanosleep() function (that is,
- with the TIMER_ABSTIME flag set) shall be in effect at least until the
- value of the corresponding clock reaches the absolute time specified by
- rqtp.
-
-And that's what the kernel implements for clock_nanosleep() and timerfd
-behaves exactly the same way.
-
-The wakeup of the waiter, i.e. task blocked in clock_nanosleep(2),
-read(2), poll(2), is not happening _before_ the absolute time specified
-is reached.
-
-If clock_settime() happens right before the expiry check, then it does
-the right thing, but any modification to the clock after the wakeup
-cannot be mitigated. At least not in a way which would make the assert()
-in the example code above a reliable indicator for a kernel fail.
-
-That's the reason why I rejected the attempt to mitigate that particular
-0 tick issue in timerfd as it would just scratch a particular itch but
-still not provide any guarantee. So having the '0' return documented is
-the right way to go.
+Is this a bug in the implementation or a bug in the manual page text?
 
 Thanks,
 
-        tglx
+Michael
 
 
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
