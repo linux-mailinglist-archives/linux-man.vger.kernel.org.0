@@ -2,107 +2,88 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4F906197774
-	for <lists+linux-man@lfdr.de>; Mon, 30 Mar 2020 11:08:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2D20C197780
+	for <lists+linux-man@lfdr.de>; Mon, 30 Mar 2020 11:11:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729839AbgC3JIS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 30 Mar 2020 05:08:18 -0400
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:39565 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729827AbgC3JIS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Mar 2020 05:08:18 -0400
-Received: by mail-wr1-f67.google.com with SMTP id p10so20612723wrt.6;
-        Mon, 30 Mar 2020 02:08:16 -0700 (PDT)
+        id S1727881AbgC3JLK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 30 Mar 2020 05:11:10 -0400
+Received: from mail-wm1-f67.google.com ([209.85.128.67]:36523 "EHLO
+        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727848AbgC3JLJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Mar 2020 05:11:09 -0400
+Received: by mail-wm1-f67.google.com with SMTP id g62so21038656wme.1
+        for <linux-man@vger.kernel.org>; Mon, 30 Mar 2020 02:11:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=bTYehEJibc5NpezL2miOM2UdvHHV5lxW3CvlvcvUFZc=;
-        b=skx0J5EJ+LeY2Xp5xogjkpxx/vhzk/uPCt6wTntQ2gWmUK4+NB8zoW0hukUsmSF0nD
-         zKLCtfJ8KVjrhX+J6OiYI2KvdVdUwn1+BSjCHJisv8Zc/UuYqdTnBwYfCowXEU4fuA5o
-         fQWlC0x43Lw2vGrcZjohE4mR/0bTy1D7K2FtD5Ji2ckVuqB/748Uq8wl2YGVxW66k2uM
-         UWVcapTluCjqSkBJGxoHefhA8vtEWcnnqQxBk6NnXYalpp4bL5/46MXB7xGAEG+BZyx8
-         zSJdNdeVzaFPEkrcTpyRCB1f4U3VcLIkfsqn5M7A83+nIJBFduH4VuX98dYjy0Tabvf+
-         /bJQ==
+        bh=gpI+SXJ1BULFCAW9vkT9zsP4j/QkipA24d4Ex+Ad1Uw=;
+        b=fsox30+ElDr35P2IArzxXWAfxfQXuPllpHKSrfh6PnKLPqoz4Voei6DE6RdxVpvZD/
+         h1mxCmHP02mh+VDI3lwvDaIIuLg/5dHPTACt6BaKlk0c3IUo8ogxQVqjodeEvISi+ndV
+         VAPIPOyeC7RbhM+K+IUEwaiZURJ97cUy8p/32lebsaQFFqXtmnxTgBCxW5SVbOyxb3bz
+         h3xOB7+WB8qnUnNudOv+7Q2KSBf1Db4ujQRcpfc/YZoy91zSCFMOeeRWyscCWxn16KZk
+         ayRi2QkQVjbPIQzPgOyiM7ZTvOE92yVYGaOWwSszvawcPm1SxVkjIu6vF9r2DteObrHH
+         b86Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=bTYehEJibc5NpezL2miOM2UdvHHV5lxW3CvlvcvUFZc=;
-        b=DaYNojXtZ2KKItaj0Sz+p9TRebhDp8ZfZsn8LoDKyRM2Yl6soKLuAOU/RlKG+anQRJ
-         HADikK8ASOuKozsdBuxUenFrsMS1IW+Y2HASqg3kmpM2VhidophTzKzsVhrGHB0ECo6d
-         DcXY3YiAAUDm3Gjklj9EpUmdtyCUqhRizr3PBzWX5ItjKWNqYzwAuTzXKiH/lCyrlr7H
-         IWt8HXXTJzLvbIB+qMNd+arRI/QsDWOadRh0TKYpGZQqae+UP1Nk48d1kz5TbpzDCaqv
-         Iks+PRlaR2eu0pD8jTHnhBvRb9WrNSTz8lB6G5m4Cj/ftFQICWBTbmysQYjzsdjSX/+B
-         WvvA==
-X-Gm-Message-State: ANhLgQ0NepTn2fjlDZQZjPulT6Hs0G1NHJHRikP7EwKwRtfxdqDsz9bv
-        Y5kTT2CB3/mjPtx84N3nRgzlLFnB
-X-Google-Smtp-Source: ADFU+vs8+HuLZBtQ3iKO2QQDWy8WQ1tzX+o4NRgABRPSTDnj27IhTo6J75JWGFZDWwYDHYbxmJVT4w==
-X-Received: by 2002:a5d:4284:: with SMTP id k4mr13569324wrq.310.1585559295971;
-        Mon, 30 Mar 2020 02:08:15 -0700 (PDT)
+        bh=gpI+SXJ1BULFCAW9vkT9zsP4j/QkipA24d4Ex+Ad1Uw=;
+        b=sgEObt+dN0bIPPMqM9wcBCVisFOUavWUqjh68cg/c+oTm3JTSXgmYR4fzB6YHPESuP
+         MBLW8HBslLqPJgKTOBJiMj4Oy/U7GBFuBwIoAUJ2P1WSxs8CZiNhCmw9OU4pfNqL9iwl
+         8X3WM9R2lApL99kP6vjUHVFukeJ7MJZb0DcFcHTP2GFJZ9gI/43bK6cyEPgShkCE9qRs
+         ye+OBhEHVgier2mEdUKckT8/80BeZyz6U00Mzt/QHBoWxPYvB5f+eYh/AGVLLj9/T6/W
+         Ajm9jS69mTM/+SN9bQ7KZLrvcDb//AmEJPVoF3RBT8lDtBbWElqhhDWu46ZxgHrGpAD2
+         6R2A==
+X-Gm-Message-State: ANhLgQ1vbR98jSP38XgpoaI697Sb4Bkr6vRq0oURq7hzcLaLDyv6D0/W
+        H5RMhWdsatY4w7dg66W1PQfVQdtK
+X-Google-Smtp-Source: ADFU+vvx+g44sX5i5bEUqzfuZJUBweGNFQ4F31SlsaxaznnLTjbaZtwBZtLkc+iuYGKRvLs0olgqdw==
+X-Received: by 2002:a1c:7412:: with SMTP id p18mr5780610wmc.11.1585559468069;
+        Mon, 30 Mar 2020 02:11:08 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id z1sm9323400wrp.90.2020.03.30.02.08.14
+        by smtp.gmail.com with ESMTPSA id u131sm21967517wmg.41.2020.03.30.02.11.07
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 30 Mar 2020 02:08:15 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Christian Brauner <christian@brauner.io>,
-        Aleksa Sarai <asarai@suse.de>, linux-man@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH man-pages v2 2/2] openat2.2: document new openat2(2)
- syscall
-To:     Aleksa Sarai <cyphar@cyphar.com>, Al Viro <viro@zeniv.linux.org.uk>
-References: <20200202151907.23587-1-cyphar@cyphar.com>
- <20200202151907.23587-3-cyphar@cyphar.com>
+        Mon, 30 Mar 2020 02:11:07 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com,
+        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Subject: Re: [patch] socket.2: DOMAIN's are defined in <bits/socket.h> not
+ <sys/socket.h>
+To:     Anvar Nasar <anvarnasar@ymail.com>
+References: <1890759341.185699.1585415628792.ref@mail.yahoo.com>
+ <1890759341.185699.1585415628792@mail.yahoo.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <4dcea613-60b8-a8af-9688-be93858ab652@gmail.com>
-Date:   Mon, 30 Mar 2020 11:08:12 +0200
+Message-ID: <6c4dbd2b-4eed-82a8-cd62-2cff87c0fcfe@gmail.com>
+Date:   Mon, 30 Mar 2020 11:11:06 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200202151907.23587-3-cyphar@cyphar.com>
+In-Reply-To: <1890759341.185699.1585415628792@mail.yahoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Aleksa,
+On 3/28/20 6:13 PM, Anvar Nasar wrote:
+> diff --git a/man2/socket.2 b/man2/socket.2
+> index 0b3b90bb8..3c4f025d2 100644
+> --- a/man2/socket.2
+> +++ b/man2/socket.2
+> @@ -61,7 +61,7 @@ The
+>   argument specifies a communication domain; this selects the protocol
+>   family which will be used for communication.
+>   These families are defined in
+> -.IR <sys/socket.h> .
+> +.IR <bits/socket.h> .
+>   The formats currently understood by the Linux kernel include:
+>   .TS
+>   tab(:);
 
-On 2/2/20 4:19 PM, Aleksa Sarai wrote:
-> Rather than trying to merge the new syscall documentation into open.2
-> (which would probably result in the man-page being incomprehensible),
-> instead the new syscall gets its own dedicated page with links between
-> open(2) and openat2(2) to avoid duplicating information such as the list
-> of O_* flags or common errors.
-> 
-> In addition to describing all of the key flags, information about the
-> extensibility design is provided so that users can better understand why
-> they need to pass sizeof(struct open_how) and how their programs will
-> work across kernels. After some discussions with David Laight, I also
-> included explicit instructions to zero the structure to avoid issues
-> when recompiling with new headers.>
-> Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
-
-I'm just editing this page, and have a question on one piece.
-
-> +Unlike
-> +.BR openat (2),
-> +it is an error to provide
-> +.BR openat2 ()
-> +with a
-> +.I mode
-> +which contains bits other than
-> +.IR 0777 ,
-
-This piece appears not to be true, both from my reading of the
-source code, and from testing (i.e., I wrote a a small program that
-successfully called openat2() and created a file that had the
-set-UID, set-GID, and sticky bits set).
-
-Is this a bug in the implementation or a bug in the manual page text?
+<bits/socket.h> is included by <sys/socket.h>. <sys/socket.h> is
+the standards-compliant way of getting the definitions.
 
 Thanks,
 
