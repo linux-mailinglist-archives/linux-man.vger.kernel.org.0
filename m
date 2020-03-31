@@ -2,149 +2,279 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id B82801998C3
-	for <lists+linux-man@lfdr.de>; Tue, 31 Mar 2020 16:39:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 295D0199FD0
+	for <lists+linux-man@lfdr.de>; Tue, 31 Mar 2020 22:12:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730095AbgCaOj1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 31 Mar 2020 10:39:27 -0400
-Received: from mout-p-201.mailbox.org ([80.241.56.171]:19264 "EHLO
-        mout-p-201.mailbox.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726526AbgCaOj0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 31 Mar 2020 10:39:26 -0400
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [80.241.60.240])
-        (using TLSv1.2 with cipher ECDHE-RSA-CHACHA20-POLY1305 (256/256 bits))
-        (No client certificate requested)
-        by mout-p-201.mailbox.org (Postfix) with ESMTPS id 48sBmX0b2jzQlF1;
-        Tue, 31 Mar 2020 16:39:24 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at heinlein-support.de
-Received: from smtp1.mailbox.org ([80.241.60.240])
-        by gerste.heinlein-support.de (gerste.heinlein-support.de [91.198.250.173]) (amavisd-new, port 10030)
-        with ESMTP id FoOKAboSO1mL; Tue, 31 Mar 2020 16:39:20 +0200 (CEST)
-Date:   Wed, 1 Apr 2020 01:39:11 +1100
-From:   Aleksa Sarai <cyphar@cyphar.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        Aleksa Sarai <asarai@suse.de>, linux-man@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH man-pages v2 2/2] openat2.2: document new openat2(2)
- syscall
-Message-ID: <20200331143911.lokfoq3lqfri2mgy@yavin.dot.cyphar.com>
-References: <20200202151907.23587-1-cyphar@cyphar.com>
- <20200202151907.23587-3-cyphar@cyphar.com>
- <1567baea-5476-6d21-4f03-142def0f62e3@gmail.com>
+        id S1728187AbgCaUMC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 31 Mar 2020 16:12:02 -0400
+Received: from mail-wr1-f65.google.com ([209.85.221.65]:38961 "EHLO
+        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727955AbgCaUMC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 31 Mar 2020 16:12:02 -0400
+Received: by mail-wr1-f65.google.com with SMTP id p10so27691335wrt.6;
+        Tue, 31 Mar 2020 13:12:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=RUmPx3cevd5HZrmJAUoNAL0yIpKXpLkOD4yFNFX1yoU=;
+        b=npyePQy8NbdBmc1YC1LMGz/bFjU+8XHeYhdTjCxlwuasRIKbBvchVKMttTRkTSRkxZ
+         2tbdIV0bW9GOyOWmN577i1quhz9M1+xoSGLzvFpJzCleJyzg2rtXfNvlMxe/FJNZ+05J
+         xMvm0UrcFusDPGkNJSr9r2xsTiu7YrafZeW1IMAf4llJ8u8yu7h6HrafmYiEZ0tDr5Zv
+         KxRJhAw/m5KAFBL+fpU9g8nUitWHiejc9F/MznGeZ6lmGQljDr3hyCQLEBvpxjX6ebHj
+         lc3n9rQPouoYxgidALQ4sfe3U62t1OGba+V/TsSJHwtKaEiBoKa1ZXYuCKo/elh44/x+
+         iZsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=RUmPx3cevd5HZrmJAUoNAL0yIpKXpLkOD4yFNFX1yoU=;
+        b=KjkkoNkWF+JvTsPOsAjpv9tiUpjPo7d7bY0WNo/717DTQTxWM1vVCvxCMcKdlqmzQZ
+         Uq80Pu1kCItyVuSSFqaqMibqqjFf98whK4X0CnsDNcm9/mwCQcpmTmXjLXFECgdKINKO
+         MagokDol9N1dR2s3O07zrCjcMGMapzCg2xTW2VJ3Ys8nVjVNIAxQLlBfIOqtAoDU3CFt
+         3kOV5bZaC6TysFB8QtMDDx0aewvZPdSdWqMUwzF7UiATkMWT9WLd/wlVPyJZxP+D0Fm6
+         z7nRiZOXHQVF5pFn4gG/F7o49t6dsOdN+Bwb3Rim3F7Osctb8R81K/tgfJ+g3Tpq1de3
+         CZgA==
+X-Gm-Message-State: ANhLgQ1U3AcNTMwrdtAI/kZkDxb9Tyr17+Iq6AKJxNK10ZzhC6osIsK0
+        pw1tXYAHdeUyOgaiB7DoW1YDEqUn
+X-Google-Smtp-Source: ADFU+vuu2swnichiks2Lj/ihW0G02ubfVMQczz01OL3K+e+8SgMvcZ+yDC59CMOWBd7lXFOZ5gtvTA==
+X-Received: by 2002:adf:ee12:: with SMTP id y18mr21325311wrn.289.1585685519143;
+        Tue, 31 Mar 2020 13:11:59 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
+        by smtp.gmail.com with ESMTPSA id m11sm5109328wmf.9.2020.03.31.13.11.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 31 Mar 2020 13:11:58 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, tycho@tycho.ws, jannh@google.com,
+        cyphar@cyphar.com, christian.brauner@ubuntu.com, oleg@redhat.com,
+        luto@amacapital.net, viro@zeniv.linux.org.uk,
+        gpascutto@mozilla.com, ealvarez@mozilla.com, fweimer@redhat.com,
+        jld@mozilla.com, arnd@arndb.de,
+        linux-man <linux-man@vger.kernel.org>
+Subject: RFC: pidfd_getfd(2) manual page
+To:     Sargun Dhillon <sargun@sargun.me>, linux-kernel@vger.kernel.org,
+        containers@lists.linux-foundation.org, linux-api@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org
+References: <20200107175927.4558-1-sargun@sargun.me>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <5ea5233c-9247-aa7c-2819-51b7670de127@gmail.com>
+Date:   Tue, 31 Mar 2020 22:11:55 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="l2lpn76pgjx5xchv"
-Content-Disposition: inline
-In-Reply-To: <1567baea-5476-6d21-4f03-142def0f62e3@gmail.com>
-X-Rspamd-Queue-Id: CF12A1743
-X-Rspamd-Score: -2.96 / 15.00 / 200.00
+In-Reply-To: <20200107175927.4558-1-sargun@sargun.me>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hello Sargun et al.
 
---l2lpn76pgjx5xchv
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I've taken a shot at writing a manual page for pidfd_getfd().
+I would be happy to receive comments, suggestions for
+improvements, etc. The text is as follows (the groff source 
+is at the foot of this mail):
 
-On 2020-03-30, Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
-> Hello Aleksa,
->=20
-> On 2/2/20 4:19 PM, Aleksa Sarai wrote:
-> > Rather than trying to merge the new syscall documentation into open.2
-> > (which would probably result in the man-page being incomprehensible),
-> > instead the new syscall gets its own dedicated page with links between
-> > open(2) and openat2(2) to avoid duplicating information such as the list
-> > of O_* flags or common errors.
-> >=20
-> > In addition to describing all of the key flags, information about the
-> > extensibility design is provided so that users can better understand why
-> > they need to pass sizeof(struct open_how) and how their programs will
-> > work across kernels. After some discussions with David Laight, I also
-> > included explicit instructions to zero the structure to avoid issues
-> > when recompiling with new headers.
-> >=20
-> > Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
->=20
-> Thanks. I've applied this patch, but also done quite a lot of
-> editing of the page. The current draft is below (and also pushed=20
-> to Git). Could I ask you to review the page, to see if I injected
-> any error during my edits.
+NAME
+       pidfd_getfd  -  obtain  a  duplicate  of  another  process's  file
+       descriptor
 
-Looks good to me.
+SYNOPSIS
+       int pidfd_getfd(int pidfd, int targetfd, unsigned int flags);
 
-> In addition, I've added a number of FIXMEs in comments
-> in the page source. Can you please check these, and let me
-> know your thoughts.
+DESCRIPTION
+       The pidfd_getfd() system call allocates a new file  descriptor  in
+       the  calling  process.  This new file descriptor is a duplicate of
+       an existing file descriptor, targetfd, in the process referred  to
+       by the PID file descriptor pidfd.
 
-Will do, see below.
+       The  duplicate  file  descriptor  refers  to  the  same  open file
+       description (see open(2)) as the original file descriptor  in  the
+       process referred to by pidfd.  The two file descriptors thus share
+       file status flags and file offset.  Furthermore, operations on the
+       underlying  file  object  (for  example, assigning an address to a
+       socket object using bind(2)) can be equally be performed  via  the
+       duplicate file descriptor.
 
-> .\" FIXME I find the "previously-functional systems" in the previous
-> .\" sentence a little odd (since openat2() ia new sysycall), so I would
-> .\" like to clarify a little...
-> .\" Are you referring to the scenario where someone might take an
-> .\" existing application that uses openat() and replaces the uses
-> .\" of openat() with openat2()? In which case, is it correct to
-> .\" understand that you mean that one should not just indiscriminately
-> .\" add the RESOLVE_NO_XDEV flag to all of the openat2() calls?
-> .\" If I'm not on the right track, could you point me in the right
-> .\" direction please.
+       The  close-on-exec  flag  (FD_CLOEXEC; see fcntl(2)) is set on the
+       file descriptor returned by pidfd_getfd().
 
-This is mostly meant as a warning to hopefully avoid applications
-because the developer didn't realise that system paths may contain
-symlinks or bind-mounts. For an application which has switched to
-openat2() and then uses RESOLVE_NO_SYMLINKS for a non-security reason,
-it's possible that on some distributions (or future versions of a
-distribution) that their application will stop working because a system
-path suddenly contains a symlink or is a bind-mount.
+       The flags argument is reserved for future use.  Currently, it must
+       be specified as 0.
 
-This was a concern which was brought up on LWN some time ago. If you can
-think of a phrasing that makes this more clear, I'd appreciate it.
+       Permission  to duplicate another process's file descriptor is gov‐
+       erned by a ptrace access mode  PTRACE_MODE_ATTACH_REALCREDS  check
+       (see ptrace(2)).
 
-> .\" FIXME: what specific details in symlink(7) are being referred
-> .\" by the following sentence? It's not clear.
+RETURN VALUE
+       On  success,  pidfd_getfd() returns a nonnegative file descriptor.
+       On error, -1 is returned and errno is set to indicate the cause of
+       the error.
 
-The section on magic-links, but you're right that the sentence ordering
-is a bit odd. It should probably go after the first sentence.
+ERRORS
+       EBADF  pidfd is not a valid PID file descriptor.
 
-> .\" FIXME I found the following hard to understand (in particular, the
-> .\" meaning of "scoped" is unclear) , and reworded as below. Is it okay?
-> .\"     Absolute symbolic links and ".." path components will be scoped to
-> .\"     .IR dirfd .
+       EBADF  targetfd  is  not  an  open  file descriptor in the process
+              referred to by pidfd.
 
-Scoped does broadly mean "interpreted relative to", though the
-difference is mainly that when I said scoped it's meant to be more of an
-assertive claim ("the kernel promises to always treat this path inside
-dirfd"). But "interpreted relative to" is a clearer way of phrasing the
-semantics, so I'm okay with this change.
+       EINVAL flags is not 0.
 
-> .\" FIXME The next piece is unclear (to me). What kind of ".." escape
-> .\" attempts does chroot() not detect that RESOLVE_IN_ROOT does?
+       EMFILE The per-process limit on the number of open  file  descrip‐
+              tors has been reached (see the description of RLIMIT_NOFILE
+              in getrlimit(2)).
 
-If the root is moved, you can escape from a chroot(2). But this sentence
-might not really belong in a man-page since it's describing (important)
-aspects of the implementation and not the semantics.
+       ENFILE The system-wide limit on the total number of open files has
+              been reached.
 
---=20
-Aleksa Sarai
-Senior Software Engineer (Containers)
-SUSE Linux GmbH
-<https://www.cyphar.com/>
+       ESRCH  The  process  referred to by pidfd does not exist (i.e., it
+              has terminated and been waited on).
 
---l2lpn76pgjx5xchv
-Content-Type: application/pgp-signature; name="signature.asc"
+VERSIONS
+       pidfd_getfd() first appeared in Linux 5.6.
 
------BEGIN PGP SIGNATURE-----
+CONFORMING TO
+       pidfd_getfd() is Linux specific.
 
-iHUEABYIAB0WIQSxZm6dtfE8gxLLfYqdlLljIbnQEgUCXoNWDAAKCRCdlLljIbnQ
-EuhhAQDrGJcSC2tvaVHSZirH1uENpWOgqxV1HHQaNXnurRE1MwD/eS7jz/feBrZa
-HAM6s15BEz8f1DvF4UAf0nb8LHajngw=
-=O1HR
------END PGP SIGNATURE-----
+NOTES
+       Currently, there is no glibc wrapper for this system call; call it
+       using syscall(2).
 
---l2lpn76pgjx5xchv--
+       For a description of PID file descriptors, see pidfd_open(2).
+
+SEE ALSO
+       clone3(2), kcmp(2), pidfd_open(2)
+
+Cheers,
+
+Michael
+
+.\" Copyright (c) 2020 by Michael Kerrisk <mtk.manpages@gmail.com>
+.\"
+.\" %%%LICENSE_START(VERBATIM)
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one.
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\" %%%LICENSE_END
+.\"
+.TH PIDFD_GETFD 2 2020-03-31 "Linux" "Linux Programmer's Manual"
+.SH NAME
+pidfd_getfd \- obtain a duplicate of another process's file descriptor
+.SH SYNOPSIS
+.nf
+.BI "int pidfd_getfd(int " pidfd ", int " targetfd ", unsigned int " flags );
+.fi
+.SH DESCRIPTION
+The
+.BR pidfd_getfd ()
+system call allocates a new file descriptor in the calling process.
+This new file descriptor is a duplicate of an existing file descriptor,
+.IR targetfd ,
+in the process referred to by the PID file descriptor
+.IR pidfd .
+.PP
+The duplicate file descriptor refers to the same open file description (see
+.BR open (2))
+as the original file descriptor in the process referred to by
+.IR pidfd .
+The two file descriptors thus share file status flags and file offset.
+Furthermore, operations on the underlying file object
+(for example, assigning an address to a socket object using
+.BR bind (2))
+can be equally be performed via the duplicate file descriptor.
+.PP
+The close-on-exec flag
+.RB ( FD_CLOEXEC ;
+see
+.BR fcntl (2))
+is set on the file descriptor returned by
+.BR pidfd_getfd ().
+.PP
+The
+.I flags
+argument is reserved for future use.
+Currently, it must be specified as 0.
+.PP
+Permission to duplicate another process's file descriptor
+is governed by a ptrace access mode
+.B PTRACE_MODE_ATTACH_REALCREDS
+check (see
+.BR ptrace (2)).
+.SH RETURN VALUE
+On success,
+.BR pidfd_getfd ()
+returns a nonnegative file descriptor.
+On error, \-1 is returned and
+.I errno
+is set to indicate the cause of the error.
+.SH ERRORS
+.TP
+.B EBADF
+.I pidfd
+is not a valid PID file descriptor.
+.TP
+.B EBADF
+.I targetfd
+is not an open file descriptor in the process referred to by
+.IR pidfd .
+.BR 
+.TP
+.B EINVAL
+.I flags
+is not 0.
+.TP
+.B EMFILE
+The per-process limit on the number of open file descriptors has been reached
+(see the description of
+.BR RLIMIT_NOFILE
+in
+.BR getrlimit (2)).
+.TP
+.B ENFILE
+The system-wide limit on the total number of open files has been reached.
+.TP
+.B ESRCH
+The process referred to by
+.I pidfd
+does not exist
+(i.e., it has terminated and been waited on).
+.SH VERSIONS
+.BR pidfd_getfd ()
+first appeared in Linux 5.6.
+.\" commit 8649c322f75c96e7ced2fec201e123b2b073bf09
+.SH CONFORMING TO
+.BR pidfd_getfd ()
+is Linux specific.
+.SH NOTES
+Currently, there is no glibc wrapper for this system call; call it using
+.BR syscall (2).
+.PP
+For a description of PID file descriptors, see
+.BR pidfd_open (2).
+.SH SEE ALSO
+.BR clone3 (2),
+.BR kcmp (2),
+.BR pidfd_open (2)
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
