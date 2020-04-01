@@ -2,135 +2,113 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id ED22319A8D3
-	for <lists+linux-man@lfdr.de>; Wed,  1 Apr 2020 11:47:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2233D19AA9B
+	for <lists+linux-man@lfdr.de>; Wed,  1 Apr 2020 13:16:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727627AbgDAJrO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Apr 2020 05:47:14 -0400
-Received: from mail-ed1-f65.google.com ([209.85.208.65]:33795 "EHLO
-        mail-ed1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726974AbgDAJrO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Apr 2020 05:47:14 -0400
-Received: by mail-ed1-f65.google.com with SMTP id o1so10634225edv.1;
-        Wed, 01 Apr 2020 02:47:13 -0700 (PDT)
+        id S1732315AbgDALQ1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Apr 2020 07:16:27 -0400
+Received: from mail-lf1-f65.google.com ([209.85.167.65]:34361 "EHLO
+        mail-lf1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1732258AbgDALQ1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Apr 2020 07:16:27 -0400
+Received: by mail-lf1-f65.google.com with SMTP id e7so20131412lfq.1;
+        Wed, 01 Apr 2020 04:16:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=UQs3qixojtRbcypEuUuylzgYjPF6gRozY5Y+r1d0h9g=;
-        b=Mz7ny0A2xrf5HrbIzWZdz+IyB5rnbfYVsuBRr6tEDUq1/byxuApJ61ugMutPAiqi2+
-         A+146fS1JtrG5CEtzPIOK5BEvVxDaXo+rBV4xjaLZFaBQ/MYb5US8BJAFizcOmWUDECW
-         Lu5WQu1uzRyOvwfdNnhFVP486ApjfMeDd++nnYHA3GyAlBXGxJP1hkB4WU5nAxHqXt6B
-         HVqQRFdiCd3dl9b5FmuqOG2zzZv94i9lyFtnCSkQ6rNj+NLRnciDGxzkacdfjx35ocDI
-         T6Q+NkNdNhrJMVjjGTVF9pauuP24/MAfH4YeUS5wAw4Lb0eegb75ywHxGC/9R86PotEm
-         IG9A==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=c2W2ZCFW75Hzmvi2Z1dJsLhmnnF1F/Vk/OMpx9dRAIs=;
+        b=XUI7+JbE+o6HCbh48Ajper+T9aduNVwgn25i5zLtWNFdwmmUv7rwocoqrBzVOX7aYa
+         bBnZ2Iug7N46NS8+5H8HqK0ZQasjJ7Rb7LQkyFzTcNUpQPZVCphn0HsowdOFduqukIBn
+         Jmu7oygcvyVAu903qPvzJoN4nUXJUY+cuRGWrIzoWIKPwHqslX6sDJIFKC63tAmVdC9s
+         rof7ApkRn1hX/TtzYFhq9Gi6hkmXW/P7kOSGZQHcfxp2PAcTHZ9hMSQomfzV44+IkBdW
+         n0PJQAqIcONDp8dct4Sxa99cu1CaVw8lQXE7FkmL6rcVpHcL9KrHwPAAdnb2ey/rZNOM
+         UrJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=UQs3qixojtRbcypEuUuylzgYjPF6gRozY5Y+r1d0h9g=;
-        b=sJsuUk8Wxdrz7vBzO3WgM7VzUSIKrw+JjKUI8m560uZPI9aDOqIJ+WF9BFcGZXVVGc
-         Ia8hXJFMPvmUnh0SCOAAmTEH4fNPNWJHkU3jnWM0QU9wtoqymbCo6iT7IL+nMEN4wED/
-         y/+tBJLQWCR0vRCHLYdi82A11/mvbx3FSUzdqw21L07XM1Wjl13ziIfvQpgd7SRw+Ib8
-         zdZBoH3gv4dJTuJmMNKOXW4GiaK2jD6mrbBopauiy8kcW4l1WLmAqtXb2f1lbVirhBtu
-         9ng7xfCiTAnak8i/Ic43XOn11PPTwHL/NRjkCfcTv7sPzQ+tkUq4jCP41aTsaMHtcQ1A
-         Q+7g==
-X-Gm-Message-State: ANhLgQ3ZIC6kqpITlFydgfWsLpRzgEyXBNUOMVM2PVLhUcZLqa4hXg2W
-        ctJn33e+JyjP4H9MrjjWzHQhBYg+E/bvFyZnb4U=
-X-Google-Smtp-Source: ADFU+vtypiGoknsOhdw/9BUv4k6PiY+/jLtetmDtA9uJp2fT60u5pwV06zheWK2JEYH3PivlgzFRgVdSOSLScbEjDec=
-X-Received: by 2002:a17:906:398:: with SMTP id b24mr17753109eja.243.1585734432378;
- Wed, 01 Apr 2020 02:47:12 -0700 (PDT)
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=c2W2ZCFW75Hzmvi2Z1dJsLhmnnF1F/Vk/OMpx9dRAIs=;
+        b=FfeWjXd1sl5L0FoM0j43sEvaH3msG1hC0AZAMhiKubr25UofP3feec/3HmNzpy9bQz
+         KVhtszJ0/xa3GZ3y5v05sJpmsPmj5zjoqwNNZb44djkDSAA2T7c4ClhwDleBBVhEvRKO
+         kPeAiwgAUHb7DD8qk09ZRlAyGXUdIp4Z/31H8QRtm1KQiComovrH8E3ZpBJ50jHwCjip
+         cLWuLHf5ISAserwg51HkmStluWg/RXp5ecOwnBorVDFrp26naLkr/2qTVS3VbzLliFPv
+         eGXwLGxeXoLC1gAjiSSHeXkXuBUoTv0tWcuhohsecTbVOq75jA5pvgqGH8qcG0jxV2cL
+         MPSA==
+X-Gm-Message-State: AGi0PubfiwvIy7cJ6X7uxnXAUYt7lW4eYnhG2rDB6EczkxGIS+ycy8ev
+        087KCsCx7JwdkbxMinF/MGM=
+X-Google-Smtp-Source: APiQypIcnkCb/DlDilD9iXAqcdBzVfyD1VeNAdgN2eI+5gP75WI1nFFQaeH22bZ3Y5FynCt5ivP/BQ==
+X-Received: by 2002:ac2:4113:: with SMTP id b19mr4809568lfi.70.1585739784413;
+        Wed, 01 Apr 2020 04:16:24 -0700 (PDT)
+Received: from uranus.localdomain ([5.18.103.226])
+        by smtp.gmail.com with ESMTPSA id w24sm1002776ljh.57.2020.04.01.04.16.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Apr 2020 04:16:23 -0700 (PDT)
+Received: by uranus.localdomain (Postfix, from userid 1000)
+        id B6BE74617E0; Wed,  1 Apr 2020 14:16:22 +0300 (MSK)
+Date:   Wed, 1 Apr 2020 14:16:22 +0300
+From:   Cyrill Gorcunov <gorcunov@gmail.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Thomas Gleixner <tglx@linutronix.de>,
+        linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>, arul.jeniston@gmail.com,
+        "devi R.K" <devi.feb27@gmail.com>,
+        Marc Lehmann <debian-reportbug@plan9.de>,
+        John Stultz <john.stultz@linaro.org>,
+        Andrei Vagin <avagin@gmail.com>
+Subject: Re: timer_settime() and ECANCELED
+Message-ID: <20200401111622.GQ3197@uranus>
+References: <CAKgNAkgiZna0yQzkdZQ92CJzjBcxX6eEu1cg24Oeu2pXRcSv8A@mail.gmail.com>
 MIME-Version: 1.0
-References: <20200213182336.6663-1-mchristi@redhat.com> <20200214125440.GA1839@dhcp22.suse.cz>
-In-Reply-To: <20200214125440.GA1839@dhcp22.suse.cz>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Wed, 1 Apr 2020 11:47:01 +0200
-Message-ID: <CAKgNAkhGxmbD6Owkg6JFRbT18jXOr7D8_6L62oSTmE6WNWSDZQ@mail.gmail.com>
-Subject: Re: [PATCH 1/1] prctl.2: doc PR_SET/GET_IO_FLUSHER
-To:     Mike Christie <mchristi@redhat.com>
-Cc:     Linux API <linux-api@vger.kernel.org>,
-        Michal Hocko <mhocko@kernel.org>,
-        Dave Chinner <david@fromorbit.com>, masato.suzuki@wdc.com,
-        damien.lemoal@wdc.com, "Darrick J. Wong" <darrick.wong@oracle.com>,
-        bvanassche@acm.org, linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKgNAkgiZna0yQzkdZQ92CJzjBcxX6eEu1cg24Oeu2pXRcSv8A@mail.gmail.com>
+User-Agent: Mutt/1.12.1 (2019-06-15)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Mike,
+On Wed, Apr 01, 2020 at 11:01:18AM +0200, Michael Kerrisk (man-pages) wrote:
+> Hello Thomas, et al,
+> 
+> Following on from our discussion of read() on a timerfd [1], I
+> happened to remember a Debian bug report [2] that points out that
+> timer_settime() can fail with the error ECANCELED, which is both
+> surprising and odd (because despite the error, the timer does get
+> updated).
+> 
+> The relevant kernel code (I think, from your commit [3]) seems to be
+> the following in timerfd_setup():
+> 
+>         if (texp != 0) {
+>                 if (flags & TFD_TIMER_ABSTIME)
+>                         texp = timens_ktime_to_host(clockid, texp);
+>                 if (isalarm(ctx)) {
+>                         if (flags & TFD_TIMER_ABSTIME)
+>                                 alarm_start(&ctx->t.alarm, texp);
+>                         else
+>                                 alarm_start_relative(&ctx->t.alarm, texp);
+>                 } else {
+>                         hrtimer_start(&ctx->t.tmr, texp, htmode);
+>                 }
+> 
+>                 if (timerfd_canceled(ctx))
+>                         return -ECANCELED;
+>         }
+> 
+> Using a small test program [4] shows the behavior. The program loops,
+> repeatedly calling timerfd_settime() (with a delay of a few seconds
+> before each call). In another terminal window, enter the following
+> command a few times:
+> 
+>     $ sudo date -s "5 seconds"       # Add 5 secs to wall-clock time
+> 
+> I see behavior as follows (the /sudo date -s "5 seconds"/ command was
+> executed before loop iterations 0, 2, and 4):
 
-Do you have a refresh of this patch, in the light of the comments?
-
-Thanks,
-
-Michael
-
-On Fri, 14 Feb 2020 at 13:54, Michal Hocko <mhocko@kernel.org> wrote:
->
-> On Thu 13-02-20 12:23:36, Mike Christie wrote:
-> > This patch documents the PR_SET_IO_FLUSHER and PR_GET_IO_FLUSHER
-> > prctl commands added to the linux kernel for 5.6 in commit:
-> >
-> > commit 8d19f1c8e1937baf74e1962aae9f90fa3aeab463
-> > Author: Mike Christie <mchristi@redhat.com>
-> > Date:   Mon Nov 11 18:19:00 2019 -0600
-> >
-> >     prctl: PR_{G,S}ET_IO_FLUSHER to support controlling memory reclaim
-> >
-> > Signed-off-by: Mike Christie <mchristi@redhat.com>
-> > Reviewed-by: Damien Le Moal <damien.lemoal@wdc.com>
-> > ---
-> >
-> > V3:
-> > - Replace emulation device example.
-> >
-> > V2:
-> > - My initial patch for this was very bad. This version is almost 100%
-> > taken word for word from Dave Chinner's review comments.
-> >
-> > Signed-off-by: Mike Christie <mchristi@redhat.com>
-> > ---
-> >  man2/prctl.2 | 25 +++++++++++++++++++++++++
-> >  1 file changed, 25 insertions(+)
-> >
-> > diff --git a/man2/prctl.2 b/man2/prctl.2
-> > index 720ec04e4..58d77bf2e 100644
-> > --- a/man2/prctl.2
-> > +++ b/man2/prctl.2
-> > @@ -1381,6 +1381,30 @@ system call on Tru64).
-> >  for information on versions and architectures.)
-> >  Return unaligned access control bits, in the location pointed to by
-> >  .IR "(unsigned int\ *) arg2" .
-> > +.TP
-> > +.B PR_SET_IO_FLUSHER (Since Linux 5.6)
-> > +An IO_FLUSHER is a user process that the kernel uses to issue IO
-> > +that cleans dirty page cache data and/or filesystem metadata. The
-> > +kernel may need to clean this memory when under memory pressure in
-> > +order to free it. This means there is potential for a memory reclaim
-> > +recursion deadlock if the user process attempts to allocate memory
-> > +and the kernel then blocks waiting for it to clean memory before it
-> > +can make reclaim progress.
-> > +
-> > +The kernel avoids these recursion problems internally via a special
-> > +process state that prevents recursive reclaim from issuing new IO.
->
-> I would refrain from describing the internal implementation. The
-> important part is that this flag tells the kernel that IO_FLUSHER
-> process gets a special treatment to workaround the deadlock.
->
-> So anytime a process is involved in the IO path and the kernel cannot
-> make a forward progress without it then the flag should be set.
->
-> --
-> Michal Hocko
-> SUSE Labs
-
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Hi Michael, I can be wrong (since I didn't look into timerfd code
+for long time) but I guess if we wanna preserve the timer value
+we will have to lock timekeeper which is inacceptable. Thus looks
+like this is a tradeoff in a sake of speed (not sure though, better
+wait for Thomas reply)
