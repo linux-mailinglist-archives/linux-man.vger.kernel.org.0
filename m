@@ -2,196 +2,234 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id E628F19A576
-	for <lists+linux-man@lfdr.de>; Wed,  1 Apr 2020 08:38:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D55F919A826
+	for <lists+linux-man@lfdr.de>; Wed,  1 Apr 2020 11:01:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731791AbgDAGif (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Apr 2020 02:38:35 -0400
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:42295 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731908AbgDAGif (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Apr 2020 02:38:35 -0400
-Received: by mail-wr1-f67.google.com with SMTP id h15so29084188wrx.9;
-        Tue, 31 Mar 2020 23:38:34 -0700 (PDT)
+        id S1731862AbgDAJBd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Apr 2020 05:01:33 -0400
+Received: from mail-ed1-f68.google.com ([209.85.208.68]:35185 "EHLO
+        mail-ed1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726536AbgDAJBd (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Apr 2020 05:01:33 -0400
+Received: by mail-ed1-f68.google.com with SMTP id a20so28789687edj.2;
+        Wed, 01 Apr 2020 02:01:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=u7qzTLhWhtQ+4ksRWWT0iCnZlieYp50htwnA74AfNuM=;
-        b=OdpjtdE14ZEsiCtuHCsfDHAkoRhqvtvfrGsCgG++nLESkSz0pcq2UBrEBNvCDzprCW
-         dmlM5gX1y8Tm6so4QYNvJmgQxl3z7RiT4ERWXhbMt46VZ0HaDP5zjTWSlThjaN3AVYJD
-         DLNDK0Edvewv5ebCdiVAjZw1ss/EuqaraqE+NxMTHj1yT9MX+1Tj4ohJJka60rVTXzT+
-         2LKRvDXPbAIVQXIBNLIot8sUyFkzLN/ftPkCQmqB2+BrX0gStl/vL0RHYiSa0cqybaTD
-         AfcJbgvKu+q5FcuzK/5JwW49GG2okf3SrMEAtUdlqE9EdRPsKvUt9/mhLJeNRbgpHyKu
-         U8Fw==
+        h=mime-version:reply-to:from:date:message-id:subject:to:cc;
+        bh=0ZpcvDTrSmToDbb4KEJgpOdCoxrV07IC1NN5/TzAss0=;
+        b=IwXFG2HOz0HfAnh6rR3Sg8DWWGoeKVosrB7zKibgAga1WETrMnH38v1TK8sN0JfFj2
+         mhqVoQOA1IxnErsczXSRtA4vY4LAYCq9FvksQknNRt2BebpyGiFWC878szaaYunWUDB+
+         QqZFgc/i42bJ+1RdaHLlCa3CLgv/sAhbia31bjMEFgWExcpLpEhh5nuSqLLVEbieonqd
+         /Urkf86lAbEyoCxvaYMpKOtBKSZZAYSe9E5Qzzp3u0+jrK+Zbs1elLFP6LsHdbbJ1s10
+         8ckskPuWsVwYYl/AiPRd7UGyY8n+sSNWvKLMzbBwH526fgdZUuDqOjCvQn1PirJCl8+2
+         qX0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=u7qzTLhWhtQ+4ksRWWT0iCnZlieYp50htwnA74AfNuM=;
-        b=Y9PheYqlpUj93vrIU9jnEq68nozznGYvvMJxFQ9oJmdXl/5Ki3gbaUYBCql8uKQtfo
-         /x8J1MYVsAow56tWFTiHusVkMPPIqYzSzJvsxAmAnNNganoVE98ICYDSWXrS4/945Tp7
-         i0kyw39q5pvbi6feISYRQeIILZmsagC9/YLNMb38z65VJapBz/0UznxNRnzV5rq6VmBL
-         0Glsy94TwWbrwfCIrqRNd+O7IvHB5Tix5GtXE5JWvkNHRLbS1uifwzlu9+CC4p2gxXm7
-         gIRi2aJzuYom2BeguzvucOHiB1vNiQ3Y4Lzn9B6no7Gn3CVa4Ti5I5iCJOu/Plwzwevc
-         am4w==
-X-Gm-Message-State: ANhLgQ0A8tqn6p/isqLipPfRDzyx7b0/ClMfqhb5UB5dHqQxQ8RjweLq
-        KcEcBHGcYLYy4LBDEAkE50DikcRd
-X-Google-Smtp-Source: ADFU+vsGt7fHvFHWI6/jEJLu+44G71UgYE2sbgFQAduQzIv8MVFyAupGe9DXvtjw75oECDTe2yQIrg==
-X-Received: by 2002:adf:e44a:: with SMTP id t10mr24060598wrm.322.1585723113198;
-        Tue, 31 Mar 2020 23:38:33 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id b67sm1346031wmh.29.2020.03.31.23.38.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 31 Mar 2020 23:38:32 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        Aleksa Sarai <asarai@suse.de>, linux-man@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH man-pages v2 2/2] openat2.2: document new openat2(2)
- syscall
-To:     Aleksa Sarai <cyphar@cyphar.com>
-References: <20200202151907.23587-1-cyphar@cyphar.com>
- <20200202151907.23587-3-cyphar@cyphar.com>
- <1567baea-5476-6d21-4f03-142def0f62e3@gmail.com>
- <20200331143911.lokfoq3lqfri2mgy@yavin.dot.cyphar.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <cd3a6aad-b906-ee57-1b5b-5939b9602ad0@gmail.com>
-Date:   Wed, 1 Apr 2020 08:38:29 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=0ZpcvDTrSmToDbb4KEJgpOdCoxrV07IC1NN5/TzAss0=;
+        b=HgGi7B8luzDk9rrwDwbC4eCfr3z9WU5qcijb6lzAUBrm6TzsuCJ+ehYpujrW9M3w7X
+         C4tfA8VTf9mAtuQUvdtaIQzFK5AaGoCt7b9A/iDPZeHNov6/60Wf2gGxseIPFYMhDXdT
+         lZR3NRyQOyCM2dr0vdZ5cwkgquq0Wzxx2RqaJEHj96lNrDQ9zGAvOhrSkwKW17WKPcJ9
+         RhyVU8HPV9BQ+RsKT/Ugnb1diaG6cypolLa4Fp0mWRXiI97c+2mfEU2IJRB1D61W+YYB
+         wspX+BJ5YGJsJJLOJj2h/feE+6zK5WuoqWh/b8duygPr/wSENUYFh86uJ3sGwBIxtz7t
+         d6Qw==
+X-Gm-Message-State: ANhLgQ1s/uvD9FlFaN178+zqZN2lf1X6XLZiXBfaLJKS1eMvtpiRlmy4
+        vebDtvHEHi8HplsmVuTqWvQfC04IQvucgbbTtRU=
+X-Google-Smtp-Source: ADFU+vtbxOj12CUkkoNDgz8Z6aosAdlApbXhx5UBddAjZbmbyXHn/jmQ6wcMgwU6eU6X/RT4h/iiiBvq49trbwg1LcM=
+X-Received: by 2002:a05:6402:504:: with SMTP id m4mr20336048edv.367.1585731690126;
+ Wed, 01 Apr 2020 02:01:30 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200331143911.lokfoq3lqfri2mgy@yavin.dot.cyphar.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Wed, 1 Apr 2020 11:01:18 +0200
+Message-ID: <CAKgNAkgiZna0yQzkdZQ92CJzjBcxX6eEu1cg24Oeu2pXRcSv8A@mail.gmail.com>
+Subject: timer_settime() and ECANCELED
+To:     Thomas Gleixner <tglx@linutronix.de>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>, arul.jeniston@gmail.com,
+        "devi R.K" <devi.feb27@gmail.com>,
+        Marc Lehmann <debian-reportbug@plan9.de>,
+        John Stultz <john.stultz@linaro.org>,
+        Andrei Vagin <avagin@gmail.com>,
+        Cyrill Gorcunov <gorcunov@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Aleksa,
+Hello Thomas, et al,
 
-On 3/31/20 4:39 PM, Aleksa Sarai wrote:
-> On 2020-03-30, Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
->> Hello Aleksa,
->>
->> On 2/2/20 4:19 PM, Aleksa Sarai wrote:
->>> Rather than trying to merge the new syscall documentation into open.2
->>> (which would probably result in the man-page being incomprehensible),
->>> instead the new syscall gets its own dedicated page with links between
->>> open(2) and openat2(2) to avoid duplicating information such as the list
->>> of O_* flags or common errors.
->>>
->>> In addition to describing all of the key flags, information about the
->>> extensibility design is provided so that users can better understand why
->>> they need to pass sizeof(struct open_how) and how their programs will
->>> work across kernels. After some discussions with David Laight, I also
->>> included explicit instructions to zero the structure to avoid issues
->>> when recompiling with new headers.
->>>
->>> Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
->>
->> Thanks. I've applied this patch, but also done quite a lot of
->> editing of the page. The current draft is below (and also pushed 
->> to Git). Could I ask you to review the page, to see if I injected
->> any error during my edits.
-> 
-> Looks good to me.
-> 
->> In addition, I've added a number of FIXMEs in comments
->> in the page source. Can you please check these, and let me
->> know your thoughts.
-> 
-> Will do, see below.
-> 
->> .\" FIXME I find the "previously-functional systems" in the previous
->> .\" sentence a little odd (since openat2() ia new sysycall), so I would
->> .\" like to clarify a little...
->> .\" Are you referring to the scenario where someone might take an
->> .\" existing application that uses openat() and replaces the uses
->> .\" of openat() with openat2()? In which case, is it correct to
->> .\" understand that you mean that one should not just indiscriminately
->> .\" add the RESOLVE_NO_XDEV flag to all of the openat2() calls?
->> .\" If I'm not on the right track, could you point me in the right
->> .\" direction please.
-> 
-> This is mostly meant as a warning to hopefully avoid applications
-> because the developer didn't realise that system paths may contain
-> symlinks or bind-mounts. For an application which has switched to
-> openat2() and then uses RESOLVE_NO_SYMLINKS for a non-security reason,
-> it's possible that on some distributions (or future versions of a
-> distribution) that their application will stop working because a system
-> path suddenly contains a symlink or is a bind-mount.
-> 
-> This was a concern which was brought up on LWN some time ago. If you can
-> think of a phrasing that makes this more clear, I'd appreciate it.
+Following on from our discussion of read() on a timerfd [1], I
+happened to remember a Debian bug report [2] that points out that
+timer_settime() can fail with the error ECANCELED, which is both
+surprising and odd (because despite the error, the timer does get
+updated).
 
-Thanks. I've made the text:
+The relevant kernel code (I think, from your commit [3]) seems to be
+the following in timerfd_setup():
 
-                     Applications  that  employ  the RESOLVE_NO_XDEV flag
-                     are encouraged to make its use configurable  (unless
-                     it is used for a specific security purpose), as bind
-                     mounts are widely used by end-users.   Setting  this
-                     flag indiscriminately—i.e., for purposes not specif‐
-                     ically related to security—for all uses of openat2()
-                     may  result  in  spurious errors on previously-func‐
-                     tional systems.  This may occur if, for  example,  a
-                     system  pathname  that  is used by an application is
-                     modified (e.g., in a new  distribution  release)  so
-                     that  a  pathname  component  (now)  contains a bind
-                     mount.
+        if (texp != 0) {
+                if (flags & TFD_TIMER_ABSTIME)
+                        texp = timens_ktime_to_host(clockid, texp);
+                if (isalarm(ctx)) {
+                        if (flags & TFD_TIMER_ABSTIME)
+                                alarm_start(&ctx->t.alarm, texp);
+                        else
+                                alarm_start_relative(&ctx->t.alarm, texp);
+                } else {
+                        hrtimer_start(&ctx->t.tmr, texp, htmode);
+                }
 
-Okay?
+                if (timerfd_canceled(ctx))
+                        return -ECANCELED;
+        }
 
->> .\" FIXME: what specific details in symlink(7) are being referred
->> .\" by the following sentence? It's not clear.
-> 
-> The section on magic-links, but you're right that the sentence ordering
-> is a bit odd. It should probably go after the first sentence.
+Using a small test program [4] shows the behavior. The program loops,
+repeatedly calling timerfd_settime() (with a delay of a few seconds
+before each call). In another terminal window, enter the following
+command a few times:
 
-I must admit that I'm still confused. There's only the briefest of 
-mentions of magic links in symlink(7). Perhaps that needs to be fixed?
+    $ sudo date -s "5 seconds"       # Add 5 secs to wall-clock time
 
-And, while I think of it, the text just preceding that FIXME says:
+I see behavior as follows (the /sudo date -s "5 seconds"/ command was
+executed before loop iterations 0, 2, and 4):
 
-    Due to the potential danger of unknowingly opening 
-    these magic links, it may be preferable for users to 
-    disable their resolution entirely.
+[[
+$ ./timerfd_settime_ECANCELED
+0
+Current time is 1585729978 secs, 868510078 nsecs
+Timer value is now 0 secs, 0 nsecs
+timerfd_settime() succeeded
+Timer value is now 9 secs, 999991977 nsecs
 
-This sentence reads a little strangely. Could you please give me some
-concrete examples, and I will try rewording that sentence a bit.
+1
+Current time is 1585729982 secs, 716339545 nsecs
+Timer value is now 6 secs, 152167990 nsecs
+timerfd_settime() succeeded
+Timer value is now 9 secs, 999992940 nsecs
 
->> .\" FIXME I found the following hard to understand (in particular, the
->> .\" meaning of "scoped" is unclear) , and reworded as below. Is it okay?
->> .\"     Absolute symbolic links and ".." path components will be scoped to
->> .\"     .IR dirfd .
-> 
-> Scoped does broadly mean "interpreted relative to", though the
-> difference is mainly that when I said scoped it's meant to be more of an
-> assertive claim ("the kernel promises to always treat this path inside
-> dirfd"). But "interpreted relative to" is a clearer way of phrasing the
-> semantics, so I'm okay with this change.
+2
+Current time is 1585729991 secs, 567377831 nsecs
+Timer value is now 1 secs, 148959376 nsecs
+timerfd_settime: Operation canceled
+Timer value is now 9 secs, 999976294 nsecs
 
-Okay.
+3
+Current time is 1585729995 secs, 405385503 nsecs
+Timer value is now 6 secs, 161989917 nsecs
+timerfd_settime() succeeded
+Timer value is now 9 secs, 999993317 nsecs
 
->> .\" FIXME The next piece is unclear (to me). What kind of ".." escape
->> .\" attempts does chroot() not detect that RESOLVE_IN_ROOT does?
-> 
-> If the root is moved, you can escape from a chroot(2). But this sentence
-> might not really belong in a man-page since it's describing (important)
-> aspects of the implementation and not the semantics.
+4
+Current time is 1585730004 secs, 225036165 nsecs
+Timer value is now 1 secs, 180346909 nsecs
+timerfd_settime: Operation canceled
+Timer value is now 9 secs, 999984345 nsecs
+]]
 
-So, should I just remove the sentence?
+I note from the above.
+
+(1) If the wall-clock is changed before the first timerfd_settime()
+call, the call succeeds. This is of course expected.
+(2) If the wall-clock is changed after a timerfd_settime() call, then
+the next timerfd_settime() call fails with ECANCELED.
+(3) Even if the timerfd_settime() call fails, the timer is still updated(!).
+
+Some questions:
+(a) What is the rationale for timerfd_settime() failing with ECANCELED
+in this case? (Currently, the manual page says nothing about this.)
+(b) It seems at the least surprising, but more likely a bug, that
+timerfd_settime() fails with ECANCELED while at the same time
+successfully updating the timer value.
+
+Your thoughts?
 
 Thanks,
 
 Michael
 
+[1] https://lore.kernel.org/lkml/3cbd0919-c82a-cb21-c10f-0498433ba5d1@gmail.com/
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+[2] https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=947091
+
+[3]
+commit 99ee5315dac6211e972fa3f23bcc9a0343ff58c4
+Author: Thomas Gleixner <tglx@linutronix.de>
+Date:   Wed Apr 27 14:16:42 2011 +0200
+
+    timerfd: Allow timers to be cancelled when clock was set
+
+[4]
+/* timerfd_settime_ECANCELED.c */
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <inttypes.h>
+#include <sys/timerfd.h>
+
+#define errExit(msg) do { perror(msg); exit(EXIT_FAILURE); } while (0)
+
+int
+main(int argc, char *argv[])
+{
+    struct itimerspec ts, gts;
+    struct timespec start;
+
+    int tfd = timerfd_create(CLOCK_REALTIME, 0);
+    if (tfd == -1)
+        errExit("timerfd_create");
+
+    ts.it_interval.tv_sec = 0;
+    ts.it_interval.tv_nsec = 10;
+
+    int flags = TFD_TIMER_ABSTIME | TFD_TIMER_CANCEL_ON_SET;
+
+    for (long j ; ; j++) {
+
+        /* Inject a delay into each loop, by calling getppid()
+           many times */
+
+        for (int k = 0; k < 10000000; k++)
+            getppid();
+
+        if (j % 1 == 0)
+            printf("%ld\n", j);
+
+        /* Display the current wall-clock time */
+
+        if (clock_gettime(CLOCK_REALTIME, &start) == -1)
+            errExit("clock_gettime");
+        printf("Current time is %ld secs, %ld nsecs\n",
+                start.tv_sec, start.tv_nsec);
+
+        /* Before resetting the timer, retrieve its current value
+           so that after the timerfd_settime() call, we can see
+           whether the the value has changed */
+
+        if (timerfd_gettime(tfd, &gts) == -1)
+            perror("timerfd_gettime");
+        printf("Timer value is now %ld secs, %ld nsecs\n",
+            gts.it_value.tv_sec, gts.it_value.tv_nsec);
+
+        /* Reset the timer to now + 10 secs */
+
+        ts.it_value.tv_sec = start.tv_sec + 10;
+        ts.it_value.tv_nsec = start.tv_nsec;
+        if (timerfd_settime(tfd, flags, &ts, NULL) == -1)
+            perror("timerfd_settime");
+        else
+            printf("timerfd_settime() succeeded\n");
+
+        /* Display the timer value once again */
+
+        if (timerfd_gettime(tfd, &gts) == -1)
+            perror("timerfd_gettime");
+        printf("Timer value is now %ld secs, %ld nsecs\n",
+            gts.it_value.tv_sec, gts.it_value.tv_nsec);
+
+        printf("\n");
+    }
+}
