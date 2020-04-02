@@ -2,118 +2,50 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 3D02619CABE
-	for <lists+linux-man@lfdr.de>; Thu,  2 Apr 2020 22:07:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4B7D919CACA
+	for <lists+linux-man@lfdr.de>; Thu,  2 Apr 2020 22:12:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2388008AbgDBUHN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 2 Apr 2020 16:07:13 -0400
-Received: from mail-ot1-f67.google.com ([209.85.210.67]:40005 "EHLO
-        mail-ot1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726617AbgDBUHN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Apr 2020 16:07:13 -0400
-Received: by mail-ot1-f67.google.com with SMTP id r19so4850517otn.7;
-        Thu, 02 Apr 2020 13:07:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=BUFtmlg41TuJZV8AFeY3Ax8m5WV2BnHwD1DxS40jxDc=;
-        b=kYUERnsRHs56p2QVEoIlDkQcC6o89BTpcya+rHIELnNtnMQzijMzAv39fkH1G6ovDi
-         lyzY1dwhW+e2u2SUc6un6ZUXs6g5HD7yhfpZ567vM40Y4evQgUcvNQSrqm1Gxq5TW5SM
-         aqsLGFbxrERC76+MKL1y9ElaF7h8usmZggMDJbSaIG9+U0WK0ElZD68jfJZ1TJsL4GBY
-         11zShgmNLF7L4xs2XfgLQRwNTW7GI4JhHyJV1+/2M7uNPlVMmt03Tuw5LSLLU0jGZFv6
-         18LIWLZe6izLRr5onQN47yPDw3Q5P1hiS+MkHzF66pLSFsRHSoox/xQGE0A8tfqV4o/d
-         ecfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=BUFtmlg41TuJZV8AFeY3Ax8m5WV2BnHwD1DxS40jxDc=;
-        b=c6CiBwBFVHCRyFAC77jcKYdPXIU+7y5Ec3U51YeNBDpco5DayXgwoFHbHs+3MNRzRO
-         NdYoDXGdV24QPSvifjuZDVnaQE0mMCLhaWYWLxhnBWaGByiAM+eAGpAAv+4lR9NrvQZS
-         cMI0OAQo5ceAdZzStA3dJ3mtm9gHnN4s9cCjBUukc0O0f5nAc9T2MV1MlEdl7yg1PI4I
-         IxZm/+3sHmxZUvJB5iV80qTQ5hicSzm4kH47qDZsVS+jprzf+lg682GvlNUdp/BBNLql
-         zy+tks2ShYQa5qIF/lkXARzr2KdS9g0XVoP7G9A4INBUnTTuDa00basYRIrkBv4osHBn
-         tiiA==
-X-Gm-Message-State: AGi0Pua+l5kYt6zNqmRdW9TPTHwbtiVhzckDgpXoYpl9cxmPi0bFFwwR
-        WFrWYgMFM9ZlmwkIHKIslHZFAMpuRYIeZ6ftChU=
-X-Google-Smtp-Source: APiQypLkjZPAMQazKF1lzyj9LHkXuX85vsXZmIePxxBonv771twBMPyGUkjMIXSkvuQLMJzJTFGzvrNj0vVSLEKvM94=
-X-Received: by 2002:a05:6830:1d95:: with SMTP id y21mr3937189oti.180.1585858032155;
- Thu, 02 Apr 2020 13:07:12 -0700 (PDT)
+        id S1726963AbgDBUMM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 2 Apr 2020 16:12:12 -0400
+Received: from Galois.linutronix.de ([193.142.43.55]:38955 "EHLO
+        Galois.linutronix.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726617AbgDBUMM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Apr 2020 16:12:12 -0400
+Received: from p5de0bf0b.dip0.t-ipconnect.de ([93.224.191.11] helo=nanos.tec.linutronix.de)
+        by Galois.linutronix.de with esmtpsa (TLS1.2:DHE_RSA_AES_256_CBC_SHA256:256)
+        (Exim 4.80)
+        (envelope-from <tglx@linutronix.de>)
+        id 1jK6C9-0002P6-5u; Thu, 02 Apr 2020 22:12:09 +0200
+Received: by nanos.tec.linutronix.de (Postfix, from userid 1000)
+        id 91F1E100D52; Thu,  2 Apr 2020 22:12:08 +0200 (CEST)
+From:   Thomas Gleixner <tglx@linutronix.de>
+To:     "Michael Kerrisk \(man-pages\)" <mtk.manpages@gmail.com>
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>, arul.jeniston@gmail.com,
+        "devi R.K" <devi.feb27@gmail.com>,
+        Marc Lehmann <debian-reportbug@plan9.de>,
+        John Stultz <john.stultz@linaro.org>,
+        Andrei Vagin <avagin@gmail.com>,
+        Cyrill Gorcunov <gorcunov@gmail.com>
+Subject: Re: timer_settime() and ECANCELED
+In-Reply-To: <5052f8a7-c6b9-be30-878e-053a3d035f7a@gmail.com>
+References: <87pncrf6gd.fsf@nanos.tec.linutronix.de> <4c557b44-4e4e-a689-a17b-f95e6c5ee4b0@gmail.com> <87mu7unugh.fsf@nanos.tec.linutronix.de> <8ae32d2f-e4a8-240f-c7bd-580c26bba2d0@gmail.com> <87bloanh89.fsf@nanos.tec.linutronix.de> <5052f8a7-c6b9-be30-878e-053a3d035f7a@gmail.com>
+Date:   Thu, 02 Apr 2020 22:12:08 +0200
+Message-ID: <87eet5myuf.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-References: <CAKgNAkiTYY3mrdsWypX22WCczVK9GDsOO-Vq58go_b2=719=FA@mail.gmail.com>
- <ce049b034919c4a09629c2e7bec574af133fb064.1585837173.git.e@nanocritical.com>
-In-Reply-To: <ce049b034919c4a09629c2e7bec574af133fb064.1585837173.git.e@nanocritical.com>
-From:   Eric Rannaud <eric.rannaud@gmail.com>
-Date:   Thu, 2 Apr 2020 13:06:59 -0700
-Message-ID: <CA+zRj8XYLpa_gep+VxUfQuqeKu+=thMit-jNv1soC8Mh5H43Ug@mail.gmail.com>
-Subject: Re: [PATCH 1/1] clock_getres.2: dynamic POSIX clock devices can
- return other errors
-To:     Eric Rannaud <e@nanocritical.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Linux API <linux-api@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+X-Linutronix-Spam-Score: -1.0
+X-Linutronix-Spam-Level: -
+X-Linutronix-Spam-Status: No , -1.0 points, 5.0 required,  ALL_TRUSTED=-1,SHORTCIRCUIT=-0.0001
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Micheal,
+Michael,
 
-I'm conscious that saying "dynamic POSIX clock device" without any
-explanation may be too obscure for a man page.
+"Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> writes:
+> Thanks. Committed. (But, next time you change the API. maybe a 
+> man-pages patch to go with that? :-).)
 
-There is documentation in:
-- include/linux/posix-clock.h
-- Documentation/driver-api/ptp.rst (explicitly states that EOPNOTSUPP
-should be returned)
-- include/uapi/linux/ptp_clock.h
-
-(IEEE 1588 PTP is the canonical user of these dynamic clock devices)
-
-Would you want to refer to any of these from the man page?
-
-Thanks for maintaining this project!
-Eric
-
-On Thu, Apr 2, 2020 at 7:24 AM Eric Rannaud <e@nanocritical.com> wrote:
->
-> See Linux source as of v5.4:
->   kernel/time/posix-clock.c
->
-> Signed-off-by: Eric Rannaud <e@nanocritical.com>
-> ---
->  man2/clock_getres.2 | 9 +++++++++
->  1 file changed, 9 insertions(+)
->
-> diff --git a/man2/clock_getres.2 b/man2/clock_getres.2
-> index 0154f9d32473..71f7f8dfa662 100644
-> --- a/man2/clock_getres.2
-> +++ b/man2/clock_getres.2
-> @@ -260,6 +260,10 @@ specified in a call to
->  .BR clock_settime ()
->  is not a settable clock.
->  .TP
-> +.B EOPNOTSUPP
-> +The operation is not supported by the dynamic POSIX clock device
-> +specified.
-> +.TP
->  .BR EINVAL " (since Linux 4.3)"
->  .\" commit e1d7ba8735551ed79c7a0463a042353574b96da3
->  A call to
-> @@ -276,6 +280,11 @@ clock.
->  .B EPERM
->  .BR clock_settime ()
->  does not have permission to set the clock indicated.
-> +.TP
-> +.B EACCES
-> +.BR clock_settime ()
-> +does not have write permission for the dynamic POSIX
-> +clock device indicated.
->  .SH VERSIONS
->  These system calls first appeared in Linux 2.6.
->  .SH ATTRIBUTES
-> --
-> 2.26.0
->
+I try to remember.
