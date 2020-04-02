@@ -2,167 +2,128 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id EC9A819BAE4
-	for <lists+linux-man@lfdr.de>; Thu,  2 Apr 2020 06:10:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E6D5319BB4E
+	for <lists+linux-man@lfdr.de>; Thu,  2 Apr 2020 07:34:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728585AbgDBEKv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 2 Apr 2020 00:10:51 -0400
-Received: from mail.kernel.org ([198.145.29.99]:36848 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726136AbgDBEKv (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 2 Apr 2020 00:10:51 -0400
-Received: from localhost.localdomain (c-73-231-172-41.hsd1.ca.comcast.net [73.231.172.41])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id 711382074D;
-        Thu,  2 Apr 2020 04:10:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1585800649;
-        bh=asIbvKcKMBxcLRWCCKw7DkeORqolKJ0p4x1Afqxyaik=;
-        h=Date:From:To:Subject:In-Reply-To:From;
-        b=x3UWccEK2WWFgzyjyCsPedhfzMlxw86Td9hVtw6vi/mXtzUYao/iG73ZA5OZc1vPV
-         fG0/LvzsDLU7+tsiwcEQhWQ05TG1iMmxcIWZzWrBKdO7kNTCrZDVO0p0FTEpnFa0Hd
-         IJC4Z1Fyc9q/9ZPqBkVQ62L8I9kTVhszTprYyiFM=
-Date:   Wed, 01 Apr 2020 21:10:48 -0700
-From:   Andrew Morton <akpm@linux-foundation.org>
-To:     akpm@linux-foundation.org, linux-man@vger.kernel.org,
-        linux-mm@kvack.org, lixinhai.lxh@gmail.com, mhocko@suse.com,
-        mike.kravetz@oracle.com, mm-commits@vger.kernel.org,
-        naoya.horiguchi@nec.com, torvalds@linux-foundation.org
-Subject:  [patch 134/155] mm/mempolicy: support MPOL_MF_STRICT for
- huge page mapping
-Message-ID: <20200402041048.YVOjNm2cC%akpm@linux-foundation.org>
-In-Reply-To: <20200401210155.09e3b9742e1c6e732f5a7250@linux-foundation.org>
-User-Agent: s-nail v14.8.16
+        id S1726453AbgDBFei (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 2 Apr 2020 01:34:38 -0400
+Received: from mail-wr1-f68.google.com ([209.85.221.68]:42897 "EHLO
+        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725789AbgDBFeh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Apr 2020 01:34:37 -0400
+Received: by mail-wr1-f68.google.com with SMTP id h15so2626943wrx.9;
+        Wed, 01 Apr 2020 22:34:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=WuhAaaws8KpzCDEuFiXmgMHdWSdeDew4B7D1DUiqies=;
+        b=IWuw7r+9WLAQYNPH6vtCw0hGgdbmhueMDOaTwXDQJedCrRbxaDwBSQ9aGVP0xUC2F7
+         uwrun0FjsoBrYAUEgW9J2vB0yaXTvFHjv7qiiP36KJ5AVvUDaCbzgI0uC9KXXmcI4mY/
+         iI9Osl2B8VDIqtXIMfXtHSO356T2pkg/CbL5N6J6cBNrLTBk+jVTMbRfPvZcXhZ9VA2L
+         DiUfVKqQbnDleF4FnA6uu7XFZG6nR8LrngXDiglqeFX/su2SapAh7iVMb8omarbBK9eQ
+         +a0IrVN3mweTBZY1KsYvSeOhqsuNkBt4RdBb0vF0RyTl9wgg96Q+CiOL+Lxa6DqNN3HM
+         7FAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=WuhAaaws8KpzCDEuFiXmgMHdWSdeDew4B7D1DUiqies=;
+        b=THVeUfPoyQVuH5ziFPM08YAzaGhGnUhHId+h81gRnhZTbOSdTGUppuIRRxEw+lMYlE
+         jH2hHoMORLkLUChQNIqXgCbULnFbYu6X4tiSLF045lSliPU9Kz8r+LZaFtl1pR1MXGnE
+         UGK/7BFWGhRxUDWI9nEncl17ZzVrZILrvZLMw8SpKqEmvPiSJX3sMpwGk6FWsdDwia5I
+         UX6lCaVOFsAyKqVicyHqF/1z3K1JogoJbu3ehUTfCQ858pGsPE7s01zrT6aLTyxA3s/T
+         vkVFhHc4YdUNVwLPG3LQA/INj3rVIbc5Z1hGAA57kmkK7K0mPghWo4Lik4dEmHi10bQQ
+         3kbQ==
+X-Gm-Message-State: AGi0PuZzG77umVvloE/yeAsb4aNe0EYqMy5uKUxABGsx4H7Chu+hATKB
+        RamayvdRHt1zUHaDVDtEl44Qldt5
+X-Google-Smtp-Source: APiQypLJ3//aNZzLwASU9G1b8eTs/5otCVL2d5BjckLi81QkwqztH+VXJCCHRN8Gbu9O0FO7xXRVFg==
+X-Received: by 2002:a05:6000:108f:: with SMTP id y15mr1624814wrw.423.1585805676337;
+        Wed, 01 Apr 2020 22:34:36 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
+        by smtp.gmail.com with ESMTPSA id u16sm5915920wro.23.2020.04.01.22.34.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Apr 2020 22:34:35 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>, arul.jeniston@gmail.com,
+        "devi R.K" <devi.feb27@gmail.com>,
+        Marc Lehmann <debian-reportbug@plan9.de>,
+        John Stultz <john.stultz@linaro.org>,
+        Andrei Vagin <avagin@gmail.com>,
+        Cyrill Gorcunov <gorcunov@gmail.com>
+Subject: Re: timer_settime() and ECANCELED
+To:     Thomas Gleixner <tglx@linutronix.de>
+References: <87pncrf6gd.fsf@nanos.tec.linutronix.de>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <4c557b44-4e4e-a689-a17b-f95e6c5ee4b0@gmail.com>
+Date:   Thu, 2 Apr 2020 07:34:32 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
+MIME-Version: 1.0
+In-Reply-To: <87pncrf6gd.fsf@nanos.tec.linutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Li Xinhai <lixinhai.lxh@gmail.com>
-Subject: mm/mempolicy: support MPOL_MF_STRICT for huge page mapping
+Hi Thomas,
 
-MPOL_MF_STRICT is used in mbind() for purposes:
+On 4/1/20 7:42 PM, Thomas Gleixner wrote:
+> Michael,
+> 
+> "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> writes:
+>> Following on from our discussion of read() on a timerfd [1], I
+>> happened to remember a Debian bug report [2] that points out that
+>> timer_settime() can fail with the error ECANCELED, which is both
+>> surprising and odd (because despite the error, the timer does get
+>> updated).
+> ...
+>> (1) If the wall-clock is changed before the first timerfd_settime()
+>> call, the call succeeds. This is of course expected.
+>> (2) If the wall-clock is changed after a timerfd_settime() call, then
+>> the next timerfd_settime() call fails with ECANCELED.
+>> (3) Even if the timerfd_settime() call fails, the timer is still updated(!).
+>>
+>> Some questions:
+>> (a) What is the rationale for timerfd_settime() failing with ECANCELED
+>> in this case? (Currently, the manual page says nothing about this.)
+>> (b) It seems at the least surprising, but more likely a bug, that
+>> timerfd_settime() fails with ECANCELED while at the same time
+>> successfully updating the timer value.
+> 
+> Really good question and TBH I can't remember why this is implemented in
+> the way it is, but I have a faint memory that at least (a) is
+> intentional.
+> 
+> After staring at the code for a while I came up with the following
+> answers:
+> 
+> (a): If the clock was set event ("date -s ...") which triggered the
+>      cancel was not yet consumed by user space via read(), then that
+>      information would get lost because arming the timer to the new
+>      value has to reset the state.
+> 
+> (b): Arming the timer in that case is indeed very questionable, but it
+>      could be argued that because the clock was set event happened with
+>      the old expiry value that the new expiry value is not affected.
+>      
+>      I'd be happy to change that and not arm the timer in the case of a
+>      pending cancel, but I fear that some user space already depends on
+>      that behaviour.
 
-(1) MPOL_MF_STRICT is set alone without MPOL_MF_MOVE or
-    MPOL_MF_MOVE_ALL, to check if there is misplaced page and return -EIO;
+Yes, that's the risk, of course. So, shall we just document all 
+this in the manual page?
 
-(2) MPOL_MF_STRICT is set with MPOL_MF_MOVE or MPOL_MF_MOVE_ALL, to
-    check if there is misplaced page which is failed to isolate, or page
-    is success on isolate but failed to move, and return -EIO.
+Thanks,
 
-For non hugepage mapping, (1) and (2) are implemented as expectation.  For
-hugepage mapping, (1) is not implemented.  And in (2), the part about
-failed to isolate and report -EIO is not implemented.
+Michael
 
-This patch implements the missed parts for hugepage mapping.  Benefits
-with it applied:
 
-- User space can apply same code logic to handle mbind() on hugepage and
-  non hugepage mapping;
-
-- Reliably using MPOL_MF_STRICT alone to check whether there is
-  misplaced page or not when bind policy on address range, especially for
-  address range which contains both hugepage and non hugepage mapping.
-
-Analysis of potential impact to existing users:
-
-- If MPOL_MF_STRICT alone was previously used, hugetlb pages not
-  following the memory policy would not cause an EIO error.  After this
-  change, hugetlb pages are treated like all other pages.  If
-  MPOL_MF_STRICT alone is used and hugetlb pages do not follow memory
-  policy an EIO error will be returned.
-
-- For users who using MPOL_MF_STRICT with MPOL_MF_MOVE or
-  MPOL_MF_MOVE_ALL, the semantic about some pages could not be moved will
-  not be changed by this patch, because failed to isolate and failed to
-  move have same effects to users, so their existing code will not be
-  impacted.
-
-In mbind man page, the note about 'MPOL_MF_STRICT is ignored on huge page
-mappings' can be removed after this patch is applied.
-
-Mike:
-
-: The current behavior with MPOL_MF_STRICT and hugetlb pages is inconsistent
-: and does not match documentation (as described above).  The special
-: behavior for hugetlb pages ideally should have been removed when hugetlb
-: page migration was introduced.  It is unlikely that anyone relies on
-: today's inconsistent behavior, and removing one more case of special
-: handling for hugetlb pages is a good thing.
-
-Link: http://lkml.kernel.org/r/1581559627-6206-1-git-send-email-lixinhai.lxh@gmail.com
-Signed-off-by: Li Xinhai <lixinhai.lxh@gmail.com>
-Reviewed-by: Mike Kravetz <mike.kravetz@oracle.com>
-Reviewed-by: Naoya Horiguchi <naoya.horiguchi@nec.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: linux-man <linux-man@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/mempolicy.c |   37 +++++++++++++++++++++++++++++++++----
- 1 file changed, 33 insertions(+), 4 deletions(-)
-
---- a/mm/mempolicy.c~mm-mempolicy-support-mpol_mf_strict-for-huge-page-mapping
-+++ a/mm/mempolicy.c
-@@ -557,9 +557,10 @@ static int queue_pages_hugetlb(pte_t *pt
- 			       unsigned long addr, unsigned long end,
- 			       struct mm_walk *walk)
- {
-+	int ret = 0;
- #ifdef CONFIG_HUGETLB_PAGE
- 	struct queue_pages *qp = walk->private;
--	unsigned long flags = qp->flags;
-+	unsigned long flags = (qp->flags & MPOL_MF_VALID);
- 	struct page *page;
- 	spinlock_t *ptl;
- 	pte_t entry;
-@@ -571,16 +572,44 @@ static int queue_pages_hugetlb(pte_t *pt
- 	page = pte_page(entry);
- 	if (!queue_pages_required(page, qp))
- 		goto unlock;
-+
-+	if (flags == MPOL_MF_STRICT) {
-+		/*
-+		 * STRICT alone means only detecting misplaced page and no
-+		 * need to further check other vma.
-+		 */
-+		ret = -EIO;
-+		goto unlock;
-+	}
-+
-+	if (!vma_migratable(walk->vma)) {
-+		/*
-+		 * Must be STRICT with MOVE*, otherwise .test_walk() have
-+		 * stopped walking current vma.
-+		 * Detecting misplaced page but allow migrating pages which
-+		 * have been queued.
-+		 */
-+		ret = 1;
-+		goto unlock;
-+	}
-+
- 	/* With MPOL_MF_MOVE, we migrate only unshared hugepage. */
- 	if (flags & (MPOL_MF_MOVE_ALL) ||
--	    (flags & MPOL_MF_MOVE && page_mapcount(page) == 1))
--		isolate_huge_page(page, qp->pagelist);
-+	    (flags & MPOL_MF_MOVE && page_mapcount(page) == 1)) {
-+		if (!isolate_huge_page(page, qp->pagelist) &&
-+			(flags & MPOL_MF_STRICT))
-+			/*
-+			 * Failed to isolate page but allow migrating pages
-+			 * which have been queued.
-+			 */
-+			ret = 1;
-+	}
- unlock:
- 	spin_unlock(ptl);
- #else
- 	BUG();
- #endif
--	return 0;
-+	return ret;
- }
- 
- #ifdef CONFIG_NUMA_BALANCING
-_
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
