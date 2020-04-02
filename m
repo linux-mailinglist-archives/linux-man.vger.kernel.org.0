@@ -2,86 +2,100 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id B150519C380
-	for <lists+linux-man@lfdr.de>; Thu,  2 Apr 2020 16:02:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2B31119C3EC
+	for <lists+linux-man@lfdr.de>; Thu,  2 Apr 2020 16:24:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727412AbgDBOBp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 2 Apr 2020 10:01:45 -0400
-Received: from us-smtp-delivery-1.mimecast.com ([205.139.110.120]:39752 "EHLO
-        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1732950AbgDBOBp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Apr 2020 10:01:45 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1585836104;
-        h=from:from:reply-to:reply-to:subject:subject:date:date:
-         message-id:message-id:to:to:cc:mime-version:mime-version:
-         content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=x06202PPsponxfSDbfvTzZWwYLXlP9C+BG2B0SFMxYo=;
-        b=b1xkTZiwsH45GO1otnzP9q6Q0A0QRmMoSPUFftXKV3gDc3gLb4E5dmLtA1/b6g5tfcyUF3
-        i2Av85Gdzv50HDQMs0eSCFoxI16zvowDfAGZL6Zk7cTSkicwit6egbC7lQ3OG/aycbXstS
-        65lTw0vjYEDpJI0SVZDbsYagfcJkqss=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-102-72hyDqbUOuWMmr71FgHJ_g-1; Thu, 02 Apr 2020 10:01:42 -0400
-X-MC-Unique: 72hyDqbUOuWMmr71FgHJ_g-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DB0AB1084424;
-        Thu,  2 Apr 2020 14:01:40 +0000 (UTC)
-Received: from mchristi.msp.csb (ovpn-118-19.rdu2.redhat.com [10.10.118.19])
-        by smtp.corp.redhat.com (Postfix) with ESMTP id 9EA8960BF3;
-        Thu,  2 Apr 2020 14:01:39 +0000 (UTC)
-Reply-To: mchristi@redhat.com
-Subject: Re: [PATCH] prctl.2: doc PR_SET/GET_IO_FLUSHER - V4
-To:     Bart Van Assche <bvanassche@acm.org>, linux-api@vger.kernel.org,
-        david@fromorbit.com, mhocko@suse.com, masato.suzuki@wdc.com,
-        damien.lemoal@wdc.com, darrick.wong@oracle.com,
-        mtk.manpages@gmail.com, linux-man@vger.kernel.org
-References: <20200402020850.7218-1-mchristi@redhat.com>
- <9eab1b92-6a44-616a-44b2-f1ee6475f6f0@acm.org>
-From:   Michael Christie <mchristi@redhat.com>
-Organization: Red Hat
-Message-ID: <c2451ffc-da39-9914-2d2e-e3a9a8356298@redhat.com>
-Date:   Thu, 2 Apr 2020 09:01:39 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.2.0
+        id S1729213AbgDBOYC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 2 Apr 2020 10:24:02 -0400
+Received: from mail-pg1-f193.google.com ([209.85.215.193]:35211 "EHLO
+        mail-pg1-f193.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1731608AbgDBOYC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Apr 2020 10:24:02 -0400
+Received: by mail-pg1-f193.google.com with SMTP id k5so1923761pga.2
+        for <linux-man@vger.kernel.org>; Thu, 02 Apr 2020 07:24:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nanocritical.com; s=google;
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=xKsdyJHMQOOGD0iN0cwvmSOHvAeupUh/gQgZtw9UX6s=;
+        b=Au8mSb87D14H7Y6Oz2xrArStsBmCxE6pPs5joodDHlfwWbtu11X5F6jQU2MHcz1L8v
+         vbZ80oBuIeDlTXds02bSA2HfuzroP1HcLreUmcxxtohujTQW3aniI4d+zVLydxcS5E81
+         sSuKU8dQckYNT+GSa6tpMo5VVknxNUYCY8oPU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=xKsdyJHMQOOGD0iN0cwvmSOHvAeupUh/gQgZtw9UX6s=;
+        b=QYpiEpO1IIRf9l01OAp2oZHJ9DFIWN0O9N9ZN331iKZSjX5Da/CRAisC5i1pvacXQP
+         wLRFMbrzPT17K6KbJK+PtPvbDmJ9E9r36f1g5J7zC3yRxIupXQMh3vKnGnJx2vZ/QMot
+         Amrz0uR6pdCl/4qEwzjXoaiW+nDiEERGZMryISElWnWK7kN7st5Vdz+FF/+P+2sy2h9L
+         8XdFerp+d9OsTs1OeZ50um3zEbTNYgIMm7KAIRPdKauG7w5ZWUS+umdjs/GkPtfDyErG
+         HH1NJp9CBIGDKLu6jQ6TBn/CYfi5dN/+76j2/5257+yFUNwimHfInoJ2HpkaoM20V8oa
+         KycQ==
+X-Gm-Message-State: AGi0PuaObKVXzsKKpmSLw8WChT3q6UAkgkGbXJimBDJoiLOYT48r8M2g
+        XC0sy3KYgXva1/zj5ttLW9bQJlUwNHY=
+X-Google-Smtp-Source: APiQypJKcXYFCdc9+7WRjMSg7cY/u6tT/yYMhCEC1xya6kl1p312x/Yj5tZR0Eu2qKnArtICLC54hg==
+X-Received: by 2002:a63:7419:: with SMTP id p25mr3382733pgc.217.1585837441243;
+        Thu, 02 Apr 2020 07:24:01 -0700 (PDT)
+Received: from localhost (d154-5-233-134.bchsia.telus.net. [154.5.233.134])
+        by smtp.gmail.com with ESMTPSA id o15sm3837044pjp.41.2020.04.02.07.23.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Apr 2020 07:24:00 -0700 (PDT)
+Received: by localhost (sSMTP sendmail emulation); Thu, 02 Apr 2020 07:23:58 -0700
+From:   "Eric Rannaud" <e@nanocritical.com>
+To:     linux-man <linux-man@vger.kernel.org>
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        Linux API <linux-api@vger.kernel.org>,
+        Eric Rannaud <eric.rannaud@gmail.com>,
+        Eric Rannaud <e@nanocritical.com>
+Subject: [PATCH 1/1] clock_getres.2: dynamic POSIX clock devices can return other errors
+Date:   Thu,  2 Apr 2020 07:23:47 -0700
+Message-Id: <ce049b034919c4a09629c2e7bec574af133fb064.1585837173.git.e@nanocritical.com>
+X-Mailer: git-send-email 2.26.0
+In-Reply-To: <CAKgNAkiTYY3mrdsWypX22WCczVK9GDsOO-Vq58go_b2=719=FA@mail.gmail.com>
+References: <CAKgNAkiTYY3mrdsWypX22WCczVK9GDsOO-Vq58go_b2=719=FA@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <9eab1b92-6a44-616a-44b2-f1ee6475f6f0@acm.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 04/01/2020 10:46 PM, Bart Van Assche wrote:
-> On 2020-04-01 19:08, Mike Christie wrote:
->> +.TP
->> +.B PR_GET_IO_FLUSHER (Since Linux 5.6)
->> +Return as the function result 1 if the caller is in the IO_FLUSHER st=
-ate and
->> +0 if not.
->=20
-> Although I'm not at all a language expert, the word order at the start
-> of the above sentence seems a bit weird to me?
->=20
+See Linux source as of v5.4:
+  kernel/time/posix-clock.c
 
-Do you mean the "Return as the function result" part or something else?
+Signed-off-by: Eric Rannaud <e@nanocritical.com>
+---
+ man2/clock_getres.2 | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-That is how the other commands worded it. It looks like I messed up and
-dropped the (). This is how they did it:
-
-"Return (as the function result)"
-
-I will resend with that fix.
-
-If I misunderstood you I will fix that too.
-
-
-
+diff --git a/man2/clock_getres.2 b/man2/clock_getres.2
+index 0154f9d32473..71f7f8dfa662 100644
+--- a/man2/clock_getres.2
++++ b/man2/clock_getres.2
+@@ -260,6 +260,10 @@ specified in a call to
+ .BR clock_settime ()
+ is not a settable clock.
+ .TP
++.B EOPNOTSUPP
++The operation is not supported by the dynamic POSIX clock device
++specified.
++.TP
+ .BR EINVAL " (since Linux 4.3)"
+ .\" commit e1d7ba8735551ed79c7a0463a042353574b96da3
+ A call to
+@@ -276,6 +280,11 @@ clock.
+ .B EPERM
+ .BR clock_settime ()
+ does not have permission to set the clock indicated.
++.TP
++.B EACCES
++.BR clock_settime ()
++does not have write permission for the dynamic POSIX
++clock device indicated.
+ .SH VERSIONS
+ These system calls first appeared in Linux 2.6.
+ .SH ATTRIBUTES
+-- 
+2.26.0
 
