@@ -2,50 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4B7D919CACA
-	for <lists+linux-man@lfdr.de>; Thu,  2 Apr 2020 22:12:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6650A19CACC
+	for <lists+linux-man@lfdr.de>; Thu,  2 Apr 2020 22:12:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726963AbgDBUMM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 2 Apr 2020 16:12:12 -0400
-Received: from Galois.linutronix.de ([193.142.43.55]:38955 "EHLO
-        Galois.linutronix.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726617AbgDBUMM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Apr 2020 16:12:12 -0400
-Received: from p5de0bf0b.dip0.t-ipconnect.de ([93.224.191.11] helo=nanos.tec.linutronix.de)
-        by Galois.linutronix.de with esmtpsa (TLS1.2:DHE_RSA_AES_256_CBC_SHA256:256)
-        (Exim 4.80)
-        (envelope-from <tglx@linutronix.de>)
-        id 1jK6C9-0002P6-5u; Thu, 02 Apr 2020 22:12:09 +0200
-Received: by nanos.tec.linutronix.de (Postfix, from userid 1000)
-        id 91F1E100D52; Thu,  2 Apr 2020 22:12:08 +0200 (CEST)
-From:   Thomas Gleixner <tglx@linutronix.de>
-To:     "Michael Kerrisk \(man-pages\)" <mtk.manpages@gmail.com>
-Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>, arul.jeniston@gmail.com,
-        "devi R.K" <devi.feb27@gmail.com>,
-        Marc Lehmann <debian-reportbug@plan9.de>,
-        John Stultz <john.stultz@linaro.org>,
-        Andrei Vagin <avagin@gmail.com>,
-        Cyrill Gorcunov <gorcunov@gmail.com>
-Subject: Re: timer_settime() and ECANCELED
-In-Reply-To: <5052f8a7-c6b9-be30-878e-053a3d035f7a@gmail.com>
-References: <87pncrf6gd.fsf@nanos.tec.linutronix.de> <4c557b44-4e4e-a689-a17b-f95e6c5ee4b0@gmail.com> <87mu7unugh.fsf@nanos.tec.linutronix.de> <8ae32d2f-e4a8-240f-c7bd-580c26bba2d0@gmail.com> <87bloanh89.fsf@nanos.tec.linutronix.de> <5052f8a7-c6b9-be30-878e-053a3d035f7a@gmail.com>
-Date:   Thu, 02 Apr 2020 22:12:08 +0200
-Message-ID: <87eet5myuf.fsf@nanos.tec.linutronix.de>
+        id S2388635AbgDBUMj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 2 Apr 2020 16:12:39 -0400
+Received: from mail-ed1-f68.google.com ([209.85.208.68]:37221 "EHLO
+        mail-ed1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729123AbgDBUMj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Apr 2020 16:12:39 -0400
+Received: by mail-ed1-f68.google.com with SMTP id de14so6078612edb.4;
+        Thu, 02 Apr 2020 13:12:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=T+mdDv2o4qw148SQ2RO/8yaxT59TE2MvJ+X7iPWLruI=;
+        b=lOyEmfuMgu4nM2UlmIJ05f6ya3kVrmsClUpyXI8lhqdQZJoQcghsYH9A17QrubZoVo
+         ouLpQrNQyewYo0Hgmstep4GZ9aydLdwjDmSIqltbhR4JRTl3+UXpSs+duJ9STlste8vv
+         zv3sDv2NWzAGUCEDbEgPz4l1HISFyqbnslCd3jx4dOzG/1idMKNXu8n3QK+YY/4asnJp
+         db4Kc0Fy8fhVKiKe7SPpbKxLJtBLZbbh3Dl4HO7Kh7FsArZsPVqTHVOVzT3rvq7IXhl4
+         BLGaLNWHlQS4WsxIwLex+CPyJAjCo+CSCFiz0TIQWP2paRlDzO5iOYXM9QD3mhg4KvLs
+         WsZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=T+mdDv2o4qw148SQ2RO/8yaxT59TE2MvJ+X7iPWLruI=;
+        b=m0wbFPYs/yFsNbx1JlG1QcuuiC9WKwoLxitx1yLxlnDF68sLU41+/i5r5xEpSjTn+J
+         YKNCEZ7LNNiaXwnt5fz9CSGezZknWTnrI9o+LExrg09ScFmliBbWavIJS5WRR1DB7+tb
+         S9MpczZ2lPwHqduM/QWglgtx/N146xaCytAzmscI89kls7AKFd3cjrxQkIsDDdUOgGvf
+         uESZsdyJWoMS0bwGRrSw9DKQIM2hxOdOuRFqRFrsu0E3caMaQ14pKo4db/tV3e3b3U+7
+         JeZVSu6IZ7ENqBIgsiFkNkDUXVgWH0cPxGVcek6Ce0QdL/bioEE6CIeeFvHz3KnmkUX9
+         pXnw==
+X-Gm-Message-State: AGi0PubA1I9fsfkYHJp6qrb/fxoaUfKdh+EWmHs2lIc79EYPGWBwEugT
+        Ou9k8i2bpmPO7G19lRWvY+S810s+S3twXN5+44k=
+X-Google-Smtp-Source: APiQypI1Pq5fTtm+F/ez/Gz7Kt70/XYeCGI0XFO/HJeWNwMwGEe1+EeK4ncKNPaAwmGfU8BwlxR90c/G2x0kHnyrkE4=
+X-Received: by 2002:a17:906:8042:: with SMTP id x2mr5033753ejw.157.1585858356918;
+ Thu, 02 Apr 2020 13:12:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Linutronix-Spam-Score: -1.0
-X-Linutronix-Spam-Level: -
-X-Linutronix-Spam-Status: No , -1.0 points, 5.0 required,  ALL_TRUSTED=-1,SHORTCIRCUIT=-0.0001
+References: <20200402020850.7218-1-mchristi@redhat.com> <9eab1b92-6a44-616a-44b2-f1ee6475f6f0@acm.org>
+ <c2451ffc-da39-9914-2d2e-e3a9a8356298@redhat.com>
+In-Reply-To: <c2451ffc-da39-9914-2d2e-e3a9a8356298@redhat.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Thu, 2 Apr 2020 22:12:25 +0200
+Message-ID: <CAKgNAki_5SBbQJdjg1j0i5BvfUu7sXUiBbgBU8QJY+Av-Ok-pg@mail.gmail.com>
+Subject: Re: [PATCH] prctl.2: doc PR_SET/GET_IO_FLUSHER - V4
+To:     Mike Christie <mchristi@redhat.com>
+Cc:     Bart Van Assche <bvanassche@acm.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        Dave Chinner <david@fromorbit.com>,
+        Michal Hocko <mhocko@suse.com>, masato.suzuki@wdc.com,
+        damien.lemoal@wdc.com, "Darrick J. Wong" <darrick.wong@oracle.com>,
+        linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Michael,
+On Thu, 2 Apr 2020 at 16:01, Michael Christie <mchristi@redhat.com> wrote:
+>
+> On 04/01/2020 10:46 PM, Bart Van Assche wrote:
+> > On 2020-04-01 19:08, Mike Christie wrote:
+> >> +.TP
+> >> +.B PR_GET_IO_FLUSHER (Since Linux 5.6)
+> >> +Return as the function result 1 if the caller is in the IO_FLUSHER state and
+> >> +0 if not.
+> >
+> > Although I'm not at all a language expert, the word order at the start
+> > of the above sentence seems a bit weird to me?
+> >
+>
+> Do you mean the "Return as the function result" part or something else?
+>
+> That is how the other commands worded it. It looks like I messed up and
+> dropped the (). This is how they did it:
+>
+> "Return (as the function result)"
+>
+> I will resend with that fix.
+>
+> If I misunderstood you I will fix that too.
 
-"Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> writes:
-> Thanks. Committed. (But, next time you change the API. maybe a 
-> man-pages patch to go with that? :-).)
+I already fixed this piece. There are still the open questions in my
+other mail though.
 
-I try to remember.
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
