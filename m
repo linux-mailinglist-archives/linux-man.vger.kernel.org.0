@@ -2,84 +2,119 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4CD5D19C420
-	for <lists+linux-man@lfdr.de>; Thu,  2 Apr 2020 16:29:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 148B619CA7F
+	for <lists+linux-man@lfdr.de>; Thu,  2 Apr 2020 21:48:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2388484AbgDBO3Z (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 2 Apr 2020 10:29:25 -0400
-Received: from mail-oi1-f196.google.com ([209.85.167.196]:44930 "EHLO
-        mail-oi1-f196.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1732302AbgDBO3Z (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Apr 2020 10:29:25 -0400
-Received: by mail-oi1-f196.google.com with SMTP id v134so2889364oie.11;
-        Thu, 02 Apr 2020 07:29:25 -0700 (PDT)
+        id S1728225AbgDBTsI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 2 Apr 2020 15:48:08 -0400
+Received: from mail-wm1-f67.google.com ([209.85.128.67]:38284 "EHLO
+        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726963AbgDBTsI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Apr 2020 15:48:08 -0400
+Received: by mail-wm1-f67.google.com with SMTP id f6so5045195wmj.3;
+        Thu, 02 Apr 2020 12:48:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=jygQ/diY941o6mpEEimAy4AjY3Bq2iWufaPGPW83eaU=;
-        b=cOYd01hxJK0Y6e7aC0+Hkb0NPr8dT54zFU2z9gkuieOdkRYNwl0/R/YI0EQO+WP92D
-         O8rSvsWs7GVsDJ8nik03mn6yZ+fNk0WJfgvH9IBCaqA2E7YRtoawxrxFmkHFpC8HPi1H
-         e1BRNvTJTfk7IZMkolN6WSfWIdCbdPHYKG0a8LjYaTg8g+dHX3v5LZCP7Ebv3r0SKXep
-         2zWGtPq6bDLl/UMg3WS7mO93G1OPYO7SzbSPc1AZda7kRyCfbMP2XRBBOX44YsouT/it
-         qCTIDKEUoTF+LNtWJUiHVzSoO0HApzOTVJ1i+etGALkGfMdrSqJPzFj7w2KRcbN0LfT+
-         MeKA==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=7vqQZx3OFDl9v1JNKAG7obOLJpITQf/WYHmvkQex5ko=;
+        b=FrX91c2d3qLq7JRgHaP+bH7mT69/MVfcSRGj5D6byzNquYJat1soSS0icjxXetVVfE
+         DbSZDkPn3naB8JV/qu4KvBScLiPTcpjRA7ZmtSmeOEjxxyjdsHxj8sOJImzFYBHHjCtD
+         Fmx0QJgcQKtHNvHFxwT9U/JqW6ZpS/QnJQSNzB8AC9efbB8PPdesIZDD8t8cMugcp7cp
+         FMIfYqUnVy/Ti9VjRG7pGxN9qLR8/QbefO66CxOZuq+DYy4tS8esksvKamG+A/mrVNTY
+         JzP6HcPTJKaaC76KL2WH4nSARi+vD60MOTUPmgZ8QrHQzSP5bI9lKNp29GNLIwvQALLm
+         tPLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=jygQ/diY941o6mpEEimAy4AjY3Bq2iWufaPGPW83eaU=;
-        b=ttq8yX8Tsq1zu/mdABLqdZ0xLYMkmblUcNxZlwVvxJIx814uuqCX6smg/5uRbOkHbv
-         +rVHhQhEgoiIFsWt752H0QyEoAJ7PbYIRBTFbyhTTV0VIU8qRNt/INdDtk0m0u1eAv/1
-         fTv19Ej0sUWmsioIazHaklZhX512nif+AVCmA1hX14dO0oHP3VpCo6/GLHKw4XpniCiS
-         EDjcpgUHbh9Tx6jE2qB/UlC8ZTXyV6yEEzptYfwxi37Q6xP1mR0uOxAcSr1T+nmE2ZmB
-         +F9TO44T8+5sAC0htyEiYMrsMsuq8DLPcfHjKCHeviKCcuGB4JVZLIuW6oim89vwXhG+
-         BYbw==
-X-Gm-Message-State: AGi0PuagCMxLHmhRIIE9C36Kg77KWNRQgVbkLG6lylZImBF9j0M8380l
-        N3RTNnERzo86sfHw1pN9GO89j9LOz4euosrlzIM=
-X-Google-Smtp-Source: APiQypK/KK5SU5LGft8aOp7UNHf12bzZfCsR6/8x3di+hIijsZizrnNzLY71CZADU1QC3+aspILxKzz1e7B1CZ1j1WE=
-X-Received: by 2002:aca:57d6:: with SMTP id l205mr2334809oib.20.1585837764854;
- Thu, 02 Apr 2020 07:29:24 -0700 (PDT)
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=7vqQZx3OFDl9v1JNKAG7obOLJpITQf/WYHmvkQex5ko=;
+        b=eYwyOpLPhF0Kiy8wlJ80LntzUjQL3f3IeE0Nu5gdXzgB5MtsErL7HQBglS63QV7/Bu
+         7o5+qx/evWQtnpULN2RCSD9COJJ1MCfMxv/Woxxje7OFqqJyC4eNcX/sypy27mfSHSja
+         DLj5tWM2reVulA2DWVjKmKHmlkb5ov4ZsEA64Eo7xiBLzUNniBGVAk2ZngB6fW4OOebA
+         4/s83lDE7B0cwVK0OwjH0+yzxkUlNk2prgQCSnLtgqG8oXmHyk4TKNhLFWvPUOrPBaMX
+         PS8tfev6DA8OgnZlld3s+uwvZxtJEt2RN2bhJZNiYv75iOybww6nwwh1/By/d3rJkzKx
+         LZAg==
+X-Gm-Message-State: AGi0PuZgk16YOEU7/gpYa2RK8vVvje7w/oFFO+VkDMT7QyLvc/h6i8Wb
+        hTqSh30unXCS+utWHBeorBA7KZ4J
+X-Google-Smtp-Source: APiQypK9lezQR0B1p3BvE0aXGmcJT1b3BYafop75EFrepb28NEqNafonBVvf4JtP4QTWJSIPROqHGw==
+X-Received: by 2002:a1c:e341:: with SMTP id a62mr5211708wmh.121.1585856885813;
+        Thu, 02 Apr 2020 12:48:05 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
+        by smtp.gmail.com with ESMTPSA id o16sm8909021wrw.75.2020.04.02.12.48.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 02 Apr 2020 12:48:05 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>, arul.jeniston@gmail.com,
+        "devi R.K" <devi.feb27@gmail.com>,
+        Marc Lehmann <debian-reportbug@plan9.de>,
+        John Stultz <john.stultz@linaro.org>,
+        Andrei Vagin <avagin@gmail.com>,
+        Cyrill Gorcunov <gorcunov@gmail.com>
+Subject: Re: timer_settime() and ECANCELED
+To:     Thomas Gleixner <tglx@linutronix.de>
+References: <87pncrf6gd.fsf@nanos.tec.linutronix.de>
+ <4c557b44-4e4e-a689-a17b-f95e6c5ee4b0@gmail.com>
+ <87mu7unugh.fsf@nanos.tec.linutronix.de>
+ <8ae32d2f-e4a8-240f-c7bd-580c26bba2d0@gmail.com>
+ <87bloanh89.fsf@nanos.tec.linutronix.de>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <5052f8a7-c6b9-be30-878e-053a3d035f7a@gmail.com>
+Date:   Thu, 2 Apr 2020 21:48:04 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-References: <CA+zRj8U5_NaY4ZQXj9r=f58KcO3pq5k9HZt9KxRYHnOOk=e1WQ@mail.gmail.com>
- <a225bae5-e342-fee4-b7fa-c3093ca52fa0@gmail.com> <CAKgNAkhzOq2-H8Ka2Dx9ijrVZkaH9cNzKkAENM9hyQx9MBnAKQ@mail.gmail.com>
- <CAKgNAkiTYY3mrdsWypX22WCczVK9GDsOO-Vq58go_b2=719=FA@mail.gmail.com>
-In-Reply-To: <CAKgNAkiTYY3mrdsWypX22WCczVK9GDsOO-Vq58go_b2=719=FA@mail.gmail.com>
-From:   Eric Rannaud <eric.rannaud@gmail.com>
-Date:   Thu, 2 Apr 2020 07:29:13 -0700
-Message-ID: <CA+zRj8WjV9Zw+a470X=CcoxQL1uaj92xey4CDsBsDNj5wdu8Dg@mail.gmail.com>
-Subject: Re: clock_settime(2) error for non-settable clocks
-To:     mtk.manpages@gmail.com
-Cc:     Linux API <linux-api@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Aleksa Sarai <asarai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <87bloanh89.fsf@nanos.tec.linutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+On 4/2/20 3:35 PM, Thomas Gleixner wrote:
+> "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> writes:
+>> NOTES
+>>        Suppose  the  following scenario for CLOCK_REALTIME or CLOCK_REAL‐
+>>        TIME_ALARM timer that was created with timerfd_create():
+>>
+>>        (a) The  timer  has  been  started  (timerfd_settime())  with  the
+>>            TFD_TIMER_ABSTIME and TFD_TIMER_CANCEL_ON_SET flags;
+>>
+>>        (b) A discontinuous change (e.g.  settimeofday(2)) is subsequently
+>>            made to the CLOCK_REALTIME clock; and
+>>
+>>        (c) the caller once more  calls  timerfd_settime()  to  rearm  the
+>>            timer (without first doing a read(2) on the file descriptor).
+>>
+>>        In this case the following occurs:
+>>
+>>        · The  timerfd_settime()  returns  -1 with errno set to ECANCELED.
+>>          (This enables the caller to know that  the  previous  timer  was
+>>          affected by a discontinuous change to the clock.)
+>>
+>>        · The  timer is successfully rearmed with the settings provided in
+>>          the second timerfd_settime() call.  (This was probably an imple‐
+>>          mentation  accident,  but  won't be fixed now, in case there are
+>>          applications that depend on this behaviour.)
+> 
+> Clear enough.
+> 
+> Thanks Michael!
 
-I just sent a patch to the mailing list [1] capturing additional error
-codes returned for dynamic POSIX clock devices.
+Thanks. Committed. (But, next time you change the API. maybe a 
+man-pages patch to go with that? :-).)
 
-Thanks,
-Eric
+Cheers,
 
-1. https://marc.info/?l=linux-man&m=158583744306140&w=2
+Michael
 
-On Thu, Apr 2, 2020 at 4:48 AM Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
->
-> Eric,
->
-> See also my changes in
-> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=96d951a401c65525bec0f973946b8dfb24afd670
->
-> A textual table in that commit captures most of what I know. Still,
-> some pieces that you mentioned are not covered. (patches welcome)
->
-> Thanks,
->
-> Michael
+ 
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
