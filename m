@@ -2,72 +2,86 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 59BC719C2C4
-	for <lists+linux-man@lfdr.de>; Thu,  2 Apr 2020 15:35:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B150519C380
+	for <lists+linux-man@lfdr.de>; Thu,  2 Apr 2020 16:02:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2388594AbgDBNfH convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Thu, 2 Apr 2020 09:35:07 -0400
-Received: from Galois.linutronix.de ([193.142.43.55]:37931 "EHLO
-        Galois.linutronix.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2387752AbgDBNfG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Apr 2020 09:35:06 -0400
-Received: from p5de0bf0b.dip0.t-ipconnect.de ([93.224.191.11] helo=nanos.tec.linutronix.de)
-        by Galois.linutronix.de with esmtpsa (TLS1.2:DHE_RSA_AES_256_CBC_SHA256:256)
-        (Exim 4.80)
-        (envelope-from <tglx@linutronix.de>)
-        id 1jJzzr-0004mg-Ab; Thu, 02 Apr 2020 15:35:03 +0200
-Received: by nanos.tec.linutronix.de (Postfix, from userid 1000)
-        id B9B9D100D52; Thu,  2 Apr 2020 15:35:02 +0200 (CEST)
-From:   Thomas Gleixner <tglx@linutronix.de>
-To:     "Michael Kerrisk \(man-pages\)" <mtk.manpages@gmail.com>
-Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>, arul.jeniston@gmail.com,
-        "devi R.K" <devi.feb27@gmail.com>,
-        Marc Lehmann <debian-reportbug@plan9.de>,
-        John Stultz <john.stultz@linaro.org>,
-        Andrei Vagin <avagin@gmail.com>,
-        Cyrill Gorcunov <gorcunov@gmail.com>
-Subject: Re: timer_settime() and ECANCELED
-In-Reply-To: <8ae32d2f-e4a8-240f-c7bd-580c26bba2d0@gmail.com>
-References: <87pncrf6gd.fsf@nanos.tec.linutronix.de> <4c557b44-4e4e-a689-a17b-f95e6c5ee4b0@gmail.com> <87mu7unugh.fsf@nanos.tec.linutronix.de> <8ae32d2f-e4a8-240f-c7bd-580c26bba2d0@gmail.com>
-Date:   Thu, 02 Apr 2020 15:35:02 +0200
-Message-ID: <87bloanh89.fsf@nanos.tec.linutronix.de>
+        id S1727412AbgDBOBp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 2 Apr 2020 10:01:45 -0400
+Received: from us-smtp-delivery-1.mimecast.com ([205.139.110.120]:39752 "EHLO
+        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1732950AbgDBOBp (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Apr 2020 10:01:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1585836104;
+        h=from:from:reply-to:reply-to:subject:subject:date:date:
+         message-id:message-id:to:to:cc:mime-version:mime-version:
+         content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=x06202PPsponxfSDbfvTzZWwYLXlP9C+BG2B0SFMxYo=;
+        b=b1xkTZiwsH45GO1otnzP9q6Q0A0QRmMoSPUFftXKV3gDc3gLb4E5dmLtA1/b6g5tfcyUF3
+        i2Av85Gdzv50HDQMs0eSCFoxI16zvowDfAGZL6Zk7cTSkicwit6egbC7lQ3OG/aycbXstS
+        65lTw0vjYEDpJI0SVZDbsYagfcJkqss=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-102-72hyDqbUOuWMmr71FgHJ_g-1; Thu, 02 Apr 2020 10:01:42 -0400
+X-MC-Unique: 72hyDqbUOuWMmr71FgHJ_g-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DB0AB1084424;
+        Thu,  2 Apr 2020 14:01:40 +0000 (UTC)
+Received: from mchristi.msp.csb (ovpn-118-19.rdu2.redhat.com [10.10.118.19])
+        by smtp.corp.redhat.com (Postfix) with ESMTP id 9EA8960BF3;
+        Thu,  2 Apr 2020 14:01:39 +0000 (UTC)
+Reply-To: mchristi@redhat.com
+Subject: Re: [PATCH] prctl.2: doc PR_SET/GET_IO_FLUSHER - V4
+To:     Bart Van Assche <bvanassche@acm.org>, linux-api@vger.kernel.org,
+        david@fromorbit.com, mhocko@suse.com, masato.suzuki@wdc.com,
+        damien.lemoal@wdc.com, darrick.wong@oracle.com,
+        mtk.manpages@gmail.com, linux-man@vger.kernel.org
+References: <20200402020850.7218-1-mchristi@redhat.com>
+ <9eab1b92-6a44-616a-44b2-f1ee6475f6f0@acm.org>
+From:   Michael Christie <mchristi@redhat.com>
+Organization: Red Hat
+Message-ID: <c2451ffc-da39-9914-2d2e-e3a9a8356298@redhat.com>
+Date:   Thu, 2 Apr 2020 09:01:39 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.0
 MIME-Version: 1.0
+In-Reply-To: <9eab1b92-6a44-616a-44b2-f1ee6475f6f0@acm.org>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8BIT
-X-Linutronix-Spam-Score: -1.0
-X-Linutronix-Spam-Level: -
-X-Linutronix-Spam-Status: No , -1.0 points, 5.0 required,  ALL_TRUSTED=-1,SHORTCIRCUIT=-0.0001
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Content-Transfer-Encoding: quoted-printable
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-"Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> writes:
-> NOTES
->        Suppose  the  following scenario for CLOCK_REALTIME or CLOCK_REAL‐
->        TIME_ALARM timer that was created with timerfd_create():
->
->        (a) The  timer  has  been  started  (timerfd_settime())  with  the
->            TFD_TIMER_ABSTIME and TFD_TIMER_CANCEL_ON_SET flags;
->
->        (b) A discontinuous change (e.g.  settimeofday(2)) is subsequently
->            made to the CLOCK_REALTIME clock; and
->
->        (c) the caller once more  calls  timerfd_settime()  to  rearm  the
->            timer (without first doing a read(2) on the file descriptor).
->
->        In this case the following occurs:
->
->        · The  timerfd_settime()  returns  -1 with errno set to ECANCELED.
->          (This enables the caller to know that  the  previous  timer  was
->          affected by a discontinuous change to the clock.)
->
->        · The  timer is successfully rearmed with the settings provided in
->          the second timerfd_settime() call.  (This was probably an imple‐
->          mentation  accident,  but  won't be fixed now, in case there are
->          applications that depend on this behaviour.)
+On 04/01/2020 10:46 PM, Bart Van Assche wrote:
+> On 2020-04-01 19:08, Mike Christie wrote:
+>> +.TP
+>> +.B PR_GET_IO_FLUSHER (Since Linux 5.6)
+>> +Return as the function result 1 if the caller is in the IO_FLUSHER st=
+ate and
+>> +0 if not.
+>=20
+> Although I'm not at all a language expert, the word order at the start
+> of the above sentence seems a bit weird to me?
+>=20
 
-Clear enough.
+Do you mean the "Return as the function result" part or something else?
 
-Thanks Michael!
+That is how the other commands worded it. It looks like I messed up and
+dropped the (). This is how they did it:
+
+"Return (as the function result)"
+
+I will resend with that fix.
+
+If I misunderstood you I will fix that too.
+
+
+
+
