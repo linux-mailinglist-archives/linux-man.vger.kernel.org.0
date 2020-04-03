@@ -2,76 +2,182 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id CC76F19DBED
-	for <lists+linux-man@lfdr.de>; Fri,  3 Apr 2020 18:43:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 38CBF19DF7E
+	for <lists+linux-man@lfdr.de>; Fri,  3 Apr 2020 22:40:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2404229AbgDCQnJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 3 Apr 2020 12:43:09 -0400
-Received: from mail-oi1-f194.google.com ([209.85.167.194]:34140 "EHLO
-        mail-oi1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2404111AbgDCQnJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 3 Apr 2020 12:43:09 -0400
-Received: by mail-oi1-f194.google.com with SMTP id d3so6688940oic.1;
-        Fri, 03 Apr 2020 09:43:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=SVVl9R8FYEud+/akr6L98oF7IK5MhLMqkoMHdc9p548=;
-        b=DFdFQtFD7QVW4P2Mf0M1+1zU5UL9wKQSm6qLGed5MyDKHVet5exCtltsiwjH5JPimD
-         3EvKvUVu+Ymt8a085qHWHpo6X2L7m1JPf5CrhSIdQ8OrJ3z2ZSfO7F44QUmqe/MF2kjq
-         4RZNEN/AasdhK//yr1F1Uyirq71suZMmkzLhXppTJkkuYSkoMQkKaDQcdwMq4xdf1unB
-         LcfGheihyFmi1tcrlEue19sITVGrF3KrWYg8V44WweVii0nIExjSl5uD6l+MQz6K14pS
-         RD8A7Drf5ic9OhuChBh7xYfV+mv6Uosa7RhW36lN90CkbB1dRiICaaifsa09ffy7wovg
-         dSxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=SVVl9R8FYEud+/akr6L98oF7IK5MhLMqkoMHdc9p548=;
-        b=ZI96+0zuxLZHoecotxXtmJFxozeu+5TjhEBaE/wxGnM2tIDTSZdvpUsbU3hSK9t6ba
-         1Auf6n+Goq2X1YEEfn7+JdvmDJmJF1O5TU3s8lPYo4ZOPRuijAD/eklYVOxjY3cCBiz3
-         zulBOSUQJ7XachgJf/u7dj8PM5sq16SnkNm7SHETHdoSQYsOmAJiy3GuUt48FRjUyGrq
-         be8jM1gAhbGGNUjqqkLE+k3QpIg4dwdzAdRF2zpC+y+lbL6dJLQl5G1/dsHlvck2ApL/
-         12LIM6yGec0MV1dJzxsrOTvXLzMnSf6PaR9X3tpi+ZY9qMyVS3SaZbJla2NUaTqVxtGl
-         GL4g==
-X-Gm-Message-State: AGi0PubUM6RHNrktTnN3r0EJC0grD2Hj4vM/qJjOz1uVRbV3seSTLEZn
-        eOx/8i91fL3FCKd1OEkEKdKaaoJnYrslO0qoHoGU6gF0kc4=
-X-Google-Smtp-Source: APiQypIlv/zPSg2WNnoHU8Yt2rkFV72BQv7rJnb3qrsC7WQMiyQXI9QXoG1nJ3jgX2kvRGgqjPro34uK/nmsivpbswk=
-X-Received: by 2002:aca:3b85:: with SMTP id i127mr3523346oia.123.1585932188037;
- Fri, 03 Apr 2020 09:43:08 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAKgNAkiTYY3mrdsWypX22WCczVK9GDsOO-Vq58go_b2=719=FA@mail.gmail.com>
- <ce049b034919c4a09629c2e7bec574af133fb064.1585837173.git.e@nanocritical.com>
- <CA+zRj8XYLpa_gep+VxUfQuqeKu+=thMit-jNv1soC8Mh5H43Ug@mail.gmail.com>
- <CAKgNAkipcX47quv23SACeorSexO00nUAJR3QSTA3bFNMresE4Q@mail.gmail.com>
- <CA+zRj8XzqV19Z9KcyO+_V2Nkt4fgwK7QbP01GE5EL=g_xHf8Xw@mail.gmail.com> <cb4c685b-6c5d-9c16-aade-0c95e57de4b9@gmail.com>
-In-Reply-To: <cb4c685b-6c5d-9c16-aade-0c95e57de4b9@gmail.com>
-From:   Eric Rannaud <eric.rannaud@gmail.com>
-Date:   Fri, 3 Apr 2020 09:42:57 -0700
-Message-ID: <CA+zRj8UcOyHSWhrWSHr3eDQ-4mbze9fuZTSGf7zBfi2L57WuMw@mail.gmail.com>
-Subject: Re: [PATCH 1/1] clock_getres.2: dynamic POSIX clock devices can
- return other errors
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Eric Rannaud <e@nanocritical.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+        id S1727950AbgDCUkQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 3 Apr 2020 16:40:16 -0400
+Received: from mail.kernel.org ([198.145.29.99]:36102 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1727835AbgDCUkQ (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 3 Apr 2020 16:40:16 -0400
+Received: from localhost.localdomain (c-71-198-47-131.hsd1.ca.comcast.net [71.198.47.131])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by mail.kernel.org (Postfix) with ESMTPSA id 7CAAD21841;
+        Fri,  3 Apr 2020 20:40:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=default; t=1585946415;
+        bh=MODlg9cYxK/lxhCOzS2YFu6AOlGmEixc4isbrFvvsvI=;
+        h=Date:From:To:Subject:From;
+        b=esIlz2eP8ZQbN7Mx9wmuT/dpcDhN2rlc01UGW/0VugvZKE/oWHVU/pb9ASi4ggy0W
+         0WuZyde12MyuISInQzFsv+LJ26J55WRLvsS9FO4Fj5Ra4hSMPsOVxiWew+rtwV7KhK
+         HZgapLfanVGAPrrG9+z+NP/MfFtYIPuZfpNwBZ8M=
+Date:   Fri, 03 Apr 2020 13:40:15 -0700
+From:   akpm@linux-foundation.org
+To:     linux-man@vger.kernel.org, lixinhai.lxh@gmail.com, mhocko@suse.com,
+        mike.kravetz@oracle.com, mm-commits@vger.kernel.org,
+        naoya.horiguchi@nec.com
+Subject:  [merged]
+ mm-mempolicy-support-mpol_mf_strict-for-huge-page-mapping.patch removed
+ from -mm tree
+Message-ID: <20200403204015.KvNBRqnnS%akpm@linux-foundation.org>
+User-Agent: s-nail v14.8.16
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Apr 3, 2020 at 12:02 AM Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
-> Actually, there are 0 mentions of ENOTSUP in the kernel
-> (other than in tools and samples). The constant that appears
-> in the kernel is one called ENOTSUPP (2 P's) defined as 524
-> in include/linux/errno.h !! Yikes! What a mess!
 
-> ...
+The patch titled
+     Subject: mm/mempolicy: support MPOL_MF_STRICT for huge page mapping
+has been removed from the -mm tree.  Its filename was
+     mm-mempolicy-support-mpol_mf_strict-for-huge-page-mapping.patch
 
-Fair enough! I didn't even see the extra P in ENOTSUPP when I was
-looking at the kernel code. Thanks for the detailed analysis.
+This patch was dropped because it was merged into mainline or a subsystem tree
 
-Eric
+------------------------------------------------------
+From: Li Xinhai <lixinhai.lxh@gmail.com>
+Subject: mm/mempolicy: support MPOL_MF_STRICT for huge page mapping
+
+MPOL_MF_STRICT is used in mbind() for purposes:
+
+(1) MPOL_MF_STRICT is set alone without MPOL_MF_MOVE or
+    MPOL_MF_MOVE_ALL, to check if there is misplaced page and return -EIO;
+
+(2) MPOL_MF_STRICT is set with MPOL_MF_MOVE or MPOL_MF_MOVE_ALL, to
+    check if there is misplaced page which is failed to isolate, or page
+    is success on isolate but failed to move, and return -EIO.
+
+For non hugepage mapping, (1) and (2) are implemented as expectation.  For
+hugepage mapping, (1) is not implemented.  And in (2), the part about
+failed to isolate and report -EIO is not implemented.
+
+This patch implements the missed parts for hugepage mapping.  Benefits
+with it applied:
+
+- User space can apply same code logic to handle mbind() on hugepage and
+  non hugepage mapping;
+
+- Reliably using MPOL_MF_STRICT alone to check whether there is
+  misplaced page or not when bind policy on address range, especially for
+  address range which contains both hugepage and non hugepage mapping.
+
+Analysis of potential impact to existing users:
+
+- If MPOL_MF_STRICT alone was previously used, hugetlb pages not
+  following the memory policy would not cause an EIO error.  After this
+  change, hugetlb pages are treated like all other pages.  If
+  MPOL_MF_STRICT alone is used and hugetlb pages do not follow memory
+  policy an EIO error will be returned.
+
+- For users who using MPOL_MF_STRICT with MPOL_MF_MOVE or
+  MPOL_MF_MOVE_ALL, the semantic about some pages could not be moved will
+  not be changed by this patch, because failed to isolate and failed to
+  move have same effects to users, so their existing code will not be
+  impacted.
+
+In mbind man page, the note about 'MPOL_MF_STRICT is ignored on huge page
+mappings' can be removed after this patch is applied.
+
+Mike:
+
+: The current behavior with MPOL_MF_STRICT and hugetlb pages is inconsistent
+: and does not match documentation (as described above).  The special
+: behavior for hugetlb pages ideally should have been removed when hugetlb
+: page migration was introduced.  It is unlikely that anyone relies on
+: today's inconsistent behavior, and removing one more case of special
+: handling for hugetlb pages is a good thing.
+
+Link: http://lkml.kernel.org/r/1581559627-6206-1-git-send-email-lixinhai.lxh@gmail.com
+Signed-off-by: Li Xinhai <lixinhai.lxh@gmail.com>
+Reviewed-by: Mike Kravetz <mike.kravetz@oracle.com>
+Reviewed-by: Naoya Horiguchi <naoya.horiguchi@nec.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: linux-man <linux-man@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/mempolicy.c |   37 +++++++++++++++++++++++++++++++++----
+ 1 file changed, 33 insertions(+), 4 deletions(-)
+
+--- a/mm/mempolicy.c~mm-mempolicy-support-mpol_mf_strict-for-huge-page-mapping
++++ a/mm/mempolicy.c
+@@ -557,9 +557,10 @@ static int queue_pages_hugetlb(pte_t *pt
+ 			       unsigned long addr, unsigned long end,
+ 			       struct mm_walk *walk)
+ {
++	int ret = 0;
+ #ifdef CONFIG_HUGETLB_PAGE
+ 	struct queue_pages *qp = walk->private;
+-	unsigned long flags = qp->flags;
++	unsigned long flags = (qp->flags & MPOL_MF_VALID);
+ 	struct page *page;
+ 	spinlock_t *ptl;
+ 	pte_t entry;
+@@ -571,16 +572,44 @@ static int queue_pages_hugetlb(pte_t *pt
+ 	page = pte_page(entry);
+ 	if (!queue_pages_required(page, qp))
+ 		goto unlock;
++
++	if (flags == MPOL_MF_STRICT) {
++		/*
++		 * STRICT alone means only detecting misplaced page and no
++		 * need to further check other vma.
++		 */
++		ret = -EIO;
++		goto unlock;
++	}
++
++	if (!vma_migratable(walk->vma)) {
++		/*
++		 * Must be STRICT with MOVE*, otherwise .test_walk() have
++		 * stopped walking current vma.
++		 * Detecting misplaced page but allow migrating pages which
++		 * have been queued.
++		 */
++		ret = 1;
++		goto unlock;
++	}
++
+ 	/* With MPOL_MF_MOVE, we migrate only unshared hugepage. */
+ 	if (flags & (MPOL_MF_MOVE_ALL) ||
+-	    (flags & MPOL_MF_MOVE && page_mapcount(page) == 1))
+-		isolate_huge_page(page, qp->pagelist);
++	    (flags & MPOL_MF_MOVE && page_mapcount(page) == 1)) {
++		if (!isolate_huge_page(page, qp->pagelist) &&
++			(flags & MPOL_MF_STRICT))
++			/*
++			 * Failed to isolate page but allow migrating pages
++			 * which have been queued.
++			 */
++			ret = 1;
++	}
+ unlock:
+ 	spin_unlock(ptl);
+ #else
+ 	BUG();
+ #endif
+-	return 0;
++	return ret;
+ }
+ 
+ #ifdef CONFIG_NUMA_BALANCING
+_
+
+Patches currently in -mm which might be from lixinhai.lxh@gmail.com are
+
+mm-dont-prepare-anon_vma-if-vma-has-vm_wipeonfork.patch
+revert-mm-rmapc-reuse-mergeable-anon_vma-as-parent-when-fork.patch
+mm-set-vm_next-and-vm_prev-to-null-in-vm_area_dup.patch
+
