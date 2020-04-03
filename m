@@ -2,189 +2,190 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 61FE819D0B1
-	for <lists+linux-man@lfdr.de>; Fri,  3 Apr 2020 09:02:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 70EF719D581
+	for <lists+linux-man@lfdr.de>; Fri,  3 Apr 2020 13:08:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2389436AbgDCHCT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 3 Apr 2020 03:02:19 -0400
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:33336 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2389177AbgDCHCT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 3 Apr 2020 03:02:19 -0400
-Received: by mail-wr1-f67.google.com with SMTP id a25so7235239wrd.0;
-        Fri, 03 Apr 2020 00:02:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=xiz/6HJMasAWNsKkYKq00dnOIXVpiuKViHO1DMPX3Zg=;
-        b=GUkPwzaJIqHf6RLgEXskzpsmx8udxuWbTIFUXOf9bF2pzOH11b2HHNaputhdeJ5i7p
-         +iPA3GVGkxsOtqiq53YFKQGPx6o2WzkEhVL4r/sISxYuwkBFgXJOXEDhmZwftpNL9yQV
-         aYCag7PWTpXlyTI6KMEicP/P+6IdIRMNBIKF5jviP5f/uCJ6dYrnxQKMb39kufjPCs3S
-         J0TzbJi/UE5HfpXjxdjb6LO9QuZw+o5RkzsMZTzWU242tP5b462BnD/lsS45+ICj0yUs
-         FJPFeu4tG7JseBle5/OhnFS8BCLIgOZ71Hf1B5EI1WgeSJJG/tcmwk3MEpvCE2vOny9G
-         A36Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=xiz/6HJMasAWNsKkYKq00dnOIXVpiuKViHO1DMPX3Zg=;
-        b=PUEIYyCO+FVjRm9jpjBZjYig/vO41MVOX/s+qtMFTGtjCYakImdYhWsZDJK9imzNzL
-         F1LLokOfqv/VqKxbXdtHjr1E2ti3xXi9v9qlwzPZ+6K3kkYozrSGAb0cHyb7drzenf5Z
-         QYT4XzTxriDhk9pdFL6ZXMX21yEBFp7NF8ioLFchoZ/VELQrk4Z7Ui7m/2gqo7JguXa9
-         2Q2EUezPSZC8j7UTfl+2j69N99ZhRNSRs3BqdqQ3XPqemKtv6Mhyyk0ZRGf3ktZscpfx
-         ePt2+jkw5Jv1EeUhnN9Ufg92hY502yL5bXfEKJQP6TMfis4DjLwNo26aVsrQzuWRs0aI
-         RZnw==
-X-Gm-Message-State: AGi0PuZf4OD8IkFG1dFU5nKq7wXImMBFEzR69pDtX1iB/kuFKIQhb+rd
-        qN1JLYymqin3is8+o3JXCvKyJU0P
-X-Google-Smtp-Source: APiQypKCPcCG7/fjGTqNwVkfSBThYJqHxqbDbQXpZiEg8ahhjpuyZtJIuyh/EVNowqC2sJ2Rgye56w==
-X-Received: by 2002:adf:aacf:: with SMTP id i15mr7112366wrc.31.1585897335219;
-        Fri, 03 Apr 2020 00:02:15 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id d13sm11153452wrq.11.2020.04.03.00.02.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Apr 2020 00:02:14 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Eric Rannaud <e@nanocritical.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>
-Subject: Re: [PATCH 1/1] clock_getres.2: dynamic POSIX clock devices can
- return other errors
-To:     Eric Rannaud <eric.rannaud@gmail.com>
-References: <CAKgNAkiTYY3mrdsWypX22WCczVK9GDsOO-Vq58go_b2=719=FA@mail.gmail.com>
- <ce049b034919c4a09629c2e7bec574af133fb064.1585837173.git.e@nanocritical.com>
- <CA+zRj8XYLpa_gep+VxUfQuqeKu+=thMit-jNv1soC8Mh5H43Ug@mail.gmail.com>
- <CAKgNAkipcX47quv23SACeorSexO00nUAJR3QSTA3bFNMresE4Q@mail.gmail.com>
- <CA+zRj8XzqV19Z9KcyO+_V2Nkt4fgwK7QbP01GE5EL=g_xHf8Xw@mail.gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <cb4c685b-6c5d-9c16-aade-0c95e57de4b9@gmail.com>
-Date:   Fri, 3 Apr 2020 09:02:13 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+        id S1727911AbgDCLIq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 3 Apr 2020 07:08:46 -0400
+Received: from us-smtp-delivery-1.mimecast.com ([207.211.31.120]:57337 "EHLO
+        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1728066AbgDCLIq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 3 Apr 2020 07:08:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1585912125;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=+NAmZggX3XZCWjuUW8aBncEYEOJoNqi6G9ZgkQxDzKU=;
+        b=eQ424mFOUNgNw7GqosrLGP8Ngw4QYvtWShCPkTgTSOMZUyFpXQaiEwg70I64SYf9ygsLkc
+        q3vYgZHnQqBmkNb1SeqDrbkSDqM4t9hR5ulf82jMQXyEyocHDZddhFRqGwZwcnX3qDbcs5
+        hlrxkwyFKn4buiD6n3HykwuGv0OFVJo=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-195-k5sRkw49OPuXre1ZjeIV8A-1; Fri, 03 Apr 2020 07:08:41 -0400
+X-MC-Unique: k5sRkw49OPuXre1ZjeIV8A-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C91F5107ACCA;
+        Fri,  3 Apr 2020 11:08:38 +0000 (UTC)
+Received: from krava (unknown [10.40.194.72])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id E509B5C1DC;
+        Fri,  3 Apr 2020 11:08:32 +0000 (UTC)
+Date:   Fri, 3 Apr 2020 13:08:28 +0200
+From:   Jiri Olsa <jolsa@redhat.com>
+To:     Alexey Budankov <alexey.budankov@linux.intel.com>
+Cc:     Peter Zijlstra <peterz@infradead.org>,
+        Arnaldo Carvalho de Melo <acme@kernel.org>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Ingo Molnar <mingo@redhat.com>,
+        James Morris <jmorris@namei.org>,
+        Namhyung Kim <namhyung@kernel.org>,
+        Serge Hallyn <serge@hallyn.com>,
+        Song Liu <songliubraving@fb.com>,
+        Andi Kleen <ak@linux.intel.com>,
+        Stephane Eranian <eranian@google.com>,
+        Igor Lubashev <ilubashe@akamai.com>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        "linux-security-module@vger.kernel.org" 
+        <linux-security-module@vger.kernel.org>,
+        "selinux@vger.kernel.org" <selinux@vger.kernel.org>,
+        "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH v8 04/12] perf tool: extend Perf tool with CAP_PERFMON
+ capability support
+Message-ID: <20200403110828.GL2784502@krava>
+References: <f96f8f8a-e65c-3f36-dc85-fc3f5191e8c5@linux.intel.com>
+ <a66d5648-2b8e-577e-e1f2-1d56c017ab5e@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <CA+zRj8XzqV19Z9KcyO+_V2Nkt4fgwK7QbP01GE5EL=g_xHf8Xw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a66d5648-2b8e-577e-e1f2-1d56c017ab5e@linux.intel.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hell Éric
-
-On 4/2/20 10:49 PM, Eric Rannaud wrote:
-> On Thu, Apr 2, 2020 at 1:19 PM Michael Kerrisk (man-pages)
-> <mtk.manpages@gmail.com> wrote:
->>> There is documentation in:
->>> - include/linux/posix-clock.h
->>> - Documentation/driver-api/ptp.rst (explicitly states that EOPNOTSUPP
->>> should be returned)
->>
->> (Is this a reference to the tack that I tweaked your patch to change
->> EOPNOTSUPP to ENOTSUP?)
+On Thu, Apr 02, 2020 at 11:47:35AM +0300, Alexey Budankov wrote:
 > 
-> Oh not at all, I hadn't noticed your patch. I just wrote that sentence
-> to point to ptp.rst as a spec of sorts for that particular behavior
-> addressed by this patch.
+> Extend error messages to mention CAP_PERFMON capability as an option
+> to substitute CAP_SYS_ADMIN capability for secure system performance
+> monitoring and observability operations. Make perf_event_paranoid_check()
+> and __cmd_ftrace() to be aware of CAP_PERFMON capability.
 > 
-> I never know which one to use of EOPNOTSUPP or ENOTSUP since they have
-> the same value (in userspace) but POSIX.1 says they shouldn't.
- 
-I think you are looking at an older version of POSIX (when what you 
-say was true). In the POSIX.1-2008/SUSv4 specification of <errno.h>, 
-we have:
-[[
-[ENOTSUP] Not supported (may be the same value as [EOPNOTSUPP]).
-EOPNOTSUPP] Operation not supported on socket (may be the same value as
-[ENOTSUP]).
-]]
-
-> suppose for man2 it makes sense to pick one, whereas man3p has to make
-> the distinction.
-
-It's a mess of course. It looks like the usual reason: BSD vs
-other historical implementations. BSD invented EOPNOTSUPP for
-the sockets API (and you see this reflected in POSIX.1). Other
-implementations (presumably System V) had ENOTSUP (which
-is what appears in POSIX.1 for timer_create() and
-clock_nanosleep()).
-
-> For what it's worth, man2/ has 29 mentions of EOPNOTSUPP (value of 95
-> on x86) and 8 mentions of ENOTSUP (with a value 524).
-
-> In the kernel sources, it's 6324 vs 1512. But note that in kernel
-> code, EOPNOTSUPP has a value of 95 (on x86 anyway, it is arch
-> dependent), whereas ENOTSUP is 524. Glibc is the one that defines
-> ENOTSUP to EOPNOTSUPP.
-
-Actually, there are 0 mentions of ENOTSUP in the kernel
-(other than in tools and samples). The constant that appears
-in the kernel is one called ENOTSUPP (2 P's) defined as 524 
-in include/linux/errno.h !! Yikes! What a mess!
-
-And then EOPNOTSUPP defined with value 95 in the kernel file
-include/uapi/asm-generic/errno.h (and with some architecture
-variations as you note).
-
-And then in glibc sysdeps/unix/sysv/linux/bits/errno.h:
-
-[[
-/* Older Linux headers do not define these constants.  */
-# ifndef ENOTSUP
-#  define ENOTSUP               EOPNOTSUPP
-# endif
-]]
-
-And in glibc EOPNOTSUPP is 95
-
-> So if we had to pick one for man2/ (and man7), I'd argue for
-> EOPNOTSUPP, for consistency with kernel code, now that I look at it in
-> more details.
-
-I'm not sure we do need to pick one here. See POSIX, which uses
-both. 
-
-And see the definition of EOPNOTSUPP in POSIX. Arguably,
-it is only for sockets, and everything else should be ENOTSUP.
-(And for the most part, that's how things are done in the 
-POSIX specifications of the APIs.)
-
-In summary, I'm going to do nothing :-}. I checked
-* the time/clock man pages; they use ENOTSUP (consistent with 
-  POSIX)
-* the pthreads man pages; they use ENOTSUP (consistent with POSIX)
-* the sockets APIs man pages; they use EOPNOTSUPP (consistent 
-  with POSIX)
-
-The rest of the pages are a mixed bag (mostly not specified in
-POSIX), and I don;t think there's any really clear fix.
-
->>> - include/uapi/linux/ptp_clock.h
->>
->> ... it's a bit of a stretch to call any of those documentation, since
->> they don't really describe the concept of a dynamic POSIX clock
->> device.
->>
->>>
->>> (IEEE 1588 PTP is the canonical user of these dynamic clock devices)
->>>
->>> Would you want to refer to any of these from the man page?
->>
->> See above. I would be happy to add a 2 or 3 sentence note to the page
->> that briefly describes the concept of a POSIX clock. Would you be able
->> to come up with something?
+> CAP_PERFMON implements the principal of least privilege for performance
+> monitoring and observability operations (POSIX IEEE 1003.1e 2.2.2.39
+> principle of least privilege: A security design principle that states
+> that a process or program be granted only those privileges (e.g.,
+> capabilities) necessary to accomplish its legitimate function, and only
+> for the time that such privileges are actually required)
 > 
-> I'll try, but I've never used them, so I'm not convinced I can capture
-> the concept clearly.
+> For backward compatibility reasons access to perf_events subsystem remains
+> open for CAP_SYS_ADMIN privileged processes but CAP_SYS_ADMIN usage for
+> secure perf_events monitoring is discouraged with respect to CAP_PERFMON
+> capability.
+> 
+> Signed-off-by: Alexey Budankov <alexey.budankov@linux.intel.com>
+> Reviewed-by: James Morris <jamorris@linux.microsoft.com>
 
-Its okay -- don't feel any obligation here. You already contributed!
+Acked-by: Jiri Olsa <jolsa@redhat.com>
 
-Cheers,
+thanks,
+jirka
 
-Michael
+> ---
+>  tools/perf/builtin-ftrace.c |  5 +++--
+>  tools/perf/design.txt       |  3 ++-
+>  tools/perf/util/cap.h       |  4 ++++
+>  tools/perf/util/evsel.c     | 10 +++++-----
+>  tools/perf/util/util.c      |  1 +
+>  5 files changed, 15 insertions(+), 8 deletions(-)
+> 
+> diff --git a/tools/perf/builtin-ftrace.c b/tools/perf/builtin-ftrace.c
+> index d5adc417a4ca..55eda54240fb 100644
+> --- a/tools/perf/builtin-ftrace.c
+> +++ b/tools/perf/builtin-ftrace.c
+> @@ -284,10 +284,11 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace, int argc, const char **argv)
+>  		.events = POLLIN,
+>  	};
+>  
+> -	if (!perf_cap__capable(CAP_SYS_ADMIN)) {
+> +	if (!(perf_cap__capable(CAP_PERFMON) ||
+> +	      perf_cap__capable(CAP_SYS_ADMIN))) {
+>  		pr_err("ftrace only works for %s!\n",
+>  #ifdef HAVE_LIBCAP_SUPPORT
+> -		"users with the SYS_ADMIN capability"
+> +		"users with the CAP_PERFMON or CAP_SYS_ADMIN capability"
+>  #else
+>  		"root"
+>  #endif
+> diff --git a/tools/perf/design.txt b/tools/perf/design.txt
+> index 0453ba26cdbd..a42fab308ff6 100644
+> --- a/tools/perf/design.txt
+> +++ b/tools/perf/design.txt
+> @@ -258,7 +258,8 @@ gets schedule to. Per task counters can be created by any user, for
+>  their own tasks.
+>  
+>  A 'pid == -1' and 'cpu == x' counter is a per CPU counter that counts
+> -all events on CPU-x. Per CPU counters need CAP_SYS_ADMIN privilege.
+> +all events on CPU-x. Per CPU counters need CAP_PERFMON or CAP_SYS_ADMIN
+> +privilege.
+>  
+>  The 'flags' parameter is currently unused and must be zero.
+>  
+> diff --git a/tools/perf/util/cap.h b/tools/perf/util/cap.h
+> index 051dc590ceee..ae52878c0b2e 100644
+> --- a/tools/perf/util/cap.h
+> +++ b/tools/perf/util/cap.h
+> @@ -29,4 +29,8 @@ static inline bool perf_cap__capable(int cap __maybe_unused)
+>  #define CAP_SYSLOG	34
+>  #endif
+>  
+> +#ifndef CAP_PERFMON
+> +#define CAP_PERFMON	38
+> +#endif
+> +
+>  #endif /* __PERF_CAP_H */
+> diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
+> index 816d930d774e..2696922f06bc 100644
+> --- a/tools/perf/util/evsel.c
+> +++ b/tools/perf/util/evsel.c
+> @@ -2507,14 +2507,14 @@ int perf_evsel__open_strerror(struct evsel *evsel, struct target *target,
+>  		 "You may not have permission to collect %sstats.\n\n"
+>  		 "Consider tweaking /proc/sys/kernel/perf_event_paranoid,\n"
+>  		 "which controls use of the performance events system by\n"
+> -		 "unprivileged users (without CAP_SYS_ADMIN).\n\n"
+> +		 "unprivileged users (without CAP_PERFMON or CAP_SYS_ADMIN).\n\n"
+>  		 "The current value is %d:\n\n"
+>  		 "  -1: Allow use of (almost) all events by all users\n"
+>  		 "      Ignore mlock limit after perf_event_mlock_kb without CAP_IPC_LOCK\n"
+> -		 ">= 0: Disallow ftrace function tracepoint by users without CAP_SYS_ADMIN\n"
+> -		 "      Disallow raw tracepoint access by users without CAP_SYS_ADMIN\n"
+> -		 ">= 1: Disallow CPU event access by users without CAP_SYS_ADMIN\n"
+> -		 ">= 2: Disallow kernel profiling by users without CAP_SYS_ADMIN\n\n"
+> +		 ">= 0: Disallow ftrace function tracepoint by users without CAP_PERFMON or CAP_SYS_ADMIN\n"
+> +		 "      Disallow raw tracepoint access by users without CAP_SYS_PERFMON or CAP_SYS_ADMIN\n"
+> +		 ">= 1: Disallow CPU event access by users without CAP_PERFMON or CAP_SYS_ADMIN\n"
+> +		 ">= 2: Disallow kernel profiling by users without CAP_PERFMON or CAP_SYS_ADMIN\n\n"
+>  		 "To make this setting permanent, edit /etc/sysctl.conf too, e.g.:\n\n"
+>  		 "	kernel.perf_event_paranoid = -1\n" ,
+>  				 target->system_wide ? "system-wide " : "",
+> diff --git a/tools/perf/util/util.c b/tools/perf/util/util.c
+> index d707c9624dd9..37a9492edb3e 100644
+> --- a/tools/perf/util/util.c
+> +++ b/tools/perf/util/util.c
+> @@ -290,6 +290,7 @@ int perf_event_paranoid(void)
+>  bool perf_event_paranoid_check(int max_level)
+>  {
+>  	return perf_cap__capable(CAP_SYS_ADMIN) ||
+> +			perf_cap__capable(CAP_PERFMON) ||
+>  			perf_event_paranoid() <= max_level;
+>  }
+>  
+> -- 
+> 2.24.1
+> 
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
