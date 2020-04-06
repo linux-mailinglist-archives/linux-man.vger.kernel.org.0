@@ -2,114 +2,108 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 8769F19F400
-	for <lists+linux-man@lfdr.de>; Mon,  6 Apr 2020 13:01:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5A3F319F403
+	for <lists+linux-man@lfdr.de>; Mon,  6 Apr 2020 13:01:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727045AbgDFLBK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Apr 2020 07:01:10 -0400
-Received: from mail-ed1-f65.google.com ([209.85.208.65]:40635 "EHLO
-        mail-ed1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726841AbgDFLBK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Apr 2020 07:01:10 -0400
-Received: by mail-ed1-f65.google.com with SMTP id w26so18660318edu.7;
-        Mon, 06 Apr 2020 04:01:08 -0700 (PDT)
+        id S1727074AbgDFLBb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Apr 2020 07:01:31 -0400
+Received: from mail-ed1-f68.google.com ([209.85.208.68]:40714 "EHLO
+        mail-ed1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726841AbgDFLBb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Apr 2020 07:01:31 -0400
+Received: by mail-ed1-f68.google.com with SMTP id w26so18661874edu.7
+        for <linux-man@vger.kernel.org>; Mon, 06 Apr 2020 04:01:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc:content-transfer-encoding;
-        bh=o38w4VfVzK/UVrYWQ9Xw7qG3Bt0q29XHLjGmHW6bD10=;
-        b=m6U0AGEJ2nUhh9qGt6pap5Kqfb6KtpJWZpsCLZpMm9bwhf/IQpYRN9zYGtH6rV4Z2i
-         nkKygNlJt8VNGP8sfEEM4hxE1Whp3ITrsHuJQsLUp9WG5jzK2eq3/ex/Fv33wYKQFiD4
-         IsRnizij+sCjJbyHdIH2SARQ4y0ZdPBin5D/XHFG/c1WXo7TmD0Am+/n6zwJ1JV+rbKq
-         5BcolmIycnH+VfDOunJ3fCm2OmE+2ZgMjRxiyBRkk9aoZSLIbZLt9nMHEpaLvdL6Xan7
-         B+k5tGL9hBhFigy/RNY/UUusKOcnMSGld9TcF2GUzBj5MsyTVeQHoWUSk5eQPVoPsAug
-         mqNw==
+         :subject:to:cc;
+        bh=PBEIh84Ai/RYHw2a+6qxvU+viVvWs8gQoEkByQ736aQ=;
+        b=KRaqfc6lDFKNNbIsmaUxy5MxSu38sJe3ZLbyXV1AJOviohWmyFBx4AcWIt631LYAOB
+         xJWzQpk/ctwzZIvSQsDaH4ox4z9hVp+JfKirT1FA3upMbVCn3K7YQF2QJ4rWSS0VG9KV
+         Y0NbUnj6QcCZ1T6KemEzCFFxgoHy6GMmLunM+hykkWKydUyhTRNfa8GnO56EM3cY81Dt
+         MIqC+5PqQqEyD4sqZtKpfMxrTqm1TVF24DTmjdJQobWRNmqbCoEB+SVq2cS4+jO0qNUh
+         zq+A1zyhtYyYH25X091gTgNChyat70532J2aKe3yPgnnznsXyi7zwl8pQRkJ080vV3YM
+         u2OQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc:content-transfer-encoding;
-        bh=o38w4VfVzK/UVrYWQ9Xw7qG3Bt0q29XHLjGmHW6bD10=;
-        b=n+ERJXEaTC/TNGCcBN2tyL29DkU3mKA3GkRKAg43wpGgZ+TkMhpkIRz/aawUSiUAib
-         bJlDQko3CWosJuyvsDyO1lWxWubg7Oo1tq7bH42W8adg1xBOt0jMgaEQM2dWb80s091k
-         622yN49Ocu0TtnIugorMkuaFQmXusE0fp3K0cWBN22+DQ6YekvA9Hv52u+coyV128e+f
-         l1CSyXsHugGHHCykAQGakO3MYa57sdnEXHjxCuQhDIorzpzD4whP44y5nKCjAt5WZj++
-         XfR3ZtVI24oUfMpOid61d1XstJmsgCY445OYtUsJZmO8/GYkNkmNtUUGF8UR3kjO5ReR
-         4ifA==
-X-Gm-Message-State: AGi0Pub8fSpDBGekw6JXOtm5gk42/bma1OFAR3t175bpfffGQ2hvL1ki
-        Mqg4vMRHe7YglcYZEornqQtrjsg78dII4FixNVpyJ8gR
-X-Google-Smtp-Source: APiQypItkmQVlpobOM3yxTfBkbGXRgyWSxMhxrsPlM41ktkSkYVMO2QzdSXIGDm1/3PSFL4Tjw8CxkFpXzp6YEyLrWQ=
-X-Received: by 2002:aa7:cd5b:: with SMTP id v27mr18527574edw.286.1586170867902;
- Mon, 06 Apr 2020 04:01:07 -0700 (PDT)
+         :from:date:message-id:subject:to:cc;
+        bh=PBEIh84Ai/RYHw2a+6qxvU+viVvWs8gQoEkByQ736aQ=;
+        b=Aj7zpN2ZK2WBeP09BDn9tf4+7p9NQH2ceVVCvtoiWdM00J9chn1xy5XIihriu/7dL2
+         W87wTy/GrVqyx5/iRmYpiST5ANaJA+rSxZZr8GsMltkh1GDl8txz1F/for9rBhxCeHxl
+         gB4rx76yky0pyJikTYrhWFYMtK3gdPNwqAZ1BKFDnf/c4Rvv6STl1IPJn9/pgGWCCNVM
+         ddRKEw0oxKhXBdhVO7TDY73hGd2gSNd0I0CTzsBCC7SKU+M2B7ZSvE4ccLHIw6R+EdXS
+         hHL+8cjzLpfcdAoMpfzgxISUub7GVmddBzYtEGEYG+a4y2xfwWWipsk0g4UvjDZtlVno
+         nooA==
+X-Gm-Message-State: AGi0PuZtkqRFrbJhZg5Wo0cNdHTA5d3+Vb2vw6+7DAatnVIsh3E7ADk2
+        TeNQQPvdRys08E/mrAjPs2x47LhGAyV3YlD3T7dvAHVw
+X-Google-Smtp-Source: APiQypIO1mFKPCXhjR3PEP3yeaNr+TXQ8bieuaJYg1pQEziEq26SuaXAi7x+ENTWLdEDMckUYQ2NFaWzJcsgX/PdKxs=
+X-Received: by 2002:a17:906:1188:: with SMTP id n8mr1232118eja.150.1586170889490;
+ Mon, 06 Apr 2020 04:01:29 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200402020850.7218-1-mchristi@redhat.com> <111926f0-942c-66ea-4e43-9f90e7b43549@gmail.com>
- <5E88F713.3050204@redhat.com>
-In-Reply-To: <5E88F713.3050204@redhat.com>
+References: <20200404165739.GT21484@bombadil.infradead.org>
+In-Reply-To: <20200404165739.GT21484@bombadil.infradead.org>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 Date:   Mon, 6 Apr 2020 13:00:00 +0200
-Message-ID: <CAKgNAkigtfzQRNC+DkvmsQaytykhcwGjHucPhsxKhmd+OUkn9Q@mail.gmail.com>
-Subject: Re: [PATCH] prctl.2: doc PR_SET/GET_IO_FLUSHER - V4
-To:     Mike Christie <mchristi@redhat.com>
-Cc:     Linux API <linux-api@vger.kernel.org>,
-        Dave Chinner <david@fromorbit.com>,
-        Michal Hocko <mhocko@suse.com>, masato.suzuki@wdc.com,
-        damien.lemoal@wdc.com, "Darrick J. Wong" <darrick.wong@oracle.com>,
-        Bart Van Assche <bvanassche@acm.org>,
-        linux-man <linux-man@vger.kernel.org>
+Message-ID: <CAKgNAkgBhWkF+d1GZh7=rxuSzcGGx_GNj6bDy3SoepLfodNwdw@mail.gmail.com>
+Subject: Re: lseek(SEEK_DATA)
+To:     Matthew Wilcox <willy@infradead.org>
+Cc:     linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Mike,
+[CC+=linux-man@]
 
-On Sat, 4 Apr 2020 at 23:07, Mike Christie <mchristi@redhat.com> wrote:
->
-> On 04/02/2020 07:16 AM, Michael Kerrisk (man-pages) wrote:
-> > Hello Mike,
-> >
-> > On 4/2/20 4:08 AM, Mike Christie wrote:
-> >> This patch documents the PR_SET_IO_FLUSHER and PR_GET_IO_FLUSHER
-> >> prctl commands added to the linux kernel for 5.6 in commit:
-> >>
-> >> commit 8d19f1c8e1937baf74e1962aae9f90fa3aeab463
-> >> Author: Mike Christie <mchristi@redhat.com>
-> >> Date:   Mon Nov 11 18:19:00 2019 -0600>
-> >>     prctl: PR_{G,S}ET_IO_FLUSHER to support controlling memory reclaim
-> >>
-> >> Signed-off-by: Mike Christie <mchristi@redhat.com>
-> >
-> > I've applied this patch, but I have some questions:
->
-> Hey,
->
-> Thanks for fixing up the patch for me.
+Hi Matthew,
 
-you're welcome.
-
-> > (a) What happens to the IO_FLUSHER setting in the child of fork(2)?
+On Sat, 4 Apr 2020 at 18:57, Matthew Wilcox <willy@infradead.org> wrote:
 >
-> The child will inherit the setting.
 >
-> > (b) What happens to the IO_FLUSHER setting during an execve(2)?
-> >     (Is it preserved, reset, something else?)
+> The current (*) text of the lseek manpage is ambiguous about the behaviour
+> of lseek(SEEK_DATA) for a file which is entirely a hole (or the end of
+> the file is a hole and the pos lies within the hole).  The draft POSIX
+> language is specific (ENXIO is returned when whence is SEEK_DATA and
+> offset lies within the final hole of the file).  Could I trouble you to
+> wordsmith that in?
 >
-> It's preserved.
+> (*) I'm looking at 5.05 dated 2019-03-06
+>
+> If you want to look at the draft POSIX text, it's here:
+> https://www.austingroupbugs.net/view.php?id=415
 
-Thanks. I added this text:
-
-              The  IO_FLUSHER  state is inherited by a child process cre=E2=
-=80=90
-              ated via fork(2) and is preserved across execve(2).
+Thanks. I applied the patch below.
 
 Cheers,
 
 Michael
 
 
---=20
+diff --git a/man2/lseek.2 b/man2/lseek.2
+index 32331aba5..04972c082 100644
+--- a/man2/lseek.2
++++ b/man2/lseek.2
+@@ -212,7 +212,13 @@ or
+ .BR SEEK_HOLE ,
+ and
+ .I offset
+-is beyond the end of the file.
++is beyond the end of the file, or
++.I whence
++is
++.B SEEK_DATA
++and
++.I offset
++is within a hole at the end of the file.
+ .TP
+ .B EOVERFLOW
+ .\" HP-UX 11 says EINVAL for this case (but POSIX.1 says EOVERFLOW)
+
+
+-- 
 Michael Kerrisk
 Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
 Linux/UNIX System Programming Training: http://man7.org/training/
