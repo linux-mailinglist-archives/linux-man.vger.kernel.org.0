@@ -2,157 +2,91 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 5D1D719F512
-	for <lists+linux-man@lfdr.de>; Mon,  6 Apr 2020 13:47:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 871E619F524
+	for <lists+linux-man@lfdr.de>; Mon,  6 Apr 2020 13:50:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727763AbgDFLrw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Apr 2020 07:47:52 -0400
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:43563 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727376AbgDFLrw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Apr 2020 07:47:52 -0400
-Received: by mail-wr1-f67.google.com with SMTP id w15so10810534wrv.10;
-        Mon, 06 Apr 2020 04:47:50 -0700 (PDT)
+        id S1727749AbgDFLuk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Apr 2020 07:50:40 -0400
+Received: from mail-pg1-f182.google.com ([209.85.215.182]:46440 "EHLO
+        mail-pg1-f182.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727528AbgDFLuk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Apr 2020 07:50:40 -0400
+Received: by mail-pg1-f182.google.com with SMTP id k191so7402036pgc.13
+        for <linux-man@vger.kernel.org>; Mon, 06 Apr 2020 04:50:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
+        d=arista.com; s=googlenew;
+        h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=dJij1m4N6mxqkseV1MSa9W/wHgiUr5ZF09GnOkMojW4=;
-        b=eNU/0aylCxcjMTT34VU2egNOVyd5w0Al0DWGQVS/gKUumVvmC8yxh3Ca9K5kLK8DyS
-         WG7iRe8ghVfYboCuvWIR5rQvZENJOBYYeEhymlJEixO/zwKrnDEfFcRb6Tubv/iUMZyB
-         A0w0MCiSSQ68QSDozhSbbxUTUkQCQrlr40N9W3P7LhmjS7fKjzbqroh30qrhygCdrzje
-         Qi0uTiotmnvpRvVWZrakknZzvAXsoa3mwMSZJ7s+BV6lfOPZUl4D5DLKCCxf1pGvQb2U
-         AZFUmhiJfUinZY2hepF2TSnHhLIUZaJ5BNk5SgTdPoYAX9w4j87gSWtUUWILAagCDeLo
-         797g==
+        bh=eSEYeGHJW6L1yFZdjvZu8BXqsVS6+Imz64kPAhoNehc=;
+        b=EVHI8E2HsQJ9Svnqp+R7hSaCboaInyxUjdHuKNMRYaAqw5fsam3DG39gWQgpdFNaBM
+         IVZBl4jvVImZHpXf7WHBYPhkPNwaUgr3HWmQ7eyVptt+1tQcAbJNGqeCbUc9L/iFPukC
+         jH7zHJWalVPlP6OcmvBNWSpflfGaooqDmqL4UcteTQg+StXxC07N+g+ZdLOArukrSS+2
+         KP82QOWORNZ4eCLxuXVU1rfbBbXUNQLQDarzkT39jLEPXSu+hmCYJyKGgkJDA+444lJK
+         D+IrrKM38coX84i+GYBhQmjcb2yR4BWeOGdv/0sUCIcDZXPty+OIuQHyCYyDDAYbkhuw
+         d7CA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=dJij1m4N6mxqkseV1MSa9W/wHgiUr5ZF09GnOkMojW4=;
-        b=s+VAwF1LETmlgRoxPcyGv5d89HaBy4x8rIF2l/CL4a/gzBG/7tTKlku9SPXDBZLYnf
-         79adIkB006muFygj0HngLxp9ca8brCFuYMHtRlERPR9y76V1/nnpK9Q3xyprFV8QBryD
-         1UYffbpNwEszKLk2+cOHSflnuHtAke/PXVG3H+q2QfnEM2Uq0NBO9hP7sis4fC/u3+tF
-         I65EwmW2XSItqtAeIOiJ7xQYUeNj1xBMXVmL7nTKZ7LaW0EZPR3jgSGs0AtmqOzEG/NC
-         +F869/KJFSaEKTXTSsgGvqbdtgjNu/1GDs/3F/w2+UERa8l0JH9KBgOXOrS93lAkW2jo
-         dnjQ==
-X-Gm-Message-State: AGi0Pua86BcCBzUbNCJvwjc1O3OIZ1eTFmgQlxaTYhDwAUgVh/OSw7yr
-        Q1CVijNeQpM+qcaTZC2vFQc=
-X-Google-Smtp-Source: APiQypLE3reBpDcE5Ibab6hsLGUq+vrw0eul7laAeFithMseufHRAGpU7SkfEpDVxv9AYShoUmcxyA==
-X-Received: by 2002:a05:6000:370:: with SMTP id f16mr24648490wrf.9.1586173670108;
-        Mon, 06 Apr 2020 04:47:50 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id a15sm24426918wme.17.2020.04.06.04.47.48
+        bh=eSEYeGHJW6L1yFZdjvZu8BXqsVS6+Imz64kPAhoNehc=;
+        b=dDaXdxrZ30U6H+fidueT4iPC+IkMhUhvesmi93d9kRPemfyLd3QSWFZDS0pQB0+UsO
+         FUVw9t1LHN13+W/Te41swWjuZ3pJIpupieOhEyral045WukpkM+IWKBjPZm17zBojRg3
+         1NiJzIkwXZwZpVuktmMZOn7YVrjWz2PEDPmb3AzDR1wEiLcJrPQKq0t3miJjEbpd4gmG
+         ZQhFggwfKCV5pLA2w2eAhJquPqSLGWeMy+zXxkMSk3YtugMk+tRVmwHT36glAmvS6UU5
+         FD4h9Ein6UwlCsmGUZZju0AEY0TkP9qw0z3ewEVqNtrPP/FnC5uytk2IWamNsKdUDwhi
+         cp1w==
+X-Gm-Message-State: AGi0PuYNMwfQZ4nWtJmai9/A3whxp0trZrYURIZkaM5KUU3KTU659N30
+        ZlD4ITEqa1ZfVZ7ejYxpZlWM9Q==
+X-Google-Smtp-Source: APiQypJbSk9nhcIBkVtji01qlTReiqSK+1z9CtKxnbEsDtTA6Mr0Dhzwjf+aZwsQgRIaFpUTWaZjSQ==
+X-Received: by 2002:a63:6346:: with SMTP id x67mr20405820pgb.67.1586173839100;
+        Mon, 06 Apr 2020 04:50:39 -0700 (PDT)
+Received: from ?IPv6:2a02:8084:e84:2480:228:f8ff:fe6f:83a8? ([2a02:8084:e84:2480:228:f8ff:fe6f:83a8])
+        by smtp.gmail.com with ESMTPSA id k6sm12024505pje.8.2020.04.06.04.50.35
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Apr 2020 04:47:49 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com
-Subject: Re: connect() man page
-To:     Eric Dumazet <eric.dumazet@gmail.com>,
-        netdev <netdev@vger.kernel.org>, linux-man@vger.kernel.org
-References: <f8517600-620b-1604-5f30-0f0698f5e33c@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <f215d6b5-0aed-a3d1-39d3-f3bf12fdfc78@gmail.com>
-Date:   Mon, 6 Apr 2020 13:47:46 +0200
+        Mon, 06 Apr 2020 04:50:38 -0700 (PDT)
+Subject: Re: RFC: time_namespaces(7) manual page
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        Andrei Vagin <avagin@openvz.org>
+Cc:     Christian Brauner <christian@brauner.io>,
+        linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        "Eric W. Biederman" <ebiederm@xmission.com>,
+        Dmitry Safonov <0x7f454c46@gmail.com>,
+        Containers <containers@lists.linux-foundation.org>,
+        Cyrill Gorcunov <gorcunov@gmail.com>,
+        Andy Lutomirski <luto@kernel.org>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        Adrian Reber <adrian@lisas.de>,
+        Vincenzo Frascino <vincenzo.frascino@arm.com>
+References: <7221df0a-435b-f8bc-ff91-c188af535e73@gmail.com>
+From:   Dmitry Safonov <dima@arista.com>
+Message-ID: <a74763df-6523-2103-b687-27cae3a433fc@arista.com>
+Date:   Mon, 6 Apr 2020 12:50:33 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <f8517600-620b-1604-5f30-0f0698f5e33c@gmail.com>
+In-Reply-To: <7221df0a-435b-f8bc-ff91-c188af535e73@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Eric,
+Hi Michael,
 
-My apologies for the delayed reply.
-
-On 2/12/20 6:50 PM, Eric Dumazet wrote:
-> Hi Michael
+On 4/4/20 12:08 PM, Michael Kerrisk (man-pages) wrote:
+> Hello Dmitry, Andrei, et al.
 > 
-> connect() man page seems obsolete or confusing :
-> 
->    Generally,  connection-based  protocol  sockets may successfully
->    connect() only once; connectionless protocol  sockets  may  use
->    connect()  multiple times  to  change  their association.
->    Connectionless sockets may dissolve the association by connecting to
->    an address with the sa_family  member  of sockaddr set to AF_UNSPEC
->    (supported on Linux since kernel 2.2).
-> 
-> 
-> 1) At least TCP has supported AF_UNSPEC thing forever.
+> I have written a manual page to document time namespaces.
+> Could you please take a look and let me know of any
+> corrections, improvements, etc.
 
-Thanks for the heads-up,
+Thanks a lot for the man page. It looks good to me.
+Maybe Andrei will find some nits, but I don't have any in mind.
 
-> 2) By definition connectionless sockets do not have an association,
->    why would they call connect(AF_UNSPEC) to remove a connection 
->    which does not exist ...
-
-Calling connect() on a connectionless socket serves two purposes:
-a) Assigns a default outgoing address for datagrams (sent using write(2)).
-b) Causes datagrams sent from sources other than the peer address to be 
-   discarded.
-
-Both of these things are true in AF_UNIX and the Internet domains.
-Using connect(AF_UNSPEC) allows the local datagram socket to clear 
-this association (without having to connect() to a *different* peer),
-so that now it can send datagrams to any peer and receive
-datagrams for any peer, (I've just retested all of this.)
-
-> 
-> Maybe we should rewrite this paragraph to match reality, since 
-> this causes confusion.
-> 
-> 
->    Some protocol sockets may successfully connect() only once.
->    Some protocol sockets may use connect() multiple times  to  change
->    their association.
->    Some protocol sockets may dissolve the association by connecting to
->    an address with the sa_family member of sockaddr set to AF_UNSPEC
->    (supported on Linux since kernel 2.2).
-
-When I first saw your note, I was afraid that I had written
-the offending text. But, I see it has been there since the 
-manual page was first added in 1992 (other than the piece 
-"(supported since on Linux since kernel 2.2)", which I added in
-2007). Perhaps it was true in 1992.
-
-Anyway, I confirm your statement about TCP sockets. The 
-connect(AF_UNSPEC) thing works; thereafter, the socket may be
-connected to another socket.
-
-Interestingly, connect(AF_UNSPEC) does not seem to work for
-UNIX domain stream sockets. (My light testing gives an EINVAL
-error on connect(AF_UNSPEC) of an already connected UNIX stream
-socket. I could not easily spot where this error was being
-generated in the kernel though.)
-
-I like your proposed text, but would like to include more
-information. How about this:
-
-       Some protocol sockets (e.g., UNIX domain stream sockets) may  suc‐
-       cessfully connect() only once.
-
-       Some  protocol  sockets  (e.g.,  datagram  sockets in the UNIX and
-       Internet domains) may use connect() multiple times to change their
-       association.
-
-       Some protocol sockets (e.g., TCP sockets as well as datagram sock‐
-       ets in the UNIX and Internet domains) may dissolve the association
-       by  connecting to an address with the sa_family member of sockaddr
-       set to AF_UNSPEC; thereafter,  the  socket  can  be  connected  to
-       another  address.   (AF_UNSPEC  is supported on Linux since kernel
-       2.2.)
-
-?
-
-Thanks,
-
-Michael
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Thanks for you work,
+          Dima
