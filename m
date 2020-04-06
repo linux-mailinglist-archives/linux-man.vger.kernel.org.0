@@ -2,106 +2,155 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 5A3F319F403
-	for <lists+linux-man@lfdr.de>; Mon,  6 Apr 2020 13:01:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5D1D719F512
+	for <lists+linux-man@lfdr.de>; Mon,  6 Apr 2020 13:47:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727074AbgDFLBb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Apr 2020 07:01:31 -0400
-Received: from mail-ed1-f68.google.com ([209.85.208.68]:40714 "EHLO
-        mail-ed1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726841AbgDFLBb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Apr 2020 07:01:31 -0400
-Received: by mail-ed1-f68.google.com with SMTP id w26so18661874edu.7
-        for <linux-man@vger.kernel.org>; Mon, 06 Apr 2020 04:01:30 -0700 (PDT)
+        id S1727763AbgDFLrw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Apr 2020 07:47:52 -0400
+Received: from mail-wr1-f67.google.com ([209.85.221.67]:43563 "EHLO
+        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727376AbgDFLrw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Apr 2020 07:47:52 -0400
+Received: by mail-wr1-f67.google.com with SMTP id w15so10810534wrv.10;
+        Mon, 06 Apr 2020 04:47:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=PBEIh84Ai/RYHw2a+6qxvU+viVvWs8gQoEkByQ736aQ=;
-        b=KRaqfc6lDFKNNbIsmaUxy5MxSu38sJe3ZLbyXV1AJOviohWmyFBx4AcWIt631LYAOB
-         xJWzQpk/ctwzZIvSQsDaH4ox4z9hVp+JfKirT1FA3upMbVCn3K7YQF2QJ4rWSS0VG9KV
-         Y0NbUnj6QcCZ1T6KemEzCFFxgoHy6GMmLunM+hykkWKydUyhTRNfa8GnO56EM3cY81Dt
-         MIqC+5PqQqEyD4sqZtKpfMxrTqm1TVF24DTmjdJQobWRNmqbCoEB+SVq2cS4+jO0qNUh
-         zq+A1zyhtYyYH25X091gTgNChyat70532J2aKe3yPgnnznsXyi7zwl8pQRkJ080vV3YM
-         u2OQ==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=dJij1m4N6mxqkseV1MSa9W/wHgiUr5ZF09GnOkMojW4=;
+        b=eNU/0aylCxcjMTT34VU2egNOVyd5w0Al0DWGQVS/gKUumVvmC8yxh3Ca9K5kLK8DyS
+         WG7iRe8ghVfYboCuvWIR5rQvZENJOBYYeEhymlJEixO/zwKrnDEfFcRb6Tubv/iUMZyB
+         A0w0MCiSSQ68QSDozhSbbxUTUkQCQrlr40N9W3P7LhmjS7fKjzbqroh30qrhygCdrzje
+         Qi0uTiotmnvpRvVWZrakknZzvAXsoa3mwMSZJ7s+BV6lfOPZUl4D5DLKCCxf1pGvQb2U
+         AZFUmhiJfUinZY2hepF2TSnHhLIUZaJ5BNk5SgTdPoYAX9w4j87gSWtUUWILAagCDeLo
+         797g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=PBEIh84Ai/RYHw2a+6qxvU+viVvWs8gQoEkByQ736aQ=;
-        b=Aj7zpN2ZK2WBeP09BDn9tf4+7p9NQH2ceVVCvtoiWdM00J9chn1xy5XIihriu/7dL2
-         W87wTy/GrVqyx5/iRmYpiST5ANaJA+rSxZZr8GsMltkh1GDl8txz1F/for9rBhxCeHxl
-         gB4rx76yky0pyJikTYrhWFYMtK3gdPNwqAZ1BKFDnf/c4Rvv6STl1IPJn9/pgGWCCNVM
-         ddRKEw0oxKhXBdhVO7TDY73hGd2gSNd0I0CTzsBCC7SKU+M2B7ZSvE4ccLHIw6R+EdXS
-         hHL+8cjzLpfcdAoMpfzgxISUub7GVmddBzYtEGEYG+a4y2xfwWWipsk0g4UvjDZtlVno
-         nooA==
-X-Gm-Message-State: AGi0PuZtkqRFrbJhZg5Wo0cNdHTA5d3+Vb2vw6+7DAatnVIsh3E7ADk2
-        TeNQQPvdRys08E/mrAjPs2x47LhGAyV3YlD3T7dvAHVw
-X-Google-Smtp-Source: APiQypIO1mFKPCXhjR3PEP3yeaNr+TXQ8bieuaJYg1pQEziEq26SuaXAi7x+ENTWLdEDMckUYQ2NFaWzJcsgX/PdKxs=
-X-Received: by 2002:a17:906:1188:: with SMTP id n8mr1232118eja.150.1586170889490;
- Mon, 06 Apr 2020 04:01:29 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200404165739.GT21484@bombadil.infradead.org>
-In-Reply-To: <20200404165739.GT21484@bombadil.infradead.org>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=dJij1m4N6mxqkseV1MSa9W/wHgiUr5ZF09GnOkMojW4=;
+        b=s+VAwF1LETmlgRoxPcyGv5d89HaBy4x8rIF2l/CL4a/gzBG/7tTKlku9SPXDBZLYnf
+         79adIkB006muFygj0HngLxp9ca8brCFuYMHtRlERPR9y76V1/nnpK9Q3xyprFV8QBryD
+         1UYffbpNwEszKLk2+cOHSflnuHtAke/PXVG3H+q2QfnEM2Uq0NBO9hP7sis4fC/u3+tF
+         I65EwmW2XSItqtAeIOiJ7xQYUeNj1xBMXVmL7nTKZ7LaW0EZPR3jgSGs0AtmqOzEG/NC
+         +F869/KJFSaEKTXTSsgGvqbdtgjNu/1GDs/3F/w2+UERa8l0JH9KBgOXOrS93lAkW2jo
+         dnjQ==
+X-Gm-Message-State: AGi0Pua86BcCBzUbNCJvwjc1O3OIZ1eTFmgQlxaTYhDwAUgVh/OSw7yr
+        Q1CVijNeQpM+qcaTZC2vFQc=
+X-Google-Smtp-Source: APiQypLE3reBpDcE5Ibab6hsLGUq+vrw0eul7laAeFithMseufHRAGpU7SkfEpDVxv9AYShoUmcxyA==
+X-Received: by 2002:a05:6000:370:: with SMTP id f16mr24648490wrf.9.1586173670108;
+        Mon, 06 Apr 2020 04:47:50 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
+        by smtp.gmail.com with ESMTPSA id a15sm24426918wme.17.2020.04.06.04.47.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 06 Apr 2020 04:47:49 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com
+Subject: Re: connect() man page
+To:     Eric Dumazet <eric.dumazet@gmail.com>,
+        netdev <netdev@vger.kernel.org>, linux-man@vger.kernel.org
+References: <f8517600-620b-1604-5f30-0f0698f5e33c@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 6 Apr 2020 13:00:00 +0200
-Message-ID: <CAKgNAkgBhWkF+d1GZh7=rxuSzcGGx_GNj6bDy3SoepLfodNwdw@mail.gmail.com>
-Subject: Re: lseek(SEEK_DATA)
-To:     Matthew Wilcox <willy@infradead.org>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <f215d6b5-0aed-a3d1-39d3-f3bf12fdfc78@gmail.com>
+Date:   Mon, 6 Apr 2020 13:47:46 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
+MIME-Version: 1.0
+In-Reply-To: <f8517600-620b-1604-5f30-0f0698f5e33c@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-[CC+=linux-man@]
+Hello Eric,
 
-Hi Matthew,
+My apologies for the delayed reply.
 
-On Sat, 4 Apr 2020 at 18:57, Matthew Wilcox <willy@infradead.org> wrote:
->
->
-> The current (*) text of the lseek manpage is ambiguous about the behaviour
-> of lseek(SEEK_DATA) for a file which is entirely a hole (or the end of
-> the file is a hole and the pos lies within the hole).  The draft POSIX
-> language is specific (ENXIO is returned when whence is SEEK_DATA and
-> offset lies within the final hole of the file).  Could I trouble you to
-> wordsmith that in?
->
-> (*) I'm looking at 5.05 dated 2019-03-06
->
-> If you want to look at the draft POSIX text, it's here:
-> https://www.austingroupbugs.net/view.php?id=415
+On 2/12/20 6:50 PM, Eric Dumazet wrote:
+> Hi Michael
+> 
+> connect() man page seems obsolete or confusing :
+> 
+>    Generally,  connection-based  protocol  sockets may successfully
+>    connect() only once; connectionless protocol  sockets  may  use
+>    connect()  multiple times  to  change  their association.
+>    Connectionless sockets may dissolve the association by connecting to
+>    an address with the sa_family  member  of sockaddr set to AF_UNSPEC
+>    (supported on Linux since kernel 2.2).
+> 
+> 
+> 1) At least TCP has supported AF_UNSPEC thing forever.
 
-Thanks. I applied the patch below.
+Thanks for the heads-up,
 
-Cheers,
+> 2) By definition connectionless sockets do not have an association,
+>    why would they call connect(AF_UNSPEC) to remove a connection 
+>    which does not exist ...
+
+Calling connect() on a connectionless socket serves two purposes:
+a) Assigns a default outgoing address for datagrams (sent using write(2)).
+b) Causes datagrams sent from sources other than the peer address to be 
+   discarded.
+
+Both of these things are true in AF_UNIX and the Internet domains.
+Using connect(AF_UNSPEC) allows the local datagram socket to clear 
+this association (without having to connect() to a *different* peer),
+so that now it can send datagrams to any peer and receive
+datagrams for any peer, (I've just retested all of this.)
+
+> 
+> Maybe we should rewrite this paragraph to match reality, since 
+> this causes confusion.
+> 
+> 
+>    Some protocol sockets may successfully connect() only once.
+>    Some protocol sockets may use connect() multiple times  to  change
+>    their association.
+>    Some protocol sockets may dissolve the association by connecting to
+>    an address with the sa_family member of sockaddr set to AF_UNSPEC
+>    (supported on Linux since kernel 2.2).
+
+When I first saw your note, I was afraid that I had written
+the offending text. But, I see it has been there since the 
+manual page was first added in 1992 (other than the piece 
+"(supported since on Linux since kernel 2.2)", which I added in
+2007). Perhaps it was true in 1992.
+
+Anyway, I confirm your statement about TCP sockets. The 
+connect(AF_UNSPEC) thing works; thereafter, the socket may be
+connected to another socket.
+
+Interestingly, connect(AF_UNSPEC) does not seem to work for
+UNIX domain stream sockets. (My light testing gives an EINVAL
+error on connect(AF_UNSPEC) of an already connected UNIX stream
+socket. I could not easily spot where this error was being
+generated in the kernel though.)
+
+I like your proposed text, but would like to include more
+information. How about this:
+
+       Some protocol sockets (e.g., UNIX domain stream sockets) may  suc‐
+       cessfully connect() only once.
+
+       Some  protocol  sockets  (e.g.,  datagram  sockets in the UNIX and
+       Internet domains) may use connect() multiple times to change their
+       association.
+
+       Some protocol sockets (e.g., TCP sockets as well as datagram sock‐
+       ets in the UNIX and Internet domains) may dissolve the association
+       by  connecting to an address with the sa_family member of sockaddr
+       set to AF_UNSPEC; thereafter,  the  socket  can  be  connected  to
+       another  address.   (AF_UNSPEC  is supported on Linux since kernel
+       2.2.)
+
+?
+
+Thanks,
 
 Michael
-
-
-diff --git a/man2/lseek.2 b/man2/lseek.2
-index 32331aba5..04972c082 100644
---- a/man2/lseek.2
-+++ b/man2/lseek.2
-@@ -212,7 +212,13 @@ or
- .BR SEEK_HOLE ,
- and
- .I offset
--is beyond the end of the file.
-+is beyond the end of the file, or
-+.I whence
-+is
-+.B SEEK_DATA
-+and
-+.I offset
-+is within a hole at the end of the file.
- .TP
- .B EOVERFLOW
- .\" HP-UX 11 says EINVAL for this case (but POSIX.1 says EOVERFLOW)
-
 
 -- 
 Michael Kerrisk
