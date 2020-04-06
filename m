@@ -2,72 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 871E619F524
-	for <lists+linux-man@lfdr.de>; Mon,  6 Apr 2020 13:50:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 81ABF19F53C
+	for <lists+linux-man@lfdr.de>; Mon,  6 Apr 2020 13:56:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727749AbgDFLuk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Apr 2020 07:50:40 -0400
-Received: from mail-pg1-f182.google.com ([209.85.215.182]:46440 "EHLO
-        mail-pg1-f182.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727528AbgDFLuk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Apr 2020 07:50:40 -0400
-Received: by mail-pg1-f182.google.com with SMTP id k191so7402036pgc.13
-        for <linux-man@vger.kernel.org>; Mon, 06 Apr 2020 04:50:39 -0700 (PDT)
+        id S1727349AbgDFL4M (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Apr 2020 07:56:12 -0400
+Received: from mail-wr1-f66.google.com ([209.85.221.66]:34007 "EHLO
+        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726329AbgDFL4L (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Apr 2020 07:56:11 -0400
+Received: by mail-wr1-f66.google.com with SMTP id 65so17106226wrl.1
+        for <linux-man@vger.kernel.org>; Mon, 06 Apr 2020 04:56:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=googlenew;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=eSEYeGHJW6L1yFZdjvZu8BXqsVS6+Imz64kPAhoNehc=;
-        b=EVHI8E2HsQJ9Svnqp+R7hSaCboaInyxUjdHuKNMRYaAqw5fsam3DG39gWQgpdFNaBM
-         IVZBl4jvVImZHpXf7WHBYPhkPNwaUgr3HWmQ7eyVptt+1tQcAbJNGqeCbUc9L/iFPukC
-         jH7zHJWalVPlP6OcmvBNWSpflfGaooqDmqL4UcteTQg+StXxC07N+g+ZdLOArukrSS+2
-         KP82QOWORNZ4eCLxuXVU1rfbBbXUNQLQDarzkT39jLEPXSu+hmCYJyKGgkJDA+444lJK
-         D+IrrKM38coX84i+GYBhQmjcb2yR4BWeOGdv/0sUCIcDZXPty+OIuQHyCYyDDAYbkhuw
-         d7CA==
+        bh=CzAAAwQ9Hke0eaj6bQnRkpk1YVtvYycrExOtZQQwHr8=;
+        b=ZC4JftbOBxHMqp7mE4tFuOiELt80Xvz4XSA49NbpLdkLaYM4AAwqxwdcn8J57n3DFX
+         HNv6Ag3vqfaW+2VKXds/dq3kH09Qh4b1HZn6e82KlgPE1u7iSLQ3rChbI6JxiLMmZi4P
+         12sDbRmH+DX6pJ1luXvLBBPfCnJ44o2cIr2rZ79n68C9sAz1QDrzjorhQMUYCycBK9Bm
+         20H6zu70D9mBTkgG8DCeN1JWsngTeGmbOZQcEm8/zpKDEtqkrJUlCOsI/WYvgdfmuynL
+         TfqhN9jqwmF9S6NYolAtjqKHL/fNIHTJeVn0lIPrkGagVpDnTiY+NX754yCcB5LDjCqQ
+         AWVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=eSEYeGHJW6L1yFZdjvZu8BXqsVS6+Imz64kPAhoNehc=;
-        b=dDaXdxrZ30U6H+fidueT4iPC+IkMhUhvesmi93d9kRPemfyLd3QSWFZDS0pQB0+UsO
-         FUVw9t1LHN13+W/Te41swWjuZ3pJIpupieOhEyral045WukpkM+IWKBjPZm17zBojRg3
-         1NiJzIkwXZwZpVuktmMZOn7YVrjWz2PEDPmb3AzDR1wEiLcJrPQKq0t3miJjEbpd4gmG
-         ZQhFggwfKCV5pLA2w2eAhJquPqSLGWeMy+zXxkMSk3YtugMk+tRVmwHT36glAmvS6UU5
-         FD4h9Ein6UwlCsmGUZZju0AEY0TkP9qw0z3ewEVqNtrPP/FnC5uytk2IWamNsKdUDwhi
-         cp1w==
-X-Gm-Message-State: AGi0PuYNMwfQZ4nWtJmai9/A3whxp0trZrYURIZkaM5KUU3KTU659N30
-        ZlD4ITEqa1ZfVZ7ejYxpZlWM9Q==
-X-Google-Smtp-Source: APiQypJbSk9nhcIBkVtji01qlTReiqSK+1z9CtKxnbEsDtTA6Mr0Dhzwjf+aZwsQgRIaFpUTWaZjSQ==
-X-Received: by 2002:a63:6346:: with SMTP id x67mr20405820pgb.67.1586173839100;
-        Mon, 06 Apr 2020 04:50:39 -0700 (PDT)
-Received: from ?IPv6:2a02:8084:e84:2480:228:f8ff:fe6f:83a8? ([2a02:8084:e84:2480:228:f8ff:fe6f:83a8])
-        by smtp.gmail.com with ESMTPSA id k6sm12024505pje.8.2020.04.06.04.50.35
+        bh=CzAAAwQ9Hke0eaj6bQnRkpk1YVtvYycrExOtZQQwHr8=;
+        b=OCNteEEVXj7p86jCUgGBgEb08BuK5/DdxFmBzRMQSL36CkXgJyFpsJkMvO4Pt9AGgc
+         gvq2OTtFoq04uR6a6Wyvb6R2TW6rZmoAoEUZ8vVyWTo1ci8Q6EiT298rDs1aZFE+I2aN
+         crpd2N6TiGQuD8CM/AKykzgDFo1aCkK8Tvror2nr2WBHngeu5/G/TA4F5DTL6YtiVm9P
+         be7jLam3oBMT1Qi2E8fXXHfExc2volPpEBpGzzIHWvWjYpoiRqPPkN/LXRM/nJayLnlm
+         HjVggpkYhuh9g56CDtBkn3HkS3QoxM1OypdFW1jPlOewwE0gW3d7h5PXxAso6j+leQRQ
+         f5Yg==
+X-Gm-Message-State: AGi0PuaiCN5GTQU50gzseDa6ChZyvu3mwkgG4tuhmb4aTKb0WB1lwEPF
+        wAvztVI3m1IvwkRTG/IkH5zksS6u
+X-Google-Smtp-Source: APiQypIYSdZNa1cI5kDx3qeS4qE7QafTXHqgMUi7Pwy/lIMpzdqJsnqpIvvAg/n5YhyMSe3m0Wbfkw==
+X-Received: by 2002:a5d:4e4e:: with SMTP id r14mr4425519wrt.362.1586174169544;
+        Mon, 06 Apr 2020 04:56:09 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
+        by smtp.gmail.com with ESMTPSA id u22sm24818456wmu.43.2020.04.06.04.56.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Apr 2020 04:50:38 -0700 (PDT)
-Subject: Re: RFC: time_namespaces(7) manual page
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Andrei Vagin <avagin@openvz.org>
-Cc:     Christian Brauner <christian@brauner.io>,
-        linux-man <linux-man@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        "Eric W. Biederman" <ebiederm@xmission.com>,
-        Dmitry Safonov <0x7f454c46@gmail.com>,
-        Containers <containers@lists.linux-foundation.org>,
-        Cyrill Gorcunov <gorcunov@gmail.com>,
-        Andy Lutomirski <luto@kernel.org>,
-        Thomas Gleixner <tglx@linutronix.de>,
-        Adrian Reber <adrian@lisas.de>,
-        Vincenzo Frascino <vincenzo.frascino@arm.com>
-References: <7221df0a-435b-f8bc-ff91-c188af535e73@gmail.com>
-From:   Dmitry Safonov <dima@arista.com>
-Message-ID: <a74763df-6523-2103-b687-27cae3a433fc@arista.com>
-Date:   Mon, 6 Apr 2020 12:50:33 +0100
+        Mon, 06 Apr 2020 04:56:09 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/1] unix.7: correct example
+To:     Heinrich Schuchardt <xypron.glpk@gmx.de>
+References: <20180627010905.8959-1-xypron.glpk@gmx.de>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <aa4d4662-0024-0e10-6eee-87efae7a681c@gmail.com>
+Date:   Mon, 6 Apr 2020 13:56:08 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <7221df0a-435b-f8bc-ff91-c188af535e73@gmail.com>
+In-Reply-To: <20180627010905.8959-1-xypron.glpk@gmx.de>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -76,17 +64,50 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Hello Heinrich,
 
-On 4/4/20 12:08 PM, Michael Kerrisk (man-pages) wrote:
-> Hello Dmitry, Andrei, et al.
+On 6/27/18 3:09 AM, Heinrich Schuchardt wrote:
+> The example is misleading. It is not a good idea to unlink an existing
+> socket because we might try to start the server multiple times. In this
+> case it is preferable to receive an error.
 > 
-> I have written a manual page to document time namespaces.
-> Could you please take a look and let me know of any
-> corrections, improvements, etc.
+> We could add code that removes the socket when the server process is
+> killed but that would stretch the example too far.
+> 
+> Signed-off-by: Heinrich Schuchardt <xypron.glpk@gmx.de>
 
-Thanks a lot for the man page. It looks good to me.
-Maybe Andrei will find some nits, but I don't have any in mind.
+Thanks. Patch applied.
 
-Thanks for you work,
-          Dima
+Cheers,
+
+Michael
+
+> ---
+>  man7/unix.7 | 7 -------
+>  1 file changed, 7 deletions(-)
+> 
+> diff --git a/man7/unix.7 b/man7/unix.7
+> index 064c12cc6..630a6384a 100644
+> --- a/man7/unix.7
+> +++ b/man7/unix.7
+> @@ -754,13 +754,6 @@ main(int argc, char *argv[])
+>      int result;
+>      char buffer[BUFFER_SIZE];
+>  
+> -    /*
+> -     * In case the program exited inadvertently on the last run,
+> -     * remove the socket.
+> -     */
+> -
+> -    unlink(SOCKET_NAME);
+> -
+>      /* Create local socket. */
+>  
+>      connection_socket = socket(AF_UNIX, SOCK_SEQPACKET, 0);
+> 
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
