@@ -2,99 +2,219 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 187071A0BF4
-	for <lists+linux-man@lfdr.de>; Tue,  7 Apr 2020 12:31:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EFC0C1A0C43
+	for <lists+linux-man@lfdr.de>; Tue,  7 Apr 2020 12:52:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728269AbgDGKa5 convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Tue, 7 Apr 2020 06:30:57 -0400
-Received: from Galois.linutronix.de ([193.142.43.55]:46992 "EHLO
-        Galois.linutronix.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728075AbgDGKa4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Apr 2020 06:30:56 -0400
-Received: from [5.158.153.52] (helo=nanos.tec.linutronix.de)
-        by Galois.linutronix.de with esmtpsa (TLS1.2:DHE_RSA_AES_256_CBC_SHA256:256)
-        (Exim 4.80)
-        (envelope-from <tglx@linutronix.de>)
-        id 1jLlVG-0004Aj-Kw; Tue, 07 Apr 2020 12:30:46 +0200
-Received: by nanos.tec.linutronix.de (Postfix, from userid 1000)
-        id 31A28101303; Tue,  7 Apr 2020 12:30:46 +0200 (CEST)
-From:   Thomas Gleixner <tglx@linutronix.de>
-To:     Andrei Vagin <avagin@gmail.com>,
-        "Michael Kerrisk \(man-pages\)" <mtk.manpages@gmail.com>
-Cc:     Andrei Vagin <avagin@openvz.org>, Dmitry Safonov <dima@arista.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Vincenzo Frascino <vincenzo.frascino@arm.com>,
-        Linux API <linux-api@vger.kernel.org>,
-        Containers <containers@lists.linux-foundation.org>,
-        Dmitry Safonov <0x7f454c46@gmail.com>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Cyrill Gorcunov <gorcunov@gmail.com>,
-        "Eric W. Biederman" <ebiederm@xmission.com>,
-        Andy Lutomirski <luto@kernel.org>,
-        Adrian Reber <adrian@lisas.de>
-Subject: Re: RFC: time_namespaces(7) manual page
-In-Reply-To: <20200407032318.GA494464@gmail.com>
-References: <7221df0a-435b-f8bc-ff91-c188af535e73@gmail.com> <20200407032318.GA494464@gmail.com>
-Date:   Tue, 07 Apr 2020 12:30:46 +0200
-Message-ID: <87r1wzk2p5.fsf@nanos.tec.linutronix.de>
+        id S1726687AbgDGKwM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 7 Apr 2020 06:52:12 -0400
+Received: from mx01-muc.bfs.de ([193.174.230.67]:54672 "EHLO mx01-muc.bfs.de"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726591AbgDGKwM (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 7 Apr 2020 06:52:12 -0400
+Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
+        by mx01-muc.bfs.de (Postfix) with ESMTPS id B2341203BD;
+        Tue,  7 Apr 2020 12:52:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
+        t=1586256728;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=xXgIbyaF6OMEEM2pi3338SKFz8Ib5unc1abqFH4KmtM=;
+        b=NUO0g/n8Dne0VnC0JSHcL3zixn2N0cdOJ+g3dG2dfhd6OL+EM0BT04usRc2ezOXRLKsIUR
+        epRUBGtCXaqK5o44AFo28ceuj1jK8siNveYEvTut44HM/HKhLwH7siL9PkYMvxOzSj5KRv
+        oU19xHZJlwpgwSq6EQvQKRsd+3pPJ+SX+IJ5uw7e/WMYlp5NyPQaPQ94oeWNXknZZoGs1h
+        aiYO5qMkCIPGLtgNlTWRlcI65/bicZBRz9qZZ24j+Js6OxahfhBSJkUNwHI8IC9UERS0Jd
+        oehZEKXQLwJ399bWLC8PTS65GJ/hI+GSTGaHUKUJlYYD9YF8XpcbWjKLpP/RMg==
+Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
+ (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.1913.5; Tue, 7 Apr 2020
+ 12:52:08 +0200
+Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
+ SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%6]) with mapi id
+ 15.01.1913.005; Tue, 7 Apr 2020 12:52:08 +0200
+From:   Walter Harms <wharms@bfs.de>
+To:     Andrew Micallef <andrew.micallef@live.com.au>,
+        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Subject: AW: Suggestion for edit
+Thread-Topic: Suggestion for edit
+Thread-Index: AQHWDI/Fyl47qCQDb0ilEbBf8oBdT6htPR5ygAAHsu2AACO7F4AAEgDX
+Date:   Tue, 7 Apr 2020 10:52:07 +0000
+Message-ID: <cbe041d18e2340d9a82a575cf32db44c@bfs.de>
+References: <MN2PR04MB6157E89BBF15AD9D70DDEA48B9C30@MN2PR04MB6157.namprd04.prod.outlook.com>,<MN2PR04MB61571362350C94A82F545152B9C30@MN2PR04MB6157.namprd04.prod.outlook.com>,<2d4de4cc1c3b453199e48528095f7626@bfs.de>,<MN2PR04MB615789FF54F31389096E584BB9C30@MN2PR04MB6157.namprd04.prod.outlook.com>
+In-Reply-To: <MN2PR04MB615789FF54F31389096E584BB9C30@MN2PR04MB6157.namprd04.prod.outlook.com>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.137.16.39]
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8BIT
+X-Spam-Status: No, score=-0.49
+Authentication-Results: mx01-muc.bfs.de;
+        none
+X-Spamd-Result: default: False [-0.49 / 7.00];
+         ARC_NA(0.00)[];
+         TO_DN_EQ_ADDR_SOME(0.00)[];
+         HAS_XOIP(0.00)[];
+         FROM_HAS_DN(0.00)[];
+         TO_DN_SOME(0.00)[];
+         TO_MATCH_ENVRCPT_ALL(0.00)[];
+         FREEMAIL_ENVRCPT(0.00)[live.com.au];
+         MIME_GOOD(-0.10)[text/plain];
+         DKIM_SIGNED(0.00)[];
+         RCPT_COUNT_TWO(0.00)[2];
+         FREEMAIL_TO(0.00)[live.com.au,vger.kernel.org];
+         RCVD_NO_TLS_LAST(0.10)[];
+         FROM_EQ_ENVFROM(0.00)[];
+         MIME_TRACE(0.00)[0:+];
+         RCVD_COUNT_TWO(0.00)[2];
+         MID_RHS_MATCH_FROM(0.00)[];
+         BAYES_HAM(-0.49)[79.72%]
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Andrei Vagin <avagin@gmail.com> writes:
-> On Sat, Apr 04, 2020 at 01:08:50PM +0200, Michael Kerrisk (man-pages) wrote:
->>    /proc/PID/timens_offsets
->>        Associated  with  each  time namespace are offsets, expressed with
->>        respect to the initial time namespace, that define the  values  of
->>        the  monotonic  and  boot clocks in that namespace.  These offsets
->>        are exposed via the file  /proc/PID/timens_offsets.   Within  this
->>        file,  the  offsets  are  expressed  as  lines consisting of three
->>        space-delimited fields:
->> 
->>            <clock-id> <offset-secs> <offset-nanosecs>
->> 
->>        The clock-id identifies the clock whose offsets are  being  shown.
->>        This field is either 1, for CLOCK_MONOTONIC, or 7, for CLOCK_BOOT‐
->>        TIME.  The remaining  fields  express  the  offset  (seconds  plus
->>        nanoseconds)  for the clock in this time namespace.  These offsets
->>        are expressed relative to the clock values  in  the  initial  time
->>        namespace.   In  the  initial time namespace, the contents of this
->>        file are as follows:
->
-> I think we can mention that offset-secs can be negative, but
-> offset-nanosleep has to be 0 or positive.
+the posix page is more direct about that.
 
-I assume you meant offset-nanosecs :)
+"The sign of a non-zero return value shall be determined by the sign of the=
+ difference between the values of the first  pair  of     bytes (both inter=
+preted as type unsigned char) that differ in the strings being compared."
 
-That aside, there are also limitations in place.
+re,
+ wh
+________________________________________
+Von: Andrew Micallef <andrew.micallef@live.com.au>
+Gesendet: Dienstag, 7. April 2020 11:45:03
+An: Walter Harms; linux-man@vger.kernel.org
+Betreff: Re: Suggestion for edit
 
-  1) Negative offsets which would offset time into negative space are
-     rejected, i.e. its enforced that
+Hi Walter
 
-          now(CLOCK) + offset[CLOCK] >= 0
 
-     This is necessary as the kernel expects and also enforces that time
-     cannot be negative.
+Actually that new phrasing on the last sentence is much clearer. I was scra=
+tching my head over what it meant for a string to be less than (or greater =
+than) another string.
 
-  2) Positive offsets which would offset time above KTTIME_SEC_MAX / 2 are
-     rejected, i.e. it's enforced that
+Cheers
+Andrew
 
-          now(CLOCK) + offset[CLOCK] <= KTIME_SEC_MAX / 2
 
-     That is done to prevent that clocks wrap around if the offset would
-     bring it close enough to the wrap around point.
 
-     The cutoff value is a pretty arbitrary choice (~146 years). So to
-     hit this you'd need a system which has an uptime of > 146 years,
-     which is pretty much unrealistic.
 
-Thanks,
+From: Walter Harms <wharms@bfs.de>
 
-        tglx
+Sent: Tuesday, 7 April 2020 7:17 PM
 
-     
-          
+To: Andrew Micallef <andrew.micallef@live.com.au>; linux-man@vger.kernel.or=
+g <linux-man@vger.kernel.org>
+
+Subject: AW: Suggestion for edit
+
+
+
+
+hi Andrew, i have to admit that i dropped over the last sentence. And it sh=
+ould be *very* clear what the return means,
+
+ehre my idea:
+
+
+
+If both strings are equal the function returns 0.
+
+Otherwises it returns the differences between the last compared characters.
+
+
+
+The last feature is important for sorting. I never found a good wording for=
+ that.
+
+
+
+re,
+
+ wh
+
+
+
+
+
+
+
+________________________________________
+
+Von: linux-man-owner@vger.kernel.org <linux-man-owner@vger.kernel.org> im A=
+uftrag von Andrew Micallef <andrew.micallef@live.com.au>
+
+Gesendet: Dienstag, 7. April 2020 09:07:50
+
+An: linux-man@vger.kernel.org
+
+Betreff: Fw: Suggestion for edit
+
+
+
+Hi,
+
+
+
+
+
+I'd like to suggest an edit to the description of `strcmp` in the standard =
+C library man page.
+
+I found this description to be kind of confusing, and think the language co=
+uld be a bit more
+
+straight forward.
+
+
+
+
+
+
+
+ At present the description reads as follows:
+
+
+
+The strcmp() function compares the two strings s1 and s2.  The locale
+
+       is not taken into account (for a locale-aware comparison, see
+
+       strcoll(3)).  It returns an integer less than, equal to, or greater
+
+       than zero if s1 is found, respectively, to be less than, to match, o=
+r
+
+       be greater than s2.
+
+
+
+I am suggesting the following edits:
+
+
+
+The strcmp() function compares the two strings s1 and s2.  The locale
+
+       is not taken into account (for a locale-aware comparison, see
+
+       strcoll(3)).  It returns an integer, which is 0 if the strings
+
+       match. Otherwise, a negative integer indicates s1 is less than s2,
+
+       while a positive integer indicates s1 is greater than s2.
+
+
+
+
+
+Regards
+
+Andrew
+
+
+
