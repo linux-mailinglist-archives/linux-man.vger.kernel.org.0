@@ -2,130 +2,284 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id B26541A12BD
-	for <lists+linux-man@lfdr.de>; Tue,  7 Apr 2020 19:32:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D971C1A153E
+	for <lists+linux-man@lfdr.de>; Tue,  7 Apr 2020 20:49:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726329AbgDGRcz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 7 Apr 2020 13:32:55 -0400
-Received: from mga02.intel.com ([134.134.136.20]:37436 "EHLO mga02.intel.com"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726277AbgDGRcz (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 7 Apr 2020 13:32:55 -0400
-IronPort-SDR: SiEaPv8kCtD9RrYOm4JVh9RojFbBfpGr29qJTW9qDSpR+fyfrsMxuoNnAua+K4Lj2i28snGAjo
- mlpJaiPt8hbQ==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
-  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Apr 2020 10:32:06 -0700
-IronPort-SDR: 0dN2uk5PE2UgARM11tbMKg7mcMpR7+n/WA5Rh9SUwkMp2YjAgenijHApg1r0OQUVlhgA3i7Uf+
- CL6T7AxCQMpw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,356,1580803200"; 
-   d="scan'208";a="250310948"
-Received: from linux.intel.com ([10.54.29.200])
-  by orsmga008.jf.intel.com with ESMTP; 07 Apr 2020 10:32:06 -0700
-Received: from [10.249.224.62] (abudanko-mobl.ccr.corp.intel.com [10.249.224.62])
-        by linux.intel.com (Postfix) with ESMTP id AED7858048A;
-        Tue,  7 Apr 2020 10:32:01 -0700 (PDT)
-Subject: Re: [PATCH v8 00/12] Introduce CAP_PERFMON to secure system
- performance monitoring and observability
-To:     Arnaldo Carvalho de Melo <arnaldo.melo@gmail.com>
-Cc:     Peter Zijlstra <peterz@infradead.org>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Ingo Molnar <mingo@redhat.com>,
-        James Morris <jmorris@namei.org>,
-        Namhyung Kim <namhyung@kernel.org>,
-        Serge Hallyn <serge@hallyn.com>, Jiri Olsa <jolsa@redhat.com>,
-        Song Liu <songliubraving@fb.com>,
-        Andi Kleen <ak@linux.intel.com>,
-        Stephane Eranian <eranian@google.com>,
-        Igor Lubashev <ilubashe@akamai.com>,
-        Thomas Gleixner <tglx@linutronix.de>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        "linux-security-module@vger.kernel.org" 
-        <linux-security-module@vger.kernel.org>,
-        "selinux@vger.kernel.org" <selinux@vger.kernel.org>,
-        "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
-        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-        linux-man@vger.kernel.org
-References: <f96f8f8a-e65c-3f36-dc85-fc3f5191e8c5@linux.intel.com>
- <20200407143014.GD11186@kernel.org> <20200407143551.GF11186@kernel.org>
- <10cc74ee-8587-8cdb-f85f-5724b370a2ce@linux.intel.com>
- <20200407163654.GB12003@kernel.org>
- <85da1e42-2cf2-98ca-1e0c-2cf3469b7d30@linux.intel.com>
- <20200407170251.GE12003@kernel.org>
-From:   Alexey Budankov <alexey.budankov@linux.intel.com>
-Organization: Intel Corp.
-Message-ID: <369aaea6-3532-859e-7f1a-4df7806351c5@linux.intel.com>
-Date:   Tue, 7 Apr 2020 20:32:00 +0300
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+        id S1726706AbgDGSto (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 7 Apr 2020 14:49:44 -0400
+Received: from mail-wr1-f66.google.com ([209.85.221.66]:44972 "EHLO
+        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726332AbgDGStn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Apr 2020 14:49:43 -0400
+Received: by mail-wr1-f66.google.com with SMTP id c15so5048803wro.11;
+        Tue, 07 Apr 2020 11:49:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:to:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=fSW6zqhPZsThdcoTatdLbp7WJ3WUZiNlQXUswn8hhu4=;
+        b=aRXxvQ38Ou9GCSVIy7YCqt5Ig+frDurJp4o/OLK1RDtexLvZtLqLuTX1d1HE8VXNik
+         2he3dnHygK09W0+AtGtaao9wrNR+bmh0eRqBF4bTNKaPEQsD0FHeWktVfYFQ5+vmKJwJ
+         tBsdqozpQf+O2ZHbqMqP5GkV99hL8JD45K4xiquvpvLuOwfn8C/lnvlEZPDqrdhwQVbI
+         /8DekddnNDDs7OQD/yFWHwKAoF+5l1kNUPvmeHUIJL9h7PUvkN1EIY27NS/Pfxejxs33
+         wgOFL5J8z+3Pk2etHsAGxVa25AuoNcic6dNiidJK1nPbK7lorUTux3vX6BEniF1FHyZY
+         6C/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:to:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=fSW6zqhPZsThdcoTatdLbp7WJ3WUZiNlQXUswn8hhu4=;
+        b=fHO4+BbUJS5QtmOrLTI85MLAZQ2cytfuP0Va00RzhH8Gn/uGVCBkBM6e/AJJXkYDnl
+         ooGehYILgkRwIZ/qs8oaX8GWT9TTLJu7weKzZzmD0SAUhiY0gJ4dwNMR48d5LE///lJj
+         ePWhqp1MSYnSigpY8k/7LTD6WuQcO08NU+NWCoRYgN7/7LKjj5YD4DuRMRsGjjyk77Ve
+         U74Ole2rbBena5l6UpZj+2J37xtl2dEQiJk7XKx94B8Nx4ab8zq4INjNyxIBQZ7gFJSk
+         oaCLT3bST6/Csmn67fSjN8lgs3kBSQyxJo6awI7mBZPWd923S5NGbx2GJddJXAxtNwEM
+         vxAQ==
+X-Gm-Message-State: AGi0PuaEaXUR7fFMle+9A5bLZAToWUeOd2VDdldXU4pPg2cKnSX+vPuP
+        iIO+gh4XO6lsPdLhi/UqUIA=
+X-Google-Smtp-Source: APiQypJx9PMgsqdL0juRTEGxcxw5lzragXeKvyV7yIea6qodVlFrFLc7v1oj122EmZyqCXzFqf8nog==
+X-Received: by 2002:adf:9344:: with SMTP id 62mr4443781wro.12.1586285377287;
+        Tue, 07 Apr 2020 11:49:37 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
+        by smtp.gmail.com with ESMTPSA id p13sm31701896wru.3.2020.04.07.11.49.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Apr 2020 11:49:36 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Tycho Andersen <tycho@tycho.ws>, Jann Horn <jannh@google.com>,
+        Aleksa Sarai <cyphar@cyphar.com>,
+        Christian Brauner <christian@brauner.io>,
+        Oleg Nesterov <oleg@redhat.com>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Alexander Viro <viro@zeniv.linux.org.uk>, jld@mozilla.com,
+        Arnd Bergmann <arnd@arndb.de>,
+        Florian Weimer <fweimer@redhat.com>, gpascutto@mozilla.com,
+        ealvarez@mozilla.com
+To:     Sargun Dhillon <sargun@sargun.me>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Subject: [RESEND] RFC: pidfd_getfd(2) manual page
+Message-ID: <d6be97d1-38a5-bf43-7c80-7c952a5a44a3@gmail.com>
+Date:   Tue, 7 Apr 2020 20:49:35 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200407170251.GE12003@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+[No response on my mail of a week ago, so I try again; the page
+text is unchanged since the draft sent out on 31 March]
 
-On 07.04.2020 20:02, Arnaldo Carvalho de Melo wrote:
-> Em Tue, Apr 07, 2020 at 07:52:56PM +0300, Alexey Budankov escreveu:
->>
->> On 07.04.2020 19:36, Arnaldo Carvalho de Melo wrote:
->>> Em Tue, Apr 07, 2020 at 05:54:27PM +0300, Alexey Budankov escreveu:
->>>> Could makes sense adding cap_ipc_lock to the binary to isolate from this:
-> 
->>>> kernel/events/core.c: 6101
->>>> 	if ((locked > lock_limit) && perf_is_paranoid() &&
->>>> 		!capable(CAP_IPC_LOCK)) {
->>>> 		ret = -EPERM;
->>>> 		goto unlock;
->>>> 	}
-> 
->>> That did the trick, I'll update the documentation and include in my
->>> "Committer testing" section:
->  
->> Looks like top mode somehow reaches perf mmap limit described here [1].
->> Using -m option solves the issue avoiding cap_ipc_lock on my 8 cores machine:
->> perf top -e cycles -m 1
-> 
-> So this would read better?
-> 
-> diff --git a/Documentation/admin-guide/perf-security.rst b/Documentation/admin-guide/perf-security.rst
-> index ed33682e26b0..d44dd24b0244 100644
-> --- a/Documentation/admin-guide/perf-security.rst
-> +++ b/Documentation/admin-guide/perf-security.rst
-> @@ -127,8 +127,8 @@ taken to create such groups of privileged Perf users.
->  
->  ::
->  
-> -   # setcap "cap_perfmon,cap_ipc_lock,cap_sys_ptrace,cap_syslog=ep" perf
-> -   # setcap -v "cap_perfmon,cap_ipc_lock,cap_sys_ptrace,cap_syslog=ep" perf
-> +   # setcap "cap_perfmon,cap_sys_ptrace,cap_syslog=ep" perf
-> +   # setcap -v "cap_perfmon,cap_sys_ptrace,cap_syslog=ep" perf
->     perf: OK
->     # getcap perf
->     perf = cap_sys_ptrace,cap_syslog,cap_perfmon+ep
-> @@ -140,6 +140,10 @@ i.e.:
->  
->     # setcap "38,cap_ipc_lock,cap_sys_ptrace,cap_syslog=ep" perf
->  
-> +Note that you may need to have 'cap_ipc_lock' in the mix for tools such as
-> +'perf top', alternatively use 'perf top -m N', to reduce the memory that
-> +it uses for the perf ring buffer, see the memory allocation section below.
-> +
+Hello Sargun et al.
 
-Let's stay with the first variant of you addition to this patch and also 
-extend the paragraph below as suggested in other mail in the thread.
+I've taken a shot at writing a manual page for pidfd_getfd().
+I would be happy to receive comments, suggestions for
+improvements, etc. The text is as follows (the groff source 
+is at the foot of this mail):
 
->  As a result, members of perf_users group are capable of conducting
->  performance monitoring and observability by using functionality of the
->  configured Perf tool executable that, when executes, passes perf_events
-> 
+NAME
+       pidfd_getfd  -  obtain  a  duplicate  of  another  process's  file
+       descriptor
 
-Thanks,
-Alexey
+SYNOPSIS
+       int pidfd_getfd(int pidfd, int targetfd, unsigned int flags);
+
+DESCRIPTION
+       The pidfd_getfd() system call allocates a new file  descriptor  in
+       the  calling  process.  This new file descriptor is a duplicate of
+       an existing file descriptor, targetfd, in the process referred  to
+       by the PID file descriptor pidfd.
+
+       The  duplicate  file  descriptor  refers  to  the  same  open file
+       description (see open(2)) as the original file descriptor  in  the
+       process referred to by pidfd.  The two file descriptors thus share
+       file status flags and file offset.  Furthermore, operations on the
+       underlying  file  object  (for  example, assigning an address to a
+       socket object using bind(2)) can be equally be performed  via  the
+       duplicate file descriptor.
+
+       The  close-on-exec  flag  (FD_CLOEXEC; see fcntl(2)) is set on the
+       file descriptor returned by pidfd_getfd().
+
+       The flags argument is reserved for future use.  Currently, it must
+       be specified as 0.
+
+       Permission  to duplicate another process's file descriptor is gov‐
+       erned by a ptrace access mode  PTRACE_MODE_ATTACH_REALCREDS  check
+       (see ptrace(2)).
+
+RETURN VALUE
+       On  success,  pidfd_getfd() returns a nonnegative file descriptor.
+       On error, -1 is returned and errno is set to indicate the cause of
+       the error.
+
+ERRORS
+       EBADF  pidfd is not a valid PID file descriptor.
+
+       EBADF  targetfd  is  not  an  open  file descriptor in the process
+              referred to by pidfd.
+
+       EINVAL flags is not 0.
+
+       EMFILE The per-process limit on the number of open  file  descrip‐
+              tors has been reached (see the description of RLIMIT_NOFILE
+              in getrlimit(2)).
+
+       ENFILE The system-wide limit on the total number of open files has
+              been reached.
+
+       ESRCH  The  process  referred to by pidfd does not exist (i.e., it
+              has terminated and been waited on).
+
+VERSIONS
+       pidfd_getfd() first appeared in Linux 5.6.
+
+CONFORMING TO
+       pidfd_getfd() is Linux specific.
+
+NOTES
+       Currently, there is no glibc wrapper for this system call; call it
+       using syscall(2).
+
+       For a description of PID file descriptors, see pidfd_open(2).
+
+SEE ALSO
+       clone3(2), kcmp(2), pidfd_open(2)
+
+Cheers,
+
+Michael
+
+.\" Copyright (c) 2020 by Michael Kerrisk <mtk.manpages@gmail.com>
+.\"
+.\" %%%LICENSE_START(VERBATIM)
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one.
+.\"
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\"
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\" %%%LICENSE_END
+.\"
+.TH PIDFD_GETFD 2 2020-03-31 "Linux" "Linux Programmer's Manual"
+.SH NAME
+pidfd_getfd \- obtain a duplicate of another process's file descriptor
+.SH SYNOPSIS
+.nf
+.BI "int pidfd_getfd(int " pidfd ", int " targetfd ", unsigned int " flags );
+.fi
+.SH DESCRIPTION
+The
+.BR pidfd_getfd ()
+system call allocates a new file descriptor in the calling process.
+This new file descriptor is a duplicate of an existing file descriptor,
+.IR targetfd ,
+in the process referred to by the PID file descriptor
+.IR pidfd .
+.PP
+The duplicate file descriptor refers to the same open file description (see
+.BR open (2))
+as the original file descriptor in the process referred to by
+.IR pidfd .
+The two file descriptors thus share file status flags and file offset.
+Furthermore, operations on the underlying file object
+(for example, assigning an address to a socket object using
+.BR bind (2))
+can be equally be performed via the duplicate file descriptor.
+.PP
+The close-on-exec flag
+.RB ( FD_CLOEXEC ;
+see
+.BR fcntl (2))
+is set on the file descriptor returned by
+.BR pidfd_getfd ().
+.PP
+The
+.I flags
+argument is reserved for future use.
+Currently, it must be specified as 0.
+.PP
+Permission to duplicate another process's file descriptor
+is governed by a ptrace access mode
+.B PTRACE_MODE_ATTACH_REALCREDS
+check (see
+.BR ptrace (2)).
+.SH RETURN VALUE
+On success,
+.BR pidfd_getfd ()
+returns a nonnegative file descriptor.
+On error, \-1 is returned and
+.I errno
+is set to indicate the cause of the error.
+.SH ERRORS
+.TP
+.B EBADF
+.I pidfd
+is not a valid PID file descriptor.
+.TP
+.B EBADF
+.I targetfd
+is not an open file descriptor in the process referred to by
+.IR pidfd .
+.BR 
+.TP
+.B EINVAL
+.I flags
+is not 0.
+.TP
+.B EMFILE
+The per-process limit on the number of open file descriptors has been reached
+(see the description of
+.BR RLIMIT_NOFILE
+in
+.BR getrlimit (2)).
+.TP
+.B ENFILE
+The system-wide limit on the total number of open files has been reached.
+.TP
+.B ESRCH
+The process referred to by
+.I pidfd
+does not exist
+(i.e., it has terminated and been waited on).
+.SH VERSIONS
+.BR pidfd_getfd ()
+first appeared in Linux 5.6.
+.\" commit 8649c322f75c96e7ced2fec201e123b2b073bf09
+.SH CONFORMING TO
+.BR pidfd_getfd ()
+is Linux specific.
+.SH NOTES
+Currently, there is no glibc wrapper for this system call; call it using
+.BR syscall (2).
+.PP
+For a description of PID file descriptors, see
+.BR pidfd_open (2).
+.SH SEE ALSO
+.BR clone3 (2),
+.BR kcmp (2),
+.BR pidfd_open (2)
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
 
