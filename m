@@ -2,153 +2,80 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 487631A053A
-	for <lists+linux-man@lfdr.de>; Tue,  7 Apr 2020 05:23:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 71C501A0644
+	for <lists+linux-man@lfdr.de>; Tue,  7 Apr 2020 07:12:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726332AbgDGDXZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Apr 2020 23:23:25 -0400
-Received: from mail-pl1-f171.google.com ([209.85.214.171]:32989 "EHLO
-        mail-pl1-f171.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726303AbgDGDXZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Apr 2020 23:23:25 -0400
-Received: by mail-pl1-f171.google.com with SMTP id ay1so719746plb.0;
-        Mon, 06 Apr 2020 20:23:24 -0700 (PDT)
+        id S1726828AbgDGFMx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 7 Apr 2020 01:12:53 -0400
+Received: from mail-yb1-f194.google.com ([209.85.219.194]:34959 "EHLO
+        mail-yb1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726889AbgDGFMm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Apr 2020 01:12:42 -0400
+Received: by mail-yb1-f194.google.com with SMTP id i2so1163885ybk.2
+        for <linux-man@vger.kernel.org>; Mon, 06 Apr 2020 22:12:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:content-transfer-encoding:in-reply-to;
-        bh=W7125HS8Id/3oQMqySFzZfNl7860dmUpNDHGZUrZd8E=;
-        b=ZLrLmWOolQ4v2jsFDi511mfo7jtzwuArxj3LFtcxoZsfJC0ppypz8Udu4pBguFvd/R
-         6Y8zYdtmeT4jNVd+6NdCrwZZ2OjND9+f2cQHmq6pPd6KMkvchSHUhl9GbfIrjMIGsbSi
-         A52Ow3R4opR8fVN9M4xaTOwC0hCOy4iOD6txSsYcV0PwdhTMstPMXKr2Tlk0yPzyB1+r
-         QqLV4XU/Bzi1gY+DfgB6ej7t79t/05R9kOvNHw8Ft24wWgaqQFPpW8od61EaBNYPvOJP
-         tmpa4bXJvXUAJtUBFzjtY+yznFuvjzuCE5mebsP841dN1k5phJ5cGDKK0OtDsW0FVmL8
-         IFUg==
+        h=mime-version:from:date:message-id:subject:to;
+        bh=38NlpNEbzNFWb7RFQtfvRASB+B576yw7dNc7pozf3pc=;
+        b=m9m/DCsFRus/zRmIuphflM5sHyenmkMN/TOEnECOGthbLJHVg8u2+iqtFZpNbyb2/k
+         2tLF//qwyXGtNVJKRleGUy+KbEtVjN+06Aw6FbGL98d5M/QEqB9c9SHaIsBPFlQYoUCh
+         Lj+P9EPUGdvyQRip4KeH3oSvDVhqDTV0IJcbcI66BzYP/b9Y/1y4LF++1q0teLhPl3GM
+         v15gBTxOBB8qvH4CNaCnwdm2sugBL+St8qIlm7SqBWweWj6hdsos1F0mjeWO8qJt64R9
+         xl3tya8AfljNAFdSOkZ4tC7INitomO8JQPFHHcp+JAODUsaup01At9KIYDntXEoTQZb0
+         DmdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:content-transfer-encoding
-         :in-reply-to;
-        bh=W7125HS8Id/3oQMqySFzZfNl7860dmUpNDHGZUrZd8E=;
-        b=OzL7NLfGe5z7VCVa+sBJlaFklU38XU/va3TLJcFXT0m3YQ9tUzjUWDBFiztUHt8R2f
-         PmjtDjh/deCPqEdWPmASwEUDvKieFdf0uhG+jbXWzIY4el4fpbtPiLHDRoyTvSgiDW1A
-         27p6zLfgMbSbYc2CA2RDHDAyQrjZeTAaikULPwzzhE0czjSlnsFmInMKBIRepAGfFz3s
-         YPs2jFDyomIRuHyXDbYps42CPqAexIGphovmZh88u5H1H+J7zOsu17xR3kwagKz35y2Q
-         IH5DOolbIQY3QSojL1e3+9R1qPy3pv3sMDRbydEsha5nC39JGvSE1kWb6R3rNdaJm/kL
-         WxcQ==
-X-Gm-Message-State: AGi0PuZO9m+A1ef6AogsvpRgKUnKt3JDFz1V2D6x5qMHaGtsU3YcfV22
-        Hb8CDbU09rHk166bVEtsVuA=
-X-Google-Smtp-Source: APiQypI8C/2qgTt/umSrw/tHBivbozx0fL4YiImQ/Ho7/ufHrAhZsVtQoC3bYuGjKF1rM+Zxq4W7Gg==
-X-Received: by 2002:a17:90a:378b:: with SMTP id v11mr205147pjb.46.1586229804007;
-        Mon, 06 Apr 2020 20:23:24 -0700 (PDT)
-Received: from gmail.com ([2601:600:817f:a132:df3e:521d:99d5:710d])
-        by smtp.gmail.com with ESMTPSA id u41sm12297721pgn.8.2020.04.06.20.23.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Apr 2020 20:23:23 -0700 (PDT)
-Date:   Mon, 6 Apr 2020 20:23:18 -0700
-From:   Andrei Vagin <avagin@gmail.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Andrei Vagin <avagin@openvz.org>, Dmitry Safonov <dima@arista.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Vincenzo Frascino <vincenzo.frascino@arm.com>,
-        Linux API <linux-api@vger.kernel.org>,
-        Containers <containers@lists.linux-foundation.org>,
-        Dmitry Safonov <0x7f454c46@gmail.com>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Cyrill Gorcunov <gorcunov@gmail.com>,
-        "Eric W. Biederman" <ebiederm@xmission.com>,
-        Andy Lutomirski <luto@kernel.org>,
-        Thomas Gleixner <tglx@linutronix.de>,
-        Adrian Reber <adrian@lisas.de>
-Subject: Re: RFC: time_namespaces(7) manual page
-Message-ID: <20200407032318.GA494464@gmail.com>
-References: <7221df0a-435b-f8bc-ff91-c188af535e73@gmail.com>
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=38NlpNEbzNFWb7RFQtfvRASB+B576yw7dNc7pozf3pc=;
+        b=iiIQLCJ2WZBEYpNcrCu2FTxZVxNpijUOYUi8LH9JdDL06g+atksZn7e17RKVn2+TYc
+         p+gIqgU8szkM8CeRaElODr2IwbSkgN1kCdCmMB9ueUmv6wc8Isa6iOHwAtsIzNVKS1J/
+         D01h3kM051q3yAOTt7DhKGk7B0IoXmUWSqEKnR+jwqaZYmm/9VwxWMHerC8Lgase9+0r
+         Y8nubd0hEhMZ7r7Cirh0n4O64PAGOEn6GyAGJ+jbK1l1Dml+duwh8AECJKDcsK3waXod
+         fmcL+Q78fPdt97F3jXewWPOwGBLsjfLSwndgm9nrLMu79eL3EIBVKusxTTqyJR43j+FV
+         F1zQ==
+X-Gm-Message-State: AGi0PuaSjnRgi5bvL4m8j20sO+sEr5bSRWrg+cSty/UuATo5NHf3y08J
+        1J6cinwlYc6H84URgdnTQEccZq/SCAP/HTPUEzs4oqDuT40=
+X-Google-Smtp-Source: APiQypIYXniGQUHEpASwiGNjKth4Cu9ElCz4yjrJ2uXbYBYunhfz0887D/TRydUbTstl7MwaeVftG8QxF1P80ST3qos=
+X-Received: by 2002:ab0:a9:: with SMTP id 38mr504317uaj.61.1586236361040; Mon,
+ 06 Apr 2020 22:12:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7221df0a-435b-f8bc-ff91-c188af535e73@gmail.com>
+Received: by 2002:ab0:4929:0:0:0:0:0 with HTTP; Mon, 6 Apr 2020 22:12:40 -0700 (PDT)
+From:   SANDRA DEWI <dewisandra154@gmail.com>
+Date:   Tue, 7 Apr 2020 05:12:40 +0000
+Message-ID: <CABRVPWys0xe4CWBkaU0ZXQW+4d=tjDOjyo8cKohc5-VFkWPkcA@mail.gmail.com>
+Subject: whether this is your correct email address or not
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Dear ,Pastor
 
-The man page looks good to me. A few comments are inline.
 
-On Sat, Apr 04, 2020 at 01:08:50PM +0200, Michael Kerrisk (man-pages) wrote:
-> Hello Dmitry, Andrei, et al.
-> 
-> I have written a manual page to document time namespaces.
-> Could you please take a look and let me know of any
-> corrections, improvements, etc.
-> 
-> The rendered page is shown below. Th epage source is at the foot of
-> this mail.
-> 
-> Thanks,
-> 
-> Michael
-> 
-> 
-> NAME
->        time_namespaces - overview of Linux time namespaces
-> 
-> DESCRIPTION
->        Time namespaces virtualize the values of two system clocks:
-> 
->        · CLOCK_MONOTONIC   (and   likewise   CLOCK_MONOTONIC_COARSE   and
->          CLOCK_MONOTONIC_RAW), a nonsettable clock that represents  mono‐
->          tonic  time   since—as  described   by  POSIX—"some  unspecified
->          point in the past".
-> 
->        · CLOCK_BOOTTIME (and likewise CLOCK_BOOTTIME_ALARM), a clock that
->          is  identical  to  CLOCK_MONOTONIC, except that it also includes
->          any time that the system is suspended.
-> 
->        Thus, the processes in a time namespace share per-namespace values
->        for  these clocks.  This affects various APIs that measure against
->        these   clocks,   including:   clock_nanosleep(2),   nanosleep(2),
->        clock_gettime(2), and /proc/uptime.
 
-timer_settime, timerfd_settime
+I have a client who is an oil business man and he made a fixed deposit
+of $26 million USD in my bank, where I am the director of the branch,
+My client died with his entire family in Jordanian
 
-> 
->        Currently,  the  only way to create a time namespace is by calling
->        unshare(2) with the CLONE_NEWTIME flag.  This call creates  a  new
->        time  namespace  but does not place the calling process in the new
->        namespace.  Instead, the calling  process's  subsequently  created
->        children  are placed in the new namespace.  This allows clock off‐
->        sets (see below) for the new namespace to be set before the  first
->        process      is      placed     in     the     namespace.      The
->        /proc/[pid]/ns/time_for_children  symbolic  link  shows  the  time
->        namespace in which the children of a process will be created.
+50% of the fund will be for the church  for the work of God,the
+balance 50% we share it in the ratio of 50/50. Meaning 50% to you and
+50% for me
 
-We can mention that the current process can enter the namespace if it
-call setns on /proc/self/ns/time_for_children.
+intervention in the Syrian Civil War 2014 leaving behind no next of
+kin. I Propose to present you as next of kin to claim the funds, if
+interested reply me for full details and how we are to
 
-> 
->    /proc/PID/timens_offsets
->        Associated  with  each  time namespace are offsets, expressed with
->        respect to the initial time namespace, that define the  values  of
->        the  monotonic  and  boot clocks in that namespace.  These offsets
->        are exposed via the file  /proc/PID/timens_offsets.   Within  this
->        file,  the  offsets  are  expressed  as  lines consisting of three
->        space-delimited fields:
-> 
->            <clock-id> <offset-secs> <offset-nanosecs>
-> 
->        The clock-id identifies the clock whose offsets are  being  shown.
->        This field is either 1, for CLOCK_MONOTONIC, or 7, for CLOCK_BOOT‐
->        TIME.  The remaining  fields  express  the  offset  (seconds  plus
->        nanoseconds)  for the clock in this time namespace.  These offsets
->        are expressed relative to the clock values  in  the  initial  time
->        namespace.   In  the  initial time namespace, the contents of this
->        file are as follows:
 
-I think we can mention that offset-secs can be negative, but
-offset-nanosleep has to be 0 or positive.
 
-Thanks,
-Andrei
+proceed to close this deal.
+
+
+
+
+Mrs. Sandra Dewi
+
+
+
+Email  mrsdewi@gmx.com
