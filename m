@@ -2,65 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4CC4A1A321B
-	for <lists+linux-man@lfdr.de>; Thu,  9 Apr 2020 11:50:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CC79D1A3B43
+	for <lists+linux-man@lfdr.de>; Thu,  9 Apr 2020 22:25:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725970AbgDIJud (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 9 Apr 2020 05:50:33 -0400
-Received: from mail-wr1-f42.google.com ([209.85.221.42]:44028 "EHLO
-        mail-wr1-f42.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726589AbgDIJud (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Apr 2020 05:50:33 -0400
-Received: by mail-wr1-f42.google.com with SMTP id i10so4878782wrv.10
-        for <linux-man@vger.kernel.org>; Thu, 09 Apr 2020 02:50:33 -0700 (PDT)
+        id S1726814AbgDIUZN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 9 Apr 2020 16:25:13 -0400
+Received: from mail-wr1-f66.google.com ([209.85.221.66]:41890 "EHLO
+        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726623AbgDIUZN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Apr 2020 16:25:13 -0400
+Received: by mail-wr1-f66.google.com with SMTP id h9so13509836wrc.8
+        for <linux-man@vger.kernel.org>; Thu, 09 Apr 2020 13:25:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=nH6bJRxZtCdr799SveikM90VwAJyAmshAkKuAIMQ+7w=;
-        b=MPYMxuSjO6drATdxpCJckJoEolILfPq3Pj0jrzgXF/NGlAgr1oQvWS89BdUF1gvNMq
-         pCvDyfLK/QLJitJ3eWcbHAE0KrzVNVNMkD6XELoZUdBhmgL1diPQ8+MeqotHs/FlYtNE
-         ryA3whTHqs9wjdcabK4xjcQaBRkgfL+3LxJbuxVuIbHxNcyV/YZJhiovvcW+Jl9pec+Y
-         /xSM2uhnRY38AOKcgvs07gvT0k61W+0e7fRiDB8bJJrZKkGYRHf4b7DkkAwTri+MLFPB
-         5UZ/8zoWuGLA1xuMYmg9T8+ra/1AUf962jn0J+nLkec0hWwdnNaOklSwOrWWxe3KVfmB
-         uQhg==
+        bh=MR2QP+E0qpvOkro+yjGs1Gtl8EXFWCrvkLWu6dI3eqw=;
+        b=Tgt49ZNE04/LLVG4aXHIjmldBGC4NeJy+y8Vr6bNjd7HxSckJXVLhrhiaRjCaVG2eO
+         kw7thl+vwt+5x+vehVlJ85TCMIXKX3wJX8Afk38hWKBS6iMYaX3FjSNFLlxdYy1vH1y/
+         4YQ9FoHi71PJUo1owQvvvBLaHicV0t8i1Cz1UKOkNHW3Ndvl0BQuQadv26TTCUbcV5Mg
+         yKpDhPDZQftXZ5j282vVkLtbTH52VH8wJSipFndSU++j6Z/Y66eUaq1+Exf7oG/Sc+9S
+         K7XNNcnjStY9/Y4/I3HykkBjJoR/ERRv2tThzvCttUwus8YEPHivz5GZr2rtMy6zouo+
+         cXuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=nH6bJRxZtCdr799SveikM90VwAJyAmshAkKuAIMQ+7w=;
-        b=ru4dBCASI8+ALIdBhTjlWEmc7UTejadMSs4JwfHh6rDkE83xbKcItrCd0P75Pq+jpD
-         k5cterp87JIcrHM5pnhyyYp3YnHKKwAGcEQzEv63LMFZah2awKS4k04KHUPFXco6/UKI
-         qCOU2cd10ma1cO9as8TkEIMxJxMIy2ap72bN0Gq2APSYWmECib+7MUJ0qycL/EukL5rg
-         DGGE3hVdG2fwraj9DBE8eRZRXZfdVBGsalamsimtN2pmfz+0L+KcyMf8zuIAVNfebmCn
-         M3n964T3buprvmrdPVxbDA8lfa66aKVt4+w8gJbTYMQdfJ3EixpvIlz1EFQoHX1wNtuK
-         GL+w==
-X-Gm-Message-State: AGi0PuZYP9UXKona4U9ZwGyb9VBi+bPKqXR2ANjcJn18YSUkDP2XJV23
-        TpkKp4Vn1wtW+SQcKYX2GNY=
-X-Google-Smtp-Source: APiQypJV4zphS7E0EuSNIRXiCXbWQ2kCkagFhgZHQEeWZdgo4ltGQBeZzmp65FRjFZvj/csKulDvMA==
-X-Received: by 2002:a5d:4409:: with SMTP id z9mr11263113wrq.325.1586425832251;
-        Thu, 09 Apr 2020 02:50:32 -0700 (PDT)
+        bh=MR2QP+E0qpvOkro+yjGs1Gtl8EXFWCrvkLWu6dI3eqw=;
+        b=CKYM28rrOM3LUJQt/P7e06B5TkXPnvbzZ2xNF3TI3En9tW2new01+y9/oAifcFV5N/
+         siyNjf/BHv50jYGtxs0I8l0a/FQf8vSn/k/jF39IDCWf3x3+t1MCiK/dlsrN/05Oln+B
+         41a/6/foEDTosYyavsqCtGZKyAbknZqGw8Cm4qjnJVo5VKojHhOxRhgAKXeLxYgsUExD
+         5T0dhy71/BrXzADzxazJqYQKYqQ2rXTOPJnwSUUSjFDqw7XjkQKqnSo+c7xw0nja1r+Q
+         UsJb18BWNke4o46UPE3+UaW2n2vyH9ZBpu09uQc9UsCAeMWtGLpproby+xbe+HuGAI8y
+         ewGg==
+X-Gm-Message-State: AGi0PuaJsy+f/JHcze4VKQXOff73XNkAtARpagKESW8vQJvYPKAemvHY
+        4UK4GpKkz3hwFtNEIEQc15lamp/x
+X-Google-Smtp-Source: APiQypLx83++uLAshaMAGokvcmdU0fPaMMiFd59umRXq/Rik7yjC3Sgs8ujtWceqmLYDG0KPjCLOJg==
+X-Received: by 2002:adf:cd8c:: with SMTP id q12mr939139wrj.419.1586463910475;
+        Thu, 09 Apr 2020 13:25:10 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id 138sm3254827wmb.14.2020.04.09.02.50.31
+        by smtp.gmail.com with ESMTPSA id h81sm5439417wme.42.2020.04.09.13.25.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Apr 2020 02:50:31 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "mtk@man7.org" <mtk@man7.org>,
-        Ponnuvel Palaniyappan <pponnuvel@gmail.com>,
-        walter harms <wharms@bfs.de>
-Subject: Re: Suggestion for edit
-To:     Andrew Micallef <andrew.micallef@live.com.au>
-References: <MN2PR04MB6157E89BBF15AD9D70DDEA48B9C30@MN2PR04MB6157.namprd04.prod.outlook.com>
+        Thu, 09 Apr 2020 13:25:09 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] Document kernel bugs in delivery of signals from CPU
+ exceptions
+To:     Zack Weinberg <zackw@panix.com>
+References: <20191223173146.6924-1-zackw@panix.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <08f8d657-ef27-5c38-4707-296d04ca29b2@gmail.com>
-Date:   Thu, 9 Apr 2020 11:50:28 +0200
+Message-ID: <9a9a850e-eba9-bb38-df25-f963537c366b@gmail.com>
+Date:   Thu, 9 Apr 2020 22:25:08 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <MN2PR04MB6157E89BBF15AD9D70DDEA48B9C30@MN2PR04MB6157.namprd04.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20191223173146.6924-1-zackw@panix.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
@@ -68,85 +65,104 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Andrew,
+Helolo Zack,
 
-On 4/7/20 6:06 AM, Andrew Micallef wrote:
-> Hi Michael,
+On 12/23/19 6:31 PM, Zack Weinberg wrote:
+> signal.7: Which signal is delivered in response to a CPU exception is
+> under-documented and does not always make sense.  See
+> <https://bugzilla.kernel.org/show_bug.cgi?id=205831> for an example
+> where it doesn’t make sense; per the discussion there, this cannot be
+> changed because of backward compatibility concerns, so let’s instead
+> document the problem.
 > 
-> I'd like to suggest an edit to the description of `strcmp` in the standard C library man page.
-> I found this description to be kind of confusing, and think the language could be a bit more
-> straight forward.
->  At present the description reads as follows:
-> 
-> The strcmp() function compares the two strings s1 and s2.  The locale
->        is not taken into account (for a locale-aware comparison, see
->        strcoll(3)<http://man7.org/linux/man-pages/man3/strcoll.3.html>).
->        It returns an integer less than, equal to, or greater
->        than zero if s1 is found, respectively, to be less than, to match, or
->        be greater than s2.
-> 
-> I am suggesting the following edits:
-> 
-> The strcmp() function compares the two strings s1 and s2.  The locale
->        is not taken into account (for a locale-aware comparison, see
->        strcoll(3)<http://man7.org/linux/man-pages/man3/strcoll.3.html>).
->        It returns an integer, which is 0 if the strings
->        match. Otherwise, a negative integer indicates s1 is less than s2,
->        while a positive integer indicates s1 is greater than s2.
+> sigaction.2: For related reasons, the kernel doesn’t always fill in
+> all of the fields of the siginfo_t when delivering signals from CPU
+> exceptions.  Document this as well.  I imagine this one _could_ be
+> fixed, but the problem would still be relevant to anyone using an
+> older kernel.
 
-As Ponnuvel points out, the text pretty much matches POSIX. It is terse,
-and clear. But also not so easy to parse, at least for some of us.
-
-Furthermore, the text is essentially repeated twice in the page,
-once in DESCRIPTION and then again in RETURN VALUE. Let's fix one of
-those in the direction you suggest.
-
-Also, I like Walter's suggestion of mentioning the arithmetic
-difference.
-
-How about this:
-
-DESCRIPTION
-       The  strcmp()  function  compares  the two strings s1 and s2.  The
-       locale is not taken into account (for a  locale-aware  comparison,
-       see  strcoll(3)).   The  comparison is done using unsigned charac‐
-       ters.
-
-*      strcmp() returns an integer indicating the result of the  compari‐
-*       son, as follows:
-*
-*      · 0, if the s1 and s2 are equal;
-*
-*      · a negative value if s1 is less than s2;
-*
-*      · a positive value if s1 is greater than s2;
-
-       The  strncmp()  function  is  similar, except it compares only the
-       first (at most) n bytes of s1 and s2.
-
-RETURN VALUE
-       The strcmp() and strncmp() functions return an integer less  than,
-       equal  to,  or  greater  than  zero  if  s1  (or the first n bytes
-       thereof) is found, respectively, to be less than, to match, or  be
-       greater than s2.
-
-...
-
-NOTES
-*      POSIX.1 specifies only that:
-*            The sign of a non-zero return value shall be determined  by
-*             the  sign of the difference between the values of the first
-*             pair of bytes (both interpreted as type unsigned char) that
-*             differ in the strings being compared.
-*
-*      In  glibc,  as  in most other implementations, the return value is
-*      the arithmetic result of subtracting the last  compared  character
-*      in s2 from the last compared character in s1.  (If the two charac‐
-*      ters are equal, this difference is 0.)
+Thanks. I've applied this patch.
 
 Cheers,
 
 Michael
+
+> ---
+>  man2/sigaction.2 |  8 ++++++++
+>  man7/signal.7    | 40 ++++++++++++++++++++++++++++++----------
+>  2 files changed, 38 insertions(+), 10 deletions(-)
+> 
+> diff --git a/man2/sigaction.2 b/man2/sigaction.2
+> index 8ee878672..10d1c4882 100644
+> --- a/man2/sigaction.2
+> +++ b/man2/sigaction.2
+> @@ -1020,6 +1020,14 @@ handler.
+>  See the relevant Linux kernel sources for details.
+>  This use is obsolete now.
+>  .SH BUGS
+> +When delivering a signal with a
+> +.B SA_SIGINFO
+> +handler,
+> +the kernel does not always provide meaningful values
+> +for all of the fields of the
+> +.I siginfo_t
+> +that are relevant for that signal.
+> +.PP
+>  In kernels up to and including 2.6.13, specifying
+>  .B SA_NODEFER
+>  in
+> diff --git a/man7/signal.7 b/man7/signal.7
+> index d34e536f1..a9fe076fd 100644
+> --- a/man7/signal.7
+> +++ b/man7/signal.7
+> @@ -796,16 +796,36 @@ Linux 2.4 and earlier:
+>  .BR nanosleep (2).
+>  .SH CONFORMING TO
+>  POSIX.1, except as noted.
+> -.\" It must be a *very* long time since this was true:
+> -.\" .SH BUGS
+> -.\" .B SIGIO
+> -.\" and
+> -.\" .B SIGLOST
+> -.\" have the same value.
+> -.\" The latter is commented out in the kernel source, but
+> -.\" the build process of some software still thinks that
+> -.\" signal 29 is
+> -.\" .BR SIGLOST .
+> +.SH BUGS
+> +There are six signals that can be delivered
+> +as a consequence of a hardware exception:
+> +.BR SIGBUS ,
+> +.BR SIGEMT ,
+> +.BR SIGFPE ,
+> +.BR SIGILL ,
+> +.BR SIGSEGV ,
+> +and
+> +.BR SIGTRAP .
+> +Which of these signals is delivered,
+> +for any given hardware exception,
+> +is not documented and does not always make sense.
+> +.PP
+> +For example, an invalid memory access that causes delivery of
+> +.B SIGSEGV
+> +on one CPU architecture may cause delivery of
+> +.B SIGBUS
+> +on another architecture, or vice versa.
+> +.PP
+> +For another example, using the x86
+> +.I int
+> +instruction with a forbidden argument
+> +(any number other than 3 or 128)
+> +causes delivery of
+> +.BR SIGSEGV ,
+> +even though
+> +.B SIGILL
+> +would make more sense,
+> +because of how the CPU reports the forbidden operation to the kernel.
+>  .SH NOTES
+>  For a discussion of async-signal-safe functions, see
+>  .BR signal-safety (7).
+> 
 
 
 -- 
