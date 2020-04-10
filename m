@@ -2,117 +2,113 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 14DFC1A4241
-	for <lists+linux-man@lfdr.de>; Fri, 10 Apr 2020 07:34:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0B1051A4551
+	for <lists+linux-man@lfdr.de>; Fri, 10 Apr 2020 12:41:50 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725844AbgDJFex (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 10 Apr 2020 01:34:53 -0400
-Received: from mail-wm1-f66.google.com ([209.85.128.66]:52448 "EHLO
-        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725839AbgDJFex (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Apr 2020 01:34:53 -0400
-Received: by mail-wm1-f66.google.com with SMTP id t203so1390120wmt.2
-        for <linux-man@vger.kernel.org>; Thu, 09 Apr 2020 22:34:51 -0700 (PDT)
+        id S1726141AbgDJKll (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 10 Apr 2020 06:41:41 -0400
+Received: from mail-wr1-f65.google.com ([209.85.221.65]:35758 "EHLO
+        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725955AbgDJKll (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Apr 2020 06:41:41 -0400
+Received: by mail-wr1-f65.google.com with SMTP id g3so1899701wrx.2
+        for <linux-man@vger.kernel.org>; Fri, 10 Apr 2020 03:41:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Bw0MybbwG/1A2Z24Z67AO8iO0zbWX72A2K3y1co1/xM=;
-        b=vApNA2AcghMnugKs26rezjssXCohszX1n4WnCx4X+il9FCjuzjAxKSkaztvfn99/eR
-         Qskw6O6tg/anf2NM7SETvsT6Il3SS0k31rmx4kItWlniyiFZaUIujKENsQV8QDLYeTjN
-         pu/1/fxGb+j2EU2KvoCQ14O/oTaTiNauIa8EbkDKhAOfCf03xjeoSOtwf1YlrKb1L7y1
-         rxoVcq8xhwfoqqKzqe5752Jk5G1pQVbvLIAvR2uvQhGAdbiQuZQClguEEbW+QbW+4qaI
-         sKb9CzO5CHGgijRazua6sx8uMObRmydfsvJxjAIzglJnCC4Ab0ekk/0lcZieYHh6wSti
-         lzuw==
+        d=brauner.io; s=google;
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=6QLdzKbUmCzenyVGneMFCV9bfKtlfDEGB2GO2r8hJWg=;
+        b=RlDv/0oQA02ldjND6rBeHExH4DYeBwroQFO6VsXB7oPjn82aw7DE07jOJwamw79Dfw
+         1QDYIJHtvE/Jz7D2sYlCZbKWpcYNbC66gpHtKKIgkZmE2trjcI6BzQZWIoMOCaFgEANN
+         JFDUF2l696jXsGCPituOu4pCIg5LhTtzHohm0yYuQQ9niuDn0FTSOu0L2PJuM8kOtNs2
+         glB3izUnxmDMea8RJxv2VXkUHVwUjLJei9XBOhihEWGkWvDFwvcJrZmlYEUaV5S3JQlp
+         xy4spya55b7BFw5sZB+h11dt4sMgBOadYNHoGxRXu4dwA1jAq/nFyot69yPGoXllofPl
+         Ky8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=Bw0MybbwG/1A2Z24Z67AO8iO0zbWX72A2K3y1co1/xM=;
-        b=DjkrH9BXiIr6Gz4TrNCDBK7gNxadMVoHDGbRUAy+K5yzs9zulZvTkpkeOkKgx560jV
-         y7e35zuIGG3j8jiqWkib+KmagFpq+eigRGhihjz1I57VmSVdsvNCurmFNgAJ8aha2eB+
-         +pfZTwcVY2VxoilkLSPvRSNYjR5MoZE2TNG3vCtWHspniDdtGSg7SalkljPpyMIhKz/F
-         W7jKydTs3+C6XyMsg1JC4wKgHkExuY4RGVUZCFoUq6aKqFurd2QxRaMkEy46vigVX5OG
-         ex10/zUg78jc49Cky6+tsYZGP+R+q7M4m5oG7h0uokPYlQ4goQkdoeszhgJ0xfbbG5l3
-         71kw==
-X-Gm-Message-State: AGi0PuZmMJYh9NWTNsdglRuJEeNvRArAbuqvZk9nA/5Bslz7Ol4gM0dS
-        TRWj9jjJwl+MmbvfqmBTxfYBXvZU
-X-Google-Smtp-Source: APiQypIUWEaHIyJIjXxTLCtuYZ3Y7Hljmjkg3fWD5DzPZe0qS97T9lAVZfpNgpf7Y6tED73SGkwIPQ==
-X-Received: by 2002:a7b:cb81:: with SMTP id m1mr3270657wmi.1.1586496890837;
-        Thu, 09 Apr 2020 22:34:50 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id w5sm1422942wrp.30.2020.04.09.22.34.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Apr 2020 22:34:50 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] proc.5: clarify cmdline mutability
-To:     Mike Frysinger <vapier@gentoo.org>
-References: <20180919182142.3054-1-vapier@gentoo.org>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <d370b5dd-48f5-8bac-c22e-14a0fb9e16fd@gmail.com>
-Date:   Fri, 10 Apr 2020 07:34:49 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=6QLdzKbUmCzenyVGneMFCV9bfKtlfDEGB2GO2r8hJWg=;
+        b=CFe0en5vGb6Zeg2FnDQHZuKTieamsUbJciddtJbbtuKmysLZyhl/ioapxN8IK5Inc7
+         FmL9tfSpSgxtcIdKzt2BrKQqX6Io1NAxIWR0iP5sktS80EDYSVtGT7xYh0omIldPwury
+         rO31LbisTS0nbzUTwU0+E/Dc4ag7+0NIXDAa595pu3arjBb7Nr1uWqd067PHVyjnqI0H
+         Qgerbo29RSFV8sfKC/2RwKIgP7O7N6E7Y1QkhfnSxIPJiIVbO1QkcRDo9tquGjbTHqSC
+         dIdHsTuq/J2Ouo9MyyEmYZDA5nZSaPR+DevaTHc/PXvcSXFryVn4U2idro6PDUoZFhp2
+         KSTQ==
+X-Gm-Message-State: AGi0PubnjyA3MBz9S1Q4v1LUxbcIdmW7Ps5jk7THw+0/slJJyemofGeB
+        vn/4JtFhQKfdEl8hLPtfn8GWRg==
+X-Google-Smtp-Source: APiQypJnyYw9Xx4D1lPATDBy+l4SIGQVgf2MNMD0X/0FRhYmNKG+qjDW7935nGlXVwfSRsc7tlplHg==
+X-Received: by 2002:a5d:5045:: with SMTP id h5mr3844621wrt.86.1586515298588;
+        Fri, 10 Apr 2020 03:41:38 -0700 (PDT)
+Received: from wittgenstein.fritz.box (ip5f5bd698.dynamic.kabel-deutschland.de. [95.91.214.152])
+        by smtp.gmail.com with ESMTPSA id u16sm2345546wro.23.2020.04.10.03.41.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 10 Apr 2020 03:41:37 -0700 (PDT)
+From:   Christian Brauner <christian@brauner.io>
+To:     mtk.manpages@gmail.com
+Cc:     cgroups@vger.kernel.org, christian.brauner@ubuntu.com,
+        linux-api@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-man@vger.kernel.org, oleg@redhat.com, tj@kernel.org
+Subject: [PATCH] clone.2: Document CLONE_INTO_CGROUP
+Date:   Fri, 10 Apr 2020 12:41:32 +0200
+Message-Id: <20200410104132.294639-1-christian@brauner.io>
+X-Mailer: git-send-email 2.26.0
+In-Reply-To: <CAKgNAkhL0zCj11LS9vfae872YVeRsxdz20sZWuXdi+UjH21=0g@mail.gmail.com>
+References: <CAKgNAkhL0zCj11LS9vfae872YVeRsxdz20sZWuXdi+UjH21=0g@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20180919182142.3054-1-vapier@gentoo.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Mike,
+From: Christian Brauner <christian.brauner@ubuntu.com>
 
-On 9/19/18 8:21 PM, Mike Frysinger wrote:
-> From: Mike Frysinger <vapier@chromium.org>
-> 
-> The cmdline file is a window into memory that is controlled by the
-> target process, and that memory may be changed arbitrarily, as can
-> the window via prctl settings.  Make sure people understand that
-> this file is all an illusion.
-> 
-> Signed-off-by: Mike Frysinger <vapier@gentoo.org>
+Signed-off-by: Christian Brauner <christian.brauner@ubuntu.com>
+---
+ man2/clone.2 | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-Thanks. Patch applied.
+diff --git a/man2/clone.2 b/man2/clone.2
+index 39cec4c86..8d9aa9f99 100644
+--- a/man2/clone.2
++++ b/man2/clone.2
+@@ -197,6 +197,7 @@ struct clone_args {
+     u64 tls;          /* Location of new TLS */
+     u64 set_tid;      /* Pointer to a \fIpid_t\fP array */
+     u64 set_tid_size; /* Number of elements in \fIset_tid\fP */
++    u64 cgroup;       /* Target cgroup file descriptor for the child process */
+ };
+ .EE
+ .in
+@@ -448,6 +449,25 @@ Specifying this flag together with
+ .B CLONE_SIGHAND
+ is nonsensical and disallowed.
+ .TP
++.BR CLONE_INTO_CGROUP " (since Linux 5.7)"
++.\" commit ef2c41cf38a7559bbf91af42d5b6a4429db8fc68
++By default, the child process will belong to the same cgroup as its parent.
++If this flag is specified the child process will be created in a
++different cgroup than its parent.
++
++When using
++.RB clone3 ()
++the target cgroup can be specified by setting the
++.I cl_args.cgroup
++member to the file descriptor of the target cgroup. The cgroup file
++descriptor must refer to a cgroup in a cgroup v2 hierarchy
++(see
++.BR cgroup (2)).
++
++Note that all usual cgroup v2 process migration restrictions apply. See
++.BR cgroup (2)
++for detailed information.
++.TP
+ .BR CLONE_DETACHED " (historical)"
+ For a while (during the Linux 2.5 development series)
+ .\" added in 2.5.32; removed in 2.6.0-test4
 
-Cheers,
-
-Michael
-
-> ---
->  man5/proc.5 | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/man5/proc.5 b/man5/proc.5
-> index c07ebf06bfa8..93b8c7d26bf3 100644
-> --- a/man5/proc.5
-> +++ b/man5/proc.5
-> @@ -435,6 +435,18 @@ that is, a read on this file will return 0 characters.
->  The command-line arguments appear in this file as a set of
->  strings separated by null bytes (\(aq\\0\(aq),
->  with a further null byte after the last string.
-> +.IP
-> +If, after an
-> +.BR execve (2),
-> +the process modifies its argv strings, those changes will show up here.
-> +This is not the same thing as modifying the argv array.
-> +.IP
-> +Furthermore, a process may change the memory location that this file refers via
-> +.BR prctl (2)
-> +operations such as
-> +.BR PR_SET_MM_ARG_START .
-> +.IP
-> +Think of this file as the command line that the process wants you to see.
->  .TP
->  .IR /proc/[pid]/comm " (since Linux 2.6.33)"
->  .\" commit 4614a696bd1c3a9af3a08f0e5874830a85b889d4
-> 
-
-
+base-commit: ff5de6ecc4338f4b62c3459c99bd1a3a75ee2808
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.26.0
+
