@@ -2,146 +2,104 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 2E6541A4AF8
-	for <lists+linux-man@lfdr.de>; Fri, 10 Apr 2020 22:18:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 36A421A5D5E
+	for <lists+linux-man@lfdr.de>; Sun, 12 Apr 2020 10:09:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726263AbgDJUSM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 10 Apr 2020 16:18:12 -0400
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:38003 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726177AbgDJUSM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Apr 2020 16:18:12 -0400
-Received: by mail-wr1-f67.google.com with SMTP id k11so2921573wrp.5;
-        Fri, 10 Apr 2020 13:18:10 -0700 (PDT)
+        id S1725832AbgDLIJe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 12 Apr 2020 04:09:34 -0400
+Received: from mail-qk1-f195.google.com ([209.85.222.195]:38885 "EHLO
+        mail-qk1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725812AbgDLIJe (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Apr 2020 04:09:34 -0400
+Received: by mail-qk1-f195.google.com with SMTP id h14so6598151qke.5
+        for <linux-man@vger.kernel.org>; Sun, 12 Apr 2020 01:09:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=LirB/PVqDgbE/D2KaEucIjmXEfNOl2FdUxp75VSmgWE=;
-        b=S053X/y+NH90mhlB5TvqX63DVsl/Lc1yRGm0DWqWlZImLn+KezB6cOWo6TWueeZ8IG
-         4SIf90nikPeanX9PTUHmFwwDP8X9SqfBKH/o/lycd7pixNk/nQPr//+IFLLbynFNlbm9
-         M39etzBJ9gWDsxJ3qNI8p+i3QNY6C0gZfEsJrgvM4ofhOZt+fvAAu0P/Nq6V7zOv05kz
-         An5152US6IlZbufK6mSq9CyVe/iRwJvNVTUX0KRENF1D+Xj4YHq9G8lm5CpjLzGaJjmj
-         PJX3VbPrP4P87dDLht6loOfdfEgjL4y1AjNK4gi6eZDbYWB5wtIGr6nzu/hYqYRMC66t
-         XKrA==
+        d=juliacomputing-com.20150623.gappssmtp.com; s=20150623;
+        h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
+        bh=fo4hJWTGxdkqKD5rpuY3wgc49FF4i1fz/mmapGPeKUY=;
+        b=z3bfesQ/2SuknFlixu48knMM2srhCm4TvsFQ+Gtc7Kd5KD2yLoLoW8ZPWQ8fZrDoiS
+         E/oU1x1FE2o8b1kuJO7fHOAD+h+p8RM/ypuP08zUn6z8a+khDVGbOE8tqRk5W+H9nHI8
+         t/w/8+dseB2l7lEdXnJITVfgdiNpQ18CyzH/fes2BbNdhhy/9PsQKMRo1Ghj08NagUtC
+         BGTTmK4KZAFDjv1BuTNVNGo6gILW6shLL6D0zjEiSyh1KzGHJBFbCFsFoeVhMy1KHYkZ
+         mUA1bVnRi+DCRTS1h7TyB4HSVhxXLzWgtSDRrj+jAFMALbH6m7/0jvkPoB49+H8/JdhH
+         /nMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=LirB/PVqDgbE/D2KaEucIjmXEfNOl2FdUxp75VSmgWE=;
-        b=D+Dkhv4jqY0mGuWy7i97oq2pX8KAXk5W6z0PmgOkHIBG72PgLq5tB1+M4fbXfD9FEk
-         lC4fkkySG7Cj+QtYv0iDNB7AJNYwXhawiYWQnDGQjF/gVm/rBcVwhvSq2yGoUDnqBtMU
-         c0AWWJ9bkTP1evsyD65QVso4tNsPWBKLV+7eHklPB3YTi+OWdtVdSGqfF8JMTXrseNxo
-         XVNWbbPTNwTTkMliyvtf5fnXCIIeg+QCY6ZRthMCVyOJpXJOrX1ALmES7XCSmXSUpcnV
-         lSkf0NPjwMPYzHsbDw04AmWkb+JimHN6bb9htPPX94rpNZGY45DpCoeMpg0J8kK6CzS3
-         +NHA==
-X-Gm-Message-State: AGi0PuZJrBLyPoXHo/S9E853ifkXNOFP+1vZfyEYnENx4Ba88jewVPZR
-        rwP8ed8WvC7ivfGcInHfURt8VwHP
-X-Google-Smtp-Source: APiQypJJZOIPvHdzHvYIayF6B94aL6PrGar63+56dmk6qwKH1KDDM4ArCh3MtMFvbv9cYkRH/qqWZw==
-X-Received: by 2002:adf:e744:: with SMTP id c4mr5867370wrn.133.1586549889297;
-        Fri, 10 Apr 2020 13:18:09 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id a7sm4085832wmj.12.2020.04.10.13.18.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Apr 2020 13:18:08 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, cgroups@vger.kernel.org,
-        christian.brauner@ubuntu.com, linux-api@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
-        oleg@redhat.com, tj@kernel.org
-Subject: Re: [PATCH] clone.2: Document CLONE_INTO_CGROUP
-To:     Christian Brauner <christian@brauner.io>
-References: <CAKgNAkhL0zCj11LS9vfae872YVeRsxdz20sZWuXdi+UjH21=0g@mail.gmail.com>
- <20200410104132.294639-1-christian@brauner.io>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <b7550fcd-ba12-e64a-3228-e6668b31a8a7@gmail.com>
-Date:   Fri, 10 Apr 2020 22:18:05 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+         :content-disposition;
+        bh=fo4hJWTGxdkqKD5rpuY3wgc49FF4i1fz/mmapGPeKUY=;
+        b=USfM6Qvlg68WHJNQ0BgU2jwxRgNeqXwv6v3qtgBTeM9A2yctEN3lM/Os2Q5EeedqCS
+         +YCDx3ABvhFSyuMdy6XkdVjqEfOeOTnFgS0sV2PP89RY4zGNYprAN4I10QfV+1GIovaD
+         zS0olMglhu2nWQN7K/xC6xZTqzDMLdM5o5tlLAW7jiCnziXS8dSUHWDv12+X14dmA4mx
+         SxlYcM881tQkB5JoLYEXaC4yAIzHOKIE5pLgNbtCB1WKvDVyjfBlhwhLNqGJ/6h0sE71
+         sB4U8lJ85q/2pTL3rJv7YGJmN714xQ6UeglAsq7SHoaa1qlFK4e8sWBcLAdyqrG9JJCu
+         VGaw==
+X-Gm-Message-State: AGi0PuZK3NmfbsoWMjp3MzZ7WSVlogI/4HnvlgKtnRui02TXeK1oxuTK
+        MfbNtdzUcBmLLuLuPng8TDHuww==
+X-Google-Smtp-Source: APiQypLlY18PSZii2lw8SLpD/TfmuDOWUye0MUQcmDXW6Js+JyuFA2lvHJUcaQ3khV5OZiq+7uYfSg==
+X-Received: by 2002:a37:8604:: with SMTP id i4mr692731qkd.481.1586678972449;
+        Sun, 12 Apr 2020 01:09:32 -0700 (PDT)
+Received: from juliacomputing.com ([2601:184:4780:3aef:84eb:412b:3040:45a0])
+        by smtp.gmail.com with ESMTPSA id h13sm5340929qkj.21.2020.04.12.01.09.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Apr 2020 01:09:31 -0700 (PDT)
+Date:   Sun, 12 Apr 2020 04:09:30 -0400
+From:   Keno Fischer <keno@juliacomputing.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] proc.5: Fix an outdated note about map_files
+Message-ID: <20200412080930.GA30569@juliacomputing.com>
 MIME-Version: 1.0
-In-Reply-To: <20200410104132.294639-1-christian@brauner.io>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Christian,
+The restriction to CAP_SYS_ADMIN was removed from map_files in 2015 [1].
+There was a fixme that indicted this might happen, but the main text was
+never updated when this commit landed. While we're at it, add a note about
+the ptrace access check that is still required.
 
-Thank you for writing this!
+[1] https://github.com/torvalds/linux/commit/bdb4d100afe9818aebd1d98ced575c5ef143456c
 
-On 4/10/20 12:41 PM, Christian Brauner wrote:
-> From: Christian Brauner <christian.brauner@ubuntu.com>
-> 
-> Signed-off-by: Christian Brauner <christian.brauner@ubuntu.com>
-> ---
->  man2/clone.2 | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
-> diff --git a/man2/clone.2 b/man2/clone.2
-> index 39cec4c86..8d9aa9f99 100644
-> --- a/man2/clone.2
-> +++ b/man2/clone.2
-> @@ -197,6 +197,7 @@ struct clone_args {
->      u64 tls;          /* Location of new TLS */
->      u64 set_tid;      /* Pointer to a \fIpid_t\fP array */
->      u64 set_tid_size; /* Number of elements in \fIset_tid\fP */
-> +    u64 cgroup;       /* Target cgroup file descriptor for the child process */
->  };
->  .EE
->  .in
-> @@ -448,6 +449,25 @@ Specifying this flag together with
->  .B CLONE_SIGHAND
->  is nonsensical and disallowed.
->  .TP
-> +.BR CLONE_INTO_CGROUP " (since Linux 5.7)"
-> +.\" commit ef2c41cf38a7559bbf91af42d5b6a4429db8fc68
-> +By default, the child process will belong to the same cgroup as its parent.
+Signed-off-by: Keno Fischer <keno@juliacomputing.com>
+---
+ man5/proc.5 | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-s/belong to/be placed in/
-
-s/cgroup/version 2 cgroup/
-
-> +If this flag is specified the child process will be created in a
-> +different cgroup than its parent.
-> +
-> +When using
-> +.RB clone3 ()
-> +the target cgroup can be specified by setting the
-> +.I cl_args.cgroup
-> +member to the file descriptor of the target cgroup. The cgroup file
-
-We need to say something about how this file descriptor is
-obtained. Is it by opening a directory in the v2 cgroup hierarchy?
-With what flags? O_RDONLY? or is O_PATH also possible? Yes, these
-are some rhetorical questions (I read your nice commit message);
-these things need to be explicit in the manual page though.
-
-Also, your commit message mentions a nice list of use cases.
-I think it would be well worth capturing those in a paragraph
-in the manual page text.
-
-> +descriptor must refer to a cgroup in a cgroup v2 hierarchy
-> +(see
-> +.BR cgroup (2)).
-
-s/cgroup/cgroups/
-s/2/7/
-
-> +
-> +Note that all usual cgroup v2 process migration restrictions apply. See
-> +.BR cgroup (2)
-
-s/cgroup/cgroups/
-s/2/7/
-
-Thanks,
-
-Michael
-
+diff --git a/man5/proc.5 b/man5/proc.5
+index 34cb957dd..0d6043c8f 100644
+--- a/man5/proc.5
++++ b/man5/proc.5
+@@ -1090,16 +1090,18 @@ lrw\-\-\-\-\-\-\-. 1 root root 64 Apr 16 21:33
+ .EE
+ .in
+ .IP
+-This directory appears only if the
++Permission to access this file is governed by a ptrace access mode
++.B PTRACE_MODE_READ_FSCREDS
++check; see
++.BR ptrace (2).
++.IP
++.\" This permissions check got removed in kernel commit bdb4d100a
++Until kernel version 4.3, this directory appeared only if the
+ .B CONFIG_CHECKPOINT_RESTORE
+-kernel configuration option is enabled.
+-Privilege
++kernel configuration option was enabled.
++Additionally, in those kernel versions, privilege
+ .RB ( CAP_SYS_ADMIN )
+-.\" FIXME
+-.\" This may change. See the mail thread
+-.\" "[RFC][PATCH v2] procfs: Always expose /proc/<pid>/map_files/ and make it readable"
+-.\" from Jan 2015
+-is required to view the contents of this directory.
++was required to view the contents of this directory.
+ .TP
+ .I /proc/[pid]/maps
+ A file containing the currently mapped memory regions and their access
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.25.1
+
