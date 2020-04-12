@@ -1,610 +1,222 @@
 Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 6AB3E1A5DF8
-	for <lists+linux-man@lfdr.de>; Sun, 12 Apr 2020 12:07:42 +0200 (CEST)
+Received: from vger.kernel.org (unknown [209.132.180.67])
+	by mail.lfdr.de (Postfix) with ESMTP id 186861A5F6D
+	for <lists+linux-man@lfdr.de>; Sun, 12 Apr 2020 18:55:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726102AbgDLKHl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 12 Apr 2020 06:07:41 -0400
-Received: from mail-wm1-f68.google.com ([209.85.128.68]:40203 "EHLO
-        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725907AbgDLKHl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Apr 2020 06:07:41 -0400
-Received: by mail-wm1-f68.google.com with SMTP id a81so7201379wmf.5
-        for <linux-man@vger.kernel.org>; Sun, 12 Apr 2020 03:07:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:to:from:subject:message-id:date:user-agent:mime-version
-         :content-language:content-transfer-encoding;
-        bh=jWsqgOmegUSH4Xa0JzhGSPKN0Xbu6AgqAYoNkDxHF3s=;
-        b=vEFx2Rchz1V7sIPrupinEZz8pKZPHocD+u2zhIbyz3i1liW+I2/J/ARsf91Tt/oVdb
-         rSrQFtt9LNcI58S7vmMLQUlqOh2b9fy8JDEt0N/95TGnm1wm2qh4qCtZpdj8PpJr7biY
-         RhoxQFVqDOXnyqHizhhc9TA3XlmKidSgPqaOw28mAEKNttG+2rpcV9JvsFz3vAuyeA3U
-         2z/4A84r4tWVGStNhrIXRheqrc+1vuWcO4s0jzGsxkzYfD5NxZa9jJQdhj3y5uOLVyW8
-         CJM5WN4YBKwBQxtvE7MhAH5JN8AZeRP5f+hHijN2M/EkQSTtueJsVeAFP1Su+xQXS8FA
-         yYEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:to:from:subject:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=jWsqgOmegUSH4Xa0JzhGSPKN0Xbu6AgqAYoNkDxHF3s=;
-        b=mjxnM4FUNOY8JTxvce7B/clldXNUcPg3meVnT0m9yQM2KzrD+1MnzO9BCxX3Tp4GCk
-         vA06EdkDByt+xs4DT0sHlBbBUOLFSBa26hbKTvoiumvMBGreEWfeBvA1dtrsVnMBlba+
-         Oh0YoclrFx1+owj/qUv6UpSRd1C+Rd2Nb7LnwxFNL2yufIs2tB0EosWBnxlvLTiOa8JH
-         /WlnBgtHbDB3FqDY+BGJsVdR25S+uoEg1SnmO1MxgMThEjSWQGZdFkkCFDi7Z6WI9SR/
-         iQWyTftgDQiY6SB2XnXEtYvSK/4Scsbsr37ng2JZ/eVrDxWXP+rLIcKLspV2wXnrK/H9
-         fM1w==
-X-Gm-Message-State: AGi0PuZoqUJxBGzF02H6VKz9wFdf3MpoGw0PckE+n3fLu8+Hs5BwuFfU
-        S8Y8rcigh9pnrAxGMwiPBaKCRBhF
-X-Google-Smtp-Source: APiQypI611CNJKTQKJ7ila2H7CyO+6RRTrOF6J7aZ2Doe7fd6L+xq4e5wXrcB0bqu2oLqT8Q/am7NA==
-X-Received: by 2002:a7b:c247:: with SMTP id b7mr13641011wmj.35.1586686057623;
-        Sun, 12 Apr 2020 03:07:37 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id p10sm9986499wrm.6.2020.04.12.03.07.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 12 Apr 2020 03:07:37 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com
-To:     linux-man <linux-man@vger.kernel.org>,
-        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Subject: man-pages-5.06 released
-Message-ID: <7a7ff41b-652b-a44f-6c43-4afe92d93be8@gmail.com>
-Date:   Sun, 12 Apr 2020 12:07:36 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+        id S1727183AbgDLQzH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 12 Apr 2020 12:55:07 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.18]:56384 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727121AbgDLQzH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Apr 2020 12:55:07 -0400
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 848A9C0A3BF5;
+        Sun, 12 Apr 2020 09:49:58 -0700 (PDT)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [80.241.60.241])
+        (using TLSv1.2 with cipher ECDHE-RSA-CHACHA20-POLY1305 (256/256 bits))
+        (No client certificate requested)
+        by mout-p-201.mailbox.org (Postfix) with ESMTPS id 490d5b5FnlzQl1t;
+        Sun, 12 Apr 2020 18:49:55 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at heinlein-support.de
+Received: from smtp2.mailbox.org ([80.241.60.241])
+        by spamfilter02.heinlein-hosting.de (spamfilter02.heinlein-hosting.de [80.241.56.116]) (amavisd-new, port 10030)
+        with ESMTP id uaGde-C1kHvu; Sun, 12 Apr 2020 18:49:52 +0200 (CEST)
+Date:   Mon, 13 Apr 2020 02:49:43 +1000
+From:   Aleksa Sarai <cyphar@cyphar.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Al Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <christian@brauner.io>,
+        Aleksa Sarai <asarai@suse.de>, linux-man@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH man-pages v2 2/2] openat2.2: document new openat2(2)
+ syscall
+Message-ID: <20200412164943.imwpdj5qgtyfn5de@yavin.dot.cyphar.com>
+References: <20200202151907.23587-1-cyphar@cyphar.com>
+ <20200202151907.23587-3-cyphar@cyphar.com>
+ <1567baea-5476-6d21-4f03-142def0f62e3@gmail.com>
+ <20200331143911.lokfoq3lqfri2mgy@yavin.dot.cyphar.com>
+ <cd3a6aad-b906-ee57-1b5b-5939b9602ad0@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="sk2rmexkwnlikbil"
+Content-Disposition: inline
+In-Reply-To: <cd3a6aad-b906-ee57-1b5b-5939b9602ad0@gmail.com>
+X-Rspamd-Queue-Id: 65CA51666
+X-Rspamd-Score: -5.74 / 15.00 / 15.00
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Gidday,
 
-The Linux man-pages maintainer proudly announces:
-
-    man-pages-5.06 - man pages for Linux
-
-This release resulted from patches, bug reports, reviews, and
-comments from 39 people, with over 250 commits making changes
-to more than 120 pages. Three new pages were added in this
-release.
-
-Tarball download:
-    http://www.kernel.org/doc/man-pages/download.html
-Git repository:
-    https://git.kernel.org/cgit/docs/man-pages/man-pages.git/
-Online changelog:
-    http://man7.org/linux/man-pages/changelog.html#release_5.06
-
-A short summary of the release is blogged at:
-https://linux-man-pages.blogspot.com/2020/04/man-pages-506-is-released.html
-
-The current version of the pages is browsable at:
-http://man7.org/linux/man-pages/
-
-You are receiving this message either because:
-
-a) You contributed to the content of this release.
-
-b) You are subscribed to linux-man@vger.kernel.org or
-libc-alpha@sourceware.org.
-
-c) I have information (possibly inaccurate) that you are the maintainer
-of a translation of the manual pages, or are the maintainer of the
-manual pages set in a particular distribution, or have expressed
-interest in helping with man-pages maintenance, or have otherwise
-expressed interest in being notified about man-pages releases.
-If you don't want to receive such messages from me, or you know of
-some other translator or maintainer who may want to receive such
-notifications, send me a message.
-
-Cheers,
-
-Michael
-
-==================== Changes in man-pages-5.06 ====================
-
-Released: 2020-04-11, Munich
-
-
-Contributors
-------------
-
-The following people contributed patches/fixes or (noted in brackets
-in the changelog below) reports, notes, and ideas that have been
-incorporated in changes in this release:
-
-Alejandro Colomar <colomar.6.4.3@gmail.com>
-Aleksa Sarai <cyphar@cyphar.com>
-Alexander Miller <alex.miller@gmx.de>
-Andrea Arcangeli <aarcange@redhat.com>
-André Almeida <andrealmeid@collabora.com>
-Andrei Vagin <avagin@gmail.com>
-Andrew Micallef <andrew.micallef@live.com.au>
-Bart Van Assche <bvanassche@acm.org>
-Benjamin Peterson <benjamin@python.org>
-Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
-Christian Brauner <christian@brauner.io>
-devi R.K <devi.feb27@gmail.com>
-Dmitry Safonov <dima@arista.com>
-Eric Biggers <ebiggers@google.com>
-Eric Dumazet <eric.dumazet@gmail.com>
-Eric Rannaud <e@nanocritical.com>
-Eugene Syromyatnikov <evgsyr@gmail.com>
-Heinrich Schuchardt <xypron.glpk@gmx.de>
-Helge Deller <deller@gmx.de>
-Jakub Wilk <jwilk@jwilk.net>
-Jorgen Hansen <jhansen@vmware.com>
-Julia Suvorova <jusual@mail.ru>
-Keno Fischer <keno@juliacomputing.com>
-Krzysztof Małysa <varqox@gmail.com>
-Marc Lehmann <debian-reportbug@plan9.de>
-Matthew Bobrowski <mbobrowski@mbobrowski.org>
-Matthew Wilcox <willy@infradead.org>
-Michael Galassi <michael@galassi.us>
-Michael Kerrisk <mtk.manpages@gmail.com>
-Michal Hocko <mhocko@kernel.org>
-Mike Christie <mchristi@redhat.com>
-Mike Frysinger <vapier@gentoo.org>
-Pablo M. Ronchi <pmronchi@yahoo.com.ar>
-Ricardo Biehl Pasquali <pasqualirb@gmail.com>
-Stefan Hajnoczi <stefanha@redhat.com>
-Stefano Garzarella <sgarzare@redhat.com>
-Thomas Gleixner <tglx@linutronix.de>
-Walter Harms <wharms@bfs.de>
-Zack Weinberg <zackw@panix.com>
-
-Apologies if I missed anyone!
-
-
-New and rewritten pages
------------------------
-
-openat2.2
-    Aleksa Sarai  [Michael Kerrisk]
-        Document new openat2(2) syscall
-
-pidfd_getfd.2
-    Michael Kerrisk  [Christian Brauner]
-        New manual page documenting the pidfd_getfd() system call
-
-select.2
-    Michael Kerrisk
-        Rewrite DESCRIPTION
-            Improve structure and readability, at the same time incorporating
-            text and details that were formerly in select_tut(2). Also
-            move a few details in other parts of the page into DESCRIPTION.
-    Michael Kerrisk
-        Consolidate the discussion of pselect into a headed subsection
-    Michael Kerrisk
-        Consolidate historical glibc pselect() details under one subhead
-    Michael Kerrisk
-        Consolidate info on usleep() emulation in one place
-    Michael Kerrisk
-        Place the discussion of the self-pipe technique in a headed subsection
-    Michael Kerrisk
-        Note that FD_SET() and FD_CLR() do not return errors
-    Michael Kerrisk
-        Remove details of historical #include requirements
-            The POSIX situation has been the norm for a long time now,
-            and including ancient details overcomplicates the page.
-    Michael Kerrisk
-        Remove some ancient information about pre-POSIX types for 'timeout'
-
-select_tut.2
-    Michael Kerrisk
-        Eliminate duplication of info across select_tut.2 and select2
-            There was a lot of a duplication of info in SYNOPSIS, DESCRIPTION
-            RETURN VALUE, and SEE ALSO. Move all of the info to one place:
-            the select(2) page.
-
-sysvipc.7
-    Michael Kerrisk
-        Rewrite this page as just a summary of the System V IPC APIs
-            All of the other details in this page have by now been moved into
-            the relevant *ctl(2) pages.
-
-time_namespaces.7
-    Michael Kerrisk  [Andrei Vagin, Dmitry Safonov, Thomas Gleixner]
-        New page documenting time namespaces
-
-
-Newly documented interfaces in existing pages
----------------------------------------------
-
-arch_prctl.2
-    Keno Fischer
-        Add ARCH_SET_CPUID subcommand
-
-clock_getres.2
-    Benjamin Peterson
-        Document CLOCK_TAI
-    Michael Kerrisk
-        Add CLOCK_REALTIME_ALARM and CLOCK_BOOTTIME_ALARM
-
-prctl.2
-    Mike Christie  [Michal Hocko, Michael Kerrisk, Bart Van Assche]
-        Document PR_SETIO_FLUSHER/GET_IO_FLUSHER
-
-setns.2
-    Michael Kerrisk
-        Document CLONE_NEWTIME
-
-statx.2
-    Eric Biggers
-        Document STATX_ATTR_VERITY
-
-unshare.2
-    Michael Kerrisk
-        Document CLONE_NEWTIME
-
-socket.7
-    Ricardo Biehl Pasquali, Michael Kerrisk
-        Add description of SO_SELECT_ERR_QUEUE
-    Alejandro Colomar  [Michael Kerrisk]
-        Document SO_TIMESTAMPNS
-
-
-Global changes
---------------
-
-Various pages
-    Michael Kerrisk
-        Remove a few mentions of the ancient "Linux libc"
-
-Various pages
-    Michael Kerrisk
-        Global formatting fix: disfavor nonstandard .TP indents
-            In many cases, these don't improve readability, and (when stacked)
-            they sometimes have the side effect of sometimes forcing text
-            to be justified within a narrow column range.
-
-Various pages
-    Michael Kerrisk  [Christian Brauner]
-        Fix clumsy wording around "nonnegative file descriptors"
-
-
-Changes to individual pages
----------------------------
-
-clock_getres.2
-    Helge Deller  [Michael Kerrisk]
-        Consecutive calls for CLOCK_MONOTONIC may return same value
-            Consecutive calls to clock_gettime(CLOCK_MONOTONIC) are guaranteed
-            to return MONOTONIC values, which means that they either return
-            the *SAME* time value like the last call, or a later (higher) time
-            value.
-    Eric Rannaud
-        Dynamic POSIX clock devices can return other errors
-    Michael Kerrisk
-        Improve description of CPU-time clocks
-    Michael Kerrisk
-        Add an example program
-    Michael Kerrisk
-        CLOCK_REALTIME_COARSE is not settable
-    Michael Kerrisk
-        Note that CPU-time clocks are not settable.
-            Explicitly note that CLOCK_PROCESS_CPUTIME_ID and
-            CLOCK_PROCESS_CPUTIME_ID are not settable.
-    Michael Kerrisk
-        Clarify that CLOCK_TAI is nonsettable
-    Michael Kerrisk
-        Clarify that CLOCK_MONOTONIC is system-wide
-    Michael Kerrisk
-        ERRORS: add EINVAL for attempt to set a nonsettable clock
-    Michael Kerrisk
-        Move text in BUGS to NOTES
-            The fact that CLOCK_PROCESS_CPUTIME_ID and
-            CLOCK_PROCESS_CPUTIME_ID are not settable isn't a bug,
-            since POSIX does allow the possibility that these clocks
-            are not settable.
-    Michael Kerrisk
-        SEE ALSO: add time_namespaces(7)
-
-clock_nanosleep.2
-    Michael Kerrisk
-        clock_nanosleep() can also sleep against CLOCK_TAI
-    Michael Kerrisk
-        clock_nanosleep() also supports CLOCK_BOOTTIME
-            Presumably (and from a quick glance at the source code)
-            since Linux 2.6.39, when CLOCK_BOOTTIME was introduced.
-
-clock_nanosleep.2
-timer_create.2
-timerfd_create.2
-    Michael Kerrisk
-        Add various missing errors
-            Mostly verified by testing and reading the code.
-
-            There is unfortunately quite a bit of inconsistency across API~s:
-
-                              clock_gettime  clock_settime  clock_nanosleep  timer_create  timerfd_create
-
-            CLOCK_BOOTTIME            y        n (EINVAL)     y                y             y
-            CLOCK_BOOTTIME_ALARM      y        n (EINVAL)     y [1]            y [1]         y [1]
-            CLOCK_MONOTONIC           y        n (EINVAL)     y                y             y
-            CLOCK_MONOTONIC_COARSE    y        n (EINVAL)     n (ENOTSUP)      n (ENOTSUP)   n (EINVAL)
-            CLOCK_MONOTONIC_RAW       y        n (EINVAL)     n (ENOTSUP)      n (ENOTSUP)   n (EINVAL)
-            CLOCK_REALTIME            y        y              y                y             y
-            CLOCK_REALTIME_ALARM      y        n (EINVAL)     y [1]            y [1]         y [1]
-            CLOCK_REALTIME_COARSE     y        n (EINVAL)     n (ENOTSUP)      n (ENOTSUP)   n (EINVAL)
-            CLOCK_TAI                 y        n (EINVAL)     y                y             n (EINVAL)
-            CLOCK_PROCESS_CPUTIME_ID  y        n (EINVAL)     y                y             n (EINVAL)
-            CLOCK_THREAD_CPUTIME_ID   y        n (EINVAL)     n (EINVAL [2])   y             n (EINVAL)
-            pthread_getcpuclockid()   y        n (EINVAL)     y                y             n (EINVAL)
-
-            [1] The caller must have CAP_WAKE_ALARM, or the error EPERM results.
-
-            [2] This error is generated in the glibc wrapper.
-
-connect.2
-    Michael Kerrisk  [Eric Dumazet]
-        Update the details on AF_UNSPEC
-            Update the details on AF_UNSPEC and circumstances in which
-            socket can be reconnected.
-
-dup.2
-    Michael Kerrisk
-        SEE ALSO: add pidfd_getfd(2)
-
-epoll_ctl.2
-    Michael Kerrisk
-        Various minor additions and clarifications
-
-epoll_wait.2
-    Michael Kerrisk
-        A few minor additions and rewrites
-
-execve.2
-    Michael Kerrisk
-        Add a subhead for the discussion of effect on process attributes
-    Michael Kerrisk
-        Explicitly note that argv[argc] == NULL in the new program
-    Michael Kerrisk
-        ERRORS: ENOENT does not occur for missing shared libraries
-            See http://sourceware.org/bugzilla/show_bug.cgi?id=12241.
-
-_exit.2
-    Michael Kerrisk
-        Clarify that raw _exit() system call terminates only the calling thread
-
-inotify_add_watch.2
-    Michael Kerrisk
-        EXAMPLE: add reference to example in inotify(7)
-
-io_submit.2
-    Julia Suvorova
-        Add IOCB_CMD_POLL opcode
-
-lseek.2
-    Michael Kerrisk  [Matthew Wilcox]
-        ERRORS: ENXIO can also occur SEEK_DATA in middle of hole at end of file
-
-madvise.2
-    Michael Kerrisk  [Andrea Arcangeli]
-        Incorporate some (ancient) comments about MADV_HUGEPAGE
-            Back in 2011, a mail from Andrea Arcangeli noted some details
-            that I never got round to incorporating into the manual page.
-
-mmap.2
-    Michael Kerrisk
-        Add a subhead for the 'flags' argument
-    Michael Kerrisk
-        Move some text hidden at the end of DESCRIPTION to NOTES
-
-msgctl.2
-    Michael Kerrisk
-        Add information on permission bits (based on sysvipc(7) text)
-    Michael Kerrisk
-        Copy information on 'msqid_ds' fields from sysvipc(7)
-
-open.2
-    Michael Kerrisk
-        Clarify that O_NOFOLLOW is relevant (only) for basename of 'pathname'
-    Aleksa Sarai
-        Add references to new openat2(2) page
-    Michael Kerrisk
-        Note EINVAL error for invalid character in basename of 'pathname'
-
-pidfd_open.2
-    Michael Kerrisk
-        Mention pidfd_getfd(2)
-
-poll.2
-    Michael Kerrisk
-        Add an example program
-    Michael Kerrisk
-        Mention epoll(7) in the introductory paragraph
-    Michael Kerrisk
-        Improve description of EFAULT error
-    Michael Kerrisk
-        Fix description of ENOMEM error
-
-select_tut.2
-    Michael Kerrisk
-        Adjust header file includes in example
-            Employ <sys/select.h>, rather than the historical header files.
-
-semctl.2
-    Michael Kerrisk
-        Copy information on 'semid_ds' fields from sysvipc(7)
-    Michael Kerrisk
-        Add a reference to the example in shmop(2)
-    Michael Kerrisk
-        Add information on permission bits (based on sysvipc(7) text)
-
-semget.2
-    Michael Kerrisk
-        EXAMPLE: add an example program
-
-semop.2
-    Michael Kerrisk
-        Add a reference to the semop(2) example in shmop(2)
-
-shmctl.2
-    Michael Kerrisk
-        Add information on permission bits (based on sysvipc(7) text)
-    Michael Kerrisk
-        Note that execute permission is not needed for shmat() SHM_EXEC
-    Michael Kerrisk
-        Copy information on 'shmid_ds' fields from sysvipc(7)
-    Michael Kerrisk
-        Some small improvements to the description of the 'shmid_ds' structure
-
-shmget.2
-    Michael Kerrisk
-        Add a reference to the example in shmop(2)
-
-shmop.2
-    Michael Kerrisk
-        EXAMPLE: add a pair of example programs
-            Add example programs demonstrating usage of shmget(2), shmat(2),
-            semget(2), semctl(2), and semop(2).
-
-sigaction.2
-signal.7
-    Zack Weinberg
-        Document kernel bugs in delivery of signals from CPU exceptions
-
-stat.2
-    Michael Kerrisk
-        Clarify definitions of timestamp fields
-            In particular, make it clear that atime and mtime relate to the
-            file *data*.
-
-syscalls.2
-    Michael Kerrisk
-        Add new Linux 5.6 system calls
-    Michael Kerrisk
-        Note that the 5.x series followed 4.20
-
-timer_create.2
-    Michael Kerrisk
-        timer_create(2) also supports CLOCK_TAI
-    Michael Kerrisk
-        Mention clock_getres(2) for further details on the various clocks
-
-timerfd_create.2
-    Michael Kerrisk  [Thomas Gleixner]
-        Note a case where timerfd_settime() can fail with ECANCELED
-    Michael Kerrisk  [devi R.K, Thomas Gleixner]
-        Negative changes to CLOCK_REALTIME may cause read() to return 0
-    Michael Kerrisk
-        Rework text for EINVAL for invalid clock ID
-    Michael Kerrisk
-        Refer reader to clock_getres(2) for further details on the clocks
-
-unshare.2
-    Michael Kerrisk
-        Add CLONE_NEWCGROUP and CLONE_NEWTIME to example program
-
-exit.3
-    Michael Kerrisk  [Walter Harms]
-        Small improvement to the discussion of 'status' argument
-
-ftok.3
-    Michael Kerrisk
-        EXAMPLE: add a reference to the example in semget(2)
-
-getifaddrs.3
-    Michael Kerrisk  [Michael Galassi]
-        EXAMPLE: remove unneeded loop variable
-
-nl_langinfo.3
-    Eugene Syromyatnikov
-        Document era-related locale elements
-    Eugene Syromyatnikov
-        Add information about AM/PM time format locale elements
-    Eugene Syromyatnikov
-        Mention the respective strftime(3) conversion specifications
-
-sem_init.3
-    Michael Kerrisk
-        Add references to example code in shm_open(3) and sem_wait(3)
-
-sem_post.3
-    Michael Kerrisk
-        Add a reference to code example code in shm_open(3)
-
-shm_open.3
-    Michael Kerrisk
-        EXAMPLE: add some example programs
-
-strcmp.3
-    Michael Kerrisk
-        Add an example program
-    Michael Kerrisk  [Andrew Micallef, Walter Harms]
-        Rework text describing return value to be clearer
-    Michael Kerrisk
-        Note that the comparison is done using unsigned char
-    Michael Kerrisk
-        SEE ALSO: add ascii(7)
-
-strftime.3
-    Eugene Syromyatnikov  [Michael Kerrisk]
-        Refer to the relevant nl_langinfo(3) items
-    Eugene Syromyatnikov
-        Expand %E and %O description
-    Eugene Syromyatnikov
-        Consistently document fall-back format string
-
-proc.5
-    Mike Frysinger
-        Clarify /proc/[pid]/cmdline mutability
-
-cgroups.7
-    Michael Kerrisk
-        Update list of cgroups v2 controllers
-            Update the list of cgroups v2 controllers (several controllers
-            were missing).
-    Michael Kerrisk
-        Add a subsection on cgroup v2 mount options and include 'nsdelegate'
-    Michael Kerrisk
-        Document the cgroups v2 'memory_localevents' mount option
-    Michael Kerrisk
-        SEE ALSO: add Documentation/admin-guide/cgroup-v2.rst
-
-namespaces.7
-    Michael Kerrisk
-        Add time namespaces information
-    Michael Kerrisk
-        Eliminate some superfluous info from display of /proc/PID/ns links
-
-path_resolution.7
-    Aleksa Sarai
-        Update to mention openat2(2) features
-
-socket.7
-    Michael Kerrisk
-        Note SCM message types for SO_TIMESTAMP and SO_TIMESTAMPNS
-
-tcp.7
-    Michael Kerrisk
-        SEE ALSO: mention Documentation/networking/ip-sysctl.txt
-
-time.7
-    Michael Kerrisk
-        Add small subsection on clocks and time namespaces
-
-unix.7
-    Heinrich Schuchardt
-        Correct example
-
-vsock.7
-    Stefano Garzarella  [Jorgen Hansen, Stefan Hajnoczi]
-        Add VMADDR_CID_LOCAL description
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+--sk2rmexkwnlikbil
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Sorry, I could've sworn I responded when you posted this -- comments
+below. And sorry for not getting back to you before the 5.06 release.
+
+On 2020-04-01, Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
+> On 3/31/20 4:39 PM, Aleksa Sarai wrote:
+> > On 2020-03-30, Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wro=
+te:
+> >> On 2/2/20 4:19 PM, Aleksa Sarai wrote:
+> >>> Rather than trying to merge the new syscall documentation into open.2
+> >>> (which would probably result in the man-page being incomprehensible),
+> >>> instead the new syscall gets its own dedicated page with links between
+> >>> open(2) and openat2(2) to avoid duplicating information such as the l=
+ist
+> >>> of O_* flags or common errors.
+> >>>
+> >>> In addition to describing all of the key flags, information about the
+> >>> extensibility design is provided so that users can better understand =
+why
+> >>> they need to pass sizeof(struct open_how) and how their programs will
+> >>> work across kernels. After some discussions with David Laight, I also
+> >>> included explicit instructions to zero the structure to avoid issues
+> >>> when recompiling with new headers.
+> >>>
+> >>> Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
+> >>
+> >> Thanks. I've applied this patch, but also done quite a lot of
+> >> editing of the page. The current draft is below (and also pushed=20
+> >> to Git). Could I ask you to review the page, to see if I injected
+> >> any error during my edits.
+> >=20
+> > Looks good to me.
+> >=20
+> >> In addition, I've added a number of FIXMEs in comments
+> >> in the page source. Can you please check these, and let me
+> >> know your thoughts.
+> >=20
+> > Will do, see below.
+> >=20
+> >> .\" FIXME I find the "previously-functional systems" in the previous
+> >> .\" sentence a little odd (since openat2() ia new sysycall), so I would
+> >> .\" like to clarify a little...
+> >> .\" Are you referring to the scenario where someone might take an
+> >> .\" existing application that uses openat() and replaces the uses
+> >> .\" of openat() with openat2()? In which case, is it correct to
+> >> .\" understand that you mean that one should not just indiscriminately
+> >> .\" add the RESOLVE_NO_XDEV flag to all of the openat2() calls?
+> >> .\" If I'm not on the right track, could you point me in the right
+> >> .\" direction please.
+> >=20
+> > This is mostly meant as a warning to hopefully avoid applications
+> > because the developer didn't realise that system paths may contain
+> > symlinks or bind-mounts. For an application which has switched to
+> > openat2() and then uses RESOLVE_NO_SYMLINKS for a non-security reason,
+> > it's possible that on some distributions (or future versions of a
+> > distribution) that their application will stop working because a system
+> > path suddenly contains a symlink or is a bind-mount.
+> >=20
+> > This was a concern which was brought up on LWN some time ago. If you can
+> > think of a phrasing that makes this more clear, I'd appreciate it.
+>=20
+> Thanks. I've made the text:
+>=20
+>                      Applications  that  employ  the RESOLVE_NO_XDEV flag
+>                      are encouraged to make its use configurable  (unless
+>                      it is used for a specific security purpose), as bind
+>                      mounts are widely used by end-users.   Setting  this
+>                      flag indiscriminately=E2=80=94i.e., for purposes not=
+ specif=E2=80=90
+>                      ically related to security=E2=80=94for all uses of o=
+penat2()
+>                      may  result  in  spurious errors on previously-func=
+=E2=80=90
+>                      tional systems.  This may occur if, for  example,  a
+>                      system  pathname  that  is used by an application is
+>                      modified (e.g., in a new  distribution  release)  so
+>                      that  a  pathname  component  (now)  contains a bind
+>                      mount.
+>=20
+> Okay?
+
+Yup, and the same text should be used for the same warning I gave for
+RESOLVE_NO_SYMLINKS (for the same reason, because system paths may
+switch to symlinks -- the prime example being what Arch Linux did
+several years ago).
+
+> >> .\" FIXME: what specific details in symlink(7) are being referred
+> >> .\" by the following sentence? It's not clear.
+> >=20
+> > The section on magic-links, but you're right that the sentence ordering
+> > is a bit odd. It should probably go after the first sentence.
+>=20
+> I must admit that I'm still confused. There's only the briefest of=20
+> mentions of magic links in symlink(7). Perhaps that needs to be fixed?
+
+It wouldn't hurt to add a longer description of magic-links in
+symlink(7). I'll send you a small patch to beef up the description (I
+had planned to include a longer rewrite with the O_EMPTYPATH patches but
+those require quite a bit more work to land).
+
+> And, while I think of it, the text just preceding that FIXME says:
+>=20
+>     Due to the potential danger of unknowingly opening=20
+>     these magic links, it may be preferable for users to=20
+>     disable their resolution entirely.
+>=20
+> This sentence reads a little strangely. Could you please give me some
+> concrete examples, and I will try rewording that sentence a bit.
+
+The primary example is that certain files (such as tty devices) are
+best not opened by an unsuspecting program (if you do not have a
+controlling TTY, and you open such a file that console becomes your
+controlling TTY unless you use O_NOCTTY).
+
+But more generally, magic-links allow programs to be "beamed" all over
+the system (bypassing ordinary mount namespace restrictions). Since they
+are fairly rarely used intentionally by most programs, this is more of a
+tip to programmers that maybe they should play it safe and disallow
+magic-links unless they are expecting to have to use them.
+
+> >> .\" FIXME I found the following hard to understand (in particular, the
+> >> .\" meaning of "scoped" is unclear) , and reworded as below. Is it oka=
+y?
+> >> .\"     Absolute symbolic links and ".." path components will be scope=
+d to
+> >> .\"     .IR dirfd .
+> >=20
+> > Scoped does broadly mean "interpreted relative to", though the
+> > difference is mainly that when I said scoped it's meant to be more of an
+> > assertive claim ("the kernel promises to always treat this path inside
+> > dirfd"). But "interpreted relative to" is a clearer way of phrasing the
+> > semantics, so I'm okay with this change.
+>=20
+> Okay.
+>=20
+> >> .\" FIXME The next piece is unclear (to me). What kind of ".." escape
+> >> .\" attempts does chroot() not detect that RESOLVE_IN_ROOT does?
+> >=20
+> > If the root is moved, you can escape from a chroot(2). But this sentence
+> > might not really belong in a man-page since it's describing (important)
+> > aspects of the implementation and not the semantics.
+>=20
+> So, should I just remove the sentence?
+
+Yup, sounds reasonable.
+
+--=20
+Aleksa Sarai
+Senior Software Engineer (Containers)
+SUSE Linux GmbH
+<https://www.cyphar.com/>
+
+--sk2rmexkwnlikbil
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQSxZm6dtfE8gxLLfYqdlLljIbnQEgUCXpNGpAAKCRCdlLljIbnQ
+Eu41AQC5eoSSECNWVaMgwzaC7W/Qobh6lI4TM6FTh5iy0Z1qqgD/Yq2YO1zmslfV
+YITOlptH67Fzel45Fqz0P0Zo0DgGgAE=
+=D0Zq
+-----END PGP SIGNATURE-----
+
+--sk2rmexkwnlikbil--
