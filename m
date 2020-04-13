@@ -2,64 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B18221A64C6
-	for <lists+linux-man@lfdr.de>; Mon, 13 Apr 2020 11:43:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 68F451A652A
+	for <lists+linux-man@lfdr.de>; Mon, 13 Apr 2020 12:28:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728054AbgDMJnH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 13 Apr 2020 05:43:07 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36806 "EHLO
+        id S1728108AbgDMK22 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 13 Apr 2020 06:28:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48490 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1727968AbgDMJnG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 13 Apr 2020 05:43:06 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1A2BAC014CDB
-        for <linux-man@vger.kernel.org>; Mon, 13 Apr 2020 02:43:06 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id c195so9755032wme.1
-        for <linux-man@vger.kernel.org>; Mon, 13 Apr 2020 02:43:06 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1727833AbgDMK21 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 13 Apr 2020 06:28:27 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D636AC0A3BDC
+        for <linux-man@vger.kernel.org>; Mon, 13 Apr 2020 03:28:26 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id i10so9610654wrv.10
+        for <linux-man@vger.kernel.org>; Mon, 13 Apr 2020 03:28:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=LcwckfY0OqHeI5u6DjiFAH1K4/ruT4TBBT9No69jKuk=;
-        b=TuiwiFNsfw0m5ia6xhQOCRzapPy6x+6/8GLLQUejmpH+HtuBqlbpNCRRR5TyDZOjvM
-         q1G3tCapNBYgF+GSSudTc3fKMX0iaBuaZGbf5OylQczeDOI4h8pMwfGJ5JQ0ARkwqmgJ
-         cONzWTz/z++/cnPsyfiU0dK/kxxA16SXbVXmXH+rX+KT1ErLo9vFDlc2q1df7PLzuWlY
-         8RkXaewUngjIYbiEtizQT5ALjkyHiUJWOiJW+GB4BiZzkwZciUP0sQbwMonSj7VbzSlo
-         FfZGjmT7gHR5x7RbfBaG5/iDOyQJfK11YWPITDvt2IGAUVmY6oJytllf6RaAdLr02V+h
-         /CUQ==
+        bh=YG7VGdu29eAMeFYO4p6jXwqkgGyDeDEWHIiwFZVOAqs=;
+        b=lFgbb9KuoVGBjbSsOf7WDKeSvOZ7f2gLTpfRk+Fbv2Q2UxCFvlWbxsRioIhOAKa/No
+         G0kkU4i4vv3dLFeCPVQ9rxom5sf9NoY8gyytWTaOgvQ6G+AQf6Cel9tA11FwhbPlSb5g
+         2IN1kRXgmNCh6LxQF3zbTm2C34qX7wxavSgOQpEg/5lZhfijiYArC6IneMDZWBg78Yco
+         oUU/k+O7v6G0unKlELLfYPkd9vYiVbO0eTVzwMRKQ5uviTpSjgVEbp4HiIgW+tpXOyMW
+         CPAtr1cu/YMCramENQOLWRLouIvduxP4xvPHQZhwMLD4OrS+A4y+5wNp7hQk4aLy8McE
+         iMsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=LcwckfY0OqHeI5u6DjiFAH1K4/ruT4TBBT9No69jKuk=;
-        b=ZHAC8lV6MfEOJq8Lnb+zL9jIeMIudRfGsw6/J35pHopRQfssr7brs4ITlSINa+MgQr
-         LNNp2eQQlSXPFLKfKg97P0ZgZvT4Bkobot9Vio/iY3aZqErU2IQ5F8oHLdWfdPQJKvtI
-         CaYTSBV4bjCLAPbtonObd3DeS4EYVoOuvWQ6vfJ74EevyhZtiCWBmHT8prnIm7QWcIRL
-         y2ojS+6XkZMGOcZ04AJts+xzA915UZBMZZgQKEP3v8z1IC9tGEZ6c/9BqiNRCo1hBViX
-         fXZpxXyb1KATuaC2Atw1MobXHh6wB3VWSO24GDbLJA/bycxtnGSRAggw1dc36Wx1bzoB
-         BxAQ==
-X-Gm-Message-State: AGi0PuaUGFQzZcoJ/vshMZ5bKnAkvCJfr4RLYhunjC4FbtRfFyjhUjGc
-        nIdqJf0sexOyEUUTUwC/valOM3q/XsE=
-X-Google-Smtp-Source: APiQypLAu6w7UyhMH1aZQHzCW6HqAa4NoizuwCzmPOUlwjBOzG3JQLhDYQLAyUVQ1tRfIL/j/iYUOw==
-X-Received: by 2002:a1c:80c3:: with SMTP id b186mr19352380wmd.117.1586770984675;
-        Mon, 13 Apr 2020 02:43:04 -0700 (PDT)
+        bh=YG7VGdu29eAMeFYO4p6jXwqkgGyDeDEWHIiwFZVOAqs=;
+        b=DEHLmbVixUsi8JXK46IA2yInSywr+jaIQK0uH2CaSzHGfS9g9Jk4TtaZDs8htYtJcu
+         UCLNWEQ3TiXZpTR9ZITBzbHo14L4yBdfW9FJX5ZA0USnQYVL6gxLIpxv1hf8Dzp3OJ5D
+         wSx0kG/5viy2Uw3X2J3b5R728gqBLLb1G1wc6da5SQ7dyuBCo3yxPZivN8ho5GNt9GCo
+         +eM+Agw0f2QBcF8sb/Pc/dIApKGxi2ypDlcjFYSE6wyhDf/LxM2/Ud2XjByVRIOnoOdY
+         pzAcUuYT/RVZ2CDgFo7ANSkGR8XLMAo+y4QOOEzH9K9oemxlFGkdWX0RiwdCeV6aIqAi
+         WUuw==
+X-Gm-Message-State: AGi0PuaLfdh0KgQnh5h3yMboyNdUS18S7mmS9YvtgRN6iaRgzAEfIpoA
+        MEl6OsQM0Q3iPPb7ZtKFzsZJkxBu5Ok=
+X-Google-Smtp-Source: APiQypJ7ghoNLW9UXAARxwcBvqjt+nMtBPlgJA076FB/ZjRaF8YNvy4gG1fxatPI1+sjOFK3wW+viw==
+X-Received: by 2002:adf:fd49:: with SMTP id h9mr18107325wrs.107.1586773705469;
+        Mon, 13 Apr 2020 03:28:25 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id 1sm13377173wmi.0.2020.04.13.02.43.04
+        by smtp.gmail.com with ESMTPSA id q10sm10184470wrv.95.2020.04.13.03.28.24
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Apr 2020 02:43:04 -0700 (PDT)
+        Mon, 13 Apr 2020 03:28:24 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [patch] sendfile.2: Document the correct required syscall for
- offsets
+Subject: Re: [patch] open.2: Document fs.protected_fifos and
+ fs.protected_regular
 To:     "Joseph C. Sible" <josephcsible@gmail.com>
-References: <CABpewhGK4nEo6S8BwJyS5VRtOX3P50rx25UUYH9cpVeJC4GEmw@mail.gmail.com>
+References: <CABpewhH=F8OV_RNOhuH6HAPnMj7eUMJ_+qD6F+HZgvP0D+OhGQ@mail.gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <e61e6439-2165-d9b7-965f-438a728c8a58@gmail.com>
-Date:   Mon, 13 Apr 2020 11:43:03 +0200
+Message-ID: <dba61b45-5648-b8c5-0929-59fc714e2938@gmail.com>
+Date:   Mon, 13 Apr 2020 12:28:24 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <CABpewhGK4nEo6S8BwJyS5VRtOX3P50rx25UUYH9cpVeJC4GEmw@mail.gmail.com>
+In-Reply-To: <CABpewhH=F8OV_RNOhuH6HAPnMj7eUMJ_+qD6F+HZgvP0D+OhGQ@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -70,56 +70,44 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hello Joseph,
 
-On 9/2/18 10:56 PM, Joseph C. Sible wrote:
-> There's not even any such syscall as "seek". (There is an "lseek",
-> but it's not correct here either.) The do_sendfile function in
-> fs/read_write.c tests for FMODE_PREAD before erroring with -ESPIPE,
-> so it's actually pread() that's required to work to use an offset.
-> ---
->  man2/sendfile.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+On 9/29/19 5:01 AM, Joseph C. Sible wrote:
+> The sysctls fs.protected_fifos and fs.protected_regular can cause
+> open(2) to fail with EACCES (see Documentation/sysctl/fs.txt for
+> details.)
 > 
-> diff --git a/man2/sendfile.2 b/man2/sendfile.2
-> index 4f85fdb..f316319 100644
-> --- a/man2/sendfile.2
-> +++ b/man2/sendfile.2
-> @@ -165,7 +165,7 @@ the input file or the output file.
->  .B ESPIPE
->  .I offset
->  is not NULL but the input file is not
-> -.BR seek (2)-able.
-> +.BR pread (2)-able.
->  .SH VERSIONS
->  .BR sendfile ()
->  first appeared in Linux 2.2.
+> Signed-off-by: Joseph C. Sible <josephcsible@gmail.com>
+> ---
+>  man2/open.2 | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/man2/open.2 b/man2/open.2
+> index b0f485b..9ee42b2 100644
+> --- a/man2/open.2
+> +++ b/man2/open.2
+> @@ -958,6 +958,16 @@ is not allowed.
+>  (See also
+>  .BR path_resolution (7).)
+>  .TP
+> +.B EACCES
+> +.\" commit 30aba6656f61ed44cba445a3c0d38b296fa9e8f5
+> +Where
+> +.B O_CREAT
+> +is specified, the fs.protected_fifos or fs.protected_regular sysctl is
+> +enabled, the file already exists and is a FIFO or regular file, the
+> +owner of the file is neither the current user nor the owner of the
+> +containing directory, and the containing directory is both world- or
+> +group-writable and sticky.
+> +.TP
+>  .B EDQUOT
+>  Where
+>  .B O_CREAT
+> --
 
-I'm not completely sure of the difference between FMODE_PREAD
-and "seekable", but the point is that in terms of what users
-understand, what is relevant here is "seekable" (as even stated
-in the pread(2) manual page).
-
-I applied the patch below. But if you can show me a meaningful
-difference between FMODE_PREAD and "seekable", I'd be happy
-to further update the text.
+Thanks! Patch applied.
 
 Cheers,
 
 Michael
-
-diff --git a/man2/sendfile.2 b/man2/sendfile.2
-index 4f85fdbd7..f0ead4a9b 100644
---- a/man2/sendfile.2
-+++ b/man2/sendfile.2
-@@ -164,8 +164,7 @@ the input file or the output file.
- .TP
- .B ESPIPE
- .I offset
--is not NULL but the input file is not
--.BR seek (2)-able.
-+is not NULL but the input file is not seekable.
- .SH VERSIONS
- .BR sendfile ()
- first appeared in Linux 2.2.
 
 
 -- 
