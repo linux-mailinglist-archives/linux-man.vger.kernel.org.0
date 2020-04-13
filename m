@@ -2,109 +2,165 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 707EB1A643E
-	for <lists+linux-man@lfdr.de>; Mon, 13 Apr 2020 10:41:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A0DEE1A64BF
+	for <lists+linux-man@lfdr.de>; Mon, 13 Apr 2020 11:39:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727787AbgDMIlX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 13 Apr 2020 04:41:23 -0400
-Received: from mail-ed1-f67.google.com ([209.85.208.67]:36327 "EHLO
-        mail-ed1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727770AbgDMIlW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 13 Apr 2020 04:41:22 -0400
-Received: by mail-ed1-f67.google.com with SMTP id i7so11106092edq.3
-        for <linux-man@vger.kernel.org>; Mon, 13 Apr 2020 01:41:20 -0700 (PDT)
+        id S1727792AbgDMJju (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 13 Apr 2020 05:39:50 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35720 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1728432AbgDMJjt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 13 Apr 2020 05:39:49 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7EEB6C008769
+        for <linux-man@vger.kernel.org>; Mon, 13 Apr 2020 02:31:16 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id r26so9359241wmh.0
+        for <linux-man@vger.kernel.org>; Mon, 13 Apr 2020 02:31:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to;
-        bh=gdqJRJMShfNwubAwl7ncVb9NGq8ixEs4ncvwdKNl05s=;
-        b=BayzDbB+nwLLP9++dHefYttNnn0X4m/QngBZ8DO0urmZg9QprzA4GexWyKdljqBDPr
-         W0tOKQAMUHprZfDp7hvyMgASb9r6/S2l+n1Ggz2bE0WoENsvW2P8gqMDYobMsISw/Ole
-         w0ebvRwbThO800zZpLPtZq/G66gJDJ7a/Z6+BRQti1+NH4Sd9kC6VVjxd5KBmF4KKqpU
-         MH6xta6j9MJcVIHVEj+AlkKQEZVN9lWAgO7dB9MXIGLsFV/gqcEbRaV4cFY8H6z9F/L6
-         Et8dq9oB8bHeFibbHcIztdQZAeZ2Mw26WpW2aup46dlVDFnvNPrEd4Y/Ffc/2Wtnwii6
-         dMLg==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=qY6vANAUDu5+S5ebtkk2fRilimuRHrhO9NlfZroNXsI=;
+        b=Q+1Hv6gZ3SHwTCVNSpCLXbD1mko1jdaAiMEL+4Xmvu77SJLCLSm6uWWuf7SAjiCCqL
+         Ewpq6BsdIcqX94IfNreaFT8D/m/VV12PDlSy7c8y4UJAf7yO4eJ1W/yitttdDYTS2I3X
+         Yq2Sa2/hd+F3YfXDCW9RHQeT1nDYY/imMydK/3QZ5YSp6s1s5bzZCwtFhQ96NYKZT/D2
+         WExNxG2wqW+RfoMN6HrTB+/lqBEN0igZPkK2mgQ0BWWRYjYlvZ9RLslznVgcchYU4YeQ
+         NdptxDSFTPQ1aGjpf2O/AiPwbcuxyGg13HVYEsQr9z7BRNMRua6qrHP2w+QdkZdO1ag7
+         lYpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to;
-        bh=gdqJRJMShfNwubAwl7ncVb9NGq8ixEs4ncvwdKNl05s=;
-        b=nVpChApy+3ONH6eN9FGuHKS563h71zUisAQg7gOmTPX3QhmXzE5fxK5y+Q4YTDoBh1
-         6snap40eGlcOAz/l36D5er4EQn9YY6pPxf7+8dnTQwXZvLGfSQKb3sX6SbhfWrvwSwsV
-         O5/Ru1uWlbwQzvlA0+UO4XQ3lqqlO/0ndzoOs8fmzYShmGzb5q4vf+i3PdfC1uWw7W5A
-         5MP7jC1sF4yDFijU1dvlsJ9aa6k8EoNJDo6nVXjfGdKuOLcwJfKwWITKhBJtY/wsmV0E
-         mdwAyUhplJJ0uKtVT4rBvk/HUuTfVyu/lywy+gZDJSMRH9mqUO9xDBiNx1ifDX6z4VbS
-         hE8Q==
-X-Gm-Message-State: AGi0Pubpyg9mZ7DcBTYDTSCXH5N8TcaeAwpx5Il2n3Ibfz3x8Oua13yo
-        7KRcdjEoYOc8byVukSfiJG1qX6hCRij+C26o6uM=
-X-Google-Smtp-Source: APiQypK5OM7JLxLQiabpYrKDUKVLi3nLOyV63ZyYgFJ1H9gdmXePMCdBPjbu4W9snXSyRTqD4wrlC0e460ehZlVmM2s=
-X-Received: by 2002:a17:906:54cd:: with SMTP id c13mr14410104ejp.307.1586767279742;
- Mon, 13 Apr 2020 01:41:19 -0700 (PDT)
-MIME-Version: 1.0
-References: <CABpewhFEkb4wMZ=nH8HrgTQ0N_LfNVMvJbXu5eJ37EzBzz0xdw@mail.gmail.com>
- <20180903174229.GA22027@altlinux.org>
-In-Reply-To: <20180903174229.GA22027@altlinux.org>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=qY6vANAUDu5+S5ebtkk2fRilimuRHrhO9NlfZroNXsI=;
+        b=r6Tcx792VxM94qmrjS7m/rZg5TYQng5vAEFLH3aaGdInQ8L3lB6LrtV6bsCv1ioBgW
+         5OB0pO0+lFAG4a1GwtNqtXkSQvJyoioQzZT/ZJcF1JCSJ5r2623D8HqgTPtqjc206OXj
+         YSY27fvRPEJf1vwK5pzdlqhsNLc4XU11fTwu6h4YBtzfNmZ9AjCHIhz3zxF+cw6tFVGK
+         gdUY2rotNFLZ1wUaHB7pRmfiB7CNglR9ygpkkCUh0ZJhUhUB+fu9F/Tz/7ZdJcxj51M8
+         yF++u/KMKwzNS3NeP//Z+jfdp8ADSATEPiQ8cFoddRHGaN+TzbXG4hwCG33YvwCaROPe
+         XjZA==
+X-Gm-Message-State: AGi0PuaoN9iWX4+W5kSPEnitRGFVmDVFyXFh2u6CtheImdBr7h/nlt98
+        W68u8talul+/wzXh+sZuzBXVASLuOME=
+X-Google-Smtp-Source: APiQypKaPxepGmg9idCU5U1PamYKrVWpwWmWHi5u5j/iFixSvJ2ccR8z8THvl8K1+EOYZZPhm9C/Lw==
+X-Received: by 2002:a7b:cdf7:: with SMTP id p23mr18312000wmj.33.1586770274970;
+        Mon, 13 Apr 2020 02:31:14 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
+        by smtp.gmail.com with ESMTPSA id e2sm14232465wrr.84.2020.04.13.02.31.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 13 Apr 2020 02:31:14 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [patch] signal.7: Expand on which thread receives signals
+To:     "Joseph C. Sible" <josephcsible@gmail.com>
+References: <CABpewhFjWWGFiETJd-7-RqVYk=T2o1kGmqT4otbrvzt2PYPUzQ@mail.gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 13 Apr 2020 10:41:08 +0200
-Message-ID: <CAKgNAkh==1hdH+UcJpn8bdY7axX_ZpX95tK-75_m2UxHEVgaKg@mail.gmail.com>
-Subject: Re: [patch] ptrace.2: Document PTRACE_SET_SYSCALL
-To:     "Joseph C. Sible" <josephcsible@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        "Dmitry V. Levin" <ldv@altlinux.org>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <877705d6-9ff3-8d4f-8895-57fc9e82963b@gmail.com>
+Date:   Mon, 13 Apr 2020 11:31:11 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
+MIME-Version: 1.0
+In-Reply-To: <CABpewhFjWWGFiETJd-7-RqVYk=T2o1kGmqT4otbrvzt2PYPUzQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Dmitry,
+Hi Joseph,
 
-On Mon, 3 Sep 2018 at 19:42, Dmitry V. Levin <ldv@altlinux.org> wrote:
->
-> On Mon, Sep 03, 2018 at 01:26:15PM -0400, Joseph C. Sible wrote:
+On 9/13/18 5:26 AM, Joseph C. Sible wrote:
+> Per this comment in kernel/signal.c since time immemorial
+> (i.e., the commit adding it is in the history repo instead of
+> the main Linux repo):
+> 
+> /*
+>  * Now find a thread we can wake up to take the signal off the queue.
+>  *
+>  * If the main thread wants the signal, it gets first crack.
+>  * Probably the least surprising to the average bear.
+>  */
 > > Signed-off-by: Joseph C. Sible <josephcsible@gmail.com>
-> > ---
-> >  man2/ptrace.2 | 23 ++++++++++++++++-------
-> >  1 file changed, 16 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/man2/ptrace.2 b/man2/ptrace.2
-> > index aea63d2..69699cc 100644
-> > --- a/man2/ptrace.2
-> > +++ b/man2/ptrace.2
-> [...]
-> > @@ -735,6 +728,22 @@ argument is treated as for
-> >  .RI ( addr
-> >  is ignored.)
-> >  .TP
-> > +.BR PTRACE_SET_SYSCALL " (since Linux 2.6.16)"
-> > +.\" commit 3f471126ee53feb5e9b210ea2f525ed3bb9b7a7f
-> > +When in syscall-enter-stop, change the number of the syscall about to
-> > +be executed to the number specified in the
-> > +.I data
-> > +argument. The
-> > +.I addr
-> > +argument is ignored. This request is currently
-> > +.\" As of 4.19-rc2
-> > +supported only on arm (and arm64, though only for backwards compatibility),
-> > +.\" commit 27aa55c5e5123fa8b8ad0156559d34d7edff58ca
-> > +but most other architectures have other means of accomplishing this
-> > +(usually by changing the register that the userland code passed the
-> > +syscall number in).
-> > +.\" see change_syscall in tools/testing/selftests/seccomp/seccomp_bpf.c
 >
-> I suggest replacing the reference to that huge file with a reference to
-> syscall(2) manpage that contains more detailed information in a much more
-> readable form.
+> ---
+>  man7/signal.7 | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/man7/signal.7 b/man7/signal.7
+> index 0fd4f66..abf0eb8 100644
+> --- a/man7/signal.7
+> +++ b/man7/signal.7
+> @@ -202,10 +202,14 @@ generated as a
+>  consequence of executing a specific machine-language instruction
+>  are thread directed, as are signals targeted at a specific thread using
+>  .BR pthread_kill (3)).
+> -A process-directed signal may be delivered to any one of the
+> -threads that does not currently have the signal blocked.
+> -If more than one of the threads has the signal unblocked, then the
+> -kernel chooses an arbitrary thread to which to deliver the signal.
+> +A process-directed signal may be delivered to any one of the threads
+> +that does not currently have the signal blocked, according to POSIX.
+> +On Linux, if the main thread has the signal unblocked, then the kernel
+> +will always deliver the signal there.
+> +.\" commit ebf5ebe31d2cd1e0f13e5b65deb0b4af7afd9dc1
+> +Otherwise, if more than one of the threads has the signal unblocked,
+> +then the kernel chooses an arbitrary thread to which to deliver the
+> +signal.
+>  .PP
+>  A thread can obtain the set of signals that it currently has pending
+>  using
 
-I'm not too worried about this, since the reference is just a comment
-in the page source, but I doiid also include your suggestion of
-strace's linux/*/set_scno.c files in comment in the page source.
+Thanks for the patch, but I am reluctant to document this too
+explicitly, since it is an implementations detail that is likely 
+different on other systems, and could change on Linux in the future
+(and was I presume different before 2.6.0). I think user-space
+applications should not be relying on it.
+
+Furthermore, documenting this as you suggest would give users
+the wrong idea about what happens. I mean: suppose that the signal
+was delivered to the main thread, where a handler was currently 
+executing. In that case, if a second signal arrived, then it would
+be handled in another thread, because at the moment the main thread
+is blocking the signal. (I've tested this, to be sure of it.)
+Your text might instead lead people to conclude that the signal
+would *always* be delivered only in the main thread, which is
+not the case.
+
+I've instead just noted some details as a comment in the page source.
 
 Thanks,
 
 Michael
+
+diff --git a/man7/signal.7 b/man7/signal.7
+index 58618f3b8..8760d2712 100644
+--- a/man7/signal.7
++++ b/man7/signal.7
+@@ -216,6 +216,24 @@ or
+ .PP
+ A process-directed signal may be delivered to any one of the
+ threads that does not currently have the signal blocked.
++.\" Joseph C. Sible notes:
++.\" On Linux, if the main thread has the signal unblocked, then the kernel
++.\" will always deliver the signal there, citing this kernel code
++.\"
++.\"     Per this comment in kernel/signal.c since time immemorial:
++.\"
++.\"     /*
++.\"     * Now find a thread we can wake up to take the signal off the queue.
++.\"     *
++.\"     * If the main thread wants the signal, it gets first crack.
++.\"     * Probably the least surprising to the average bear.
++.\"     */
++.\"
++.\" But this does not mean the signal will be delivered only in the
++.\" main thread, since if a handler is already executing in the main thread
++.\" (and thus the signal is blocked in that thread), then a further
++.\" might be delivered in a different thread.
++.\"
+ If more than one of the threads has the signal unblocked, then the
+ kernel chooses an arbitrary thread to which to deliver the signal.
+ .PP
 
 
 -- 
