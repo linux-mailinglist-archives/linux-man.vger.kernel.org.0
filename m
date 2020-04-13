@@ -2,115 +2,110 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 68F451A652A
-	for <lists+linux-man@lfdr.de>; Mon, 13 Apr 2020 12:28:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DBD341A65F9
+	for <lists+linux-man@lfdr.de>; Mon, 13 Apr 2020 13:53:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728108AbgDMK22 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 13 Apr 2020 06:28:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48490 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1727833AbgDMK21 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 13 Apr 2020 06:28:27 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D636AC0A3BDC
-        for <linux-man@vger.kernel.org>; Mon, 13 Apr 2020 03:28:26 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id i10so9610654wrv.10
-        for <linux-man@vger.kernel.org>; Mon, 13 Apr 2020 03:28:26 -0700 (PDT)
+        id S1727836AbgDMLxX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 13 Apr 2020 07:53:23 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43760 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729150AbgDMLtn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 13 Apr 2020 07:49:43 -0400
+X-Greylist: delayed 511 seconds by postgrey-1.27 at vger.kernel.org; Mon, 13 Apr 2020 07:49:43 EDT
+Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com [IPv6:2607:f8b0:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0E833C0085FA
+        for <linux-man@vger.kernel.org>; Mon, 13 Apr 2020 04:41:10 -0700 (PDT)
+Received: by mail-pf1-x436.google.com with SMTP id x3so4122104pfp.7
+        for <linux-man@vger.kernel.org>; Mon, 13 Apr 2020 04:41:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=YG7VGdu29eAMeFYO4p6jXwqkgGyDeDEWHIiwFZVOAqs=;
-        b=lFgbb9KuoVGBjbSsOf7WDKeSvOZ7f2gLTpfRk+Fbv2Q2UxCFvlWbxsRioIhOAKa/No
-         G0kkU4i4vv3dLFeCPVQ9rxom5sf9NoY8gyytWTaOgvQ6G+AQf6Cel9tA11FwhbPlSb5g
-         2IN1kRXgmNCh6LxQF3zbTm2C34qX7wxavSgOQpEg/5lZhfijiYArC6IneMDZWBg78Yco
-         oUU/k+O7v6G0unKlELLfYPkd9vYiVbO0eTVzwMRKQ5uviTpSjgVEbp4HiIgW+tpXOyMW
-         CPAtr1cu/YMCramENQOLWRLouIvduxP4xvPHQZhwMLD4OrS+A4y+5wNp7hQk4aLy8McE
-         iMsA==
+        h=mime-version:reply-to:from:date:message-id:subject:to
+         :content-transfer-encoding;
+        bh=qlKWExEze9qCqlwbpw1q4+d2Zjr4ETGVa64TcX+dTlk=;
+        b=HxOaFJZljqXQIeSLw7dw+YeTIVe76Yo57NkC3rYQjPPsruaWLZEetJYgTw7mDA7iYw
+         4KM/sQKuVdxfTyBgHy0QGrcgvhBAp/s2WR+7lhwMEms7c5U3ARzlxX4w9gHN6kyIVCTo
+         InVjjBwajQbgYMLlLr/dGAnfAOq75HLmi2bmQShdg5UrDH6ZNHdmpjirCjsFE3E+W3lI
+         4HPNdhIk9GHy3wOVy8qt79oLhQ3V0WJ+l2R8YfTk5No8OB207Mc1ssyzLdiNdU6iDIon
+         HSnId1sWR9JHq8BkscMOY+TVCS7WuDDdfTSRJRDObUGUY3pKdsd/NGq97n4qtv5szVJr
+         IEMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=YG7VGdu29eAMeFYO4p6jXwqkgGyDeDEWHIiwFZVOAqs=;
-        b=DEHLmbVixUsi8JXK46IA2yInSywr+jaIQK0uH2CaSzHGfS9g9Jk4TtaZDs8htYtJcu
-         UCLNWEQ3TiXZpTR9ZITBzbHo14L4yBdfW9FJX5ZA0USnQYVL6gxLIpxv1hf8Dzp3OJ5D
-         wSx0kG/5viy2Uw3X2J3b5R728gqBLLb1G1wc6da5SQ7dyuBCo3yxPZivN8ho5GNt9GCo
-         +eM+Agw0f2QBcF8sb/Pc/dIApKGxi2ypDlcjFYSE6wyhDf/LxM2/Ud2XjByVRIOnoOdY
-         pzAcUuYT/RVZ2CDgFo7ANSkGR8XLMAo+y4QOOEzH9K9oemxlFGkdWX0RiwdCeV6aIqAi
-         WUuw==
-X-Gm-Message-State: AGi0PuaLfdh0KgQnh5h3yMboyNdUS18S7mmS9YvtgRN6iaRgzAEfIpoA
-        MEl6OsQM0Q3iPPb7ZtKFzsZJkxBu5Ok=
-X-Google-Smtp-Source: APiQypJ7ghoNLW9UXAARxwcBvqjt+nMtBPlgJA076FB/ZjRaF8YNvy4gG1fxatPI1+sjOFK3wW+viw==
-X-Received: by 2002:adf:fd49:: with SMTP id h9mr18107325wrs.107.1586773705469;
-        Mon, 13 Apr 2020 03:28:25 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id q10sm10184470wrv.95.2020.04.13.03.28.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Apr 2020 03:28:24 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [patch] open.2: Document fs.protected_fifos and
- fs.protected_regular
-To:     "Joseph C. Sible" <josephcsible@gmail.com>
-References: <CABpewhH=F8OV_RNOhuH6HAPnMj7eUMJ_+qD6F+HZgvP0D+OhGQ@mail.gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <dba61b45-5648-b8c5-0929-59fc714e2938@gmail.com>
-Date:   Mon, 13 Apr 2020 12:28:24 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to:content-transfer-encoding;
+        bh=qlKWExEze9qCqlwbpw1q4+d2Zjr4ETGVa64TcX+dTlk=;
+        b=WcPU0brcyx/OvJkWYJt0iCyGAmA0DWOPafJD0UkHrQCAfqPAlHn8TFX0uXmXQFz6c2
+         +0w9AhwZj8S44azzBCoiwMV0nHl0PzX7c5wi4sKN7fG2yea1edJdDa4lHPd/MzFEqNUb
+         IlA/W0adkqvq+Cs5iOSBCYDOQFODpIV2XhnIIPnssKpvf7qtvmMSLPN7pJ3DBU1yqXYr
+         XA4D+lV1Ocu/EUiedzttHp3ooiorSBYIqhvLBUYfApzJWW8jEvndxj8wPZstXB1C1xgp
+         mrAOxY9mCOIDkEZojEkx8g85XaXre99kHjnGP2tqmXtSLSNWr2vVdrjgJpH6aPW1Wv36
+         uOXw==
+X-Gm-Message-State: AGi0PuYLM9J5TH5NOaXWkY1fJGhI+02G47n5moyyLRCmU4Mrb7TFbRfi
+        WTse1/wyVeVziHLA7Or2CqIH/JtnFJmCHUVufIl91g4=
+X-Google-Smtp-Source: APiQypJ8Xf5JZIaJmuakcegBHklRN/w3ObzOY1fG2hZhiF0393fUgrxf6qaSVcLD5pLEm/4TEQgoj9oGK8tQ5EeyGAU=
+X-Received: by 2002:a05:6e02:c8f:: with SMTP id b15mr14965961ile.35.1586778068198;
+ Mon, 13 Apr 2020 04:41:08 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CABpewhH=F8OV_RNOhuH6HAPnMj7eUMJ_+qD6F+HZgvP0D+OhGQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Received: by 2002:a02:5e49:0:0:0:0:0 with HTTP; Mon, 13 Apr 2020 04:41:07
+ -0700 (PDT)
+Reply-To: mgbenin903@gmail.com
+From:   Barrister Robert Richter UN-Attorney at Law Court-Benin 
+        <info.zennitbankplcnigerian@gmail.com>
+Date:   Mon, 13 Apr 2020 13:41:07 +0200
+Message-ID: <CABHzvrm3rWryg1yAooKeHwdxzrKD47PRAEfC+ay1A6i5z3Wdiw@mail.gmail.com>
+Subject: I have already sent you first payment US$5000.00 this morning through
+ MONEY Gram service.it is available to pick up in address now.
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Joseph,
+ATTN DEAR BENEFICIARY.
 
-On 9/29/19 5:01 AM, Joseph C. Sible wrote:
-> The sysctls fs.protected_fifos and fs.protected_regular can cause
-> open(2) to fail with EACCES (see Documentation/sysctl/fs.txt for
-> details.)
-> 
-> Signed-off-by: Joseph C. Sible <josephcsible@gmail.com>
-> ---
->  man2/open.2 | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/man2/open.2 b/man2/open.2
-> index b0f485b..9ee42b2 100644
-> --- a/man2/open.2
-> +++ b/man2/open.2
-> @@ -958,6 +958,16 @@ is not allowed.
->  (See also
->  .BR path_resolution (7).)
->  .TP
-> +.B EACCES
-> +.\" commit 30aba6656f61ed44cba445a3c0d38b296fa9e8f5
-> +Where
-> +.B O_CREAT
-> +is specified, the fs.protected_fifos or fs.protected_regular sysctl is
-> +enabled, the file already exists and is a FIFO or regular file, the
-> +owner of the file is neither the current user nor the owner of the
-> +containing directory, and the containing directory is both world- or
-> +group-writable and sticky.
-> +.TP
->  .B EDQUOT
->  Where
->  .B O_CREAT
-> --
+GOOD NEWS.
 
-Thanks! Patch applied.
+I have already sent you first payment US$5000.00 this morning through
+MONEY Gram service.it is available to pick up in address now.
 
-Cheers,
-
-Michael
+So we advise you to Contact This Money Gram office to pick up your
+transfer $US5000.00 today.
 
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Note that your compensation payment funds is total amount $US2.800,000
+Million Dollars.We have instructed the Money Gram Agent,Mr. James
+Gadner to keep sending the transfer to you daily, but the maximum
+amount you will be receiving everyday is US$5000.00. Contact Agent now
+to pick up your first payment $US5000.00 immediately.
+
+Contact Person, Mr. James Gadner, Dir. Money Gram Benin.
+Email: mgbenin903@gmail.com
+Telephone Numbers: +229 62819378/ +229 98477762
+
+HERE IS YOUR PAYMENT DETAILS FOR THE FIRST =C2=A3US5000.00 SENT TODAY.
+
+Track View Website link:
+https://secure.moneygram.com/track
+Sender=E2=80=99s First name: David
+Sender=E2=80=99s Last Name: Joiner
+Money Transfer Control Number (MTCN) (REFERENCE)# 26046856
+
+Contact the Mmoney Gram Urgent and reconfirm your address to the
+office before, they will allow you to pick up the transfer today.
+
+HERE IS WHAT REQUIRED OF YOU.
+
+YOUR FULL NAME---------
+ADDRESS--------------
+COUNTRY-----------------------------
+TELEPHONE NUMBERS-----------------
+
+Note, I paid the transfer fee for you, but only you are required to
+send to the office is $75 only,Been Your Payment File activation fee,
+Send once you contact the office,before you can able to pick up your
+transfer today.
+
+Let me know once you pick up first payment today.
+
+Barrister Robert Richter UN-Attorney at Law Court-Benin
