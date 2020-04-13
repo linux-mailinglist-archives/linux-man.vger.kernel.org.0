@@ -1,131 +1,121 @@
 Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from vger.kernel.org (unknown [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id B59221A63BC
-	for <lists+linux-man@lfdr.de>; Mon, 13 Apr 2020 09:31:49 +0200 (CEST)
+Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
+	by mail.lfdr.de (Postfix) with ESMTP id C3D8B1A6443
+	for <lists+linux-man@lfdr.de>; Mon, 13 Apr 2020 10:43:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729344AbgDMHbs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 13 Apr 2020 03:31:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.18]:33128 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727612AbgDMHbs (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 13 Apr 2020 03:31:48 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 34666C008651
-        for <linux-man@vger.kernel.org>; Mon, 13 Apr 2020 00:31:47 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id o81so2982878wmo.2
-        for <linux-man@vger.kernel.org>; Mon, 13 Apr 2020 00:31:47 -0700 (PDT)
+        id S1727800AbgDMIhw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 13 Apr 2020 04:37:52 -0400
+Received: from mail-ed1-f67.google.com ([209.85.208.67]:34480 "EHLO
+        mail-ed1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727779AbgDMIhu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 13 Apr 2020 04:37:50 -0400
+Received: by mail-ed1-f67.google.com with SMTP id s29so5549226edc.1
+        for <linux-man@vger.kernel.org>; Mon, 13 Apr 2020 01:37:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=aWZi+YZXhFQpwzKyq7M6PxwCm1cz/WUQRiw+dAhqfSs=;
-        b=G25zr/0mW1zh12dxrECM+O/+aaIf9hCfdqD8lQZVxcIaUdVuVd8neyfZ1f3ifUUozR
-         L3MgC2s6y9x+/hsg2pMNw+9LQoMZrE+DdOxxzG8kfl6pOcPAXueGtDShKRthxfrn1JYC
-         N/FxefV0BrFXCU4NvMaX+1GNfvElgqMk0hHD0ZThFcmemPEQIPFLF7bVpz15KTFNlpqR
-         CLCvNFF9fB1La2BAmyxAI6Vyd2k1WobfqwcrwxQXXkrX2CzZX4yPuoUZO/pKzb1eEASu
-         6L1gL3IFmeJvD+5n6mPCp6LifqSu/Os0b9omkU0kYqZvcQEGFSexL4WBkfS77uAX1+gI
-         Cuuw==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=OYukWcTNT+NfaZVQ06N7/9Kw5jp+PyoJ2sWjW2687FE=;
+        b=EnbahG75Po1eef9FUaAvXzuULNaFhoq67tyY1li3iZocSZ8MBMKphWWYS9qkYPlS0K
+         rwoT3x+7G4XRhGCW8VPRSf5Zf6Bt57/bP7OFeiFMDvfWPEzvQ8fckxQUKrn4qvgDz2g1
+         psZhCn/yCaJ24xv2Nvc2jQxuqbq8/9cLBpi76CYU61JeukEZJI7tLadb+BQflrfMTKrn
+         VluSj0V4FtUA55Jkx7+xUZ5Ybspo7MXaTwTYXZyk5mqa9CMGnvnRsBAFXyXi/+VVUxNf
+         hVzQYXs46PwOdtwA4gX8DjFGTJ7iFoUcS5ijVr0+Tq/1vbOSLn6rZ21dV0yKGWwx56zQ
+         v3yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=aWZi+YZXhFQpwzKyq7M6PxwCm1cz/WUQRiw+dAhqfSs=;
-        b=WYDg2vHJnSwjPcs1vgG+XuWSIxhNG46NRnq15WEovrA73Ah5mXJjQFzkzhTskE4Nho
-         CFnjz2riJ9YI2R/cyjr014tVG0VsR0dP4leylhZz2qAu06V63Xw7AB0IlOtMmkqNU2X8
-         O/FkMZ0tJL2O28z9uQx5dILyg/qyUI0agLMbcIezvLpvM9UDBE8Lwhf5fuuMsAN6e/os
-         kTakLgn2a7LEzI6b36kv3JsoC2gc9OY3shEm96yaDuVS8yIA4OaxilR7eHcRyPnqkmA+
-         /9cS2Kfai0TiVk5GWjE83BKRWUyk89M6WKEjW/cN+yUpgVihYMbJYGfdBsqNSvJAnpyD
-         hjYA==
-X-Gm-Message-State: AGi0Pub8MqiYVvBV/snkNHwzHFI5hmhDOovqP+ywfmi2z137DaUFaz4J
-        DFfFT5wTEe8h50VGBYKcgAXlosc1
-X-Google-Smtp-Source: APiQypJ1aWNsE7xgTVMSS7M5q3G321iHLE5r51xj7X3mWCsY36w2ZcH04B4MEHJf8EvlwmA/KzNrmQ==
-X-Received: by 2002:a1c:1d84:: with SMTP id d126mr17167841wmd.119.1586763105777;
-        Mon, 13 Apr 2020 00:31:45 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id m14sm11595414wrs.76.2020.04.13.00.31.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Apr 2020 00:31:45 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] proc.5: Fix an outdated note about map_files
-To:     Keno Fischer <keno@juliacomputing.com>
-References: <20200412080930.GA30569@juliacomputing.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <93fcc787-544d-7dbc-f389-d7dc9ca3ad28@gmail.com>
-Date:   Mon, 13 Apr 2020 09:31:44 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=OYukWcTNT+NfaZVQ06N7/9Kw5jp+PyoJ2sWjW2687FE=;
+        b=jttXTHvduYZ2AwjMw05urRTJfBD3mM7RVG5NxayMKDqv7Yvc+6T6BNHaYN6KxOmNg0
+         +IzQaa21jANLMYWvuq3jpQlYOlsa6R2+BOv478f/cnfKolqCZDL97ieJkJWcqmbbo8kH
+         9QS7vWb+P/LexLhvr0sZtd6uQvKa/BiIuUILm2EstTo0oa6Up3IDUZMyAQBZQ6e8P8AN
+         2VOkHo4apnZ2e6Be8Ja6T4YucT4nvrWrb0KIp2CmGWg8wHpge+IJzGwVIlWJah+fZkZf
+         O6BfN8yJz5zIQ4vidM3CANsCHUDqLTYLbc4HWZegor2ifiUlNaDf6No85h3mf1tZpJ3b
+         eyOQ==
+X-Gm-Message-State: AGi0PuZxcP8jQhG1NTHusxEbc+RvGcFR/QeJcPOOEciBoA8/Ebbaq4o8
+        iWTTxoVGAM2E+r0RLALMZp1tkr9sSqIeFK/GQtDtHA==
+X-Google-Smtp-Source: APiQypKOitbGZFXXW0Q2UWbG9QMVlfCXDlQA9vl/b/scgPI0psyQ+upS4v+w65lzQabapMhQbce8r4n0V5Z0bzNi0es=
+X-Received: by 2002:a17:906:1fd6:: with SMTP id e22mr12565514ejt.150.1586767067242;
+ Mon, 13 Apr 2020 01:37:47 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200412080930.GA30569@juliacomputing.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <CABpewhFEkb4wMZ=nH8HrgTQ0N_LfNVMvJbXu5eJ37EzBzz0xdw@mail.gmail.com>
+In-Reply-To: <CABpewhFEkb4wMZ=nH8HrgTQ0N_LfNVMvJbXu5eJ37EzBzz0xdw@mail.gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 13 Apr 2020 10:37:36 +0200
+Message-ID: <CAKgNAkhjkiChp6vDjCB9HXA4tkTXt-kVNuXm=WikSa=8RH35dg@mail.gmail.com>
+Subject: Re: [patch] ptrace.2: Document PTRACE_SET_SYSCALL
+To:     "Joseph C. Sible" <josephcsible@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Keno,
+Hello Joseph,
 
-On 4/12/20 10:09 AM, Keno Fischer wrote:
-> The restriction to CAP_SYS_ADMIN was removed from map_files in 2015 [1].
-> There was a fixme that indicted this might happen, but the main text was
-> never updated when this commit landed. While we're at it, add a note about
-> the ptrace access check that is still required.>
-> [1] https://github.com/torvalds/linux/commit/bdb4d100afe9818aebd1d98ced575c5ef143456c
-> 
-> Signed-off-by: Keno Fischer <keno@juliacomputing.com>
+On Mon, 3 Sep 2018 at 19:26, Joseph C. Sible <josephcsible@gmail.com> wrote:
+>
+> Signed-off-by: Joseph C. Sible <josephcsible@gmail.com>
 
-Thank you. Such a nicely written patch!
-
-The FIXME was mine, bit obviously I lost the plot after I wrote it.
-Thanks for catching this.
-
-Patch applied.
+Thanks. Patch (finally) applied.
 
 Cheers,
 
 Michael
 
-
 > ---
->  man5/proc.5 | 18 ++++++++++--------
->  1 file changed, 10 insertions(+), 8 deletions(-)
-> 
-> diff --git a/man5/proc.5 b/man5/proc.5
-> index 34cb957dd..0d6043c8f 100644
-> --- a/man5/proc.5
-> +++ b/man5/proc.5
-> @@ -1090,16 +1090,18 @@ lrw\-\-\-\-\-\-\-. 1 root root 64 Apr 16 21:33
->  .EE
->  .in
->  .IP
-> -This directory appears only if the
-> +Permission to access this file is governed by a ptrace access mode
-> +.B PTRACE_MODE_READ_FSCREDS
-> +check; see
-> +.BR ptrace (2).
-> +.IP
-> +.\" This permissions check got removed in kernel commit bdb4d100a
-> +Until kernel version 4.3, this directory appeared only if the
->  .B CONFIG_CHECKPOINT_RESTORE
-> -kernel configuration option is enabled.
-> -Privilege
-> +kernel configuration option was enabled.
-> +Additionally, in those kernel versions, privilege
->  .RB ( CAP_SYS_ADMIN )
-> -.\" FIXME
-> -.\" This may change. See the mail thread
-> -.\" "[RFC][PATCH v2] procfs: Always expose /proc/<pid>/map_files/ and make it readable"
-> -.\" from Jan 2015
-> -is required to view the contents of this directory.
-> +was required to view the contents of this directory.
+>  man2/ptrace.2 | 23 ++++++++++++++++-------
+>  1 file changed, 16 insertions(+), 7 deletions(-)
+>
+> diff --git a/man2/ptrace.2 b/man2/ptrace.2
+> index aea63d2..69699cc 100644
+> --- a/man2/ptrace.2
+> +++ b/man2/ptrace.2
+> @@ -51,13 +51,6 @@
+>  .\"    ARM
+>  .\"    Linux 2.6.12
+>  .\"
+> -.\" PTRACE_SET_SYSCALL
+> -.\"    ARM and ARM64
+> -.\"    Linux 2.6.16
+> -.\"    commit 3f471126ee53feb5e9b210ea2f525ed3bb9b7a7f
+> -.\"    Author: Nicolas Pitre <nico@cam.org>
+> -.\"    Date:   Sat Jan 14 19:30:04 2006 +0000
+> -.\"
+>  .\" PTRACE_GETCRUNCHREGS
+>  .\" PTRACE_SETCRUNCHREGS
+>  .\"    ARM
+> @@ -735,6 +728,22 @@ argument is treated as for
+>  .RI ( addr
+>  is ignored.)
 >  .TP
->  .I /proc/[pid]/maps
->  A file containing the currently mapped memory regions and their access
-> 
+> +.BR PTRACE_SET_SYSCALL " (since Linux 2.6.16)"
+> +.\" commit 3f471126ee53feb5e9b210ea2f525ed3bb9b7a7f
+> +When in syscall-enter-stop, change the number of the syscall about to
+> +be executed to the number specified in the
+> +.I data
+> +argument. The
+> +.I addr
+> +argument is ignored. This request is currently
+> +.\" As of 4.19-rc2
+> +supported only on arm (and arm64, though only for backwards compatibility),
+> +.\" commit 27aa55c5e5123fa8b8ad0156559d34d7edff58ca
+> +but most other architectures have other means of accomplishing this
+> +(usually by changing the register that the userland code passed the
+> +syscall number in).
+> +.\" see change_syscall in tools/testing/selftests/seccomp/seccomp_bpf.c
+> +.TP
+>  .BR PTRACE_SYSEMU ", " PTRACE_SYSEMU_SINGLESTEP " (since Linux 2.6.14)"
+>  For
+>  .BR PTRACE_SYSEMU ,
+> --
+> 2.7.4
+
 
 
 -- 
