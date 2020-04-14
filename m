@@ -2,60 +2,92 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9A6621A88AD
-	for <lists+linux-man@lfdr.de>; Tue, 14 Apr 2020 20:10:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 817DC1A8AC8
+	for <lists+linux-man@lfdr.de>; Tue, 14 Apr 2020 21:31:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731313AbgDNSKE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 14 Apr 2020 14:10:04 -0400
-Received: from mx2.suse.de ([195.135.220.15]:60838 "EHLO mx2.suse.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1731269AbgDNSKD (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 14 Apr 2020 14:10:03 -0400
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
-        by mx2.suse.de (Postfix) with ESMTP id EC39EAE24;
-        Tue, 14 Apr 2020 18:10:01 +0000 (UTC)
-Date:   Tue, 14 Apr 2020 20:10:01 +0200
-From:   Petr Vorel <pvorel@suse.cz>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, David Howells <dhowells@redhat.com>
-Subject: Re: [PATCH 1/1] getdents.2: Mention glibc support for getdents64()
-Message-ID: <20200414181001.GA619561@x230>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-References: <20191007135315.2214-1-pvorel@suse.cz>
- <39488d73-6d42-3213-98c3-5dc4f54203aa@gmail.com>
+        id S2504781AbgDNT3z (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 14 Apr 2020 15:29:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57534 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1731143AbgDNT3p (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 14 Apr 2020 15:29:45 -0400
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E22CAC03C1AA
+        for <linux-man@vger.kernel.org>; Tue, 14 Apr 2020 12:10:40 -0700 (PDT)
+Received: by mail-ed1-x544.google.com with SMTP id j20so1173875edj.0
+        for <linux-man@vger.kernel.org>; Tue, 14 Apr 2020 12:10:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=ns6RcvThXSJZKselq/kTjjAwUKGMJRMHIGsV1cXq/Vk=;
+        b=YVO7qmJvNdb3+chkjPCDutlv43N6BjnMQVy13scGIr2mhlipKXegdRSk/ShX5icehE
+         /HhhR6OqRem/3+RZcp9mmQzpJzDqPySN4o5Il89waYHKKxXoEjn5Vv5wQdH1WVsk5lCs
+         HdJJQ4B8yYgjYdOB6wgS2j9SezNjm2KpBlnfR+TwsW7H+uTq5mHvbVNWlBMHjVuBruhN
+         UDRpzQmfY4rRXkuWNjltdkf8pS1ejcjvsoR/7TGUas5DgwaYpxRKppvvQOCA8f/7mBZz
+         MEVNIKuBsYYu67weNrBtjnzLcKFLpafY92NfBKXYZR5d/yp0YiSXeBP1zJ1NHabmO1IA
+         JsWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=ns6RcvThXSJZKselq/kTjjAwUKGMJRMHIGsV1cXq/Vk=;
+        b=BuZZsB845DOUc+bXgGQFRjhesNfzEy5DuTwnwM/XE/QIUbKgRnLQTt2xrPRMsutbdx
+         zDqPZ1p4o+rpCUPVcSjr16XwYj6QmR3Z5v37/ifXjEqjFnBoSh+NG46LcUM3xf9FEHEO
+         vqTD94aRMXoxmtxzGZLQKZtljSFgIFEQ04EgcRYeEIEvybWN98EH+hvA4LPnkqj6skRG
+         OHItCDgalyt1IbWmR9DNHM1SAptteiE+HPaTTkLjUCa/yxrCJEJGCUSFXTWvu5sXFnGi
+         MeFYC51lGaQo7scXs9k0ELRstmVulcZNTnl6fEE+8Hh/M9KKbCviklZddeFoT55kjFp9
+         neLw==
+X-Gm-Message-State: AGi0PuathFdFx/sTpS72WoZbkXGtmZK3OI3lRpZY9rweK4zNo10iUbNG
+        8SeOo8tFs6llyrAfwB7jcZYMnAkxXeZ/c/FeMvD9f75E
+X-Google-Smtp-Source: APiQypLXV5isHsTFVohtPZPgqbm8BeRn6ZfFEtG2DbGKr4YiYzyNE04teMUl+r+9Vge0UJkSxmNOyrJSHoQOLt3DzCI=
+X-Received: by 2002:a17:906:48ce:: with SMTP id d14mr1466286ejt.113.1586891439511;
+ Tue, 14 Apr 2020 12:10:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <39488d73-6d42-3213-98c3-5dc4f54203aa@gmail.com>
+References: <90ecc432-951f-b83b-e5cb-487fa871a1ec@gmx.de> <3e169e56-b0a6-9099-957e-4304211891bb@gmail.com>
+ <2a78056e-ff07-a4a2-5055-866501dd8466@gmx.de>
+In-Reply-To: <2a78056e-ff07-a4a2-5055-866501dd8466@gmx.de>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Tue, 14 Apr 2020 21:10:28 +0200
+Message-ID: <CAKgNAkjCuYGXm_S9NmcMCVQxLjCq8wB-ocESfaqRyu8KG1USaA@mail.gmail.com>
+Subject: Re: mmap(2): MAP_ANON
+To:     Heinrich Schuchardt <xypron.glpk@gmx.de>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+> > I've applied the patch below.
+>
+> Somehow the patch got lost in the mail. Couldn't identify it upstream
+> (https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git) either.
 
-> On 10/7/19 3:53 PM, Petr Vorel wrote:
-> > Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> > ---
-> >  man2/getdents.2 | 9 ++++++---
-> >  1 file changed, 6 insertions(+), 3 deletions(-)
+Ooops. This time...
 
-> > diff --git a/man2/getdents.2 b/man2/getdents.2
-> > index 712d23c58..a6b7aad1f 100644
+Cheers,
 
-> Thanks. Patch applied.
-Thanks a lot. I still don't see this patch in master (nor in other branches),
-but you just maybe haven't pushed the changes.
+Michael
 
-BTW it'd be great if you push patch "Add manpage for fsopen(2), fspick(2) and
-fsmount(2)" [1] and "Add manpages for move_mount(2) and open_tree(2)" [2] I sent
-2 months ago. It's based on David Howells' work with few obvious fixes.
-It might not be perfect, but IMHO it's a good start and it'd be great to have
-these recent syscalls documented.
+diff --git a/man2/mmap.2 b/man2/mmap.2
+index 963776e80..667cf311d 100644
+--- a/man2/mmap.2
++++ b/man2/mmap.2
+@@ -193,8 +193,8 @@ is set.
+ .TP
+ .B MAP_ANON
+ Synonym for
+-.BR MAP_ANONYMOUS .
+-Deprecated.
++.BR MAP_ANONYMOUS ;
++provided for compatibility with other implementations.
+ .TP
+ .B MAP_ANONYMOUS
+ The mapping is not backed by any file;
 
-Kind regards,
-Petr
-
-[1] https://marc.info/?l=linux-man&m=158109737807969&w=2
-[2] https://marc.info/?l=linux-man&m=158109737907972&w=2
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
