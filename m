@@ -2,120 +2,110 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 68AC11A791E
-	for <lists+linux-man@lfdr.de>; Tue, 14 Apr 2020 13:08:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 078DE1A7952
+	for <lists+linux-man@lfdr.de>; Tue, 14 Apr 2020 13:23:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2438955AbgDNLIt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 14 Apr 2020 07:08:49 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35380 "EHLO
+        id S2439021AbgDNLXM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 14 Apr 2020 07:23:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37660 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S2438931AbgDNLIN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 14 Apr 2020 07:08:13 -0400
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 986A7C061A0C
-        for <linux-man@vger.kernel.org>; Tue, 14 Apr 2020 04:08:12 -0700 (PDT)
-Received: by mail-ed1-x543.google.com with SMTP id s29so11018692edc.1
-        for <linux-man@vger.kernel.org>; Tue, 14 Apr 2020 04:08:12 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S2438988AbgDNLXL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 14 Apr 2020 07:23:11 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 744E7C061A0C
+        for <linux-man@vger.kernel.org>; Tue, 14 Apr 2020 04:23:09 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id r26so13544892wmh.0
+        for <linux-man@vger.kernel.org>; Tue, 14 Apr 2020 04:23:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=cIusKy0r/0WwrSG98slxIg4eAVaoZWHHNBgm5QP3oj4=;
-        b=WNigRdXVxEaQBDTDlywZw41aNjS1g0Tvufju6LwODOwioh5GYek8QJ17fy8FRtVtku
-         UJQa6oYZOF9zZb+0q0xP4IYSoxE2l9+Lc5PbQDBqkjXxY5SWkeVSqu/SnZfB+/EiVBrh
-         qPXrz0/WpJ3xMgkjO5nmIozPzPq6cIMYGvTxxCBxQtcPaP1ewYVcb+thwXvkHoLfs9Oq
-         gj5SXygTZ75A54ZS7Vewi53S9PBiVj4wGGsJiYsWdNu39Qby5DdAP6P3OZl6t6JZ4FL5
-         8vT2YPnyNdDfy5TKErn5X4ijFT1ggp9qXOIgWeHGzOwycVZ8iPXtuiIh1K0YFGT8xs/i
-         l7lg==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=p4ld2HNSxA7hUQIiC5sXUyMQCo4hbS4i8zkC6pzKzcY=;
+        b=ZWju+SLtDtxshEP/0gXLZ1GQajC2nYdBfTDAtLEpG4zjyU5cmKbA/sIsRk+o0l6oRj
+         z+Xw9Rzn96FmEdfd6cWXFvvndPbZRNmT7Zexv/uPHl/6xFfKJDpATx33rk2rI4VaJMpQ
+         I38TllIcx3GGT8v+yxOTohEuXEx9JfNyZ6tDle55EKo4ngvPkmpjm1snSlmqqRQ+gN6V
+         Cj+wLpN6Pbfn2hqUFYYtq/5IS0JjFsXXMA8NZS0svmXLonhXtpQgCYEqYeHkinmVvN9P
+         kZHu0CEl3Z0lKspOrRNLDbO8VZoimNWkJphPO3gUNwoDUV6dSFSo/b25rChVkyihORKW
+         fOVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=cIusKy0r/0WwrSG98slxIg4eAVaoZWHHNBgm5QP3oj4=;
-        b=DL9rcZDtFJatbBbaJlj0IbSRkjNdb14/xtCtx9QdYJdS3FxPW67FY2cOltgaEAgYOc
-         Na4D05co/c7O3PzP+7nOi82u8/pAspeDecXRUSkEa3QgQeIGT1ZX2AUROFodD7sbTBau
-         ficxS9Z9yz+GxhyB7BY3o0aqi+PnLIQ0BQL/DWLGmAWC0OzI+mYyjjpwq5FIf7uTtmKR
-         C8pRxYQVRmhf3GRBC2+t0Tt+WBAesIStgmaBuPMnISHSTCiXRUEC3Xvkhb7dRJIpAu3i
-         +rFOYpqcHoHQQXIyaNhaOVuMP5NA4jYRwYr79uoAMf/p6vsZ9kiCnWu6yqGFBP535+6I
-         askw==
-X-Gm-Message-State: AGi0PuZNuM4QwWQqJGP3uvYf0hVvG34wMjyVL8fufR0h31WTYAVmfdFG
-        jeUXaNh+FNYx3ttvM777wSJuTOrdAzZDyQI/HAE=
-X-Google-Smtp-Source: APiQypKzJ/TCdbHxSW40KrdCjgahw0TzGuzDr/TR3c9FqZPSF9Fto9ru6aUcnoyVhLp6O0PPUslPiIxQLbygnkMlXkw=
-X-Received: by 2002:a05:6402:16da:: with SMTP id r26mr5706703edx.375.1586862491155;
- Tue, 14 Apr 2020 04:08:11 -0700 (PDT)
-MIME-Version: 1.0
-References: <545F8D2E.5030308@gmx.de>
-In-Reply-To: <545F8D2E.5030308@gmx.de>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=p4ld2HNSxA7hUQIiC5sXUyMQCo4hbS4i8zkC6pzKzcY=;
+        b=k1Z4W4b/WmmbkN82xhB7WdecF1BUMDUuXYh+n4fSqzDgTBgDeP7iMrxGoQrbW8keDu
+         NE+LVP04Wi+6SZK+jHi54/o2WU465OjY3GrCw7nUNUBpGQGd5DoA3dlgI3Ki62zBQ1Q5
+         stAiIkgne69pgyYTKREXNCCtOCQs2+aBmJ92QXWJin7LfHTZOnp9B7nZn1AZB2P9OmU1
+         4+wg+5OTj35J6XBCNJ97wKoyEUgHYFnn7Qfw16q/iz5oTi/YrMhelEHAWyLAXnsKUIkn
+         irTUOd3c9yEj28sxX0uxvHb8k/mwmaIqDorSgBNt/YJxjE5EP41LGKkaisqc6sZgCOY9
+         06vQ==
+X-Gm-Message-State: AGi0Pub9VtAUeoI3bjpG8gwXE/ULl/s6xJ1P4LqvGJ2I27ifthBKbLKl
+        BCmGEa9+FgpfkgX9avR9dNMQrQzk
+X-Google-Smtp-Source: APiQypLThgzHOXrLRrlzanZnW4driONMV/vt4H5F02UZbXVagbvaPWNI6KMBPJADQsGv3hILcWS6NA==
+X-Received: by 2002:a7b:ce88:: with SMTP id q8mr24877973wmj.161.1586863388141;
+        Tue, 14 Apr 2020 04:23:08 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
+        by smtp.gmail.com with ESMTPSA id i17sm8768649wru.39.2020.04.14.04.23.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 14 Apr 2020 04:23:07 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com
+Subject: Re: mmap(2): MAP_ANON
+To:     Heinrich Schuchardt <xypron.glpk@gmx.de>,
+        linux-man <linux-man@vger.kernel.org>
+References: <90ecc432-951f-b83b-e5cb-487fa871a1ec@gmx.de>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Tue, 14 Apr 2020 13:07:59 +0200
-Message-ID: <CAKgNAkh-HBjh5AqNpTTfQjgeJVYx9LGpGDzO87zMWEmgMOd0bA@mail.gmail.com>
-Subject: Re: ioctl_list.2: complete overhaul needed
-To:     Heinrich Schuchardt <xypron.glpk@gmx.de>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        Mike Christie <mchristi@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <3e169e56-b0a6-9099-957e-4304211891bb@gmail.com>
+Date:   Tue, 14 Apr 2020 13:23:04 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
+MIME-Version: 1.0
+In-Reply-To: <90ecc432-951f-b83b-e5cb-487fa871a1ec@gmx.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Heinrich,
-
-On Sun, 9 Nov 2014 at 16:52, Heinrich Schuchardt <xypron.glpk@gmx.de> wrote:
->
->
+On 5/24/18 9:03 PM, Heinrich Schuchardt wrote:
 > Hello Michael,
->
-> the current ioctl_list.2 man-page descripton starts
-> "This  is  Ioctl List 1.3.27, a list of ioctl calls in Linux/i386 kernel
-> 1.3.27."
-> So the man-page represents the state of Sep 14th, 1995.
-> It enumerates only 421 out of over 1200 calls.
->
-> The list contains hex values of different constants. I just wonder for
-> which architecture (alpha, i386, mips, or sparc at that time). No
-> information is supplied.
->
-> Current values depend on the architecture, e.g.
->
-> On amd64
-> 0x82307201      VFAT_IOCTL_READDIR_BOTH
-> 0x82307202      VFAT_IOCTL_READDIR_SHORT
-> 0x80047210      FAT_IOCTL_GET_ATTRIBUTES
-> 0x40047211      FAT_IOCTL_SET_ATTRIBUTES
-> 0x80047213      FAT_IOCTL_GET_VOLUME_ID
->
-> On mips
-> 0x42187201      VFAT_IOCTL_READDIR_BOTH
-> 0x42187202      VFAT_IOCTL_READDIR_SHORT
-> 0x40047210      FAT_IOCTL_GET_ATTRIBUTES
-> 0x80047211      FAT_IOCTL_SET_ATTRIBUTES
-> 0x40047213      FAT_IOCTL_GET_VOLUME_ID
->
-> Hence hex values should be removed.
+> 
+> in the mmap(2) man page MAP_ANON is described as deprecated.
+> 
+> When I look at the NetBSD manpage
+> http://netbsd.gw.com/cgi-bin/man-cgi?mmap+2+NetBSD-current
+> I found that MAP_ANONYMOUS is not defined.
+> 
+> https://www.dragonflybsd.org/cgi/web-man?command=mmap&section=2
+> indicates MAP_ANONYMOUS is an alias for MAP_ANON and is provided for
+> compatibility.
+> 
+> https://man.openbsd.org/mmap.2 also knows MAP_ANONYMOUS as a synonym.
+> 
+> https://www.unix.com/man-page/osx/2/mmap/ does not know MAP_ANONYMOUS.
+> 
+> So shouldn't the man page indicate that MAP_ANON is to be favored to
+> write portable code? And correspondingly mark MAP_ANONYMOUS as synonym
+> only kept for compatibility.
+> 
+> The Open Group Base Specifications Issue 7, 2018 Edition does not
+> reference either of both. So both values are not POSIX but it is not
+> correct to describe them as Linux only.
 
+The text saying that MAP_ANON is deprecated is ancient (at least
+20 years old). I don't know why that text was added.
 
-As you suggest, I've removed the hex values from the lists.
+Things are not simple though: it looks like there's at least
+one historical implementation (HP-US) that defines MAP_ANONYMOUS
+but not MAP_ANON.
+
+I've applied the patch below.
 
 Thanks,
 
 Michael
 
-
-> I further suggest to remove all documentation of structure details.
->
-> The following command can be used to create the raw data for a new list
->
-> grep -GHrn -B3 -A3 --regexp="\s_IO[R|W|RW]\?[_BAD]\?\s*(" \
-> include/uapi | \
-> sed ':a;N;$!ba;s/\\\s*\n[^-]*-[^-]*-/ /g' | \
-> sort | \
-> grep --regexp="\s_IO[R|W|RW]\?[BAD]\?\s*(" | grep -n ''
->
-> Best regards
->
-> Heinrich Schuchardt
 
 
 
