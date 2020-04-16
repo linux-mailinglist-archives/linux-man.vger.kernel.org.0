@@ -2,64 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5F7641ABEF4
-	for <lists+linux-man@lfdr.de>; Thu, 16 Apr 2020 13:16:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AABA81ABF76
+	for <lists+linux-man@lfdr.de>; Thu, 16 Apr 2020 13:36:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2632853AbgDPLP4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 16 Apr 2020 07:15:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34856 "EHLO
+        id S2633761AbgDPLgG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 16 Apr 2020 07:36:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38242 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2632775AbgDPLOK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 16 Apr 2020 07:14:10 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1CBEDC061A0C;
-        Thu, 16 Apr 2020 04:14:10 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id i10so4309631wrv.10;
-        Thu, 16 Apr 2020 04:14:09 -0700 (PDT)
+        with ESMTP id S2505994AbgDPLfz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 16 Apr 2020 07:35:55 -0400
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8C1A8C061A0C;
+        Thu, 16 Apr 2020 04:35:54 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id f13so4354328wrm.13;
+        Thu, 16 Apr 2020 04:35:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=yrEAo/Qlbfc9GeX5Dwif5D5gCiJZ0+6j0nBqBeNFgGI=;
-        b=pjd0p1TG20XK+VM3xpl2elbHjVE8BdV/MM3NVaDdeZ84c0vMPxIOgiExN8sG4Rbl/N
-         1J2GsvesXPUCjUkWiKuALhwm7M4E5YeabuXrWhCih8+zLmXArmEw3HUnjI4NcImef+Hv
-         T4dYMeFfSHccJQefBSDA+gy5VR/7P+/UprrQt/RmTixRftDa5RUpkqukwMaHbw0FxqYR
-         w4HhlT0/oae6x+Sr7gFfy+YwSzUOgFXhV6OBrOc7jdr3gwtctDvWfndGdjBY3RpDn6we
-         Sn41PQEgDBdWFTYTeTgah/R2IWBPUR1nUizhY+x6Dx725W9gi2NxwZLSENCkEota1qX6
-         ta8w==
+        bh=a4ieNNuZ6tLA+4dVx4dh3yTVKKcJr6C5Xg+XaxMx+Wg=;
+        b=Xfj9q5psuqNGyruPOiyZQ5NsusUUXpygmybW5Hv5TZdygCMy8/o/ki8bANCMygOLGT
+         iXgeNYCK8Cvy4d4GgZUoTOoLHNAsNjiI7Dq/rHmZOFdz2ln/q5YjfbeXNwG98/D5tSuI
+         4Y9r4cgLtNoG7erSuacGmi2YfbrilgXp6mopSQGHDHoOD0NjsidIFrqUiMy5MslD/qhv
+         k+5+fk5Lp5AhOYOqq/HXAwjxw7U6iy9z6JflCDB0rTp37D81rdyhO89YUSK2/kwnM1lk
+         VdZJ55PJZm3pTX7rxtSPn2SKeUYjuDlcPWxF8ftDQIugFYgvRPUxcHYou+KHlS6I367c
+         8kmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=yrEAo/Qlbfc9GeX5Dwif5D5gCiJZ0+6j0nBqBeNFgGI=;
-        b=uiNtfnCTNnBh9p84T0mHHsTKkcKPeSBAqYQvDwf40cC2MxD6bXtez2Hvx1BCCc/Owt
-         bRK+vl3xPp5V7rYGarF2pTRE4d3zP+ebII0l3wz+FhFw8XiDvZb+Z20FrDGonrtwvFoS
-         gU8gZQXNiNQn4x361WtMCIhWwhBpzYsBdeL9neNSZC/uenxagJyzV4Y0RNFZlwqeB6dA
-         H5qVDlRkyOjYEL663zsrQRcvBNU9pooCdsL/T2Uvx65DqsN6s0Gzcv7wxhVBZxU3Xd6W
-         GU01GTjOkZU7uajXO8A5OiFP9budIyG8XqDmJoTwMowBXjQbNtLI0A/CaVyYot2oTFXz
-         BvWQ==
-X-Gm-Message-State: AGi0PuZviedjg1ne1FeyJ91aUuF0UwUuuGdXRZqowZOI6i6l8kQzqvzR
-        r4j0VH+6iMd0ggpzVMefi4BR//sO
-X-Google-Smtp-Source: APiQypKlpX5AGWI2ULeMFPLHN2hX3xxdXqKWj54FI3XYhx3TrUtU6ZlctXL11THJp2P6bmZfWiPxaQ==
-X-Received: by 2002:adf:eccb:: with SMTP id s11mr24435059wro.138.1587035648543;
-        Thu, 16 Apr 2020 04:14:08 -0700 (PDT)
+        bh=a4ieNNuZ6tLA+4dVx4dh3yTVKKcJr6C5Xg+XaxMx+Wg=;
+        b=AxT4Xztsy+ir7zgpP2vLXQ1DrghLhkPv13zw7eiQxH1r6S4X/ccKwAXNbw4h4uch77
+         8B5KvbTk+iwPUAm+t2Rzs4BxYs+/+VsyCkEAVrkczxf90kROLzZH1+IdTKYDxf+cVRS9
+         N19w67upx7H6qiNIg6ihSi7/ts+HWyJxtBNrHROsNvHKnWxPWkJpNRKwfuiUwUMrH9gg
+         gj77+G3wivR1E3WdEcmOrOq3xxKjqyQvzbkg5lKa2KQrFM1tsFj2NuZbfYuyJdDIhFbj
+         25I7WqSQ3FVNDahCiDbyehZoHF/DAdvPSupKGZOJEtvktPUu2/eOD68kMTKy0/r8uVgx
+         qTnQ==
+X-Gm-Message-State: AGi0PuZBznUMkOZdE0j4i7jlrevU4yVFJodxCeyRClkHkjtv9SVFLQjp
+        C7+LLgXdbLD5M30AwsooBMivdAfn
+X-Google-Smtp-Source: APiQypIacuw32clGX4yFy7n896znzlZ0b59ACM2KJOOVsycKPEDJ92FJ+0tV1dNTDMjtldFw1Nkl4g==
+X-Received: by 2002:adf:e791:: with SMTP id n17mr27110600wrm.217.1587036953145;
+        Thu, 16 Apr 2020 04:35:53 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id y20sm27927051wra.79.2020.04.16.04.14.07
+        by smtp.gmail.com with ESMTPSA id t20sm3391884wmi.2.2020.04.16.04.35.52
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 16 Apr 2020 04:14:08 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-mips@vger.kernel.org,
-        linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] getauxval.3: MIPS, AT_BASE_PLATFORM passes ISA level
-To:     YunQiang Su <syq@debian.org>
-References: <20200322095527.397716-1-syq@debian.org>
+        Thu, 16 Apr 2020 04:35:52 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [v3 PATCH] move_pages.2: Returning positive value is a new error
+ case
+To:     Yang Shi <yang.shi@linux.alibaba.com>, mhocko@suse.com,
+        david@redhat.com, akpm@linux-foundation.org
+References: <1580757507-120233-1-git-send-email-yang.shi@linux.alibaba.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <74dc42c8-d249-828e-7cc8-54e63d5e92a8@gmail.com>
-Date:   Thu, 16 Apr 2020 13:14:04 +0200
+Message-ID: <033ce46c-74c6-7e9f-d89c-cd184a891e1c@gmail.com>
+Date:   Thu, 16 Apr 2020 13:35:51 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200322095527.397716-1-syq@debian.org>
+In-Reply-To: <1580757507-120233-1-git-send-email-yang.shi@linux.alibaba.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -68,51 +71,82 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 3/22/20 10:55 AM, YunQiang Su wrote:
-> Since Linux 5.7, on MIPS, we use AT_BASE_PLATFORM to pass ISA level.
-> The values may be:
->   mips2, mips3, mips4, mips5,
->   mips32, mips32r2, mips32r6,
->   mips64, mips64r2, mips64r6.
-> 
-> This behavior is different with PowerPC.
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=e585b768da111f2c2d413de6214e83bbdfee8f22
-> Signed-off-by: YunQiang Su <syq@debian.org>
+Hello Yang Shi,
 
-Hello YunQiang Su,
+On 2/3/20 8:18 PM, Yang Shi wrote:
+> Since commit a49bd4d71637 ("mm, numa: rework do_pages_move"),
+> the semantic of move_pages() has changed to return the number of
+> non-migrated pages if they were result of a non-fatal reasons (usually a
+> busy page).  This was an unintentional change that hasn't been noticed
+> except for LTP tests which checked for the documented behavior.
+> 
+> There are two ways to go around this change.  We can even get back to the
+> original behavior and return -EAGAIN whenever migrate_pages is not able
+> to migrate pages due to non-fatal reasons.  Another option would be to
+> simply continue with the changed semantic and extend move_pages
+> documentation to clarify that -errno is returned on an invalid input or
+> when migration simply cannot succeed (e.g. -ENOMEM, -EBUSY) or the
+> number of pages that couldn't have been migrated due to ephemeral
+> reasons (e.g. page is pinned or locked for other reasons).
+> 
+> We decided to keep the second option in kernel because this behavior is in
+> place for some time without anybody complaining and possibly new users
+> depending on it.  Also it allows to have a slightly easier error handling
+> as the caller knows that it is worth to retry when err > 0.
+> 
+> Update man pages to reflect the new semantic.
 
-Thank you. I've applied your patch.
+Thanks for the patch. I've applied it.
+
+@Michal: thanks for the Ack.
 
 Cheers,
 
 Michael
 
 > 
-> ----
-> v1 -> v2: fix typo
+> Cc: Michal Hocko <mhocko@suse.com>
+> Cc: Michael Kerrisk <mtk.manpages@gmail.com>
+> Signed-off-by: Yang Shi <yang.shi@linux.alibaba.com>
 > ---
->  man3/getauxval.3 | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
+> v3: * Fixed the comments from David Hildenbrand.
+>     * Fixed the inaccuracy about pre-initialized status array values.
+> v2: * Added notes about status array per Michal.
+>     * Added Michal's Acked-by.
 > 
-> diff --git a/man3/getauxval.3 b/man3/getauxval.3
-> index 456371c6a..bcc116dd2 100644
-> --- a/man3/getauxval.3
-> +++ b/man3/getauxval.3
-> @@ -60,9 +60,10 @@ values are present on all architectures.
->  The base address of the program interpreter (usually, the dynamic linker).
+>  man2/move_pages.2 | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/man2/move_pages.2 b/man2/move_pages.2
+> index 1bf1053..50c83a4 100644
+> --- a/man2/move_pages.2
+> +++ b/man2/move_pages.2
+> @@ -104,7 +104,9 @@ pages that need to be moved.
+>  is an array of integers that return the status of each page.
+>  The array contains valid values only if
+>  .BR move_pages ()
+> -did not return an error.
+> +did not return an error.  Pre-initialization of the array to the value
+> +which cannot represent a real numa node or valid error of status array
+> +could help to identify pages that have been migrated
+>  .PP
+>  .I flags
+>  specify what types of pages to move.
+> @@ -164,9 +166,13 @@ returns zero.
+>  .\" do the right thing?
+>  On error, it returns \-1, and sets
+>  .I errno
+> -to indicate the error.
+> +to indicate the error. If positive value is returned, it is the number of
+> +non-migrated pages.
+>  .SH ERRORS
 >  .TP
->  .BR AT_BASE_PLATFORM
-> -A pointer to a string identifying the real platform; may differ from
-> -.BR AT_PLATFORM
-> -(PowerPC only).
-> +A pointer to a string (PowerPC and MIPS only).
-> +On PowerPC, this identifies the real platform; may differ from
-> +.BR AT_PLATFORM "."
-> +On MIPS, this identifies the ISA level (Since 5.7).
->  .TP
->  .BR AT_CLKTCK
->  The frequency with which
+> +.B Positive value
+> +The number of non-migrated pages if they were the result of non-fatal
+> +reasons (since version 4.17).
+>  .B E2BIG
+>  Too many pages to move.
+>  Since Linux 2.6.29,
 > 
 
 
