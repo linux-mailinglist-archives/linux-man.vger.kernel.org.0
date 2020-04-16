@@ -2,69 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B6D2D1AB958
-	for <lists+linux-man@lfdr.de>; Thu, 16 Apr 2020 09:07:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0D9871AB96E
+	for <lists+linux-man@lfdr.de>; Thu, 16 Apr 2020 09:11:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2438058AbgDPHHO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 16 Apr 2020 03:07:14 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52566 "EHLO
+        id S2438546AbgDPHKt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 16 Apr 2020 03:10:49 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53116 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S2437880AbgDPHHN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 16 Apr 2020 03:07:13 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AA56BC061A10
-        for <linux-man@vger.kernel.org>; Thu, 16 Apr 2020 00:07:12 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id d27so3563479wra.1
-        for <linux-man@vger.kernel.org>; Thu, 16 Apr 2020 00:07:12 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S2437186AbgDPHKq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 16 Apr 2020 03:10:46 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5222EC061A0C;
+        Thu, 16 Apr 2020 00:10:46 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id h26so3521957wrb.7;
+        Thu, 16 Apr 2020 00:10:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
+        h=from:subject:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=rh8xMeEIpyWIiC7aMHBLMtRmurioowqA4YNaApf4PqY=;
-        b=GtDSM1CJMu2L4l1jyXtNzr3vpmW+x/EwvXZmxjrtAE72IL+poL0cBFZW4zd2y/Kj33
-         WPVlM4nSvJl0qG44u26//VfEI6Pen2pltjFoKA5UKyXSjHl7qKAKdMSqs3rvmZghEn2P
-         FF+nvrMx01iOyia6H5Nc1K2UcgrIe9JBIB+ka9u8S9KMzTUqDNtNOochTA8mdCpSMrr1
-         BfS5X2c4ed2SJbcMqKfGRZfTeuq3A6N9KXNm9Pfc6iT3UHISWN53W8fxDOX/I7MFSYRU
-         bumh7ZjlhzWov3FQm5OzSzI5WmC41IwYjpzkLOYWSzOo0cbDlkrNKrKK4Pp+6UYEZMTC
-         jm6Q==
+        bh=5dN5oxpwy9nSWFYmHgWall5d4CLbrW0LWzFjFt92VW8=;
+        b=m+x5Ir3OUCeDFFwt2ZRIJgCEn0yllxTi4y1s94otYe4s2zRw84Sk0gSkCHj+l6uq/A
+         56sx0Aqh8tHFsRbQt7K3kw6UyI5LrED+itKFV8OBTXNrOubsRNzZL2rQFfQpdh+vdH3b
+         N//I51NW5XUl34hSlq5WHBXc3nocNVnzta5Fg8jkfxloJEZf9puUVGrnHnK9IeqzPliF
+         inWlFnQ36/gkrwpxzTpCS686THujWbvQk2BJ8bG5E0vb/4xiNOIDt41D+eBzdrwXP30o
+         NnmgDfUTJ5XDq/MxzB9loSM+JYKC8mwvm6IFzaWQxRJfO2a6JrT/azl3Y6QXW9UGobmh
+         sj9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+        h=x-gm-message-state:from:subject:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=rh8xMeEIpyWIiC7aMHBLMtRmurioowqA4YNaApf4PqY=;
-        b=p4jIU9UkrpUAHvcYXk7wnMAhFU+T42xfIdZPGk8X3nFmQ84pkFqef94cwUK/MZ+LTi
-         ivdps4tOa0ERB067fgP8HlUaQ6Ofs3xCnNpJuBxErDnkD6bGS1UZsUhO06Bx1J10zOP2
-         07IaAanE/rsXL0Hc2vY/HYIZM4KUGG4l1zgP+5OI25x9bRHUFHexTsuUGw05xAkWDr6G
-         fcbIGzOYQU1Lbd458p5mASyijaf6QQf4oaQyy6s5CS22ypC3BmNRM4SVaQYc+a4aLhgu
-         scJJ2HjFhSKEd+lACUSXqJjo/Hx82rO9AfLco43UY7o4lD9UFmuUPHONWghxUE7s8PWI
-         Fbjg==
-X-Gm-Message-State: AGi0PuYwdgzuxwrMm6KczedewbOoPb/vPkNzSmWn1KeRkrdugpU0twYv
-        2SOCGzfYtfu7ZU7HAH3caJA=
-X-Google-Smtp-Source: APiQypIkQkKlB3KKBf/ImZZknDkeKX9rObsHwa3J1aYQiCANTd151H5F4Nu4ZwXU9NT396zMWFC5jA==
-X-Received: by 2002:adf:f091:: with SMTP id n17mr18218639wro.200.1587020831358;
-        Thu, 16 Apr 2020 00:07:11 -0700 (PDT)
+        bh=5dN5oxpwy9nSWFYmHgWall5d4CLbrW0LWzFjFt92VW8=;
+        b=IaEnMfzmQd9wfLlHC7975rfNMYCVwYDGVnWVON17yAGAtiXXyAdONG85FXitIOJG2w
+         XnY1IG28FxlD8aJK1a4rhLQkvUnEceh0cDhfB3Tn++XNbmriSKjEtgoRB18Ffp21A5cJ
+         WgoCrv4V4YA6Fbu00U9qF7fSgkrAtoUkD79IOv92G7acW3/NghGjKHel+GmDqsWC2af9
+         YmfitXNb8xlS/VXnBU1uz2P6L+FtUIzI4Av7p/EBk6J1xF0By+SGgazRbM+C+4a4AfhV
+         MEdsYFt0u0MpzpVI2Agtcx+Ms3E6mvVmXP3TSkJiW/7/mYtXv4MvIHHoFPXSFV92hIiq
+         l5kA==
+X-Gm-Message-State: AGi0PubP5OzJ9taDidtVH3hJGUGBXrDE1Fl3ZjoHe6sWV/7LB/0ep8UL
+        YlBOCMT8QHrJtLiTZka1TjY5osKf
+X-Google-Smtp-Source: APiQypKPg/oR4d8FSJOcfgwxG485F8H0FZzTyY8BGgh91d9W5DdLheO68gDDFzfmoiG5v0kB57ffIg==
+X-Received: by 2002:adf:9cc8:: with SMTP id h8mr32095572wre.167.1587021044877;
+        Thu, 16 Apr 2020 00:10:44 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id c18sm25772486wrx.5.2020.04.16.00.07.10
+        by smtp.gmail.com with ESMTPSA id s14sm2412615wmh.18.2020.04.16.00.10.44
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 16 Apr 2020 00:07:10 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Sonny Rao <sonnyrao@google.com>,
-        Jesse Barnes <jsbarnes@google.com>,
-        Vlastimil Babka <vbabka@suse.cz>,
-        Minchan Kim <minchan@kernel.org>,
-        "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
-        Lokesh Gidra <lokeshgidra@google.com>
-Subject: Re: [PATCH v2] mremap.2: Add information for MREMAP_DONTUNMAP.
-To:     Brian Geffon <bgeffon@google.com>
-References: <20200415164949.44562-1-bgeffon@google.com>
+        Thu, 16 Apr 2020 00:10:44 -0700 (PDT)
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <092fc948-4adb-cda8-f525-7d16a85674e7@gmail.com>
-Date:   Thu, 16 Apr 2020 09:07:08 +0200
+Subject: Removal of the ioctl_list(2) manual page (was: Re: ioctl_list.2:
+ complete overhaul needed)
+To:     Heinrich Schuchardt <xypron.glpk@gmx.de>,
+        Eugene Syromyatnikov <evgsyr@gmail.com>
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>,
+        Mike Christie <mchristi@redhat.com>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>
+References: <545F8D2E.5030308@gmx.de>
+ <CAKgNAkh-HBjh5AqNpTTfQjgeJVYx9LGpGDzO87zMWEmgMOd0bA@mail.gmail.com>
+ <CACGkJdv5Be4KqmsP2AK99FmkZ5hB9jJk9YzsrS8Qzph8ceBvvQ@mail.gmail.com>
+ <5e9b4408-410f-6fb4-9c8b-0bd68e64577d@gmx.de>
+Message-ID: <ebd773bc-1277-c346-3edc-370c843cc968@gmail.com>
+Date:   Thu, 16 Apr 2020 09:10:43 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200415164949.44562-1-bgeffon@google.com>
+In-Reply-To: <5e9b4408-410f-6fb4-9c8b-0bd68e64577d@gmx.de>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -73,130 +75,53 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-[CC expanded to include a few people who tested/acked/reviewed the
-original kernel patch.]
+[CC widened]
 
-Hello Brian,
+Hello Heinrich, Eugene,
 
-Thanks for this patch. I've applied it, and done quite a
-bit of editing. Could you please take a look at the
-version in Git, and let me know if I made any bad changes
-to your text.
+On 4/14/20 6:21 PM, Heinrich Schuchardt wrote:
+> On 2020-04-14 17:37, Eugene Syromyatnikov wrote:
+>> On Tue, Apr 14, 2020 at 5:18 PM Michael Kerrisk (man-pages)
+>> <mtk.manpages@gmail.com> wrote:
+>>>
+>>> Hello Heinrich,
+>>>
+>>> On Sun, 9 Nov 2014 at 16:52, Heinrich Schuchardt <xypron.glpk@gmx.de> wrote:
 
-In addition, I have one or two questions below.
+[...]
 
-On 4/15/20 6:49 PM, Brian Geffon wrote:
-> Signed-off-by: Brian Geffon <bgeffon@google.com>
-> ---
->  man2/mremap.2 | 49 +++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 49 insertions(+)
+>>> As you suggest, I've removed the hex values from the lists.
+>>
+>> Those can be replaced with the _IO* macro definitions. Meanwhile,  the
+>> list is somewhat far from complete; strace has some approximation that
+>> can be uses a basis of a more complete and reliable list
+>> (linux/{32,64}/ioctls_inc*.h and linux/*/ioctls_arch*.h), but I'm not
+>> sure if it is worth adding to the man page (moreover, entries are
+>> constantly being added and changed there; yes, breaking the kernel ABI
+>> in the process sometimes).
 > 
-> diff --git a/man2/mremap.2 b/man2/mremap.2
-> index d73fb64fa..ff5939ff1 100644
-> --- a/man2/mremap.2
-> +++ b/man2/mremap.2
-> @@ -129,6 +129,22 @@ If
->  is specified, then
->  .B MREMAP_MAYMOVE
->  must also be specified.
-> +.TP
-> +.BR MREMAP_DONTUNMAP " (since Linux 5.7)"
-> +.\" commit e346b3813067d4b17383f975f197a9aa28a3b077
-> +This flag which must be used in conjunction with
-> +.B MREMAP_MAYMOVE
-> +remaps a mapping to a new address and it does not unmap the mapping at
-> +.BR old_address .
-> +This flag can only be used with private anonymous mappings.
-> +Any access to the range specified at
-> +.BR old_address
-> +after completion will result in an anonymous page fault.
-> +The anonymous page fault will be handled by a
-> +.BR userfaultfd (2)
-> +if the range was previously registered on the mapping specified by
-> +.BR old_address .
-> +Otherwise, it will be zero filled by the kernel.
->  .PP
->  If the memory segment specified by
->  .I old_address
-> @@ -176,6 +192,8 @@ a value other than
->  .B MREMAP_MAYMOVE
->  or
->  .B MREMAP_FIXED
-> +or
-> +.B MREMAP_DONTUNMAP
->  was specified in
->  .IR flags ;
->  .IP *
-> @@ -197,9 +215,22 @@ and
->  .IR old_size ;
->  .IP *
->  .B MREMAP_FIXED
-> +or
-> +.B MREMAP_DONTUNMAP
->  was specified without also specifying
->  .BR MREMAP_MAYMOVE ;
->  .IP *
-> +.B MREMAP_DONTUNMAP
-> +was specified with and
-> +.BR old_address
-> +that was not private anonymous;
-> +.IP *
-> +.B MREMAP_DONTUNMAP
-> +was specified and
-> +.BR old_size
-> +was not equal to
-> +.BR new_size ;
-> +.IP *
->  \fIold_size\fP was zero and \fIold_address\fP does not refer to a
->  shareable mapping (but see BUGS);
->  .IP *
-> @@ -209,10 +240,20 @@ flag was not specified.
->  .RE
->  .TP
->  .B ENOMEM
-> +Not enough memory was available to complete the operation.
-> +Possible causes are:
-> +.RS
-> +.IP * 3
->  The memory area cannot be expanded at the current virtual address, and the
->  .B MREMAP_MAYMOVE
->  flag is not set in \fIflags\fP.
->  Or, there is not enough (virtual) memory available.
-> +.IP *
-> +.B MREMAP_DONTUNMAP
-> +was used causing a new mapping to be created that would exceed the
-> +(virtual) memory available.
-> +Or, it would exceed the maximum number of allowed mappings.
-> +.RE
->  .SH CONFORMING TO
->  This call is Linux-specific, and should not be used in programs
->  intended to be portable.
-> @@ -238,6 +279,14 @@ call will make a best effort to populate the new area but will not fail
->  with
->  .B ENOMEM
->  if the area cannot be populated.
-> +.PP
-> +The
-> +.BR MREMAP_DONTUNMAP
-> +flag may be used to atomically move a mapping while leaving the source
-> +mapped.
+> Man-pages like netdevices.7 or ioctl_fat.2 are what is needed to help a
+> user who does not want to read through the kernel code.
+> 
+> If ioctl_list.2 has not been reasonably maintained since Linux 1.3.27
+> and hence is not a reliable source of information, shouldn't it be dropped?
 
-You write "move", but would it not be more correcrt to say something
-like "duplicate"?
+As already noted, I'm inclined to agree that yes, this page probably
+should be removed. What really is needed is pages such as ioctl_fat(2),
+ioctl_userfaultfd(2), and ioctl_ns(2) that give useful details
+to user-space programmers.
 
-> +Possible applications for this behavior might be garbage collection or
+Just FYI, I've queued a change that removes the ioctl_list(2) page
+in a private branch. By the time of the next release, I'll merge
+that branch, unless someone has (good) objections.
 
-Can you elaborate the garbage collection use case a little, please?
+There is one piece of ioctl_list(2) that is perhaps worth preserving:
+the "ioctl structure" subsection. As part of these changes, I've
+migrated that text to ioctl(2).
 
-> +non-cooperative
-> +.BR userfaultfd (2) .
-
-What is noncooperative userfaultfd(2)?
-
-Thanks,
+Cheers,
 
 Michael
-
 
 -- 
 Michael Kerrisk
