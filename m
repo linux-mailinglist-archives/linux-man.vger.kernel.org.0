@@ -2,103 +2,112 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A93D21AC085
-	for <lists+linux-man@lfdr.de>; Thu, 16 Apr 2020 13:59:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9B8871AC0CE
+	for <lists+linux-man@lfdr.de>; Thu, 16 Apr 2020 14:12:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2634658AbgDPL6o (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 16 Apr 2020 07:58:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41838 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2634633AbgDPL6k (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 16 Apr 2020 07:58:40 -0400
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9C151C061A0C
-        for <linux-man@vger.kernel.org>; Thu, 16 Apr 2020 04:58:40 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id a25so4539227wrd.0
-        for <linux-man@vger.kernel.org>; Thu, 16 Apr 2020 04:58:40 -0700 (PDT)
+        id S2635114AbgDPMMa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 16 Apr 2020 08:12:30 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44010 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S2634744AbgDPMM0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 16 Apr 2020 08:12:26 -0400
+Received: from mail-vk1-xa41.google.com (mail-vk1-xa41.google.com [IPv6:2607:f8b0:4864:20::a41])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B9412C061A0C;
+        Thu, 16 Apr 2020 05:12:25 -0700 (PDT)
+Received: by mail-vk1-xa41.google.com with SMTP id j188so1094170vkc.2;
+        Thu, 16 Apr 2020 05:12:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=jINxFzLiMqM5E2LUKRu+tLYq5vXqNvr0hX3F9EXQ21U=;
-        b=rooN6gIgSnV9KXBaOdJ6g32f4Jdl/4TqbLhdkTO9hqjvivA0NH1VnFWQayga444szv
-         1HUQc7f/8uWhmhBPKF7XIaiqIvj0hRg1uSsh8qmGB6X0xG3p7dkT+OZAybk8h4WVEUBf
-         YWwL/1S/VA7PAS2/GXZzSBUnKDSw33Y97yVYu2M/6fy8OZph178p7FmP8dfzxlw3s5kX
-         1b7U+utzevUyIwhfO/3vG5vLYVw8YsY/PF9ggSBjkNWnocM4rMimP/d7fedV/acUFFIl
-         h98RRyojSPDLMgxdJ0y3h0H9wa+oT9P5daG2J3xbxYW/zeTEjA9m/WHEdQwFihMPqUX+
-         Hr/A==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=9UKw5GscgAiWbaFyaogHtun3HlxTWK7ujAK5b+6nb5A=;
+        b=KvhE0wh/BoWkZh/vbqAjnW46zESXkHi/3xStk1gicdsOZzCnefVz8OsNJMk8w0z6Da
+         qR5CEINXZFImdzJsOQvtD+ghoTjAnV4pKKBK3Plop/g1LXZQ5hEdhv2jhLp1X6D8xzZF
+         L6jFZTJwbitic2MOhhmdo9V0IsbK0CtRIEgWxTgBD6JU00QsjBNYQYvT0pOGnLGHU7tV
+         kh/a57j3R3EsoTQ5MBRvq+B5T4I7ogO/5a0oMlbe3AUGTMRgxlgeDQy4EzJtGz8Tn6ss
+         VPOs1jQxvywk+jGuEhpVpssloOAVgKpbd9VcxRrX4OAbc/zhs1r7yiSn9d8w3B62HKUA
+         ukhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=jINxFzLiMqM5E2LUKRu+tLYq5vXqNvr0hX3F9EXQ21U=;
-        b=mUIQHDqktnbWiQR6cpU3DJO25QrrBfY6XR4RJg5kXcbTSEu/uEWuDXQZ6o1FAUWnrq
-         RUCdJkzi62dMqW1liKe1JCDaIwheVoXuFzE/4Po6KprQdIawJp80YyQHTxTqPalE66Cm
-         p6IddhD8OmCH+yl3kIK1JB/3SfqWSIhxwhtO9wlWGMzbEhiG5w6OaEuG0rIkhzjfkD+F
-         XJ28kz0uW46OyTMdxq4x7n7Al5BJUigmULF9MS7kEzl0vQojdo2M1Tp8DE1InAs9g0i+
-         ZU805gP/bK3AWaCMOw9YLkTgnkBmz9OKaSGYG6FwXB8Svc8FVesyZ4Gn8+vFZdyJ+9LG
-         NaOQ==
-X-Gm-Message-State: AGi0PuZXkcICMYMaOMoYEukMHeozt4voswV86RBMb9cqFX0KYGReQWho
-        XNYqISzzTBjcbqpwCpNs8ueTp0Ji
-X-Google-Smtp-Source: APiQypKxIp6sqglBrtXEDo6vrx4TnGt+j3KG9h6URxg6wprXYW0t9Lh4DcVZZvueoWJEYVz63tT9vg==
-X-Received: by 2002:a5d:6503:: with SMTP id x3mr28857976wru.153.1587038319006;
-        Thu, 16 Apr 2020 04:58:39 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id g6sm8095540wrw.34.2020.04.16.04.58.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 16 Apr 2020 04:58:38 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] cgroups.7: Mention cgroup.sane_behavior file
-To:     Marcus Gelderie <redmnic@gmail.com>
-References: <20190125212123.bxhcvvyvmjzsfvuv@goedel.localdomain>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <c1d67604-31b2-f320-6ea5-726c75bb2024@gmail.com>
-Date:   Thu, 16 Apr 2020 13:58:37 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=9UKw5GscgAiWbaFyaogHtun3HlxTWK7ujAK5b+6nb5A=;
+        b=hpqJ03CMyBkCTAIWPeddSOgUCIiUBthWVIUw3mcZMo1g6paWEf8gc3RFvXvwkgteFa
+         8Q+4xDHhk2tSna5wj1E+t/hRU9cg9NQv7GsqP74wQvjsQTEWPBTZUfxvCyT1h/8HJpf1
+         Hmve4eveJCZkGQPxu2F7CaMislUUbO48iWLlCgFjhmD41LuWCWMOy1yt6xdKccTI/Xep
+         gKhXoxn9LNFgXSJ4yHOTI5WL5dmA6MsX6x8hVngSWwMkSKvBn+qbqXMYUkqLwmGnJU0W
+         aHQI11Lm3VjrAt1MuhFed8iaL6DhvkpaLX4eDn1jTgbJQfgrhkZlrri5BFcD4g9Eku9b
+         u1oQ==
+X-Gm-Message-State: AGi0PuahkW5WZ9v51p9XzXeRcKrxIANLHWaf0afHrOm8gX4NPdeeuiCN
+        LFZ1lEPfv247QOkSQoD1YZTEk46HbbZw8w/3gzk=
+X-Google-Smtp-Source: APiQypLKYcjiCYYIWyYO+Q8kAD5gNoQVCoXjVji7/jQ4NJU12A4C7JaqcgJuczlrhIpwsXEdO5A/dNI9zXWNnfPyU5Q=
+X-Received: by 2002:ac5:c4d0:: with SMTP id a16mr22844151vkl.46.1587039144696;
+ Thu, 16 Apr 2020 05:12:24 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190125212123.bxhcvvyvmjzsfvuv@goedel.localdomain>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <1564542193-89171-1-git-send-email-yi.zhang@huawei.com>
+In-Reply-To: <1564542193-89171-1-git-send-email-yi.zhang@huawei.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Thu, 16 Apr 2020 14:12:12 +0200
+Message-ID: <CAKgNAkivz=qXpLTPt5qbGHn0_zH-ReQ76LKhnoRd5zZuudu1NQ@mail.gmail.com>
+Subject: Re: [PATCH] io_getevents.2: Add EINVAL for case of timeout parameter
+ out of range
+To:     "zhangyi (F)" <yi.zhang@huawei.com>
+Cc:     linux-man <linux-man@vger.kernel.org>, linux-aio@kvack.org,
+        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+        bcrl@kvack.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+        Jeff Moyer <jmoyer@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
+        deepa.kernel@gmail.com, wangkefeng.wang@huawei.com
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Marcus,
+Hello Zhangyi,
 
-On 1/25/19 10:21 PM, Marcus Gelderie wrote:
-> The cgroup.sane_behavior file returns the hard-coded value "0" and is
-> kept for legacy purposes. Mention this in the man-page.
+On Wed, 31 Jul 2019 at 04:57, zhangyi (F) <yi.zhang@huawei.com> wrote:
+>
+> io_[p]getevents syscall should return -EINVAL if timeout is out of
+> range, update description of this error return value.
+>
+> Link: https://lore.kernel.org/lkml/1564451504-27906-1-git-send-email-yi.zhang@huawei.com/
 
-Patch applied.
+
+It appears that the kernel patch to implement this check was never
+merged. Do you know what happened to it?
 
 Thanks,
 
 Michael
 
+> Signed-off-by: zhangyi (F) <yi.zhang@huawei.com>
+> Cc: Jeff Moyer <jmoyer@redhat.com>
+> Cc: Arnd Bergmann <arnd@arndb.de>
+> Cc: Deepa Dinamani <deepa.kernel@gmail.com>
 > ---
->  man7/cgroups.7 | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/man7/cgroups.7 b/man7/cgroups.7
-> index a2dd7efa6..0670610ce 100644
-> --- a/man7/cgroups.7
-> +++ b/man7/cgroups.7
-> @@ -87,6 +87,10 @@ Initially marked experimental, and hidden behind the
->  mount option, the new version (cgroups version 2)
->  was eventually made official with the release of Linux 4.5.
->  Differences between the two versions are described in the text below.
-> +The file
-> +.IR cgroup.sane_behavior ,
-> +present in cgroups v1, is a relic of this mount option. The file
-> +always reports "0" and is only retained for backward compatibility.
->  .PP
->  Although cgroups v2 is intended as a replacement for cgroups v1,
->  the older system continues to exist
-> 
+>  man2/io_getevents.2 | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/man2/io_getevents.2 b/man2/io_getevents.2
+> index 0eb4b385e..5560bb8ee 100644
+> --- a/man2/io_getevents.2
+> +++ b/man2/io_getevents.2
+> @@ -73,8 +73,9 @@ Interrupted by a signal handler; see
+>  .TP
+>  .B EINVAL
+>  \fIctx_id\fP is invalid.
+> -\fImin_nr\fP is out of range or \fInr\fP is
+> -out of range.
+> +\fImin_nr\fP is out of range or \fInr\fP is out of range, or
+> +\fItimeout\fP is out of range (\fItv_sec\fP was less than zero, or
+> +\fItv_nsec\fP was not less than 1,000,000,000).
+>  .TP
+>  .B ENOSYS
+>  .BR io_getevents ()
+> --
+> 2.20.1
+>
 
 
 -- 
