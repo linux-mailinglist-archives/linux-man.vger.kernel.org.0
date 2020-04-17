@@ -2,66 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B6FC71ADAA7
-	for <lists+linux-man@lfdr.de>; Fri, 17 Apr 2020 12:01:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 59EE21ADAB8
+	for <lists+linux-man@lfdr.de>; Fri, 17 Apr 2020 12:09:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728298AbgDQKBz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 17 Apr 2020 06:01:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50112 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726207AbgDQKBv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 17 Apr 2020 06:01:51 -0400
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E4BCC061A0C
-        for <linux-man@vger.kernel.org>; Fri, 17 Apr 2020 03:01:50 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id x18so2395052wrq.2
-        for <linux-man@vger.kernel.org>; Fri, 17 Apr 2020 03:01:50 -0700 (PDT)
+        id S1726207AbgDQKJJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 17 Apr 2020 06:09:09 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51238 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1725830AbgDQKJJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 17 Apr 2020 06:09:09 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A083DC061A0C;
+        Fri, 17 Apr 2020 03:09:08 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id b11so2387179wrs.6;
+        Fri, 17 Apr 2020 03:09:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=O4zgs/WUN3DEZcDmwezObfdjLdBvTYqxApJEDngpdcE=;
-        b=QkoK6sKFVcA40Fj+Ig/jF28qqfUSJMxoFwhDPps9j0EuFCF2kq/ogvBGhSqtGtMO4R
-         it+dpfInNRFo1NlXFy33hBoDA5qcbpIUxTj3CSMSPu0o76UoM5eZjZb9TWSI77m/dzqu
-         mkFx2D9Rm6y7hCuAWMuS4LCy0l8Jq4aiCl/pN+1LsqxYvoXzFvXpPqcR0JUqS1DNTv+T
-         Nam5ZuW/P43QdwXfQq8G+UOyH6vnb8Fa14Kaj5XhJBWYxb3gTCuEZCptNPNkpbZzRuwN
-         V8AXL1qNSy2RzIg3ooVtQIjLNsI2COdukHP/ggQiAazVqujA0toApFNlY6P7cu7nR6P6
-         J40Q==
+        bh=YbQK9qqTQiwPps3zNgPuWa95hc6ZueRySP087ny5ENk=;
+        b=PmBZ6s6gB2kAVb0CXGcgeEjWaw/v2nBdGhnWLBnah8i2gpparN6TXRfTnZGcIiude1
+         SQnnZ7TSzayvbiUmcvtNKxO1+ARSOW5Cy8D1cSPaaQKINOateT6sHJX4RoPlet/+H/Jo
+         1rfZ/ipaSTmeF58KdaMEL/Do03fJhguoQlsBXygG/1ZlkTh32DJGT6JQ1AuPTFbtDg/T
+         9K+8a4U5FxE0f7Wh9G+f8qAASDLO6AnSTAAWM+nsdT9zkkUphQG+mGXvaRh/v5b4WnHg
+         Ko8qMKbcy+QX+N47FEBT2e2V8G7QLYI0WhEbok1jGgV5RAM9qzja7tIIogrnXA9Kd82O
+         vj4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=O4zgs/WUN3DEZcDmwezObfdjLdBvTYqxApJEDngpdcE=;
-        b=AKQcMLb6T81nMjA+gp2WsV9nFbWdNxcEwo65QebkuPChvua6h1ynlmWR7FcR/BDzZE
-         JdSVaQP+NuC97idEZYjPhPLtoKkiaIIMv4C8jxBt2U14c7HVQXH3uRVKjsCLA+EqWwgs
-         DmcNHGvJ5GpaBdsvWqSXPPmRD9aAvgX2Tf512MPNMXlZeA8SLB+JiviVhNTvMrQBrBwY
-         83OQ6jI7EWG2dn/5qd60vhC0x/eT3WdUJCFaEBUbLB6u9Kc+9Fq+lxKCGH/6LpqhnO0p
-         45VqiILWDHhMC8AN1m8glKzy4U2gYl7xtGpl5wXPmE/ehmvi47OoXIcIzXWpX+YOdFTn
-         Mcwg==
-X-Gm-Message-State: AGi0PuYrGCs9uTFfFw1qqqkgutrDneP6MA4l5ZbUZ4no4Fce8h9xXxeT
-        yy0QQUAc5kyZ+yMQ3T8MHB8=
-X-Google-Smtp-Source: APiQypJ0c/+JC30GlOUK5krut7BRd9rdvlNucVhGg+f1K9/mWQLuPTWdKKb9fWFlUqyUuSd9p8pdhA==
-X-Received: by 2002:a5d:6412:: with SMTP id z18mr3038732wru.322.1587117709276;
-        Fri, 17 Apr 2020 03:01:49 -0700 (PDT)
+        bh=YbQK9qqTQiwPps3zNgPuWa95hc6ZueRySP087ny5ENk=;
+        b=H1uNGhTTThd+JvwF7hupmzBIaoKHEJbYzHV8yIYeunsRtpsGDZouS5kOxR+1pU8C8S
+         2/aB4CxdYfmZ/vHPn59ULwVObuwP4wDZbctNq3gNTPW8zlJ+/uPebtPgqCVgc5I7mXbP
+         UqONh/l+Vhs4BPMOSXIzAPGI8nebxX5xGfdLjAVjROfRLZKVnWbuf1wj/Sl/7c2pVgYU
+         esLF5J5Yig5o0p9T5wdWAZlrGSlQjGHtdGWpzDpdTgdOlDSJfkhL5E9DI1dUmw+Xf/NO
+         XFJ6g+Ugmym0MwjTyUOtIH8kMPakHcMB3hGyS2jqNdkZQOtCQapRje5Uv4neI/oQ00RW
+         Wz/g==
+X-Gm-Message-State: AGi0PuaT3JjMNLCgoBj0hnuWF7Ay/Ko6WTJIb5tyClczjY/ahwJ6vNUB
+        62jJsdtgUUXW0z07TZ/9IfJH1pPe
+X-Google-Smtp-Source: APiQypLha09XH0F2Owwo8u49JRobTHMw6E2L2t2qISNfYkDdujBq7HlHwG/2kGKsc/+QQWoWlJIP8A==
+X-Received: by 2002:adf:afdf:: with SMTP id y31mr3061238wrd.120.1587118147181;
+        Fri, 17 Apr 2020 03:09:07 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id x18sm6897371wmi.29.2020.04.17.03.01.48
+        by smtp.gmail.com with ESMTPSA id g186sm7161924wme.7.2020.04.17.03.09.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Apr 2020 03:01:48 -0700 (PDT)
+        Fri, 17 Apr 2020 03:09:06 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        ast@plumgrid.com, davem@davemloft.net,
-        Alexei Starovoitov <ast@kernel.org>,
-        Daniel Borkmann <daniel@iogearbox.net>
-Subject: Re: [PATCH] bpf.2: Change note on unprivileged access
-To:     Richard Palethorpe <rpalethorpe@suse.com>
-References: <20190729125843.6319-1-rpalethorpe@suse.com>
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] bpf.2: update enum bpf_map_type and enum bpf_prog_type
+To:     Peter Wu <peter@lekensteyn.nl>
+References: <20190804205353.2956-1-peter@lekensteyn.nl>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <7f9476e0-a05a-c9ec-1135-87c641b93e32@gmail.com>
-Date:   Fri, 17 Apr 2020 12:01:45 +0200
+Message-ID: <fafd846d-d365-efc2-8a6a-a5a1b471e9cd@gmail.com>
+Date:   Fri, 17 Apr 2020 12:09:04 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20190729125843.6319-1-rpalethorpe@suse.com>
+In-Reply-To: <20190804205353.2956-1-peter@lekensteyn.nl>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -70,67 +68,69 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Richard,
+Hello Peter,
 
-On 7/29/19 2:58 PM, Richard Palethorpe wrote:
-> This notes that the kernel now allows calls to bpf() without CAP_SYS_ADMIN
-> under some circumstances.
+On 8/4/19 10:53 PM, Peter Wu wrote:
+> Taken from Linux v5.3-rc2. Add a reference to the header file to save
+> the future reader some time figuring out whether more entries exist.
 
-Thanks. I have (at last) applied this patch.
+Thanks. Patch applied.
 
-In Linux 4.4, the allowed BPF helper functions that could
-be called was, I think, governed by a check in sk_filter_func_proto().
-Nowadays (Linux 5.6), it is, I think, governed by the check in
-sk_filter_func_proto(). If that is the case, then probably there
-are one or two more helper functions to be added to the list
-(e.g., get_numa_node_id, map_push_elem, map_pop_elem).
-Do you agree with my analysis?
-
-Thanks,
+Cheers,
 
 Michael
 
-> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+
+> Signed-off-by: Peter Wu <peter@lekensteyn.nl>
 > ---
->  man2/bpf.2 | 22 ++++++++++++++++++++--
->  1 file changed, 20 insertions(+), 2 deletions(-)
+>  man2/bpf.2 | 27 +++++++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
 > 
 > diff --git a/man2/bpf.2 b/man2/bpf.2
-> index b5c0869ae..a57ed9086 100644
+> index 5a766aaa8..51e3bd111 100644
 > --- a/man2/bpf.2
 > +++ b/man2/bpf.2
-> @@ -1120,11 +1120,29 @@ The
->  .BR bpf ()
->  system call is Linux-specific.
->  .SH NOTES
-> -In the current implementation, all
-> +Prior to Linux 4.4, all
->  .BR bpf ()
->  commands require the caller to have the
->  .B CAP_SYS_ADMIN
-> -capability.
-> +capability. From 4.4 onwards an unprivileged user may create limited
-> +programs of type
-> +.BR BPF_PROG_TYPE_SOCKET_FILTER
-> +and associated maps. However they may not store kernel pointers within
-> +the maps and are presently limited to the following helper functions:
-> +.IP * 3
-> +get_random
-> +.PD 0
-> +.IP *
-> +get_smp_processor_id
-> +.IP *
-> +tail_call
-> +.IP *
-> +ktime_get_ns
-> +.PD 1
-> +.PP
-> +Unprivileged access may be blocked by setting the sysctl
-> +.IR /proc/sys/kernel/unprivileged_bpf_disabled .
-> +.\" commit 1be7f75d1668d6296b80bf35dcf6762393530afc
->  .PP
->  eBPF objects (maps and programs) can be shared between processes.
->  For example, after
+> @@ -367,6 +367,14 @@ enum bpf_map_type {
+>      BPF_MAP_TYPE_DEVMAP,
+>      BPF_MAP_TYPE_SOCKMAP,
+>      BPF_MAP_TYPE_CPUMAP,
+> +    BPF_MAP_TYPE_XSKMAP,
+> +    BPF_MAP_TYPE_SOCKHASH,
+> +    BPF_MAP_TYPE_CGROUP_STORAGE,
+> +    BPF_MAP_TYPE_REUSEPORT_SOCKARRAY,
+> +    BPF_MAP_TYPE_PERCPU_CGROUP_STORAGE,
+> +    BPF_MAP_TYPE_QUEUE,
+> +    BPF_MAP_TYPE_STACK,
+> +    /* See /usr/include/linux/bpf.h for the full list. */
+>  };
+>  .EE
+>  .in
+> @@ -756,6 +764,25 @@ enum bpf_prog_type {
+>      BPF_PROG_TYPE_KPROBE,
+>      BPF_PROG_TYPE_SCHED_CLS,
+>      BPF_PROG_TYPE_SCHED_ACT,
+> +    BPF_PROG_TYPE_TRACEPOINT,
+> +    BPF_PROG_TYPE_XDP,
+> +    BPF_PROG_TYPE_PERF_EVENT,
+> +    BPF_PROG_TYPE_CGROUP_SKB,
+> +    BPF_PROG_TYPE_CGROUP_SOCK,
+> +    BPF_PROG_TYPE_LWT_IN,
+> +    BPF_PROG_TYPE_LWT_OUT,
+> +    BPF_PROG_TYPE_LWT_XMIT,
+> +    BPF_PROG_TYPE_SOCK_OPS,
+> +    BPF_PROG_TYPE_SK_SKB,
+> +    BPF_PROG_TYPE_CGROUP_DEVICE,
+> +    BPF_PROG_TYPE_SK_MSG,
+> +    BPF_PROG_TYPE_RAW_TRACEPOINT,
+> +    BPF_PROG_TYPE_CGROUP_SOCK_ADDR,
+> +    BPF_PROG_TYPE_LWT_SEG6LOCAL,
+> +    BPF_PROG_TYPE_LIRC_MODE2,
+> +    BPF_PROG_TYPE_SK_REUSEPORT,
+> +    BPF_PROG_TYPE_FLOW_DISSECTOR,
+> +    /* See /usr/include/linux/bpf.h for the full list. */
+>  };
+>  .EE
+>  .in
 > 
 
 
