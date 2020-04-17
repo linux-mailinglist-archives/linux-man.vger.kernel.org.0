@@ -2,124 +2,136 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 74EE61ADB87
-	for <lists+linux-man@lfdr.de>; Fri, 17 Apr 2020 12:49:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 653591ADBF2
+	for <lists+linux-man@lfdr.de>; Fri, 17 Apr 2020 13:12:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730127AbgDQKqJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 17 Apr 2020 06:46:09 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57094 "EHLO
+        id S1730228AbgDQLMS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 17 Apr 2020 07:12:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32900 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1729870AbgDQKqI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 17 Apr 2020 06:46:08 -0400
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 55A2BC061A0C
-        for <linux-man@vger.kernel.org>; Fri, 17 Apr 2020 03:46:08 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id o81so2452222wmo.2
-        for <linux-man@vger.kernel.org>; Fri, 17 Apr 2020 03:46:08 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1730091AbgDQLMR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 17 Apr 2020 07:12:17 -0400
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 68B0CC061A0C
+        for <linux-man@vger.kernel.org>; Fri, 17 Apr 2020 04:12:13 -0700 (PDT)
+Received: by mail-ed1-x544.google.com with SMTP id j20so1191259edj.0
+        for <linux-man@vger.kernel.org>; Fri, 17 Apr 2020 04:12:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=MIL+MDk5apIEgnDrdq4ydEDS79vwcSHIFZtUiah+XBY=;
-        b=L9i8VH6iTrgyrqpK3sB7jI2Zk2QSVcRIpyiVttnHFJ+h0S4v66TFsMv61nSR7sE9BJ
-         Srxu2W56aCqUOjxhmA2hwrg/Jm/IikdZO//sEpp0UBUkPAt6QgvfYK32teaF12O3ehnI
-         NMDDkO15rtG/LZ+pWUICHYR40JlJAjZCYR/AXdvgBszlLEPNFPvgeOC16LytoWSEa7nV
-         eiAStthg53doNkoVbvirpXaSoOB2K2UDwNXXjx+L+IJmKowPIRL870ANB1tP+wPmLo3O
-         qIGvj6+pbNjXE8T1sdNtpyVms5fjSEuipKsxwdtYt4cbNmJu+o5hhAFe+cv4EUSTj8BT
-         mb3Q==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=NT9wgSn4UHjfQrZpxD92j2wlwsyB+7O+mh2ivMaUpss=;
+        b=ZMjcfZUZ3zCOh+hJHT6vLws/l+n6neonBfR65AYpwEd/H9JOyfBB/yJ/MpuuB7Eok5
+         l1EpQV3FzPPnuwb6Q8nZ3rc9b4hrgl48Q1vjGYDkpG4ltItg9YTMCNMo3Wy3feMJeIy4
+         VjWURQvANDvslmKA47QbCMw1GvhOWwpbdglRlLCMs5/XiNvF1cRVg+ru29V4ro8ssFL4
+         JG+TyUh1P8iYx5q4uvCksqMBj2KAYqjSyC/gFK+zXi6rLgl/qjobRGtc4Rw/8OrjNswM
+         SkhAc6Rtoe6M0PLyRkHZSDLUsY/1oFQ+fA8F8ItREOj9XlGXoIyw5Em0BYvYs99pqjig
+         9Oug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=MIL+MDk5apIEgnDrdq4ydEDS79vwcSHIFZtUiah+XBY=;
-        b=V3XlA+dUnmil9vFecUBjMjT0L891ubINs+/b1GomV+UV+Y+cKekCGinUuTaWXXMe8l
-         hvCRGXcBBDUhqF5qZwzmUIuvXuZ8R55WxJ+sSdDfDcsSGCVAOjEzPZLfKrz9Y/XSutel
-         tFy9RqoB1AxdEFXDXp8DkN/zv1jH+CopEJJv/h/TWBbjv02QK63vxdsBNlvJl46WuHcj
-         hvamdGzKXQO6/O3qF6mmhdmnfelt/KaGwrjRXXJsHGkdWOzZw1o6XJ4xp/o12OiBV50z
-         J0hvLQDuX2CpIKFD83DiLH66qkPyWcMABHZ5eCxGoYwDBvU5Xzmb/5+2Tw+hu2yxP8il
-         Kj0Q==
-X-Gm-Message-State: AGi0PubuIED7oQVonYzjYZYum+5/5fkp9v3+8C0WLVI/SySK2IQSktXD
-        ZACJ50/lS2HmStxJVxqrXdg=
-X-Google-Smtp-Source: APiQypKnDkYO8bpdxPp3XVh1FZG7Lyol/q7F8dGUqH6OHeXuZph1ULJqWcJgCxVnQamYhqQR/vmF+g==
-X-Received: by 2002:a7b:c4c9:: with SMTP id g9mr2673271wmk.171.1587120367098;
-        Fri, 17 Apr 2020 03:46:07 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id z15sm18989339wrs.47.2020.04.17.03.46.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Apr 2020 03:46:05 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Adhemerval Zanella <adhemerval.zanella@linaro.org>
-Subject: Re: [PATCH v2 4/4] posix_spawn.3: Document the POSIX_SPAWN_SETSID
- attribute
-To:     Olivier Gayot <olivier.gayot@sigexec.com>
-References: <20181016193751.4473-1-olivier.gayot@sigexec.com>
- <20181016193751.4473-5-olivier.gayot@sigexec.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <3c38120f-802c-caa7-7c07-a283dfb6a6e5@gmail.com>
-Date:   Fri, 17 Apr 2020 12:46:04 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=NT9wgSn4UHjfQrZpxD92j2wlwsyB+7O+mh2ivMaUpss=;
+        b=U8rlNiuF4xsqjFZMQS9lszWk4XyTjVLg7IYSGepxyMGJnnZodoyVxjlHJtNV4v31hB
+         OIUAxbfpsAz5usBHvb1bMHv3Zm1yrYj0S28X77cqn6onxBO78rpvQX6yWNVqP7GQqA50
+         V6IcuiDA2xFly6SJqWy7GUbwEeJYQntnwFoO+1AtnXng6zjZraTaPpGDoTStFi4FiYxA
+         e/xoh6N7LEgqO7LmvA0dNR0w6i4s9hrQdxfCr0ejLVDDC5FgHwpifAheH2yJ0jjHaBjS
+         lQg6kT1oDg4ou1Jz0rTofq3Y4A1dAxu5WgQ8bB7z4bxkmk0Zb7B7kTcEr7uQr/tHq1NV
+         WYew==
+X-Gm-Message-State: AGi0PuYcIHtpITBuL7l/VGvaWSFGCde6xNGW1SX4ipfAlMvoDyv18Vaj
+        ISQjXY/Vj7lVn0qaga2Gkw9xfYKbmzGeX1W49VO77m5T
+X-Google-Smtp-Source: APiQypJayZONibRW9VlnppUmO+pmzxyf/jPUDDCoX1U/CGTQUqIYt7HTE9rV4EgOCNYnDh+GZ8j7Nfwje+fSBJY3UE8=
+X-Received: by 2002:aa7:d513:: with SMTP id y19mr2438750edq.367.1587121931947;
+ Fri, 17 Apr 2020 04:12:11 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20181016193751.4473-5-olivier.gayot@sigexec.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20160608160938.13275-1-fabien.siron@epita.fr>
+In-Reply-To: <20160608160938.13275-1-fabien.siron@epita.fr>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Fri, 17 Apr 2020 13:12:00 +0200
+Message-ID: <CAKgNAkiUWRCSUJxbv3sbY=8JL=Fc4yYc890y61gJ7dFqWJWJqw@mail.gmail.com>
+Subject: Re: [PATCH] netlink.7: Change NETLINK_INET_DIAG to NETLINK_SOCK_DIAG
+To:     Fabien Siron <fabien.siron@epita.fr>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        Pavel Emelyanov <xemul@virtuozzo.com>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Olivier,
+Hello Fabien,
 
-On 10/16/18 9:37 PM, Olivier Gayot wrote:
-> Since glibc 2.26, posix_spawn (2) function accepts the
-> POSIX_SPAWN_SETSID flag. This flag has been accepted by POSIX and should
-> be added to the next major revision. The current support can be enabled
-> with _GNU_SOURCE.
-> 
-> Upstream commit in glibc.git:
-> 
->   daeb1fa2e1 [BZ 21340] add support for POSIX_SPAWN_SETSID
+Thanks for the patch, and sorry that it got lost long ago.
 
-Thanks. Patch applied.
+On Wed, 8 Jun 2016 at 18:09, Fabien Siron <fabien.siron@epita.fr> wrote:
+>
+> As NETLINK_INET_DIAG should not longer be used, NETLINK_SOCK_DIAG should be
+> written instead.
+>
+> Signed-off-by: Fabien Siron <fabien.siron@epita.fr>
+> ---
+>  man7/netlink.7 | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/man7/netlink.7 b/man7/netlink.7
+> index 513f854..88e3dc1 100644
+> --- a/man7/netlink.7
+> +++ b/man7/netlink.7
+> @@ -62,9 +62,9 @@ Used by
+>  .I ip_queue
+>  kernel module.
+>  .TP
+> -.B NETLINK_INET_DIAG
+> -.\" FIXME More details on NETLINK_INET_DIAG needed.
+> -INET socket monitoring.
+> +.B NETLINK_SOCK_DIAG
+> +.\" FIXME More details on NETLINK_SOCK_DIAG needed.
+> +Socket monitoring.
+>  .TP
+>  .B NETLINK_NFLOG
+>  Netfilter/iptables ULOG.
+> @@ -383,7 +383,7 @@ NETLINK_KOBJECT_UEVENT appeared in Linux 2.6.10.
+>
+>  NETLINK_W1 and NETLINK_FIB_LOOKUP appeared in Linux 2.6.13.
+>
+> -NETLINK_INET_DIAG, NETLINK_CONNECTOR and NETLINK_NETFILTER appeared in
+> +NETLINK_SOCK_DIAG, NETLINK_CONNECTOR and NETLINK_NETFILTER appeared in
+>  Linux 2.6.14.
+>
+>  NETLINK_GENERIC and NETLINK_ISCSI appeared in Linux 2.6.15.
+
+I made a different change, as below.
 
 Cheers,
 
 Michael
 
-> Signed-off-by: Olivier Gayot <olivier.gayot@sigexec.com>
-> ---
->  man3/posix_spawn.3 | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/man3/posix_spawn.3 b/man3/posix_spawn.3
-> index 72e7509d8..93f1124a1 100644
-> --- a/man3/posix_spawn.3
-> +++ b/man3/posix_spawn.3
-> @@ -394,6 +394,20 @@ instead of
->  The
->  .B _GNU_SOURCE
->  feature test macro must be defined to obtain the definition of this contant.
-> +.TP
-> +.BR POSIX_SPAWN_SETSID " (since glibc 2.26)"
-> +If this flag is set,
-> +the child process shall create a new session and become the session leader.
-> +The child process shall also become the process group leader of the new process
-> +group in the session (see
-> +.BR setsid (2)).
-> +The
-> +.B _GNU_SOURCE
-> +feature test macro must be defined to obtain the definition of this contant.
-> +.\" This flag has been accepted in POSIX, see:
-> +.\" http://austingroupbugs.net/view.php?id=1044
-> +.\" and has been implemented in glibc since version 2.26
-> +.\" commit daeb1fa2e1b33323e719015f5f546988bd4cc73b
->  .PP
->  If
->  .I attrp
-
-
+diff --git a/man7/netlink.7 b/man7/netlink.7
+index 4a7ba62a3..20aaa9716 100644
+--- a/man7/netlink.7
++++ b/man7/netlink.7
+@@ -68,15 +68,15 @@ feature),
+ .BR NETLINK_FIREWALL
+ was removed in Linux 3.5.
+ .TP
+-.BR NETLINK_INET_DIAG " (since Linux 2.6.14)"
++.BR NETLINK_SOCK_DIAG " (since Linux 3.3)"
++.\" commit 7f1fb60c4fc9fb29fbb406ac8c4cfb4e59e168d6
+ Query information about sockets of various protocol families from the kernel
+ (see
+ .BR sock_diag (7)).
+ .TP
+-.BR NETLINK_SOCK_DIAG " (since Linux 3.3)"
+-.\" commit 7f1fb60c4fc9fb29fbb406ac8c4cfb4e59e168d6
+-A synonym for
+-.BR NETLINK_INET_DIAG .
++.BR NETLINK_INET_DIAG " (since Linux 2.6.14)"
++An obsolete synonym for
++.BR NETLINK_SOCK_DIAG .
+ .TP
+ .BR NETLINK_NFLOG " (up to and including Linux 3.16)"
+ Netfilter/iptables ULOG.
 
 
 -- 
