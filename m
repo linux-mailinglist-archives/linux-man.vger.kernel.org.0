@@ -2,25 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4FF841AF7F6
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2851A1AF7F3
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726307AbgDSGx2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:28 -0400
-Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
+        id S1725923AbgDSGx1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:27 -0400
+Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725990AbgDSGx2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:28 -0400
+        by vger.kernel.org with ESMTP id S1725914AbgDSGx1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:27 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E561C3.000000005E9BF437.00007C9E; Sun, 19 Apr 2020 08:48:23 +0200
+  id 0000000000E561C1.000000005E9BF437.00007C87; Sun, 19 Apr 2020 08:48:23 +0200
 Date:   Sun, 19 Apr 2020 08:48:23 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: signal(7): Unusual wording
-Message-ID: <20200419064823.GA31887@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: setpgid.2.po: Inconsistent formatting
+Message-ID: <20200419064823.GA31864@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -69,25 +69,11 @@ future reports should use another channel, please let me know.
 
 **
 
-"elect", possible, but uncommon, do you mean "select"?
+# FIXME: inconsistant formatting/markup (compared to previous entries)
 
-a)
-"A process can change the disposition of a signal using B<sigaction>(2)  or "
-"B<signal>(2).  (The latter is less portable when establishing a signal "
-"handler; see B<signal>(2)  for details.)  Using these system calls, a "
-"process can elect one of the following behaviors to occur on delivery of the "
-"signal: perform the default action; ignore the signal; or catch the signal "
-"with a I<signal handler>, a programmer-defined function that is "
-"automatically invoked when the signal is delivered."
---
-b)
-"A process can change the disposition of a signal using B<sigaction>(2)  or "
-"B<signal>(2).  (The latter is less portable when establishing a signal "
-"handler; see B<signal>(2)  for details.)  Using these system calls, a "
-"process can elect one of the following behaviors to occur on delivery of the "
-"signal: perform the default action; ignore the signal; or catch the signal "
-"with a I<signal handler>, a programmer-defined function that is "
-"automatically invoked when the signal is delivered.  (By default, the signal "
+"B<pid_t getpgrp(pid_t >I<pid>B<);\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ > /* BSD "
+"version */"
+
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
