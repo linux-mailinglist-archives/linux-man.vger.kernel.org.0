@@ -2,29 +2,29 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8F1681AF7BB
+	by mail.lfdr.de (Postfix) with ESMTP id AFC851AF7BC
 	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726067AbgDSGxD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:03 -0400
-Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
+        id S1726081AbgDSGxE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:04 -0400
+Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726059AbgDSGxD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:03 -0400
+        by vger.kernel.org with ESMTP id S1726055AbgDSGxE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:04 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5613C.000000005E9BF420.00007787; Sun, 19 Apr 2020 08:48:00 +0200
+  id 0000000000E56139.000000005E9BF420.00007770; Sun, 19 Apr 2020 08:48:00 +0200
 Date:   Sun, 19 Apr 2020 08:48:00 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: fopen(3): Wording
-Message-ID: <20200419064800.GA30584@Debian-50-lenny-64-minimal>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Subject: Errors in man pages, here: filesystems(5): (vi) Typo
+Message-ID: <20200419064800.GA30561@Debian-50-lenny-64-minimal>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -69,10 +69,11 @@ future reports should use another channel, please let me know.
 
 **
 
-Text is broken: "as if by"??
+iThe → The
 
-"The file descriptor associated with the stream is opened as if by a call to "
-"B<open>(2)  with the following flags:"
+"iThe following list provides a short description of the available or "
+"historically available filesystems in the Linux kernel.  See the kernel "
+"documentation for a comprehensive description of all options and limitations."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
