@@ -2,26 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 05FBD1AF7AD
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:52:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6B4721AF7AC
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:52:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725988AbgDSGw6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:52:58 -0400
-Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
+        id S1725910AbgDSGw5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:52:57 -0400
+Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726009AbgDSGw6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:52:58 -0400
-X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
+        by vger.kernel.org with ESMTP id S1725988AbgDSGw5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:52:57 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5610E.000000005E9BF41B.00007643; Sun, 19 Apr 2020 08:47:54 +0200
-Date:   Sun, 19 Apr 2020 08:47:54 +0200
+  id 0000000000E56111.000000005E9BF41B.0000765A; Sun, 19 Apr 2020 08:47:55 +0200
+Date:   Sun, 19 Apr 2020 08:47:55 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: dsp56k(4): Formatting
-Message-ID: <20200419064754.GA30260@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: dsp56k(4): plural/singular
+Message-ID: <20200419064755.GA30283@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -70,21 +69,12 @@ future reports should use another channel, please let me know.
 
 **
 
-The formatting is inconsistent and incomplete:
+member/members? There is only one?!
 
-a) Formatting bold?
-
-msgid "#include E<lt>asm/dsp56k.hE<gt>\n"
-
-
-b) In this string the formatting for dspk56k seems missing:
-"The dsp56k device is a character device with major number 55 and minor "
-"number 0."
-
-
-c) No formatting, italic?
-msgid "/dev/dsp56k"
-
+"resets the DSP56001 and uploads a program.  The third B<ioctl>(2)  argument "
+"must be a pointer to a I<struct dsp56k_binary> with members I<bin> pointing "
+"to a DSP56001 binary program, and I<len> set to the length of the program, "
+"counted in 24-bit words."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
