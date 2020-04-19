@@ -2,25 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 966B11AF7B3
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id ACA7D1AF7B7
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726050AbgDSGxA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:00 -0400
+        id S1726061AbgDSGxC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:02 -0400
 Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726024AbgDSGxA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:00 -0400
+        by vger.kernel.org with ESMTP id S1726024AbgDSGxC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:02 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56125.000000005E9BF41D.000076E6; Sun, 19 Apr 2020 08:47:57 +0200
-Date:   Sun, 19 Apr 2020 08:47:57 +0200
+  id 0000000000E56129.000000005E9BF41E.000076FD; Sun, 19 Apr 2020 08:47:58 +0200
+Date:   Sun, 19 Apr 2020 08:47:58 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: errno(3): Missing para break
-Message-ID: <20200419064757.GA30423@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: exec(3): Wording
+Message-ID: <20200419064758.GA30446@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -69,10 +69,15 @@ future reports should use another channel, please let me know.
 
 **
 
-Missing para break?
+The translator in charge wondered why the term "frontend" is used here 
+and not the term "wrapper", because this function calls another 
+function. He also cites the (German version of)
+https://en.wikipedia.org/wiki/Front_end_and_back_end
 
-"I<C99>: The name is defined by C99.  Below is a list of the symbolic error "
-"names that are defined on Linux:"
+"The B<exec>()  family of functions replaces the current process image with a "
+"new process image.  The functions described in this manual page are front-"
+"ends for B<execve>(2).  (See the manual page for B<execve>(2)  for further "
+"details about the replacement of the current process image.)"
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
