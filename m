@@ -2,25 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 470961AF808
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6845D1AF806
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726359AbgDSGxf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1726353AbgDSGxf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 19 Apr 2020 02:53:35 -0400
-Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
+Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726341AbgDSGxf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:35 -0400
+        by vger.kernel.org with ESMTP id S1725990AbgDSGxe (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:34 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E561EC.000000005E9BF43F.00007E5A; Sun, 19 Apr 2020 08:48:31 +0200
+  id 0000000000E561EE.000000005E9BF43F.00007E71; Sun, 19 Apr 2020 08:48:31 +0200
 Date:   Sun, 19 Apr 2020 08:48:31 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: suffixes(7): Clarification
-Message-ID: <20200419064831.GA32331@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: swapon(2): Typo?
+Message-ID: <20200419064831.GA32354@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -69,14 +69,9 @@ future reports should use another channel, please let me know.
 
 **
 
-The man page claims that suffixes are separated by a dot from the filename
-and contain one or more letters.
+The variable "flags" has not been defined (above), is swapflags meant?
 
-However, for RCS this does not hold, the separation is done by a comma
-and the suffix may contain characters besides letters, so the first
-concrete examples contradicts the general rule.
-
-msgid "files for RCS (Revision Control System)"
+msgid "(B<swapon>())  An invalid flag value was specified in I<flags>."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
