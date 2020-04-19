@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A0A351AFDEF
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 22:06:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 01AD71AFDF0
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 22:07:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726460AbgDSUGQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 16:06:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48972 "EHLO
+        id S1726389AbgDSUHJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 16:07:09 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49112 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726123AbgDSUGQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 16:06:16 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2BA11C061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:06:16 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id v4so3053941wme.1
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:06:16 -0700 (PDT)
+        with ESMTP id S1726123AbgDSUHJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 16:07:09 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B679FC061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:07:08 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id s10so418124wrr.0
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:07:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=XnK98BqTWZ4xe1GfS1FNDe075f3fBzN0F0dCtw/V3NY=;
-        b=Bg8y/2aARGu0D5xs6G50DH21YtOvl4puVfr9Qs2OUpbJIVXC0tHEF81ystvH3ztjsW
-         eD13Ywyc1GRjinr/03sdLWQu81nStO5X/bBGY5oQHwgmzDwLeksnT1RZQDNnW7JylK49
-         z6RORQeVGLtCZHWSlsBoiwTnupMMxDOlzaZ5Ytzdl9EMPuJbNFLidH/u0ITTxmQlgWo1
-         +1n/Emtd5+OKp8lrM+/0wocnksiyEhw5TDqWztM/6PRIs72YEuPvIT5zsWmNqFm5FU9P
-         MRO/s2k9AF0pgQMRkK036l3hZw0qDHw7o28P9ewMpeFpYWVYB+3IVIpSq5EWq8lrcuQp
-         WDUA==
+        bh=mijrRzniSQwNUpqFqByDP045xqfqEvhrHCPfZPba+K4=;
+        b=dJ6H8Hs7xkWTAFneZv+t8+2RoSmrez9/pDhOav2xrhcOxDFiTxIV+i+e3J8bHQ9kOX
+         /rpA/yb8kqS2XcrE5QaXR0Entv5xAsrI+mYbfI16jsaiL6WSTaDwryJQcP0lfA43ws+7
+         Fivv+ld2uboYFMnRdJgEnGzeUFnWTmJfXmAndLVeaz74x4Rjs/vbehRTNnGSP/yOxaK/
+         pumjxeVdm/7+/MB/ahessmvox+1h62PgrDIn7aoZ0ZGl7TMuEKZUtvOKF6FbOYQYaea5
+         0Getx+/M4VBTlQ+g04EFcSHAUDczl1vJ9z1qVPGjL4YXVl2vt6748HDMvXIfmLKga0/a
+         eqIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=XnK98BqTWZ4xe1GfS1FNDe075f3fBzN0F0dCtw/V3NY=;
-        b=YFtQrznlZMyEu/4pHgpw2rUWXPQMZvA0kDY1p4Xo6euMcZ4CLFK16LiH6yhLoqsB04
-         e+MlQrw8PlYln1nQ8qHwCSaM+SxjSoZV2Xpau6cGBwr5ykbxYjUi86l5kMvxDyj4wAcM
-         apw9aB3X6AwOIEA51eIderLmqFdM3/+xEkkoozVAlMDGmWzBLKUFzTff30aDwkTiMa07
-         9nS0oWgxPFkHlM64LarGaulbrVpVt3q9+Vd9OV2qNnQ3O0Cs5dJ52iaWO2sZZwJnhjq5
-         XCriSpons9cSHqx8eRKASvuN0yuQ/x3pOSeLH9B6Jh7hMYHH2fQjIiZcXuAiVtEf/6K4
-         3jjA==
-X-Gm-Message-State: AGi0PuYYcEASfMMXnlgrHP2R6ptUpaP5Z1wRZkBWWUPXuyyJL/pwwK+a
-        1svZ+pZ1SVRrm+SvZ8IKyr/L8ej2
-X-Google-Smtp-Source: APiQypLU7/iig131mwab8NW9zvdp7h+KOS8fxhV1Vuy5en6HRlythAZGMU1W9lScb685bUS33y6Bow==
-X-Received: by 2002:a1c:e302:: with SMTP id a2mr13579651wmh.96.1587326774721;
-        Sun, 19 Apr 2020 13:06:14 -0700 (PDT)
+        bh=mijrRzniSQwNUpqFqByDP045xqfqEvhrHCPfZPba+K4=;
+        b=rgxVqV0fExgj82+i8gB6CurPH5zC/ZO4Qj+VI94CF9tp3x4thMCLJRGjXSAt08r9bP
+         lDsFffRg9qzUy4mS+I5v3QJGsxz3PX03wwvSsp8pyVLH/7IKPcs/WXv2TNBWETle3g1e
+         J6fDYK26Wwj9v2zr06KYRxmrQE/IO6JY6dHtPALHO/jqP8Y3zJL4Nf4rUpoLl0mJmLBq
+         icC22o824c8b/9VZ3aAtCf02Co1LrVbkeFhPGy5Q7OIR3A27EoqwL283s/gSlcw0IQFt
+         qk6DH5Y0DVWD1tdsmu9FJtbtx5j22YW2m6fUvkPtd7LlEY1HJQqKh+NWjws6BfscOGAL
+         wPWg==
+X-Gm-Message-State: AGi0PuawfGOs4vtA9mF94WI/eo5mKRAXg0bL4TXAxuWok9GH3VmsC83U
+        ASd7wzVGDVtRJeXf9OpxbqrPLTcT
+X-Google-Smtp-Source: APiQypJSmsVdj3zqAvZJAJgkiRmxwVeo1rSKaW1hzDPSSKNJcVKDk8jUWyhyfR7TZnDfReBzbRja4w==
+X-Received: by 2002:a5d:62cc:: with SMTP id o12mr14666914wrv.75.1587326827374;
+        Sun, 19 Apr 2020 13:07:07 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id j11sm20278990wrr.62.2020.04.19.13.06.14
+        by smtp.gmail.com with ESMTPSA id u127sm9019182wme.8.2020.04.19.13.07.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 13:06:14 -0700 (PDT)
+        Sun, 19 Apr 2020 13:07:07 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: fcntl(2): Missing word?
+Subject: Re: Errors in man pages, here: filesystems(5): Superfluous comma
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064758.GA30492@Debian-50-lenny-64-minimal>
+References: <20200419064759.GA30538@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <37900cd4-434c-6179-361d-e8b5a5a854ee@gmail.com>
-Date:   Sun, 19 Apr 2020 22:06:13 +0200
+Message-ID: <928111a7-3dae-d01c-6485-631ff34cd4cc@gmail.com>
+Date:   Sun, 19 Apr 2020 22:07:06 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064758.GA30492@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064759.GA30538@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -104,20 +104,18 @@ On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Is there an ID after the first "process group" missing?
+> List ends in a (superfluous) comma
+> 
+> "filesystems - Linux filesystem types: ext, ext2, ext3, ext4, hpfs, iso9660, "
+> "JFS, minix, msdos, ncpfs nfs, ntfs, proc, Reiserfs, smb, sysv, umsdos, vfat, "
+> "XFS, xiafs,"
 
-Yes. Fixed.
+Fixed.
 
 Thanks,
 
 Michael
 
-> 
-> "Return (as the function result)  the process ID or process group currently "
-> "receiving B<SIGIO> and B<SIGURG> signals for events on file descriptor "
-> "I<fd>.  Process IDs are returned as positive values; process group IDs are "
-> "returned as negative values (but see BUGS below).  I<arg> is ignored."
-> 
 
 
 -- 
