@@ -2,26 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 979A71AF7FE
+	by mail.lfdr.de (Postfix) with ESMTP id 671A31AF7FD
 	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726303AbgDSGxb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1726326AbgDSGxb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 19 Apr 2020 02:53:31 -0400
-Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
+Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726318AbgDSGxa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:30 -0400
-X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
+        by vger.kernel.org with ESMTP id S1725990AbgDSGxb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:31 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E561D8.000000005E9BF43B.00007D84; Sun, 19 Apr 2020 08:48:27 +0200
+  id 0000000000E561D7.000000005E9BF43B.00007D6D; Sun, 19 Apr 2020 08:48:27 +0200
 Date:   Sun, 19 Apr 2020 08:48:27 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: st(4): Content
-Message-ID: <20200419064827.GA32117@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: st(4): Understanding
+Message-ID: <20200419064827.GA32094@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -70,13 +69,14 @@ future reports should use another channel, please let me know.
 
 **
 
-We cannot understand the last sentence. What is "forward spacing"?
+The last sentence is unclear, what "list above"?  And booleans?
 
-"This option causes the B<MTEOM> operation to be sent directly to the drive, "
-"potentially speeding up the operation but causing the driver to lose track "
-"of the current file number normally returned by the B<MTIOCGET> request.  If "
-"B<MT_ST_FAST_EOM> is false, the driver will respond to an B<MTEOM> request "
-"by forward spacing over files."
+"Set various drive and driver options according to bits encoded in "
+"I<mt_count>.  These consist of the drive's buffering mode, a set of Boolean "
+"driver options, the buffer write threshold, defaults for the block size and "
+"density, and timeouts (only in kernels 2.1 and later).  A single operation "
+"can affect only one item in the list above (the Booleans counted as one "
+"item.)"
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
