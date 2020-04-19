@@ -2,25 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2DB091AF7C0
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E05501AF7C6
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726091AbgDSGxF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:05 -0400
-Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
+        id S1726116AbgDSGxI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:08 -0400
+Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726055AbgDSGxF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:05 -0400
+        by vger.kernel.org with ESMTP id S1726024AbgDSGxI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:08 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5614E.000000005E9BF423.00007813; Sun, 19 Apr 2020 08:48:03 +0200
-Date:   Sun, 19 Apr 2020 08:48:03 +0200
+  id 0000000000E5615A.000000005E9BF424.00007870; Sun, 19 Apr 2020 08:48:04 +0200
+Date:   Sun, 19 Apr 2020 08:48:04 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: gethostbyname(3): Mixed brackets
-Message-ID: <20200419064803.GA30724@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: hypot(3): Content
+Message-ID: <20200419064804.GA30817@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -69,13 +69,10 @@ future reports should use another channel, please let me know.
 
 **
 
-Second last line: s/(B<nsswitch.conf(5))>/(B<nsswitch.conf(5)>)/
+What is the "lenght of a right-angled triangle"? Do you men the Hypotenuse?
 
-"The domain name queries carried out by B<gethostbyname>()  and "
-"B<gethostbyaddr>()  rely on the Name Service Switch (B<nsswitch.conf>(5))  "
-"configured sources or a local name server (B<named>(8)).  The default action "
-"is to query the Name Service Switch (B<nsswitch.conf(5))> configured "
-"sources, failing that, a local name server (B<named>(8))."
+"On success, these functions return the length of a right-angled triangle "
+"with sides of length I<x> and I<y>."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
