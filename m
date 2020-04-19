@@ -2,25 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B6D091AF80F
+	by mail.lfdr.de (Postfix) with ESMTP id 36C2F1AF80E
 	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726379AbgDSGxi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:38 -0400
-Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
+        id S1726011AbgDSGxh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:37 -0400
+Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726363AbgDSGxi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:38 -0400
+        by vger.kernel.org with ESMTP id S1726373AbgDSGxh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:37 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E561FA.000000005E9BF442.00007EFD; Sun, 19 Apr 2020 08:48:34 +0200
+  id 0000000000E561FF.000000005E9BF442.00007F2B; Sun, 19 Apr 2020 08:48:34 +0200
 Date:   Sun, 19 Apr 2020 08:48:34 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: tzfile(5): Typo?
-Message-ID: <20200419064834.GA32494@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: tzfile(5): Missing/Wrong markup
+Message-ID: <20200419064834.GA32540@Debian-50-lenny-64-minimal>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
@@ -69,9 +69,13 @@ future reports should use another channel, please let me know.
 
 **
 
-UT → UTC?
+timezone → B<timezone>(3) and B<tzfile> → I<tzfile>
 
-msgid "The number of UT/local indicators stored in the file."
+"It seems that timezone uses B<tzfile> internally, but glibc refuses to "
+"expose it to userspace.  This is most likely because the standardised "
+"functions are more useful and portable, and actually documented by glibc.  "
+"It may only be in glibc just to support the non-glibc-maintained timezone "
+"data (which is maintained by some other entity)."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
