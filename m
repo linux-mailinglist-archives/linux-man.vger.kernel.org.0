@@ -2,29 +2,29 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 91B711AF7E5
+	by mail.lfdr.de (Postfix) with ESMTP id C6D441AF7E6
 	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725987AbgDSGxW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1726208AbgDSGxW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 19 Apr 2020 02:53:22 -0400
-Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
+Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726214AbgDSGxV (ORCPT
+        by vger.kernel.org with ESMTP id S1726224AbgDSGxV (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:21 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E561A2.000000005E9BF431.00007B40; Sun, 19 Apr 2020 08:48:17 +0200
+  id 0000000000E5619F.000000005E9BF431.00007B29; Sun, 19 Apr 2020 08:48:17 +0200
 Date:   Sun, 19 Apr 2020 08:48:17 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: proc(5): Content
-Message-ID: <20200419064817.GA31537@Debian-50-lenny-64-minimal>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Subject: Errors in man pages, here: proc(5): Punctuation/Spacing
+Message-ID: <20200419064817.GA31514@Debian-50-lenny-64-minimal>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -69,12 +69,43 @@ future reports should use another channel, please let me know.
 
 **
 
-Translator: Has more fields on my machine
+Full stop at end?
 
-"sl  local_address rem_address   st tx_queue rx_queue tr rexmits  tm-E<gt>when uid\n"
-" 1: 01642C89:0201 0C642C89:03FF 01 00000000:00000001 01:000071BA 00000000 0\n"
-" 1: 00000000:0801 00000000:0000 0A 00000000:00000000 00:00000000 6F000100 0\n"
-" 1: 00000000:0201 00000000:0000 0A 00000000:00000000 00:00000000 00000000 0\n"
+"(B<CONFIG_TRANSPARENT_HUGEPAGE> is required.)  Memory used by shared memory "
+"(shmem) and B<tmpfs>(5)  allocated with huge pages"
+
+--
+Missing closing bracket
+
+msgid "I<softirq> (since Linux 2.6.0"
+
+--
+Missing space 1GB → 1 GB
+
+"This file can be used to query and set the run-time limit on the maximum "
+"(System V IPC) shared memory segment size that can be created.  Shared "
+"memory segments up to 1GB are now supported in the kernel.  This value "
+"defaults to B<SHMMAX>."
+
+--
+Missing full stop
+
+msgid "Enable memory failure recovery (when supported by the platform)"
+
+--
+s/processes, This/processes. This/
+
+"Specifies an amount of memory (in KiB) to reserve for user processes, This "
+"is intended to prevent a user from starting a single memory hogging process, "
+"such that they cannot recover (kill the hog).  The value in this file has an "
+"effect only when I</proc/sys/vm/overcommit_memory> is set to 2 (\"overcommit "
+"never\" mode).  In this case, the system reserves an amount of memory that "
+"is the minimum of [3% of current process size, I<user_reserve_kbytes>]."
+--
+display → displays
+
+"This file display information about memory zones.  This is useful for "
+"analyzing virtual memory behavior."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
