@@ -2,25 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1DB981AF7C4
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 954401AF7C3
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726109AbgDSGxH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1726089AbgDSGxH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 19 Apr 2020 02:53:07 -0400
-Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
+Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726055AbgDSGxH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:07 -0400
+        by vger.kernel.org with ESMTP id S1726024AbgDSGxG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:06 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56151.000000005E9BF423.0000782A; Sun, 19 Apr 2020 08:48:03 +0200
+  id 0000000000E56154.000000005E9BF423.00007841; Sun, 19 Apr 2020 08:48:03 +0200
 Date:   Sun, 19 Apr 2020 08:48:03 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: getmntent(3): Markup
-Message-ID: <20200419064803.GA30747@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: getopt(3): Colloquialness
+Message-ID: <20200419064803.GA30770@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -69,11 +69,12 @@ future reports should use another channel, please let me know.
 
 **
 
-? returns an I<int> ?
+use of we
 
-"The nonreentrant functions are from SunOS 4.1.3.  A routine "
-"B<getmntent_r>()  was introduced in HP-UX 10, but it returns an int.  The "
-"prototype shown above is glibc-only."
+"POSIX.1-2001, POSIX.1-2008, and POSIX.2, provided the environment variable "
+"B<POSIXLY_CORRECT> is set.  Otherwise, the elements of I<argv> aren't really "
+"I<const>, because we permute them.  We pretend they're I<const> in the "
+"prototype to be compatible with other systems."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
