@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1D7441AFDF6
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 22:13:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B514B1AFDF7
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 22:15:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725949AbgDSUN6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 16:13:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50154 "EHLO
+        id S1725947AbgDSUPT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 16:15:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50386 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725947AbgDSUN6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 16:13:58 -0400
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AF3C2C061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:13:56 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id i10so9561035wrv.10
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:13:56 -0700 (PDT)
+        with ESMTP id S1725905AbgDSUPT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 16:15:19 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A680EC061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:15:18 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id g13so7560125wrb.8
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:15:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=EkFwlyMvF/z65dU7ml/bt6eANQihUSpnhv6MyDnZz/0=;
-        b=gPfW8raYkXm+k12a75ix14iQ5cUcV6gEytLVJHa4WF3/Ztnos4r5xXxMV0OYsIzBy7
-         4VtDbKWDPn3tdZu+VRvhpj3BL9x+uxgPdgfMOQwe2FhoG88QMOQwQrPI96/AnCYaXIEk
-         NpEbmWDT/1bwvnCvkC4XnfQbZf3MBPObkt0B/Si1+F8MNpzOtTOtCm8KzjIOBhknl7RS
-         Gw1njH3WcEA3H8wkYWuC/h0E5KnV8Ji5EYJCkTz7db74k1Wi5Ep1KfXKuNb5lix/8/Z/
-         oeZ2Hcho93GYKBGeVQcP3F9g7P8Xz+FycJN0fYFzsc+Y98IU5AlubCtlrSvfDNGNqoqc
-         pdaA==
+        bh=VPwPkDMvRjrImGcK3jQrZXtUamat0mRFlxn4Ij0Wmag=;
+        b=ZaRbEwV//Couy9McoqtNTarkO9cCiZcvE+jHhQdhbbolCUCeTGkTbpeba37L0RgkMm
+         vFR9brxjV+GW4HrDX1mBYpu5liElWlrrjKxgkYl0c6C3O6fPNk8HQgmSwXjHw0nEfdh7
+         UaMc3+R1HjgNocacH9h4vRH5jH82KkJgS/3NQMjIWY9hhrBHK84YzY+TS61v1SvZJ2d5
+         AVZppDEzgDkJ02dAu5Y5s7RWYIbPJRi5TB+gg0JHT21Skw1ZVoTZDILkcf/t3Tc2dXLV
+         5fF6Pq26ENmBdKgec+oiFFqb/O0jcCyVM9QRR/QQlP/L+2+5wwisHORjoJKnsGPA2s5k
+         EKQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=EkFwlyMvF/z65dU7ml/bt6eANQihUSpnhv6MyDnZz/0=;
-        b=gBtGqSzFvN7w/Z7VOgo4sOU9J4x+V9B7GS9+0Flm5zOVg3ZQzhdMT7nrNNKj/9M32D
-         bp3UJVVy0KmbL4dOd3/KK3Pk0aZ9k5Pj1/J5XVY1gM3g3ADuuEuWKOaatbeSvYao68E5
-         ksbTRy+GXeJQxDBASt/VUksB0FRe3Df12XSkJi+ygYLL2E/H1xKI4/KxZWbE6uaivNgm
-         HMGs57q6+f7JXl114SBy+njY82O2KnZ7jnG5mtBntRzgl2NtcvNJnAzW2ms1JTbt/mh5
-         ELEUooqArq31XMEnT9A48Au+TmMJk99LYdCunrr7ee3mpomn9/ZDC9sVjf1Tn3hpEwjk
-         6h7Q==
-X-Gm-Message-State: AGi0PuaHkrro3BojGzprCigPHMaI2TVcA3xhqEjro09WbHj/lNJ1DDy+
-        ZWMK6ffNONLxNk7HGcE/rLY/aCTi
-X-Google-Smtp-Source: APiQypJWVuA6GCPF0ybGyrkX9FCLrr4QutBhdyLzxwmlE0WEY3VCB7NRTfq3Cqf+fO/G3+tnpSpkHg==
-X-Received: by 2002:a5d:4645:: with SMTP id j5mr14656054wrs.282.1587327235269;
-        Sun, 19 Apr 2020 13:13:55 -0700 (PDT)
+        bh=VPwPkDMvRjrImGcK3jQrZXtUamat0mRFlxn4Ij0Wmag=;
+        b=k4Sn+oBpMzmtRnEtWowMTWqTKESkvQycdvcJFsuwm/3QJMT82dP8RluqanqszwqwN7
+         njwOZeWwOrOlCYp7OHpip1xPD0pWhcaTTbgGwkq7qL9cTsZlKMkP3aN6Sz4zSsU5luVr
+         qMIzFIbpNuq866Rc6u5pZYXc4jopi/O7kV7025AKsyoIOR/bx32VhdaQnRreCIFgjvyK
+         TPtLg4x3ZhnF6YR5bSfJwXyHpl7Q+RCxHPtdmXZRJsYBSFj+5NJHTz9wqaK2N/itO/7V
+         puSjI2RhIK4nVhhb1iBgztXhUyDFNIbmjtUinVaj1CDlpml4/x87oyP1RBj2Ps8RSWuW
+         S3lQ==
+X-Gm-Message-State: AGi0Pubb/eD6/11m3hECMM3J7ZSy63nMRWbrYnvroxbjlarBNAGkFdo+
+        /FfpBBVl/heg19YESULAVIrfBx6h
+X-Google-Smtp-Source: APiQypJW8UtoANSucjBmOAdyj3oiabaCkrCeq9cQ7tPjkVBseySPLAkULhmODoTTKQQwckR7RYmZLg==
+X-Received: by 2002:a05:6000:12c7:: with SMTP id l7mr15573543wrx.239.1587327317265;
+        Sun, 19 Apr 2020 13:15:17 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id b12sm5097871wro.18.2020.04.19.13.13.54
+        by smtp.gmail.com with ESMTPSA id l5sm16421339wmi.22.2020.04.19.13.15.16
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 13:13:54 -0700 (PDT)
+        Sun, 19 Apr 2020 13:15:16 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: proc(5): Missing article
+Subject: Re: Errors in man pages, here: proc(5): Content
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064818.GA31560@Debian-50-lenny-64-minimal>
+References: <20200419064817.GA31537@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <f91e1795-efc3-73c0-61b9-d3cbb7589131@gmail.com>
-Date:   Sun, 19 Apr 2020 22:13:54 +0200
+Message-ID: <e710cf35-31ad-6c4b-835f-b9a8190927f6@gmail.com>
+Date:   Sun, 19 Apr 2020 22:15:16 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064818.GA31560@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064817.GA31537@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -104,15 +104,15 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> imposes celing → imposes a ceiling
+> Translator: Has more fields on my machine
 > 
-> "This file imposes ceiling on the value to which the B<RLIMIT_NOFILE> "
-> "resource limit can be raised (see B<getrlimit>(2)).  This ceiling is "
-> "enforced for both unprivileged and privileged process.  The default value in "
-> "this file is 1048576.  (Before Linux 2.6.25, the ceiling for "
-> "B<RLIMIT_NOFILE> was hard-coded to the same value.)"
+> "sl  local_address rem_address   st tx_queue rx_queue tr rexmits  tm-E<gt>when uid\n"
+> " 1: 01642C89:0201 0C642C89:03FF 01 00000000:00000001 01:000071BA 00000000 0\n"
+> " 1: 00000000:0801 00000000:0000 0A 00000000:00000000 00:00000000 6F000100 0\n"
+> " 1: 00000000:0201 00000000:0000 0A 00000000:00000000 00:00000000 00000000 0\n"
 
-Fixed.
+Probably the translator is correct. Someone needs
+to update the page.
 
 Thanks,
 
