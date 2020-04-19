@@ -2,25 +2,26 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5A6C11AF805
+	by mail.lfdr.de (Postfix) with ESMTP id C5B861AF807
 	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726343AbgDSGxe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:34 -0400
-Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
+        id S1726355AbgDSGxf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:35 -0400
+Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726325AbgDSGxe (ORCPT
+        by vger.kernel.org with ESMTP id S1726328AbgDSGxe (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:34 -0400
+X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E561E8.000000005E9BF43E.00007E29; Sun, 19 Apr 2020 08:48:30 +0200
-Date:   Sun, 19 Apr 2020 08:48:30 +0200
+  id 0000000000E561EA.000000005E9BF43F.00007E43; Sun, 19 Apr 2020 08:48:31 +0200
+Date:   Sun, 19 Apr 2020 08:48:31 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: strftime(3): Typo
-Message-ID: <20200419064830.GA32282@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: strstr(3): Question
+Message-ID: <20200419064830.GA32306@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -69,21 +70,20 @@ future reports should use another channel, please let me know.
 
 **
 
-three of -> three or
+Is the following intended to be (translatable) text?
 
-"B<%G>, B<%g>, and B<%V> yield values calculated from the week-based year "
-"defined by the ISO\\ 8601 standard.  In this system, weeks start on a "
-"Monday, and are numbered from 01, for the first week, up to 52 or 53, for "
-"the last week.  Week 1 is the first week where four or more days fall within "
-"the new year (or, synonymously, week 01 is: the first week of the year that "
-"contains a Thursday; or, the week that has 4 January in it).  When three of "
-"fewer days of the first calendar week of the new year fall within that year, "
-"then the ISO 8601 week-based system counts those days as part of week 53 of "
-"the preceding year.  For example, 1 January 2010 is a Friday, meaning that "
-"just three days of that calendar week fall in 2010.  Thus, the ISO\\ 8601 "
-"week-based system considers these days to be part of week 53 (B<%V>)  of the "
-"year 2009 (B<%G>); week 01 of ISO\\ 8601 year 2010 starts on Monday, 4 "
-"January 2010."
+#.  .SH BUGS
+#.  Early versions of Linux libc (like 4.5.26) would not allow
+#.  an empty
+#.  .I needle
+#.  argument for
+#.  .BR strstr ().
+#.  Later versions (like 4.6.27) work correctly,
+#.  and return
+#.  .IR haystack
+#.  when
+#.  .I needle
+#.  is empty.
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
