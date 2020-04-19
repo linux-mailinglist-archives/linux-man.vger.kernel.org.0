@@ -2,26 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CF2C81AF7E8
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 138101AF7E9
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726232AbgDSGxX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1726234AbgDSGxX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 19 Apr 2020 02:53:23 -0400
-Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
+Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725959AbgDSGxX (ORCPT
+        by vger.kernel.org with ESMTP id S1726214AbgDSGxX (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:23 -0400
-X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E561A7.000000005E9BF432.00007B85; Sun, 19 Apr 2020 08:48:18 +0200
-Date:   Sun, 19 Apr 2020 08:48:18 +0200
+  id 0000000000E561A9.000000005E9BF433.00007B9D; Sun, 19 Apr 2020 08:48:19 +0200
+Date:   Sun, 19 Apr 2020 08:48:19 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: psignal(3): Terminoology
-Message-ID: <20200419064818.GA31606@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: random.4.po: Wording
+Message-ID: <20200419064819.GA31629@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -33,7 +32,6 @@ Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
-
 
 Dear manpages maintainers.
 the manpage-l10n project maintains a large number of translations of
@@ -71,10 +69,17 @@ future reports should use another channel, please let me know.
 
 **
 
-The "message" is rather a description - change terms?
+The first sentence is very hard to read and should be reworded, maybe
+into two sentences.
 
-msgid "psignal, psiginfo - print signal message"
-
+"If a seed file is saved across reboots as recommended below (all major Linux "
+"distributions have done this since 2000 at least), the output is "
+"cryptographically secure against attackers without local root access as soon "
+"as it is reloaded in the boot sequence, and perfectly adequate for network "
+"encryption session keys.  Since reads from I</dev/random> may block, users "
+"will usually want to open it in nonblocking mode (or perform a read with "
+"timeout), and provide some sort of user notification if the desired entropy "
+"is not immediately available."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
