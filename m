@@ -2,25 +2,26 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2E5981AF7B2
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 60A241AF7B1
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725994AbgDSGxA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:00 -0400
-Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
+        id S1726048AbgDSGw7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:52:59 -0400
+Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726025AbgDSGw7 (ORCPT
+        by vger.kernel.org with ESMTP id S1725994AbgDSGw7 (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:52:59 -0400
+X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5611C.000000005E9BF41C.0000769F; Sun, 19 Apr 2020 08:47:56 +0200
+  id 0000000000E5611F.000000005E9BF41C.000076B6; Sun, 19 Apr 2020 08:47:56 +0200
 Date:   Sun, 19 Apr 2020 08:47:56 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: erf(3): Superfluous comma
-Message-ID: <20200419064756.GA30352@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: erf(3): Typo
+Message-ID: <20200419064756.GA30375@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -67,11 +68,8 @@ I'm now reporting the errors for your project. As requested, each
 issue is sent in an unique mail for easier tracking on your side. If
 future reports should use another channel, please let me know.
 
-**
-
-Unnecessary comma after "erfl"
-
-msgid "erf, erff, erfl, - error function"
+Typo  Missing space before *
+msgid "    erf(x) = 2/sqrt(pi)* integral from 0 to x of exp(-t*t) dt"
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
