@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 657E71AFDD9
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:52:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 27A041AFDDA
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:53:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726493AbgDSTwR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 15:52:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46766 "EHLO
+        id S1726112AbgDSTxf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 15:53:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46964 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726441AbgDSTwQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:52:16 -0400
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5A67BC061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:52:16 -0700 (PDT)
-Received: by mail-wm1-x341.google.com with SMTP id v4so3034777wme.1
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:52:16 -0700 (PDT)
+        with ESMTP id S1726022AbgDSTxe (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:53:34 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A340FC061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:53:34 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id f13so9508410wrm.13
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:53:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=5ReM48jV+joEfhS5APDRjnjkiDrBreH1HkXM+k+BumY=;
-        b=a49yNiqkZvgAHGDJnwMpGLtFyPUvvrIeYGk/pA0lX5HEW0syq60EdQ4N5t0A6hvCij
-         AledI5Fm8cHSWbpVRNOUXsq/7fq4Zbl1jD+46Panoz/bEkkTTaQvawE9RyyvIFX3YWjq
-         F8cvCQeubm7DkFXzlUA92MqvxhFd/sSisxKjBU/8IoK1BdrjB8Vf6vNfxMOSANN6C9tA
-         2wcCJvOWa0gzrKGo994wnKSynot2/f1GLpfqDq42WWZ2HTTyJkS6Mgb0KHR/hWqg3ojV
-         2PuzCFKgwo/kf99mLzi7wCSrzLek1Yl7WcWTQXQZkO+P5zTW5Yolr2HHsuuWVZb4qaIu
-         ITTA==
+        bh=b9gieGR3Mlfi8xLeTIyEB6ZzG7h8zSgeZ2i8OQZCOu0=;
+        b=FS/iiUn1gmA23tR4acXXfbkxnrDte9oH0B9gb/IK5qARMi68sQD21/xD8J39byfn8D
+         wQ1vtF7JKLieFHsX7fUsFXg5B1DJT7nxj5RCKCK8pJ74WS+c5dDqP2xUa26DkwcGDVQ9
+         Q+/egSJA25M7Mk7q3VqWOBBF6ycYiUSkH7sL3njNqz7AabCjTQzscQ1Fp8YRpkzNTaKT
+         hBkJUy6b+XDC7FmjWuFbQKkBStwvK22PyvDe9PUAiVobiEYMD7zC/7iD+jNL5bauw1zC
+         UrHOVwMJNSE60YK8tfzlPZbzm6Ujw0IZm74s/8JApTEP4ZQhdR8RARA/jpauxSnj/wy0
+         G4Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=5ReM48jV+joEfhS5APDRjnjkiDrBreH1HkXM+k+BumY=;
-        b=oi2VPLcdI3tbztCJaIS2Ro9Mq9ab+DsKuDBYUfX8nYPec9gGc7HukqO6SCPLD7ejTP
-         hwyNxPBKl82WirGq7jzAcK4uGR0T2LqQWSmAzvY5UDlQcW+0E1CA9BHhSb1a1VxfFo2f
-         W7kPFZMqCcUhRooapA/pmSdvByvSl3YnM0jEvmcHdIhojdTZCUASe+O4DMMLc4m86z08
-         keUPENffO0Hr+xmsyU1MqVRbNUg16RI/TN9ZFJCo7lixGY0GgQnk39ZDpgriWZT+xVpX
-         XxMPW+wiE12eb+nEHpbCP/rou1JRpDd01txXNkwlFBDZBvn94cHE14LuUkKfHtoYkQUT
-         HcdA==
-X-Gm-Message-State: AGi0PuY663ElNo+wlH2QaZJeTP8BRt184GBRxxD3IStnYp4dQ1gRegOi
-        huepoBG21roOX4O03EgR8j+WZZk+
-X-Google-Smtp-Source: APiQypJcbhWjEm3OtTftwUoAWOW59tvIzbwoGwJ2b5BW+mtA5Ty1LLaUKct7KTP6/y1aT9ZMuD93oA==
-X-Received: by 2002:a1c:ba82:: with SMTP id k124mr14691204wmf.66.1587325934993;
-        Sun, 19 Apr 2020 12:52:14 -0700 (PDT)
+        bh=b9gieGR3Mlfi8xLeTIyEB6ZzG7h8zSgeZ2i8OQZCOu0=;
+        b=c8GFJq4KT3KexCpE4didHbYtaE29WjR2O+eHePnyKOhKwOQylv2FsAxLpV4wRwuipe
+         ymerk0FGVhZH33lJx8r4OmeKMCIyfWn9VV+TmVrHAJcTKo1ui4ACP+FIfC2GgJsFe3d/
+         keT8N+kpjvLcvGXOGgPdbDEoxTHSuBn7D1e0OYhjj17bgdL8h3hdfuXF1o5Yd612YVGX
+         mxSBzdU8vEPAy7T2l/ykXN6+e3p8X0KOU6oIgegsjJhTVP+cdOqfwv1L2ahOnzvUpDXt
+         P6t7u+Yo8uinkvxmSsKeUc8vEVhJR1PYcSQOH+Nata+Y0ooUlyS3L5Quqs6bpTh2yOCa
+         y9Kw==
+X-Gm-Message-State: AGi0Pubo7Dxy7o7rfMdDrJRWvrAuFxnEnbMWXtpbGg0ByVHXtdBUdUYr
+        g2Y7EqVD0Q6M3XziijrEGQ+HuRvV
+X-Google-Smtp-Source: APiQypLiy2qtrzxOx4xUqArDUEAl4o4nn+SkkzuuxFw7Bs5JYGcc2yeAC7EYFYoIjHiZKDap9FX8pw==
+X-Received: by 2002:adf:d087:: with SMTP id y7mr14804795wrh.321.1587326013279;
+        Sun, 19 Apr 2020 12:53:33 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id 185sm4252671wmc.32.2020.04.19.12.52.14
+        by smtp.gmail.com with ESMTPSA id u3sm31337297wrt.93.2020.04.19.12.53.30
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 12:52:14 -0700 (PDT)
+        Sun, 19 Apr 2020 12:53:32 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: fork(2): Missing whitespace
+Subject: Re: Errors in man pages, here: man-pages(7): Garbage in text?
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064801.GA30607@Debian-50-lenny-64-minimal>
+References: <20200419064809.GA31116@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <abfb67af-c711-79a5-b1a4-1a818d984c00@gmail.com>
-Date:   Sun, 19 Apr 2020 21:52:14 +0200
+Message-ID: <2e80f0ad-bfc0-44b0-b096-99ddbd3ab0bd@gmail.com>
+Date:   Sun, 19 Apr 2020 21:53:30 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064801.GA30607@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064809.GA31116@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -104,19 +104,18 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> \\(em without whitespace
+> What is "an tmac"?
 > 
-> "The child process is created with a single thread\\(emthe one that called "
-> "B<fork>().  The entire virtual address space of the parent is replicated in "
-> "the child, including the states of mutexes, condition variables, and other "
-> "pthreads objects; the use of B<pthread_atfork>(3)  may be helpful for "
-> "dealing with problems that this can cause."
+> "New manual pages should be marked up using the B<groff an.tmac> package "
+> "described in B<man>(7).  This choice is mainly for consistency: the vast "
+> "majority of existing Linux manual pages are marked up using these macros."
 
-See previous mails.
+"an.tmac" is the name of a groff macro package. Treat it as a noun.
 
 Thanks,
 
 Michael
+
 
 
 -- 
