@@ -2,26 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 07A351AF7BD
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1DB981AF7C4
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726083AbgDSGxE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:04 -0400
-Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
+        id S1726109AbgDSGxH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:07 -0400
+Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726069AbgDSGxE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:04 -0400
-X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
+        by vger.kernel.org with ESMTP id S1726055AbgDSGxH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:07 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56148.000000005E9BF422.000077E5; Sun, 19 Apr 2020 08:48:02 +0200
-Date:   Sun, 19 Apr 2020 08:48:02 +0200
+  id 0000000000E56151.000000005E9BF423.0000782A; Sun, 19 Apr 2020 08:48:03 +0200
+Date:   Sun, 19 Apr 2020 08:48:03 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: getgrent(3): Understanding
-Message-ID: <20200419064802.GA30678@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: getmntent(3): Markup
+Message-ID: <20200419064803.GA30747@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -70,13 +69,11 @@ future reports should use another channel, please let me know.
 
 **
 
-explain|reword "broken-out" or skip it
+? returns an I<int> ?
 
-"The B<getgrent>()  function returns a pointer to a structure containing the "
-"broken-out fields of a record in the group database (e.g., the local group "
-"file I</etc/group>, NIS, and LDAP).  The first time B<getgrent>()  is "
-"called, it returns the first entry; thereafter, it returns successive "
-"entries."
+"The nonreentrant functions are from SunOS 4.1.3.  A routine "
+"B<getmntent_r>()  was introduced in HP-UX 10, but it returns an int.  The "
+"prototype shown above is glibc-only."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
