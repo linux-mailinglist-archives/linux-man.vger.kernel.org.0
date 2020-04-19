@@ -2,26 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CC69D1AF7D6
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A16521AF7D9
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726157AbgDSGxN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:13 -0400
-Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
+        id S1726167AbgDSGxO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:14 -0400
+Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726160AbgDSGxN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:13 -0400
-X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
+        by vger.kernel.org with ESMTP id S1726105AbgDSGxO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:14 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56175.000000005E9BF42A.0000799B; Sun, 19 Apr 2020 08:48:10 +0200
-Date:   Sun, 19 Apr 2020 08:48:10 +0200
+  id 0000000000E5617D.000000005E9BF42B.000079E0; Sun, 19 Apr 2020 08:48:11 +0200
+Date:   Sun, 19 Apr 2020 08:48:11 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: man-pages(7): Garbage in text?
-Message-ID: <20200419064809.GA31116@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: mount_namespaces(7): Understanding
+Message-ID: <20200419064811.GA31185@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -70,11 +69,13 @@ future reports should use another channel, please let me know.
 
 **
 
-What is "an tmac"?
+What does "come as a single unit from more privileged mount" mean?
 
-"New manual pages should be marked up using the B<groff an.tmac> package "
-"described in B<man>(7).  This choice is mainly for consistency: the vast "
-"majority of existing Linux manual pages are marked up using these macros."
+"Mounts that come as a single unit from more privileged mount are locked "
+"together and may not be separated in a less privileged mount namespace.  "
+"(The B<unshare>(2)  B<CLONE_NEWNS> operation brings across all of the mounts "
+"from the original mount namespace as a single unit, and recursive mounts "
+"that propagate between mount namespaces propagate as a single unit.)"
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
