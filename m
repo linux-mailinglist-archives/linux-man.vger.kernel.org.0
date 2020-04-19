@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B2B471AFD77
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:27:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6C83A1AFD7A
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:29:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726011AbgDST1q (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 15:27:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43010 "EHLO
+        id S1726211AbgDST3X (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 15:29:23 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43258 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725848AbgDST1p (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:27:45 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6C65CC061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:27:45 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id 188so2412288wmc.2
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:27:45 -0700 (PDT)
+        with ESMTP id S1725848AbgDST3X (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:29:23 -0400
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E46CDC061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:29:22 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id d17so9445585wrg.11
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:29:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Zquh+qDnQBUd29u2ApqRw7quscKkwQm0VSWAp5RJx6E=;
-        b=cf4KROZqjl/DiY7JKoWc3RqdvGh66pwzZExanQYhdZG4Br4tD7+BS+FU3AG+nbjC+U
-         thdOMHl5JjFepPEqNeXh5JHWDWW4msAS0AwYzj3+ra2KnP0RTfd04NXGnoGRdQo0qDrj
-         jCysyeWtr97Fl9JiP36YYBTayjsfYt9cuY8O342Vv/+MXMr7+DCFfNzZtAcGE4fgQ48e
-         1s7ub5IAqTskPBoTaTcHmg5O5zNQMW8h8ho8JBi9B4XgIOeG76lijtT0ZhpULH7jSwVK
-         OS6fU42GNf1i9R+67bLFDTRH0QFWAXAoO1RlHJkZZU48+do7pLqsbRzL1PlNVT6MKDdQ
-         ShaA==
+        bh=PdBS+7CdwGS64bTj87Gjeg1wWTkqvBKGraIgZidKndY=;
+        b=ReBiQO82qfvJTp2Mn9sexkYEC2jIrwVL1eS+YJz5BDo+VUQ3UfYeI68JDc8DbKSjAU
+         Czm/F7EcSZqsYaRkuYnWM9xZLeGyW4DbnE5Xh81x8b6bLsHPLeyC1JgqcqmAblrUUXwv
+         Nk9dnR0T8lkn5LpuzstHGCLG3Aseb8nIlUV/oAbHCu7SCsjUno0/GlQhwNXaQ/DvJ19Z
+         TQgX7vUM7WHTbrhmaiWiF7OeLWaV3EcP8UV3cErotP9p3BLNMKXbHjU1v3sJUDlnUOJ6
+         sdTwBPYfB9AJYfQlSc3dJEvF+aD7ufoXDyFOl1eudyd+Ml6nkkRMxPxJVZOr/T1Dyu1H
+         Mg2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=Zquh+qDnQBUd29u2ApqRw7quscKkwQm0VSWAp5RJx6E=;
-        b=S6eGQkQYWcPhbp17ID2X15q6K5IvHC9NtFYOYwsMXkbxn28WlI2vTPCWxHHV/zAqTT
-         vg0uR9PNv9fkIyz1h33R92CTc2acBLnyhpawrp9abylhligcxIU6Ah34zq00S+ZaLOTU
-         S1Nto2vtOAuE7AjFRsoOBldLZmEGiLOKbgBcypLsix1s28h6pbAb2rHxhNfB/UobnqYh
-         ydQMyzKqMZyA2uStOFd21P1c/WNzIs/lwIZ6vPlLPVdzYJFsYnLIKjnIUrmhN9D0nSKT
-         rjfSnXvrtoZky3U/GrK//5t6nrwVLbX0Qa50O928aoxJv+Je4XXfYQTME4+pInFpl0JH
-         k/vA==
-X-Gm-Message-State: AGi0PuY6hVHaywrMMVKhPGZmpGcrM8G7nlqHzc6nVuc0iwVp8o85MBSe
-        NnHzkM74JYMxr+AWowPGQA1gOy+B
-X-Google-Smtp-Source: APiQypIeXK9k9xz5Y+1pW39MN3NeKTRM+8OXZHuaVbDbzdepQaBsFyyIzASGp+o/TCKqMhXCeeu3oA==
-X-Received: by 2002:a7b:c147:: with SMTP id z7mr14900412wmi.52.1587324464045;
-        Sun, 19 Apr 2020 12:27:44 -0700 (PDT)
+        bh=PdBS+7CdwGS64bTj87Gjeg1wWTkqvBKGraIgZidKndY=;
+        b=V8PcReHwFcWxsYQH6ZmdXbJRer+j7Mmsr3nrHRWYqJnk3Az/Vna9ug51hYsxZBkaMu
+         Ij/x6CCK16pKnEcT97f+qTtR1A5Q38TAf16EG5gnfWcpO2ifiqB4xZQS2rGu/j9pFFRm
+         kss04EfiBzupKD6/ZLgK3sgtXybGcoQBBVDGK3eR3ZLX2pAzh2b28GL8LYEfT8yxhAdy
+         /UpwUE4yOEEVWtJfE0OYLBENY2XJlp5QVFUZrNfKMZ7lv5bgD2TVr5kidVCZjp6E617m
+         U6/b9xx/u9FBioDKahW1vjfleG0GL9d4vuZ5ilJ54CJgSLM6Nt2or5plMdOnFnhFMAIB
+         lpAw==
+X-Gm-Message-State: AGi0PuabI7+OOClC+2vVeK7x/BFJC8XimhvtZ7AYH9GckKGh3sMzFH6X
+        cdu9b9+gCfnqsIURVgF+bwMdL3kt
+X-Google-Smtp-Source: APiQypLkcxiVfcd4Idtvuyrt6QQwHcoSFYGCUGkZu9Dcj88c6gD8UTnX4ZUHmk/02NusyNQEMOFqSQ==
+X-Received: by 2002:a5d:48cc:: with SMTP id p12mr15716559wrs.170.1587324561531;
+        Sun, 19 Apr 2020 12:29:21 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id g25sm16451729wmh.24.2020.04.19.12.27.43
+        by smtp.gmail.com with ESMTPSA id n9sm9196253wrx.61.2020.04.19.12.29.20
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 12:27:43 -0700 (PDT)
+        Sun, 19 Apr 2020 12:29:21 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: erf(3): Superfluous comma
+Subject: Re: Errors in man pages, here: erf(3): Missing words
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064756.GA30352@Debian-50-lenny-64-minimal>
+References: <20200419064757.GA30398@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <956fc018-b478-a64b-082c-6350ce2c5102@gmail.com>
-Date:   Sun, 19 Apr 2020 21:27:43 +0200
+Message-ID: <c88d05c7-ad04-d9a9-138a-9c051c869c4b@gmail.com>
+Date:   Sun, 19 Apr 2020 21:29:20 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064756.GA30352@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064757.GA30398@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -104,9 +104,10 @@ On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Unnecessary comma after "erfl"
+> return the error function → return the value of the error function
 > 
-> msgid "erf, erff, erfl, - error function"
+> "On success, these functions return the error function of I<x>, a value in "
+> "the range [-1,\\ 1]."
 
 Fixed.
 
