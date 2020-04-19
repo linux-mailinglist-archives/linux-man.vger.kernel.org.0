@@ -2,26 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 63EF11AF7A4
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:52:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8F8EC1AF7A2
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:52:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725914AbgDSGwy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1725969AbgDSGwy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 19 Apr 2020 02:52:54 -0400
-Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
+Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725446AbgDSGwy (ORCPT
+        by vger.kernel.org with ESMTP id S1725914AbgDSGwy (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:52:54 -0400
-X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56011.000000005E9BF416.00007524; Sun, 19 Apr 2020 08:47:50 +0200
-Date:   Sun, 19 Apr 2020 08:47:50 +0200
+  id 0000000000E560F7.000000005E9BF417.00007572; Sun, 19 Apr 2020 08:47:51 +0200
+Date:   Sun, 19 Apr 2020 08:47:51 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages - here: ascii(7): SEE ALSO
-Message-ID: <20200419064750.GA29973@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: carg(3): Missing word
+Message-ID: <20200419064751.GA30050@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -70,14 +69,9 @@ future reports should use another channel, please let me know.
 
 **
 
-The order of the entries is incorrect, see man-pages(7)
+s/is/is in/ 
 
-"B<charsets>(7), B<iso_8859-1>(7), B<iso_8859-10>(7), B<iso_8859-11>(7), "
-"B<iso_8859-13>(7), B<iso_8859-14>(7), B<iso_8859-15>(7), B<iso_8859-16>(7), "
-"B<iso_8859-2>(7), B<iso_8859-3>(7), B<iso_8859-4>(7), B<iso_8859-5>(7), "
-"B<iso_8859-6>(7), B<iso_8859-7>(7), B<iso_8859-8>(7), B<iso_8859-9>(7), "
-"B<utf-8>(7)"
-
+msgid "The return value is the range of [-pi,pi]."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
