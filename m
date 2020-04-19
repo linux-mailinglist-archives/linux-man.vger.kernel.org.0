@@ -2,30 +2,29 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E9DA91AF814
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 205A01AF817
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726328AbgDSGxk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:40 -0400
-Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
+        id S1726389AbgDSGxl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:41 -0400
+Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726378AbgDSGxk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:40 -0400
-X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
+        by vger.kernel.org with ESMTP id S1726386AbgDSGxl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:41 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56205.000000005E9BF444.00007F70; Sun, 19 Apr 2020 08:48:36 +0200
+  id 0000000000E56209.000000005E9BF444.00007F9E; Sun, 19 Apr 2020 08:48:36 +0200
 Date:   Sun, 19 Apr 2020 08:48:36 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: wavelan(4): Markup/Formatting
-Message-ID: <20200419064836.GA32609@Debian-50-lenny-64-minimal>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Subject: Errors in man pages, here: wavelan(4): Typo
+Message-ID: <20200419064836.GA32655@Debian-50-lenny-64-minimal>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -70,16 +69,11 @@ future reports should use another channel, please let me know.
 
 **
 
-Why is wavelan marked up here? It is not marked up in other places.
+reuse → reused
 
-"I<wavelan> is the low-level device driver for the NCR / AT&T / Lucent "
-"B<WaveLAN ISA> and Digital (DEC)  B<RoamAbout DS> wireless ethernet "
-"adapter.  This driver is available as a module or might be compiled in the "
-"kernel.  This driver supports multiple cards in both forms (up to 4) and "
-"allocates the next available ethernet device (eth0..eth#) for each card "
-"found, unless a device name is explicitly specified (see below).  This "
-"device name will be reported in the kernel log file with the MAC address, "
-"NWID and frequency used by the card."
+"Set the network ID [I<0> to I<FFFF>] or disable it [I<off>].  As the NWID is "
+"stored in the card Permanent Storage Area, it will be reuse at any further "
+"invocation of the driver."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
