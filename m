@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BF1FC1AFDF1
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 22:09:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E5EB21AFDF5
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 22:12:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725947AbgDSUJT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 16:09:19 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49446 "EHLO
+        id S1725953AbgDSUMT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 16:12:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49902 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725905AbgDSUJS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 16:09:18 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6E834C061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:09:18 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id z6so8979355wml.2
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:09:18 -0700 (PDT)
+        with ESMTP id S1725949AbgDSUMS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 16:12:18 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 802A2C061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:12:18 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id k1so9600930wrx.4
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:12:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=wxstO0bW/vZr+ZmZVK4xYjqaCOW4BuAQ1uVQTkmCj4w=;
-        b=acQOR4eQdnKCcjj5CaY/jslG/yDAIC3EMrAL0jXFYo3Ywi80xyU7qLywY2vtiOSXyI
-         G8Ui2DdTWTpAdRSImialgxRPfnxbMP52/yq+9D433eXWFklMYJppcimaNHWzun34JSmz
-         6iT/NipNstO4XX0ZV9/eOIWF9M1JUAJXgvwp/gPkmgdL0F2W4dmVtf9aoujzdsY8L6kS
-         /PGqm3mlr+wakUDsFLfOrrG95P/9NSdibtZuGrB8cTxRnDAQSRjq5rkLgqW7pHIObmeZ
-         hKi1aLUx8XpfKjmyLAU9fIZZuglO2uz3PzlTD+6z7pS0gGdXHfebkcX3T0uJdXBAXuQM
-         ying==
+        bh=WEhc6oRsOrGl76XyRdplKplEFiESOcQNVTVq6scjFUc=;
+        b=dBF7mYEg2RTjpy3ZuThmtHaDnnQNF+1OK7qWOeYiKb3bjD5lgr7xOgsYhb+sZNVQE8
+         yatRIt6S0LC5UumSfPcjJOEmaagy09k25cCjKRs2tqEokaCG03xZIiIW+LpCQSoUbmAe
+         L1qVC7bXkAsS85CJDZvXn/0rWF3Rs1O6peJu35fJCBbS8sL9wCxWq1agJa+ggRKxuIlv
+         ImH0q3IA0PcAL9KnddcKU3kxYteZ0j2RoKBIauFxK4ke+LfPihxnGH0CcHqXNs7mewWT
+         1knByz2j25evcMt0xBYjriUoBcKL6nXaNfq05cs+sqzQ+zf8JmU3X+xplMFz+AtjYtyh
+         rG+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=wxstO0bW/vZr+ZmZVK4xYjqaCOW4BuAQ1uVQTkmCj4w=;
-        b=iWa1KdjgC7hoJKLmXZMl1CuUU+7YqpkgFmqxP2laIjQC/e51fsllEzZRZojApkRbaj
-         PONZLX46XYp33T3uInABwE1LDmT8e7tOndAx9C31yrpNXL02/eGAanc5vPmgTiLPJopN
-         kALbz6vCHvT+QpN3e3ZgJI7wigTFCP6gTt9+ugxfb0xCp8evbjylp/PA814m6X6Z3BBV
-         /ak+816a01mCOhkL9XzHezdjv+6+iiait0L/MSGDCHteSRQWtcSbbv+6dBz4ydXwHjPG
-         lyLeA5LT9ag4fTcsT4ry3fY6BvmDbIUAzwE/+909haUD+nousxYeOOserxkiDxTmo6Oa
-         Ig1w==
-X-Gm-Message-State: AGi0PubAUxyfiQpPysowZZVTQN0AEeKUAU2m9RHX2aDxgwcRUB4WwnPw
-        PfJtzz2PLhZe5bu97La2ul8nKl2V
-X-Google-Smtp-Source: APiQypJwIiuQA5hj5mY9YPD0YeIqKxeZ5cj5ppqdRUC/1U4/R026ApO8YC2IwH3cS+HaZDXkdeT3xg==
-X-Received: by 2002:a1c:44b:: with SMTP id 72mr13676633wme.58.1587326956885;
-        Sun, 19 Apr 2020 13:09:16 -0700 (PDT)
+        bh=WEhc6oRsOrGl76XyRdplKplEFiESOcQNVTVq6scjFUc=;
+        b=qOCkl1q8X2xOrTLw6NWBgeENM+yF4LyfmsNUwMCOSaLfFBQ5o5CbHK101glgxy9deR
+         ptj8dWArCPvDesaMiPV84kp/BpHSH47XTSvQ21j0zMq/eF4CPusV3IM+JSri/1DRF55W
+         Lk39skRl+jMgl/yWN7FV8h7CUpgKrte63ADTSoJOmxHhBLH9pzGhgkD70ZbaHyWmYNLb
+         7TTnaCsHi4zVovhPfiDWDvigT8fJDhAXucRjCFHPYFpX9bQrzjihYrXdW3y9++mljEzL
+         QhtESAXLIjqmHhkc7DDAtK3+SoTnj6QzZKctdc8wgIXzQw3lmy/0tDq1aPu6IybLBJf5
+         /paQ==
+X-Gm-Message-State: AGi0PuZNn6BqzLr8nWUY4re0O38BeE6prsqW8Sbi0lD6qodpb+HDGOMS
+        VWeWVuPxpGe10eAFhKpRel1INQcc
+X-Google-Smtp-Source: APiQypI7QQjRIjqLHbhEwEWAoy6LjNnSlrqhQrGFLjbIyI2EVy8IlYMD62Zs11CylnuKUpkKn4r1RQ==
+X-Received: by 2002:adf:9cc8:: with SMTP id h8mr14443886wre.167.1587327137004;
+        Sun, 19 Apr 2020 13:12:17 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id l6sm10963053wrb.75.2020.04.19.13.09.16
+        by smtp.gmail.com with ESMTPSA id a7sm16512491wmj.12.2020.04.19.13.12.16
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 13:09:16 -0700 (PDT)
+        Sun, 19 Apr 2020 13:12:16 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: gethostbyname(3): Space/Formatting
+Subject: Re: Errors in man pages, here: rename(2): Incorrect punctuation
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064802.GA30701@Debian-50-lenny-64-minimal>
+References: <20200419064821.GA31748@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <2318ec0f-bc6b-c202-3fca-42c10c714372@gmail.com>
-Date:   Sun, 19 Apr 2020 22:09:16 +0200
+Message-ID: <35ca93c1-e562-9adf-4c39-c3d803bf8a0f@gmail.com>
+Date:   Sun, 19 Apr 2020 22:12:16 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064802.GA30701@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064821.GA31748@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -104,14 +104,14 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Space between true and (1) and mark up
+> Incorrect full stop after f2fs
 > 
-> "The B<sethostent>()  function specifies, if I<stayopen> is true (1), that a "
-> "connected TCP socket should be used for the name server queries and that the "
-> "connection should remain open during successive queries.  Otherwise, name "
-> "server queries will use UDP datagrams."
+> "B<RENAME_WHITEOUT> requires support from the underlying filesystem.  Among "
+> "the filesystems that provide that support are tmpfs (since Linux 3.18), ext4 "
+> "(since Linux 3.18), XFS (since Linux 4.1), f2fs (since Linux 4.2).  btrfs "
+> "(since Linux 4.7), and ubifs (since Linux 4.9)."
 
-I don't understand this report. Can you elaborate please.
+Fixed.
 
 Thanks,
 
