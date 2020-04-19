@@ -2,30 +2,29 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 408B81AF7B5
+	by mail.lfdr.de (Postfix) with ESMTP id 6EB341AF7B6
 	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726039AbgDSGxB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:01 -0400
-Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
+        id S1726025AbgDSGxC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:02 -0400
+Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726025AbgDSGxB (ORCPT
+        by vger.kernel.org with ESMTP id S1726049AbgDSGxB (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:01 -0400
-X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5612D.000000005E9BF41E.00007714; Sun, 19 Apr 2020 08:47:58 +0200
-Date:   Sun, 19 Apr 2020 08:47:58 +0200
+  id 0000000000E56130.000000005E9BF41F.0000772B; Sun, 19 Apr 2020 08:47:59 +0200
+Date:   Sun, 19 Apr 2020 08:47:59 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: execve(2): typo
-Message-ID: <20200419064758.GA30469@Debian-50-lenny-64-minimal>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Subject: Errors in man pages, here: fcntl(2): Missing word?
+Message-ID: <20200419064758.GA30492@Debian-50-lenny-64-minimal>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -70,19 +69,12 @@ future reports should use another channel, please let me know.
 
 **
 
-set-group_ID → set-group-ID
+Is there an ID after the first "process group" missing?
 
-"By default, file descriptors remain open across an B<execve>().  File "
-"descriptors that are marked close-on-exec are closed; see the description of "
-"B<FD_CLOEXEC> in B<fcntl>(2).  (If a file descriptor is closed, this will "
-"cause the release of all record locks obtained on the underlying file by "
-"this process.  See B<fcntl>(2)  for details.)  POSIX.1 says that if file "
-"descriptors 0, 1, and 2 would otherwise be closed after a successful "
-"B<execve>(), and the process would gain privilege because the set-user-ID or "
-"set-group_ID mode bit was set on the executed file, then the system may open "
-"an unspecified file for each of these file descriptors.  As a general "
-"principle, no portable program, whether privileged or not, can assume that "
-"these three file descriptors will remain closed across an B<execve>()."
+"Return (as the function result)  the process ID or process group currently "
+"receiving B<SIGIO> and B<SIGURG> signals for events on file descriptor "
+"I<fd>.  Process IDs are returned as positive values; process group IDs are "
+"returned as negative values (but see BUGS below).  I<arg> is ignored."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
