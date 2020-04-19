@@ -2,25 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6B4721AF7AC
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:52:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 728701AF7AF
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:52:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725910AbgDSGw5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:52:57 -0400
+        id S1726026AbgDSGw7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:52:59 -0400
 Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725988AbgDSGw5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:52:57 -0400
+        by vger.kernel.org with ESMTP id S1726048AbgDSGw6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:52:58 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56111.000000005E9BF41B.0000765A; Sun, 19 Apr 2020 08:47:55 +0200
+  id 0000000000E56116.000000005E9BF41B.00007671; Sun, 19 Apr 2020 08:47:55 +0200
 Date:   Sun, 19 Apr 2020 08:47:55 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: dsp56k(4): plural/singular
-Message-ID: <20200419064755.GA30283@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, dsp56k(4): Unclear meaning
+Message-ID: <20200419064755.GA30306@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -69,12 +69,12 @@ future reports should use another channel, please let me know.
 
 **
 
-member/members? There is only one?!
+zero bytes: Bytes which are zero, a zero number of bytes (?)
 
-"resets the DSP56001 and uploads a program.  The third B<ioctl>(2)  argument "
-"must be a pointer to a I<struct dsp56k_binary> with members I<bin> pointing "
-"to a DSP56001 binary program, and I<len> set to the length of the program, "
-"counted in 24-bit words."
+"sets the transmit word size.  Allowed values are in the range 1 to 4, and is "
+"the number of bytes that will be sent at a time to the DSP56001.  These data "
+"quantities will either be padded with zero bytes, or truncated to fit the "
+"native 24-bit data format of the DSP56001."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
