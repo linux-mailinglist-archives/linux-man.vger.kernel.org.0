@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1F09C1AFD96
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:42:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7F4B01AFD9D
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:44:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726181AbgDSTmh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 15:42:37 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45282 "EHLO
+        id S1725848AbgDSToZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 15:44:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45560 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725848AbgDSTmh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:42:37 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 01D27C061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:42:37 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id e26so8578393wmk.5
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:42:36 -0700 (PDT)
+        with ESMTP id S1726224AbgDSToY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:44:24 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 305C1C061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:44:24 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id z6so8925509wml.2
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:44:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=WU1OZL+CB+dknll3wh9Fx5I09YSHo8X7Kzh8vm0BuoM=;
-        b=PGwZh337TTE4970+s8a816NrUTPyzG/mja7IoJCdxq5UOTAyYpzo0+mK7qF6n0h9j5
-         uHDij43IA0H6+VTt4OECsRnTC2Uvc+Hc8NQlT9Mb6ju+HMUeDUeai3fwIU9RDUC5C1dH
-         bwhloS56wgNXrxvP26GQ7LSBSKJtEYHTridmbgHrPXsLSQLUc0DfVn/TU7SVgcSe3jla
-         UF8hdAzMGAh/Otnq1NVWz1pnvExmoOgSDAphqJpX7kAyTUoUVOVFjoLxVUx88fDC8+Jv
-         Qigl8XcF3K7ypQp8TC4e9llaNABJJ6FhwnOSmeMomsPrCzeVH9G6kbMN0Y5f5auWiRW9
-         JMGg==
+        bh=tTqlHNbCggLJ+lDqgkMnKqLoScPz0LPkFbS9H+6ybfU=;
+        b=DVoRGXxe7ovIyp7mm1/nW35ljrT2aO/d0VqWa0lX6WLLgXJ+AXfF3b0QxdDC/6Ysmx
+         lIIQVUkTZkxTdlx+2SN+NKYvp78qNsoqAU9MZNEHmNQxFwKeeYRerkuZP9hux+4raJ+3
+         15VTOA4cQsUC+RsRc4nZVyx88jKfcHzPgmWBYg4CdJUaWREpXE/HUxgSadkzAay38ZqT
+         WgsA9UVLeUUwxiN4xLLqqL3maVifBKJKRKTkT6ZbqC1Ey7234hCSDp1GE0QN7Mo2Xnfa
+         TncPRA00s4A35YJYo+ggHvGKIngfeQrRwMYBHQDV7RZlOJFOhGjM7OK7EFTpixZfkeB/
+         U57Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=WU1OZL+CB+dknll3wh9Fx5I09YSHo8X7Kzh8vm0BuoM=;
-        b=O4RfWl6Voj/qemj9ttvDqv0oY8+qb9rs729lnRjEmEfW/OMXwgOtcLucvzpZjvH1+N
-         vAmsQyU7Rh14fKvdTJuQuMRiV3Gor/lfAxSwsSj38ylKmyK9nWGmgaATU/6fF0JpieiB
-         ZlRhFqgtNi6cARRGdL1AaFYtfUqbb8/xXUeMYC5pmUbmWyGk8d97OZkPLGKwww9CwyJ3
-         zx1IyvMHUOxtrxlIZrU+R0P2UKlbLL8CvlqZalb9ixsYvjmIc/kZ2Ney+up4vU62Owm8
-         FTGtgYXkcHHAuZXn3fzHfUc2KXp6+m3mdnZqS8qH5hZNTZkhdX9LuU1fO29MvTbdroJ7
-         MvUw==
-X-Gm-Message-State: AGi0PuapFE4eRJ8bT1jI1UAwHHr6Jjgn2IEDnel4xbgy9R5XlNAC5/2L
-        VezMs2Qd65+NV+OZ6sWL3hWIh2r4
-X-Google-Smtp-Source: APiQypJ60UkuFPd7zRu3PTz3dkiCQbdLJb/ZLgwD+CP4e8dhoI4uXS4UNq+iuhYD8HSAK0TS4lihJQ==
-X-Received: by 2002:a7b:cdfa:: with SMTP id p26mr13929493wmj.186.1587325355540;
-        Sun, 19 Apr 2020 12:42:35 -0700 (PDT)
+        bh=tTqlHNbCggLJ+lDqgkMnKqLoScPz0LPkFbS9H+6ybfU=;
+        b=QQz3vO4ao1GbaIL/1LoAEvZ/1yEH3ddPqQnwB8rz4Mj3jbpIfaYRc+KeLxX4iPTqCx
+         rT7rp65Tj4UtysaJWA4JBo916JU5oBWPCCDWhQEwDoNVrkPnBy47q8S64TlnHWrL923P
+         kqhDgvG4k9qL2tB0+VHI/nI15p5eGRyhj8rsFQ6j6D1WGfsGl9n62tyzh2KOJstoMXX4
+         Q31fm1ipplFi26mbdyh0wDxSw2ZtWjh21YKQ02yX2cVlt3XfT0mcEASyIx6o5/mReZDZ
+         ZgneksW8Ef5GuwEmKRYK3Y+JYOym/Oc6cOJXIex5uStFscTzvYTwzfRVXhmDHgZFlu1U
+         w/jw==
+X-Gm-Message-State: AGi0PuYusNBXaIaPqNSbWSe6aHFSSlOnwd0AVRUqBNznPRfiVtk7Zopo
+        QeUW4SSjo2wrUOaxd8puk1UyWCmG
+X-Google-Smtp-Source: APiQypLWQs6cCifgfx4fvMp7xTINbqHeyfjwbquJm3sQRx03miHOQqvPUISV3DulrVPGD7K/jgEV1w==
+X-Received: by 2002:a1c:dc8b:: with SMTP id t133mr14128036wmg.117.1587325461632;
+        Sun, 19 Apr 2020 12:44:21 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id m1sm35742057wro.64.2020.04.19.12.42.34
+        by smtp.gmail.com with ESMTPSA id l9sm10945871wrq.83.2020.04.19.12.44.20
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 12:42:35 -0700 (PDT)
+        Sun, 19 Apr 2020 12:44:21 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: filesystems(5): (vi) Typo
+Subject: Re: Errors in man pages, here: rename(2): Typo
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064800.GA30561@Debian-50-lenny-64-minimal>
+References: <20200419064820.GA31725@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <083f009c-686d-f422-1cfd-d1ab598fdc44@gmail.com>
-Date:   Sun, 19 Apr 2020 21:42:34 +0200
+Message-ID: <73ad12af-d973-ae52-24de-febdf68c531b@gmail.com>
+Date:   Sun, 19 Apr 2020 21:44:20 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064800.GA30561@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064820.GA31725@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -104,18 +104,16 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> iThe → The
+> etx2 -> ext2
+> 
+> "Support for many other filesystems was added in Linux 4.9, including etx2, "
+> "minix, reiserfs, jfs, vfat, and bpf."
 
-Fixed already (2 months ago).
+Fixed.
 
 Thanks,
 
 Michael
-
-> "iThe following list provides a short description of the available or "
-> "historically available filesystems in the Linux kernel.  See the kernel "
-> "documentation for a comprehensive description of all options and limitations."
-> 
 
 
 -- 
