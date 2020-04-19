@@ -2,29 +2,29 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 955C41AF7D1
+	by mail.lfdr.de (Postfix) with ESMTP id EF1361AF7D2
 	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726144AbgDSGxM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1726112AbgDSGxM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 19 Apr 2020 02:53:12 -0400
-Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
+Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726112AbgDSGxL (ORCPT
+        by vger.kernel.org with ESMTP id S1726123AbgDSGxL (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:11 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56174.000000005E9BF429.00007984; Sun, 19 Apr 2020 08:48:09 +0200
+  id 0000000000E56172.000000005E9BF429.0000796D; Sun, 19 Apr 2020 08:48:09 +0200
 Date:   Sun, 19 Apr 2020 08:48:09 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: man-pages(7): Wording
-Message-ID: <20200419064809.GA31093@Debian-50-lenny-64-minimal>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Subject: Errors in man pages; here: man-pages(7): Capitalization?
+Message-ID: <20200419064809.GA31070@Debian-50-lenny-64-minimal>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -69,14 +69,28 @@ future reports should use another channel, please let me know.
 
 **
 
-Wording:
+Section → section?
 
-a) msgid "Those functions which wrap operations performed by the kernel."
+msgid "The manual Sections are traditionally defined as follows:"
+--
+"B<NAME>\n"
+"B<SYNOPSIS>\n"
+"CONFIGURATION      [Normally only in Section 4]\n"
+"B<DESCRIPTION>\n"
+"OPTIONS            [Normally only in Sections 1, 8]\n"
+"EXIT STATUS        [Normally only in Sections 1, 8]\n"
+"RETURN VALUE       [Normally only in Sections 2, 3]\n"
+"ERRORS             [Typically only in Sections 2, 3]\n"
+"ENVIRONMENT\n"
+"FILES\n"
+"VERSIONS           [Normally only in Sections 2, 3]\n"
+"ATTRIBUTES         [Normally only in Sections 2, 3]\n"
+"CONFORMING TO\n"
+"NOTES\n"
+"BUGS\n"
+"EXAMPLE\n"
+"B<SEE ALSO>\n"
 
-b)
-"Overviews or descriptions of various topics, conventions and protocols, "
-"character set standards, the standard filesystem layout, and miscellaneous "
-"other things."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
