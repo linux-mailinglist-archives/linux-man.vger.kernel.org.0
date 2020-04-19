@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 27A041AFDDA
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:53:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E1EFB1AFDDB
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:54:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726112AbgDSTxf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 15:53:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46964 "EHLO
+        id S1726124AbgDSTyX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 15:54:23 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47080 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726022AbgDSTxe (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:53:34 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A340FC061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:53:34 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id f13so9508410wrm.13
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:53:34 -0700 (PDT)
+        with ESMTP id S1726022AbgDSTyX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:54:23 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D81AFC061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:54:21 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id j2so9524406wrs.9
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:54:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=b9gieGR3Mlfi8xLeTIyEB6ZzG7h8zSgeZ2i8OQZCOu0=;
-        b=FS/iiUn1gmA23tR4acXXfbkxnrDte9oH0B9gb/IK5qARMi68sQD21/xD8J39byfn8D
-         wQ1vtF7JKLieFHsX7fUsFXg5B1DJT7nxj5RCKCK8pJ74WS+c5dDqP2xUa26DkwcGDVQ9
-         Q+/egSJA25M7Mk7q3VqWOBBF6ycYiUSkH7sL3njNqz7AabCjTQzscQ1Fp8YRpkzNTaKT
-         hBkJUy6b+XDC7FmjWuFbQKkBStwvK22PyvDe9PUAiVobiEYMD7zC/7iD+jNL5bauw1zC
-         UrHOVwMJNSE60YK8tfzlPZbzm6Ujw0IZm74s/8JApTEP4ZQhdR8RARA/jpauxSnj/wy0
-         G4Wg==
+        bh=rrAu4w3qrXqu2oSMzyVOKYixQe0ggVLTQcY5f17R00o=;
+        b=LWg6eRjgMhCZ3PFczWHBghvbcarU+lgi4GUig0noqDmBxAk9XG0tb/X9NXa52W0uBs
+         d2hSeu/T9O0U8pICKjeAYjLuaQQnvTly+Nr0jSJrsOi9dWZMvu/9UOtHmmFME8NvZ1sx
+         Wlr5CeU6X94IlEYSfH/4QIAFA4NGTTBgpq7tdoabthND5C6gmXinJaCRaeTF18ePntVC
+         0ObD00htalCsJc+ZsEXfGVIB0NxqrNnYOCLDWijrHNoaWDbobmpGfOjG5tw+LO8urnqK
+         qaQ+97vvC2ZaXoxbbwWtxdissGSJ4Z4jz8A0knJ1oo5ILBuJzfx/2Ru29IJoPQR6ksZ9
+         OsNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=b9gieGR3Mlfi8xLeTIyEB6ZzG7h8zSgeZ2i8OQZCOu0=;
-        b=c8GFJq4KT3KexCpE4didHbYtaE29WjR2O+eHePnyKOhKwOQylv2FsAxLpV4wRwuipe
-         ymerk0FGVhZH33lJx8r4OmeKMCIyfWn9VV+TmVrHAJcTKo1ui4ACP+FIfC2GgJsFe3d/
-         keT8N+kpjvLcvGXOGgPdbDEoxTHSuBn7D1e0OYhjj17bgdL8h3hdfuXF1o5Yd612YVGX
-         mxSBzdU8vEPAy7T2l/ykXN6+e3p8X0KOU6oIgegsjJhTVP+cdOqfwv1L2ahOnzvUpDXt
-         P6t7u+Yo8uinkvxmSsKeUc8vEVhJR1PYcSQOH+Nata+Y0ooUlyS3L5Quqs6bpTh2yOCa
-         y9Kw==
-X-Gm-Message-State: AGi0Pubo7Dxy7o7rfMdDrJRWvrAuFxnEnbMWXtpbGg0ByVHXtdBUdUYr
-        g2Y7EqVD0Q6M3XziijrEGQ+HuRvV
-X-Google-Smtp-Source: APiQypLiy2qtrzxOx4xUqArDUEAl4o4nn+SkkzuuxFw7Bs5JYGcc2yeAC7EYFYoIjHiZKDap9FX8pw==
-X-Received: by 2002:adf:d087:: with SMTP id y7mr14804795wrh.321.1587326013279;
-        Sun, 19 Apr 2020 12:53:33 -0700 (PDT)
+        bh=rrAu4w3qrXqu2oSMzyVOKYixQe0ggVLTQcY5f17R00o=;
+        b=g+W0w6uox4rYjbYJjrrKPuCE5+E6erBOSiGCPxy+o+B6Z64UvLqUJgrP76FFQ2+yB+
+         8+3bmN6VRsrIpy6DtoxzatyBRqyv3VsUJgzMqdwQ9OhCQe5oVK8OB5X/MliE7nt1+KDN
+         25vTQMRLOYxUDuplSZ60z1c4ivKUGPY9+0LDP1ghPyCe5u4vH5+yya1cZfNtBwrM7W7q
+         75C68FG7mUhuxlZGK5lue1B4ZAOjng2qzbAHBiVNmhdpz+cMVumiDhS/bQhqLqKD3sbW
+         l4hQ+2es42b5xrEX6LoY5pLEwYVAWJBmH8ieta/Yd2UN1wGZIXWBqnj2CsONryO9+sMQ
+         794A==
+X-Gm-Message-State: AGi0PuafFzfaXnMWt1+VDNiOJvvyiixTajVijo8Q06Cx8ecVfmcw8oNp
+        8R9g5fBKspeuuhF+e7QBjqC803u+
+X-Google-Smtp-Source: APiQypJ4PvDATYnSOC1oLmJm9DvM9lFHoakCzdXowV1GC5igr4W2M7z4QCOBDZ3hreuzl57iIN9x6Q==
+X-Received: by 2002:adf:d4ce:: with SMTP id w14mr14206627wrk.232.1587326059920;
+        Sun, 19 Apr 2020 12:54:19 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id u3sm31337297wrt.93.2020.04.19.12.53.30
+        by smtp.gmail.com with ESMTPSA id y70sm12398027wmc.36.2020.04.19.12.54.19
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 12:53:32 -0700 (PDT)
+        Sun, 19 Apr 2020 12:54:19 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: man-pages(7): Garbage in text?
+Subject: Re: Errors in man pages, here: mknod(2): Missing comma
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064809.GA31116@Debian-50-lenny-64-minimal>
+References: <20200419064810.GA31139@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <2e80f0ad-bfc0-44b0-b096-99ddbd3ab0bd@gmail.com>
-Date:   Sun, 19 Apr 2020 21:53:30 +0200
+Message-ID: <26c3f850-6e97-e1b7-9a7d-23cc20781922@gmail.com>
+Date:   Sun, 19 Apr 2020 21:54:19 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064809.GA31116@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064810.GA31139@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -104,19 +104,18 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> What is "an tmac"?
+> Missing comma after B<acl>(5)
 > 
-> "New manual pages should be marked up using the B<groff an.tmac> package "
-> "described in B<man>(7).  This choice is mainly for consistency: the vast "
-> "majority of existing Linux manual pages are marked up using these macros."
+> "B<mknod>(1), B<chmod>(2), B<chown>(2), B<fcntl>(2), B<mkdir>(2), "
+> "B<mount>(2), B<socket>(2), B<stat>(2), B<umask>(2), B<unlink>(2), "
+> "B<makedev>(3), B<mkfifo>(3), B<acl>(5)  B<path_resolution>(7)"
+> 
 
-"an.tmac" is the name of a groff macro package. Treat it as a noun.
+Fixed.
 
 Thanks,
 
 Michael
-
-
 
 -- 
 Michael Kerrisk
