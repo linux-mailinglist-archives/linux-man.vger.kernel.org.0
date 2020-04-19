@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3F9E71AFDE8
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 22:01:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F04041AFDE9
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 22:02:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726224AbgDSUBc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 16:01:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48218 "EHLO
+        id S1726296AbgDSUCl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 16:02:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48390 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726123AbgDSUBc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 16:01:32 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 356C6C061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:01:32 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id f13so9527031wrm.13
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:01:32 -0700 (PDT)
+        with ESMTP id S1726123AbgDSUCl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 16:02:41 -0400
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 85A8AC061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:02:39 -0700 (PDT)
+Received: by mail-wm1-x343.google.com with SMTP id u127so7863830wmg.1
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:02:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=OUsFGgi7zTlVP0sq2h2WrophOS//+5WGDlrOe0z5yKo=;
-        b=dltA+szkItO3qQYvHsassJLRBJL4isax85yKuYGfGDmos7jX933AfEVfY0Ic3kC1Vb
-         sp2FnvNcRP2LJjk+T1IWRpfcXjb8czd85EJn2yTbOgd8ljjS6aE5u5dJfqQGqVkEMzAB
-         iHnFWKVGZrbqwNGFvU8iIjQeu7iOHckpQrJ75grMbZbkSP51gwFsCHm7M/oMJ3iZhLfV
-         Uyf5LLFF86CfCRI1P5qL5K3eNjK73ptn3ENyk65d792y1zNY/HnKF0HW+S7Epj6inCAa
-         6cgFbGZiVs243DLouWnHrIQIygPPjTDfUl/SstReUp9ps8nlBCdq38akh4Q610hYiScY
-         pihQ==
+        bh=hTXms4Hbf4XQbf/UyFd/f7vMRoMRTernO1XTOIE8ork=;
+        b=hjgmT/QkhltgwCpxrRwNbPFLNsNe8GpkbYPP1FvP5O9uvbpjSkT5xrLpwpgXYSX029
+         ujpr6gjWDxslNaBKfpBhXoX6O0AJptxoJWRVYjLk2+/4YHMoVZXoinhfQJZ/ASWmRJ9X
+         5g2dua5yytF7I93ekATpOvX8P2BQhWH9R1c5CQRj3fG3VT3E57Hu5RIJPIsOit9WXg/I
+         4TOkN0hiMZlY2r9vVJA2WV7bL4rzJEWr+DnY0/kCGy9TWmOyWdAsd47N9heeUZUn/kPb
+         s+fbJy5WrNMXO7twioHICOoRFk3TgOy7H7eLjk8nXhb+Y1b0J13g+12JZ4nny+R6SuOh
+         ECcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=OUsFGgi7zTlVP0sq2h2WrophOS//+5WGDlrOe0z5yKo=;
-        b=ZIioWr8QQOr/W1oY/+5E4gr3q+zTAgh+y7HETGDtOXtKBL0h1f/w3FQfKUOxBjNcHg
-         JQRazNowz/mfwy37yj1WbNrFzZf6jCg/ENfY47h6RdRdOMfY0vjXSm5r9D+1R9lkmXH/
-         KK3v15sylyk4MUiQtJAaMkgcYXoawCjlam+SLyQg+6+BCGjRv/+BfQ89wg6fZukl/uwW
-         jBoC/c//7uWvXhvIOkPgGNqkn7o6MGuI7QvfaAU/OpEr9NCfBMxBnAL6z/AQetLHf6mi
-         V4vhLqLU1wlIkFMJ6vBTNEWHymV6afONNWCgV4mG9DDcJqbIpd7nZWUuJaN3StUS4c6/
-         yESA==
-X-Gm-Message-State: AGi0PubkbKXlj2TjS3oqEe6Ju905cP9IQJi4cUsDCb5hgSB2r+GceX6o
-        X6BgRiW15dAxb/c0mod7PiEYAMSW
-X-Google-Smtp-Source: APiQypImPqIhiU475OOnS6B2XWl3j0XEeG2agtMKxcpyEPjv2zhnCiCRWWrXE7BlifskBsLRVy0lAw==
-X-Received: by 2002:adf:e2c2:: with SMTP id d2mr16206405wrj.55.1587326490838;
-        Sun, 19 Apr 2020 13:01:30 -0700 (PDT)
+        bh=hTXms4Hbf4XQbf/UyFd/f7vMRoMRTernO1XTOIE8ork=;
+        b=oTKStT92jsbpJFMxks03P+V1rSxtdaCi1LWh4ZgUbUlQgAPjF/uzFkC+Fx0WIKn6aw
+         sXjGkjy3vfDIXXRwIcSNkS2ChVRznDBHomi0n9kdZQEZmo2dgezjioFLKv5n7ye+thIm
+         iqFn4ZqeqQ1+ZRWbVo13ycsZqrTTa1yIBlZTTXnZFV0VxD67msfklArD2KT+EGGpy0B8
+         OIxywXBE2p10BYOI/pkxadk1np8QceyUoVzx9IbG8DmN1tvqxFmoZ9HJv2dD1hVbtvsg
+         0pKYo3qEhqQeSME3sKecCoh+nRmGFWZE0j4eeSrs16x+mzwL/pMWiKCW5xap0PeuvVyP
+         PLmA==
+X-Gm-Message-State: AGi0PuZ/0nRBJBzT/zvlRNrxLWrRqU2H+nb0DMLn2vFbQtTUHMFTemaR
+        9U3HULC+dwxmSAowDt7qEUlD2RkE
+X-Google-Smtp-Source: APiQypKiIe4Rk61Pi0yNhJ3NgdVadXiOOseWopJK6C1gdguqKPiLa/YIgnR3B/dxYrjlovK4upA2QQ==
+X-Received: by 2002:a05:600c:2194:: with SMTP id e20mr13925638wme.22.1587326557175;
+        Sun, 19 Apr 2020 13:02:37 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id r3sm12667895wrx.72.2020.04.19.13.01.30
+        by smtp.gmail.com with ESMTPSA id x23sm16694382wmj.6.2020.04.19.13.02.36
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 13:01:30 -0700 (PDT)
+        Sun, 19 Apr 2020 13:02:36 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: execve(2): typo
+Subject: Re: Errors in man pages, here: carg(3): Missing word
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064758.GA30469@Debian-50-lenny-64-minimal>
+References: <20200419064751.GA30050@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <25925b32-690b-3586-c820-fc1adcecc613@gmail.com>
-Date:   Sun, 19 Apr 2020 22:01:29 +0200
+Message-ID: <9029dab9-aa23-8336-9fa6-78125347db66@gmail.com>
+Date:   Sun, 19 Apr 2020 22:02:36 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064758.GA30469@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064751.GA30050@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -104,19 +104,9 @@ On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> set-group_ID → set-group-ID
+> s/is/is in/ 
 > 
-> "By default, file descriptors remain open across an B<execve>().  File "
-> "descriptors that are marked close-on-exec are closed; see the description of "
-> "B<FD_CLOEXEC> in B<fcntl>(2).  (If a file descriptor is closed, this will "
-> "cause the release of all record locks obtained on the underlying file by "
-> "this process.  See B<fcntl>(2)  for details.)  POSIX.1 says that if file "
-> "descriptors 0, 1, and 2 would otherwise be closed after a successful "
-> "B<execve>(), and the process would gain privilege because the set-user-ID or "
-> "set-group_ID mode bit was set on the executed file, then the system may open "
-> "an unspecified file for each of these file descriptors.  As a general "
-> "principle, no portable program, whether privileged or not, can assume that "
-> "these three file descriptors will remain closed across an B<execve>()."
+> msgid "The return value is the range of [-pi,pi]."
 
 Fixed.
 
