@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 073BC1AFD92
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:39:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 241E01AFD94
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:40:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726011AbgDSTjm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 15:39:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44830 "EHLO
+        id S1726025AbgDSTkb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 15:40:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44954 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725848AbgDSTjm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:39:42 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EC01EC061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:39:41 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id e26so8572254wmk.5
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:39:41 -0700 (PDT)
+        with ESMTP id S1725848AbgDSTkb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:40:31 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D2183C061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:40:29 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id u13so9525556wrp.3
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:40:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=t9g9ujc9bo6QrTbHiglS/2NsmT/Y6p4n34IGFtoDaTQ=;
-        b=GkM+Vt3/c4Rq/T6uEb8p7ja5Nu4A85zsDx6/pkclkAhGymOOupzah1B1kedD4cRIxM
-         5DWjUahcpmgN0bkupW08qK0KQ/dv3dgNZVfTYuzNp0H0t6acTGoNQTaAX30IZ441GtwM
-         UoJafVi0f/p14KUl4fnuHs4bkWRr39V5rE5hzHlSxzlhbNDLV3zubZCXjo42YcC9wyUf
-         2EbUtS3ak9A5lMhoDmQUO9agKh2m9UwLdIdDmAArvjjdoTV1HwgY08wGpgjEvCTX2q1Q
-         LGqtz78MDaAV/KUfrGymik20/8FDh3iNvTvgGAY78quWYPO5kq9X2oTUy+CvByjoU2Zh
-         vuhA==
+        bh=5ieIJygHU/hlmgtz5HNkbaoYHDESXIQJkI+ZUvtRA3M=;
+        b=KpsI3mtBmYeipV6Vngq9fzTz7Fy/bzSaVSATLlMZxzq7HymzEJF51R7f+BTUNDW4Zy
+         PDc1TOHW2l16dKFK6XuUVu+hejS3NbrUqOlaQo2Fm2Xin4x8V7VQKS27ZjrhEarmYwmZ
+         Xm60V/rU6Lsu9XCpXgzZzKsB3wljazEwSTVbj5qfxyYASfU48nZmAE7HwY5iMunD2cfr
+         FPlsuNF4YZF5wY4cx4YJ2Htb0lZV5TAdIIzvcTMOG+0WVKxZln5BMo3/tBYPdr5HmTqq
+         Aqkh4ozRlnow557jOsiiDct5hPOZeCwsucPAQaVP+9JuklNNsvMGNZrrWacWbzhSAKa0
+         1aAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=t9g9ujc9bo6QrTbHiglS/2NsmT/Y6p4n34IGFtoDaTQ=;
-        b=RovX0Ydx6TNuuLYhUq4XY2HWISwPpLYhXeJxswzx+LxZ0/opZ6IaApHndv7nx464Fg
-         kPJ/XVrpzW+MJ6W1ISXL0HJ6LehIRcYsYaT2PRUVDlvSSVjTXdI0XJwwlBp0MJOUTbTV
-         wIcQNb6ZFW+pEfSuTk/YnnhJaZjz8glNHmIBYrF0lujCwtl6646vjlGoehtAzc4+xni+
-         qL5ZVhvk6niJ4h6rGHgMCYInDwA2VqSKEHTUpF7FIg7qOlPvxcK1y6FREWKEtUVqNGJW
-         23WsupTmDrwYyuBmB/sUl6WoyW+UIuATW51RLjvSfRuMW/0P+KgJT/xPMyy0L38/sBSp
-         NVWw==
-X-Gm-Message-State: AGi0PuYaM9B/2ADsq19qJI+ejJq+wqF8lqcvls5lxI7ypWELS4ol5rxy
-        /1vAF6H367ZewdzR+pNdysBlyY34
-X-Google-Smtp-Source: APiQypJVhKPKH60fGxGxgZ/IpzkIZ5/vqXbiyDqSH4qvPi/85YvNBNyYx+6QoHajMclq6eIcU8I8lA==
-X-Received: by 2002:a1c:dc0a:: with SMTP id t10mr13523312wmg.113.1587325180566;
-        Sun, 19 Apr 2020 12:39:40 -0700 (PDT)
+        bh=5ieIJygHU/hlmgtz5HNkbaoYHDESXIQJkI+ZUvtRA3M=;
+        b=cIaCFOQWcsE5cDWyAvEBAYfUV6+milGOtcfHVIiy4ffwfaJZ0XV8SrUwDKmAfBZ+i4
+         AR9EHooczGTYz/oBNQVgf2ZD/JfkxDL5kPmm2waK4XP+g0PvNtS+JbMoc61DxUx7xDqf
+         Mk5SgL4WE/bMU5sfwqx1d3XLMeswunAu6dBy08rJnf5xKdE4ahgSklhg3+9oMNLhWGtY
+         2sKhBr+8jPM96wX6JmpVcWolEBAfTJ7s8Z9Q6fBdkL7o0Fmjsk9LpiMu/fcgr0tVzXH8
+         8lhnIq+6/V5KNpV0jEXPp7/2ryuw1zHbs8sp4o3m515J3oHDnVa0+aRPILHPnpKLUctw
+         N+Cg==
+X-Gm-Message-State: AGi0PuYGvBLLLvNmyTu4VaCRCMxhxYTpC8+e319VeZmaTT986QgiwQ2L
+        y4caMfKDUix0PSEnDKkKNAimM26E
+X-Google-Smtp-Source: APiQypKShwGDscc9wNHmVCvPEKzaCYz5Sc8VjHKJhkk/0RBReUNIYiykGJHCxadhH5toOh463jxX0Q==
+X-Received: by 2002:adf:ee03:: with SMTP id y3mr13937109wrn.190.1587325228415;
+        Sun, 19 Apr 2020 12:40:28 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id t8sm41062892wrq.88.2020.04.19.12.39.39
+        by smtp.gmail.com with ESMTPSA id 74sm29621223wrk.30.2020.04.19.12.40.27
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 12:39:39 -0700 (PDT)
+        Sun, 19 Apr 2020 12:40:28 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: swapon(2): Typo?
+Subject: Re: Errors in man pages, here: sysconf(3): Typo
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064831.GA32354@Debian-50-lenny-64-minimal>
+References: <20200419064832.GA32401@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <e4695341-dfee-a427-ae34-8f464e12089c@gmail.com>
-Date:   Sun, 19 Apr 2020 21:39:39 +0200
+Message-ID: <1f7e27a4-855d-3e45-5f2f-3e59c33f4856@gmail.com>
+Date:   Sun, 19 Apr 2020 21:40:27 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064831.GA32354@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064832.GA32401@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -104,15 +104,17 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> The variable "flags" has not been defined (above), is swapflags meant?
+> s/locates/locales/
 > 
-> msgid "(B<swapon>())  An invalid flag value was specified in I<flags>."
+> "indicates whether the POSIX.2 creation of locates via B<localedef>(1)  is "
+> "supported."
 
-Yes. Fixed.
+Fixed.
 
 Thanks,
 
 Michael
+
 
 
 -- 
