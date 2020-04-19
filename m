@@ -2,29 +2,30 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 62CDD1AF7E7
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5AC961AF7E4
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726228AbgDSGxW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1725969AbgDSGxW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 19 Apr 2020 02:53:22 -0400
-Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
+Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725914AbgDSGxW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:22 -0400
+        by vger.kernel.org with ESMTP id S1726208AbgDSGxV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:21 -0400
+X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E561A6.000000005E9BF432.00007B6E; Sun, 19 Apr 2020 08:48:18 +0200
+  id 0000000000E561A3.000000005E9BF432.00007B57; Sun, 19 Apr 2020 08:48:18 +0200
 Date:   Sun, 19 Apr 2020 08:48:18 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: proc.5.po: Quoting
-Message-ID: <20200419064818.GA31583@Debian-50-lenny-64-minimal>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Subject: Errors in man pages, here: proc(5): Missing article
+Message-ID: <20200419064818.GA31560@Debian-50-lenny-64-minimal>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -69,9 +70,13 @@ future reports should use another channel, please let me know.
 
 **
 
-No quoting? (The subsequent entries use quoting)
+imposes celing → imposes a ceiling
 
-msgid "I<0\\ (default)>"
+"This file imposes ceiling on the value to which the B<RLIMIT_NOFILE> "
+"resource limit can be raised (see B<getrlimit>(2)).  This ceiling is "
+"enforced for both unprivileged and privileged process.  The default value in "
+"this file is 1048576.  (Before Linux 2.6.25, the ceiling for "
+"B<RLIMIT_NOFILE> was hard-coded to the same value.)"
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
