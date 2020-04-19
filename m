@@ -2,29 +2,29 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B94061AF7CC
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 26E721AF7CF
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726138AbgDSGxK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:10 -0400
-Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
+        id S1726147AbgDSGxL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:11 -0400
+Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726112AbgDSGxJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:09 -0400
+        by vger.kernel.org with ESMTP id S1726105AbgDSGxL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:11 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56168.000000005E9BF427.000078FA; Sun, 19 Apr 2020 08:48:07 +0200
+  id 0000000000E5616A.000000005E9BF427.00007911; Sun, 19 Apr 2020 08:48:07 +0200
 Date:   Sun, 19 Apr 2020 08:48:07 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: initrd(4): Capitalization
-Message-ID: <20200419064807.GA30955@Debian-50-lenny-64-minimal>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Subject: Errors in man pages; here: initrd(4): Grammar
+Message-ID: <20200419064807.GA30978@Debian-50-lenny-64-minimal>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -69,12 +69,11 @@ future reports should use another channel, please let me know.
 
 **
 
-Device → device
+s/give/given/
 
-"The boot loader is configured to load into I</dev/initrd> a filesystem with "
-"the set of modules that was used to bring up the system.  (e.g., Device I</"
-"dev/ram0> can be modified, then unmounted, and finally, the image is written "
-"from I</dev/ram0> to a file.)"
+"Users of I</dev/initrd> should not depend on the behavior give in the above "
+"notes.  The behavior may change in future versions of the Linux kernel."
+
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
