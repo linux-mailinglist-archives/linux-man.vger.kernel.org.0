@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D5B041AFE13
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 22:25:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D0DDC1AFE15
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 22:27:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725891AbgDSUZQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 16:25:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51924 "EHLO
+        id S1725891AbgDSU1W (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 16:27:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52246 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725848AbgDSUZQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 16:25:16 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BC51BC061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:25:15 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id v4so3079092wme.1
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:25:15 -0700 (PDT)
+        with ESMTP id S1725848AbgDSU1W (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 16:27:22 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 759A9C061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:27:20 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id t63so7682230wmt.3
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:27:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=J5VTSfCv1J2DC9pBLHRrlEzHfF/stR7uULp60Dlq5fk=;
-        b=OQv7S2eTHtLnJXDAK2psnQPadRiITGEcF4PIQMXnXYBuXZX43OrZ6kdfd9t3Yy/7zC
-         yFUwaOXH70X9x+XDcQIUg8RQGoOtPkdUMVtQemCcKD0l2VP1Br9OrBZz7tKQpUsehrs6
-         Okvuvh7MwxKY+EbxI4yWCzMHXVUppiuEBYluJ28GHfFsxuUJ26STUHfBYD2jCpoHSj7E
-         Tm3ybmwVsb3SY7TDdnJu1iR3+x5POAsmT0e+/VrFIn8AGDKFblnmIsvOx7lNcHcL6U0A
-         fhgE0mI7SGoUxIfT6kARaDzUMS+zl8h3fUkM7OFLgKqehPYiCurMhL9IIQNV1B3iutHi
-         upOw==
+        bh=dtmQOOOlwHJSNG2/S7QEDqD8ZsM0Amvp5wa1jOmPAK4=;
+        b=Kx7VcdySVrTe3wac1dN5XArk05y4pAWWLWa44P9jF2ZIxE/eTPfi3TTIPD/1hG8+aE
+         8hUEhl4JfgwRtxByiQBfoUQxlH6OfG9r1Um9E0mPwn8fJU8VKKsblsl1uQGc4WT3qjjl
+         iHSS+RFFXxsn0TZWj12JsxfCF6kA2boEEcT+zIog5jmH1Azjwf0rdf4/nMt7znONB0qy
+         mgE3/sIBpGGlH0tVWCb0yxvdeyW5QhHNg+rWKXFzFpluFee9in6CqG0hV9MdAdDJlAfc
+         7jUORsEwsv/pzc+uef10xpYMboCTkmLfiQqeuCcpbAHztzPGiiCzIsVpautkI8E39d2F
+         4k+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=J5VTSfCv1J2DC9pBLHRrlEzHfF/stR7uULp60Dlq5fk=;
-        b=P3wH+vGCjVIjwPFOdA7w+ogdkUaeEGLvmYH8dRJ6GkJ/DklhPf4VBR6zh+5qTir3GF
-         +qmvAr1muerEpyGhQG6ED3e9IuN8/uq4490HjXrRVofIHPO7N5+xuB/AL54aGOFe/WJ4
-         m7LmH3twW/F4g5wssy/kjC+JMxAlpxGsMpBFjOc79KowprmUqwWj4L29qxVdEqg41VAb
-         Tfd0SqNzADm98hRG1ixf1YKXPqy6wZoVQmFt9Zng2zJcxArJznlSrMP2oL9Z8XGXx8N7
-         WocSuJxuwOf6ZEBJfMkcGzRg5TR54yOIESUkpQzChjffSjo4iqiimynx8xg73gRGQLMZ
-         mtCg==
-X-Gm-Message-State: AGi0PuaKKBhnEmowdDjvGnVYx37K8ZHCVBVMM5BkRfgu2u1aESdTEgOy
-        OU9aftqDAhEYAuEt/NWTXHKtAaT/
-X-Google-Smtp-Source: APiQypKojDkK2ltlxWglqxdJflNuCHfBTT0gHrwMnHK3jHtLG43g4zVug/3VcinAAhltPTciEYiawg==
-X-Received: by 2002:a05:600c:210b:: with SMTP id u11mr8262980wml.133.1587327914189;
-        Sun, 19 Apr 2020 13:25:14 -0700 (PDT)
+        bh=dtmQOOOlwHJSNG2/S7QEDqD8ZsM0Amvp5wa1jOmPAK4=;
+        b=ZlGghu0bHTVIq1aZU4y9UHZAKuisCnFQ8GQ6Ad5ceVoXFPnkxf9aQOjg3XQtbSoboq
+         vj6fFPiwbImXEiWf1YCZcUd6pltC4CBqSvMc7xphCD2s5tKdJCfK7UbXnBc10fsQiQpr
+         ageTsZLBmrtXWviEFKZNgbEePiz3fknZm+LSBH1jrs1CrPj/YI8ksLd1RFdkxu/DBqJa
+         DhkWQNn+EViwDtgEyXrDGWGU91VFvBe9W/z/Oeq88YbrUj6gJAdZfrlNvsSuHGSnGEcK
+         7RKBfo4V5cgg1+fMceXzlof6qhwIR/86sukpXZqCow9SKhUztMd86b+zEBs4vN9X5Th8
+         PRdA==
+X-Gm-Message-State: AGi0Pub7PAnrfS2I5OJnf+uKMbRlRDtljoPxTUX0a5oM2Fv+PS9oUPjb
+        m07S9IUGldThDJIswVM7rjuPgAvI
+X-Google-Smtp-Source: APiQypLOqDsNyA4ev7/6G9cVbehbjkstzzpfS/MexKYbrEVZNGZg5Le+sSTFkRzs7Da7azGXcDFyTw==
+X-Received: by 2002:a1c:668a:: with SMTP id a132mr14682807wmc.46.1587328038569;
+        Sun, 19 Apr 2020 13:27:18 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id g69sm11997877wmg.17.2020.04.19.13.25.13
+        by smtp.gmail.com with ESMTPSA id t17sm11891878wro.2.2020.04.19.13.27.17
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 13:25:13 -0700 (PDT)
+        Sun, 19 Apr 2020 13:27:18 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: proc(5): Consistency
+Subject: Re: Errors in man pages, here: termcap(5): Typo?
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064814.GA31371@Debian-50-lenny-64-minimal>
+References: <20200419064832.GA32424@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <6938c0ab-aa65-56ec-fd0c-574b9a604a32@gmail.com>
-Date:   Sun, 19 Apr 2020 22:25:13 +0200
+Message-ID: <6045dd61-7fd2-1f22-32b4-fcb0a45cbc59@gmail.com>
+Date:   Sun, 19 Apr 2020 22:27:17 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064814.GA31371@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064832.GA32424@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -68,7 +68,6 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
-> 
 > Dear manpages maintainers.
 > the manpage-l10n project maintains a large number of translations of
 > man pages both from a large variety of sources (including manpages) as
@@ -105,35 +104,19 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Inconsistent spelling of multithreaded vs. multi-threaded
+> s/capability/compability/
 > 
-> a)
-> "Prior to Linux 2.6.28, SELinux did not allow threads within a multi-threaded "
-> "process to set their security context via this node as it would yield an "
-> "inconsistency among the security contexts of the threads sharing the same "
-> "memory space.  Since Linux 2.6.28, SELinux lifted this restriction and began "
-> "supporting \"set\" operations for threads within a multithreaded process if "
-> "the new security context is bounded by the old security context, where the "
-> "bounded relation is defined in policy and guarantees that the new security "
+> "The termcap database is an obsolete facility for describing the capabilities "
+> "of character-cell terminals and printers.  It is retained only for "
+> "capability with old programs; new programs should use the B<terminfo>(5)  "
+> "database and associated libraries."
 
-Thanks. Fixed.
-
-
-> b)
-> "In SELinux, this file is used to get the security context of a process.  "
-> "Prior to Linux 2.6.11, this file could not be used to set the security "
-> "context (a write was always denied), since SELinux limited process security "
-> "transitions to B<execve>(2)  (see the description of I</proc/[pid]/attr/"
-> "exec>, below).  Since Linux 2.6.11, SELinux lifted this restriction and "
-> "began supporting \"set\" operations via writes to this node if authorized by "
-> "policy, although use of this operation is only suitable for applications "
-> 
-
-What is "b)" about?
+Fixed.
 
 Thanks,
 
 Michael
+
 
 
 -- 
