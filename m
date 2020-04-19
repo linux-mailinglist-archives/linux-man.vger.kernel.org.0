@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 363DD1AFDFA
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 22:17:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6578C1AFDFB
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 22:19:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725932AbgDSUR1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 16:17:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50718 "EHLO
+        id S1725891AbgDSUTd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 16:19:33 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51048 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725905AbgDSUR1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 16:17:27 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 33ED3C061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:17:27 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id u127so7892691wmg.1
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:17:27 -0700 (PDT)
+        with ESMTP id S1725848AbgDSUTc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 16:19:32 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4741EC061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:19:32 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id u13so9619714wrp.3
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:19:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=jVx8H4WlJD89PfYNirhBs8Udh2b0gwEAlT3rKRC8RsY=;
-        b=Kxlk+Rh2g2veTOoR11p/x/imdhwkSAeieGiCD74quD53cYKqma5F8nK++3Ai3LWXqG
-         qIiROzS925hiubyCSRCoOyTLcg5TN+W/QbWLLvc9R9fdD5cMMhNeL0NaRw+w6BZYwCB3
-         NS2vZs5NjBNfbaACp2yfNwWJSOLmjfiLeUMaIBHSY5QjGif5N2qmQHwwFySe1nZc7Hoe
-         kj2xMeU1IW5lcsoKNQZej+KYMjbD94MxrK/iMlc7LLqAHZ9WqOPJ0vjlt3yg2jBoN74T
-         vkozk0iONQdf6xFtVbXu5m/q8xGQLSP9lNzgPSeAfhP4B6T35Bk66Sh5IGVe9LChIzbq
-         OXHA==
+        bh=xhxzlS1LkCnxEhWfnPgkebPNzjzrm0v8F8RGhCxmCPM=;
+        b=D1cGLRWpeZIlb/o4mbZAq2NvlHzjehiijVF4zbejHIeIUzWDVIg/2y6KyTySE1ayFd
+         VLJdkln9KrQRYUWw9lkg8HR0duRV1Fqu44Kt3SCySGUm3TEhXgTGqPsdOU0Tg7UFKoh1
+         OqDkPEKEiPrTMWBcjzCpYqKaTHcn6/MkPYmvH4sfNnSf/VDkShSEBVKYstDiTy9DZWjy
+         AyFafJMf32s0sEiW7r3i2VZbzP/x5k1TaW32tzQw1+6e6MmY53aj/4L4syQnKMadLh0W
+         C3/L9EypJhSDAsuHxzoEqwdd33hzR2zJPIYyNN1q8dv79VOFfURZfEr3lPyRNJ4k5Kg8
+         NPTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=jVx8H4WlJD89PfYNirhBs8Udh2b0gwEAlT3rKRC8RsY=;
-        b=Fd444rc2kAlD43e06c/dsPsyWB1AiDoJdI5SVXkIlvdIfNCiJGo2UG4VPonA95xPzs
-         a0FuDLqYe4ix3pSiVvkF4eaAa+i9LDZnJASB0cZzp9uoJTLFd2q9d83P6GM+ytrsrE/M
-         7fT8rSsYEblyymKorJkQcikSfrwNlnkvGTdFZTdzUeyKEKVfd+feHj6oax8txFs0gRuD
-         DlEbMNETR4gOmcIeqDUHXLBDiijLahjfEDyIwr8oGmkytCP3TNU9okOUZLSy3yLL3Xi9
-         YmozQ5ruTwwhHZKlgoJEqe9ggovx0OU5AATQnj/5TbpDGwF/66CITAO4wgtKF3NH8599
-         JnRw==
-X-Gm-Message-State: AGi0PuYXLlaltKIgoGdwkl2I3fe3YIIeU8uFX1amM7EZ/idkrQG3fVJo
-        AVfj4lc4vXOjbZH2cOJS0nFKHK69
-X-Google-Smtp-Source: APiQypKyYV+q8+3wH/y+mPySGjZZ5ialTYa8UeCjOX3sTKVQH9SUvxvNniOiHCdBbBHsZVxnbwjaFg==
-X-Received: by 2002:a05:600c:21ca:: with SMTP id x10mr13399863wmj.113.1587327445548;
-        Sun, 19 Apr 2020 13:17:25 -0700 (PDT)
+        bh=xhxzlS1LkCnxEhWfnPgkebPNzjzrm0v8F8RGhCxmCPM=;
+        b=ErYs/sCHqn6nroX1+a26SzSHo4NTVVewNOBl4uvVh0F6EBs8NW96xwVNsRmR0YZDdm
+         oapNWE+2F+A1HAo8JCBwZwJxkRuqcxfBbe90JP6yD3A6/qVEqHVIM7XGn+94DKoThlMk
+         dGOYu35oqs4y94hVio++sVj0SNreNY1eeWdtXhAEY5/sRibiA1D6yXvPOOLgd/NtB7ZT
+         ajtJ0PfYv0lxrTsKwaCCrS9S5JaxRMkHrfkSm21MVQkUn5nXjidssYQ81FZpztF1oW3v
+         iqp/lzugGegPD8TVsQ8vqFR7uywaV2iSN0biSU4tGQpAggIYwPxeuyNq/7BGfOsUirqy
+         NJYw==
+X-Gm-Message-State: AGi0PuaRj8TsHrG+D73tv2XebmjXeJkob1LfOwS/RYQUuSK7Ch41R2D1
+        Pj+JZQpUATMVBMbKGxTqdV+Sfpk1
+X-Google-Smtp-Source: APiQypKGo3AuLm294n7C6RyIsAceXSmr9buJx9Lqj2pyWlO9IMw/l5Rkwt8oGrZgmYJwO+oePjSGYA==
+X-Received: by 2002:adf:a15d:: with SMTP id r29mr14190486wrr.134.1587327570765;
+        Sun, 19 Apr 2020 13:19:30 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id s30sm16271570wrb.67.2020.04.19.13.17.24
+        by smtp.gmail.com with ESMTPSA id y70sm12483578wmc.36.2020.04.19.13.19.30
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 13:17:25 -0700 (PDT)
+        Sun, 19 Apr 2020 13:19:30 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: st(4): Missing space
+Subject: Re: Errors in man pages, here: initrd(4): Superfluous word
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064828.GA32164@Debian-50-lenny-64-minimal>
+References: <20200419064806.GA30909@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <33bfaa68-07ff-b524-7c02-79c2afe6301b@gmail.com>
-Date:   Sun, 19 Apr 2020 22:17:24 +0200
+Message-ID: <fd3e414b-5227-ca3f-a9cf-eb3abf66c90a@gmail.com>
+Date:   Sun, 19 Apr 2020 22:19:29 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064828.GA32164@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064806.GA30909@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -104,21 +104,19 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> SystemV → System V
+> the this → this
 > 
-> "When this option is enabled, the tape devices use the SystemV semantics.  "
-> "Otherwise, the BSD semantics are used.  The most important difference "
-> "between the semantics is what happens when a device used for reading is "
-> "closed: in System V semantics the tape is spaced forward past the next "
-> "filemark if this has not happened while using the device.  In BSD semantics "
-> "the tape position is not changed."
+> "Specifies the device to be used as the normal root filesystem.  For "
+> "B<LOADLIN> this is a command-line option.  For B<LILO> this is a boot time "
+> "option or can be used as an option line in the B<LILO> configuration file I</"
+> "etc/lilo.config>.  The device specified by the this option must be a "
+> "mountable device having a suitable root filesystem."
 
-Fixed.
+Fixed. 
 
-Thanks,
+Thanks
 
 Michael
-
 
 -- 
 Michael Kerrisk
