@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7F4B01AFD9D
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:44:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 693801AFDA1
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:45:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725848AbgDSToZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 15:44:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45560 "EHLO
+        id S1726513AbgDSTp3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 15:45:29 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45730 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726224AbgDSToY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:44:24 -0400
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 305C1C061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:44:24 -0700 (PDT)
-Received: by mail-wm1-x341.google.com with SMTP id z6so8925509wml.2
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:44:24 -0700 (PDT)
+        with ESMTP id S1726472AbgDSTp3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:45:29 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 142F2C061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:45:29 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id g13so7487432wrb.8
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:45:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=tTqlHNbCggLJ+lDqgkMnKqLoScPz0LPkFbS9H+6ybfU=;
-        b=DVoRGXxe7ovIyp7mm1/nW35ljrT2aO/d0VqWa0lX6WLLgXJ+AXfF3b0QxdDC/6Ysmx
-         lIIQVUkTZkxTdlx+2SN+NKYvp78qNsoqAU9MZNEHmNQxFwKeeYRerkuZP9hux+4raJ+3
-         15VTOA4cQsUC+RsRc4nZVyx88jKfcHzPgmWBYg4CdJUaWREpXE/HUxgSadkzAay38ZqT
-         WgsA9UVLeUUwxiN4xLLqqL3maVifBKJKRKTkT6ZbqC1Ey7234hCSDp1GE0QN7Mo2Xnfa
-         TncPRA00s4A35YJYo+ggHvGKIngfeQrRwMYBHQDV7RZlOJFOhGjM7OK7EFTpixZfkeB/
-         U57Q==
+        bh=c26YuWPV0sqey2RdcAWMX0rizNoRwJMSBw7EIQatRZo=;
+        b=GuS5p7pdTt+vJFx8DXwrE5Yo+iyeZE9V9lSygQtMC4jNDm7u2SQWJXq51/7VYgUeS2
+         N1Uq7Ie3qvJ2a0bbiSQZvEot1AHzozVf9ZvNsX2kcvAYpm/VNRxMJHF5+cY1o+PEUZy4
+         RqmEx2ovJI3nsdLUTKSV0KTP1H7KbwEa53/mPtDEH/sXOg6K0GmZ38URMNO/nqyfYrex
+         cIRZgggMp0xus8nEG8YqSHl7MMSGYbzEGg+qdN4ttVjcsOrQhBxa/NN8ghd+g66HVHo5
+         fN8gWKvzU90FwAh9LCpucoxBQ9wGXUbTPMvk48Bjy0CZZwQFdySv1yQScWQGMjgxRJAw
+         Psng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=tTqlHNbCggLJ+lDqgkMnKqLoScPz0LPkFbS9H+6ybfU=;
-        b=QQz3vO4ao1GbaIL/1LoAEvZ/1yEH3ddPqQnwB8rz4Mj3jbpIfaYRc+KeLxX4iPTqCx
-         rT7rp65Tj4UtysaJWA4JBo916JU5oBWPCCDWhQEwDoNVrkPnBy47q8S64TlnHWrL923P
-         kqhDgvG4k9qL2tB0+VHI/nI15p5eGRyhj8rsFQ6j6D1WGfsGl9n62tyzh2KOJstoMXX4
-         Q31fm1ipplFi26mbdyh0wDxSw2ZtWjh21YKQ02yX2cVlt3XfT0mcEASyIx6o5/mReZDZ
-         ZgneksW8Ef5GuwEmKRYK3Y+JYOym/Oc6cOJXIex5uStFscTzvYTwzfRVXhmDHgZFlu1U
-         w/jw==
-X-Gm-Message-State: AGi0PuYusNBXaIaPqNSbWSe6aHFSSlOnwd0AVRUqBNznPRfiVtk7Zopo
-        QeUW4SSjo2wrUOaxd8puk1UyWCmG
-X-Google-Smtp-Source: APiQypLWQs6cCifgfx4fvMp7xTINbqHeyfjwbquJm3sQRx03miHOQqvPUISV3DulrVPGD7K/jgEV1w==
-X-Received: by 2002:a1c:dc8b:: with SMTP id t133mr14128036wmg.117.1587325461632;
-        Sun, 19 Apr 2020 12:44:21 -0700 (PDT)
+        bh=c26YuWPV0sqey2RdcAWMX0rizNoRwJMSBw7EIQatRZo=;
+        b=jP5oxFwLDsWzma27vSy3OPP2/vau1El1UIfDgtxIKU8OIPZpqtuZTnvdzZtuw0hagA
+         H9q9+iYXiWbKl2kgK298FGe3bS7BZnB0U6UuaXeHZbFR8JsAT4UxQaMc2jhQd62j3yPI
+         DkokLsZ8irC090yLfbUiIFMN9efqcP33ORIQsT3wuJZtzaIJ9+qFTgmXoCGMTP2eNhe+
+         osyO/I/xzaarutAoCS9CUMFlFQfW0FrQq0+SGH7oXZFHa6bUUAEcG565WF4dXqXyU6KC
+         ZT33lWSaSuHhfwaASkcduaf8RbDqlFiow84/oFIscmMeJ44qO3cc7Cm6mHbq3SNjATkS
+         PxPA==
+X-Gm-Message-State: AGi0PuZvO7jcb1Jzzl3RgdGb8a3E/o1iZ5RzYV5hSFzZqu9qByJBKTJU
+        KWndj9qkcDlfJFhFRmq+acZKOhij
+X-Google-Smtp-Source: APiQypLqPAVmBheqDFnM/Mc79mF3XPXrkrfQyGnxMZ3ojF1690980iefUfkm3EM5wMAUQgXnk2a7dQ==
+X-Received: by 2002:adf:ee05:: with SMTP id y5mr14417580wrn.176.1587325527633;
+        Sun, 19 Apr 2020 12:45:27 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id l9sm10945871wrq.83.2020.04.19.12.44.20
+        by smtp.gmail.com with ESMTPSA id g74sm16803116wme.44.2020.04.19.12.45.26
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 12:44:21 -0700 (PDT)
+        Sun, 19 Apr 2020 12:45:27 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: rename(2): Typo
+Subject: Re: Errors in man pages, here: x25(7): Superfluous full stop
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064820.GA31725@Debian-50-lenny-64-minimal>
+References: <20200419064838.GA32748@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <73ad12af-d973-ae52-24de-febdf68c531b@gmail.com>
-Date:   Sun, 19 Apr 2020 21:44:20 +0200
+Message-ID: <27999bd1-6880-2fbd-388c-7e469f6f4b66@gmail.com>
+Date:   Sun, 19 Apr 2020 21:45:24 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064820.GA31725@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064838.GA32748@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -102,12 +102,12 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > issue is sent in an unique mail for easier tracking on your side. If
 > future reports should use another channel, please let me know.
 > 
+> 
 > **
 > 
-> etx2 -> ext2
+> Superfluous full stop
 > 
-> "Support for many other filesystems was added in Linux 4.9, including etx2, "
-> "minix, reiserfs, jfs, vfat, and bpf."
+> msgid "x25 - ITU-T X.25 / ISO-8208 protocol interface."
 
 Fixed.
 
