@@ -2,30 +2,29 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 30CB71AF7EC
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0BCBA1AF7EF
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726261AbgDSGxY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:24 -0400
-Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
+        id S1726284AbgDSGxZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:25 -0400
+Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725959AbgDSGxY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:24 -0400
-X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
+        by vger.kernel.org with ESMTP id S1725914AbgDSGxZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:25 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E561B3.000000005E9BF435.00007C13; Sun, 19 Apr 2020 08:48:21 +0200
-Date:   Sun, 19 Apr 2020 08:48:21 +0200
+  id 0000000000E561BA.000000005E9BF436.00007C59; Sun, 19 Apr 2020 08:48:22 +0200
+Date:   Sun, 19 Apr 2020 08:48:22 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: rename(2): Incorrect punctuation
-Message-ID: <20200419064821.GA31748@Debian-50-lenny-64-minimal>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Subject: Errors in man pages, here: scanf(3): Missing bracket
+Message-ID: <20200419064822.GA31818@Debian-50-lenny-64-minimal>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -70,12 +69,10 @@ future reports should use another channel, please let me know.
 
 **
 
-Incorrect full stop after f2fs
+Missing »)«
 
-"B<RENAME_WHITEOUT> requires support from the underlying filesystem.  Among "
-"the filesystems that provide that support are tmpfs (since Linux 3.18), ext4 "
-"(since Linux 3.18), XFS (since Linux 4.1), f2fs (since Linux 4.2).  btrfs "
-"(since Linux 4.7), and ubifs (since Linux 4.9)."
+"Matches a pointer value (as printed by B<%p> in B<printf>(3); the next "
+"pointer must be a pointer to a pointer to I<void>."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
