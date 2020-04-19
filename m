@@ -2,25 +2,26 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 359741AF7A9
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:52:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F00691AF7A7
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:52:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725446AbgDSGw4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1726012AbgDSGw4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 19 Apr 2020 02:52:56 -0400
-Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
+Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725988AbgDSGwz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:52:55 -0400
+        by vger.kernel.org with ESMTP id S1726009AbgDSGw4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:52:56 -0400
+X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56102.000000005E9BF419.000075E7; Sun, 19 Apr 2020 08:47:53 +0200
+  id 0000000000E56107.000000005E9BF419.000075FE; Sun, 19 Apr 2020 08:47:53 +0200
 Date:   Sun, 19 Apr 2020 08:47:53 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: console_codes(4): Punctuation
-Message-ID: <20200419064753.GA30168@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: console_codes(4): Improvement
+Message-ID: <20200419064753.GA30191@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -69,15 +70,9 @@ future reports should use another channel, please let me know.
 
 **
 
-s/, and CAN/. CAN/
+interrupt -> abort
 
-"If we have a control character, it is acted upon immediately and then "
-"discarded (even in the middle of an escape sequence)  and the escape "
-"sequence continues with the next character.  (However, ESC starts a new "
-"escape sequence, possibly aborting a previous unfinished one, and CAN and "
-"SUB abort any escape sequence.)  The recognized control characters are BEL, "
-"BS, HT, LF, VT, FF, CR, SO, SI, CAN, SUB, ESC, DEL, CSI.  They do what one "
-"would expect:"
+msgid "CAN (0x18, B<^X>) and SUB (0x1A, B<^Z>) interrupt escape sequences;"
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
