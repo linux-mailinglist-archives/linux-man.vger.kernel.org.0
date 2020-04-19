@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6578C1AFDFB
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 22:19:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CFABA1AFE12
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 22:22:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725891AbgDSUTd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 16:19:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51048 "EHLO
+        id S1725891AbgDSUW5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 16:22:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51574 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725848AbgDSUTc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 16:19:32 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4741EC061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:19:32 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id u13so9619714wrp.3
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:19:32 -0700 (PDT)
+        with ESMTP id S1725848AbgDSUW5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 16:22:57 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CB066C061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:22:56 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id t63so7671499wmt.3
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:22:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=xhxzlS1LkCnxEhWfnPgkebPNzjzrm0v8F8RGhCxmCPM=;
-        b=D1cGLRWpeZIlb/o4mbZAq2NvlHzjehiijVF4zbejHIeIUzWDVIg/2y6KyTySE1ayFd
-         VLJdkln9KrQRYUWw9lkg8HR0duRV1Fqu44Kt3SCySGUm3TEhXgTGqPsdOU0Tg7UFKoh1
-         OqDkPEKEiPrTMWBcjzCpYqKaTHcn6/MkPYmvH4sfNnSf/VDkShSEBVKYstDiTy9DZWjy
-         AyFafJMf32s0sEiW7r3i2VZbzP/x5k1TaW32tzQw1+6e6MmY53aj/4L4syQnKMadLh0W
-         C3/L9EypJhSDAsuHxzoEqwdd33hzR2zJPIYyNN1q8dv79VOFfURZfEr3lPyRNJ4k5Kg8
-         NPTw==
+        bh=OJkjbTLjbnlaOP0O2UOQYIAWksz0avoEcgFpnoX/Ros=;
+        b=OSl4YiI9nqt1IoaZDY5t3pxFn1LPLgOEEBjLg32QAjBIXmFjg1bnCFRn5gIVD9i+RT
+         9EqZhsk+/o8bR78/zzufWQ1OeVtSBZga7IEtxMyUbQDOZ5K4Xfjr4LXFNmcIzHfD4ebN
+         ymDYL39tyOpvpuJCTKRvpNYLjW7sM1XKgG6GesHNHZCBFCJXzkB2v+Ul0emkSM88E4MM
+         AGU5oA/gudG0ETNxPeps4zD3oc5rwHzmk4/lmB19FIw2FCYkulDrRww5H7RO20bW2+ju
+         tko4BIUDtsnjeP42luOL7N8p8/LbGjBkoZSxqW4cYfzJDruoRSa8vx4TxoM//17qBh+6
+         gXcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=xhxzlS1LkCnxEhWfnPgkebPNzjzrm0v8F8RGhCxmCPM=;
-        b=ErYs/sCHqn6nroX1+a26SzSHo4NTVVewNOBl4uvVh0F6EBs8NW96xwVNsRmR0YZDdm
-         oapNWE+2F+A1HAo8JCBwZwJxkRuqcxfBbe90JP6yD3A6/qVEqHVIM7XGn+94DKoThlMk
-         dGOYu35oqs4y94hVio++sVj0SNreNY1eeWdtXhAEY5/sRibiA1D6yXvPOOLgd/NtB7ZT
-         ajtJ0PfYv0lxrTsKwaCCrS9S5JaxRMkHrfkSm21MVQkUn5nXjidssYQ81FZpztF1oW3v
-         iqp/lzugGegPD8TVsQ8vqFR7uywaV2iSN0biSU4tGQpAggIYwPxeuyNq/7BGfOsUirqy
-         NJYw==
-X-Gm-Message-State: AGi0PuaRj8TsHrG+D73tv2XebmjXeJkob1LfOwS/RYQUuSK7Ch41R2D1
-        Pj+JZQpUATMVBMbKGxTqdV+Sfpk1
-X-Google-Smtp-Source: APiQypKGo3AuLm294n7C6RyIsAceXSmr9buJx9Lqj2pyWlO9IMw/l5Rkwt8oGrZgmYJwO+oePjSGYA==
-X-Received: by 2002:adf:a15d:: with SMTP id r29mr14190486wrr.134.1587327570765;
-        Sun, 19 Apr 2020 13:19:30 -0700 (PDT)
+        bh=OJkjbTLjbnlaOP0O2UOQYIAWksz0avoEcgFpnoX/Ros=;
+        b=oCImBeSs8stTDb3Xa4XaqcCXCQDWgRgpB6mXvwu53NWugTPJalFmxsdiZfK85/Epu9
+         F2tWHBtoGnnrc/Ez4MnJz7yjHFl94f5fdbsI5BV+1AHuMwC/WZsjNCy8F+/2CSxS6gv0
+         doj2yaQY2D+K+YsIPinyLplf3gXPIbloeCC8L27brkenKyQnv3vRu8YWc1+jP2w/oE0W
+         OOHhsdhnviE/ibNDa5WQevYok6Pz/0VmXsVxqHuR4IjcHkZm8SIaCbPA4rtTYcXF7eOt
+         N9p69E7zlvRXA1sUUQKlMnXgrFqEcOoIJfzHuvWy9rNmdiny25z5KfVMmFq4jpTK2OfV
+         SCgQ==
+X-Gm-Message-State: AGi0PubbpVzsYejMXnujs2RU1ik6KOFzwiPDxJksAWzF8vk+Fy/b604K
+        DS5+MfSmGIXI8vRw689Rkg801aZw
+X-Google-Smtp-Source: APiQypL54ua9DQtYomuh42pMtzhqhpjce6NY5GPzsWXdTBGkrE5hDLABS8AqEkl4r5ynZuB31yDnyA==
+X-Received: by 2002:a1c:e187:: with SMTP id y129mr14997658wmg.133.1587327775353;
+        Sun, 19 Apr 2020 13:22:55 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id y70sm12483578wmc.36.2020.04.19.13.19.30
+        by smtp.gmail.com with ESMTPSA id j17sm5372581wrb.46.2020.04.19.13.22.54
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 13:19:30 -0700 (PDT)
+        Sun, 19 Apr 2020 13:22:54 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: initrd(4): Superfluous word
+Subject: Re: Errors in man pages, here: nice(2): fixing word
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064806.GA30909@Debian-50-lenny-64-minimal>
+References: <20200419064813.GA31302@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <fd3e414b-5227-ca3f-a9cf-eb3abf66c90a@gmail.com>
-Date:   Sun, 19 Apr 2020 22:19:29 +0200
+Message-ID: <65742000-7ddb-0c49-8949-8db8d760b764@gmail.com>
+Date:   Sun, 19 Apr 2020 22:22:54 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064806.GA30909@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064813.GA31302@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -104,19 +104,18 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> the this → this
-> 
-> "Specifies the device to be used as the normal root filesystem.  For "
-> "B<LOADLIN> this is a command-line option.  For B<LILO> this is a boot time "
-> "option or can be used as an option line in the B<LILO> configuration file I</"
-> "etc/lilo.config>.  The device specified by the this option must be a "
-> "mountable device having a suitable root filesystem."
+> low → lower
 
-Fixed. 
+Fixed.
 
-Thanks
+Thanks,
 
 Michael
+
+> "B<nice>()  adds I<inc> to the nice value for the calling thread.  (A higher "
+> "nice value means a low priority.)"
+
+
 
 -- 
 Michael Kerrisk
