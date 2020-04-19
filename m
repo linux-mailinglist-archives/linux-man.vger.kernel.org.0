@@ -2,26 +2,26 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9AAD51AF7C1
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 07A351AF7BD
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726099AbgDSGxG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:06 -0400
+        id S1726083AbgDSGxE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:04 -0400
 Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726069AbgDSGxF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:05 -0400
+        by vger.kernel.org with ESMTP id S1726069AbgDSGxE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:04 -0400
 X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5614B.000000005E9BF422.000077FC; Sun, 19 Apr 2020 08:48:02 +0200
+  id 0000000000E56148.000000005E9BF422.000077E5; Sun, 19 Apr 2020 08:48:02 +0200
 Date:   Sun, 19 Apr 2020 08:48:02 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: gethostbyname(3): Space/Formatting
-Message-ID: <20200419064802.GA30701@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: getgrent(3): Understanding
+Message-ID: <20200419064802.GA30678@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -70,12 +70,13 @@ future reports should use another channel, please let me know.
 
 **
 
-Space between true and (1) and mark up
+explain|reword "broken-out" or skip it
 
-"The B<sethostent>()  function specifies, if I<stayopen> is true (1), that a "
-"connected TCP socket should be used for the name server queries and that the "
-"connection should remain open during successive queries.  Otherwise, name "
-"server queries will use UDP datagrams."
+"The B<getgrent>()  function returns a pointer to a structure containing the "
+"broken-out fields of a record in the group database (e.g., the local group "
+"file I</etc/group>, NIS, and LDAP).  The first time B<getgrent>()  is "
+"called, it returns the first entry; thereafter, it returns successive "
+"entries."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
