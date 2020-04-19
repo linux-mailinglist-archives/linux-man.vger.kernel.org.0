@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3AD171AFD61
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:22:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 42B911AFD62
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:22:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726377AbgDSTW1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 15:22:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42184 "EHLO
+        id S1726399AbgDSTWd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 15:22:33 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42196 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726201AbgDSTW0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:22:26 -0400
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3E1F4C061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:22:26 -0700 (PDT)
-Received: by mail-wm1-x331.google.com with SMTP id y24so8876916wma.4
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:22:26 -0700 (PDT)
+        with ESMTP id S1726201AbgDSTWc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:22:32 -0400
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 165F8C061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:22:31 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id s10so308651wrr.0
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:22:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=L296pi8d93ax7kjzb5+AJSYZ863N4Xt3F+fubIBZ5WA=;
-        b=R2463sp9Qw4C2Mxrg0wSw8w25sjuei3O3VaA1siqbGEH4gLYocbxuEB2BPxWj9clgR
-         sHzZ64SoLal9mEerNE+i49gmHfPfUNirLqEWSaMmw+3FIN8pwGmcH6U6p01oo7VulZFW
-         ZBoSqUwPJE5BLC9tDsd9sVZkfMJfDm+CUdbAVfgrGNn1tqDfFoiJ1z8RYPjqqlvPpKL5
-         MXEkeOSA81Fl+zkZ6cOo/cta/0t1l1QkiACZ3eSFgIqq2MaOcrn6jUI3ZrKrDocwEr8k
-         7tjbrjG7Oat+hIGyIqVIv5XfMN3EK/rU7bSwVOT77b5lOBkwNObS61dOpXZ6vKXH39mm
-         hP9w==
+        bh=PuYkzk9hyB34075FD5GoHOQDHHOjUuZKMmNfzkbKMOM=;
+        b=ghKRMPewjOEklKrFYGpwxOytR4LcHj6vxL0HyBAe1pF+WQCGS12YXp3FHdochfKg0R
+         oLHH3dj4sFyDArjLkNGEMGZxWFikhrmHV/0WaNM2slOyf1U1YlOgdUP9tbLbm9HCjGE2
+         kps47j2GBuM78PAZzgEJbLjSPTzguHV7/Rjf9oAy0fLlPSNB4qqScYP9TjOtE3wlOO+B
+         e6aN5z0OpKbGQdaobPNbN6sQ/4S2D2Yw9IELdHJM8XRq88mnSqVeyQ8BJkpN/j+qNvUH
+         yd14sWP/W4sG7uxhtEFhujomAEypH7TNGajkVIaE30pFHXnWv07mnoQX+sYesuebqftB
+         i98A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=L296pi8d93ax7kjzb5+AJSYZ863N4Xt3F+fubIBZ5WA=;
-        b=G8vaoubxPXK6M8JnFz6DS/JYAIFjvi1TdQEx5tM6o++WV5o2BL9F57GDwQYQNfpYJf
-         Y8ughLp1qqpu4h3lHTLQy8PRervCtjMhHRZ1Je/qtA6ujPU1R+P2Mw4XYVbKZO0r0rfg
-         tLOb1zh+8R5DDJzbGq0Gl6CdIhOgZiRWMPx939ID5P9yzKEqm0mfHghgakB93OkpWkM+
-         mjAXg9hnJ2rtAAB934wwxH6iafCN9px7MtifNRtfLqM3Q8E24JMt12MzGOwWngsPo6Y9
-         3fu5fsN9z7TDzsByIXFqdnx4vHHZqK32wrn/VF0l0x+a02e1kEEkV8HcoIchLjcMBeYL
-         EcNQ==
-X-Gm-Message-State: AGi0PuZffNTH4KHo/dnq/WdapjB2wH+3eCBkulpmbGa+jLWWK5ari26R
-        IvgK53T4zMj5yyY6J4fSRYzoXEI6
-X-Google-Smtp-Source: APiQypL4vg+MIlPV3S3RTdrVpBRl4tvj/rWeJoLSSdsDZxQmw7JpsZgJO/0GQRIkbXWEQKZm82fiJQ==
-X-Received: by 2002:a1c:9e51:: with SMTP id h78mr370990wme.177.1587324144811;
-        Sun, 19 Apr 2020 12:22:24 -0700 (PDT)
+        bh=PuYkzk9hyB34075FD5GoHOQDHHOjUuZKMmNfzkbKMOM=;
+        b=hSJffQ9Xv+7wSnk8IEYU8eUh8xfVdNBItWrsaTB3NvnIFhUmfQB35kguGjC9OAd/1v
+         Hp/Pr66Rsl2PgFKkrEWvRGAFs+sBQiAVpuizQP+/uaDCDRZd55iGwbyhwX2KlzoiENAp
+         /jU2y+2BTPn+mnMoru6eOYZSIQzA0UGKnJeXU7LMXRIAixEab4XcjvYdwEsdB4seukLk
+         yZs3zxjB/gxAnyj/8ppgMRk1c+3BN6uqV6n6Kh5WFszSeV3wr36WrmHX61ok+QrdkrFM
+         st+Vj7Qe1IXvn0DH2Msn2QO1efnsdBm6EIXS8/IC/IpoidIsZXLX9T78Yg+5ugR/F4Dq
+         Rvlg==
+X-Gm-Message-State: AGi0PuaZD+DLZxQr3x5lxG7dBPSSPzQhfIxFBZeq3Q6qjYsSf7XBjrd/
+        SsBsrzpANOHbvpzVAV2kKf6gEZh1
+X-Google-Smtp-Source: APiQypJWOjqoS/lwvOaxPZo5+XXxSrMZAYwOS7QnZm79tqCBIMxcJLqCyWOdTqm9g91M7qm4WdRXoQ==
+X-Received: by 2002:adf:9d83:: with SMTP id p3mr15381925wre.142.1587324149636;
+        Sun, 19 Apr 2020 12:22:29 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id h137sm17479194wme.0.2020.04.19.12.22.24
+        by smtp.gmail.com with ESMTPSA id f8sm18540249wrm.14.2020.04.19.12.22.29
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 12:22:24 -0700 (PDT)
+        Sun, 19 Apr 2020 12:22:29 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: capabilities(7): Spelling
+Subject: Re: Errors in man pages, here: capabilities(7): Punctuation
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064750.GA30023@Debian-50-lenny-64-minimal>
+References: <20200419064750.GA29996@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <ee26d042-d1bd-2c54-7a7c-667078c436dd@gmail.com>
-Date:   Sun, 19 Apr 2020 21:22:23 +0200
+Message-ID: <df46d0de-2256-3a04-edff-7c5a8cace6f1@gmail.com>
+Date:   Sun, 19 Apr 2020 21:22:28 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064750.GA30023@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064750.GA29996@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -104,28 +104,22 @@ On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Two issues:
->   a)  s/Extended/extended/
+> The following strings have wrong or missing punctuation:
+> a) FIXME: Missing semi colon (in English?)
+> msgid "set type-of-service (TOS)"
+
+Fixed.
+
+> b) Semicolon instead of full stop necessary
 > msgid ""
-> "perform operations on I<trusted> and I<security> Extended Attributes (see "
-> "B<xattr>(7));"
+> "override the I</proc/sys/fs/pipe-size-max> limit when setting the capacity "
+> "of a pipe using the B<F_SETPIPE_SZ> B<fcntl>(2)  command."
 
-Changed.
-
->   b) user IDs → user ID
-
-No change. Nothing wrong that I can see here.
+Fixed.
 
 Thanks,
 
 Michael
-
-> "I<Note>: according to the rules above, if a process with nonzero user IDs "
-> "performs an B<execve>(2)  then any capabilities that are present in its "
-> "permitted and effective sets will be cleared.  For the treatment of "
-> "capabilities when a process with a user ID of zero performs an B<execve>(2), "
-> "see below under I<Capabilities and execution of programs by root>."
-
 
 
 
