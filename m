@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 42B911AFD62
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:22:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2BA001AFD63
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:25:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726399AbgDSTWd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 15:22:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42196 "EHLO
+        id S1726025AbgDSTZn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 15:25:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42684 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726201AbgDSTWc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:22:32 -0400
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 165F8C061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:22:31 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id s10so308651wrr.0
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:22:31 -0700 (PDT)
+        with ESMTP id S1726022AbgDSTZn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:25:43 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2B4CBC061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:25:43 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id k13so8264684wrw.7
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:25:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=PuYkzk9hyB34075FD5GoHOQDHHOjUuZKMmNfzkbKMOM=;
-        b=ghKRMPewjOEklKrFYGpwxOytR4LcHj6vxL0HyBAe1pF+WQCGS12YXp3FHdochfKg0R
-         oLHH3dj4sFyDArjLkNGEMGZxWFikhrmHV/0WaNM2slOyf1U1YlOgdUP9tbLbm9HCjGE2
-         kps47j2GBuM78PAZzgEJbLjSPTzguHV7/Rjf9oAy0fLlPSNB4qqScYP9TjOtE3wlOO+B
-         e6aN5z0OpKbGQdaobPNbN6sQ/4S2D2Yw9IELdHJM8XRq88mnSqVeyQ8BJkpN/j+qNvUH
-         yd14sWP/W4sG7uxhtEFhujomAEypH7TNGajkVIaE30pFHXnWv07mnoQX+sYesuebqftB
-         i98A==
+        bh=QHaMk5IOmQcomixwV9xh+jiRMVsT2gDlaTVm9RTjDaI=;
+        b=suCdRaBmSJoXYyv6milYzK+E43TVMa1g6KCrHbKJzoWz3fSdCJSHG5EJYsRL5srV05
+         OpZD6eAzo9sp4RhYbteYVQP3r8K4Z7+3xIlzyvJ3Yv36d24CI15f5QWBsDJ0L2V+JPQw
+         EW0oEPWSyyxe/2Ur3ELXtYyc0ZCJm0IMGffn/cdoxCvC8V4kOdtTZfizmRJsIvvykmsC
+         A8+I8ltNlCVkWh1dtJKM5TWnYxlSfELm/lrh+N/ScxAHNHPoOJjWOdjtUJoVA7/2ZFIl
+         bMGEZsnQjuqV69OiTvdN9vg3gHUJ7ggig6KMgo/U2FcojuITtLd0puaFAh8mgEgG3mFM
+         ud+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=PuYkzk9hyB34075FD5GoHOQDHHOjUuZKMmNfzkbKMOM=;
-        b=hSJffQ9Xv+7wSnk8IEYU8eUh8xfVdNBItWrsaTB3NvnIFhUmfQB35kguGjC9OAd/1v
-         Hp/Pr66Rsl2PgFKkrEWvRGAFs+sBQiAVpuizQP+/uaDCDRZd55iGwbyhwX2KlzoiENAp
-         /jU2y+2BTPn+mnMoru6eOYZSIQzA0UGKnJeXU7LMXRIAixEab4XcjvYdwEsdB4seukLk
-         yZs3zxjB/gxAnyj/8ppgMRk1c+3BN6uqV6n6Kh5WFszSeV3wr36WrmHX61ok+QrdkrFM
-         st+Vj7Qe1IXvn0DH2Msn2QO1efnsdBm6EIXS8/IC/IpoidIsZXLX9T78Yg+5ugR/F4Dq
-         Rvlg==
-X-Gm-Message-State: AGi0PuaZD+DLZxQr3x5lxG7dBPSSPzQhfIxFBZeq3Q6qjYsSf7XBjrd/
-        SsBsrzpANOHbvpzVAV2kKf6gEZh1
-X-Google-Smtp-Source: APiQypJWOjqoS/lwvOaxPZo5+XXxSrMZAYwOS7QnZm79tqCBIMxcJLqCyWOdTqm9g91M7qm4WdRXoQ==
-X-Received: by 2002:adf:9d83:: with SMTP id p3mr15381925wre.142.1587324149636;
-        Sun, 19 Apr 2020 12:22:29 -0700 (PDT)
+        bh=QHaMk5IOmQcomixwV9xh+jiRMVsT2gDlaTVm9RTjDaI=;
+        b=R4xPsUFjuq5/klW+W8AXoyuCPRqmcq2RakHnPK4d6lE/NfAqejmAtoVCnP3KC38Shl
+         ayxrfaXfdh0W1XiQaL/tl2dNB0v8hFBQYj7GgKt1zXtm7383VaSvN4MQR7MORCiDV2KU
+         wt+dSSykVbR8P1JwP9phiaiPIoYicdlkPaoF02Zo7LlQV+i7Qar9Ne8/3/ggCWOV6IHV
+         RF9rVKd+dbQJK4+RMgTtndP6v/gpD9WFhUxLsZIWiONY13QVlfs1EXq1LqFJQEXSzvD2
+         6JFaDxpwB9/zuE3nzNqbhI4KBMOenT8qL3R5xCOilTItzTvtzNHK9aculsqES9W88CS5
+         i/sw==
+X-Gm-Message-State: AGi0PualcMlH/wD2BTgzQ6nNqPAe+zSaOq5sgyH+BMrpMogoce6XB4ki
+        Eahgu8ZlROiFHnjSNXZ/uCbPMRzv
+X-Google-Smtp-Source: APiQypKL7eQYJYIC2fOpOHWbDtv8TDw+w3+a47t6muTQc0UWBd2f0TXbFnRwulegtzne9pY4msdyOQ==
+X-Received: by 2002:adf:e704:: with SMTP id c4mr14359863wrm.181.1587324341697;
+        Sun, 19 Apr 2020 12:25:41 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id f8sm18540249wrm.14.2020.04.19.12.22.29
+        by smtp.gmail.com with ESMTPSA id f8sm18549870wrm.14.2020.04.19.12.25.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 12:22:29 -0700 (PDT)
+        Sun, 19 Apr 2020 12:25:41 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: capabilities(7): Punctuation
+Subject: Re: Errors in man pages, here: cpuid(4): Wording
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064750.GA29996@Debian-50-lenny-64-minimal>
+References: <20200419064754.GA30237@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <df46d0de-2256-3a04-edff-7c5a8cace6f1@gmail.com>
-Date:   Sun, 19 Apr 2020 21:22:28 +0200
+Message-ID: <9b938ea4-2664-2c2d-57f2-89ad448b479d@gmail.com>
+Date:   Sun, 19 Apr 2020 21:25:40 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064750.GA29996@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064754.GA30237@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -104,24 +104,17 @@ On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> The following strings have wrong or missing punctuation:
-> a) FIXME: Missing semi colon (in English?)
-> msgid "set type-of-service (TOS)"
+> The wording could be improved, make the content clear
+> 
+> "The lower 32 bits of the file position is used as the incoming I<%eax>, and "
+> "the upper 32 bits of the file position as the incoming I<%ecx>, the latter "
+> "intended for \"counting\" I<eax> levels like I<eax=4>."
 
-Fixed.
-
-> b) Semicolon instead of full stop necessary
-> msgid ""
-> "override the I</proc/sys/fs/pipe-size-max> limit when setting the capacity "
-> "of a pipe using the B<F_SETPIPE_SZ> B<fcntl>(2)  command."
-
-Fixed.
+I did: s/latter intended for "counting"/latter is intended for "counting"/
 
 Thanks,
 
 Michael
-
-
 
 -- 
 Michael Kerrisk
