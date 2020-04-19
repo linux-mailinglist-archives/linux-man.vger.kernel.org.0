@@ -2,25 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5CA211AF7E3
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 390291AF7E1
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726200AbgDSGxT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:19 -0400
-Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
+        id S1726209AbgDSGxS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:18 -0400
+Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726208AbgDSGxT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:19 -0400
+        by vger.kernel.org with ESMTP id S1726160AbgDSGxS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:18 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5619D.000000005E9BF430.00007B10; Sun, 19 Apr 2020 08:48:16 +0200
+  id 0000000000E5619B.000000005E9BF430.00007AF8; Sun, 19 Apr 2020 08:48:16 +0200
 Date:   Sun, 19 Apr 2020 08:48:16 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: proc(5): Explanation
-Message-ID: <20200419064816.GA31488@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: proc(5): Missing full stop
+Message-ID: <20200419064816.GA31464@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -69,20 +69,14 @@ future reports should use another channel, please let me know.
 
 **
 
-The last two entries (smart_*) don't have an explantion and are not 
-easy to derive from the name
+Missing full stop after "region"
 
-"cache              buffer size in KB\n"
-"capacity           number of sectors\n"
-"driver             driver version\n"
-"geometry           physical and logical geometry\n"
-"identify           in hexadecimal\n"
-"media              media type\n"
-"model              manufacturer's model number\n"
-"settings           drive settings\n"
-"smart_thresholds   in hexadecimal\n"
-"smart_values       in hexadecimal\n"
-
+"This file contains information which is used for diagnosing memory "
+"fragmentation issues.  Each line starts with the identification of the node "
+"and the name of the zone which together identify a memory region This is "
+"then followed by the count of available chunks of a certain order in which "
+"these zones are split.  The size in bytes of a certain order is given by the "
+"formula:"
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
