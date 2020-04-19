@@ -2,25 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EA2B01AF7AB
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:52:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 70B821AF7AE
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:52:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726022AbgDSGw5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:52:57 -0400
-Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
+        id S1726009AbgDSGw6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:52:58 -0400
+Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725910AbgDSGw5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:52:57 -0400
+        by vger.kernel.org with ESMTP id S1725994AbgDSGw6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:52:58 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5610A.000000005E9BF41A.00007615; Sun, 19 Apr 2020 08:47:54 +0200
+  id 0000000000E5610D.000000005E9BF41A.0000762C; Sun, 19 Apr 2020 08:47:54 +0200
 Date:   Sun, 19 Apr 2020 08:47:54 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: copysign(3): Suggested improvement
-Message-ID: <20200419064754.GA30214@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: cpuid(4): Wording
+Message-ID: <20200419064754.GA30237@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -69,9 +69,11 @@ future reports should use another channel, please let me know.
 
 **
 
-Description, of what is really done, should be improved
+The wording could be improved, make the content clear
 
-msgid "copysign, copysignf, copysignl - copy sign of a number"
+"The lower 32 bits of the file position is used as the incoming I<%eax>, and "
+"the upper 32 bits of the file position as the incoming I<%ecx>, the latter "
+"intended for \"counting\" I<eax> levels like I<eax=4>."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
