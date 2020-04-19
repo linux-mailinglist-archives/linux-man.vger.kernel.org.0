@@ -2,25 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 547701AF7EE
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B40891AF7EB
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726224AbgDSGxZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:25 -0400
-Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
+        id S1726245AbgDSGxY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:24 -0400
+Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726240AbgDSGxZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:25 -0400
+        by vger.kernel.org with ESMTP id S1725914AbgDSGxY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:24 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E561B0.000000005E9BF434.00007BE5; Sun, 19 Apr 2020 08:48:20 +0200
+  id 0000000000E561B1.000000005E9BF434.00007BFC; Sun, 19 Apr 2020 08:48:20 +0200
 Date:   Sun, 19 Apr 2020 08:48:20 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: rename(2): Content
-Message-ID: <20200419064820.GA31701@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: rename(2): Typo
+Message-ID: <20200419064820.GA31725@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -32,7 +32,6 @@ Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
-
 
 Dear manpages maintainers.
 the manpage-l10n project maintains a large number of translations of
@@ -70,10 +69,10 @@ future reports should use another channel, please let me know.
 
 **
 
-If newpath exists, this is already the reason for the failure?
+etx2 -> ext2
 
-"If I<newpath> exists but the operation fails for some reason, B<rename>()  "
-"guarantees to leave an instance of I<newpath> in place."
+"Support for many other filesystems was added in Linux 4.9, including etx2, "
+"minix, reiserfs, jfs, vfat, and bpf."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
