@@ -2,25 +2,26 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8649A1AF7D3
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CC69D1AF7D6
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726123AbgDSGxN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1726157AbgDSGxN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 19 Apr 2020 02:53:13 -0400
-Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
+Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726105AbgDSGxN (ORCPT
+        by vger.kernel.org with ESMTP id S1726160AbgDSGxN (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:13 -0400
+X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5617B.000000005E9BF42A.000079C9; Sun, 19 Apr 2020 08:48:10 +0200
+  id 0000000000E56175.000000005E9BF42A.0000799B; Sun, 19 Apr 2020 08:48:10 +0200
 Date:   Sun, 19 Apr 2020 08:48:10 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: mlock(2): Missing full stop
-Message-ID: <20200419064810.GA31162@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: man-pages(7): Garbage in text?
+Message-ID: <20200419064809.GA31116@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -69,17 +70,11 @@ future reports should use another channel, please let me know.
 
 **
 
-Missing final stop
+What is "an tmac"?
 
-"In Linux 4.8 and earlier, a bug in the kernel's accounting of locked memory "
-"for unprivileged processes (i.e., without B<CAP_IPC_LOCK>)  meant that if "
-"the region specified by I<addr> and I<len> overlapped an existing lock, then "
-"the already locked bytes in the overlapping region were counted twice when "
-"checking against the limit.  Such double accounting could incorrectly "
-"calculate a \"total locked memory\" value for the process that exceeded the "
-"B<RLIMIT_MEMLOCK> limit, with the result that B<mlock>()  and B<mlock2>()  "
-"would fail on requests that should have succeeded.  This bug was fixed in "
-"Linux 4.9"
+"New manual pages should be marked up using the B<groff an.tmac> package "
+"described in B<man>(7).  This choice is mainly for consistency: the vast "
+"majority of existing Linux manual pages are marked up using these macros."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
