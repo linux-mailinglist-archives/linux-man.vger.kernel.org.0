@@ -2,29 +2,29 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BD3AF1AF7F8
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4090A1AF7F9
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726316AbgDSGx3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:29 -0400
-Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
+        id S1726319AbgDSGxa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:30 -0400
+Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725959AbgDSGx3 (ORCPT
+        by vger.kernel.org with ESMTP id S1725990AbgDSGx3 (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:29 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E561CB.000000005E9BF439.00007CFA; Sun, 19 Apr 2020 08:48:25 +0200
-Date:   Sun, 19 Apr 2020 08:48:25 +0200
+  id 0000000000E561D4.000000005E9BF43A.00007D56; Sun, 19 Apr 2020 08:48:26 +0200
+Date:   Sun, 19 Apr 2020 08:48:26 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: signal(7): Strange word
-Message-ID: <20200419064825.GA31979@Debian-50-lenny-64-minimal>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Subject: Errors in man pages, here: st.4.po: Wording
+Message-ID: <20200419064826.GA32071@Debian-50-lenny-64-minimal>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -69,12 +69,16 @@ future reports should use another channel, please let me know.
 
 **
 
-other word for sanction?
+media → data
 
-"On Linux, even in the absence of signal handlers, certain blocking "
-"interfaces can fail with the error B<EINTR> after the process is stopped by "
-"one of the stop signals and then resumed via B<SIGCONT>.  This behavior is "
-"not sanctioned by POSIX.1, and doesn't occur on other systems."
+msgid "Go to the end of the recorded media (for appending files)."
+
+--
+drive → media
+
+"B<GMT_WR_PROT>(I<x>): The drive is write-protected.  For some drives this "
+"can also mean that the drive does not support writing on the current medium "
+"type."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
