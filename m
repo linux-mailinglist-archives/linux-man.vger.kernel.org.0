@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 993171AFE2B
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 22:36:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id ACE4D1AFE31
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 22:39:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726362AbgDSUgg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 16:36:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53684 "EHLO
+        id S1725891AbgDSUje (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 16:39:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54132 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726341AbgDSUgf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 16:36:35 -0400
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1E96FC061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:36:35 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id k1so9656048wrx.4
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:36:35 -0700 (PDT)
+        with ESMTP id S1725848AbgDSUje (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 16:39:34 -0400
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1BFC7C061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:39:34 -0700 (PDT)
+Received: by mail-wm1-x343.google.com with SMTP id u16so406009wmc.5
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 13:39:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=N2s1T9fNGhf6hiQNIeumBDK3Ya9iyNbUvwAjJ0tvX8k=;
-        b=LoAcA8N83ggOVM/BjPl2wHDs4B+qj+Jd5RIThsPaK+BjpfJUltD8FSgM5+qUNY6sle
-         fGbAlzEJdwIfpx6fDLvM6z/UFXbBK22DLuMuxaJQnUa75/TWr2Z3f/i4Ey1pG4m1QjhI
-         zfOK9FLar96RXmv6kDAkYDa0UohHQjLl3kMXXPbYyhkWsfuepAh/be5iZAmfe6g8MAd2
-         xxoRxuNUwr4y3RLxaDbGSaVq5jRRiUS3lA5mZtqCODA11krKkl2XnygyQEoqU2RgU+Pm
-         gRJgWbZvGy9htWjxumHNUM17GxbzUyjYhF8t63SwYyJ4Ac/SE8n5JbdGSTjM2Hh37LmR
-         bQlQ==
+        bh=F/TNsKZZRtwNVWB4WGcSF2P2b/XI3EzApe5ybtv7gyw=;
+        b=a42l3jQP1KfGuh2o8LhhQaw+3hxZfsI6RPr6FL6BEEre6NsJxbSD3AT1G/lhkzHbyV
+         CC6Dc5zm/KMXCfZt7yfD3MOsPxdq00c2RrEcd9lOX3ZzvnfOzxrOw86iduB8CaVRdCFZ
+         vP9e6KKUVEFUMFtH9fZ3A54PsbzuKC2p4jpnuUmkyaGoYGekXeVbzl8C3r5tQ5kN+QBt
+         /k3j/21hgnRjoVHxmKBsoYQUALy3A2P7HDT95xmUG6icqnxLDpKsqkCIMYBTR0YzTtFA
+         0PajkHTbqZJkBOpbQHgtEjatEB4EbAWBoAXQG5nV33V+vSt4nxGuZ53MsLUhEL/5fUdz
+         WTbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=N2s1T9fNGhf6hiQNIeumBDK3Ya9iyNbUvwAjJ0tvX8k=;
-        b=E4VVEM5RbLg7YQ0m3cFQvT/bjcG490eE4OdGd2zPRmkFa3s/3QAy9UpcqHYy9NCR9A
-         0S/Gj9XdZCzJ6h7cbzOoIjOAdJAq3UWsQc+gr0lMpOKR98BgikdqJEW2xyHzQS0kZnsa
-         KxuBhYgBUUQZwV8w/AcwhUR2Txs8m4PkQiLXOCV0J1L3+NjiM33qLKgPyPQGxacDkzsT
-         oiFOAkBMyTgLeDGr8oBmQ5HfsTIDcNJdECJvENvrtpwx5E/63kpATKU04YHc4xfh74RM
-         LtAQPKDCZv73V2ol384NnGKldlMbIzhP7ttCQyoBaA9STIsvrYNOxDsB3ov6IrslhpUe
-         09XA==
-X-Gm-Message-State: AGi0PuazS+WMeS0Z14qcIea3sNWpG1IEEeJ/hqiJyiq6VM2csUDhxbAK
-        uT4IlHEdRqN5QqGRn4/W/wtTJKiN
-X-Google-Smtp-Source: APiQypIMbf6N+NJi6mNvZ8Vd1WZ318QYFvncQewf3HSNeh7JTUKJAeGZmS3ibdyq5HT/SM4OMfIUNw==
-X-Received: by 2002:a5d:400f:: with SMTP id n15mr15088833wrp.344.1587328593669;
-        Sun, 19 Apr 2020 13:36:33 -0700 (PDT)
+        bh=F/TNsKZZRtwNVWB4WGcSF2P2b/XI3EzApe5ybtv7gyw=;
+        b=LPrDLsOsutT6zELSdHRb9Ah2LqkG4D5IwWXIIzZPZXht+zeJWejMAKafGmWRbjoy0E
+         p4mF8UsIqyqdqSZ0Lw2j5ovRnWacBoI9+1L5+VBlwUx87PzfO79JEIU+XkC5z8SQP/h7
+         lE0UBZvyHc7Chv/9R+IbLQKBkySNgyg+UaUonC2++cEjtxfavQGz8NFJbGneLcTssDI4
+         bc8fjwdeD0C0VYJW9/PCbEBE9lJmy6DflxC4xp4q0Eo2D5GrBn15B09h1T3CphGNPQqO
+         mkHks1T3KTrwhy9HZJut17S3IX0azzIKbLanHTfUYfWyM2Au2bB7W0zGPs+630k+bCe5
+         Fdrg==
+X-Gm-Message-State: AGi0PuYjlVWAEGB+Nq6oVAOLrbIqPPyUSsiKYxbEhJecZMxOS8WUTxqH
+        q5YPEviMO10Arc2aKduygmLp3LOr
+X-Google-Smtp-Source: APiQypK0LUTHZIzCxVtV+7EjVCpRRhXbhrQlnKRlxcWd1wxvjDf6AlzFjx3FRoPTrTD65Ns4RM2MpQ==
+X-Received: by 2002:a1c:23d4:: with SMTP id j203mr5670432wmj.49.1587328772542;
+        Sun, 19 Apr 2020 13:39:32 -0700 (PDT)
 Received: from [192.168.178.34] (aftr-62-216-206-150.dynamic.mnet-online.de. [62.216.206.150])
-        by smtp.gmail.com with ESMTPSA id s12sm15226627wmc.7.2020.04.19.13.36.33
+        by smtp.gmail.com with ESMTPSA id u184sm7477955wmb.13.2020.04.19.13.39.31
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 13:36:33 -0700 (PDT)
+        Sun, 19 Apr 2020 13:39:32 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: utmp(5): Missing closing bracket
+Subject: Re: Errors in man pages, here: strstr(3): Question
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064835.GA32586@Debian-50-lenny-64-minimal>
+References: <20200419064830.GA32306@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <3d0b470e-91ba-6a2b-a2f8-d327ddf9d780@gmail.com>
-Date:   Sun, 19 Apr 2020 22:36:30 +0200
+Message-ID: <9441804a-da94-cecd-fcc3-921cfeca7a63@gmail.com>
+Date:   Sun, 19 Apr 2020 22:39:31 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064835.GA32586@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064830.GA32306@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -104,44 +104,27 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Mining closing bracket at init(1), i.e. init (1 → init(1)
+> Is the following intended to be (translatable) text?
+> 
+> #.  .SH BUGS
+> #.  Early versions of Linux libc (like 4.5.26) would not allow
+> #.  an empty
+> #.  .I needle
+> #.  argument for
+> #.  .BR strstr ().
+> #.  Later versions (like 4.6.27) work correctly,
+> #.  and return
+> #.  .IR haystack
+> #.  when
+> #.  .I needle
+> #.  is empty.
 
-
-Fixed.
+No. It's commented out text.
 
 Thanks,
 
 Michael
 
-> "struct utmp {\n"
-> "    short   ut_type;              /* Type of record */\n"
-> "    pid_t   ut_pid;               /* PID of login process */\n"
-> "    char    ut_line[UT_LINESIZE]; /* Device name of tty - \"/dev/\" */\n"
-> "    char    ut_id[4];             /* Terminal name suffix,\n"
-> "                                     or inittab(5) ID */\n"
-> "    char    ut_user[UT_NAMESIZE]; /* Username */\n"
-> "    char    ut_host[UT_HOSTSIZE]; /* Hostname for remote login, or\n"
-> "                                     kernel version for run-level\n"
-> "                                     messages */\n"
-> "    struct  exit_status ut_exit;  /* Exit status of a process\n"
-> "                                     marked as DEAD_PROCESS; not\n"
-> "                                     used by Linux init (1 */\n"
-> "    /* The ut_session and ut_tv fields must be the same size when\n"
-> "       compiled 32- and 64-bit.  This allows data files and shared\n"
-> "       memory to be shared between 32- and 64-bit applications. */\n"
-> "#if __WORDSIZE == 64 && defined __WORDSIZE_COMPAT32\n"
-> "    int32_t ut_session;           /* Session ID (B<getsid>(2)),\n"
-> "                                     used for windowing */\n"
-> "    struct {\n"
-> "        int32_t tv_sec;           /* Seconds */\n"
-> "        int32_t tv_usec;          /* Microseconds */\n"
-> "    } ut_tv;                      /* Time entry was made */\n"
-> "#else\n"
-> "     long   ut_session;           /* Session ID */\n"
-> "     struct timeval ut_tv;        /* Time entry was made */\n"
-> "#endif\n"
-> 
-> 
 
 
 -- 
