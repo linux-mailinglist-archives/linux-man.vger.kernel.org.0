@@ -2,25 +2,26 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8F8EC1AF7A2
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:52:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B7AB81AF7A6
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:52:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725969AbgDSGwy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:52:54 -0400
-Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
+        id S1725947AbgDSGwz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:52:55 -0400
+Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725914AbgDSGwy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:52:54 -0400
+        by vger.kernel.org with ESMTP id S1725910AbgDSGwz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:52:55 -0400
+X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E560F7.000000005E9BF417.00007572; Sun, 19 Apr 2020 08:47:51 +0200
+  id 0000000000E560F8.000000005E9BF417.0000758A; Sun, 19 Apr 2020 08:47:51 +0200
 Date:   Sun, 19 Apr 2020 08:47:51 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: carg(3): Missing word
-Message-ID: <20200419064751.GA30050@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: charmap(5): Content
+Message-ID: <20200419064751.GA30074@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -69,9 +70,10 @@ future reports should use another channel, please let me know.
 
 **
 
-s/is/is in/ 
+UTF-8 in Debian Squeeze:
 
-msgid "The return value is the range of [-pi,pi]."
+"is followed by the maximum number of bytes for a character.  The default "
+"value is 1."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
