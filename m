@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 56F2A1AFDD6
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:52:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 657E71AFDD9
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:52:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726475AbgDSTvy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 15:51:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46704 "EHLO
+        id S1726493AbgDSTwR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 15:52:17 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46766 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726673AbgDSTvw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:51:52 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 94BDCC061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:51:52 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id j1so4111863wrt.1
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:51:52 -0700 (PDT)
+        with ESMTP id S1726441AbgDSTwQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:52:16 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5A67BC061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:52:16 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id v4so3034777wme.1
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:52:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ZziRp1kXv291xwI0NC5QJAaMDhMecTTCt9ZDlYjZ/qY=;
-        b=IocwuxHkH+H6mylpaKykBcdgqqmdso2aETnnSC+nCtBZtPCsN2z1OOE9OT9xjTyHWX
-         jCkGlQ6ie/ej1igOcj5+ZRDpzPWLQFaC6u1b54XT+ydNZKn35wdVHBRVr7oTHy/3P/6Z
-         sNAWki0KW292f9Icd/kwE83nOPOE2aHH6Krl4M0MFbwF9aN2pG9qpsDO15cvMQBiExqE
-         DiBxCVbcQzBATNbFeQzJeCLF6ukiIYNaxIeu/qHoyHK6OM/uuhUnIjoN7HCOC/OmPZg7
-         icZ9t4nGOQSe0kG31vEKP3JUUwV/gWMuZbJdT3XXK1sYyh+msR/sqoc3Bs6+iBFKGH7B
-         7Jsw==
+        bh=5ReM48jV+joEfhS5APDRjnjkiDrBreH1HkXM+k+BumY=;
+        b=a49yNiqkZvgAHGDJnwMpGLtFyPUvvrIeYGk/pA0lX5HEW0syq60EdQ4N5t0A6hvCij
+         AledI5Fm8cHSWbpVRNOUXsq/7fq4Zbl1jD+46Panoz/bEkkTTaQvawE9RyyvIFX3YWjq
+         F8cvCQeubm7DkFXzlUA92MqvxhFd/sSisxKjBU/8IoK1BdrjB8Vf6vNfxMOSANN6C9tA
+         2wcCJvOWa0gzrKGo994wnKSynot2/f1GLpfqDq42WWZ2HTTyJkS6Mgb0KHR/hWqg3ojV
+         2PuzCFKgwo/kf99mLzi7wCSrzLek1Yl7WcWTQXQZkO+P5zTW5Yolr2HHsuuWVZb4qaIu
+         ITTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=ZziRp1kXv291xwI0NC5QJAaMDhMecTTCt9ZDlYjZ/qY=;
-        b=LbYoCoqA1hQGDqFlRX1/f6/8kx3VAlPOM8Ky/iqLSKIJ/1nRaJfxlw4dh/KShnXg7P
-         19eX7BTZ7pjKMJloL+AsFjXjKR71f8bxz8/ceoeQPkH1X5l7eyjWhNebs2ryUhIJJ1VT
-         qdfx+hybqQdm0m4dfQN5YfNmZWhsF5OFZ+lUHcYy9EQWQUgp7Qr3OFB5Y1BGZDOGaT0N
-         AJDtvrnyHscYZ3zDIOMh0S9q7lrSzrbkzpoedI9YpFKL3WJEtampri9r8KaaRZYIFPMp
-         OCmfikzqPDNU15LnBdwZayFw+s3E/kEE4PAWrC6g9JQ6tByjAmn63TeMn6IiAy6wSdvb
-         uwyA==
-X-Gm-Message-State: AGi0PuY/TuTvSvAAq96t2HFrJib/VbTK+XrgNHfzsaDI8uzKpSVxUuR4
-        zo4VLcTt+x8VB5XLsEBxhSgeonGt
-X-Google-Smtp-Source: APiQypI+DK0i3c0lLAz8Xt+jwE8CG5QZyqCOUSSb72F81L0UKc091VNeM2KPFWKPk+gfjFig8zm8gg==
-X-Received: by 2002:adf:ce0a:: with SMTP id p10mr14472985wrn.89.1587325910990;
-        Sun, 19 Apr 2020 12:51:50 -0700 (PDT)
+        bh=5ReM48jV+joEfhS5APDRjnjkiDrBreH1HkXM+k+BumY=;
+        b=oi2VPLcdI3tbztCJaIS2Ro9Mq9ab+DsKuDBYUfX8nYPec9gGc7HukqO6SCPLD7ejTP
+         hwyNxPBKl82WirGq7jzAcK4uGR0T2LqQWSmAzvY5UDlQcW+0E1CA9BHhSb1a1VxfFo2f
+         W7kPFZMqCcUhRooapA/pmSdvByvSl3YnM0jEvmcHdIhojdTZCUASe+O4DMMLc4m86z08
+         keUPENffO0Hr+xmsyU1MqVRbNUg16RI/TN9ZFJCo7lixGY0GgQnk39ZDpgriWZT+xVpX
+         XxMPW+wiE12eb+nEHpbCP/rou1JRpDd01txXNkwlFBDZBvn94cHE14LuUkKfHtoYkQUT
+         HcdA==
+X-Gm-Message-State: AGi0PuY663ElNo+wlH2QaZJeTP8BRt184GBRxxD3IStnYp4dQ1gRegOi
+        huepoBG21roOX4O03EgR8j+WZZk+
+X-Google-Smtp-Source: APiQypJcbhWjEm3OtTftwUoAWOW59tvIzbwoGwJ2b5BW+mtA5Ty1LLaUKct7KTP6/y1aT9ZMuD93oA==
+X-Received: by 2002:a1c:ba82:: with SMTP id k124mr14691204wmf.66.1587325934993;
+        Sun, 19 Apr 2020 12:52:14 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id v131sm17187394wmb.19.2020.04.19.12.51.50
+        by smtp.gmail.com with ESMTPSA id 185sm4252671wmc.32.2020.04.19.12.52.14
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 12:51:50 -0700 (PDT)
+        Sun, 19 Apr 2020 12:52:14 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: ipc(2): Missing spaces
+Subject: Re: Errors in man pages, here: fork(2): Missing whitespace
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064808.GA31001@Debian-50-lenny-64-minimal>
+References: <20200419064801.GA30607@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <bde48692-fbb7-1afa-96a2-957a2a489a81@gmail.com>
-Date:   Sun, 19 Apr 2020 21:51:49 +0200
+Message-ID: <abfb67af-c711-79a5-b1a4-1a818d984c00@gmail.com>
+Date:   Sun, 19 Apr 2020 21:52:14 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064808.GA31001@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064801.GA30607@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -104,13 +104,15 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Missing spaces around \\(em
+> \\(em without whitespace
 > 
-> "On some architectures\\(emfor example x86-64 and ARM\\(emthere is no "
-> "B<ipc>()  system call; instead, B<msgctl>(2), B<semctl>(2), B<shmctl>(2), "
-> "and so on really are implemented as separate system calls."
+> "The child process is created with a single thread\\(emthe one that called "
+> "B<fork>().  The entire virtual address space of the parent is replicated in "
+> "the child, including the states of mutexes, condition variables, and other "
+> "pthreads objects; the use of B<pthread_atfork>(3)  may be helpful for "
+> "dealing with problems that this can cause."
 
-See my earlier mail. No spaces are used around em-dashes.
+See previous mails.
 
 Thanks,
 
