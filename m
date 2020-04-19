@@ -2,26 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 21D981AF7F0
+	by mail.lfdr.de (Postfix) with ESMTP id 78E841AF7F1
 	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726285AbgDSGx0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1726296AbgDSGx0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 19 Apr 2020 02:53:26 -0400
-Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
+Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725959AbgDSGx0 (ORCPT
+        by vger.kernel.org with ESMTP id S1726277AbgDSGx0 (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:26 -0400
-X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E561B9.000000005E9BF436.00007C42; Sun, 19 Apr 2020 08:48:22 +0200
+  id 0000000000E561C0.000000005E9BF436.00007C70; Sun, 19 Apr 2020 08:48:22 +0200
 Date:   Sun, 19 Apr 2020 08:48:22 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: rtc(4): Missing reference
-Message-ID: <20200419064822.GA31795@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: securetty(5): Improvement
+Message-ID: <20200419064822.GA31841@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -70,10 +69,12 @@ future reports should use another channel, please let me know.
 
 **
 
-ioct(2) ?
+How about: 
+securetty - file listing/containing ttys for root login
+or (from top of /etc/securetty)
+/etc/securetty: list of terminals on which root is allowed to login.
 
-"RTCs can be read and written with B<hwclock>(8), or directly with the ioctl "
-"requests listed below."
+msgid "securetty - file which lists terminals from which root can log in"
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
