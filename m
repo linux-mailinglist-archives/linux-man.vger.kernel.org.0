@@ -2,29 +2,30 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2851A1AF7F3
+	by mail.lfdr.de (Postfix) with ESMTP id D8DB11AF7F5
 	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725923AbgDSGx1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1726240AbgDSGx1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 19 Apr 2020 02:53:27 -0400
-Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
+Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725914AbgDSGx1 (ORCPT
+        by vger.kernel.org with ESMTP id S1726287AbgDSGx1 (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:27 -0400
+X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E561C1.000000005E9BF437.00007C87; Sun, 19 Apr 2020 08:48:23 +0200
-Date:   Sun, 19 Apr 2020 08:48:23 +0200
+  id 0000000000E561C7.000000005E9BF438.00007CCC; Sun, 19 Apr 2020 08:48:24 +0200
+Date:   Sun, 19 Apr 2020 08:48:24 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: setpgid.2.po: Inconsistent formatting
-Message-ID: <20200419064823.GA31864@Debian-50-lenny-64-minimal>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Subject: Errors in man pages, here: signal(7): Wrong constants?
+Message-ID: <20200419064824.GA31933@Debian-50-lenny-64-minimal>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -69,11 +70,24 @@ future reports should use another channel, please let me know.
 
 **
 
-# FIXME: inconsistant formatting/markup (compared to previous entries)
+POSIX_TRSIG_MAX -> MIN
 
-"B<pid_t getpgrp(pid_t >I<pid>B<);\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ > /* BSD "
-"version */"
+"Starting with version 2.2, Linux supports real-time signals as originally "
+"defined in the POSIX.1b real-time extensions (and now included in "
+"POSIX.1-2001).  The range of supported real-time signals is defined by the "
+"macros B<SIGRTMIN> and B<SIGRTMAX>.  POSIX.1-2001 requires that an "
+"implementation support at least B<_POSIX_RTSIG_MAX> (8) real-time signals."
+--
 
+_POSIX_SIGQUEUE_MAX → MIN
+
+"According to POSIX, an implementation should permit at least "
+"B<_POSIX_SIGQUEUE_MAX> (32) real-time signals to be queued to a process.  "
+"However, Linux does things differently.  In kernels up to and including "
+"2.6.7, Linux imposes a system-wide limit on the number of queued real-time "
+"signals for all processes.  This limit can be viewed and (with privilege) "
+"changed via the I</proc/sys/kernel/rtsig-max> file.  A related file, I</proc/"
+"sys/kernel/rtsig-nr>, can be used to find out how many real-time signals are "
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
