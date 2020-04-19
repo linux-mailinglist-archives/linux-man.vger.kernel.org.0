@@ -2,29 +2,29 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6DBF61AF815
+	by mail.lfdr.de (Postfix) with ESMTP id B02471AF816
 	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726373AbgDSGxk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1726325AbgDSGxk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 19 Apr 2020 02:53:40 -0400
-Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
+Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726384AbgDSGxk (ORCPT
+        by vger.kernel.org with ESMTP id S1726373AbgDSGxk (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:40 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5620B.000000005E9BF445.00007FB6; Sun, 19 Apr 2020 08:48:37 +0200
+  id 0000000000E5620C.000000005E9BF445.00007FCD; Sun, 19 Apr 2020 08:48:37 +0200
 Date:   Sun, 19 Apr 2020 08:48:37 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
 Subject: Errors in man pages, here: wavelan(4): Wording
-Message-ID: <20200419064837.GA32679@Debian-50-lenny-64-minimal>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Message-ID: <20200419064837.GA32702@Debian-50-lenny-64-minimal>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -69,13 +69,10 @@ future reports should use another channel, please let me know.
 
 **
 
-The beginning of the sentence is broken, missing words?
+Enable you the → Enables you to
 
-"For the 2.4\\ GHz 2.00 Hardware, you are able to set the frequency by "
-"specifying one of the 10 defined channels (I<2.412,> I<2.422, 2.425, 2.4305, "
-"2.432, 2.442, 2.452, 2.460, 2.462> or I<2.484>)  or directly by its value.  "
-"The frequency is changed immediately and permanently.  Frequency "
-"availability depends on the regulations..."
+"Enable you the define the quality and level threshold used by the modem "
+"(packet below that level are discarded)."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
