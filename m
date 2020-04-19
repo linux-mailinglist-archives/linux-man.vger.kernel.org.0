@@ -2,29 +2,29 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id ED2721AF7FC
+	by mail.lfdr.de (Postfix) with ESMTP id 21EA11AF7FB
 	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726324AbgDSGxa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1726323AbgDSGxa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 19 Apr 2020 02:53:30 -0400
-Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
+Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726303AbgDSGxa (ORCPT
+        by vger.kernel.org with ESMTP id S1725914AbgDSGxa (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:30 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E561CF.000000005E9BF43A.00007D28; Sun, 19 Apr 2020 08:48:26 +0200
+  id 0000000000E561D1.000000005E9BF43A.00007D3F; Sun, 19 Apr 2020 08:48:26 +0200
 Date:   Sun, 19 Apr 2020 08:48:26 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: st(4): Clarification
-Message-ID: <20200419064826.GA32025@Debian-50-lenny-64-minimal>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Subject: Errors in man pages, here: st(4): capitalization
+Message-ID: <20200419064826.GA32048@Debian-50-lenny-64-minimal>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -69,17 +69,11 @@ future reports should use another channel, please let me know.
 
 **
 
-The first sentence claims that no brand or model is specially 
-supported, however later special commands for HP autoloaders are 
-mentioned
+Tape → tape
 
-"The driver does not specifically support any tape drive brand or model.  "
-"After system start-up the tape device options are defined by the drive "
-"firmware.  For example, if the drive firmware selects fixed-block mode, the "
-"tape device uses fixed-block mode.  The options can be changed with explicit "
-"B<ioctl>(2)  calls and remain in effect when the device is closed and "
-"reopened.  Setting the options affects both the auto-rewind and the "
-"nonrewind device."
+a) "Magnetic Tape operations for normal tape use:"
+
+b) "Magnetic Tape operations for setting of device options (by the superuser):"
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
