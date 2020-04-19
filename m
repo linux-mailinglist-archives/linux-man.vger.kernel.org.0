@@ -2,29 +2,29 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DCC171AF7FF
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 46C161AF800
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725947AbgDSGxc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1726327AbgDSGxc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 19 Apr 2020 02:53:32 -0400
-Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
+Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725914AbgDSGxc (ORCPT
+        by vger.kernel.org with ESMTP id S1726318AbgDSGxc (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:32 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E561DD.000000005E9BF43C.00007DB3; Sun, 19 Apr 2020 08:48:28 +0200
+  id 0000000000E561DB.000000005E9BF43C.00007D9C; Sun, 19 Apr 2020 08:48:28 +0200
 Date:   Sun, 19 Apr 2020 08:48:28 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: st(4): Missing space
-Message-ID: <20200419064828.GA32164@Debian-50-lenny-64-minimal>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Subject: Errors in man pages, here: st(4): Content
+Message-ID: <20200419064828.GA32141@Debian-50-lenny-64-minimal>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -69,14 +69,10 @@ future reports should use another channel, please let me know.
 
 **
 
-SystemV → System V
+Is the statement true or is it swapped (locked when closed)?
 
-"When this option is enabled, the tape devices use the SystemV semantics.  "
-"Otherwise, the BSD semantics are used.  The most important difference "
-"between the semantics is what happens when a device used for reading is "
-"closed: in System V semantics the tape is spaced forward past the next "
-"filemark if this has not happened while using the device.  In BSD semantics "
-"the tape position is not changed."
+"When this option is true, the drive door is locked when the device is opened "
+"and unlocked when it is closed."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
