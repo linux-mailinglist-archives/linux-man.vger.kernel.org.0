@@ -2,29 +2,30 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id ACA7D1AF7B7
+	by mail.lfdr.de (Postfix) with ESMTP id 408B81AF7B5
 	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726061AbgDSGxC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:02 -0400
-Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
+        id S1726039AbgDSGxB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:01 -0400
+Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726024AbgDSGxC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:02 -0400
+        by vger.kernel.org with ESMTP id S1726025AbgDSGxB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:01 -0400
+X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56129.000000005E9BF41E.000076FD; Sun, 19 Apr 2020 08:47:58 +0200
+  id 0000000000E5612D.000000005E9BF41E.00007714; Sun, 19 Apr 2020 08:47:58 +0200
 Date:   Sun, 19 Apr 2020 08:47:58 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: exec(3): Wording
-Message-ID: <20200419064758.GA30446@Debian-50-lenny-64-minimal>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Subject: Errors in man pages, here: execve(2): typo
+Message-ID: <20200419064758.GA30469@Debian-50-lenny-64-minimal>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -69,15 +70,19 @@ future reports should use another channel, please let me know.
 
 **
 
-The translator in charge wondered why the term "frontend" is used here 
-and not the term "wrapper", because this function calls another 
-function. He also cites the (German version of)
-https://en.wikipedia.org/wiki/Front_end_and_back_end
+set-group_ID → set-group-ID
 
-"The B<exec>()  family of functions replaces the current process image with a "
-"new process image.  The functions described in this manual page are front-"
-"ends for B<execve>(2).  (See the manual page for B<execve>(2)  for further "
-"details about the replacement of the current process image.)"
+"By default, file descriptors remain open across an B<execve>().  File "
+"descriptors that are marked close-on-exec are closed; see the description of "
+"B<FD_CLOEXEC> in B<fcntl>(2).  (If a file descriptor is closed, this will "
+"cause the release of all record locks obtained on the underlying file by "
+"this process.  See B<fcntl>(2)  for details.)  POSIX.1 says that if file "
+"descriptors 0, 1, and 2 would otherwise be closed after a successful "
+"B<execve>(), and the process would gain privilege because the set-user-ID or "
+"set-group_ID mode bit was set on the executed file, then the system may open "
+"an unspecified file for each of these file descriptors.  As a general "
+"principle, no portable program, whether privileged or not, can assume that "
+"these three file descriptors will remain closed across an B<execve>()."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
