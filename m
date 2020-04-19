@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 14F8B1AFD95
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:41:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1F09C1AFD96
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 21:42:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726124AbgDSTlZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 15:41:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45094 "EHLO
+        id S1726181AbgDSTmh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 15:42:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45282 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725848AbgDSTlZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:41:25 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 13BD3C061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:41:25 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id x18so9540441wrq.2
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:41:25 -0700 (PDT)
+        with ESMTP id S1725848AbgDSTmh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 15:42:37 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 01D27C061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:42:37 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id e26so8578393wmk.5
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 12:42:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=nMNFgxe8mIOjCqi4ykaCM3nl3VCD/qR7MqJz2v0ByVM=;
-        b=dnmWe+VLYLcweNEant4zlCsg/XsRyyo5hyFv4MwWaJDfEW6UJs9vSkQZpL5hXcS1JL
-         mvdPkDlcfswp10Rbolr6fIXt7oS6Q/X0cqteBGMWj82ZLCr2ReCZQEnfe/QzUIywxg5J
-         K+HpUkfQ+mQXCoPtdrPnn1n2etBA91hvWmSAqYhCzi/0SKY3fIo1NYRTz6nXSd4H0+C1
-         FDGuo0BOKtwL0vOgmnm7IBVhjpM4RrsgWFsnj5hWdG6vky1Gkav1wEAJYjlqWy7fESd2
-         ZNQ3limQFj0bXeY3IsBug0RAwteh0wq6U0GhUS2i4tcS9BOdpFyFtTrq+vHwJbF+QE+e
-         /76w==
+        bh=WU1OZL+CB+dknll3wh9Fx5I09YSHo8X7Kzh8vm0BuoM=;
+        b=PGwZh337TTE4970+s8a816NrUTPyzG/mja7IoJCdxq5UOTAyYpzo0+mK7qF6n0h9j5
+         uHDij43IA0H6+VTt4OECsRnTC2Uvc+Hc8NQlT9Mb6ju+HMUeDUeai3fwIU9RDUC5C1dH
+         bwhloS56wgNXrxvP26GQ7LSBSKJtEYHTridmbgHrPXsLSQLUc0DfVn/TU7SVgcSe3jla
+         UF8hdAzMGAh/Otnq1NVWz1pnvExmoOgSDAphqJpX7kAyTUoUVOVFjoLxVUx88fDC8+Jv
+         Qigl8XcF3K7ypQp8TC4e9llaNABJJ6FhwnOSmeMomsPrCzeVH9G6kbMN0Y5f5auWiRW9
+         JMGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=nMNFgxe8mIOjCqi4ykaCM3nl3VCD/qR7MqJz2v0ByVM=;
-        b=njJFXjOrtatoTLUPABszV7ANh/Biy4OBlGGu6UHTKVe9n44RHmXb/p0JNxDKsqueCF
-         XJN/ztP0ahZp91D4Nhl9QX5YVEEv0AMqV+3hHbaA0x/wutnY76RU0sAhdle5JhU3S3eQ
-         Sy1EpsB7QiVD6ImpFYLMFupiScAQlzKHfX2EgxM7Gp2ystfHnSiiTw+6aAHA3Tl3SqPL
-         ivCUjQ1XyRp3I9D+2hfjGMiHRn0tjEnclmwJJSWAO39AkJ3eeQBFIrym1zUU0Dg1FSnT
-         RqhubcJ79UxKtQ3TFqXemxUbG21rlMKxrIuTYFH4YSxcsflSnwn+yFUQrPLWDZiec1c0
-         I4wQ==
-X-Gm-Message-State: AGi0Pub/QARyg7ofR/5yzSFzRlnOeHuIxeF37PWa9RI78WU80BjI2mXt
-        drN36WNaS0iTAgH/EmhKQIEdD8tm
-X-Google-Smtp-Source: APiQypKEmkxTUuwqSG+JHrNI8dRA3g5QobAy+nRzgHAwTpjwI6YOoWAEqWLFFc9v7mSbTI+uBRqtpw==
-X-Received: by 2002:a5d:6887:: with SMTP id h7mr9028262wru.365.1587325283678;
-        Sun, 19 Apr 2020 12:41:23 -0700 (PDT)
+        bh=WU1OZL+CB+dknll3wh9Fx5I09YSHo8X7Kzh8vm0BuoM=;
+        b=O4RfWl6Voj/qemj9ttvDqv0oY8+qb9rs729lnRjEmEfW/OMXwgOtcLucvzpZjvH1+N
+         vAmsQyU7Rh14fKvdTJuQuMRiV3Gor/lfAxSwsSj38ylKmyK9nWGmgaATU/6fF0JpieiB
+         ZlRhFqgtNi6cARRGdL1AaFYtfUqbb8/xXUeMYC5pmUbmWyGk8d97OZkPLGKwww9CwyJ3
+         zx1IyvMHUOxtrxlIZrU+R0P2UKlbLL8CvlqZalb9ixsYvjmIc/kZ2Ney+up4vU62Owm8
+         FTGtgYXkcHHAuZXn3fzHfUc2KXp6+m3mdnZqS8qH5hZNTZkhdX9LuU1fO29MvTbdroJ7
+         MvUw==
+X-Gm-Message-State: AGi0PuapFE4eRJ8bT1jI1UAwHHr6Jjgn2IEDnel4xbgy9R5XlNAC5/2L
+        VezMs2Qd65+NV+OZ6sWL3hWIh2r4
+X-Google-Smtp-Source: APiQypJ60UkuFPd7zRu3PTz3dkiCQbdLJb/ZLgwD+CP4e8dhoI4uXS4UNq+iuhYD8HSAK0TS4lihJQ==
+X-Received: by 2002:a7b:cdfa:: with SMTP id p26mr13929493wmj.186.1587325355540;
+        Sun, 19 Apr 2020 12:42:35 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id u12sm17360005wmu.25.2020.04.19.12.41.23
+        by smtp.gmail.com with ESMTPSA id m1sm35742057wro.64.2020.04.19.12.42.34
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 12:41:23 -0700 (PDT)
+        Sun, 19 Apr 2020 12:42:35 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: ffs(3): Wording
+Subject: Re: Errors in man pages, here: filesystems(5): (vi) Typo
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064759.GA30515@Debian-50-lenny-64-minimal>
+References: <20200419064800.GA30561@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <e997e411-a9fe-3220-a6d0-754bed1661d1@gmail.com>
-Date:   Sun, 19 Apr 2020 21:41:22 +0200
+Message-ID: <083f009c-686d-f422-1cfd-d1ab598fdc44@gmail.com>
+Date:   Sun, 19 Apr 2020 21:42:34 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064759.GA30515@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064800.GA30561@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -67,7 +67,7 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
+On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > Dear manpages maintainers.
 > the manpage-l10n project maintains a large number of translations of
 > man pages both from a large variety of sources (including manpages) as
@@ -104,16 +104,18 @@ On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> find → locate?
-> 
-> msgid "ffs, ffsl, ffsll - find first bit set in a word"
+> iThe → The
 
-I think "find" is fine. ("locate" would also be okay.)
+Fixed already (2 months ago).
 
 Thanks,
 
 Michael
 
+> "iThe following list provides a short description of the available or "
+> "historically available filesystems in the Linux kernel.  See the kernel "
+> "documentation for a comprehensive description of all options and limitations."
+> 
 
 
 -- 
