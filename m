@@ -2,29 +2,29 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E7EB11AF7D4
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CC6D31AF7DB
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726164AbgDSGxN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:13 -0400
-Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
+        id S1726105AbgDSGxQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:16 -0400
+Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726161AbgDSGxN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:13 -0400
+        by vger.kernel.org with ESMTP id S1726181AbgDSGxQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:16 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56180.000000005E9BF42B.000079F9; Sun, 19 Apr 2020 08:48:11 +0200
-Date:   Sun, 19 Apr 2020 08:48:11 +0200
+  id 0000000000E56187.000000005E9BF42C.00007A3E; Sun, 19 Apr 2020 08:48:12 +0200
+Date:   Sun, 19 Apr 2020 08:48:12 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: mremap(2): Plural?
-Message-ID: <20200419064811.GA31208@Debian-50-lenny-64-minimal>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Subject: Errors in man pages, here: networks(5): Question
+Message-ID: <20200419064812.GA31279@Debian-50-lenny-64-minimal>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -69,9 +69,11 @@ future reports should use another channel, please let me know.
 
 **
 
-flag → flag(s) ?
+What is "this facility"?
 
-msgid "The I<flags> bit-mask argument may be 0, or include the following flag:"
+"This file is read by the B<route>(8)  and B<netstat>(8)  utilities.  Only "
+"Class A, B or C networks are supported, partitioned networks (i.e., "
+"network/26 or network/28) are not supported by this facility."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
