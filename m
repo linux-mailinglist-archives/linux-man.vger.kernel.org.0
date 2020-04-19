@@ -2,30 +2,29 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C342B1AF7CA
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4436A1AF7CB
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726117AbgDSGxI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:08 -0400
-Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
+        id S1726136AbgDSGxJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:09 -0400
+Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726105AbgDSGxI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:08 -0400
-X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
+        by vger.kernel.org with ESMTP id S1726105AbgDSGxJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:09 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56160.000000005E9BF425.0000789E; Sun, 19 Apr 2020 08:48:05 +0200
-Date:   Sun, 19 Apr 2020 08:48:05 +0200
+  id 0000000000E56166.000000005E9BF426.000078E3; Sun, 19 Apr 2020 08:48:06 +0200
+Date:   Sun, 19 Apr 2020 08:48:06 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: initrd.4.po; Missing reference
-Message-ID: <20200419064805.GA30863@Debian-50-lenny-64-minimal>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Subject: Errors in man pages, here: initrd(4): Typo
+Message-ID: <20200419064806.GA30932@Debian-50-lenny-64-minimal>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -70,10 +69,11 @@ future reports should use another channel, please let me know.
 
 **
 
-initrd(4)
+unmount → unmounts
 
-msgid "When booting up with B<initrd>, the system boots as follows:"
-
+"The executable I</linuxrc> sets I</proc/sys/kernel/real-root-dev>, unmount "
+"I</proc>, the normal root filesystem and any other filesystems it has "
+"mounted, and then terminates."
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
