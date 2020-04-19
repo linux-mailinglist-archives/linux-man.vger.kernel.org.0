@@ -2,26 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2EDC41AF810
+	by mail.lfdr.de (Postfix) with ESMTP id C02281AF811
 	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726363AbgDSGxi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:38 -0400
-Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
+        id S1726377AbgDSGxj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:39 -0400
+Received: from luckmann.name ([213.239.213.133]:34335 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726328AbgDSGxi (ORCPT
+        by vger.kernel.org with ESMTP id S1726373AbgDSGxi (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:38 -0400
-X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E561FD.000000005E9BF442.00007F14; Sun, 19 Apr 2020 08:48:34 +0200
-Date:   Sun, 19 Apr 2020 08:48:34 +0200
+  id 0000000000E56201.000000005E9BF443.00007F42; Sun, 19 Apr 2020 08:48:35 +0200
+Date:   Sun, 19 Apr 2020 08:48:35 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: tzfile(5): Punctuation
-Message-ID: <20200419064834.GA32517@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: utmp.5.po: Markup
+Message-ID: <20200419064835.GA32563@Debian-50-lenny-64-minimal>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
@@ -70,11 +69,40 @@ future reports should use another channel, please let me know.
 
 **
 
-Final comma → fullstop
+Is bold markup in source code ok?
 
-"Some readers may mishandle time zone abbreviations that contain fewer than 3 "
-"or more than 6 characters, or that contain ASCII characters other than "
-"alphanumerics,"
+"#define EMPTY         0 /* Record does not contain valid info\n"
+"                           (formerly known as UT_UNKNOWN on Linux) */\n"
+"#define RUN_LVL       1 /* Change in system run-level (see\n"
+"                           B<init>(8)) */\n"
+"#define BOOT_TIME     2 /* Time of system boot (in I<ut_tv>) */\n"
+"#define NEW_TIME      3 /* Time after system clock change\n"
+"                           (in I<ut_tv>) */\n"
+"#define OLD_TIME      4 /* Time before system clock change\n"
+"                           (in I<ut_tv>) */\n"
+"#define INIT_PROCESS  5 /* Process spawned by B<init>(8) */\n"
+"#define LOGIN_PROCESS 6 /* Session leader process for user login */\n"
+"#define USER_PROCESS  7 /* Normal process */\n"
+"#define DEAD_PROCESS  8 /* Terminated process */\n"
+"#define ACCOUNTING    9 /* Not implemented */\n"
+msgstr ""
+"#define EMPTY         0 /* Datensatz enthält keine gültigen Daten\n"
+"                           (früher unter Linux als UT_UNKNOWN\n"
+"                           bekannt) */\n"
+"#define RUN_LVL       1 /* Wechsel des System-Runlevels (siehe\n"
+"                           B<init>(8)) */\n"
+"#define BOOT_TIME     2 /* Zeitpunkt des Systemstarts (in I<ut_tv>) */\n"
+"#define NEW_TIME      3 /* Zeit nach Änderung der Systemuhr\n"
+"                           (in I<ut_tv>) */\n"
+"#define OLD_TIME      4 /* Zeit vor Änderung der Systemuhr\n"
+"                           (in I<ut_tv>) */\n"
+"#define INIT_PROCESS  5 /* Prozess von B<init>(8) erzeugt */\n"
+"#define LOGIN_PROCESS 6 /* Prozessgruppen-Führer für\n"
+"                           Benutzer-Anmeldung */\n"
+"#define USER_PROCESS  7 /* normaler Prozess */\n"
+"#define DEAD_PROCESS  8 /* beendeter Prozess */\n"
+"#define ACCOUNTING    9 /* nicht implementiert */\n"
+
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
