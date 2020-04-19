@@ -2,29 +2,29 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 57D071AF7C8
+	by mail.lfdr.de (Postfix) with ESMTP id 84A061AF7C9
 	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726024AbgDSGxI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:08 -0400
-Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
+        id S1726121AbgDSGxJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:09 -0400
+Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726112AbgDSGxI (ORCPT
+        by vger.kernel.org with ESMTP id S1726055AbgDSGxI (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:08 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56163.000000005E9BF426.000078CC; Sun, 19 Apr 2020 08:48:06 +0200
+  id 0000000000E56161.000000005E9BF426.000078B5; Sun, 19 Apr 2020 08:48:06 +0200
 Date:   Sun, 19 Apr 2020 08:48:06 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: initrd(4): Superfluous word
-Message-ID: <20200419064806.GA30909@Debian-50-lenny-64-minimal>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Subject: Errors in man pages, here: initrd(4): Markup
+Message-ID: <20200419064805.GA30886@Debian-50-lenny-64-minimal>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -69,13 +69,43 @@ future reports should use another channel, please let me know.
 
 **
 
-the this → this
+Markup B
 
-"Specifies the device to be used as the normal root filesystem.  For "
-"B<LOADLIN> this is a command-line option.  For B<LILO> this is a boot time "
-"option or can be used as an option line in the B<LILO> configuration file I</"
-"etc/lilo.config>.  The device specified by the this option must be a "
-"mountable device having a suitable root filesystem."
+msgid "I<noinitrd>"
+--
+Markup "linuxrc"
+
+"It is also possible for the I</linuxrc> executable to change the normal root "
+"device.  For I</linuxrc> to change the normal root device, I</proc> must be "
+"mounted.  After mounting I</proc>, I</linuxrc> changes the normal root "
+"device by writing into the proc files I</proc/sys/kernel/real-root-dev>, I</"
+"proc/sys/kernel/nfs-root-name>, and I</proc/sys/kernel/nfs-root-addrs>.  For "
+"a physical root device, the root device is changed by having I</linuxrc> "
+"write the new root filesystem device number into I</proc/sys/kernel/real-"
+"root-dev>.  For an NFS root filesystem, the root device is changed by having "
+"I</linuxrc> write the NFS setting into files I</proc/sys/kernel/nfs-root-"
+"name> and I</proc/sys/kernel/nfs-root-addrs> and then writing 0xff (e.g., "
+"the pseudo-NFS-device number) into file I</proc/sys/kernel/real-root-dev>.  "
+"For example, the following shell command line would change the normal root "
+"device to I</dev/hdb1>:"
+--
+Markup "linuxrc"
+
+"The main motivation for implementing B<initrd> was to allow for modular "
+"kernel configuration at system installation."
+--
+Markup "linuxrc"
+
+"The executable I</linuxrc> loads the necessary modules from the initial root "
+"filesystem."
+--
+Markup "initrd"
+
+"Last but not least, Linux distributions on CD-ROM may use B<initrd> for easy "
+"installation from the CD-ROM.  The distribution can use B<LOADLIN> to "
+"directly load I</dev/initrd> from CD-ROM without the need of any floppies.  "
+"The distribution could also use a B<LILO> boot floppy and then bootstrap a "
+"bigger RAM disk via I</dev/initrd> from the CD-ROM."
 
 
 -- 
