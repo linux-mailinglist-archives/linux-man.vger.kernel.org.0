@@ -2,25 +2,25 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5D4001AF7B8
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8F1681AF7BB
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726063AbgDSGxD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1726067AbgDSGxD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 19 Apr 2020 02:53:03 -0400
-Received: from luckmann.name ([213.239.213.133]:55513 "EHLO
+Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726049AbgDSGxC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:02 -0400
+        by vger.kernel.org with ESMTP id S1726059AbgDSGxD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:03 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56136.000000005E9BF41F.00007759; Sun, 19 Apr 2020 08:47:59 +0200
-Date:   Sun, 19 Apr 2020 08:47:59 +0200
+  id 0000000000E5613C.000000005E9BF420.00007787; Sun, 19 Apr 2020 08:48:00 +0200
+Date:   Sun, 19 Apr 2020 08:48:00 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: filesystems(5): Superfluous comma
-Message-ID: <20200419064759.GA30538@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: fopen(3): Wording
+Message-ID: <20200419064800.GA30584@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -69,11 +69,10 @@ future reports should use another channel, please let me know.
 
 **
 
-List ends in a (superfluous) comma
+Text is broken: "as if by"??
 
-"filesystems - Linux filesystem types: ext, ext2, ext3, ext4, hpfs, iso9660, "
-"JFS, minix, msdos, ncpfs nfs, ntfs, proc, Reiserfs, smb, sysv, umsdos, vfat, "
-"XFS, xiafs,"
+"The file descriptor associated with the stream is opened as if by a call to "
+"B<open>(2)  with the following flags:"
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
