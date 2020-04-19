@@ -2,30 +2,29 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 40CF31AF7DE
-	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 444581AF7DD
+	for <lists+linux-man@lfdr.de>; Sun, 19 Apr 2020 08:53:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726207AbgDSGxS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Apr 2020 02:53:18 -0400
-Received: from luckmann.name ([213.239.213.133]:39703 "EHLO
+        id S1726201AbgDSGxQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Apr 2020 02:53:16 -0400
+Received: from luckmann.name ([213.239.213.133]:48637 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726195AbgDSGxR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:17 -0400
-X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 19 Apr 2020 02:52:53 EDT
+        by vger.kernel.org with ESMTP id S1726160AbgDSGxQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Apr 2020 02:53:16 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5618D.000000005E9BF42E.00007A83; Sun, 19 Apr 2020 08:48:14 +0200
+  id 0000000000E56191.000000005E9BF42E.00007A9A; Sun, 19 Apr 2020 08:48:14 +0200
 Date:   Sun, 19 Apr 2020 08:48:14 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: personality(2): Missing article
-Message-ID: <20200419064814.GA31348@Debian-50-lenny-64-minimal>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Subject: Errors in man pages, here: proc(5): Consistency
+Message-ID: <20200419064814.GA31371@Debian-50-lenny-64-minimal>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -33,6 +32,7 @@ Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
+
 
 Dear manpages maintainers.
 the manpage-l10n project maintains a large number of translations of
@@ -70,14 +70,26 @@ future reports should use another channel, please let me know.
 
 **
 
-is value → is a value
+Inconsistent spelling of multithreaded vs. multi-threaded
 
-"A list of the available execution domains can be found in I<E<lt>sys/"
-"personality.hE<gt>>.  The execution domain is a 32-bit value in which the "
-"top three bytes are set aside for flags that cause the kernel to modify the "
-"behavior of certain system calls so as to emulate historical or "
-"architectural quirks.  The least significant byte is value defining the "
-"personality the kernel should assume.  The flag values are as follows:"
+a)
+"Prior to Linux 2.6.28, SELinux did not allow threads within a multi-threaded "
+"process to set their security context via this node as it would yield an "
+"inconsistency among the security contexts of the threads sharing the same "
+"memory space.  Since Linux 2.6.28, SELinux lifted this restriction and began "
+"supporting \"set\" operations for threads within a multithreaded process if "
+"the new security context is bounded by the old security context, where the "
+"bounded relation is defined in policy and guarantees that the new security "
+
+b)
+"In SELinux, this file is used to get the security context of a process.  "
+"Prior to Linux 2.6.11, this file could not be used to set the security "
+"context (a write was always denied), since SELinux limited process security "
+"transitions to B<execve>(2)  (see the description of I</proc/[pid]/attr/"
+"exec>, below).  Since Linux 2.6.11, SELinux lifted this restriction and "
+"began supporting \"set\" operations via writes to this node if authorized by "
+"policy, although use of this operation is only suitable for applications "
+
 
 -- 
       Dr. Helge Kreutzmann                     debian@helgefjell.de
