@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1859F1B0163
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 08:12:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3868E1B0164
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 08:12:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725988AbgDTGMj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 02:12:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57196 "EHLO
+        id S1725815AbgDTGMo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 02:12:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57212 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725780AbgDTGMj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:12:39 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 43E6AC061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:39 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id b11so10577795wrs.6
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:39 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725780AbgDTGMo (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:12:44 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 519D8C061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:44 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id d17so10552882wrg.11
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=0+DUopHVngHcQDguVkTuo594UiJoo3NdtibuDbLjvls=;
-        b=AGCBCbLrUnAJgdI92AzwhcORByUxtZpk9UqHB+BkjT4MAZ8beqQ99CfbhdUO9Gst8Y
-         dpO8SbNY+iwZpjMjp6cTVdUT/BYSMU3Gi5W9oXY1TZ2LI7tQYD+fYbUrX5Arxq8btNbJ
-         7vii5XN4lMV0gU5eenFSwZpF4DXObJGAE0BkpvGocQjCA53eX67efPsc5LIaywtQck63
-         rMCaduWg2Wgfi2s1D1qa+JYV72qZb4R3J5BION0Zf3PMb1rzgESKx+9Iyqhmcw1bfTMt
-         zhLWiDU2Um+ITcpX2JYK8jrBSFRJ7hxOOadxQnBdEkvBL/Fh5eeefqYYSxxGsoLLCQ7t
-         r5LQ==
+        bh=QY1QDzhImN3TfDHn8veUx2lLSbRy86uxNHlGuUGRczQ=;
+        b=YDB+pjDAAJcBAt9zByrN9cVpk31ZjRa4SsUQ/tgSxiwIRwMp7+xiMkFz/ZWhqg0QQe
+         hZi+3+RRQQGuR43g9+gluTaUF/DqjnDpgUnSJFXIvFKgNOMIkuXhBXzN0Wt0jj60vIWZ
+         rO3F/TEKcORlwRYH+qIJK9p2kapj1hbVyQo5Vr+C4PwSlt39SiuFpoPEosOnMKb5HcjG
+         Yg5w4sRFSgwVFD32UxGQaEGjtTca5vqwmAjdLUNXaC5njKX+GyIDa7MHQOSZEkmj7l13
+         38c/NmF9v9yXpF5SwYZb0woLTjE5GfVwBoCjI9mkm0TJbKiB8GYW7ebJnq08dN+XXfM/
+         H4Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=0+DUopHVngHcQDguVkTuo594UiJoo3NdtibuDbLjvls=;
-        b=WIzOitJJnjmPqsicviYEzf8jF+egdkc39UqTj3yUnZtDwownpOi58V881Ccl2AG3J1
-         alHAjNwYzJZHRIfqCWttKiyf0tnIWN9YXIlE9vaVs7O5jnpRhGDb431APCsVs4wUUfib
-         cyr+4n0E2nkZ8i4+Rxes19lewytOdZCMOhisjrqCby/L0NNa2et1sJd2yDW9fuADSNQw
-         zRNvR6Alj8x1ffEF3m57k2TLecgYPf7WyWaATb5X8RU2Hxj7Do6jvKZzQUS+QaSwwCfb
-         230oodqBWf+kcvP4YLcM3mIsx5UooTfssLWSThioKYcU1HNf9pdlpogvzX6IU0Bb0SSR
-         8yBQ==
-X-Gm-Message-State: AGi0Pua9HbR3ERia2mm8dpWlexBqyCIT1yD6ImwlQ747rEYNIMwq2S8t
-        yfmUOV0Hwfnr0kK5Is9F0ycpHBCD
-X-Google-Smtp-Source: APiQypLQjPLhlCgUriUepUDz7HoJwZfqi+fEuSvMxFK+Uvqo1F1YLM7BMzZ3/MNY3oeVXrn8KZKIFQ==
-X-Received: by 2002:adf:ed0e:: with SMTP id a14mr16687666wro.400.1587363157870;
-        Sun, 19 Apr 2020 23:12:37 -0700 (PDT)
+        bh=QY1QDzhImN3TfDHn8veUx2lLSbRy86uxNHlGuUGRczQ=;
+        b=VDFgItqQZgup1TNwymBjreTn2hz8DjqEaDza6x2wYl1CvyJbtEuh+HIIgB976Azdxb
+         HIp+/Jl6Ewx6v2b8nRe244/nxOt5Fc1m0nQWgS+b4hxyl1+qklgFpq2Di9ySOCqhzAhY
+         0JcBE9Z4AArDOVxktjnksOeWX6cpW5Or6w4Zs0EUVcCn/vBxP9DjfizElueuhHg7ipWU
+         KRlCIcEpXceDxEAxwH8hP93snypN7E5WXj4hO4zoq188VhaUL6dnqf+DTNC9+72K0wgz
+         cU71Gsk/27Wffx1c36hbijZVQdl3HA9918qDIxStcnZffvssuC1Xyxd2ujh9CUf68qmc
+         cEYg==
+X-Gm-Message-State: AGi0PuYhpDwy3Wrp+9lbuZUS+UlOkXsQ38MqZ5o2EBp8Dp2CYGbB6itn
+        +HLBaQ+gBjVi+2pZ+uwPy2U9hlm8
+X-Google-Smtp-Source: APiQypIAypeliyHJ7aNPnM+K03fu+ij0qZ/JDS7zzHZTjxHlDoCihwfF8MEmKamKxmVASYavmG2pXg==
+X-Received: by 2002:adf:ea02:: with SMTP id q2mr16413434wrm.31.1587363162895;
+        Sun, 19 Apr 2020 23:12:42 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id j3sm112977wrw.28.2020.04.19.23.12.37
+        by smtp.gmail.com with ESMTPSA id t16sm18374864wmi.27.2020.04.19.23.12.42
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 23:12:37 -0700 (PDT)
+        Sun, 19 Apr 2020 23:12:42 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: st(4): Missing closing bracket
+Subject: Re: Errors in man pages, here: scanf(3): Missing bracket
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064829.GA32210@Debian-50-lenny-64-minimal>
+References: <20200419064822.GA31818@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <72256890-790b-678e-fefd-f265989a4dd0@gmail.com>
-Date:   Mon, 20 Apr 2020 08:12:37 +0200
+Message-ID: <251a1876-264f-01ca-ad30-35211b7a053d@gmail.com>
+Date:   Mon, 20 Apr 2020 08:12:42 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064829.GA32210@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064822.GA31818@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -104,21 +104,16 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Missing closing bracket at the end of first sentence.
+> Missing »)«
 > 
-> "The only field defined in I<mt_erreg> is the recovered error count in the "
-> "low 16 bits (as defined by B<MT_ST_SOFTERR_SHIFT> and "
-> "B<MT_ST_SOFTERR_MASK>.  Due to inconsistencies in the way drives report "
-> "recovered errors, this count is often not maintained (most drives do not by "
-> "default report soft errors but this can be changed with a SCSI MODE SELECT "
-> "command)."
+> "Matches a pointer value (as printed by B<%p> in B<printf>(3); the next "
+> "pointer must be a pointer to a pointer to I<void>."
 
 Fixed.
 
 Thanks,
 
 Michael
-
 
 -- 
 Michael Kerrisk
