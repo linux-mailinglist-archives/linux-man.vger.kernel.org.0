@@ -2,70 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D36441B05E6
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 11:47:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EDB421B05EC
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 11:48:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725896AbgDTJrn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 05:47:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34070 "EHLO
+        id S1725886AbgDTJsl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 05:48:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34218 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725886AbgDTJrn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 05:47:43 -0400
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 097D1C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:47:43 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id k1so11306931wrx.4
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:47:42 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725775AbgDTJsl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 05:48:41 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D4B02C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:48:40 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id u13so11307326wrp.3
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:48:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=AwruE+8Sev9eXxCFT6GXbI1zgcwHx9GAtHs0W5lvQsI=;
-        b=NUs6d0xlixzxx9Eharlkwe4NXY3w64Ie1l20QQoEnHV39C7FHgY6dAhYbw9+8tM17Y
-         7wpCerPvgdh1vBkCSpCZCs4aB/ZrElZKpg5hshg48muuqeER0jJaJA234dbS1NOISd4q
-         dac+VZEeMaFJC//qZPVUXkedlhtfyUNC0muKCM2+1KN8s3u6LJeQLtxq6dJOl1fZyGPo
-         sDE8ge0S8y7fiIPD1opv1CbhZCt2JrmjnEliAcA2Riqa8bAiiWyAew/YOVtjn+7j30yH
-         1beWco52Ss2A1KrnoCXpjsObwWu9PdJtoQYoz7oZwJCqR4oozaUQylPvHBQm8Tb8I19W
-         1lGg==
+        bh=8GGZG+jSkea3fyf1aICddx89eBqBkrug8k4K/GM9Rlc=;
+        b=vXg8H7/NClGiUQovSBWcKqXF8qIOcUZmvnt9ugahurVPsVjstX6nrBccnEbB9mh8+v
+         S1BrLRvF+t1djLt96Zu5YK6SHP3apYR5wm550m8SiBj6BZET0vUvWxi0WNWRRd17mA10
+         jWvROmzp20wYN56umgasjkFf7ifqMbw/rApysWpXtkFgr/107x0666KarrSDgwJ3ZSxh
+         ApF6EenfxewTI20THNF6SbZNAtSSnAqxbXDl9jsOjQ4/MhL5ugbg5TEhft1uK93vW3Y5
+         vdwBM1psRxxm+tystz6/6SphUgCDAsXNPv1otNoaZYe/bVULNEMIrZFa3rWRIIvibY1J
+         YO7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=AwruE+8Sev9eXxCFT6GXbI1zgcwHx9GAtHs0W5lvQsI=;
-        b=kWrGhCD1JWEjC6R4jVnvxbu4nWqJ7hSCLXtBvAEc/BtPzmx9bDq9pNHtM3Lg5miXUM
-         y8lamHLZMMcbyqRimWmjjwmT2yfHgeTTPRPUvUr5OOPpMl97nTVMoeBRvuV7e0K5Z+aL
-         glITeqlHKpINMux82tInl77Art8lDg39OsF1+PFUFDmoYDhSigK/fICNtYrKsrFjLkGb
-         9eJMAfGKYiKuaBJJiN7zwog4NLaprYwZSSXUisaNCzir/q1IeqM4vr6xIGDv3iA3cnSx
-         zXOHo1uMLF5ivvlWLLwqb5AfetQvaDj6J18pOCXPEMa2cDbuW+sHCHXlJwB75r1/ui0V
-         nfEg==
-X-Gm-Message-State: AGi0PubsfVUcvEMBHoHj9S/46eFeGxqOTaI4f7HETluG3KIFX5ABBnY5
-        B+ON5CsMXxvZhD93EmAhLZa1qB+F
-X-Google-Smtp-Source: APiQypIdo6t3qVufV/UsmNxbMIzlUrTHuyHb9sD0x72E+yYCFFUVuYlMOAhnqIpT3rm3IVyD3Btrhg==
-X-Received: by 2002:a5d:6646:: with SMTP id f6mr17511457wrw.318.1587376061547;
-        Mon, 20 Apr 2020 02:47:41 -0700 (PDT)
+        bh=8GGZG+jSkea3fyf1aICddx89eBqBkrug8k4K/GM9Rlc=;
+        b=Yl50Xdtl188K5YmIWqnurh4Ay6BbZurIVXwR76v09w6/gyjmTGFKF+z3mhkDp4yfQn
+         /JvL+ZO6WrKdzoqqdg4J65xEjFoA31jXEx59EsgxytE0G7OMjh4uRmlH8/xZveS8jQ/B
+         cOdyhFuMG13eB+epLW+J3916fqgYUVnwq/51rtOaYF/cHZP98MPkekxQ8zMMJjoPedT0
+         ne7ESD1OHvQl1Iw72lTCIejx2e6WEDUp872KDqG4yEKg2QoCaJnu1xrq/adkP0f+0+rH
+         aO6J6RdkAVklQcUPxPp8GWUps96hj8R13ipvCKv7KpAPX28aAL/RBR6WxKpWEmzmiLRp
+         A11g==
+X-Gm-Message-State: AGi0PuYUllXeDBPoiDdTZDilAxAyQwPnp1LPNnGGO7L+TfOrEEqbzdlq
+        V77k49ljSi8JtTALl5nBJ5c=
+X-Google-Smtp-Source: APiQypKzB8un/FbFmEAjPQXNAH+N47CVj+0tMulCJ77My9lqD1NYNaL219WmHRAEDgFmfQa6+tBYdg==
+X-Received: by 2002:adf:fe44:: with SMTP id m4mr18987134wrs.188.1587376119534;
+        Mon, 20 Apr 2020 02:48:39 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id a187sm608411wmh.40.2020.04.20.02.47.38
+        by smtp.gmail.com with ESMTPSA id v19sm496865wra.57.2020.04.20.02.48.37
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 02:47:39 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: sysconf(3): Closing markup
+        Mon, 20 Apr 2020 02:48:38 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        =?UTF-8?Q?Kai_M=c3=a4kisara?= <kai.makisara@kolumbus.fi>
+Subject: Re: Errors in man pages, here: st.4.po: Wording
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064832.GA32377@Debian-50-lenny-64-minimal>
+References: <20200419064826.GA32071@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <b3b6bba6-c419-402b-433d-cd7775da6005@gmail.com>
-Date:   Mon, 20 Apr 2020 11:47:38 +0200
+Message-ID: <9342d9e7-5629-6908-918a-44270d4e7b4f@gmail.com>
+Date:   Mon, 20 Apr 2020 11:48:37 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064832.GA32377@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064826.GA32071@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
+
+[CC += Kai]
 
 On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > Dear manpages maintainers.
@@ -104,17 +107,22 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> s/ order>/> order/
+> media → data
+> 
+> msgid "Go to the end of the recorded media (for appending files)."
+> 
+> --
+> drive → media
+> 
+> "B<GMT_WR_PROT>(I<x>): The drive is write-protected.  For some drives this "
+> "can also mean that the drive does not support writing on the current medium "
+> "type."
 
-The existing formatting is correct. ("order" is a keyword.)
+I am not sure of the above. Perhaps Kai can help.
 
 Thanks,
 
 Michael
-
-> "indicates the maximum numbers of weights that can be assigned to an entry of "
-> "the B<LC_COLLATE order> keyword in the locale definition file,"
-> 
 
 
 -- 
