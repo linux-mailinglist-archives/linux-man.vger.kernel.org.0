@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6FA8C1B049D
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 10:40:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 297A21B04A0
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 10:41:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725971AbgDTIkW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 04:40:22 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51894 "EHLO
+        id S1725775AbgDTIll (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 04:41:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52096 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725775AbgDTIkW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 04:40:22 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 07770C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:40:22 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id x4so10015582wmj.1
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:40:21 -0700 (PDT)
+        with ESMTP id S1725773AbgDTIll (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 04:41:41 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1783AC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:41:41 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id j2so11013389wrs.9
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:41:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=SKgpaQFOSPfPyqM1A1Vy9QDjiBpbjj0IEa+vptRTviw=;
-        b=PyKi/j9I3wBdfkdVghwZ/zTjLUbiF/azioBshIytvvwxni9McmItTlKfBZ3hpQ9pjw
-         /duHe63nvYlhMbf2dFDuhkm7eGOyK4OB5zL56qCnnTa9b9LM8l5MN2HdQ0NbiaYqYfvx
-         snqbU/neIfem3ferPiAqrF5Aee6kKWa6sWl4Pfjs+jF6+JA+eguv3XGMVfrqf8AvSJGD
-         TByH5HFF95Rh8R/3H+gpIEJXR1mCqEZshfCivyVCcEbfao2u/bgsgxTZ5ASyHS4IaNyi
-         a4PDTqLh7Sh7PPnFoj94ZZbc8TnEh3y/lmrbzS6vL25iQgnXpeBfM6q+33xGdjP3LfQO
-         6v9w==
+        bh=Q5kkICUZVhcM8b0WcS2TWrGOzopMAJpX6zbQR+DRamU=;
+        b=N6RGWZfQrFzrqwBQleJJ6YFxe40tomb2hnERv6mv6j1qYpy/x8PhVIFvKwhNpeKjk5
+         B9E+eBl461X6t+duQC/SQZHrSiv3w9XAMyHIAh2bDgktAy/fwFC/Jx3PFuv6PYkV7tCK
+         LimBHuvs7w0/zuBlgkEwIBXj9ZBDmezcpgMWENXubEViAHB0xMKoIV8FObS+Yn9k9KM9
+         cIQN/FWcideT8JQ6jzH8dnu7Ky//KtKBMZkdEE7GQCbyw15xLwSsYm/wnZaVnFT1Ipck
+         izZ31mZmFQnMUm9S0ruRfNNt4jIfyMAPEEW273fMwCxJMdLhAwmexU2S+KPj/5GNWuEg
+         1Shw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=SKgpaQFOSPfPyqM1A1Vy9QDjiBpbjj0IEa+vptRTviw=;
-        b=DCd+x53mxT20UkhkqnlNkTsaqyC4ieEE1ozojES7KYigpzWHz1/7JOgo3mYV3PMZdw
-         fY5EmRV4DaqmO4B4xPop//D4pNr5CoS6Eb6JsaV+acxhfqjb4CI1a8N1SjSODuBlVvJL
-         WQxyhoUP/grzuDCClamJ64aOZGWei59LoEc3YmFNLVs00jOHC29GJnmg585YWwuHlosB
-         jdDzVYb7R5aK5xHDBtRKH/bxJrYt5KT2lju7MiqEXnzKy4sdpW1y1muJ/vQmj82HCL34
-         wqz5GKuYZFG8vvaBuM6qatA2OmeerBaM5foTIuEDNveeQ5nmNgAUiQczZoxfY4DW32NC
-         Sm4w==
-X-Gm-Message-State: AGi0PuYLetjgsA3ppxk+u0qjiMhMpA4hi2Bk5Bp1GNpxMLOXU/VM/nXa
-        1AX44cPLTJnIzDTZuN5ceT96rS/E
-X-Google-Smtp-Source: APiQypJ+9uqzIuObv/SFBuWBA8Zz+SfEr5LD65xKh6tlRvPCTFmBsLzvH3SuAk9uPeH7pBNkSUzfUQ==
-X-Received: by 2002:a05:600c:2341:: with SMTP id 1mr15994780wmq.153.1587372020565;
-        Mon, 20 Apr 2020 01:40:20 -0700 (PDT)
+        bh=Q5kkICUZVhcM8b0WcS2TWrGOzopMAJpX6zbQR+DRamU=;
+        b=lkWrzbR2WmHbbHIVDjRjt/rZwr+L5Lsf2+uprXxvy1Ezm2NGJYslWUtCfzFXL7SaN/
+         hJ0xbvJebxDhEktG1x119HzfzMVhHketPqzt+32gVF0GSxPJXUxhvM30WSqUumATV5DD
+         DrbNf1e1AvLSm8MgHiEgiKp7GD1gcQI6SyAQkDzO0/lH6z0ukhmnZbyLLz+ckTxnwJue
+         gu6htvDhRr4p7KnTX55F32R18kxo820fd+6DjxP5keSdDOgLJiUgr1sWbQhdau9458Xe
+         AlRxE7IqNxCl3FVawdc+eRCVn1FUrf5vYbYjeGXV30NSOAET2MEavR4JspeOiggSMim0
+         lEgQ==
+X-Gm-Message-State: AGi0PubD+HzM3WNwJV/C5tVJMKT9GT3xEUuV6JAQjIbAOvs/Mr5UT/aT
+        51gG1i/CJSxfhA6QOuTGV+2kPU1v
+X-Google-Smtp-Source: APiQypLRVJU2DLxS3PoiEiodAsRtVRQpGyIuBHRHTmTxWvLf9xhLwIGKgGet6PE+q2noFbubAtSwsQ==
+X-Received: by 2002:adf:80ee:: with SMTP id 101mr5652374wrl.156.1587372099682;
+        Mon, 20 Apr 2020 01:41:39 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id o7sm368015wmh.46.2020.04.20.01.40.19
+        by smtp.gmail.com with ESMTPSA id v16sm427633wml.30.2020.04.20.01.41.38
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 01:40:20 -0700 (PDT)
+        Mon, 20 Apr 2020 01:41:39 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: st(4): Clarification
+Subject: Re: Errors in man pages: here: strcat(3): Clarification
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064826.GA32025@Debian-50-lenny-64-minimal>
+References: <20200419064830.GA32259@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <97437b74-597d-e08c-d709-28f88322a026@gmail.com>
-Date:   Mon, 20 Apr 2020 10:40:19 +0200
+Message-ID: <c5e07915-1ebf-0058-0661-6a7689dd8d30@gmail.com>
+Date:   Mon, 20 Apr 2020 10:41:38 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064826.GA32025@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064830.GA32259@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -104,23 +104,18 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> The first sentence claims that no brand or model is specially 
-> supported, however later special commands for HP autoloaders are 
-> mentioned
+> Is the size of dest correct?
 
-I do not think this is a grave problem. I'm going to ignore.
+If you think it is wrong, please elaborate the reasons.
 
 Thanks,
 
 Michael
 
-> "The driver does not specifically support any tape drive brand or model.  "
-> "After system start-up the tape device options are defined by the drive "
-> "firmware.  For example, if the drive firmware selects fixed-block mode, the "
-> "tape device uses fixed-block mode.  The options can be changed with explicit "
-> "B<ioctl>(2)  calls and remain in effect when the device is closed and "
-> "reopened.  Setting the options affects both the auto-rewind and the "
-> "nonrewind device."
+> 
+> "If I<src> contains I<n> or more bytes, B<strncat>()  writes I<n+1> bytes to "
+> "I<dest> (I<n> from I<src> plus the terminating null byte).  Therefore, the "
+> "size of I<dest> must be at least I<strlen(dest)+n+1>."
 > 
 
 
