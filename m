@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 212881B035B
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:49:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C144C1B035F
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:51:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725971AbgDTHts (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 03:49:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44004 "EHLO
+        id S1725896AbgDTHvz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 03:51:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44332 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725773AbgDTHts (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:49:48 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CC842C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:49:47 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id x25so9860747wmc.0
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:49:47 -0700 (PDT)
+        with ESMTP id S1725773AbgDTHvy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:51:54 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 513F1C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:51:54 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id j1so5436050wrt.1
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:51:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=BFsKBX8MpjC+d5TnH/ePOT9CbTSh9O9auMGzn+x0mGs=;
-        b=o9eNKOGZzJXgAR+UrwhL2FcIvErLKOF9UaHflEeWGvtTzxbSWL50pNG1rtKxZi29Fa
-         9ABrPNneYlRdQoF9rTz2WxYEWZmftP/JvgnGFVN+TDNJSR/HLI16IEPfVBmPU4BbXLgw
-         Fv62XIx+/gjYT7XMwBTKCvvGOVsw6ddSSvPlg4alW7g0E2FDa231iR1p2tFEzHpkGgWO
-         p8YILycMjUpyrwJzgWv2jLIoV0EfEcnl7YH/klHMcPLvKRa5sygPzcj8FjpVY8yH1K9t
-         T9ugzLUUqBgKwt14trXSYY6vacl24+HM/RuDqOSSkC6dF4JKzkgPBk9QmIOpTjePNJMO
-         sgoA==
+        bh=b7hwuTIkw44SFcmWrfLtErnHfHvGk4ezIC/aF39KCgQ=;
+        b=L10oPUIE5BeSeo8y+JeYLxVDPPqjEpHUZ85anVBhA/kWYQOoobZHCWX80PMnj4x9fP
+         urtTbz+znSZ/XSdKRH+2MM1qdPMXC3qsNd5fHhmAuAPF0MkZ8IdomazScEgOuU5knr/d
+         utPxPBQybTHXVfELCdME946Err3agrG0KcMFL6blQoZoJ+1CnTKaemZb2h4X6Y8txpKg
+         9aPebgONZ6SibpWqK+Y5wgUhj1DIHHcpgIqDWeBFwT3rIxmQRA/NatnjeeHtcjll7Bwz
+         C7A2D9u9DfuPOTr1tEsONNoaCNIkwkwaxR6XpQ4NL23jRH4O0VjkOtXyUWzdLTykAZl3
+         Wyhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=BFsKBX8MpjC+d5TnH/ePOT9CbTSh9O9auMGzn+x0mGs=;
-        b=ATICfU2u9UqcDfZ/P13cakTh02wUbvzWccpNhvpm6NO5trbWCSfRu/LXgS77mQTZdq
-         VcuZJmleMCG9p0vNVaBzT6OMYvRah6xI3f2sSm/dkdtuKohhUOqbvs6ne1J2chliN74j
-         mNfgFM6lGUS6cOLjpB1zxD9GI2LgwEE3y+2oOl3dnJjaRyz1iIf3aKP4ov84Q89p2NqF
-         FuDoHud2HlLsGkei0ec3CMSbrs4GaJmdK+3qs2DaDa54Yz1yCAUOBbzPhCXYqUCqTL9+
-         QokOVMaZrziFawcUts7TKFSbRKY5LzreJv7pSG0rJkbZJqLCxPW1gOrU41SjYxX3O2dD
-         zxUA==
-X-Gm-Message-State: AGi0PuaFA/qVF1srAxtl04i1XBQka9hSEph/KBBBrg4tf7GCmCzEFLlr
-        dZVuK6Wxcvdpr/g/FvkHGUFE3sTL
-X-Google-Smtp-Source: APiQypK2mwhX8boV1+P14ukOwp4bFJXRKKLUu7SMB+Q9M4IdJmAldbLfvb9VM+2qJEren7L8FPW31w==
-X-Received: by 2002:a7b:c0c5:: with SMTP id s5mr1762791wmh.134.1587368986407;
-        Mon, 20 Apr 2020 00:49:46 -0700 (PDT)
+        bh=b7hwuTIkw44SFcmWrfLtErnHfHvGk4ezIC/aF39KCgQ=;
+        b=rtMomnRHe4KvFcvWlYeUOCT9skgHp6ePwIWMlq7H0EVklrqTiaYP2D1ikIu4EFXpFr
+         hX4Y1tH/Sd9OFQdlgs3wARbwkrRmnzi50X/SkaDXWtG+Sate7RgF8MWLBtKDg5BRgTNT
+         IcAmGFxnFc5qttI6V+pOlVqs28ENtXCPpGdMJdm9DbWpydyxsSW4Ir8bLSjfQpiSeSXh
+         qVUBDg1XA3IHFljpdckJ43IjKp4PiFUAvo+sHsFMaiubDWqSeNzvdOoi4v8k6Zu49BRJ
+         aWqambpoE3mjauMU3XUoD38cg2tY2te6+bX32hbO1UbA8YGXwKeBHRllRmD/nCET1OQL
+         fZ6Q==
+X-Gm-Message-State: AGi0Pua7nuCn3I+Ns0rWwoughoy6dI8WPvtNfNcTfXFjus+4I7dgk+42
+        T5kQSME/KyK4+cUApT4Usr3OXOAH
+X-Google-Smtp-Source: APiQypI+2kjkTqTLigp/bhO+B0x12tg6XR53SJdg57y3Owv1wRslBqsmqEiSPoVN31VmXJDcLsPGHQ==
+X-Received: by 2002:a5d:4404:: with SMTP id z4mr16989005wrq.316.1587369112744;
+        Mon, 20 Apr 2020 00:51:52 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id x132sm289848wmg.33.2020.04.20.00.49.45
+        by smtp.gmail.com with ESMTPSA id a9sm237168wmm.38.2020.04.20.00.51.52
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 00:49:46 -0700 (PDT)
+        Mon, 20 Apr 2020 00:51:52 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: hosts.equiv(5): missing markup?
+Subject: Re: Errors in man pages, here: gethostbyname(3): Mixed brackets
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064804.GA30794@Debian-50-lenny-64-minimal>
+References: <20200419064803.GA30724@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <9cdea164-b0d6-db19-984b-b2e2b420a460@gmail.com>
-Date:   Mon, 20 Apr 2020 09:49:45 +0200
+Message-ID: <b58ac405-0d9c-5df6-3b24-9a20f80416ff@gmail.com>
+Date:   Mon, 20 Apr 2020 09:51:51 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064804.GA30794@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064803.GA30724@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -104,16 +104,19 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Markup in NAME possible?
+> Second last line: s/(B<nsswitch.conf(5))>/(B<nsswitch.conf(5)>)/
 > 
-> "hosts.equiv - list of hosts and users that are granted \"trusted\" B<r> "
-> "command access to your system"
+> "The domain name queries carried out by B<gethostbyname>()  and "
+> "B<gethostbyaddr>()  rely on the Name Service Switch (B<nsswitch.conf>(5))  "
+> "configured sources or a local name server (B<named>(8)).  The default action "
+> "is to query the Name Service Switch (B<nsswitch.conf(5))> configured "
+> "sources, failing that, a local name server (B<named>(8))."
 
-I agree that it's unusual. I'm not sure it's a problem though.
+Fixed.
+
 Thanks,
 
 Michael
-
 
 
 -- 
