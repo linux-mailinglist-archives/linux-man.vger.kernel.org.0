@@ -2,85 +2,90 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8BFCF1B0ED8
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 16:48:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8F3631B101E
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 17:30:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726878AbgDTOr7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 10:47:59 -0400
-Received: from smtpout1.mo529.mail-out.ovh.net ([178.32.125.2]:35381 "EHLO
-        smtpout1.mo529.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726102AbgDTOr7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 10:47:59 -0400
-Received: from mxplan6.mail.ovh.net (unknown [10.109.138.17])
-        by mo529.mail-out.ovh.net (Postfix) with ESMTPS id 69DF3308485A;
-        Mon, 20 Apr 2020 16:47:57 +0200 (CEST)
-Received: from jwilk.net (37.59.142.96) by DAG4EX2.mxp6.local (172.16.2.32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Mon, 20 Apr
- 2020 16:47:56 +0200
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     <bpf@vger.kernel.org>, Alexei Starovoitov <ast@kernel.org>,
-        Daniel Borkmann <daniel@iogearbox.net>
-CC:     <linux-man@vger.kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: [PATCH] bpf: Fix reStructuredText markup
-Date:   Mon, 20 Apr 2020 16:47:53 +0200
-Message-ID: <20200420144753.3718-1-jwilk@jwilk.net>
-X-Mailer: git-send-email 2.26.1
+        id S1726806AbgDTPaF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 11:30:05 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58896 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725989AbgDTPaE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 11:30:04 -0400
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9923AC061A0C;
+        Mon, 20 Apr 2020 08:30:04 -0700 (PDT)
+Received: by mail-ej1-x641.google.com with SMTP id e2so5936582eje.13;
+        Mon, 20 Apr 2020 08:30:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=ChXiBeTRT71CMVBklbLHXRzN05QgvLFbh2UfLNf6JWo=;
+        b=Op6PlwSikOrFSwZSehUg2o6jvp1i/1WueqJOXSSs/4PVE1Jw9eSQqjoLFNn6x9qkBB
+         1kyuAb49gBdd7fEahkje+H4WO1uSIQJvlc0dH1qjGRnz5AjlsSvJpwjoid9pR+2q4Eyj
+         yw8dfh5VqmTfoSvcyLAA+syQstgBPxsUVT7ROfba2ATLVhd6b0XUgevwP+2+PQHxsCTg
+         l1DZe397fJdnyYhffZrGKuO7M4Z6D7qhZEczvAU18701P/05Xq1OMZGdiYJbe2FYdfsM
+         gRQqt2AtM7X/CJ/vAC8XzH8S58pxTPov53k5TUW1c1VGBjGH+3Km5TW3zSE8ISsm4a0b
+         ssUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=ChXiBeTRT71CMVBklbLHXRzN05QgvLFbh2UfLNf6JWo=;
+        b=eU0mOOUqjWi/0OMEkCdAc9VR59ajnB6kYZJuAqkbDSR+BnWN7hFgA4Hh6sZyvYghdY
+         3xRoWGi0wZZKTADzearpFAu/JhE0RQRf34XtlNFYXgwqXlx97mDJPLRoLyQyh9yJfHCI
+         H+Rjq1oDiCUzd84dCzSO3jWeZ7GHXL3D+Ug/QtYuO1fpnGS3FJSs+Ai0pLKFu66LgnEa
+         1OkD6S3NC5LJCOchd9CP6Q44/tV8w/NuboSv/d/JUUYiYD+Um4bzTnFab7r1FSUephdu
+         oVuksp0KTq+fCoCvMMkY9mPe9MSFGsXOoZt9POQ3G6TUth/RwtNWxyClkgIpKLqJF9nA
+         w94A==
+X-Gm-Message-State: AGi0Puasef8q9SFBQlyr9HBmyKn4JUKXkTem8ut5UosqT2oBRmCJww+G
+        rIWAwPacngMu6xBv4ZzxEI3qIlagBTFXv58Dvho=
+X-Google-Smtp-Source: APiQypJMwhr3wlwtMc54euX25ix6n9SXlmaPFdhhbHX1PnRX5XFLSIquayw7L8P2fXf8kXZT1SmtaqmokGiQx3I9d4o=
+X-Received: by 2002:a17:906:54cd:: with SMTP id c13mr16047470ejp.307.1587396603272;
+ Mon, 20 Apr 2020 08:30:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7BIT
-Content-Type:   text/plain; charset=US-ASCII
-X-Originating-IP: [37.59.142.96]
-X-ClientProxiedBy: DAG8EX1.mxp6.local (172.16.2.71) To DAG4EX2.mxp6.local
- (172.16.2.32)
-X-Ovh-Tracer-GUID: e9a003d9-0f12-4db7-aa11-c3e0773969a1
-X-Ovh-Tracer-Id: 13122644893197588262
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduhedrgeefgdektdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvffufffkofgggfgtihesthekredtredttdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrdelieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdprhgtphhtthhopehmthhkrdhmrghnphgrghgvshesghhmrghilhdrtghomh
+References: <d2979d75-5e45-b145-9ca5-2c315d8ead9c@redhat.com>
+ <708b8e2a-2bc2-df38-ec9c-c605203052b5@sandeen.net> <7d74cc3b-52cc-be60-0a69-1a5ee1499f47@sandeen.net>
+ <CAKgNAkgLekaA6jBtUYTD2F=7u_GgBbXDvq-jc8RCBswYvvZmtg@mail.gmail.com> <5ac17186-4463-4f61-4733-125f2af9b73d@redhat.com>
+In-Reply-To: <5ac17186-4463-4f61-4733-125f2af9b73d@redhat.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 20 Apr 2020 17:29:51 +0200
+Message-ID: <CAKgNAkhcAM78ihiW=R1xkVBpFzfNaRhXQJ2x5TnSnLwzVVRH0g@mail.gmail.com>
+Subject: Re: [PATCH 2/2 V2] man2: New page documenting filesystem get/set
+ label ioctls
+To:     Eric Sandeen <sandeen@redhat.com>
+Cc:     Eric Sandeen <sandeen@sandeen.net>,
+        fsdevel <linux-fsdevel@vger.kernel.org>,
+        "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Fixes:
+Hello Eric,
 
-    $ scripts/bpf_helpers_doc.py > bpf-helpers.rst
-    $ rst2man bpf-helpers.rst > bpf-helpers.7
-    bpf-helpers.rst:1105: (WARNING/2) Inline strong start-string without end-string.
+On Mon, 20 Apr 2020 at 15:48, Eric Sandeen <sandeen@redhat.com> wrote:
+>
+> On 4/20/20 7:04 AM, Michael Kerrisk (man-pages) wrote:
+> > Hello Eric,
+> >
+> > So it seems like this feature eventually got merged in Linux 4.18. Is
+> > this page up to date with what went into the kernel?
+>
+> Yes, I believe that it's all still accurate.
 
-Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
----
- include/uapi/linux/bpf.h       | 2 +-
- tools/include/uapi/linux/bpf.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Thanks. I've merged the page.
 
-diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
-index 2e29a671d67e..c879c155bf3b 100644
---- a/include/uapi/linux/bpf.h
-+++ b/include/uapi/linux/bpf.h
-@@ -1642,7 +1642,7 @@ union bpf_attr {
-  * 		ifindex, but doesn't require a map to do so.
-  * 	Return
-  * 		**XDP_REDIRECT** on success, or the value of the two lower bits
-- * 		of the **flags* argument on error.
-+ * 		of the **flags** argument on error.
-  *
-  * int bpf_sk_redirect_map(struct sk_buff *skb, struct bpf_map *map, u32 key, u64 flags)
-  * 	Description
-diff --git a/tools/include/uapi/linux/bpf.h b/tools/include/uapi/linux/bpf.h
-index 2e29a671d67e..c879c155bf3b 100644
---- a/tools/include/uapi/linux/bpf.h
-+++ b/tools/include/uapi/linux/bpf.h
-@@ -1642,7 +1642,7 @@ union bpf_attr {
-  * 		ifindex, but doesn't require a map to do so.
-  * 	Return
-  * 		**XDP_REDIRECT** on success, or the value of the two lower bits
-- * 		of the **flags* argument on error.
-+ * 		of the **flags** argument on error.
-  *
-  * int bpf_sk_redirect_map(struct sk_buff *skb, struct bpf_map *map, u32 key, u64 flags)
-  * 	Description
+Cheers,
+
+Michael
+
+
 -- 
-2.26.1
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
