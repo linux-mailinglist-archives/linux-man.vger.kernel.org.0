@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 297A21B04A0
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 10:41:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 50DCC1B04C3
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 10:47:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725775AbgDTIll (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 04:41:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52096 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725773AbgDTIll (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 04:41:41 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1783AC061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:41:41 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id j2so11013389wrs.9
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:41:41 -0700 (PDT)
+        id S1726017AbgDTIry (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 04:47:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53064 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1725959AbgDTIry (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 04:47:54 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0533DC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:47:54 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id j2so11035838wrs.9
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:47:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Q5kkICUZVhcM8b0WcS2TWrGOzopMAJpX6zbQR+DRamU=;
-        b=N6RGWZfQrFzrqwBQleJJ6YFxe40tomb2hnERv6mv6j1qYpy/x8PhVIFvKwhNpeKjk5
-         B9E+eBl461X6t+duQC/SQZHrSiv3w9XAMyHIAh2bDgktAy/fwFC/Jx3PFuv6PYkV7tCK
-         LimBHuvs7w0/zuBlgkEwIBXj9ZBDmezcpgMWENXubEViAHB0xMKoIV8FObS+Yn9k9KM9
-         cIQN/FWcideT8JQ6jzH8dnu7Ky//KtKBMZkdEE7GQCbyw15xLwSsYm/wnZaVnFT1Ipck
-         izZ31mZmFQnMUm9S0ruRfNNt4jIfyMAPEEW273fMwCxJMdLhAwmexU2S+KPj/5GNWuEg
-         1Shw==
+        bh=/+LZbStU1CdhcrNPDDbTx12RxRucGWLIJpb3KAct8s8=;
+        b=JhezNlD/bss0hb6j3rzYu+XNapn/YL6BPjee1MxmGC1Yxf0U+OTuyiptb4pLpIoKYV
+         GMkNkteVmDjK8QMJv9AvLcwy9C0zl3xx4rGZLqdErM3ctUYfTqA55ZI1pdC2voTaCcT8
+         IgaYvaLkIRAHFDiWXq/3nNTURneA/ZhPdJeisZNGDUaLpdVPyKt2dePlvd+KDdiats9n
+         GhgzbddwbHaqQIPzR6SMqZ80ive4LwI9y6rlCR3ceCIIn3lZZR83R3eFbue1KHHEN7iS
+         xk81IYYtk33Iut7TX4W5KDYvB4SqUegA7Oc7BM/xUKLp8g3dRgqBkD57ZADbUme/8v6o
+         LNkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=Q5kkICUZVhcM8b0WcS2TWrGOzopMAJpX6zbQR+DRamU=;
-        b=lkWrzbR2WmHbbHIVDjRjt/rZwr+L5Lsf2+uprXxvy1Ezm2NGJYslWUtCfzFXL7SaN/
-         hJ0xbvJebxDhEktG1x119HzfzMVhHketPqzt+32gVF0GSxPJXUxhvM30WSqUumATV5DD
-         DrbNf1e1AvLSm8MgHiEgiKp7GD1gcQI6SyAQkDzO0/lH6z0ukhmnZbyLLz+ckTxnwJue
-         gu6htvDhRr4p7KnTX55F32R18kxo820fd+6DjxP5keSdDOgLJiUgr1sWbQhdau9458Xe
-         AlRxE7IqNxCl3FVawdc+eRCVn1FUrf5vYbYjeGXV30NSOAET2MEavR4JspeOiggSMim0
-         lEgQ==
-X-Gm-Message-State: AGi0PubD+HzM3WNwJV/C5tVJMKT9GT3xEUuV6JAQjIbAOvs/Mr5UT/aT
-        51gG1i/CJSxfhA6QOuTGV+2kPU1v
-X-Google-Smtp-Source: APiQypLRVJU2DLxS3PoiEiodAsRtVRQpGyIuBHRHTmTxWvLf9xhLwIGKgGet6PE+q2noFbubAtSwsQ==
-X-Received: by 2002:adf:80ee:: with SMTP id 101mr5652374wrl.156.1587372099682;
-        Mon, 20 Apr 2020 01:41:39 -0700 (PDT)
+        bh=/+LZbStU1CdhcrNPDDbTx12RxRucGWLIJpb3KAct8s8=;
+        b=XwNjHpReiBWBLy1+NxWF2VSumltW2oB6GlCbSBLkGkSfOI0G8v6EDkeymVkk8l9EvF
+         O8rHrbFdtWnKFWya7efjdr85RKEunHG/hp3LNd2F8gLQJd1m0Quh5M9XxLAB6YY8ehhi
+         Py7cwFapaoggkhMy1RHe59Y0ufwCTVnfrRHwvFgKIDZpFUKsr12yR/YRS//TsQ5tw5K4
+         n2ImF26z3msREVoV/FLNf2Gj5Sb/biqGCqxXjaOFQgWD9OpTAxvxzuCRBZ6wkPa+3f7M
+         sapqya3pJ2Akpxre8Luii89+jQZqtuikmbzWF0Kt8h6tTmbvuroTus+PAc6xZT5+j7o/
+         qzWg==
+X-Gm-Message-State: AGi0PuaOdSYz2KsD3fdBJtfbckaWgHX9Bxrv0EuiiKkrAhmk+eLZSkE8
+        ls7dhd7ctDYqsFfOYkPs/Oo2dFug
+X-Google-Smtp-Source: APiQypIFTUOQJokk2ydMj1dXQJ79cVlvEd+WDJVDUFdZz4SAcBl1KgtVSbKUBIHKEYAgc/MccxuQjw==
+X-Received: by 2002:adf:f34e:: with SMTP id e14mr6689008wrp.193.1587372472578;
+        Mon, 20 Apr 2020 01:47:52 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id v16sm427633wml.30.2020.04.20.01.41.38
+        by smtp.gmail.com with ESMTPSA id j10sm455973wmi.18.2020.04.20.01.47.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 01:41:39 -0700 (PDT)
+        Mon, 20 Apr 2020 01:47:52 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages: here: strcat(3): Clarification
+Subject: Re: Errors in man pages, dsp56k(4): Unclear meaning
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064830.GA32259@Debian-50-lenny-64-minimal>
+References: <20200419064755.GA30306@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <c5e07915-1ebf-0058-0661-6a7689dd8d30@gmail.com>
-Date:   Mon, 20 Apr 2020 10:41:38 +0200
+Message-ID: <58ca62cb-90b0-7a6e-675a-020fcb92a7a7@gmail.com>
+Date:   Mon, 20 Apr 2020 10:47:51 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064830.GA32259@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064755.GA30306@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -67,7 +67,7 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
+On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
 > Dear manpages maintainers.
 > the manpage-l10n project maintains a large number of translations of
 > man pages both from a large variety of sources (including manpages) as
@@ -104,19 +104,35 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Is the size of dest correct?
+> zero bytes: Bytes which are zero, a zero number of bytes (?)
+> 
+> "sets the transmit word size.  Allowed values are in the range 1 to 4, and is "
+> "the number of bytes that will be sent at a time to the DSP56001.  These data "
+> "quantities will either be padded with zero bytes, or truncated to fit the "
+> "native 24-bit data format of the DSP56001."
 
-If you think it is wrong, please elaborate the reasons.
+Fixed.
 
 Thanks,
 
 Michael
 
-> 
-> "If I<src> contains I<n> or more bytes, B<strncat>()  writes I<n+1> bytes to "
-> "I<dest> (I<n> from I<src> plus the terminating null byte).  Therefore, the "
-> "size of I<dest> must be at least I<strlen(dest)+n+1>."
-> 
+diff --git a/man4/dsp56k.4 b/man4/dsp56k.4
+index f7fbee5cb..480a748de 100644
+--- a/man4/dsp56k.4
++++ b/man4/dsp56k.4
+@@ -76,8 +76,8 @@ sets the transmit word size.
+ Allowed values are in the range 1 to 4,
+ and is the number of bytes that will be sent at a time to the
+ DSP56001.
+-These data quantities will either be padded with zero
+-bytes, or truncated to fit the native 24-bit data format of the
++These data quantities will either be padded with bytes containing zero,
++or truncated to fit the native 24-bit data format of the
+ DSP56001.
+ .IP \fBDSP56K_SET_RX_WSIZE\fP
+ sets the receive word size.
+
 
 
 -- 
