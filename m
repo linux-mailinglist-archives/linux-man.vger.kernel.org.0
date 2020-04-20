@@ -2,140 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 50DCC1B04C3
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 10:47:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B30B11B04C9
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 10:49:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726017AbgDTIry (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 04:47:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53064 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725959AbgDTIry (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 04:47:54 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0533DC061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:47:54 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id j2so11035838wrs.9
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:47:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=/+LZbStU1CdhcrNPDDbTx12RxRucGWLIJpb3KAct8s8=;
-        b=JhezNlD/bss0hb6j3rzYu+XNapn/YL6BPjee1MxmGC1Yxf0U+OTuyiptb4pLpIoKYV
-         GMkNkteVmDjK8QMJv9AvLcwy9C0zl3xx4rGZLqdErM3ctUYfTqA55ZI1pdC2voTaCcT8
-         IgaYvaLkIRAHFDiWXq/3nNTURneA/ZhPdJeisZNGDUaLpdVPyKt2dePlvd+KDdiats9n
-         GhgzbddwbHaqQIPzR6SMqZ80ive4LwI9y6rlCR3ceCIIn3lZZR83R3eFbue1KHHEN7iS
-         xk81IYYtk33Iut7TX4W5KDYvB4SqUegA7Oc7BM/xUKLp8g3dRgqBkD57ZADbUme/8v6o
-         LNkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=/+LZbStU1CdhcrNPDDbTx12RxRucGWLIJpb3KAct8s8=;
-        b=XwNjHpReiBWBLy1+NxWF2VSumltW2oB6GlCbSBLkGkSfOI0G8v6EDkeymVkk8l9EvF
-         O8rHrbFdtWnKFWya7efjdr85RKEunHG/hp3LNd2F8gLQJd1m0Quh5M9XxLAB6YY8ehhi
-         Py7cwFapaoggkhMy1RHe59Y0ufwCTVnfrRHwvFgKIDZpFUKsr12yR/YRS//TsQ5tw5K4
-         n2ImF26z3msREVoV/FLNf2Gj5Sb/biqGCqxXjaOFQgWD9OpTAxvxzuCRBZ6wkPa+3f7M
-         sapqya3pJ2Akpxre8Luii89+jQZqtuikmbzWF0Kt8h6tTmbvuroTus+PAc6xZT5+j7o/
-         qzWg==
-X-Gm-Message-State: AGi0PuaOdSYz2KsD3fdBJtfbckaWgHX9Bxrv0EuiiKkrAhmk+eLZSkE8
-        ls7dhd7ctDYqsFfOYkPs/Oo2dFug
-X-Google-Smtp-Source: APiQypIFTUOQJokk2ydMj1dXQJ79cVlvEd+WDJVDUFdZz4SAcBl1KgtVSbKUBIHKEYAgc/MccxuQjw==
-X-Received: by 2002:adf:f34e:: with SMTP id e14mr6689008wrp.193.1587372472578;
-        Mon, 20 Apr 2020 01:47:52 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id j10sm455973wmi.18.2020.04.20.01.47.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 01:47:52 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, dsp56k(4): Unclear meaning
-To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064755.GA30306@Debian-50-lenny-64-minimal>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <58ca62cb-90b0-7a6e-675a-020fcb92a7a7@gmail.com>
-Date:   Mon, 20 Apr 2020 10:47:51 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+        id S1726006AbgDTItk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 04:49:40 -0400
+Received: from smtpout1.mo529.mail-out.ovh.net ([178.32.125.2]:38727 "EHLO
+        smtpout1.mo529.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1725865AbgDTItj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 04:49:39 -0400
+Received: from mxplan6.mail.ovh.net (unknown [10.109.146.239])
+        by mo529.mail-out.ovh.net (Postfix) with ESMTPS id 8B41E306BC0F;
+        Mon, 20 Apr 2020 10:49:37 +0200 (CEST)
+Received: from jwilk.net (37.59.142.96) by DAG4EX2.mxp6.local (172.16.2.32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Mon, 20 Apr
+ 2020 10:49:36 +0200
+Date:   Mon, 20 Apr 2020 10:49:32 +0200
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+CC:     Helge Kreutzmann <debian@helgefjell.de>,
+        <linux-man@vger.kernel.org>
+Subject: Re: Errors in man pages, here: signal(7): Sentence to long
+Message-ID: <20200420084932.xvz32vuv7uqudyih@jwilk.net>
+References: <20200419064825.GA32002@Debian-50-lenny-64-minimal>
+ <0f760556-f587-fbb0-581c-d0f5a38ad23e@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20200419064755.GA30306@Debian-50-lenny-64-minimal>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; format=flowed
+Content-Disposition: inline
+In-Reply-To: <0f760556-f587-fbb0-581c-d0f5a38ad23e@gmail.com>
+User-Agent: NeoMutt/20180716
+X-Originating-IP: [37.59.142.96]
+X-ClientProxiedBy: DAG8EX2.mxp6.local (172.16.2.72) To DAG4EX2.mxp6.local
+ (172.16.2.32)
+X-Ovh-Tracer-GUID: 3d488a0f-703d-4259-87db-0943038ee1cf
+X-Ovh-Tracer-Id: 7070932890502354909
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduhedrgeefgddtjecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhepfffhvffukfhfgggtuggjfghisehttdertddtredvnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddrleeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepmhigphhlrghniedrmhgrihhlrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehjfihilhhksehjfihilhhkrdhnvghtpdhrtghpthhtoheplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
-> Dear manpages maintainers.
-> the manpage-l10n project maintains a large number of translations of
-> man pages both from a large variety of sources (including manpages) as
-> well for a large variety of target languages.
-> 
-> During their work translators notice different possible issues in the
-> original (english) man pages. Sometiems this is a straightforward
-> typo, sometimes a hard to read sentence, sometimes this is a convention
-> not held up and sometimes we simply do not understand the original.
-> 
-> We use several distributions as sources and update regularly (at
-> least every 2 month). This means we are fairly recent (some
-> distributions like archlinux also update frequently) but might miss
-> the latest upstream version once a while, so the error might be
-> already fixed. We apologize and ask you to close the issue immediately
-> if this should be the case, but given the huge volume of projects and
-> the very limited number of volunteers we are not able to double check
-> each and every issue.
-> 
-> Secondly we translators see the manpages in the neutral po format,
-> i.e. converted and harmonized, but not the original source (be it man,
-> groff, xml or other). So we cannot provide a true patch (where
-> possible), but only an approximation which you need to translate into
-> your source format.
-> 
-> Finally the issues I'm reporting have accumulated over time and are
-> not always discovered by me, so sometimes my description of the
-> problem my be a bit limited - do not hesitate to ask so we can clarify
-> them.
-> 
-> I'm now reporting the errors for your project. As requested, each
-> issue is sent in an unique mail for easier tracking on your side. If
-> future reports should use another channel, please let me know.
-> 
-> **
-> 
-> zero bytes: Bytes which are zero, a zero number of bytes (?)
-> 
-> "sets the transmit word size.  Allowed values are in the range 1 to 4, and is "
-> "the number of bytes that will be sent at a time to the DSP56001.  These data "
-> "quantities will either be padded with zero bytes, or truncated to fit the "
-> "native 24-bit data format of the DSP56001."
+* Michael Kerrisk (man-pages) <mtk.manpages@gmail.com>, 2020-04-20, 10:33:
+>>"A signal may be generated (and thus pending)  for a process as a whole (e."
+>>"g., when sent using B<kill>(2))  or for a specific thread (e.g., certain "
+>>"signals, such as B<SIGSEGV> and B<SIGFPE>, generated as a consequence of "
+>>"executing a specific machine-language instruction are thread directed, as "
+>>"are signals targeted at a specific thread using B<pthread_kill>(3)).  A "
+>>"process-directed signal may be delivered to any one of the threads that does "
+>>"not currently have the signal blocked.  If more than one of the threads has "
+>>"the signal unblocked, then the kernel chooses an arbitrary thread to which "
+>>"to deliver the signal."
+>
+>I can't find the text referred to. I think you may be working
+>with an older version of the page. Can you please check.
 
-Fixed.
+In 3b9d44099f234e8e, the long sentence was replaced with this paragraph:
 
-Thanks,
-
-Michael
-
-diff --git a/man4/dsp56k.4 b/man4/dsp56k.4
-index f7fbee5cb..480a748de 100644
---- a/man4/dsp56k.4
-+++ b/man4/dsp56k.4
-@@ -76,8 +76,8 @@ sets the transmit word size.
- Allowed values are in the range 1 to 4,
- and is the number of bytes that will be sent at a time to the
- DSP56001.
--These data quantities will either be padded with zero
--bytes, or truncated to fit the native 24-bit data format of the
-+These data quantities will either be padded with bytes containing zero,
-+or truncated to fit the native 24-bit data format of the
- DSP56001.
- .IP \fBDSP56K_SET_RX_WSIZE\fP
- sets the receive word size.
-
-
+"A signal may be process-directed or thread-directed. A process-directed 
+signal is one that is targeted at (and thus pending for) the process as 
+a whole. A signal may be process-directed because it was generated by 
+the kernel for reasons other than a hardware exception, or because it 
+was sent using kill(2) or sigqueue(3). A thread-directed signals is one 
+that is targeted at a specific thread. A signal may be thread-directed 
+because it was generated as a consequence of executing a specific 
+machine-language instruction that triggered a hardware exception (e.g., 
+SIGSEGV for an invalid memory access, or SIGFPE for a math error), or 
+because it was it was targeted at a specific thread using interfaces 
+such as tgkill(2) or pthread_kill(3).
 
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Jakub Wilk
