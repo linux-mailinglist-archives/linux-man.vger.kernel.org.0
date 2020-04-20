@@ -2,118 +2,111 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 010031B147B
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 20:29:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5727C1B1480
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 20:31:50 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726947AbgDTS3p (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 14:29:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58956 "EHLO
+        id S1726013AbgDTSbt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 14:31:49 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59280 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725784AbgDTS3p (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 14:29:45 -0400
-Received: from mail-ua1-x943.google.com (mail-ua1-x943.google.com [IPv6:2607:f8b0:4864:20::943])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EAE62C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 11:29:44 -0700 (PDT)
-Received: by mail-ua1-x943.google.com with SMTP id a6so4058251uao.2
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 11:29:44 -0700 (PDT)
+        with ESMTP id S1725784AbgDTSbt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 14:31:49 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C0AF1C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 11:31:48 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id i10so13408954wrv.10
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 11:31:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc:content-transfer-encoding;
-        bh=Qy0//FPbgnVJg6vLbV+9u14IFLSfsFGaN42bgSAdhf0=;
-        b=Eos6TIyDbDDMUD42RT6qhwckwC/BR9OOfIeCoYEe+FoLkgdKfvSwhTXKJo+afVB9pM
-         /m70jCu/G5/JLt1gol7vmfdclzpiAWfzurhChVmSKTE08iR6AMk4tLBm+3jaYERKMOl1
-         Pd1jLIpI1z9S8vzFhqUKJEROLkhgl64wOv9T+wjf57THYoflPfeTHp/fnmIrishO/lYq
-         d1eCbdSBmBlrdN6JwcJ+19q+uZ0Pw4028EgG1s7H7DaOvm3jmkq308zOZKCoTc/osP9M
-         cewhbvV0w7lSylPQcYC4mwepn/twlS+r579ovzwMK4miN471VOKEnhrxKz2cjZlQNe1K
-         Ui8g==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=2qGodW4q8hE326TW/zvRfn5PnqJnLbaAYVGO1upc8iY=;
+        b=OnXR1OvAUzGCFZ1NDGdBE1HpEe5mVmXDgND0QOxdFvInRbntnCnxG7bsjvFUJPqyks
+         azS7Sl76ntRKYJJWT+DHO/yD0J+NeehjTQ/Q7ojFMgg/o6ZzBolIZSe90eQlASlTsjjx
+         aFEgN0J7gvfnJzABOKoQeGU9uNolUg/ez5uYI36KT5zHg5F1bvecdgO9egkK6QgUwydY
+         mkvCDW3FOnbOF00n7+b3hX0PhCfMyXgwQrPAg9z3PfdYGz2OuK31fFGA4F7gibDanHTr
+         dQME5ud8fVuiv6xAdU+ziONErcgrTFu2PdkUWJoQrnSn0Hge/PSUUUMuV2odvJAp3Vai
+         qzfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc:content-transfer-encoding;
-        bh=Qy0//FPbgnVJg6vLbV+9u14IFLSfsFGaN42bgSAdhf0=;
-        b=q+1wG2WmndaunZXPgunXIxj6oe5ngz4TIGL9bhTJIzhuuAxrO0VDD4wmGvCaR1kJnn
-         ggsBLb6sm5i8jHQny0k7wJiI0dpSmFrI1bs5y1mqdz1mBJ5DJ2DU7ouArygPLRl8hnzx
-         l4dQRzgpjWf9QpH3eRUQyBTnTfkzyLkyQgH7j/tWGmKY9aSs3aK2T8U/Zg8NtHM872HU
-         CmXN2KxMOivIgCUB8sReh5tRUv6EgQT0VzmW2LFbrmZNTnEiW1pCifHbC5PK7MfpOnZ9
-         5xD7Q7DsMMoT6HB4J78WM+z/t03ofnBHBuepD9f2OW9ICzEnQ/oYdSeeSmE85Zn64K0c
-         gbGw==
-X-Gm-Message-State: AGi0PuY1kD1bJ9Vjv/I/4uhA4oK7pga8KbMTt+62BF8cOnYAWxc1u+Qe
-        sPp7ddb/xNjksaL4mgVKs19BSAvqjpXFVAFhcW8=
-X-Google-Smtp-Source: APiQypIRODXo0NLQtvVoA1Wh4NdyFSjT1XefZN1poc2KnXqIA71QWHP62qJpDIkV3js2ArQeNOmtZZLypvVU1PYYmQU=
-X-Received: by 2002:a9f:222c:: with SMTP id 41mr8919036uad.88.1587407383996;
- Mon, 20 Apr 2020 11:29:43 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200419064827.GA32117@Debian-50-lenny-64-minimal>
- <dd5fdce8-8329-5951-43da-34aeafae542f@gmail.com> <4A645675-6A27-4CC9-B8A8-EB7644DEC710@kolumbus.fi>
-In-Reply-To: <4A645675-6A27-4CC9-B8A8-EB7644DEC710@kolumbus.fi>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=2qGodW4q8hE326TW/zvRfn5PnqJnLbaAYVGO1upc8iY=;
+        b=mbtDHObuD9gmI7D45igyHnfgJ5bP274DQ+qTZn0+0VqYYnh3LdbKQa3v37LqnOB4Cn
+         6uJzlU9x+S6sMLPWf+20AinEvdXrngJvzf7ug1VlV4eBt72FZhy7tLu0W1G65ohm4cWy
+         aNEYcJuDLIKZp9366octncRXTq9VlmxmgE+IYyGnRCVu1vspt/lhCumP0QkurS7wmW81
+         /NNxcJJubDRxMlgSMlPLqYhgul2Gx+6wxqiyD/QloF/LJh+vg84l+h6kXbijPGQbm+AH
+         8yiwmT1X9rwJ/Isl9rEcekrQT5vTtoTXj+dI3PezC/f+xiKlJRBSBsaTDmvcWL0zu3nW
+         CeMQ==
+X-Gm-Message-State: AGi0PubJTenieIZeR6geg49QpNvJ1u/2pKjxuGPP1E3MFYuxnAIR0EES
+        mgaI7YzEmls3szd3qQvxgw2DGY/D
+X-Google-Smtp-Source: APiQypI8ABXYdMSBW+w453zGjnpZzOXNwMRxHo16lxsVPJNozaUtUT4tOOTJ91L9vtif30GkNv7NPQ==
+X-Received: by 2002:a5d:4246:: with SMTP id s6mr20285748wrr.421.1587407507031;
+        Mon, 20 Apr 2020 11:31:47 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
+        by smtp.gmail.com with ESMTPSA id h17sm333811wmm.6.2020.04.20.11.31.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 20 Apr 2020 11:31:46 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/2] posix_spawn.3: tfix
+To:     Jakub Wilk <jwilk@jwilk.net>
+References: <20200420135600.450-1-jwilk@jwilk.net>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 20 Apr 2020 20:29:32 +0200
-Message-ID: <CAKgNAkgrAUWJyjtv8Q=Pwwa_=QThTaQGz4v_W46+5gD7QEHEJA@mail.gmail.com>
-Subject: Re: Errors in man pages, here: st(4): Content
-To:     =?UTF-8?B?S2FpIE3DpGtpc2FyYSAoS29sdW1idXMp?= 
-        <kai.makisara@kolumbus.fi>
-Cc:     Helge Kreutzmann <debian@helgefjell.de>,
-        linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Message-ID: <c8dd9bb1-468f-9153-7d23-faae1ceabaae@gmail.com>
+Date:   Mon, 20 Apr 2020 20:31:45 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
+MIME-Version: 1.0
+In-Reply-To: <20200420135600.450-1-jwilk@jwilk.net>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Kai,
+Hello Jakub
 
-On Mon, 20 Apr 2020 at 17:51, "Kai M=C3=A4kisara (Kolumbus)"
-<kai.makisara@kolumbus.fi> wrote:
->
->
->
-> > On 20. Apr 2020, at 11.13, Michael Kerrisk (man-pages) <mtk.manpages@gm=
-ail.com> wrote:
-> >
-> > [CC +=3D Kai]
-> >
-> > (Kai, I got a pile of queries from a downstream translation project)
-> >
-> > On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
-> >> Dear manpages maintainers.
-> >>
-> ...
-> >> We cannot understand the last sentence. What is "forward spacing"?
-> >>
-> >> "This option causes the B<MTEOM> operation to be sent directly to the =
-drive, "
-> >> "potentially speeding up the operation but causing the driver to lose =
-track "
-> >> "of the current file number normally returned by the B<MTIOCGET> reque=
-st.  If "
-> >> "B<MT_ST_FAST_EOM> is false, the driver will respond to an B<MTEOM> re=
-quest "
-> >> "by forward spacing over files."
-> >
-> > Perhaps Kai can help. I do not have a good explanation.
-> >
-> Spacing in tape terminology means going to the next file (or record or se=
-t mark).
-> The drives usually support a command to go to the end of the tape. The
-> drawback is that no information is obtained about the number of files ski=
-pped.
-> If the driver spaces forward over files one by one, it can count how many
-> files have been skipped.
->
-> This is the technical description. But the text also says what is the con=
-sequence
-> for a user that does not care about technology. Spacing is mentions also
-> earlier in the text.
+On 4/20/20 3:55 PM, Jakub Wilk wrote:
+> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+> ---
+>  man3/posix_spawn.3 | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/man3/posix_spawn.3 b/man3/posix_spawn.3
+> index 63168b63e..c21c90f50 100644
+> --- a/man3/posix_spawn.3
+> +++ b/man3/posix_spawn.3
+> @@ -393,7 +393,7 @@ instead of
+>  .BR fork (2).
+>  The
+>  .B _GNU_SOURCE
+> -feature test macro must be defined to obtain the definition of this contant.
+> +feature test macro must be defined to obtain the definition of this constant.
+>  .TP
+>  .BR POSIX_SPAWN_SETSID " (since glibc 2.26)"
+>  If this flag is set,
+> @@ -403,7 +403,7 @@ group in the session (see
+>  .BR setsid (2)).
+>  The
+>  .B _GNU_SOURCE
+> -feature test macro must be defined to obtain the definition of this contant.
+> +feature test macro must be defined to obtain the definition of this constant.
+>  .\" This flag has been accepted in POSIX, see:
+>  .\" http://austingroupbugs.net/view.php?id=1044
+>  .\" and has been implemented in glibc since version 2.26
 
-So, no text changes needed here, right?
+Thanks. Applied.
 
-Thanks,
+Cheers,
 
 Michael
---=20
+
+
+
+-- 
 Michael Kerrisk
 Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
 Linux/UNIX System Programming Training: http://man7.org/training/
