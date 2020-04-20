@@ -2,92 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E917C1B1600
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 21:37:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1D55A1B1601
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 21:38:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726287AbgDTTh2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 15:37:28 -0400
-Received: from luckmann.name ([213.239.213.133]:40689 "EHLO
-        static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725550AbgDTTh2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 15:37:28 -0400
-Received: from localhost (localhost [127.0.0.1])
-  (uid 502)
-  by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56031.000000005E9DF9F7.00005078; Mon, 20 Apr 2020 21:37:27 +0200
-Date:   Mon, 20 Apr 2020 21:37:27 +0200
-From:   Helge Kreutzmann <debian@helgefjell.de>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: fopen(3): Wording
-Message-ID: <20200420193726.GD19913@Debian-50-lenny-64-minimal>
-References: <20200419064800.GA30584@Debian-50-lenny-64-minimal>
- <dd5698f3-e83c-7c2a-097e-0c83b184c2b1@gmail.com>
-Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-20600-1587411447-0001-2"
-Content-Disposition: inline
-In-Reply-To: <dd5698f3-e83c-7c2a-097e-0c83b184c2b1@gmail.com>
-X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
-X-homepage: http://www.helgefjell.de/debian
-User-Agent: Mutt/1.10.1 (2018-07-13)
+        id S1725897AbgDTTiE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 15:38:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42222 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1725550AbgDTTiE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 15:38:04 -0400
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com [IPv6:2a00:1450:4864:20::541])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EAC24C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 12:38:03 -0700 (PDT)
+Received: by mail-ed1-x541.google.com with SMTP id g16so8403995eds.1
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 12:38:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc:content-transfer-encoding;
+        bh=5c03YbccI5+2Q9WOyvbAlyVb+r9DgzLxHim5ykFSVCc=;
+        b=UEjgO7vp5Gr7l2HDwaPge4t2qDK4CejgWtzShFmcoc1HiMNZlYgnNeC/sb9aYpB5Io
+         bMQwDr/LC2h+XUrL/7l+J31eY7IXW0aJOQrza+jEFovJE0vRh46tIA5qc0nFouJRzfkC
+         3ONWW7GjRiR7bTklhToLnsoB/C38jdhQO6/aKbVCozTKdyA+Gb+tQxiPy9hPbtEfEx+s
+         /LsIE5i5scCsRFwrXFLVGm1Rbo/TnzZvuecSg78dzz8Hxv1Xe1RVNJg8yoW1ADaphFP4
+         FRjbIrBkWHBktKmbeki0NBr1dQjUk7TTvg1SggyXqe286YmG0BUUKUj+iJPYA1UqoXTX
+         ww3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc:content-transfer-encoding;
+        bh=5c03YbccI5+2Q9WOyvbAlyVb+r9DgzLxHim5ykFSVCc=;
+        b=YGV21hVZOZIIuS4TuvUSSrNNBJd5wocE+C/cvDRdMrpTkPAAY/ZTjjoQdunxdGlhWY
+         qRC/VTOqcWvO0emGwYpxHhQgPZ64tqL7CV/363jZNDhsHvaKyYmONi73h2UsS1nN9zfq
+         JrYzLsfrXEhtrgMdtL0vLWU/9iAtiBemtJxx95YSbLplRwnYfPi3xsc4ujLeavzL6/at
+         37nKHjWD4pG0uAZyb0JnbPSYSl0fIBilkDD9NbG6bEvkwcGQDNScOIpY3VoD+GmLGwPZ
+         kfr5L1C7Sp+R4urUcPplAIm/UQJYT9AONe2Icwfs31Px4x2oajEdbeFm9o1sq5fRV9Iz
+         nHxg==
+X-Gm-Message-State: AGi0PuZ1yQ6sFGsGDjUepgpfHvGRTMBVTKeNADnMa+Et2opv+lRprtmW
+        jjwOJQHCu9V4j4rI5KHgG4kZvE7q4JVCOicHByb9ww==
+X-Google-Smtp-Source: APiQypJU/MRzdt925nK2wbGu3uBFSR5wufcjQrfIhmGtyxcU7xuLgUGuOQlXTKvDy4t9chBNb579HbP3+4imLuoxKzs=
+X-Received: by 2002:aa7:d513:: with SMTP id y19mr16203338edq.367.1587411482641;
+ Mon, 20 Apr 2020 12:38:02 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200419064750.GA30023@Debian-50-lenny-64-minimal>
+ <ee26d042-d1bd-2c54-7a7c-667078c436dd@gmail.com> <20200420193306.GC19913@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200420193306.GC19913@Debian-50-lenny-64-minimal>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 20 Apr 2020 21:37:50 +0200
+Message-ID: <CAKgNAkgBK8ORKA2HrXrtLGBB9Lfd5twOwy4qvxevGBG6jBW9gA@mail.gmail.com>
+Subject: Re: Errors in man pages, here: capabilities(7): Spelling
+To:     Helge Kreutzmann <debian@helgefjell.de>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a MIME-formatted message.  If you see this text it means that your
-E-mail software does not support MIME-formatted messages.
+Hello Helge,
 
---=_luckmann.name-20600-1587411447-0001-2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Mon, 20 Apr 2020 at 21:33, Helge Kreutzmann <debian@helgefjell.de> wrote=
+:
+>
+> Hello Michael,
+> On Sun, Apr 19, 2020 at 09:22:23PM +0200, Michael Kerrisk (man-pages) wro=
+te:
+> > On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
+> >
+> > >   b) user IDs =E2=86=92 user ID
+> >
+> > No change. Nothing wrong that I can see here.
+>
+> > > "I<Note>: according to the rules above, if a process with nonzero use=
+r IDs "
+> > > "performs an B<execve>(2)  then any capabilities that are present in =
+its "
+> > > "permitted and effective sets will be cleared.  For the treatment of =
+"
+> > > "capabilities when a process with a user ID of zero performs an B<exe=
+cve>(2), "
+> > > "see below under I<Capabilities and execution of programs by root>."
+>
+> Ok, so a process can have multiple user IDs then?
 
-Hello Michael,
-On Sun, Apr 19, 2020 at 09:31:04PM +0200, Michael Kerrisk (man-pages) wrote:
-> On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
-> > Text is broken: "as if by"??
-> >=20
-> > "The file descriptor associated with the stream is opened as if by a ca=
-ll to "
-> > "B<open>(2)  with the following flags:"
->=20
-> This is okay English--no problem here, as far as I can see.
+Yes. See credentials(7).
 
-I'm a good but not a native speaker. Could it be reworded as follows:
+Thanks,
 
-"The file descriptor associated with the stream is opened as if a call to "
-"B<open>(2)  with the following flags would happen:"
-
-Greetings
-
-        Helge
-
+Michael
 --=20
-      Dr. Helge Kreutzmann                     debian@helgefjell.de
-           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
-        64bit GNU powered                     gpg signed mail preferred
-           Help keep free software "libre": http://www.ffii.de/
-
---=_luckmann.name-20600-1587411447-0001-2
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl6d+fYACgkQQbqlJmgq
-5nAzsg/7Beuy8T4vewQzemzjXxOWAYjwMxCUutsYKCLz6cm6lNxsraARC/G3/5Wi
-P6QUTsbiUohPFz/I2Fi0sfijxSc264uiL0BxwMFaWuSP45LugQ7aKS+cFG97tBEC
-HGwJBbV77pDkLrASjK/6t83ddGqoN47kM+AfpQ5bzWfpEbfqVs83Sbl6xIf1EDm5
-MQYWBOeTJ8KikwaOTCLEaLKrlAz9zVn1fb8pE7pm/VKbrHxvhUOyT7TfZXE/lxSN
-3w5pJaDOwEUEfCXOVHpvh6CQmYAHhuy35o5MBYxgJO1ZjuTwljLpescXLq5Oun7Y
-xpizan0uhRLAU6JVt/ZzbhfbAVJjzUVs7g3Mev0cXajjQr+w0PjCTg+VmrBf691O
-0skqC06NePFWq2nmf0z9c2GW5D7AI3Kk/vh+dCbAUNqOMpu+kSy5RAdQ9yD+XOTC
-Ro5A8DCBwplFiXkLnYBiTCooEiO/zIL/Y0qY1k7L7+iUyTtHI1gS6IvAyjxHEngs
-NrU4WBZDxNfyA0qnbq5K5db7RgxfzZN2ZWwsbYKLMX0968VV4oGcHydfueelB9q/
-nT9cYYKl/QLmi96slONYuyvRR+vUInrkwvDXGIhWGAAB9FyGCXIfIPzVp8nIxUuh
-32m19HuhJYQo1LieCZWV0V1Sqzlo+9hAKRWpHUT/3fT2IYiwF6o=
-=7qq0
------END PGP SIGNATURE-----
-
---=_luckmann.name-20600-1587411447-0001-2--
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
