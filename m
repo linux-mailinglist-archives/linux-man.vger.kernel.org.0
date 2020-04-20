@@ -2,321 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 83F3F1B15DE
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 21:25:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AEDB21B15EA
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 21:27:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725897AbgDTTZH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 15:25:07 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40052 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725896AbgDTTZH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 15:25:07 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0F350C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 12:25:07 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id s10so4488342wrr.0
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 12:25:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=JQN89p5ruCDC38mdWQAnG8/EhdP5HFNOTQC7pflf+CI=;
-        b=OywAHatInd7gWjxECY7y7AVsuJ30NIJ9G0PV6yiZBXWg9iJWNMiLHjYsO41JgdOqB5
-         b2/o+3G6FKW2Wx7R5Ef1CPCGKT09FC1Zbg9HB+5lfbSwp6KkpclXLW/SwNx1LolG1Iv4
-         yh+aChI5XrTk2YrJmp3k7hqeHg5xRZtgGQaZ9PviHMMHsdseDCJ7tf9+QXF+FBtWd8Ja
-         wOt4ueEy5fQ6Ene+XKl2aEXj9ZhIIf8Jk+MN708KqD20cvaOdsXYT3Tm2klunkD2mgrD
-         KvK86A8/5OCB4Dc+LKVOCsQktFgfHsuY9XmMrG1jDC2abgZHtRfiknvauY8AAxDR7DeA
-         fLqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=JQN89p5ruCDC38mdWQAnG8/EhdP5HFNOTQC7pflf+CI=;
-        b=eXoiGhciy2d9StunHO/9IpQP5ciyF3D1+A6slXbd1KULG2CIEECNHJ83eQguMrMsA5
-         qoOsCgHnmChQpXryEwZTsqFdQhE2h0zCiy3z9RXmPzGaL6g7Lq1lPlR4Qq/21Xe61CK3
-         C3Q1Ue+pO07FKSVkmbOddmcHVZwlHjc+E2lZtK2WzzNxURHeEKanRgjPodsSppMpjfKt
-         +hB8L2BxrJ5fbC+W5SDxJ/Kk8FY6rR0KND0pH0k+npYw9DZPDiiHmrdUpRyn6k+RounT
-         dkIFrfNWdckTcjDk0V4XidAefAXh/0TN7NkFCEWgl5faQVgpqWmVT8PkIVLPSjuLqxm+
-         zA1g==
-X-Gm-Message-State: AGi0PuYBtzqQQXMrfXUxU5xWR4og83gzm2cy+ZjSreek190ANpjeERu/
-        QC+a3Wk5vTiM4ocdC54XgKwAKiBW
-X-Google-Smtp-Source: APiQypID+YoicrPugV2Zlk4qwbErVW/jMFkQOYtMxtDrAfvTOJqb9CzkFK2BDx1T4Kboj+fYxj8VCA==
-X-Received: by 2002:adf:ea44:: with SMTP id j4mr21930513wrn.38.1587410705547;
-        Mon, 20 Apr 2020 12:25:05 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id n6sm572822wrs.81.2020.04.20.12.25.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 12:25:05 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Jan Kara <jack@suse.cz>,
-        Matthew Bobrowski <mbobrowski@mbobrowski.org>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH 4/4] fanotify.7, fanotify_mark.2: Document FAN_DIR_MODIFY
-To:     Amir Goldstein <amir73il@gmail.com>
-References: <20200420184259.29406-1-amir73il@gmail.com>
- <20200420184259.29406-5-amir73il@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <d3f6be35-a95a-dbaa-445e-267374bc95bb@gmail.com>
-Date:   Mon, 20 Apr 2020 21:25:04 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
-MIME-Version: 1.0
-In-Reply-To: <20200420184259.29406-5-amir73il@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+        id S1725896AbgDTT1M (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 15:27:12 -0400
+Received: from luckmann.name ([213.239.213.133]:57337 "EHLO
+        static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1726189AbgDTT1M (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 15:27:12 -0400
+Received: from localhost (localhost [127.0.0.1])
+  (uid 502)
+  by static.213-239-213-133.clients.your-server.de with local
+  id 0000000000E56031.000000005E9DF78E.00004E5A; Mon, 20 Apr 2020 21:27:10 +0200
+Date:   Mon, 20 Apr 2020 21:27:10 +0200
+From:   Helge Kreutzmann <debian@helgefjell.de>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: Re: Errors in man pages, here: clone(2): Missing spaces
+Message-ID: <20200420192710.GA19913@Debian-50-lenny-64-minimal>
+References: <20200419064752.GA30122@Debian-50-lenny-64-minimal>
+ <e3ecb8be-1892-3fcb-53de-74c5049441b7@gmail.com>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-20058-1587410830-0001-2"
+Content-Disposition: inline
+In-Reply-To: <e3ecb8be-1892-3fcb-53de-74c5049441b7@gmail.com>
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Amir,
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
 
-On 4/20/20 8:42 PM, Amir Goldstein wrote:
-> Document the details of the new FAN_DIR_MODIFY event, which introduces
-> entry name information to the fanotify event reporting format.
-> 
-> Enhance the fanotify_fid.c example to also report this event.
+--=_luckmann.name-20058-1587410830-0001-2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks. patch applied.
+Hello Michael,
+On Sun, Apr 19, 2020 at 09:22:15PM +0200, Michael Kerrisk (man-pages) wrote:
+> On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
+> >=20
+> > s/--/ -- /
+> >=20
+> > "    /* Keep the namespace open for a while, by sleeping.\n"
+> > "       This allows some experimentation--for example, another\n"
+> > "       process might join the namespace. */\n"
+>=20
+> The suggested change is not correct. "em-dashes", which is
+> what is being emulated here, are normally not surrounded by=20
+> spaces in English usage.
 
-Cheers,
+Thanks, beeing not native speaker it looked strange. So please close
+the issue.
 
-Michael
+Best regards
 
-> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-> Reviewed-by: Matthew Bobrowski <mbobrowski@mbobrowski.org>
-> Reviewed-by: Jan Kara <jack@suse.cz>
-> ---
->  man2/fanotify_mark.2 | 33 ++++++++++++++++++++
->  man7/fanotify.7      | 71 +++++++++++++++++++++++++++++++++++++-------
->  2 files changed, 94 insertions(+), 10 deletions(-)
-> 
-> diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
-> index 7fbcd5e36..e94d8a7e1 100644
-> --- a/man2/fanotify_mark.2
-> +++ b/man2/fanotify_mark.2
-> @@ -244,6 +244,38 @@ An fanotify file descriptor created with
->  .B FAN_REPORT_FID
->  is required.
->  .TP
-> +.BR FAN_DIR_MODIFY " (since Linux 5.7)"
-> +.\" commit 44d705b0370b1d581f46ff23e5d33e8b5ff8ec58
-> +Create an event when one of the entries in a marked directory has been created,
-> +deleted or moved.
-> +This event will encapsulate additional information about the name of the
-> +modified directory entry.
-> +It is intended for applications that want to monitor the content of a large
-> +directory without having to reiterate the directory each time it is modified.
-> +The directory entry name will follow the directory file handle information in
-> +the reported event.
-> +See
-> +.BR fanotify (7)
-> +for additional details about the reported event format.
-> +The
-> +.BR FAN_DIR_MODIFY
-> +event will be generated in addition to the events
-> +.BR FAN_CREATE ,
-> +.BR FAN_DELETE ,
-> +.BR FAN_MOVED_FROM ,
-> +.BR FAN_MOVED_TO
-> +and will never be merged with the aforementioned events.
-> +An application receiving this event must not assume that the reported entry name
-> +exists in the marked directory at the time the event is received and should call
-> +.BR fstatat (2)
-> +with the entry name to learn about the current content of the directory entry.
-> +See
-> +.BR fanotify (7)
-> +for an example of its usage.
-> +An fanotify file descriptor created with
-> +.BR FAN_REPORT_FID
-> +is required.
-> +.TP
->  .B FAN_Q_OVERFLOW
->  Create an event when an overflow of the event queue occurs.
->  The size of the event queue is limited to 16384 entries if
-> @@ -315,6 +347,7 @@ The flag has no effect when marking mounts and filesystems.
->  Note that events are not generated for children of the subdirectories
->  of marked directories.
->  More specifically, the directory entry modification events
-> +.BR FAN_DIR_MODIFY ,
->  .BR FAN_CREATE ,
->  .BR FAN_DELETE ,
->  .BR FAN_MOVED_FROM
-> diff --git a/man7/fanotify.7 b/man7/fanotify.7
-> index 72e7e4fb9..cd258abf4 100644
-> --- a/man7/fanotify.7
-> +++ b/man7/fanotify.7
-> @@ -324,6 +324,9 @@ A watched file or directory was moved.
->  .B FAN_MODIFY
->  A file was modified.
->  .TP
-> +.B FAN_DIR_MODIFY
-> +A directory entry was created, deleted or moved.
-> +.TP
->  .B FAN_CLOSE_WRITE
->  A file that was opened for writing
->  .RB ( O_WRONLY
-> @@ -395,9 +398,11 @@ For example, when an fanotify file descriptor is created using
->  the
->  .I info_type
->  field of this header is set to
-> -.BR FAN_EVENT_INFO_TYPE_FID .
-> -Event listeners can use this field to check that the additional
-> -information received for an event is of the correct type.
-> +.BR FAN_EVENT_INFO_TYPE_FID
-> +or
-> +.BR FAN_EVENT_INFO_TYPE_DFID_NAME .
-> +Event listeners can use this field to check what additional information
-> +is received for an event.
->  Additionally, the
->  .I fanotify_event_info_header
->  also contains a
-> @@ -443,6 +448,14 @@ and
->  will carry the
->  .IR file_handle
->  information for the child object if the child object is being watched.
-> +For the event
-> +.BR FAN_DIR_MODIFY ,
-> +the
-> +.I info_type
-> +field of this header is set to
-> +.BR FAN_EVENT_INFO_TYPE_DFID_NAME .
-> +The file handle describes the modified directory and a null terminated
-> +name of the modified entry follows directly after the file handle buffer.
->  .PP
->  The following macros are provided to iterate over a buffer containing
->  fanotify event metadata returned by a
-> @@ -627,9 +640,11 @@ events for the monitored directory itself.
->  Fanotify monitoring of directories is not recursive:
->  to monitor subdirectories under a directory,
->  additional marks must be created.
-> -(But note that the fanotify API provides no way of detecting when a
-> -subdirectory has been created under a marked directory,
-> -which makes recursive monitoring difficult.)
-> +The
-> +.B FAN_DIR_MODIFY
-> +event can be used for detecting when a subdirectory has been created under
-> +a marked directory.
-> +An additional mark must then be set on the newly created subdirectory.
->  Monitoring mounts offers the capability to monitor a whole directory tree.
->  Monitoring filesystems offers the capability to monitor changes made from
->  any mount of a filesystem instance.
-> @@ -923,6 +938,8 @@ The program marks the filesystem object that is passed as
->  a command-line argument
->  and waits until an event of type
->  .B FAN_CREATE
-> +or
-> +.B FAN_DIR_MODIFY
->  has occurred.
->  The event mask indicates which type of filesystem object\(emeither
->  a file or a directory\(emwas created.
-> @@ -939,7 +956,9 @@ This is followed by the creation of a regular file,
->  This results in a
->  .B FAN_CREATE
->  event being generated and reported against the file's parent watched
-> -directory object.
-> +directory object and a
-> +.B FAN_DIR_MODIFY
-> +event being generated and reported with the created file name.
->  Program execution ends once all events captured within the buffer have
->  been processed.
->  .PP
-> @@ -949,6 +968,9 @@ been processed.
->  Listening for events.
->  FAN_CREATE (file created):
->          Directory /home/user has been modified.
-> +FAN_DIR_MODIFY (entry changed):
-> +        Directory /home/user has been modified.
-> +        Entry 'testfile.txt' is not a subdirectory.
->  All events processed successfully. Program exiting.
->  
->  $ \fBtouch /home/user/testfile.txt\fP              # In another terminal
-> @@ -963,7 +985,9 @@ This specific action results in a
->  .B FAN_CREATE
->  event being generated and is reported with the
->  .B FAN_ONDIR
-> -flag set.
-> +flag set and a
-> +.B FAN_DIR_MODIFY
-> +event being generated and reported with the created directory name.
->  .PP
->  .in +4n
->  .EX
-> @@ -971,6 +995,9 @@ flag set.
->  Listening for events.
->  FAN_CREATE | FAN_ONDIR (subdirectory created):
->          Directory /home/user has been modified.
-> +FAN_DIR_MODIFY (entry changed):
-> +        Directory /home/user has been modified.
-> +        Entry 'testdir' is a subdirectory.
->  All events processed successfully. Program exiting.
->  
->  $ \fBmkdir \-p /home/user/testdir\fP          # In another terminal
-> @@ -1003,6 +1030,8 @@ main(int argc, char **argv)
->      struct file_handle *file_handle;
->      struct fanotify_event_metadata *metadata;
->      struct fanotify_event_info_fid *fid;
-> +    const char *file_name;
-> +    struct stat sb;
->  
->      if (argc != 2) {
->          fprintf(stderr, "Invalid number of command line arguments.\en");
-> @@ -1028,7 +1057,7 @@ main(int argc, char **argv)
->      /* Place a mark on the filesystem object supplied in argv[1]. */
->  
->      ret = fanotify_mark(fd, FAN_MARK_ADD | FAN_MARK_ONLYDIR,
-> -                        FAN_CREATE | FAN_ONDIR,
-> +                        FAN_DIR_MODIFY | FAN_CREATE | FAN_ONDIR,
->                          AT_FDCWD, argv[1]);
->      if (ret == \-1) {
->          perror("fanotify_mark");
-> @@ -1055,11 +1084,18 @@ main(int argc, char **argv)
->  
->          /* Ensure that the event info is of the correct type */
->  
-> -        if (fid\->hdr.info_type != FAN_EVENT_INFO_TYPE_FID) {
-> +        if (fid\->hdr.info_type == FAN_EVENT_INFO_TYPE_FID) {
-> +            file_name = NULL;
-> +        } else if (fid\->hdr.info_type == FAN_EVENT_INFO_TYPE_DFID_NAME) {
-> +            file_name = file_handle->f_handle + file_handle->handle_bytes;
-> +        } else {
->              fprintf(stderr, "Received unexpected event info type.\en");
->              exit(EXIT_FAILURE);
->          }
->  
-> +        if (metadata\->mask == FAN_DIR_MODIFY)
-> +            printf("FAN_DIR_MODIFY (entry changed):\en");
-> +
->          if (metadata\->mask == FAN_CREATE)
->              printf("FAN_CREATE (file created):\en");
->  
-> @@ -1100,6 +1136,21 @@ main(int argc, char **argv)
->          path[path_len] = \(aq\e0\(aq;
->          printf("\etDirectory \(aq%s\(aq has been modified.\en", path);
->  
-> +        if (file_name) {
-> +            ret = fstatat(event_fd, file_name, &sb, 0);
-> +            if (ret == \-1) {
-> +                if (errno != ENOENT) {
-> +                    perror("fstatat");
-> +                    exit(EXIT_FAILURE);
-> +                }
-> +                printf("\etEntry %\(aqs\(aq does not exist.\en", file_name);
-> +            } else if ((sb.st_mode & S_IFMT) == S_IFDIR) {
-> +                printf("\etEntry \(aq%s\(aq is a subdirectory.\en", file_name);
-> +            } else {
-> +                printf("\etEntry \(aq%s\(aq is not a subdirectory.\en", file_name);
-> +            }
-> +        }
-> +
->          /* Close associated file descriptor for this event */
->  
->          close(event_fd);
-> 
+           Helge
 
+--=20
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+--=_luckmann.name-20058-1587410830-0001-2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl6d94EACgkQQbqlJmgq
+5nA9dg//UDaQFWLnTSGwNIZNZL9Iovd0/rYpNmRiT8LlrVde/skws4LVm/DwjLB2
+p0COqkxCkXCDHNbKLat3LyDSS2SlYggO1pS9Hz/p5/kOZfrBwfICySVJyhB6xwOh
+xi/yhGP8DxZA+jYiLf1zyw1/mx4JQBcfMGx7Uk1kpSzwHY/2OBxPjBPHL6JXsNLS
+5tlu4nLo7yjkR3D2Q/Jwdzz0vVPC4CfqeJ3gRNvkkMr13IlviG7eM/XeupDvFzPS
+H3MNXfkx4AfY0F8QJ5VN3F9o99FoJ8Vx8xRLezKL7K4CT7b14VSyfKfAlOaqbAlm
+0X6Pg/fKpQJpylGdE8RF7g3d3j7CD+1F0XhE2M5tsu1wbwN47raX3ptfSbWz+dPc
+THMeLWBpZR5CMuBQ3oxz0d48HlrrvVfXRVXgvXICfDCJ6e09CFxkrBvFPLgUtYAv
+WDuiOnIKhrZmPo7qpAxXOgx9WuIVx2L913Bldigak1thrg+BtYzOF38oubvtXEQJ
+qDb3jgP2DJucAQsQbrYdxA2hOLhVtDoobCZn58+ryq/rzV2LS5GJglDWx1thzI+z
+Y2Pnb760fRx9xRomYa0qmiPqyQ2JUsudRBLvOVuGS+gaTymAIO/w59S9kpUGZ872
+Pa/8EFYLqOLWyU5uHz2+64bXO3N9hulxEbeiGFc7mRq9JGIThGU=
+=vALF
+-----END PGP SIGNATURE-----
+
+--=_luckmann.name-20058-1587410830-0001-2--
