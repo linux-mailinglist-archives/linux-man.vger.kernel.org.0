@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DAED01B0193
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 08:30:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5E1331B0197
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 08:34:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725815AbgDTGak (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 02:30:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59952 "EHLO
+        id S1725865AbgDTGes (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 02:34:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60580 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725812AbgDTGaj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:30:39 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 18858C061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:30:38 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id z6so9984150wml.2
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:30:37 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725815AbgDTGes (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:34:48 -0400
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8AA90C061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:34:46 -0700 (PDT)
+Received: by mail-wr1-x433.google.com with SMTP id k11so10642596wrp.5
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:34:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=KlxTHL6YjpxMpEVpo8DatmJxpVm1a/KLmWhJt+Og4QU=;
-        b=fUP2+sB1YY1RgT9S6jMSVplWkRkc2TaWUnwy5EFxe1QHk+8qNFT4UEL/q8EyntyceN
-         tCz9ZtAyRmgB+5GnhGtqW9Re6aI4bRW+ROouHIj8Jsrwd3xd6GRlf0j/0Vh85xmuNSEk
-         1w8RAChquw0z6HVDCTL6xMKK0Kd6AwKHSQb1uafnGpJGY3XZTUJ+9sgRkw1BGhN7gSrd
-         TSDZ27xbWQ43tkr95+FD3ZaDXAsJ9cK3MrNwfpZDxNIdiKe/boh5mcFUpp1/3tf5Cofb
-         Oiw7uiEJAEBYiTXXg/ruifGQXLI006ZpHgd9nMA1ioUmR2QMQtvaKfoFbkkYSAGEu8PD
-         XbxA==
+        bh=gomIAWQCAVWLmLWf7Iy7lcbi9Z8yDJo7dF6FEc6Eg8c=;
+        b=JsEKSSa21FNpZHkBoIXLTozYxES3K1SNq+pz1P+EL4PZI8zMscou1DvJoxReiw/5oK
+         TNMs6CNKqrJ+VWsN2ka0NZe56xMQ/FRLo3XOk43MdetM4xa4pmyhbLmHFFy+V2BenlOH
+         rC90wZlyJw3ABIiZz2wePysX8WnW9ueoj/FKnb8Awm4dsoji59UkaYa2bmT/aRngf2f7
+         vna7+YZWuT09a2xuYFJfVcoxbTajtw4nRO+7eATdbt+Hl1ZXG/wG0wwULliSta5GdbqB
+         Rn1hDxpgPQ0DZ+b1uxDybH0qi9a6/r1U11ikdj924UD0qPp+AGG52xBT7KOG3D7ekz3h
+         Mb4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=KlxTHL6YjpxMpEVpo8DatmJxpVm1a/KLmWhJt+Og4QU=;
-        b=FZQSuuG7st+iaEfNr8rqAbqaF3cBWOzlEcGbyBaZfTY7jTuHbfQjDerZwneMcBbpVH
-         l1xA1HKW1OrZysUwjj/Uga9oR92UECb5FnkcSSrx59hes4yjiw1d0biXjhzLxIN+JfS/
-         xCNacBpwESCan34+M6SBI7w/Uj1zvqyIa+BIGkGCtHDlirUCz484EHt6bmGeF7ls7vsS
-         uokvT+cQoCD2wMipBXDjrmDQCzOkKKSDNAs9ufHmEaBJKK4SW/80Pm72zQmg0HLJMv+B
-         Ki63vWhdS78rhgVyvkG7epwDlp/7to0QYY4wfBKmNSNkj4x1TeRfX2PmnXQGmpFy0sGf
-         oEWA==
-X-Gm-Message-State: AGi0Pubzh0DvXNOAoKLFT7a1zo9tF5wVAMPiJEXSpLRkZ3TRj9ifEvnE
-        asLxJGxKntzfuBZrpqyqcC2dIsEQ
-X-Google-Smtp-Source: APiQypJp54Z+iHq1rF4Z8oZkDsx1ZVeQD7iTW8RTKzRgqX2QTeKRXPLbKAT8pvwcapmYjBcYjhmRDg==
-X-Received: by 2002:a05:600c:2dcf:: with SMTP id e15mr16895777wmh.171.1587364236286;
-        Sun, 19 Apr 2020 23:30:36 -0700 (PDT)
+        bh=gomIAWQCAVWLmLWf7Iy7lcbi9Z8yDJo7dF6FEc6Eg8c=;
+        b=sGt1EFFnrzHMLQN3IocxpclRiESv/lMb40l+s6VbVt7Z5mdBlJJtWyiC4e3GjHOdmZ
+         KQsTGPWk0Af4fCkkQAuZ4MErTCxwYyZamic9oMv8avfmdJzQXhOzEEDmJDuEvww2H/fw
+         SBOUef6HaLQgMrN+5hkxnPmUbfjVAizLM2zSuPnlQCjoeLFfiFDOJfNOS/X9kWmb/eA6
+         pPy1tIOMi+ZrydUZEnx7Q+vlnUhBi+NRmJkxZAtnWwQEGZM8laLWD2HhRutA9zF6WZY+
+         vk/1G4HFi7d+LPerFb3glFS7DO1Can75eGGT5mCjpkBZrNuW68aSJt1fEsGnXNVpe+o0
+         IVYQ==
+X-Gm-Message-State: AGi0PuaR1xB2Y0IouLoNz5gms0bgnMDgjHvQAj30pbCT7mX+MxFAhpiC
+        gwpmzgr7MLSA3V1StorFgWciougB
+X-Google-Smtp-Source: APiQypLmxio2RNc7/dhiD5r10yZmcQpuBBNhd3QyUidQ9PcsK0glcSTOSZboR1ceNORnx5vReVuDkw==
+X-Received: by 2002:adf:ffcd:: with SMTP id x13mr10273025wrs.11.1587364484960;
+        Sun, 19 Apr 2020 23:34:44 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id s14sm20198wmh.18.2020.04.19.23.30.35
+        by smtp.gmail.com with ESMTPSA id c190sm46969wme.10.2020.04.19.23.34.44
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 23:30:35 -0700 (PDT)
+        Sun, 19 Apr 2020 23:34:44 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages - here: ascii(7): SEE ALSO
+Subject: Re: Errors in man pages, here: clone(2): Missing closing brackets
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064750.GA29973@Debian-50-lenny-64-minimal>
+References: <20200419064752.GA30145@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <2ae9504a-b6b8-b7e2-1de4-2aee2edbc252@gmail.com>
-Date:   Mon, 20 Apr 2020 08:30:34 +0200
+Message-ID: <8e4c88c7-3b05-1ff5-1f21-814d43146cd3@gmail.com>
+Date:   Mon, 20 Apr 2020 08:34:44 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064750.GA29973@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064752.GA30145@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -104,20 +104,18 @@ On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> The order of the entries is incorrect, see man-pages(7)
+> Missing closing bracket in the following strings:
 > 
-> "B<charsets>(7), B<iso_8859-1>(7), B<iso_8859-10>(7), B<iso_8859-11>(7), "
-> "B<iso_8859-13>(7), B<iso_8859-14>(7), B<iso_8859-15>(7), B<iso_8859-16>(7), "
-> "B<iso_8859-2>(7), B<iso_8859-3>(7), B<iso_8859-4>(7), B<iso_8859-5>(7), "
-> "B<iso_8859-6>(7), B<iso_8859-7>(7), B<iso_8859-8>(7), B<iso_8859-9>(7), "
-> "B<utf-8>(7)"
+> msgid "B<EINVAL> (B<clone3>() only"
+> 
+> msgid "B<EINVAL> (B<clone>() only"
 
-Fixed.
+I can't find the problem text. I need more context. 
+Possibly the problem is already fixed upstream.
 
 Thanks,
 
 Michael
-
 
 
 -- 
