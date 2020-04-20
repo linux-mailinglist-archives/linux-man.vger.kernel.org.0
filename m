@@ -2,114 +2,121 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A1BC31B0491
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 10:37:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 687061B0498
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 10:39:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726100AbgDTIhw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 04:37:52 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51510 "EHLO
+        id S1725775AbgDTIjs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 04:39:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51808 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725773AbgDTIhw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 04:37:52 -0400
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D52D1C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:37:50 -0700 (PDT)
-Received: by mail-ej1-x641.google.com with SMTP id s9so7253503eju.1
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:37:50 -0700 (PDT)
+        with ESMTP id S1725773AbgDTIjs (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 04:39:48 -0400
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ABD9BC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:39:47 -0700 (PDT)
+Received: by mail-wm1-x342.google.com with SMTP id g12so10345240wmh.3
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:39:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=SCN0YGxjgc7QAXzlc0mCW0WhMBszTANTLWMSyZ10SG0=;
-        b=SwA8YY8IqBJHSU8pdGuR0zSq+kbuD7P7QAfp4hd8+Pcl0VfQKda561TH+ClOhkA37S
-         bhvzRDPmF3wYGCiQ4PuWP436dmVS6uToAkitqV4i05jk1Or1doGYCQBWTQ6I9OehP1G7
-         vwLC+RA88LDRiX+FLCYV0EpjkAETdAxTeFPe0G50nMY67sEgnH0gDT1+27uzdaRz85Uu
-         pxxgAHggEFPh9B80IOrtMLq/D7yUYvvZNcY0c14bLTGX7w4lw3Rm8mRbuwcXtUnqjRVE
-         23cd7YlSSmVoHtOG6kZ1NCrX47jUF4f+FbeABzwk1gMx97OybsCI5KExkv7foCwJLYJI
-         o8fQ==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=Dq6UBr7A18leUh6sFeClrbY3WKxaqlnnWooLjpoy7QA=;
+        b=WMe6nCsxQfUoWIR4bCIuvhriP8edfY3cgrfjBaUoZkbxhPs7c/bNisUlWwh2yE6azB
+         wE/qV3zioNsrw2XxtrjxNTNyalcLDpHcobDB+pUDE7TY2eBIF4iHzJmtyyZL6Xk9Z1qx
+         jx5SpNAZTsq23B27x5c2OOXtY5kCYu/t441blGmKewGvlw32yEQ5BwX9/FVyuPlJnbKi
+         ltRVb8vWzzl7tPzfIyttpTiEk+MBm8XumgxqP/fZVyo7RRR+SDinmoIeuGK8wWMXNez4
+         /g8ZZw17iN5hJOLvGjIFS+uiqO3XnHKQkTFuAMmoLkMDDLLkh+l9DK5bcXIyUvEUwbhS
+         A/Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=SCN0YGxjgc7QAXzlc0mCW0WhMBszTANTLWMSyZ10SG0=;
-        b=tNLpvrh0v//odjDGCAbndg4mDH2THCZX3d2gYih5nWXtAG72ZlH9lJzolDbUbboXNJ
-         2ft63+WaY4eC5UlVMSMWitMVVxmO6WsNf8+BScLwe5d2e6jwSXHzmXbIknVhXX3e3mzs
-         j66j+V7NIMm8CkhNWYlx87LTomtte0heox1R+1YKAKtTE6esQ+ZtgQ+gMlaA+WQ/Npce
-         5IA1HNG1t8Q9clFyNsma4dYJeJ0D2t5sWFUGE6z5SIQvKw3FrVPZQYjXsZJc3j+OHOvt
-         ysuMwZAIo+TwNezymngvYJgBRn8VYPWfpgH36C1SmeM8Oaz17k6w0H0Y11xPHbr3YsFt
-         Gw1g==
-X-Gm-Message-State: AGi0PuZFJ6fZ2Xjpj7Y678k3cO3E/17pULrkTuQ0r+iIcXG0vXuj67Qb
-        mBY49EdSdhPME7/XBIjL/UIWc7o6afJxeytY68NzsuDS
-X-Google-Smtp-Source: APiQypL1y+VsydPWYQD9kOYCTEr12osKfuwSyZ4bereXtes6PRtzKI8ILbe3EUQb02WoolDueaN+kNRW8OmcYyOQ69s=
-X-Received: by 2002:a17:906:4903:: with SMTP id b3mr9245304ejq.80.1587371869357;
- Mon, 20 Apr 2020 01:37:49 -0700 (PDT)
-MIME-Version: 1.0
-References: <d14c92ee-ba52-5821-5cb5-c3b476055770@debian.org>
-In-Reply-To: <d14c92ee-ba52-5821-5cb5-c3b476055770@debian.org>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=Dq6UBr7A18leUh6sFeClrbY3WKxaqlnnWooLjpoy7QA=;
+        b=f2Bts7CIo4+2poMjMahOpINA35SCyV9Lo8KOZVnZe0+quMZF6bLcW3PDuKWfAOJaTi
+         +k1hFCiT+fShfCfjUIkc6qR1UoXbGtunk5EfDitbaWfTYfP7Z7ZKKzOND1QXexY+X8ez
+         UjQbWqjRUxFlh/uok7XyvOwvNDH46WtGgSDjbvcXTjF0+OaRzZmCnNNEZkO0UrNRyxTB
+         7+b+x1jrnBOL+rhiuwlZ411TSxSMnN5e7u59+88Pgfzljzc1/trdYUjVPE92zU7bJfyj
+         W08M+UCjCe22nbWkqw88SELAhKecL6dnugyC9CB7Rmj814HF/1fj4swoO/ssX4g6Lz+f
+         8Txg==
+X-Gm-Message-State: AGi0PuZnEYT3YtNm9hroCNF9JNxa1DayYa3A8y4JMIyCvVorveFRmj7y
+        afGDxF5orEzXsorYGL9P6h7NXitz
+X-Google-Smtp-Source: APiQypKyzDj54DbfauZOEPR2bS8vLpaUxDVnezB4D5oNijTUcPOGsO3VN9q3wpDx4RaMNPfeQvWxOg==
+X-Received: by 2002:a7b:c0cb:: with SMTP id s11mr17836068wmh.180.1587371986185;
+        Mon, 20 Apr 2020 01:39:46 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
+        by smtp.gmail.com with ESMTPSA id x18sm393174wmi.29.2020.04.20.01.39.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 20 Apr 2020 01:39:45 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Errors in man pages, here: signal(7): Strange word
+To:     Helge Kreutzmann <debian@helgefjell.de>
+References: <20200419064825.GA31979@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 20 Apr 2020 10:37:38 +0200
-Message-ID: <CAKgNAkhNufmY1T191WADHF-Oeu4_KgYmAAQrumDuAc2x+ENL1A@mail.gmail.com>
-Subject: Re: Error in the nsenter.1 page
-To:     Jean-Philippe MENGUAL <jpmengual@debian.org>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <a0e75713-e652-f29b-caf9-848cfe182fad@gmail.com>
+Date:   Mon, 20 Apr 2020 10:39:45 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
+MIME-Version: 1.0
+In-Reply-To: <20200419064825.GA31979@Debian-50-lenny-64-minimal>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Jean-Philippe
+On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
+> Dear manpages maintainers.
+> the manpage-l10n project maintains a large number of translations of
+> man pages both from a large variety of sources (including manpages) as
+> well for a large variety of target languages.
+> 
+> During their work translators notice different possible issues in the
+> original (english) man pages. Sometiems this is a straightforward
+> typo, sometimes a hard to read sentence, sometimes this is a convention
+> not held up and sometimes we simply do not understand the original.
+> 
+> We use several distributions as sources and update regularly (at
+> least every 2 month). This means we are fairly recent (some
+> distributions like archlinux also update frequently) but might miss
+> the latest upstream version once a while, so the error might be
+> already fixed. We apologize and ask you to close the issue immediately
+> if this should be the case, but given the huge volume of projects and
+> the very limited number of volunteers we are not able to double check
+> each and every issue.
+> 
+> Secondly we translators see the manpages in the neutral po format,
+> i.e. converted and harmonized, but not the original source (be it man,
+> groff, xml or other). So we cannot provide a true patch (where
+> possible), but only an approximation which you need to translate into
+> your source format.
+> 
+> Finally the issues I'm reporting have accumulated over time and are
+> not always discovered by me, so sometimes my description of the
+> problem my be a bit limited - do not hesitate to ask so we can clarify
+> them.
+> 
+> I'm now reporting the errors for your project. As requested, each
+> issue is sent in an unique mail for easier tracking on your side. If
+> future reports should use another channel, please let me know.
+> 
+> **
+> 
+> other word for sanction?
 
-Bugs in that page need to be reported eolsewhere.
-
-See http://man7.org/linux/man-pages/man1/nsenter.1.html#COLOPHON
+Why?
 
 Thanks,
 
 Michael
 
-On Mon, 20 Apr 2020 at 00:47, Jean-Philippe MENGUAL
-<jpmengual@debian.org> wrote:
->
-> Hi,
->
-> Sorry for not producing a patch but I dont understand the syntax in the
-> file. Here is the problematic string:
-> Children will have a set of PID to process mappings separate from the
-> .B nsenter
-> process
-> For further details, see
-> .BR pid_namespaces (7)
-> and
-> the discussion of the
-> .B CLONE_NEWPID
-> flag in
-> .B nsenter
-> will fork by default if changing the PID namespace, so that the new program
-> and its children share the same PID namespace and are visible to each other.
-> If \fB\-\-no\-fork\fP is used, the new program will be exec'ed without
-> forking.
->
-> I think it is buggy. The "For further details, see..." seems at the
-> middle of two sentences explaining the same thing, should be moved at
-> the end of the paragraph I guess. I think I will try reordering the
-> sentences in the translation to avoid keeping a fuzzy until the next
-> release, but the translation will then be different from the English string.
->
-> Thanks for your feedback
->
->
-> Regards
->
-> --
-> Jean-Philippe MENGUAL
-> Debian Developer non uploading
-> Community team member
-> Accessibility team member
-> debian-l10n-french team member
-> President of Debian France non-profit organization
->
+> "On Linux, even in the absence of signal handlers, certain blocking "
+> "interfaces can fail with the error B<EINTR> after the process is stopped by "
+> "one of the stop signals and then resumed via B<SIGCONT>.  This behavior is "
+> "not sanctioned by POSIX.1, and doesn't occur on other systems."
+> 
 
 
 -- 
