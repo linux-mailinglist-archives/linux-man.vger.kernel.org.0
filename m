@@ -2,73 +2,72 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 78A101B031F
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:35:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2B1531B0327
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:36:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726373AbgDTHfI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 03:35:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41714 "EHLO
+        id S1726055AbgDTHf6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 03:35:58 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41834 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1726036AbgDTHfG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:35:06 -0400
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 33562C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:35:06 -0700 (PDT)
-Received: by mail-wm1-x341.google.com with SMTP id x4so9812377wmj.1
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:35:06 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1726324AbgDTHfv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:35:51 -0400
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 896D0C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:35:51 -0700 (PDT)
+Received: by mail-wm1-x343.google.com with SMTP id e26so9799095wmk.5
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:35:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=XVcGnciTKjY+w+InVQLftrhxs5MHH22SzgOxh/mbQJ4=;
-        b=W9Fe3dXBus/sFqIGsAbnLY3qJQ4VPOBUF+SC5p1V9+QfNESaqD55U+QuA3iXDVdD+m
-         RsW6g7MjUGauBZwiYwdZkqxo8o3P77FpynColjBfg2Zz8xZDsxfBnzkw60ZnihFBrMij
-         Y3Jo8iYk5YT0mA7sU0PQ/zk0NKq7B5QYnSH4UrkLhDZeZvcgkpOI22NSOLl6qTza9n3M
-         bDmrMaR7bVBv+4BERNTMbDYPN08g0FNHpMS2//+aiutXarNzwtfBCUe9R7kzPj/+S4It
-         9hDebdkbRGjl/D1BkmEHRPTlrmiADByFQUjAI75NKmPF69fVlm0I+JuIAsuedo4IKgCv
-         mZBg==
+        bh=yrFGvUUXzlTKa5FKDp0EKQsV3u1iI87+nddTeaKQrQ8=;
+        b=GNzGG4oSW8gEKmpHWQ9zPLmT2evJRSikHLINztFPqmsXx8mJ3nBh2Q5V1+6DkacJ2I
+         wHkknxnJKFRP2DXOC42ac6dGZ4lfN3Q5Sm9sqESvZSnWMZBD7t7y8edrQ2JHXWuFeeon
+         v+YDYjyfPyoD7b5myVaiaF1B+X4nP7oJzGwVUN8w8nPTSPtOSP+kLRNDyQOHBBbmcqpn
+         Cp0xY0Mr+2BAGOpp3o+gt7/uwTJuZ2dbl5czkVtque1wkoBZRihsAbsQAC2CWD8Dpzge
+         BhF+q7iQNdCLMa1bv62q8NgI8d+I381Hb4oFLoy3H5yqCKcj7XdXJZRJLti0YBDwuD2k
+         YVtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=XVcGnciTKjY+w+InVQLftrhxs5MHH22SzgOxh/mbQJ4=;
-        b=Tqyscn5rf3w4mhiQoV2S6dOcAlrvQRw3Eqpq2hh5f7EwT38CaqUMtjMBGCyEvpcH0t
-         PBVCvAu06GN4ZmDi1jx6EOt1Lt5Y90ddKXfABHBVnXbgBeFpQh9LzoGxTNCyTG3oxxE/
-         zFB+anlhF5jDevaoaBcvzLRJ29jmQaHs863gdI89r7qShTZffPgp5v0F4ZpCqpwSXFsw
-         pRb3RnpC9mukZFtMHUUEZd2x4cbSnBKAvnOSOF9Mj4qu9m8vlbiGYV8HjSlnQmknnLJ+
-         MZ0WV10k1MXPoWMy079gMxqDmyAqy9qwO++z9AG/Ooydqepeqe3+uurZ+ojRK1NoK6nS
-         WitA==
-X-Gm-Message-State: AGi0PuYi2Dxq/wQRznLCShjR5gdLTM52GZ9Ob9dlGRA6mpHNO88OC91w
-        1akHDTG+ZznFoxtxpqLEptdnYJLn
-X-Google-Smtp-Source: APiQypIllg6H4vcHfURKLy7tl7l8fmzBO2JQJvUirdv4qUeEz3C5aiC1TsM/A8jR6Sr+fzS2LHFafg==
-X-Received: by 2002:a7b:ca47:: with SMTP id m7mr17332258wml.55.1587368104742;
-        Mon, 20 Apr 2020 00:35:04 -0700 (PDT)
+        bh=yrFGvUUXzlTKa5FKDp0EKQsV3u1iI87+nddTeaKQrQ8=;
+        b=MiBdcUmUMuJAri+IcDMddcCXSfSYoNPd0KGQw975wMwm9ptjWW/Jm0du9CF/inhJss
+         ACSWrGF8E15kLBa4aV7NWtCvTvzR1a3qMNZl+atkmw8cZouqZbO716Pc9rO1shkI5ZAe
+         YJ+kURjPYNjaxa/lOegV6luDviIH2nJXXkrpRxepO90Ea21A7GgLggoAoagRgJ2LbI1P
+         JULoc/oXxo5c6SshNlBcVTPxjGTHqMQsQJpLTdCh9eXGUpmAosAWUQXZoMallwC1huIa
+         050IudLIQgBPzI+QhNGvzbcvP3utdvtN5XFLYhBgvw7DzKuGseicwM8ivVWfzP4HAlK9
+         GZ3Q==
+X-Gm-Message-State: AGi0PuYtsguHDSL+Yc/IkUJLQPHHklZYXq8KF1/ULiQllt9AvBVU6HWe
+        teE13MaxVvv8vj9dAd3d3rhRlmre
+X-Google-Smtp-Source: APiQypKt/reSP+kgyZrR5SuG4Md4YdkSEBzLcQ+o01aQtBTpejX/3do9LjB8aPs/lFgA56ZJaFIscg==
+X-Received: by 2002:a1c:4346:: with SMTP id q67mr16023216wma.162.1587368150179;
+        Mon, 20 Apr 2020 00:35:50 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id e15sm36525wrt.16.2020.04.20.00.35.03
+        by smtp.gmail.com with ESMTPSA id v19sm16593wra.57.2020.04.20.00.35.49
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 00:35:04 -0700 (PDT)
+        Mon, 20 Apr 2020 00:35:49 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: proc(5): Alignment
+Subject: Re: Errors in man pages, here: st(4): capitalization
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064814.GA31394@Debian-50-lenny-64-minimal>
+References: <20200419064826.GA32048@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <66d447ac-0a24-e534-f764-392d2d368cb0@gmail.com>
-Date:   Mon, 20 Apr 2020 09:35:03 +0200
+Message-ID: <9ab1dcc6-5821-4081-b579-2c6921bb39de@gmail.com>
+Date:   Mon, 20 Apr 2020 09:35:49 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064814.GA31394@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064826.GA32048@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
-> 
 > Dear manpages maintainers.
 > the manpage-l10n project maintains a large number of translations of
 > man pages both from a large variety of sources (including manpages) as
@@ -105,21 +104,18 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> (4) is not properly aligned
+> Tape → tape
 > 
-> "device /dev/sda7 mounted on /home with fstype ext3 [statistics]\n"
-> "(       1      )            ( 2 )             (3 ) (4)\n"
+> a) "Magnetic Tape operations for normal tape use:"
 > 
+> b) "Magnetic Tape operations for setting of device options (by the superuser):"
 
-Changed to 
-
-device /dev/sda7 mounted on /home with fstype ext3 [stats]
-(       1      )            ( 2 )             (3 ) (  4  )
-
+Fixed.
 
 Thanks,
 
 Michael
+
 
 -- 
 Michael Kerrisk
