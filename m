@@ -2,72 +2,72 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EB3DD1B0331
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:37:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 53DAB1B0352
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:45:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726020AbgDTHhH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 03:37:07 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42030 "EHLO
+        id S1725815AbgDTHpg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 03:45:36 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43360 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1726017AbgDTHhH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:37:07 -0400
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0E757C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:37:07 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id x25so9824906wmc.0
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:37:06 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725773AbgDTHpg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:45:36 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D59D5C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:45:34 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id j1so5415924wrt.1
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:45:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=vXDCRPq9Q1mjr1mPTJBrgVHHOIpg8ybHDt2CrElTyM8=;
-        b=ZAAOpYpCOmN3ujAFbw+cXh2ecQgmqiDQ6kow7zZly4sCEcTYc8nKPeukga9F+FuPtA
-         hgvqXyjVgXq1SGVZv5/Cl5eLLZzQEEnRNNoyk5/YCKhu6q098oSQ96Bd6zojImxiZrdN
-         Ofl4elNvLDRWskk3YrxWWOXFRNbz0avfw+QXRi0a8iC6Hd4dQmTOQk3tPcpAqHdKAqcc
-         BhUP8Jc3QkIkHqnxWRIaod2iwqPEkMVj4rTVkJWsszW7j9/LvA+a6QqnoszfkCIDl5GB
-         YKgxAqr95v7irXGFR7IhQ1G077SjBIqyPN4WCySullZZ84eRhoEFK83WcfIlYCrfI50d
-         lJ0w==
+        bh=Rcw2uhLp1kK/ZLffgauqb6Jk7LBt076yiNvas2X+Wbw=;
+        b=uDhUJaO+ZXQOYw5748GcIQ+TVDqN/39bIhtTr/EA1RWBrp6MxJ6Nwg024Aiime0MVy
+         TFCpz+jwQ+BWcaH+cnIZqlLCTyIqaSez4spZ1qJRgEypmWnt0vpyiOpcHSdMtEItmnG3
+         kTX/oacCGt4Fmr3SsNDSxZLEaZli50cJFhVOrfpTEjJfo8KI8W2VjlTCx61uUv0NoDOm
+         0MXywrGzjYF43csdwgghoQeQnYUvZ8r1MwR3k20qbQ00GlhoN32M+uBPUMRckvsJdlrD
+         Sq7Bm2YLR/22EDObxibHT7LrABoZJ8i3DHICl7flEhjWotQNATatXiwyYXnGjADdmx0v
+         7C4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=vXDCRPq9Q1mjr1mPTJBrgVHHOIpg8ybHDt2CrElTyM8=;
-        b=cPRNYUJIrl32o7CNWqOiT8IJ/3H7lteszhO1BHYOf0yUQ/+VAoC3od1zgaCJmrmEuv
-         /V7NZcCbG2d3+2qYS46aYNQrSVdfCYxxE1p5yqNTXFLW3YNFScApkWE7VmNfJcvs878H
-         pQ2m0s69SydzNKBUnkj8WMiy2yG4x0i4dPSWFkNrab8FFtnld2Dvnvv1QNKJLNMZMSZ6
-         opWWQpHDtQkvk6OsE/gnoT319SVP2FIHEsGIhl6W6G8PPCmPTzBKlkVX1lmuCH54sTJ9
-         eVIZ4OAFnUcfb15x/yFo6NaTKnOMwvYU3cHE3B4YhCN4W9/nv8pcLjKzGLna4iK0S65R
-         39lg==
-X-Gm-Message-State: AGi0PuY9XB/TOJ5tn5g/WlOUqo09iOXp87eTEolbVEf1CStP0o1UPkxx
-        Qz0Ub/a5ANAyCig7O9K9EHc9tRqj
-X-Google-Smtp-Source: APiQypJ+by9jSC6gn5Vjo8w+s7O/yKZJ2M0T8UlBavcfQyUtLHyLzqdKV1l1QErgwSCzlfDwlbjfAg==
-X-Received: by 2002:a1c:2042:: with SMTP id g63mr14142978wmg.70.1587368225609;
-        Mon, 20 Apr 2020 00:37:05 -0700 (PDT)
+        bh=Rcw2uhLp1kK/ZLffgauqb6Jk7LBt076yiNvas2X+Wbw=;
+        b=lBFD6B7r6vGWwy4pC4v4FrT8AFDnSNAewDyKgW0Vl9JsejHoP+NaILahUD2HMjwm13
+         CYfWka8hQwEqemBUiHTv/cHbCt5XzMsWsnNQkJgeYojQ6L0A1ewlWfEVG4o30idW99kI
+         AVndP7k3CywWd5GOSKfqwno2fEjARIM5yk7wUVOdFpWsaPzxVipT1pFBjuNs8I8L175h
+         vTG6DgHbcvgPf/1ppooMKWfJfYsCn5wk0oYlPMQBx25EBcJAgCsSO4bxBW6BhKhK5A9p
+         y4von8fq5TiP6xUH6BPCClws3g3KAAkYbsuFg4ouYWHBz/Kgzfm5PRjGSX0iH0BFZyHd
+         /WqQ==
+X-Gm-Message-State: AGi0PuYYcJPVKqmaata5hre26iK58Q8zmzhbMv0gHWdIB4thBGEWRFmY
+        +1mOwrupCwJA0eRtm301aRMhxnNm
+X-Google-Smtp-Source: APiQypJT1yOYOJQLFNsJiPZzheTiAzutlTHZK9SMBAiEp86heb8thAD5j9RmcujqxIJAkSMvk/p2Ww==
+X-Received: by 2002:adf:decb:: with SMTP id i11mr16562910wrn.140.1587368733390;
+        Mon, 20 Apr 2020 00:45:33 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id y70sm228631wmc.36.2020.04.20.00.37.04
+        by smtp.gmail.com with ESMTPSA id y63sm257287wmg.21.2020.04.20.00.45.32
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 00:37:05 -0700 (PDT)
+        Mon, 20 Apr 2020 00:45:32 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages; here: man-pages(7): Capitalization?
+Subject: Re: Errors in man pages, here: dsp56k(4): plural/singular
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064809.GA31070@Debian-50-lenny-64-minimal>
+References: <20200419064755.GA30283@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <5525b90d-37d7-210e-2aa9-40df62eda242@gmail.com>
-Date:   Mon, 20 Apr 2020 09:37:04 +0200
+Message-ID: <09edb420-e9cc-6a6a-9320-b6b1533436f3@gmail.com>
+Date:   Mon, 20 Apr 2020 09:45:32 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064809.GA31070@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064755.GA30283@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
+On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
 > Dear manpages maintainers.
 > the manpage-l10n project maintains a large number of translations of
 > man pages both from a large variety of sources (including manpages) as
@@ -104,34 +104,21 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Section → section?
+> member/members? There is only one?!
 > 
-> msgid "The manual Sections are traditionally defined as follows:"
-> --
-> "B<NAME>\n"
-> "B<SYNOPSIS>\n"
-> "CONFIGURATION      [Normally only in Section 4]\n"
-> "B<DESCRIPTION>\n"
-> "OPTIONS            [Normally only in Sections 1, 8]\n"
-> "EXIT STATUS        [Normally only in Sections 1, 8]\n"
-> "RETURN VALUE       [Normally only in Sections 2, 3]\n"
-> "ERRORS             [Typically only in Sections 2, 3]\n"
-> "ENVIRONMENT\n"
-> "FILES\n"
-> "VERSIONS           [Normally only in Sections 2, 3]\n"
-> "ATTRIBUTES         [Normally only in Sections 2, 3]\n"
-> "CONFORMING TO\n"
-> "NOTES\n"
-> "BUGS\n"
-> "EXAMPLE\n"
-> "B<SEE ALSO>\n"
+> "resets the DSP56001 and uploads a program.  The third B<ioctl>(2)  argument "
+> "must be a pointer to a I<struct dsp56k_binary> with members I<bin> pointing "
+> "to a DSP56001 binary program, and I<len> set to the length of the program, "
+> "counted in 24-bit words."
 
-"Section" is intended here as a proper noun, and hence in capitals.
+This repoort appears wrong to me. There are two fields, 'bin' and 'len'.
+
+By the way, this report made me notice that the name of the structure
+itself is wrong: "dsp56k_binary" ==> "dsp56k_upload".
 
 Thanks,
 
 Michael
-
 
 
 -- 
