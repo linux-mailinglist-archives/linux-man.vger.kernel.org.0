@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2B1531B0327
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:36:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EB3DD1B0331
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:37:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726055AbgDTHf6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 03:35:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41834 "EHLO
+        id S1726020AbgDTHhH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 03:37:07 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42030 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1726324AbgDTHfv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:35:51 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 896D0C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:35:51 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id e26so9799095wmk.5
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:35:51 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1726017AbgDTHhH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:37:07 -0400
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0E757C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:37:07 -0700 (PDT)
+Received: by mail-wm1-x342.google.com with SMTP id x25so9824906wmc.0
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:37:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=yrFGvUUXzlTKa5FKDp0EKQsV3u1iI87+nddTeaKQrQ8=;
-        b=GNzGG4oSW8gEKmpHWQ9zPLmT2evJRSikHLINztFPqmsXx8mJ3nBh2Q5V1+6DkacJ2I
-         wHkknxnJKFRP2DXOC42ac6dGZ4lfN3Q5Sm9sqESvZSnWMZBD7t7y8edrQ2JHXWuFeeon
-         v+YDYjyfPyoD7b5myVaiaF1B+X4nP7oJzGwVUN8w8nPTSPtOSP+kLRNDyQOHBBbmcqpn
-         Cp0xY0Mr+2BAGOpp3o+gt7/uwTJuZ2dbl5czkVtque1wkoBZRihsAbsQAC2CWD8Dpzge
-         BhF+q7iQNdCLMa1bv62q8NgI8d+I381Hb4oFLoy3H5yqCKcj7XdXJZRJLti0YBDwuD2k
-         YVtw==
+        bh=vXDCRPq9Q1mjr1mPTJBrgVHHOIpg8ybHDt2CrElTyM8=;
+        b=ZAAOpYpCOmN3ujAFbw+cXh2ecQgmqiDQ6kow7zZly4sCEcTYc8nKPeukga9F+FuPtA
+         hgvqXyjVgXq1SGVZv5/Cl5eLLZzQEEnRNNoyk5/YCKhu6q098oSQ96Bd6zojImxiZrdN
+         Ofl4elNvLDRWskk3YrxWWOXFRNbz0avfw+QXRi0a8iC6Hd4dQmTOQk3tPcpAqHdKAqcc
+         BhUP8Jc3QkIkHqnxWRIaod2iwqPEkMVj4rTVkJWsszW7j9/LvA+a6QqnoszfkCIDl5GB
+         YKgxAqr95v7irXGFR7IhQ1G077SjBIqyPN4WCySullZZ84eRhoEFK83WcfIlYCrfI50d
+         lJ0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=yrFGvUUXzlTKa5FKDp0EKQsV3u1iI87+nddTeaKQrQ8=;
-        b=MiBdcUmUMuJAri+IcDMddcCXSfSYoNPd0KGQw975wMwm9ptjWW/Jm0du9CF/inhJss
-         ACSWrGF8E15kLBa4aV7NWtCvTvzR1a3qMNZl+atkmw8cZouqZbO716Pc9rO1shkI5ZAe
-         YJ+kURjPYNjaxa/lOegV6luDviIH2nJXXkrpRxepO90Ea21A7GgLggoAoagRgJ2LbI1P
-         JULoc/oXxo5c6SshNlBcVTPxjGTHqMQsQJpLTdCh9eXGUpmAosAWUQXZoMallwC1huIa
-         050IudLIQgBPzI+QhNGvzbcvP3utdvtN5XFLYhBgvw7DzKuGseicwM8ivVWfzP4HAlK9
-         GZ3Q==
-X-Gm-Message-State: AGi0PuYtsguHDSL+Yc/IkUJLQPHHklZYXq8KF1/ULiQllt9AvBVU6HWe
-        teE13MaxVvv8vj9dAd3d3rhRlmre
-X-Google-Smtp-Source: APiQypKt/reSP+kgyZrR5SuG4Md4YdkSEBzLcQ+o01aQtBTpejX/3do9LjB8aPs/lFgA56ZJaFIscg==
-X-Received: by 2002:a1c:4346:: with SMTP id q67mr16023216wma.162.1587368150179;
-        Mon, 20 Apr 2020 00:35:50 -0700 (PDT)
+        bh=vXDCRPq9Q1mjr1mPTJBrgVHHOIpg8ybHDt2CrElTyM8=;
+        b=cPRNYUJIrl32o7CNWqOiT8IJ/3H7lteszhO1BHYOf0yUQ/+VAoC3od1zgaCJmrmEuv
+         /V7NZcCbG2d3+2qYS46aYNQrSVdfCYxxE1p5yqNTXFLW3YNFScApkWE7VmNfJcvs878H
+         pQ2m0s69SydzNKBUnkj8WMiy2yG4x0i4dPSWFkNrab8FFtnld2Dvnvv1QNKJLNMZMSZ6
+         opWWQpHDtQkvk6OsE/gnoT319SVP2FIHEsGIhl6W6G8PPCmPTzBKlkVX1lmuCH54sTJ9
+         eVIZ4OAFnUcfb15x/yFo6NaTKnOMwvYU3cHE3B4YhCN4W9/nv8pcLjKzGLna4iK0S65R
+         39lg==
+X-Gm-Message-State: AGi0PuY9XB/TOJ5tn5g/WlOUqo09iOXp87eTEolbVEf1CStP0o1UPkxx
+        Qz0Ub/a5ANAyCig7O9K9EHc9tRqj
+X-Google-Smtp-Source: APiQypJ+by9jSC6gn5Vjo8w+s7O/yKZJ2M0T8UlBavcfQyUtLHyLzqdKV1l1QErgwSCzlfDwlbjfAg==
+X-Received: by 2002:a1c:2042:: with SMTP id g63mr14142978wmg.70.1587368225609;
+        Mon, 20 Apr 2020 00:37:05 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id v19sm16593wra.57.2020.04.20.00.35.49
+        by smtp.gmail.com with ESMTPSA id y70sm228631wmc.36.2020.04.20.00.37.04
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 00:35:49 -0700 (PDT)
+        Mon, 20 Apr 2020 00:37:05 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: st(4): capitalization
+Subject: Re: Errors in man pages; here: man-pages(7): Capitalization?
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064826.GA32048@Debian-50-lenny-64-minimal>
+References: <20200419064809.GA31070@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <9ab1dcc6-5821-4081-b579-2c6921bb39de@gmail.com>
-Date:   Mon, 20 Apr 2020 09:35:49 +0200
+Message-ID: <5525b90d-37d7-210e-2aa9-40df62eda242@gmail.com>
+Date:   Mon, 20 Apr 2020 09:37:04 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064826.GA32048@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064809.GA31070@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -104,17 +104,34 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Tape → tape
+> Section → section?
 > 
-> a) "Magnetic Tape operations for normal tape use:"
-> 
-> b) "Magnetic Tape operations for setting of device options (by the superuser):"
+> msgid "The manual Sections are traditionally defined as follows:"
+> --
+> "B<NAME>\n"
+> "B<SYNOPSIS>\n"
+> "CONFIGURATION      [Normally only in Section 4]\n"
+> "B<DESCRIPTION>\n"
+> "OPTIONS            [Normally only in Sections 1, 8]\n"
+> "EXIT STATUS        [Normally only in Sections 1, 8]\n"
+> "RETURN VALUE       [Normally only in Sections 2, 3]\n"
+> "ERRORS             [Typically only in Sections 2, 3]\n"
+> "ENVIRONMENT\n"
+> "FILES\n"
+> "VERSIONS           [Normally only in Sections 2, 3]\n"
+> "ATTRIBUTES         [Normally only in Sections 2, 3]\n"
+> "CONFORMING TO\n"
+> "NOTES\n"
+> "BUGS\n"
+> "EXAMPLE\n"
+> "B<SEE ALSO>\n"
 
-Fixed.
+"Section" is intended here as a proper noun, and hence in capitals.
 
 Thanks,
 
 Michael
+
 
 
 -- 
