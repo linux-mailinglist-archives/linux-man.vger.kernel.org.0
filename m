@@ -2,133 +2,109 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 044371B0621
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 12:01:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6F8771B062E
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 12:05:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726209AbgDTKB0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 06:01:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36196 "EHLO
+        id S1726020AbgDTKFR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 06:05:17 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36790 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725773AbgDTKB0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 06:01:26 -0400
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com [IPv6:2a00:1450:4864:20::542])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DA90FC061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 03:01:25 -0700 (PDT)
-Received: by mail-ed1-x542.google.com with SMTP id t12so3547799edw.3
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 03:01:25 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725773AbgDTKFR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 06:05:17 -0400
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com [IPv6:2a00:1450:4864:20::634])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DAB4DC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 03:05:16 -0700 (PDT)
+Received: by mail-ej1-x634.google.com with SMTP id n17so7416563ejh.7
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 03:05:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
          :subject:to:cc;
-        bh=q+D+qW0OFBj3mzEy4aUS/l34CmX1jF/OCPgYggEfJes=;
-        b=bbJ8eIkuCAJL6Zvh/Ac6+3MOV7UmG3W+sWxQlfiwgPL7kOG+HR73VfNJORYFAp6ZJU
-         DMd3flANeVNpbcjuF5c6igR0pHEC5ZX/B97TGtTNO8oHIbzr/gEZUKriOle/FBpHOrAW
-         eRqiISvxNU0dg9yS5/qgcpN0ZrPPFX5pQJ9UltXsLWninMWy+R5QCxoDl0bhpelTKzdp
-         xt9yJ7+9cOQ318Eq/jviGDEAfyliXx4Sq9+hD5wwsa9YCDoDsE4APGwqV8Cm70EgrLWJ
-         cFZDP9Uh6WbifFWJV2LV9XBsHNgCCi5n69O4eAyfotdH7aIDHq6nHmGMpb/GKVdAeGJv
-         P2zw==
+        bh=E+zc/jYddfIUqbihvsdSQ0pWFei37yuSsRGxsVHfFv0=;
+        b=agp6TXpqkRGa/G1S5R1PWv8cL8SFcTXVZklv1dn8hAzZUl63ykF/ztdMdmTUehNV6p
+         6I1yUzVz5oaDvtfU2ULWCxO3fKp6DLaNmpRD8jeZOtWoDMX+9QOJRtKAThP2uuWCSfiH
+         8kCcrcMh8svuTxPfeDemTNw9HvCs9FZFEp/FfFp6U17rvv05Bc6BqGAG95y/Bw/bufCT
+         TqFpXe6wuIQK3MMiZ2lt3qCaGTLLu4ITF+fcSp8iQPv/2lzrqcGxrV2M9OwbyFb7dfgI
+         MDBIr5CUo1FqOSYzh3V9fBNrcbxS8/laPvyw5qFliwroWCy0NgWKzQKbbz8myYkp3xmr
+         EHuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
          :from:date:message-id:subject:to:cc;
-        bh=q+D+qW0OFBj3mzEy4aUS/l34CmX1jF/OCPgYggEfJes=;
-        b=jMqj7paheXeaM+mQCWy2YlVjeMZOBIkYDeXiBRGJvm6q1RjNNQJW4cd/YnpoP9RPVi
-         R3JF6UzEDgyBowsyowexwoMfoPrWy9EoxA85m54KPDW0YEs8dvM3B2ch4VioHgQQTzBS
-         awo65Vv+vU//6c5hetUM+l7vtnVhoLdDcmfUBpmXqA3+vPqWHGqBMZxpfwOajqrdhL5T
-         Sim5Jbo7R3a5CiLzlrjoWPC6z8z2f6zMU8ovErOiIMU0YDSsrP0jiSRQnbE7w8jirSVv
-         JZwN0DvblHvDyVfBmor0hqYKyXdzE82wGr3JU0xnJHT9PDxe+FFWivmEIqWCcZOiO01k
-         0OXw==
-X-Gm-Message-State: AGi0PuYs0DdcjKhd385nyS1lkCw9CAklfiEoNI9tbsBygqf4HLYBULof
-        BGEjo0imsHmcKY2NA19I9cZGZ9C7CUhOPsn+O3u1hFZX
-X-Google-Smtp-Source: APiQypL5WG82tHHkZAFWWMgltxN4gqtqDjnTDj1TjioFHXjTdVHW5x+p6M1lgtlZGrmXBXKMlP6rn5jEucgcuEY7Pyw=
-X-Received: by 2002:a05:6402:1b08:: with SMTP id by8mr13424573edb.286.1587376884435;
- Mon, 20 Apr 2020 03:01:24 -0700 (PDT)
+        bh=E+zc/jYddfIUqbihvsdSQ0pWFei37yuSsRGxsVHfFv0=;
+        b=RHQG8MRmlSFXhIgnDnhfcMQQEwypYSDp3kCGVdNkayjckyOH6QBH3GTOfi6LM50upb
+         UaQFCEQyBVGkCd0Gqtgv07UtlL+Y03A21dqctwAv9wdLFQGi+D03V6RPr8GIcnIzvACY
+         NP3voej9TzxTy7tmM8LvwxU1VGaK9E0H31WFnIdzGO4xjRwHvEqMC/k+AhP4bu+kRnW1
+         D4fmvxTMl7rJPOfd7V+6ijQ0jhKm0YMkQw9du4MbzZBl/WdGnPJvBSPzeTACgLK0Zq2C
+         aNjdSpY1mjQW6Gm9tuTAWojtptUHV2YrQ1+Fm/aZmyR6ZH7D9te0op6pGUtVxPvW1K8H
+         acHg==
+X-Gm-Message-State: AGi0PuZYTQ2BW+kvFMN994NSr16M01VWFo6sE6ZItRD8GKIJ1ItLY3nW
+        OZGq4KSfFeLXHHOCmHfM9cCBb1FSk/+WyetzU9cSgw==
+X-Google-Smtp-Source: APiQypLuB8G2nCiGyVaCcv9FJMHxmF/OT+6xcr0XUaacWT9wh4UZk0uXJM3QpvgZ33EUQGfSwCPWSuX+7kiggSjDf2o=
+X-Received: by 2002:a17:906:2488:: with SMTP id e8mr15389958ejb.157.1587377115526;
+ Mon, 20 Apr 2020 03:05:15 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200419064808.GA31024@Debian-50-lenny-64-minimal>
-In-Reply-To: <20200419064808.GA31024@Debian-50-lenny-64-minimal>
+References: <CAHVhoEfFzzve8Jy+3Jk6w40D26fSQXQrqKYsX6rf0qvZ6Ce1cw@mail.gmail.com>
+In-Reply-To: <CAHVhoEfFzzve8Jy+3Jk6w40D26fSQXQrqKYsX6rf0qvZ6Ce1cw@mail.gmail.com>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 20 Apr 2020 12:01:13 +0200
-Message-ID: <CAKgNAkj6YdBtn0D0YEXrQoqq8p7KfsHn+Otjji7mq7xA4eYUyg@mail.gmail.com>
-Subject: Re: Errors in man pages, here: locale(5): Hard to read sentence
-To:     Helge Kreutzmann <debian@helgefjell.de>
-Cc:     linux-man <linux-man@vger.kernel.org>
+Date:   Mon, 20 Apr 2020 12:05:04 +0200
+Message-ID: <CAKgNAkh5xUZGTpSn58GsZaMoFzkvRp+-i7eHzyz8LjHOWSjWSQ@mail.gmail.com>
+Subject: Re: [patch] add man3p pthread_once posix manpage latest 5.06
+To:     Scott S <ssimmons9999@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        =?UTF-8?Q?Nikola_Forr=C3=B3?= <nforro@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sun, 19 Apr 2020 at 08:48, Helge Kreutzmann <debian@helgefjell.de> wrote:
+On Mon, 20 Apr 2020 at 01:12, Scott S <ssimmons9999@gmail.com> wrote:
 >
-> Dear manpages maintainers.
-> the manpage-l10n project maintains a large number of translations of
-> man pages both from a large variety of sources (including manpages) as
-> well for a large variety of target languages.
+> man-pages-posix-2013-a-pthread_once.patch
 >
-> During their work translators notice different possible issues in the
-> original (english) man pages. Sometiems this is a straightforward
-> typo, sometimes a hard to read sentence, sometimes this is a convention
-> not held up and sometimes we simply do not understand the original.
->
-> We use several distributions as sources and update regularly (at
-> least every 2 month). This means we are fairly recent (some
-> distributions like archlinux also update frequently) but might miss
-> the latest upstream version once a while, so the error might be
-> already fixed. We apologize and ask you to close the issue immediately
-> if this should be the case, but given the huge volume of projects and
-> the very limited number of volunteers we are not able to double check
-> each and every issue.
->
-> Secondly we translators see the manpages in the neutral po format,
-> i.e. converted and harmonized, but not the original source (be it man,
-> groff, xml or other). So we cannot provide a true patch (where
-> possible), but only an approximation which you need to translate into
-> your source format.
->
-> Finally the issues I'm reporting have accumulated over time and are
-> not always discovered by me, so sometimes my description of the
-> problem my be a bit limited - do not hesitate to ask so we can clarify
-> them.
->
-> I'm now reporting the errors for your project. As requested, each
-> issue is sent in an unique mail for easier tracking on your side. If
-> future reports should use another channel, please let me know.
->
-> **
->
-> The first sentence is difficult to read, better:
-> "followed by the number of the day from the I<day> list to be shown as
->  the first day in calendar applications."
->
-> "followed by the number of the first day from the I<day> list to be shown in "
-> "calendar applications.  The default value of B<1> corresponds to either "
-> "Sunday or Monday depending on the value of the second I<week> list item.  "
-> "See NOTES."
+> From 0409c3370ddd08cec10586f6f52fe1fbe3c717ef Mon Sep 17 00:00:00 2001
+> From: =?UTF-8?q?Nikola=20Forr=C3=B3?= <nforro@redhat.com>
+> Date: Tue, 24 Jan 2017 16:35:02 +0100
+> Subject: [PATCH] pthread_once.3p: fix return type of initialize_random()
+>  function
 
-Patched as below.
+Please explain this change.
 
 Thanks,
 
 Michael
 
+> ---
+>  man-pages-posix-2013-a/man3p/pthread_once.3p | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/man-pages-posix-2013-a/man3p/pthread_once.3p b/man-pages-posix-2013-a/man3p/pthread_once.3p
+> index 316b1e9..db83d63 100644
+> --- a/man-pages-posix-2013-a/man3p/pthread_once.3p
+> +++ b/man-pages-posix-2013-a/man3p/pthread_once.3p
+> @@ -86,7 +86,7 @@ on entry to a routine, as follows:
+>  .nf
+>  \fB
+>  static int random_is_initialized = 0;
+> -extern int initialize_random();
+> +extern void initialize_random();
+>  .P
+>  int random_function()
+>  {
+> @@ -125,7 +125,7 @@ becomes:
+>  \fB
+>  #include <pthread.h>
+>  static pthread_once_t random_is_initialized = PTHREAD_ONCE_INIT;
+> -extern int initialize_random();
+> +extern void initialize_random();
+>  .P
+>  int random_function()
+>  {
+> --
+> 2.7.4
 
-diff --git a/man5/locale.5 b/man5/locale.5
-index b9abc3e8e..0a08b64e5 100644
---- a/man5/locale.5
-+++ b/man5/locale.5
-@@ -1215,9 +1215,9 @@ shall be used for Monday.
- See NOTES.
- .TP
- .IR first_weekday " (since glibc 2.2)"
--followed by the number of the first day from the
-+followed by the number of the day from the
- .I day
--list to be shown in calendar applications.
-+list to be shown as the first day of the week in calendar applications.
- The default value of
- .B 1
- corresponds to either Sunday or Monday depending
 
 
 -- 
