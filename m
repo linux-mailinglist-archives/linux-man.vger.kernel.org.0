@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9295F1B14EA
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 20:43:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A5B6B1B14EB
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 20:43:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726492AbgDTSnM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 14:43:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32906 "EHLO
+        id S1726947AbgDTSnO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 14:43:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32914 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725613AbgDTSnL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 14:43:11 -0400
+        with ESMTP id S1725613AbgDTSnN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 14:43:13 -0400
 Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9C777C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 11:43:11 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id t14so13436849wrw.12
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 11:43:11 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0272DC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 11:43:13 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id k13so12286323wrw.7
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 11:43:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references;
-        bh=LPQUiW4n52RGA1/Ez3dnpECS8IQGaUn5tR/29CpjMMU=;
-        b=N30oFbenKjqRplP8lMtVJ+Pip5GLd2gJYXvMCTj2iDgvmUABJfP7MEe/9tI9EmNHT7
-         O5rNS2nSKj1tN1M6e+xZ9CVJORszZGsaW216t8Bt8/O3nBCbGIvBJOfJzR08sxU9Vqfo
-         TZ4eETNlBOlXve1HVHEEawkeOuw1znNPvAntoblptLRBfDpo/rQq5M0vcamTv3cir0+r
-         Qhf5Gcv/SVVoVfP1ot4BjgExvU7ymBvb9iUeItut1/pQ8ThTkqVH42Q053+s2tfKzfhL
-         IGKlRbnDRoZ0erpoWryaiKTZicha2behkYX5utXdCrlGXLDf03ORIDAJqiOZkUrmGCYL
-         Rf4w==
+        bh=5WQIi1ze2bsxe6s3KlsKIewn9mtku6WXsxENVhpcTks=;
+        b=dcu+YxgcPKvwjBz5+BdAQL0zFQGbTfQ+S/aJiX6Ww9OUDlJY2Wb45T+0cipAoW45y2
+         /KLSxidZY4eOOLU8om0v5l7Yvk5O9A0lm0NIHpD8vI5BT1rphu0H2MhU5koPAcy65JJB
+         LgyqWJYxVJpiNR5cncX+vZx+7cYnPsbO54a4U5Wwk+1LpDl8hLMr6z6k/BBF0h8Ry12O
+         rIvaHlMPEYAcHQqVJh1gYC6xWzdWLOoovKrpgE8leXQXNUv71jB4ooNUQu8dbP01Ai3M
+         IjLKU1Zye7d0IwiQ39PvV1zRGk5Pq6vQ3LPe+Tx/USaQjWzVIUt+kHw2cNM9LJ4u0r7U
+         tpjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references;
-        bh=LPQUiW4n52RGA1/Ez3dnpECS8IQGaUn5tR/29CpjMMU=;
-        b=G6WtSMFhDkcC/p3HQEwL5/BQ2UsmYp3Hs4DNY9NvfS0FbX0XujgOPCIhVUHQNIfvv5
-         AbWoOc13YS5x9FGSQPioDf4RI1WqW4zQAHvtHIrPpVu03C9aAIwmEiu9rp+6t2ZVygBM
-         j1GgCEW7UmhLUcgGPSIMK/QMYlBY/a8vI1RpU0IxtkRJS6U4HJ0vSB5IQkSU8BCd/MfF
-         GmyZ+dQ+0cac+23Z1OnPcTa6tOu3iMsG89QZCZKpRHG2vJxxHgUBHUeRmO4oB9BMTNIf
-         sHhfR5VVZcM07eaLaCT9qD7fzz72QIMlniivWiUFwLOS2O/RyrLFUO4MO0roIIYB1GOm
-         DvBQ==
-X-Gm-Message-State: AGi0Pub1mRRcue/C76zp9QBgoq8hRsdGOTX4+W1ct80NyXWB9XhWcBtS
-        NH+YAqp9yma1wMhxSoRNOtA=
-X-Google-Smtp-Source: APiQypKm5l3SAlF6+lImYTjUGg8dn3EmHSgeiud0cYpyZJ2zWw0+pn+3O9400+eeGQhc3XX+BceTUQ==
-X-Received: by 2002:adf:edc6:: with SMTP id v6mr19742688wro.8.1587408190416;
-        Mon, 20 Apr 2020 11:43:10 -0700 (PDT)
+        bh=5WQIi1ze2bsxe6s3KlsKIewn9mtku6WXsxENVhpcTks=;
+        b=j52ViAonDI4uvRGCSStUHmGSI7mWrny/IspqXpBPvQrDPWSDQVKohAMJr44H1d/xHU
+         bP3y1PjzYT/EcNCVZldcfxwfwfZcmO3WZQEmLVbDMMXsCyb6ODomAL4Q4LWPOWhKHGvX
+         6y07Rt8OIhxKsw/oDy78Iq3pUS194o0SiVK8MsMHG2TYdUN5JjusHSwt1P96Hb5tPdoO
+         oKkHZ1YNzTCIVc5gIBoocPO1x6erMWoc40aIHjBzBDE7pD7Fm1Zhlxmdu18d1eIiIGH2
+         hjmxvmM5IYA/HPAKUhhkAkKTyh3mSU3QgOAmZAAsWXtfkNrWRpwkxrE5fnoY6aajt0ik
+         apZQ==
+X-Gm-Message-State: AGi0Pua2jzuJQJNAWHLKwU0fhUVtwjq/U0TWeBAXc+liimjFj4QzfwpQ
+        BHdIahvRFP+fKl4A3/zG54o=
+X-Google-Smtp-Source: APiQypI3nsQzhl1s+6lwvmUSWe4SaT/Oi2XygsROzEonNzlBqszffm4siClxo6kWbFRJkHfvAm8Msw==
+X-Received: by 2002:a5d:6188:: with SMTP id j8mr11712277wru.119.1587408191747;
+        Mon, 20 Apr 2020 11:43:11 -0700 (PDT)
 Received: from localhost.localdomain ([141.226.12.123])
-        by smtp.gmail.com with ESMTPSA id n9sm438873wrx.61.2020.04.20.11.43.09
+        by smtp.gmail.com with ESMTPSA id n9sm438873wrx.61.2020.04.20.11.43.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Apr 2020 11:43:09 -0700 (PDT)
+        Mon, 20 Apr 2020 11:43:11 -0700 (PDT)
 From:   Amir Goldstein <amir73il@gmail.com>
 To:     Michael Kerrisk <mtk.manpages@gmail.com>
 Cc:     Jan Kara <jack@suse.cz>,
         Matthew Bobrowski <mbobrowski@mbobrowski.org>,
         linux-man@vger.kernel.org
-Subject: [PATCH 2/4] fanotify_mark.2: Clarification about FAN_EVENT_ON_CHILD and new events
-Date:   Mon, 20 Apr 2020 21:42:57 +0300
-Message-Id: <20200420184259.29406-3-amir73il@gmail.com>
+Subject: [PATCH 3/4] fanotify.7: Fix fanotify_fid.c example
+Date:   Mon, 20 Apr 2020 21:42:58 +0300
+Message-Id: <20200420184259.29406-4-amir73il@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200420184259.29406-1-amir73il@gmail.com>
 References: <20200420184259.29406-1-amir73il@gmail.com>
@@ -62,47 +62,129 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Some of the new event types that were added in v5.1 along with init flag
-FAN_REPORT_FID are not eligable for reporting to a directory watching
-with FAN_EVENT_ON_CHILD.
-
-Document the events that cannot be generated on children of a watching
-parent.
+- The condition for printing "subdirectory created" was always true.
+- The arguments and error check of open_by_handle_at() were incorrect.
+- Fix example description inconsistencies.
+- Nicer indentation of example output.
 
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
 Reviewed-by: Matthew Bobrowski <mbobrowski@mbobrowski.org>
+Reviewed-by: Jan Kara <jack@suse.cz>
 ---
- man2/fanotify_mark.2 | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ man7/fanotify.7 | 38 ++++++++++++++++++++++----------------
+ 1 file changed, 22 insertions(+), 16 deletions(-)
 
-diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
-index 687e20f4a..7fbcd5e36 100644
---- a/man2/fanotify_mark.2
-+++ b/man2/fanotify_mark.2
-@@ -314,8 +314,21 @@ Events for the immediate children of marked directories shall be created.
- The flag has no effect when marking mounts and filesystems.
- Note that events are not generated for children of the subdirectories
- of marked directories.
-+More specifically, the directory entry modification events
-+.BR FAN_CREATE ,
-+.BR FAN_DELETE ,
-+.BR FAN_MOVED_FROM
-+and
-+.BR FAN_MOVED_TO
-+are not generated for any entry modifications performed inside subdirectories
-+of marked directories.
-+Note that the events
-+.BR FAN_DELETE_SELF
-+and
-+.BR FAN_MOVE_SELF
-+are not generated for children of marked directories.
- To monitor complete directory trees it is necessary to mark the relevant
--mount.
-+mount or filesystem.
+diff --git a/man7/fanotify.7 b/man7/fanotify.7
+index eaf2acf25..72e7e4fb9 100644
+--- a/man7/fanotify.7
++++ b/man7/fanotify.7
+@@ -938,21 +938,20 @@ This is followed by the creation of a regular file,
+ .IR /home/user/testfile.txt .
+ This results in a
+ .B FAN_CREATE
+-event being created and reported against the file's parent watched
++event being generated and reported against the file's parent watched
+ directory object.
+ Program execution ends once all events captured within the buffer have
+ been processed.
+-Program execution ends once all events captured within the buffer are
+-processed.
  .PP
- The following composed values are defined:
- .TP
+ .in +4n
+ .EX
+ # \fB./fanotify_fid /home/user\fP
+ Listening for events.
+-FAN_CREATE (file created): Directory /home/user has been modified.
++FAN_CREATE (file created):
++        Directory /home/user has been modified.
+ All events processed successfully. Program exiting.
+ 
+-$ \fBtouch /home/user/testing\fP              # In another terminal
++$ \fBtouch /home/user/testfile.txt\fP              # In another terminal
+ .EE
+ .in
+ .PP
+@@ -960,11 +959,11 @@ The second session shows a mark being placed on
+ .IR /home/user .
+ This is followed by the creation of a directory,
+ .IR /home/user/testdir .
+-This specific action results in the program producing a
++This specific action results in a
+ .B FAN_CREATE
+-and
++event being generated and is reported with the
+ .B FAN_ONDIR
+-event.
++flag set.
+ .PP
+ .in +4n
+ .EX
+@@ -974,7 +973,7 @@ FAN_CREATE | FAN_ONDIR (subdirectory created):
+         Directory /home/user has been modified.
+ All events processed successfully. Program exiting.
+ 
+-$ \fBmkdir \-p /home/user/testing\fP          # In another terminal
++$ \fBmkdir \-p /home/user/testdir\fP          # In another terminal
+ .EE
+ .in
+ .SS Program source: fanotify_fid.c
+@@ -996,7 +995,7 @@ $ \fBmkdir \-p /home/user/testing\fP          # In another terminal
+ int
+ main(int argc, char **argv)
+ {
+-    int fd, ret, event_fd;
++    int fd, ret, event_fd, mount_fd;
+     ssize_t len, path_len;
+     char path[PATH_MAX];
+     char procfd_path[PATH_MAX];
+@@ -1010,6 +1009,13 @@ main(int argc, char **argv)
+         exit(EXIT_FAILURE);
+     }
+ 
++    mount_fd = open(argv[1], O_DIRECTORY | O_RDONLY);
++    if (mount_fd == \-1) {
++        perror(argv[1]);
++        exit(EXIT_FAILURE);
++    }
++
++
+     /* Create an fanotify file descriptor with FAN_REPORT_FID as a flag
+        so that program can receive fid events. */
+ 
+@@ -1055,10 +1061,10 @@ main(int argc, char **argv)
+         }
+ 
+         if (metadata\->mask == FAN_CREATE)
+-            printf("FAN_CREATE (file created):");
++            printf("FAN_CREATE (file created):\en");
+ 
+-        if (metadata\->mask == FAN_CREATE | FAN_ONDIR)
+-            printf("FAN_CREATE | FAN_ONDIR (subdirectory created):");
++        if (metadata\->mask == (FAN_CREATE | FAN_ONDIR))
++            printf("FAN_CREATE | FAN_ONDIR (subdirectory created):\en");
+ 
+         /* metadata\->fd is set to FAN_NOFD when FAN_REPORT_FID is enabled.
+            To obtain a file descriptor for the file object corresponding to
+@@ -1068,8 +1074,8 @@ main(int argc, char **argv)
+            to accommodate for the situation where the file handle for the
+            object was deleted prior to this system call. */
+ 
+-        event_fd = open_by_handle_at(AT_FDCWD, file_handle, O_RDONLY);
+-        if (ret == \-1) {
++        event_fd = open_by_handle_at(mount_fd, file_handle, O_RDONLY);
++        if (event_fd == \-1) {
+             if (errno == ESTALE) {
+                 printf("File handle is no longer valid. "
+                         "File has been deleted\en");
+@@ -1077,7 +1083,7 @@ main(int argc, char **argv)
+             } else {
+                 perror("open_by_handle_at");
+                 exit(EXIT_FAILURE);
+-	    }
++            }
+         }
+ 
+         snprintf(procfd_path, sizeof(procfd_path), "/proc/self/fd/%d",
 -- 
 2.17.1
 
