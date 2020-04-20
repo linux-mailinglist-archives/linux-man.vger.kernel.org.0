@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C144C1B035F
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:51:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7A1881B0380
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:55:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725896AbgDTHvz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 03:51:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44332 "EHLO
+        id S1726048AbgDTHzk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 03:55:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44912 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725773AbgDTHvy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:51:54 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 513F1C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:51:54 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id j1so5436050wrt.1
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:51:54 -0700 (PDT)
+        with ESMTP id S1725886AbgDTHzk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:55:40 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E902CC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:55:39 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id 188so3724236wmc.2
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:55:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=b7hwuTIkw44SFcmWrfLtErnHfHvGk4ezIC/aF39KCgQ=;
-        b=L10oPUIE5BeSeo8y+JeYLxVDPPqjEpHUZ85anVBhA/kWYQOoobZHCWX80PMnj4x9fP
-         urtTbz+znSZ/XSdKRH+2MM1qdPMXC3qsNd5fHhmAuAPF0MkZ8IdomazScEgOuU5knr/d
-         utPxPBQybTHXVfELCdME946Err3agrG0KcMFL6blQoZoJ+1CnTKaemZb2h4X6Y8txpKg
-         9aPebgONZ6SibpWqK+Y5wgUhj1DIHHcpgIqDWeBFwT3rIxmQRA/NatnjeeHtcjll7Bwz
-         C7A2D9u9DfuPOTr1tEsONNoaCNIkwkwaxR6XpQ4NL23jRH4O0VjkOtXyUWzdLTykAZl3
-         Wyhw==
+        bh=UWtof6qUU8ookR0HodVmds3GipJF+BsAMthLWg7rHKU=;
+        b=iZC1aeiQMgZGvRCFCmcZdEkEYHzSaB9+NHy0cFmnPwi3Lr9/249kcscamaqmRBDaLN
+         s7rba+ghwGBd8mCJrcXX5B0VoBoaqUOen3C+ti5/0MQZRRSFD6iMNnoLSLHppwP9IcF1
+         naYLgmKaMmNpDPB0LTuIcuwtigiPCkerEk36aJOfeveVYQxAU0R3OjAOXgMw/ZklN/1n
+         j1SCoWy/R422BkC+JOX3iWs5LzF5JRDXQ7cxnknzPlKvr3E7KVAHCQxs1C0+AJ3nlmW0
+         qy8fud123COXwBE+PHyZbyhrcQrELMNuhdkCeTGSIArcP0OVWw5+bBqEcQp+jxQvczyq
+         sLJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=b7hwuTIkw44SFcmWrfLtErnHfHvGk4ezIC/aF39KCgQ=;
-        b=rtMomnRHe4KvFcvWlYeUOCT9skgHp6ePwIWMlq7H0EVklrqTiaYP2D1ikIu4EFXpFr
-         hX4Y1tH/Sd9OFQdlgs3wARbwkrRmnzi50X/SkaDXWtG+Sate7RgF8MWLBtKDg5BRgTNT
-         IcAmGFxnFc5qttI6V+pOlVqs28ENtXCPpGdMJdm9DbWpydyxsSW4Ir8bLSjfQpiSeSXh
-         qVUBDg1XA3IHFljpdckJ43IjKp4PiFUAvo+sHsFMaiubDWqSeNzvdOoi4v8k6Zu49BRJ
-         aWqambpoE3mjauMU3XUoD38cg2tY2te6+bX32hbO1UbA8YGXwKeBHRllRmD/nCET1OQL
-         fZ6Q==
-X-Gm-Message-State: AGi0Pua7nuCn3I+Ns0rWwoughoy6dI8WPvtNfNcTfXFjus+4I7dgk+42
-        T5kQSME/KyK4+cUApT4Usr3OXOAH
-X-Google-Smtp-Source: APiQypI+2kjkTqTLigp/bhO+B0x12tg6XR53SJdg57y3Owv1wRslBqsmqEiSPoVN31VmXJDcLsPGHQ==
-X-Received: by 2002:a5d:4404:: with SMTP id z4mr16989005wrq.316.1587369112744;
-        Mon, 20 Apr 2020 00:51:52 -0700 (PDT)
+        bh=UWtof6qUU8ookR0HodVmds3GipJF+BsAMthLWg7rHKU=;
+        b=e/qWX9luaAPcre7eqC6m+iX0pTV3TWVZcgE8yIHAVqr+Tofh3wfZpUdBriAJwiiPMi
+         BF0TDJZXWSPrM8w/7dqGQayWQxJ0rtw6RvaplmVbp/XgiRmuinNEfJ0bXBzfqHu/DH+F
+         GcWJ+O8Jq3NjzqhXBTghP4ceFEsVjjkat74P1TWqTON80rx41H9I5ehg9H5a4Fb3xdOD
+         KaFiItDXHu2k3Z5626LBTwn0cHYCw/C3A/hueK8gX5clyxLUDpjdWYgPaTQh5cBYjZjr
+         KSow5EA63QWgc46paP4U7KKIuI1hsydoqrd+bbE4Qcb9ndNFlM4pvbYE9Yt0TG++p1Vm
+         Or6g==
+X-Gm-Message-State: AGi0PuZ3O8lgp/kgNhKEJ7M4t+ZbQOMk/cvEljJ/hxShSmsZLIPPvysQ
+        HPAtLLeTp2rEwsk6/X1rMYGdBAxQ
+X-Google-Smtp-Source: APiQypIOiai3roy1GPJHf3voBk84dk0O3eqpqlcWFdeO0aCYMs8YR7sHovdFfj6gZz2LrJfWp8BKaQ==
+X-Received: by 2002:a1c:1f96:: with SMTP id f144mr15603035wmf.114.1587369338459;
+        Mon, 20 Apr 2020 00:55:38 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id a9sm237168wmm.38.2020.04.20.00.51.52
+        by smtp.gmail.com with ESMTPSA id k14sm84634wrp.53.2020.04.20.00.55.37
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 00:51:52 -0700 (PDT)
+        Mon, 20 Apr 2020 00:55:38 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: gethostbyname(3): Mixed brackets
+Subject: Re: Errors in man pages,here: st(4): Wording?
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064803.GA30724@Debian-50-lenny-64-minimal>
+References: <20200419064828.GA32187@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <b58ac405-0d9c-5df6-3b24-9a20f80416ff@gmail.com>
-Date:   Mon, 20 Apr 2020 09:51:51 +0200
+Message-ID: <32ce9f2b-4655-66eb-fe7d-3ab7f1b861a8@gmail.com>
+Date:   Mon, 20 Apr 2020 09:55:37 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064803.GA30724@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064828.GA32187@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -104,19 +104,19 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Second last line: s/(B<nsswitch.conf(5))>/(B<nsswitch.conf(5)>)/
+> report → support?
 > 
-> "The domain name queries carried out by B<gethostbyname>()  and "
-> "B<gethostbyaddr>()  rely on the Name Service Switch (B<nsswitch.conf>(5))  "
-> "configured sources or a local name server (B<named>(8)).  The default action "
-> "is to query the Name Service Switch (B<nsswitch.conf(5))> configured "
-> "sources, failing that, a local name server (B<named>(8))."
+> "The header file defines many values for I<mt_type>, but the current driver "
+> "reports only the generic types B<MT_ISSCSI1> (Generic SCSI-1 tape)  and "
+> "B<MT_ISSCSI2> (Generic SCSI-2 tape)."
 
-Fixed.
+I think the wording is correct, but am not 100% sure. Please send more info
+if you have any.
 
 Thanks,
 
 Michael
+
 
 
 -- 
