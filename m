@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9A0731B05DC
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 11:44:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D36441B05E6
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 11:47:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725775AbgDTJoZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 05:44:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33558 "EHLO
+        id S1725896AbgDTJrn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 05:47:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34070 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725773AbgDTJoY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 05:44:24 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9659FC061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:44:24 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id x18so11308941wrq.2
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:44:24 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725886AbgDTJrn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 05:47:43 -0400
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 097D1C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:47:43 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id k1so11306931wrx.4
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:47:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=oWYZ9mpUdnIRnUnbTCnAdergkoGbQPlQjC6SsSYGvis=;
-        b=tds/UXqAB8J0R4l023Wvg1JT31m3RZoQVitPKuN+MiFSov/7ySAPUFuKtpN87SCAMj
-         pwIs6xyUUkPDofACHCzkbO/APESbcAdNVlMnXz7SPYba833isH15AgzVbeMu3xtpvvp5
-         2TEgkG7YAO8khg9jggzEVQxYBiMPBWDziGSqb+bt9NyM68Oi7ZiqOMloCXIvAPCXLl7q
-         sM0zzgL1ljBce85pBI4oRHUuvRd4Yphn4fNfAiIo/kGkAtGphj6cuzypf1W1E/Bmdy9b
-         e9QLpccE7TQrPiCJiIvoaZthwXoM/0Q8CZvSAoOEKVoPnWxdhjiFeY2nXWVWmSkAq0xC
-         7n/g==
+        bh=AwruE+8Sev9eXxCFT6GXbI1zgcwHx9GAtHs0W5lvQsI=;
+        b=NUs6d0xlixzxx9Eharlkwe4NXY3w64Ie1l20QQoEnHV39C7FHgY6dAhYbw9+8tM17Y
+         7wpCerPvgdh1vBkCSpCZCs4aB/ZrElZKpg5hshg48muuqeER0jJaJA234dbS1NOISd4q
+         dac+VZEeMaFJC//qZPVUXkedlhtfyUNC0muKCM2+1KN8s3u6LJeQLtxq6dJOl1fZyGPo
+         sDE8ge0S8y7fiIPD1opv1CbhZCt2JrmjnEliAcA2Riqa8bAiiWyAew/YOVtjn+7j30yH
+         1beWco52Ss2A1KrnoCXpjsObwWu9PdJtoQYoz7oZwJCqR4oozaUQylPvHBQm8Tb8I19W
+         1lGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=oWYZ9mpUdnIRnUnbTCnAdergkoGbQPlQjC6SsSYGvis=;
-        b=b1OG7dFBo4U0j5m8NBWV3NmwXIux9luoPnxvp54PN5zU+NsGqymY3P25GYc5LQrdbO
-         LtOnsBHGsz7Pbi5RJQHxUwuuL5GA1n+ovdyxjs2T0mU/Mx00LvYIkbkuJzkB/hXIQVJ1
-         IolG/uYWtN1LK0rrzeW8PWcWoxMbeCfjKj5TMK6S1+9Hx3VxuVRN85Bo1g/CTxss8BZi
-         JQYGuQrn220c8OD3X9MxY+btfezfxkaJADtWF3rzIA8QuEs8lzxjL1+cWKJ2hF60xxRj
-         0p/VTrMWOTZnos7UboHT1TLAM8w62o611aewvRdIi99k3KRxtTfDo1pRckNm9Vfwk7/s
-         lLbQ==
-X-Gm-Message-State: AGi0PubGUszTrHU3czZcPP3Ec6VQDhAeIPHnEA7K7nz0594wumZdt8Xz
-        4yNwjHE5Q0Tn9nRF73TYl8GKbBRY
-X-Google-Smtp-Source: APiQypIxZ6imsxqorMcf+c8p4XMAfiQBBBvuOAIvoKmAtMYsvGJ3VmVpIC7nNcsPAkd6M3e8dJk6bQ==
-X-Received: by 2002:adf:df82:: with SMTP id z2mr19394741wrl.58.1587375863080;
-        Mon, 20 Apr 2020 02:44:23 -0700 (PDT)
+        bh=AwruE+8Sev9eXxCFT6GXbI1zgcwHx9GAtHs0W5lvQsI=;
+        b=kWrGhCD1JWEjC6R4jVnvxbu4nWqJ7hSCLXtBvAEc/BtPzmx9bDq9pNHtM3Lg5miXUM
+         y8lamHLZMMcbyqRimWmjjwmT2yfHgeTTPRPUvUr5OOPpMl97nTVMoeBRvuV7e0K5Z+aL
+         glITeqlHKpINMux82tInl77Art8lDg39OsF1+PFUFDmoYDhSigK/fICNtYrKsrFjLkGb
+         9eJMAfGKYiKuaBJJiN7zwog4NLaprYwZSSXUisaNCzir/q1IeqM4vr6xIGDv3iA3cnSx
+         zXOHo1uMLF5ivvlWLLwqb5AfetQvaDj6J18pOCXPEMa2cDbuW+sHCHXlJwB75r1/ui0V
+         nfEg==
+X-Gm-Message-State: AGi0PubsfVUcvEMBHoHj9S/46eFeGxqOTaI4f7HETluG3KIFX5ABBnY5
+        B+ON5CsMXxvZhD93EmAhLZa1qB+F
+X-Google-Smtp-Source: APiQypIdo6t3qVufV/UsmNxbMIzlUrTHuyHb9sD0x72E+yYCFFUVuYlMOAhnqIpT3rm3IVyD3Btrhg==
+X-Received: by 2002:a5d:6646:: with SMTP id f6mr17511457wrw.318.1587376061547;
+        Mon, 20 Apr 2020 02:47:41 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id 17sm641278wmo.2.2020.04.20.02.44.20
+        by smtp.gmail.com with ESMTPSA id a187sm608411wmh.40.2020.04.20.02.47.38
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 02:44:21 -0700 (PDT)
+        Mon, 20 Apr 2020 02:47:39 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: wprintf(3): Wording
+Subject: Re: Errors in man pages, here: sysconf(3): Closing markup
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064838.GA32725@Debian-50-lenny-64-minimal>
+References: <20200419064832.GA32377@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <1c1b7919-7cba-5ef0-621e-891844931db2@gmail.com>
-Date:   Mon, 20 Apr 2020 11:44:19 +0200
+Message-ID: <b3b6bba6-c419-402b-433d-cd7775da6005@gmail.com>
+Date:   Mon, 20 Apr 2020 11:47:38 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064838.GA32725@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064832.GA32377@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -104,34 +104,16 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> The text in the bracket in the 2nd sentence is difficult to understand
+> s/ order>/> order/
 
-I need a bit more elaboration here.
+The existing formatting is correct. ("order" is a keyword.)
 
 Thanks,
 
 Michael
 
-> "If no B<l> modifier is present: the I<const\\ char\\ *> argument is expected "
-> "to be a pointer to an array of character type (pointer to a string) "
-> "containing a multibyte character sequence beginning in the initial shift "
-> "state.  Characters from the array are converted to wide characters (each by "
-> "a call to the B<mbrtowc>(3)  function with a conversion state starting in "
-> "the initial state before the first byte).  The resulting wide characters are "
-> "written up to (but not including) the terminating null wide character (L\\(aq"
-> "\\e0\\(aq).  If a precision is specified, no more wide characters than the "
-> "number specified are written.  Note that the precision determines the number "
-> "of I<wide characters> written, not the number of I<bytes> or I<screen "
-> "positions>.  The array must contain a terminating null byte (\\(aq"
-> "\\e0\\(aq), unless a precision is given and it is so small that the number "
-> "of converted wide characters reaches it before the end of the array is "
-> "reached.  If an B<l> modifier is present: the I<const\\ wchar_t\\ *> "
-> "argument is expected to be a pointer to an array of wide characters.  Wide "
-> "characters from the array are written up to (but not including) a "
-> "terminating null wide character.  If a precision is specified, no more than "
-> "the number specified are written.  The array must contain a terminating null "
-> "wide character, unless a precision is given and it is smaller than or equal "
-> "to the number of wide characters in the array."
+> "indicates the maximum numbers of weights that can be assigned to an entry of "
+> "the B<LC_COLLATE order> keyword in the locale definition file,"
 > 
 
 
