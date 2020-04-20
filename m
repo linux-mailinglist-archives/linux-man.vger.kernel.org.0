@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id F32D31B02AE
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:17:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CDD431B02D4
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:23:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726006AbgDTHRC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 03:17:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38894 "EHLO
+        id S1726048AbgDTHXW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 03:23:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39878 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725994AbgDTHRB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:17:01 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 84E5AC061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:17:01 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id g12so10090306wmh.3
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:17:01 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1726039AbgDTHXV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:23:21 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 599A5C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:23:21 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id d17so10735578wrg.11
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:23:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=4AK6E5Td6I5vWmk1AZeq1MLoJu79nY470SmObpVkSqQ=;
-        b=hWNej5DzB1WeoCL0/p8Nlz6/MD0T/ROvJJnC+uNrPeLJRmpmInb2gXLtT28jxILjn0
-         FHa7Uk0aVbb22YCQvQNKdLkQqKAcxUSlBfDcPCrSdAfh7+PYE74vxeoRb1H1ZXuqhYid
-         27S4WeoCyRkx8T1cLBfzvu7xASNSCX5ezutj29ZPa3W+llD6bS+QkQPzUPGKCgjbbHMR
-         tHAngcWLfAk/+SMDhV4KUaFR87Dxm7jx8aiS/OI7gwW7AVoePv3Zf7SasVx2Mb9MxkXW
-         32dS54r5AKPkf7GkmMJGF4gOqzmRc9kEfVwhkf7OL9jXDAhatpWOiMuJeeP06SCrb3cq
-         qIug==
+        bh=pvqyUI4+fGLr3Go1fX7LitOanQwEbn6BJf2nfZge3hA=;
+        b=lEPcxffE2z8oe6OsKeoBzZ7K5TomTWMIALPaqqmjZtwoqT1uRgwFg4q9E0QQhe0rll
+         +eCV+MbkvQPoKKjuCNhLNBZKTau5aAN2Fcl6j0iQMU8WlzeGNlwmZD60Mof74ORdrOQR
+         JNklWNUHex6AR88BY/3iR5LAjDzjVEzDMrpl209mb5zJy8QZn18QraDTZZ3k0r6E8FVt
+         i8wFtxtrifdUCBdfiXpxKNEFsLf9KJTTE9kEQ3sh2mpl8lDsvoL08+bWUt9qUHpI6jpO
+         1u808ruaZcOvQVEdMIcqcpJxem4lq8Re+QV+jprYf3i9Igw9DOQ9ciTwnaF3sCSpmMoY
+         s29A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=4AK6E5Td6I5vWmk1AZeq1MLoJu79nY470SmObpVkSqQ=;
-        b=mkcgJAhyFKhpofYw/C4ptWaz/YfFP7KNh7u6mOW8lbzuP1tMG4JwP6rwQEGCuB/KYz
-         bk0Vcnvzgm1ZlpsWCVJ54uIjT24zA2WqrlsEAXjcULRJ4iiKxAphWX0xQDlx65/wgq3e
-         2C+qUB6Nnf3e561K/+GhmZaBbaiVRF9x9kKw6A7D+XsBdDjYaNVwAHdyzeDAi1Gc0OZX
-         xg94yYrc2nR0zfmVAGmWg7Bj+JI3QcB/SIqYPy7z7/ku2ns4SdRPbvWursZHZUYynANA
-         1+EhHp1Lbjy9tyWAskMgV+J/wWzQafzsO1IO57/iA7tBPKAx8+L7k/huArLwkFXWkUyx
-         eaCg==
-X-Gm-Message-State: AGi0PuZianpS7ckE4moAm5s90GQOqGohUjsONrZWxbRpXZAhx9dZGG5x
-        PdO/KHjGfyrHND5Aj4/qEWrFN+ng
-X-Google-Smtp-Source: APiQypLPYYWsyModuwD17f9WqzIZeStBY97QsGmaseNGchijcgxpOpFbuWMdU4ZEYPSP5YgnermT1w==
-X-Received: by 2002:a1c:3985:: with SMTP id g127mr16496587wma.102.1587367018419;
-        Mon, 20 Apr 2020 00:16:58 -0700 (PDT)
+        bh=pvqyUI4+fGLr3Go1fX7LitOanQwEbn6BJf2nfZge3hA=;
+        b=jt+dtboZVGm4AUwCNCaOu5uUEd3w8My5Xch6/shKLzWpzSaPu6024pBXXcKWGyg4Ob
+         JXvK8EwSo9hXkWHkqShWROONK1Oa4S0whMladYY+4pKOZ5iTog1ZBkTVvSyZdXei+D8i
+         uYkRYxKOAcdFlAAWixkxZWmQwKLQP1upnwEhh6TMoXSyXRvwbmmQ5RUlXzscpZehnU1T
+         ygy7ul8FVV4979NnqrVjvfFd0f6ZqDd/rVoVLlsDsvfBV1F+OoRvXLieFSTmHe+rNdeU
+         NdlvR6YyE+qrjvpt9ot4nAMxhGbwwia84ce4A+Zv+gfdjQL44fbC3myPdzZrc2d5X+g4
+         2l3Q==
+X-Gm-Message-State: AGi0PuZW5LmkrL8j63MhdsW67TGv4ZQHKd6YQcJP1B8gEOZ4xZr1nnA7
+        syBostmbC98uq2nyF9Kmrfupf9fy
+X-Google-Smtp-Source: APiQypI9O6OlRM+0bs5YB+rAAC+OhdKcKVX+wsMgDeYBWbG1oRnj33HSR8csuGUnRW4kKAgygg8Edg==
+X-Received: by 2002:a5d:6945:: with SMTP id r5mr18670335wrw.363.1587367399948;
+        Mon, 20 Apr 2020 00:23:19 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id y70sm151722wmc.36.2020.04.20.00.16.57
+        by smtp.gmail.com with ESMTPSA id i5sm8933127wrw.77.2020.04.20.00.23.19
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 00:16:58 -0700 (PDT)
+        Mon, 20 Apr 2020 00:23:19 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: wavelan(4): Wording
+Subject: Re: Errors in man pages, here: wavelan(4): Markup/Formatting
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064837.GA32702@Debian-50-lenny-64-minimal>
+References: <20200419064836.GA32609@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <efebf029-fc00-c8c0-19f9-974df8b1af23@gmail.com>
-Date:   Mon, 20 Apr 2020 09:16:57 +0200
+Message-ID: <726433d8-90cf-dd3b-6fcc-30b4f5451644@gmail.com>
+Date:   Mon, 20 Apr 2020 09:23:18 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064837.GA32702@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064836.GA32609@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -104,18 +104,28 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Enable you the → Enables you to
-> 
-> "Enable you the define the quality and level threshold used by the modem "
-> "(packet below that level are discarded)."
+> Why is wavelan marked up here? It is not marked up in other places.
 
+I changed it to B<wavelan>
 
-Fixed.
+But, I think the point is that this instance refers to the diver
+interface, while the others refer to "wavfelan" as a more general term.
+I agree that this is not easy to discern, though.
 
 Thanks,
 
 Michael
 
+
+> "I<wavelan> is the low-level device driver for the NCR / AT&T / Lucent "
+> "B<WaveLAN ISA> and Digital (DEC)  B<RoamAbout DS> wireless ethernet "
+> "adapter.  This driver is available as a module or might be compiled in the "
+> "kernel.  This driver supports multiple cards in both forms (up to 4) and "
+> "allocates the next available ethernet device (eth0..eth#) for each card "
+> "found, unless a device name is explicitly specified (see below).  This "
+> "device name will be reported in the kernel log file with the MAC address, "
+> "NWID and frequency used by the card."
+> 
 
 
 -- 
