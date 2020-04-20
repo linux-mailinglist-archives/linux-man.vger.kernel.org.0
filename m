@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 53DAB1B0352
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:45:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A56331B035A
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:48:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725815AbgDTHpg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 03:45:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43360 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725773AbgDTHpg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:45:36 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D59D5C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:45:34 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id j1so5415924wrt.1
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:45:34 -0700 (PDT)
+        id S1726161AbgDTHsy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 03:48:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43868 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725930AbgDTHsx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:48:53 -0400
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EF640C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:48:52 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id u13so10868775wrp.3
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:48:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Rcw2uhLp1kK/ZLffgauqb6Jk7LBt076yiNvas2X+Wbw=;
-        b=uDhUJaO+ZXQOYw5748GcIQ+TVDqN/39bIhtTr/EA1RWBrp6MxJ6Nwg024Aiime0MVy
-         TFCpz+jwQ+BWcaH+cnIZqlLCTyIqaSez4spZ1qJRgEypmWnt0vpyiOpcHSdMtEItmnG3
-         kTX/oacCGt4Fmr3SsNDSxZLEaZli50cJFhVOrfpTEjJfo8KI8W2VjlTCx61uUv0NoDOm
-         0MXywrGzjYF43csdwgghoQeQnYUvZ8r1MwR3k20qbQ00GlhoN32M+uBPUMRckvsJdlrD
-         Sq7Bm2YLR/22EDObxibHT7LrABoZJ8i3DHICl7flEhjWotQNATatXiwyYXnGjADdmx0v
-         7C4Q==
+        bh=FiZ6A4DiuHZDhQuFGiGjaVMjfhtQA+rKRP4eRwCvTnc=;
+        b=r8jdkmjBqcXsWiUgwERj8iuSn0nSwfougK/qYa9ZDqqCiYuU2jobNgcCSqu0Gq2Rxe
+         WPXbRby5MgSMKDoVBqX7z/9SR+ZCF4xuhJQKc3LS6GG7bvgkxX0nUla1fGffIzR77hFa
+         slzxeY3i7uvFPn7DN/99kyyTpByLTI9vHLv90xqqPP6hb5eJEKmp9d2O6KCACDnpfsa+
+         Mmz4HcuZ+NPzbum7ABbeTrZhfwqXXtN9BPbtr6qkHTHEcUIEYSBZpzrc6/jcbVvnCuDC
+         KY0WYAL/CZR/WMfBL+1/LohQzppTFjgs75TQs/KcqB49xebKqBeAIHWZ3G28RezrjUie
+         SnkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=Rcw2uhLp1kK/ZLffgauqb6Jk7LBt076yiNvas2X+Wbw=;
-        b=lBFD6B7r6vGWwy4pC4v4FrT8AFDnSNAewDyKgW0Vl9JsejHoP+NaILahUD2HMjwm13
-         CYfWka8hQwEqemBUiHTv/cHbCt5XzMsWsnNQkJgeYojQ6L0A1ewlWfEVG4o30idW99kI
-         AVndP7k3CywWd5GOSKfqwno2fEjARIM5yk7wUVOdFpWsaPzxVipT1pFBjuNs8I8L175h
-         vTG6DgHbcvgPf/1ppooMKWfJfYsCn5wk0oYlPMQBx25EBcJAgCsSO4bxBW6BhKhK5A9p
-         y4von8fq5TiP6xUH6BPCClws3g3KAAkYbsuFg4ouYWHBz/Kgzfm5PRjGSX0iH0BFZyHd
-         /WqQ==
-X-Gm-Message-State: AGi0PuYYcJPVKqmaata5hre26iK58Q8zmzhbMv0gHWdIB4thBGEWRFmY
-        +1mOwrupCwJA0eRtm301aRMhxnNm
-X-Google-Smtp-Source: APiQypJT1yOYOJQLFNsJiPZzheTiAzutlTHZK9SMBAiEp86heb8thAD5j9RmcujqxIJAkSMvk/p2Ww==
-X-Received: by 2002:adf:decb:: with SMTP id i11mr16562910wrn.140.1587368733390;
-        Mon, 20 Apr 2020 00:45:33 -0700 (PDT)
+        bh=FiZ6A4DiuHZDhQuFGiGjaVMjfhtQA+rKRP4eRwCvTnc=;
+        b=Sm0PdaGH5N4q1b57g0OUCfNk5o3XaFNqK75jrZTeD04Er4HWcEoMzx2LFwg0dCDbJN
+         mfr9ocf9RjrJXaJRkyJrmT5vMHoD2zxY1RoiWCgrqKLyD91t8NC77RLwqqmqm3YyKEPt
+         GgeF1ilQv/KhYyQcVnoDFVCBxFWFY9fkDSmSPNMuv19QoiGl7JLT3hAuBT81ANwdWYYB
+         bM5XmqvyZa/vxESAi/oZnPKnzwegoBkqEz7Vq1smqO+8uiBt25fd3bET8DD8vdMQdTaW
+         LzOewcduKR0ijRzQ0AQu12I4n9Vvnlung0k+vUj+LnjtxubS19QYvzSU7e0GmVUkYw2r
+         v1RQ==
+X-Gm-Message-State: AGi0PubKehlXN+yaEVqH72+R8CC7iJc+kKajBCDraUDNdLFaZKmE7Jxu
+        /tzjHpRUBDENASoAtYKdox3+nYhw
+X-Google-Smtp-Source: APiQypKwMo0zWosPPfqrnI94Yj9hN8NqgDBb22K9Dl9QdHaV7PNmxbI5x2yjhQPjM16BSRrEJf8PiQ==
+X-Received: by 2002:a5d:460b:: with SMTP id t11mr17048986wrq.319.1587368931570;
+        Mon, 20 Apr 2020 00:48:51 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id y63sm257287wmg.21.2020.04.20.00.45.32
+        by smtp.gmail.com with ESMTPSA id n9sm52346wrx.61.2020.04.20.00.48.50
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 00:45:32 -0700 (PDT)
+        Mon, 20 Apr 2020 00:48:51 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: dsp56k(4): plural/singular
+Subject: Re: Errors in man pages, here: getopt(3): Colloquialness
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064755.GA30283@Debian-50-lenny-64-minimal>
+References: <20200419064803.GA30770@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <09edb420-e9cc-6a6a-9320-b6b1533436f3@gmail.com>
-Date:   Mon, 20 Apr 2020 09:45:32 +0200
+Message-ID: <9f971277-c2e2-d5d1-d2ea-f93b65410d7b@gmail.com>
+Date:   Mon, 20 Apr 2020 09:48:50 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064755.GA30283@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064803.GA30770@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -67,7 +67,7 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
+On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > Dear manpages maintainers.
 > the manpage-l10n project maintains a large number of translations of
 > man pages both from a large variety of sources (including manpages) as
@@ -104,21 +104,38 @@ On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> member/members? There is only one?!
+> use of we
 > 
-> "resets the DSP56001 and uploads a program.  The third B<ioctl>(2)  argument "
-> "must be a pointer to a I<struct dsp56k_binary> with members I<bin> pointing "
-> "to a DSP56001 binary program, and I<len> set to the length of the program, "
-> "counted in 24-bit words."
+> "POSIX.1-2001, POSIX.1-2008, and POSIX.2, provided the environment variable "
+> "B<POSIXLY_CORRECT> is set.  Otherwise, the elements of I<argv> aren't really "
+> "I<const>, because we permute them.  We pretend they're I<const> in the "
+> "prototype to be compatible with other systems."
 
-This repoort appears wrong to me. There are two fields, 'bin' and 'len'.
-
-By the way, this report made me notice that the name of the structure
-itself is wrong: "dsp56k_binary" ==> "dsp56k_upload".
+POatched as below.
 
 Thanks,
 
 Michael
+
+diff --git a/man3/getopt.3 b/man3/getopt.3
+index eb840d045..9cedb05d5 100644
+--- a/man3/getopt.3
++++ b/man3/getopt.3
+@@ -350,10 +350,10 @@ provided the environment variable
+ is set.
+ Otherwise, the elements of \fIargv\fP aren't really
+ .IR const ,
+-because we permute them.
+-We pretend they're
++because these functions permute them.
++Nevertheless,
+ .I const
+-in the prototype to be compatible with other systems.
++is used in the prototype to be compatible with other systems.
+ .IP
+ The use of \(aq+\(aq and \(aq\-\(aq in
+ .I optstring
+
 
 
 -- 
