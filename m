@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8D7AA1B0205
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 08:58:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E08371B0208
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 08:59:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725959AbgDTG6D (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 02:58:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35944 "EHLO
+        id S1725930AbgDTG7E (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 02:59:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36098 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725815AbgDTG6C (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:58:02 -0400
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 85D72C061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:58:02 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id g13so8662095wrb.8
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:58:02 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725815AbgDTG7E (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:59:04 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 99F0AC061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:59:02 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id t63so8702818wmt.3
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:59:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=7OUbs6s+wrUNll6ZpjGyEdnkq280spTVxWp/C67I9xQ=;
-        b=r6Knla3jo3ktj63ApKXOKYDMZ364uxzg88VQfZAI2rp9zHqN+zsdUbDfxrWtZJUbSs
-         Hf1tIiCwEyyXSSZE07ndjoXiURD4ysYpXaOrGVrKTKPjC8PAkZE+jEoSa2rKbEx9cIwF
-         OapUJbS5UIW+doNZvzC0kWOfRTn79stix4vLXOAzlRgdzbeyJE9iR/cPUZpuv/eyk1PT
-         InDz+35yG1/ZKxEPJZI7K1oHOQctJTQgS8b2+9RoVkwR/2A233Dgrp6s8gaW4i73eY2G
-         LEd0w7+K92qRFxqQ7DzUbVnS7uKrfG8hueOpZsR8N1dPsLtncnU8Gyna3Nuu4F8SWWWk
-         i87w==
+        bh=CpevNsLHf1cBWofxAGYG+4TpSaOeRwlZpvfDZF4flIA=;
+        b=KDkdhvpWC8wcO094zYV5Dk/t70GqI8Ex+LhyllP4b4VmVV0GCF+j9sllE31QBSJh5B
+         haF/GzBvf8cC9GWOrRtXTR/1idh3n4o9X3kZOHyrkSqVMaYI1jQPz2vMiCdoC49HssLW
+         P84Tx651JBozE3HZyX1cgXR3Jr54gvznwT0niIl4abFhc8NDF6YsV/ADjpNf9IcZq628
+         IiZzO+RCX+XNDi2Fm89EOx52KUKCL1uR9m6zCZRr0lusYkokEj23w8J80dBiJaK0xNNh
+         JZMrvcz2XgDioU0qPebntueg09MmGJ++kT4hubHrEsR+9rfCv3ia+phjAZ9a5C+kcxDZ
+         FYfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=7OUbs6s+wrUNll6ZpjGyEdnkq280spTVxWp/C67I9xQ=;
-        b=JPKIvLFzDXaldfKKnGKVXcHElm3pevnL3NmnZr6JeoKvz59gEIwHiQHMWfa1ofAYwC
-         4n4KSHmiHQE/In9GGGwHMm+0rwKy0QVY+iwrM0PV3Cx8SaRG895E6FEAbtEaFZalwwG3
-         X8zOuMcEBuFmGrwwUQLW3TgO8IMn0oCkdVdqCHKD75gaT1QbobmZbEywBy/1WVI/IMeQ
-         7kh2ToyjYGkD4zjgsi4EGiyKxHG2rOw+c4uAjUI141gv7Tf3peJxgliotEIJeKsG5llD
-         9tokEbcp2XxWKoRAw1VmIoNzpPiKk91sJl0S60AQTduhKJOyYV1tpi7/LWkrWWIoDmXr
-         kCvw==
-X-Gm-Message-State: AGi0Pub/cOcsaiQyXm6/kN8+6cByFCDhfg7lYCG1qugtPO7C7am7V4WL
-        l3eEFljy9pcpBosUor8/x9hEFLD7
-X-Google-Smtp-Source: APiQypI0mBGBSzJMKrMaEwwc5jQ+4a2Uum1zXcYBQzdqnbHASi0pkfCpRipj/NYBpJTM9cASRzW5dA==
-X-Received: by 2002:adf:df04:: with SMTP id y4mr17155778wrl.413.1587365881129;
-        Sun, 19 Apr 2020 23:58:01 -0700 (PDT)
+        bh=CpevNsLHf1cBWofxAGYG+4TpSaOeRwlZpvfDZF4flIA=;
+        b=h+YJUPYvr03pF0dUgwEtNpDvoqVEo6GhPz5F+h3lehh1LXx0Q/zTYKDjK+iheUIcgP
+         CVBCEglTGb2ds18SqUcCypq9ZjPo2EeaP4QpRPbfW/5B4UZACWTIsVFVjX0WNJ8wZc3n
+         FB2I+YvL8VDAXY0thQmzDx1QjepOTO4HbWRUnGpaRTN9P/gpaefcvd9iXgro8H/ebD1F
+         j8JtVIpwrtTeL1AS0SPkfafxxFWTQE0vCkb1bsq96lF57NCLq/xSrRDOIsoGH7HpozCW
+         hTcAH1vn39cI3uW9d4CRxFt+j40ZiHDayTTrS4kb+wsbehsQdvGVbYhVBEShWvjjpsuQ
+         paEQ==
+X-Gm-Message-State: AGi0PuZdSO2KYy7CmK3V4l/+zK7gTV4r4BgDT4mpDIYj3Hgpn6fiiFPz
+        EyGRTevsBfOQ5L88/ilJF4iLVBm1
+X-Google-Smtp-Source: APiQypIMruzgJu0HbHaBm2hdhZX6fvz5gpm5fSjwHUPw+xKy1dkLN757fi6lXp8PLH46aNlsNNSeRg==
+X-Received: by 2002:a1c:2842:: with SMTP id o63mr15972385wmo.73.1587365941237;
+        Sun, 19 Apr 2020 23:59:01 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id g74sm71149wme.44.2020.04.19.23.58.00
+        by smtp.gmail.com with ESMTPSA id i17sm32989921wru.39.2020.04.19.23.59.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 23:58:00 -0700 (PDT)
+        Sun, 19 Apr 2020 23:59:00 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: console_codes(4): Improvement
+Subject: Re: Errors in man pages, here: console_codes(4): Punctuation
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064753.GA30191@Debian-50-lenny-64-minimal>
+References: <20200419064753.GA30168@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <b3c74e10-cfa0-fec8-161b-111679180431@gmail.com>
-Date:   Mon, 20 Apr 2020 08:57:59 +0200
+Message-ID: <9f143ac0-5b2e-7f75-249a-8fa93cbec55d@gmail.com>
+Date:   Mon, 20 Apr 2020 08:59:00 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064753.GA30191@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064753.GA30168@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -104,11 +104,17 @@ On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> interrupt -> abort
+> s/, and CAN/. CAN/
 > 
-> msgid "CAN (0x18, B<^X>) and SUB (0x1A, B<^Z>) interrupt escape sequences;"
+> "If we have a control character, it is acted upon immediately and then "
+> "discarded (even in the middle of an escape sequence)  and the escape "
+> "sequence continues with the next character.  (However, ESC starts a new "
+> "escape sequence, possibly aborting a previous unfinished one, and CAN and "
+> "SUB abort any escape sequence.)  The recognized control characters are BEL, "
+> "BS, HT, LF, VT, FF, CR, SO, SI, CAN, SUB, ESC, DEL, CSI.  They do what one "
+> "would expect:"
 
-Fixed.
+I think the existing text is okay. What's the problem?
 
 Thanks,
 
