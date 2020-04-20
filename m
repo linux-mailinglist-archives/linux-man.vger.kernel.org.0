@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 03A471B0449
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 10:24:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BC9481B0456
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 10:26:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725886AbgDTIYS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 04:24:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49412 "EHLO
+        id S1726124AbgDTI0L (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 04:26:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49710 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725773AbgDTIYR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 04:24:17 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1B4B6C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:24:16 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id g13so8945269wrb.8
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:24:15 -0700 (PDT)
+        with ESMTP id S1726099AbgDTI0K (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 04:26:10 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1CA2CC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:26:09 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id g13so8952193wrb.8
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:26:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=tnroc22xgJQdA4r807ZY73HdOXWT+rRcHr1GHtDywM4=;
-        b=Z/IFe7nG06XFVO52CTZiMeDyY6+36674XHRxJ8K75bP11Xcogasi5Swvk/a2NM5Ma1
-         bmJu65wKzbj/Mg8UR0prFGKaHYVZJPTY1yswGfmrvm14hkqdTjTrghobNW+p2bm1G9Xw
-         VN8tV0BgjG4uP6fHPXjkL1WqNq4NOimWV4bXcydDyKUIaZAracmC7WZAXVB/QliGPr2D
-         CJJtZFd49O6+ZR/VVgRkxfrm/sDIMv8dMEwUAmtMI5rZFK/t2T4lMzfJmHSMqjOUVqe9
-         Du2/yVjHwsO1kU0sCAO1p78/lUopmRSn9bk83MogRCjA9EgTJHbu2OtdDQYOupSrV16O
-         L2lw==
+        bh=dV9sb9Nqw84VdKfOAOTwNLjbMVEtvuB/Scvxnlo4JK8=;
+        b=hMJYPfm4dcaqEXlXU/YyhsQu914i4J5YrG15kk/IpPaDQfBZDjZYC4ca/ip3sReG1n
+         iSNqJJ1Ei0Bu45Frq/n8w/iDDlbTlUrqswv5UEb/gb7fcvXnO4B3XlAqtETXFNcu6YGs
+         iWdTk4b/wo7EftS136FstugapQDCPur3M/sgm4zYpYCUfbqy3UYW6kFUdqfxfDmiDt5S
+         tHT1yi6Xy/Xyaw1iTcGKLqZpkPnek/UnQqI+f0zeIxRFTp5NhB2ABncRnlA6B2wd68/W
+         wKD02PQA3N4cb0KnTrpg2t9je1Jb93nJkXHyCEXSQzOL3nCNrADaOESj6/CRuGhnhDLt
+         qJgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=tnroc22xgJQdA4r807ZY73HdOXWT+rRcHr1GHtDywM4=;
-        b=YkDCR1T10SlZ1wT6TVWt3wUZYVJmg0ij8D0C9OY5nM2I0UDlFz9eTTw+2o6Np+GIDm
-         hEENfoGjuh1NLeGQ4mhP4GTcmg9LdQi8vecLYUZnDh85ypT+dgetdWHwnvMqR5o6amrJ
-         rHOnRSYoWnIfG9fm5gHSfXIMWhWtl6RpoTXVosxt9Ej4b4nOQUKBypE5bj6cgcV+yeEy
-         zQyMqMb7dncRDANcyv3ydpm/yXncNJGFZiU6U2Cv3qJI78mQmIKsBOq2Zfe1Bmak+eAD
-         eSamAo6LY0vi/UKXr41Q/19tgjwUt0zBcz40puEYuIs90t57zvZrxhy8XS1hzlAqWZ2Q
-         tZig==
-X-Gm-Message-State: AGi0PuZEMnbjXItUF5YxX0jHK0jHZA2JHrNXLf0gvCP8decPYXlKPGyq
-        mARIAF3iFfbNqYxtctnSOfc/Ng1b
-X-Google-Smtp-Source: APiQypKk61d/mcWyhA0yTbUBiAx8Uv74Yhr3gU4IQJMBlXFsWGmPZctOafkGgSUOtT0dIUyQqOTfUQ==
-X-Received: by 2002:a5d:6851:: with SMTP id o17mr17044616wrw.267.1587371054429;
-        Mon, 20 Apr 2020 01:24:14 -0700 (PDT)
+        bh=dV9sb9Nqw84VdKfOAOTwNLjbMVEtvuB/Scvxnlo4JK8=;
+        b=KdqH8y2yw1sKCMuhBT+6anhiLpr2SSB3mfAL3C2QZKOykZ3Tku+ygOap9fVCfcBaTU
+         NyTcd31D+0F82z3mnli7mjgurS7wmFBWTVELNwn27jiYbNwf6ourGQ9q1bumus7AgFYO
+         Z1X9TV9+K3mLauowx7951U4fVWFXfmqwQ5ZUjtRyGJ3/nSpvQzw3VA7AyGCjgk/AtdOH
+         Yiy6nvBom89WigDNXABBuJ4Qe66TM7KU5Pp4PRYu75W0Pj36r8UeD7ttipmUiY7UOTYR
+         uJLUlIl03wyj6kneppGU56TC4ooekyEuJ79zn3wjJD+Jz7Mg7XqB+7oTt8SrUv85pM3E
+         /Z/g==
+X-Gm-Message-State: AGi0PuYckCeBNWhXtK8+HuwRLcuE9wzjHobjlXVKZ33S2oXjxg30bTZ5
+        K4BQRI5ajhBvqkm9nOpIIBqAru0p
+X-Google-Smtp-Source: APiQypKU5JkldQwabZwxODg4Jkk8vOo6VN67qlgrmwIAInmGI8BybeviwuMqkdECpScAP259LTaEPw==
+X-Received: by 2002:a5d:4e06:: with SMTP id p6mr15976024wrt.35.1587371167654;
+        Mon, 20 Apr 2020 01:26:07 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id j3sm196254wrw.28.2020.04.20.01.24.13
+        by smtp.gmail.com with ESMTPSA id o129sm413007wme.16.2020.04.20.01.26.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 01:24:14 -0700 (PDT)
+        Mon, 20 Apr 2020 01:26:07 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: signal(7): Unusual wording
+Subject: Re: Errors in man pages, here: signal(7): Wording
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064823.GA31887@Debian-50-lenny-64-minimal>
+References: <20200419064824.GA31956@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <195435c8-2a56-317e-6d96-b88793f5e044@gmail.com>
-Date:   Mon, 20 Apr 2020 10:24:13 +0200
+Message-ID: <b9cc503c-c302-2675-ba76-3d4b7ee6666e@gmail.com>
+Date:   Mon, 20 Apr 2020 10:26:06 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064823.GA31887@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064824.GA31956@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -104,32 +104,25 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> "elect", possible, but uncommon, do you mean "select"?
+> Current wording hard to read:
+> 
+> a)
+> "\"Input\" socket interfaces, when a timeout (B<SO_RCVTIMEO>)  has been set "
+> "on the socket using B<setsockopt>(2): B<accept>(2), B<recv>(2), "
+> "B<recvfrom>(2), B<recvmmsg>(2)  (also with a non-NULL I<timeout> argument), "
+> "and B<recvmsg>(2)."
+> 
+> b)
+> "\"Output\" socket interfaces, when a timeout (B<SO_RCVTIMEO>)  has been set "
+> "on the socket using B<setsockopt>(2): B<connect>(2), B<send>(2), "
+> "B<sendto>(2), and B<sendmsg>(2), if a send timeout (B<SO_SNDTIMEO>)  has "
+> "been set."
 
-I meant "elect" (as in "choose"). "select" would have been possible also.
+Please explain the problem in more detail.
 
 Thanks,
 
 Michael
-
-> a)
-> "A process can change the disposition of a signal using B<sigaction>(2)  or "
-> "B<signal>(2).  (The latter is less portable when establishing a signal "
-> "handler; see B<signal>(2)  for details.)  Using these system calls, a "
-> "process can elect one of the following behaviors to occur on delivery of the "
-> "signal: perform the default action; ignore the signal; or catch the signal "
-> "with a I<signal handler>, a programmer-defined function that is "
-> "automatically invoked when the signal is delivered."
-> --
-> b)
-> "A process can change the disposition of a signal using B<sigaction>(2)  or "
-> "B<signal>(2).  (The latter is less portable when establishing a signal "
-> "handler; see B<signal>(2)  for details.)  Using these system calls, a "
-> "process can elect one of the following behaviors to occur on delivery of the "
-> "signal: perform the default action; ignore the signal; or catch the signal "
-> "with a I<signal handler>, a programmer-defined function that is "
-> "automatically invoked when the signal is delivered.  (By default, the signal "
-> 
 
 
 -- 
