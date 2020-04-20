@@ -2,82 +2,134 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BA5B91B0526
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 11:02:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 57B4E1B0538
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 11:05:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725886AbgDTJCt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 05:02:49 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55382 "EHLO
+        id S1726245AbgDTJFZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 05:05:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55782 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725773AbgDTJCt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 05:02:49 -0400
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DC22DC061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:02:48 -0700 (PDT)
-Received: by mail-ed1-x543.google.com with SMTP id t12so3431495edw.3
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:02:48 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1726141AbgDTJFZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 05:05:25 -0400
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 419EEC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:05:25 -0700 (PDT)
+Received: by mail-wm1-x342.google.com with SMTP id 188so3952197wmc.2
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:05:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=0LBsgOC77o5ltO/DN7eZU7KPebavZVLH44PM/Xc0zU0=;
-        b=nN315t2UE+ffg0Ih5VrZCr7qywRVD5ef4Yzvn/kEWMqZgJ1QJLKpZR4PY6jQHIOT4J
-         GZ8qv7Pr5L0qBKh5mf3x+sQQB0q/fNKa3es4tcWv6CYnmtaiWge1JTFJ0PrQSsn5F8IE
-         +76GuNNxnXOZKFNsH2VLIDJTmMJZc1Ca3RvhSYPh+uqotmokiL3GpK6sybg6b5AKC/2e
-         0a63a0mQXgx603DtCCR4/Sk4gC/hfVi56YpmDOgbHgVgMEUgC26SKrHxhP0liEs34P7Y
-         tgB9e6reyy+kHrcSGoInW1Rz5Tp0Kbtsq7MZjnfIAkhG+lXgfavHk3je9vOK8gNWcT+8
-         NkgQ==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=FQtPv0PzJPki3llvGso9SxlRGcRQuk60aA5GqqUJmQY=;
+        b=hZLrhhydX2juH8wql44KmqLRTwQTpNAUkSJ9X+7sC5eKSEMwhvhux5le+7Or+WtsYh
+         Ek4BGe7UPOnZB7qohl927LP4F4Gvq9Tw0YjXXLofk+nXB4vXkMrxMmmw/Xs993GIdapy
+         1+GfSlyg38D3+bbCjEH+qvid/tqNKPudaF2kK/9DXGoe46xYIrlkEnRU/MAH+WuAGp8l
+         tRs7mdpLl7ju32QVnKtnEFApGTTXRJGjgjarAEr8kV9hViQYf5uFsgTTxwOPI8C8pSPW
+         Pi/JP7Cj1jaw69vKi6/y99GJTU87m1SGfH6Af1nfWqWa9GY/cFKofmvEPwrzUHofLdbW
+         my0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=0LBsgOC77o5ltO/DN7eZU7KPebavZVLH44PM/Xc0zU0=;
-        b=Is6HWnklVX82z3Y7Ax943+u3EJ6bXxWhMjgHqm6NmXbmV5KqIL1iB6CXYC1CooqSbi
-         sdL17PyepJiQXoWQ1MxKy/0UhRVevMaMPQia0643S+h7V+rsOPYkZDFjSP79YYv94IpU
-         4H2a/KVp4X1M17mZKzelCWqD5W+mQdzCEesOmmCLC6N7oeyuiGeL9vUlQfPHtQv/+Qdq
-         Kv3EV6VKKEkM5cIpqQXuTuf9JAx862mZyx87V1RSZPWpvJPDVNZ914WCS50wcS7lej6+
-         SlXOiPdzL25mafVTmJAwLXfdcpZkKD7Prl1XJDIu2QsABAClPhSvzYsE5rSDKQidOHud
-         0gdg==
-X-Gm-Message-State: AGi0PubFHQ7i8E5QN2FPHMt4uuCzKOWh8/LqO251eDvQGGm4+s6S3dpk
-        79yGwY+J1wYCJsAz4ViTLCXNuuTfkddVR3CTtJw=
-X-Google-Smtp-Source: APiQypKYSn0Ypht4po6Wr8F2mO2GHHvHp+eKyL+Mab3EZnSTGoF4xzDaBjbyoV8M8CTBkrRN08vTa9dgM7o4gB7b8Yw=
-X-Received: by 2002:a05:6402:7d6:: with SMTP id u22mr13110265edy.149.1587373367655;
- Mon, 20 Apr 2020 02:02:47 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200419064811.GA31233@Debian-50-lenny-64-minimal>
- <CAKgNAkh=65cH6S2xigJF6hjEMu+90=Co+GDV8OSzHU0C2XVYPQ@mail.gmail.com> <20200420085142.yprljwogzustfuxt@jwilk.net>
-In-Reply-To: <20200420085142.yprljwogzustfuxt@jwilk.net>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=FQtPv0PzJPki3llvGso9SxlRGcRQuk60aA5GqqUJmQY=;
+        b=HVNlJFKXrBUD8SZ5vPIIrpYGE7KGcua1MIVEROItIAlP+HemBoum59LG/YPv6KPjMa
+         wtT2zAojA4cm0j5xthngQpT6g0UZ7VxEocd1UCSG+GCZSq82HO09joBOKHv5szjE+HvF
+         Rfb2VvWyoUMKqZZP18qyrAj3snXdgvQvTaedb5dTaCcmGpR+oZeqB7l+h78oogCW1lFx
+         4lHZpTVo20Co8sdgQfMfs5TYBDQCTxltfu98M6hY8N7sjClMrfpqVRTXnkL8Pb+FDD4J
+         3EVcK1C2dFW5yhxPzQGZ/RcWbmpMLq1pBPXV/21yLgQTWjSTF4969xmz1FF+X8WSNcM6
+         SuEA==
+X-Gm-Message-State: AGi0PuaGHEKiXZ9mFm9foxcznpUgyIQT1AFSsr5illXAr3DeyzzM5e97
+        z/Ebz8aENsmnjBIq3RMpdoumgs+d
+X-Google-Smtp-Source: APiQypJpsaGXi47l28rO4iNK1r6N9orrOtGYjKoqE8wlavgkRcYxiy2K2GPq2xDHw8arnOOQPR/Onw==
+X-Received: by 2002:a1c:4d07:: with SMTP id o7mr17838571wmh.59.1587373523795;
+        Mon, 20 Apr 2020 02:05:23 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
+        by smtp.gmail.com with ESMTPSA id n131sm540051wmf.35.2020.04.20.02.05.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 20 Apr 2020 02:05:23 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Errors in man pages, here: networks(5): Question
+To:     Helge Kreutzmann <debian@helgefjell.de>
+References: <20200419064812.GA31279@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 20 Apr 2020 11:02:35 +0200
-Message-ID: <CAKgNAkietg1sq9uH6_eg=GHRzg_m72RBf_FOpt9qJewRJzPLsA@mail.gmail.com>
-Subject: Re: Errors in man pages, here: msr(4): Content
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     Helge Kreutzmann <debian@helgefjell.de>,
-        linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <0278a915-7fe7-dfc4-b1bb-105d74908afa@gmail.com>
+Date:   Mon, 20 Apr 2020 11:05:22 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
+MIME-Version: 1.0
+In-Reply-To: <20200419064812.GA31279@Debian-50-lenny-64-minimal>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, 20 Apr 2020 at 10:51, Jakub Wilk <jwilk@jwilk.net> wrote:
->
-> * Michael Kerrisk (man-pages) <mtk.manpages@gmail.com>, 2020-04-19, 22:48:
-> >>/dev/cpu not on my system
-> >Maybe this is a Debian thing? I have /dev/cpu on my Fedora system.
->
-> FWIW, it does exist on my Debian system:
->
->    $ sudo modprobe msr
->    $ find /dev/cpu
->    /dev/cpu
->    /dev/cpu/1
->    /dev/cpu/1/msr
->    /dev/cpu/0
->    /dev/cpu/0/msr
+On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
+> Dear manpages maintainers.
+> the manpage-l10n project maintains a large number of translations of
+> man pages both from a large variety of sources (including manpages) as
+> well for a large variety of target languages.
+> 
+> During their work translators notice different possible issues in the
+> original (english) man pages. Sometiems this is a straightforward
+> typo, sometimes a hard to read sentence, sometimes this is a convention
+> not held up and sometimes we simply do not understand the original.
+> 
+> We use several distributions as sources and update regularly (at
+> least every 2 month). This means we are fairly recent (some
+> distributions like archlinux also update frequently) but might miss
+> the latest upstream version once a while, so the error might be
+> already fixed. We apologize and ask you to close the issue immediately
+> if this should be the case, but given the huge volume of projects and
+> the very limited number of volunteers we are not able to double check
+> each and every issue.
+> 
+> Secondly we translators see the manpages in the neutral po format,
+> i.e. converted and harmonized, but not the original source (be it man,
+> groff, xml or other). So we cannot provide a true patch (where
+> possible), but only an approximation which you need to translate into
+> your source format.
+> 
+> Finally the issues I'm reporting have accumulated over time and are
+> not always discovered by me, so sometimes my description of the
+> problem my be a bit limited - do not hesitate to ask so we can clarify
+> them.
+> 
+> I'm now reporting the errors for your project. As requested, each
+> issue is sent in an unique mail for easier tracking on your side. If
+> future reports should use another channel, please let me know.
+> 
+> **
+> 
+> What is "this facility"?
+> 
+> "This file is read by the B<route>(8)  and B<netstat>(8)  utilities.  Only "
+> "Class A, B or C networks are supported, partitioned networks (i.e., "
+> "network/26 or network/28) are not supported by this facility."
 
-Thanks, Jakub.
+See below.
+
+Thanks,
+
+Michael
+
+diff --git a/man5/networks.5 b/man5/networks.5
+index 5f7477531..75ad20fc9 100644
+--- a/man5/networks.5
++++ b/man5/networks.5
+@@ -66,7 +66,7 @@ and
+ .BR netstat (8)
+ utilities.
+ Only Class A, B or C networks are supported, partitioned networks
+-(i.e., network/26 or network/28) are not supported by this facility.
++(i.e., network/26 or network/28) are not supported by this file.
+ .SH FILES
+ .TP
+ .I /etc/networks
+
 
 -- 
 Michael Kerrisk
