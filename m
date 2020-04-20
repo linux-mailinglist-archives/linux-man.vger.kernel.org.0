@@ -2,67 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C99381B02E1
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:27:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 890FF1B0306
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:32:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725994AbgDTH1N (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 03:27:13 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40478 "EHLO
+        id S1726173AbgDTHcH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 03:32:07 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41252 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725815AbgDTH1M (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:27:12 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 36319C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:27:12 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id u127so9015962wmg.1
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:27:12 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1726116AbgDTHcH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:32:07 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E142EC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:32:06 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id t14so10750217wrw.12
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:32:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Bu0B7F4lcUg3nPEgdPP50luelEtxCjfnkapXDyDwdyk=;
-        b=SYC69YTLj1uJ2WvBeV8asCsZbn8K+e4h3J9AXAuApTNTB4cpi9HjA9XrNGLBhkvXOk
-         8gmM6gW7t2SZg/tWS8LfZg94pbpWes8JUZiN6QBw9pHX9vBXCjPaAegXTuCSuuQcg2Jw
-         dFbleI0TRlGiAhb2oVTRSJIEjgfSp/oUIlnofplFMuOYGpdgimHk5WkpEtrCmexdf963
-         Kzz2yZjW1cnqEXf0lFOmTBhF8cxzPAjZpxSUYngdwXJqdb9AltXrUZaM6bXeGsC3HjMK
-         3ewlaU7GwB0KD131Px4+Xsg6zSvTgIQ4a+9oE0Xj/JCfT1UC3v6pnVnkWl0hcIlRSdqk
-         S7eg==
+        bh=IEvm3/NHbBpZEBSZ0hR+OLIVTxZKkWjBybp5m2tABAI=;
+        b=HTH4VTpkai7FvAHOETx3T9v06X2jxSrlsSDq7mbD+wzx+u68c8jAgRrY4lbY4E0gq3
+         VLtLVqjryC2jBefLUlSWCoIf0mE8F8wf3e3mQhHe/N8aGF3VAS+PRqt4ntZu+Q0VaOlf
+         5mVauUeBbRfbWA3TTp5iqi8fFJTdGhidrW0XynnJ7PM6roSxbCU9sYIVtBn1GtUe+F8d
+         QiZ86wl2P6Y4beIqEC6f2ZQ7AtZEXVIKCEnF4CHAh5vn6AOR3KfzdpY9LYKsgaZuquyW
+         NhKyFAQKt/ubPjqhDRmgiDm9EFcYPsxazO21L03jMAw0DzAzurIk1P30gBwWkxd4W+4z
+         0iQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=Bu0B7F4lcUg3nPEgdPP50luelEtxCjfnkapXDyDwdyk=;
-        b=Z/OFiQ2gbTgVljcwmh2fiLU4xNBKd0MwegXfUTs8Cz+trcEuEVo0i64cLyXmx2DIQe
-         TvJq1uww+dwF1mp6ZX8iZ/Iyj+7O7CkqynMOAe3WuI+gTaS0Z2RJjlUvknYO3D+f3gjw
-         8ALIakMVQ6cF1cHM668aRvVi3p5ko7hUKhOnLc9675ZajEVyzLqQEXoXh55jrbe5vtBI
-         cqkv/qa6UFKDNddo1nQfCl6YUsqgEDQoaVQy+Nw1h2u+eNyGlNWx84EktnZqn5NVtDGP
-         KcZewS7bLZ4PctsDuiVeDD7m1Hcre18VStgGhJII0VCiViHdwNDmxvlBFwYxmWluKGJj
-         Z5wg==
-X-Gm-Message-State: AGi0PuYW12u6P470UJm5D/f2GcLrTOH3YFfQcYAPotZ9tBf7eovt+uZS
-        nSqA/xv+as9q51BNHw5Lohc=
-X-Google-Smtp-Source: APiQypJrfZ1pFCnq2jp8fCKTBwlUKbXuVNQPo58/RNgprN1jDZqKDjAo4s/YKaCOvIWNu5Yxw/63mg==
-X-Received: by 2002:a1c:4b16:: with SMTP id y22mr16201530wma.170.1587367630832;
-        Mon, 20 Apr 2020 00:27:10 -0700 (PDT)
+        bh=IEvm3/NHbBpZEBSZ0hR+OLIVTxZKkWjBybp5m2tABAI=;
+        b=b6PeZFl63XFAiLT3SXWnam29jgmkDwJF0vvi5411sZC6CjOwe+hfjBbr/aiWYbs0qP
+         4OZgOnLNgjMYvNKuhOxeVsoN8A2TwKW2m/d/fThzk2yclmwf5gunoB8J3Enx8JIGKMIF
+         dBy+/BQdVpY7EfSNM6vRu7VONxc5Bb04FXe9a6uJmH061iYoQPWBPNDGvXA8TQLtjH//
+         ZNlGVqo2g2if2NmfahYVCzDSR3c9P7QC1xB+5+RaXvlKWR8Q4ZioxCq6aF/+Ucq3ycDU
+         6yX4iKgaNEmo1Rp95SdUzUns/TEl5uH+ChI3cDBrxIiThPPz85HdSdh36BvfskoWNjXg
+         jx7A==
+X-Gm-Message-State: AGi0PubOg/zujzHkzoONmZRm+iYCXG4JZDihk3jJd4amjkKqljrA3DLk
+        6gXTaxSPoN9s+gdbGJdn9uyHUiik
+X-Google-Smtp-Source: APiQypLk+3mEsBW+/WClVAloipEHv6CWjsaOsL/dRXAcnzontq2N6JcjZk96ohRgMG48WJXIzC40YQ==
+X-Received: by 2002:a5d:6acc:: with SMTP id u12mr18721815wrw.198.1587367925541;
+        Mon, 20 Apr 2020 00:32:05 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id t67sm192844wmg.40.2020.04.20.00.27.10
+        by smtp.gmail.com with ESMTPSA id s9sm24550wrg.27.2020.04.20.00.32.04
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 00:27:10 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Paul Eggert <eggert@cs.ucla.edu>
-Subject: Re: Errors in man pages, here: tzfile(5): Typo?
+        Mon, 20 Apr 2020 00:32:05 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Errors in man pages, here: proc(5): Explanation
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064834.GA32494@Debian-50-lenny-64-minimal>
+References: <20200419064816.GA31488@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <149e7d6f-1c0a-400d-7c34-a1bd4d284bdf@gmail.com>
-Date:   Mon, 20 Apr 2020 09:27:09 +0200
+Message-ID: <7c8f4bea-765f-6eac-f3dd-2bf66f906c87@gmail.com>
+Date:   Mon, 20 Apr 2020 09:32:04 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064834.GA32494@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064816.GA31488@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -105,17 +104,28 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> UT → UTC?
+> The last two entries (smart_*) don't have an explantion and are not 
+> easy to derive from the name
 > 
-> msgid "The number of UT/local indicators stored in the file."
+> "cache              buffer size in KB\n"
+> "capacity           number of sectors\n"
+> "driver             driver version\n"
+> "geometry           physical and logical geometry\n"
+> "identify           in hexadecimal\n"
+> "media              media type\n"
+> "model              manufacturer's model number\n"
+> "settings           drive settings\n"
+> "smart_thresholds   in hexadecimal\n"
+> "smart_values       in hexadecimal\n"
 
-I think "UT" here is intended to mean "Universal Time", and as such
-should not be "UTC". Perhaps Paul can comment.
+Changed to:
+
+smart_thresholds   IDE disk management thresholds (in hex)
+smart_values       IDE disk management values (in hex)
 
 Thanks,
 
 Michael
-
 
 
 -- 
