@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A56331B035A
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:48:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 212881B035B
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:49:50 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726161AbgDTHsy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 03:48:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43868 "EHLO
+        id S1725971AbgDTHts (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 03:49:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44004 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725930AbgDTHsx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:48:53 -0400
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EF640C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:48:52 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id u13so10868775wrp.3
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:48:52 -0700 (PDT)
+        with ESMTP id S1725773AbgDTHts (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:49:48 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CC842C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:49:47 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id x25so9860747wmc.0
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:49:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=FiZ6A4DiuHZDhQuFGiGjaVMjfhtQA+rKRP4eRwCvTnc=;
-        b=r8jdkmjBqcXsWiUgwERj8iuSn0nSwfougK/qYa9ZDqqCiYuU2jobNgcCSqu0Gq2Rxe
-         WPXbRby5MgSMKDoVBqX7z/9SR+ZCF4xuhJQKc3LS6GG7bvgkxX0nUla1fGffIzR77hFa
-         slzxeY3i7uvFPn7DN/99kyyTpByLTI9vHLv90xqqPP6hb5eJEKmp9d2O6KCACDnpfsa+
-         Mmz4HcuZ+NPzbum7ABbeTrZhfwqXXtN9BPbtr6qkHTHEcUIEYSBZpzrc6/jcbVvnCuDC
-         KY0WYAL/CZR/WMfBL+1/LohQzppTFjgs75TQs/KcqB49xebKqBeAIHWZ3G28RezrjUie
-         SnkA==
+        bh=BFsKBX8MpjC+d5TnH/ePOT9CbTSh9O9auMGzn+x0mGs=;
+        b=o9eNKOGZzJXgAR+UrwhL2FcIvErLKOF9UaHflEeWGvtTzxbSWL50pNG1rtKxZi29Fa
+         9ABrPNneYlRdQoF9rTz2WxYEWZmftP/JvgnGFVN+TDNJSR/HLI16IEPfVBmPU4BbXLgw
+         Fv62XIx+/gjYT7XMwBTKCvvGOVsw6ddSSvPlg4alW7g0E2FDa231iR1p2tFEzHpkGgWO
+         p8YILycMjUpyrwJzgWv2jLIoV0EfEcnl7YH/klHMcPLvKRa5sygPzcj8FjpVY8yH1K9t
+         T9ugzLUUqBgKwt14trXSYY6vacl24+HM/RuDqOSSkC6dF4JKzkgPBk9QmIOpTjePNJMO
+         sgoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=FiZ6A4DiuHZDhQuFGiGjaVMjfhtQA+rKRP4eRwCvTnc=;
-        b=Sm0PdaGH5N4q1b57g0OUCfNk5o3XaFNqK75jrZTeD04Er4HWcEoMzx2LFwg0dCDbJN
-         mfr9ocf9RjrJXaJRkyJrmT5vMHoD2zxY1RoiWCgrqKLyD91t8NC77RLwqqmqm3YyKEPt
-         GgeF1ilQv/KhYyQcVnoDFVCBxFWFY9fkDSmSPNMuv19QoiGl7JLT3hAuBT81ANwdWYYB
-         bM5XmqvyZa/vxESAi/oZnPKnzwegoBkqEz7Vq1smqO+8uiBt25fd3bET8DD8vdMQdTaW
-         LzOewcduKR0ijRzQ0AQu12I4n9Vvnlung0k+vUj+LnjtxubS19QYvzSU7e0GmVUkYw2r
-         v1RQ==
-X-Gm-Message-State: AGi0PubKehlXN+yaEVqH72+R8CC7iJc+kKajBCDraUDNdLFaZKmE7Jxu
-        /tzjHpRUBDENASoAtYKdox3+nYhw
-X-Google-Smtp-Source: APiQypKwMo0zWosPPfqrnI94Yj9hN8NqgDBb22K9Dl9QdHaV7PNmxbI5x2yjhQPjM16BSRrEJf8PiQ==
-X-Received: by 2002:a5d:460b:: with SMTP id t11mr17048986wrq.319.1587368931570;
-        Mon, 20 Apr 2020 00:48:51 -0700 (PDT)
+        bh=BFsKBX8MpjC+d5TnH/ePOT9CbTSh9O9auMGzn+x0mGs=;
+        b=ATICfU2u9UqcDfZ/P13cakTh02wUbvzWccpNhvpm6NO5trbWCSfRu/LXgS77mQTZdq
+         VcuZJmleMCG9p0vNVaBzT6OMYvRah6xI3f2sSm/dkdtuKohhUOqbvs6ne1J2chliN74j
+         mNfgFM6lGUS6cOLjpB1zxD9GI2LgwEE3y+2oOl3dnJjaRyz1iIf3aKP4ov84Q89p2NqF
+         FuDoHud2HlLsGkei0ec3CMSbrs4GaJmdK+3qs2DaDa54Yz1yCAUOBbzPhCXYqUCqTL9+
+         QokOVMaZrziFawcUts7TKFSbRKY5LzreJv7pSG0rJkbZJqLCxPW1gOrU41SjYxX3O2dD
+         zxUA==
+X-Gm-Message-State: AGi0PuaFA/qVF1srAxtl04i1XBQka9hSEph/KBBBrg4tf7GCmCzEFLlr
+        dZVuK6Wxcvdpr/g/FvkHGUFE3sTL
+X-Google-Smtp-Source: APiQypK2mwhX8boV1+P14ukOwp4bFJXRKKLUu7SMB+Q9M4IdJmAldbLfvb9VM+2qJEren7L8FPW31w==
+X-Received: by 2002:a7b:c0c5:: with SMTP id s5mr1762791wmh.134.1587368986407;
+        Mon, 20 Apr 2020 00:49:46 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id n9sm52346wrx.61.2020.04.20.00.48.50
+        by smtp.gmail.com with ESMTPSA id x132sm289848wmg.33.2020.04.20.00.49.45
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 00:48:51 -0700 (PDT)
+        Mon, 20 Apr 2020 00:49:46 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: getopt(3): Colloquialness
+Subject: Re: Errors in man pages, here: hosts.equiv(5): missing markup?
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064803.GA30770@Debian-50-lenny-64-minimal>
+References: <20200419064804.GA30794@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <9f971277-c2e2-d5d1-d2ea-f93b65410d7b@gmail.com>
-Date:   Mon, 20 Apr 2020 09:48:50 +0200
+Message-ID: <9cdea164-b0d6-db19-984b-b2e2b420a460@gmail.com>
+Date:   Mon, 20 Apr 2020 09:49:45 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064803.GA30770@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064804.GA30794@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -104,37 +104,15 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> use of we
+> Markup in NAME possible?
 > 
-> "POSIX.1-2001, POSIX.1-2008, and POSIX.2, provided the environment variable "
-> "B<POSIXLY_CORRECT> is set.  Otherwise, the elements of I<argv> aren't really "
-> "I<const>, because we permute them.  We pretend they're I<const> in the "
-> "prototype to be compatible with other systems."
+> "hosts.equiv - list of hosts and users that are granted \"trusted\" B<r> "
+> "command access to your system"
 
-POatched as below.
-
+I agree that it's unusual. I'm not sure it's a problem though.
 Thanks,
 
 Michael
-
-diff --git a/man3/getopt.3 b/man3/getopt.3
-index eb840d045..9cedb05d5 100644
---- a/man3/getopt.3
-+++ b/man3/getopt.3
-@@ -350,10 +350,10 @@ provided the environment variable
- is set.
- Otherwise, the elements of \fIargv\fP aren't really
- .IR const ,
--because we permute them.
--We pretend they're
-+because these functions permute them.
-+Nevertheless,
- .I const
--in the prototype to be compatible with other systems.
-+is used in the prototype to be compatible with other systems.
- .IP
- The use of \(aq+\(aq and \(aq\-\(aq in
- .I optstring
 
 
 
