@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E56131B0220
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:03:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 301611B0289
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:15:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725994AbgDTHDH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 03:03:07 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36748 "EHLO
+        id S1726063AbgDTHPG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 03:15:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38598 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725959AbgDTHDG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:03:06 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 31C4CC061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:03:05 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id g13so8677899wrb.8
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:03:05 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1726023AbgDTHPG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:15:06 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B9BDBC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:15:05 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id d17so10711015wrg.11
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:15:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=IjCFHzfQLBOKYh03vToN+61e4DfdDHbDdDY2717/OkE=;
-        b=Mrhue6cp++fhl/MRYV5pZRrR/UD0hi6HGSHdwcG3BplT+mPUDU6uVi/2gZWscCQgX6
-         JrL5FVSosxKrPTyogVwU7AoktTph+pwKxUkRdlk0swiCuL2yEEjV50z4Ez1KoDiFEJG1
-         LmZD9vRhfk7On8F25Ey05BPjF/6wiUbGr87+ukZxrXVmgwzXp00g+GcLQOkgCfxpQeea
-         RSyulcBVbrGBcgA+d8s6SPOe50EGvjVlg6X6mrq5iV+y17LTmX3O+5MufuBuaooqQIqe
-         vRTlkWu9DnCTunYWnIIgYhmCbh2HhQm9IL+4z2jmBkzLacDJHLlEfps9u0LS//R5VRG/
-         mWlA==
+        bh=r1k7U1pOhuKFlO5Wz2pdvMiDXBV+NGUeKD2c0V3fJNE=;
+        b=nAU2GIppHchw+bazrTJHzygcFMN3gRxaIIE1IWs+oe+0dqJyBfhPhvlBMixDT6wIo4
+         Fu2OJbuqMUHgvEPVOSfYnpR8w+MNLYX+wrw2emTWJ0myaGO8dFctqcR9nzFUJQRMu3az
+         tFptWk1Lu9JKEAjLf027KN9AEqgNRk7CQMqDl2bSdOQNgBs+lueMrRLP9vwcM7ZmEcE4
+         Uy3PlWcuxCPQZ1slqXpBnWR0MPvelJTGyTR3ZVV4YYgiTZnR36YXOXQxNbOOk8KLgb+8
+         vMqxSQeTNsLpAtmYiPZ3ps20Ym3tJSH79FoRlX08YsS6Ow4uwsN2WxrKb4MUEvJ8uYXl
+         /JAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=IjCFHzfQLBOKYh03vToN+61e4DfdDHbDdDY2717/OkE=;
-        b=qnbJMFUsNIFVDOtcDagoI3ElaSkyHjfN0aobkAu1YCzzy4C6ZSeTy8mbfvtSBEY5V0
-         MUvlZX4REGqoFz+z/9lAnhyNjVlDTFue6q6EU28BUzdk+k/7i2HDAtHErUx2eMc6yjtH
-         8r/8N6WSvwOEWs8xumbKzik51YXnozrYViRuUR9S3P/+3e3pIHf5OPoGBkVOFKkLriBp
-         pAXkSb2mmKFQZQtoEezL3Qf/GkUNVPuNtF7ewcxLQX4a+Mi4xZa/iqg6qAHmRinyzUP6
-         zqnd6if8vw3WXjqIlj8f+j7dnRf/vnCZ9y4ow+V3+kbmMgrsWUOfK9Uy2Wcu9+R6unX/
-         lgtQ==
-X-Gm-Message-State: AGi0PuZHLVcI33eqwVAJXNXGS73e6wJmpBe92i1ItlLW0Z/6xqZ554Jx
-        uUj65T5BEwI5YQAwU36K4jSXY9wp
-X-Google-Smtp-Source: APiQypIo/V2PTnLPSGs2IMaiosT6AL4Drdr4MklE1fKNc5NrKubCkUqkJ1fog7/C1IhnQCWitRYEKw==
-X-Received: by 2002:a05:6000:14c:: with SMTP id r12mr16535076wrx.62.1587366183701;
-        Mon, 20 Apr 2020 00:03:03 -0700 (PDT)
+        bh=r1k7U1pOhuKFlO5Wz2pdvMiDXBV+NGUeKD2c0V3fJNE=;
+        b=rxc4tAIgqGIigCwwuGT+qaUCzKCTADXSNZBjIiY8gw7+j0EFlttdwNgd61qGjbFVXb
+         jWLdBvnU7wBbqWz1ZeUp8yOewep8ViMNDRSvW8GNRcMkvBng207Vfn2dS5/+q0dc8a8A
+         Yh2tlyOV30YRbOGSMfQCk8IjgJYbXp0mdUbYZ9ConqeG3LlhGIKleAkEKcDlt1GCDscm
+         jb8qEXGPbcDKbsJTLthqkiqyqzd/tmafPtVdVH31qBsFbp4PwIABFFjj7qosUOIEzsMr
+         rMx852qW+lof/EwBFW6p7JjWgTD5X0kSw2BIPaMLozJ1HGbPJi3maWLdBgC0B/7DbOQX
+         VPaA==
+X-Gm-Message-State: AGi0PuYQ+c0hQkc4SWahtBa938ZZOqjl2FLxZsfYQEey0JF5P85zxuJp
+        cN03PK/0nKfpfrq+mtfUv7YMqXmx
+X-Google-Smtp-Source: APiQypJrAj0MUmux1GapYUv2imxalMb45xphTMGOhrsgVIQ8BLWGMnEgQw+QvY2q/h5CsuCLBhsoUw==
+X-Received: by 2002:a05:6000:1287:: with SMTP id f7mr17639395wrx.345.1587366904329;
+        Mon, 20 Apr 2020 00:15:04 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id a9sm91790wmm.38.2020.04.20.00.03.03
+        by smtp.gmail.com with ESMTPSA id x13sm168492wmc.5.2020.04.20.00.15.03
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 00:03:03 -0700 (PDT)
+        Mon, 20 Apr 2020 00:15:03 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: times(2): Content
+Subject: Re: Errors in man pages, here: wavelan(4): Wording
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064833.GA32471@Debian-50-lenny-64-minimal>
+References: <20200419064837.GA32679@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <b4ff410f-f674-3aa3-10e4-96b34f1981b2@gmail.com>
-Date:   Mon, 20 Apr 2020 09:03:02 +0200
+Message-ID: <bfa1a9d0-bb5c-3fb5-f7f0-9df53adf03fb@gmail.com>
+Date:   Mon, 20 Apr 2020 09:15:03 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064833.GA32471@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064837.GA32679@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -104,22 +104,34 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> The sentence is not logical, a = b + a?
+> The beginning of the sentence is broken, missing words?
 > 
-> "The I<tms_cutime> field contains the sum of the I<tms_utime> and "
-> "I<tms_cutime> values for all waited-for terminated children.  The "
-> "I<tms_cstime> field contains the sum of the I<tms_stime> and I<tms_cstime> "
-> "values for all waited-for terminated children."
+> "For the 2.4\\ GHz 2.00 Hardware, you are able to set the frequency by "
+> "specifying one of the 10 defined channels (I<2.412,> I<2.422, 2.425, 2.4305, "
+> "2.432, 2.442, 2.452, 2.460, 2.462> or I<2.484>)  or directly by its value.  "
+> "The frequency is changed immediately and permanently.  Frequency "
+> "availability depends on the regulations..."
 
-I believe the sentence is correct.
-
-a[parent] = b[children] + a[children]
-
-Do you see what I mean?
+Fixed as below.
 
 Thanks,
 
 Michael
+
+diff --git a/man4/wavelan.4 b/man4/wavelan.4
+index 1e6e3f447..2aa3d7977 100644
+--- a/man4/wavelan.4
++++ b/man4/wavelan.4
+@@ -79,7 +79,7 @@ specifying one of the 10 defined channels
+ .I 2.422, 2.425, 2.4305, 2.432, 2.442, 2.452, 2.460, 2.462
+ or
+ .IR 2.484 )
+-or directly by its value.
++or directly as a numeric value.
+ The frequency is changed immediately and
+ permanently.
+ Frequency availability depends on the regulations...
+
 
 
 -- 
