@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 96B481B0550
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 11:14:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0B6351B0557
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 11:15:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725971AbgDTJOF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 05:14:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57134 "EHLO
+        id S1725896AbgDTJPI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 05:15:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57302 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725865AbgDTJOE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 05:14:04 -0400
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E5619C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:14:03 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id k13so9951732wrw.7
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:14:03 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725865AbgDTJPI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 05:15:08 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DF4ADC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:15:07 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id y24so10478261wma.4
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:15:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=9rCsD920BGTDizhrRMJ1/dolKyp9wSEPtOq4GAyoZv4=;
-        b=K/nvU1to2j6n/cjeXx4PafbmDyV17I+3hv1vEZJs+7qjhsfoKOyKQp10uR5kmyzSNw
-         O6+Pizwb1vJyRGwLfYroTKW4X1jU5IVbOA8uLc8zPKi4MP1At/OkTkKBEkEolcpLz83G
-         lt5NHLMSeW69mbj5/CX+o+dERemwVCvFITsULVO/EZJzSk3ZuUl/a/4tVWFzWdepSt6U
-         /Ug17QCuCihDoFCPUdQCyO31uT5WroSAENKMz8VLi3+yByGUGZ5Jea8dxeoJOp7kkUxo
-         D4HFfnDC4Tk6vlSm+d/8r+U1q//1QkquMbklWz6AJepmsQadMYO1m2SuYBRpf5GjOAEe
-         G7TA==
+        bh=Y01s2bLQXXizrBXgNg6eHcRNMt9hDzJaM0uFlb3AH0M=;
+        b=EkuxNKcLyJep99n2QoSw4qYEbJITWOhoEGlNS6wHzDhAj7Hl6jl3jJuLtKuwzou4Ae
+         hYUQSdCxIuGNrgeqm+rITU3LGmYP6NHS8NI+TTRupkbVMlrUSo3pKf/fll3acbm+9MI8
+         w3iGH3XF/uVl28qmQtIqfuT4lkkznyvNGLLg6uOxdA+V0/c+GlSyq31pGCvMFaqI4vEg
+         q/Fpl5F7uC/2veQSE9CFhafAcKafIqQFXzQJhedBL4kWa1+0TnLnQBTLKUuM9Xnft4Z4
+         Qh2wsgK/FMbOKLer1A+2RnS1eQiMHBylLC8u7yJekNLGsFdCqmlN/4I+TosNOUBKkYYF
+         SGXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=9rCsD920BGTDizhrRMJ1/dolKyp9wSEPtOq4GAyoZv4=;
-        b=o100FpXY23dnHs2gTScnF/rVhcPAHmNU3Wr+kGF8r6+waGNceBKir4ApgJGjxqxUyN
-         MsN06/tnBzQ4Wi4cy1QsCjNqNE9UradCb+GRrQ3Btrs/rE+rInFzr3g6yrDM9Q9Fmuer
-         DMxnH4/mRB7WN6c6sod2we5L/lvU7QkztZ4OCN97E2mBIk8LGYtr0fApIQETTbPJHgHr
-         PfSW90WXF9nMOJKhvpWB3Wmr8Rb+5LqFYLw/psv896ZOBK7g3vGt96v72GTnHlHV8b1r
-         s3LDCWPsrp32OhiQoSXzYwd5shbyRoC8+u6qJWyFJOKM/TNBpOVy0c0esjfJxDXUErm8
-         RVFQ==
-X-Gm-Message-State: AGi0PuZdedREQ139zzxpLipSlnhQzQxTWpPSg28vnW1TJjBDs0X6mrGr
-        Z3cPCfU9agPCp0jNpYncmzwarZjX
-X-Google-Smtp-Source: APiQypLlaDU789xLEO/KdRKgZiBsIrUedahQXxG6gbkdso5cbft2K2/hUDGQaEmf+Q82Y7s7fYNONg==
-X-Received: by 2002:a5d:4b43:: with SMTP id w3mr17933629wrs.208.1587374042529;
-        Mon, 20 Apr 2020 02:14:02 -0700 (PDT)
+        bh=Y01s2bLQXXizrBXgNg6eHcRNMt9hDzJaM0uFlb3AH0M=;
+        b=P7VNfd8rprRPd/Nzz1mJMOPO2JBCJPhtvSp3ow20mXk9y2AvF8xevUoIJJcM8wc2yI
+         twBhlwbRWJCMhR0klvwYsOtgx9N5UX8vWxUuU5MjUXFPQq7V2OIvFKT9ttSoKemJkF2U
+         txSNJpdqxpnXXSS959sDuATN+teyFrCP7vBpLxiHqz0ldUlojYznD+B6JXIqW1StOEbf
+         p8Mdw7eFRxz4obc6WAbQzwdfG/JFSmRGvDISNrjtydoehPsQAWFpJjkzJHqpB13DWE5U
+         Y2coaRre5ggLPfGCubivu2j1G9YWK3HFQ9aDhrIE8Pe9xOZ3O/KYp+8r5HLrMRnAHUD5
+         BK2A==
+X-Gm-Message-State: AGi0PuZlJCwO1b1/WeyW5+VuUq9V1tTxCS335UOVS4VH3UUT1maGxs4V
+        UHE5fxZEMYCr+nZqGbj4h1tiUmGJ
+X-Google-Smtp-Source: APiQypKgfDFihZ4Sopr0s/8SDaFEoe6WLEHjUtQSM5Nzks5UuGsiB838i12L6xg7r+RU4awDW4F6Lw==
+X-Received: by 2002:a1c:9d0d:: with SMTP id g13mr17490312wme.102.1587374106449;
+        Mon, 20 Apr 2020 02:15:06 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id a205sm580847wmh.29.2020.04.20.02.14.01
+        by smtp.gmail.com with ESMTPSA id g15sm310515wrp.96.2020.04.20.02.15.05
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 02:14:02 -0700 (PDT)
+        Mon, 20 Apr 2020 02:15:05 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: tzfile(5): Missing/Wrong markup
+Subject: Re: Errors in man pages, here: termio(7): Formatting
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064834.GA32540@Debian-50-lenny-64-minimal>
+References: <20200419064833.GA32448@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <68bcedff-6518-f942-8b9d-e77682533a1d@gmail.com>
-Date:   Mon, 20 Apr 2020 11:14:01 +0200
+Message-ID: <b50cc304-38d8-1c7d-459d-a63fe4d71521@gmail.com>
+Date:   Mon, 20 Apr 2020 11:15:05 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064834.GA32540@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064833.GA32448@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -104,20 +104,18 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> timezone → B<timezone>(3) and B<tzfile> → I<tzfile>
-> 
-> "It seems that timezone uses B<tzfile> internally, but glibc refuses to "
-> "expose it to userspace.  This is most likely because the standardised "
-> "functions are more useful and portable, and actually documented by glibc.  "
-> "It may only be in glibc just to support the non-glibc-maintained timezone "
-> "data (which is maintained by some other entity)."
+> Formatting/Markup termio?
 
-
-I can't find this text. Please elaborate/check.
+I think it's okay as is.
 
 Thanks,
 
 Michael
+
+> "If you're looking for a page called \"termio\", then you can probably find "
+> "most of the information that you seek in either B<termios>(3)  or "
+> "B<ioctl_tty>(2)."
+> 
 
 
 -- 
