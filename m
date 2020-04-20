@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 979B61B0162
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 08:12:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1859F1B0163
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 08:12:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725971AbgDTGMf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 02:12:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57184 "EHLO
+        id S1725988AbgDTGMj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 02:12:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57196 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725780AbgDTGMf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:12:35 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B4ED9C061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:34 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id x4so9612668wmj.1
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:34 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725780AbgDTGMj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:12:39 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 43E6AC061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:39 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id b11so10577795wrs.6
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=PwGHHDjhKwrwDctFQgO9p3ZdqQtA+qaTr1dfybuyDa0=;
-        b=h0v5m+b7a2ObbNJG+J8lyQdwcrHsbxKCCbSdKsIl9/t9FoYiIUe237vfSdruClQLKv
-         Lq7w7TxEotqTTTiScuxxVL7giAvfg+5hEYD261z1hDxUFNt+VCA1dARR8hpVPAP/pDML
-         GhRf2fSTHaj8Omu1yZElrCQUofA5QciYUPorvOP2YU+QHWYhs8hX1vj7k99aa7ZPV8I9
-         mcoqUvY8pzbG4vaA4Mx8c2fkntT7fG98t+V7Ry0NojFQXIwg4GGwO771760OugCI2IjE
-         0KT8xQpp1J+zZWHT6OIs8d8uE/JJf5jhbXhuRB/dSCM6Dn06f9QR9M/PCJBTdDZQRvr8
-         aj+g==
+        bh=0+DUopHVngHcQDguVkTuo594UiJoo3NdtibuDbLjvls=;
+        b=AGCBCbLrUnAJgdI92AzwhcORByUxtZpk9UqHB+BkjT4MAZ8beqQ99CfbhdUO9Gst8Y
+         dpO8SbNY+iwZpjMjp6cTVdUT/BYSMU3Gi5W9oXY1TZ2LI7tQYD+fYbUrX5Arxq8btNbJ
+         7vii5XN4lMV0gU5eenFSwZpF4DXObJGAE0BkpvGocQjCA53eX67efPsc5LIaywtQck63
+         rMCaduWg2Wgfi2s1D1qa+JYV72qZb4R3J5BION0Zf3PMb1rzgESKx+9Iyqhmcw1bfTMt
+         zhLWiDU2Um+ITcpX2JYK8jrBSFRJ7hxOOadxQnBdEkvBL/Fh5eeefqYYSxxGsoLLCQ7t
+         r5LQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=PwGHHDjhKwrwDctFQgO9p3ZdqQtA+qaTr1dfybuyDa0=;
-        b=Nb8JAapcHSPcOI71OZrAe9k/SszvsLnHaR284ll0pTZh/tMDQb1SkFcIt73ev6Um25
-         vbW+9CGEMAlUjlF4Gp+PSMiKhKmUXrt07bYph8kzJwCWkaxfGZRV4wkwJ4LOUJo5Qykz
-         SP8xxI9Wd6aZAEoYfm9CBJdrmZ2UDWrfkZDSzGl5iYbK4tdfSKeq06Hx+50mwH2dGdKs
-         0w6w1WTpP9Zcn6EIwY/hfJj9zYHoeiHfcS2ppqkg0fZEwrRmkkpTnYLtvfgWFfcp6zVu
-         B8OYoYNOH8hHs7TL6I3/mMxtr+MHEJPB+JNhciTl8AHbo15Lj5VKyR9i/M3Ly1NmVbq1
-         QGUg==
-X-Gm-Message-State: AGi0PubBwYROx7QhuchyROb6ZDWENxXfZjem7Gs9liZhff5Y2SN0/34g
-        R5kZ18sJLlrqMqSMp1zsjlaVHno5
-X-Google-Smtp-Source: APiQypJrDJ7BpOtbfvfMpOCQrMBjYQDdkoop9VDkd7JoZtbPz1c48GtWRPnsOQ1E2Lq7lZYTB36S8Q==
-X-Received: by 2002:a05:600c:4401:: with SMTP id u1mr15584599wmn.31.1587363153352;
-        Sun, 19 Apr 2020 23:12:33 -0700 (PDT)
+        bh=0+DUopHVngHcQDguVkTuo594UiJoo3NdtibuDbLjvls=;
+        b=WIzOitJJnjmPqsicviYEzf8jF+egdkc39UqTj3yUnZtDwownpOi58V881Ccl2AG3J1
+         alHAjNwYzJZHRIfqCWttKiyf0tnIWN9YXIlE9vaVs7O5jnpRhGDb431APCsVs4wUUfib
+         cyr+4n0E2nkZ8i4+Rxes19lewytOdZCMOhisjrqCby/L0NNa2et1sJd2yDW9fuADSNQw
+         zRNvR6Alj8x1ffEF3m57k2TLecgYPf7WyWaATb5X8RU2Hxj7Do6jvKZzQUS+QaSwwCfb
+         230oodqBWf+kcvP4YLcM3mIsx5UooTfssLWSThioKYcU1HNf9pdlpogvzX6IU0Bb0SSR
+         8yBQ==
+X-Gm-Message-State: AGi0Pua9HbR3ERia2mm8dpWlexBqyCIT1yD6ImwlQ747rEYNIMwq2S8t
+        yfmUOV0Hwfnr0kK5Is9F0ycpHBCD
+X-Google-Smtp-Source: APiQypLQjPLhlCgUriUepUDz7HoJwZfqi+fEuSvMxFK+Uvqo1F1YLM7BMzZ3/MNY3oeVXrn8KZKIFQ==
+X-Received: by 2002:adf:ed0e:: with SMTP id a14mr16687666wro.400.1587363157870;
+        Sun, 19 Apr 2020 23:12:37 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id s8sm13047268wru.38.2020.04.19.23.12.32
+        by smtp.gmail.com with ESMTPSA id j3sm112977wrw.28.2020.04.19.23.12.37
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 23:12:32 -0700 (PDT)
+        Sun, 19 Apr 2020 23:12:37 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: random(4): Singular/Plural
+Subject: Re: Errors in man pages, here: st(4): Missing closing bracket
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064819.GA31654@Debian-50-lenny-64-minimal>
+References: <20200419064829.GA32210@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <32c7d19a-ac60-0250-869a-5b5c707b56e2@gmail.com>
-Date:   Mon, 20 Apr 2020 08:12:32 +0200
+Message-ID: <72256890-790b-678e-fefd-f265989a4dd0@gmail.com>
+Date:   Mon, 20 Apr 2020 08:12:37 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064819.GA31654@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064829.GA32210@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -104,12 +104,16 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> vary → varies ?
+> Missing closing bracket at the end of first sentence.
 > 
-> "This file gives the size of the entropy pool.  The semantics of this file "
-> "vary across kernel versions:"
+> "The only field defined in I<mt_erreg> is the recovered error count in the "
+> "low 16 bits (as defined by B<MT_ST_SOFTERR_SHIFT> and "
+> "B<MT_ST_SOFTERR_MASK>.  Due to inconsistencies in the way drives report "
+> "recovered errors, this count is often not maintained (most drives do not by "
+> "default report soft errors but this can be changed with a SCSI MODE SELECT "
+> "command)."
 
-"semantics" is considered a plural noun, so "vary" is right.
+Fixed.
 
 Thanks,
 
