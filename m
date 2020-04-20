@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C436F1B0214
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:00:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E56131B0220
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:03:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726006AbgDTHAx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 03:00:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36392 "EHLO
+        id S1725994AbgDTHDH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 03:03:07 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36748 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725815AbgDTHAw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:00:52 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7C383C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:00:52 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id d17so10668963wrg.11
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:00:52 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725959AbgDTHDG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:03:06 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 31C4CC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:03:05 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id g13so8677899wrb.8
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:03:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=lEjmuzvnGm+H/SVj13edgxiIdFfRqht4AyFss+HUOyo=;
-        b=a29uP/ErlRQPY+liSGEUgaq2p0/xVtv4v/KYjAmA5qjl1bYbPXU8gp/7ILovMaqx7z
-         4frYkyQlo6wU+Fv8aELClWM5s2C9vUIvRPh7wm4BCo2RB5jmpwd/cbZIJ2tCMxhqSpiE
-         bPBQ5fmz6aOGMbMYRroqFNpzQNETCoUDN7Oko/Bc6/jECqAQFn4c8Vz9Q7wnEvGbGUdq
-         yExi7wkLOtJSLbi//BPv92gbDdfR3Jr6rMXs3FMwZJqs0L72jTi5S/QcCgWOTvw4r5Zs
-         QsgzxEs9ue0udg+CsLi2Zvnb7ac8zwS3VV4M6tGWNNJHtDwjEsGVcqfhySRmVw4DSsV/
-         zMVw==
+        bh=IjCFHzfQLBOKYh03vToN+61e4DfdDHbDdDY2717/OkE=;
+        b=Mrhue6cp++fhl/MRYV5pZRrR/UD0hi6HGSHdwcG3BplT+mPUDU6uVi/2gZWscCQgX6
+         JrL5FVSosxKrPTyogVwU7AoktTph+pwKxUkRdlk0swiCuL2yEEjV50z4Ez1KoDiFEJG1
+         LmZD9vRhfk7On8F25Ey05BPjF/6wiUbGr87+ukZxrXVmgwzXp00g+GcLQOkgCfxpQeea
+         RSyulcBVbrGBcgA+d8s6SPOe50EGvjVlg6X6mrq5iV+y17LTmX3O+5MufuBuaooqQIqe
+         vRTlkWu9DnCTunYWnIIgYhmCbh2HhQm9IL+4z2jmBkzLacDJHLlEfps9u0LS//R5VRG/
+         mWlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=lEjmuzvnGm+H/SVj13edgxiIdFfRqht4AyFss+HUOyo=;
-        b=DlzQVTPFFws+iTWNmRSagvEppn2siSgRunDoUmlozpC8nLp4P4Wh8IOPeR0WfxAnYh
-         9z0DWu0GTq+lsAT/JLRkYvN9jCfmb7MRvYnWqnY+GxRv+/rZyVxMYFvhn4vApNlsjcoC
-         RT9MGuq31uZU+wkd0JA3kO/R5inpL79XBVr5CWo/T5X2is3XTcmJ8f4pzAunpaJCQeVr
-         Kts4lap/v3j2gllcPqwZ5AnKZ0nJEoDBk1wLY6bTqNpB87bSGXlHt0l3HEzS8BpjDQm+
-         uxcnLOHkVyJB3MWc5GQlWrUQoL+TtmY+sTinUtVWWeGjVRVB5cubH0/CshtCay6+/6zR
-         zYyw==
-X-Gm-Message-State: AGi0PuZy/NNHKrW6gtisLEHvL3jqssugbHCQ6A6mutL9/rutpB4qw+cS
-        aIaBOBtbg0/pUfp9ss78ep+SU11q
-X-Google-Smtp-Source: APiQypJHl0uXp+csvcXHcbW2cstqxw8aqaqNnscQXqt5mGu3E3h4gvzDAV6ecIpNL32c7My4I8kw9Q==
-X-Received: by 2002:adf:c442:: with SMTP id a2mr16842554wrg.110.1587366051047;
-        Mon, 20 Apr 2020 00:00:51 -0700 (PDT)
+        bh=IjCFHzfQLBOKYh03vToN+61e4DfdDHbDdDY2717/OkE=;
+        b=qnbJMFUsNIFVDOtcDagoI3ElaSkyHjfN0aobkAu1YCzzy4C6ZSeTy8mbfvtSBEY5V0
+         MUvlZX4REGqoFz+z/9lAnhyNjVlDTFue6q6EU28BUzdk+k/7i2HDAtHErUx2eMc6yjtH
+         8r/8N6WSvwOEWs8xumbKzik51YXnozrYViRuUR9S3P/+3e3pIHf5OPoGBkVOFKkLriBp
+         pAXkSb2mmKFQZQtoEezL3Qf/GkUNVPuNtF7ewcxLQX4a+Mi4xZa/iqg6qAHmRinyzUP6
+         zqnd6if8vw3WXjqIlj8f+j7dnRf/vnCZ9y4ow+V3+kbmMgrsWUOfK9Uy2Wcu9+R6unX/
+         lgtQ==
+X-Gm-Message-State: AGi0PuZHLVcI33eqwVAJXNXGS73e6wJmpBe92i1ItlLW0Z/6xqZ554Jx
+        uUj65T5BEwI5YQAwU36K4jSXY9wp
+X-Google-Smtp-Source: APiQypIo/V2PTnLPSGs2IMaiosT6AL4Drdr4MklE1fKNc5NrKubCkUqkJ1fog7/C1IhnQCWitRYEKw==
+X-Received: by 2002:a05:6000:14c:: with SMTP id r12mr16535076wrx.62.1587366183701;
+        Mon, 20 Apr 2020 00:03:03 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id n2sm22441331wrq.74.2020.04.20.00.00.50
+        by smtp.gmail.com with ESMTPSA id a9sm91790wmm.38.2020.04.20.00.03.03
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 00:00:50 -0700 (PDT)
+        Mon, 20 Apr 2020 00:03:03 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: dsp56k(4): Singular/Plural
+Subject: Re: Errors in man pages, here: times(2): Content
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064756.GA30329@Debian-50-lenny-64-minimal>
+References: <20200419064833.GA32471@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <0bf9fae9-e815-f3b4-38cf-74bcd0ba1ab3@gmail.com>
-Date:   Mon, 20 Apr 2020 09:00:49 +0200
+Message-ID: <b4ff410f-f674-3aa3-10e4-96b34f1981b2@gmail.com>
+Date:   Mon, 20 Apr 2020 09:03:02 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064756.GA30329@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064833.GA32471@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -67,7 +67,7 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
+On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > Dear manpages maintainers.
 > the manpage-l10n project maintains a large number of translations of
 > man pages both from a large variety of sources (including manpages) as
@@ -104,15 +104,18 @@ On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Can there be more than one padding byte? If yes:
-> s/a null byte/null bytes/
+> The sentence is not logical, a = b + a?
 > 
-> "sets the receive word size.  Allowed values are in the range 1 to 4, and is "
-> "the number of bytes that will be received at a time from the DSP56001.  "
-> "These data quantities will either truncated, or padded with a null byte "
-> "(\\(aq\\e0\\(aq) to fit the native 24-bit data format of the DSP56001."
+> "The I<tms_cutime> field contains the sum of the I<tms_utime> and "
+> "I<tms_cutime> values for all waited-for terminated children.  The "
+> "I<tms_cstime> field contains the sum of the I<tms_stime> and I<tms_cstime> "
+> "values for all waited-for terminated children."
 
-I don't know the answer, sorry.
+I believe the sentence is correct.
+
+a[parent] = b[children] + a[children]
+
+Do you see what I mean?
 
 Thanks,
 
