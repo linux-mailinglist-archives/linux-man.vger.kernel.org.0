@@ -2,76 +2,99 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B30B11B04C9
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 10:49:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 257411B04CF
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 10:51:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726006AbgDTItk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 04:49:40 -0400
-Received: from smtpout1.mo529.mail-out.ovh.net ([178.32.125.2]:38727 "EHLO
-        smtpout1.mo529.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725865AbgDTItj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 04:49:39 -0400
-Received: from mxplan6.mail.ovh.net (unknown [10.109.146.239])
-        by mo529.mail-out.ovh.net (Postfix) with ESMTPS id 8B41E306BC0F;
-        Mon, 20 Apr 2020 10:49:37 +0200 (CEST)
-Received: from jwilk.net (37.59.142.96) by DAG4EX2.mxp6.local (172.16.2.32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Mon, 20 Apr
- 2020 10:49:36 +0200
-Date:   Mon, 20 Apr 2020 10:49:32 +0200
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-CC:     Helge Kreutzmann <debian@helgefjell.de>,
-        <linux-man@vger.kernel.org>
-Subject: Re: Errors in man pages, here: signal(7): Sentence to long
-Message-ID: <20200420084932.xvz32vuv7uqudyih@jwilk.net>
-References: <20200419064825.GA32002@Debian-50-lenny-64-minimal>
- <0f760556-f587-fbb0-581c-d0f5a38ad23e@gmail.com>
+        id S1725971AbgDTIvO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 04:51:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53574 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1725896AbgDTIvO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 04:51:14 -0400
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F0C3DC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:51:12 -0700 (PDT)
+Received: by mail-ej1-x641.google.com with SMTP id gr25so7239823ejb.10
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:51:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=r9N7Yr5/J8/DUekrT7B7XxT9NC2Wr8uGEwUoP3kgmRw=;
+        b=nqmQlQgLNZ/dqEDdLsbDgNM9iS+Si14e6dZxkD3ckLfD6b08e53BWbaCg8DRsK36jW
+         rtjENZ2QyAWOqeP221sVedpMLGe+pA0h8nbUbFdBEuGPaTaxH/rVdNo86MvFcky8SuSS
+         dOqurmxIujk4356JLiz9jr779SbzVzuo6Pr5w2092RezhrcmIbHupJfN43UEadRV9HB3
+         HxbyDCBrVeADBr8O8TP6og9Cjv8FdyoHA6W+p1F4N/LjhhECRq9upjhFPNcYjBioswtg
+         mXgQ5SfLekiLCdiBnCqob2xeGAPcW2bvLyaTgusQK0Pgsi6k8JtJc3Mts/9vbCtPlnfy
+         nALQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=r9N7Yr5/J8/DUekrT7B7XxT9NC2Wr8uGEwUoP3kgmRw=;
+        b=Bzchvu0MT9SPWecCFCQSmx9B7m6JUHDNYYxSECWsk2OBSpJRyfhB7xICTtBaQatdYW
+         egazsmG+5j1UfAbBUHBkMMs7hruJ4tz6+/Zwocqog/OLkQKToPTd+OKqUQeUCcDVusfP
+         Aeq0Vv9USeBnUPFVpix3vjYT/vWPYxZMDNQYHvFGNrG7Vh6Saqv1SJuq8CqTBJw9gwx+
+         JWh5zb4TJn1qT20nxCa8IrEXyhICnNxx0MySLkP96zP7AcpX1pQSiFvDnJ/e3wyAVwpP
+         9LpK/5okPCJ562Mzqn/QfJ85QsxL7zcVSssM/PD8m6HnDzsHDmtsGr2A8W/d3l8g/+gW
+         xMLw==
+X-Gm-Message-State: AGi0PuZeUCXZxx/wyCADw4DpHelf27mBaeymnqkoCDJpsUODnlZAD+tM
+        mCCn8NRPP0nJUa5NaSSQco0tCacZYSkATMtyKiryTQ==
+X-Google-Smtp-Source: APiQypKzSOGXujxPHPNnLk4x3aIZUCW9zLCys4Q7+f9rwJgclUmg33+Pdao40XsnaLQhsJsg/nBW0daa40n2m/s6KWw=
+X-Received: by 2002:a17:906:4903:: with SMTP id b3mr9281144ejq.80.1587372671658;
+ Mon, 20 Apr 2020 01:51:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; format=flowed
-Content-Disposition: inline
-In-Reply-To: <0f760556-f587-fbb0-581c-d0f5a38ad23e@gmail.com>
-User-Agent: NeoMutt/20180716
-X-Originating-IP: [37.59.142.96]
-X-ClientProxiedBy: DAG8EX2.mxp6.local (172.16.2.72) To DAG4EX2.mxp6.local
- (172.16.2.32)
-X-Ovh-Tracer-GUID: 3d488a0f-703d-4259-87db-0943038ee1cf
-X-Ovh-Tracer-Id: 7070932890502354909
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduhedrgeefgddtjecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhepfffhvffukfhfgggtuggjfghisehttdertddtredvnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddrleeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepmhigphhlrghniedrmhgrihhlrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehjfihilhhksehjfihilhhkrdhnvghtpdhrtghpthhtoheplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
+References: <20200419064825.GA32002@Debian-50-lenny-64-minimal>
+ <0f760556-f587-fbb0-581c-d0f5a38ad23e@gmail.com> <20200420084932.xvz32vuv7uqudyih@jwilk.net>
+In-Reply-To: <20200420084932.xvz32vuv7uqudyih@jwilk.net>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 20 Apr 2020 10:51:00 +0200
+Message-ID: <CAKgNAkj6j2Y1YphseM54y_2=xQV3E4Rc+UX4TPC4VgtX4D0V9w@mail.gmail.com>
+Subject: Re: Errors in man pages, here: signal(7): Sentence to long
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     Helge Kreutzmann <debian@helgefjell.de>,
+        linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Michael Kerrisk (man-pages) <mtk.manpages@gmail.com>, 2020-04-20, 10:33:
->>"A signal may be generated (and thus pending)  for a process as a whole (e."
->>"g., when sent using B<kill>(2))  or for a specific thread (e.g., certain "
->>"signals, such as B<SIGSEGV> and B<SIGFPE>, generated as a consequence of "
->>"executing a specific machine-language instruction are thread directed, as "
->>"are signals targeted at a specific thread using B<pthread_kill>(3)).  A "
->>"process-directed signal may be delivered to any one of the threads that does "
->>"not currently have the signal blocked.  If more than one of the threads has "
->>"the signal unblocked, then the kernel chooses an arbitrary thread to which "
->>"to deliver the signal."
+On Mon, 20 Apr 2020 at 10:49, Jakub Wilk <jwilk@jwilk.net> wrote:
 >
->I can't find the text referred to. I think you may be working
->with an older version of the page. Can you please check.
+> * Michael Kerrisk (man-pages) <mtk.manpages@gmail.com>, 2020-04-20, 10:33:
+> >>"A signal may be generated (and thus pending)  for a process as a whole (e."
+> >>"g., when sent using B<kill>(2))  or for a specific thread (e.g., certain "
+> >>"signals, such as B<SIGSEGV> and B<SIGFPE>, generated as a consequence of "
+> >>"executing a specific machine-language instruction are thread directed, as "
+> >>"are signals targeted at a specific thread using B<pthread_kill>(3)).  A "
+> >>"process-directed signal may be delivered to any one of the threads that does "
+> >>"not currently have the signal blocked.  If more than one of the threads has "
+> >>"the signal unblocked, then the kernel chooses an arbitrary thread to which "
+> >>"to deliver the signal."
+> >
+> >I can't find the text referred to. I think you may be working
+> >with an older version of the page. Can you please check.
+>
+> In 3b9d44099f234e8e, the long sentence was replaced with this paragraph:
+>
+> "A signal may be process-directed or thread-directed. A process-directed
+> signal is one that is targeted at (and thus pending for) the process as
+> a whole. A signal may be process-directed because it was generated by
+> the kernel for reasons other than a hardware exception, or because it
+> was sent using kill(2) or sigqueue(3). A thread-directed signals is one
+> that is targeted at a specific thread. A signal may be thread-directed
+> because it was generated as a consequence of executing a specific
+> machine-language instruction that triggered a hardware exception (e.g.,
+> SIGSEGV for an invalid memory access, or SIGFPE for a math error), or
+> because it was it was targeted at a specific thread using interfaces
+> such as tgkill(2) or pthread_kill(3).
 
-In 3b9d44099f234e8e, the long sentence was replaced with this paragraph:
+Thanks, Jakub.
 
-"A signal may be process-directed or thread-directed. A process-directed 
-signal is one that is targeted at (and thus pending for) the process as 
-a whole. A signal may be process-directed because it was generated by 
-the kernel for reasons other than a hardware exception, or because it 
-was sent using kill(2) or sigqueue(3). A thread-directed signals is one 
-that is targeted at a specific thread. A signal may be thread-directed 
-because it was generated as a consequence of executing a specific 
-machine-language instruction that triggered a hardware exception (e.g., 
-SIGSEGV for an invalid memory access, or SIGFPE for a math error), or 
-because it was it was targeted at a specific thread using interfaces 
-such as tgkill(2) or pthread_kill(3).
 
 -- 
-Jakub Wilk
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
