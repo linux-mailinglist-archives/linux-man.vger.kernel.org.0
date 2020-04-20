@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 76AA61B015C
+	by mail.lfdr.de (Postfix) with ESMTP id E23701B015D
 	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 08:12:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725815AbgDTGMJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 02:12:09 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57102 "EHLO
+        id S1725865AbgDTGMK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 02:12:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57108 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725780AbgDTGMJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:12:09 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 93C9DC061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:07 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id r26so9955226wmh.0
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:07 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725780AbgDTGMK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:12:10 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B280EC061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:09 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id f13so10555836wrm.13
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=PVuoxB80naydUrJAkj/KXSZlZhQQpWE7h5oNBqY6DJg=;
-        b=Oay6RqKDgR3WaYGniesodRyJdOmSqQFWSjP79MNLifQUMMjIEChjh7yi6KcBsLywm+
-         QpxY/0XoXtO5i1K0sUebZc0t6YL6UrywAw+S0/bl8EYyLJN1itKpLNhwAAX5KdVhbz/r
-         /ahuqKElG+LhBIQI0oBl8ea4TAy7GXYmzWGjfz/vVXhMnTx+5HpUcBgPeHEU4Fz3rUvY
-         JJE0WAjPqky8DNMo3Hh+jDkYD7K9fKmaWS1sNV3xPU8GdQu7BMRlIRFLC57aHQrl902r
-         w1l39EerNVSPaOC1/6k1GQxC4vn8nquCHgG2qIXYRPzLMsEJSw1KZ0dN0rW2YRZeuDHv
-         GNeA==
+        bh=+4RnnmReOMt1CayCZAQxIrxBCDFnpcRmKSXAJg2/kQQ=;
+        b=mr7r3oiSnzKsI+rUdJ3W9QPotfrXBnGpoLIm08KTpvdKq4KPre40ygxmQRuIIwxCa7
+         H9XKr1QS5rvn5FutorpUzJUv2Tr7+/oNON3EooYCXCjBYfjtfAe/LdbAUyXn0uM91UY5
+         zhj6Wv0UEjdjA9DaD14B/zx4FgSYoZuXto+xNHOAij7yrUiocXvrGSdKxt22zy/YL+Ew
+         +x+4NBSzJz40J2+NN9ab/H45eAvQ1skKP7CzVBVGxIJV6bwHOVnEMhFeL8kK03awDFfY
+         gMaWAzVGDmPOamglg2dQhnJS5ZOHx7Bm/b9sEKIO8+bEdi4o3k9E/y49HmRj8dv/BW3M
+         sNfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=PVuoxB80naydUrJAkj/KXSZlZhQQpWE7h5oNBqY6DJg=;
-        b=Fn137+QVgdRO+UP0tsQ2EXE3x6O5Za4+xIxabevmPM2pcjYPprZ1ZPlb8HAVeZ6Qn/
-         h2SsuJrgvoIXb+B6fMmNnakUGkaMRsIGAnPBDE7NTEU+Z4YT9HiPHzNbR++l+POZATDN
-         9r4nOq8cvworD3tGXTLxgNR+8kmri06lxNhXz1XitM4ox1ZbmhcFThC5OEC7wgcfM18L
-         NYSnCE72jzC47GPTqt8JVicJytSPrP2QFPVYCVCgXq/OhMegNFj501ae0NV1oKcnnQDu
-         Elt+ucDWIqMKIBo+TYLFW+16Pf+FuAVsUHPDDdolx//mVVooe3ACoZoQ5clXIWJ2fdAq
-         iDyQ==
-X-Gm-Message-State: AGi0PubpJknuPJJtaUnHV0zCHCfIvRnsjTUR0P3ZDPdc/KTHwQpcgzUZ
-        ynJGk+VdLLN0jrBQ9LkGWuMlYCZ5
-X-Google-Smtp-Source: APiQypL6wff57OKGTPaojPPRePfK3m9ZvFKA69QUHMa5GI57q10wSK6UEYy33LPVtmT7bX/XgqIVIQ==
-X-Received: by 2002:a05:600c:21d3:: with SMTP id x19mr15773908wmj.60.1587363124366;
-        Sun, 19 Apr 2020 23:12:04 -0700 (PDT)
+        bh=+4RnnmReOMt1CayCZAQxIrxBCDFnpcRmKSXAJg2/kQQ=;
+        b=HdvkO5tjDni32u+ntQJp040EXKWgqDY7s3XLUu8KcQGRwW1TYmfsxnQufkrcLcOZ1Y
+         NtmgE604S4Bwn1c9MUoTn7neJATIe9scZsLviF/pR/A2RCEMKBsndepTX+xD8L39dKFX
+         E7eZ/ffWmeAUA9lEJrfbAXBbx3kugEtAiXUihlwNxoA3OxOe+dSCN5MYW+MXGeK9h/ed
+         e49rDWpXB3UW+OLElLcxIW/WD/z4fyDdfXbS2ugo927o0zWMngaLEV4KXxNbxsbsGPmc
+         HenCBqkHqGWsANZzURrKCer8RygUcpExoQDs9ghjdpyGL+wHFHBKpGttzYdVUrEIHFGa
+         Ln7Q==
+X-Gm-Message-State: AGi0PuYMy/pSm8At78G2ZjTB83bBEkwc8qQYWGtZ9QhqfnDpLurc/iIU
+        zGN8h6Yw3h7ncZKPPXYUt8brWDGp
+X-Google-Smtp-Source: APiQypIRS8RCK0ksFY6+FzJ7fHKyHgwrx406+jJyqVhrrVBbv27hH1NDELjHyZpbhmrOfNXA3hkZ7w==
+X-Received: by 2002:adf:fa04:: with SMTP id m4mr16652011wrr.30.1587363128277;
+        Sun, 19 Apr 2020 23:12:08 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id n4sm18116987wrr.68.2020.04.19.23.12.03
+        by smtp.gmail.com with ESMTPSA id y70sm14007768wmc.36.2020.04.19.23.12.07
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 23:12:03 -0700 (PDT)
+        Sun, 19 Apr 2020 23:12:07 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: mremap(2): Plural?
+Subject: Re: Errors in man pages, here: proc(5): Content
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064811.GA31208@Debian-50-lenny-64-minimal>
+References: <20200419064815.GA31441@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <0170ad92-7cdc-8848-af76-409f37a80c1e@gmail.com>
-Date:   Mon, 20 Apr 2020 08:12:03 +0200
+Message-ID: <3e0b74dd-b3df-2abf-843f-b22821b5a4b6@gmail.com>
+Date:   Mon, 20 Apr 2020 08:12:07 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064811.GA31208@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064815.GA31441@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -104,11 +104,27 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> flag → flag(s) ?
+> T twice, i.e. for both stopped and tracing stop?
 > 
-> msgid "The I<flags> bit-mask argument may be 0, or include the following flag:"
+> "I<State>: Current state of the process.  One of \"R (running)\", \"S "
+> "(sleeping)\", \"D (disk sleep)\", \"T (stopped)\", \"T (tracing stop)\", \"Z "
+> "(zombie)\", or \"X (dead)\"."
 
-Thanks. Fixed ("flags").
+Thanks. Fixed:
+
+diff --git a/man5/proc.5 b/man5/proc.5
+index 79a527216..deb107359 100644
+--- a/man5/proc.5
++++ b/man5/proc.5
+@@ -2501,7 +2501,7 @@ One of
+ "S (sleeping)",
+ "D (disk sleep)",
+ "T (stopped)",
+-"T (tracing stop)",
++"t (tracing stop)",
+ "Z (zombie)",
+ or
+ "X (dead)".
 
 Cheers,
 
