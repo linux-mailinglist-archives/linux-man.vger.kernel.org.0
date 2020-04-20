@@ -2,188 +2,121 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 12F011B053E
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 11:09:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CB7781B0545
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 11:09:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725896AbgDTJJC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 05:09:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56322 "EHLO
+        id S1725896AbgDTJJ7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 05:09:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56470 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725865AbgDTJJC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 05:09:02 -0400
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 888FBC061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:09:00 -0700 (PDT)
-Received: by mail-wm1-x341.google.com with SMTP id v8so10259674wma.0
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:09:00 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725865AbgDTJJ6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 05:09:58 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 867A4C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:09:58 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id s10so1992493wrr.0
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:09:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isovalent-com.20150623.gappssmtp.com; s=20150623;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=LZyMak/1vY9m03f/f6Hml1dkYSnRB++zRzuVqb4CMVM=;
-        b=LKkluS90CTNnp+4poT4Fsj5CW8hDffX2W6RCfh2ofrel6FMKXTxmKAIWEmY6LKTxEE
-         qXoPwXkL2CPbXIuybCaAZsDFCOjcDGQ8/am+CELRBFeMuZI0ZTv/5PFnP+hKMi69sXWC
-         DGk2Jd1CRu/iCSGF9i0qF7wFzJrq9Ynxcmv064xyPCaA/Lyd2CUL30gWCC6CaOB+kV2+
-         cChdSJpjkBJAdU71mTXqrlBh6jPqHDN6BClUiScAVzKk82AQsaYrgI87FDcrdWtrx0h7
-         bbRzRfucM+0I655VThlk8C3zi/Fe3XmIGxuxTDPLlRj1OZSVrsrSPV4fAV+RkAlX/Awv
-         8ctg==
+        bh=vQnHcWvgKE6OYVHOyhEG1+HSIKLrV/nVPJG8t6R6upI=;
+        b=Hz41N5XNV/J4G2xLAwISlQ7dk8swpnIwOCj0eJDwkOvdN0QpSdJpVJNqpOpEcMTjxx
+         ScNsAKnhpeLLKk97na+bZwDVs/QYyeZPXFyekcPipY0wcbIO0PPC3LL4O0ZhF/IDvap/
+         wI2K3vm8+YWU+D5Vpv6bwajxWy3naEwa71MS4bBdBRXs11bBLNOHt96tiq0RzbZM7KPU
+         qBNFksMoksqz6zrX4E0ZmXAtM5SsH1xKjFzU7+LNtwF6aPez2I2iws55g4Xh4l8bT8sG
+         krCplWzg17+KL0JXkUSnmaoiCX9Vblan1KcZHdNBvHnIJqe/Go5lDfgPVS6g3/fcYnXJ
+         oPvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=LZyMak/1vY9m03f/f6Hml1dkYSnRB++zRzuVqb4CMVM=;
-        b=rHSV+Yh4xhm3uV/dfGoWKhaRSUdJGDuX1tax6FLvdF0B4K9qGvsk8I8W4hEaCWj9F9
-         TRygGkS2pxDZkFOuvkjACmppCcctKGTYSUIuMhugH2UAinkRRpBB1qMtAnN5dqIfBTjb
-         Ap7osi71Zwh7U5fZD8dVg6y9dC5BBrUoIGZukhoLKP33GMJfjYwfUjAgdbidhzV1oAYN
-         KTHI6GKef8E6A2oetCw3lGmve9gO7qrsl2bqPn1ICuBozHXGOSlRNPW5IyfmNoCy3idM
-         2HBwvZwZNL42+E9j/6PuLKI99sGgmvh3kutIY4SQYb30gL5IWVW7/M4kdPqLAdI/54A0
-         trAg==
-X-Gm-Message-State: AGi0PuaHnz1AmTBJ7wJ31sTcyTHOYdm61TK+f7DWIrJBMzgevOH4OXzJ
-        UtcZyBXcLj2Ztcka4jHzmKebSD6z334=
-X-Google-Smtp-Source: APiQypKOfSOrztId/38uDLlYaD3HRO6gioPqfjMgbO4O0i5jsaoTVZe32GEcWapxJmG6s/5mYc1Rvg==
-X-Received: by 2002:a1c:2705:: with SMTP id n5mr16155257wmn.94.1587373739055;
-        Mon, 20 Apr 2020 02:08:59 -0700 (PDT)
-Received: from [192.168.1.10] ([194.35.116.120])
-        by smtp.gmail.com with ESMTPSA id s6sm500495wmh.17.2020.04.20.02.08.58
+        bh=vQnHcWvgKE6OYVHOyhEG1+HSIKLrV/nVPJG8t6R6upI=;
+        b=dT/cXIZItetYe/bLWkXjI+u3UuYHXsx1O95dzQlXYpL9RQW2mW8rYcJBDbV7j9mr1F
+         uhVFplAGvvX4wIhSISyxQzsNdRE2g2o719fzKt5H9GM6gcpDiHX4hDsabKF97MOz/RyU
+         YOSCeZBE6IpMB+wfAN8ydQlNdoC5R58KMWpkBQrh9tB7xzrsMx9C/+uXY3QRUG1G8RTo
+         Q5DlzjnDokkmxKvXwut/I5QkOvWI4I1aYdejgZB26360MENfLnIYkYkW4TJClUwLwV+z
+         wO51rfqLC3yZGiU0yIYYP8WV/9Z5fXYpnUBB+tWnAm4XU4zlvZFfqlRFNziPuGwtK6pp
+         CTHQ==
+X-Gm-Message-State: AGi0Pua+HmFopkfc75oWhFoQ2a3pMlXPpRknPD1eBOkSt03pDv83OltT
+        GKSz6eAw3S9CLu/Au+fJB1RehypI
+X-Google-Smtp-Source: APiQypIOMFnDznWcTk1UQrRIraeQhEmAVD1HB42kdaifNj/zhzQqH9oTP03b8KcEPbZCKP8kvyItcw==
+X-Received: by 2002:a5d:4ac9:: with SMTP id y9mr7565408wrs.182.1587373797125;
+        Mon, 20 Apr 2020 02:09:57 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
+        by smtp.gmail.com with ESMTPSA id h137sm19859069wme.0.2020.04.20.02.09.56
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 02:08:58 -0700 (PDT)
-Subject: Re: [PATCH] bpf.2: Change note on unprivileged access
-To:     mtk.manpages@gmail.com, rpalethorpe@suse.de
-Cc:     Richard Palethorpe <rpalethorpe@suse.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        David Miller <davem@davemloft.net>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Alexei Starovoitov <alexei.starovoitov@gmail.com>
-References: <20190729125843.6319-1-rpalethorpe@suse.com>
- <7f9476e0-a05a-c9ec-1135-87c641b93e32@gmail.com>
- <87h7xii6n3.fsf@our.domain.is.not.set>
- <CAKgNAkidUjC2=XzRVqfsjrtZQA8gN36onSFX=jJMr2DjM-CvYQ@mail.gmail.com>
- <CAKgNAkiOkyFwwiMS1xLHmiJm4AK8UGD1tWVkOsE=s3D1CjQ=fA@mail.gmail.com>
-From:   Quentin Monnet <quentin@isovalent.com>
-Message-ID: <c26cf932-f324-e9e3-a328-d14f8b891fb2@isovalent.com>
-Date:   Mon, 20 Apr 2020 10:08:57 +0100
+        Mon, 20 Apr 2020 02:09:56 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Errors in man pages, here: psignal(3): Terminoology
+To:     Helge Kreutzmann <debian@helgefjell.de>
+References: <20200419064818.GA31606@Debian-50-lenny-64-minimal>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <6fdc75e4-bb8f-4988-a103-70cc26704838@gmail.com>
+Date:   Mon, 20 Apr 2020 11:09:55 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <CAKgNAkiOkyFwwiMS1xLHmiJm4AK8UGD1tWVkOsE=s3D1CjQ=fA@mail.gmail.com>
+In-Reply-To: <20200419064818.GA31606@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael, Richard,
-
-Thank you Michael for the Cc :). Answers inline.
-
-2020-04-18 09:36 UTC+0200 ~ Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com>
-> [Adding in correct address for Quentin, since his address has changed]
+On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
-> On Sat, 18 Apr 2020 at 09:34, Michael Kerrisk (man-pages)
-> <mtk.manpages@gmail.com> wrote:
->>
->> [CC += Quentin]
->>
->> Hello Richard (and Quentin, Daniel, Alexei),
->>
->> On Fri, 17 Apr 2020 at 15:28, Richard Palethorpe <rpalethorpe@suse.de> wrote:
->>>
->>> Hello Michael,
->>>
->>> Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> writes:
->>>
->>>> Hello Richard,
->>>>
->>>> On 7/29/19 2:58 PM, Richard Palethorpe wrote:
->>>>> This notes that the kernel now allows calls to bpf() without CAP_SYS_ADMIN
->>>>> under some circumstances.
->>>>
->>>> Thanks. I have (at last) applied this patch.
->>>
->>> :-)
->>>
->>>>
->>>> In Linux 4.4, the allowed BPF helper functions that could
->>>> be called was, I think, governed by a check in sk_filter_func_proto().
->>>> Nowadays (Linux 5.6), it is, I think, governed by the check in
->>>> sk_filter_func_proto(). If that is the case, then probably there
->>>
->>> It looks like bpf_base_func_proto() and sk_filter_func_proto(). Possibly
->>> also cg_skb_func_proto() because it seems normal users can also attach a
->>> cgroup skb filter program type (looking at bpf_prog_load() in syscall.c
->>> for 5.7).
->>
->> Thanks for the pointer to bpf_prog_load(). But, I must admit I'm
->> having trouble to follow the code. Can you say some more about how you
->> deduce the involvement of sk_filter_func_proto() and
->> cg_skb_func_proto()?
+> Dear manpages maintainers.
+> the manpage-l10n project maintains a large number of translations of
+> man pages both from a large variety of sources (including manpages) as
+> well for a large variety of target languages.
+> 
+> During their work translators notice different possible issues in the
+> original (english) man pages. Sometiems this is a straightforward
+> typo, sometimes a hard to read sentence, sometimes this is a convention
+> not held up and sometimes we simply do not understand the original.
+> 
+> We use several distributions as sources and update regularly (at
+> least every 2 month). This means we are fairly recent (some
+> distributions like archlinux also update frequently) but might miss
+> the latest upstream version once a while, so the error might be
+> already fixed. We apologize and ask you to close the issue immediately
+> if this should be the case, but given the huge volume of projects and
+> the very limited number of volunteers we are not able to double check
+> each and every issue.
+> 
+> Secondly we translators see the manpages in the neutral po format,
+> i.e. converted and harmonized, but not the original source (be it man,
+> groff, xml or other). So we cannot provide a true patch (where
+> possible), but only an approximation which you need to translate into
+> your source format.
+> 
+> Finally the issues I'm reporting have accumulated over time and are
+> not always discovered by me, so sometimes my description of the
+> problem my be a bit limited - do not hesitate to ask so we can clarify
+> them.
+> 
+> I'm now reporting the errors for your project. As requested, each
+> issue is sent in an unique mail for easier tracking on your side. If
+> future reports should use another channel, please let me know.
+> 
+> **
+> 
+> The "message" is rather a description - change terms?
+> 
+> msgid "psignal, psiginfo - print signal message"
 
-sk_filter_func_proto() and cg_skb_func_proto() are used by the verifier
-(as env->ops->get_func_proto) to check that the helper functions used
-with the given program types (BPF_PROG_TYPE_SOCKET_FILTER and
-BPF_PROG_TYPE_CGROUP_SKB, respectively) are acceptable.
-
-Those functions are associated to the relevant types by macro
-BPF_PROG_TYPE() defined in include/linux/bpf.h and called in
-include/linux/bpf_types.h.
-
-The aforementioned program types are indeed the two that may be
-available to unprivileged users, as can be seen in bpf_prog_load() [0].
-
-[0]
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/kernel/bpf/syscall.c?h=v5.6#n2039
-
->>
->>>> are one or two more helper functions to be added to the list
->>>> (e.g., get_numa_node_id, map_push_elem, map_pop_elem).
->>>> Do you agree with my analysis?
->>>
->>> Yes, at least those. IMO this is such a fast moving target it might be
->>> best to direct users towards <linux/bpf.h>.
->>
->> Are you aware of bpf-helpers(7) [1], which is generated [2] from that
->> file? It seems like this would be the place to document which helpers
->> can be used by unprivileged processes.
->>
->> Quentin, Daniel, Alexei, do you have any thoughts here?
-
-Right, it's moving fast and it is a bit tricky to keep lists like this
-up-to-date. My first proposal for bpf-helpers(7) would include the list
-of program types compatible with each helper, but we decided that it
-would be too hard to maintain and I removed it (bcc tries to keep a
-list, though [1], but does not mention unprivileged usage). We do
-require contributors creating new helpers to document their function
-(the documentation is even parsed for producing a header for libbpf, so
-it's a strict requirement) but having people scan all the documentation
-to find the lists they should update is another story.
-
-I feel the same here: the list of helpers available to unprivileged has
-grown quite a bit since 4.4, and we will struggle to present updated
-information to readers. Especially when we see how outdated bpf(2) is at
-the moment. My suggestion would be to stick to a generic comment,
-something like “However [unprivileged users] may not store kernel
-pointers within the maps and are presently only a subset of the helper
-functions compatible with those program types”.
-
-Then the bpf-helpers(7) has the following note: “net/core/filter.c
-contains the definition of most network-related helper functions, and
-the list of program types from which they can be used.” It is not ideal,
-but at least it indicates how to get accurate information. We could
-maybe add another note in that page saying that unprivileged users get
-access to functions listed in sk_filter_func_proto() and
-cg_skb_func_proto(), plus bpf_base_func_proto() before the check on
-CAP_SYS_ADMIN.
-
-Let me know if you wanted me to send a patch with such a note, I plan to
-submit fixes for helpers doc this week anyway.
+Yes. Fixed.
 
 Thanks,
-Quentin
+
+Michael
 
 
-[1] https://github.com/iovisor/bcc/blob/master/docs/kernel-versions.md
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
