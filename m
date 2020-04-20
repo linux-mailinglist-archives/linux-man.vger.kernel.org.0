@@ -2,144 +2,82 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 923C11B051E
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 11:01:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BA5B91B0526
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 11:02:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725865AbgDTJBa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 05:01:30 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55180 "EHLO
+        id S1725886AbgDTJCt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 05:02:49 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55382 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725775AbgDTJBa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 05:01:30 -0400
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EFB50C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:01:29 -0700 (PDT)
-Received: by mail-wm1-x341.google.com with SMTP id g12so10422498wmh.3
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:01:29 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725773AbgDTJCt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 05:02:49 -0400
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DC22DC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:02:48 -0700 (PDT)
+Received: by mail-ed1-x543.google.com with SMTP id t12so3431495edw.3
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:02:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=qXiTGF6d+D020WFSPyu3uU5ouY/VJ8m6PJLl5GmLa1g=;
-        b=bLKs7ubid0/oQ/kB/5xPgaV7rcV3xtrYZUg3Z0ef/72QngnLBdkuIYxNBSI6y6scCo
-         CVajpQDhEzwNTXj4Q7OLB/jMtODwzqS6LpZyurH09oCrZLEoLCFJ2dB1LosDnPd4pGDH
-         fSvx95rMVZdyzBNrwXOT22I0KyEr/fOGAN7JwtSl0lRp4rP4ney/+PhQwU2onS9OxBff
-         j8H9BPwf0KsvDZztdrtLHaSQ+iIqstz6L2KwGLBVh3n5kRlqDVMTEO9iVOTkIfwQVF0n
-         RkYo+0BAiA7GgiO246+4R1PVHLDaMdUfgSLY/tXtcv6+HSXs9e/+06cYn2YF1ClgKXFG
-         VeEA==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=0LBsgOC77o5ltO/DN7eZU7KPebavZVLH44PM/Xc0zU0=;
+        b=nN315t2UE+ffg0Ih5VrZCr7qywRVD5ef4Yzvn/kEWMqZgJ1QJLKpZR4PY6jQHIOT4J
+         GZ8qv7Pr5L0qBKh5mf3x+sQQB0q/fNKa3es4tcWv6CYnmtaiWge1JTFJ0PrQSsn5F8IE
+         +76GuNNxnXOZKFNsH2VLIDJTmMJZc1Ca3RvhSYPh+uqotmokiL3GpK6sybg6b5AKC/2e
+         0a63a0mQXgx603DtCCR4/Sk4gC/hfVi56YpmDOgbHgVgMEUgC26SKrHxhP0liEs34P7Y
+         tgB9e6reyy+kHrcSGoInW1Rz5Tp0Kbtsq7MZjnfIAkhG+lXgfavHk3je9vOK8gNWcT+8
+         NkgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=qXiTGF6d+D020WFSPyu3uU5ouY/VJ8m6PJLl5GmLa1g=;
-        b=s6aUdcZDcPfOoeS9DHCamRwJ/2Z2oCmD6m/RAmdcapxRtv28zMq7S08H8AdJ0aJ4ft
-         tHOx3UT4qg5KtH/wh0RKvuGuBKPSypjZC8ZjRduGyPtyErhfs/G7Ya98QG9YJjVuVDUi
-         CVzqWYpYH1bKGh36NusVrhVnTNEx7P6bQc/hbI2/H4TgISe0DRVroqpmTNAPRwXn+f/I
-         2e8jhEHe8KCSQgf05gMOQ3I3HiTAhXA7+T0EJQiNmEfqlvCC3YxpW5adJ6g5docXiVYx
-         w/9TZan+wg+HDe7RgdOyFuO8VrrVbL/y/z9c9GXQOiAEBb1BLfXhYwYQH+icLAET01Zc
-         dv1g==
-X-Gm-Message-State: AGi0PuaXrVcP8xvYRsKQFh/4GdEJcyTa4cJ+3fydn+BBK3J9L1336a7r
-        Uy0h19mU22z2g32oPlff15XgIqC/
-X-Google-Smtp-Source: APiQypLcdL4tyBVUhndCHwtXvT1muDvgpyw9x2rrwnyo3a2ZqcKtF/NP8vFeq+1XNb63h+WxqZv8nw==
-X-Received: by 2002:a7b:ce8b:: with SMTP id q11mr16621691wmj.101.1587373288442;
-        Mon, 20 Apr 2020 02:01:28 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id x13sm514714wmc.5.2020.04.20.02.01.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 02:01:28 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: man-pages(7): Wording
-To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064809.GA31093@Debian-50-lenny-64-minimal>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <8e7a241a-936f-829c-42f6-984ce82c4e20@gmail.com>
-Date:   Mon, 20 Apr 2020 11:01:27 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=0LBsgOC77o5ltO/DN7eZU7KPebavZVLH44PM/Xc0zU0=;
+        b=Is6HWnklVX82z3Y7Ax943+u3EJ6bXxWhMjgHqm6NmXbmV5KqIL1iB6CXYC1CooqSbi
+         sdL17PyepJiQXoWQ1MxKy/0UhRVevMaMPQia0643S+h7V+rsOPYkZDFjSP79YYv94IpU
+         4H2a/KVp4X1M17mZKzelCWqD5W+mQdzCEesOmmCLC6N7oeyuiGeL9vUlQfPHtQv/+Qdq
+         Kv3EV6VKKEkM5cIpqQXuTuf9JAx862mZyx87V1RSZPWpvJPDVNZ914WCS50wcS7lej6+
+         SlXOiPdzL25mafVTmJAwLXfdcpZkKD7Prl1XJDIu2QsABAClPhSvzYsE5rSDKQidOHud
+         0gdg==
+X-Gm-Message-State: AGi0PubFHQ7i8E5QN2FPHMt4uuCzKOWh8/LqO251eDvQGGm4+s6S3dpk
+        79yGwY+J1wYCJsAz4ViTLCXNuuTfkddVR3CTtJw=
+X-Google-Smtp-Source: APiQypKYSn0Ypht4po6Wr8F2mO2GHHvHp+eKyL+Mab3EZnSTGoF4xzDaBjbyoV8M8CTBkrRN08vTa9dgM7o4gB7b8Yw=
+X-Received: by 2002:a05:6402:7d6:: with SMTP id u22mr13110265edy.149.1587373367655;
+ Mon, 20 Apr 2020 02:02:47 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200419064809.GA31093@Debian-50-lenny-64-minimal>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20200419064811.GA31233@Debian-50-lenny-64-minimal>
+ <CAKgNAkh=65cH6S2xigJF6hjEMu+90=Co+GDV8OSzHU0C2XVYPQ@mail.gmail.com> <20200420085142.yprljwogzustfuxt@jwilk.net>
+In-Reply-To: <20200420085142.yprljwogzustfuxt@jwilk.net>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 20 Apr 2020 11:02:35 +0200
+Message-ID: <CAKgNAkietg1sq9uH6_eg=GHRzg_m72RBf_FOpt9qJewRJzPLsA@mail.gmail.com>
+Subject: Re: Errors in man pages, here: msr(4): Content
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     Helge Kreutzmann <debian@helgefjell.de>,
+        linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
-> Dear manpages maintainers.
-> the manpage-l10n project maintains a large number of translations of
-> man pages both from a large variety of sources (including manpages) as
-> well for a large variety of target languages.
-> 
-> During their work translators notice different possible issues in the
-> original (english) man pages. Sometiems this is a straightforward
-> typo, sometimes a hard to read sentence, sometimes this is a convention
-> not held up and sometimes we simply do not understand the original.
-> 
-> We use several distributions as sources and update regularly (at
-> least every 2 month). This means we are fairly recent (some
-> distributions like archlinux also update frequently) but might miss
-> the latest upstream version once a while, so the error might be
-> already fixed. We apologize and ask you to close the issue immediately
-> if this should be the case, but given the huge volume of projects and
-> the very limited number of volunteers we are not able to double check
-> each and every issue.
-> 
-> Secondly we translators see the manpages in the neutral po format,
-> i.e. converted and harmonized, but not the original source (be it man,
-> groff, xml or other). So we cannot provide a true patch (where
-> possible), but only an approximation which you need to translate into
-> your source format.
-> 
-> Finally the issues I'm reporting have accumulated over time and are
-> not always discovered by me, so sometimes my description of the
-> problem my be a bit limited - do not hesitate to ask so we can clarify
-> them.
-> 
-> I'm now reporting the errors for your project. As requested, each
-> issue is sent in an unique mail for easier tracking on your side. If
-> future reports should use another channel, please let me know.
-> 
-> **
-> 
-> Wording:
-> 
-> a) msgid "Those functions which wrap operations performed by the kernel."
+On Mon, 20 Apr 2020 at 10:51, Jakub Wilk <jwilk@jwilk.net> wrote:
+>
+> * Michael Kerrisk (man-pages) <mtk.manpages@gmail.com>, 2020-04-19, 22:48:
+> >>/dev/cpu not on my system
+> >Maybe this is a Debian thing? I have /dev/cpu on my Fedora system.
+>
+> FWIW, it does exist on my Debian system:
+>
+>    $ sudo modprobe msr
+>    $ find /dev/cpu
+>    /dev/cpu
+>    /dev/cpu/1
+>    /dev/cpu/1/msr
+>    /dev/cpu/0
+>    /dev/cpu/0/msr
 
-See patch below.
-
-> b)
-> "Overviews or descriptions of various topics, conventions and protocols, "
-> "character set standards, the standard filesystem layout, and miscellaneous "
-> "other things."
-
-I need more explanation of the problem here.
-
-Thanks,
-
-Michael
-
-diff --git a/man7/man-pages.7 b/man7/man-pages.7
-index 2bc8610f2..9212ec114 100644
---- a/man7/man-pages.7
-+++ b/man7/man-pages.7
-@@ -50,11 +50,11 @@ for authors writing man pages for other projects.
- The manual Sections are traditionally defined as follows:
- .TP
- .B 1 User commands (Programs)
--Those commands that can be executed by the user from within
-+Commands that can be executed by the user from within
- a shell.
- .TP
- .B 2 System calls
--Those functions which wrap operations performed by the kernel.
-+Functions which wrap operations performed by the kernel.
- .TP
- .B 3 Library calls
- All library functions excluding the system call wrappers
-
+Thanks, Jakub.
 
 -- 
 Michael Kerrisk
