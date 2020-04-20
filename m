@@ -2,188 +2,134 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 22F4E1B0630
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 12:06:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6278B1B0657
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 12:15:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725971AbgDTKGN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 06:06:13 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36936 "EHLO
+        id S1726025AbgDTKPA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 06:15:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38292 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725775AbgDTKGN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 06:06:13 -0400
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com [IPv6:2a00:1450:4864:20::630])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 214AAC061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 03:06:13 -0700 (PDT)
-Received: by mail-ej1-x630.google.com with SMTP id s3so7428515eji.6
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 03:06:13 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725773AbgDTKPA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 06:15:00 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C0BBAC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 03:14:59 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id j1so5967644wrt.1
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 03:14:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=174aT4MR/AonKfZMoTERrlNlmS3MuH/L7jI9Jz0bRqQ=;
-        b=ujnhrSl8K8SUWgreidV8GLrYwarpllUodFRo3XZR9gtf4/KDsebHoPGAb3GIizxoTU
-         ZwocqGqzdkAawGALlsRsMl7+M/fnLEDy789455hNJEFOupu0AlsLj9Oh4dTq9Gu5wNex
-         0YZBd7zZ3acD/UCCiqb8CwMWsOnBAunrHG+ZxFMcBpVVHgczNpw/6k6KQeSdnSPmn8x8
-         EKgMb2tUbSBoQ1vZwgRs3b0g3CB3UPvtmjNYysOPJkmwoUCba9xvA4d3jOB9enz2OvJA
-         VVtOm47FRX3si5RJqr9/PjahNh4YW2wAy+xpZSHv5446AxjCvv43J6dPuaBWYAn7KZNK
-         zqYg==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=tJzFr6wXPfcQF5OzMbT7Xi6PS1cKa7Wic01zdsPBoGI=;
+        b=rFxIDSybObRhaNy5rbD/sGs0i2vjnnksllCMQ1uhagjoP+HmEkgMZbAS7Cn8nBMSb+
+         zIBUVzv0+6naZbNW8Hgd98wriGDUYqk6o2yqQCsIWdIXI14jUc15bCOuRu17vKwq2sYo
+         qkLangn82Ll2vLzVyZ2vzEIYsooXlZpLwT6ThTdzsdGEoPWvtBJOZer99jbX3K7OolLR
+         JFoYMMalaKeN6xVb5LhMOAmZllWHpm6A6z8/gP7t4AMz3Z7vGHeIgXt1ve+ygg2KmNc9
+         XMP9t1UpxqifwniaMOKoATau4CQW3oJ7Rm053Ak1ZhHnBZXWooAuRKtlp2j0dt2+2HtN
+         nWsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=174aT4MR/AonKfZMoTERrlNlmS3MuH/L7jI9Jz0bRqQ=;
-        b=Ms96KbVXu792+qRNDgl33020ZxxXngR0wSvkocVV4wgCniu+xSZazoJjBEuu3VQlE4
-         OmiXG3vb9C3fGYtxmGQG4e9ay1laov5n/9rwrI4YdknHBqNcQfYCVoIzmo//GPiNRBrm
-         /SzsZZ5t8pJpIJSBnNNx3ozSnzCWUkhjJlKqju2Ko9OVJwOVBeBm4IEv6kKXlQAiYLb7
-         SwrUOSPq6tJuCITWme1BXFtqkb80H2gaXDIzcrkRlLvI+7Q4AZSxe5NszBgv3m9E7EZJ
-         JABMb8lO4NN29/WPlTd9nfQkc/ixZ2m+4FKBZFOPnU2BLgiGn21fZXGpr7UumCt7mmvV
-         ttVQ==
-X-Gm-Message-State: AGi0PuZWidmzy4rao0GtHLC2leWn/IJRO9I7DjDf4YV5T3q2M4HZxBXT
-        jPWkTKgsIHkwEPcSIB+koqoWGFANMIx2cI1t3CE=
-X-Google-Smtp-Source: APiQypKVDzAFaQki6gA/ae6rtWVev76awldLCdyqBtmnnLXFhR7Uc3pJ+souEbMlIEHO9jUQ0BSh2/6YY1U9gpN3EbI=
-X-Received: by 2002:a17:906:5fd2:: with SMTP id k18mr14894671ejv.243.1587377171678;
- Mon, 20 Apr 2020 03:06:11 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAHVhoEfuemaT0vS28XcrWLBHpd2+=7wLpn4Wf8BGbTXtnBn-Cw@mail.gmail.com>
-In-Reply-To: <CAHVhoEfuemaT0vS28XcrWLBHpd2+=7wLpn4Wf8BGbTXtnBn-Cw@mail.gmail.com>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=tJzFr6wXPfcQF5OzMbT7Xi6PS1cKa7Wic01zdsPBoGI=;
+        b=SZRvNOOL8XLByuy9z4I15PvMO4tN4PERWOXE77IqSAdjTTvp2vu0tZoqR8zCbo6vUS
+         vM6LCm+7bdInY4K7I+l53s2OFe2Nhn9kKrR+Er4/2rdovYtWf6OW1facYyzvMjBzq1bG
+         +YXSnLxaBqb+1Lswda+3dKbIgfW1s5+kCtHF/QiovhpGtnSoCsmryUPTcKb4AeUOQri5
+         MCVWIbp/MDO2DyRwlZ1yIDGjQ6Kfm7d17JLN85SEHpCRalPeaHxYoOEikvDHdDdWoCOB
+         Z187rix5klGglWJODfWFUihhvYZpGIY95uAUFtQhFiRwrbizPioFEO9wdoP5TL1AsUp8
+         avJg==
+X-Gm-Message-State: AGi0PuaU513RIB1VsVH1hqLjDZxlRkiMAKYNdMgxCum7+psbUNdaq6+l
+        ApGqKY/Q0ld6nbjULCC7jH9Gh7lQ
+X-Google-Smtp-Source: APiQypIzWM811W0ul4bjqKfFG3dBHvBEIjmTr0M60/eSIVzPds1FuZxQM8QvGU8ifOPTxD0d4tOYiQ==
+X-Received: by 2002:a5d:6b85:: with SMTP id n5mr6682546wrx.370.1587377698224;
+        Mon, 20 Apr 2020 03:14:58 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
+        by smtp.gmail.com with ESMTPSA id 138sm822601wmb.14.2020.04.20.03.14.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 20 Apr 2020 03:14:55 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Errors in man pages, here: mount_namespaces(7): Understanding
+To:     Helge Kreutzmann <debian@helgefjell.de>
+References: <20200419064811.GA31185@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 20 Apr 2020 12:06:00 +0200
-Message-ID: <CAKgNAkgXtQZC=Np+0SBKxoTL_yCcyEA9xgjS7yZS4t8kS3EtuQ@mail.gmail.com>
-Subject: Re: [patch] add man7/kernel_lockdown manpage latest 5.06
-To:     Scott S <ssimmons9999@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        David Howells <dhowells@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <ad0a1641-75fe-e872-b7ee-04fe3a864808@gmail.com>
+Date:   Mon, 20 Apr 2020 12:14:41 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
+MIME-Version: 1.0
+In-Reply-To: <20200419064811.GA31185@Debian-50-lenny-64-minimal>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, 20 Apr 2020 at 01:00, Scott S <ssimmons9999@gmail.com> wrote:
->
-> kernel_lockdown.patch
+On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
+> Dear manpages maintainers.
+> the manpage-l10n project maintains a large number of translations of
+> man pages both from a large variety of sources (including manpages) as
+> well for a large variety of target languages.
+> 
+> During their work translators notice different possible issues in the
+> original (english) man pages. Sometiems this is a straightforward
+> typo, sometimes a hard to read sentence, sometimes this is a convention
+> not held up and sometimes we simply do not understand the original.
+> 
+> We use several distributions as sources and update regularly (at
+> least every 2 month). This means we are fairly recent (some
+> distributions like archlinux also update frequently) but might miss
+> the latest upstream version once a while, so the error might be
+> already fixed. We apologize and ask you to close the issue immediately
+> if this should be the case, but given the huge volume of projects and
+> the very limited number of volunteers we are not able to double check
+> each and every issue.
+> 
+> Secondly we translators see the manpages in the neutral po format,
+> i.e. converted and harmonized, but not the original source (be it man,
+> groff, xml or other). So we cannot provide a true patch (where
+> possible), but only an approximation which you need to translate into
+> your source format.
+> 
+> Finally the issues I'm reporting have accumulated over time and are
+> not always discovered by me, so sometimes my description of the
+> problem my be a bit limited - do not hesitate to ask so we can clarify
+> them.
+> 
+> I'm now reporting the errors for your project. As requested, each
+> issue is sent in an unique mail for easier tracking on your side. If
+> future reports should use another channel, please let me know.
+> 
+> **
+> 
+> What does "come as a single unit from more privileged mount" mean?
+> 
+> "Mounts that come as a single unit from more privileged mount are locked "
+> "together and may not be separated in a less privileged mount namespace.  "
+> "(The B<unshare>(2)  B<CLONE_NEWNS> operation brings across all of the mounts "
+> "from the original mount namespace as a single unit, and recursive mounts "
+> "that propagate between mount namespaces propagate as a single unit.)"
 
-Please explain why you are submitting this.
+I applied the patch below. Let me know if that does not help.
 
 Thanks,
 
 Michael
 
-> diff --git a/man7/kernel_lockdown.7 b/man7/kernel_lockdown.7
-> new file mode 100644
-> index 0000000..5ec4289
-> --- /dev/null
-> +++ b/man7/kernel_lockdown.7
-> @@ -0,0 +1,107 @@
-> +.\"
-> +.\" Copyright (C) 2017 Red Hat, Inc. All Rights Reserved.
-> +.\" Written by David Howells (dhowells@redhat.com)
-> +.\"
-> +.\" %%%LICENSE_START(GPLv2+_SW_ONEPARA)
-> +.\" This program is free software; you can redistribute it and/or
-> +.\" modify it under the terms of the GNU General Public License
-> +.\" as published by the Free Software Foundation; either version
-> +.\" 2 of the License, or (at your option) any later version.
-> +.\" %%%LICENSE_END
-> +.\"
-> +.TH "KERNEL LOCKDOWN" 7 2017-10-05 Linux "Linux Programmer's Manual"
-> +.SH NAME
-> +Kernel Lockdown \- Kernel image access prevention feature
-> +.SH DESCRIPTION
-> +The Kernel Lockdown feature is designed to prevent both direct and indirect
-> +access to a running kernel image, attempting to protect against unauthorised
-> +modification of the kernel image and to prevent access to security and
-> +cryptographic data located in kernel memory, whilst still permitting driver
-> +modules to be loaded.
-> +.P
-> +Lockdown is typically enabled during boot and may be terminated, if configured,
-> +by typing a special key combination on a directly attached physical keyboard.
-> +.P
-> +If a prohibited or restricted feature is accessed or used, the kernel will emit
-> +a message that looks like:
-> +.P
-> +.RS
-> + Lockdown: X: Y is restricted, see man kernel_lockdown.7
-> +.RE
-> +.P
-> +where X indicates the process name and Y indicates what is restricted.
-> +.P
-> +On an EFI-enabled x86 or arm64 machine, lockdown will be automatically enabled
-> +if the system boots in EFI Secure Boot mode.
-> +.P
-> +If the kernel is appropriately configured, lockdown may be lifted by typing the
-> +appropriate sequence on a directly attached physical keyboard.  For x86
-> +machines, this is
-> +.IR SysRq+x .
-> +.\"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-> +.SH COVERAGE
-> +When lockdown is in effect, a number of features are disabled or have their use
-> +restricted.  This includes special device files and kernel services that allow
-> +direct access of the kernel image:
-> +.P
-> +.RS
-> +/dev/mem
-> +.br
-> +/dev/kmem
-> +.br
-> +/dev/kcore
-> +.br
-> +/dev/ioports
-> +.br
-> +BPF
-> +.br
-> +kprobes
-> +.RE
-> +.P
-> +and the ability to directly configure and control devices, so as to prevent the
-> +use of a device to access or modify a kernel image:
-> +.P
-> +.RS
-> +The use of module parameters that directly specify hardware parameters to
-> +drivers through the kernel command line or when loading a module.
-> +.P
-> +The use of direct PCI BAR access.
-> +.P
-> +The use of the ioperm and iopl instructions on x86.
-> +.P
-> +The use of the KD*IO console ioctls.
-> +.P
-> +The use of the TIOCSSERIAL serial ioctl.
-> +.P
-> +The alteration of MSR registers on x86.
-> +.P
-> +The replacement of the PCMCIA CIS.
-> +.P
-> +The overriding of ACPI tables.
-> +.P
-> +The use of ACPI error injection.
-> +.P
-> +The specification of the ACPI RDSP address.
-> +.P
-> +The use of ACPI custom methods.
-> +.RE
-> +.P
-> +Certain facilities are restricted:
-> +.P
-> +.RS
-> +Only validly signed modules may be loaded (waived if the module file being
-> +loaded is vouched for by IMA appraisal).
-> +.P
-> +Only validly signed binaries may be kexec'd (waived if the binary image file to
-> +be executed is vouched for by IMA appraisal).
-> +.P
-> +Unencrypted hibernation/suspend to swap are disallowed as the kernel image is
-> +saved to a medium that can then be accessed.
-> +.P
-> +Use of debugfs is not permitted as this allows a whole range of actions
-> +including direct configuration of, access to and driving of hardware.
-> +.P
-> +IMA requires the addition of the "secure_boot" rules to the policy, whether or
-> +not they are specified on the command line, for both the builtin and custom
-> +policies in secure boot lockdown mode.
-> +.RE
-
+index 87d872ffc..9232b4b6e 100644
+--- a/man7/mount_namespaces.7
++++ b/man7/mount_namespaces.7
+@@ -97,7 +97,7 @@ This ensures that mappings performed in less
+ privileged mount namespaces will not propagate to more privileged
+ mount namespaces.
+ .IP *
+-Mounts that come as a single unit from more privileged mount are
++Mounts that come as a single unit from a more privileged mount namespace are
+ locked together and may not be separated in a less privileged mount
+ namespace.
+ (The
 
 
 -- 
