@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 273CF1B0203
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 08:56:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8D7AA1B0205
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 08:58:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725930AbgDTG4e (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 02:56:34 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35720 "EHLO
+        id S1725959AbgDTG6D (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 02:58:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35944 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725815AbgDTG4e (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:56:34 -0400
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A964CC061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:56:33 -0700 (PDT)
-Received: by mail-wm1-x341.google.com with SMTP id g12so10033066wmh.3
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:56:33 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725815AbgDTG6C (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:58:02 -0400
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 85D72C061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:58:02 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id g13so8662095wrb.8
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:58:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=1+26wHdakAnFR53uXTQrWRaZSRKaWZrnihyuw0F3c70=;
-        b=ME52qYhfalODDQ3aB+RWYiydJF/yZ0kDB3LlAnxesXUVbG6+sOZOmjRgoNMPpQG9Qc
-         OFRwGKe0GxBimNcrNhlpNLw19NgPLR0ojjii+U/wvLqaikTHEjxyoXY4WMgGfquNx2DY
-         iSfpy9dYKGkmo5joWKvK7PBYunvTHmjc0iXS0JpAsn1LKBoyHlVi9arWW7P4TZ0yXDq2
-         NOJntScmLlvoBqPVVRfRuvW5xeAUg7QN/Ir9H670RXpJU2RjwvC0AGH/qD7Pz/QBCd+O
-         R/bhw3TamUcY7EnBL3woqTjTFksKM6ejgB4J7l+0Vw44BL/qpGDxWWHG8x8voWFd0JeD
-         jNkA==
+        bh=7OUbs6s+wrUNll6ZpjGyEdnkq280spTVxWp/C67I9xQ=;
+        b=r6Knla3jo3ktj63ApKXOKYDMZ364uxzg88VQfZAI2rp9zHqN+zsdUbDfxrWtZJUbSs
+         Hf1tIiCwEyyXSSZE07ndjoXiURD4ysYpXaOrGVrKTKPjC8PAkZE+jEoSa2rKbEx9cIwF
+         OapUJbS5UIW+doNZvzC0kWOfRTn79stix4vLXOAzlRgdzbeyJE9iR/cPUZpuv/eyk1PT
+         InDz+35yG1/ZKxEPJZI7K1oHOQctJTQgS8b2+9RoVkwR/2A233Dgrp6s8gaW4i73eY2G
+         LEd0w7+K92qRFxqQ7DzUbVnS7uKrfG8hueOpZsR8N1dPsLtncnU8Gyna3Nuu4F8SWWWk
+         i87w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=1+26wHdakAnFR53uXTQrWRaZSRKaWZrnihyuw0F3c70=;
-        b=o1M2jt8F9Kvrw48NjAaIXXrIOb6/0CwJn0Bi0g6GrUM1Hql9lQt5Kw7A6GeHkwz74P
-         Q8YR+HeO/0PCAH38OdIfBcJXwOlo+rkkVxuZsjDZVBN7UWMu2J6Oq+vzoc/wIT8LXs6F
-         qi06dh4cCpoy6Az6rDJBj6inrMz9Lp9+kkl5X35Xjdt3jYltkXtwKPyQdfaLkixBVSxU
-         X37H+MU2wwsyAbPI2p8oqFXk0AW8RXJUcvO30MeBSHXXoGMLWDWckCZZg/GbBak+6Nq4
-         nOlBwkCGNbhc2pDc4uxMR4HIR7NW6L7QJf8ahafTeBRSYkyv57+bXQALE+JRdvaRg4kv
-         Trmg==
-X-Gm-Message-State: AGi0PuYwRCby4IJdK0bZSF3p3Dp/KOY3TO+1cJmXQvojaNIriW/HJsdi
-        g6IQBdxB7RFzb8nJXK6eIwTT8isX
-X-Google-Smtp-Source: APiQypIk742u8kGrUnnTbgFe4Jir/QI59tY8xHsYBFxfISBinvWewh5XjfMWZRHxR4gwpQxGHzjfQg==
-X-Received: by 2002:a1c:6344:: with SMTP id x65mr16332013wmb.56.1587365791973;
-        Sun, 19 Apr 2020 23:56:31 -0700 (PDT)
+        bh=7OUbs6s+wrUNll6ZpjGyEdnkq280spTVxWp/C67I9xQ=;
+        b=JPKIvLFzDXaldfKKnGKVXcHElm3pevnL3NmnZr6JeoKvz59gEIwHiQHMWfa1ofAYwC
+         4n4KSHmiHQE/In9GGGwHMm+0rwKy0QVY+iwrM0PV3Cx8SaRG895E6FEAbtEaFZalwwG3
+         X8zOuMcEBuFmGrwwUQLW3TgO8IMn0oCkdVdqCHKD75gaT1QbobmZbEywBy/1WVI/IMeQ
+         7kh2ToyjYGkD4zjgsi4EGiyKxHG2rOw+c4uAjUI141gv7Tf3peJxgliotEIJeKsG5llD
+         9tokEbcp2XxWKoRAw1VmIoNzpPiKk91sJl0S60AQTduhKJOyYV1tpi7/LWkrWWIoDmXr
+         kCvw==
+X-Gm-Message-State: AGi0Pub/cOcsaiQyXm6/kN8+6cByFCDhfg7lYCG1qugtPO7C7am7V4WL
+        l3eEFljy9pcpBosUor8/x9hEFLD7
+X-Google-Smtp-Source: APiQypI0mBGBSzJMKrMaEwwc5jQ+4a2Uum1zXcYBQzdqnbHASi0pkfCpRipj/NYBpJTM9cASRzW5dA==
+X-Received: by 2002:adf:df04:: with SMTP id y4mr17155778wrl.413.1587365881129;
+        Sun, 19 Apr 2020 23:58:01 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id f23sm124961wml.4.2020.04.19.23.56.31
+        by smtp.gmail.com with ESMTPSA id g74sm71149wme.44.2020.04.19.23.58.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 23:56:31 -0700 (PDT)
+        Sun, 19 Apr 2020 23:58:00 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: charmap(5): Consistency
+Subject: Re: Errors in man pages, here: console_codes(4): Improvement
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064751.GA30098@Debian-50-lenny-64-minimal>
+References: <20200419064753.GA30191@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <d79ae5ff-914d-3c86-43d2-16a7f94166fa@gmail.com>
-Date:   Mon, 20 Apr 2020 08:56:30 +0200
+Message-ID: <b3c74e10-cfa0-fec8-161b-111679180431@gmail.com>
+Date:   Mon, 20 Apr 2020 08:57:59 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064751.GA30098@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064753.GA30191@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -104,21 +104,15 @@ On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> How do the following strings align with 
-> zless /usr/share/i18n/charmaps/ISO-8859-1.gz
+> interrupt -> abort
 > 
-> "The following lines may have one of the two following forms to define the "
-> "character set:"
-> 
-> "The following lines may have one of the two following forms to define the "
-> "widths of the characters:"
+> msgid "CAN (0x18, B<^X>) and SUB (0x1A, B<^Z>) interrupt escape sequences;"
 
-This report is too cryptic. Please elaborate.
+Fixed.
 
 Thanks,
 
 Michael
-
 
 
 -- 
