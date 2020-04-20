@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3232C1B015E
+	by mail.lfdr.de (Postfix) with ESMTP id 9F00A1B015F
 	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 08:12:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725872AbgDTGMR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1725896AbgDTGMR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Mon, 20 Apr 2020 02:12:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57120 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57132 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
         by vger.kernel.org with ESMTP id S1725780AbgDTGMR (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:12:17 -0400
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 96BE9C061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:13 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id y24so9942513wma.4
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:13 -0700 (PDT)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 42291C061A0F
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:17 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id d17so10552013wrg.11
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=jFRqGu5YjrjQN+BNlnsLvDmEWiks6TeRXa3kW9QT354=;
-        b=Ciy94WTmUwLLJMKQi29BlJu20y2imXNe5g8Po2SNVfPT6mi1pcC940LBJ7xplMdNpF
-         MiTlVUrBLXRP5BKqpdlTR19NGWWeIfDrsW9PymTNlHJDDL+UhysPTzcuGffE4Wdazer1
-         2HVNzrsQqNKzBfo+NONr4quIMjucjMe0WDd1yCtdNhg24q4vYeevGFIdGuoFIxHvHNDx
-         go+cHXI371/gHFEA+R7NchAd6UiIK54TKwiHICNjZyJazB/K3mwa/l2UXivSV7UWLrk7
-         VsvZmCLyQkDpsl81u/h4GsrIlirzXFlwwv26ZfeiidE9reDNmrZjzPPoxx6nRcKoj3ZP
-         ouYA==
+        bh=U5CWvB+eOPHeLkeyanTz7CvdXCrMqG8/d+9bXhr7k8Y=;
+        b=AEISNCLs82jW3D9q5HS+E1C0osMeintMvkyl5qv5AbVW2+DVP7KR5B/s42M49jsU+Q
+         f4za1qb/s5/OLc9MWT7T/e2g/sMvqISGvOTnFZO1PLrII3OUmcRTeySQHtVt/+Olc2rO
+         rdTyuVcpBB03LGj7XFtStjEW65UQBy6bWuEXn+RJfLESJg9/PkSfBjqzH0WCFKiEpeHE
+         T9dTPWI5Og47xiok7w7WzrOOimD+09jCot4Gab0Tp0I9ILe8cGAwtMN7fx2oEm5/O/9J
+         11JATdePT2iMAYqb5ifI62jg6XFzCKiN4PmXh+3B0wMRR9U/kMV8LTBu0EPdEJRhmXY3
+         IqfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=jFRqGu5YjrjQN+BNlnsLvDmEWiks6TeRXa3kW9QT354=;
-        b=LHjWAB6jIpLoNb5iMJkldqfbwNJzSkHnt8zLHXUKVNtMo30E/UgQP/TOqayHYad2AD
-         XAxU7J3bNkHRYevCBV3gvYmSZqWamwKFu79r5kdjKM3NWqDpw/Sg1zRCZQ9EXzwkNBkq
-         qoh8ALAvBy/Env3hO6/R2uLi0Tr1B+Li7cswDqeRvlElHeKmciFXlrQuRa/M0e8c2MRG
-         yZPsBBDnUaxgMK1Z2DF5OhZbAmRpOI88N6qMp9ngwYdgCqdnyCsPDEi+7t3vDvv5P/aR
-         st/SMIm7uSrJG/bA3jhdPMHGIzvGWVktjDVJTOvJrEEEoKU6Mvp0xQR4aEDDFviujm6t
-         5Klg==
-X-Gm-Message-State: AGi0PuY0Ow1M38S6EoxwnosQ/aYSdZ/sbpRlqTw+GrfdfJAltQwIE2bQ
-        xkOZ1nFpUa++NcEHqR5qJkmVeFfA
-X-Google-Smtp-Source: APiQypK5RZEj2QbNFAtVis8XwRS46ozLKwnpxvj4iAdvXHmW7yVcUssI0FAQQrEJDUZI9z6WQo7mbg==
-X-Received: by 2002:a1c:bd54:: with SMTP id n81mr15570998wmf.141.1587363132220;
-        Sun, 19 Apr 2020 23:12:12 -0700 (PDT)
+        bh=U5CWvB+eOPHeLkeyanTz7CvdXCrMqG8/d+9bXhr7k8Y=;
+        b=Hmga61Xu1DOQM3IB8S/ikLvgdXDZw3YGqe8hIP9BaiRh9+5WZmnG+0VEPMmy7hk+Ed
+         SRZud70M+kLsaZaJfvvldCuwG3q9RyKq8ix346RJ6WMM5BcoDT0uAl3BbttS5E1o8w5i
+         htKq85jbPMsO0fd9wRb1UVzFCsVOzk1YtUIRmXvmloYnbxXFjV7VVaLroZoA9wPo37Bh
+         uHnj/LDSDCvCKix0pRtcUPHrVbFvlpdQwNdT96dYPSkImeij2FVDHEbSyziCO1Km0gui
+         c1TtfOdAYDeXa1APzgWmup+0Z2Wd8Cr1tt6refBlPngpYuKUtEIcpG5qRgNhjFwGGC/E
+         XDaw==
+X-Gm-Message-State: AGi0PuY+Ya2t31QM/4xLnKguBWRr8LOapXzm0PuWB6O/hjz6Kaq0n7US
+        msKPWbOnwX5w9Vg70Go2SxiEFUZ0
+X-Google-Smtp-Source: APiQypKV6He5UR0NdCkq8Z2JKbd/hZVh8fp4SVUYaNhkqFlWyhQ4FDA/suZn4HCl4NgrV1x66Vpjkg==
+X-Received: by 2002:a5d:500b:: with SMTP id e11mr16708322wrt.272.1587363135861;
+        Sun, 19 Apr 2020 23:12:15 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id q17sm18066498wmj.45.2020.04.19.23.12.11
+        by smtp.gmail.com with ESMTPSA id 74sm31245650wrk.30.2020.04.19.23.12.15
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 23:12:11 -0700 (PDT)
+        Sun, 19 Apr 2020 23:12:15 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: proc(5): Incorrect reference?
+Subject: Re: Errors in man pages, here: readdir(3): Wording
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064815.GA31417@Debian-50-lenny-64-minimal>
+References: <20200419064819.GA31677@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <09a3dcc4-bf6d-e9a3-d1d9-4c9b5f7b5b21@gmail.com>
-Date:   Mon, 20 Apr 2020 08:12:11 +0200
+Message-ID: <c51794f5-3dbf-ca0b-f996-713f5e23a784@gmail.com>
+Date:   Mon, 20 Apr 2020 08:12:15 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064815.GA31417@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064819.GA31677@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -104,20 +104,19 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> pkeys(5) → pkeys(7) ?
+> "and from an errror" → "from an error"
+> 
+> "If the end of the directory stream is reached, NULL is returned and I<errno> "
+> "is not changed.  If an error occurs, NULL is returned and I<errno> is set "
+> "appropriately.  To distinguish end of stream and from an error, set I<errno> "
+> "to zero before calling B<readdir>()  and then check the value of I<errno> if "
+> "NULL is returned."
 
-Yes. Fixed.
+Fixed.
 
 Thanks,
 
 Michael
-
-
-> "\"ProtectionKey\" field contains the memory protection key (see "
-> "B<pkeys>(5))  associated with the virtual memory area.  Present only if the "
-> "kernel was built with the B<CONFIG_X86_INTEL_MEMORY_PROTECTION_KEYS> "
-> "configuration option. (since Linux 4.6)"
-
 
 
 -- 
