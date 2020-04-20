@@ -2,28 +2,31 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 012381B15F7
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 21:30:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3DD8F1B15FB
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 21:33:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725988AbgDTTaZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 15:30:25 -0400
-Received: from luckmann.name ([213.239.213.133]:52819 "EHLO
+        id S1725897AbgDTTdI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 15:33:08 -0400
+Received: from luckmann.name ([213.239.213.133]:40975 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725896AbgDTTaZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 15:30:25 -0400
+        by vger.kernel.org with ESMTP id S1725550AbgDTTdI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 15:33:08 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56031.000000005E9DF84E.00004EF6; Mon, 20 Apr 2020 21:30:22 +0200
-Date:   Mon, 20 Apr 2020 21:30:22 +0200
+  id 0000000000E56031.000000005E9DF8F2.00004FA0; Mon, 20 Apr 2020 21:33:06 +0200
+Date:   Mon, 20 Apr 2020 21:33:06 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
-To:     "Dr. Tobias Quathamer" <toddy@debian.org>
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Fwd: Re: Errors in man pages, here: charmap(5): Content
-Message-ID: <20200420193022.GB19913@Debian-50-lenny-64-minimal>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: Re: Errors in man pages, here: capabilities(7): Spelling
+Message-ID: <20200420193306.GC19913@Debian-50-lenny-64-minimal>
+References: <20200419064750.GA30023@Debian-50-lenny-64-minimal>
+ <ee26d042-d1bd-2c54-7a7c-667078c436dd@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-20214-1587411022-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-20384-1587411186-0001-2"
 Content-Disposition: inline
+In-Reply-To: <ee26d042-d1bd-2c54-7a7c-667078c436dd@gmail.com>
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -35,74 +38,34 @@ X-Mailing-List: linux-man@vger.kernel.org
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-20214-1587411022-0001-2
-Content-Type: text/plain; charset=us-ascii
+--=_luckmann.name-20384-1587411186-0001-2
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hello Tobias,
-according to "git blame" you added the FIXME (or moved it, then it
-would be from Martin) in 2014.=20
-
-Can you say something for this FIXME (see below)?
-
------ Forwarded message from "Michael Kerrisk (man-pages)" <mtk.manpages@gm=
-ail.com> -----
-
-> Date: Mon, 20 Apr 2020 08:53:33 +0200
-> From: "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-> To: Helge Kreutzmann <debian@helgefjell.de>
-> Cc: mtk.manpages@gmail.com, linux-man@vger.kernel.org
-> Subject: Re: Errors in man pages, here: charmap(5): Content
-> User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Thund=
-erbird/68.6.0
->=20
+Hello Michael,
+On Sun, Apr 19, 2020 at 09:22:23PM +0200, Michael Kerrisk (man-pages) wrote:
 > On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
-> > Dear manpages maintainers.
-> > the manpage-l10n project maintains a large number of translations of
-> > man pages both from a large variety of sources (including manpages) as
-> > well for a large variety of target languages.
-> >=20
-> > During their work translators notice different possible issues in the
-> > original (english) man pages. Sometiems this is a straightforward
-> > typo, sometimes a hard to read sentence, sometimes this is a convention
-> > not held up and sometimes we simply do not understand the original.
-> >=20
-> > We use several distributions as sources and update regularly (at
-> > least every 2 month). This means we are fairly recent (some
-> > distributions like archlinux also update frequently) but might miss
-> > the latest upstream version once a while, so the error might be
-> > already fixed. We apologize and ask you to close the issue immediately
-> > if this should be the case, but given the huge volume of projects and
-> > the very limited number of volunteers we are not able to double check
-> > each and every issue.
-> >=20
-> > Secondly we translators see the manpages in the neutral po format,
-> > i.e. converted and harmonized, but not the original source (be it man,
-> > groff, xml or other). So we cannot provide a true patch (where
-> > possible), but only an approximation which you need to translate into
-> > your source format.
-> >=20
-> > Finally the issues I'm reporting have accumulated over time and are
-> > not always discovered by me, so sometimes my description of the
-> > problem my be a bit limited - do not hesitate to ask so we can clarify
-> > them.
-> >=20
-> > I'm now reporting the errors for your project. As requested, each
-> > issue is sent in an unique mail for easier tracking on your side. If
-> > future reports should use another channel, please let me know.
-> >=20
-> > **
-> >=20
-> > UTF-8 in Debian Squeeze:
-> >=20
-> > "is followed by the maximum number of bytes for a character.  The defau=
-lt "
-> > "value is 1."
 >=20
-> I don't understand this report. Please elaborate.
+> >   b) user IDs =E2=86=92 user ID
+>=20
+> No change. Nothing wrong that I can see here.
 
------ End forwarded message -----
+> > "I<Note>: according to the rules above, if a process with nonzero user =
+IDs "
+> > "performs an B<execve>(2)  then any capabilities that are present in it=
+s "
+> > "permitted and effective sets will be cleared.  For the treatment of "
+> > "capabilities when a process with a user ID of zero performs an B<execv=
+e>(2), "
+> > "see below under I<Capabilities and execution of programs by root>."
+
+Ok, so a process can have multiple user IDs then? I correct the
+translation. Thanks for pointing this out.
+
+Best regards
+
+            Helge
 
 --=20
       Dr. Helge Kreutzmann                     debian@helgefjell.de
@@ -110,25 +73,25 @@ lt "
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_luckmann.name-20214-1587411022-0001-2
+--=_luckmann.name-20384-1587411186-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl6d+E0ACgkQQbqlJmgq
-5nBZiQ//ampzFdX0cWBsuJongZIXa+LHfMOzKoF5kTZVw/oj6mOc2rxqtDUMPWy9
-Dxc/iS7XcidBg5DLE/bO6rQv/Ljrq8GJcD+H8vxqdcRJdVUjbyF9WXPzHhmn8YVH
-8tSeHUGsr+WTeagzjibplvb9o+CnmTpp3YCr4ggejoKYP4mt9npxDgdeJn0OX0hn
-DzK21FuilA6Bq7avuSgzSCVcOsIheXRj6/gDk7umpB7Y0Dwk/OPLAbYQMSP6qATJ
-4g1CX4GwJtQbb/f3QCgIUkqz8PhgVKXxJMhtxJuE3mdUbYKL9eZnaVxdelIjriHX
-nn2WP/+KehLQ01ySMx2uJVxn/bj/c993ql01zubZ+Cc145KgP38sRe3udSlEfjK7
-O6A1521ONUhHmGR64oWt7+BhL5ZiEFzPcHTkZ2tyMCWF4FTYrxIZXx4SWeSJaHBg
-0w341DO7t0rHFE0YCF0P7u5jDHyJBMla6OovPM9PykdYCBcOQ/Ll265r5a7EgDds
-03m8DOAIEjBrer9IIB4K/dfPEgkbGlkagXnLiBthf+XXxiVvKWdpdIXVRGXs+xZb
-M8V1wSPv26veN0cpXjkkQ27O5HA0LYDG3oXfS20fKZT9PP/H7mpW3k/ztI27Uxea
-2Z+QjDijxuAnnwmTeit6V9L1tnHQsOVxj/ECNazvLBW/8l+ryjo=
-=T1n0
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl6d+PIACgkQQbqlJmgq
+5nDjdxAAntNReblHAyFcc4ruIB/wVpvhJtHe80wzk+WhTJKdxSYJkR89Xd2Qeltl
+ULsKd04nAjJuQc718bmQpazIweBmxz/Ukd/TqgsICmCpo/NlzWFEFfRVL8niZ5Qj
+M3YcupxnanYBR64I7hwcjyNuYQgvz9QWX5CspO0EAUaUYOd22XvGKM4YZgPYJ1JY
+ekiDfJkg5XjQU7Vz++asMguDnENzCBRCSdXEj2nKg0ZCMD9AAJfM7oCaHq31F10V
+njHQkR2EERYEw4yFV0vsL9GwDIbbccmkw+Xkut85pspooFbjICBoDLuq7sxxTwWD
+iN8ivWEU9OfMdxchwISYWw/wAE/3hUeZKSOKx8JsynEIrszcv0dumYSf3WzQOr5R
+MOEPlIXwH83Uk2NbNamDxBG2WoYNePPmkSlvqxsU97uV4j4EqUM46jY7cnSFUODG
+OCxawzqsvTJpDTPRs2hDrvJvBpk15ufz32dIBGUZB+8fJVTgp2yVLv/tVLjlwyW4
+bclNvtJD3CAXQvDa9BVx/lfCw0T9l9XL/O07giTyTieAR2hK/9qAvAY6idqKrdeY
+rQAKvjnE901zaizA4yCgbopGYKqCaEoR7enRpKK+6RL+T2W3qeRMmO7/VybpjgPM
+vp4N1tYif9YLqSQOPllLRjhq1wixTXU+l0jFV0Iqej2n8zJhgho=
+=XDCk
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-20214-1587411022-0001-2--
+--=_luckmann.name-20384-1587411186-0001-2--
