@@ -2,64 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EE97C1B03EF
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 10:11:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 66B221B03FD
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 10:13:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725994AbgDTILG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 04:11:06 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47344 "EHLO
+        id S1725886AbgDTINm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 04:13:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47770 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725773AbgDTILG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 04:11:06 -0400
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AD78AC061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:11:05 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id u127so9146866wmg.1
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:11:05 -0700 (PDT)
+        with ESMTP id S1725773AbgDTINl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 04:13:41 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7F280C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:13:41 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id b11so10928193wrs.6
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 01:13:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=kTt5sqytVmVtrs53f8LZJzmD5c/lEhtyH/4r6ZNjc4U=;
-        b=t+xy8nYeoa2pRQ9OBdGyFjE4LxENvlgkQLOYhkCowYUlG6DkZMoc8zjSlKNj5kw3Nv
-         X+dP2FyzIi8x8SJAs7gsLuO9lcptDLmK9ow5SyAVwf5XIkeFYH+fEdptpnM/sCCAi9Ha
-         fHkl6OvFEKv2JfnxAr86LTcMRcx7ZliCAoKwTTSVwt0q2tclRnWTQQlP8x86uyKZSfnq
-         3dzNqGKuFwjibt+PcHUuIomCPm1142v4TNhZItvGgzsbg4vtaQmUTkKOxT37lbaiVrFs
-         NsHb2Ovj9kRoAmdx8Wz4AdJb7zefE7HPitT3ag3ZEd/w9TkrpbchuF/qVjBEwAVEnPHs
-         JONg==
+        bh=pd+HVcDz4fG47lS8acU95j/DLRY4zDL0GReeI8g+fZw=;
+        b=Q6ZRB2mJGwlhTVR7b6ID8TB0ND9A1l4RzP5/CrUYghB4gmZ8a6+K5iZg6uOjY1g9Oq
+         JiotQ4goNqqOMeozdGp87eA0VA1EAvdqh9phyTdkqFuWpTbpPBdXoLo8jhHlM0FuBE5z
+         Wjhge27um5mdCCcY4ulISqJ/2+twEeZPvyqs8O6EMcIjytx53RE35FYqFDlXOj6rNGcH
+         kB382GuKMnN3ZG5iVircSnKTRquzlUoN+umv4Ldt+oh4FK/mdlb8PQR44Mxzq3YQSo4k
+         vvG5mGig0oyrzeI8Dc0/aArDLQwtbvy/AB++cVJAJ8LXVzxW94gX+w+QsBgkjp8YJONJ
+         XLcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=kTt5sqytVmVtrs53f8LZJzmD5c/lEhtyH/4r6ZNjc4U=;
-        b=Swt4ultUIb4y+vbo7DWK5KquVhAVpm2v+wedy9mw4JiXiY7mbk+/wAHsuyIyJ9L0Q/
-         7yf2fYnbsxAsZtVoNoGMfLSWVPoGioOTRnV+1ccdmtE4a7zfVLFbEZZpkAnEpfTNAoXN
-         j0Eortiq+IFlB1z2QozDMSVIv7Hw9PDQuRpzBbDi1j9MJ/puUbPAWJw9QwpH6kp+0zDa
-         hMPQTfQQQlqtfedfbaIpghM+6xDk7WFhg8bXiZnIncJv0IihxJMT6xNPyylv4pdClOmW
-         5Q2/M7FQXEHPDhYc9SrYytuA1YKwyotjmQg9QNQ+V4meZrkqvdtKkOZtYW3SSkdIGXV5
-         Vi+A==
-X-Gm-Message-State: AGi0PubLdYhcp97IYHRbqvKnbiM6lzMI8As4+BlKx7DNMqDy8brtThqV
-        kjLYlkIK8aSsV2+DaYz8/X8=
-X-Google-Smtp-Source: APiQypKrGW4YmBXppBNJ9YRdQjXoicnUPl77mtJ/j9MINshuk1UWXcNSSKFvLZZTM2G9i/WhmLKsRw==
-X-Received: by 2002:a1c:3b0a:: with SMTP id i10mr16073762wma.26.1587370264440;
-        Mon, 20 Apr 2020 01:11:04 -0700 (PDT)
+        bh=pd+HVcDz4fG47lS8acU95j/DLRY4zDL0GReeI8g+fZw=;
+        b=JRc+fFZp7G/e/YhcxoZP53jOgICN1IIBoyL0SW5rSfkQOLhfAr0i8DCyUyDC4+GDZq
+         H9pxH0rw0ACPulXgB1gEWoNjCPhi+Czk9qQddaNVjnxdu/mqGr2GeeggYKJUp0oallXO
+         rHCUw7Z1aQn/6ScwL2dInKbZ0j6rKtsN4Q0D6DXwsJ5xGoWDXIK/m4njhX8A6XpXsjLY
+         zvLgnDdcvbSAJ+IZYciJl3ewwW/3bV4ehkwlvs9y3c0F++lKCuoOP8qKRLmYkm885cHf
+         X4TbI1zDSAqTNVVF337wIAm3RcFJ7IICibcy60//in2vYrR7yKvAJ4BdKfdnc3lvYU2U
+         oE+g==
+X-Gm-Message-State: AGi0PuZIkmPTJkatuZlYAs9UahvI4GUqKvYhua7HEpMywzRbNErbluVT
+        wKvX1Xs4RWdKSHs7qWhJR30=
+X-Google-Smtp-Source: APiQypJ+d1OOY/hVkT1vseBa6ipj9ITn6tWumiko2eLdVCDfl4YMQzt1sL+vLf8U+rd5bocRrklijg==
+X-Received: by 2002:a05:6000:10c2:: with SMTP id b2mr18629517wrx.118.1587370419798;
+        Mon, 20 Apr 2020 01:13:39 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id q143sm338697wme.31.2020.04.20.01.11.03
+        by smtp.gmail.com with ESMTPSA id 17sm358797wmo.2.2020.04.20.01.13.39
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 01:11:04 -0700 (PDT)
+        Mon, 20 Apr 2020 01:13:39 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         =?UTF-8?Q?Kai_M=c3=a4kisara?= <kai.makisara@kolumbus.fi>
 Subject: Re: Errors in man pages, here: st(4): Content
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064828.GA32141@Debian-50-lenny-64-minimal>
+References: <20200419064827.GA32117@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <532e2c98-09ca-ee0c-be4b-0c51d4b42eef@gmail.com>
-Date:   Mon, 20 Apr 2020 10:11:03 +0200
+Message-ID: <dd5fdce8-8329-5951-43da-34aeafae542f@gmail.com>
+Date:   Mon, 20 Apr 2020 10:13:38 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064828.GA32141@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064827.GA32117@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,6 +69,8 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 [CC += Kai]
+
+(Kai, I got a pile of queries from a downstream translation project)
 
 On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > Dear manpages maintainers.
@@ -107,33 +109,19 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Is the statement true or is it swapped (locked when closed)?
+> We cannot understand the last sentence. What is "forward spacing"?
 > 
-> "When this option is true, the drive door is locked when the device is opened "
-> "and unlocked when it is closed."
+> "This option causes the B<MTEOM> operation to be sent directly to the drive, "
+> "potentially speeding up the operation but causing the driver to lose track "
+> "of the current file number normally returned by the B<MTIOCGET> request.  If "
+> "B<MT_ST_FAST_EOM> is false, the driver will respond to an B<MTEOM> request "
+> "by forward spacing over files."
 
-I do not know. Perhaps Kai can help.
-
-Kai, the text in question is
-
-              MT_ST_AUTO_LOCK (Default: false)
-                     When this option is true, the drive door  is  locked
-                     when  the  device  is opened and unlocked when it is
-                     closed.
-
-I believe Helge asks whether the text should read:
-
-              MT_ST_AUTO_LOCK (Default: false)
-                     When this option is true, the drive door  is  locked
-                     when  the  device  is CLOSED and unlocked when it is
-                     OPEN.
-
-Can you help?
+Perhaps Kai can help. I do not have a good explanation.
 
 Thanks,
 
 Michael
-
 
 
 -- 
