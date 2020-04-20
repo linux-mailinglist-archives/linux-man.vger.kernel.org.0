@@ -2,59 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6278B1B0657
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 12:15:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B2BD21B068C
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 12:26:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726025AbgDTKPA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 06:15:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38292 "EHLO
+        id S1725775AbgDTK0q (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 06:26:46 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40084 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725773AbgDTKPA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 06:15:00 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C0BBAC061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 03:14:59 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id j1so5967644wrt.1
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 03:14:59 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725773AbgDTK0p (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 06:26:45 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 071DEC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 03:26:44 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id y24so10741530wma.4
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 03:26:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=tJzFr6wXPfcQF5OzMbT7Xi6PS1cKa7Wic01zdsPBoGI=;
-        b=rFxIDSybObRhaNy5rbD/sGs0i2vjnnksllCMQ1uhagjoP+HmEkgMZbAS7Cn8nBMSb+
-         zIBUVzv0+6naZbNW8Hgd98wriGDUYqk6o2yqQCsIWdIXI14jUc15bCOuRu17vKwq2sYo
-         qkLangn82Ll2vLzVyZ2vzEIYsooXlZpLwT6ThTdzsdGEoPWvtBJOZer99jbX3K7OolLR
-         JFoYMMalaKeN6xVb5LhMOAmZllWHpm6A6z8/gP7t4AMz3Z7vGHeIgXt1ve+ygg2KmNc9
-         XMP9t1UpxqifwniaMOKoATau4CQW3oJ7Rm053Ak1ZhHnBZXWooAuRKtlp2j0dt2+2HtN
-         nWsA==
+        bh=8SSA9f1Xo5F5j9gAZ+eAX4kVVjtlPF4TF01FxxruBkM=;
+        b=q82H5fvxJ4szezgQCo3O2kONzpcEhjJlPQcauI2z8V/xaOJ8/+471VwLdTIdPuo2ML
+         MXVMwCIjGjwVhOfRBPZBVXTQZpGK5tZelNx8maRzcH9duCGbrzcilHT8QyTwsFCwost5
+         TNxEhd8G0oomX/dDGja+rBcp65+/+Rst/BqsmLKFic4fIOOZdf2jxW9pu7yaGiQZh9nM
+         eGcRjHC8rvr/TEAQi0U2uwwRWjdwNQWwICrxocWYAdUPo0Q8vL90KV59bQrvzfqJvTfJ
+         duoYdyA+O6I3KuuvJiiHItahmwyAwk2S7sDwBwbvGbQXcS/DOu8CLKaCJTgM5rE3dcbN
+         vP8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=tJzFr6wXPfcQF5OzMbT7Xi6PS1cKa7Wic01zdsPBoGI=;
-        b=SZRvNOOL8XLByuy9z4I15PvMO4tN4PERWOXE77IqSAdjTTvp2vu0tZoqR8zCbo6vUS
-         vM6LCm+7bdInY4K7I+l53s2OFe2Nhn9kKrR+Er4/2rdovYtWf6OW1facYyzvMjBzq1bG
-         +YXSnLxaBqb+1Lswda+3dKbIgfW1s5+kCtHF/QiovhpGtnSoCsmryUPTcKb4AeUOQri5
-         MCVWIbp/MDO2DyRwlZ1yIDGjQ6Kfm7d17JLN85SEHpCRalPeaHxYoOEikvDHdDdWoCOB
-         Z187rix5klGglWJODfWFUihhvYZpGIY95uAUFtQhFiRwrbizPioFEO9wdoP5TL1AsUp8
-         avJg==
-X-Gm-Message-State: AGi0PuaU513RIB1VsVH1hqLjDZxlRkiMAKYNdMgxCum7+psbUNdaq6+l
-        ApGqKY/Q0ld6nbjULCC7jH9Gh7lQ
-X-Google-Smtp-Source: APiQypIzWM811W0ul4bjqKfFG3dBHvBEIjmTr0M60/eSIVzPds1FuZxQM8QvGU8ifOPTxD0d4tOYiQ==
-X-Received: by 2002:a5d:6b85:: with SMTP id n5mr6682546wrx.370.1587377698224;
-        Mon, 20 Apr 2020 03:14:58 -0700 (PDT)
+        bh=8SSA9f1Xo5F5j9gAZ+eAX4kVVjtlPF4TF01FxxruBkM=;
+        b=JbNm/TEdwG9OZT7UmTFk6XfA4llwXbojAhw9FRtdLTckrRGCgDJ4A3fi9Txi4UPCoW
+         z1318GTQy83YhIWM06dVMv0bOwjlb/MVAzc5/RRDHMGo2dm+aS5thORrEJgQudD6vQSG
+         RH/NwsF7PMTOKpBeE+0nZyxQvp+dqnj62eKcNCNw0/tXyOooKW8bakTD3h3jOtwm1V9M
+         RkIpydhPofZTz3EF/hmwqLAriuRjOkM4tZni49TOyXIdas3bPkCdl/AdYQgwWDTYTudR
+         FJU6ao8t3uzFR+uJeNHw0z3njI+LLvylru1J7TNarvZmgeOd3Vi/oXu21PTKjG4NndlT
+         t/DQ==
+X-Gm-Message-State: AGi0Publt3iKDYVgK0P3bQTnrPn2QSoLVDYPg9e9/JTxuNomNYzFgimE
+        wMzhj/YTLfuHykc0DFryseDEUzl7
+X-Google-Smtp-Source: APiQypLOdd5I8ddoEjtePBhFGForh9bKv5R/ztOUQjfUe15lF4VkTd/YDIFVU08Oc/CX89c3StOMhw==
+X-Received: by 2002:a1c:9e43:: with SMTP id h64mr16766867wme.0.1587378402621;
+        Mon, 20 Apr 2020 03:26:42 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id 138sm822601wmb.14.2020.04.20.03.14.49
+        by smtp.gmail.com with ESMTPSA id t16sm736325wrb.8.2020.04.20.03.26.41
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 03:14:55 -0700 (PDT)
+        Mon, 20 Apr 2020 03:26:42 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: mount_namespaces(7): Understanding
+Subject: On bug bombing
 To:     Helge Kreutzmann <debian@helgefjell.de>
 References: <20200419064811.GA31185@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <ad0a1641-75fe-e872-b7ee-04fe3a864808@gmail.com>
-Date:   Mon, 20 Apr 2020 12:14:41 +0200
+Message-ID: <62162aec-6dfa-18b9-b370-00d772f3e7b7@gmail.com>
+Date:   Mon, 20 Apr 2020 12:26:41 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
@@ -66,6 +66,8 @@ Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
+
+Hello Helge,
 
 On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > Dear manpages maintainers.
@@ -101,35 +103,24 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > I'm now reporting the errors for your project. As requested, each
 > issue is sent in an unique mail for easier tracking on your side. If
 > future reports should use another channel, please let me know.
-> 
-> **
-> 
-> What does "come as a single unit from more privileged mount" mean?
-> 
-> "Mounts that come as a single unit from more privileged mount are locked "
-> "together and may not be separated in a less privileged mount namespace.  "
-> "(The B<unshare>(2)  B<CLONE_NEWNS> operation brings across all of the mounts "
-> "from the original mount namespace as a single unit, and recursive mounts "
-> "that propagate between mount namespaces propagate as a single unit.)"
 
-I applied the patch below. Let me know if that does not help.
+I am torn between saying thank you for all the effort you
+clearly made and saying PLEASE DON'T DO THIS!
+
+Submitting one hundred plus bug reports at the same time
+is _very_ burdensome for an upstream maintainer. Honestly,
+if it had not been for lockdown, I might simply have ignored
+the whole series of mails.
+
+In the future, please do not wait for  huge backlog to build up
+before sending me reports. (10 reports at a time is fine; 100, 
+not so much.)
+
+In any case, thank you very much for your many reports.
 
 Thanks,
 
 Michael
-
-index 87d872ffc..9232b4b6e 100644
---- a/man7/mount_namespaces.7
-+++ b/man7/mount_namespaces.7
-@@ -97,7 +97,7 @@ This ensures that mappings performed in less
- privileged mount namespaces will not propagate to more privileged
- mount namespaces.
- .IP *
--Mounts that come as a single unit from more privileged mount are
-+Mounts that come as a single unit from a more privileged mount namespace are
- locked together and may not be separated in a less privileged mount
- namespace.
- (The
 
 
 -- 
