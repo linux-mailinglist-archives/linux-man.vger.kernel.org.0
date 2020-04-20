@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EE6F91B0161
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 08:12:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 979B61B0162
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 08:12:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725959AbgDTGM2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 02:12:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57162 "EHLO
+        id S1725971AbgDTGMf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 02:12:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57184 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725780AbgDTGM1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:12:27 -0400
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4D1E9C061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:26 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id s10so1431920wrr.0
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:26 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725780AbgDTGMf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:12:35 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B4ED9C061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:34 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id x4so9612668wmj.1
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:12:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=nS00DNp6iuzwmJBPXKz1UNY/uOeN06RvVPOkeCoGD84=;
-        b=AaFd0580jN4BgLTgZFHBGO9/jBqIYgk0/miXULyMpcc2pYU4EYyy2pr2L2foW+xR7b
-         f4HpYRvqFSMn/EUxkrrO/HDWa0fPLzZhngXg02ubGE6U9jedI3t5xpoKCW+dVMtZ/bxM
-         GP7j7YBHENm7W0rzPPSpqgSdepn8ndzgi1IdxvrauaqTW0dU7Sl4VSY9kOEsVYzpAyyT
-         UtBKOQYQ/Ws+VnovL9QDT0/Y8tIn7UQG7Ys8zEMLdiYXiho2Je6bXXhaBpjrON1LTBQo
-         fpxrIn1hUZy4ZaFCknMR1jAgTOv5fFPB7ByCm+9qEjpqCC0TH2PvupmAfxE7WncUGHOZ
-         4WCg==
+        bh=PwGHHDjhKwrwDctFQgO9p3ZdqQtA+qaTr1dfybuyDa0=;
+        b=h0v5m+b7a2ObbNJG+J8lyQdwcrHsbxKCCbSdKsIl9/t9FoYiIUe237vfSdruClQLKv
+         Lq7w7TxEotqTTTiScuxxVL7giAvfg+5hEYD261z1hDxUFNt+VCA1dARR8hpVPAP/pDML
+         GhRf2fSTHaj8Omu1yZElrCQUofA5QciYUPorvOP2YU+QHWYhs8hX1vj7k99aa7ZPV8I9
+         mcoqUvY8pzbG4vaA4Mx8c2fkntT7fG98t+V7Ry0NojFQXIwg4GGwO771760OugCI2IjE
+         0KT8xQpp1J+zZWHT6OIs8d8uE/JJf5jhbXhuRB/dSCM6Dn06f9QR9M/PCJBTdDZQRvr8
+         aj+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=nS00DNp6iuzwmJBPXKz1UNY/uOeN06RvVPOkeCoGD84=;
-        b=frc0yhXyxQazF8c9hH8b6souCC1JHl/XqDrH+mgImYMo8+aSKYkhQ848vseAvY3jDl
-         Is1sgLUDIsfYfOjoG2EW/U/1x0j2x3nr54r6w140g3zjJYf1Zkpi3QClnhrLTKygPZ6I
-         YWvrdwHaiKnfUPhVR3IsboBP8d5zSbfBVRqkNNeU99Ddupm65w0zPzB02fLCaIotsyFz
-         7rErd8ysQ0A42ofZPT8blemTqtp55ZxlPEEQidaxLYtUcAtM0BX9WDi8IZMCMR6fKvs9
-         cVwbxMbU2vLcAo1xZRwLROEF5U6/zQhBy7O8LwEtoZU4rj0MSTeW1DRq2aEiPIu/sVEH
-         s7SA==
-X-Gm-Message-State: AGi0PuYtJ5PP9ucAr41MAvPiT6cEPAzk6pVzP9bUyXCRZIvk0S9k49MB
-        SP2rBmljGLlZRuje0iw5Dj8v4mXr
-X-Google-Smtp-Source: APiQypJDEwuNzS91Grqrj7SWZs3Cbk3MYN9uweiWbz1m8M+nGC6kf1w0FLAPRRIoY7+wJlVqMgML1Q==
-X-Received: by 2002:a5d:408d:: with SMTP id o13mr18239410wrp.249.1587363144898;
-        Sun, 19 Apr 2020 23:12:24 -0700 (PDT)
+        bh=PwGHHDjhKwrwDctFQgO9p3ZdqQtA+qaTr1dfybuyDa0=;
+        b=Nb8JAapcHSPcOI71OZrAe9k/SszvsLnHaR284ll0pTZh/tMDQb1SkFcIt73ev6Um25
+         vbW+9CGEMAlUjlF4Gp+PSMiKhKmUXrt07bYph8kzJwCWkaxfGZRV4wkwJ4LOUJo5Qykz
+         SP8xxI9Wd6aZAEoYfm9CBJdrmZ2UDWrfkZDSzGl5iYbK4tdfSKeq06Hx+50mwH2dGdKs
+         0w6w1WTpP9Zcn6EIwY/hfJj9zYHoeiHfcS2ppqkg0fZEwrRmkkpTnYLtvfgWFfcp6zVu
+         B8OYoYNOH8hHs7TL6I3/mMxtr+MHEJPB+JNhciTl8AHbo15Lj5VKyR9i/M3Ly1NmVbq1
+         QGUg==
+X-Gm-Message-State: AGi0PubBwYROx7QhuchyROb6ZDWENxXfZjem7Gs9liZhff5Y2SN0/34g
+        R5kZ18sJLlrqMqSMp1zsjlaVHno5
+X-Google-Smtp-Source: APiQypJrDJ7BpOtbfvfMpOCQrMBjYQDdkoop9VDkd7JoZtbPz1c48GtWRPnsOQ1E2Lq7lZYTB36S8Q==
+X-Received: by 2002:a05:600c:4401:: with SMTP id u1mr15584599wmn.31.1587363153352;
+        Sun, 19 Apr 2020 23:12:33 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id 145sm18877640wma.1.2020.04.19.23.12.24
+        by smtp.gmail.com with ESMTPSA id s8sm13047268wru.38.2020.04.19.23.12.32
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 23:12:24 -0700 (PDT)
+        Sun, 19 Apr 2020 23:12:32 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: setpgid.2.po: Inconsistent formatting
+Subject: Re: Errors in man pages, here: random(4): Singular/Plural
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064823.GA31864@Debian-50-lenny-64-minimal>
+References: <20200419064819.GA31654@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <29000770-9fe0-c412-6721-c50d575c38d1@gmail.com>
-Date:   Mon, 20 Apr 2020 08:12:23 +0200
+Message-ID: <32c7d19a-ac60-0250-869a-5b5c707b56e2@gmail.com>
+Date:   Mon, 20 Apr 2020 08:12:32 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064823.GA31864@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064819.GA31654@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -104,18 +104,16 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> # FIXME: inconsistant formatting/markup (compared to previous entries)
+> vary → varies ?
 > 
-> "B<pid_t getpgrp(pid_t >I<pid>B<);\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ > /* BSD "
-> "version */"
+> "This file gives the size of the entropy pool.  The semantics of this file "
+> "vary across kernel versions:"
 
-I need more context here. I can't see the problem. (Maybe it
-was already fixed upstream?)
+"semantics" is considered a plural noun, so "vary" is right.
 
 Thanks,
 
 Michael
-
 
 
 -- 
