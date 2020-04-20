@@ -2,124 +2,194 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 183E81B0851
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 13:55:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DC8F51B08B4
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 14:05:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726380AbgDTLyw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 07:54:52 -0400
-Received: from mail.kernel.org ([198.145.29.99]:38608 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726821AbgDTLyv (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 20 Apr 2020 07:54:51 -0400
-Received: from quaco.ghostprotocols.net (unknown [179.97.37.151])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id 8202A21927;
-        Mon, 20 Apr 2020 11:54:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1587383690;
-        bh=VEov1HC8kgX2JVYBtf5NvQb82wHeJ2/NnuqpEyj7U+U=;
-        h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-        b=K2wA/sfFxecLv7R81Z3L8nQRfJzTKMqNt+FJN7nLvkxV66mZfO5u6jy9LnBfkf7ed
-         5jEJkZFGY7O11EbRbNmJ3pqEsYFpuOjmCkheRSJjCJxnsyW0RoFGzomKUWICd6Rzqx
-         HE2UHsV3PClSWDXhumCf8dh4djMaGw2rLR076hRY=
-From:   Arnaldo Carvalho de Melo <acme@kernel.org>
-To:     Ingo Molnar <mingo@kernel.org>,
-        Thomas Gleixner <tglx@linutronix.de>
-Cc:     Jiri Olsa <jolsa@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
-        Clark Williams <williams@redhat.com>,
-        linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-        Alexey Budankov <alexey.budankov@linux.intel.com>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Andi Kleen <ak@linux.intel.com>,
-        Igor Lubashev <ilubashe@akamai.com>,
-        James Morris <jmorris@namei.org>, Jiri Olsa <jolsa@redhat.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Serge Hallyn <serge@hallyn.com>,
-        Song Liu <songliubraving@fb.com>,
-        Stephane Eranian <eranian@google.com>,
-        intel-gfx@lists.freedesktop.org, linux-doc@vger.kernel.org,
-        linux-man@vger.kernel.org, linux-security-module@vger.kernel.org,
-        selinux@vger.kernel.org, Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH 16/60] doc/admin-guide: update kernel.rst with CAP_PERFMON information
-Date:   Mon, 20 Apr 2020 08:52:32 -0300
-Message-Id: <20200420115316.18781-17-acme@kernel.org>
-X-Mailer: git-send-email 2.21.1
-In-Reply-To: <20200420115316.18781-1-acme@kernel.org>
-References: <20200420115316.18781-1-acme@kernel.org>
+        id S1726358AbgDTMFK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 08:05:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55232 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1725944AbgDTMFK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 08:05:10 -0400
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1F21CC061A0C;
+        Mon, 20 Apr 2020 05:05:10 -0700 (PDT)
+Received: by mail-ej1-x643.google.com with SMTP id n17so7691613ejh.7;
+        Mon, 20 Apr 2020 05:05:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=6c6O1wwYwJaoqXoO8GZUPNWMilZA1Gv+nhWPnSzgWDc=;
+        b=fPcrtHjSQDl8DlVnsTiupNvncJPOAUQouyM35zYWIgk58NT/cChPqhv+kGZmvDDP8c
+         h2EYKkE+/F2kMCPxy5geoAXEzSw9ic6eEgNZqmGNK+x+EV5WCL+d3RtQ+qGWG9VGHIiW
+         /QsDKSMZA3GpDFU1Ru9TwPzcVup5IXJKAvFqi4jwLjOyW3dkY5nFH8dcH3P2NURKa/Sj
+         Tz+KwZ/k8QACD7fvNRASUikLP86VtnAj2yQKqk4WA1LAB04F/7vuQdsb7/leS7ZUgD7J
+         /hyrqigki2RleIL3wdWBrU95zKS8ZFCA38t5xT9IS0dgIWEtmFbj21S4o7HZXo6KB3Hp
+         r5hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=6c6O1wwYwJaoqXoO8GZUPNWMilZA1Gv+nhWPnSzgWDc=;
+        b=R6kDw9lkdFNNax8c4mTjc9FNoahBc8pzuZCOaq5z4zV1esanXXRLasrwNmTm3GFKi3
+         TeXOZA6nj320+e2idEUfZrMK/fHo6qTWqSSRMNd+b9zBMbPZL08jse47LoIPtmFa15l8
+         ArD8GCc+UmPcD0lluPdKyPQH58k1995mvbhf87LK08H2mE0+AYcKQ4JTR0vFWfKAI6K9
+         AAQsMXe11+6kfy/+yG+LurrthYK5x3XdiHg6AU6KSJjeQ7NPiDnC2iRy9MPgBR5kezrN
+         irce+9oh06OO59YlCHLG733ZkyVyBeodpO818INzlhLnpmIXYE/w/XxhYulqsEmXdQXe
+         0XjQ==
+X-Gm-Message-State: AGi0PubwQhel9WDJEtJ9Is9XjYd7v9nagjIBaggZ1M+YwTfV+AJqPUhY
+        8SPi7TDih94qHTo62pIZSw3kFe2Rqg3dtWx3JqM=
+X-Google-Smtp-Source: APiQypLVnAYHnuZPZntL2kKg0JfFWH4H2pVuyaSrFdXByBXAiDaZXjiPvVMTApWknOtgqyYYyVtduCDDa2+lgWlaIw8=
+X-Received: by 2002:a17:906:add7:: with SMTP id lb23mr16554858ejb.6.1587384308776;
+ Mon, 20 Apr 2020 05:05:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <d2979d75-5e45-b145-9ca5-2c315d8ead9c@redhat.com>
+ <708b8e2a-2bc2-df38-ec9c-c605203052b5@sandeen.net> <7d74cc3b-52cc-be60-0a69-1a5ee1499f47@sandeen.net>
+In-Reply-To: <7d74cc3b-52cc-be60-0a69-1a5ee1499f47@sandeen.net>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 20 Apr 2020 14:04:57 +0200
+Message-ID: <CAKgNAkgLekaA6jBtUYTD2F=7u_GgBbXDvq-jc8RCBswYvvZmtg@mail.gmail.com>
+Subject: Re: [PATCH 2/2 V2] man2: New page documenting filesystem get/set
+ label ioctls
+To:     Eric Sandeen <sandeen@sandeen.net>
+Cc:     Eric Sandeen <sandeen@redhat.com>,
+        fsdevel <linux-fsdevel@vger.kernel.org>,
+        "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Alexey Budankov <alexey.budankov@linux.intel.com>
+Hello Eric,
 
-Update the kernel.rst documentation file with the information related to
-usage of CAP_PERFMON capability to secure performance monitoring and
-observability operations in system.
+So it seems like this feature eventually got merged in Linux 4.18. Is
+this page up to date with what went into the kernel?
 
-Signed-off-by: Alexey Budankov <alexey.budankov@linux.intel.com>
-Cc: Alexei Starovoitov <ast@kernel.org>
-Cc: Andi Kleen <ak@linux.intel.com>
-Cc: Igor Lubashev <ilubashe@akamai.com>
-Cc: James Morris <jmorris@namei.org>
-Cc: Jiri Olsa <jolsa@redhat.com>
-Cc: Namhyung Kim <namhyung@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Serge Hallyn <serge@hallyn.com>
-Cc: Song Liu <songliubraving@fb.com>
-Cc: Stephane Eranian <eranian@google.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: intel-gfx@lists.freedesktop.org
-Cc: linux-doc@vger.kernel.org
-Cc: linux-man@vger.kernel.org
-Cc: linux-security-module@vger.kernel.org
-Cc: selinux@vger.kernel.org
-Link: http://lore.kernel.org/lkml/84c32383-14a2-fa35-16b6-f9e59bd37240@linux.intel.com
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
----
- Documentation/admin-guide/sysctl/kernel.rst | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+Thanks,
 
-diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
-index 39c95c0e13d3..7e4c28dfc9ca 100644
---- a/Documentation/admin-guide/sysctl/kernel.rst
-+++ b/Documentation/admin-guide/sysctl/kernel.rst
-@@ -730,7 +730,13 @@ perf_event_paranoid
- ===================
- 
- Controls use of the performance events system by unprivileged
--users (without CAP_SYS_ADMIN).  The default value is 2.
-+users (without CAP_PERFMON).  The default value is 2.
-+
-+For backward compatibility reasons access to system performance
-+monitoring and observability remains open for CAP_SYS_ADMIN
-+privileged processes but CAP_SYS_ADMIN usage for secure system
-+performance monitoring and observability operations is discouraged
-+with respect to CAP_PERFMON use cases.
- 
- ===  ==================================================================
-  -1  Allow use of (almost) all events by all users.
-@@ -739,13 +745,13 @@ users (without CAP_SYS_ADMIN).  The default value is 2.
-      ``CAP_IPC_LOCK``.
- 
- >=0  Disallow ftrace function tracepoint by users without
--     ``CAP_SYS_ADMIN``.
-+     ``CAP_PERFMON``.
- 
--     Disallow raw tracepoint access by users without ``CAP_SYS_ADMIN``.
-+     Disallow raw tracepoint access by users without ``CAP_PERFMON``.
- 
-->=1  Disallow CPU event access by users without ``CAP_SYS_ADMIN``.
-+>=1  Disallow CPU event access by users without ``CAP_PERFMON``.
- 
-->=2  Disallow kernel profiling by users without ``CAP_SYS_ADMIN``.
-+>=2  Disallow kernel profiling by users without ``CAP_PERFMON``.
- ===  ==================================================================
- 
- 
+Michael
+
+On Thu, 10 May 2018 at 19:29, Eric Sandeen <sandeen@sandeen.net> wrote:
+>
+> This documents the proposed new vfs-level ioctls which can
+> get or set a mounted filesytem's label.
+>
+> Signed-off-by: Eric Sandeen <sandeen@redhat.com>
+> ---
+>
+> V2: make primary file ioctl_getfslabel, link ioctl_setfslabel to it
+>     note that getfslabel requires CAP_SYS_ADMIN
+>
+> diff --git a/man2/ioctl_getfslabel.2 b/man2/ioctl_getfslabel.2
+> new file mode 100644
+> index 0000000..2c3375c
+> --- /dev/null
+> +++ b/man2/ioctl_getfslabel.2
+> @@ -0,0 +1,87 @@
+> +.\" Copyright (c) 2018, Red Hat, Inc.  All rights reserved.
+> +.\"
+> +.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+> +.\" This is free documentation; you can redistribute it and/or
+> +.\" modify it under the terms of the GNU General Public License as
+> +.\" published by the Free Software Foundation; either version 2 of
+> +.\" the License, or (at your option) any later version.
+> +.\"
+> +.\" The GNU General Public License's references to "object code"
+> +.\" and "executables" are to be interpreted as the output of any
+> +.\" document formatting or typesetting system, including
+> +.\" intermediate and printed output.
+> +.\"
+> +.\" This manual is distributed in the hope that it will be useful,
+> +.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+> +.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> +.\" GNU General Public License for more details.
+> +.\"
+> +.\" You should have received a copy of the GNU General Public
+> +.\" License along with this manual; if not, see
+> +.\" <http://www.gnu.org/licenses/>.
+> +.\" %%%LICENSE_END
+> +.TH IOCTL-FSLABEL 2 2018-05-02 "Linux" "Linux Programmer's Manual"
+> +.SH NAME
+> +ioctl_fslabel \- get or set a filesystem label
+> +.SH SYNOPSIS
+> +.br
+> +.B #include <sys/ioctl.h>
+> +.br
+> +.B #include <linux/fs.h>
+> +.sp
+> +.BI "int ioctl(int " fd ", FS_IOC_GETFSLABEL, char " label [FSLABEL_MAX]);
+> +.br
+> +.BI "int ioctl(int " fd ", FS_IOC_SETFSLABEL, char " label [FSLABEL_MAX]);
+> +.SH DESCRIPTION
+> +If a filesystem supports online label manipulation, these
+> +.BR ioctl (2)
+> +operations can be used to get or set the filesystem label for the filesystem
+> +on which
+> +.B fd
+> +resides.
+> +The
+> +.B FS_IOC_SETFSLABEL
+> +operation requires privilege
+> +.RB ( CAP_SYS_ADMIN ).
+> +.SH RETURN VALUE
+> +On success zero is returned.  On error, \-1 is returned, and
+> +.I errno
+> +is set to indicate the error.
+> +.PP
+> +.SH ERRORS
+> +Error codes can be one of, but are not limited to, the following:
+> +.TP
+> +.B EINVAL
+> +The specified label exceeds the maximum label length for the filesystem.
+> +.TP
+> +.B ENOTTY
+> +This can appear if the filesystem does not support online label manipulation.
+> +.TP
+> +.B EPERM
+> +The calling process does not have sufficient permissions to set the label.
+> +.TP
+> +.B EFAULT
+> +.I label
+> +references an inaccessible memory area.
+> +.SH VERSIONS
+> +These ioctl operations first appeared in Linux 4.18.
+> +They were previously known as
+> +.B BTRFS_IOC_GET_FSLABEL
+> +and
+> +.B BTRFS_IOC_SET_FSLABEL
+> +and were private to Btrfs.
+> +.SH CONFORMING TO
+> +This API is Linux-specific.
+> +.SH NOTES
+> +The maximum string length for this interface is
+> +.BR FSLABEL_MAX ,
+> +including the terminating null byte (\(aq\\0\(aq).
+> +Filesystems have differing maximum label lengths, which may or
+> +may not include the terminating null.  The string provided to
+> +.B FS_IOC_SETFSLABEL
+> +must always be null-terminated, and the string returned by
+> +.B FS_IOC_GETFSLABEL
+> +will always be null-terminated.
+> +.SH SEE ALSO
+> +.BR ioctl (2),
+> +.BR blkid (8)
+> diff --git a/man2/ioctl_setfslabel.2 b/man2/ioctl_setfslabel.2
+> new file mode 100644
+> index 0000000..2119835
+> --- /dev/null
+> +++ b/man2/ioctl_setfslabel.2
+> @@ -0,0 +1 @@
+> +.so man2/ioctl_getfslabel.2
+>
+
+
 -- 
-2.21.1
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
