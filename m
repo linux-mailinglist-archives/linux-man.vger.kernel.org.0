@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1B3E01B01CF
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 08:50:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 080A41B01DB
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 08:52:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725815AbgDTGun (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 02:50:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34812 "EHLO
+        id S1726054AbgDTGwk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 02:52:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35118 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725773AbgDTGum (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:50:42 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 99FB6C061A0C
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:50:42 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id k13so9466730wrw.7
-        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:50:42 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725815AbgDTGwk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 02:52:40 -0400
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 70CFAC061A0C
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:52:38 -0700 (PDT)
+Received: by mail-wm1-x342.google.com with SMTP id t63so8688103wmt.3
+        for <linux-man@vger.kernel.org>; Sun, 19 Apr 2020 23:52:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=9J9KttFSBwiqThVlau0JYaoNZ9B8tmnj00sGwXcZWkI=;
-        b=eUoSmtzaMdvuq+D0j3US1ZVqGnfJ7m+xVgJp8kXunzOdsQqgHPhBJeiCZzBFceE84m
-         6xenBHvRqxvuETsgnqbbfjbxohl6CeWn5QKGJsDoePPs3y0bxnWlZG3n/SkxWjc+vvy/
-         6wqSnN9pZnpDAr1nuv5ERWeDDBWVPWfPWuEWF37yZKBeS3Yc7I8kzXZDy+Vt1ebs6G1Y
-         mNrxsnN/EnLtMCUWY+BrrntOHxtj65l/zrszVvuTc0RCrh1MQNpQr10N24fwdcFsa/Px
-         6zRkjmOp/8Vs6gy/kkWkBM4xmXpewGbHL3fTTBbJ2C6Lx8+saXDnO2f9dAzjS/NdtHpC
-         khSw==
+        bh=aUeLwO1OTlcDh6TaO434Mz7oef5uNnLsJKbpQxNCEig=;
+        b=oQYUy4p23ThiAUUzr8ONFL3GP4jLjqEfddeP8YgJp802jL0y2uIfNdXs9E3guRUL/G
+         Zt1LY5HABJQOH9ZwTnbN6naDvJm/NdFlUboSV/Pdln9kh89FJP89AQC87bRwMxKMxFpg
+         NoZ2ZhOZ9xGK7Rh+nWNxU9JEZ+cLXoYSIcnZmgEHsJDkYkVYhbRQ5Sl4ooKglGErsdB0
+         zoAhAGRUS4iPTA23tAfS0w89qqYBJ7ZihXpBzAAsAc8zgcwbB9X/t24v6z6wCfMCKUFD
+         tALpWAGGzmE/5AxEjavw7tuJtQBIKoX+6Q1D9yZWtoDmd9m1qS+4obbQM2PnD/7Xn5H6
+         /tGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=9J9KttFSBwiqThVlau0JYaoNZ9B8tmnj00sGwXcZWkI=;
-        b=cI1CQ3Y5MvQ1z+vBme9WLFkFBOdfWBjIweReaMQIdrIlAnnfH/+ZEUQAC3WxesRahC
-         2cggnObQfmJtU45Jxs4V672P2ZE6mjpQDmewERqXxJO/D9Sl2uSXc8NJXmu8q57tF1Sc
-         7J7d5zgN8Zbazt+Cr99q8JDRi9eYby/4L1b4xSj/iTupQhEOb5fsDpU9gynTXzQFAGUy
-         3EI4+IuKfNG+VMoTLNTO1wFJo/YCxgtKZFrkKeQMUyYQe8fRR3m5AI9MIGyhZ2jCOoDX
-         KOxRlReuJ8fxvQ7p2EVvFhQqDBzRFkKnSd6ciW0egGnlUPvZ2dS8UW14foQWB+S9D0oe
-         lRYw==
-X-Gm-Message-State: AGi0PubS4epc1iS6zuJDlc55pvIpu9mYV/COjeLeZ1N+gd/OyXZX+qP1
-        ygCg07rj861re/XDn9x99p3SAqWC
-X-Google-Smtp-Source: APiQypJC/afVWI+SU2IdKeZi5Qy+bn3Dfpb3oi9XyMfja3hNBIsb4p0wInfuJvAgLCZhne42l1O5fQ==
-X-Received: by 2002:adf:84c2:: with SMTP id 60mr16694785wrg.65.1587365441205;
-        Sun, 19 Apr 2020 23:50:41 -0700 (PDT)
+        bh=aUeLwO1OTlcDh6TaO434Mz7oef5uNnLsJKbpQxNCEig=;
+        b=DsLNfjUrDI89SKlnuJYgByL2HgkHgu0W4QTlYSo0+nzV5dqVE8Srpkig4G2MzknSZ8
+         Jtiax7QmJITxT8GZk/UkvngOL9zNOu4MZnTy+mDn1zGss+888nCi7KjKF3EtuA0WPw5F
+         D3yZyu/0b1hQf6n0h8g4qX78UxUB/+EAkW/X63fwIYkYVKxAlYtEP6MMZhABniU4/X7N
+         tIAYyGwzyyCvmKU+n+ovCx+6Uh9dQl6EDcwqO3fTkdGe0t7G6O5dEmu/+vdGPaa6hAhi
+         /jTkcLlbzJIIwJf8fVVPhCMJDIxi9QRAXhXFq/4xQTCQeDGINmL6B9r/h1+Q15oZ4TC5
+         mNeg==
+X-Gm-Message-State: AGi0PuY/nEL8osrIaOXa0j3+6WBFksLbIwhLImGuEOOHanaN7/GNZZEP
+        C8IIYF7IyYH+XWPm0ZdLu1o+Lmp3
+X-Google-Smtp-Source: APiQypI/TK7htZ7myLPxFSxmapq9pfy1mJ3Mll7b3QZupHai+kV7VuKObqks2sweu1Yh+Jxf0UE/zQ==
+X-Received: by 2002:a05:600c:2306:: with SMTP id 6mr17089051wmo.17.1587365557053;
+        Sun, 19 Apr 2020 23:52:37 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id t2sm81027wmt.15.2020.04.19.23.50.40
+        by smtp.gmail.com with ESMTPSA id b66sm99776wmh.12.2020.04.19.23.52.36
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2020 23:50:40 -0700 (PDT)
+        Sun, 19 Apr 2020 23:52:36 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: exec(3): Wording
+Subject: Re: Errors in man pages, here: getdtablesize(3): Formatting
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064758.GA30446@Debian-50-lenny-64-minimal>
+References: <20200419064801.GA30654@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <48e91a45-a58e-7473-87b9-656a6500163e@gmail.com>
-Date:   Mon, 20 Apr 2020 08:50:39 +0200
+Message-ID: <81dfe813-2ce0-60ee-1afc-da68e114d9b7@gmail.com>
+Date:   Mon, 20 Apr 2020 08:52:35 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064758.GA30446@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064801.GA30654@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -67,7 +67,7 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
+On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > Dear manpages maintainers.
 > the manpage-l10n project maintains a large number of translations of
 > man pages both from a large variety of sources (including manpages) as
@@ -104,21 +104,14 @@ On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> The translator in charge wondered why the term "frontend" is used here 
-> and not the term "wrapper", because this function calls another 
-> function. He also cites the (German version of)
-> https://en.wikipedia.org/wiki/Front_end_and_back_end
+> Formatting of B<getrlimit>(2) ??
+> Is it s/getrlimit/getdtablesize/  
 > 
-> "The B<exec>()  family of functions replaces the current process image with a "
-> "new process image.  The functions described in this manual page are front-"
-> "ends for B<execve>(2).  (See the manual page for B<execve>(2)  for further "
-> "details about the replacement of the current process image.)"
+> "SVr4, 4.4BSD (the B<getdtablesize>()  function first appeared in 4.2BSD).  "
+> "It is not specified in POSIX.1; portable applications should employ "
+> "I<sysconf(_SC_OPEN_MAX)> instead of this call."
 
-The wording has been this way for decades (the page is taken from BSD),
-and I think the meaning is clear.
-
-That said, it would not be my first choice of wording. I've changed it to
-"are layered on top of"
+Either I don't understand the report, or it is incorrect. More details please.
 
 Thanks,
 
