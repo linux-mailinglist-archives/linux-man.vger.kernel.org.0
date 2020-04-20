@@ -2,63 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 287231B02D8
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:24:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C99381B02E1
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 09:27:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725865AbgDTHYY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 03:24:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40040 "EHLO
+        id S1725994AbgDTH1N (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 03:27:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40478 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725773AbgDTHYY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:24:24 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DB810C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:24:23 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id k11so10781029wrp.5
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:24:23 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725815AbgDTH1M (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 03:27:12 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 36319C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:27:12 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id u127so9015962wmg.1
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 00:27:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=aHKRjrUUPU9NZeT/0GbpbzSJvNTODNzzukfXf32omSs=;
-        b=GMhj2M59NS4kZCteWqUb7tvYAOiOMfyGpre90KkUl5OFf38R/kG/1IBxR+x2xyBmHq
-         eq8mPkDCAxMt1C5fr3xBcORxwPc2UqIV8iMHRdtClemRfdDhHmIZaMTNvk4hcogFEbH/
-         vrN6QA2rWC/MX5/T+GAX5gi66wC4wA1p0kSZIOQ9K3FyOm60gmUP7jS/3oJJuByGuwZz
-         Hnla+KLGRdUYjqjQfsKntEi1EFgX5NpmC2PmoLJ6t7R3CUAs6LfyfMy8Qe7+NqLOBGM5
-         ReABNOVFcnyjRI1teNdsQClXDe18f76Tv4q0IF68vIkF+qeFOYrLf3sp5/2MrHakYJKO
-         Gbug==
+        bh=Bu0B7F4lcUg3nPEgdPP50luelEtxCjfnkapXDyDwdyk=;
+        b=SYC69YTLj1uJ2WvBeV8asCsZbn8K+e4h3J9AXAuApTNTB4cpi9HjA9XrNGLBhkvXOk
+         8gmM6gW7t2SZg/tWS8LfZg94pbpWes8JUZiN6QBw9pHX9vBXCjPaAegXTuCSuuQcg2Jw
+         dFbleI0TRlGiAhb2oVTRSJIEjgfSp/oUIlnofplFMuOYGpdgimHk5WkpEtrCmexdf963
+         Kzz2yZjW1cnqEXf0lFOmTBhF8cxzPAjZpxSUYngdwXJqdb9AltXrUZaM6bXeGsC3HjMK
+         3ewlaU7GwB0KD131Px4+Xsg6zSvTgIQ4a+9oE0Xj/JCfT1UC3v6pnVnkWl0hcIlRSdqk
+         S7eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=aHKRjrUUPU9NZeT/0GbpbzSJvNTODNzzukfXf32omSs=;
-        b=sAsJPjDAU1FHo0ZA68PBdMxN7FWZDoVIl1VzntxyziFtOYlwiyLekbadeTVIrXGCDK
-         bX3pkYHc6sjeXWw4PSwEHZQurIIaKOfLhEkFc7YAfHrAna5fUCnVvbJRtnHF3HTorBWj
-         YgEBB3p3zWeLcDupclnOu1MD0LclzWRToPNuizH9D/OsAwig2p3g4+D0bwrmiOpljHv+
-         dReoRuG6ARuOXvR9rnqXJncXyt4P5lU3s/xb6GoC6NMaVNe70RpkpHykcnURoZS1tktk
-         eJjS4FNbAhDRsJKHUeKP1wBzuFGVYz21dlQiemBtbAQ6Y+3og5F1VSKkprEGV+IAORZf
-         y6hg==
-X-Gm-Message-State: AGi0PuZwy/6oTHzPRsqwfkOdRdAdOrAvGQbf+7VNB/UcwncEner1OLcv
-        apZJXwtbcmTm2Gi22UD2sPNepJ5s
-X-Google-Smtp-Source: APiQypKBMXHXND4B0SvRrCnwz3qnrli0CKYchoTz8suBS5A26CaziU3AC8QIwNmjVeuL2J/saNtmJw==
-X-Received: by 2002:adf:f5ce:: with SMTP id k14mr18613613wrp.39.1587367462394;
-        Mon, 20 Apr 2020 00:24:22 -0700 (PDT)
+        bh=Bu0B7F4lcUg3nPEgdPP50luelEtxCjfnkapXDyDwdyk=;
+        b=Z/OFiQ2gbTgVljcwmh2fiLU4xNBKd0MwegXfUTs8Cz+trcEuEVo0i64cLyXmx2DIQe
+         TvJq1uww+dwF1mp6ZX8iZ/Iyj+7O7CkqynMOAe3WuI+gTaS0Z2RJjlUvknYO3D+f3gjw
+         8ALIakMVQ6cF1cHM668aRvVi3p5ko7hUKhOnLc9675ZajEVyzLqQEXoXh55jrbe5vtBI
+         cqkv/qa6UFKDNddo1nQfCl6YUsqgEDQoaVQy+Nw1h2u+eNyGlNWx84EktnZqn5NVtDGP
+         KcZewS7bLZ4PctsDuiVeDD7m1Hcre18VStgGhJII0VCiViHdwNDmxvlBFwYxmWluKGJj
+         Z5wg==
+X-Gm-Message-State: AGi0PuYW12u6P470UJm5D/f2GcLrTOH3YFfQcYAPotZ9tBf7eovt+uZS
+        nSqA/xv+as9q51BNHw5Lohc=
+X-Google-Smtp-Source: APiQypJrfZ1pFCnq2jp8fCKTBwlUKbXuVNQPo58/RNgprN1jDZqKDjAo4s/YKaCOvIWNu5Yxw/63mg==
+X-Received: by 2002:a1c:4b16:: with SMTP id y22mr16201530wma.170.1587367630832;
+        Mon, 20 Apr 2020 00:27:10 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id g25sm177584wmh.24.2020.04.20.00.24.21
+        by smtp.gmail.com with ESMTPSA id t67sm192844wmg.40.2020.04.20.00.27.10
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 00:24:22 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: wavelan(4): Plural forms
+        Mon, 20 Apr 2020 00:27:10 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Paul Eggert <eggert@cs.ucla.edu>
+Subject: Re: Errors in man pages, here: tzfile(5): Typo?
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064836.GA32632@Debian-50-lenny-64-minimal>
+References: <20200419064834.GA32494@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <f8aa347a-ef9f-a811-64bf-beed366a0e39@gmail.com>
-Date:   Mon, 20 Apr 2020 09:24:21 +0200
+Message-ID: <149e7d6f-1c0a-400d-7c34-a1bd4d284bdf@gmail.com>
+Date:   Mon, 20 Apr 2020 09:27:09 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064836.GA32632@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064834.GA32494@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -104,25 +105,12 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> apply → applys
+> UT → UTC?
 > 
-> "This section apply to the module form (parameters passed on the "
-> "B<insmod>(8)  command line).  If the driver is included in the kernel, use "
-> "the I<ether=IRQ,IO,NAME> syntax on the kernel command line."
-> --
-> address → addresses
-> 
-> "Specify the list of base address where to search for wavelan cards (setting "
-> "by dip switch on the card).  If you don't specify any io address, the driver "
-> "will scan 0x390 and 0x3E0 addresses, which might conflict with other "
-> "hardware..."
-> --
-> name → names
-> 
-> "Set the list of name to be used for each wavelan cards device (name used by "
-> "B<ifconfig>(8))."
+> msgid "The number of UT/local indicators stored in the file."
 
-All fixed.
+I think "UT" here is intended to mean "Universal Time", and as such
+should not be "UTC". Perhaps Paul can comment.
 
 Thanks,
 
