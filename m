@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 305F61B14E9
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 20:43:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9295F1B14EA
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 20:43:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726021AbgDTSnK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 14:43:10 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32900 "EHLO
+        id S1726492AbgDTSnM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 14:43:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32906 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725613AbgDTSnK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 14:43:10 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4B5F8C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 11:43:10 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id f13so13455863wrm.13
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 11:43:10 -0700 (PDT)
+        with ESMTP id S1725613AbgDTSnL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 14:43:11 -0400
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9C777C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 11:43:11 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id t14so13436849wrw.12
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 11:43:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references;
-        bh=AOdQvMEc5z+bqanRzPuZ97iC7eHtME5Behu/ehh5Eis=;
-        b=Z+1aTCd3VX5RN5Ap3AvRQsehzM7VCvEKHodEbU7Q8jLj6YksY5cmwwvZewFl9swM3Z
-         j/VHqmEguUlu8+Jgk2GIK6uaaBOxqMHRwirFhT52bdhuCoWRuleIcneHhaX2kY855pRZ
-         p0YHfI+TS+6ZRcmmZ9ODHaAYYYPAwLvP4GEV79kQWjgkkJpF12xbwD/ynpAclS+aoaGx
-         xkkhKL4o7DeeVIDSNSHgKsuwvC7CO9GSTeSiZDmAwFX4IQff1bxT3P9Crs+tegvQF2S/
-         wV34abGvjbRoy5ZTDQzrEjoMh0SxOf6n8o3FIV5zgupngUIRtbJZQLDKM52bY++JvJ+o
-         mxKQ==
+        bh=LPQUiW4n52RGA1/Ez3dnpECS8IQGaUn5tR/29CpjMMU=;
+        b=N30oFbenKjqRplP8lMtVJ+Pip5GLd2gJYXvMCTj2iDgvmUABJfP7MEe/9tI9EmNHT7
+         O5rNS2nSKj1tN1M6e+xZ9CVJORszZGsaW216t8Bt8/O3nBCbGIvBJOfJzR08sxU9Vqfo
+         TZ4eETNlBOlXve1HVHEEawkeOuw1znNPvAntoblptLRBfDpo/rQq5M0vcamTv3cir0+r
+         Qhf5Gcv/SVVoVfP1ot4BjgExvU7ymBvb9iUeItut1/pQ8ThTkqVH42Q053+s2tfKzfhL
+         IGKlRbnDRoZ0erpoWryaiKTZicha2behkYX5utXdCrlGXLDf03ORIDAJqiOZkUrmGCYL
+         Rf4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references;
-        bh=AOdQvMEc5z+bqanRzPuZ97iC7eHtME5Behu/ehh5Eis=;
-        b=LHkrtbZNWw3n6aNTLAsWf+Y9O6Q5/ToTbQjvczuTxMcTnY5FmZH/tasrk9Aa4UHu4J
-         6yGRM2OTDgSp+JrqPCtasiB1cQ1UakITJJTJink/WjuY7+D3n/xpDHX/O9R7Bm0987+5
-         XEBPMBxsiVZlNN2npd4Hk+qezk7Xq8VnFU8+3qV8xVr+0TIDVisEBHlbnqpcpiczB3PU
-         MxRL43z5LdoYkb/oDH42CNBCSjFQhhFXeoS2H7qwgW1XVy5wzbfZ16wp+2UsZSVBAV1t
-         nAdXLUA8tqu4Jw6EGfB6ZPT9HqJP4TaHKkRCoCLmLHlNycLfMocA/D4M/mHCmqubEO8M
-         4w6Q==
-X-Gm-Message-State: AGi0PuYGLUmSee2OKzuC4H9QUkwkBO1hCv4X2HoU7Qkb8X0IrLaTsYGp
-        f150E9iUBlhPSRd2DlP5Ti+IMVVJ
-X-Google-Smtp-Source: APiQypK7iJXnH87kDOx3QfEany4N+9dKXCbkzmIOyCrL6CT1VOc7Fh6DFke2/aNws7hktswK2HRddA==
-X-Received: by 2002:adf:ff82:: with SMTP id j2mr20841851wrr.96.1587408188080;
-        Mon, 20 Apr 2020 11:43:08 -0700 (PDT)
+        bh=LPQUiW4n52RGA1/Ez3dnpECS8IQGaUn5tR/29CpjMMU=;
+        b=G6WtSMFhDkcC/p3HQEwL5/BQ2UsmYp3Hs4DNY9NvfS0FbX0XujgOPCIhVUHQNIfvv5
+         AbWoOc13YS5x9FGSQPioDf4RI1WqW4zQAHvtHIrPpVu03C9aAIwmEiu9rp+6t2ZVygBM
+         j1GgCEW7UmhLUcgGPSIMK/QMYlBY/a8vI1RpU0IxtkRJS6U4HJ0vSB5IQkSU8BCd/MfF
+         GmyZ+dQ+0cac+23Z1OnPcTa6tOu3iMsG89QZCZKpRHG2vJxxHgUBHUeRmO4oB9BMTNIf
+         sHhfR5VVZcM07eaLaCT9qD7fzz72QIMlniivWiUFwLOS2O/RyrLFUO4MO0roIIYB1GOm
+         DvBQ==
+X-Gm-Message-State: AGi0Pub1mRRcue/C76zp9QBgoq8hRsdGOTX4+W1ct80NyXWB9XhWcBtS
+        NH+YAqp9yma1wMhxSoRNOtA=
+X-Google-Smtp-Source: APiQypKm5l3SAlF6+lImYTjUGg8dn3EmHSgeiud0cYpyZJ2zWw0+pn+3O9400+eeGQhc3XX+BceTUQ==
+X-Received: by 2002:adf:edc6:: with SMTP id v6mr19742688wro.8.1587408190416;
+        Mon, 20 Apr 2020 11:43:10 -0700 (PDT)
 Received: from localhost.localdomain ([141.226.12.123])
-        by smtp.gmail.com with ESMTPSA id n9sm438873wrx.61.2020.04.20.11.43.05
+        by smtp.gmail.com with ESMTPSA id n9sm438873wrx.61.2020.04.20.11.43.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Apr 2020 11:43:06 -0700 (PDT)
+        Mon, 20 Apr 2020 11:43:09 -0700 (PDT)
 From:   Amir Goldstein <amir73il@gmail.com>
 To:     Michael Kerrisk <mtk.manpages@gmail.com>
 Cc:     Jan Kara <jack@suse.cz>,
         Matthew Bobrowski <mbobrowski@mbobrowski.org>,
         linux-man@vger.kernel.org
-Subject: [PATCH 1/4] fanotify_mark.2: Clarification about FAN_MARK_MOUNT and FAN_REPORT_FID
-Date:   Mon, 20 Apr 2020 21:42:56 +0300
-Message-Id: <20200420184259.29406-2-amir73il@gmail.com>
+Subject: [PATCH 2/4] fanotify_mark.2: Clarification about FAN_EVENT_ON_CHILD and new events
+Date:   Mon, 20 Apr 2020 21:42:57 +0300
+Message-Id: <20200420184259.29406-3-amir73il@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200420184259.29406-1-amir73il@gmail.com>
 References: <20200420184259.29406-1-amir73il@gmail.com>
@@ -62,111 +62,47 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-It is not true that FAN_MARK_MOUNT cannot be used with a group that
-was initialized with flag FAN_REPORT_FID.
+Some of the new event types that were added in v5.1 along with init flag
+FAN_REPORT_FID are not eligable for reporting to a directory watching
+with FAN_EVENT_ON_CHILD.
 
-The correct assertion is that events that require a group with flag
-FAN_REPORT_FID cannot be requested on a mark mount.
-
-For exaple, a FAN_OPEN event can be requested on a mark mount and
-will generate an event with file handle information if the group was
-initialized with flag FAN_REPORT_FID.
+Document the events that cannot be generated on children of a watching
+parent.
 
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 Reviewed-by: Jan Kara <jack@suse.cz>
 Reviewed-by: Matthew Bobrowski <mbobrowski@mbobrowski.org>
 ---
- man2/fanotify_mark.2 | 41 ++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 36 insertions(+), 5 deletions(-)
+ man2/fanotify_mark.2 | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
 diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
-index 30290d519..687e20f4a 100644
+index 687e20f4a..7fbcd5e36 100644
 --- a/man2/fanotify_mark.2
 +++ b/man2/fanotify_mark.2
-@@ -126,12 +126,22 @@ is not itself a mount point, the mount point containing
- will be marked.
- All directories, subdirectories, and the contained files of the mount point
- will be monitored.
--This value cannot be used if the
-+The events which require the
- .I fanotify_fd
--file descriptor has been initialized with the flag
--.BR FAN_REPORT_FID
--or if any of the new directory modification events are provided as a
--.IR mask .
-+file descriptor to have been intialized with the flag
-+.BR FAN_REPORT_FID ,
-+such as
+@@ -314,8 +314,21 @@ Events for the immediate children of marked directories shall be created.
+ The flag has no effect when marking mounts and filesystems.
+ Note that events are not generated for children of the subdirectories
+ of marked directories.
++More specifically, the directory entry modification events
 +.BR FAN_CREATE ,
-+.BR FAN_ATTRIB ,
-+.BR FAN_MOVE ,
++.BR FAN_DELETE ,
++.BR FAN_MOVED_FROM
 +and
-+.BR FAN_DELETE_SELF ,
-+cannot be provided as a
-+.IR mask
-+when
-+.I flags
-+contains
-+.BR FAN_MARK_MOUNT .
- Attempting to do so will result in the error
- .B EINVAL
- being returned.
-@@ -184,34 +194,55 @@ See NOTES for additional details.
- .BR FAN_ATTRIB " (since Linux 5.1)"
- .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
- Create an event when the metadata for a file or directory has changed.
-+An fanotify file descriptor created with
-+.B FAN_REPORT_FID
-+is required.
++.BR FAN_MOVED_TO
++are not generated for any entry modifications performed inside subdirectories
++of marked directories.
++Note that the events
++.BR FAN_DELETE_SELF
++and
++.BR FAN_MOVE_SELF
++are not generated for children of marked directories.
+ To monitor complete directory trees it is necessary to mark the relevant
+-mount.
++mount or filesystem.
+ .PP
+ The following composed values are defined:
  .TP
- .BR FAN_CREATE " (since Linux 5.1)"
- .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
- Create an event when a file or directory has been created in a marked
- parent directory.
-+An fanotify file descriptor created with
-+.B FAN_REPORT_FID
-+is required.
- .TP
- .BR FAN_DELETE " (since Linux 5.1)"
- .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
- Create an event when a file or directory has been deleted in a marked
- parent directory.
-+An fanotify file descriptor created with
-+.B FAN_REPORT_FID
-+is required.
- .TP
- .BR FAN_DELETE_SELF " (since Linux 5.1)"
- .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
- Create an event when a marked file or directory itself is deleted.
-+An fanotify file descriptor created with
-+.B FAN_REPORT_FID
-+is required.
- .TP
- .BR FAN_MOVED_FROM " (since Linux 5.1)"
- .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
- Create an event when a file or directory has been moved from a marked
- parent directory.
-+An fanotify file descriptor created with
-+.B FAN_REPORT_FID
-+is required.
- .TP
- .BR FAN_MOVED_TO " (since Linux 5.1)"
- .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
- Create an event when a file or directory has been moved to a marked parent
- directory.
-+An fanotify file descriptor created with
-+.B FAN_REPORT_FID
-+is required.
- .TP
- .BR FAN_MOVE_SELF " (since Linux 5.1)"
- .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
- Create an event when a marked file or directory itself has been moved.
-+An fanotify file descriptor created with
-+.B FAN_REPORT_FID
-+is required.
- .TP
- .B FAN_Q_OVERFLOW
- Create an event when an overflow of the event queue occurs.
 -- 
 2.17.1
 
