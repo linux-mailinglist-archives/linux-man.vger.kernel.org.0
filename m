@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7AAC11B05D5
-	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 11:40:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5DB061B05D9
+	for <lists+linux-man@lfdr.de>; Mon, 20 Apr 2020 11:42:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725886AbgDTJke (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Apr 2020 05:40:34 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32964 "EHLO
+        id S1725886AbgDTJmI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Apr 2020 05:42:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33212 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725865AbgDTJke (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 05:40:34 -0400
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C9940C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:40:32 -0700 (PDT)
-Received: by mail-wm1-x341.google.com with SMTP id x25so10226068wmc.0
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:40:32 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725773AbgDTJmI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Apr 2020 05:42:08 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F1947C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:42:07 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id 188so4078016wmc.2
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 02:42:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ZqzPgY3je3L6EfsgZncOiVWJAkWOXFL8ZWmTJPBt3Kg=;
-        b=HJKnYhJrbaSdPKpi9KHk05HSBLEchH5EdMfsqslYWbuAA6Kk3uPCBtzG/E9vT6QP+P
-         wslivwjc9sIfyArmWk8nU6gEqff5xotnscewlOHF5/OPUf3qh3FNbHLzZDUkoiRz3vXT
-         3ai/Gk4gGazXJ7jrAQ6pjsNZkjnCGkqOsSy0el9eKO8lbpOvOkr351E+SVRBpJdHYF5L
-         2Qi1YHMaXfsCPMJM1RVl2kXb/BAxcTwffmwhwU1KQ5WszkAL+/S8zs4hrzsLkYw8b28g
-         mTI/7ylc5URRn3+nX3LQ4O24jICz6VIyhRV+zK3Lg91Qq8lAoeeOIV0HIABF9O3TOdPY
-         iuxw==
+        bh=X5BfbGUPg6DPXrxoNXFF1WRDeTla25jdaPlcaG25wNc=;
+        b=D0oxGY/oaXiKHOX+eeWYywlS+8jHiEzjC2zGZvkTKc5Jv18rB076HSY9Zttff/HTb5
+         cBfv+/NVgCABTcKSmA5rp7O0SthevpC4ldr6d5bGEFs7DIIYxQ7YZQPFQqfRwRzSMmCJ
+         pjX+vhz3i7f5ERLvm9l0b9ISJILna4Q6HNreSjwDZAFu19HhWeQtyF0qzP+V48/2S8+F
+         wStXMlPjGD4iZ3EPNXyk4/Kzc1CPw46U8rwghsW85UMM21DSAoIeIA2hwpPutq+jGDba
+         vri27vHtyZNfG/2y3CtbRyhLTYT8FurGtlnlZ0YB6d82z8U2R2eJB/964GR9rDt+aco8
+         1hPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=ZqzPgY3je3L6EfsgZncOiVWJAkWOXFL8ZWmTJPBt3Kg=;
-        b=DYxH/ORIcHiqWlk66RTiSBErSvMpCjiGugaWvYPE9NZoWW1jYh118wz5AC9ENwoY3D
-         VExb9Wp3uUUipSc39dfo2IWp/1MLuzN/dby3AYfALD+qSKrPYUo68795rBqux0vSZj7D
-         gI5s30ES0JbidH6PuSApI+jJrFqhoGDL//N3BqaqIkeCEpvffN62bUGgHR6MTA4oByw9
-         Sk7rFjKQPIAyuYvEEeYeJPOwWaA/ruqmMhWmqsKGSqd9tiDQvmjGJvEA20ErHc913QXy
-         7R4IgbGp1lvDe3LR2fOCkY9mMy6wLSjetarXI4mk+wELh9TN8znmpuAaTdWj5x2R2kkj
-         nq4Q==
-X-Gm-Message-State: AGi0Pub9ZxJH1fU3e/PK+DpHpJVqIZrtv4ezC59e2MYRAP8FqajI5aZA
-        R5ib9ux4LZmiBL7rbdb8mddMDT2w
-X-Google-Smtp-Source: APiQypL7ROL5o5fq7pHrNTPuXY38YCbdyx+JnJIkAjgGWN807OahY3JOHyaVuzk/N6cB5r68rwDROw==
-X-Received: by 2002:a05:600c:2341:: with SMTP id 1mr16265448wmq.153.1587375631371;
-        Mon, 20 Apr 2020 02:40:31 -0700 (PDT)
+        bh=X5BfbGUPg6DPXrxoNXFF1WRDeTla25jdaPlcaG25wNc=;
+        b=UO3A/sECz1UDuG5Cg6YHul2Qx0bjfR4UmwfTUtu70nguB6OndyDmpj+dkfiR4vjtZi
+         6H6YaO/soio7xtwW+RksTGGQtZ6jgv/PE/oD/B2uNI6TLyc4/NL42N/1yFluPKzttqi4
+         g03FCDaObuSo71au/R5ZwKzZSJlfbWrVXW5zKEZxO8wC3xnhCO0BXo+Y9GwcOJ3QHj6z
+         /s2Cj36vATghFThUbWvARhLhdyJ7Te+rJbnegFnH6kGvunFlr4Y9FmovPFWxK0M5G+wk
+         yC+lcsYXCqff4PgY8mqbw2X3zl41GAxWINMunWc5kGGQKWLnlRT6uMMpGVzPAkHjrhrq
+         BUiA==
+X-Gm-Message-State: AGi0Pua8A5IoCkV8eEUgs/f4LzRC3Dg+VMQXANwP+ywGqkbzbaVLEGoB
+        PV3SUVgMla2gRwCrmeqirkZb2lZe
+X-Google-Smtp-Source: APiQypLlucvjor63RhkMZOavhlxz4DMMx/zHNIYguVCherPX+SQH98WgtomgA2mYpcS2wCF7+wxJmw==
+X-Received: by 2002:a1c:a58b:: with SMTP id o133mr14957022wme.5.1587375726542;
+        Mon, 20 Apr 2020 02:42:06 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id m14sm430449wrs.76.2020.04.20.02.40.27
+        by smtp.gmail.com with ESMTPSA id q184sm638788wma.25.2020.04.20.02.42.05
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2020 02:40:28 -0700 (PDT)
+        Mon, 20 Apr 2020 02:42:05 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: rename(2): Content
+Subject: Re: Errors in man pages, here: suffixes(7): Clarification
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200419064820.GA31701@Debian-50-lenny-64-minimal>
+References: <20200419064831.GA32331@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <4a026c82-7dc1-164b-186d-b4dceb3ebea9@gmail.com>
-Date:   Mon, 20 Apr 2020 11:40:26 +0200
+Message-ID: <948a271b-a190-251c-3e8a-f24d8fdc28a2@gmail.com>
+Date:   Mon, 20 Apr 2020 11:42:04 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200419064820.GA31701@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200419064831.GA32331@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -68,7 +68,6 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
-> 
 > Dear manpages maintainers.
 > the manpage-l10n project maintains a large number of translations of
 > man pages both from a large variety of sources (including manpages) as
@@ -105,17 +104,35 @@ On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> If newpath exists, this is already the reason for the failure?
+> The man page claims that suffixes are separated by a dot from the filename
+> and contain one or more letters.
 > 
-> "If I<newpath> exists but the operation fails for some reason, B<rename>()  "
-> "guarantees to leave an instance of I<newpath> in place."
+> However, for RCS this does not hold, the separation is done by a comma
+> and the suffix may contain characters besides letters, so the first
+> concrete examples contradicts the general rule.
+> 
+> msgid "files for RCS (Revision Control System)"
+> 
 
-I do not understand this report. Please elaborate.
+Patch as below.
 
 Thanks,
 
 Michael
 
+diff --git a/man7/suffixes.7 b/man7/suffixes.7
+index 0aaba137c..6063bacb9 100644
+--- a/man7/suffixes.7
++++ b/man7/suffixes.7
+@@ -41,7 +41,7 @@
+ suffixes \- list of file suffixes
+ .SH DESCRIPTION
+ It is customary to indicate the contents of a file with the file suffix,
+-which consists of a period, followed by one or more letters.
++which (typically) consists of a period, followed by one or more letters.
+ Many standard utilities, such as compilers, use this to recognize the type of
+ file they are dealing with.
+ The
 
 
 -- 
