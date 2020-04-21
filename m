@@ -2,96 +2,90 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 862C91B307F
-	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2020 21:38:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 79A741B314A
+	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2020 22:35:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726168AbgDUTiq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 21 Apr 2020 15:38:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40206 "EHLO
+        id S1726079AbgDUUfY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 21 Apr 2020 16:35:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49004 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726056AbgDUTip (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Apr 2020 15:38:45 -0400
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 94D21C0610D5
-        for <linux-man@vger.kernel.org>; Tue, 21 Apr 2020 12:38:45 -0700 (PDT)
-Received: by mail-ej1-x644.google.com with SMTP id a2so11955269ejx.5
-        for <linux-man@vger.kernel.org>; Tue, 21 Apr 2020 12:38:45 -0700 (PDT)
+        with ESMTP id S1725850AbgDUUfY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Apr 2020 16:35:24 -0400
+Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com [IPv6:2607:f8b0:4864:20::733])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4CC46C0610D5
+        for <linux-man@vger.kernel.org>; Tue, 21 Apr 2020 13:35:24 -0700 (PDT)
+Received: by mail-qk1-x733.google.com with SMTP id s63so149457qke.4
+        for <linux-man@vger.kernel.org>; Tue, 21 Apr 2020 13:35:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=fCh85vlSGe1cubERKBUm0+tNmuyV3bdwOhj3pIkIwDs=;
-        b=ezGDZc67WGpkCskQtNWH8h7ZkVSYDr//VuJ/rMOsC+lJFASf4LdaN6c4nDB6/eZHU5
-         ZWUQzo41neMBuyYatZ5WVAs7j6IowlspxWyNFUsZ4nbRYGY9622CBSwNOmULrG9w5X03
-         PTRhdRDZltOFWfVLbe2i4TfzOsDr24X3HqOo5AJrAxZeMwYuxPM1ABibyqjXOrW/4ahx
-         zyItWt8aCjXGm3B7/Jbmv6MEqKRG77m3KvkiLJEfEunZiFWpwhIlwDQ9LQpI+O2VeYA6
-         l7/WwQWM3a2oeMq7dP30OOa5h1wY0NCzBFKxqcf437fxxuhEsY68hWmiYcHxQLTy/bLv
-         feRw==
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=hsWsGXJBx/FpJBOtBUq79odSVGzQ4/xgLO2IMzXkqp8=;
+        b=kZcHbp2zm6GxWEWPso85TyUgX5AZ+vxKNxouV7AFuvV8bjV6OhwRhXztOD2EUZUDn9
+         A2mPNcr/IO0aiL/uDdhqHCHVAX73TtStLJUCzR8K5BTw3XLrPue/RM2vnqKtLnGdfBnU
+         FgEF5Oe/kHWzy+eaxnMaA++jTIJiAQw9ZsT2WtDV6is1uWLgMoy2ZtoPHTeqYXfVfzqH
+         XGaYk/gM/xs/mEGb2oeqUMPPz6dK1r0C1bKstrqFNbIkKkmYJR1PVpsW0zbHB4AlqVyR
+         /VRB5ZaRcJ2qi1nr6Pq4EYlnZ5yI9+jo+O+9v4PTdUEYZctrTfGDjaXP4ZJHSvgS9gsI
+         Me7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=fCh85vlSGe1cubERKBUm0+tNmuyV3bdwOhj3pIkIwDs=;
-        b=UoW1r7tfYf5UOtobDzCw8rCpIwlIWTQ0VW9F8ofhwMhPsTfGhJvoy5WoEBgUp/L8zh
-         jNjiF5PsfoA7Sdmrcbge0hZE9h4DcWzN+30Jp/gcRq5edDe3B+hOAmSdMg1gGccfbekU
-         UQv2PTtnortRxTRKpV++bXpDYxnOWW8198FgCYDs7Ge173FLxC36RULgGRvXAP0luhdS
-         7yAMBmXKyi3bEKGVzSz/C0FTWBeiFM10BKxCn8SdOppMx0Tbt8GyAsyiCITKiV896JQr
-         SfCYuVjD23vx6dJdsUFpdwWFJpBvrVXImm+sL/Cd8iPs0s7MNQCbyd6qXuQHzDdtc0H/
-         Pqkg==
-X-Gm-Message-State: AGi0PuZxNdc6ax34jN22rz3IyqFgR9qsZqtRsPsrLS2uTVdCnsBMXDUf
-        aTLKUPy/fpO3HCxvG1zp1qT+fk1D605XSZoElSk=
-X-Google-Smtp-Source: APiQypLwLgapOIikfu8CbZYD/hqQfQ7b0hhXKO/8V1lV9otBSEKmGc4KInUuiE9IuYzthY7Zu+UNEdaajaI+2sbi+sU=
-X-Received: by 2002:a17:906:add7:: with SMTP id lb23mr23921924ejb.6.1587497924312;
- Tue, 21 Apr 2020 12:38:44 -0700 (PDT)
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=hsWsGXJBx/FpJBOtBUq79odSVGzQ4/xgLO2IMzXkqp8=;
+        b=R25WbMLUGIjcU8zgWxnypesXtCqZDxqfv55ORrrp7AIVYSNJzpcUrUiyACHwK6UEDT
+         L3F+Uk5alk75zDCCvm4NyyPhUcfeiICvrEhj/QzYEEQ959I5YSEM2N8ZIVbQIeybbgIa
+         YnzI0LNcY9O8/cuOxiGZxFzV+5jW/Bof6Y+e9VgxBeOdOYm4FqeqakEWgu2z4BqJPMVt
+         bjzsZXPFgSxEPR0glOlVQLxpYk0wjCn/RedhAX2AJ3QoraBg9gqQ4SPVDEGwiy6/uWnM
+         ME1pnFsqLDxlMDbcmfq+xYJYXBh8Z3mCsddtUzThUryFlPcYfbzMg+aK/KDCKdRfFCUI
+         R4oA==
+X-Gm-Message-State: AGi0PuZiT0T+X7CemR2JXPtGnZD3Lfo1Ptjc75bwU5zOhKKPhUpeTawj
+        DWqCqUyQ3e+yTBzjLKtVhcRsI40Tcw4528cN8+pa6Ml8
+X-Google-Smtp-Source: APiQypI80qkrXhFgUY38faEJPUy/W8dnaRIlicLmPbti8pFkgTAh3oi8srB1l4HPTyvf/M9EulY5/n2sBxbetSc1EvM=
+X-Received: by 2002:a37:a955:: with SMTP id s82mr23918068qke.45.1587501323297;
+ Tue, 21 Apr 2020 13:35:23 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200419064812.GA31256@Debian-50-lenny-64-minimal>
- <CAKgNAkgkNcUiV=Tc38Kd46fECzaZZ0hyVw8U2visf5absJq=Gg@mail.gmail.com> <20200421191051.GC4951@Debian-50-lenny-64-minimal>
-In-Reply-To: <20200421191051.GC4951@Debian-50-lenny-64-minimal>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Tue, 21 Apr 2020 21:38:33 +0200
-Message-ID: <CAKgNAkiizD62V=Yi5Pt+3kzsgqwzzoYY+J5h2SskrHwQMd591w@mail.gmail.com>
-Subject: Re: Errors in man pages, here: msr(4): Content
-To:     Helge Kreutzmann <debian@helgefjell.de>
-Cc:     linux-man <linux-man@vger.kernel.org>
+From:   Richard Weinberger <richard.weinberger@gmail.com>
+Date:   Tue, 21 Apr 2020 22:35:12 +0200
+Message-ID: <CAFLxGvxhdUtYudCzxJrVs7np5Aby1o9cXEDp5C9rw2kS74pDkQ@mail.gmail.com>
+Subject: Clarification of pthread_cleanup_push() needed
+To:     linux-man <linux-man@vger.kernel.org>
+Cc:     libc-help@sourceware.org
 Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Helge,
+Hi!
 
-On Tue, 21 Apr 2020 at 21:10, Helge Kreutzmann <debian@helgefjell.de> wrote:
->
-> Hello Michael,
-> On Sun, Apr 19, 2020 at 10:47:38PM +0200, Michael Kerrisk (man-pages) wrote:
-> > > can read proc as regular user (etch)
-> > >
-> > > "This file is protected so that it can be read and written only by the user "
-> > > "I<root>, or members of the group I<root>."
-> >
-> > I need more context here to find which part of the
-> > page this note refers to.
->
-> This is the last paragraph before NOTES, i.e. the last one in
-> DESCRIPTION.
+Using pthread_cleanup_push() it is possible to register a cleanup
+routine which will get
+called upon thread cancellation.
+I have a hard time to understand what exactly this routine allowed to
+do and what not.
 
+The manpage states:
+"A clean-up handler is a function that is automatically executed when
+a thread is
+canceled (or in various other circumstances described below); it
+might, for example,
+unlock a mutex so that it becomes available to other threads in the process."
 
-Ooops _ I must have been looking at the wrong file.
+https://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_cleanup_push.html
+even has an example with pthread_mutex_unlock() in the cleanup
+function.
 
-> Having a brief look this FIXME probably is (no) longer correct, but
-> the translator who noticed this 2011 is no longer active, so please
-> close if it is (no longer) applicable.
+But NPTL implements thread cancellation with signals, if I'm not
+completely mistaken
+the cleanup routine will run in signal context then.
+So only async-signal-safe functions are good to use.
+pthread_mutex_unlock() is not.
 
-Close it, I think. Certainly on my system /dev/cpu/N/msr is readable
-only by root.
+With my (limited) understanding of the current NPTL implementation I'd
+say a cleanup routine
+might only use async-signal-safe functions, except long jumps.
 
-Thanks,
-
-Michael
+Can you please clarify?
+And can we please state this more precisely in the manpage?
 
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Thanks,
+//richard
