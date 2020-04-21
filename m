@@ -2,161 +2,116 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A47C61B29B2
-	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2020 16:31:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 49CA71B2FB3
+	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2020 21:02:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728519AbgDUObA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 21 Apr 2020 10:31:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48834 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728422AbgDUObA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Apr 2020 10:31:00 -0400
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B440FC061A10;
-        Tue, 21 Apr 2020 07:30:59 -0700 (PDT)
-Received: by mail-ej1-x642.google.com with SMTP id x1so11139888ejd.8;
-        Tue, 21 Apr 2020 07:30:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=nJKmwmL8pJeyEkXSJcr3CbIoVGjTvKtRz5mLqOZGiFM=;
-        b=WhnkTtco3iWRQt6NFjmoYU9L1wfydDjHO2SvHJp+KDB2RgB3AgDTsA/GTLnu1lFqV7
-         Zoar8hUYXl22NCEiW9OLuM6g4ZpigIq1k+fGakrItDCr5csRuT2nTq1tEN3hY7sASA35
-         QQDYwD+W2cemygxtTq+6p/8bXUFvSmPUfcupMcYEwTpMhQMNzTQKHHByFvZRAmiqakCI
-         3nNqBUs4DTRYabiA4O8RSJ9HKYGKFg7nV29Xh9rD/6dok3gjVqn9/YhDbSI/6Vem0yGA
-         5XhMVFY2DWrsc/BVBKYRoQ/BeFZWODboD3lFpwKsITVIq1BAFrAdIhgyM9kmZWWBdP+g
-         R0Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=nJKmwmL8pJeyEkXSJcr3CbIoVGjTvKtRz5mLqOZGiFM=;
-        b=Nvk9w+4E5xzesvvPiND8i+cM+OJXfc7Tts2giQx2IxajKPGmi3VggXFxtpXJ5q8P1n
-         DG+T1wfm+3zo4p6rvZagLCMMDaekITF1zFWHiCFFea7jtumO3QMcf2r+kG2QKG+GOASr
-         7Gzq0PpgxJzkdyXH6+5KBA907DfE4+EY4Xq3J7xkD7s4Il/22lSKaklzNwu7STLnxybD
-         iGJ/KqotjLN2slWmCOtBnrvVYbGTvB7OwJfhI3MOKB5gzzE2zkuMSrJuSq53x/RKdamB
-         FEKWm2mHKsSzJTwtv2YOYMgNxUPvsMPoxtd9IXSplN7hzYTDTFive23/bGRm1ALb4N8L
-         jigw==
-X-Gm-Message-State: AGi0Pua5g55Ss6e1Rg6+k4PUnFmX7g9DW70HRZR7FztS8Oyikd/7Vhx4
-        8xWgvGMwmsyHz7NZZPn3cHj+hEBb2z6gwJCXdCc=
-X-Google-Smtp-Source: APiQypLvKjlIrLLDZw7H9NUfR5+MQ7F35cXfQad0lKg6B/PUGcGli1jOCM/Qn1qXml6rqBmbydwxEzLoYlAyc6lbVGk=
-X-Received: by 2002:a17:906:1fd6:: with SMTP id e22mr21913379ejt.150.1587479458385;
- Tue, 21 Apr 2020 07:30:58 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAKgNAkhL0zCj11LS9vfae872YVeRsxdz20sZWuXdi+UjH21=0g@mail.gmail.com>
- <20200410104132.294639-1-christian@brauner.io> <b7550fcd-ba12-e64a-3228-e6668b31a8a7@gmail.com>
-In-Reply-To: <b7550fcd-ba12-e64a-3228-e6668b31a8a7@gmail.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Tue, 21 Apr 2020 16:30:46 +0200
-Message-ID: <CAKgNAkhQr+sKGAu+KcxPEsuwG3kjQOyzVW7E1yM9cMtSZrhW9A@mail.gmail.com>
-Subject: Re: [PATCH] clone.2: Document CLONE_INTO_CGROUP
-To:     Christian Brauner <christian@brauner.io>
-Cc:     "open list:CONTROL GROUP (CGROUP)" <cgroups@vger.kernel.org>,
-        Christian Brauner <christian.brauner@ubuntu.com>,
-        Linux API <linux-api@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Oleg Nesterov <oleg@redhat.com>, Tejun Heo <tj@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+        id S1725963AbgDUTCd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 21 Apr 2020 15:02:33 -0400
+Received: from luckmann.name ([213.239.213.133]:59103 "EHLO
+        static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1725918AbgDUTCd (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Apr 2020 15:02:33 -0400
+Received: from localhost (localhost [127.0.0.1])
+  (uid 502)
+  by static.213-239-213-133.clients.your-server.de with local
+  id 0000000000E56011.000000005E9F4347.00001475; Tue, 21 Apr 2020 21:02:31 +0200
+Date:   Tue, 21 Apr 2020 21:02:31 +0200
+From:   Helge Kreutzmann <debian@helgefjell.de>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Subject: Re: Errors in man pages, here: gethostbyname(3): Space/Formatting
+Message-ID: <20200421190230.GA4951@Debian-50-lenny-64-minimal>
+References: <20200419064802.GA30701@Debian-50-lenny-64-minimal>
+ <2318ec0f-bc6b-c202-3fca-42c10c714372@gmail.com>
+ <20200420194855.GE19913@Debian-50-lenny-64-minimal>
+ <CAKgNAkjrHK_-9QTaisW_8zom66UwcT8EO_8jg3NcR_B-d0n_qg@mail.gmail.com>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-5237-1587495751-0001-2"
+Content-Disposition: inline
+In-Reply-To: <CAKgNAkjrHK_-9QTaisW_8zom66UwcT8EO_8jg3NcR_B-d0n_qg@mail.gmail.com>
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Christian,
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
 
-Ping!
+--=_luckmann.name-5237-1587495751-0001-2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Cheers,
-
-Michael
-
-On Fri, 10 Apr 2020 at 22:18, Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
->
-> Hi Christian,
->
-> Thank you for writing this!
->
-> On 4/10/20 12:41 PM, Christian Brauner wrote:
-> > From: Christian Brauner <christian.brauner@ubuntu.com>
+Hello Michael,
+On Mon, Apr 20, 2020 at 10:01:21PM +0200, Michael Kerrisk (man-pages) wrote:
+> On Mon, 20 Apr 2020 at 21:48, Helge Kreutzmann <debian@helgefjell.de> wro=
+te:
+> > On Sun, Apr 19, 2020 at 10:09:16PM +0200, Michael Kerrisk (man-pages) w=
+rote:
+> > > On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
+> > > > **
+> > > >
+> > > > Space between true and (1) and mark up
+> > > >
+> > > > "The B<sethostent>()  function specifies, if I<stayopen> is true (1=
+), that a "
+> > > > "connected TCP socket should be used for the name server queries an=
+d that the "
+> > > > "connection should remain open during successive queries.  Otherwis=
+e, name "
+> > > > "server queries will use UDP datagrams."
+> > >
+> > > I don't understand this report. Can you elaborate please.
 > >
-> > Signed-off-by: Christian Brauner <christian.brauner@ubuntu.com>
-> > ---
-> >  man2/clone.2 | 20 ++++++++++++++++++++
-> >  1 file changed, 20 insertions(+)
+> > We translator understood the "(1)" as the section number for the man
+> > page of true. So actually it should also contain markup, i.e.
 > >
-> > diff --git a/man2/clone.2 b/man2/clone.2
-> > index 39cec4c86..8d9aa9f99 100644
-> > --- a/man2/clone.2
-> > +++ b/man2/clone.2
-> > @@ -197,6 +197,7 @@ struct clone_args {
-> >      u64 tls;          /* Location of new TLS */
-> >      u64 set_tid;      /* Pointer to a \fIpid_t\fP array */
-> >      u64 set_tid_size; /* Number of elements in \fIset_tid\fP */
-> > +    u64 cgroup;       /* Target cgroup file descriptor for the child process */
-> >  };
-> >  .EE
-> >  .in
-> > @@ -448,6 +449,25 @@ Specifying this flag together with
-> >  .B CLONE_SIGHAND
-> >  is nonsensical and disallowed.
-> >  .TP
-> > +.BR CLONE_INTO_CGROUP " (since Linux 5.7)"
-> > +.\" commit ef2c41cf38a7559bbf91af42d5b6a4429db8fc68
-> > +By default, the child process will belong to the same cgroup as its parent.
->
-> s/belong to/be placed in/
->
-> s/cgroup/version 2 cgroup/
->
-> > +If this flag is specified the child process will be created in a
-> > +different cgroup than its parent.
-> > +
-> > +When using
-> > +.RB clone3 ()
-> > +the target cgroup can be specified by setting the
-> > +.I cl_args.cgroup
-> > +member to the file descriptor of the target cgroup. The cgroup file
->
-> We need to say something about how this file descriptor is
-> obtained. Is it by opening a directory in the v2 cgroup hierarchy?
-> With what flags? O_RDONLY? or is O_PATH also possible? Yes, these
-> are some rhetorical questions (I read your nice commit message);
-> these things need to be explicit in the manual page though.
->
-> Also, your commit message mentions a nice list of use cases.
-> I think it would be well worth capturing those in a paragraph
-> in the manual page text.
->
-> > +descriptor must refer to a cgroup in a cgroup v2 hierarchy
-> > +(see
-> > +.BR cgroup (2)).
->
-> s/cgroup/cgroups/
-> s/2/7/
->
-> > +
-> > +Note that all usual cgroup v2 process migration restrictions apply. See
-> > +.BR cgroup (2)
->
-> s/cgroup/cgroups/
-> s/2/7/
->
-> Thanks,
->
-> Michael
->
-> --
-> Michael Kerrisk
-> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-> Linux/UNIX System Programming Training: http://man7.org/training/
+> > true (1) =E2=86=92 B<true>(1)
+> >
+> > And there is no space between the man page name and the section. If
+> > another meaning was intended, then we translators misunderstood this
+> > sentence completly.
+>=20
+> Another meaning was intended.
+>=20
+> The B<sethostent>()  function specifies, if I<stayopen> is true (i.e., 1)
+>=20
+> Oder: "wenn I<stayopen> wahr (d.h., 1) ist"
 
+Thanks / Danke
+Corrected / Korrigiert
 
+Greetings
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+           Helge
+--=20
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
+
+--=_luckmann.name-5237-1587495751-0001-2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl6fQ0EACgkQQbqlJmgq
+5nAAkg/6Aw+JV2c3uLXeNWDK3/6SdN2XEpSYJTobrjOxPton4gAIDkLrmEq6c0D1
+xDuqT+hHnRD2aWq4aCdRcy1ta7MrBGJrC4iepnvuBRcG3+TGC3bUFbf1LmYA2CTE
+wlSrCBUnGIS9d1SMbFd69WFLH3ilNlbYyxYYYRLwdPOT8ydWpngw0A+/UCMJLZC7
+sbX0sN8FKweRKeyUxOhP/z3s9biVwi/EJw4KY2K3gMPB3tp0/WInNyoQzRHwB5q9
+bdgy+8Qw2GmAZo1SSjDLLLRwJnO1wpoGZH5nb1jsj8cDhrVqji6l+nvz83+B+W45
+4CzCSq98JKkXmcaUWL139xtF/eyVMZLIRxNs2vF6yFgOd8aX2FNsFD8en9EpcICk
+t55AYsK95VqVLqOB9iaSbJ8lB0EeJkxqsT5H3KNQTX6KZRyTE522RhxEElBIjUHv
+6qfHKujrxEjBve7y3DbqzAvM3ilB3zzhFNr0oSA2CXRIlNwsvy2yNYgiXulZC694
+0W3oRNRClFQ6a5bz3l5ScbfvReGb9SLLbdlwYyk6s1+anAZEw4cTTpAj5UUKXuFL
+a2y318Z7E/N6AkKxB94lKueEObxCfwOtomh8fgdfI9Q1OP4sra6holi9k/NgoABz
+pB7MfjN1Hz1O8fzTmeib6gTCV3US65Mr8/uujHjcu/LF6Wozdlo=
+=rolh
+-----END PGP SIGNATURE-----
+
+--=_luckmann.name-5237-1587495751-0001-2--
