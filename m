@@ -2,97 +2,96 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5C6E41B1E64
-	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2020 07:52:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3789F1B1E67
+	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2020 07:55:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726095AbgDUFwl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 21 Apr 2020 01:52:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53462 "EHLO
+        id S1726024AbgDUFzA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 21 Apr 2020 01:55:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53820 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725881AbgDUFwl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Apr 2020 01:52:41 -0400
+        by vger.kernel.org with ESMTP id S1725881AbgDUFzA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Apr 2020 01:55:00 -0400
 Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DB0D2C061A0F
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 22:52:40 -0700 (PDT)
-Received: by mail-ej1-x644.google.com with SMTP id e2so7701528eje.13
-        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 22:52:40 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E8FAFC061A0F
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 22:54:59 -0700 (PDT)
+Received: by mail-ej1-x644.google.com with SMTP id e2so7705127eje.13
+        for <linux-man@vger.kernel.org>; Mon, 20 Apr 2020 22:54:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=uxlvB33HrQfUBz5/iT9j5WD4k6cJ3JrJsu2hBH8ddB4=;
-        b=PL7wpgNUGsdbdYgsWWJ3avugvsS2mSqRlJDQ3t3eSBhDK1rFJQpIFAgGF0yiCalG9U
-         zBS0TTfVfp8tJ3LqOLtxI0WqAjOkh35OImbNNNVUeY/v2L6Bw3ptGa2IOjWWJ7+D4MKb
-         WUbjP6k9DURx4sRGuDpRfTd+aBZlnCKj2yNwULL2HUSDkQp+mbs0D2580m7vmq+Scep2
-         hwclSeC65PIJnZyXZGcXNd9H6+W6NWbe1weoj6wIAJpvB2PUkwBcAVRaYQOP1Als+pgM
-         SP1ICiOIV0dtPwkKoJV/XcUqcz9lCAWzXTvu7ZpQzTdZeoDsPfVIr/XXQPYhilWRquBQ
-         2yJQ==
+         :subject:to:cc:content-transfer-encoding;
+        bh=gWCYn4b48cmPyilZvY9Hq+FYKKDICykPdRpECnsxq8k=;
+        b=SbdoKurcinIZVwmCNIIzuDyf0/e0XGTfDzlK4Gdm0PWKrJj9DrTme5/NjkYvbto+RC
+         XTTjS+wpIh2W8Mf1pc5nzhN4DkkkXBo0Sei4CdKM5YUnbmXrtn1UPWwordy9xaGTak1m
+         xhNXyhaAD8m/c+VmlXuEcHoGjnrJw+M9ELX3okiyMP1wvSaEggik9DmmIxM+6igveUQc
+         NmKUOCls0ih4WrFGajZA1dgucfVYjAwywjv5fG+xpD1n/qdF2UgMUOGLKeLm3eoB54Cg
+         0N77oYHI0e3b3IGTCWpeQJtkdToZE+RWV11C0tna+9H5oYt9e9mzJOCVkrTG6Qgod5bM
+         XCdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=uxlvB33HrQfUBz5/iT9j5WD4k6cJ3JrJsu2hBH8ddB4=;
-        b=AGPeQF3nUjJSBmZ5m0TPOD6vfebGdj+zV8ppqsTngmH/99++mjkLcg9mc8NFs/YCWt
-         JfRQep2Lg6JIbaxLQIJXO0b7OD8qWWwX6qQNGvEwI230vXOc+d6KrGnQIe5riS9pHP/2
-         d8x/D8yvnjsKDaifTXn8dPNWnWYj+7g8fkQnjiSVkZbOETBZ8dw0985p/F/egtGkLEt1
-         6qLxrsnPkIUCTc37dONJrDJkVbDmp0JsXAixEESCdTYGdXeZiAhirtqm5AL76Pw0AiwG
-         wmTv8tl8y76rPcBZBoC5WIJ/M7zMHK4luj20E3M4eD/iUwG5c0Va17tE0dv+WZeZZQrm
-         nxxQ==
-X-Gm-Message-State: AGi0PubNbQ3ZzPD0xdr4B952UFiRai1O7zKGfzhcqr7ncKpF9uoEJNuJ
-        nSiI6aksrMjiWx2xyn/xL0r1Tac81997/XcBA04M6bLT
-X-Google-Smtp-Source: APiQypLpN1uMc/pvZl9uMAdPgpa9/TolqQ5wQJgmE2ycshMRpj1VPzxBOLEKK9Llo5B7fr+yqyRh8HR4lgZL0x26Qk4=
-X-Received: by 2002:a17:906:5fd2:: with SMTP id k18mr19049505ejv.243.1587448359584;
- Mon, 20 Apr 2020 22:52:39 -0700 (PDT)
+         :from:date:message-id:subject:to:cc:content-transfer-encoding;
+        bh=gWCYn4b48cmPyilZvY9Hq+FYKKDICykPdRpECnsxq8k=;
+        b=JqaJoChuUplvvKFdZ3VrAyo9whTLKY/Iy8+u7sURyq7y9SSoWQkgSPBghT/jLO3PlT
+         8+mjgWnY304nsLKhi07pdlRyxFpiLrN5UrjelRIJBKi7LGGDs1OCHSNzp1hHcguykoHV
+         TFf7+0hrsfu97tOYrAHjK8EwvXU7SYrtuCR7L7z1cv7y+3T9CJk+6+4L08MFJq7hY+Lv
+         faiEpImuKmo3+Bo0RMj4Wr6T79UPk2o2hegDq0fo7meYVOyBvmARFD+Rx/uhXmlTKH/I
+         svWeisyYdjbkI7dziNPiBCGHkcjoX9LxK8k+To+k8Q9PHAFktR9a16CVuSfx6SDno1ND
+         509Q==
+X-Gm-Message-State: AGi0PubljQvb0Wc8H9hiKodfJWYQJywKonSQ8OTqhbWgiqcMvaGgEM4r
+        m7Q36BvY7Eons/StEP6lZTygoqgZO3zOIi6Ybkbjkg==
+X-Google-Smtp-Source: APiQypIMS50StelTzRcFKgO+GU6K4uOUka3lbcZpspuvKkMYWaTuCPlO1d1QjmOjT+FGL9klN3YEPqHbgkaB6rqInYg=
+X-Received: by 2002:a17:906:1fd6:: with SMTP id e22mr19947370ejt.150.1587448498636;
+ Mon, 20 Apr 2020 22:54:58 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200419064834.GA32494@Debian-50-lenny-64-minimal>
- <149e7d6f-1c0a-400d-7c34-a1bd4d284bdf@gmail.com> <d9e4d306-3af0-e28a-526d-a97d832b6d86@cs.ucla.edu>
-In-Reply-To: <d9e4d306-3af0-e28a-526d-a97d832b6d86@cs.ucla.edu>
+References: <20200419064834.GA32517@Debian-50-lenny-64-minimal>
+ <95611010-1ec8-c461-8502-71515373c961@gmail.com> <20200420222616.yoc26jiehdn4cgaj@jwilk.net>
+ <20200420225036.kecqxc57ond764za@jwilk.net>
+In-Reply-To: <20200420225036.kecqxc57ond764za@jwilk.net>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Tue, 21 Apr 2020 07:52:28 +0200
-Message-ID: <CAKgNAkhjVoFZiNb0qKHmEZ5VUUF9dj5Y4hr_Ma9wozgQo_WcLg@mail.gmail.com>
-Subject: Re: Errors in man pages, here: tzfile(5): Typo?
-To:     Paul Eggert <eggert@cs.ucla.edu>
+Date:   Tue, 21 Apr 2020 07:54:47 +0200
+Message-ID: <CAKgNAkgAKDPP1KWptcQEZmq1i6CJ5KANietfUTr13r_cPnv-HA@mail.gmail.com>
+Subject: Re: Errors in man pages, here: tzfile(5): Punctuation
+To:     Jakub Wilk <jwilk@jwilk.net>
 Cc:     Helge Kreutzmann <debian@helgefjell.de>,
         linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Paul,
-
-On Tue, 21 Apr 2020 at 04:34, Paul Eggert <eggert@cs.ucla.edu> wrote:
+On Tue, 21 Apr 2020 at 00:50, Jakub Wilk <jwilk@jwilk.net> wrote:
 >
-> On 4/20/20 12:27 AM, Michael Kerrisk (man-pages) wrote:
-> > I think "UT" here is intended to mean "Universal Time", and as such
-> > should not be "UTC". Perhaps Paul can comment.
+> >* Michael Kerrisk <mtk.manpages@gmail.com>, 2020-04-20, 11:13:
+> >>>Final comma =E2=86=92 fullstop
+> >>>
+> >>>"Some readers may mishandle time zone abbreviations that contain fewer=
+ than 3 "
+> >>>"or more than 6 characters, or that contain ASCII characters other tha=
+n "
+> >>>"alphanumerics,"
+> >>
+> >>I can't find this text. Please elaborate/check.
 >
-> Yes, that's right. The tzfile format covers timestamps that predate the
-> introduction of UTC in 1960, so the documentation uses the sloppier and
-> more-general term "UT" instead of the more-precise term "UTC".
+> This text is from the tz's man page:
+> https://github.com/eggert/tz/blob/2019c/tzfile.5#L348
+>
+> But the sentence in question does not end with the comma.
+> I guess it's a bug in the software that processed the man page?
+>
+>
+> >This text was added in a Debian patch:
+> >https://sources.debian.org/src/manpages/4.16-2/debian/patches/0010-tzfil=
+e.5.patch/
+>
+> (Blargh! I meant to sent this to the other thread about tzfile(5).)
 
-Thanks. Downstream, I applied the patch below, to help clarify for readers.
+Thanks for the info. Jakub.
 
-Thanks,
-
-Michael
-
-diff --git a/man5/tzfile.5 b/man5/tzfile.5
-index 514f40798..7419a3dce 100644
---- a/man5/tzfile.5
-+++ b/man5/tzfile.5
-@@ -41,6 +41,7 @@ in order:
- .TP
- .I tzh_ttisgmtcnt
- The number of UT/local indicators stored in the file.
-+(UT is Universal Time.)
- .TP
- .I tzh_ttisstdcnt
- The number of standard/wall indicators stored in the file.
-
--- 
+--=20
 Michael Kerrisk
 Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
 Linux/UNIX System Programming Training: http://man7.org/training/
