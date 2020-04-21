@@ -2,145 +2,159 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9BDE41B2605
-	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2020 14:29:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A47C61B29B2
+	for <lists+linux-man@lfdr.de>; Tue, 21 Apr 2020 16:31:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728772AbgDUM3q (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 21 Apr 2020 08:29:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58256 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1726018AbgDUM3p (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Apr 2020 08:29:45 -0400
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 64DCDC061A10
-        for <linux-man@vger.kernel.org>; Tue, 21 Apr 2020 05:29:44 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id k11so16279831wrp.5
-        for <linux-man@vger.kernel.org>; Tue, 21 Apr 2020 05:29:44 -0700 (PDT)
+        id S1728519AbgDUObA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 21 Apr 2020 10:31:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48834 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728422AbgDUObA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Apr 2020 10:31:00 -0400
+Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B440FC061A10;
+        Tue, 21 Apr 2020 07:30:59 -0700 (PDT)
+Received: by mail-ej1-x642.google.com with SMTP id x1so11139888ejd.8;
+        Tue, 21 Apr 2020 07:30:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ulE+I53AWsU0PoH7lClcYDzuV+1Y2bscWuvDTk17eJE=;
-        b=PDJsinoEz8VdE+7F/ZUW3PcpOSLn8qIf/BrIqvyX6+kGQ76aDmiiXygtaoodsxzK93
-         uZUmLw1HGq+4Y2F/jDAGPiVj4Son2Kx+TUdCU+dUf5rb+vnnNmQ917kGRf1T46RtKjix
-         zoME5w9blJDpQQbP8jYXrKim4yzdgBhdLOBuYUz6LAO+fciNuQXhn7hrAS9Y4naDxdiS
-         KMFTwPVV4Hz64f7xFHA2Vh4AYDrpmhx5ENCCIFFk5wmGupSOfD6dD7eKPCoXncJw6Pl3
-         ya+IqRhmPEeH1jrIYg3oAk082IWTpOB+OoCwrQpIpNW1AMZngtUOpogV9NvlsyPS9JYB
-         Pa9A==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=nJKmwmL8pJeyEkXSJcr3CbIoVGjTvKtRz5mLqOZGiFM=;
+        b=WhnkTtco3iWRQt6NFjmoYU9L1wfydDjHO2SvHJp+KDB2RgB3AgDTsA/GTLnu1lFqV7
+         Zoar8hUYXl22NCEiW9OLuM6g4ZpigIq1k+fGakrItDCr5csRuT2nTq1tEN3hY7sASA35
+         QQDYwD+W2cemygxtTq+6p/8bXUFvSmPUfcupMcYEwTpMhQMNzTQKHHByFvZRAmiqakCI
+         3nNqBUs4DTRYabiA4O8RSJ9HKYGKFg7nV29Xh9rD/6dok3gjVqn9/YhDbSI/6Vem0yGA
+         5XhMVFY2DWrsc/BVBKYRoQ/BeFZWODboD3lFpwKsITVIq1BAFrAdIhgyM9kmZWWBdP+g
+         R0Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=ulE+I53AWsU0PoH7lClcYDzuV+1Y2bscWuvDTk17eJE=;
-        b=OIMiSNNMgY7xoS7krksJHrQiKJk/9PJY12g4zLa5SEBZzNq5CeMsy0XmOeGCDOZMxW
-         gt+HxYJOqbBesLipeSZWCrOqjd8RKv55cs2kYxV115l4L7fthtXaQZ+9QzY1vUpGPPrm
-         Y5bnjNJYqCm6l8jt780d9DoI7+xMA/eoSoCYVQ8vjBKcH2ZC+KwB+UDOQomezeT0uonk
-         vj86RQyYN1vU9MY6Zk0H66u2g4m+DWCYHt6Yksfuxi5BAyXDwkjU077pO34CorUJO9x5
-         aa92QZCabRSY4ttv5fUZUbsL7Qa3PWPuJN7S+aM5w/bRqcwp4UebcsZB/CbLTYtUbNBZ
-         8SuQ==
-X-Gm-Message-State: AGi0PuYohKvlVDTKFP3Qi+7VYqoIJue5HRUv2VPJAIQpFztLx2kW6rut
-        sukp4givtZM7EogjFVfHNduAtVBc
-X-Google-Smtp-Source: APiQypKkidAmIq/RYwod+JwKDe0XFCbdBPGxBVt1V56jCbW5y+WhJFyVVsaOzQ/lnsPoSYYujkYzvQ==
-X-Received: by 2002:a5d:470a:: with SMTP id y10mr23446627wrq.63.1587472182880;
-        Tue, 21 Apr 2020 05:29:42 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id y5sm3853490wru.15.2020.04.21.05.29.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Apr 2020 05:29:42 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: A problem with prctl(2) and proc(5)
-To:     Eric Hopper <hopper@omnifarious.org>
-References: <CAJWcbJEJDZS34g8v3dG-RAe=W0T-9ti_LUQ=GM9LJiEcetVphA@mail.gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <93a73a96-9a6e-f9ab-cf55-dac3b0a89e8c@gmail.com>
-Date:   Tue, 21 Apr 2020 14:29:39 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=nJKmwmL8pJeyEkXSJcr3CbIoVGjTvKtRz5mLqOZGiFM=;
+        b=Nvk9w+4E5xzesvvPiND8i+cM+OJXfc7Tts2giQx2IxajKPGmi3VggXFxtpXJ5q8P1n
+         DG+T1wfm+3zo4p6rvZagLCMMDaekITF1zFWHiCFFea7jtumO3QMcf2r+kG2QKG+GOASr
+         7Gzq0PpgxJzkdyXH6+5KBA907DfE4+EY4Xq3J7xkD7s4Il/22lSKaklzNwu7STLnxybD
+         iGJ/KqotjLN2slWmCOtBnrvVYbGTvB7OwJfhI3MOKB5gzzE2zkuMSrJuSq53x/RKdamB
+         FEKWm2mHKsSzJTwtv2YOYMgNxUPvsMPoxtd9IXSplN7hzYTDTFive23/bGRm1ALb4N8L
+         jigw==
+X-Gm-Message-State: AGi0Pua5g55Ss6e1Rg6+k4PUnFmX7g9DW70HRZR7FztS8Oyikd/7Vhx4
+        8xWgvGMwmsyHz7NZZPn3cHj+hEBb2z6gwJCXdCc=
+X-Google-Smtp-Source: APiQypLvKjlIrLLDZw7H9NUfR5+MQ7F35cXfQad0lKg6B/PUGcGli1jOCM/Qn1qXml6rqBmbydwxEzLoYlAyc6lbVGk=
+X-Received: by 2002:a17:906:1fd6:: with SMTP id e22mr21913379ejt.150.1587479458385;
+ Tue, 21 Apr 2020 07:30:58 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAJWcbJEJDZS34g8v3dG-RAe=W0T-9ti_LUQ=GM9LJiEcetVphA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <CAKgNAkhL0zCj11LS9vfae872YVeRsxdz20sZWuXdi+UjH21=0g@mail.gmail.com>
+ <20200410104132.294639-1-christian@brauner.io> <b7550fcd-ba12-e64a-3228-e6668b31a8a7@gmail.com>
+In-Reply-To: <b7550fcd-ba12-e64a-3228-e6668b31a8a7@gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Tue, 21 Apr 2020 16:30:46 +0200
+Message-ID: <CAKgNAkhQr+sKGAu+KcxPEsuwG3kjQOyzVW7E1yM9cMtSZrhW9A@mail.gmail.com>
+Subject: Re: [PATCH] clone.2: Document CLONE_INTO_CGROUP
+To:     Christian Brauner <christian@brauner.io>
+Cc:     "open list:CONTROL GROUP (CGROUP)" <cgroups@vger.kernel.org>,
+        Christian Brauner <christian.brauner@ubuntu.com>,
+        Linux API <linux-api@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Oleg Nesterov <oleg@redhat.com>, Tejun Heo <tj@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Eric,
+Hi Christian,
 
-On 10/24/17 12:26 AM, Eric Hopper wrote:
-> These two manual pages both imply that a setuid process can call
-> prctl(PR_SET_DUMPABLE, 1, 0, 0, 0); to set this flag back to 1 and
-> restore the ownership of /proc files back to being the real user id of
-> the process.  This is not exactly true.
-> 
-> Empirical testing reveals that this flag is ignored in favor of the
-> value in /proc/sys/fs/suid_dumpable if either the real group or user id
-> fail to match the effective group or user id. You can use prctl to set
-> it to 1, and then prctl(PR_GET_DUMPABLE, 0, 0, 0, 0); to fetch it, and
-> it will report as '1', but the ownership of files in /proc/self will
-> remain as root:root until the effective and real ids match.
-> 
-> This should be mentioned in the manual as it prescribes a very specific
-> sequence of events that must happen to restore the ownership of these
-> files that the current manual does not make clear.
+Ping!
 
-I believe that you've misapprehended things slightly. I think the
-correct summary is this:
-
-1. If the process "dumpable" attribute is not 1, the files in
-   /proc/PID are owned by root:root. If the dumpable attribute is 1,
-   then the ownership is <process-eUID>:<process-eGID>. (And in
-   a set-UID-root program, <process-eUID> is of course "root".)
-
-2. As described in prctl(2), various process credential changes
-   may cause the value of the process's dumpable attribute to
-   be reset to the value in /proc/sys/fs/suid_dumpable (which
-   typically has the value 0).
-
-So, if I understand the scenario you are describing correctly:
-
-(a) We run a set-UID program. Consequently, the process's dumpable
-    flag is reset to the value in /proc/sys/fs/suid_dumpable
-    (probably 0) and consequently the ownership of the /proc/PID
-    files changes to root:root.
-(b) [Hypothetically] the process uses prctl(2) to reset the
-    dumpable flag to 1. This causes the ownership of the
-    /proc/PID files to reset to <process-eUID>:<process-eGID>.
-(c) The process drops its effective UID back to the same value as
-    the real UID, which brings us back to the same state as in (a).
-(d) The process uses prctl(2) to reset the dumpable flag to 1.
-    This would again cause the ownership of the /proc/PID files
-    to reset to <process-eUID>:<process-eGID>.
-
-Rule 1 above is I think quite clearly captured in proc(5):
-
-       The  files  inside  each /proc/[pid] directory are normally
-       owned by the effective user and effective group ID  of  the
-       process.   However, as a security measure, the ownership is
-       made root:root if the process's "dumpable" attribute is set
-       to a value other than 1.
-
-But people trip up over point (c), I think. The question is how
-to better alert them, so that they don't trip up. As a step in
-that direction, I added some text in proc(5):
-
-       Resetting  the "dumpable" attribute to 1 reverts the owner‐
-       ship of the /proc/[pid]/* files to the process's  effective
-x      UID  and  GID.  Note, however, that if the effective UID or
-x      GID is subsequently modified, then the "dumpable" attribute
-x      may  be reset, as described in prctl(2).  Therefore, it may
-x      be desirable to reset the "dumpable" attribute after making
-x      any desired changes to the process's effective UID or GID.
-
-If you have specific suggestions about other changes that could
-be made to prevent the misunderstanding that you had, please
-let me know.
-
-Thanks,
+Cheers,
 
 Michael
+
+On Fri, 10 Apr 2020 at 22:18, Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+>
+> Hi Christian,
+>
+> Thank you for writing this!
+>
+> On 4/10/20 12:41 PM, Christian Brauner wrote:
+> > From: Christian Brauner <christian.brauner@ubuntu.com>
+> >
+> > Signed-off-by: Christian Brauner <christian.brauner@ubuntu.com>
+> > ---
+> >  man2/clone.2 | 20 ++++++++++++++++++++
+> >  1 file changed, 20 insertions(+)
+> >
+> > diff --git a/man2/clone.2 b/man2/clone.2
+> > index 39cec4c86..8d9aa9f99 100644
+> > --- a/man2/clone.2
+> > +++ b/man2/clone.2
+> > @@ -197,6 +197,7 @@ struct clone_args {
+> >      u64 tls;          /* Location of new TLS */
+> >      u64 set_tid;      /* Pointer to a \fIpid_t\fP array */
+> >      u64 set_tid_size; /* Number of elements in \fIset_tid\fP */
+> > +    u64 cgroup;       /* Target cgroup file descriptor for the child process */
+> >  };
+> >  .EE
+> >  .in
+> > @@ -448,6 +449,25 @@ Specifying this flag together with
+> >  .B CLONE_SIGHAND
+> >  is nonsensical and disallowed.
+> >  .TP
+> > +.BR CLONE_INTO_CGROUP " (since Linux 5.7)"
+> > +.\" commit ef2c41cf38a7559bbf91af42d5b6a4429db8fc68
+> > +By default, the child process will belong to the same cgroup as its parent.
+>
+> s/belong to/be placed in/
+>
+> s/cgroup/version 2 cgroup/
+>
+> > +If this flag is specified the child process will be created in a
+> > +different cgroup than its parent.
+> > +
+> > +When using
+> > +.RB clone3 ()
+> > +the target cgroup can be specified by setting the
+> > +.I cl_args.cgroup
+> > +member to the file descriptor of the target cgroup. The cgroup file
+>
+> We need to say something about how this file descriptor is
+> obtained. Is it by opening a directory in the v2 cgroup hierarchy?
+> With what flags? O_RDONLY? or is O_PATH also possible? Yes, these
+> are some rhetorical questions (I read your nice commit message);
+> these things need to be explicit in the manual page though.
+>
+> Also, your commit message mentions a nice list of use cases.
+> I think it would be well worth capturing those in a paragraph
+> in the manual page text.
+>
+> > +descriptor must refer to a cgroup in a cgroup v2 hierarchy
+> > +(see
+> > +.BR cgroup (2)).
+>
+> s/cgroup/cgroups/
+> s/2/7/
+>
+> > +
+> > +Note that all usual cgroup v2 process migration restrictions apply. See
+> > +.BR cgroup (2)
+>
+> s/cgroup/cgroups/
+> s/2/7/
+>
+> Thanks,
+>
+> Michael
+>
+> --
+> Michael Kerrisk
+> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+> Linux/UNIX System Programming Training: http://man7.org/training/
+
+
 
 -- 
 Michael Kerrisk
