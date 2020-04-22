@@ -2,97 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1CFC11B4D74
-	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2020 21:38:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1A61C1B4D9A
+	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2020 21:47:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726071AbgDVTiM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 22 Apr 2020 15:38:12 -0400
-Received: from luckmann.name ([213.239.213.133]:41189 "EHLO
-        static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725935AbgDVTiM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Apr 2020 15:38:12 -0400
-Received: from localhost (localhost [127.0.0.1])
-  (uid 502)
-  by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56034.000000005EA09D22.00006B91; Wed, 22 Apr 2020 21:38:10 +0200
-Date:   Wed, 22 Apr 2020 21:38:10 +0200
-From:   Helge Kreutzmann <debian@helgefjell.de>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: dsp56k(4): Singular/Plural
-Message-ID: <20200422193810.GG26557@Debian-50-lenny-64-minimal>
-References: <20200419064756.GA30329@Debian-50-lenny-64-minimal>
- <0bf9fae9-e815-f3b4-38cf-74bcd0ba1ab3@gmail.com>
-Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-27537-1587584290-0001-2"
-Content-Disposition: inline
-In-Reply-To: <0bf9fae9-e815-f3b4-38cf-74bcd0ba1ab3@gmail.com>
-X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
-X-homepage: http://www.helgefjell.de/debian
-User-Agent: Mutt/1.10.1 (2018-07-13)
+        id S1726224AbgDVTrh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 22 Apr 2020 15:47:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38678 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1725779AbgDVTrg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Apr 2020 15:47:36 -0400
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9ABDCC03C1A9
+        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2020 12:47:36 -0700 (PDT)
+Received: by mail-ed1-x544.google.com with SMTP id a8so2492777edv.2
+        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2020 12:47:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=MqvnKtM9KOxt2VWojwJFJlh9j/oNc2iLFyfzHtaxQPE=;
+        b=AcrYxil6HGoXcsaFejTPGF8TB+u0hlNtFjLkrEHc9P3o2SBSyq6SZJFX0A1BS5XXwN
+         u5vxibdEruFoGz4YAGF+sTKAMWRixKF+djeJKsX2/EUJJiA7uYy20YCUhaiShAC/+alF
+         DAReAtSJ+QMSt/4XWJzozw4VjpKvBmRdXMy04uGFtimL7JSs3ye53rTvazHeE8F77+8h
+         ywfgqnwdMGOMo2k0p0qE9kijDoIe+JkaITLJU7hY56RSIDJ2QWfeLT6E9DsAMKt+S8Ks
+         i6i3PNwoPqZD0/L57Z3uxBdVqZ0LI76ar5MABBglyy02/+j5LunOBqFxeViEUJX2fSnt
+         pVHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=MqvnKtM9KOxt2VWojwJFJlh9j/oNc2iLFyfzHtaxQPE=;
+        b=ENilvjkmmDqPoAni0qZWtk4e7X3B9/UFeZGsrJ+pFnu9zCdAo+XG1W57Z0Emd8vUXB
+         A9cP+IiiyrQYpmnIeL22kLcBjJ1jYSUriZdvYq6tQakHSOTrkPB9EsOYI8MlCrK3ON4V
+         m0ZKfecB5pZsD4oH1pO8yZTyaHDurbET+zzmF7Wf3nZgiMNr/+P11lxJ99S0l1pgcS6Z
+         FJGwBYVZk704FpJv+TiPFKNZbSAfurxDe2RvVBoe3mmlZfe8ONbbDjg37Y7FxVpqer+H
+         TZ0JqiHwOuyawa5VckWIgCoXPINUJpU/3t4zAIzw0WPqbIsrWa4KMXa2xrSHCHiio1W9
+         1KFQ==
+X-Gm-Message-State: AGi0Puapezpj/vSsy5ENC1M4DeQyeVU3pjvpfM+Hlzx9POBQxUcK42tw
+        bP2sxrAu5cVXT3Qy5m7RoKMjSOQMvCnSGJ16fmq9mg==
+X-Google-Smtp-Source: APiQypKbnCiKRxi/DhwTfHUVp/7pQRynFiGAexqHUQm5qv/XJ6UnDGngALXVEt0wMIEbQw52JCcP+1x6FKwORZlhWZU=
+X-Received: by 2002:aa7:cd6a:: with SMTP id ca10mr206584edb.332.1587584855300;
+ Wed, 22 Apr 2020 12:47:35 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200419064801.GA30654@Debian-50-lenny-64-minimal>
+ <81dfe813-2ce0-60ee-1afc-da68e114d9b7@gmail.com> <20200422192924.GD26557@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200422192924.GD26557@Debian-50-lenny-64-minimal>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Wed, 22 Apr 2020 21:47:24 +0200
+Message-ID: <CAKgNAkiPfc1DsN77WDKmgmB4av_p+vvebT8az4WcKzk4Uq+6ew@mail.gmail.com>
+Subject: Re: Errors in man pages, here: getdtablesize(3): Formatting
+To:     Helge Kreutzmann <debian@helgefjell.de>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a MIME-formatted message.  If you see this text it means that your
-E-mail software does not support MIME-formatted messages.
+On Wed, 22 Apr 2020 at 21:29, Helge Kreutzmann <debian@helgefjell.de> wrote:
+>
+> Hello Michael,
+> On Mon, Apr 20, 2020 at 08:52:35AM +0200, Michael Kerrisk (man-pages) wrote:
+> > On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
+> > > **
+> > >
+> > > Formatting of B<getrlimit>(2) ??
+> > > Is it s/getrlimit/getdtablesize/
+> > >
+> > > "SVr4, 4.4BSD (the B<getdtablesize>()  function first appeared in 4.2BSD).  "
+> > > "It is not specified in POSIX.1; portable applications should employ "
+> > > "I<sysconf(_SC_OPEN_MAX)> instead of this call."
+> >
+> > Either I don't understand the report, or it is incorrect. More details please.
+>
+> This is of the proposed changes I was unsure about myself. I had hoped
+> that the translator spotted something correct and thus reported it. If
+> the statement is correct (and correctly) formatted, please close this
+> issue.
+>
+> Unfortunately the translator who marked this is no longer active.
+>
+> Sorry for the noise.
 
---=_luckmann.name-27537-1587584290-0001-2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Closing.
 
-Hallo Michael,
-On Mon, Apr 20, 2020 at 09:00:49AM +0200, Michael Kerrisk (man-pages) wrote:
-> On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
-> > **
-> >=20
-> > Can there be more than one padding byte? If yes:
-> > s/a null byte/null bytes/
-> >=20
-> > "sets the receive word size.  Allowed values are in the range 1 to 4, a=
-nd is "
-> > "the number of bytes that will be received at a time from the DSP56001.=
-  "
-> > "These data quantities will either truncated, or padded with a null byt=
-e "
-> > "(\\(aq\\e0\\(aq) to fit the native 24-bit data format of the DSP56001."
->=20
-> I don't know the answer, sorry.
+Thanks,
 
-Thanks, I removed the mark and added the ambiguity to the translation
-as well.
-
-Greetings
-
-       Helge
-
---=20
-      Dr. Helge Kreutzmann                     debian@helgefjell.de
-           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
-        64bit GNU powered                     gpg signed mail preferred
-           Help keep free software "libre": http://www.ffii.de/
-
---=_luckmann.name-27537-1587584290-0001-2
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl6gnSIACgkQQbqlJmgq
-5nCS6xAAixYK1TrSTOppj874pUnWpQ8ZCRtW30plkkuwVK0Am+gNDCc43TJlcoWI
-4TL99dghkdjCQndWeVKW5GEVrSJ9PkheUVasnn4Fh9lARcOzMFTugO0dCjBwY4OV
-kkcabzDBwWlhKdy36/+SYqe8vmzuxwqCM3zl8PIDQc2ibdwa3DYq5+EJqcT/+ngs
-C2TIZ5voTtMdFu7MCCK+ejl7FAtcwUJFtqU2gfwnxEHQ+MCctwDRah+FsjYw2ieQ
-wd7zFTgVieB77ZPxWq5m1zlX2fCzrN/H+e2wp1wg4BhbZsDSbE2K5dGAuEYHVtb4
-vAL2GKt9O0bpfxZk6RDFCEpK/oSUf5cJk6UrY3/3a1WQLx/Pxv7Frnxj3cf11j0a
-izeWWRcGVoT2CN/4ncW0XCjVP49SbpdKAQ1r/upnysl8F4GKJQawImPjFOq74g6L
-eUAQnO0wzzlY4Mm041WfkmakSqakF7aS4eSCXBpIJJ7vW3OTufjNxrqzcnDVAaY8
-+JEoxwG2uc/uZZt8oOrX2Idb9wUVP8vGpusUNmcWa+/87rjYVEW8pwvDkmuCv0Jc
-Y69nQVD6xd7ltpEHgiis1sRbo2pri+bHX6hfUBZfPXAvUXBLbtETPrGVrD6oKs8o
-ztnfzQ70XKmrMgI0Q/HUf2nP+EDfsS8lNzlxz3nEfsyVPuxTi9I=
-=DM5n
------END PGP SIGNATURE-----
-
---=_luckmann.name-27537-1587584290-0001-2--
+Michael
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
