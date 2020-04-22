@@ -2,63 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 496AE1B4324
-	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2020 13:22:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B72711B43F5
+	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2020 14:05:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726415AbgDVLWZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 22 Apr 2020 07:22:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44696 "EHLO
+        id S1726615AbgDVMFs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 22 Apr 2020 08:05:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51490 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1726104AbgDVLWY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Apr 2020 07:22:24 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 32992C03C1A8
-        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2020 04:22:24 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id e26so1870062wmk.5
-        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2020 04:22:24 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1726519AbgDVMFq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Apr 2020 08:05:46 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 05B0CC03C1A8
+        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2020 05:05:45 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id k1so2092745wrx.4
+        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2020 05:05:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=a5Ra86e7NyNsC9Nx/Zm3olOeFH3MxtexAgOzfrZq4Y0=;
-        b=Lb8+Hgx1JTc0v6suCvfFoPZjRrOHj5bBP8GYzcZnpUXB2+2BTs+UZTAAAuAicieE9W
-         cWPWIiiHQIpwcp+R1vgxN7bvH/rvgAGCbwBY2gMVuGvyYHz8IwyHUXNgMU2bWEpprDgE
-         KkxGjP6mhc+YhuDCmRSkEkQbCcTtQ3/cDmEu5ze6OxmHc7HROiGrjKsUxCIupZgkZcHm
-         IFq1/OTTXQ4XjaubkPHKZWlWi362h5d8Kvd+Nq8rd1NdYzhSELGoqAQ/L7QBaodEp4yE
-         CXpsi4Hw++12GhJM65yTTzXx5YVvv1/NCBvH+XlBkT7reqDFgMYQIXqSHXPsBj2T2uD6
-         rHeg==
+        bh=TRLuwwxDegsGWqz0K/m0eguAuchygYx2vvP6GOi+fAc=;
+        b=PM02mOzM2J8UgEwa5Qe4AciyC0gv3uQkn+Nu0jMqhAeE+XQX4Ky3QB71MxOguBajL4
+         x/Q5DKVwloCc+p0ZEZfM+ySGjEsHkyVWr8atpfpfbIGHVN+rbX33yu98wfqh559ui4lS
+         SrYF3Pwp4DKExTQzVc+OUf2qo90QwFH5egCYwU3Yvr79cZpvL2YO5w6qF8bIqojafDr+
+         DUZzB42eTXLan8Sq9XiD/B9AbXYZ9mlzq017VIRwmQKxlP0kxpJ0K0jp336Q98yNrv0X
+         K6DkR9hzQuIAzE/1+L//bqZ83vg39EcK6d7kAgodrt8M2nJrBwE0tuJWIihqPL+KcRni
+         orNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=a5Ra86e7NyNsC9Nx/Zm3olOeFH3MxtexAgOzfrZq4Y0=;
-        b=G5eB3oCOmftdbhOs9tZcJTSnzzClGRv4AUj0opVSSLavNsmE1ZhMBHgBmZZ8/eZmjo
-         oTf/bgzdw5zQnxCRQsE+ivE1MO0i2kHtgf5gq0DEK49qcsktuWlQHYv+FBS0NjUiO5R1
-         8tr5vsY8KjUyT8q13IoN0T1f6XQNHWegYvAm2H2eRWvYt5bAMp3Zuohe/XDAEL8u4uBz
-         rvixR9LpTVT9YcGW3+9zMZfc01BZmjmO6LUVosk27ONfRz6OB4xfztdZBlUvGoVA+6M+
-         rylyYQWmgC46WJ+fbIVS4KOZS/ybIGbgFgF47CpCvu/cdlI0IC1RkyvxTZjkzC8AirOT
-         nqJw==
-X-Gm-Message-State: AGi0PuZi/WbYSyq61eNkUUTwXu1a1emw3++Hb1wOZfpmqSaGuGMGy7Ae
-        0eZhgV980z8ekgInYmqNQlr81KZk
-X-Google-Smtp-Source: APiQypJca6D3LZXkDUA4hWwxJSHjJKkxvdHEYNAjepcrMg1D8lKJd+aw+x+AggXF4s/8MJAUyH+KfA==
-X-Received: by 2002:a05:600c:2218:: with SMTP id z24mr9906642wml.82.1587554542736;
-        Wed, 22 Apr 2020 04:22:22 -0700 (PDT)
+        bh=TRLuwwxDegsGWqz0K/m0eguAuchygYx2vvP6GOi+fAc=;
+        b=LRSKMjZvFLbyUJto+FS4RTJBQFdcTqKtpFlD+TvTc+6VNW3tdZuI9A5w638NuU+f4U
+         pRfR5xzyFW2qLgSJGJjTl2gfkSFExX+uM9eHJdbM09Gukzu4Rhb1jo442BUdGIQWIVT+
+         nFoATClEOb4N+1JIF55Sr6z3Zra31gM+blh34aJmVM8KUtziJArf32lWpveKtcFcE59r
+         bqZUgjSsNhDa/YDMkO9+Fo8O5jkXEA+lSq/URM6X8d3eutM8jP1UUMGrKNHvKjL5ZhyA
+         RI2Yq2MbFUUgxM+u9mFwIrW8ds2XhZHBFE9ItAgPxv1ZhGlrh8CRAVhZRDOCkmLVJw2V
+         OfAg==
+X-Gm-Message-State: AGi0PuZnbLpsP/NM5qpb+oftXB1Yyr2XjhbfY1YQ2v0Xgmc3HadvozTa
+        sxCBg48loMxlzHXjvi4jUg4=
+X-Google-Smtp-Source: APiQypIwQhOyAccS34tbJ5bpy3ZcaoICaUm0FWrODc+bhZr6+xhSu46igD7T0iV6m7vnltgaldXfvw==
+X-Received: by 2002:adf:ec09:: with SMTP id x9mr29133865wrn.364.1587557143747;
+        Wed, 22 Apr 2020 05:05:43 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id y5sm8139747wru.15.2020.04.22.04.22.21
+        by smtp.gmail.com with ESMTPSA id y70sm8138758wmc.36.2020.04.22.05.05.42
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Apr 2020 04:22:22 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] prctl.2: tfix
-To:     Jakub Wilk <jwilk@jwilk.net>
-References: <20200422095921.4813-1-jwilk@jwilk.net>
+        Wed, 22 Apr 2020 05:05:43 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Sonny Rao <sonnyrao@google.com>,
+        Jesse Barnes <jsbarnes@google.com>,
+        Vlastimil Babka <vbabka@suse.cz>,
+        Minchan Kim <minchan@kernel.org>,
+        "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
+        Lokesh Gidra <lokeshgidra@google.com>
+Subject: Re: [PATCH v2] mremap.2: Add information for MREMAP_DONTUNMAP.
+To:     Brian Geffon <bgeffon@google.com>
+References: <20200415164949.44562-1-bgeffon@google.com>
+ <092fc948-4adb-cda8-f525-7d16a85674e7@gmail.com>
+ <CADyq12xA69pSZ=JfMuG_c8T1UHepmdSqBwLLPgFrOyXeveVk4w@mail.gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <37175cb3-6238-79c0-caf8-2b7c6c431f64@gmail.com>
-Date:   Wed, 22 Apr 2020 13:22:19 +0200
+Message-ID: <80e408d3-f46c-58ef-0539-fd0e5778fef3@gmail.com>
+Date:   Wed, 22 Apr 2020 14:05:41 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200422095921.4813-1-jwilk@jwilk.net>
+In-Reply-To: <CADyq12xA69pSZ=JfMuG_c8T1UHepmdSqBwLLPgFrOyXeveVk4w@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -67,32 +75,50 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 4/22/20 11:59 AM, Jakub Wilk wrote:
-> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
-> ---
->  man2/prctl.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+On 4/17/20 5:01 AM, Brian Geffon wrote:
+> Hi Michael,
 > 
-> diff --git a/man2/prctl.2 b/man2/prctl.2
-> index 7a5af76f4..195870908 100644
-> --- a/man2/prctl.2
-> +++ b/man2/prctl.2
-> @@ -248,7 +248,7 @@ for security reasons, this feature has been removed.
->  in
->  .BR proc (5).)
->  .IP
-> -Normally, the "dumpable" attribue is set to 1.
-> +Normally, the "dumpable" attribute is set to 1.
->  However, it is reset to the current value contained in the file
->  .IR /proc/sys/fs/\:suid_dumpable
->  (which by default has the value 0),
+>> Thanks for this patch. I've applied it, and done quite a
+>> bit of editing. Could you please take a look at the
+>> version in Git, and let me know if I made any bad changes
+>> to your text.
+> 
+> Your changes look good.
+> 
+>> You write "move", but would it not be more correcrt to say something
+>> like "duplicate"?
+> 
+> It's a little of both, it duplicates the VMA but moves the page table
+> entries. So the behavior feels more like a move followed by a new
+> mapping created that had the same properties as the previous. Does
+> that make sense?
+> 
+>>> +Possible applications for this behavior might be garbage collection or
+>>
+>> Can you elaborate the garbage collection use case a little, please?
+> 
+> Lokesh, who is CCed, can probably expand better than I can, Lokesh
+> would you mind elaborating on how the JVM plans to use this.
+> 
+>>> +non-cooperative
+>>> +.BR userfaultfd (2) .
+>>
+>> What is noncooperative userfaultfd(2)?
+> 
+> No cooperative userfaultfd is the term that people tend to use when
+> the threads accessing the memory are not cooperating with the fault
+> handling, MREMAP_DONTUNMAP is interesting for this as you can yank out
+> the page tables from a running process and immediately start handling
+> faults for the registered range without having to stop the process.
+> 
+> I hope that answers your questions, feel free to ask if you need more
+> clarification.
 
-Thanks, Jakub. Applied.
+Thanks, Brian. See my reply to Loresh in just a moment
 
 Cheers,
 
-Michael
-
+Mcihael
 
 -- 
 Michael Kerrisk
