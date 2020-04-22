@@ -2,56 +2,56 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 258D11B4D9F
-	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2020 21:49:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5BCBD1B4DBC
+	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2020 21:55:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726087AbgDVTt4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 22 Apr 2020 15:49:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39028 "EHLO
+        id S1726109AbgDVTzE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 22 Apr 2020 15:55:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39826 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725779AbgDVTtz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Apr 2020 15:49:55 -0400
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com [IPv6:2a00:1450:4864:20::541])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ACBDEC03C1A9
-        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2020 12:49:55 -0700 (PDT)
-Received: by mail-ed1-x541.google.com with SMTP id s10so2476092edy.9
-        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2020 12:49:55 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1725779AbgDVTzE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Apr 2020 15:55:04 -0400
+Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C6E69C03C1A9
+        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2020 12:55:03 -0700 (PDT)
+Received: by mail-ej1-x644.google.com with SMTP id gr25so2809631ejb.10
+        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2020 12:55:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
          :subject:to:cc;
-        bh=ZzW234Cpsq4PT9Yd6VzjFbGbmKGMCIugbH6bU9Heg9k=;
-        b=JpgQa8PtJog8CUKQ6lEJE+yhvMsAUj/EVv85XzG6s29AyhpF2S8V+eJ12/yO1qES+i
-         uLBiiJprnZ+4pyeczUxtWf9I8A0yyHOWUorvqH02msG8DGaDkYPM3xZod3goxFOaXFDG
-         liRvAM8N6YqG0uWnu3FMJazSmG50jaJumOcfiNUIgwqPFEha2LW+Udn8vi7TELYJ9FhN
-         A7aTBERnBHsjKRcmubBCDE4Gj8b5LrwPz8Q7YYcZtdwxSSEOH7Ey/QUn1uFQAvFjcBKp
-         PJdolr1cqBXV4Xo5fVN4sYom3TFnUoh9A5xwIMJVNfiWpiX/fpXPwJ5TeiqkI1uSCkeC
-         Yk2w==
+        bh=B9Ky9qEwFygT6wOf5IPC3dCybrvsgA0RCipmj1l0/9Q=;
+        b=dchwwqIo8OhpiuiSbibFlLaz+umQFVWNcOVF84aiP14USscTUFNGY+4LvuEQF4bWW9
+         9Okka0SzgHq3rx2nHKGsvE3qVmF/4KCsC7pJZPmlqAKI0ZCcpwETZTMoJJb+tNxo1JkU
+         6jKQjdcQ8TaM2KOEMHJMmCgEWWCS2FSgyzvKWbVyQsuuc2fDLMjwKH2p8lZd/sn57ZFG
+         Gd4MmXHFnrkkh5QGR/ONvgCYQQ7o07/t7k9JcfgrBhCzbxdY6yk/j1IhJCYDyE0Ul7d3
+         +agsQ6eDrqWz3GZbCi59g1dmQLuep0GtN6Rk3JBRM0myMkwoaeO+7RNrC4kMwYA5FDMJ
+         cyvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
          :from:date:message-id:subject:to:cc;
-        bh=ZzW234Cpsq4PT9Yd6VzjFbGbmKGMCIugbH6bU9Heg9k=;
-        b=fH13zj2k5Wv9ip8qrQVpAvsX8aYfU9h9O7ThOHE+wOR/77t3WNiEJIW2nOW9mhuIYY
-         NFNGH5AUuzn6I+bgXrliZGibDDjlv3tuO+13KUo4owLOu19e4p0QzDLWqi9oRT5QRSVz
-         5r3YYdG23HxV5NaWl6ykc1UwGioan8xKKH8lTl4svydFL3kiGRnMdP3onHaYNLuNgKWL
-         zI8BmLvc9mXk7fKJ2brXdcd91CS6+ph0wFfftaMSTL1gCABmbPaTtGYin7w4OD5Yaqsm
-         rNxeLLbFd4ZDsQUO7vhEx9UCl8MVEi4Sl6BLKH9iqQ7mQxH6QH2QUSrIdjHpgX0XwKEV
-         U/FA==
-X-Gm-Message-State: AGi0PuZvuJQDjjpDaDX4QRoZj9flIPKgk+cB3fRfK9a5eUZN9fWw+rmq
-        QLvwSg9Q3lEvxGFkiqS+kMkmCiUALFTROsI8wEK86w==
-X-Google-Smtp-Source: APiQypIYPvi7v8vZspmNduabQzJcC6YGJ9OWEMwy0bb6GbLymOHkfTyTHtKkGRqtOHm3UxbMZTg5797vuVaFukAFnkM=
-X-Received: by 2002:aa7:d513:: with SMTP id y19mr190780edq.367.1587584994331;
- Wed, 22 Apr 2020 12:49:54 -0700 (PDT)
+        bh=B9Ky9qEwFygT6wOf5IPC3dCybrvsgA0RCipmj1l0/9Q=;
+        b=kxnhAASh7bPX1gdjwd4Ps65AuwZtaAx9JD8Xz4BmSFSIoPl1PooaMEK8HPOLPvhqpC
+         0lUTo7wzZKSwMdqka21A+WGEq2o0E0AXlqRx0UHYMGAeELqGIaTGMlG6fACzXwx/e58v
+         be4IFOMKgb+6Td1ZgdELrKWWe16yas6fOxyn09bAjGvnRUZUu1Zx9Y6jJ+i+7bhU6y7H
+         /hSH2vws2Y6PNYy7h1h5HU2o+9ZgI2R+VxEZVhQtkQVKad6DYofIOMRstBPb9UxrEEpI
+         U8lAHW+qzeevXGxZHf2U1Mxx6G6k7Ol/elf0L9k3ajDDREsh5lUbUjlU/is235o4kfYY
+         ubIw==
+X-Gm-Message-State: AGi0PuaaWK9RH1IKu4Dr9su7JCUBdQ25gQTapG5cjw8PCavEXE7K3JnJ
+        fZN1jACL+SmkRKufIdlX3bvu+1KH1M/QnFUXxl+FmA==
+X-Google-Smtp-Source: APiQypJLQTjW2W/blKAtFqivbbG/JAbDJLoGTr0FiaRZ/JJH5ai1eSl9ZLDhadnBpIy9ES6jSLhIyaQDLeHUTb3IKMM=
+X-Received: by 2002:a17:906:54cd:: with SMTP id c13mr3733ejp.307.1587585302499;
+ Wed, 22 Apr 2020 12:55:02 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200419064753.GA30168@Debian-50-lenny-64-minimal>
- <9f143ac0-5b2e-7f75-249a-8fa93cbec55d@gmail.com> <20200422193548.GF26557@Debian-50-lenny-64-minimal>
-In-Reply-To: <20200422193548.GF26557@Debian-50-lenny-64-minimal>
+References: <20200419064754.GA30214@Debian-50-lenny-64-minimal>
+ <84846ce0-881a-e882-8bbc-8fe93d7e4607@gmail.com> <20200422192409.GB26557@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200422192409.GB26557@Debian-50-lenny-64-minimal>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Wed, 22 Apr 2020 21:49:43 +0200
-Message-ID: <CAKgNAkgDaQ7Gj-OmfJezc9sxdbqd+NwFtLUmjSc_C8Z0zqeK1g@mail.gmail.com>
-Subject: Re: Errors in man pages, here: console_codes(4): Punctuation
+Date:   Wed, 22 Apr 2020 21:54:51 +0200
+Message-ID: <CAKgNAkgPzgimcwkK9gMJaq_=gkEFpSKdBVdsNcDQbyY69paVLQ@mail.gmail.com>
+Subject: Re: Errors in man pages, here: copysign(3): Suggested improvement
 To:     Helge Kreutzmann <debian@helgefjell.de>
 Cc:     linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
@@ -60,36 +60,41 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, 22 Apr 2020 at 21:35, Helge Kreutzmann <debian@helgefjell.de> wrote:
+Hello Helge,
+
+On Wed, 22 Apr 2020 at 21:24, Helge Kreutzmann <debian@helgefjell.de> wrote:
 >
-> Hello Michael,
-> On Mon, Apr 20, 2020 at 08:59:00AM +0200, Michael Kerrisk (man-pages) wrote:
+> Hallo Michael,
+> On Mon, Apr 20, 2020 at 08:36:37AM +0200, Michael Kerrisk (man-pages) wrote:
 > > On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
 > > > **
 > > >
-> > > s/, and CAN/. CAN/
+> > > Description, of what is really done, should be improved
 > > >
-> > > "If we have a control character, it is acted upon immediately and then "
-> > > "discarded (even in the middle of an escape sequence)  and the escape "
-> > > "sequence continues with the next character.  (However, ESC starts a new "
-> > > "escape sequence, possibly aborting a previous unfinished one, and CAN and "
-> > > "SUB abort any escape sequence.)  The recognized control characters are BEL, "
-> > > "BS, HT, LF, VT, FF, CR, SO, SI, CAN, SUB, ESC, DEL, CSI.  They do what one "
-> > > "would expect:"
+> > > msgid "copysign, copysignf, copysignl - copy sign of a number"
 > >
-> > I think the existing text is okay. What's the problem?
+> > I do not understand the report. Please elaborate.
 >
-> I assume the translator aimed for shorter sentences. But here the
-> sentences are not to long, so I can perfectly understand if you keep
-> the text as is.
+> If you read the text below the description, the function does
+> something more complex than siply copying the sign of a number, where
+> I would expect the the result to be either a "+" or a "-" (or maybe 1
+> or -1).
 >
-> I'll remove the comment.
+> The translator simply found this discrepancy when comparing the body
+> and the NAME part.
+>
+> Of course, as this is an improvement request, if you do not think it
+> can (or should) be changed, then please leave it as is.
 
-Okay.
+Given that the NAME description should be concise, no real
+idea for an improvement springs to mind. I suggest
+closing this.
 
 Thanks,
 
 Michael
+
+
 -- 
 Michael Kerrisk
 Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
