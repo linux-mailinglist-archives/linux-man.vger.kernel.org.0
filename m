@@ -2,93 +2,89 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4DF0B1B397B
-	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2020 09:56:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D03CC1B39F3
+	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2020 10:23:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725810AbgDVH4K (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 22 Apr 2020 03:56:10 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40930 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725968AbgDVH4J (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Apr 2020 03:56:09 -0400
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com [IPv6:2a00:1450:4864:20::542])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 64E76C03C1A8
-        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2020 00:56:09 -0700 (PDT)
-Received: by mail-ed1-x542.google.com with SMTP id j20so827089edj.0
-        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2020 00:56:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=z1biaZy6y7PqsHY/+KktbP6zQiSCk/Tgyi9hv1rSztM=;
-        b=bq86XvJQnxv50SBPGcKLs3Fr8gh99Hv1Y4lzJCnHBgVuYJVbw6RrjrVKfGtFku6EZG
-         kO4dXzupMYLoia0Lmt+RHfv1Xuu9JA4Y2Vmd3a8UrJgbKKxBUsTKJGojbSu5aJgfhEmo
-         5EM4zr0i3Guzu9oLNTActfb698GxdY2nsEaBs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=z1biaZy6y7PqsHY/+KktbP6zQiSCk/Tgyi9hv1rSztM=;
-        b=O0pkdluTqIi1JEenMlSSVUenprB5B/8Xjb+A7X5wB6+tdgUJP5XOsFwI4frF2DWyse
-         60eyf+UGrERBWCbgcZi24LiMmsQsv+PObTkBLBTbNJu4QCa7ft6x/sCGPRcJ/xW1cFXd
-         t9obqhFNhIHVnJfM2wNjAySUgUkKKoHPWTs84dB8Phb1nMeQsLLx1ywgF3/yaAQTMuJq
-         5FBSOQFQ9wd6tZBhLQhYGtICaKRd17NHHvfmt484hr/HjnV87gd3e80kp2zy3vrg5p/m
-         iWoU0WQqlBW6UeIFM5+Bki9W3sHP1VbXZEnR2xzoe5a0T0YQ1gN7TvkAtfqrGRoMp+3B
-         U8Aw==
-X-Gm-Message-State: AGi0PuZl042JivIKRkXteFihVRl/9o2CpNOPsBy7DcuijXKVd5jn9+z0
-        0g0VTbCEHgs+z4xgGYhvC/bAjeMlWTV4d6xo6E7g0g==
-X-Google-Smtp-Source: APiQypK9NkZBpfIRxtVZgJkwWgqgZC5WwR3a2fRu7Zp4jUgGSYA2Xwz4zVEf0igsy8uL0etsgNy6Z5nE2u7gSECiDNk=
-X-Received: by 2002:a05:6402:22ed:: with SMTP id dn13mr21651703edb.212.1587542168000;
- Wed, 22 Apr 2020 00:56:08 -0700 (PDT)
+        id S1725811AbgDVIXb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 22 Apr 2020 04:23:31 -0400
+Received: from smtpout1.mo804.mail-out.ovh.net ([79.137.123.220]:45117 "EHLO
+        smtpout1.mo804.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1725786AbgDVIXb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Apr 2020 04:23:31 -0400
+Received: from mxplan6.mail.ovh.net (unknown [10.109.156.244])
+        by mo804.mail-out.ovh.net (Postfix) with ESMTPS id C994E3765BFA;
+        Wed, 22 Apr 2020 10:23:28 +0200 (CEST)
+Received: from jwilk.net (37.59.142.97) by DAG4EX2.mxp6.local (172.16.2.32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Wed, 22 Apr
+ 2020 10:23:27 +0200
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     <bpf@vger.kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+        Daniel Borkmann <daniel@iogearbox.net>
+CC:     <linux-man@vger.kernel.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: [PATCH v2] bpf: Fix reStructuredText markup
+Date:   Wed, 22 Apr 2020 10:23:24 +0200
+Message-ID: <20200422082324.2030-1-jwilk@jwilk.net>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20200420144753.3718-1-jwilk@jwilk.net>
+References: <20200420144753.3718-1-jwilk@jwilk.net>
 MIME-Version: 1.0
-References: <cover.1587531463.git.josh@joshtriplett.org> <9873b8bd7d14ff8cd2a5782b434b39f076679eeb.1587531463.git.josh@joshtriplett.org>
- <CAKgNAkjo3AeA78XqK-RRGqJHNy1H8SbcjQQQs7+jDwuFgq4YSg@mail.gmail.com>
-In-Reply-To: <CAKgNAkjo3AeA78XqK-RRGqJHNy1H8SbcjQQQs7+jDwuFgq4YSg@mail.gmail.com>
-From:   Miklos Szeredi <miklos@szeredi.hu>
-Date:   Wed, 22 Apr 2020 09:55:56 +0200
-Message-ID: <CAJfpegt=xe-8AayW2i3AYrk3q-=Pp_A+Hctsk+=sXoMed5hFQA@mail.gmail.com>
-Subject: Re: [PATCH v5 2/3] fs: openat2: Extend open_how to allow
- userspace-selected fds
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     Josh Triplett <josh@joshtriplett.org>, io-uring@vger.kernel.org,
-        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        Arnd Bergmann <arnd@arndb.de>, Jens Axboe <axboe@kernel.dk>,
-        Aleksa Sarai <cyphar@cyphar.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7BIT
+Content-Type:   text/plain; charset=US-ASCII
+X-Originating-IP: [37.59.142.97]
+X-ClientProxiedBy: DAG7EX2.mxp6.local (172.16.2.62) To DAG4EX2.mxp6.local
+ (172.16.2.32)
+X-Ovh-Tracer-GUID: 22f6e39c-ead6-478b-ba0e-78f47e12fb86
+X-Ovh-Tracer-Id: 18374686482964535078
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduhedrgeejgddtudcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvffufffkofgjfhgggfgtihesthekredtredttdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrdeljeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdprhgtphhtthhopehmthhkrdhmrghnphgrghgvshesghhmrghilhdrtghomh
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Apr 22, 2020 at 8:06 AM Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
->
-> [CC += linux-api]
->
-> On Wed, 22 Apr 2020 at 07:20, Josh Triplett <josh@joshtriplett.org> wrote:
-> >
-> > Inspired by the X protocol's handling of XIDs, allow userspace to select
-> > the file descriptor opened by openat2, so that it can use the resulting
-> > file descriptor in subsequent system calls without waiting for the
-> > response to openat2.
-> >
-> > In io_uring, this allows sequences like openat2/read/close without
-> > waiting for the openat2 to complete. Multiple such sequences can
-> > overlap, as long as each uses a distinct file descriptor.
+Fixes:
 
-If this is primarily an io_uring feature, then why burden the normal
-openat2 API with this?
+    $ scripts/bpf_helpers_doc.py > bpf-helpers.rst
+    $ rst2man bpf-helpers.rst > bpf-helpers.7
+    bpf-helpers.rst:1105: (WARNING/2) Inline strong start-string without end-string.
 
-Add this flag to the io_uring API, by all means.
+Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+---
+v2: "flags" should be italic, not bold
 
-This would also allow Implementing a private fd table for io_uring.
-I.e. add a flag interpreted by file ops (IORING_PRIVATE_FD), including
-openat2 and freely use the private fd space without having to worry
-about interactions with other parts of the system.
+ include/uapi/linux/bpf.h       | 2 +-
+ tools/include/uapi/linux/bpf.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Thanks,
-Miklos
+diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
+index 2e29a671d67e..7bbf1b65be10 100644
+--- a/include/uapi/linux/bpf.h
++++ b/include/uapi/linux/bpf.h
+@@ -1642,7 +1642,7 @@ union bpf_attr {
+  * 		ifindex, but doesn't require a map to do so.
+  * 	Return
+  * 		**XDP_REDIRECT** on success, or the value of the two lower bits
+- * 		of the **flags* argument on error.
++ * 		of the *flags* argument on error.
+  *
+  * int bpf_sk_redirect_map(struct sk_buff *skb, struct bpf_map *map, u32 key, u64 flags)
+  * 	Description
+diff --git a/tools/include/uapi/linux/bpf.h b/tools/include/uapi/linux/bpf.h
+index 2e29a671d67e..7bbf1b65be10 100644
+--- a/tools/include/uapi/linux/bpf.h
++++ b/tools/include/uapi/linux/bpf.h
+@@ -1642,7 +1642,7 @@ union bpf_attr {
+  * 		ifindex, but doesn't require a map to do so.
+  * 	Return
+  * 		**XDP_REDIRECT** on success, or the value of the two lower bits
+- * 		of the **flags* argument on error.
++ * 		of the *flags* argument on error.
+  *
+  * int bpf_sk_redirect_map(struct sk_buff *skb, struct bpf_map *map, u32 key, u64 flags)
+  * 	Description
+-- 
+2.26.2
+
