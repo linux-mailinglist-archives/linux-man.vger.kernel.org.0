@@ -2,132 +2,137 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B44D91B43FC
-	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2020 14:08:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B87901B4490
+	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2020 14:20:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726158AbgDVMIF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 22 Apr 2020 08:08:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51842 "EHLO
+        id S1726917AbgDVMTs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 22 Apr 2020 08:19:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53430 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1726110AbgDVMIF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Apr 2020 08:08:05 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 23C18C03C1A8
-        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2020 05:08:05 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id k13so2091598wrw.7
-        for <linux-man@vger.kernel.org>; Wed, 22 Apr 2020 05:08:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Udvo7olY6I80UYD7PISEitAEBqNg6n4BW+MMc5vDb2o=;
-        b=J4Tb7lIRSSxKLVEaTWooGrxC3aR6Fk4CX9gMnGILDn+Z0RhSlRADYsZYScN1k1P88U
-         tW3ZBTnGNlOqYFQcv9P86IKsiW7q1VDmEJrLdvf36y31gIF/ZwFkCWpaqozWAW9Vwejz
-         M14dQFjpn4Xui3Hq0WKjnziCIvgpqspqY7ZCU7Lnm7eLNJQMKQoZ4zeBaMoBrqZTxqDX
-         1TEgaXNpieKWgluKb+S07HvYK7e/10nM0okCue9hJ0Ohv3CVPIcnU7Mzga6+GDkXMLQX
-         Jcu+uxmi+NkFFqZwcX12fdQoE5Ml0Dar1T6bSkHvvq43TNPaN5tR97Qaa1OXS3Hhkep1
-         EWwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=Udvo7olY6I80UYD7PISEitAEBqNg6n4BW+MMc5vDb2o=;
-        b=bZkkM4XhELEnxG/v+3BijzOiAQ+3knGIk7q3aZhOuMbDomgiyH4gI5cstEqhuCgpQG
-         4PACGNuenJrDf03X3VC3wf1XMJlx6tYTO4Ntb9hGjAx7PnNminu+dALdhy3znUWZlO4p
-         tP3QcahGDfDMrol5hjR5+jeHKvt34veePIQhhexamO+qeY43AmljxaWswrWd4NkiTDfo
-         U9MSdmGWMacbzT2GGJyrJooe41ODuY6VISQsWsbYZYt9vvX01FIWnEcnhzus3FN8kRmf
-         XH+XSJIU//OcIIMBAxmCcKcaYiIDLSRfysaniHhOhWQwXzZbqV5ReuK9BtXiuI8r5m9t
-         zB+g==
-X-Gm-Message-State: AGi0PuYBoTIBuzbY2qBtm64x4Bb4lZxXutDYok1Ltr/+2rsDMgaDwJ1+
-        vLlhYc1bkTcjK8KAoB7G9Ok=
-X-Google-Smtp-Source: APiQypIVwaS2fJGDtmHx7y/VrSJMM327C0E/1JjnYsQZsX3Yw1hMuwxnjR+NCfZ1vpDCdv3xrklWLw==
-X-Received: by 2002:adf:cd04:: with SMTP id w4mr30956434wrm.357.1587557283685;
-        Wed, 22 Apr 2020 05:08:03 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id b22sm7451421wmj.1.2020.04.22.05.08.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Apr 2020 05:08:03 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Sonny Rao <sonnyrao@google.com>,
-        Jesse Barnes <jsbarnes@google.com>,
-        Vlastimil Babka <vbabka@suse.cz>,
-        Minchan Kim <minchan@kernel.org>,
-        "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>
-Subject: Re: [PATCH v2] mremap.2: Add information for MREMAP_DONTUNMAP.
-To:     Lokesh Gidra <lokeshgidra@google.com>,
-        Brian Geffon <bgeffon@google.com>
-References: <20200415164949.44562-1-bgeffon@google.com>
- <092fc948-4adb-cda8-f525-7d16a85674e7@gmail.com>
- <CADyq12xA69pSZ=JfMuG_c8T1UHepmdSqBwLLPgFrOyXeveVk4w@mail.gmail.com>
- <CA+EESO6ODSQV4QA0-ZpyvmHb2395Gutt0ac5uBYNyTdWKdSY1Q@mail.gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <f7592167-06d5-5f81-9d9e-07afd6704e31@gmail.com>
-Date:   Wed, 22 Apr 2020 14:08:02 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+        by vger.kernel.org with ESMTP id S1728867AbgDVMRy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Apr 2020 08:17:54 -0400
+Received: from Galois.linutronix.de (Galois.linutronix.de [IPv6:2a0a:51c0:0:12e:550::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2E7ACC03C1AA;
+        Wed, 22 Apr 2020 05:17:54 -0700 (PDT)
+Received: from [5.158.153.53] (helo=tip-bot2.lab.linutronix.de)
+        by Galois.linutronix.de with esmtpsa (TLS1.2:DHE_RSA_AES_256_CBC_SHA256:256)
+        (Exim 4.80)
+        (envelope-from <tip-bot2@linutronix.de>)
+        id 1jREJu-000800-QX; Wed, 22 Apr 2020 14:17:39 +0200
+Received: from [127.0.1.1] (localhost [IPv6:::1])
+        by tip-bot2.lab.linutronix.de (Postfix) with ESMTP id 071D21C081A;
+        Wed, 22 Apr 2020 14:17:32 +0200 (CEST)
+Date:   Wed, 22 Apr 2020 12:17:31 -0000
+From:   "tip-bot2 for Alexey Budankov" <tip-bot2@linutronix.de>
+Reply-to: linux-kernel@vger.kernel.org
+To:     linux-tip-commits@vger.kernel.org
+Subject: [tip: perf/core] doc/admin-guide: update kernel.rst with CAP_PERFMON
+ information
+Cc:     Alexey Budankov <alexey.budankov@linux.intel.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Andi Kleen <ak@linux.intel.com>,
+        Igor Lubashev <ilubashe@akamai.com>,
+        James Morris <jmorris@namei.org>, Jiri Olsa <jolsa@redhat.com>,
+        Namhyung Kim <namhyung@kernel.org>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Serge Hallyn <serge@hallyn.com>,
+        Song Liu <songliubraving@fb.com>,
+        Stephane Eranian <eranian@google.com>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        intel-gfx@lists.freedesktop.org, linux-doc@vger.kernel.org,
+        linux-man@vger.kernel.org, linux-security-module@vger.kernel.org,
+        selinux@vger.kernel.org,
+        Arnaldo Carvalho de Melo <acme@redhat.com>,
+        x86 <x86@kernel.org>, LKML <linux-kernel@vger.kernel.org>
+In-Reply-To: <84c32383-14a2-fa35-16b6-f9e59bd37240@linux.intel.com>
+References: <84c32383-14a2-fa35-16b6-f9e59bd37240@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <CA+EESO6ODSQV4QA0-ZpyvmHb2395Gutt0ac5uBYNyTdWKdSY1Q@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Message-ID: <158755785160.28353.3846364615857444421.tip-bot2@tip-bot2>
+X-Mailer: tip-git-log-daemon
+Robot-ID: <tip-bot2.linutronix.de>
+Robot-Unsubscribe: Contact <mailto:tglx@linutronix.de> to get blacklisted from these emails
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Linutronix-Spam-Score: -1.0
+X-Linutronix-Spam-Level: -
+X-Linutronix-Spam-Status: No , -1.0 points, 5.0 required,  ALL_TRUSTED=-1,SHORTCIRCUIT=-0.0001
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Brian and Loresh,
+The following commit has been merged into the perf/core branch of tip:
 
->>>> +Possible applications for this behavior might be garbage collection or
->>>
->>> Can you elaborate the garbage collection use case a little, please?
->>
->> Lokesh, who is CCed, can probably expand better than I can, Lokesh
->> would you mind elaborating on how the JVM plans to use this.
->>
-> There are many GC algorithms in literature which use PROT_NONE+SIGSEGV
-> trick to implement concurrent compaction of java heap. In Android
-> Runtime we plan to use userfaultfd instead. But this requires a
-> stop-the-world, wherein Java threads are paused, right before starting
-> the compaction phase. Within this pause, the physical pages in the
-> Java heap will be moved to another area, so that the Java heap, which
-> is already registered with userfaultfd, can start 'userfaulting' (as
-> Java heap pages are missing) once application threads are resumed.
-> 
-> In the absence of MREMAP_DONTUNMAP, I'd have to do it by first doing
-> mremap, and then mmaping Java heap, as its virtual mapping would be
-> removed by the preceding mremap. This not only causes performance
-> issues as two system calls need to be made instead of one, but it also
-> leaves a window open for a native thread, which is not paused, to
-> create a virtual mapping for its own usage right where Java heap is
-> supposed to be.
+Commit-ID:     025b16f81dd7f51f29d0109399d669438c63b6ce
+Gitweb:        https://git.kernel.org/tip/025b16f81dd7f51f29d0109399d669438c63b6ce
+Author:        Alexey Budankov <alexey.budankov@linux.intel.com>
+AuthorDate:    Thu, 02 Apr 2020 11:54:39 +03:00
+Committer:     Arnaldo Carvalho de Melo <acme@redhat.com>
+CommitterDate: Thu, 16 Apr 2020 12:19:12 -03:00
 
-Thank you both for your explanations.
+doc/admin-guide: update kernel.rst with CAP_PERFMON information
 
-I added some text to the page. Does the following look okay?
+Update the kernel.rst documentation file with the information related to
+usage of CAP_PERFMON capability to secure performance monitoring and
+observability operations in system.
 
-   MREMAP_DONTUNMAP use cases
-       Possible applications for MREMAP_DONTUNMAP include:
+Signed-off-by: Alexey Budankov <alexey.budankov@linux.intel.com>
+Cc: Alexei Starovoitov <ast@kernel.org>
+Cc: Andi Kleen <ak@linux.intel.com>
+Cc: Igor Lubashev <ilubashe@akamai.com>
+Cc: James Morris <jmorris@namei.org>
+Cc: Jiri Olsa <jolsa@redhat.com>
+Cc: Namhyung Kim <namhyung@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Serge Hallyn <serge@hallyn.com>
+Cc: Song Liu <songliubraving@fb.com>
+Cc: Stephane Eranian <eranian@google.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: intel-gfx@lists.freedesktop.org
+Cc: linux-doc@vger.kernel.org
+Cc: linux-man@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org
+Cc: selinux@vger.kernel.org
+Link: http://lore.kernel.org/lkml/84c32383-14a2-fa35-16b6-f9e59bd37240@linux.intel.com
+Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+---
+ Documentation/admin-guide/sysctl/kernel.rst | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
-       *  Non-cooperative userfaultfd(2): an application can yank  out  a
-          virtual  address range using MREMAP_DONTUNMAP and then employ a
-          userfaultfd(2) handler to handle the page  faults  that  subse‐
-          quently  occur  as  other threads in the process touch pages in
-          the yanked range.
-
-       *  Garbage collection: MREMAP_DONTUNMAP can be used in conjunction
-          with  userfaultfd(2) to implement garbage collection algorithms
-          (e.g., in a Java virtual machine).  Such an implementation  can
-          be  cheaper  (and simpler) than conventional garbage collection
-          techniques that involve marking pages with protection PROT_NONE
-          in  conjunction with the of a SIGSEGV handler to catch accesses
-          to those pages.
-
-Cheers,
-
-Michael
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
+index 39c95c0..7e4c28d 100644
+--- a/Documentation/admin-guide/sysctl/kernel.rst
++++ b/Documentation/admin-guide/sysctl/kernel.rst
+@@ -730,7 +730,13 @@ perf_event_paranoid
+ ===================
+ 
+ Controls use of the performance events system by unprivileged
+-users (without CAP_SYS_ADMIN).  The default value is 2.
++users (without CAP_PERFMON).  The default value is 2.
++
++For backward compatibility reasons access to system performance
++monitoring and observability remains open for CAP_SYS_ADMIN
++privileged processes but CAP_SYS_ADMIN usage for secure system
++performance monitoring and observability operations is discouraged
++with respect to CAP_PERFMON use cases.
+ 
+ ===  ==================================================================
+  -1  Allow use of (almost) all events by all users.
+@@ -739,13 +745,13 @@ users (without CAP_SYS_ADMIN).  The default value is 2.
+      ``CAP_IPC_LOCK``.
+ 
+ >=0  Disallow ftrace function tracepoint by users without
+-     ``CAP_SYS_ADMIN``.
++     ``CAP_PERFMON``.
+ 
+-     Disallow raw tracepoint access by users without ``CAP_SYS_ADMIN``.
++     Disallow raw tracepoint access by users without ``CAP_PERFMON``.
+ 
+->=1  Disallow CPU event access by users without ``CAP_SYS_ADMIN``.
++>=1  Disallow CPU event access by users without ``CAP_PERFMON``.
+ 
+->=2  Disallow kernel profiling by users without ``CAP_SYS_ADMIN``.
++>=2  Disallow kernel profiling by users without ``CAP_PERFMON``.
+ ===  ==================================================================
+ 
+ 
