@@ -2,105 +2,108 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 647531B4909
-	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2020 17:44:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EADF61B4D32
+	for <lists+linux-man@lfdr.de>; Wed, 22 Apr 2020 21:18:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726718AbgDVPoo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 22 Apr 2020 11:44:44 -0400
-Received: from albireo.enyo.de ([37.24.231.21]:43428 "EHLO albireo.enyo.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726124AbgDVPoo (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 22 Apr 2020 11:44:44 -0400
-Received: from [172.17.203.2] (helo=deneb.enyo.de)
-        by albireo.enyo.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        id 1jRHYE-00031Q-Ug; Wed, 22 Apr 2020 15:44:38 +0000
-Received: from fw by deneb.enyo.de with local (Exim 4.92)
-        (envelope-from <fw@deneb.enyo.de>)
-        id 1jRHYE-0006oS-Ox; Wed, 22 Apr 2020 17:44:38 +0200
-From:   Florian Weimer <fw@deneb.enyo.de>
-To:     Mark Wielaard <mark@klomp.org>
-Cc:     Josh Triplett <josh@joshtriplett.org>, io-uring@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        mtk.manpages@gmail.com, Alexander Viro <viro@zeniv.linux.org.uk>,
-        Arnd Bergmann <arnd@arndb.de>, Jens Axboe <axboe@kernel.dk>,
-        Aleksa Sarai <cyphar@cyphar.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v5 3/3] fs: pipe2: Support O_SPECIFIC_FD
-References: <cover.1587531463.git.josh@joshtriplett.org>
-        <2bb2e92c688b97247f644fe8220054d6c6b66b65.1587531463.git.josh@joshtriplett.org>
-Date:   Wed, 22 Apr 2020 17:44:38 +0200
-In-Reply-To: <2bb2e92c688b97247f644fe8220054d6c6b66b65.1587531463.git.josh@joshtriplett.org>
-        (Josh Triplett's message of "Tue, 21 Apr 2020 22:20:20 -0700")
-Message-ID: <877dy7ikyh.fsf@mid.deneb.enyo.de>
-MIME-Version: 1.0
-Content-Type: text/plain
+        id S1726071AbgDVTS4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 22 Apr 2020 15:18:56 -0400
+Received: from luckmann.name ([213.239.213.133]:58663 "EHLO
+        static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1725913AbgDVTS4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Apr 2020 15:18:56 -0400
+Received: from localhost (localhost [127.0.0.1])
+  (uid 502)
+  by static.213-239-213-133.clients.your-server.de with local
+  id 0000000000E56034.000000005EA0989D.00006854; Wed, 22 Apr 2020 21:18:53 +0200
+Date:   Wed, 22 Apr 2020 21:18:53 +0200
+From:   Helge Kreutzmann <debian@helgefjell.de>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Subject: Re: Errors in man pages, here: msr(4): Content
+Message-ID: <20200422191853.GA26557@Debian-50-lenny-64-minimal>
+References: <20200419064812.GA31256@Debian-50-lenny-64-minimal>
+ <CAKgNAkgkNcUiV=Tc38Kd46fECzaZZ0hyVw8U2visf5absJq=Gg@mail.gmail.com>
+ <20200421191051.GC4951@Debian-50-lenny-64-minimal>
+ <CAKgNAkiizD62V=Yi5Pt+3kzsgqwzzoYY+J5h2SskrHwQMd591w@mail.gmail.com>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-26708-1587583133-0001-2"
+Content-Disposition: inline
+In-Reply-To: <CAKgNAkiizD62V=Yi5Pt+3kzsgqwzzoYY+J5h2SskrHwQMd591w@mail.gmail.com>
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Josh Triplett:
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
 
-> This allows the caller of pipe2 to specify one or both file descriptors
-> rather than having them automatically use the lowest available file
-> descriptor. The caller can specify either file descriptor as -1 to
-> allow that file descriptor to use the lowest available.
->
-> Signed-off-by: Josh Triplett <josh@joshtriplett.org>
-> ---
->  fs/pipe.c | 16 ++++++++++++----
->  1 file changed, 12 insertions(+), 4 deletions(-)
->
-> diff --git a/fs/pipe.c b/fs/pipe.c
-> index 16fb72e9abf7..4681a0d1d587 100644
-> --- a/fs/pipe.c
-> +++ b/fs/pipe.c
-> @@ -936,19 +936,19 @@ static int __do_pipe_flags(int *fd, struct file **files, int flags)
->  	int error;
->  	int fdw, fdr;
->  
-> -	if (flags & ~(O_CLOEXEC | O_NONBLOCK | O_DIRECT))
-> +	if (flags & ~(O_CLOEXEC | O_NONBLOCK | O_DIRECT | O_SPECIFIC_FD))
->  		return -EINVAL;
->  
->  	error = create_pipe_files(files, flags);
->  	if (error)
->  		return error;
->  
-> -	error = get_unused_fd_flags(flags);
-> +	error = get_specific_unused_fd_flags(fd[0], flags);
->  	if (error < 0)
->  		goto err_read_pipe;
->  	fdr = error;
->  
-> -	error = get_unused_fd_flags(flags);
-> +	error = get_specific_unused_fd_flags(fd[1], flags);
->  	if (error < 0)
->  		goto err_fdr;
->  	fdw = error;
-> @@ -969,7 +969,11 @@ static int __do_pipe_flags(int *fd, struct file **files, int flags)
->  int do_pipe_flags(int *fd, int flags)
->  {
->  	struct file *files[2];
-> -	int error = __do_pipe_flags(fd, files, flags);
-> +	int error;
-> +
-> +	if (flags & O_SPECIFIC_FD)
-> +		return -EINVAL;
-> +	error = __do_pipe_flags(fd, files, flags);
->  	if (!error) {
->  		fd_install(fd[0], files[0]);
->  		fd_install(fd[1], files[1]);
-> @@ -987,6 +991,10 @@ static int do_pipe2(int __user *fildes, int flags)
->  	int fd[2];
->  	int error;
->  
-> +	if (flags & O_SPECIFIC_FD)
-> +		if (copy_from_user(fd, fildes, sizeof(fd)))
-> +			return -EFAULT;
-> +
->  	error = __do_pipe_flags(fd, files, flags);
->  	if (!error) {
->  		if (unlikely(copy_to_user(fildes, fd, sizeof(fd)))) {
+--=_luckmann.name-26708-1587583133-0001-2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Mark, I think this will need (or at least benefit from) some valgrind
-changes.
+Hello Michael,
+On Tue, Apr 21, 2020 at 09:38:33PM +0200, Michael Kerrisk (man-pages) wrote:
+> On Tue, 21 Apr 2020 at 21:10, Helge Kreutzmann <debian@helgefjell.de> wro=
+te:
+> > On Sun, Apr 19, 2020 at 10:47:38PM +0200, Michael Kerrisk (man-pages) w=
+rote:
+> > > > can read proc as regular user (etch)
+> > > >
+> > > > "This file is protected so that it can be read and written only by =
+the user "
+> > > > "I<root>, or members of the group I<root>."
+> > >
+> > > I need more context here to find which part of the
+> > > page this note refers to.
+> >
+> > This is the last paragraph before NOTES, i.e. the last one in
+> > DESCRIPTION.
+>=20
+>=20
+> Ooops _ I must have been looking at the wrong file.
+>=20
+> > Having a brief look this FIXME probably is (no) longer correct, but
+> > the translator who noticed this 2011 is no longer active, so please
+> > close if it is (no longer) applicable.
+>=20
+> Close it, I think. Certainly on my system /dev/cpu/N/msr is readable
+> only by root.
+
+Closed, and sorry if some of the reports are obsoleted, I tried to
+check but did not always succeed.
+
+Greetings
+
+          Helge
+--=20
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
+
+--=_luckmann.name-26708-1587583133-0001-2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl6gmJ0ACgkQQbqlJmgq
+5nDhpBAAqXLWAzsW+0VsEO6/bGY3QSNhNAhQlQG7+HKVy9658mODVxNIT3cv0bCx
+l2J0le5H/O6hXJXC4sMx1UiEYSLqnCNucgFWAeZF8fPqzbUxVPuVAZpGQAd9zt0L
+JqxmjQ/bmDu3Y4MBaV20P4ZKd48zBf38vZ5UCZNxedv+u8OkPVc/MFTqcIcYTAa+
+Im3geAypdNxIyMl75g5hKVeu9NPFvBteII2S9c3cDEEN8gRE4a0bcDygcURYLMe0
+Xf+iP5iT1lMbhdUpBKdlepBrl+vnKnEg/x1qp2RYHN3wtCeXqcDtNyelCaV0/zXy
+7A+8055AG6nCw0h/AeOL2TJpjnMXgWP09ive/h21GbE162e7kgKSdqMAJmdYvczg
+ediDqAGQVVFT8mmN+p5VSky7vImWsaeeL1XzwJ8TWkspS+Msga56spN4Vq1SI4/2
+drF7QTGxbYTp9ugQ3EAf2RdjNCRmgWzbBVdryTTbfUQixWJohX0/z6QNBcJtyqW0
+OkhTHREngopd1TIKyFZhkwI0267/Y29H9dOgE+WdrnG1tV1jf4gg/pmtCdj56Z6c
+xkz3Jhea2APLf00McCY2sjCE0BiAfvfE3yQ1zcVT7tke8sg4tQ+RwT6PAdjOIYKD
+VK6iCjUUlS+WwV8FyAwOxCBLmruoJENA1SyOOyDCf0Ko/ilrSww=
+=QG0s
+-----END PGP SIGNATURE-----
+
+--=_luckmann.name-26708-1587583133-0001-2--
