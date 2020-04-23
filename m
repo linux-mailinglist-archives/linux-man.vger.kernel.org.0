@@ -2,116 +2,156 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D64801B5883
-	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2020 11:47:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EB68D1B58A6
+	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2020 11:56:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726951AbgDWJrN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 23 Apr 2020 05:47:13 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56336 "EHLO
+        id S1726928AbgDWJ41 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 23 Apr 2020 05:56:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57760 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1727001AbgDWJrM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Apr 2020 05:47:12 -0400
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 50C60C08ED7D
-        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 02:47:12 -0700 (PDT)
-Received: by mail-ej1-x641.google.com with SMTP id n17so4215790ejh.7
-        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 02:47:12 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1726364AbgDWJ40 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Apr 2020 05:56:26 -0400
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5EACFC03C1AF
+        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 02:56:26 -0700 (PDT)
+Received: by mail-wm1-x343.google.com with SMTP id x4so5756903wmj.1
+        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 02:56:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=eBjF9qj4VjUI/zoZpRsdcofUh4Hml8aXIqDYnm8I2pc=;
-        b=Kqsnyt0qkv6L86PfeD2KkzVB6KcD+1wQcWQMNqF6WL3KZ5iZir2mKjmxbzENryVDmR
-         h2KN673yOUpiqe96og6uDdVruUvcsVVl1dfoc8u25NFe2q3KdTuW2ZaTL0u/LLsSYeNl
-         S6piTbwiNJ2aGNlQCA8j4IDc0gBm31CEqEtAQ=
+        d=isovalent-com.20150623.gappssmtp.com; s=20150623;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=ulm3MVuUmTr9EQufgg/7i2OtVfPzgKRDM/Q6x6hFSqI=;
+        b=i77wU4JQwN5gjqIKSao0mhWD0XWput0jHNlJmrZacrne9NKB7jr/Xt7EmhRTGXWuA6
+         1Gdk5OWDvfOZlotyQxQJzyUu9vwsEKENNqoooEIMrUydGp75MdwlaeayFtPUW02ASgca
+         LThUjAcWm006OsxK3Abv+9k8OgHDfxf3x7oYU5VKdkaq4XDsWrJ6QtSMKPHtkGxbyBmi
+         mXlrIvHdeFQ6uCfdoLOr0KNbHoFTeLZmiLFHIAJ4rmAaokxRdq8B5GxiwmqlVDU7y3C0
+         2cB8rOYVKIKtWgMwiYyKix2W8wL4lXkX+RQpLidbW8oL1q+ZbtyrQgNhQWvECOsPnItn
+         UDOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=eBjF9qj4VjUI/zoZpRsdcofUh4Hml8aXIqDYnm8I2pc=;
-        b=fRBPON/vCMoUGgb9bU/9/839lwhuHhaufYe9RFU5nhtvA2EnuZoXrvAw9NJ0LxCS3l
-         bc4ZY4havnWUbW6eDVgS/YAcXwMxSjopMqZW/LYi0vjckMEbPNoBHMHhqPtomPMYMqjD
-         wrwJN9HQMIxS4LOJgXlRmIeyhHW5z5hU5yjgv/Y9UAPZONBLtxeUJu1eXWqwY17eGzuP
-         QZYvAd9X6ia9TXPIVJSx7+U4niO135kUcImRZ5rKGxJTRMtdydakAZFnu777/nJ930Qw
-         xSkI4T20E7p3nA2qXfE0TDT8cft0zZ0xrkvMqEudSUcgzJcQV+grJqG29mfzbXiZJ+qZ
-         /yRg==
-X-Gm-Message-State: AGi0PuYtmd51I3MeQ9gC9454ONxo/auZ4XOfGbyP4ZEQ4zDtdlRUwwDp
-        aByCmvK5vwK+c1G3xT4dRdKl9J9R9ewbYZJufr8qjQ==
-X-Google-Smtp-Source: APiQypKzYA+RwPbSzxAVe1uCnwABFW9ULWw73H2FS4WUYBmnv7bX1P0aUaDwT6A5ceIZBB1IQHhJpijAE9OUj++HWT8=
-X-Received: by 2002:a17:906:c06:: with SMTP id s6mr1856032ejf.198.1587635230925;
- Thu, 23 Apr 2020 02:47:10 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1587531463.git.josh@joshtriplett.org> <9873b8bd7d14ff8cd2a5782b434b39f076679eeb.1587531463.git.josh@joshtriplett.org>
- <CAKgNAkjo3AeA78XqK-RRGqJHNy1H8SbcjQQQs7+jDwuFgq4YSg@mail.gmail.com>
- <CAJfpegt=xe-8AayW2i3AYrk3q-=Pp_A+Hctsk+=sXoMed5hFQA@mail.gmail.com>
- <20200423004807.GC161058@localhost> <CAJfpegtSYKsApx2Dc6VGmc5Fm4SsxtAWAP-Zs052umwK1CjJmQ@mail.gmail.com>
- <20200423044226.GH161058@localhost> <CAJfpeguaVYo-Lf-5Bi=EYJYWdmCfo3BqZA=kj9E5UmDb0mBc1w@mail.gmail.com>
- <20200423073310.GA169998@localhost> <CAJfpegtXj4bSbhpx+=z=R0_ZT8uPEJAAev0O+DVg3AX242e=-g@mail.gmail.com>
- <CAJfpegtgrUACZpYR8wWoTE=Hh4Xi+4rRfrZTxRtaFVpT9GMPjw@mail.gmail.com> <CAJfpegvcW9Sic8ZXgWfFQ3d8JTr53XABfP8rZzsVhCDBKCgMBw@mail.gmail.com>
-In-Reply-To: <CAJfpegvcW9Sic8ZXgWfFQ3d8JTr53XABfP8rZzsVhCDBKCgMBw@mail.gmail.com>
-From:   Miklos Szeredi <miklos@szeredi.hu>
-Date:   Thu, 23 Apr 2020 11:46:59 +0200
-Message-ID: <CAJfpegv-zRp3a3JcmCO4JpXB=f32=TK=+jP1o-peqqxffT5ERw@mail.gmail.com>
-Subject: Re: [PATCH v5 2/3] fs: openat2: Extend open_how to allow
- userspace-selected fds
-To:     Josh Triplett <josh@joshtriplett.org>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, io-uring@vger.kernel.org,
-        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        Arnd Bergmann <arnd@arndb.de>, Jens Axboe <axboe@kernel.dk>,
-        Aleksa Sarai <cyphar@cyphar.com>,
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=ulm3MVuUmTr9EQufgg/7i2OtVfPzgKRDM/Q6x6hFSqI=;
+        b=rEn1eTjVehoQNsXHpe0Nez6SUYZ1zNDUt6mKfarshI3FoMKfwE0WtE+7hD8G1BMpTo
+         wdFo6ueOj+LRMJD61HGveGJApPlhGDhvZp2cVH+8HjVClvTxNdMfWYLHtm8VYZBM9G4h
+         4LBBGEzsQhDkXQDDpEBNEwrHGPiozCzUwCmsTIfqCgaI/WIquSyL1moq2hunpS8M4nee
+         FSteMTOIIDIuyqLnro2Z++A2JIia6NG+U/21YXru0aQJrA6GkRN8Mep7dYfSh2ilQ4k9
+         cjGFb5lSvZMFLHArd0Uugkk+IxxMKsrvIZlNSyM+cMZixYZ7nsaHu60jnK/pqrzPdK0H
+         q9SA==
+X-Gm-Message-State: AGi0Pua8KVvAzYvXoF2jS6h6DA1wgR41ZgpfYU0uUw7EuX/6YiyMZyph
+        TNjv0pSjwl7joJjOsY9M/vnuPQ==
+X-Google-Smtp-Source: APiQypLTuBDzBBQWunwOW4aqarw61PY4ztgP7E5WL6auYzMRDldKkDcTy/5QqU1bTtiJGW/rSXCevg==
+X-Received: by 2002:a05:600c:21d6:: with SMTP id x22mr3373589wmj.95.1587635785109;
+        Thu, 23 Apr 2020 02:56:25 -0700 (PDT)
+Received: from [192.168.1.10] ([194.53.185.104])
+        by smtp.gmail.com with ESMTPSA id j4sm2870578wrm.85.2020.04.23.02.56.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 23 Apr 2020 02:56:24 -0700 (PDT)
+Subject: Re: [PATCH] bpf.2: Change note on unprivileged access
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        rpalethorpe@suse.de
+Cc:     Richard Palethorpe <rpalethorpe@suse.com>,
         linux-man <linux-man@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+        David Miller <davem@davemloft.net>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Alexei Starovoitov <alexei.starovoitov@gmail.com>
+References: <20190729125843.6319-1-rpalethorpe@suse.com>
+ <7f9476e0-a05a-c9ec-1135-87c641b93e32@gmail.com>
+ <87h7xii6n3.fsf@our.domain.is.not.set>
+ <CAKgNAkidUjC2=XzRVqfsjrtZQA8gN36onSFX=jJMr2DjM-CvYQ@mail.gmail.com>
+ <CAKgNAkiOkyFwwiMS1xLHmiJm4AK8UGD1tWVkOsE=s3D1CjQ=fA@mail.gmail.com>
+ <c26cf932-f324-e9e3-a328-d14f8b891fb2@isovalent.com>
+ <7f2a994c-28e4-a7ff-ea81-b9e725c865d2@gmail.com>
+From:   Quentin Monnet <quentin@isovalent.com>
+Message-ID: <6b00451e-29ad-45cc-34f0-a8e27d89e083@isovalent.com>
+Date:   Thu, 23 Apr 2020 10:56:23 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <7f2a994c-28e4-a7ff-ea81-b9e725c865d2@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Apr 23, 2020 at 11:20 AM Miklos Szeredi <miklos@szeredi.hu> wrote:
->
-> On Thu, Apr 23, 2020 at 9:57 AM Miklos Szeredi <miklos@szeredi.hu> wrote:
-> >
-> > On Thu, Apr 23, 2020 at 9:45 AM Miklos Szeredi <miklos@szeredi.hu> wrote:
-> >
-> > > > I would prefer to not introduce that limitation in the first place, and
-> > > > instead open normal file descriptors.
-> > > >
-> > > > > The point of O_SPECIFIC_FD is to be able to perform short
-> > > > > sequences of open/dosomething/close without having to block and having
-> > > > > to issue separate syscalls.
-> > > >
-> > > > "close" is not a required component. It's entirely possible to use
-> > > > io_uring to open a file descriptor, do various things with it, and then
-> > > > leave it open for subsequent usage via either other io_uring chains or
-> > > > standalone syscalls.
-> > >
-> > > If this use case arraises, we could add an op to dup/move a private
-> > > descriptor to a public one.  io_uring can return values, right?
-> > >
-> > > Still not convinced...
-> >
-> > Oh, and we haven't even touched on the biggest advantage of a private
-> > fd table: not having to dirty a cacheline on fdget/fdput due to the
-> > possibility of concurrent close() in a MT application.
-> >
-> > I believe this is a sticking point in some big enterprise apps and it
-> > may even be a driving force for io_uring.
->
-> https://lwn.net/Articles/787473/
->
-> And an interesting (very old) article referenced from above, that
-> gives yet a new angle on fd allocation issues:
->
-> https://lwn.net/Articles/236843/
->
-> A private fd space would be perfect for libraries such as glibc.
+2020-04-22 14:26 UTC+0200 ~ Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com>
 
-Ah, io_uring already implements a fixed private fd table via
-io_uring_register(IORING_REGISTER_FILES,...), we just need a way to
-wire up open, socket, accept, etc. to fill a slot in that table
-instead of, or in addition to allocating a slot in the fd_table.
+[...]
 
-Thanks,
-Miklos
+> So, just to confirm my understanding, the current set of helpers
+> permitted to unprivileged callers is:
+> 
+>     From sk_filter_func_proto():
+>         bpf_skb_load_bytes_proto
+>         bpf_skb_load_bytes_relative_proto
+>         bpf_get_socket_cookie_proto
+>         bpf_get_socket_uid_proto
+>         bpf_skb_event_output_proto
+>     From cg_skb_func_proto():
+>         bpf_get_local_storage_proto
+>         bpf_sk_fullsock_proto
+>         bpf_sk_storage_get_proto
+>         bpf_sk_storage_delete_proto
+>         bpf_skb_event_output_proto
+>         bpf_skb_cgroup_id_proto
+>         bpf_tcp_sock_proto
+>         bpf_get_listener_sock_proto
+>         bpf_skb_ecn_set_ce_proto
+>     From bpf_base_func_proto():
+>         bpf_map_lookup_elem_proto
+>         bpf_map_update_elem_proto
+>         bpf_map_delete_elem_proto
+>         bpf_map_push_elem_proto
+>         bpf_map_pop_elem_proto
+>         bpf_map_peek_elem_proto
+>         bpf_get_prandom_u32_proto
+>         bpf_get_raw_smp_processor_id_proto
+>         bpf_get_numa_node_id_proto
+>         bpf_tail_call_proto
+>         bpf_ktime_get_ns_proto
+
+Hi Michael,
+Yes, this looks accurate at this time.
+
+> I think that man-pages patches along the lines you mention
+> would be a good start (although the references to kernel sources
+> may be a bit fragile), so if you would be willing to write those,
+> it would be great.
+> 
+> Just by the way, is it not possible to add notes to the text
+> of each helper to say that it is usable by an unprivileged caller?
+> I know this is also fragile, in the case of subsequent additions
+> and changes, but it would make the user-space programmer's life
+> a little easier (since they would not always be forced to look
+> at the kernel source).
+
+It would be possible of course, but I am convinced it would add to the
+maintenance load and grow quickly out of sync. New helpers will be
+added, some existing ones could be opened to unprivileged, and so on. I
+would prefer to avoid that.
+
+I agree that the note about kernel structs to check is fragile too, on a
+second thought I will not send it for now.
+
+What we could do instead is rely on bpftool. It is a utility for
+introspection, management etc. of BPF objects (see
+tools/bpf/bpftool/Documentation in kernel repo for more info). It is
+able to probe and dump the list of supported BPF prog/map types and BPF
+helper functions on the system, with "bpftool feature probe". This
+feature probing is currently reserved for root, but simply because it
+was easier to implement that way, and could probably be extended to
+unprivileged.
+
+So I would suggest we work to have bpftool dump the list of helpers for
+non-root - I can add that to my to-do list -, and then add a note to the
+manual page to mention it. Actually I can add the note already, since
+admins may be interested in probing a given helper for availability.
+
+What do you think?
+Quentin
