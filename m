@@ -2,56 +2,56 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4B5C21B64CD
-	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2020 21:50:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 052EE1B64D4
+	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2020 21:51:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727877AbgDWTu5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 23 Apr 2020 15:50:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37848 "EHLO
+        id S1726323AbgDWTvf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 23 Apr 2020 15:51:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37952 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726772AbgDWTu5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Apr 2020 15:50:57 -0400
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D64DDC09B042
-        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 12:50:56 -0700 (PDT)
-Received: by mail-ej1-x643.google.com with SMTP id n4so5634298ejs.11
-        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 12:50:56 -0700 (PDT)
+        with ESMTP id S1726121AbgDWTvf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Apr 2020 15:51:35 -0400
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0E67BC09B042
+        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 12:51:35 -0700 (PDT)
+Received: by mail-ed1-x543.google.com with SMTP id p16so5308623edm.10
+        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 12:51:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
          :subject:to:cc;
-        bh=70YdZiLhtSsJ+QAUCBOB9EpC2sli7FYInNvgwRMKABM=;
-        b=WvFh/6cc2XV+r6YO6PSMgBG8R89IFQfB7hsGFL+lxAWpDKniSa64+g6RcmF/HOAArZ
-         WoyaesOax4P9xFK+LNY9Ylga3vH8XgwGi3DlKP0sRZ1CYiAfR9XfWbyvyMQSf6b1Szg5
-         pByudjC4DjDj80fwAVKdi/VgOmEzsPxjVBlQgx95LDdcp8E6ByB+6NsTNFJEwZpY9fRc
-         Aoqp1l71T0efY1OdQBBEdenmIDnlpG5jUyv7YTgEkD2+hr21El/i2DOKaUw2zcJtr5DN
-         MpVR7Pl5Iu7dIaccrvO9hSDATc87nb07jVRknEjWZ/sySDxgyyAVPkjlDkPFOFqJAirJ
-         ZS+A==
+        bh=fYHBpJ2WA60926wHI6D5kgI9MytEcDqYwE8//nx87Y4=;
+        b=tS4bOG5PCIRKetAfU3rXmfnA9z7LBR7sGT8ei+lr6XQqIAXhMUCUXi6q8H1HyTYdVu
+         AaW3MBbc70OtVzKp+HPhHlfW4xUltgpDFemXJ280pPIHANBvoglOxdm2ZwuLVEUplHE0
+         sbjUKVl9z2axwHPJ8j/w/eRFa4J2mdsTfiZobkbGlZe7Pyq3oURUCfJbDf2xV19hKOEZ
+         Lo1g7OpB8KZHXNv6j6ZJmC8as144wNW0Tj8rSCbo3QYZ+PJH/6sTogycNcrp2YAcTb0q
+         PlfoRvI0+Hsm2swXiFeNxLTJ0+NI/6UP3WWw17NRkRIbzfMfZFQP0MEz0eOnFzOw26fT
+         hZ9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
          :from:date:message-id:subject:to:cc;
-        bh=70YdZiLhtSsJ+QAUCBOB9EpC2sli7FYInNvgwRMKABM=;
-        b=WmRS4DKSxZO8bzE4Md1zhWnUtvt5rKnuSREQX5uBL519Wu1anzsG+S0HVp2WeeZihh
-         i8N5QGTAY4yLBnx5Uq8zyU45H8YX4N4Oj2ATZxGZZLajMEqt9b2Ndm8OwXFsyCXdvqVx
-         umfwNpGjRYk4359tXwCSorU3Y6JeCCnRdQvUQdRB5qv3yuF8Z5KYdRecCYa0TgruyHNx
-         tRmp879e/3VG5FVErMGEzamQvVHt4YvN4y67GfhyWTtUr/S0iwrQDxRSFH/vUxnCEV0K
-         UgEg23Q7uq4norQBRirLrBSeHuj+yO92dmKPfT68Z5qZc3sRw62V+LdwgXx8emWO7HnB
-         kVyA==
-X-Gm-Message-State: AGi0PuaICJmysu18ULKuNMTefVr3GUpdp56ZMmiUtBZlKhFJ3Hg9CqqA
-        XBDx4zK7CiSGnxpQJv3uNF/t5X9gs4hA70TdaQ3Ljw==
-X-Google-Smtp-Source: APiQypIn50qO6R3jkqcTl+9dJFMU2FEEqZHq9QE9doNKlrsibwcvJcHMy1glmfCR+QuOJnPJ4TYLf/Uk5jC/hXvB0Z8=
-X-Received: by 2002:a17:906:1fd6:: with SMTP id e22mr4250684ejt.150.1587671455138;
- Thu, 23 Apr 2020 12:50:55 -0700 (PDT)
+        bh=fYHBpJ2WA60926wHI6D5kgI9MytEcDqYwE8//nx87Y4=;
+        b=LJgbHD5pIeD7cw1YB4L1Ah2dGjxfpUyPoHTdN8thV7lKPc0EZjI2yhn7TF8UazKIYw
+         HIlykj5Eo92LXMjdn8M1Hddxrx6ks0hf4AbiGdhmHJT4GSTtQtPw86h7hU4bWXz968XM
+         H6N/9MVzN3JtssxHIARCYHMspn3yGD3URrJrvw8QxCFlbq2eZ4AZ6L8dd1ABAZoIdD/h
+         82UVcMJQqGArFkXQxr66zhT/zjk9VsX0SNfd6J0h11a/bEzLXb7GPTVzwA4kPIZoXLZx
+         gqGQ98sGmXmK/fg9pqFQu6PCWvTG20OXVqDetx4PQ8tT5wnHMUMkyK1oPCkv6m6jNkEK
+         CLEw==
+X-Gm-Message-State: AGi0Pub0d2BRPBJvyke3uysNF4TLRVlbh40C9A4umsEkdWISdu97LGsr
+        HJhOqLZiBaSnfkGitldhGhgIbMPJVL32nGz5DIiUBA==
+X-Google-Smtp-Source: APiQypIIQkytEWQU0wCvQLKP2x+t7khaTp6dFmbkylOI5mtpYSNEAnppi6eY81JXkH69R4l2/Lxm5pTn5pf5Tdn4SBo=
+X-Received: by 2002:aa7:cd6a:: with SMTP id ca10mr4163768edb.332.1587671493790;
+ Thu, 23 Apr 2020 12:51:33 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200419064751.GA30074@Debian-50-lenny-64-minimal>
- <b0ec27f5-645d-4a1b-174d-07ff11bd24ba@gmail.com> <20200423193437.GA6193@Debian-50-lenny-64-minimal>
-In-Reply-To: <20200423193437.GA6193@Debian-50-lenny-64-minimal>
+References: <20200419064751.GA30098@Debian-50-lenny-64-minimal>
+ <d79ae5ff-914d-3c86-43d2-16a7f94166fa@gmail.com> <20200423193644.GB6193@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200423193644.GB6193@Debian-50-lenny-64-minimal>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Thu, 23 Apr 2020 21:50:44 +0200
-Message-ID: <CAKgNAkigwnY9yLcX3Ygwar7h6ypa3bkDaEwU+_Nbn30jM4w4Pw@mail.gmail.com>
-Subject: Re: Errors in man pages, here: charmap(5): Content
+Date:   Thu, 23 Apr 2020 21:51:22 +0200
+Message-ID: <CAKgNAkhosykqZpDSyanrHL_innYs0VGwgJoeYU1oqnm8NZyUJA@mail.gmail.com>
+Subject: Re: Errors in man pages, here: charmap(5): Consistency
 To:     Helge Kreutzmann <debian@helgefjell.de>
 Cc:     linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
@@ -60,24 +60,29 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, 23 Apr 2020 at 21:34, Helge Kreutzmann <debian@helgefjell.de> wrote:
+On Thu, 23 Apr 2020 at 21:36, Helge Kreutzmann <debian@helgefjell.de> wrote:
 >
 > Hello Michael,
-> On Mon, Apr 20, 2020 at 08:53:33AM +0200, Michael Kerrisk (man-pages) wrote:
+> On Mon, Apr 20, 2020 at 08:56:30AM +0200, Michael Kerrisk (man-pages) wrote:
 > > On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
 > > > **
 > > >
-> > > UTF-8 in Debian Squeeze:
+> > > How do the following strings align with
+> > > zless /usr/share/i18n/charmaps/ISO-8859-1.gz
 > > >
-> > > "is followed by the maximum number of bytes for a character.  The default "
-> > > "value is 1."
+> > > "The following lines may have one of the two following forms to define the "
+> > > "character set:"
+> > >
+> > > "The following lines may have one of the two following forms to define the "
+> > > "widths of the characters:"
 > >
-> > I don't understand this report. Please elaborate.
+> > This report is too cryptic. Please elaborate.
 >
-> Sorry, I tried to reconstruct this report, but as the reporter is no
-> longer available I failed.
+> Again as the original translator from 8 years ago is no longer
+> available I struggled (without success) to get more background on this
+> but failed.
 >
-> Please close this report.
+> Please close this bug report and sorry for the noise.
 
 Ok.
 
