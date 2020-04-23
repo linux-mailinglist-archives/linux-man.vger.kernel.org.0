@@ -2,86 +2,117 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 038711B56EF
-	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2020 10:07:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A2AC21B57C1
+	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2020 11:07:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726490AbgDWIGy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 23 Apr 2020 04:06:54 -0400
-Received: from relay6-d.mail.gandi.net ([217.70.183.198]:52927 "EHLO
-        relay6-d.mail.gandi.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725863AbgDWIGx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Apr 2020 04:06:53 -0400
-X-Originating-IP: 50.39.163.217
-Received: from localhost (50-39-163-217.bvtn.or.frontiernet.net [50.39.163.217])
-        (Authenticated sender: josh@joshtriplett.org)
-        by relay6-d.mail.gandi.net (Postfix) with ESMTPSA id 97775C000C;
-        Thu, 23 Apr 2020 08:06:46 +0000 (UTC)
-Date:   Thu, 23 Apr 2020 01:06:44 -0700
-From:   Josh Triplett <josh@joshtriplett.org>
-To:     Miklos Szeredi <miklos@szeredi.hu>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, io-uring@vger.kernel.org,
-        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        Arnd Bergmann <arnd@arndb.de>, Jens Axboe <axboe@kernel.dk>,
-        Aleksa Sarai <cyphar@cyphar.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>
-Subject: Re: [PATCH v5 2/3] fs: openat2: Extend open_how to allow
- userspace-selected fds
-Message-ID: <20200423080644.GA171696@localhost>
-References: <cover.1587531463.git.josh@joshtriplett.org>
- <9873b8bd7d14ff8cd2a5782b434b39f076679eeb.1587531463.git.josh@joshtriplett.org>
- <CAKgNAkjo3AeA78XqK-RRGqJHNy1H8SbcjQQQs7+jDwuFgq4YSg@mail.gmail.com>
- <CAJfpegt=xe-8AayW2i3AYrk3q-=Pp_A+Hctsk+=sXoMed5hFQA@mail.gmail.com>
- <20200423004807.GC161058@localhost>
- <CAJfpegtSYKsApx2Dc6VGmc5Fm4SsxtAWAP-Zs052umwK1CjJmQ@mail.gmail.com>
- <20200423044226.GH161058@localhost>
- <CAJfpeguaVYo-Lf-5Bi=EYJYWdmCfo3BqZA=kj9E5UmDb0mBc1w@mail.gmail.com>
- <20200423073310.GA169998@localhost>
- <CAJfpegtXj4bSbhpx+=z=R0_ZT8uPEJAAev0O+DVg3AX242e=-g@mail.gmail.com>
+        id S1726420AbgDWJHe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 23 Apr 2020 05:07:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50116 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725854AbgDWJHe (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Apr 2020 05:07:34 -0400
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5040DC08C5F2
+        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 02:07:32 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id d17so5889463wrg.11
+        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 02:07:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isovalent-com.20150623.gappssmtp.com; s=20150623;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=yJFyvUqV//1xm7gc+Oo0yQUwUCS1vMSAhlqJ8flup+E=;
+        b=Sc1EG5VSpA3/VvEPU0wrzGbDct5oJI+UjF+WKDxGGO2+ydrTzVr697TKjVtY8nF/0F
+         7hA0k0nDkZU6iHXC6UGJW3EtzA78bR7vEDS2vbnvtMzSgtp5QjsBBibYKZ/rzttf7j1A
+         0P8w30ZSlgyekvpe10f4GAd4iA55XtmdIpplY5mmISKwLducAsl7q2Gs8b398SroUCK6
+         4vdC6s9mu1Aeknbzz1fpi03Kbf+HTq5UrHAuOmnXa+Fxts8FnePL9hzCn4eJhVuT5/kM
+         gi8RYY0AFlhPiSQYvElzS0XByXKjZexI1J1vMJxLrqAc7yiFvuE/43Wue2Srhd9NKYOf
+         NSZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=yJFyvUqV//1xm7gc+Oo0yQUwUCS1vMSAhlqJ8flup+E=;
+        b=jkMlWlzB+03K0LJVWq1S7CQKd9NQNjnigTlD8HRRPqWxkldqzpHCiCSKaIwuTZJzGu
+         +ei9Yqs/GstZ1nJ1CyB8l3wBA5cpuek/5DoCQacQ4klrqvlnHfHm2O3DqgV9bAUG4X/5
+         NtPMFILY0QgfjyyCDyuA0EE7F4dbMQDLX9QckgzH7br+WG/Kw7CDZYRy8sMTEpRGL3gt
+         c8YSgPy6br/3etn+YRYtwpigw+xbZtuGsPsXLDcHwWmY2XwBXBfCsgHgbqp3R05uG4wL
+         HTj45C7+slCsm13DsnI6k87VHph39l2uUJ9Orv1peCBISKayVnqkvE1SnghUxdXC6+jG
+         CwoQ==
+X-Gm-Message-State: AGi0Pubsl+f9Yo/6CcHQlIygCcN9MdKldpVIH5cO9aecJHqZLGzAYcc1
+        5m5qAywd8mX42n7P5W793+x2Tg==
+X-Google-Smtp-Source: APiQypLDMCpS3TkzKNX0PIwmWczrI3J3DW6vOEaXewH/YIyrK5cO1hNDZumGhGICn4qndDTiUPZKXQ==
+X-Received: by 2002:a5d:5646:: with SMTP id j6mr3951349wrw.207.1587632851020;
+        Thu, 23 Apr 2020 02:07:31 -0700 (PDT)
+Received: from [192.168.1.10] ([194.53.185.104])
+        by smtp.gmail.com with ESMTPSA id z18sm2710502wrw.41.2020.04.23.02.07.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 23 Apr 2020 02:07:30 -0700 (PDT)
+Subject: Re: [PATCH v2] bpf: Fix reStructuredText markup
+To:     Jakub Wilk <jwilk@jwilk.net>, bpf@vger.kernel.org,
+        Alexei Starovoitov <ast@kernel.org>,
+        Daniel Borkmann <daniel@iogearbox.net>
+Cc:     linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
+References: <20200420144753.3718-1-jwilk@jwilk.net>
+ <20200422082324.2030-1-jwilk@jwilk.net>
+From:   Quentin Monnet <quentin@isovalent.com>
+Message-ID: <34f41c96-86c0-2ca9-3be9-75c59f803bc3@isovalent.com>
+Date:   Thu, 23 Apr 2020 10:07:29 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJfpegtXj4bSbhpx+=z=R0_ZT8uPEJAAev0O+DVg3AX242e=-g@mail.gmail.com>
+In-Reply-To: <20200422082324.2030-1-jwilk@jwilk.net>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Apr 23, 2020 at 09:45:45AM +0200, Miklos Szeredi wrote:
-> On Thu, Apr 23, 2020 at 9:33 AM Josh Triplett <josh@joshtriplett.org> wrote:
-> > > What are the plans for those syscalls that don't easily lend
-> > > themselves to this modification (such as accept(2))?
-> >
-> > accept4 has a flags argument with more flags available, so it'd be
-> > entirely possible to cleanly extend it further without introducing a new
-> > version.
->
-> Variable argument syscalls, you are thinking?
-
-That or repurposing an existing pointer-sized argument as an
-open_how-style struct, yes. But in any case, I'm not proposing that; I'm
-proposing changes to the existing highly extensible openat2 syscall.
-
-> > > I mean, you could open the file descriptor outside of io_uring in such
-> > > cases, no?
-> >
-> > I would prefer to not introduce that limitation in the first place, and
-> > instead open normal file descriptors.
-> >
-> > > The point of O_SPECIFIC_FD is to be able to perform short
-> > > sequences of open/dosomething/close without having to block and having
-> > > to issue separate syscalls.
-> >
-> > "close" is not a required component. It's entirely possible to use
-> > io_uring to open a file descriptor, do various things with it, and then
-> > leave it open for subsequent usage via either other io_uring chains or
-> > standalone syscalls.
+2020-04-22 10:23 UTC+0200 ~ Jakub Wilk <jwilk@jwilk.net>
+> Fixes:
 > 
-> If this use case arraises,
+>     $ scripts/bpf_helpers_doc.py > bpf-helpers.rst
+>     $ rst2man bpf-helpers.rst > bpf-helpers.7
+>     bpf-helpers.rst:1105: (WARNING/2) Inline strong start-string without end-string.
+> 
+> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+> ---
+> v2: "flags" should be italic, not bold
+> 
+>  include/uapi/linux/bpf.h       | 2 +-
+>  tools/include/uapi/linux/bpf.h | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
+> index 2e29a671d67e..7bbf1b65be10 100644
+> --- a/include/uapi/linux/bpf.h
+> +++ b/include/uapi/linux/bpf.h
+> @@ -1642,7 +1642,7 @@ union bpf_attr {
+>   * 		ifindex, but doesn't require a map to do so.
+>   * 	Return
+>   * 		**XDP_REDIRECT** on success, or the value of the two lower bits
+> - * 		of the **flags* argument on error.
+> + * 		of the *flags* argument on error.
+>   *
+>   * int bpf_sk_redirect_map(struct sk_buff *skb, struct bpf_map *map, u32 key, u64 flags)
+>   * 	Description
+> diff --git a/tools/include/uapi/linux/bpf.h b/tools/include/uapi/linux/bpf.h
+> index 2e29a671d67e..7bbf1b65be10 100644
+> --- a/tools/include/uapi/linux/bpf.h
+> +++ b/tools/include/uapi/linux/bpf.h
+> @@ -1642,7 +1642,7 @@ union bpf_attr {
+>   * 		ifindex, but doesn't require a map to do so.
+>   * 	Return
+>   * 		**XDP_REDIRECT** on success, or the value of the two lower bits
+> - * 		of the **flags* argument on error.
+> + * 		of the *flags* argument on error.
+>   *
+>   * int bpf_sk_redirect_map(struct sk_buff *skb, struct bpf_map *map, u32 key, u64 flags)
+>   * 	Description
+> 
 
-This wasn't a hypothetical "someone might want this". I'm stating that
-this is a requirement I'm seeking to meet with this patch series, and
-one I intend to use. The primary use case is interoperability with
-other code using file descriptors and not using io_uring.
+I was about to send the same :). Thanks!
+
+Reviewed-by: Quentin Monnet <quentin@isovalent.com>
