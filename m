@@ -2,91 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B5B7F1B63A2
-	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2020 20:27:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 182CD1B6489
+	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2020 21:34:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730302AbgDWS1g (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 23 Apr 2020 14:27:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52816 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730300AbgDWS0x (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Apr 2020 14:26:53 -0400
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com [IPv6:2607:f8b0:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 746A9C09B054
-        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 11:26:51 -0700 (PDT)
-Received: by mail-pf1-x442.google.com with SMTP id p25so3367015pfn.11
-        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 11:26:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=DHzQtr3OkXyFWXbvXEU307GvVJtF7cl8Gt7nfdQPyE8=;
-        b=g40sBMuaO0eKdotmx6qgQBl63DKBmrekz5bvyEQHA4wVZtcqrxc+aFVgh/QD84O9VQ
-         7GeGJGwCstc5CQBYUut5JFB/SR9hiHRBoNucBdQ5+M/xcZE7LYnQNVriX94nlJDQQ53M
-         WWNnGuPMmJMtuCxOc6M3BOG48McWyi9pwkfv1qCbwmDhh95byI3UmcGK9ZJ59xQm/kqA
-         giNgZwxUHu+XTIAoqn/uu1orK63Ur+6hMBQW2TB101zb0oJ5HpVThkCq6id/TjpQtg27
-         HPMb1DcYsj7bM6wQaeV1UkPK6mgUhECRFNV10F5zDhvx1RXP4ikb8uuEIGMKOSNWVb51
-         vLew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to:content-transfer-encoding;
-        bh=DHzQtr3OkXyFWXbvXEU307GvVJtF7cl8Gt7nfdQPyE8=;
-        b=IVxQt6ZZDoEwoyoAf6nUmedE3TAPSBWOexZbrVBsdNJnDD7Z0A2KHoYYKeZP3Bwh0J
-         ButMz63RLIzZgUagH00/qiZNWkk3qSG096/W3zKmgMejL1vsiEaXNNpd4jYuBaOtu8VV
-         JdSdF3eS5wRx6AktD4nXXC5qOVDI514YtrWt2rYLz5+kmcWrftmRrj1FPYoOrjAhByNu
-         GE5EuS7Lid968Y5qe7y6riepqVJBbvBMJDMeZXM0cJrfA7+TI8F2hYaof/uGR7P3DztN
-         1ro3AXCdhFOy8zFMXN8CvVSAeL+Hp+6A4TNgI1vK1Tl9WZWHfqdLejE1Q2KpiOEuamPZ
-         evfg==
-X-Gm-Message-State: AGi0PuZSy8ttZ5O5VK3eUz4aGzbzoLllFt44UP8JGazx36yeHs9AseR0
-        5GP7PKA0gWIW2BruFQDsdEOyfpF8cy17x9nMvFJvUHU=
-X-Google-Smtp-Source: APiQypKZ88CB7WlyCjo0k9+cU4PX0VcggKkKtzSKgRJHkcPGizF0yZXAjzEMBgo6XH4xzBXv0KAOMjPM9p1sgpp6/70=
-X-Received: by 2002:a5e:9416:: with SMTP id q22mr2547966ioj.93.1587666410194;
- Thu, 23 Apr 2020 11:26:50 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:a02:c845:0:0:0:0:0 with HTTP; Thu, 23 Apr 2020 11:26:49
- -0700 (PDT)
-Reply-To: boa.benin107@yahoo.com
-From:   "Mrs. Angella Michelle" <info.zennitbankplcnigerian@gmail.com>
-Date:   Thu, 23 Apr 2020 20:26:49 +0200
-Message-ID: <CABHzvr=N78snvtMHePMOa+RLFdcZEjXLPkuhkojt4VoZGNzBsQ@mail.gmail.com>
-Subject: Contact Bank of Africa-Benin to receive your payment funds transfer
- amount of $12.800.000,00 Million USD,approved this morning by IMF.
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+        id S1728800AbgDWTek (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 23 Apr 2020 15:34:40 -0400
+Received: from luckmann.name ([213.239.213.133]:56379 "EHLO
+        static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1728700AbgDWTek (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Apr 2020 15:34:40 -0400
+Received: from localhost (localhost [127.0.0.1])
+  (uid 502)
+  by static.213-239-213-133.clients.your-server.de with local
+  id 0000000000E56033.000000005EA1EDCE.00001C9D; Thu, 23 Apr 2020 21:34:38 +0200
+Date:   Thu, 23 Apr 2020 21:34:38 +0200
+From:   Helge Kreutzmann <debian@helgefjell.de>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: Re: Errors in man pages, here: charmap(5): Content
+Message-ID: <20200423193437.GA6193@Debian-50-lenny-64-minimal>
+References: <20200419064751.GA30074@Debian-50-lenny-64-minimal>
+ <b0ec27f5-645d-4a1b-174d-07ff11bd24ba@gmail.com>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-7325-1587670478-0001-2"
+Content-Disposition: inline
+In-Reply-To: <b0ec27f5-645d-4a1b-174d-07ff11bd24ba@gmail.com>
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Attn Dear.
-Contact Bank of Africa-Benin to receive your payment funds transfer amount =
-of
-$12.800.000,00 Million USD,approved this morning by IMF.
-Happy to inform you, we have finally deposited your payment funds
-$12.8 million us dollars with the Paying Bank of Africa-Benin
-to transfer the payment amount of $12.800,000,00 Million Us Dollars to you
-Contact the bank immediately you receive this email now.
-Director Bank of Africa-Benin: Dr. Festus Obiara
-Email id:  boa.benin107@yahoo.com
-Tel/mobile, (229) 62819378
-BOA-BENIN | GROUPE BANK OF AFRICA, boa-benin
-Avenue Jean-Paul II - 08 BP 0879 - Cotonou - B=C3=A9nin
-Phone:(229) 62819378.
-2020 GROUPE BANK OF AFRICA
-Be advised to re-confirm your bank details to this bank as listed.
-Your account Holder's name----------------
-Bank Name----------------------------------------------------------
-Bank address----------------------------------------------
-Account Numbers---------------------------------------
-Rounting-----------------------------------------------------------------
-Your direct Phone Numbers----------------------------------------------
-Note,I have paid the deposit and insurance fees for you
-But the only money you are to send to this bank is $150.00 us dollars
-Been for the wire transfer fees of your funds
-Contact Him now to receive your transfer deposited this morning
-I wait for your reply upon confirmation
-Mrs. Angella Michelle
-Editor, Zenith Bank- Companies Benin
-mrsa9389@gmail.com
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
+
+--=_luckmann.name-7325-1587670478-0001-2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello Michael,
+On Mon, Apr 20, 2020 at 08:53:33AM +0200, Michael Kerrisk (man-pages) wrote:
+> On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
+> > **
+> >=20
+> > UTF-8 in Debian Squeeze:
+> >=20
+> > "is followed by the maximum number of bytes for a character.  The defau=
+lt "
+> > "value is 1."
+>=20
+> I don't understand this report. Please elaborate.
+
+Sorry, I tried to reconstruct this report, but as the reporter is no
+longer available I failed.
+
+Please close this report.
+
+Greetings
+
+        Helge
+--=20
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
+
+--=_luckmann.name-7325-1587670478-0001-2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl6h7ccACgkQQbqlJmgq
+5nACYA/+NdFpkoZRo6ZvIFVO5UbEXU9UogPlMmm/Im/43MaVxLCuBB130bTlqMJC
+abfExocJcDbKBV5xH3qDj+bF0d+210nB7ALnrZ1hnrozANaI0ug3GR7MmjWjO151
+gLBhdtlYa75SMOuUpUyoX+8Jjb9BNg9+qsKiGopZuBmLvAuQyHy7PVsozSRph/2j
+jSD1yhCZyndGptAKZAbq8slxzOcf/JSOa3mS9jZ6fyRlv0TzzsHLyd0jKhZB7lrD
+RnL46KzlTMmqS6YTvcK7ptyRg5vXE9JOn6dOnOCwTkI68Fzi+J2HI1uJqY543ILJ
+MmEgGbw2i9x/dcdlAjihmUAGVzlxAK9KeTEmYZQs+3afX8kI9XDxJE9Ylt8p41Ci
+0bOmAVCF/h5Wb23NIijDATkgA4IPzUrZojghfYDxauuIHLTEKIOmRi1S/Ot9Fp/y
+R0Z/XU9KuS3by3DfeWgtJp/VF+VqvvSABLKK3eCQgwnr4zhLgJ4mwNw7h87RUIHA
+EfPc1/2NaptsJToVPzGlDo6NSOOKsJEwYLO1zDOG74/8cTbwS8fGdPWm+3Ue1KM2
+qzL1aQna1lpVjqfoO/VNWJ+FVdw/6WdepgmgtmNl7N0a0spDlymfg1+57eyil/Yx
+FXU28RqRs6fJqx7OkNrYkxg31v930yTIDIGAEFLuxY7xSyWXgFE=
+=dzfV
+-----END PGP SIGNATURE-----
+
+--=_luckmann.name-7325-1587670478-0001-2--
