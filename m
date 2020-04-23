@@ -2,115 +2,83 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 00BCA1B5B44
-	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2020 14:19:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4AA731B5B66
+	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2020 14:28:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726090AbgDWMTx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 23 Apr 2020 08:19:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51802 "EHLO
+        id S1726105AbgDWM2W (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 23 Apr 2020 08:28:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53122 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1726056AbgDWMTx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Apr 2020 08:19:53 -0400
-Received: from mail-il1-x143.google.com (mail-il1-x143.google.com [IPv6:2607:f8b0:4864:20::143])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 47A4CC08E859
-        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 05:19:53 -0700 (PDT)
-Received: by mail-il1-x143.google.com with SMTP id u189so5315760ilc.4
-        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 05:19:53 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1726090AbgDWM2W (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Apr 2020 08:28:22 -0400
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com [IPv6:2a00:1450:4864:20::52e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C9ADBC08E859
+        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 05:28:21 -0700 (PDT)
+Received: by mail-ed1-x52e.google.com with SMTP id g16so4186995eds.1
+        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 05:28:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=PjuSEx8FxalMNdmsQr0AZbC491LRBSoZxKKsoltKDaM=;
-        b=NGJWWY2RyJn53REeaHINKOxdxDYu4fBcYLmijYonUnKQqb915svENBhvRRx0k+NMtY
-         xngTQU2s6YQPY129uHcJ5JxqZJkT9/D85OAZhuvLbVkeLyceBhHwB1yN6OJXvne44M8K
-         D5BGUJdcmOqzFFz9Df9MHIomrob0t/ljhw+NWO8cnIySHtHG2ONaEugs4P16RkDPXWkW
-         T2sLofpqT5Db/+pPoRakW+dguQ/fGkR2cPqFyhZUz+c4/IMpXlopnGbYjyIM2rm3Ryji
-         QhdraZ5FyRR6ch9e5F4NiTEEjvvTO5ajl/hj5ZQuWp9TNSNJWH/Mff3dGPfk/mxsEl9T
-         LXbw==
+        h=mime-version:reply-to:from:date:message-id:subject:to:cc;
+        bh=Pvngdrcyd3Dzo/ztgOGPpILt/Ouac87wxxgpndx0Ang=;
+        b=q7wFkd6xFyoy3PqeUlwdAkvn3hQiqc0yXNf4g5b0yV8QzIDvby7fQ+tmunqlKhh+nd
+         kNUf0P7Bd5+3s3lCkhSBlIMb3XxHFg+AqGETuBUhGn1peLr7ZkCk6EUDPB3lw4GEzx6P
+         WHqbsB44+hVmBc9+LMLaBURNC13AsoK84kNT49254B8U/CQdECmgGN03Ud8BUv1cChdF
+         TDlPLFSzoY8ajzzLhqzXK050r1QXlT4Lx138iFNOPNy/r0wpWJQlrRI1nVF6k8qi3qbk
+         CLFEwns87MSqthlOKsw8gD040MShwMI33g0cfgbmxGsgm0Q6IWmj6nZ/OxiR4jFrLrIp
+         F34A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=PjuSEx8FxalMNdmsQr0AZbC491LRBSoZxKKsoltKDaM=;
-        b=MET/wAmDpA2PKfXBQRpuacp41wdxf7hSYUg18c8pPEEnLpvo/I5R9UnyzUtIEpJNch
-         bssKUIQu8v0XvpqZaecsTO6sFmWB3B3/REhjYgelUSfjP9cWqyZ0tyT2mzRkRA4Sr67W
-         QygtUnrklHYmuSe7EWWD6ioPG31C0p4t7Gt5LxuSF1RlccZQ9tM90aSdbj5cvTYXRict
-         r/IfShg2uWmB0lkd7FExkILL7p0IpINMhvjbojobILF/Wf+zCkv9sLSIE5nJWZcDJK3E
-         u2jcqfUc+5E5+/LCne+vJ2JQUIbmkiHnc+vmWlTbgvQnytd7M3cTT6xswkNgY7sx3Svo
-         2kvw==
-X-Gm-Message-State: AGi0PuaOO/7uxeEOEnkn2CzdEg1MWXl8DI8bs5QT2ZKryR3pn3aCwDzx
-        A6Smbd42RmassCODRUK9MRuT27ZPdLFbIjCliY8=
-X-Google-Smtp-Source: APiQypKrk4Pdmmslk6O1p2DiuYHF8Hj1rS+VktsLraHTzOo7066qUVZVz3KMCT3U98UCk8klQ3feHWX3SbeJAixxaEo=
-X-Received: by 2002:a92:9e11:: with SMTP id q17mr3128609ili.137.1587644392652;
- Thu, 23 Apr 2020 05:19:52 -0700 (PDT)
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=Pvngdrcyd3Dzo/ztgOGPpILt/Ouac87wxxgpndx0Ang=;
+        b=l7uPLaXWtt3oSgLi6MZYF0FivFaDnekSMQyfelLdcSCpYH6J7B7aic1r7uKiUzI8Rq
+         AEa3QrhAVvwVPiYZyOlBOBA5gp0Dl7P8hByUM9GdweRdgTcyPak3nyR8V8BM7zBmWep2
+         gYQ0E4F2g0hjYT+lnLgC6wrwrCwTSDwf9TtsA0KvygP2u2jGMBAdcnH22RWoqVT6DDZ6
+         Ed5Al0uHtPLhtq1huK0n9fsqD5cKl7dTbo6p46zO2152x0Jdh8OQjggGv8WXKsewHIhB
+         mzpDJBkrKKCGORMidioqVJPTmAOBSEGQHRjWfuVyiE9bIO4ljG1i+zhJt+RgGL3Iym+6
+         5qzw==
+X-Gm-Message-State: AGi0PuapQQjZh10+8jPQI7KaUuAdRddJGQhLtZxv6d4enCtvkN58hIyu
+        1y1fwfNvsyyHTfQqa964fnC3YsF2eBMDQ8ZEGqg=
+X-Google-Smtp-Source: APiQypLNn58CedcypQok2zkw1HyRnd2G9rQPQtie6bYE1WwHWyfvUvdtQmkxIY9UN3DmbWgE7cv1Mtpea/1w/TqIr+E=
+X-Received: by 2002:a50:ec0c:: with SMTP id g12mr2619889edr.140.1587644899694;
+ Thu, 23 Apr 2020 05:28:19 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAKgNAkjshc5bjT2gc7wBU6nkq1BxrcV6mEs6JSuepxFjHtupOA@mail.gmail.com>
- <20200423112352.GM3737@quack2.suse.cz>
-In-Reply-To: <20200423112352.GM3737@quack2.suse.cz>
-From:   Amir Goldstein <amir73il@gmail.com>
-Date:   Thu, 23 Apr 2020 15:19:41 +0300
-Message-ID: <CAOQ4uxh5LXzG8j4egc8H_EMQc1AVGKLN=ghN1_5A1o4Nh=80vA@mail.gmail.com>
-Subject: Re: Kernel bugzilla 198569: fanotify_mark() and FAN_Q_OVERFLOW
-To:     Jan Kara <jack@suse.cz>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Heinrich Schuchardt <xypron.glpk@gmx.de>,
-        linux-man <linux-man@vger.kernel.org>, alexandermv@gmail.com,
-        Matthew Bobrowski <mbobrowski@mbobrowski.org>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Thu, 23 Apr 2020 14:28:08 +0200
+Message-ID: <CAKgNAkiOkwsrQhit_+eFdvVGUMw2sKp8rQbLv=rM-Uf7QwnCTw@mail.gmail.com>
+Subject: Bugzilla 207345 zdump(8) manual page -c/-t options
+To:     Paul Eggert <eggert@cs.ucla.edu>
+Cc:     Marco Curreli <marcocurreli@tiscali.it>,
+        linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Apr 23, 2020 at 2:23 PM Jan Kara <jack@suse.cz> wrote:
->
-> Hi Michael!
->
-> On Thu 23-04-20 12:36:26, Michael Kerrisk (man-pages) wrote:
-> > Would you be able to take a look at
-> > https://bugzilla.kernel.org/show_bug.cgi?id=198569
-> >
-> > It relates to some text you added to the fanotify_mark(2) manual page:
-> >
-> >        FAN_Q_OVERFLOW
-> >               Create an event when an overflow of the event queue occurs.
-> >               The size of the event queue is limited to 16384 entries  if
-> >               FAN_UNLIMITED_QUEUE is not set in fanotify_init(2).
-> >
-> > This was in the following commit
-> >
-> > [[
-> > commit 5d730f864a6603b090cd1078668cede05d02b8c4
-> > Author: Heinrich Schuchardt <xypron.glpk@gmx.de>
-> > Date:   Tue Nov 8 23:13:38 2016 +0100
-> >
-> >     fanotify_mark.2: Mention FAN_Q_OVERFLOW
-> >
-> >     To receive overflow events it is necessary to set this bit
-> >     in fanotify_mark().
-> > ]]
-> >
-> > As far as I can see, FAN_Q_OVERFLOW (test program, reading the kernel
-> > source) is only an output flag. But on the other hand, I know you are
-> > generally careful, so I wonder if something changed (though, at a
-> > quick glance, I could not see evidence that it has).
->
-> Yeah, the manpage is wrong AFAICT. FAN_Q_OVERFLOW is not accepted in the
-> input mask. It is only output event flag.
->
+Hi Paul,
 
-Right.
+Could you take a look at
+https://bugzilla.kernel.org/show_bug.cgi?id=207345 please.
 
-Note that fanotify.7 documents FAN_Q_OVERFLOW as part of event output mask
-so perhaps the FAN_Q_OVERFLOW entry for fanotify_mark.2 input mask should
-just be removed?
+It relates to the documentation of the -c and -t options.
 
-Similarly, the input only flag FAN_EVENT_ON_CHILD is documented in
-fanotify_mark.2, but not in fanotify.7.
-
-FAN_ONDIR has been input only until v5.1 and since then it can also be
-in output mask for group with FAN_REPORT_FID.
-This is documented in fanotify_mark.2, but not in fanotify.7.
+My guess is this: in "-c 2018,2020", 2018 is translated to the seconds
+equivalent of '2018-01-01 00:00:00" and likewise for 2020. And though
+the seconds range may be treated as low-bound-exclusive plus
+high-bound-inclusive, the user is easily confused, because the output
+*looks like* low-bound-year-inclusive plus high-bound-year-inclusive.
+I think some more words in the manual page about this would be
+helpful.
 
 Thanks,
-Amir.
+
+Michael
+
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
