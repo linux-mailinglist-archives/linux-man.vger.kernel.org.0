@@ -2,55 +2,55 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 67D8B1B564F
-	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2020 09:46:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1DAAF1B56C3
+	for <lists+linux-man@lfdr.de>; Thu, 23 Apr 2020 09:57:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726692AbgDWHp7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 23 Apr 2020 03:45:59 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37260 "EHLO
+        id S1726180AbgDWH5b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 23 Apr 2020 03:57:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39136 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726322AbgDWHp6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Apr 2020 03:45:58 -0400
+        with ESMTP id S1725913AbgDWH5a (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Apr 2020 03:57:30 -0400
 Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4D1CFC03C1AF
-        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 00:45:58 -0700 (PDT)
-Received: by mail-ej1-x642.google.com with SMTP id k8so3995045ejv.3
-        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 00:45:58 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8A3F6C08C5F2
+        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 00:57:30 -0700 (PDT)
+Received: by mail-ej1-x642.google.com with SMTP id q8so4020007eja.2
+        for <linux-man@vger.kernel.org>; Thu, 23 Apr 2020 00:57:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=szeredi.hu; s=google;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=U/O9lRdDqfFxIFgSwAyPR5AZJG0gGagWbgZwtyqIE1s=;
-        b=SZbvfAg3vKXVp2Bj6SzEbypHd8TcS8FOnLIPN3m3fIltj+7zvfKqbglHePHyiMIw4d
-         L7y2aQxIghQZ2RRQ8vGfkRng0rgqzmFWYSV1Mdju6SgL14AawzPKICoHD1TS3SAs4iGA
-         h5xqKiP5EjUypnsMeu7Jrk9alecd94GKN2TUk=
+        bh=0AZ3LfYwwbdgd8+Gj6pfmGUhFDqMfSzSNioVUGjPTRU=;
+        b=VBDSp624eeG5DG/gndTNaHMLvSdjtkZwVvqIk0HLfICAWTd3DdqJGCOdF+j3ZkiaF6
+         OkJMkZajYDgkASdTcGVDQrKBArkOd3uXBgFTNPbyeCHS2d5P8A4O/ddQo/nRm1J/P6HS
+         8YiyHoRzIG8e5maMV6UFDTwGB3oaF3TD+HG1c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=U/O9lRdDqfFxIFgSwAyPR5AZJG0gGagWbgZwtyqIE1s=;
-        b=IQwN75Mcwm/TOnIenwi15Y2+bnIUyzOzaTlEGICWlffHM/dyh9XcFwA6ZgRIZWo3wL
-         Ax/JLGL+v/hRMJRyO1J5L4cnKt5R4ATxH9VaJwnIByQUYCXrs0W5KtL5y6x3we7sX/km
-         XkcrOO6Oew1n0JPC02h/Vao8MAd819Z8p+Sx00h+vp1CsfKdZVObUquylZ5G+hrKjI7I
-         NMhZlT62tnN3TPCWpDD7QMy45h05m8rQDHLQ0i84P+RF10e6hHqaVkTTRdaVNo+9oddW
-         tVj35vgjIagboCQqvlSg2Ux6oGyYH6WD0Lp946Pm7ZxQWNz4qqHGjPR3I1NkdcEqm1UD
-         n1NA==
-X-Gm-Message-State: AGi0PuYVobfAGxK2Evzy3xDNP5kdxTe/kogrudx8WG1Z2c2X5Ye6n29L
-        +Ft7n++sHZ3k0N1KV7kQjdKbq9bRuzCbtJdhlwVdOA==
-X-Google-Smtp-Source: APiQypKsThakU7JoMtp5/87/sxEV0VDVpFD50A8Cf/ebgOwE+JP84OLXxIBKseZGsaecLUzBmkryqccqlSh/P2MUMK4=
-X-Received: by 2002:a17:906:3399:: with SMTP id v25mr1527743eja.217.1587627956915;
- Thu, 23 Apr 2020 00:45:56 -0700 (PDT)
+        bh=0AZ3LfYwwbdgd8+Gj6pfmGUhFDqMfSzSNioVUGjPTRU=;
+        b=P4fBMTzS+j12J0Eku79yGZle3mYjOejzpQWo+qckficycFXMO81xwDaY3s+B/dmD8W
+         CCHWQ5AdAC9JtM6W5xPMAzMGNQpP8iQBD5QX00JdNQsBfa7bc7d5gREe6A8Z5rkknQp7
+         UuniuLUYKdAPBr3FWIg2P4zi/+JVZDotJt0IgLLMwhb0F15y886NihHHCncwnJcME4KU
+         1fDvjUmKT5pwzLSf9TumfDAuP/sJbR87YSAW0wSdd752RAdCSrasqOk3bBQcBu5qz8v/
+         SxxUUeCRGgAJaobRrEGcYQ6ukEVyXoF9Fxk++Awfwz9iFOhRcB5srzt2A9m9L6Pb86u2
+         2rQg==
+X-Gm-Message-State: AGi0PuZyEjNEj7Sw8W7EvI88/bpM3lX+OBeUNGmfZ+EDrqm7mbh4rizA
+        KQYazx2JA2lKN0SJ8CHSX56eaVxbt80D048+pWEeBw==
+X-Google-Smtp-Source: APiQypL8rnmcwmDcw0tzT8pkej1MVZvhOLUD9Stz7ZrjoCE/HfT+UO7lMR79fX8pKJtq7nSgVTmdAXP4XeG1L6cdh0M=
+X-Received: by 2002:a17:906:340a:: with SMTP id c10mr1706242ejb.218.1587628649150;
+ Thu, 23 Apr 2020 00:57:29 -0700 (PDT)
 MIME-Version: 1.0
 References: <cover.1587531463.git.josh@joshtriplett.org> <9873b8bd7d14ff8cd2a5782b434b39f076679eeb.1587531463.git.josh@joshtriplett.org>
  <CAKgNAkjo3AeA78XqK-RRGqJHNy1H8SbcjQQQs7+jDwuFgq4YSg@mail.gmail.com>
  <CAJfpegt=xe-8AayW2i3AYrk3q-=Pp_A+Hctsk+=sXoMed5hFQA@mail.gmail.com>
  <20200423004807.GC161058@localhost> <CAJfpegtSYKsApx2Dc6VGmc5Fm4SsxtAWAP-Zs052umwK1CjJmQ@mail.gmail.com>
  <20200423044226.GH161058@localhost> <CAJfpeguaVYo-Lf-5Bi=EYJYWdmCfo3BqZA=kj9E5UmDb0mBc1w@mail.gmail.com>
- <20200423073310.GA169998@localhost>
-In-Reply-To: <20200423073310.GA169998@localhost>
+ <20200423073310.GA169998@localhost> <CAJfpegtXj4bSbhpx+=z=R0_ZT8uPEJAAev0O+DVg3AX242e=-g@mail.gmail.com>
+In-Reply-To: <CAJfpegtXj4bSbhpx+=z=R0_ZT8uPEJAAev0O+DVg3AX242e=-g@mail.gmail.com>
 From:   Miklos Szeredi <miklos@szeredi.hu>
-Date:   Thu, 23 Apr 2020 09:45:45 +0200
-Message-ID: <CAJfpegtXj4bSbhpx+=z=R0_ZT8uPEJAAev0O+DVg3AX242e=-g@mail.gmail.com>
+Date:   Thu, 23 Apr 2020 09:57:17 +0200
+Message-ID: <CAJfpegtgrUACZpYR8wWoTE=Hh4Xi+4rRfrZTxRtaFVpT9GMPjw@mail.gmail.com>
 Subject: Re: [PATCH v5 2/3] fs: openat2: Extend open_how to allow
  userspace-selected fds
 To:     Josh Triplett <josh@joshtriplett.org>
@@ -68,36 +68,31 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Apr 23, 2020 at 9:33 AM Josh Triplett <josh@joshtriplett.org> wrote:
+On Thu, Apr 23, 2020 at 9:45 AM Miklos Szeredi <miklos@szeredi.hu> wrote:
 
-> > What are the plans for those syscalls that don't easily lend
-> > themselves to this modification (such as accept(2))?
+> > I would prefer to not introduce that limitation in the first place, and
+> > instead open normal file descriptors.
+> >
+> > > The point of O_SPECIFIC_FD is to be able to perform short
+> > > sequences of open/dosomething/close without having to block and having
+> > > to issue separate syscalls.
+> >
+> > "close" is not a required component. It's entirely possible to use
+> > io_uring to open a file descriptor, do various things with it, and then
+> > leave it open for subsequent usage via either other io_uring chains or
+> > standalone syscalls.
 >
-> accept4 has a flags argument with more flags available, so it'd be
-> entirely possible to cleanly extend it further without introducing a new
-> version.
-
-Variable argument syscalls, you are thinking?
-
-> > I mean, you could open the file descriptor outside of io_uring in such
-> > cases, no?
+> If this use case arraises, we could add an op to dup/move a private
+> descriptor to a public one.  io_uring can return values, right?
 >
-> I would prefer to not introduce that limitation in the first place, and
-> instead open normal file descriptors.
->
-> > The point of O_SPECIFIC_FD is to be able to perform short
-> > sequences of open/dosomething/close without having to block and having
-> > to issue separate syscalls.
->
-> "close" is not a required component. It's entirely possible to use
-> io_uring to open a file descriptor, do various things with it, and then
-> leave it open for subsequent usage via either other io_uring chains or
-> standalone syscalls.
+> Still not convinced...
 
-If this use case arraises, we could add an op to dup/move a private
-descriptor to a public one.  io_uring can return values, right?
+Oh, and we haven't even touched on the biggest advantage of a private
+fd table: not having to dirty a cacheline on fdget/fdput due to the
+possibility of concurrent close() in a MT application.
 
-Still not convinced...
+I believe this is a sticking point in some big enterprise apps and it
+may even be a driving force for io_uring.
 
 Thanks,
 Miklos
