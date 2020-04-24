@@ -2,107 +2,82 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9881D1B6754
-	for <lists+linux-man@lfdr.de>; Fri, 24 Apr 2020 00:57:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 229191B781F
+	for <lists+linux-man@lfdr.de>; Fri, 24 Apr 2020 16:15:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728054AbgDWW5l (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 23 Apr 2020 18:57:41 -0400
-Received: from zimbra.cs.ucla.edu ([131.179.128.68]:48044 "EHLO
-        zimbra.cs.ucla.edu" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727065AbgDWW5k (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Apr 2020 18:57:40 -0400
-Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 51F881600D3;
-        Thu, 23 Apr 2020 15:57:40 -0700 (PDT)
-Received: from zimbra.cs.ucla.edu ([127.0.0.1])
-        by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id y5gb-T1VFUhF; Thu, 23 Apr 2020 15:57:39 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 602331600E1;
-        Thu, 23 Apr 2020 15:57:39 -0700 (PDT)
-X-Virus-Scanned: amavisd-new at zimbra.cs.ucla.edu
-Received: from zimbra.cs.ucla.edu ([127.0.0.1])
-        by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id uYKSzViSJloh; Thu, 23 Apr 2020 15:57:39 -0700 (PDT)
-Received: from [192.168.1.9] (cpe-23-242-74-103.socal.res.rr.com [23.242.74.103])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTPSA id 1F5601600D3;
-        Thu, 23 Apr 2020 15:57:39 -0700 (PDT)
+        id S1727074AbgDXOPS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 24 Apr 2020 10:15:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40194 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1727021AbgDXOPS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Apr 2020 10:15:18 -0400
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AAF97C09B045
+        for <linux-man@vger.kernel.org>; Fri, 24 Apr 2020 07:15:17 -0700 (PDT)
+Received: by mail-ed1-x543.google.com with SMTP id r16so7346212edw.5
+        for <linux-man@vger.kernel.org>; Fri, 24 Apr 2020 07:15:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=4RmnM4P//kxBBTCbDL1/FyhPWM2V6HjfuRFknCwIhzQ=;
+        b=KeGFgAyuNKdQv44jIyfsYNQOg5KW4ma5NaoqAttlDkAKDui8iKJO4AWjTqxgYP6Uh1
+         3GMnZBtYTCJBj8yTfEIobXRqbKrOYBZX/nHcLFqybhfCzvDGRzdUjqkO+79GK1CbKJ5C
+         ok1wGusUZJDssLOaR1yb6CkCXwYoOZK7Mg/WkwQpMtUFQJ1+claFGp6ZAAf2HnHadfWi
+         gVQZkFu6o0RS4W8GkPhmo7lRSlpSmvud18KXsGJpDOJXJuv+qTMH71BkAHQuY5WllZg8
+         ShbNbj5APcSxhBm34aRrqcI0YIKGNo3OA1QElG/DYGJ8LSozpLxFAZoIj9wkxK236Hqq
+         p87g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=4RmnM4P//kxBBTCbDL1/FyhPWM2V6HjfuRFknCwIhzQ=;
+        b=l6Bv9tgu9SQQJLOCcZ3oa1fFROgj1MC0G8RBZEoBMNAFvPPbNFa6IR5Xq8yZ8xcZIe
+         7KINB7ajVE69VEVAz8pvkHUpzl/ZLDVoisy/xrD+GQHh8uhmsqponj/uXKbxj664M6g/
+         hYibPUEnmIIZyQNqzHyAcsqGPPk9/CbMTZVWLklJMC4wWtH0W64Wo6tl8vEV/8PS7cl4
+         Wz+v3pNqnY1m9IV/LWCS+JshxP0zJ9QtsW4YKeWX9J+KkY38wo5izIpvwBqZaLEkyEqL
+         KXqLAF3169mD4XwEdf6fl/ujXMQfD9c+bhc4EYLtw6sSB6Y3bXHMRHkn/K7KbwNmu4wV
+         OQZA==
+X-Gm-Message-State: AGi0PuZcU5LRDDVJ4V9qb+n6enz8NXF+xu7R2OG8E3gaqn891HEK9rCS
+        IjQ0dWa6z3Pv7LydMdg8+JTrTit7kE4ajjS75wQ=
+X-Google-Smtp-Source: APiQypJfObxY+Rhj7TtoVTT8+ETRL+LZLO1faoV6Sa8ks61mQSWtbb5U+6LIdUMbgOHgwOBX9FqSOiR7yQarYDjBChU=
+X-Received: by 2002:aa7:d513:: with SMTP id y19mr7672021edq.367.1587737716351;
+ Fri, 24 Apr 2020 07:15:16 -0700 (PDT)
+MIME-Version: 1.0
+References: <bug-207345-197507@https.bugzilla.kernel.org/> <bug-207345-197507-BrfGWbbBGi@https.bugzilla.kernel.org/>
+ <504c7bb3-8b44-2a6e-ff02-02266f5f45fa@cs.ucla.edu>
+In-Reply-To: <504c7bb3-8b44-2a6e-ff02-02266f5f45fa@cs.ucla.edu>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Fri, 24 Apr 2020 16:15:05 +0200
+Message-ID: <CAKgNAkjcHj-MBe8x1atOw-VEy=VYMHEC+jj07fQja1vdnPsH6A@mail.gmail.com>
 Subject: Re: [Bug 207345] zdump(8): zdump -c has an opposite behavior, in my
  xterm: lower bound is inclusive ...
-To:     bugzilla-daemon@bugzilla.kernel.org
-References: <bug-207345-197507@https.bugzilla.kernel.org/>
- <bug-207345-197507-BrfGWbbBGi@https.bugzilla.kernel.org/>
-Cc:     Marco Curreli <marcocurreli@tiscali.it>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+To:     Paul Eggert <eggert@cs.ucla.edu>
+Cc:     bugzilla-daemon@bugzilla.kernel.org,
+        Marco Curreli <marcocurreli@tiscali.it>,
         linux-man <linux-man@vger.kernel.org>,
         Time zone mailing list <tz@iana.org>
-From:   Paul Eggert <eggert@cs.ucla.edu>
-Organization: UCLA Computer Science Department
-Message-ID: <504c7bb3-8b44-2a6e-ff02-02266f5f45fa@cs.ucla.edu>
-Date:   Thu, 23 Apr 2020 15:57:36 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <bug-207345-197507-BrfGWbbBGi@https.bugzilla.kernel.org/>
-Content-Type: multipart/mixed;
- boundary="------------882DBB213ECDE59763942B10"
-Content-Language: en-US
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a multi-part message in MIME format.
---------------882DBB213ECDE59763942B10
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+On Fri, 24 Apr 2020 at 00:57, Paul Eggert <eggert@cs.ucla.edu> wrote:
+>
+> I installed the attached doc patch to tzdb try to clarify things. The documented
+> zdump behavior is kind of weird, but now's not the time to change it as we're
+> about to do a new tzdb release.
 
-I installed the attached doc patch to tzdb try to clarify things. The documented
-zdump behavior is kind of weird, but now's not the time to change it as we're
-about to do a new tzdb release.
+Thanks, Paul. If you wold be so nice as to drop me a note when the
+release is done, I will resync that pages in man-pages.
 
---------------882DBB213ECDE59763942B10
-Content-Type: text/x-patch; charset=UTF-8;
- name="0001-Clarify-zdump-c.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename="0001-Clarify-zdump-c.patch"
+Thanks,
 
-From d5f78a4326b94809e1cba6fcc4b59ba2a10b2d1c Mon Sep 17 00:00:00 2001
-From: Paul Eggert <eggert@cs.ucla.edu>
-Date: Thu, 23 Apr 2020 15:53:24 -0700
-Subject: [PATCH] Clarify zdump -c
+Michael
 
-* zdump.8: Clarify -c cutoff timestamps.
-Problem reported by Marco Curell via Michael Kerrisk; see:
-https://bugzilla.kernel.org/show_bug.cgi?id=207345
----
- zdump.8 | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/zdump.8 b/zdump.8
-index fb6b8df..98109ad 100644
---- a/zdump.8
-+++ b/zdump.8
-@@ -74,11 +74,11 @@ implementations with different time representations.
- Cut off interval output at the given year(s).
- Cutoff times are computed using the proleptic Gregorian calendar with year 0
- and with Universal Time (UT) ignoring leap seconds.
--The lower bound is exclusive and the upper is inclusive; for example, a
--.I loyear
--of 1970 excludes a transition occurring at 1970-01-01 00:00:00 UTC but a
--.I hiyear
--of 1970 includes the transition.
-+Cutoffs are at the start of each year, where the lower-bound
-+timestamp is exclusive and the upper is inclusive; for example,
-+.B "\*-c 1970,2070"
-+selects transitions after 1970-01-01 00:00:00 UTC
-+and on or before 2070-01-01 00:00:00 UTC.
- The default cutoff is
- .BR \*-500,2500 .
- .TP
 -- 
-2.17.1
-
-
---------------882DBB213ECDE59763942B10--
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
