@@ -2,31 +2,33 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DDF021B7E2E
-	for <lists+linux-man@lfdr.de>; Fri, 24 Apr 2020 20:47:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F33631B7E49
+	for <lists+linux-man@lfdr.de>; Fri, 24 Apr 2020 20:50:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726813AbgDXSrH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 24 Apr 2020 14:47:07 -0400
-Received: from luckmann.name ([213.239.213.133]:51637 "EHLO
+        id S1728649AbgDXSuj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 24 Apr 2020 14:50:39 -0400
+Received: from luckmann.name ([213.239.213.133]:54685 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726793AbgDXSrG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Apr 2020 14:47:06 -0400
+        by vger.kernel.org with ESMTP id S1728379AbgDXSuj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Apr 2020 14:50:39 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56011.000000005EA33428.00001EEB; Fri, 24 Apr 2020 20:47:04 +0200
-Date:   Fri, 24 Apr 2020 20:47:04 +0200
+  id 0000000000E56011.000000005EA334FC.00001FB5; Fri, 24 Apr 2020 20:50:36 +0200
+Date:   Fri, 24 Apr 2020 20:50:36 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: signal(7): Wrong constants?
-Message-ID: <20200424184704.GB7401@Debian-50-lenny-64-minimal>
-References: <20200419064824.GA31933@Debian-50-lenny-64-minimal>
- <0f9c7479-73f3-9913-8e3f-ca726d24c3bb@gmail.com>
+Cc:     Jakub Wilk <jwilk@jwilk.net>, linux-man <linux-man@vger.kernel.org>
+Subject: Re: Errors in man pages, here: signal(7): Sentence to long
+Message-ID: <20200424185036.GC7401@Debian-50-lenny-64-minimal>
+References: <20200419064825.GA32002@Debian-50-lenny-64-minimal>
+ <0f760556-f587-fbb0-581c-d0f5a38ad23e@gmail.com>
+ <20200420084932.xvz32vuv7uqudyih@jwilk.net>
+ <CAKgNAkj6j2Y1YphseM54y_2=xQV3E4Rc+UX4TPC4VgtX4D0V9w@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-7915-1587754024-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-8117-1587754236-0001-2"
 Content-Disposition: inline
-In-Reply-To: <0f9c7479-73f3-9913-8e3f-ca726d24c3bb@gmail.com>
+In-Reply-To: <CAKgNAkj6j2Y1YphseM54y_2=xQV3E4Rc+UX4TPC4VgtX4D0V9w@mail.gmail.com>
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -38,61 +40,69 @@ X-Mailing-List: linux-man@vger.kernel.org
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-7915-1587754024-0001-2
-Content-Type: text/plain; charset=utf-8
+--=_luckmann.name-8117-1587754236-0001-2
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hallo Michael,
-On Mon, Apr 20, 2020 at 10:28:41AM +0200, Michael Kerrisk (man-pages) wrote:
-> On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
-> > **
-> >=20
-> > POSIX_TRSIG_MAX -> MIN
-> >=20
-> > "Starting with version 2.2, Linux supports real-time signals as origina=
-lly "
-> > "defined in the POSIX.1b real-time extensions (and now included in "
-> > "POSIX.1-2001).  The range of supported real-time signals is defined by=
- the "
-> > "macros B<SIGRTMIN> and B<SIGRTMAX>.  POSIX.1-2001 requires that an "
-> > "implementation support at least B<_POSIX_RTSIG_MAX> (8) real-time sign=
-als."
-> > --
-> >=20
-> > _POSIX_SIGQUEUE_MAX =E2=86=92 MIN
-> >=20
-> > "According to POSIX, an implementation should permit at least "
-> > "B<_POSIX_SIGQUEUE_MAX> (32) real-time signals to be queued to a proces=
-s.  "
-> > "However, Linux does things differently.  In kernels up to and includin=
-g "
-> > "2.6.7, Linux imposes a system-wide limit on the number of queued real-=
-time "
-> > "signals for all processes.  This limit can be viewed and (with privile=
-ge) "
-> > "changed via the I</proc/sys/kernel/rtsig-max> file.  A related file, I=
-</proc/"
-> > "sys/kernel/rtsig-nr>, can be used to find out how many real-time signa=
-ls are "
+Hello Michael,
+On Mon, Apr 20, 2020 at 10:51:00AM +0200, Michael Kerrisk (man-pages) wrote:
+> On Mon, 20 Apr 2020 at 10:49, Jakub Wilk <jwilk@jwilk.net> wrote:
+> >
+> > * Michael Kerrisk (man-pages) <mtk.manpages@gmail.com>, 2020-04-20, 10:=
+33:
+> > >>"A signal may be generated (and thus pending)  for a process as a who=
+le (e."
+> > >>"g., when sent using B<kill>(2))  or for a specific thread (e.g., cer=
+tain "
+> > >>"signals, such as B<SIGSEGV> and B<SIGFPE>, generated as a consequenc=
+e of "
+> > >>"executing a specific machine-language instruction are thread directe=
+d, as "
+> > >>"are signals targeted at a specific thread using B<pthread_kill>(3)).=
+  A "
+> > >>"process-directed signal may be delivered to any one of the threads t=
+hat does "
+> > >>"not currently have the signal blocked.  If more than one of the thre=
+ads has "
+> > >>"the signal unblocked, then the kernel chooses an arbitrary thread to=
+ which "
+> > >>"to deliver the signal."
+> > >
+> > >I can't find the text referred to. I think you may be working
+> > >with an older version of the page. Can you please check.
+> >
+> > In 3b9d44099f234e8e, the long sentence was replaced with this paragraph:
+> >
+> > "A signal may be process-directed or thread-directed. A process-directed
+> > signal is one that is targeted at (and thus pending for) the process as
+> > a whole. A signal may be process-directed because it was generated by
+> > the kernel for reasons other than a hardware exception, or because it
+> > was sent using kill(2) or sigqueue(3). A thread-directed signals is one
+> > that is targeted at a specific thread. A signal may be thread-directed
+> > because it was generated as a consequence of executing a specific
+> > machine-language instruction that triggered a hardware exception (e.g.,
+> > SIGSEGV for an invalid memory access, or SIGFPE for a math error), or
+> > because it was it was targeted at a specific thread using interfaces
+> > such as tgkill(2) or pthread_kill(3).
 >=20
-> The constants are correct.
->=20
-> Quoting myself: "The use of the string _MAX in the limit names=20
-> defined by SUSv3 can appear confusing, given their description as minimum=
-=20
-> values. The rationale for the names becomes clear when we consider that e=
-ach=20
-> of these constants defines an upper limit on some resource or feature, and
-> the standards are saying that this upper limit must have a certain=20
-> minimum value."
+> Thanks, Jakub.
 
-Thanks for the explanation. I added a note in the translators file to
-remind him (her?) in the future of this fact.
+Thanks.=20
+
+We are working with what our upstreams provide, and especially
+archlinux tries to update frequently (but we might lag a few weeks
+behind them), so from time to time the issue might already been fixed.
+Due to the sheer size of upstreams and man pages and potential issues
+to be fixed we unfortunately might occasionally thus report issues
+already dealt with by you (or your fellow maintainers of other
+projects).
+
+Sorry for the noise.
 
 Greetings
 
-         Helge
+          Helge
 
 --=20
       Dr. Helge Kreutzmann                     debian@helgefjell.de
@@ -100,25 +110,25 @@ Greetings
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_luckmann.name-7915-1587754024-0001-2
+--=_luckmann.name-8117-1587754236-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl6jNCgACgkQQbqlJmgq
-5nDppBAAsDk60O+u0sg5VP1J5noXUAI8umIONaj6mhw7mNJmq9lRpb1MsbFUKyNo
-ayRYXlwPzP9v6AQ1CjUuWEke2sn1x8TSHIss+IeFDcn5FwM4liT3AdTakkCeZA/7
-n+v57l9owv5GUsdMgwLWenw9LeOFyyCN6t/Ocg0j65Y3Y7xHho3Dld6VyO2NmZrU
-sIqWv34UuY17WtMYUIZ9o0xDFDQBxj2ABTJenbU4OIMg6xPjLpUGG+96neULb+zX
-FdpDvqzpXXfz13APud8mBSdUdUMYBYq73jua2P/seKf53j3dcCKkAjPVDlzcg62V
-Ans16bax0HoTJUlwf2JwKQIworqv62t3dZcNzE8rorozNHyKP8Gz2lmhqjp/esx0
-gEXWTIkTq2vyBJpmZL0pLaoBujTSBf+vwyMFHN5E/GjKBgSEjZCN2YyIsvN2akaC
-3BtO9ul0m/WSDNbekkw65KwfE3TAw1qHau5iQFcZNlRlHF8awyZ2NIjVz2DNqDXo
-fcbDTCWexlMZKJshfpA2w+jZYTzYGRSxEpmGyxrLJedMM3WMeJSPwgIJ1wO0P96s
-f3Iehf8VLL8piSev5Ue8C7eJm/mBzYbVH9Qv1JgALONMgkIvUjlsQF8ppsD8kbAV
-yHMURq2KbSbWbUfblit8KH/Xr8xuKUN/tpqnZAmRFNHTp8MARlY=
-=VR+/
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl6jNPwACgkQQbqlJmgq
+5nBBaA/+IIVdbOrzeISkev2i0E55rIY/Z3+PSEV6fyeFTcjQi23EaX3LTrqAsEbo
+nkSMJSd2HuvNZqVQYkVZxScISRGFPN0rXYmaKn6Ad3HY1gAUWth8Cvo7NoJputnS
+qqZ19n3XxjnCJmjT3g1IKZhTJSX6/SisBZTtTIFeQtouNMcfp3NmHW8JL9SUDKFn
+ImhpXZ4KUo1Dm6ArsW3bRSRSKYXOmEuEHQoZKk2t7pl65dwltucz4xRNwmm7rJXT
+E6a4GnWMD6c4IDwO950OD1qAHhbcXrDwQ4uIUQw/ahwa9PdWIMqvfNbtE7Q0qUYE
+GbVFHsX62y+ADCbdj4n+YFDHdS0nw8FIh9F5cCjHCf0Nt/M7jWex3PPVTFC92J27
+3aKnNX/LpRtFEJGBFkSjgZSnsOWBlluFBQ9OC+fAO/utQ0WnrM15WOqsv225D74O
+6sKkkG1lJ/zgIc3z0v/jxsSruDc3c+rU7Y6jX8sdzinMOuWddbqyhc2rZaca3vLa
+SWLPxs/gGC6C8OxV9XI/bVxRKdFe5ywkUj9R6q2F+RZw0a3xsNyabx69fPVccewW
+YMu6wcBQpwjGgoo6enekJ5EOhFNfYisb4ZGDLQPcmT0gA5G6Wmf/Y0o/OUd9oyfC
+hTuRqBXcsY5B9mPU/lSXN6YaOTxr1KZ+URg6ppSH/IJMaKCpjR0=
+=LlIz
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-7915-1587754024-0001-2--
+--=_luckmann.name-8117-1587754236-0001-2--
