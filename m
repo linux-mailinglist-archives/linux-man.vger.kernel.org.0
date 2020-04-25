@@ -2,150 +2,114 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6C9AD1B88CC
-	for <lists+linux-man@lfdr.de>; Sat, 25 Apr 2020 21:12:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7DAC61B88E0
+	for <lists+linux-man@lfdr.de>; Sat, 25 Apr 2020 21:24:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726355AbgDYTM2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 25 Apr 2020 15:12:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56302 "EHLO
+        id S1726271AbgDYTYF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 25 Apr 2020 15:24:05 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58070 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726192AbgDYTM2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 25 Apr 2020 15:12:28 -0400
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ED395C09B04D;
-        Sat, 25 Apr 2020 12:12:27 -0700 (PDT)
-Received: by mail-ej1-x644.google.com with SMTP id n17so10374841ejh.7;
-        Sat, 25 Apr 2020 12:12:27 -0700 (PDT)
+        with ESMTP id S1726261AbgDYTYF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 25 Apr 2020 15:24:05 -0400
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 06955C09B04D
+        for <linux-man@vger.kernel.org>; Sat, 25 Apr 2020 12:24:05 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id t14so15647114wrw.12
+        for <linux-man@vger.kernel.org>; Sat, 25 Apr 2020 12:24:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=AvkTm+mzyMVnfea52ydtpICgabBlh0drjq1+bCYJ/0E=;
-        b=owcl22kbPn701gTg+yz5fH4eADn9UPJ8LvqPgSsO//5pO5nQwCpMCPDuJ1Z0zEIjov
-         JDLVjNvjiTacXVj5ZPcON8jy8rtBgWTBT0Nk6RzGo+blUwDf6J1QPfwVs6YmfM+992m3
-         Z2l8B/Khn+FlsU0VmlFWwvcyNbGMK0lpCsH85HsSec+988C4vCXKgzzBM1z4uCfH/6Ob
-         iZfD30qFau+ypGebisZTV/1tZ839Dz7aKJyHx3CyeWsrDaYDIUcI8S1dMta5aG0lb+da
-         S1a61+C8LXQwF3BwcSm8HssCaW/CkxpZ72h9ZMNg4jTRGrw698xR/7gn9kgO/LkEGm34
-         Z/zA==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=Tmqe/P32phXxqGsiCNhumT7piuGm91wlaIzTGmsQlFQ=;
+        b=R1WSBoD/8nbplBATCw9Da2nSmFmILyjbfR+tbYbFaj87AGro2Tt/aFAYhf6vJavT0T
+         jmxaTXt/E0Sg50vXxspNW0iE8/8EKSTSV1gKxW1ptSsqXdp23Ah4ThOxx5xGXUS80Nng
+         xbl/FqFVfoneWyUQ9WBVVzleEYiLDqDr7giAOUcqSdd7QdBB+xF9Tx/PWTOLWqUSK7mw
+         chY41/HuaEPvB9yPk5XGGHzHRZZsZ8ekAsjrCR7OWCZ1Sw30eHb0a22HKH7cO3f+xqR7
+         E1PFTF0ZKS34WmUsyapZEokR9BzKZuO7pVYVOqAxncJepyO67OeA6DqCDYxqRnUcwIFC
+         Ir7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=AvkTm+mzyMVnfea52ydtpICgabBlh0drjq1+bCYJ/0E=;
-        b=rn1O9YqqqEu83/XCZrt/+f8uI6x3CCENohdqVU3o4InVyPkVjAJPjjsi9lV+9D6A3B
-         hyGcHNfzKie/DSaruD8isvvfM0ynDM3km1mLQjLyVTLeRTKRyC201qzDU4jbAw4F1l6O
-         T2uI/189Ocu1tzh1Vz3HjU8tzp8ghm75xU5+XEXOH/y7p3Zzxdyn7Lv9KJzP1vWhh7jb
-         DisVES/VrteEl502xdeidZyVJIAa/QhlMQAycwfWL/7Din2/krZrzFUTwo53CK1STXjX
-         uVOXux2P062JwchJQAjpWu6wyXw8niu7WHpteN8+nB7b++RPJjNyQ2kP0cfvuf1Lj/Ra
-         dsqQ==
-X-Gm-Message-State: AGi0PuZe+vJzOQZGnIkra11hAVSse4hNxnXhWKDmpLd0YlUB/88oOGh5
-        6GSS3U6oQCEFb2hiGqoaCF9WQZtMA9Xe6bGIhzw=
-X-Google-Smtp-Source: APiQypIB4qwMx+YzraThqWvM/ROoqpHMd0pA8h8UYyusPpy0T9i5WYMdcs6pk91daKm+dz1FjXBYiWBtPVhtzTLdrqE=
-X-Received: by 2002:a17:906:2488:: with SMTP id e8mr12844760ejb.157.1587841946564;
- Sat, 25 Apr 2020 12:12:26 -0700 (PDT)
-MIME-Version: 1.0
-References: <20191128120140.20367-1-cyphar@cyphar.com> <20191128130840.GA3719@calabresa>
- <20191128135506.yo7432egjsg5ha5a@yavin.dot.cyphar.com>
-In-Reply-To: <20191128135506.yo7432egjsg5ha5a@yavin.dot.cyphar.com>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=Tmqe/P32phXxqGsiCNhumT7piuGm91wlaIzTGmsQlFQ=;
+        b=JxpeooSLgYj3XKsVsUawezw6PzM0iCkEV0bgVnArcstdUhqtfjUq8TKmWsK5dIT2Fq
+         XT5dTDa9ZSRLPwUxQghS67jzwZ7tSRQ1hu8daEciTdj+cj6jUUnoc4qGJlGClZ77adtd
+         yNI5oeZMBgOQksA3Aru2xhqjDzeglGBfleCvvaXU0pHp7aCGT2PllSzEYouMl1QSEoSI
+         +rhuS4d8fzMnxsu9Ow0gAdIm2P0X5O5CVypHi1oQi73mTGKEwx2tyym+NndO75cX4dr9
+         vgPuXT/QQMxneY9t0VQlRw0+belhd/U9KMwfSsyMqo8a76/mfu8jaAAfBYDq1Rmij3mv
+         yhfw==
+X-Gm-Message-State: AGi0Puagq+/G2DkU32fpNs8HQ/jNvHIuTAIUC6zfNpBdfLHKQ+hfpolU
+        AjpDhmHGKFuShY6s1bNTvlw=
+X-Google-Smtp-Source: APiQypIxUSWVLneaA5mBfqB/5xtNLL+jp+EOjdUKItoUiSlnjocdUMwoTYBPBvF+kSzHInS/VYbb3A==
+X-Received: by 2002:adf:e791:: with SMTP id n17mr19536070wrm.217.1587842643733;
+        Sat, 25 Apr 2020 12:24:03 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:102:f8f7:1ff:c15b:512d? ([2001:a61:2482:102:f8f7:1ff:c15b:512d])
+        by smtp.gmail.com with ESMTPSA id l5sm8146083wmi.22.2020.04.25.12.24.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 25 Apr 2020 12:24:03 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, Rich Felker <dalias@aerifal.cx>
+Subject: Re: [patch] ptsname.3: Fix description of failure behaviour of
+ ptsname_r
+To:     Bruno Haible <bruno@clisp.org>, linux-man@vger.kernel.org,
+        Eric Blake <eblake@redhat.com>
+References: <9623994.qWbdUN1Qb5@omega>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Sat, 25 Apr 2020 21:12:15 +0200
-Message-ID: <CAKgNAkj9W7ay+YuQv1ct+LXE8tj1R+hzDDgGZo3KvWhWD0k2ug@mail.gmail.com>
-Subject: Re: [PATCH] sched_getattr.2: update to include changed size semantics
-To:     Aleksa Sarai <cyphar@cyphar.com>
-Cc:     Thadeu Lima de Souza Cascardo <cascardo@canonical.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        Ingo Molnar <mingo@kernel.org>,
-        Arnaldo Carvalho de Melo <acme@infradead.org>,
-        Jiri Olsa <jolsa@redhat.com>,
-        Patrick Bellasi <patrick.bellasi@arm.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Thomas Gleixner <tglx@linutronix.de>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <f01aae6c-ddd0-ba15-5d6b-cd25d0bc7b4c@gmail.com>
+Date:   Sat, 25 Apr 2020 21:24:02 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <9623994.qWbdUN1Qb5@omega>
+Content-Type: text/plain; charset=windows-1252
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Aleksa,
+On 1/26/19 2:31 PM, Bruno Haible wrote:
+> Hi,
+> 
+> The Linux man page for ptsname_r, when describing the behaviour in the error
+> case, is
+>   - not consistent with the future POSIX standard (POSIX Issue 8).
+>   - not consistent with musl libc.
+> 
+> Find attached a patch to
+>   - keep it consistent with what glibc does,
+>   - make it consistent with musl libc,
+>   - make it consistent with the future POSIX standard (POSIX Issue 8).
+> 
+> Details:
+> 
+> glibc's implementation of ptsname_r, when it fails, returns the error code
+> as return value AND sets errno. See
+> https://sourceware.org/git/?p=glibc.git;a=blob;f=login/ptsname.c
+> https://sourceware.org/git/?p=glibc.git;a=blob;f=sysdeps/mach/hurd/ptsname.c
+> https://sourceware.org/git/?p=glibc.git;a=blob;f=sysdeps/unix/sysv/linux/ptsname.c
+> 
+> musl's implementation of ptsname_r, when it fails, returns the error code
+> but does NOT set errno. See
+> https://git.musl-libc.org/cgit/musl/tree/src/misc/pty.c
+> 
+> The proposal to add ptsname_r to POSIX, with text
+>   "If successful, the ptsname_r( ) function shall return zero. Otherwise,
+>    an error number shall be returned to indicate the error."
+> has been accepted for inclusion in POSIX Issue 8.
+> http://austingroupbugs.net/view.php?id=508
+> 
+> Therefore a portable program should look at the return value from ptsname_r,
+> NOT the errno value. The current text in the man page suggests to look at
+> the errno value, which is wrong (because of musl libc) and not future-proof
+> (because of future POSIX).
 
-I don't think there was ever a follow-up to this patch. Would you be
-willing to send one?
+Thanks, Bruno. Patch (finally) applied.
 
-Thanks,
+Cheers,
 
 Michael
-
-On Thu, 28 Nov 2019 at 14:55, Aleksa Sarai <cyphar@cyphar.com> wrote:
->
-> On 2019-11-28, Thadeu Lima de Souza Cascardo <cascardo@canonical.com> wrote:
-> > On Thu, Nov 28, 2019 at 11:01:40PM +1100, Aleksa Sarai wrote:
-> > > Due to a userspace breakage, commit 1251201c0d34 ("sched/core: Fix
-> > > uclamp ABI bug, clean up and robustify sched_read_attr() ABI logic and
-> > > code") changed the semantics of sched_getattr(2) when the userspace
-> > > struct is smaller than the kernel struct. Now, any trailing non-zero
-> > > data in the kernel structure is ignored when copying to userspace.
-> > >
-> > > Ref: 1251201c0d34 ("sched/core: Fix uclamp ABI bug, clean up and
-> > >                     robustify sched_read_attr() ABI logic and code")
-> > > Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
-> > > ---
-> > >  man2/sched_setattr.2 | 6 ++----
-> > >  1 file changed, 2 insertions(+), 4 deletions(-)
-> > >
-> > > diff --git a/man2/sched_setattr.2 b/man2/sched_setattr.2
-> > > index 76ffa14eba85..fbb67b8eb98b 100644
-> > > --- a/man2/sched_setattr.2
-> > > +++ b/man2/sched_setattr.2
-> > > @@ -284,10 +284,8 @@ structure,
-> > >  the additional bytes in the user-space structure are not touched.
-> > >  If the caller-provided structure is smaller than the kernel
-> > >  .I sched_attr
-> > > -structure and the kernel needs to return values outside the provided space,
-> > > -.BR sched_getattr ()
-> > > -fails with the error
-> > > -.BR E2BIG .
-> > > +structure, the kernel will silently not return any values which would be stored
-> > > +outside the provided space.
-> > >  As with
-> > >  .BR sched_setattr (),
-> > >  these semantics allow for future extensibility of the interface.
-> > > --
-> > > 2.24.0
-> > >
-> >
-> > I was thinking about documenting the difference in behavior of older kernels,
-> > before uclamp support.
-> >
-> > However, in practice, for sched_getattr, the kernel never returned E2BIG (the
-> > code uses EFBIG incorrectly, in fact). It does, however, return EINVAL for
-> > sizes smaller than SCHED_ATTR_SIZE_VER0.
->
-> I've been told the EFBIG was actually a typo and it was always meant to
-> be E2BIG. But yes, the precise problem with the old semantics was that
-> they weren't tested "in the wild" with a proper struct upgrade -- hence
-> all of the headaches.
->
-> If we ever do implement a copy_struct_to_user() we are almost certainly
-> going to implement it with the new sched_getattr() semantics. To be
-> honest, I'm not sure I can imagine a case where an old userspace program
-> would benefit from being given an error saying that the kernel has some
-> properties that it doesn't understand. (sched_getattr() is also weird
-> for other reasons, such as the fact it takes a separate size argument.)
->
-> > However, E2BIG is still mentioned below as a possible return value for
-> > sched_getattr. Can you remove that too?
->
-> Will do.
->
-> --
-> Aleksa Sarai
-> Senior Software Engineer (Containers)
-> SUSE Linux GmbH
-> <https://www.cyphar.com/>
-
 
 
 -- 
