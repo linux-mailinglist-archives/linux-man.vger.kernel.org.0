@@ -2,89 +2,136 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 297D71B8596
-	for <lists+linux-man@lfdr.de>; Sat, 25 Apr 2020 12:22:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 438441B869A
+	for <lists+linux-man@lfdr.de>; Sat, 25 Apr 2020 14:52:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726087AbgDYKWW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 25 Apr 2020 06:22:22 -0400
-Received: from luckmann.name ([213.239.213.133]:51967 "EHLO
-        static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726059AbgDYKWW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 25 Apr 2020 06:22:22 -0400
-Received: from localhost (localhost [127.0.0.1])
-  (uid 502)
-  by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56033.000000005EA40F5C.00005D34; Sat, 25 Apr 2020 12:22:20 +0200
-Date:   Sat, 25 Apr 2020 12:22:20 +0200
-From:   Helge Kreutzmann <debian@helgefjell.de>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: proc.5.po: Quoting
-Message-ID: <20200425102220.GC22709@Debian-50-lenny-64-minimal>
-References: <20200419064818.GA31583@Debian-50-lenny-64-minimal>
- <5de7cad6-2478-abce-01be-851008473685@gmail.com>
-Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-23860-1587810140-0001-2"
-Content-Disposition: inline
-In-Reply-To: <5de7cad6-2478-abce-01be-851008473685@gmail.com>
-X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
-X-homepage: http://www.helgefjell.de/debian
-User-Agent: Mutt/1.10.1 (2018-07-13)
+        id S1726062AbgDYMww (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 25 Apr 2020 08:52:52 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54172 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726060AbgDYMww (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 25 Apr 2020 08:52:52 -0400
+Received: from mail-vk1-xa41.google.com (mail-vk1-xa41.google.com [IPv6:2607:f8b0:4864:20::a41])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1F91FC09B04B
+        for <linux-man@vger.kernel.org>; Sat, 25 Apr 2020 05:52:52 -0700 (PDT)
+Received: by mail-vk1-xa41.google.com with SMTP id q200so3488168vka.13
+        for <linux-man@vger.kernel.org>; Sat, 25 Apr 2020 05:52:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=sIRJT+uZxcGBtX3sWPTIhbhO870APE7KIFhHNS8IM0w=;
+        b=ktIq/v6eY/CdNBeS73dGZqOlcxV72E4+naBFK6dgk7RqKpjBIPHVvQj4OnaHVa7J4s
+         ZXRfyuqEkBjgz1i0eamu1NWO5CUaNYQ7iJWJeuqiLYAFC90mnElDLRZTQwjI1lmgl5Ae
+         lVDxC1om1HvJfU71MoZdWgyoAHMP0U1aTTht2ueudIWCtCAp7YGtbONdx7b0wQyQv76d
+         YNB7RiJ5GtKWc/VUYLIeXmzuuHd3ef0nUoShZNNLgVyFBw+qKYaUdwmjQwK5vTEPaLFV
+         4kvsknLrzqcIUVlqbFEyPN+Na8ti3F7bulS1nFbZ8gM8yUNR99BnoBoYvuJbQVfjw5Xt
+         5Kaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=sIRJT+uZxcGBtX3sWPTIhbhO870APE7KIFhHNS8IM0w=;
+        b=h0gbxHpVsPWoHLDQxcjKAWqJHl0hHbV0qFvOsCpsrA0hL5I8VyANtxQnSQhFkSTMvB
+         mvaEGHBq5xVehfIG4yyo/d3+/Lf4+nP4T+I9XU13iwkq1+8xKwUUnJy8RzubYOKEluvg
+         wNqyyeJRPgik8q3Ua6FSYeb3qsDWWMZmkGKayT1alpQPqosJ3rzoje/ZreEXxxTGGbs6
+         3s9ef1loInKNWfYLqeBRuQCawOx/00x6nFDlwCSYxB1bn4pZ1dm6y96zh0p9Oy+uFsoW
+         obyRnEfkygEAkfX3/aC3twcUTfevOxTpGtYXjsvR91UD2wYz0tkMbAovT1tPSzg9vSB3
+         +p6w==
+X-Gm-Message-State: AGi0PuZKXPp5TPVKHj9e1GtuGx9JkBa4InvLZTR6brAPl1+UbkZF1wpm
+        B2jdpLYjHfUPcjAOcCgWyyNt1uwf+uwuh9Hh1WA=
+X-Google-Smtp-Source: APiQypKLsRPQur7WSC77unDH/mkO102qD8o80d/XamD3OMfR64KCJzY3Azl5QhCbL5Q1Fl6zv/UJwZWlxtMVeiV7Z+8=
+X-Received: by 2002:a05:6122:2c8:: with SMTP id k8mr11354824vki.2.1587819171233;
+ Sat, 25 Apr 2020 05:52:51 -0700 (PDT)
+MIME-Version: 1.0
+From:   Marcin Stolarek <stolarek.marcin@gmail.com>
+Date:   Sat, 25 Apr 2020 14:52:39 +0200
+Message-ID: <CAC8K6BNGULq_XQCWJz2ZiDr1xN+3_eD1jnO1x2f9Kw0nV5=5bw@mail.gmail.com>
+Subject: [patch] strtok.3 add note about glibc-2.25+ segfault for call like strtok_r(NULL,"|",NULL)
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, wdijkstr@arm.com
+Content-Type: multipart/mixed; boundary="000000000000ab8e4805a41cf5b3"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a MIME-formatted message.  If you see this text it means that your
-E-mail software does not support MIME-formatted messages.
+--000000000000ab8e4805a41cf5b3
+Content-Type: text/plain; charset="UTF-8"
 
---=_luckmann.name-23860-1587810140-0001-2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The change in glibc commit d58ab810a6e325cc351684d174c48cabce01bcc1
+(author in CC):
 
-Hello Michael,
-On Mon, Apr 20, 2020 at 10:57:55AM +0200, Michael Kerrisk (man-pages) wrote:
-> On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
-> > **
-> >=20
-> > No quoting? (The subsequent entries use quoting)
-> >=20
-> > msgid "I<0\\ (default)>"
->=20
-> Yes, but /default/ means just that. The others are intended to be names.
+From commit description:"[...] Also avoid an unnecessary call to
+strcspn after the last token by adding an early exit for an empty
+string.[...]"
 
-Ok, I understand it now. Thanks for the explanation. I put myself a
-note in the file.
+Important code change:
+/* Parse S into tokens separated by characters in DELIM.
+@@ -45,11 +41,17 @@
+ char *
+ __strtok_r (char *s, const char *delim, char **save_ptr)
+ {
+-  char *token;
++  char *end;
 
-Greetings
+   if (s == NULL)
+     s = *save_ptr;
 
-           Helge
---=20
-      Dr. Helge Kreutzmann                     debian@helgefjell.de
-           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
-        64bit GNU powered                     gpg signed mail preferred
-           Help keep free software "libre": http://www.ffii.de/
++  if (*s == '\0')
++    {
++      *save_ptr = s;
++      return NULL;
++    }
++
 
---=_luckmann.name-23860-1587810140-0001-2
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Transfer-Encoding: 7bit
+may result in the mentioned segmentation fault if the char *str passed
+to strtok_r is a NULL (for 1st call).
 
------BEGIN PGP SIGNATURE-----
+Checked glibc versions:
+~/git-repos/glibc:release/2.25/master$ git tag
+--contain=d58ab810a6e325cc351684d174c48cabce01bcc1
+changelog-ends-here
+glibc-2.25
+glibc-2.25.90
+glibc-2.26
+glibc-2.26.9000
+glibc-2.27
+glibc-2.27.9000
+glibc-2.28
+glibc-2.28.9000
+glibc-2.29
+glibc-2.29.9000
+glibc-2.30
+glibc-2.30.9000
+glibc-2.31
+glibc-2.31.9000
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl6kD1wACgkQQbqlJmgq
-5nBAIBAAhmgJEUKSaJC8it1VZk2pxhyGV4rnN2YuX/QwHZBJLthSrjOYi4ivPMGN
-3qw1gLg04iKQXwE3rNkNnqL2nYKiRoTmsH6SOtd13vhm+GR2dml9Nveny7wj158N
-+zH5yqU1n6o9Aw+RgQI5oM1qYWozK1obHMPhbsBIvxMfZ2kHmxm+GFnVLjXizEfl
-Mr9wiFa1Xi3CPVt5V5HhWQA++tXQeoAD5O08N4hW4uw8m7JZDJyJiRqSH7R52CbW
-KPHxwkotYCTfW3we6uZDVwv0qXYHF0DJVNV1d0KgU2MLAiu3LYPEDr6eeDUL2ocq
-sq7ddTLjzEOjgfr3GUyxhKudrXOCQBe9oOBBrpjRBJnltS4p/+uvV13h+ExlOAdV
-IwyRUkSLfenVfHLOMHdSqhhEsen1iJPkvoBt21fhLqVLsTaUVnrrnqbiZBv3JnUq
-SHElBMbmX5QWaQjOmSOOD0EQbG9402SP2eNOAYJJvO2QFCoJL76SBCII04gzr12J
-rGpJqW14t/9jY8ejaF6ft7H9pL7Unl0FJR9KfFcxPO6oIvzCAwhJvYdkISjSSx+Y
-WRgK2X/aOl7/d/DI+i4xZcqG7nkOo6a15MFg7irhLSV9zMnAb5aQkjYMUGJnY+FU
-rtqTub8u+yfhTm0eO4MVKk3hXILOaiv2tP+QhmllJj7CJ5gj8tw=
-=Hh07
------END PGP SIGNATURE-----
+cheers,
+Marcin
 
---=_luckmann.name-23860-1587810140-0001-2--
+--000000000000ab8e4805a41cf5b3
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="0001-Add-note-about-strtok_r-change-in-glibc-2.25.patch"
+Content-Disposition: attachment; 
+	filename="0001-Add-note-about-strtok_r-change-in-glibc-2.25.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_k9fmi8i20>
+X-Attachment-Id: f_k9fmi8i20
+
+RnJvbSBjZGJlOWRhZmZkYjM2NDAwYzIzYTFjYjQ3YWNkNzI1MmQyYWQ0MzRhIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBNYXJjaW4gU3RvbGFyZWsgPHN0b2xhcmVrLm1hcmNpbkBnbWFp
+bC5jb20+CkRhdGU6IFNhdCwgMjUgQXByIDIwMjAgMTQ6NDE6MjQgKzAyMDAKU3ViamVjdDogW1BB
+VENIIDEvMV0gQWRkIG5vdGUgYWJvdXQgc3RydG9rX3IoKSBjaGFuZ2UgaW4gZ2xpYmMtMi4yNQoK
+Q2FsbGluZyBzdHJ0b2soTlVMTCwnLCcsTlVMTCkgYWZ0ZXIgZDU4YWI4MTBhNmUzMjVjYzM1MTY4
+NGQxNzRjNDhjYWJjZTAxYmNjMQp3aWxsIHJlc3VsdCBpbiBOVUxMIHBvaW50ZXIgZGVyZWZlcmVu
+Y2UuCi0tLQogbWFuMy9zdHJ0b2suMyB8IDUgKysrKysKIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2Vy
+dGlvbnMoKykKCmRpZmYgLS1naXQgYS9tYW4zL3N0cnRvay4zIGIvbWFuMy9zdHJ0b2suMwppbmRl
+eCA5MzNhN2I5NmMuLjg3NTRhMDIxNiAxMDA2NDQKLS0tIGEvbWFuMy9zdHJ0b2suMworKysgYi9t
+YW4zL3N0cnRvay4zCkBAIC0xOTcsNiArMTk3LDExIEBAIGlzIHJlcXVpcmVkIHRvIGJlIE5VTEwg
+b24gdGhlIGZpcnN0IGNhbGwgdG8KIC5CUiBzdHJ0b2tfciAoKQogdGhhdCBpcyBiZWluZyB1c2Vk
+IHRvIHBhcnNlCiAuSVIgc3RyIC4KKy5cIiBnbGliYy0yLjI1IGQ1OGFiODEwYTZlMzI1Y2MzNTE2
+ODRkMTc0YzQ4Y2FiY2UwMWJjYzEKK1NpbmNlIGdsaWJjLTIuMjUgdXNpbmcKKy5CUiBzdHJ0b2tf
+ciAoKQord2l0aCBzdHIgc2V0IHRvIE5VTEwgKGZvciB0aGUgMXN0IGNhbGwpIGlzIG5vdCBhbGxv
+d2VkIGFuZCBtYXkgcmVzdWx0IGluCitzZWdtZW50YXRpb24gZmF1bHQuCiAuU0ggQlVHUwogQmUg
+Y2F1dGlvdXMgd2hlbiB1c2luZyB0aGVzZSBmdW5jdGlvbnMuCiBJZiB5b3UgZG8gdXNlIHRoZW0s
+IG5vdGUgdGhhdDoKLS0gCjIuMTcuMQoK
+--000000000000ab8e4805a41cf5b3--
