@@ -2,63 +2,147 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B8CCE1B922C
-	for <lists+linux-man@lfdr.de>; Sun, 26 Apr 2020 19:41:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A6E421B989B
+	for <lists+linux-man@lfdr.de>; Mon, 27 Apr 2020 09:31:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726337AbgDZRlX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 26 Apr 2020 13:41:23 -0400
-Received: from mout.gmx.com ([74.208.4.200]:57903 "EHLO mout.gmx.com"
+        id S1726460AbgD0HbD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 27 Apr 2020 03:31:03 -0400
+Received: from mx01-sz.bfs.de ([194.94.69.67]:19644 "EHLO mx01-sz.bfs.de"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726304AbgDZRlX (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sun, 26 Apr 2020 13:41:23 -0400
-X-Greylist: delayed 314 seconds by postgrey-1.27 at vger.kernel.org; Sun, 26 Apr 2020 13:41:22 EDT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mail.com;
-        s=dbd5af2cbaf7; t=1587922880;
-        bh=BR32BkrzkX5LP4OENDGnfBhhBSgv5Z8sYIzTgOGtsg4=;
-        h=X-UI-Sender-Class:From:Subject:Date;
-        b=4oWMbriCEJR6pBNsLtsopD2QFgbpG1a1UXNC1zbbtUPyajkntDXyBSYH7/JYdFoa2
-         HS0uhtSZ0gU1flqqWBrgFoBci/+6HUJ7/w3pFeaECw8Xkd+oTGQ+mMR6j51SU/em/h
-         hFDNagnY7xckr5+vY+TRcPsQGMF4ZIKGtQ4QTnXQ=
-X-UI-Sender-Class: 214d933f-fd2f-45c7-a636-f5d79ae31a79
-Received: from [45.56.150.80] ([45.56.150.80]) by web-mail.mail.com
- (3c-app-mailcom-lxa03.server.lan [10.76.45.4]) (via HTTP); Sun, 26 Apr 2020
- 19:35:46 +0200
+        id S1726349AbgD0HbD (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 27 Apr 2020 03:31:03 -0400
+Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
+        by mx01-sz.bfs.de (Postfix) with ESMTPS id 80EFE20309;
+        Mon, 27 Apr 2020 09:31:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
+        t=1587972661;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=9B5f9GQOvWzuf0q7EgKBlTpkLpTlzDhu7Z/DG4VjYAk=;
+        b=xv2tKPPnV5MTBkDGEJuH4VOCuKsN1gIY2V63wcSmy9GlzMlxqqVjOEeIQ/k1yvd+ejOvRi
+        P282L4d9yDvT3QkzoEdYKBwFGundtF39L1pvcep94FpG6tGuqVPF7YWOssbYTqZZfsq8sR
+        1/+inSoHWmurGQylNE+2kejoE3PGF8Zy94jBnvZhDf5ES9pP6hJCep5AYvlcsvHemSGm1z
+        uiCN1raQ77dJu7W/FwbZODOsjm4AS3ruM3HN4vLdPeTGspvuI/Ead87n1T3UfeGGGPc6G0
+        1U9cZYIse/eUfE/7kuD/jePFDpXeE4t2Supd25slkZVMKm1AqPcelGCxDm81uw==
+Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
+ (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.1913.5; Mon, 27 Apr
+ 2020 09:31:01 +0200
+Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
+ SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%6]) with mapi id
+ 15.01.1913.005; Mon, 27 Apr 2020 09:31:01 +0200
+From:   Walter Harms <wharms@bfs.de>
+To:     Helge Kreutzmann <debian@helgefjell.de>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Subject: AW: Errors in man pages, here: man-pages(7): Wording
+Thread-Topic: Errors in man pages, here: man-pages(7): Wording
+Thread-Index: AQHWFhcyy+FxKVnN60uOUacrYZFR7qiBltaAgAmPO4CAAXX5xQ==
+Date:   Mon, 27 Apr 2020 07:31:01 +0000
+Message-ID: <e382704bcfe94db69f93ea5b40648d3b@bfs.de>
+References: <20200419064809.GA31093@Debian-50-lenny-64-minimal>
+ <8e7a241a-936f-829c-42f6-984ce82c4e20@gmail.com>,<20200426110025.GB2031@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200426110025.GB2031@Debian-50-lenny-64-minimal>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.137.16.40]
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Message-ID: <trinity-43161b49-1888-476c-8e1b-67f22a389459-1587922546529@3c-app-mailcom-lxa03>
-From:   "capital aiginvestment" <aigcapitalinvestments@consultant.com>
-Subject: HAVE YOU HEARD ABOUT AIG CAPITAL INVESTMENT
-Content-Type: text/plain; charset=UTF-8
-Date:   Sun, 26 Apr 2020 19:35:46 +0200
-Importance: normal
-Sensitivity: Normal
-X-Priority: 3
-X-Provags-ID: V03:K1:pOTTKWQHFQGFnpIEQFMia+BannC2Hf4hjD6U6BqbRoLLvugdLaDwPq4ic70JyDvQOR5d5
- Hlm08hsP6qNVuIWbis9Ga56blYEyS/H8vd5y0sF1wbr8Nq+jDNsVx0dBsITBEVYwd/exg9p2TIvh
- oGAuzqtO8BTtIG80BORR370xb1QotP6tpG9DQjCTfQCuBJZMx9E5vcptOvMUOsN/w5ZycxFavb1k
- yJiFFGdvLZaKi3/AXlRpCiZgTNVDT7NZR5/xYPfbNsuItY8uvxYje5v9f1iRAirgo6c8ws2uferA
- CA=
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:hFKhNBlO4p4=:MyDJRiBw0Mpbe7VLOSeeH5
- OheYA8l9clU71kVL04Ws/7/Agd+08Q9na3dIgPmDlIAGq4qXesYRRk6mNm/Jp6CEf61L9qZ3v
- hcmXf5xVEXS75gNVU5U7Mo9ZYVpXM3Wfu5roGepxRtOO+syeVtZr0dC7OFW9+Ep0jRRckiE/O
- X4osawvV9cKMc3gSogqkJYhBU9L7LzaL+A9ou/44JuvW2nVyQOzFZ7hhF4MNaAhJH0SbbWhV9
- SJhkaRGPnUVNmc4nQuAWwKuPoW/y03s/NNrmq5vwQHe6UU94QiE1gwMezEDVsdlJsEnT5t8Rt
- sJxqGu+/BFaUotfh8ZPsIosA7EWPTDUn605WmFwvZadhBXWQhtmT5wOPohZaxC56HrjWUoYJ5
- GlO3IMIXE55AX17fIi1y0t5mCm6cb9aI8iaqvqFRyMHqhsI1inMpWffBfi0SucObsBVVo8vED
- 0XNvxP3XLemTPLm/iFUx0sPWqmxsjlXnsrw1xs30fY7UjJfm2L7RZyE/TFFcfav+1mrQtV/gu
- hE7hCu2Ju/DWgJZqaC9aGY/GgmAm3sEtFX8FpkrBsQVlbDCoPqcDuziq83uSu0bTsHvx3NOft
- mNF7vOpw1kBheLGdab1nWGqAQ9QN6ADGQlX3vSvrFKP2fNqMgHgH83sX42Nb6epC+mbNJv6LM
- g37JONaS8zVzfKQZ5Al+ne8ZuCc8d0iVWJiK/bwDkaJCaR2Oaf0BcKeygKa3zx241AWHYk28e
- NbNltcvGEgolPpkw
-To:     unlisted-recipients:; (no To-header on input)
+X-Spam-Status: No, score=-2.03
+Authentication-Results: mx01-sz.bfs.de;
+        none
+X-Spamd-Result: default: False [-2.03 / 7.00];
+         ARC_NA(0.00)[];
+         TO_DN_EQ_ADDR_SOME(0.00)[];
+         HAS_XOIP(0.00)[];
+         FROM_HAS_DN(0.00)[];
+         RCPT_COUNT_THREE(0.00)[3];
+         TO_DN_SOME(0.00)[];
+         TO_MATCH_ENVRCPT_ALL(0.00)[];
+         TAGGED_RCPT(0.00)[];
+         MIME_GOOD(-0.10)[text/plain];
+         FREEMAIL_ENVRCPT(0.00)[gmail.com];
+         DKIM_SIGNED(0.00)[];
+         NEURAL_HAM(-0.00)[-0.951];
+         FREEMAIL_TO(0.00)[helgefjell.de,gmail.com];
+         RCVD_NO_TLS_LAST(0.10)[];
+         FROM_EQ_ENVFROM(0.00)[];
+         MIME_TRACE(0.00)[0:+];
+         RCVD_COUNT_TWO(0.00)[2];
+         MID_RHS_MATCH_FROM(0.00)[];
+         BAYES_HAM(-2.03)[95.21%]
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+> > "Overviews or descriptions of various topics, conventions and protocols=
+, "
+> > "character set standards, the standard filesystem layout, and miscellan=
+eous "
+> > "other things."
+
+I guess the author  would like to see something like this:
+(Section 7)
+
+"Overviews or descriptions of various topics, conventions and protocols lik=
+e:
+  "character set standards, standard filesystem layout, etc."
+
+Note the "like"
+
+hope that helps,
+
+re,
+ wh
 
 
-Available/Open Funding for Viable projects Worldwide. We fund $1 MUSD - $200 Billion USD early stage-start-up ventures, partnership email us at : www.aigcapitalinvestment.org
+________________________________________
+Von: linux-man-owner@vger.kernel.org <linux-man-owner@vger.kernel.org> im A=
+uftrag von Helge Kreutzmann <debian@helgefjell.de>
+Gesendet: Sonntag, 26. April 2020 13:00
+An: Michael Kerrisk (man-pages)
+Cc: linux-man@vger.kernel.org
+Betreff: Re: Errors in man pages, here: man-pages(7): Wording
 
-AIG CAPITAL INVESTMENT
+Hello Michael,
+On Mon, Apr 20, 2020 at 11:01:27AM +0200, Michael Kerrisk (man-pages) wrote=
+:
+> On 4/19/20 8:48 AM, Helge Kreutzmann wrote:
+> > **
+> >
+> > Wording:
 
+=85
+
+> > b)
+> > "Overviews or descriptions of various topics, conventions and protocols=
+, "
+> > "character set standards, the standard filesystem layout, and miscellan=
+eous "
+> > "other things."
+>
+> I need more explanation of the problem here.
+
+I reread it several times. I'm lost what the previous translator, who
+is no longer active, meant.
+
+I apologize for not having caught this one myself before reporting.
+
+Please close this sub issue.
+
+Greetings
+
+         Helge
+
+--
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.ph=
+p
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
