@@ -2,88 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 957F11BBC74
-	for <lists+linux-man@lfdr.de>; Tue, 28 Apr 2020 13:31:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9B8C61BC6E6
+	for <lists+linux-man@lfdr.de>; Tue, 28 Apr 2020 19:40:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726505AbgD1LbZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 28 Apr 2020 07:31:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34352 "EHLO
+        id S1728337AbgD1Rk3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 28 Apr 2020 13:40:29 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35838 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726482AbgD1LbZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 28 Apr 2020 07:31:25 -0400
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [IPv6:2001:4d48:ad52:3201:214:fdff:fe10:1be6])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 88E11C03C1A9;
-        Tue, 28 Apr 2020 04:31:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-        d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
-        Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
-        Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-        Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
-        List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-         bh=ylQbBiXQ1XZjJdtQzUusq8uMeJuZTJZ9b4+3voifqaU=; b=KL8eNcqbyZKTMuYIZogU6YA6F
-        DOr6EzB7OJWGOWDMIqAw1dh+FqW+g1aTLKcCQLzNoOWIZWS+BsxppaS+NpWxjjo00+6+Zuz5bk+x7
-        s+Nie7soMOwcCEbQk9FRh1gmWpqmZB86bP1L6Hp2Zsg8uH0UbEPpl5Rhh6n2R9SYU+Tvn7Nc6tCLR
-        E3R1wP4RRHOdzcD1y4fbcIxyWRkNOgtMCLHUCKA1/LDFnRrKRUbG7kABouKS7G6u4WXG5bpohOsJp
-        EfbPbRpeT1ywUu1DLI4TMCAvQ2g+ThJaDe9jREFrDNBjOe3E4F8k9YNFpHVagsJrg2VstCIyKIUln
-        X4GqpUTNw==;
-Received: from shell.armlinux.org.uk ([2001:4d48:ad52:3201:5054:ff:fe00:4ec]:45098)
-        by pandora.armlinux.org.uk with esmtpsa (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
-        (Exim 4.90_1)
-        (envelope-from <linux@armlinux.org.uk>)
-        id 1jTOSO-0000PW-8x; Tue, 28 Apr 2020 12:31:20 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
-        (envelope-from <linux@shell.armlinux.org.uk>)
-        id 1jTOSN-0007fQ-5e; Tue, 28 Apr 2020 12:31:19 +0100
-Date:   Tue, 28 Apr 2020 12:31:19 +0100
-From:   Russell King - ARM Linux admin <linux@armlinux.org.uk>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, netdev@vger.kernel.org
-Subject: connect(2) man page EACCES error (IPv6 usage)
-Message-ID: <20200428113118.GR25745@shell.armlinux.org.uk>
+        with ESMTP id S1728333AbgD1Rk3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 28 Apr 2020 13:40:29 -0400
+Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com [IPv6:2607:f8b0:4864:20::b4a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 80A50C03C1AB
+        for <linux-man@vger.kernel.org>; Tue, 28 Apr 2020 10:40:27 -0700 (PDT)
+Received: by mail-yb1-xb4a.google.com with SMTP id 186so7040495ybq.1
+        for <linux-man@vger.kernel.org>; Tue, 28 Apr 2020 10:40:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20161025;
+        h=mime-version:message-id:date:subject:from:to:cc;
+        bh=5JVlS+dGz9UEDNZ2Ft/3FVJi02eGUkP9LJyhkini1Bc=;
+        b=ti0eDJkRjNyjPTq/80phusgEX0/idq6kaa6Ba2hq1Zo+o97rHhPApRS6+sl/Owsqvv
+         GXBv9KC7WBVnNtJmF6VhQURJLmw0st0fpPAbB1eqKsK4wqI8D4tRi6hJ5hZ+cfs/q7iS
+         F9HmcCW1xKX/gPzCe7d04ZjYzHJqGsMrQYFCQnWmCouleFlj+49gUb49C9Js4LwWnu+w
+         50K217H/wpecTyUUW35evbWlbPWyspvU7Kf5o8klB3VgRik6U8L2VoWNsWOCx7fN2Jyj
+         f0BAc1n9AwxSVuzB2FbrUNPCG58BX1Gx9AGrFezfSY+EHhFFiIOi86OGJWeaXeMBzkcY
+         FheA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:message-id:date:subject:from:to:cc;
+        bh=5JVlS+dGz9UEDNZ2Ft/3FVJi02eGUkP9LJyhkini1Bc=;
+        b=DvIfVao5VHsumE5zhzWpYiSK3iQPllNOFwY/ZK4QyLhegl2LgZgJwSELhJjy6jL5nz
+         RbZw0w+k2Th1hdGcPoReS5dIt91Blr4K7DsRrKc7aKcfg6CcnTY4seJzEKfmQ/1s1Wi3
+         LBwL5SJ8TxfKWaRF3SVAvJ3fhVfaxiDKJRNBxfREoem1770TVi+vjLyqmmt8R6QBYZuh
+         8/CjtjGRODUPVEdWplwRQBFMrLs7EJoYDGR7oQUAZ+BrE70yjiT7m5p8pMidXdXlFaeH
+         qyQOjsvWGyioAwKIHDakar67mnU9eGkh3RnDAuWefa4HuM/5S0/8ZtAsEsXQLiR9a5Jz
+         fxeg==
+X-Gm-Message-State: AGi0PuYTaSV5xI1T/33We5FtBxXjuvQByBDiJfp+9fK7KWeIJqV3Ew3p
+        dIJIPqT+F7kt6JJAhesLkFx5oyc=
+X-Google-Smtp-Source: APiQypJywj4PinKKIJKaek9jmDr55jE+b61+fkv3bbg6T6ED8KHlDLaqo7HUD9XKdSqMBz3Od0r5tfI=
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Received: by 2002:a5b:351:: with SMTP id q17mr45989391ybp.428.1588095626633;
+ Tue, 28 Apr 2020 10:40:26 -0700 (PDT)
+Message-ID: <000000000000b27fc105a45d533e@google.com>
+Date:   Tue, 28 Apr 2020 17:40:26 +0000
+Subject: [PATCH] madvise.2: MADV_WIPEONFORK affects semantics
+From:   <agl@google.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, alangley@gmail.com
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi,
+Include MADV_WIPEONFORK in the list of advice values that have a
+semantic impact on the calling process.
+---
+  man2/madvise.2 | 4 +++-
+  1 file changed, 3 insertions(+), 1 deletion(-)
 
-While trying to work out a problem being reported in exim's logs,
-it has been found that an update to the connect(2) man page is
-needed to clear up the Linux kernel behaviour, which has been this
-way since at least the dawn of git history.
-
-The current connect(2) page, as per kernel.org, says:
-
-        EACCES For UNIX domain sockets, which are identified by pathname:
-               Write permission is denied on the socket file, or search
-               permission is denied for one of the directories in the path
-               prefix.  (See also path_resolution(7).)
-
-        EACCES, EPERM
-               The user tried to connect to a broadcast address without
-               having the socket broadcast flag enabled or the connection
-               request failed because of a local firewall rule.
-
-EACCES can also be returned from connect(2) due to a remote firewall
-rule as well, or due to one of several "destination unreachable" codes
-via the IPv6 protocol - please see: the tab_unreach array in
-net/ipv6/icmp6.h.  These codes are ADM_PROHIBITED, POLICY_FAIL, and
-REJECT_ROUTE.  Whether all these are appropriate for connect(2), I'm
-unsure.  However, ADM_PROHIBITED certainly is, and has been the cause
-of the issue I've been seeing with exim.
-
-Besides exim, it also appears if you use telnet to an IPv6 address
-which elicits an ADM_PROHIBITED destination unreachable response
-from some remote router/firewall.
-
-So, it is not true that it's only restricted to local firewall rules.
-
-Thanks.
-
+diff --git a/man2/madvise.2 b/man2/madvise.2
+index a0f3a477a..6c25f697a 100644
+--- a/man2/madvise.2
++++ b/man2/madvise.2
+@@ -84,21 +84,23 @@ values have been added.
+  The
+  .I advice
+  values listed below
+  allow an application to tell the kernel how it expects to use
+  some mapped or shared memory areas, so that the kernel can choose
+  appropriate read-ahead and caching techniques.
+  These
+  .I advice
+  values do not influence the semantics of the application
+  (except in the case of
+-.BR MADV_DONTNEED ),
++.BR MADV_DONTNEED
++and
++.BR MADV_WIPEONFORK ),
+  but may influence its performance.
+  All of the
+  .I advice
+  values listed here have analogs in the POSIX-specified
+  .BR posix_madvise (3)
+  function, and the values have the same meanings, with the exception of
+  .BR MADV_DONTNEED .
+  .PP
+  The advice is indicated in the
+  .I advice
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTC broadband for 0.8mile line in suburbia: sync at 10.2Mbps down 587kbps up
+2.26.0
+
