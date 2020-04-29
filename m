@@ -2,74 +2,109 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 715901BDF6F
-	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2020 15:47:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A9F6F1BE2AA
+	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2020 17:26:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727902AbgD2Nrd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 29 Apr 2020 09:47:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54692 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727097AbgD2Nrc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 29 Apr 2020 09:47:32 -0400
-Received: from mail-yb1-xb42.google.com (mail-yb1-xb42.google.com [IPv6:2607:f8b0:4864:20::b42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8E5DDC03C1AD
-        for <linux-man@vger.kernel.org>; Wed, 29 Apr 2020 06:47:32 -0700 (PDT)
-Received: by mail-yb1-xb42.google.com with SMTP id t9so1284235ybo.8
-        for <linux-man@vger.kernel.org>; Wed, 29 Apr 2020 06:47:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=+7jO7sxBpcV/XVu15SOoQiScuRn036rwQSSKlW7XY0k=;
-        b=J/YsfqlomP7EY7OrqWWYmEi/9Qt/LM5Ts96n2raa6yBYEIPvSdpxbr0q2H/3QVpdfO
-         oPp2EOdBDCZdqMSEq7OtaMtaUOJzvYcA3BSxac48mJ19wYpvkB4Uh5uFirveNGghE/U6
-         OfcNLbW7hIrPt5D0yB1J1XQD7RxuJMrSFkK+0UEjNBlkeTLp9B7iSy+1IvuFguq+c0s5
-         4yIzSE+bd3YHJVnIHc76CCzXRUf6pPIur7Qe4ebmk0i6gQvI9zT5Tw+pX8Y38hmSj37u
-         snjYE0n7+WpT0JwJi5NxIVmOcXJNgIazmNkcnXEZ6XPSkZJXbi49wR/rXF8QKIPU/6oc
-         rjhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=+7jO7sxBpcV/XVu15SOoQiScuRn036rwQSSKlW7XY0k=;
-        b=lxdiNC5Eha1wjAo00p1Wh+s5N01NPidXwkauxZR2LvAPbLhy6EbDIAt+TCwPxPBvKV
-         njLBASOlmg9K/0lB3/Y/to528lZqH0WKra94ePOGCsuE2JvtFLYXhrhvcSle98mMD/RX
-         N+zGF8auWXEkzLgjEIEewd58/u/4wVHbryaZSfgSWUDoPPY7zT2n0K0cFqEONQyY79rz
-         ce2aAZFHH2pE7ZmvYF3PSfUULrptHT1Khgazt9tSqL9qI+X4Fn/s3MhkRq/HxZN2x3+g
-         +afac2zFoAdC/C/p+JxDRtjgvpR8sy+igRiVv4KldD7BAqGcnB5S1ZPLApFlJDLSs8u8
-         absg==
-X-Gm-Message-State: AGi0PuZfBaS1SMINoEZ/KJylzCIsY+D3x/7OaCeyJa2xP7/9v+4X7Qni
-        8rvR24lnaL3CyAi05u/AHHemB5wVTkAz7SxaxQrDLw==
-X-Google-Smtp-Source: APiQypLxqmpm+7JueofSlgFEXHsnU9UpSoN3ZeFbDco12iif+qUaHvpxNMVwcfmfnxqrSpVPEFFZg9DuV/GgSs1Zci0=
-X-Received: by 2002:a25:afd0:: with SMTP id d16mr54987615ybj.441.1588168051517;
- Wed, 29 Apr 2020 06:47:31 -0700 (PDT)
+        id S1726654AbgD2P0i (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 29 Apr 2020 11:26:38 -0400
+Received: from esa3.hc253-53.ap.iphmx.com ([139.138.31.193]:30078 "EHLO
+        esa3.hc253-53.ap.iphmx.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1726539AbgD2P0h (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 29 Apr 2020 11:26:37 -0400
+X-Greylist: delayed 430 seconds by postgrey-1.27 at vger.kernel.org; Wed, 29 Apr 2020 11:26:35 EDT
+IronPort-SDR: fWwrSSAcERJExBcqjVM9GUDZiJy3boehJa6agHl3WRB1OeyD/1YbgXKijjCRR4kpZURxjsQkX5
+ EsTm/yrX9TGrMnSXAl8ErA0eKPS0nIPyZ35l8Rklt3YeKGwNFH3qRAoFP26lDaz1160VUMCHO7
+ hsz6gafMa7myhFZjabH88c8hKtnxLVeXrOHjafe0zKcGkLVNwwuVfMTooWS8bAFCK4i0rMul27
+ jrqlaq2FaTS50m6r4wUpXIJux+0FZ3M9vlRgjJvnJfOdqTVWyPStauUaXEwvpxa+U/JtstlPBy
+ WtA=
+IronPort-PHdr: =?us-ascii?q?9a23=3Ah7VoUxJ371HbOKqAJdmcpTZWNBhigK39O0sv0r?=
+ =?us-ascii?q?FitYgeLfjxwZ3uMQTl6Ol3ixeRBMOHsq8C1bGd4/2ocFdDyK7JiGoFfp1IWk?=
+ =?us-ascii?q?1NouQttCtkPvS4D1bmJuXhdS0wEZcKflZk+3amLRodQ56mNBXdrXKo8DEdBA?=
+ =?us-ascii?q?j0OxZrKeTpAI7SiNm82/yv95HJbAhEmTqwbalzIRi4ognctckbipZ+J6gszR?=
+ =?us-ascii?q?fEvmFGcPlMy2NyIlKTkRf85sOu85Nm7i9dpfEv+dNeXKvjZ6g3QqBWAzogM2?=
+ =?us-ascii?q?Au+c3krgLDQheV5nsdSWoZjBxFCBXY4R7gX5fxtiz6tvdh2CSfIMb7Q6w4VS?=
+ =?us-ascii?q?ik4qx2ThLjlSUJOCMj8GzPhMJ+jLxVrg+iqRNxzIHbfJqYNOZicq/BYd8WWX?=
+ =?us-ascii?q?BMUthXWidcAo28dYwPD+8ZMOhWtYb9uVoOogajDgSwGezg0DpIjWLx0Kw7ye?=
+ =?us-ascii?q?shFx3J3Aw+ENMOq3nUscn6O7sIXeC60anE1yjDbv1M1jvn9ofHbw0hreuWUr?=
+ =?us-ascii?q?JtaMfcz1QkGAzZgFuKs4PlIy+V2foXs2id9+dtWv+jhmAjpgxzvjWix8ghh5?=
+ =?us-ascii?q?fXi48U113J6yZ0zYg0KNGmS0N2YMKoHZpMuyyUN4Z7TMcvT3xstSs017ELto?=
+ =?us-ascii?q?O2cS4Xw5ok3x7Sc+GLfoaU7h75UOucIS10iG97dL+8nRq+71Ssx+/kWsWp3l?=
+ =?us-ascii?q?tGsjBJn93Mu3wXyhDe5NKLR/l780y8wziAzRrT5ftBIU0skKrbLIMuzaAom5?=
+ =?us-ascii?q?oItETDAjf2mELrjK+Kbkkk+van6+DgYrj+o5+cMIh0igfgPaUuhMOzG/k4PR?=
+ =?us-ascii?q?QSUGSB9uS8yafv/VD3QbpQlPE5jLTWsI3AKcsBu661Gw5V0oA95BajFzqqzd?=
+ =?us-ascii?q?oVkWUdIF9BeB+LlZXlN0/NLfziE/uzn1ahnC9ux//cP73hBpvNLmLEkLfkZb?=
+ =?us-ascii?q?t86lRTyAwvwtBf+Z1VCqoMIO/vVUDtrtDYAQI5Pxapw+fpEtpxzJ0RVn+SAq?=
+ =?us-ascii?q?ODKqzSrEeE5vgzLOmUeI8VpDH9JuAh5/7vi385hFAccbCs3ZQNbnC1BepmI0?=
+ =?us-ascii?q?qHbnr2mNsBEnkFvhA4TOP0jF2OSzlTZ2y9X/F02jZuDZ6lS4LKQJikj7Ga9C?=
+ =?us-ascii?q?i+F5xSIGtBDwOiC3DtIqmNRfYAIAueK8opxi4NU7OhRp4JyBql8gDnjad4J6?=
+ =?us-ascii?q?zZ9jBevI+1h4s93PHaiRxnrW88NM+ayWzYF2w=3D?=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2FJAgAWmqlemM+AX4JmHgEBCxIMQIE?=
+ =?us-ascii?q?8C4NtAR8SKo0ihkwGgRKKKY9bgXsCCQEBAQEBAQEBAQgvBAEBAoRCglQ2Bw4?=
+ =?us-ascii?q?CAwEBAQMCBQEBBgEBAQEBAQQEAQECEAEBAQEBCAsLBikLAQEHCgIBhE4hBAE?=
+ =?us-ascii?q?BBQoBNwyCOyJ3fgEBAQEBAQEBAQEBAQEBAQEBAQEWAhRUZBYoBgEBNwGBDEQ?=
+ =?us-ascii?q?igwSCWCWldAGBKD4CIwE/AQyBBYl+gTSDAAEBBYYNCYFECYE4iyOBOHmBB4F?=
+ =?us-ascii?q?EiDaFJZlFmHSCTwSYIIJKAZo8rTqBWQdVgS0zGggXGYMkUBgNkjsaghKMKTQ?=
+ =?us-ascii?q?BMgI0AgYIAQEDCZJqAQE?=
+X-IPAS-Result: =?us-ascii?q?A2FJAgAWmqlemM+AX4JmHgEBCxIMQIE8C4NtAR8SKo0ih?=
+ =?us-ascii?q?kwGgRKKKY9bgXsCCQEBAQEBAQEBAQgvBAEBAoRCglQ2Bw4CAwEBAQMCBQEBB?=
+ =?us-ascii?q?gEBAQEBAQQEAQECEAEBAQEBCAsLBikLAQEHCgIBhE4hBAEBBQoBNwyCOyJ3f?=
+ =?us-ascii?q?gEBAQEBAQEBAQEBAQEBAQEBAQEWAhRUZBYoBgEBNwGBDEQigwSCWCWldAGBK?=
+ =?us-ascii?q?D4CIwE/AQyBBYl+gTSDAAEBBYYNCYFECYE4iyOBOHmBB4FEiDaFJZlFmHSCT?=
+ =?us-ascii?q?wSYIIJKAZo8rTqBWQdVgS0zGggXGYMkUBgNkjsaghKMKTQBMgI0AgYIAQEDC?=
+ =?us-ascii?q?ZJqAQE?=
+Received: from f5-new.net.uwa.edu.au (HELO mooneye.ucc.gu.uwa.edu.au) ([130.95.128.207])
+  by esa3.hc253-53.ap.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Apr 2020 23:19:23 +0800
+Received: by mooneye.ucc.gu.uwa.edu.au (Postfix, from userid 801)
+        id B5E453C077; Wed, 29 Apr 2020 23:19:22 +0800 (AWST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ucc.gu.uwa.edu.au;
+        s=ucc-2016-3; t=1588173562;
+        bh=BQ9l6t59THpnqf5f4rHtKKK1nkMAJWjSVnXIVkRTcLA=;
+        h=Date:From:To:cc:Subject:From;
+        b=l1xJHSL38mw3iuJkX43tygkHxWt10lrL2C1Bjr4XJ6pnlLCmrJVCDFTw2o+mrXBFN
+         EcRUSUPKyobh5mMbGur3zn9mbJxl7zOk8rK/xJ3awIm97zvW/1BG4LqPphId3GG+wm
+         sYY7sCgw4DzgqGilVWE4xyVQ78zjjM3pHkdsGysY=
+Received: from motsugo.ucc.gu.uwa.edu.au (motsugo.ucc.gu.uwa.edu.au [130.95.13.7])
+        by mooneye.ucc.gu.uwa.edu.au (Postfix) with ESMTP id 644263C077;
+        Wed, 29 Apr 2020 23:19:22 +0800 (AWST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ucc.gu.uwa.edu.au;
+        s=ucc-2016-3; t=1588173562;
+        bh=BQ9l6t59THpnqf5f4rHtKKK1nkMAJWjSVnXIVkRTcLA=;
+        h=Date:From:To:cc:Subject:From;
+        b=l1xJHSL38mw3iuJkX43tygkHxWt10lrL2C1Bjr4XJ6pnlLCmrJVCDFTw2o+mrXBFN
+         EcRUSUPKyobh5mMbGur3zn9mbJxl7zOk8rK/xJ3awIm97zvW/1BG4LqPphId3GG+wm
+         sYY7sCgw4DzgqGilVWE4xyVQ78zjjM3pHkdsGysY=
+Received: by motsugo.ucc.gu.uwa.edu.au (Postfix, from userid 11251)
+        id 4D2A7200CE; Wed, 29 Apr 2020 23:19:22 +0800 (AWST)
+Received: from localhost (localhost [127.0.0.1])
+        by motsugo.ucc.gu.uwa.edu.au (Postfix) with ESMTP id 44991200BE;
+        Wed, 29 Apr 2020 23:19:22 +0800 (AWST)
+Date:   Wed, 29 Apr 2020 23:19:22 +0800 (AWST)
+From:   David Adam <zanchey@ucc.gu.uwa.edu.au>
+To:     mtk.manpages@gmail.com
+cc:     linux-man@vger.kernel.org
+Subject: Missing magic number in statfs(2) et al
+Message-ID: <alpine.DEB.2.22.394.2004292313100.1336@motsugo.ucc.gu.uwa.edu.au>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-References: <000000000000b27fc105a45d533e@google.com> <20200428180942.qwjjmp2e5sbx3opn@jwilk.net>
-In-Reply-To: <20200428180942.qwjjmp2e5sbx3opn@jwilk.net>
-From:   Adam Langley <agl@google.com>
-Date:   Wed, 29 Apr 2020 06:47:14 -0700
-Message-ID: <CAL9PXLyFdHT1tiUKGcet-e8yC6xfO5A54zN6sfO4NA4q0ovy7g@mail.gmail.com>
-Subject: Re: [PATCH] madvise.2: MADV_WIPEONFORK affects semantics
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org, Adam Langley <alangley@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Apr 28, 2020 at 11:09 AM Jakub Wilk <jwilk@jwilk.net> wrote:
-> This sentence is in the "Conventional advice value" subsection, which
-> defines only MADV_NORMAL, MADV_RANDOM, MADV_SEQUENTIAL, MADV_WILLNEED,
-> and MADV_DONTNEED.
->
-> MADV_WIPEONFORK is defined in the "Linux-specific advice values"
-> subsection, which already notes that "some of these operations change
-> the semantics of memory accesses". (Perhaps s/some/most/ would be better
-> wording.)
+Hi,
 
-Ah, thank you! Now that I look with that in mind, it makes sense.
+The statfs(2) page is missing the magic number for SMB2:
 
+SMB2_MAGIC_NUMBER 0xFE534D42
 
-AGL
+This is defined in fs/cifs/smb2glob.h .
+
+Perhaps it could be added. It being so numerically close to 
+CIFS_MAGIC_NUMBER, coupled with `mount.cifs` producing an SMB2 mount (even 
+though `mount` still reports a CIFS type), has sent me a little wild over 
+the last few weeks.
+
+David Adam
+zanchey@ucc.gu.uwa.edu.au
