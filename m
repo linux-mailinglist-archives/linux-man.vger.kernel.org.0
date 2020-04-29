@@ -2,92 +2,104 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6A3831BE7BE
-	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2020 21:51:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1847D1BE7C0
+	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2020 21:51:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726743AbgD2Tt4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 29 Apr 2020 15:49:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55388 "EHLO
+        id S1726554AbgD2TvS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 29 Apr 2020 15:51:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55608 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1726481AbgD2Ttz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 29 Apr 2020 15:49:55 -0400
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7CA86C03C1AE
-        for <linux-man@vger.kernel.org>; Wed, 29 Apr 2020 12:49:55 -0700 (PDT)
-Received: by mail-wm1-x32a.google.com with SMTP id g12so3387755wmh.3
-        for <linux-man@vger.kernel.org>; Wed, 29 Apr 2020 12:49:55 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1726456AbgD2TvS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 29 Apr 2020 15:51:18 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 767A9C03C1AE
+        for <linux-man@vger.kernel.org>; Wed, 29 Apr 2020 12:51:16 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id j2so4021497wrs.9
+        for <linux-man@vger.kernel.org>; Wed, 29 Apr 2020 12:51:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Ls6wVRVjx1/a2ELfxdgNRkwcpaPU/N4K2nMG+wCtfVM=;
-        b=EzQjhElKbTXm+LwxlGecFls04HBvE1kh5bzrm2uwkga3HOJH1peqUmvrYVTyojFhIE
-         6X8NdHBSfFRSqvvk63wMttMkny10ux7LDcBxVPxzXdUj+9KHPmCtXD0atys3zdUAYyEd
-         dZb2Rax1RejC3FFsEqRMYmJHtrAGZVofS0+u5aGmtvzCMVJeOdO9Q5jD4WuHK/+X5R+s
-         IesYZAXDWUxlExpvN3g/4Z6FQXwyO8NT0qAi7QQ/dXlAVvXMwXOq+qhW6Pi6FdXepuS8
-         xS8j5Ze7bqll8n7aNPZtHNxFrNpmBtZe1fqblnLa3/1CbokKrfLf9w9R3e1WxsFvqbsQ
-         NlKg==
+        bh=ObpSAhGq/CFepJGYn7cYTaiCGDsjtsZXWlMg8QDLc14=;
+        b=JJbiPQiqo56O9VK0Ns4AqogmSBg2NVYIfi06v96dJM5OTyVGPxG6gO5Qpy2SAIQSn4
+         1BhZS0z5YpEJtTwGdtdJijUhG+BhZ3ke4jC+LLeLkIqN5ERq2WuZrTd6/3uLZ3LBh5sf
+         K3lV/SdV0OpWdmISG4+3L1esPBEfwQ6U8XO6BXNdUbtm/wU9MFOuPKoWMzOWuP2KEkDR
+         rZrxpBAMPlRLLseYzBhI+GpspWikmJyz5oV2/JM+7RSHNkoesTE77TArh3l+7kBUtU2c
+         d2wwl074eOJJRfnsmYX+oZ0RlQo89qlegRjBEIlySkEAVPwZRQq3nxSduUKigFUuitZd
+         P/lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=Ls6wVRVjx1/a2ELfxdgNRkwcpaPU/N4K2nMG+wCtfVM=;
-        b=itY7lun11Mz6xVYiXHlxqSoi9hyrGAMxQO1Vy9hUntK9dyXy69b63NUL10Hf1a5aDC
-         OFhO5WR/iinCJ1z5vNNt4miDXJnCgcTdrKAk3azZudkMau5Pm8HOYkI1EKm+KJ56ocEN
-         HP/JlUdQdkERsO+mLb+Qsgl2iBNPtQzrbDc4hXSCRS5JzmZ9YBCteecY7IynprwWVUMB
-         /9l5J7sxAB5HZrl/JtqELK+G/CEy7H7TznW1ROUPeAB+hijuY2FNfbcagghlnjPyOE/l
-         djJqN43h+De+PS9/9lELqOJhzoxUSTdR3gAzGY/QoGMY6myOc6qtocDBkw59awghXNRl
-         7qfQ==
-X-Gm-Message-State: AGi0PuYTvOwImtXPgDLvhG2tk6Yi62oFMpp7vVSdCtGVP06mlLwb6c8M
-        /tKD2jvukv+3Q34qtCoQLlEEeqIR
-X-Google-Smtp-Source: APiQypLNdvteGoNgMjHpQMUmYeY0XUrieKaAqfDjdO/SUH9y769JtLf7ajA3LhGFJiH+TwYE/aNqsQ==
-X-Received: by 2002:a7b:cbc6:: with SMTP id n6mr5359983wmi.155.1588189793998;
-        Wed, 29 Apr 2020 12:49:53 -0700 (PDT)
+        bh=ObpSAhGq/CFepJGYn7cYTaiCGDsjtsZXWlMg8QDLc14=;
+        b=A6Ab+M9p5YfD21IRbwM4HSlHIwG1LI6Jy+LIJZLOdfcnICDVxnh5ZoPdkFLQIdwe8B
+         49GHqWLeAvWHXsM092nLsGXPPaoBEm9CN99Wgvs1DKofkZTo+59r+7T9x/9VFigIkEHG
+         NV5RMABFsWHZ6vEYF13Bv58zSA2002VMLT+7ljgmtZfoF5/hBR4zlca8WkFWyUmufJsp
+         VbwG7Q9TKoiEg56b0qizbJhgzZ0/8rNsltZk1WTvGqsLZIxyGn4orsk2eJbO9j53b5Yc
+         0euQOLmiMn/oKyMVhQntynwwmjPUmV814ehLocRKbdlTSPf4gCV0q24eeTCfeYJUTyTp
+         JJrQ==
+X-Gm-Message-State: AGi0PubUfr9YoKdIvK39Ehtw7+/b/gVCIvqBV74SNsbXJx12BgRsii3V
+        JwuZYpOSRu+wfF92wvsBxvi20ONx
+X-Google-Smtp-Source: APiQypIfnmVH0a+P6Z27XZTEyte7Kuv60sFHochw/0+JdHdUYmfY9qrnnUaRPZrFWNq/kA2H3ZH7SA==
+X-Received: by 2002:a5d:4252:: with SMTP id s18mr40187320wrr.367.1588189875118;
+        Wed, 29 Apr 2020 12:51:15 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2482:101:3351:6160:8173:cc31? ([2001:a61:2482:101:3351:6160:8173:cc31])
-        by smtp.gmail.com with ESMTPSA id 91sm462197wra.37.2020.04.29.12.49.53
+        by smtp.gmail.com with ESMTPSA id s12sm8804683wmc.7.2020.04.29.12.51.14
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Apr 2020 12:49:53 -0700 (PDT)
+        Wed, 29 Apr 2020 12:51:14 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Missing magic number in statfs(2) et al
-To:     David Adam <zanchey@ucc.gu.uwa.edu.au>
-References: <alpine.DEB.2.22.394.2004292313100.1336@motsugo.ucc.gu.uwa.edu.au>
+Subject: Re: [PATCH] execve.2: clarify signal sent to the process on late
+ failure
+To:     nforro@redhat.com
+References: <c3c73e5e62c5981f3e21de0febe3d651bc95a6d8.camel@redhat.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <13354325-5043-cfaa-e5b6-2eb950a96386@gmail.com>
-Date:   Wed, 29 Apr 2020 21:49:51 +0200
+Message-ID: <64d7c699-1940-bd17-99fa-24d4d7aa18b2@gmail.com>
+Date:   Wed, 29 Apr 2020 21:51:14 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.22.394.2004292313100.1336@motsugo.ucc.gu.uwa.edu.au>
+In-Reply-To: <c3c73e5e62c5981f3e21de0febe3d651bc95a6d8.camel@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Gidday David,
+Hello Nikola,
 
-On 4/29/20 5:19 PM, David Adam wrote:
-> Hi,
-> 
-> The statfs(2) page is missing the magic number for SMB2:
-> 
-> SMB2_MAGIC_NUMBER 0xFE534D42
-> 
-> This is defined in fs/cifs/smb2glob.h .
-> 
-> Perhaps it could be added. It being so numerically close to 
-> CIFS_MAGIC_NUMBER, coupled with `mount.cifs` producing an SMB2 mount (even 
-> though `mount` still reports a CIFS type), has sent me a little wild over 
-> the last few weeks.
+On 4/29/20 5:30 PM, Nikola Forró wrote:
+> Signed-off-by: Nikola Forró <nforro@redhat.com>
 
-Added!
+Thanks. patch applied.
 
-Thanks,
+Cheers,
 
 Michael
+
+> ---
+>  man2/execve.2 | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/man2/execve.2 b/man2/execve.2
+> index ab5843840..109c0d57d 100644
+> --- a/man2/execve.2
+> +++ b/man2/execve.2
+> @@ -640,7 +640,10 @@ failure may occur past the point of no return:
+>  the original executable image has been torn down,
+>  but the new image could not be completely built.
+>  In such cases, the kernel kills the process with a
+> -.BR SIGKILL
+> +.\" commit 19d860a140beac48a1377f179e693abe86a9dac9
+> +.BR SIGSEGV
+> +.RB ( SIGKILL
+> +until Linux 3.17)
+>  signal.
+>  .\"
+>  .SS Interpreter scripts
+> 
 
 
 -- 
