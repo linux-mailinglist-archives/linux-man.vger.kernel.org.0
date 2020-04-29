@@ -2,109 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A9F6F1BE2AA
-	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2020 17:26:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1C2B81BE2BD
+	for <lists+linux-man@lfdr.de>; Wed, 29 Apr 2020 17:30:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726654AbgD2P0i (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 29 Apr 2020 11:26:38 -0400
-Received: from esa3.hc253-53.ap.iphmx.com ([139.138.31.193]:30078 "EHLO
-        esa3.hc253-53.ap.iphmx.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726539AbgD2P0h (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 29 Apr 2020 11:26:37 -0400
-X-Greylist: delayed 430 seconds by postgrey-1.27 at vger.kernel.org; Wed, 29 Apr 2020 11:26:35 EDT
-IronPort-SDR: fWwrSSAcERJExBcqjVM9GUDZiJy3boehJa6agHl3WRB1OeyD/1YbgXKijjCRR4kpZURxjsQkX5
- EsTm/yrX9TGrMnSXAl8ErA0eKPS0nIPyZ35l8Rklt3YeKGwNFH3qRAoFP26lDaz1160VUMCHO7
- hsz6gafMa7myhFZjabH88c8hKtnxLVeXrOHjafe0zKcGkLVNwwuVfMTooWS8bAFCK4i0rMul27
- jrqlaq2FaTS50m6r4wUpXIJux+0FZ3M9vlRgjJvnJfOdqTVWyPStauUaXEwvpxa+U/JtstlPBy
- WtA=
-IronPort-PHdr: =?us-ascii?q?9a23=3Ah7VoUxJ371HbOKqAJdmcpTZWNBhigK39O0sv0r?=
- =?us-ascii?q?FitYgeLfjxwZ3uMQTl6Ol3ixeRBMOHsq8C1bGd4/2ocFdDyK7JiGoFfp1IWk?=
- =?us-ascii?q?1NouQttCtkPvS4D1bmJuXhdS0wEZcKflZk+3amLRodQ56mNBXdrXKo8DEdBA?=
- =?us-ascii?q?j0OxZrKeTpAI7SiNm82/yv95HJbAhEmTqwbalzIRi4ognctckbipZ+J6gszR?=
- =?us-ascii?q?fEvmFGcPlMy2NyIlKTkRf85sOu85Nm7i9dpfEv+dNeXKvjZ6g3QqBWAzogM2?=
- =?us-ascii?q?Au+c3krgLDQheV5nsdSWoZjBxFCBXY4R7gX5fxtiz6tvdh2CSfIMb7Q6w4VS?=
- =?us-ascii?q?ik4qx2ThLjlSUJOCMj8GzPhMJ+jLxVrg+iqRNxzIHbfJqYNOZicq/BYd8WWX?=
- =?us-ascii?q?BMUthXWidcAo28dYwPD+8ZMOhWtYb9uVoOogajDgSwGezg0DpIjWLx0Kw7ye?=
- =?us-ascii?q?shFx3J3Aw+ENMOq3nUscn6O7sIXeC60anE1yjDbv1M1jvn9ofHbw0hreuWUr?=
- =?us-ascii?q?JtaMfcz1QkGAzZgFuKs4PlIy+V2foXs2id9+dtWv+jhmAjpgxzvjWix8ghh5?=
- =?us-ascii?q?fXi48U113J6yZ0zYg0KNGmS0N2YMKoHZpMuyyUN4Z7TMcvT3xstSs017ELto?=
- =?us-ascii?q?O2cS4Xw5ok3x7Sc+GLfoaU7h75UOucIS10iG97dL+8nRq+71Ssx+/kWsWp3l?=
- =?us-ascii?q?tGsjBJn93Mu3wXyhDe5NKLR/l780y8wziAzRrT5ftBIU0skKrbLIMuzaAom5?=
- =?us-ascii?q?oItETDAjf2mELrjK+Kbkkk+van6+DgYrj+o5+cMIh0igfgPaUuhMOzG/k4PR?=
- =?us-ascii?q?QSUGSB9uS8yafv/VD3QbpQlPE5jLTWsI3AKcsBu661Gw5V0oA95BajFzqqzd?=
- =?us-ascii?q?oVkWUdIF9BeB+LlZXlN0/NLfziE/uzn1ahnC9ux//cP73hBpvNLmLEkLfkZb?=
- =?us-ascii?q?t86lRTyAwvwtBf+Z1VCqoMIO/vVUDtrtDYAQI5Pxapw+fpEtpxzJ0RVn+SAq?=
- =?us-ascii?q?ODKqzSrEeE5vgzLOmUeI8VpDH9JuAh5/7vi385hFAccbCs3ZQNbnC1BepmI0?=
- =?us-ascii?q?qHbnr2mNsBEnkFvhA4TOP0jF2OSzlTZ2y9X/F02jZuDZ6lS4LKQJikj7Ga9C?=
- =?us-ascii?q?i+F5xSIGtBDwOiC3DtIqmNRfYAIAueK8opxi4NU7OhRp4JyBql8gDnjad4J6?=
- =?us-ascii?q?zZ9jBevI+1h4s93PHaiRxnrW88NM+ayWzYF2w=3D?=
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2FJAgAWmqlemM+AX4JmHgEBCxIMQIE?=
- =?us-ascii?q?8C4NtAR8SKo0ihkwGgRKKKY9bgXsCCQEBAQEBAQEBAQgvBAEBAoRCglQ2Bw4?=
- =?us-ascii?q?CAwEBAQMCBQEBBgEBAQEBAQQEAQECEAEBAQEBCAsLBikLAQEHCgIBhE4hBAE?=
- =?us-ascii?q?BBQoBNwyCOyJ3fgEBAQEBAQEBAQEBAQEBAQEBAQEWAhRUZBYoBgEBNwGBDEQ?=
- =?us-ascii?q?igwSCWCWldAGBKD4CIwE/AQyBBYl+gTSDAAEBBYYNCYFECYE4iyOBOHmBB4F?=
- =?us-ascii?q?EiDaFJZlFmHSCTwSYIIJKAZo8rTqBWQdVgS0zGggXGYMkUBgNkjsaghKMKTQ?=
- =?us-ascii?q?BMgI0AgYIAQEDCZJqAQE?=
-X-IPAS-Result: =?us-ascii?q?A2FJAgAWmqlemM+AX4JmHgEBCxIMQIE8C4NtAR8SKo0ih?=
- =?us-ascii?q?kwGgRKKKY9bgXsCCQEBAQEBAQEBAQgvBAEBAoRCglQ2Bw4CAwEBAQMCBQEBB?=
- =?us-ascii?q?gEBAQEBAQQEAQECEAEBAQEBCAsLBikLAQEHCgIBhE4hBAEBBQoBNwyCOyJ3f?=
- =?us-ascii?q?gEBAQEBAQEBAQEBAQEBAQEBAQEWAhRUZBYoBgEBNwGBDEQigwSCWCWldAGBK?=
- =?us-ascii?q?D4CIwE/AQyBBYl+gTSDAAEBBYYNCYFECYE4iyOBOHmBB4FEiDaFJZlFmHSCT?=
- =?us-ascii?q?wSYIIJKAZo8rTqBWQdVgS0zGggXGYMkUBgNkjsaghKMKTQBMgI0AgYIAQEDC?=
- =?us-ascii?q?ZJqAQE?=
-Received: from f5-new.net.uwa.edu.au (HELO mooneye.ucc.gu.uwa.edu.au) ([130.95.128.207])
-  by esa3.hc253-53.ap.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Apr 2020 23:19:23 +0800
-Received: by mooneye.ucc.gu.uwa.edu.au (Postfix, from userid 801)
-        id B5E453C077; Wed, 29 Apr 2020 23:19:22 +0800 (AWST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ucc.gu.uwa.edu.au;
-        s=ucc-2016-3; t=1588173562;
-        bh=BQ9l6t59THpnqf5f4rHtKKK1nkMAJWjSVnXIVkRTcLA=;
-        h=Date:From:To:cc:Subject:From;
-        b=l1xJHSL38mw3iuJkX43tygkHxWt10lrL2C1Bjr4XJ6pnlLCmrJVCDFTw2o+mrXBFN
-         EcRUSUPKyobh5mMbGur3zn9mbJxl7zOk8rK/xJ3awIm97zvW/1BG4LqPphId3GG+wm
-         sYY7sCgw4DzgqGilVWE4xyVQ78zjjM3pHkdsGysY=
-Received: from motsugo.ucc.gu.uwa.edu.au (motsugo.ucc.gu.uwa.edu.au [130.95.13.7])
-        by mooneye.ucc.gu.uwa.edu.au (Postfix) with ESMTP id 644263C077;
-        Wed, 29 Apr 2020 23:19:22 +0800 (AWST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ucc.gu.uwa.edu.au;
-        s=ucc-2016-3; t=1588173562;
-        bh=BQ9l6t59THpnqf5f4rHtKKK1nkMAJWjSVnXIVkRTcLA=;
-        h=Date:From:To:cc:Subject:From;
-        b=l1xJHSL38mw3iuJkX43tygkHxWt10lrL2C1Bjr4XJ6pnlLCmrJVCDFTw2o+mrXBFN
-         EcRUSUPKyobh5mMbGur3zn9mbJxl7zOk8rK/xJ3awIm97zvW/1BG4LqPphId3GG+wm
-         sYY7sCgw4DzgqGilVWE4xyVQ78zjjM3pHkdsGysY=
-Received: by motsugo.ucc.gu.uwa.edu.au (Postfix, from userid 11251)
-        id 4D2A7200CE; Wed, 29 Apr 2020 23:19:22 +0800 (AWST)
-Received: from localhost (localhost [127.0.0.1])
-        by motsugo.ucc.gu.uwa.edu.au (Postfix) with ESMTP id 44991200BE;
-        Wed, 29 Apr 2020 23:19:22 +0800 (AWST)
-Date:   Wed, 29 Apr 2020 23:19:22 +0800 (AWST)
-From:   David Adam <zanchey@ucc.gu.uwa.edu.au>
+        id S1726940AbgD2Pa0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 29 Apr 2020 11:30:26 -0400
+Received: from us-smtp-1.mimecast.com ([205.139.110.61]:34542 "EHLO
+        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1726937AbgD2PaZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 29 Apr 2020 11:30:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1588174224;
+        h=from:from:reply-to:reply-to:subject:subject:date:date:
+         message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+         content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+        bh=pyVihXpc0fRxDAIThwYrUg/Y2na6NSmKhtuGpVqZ2Qc=;
+        b=GstKxl8CiuNLpIKMlNUHfkAFqaWu+tLTi0jcX4OtG+tm6xZQf1SVTAFcZ395ZqIhqTEsCO
+        IzpjhaASa85HwpxqcoD1diHYU31r9a+Vf9jANTPSkTWHefrFxQlWh4Fd3k9yQ9qMRUt+XA
+        aqZlp5Tvw911DXiYgJHvfPXNjT2s/5Q=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-70-r4IeNxRCOPKIURQ95CgeSA-1; Wed, 29 Apr 2020 11:30:22 -0400
+X-MC-Unique: r4IeNxRCOPKIURQ95CgeSA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A90C219057BE;
+        Wed, 29 Apr 2020 15:30:21 +0000 (UTC)
+Received: from unused-4-132.brq.redhat.com (unknown [10.40.192.31])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id E3FC6510E9;
+        Wed, 29 Apr 2020 15:30:20 +0000 (UTC)
+Message-ID: <c3c73e5e62c5981f3e21de0febe3d651bc95a6d8.camel@redhat.com>
+Subject: [PATCH] execve.2: clarify signal sent to the process on late failure
+From:   Nikola =?ISO-8859-1?Q?Forr=F3?= <nforro@redhat.com>
+Reply-To: nforro@redhat.com
 To:     mtk.manpages@gmail.com
-cc:     linux-man@vger.kernel.org
-Subject: Missing magic number in statfs(2) et al
-Message-ID: <alpine.DEB.2.22.394.2004292313100.1336@motsugo.ucc.gu.uwa.edu.au>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Cc:     linux-man@vger.kernel.org
+Date:   Wed, 29 Apr 2020 17:30:19 +0200
+Organization: Red Hat
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.36.1 (3.36.1-1.fc32) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+Content-Transfer-Encoding: quoted-printable
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi,
+Signed-off-by: Nikola Forr=C3=B3 <nforro@redhat.com>
+---
+ man2/execve.2 | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-The statfs(2) page is missing the magic number for SMB2:
+diff --git a/man2/execve.2 b/man2/execve.2
+index ab5843840..109c0d57d 100644
+--- a/man2/execve.2
++++ b/man2/execve.2
+@@ -640,7 +640,10 @@ failure may occur past the point of no return:
+ the original executable image has been torn down,
+ but the new image could not be completely built.
+ In such cases, the kernel kills the process with a
+-.BR SIGKILL
++.\" commit 19d860a140beac48a1377f179e693abe86a9dac9
++.BR SIGSEGV
++.RB ( SIGKILL
++until Linux 3.17)
+ signal.
+ .\"
+ .SS Interpreter scripts
+--=20
+2.26.2
 
-SMB2_MAGIC_NUMBER 0xFE534D42
 
-This is defined in fs/cifs/smb2glob.h .
-
-Perhaps it could be added. It being so numerically close to 
-CIFS_MAGIC_NUMBER, coupled with `mount.cifs` producing an SMB2 mount (even 
-though `mount` still reports a CIFS type), has sent me a little wild over 
-the last few weeks.
-
-David Adam
-zanchey@ucc.gu.uwa.edu.au
