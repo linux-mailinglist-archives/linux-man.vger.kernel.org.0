@@ -2,31 +2,32 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 647741C0E8E
-	for <lists+linux-man@lfdr.de>; Fri,  1 May 2020 09:20:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EAEF81C0ED0
+	for <lists+linux-man@lfdr.de>; Fri,  1 May 2020 09:27:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728342AbgEAHU5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 1 May 2020 03:20:57 -0400
-Received: from luckmann.name ([213.239.213.133]:46333 "EHLO
+        id S1728253AbgEAH1C (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 1 May 2020 03:27:02 -0400
+Received: from luckmann.name ([213.239.213.133]:35691 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726452AbgEAHU5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 1 May 2020 03:20:57 -0400
+        by vger.kernel.org with ESMTP id S1726452AbgEAH1C (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 1 May 2020 03:27:02 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E56022.000000005EABCDD7.00000ACE; Fri, 01 May 2020 09:20:55 +0200
-Date:   Fri, 1 May 2020 09:20:55 +0200
+  id 0000000000E56022.000000005EABCF44.00000DD8; Fri, 01 May 2020 09:27:00 +0200
+Date:   Fri, 1 May 2020 09:27:00 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: On bug bombing
-Message-ID: <20200501072055.GC938@Debian-50-lenny-64-minimal>
-References: <20200419064811.GA31185@Debian-50-lenny-64-minimal>
- <62162aec-6dfa-18b9-b370-00d772f3e7b7@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org,
+        "Dr. Tobias Quathamer" <toddy@debian.org>
+Subject: Re: Fwd: Re: Errors in man pages, here: charmap(5): Content
+Message-ID: <20200501072700.GD938@Debian-50-lenny-64-minimal>
+References: <20200420193022.GB19913@Debian-50-lenny-64-minimal>
+ <ccb34948-f462-f100-9997-d91de069d6c2@debian.org>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-2766-1588317655-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-3544-1588318020-0001-2"
 Content-Disposition: inline
-In-Reply-To: <62162aec-6dfa-18b9-b370-00d772f3e7b7@gmail.com>
+In-Reply-To: <ccb34948-f462-f100-9997-d91de069d6c2@debian.org>
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -38,82 +39,67 @@ X-Mailing-List: linux-man@vger.kernel.org
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-2766-1588317655-0001-2
+--=_luckmann.name-3544-1588318020-0001-2
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hello Michael,
-On Mon, Apr 20, 2020 at 12:26:41PM +0200, Michael Kerrisk (man-pages) wrote:
-> I am torn between saying thank you for all the effort you
-> clearly made and saying PLEASE DON'T DO THIS!
+On Tue, Apr 21, 2020 at 01:18:04PM +0200, Dr. Tobias Quathamer wrote:
+> Am 20.04.20 um 21:30 schrieb Helge Kreutzmann:
+> > Hello Tobias,
+> > according to "git blame" you added the FIXME (or moved it, then it
+> > would be from Martin) in 2014.=20
+> >=20
+> > Can you say something for this FIXME (see below)?
+> >>> **
+> >>>
+> >>> UTF-8 in Debian Squeeze:
+> >>>
+> >>> "is followed by the maximum number of bytes for a character.  The def=
+ault "
+> >>> "value is 1."
+> >>
+> >> I don't understand this report. Please elaborate.
+>=20
+> Hi,
+>=20
+> sorry, I don't know what this FIXME is about. I did not add it, it was
+> part of the initial commit to git of the translation back in 2012.
+> Unfortunately, I have no idea what would need to be fixed here. Maybe
+> this bug report should be closed.
 
-Ok.
-
-> Submitting one hundred plus bug reports at the same time
-> is _very_ burdensome for an upstream maintainer. Honestly,
-> if it had not been for lockdown, I might simply have ignored
-> the whole series of mails.
-
-That would have been a pitty.
-
-I would have assumed that you process them at your convenience, i.e.
-each when you have time.
-
-> In the future, please do not wait for  huge backlog to build up
-> before sending me reports. (10 reports at a time is fine; 100,=20
-> not so much.)
-
-Well, in the past (i.e. 10 years) we (german) translators always said
-"we should report this". But "we" always amounted to no one doing it.
-We were only recording issues found. So I finally decided to proceed.=20
-
-Since you are our biggest upstream, I started with your pages.
-Intially I would have made one big bug report, but I understood this
-is not requested from your side.=20
-
-Since it was mostly script based (and I was working on the scripts
-while preparing) they came in all at once. I could have added a
-throttle, like 10 / day, of course.
-
-I'm still learning the process(es), so the next upstream might get a
-better experience and I apologize for all the glitches I made.
-
-Anyhow, I hope to report more frequent (and with much lower numbers) in
-the future.
-
-> In any case, thank you very much for your many reports.
-
-Thanks from my side that you accepted and processed them.
+Please close this isse then. Apologize for the noise.
 
 Greetings
 
-          Helge
+         Helge
+
 --=20
       Dr. Helge Kreutzmann                     debian@helgefjell.de
            Dipl.-Phys.                   http://www.helgefjell.de/debian.php
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_luckmann.name-2766-1588317655-0001-2
+--=_luckmann.name-3544-1588318020-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl6rzdcACgkQQbqlJmgq
-5nCh8g//dTlUfuOzMThk4AdroBLEoy1ebmw+/SeukpYGvU9KlcDFxH9mK54QJueU
-40b/gKgP4EwF4aJ3jmqiEYNtLN5TDJAn1xq8X7CcP/Gpl/nsAZa7O4GokmvQPSSB
-/kyOuCA7UmYvbRBpyEiE4gic5bQAGv5i0IFivb6kuXGUMePWsLt2Pw1GJm0jX/MR
-g2dqqDAHAhaaL4MRrC1KCMoir1tzVBymx5R3jwlvQrhizYYRPX5mVm4GzGqtrYqR
-hXK5fCh9MjETgLebeu/BXWmT95/M6RkvASDYngnU4WYbK3lrvTl0tgwNnaoAHtF4
-TzYCsJ5VrAgU8FmhEVlKkaXy4wbuwsKIvHcNWlvLsLX7n+i7XMh1DORDfk5q4xz1
-xn/ZX+rJBMh7ICzJaGoH62TkzcTlB7fmWCxuktK8mdperjDoqKSww6iGWP+i1XK6
-vwRk+4X8ZdBB970B/aa2MOY39aPHDN5PTlMsxmZXtH2GwLT0DIMsfraOLCMvee8m
-f7Gz8Cayh4apiEwS/JcpRN6iD/xQjdE72lxXe+xq86LE7ud8UOToX7cqJfzeKtk+
-pc0qgGd/ckPmp+yF3WSmaY9fFJRn/ew/5Wna2jZRoQRhQdVCNycX+HOWRJMfGJbe
-9RByPYeptJyT0A+QmYhuT2V7hUV0o+cIF5Wv/CmsuTPdUmBMdHM=
-=HzlJ
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl6rz0MACgkQQbqlJmgq
+5nDPbg//f+7+D3UNy55lqJBnunp+RLup7/uXet9qR6dOlRkNoXQBum2rQtszat7X
+FXJP7K4WYrpMaxEZ1tXWA5qNuZd2N4hKczwjn/aaF/Zu/82LWUjg5/QhZMOxN7rL
+jX0J94l5oTrB5vhJsmTDAscRNWdvJUqzB5GAIzKG7XMWVuon4bMQFSS5HcmGNZBN
+fyWIE5mr8lFIcv19Dp977je/37lpOJL0lUjmkh/fwBcly2cD2k7x3x9MPzFVGkou
+YBdAXivbkeMOWYWIJ+Y4AWugdSLcV14bK8+giDrj3JXRhiYMB6/a6l4vzGK/H2nP
+OxiiCtM3rN3m18XHigOwbaxreaokl13vGHiNCXb8zZrGPZFhXhTvayJdlm6Ug1BE
+LFUSwOJKg1oOu4895UKWmgHgIcd2PpqhIrQ6AfIg7NhZvqeklti1Y/x25CfWhp+k
+wq9ys0h1pWBzAAeDgKTPYWqk8IHPGeLO25ilW8XK6Y0x+Y17F9f6+j/Gu1Povj+k
+j7skZVfcNdM7aPEdRkQyymGD4lAxjk8L3S8/luEs/PdJhTf6F5dSCpP2znC1stQ7
+wtONMxSnuwJMtC3Qh3uOXjdCwUsO3phaNAQ0tQJbh25QXhZlxarENqMT6QY7Vb4J
+EiFVHJYpNQv+Y3C5dv+Hsi+C9fpWPkZkfcapfBQZ4vSJNm86fH8=
+=BExX
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-2766-1588317655-0001-2--
+--=_luckmann.name-3544-1588318020-0001-2--
