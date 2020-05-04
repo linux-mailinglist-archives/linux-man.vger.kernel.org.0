@@ -2,52 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 89EF11C3E40
-	for <lists+linux-man@lfdr.de>; Mon,  4 May 2020 17:15:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 09EA41C39A5
+	for <lists+linux-man@lfdr.de>; Mon,  4 May 2020 14:43:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729360AbgEDPPq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 4 May 2020 11:15:46 -0400
-Received: from [101.71.143.117] ([101.71.143.117]:2466 "EHLO
-        host-192-168-3-84.localdomain" rhost-flags-FAIL-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1726509AbgEDPPq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 4 May 2020 11:15:46 -0400
-X-Greylist: delayed 2170 seconds by postgrey-1.27 at vger.kernel.org; Mon, 04 May 2020 11:15:45 EDT
-Received: from 127.0.0.1 (localhost [127.0.0.1])
-        by host-192-168-3-84.localdomain (Postfix) with SMTP id 74972400DEE8;
-        Mon,  4 May 2020 10:33:49 -0400 (EDT)
-Received: from [43.96.0.27] by 127.0.0.1 with ESMTP id 07125826; Mon, 04 May 2020 12:28:32 -0300
-Message-ID: <1m7$-p6n$$9$7f$--24a8@ioe.31bw>
-From:   "JEAN MARIE" <fkinneyofd@tampabay.rr.com>
-Reply-To: "JEAN MARIE" <fkinneyofd@tampabay.rr.com>
-To:     jingmeigzn@qq.com
-Subject: Kindly Acknowledge Receipt
-Date:   Mon, 04 May 20 12:28:32 GMT
-X-Mailer: Microsoft Outlook IMO, Build 9.0.2416 (9.0.2910.0)
+        id S1728846AbgEDMni (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 4 May 2020 08:43:38 -0400
+Received: from mx2.suse.de ([195.135.220.15]:36564 "EHLO mx2.suse.de"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1727813AbgEDMni (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 4 May 2020 08:43:38 -0400
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+        by mx2.suse.de (Postfix) with ESMTP id A80C4AF2A;
+        Mon,  4 May 2020 12:43:38 +0000 (UTC)
+Date:   Mon, 4 May 2020 14:43:34 +0200
+From:   Petr Vorel <pvorel@suse.cz>
+To:     Jann Horn <jannh@google.com>,
+        Michael Kerrisk-manpages <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Subject: Re: open_tree() manpage submission fell through the cracks?
+Message-ID: <20200504124334.GA19904@dell5510>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+References: <CAG48ez3xjhUDd3qMm=cEa+asLvrQOXEpVs4_w6Y6MuerymMbCg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
-        boundary="7.A9_8F674BB3__AA43.._6"
-X-Priority: 3
-X-MSMail-Priority: Normal
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAG48ez3xjhUDd3qMm=cEa+asLvrQOXEpVs4_w6Y6MuerymMbCg@mail.gmail.com>
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Jann,
 
---7.A9_8F674BB3__AA43.._6
-Content-Type: text/plain;
-Content-Transfer-Encoding: quoted-printable
+> I noticed that open_tree() doesn't have a manpage yet; and while
+> looking for a WIP manpage on the lists, I found this mail, which is
+> from February, submits manpages for open_tree() and other related
+> syscalls, and doesn't seem to have a response from you:
 
-I 'm a Financial Consultant.  under my network as a financial consultant, =
-there are few private investors offering capital injection as project fund=
-ing or business expansion in critical areas of Investment placements such =
-as Real Estate, Healthcare, Transportation and Agriculture. 
-Get back to me for more details as you express your interest areas of spec=
-ialization.
+> https://lore.kernel.org/linux-fsdevel/20200207174236.18882-1-pvorel@suse.cz/
 
-Regards.
-Mr. J. Marie
-fkinneyofd Consulting
+> I wonder whether maybe you haven't seen that mail in the first place.
+> It was addressed to linux-man@vger.kernel.org as "To" and
+> mtk.manpages@gmail.com as "Cc", which is the reverse of what's
+> suggested at <https://www.kernel.org/doc/man-pages/patches.html>...
+> maybe that runs into some filter on your side? Or maybe it just landed
+> in a spam filter somewhere or something like that?
 
---7.A9_8F674BB3__AA43.._6--
+Thanks for pointing out this patchset and also preferred way to send patches.
 
+I'd also appreciate these new syscalls were documented, thus
+I've pinged Michael some time ago and got his reply:
+https://lore.kernel.org/linux-man/9655825c-be5d-3941-60da-ccb8e5e433cb@gmail.com/
+
+He's probably just too busy.
+
+Kind regards,
+Petr
