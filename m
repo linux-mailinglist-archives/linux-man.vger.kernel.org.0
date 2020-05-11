@@ -2,107 +2,96 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1A8761CDE8B
-	for <lists+linux-man@lfdr.de>; Mon, 11 May 2020 17:13:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B875A1CE217
+	for <lists+linux-man@lfdr.de>; Mon, 11 May 2020 19:58:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729119AbgEKPNd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 11 May 2020 11:13:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46464 "EHLO
+        id S1730939AbgEKR6b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 11 May 2020 13:58:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43864 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1726687AbgEKPNd (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 11 May 2020 11:13:33 -0400
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B137FC061A0C
-        for <linux-man@vger.kernel.org>; Mon, 11 May 2020 08:13:32 -0700 (PDT)
-Received: by mail-ed1-x543.google.com with SMTP id h15so5959980edv.2
-        for <linux-man@vger.kernel.org>; Mon, 11 May 2020 08:13:32 -0700 (PDT)
+        by vger.kernel.org with ESMTP id S1727051AbgEKR6b (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 11 May 2020 13:58:31 -0400
+Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com [IPv6:2607:f8b0:4864:20::1042])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 19243C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 11 May 2020 10:58:31 -0700 (PDT)
+Received: by mail-pj1-x1042.google.com with SMTP id a5so8268956pjh.2
+        for <linux-man@vger.kernel.org>; Mon, 11 May 2020 10:58:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=89ywG/Z/F8kS+iY6l2I19V9MOxe5ypc4yb4/3nxwtFk=;
-        b=rmktCUUXmnImP6oXBba6lESibCMQDUg9MtkraxPdP1s7kASSMDaQ9T7gVERGqRQVqa
-         f0QKLPrDoJfcT4lHN1q5T8YlSEdaK/fgLwx1vvO3flTDjunE3/fb5kJwWheVUUselSoW
-         jNM0J77irMyro13y1mcGs/niVkA4KHI6gWrzoRDRcCYEYcYlFuMFjQDiEgpd5a1C/kBk
-         Dfcn6OlffNiWgz1u74qhW/TSJiiU2161J7jccB51FgnAa4uqJun23h8zaQbknpaL8WcG
-         GK4sOfisF4w9f4WwHG0yBcsQKKDqE4aJekeQ1XeBsRrnV/i1wH3EqfVJi34oYMUlmp84
-         VCCQ==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=RJ6798Or8SGcBfjIb8EqLhTia+Mc0OoigKc4EkaQZl8=;
+        b=uLJOw74gcUMXw9CaNwML0ZbXvN7sFMj8G4ZG/glUyQVF8GyRYQ0V3kquiFoxjKLqBO
+         Z0ylCcN3PCl4SbcpZcJjs1c/GQ2yK1UUBFhFKYGVcra/o5Edesj7GDhR34uVzHR8HWOX
+         3/awpDTm/vMxK21DA7Bx62Tt+EZUnrCvtId8Ef4MkWcA2gVk4TjZ4iWzk8ECM4bX+G7Z
+         DTzkFdinSHbUfrDA/2GxdaiIzCYWe1M/G2AWCN1Xg7e6mSPLlIyAOxAKh8BAA+bW+icH
+         Qu8EMRTa7+pMV1i1OXcegkzC3OGIOb9KlkXWTa3tASgYPACxJC2vlwstPHd62WEYzLlq
+         mzNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=89ywG/Z/F8kS+iY6l2I19V9MOxe5ypc4yb4/3nxwtFk=;
-        b=jOJzuCr2XuwQuTnYaslE4AyrhzZJzNDQVuDH+g+vzoC3BcNISjUI+8TFb2tQCAlyrH
-         UGqce/jCMiA2ccgwauqKYWZWMCn5zIzmZ3SUv/jENyx2NDQnntrp9VbBDP0psy4PikNH
-         vE4UwFWC1UYmvvMj1N79lgha8Q/TQQDcBP7goyNgFgeCmQ47CWdMxpKNMFQ+qbP1QeJD
-         TwG7UfOMgyNPTWbIRWpiQsOPzx+vaIjX8YABA2djB6U7ph0N/uHhZtCIBOBiBbfmI2Rp
-         gLwNcAsRJl+QTwuU/IVdhJArafivLnyNi3NFDH8WAoi+mzxq3tGR9l8svcLYIXpe0WqB
-         du4w==
-X-Gm-Message-State: AGi0PuYh+hMsMGuIAnqhhylSI25gSu76YSRCtQdtFbWuKysDoab8ONVn
-        OCMYLATmJmyoJ6FKltmDXhEwxPftGIUMPW6uftI=
-X-Google-Smtp-Source: APiQypKguAT3Rlal3f0HW9YPBPLNMDM5yd+X3EdZbo5RyRUdOGTSUMCWWvdWdN0ChgP3Zu+Cqq5sIe/BLQ/v8RsSOus=
-X-Received: by 2002:aa7:d513:: with SMTP id y19mr14366544edq.367.1589210011374;
- Mon, 11 May 2020 08:13:31 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=RJ6798Or8SGcBfjIb8EqLhTia+Mc0OoigKc4EkaQZl8=;
+        b=Ezautn8OAlceLLNGclX1NShC4/tWOuGYY/1Bd7/5wOYfYq1MmdStnBi6ylEXp6qYba
+         fDZA6K1YiMtUvC9zicuOYNJJARz9vc1B7Q23HyUMBE3qAi9TYS/AeAU8YIihOqwOv/1a
+         PiFPuF6DABXLl9X0VlJPcF3pdMzjpL4QCgdycOng/2feLkfRPAIZY0wUWQxsP7hymsYX
+         Cn0GMwpcYnOZby14gIiuQcUE5YVemcWoCNARPcAWTBTRHnZXE3cU7OcIMbwhbIYjy8FA
+         XUX7Hm4PhwsFhn5XxNPKZl2yC6hMb+5f2v9kPU0t62LyX/gaHEx/NKAfhd1V2DoQ7kyf
+         X5yA==
+X-Gm-Message-State: AGi0PuYvg3ytb7+RDX43BJW6T0z+F2YhWHYb0ycdIfAwM2bMY22/o2P1
+        YigJAtfdhaN6ogiv1UoIjdI=
+X-Google-Smtp-Source: APiQypIGmKh0U7jTuMHT8DaU6qyWWX+REJoOPT85HVk54QVVv8DMEv4B3Kq6Ds4m03yleH+Y0uM0rA==
+X-Received: by 2002:a17:90b:3843:: with SMTP id nl3mr24557613pjb.72.1589219909202;
+        Mon, 11 May 2020 10:58:29 -0700 (PDT)
+Received: from kir-rhat.lan (c-76-104-243-248.hsd1.wa.comcast.net. [76.104.243.248])
+        by smtp.gmail.com with ESMTPSA id p66sm9505573pfb.65.2020.05.11.10.58.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 11 May 2020 10:58:28 -0700 (PDT)
+From:   Kir Kolyshkin <kolyshkin@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, Kir Kolyshkin <kolyshkin@gmail.com>
+Subject: [PATCH] setenv.3: wfix
+Date:   Mon, 11 May 2020 10:58:26 -0700
+Message-Id: <20200511175826.1529435-1-kolyshkin@gmail.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-References: <CAG48ez3xjhUDd3qMm=cEa+asLvrQOXEpVs4_w6Y6MuerymMbCg@mail.gmail.com>
-In-Reply-To: <CAG48ez3xjhUDd3qMm=cEa+asLvrQOXEpVs4_w6Y6MuerymMbCg@mail.gmail.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 11 May 2020 17:13:20 +0200
-Message-ID: <CAKgNAkgsNkO1FieQ6a792WpLVeGuOeJTHar5Pe+OpG+L27UbMg@mail.gmail.com>
-Subject: Re: open_tree() manpage submission fell through the cracks?
-To:     Jann Horn <jannh@google.com>
-Cc:     linux-man <linux-man@vger.kernel.org>, Petr Vorel <pvorel@suse.cz>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Jann,
+Both functions behave the same wrt return value, no need to describe
+them separately.
 
-On Mon, 4 May 2020 at 13:18, Jann Horn <jannh@google.com> wrote:
->
-> Hi!
->
-> I noticed that open_tree() doesn't have a manpage yet; and while
-> looking for a WIP manpage on the lists, I found this mail, which is
-> from February, submits manpages for open_tree() and other related
-> syscalls, and doesn't seem to have a response from you:
->
-> https://lore.kernel.org/linux-fsdevel/20200207174236.18882-1-pvorel@suse.cz/
->
-> I wonder whether maybe you haven't seen that mail in the first place.
-> It was addressed to linux-man@vger.kernel.org as "To" and
-> mtk.manpages@gmail.com as "Cc", which is the reverse of what's
-> suggested at <https://www.kernel.org/doc/man-pages/patches.html>...
-> maybe that runs into some filter on your side? Or maybe it just landed
-> in a spam filter somewhere or something like that?
+Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
+---
+ man3/setenv.3 | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-I saw it, but I've been catching up with a lot of other stuff, and
-aware that dealing with these pages is likely to be a big block of
-work.
-
-It didn't help that the water was already muddy before Petr's mail.
-Last year, David Woodhouse sent out seven different mails on the same
-day to different lists, with different pages combined differently in
-the patches (with most, but not all of the pages appearing twice in
-different mails), with no explaining cover letter on the patches. I
-asked David about this at the time, and he said he'd resend in a more
-orderly fashion after seeing if he would get some feedback from what
-he'd sent out. There was a little feedeback, but no response to that
-feedback from David, and no follow-up patches :-(.
-
-I've got some more time now, so can probably make some progress on
-this. But I think we do need David to be actively involved, because
-even after a quick glance at the pages I can see that I'll have a lot
-of questions.
-
-Thanks,
-
-Michael
-
+diff --git a/man3/setenv.3 b/man3/setenv.3
+index cd4fbcd6a..82acb0ce9 100644
+--- a/man3/setenv.3
++++ b/man3/setenv.3
+@@ -104,16 +104,10 @@ If
+ does not exist in the environment,
+ then the function succeeds, and the environment is unchanged.
+ .SH RETURN VALUE
+-The
+ .BR setenv ()
+-function returns zero on success,
+-or \-1 on error, with
+-.I errno
+-set to indicate the cause of the error.
+-.PP
+-The
++and
+ .BR unsetenv ()
+-function returns zero on success,
++functions return zero on success,
+ or \-1 on error, with
+ .I errno
+ set to indicate the cause of the error.
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.26.2
+
