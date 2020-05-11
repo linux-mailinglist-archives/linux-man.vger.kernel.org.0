@@ -2,198 +2,107 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 945291C72D8
-	for <lists+linux-man@lfdr.de>; Wed,  6 May 2020 16:29:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1A8761CDE8B
+	for <lists+linux-man@lfdr.de>; Mon, 11 May 2020 17:13:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728972AbgEFO3q (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 6 May 2020 10:29:46 -0400
-Received: from foss.arm.com ([217.140.110.172]:37700 "EHLO foss.arm.com"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1728784AbgEFO3q (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 6 May 2020 10:29:46 -0400
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-        by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D21CCD6E;
-        Wed,  6 May 2020 07:29:45 -0700 (PDT)
-Received: from arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-        by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D27893F68F;
-        Wed,  6 May 2020 07:29:44 -0700 (PDT)
-Date:   Wed, 6 May 2020 15:29:42 +0100
-From:   Dave Martin <Dave.Martin@arm.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Catalin Marinas <catalin.marinas@arm.com>,
-        Will Deacon <will@kernel.org>,
-        Vincenzo Frascino <vincenzo.frascino@arm.com>,
-        linux-man@vger.kernel.org, linux-arch@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org
-Subject: Re: RFC: Adding arch-specific user ABI documentation in linux-man
-Message-ID: <20200506142942.GV30377@arm.com>
-References: <20200504153214.GH30377@arm.com>
- <07855941-d0f7-2ec6-819e-e43a8935e29e@gmail.com>
+        id S1729119AbgEKPNd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 11 May 2020 11:13:33 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46464 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1726687AbgEKPNd (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 11 May 2020 11:13:33 -0400
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B137FC061A0C
+        for <linux-man@vger.kernel.org>; Mon, 11 May 2020 08:13:32 -0700 (PDT)
+Received: by mail-ed1-x543.google.com with SMTP id h15so5959980edv.2
+        for <linux-man@vger.kernel.org>; Mon, 11 May 2020 08:13:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=89ywG/Z/F8kS+iY6l2I19V9MOxe5ypc4yb4/3nxwtFk=;
+        b=rmktCUUXmnImP6oXBba6lESibCMQDUg9MtkraxPdP1s7kASSMDaQ9T7gVERGqRQVqa
+         f0QKLPrDoJfcT4lHN1q5T8YlSEdaK/fgLwx1vvO3flTDjunE3/fb5kJwWheVUUselSoW
+         jNM0J77irMyro13y1mcGs/niVkA4KHI6gWrzoRDRcCYEYcYlFuMFjQDiEgpd5a1C/kBk
+         Dfcn6OlffNiWgz1u74qhW/TSJiiU2161J7jccB51FgnAa4uqJun23h8zaQbknpaL8WcG
+         GK4sOfisF4w9f4WwHG0yBcsQKKDqE4aJekeQ1XeBsRrnV/i1wH3EqfVJi34oYMUlmp84
+         VCCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=89ywG/Z/F8kS+iY6l2I19V9MOxe5ypc4yb4/3nxwtFk=;
+        b=jOJzuCr2XuwQuTnYaslE4AyrhzZJzNDQVuDH+g+vzoC3BcNISjUI+8TFb2tQCAlyrH
+         UGqce/jCMiA2ccgwauqKYWZWMCn5zIzmZ3SUv/jENyx2NDQnntrp9VbBDP0psy4PikNH
+         vE4UwFWC1UYmvvMj1N79lgha8Q/TQQDcBP7goyNgFgeCmQ47CWdMxpKNMFQ+qbP1QeJD
+         TwG7UfOMgyNPTWbIRWpiQsOPzx+vaIjX8YABA2djB6U7ph0N/uHhZtCIBOBiBbfmI2Rp
+         gLwNcAsRJl+QTwuU/IVdhJArafivLnyNi3NFDH8WAoi+mzxq3tGR9l8svcLYIXpe0WqB
+         du4w==
+X-Gm-Message-State: AGi0PuYh+hMsMGuIAnqhhylSI25gSu76YSRCtQdtFbWuKysDoab8ONVn
+        OCMYLATmJmyoJ6FKltmDXhEwxPftGIUMPW6uftI=
+X-Google-Smtp-Source: APiQypKguAT3Rlal3f0HW9YPBPLNMDM5yd+X3EdZbo5RyRUdOGTSUMCWWvdWdN0ChgP3Zu+Cqq5sIe/BLQ/v8RsSOus=
+X-Received: by 2002:aa7:d513:: with SMTP id y19mr14366544edq.367.1589210011374;
+ Mon, 11 May 2020 08:13:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <07855941-d0f7-2ec6-819e-e43a8935e29e@gmail.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
+References: <CAG48ez3xjhUDd3qMm=cEa+asLvrQOXEpVs4_w6Y6MuerymMbCg@mail.gmail.com>
+In-Reply-To: <CAG48ez3xjhUDd3qMm=cEa+asLvrQOXEpVs4_w6Y6MuerymMbCg@mail.gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 11 May 2020 17:13:20 +0200
+Message-ID: <CAKgNAkgsNkO1FieQ6a792WpLVeGuOeJTHar5Pe+OpG+L27UbMg@mail.gmail.com>
+Subject: Re: open_tree() manpage submission fell through the cracks?
+To:     Jann Horn <jannh@google.com>
+Cc:     linux-man <linux-man@vger.kernel.org>, Petr Vorel <pvorel@suse.cz>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, May 06, 2020 at 12:47:17PM +0200, Michael Kerrisk (man-pages) wrote:
-> Hello Dave, et al.
-> 
-> On 5/4/20 5:32 PM, Dave Martin wrote:
-> > Hi all,
-> > 
-> > I considering trying to plug some gaps in the arch-specific ABI
-> > documentation in the linux man-pages, specifically for arm64 (and
-> > possibly arm, where compat means we have some overlap).
-> 
-> Sounds good to me.
-> 
-> > For arm64, there are now significant new extensions (Pointer
-> > authentication, SVE, MTE etc.)  Currently there is some user-facing
-> > documentation mixed in with the kernel-facing documentation in the
-> > kernel tree, but this situation isn't ideal.
-> > 
-> > Do you have an opinion on where in the man-pages documentation should be
-> > added, and how to structure it?
-> > 
-> > 
-> > Affected areas include:
-> > 
-> >  * exec interface
-> 
-> Not sure what the details are here, so I have no opinion yet.
-> But probably, as additions to execve(2).
+Hi Jann,
 
-Having looked at that page again, probably yes.
+On Mon, 4 May 2020 at 13:18, Jann Horn <jannh@google.com> wrote:
+>
+> Hi!
+>
+> I noticed that open_tree() doesn't have a manpage yet; and while
+> looking for a WIP manpage on the lists, I found this mail, which is
+> from February, submits manpages for open_tree() and other related
+> syscalls, and doesn't seem to have a response from you:
+>
+> https://lore.kernel.org/linux-fsdevel/20200207174236.18882-1-pvorel@suse.cz/
+>
+> I wonder whether maybe you haven't seen that mail in the first place.
+> It was addressed to linux-man@vger.kernel.org as "To" and
+> mtk.manpages@gmail.com as "Cc", which is the reverse of what's
+> suggested at <https://www.kernel.org/doc/man-pages/patches.html>...
+> maybe that runs into some filter on your side? Or maybe it just landed
+> in a spam filter somewhere or something like that?
 
-This would include things like how arch-specific registers get reset,
-and how various thread properties are reset/inherited.
+I saw it, but I've been catching up with a lot of other stuff, and
+aware that dealing with these pages is likely to be a big block of
+work.
 
-Possibly, much of this would be documented by cross-referencing other
-pages.
+It didn't help that the water was already muddy before Petr's mail.
+Last year, David Woodhouse sent out seven different mails on the same
+day to different lists, with different pages combined differently in
+the patches (with most, but not all of the pages appearing twice in
+different mails), with no explaining cover letter on the patches. I
+asked David about this at the time, and he said he'd resend in a more
+orderly fashion after seeing if he would get some feedback from what
+he'd sent out. There was a little feedeback, but no response to that
+feedback from David, and no follow-up patches :-(.
 
-> 
-> >  * aux vector, hwcaps
-> 
-> ==> getauxval(3)
+I've got some more time now, so can probably make some progress on
+this. But I think we do need David to be actively involved, because
+even after a quick glance at the pages I can see that I'll have a lot
+of questions.
 
-Ah, yes.  I keep forgetting that because it's provided by libc.
+Thanks,
 
-There are a few things missing, but we can add them in there.
+Michael
 
-> >  * arch-specific signals
-> >  * signal frame
-> 
-> Not sure what the details are here, so I have no opinion yet.
-
-Stuff like architecture-specific si_codes and how they are used.
-
-Signal handlers that poke about in the signal frame need to know how it
-is structured, and for arm64 this is now quite complex.  I want to
-document some example code for parsing it somewhere, and I feel that
-will be too much noise for signal(7).
-
-I guess I can try to write something and than we can figure out where to
-put it.
-
-> 
-> >  * mmap/mprotect extensions
-> 
-> See below.
-> 
-> >  * prctl calls
-> 
-> As additions in prctl(2) would be fine, I think.
-> 
-> >  * ptrace quirks and extensions
-> 
-> See below.
-> 
-> >  * coredump contents
-> 
-> Not sure what the details are here, so I have no opinion yet.
-> Possibly as additions to core(5).
-
-Things like arch-specific regsets.  Some of that can probabably live
-in the ptrace page, with cross-references from core(5).
-
-> > Not everything has an obvious home in an existing page, 
-> 
-> Yes.
-> 
-> > and adding
-> > specifics for every architecture could make some existing manpages very
-> > unwieldy.
-> 
-> Still, I think it's worth adding details, especially for widely
-> used architectures.
-
-Agreed.  If there's a lot of explanation required for somethings which
-feels out of scope for the core page, then I might still be tempted to
-push some of that out into a more arch-specific page and cross-reference
-it.  We can play that by ear, though.
-
-> > I think for some arch features, we really need some "overview" pages
-> > too: just documenting the low-level details is of limited value
-> > without some guide as to how to use them together.
-> > 
-> > 
-> > Does the following sketch look reasonable?
-> > 
-> >  * man7/arm64.7: new page: overview of arm64-specific ABI extensions
-> 
-> I'm a little unclear on what would land in here, but sounds 
-> reasonable in principle.
-
-I probably won't attempt to add such a page until I find a use for it.
-
-I mainly intended this as an overview of what areas are impacted by the
-architecture and which other pages to go look at.
-
-> >  * man7/sve.7 (or man7/arm64-sve.7 or man7/sve.7arm64): new page:
-> >    overview of arm64 SVE ABI
-> 
-> Sounds reasonable to me.
-> 
-> >  * man2/arm64-ptrace.2 (or man2/ptrace.2arm64): new page:
-> >    arm64 ptrace extensions
-> 
-> I think maybe better is: ptrace-arm64.2
-
-Agreed.  That's probably easier to for people to place in their mental
-map.
-
-> 
-> I'm agnostic about whether there should be a new page, or whether 
-> these should be added to ptrace(2). But, we could start with the
-> idea of a new page.
-> 
-> >  * man2/mmap.2: extend with arm64-specific flags (only two flags, so we
-> >    add them to the existing man page rather than creating a new one).
-> 
-> Sounds good to me
-> 
-> > etc.
-> > 
-> > 
-> > Ideally, I'd like to adopt a pattern that other arches can follow.
-> 
-> Well, if they do follow. Arch-specific documentation is woefully
-> thin at the moment. I'm not going to worry too much about the right
-> pattern (don't let perfect get in the way of good, yadda, yadda),
-> until I get so much arch-specific documentation that some refactoring
-> may be required. (I'm not going to hold my breath waiting for that
-> to happen ;-).)
-
-Sure.  I don't want to do something obviously broken, but it sounds like
-you're reasonably happy with my approach.  In any case I'll start with the
-simple stuff.
-
-Where it's easy to do so, I may try to trawl up some undocumented non-
-ARM stuff, but I'm not the expert there...
-
-Cheers
----Dave
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
