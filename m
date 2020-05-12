@@ -2,110 +2,99 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 265151CE26D
-	for <lists+linux-man@lfdr.de>; Mon, 11 May 2020 20:17:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 784781CFAD7
+	for <lists+linux-man@lfdr.de>; Tue, 12 May 2020 18:37:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731111AbgEKSRv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 11 May 2020 14:17:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46900 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1731109AbgEKSRu (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 11 May 2020 14:17:50 -0400
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com [IPv6:2a00:1450:4864:20::541])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 47D53C061A0C
-        for <linux-man@vger.kernel.org>; Mon, 11 May 2020 11:17:49 -0700 (PDT)
-Received: by mail-ed1-x541.google.com with SMTP id h15so6528644edv.2
-        for <linux-man@vger.kernel.org>; Mon, 11 May 2020 11:17:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=kJCUhDqKmCHHgZT7szpLIKH3X2Gx3EXa5T8KHwATKgo=;
-        b=tG2OZR/uYJUxFPRA0ebViqNVhs4GMbIlc6vjsH5m/5If/rQ3NlgFZoLXZbbp/Ha4r3
-         zsB/VLw5yc8Ak8Qn7DJHofHmPlVHk7myQv8n3Fo/A9j1pul9ghJBaz0DfnJH6222zzRs
-         Wwm98+M0Ytb1MSelB37uvnOAwqVBhPW3EkBS8WZ83it7zYH7Z4r4RsT/E/5U/wMqVsa2
-         OVQzUFKdrTNoY9TDDJMDxwLn51EMa9zTBpUoOtg5Nz7fM1nYpD/ZjtcMZlZIRlFOrSpz
-         WQGr6RvRsdRWKCdLl2wDgMcqpSZx+H5rFJE06xV8jqd8UPzQZLB3c47o0ti0P0GE7IjX
-         6Mlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=kJCUhDqKmCHHgZT7szpLIKH3X2Gx3EXa5T8KHwATKgo=;
-        b=hjKAObKEOH9ud3G2P3c/ZUWsUf2jtx3BRC4wM7RmCC1qxotn5E42VI8M30tOd7or1u
-         dyPMWtH4E12XVk9xCIuZk9xBWfgYHNcnD4Lrtzm8/BggVPo5BIJ6+k5jBprfdRKPvdbe
-         ngQK0wWeRz8f/ZlZ5D1+Zy607WJPCyGFE8GE48H0m8Bbr738P32Pj9Cpki8EbZH4UjXI
-         e5b0vJ9Za7uLgVwms0h6+NFiZIrQYvODp1nWzAGfTKPs/NLQkbDvfZO9AnpXTQNo2KDw
-         1FTVdHR4umZdTxIlzwIeJynyGwvILP6OqmLAN9Yik6Vz/fuz77q8b7ssPiMjr1rs2mCQ
-         Cw9A==
-X-Gm-Message-State: AOAM532/u7lrizIzW+HzOQRL/Z8x0IhExKRB55HvAoMIKKd4YxCG7kQZ
-        7oKONlrYBwiq2ORyvdU+uZ23nvsJGkcKotQTUJmtpw==
-X-Google-Smtp-Source: ABdhPJwkFyZz8yBkOzRjZdykc+C2GqhICcCMxyxaBEUCHMJ+g1MBeZ5YBgv8VZ75HpnkvUBbIFXGVkknUO4pY8tApcw=
-X-Received: by 2002:aa7:cb4f:: with SMTP id w15mr2544317edt.239.1589221067962;
- Mon, 11 May 2020 11:17:47 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200511175826.1529435-1-kolyshkin@gmail.com>
-In-Reply-To: <20200511175826.1529435-1-kolyshkin@gmail.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 11 May 2020 20:17:36 +0200
-Message-ID: <CAKgNAki+-nEergMEFJdU2_TPUC+9x9YX8w8UdGb1vyP_Jex2WA@mail.gmail.com>
-Subject: Re: [PATCH] setenv.3: wfix
-To:     Kir Kolyshkin <kolyshkin@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+        id S1726922AbgELQhG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 12 May 2020 12:37:06 -0400
+Received: from foss.arm.com ([217.140.110.172]:58122 "EHLO foss.arm.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1725851AbgELQhG (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 12 May 2020 12:37:06 -0400
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+        by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B40451FB;
+        Tue, 12 May 2020 09:37:05 -0700 (PDT)
+Received: from e103592.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+        by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 4798B3F305;
+        Tue, 12 May 2020 09:37:04 -0700 (PDT)
+From:   Dave Martin <Dave.Martin@arm.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, linux-arch@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        Amit Daniel Kachhap <amit.kachhap@arm.com>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        Tim Chen <tim.c.chen@linux.intel.com>,
+        Waiman Long <longman@redhat.com>, Will Deacon <will@kernel.org>
+Subject: [PATCH 00/14] prctl.2 man page updates for Linux 5.6
+Date:   Tue, 12 May 2020 17:36:45 +0100
+Message-Id: <1589301419-24459-1-git-send-email-Dave.Martin@arm.com>
+X-Mailer: git-send-email 2.1.4
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Kir,
+A bunch of updates to the prctl(2) man page to fill in the missing
+prctls (mostly) up to Linux 5.6 (along with a few other tweaks fixes).
 
-On Mon, 11 May 2020 at 19:58, Kir Kolyshkin <kolyshkin@gmail.com> wrote:
->
-> Both functions behave the same wrt return value, no need to describe
-> them separately.
+People not Cc'd on the whole series can find the whole series at
+https://lore.kernel.org/linux-man/ .
 
-Indeed. Patch applied.
+Patches:
 
-Thanks,
+ * Patches 1-6 and 8-9 are rather trivial optional tweaks and fixes
+   that don't make substantive changes.  I can live with some of these
+   being dropped.
 
-Michael
+ * Patch 7 (removal of the MPX prctls) could use an Ack, but should be
+   uncontroversial.
 
-> Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
-> ---
->  man3/setenv.3 | 10 ++--------
->  1 file changed, 2 insertions(+), 8 deletions(-)
->
-> diff --git a/man3/setenv.3 b/man3/setenv.3
-> index cd4fbcd6a..82acb0ce9 100644
-> --- a/man3/setenv.3
-> +++ b/man3/setenv.3
-> @@ -104,16 +104,10 @@ If
->  does not exist in the environment,
->  then the function succeeds, and the environment is unchanged.
->  .SH RETURN VALUE
-> -The
->  .BR setenv ()
-> -function returns zero on success,
-> -or \-1 on error, with
-> -.I errno
-> -set to indicate the cause of the error.
-> -.PP
-> -The
-> +and
->  .BR unsetenv ()
-> -function returns zero on success,
-> +functions return zero on success,
->  or \-1 on error, with
->  .I errno
->  set to indicate the cause of the error.
-> --
-> 2.26.2
->
+ * Patches 10-11 cover recent extensions to the speculation control
+   prctls.
 
+ * Patch 12 adds one particular case Errors for EINVAL, applicable to
+   all arch-specific prctls.  I've not tried too hard to be 100%
+   comprehensive with the error conditions, since the list in its
+   current form looks in need of a major overhaul.
+
+ * Patches 13-14 add the new arm64-specific prctls.
+   (PR_SET_TAGGED_ADDR_CTRL requires a bit more discussion and will be
+   posted separately.)
+
+Maintainer notes:
+
+ * I'm *asssuming* that the datestamps in .TH are automatically
+   updated by maintainer scripts, since maintaining them by hand would
+   interact very badly with rebase.  If needed I can go update them by
+   hand though.
+
+ * Similarly, in the days of git (and because I see no recent entries)
+   I'm assuming that in-file changelogs no longer need to be updated.
+   Again, I'm happy to do that if needed.
+
+
+Dave Martin (14):
+  prctl.2: tfix clarify that prctl can apply to threads
+  prctl.2: Add health warning
+  prctl.2: tfix mis-description of thread ID values in procfs
+  prctl.2: srcfix add comments for navigation
+  prctl.2: tfix listing order of prctls
+  prctl.2: ffix quotation mark tweaks
+  prctl.2: Document removal of Intel MPX prctls
+  prctl.2: Work around bogus constant "maxsig" in PR_SET_PDEATHSIG
+  prctl.2: tfix minor punctuation in SPECULATION_CTRL prctls
+  prctl.2: Add PR_SPEC_INDIRECT_BRANCH for SPECULATION_CTRL prctls
+  prctl.2: Add PR_SPEC_DISABLE_NOEXEC for SPECULATION_CTRL prctls
+  prctl.2: Clarify the unsupported hardware case of EINVAL
+  prctl.2: Add SVE prctls (arm64)
+  prctl.2: Add PR_PAC_RESET_KEYS (arm64)
+
+ man2/prctl.2 | 496 +++++++++++++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 384 insertions(+), 112 deletions(-)
 
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.1.4
+
