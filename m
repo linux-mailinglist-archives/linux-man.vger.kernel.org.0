@@ -2,147 +2,113 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A8E5B1D17B9
-	for <lists+linux-man@lfdr.de>; Wed, 13 May 2020 16:36:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B43281D2081
+	for <lists+linux-man@lfdr.de>; Wed, 13 May 2020 23:00:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2388927AbgEMOg6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 13 May 2020 10:36:58 -0400
-Received: from foss.arm.com ([217.140.110.172]:48194 "EHLO foss.arm.com"
+        id S1726015AbgEMVA2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 13 May 2020 17:00:28 -0400
+Received: from mail.kernel.org ([198.145.29.99]:59044 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S2388857AbgEMOg6 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 13 May 2020 10:36:58 -0400
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-        by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2A35431B;
-        Wed, 13 May 2020 07:36:57 -0700 (PDT)
-Received: from arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-        by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0FF283F71E;
-        Wed, 13 May 2020 07:36:55 -0700 (PDT)
-Date:   Wed, 13 May 2020 15:36:54 +0100
-From:   Dave Martin <Dave.Martin@arm.com>
-To:     Will Deacon <will@kernel.org>
+        id S1725977AbgEMVA2 (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 13 May 2020 17:00:28 -0400
+Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by mail.kernel.org (Postfix) with ESMTPSA id BE2FB2054F;
+        Wed, 13 May 2020 21:00:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=default; t=1589403628;
+        bh=lXerR0C/bG8EZFwEAjwwHZFirVN5cCzzv7uwEH5gJHA=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=H+5bBpcseah4fVXN0BEDNhCesGeOv0zCMgIe5XmZu6g+qFwyXRrCZzSC8scCwn0u1
+         5NXVnSb2qC5AIYSHTXDSYNfeMotmhZ26GAP9WX2/NI2pMLHHa9U260mw5SjXU1zGPp
+         u33cRnUKlBteWIHeppSu0R65yphUuTTSKXdu5Oxg=
+Date:   Wed, 13 May 2020 22:00:22 +0100
+From:   Will Deacon <will@kernel.org>
+To:     Dave Martin <Dave.Martin@arm.com>
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
         Catalin Marinas <catalin.marinas@arm.com>,
         Amit Daniel Kachhap <amit.kachhap@arm.com>,
         Mark Rutland <mark.rutland@arm.com>
 Subject: Re: [PATCH 14/14] prctl.2: Add PR_PAC_RESET_KEYS (arm64)
-Message-ID: <20200513143653.GQ21779@arm.com>
+Message-ID: <20200513210022.GA28594@willie-the-truck>
 References: <1589301419-24459-1-git-send-email-Dave.Martin@arm.com>
  <1589301419-24459-15-git-send-email-Dave.Martin@arm.com>
  <20200513072530.GA18196@willie-the-truck>
+ <20200513143653.GQ21779@arm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200513072530.GA18196@willie-the-truck>
-User-Agent: Mutt/1.5.23 (2014-03-12)
+In-Reply-To: <20200513143653.GQ21779@arm.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, May 13, 2020 at 08:25:31AM +0100, Will Deacon wrote:
-> Hi Dave,
+On Wed, May 13, 2020 at 03:36:54PM +0100, Dave Martin wrote:
+> On Wed, May 13, 2020 at 08:25:31AM +0100, Will Deacon wrote:
+> > On Tue, May 12, 2020 at 05:36:59PM +0100, Dave Martin wrote:
+> > > +As a special case, if
+> > > +.I arg2
+> > > +is zero then all the keys are reset.
+> > > +Since new keys could be added in future,
+> > > +this is the recommended way to completely wipe the existing keys
+> > > +when creating a new execution context.
+> > 
+> > I see what you're saying, but the keys are also reset on exec() iirc, so we
+> > don't want to encourage people to issue the prctl() unnecessarily
+> > immediately following an exec().
 > 
-> On Tue, May 12, 2020 at 05:36:59PM +0100, Dave Martin wrote:
-> > diff --git a/man2/prctl.2 b/man2/prctl.2
-> > index dd16227..7ea60e2 100644
-> > --- a/man2/prctl.2
-> > +++ b/man2/prctl.2
-> > @@ -950,6 +950,46 @@ behavior.
-> >  A value of 1 indicates
-> >  .BR execve (2)
-> >  will operate in the privilege-restricting mode described above.
-> > +.\" prctl PR_PAC_RESET_KEYS
-> > +.\" commit ba830885656414101b2f8ca88786524d4bb5e8c1
-> > +.TP
-> > +.BR PR_PAC_RESET_KEYS " (since Linux 5.0, only on arm64)"
-> > +Securely reset the thread's pointer authentication keys
-> > +to fresh random values generated by the kernel.
-> > +.IP
-> > +The set of keys to be reset is specified by
-> > +.IR arg2 ,
-> > +which must be a logical OR of zero or more of the following:
-> > +.RS
-> > +.TP
-> > +.B PR_PAC_APIAKEY
-> > +instruction authentication key A
-> > +.TP
-> > +.B PR_PAC_APIBKEY
-> > +instruction authentication key B
-> > +.TP
-> > +.B PR_PAC_APDAKEY
-> > +data authentication key A
-> > +.TP
-> > +.B PR_PAC_APDBKEY
-> > +data authentication key B
-> > +.TP
-> > +.B PR_PAC_APGAKEY
-> > +generic authentication \(lqA\(rq key.
-> > +.IP
-> > +(Yes folks, there really is no generic B key.)
-> > +.RE
-> > +.IP
-> > +As a special case, if
-> > +.I arg2
-> > +is zero then all the keys are reset.
-> > +Since new keys could be added in future,
-> > +this is the recommended way to completely wipe the existing keys
-> > +when creating a new execution context.
+> I thought of saying that, then pulled it out again.
 > 
-> I see what you're saying, but the keys are also reset on exec() iirc, so we
-> don't want to encourage people to issue the prctl() unnecessarily
-> immediately following an exec().
-
-I thought of saying that, then pulled it out again.
-
-How about:
-
-"[...] a new execution context within an existing process.  Note that
-execve() always resets all the keys as part of its operation, without
-the need for this prctl() call.  PR_PAC_RESET_KEYS is intended for
-custom situations that do not involve execve(), such as creating a new
-managed run-time sandbox."
-
-I deliberately don't say "thread" because that's probably libc's job.
-I'll need to check glibc does, though.  There may be issues with
-pthreads semantics that mean we can't reset the keys there.
-
+> How about:
 > 
-> > +.IP
-> > +The remaining arguments
-> > +.IR arg3 ", " arg4 " and " arg5
-> > +must all be zero.
-> >  .\" prctl PR_SET_PDEATHSIG
-> >  .TP
-> >  .BR PR_SET_PDEATHSIG " (since Linux 2.1.57)"
-> > @@ -1920,6 +1960,27 @@ are not 0.
-> >  .B EINVAL
-> >  .I option
-> >  was
-> > +.B PR_PAC_RESET_KEYS
-> > +and
-> > +.I arg2
-> > +contains non-zero bits other than
-> > +.BR
-> > +.BR PR_PAC_APIAKEY ,
-> > +.BR PR_PAC_APIBKEY ,
-> > +.BR PR_PAC_APDAKEY ,
-> > +.B PR_PAC_APDBKEY
-> > +and
-> > +.BR PR_PAC_APGAKEY ;
-> > +or
-> > +.IR arg3 ,
-> > +.I arg4
-> > +and
-> > +.I arg5
-> > +were not all zero.
+> "[...] a new execution context within an existing process.  Note that
+> execve() always resets all the keys as part of its operation, without
+> the need for this prctl() call.  PR_PAC_RESET_KEYS is intended for
+> custom situations that do not involve execve(), such as creating a new
+> managed run-time sandbox."
 > 
-> Do we care about other reasons for -EINVAL, such as the system not
-> supporting pointer authentication?
+> I deliberately don't say "thread" because that's probably libc's job.
+> I'll need to check glibc does, though.  There may be issues with
+> pthreads semantics that mean we can't reset the keys there.
 
-Again, I tried to catch that under the new "not supported by this
-platform" wording in the earlier patch.  Do you think that's sufficient,
-or do we need something else here?
+That's better, but you may even be able to drop the "such as..." part, I
+reckon.
 
-Cheers
----Dave
+> > > @@ -1920,6 +1960,27 @@ are not 0.
+> > >  .B EINVAL
+> > >  .I option
+> > >  was
+> > > +.B PR_PAC_RESET_KEYS
+> > > +and
+> > > +.I arg2
+> > > +contains non-zero bits other than
+> > > +.BR
+> > > +.BR PR_PAC_APIAKEY ,
+> > > +.BR PR_PAC_APIBKEY ,
+> > > +.BR PR_PAC_APDAKEY ,
+> > > +.B PR_PAC_APDBKEY
+> > > +and
+> > > +.BR PR_PAC_APGAKEY ;
+> > > +or
+> > > +.IR arg3 ,
+> > > +.I arg4
+> > > +and
+> > > +.I arg5
+> > > +were not all zero.
+> > 
+> > Do we care about other reasons for -EINVAL, such as the system not
+> > supporting pointer authentication?
+> 
+> Again, I tried to catch that under the new "not supported by this
+> platform" wording in the earlier patch.  Do you think that's sufficient,
+> or do we need something else here?
+
+As long as it's clear that the prctl() *can* fail and userspace can't just
+ignore the return value, then I'm happy. If it's not obvious, then spelling
+it out seems harmless to me.
+
+Will
