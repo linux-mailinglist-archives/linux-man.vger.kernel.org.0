@@ -2,171 +2,89 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 39CE81D4D79
-	for <lists+linux-man@lfdr.de>; Fri, 15 May 2020 14:11:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9F5971D4E64
+	for <lists+linux-man@lfdr.de>; Fri, 15 May 2020 15:04:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726118AbgEOMLI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 15 May 2020 08:11:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40980 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726062AbgEOMLI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 15 May 2020 08:11:08 -0400
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com [IPv6:2a00:1450:4864:20::542])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AF685C061A0C;
-        Fri, 15 May 2020 05:11:07 -0700 (PDT)
-Received: by mail-ed1-x542.google.com with SMTP id g9so1999890edw.10;
-        Fri, 15 May 2020 05:11:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=gwJ2Lc/Yk03IJOC1sFrTAqBzPkN1TQVWqWTUK+qoYiU=;
-        b=VMkP8/Jkt2bRofOFAeYJ24ZC+NSUixoqxVFp9JDNhUaBJRGQJjJnHLkkgD8FcxL4jQ
-         +Aeuzr09NZ3LRQ30nKqA28QLndOYpBEdMj1zlEVYqerDhaAaCYAcgIUDCicT/weIgdJB
-         gzQlJdSp31fCnfXqhBgS9ecQ5IOqMYSPcFhEzEoOpteqezvmcWt7B8kmGf3UQ6NzIy0j
-         POIpE7o8uRolvrf6t5A5HN/UwhSYGunqfMQp0svqKMfthdx/lawMsN/l3ZjjhhQvAuOu
-         TM+ZWVjigArspnXNg3q14gRjzjOFl6UnbJI4wtDSnkARDlwWafv08/XRwYcrV4IxcciC
-         XgZQ==
+        id S1726170AbgEONER (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 15 May 2020 09:04:17 -0400
+Received: from us-smtp-1.mimecast.com ([207.211.31.81]:44206 "EHLO
+        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1726141AbgEONER (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 15 May 2020 09:04:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1589547855;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=W9P1wHySLzxRU4jlM3CaGwEcVH4Xc+9sJuJmZ3RkQbQ=;
+        b=Qzpr+YIxd7cu0S8fWGEYPfNIrdQxtU47+j0pgacVM6nYzQLgTNennanuhclOSkwLywuCZ4
+        /au1JSB2Z8342bIddXFnanjCPhhz4J+J1il8V8GKlKGIfgB8veGp9VagckUVLEUYyA/wc1
+        DgIucKOuuR4CzvXMc8FXHtR+14/XL/Y=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-281-KApAxFeKOE6RlotPsDDnsA-1; Fri, 15 May 2020 09:04:14 -0400
+X-MC-Unique: KApAxFeKOE6RlotPsDDnsA-1
+Received: by mail-qt1-f197.google.com with SMTP id n22so2330661qtp.15
+        for <linux-man@vger.kernel.org>; Fri, 15 May 2020 06:04:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=gwJ2Lc/Yk03IJOC1sFrTAqBzPkN1TQVWqWTUK+qoYiU=;
-        b=gxeAr2EBpi/oAqt2iKAjaZy/RpQnUB8q64frb8GXE+MzY1AdIvYsWtCfJ8tUK7m9Tb
-         uNhrb1Fnj6klDYjkC+h/gwRRj9vZUPj+HQmD41MvlLuMGtL5mW/zWv9IjnyNzJQ4AYC4
-         vK5HYbwNwo64D0HPkY1u7m+y+GYTLxYaM5rXz8r4eUMtB0a7174Stgb4/KZne1cFg0I0
-         a7X28S7PwzLPvWHeQeqMQMTigOxa5RSNdwjsufzKDZvkozlxOo+LqrLOW6lKoNcWace3
-         2Px/2mtten9TXWeTRINZlnGP/xKFOn5hpqyJzJbVCDJl6ZbU3Eof5v6Uf7Ce/621RB/f
-         xxSg==
-X-Gm-Message-State: AOAM5338pwkoV5PVuPjdaTrrIAjwxRxWqrKTYwrXodEzxpROjV0dENOO
-        MFwEVlweukLGSDVEUaNZWSXkE18bfEo3xw1RNHQ=
-X-Google-Smtp-Source: ABdhPJz1eN6Y3UUKLgv0yVbFFEhnGpFslITmprP9DtBrcM+YHui2Hkc909BKV9DKh/c7zASjG5QxxMPGVnRl9ToYdsQ=
-X-Received: by 2002:aa7:d513:: with SMTP id y19mr2600654edq.367.1589544666281;
- Fri, 15 May 2020 05:11:06 -0700 (PDT)
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=W9P1wHySLzxRU4jlM3CaGwEcVH4Xc+9sJuJmZ3RkQbQ=;
+        b=GGn9LmLX8vawcjRtGs0DkHZECBak3kkwUaBvfT6oV2emvoc8R5XWYLilh1i5+ow9+z
+         2JAMhA/cHkqJggamXnKhh21Iq0vrLeRr89B8b23izSlFq6hA+CC60Vx2/AKsPgCW608W
+         nUba7+NAkxd3Fxt7sQ+av0F4qkKK42u70aStMrEQRP4E0APJvCFH3MPYeRXsRQ1e2evp
+         6c29O3n4Cu2ieVjffdTuKijhx5OSIlYG0RTmDOkP1RsN5ha/7+oZTWvSL9Nb09YLZfuu
+         qjLPm3nJhTeD4E007bweSVSco1Qt/q3OZdTTitjP5MjLLyrZFDl1m/h8x4ltWdXci/Ai
+         kRIQ==
+X-Gm-Message-State: AOAM530OAja8//hWoFTPYQWdcisivBKvXS/Tu+fbogkZF+7OCtIPr70y
+        jpFfzO56RcNmMrxUQAw2ShTyTB1ToTCsgqeCwopKS6sYNRNII/Tyr9jvijv0n3uby1xASGF9nR4
+        9gaa+C7GkH/pe3u5x1M4XjbawmuJAwukm3UNr
+X-Received: by 2002:a05:6214:13d4:: with SMTP id cg20mr3360624qvb.214.1589547853955;
+        Fri, 15 May 2020 06:04:13 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwi1B0UBGGCEAObMRpalHhMZoO8+wOs8WLL++8iuIs8cjiM63zLXDpZtbnW9R9hy/gk7q9U/9q8Y3jYAjf5MgA=
+X-Received: by 2002:a05:6214:13d4:: with SMTP id cg20mr3360586qvb.214.1589547853602;
+ Fri, 15 May 2020 06:04:13 -0700 (PDT)
 MIME-Version: 1.0
-References: <20191128120140.20367-1-cyphar@cyphar.com> <20191128130840.GA3719@calabresa>
- <20191128135506.yo7432egjsg5ha5a@yavin.dot.cyphar.com> <CAKgNAkj9W7ay+YuQv1ct+LXE8tj1R+hzDDgGZo3KvWhWD0k2ug@mail.gmail.com>
-In-Reply-To: <CAKgNAkj9W7ay+YuQv1ct+LXE8tj1R+hzDDgGZo3KvWhWD0k2ug@mail.gmail.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Fri, 15 May 2020 14:10:55 +0200
-Message-ID: <CAKgNAkiMNssJ2kCtGXd9ZUMFrG6uVtECBXMLGf2EZeS5-rkPKA@mail.gmail.com>
-Subject: Re: [PATCH] sched_getattr.2: update to include changed size semantics
-To:     Aleksa Sarai <cyphar@cyphar.com>
-Cc:     Thadeu Lima de Souza Cascardo <cascardo@canonical.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        Ingo Molnar <mingo@kernel.org>,
-        Arnaldo Carvalho de Melo <acme@infradead.org>,
-        Jiri Olsa <jolsa@redhat.com>,
-        Patrick Bellasi <patrick.bellasi@arm.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Thomas Gleixner <tglx@linutronix.de>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
+References: <CAKgNAkioH1z-pVimHziWP=ZtyBgCOwoC7ekWGFwzaZ1FPYg-tA@mail.gmail.com>
+In-Reply-To: <CAKgNAkioH1z-pVimHziWP=ZtyBgCOwoC7ekWGFwzaZ1FPYg-tA@mail.gmail.com>
+From:   Miklos Szeredi <mszeredi@redhat.com>
+Date:   Fri, 15 May 2020 15:04:02 +0200
+Message-ID: <CAOssrKeNEdpY77xCWvPg-i4vQBoKLX3Y96gvf1kL7Pe29rmq_w@mail.gmail.com>
+Subject: Re: Setting mount propagation type in new mount API
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     David Howells <dhowells@redhat.com>,
+        lkml <linux-kernel@vger.kernel.org>,
+        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+        Petr Vorel <pvorel@suse.cz>,
+        linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Aleksa,
-
-A ping also on this :-).
-
-Cheers,
-
-Michael
-
-On Sat, 25 Apr 2020 at 21:12, Michael Kerrisk (man-pages)
+On Fri, May 15, 2020 at 1:40 PM Michael Kerrisk (man-pages)
 <mtk.manpages@gmail.com> wrote:
 >
-> Hi Aleksa,
+> Hello David, Miklos,
 >
-> I don't think there was ever a follow-up to this patch. Would you be
-> willing to send one?
->
-> Thanks,
->
-> Michael
->
-> On Thu, 28 Nov 2019 at 14:55, Aleksa Sarai <cyphar@cyphar.com> wrote:
-> >
-> > On 2019-11-28, Thadeu Lima de Souza Cascardo <cascardo@canonical.com> wrote:
-> > > On Thu, Nov 28, 2019 at 11:01:40PM +1100, Aleksa Sarai wrote:
-> > > > Due to a userspace breakage, commit 1251201c0d34 ("sched/core: Fix
-> > > > uclamp ABI bug, clean up and robustify sched_read_attr() ABI logic and
-> > > > code") changed the semantics of sched_getattr(2) when the userspace
-> > > > struct is smaller than the kernel struct. Now, any trailing non-zero
-> > > > data in the kernel structure is ignored when copying to userspace.
-> > > >
-> > > > Ref: 1251201c0d34 ("sched/core: Fix uclamp ABI bug, clean up and
-> > > >                     robustify sched_read_attr() ABI logic and code")
-> > > > Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
-> > > > ---
-> > > >  man2/sched_setattr.2 | 6 ++----
-> > > >  1 file changed, 2 insertions(+), 4 deletions(-)
-> > > >
-> > > > diff --git a/man2/sched_setattr.2 b/man2/sched_setattr.2
-> > > > index 76ffa14eba85..fbb67b8eb98b 100644
-> > > > --- a/man2/sched_setattr.2
-> > > > +++ b/man2/sched_setattr.2
-> > > > @@ -284,10 +284,8 @@ structure,
-> > > >  the additional bytes in the user-space structure are not touched.
-> > > >  If the caller-provided structure is smaller than the kernel
-> > > >  .I sched_attr
-> > > > -structure and the kernel needs to return values outside the provided space,
-> > > > -.BR sched_getattr ()
-> > > > -fails with the error
-> > > > -.BR E2BIG .
-> > > > +structure, the kernel will silently not return any values which would be stored
-> > > > +outside the provided space.
-> > > >  As with
-> > > >  .BR sched_setattr (),
-> > > >  these semantics allow for future extensibility of the interface.
-> > > > --
-> > > > 2.24.0
-> > > >
-> > >
-> > > I was thinking about documenting the difference in behavior of older kernels,
-> > > before uclamp support.
-> > >
-> > > However, in practice, for sched_getattr, the kernel never returned E2BIG (the
-> > > code uses EFBIG incorrectly, in fact). It does, however, return EINVAL for
-> > > sizes smaller than SCHED_ATTR_SIZE_VER0.
-> >
-> > I've been told the EFBIG was actually a typo and it was always meant to
-> > be E2BIG. But yes, the precise problem with the old semantics was that
-> > they weren't tested "in the wild" with a proper struct upgrade -- hence
-> > all of the headaches.
-> >
-> > If we ever do implement a copy_struct_to_user() we are almost certainly
-> > going to implement it with the new sched_getattr() semantics. To be
-> > honest, I'm not sure I can imagine a case where an old userspace program
-> > would benefit from being given an error saying that the kernel has some
-> > properties that it doesn't understand. (sched_getattr() is also weird
-> > for other reasons, such as the fact it takes a separate size argument.)
-> >
-> > > However, E2BIG is still mentioned below as a possible return value for
-> > > sched_getattr. Can you remove that too?
-> >
-> > Will do.
-> >
-> > --
-> > Aleksa Sarai
-> > Senior Software Engineer (Containers)
-> > SUSE Linux GmbH
-> > <https://www.cyphar.com/>
->
->
->
-> --
-> Michael Kerrisk
-> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-> Linux/UNIX System Programming Training: http://man7.org/training/
+> I've been looking at the new mount API (fsopen(), fsconfig(),
+> fsmount(), move_mount(), etc.) and among the details that remain
+> mysterious to me is this: how does one set the propagation type
+> (private/shared/slave/unbindable) of a new mount and change the
+> propagation type of an existing mount?
 
+Existing mount can be chaged with mount(NULL, path, NULL, MS_$(propflag), NULL).
 
+To do that with a detached mount created by fsmount(2) the
+"/proc/self/fd/$fd" trick can be used.
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+The plan was to introduce a mount_setattr(2) syscall, but that hasn't
+happened yet...  I'm not sure we should be adding propagation flags to
+fsmount(2), since that is a less generic mechanism than
+mount_setattr(2) or just plain mount(2) as shown above.
+
+Thanks,
+Miklos
+
