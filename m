@@ -2,109 +2,94 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B4A911D4CC7
-	for <lists+linux-man@lfdr.de>; Fri, 15 May 2020 13:40:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C3A901D4CDD
+	for <lists+linux-man@lfdr.de>; Fri, 15 May 2020 13:42:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726046AbgEOLk1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 15 May 2020 07:40:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36190 "EHLO
+        id S1726064AbgEOLl7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 15 May 2020 07:41:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36426 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726003AbgEOLk1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 15 May 2020 07:40:27 -0400
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A090DC061A0C;
-        Fri, 15 May 2020 04:40:26 -0700 (PDT)
-Received: by mail-ej1-x643.google.com with SMTP id d7so1379809eja.7;
-        Fri, 15 May 2020 04:40:26 -0700 (PDT)
+        with ESMTP id S1725986AbgEOLl6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 15 May 2020 07:41:58 -0400
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 63635C061A0C;
+        Fri, 15 May 2020 04:41:58 -0700 (PDT)
+Received: by mail-ed1-x543.google.com with SMTP id l3so1914221edq.13;
+        Fri, 15 May 2020 04:41:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to:cc
-         :content-transfer-encoding;
-        bh=vx+rjdJtrqWDo1iVdx81WH5syu+StElM96JO8y30OpU=;
-        b=WPgjtmvuU+9RwoLj/n0H1YhScjg1h4Hgu330I4kqOUDcfeSuQOZKl+5ux8rbb0A1+r
-         7ELm48Nk8g4Iq8itsNp7nRoCsTlAKAoHnK2ah+xePeZp2pK0stb6n4zW7y9MitNbYdDS
-         bNg0TemLo6X1Wgm4LbjMS91beAkfCoPyvVNVG0xkHsjsU38LIBSiNPr88k5yhaJMl2mH
-         5eqEVtZV3131W/HDvA1aAfjmoreTAFOE/V6gi/szPbw3TsONPhAJeXwsxwdtqP1sG/pY
-         Ej20wI+N6z6ZiALRxth0w2i3BmnjBrdrQ0f5/Jd0EBrHTFEvOrXEbpUpoKxv8TREGGdn
-         cagQ==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=RWK3xRBK3vF039IvGRjdVtIEkl1uwsII0GmOE8enEhg=;
+        b=AQ9HX6rwWWp133kyVs2PIJL5t+b/npGe7W2nKwSP00VnDRcm0saijkshcdRXR10VlL
+         N3QvsCS9Nf+I1JhMOMiw+s9X5sS4vLhmyuKy3L+93WpWfow7gI05+dOZYGAI5r4cU8y1
+         rJx1+S0EECUThKB3RqnhXEQreTT8itZR/odWs96CLWvXaxSos2ymicfJwUvXxUq2Cyaf
+         KnRBdDXaLTKwoY3NlxhBOVeOCPlpn00Mf7t+vRbun0vUbFkFWOI+2VVcglalTkwpQD0C
+         ktLCP3/1ggat4CkA0bkiK1Ciph/UfOrPoEWagk2/a3RWjWai3Tb1ecqCvmVFj90S59jX
+         vAPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to:cc:content-transfer-encoding;
-        bh=vx+rjdJtrqWDo1iVdx81WH5syu+StElM96JO8y30OpU=;
-        b=HZGYHONT4WO708GtyeZN6eKcpcXCGLpq6LXJk/r5n0iKT14Quw1CzxtpW9ElCZ4/95
-         IBS7ZMKrLSPYjFOJPRsAk/M7EAmhe+L8tZdELGkjDLQLFN1w0VoQCnBM+oKFeUAWpV7L
-         9YLUqQ4VB8IVq4puPqIXIppH2SPAPTMIlIWNnw7fA4AkQwUBDm2SsnzOBJ4N4IcQoWMI
-         CwTisAzrKa3B8c+vv6LYPrBS5t9fkB+r9DU8pZnEnwtkqCUfhA7/Ah340bfHlMQb3lpT
-         hdh7+5Dg3Ht6wc8PqxNTMiszU5SkWwlSqTWCYL6rox8ZF4qN6TUe1ujis7dbz+0T8PL+
-         rx9Q==
-X-Gm-Message-State: AOAM531nfBhkprFPJojQTX+spcT+vp+o+jJJmf5VO7UBQOld7Q56Hbsd
-        Dd8u/0sgSIXINyysxgs17Wh0U8H/z5Q/A/phfPA=
-X-Google-Smtp-Source: ABdhPJx0AgOk2Zn12eGSfHnaAvM6elutzBoNttSm5PyZ1UJxJxfvsS0M4rtJbN9T/Be3JEHKy9yQwj/NrvyofhO0SFM=
-X-Received: by 2002:a17:906:add7:: with SMTP id lb23mr2366474ejb.6.1589542825282;
- Fri, 15 May 2020 04:40:25 -0700 (PDT)
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=RWK3xRBK3vF039IvGRjdVtIEkl1uwsII0GmOE8enEhg=;
+        b=fk+1CluEiGkXyUhm63vK/uOzFStDzAHfwJiWN2c8vHmxtwl8aES4zFsL20rMnMGg1U
+         PXVd8djpqY1+Zgc+mCFYjO1Ym9JX/H5jpAv2q24bU2Whuq8kQOIm6ILNkxXEmsD2u5p4
+         Fo0ReN7oKxeawUNx4eP4ybWD91xvStXrFlCLLMdHKknt6F9mkRew5xLJZf2SZ+8H8hBW
+         eAbpJCZWEmyfyVZ2yVismcmvADWOCF8W8os/k5QGII0ZTLEO1d+e1FwYrn/U8Q78gQmx
+         d+ZQ1Wjkx6jmDMLY5r6z5CEckSxD5TDtX1Hat7PDQ25k0lBwS1dh+bAzyEtqVBsr4OxW
+         KC7A==
+X-Gm-Message-State: AOAM532GYI1BrYj/HjvcXJSg+5qmMxDuTdiCuH0vVmjJ/1hRQOntfCtg
+        A0TA7evDuenonPls9fGAR/AfnoDrENFS1pzoGn04lw==
+X-Google-Smtp-Source: ABdhPJz1RIomfe7RiC1u7TKWUXwQNw8CcWTmJoSxNcIZssX43Bjmg42p6f/3pmGxPvbz7iDqC86FN17PdfSdI+NU9sg=
+X-Received: by 2002:a05:6402:c0f:: with SMTP id co15mr2299648edb.286.1589542917105;
+ Fri, 15 May 2020 04:41:57 -0700 (PDT)
 MIME-Version: 1.0
+References: <CAKgNAkhL0zCj11LS9vfae872YVeRsxdz20sZWuXdi+UjH21=0g@mail.gmail.com>
+ <20200410104132.294639-1-christian@brauner.io> <b7550fcd-ba12-e64a-3228-e6668b31a8a7@gmail.com>
+ <CAKgNAkhQr+sKGAu+KcxPEsuwG3kjQOyzVW7E1yM9cMtSZrhW9A@mail.gmail.com> <20200423101420.udkmlhnfg57lsshi@wittgenstein>
+In-Reply-To: <20200423101420.udkmlhnfg57lsshi@wittgenstein>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Fri, 15 May 2020 13:40:14 +0200
-Message-ID: <CAKgNAkioH1z-pVimHziWP=ZtyBgCOwoC7ekWGFwzaZ1FPYg-tA@mail.gmail.com>
-Subject: Setting mount propagation type in new mount API
-To:     David Howells <dhowells@redhat.com>,
-        Miklos Szeredi <mszeredi@redhat.com>
-Cc:     lkml <linux-kernel@vger.kernel.org>,
-        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-        Petr Vorel <pvorel@suse.cz>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
+Date:   Fri, 15 May 2020 13:41:46 +0200
+Message-ID: <CAKgNAkhXxWFE8msNkJ3117ChacWsfiMsBptZsVJOnxGtuDTX0Q@mail.gmail.com>
+Subject: Re: [PATCH] clone.2: Document CLONE_INTO_CGROUP
+To:     Christian Brauner <christian.brauner@ubuntu.com>
+Cc:     Christian Brauner <christian@brauner.io>,
+        "open list:CONTROL GROUP (CGROUP)" <cgroups@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Oleg Nesterov <oleg@redhat.com>, Tejun Heo <tj@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello David, Miklos,
+Hello Christian,
 
-I've been looking at the new mount API (fsopen(), fsconfig(),
-fsmount(), move_mount(), etc.) and among the details that remain
-mysterious to me is this: how does one set the propagation type
-(private/shared/slave/unbindable) of a new mount and change the
-propagation type of an existing mount?
-
-I've looked at the kernel source for a bit, and did not see how this
-is possible.
-
-The draft manual pages sent out a few months ago provide little clue,
-with the only hint being in the draft fsopen(2) page, which says of
-fsmount():
-
-       fsmount()  takes the file descriptor returned by fsopen() and cre=E2=
-=80=90
-       ates a mount object for the filesystem root specified there.   The
-       attributes of the mount object are set from the mount_attrs param=E2=
-=80=90
-       eter.  The attributes specify the propagation and  mount  restric=E2=
-=80=90
-       tions to be applied to accesses through this mount.
-
-However, that text appears *not* to be true. The 'mount_attrs'
-argument of fsmount() does not seem to permit specification of
-propagation type, since in the kernel there is this check:
-
-        if (attr_flags & ~(MOUNT_ATTR_RDONLY |
-                           MOUNT_ATTR_NOSUID |
-                           MOUNT_ATTR_NODEV |
-                           MOUNT_ATTR_NOEXEC |
-                           MOUNT_ATTR__ATIME |
-                           MOUNT_ATTR_NODIRATIME))
-                return -EINVAL;
+Ping!
 
 Thanks,
 
 Michael
 
+On Thu, 23 Apr 2020 at 12:14, Christian Brauner
+<christian.brauner@ubuntu.com> wrote:
+>
+> On Tue, Apr 21, 2020 at 04:30:46PM +0200, Michael Kerrisk (man-pages) wrote:
+> > Hi Christian,
+> >
+> > Ping!
+>
+> Will likely take a few days until I can get around to prepare a second
+> version. Sorry for the delay!
+>
+> Christian
 
---=20
+
+
+-- 
 Michael Kerrisk
 Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
 Linux/UNIX System Programming Training: http://man7.org/training/
