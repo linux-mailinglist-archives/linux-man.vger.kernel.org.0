@@ -2,142 +2,176 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0B8B11D83CB
-	for <lists+linux-man@lfdr.de>; Mon, 18 May 2020 20:08:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D68951D87D0
+	for <lists+linux-man@lfdr.de>; Mon, 18 May 2020 21:07:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2387431AbgERSHj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 18 May 2020 14:07:39 -0400
-Received: from smtprelay04.ispgateway.de ([80.67.31.38]:12404 "EHLO
-        smtprelay04.ispgateway.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2387423AbgERSHi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 18 May 2020 14:07:38 -0400
-Received: from [149.224.239.76] (helo=[192.168.178.25])
-        by smtprelay04.ispgateway.de with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
-        (Exim 4.92.3)
-        (envelope-from <t.piekarski@deloquencia.de>)
-        id 1jakAo-0005uk-Bg; Mon, 18 May 2020 20:07:34 +0200
-From:   Thomas Piekarski <t.piekarski@deloquencia.de>
-Subject: [PATCH] hier.7: Updating from FHS 2.3 to 3.0
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, glperkins@lit.edu
-Message-ID: <33544f6a-5983-ed08-b2f1-a7a348c411f6@deloquencia.de>
-Date:   Mon, 18 May 2020 20:07:34 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+        id S1726369AbgERTHI convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Mon, 18 May 2020 15:07:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44936 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726283AbgERTHG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 18 May 2020 15:07:06 -0400
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com [IPv6:2a00:1450:4864:20::236])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 67A70C061A0C
+        for <linux-man@vger.kernel.org>; Mon, 18 May 2020 12:01:50 -0700 (PDT)
+Received: by mail-lj1-x236.google.com with SMTP id k5so4462161lji.11
+        for <linux-man@vger.kernel.org>; Mon, 18 May 2020 12:01:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=A8ZqvWhajgafSQWZ+ywXO1Ojk9FtfM7rzm4hu1GyaZE=;
+        b=Gx7hw2o0gvoKlsRp5qtdnBW2GmzPaFkLNSzKXdkKzLwSRmHMs/YxsGU2JVLFz64pWE
+         Sn9uGEYb3+87HPQohmAmHZaFTDpIXFtDx/4qrBpCwAHpfNSNFbPo0ZOW1OwWkqpQOb6Y
+         Jp3hIlk1isw07R/oZLZ6ZRe90pCPL6O0aRyxF3fEfIHEcUnaJM5zJSKW3W2v/el0lDh+
+         PmR2U9VMLf4oEYLR9YMuYbFZfHGlj33XRVGe0/y6JaGE/hfGwGy8vEKyycCu+KBz8Ku2
+         GK2lLs49/7Eibtm5Hcmp2fr0GBn4GlZvGiE2sYG0zjM7BUPktiZmCYWMuwESmeSOasRf
+         7KcQ==
+X-Gm-Message-State: AOAM532wddOYAP2fFk67/04yc6LRbiQM8IvIyy782nYUSEntV0WnuIr3
+        mDAUgNFXCzYLEmALY9oMead2A3RCKnM=
+X-Google-Smtp-Source: ABdhPJyZOBbVGKPYA2xYhKMRxOi7/r/Ygb75kMsytEdg5+Suvv9McrlKlJFv8fBFMc2GqDw+/CPMEQ==
+X-Received: by 2002:a2e:d1a:: with SMTP id 26mr11405473ljn.160.1589828508304;
+        Mon, 18 May 2020 12:01:48 -0700 (PDT)
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com. [209.85.208.180])
+        by smtp.gmail.com with ESMTPSA id t19sm6226743ljg.7.2020.05.18.12.01.47
+        for <linux-man@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 18 May 2020 12:01:48 -0700 (PDT)
+Received: by mail-lj1-f180.google.com with SMTP id u6so11042957ljl.6
+        for <linux-man@vger.kernel.org>; Mon, 18 May 2020 12:01:47 -0700 (PDT)
+X-Received: by 2002:a2e:9d45:: with SMTP id y5mr2150942ljj.258.1589828507750;
+ Mon, 18 May 2020 12:01:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Df-Sender: dC5waWVrYXJza2lAZGVsb3F1ZW5jaWEuZGU=
+References: <CAEYDfj7TDMwUy08DiHRde6D8Qam79tALL0u=Bf2tVghKn8jeMw@mail.gmail.com>
+ <20200518153841.5urnrimzrqadvpvy@jwilk.net> <CAEYDfj4TK2Maoaxudhfxkx9NJGJa4CNL30Rhud-eBUnHVpFvzw@mail.gmail.com>
+In-Reply-To: <CAEYDfj4TK2Maoaxudhfxkx9NJGJa4CNL30Rhud-eBUnHVpFvzw@mail.gmail.com>
+From:   Rohit Saily <rohit@rohitsaily.com>
+Date:   Mon, 18 May 2020 15:01:11 -0400
+X-Gmail-Original-Message-ID: <CAEYDfj57-whcLRn9OVTbMQz9jJNfCnAnNH9j7RGO8b4AxeUx3A@mail.gmail.com>
+Message-ID: <CAEYDfj57-whcLRn9OVTbMQz9jJNfCnAnNH9j7RGO8b4AxeUx3A@mail.gmail.com>
+Subject: Re: PRINTF(3) Miswriting
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8BIT
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Adding description of new directories (/run, /usr/libexec,
-/usr/share/color,/usr/share/ppd, /var/lib/color), stating
-/usr/X11R6 as obsolete and updating URL to and version of
-FHS.
+Hi Jakub,
 
-See https://bugzilla.kernel.org/show_bug.cgi?id=206693
 
-Reported-by: Gary Perkins <glperkins@lit.edu>
-Signed-off-by: Thomas Piekarski <t.piekarski@deloquencia.de>
+> I believe the wording is correct. The outcome is not always the same:
+> the leading digit zero is allowed only for non-normalized numbers.
 
----
+If I am understanding this correctly, shouldn't the man page say:
 
-man7/hier.7 | 28 ++++++++++++++++++++++++----
-  1 file changed, 24 insertions(+), 4 deletions(-)
+"The digit before the decimal point is specified for nonnormalized
+numbers, and nonzero numbers but other‐wise unspecified for normalized
+numbers."
 
-diff --git a/man7/hier.7 b/man7/hier.7
-index dab9483d7..03fe61c71 100644
---- a/man7/hier.7
-+++ b/man7/hier.7
-@@ -161,6 +161,12 @@ This pseudo-filesystem is described in more detail in
-  .I /root
-  This directory is usually the home directory for the root user (optional).
-  .TP
-+.I /run
-+This directory contains information which describes the system since it 
-was booted.
-+Once this purpose was served by
-+.IR /var/run
-+and programs may continue to use it.
-+.TP
-  .I /sbin
-  Like
-  .IR /bin ,
-@@ -186,7 +192,7 @@ It should hold only shareable, read-only data, so 
-that it can be mounted
-  by various machines running Linux.
-  .TP
-  .I /usr/X11R6
--The X\-Window system, version 11 release 6 (optional).
-+The X\-Window system, version 11 release 6 (obsolete since FHS 3.0).
-  .TP
-  .I /usr/X11R6/bin
-  Binaries which belong to the X\-Window system; often, there is a
-@@ -296,6 +302,10 @@ which usually are not invoked directly.
-  More complicated programs may
-  have whole subdirectories there.
-  .TP
-+.I /usr/libexec
-+Directory contains binaries for internal use only and they are not meant
-+to be executed directly by users shell or scripts.
-+.TP
-  .I /usr/lib<qual>
-  These directories are variants of
-  .I /usr/lib
-@@ -385,6 +395,10 @@ or
-  or
-  .IR /usr/man .
-  .TP
-+.I /usr/share/color
-+Contains color management information, like International Color 
-Consortium (ICC)
-+Color profiles (optional).
-+.TP
-  .I /usr/share/dict
-  Contains the word lists used by spell checkers (optional).
-  .TP
-@@ -421,6 +435,9 @@ same OS.
-  .I /usr/share/nls
-  The message catalogs for native language support go here (optional).
-  .TP
-+.I /usr/share/ppd
-+Postscript Printer Definition (PPD) files (optional).
-+.TP
-  .I /usr/share/sgml
-  Files for SGML (optional).
-  .TP
-@@ -523,6 +540,9 @@ Variable game data (optional).
-  .I /var/lib
-  Variable state information for programs.
-  .TP
-+.I /var/lib/color
-+Variable files containing color management information (optional).
-+.TP
-  .I /var/lib/hwclock
-  State directory for hwclock (optional).
-  .TP
-@@ -635,11 +655,11 @@ this directory holds temporary files stored for an 
-unspecified duration.
-  Database files for NIS,
-  formerly known as the Sun Yellow Pages (YP).
-  .SH CONFORMING TO
--The Filesystem Hierarchy Standard, Version 2.3
--.UR http://www.pathname.com\:/fhs/
-+The Filesystem Hierarchy Standard (FHS), Version 3.0, published March 
-19, 2015
-+.UR https://refspecs.linuxfoundation.org/fhs.shtml
-  .UE .
-  .SH BUGS
--This list is not exhaustive; different systems may be configured
-+This list is not exhaustive; different distributions and systems may be 
-configured
-  differently.
-  .SH SEE ALSO
-  .BR find (1),
--- 
-2.20.1
+I replaced the first occurence of "unspecified" with "specified" and
+inserted "numbers"
+after "nonzero". To make it even simpler:
 
+"The digit before the decimal point is unspecified when the number is
+normalized and the digit is zero; otherwise, the digit is specified."
+
+Is this correct?
+
+Also, why is it possible that the following numbers are printed if
+the floating-point number is 1.0?
+
+0x8.0p-3
+0x4.0p-2
+0x2.0p-1
+
+Why are there multiple possibilities if the IEEE 754 standard is being
+used? I did not know that was a possibility.
+
+
+Thank you for your time,
+
+Rohit Saily
+
+
+On Mon, May 18, 2020 at 2:49 PM Rohit Saily <rohit@rohitsaily.com> wrote:
+>
+> Hi Jakub,
+>
+>
+> > I believe the wording is correct. The outcome is not always the same:
+> > the leading digit zero is allowed only for non-normalized numbers.
+>
+> If I am understanding this correctly, shouldn't the man page say:
+>
+> The digit before the decimal point is specified for nonnormalized
+> numbers, and nonzero numbers but other‐wise unspecified for normalized
+> numbers.
+>
+> I replaced the first occurence of unspecified with specified and inserted numbers
+> after nonzero. To make it even simpler:
+>
+> The digit before the decimal point is unspecified when the number is
+> normalized and the digit is zero; otherwise, the digit is specified.
+>
+> Is this correct?
+>
+> Also, why is it possible that the following numbers are printed if
+> the floating-point number is 1.0?
+>
+> 0x8.0p-3
+> 0x4.0p-2
+> 0x2.0p-1
+>
+> Why are there multiple possibilities if the IEEE 754 standard is being
+> used? I did not know that was a possibility.
+>
+>
+> Thank you for your time,
+>
+> Rohit Saily
+>
+>
+> On Mon, May 18, 2020 at 11:38 AM Jakub Wilk <jwilk@jwilk.net> wrote:
+>>
+>> Hi Rohit!
+>>
+>> * Rohit Saily <rohit@rohitsaily.com>, 2020-05-16, 18:04:
+>> >I am having difficulty understanding a sentence in the PRINTF(3) man
+>> >page's explanation of the 'a' and 'A' conversion specifiers, more
+>> >specifically it is the following sentence:
+>> >
+>> >>The digit before the decimal point is unspecified for nonnormalized
+>> >>numbers, and nonzero but other‐wise unspecified for normalized
+>> >>numbers.
+>> >
+>> >My confusion arises due to the fact that the two posible cases are
+>> >described with the same outcome,
+>>
+>> I believe the wording is correct. The outcome is not always the same:
+>> the leading digit zero is allowed only for non-normalized numbers.
+>>
+>> For example, printf("%a", 1.0) could produce any of these outputs:
+>>
+>>    0x8.0p-3
+>>    0x4.0p-2
+>>    0x2.0p-1
+>>    0x1.0p+0
+>>
+>> but not:
+>>
+>>    0x0.8p+1
+>>
+>> On the other hand, assuming the IEEE 754 binary64 format,
+>> printf("%a\n", 0x0.8p-1022) could produce any of these:
+>>
+>>    0x8.0p-1026
+>>    0x4.0p-1025
+>>    0x2.0p-1024
+>>    0x1.0p-1023
+>>    0x0.8p-1022
+>>
+>> --
+>> Jakub Wilk
