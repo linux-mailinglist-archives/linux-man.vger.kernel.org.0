@@ -2,56 +2,86 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9A23A1D7B82
-	for <lists+linux-man@lfdr.de>; Mon, 18 May 2020 16:42:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 516951D7D0E
+	for <lists+linux-man@lfdr.de>; Mon, 18 May 2020 17:38:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726940AbgEROmS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 18 May 2020 10:42:18 -0400
-Received: from youngberry.canonical.com ([91.189.89.112]:35909 "EHLO
-        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726918AbgEROmR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 18 May 2020 10:42:17 -0400
-Received: from ip5f5af183.dynamic.kabel-deutschland.de ([95.90.241.131] helo=wittgenstein)
-        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
-        (Exim 4.86_2)
-        (envelope-from <christian.brauner@ubuntu.com>)
-        id 1jagy5-0006pE-JF; Mon, 18 May 2020 14:42:14 +0000
-Date:   Mon, 18 May 2020 16:42:12 +0200
-From:   Christian Brauner <christian.brauner@ubuntu.com>
-To:     David Howells <dhowells@redhat.com>
-Cc:     mtk.manpages@gmail.com, Miklos Szeredi <mszeredi@redhat.com>,
-        lkml <linux-kernel@vger.kernel.org>,
-        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-        Petr Vorel <pvorel@suse.cz>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: Setting mount propagation type in new mount API
-Message-ID: <20200518144212.xpfjlajgwzwhlq7r@wittgenstein>
-References: <CAKgNAkioH1z-pVimHziWP=ZtyBgCOwoC7ekWGFwzaZ1FPYg-tA@mail.gmail.com>
- <909768.1589812234@warthog.procyon.org.uk>
+        id S1726958AbgERPiq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 18 May 2020 11:38:46 -0400
+Received: from smtpout1.mo529.mail-out.ovh.net ([178.32.125.2]:56673 "EHLO
+        smtpout1.mo529.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1727020AbgERPip (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 18 May 2020 11:38:45 -0400
+Received: from mxplan6.mail.ovh.net (unknown [10.109.138.217])
+        by mo529.mail-out.ovh.net (Postfix) with ESMTPS id AE4A63668186;
+        Mon, 18 May 2020 17:38:43 +0200 (CEST)
+Received: from jwilk.net (37.59.142.104) by DAG4EX2.mxp6.local (172.16.2.32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Mon, 18 May
+ 2020 17:38:42 +0200
+Authentication-Results: garm.ovh; auth=pass (GARM-104R00544cae2b8-27dd-4380-8605-75372a417abe,9658B802E4FA7A730EAC3406F5570557D9389AB2) smtp.auth=jwilk@jwilk.net
+Date:   Mon, 18 May 2020 17:38:41 +0200
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     Rohit Saily <rohit@rohitsaily.com>
+CC:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        <linux-man@vger.kernel.org>
+Subject: Re: PRINTF(3) Miswriting
+Message-ID: <20200518153841.5urnrimzrqadvpvy@jwilk.net>
+References: <CAEYDfj7TDMwUy08DiHRde6D8Qam79tALL0u=Bf2tVghKn8jeMw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Disposition: inline
-In-Reply-To: <909768.1589812234@warthog.procyon.org.uk>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAEYDfj7TDMwUy08DiHRde6D8Qam79tALL0u=Bf2tVghKn8jeMw@mail.gmail.com>
+User-Agent: NeoMutt/20180716
+X-Originating-IP: [37.59.142.104]
+X-ClientProxiedBy: DAG5EX1.mxp6.local (172.16.2.41) To DAG4EX2.mxp6.local
+ (172.16.2.32)
+X-Ovh-Tracer-GUID: 3d2c0864-6d96-4284-871d-d2d0bcde6719
+X-Ovh-Tracer-Id: 12394750600556238813
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduhedruddthedgleduucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvffukfhfgggtugfgjggfihesthekredttderjeenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhephffftdeuleevvdfffefgjeevhedujefgieektedujeeiuedvgffhuddugeffueejnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrddutdegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepmhigphhlrghniedrmhgrihhlrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehjfihilhhksehjfihilhhkrdhnvghtpdhrtghpthhtoheplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, May 18, 2020 at 03:30:34PM +0100, David Howells wrote:
-> Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
-> 
-> > I've been looking at the new mount API (fsopen(), fsconfig(),
-> > fsmount(), move_mount(), etc.) and among the details that remain
-> > mysterious to me is this: how does one set the propagation type
-> > (private/shared/slave/unbindable) of a new mount and change the
-> > propagation type of an existing mount?
-> 
-> Christian said he was going to have a go at writing mount_setattr().  It's not
-> trivial as it has to be able to handle AT_RECURSIVE.
+Hi Rohit!
 
-Right, I've put this on my roadmap now. It's becoming more urgent for us
-too since I've already switched over a few bits to the new mount api to
-make use of detached/anonymous mounts.
-I've planned to start working on a version early next week.
+* Rohit Saily <rohit@rohitsaily.com>, 2020-05-16, 18:04:
+>I am having difficulty understanding a sentence in the PRINTF(3) man 
+>page's explanation of the 'a' and 'A' conversion specifiers, more 
+>specifically it is the following sentence:
+>
+>>The digit before the decimal point is unspecified for nonnormalized 
+>>numbers, and nonzero but other‐wise unspecified for normalized 
+>>numbers.
+>
+>My confusion arises due to the fact that the two posible cases are 
+>described with the same outcome,
 
-Christian
+I believe the wording is correct. The outcome is not always the same: 
+the leading digit zero is allowed only for non-normalized numbers.
+
+For example, printf("%a", 1.0) could produce any of these outputs:
+
+   0x8.0p-3
+   0x4.0p-2
+   0x2.0p-1
+   0x1.0p+0
+
+but not:
+
+   0x0.8p+1
+
+On the other hand, assuming the IEEE 754 binary64 format, 
+printf("%a\n", 0x0.8p-1022) could produce any of these:
+
+   0x8.0p-1026
+   0x4.0p-1025
+   0x2.0p-1024
+   0x1.0p-1023
+   0x0.8p-1022
+
+-- 
+Jakub Wilk
