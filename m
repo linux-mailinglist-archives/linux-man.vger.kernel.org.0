@@ -2,144 +2,142 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9B1471D855B
-	for <lists+linux-man@lfdr.de>; Mon, 18 May 2020 20:18:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0B8B11D83CB
+	for <lists+linux-man@lfdr.de>; Mon, 18 May 2020 20:08:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731564AbgERSSX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 18 May 2020 14:18:23 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33774 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731561AbgERRz4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 18 May 2020 13:55:56 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 51F8BC05BD0B
-        for <linux-man@vger.kernel.org>; Mon, 18 May 2020 10:55:56 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id k12so396857wmj.3
-        for <linux-man@vger.kernel.org>; Mon, 18 May 2020 10:55:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brauner.io; s=google;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=bAdNBlANOE194kXAkMzs8wkwLbdmMZKVzS7nRAabSx0=;
-        b=gzTIjf10gpIkG8zPGdhSboUtjnxE2wdlyz+lcTb6y+vDqZANzuEWOloXv/+55QJx3P
-         Id/QaiwCpZNSFbDSLMi750vq3rM4sB7FtcXIFBDjtjy2r6amW5caSDAaO74p9eR7GQ4V
-         GKPquEbSy/LdmHP89ioSUV5vzb6Sx6k0weZMRoHrJJpQ+llJ5Nud8Qh6SaKzJ7h9yO+h
-         23wERq3aVksJk/PoeACaB0WtZD5CFPVObYqaIq/xe2qq7LPHezjXlfY7Y0i6AwqnFFCK
-         zrwJkcM1+rgKkMNnGz6K9tIQrvurV+dMIBStlFk8C1ucRIddZurStfA/ui5OL38PkMQN
-         CSTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=bAdNBlANOE194kXAkMzs8wkwLbdmMZKVzS7nRAabSx0=;
-        b=NxGYXUO08Ox6s7ICFLDIV/sIswXqirQ0DUTbxpsr9B/jKdKRfs03KtE73FWQeZSvmm
-         ffIYQ249uMFsuTjTXNw1gfC0KuJr5WxwaU/cJdwyXzJyuMXA3hUddUy+8QOCAEHJGCMC
-         gUIe515fCjL7Rxh9XZqo5x9tplhMbyZ7D1yIOe8ngJ7o+N0R/3M2UPwMKuuMX7Y2r6tm
-         0P2iTZtEEYwIsTBuG+3r6u2U+IsE2jL7MsN1RHPTuO7yEqIc0TDS4T884j3RNVIn+VVk
-         rkBcasAKdoTb/gq1sN6Kh0JIu+O/oMQ0IepjTkp/TeO3KmPo+gqOzkAdbH3lQB+9UnYB
-         wGpA==
-X-Gm-Message-State: AOAM530Szt0u4TjfcJLrSOsD6xaBT+/qhSPTJpQPxHszdluzLjiHiY4E
-        Ac3B76nVupGrrrZZwfXAwRnvXFM1WXM=
-X-Google-Smtp-Source: ABdhPJyVhEVa6wUfN5Iclx7RIJ1MPf7e+9V56eLAnJDuJP2dgTk8ixex8477YXQfniRzR3z2bqxrnQ==
-X-Received: by 2002:a1c:7212:: with SMTP id n18mr555920wmc.129.1589824554821;
-        Mon, 18 May 2020 10:55:54 -0700 (PDT)
-Received: from wittgenstein.fritz.box (ip5f5af183.dynamic.kabel-deutschland.de. [95.90.241.131])
-        by smtp.gmail.com with ESMTPSA id w9sm19178579wrc.27.2020.05.18.10.55.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2020 10:55:54 -0700 (PDT)
-From:   Christian Brauner <christian@brauner.io>
+        id S2387431AbgERSHj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 18 May 2020 14:07:39 -0400
+Received: from smtprelay04.ispgateway.de ([80.67.31.38]:12404 "EHLO
+        smtprelay04.ispgateway.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2387423AbgERSHi (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 18 May 2020 14:07:38 -0400
+Received: from [149.224.239.76] (helo=[192.168.178.25])
+        by smtprelay04.ispgateway.de with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+        (Exim 4.92.3)
+        (envelope-from <t.piekarski@deloquencia.de>)
+        id 1jakAo-0005uk-Bg; Mon, 18 May 2020 20:07:34 +0200
+From:   Thomas Piekarski <t.piekarski@deloquencia.de>
+Subject: [PATCH] hier.7: Updating from FHS 2.3 to 3.0
 To:     mtk.manpages@gmail.com
-Cc:     cgroups@vger.kernel.org, christian.brauner@ubuntu.com,
-        linux-api@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-man@vger.kernel.org, oleg@redhat.com, tj@kernel.org
-Subject: [PATCH v2] clone.2: Document CLONE_INTO_CGROUP
-Date:   Mon, 18 May 2020 19:55:49 +0200
-Message-Id: <20200518175549.3400948-1-christian@brauner.io>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <CAKgNAkhL0zCj11LS9vfae872YVeRsxdz20sZWuXdi+UjH21=0g@mail.gmail.com>
-References: <CAKgNAkhL0zCj11LS9vfae872YVeRsxdz20sZWuXdi+UjH21=0g@mail.gmail.com>
+Cc:     linux-man@vger.kernel.org, glperkins@lit.edu
+Message-ID: <33544f6a-5983-ed08-b2f1-a7a348c411f6@deloquencia.de>
+Date:   Mon, 18 May 2020 20:07:34 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Df-Sender: dC5waWVrYXJza2lAZGVsb3F1ZW5jaWEuZGU=
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Christian Brauner <christian.brauner@ubuntu.com>
+Adding description of new directories (/run, /usr/libexec,
+/usr/share/color,/usr/share/ppd, /var/lib/color), stating
+/usr/X11R6 as obsolete and updating URL to and version of
+FHS.
 
-Signed-off-by: Christian Brauner <christian.brauner@ubuntu.com>
----
-/* v2 */
-- Michael Kerrisk (man-pages) <mtk.manpages@gmail.com>:
-  - Fix various types and add examples and how to specify the file
-    descriptor.
----
- man2/clone.2 | 43 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 43 insertions(+)
+See https://bugzilla.kernel.org/show_bug.cgi?id=206693
 
-diff --git a/man2/clone.2 b/man2/clone.2
-index 8b70b78a4..33594ddc5 100644
---- a/man2/clone.2
-+++ b/man2/clone.2
-@@ -197,6 +197,7 @@ struct clone_args {
-     u64 tls;          /* Location of new TLS */
-     u64 set_tid;      /* Pointer to a \fIpid_t\fP array */
-     u64 set_tid_size; /* Number of elements in \fIset_tid\fP */
-+    u64 cgroup;       /* Target cgroup file descriptor for the child process */
- };
- .EE
- .in
-@@ -448,6 +449,48 @@ Specifying this flag together with
- .B CLONE_SIGHAND
- is nonsensical and disallowed.
- .TP
-+.BR CLONE_INTO_CGROUP " (since Linux 5.7)"
-+.\" commit ef2c41cf38a7559bbf91af42d5b6a4429db8fc68
-+By default, the child process will be placed in the same version 2
-+cgroup as its parent.
-+If this flag is specified the child process will be created in a
-+different cgroup than its parent.
-+Note, that
-+.BR CLONE_INTO_CGROUP
-+is limited to version 2 cgroups. To use this feature, callers
-+need to raise
-+.BR CLONE_INTO_CGROUP
-+in
-+.I cl_args.flags
-+and pass a directory file descriptor (see the
-+.BR O_DIRECTORY
-+flag for the
-+.BR open (2)
-+syscall) in the
-+.I cl_args.cgroup.
-+The caller may also pass an
-+.BR O_PATH
-+(see
-+.BR open (2))
-+file descriptor for the target cgroup.
-+Note, that all usual version 2 cgroup migration restrictions (see
-+.BR cgroups (7)
-+for details) apply.
-+
-+Spawning a process into a cgroup different from the parent's cgroup
-+makes it possible for a service manager to directly spawn new
-+services into dedicated cgroups. This allows eliminating accounting
-+jitter which would be caused by the new process living in the
-+parent's cgroup for a short amount of time before being
-+moved into the target cgroup. This flag also allows the creation of
-+frozen child process by spawning them into a frozen cgroup (see
-+.BR cgroups (7)
-+for a description of the freezer feature in version 2 cgroups).
-+For threaded applications or even thread implementations which
-+make use of cgroups to limit individual threads it is possible to
-+establish a fixed cgroup layout before spawning each thread
-+directly into its target cgroup.
+Reported-by: Gary Perkins <glperkins@lit.edu>
+Signed-off-by: Thomas Piekarski <t.piekarski@deloquencia.de>
+
+---
+
+man7/hier.7 | 28 ++++++++++++++++++++++++----
+  1 file changed, 24 insertions(+), 4 deletions(-)
+
+diff --git a/man7/hier.7 b/man7/hier.7
+index dab9483d7..03fe61c71 100644
+--- a/man7/hier.7
++++ b/man7/hier.7
+@@ -161,6 +161,12 @@ This pseudo-filesystem is described in more detail in
+  .I /root
+  This directory is usually the home directory for the root user (optional).
+  .TP
++.I /run
++This directory contains information which describes the system since it 
+was booted.
++Once this purpose was served by
++.IR /var/run
++and programs may continue to use it.
 +.TP
- .BR CLONE_DETACHED " (historical)"
- For a while (during the Linux 2.5 development series)
- .\" added in 2.5.32; removed in 2.6.0-test4
-
-base-commit: aa02339ca45030711b42a1af12e3ee3405c1c5c7
+  .I /sbin
+  Like
+  .IR /bin ,
+@@ -186,7 +192,7 @@ It should hold only shareable, read-only data, so 
+that it can be mounted
+  by various machines running Linux.
+  .TP
+  .I /usr/X11R6
+-The X\-Window system, version 11 release 6 (optional).
++The X\-Window system, version 11 release 6 (obsolete since FHS 3.0).
+  .TP
+  .I /usr/X11R6/bin
+  Binaries which belong to the X\-Window system; often, there is a
+@@ -296,6 +302,10 @@ which usually are not invoked directly.
+  More complicated programs may
+  have whole subdirectories there.
+  .TP
++.I /usr/libexec
++Directory contains binaries for internal use only and they are not meant
++to be executed directly by users shell or scripts.
++.TP
+  .I /usr/lib<qual>
+  These directories are variants of
+  .I /usr/lib
+@@ -385,6 +395,10 @@ or
+  or
+  .IR /usr/man .
+  .TP
++.I /usr/share/color
++Contains color management information, like International Color 
+Consortium (ICC)
++Color profiles (optional).
++.TP
+  .I /usr/share/dict
+  Contains the word lists used by spell checkers (optional).
+  .TP
+@@ -421,6 +435,9 @@ same OS.
+  .I /usr/share/nls
+  The message catalogs for native language support go here (optional).
+  .TP
++.I /usr/share/ppd
++Postscript Printer Definition (PPD) files (optional).
++.TP
+  .I /usr/share/sgml
+  Files for SGML (optional).
+  .TP
+@@ -523,6 +540,9 @@ Variable game data (optional).
+  .I /var/lib
+  Variable state information for programs.
+  .TP
++.I /var/lib/color
++Variable files containing color management information (optional).
++.TP
+  .I /var/lib/hwclock
+  State directory for hwclock (optional).
+  .TP
+@@ -635,11 +655,11 @@ this directory holds temporary files stored for an 
+unspecified duration.
+  Database files for NIS,
+  formerly known as the Sun Yellow Pages (YP).
+  .SH CONFORMING TO
+-The Filesystem Hierarchy Standard, Version 2.3
+-.UR http://www.pathname.com\:/fhs/
++The Filesystem Hierarchy Standard (FHS), Version 3.0, published March 
+19, 2015
++.UR https://refspecs.linuxfoundation.org/fhs.shtml
+  .UE .
+  .SH BUGS
+-This list is not exhaustive; different systems may be configured
++This list is not exhaustive; different distributions and systems may be 
+configured
+  differently.
+  .SH SEE ALSO
+  .BR find (1),
 -- 
-2.26.2
+2.20.1
 
