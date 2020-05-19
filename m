@@ -2,200 +2,172 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CC3411D988F
-	for <lists+linux-man@lfdr.de>; Tue, 19 May 2020 15:51:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 880A21D9B73
+	for <lists+linux-man@lfdr.de>; Tue, 19 May 2020 17:39:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727086AbgESNv3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 19 May 2020 09:51:29 -0400
-Received: from youngberry.canonical.com ([91.189.89.112]:48337 "EHLO
-        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726471AbgESNv2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 19 May 2020 09:51:28 -0400
-Received: from ip5f5af183.dynamic.kabel-deutschland.de ([95.90.241.131] helo=wittgenstein)
-        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
-        (Exim 4.86_2)
-        (envelope-from <christian.brauner@ubuntu.com>)
-        id 1jb2eT-0003VK-D6; Tue, 19 May 2020 13:51:25 +0000
-Date:   Tue, 19 May 2020 15:51:24 +0200
-From:   Christian Brauner <christian.brauner@ubuntu.com>
+        id S1728647AbgESPjl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 19 May 2020 11:39:41 -0400
+Received: from smtprelay07.ispgateway.de ([134.119.228.97]:24435 "EHLO
+        smtprelay07.ispgateway.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728633AbgESPjl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 19 May 2020 11:39:41 -0400
+X-Greylist: delayed 304 seconds by postgrey-1.27 at vger.kernel.org; Tue, 19 May 2020 11:39:40 EDT
+Received: from [149.233.153.81] (helo=[192.168.178.25])
+        by smtprelay07.ispgateway.de with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+        (Exim 4.92.3)
+        (envelope-from <t.piekarski@deloquencia.de>)
+        id 1jb4GH-00071S-Cr; Tue, 19 May 2020 17:34:33 +0200
+Subject: Re: [PATCH-v2] hier.7: Updating from FHS 2.3 to 3.0
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Christian Brauner <christian@brauner.io>, cgroups@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-man@vger.kernel.org, oleg@redhat.com, tj@kernel.org
-Subject: Re: [PATCH v2] clone.2: Document CLONE_INTO_CGROUP
-Message-ID: <20200519135124.xhgdeaogmvmwbofc@wittgenstein>
-References: <CAKgNAkhL0zCj11LS9vfae872YVeRsxdz20sZWuXdi+UjH21=0g@mail.gmail.com>
- <20200518175549.3400948-1-christian@brauner.io>
- <25b2d051-d276-d570-5608-2bf0f4f46ef1@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>, glperkins@lit.edu
+References: <33544f6a-5983-ed08-b2f1-a7a348c411f6@deloquencia.de>
+ <8bbe0eae-b4a0-3b49-84a7-245b46eb9eff@gmail.com>
+ <69e7cf2a-e0d3-bc1d-0bc7-81111cf80bbc@deloquencia.de>
+ <CAKgNAkhnRiowDQmjuqLrgHbgTbR-EkjokZLJPP-+7PrHtTDirA@mail.gmail.com>
+ <9ebe073b-0e66-3ccd-a815-974eae0f9318@deloquencia.de>
+ <99ae2d82-e5a5-6511-a324-ee59da9642b3@gmail.com>
+From:   Thomas Piekarski <t.piekarski@deloquencia.de>
+Message-ID: <c1c52c68-5fa1-246f-06c6-2bbe647c65ca@deloquencia.de>
+Date:   Tue, 19 May 2020 17:34:33 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <25b2d051-d276-d570-5608-2bf0f4f46ef1@gmail.com>
+In-Reply-To: <99ae2d82-e5a5-6511-a324-ee59da9642b3@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Df-Sender: dC5waWVrYXJza2lAZGVsb3F1ZW5jaWEuZGU=
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, May 19, 2020 at 03:36:28PM +0200, Michael Kerrisk (man-pages) wrote:
-> Hello Christian,
-> 
-> Thanks for this patch!
+Hello Michael,
 
-Thanks for making it palatable. :)
 
+On 19.05.20 2:55 PM, Michael Kerrisk (man-pages) wrote:
+>>>> What do you think about such rephrasing? Or should it be just deleted
+>>>> from the manual page? How have been such updates (where something in
+>>>> documentation is silently not mentioned anymore) handled in the past?
+>>>
+>>> I think it would be sufficient to say something like "present in FHS
+>>> 2.3, removed in FHS 3.0".
+>>> Shall I make that change, or do you want to revise youe patch?
+>>
+>> That is a good idea.
+>>
+>> Being new to the process I would like to revise, make the change and
+>> update the patch.
 > 
-> On 5/18/20 7:55 PM, Christian Brauner wrote:
-> > From: Christian Brauner <christian.brauner@ubuntu.com>
-> > 
-> > Signed-off-by: Christian Brauner <christian.brauner@ubuntu.com>
-> > ---
-> > /* v2 */
-> > - Michael Kerrisk (man-pages) <mtk.manpages@gmail.com>:
-> >   - Fix various types and add examples and how to specify the file
-> >     descriptor.
-> > ---
-> >  man2/clone.2 | 43 +++++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 43 insertions(+)
-> > 
-> > diff --git a/man2/clone.2 b/man2/clone.2
-> > index 8b70b78a4..33594ddc5 100644
-> > --- a/man2/clone.2
-> > +++ b/man2/clone.2
-> > @@ -197,6 +197,7 @@ struct clone_args {
-> >      u64 tls;          /* Location of new TLS */
-> >      u64 set_tid;      /* Pointer to a \fIpid_t\fP array */
-> >      u64 set_tid_size; /* Number of elements in \fIset_tid\fP */
-> > +    u64 cgroup;       /* Target cgroup file descriptor for the child process */
-> >  };
-> >  .EE
-> >  .in
-> > @@ -448,6 +449,48 @@ Specifying this flag together with
-> >  .B CLONE_SIGHAND
-> >  is nonsensical and disallowed.
-> >  .TP
-> > +.BR CLONE_INTO_CGROUP " (since Linux 5.7)"
-> > +.\" commit ef2c41cf38a7559bbf91af42d5b6a4429db8fc68
-> > +By default, the child process will be placed in the same version 2
-> > +cgroup as its parent.
-> > +If this flag is specified the child process will be created in a
-> > +different cgroup than its parent.
-> > +Note, that
-> > +.BR CLONE_INTO_CGROUP
-> > +is limited to version 2 cgroups. To use this feature, callers
-> > +need to raise
-> > +.BR CLONE_INTO_CGROUP
-> > +in
-> > +.I cl_args.flags
-> > +and pass a directory file descriptor (see the
-> > +.BR O_DIRECTORY
-> > +flag for the
-> > +.BR open (2)
-> > +syscall) in the
-> 
-> I think the mention of O_DIRECTORY here is a bit misleading. That
-> flag does not need to be used. O_RDONLY or O_PATH suffices; I 
-> reworded somewhat.
-> 
-> > +.I cl_args.cgroup.
-> > +The caller may also pass an
-> > +.BR O_PATH
-> > +(see
-> > +.BR open (2))
-> > +file descriptor for the target cgroup.
-> > +Note, that all usual version 2 cgroup migration restrictions (see
-> > +.BR cgroups (7)
-> > +for details) apply.
-> 
-> Here I presume you mean things like the "no internal processes 
-> rule" and the restriction around putting a process into a
-> "domain invalid" cgroup, right? I reworded a things and added
-> a couple of cases in ERRORS.
-> 
-> > +
-> > +Spawning a process into a cgroup different from the parent's cgroup
-> > +makes it possible for a service manager to directly spawn new
-> > +services into dedicated cgroups. This allows eliminating accounting
-> > +jitter which would be caused by the new process living in the
-> > +parent's cgroup for a short amount of time before being
-> > +moved into the target cgroup. This flag also allows the creation of
-> > +frozen child process by spawning them into a frozen cgroup (see
-> > +.BR cgroups (7)
-> > +for a description of the freezer feature in version 2 cgroups).
-> > +For threaded applications or even thread implementations which
-> > +make use of cgroups to limit individual threads it is possible to
-> > +establish a fixed cgroup layout before spawning each thread
-> > +directly into its target cgroup.
-> 
-> Thanks for these use cases; that's great!
-> 
-> So, I did some fairly heavy editing, which resulted in the
-> following (the sum of the diffs is shown at the end of this
-> mail):
-> 
->        CLONE_INTO_CGROUP (since Linux 5.7)
->               By default, a child process is placed in the same version 2
->               cgroup  as  its  parent.   The CLONE_INTO_CGROUP allows the
+> Okay.
+Updated patch and description.
 
-Not a native speaker, but is this missing a noun like "flag"?
-"The CLONE_INTO_CGROUP {flag,feature} allows the [...]"?
 
->               child process to  be  created  in  a  different  version  2
->               cgroup.   (Note  that CLONE_INTO_CGROUP has effect only for
->               version 2 cgroups.)
-> 
->               In order to place the child process in a different  cgroup,
->               the caller specifies CLONE_INTO_CGROUP in cl_args.flags and
->               passes a file descriptor that refers to a version 2  cgroup
->               in  the cl_args.cgroup field.  (This file descriptor can be
->               obtained by opening a cgroup v2 directory file using either
+Adding description of new directories (/run, /usr/libexec,
+/usr/share/color,/usr/share/ppd, /var/lib/color), stating
+/usr/X11R6 as removed and updating URL to and version of
+FHS.
 
-Should this just be "opening a cgroup v2 directory" and not "directory
-file"? Feels redundant.
+See https://bugzilla.kernel.org/show_bug.cgi?id=206693
 
->               the  O_RDONLY  or  the  O_PATH flag.)  Note that all of the
->               usual restrictions (described in cgroups(7)) on  placing  a
->               process into a version 2 cgroup apply.
-> 
->               Spawning  a  process  into a cgroup different from the par‐
->               ent's cgroup makes it possible for  a  service  manager  to
->               directly  spawn  new services into dedicated cgroups.  This
->               eliminates the accounting jitter that would  be  caused  if
->               the  child  process was first created in the same cgroup as
->               the parent and then moved  into  the  target  cgroup.   The
+Reported-by: Gary Perkins <glperkins@lit.edu>
+Signed-off-by: Thomas Piekarski <t.piekarski@deloquencia.de>
 
-I forgot to mention that spawning directly into a target cgroup is also
-more efficient than moving it after creation. The specific reason is
-mentioned in the commit message, the write lock of the semaphore need
-not be taken in contrast to when it is moved afterwards. That
-implementation details is not that interesting but it might be
-interesting to know that it provides performance benefits in general.
+---
 
->               CLONE_INTO_CGROUP  flag  also allows the creation of frozen
->               child processes by spawning  them  into  a  frozen  cgroup.
->               (See  cgroups(7)  for  a  description  of  the freezer con‐
->               troller.)  For threaded applications (or even thread imple‐
->               mentations  which  make  use of cgroups to limit individual
->               threads), it is possible to establish a fixed cgroup layout
->               before  spawning  each  thread  directly  into  its  target
->               cgroup.
-> 
-> ERRORS
->        EBUSY (clone3() only)
->               CLONE_INTO_CGROUP  was  specified in cl_args.flags, but the
->               file descriptor specified in  cl_args.cgroup  refers  to  a
->               version 2 cgroup in which a domain controller is enabled.
-> 
->        EOPNOTSUP (clone3() only)
->               CLONE_INTO_CGROUP  was  specified in cl_args.flags, but the
->               file descriptor specified in  cl_args.cgroup  refers  to  a
->               version 2 cgroup that is in the domain invalid state.
+  man7/hier.7 | 29 +++++++++++++++++++++++++----
+  1 file changed, 25 insertions(+), 4 deletions(-)
 
-Ah, good catch with the errnos.
+diff --git a/man7/hier.7 b/man7/hier.7
+index dab9483d7..44c3139f5 100644
+--- a/man7/hier.7
++++ b/man7/hier.7
+@@ -161,6 +161,12 @@ This pseudo-filesystem is described in more detail in
+  .I /root
+  This directory is usually the home directory for the root user (optional).
+  .TP
++.I /run
++This directory contains information which describes the system since it 
+was booted.
++Once this purpose was served by
++.IR /var/run
++and programs may continue to use it.
++.TP
+  .I /sbin
+  Like
+  .IR /bin ,
+@@ -186,7 +192,8 @@ It should hold only shareable, read-only data, so 
+that it can be mounted
+  by various machines running Linux.
+  .TP
+  .I /usr/X11R6
+-The X\-Window system, version 11 release 6 (optional).
++The X\-Window system, version 11 release 6 (present in FHS 2.3, removed
++in FHS 3.0).
+  .TP
+  .I /usr/X11R6/bin
+  Binaries which belong to the X\-Window system; often, there is a
+@@ -296,6 +303,10 @@ which usually are not invoked directly.
+  More complicated programs may
+  have whole subdirectories there.
+  .TP
++.I /usr/libexec
++Directory contains binaries for internal use only and they are not meant
++to be executed directly by users shell or scripts.
++.TP
+  .I /usr/lib<qual>
+  These directories are variants of
+  .I /usr/lib
+@@ -385,6 +396,10 @@ or
+  or
+  .IR /usr/man .
+  .TP
++.I /usr/share/color
++Contains color management information, like International Color 
+Consortium (ICC)
++Color profiles (optional).
++.TP
+  .I /usr/share/dict
+  Contains the word lists used by spell checkers (optional).
+  .TP
+@@ -421,6 +436,9 @@ same OS.
+  .I /usr/share/nls
+  The message catalogs for native language support go here (optional).
+  .TP
++.I /usr/share/ppd
++Postscript Printer Definition (PPD) files (optional).
++.TP
+  .I /usr/share/sgml
+  Files for SGML (optional).
+  .TP
+@@ -523,6 +541,9 @@ Variable game data (optional).
+  .I /var/lib
+  Variable state information for programs.
+  .TP
++.I /var/lib/color
++Variable files containing color management information (optional).
++.TP
+  .I /var/lib/hwclock
+  State directory for hwclock (optional).
+  .TP
+@@ -635,11 +656,11 @@ this directory holds temporary files stored for an 
+unspecified duration.
+  Database files for NIS,
+  formerly known as the Sun Yellow Pages (YP).
+  .SH CONFORMING TO
+-The Filesystem Hierarchy Standard, Version 2.3
+-.UR http://www.pathname.com\:/fhs/
++The Filesystem Hierarchy Standard (FHS), Version 3.0, published March 
+19, 2015
++.UR https://refspecs.linuxfoundation.org/fhs.shtml
+  .UE .
+  .SH BUGS
+-This list is not exhaustive; different systems may be configured
++This list is not exhaustive; different distributions and systems may be 
+configured
+  differently.
+  .SH SEE ALSO
+  .BR find (1),
+-- 
+2.20.1
 
-> 
-> Look okay to you?
-
-Yep, looks great!
-Thanks!
-Christian
