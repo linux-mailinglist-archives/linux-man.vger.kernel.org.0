@@ -2,62 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8BC651DD874
-	for <lists+linux-man@lfdr.de>; Thu, 21 May 2020 22:35:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 25CDF1DDA30
+	for <lists+linux-man@lfdr.de>; Fri, 22 May 2020 00:25:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728547AbgEUUfQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 21 May 2020 16:35:16 -0400
-Received: from smtprelay08.ispgateway.de ([134.119.228.111]:27918 "EHLO
-        smtprelay08.ispgateway.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729483AbgEUUfQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 21 May 2020 16:35:16 -0400
-Received: from [37.4.254.192] (helo=[192.168.0.28])
-        by smtprelay08.ispgateway.de with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
-        (Exim 4.92.3)
-        (envelope-from <t.piekarski@deloquencia.de>)
-        id 1jbruL-0001Wc-Nc
-        for linux-man@vger.kernel.org; Thu, 21 May 2020 22:35:13 +0200
-Subject: Re: Question about projects bugzilla and personal tags not being so
- personal
-To:     linux-man <linux-man@vger.kernel.org>
-References: <228293bd-7d21-b08e-f7c4-c832e9c84dbb@deloquencia.de>
- <CAKgNAkjyLhP8Qk=Bz5JyJVN1RTxGrgXaP8=R5gASw8zYvsZNUg@mail.gmail.com>
-From:   Thomas Piekarski <t.piekarski@deloquencia.de>
-Message-ID: <c6c6f7ef-aa14-35fb-8de8-3ae22015db00@deloquencia.de>
-Date:   Thu, 21 May 2020 22:35:13 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <CAKgNAkjyLhP8Qk=Bz5JyJVN1RTxGrgXaP8=R5gASw8zYvsZNUg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Df-Sender: dC5waWVrYXJza2lAZGVsb3F1ZW5jaWEuZGU=
+        id S1730584AbgEUWZ5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 21 May 2020 18:25:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45124 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1730371AbgEUWZ4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 21 May 2020 18:25:56 -0400
+Received: from mail-qv1-xf4a.google.com (mail-qv1-xf4a.google.com [IPv6:2607:f8b0:4864:20::f4a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B9A1CC05BD43
+        for <linux-man@vger.kernel.org>; Thu, 21 May 2020 15:25:56 -0700 (PDT)
+Received: by mail-qv1-xf4a.google.com with SMTP id a7so8745901qvl.2
+        for <linux-man@vger.kernel.org>; Thu, 21 May 2020 15:25:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20161025;
+        h=date:message-id:mime-version:subject:from:to:cc;
+        bh=IcMIWpTIuJhOXe3roKCgk3KWh3umIrVN5sjlOXmENmE=;
+        b=n4N7mbnzd+X7RmLijocF1fab6W7WtoTITGMbGY3Qfn/byG9EcJvqHVnka2hmpyYVFs
+         rrHb82CqiSaztzWuWl0w7CIIP8DtJXCCjTxqcM3hq5jGM3rBWTv5rANe3FfJKLNYxwot
+         7eDFZbmuU2AtPzrRNgSiW0T2vIRfOnzNVfzTu4qo4fekYNBE/X9INuOeJb9+AeMBy6YY
+         nvB4yQSetAr+59/y4rOaLDupbgJosev9HUrAX1n04wBq7Ubd7S309nMztfO9TSkHpmqO
+         dQ82SxMi/0nL3nX6HoqKVmKBkqDmSlVI0Ny3VKBsV0YmRdXAIeC3EFMOMwKMf/5Y7ogg
+         Ry+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+        bh=IcMIWpTIuJhOXe3roKCgk3KWh3umIrVN5sjlOXmENmE=;
+        b=Qk0LGWb3Bt1WnVN3WkyfE+rWdYIGC1V0GFTFrHQUajm1X6ATv9+qyMszrjBMJwXIG4
+         VgOff/LqMYg/YnEqF9AkWOacNX97ZxNz5WGpHGClP78egYFNmTGOsHTMql24RL2FFUWO
+         iQpi09UIPky9R5RSRzl4Qn5L8/5J/MFkFav0IW7QQcm8SdFRza5GnTLCbpTarOm8ATqO
+         2XcpVYU9zKnRD766qQgnxb0oIZ9pxLQrvFR+QFWSC50OFumaNbfI5o+4zWRP8t6n6syP
+         8K1Kix6/zKn7xTOJ/X4YSgifMRty6gz1ubToUe5PktDc/+sGZODq11hqEJQeB6Eyoiig
+         Qlog==
+X-Gm-Message-State: AOAM5329od7frzvhhGpXN02K08CqiQ+aHC0ZsDz3g1JWEGAhNuYyEgid
+        YX9nYI8iqZzFihY+Qn+dYDu8046x/sKT
+X-Google-Smtp-Source: ABdhPJy7zMpHMw3vtshTDzUFBDK8SKAjdIyya1+LREbYnNfVWw7HiFYhgZ5eGU1W+DninwgUHDkpcJ8rEx/b
+X-Received: by 2002:ad4:43e3:: with SMTP id f3mr908752qvu.115.1590099955922;
+ Thu, 21 May 2020 15:25:55 -0700 (PDT)
+Date:   Thu, 21 May 2020 15:25:51 -0700
+Message-Id: <20200521222551.259804-1-irogers@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.27.0.rc0.183.gde8f92d652-goog
+Subject: [PATCH] proc.5: add "wf" to VmFlags in /proc/[pid]/smaps
+From:   Ian Rogers <irogers@google.com>
+To:     Rik van Riel <riel@redhat.com>, mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-mm@kvack.org, linux-api@vger.kernel.org, nilal@redhat.com,
+        Florian Weimer <fweimer@redhat.com>,
+        "=?UTF-8?q?Colm=20MacC=C3=A1rtaigh?=" <colm@allcosts.net>,
+        Mike Kravetz <mike.kravetz@oracle.com>,
+        Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Michael,
+This patch documents a flag added in the following kernel commit:
 
+commit d2cd9ede6e193dd7d88b6d27399e96229a551b19
+Author: Rik van Riel <riel@redhat.com>
+Date:   Wed Sep 6 16:25:15 2017 -0700
 
-On 21.05.20 10:21 PM, Michael Kerrisk (man-pages) wrote:
-> On Thu, 21 May 2020 at 22:14, Thomas Piekarski
-> <t.piekarski@deloquencia.de> wrote:
->>
->> Wondering, isn't the field personal tag meant only for me? I thought it
->> should not sent out notifications. At least that is what the description
->> of the field is saying. Am I doing something wrong here or do I have to
->> configure something at my settings of bugzilla?
-> 
-> So, this is really a bugzilla question. I don't know the answer (I'm a
-> very simple user of bugzilla). It _may_ be that someone on this list
-> knows something about this, but you might best ask on a bugzilla
-> mailing list if you really need the answer.
+    mm,fork: introduce MADV_WIPEONFORK
 
+This was already documented in man2/madvise.2 in the commit:
 
-Indeed that's a bugzilla question, I'll check with them.
-Maybe someone here uses this field :)
+commit c0c4f6c29c494c466f3a2a6273c5b55b76a72927
+Author: Rik van Riel <riel@redhat.com>
+Date:   Tue Sep 19 20:32:00 2017 +0200
 
-Thanks for your quick reply.
-Thomas
+    madvise.2: Document MADV_WIPEONFORK and MADV_KEEPONFORK
+
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ man5/proc.5 | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/man5/proc.5 b/man5/proc.5
+index 46d603f28..3e5b91af0 100644
+--- a/man5/proc.5
++++ b/man5/proc.5
+@@ -2020,6 +2020,7 @@ encoded using the following two-letter codes:
+     ht  - area uses huge tlb pages
+     nl  - non-linear mapping
+     ar  - architecture specific flag
++    wf  - wipe on fork
+     dd  - do not include area into core dump
+     sd  - soft-dirty flag
+     mm  - mixed map area
+-- 
+2.27.0.rc0.183.gde8f92d652-goog
+
