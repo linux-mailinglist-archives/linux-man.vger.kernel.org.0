@@ -2,86 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3E6581DCDD2
-	for <lists+linux-man@lfdr.de>; Thu, 21 May 2020 15:18:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2A6781DD811
+	for <lists+linux-man@lfdr.de>; Thu, 21 May 2020 22:14:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728186AbgEUNSq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 21 May 2020 09:18:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43722 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727846AbgEUNSq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 21 May 2020 09:18:46 -0400
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E9915C061A0E
-        for <linux-man@vger.kernel.org>; Thu, 21 May 2020 06:18:45 -0700 (PDT)
-Received: by mail-ej1-x642.google.com with SMTP id yc10so8710949ejb.12
-        for <linux-man@vger.kernel.org>; Thu, 21 May 2020 06:18:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=0bRMCCHSgKxGtVeRWJhmNHraLksHqaC9rctK/edwkQM=;
-        b=b6uFnW5860tQauRBBcPSfSoV/P7f7VmFc/fC+HVM4W2STYYouh8EEWV5jklH2WcxxL
-         iiT4FWoW46LpX3QwJ0o4r3xzuJtpfrQtdO4h24hdBSc3qqeDa7DBGgkm2xlcI4VR6WjJ
-         iuicSzc0hq3YBpFxSDyA6xyUa4QRtMTEKwq5XXgfJrtWUrlaMrw2xZyKEp2i94ySPDW4
-         N3eNlupnQjGfN6Nzvh1N0A3PcPjkf1oPIxc8fGh5k/dVnVvMZ71uXWvsuOJ0Srp/hPsw
-         Sboq5WH5rH0qsL8HruxeT6z5qQgrE5V02CrJb4l5UUQVMAZRz1vynTLHoqP4vv1keep3
-         tmZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=0bRMCCHSgKxGtVeRWJhmNHraLksHqaC9rctK/edwkQM=;
-        b=dVT0avEkZLp2JALC+vRtp3kSp6EEoHdPFy9ByXp+mq6huFPuG8jiG+sCLfU2gkUU6E
-         gVlZ+pDr86L14XYXApd9VOxG4GfIsifqfsn1Th1XcikV0f55HXlJxRoTBapc62rtXSuG
-         /TuONNhsrvHqUNFDcUEpshTS38SeseG7lpNf1XwPmNTEmLVYYfSFYNcqv5JnFFDVhmXz
-         TDGkByVUEuwb5G9SgOTbuKonNxvRTQa4CzpYlQ1fWu4iHDwu92ilXYZmHT5QnVsUtVKT
-         dH8xeKm1nI+sgsFm/W+la6/tj5sp8gX0tWgiSS7bwvDVZHqhvHPu0OExHI75s3Kk8PAo
-         kN1A==
-X-Gm-Message-State: AOAM531Jzfc8e7i/nfj5ehqReGrgYrquXSj9hAMV7PugYyBtc56F2DbC
-        +ZkDkOBc/LqLdbLBeEKvfOAIGhetBZE8MDX5fRs=
-X-Google-Smtp-Source: ABdhPJyx7Q9ItcZQjRNSt54cZOqmBBXrZFot/xt0c3DnpEk8Z3EndJDNPzX3vTJpcBE18ZYm8i9QzwkurPx4+tn/7pI=
-X-Received: by 2002:a17:906:2dc8:: with SMTP id h8mr3700497eji.108.1590067124542;
- Thu, 21 May 2020 06:18:44 -0700 (PDT)
+        id S1728091AbgEUUOE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 21 May 2020 16:14:04 -0400
+Received: from smtprelay03.ispgateway.de ([80.67.31.37]:1853 "EHLO
+        smtprelay03.ispgateway.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726814AbgEUUOE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 21 May 2020 16:14:04 -0400
+Received: from [37.4.254.192] (helo=[192.168.0.28])
+        by smtprelay03.ispgateway.de with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+        (Exim 4.92.3)
+        (envelope-from <t.piekarski@deloquencia.de>)
+        id 1jbrZp-00074H-4N
+        for linux-man@vger.kernel.org; Thu, 21 May 2020 22:14:01 +0200
+To:     linux-man <linux-man@vger.kernel.org>
+From:   Thomas Piekarski <t.piekarski@deloquencia.de>
+Subject: Question about projects bugzilla and personal tags not being so
+ personal
+Message-ID: <228293bd-7d21-b08e-f7c4-c832e9c84dbb@deloquencia.de>
+Date:   Thu, 21 May 2020 22:14:00 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-References: <87a722a6yl.fsf@oldenburg2.str.redhat.com> <CAKgNAkgM-NKziND+x+LZkcgJz_LKE94BK6VYqOz2b+A2c6idJw@mail.gmail.com>
- <87a7218pbk.fsf@oldenburg2.str.redhat.com> <CAKgNAkgjre_oBAJtvV1aR597nH5o2aH6pzBgOrURnaC_Kh0gcw@mail.gmail.com>
-In-Reply-To: <CAKgNAkgjre_oBAJtvV1aR597nH5o2aH6pzBgOrURnaC_Kh0gcw@mail.gmail.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Thu, 21 May 2020 15:18:33 +0200
-Message-ID: <CAKgNAki7AzuBnHOYuVL9kLh1VRe7y8CDkj99a2ru1NEUXnYHnw@mail.gmail.com>
-Subject: Re: [PATCH] ldconfig.8: Mention new default for --format in glibc 2.32
-To:     Florian Weimer <fweimer@redhat.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Df-Sender: dC5waWVrYXJza2lAZGVsb3F1ZW5jaWEuZGU=
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Amended patch applied. Thanks for sending this, Florian!
+Hello,
 
-Cheers,
 
-Michael
+when skimming through the reported bugs at man-pages bugzilla I tried to 
+tag a few bug reports with personal tags for my own workflow and own 
+custom search filters (something like to_triage, to_ask and to_do).
 
-diff --git a/man8/ldconfig.8 b/man8/ldconfig.8
-index eb9c86dae..f770f1463 100644
---- a/man8/ldconfig.8
-+++ b/man8/ldconfig.8
-@@ -125,8 +125,12 @@ Cache format to use:
- .IR old ,
- .IR new ,
- or
--.IR compat
--(default).
-+.IR compat .
-+Since glibc 2.32, the default is
-+.IR new .
-+.\" commit cad64f778aced84efdaa04ae64f8737b86f063ab
-+Before that, it was
-+.IR compat .
- .TP
- .BI "\-C " cache
- Use
+When I added one tag and saved that changes I got an:
+
+Changes submitted for bug 205763
+Email sent to:
+inout@users.sourceforge.net, on2014nm@gmail.com, 
+zeno.endemann@googlemail.com
+
+
+Wondering, isn't the field personal tag meant only for me? I thought it 
+should not sent out notifications. At least that is what the description 
+of the field is saying. Am I doing something wrong here or do I have to 
+configure something at my settings of bugzilla?
+
+
+
+Thanks in advance,
+Thomas
