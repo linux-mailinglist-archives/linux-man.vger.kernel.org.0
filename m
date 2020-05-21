@@ -2,118 +2,111 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EF9421DCCB0
-	for <lists+linux-man@lfdr.de>; Thu, 21 May 2020 14:15:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0C7F31DCDCB
+	for <lists+linux-man@lfdr.de>; Thu, 21 May 2020 15:15:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729291AbgEUMPI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 21 May 2020 08:15:08 -0400
-Received: from mout.kundenserver.de ([212.227.17.24]:33909 "EHLO
-        mout.kundenserver.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727949AbgEUMPI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 21 May 2020 08:15:08 -0400
-Received: from localhost ([178.142.96.94]) by mrelayeu.kundenserver.de
- (mreue106 [213.165.67.113]) with ESMTPSA (Nemesis) id
- 1N9d91-1ixLH51mwn-015Ysm; Thu, 21 May 2020 14:15:06 +0200
-Date:   Thu, 21 May 2020 14:15:06 +0200
-From:   Tobias Stoeckmann <tobias@stoeckmann.org>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Subject: [patch] printf.3: Prevent signed integer overflow in example
-Message-ID: <20200521121505.dfh473amjvb37rwr@localhost>
+        id S1729289AbgEUNPs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 21 May 2020 09:15:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43262 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727846AbgEUNPr (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 21 May 2020 09:15:47 -0400
+Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8543EC061A0E
+        for <linux-man@vger.kernel.org>; Thu, 21 May 2020 06:15:46 -0700 (PDT)
+Received: by mail-ej1-x642.google.com with SMTP id n24so8787026ejd.0
+        for <linux-man@vger.kernel.org>; Thu, 21 May 2020 06:15:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=PxMiFZL9ST+/NzM82cFArwiytd2uUdSJ2FCMszct2qo=;
+        b=UUDWLgC9gRnwiVMEbTrUskaM7C6myjOLAMemglHzh5F5I2hIvEyI7jpRDfZ4OJ/lXj
+         c9JdUR1AOn2wEpjKaq923dVf4JQrmRx/t5x+hDNa3eH9rnxW+v/ggHZc/ekLiaLMFRXn
+         Lz9CJtLD7fVVKqZ3ovG6c3ioU8+Q8zskDF5EnnyxcEEipL9x/hhsKzD0NJ3wJTix43Bw
+         93QAGikQda5KRNcWhNMt4SEIp2iOL2JHZRoIKuzAqjLBhN+aMaTLXIyKuqB01bcQ0nFA
+         nQhG5aKH6k24DzUoiix0AXlG9QcCjwmyPGXcYRxVhhz7tRUlgTcDCc62olN5LvAU4+OR
+         rpBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=PxMiFZL9ST+/NzM82cFArwiytd2uUdSJ2FCMszct2qo=;
+        b=rHFzd05WzyolcgleLD6uykINfoWooSUIQL8BMWVAtXN/j62zj7qKx/HYM3PUHQVYWQ
+         xj3v+hsVDxnkUHLoc9KPGRrnlo19VmIDHO5Hr1DyzV1HaoRoG5syBXrsbZAb6UstPcSz
+         zopdDTYM8pLTChDCb0Wt4HXgyC/5m8KOv3Bb13Ayx2ba4+w8hKbqbS3OPxrMlsL3aWvU
+         uT45TLmJziGFKhnLW2jgpVCLVOBX/aBOrc9UWzeePbr9UZaBD9x77wFCkp3ndpsmtPUD
+         x5MDEaw9IUOQW0BU576y0GAH1d05ZzSt+R6kWqYYrl7cS0cRxnoJxLA8opWv98GCPnGv
+         Fs4w==
+X-Gm-Message-State: AOAM533+GFoOt3/04jF2Mp8+xCJ1N23jB+FnM7P+ZbWu8U76BrWTD90y
+        d8svKeBblBvP/aeZSOAB9MBa6dlWAMaekAzoRCg=
+X-Google-Smtp-Source: ABdhPJw4Sm5TXhupfAF1AHVE5cixi8zkAipB/LylbY+ZqNhB+Rz5ayFuFdEsap0JpF1ksPrr/e7gqxCu/XT89kyX+KY=
+X-Received: by 2002:a17:906:c29a:: with SMTP id r26mr3417083ejz.286.1590066945206;
+ Thu, 21 May 2020 06:15:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Provags-ID: V03:K1:peKFXSoGmx6dqmrm76185KDpZnxSczsM3o8lIq862VPP/vtEIxp
- d/dt2UZMGikGt1UySIQMzTMn2+7mi17UpnB9Pze6yjwnors141ym3VPkyo/g+IJ/Ab6FtfC
- fNjJxMfgQP1qdD8l47d0V+X6d52j2NxTgAHqcffELaSOdxj/A9uTCdczAf43bG87q/JpEgm
- kpOyb6zjepqGdnTpwUZwA==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:oIZ8aq6CToQ=:wHDH29zSyljJLtRSDI3gnd
- tTthLmAL2RZhvB+pBK0iCmA9jewyX94XhUMgcr4SwhErbbqrwDzr5jm/FTuQbotj8Vck3ZnvD
- jMkRylX5nwRtcKmbpef6wLTS/F0zEOXR7jOpNoRmEhK883gxOmEyBn/mJjd5GZ5JBgPoTZz+3
- y62z4UJKYeXvehaMZ7ZCL5xUxZdUWBOXg3AtQyEI917BpsRdrZjXa9kFoZX+0yWwM+e655RxA
- x95upHzSiAuCQfbL256SlQTVxhNxM32hG3NYboX49HYRvg1dYMvAspqaRx0bbMotAs3twrRZb
- 7ofcuAWrSyrx8Im+i1MDvwsoDFwPWLB7JyWVVthr+AnffpknSQQ62aHRzzijLncTdUwEtjPUU
- WiuOuaQyyurIqYEOD0bkOZGkqeqxQmmwDTzdYppP+riNwf4qWtfejeYQwEDtqXRaGxzFYP3kM
- OB9BtVKeLD4iv+OP6vHn3O3D8pnq+gOaj8HFYRAn42AqomPeANuTg5qmjXLAh3O3hDQdLwUrk
- rKgWxzVZHtPWbuUtYuAje6bvfM9PU1doUF9Wg1pSc8bXfDxFrHibL6JkHcXNR7o0uru+p7/dK
- ec8iwObLXeq5HJlznBjvmnytvnCb+o7BESq17V/aTUQt2+q/NSesygi/B/GF8BDgAYFgtrPeB
- tgoAN7+ELfsI3HRIZNqq3fWlzXau8jpnJdVFhI2eJHBMwQ1T+oQ0wXmD03BUmNYsZg4uERQJf
- /K+Bp2KharRRW0aBaktllVE7mdt/4r6QQBiyEQQKhW+4TVgVhsmC4NtAKSqvOFGR6WzeJbZQC
- lXKYaqg8PsJAJAnqa/Fy05OjeWIaxPh1Y/SHZR7PqJp9FfzRkCH3LCTYr21R8iGuUGoShtB
+References: <87a722a6yl.fsf@oldenburg2.str.redhat.com> <CAKgNAkgM-NKziND+x+LZkcgJz_LKE94BK6VYqOz2b+A2c6idJw@mail.gmail.com>
+ <87a7218pbk.fsf@oldenburg2.str.redhat.com>
+In-Reply-To: <87a7218pbk.fsf@oldenburg2.str.redhat.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Thu, 21 May 2020 15:15:34 +0200
+Message-ID: <CAKgNAkgjre_oBAJtvV1aR597nH5o2aH6pzBgOrURnaC_Kh0gcw@mail.gmail.com>
+Subject: Re: [PATCH] ldconfig.8: Mention new default for --format in glibc 2.32
+To:     Florian Weimer <fweimer@redhat.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The function make_message illustrates how to use vsnprintf to determine
-the required amount of memory for a specific format and its arguments.
+On Thu, 21 May 2020 at 14:06, Florian Weimer <fweimer@redhat.com> wrote:
+>
+> * Michael Kerrisk:
+>
+> > Hi Florian,
+> >
+> > On Wed, 20 May 2020 at 18:48, Florian Weimer <fweimer@redhat.com> wrote:
+> >>
+> >> This reflects glibc commit cad64f778aced84efdaa04ae64f8737b86f063ab
+> >> ("ldconfig: Default to the new format for ld.so.cache").
+> >>
+> >> Signed-off-by: Florian Weimer <fweimer@redhat.com>
+> >
+> > Thanks for the patch. Question below.
+> >
+> >> ---
+> >>  man8/ldconfig.8 | 8 ++++++--
+> >>  1 file changed, 6 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/man8/ldconfig.8 b/man8/ldconfig.8
+> >> index eb9c86dae..e184478a7 100644
+> >> --- a/man8/ldconfig.8
+> >> +++ b/man8/ldconfig.8
+> >> @@ -125,8 +125,12 @@ Cache format to use:
+> >>  .IR old ,
+> >>  .IR new ,
+> >>  or
+> >> -.IR compat
+> >> -(default).
+> >> +.IR compat .
+> >> +Since glibc 2.32, the default is
+> >> +.IR new .
+> >> +.\" commit cad64f778aced84efdaa04ae64f8737b86f063ab
+> >> +Before that, it was
+> >> +.IR both .
+> >
+> > Should "both" be "compat"?
+>
+> Eh, yes.  Should I send a new patch?
 
-If make_message is called with a format which will use exactly INT_MAX
-characters (excluding '\0'), then the size++ calculation will overflow
-the signed integer "size", which is an undefined behaviour in C.
+No, it's okay. I'll edit.
 
-Since malloc and vsnprintf rightfully take a size_t argument, I decided
-to use a size_t variable for size calculation. Therefore, this patched
-code uses variables of the same data types as expected by function
-arguments.
+Cheers,
 
-Proof of concept (tested on Linux/glibc amd64):
+Michael
 
-int main() { make_message("%647s%2147483000s", "", ""); }
-
-If the code is compiled with address sanitizer (gcc -fsanitize=address)
-you can see the following line, assuming that a signed integer overflow
-simply leads to INT_MIN:
-
-==3094==WARNING: AddressSanitizer failed to allocate 0xffffffff80000000 bytes
----
- man3/printf.3 | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
-
-diff --git a/man3/printf.3 b/man3/printf.3
-index 50e136ba6..827d9cbae 100644
---- a/man3/printf.3
-+++ b/man3/printf.3
-@@ -1132,29 +1132,32 @@ To allocate a sufficiently large string and print into it
- char *
- make_message(const char *fmt, ...)
- {
--    int size = 0;
-+    int n = 0;
-+    size_t size = 0;
-     char *p = NULL;
-     va_list ap;
- 
-     /* Determine required size */
- 
-     va_start(ap, fmt);
--    size = vsnprintf(p, size, fmt, ap);
-+    n = vsnprintf(p, size, fmt, ap);
-     va_end(ap);
- 
--    if (size < 0)
-+    if (n < 0)
-         return NULL;
- 
--    size++;             /* For '\e0' */
-+    /* One extra byte for '\e0' */
-+
-+    size = (size_t) n + 1;
-     p = malloc(size);
-     if (p == NULL)
-         return NULL;
- 
-     va_start(ap, fmt);
--    size = vsnprintf(p, size, fmt, ap);
-+    n = vsnprintf(p, size, fmt, ap);
-     va_end(ap);
- 
--    if (size < 0) {
-+    if (n < 0) {
-         free(p);
-         return NULL;
-     }
 -- 
-2.26.2
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
