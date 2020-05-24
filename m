@@ -2,154 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6B4501DFF21
-	for <lists+linux-man@lfdr.de>; Sun, 24 May 2020 15:30:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A5E881DFF58
+	for <lists+linux-man@lfdr.de>; Sun, 24 May 2020 16:23:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728377AbgEXNak (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 24 May 2020 09:30:40 -0400
-Received: from smtprelay02.ispgateway.de ([80.67.31.25]:50264 "EHLO
-        smtprelay02.ispgateway.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725873AbgEXNak (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 24 May 2020 09:30:40 -0400
-Received: from [37.4.254.242] (helo=[192.168.0.28])
-        by smtprelay02.ispgateway.de with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
-        (Exim 4.92.3)
-        (envelope-from <t.piekarski@deloquencia.de>)
-        id 1jcqaf-0004SK-En; Sun, 24 May 2020 15:22:57 +0200
-From:   Thomas Piekarski <t.piekarski@deloquencia.de>
-Subject: [PATCH] iopl.2: Changing description of permissions set per-process
- to per-thread
+        id S1729004AbgEXOXv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 24 May 2020 10:23:51 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47062 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728875AbgEXOXv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 24 May 2020 10:23:51 -0400
+X-Greylist: delayed 722 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sun, 24 May 2020 07:23:50 PDT
+Received: from mo6-p05-ob.smtp.rzone.de (mo6-p05-ob.smtp.rzone.de [IPv6:2a01:238:20a:202:5305::8])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 053FCC061A0E
+        for <linux-man@vger.kernel.org>; Sun, 24 May 2020 07:23:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1590330229;
+        s=strato-dkim-0002; d=xn--jrgen-sauermann-zvb.de;
+        h=Date:Message-ID:Subject:From:Cc:To:X-RZG-CLASS-ID:X-RZG-AUTH:From:
+        Subject:Sender;
+        bh=0qMJH2MklM7DvaWJJSvbgrYUMudmT4TRatDgVElBr6E=;
+        b=Q5dTvejrInPBHny3YbFAkN3h91XfOxfsmvkTUrqlZ9F6LLNpDNbwi45G6oDftKJ4sW
+        fjJDJKwbcCc0EYV1NlXJzsDkDvriIcQFd4mM5QO2AjtCShn1cca2H3tAggZrzQQ9wTgW
+        jSvND+pB+SlCU6cievqrTOKuQPBXc3wpitA4G7CWY0EOn8JWI47ttTRJ41bsupye7cTw
+        RkOwxW5agsd99M1qAuOEXVWkLfFBd+q+cUf0jpC5T7xoqiV7tdmgyZTCZ5tKzC7U4OBp
+        vyEgtt4Op/OajIXMbrkopnnXogRBoE9+zEY3om0k+bXUKxtgbf/KLqYlatI6Z7IYvDsq
+        AeHg==
+X-RZG-AUTH: ":IW0NeWCwdbJy35dEGbhINhrCL06TqIk89uRQzJQEHECld5uF6JeNB+O1P0jUjLJ2qo9S0TgrT46Wp8Yne7Wi0g=="
+X-RZG-CLASS-ID: mo05
+Received: from [192.168.0.110]
+        by smtp.strato.de (RZmta 46.7.0 DYNA|AUTH)
+        with ESMTPSA id a04429w4OEBhRAZ
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
+        (Client did not present a certificate);
+        Sun, 24 May 2020 16:11:43 +0200 (CEST)
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>, victorm007@yahoo.com
-Message-ID: <45693d06-c780-890f-8e5a-d22267722b29@deloquencia.de>
-Date:   Sun, 24 May 2020 15:22:57 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+Cc:     linux-man@vger.kernel.org
+From:   =?UTF-8?Q?Dr=2e_J=c3=bcrgen_Sauermann?= <mail@juergen-sauermann.de>
+Subject: scanf() and friends
+Message-ID: <a258513b-a5c3-d772-df3f-e490768b73eb@juergen-sauermann.de>
+Date:   Sun, 24 May 2020 16:11:42 +0200
+User-Agent: Mozilla/5.0 (X11; Linux i686; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Df-Sender: dC5waWVrYXJza2lAZGVsb3F1ZW5jaWEuZGU=
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-iopl is setting permissions for port-mapped I/O not per-process but only 
-for threads and its children.
+Hi Michael,
 
-See https://bugzilla.kernel.org/show_bug.cgi?id=205317
+not a bug but maybe worthwhile to clarify.
 
-Reported-by: victorm007@yahoo.com
-Signed-off-by: Thomas Piekarski <t.piekarski@deloquencia.de>
+The man pages for the scanf() familiy of functions (scanf(), sscanf(),
+fscanf(),
+vscanf(), csscanf(), and vfscanf()) state that the conversion specifier
+'i' accepts
+'0x' or '0X' as an indication for hex numbers.
 
+They do not mention, however, that the  conversion specifiers 'x' and
+'X' also
+accept (and discard) '0x' or '0X' as prefixes for hex numbers.
 
----
+This lets me wonder if the fact that my glibc version accepts (and discards)
+a 0x prefix in a 'X' conversion is merely a convenience that may
+disappear at
+some later point in time, or an intended feature on which a programmer may
+rely on.
 
+Best Regards,
+Jürgen Sauermann
+GNU APL
 
-1. Test case if permissions are granted per-process or per-thread
-
-I took the opportunity to dig into PMIO and granting permissions with 
-iopl and ioperm.
-
-Wrote the following code in which two threads are created and try to 
-read some data with inb(). First thread (read_from_sleepy_child) is 
-created before permissions are granted (but is delayed) and the second 
-one (read_from_child) after that.
-
-If those permissions would be granted on process level should the first 
-thread not succeed?
-
-I hope I did not make any mistake, applied threading well and can solve 
-this issue as well as support the discussion at LKML.
-
-2. Test Code
-
-#include <pthread.h>
-#include <stdio.h>
-#include <sys/io.h>
-#include <unistd.h>
-
-#define PORT 0x378 // lp0
-
-void *read_from_sleepy_child()
-{
-   sleep(3);
-
-   // The inb() will fail due to missing permissions and it'll segfault
-   // although permissions are acquired before threads are joined.
-   // When permissions are set per process this should work.
-   printf("Read anything from (sleepy) child thread (%x).\n", inb(PORT));
-
-   return NULL;
-}
-
-void *read_from_child()
-{
-   // The inb() will succeed due to permissions are inherited to
-   // childs after they got acquired with either iopl or ioperm
-   printf("Read anything from child thread (%x).\n", inb(PORT));
-
-   return NULL;
-}
-
-int main()
-{
-   pthread_t delayed_thread, thread;
-
-   pthread_create(&delayed_thread, NULL, read_from_sleepy_child, NULL);
-
-   iopl(3);
-   // ioperm(0, 0xFFFF, 1); // the same segfault
-
-   // The inb() will succeed due to being the main, default thread
-   // where permissions got acquired in first place
-   printf("Read anything from main thread (%x).\n", inb(PORT));
-
-   pthread_create(&thread, NULL, read_from_child, NULL);
-   pthread_join(delayed_thread, NULL);
-   pthread_join(thread, NULL);
-
-   return 0;
-}
-
-
-3. Patch
-
-  man2/iopl.2 | 6 +++---
-  1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/man2/iopl.2 b/man2/iopl.2
-index e5b216a14..329095808 100644
---- a/man2/iopl.2
-+++ b/man2/iopl.2
-@@ -39,7 +39,7 @@ iopl \- change I/O privilege level
-  .BI "int iopl(int " level );
-  .SH DESCRIPTION
-  .BR iopl ()
--changes the I/O privilege level of the calling process,
-+changes the I/O privilege level of the calling thread,
-  as specified by the two least significant bits in
-  .IR level .
-  .PP
-@@ -50,7 +50,7 @@ Since these X servers require access to all 65536 I/O 
-ports, the
-  call is not sufficient.
-  .PP
-  In addition to granting unrestricted I/O port access, running at a higher
--I/O privilege level also allows the process to disable interrupts.
-+I/O privilege level also allows the thread to disable interrupts.
-  This will probably crash the system, and is not recommended.
-  .PP
-  Permissions are not inherited by the child process created by
-@@ -79,7 +79,7 @@ is greater than 3.
-  This call is unimplemented.
-  .TP
-  .B EPERM
--The calling process has insufficient privilege to call
-+The calling thread has insufficient privilege to call
-  .BR iopl ();
-  the
-  .B CAP_SYS_RAWIO
--- 
-2.20.1
