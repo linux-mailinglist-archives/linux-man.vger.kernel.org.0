@@ -2,201 +2,150 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D1D0A1E0FFA
-	for <lists+linux-man@lfdr.de>; Mon, 25 May 2020 15:57:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B04B81E100C
+	for <lists+linux-man@lfdr.de>; Mon, 25 May 2020 16:01:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2403899AbgEYN5U (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 25 May 2020 09:57:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41352 "EHLO
+        id S2390786AbgEYOBD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 25 May 2020 10:01:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41942 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2403805AbgEYN5U (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 25 May 2020 09:57:20 -0400
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1A0B9C061A0E
-        for <linux-man@vger.kernel.org>; Mon, 25 May 2020 06:57:20 -0700 (PDT)
-Received: by mail-ej1-x644.google.com with SMTP id d7so20567376eja.7
-        for <linux-man@vger.kernel.org>; Mon, 25 May 2020 06:57:20 -0700 (PDT)
+        with ESMTP id S2388862AbgEYOBB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 25 May 2020 10:01:01 -0400
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8D778C061A0E
+        for <linux-man@vger.kernel.org>; Mon, 25 May 2020 07:01:01 -0700 (PDT)
+Received: by mail-ed1-x544.google.com with SMTP id e10so15105254edq.0
+        for <linux-man@vger.kernel.org>; Mon, 25 May 2020 07:01:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=+QhVSQN4NvcBdsfQMFkYRgyWCHXE74rhTjGksclZEkE=;
-        b=uCHnK1rkafjIRcRG3RstkeVNLK2kFoR0D6nvYD6ZydQdMzvRoqRjLD+6A22Swfey6P
-         ZZfuhmMY5/uaVKLQIEyJNdCyd+nQIrKoI9BqfbLsqdPB0x7YInwz78nlaj6PfGHg1pAO
-         mYS4QmF8sC2LUTc9//xgAm4GfjINytCeV1QWe4Y/W2ie1gaLtyH7LzZxdINUgj1IHxi1
-         fFGioEsIjgKIAoVHcxYcOshPBLSz03uq7H3UYsPLBVbrpvgQBXZZQYcx66X+RT7vZXUO
-         wYwe0O3NGOJbISeJANePeu0W8xPYEJ0BTlCZt9Za+aCsvGerBY0jBZufUQrbLXbPJJIW
-         Cbug==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=8f0TjoKzSVGE5cft6xkbwuwGKljyJ5Sg/QumpxkGAmI=;
+        b=qslMms5o/SP2om3rIcKOxt2tsB76kPJhsDXHQQAvd4XueggYEM6HCbw3g2KB+Dleno
+         OpbIhgsbUW/nslKFfdQcQGFMJQDrPo2QLUf+0+VFjvQ6EAVShkhnA7IdZtZDTB3d/7KB
+         oWKbCFdIaUjfXrjZsU0gFIEzAE7MBf/8G07Yl1LCQF7R/H4PLb2UcM9m+4KDx/nOp/fD
+         AQCdpOao/KnnvgBX4Dxym+ErnDRpqrVMqsoWbmIsGoItkECjOXxRouyD7n9oeTwUNzNU
+         CcRJBYg0i9FCKIA1gJIdGnoZgd8Vu00IY3wSittHLfU13LW0o3+ZRPai2kkD2wkoi3rT
+         PY9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=+QhVSQN4NvcBdsfQMFkYRgyWCHXE74rhTjGksclZEkE=;
-        b=cC8Gf8nHLXJZhb+ttK2hBkNiGOLPnG8r+xDYyFA/x6FmR6YBaEXXY7ua7DtxKvIO+T
-         7Rby/vSuTd9+E6sWQMCsNhtrHTzn9O4bjKhAgbW+gmJ2PywG0x5/Wemsy1XhGILdBDLt
-         Hxd3zeugd+SPFRoY7OxeaYtA6sXMJDo30e61vWBM6tNxeUFYO/HGwVXPz1vJQ+VIBuvx
-         M7tnLTzKdTPDMKSdNIX5Ex85CFzddp6U0Km5e1fKXawZDPCTW6bwqe066jWQ0kGSldCq
-         BX+KkTdiUOoGSv9AZoLGs0fjYvZOuS1hsdQzbhQF8xOpqqnNd2eCj+J8TB9Iz7bWokuC
-         6Z9w==
-X-Gm-Message-State: AOAM533hmZS6thx0aj+PSXtM/glX0QDoQmyuf8DZ3O4bTQC12ApxYN+n
-        5dINaKuxQLDtHkFI8D8j+LwDkD3rka4AnvslSuw=
-X-Google-Smtp-Source: ABdhPJz28bCzHIRXjtLWRvNQxLXCtn5LKsQ1NS8IYMUfu0+JPj/i5CoDQV0jI7axUSxCI5ZiNoU1qo4FNANvyfo3n18=
-X-Received: by 2002:a17:906:4049:: with SMTP id y9mr6214278ejj.357.1590415038778;
- Mon, 25 May 2020 06:57:18 -0700 (PDT)
-MIME-Version: 1.0
-References: <45693d06-c780-890f-8e5a-d22267722b29@deloquencia.de>
-In-Reply-To: <45693d06-c780-890f-8e5a-d22267722b29@deloquencia.de>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=8f0TjoKzSVGE5cft6xkbwuwGKljyJ5Sg/QumpxkGAmI=;
+        b=iIwa6hTSJqtwUgjwpvDpG5cnRMCA66zrmqBZtdprkFCHY9iBObukP+4mLP+my72ZTT
+         XuupI5DFh918SIp2vQplemPVSH2KhxVA1zgzEDNjd+O0ZFPYzxWwgGr2jU3E5fBQkW3p
+         UjyJGeeUNXUF/uwNOPhe7sXxG5sisKeqTLaomXIev1WsuO2UnVBl1oQXm6OkTf2h7Zpm
+         xc0errsa8gCurN3iWWKgO3r8rtRthQz32piMcAaiP2f3WT6KMk3BvF1/KOqGTQHW18cd
+         U0fQKyq8uER1tm2uN/8A7kYl0aCLmMbd+p1EhkK6U22HALSgILItTqGb6GMshTaoWhSt
+         tJQw==
+X-Gm-Message-State: AOAM5336VesPbXwh+LN2IA4yEcLzYxlnBaMKD8ECHHgkFCeFJplo5pNp
+        47iF/XYqC+ESPyO4H3jcKCv6ZqApVEw=
+X-Google-Smtp-Source: ABdhPJzcXUO3wKhH88JSQwPzbI68c+zwsXK3H1hKcwMYm9+K6L0sgr6XXIi/DjoSOQOaYD/qcITpNA==
+X-Received: by 2002:aa7:dc49:: with SMTP id g9mr14729949edu.62.1590415260165;
+        Mon, 25 May 2020 07:01:00 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:a081:4793:30bf:f3d5? ([2001:a61:2482:101:a081:4793:30bf:f3d5])
+        by smtp.gmail.com with ESMTPSA id c15sm10825187edm.78.2020.05.25.07.00.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 25 May 2020 07:00:59 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [patch] printf.3: Prevent signed integer overflow in example
+To:     Tobias Stoeckmann <tobias@stoeckmann.org>
+References: <20200521121505.dfh473amjvb37rwr@localhost>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 25 May 2020 15:57:07 +0200
-Message-ID: <CAKgNAkhDwbBMx+2A06Y7nUnLB7vgZ42Bnh84TXaqh2dx8nKqgA@mail.gmail.com>
-Subject: Re: [PATCH] iopl.2: Changing description of permissions set
- per-process to per-thread
-To:     Thomas Piekarski <t.piekarski@deloquencia.de>
-Cc:     linux-man <linux-man@vger.kernel.org>, victorm007@yahoo.com,
-        Thomas Gleixner <tglx@linutronix.de>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <fbbf7ab0-35b2-94ab-db53-5bd46bf7aee4@gmail.com>
+Date:   Mon, 25 May 2020 16:00:59 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <20200521121505.dfh473amjvb37rwr@localhost>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-[CC += Thomas Gleixner]
+Tobias,
 
-Thomas G,
+On 5/21/20 2:15 PM, Tobias Stoeckmann wrote:
+> The function make_message illustrates how to use vsnprintf to determine
+> the required amount of memory for a specific format and its arguments.
+> 
+> If make_message is called with a format which will use exactly INT_MAX
+> characters (excluding '\0'), then the size++ calculation will overflow
+> the signed integer "size", which is an undefined behaviour in C.
+> 
+> Since malloc and vsnprintf rightfully take a size_t argument, I decided
+> to use a size_t variable for size calculation. Therefore, this patched
+> code uses variables of the same data types as expected by function
+> arguments.
+> 
+> Proof of concept (tested on Linux/glibc amd64):
+> 
+> int main() { make_message("%647s%2147483000s", "", ""); }
+> 
+> If the code is compiled with address sanitizer (gcc -fsanitize=address)
+> you can see the following line, assuming that a signed integer overflow
+> simply leads to INT_MIN:
+> 
+> ==3094==WARNING: AddressSanitizer failed to allocate 0xffffffff80000000 bytes
 
-I expect that the small change at Thomas P proposes in this patch is
-correct (i.e., iopl(2) operates per-thread, not per-process). I
-remember that you touch the relevant kernel source file often. Perhaps
-you are able to give a quick Ack?
+Thanks for the nicely documented patch. Applied.
 
-Thanks,
+Cheers,
 
 Michael
 
-
-On Sun, 24 May 2020 at 15:22, Thomas Piekarski
-<t.piekarski@deloquencia.de> wrote:
->
-> iopl is setting permissions for port-mapped I/O not per-process but only
-> for threads and its children.
->
-> See https://bugzilla.kernel.org/show_bug.cgi?id=205317
->
-> Reported-by: victorm007@yahoo.com
-> Signed-off-by: Thomas Piekarski <t.piekarski@deloquencia.de>
->
->
 > ---
->
->
-> 1. Test case if permissions are granted per-process or per-thread
->
-> I took the opportunity to dig into PMIO and granting permissions with
-> iopl and ioperm.
->
-> Wrote the following code in which two threads are created and try to
-> read some data with inb(). First thread (read_from_sleepy_child) is
-> created before permissions are granted (but is delayed) and the second
-> one (read_from_child) after that.
->
-> If those permissions would be granted on process level should the first
-> thread not succeed?
->
-> I hope I did not make any mistake, applied threading well and can solve
-> this issue as well as support the discussion at LKML.
->
-> 2. Test Code
->
-> #include <pthread.h>
-> #include <stdio.h>
-> #include <sys/io.h>
-> #include <unistd.h>
->
-> #define PORT 0x378 // lp0
->
-> void *read_from_sleepy_child()
-> {
->    sleep(3);
->
->    // The inb() will fail due to missing permissions and it'll segfault
->    // although permissions are acquired before threads are joined.
->    // When permissions are set per process this should work.
->    printf("Read anything from (sleepy) child thread (%x).\n", inb(PORT));
->
->    return NULL;
-> }
->
-> void *read_from_child()
-> {
->    // The inb() will succeed due to permissions are inherited to
->    // childs after they got acquired with either iopl or ioperm
->    printf("Read anything from child thread (%x).\n", inb(PORT));
->
->    return NULL;
-> }
->
-> int main()
-> {
->    pthread_t delayed_thread, thread;
->
->    pthread_create(&delayed_thread, NULL, read_from_sleepy_child, NULL);
->
->    iopl(3);
->    // ioperm(0, 0xFFFF, 1); // the same segfault
->
->    // The inb() will succeed due to being the main, default thread
->    // where permissions got acquired in first place
->    printf("Read anything from main thread (%x).\n", inb(PORT));
->
->    pthread_create(&thread, NULL, read_from_child, NULL);
->    pthread_join(delayed_thread, NULL);
->    pthread_join(thread, NULL);
->
->    return 0;
-> }
->
->
-> 3. Patch
->
->   man2/iopl.2 | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/man2/iopl.2 b/man2/iopl.2
-> index e5b216a14..329095808 100644
-> --- a/man2/iopl.2
-> +++ b/man2/iopl.2
-> @@ -39,7 +39,7 @@ iopl \- change I/O privilege level
->   .BI "int iopl(int " level );
->   .SH DESCRIPTION
->   .BR iopl ()
-> -changes the I/O privilege level of the calling process,
-> +changes the I/O privilege level of the calling thread,
->   as specified by the two least significant bits in
->   .IR level .
->   .PP
-> @@ -50,7 +50,7 @@ Since these X servers require access to all 65536 I/O
-> ports, the
->   call is not sufficient.
->   .PP
->   In addition to granting unrestricted I/O port access, running at a higher
-> -I/O privilege level also allows the process to disable interrupts.
-> +I/O privilege level also allows the thread to disable interrupts.
->   This will probably crash the system, and is not recommended.
->   .PP
->   Permissions are not inherited by the child process created by
-> @@ -79,7 +79,7 @@ is greater than 3.
->   This call is unimplemented.
->   .TP
->   .B EPERM
-> -The calling process has insufficient privilege to call
-> +The calling thread has insufficient privilege to call
->   .BR iopl ();
->   the
->   .B CAP_SYS_RAWIO
-> --
-> 2.20.1
-
+>  man3/printf.3 | 15 +++++++++------
+>  1 file changed, 9 insertions(+), 6 deletions(-)
+> 
+> diff --git a/man3/printf.3 b/man3/printf.3
+> index 50e136ba6..827d9cbae 100644
+> --- a/man3/printf.3
+> +++ b/man3/printf.3
+> @@ -1132,29 +1132,32 @@ To allocate a sufficiently large string and print into it
+>  char *
+>  make_message(const char *fmt, ...)
+>  {
+> -    int size = 0;
+> +    int n = 0;
+> +    size_t size = 0;
+>      char *p = NULL;
+>      va_list ap;
+>  
+>      /* Determine required size */
+>  
+>      va_start(ap, fmt);
+> -    size = vsnprintf(p, size, fmt, ap);
+> +    n = vsnprintf(p, size, fmt, ap);
+>      va_end(ap);
+>  
+> -    if (size < 0)
+> +    if (n < 0)
+>          return NULL;
+>  
+> -    size++;             /* For '\e0' */
+> +    /* One extra byte for '\e0' */
+> +
+> +    size = (size_t) n + 1;
+>      p = malloc(size);
+>      if (p == NULL)
+>          return NULL;
+>  
+>      va_start(ap, fmt);
+> -    size = vsnprintf(p, size, fmt, ap);
+> +    n = vsnprintf(p, size, fmt, ap);
+>      va_end(ap);
+>  
+> -    if (size < 0) {
+> +    if (n < 0) {
+>          free(p);
+>          return NULL;
+>      }
+> 
 
 
 -- 
