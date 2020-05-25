@@ -2,277 +2,208 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B15F51E099A
-	for <lists+linux-man@lfdr.de>; Mon, 25 May 2020 11:04:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B91E61E09B9
+	for <lists+linux-man@lfdr.de>; Mon, 25 May 2020 11:08:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2388660AbgEYJEq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 25 May 2020 05:04:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51766 "EHLO
+        id S2389095AbgEYJI1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 25 May 2020 05:08:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52358 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388182AbgEYJEp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 25 May 2020 05:04:45 -0400
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com [IPv6:2a00:1450:4864:20::52a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6BCE3C061A0E
-        for <linux-man@vger.kernel.org>; Mon, 25 May 2020 02:04:45 -0700 (PDT)
-Received: by mail-ed1-x52a.google.com with SMTP id g9so14398383edw.10
-        for <linux-man@vger.kernel.org>; Mon, 25 May 2020 02:04:45 -0700 (PDT)
+        with ESMTP id S2388693AbgEYJI1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 25 May 2020 05:08:27 -0400
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2CD1EC061A0E
+        for <linux-man@vger.kernel.org>; Mon, 25 May 2020 02:08:27 -0700 (PDT)
+Received: by mail-ej1-x62b.google.com with SMTP id x1so19742236ejd.8
+        for <linux-man@vger.kernel.org>; Mon, 25 May 2020 02:08:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=MXjIygFm8dMDb3AXBVA6kGI5tEzaeu1Fv8DH3nGELj8=;
-        b=f0jIIcNS3kZpF0CHtjPDjppSqM7RTYatQWokSKGL6PXkrzHdfRaL7/Mw3Iq4FpmUQy
-         JyoFI1Bhj/Mz5VdmQ15kcX5KoW6Id1mGkF8NIkloIHmsmsKywzGegjVU8etNo7t0xdVG
-         IBD5TPPXfksVwGw7sxhBbj4RaD+anuN/lXZhJo+kg9AtaCI2tXFDitzXAlCXWyg4qpws
-         pHvwQn30+Lh5M7iakZBBvL6wnu0i2iiaQj4vaRI0xtO7RYYWRCbxfkeG6+dOrSstEyGs
-         HpMMZSZHuXerBH+eUyE2UBoLdoI/H+cbnprHW7okob5iHxEWeNGTo5tWmOQnLvDHGxsl
-         yusg==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=s4GG6lfn5jM4UOWfcu5BaFaxWFNXJoZ2EEIKQBrzsVU=;
+        b=oaQaswWGg9md0yOALOybsQdL0fBZiBxzCNeEm42SxwANIV5nGMojbJM/n7YuJgHzev
+         1n8FzxPEOSvn8SJZVxbzjAbCQnoRcU7g3rRPaGfRaVMDbmM+uAVk8GciIYBTyeqeXN8J
+         bWmTCMPbuDpTah3uameIwVzGL14tcwJe7A5m/SzA5Tnp8Ir/YsSYJ5frY/RH5ymHDfhL
+         7oHta+YjBApnNMacjymy7tgTPVK5EYiHs3jDPqUE+af9GLbyqVnmDmvxVw/v1ug4hOmc
+         fU1OsKkW6Sg/hHt/9JsIG3x0LGfLPmQToYgilR8tfItYTQ5OuEyTMmWBrJusKJZEitmB
+         XO+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=MXjIygFm8dMDb3AXBVA6kGI5tEzaeu1Fv8DH3nGELj8=;
-        b=mcqmJd2sugsYPa7Y2kay5hsp+Q11YwrYSAKQFb6iExBQ9vajuKg1Dr8cU+gWosVRSF
-         FzWEM4hJKFTXeBL6STIttwXWtuFmcVsdkOv9JoNeQXmu7YVzLsIXDVOt4vBhZIJMV0/w
-         PcDxXAquFrmBOVCd06mz/pOftVo0aGAfzIMiozchVj38vFiqMv5AJDESqGNfyv4baD5s
-         PhGBnNYA9oTh5AmR7lMewo/HKR+C4kyYRgpVJ42eovVdMYk3Pr9zQvEUCFzkh4AoH7JO
-         s3VxakLuCWyAyChYxjh0QVEUp0ahDaN0ncZoX7/iyGHQyPiI6TbT6t2yyTV+mR5lGoVO
-         QrhA==
-X-Gm-Message-State: AOAM531tua+NPRyyxw9AGOv/hGjy4g6s+FSxZvfWpknMISswOvGhMaSM
-        bgavBP/1EIF3VDcJapGpgZPFlmnGYujhVpgQrtEkU/Ql
-X-Google-Smtp-Source: ABdhPJwFAlzvPIlRmLKRUX4SZ+XxG8HjJUFyXhSU+VpXJ6eCIEZ44gT/j8a/a9lpJNk+NO2GIj1MrIdx/f1UvPZgf1o=
-X-Received: by 2002:a50:99c9:: with SMTP id n9mr9025225edb.1.1590397483934;
- Mon, 25 May 2020 02:04:43 -0700 (PDT)
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=s4GG6lfn5jM4UOWfcu5BaFaxWFNXJoZ2EEIKQBrzsVU=;
+        b=s3S11gVIRFATZVddixlDPIi+tdEkxtVe+v8b6ODM8769C5yoP7M0Nw2afvOaTEOjAj
+         8DdwhNh5blAscW5ylI/hoO5LSzk42uPiNMOOClsumegV8td6AQMLrNFlE5IcgGLhpuwX
+         JogN/PA2A1UuduM5+9xHibiI5Ds69Zthg0fJcD0gQv5u//MrnaynK8D52sv/jo7yKqTP
+         pks3VjgDt5zlhrw5rD4eRbC2ncgjbtLpXlj8yMrkQsK1CT/w20oag4+RaVQZnSYp0xUs
+         wAI33BGVEC5wFk/0eeYOfZiNENa+GLapWf0oCi/LauHHLjSXqDpieYiMxcveN1tkZyNc
+         ocNQ==
+X-Gm-Message-State: AOAM530ZEpZVIY6NWOmHiD4WkK0GK06OHo1DyCY2LO5Vw6onfTLKU15k
+        2woGzFPKGZMbJ1ENVlrizULGLLxM6uGm9oGxv10hkzaDVZs=
+X-Google-Smtp-Source: ABdhPJxKxRtIhRDW2pCe7hsOmZrffG9/QMW/IEgtvLCxJSZBkxix/gfLY+2aLHYpwDYlOcfY73SvOPrSL5E960oOWbc=
+X-Received: by 2002:a17:906:4049:: with SMTP id y9mr5299318ejj.357.1590397705705;
+ Mon, 25 May 2020 02:08:25 -0700 (PDT)
 MIME-Version: 1.0
-References: <501e5e0c-f293-b838-5106-764c6b18e061@gmail.com>
- <875300cf-92ca-c115-c42d-19dda5de5a4a@redhat.com> <87ftbs3zb8.fsf@oldenburg2.str.redhat.com>
-In-Reply-To: <87ftbs3zb8.fsf@oldenburg2.str.redhat.com>
-From:   Michael Kerrisk <mtk.manpages@gmail.com>
-Date:   Mon, 25 May 2020 11:04:31 +0200
-Message-ID: <CALxWeYqN+4GeTtE2Cf0ZtHn+eFZa4P9fh709qqXnyqd+nGUF=g@mail.gmail.com>
-Subject: Re: The GNU C Library Manual - Authoritative or not?
-To:     Florian Weimer <fweimer@redhat.com>
-Cc:     "Carlos O'Donell via Libc-alpha" <libc-alpha@sourceware.org>,
-        Michael Kerrisk-manpages <mtk.manpages@gmail.com>,
-        Martin Sebor <msebor@gmail.com>,
+References: <56c4a711-7f41-661a-9ef3-d9c1caef8aea@redhat.com>
+In-Reply-To: <56c4a711-7f41-661a-9ef3-d9c1caef8aea@redhat.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 25 May 2020 11:08:14 +0200
+Message-ID: <CAKgNAkguMSpjVbPJtNj=5vrwpE_819XhpgZV2WyBK5UMXgqwLg@mail.gmail.com>
+Subject: Re: How would we make linux man pages authoritative?
+To:     "Carlos O'Donell" <carlos@redhat.com>
+Cc:     libc-alpha <libc-alpha@sourceware.org>,
+        Florian Weimer <fweimer@redhat.com>,
+        Martin Sebor <msebor@redhat.com>,
+        Rich Felker <dalias@libc.org>,
         linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-[CC +=3D linux-man@]
-[Context: https://lwn.net/ml/libc-alpha/875300cf-92ca-c115-c42d-19dda5de5a4=
-a@redhat.com/]
+[CC += linux-man@ , obviously]
 
-Hello Florian, Carlos, et al.
+Hello Carlos, et al.
 
-On Fri, May 22, 2020 at 3:22 PM Florian Weimer via Libc-alpha
-<libc-alpha@sourceware.org> wrote:
+On Fri, 22 May 2020 at 17:34, Carlos O'Donell <carlos@redhat.com> wrote:
 >
-> * Carlos O'Donell via Libc-alpha:
+> Michael,
 >
-> > "What is the authoritative source for public glibc APIs?"
-> > https://sourceware.org/glibc/wiki/FAQ#What_is_the_authoritative_source_=
-for_public_glibc_APIs.3F
+> Could we create a process by which we might incrementally mark linux
+> man pages as authoritative for a given C library implementation and
+> at the same time encourage more C library community involvement in the
+> development and maintenance of the linux man pages?
 >
-> Current text:
+> I'm including Rich Felker the main musl developer, because I think
+> this topic applies to musl, and the linux man pages already contain
+> some markup for other C libraries.
 >
-> | The GNU C Library manual is the authoritative place for such
-> | information that is related to the implementation of functions in
-> | glibc.
-> |
-> | The Linux Man Pages are non-authoritative, but they are incredibly
-> | useful, easy to use, and often the first source of such information.
-> |
-> | The Linux Man Pages is generally authoritative on kernel syscalls, and
-> | we have worked hard in cases like futex to ensure the documentation is
-> | clear enough for all C libraries.
-> |
-> | We should all work together to keep both the manual (glibc manual) and
-> | the shorter form API references (linux man pages) up to date with the
-> | most accurate information we have.
-> |
-> | Where you find issues with the manual or the linux man pages please
-> | reach out to discuss the issue.
+> Let me paint a picture of the future (what else are Fridays for):
 >
-> > "What other sources of documentation about glibc are available?"
-> > https://sourceware.org/glibc/wiki/FAQ#What_other_sources_of_documentati=
-on_about_glibc_are_available.3F
+> * The project manual is a task-oriented document that describes how
+>   to use APIs together to achieve certain purposes. We update the
+>   manual based on new uses and complex task-oriented requirements
+>   e.g. how do you effectively use clone, or vfork, or unshare with
+>   all the right APIs to do something useful like starting your own
+>   container by hand.
 >
-> | The glibc manual is part of glibc, it is also available online.
-> |
-> | The Linux man-pages project documents the Linux kernel and the C
-> | library interfaces.
-> |
-> | The Open Group maintains the POSIX Standard which is the authoritative
-> | reference for the POSIX APIs.
-> |
-> | The ISO JTC1 SC22 WG14 maintains the C Standard which is the
-> | authoritative reference for the ISO C APIs.
-> |
-> | The official home page of glibc is at http://www.gnu.org/software/libc.
-> |
-> | The glibc wiki is at http://sourceware.org/glibc/wiki/HomePage.
-> |
-> | For bugs, the glibc project uses the sourceware bugzilla with
-> |component 'glibc'.
+> * The linux man pages are the authoritative reference for all the
+>   APIs that are derived from ISO C, POSIX, BSD, and other systems.
+>   I say "derived" because we do not follow them strictly, but instead
+>   derive from them and deviate where appropriate given the underlying
+>   kernel.
 >
-> I don't think this is very helpful.  It paints a simple picture which is
-> turns out to be rather misleading when inspected closely.  For example,
-> POSIX often claims that ISO C takes precedence, but then proceeds to
-> specify conflicting requirements with ISO C.  What does that even mean?
-> After fall, it's not possible to have multiple authoritative sources for
-> the behavior of a single function.
+> * A process exists to mark a manual page as authoritative for the C
+>   library API it implements e.g. Authoritative for glibc, or musl,
+>   or uclibc. Such markup means a developer from that project should
+>   review patches to that page in a timely fashion to agree that we
+>   haven't crossed any implementation boundary e.g. documented something
+>   that is not guaranteed. Such review needs a timeout as part of the
+>   agreement.
 >
-> Practically speaking, I see the following problems.
+> * The C libraries have as a goal to update the API documentation in
+>   the linux man page as the authoritative source of the API reference
+>   and make it part of their submission process. Yes, this involves
+>   committing across two projects, and some good coordination.
 >
-> The GNU C Library manual is not often consulted by developers.  I don't
-> know why.  One reason may be that it is not readily installable from
-> package repositories on Debian or Ubuntu (at least not in current
-> versions from the main archive).  But our experience at Red Hat suggests
-> that our developers do not read the manual, either, although we do ship
-> it.  I base this on the paucity of bug reports against the manual
-> compared to what we receive for the man-pages package (which are often
-> misfiled initially against glibc).  In my opinion, a manual that is not
-> actually used by the people who benefit from the information in it has
-> at best a dubious claim to authority.
+> In such a future we have the following assurances:
 >
-> Reading our manual requires considerable skill.  You need to know the
-> history of the project, the lingering Linux vs Hurd conflict, the late
-> arrival of threading support in UNIX-like environments, the tension
-> between the POSIX and C standards, the lack of maintenance of both, and
-> so on.  Without such knowledge, it is often not possible to reach the
-> right conclusions.  Even senior developers can easily get confused.
-> (For a recent example, consider Kees Cook's misinterpretation of the
-> O_EXEC documentation in the manual.)  Part of the problem here is that
-> we do not have a team that combs through the manual from time to time
-> and keeps it up to date, as our understanding of the documented matter
-> evolves.
+> * More developers familiar with C library implementations working on
+>   the linux man pages project, and providing continuity of care for
+>   the project.
 >
-> When it comes to Linux interfaces, any claim about authority of the
-> manual is very misleading.  It does not matter if the system call is
-> described by POSIX.  For example, if Linux developers change the signal
-> that waitpid reports after a failed execve, and our manual documents
-> something else, then the manual is now wrong.  And not the kernel.  If
-> the manual were authoritative, it would be the other way round.  (The
-> man-pages project is not authoritative in that sense, either=E2=80=94it d=
-id
-> document the SIGKILL signal and had to be updated.)
+> * The linux man pages project accepts certain authors as needing
+>   to review, in a timely fashion, certain changes to certain marked
+>   man pages.
+>
+> * The downstream C library implementations are all incentivized
+>   to contribute to the existing linux man pages project and support
+>   that effort, thus growing the quality and coverage of the man pages.
+>
+> * We reduce duplication of efforts in documenting the APIs as they
+>   are derived, with differences, from ISO C, POSIX, BSD etc, for Linux.
+>
+> The glibc project retains a manual as a task-oriented guide which
+> can be read by developers to learn how to do certain tasks, but does
+> not contain API references (those are delegated to the linux man pages
+> project). We incrementally remove the API references in the glibc manual,
+> and convert them one-by-one into task-oriented documentation about how to
+> use that API well.
+>
+> I'm trying to think of a beautiful future. If you think this future
+> is ugly, please tell me so, and suggest something else :-)
 
-Thanks. I find a lot of wisdom in what you say and do not disagree
-with any of it. I just want to add a few thoughts and observations.
+Well I'm glad you had an enjoyable Friday, and I hope you had a good
+weekend. And, as always, I appreciate your enthusiastic vision.
 
-"The GNU C Library manual is not often consulted by developers"
+Your future is not ugly, and I suppose all that you propose is
+technically possible. However, aside from the political discussions to
+resolve within the glibc project (and I am sympathetic to Joseph's
+perspective), this beautiful future rests on some shaky foundations.
 
-Each year I come into contact with quite a large number of developers
-(some few hundred each year) in many locations in my day job (or, at
-least what used to be my day job until COVID-19 landed), and I think
-*very* few of them are aware of the existence of the glibc manual.
-Most are aware of manual pages. (However, they mostly aren't aware
-that there is an project entity called "Linux man-pages"; rather, they
-just know that they get a pile of manual pages on their systems, and
-many of them consult those pages.)
+Here's my summary of some things that I think we agree on:
 
-And then there is the "info" thing. As a complete document (i.e.,
-PDF), the glibc manual is quite a handsome document with a lot of good
-information, but not the thing one wants to reach for when facing a
-specific API problem. What is one then left with? "info". I think in
-all of the years that I have been around Linux, I cannot recall
-meeting anyone who had a kind word to say about this format/interface.
-People generally don't understand how to navigate in "info", and I
-think the whole idea of hyperlinking in a textual UI is one that
-doesn't work well from a usability perspective. https://xkcd.com/912/
-is funny for a reason.
+* In many (but not all) areas, Linux man-pages does a better job of
+documenting glibc APIs than the glibc manual.
 
-"I base this on the paucity of bug reports against the manual compared
-to what we receive for the man-pages package"
+* The glibc manual suffered from a long period of neglect. Things have
+gotten a little better in recent times, but (as Florian notes) there
+is still much to do. And there's not enough people working on
+addressing that, in part for reasons you described in another thread,
+and to which I added my perspectives.
 
-I want to add some further perspective here. Linux man-pages roughly
-follows the release frequency of the kernel [1], thus a new release
-every 10 weeks or so. The next release will feature changes resulting
-from input from more than *70* people (email bug reporters, patch
-submitters, reviewers, people who sent me random email that gave me
-ideas, bugzilla reporters).
+* Activity on Linux man-pages has been much higher. [1]
 
-I put that high number of contributors [2] down to many factors:
+These are the shaky foundations that I see:
 
-* As you (Florian) observe, I think it's true that (many) more people know
-about manual pages (than the glibc manual/"info").
+1. What would change so that "the downstream C library implementations
+are all incentivized to contribute to the existing linux man pages"?
+You yourself note the reluctance of many developers to be involved in
+the documentation task. Reading your description above, I don't really
+see why the contribution activity would change.
 
-* I try to make it easy for people to know how to report bugs.
-Notably, since 2007, each manual page in the released set has a
-COLOPHON [3] that has some minimal information about the origin of the
-page *and how to report bugs*.
+2. Much of the difference between the activity levels on the glibc
+manual and Linux man-pages is down to a single factor: me [2]. As I've
+written various replies into the these discussions, I realize just how
+much I'm a bit of a unicorn: I'm a programmer who also really likes
+documenting things. And the question then is: what would happen to
+your beautiful future if I was not present? I have no immediate plans
+to step away, but nor will I be working on man-pages forever. And in
+any case, my activity level can be wildly variable depending on my
+other commitments and my available energy. Furthermore, while I think
+I've been moderately successful in raising the visibility of Linux
+man-pages since I took over as maintainer, there are areas where I've
+been notably unsuccessful: I've not been so successful at enlisting
+reviewers, so that too often I remain the reviewer of last resort; and
+after 15 years, there is so far no obvious contributor who might (want
+to) take over as maintainer one day.
 
-* That there is someone who actually responds to the documentation bug
-reports. And here I paint myself in a good and bad light. When I am
-very active, I do notice more bug reports start coming in. When I am
-less active (e.g. in the last couple of years), there is a noticeable
-fall in bug reports and contributions. (These observations are
-subjective/anecdotal, but I think there is a real trend underneath,
-since I've been  through this cycle a few times..)
+Really, both points 1 and 2 are about incentivization, and, lacking a
+population of unicorns, I think the fundamental problems aren't going
+to go away until companies/organizations pay people to work on the
+documentation. And I'm not sanguine about that prospect.
 
-* I try to make it easy for people to contribute. There's a website
-with a fair amount of information about how people should send patches
-[4], and I get a surprising number of random patches that actually
-follow the guidelines [5]. By contrast, even among those who are aware
-of the glibc manual, I estimate that few are aware of how to
-contribute to it.
-
-And on that last point, I circle back to an issue that I've banged on
-about before. The CLA. It's just a huge barrier to contribution (and,
-I remain convinced, A Bad Thing [TM], even if its motivation is well
-intentioned [6]). Just in the last day or two, there's someone doing
-what seems natural to so many in this (FOSS) world:
-
-https://lwn.net/ml/libc-alpha/20200523191809.19663-1-aurelien.aptel%40gmail=
-.com/
-
-I presume this patch submitter has no idea of the existence of the
-CLA. Once that person learns of it, will they bother doing the
-paperwork, or will they just never bother submitting another patch? I
-know which way I would bet my money.
-
-> Many of these issues are beyond our control.  Some of the issues which
-> are in our area would need a tremendous amount of work to address.
-
-Yes. Writing good documentation is a lot of work. I know for sure that
-man-pages could be a full-time (end even enjoyable!) job for me (or
-someone else)--there is that much work that *could* be done--but
-something else must pay the bills.
-
-Cheers,
+With best regards.,
 
 Michael
 
-[1] This is a somewhat arbitrary decision that I made a few years ago,
-simply to avoid the "big minor version numbers" problem, which was
-roughly the problem that Linus Torvalds was also trying to avoid with
-the kernel, although he came to that decision a few years earlier than
-me.
+[1] But a caveat also. It has been highly variable over the 15+ years
+that I have been maintainer, ranging from nearly 3000 commits in a
+calendar year (2014) to as low as 300 (2011), dependent largely on my
+energy and available time. Further caveat: the majority of the commits
+in any given release are by me; I think in all of the releases I made
+(~180 since 2004), only once was I ever not the majority patch
+contributor, and usually it has not even been close.
 
-[2] The high contribution rate is something of a local maxima in the
-last couple of years. See my comments in the other thread about
-contribution by others in relation to my own activity elsewhere.
-(Turns out that lockdown has some positive effects not just for the
-environment, but also for man-pages.)
+[2] I don't want to overstate my contribution however. In 2004, I did
+inherit a solid foundation from my predecessor, Andries Brouwer. And I
+think there are also factors that play into the difference, including
+the CLA and also the visibility of the glibc manual and the usability
+of "info" as an interface.
 
-[3] Example: https://man7.org/linux/man-pages/man7/user_namespaces.7.html#C=
-OLOPHON
-
-[4] https://www.kernel.org/doc/man-pages/patches.html
-
-[5] I don't want to paint too rosy a picture here. I still write the
-majority of the commits that go into manual pages, and I remain the
-reviewer of last resort for the majority of patches, which clearly
-does not scale well. And far too many things fall on the floor when my
-time is limited. (@Carlos, you probably have too rosy a picture of my
-efficiency, because I am usually fairly responsive to input from you
-and Florian. But that's because I know from past experience that I can
-be fairly confident that what I receive from you will be of a quality
-that is typically effortless for me to process.)
-
-[6] https://lwn.net/Articles/529522/
+--
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
