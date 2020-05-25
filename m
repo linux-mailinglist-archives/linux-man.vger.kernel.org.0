@@ -2,77 +2,90 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 248671E1148
-	for <lists+linux-man@lfdr.de>; Mon, 25 May 2020 17:08:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1ABC11E1213
+	for <lists+linux-man@lfdr.de>; Mon, 25 May 2020 17:51:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2391041AbgEYPIm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 25 May 2020 11:08:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52570 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2391007AbgEYPIm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 25 May 2020 11:08:42 -0400
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AEF1FC061A0E
-        for <linux-man@vger.kernel.org>; Mon, 25 May 2020 08:08:41 -0700 (PDT)
-Received: by mail-wm1-x32d.google.com with SMTP id u12so298962wmd.3
-        for <linux-man@vger.kernel.org>; Mon, 25 May 2020 08:08:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jguk.org; s=google;
-        h=to:from:subject:message-id:date:user-agent:mime-version
-         :content-language:content-transfer-encoding;
-        bh=u18bxgkZcyxLeaqNI2VR5CPe5XJNWkhnywBxi+QPLdk=;
-        b=QyqyILBSdZHOccdSzzK9+Iehp15nodjurD1YClhj9p+c4QzTmLioCbJMZoZaN0H+nk
-         8Zx/URsOSXhAkp4CRLlfZlUkT+ILVyvbc6AE1nWC4W2TwKvHURTNeCbaayphbCc3l0sC
-         AyssGHLjqDW91a6OnDrgXo09Eg8I11OIqkbZVNbj0GP9KyAiQtxO/4NbTc8SGqZvYdY7
-         yFgM5pOcJemBaenj0G0AN0F354HC9SBcUU/PXt7vhGQCWV/1XT+BLjULELKS22XUxFpk
-         1h9xsOsB8kdshvEQoLb99EaVxRU7+uyBpgwwEknTc1+X3N9ydZMaiDr3D+5wIHpINvhA
-         QS0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:from:subject:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=u18bxgkZcyxLeaqNI2VR5CPe5XJNWkhnywBxi+QPLdk=;
-        b=n3BOPC6VagWuHCjl/Yp0n8LonkKEJb3PPEnSv+8kGhjB5jgTkLaVTyDlL19dGX1k6f
-         Enz9rF2df8crKaxfetJg9kvVWh4uuSzAQDvib4/qgoqBr7JfVN+dPuOcTMz28/+DNmSo
-         Z/46qddvFNV35hiuU80xE6gp5DgkuBPIzc1e+Isks/qomFbv2V5NeQYFuBoc6U3IG/mC
-         EZSsS7rB2FN2Qbj5KSBJYxIpk9xeM6zaf25ikAw2y+vLtBaweoyCsJGdZOJsXKRYzu/h
-         8JLPjkK7j6r/SmfEedNxWLu8JB2J+Pe6ldt6fD9zlh4M1yWmtJ6AUh1VRXoJPiDk0Ovj
-         sweA==
-X-Gm-Message-State: AOAM533bREyeZ7Z5AYv0oWqbRJslpB7/nMu3XGx45dwUauPBTlgy+Ong
-        VbKMpNFdNVljJTWI4JeETA3OfIuP+aw=
-X-Google-Smtp-Source: ABdhPJzPGnT0W4YSgvPjQNt75MK4EUWq1L/tpkmuAso2LyauhjR0BN83vRTwQUFZsWE8NpxtiaG2fg==
-X-Received: by 2002:a1c:67c3:: with SMTP id b186mr13940742wmc.167.1590419320165;
-        Mon, 25 May 2020 08:08:40 -0700 (PDT)
-Received: from [192.168.0.12] (cpc87281-slou4-2-0-cust47.17-4.cable.virginm.net. [92.236.12.48])
-        by smtp.gmail.com with ESMTPSA id 94sm19237231wrf.74.2020.05.25.08.08.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 25 May 2020 08:08:39 -0700 (PDT)
-To:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-From:   Jonny Grant <jg@jguk.org>
-Subject: core sysctl
-Message-ID: <9e98156e-3ba9-e656-bb8f-c54229b5ac11@jguk.org>
-Date:   Mon, 25 May 2020 16:08:38 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+        id S2390998AbgEYPvm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 25 May 2020 11:51:42 -0400
+Received: from mout.gmx.net ([212.227.17.22]:57893 "EHLO mout.gmx.net"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S2388739AbgEYPvm (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 25 May 2020 11:51:42 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+        s=badeba3b8450; t=1590421898;
+        bh=Rkx4f1Jx/5SamY354wSCeWBt6ae3wQwRYXCvM8z72lM=;
+        h=X-UI-Sender-Class:Date:From:To:cc:Subject:In-Reply-To:References;
+        b=Z6kid8qib4Bnxo1XPgSyD3ebzqUTH16m3cwnIhBUvzm7A7AqaLEtjCEDYDH6aA7Si
+         4n2EHEFkWTPB1NvQNjbrFNNSP6FU8fInbJDZ1HH8bVqIGkUcdjop2BEnrSHRv6ubvQ
+         ouQhkkTP78009FgtnTKnf8nzmVFgj6KgyUzfFKw4=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from mua.gmx.com ([68.56.186.98]) by mail.gmx.com (mrgmx105
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1MtfJX-1ikJeQ2xOZ-00v5Wo; Mon, 25
+ May 2020 17:51:38 +0200
+Date:   Mon, 25 May 2020 11:51:33 -0400 (EDT)
+From:   J William Piggott <elseifthen@gmx.com>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+cc:     Carlos O'Donell <carlos@redhat.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        GNU C Library <libc-alpha@sourceware.org>
+Subject: Re: The GNU C Library Manual - Authoritative or not?
+In-Reply-To: <CALxWeYro-8KASpy--aMAsMzMK_mPN-ZFjdUgftaXXCTfy6rY5A@mail.gmail.com>
+Message-ID: <nycvar.YAK.7.77.849.2005251130450.1230@zhn.tzk.pbz>
+References: <501e5e0c-f293-b838-5106-764c6b18e061@gmail.com> <875300cf-92ca-c115-c42d-19dda5de5a4a@redhat.com> <b7102d1a-67b9-0f4f-8295-224fd7afba94@gmail.com> <6cf523c0-848c-911f-47e5-e663499db744@redhat.com> <7cc4b69e-af8a-d5ad-ac39-9b95deb19a71@gmail.com>
+ <7d109eae-7993-d08c-0355-a03ebc56eeb2@redhat.com> <CALxWeYro-8KASpy--aMAsMzMK_mPN-ZFjdUgftaXXCTfy6rY5A@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+X-Provags-ID: V03:K1:BG6NUzfBWtDWiqlVgW+DrHmuLHU86WkMv8wMfmHbJ6PrblLOQmk
+ pmNnr3VCeza5uKuN818+yOed1ox62ihrHYIIP4kshBjy9VpiA5iFz1Ct0973vepSr6jRg5N
+ UMTgVXOp+337GuLnvbyMkJKUxYg13OMqPBCZe1eHblqO4INPVuwpd0oRfJmNs0BwS0Xopqs
+ OT7kjD33jhieBqbMjABvA==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:4c0ST/XUNfo=:gKci0Fi+HWxswM+iCpCEr4
+ MaykScReUx72ahNwTFxRiWqIvlBxjrWGpsLDreAVRcR+qfnh6cvgvZ6tdNxTpRgocMrlJsZqw
+ RORuOOyJhH/FV71iqaYVt7qsj+cPxdmu+D7b5AmO0vPgHZSTh3IScifhnOnlPmoNEduqE3qOz
+ oYvMSMYuV0QvpsnUPY6ug3p4v41WojO52kytWV4dDYPrSBbfRUKvIxLi4xTWtz+Toxxg57qtR
+ msHWSGIUhTjrf76vWz/7xQFEcgRPfirT8rOJfqgfTBgcsR6rGhqf0vWKri5KirKmSHDvDnOEe
+ aFBss5UixX9OoX1vzJXE+oKOhOTYTjzYOidg5GQ6AsE3zD4WovUe0/CsznsqYsSK2xpr04wtb
+ ToWQVE1s4QVSGXB5zq+PEekQZrlZNQ6TG6rpruKD0Iz7vVfh8jbd+fLHmWcgUBewMak03xMFA
+ d/6Zqo34oGvoTaTmyh7pxjGPtwOwMrd1TtsDBu0aZGV0dDQGEQqWXkFYTXYPhUw98UbP/A11S
+ JNUTlE+3d2tF3qKwhaZVBCbrB2Mt2xO0NOsyeN0Okrbds6T/yPPZVGh776lR9IZCS6gSeYVeq
+ 1Dl3s+owkEWgGZl2FmudAst1T1zGBSOQd7HuELdBdMnST657BhBpxRM11y/BwSWLRlj6XzRLI
+ V1dgkjtnoaXa0D55gC61cbqa9oUVboyKUX0iT0RGRnRENmZECsVh/8CeEHPUjmOrezHYlvAZP
+ 1bwkezPIo1UqIqJ5O848UH3Q9rnSsRTIcmHPV+CCzjlm/RlTlG/Km5Q/clDrUvXeRDbnDTw7p
+ /sQTf1TL0D5XwVnuibYt4rBjVkl8QisxVzaZA4AKPBRlui/lNh6hf3dpJ0B1NMbiTx3WbZFUa
+ C+mE0WRlWDlrHg8Z021tEMi13YAU+JSlLMppCmDjr7y2+PNuQvC7Ks4KANZAODK74VcVL5IM8
+ Xx8tv2zF7CwhlijjC2EJpuFo3tnoDHuclXoFMeeiLBfomVTBVX9GNn/YHeBaqUqbfyYPFIgQ5
+ 53392PxCjFxAt4EAlfSUihgkCsq5tYYrlarjz0sKaV7FJHqeam2TXYD6dLVG/ePko/A3y6CZW
+ fHK7WD9gucsACqmSnvHK/9ok+IDi42GMERiaXpdHL+OkRyCS/Xoz2RG6Bc6LoZpcOyaWM0fsX
+ fNxluFzdAfI/UjDU19G9ZwLUNqYXu3UBsoxxYSQB8sfDspNLpAO0Ulp1GIOlsLHvq0/dj+kph
+ E5Ivf3JOttTSnI5o/
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Suggestion for some additional information on this page:
-
-http://man7.org/linux/man-pages/man5/core.5.html
-
-Could "Core dumps and systemd" be extended to give an example of sysctl making a temporary change?
-
-eg set to the filename and signal that causes the core dump:
-
-# sysctl -w kernel.core_pattern="%e-%s.core"
 
 
-Cheers, Jonny
+On Mon, 25 May 2020, Michael Kerrisk via Libc-alpha wrote:
+
+... >8
+>
+>> We really need to engage with technical writers
+>> and involve a broader set of industry skills in our projects.
+>
+> I want to add a note of caution here. It's great to have technical
+> writers (and like good developers companies should be paying them),
+> but they can't do the job on their own. A lot of developer input is
+> still required.
+
+Another caution, many HR departments hire 'technical writers' that in
+reality are copy editors, who's knowledge base is grammar/writing/language.
+In my experience, they tend to make things a lot worse. Wordsmiths like
+to use words, lots of words. They want to create novels. The complete
+opposite of what technical writing should be.
+
+>
+> Thanks,
+>
+> Michael
+>
