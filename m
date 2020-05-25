@@ -2,122 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2FDBB1E0C30
-	for <lists+linux-man@lfdr.de>; Mon, 25 May 2020 12:52:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 428871E0C53
+	for <lists+linux-man@lfdr.de>; Mon, 25 May 2020 12:57:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2389856AbgEYKwP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 25 May 2020 06:52:15 -0400
-Received: from us-smtp-1.mimecast.com ([205.139.110.61]:20465 "EHLO
-        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
-        by vger.kernel.org with ESMTP id S2389484AbgEYKwP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 25 May 2020 06:52:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1590403933;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=FEKOOTgqpvlMsa/3ZbSMrbUzuAtJR/7EOgIm3PIV96I=;
-        b=AUjv4fYYYr/GSD2OS/w2rYH0z9mjLmBeEBxnw82uroRWEItyaxeVxQbDqQ9/zj5vbz6iCd
-        mKuUnfBx8RAEHqXhWQyRzkFRtiAoiOpZDXPIb3SMIc1Oh9YdSBFdcjx0jT0f1qvlpSbJ+W
-        wRzmd8ZrbU/a+UveHsBloD1hhOyFevY=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-322-wG1tohVsOUeLwBe_4cSO3Q-1; Mon, 25 May 2020 06:52:04 -0400
-X-MC-Unique: wG1tohVsOUeLwBe_4cSO3Q-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4BCA6460;
-        Mon, 25 May 2020 10:52:03 +0000 (UTC)
-Received: from oldenburg2.str.redhat.com (ovpn-112-121.ams2.redhat.com [10.36.112.121])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id 4A1F519D7C;
-        Mon, 25 May 2020 10:52:02 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     "Carlos O'Donell via Libc-alpha" <libc-alpha@sourceware.org>,
-        Martin Sebor <msebor@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: The GNU C Library Manual - Authoritative or not?
-References: <501e5e0c-f293-b838-5106-764c6b18e061@gmail.com>
-        <875300cf-92ca-c115-c42d-19dda5de5a4a@redhat.com>
-        <87ftbs3zb8.fsf@oldenburg2.str.redhat.com>
-        <CALxWeYqN+4GeTtE2Cf0ZtHn+eFZa4P9fh709qqXnyqd+nGUF=g@mail.gmail.com>
-Date:   Mon, 25 May 2020 12:52:00 +0200
-In-Reply-To: <CALxWeYqN+4GeTtE2Cf0ZtHn+eFZa4P9fh709qqXnyqd+nGUF=g@mail.gmail.com>
-        (Michael Kerrisk's message of "Mon, 25 May 2020 11:04:31 +0200")
-Message-ID: <87d06sxp67.fsf@oldenburg2.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
+        id S2389943AbgEYK5j (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 25 May 2020 06:57:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41150 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2389856AbgEYK5j (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 25 May 2020 06:57:39 -0400
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com [IPv6:2a00:1450:4864:20::542])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E5213C061A0E
+        for <linux-man@vger.kernel.org>; Mon, 25 May 2020 03:57:38 -0700 (PDT)
+Received: by mail-ed1-x542.google.com with SMTP id l25so14680689edj.4
+        for <linux-man@vger.kernel.org>; Mon, 25 May 2020 03:57:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=3nOB0kQsPjdt8Ra8dYDdiH0mTPIVYCZrnOxdhsi/D1M=;
+        b=haGOtYjZy0XW6p31mqkIItgQ7Cr707A8S2+gLSdvzoofNm2/+ZJt83eMBQ8n8E5Ae1
+         EhAHbhuJLZ7Tul9XuCEPbcMqhqzAQwFAyYVPPOQZ+PeXkBxtHiC54U8Q57SOGaNdJ3rE
+         tIjCmbAaT95BIQ3HRZ3rSKwtWR64YytRJRotM+PkMU4enrsy95C8vE7zUx7J96O4Tvyc
+         Y5NTso9UDJZ9Q6qSjmJg7q8iyxYj8lymhLP9SpnJ2DPjfxZvEY/gHifqita07FNABht4
+         UpNmqQZ89y2sgQUabq0DshZiGjN+C4Kr3Hu3ISHiiueahPlHpay5w16EJINphgnVhMsY
+         fRnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=3nOB0kQsPjdt8Ra8dYDdiH0mTPIVYCZrnOxdhsi/D1M=;
+        b=CoU2H6u4mvMIXGb26ssPRdgOmO7URrSXzadfHK39/20zzJtN1Y5pYy9qM0b5l6XLhV
+         dWp7T3Wp2d29Y/wke1p3FKUy+1MqOeFcbAtu01zVgzIm4SJz+aIBlaHGpokvf1VRYjhn
+         Xo7kloR9qKMHKUfIJ05aQHPjaSlFo/8hJ1mEg4DJYkeVCUCXMvV+dvawfAq3zw7oV72y
+         fG06LedHzvZhWyC1qG6V8tdj2fA7XvTyLyKjFidY+5C5qEfJr9FvEmG/Jr/J+tHUWZ10
+         Ux3dDu+7QmkWm4gUP5H6Xws7/YXBWxSSn4TtBNu81HNM4I5NqMp6iU5PSh2p65ZnY2W1
+         rmCA==
+X-Gm-Message-State: AOAM532P6MOONZ/rkuiyLHxVib9X06Jkwc23PxZDP06MbXVkOLED6Y7f
+        MPc7dur0inUnr1yWzfp60o3/+EqZu7g=
+X-Google-Smtp-Source: ABdhPJzYhC66tA0K6/+K11n7ytO5JN75F3O681mmcLwOIVo9bmplhih4PLmGwS48MSp15LB3bAavdA==
+X-Received: by 2002:a05:6402:5:: with SMTP id d5mr14928810edu.247.1590404257581;
+        Mon, 25 May 2020 03:57:37 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2482:101:a081:4793:30bf:f3d5? ([2001:a61:2482:101:a081:4793:30bf:f3d5])
+        by smtp.gmail.com with ESMTPSA id i6sm13997433ejh.4.2020.05.25.03.57.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 25 May 2020 03:57:36 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: gettid(2) feature test macro and header
+To:     "Joseph C. Sible" <josephcsible@gmail.com>
+References: <CABpewhHMp-UP6S5mD1psPg_KKh2xAFp3yViB1z5zwCsksbzcxg@mail.gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <0ff77467-1d09-4fa8-2202-316a624495b0@gmail.com>
+Date:   Mon, 25 May 2020 12:57:34 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
+In-Reply-To: <CABpewhHMp-UP6S5mD1psPg_KKh2xAFp3yViB1z5zwCsksbzcxg@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Michael Kerrisk:
+On 5/24/20 1:55 AM, Joseph C. Sible wrote:
+> The gettid(2) function requires the _GNU_SOURCE feature test macro,
+> but its man page doesn't mention this. Also, it comes from unistd.h,
+> but its man page only mentions sys/types.h.
 
-> Each year I come into contact with quite a large number of developers
-> (some few hundred each year) in many locations in my day job (or, at
-> least what used to be my day job until COVID-19 landed), and I think
-> *very* few of them are aware of the existence of the glibc manual.
-> Most are aware of manual pages. (However, they mostly aren't aware
-> that there is an project entity called "Linux man-pages"; rather, they
-> just know that they get a pile of manual pages on their systems, and
-> many of them consult those pages.)
+Thanks, Joseph. I applied the patch below.
 
-Thanks for sharing your perspective.
+Cheers,
 
-> And then there is the "info" thing. As a complete document (i.e.,
-> PDF), the glibc manual is quite a handsome document with a lot of good
-> information, but not the thing one wants to reach for when facing a
-> specific API problem. What is one then left with? "info". I think in
-> all of the years that I have been around Linux, I cannot recall
-> meeting anyone who had a kind word to say about this format/interface.
-> People generally don't understand how to navigate in "info", and I
-> think the whole idea of hyperlinking in a textual UI is one that
-> doesn't work well from a usability perspective. https://xkcd.com/912/
-> is funny for a reason.
+Michael
 
-Even for Emacs users, I suspect that many more are aware of =E2=80=9CM-x ma=
-n RET
-RET=E2=80=9D than those that are aware of =E2=80=9CC-h S=E2=80=9D, which ju=
-mps right to the
-function documentation in the glibc manual.  I have not figured out how
-this actually works in practice.  I suspect it uses the Texinfo function
-index.  Unfortunately, quite a bit of useful information in the Texinfo
-sources is not visible in rendered versions.
+--- a/man2/gettid.2
++++ b/man2/gettid.2
+@@ -28,6 +28,8 @@
+ gettid \- get thread identification
+ .SH SYNOPSIS
+ .nf
++.B #define _GNU_SOURCE
++.B #include <unistd.h>
+ .B #include <sys/types.h>
+ .PP
+ .B pid_t gettid(void);
 
-One could try to get something similar to =E2=80=9CC-h S=E2=80=9D into Visu=
-al Studio
-Code and other IDEs.  But I'm not convinced this is a good use of
-resources.  Even if I can remember the Emacs command, I usually need the
-manual pages because I'm more interested in the system call
-documentation.
 
-> And on that last point, I circle back to an issue that I've banged on
-> about before. The CLA. It's just a huge barrier to contribution (and,
-> I remain convinced, A Bad Thing [TM], even if its motivation is well
-> intentioned [6]). Just in the last day or two, there's someone doing
-> what seems natural to so many in this (FOSS) world:
->
-> https://lwn.net/ml/libc-alpha/20200523191809.19663-1-aurelien.aptel%40gma=
-il.com/
->
-> I presume this patch submitter has no idea of the existence of the
-> CLA. Once that person learns of it, will they bother doing the
-> paperwork, or will they just never bother submitting another patch? I
-> know which way I would bet my money.
 
-I still haven't given up hope entirely for relicensing the manual under
-a license that is compatible with Debian's requirements, and also making
-it easier to move code and documentation between the manual and the
-implementation itself.  The current copyright assignment procedure means
-that there is no legal or technical obstacle to relicensing, one has
-simply to convince the single copyright owner.
-
-Thanks,
-Florian
-
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
