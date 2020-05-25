@@ -2,76 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A5E881DFF58
-	for <lists+linux-man@lfdr.de>; Sun, 24 May 2020 16:23:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8B1BD1E08AB
+	for <lists+linux-man@lfdr.de>; Mon, 25 May 2020 10:22:50 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729004AbgEXOXv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 24 May 2020 10:23:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47062 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728875AbgEXOXv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 24 May 2020 10:23:51 -0400
-X-Greylist: delayed 722 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sun, 24 May 2020 07:23:50 PDT
-Received: from mo6-p05-ob.smtp.rzone.de (mo6-p05-ob.smtp.rzone.de [IPv6:2a01:238:20a:202:5305::8])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 053FCC061A0E
-        for <linux-man@vger.kernel.org>; Sun, 24 May 2020 07:23:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1590330229;
-        s=strato-dkim-0002; d=xn--jrgen-sauermann-zvb.de;
-        h=Date:Message-ID:Subject:From:Cc:To:X-RZG-CLASS-ID:X-RZG-AUTH:From:
-        Subject:Sender;
-        bh=0qMJH2MklM7DvaWJJSvbgrYUMudmT4TRatDgVElBr6E=;
-        b=Q5dTvejrInPBHny3YbFAkN3h91XfOxfsmvkTUrqlZ9F6LLNpDNbwi45G6oDftKJ4sW
-        fjJDJKwbcCc0EYV1NlXJzsDkDvriIcQFd4mM5QO2AjtCShn1cca2H3tAggZrzQQ9wTgW
-        jSvND+pB+SlCU6cievqrTOKuQPBXc3wpitA4G7CWY0EOn8JWI47ttTRJ41bsupye7cTw
-        RkOwxW5agsd99M1qAuOEXVWkLfFBd+q+cUf0jpC5T7xoqiV7tdmgyZTCZ5tKzC7U4OBp
-        vyEgtt4Op/OajIXMbrkopnnXogRBoE9+zEY3om0k+bXUKxtgbf/KLqYlatI6Z7IYvDsq
-        AeHg==
-X-RZG-AUTH: ":IW0NeWCwdbJy35dEGbhINhrCL06TqIk89uRQzJQEHECld5uF6JeNB+O1P0jUjLJ2qo9S0TgrT46Wp8Yne7Wi0g=="
-X-RZG-CLASS-ID: mo05
-Received: from [192.168.0.110]
-        by smtp.strato.de (RZmta 46.7.0 DYNA|AUTH)
-        with ESMTPSA id a04429w4OEBhRAZ
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
-        (Client did not present a certificate);
-        Sun, 24 May 2020 16:11:43 +0200 (CEST)
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-From:   =?UTF-8?Q?Dr=2e_J=c3=bcrgen_Sauermann?= <mail@juergen-sauermann.de>
-Subject: scanf() and friends
-Message-ID: <a258513b-a5c3-d772-df3f-e490768b73eb@juergen-sauermann.de>
-Date:   Sun, 24 May 2020 16:11:42 +0200
-User-Agent: Mozilla/5.0 (X11; Linux i686; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+        id S1729513AbgEYIWu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 25 May 2020 04:22:50 -0400
+Received: from smtpout1.mo529.mail-out.ovh.net ([178.32.125.2]:42425 "EHLO
+        smtpout1.mo529.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1725849AbgEYIWu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 25 May 2020 04:22:50 -0400
+Received: from mxplan6.mail.ovh.net (unknown [10.109.146.41])
+        by mo529.mail-out.ovh.net (Postfix) with ESMTPS id A54FC37B4158;
+        Mon, 25 May 2020 10:22:47 +0200 (CEST)
+Received: from jwilk.net (37.59.142.106) by DAG4EX2.mxp6.local (172.16.2.32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Mon, 25 May
+ 2020 10:22:46 +0200
+Authentication-Results: garm.ovh; auth=pass (GARM-106R006cb4f7781-557f-4faa-a645-ecbdfaa140d2,6F6664E83CEDE23F121728FE43BC1480B95F6CB9) smtp.auth=jwilk@jwilk.net
+Date:   Mon, 25 May 2020 10:22:43 +0200
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     =?utf-8?Q?J=C3=BCrgen?= Sauermann <mail@juergen-sauermann.de>
+CC:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        <linux-man@vger.kernel.org>
+Subject: Re: scanf() and friends
+Message-ID: <20200525082243.rzjsn2fmco5pam4i@jwilk.net>
+References: <a258513b-a5c3-d772-df3f-e490768b73eb@juergen-sauermann.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+In-Reply-To: <a258513b-a5c3-d772-df3f-e490768b73eb@juergen-sauermann.de>
+User-Agent: NeoMutt/20180716
+X-Originating-IP: [37.59.142.106]
+X-ClientProxiedBy: DAG2EX1.mxp6.local (172.16.2.11) To DAG4EX2.mxp6.local
+ (172.16.2.32)
+X-Ovh-Tracer-GUID: c9258d83-dc5b-473b-a87a-2625f83eadd2
+X-Ovh-Tracer-Id: 9247860362833287133
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduhedruddvtddgtdefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpeffhffvuffkfhggtggugfgjfghisehtkeertddtreejnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpefhffdtueelvedvffefgfejveehudejgfeikeetudejieeuvdfghfduudegffeujeenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddruddtieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Hi Jürgen!
 
-not a bug but maybe worthwhile to clarify.
+* Jürgen Sauermann <mail@juergen-sauermann.de>, 2020-05-24, 16:11:
+>This lets me wonder if the fact that my glibc version accepts (and 
+>discards) a 0x prefix in a 'X' conversion is merely a convenience that 
+>may disappear at some later point in time, or an intended feature on 
+>which a programmer may rely on.
 
-The man pages for the scanf() familiy of functions (scanf(), sscanf(),
-fscanf(),
-vscanf(), csscanf(), and vfscanf()) state that the conversion specifier
-'i' accepts
-'0x' or '0X' as an indication for hex numbers.
+It's an intended feature. C99 (and POSIX) requires stripping "0x".
 
-They do not mention, however, that the  conversion specifiers 'x' and
-'X' also
-accept (and discard) '0x' or '0X' as prefixes for hex numbers.
-
-This lets me wonder if the fact that my glibc version accepts (and discards)
-a 0x prefix in a 'X' conversion is merely a convenience that may
-disappear at
-some later point in time, or an intended feature on which a programmer may
-rely on.
-
-Best Regards,
-Jürgen Sauermann
-GNU APL
-
+-- 
+Jakub Wilk
