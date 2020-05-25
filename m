@@ -2,110 +2,77 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0D3DC1E1125
-	for <lists+linux-man@lfdr.de>; Mon, 25 May 2020 16:59:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 248671E1148
+	for <lists+linux-man@lfdr.de>; Mon, 25 May 2020 17:08:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2390911AbgEYO7M (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 25 May 2020 10:59:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51082 "EHLO
+        id S2391041AbgEYPIm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 25 May 2020 11:08:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52570 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2390942AbgEYO7I (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 25 May 2020 10:59:08 -0400
-Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com [IPv6:2a00:1450:4864:20::241])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 308E5C05BD43
-        for <linux-man@vger.kernel.org>; Mon, 25 May 2020 07:59:08 -0700 (PDT)
-Received: by mail-lj1-x241.google.com with SMTP id l15so20711116lje.9
-        for <linux-man@vger.kernel.org>; Mon, 25 May 2020 07:59:08 -0700 (PDT)
+        with ESMTP id S2391007AbgEYPIm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 25 May 2020 11:08:42 -0400
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AEF1FC061A0E
+        for <linux-man@vger.kernel.org>; Mon, 25 May 2020 08:08:41 -0700 (PDT)
+Received: by mail-wm1-x32d.google.com with SMTP id u12so298962wmd.3
+        for <linux-man@vger.kernel.org>; Mon, 25 May 2020 08:08:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=shutemov-name.20150623.gappssmtp.com; s=20150623;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=mEbHD2ev263wlFRheDig3n99CabBDelJzVN0Rki9PdU=;
-        b=enNvc4+9hQuIOZOIh3CaF8Xu0UeS+b0QfIV6J5Y+QYtH841jSCEK08HAeRk1to7Ei7
-         mo18xJOlr+wir0EjKge1Voe2Z6a3szF3i50Zj1DIcl2dF4cyHDBAuWKs8XmOR6BD2Uub
-         xef+MqLgkQEgyiJJZTBGfCKGQ2yWMsPHDg7jY+wGy0r4JAaFtWLIcj/WUzNwBYtvtQ/i
-         cSXFVtNNN3PNkIfjSzeLaHI1VJOTBNl0XV0sUEhY3nhCBi/s4KR4ZrlqL17n6HDZSLTU
-         uaQBd1ajC9jkJiXhhkBc8BWDeRk12QnICMUmZf1+eu3v75Jxwzs5IWC2htaEpEslfgcM
-         fVfg==
+        d=jguk.org; s=google;
+        h=to:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=u18bxgkZcyxLeaqNI2VR5CPe5XJNWkhnywBxi+QPLdk=;
+        b=QyqyILBSdZHOccdSzzK9+Iehp15nodjurD1YClhj9p+c4QzTmLioCbJMZoZaN0H+nk
+         8Zx/URsOSXhAkp4CRLlfZlUkT+ILVyvbc6AE1nWC4W2TwKvHURTNeCbaayphbCc3l0sC
+         AyssGHLjqDW91a6OnDrgXo09Eg8I11OIqkbZVNbj0GP9KyAiQtxO/4NbTc8SGqZvYdY7
+         yFgM5pOcJemBaenj0G0AN0F354HC9SBcUU/PXt7vhGQCWV/1XT+BLjULELKS22XUxFpk
+         1h9xsOsB8kdshvEQoLb99EaVxRU7+uyBpgwwEknTc1+X3N9ydZMaiDr3D+5wIHpINvhA
+         QS0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=mEbHD2ev263wlFRheDig3n99CabBDelJzVN0Rki9PdU=;
-        b=HIS9xUr8YUZyWRmt9uRnarOXzYZNC7mDKJu83iAFyEddT9vjhzN4UIzmnhDTTnq6iH
-         +WmRqBvUaaHesvLVTFuPmGJwdw0x+h5t9X2gH4LSfTl7I9ubiU2X3080ssqUOBUlabt4
-         R/M9fT2pNpjNFGgOUB/yFjawK8sex7zpl2KCyUCGonUUwmEHLmuFdmXCC0IK/zh1twe/
-         G2Re5euxRW8zx1ucuiaVjCfmNy98n3zVHbON2qzKh+yEVQxFJIH3jvOQQnR+W95SBKaf
-         Kjtdvp5RFKIpDP6ff+UlpXo+w7vtU0OQCpjWFdGkVIJqAOxqMvnUaWmK1pMY1IKQ0CJy
-         N1fA==
-X-Gm-Message-State: AOAM5328Mmct6fY7As9ApSHD3wP2sDXzYCdQe8FPsGU2vBru8RzcuPPP
-        WVrJlRQaPyFF/mpHVLubX+pNsw==
-X-Google-Smtp-Source: ABdhPJwRf7RFMRCGGPJo5Q4CtZh9c7tpy4gmdWyeTAE62C3TTupgb3dtVWxbju39YxVIt4HlovmXJg==
-X-Received: by 2002:a2e:7619:: with SMTP id r25mr14688414ljc.42.1590418746399;
-        Mon, 25 May 2020 07:59:06 -0700 (PDT)
-Received: from box.localdomain ([86.57.175.117])
-        by smtp.gmail.com with ESMTPSA id w6sm4697970ljw.89.2020.05.25.07.59.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 25 May 2020 07:59:05 -0700 (PDT)
-Received: by box.localdomain (Postfix, from userid 1000)
-        id DFB3F10230F; Mon, 25 May 2020 17:59:06 +0300 (+03)
-Date:   Mon, 25 May 2020 17:59:06 +0300
-From:   "Kirill A. Shutemov" <kirill@shutemov.name>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Ian Rogers <irogers@google.com>, Rik van Riel <riel@redhat.com>,
-        linux-man@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
-        linux-mm@kvack.org, linux-api@vger.kernel.org, nilal@redhat.com,
-        Florian Weimer <fweimer@redhat.com>,
-        Colm =?utf-8?Q?MacC=C3=A1rtaigh?= <colm@allcosts.net>,
-        Mike Kravetz <mike.kravetz@oracle.com>
-Subject: Re: [PATCH] proc.5: add "wf" to VmFlags in /proc/[pid]/smaps
-Message-ID: <20200525145906.e5xfzmj6hvl7t4fg@box>
-References: <20200521222551.259804-1-irogers@google.com>
- <CAP-5=fXjXgWEgp9gqReByrDBTvjDbPEsubeAFxrpxj_+FsFn6w@mail.gmail.com>
- <1edcb7ac-bc5f-b9ec-a037-656005ae85e3@gmail.com>
+        h=x-gm-message-state:to:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=u18bxgkZcyxLeaqNI2VR5CPe5XJNWkhnywBxi+QPLdk=;
+        b=n3BOPC6VagWuHCjl/Yp0n8LonkKEJb3PPEnSv+8kGhjB5jgTkLaVTyDlL19dGX1k6f
+         Enz9rF2df8crKaxfetJg9kvVWh4uuSzAQDvib4/qgoqBr7JfVN+dPuOcTMz28/+DNmSo
+         Z/46qddvFNV35hiuU80xE6gp5DgkuBPIzc1e+Isks/qomFbv2V5NeQYFuBoc6U3IG/mC
+         EZSsS7rB2FN2Qbj5KSBJYxIpk9xeM6zaf25ikAw2y+vLtBaweoyCsJGdZOJsXKRYzu/h
+         8JLPjkK7j6r/SmfEedNxWLu8JB2J+Pe6ldt6fD9zlh4M1yWmtJ6AUh1VRXoJPiDk0Ovj
+         sweA==
+X-Gm-Message-State: AOAM533bREyeZ7Z5AYv0oWqbRJslpB7/nMu3XGx45dwUauPBTlgy+Ong
+        VbKMpNFdNVljJTWI4JeETA3OfIuP+aw=
+X-Google-Smtp-Source: ABdhPJzPGnT0W4YSgvPjQNt75MK4EUWq1L/tpkmuAso2LyauhjR0BN83vRTwQUFZsWE8NpxtiaG2fg==
+X-Received: by 2002:a1c:67c3:: with SMTP id b186mr13940742wmc.167.1590419320165;
+        Mon, 25 May 2020 08:08:40 -0700 (PDT)
+Received: from [192.168.0.12] (cpc87281-slou4-2-0-cust47.17-4.cable.virginm.net. [92.236.12.48])
+        by smtp.gmail.com with ESMTPSA id 94sm19237231wrf.74.2020.05.25.08.08.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 25 May 2020 08:08:39 -0700 (PDT)
+To:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>
+From:   Jonny Grant <jg@jguk.org>
+Subject: core sysctl
+Message-ID: <9e98156e-3ba9-e656-bb8f-c54229b5ac11@jguk.org>
+Date:   Mon, 25 May 2020 16:08:38 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1edcb7ac-bc5f-b9ec-a037-656005ae85e3@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, May 25, 2020 at 03:50:38PM +0200, Michael Kerrisk (man-pages) wrote:
-> On 5/22/20 1:13 AM, Ian Rogers wrote:
-> > On Thu, May 21, 2020 at 3:25 PM Ian Rogers <irogers@google.com> wrote:
-> >>
-> >> This patch documents a flag added in the following kernel commit:
-> >>
-> >> commit d2cd9ede6e193dd7d88b6d27399e96229a551b19
-> >> Author: Rik van Riel <riel@redhat.com>
-> >> Date:   Wed Sep 6 16:25:15 2017 -0700
-> >>
-> >>     mm,fork: introduce MADV_WIPEONFORK
-> >>
-> >> This was already documented in man2/madvise.2 in the commit:
-> >>
-> >> commit c0c4f6c29c494c466f3a2a6273c5b55b76a72927
-> >> Author: Rik van Riel <riel@redhat.com>
-> >> Date:   Tue Sep 19 20:32:00 2017 +0200
-> >>
-> >>     madvise.2: Document MADV_WIPEONFORK and MADV_KEEPONFORK
-> >>
-> >> Signed-off-by: Ian Rogers <irogers@google.com>
-> > 
-> > Doing a quick audit of fs/proc/task_mmu.c having noticed this flag was
-> > missing I note:
-> >  - "mp" isn't documented, only possible with INTEL_MPX
-> >  - "nl" is documented but not present in show_smap_vma_flags
-> >  - "um" and "uw" aren't documented
-> 
-> I took a shot at fixing these:
-> 
-> 
->              mp  - MPX-specific VMA (x86, since Linux 3.19)
+Suggestion for some additional information on this page:
 
-This one is gone. The patch to remove leftovers of MPX is linux-next.
+http://man7.org/linux/man-pages/man5/core.5.html
 
--- 
- Kirill A. Shutemov
+Could "Core dumps and systemd" be extended to give an example of sysctl making a temporary change?
+
+eg set to the filename and signal that causes the core dump:
+
+# sysctl -w kernel.core_pattern="%e-%s.core"
+
+
+Cheers, Jonny
