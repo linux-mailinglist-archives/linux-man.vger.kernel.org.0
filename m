@@ -2,105 +2,125 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 696C21E6203
-	for <lists+linux-man@lfdr.de>; Thu, 28 May 2020 15:22:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CED501E629A
+	for <lists+linux-man@lfdr.de>; Thu, 28 May 2020 15:45:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2390120AbgE1NWF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 28 May 2020 09:22:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59742 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2390102AbgE1NWF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 28 May 2020 09:22:05 -0400
-Received: from Galois.linutronix.de (Galois.linutronix.de [IPv6:2a0a:51c0:0:12e:550::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2BC82C05BD1E
-        for <linux-man@vger.kernel.org>; Thu, 28 May 2020 06:22:05 -0700 (PDT)
-Received: from p5de0bf0b.dip0.t-ipconnect.de ([93.224.191.11] helo=nanos.tec.linutronix.de)
-        by Galois.linutronix.de with esmtpsa (TLS1.2:DHE_RSA_AES_256_CBC_SHA256:256)
-        (Exim 4.80)
-        (envelope-from <tglx@linutronix.de>)
-        id 1jeITy-0008Vr-MQ; Thu, 28 May 2020 15:22:03 +0200
-Received: by nanos.tec.linutronix.de (Postfix, from userid 1000)
-        id B7A42100D01; Thu, 28 May 2020 15:22:01 +0200 (CEST)
-From:   Thomas Gleixner <tglx@linutronix.de>
-To:     mtk.manpages@gmail.com,
-        Thomas Piekarski <t.piekarski@deloquencia.de>
-Cc:     linux-man <linux-man@vger.kernel.org>, victorm007@yahoo.com
-Subject: Re: [PATCH] iopl.2: Changing description of permissions set per-process to per-thread
-In-Reply-To: <CAKgNAkhDwbBMx+2A06Y7nUnLB7vgZ42Bnh84TXaqh2dx8nKqgA@mail.gmail.com>
-References: <45693d06-c780-890f-8e5a-d22267722b29@deloquencia.de> <CAKgNAkhDwbBMx+2A06Y7nUnLB7vgZ42Bnh84TXaqh2dx8nKqgA@mail.gmail.com>
-Date:   Thu, 28 May 2020 15:22:01 +0200
-Message-ID: <87zh9snqiu.fsf@nanos.tec.linutronix.de>
+        id S2390547AbgE1NpN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 28 May 2020 09:45:13 -0400
+Received: from us-smtp-delivery-1.mimecast.com ([205.139.110.120]:24275 "EHLO
+        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S2390522AbgE1NpH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 28 May 2020 09:45:07 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1590673506;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=Re4jEEmAvLF/IwOE4h8IS6wOLBf53DSbCjXiPd7qbRw=;
+        b=eFEFLx+1a4HWFjnLGWV6Jyjg0ZiNvRc/kW1kLadciIr44Rz7oki/l1dWKuu05XLjmd0uW6
+        hNAQTOVsjvOzvxnxs7juxQeckP4uxzSPWk7ua6MBjoeOTB/WKic/iZMFjUGBndJ8zAV0PV
+        U0KIuO0pbcKFFAKAXAXQ69z1I2TfyJw=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-184-i0VHkOeVO46Jri8xBsBn8A-1; Thu, 28 May 2020 09:45:02 -0400
+X-MC-Unique: i0VHkOeVO46Jri8xBsBn8A-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 39D4918FE860;
+        Thu, 28 May 2020 13:45:01 +0000 (UTC)
+Received: from llong.remote.csb (ovpn-118-217.rdu2.redhat.com [10.10.118.217])
+        by smtp.corp.redhat.com (Postfix) with ESMTP id 895637A1EF;
+        Thu, 28 May 2020 13:45:00 +0000 (UTC)
+Subject: Re: [PATCH v2 3/6] prctl.2: Add PR_SPEC_DISABLE_NOEXEC for
+ SPECULATION_CTRL prctls
+To:     Dave Martin <Dave.Martin@arm.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, linux-arch@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        Thomas Gleixner <tglx@linutronix.de>
+References: <1590614258-24728-1-git-send-email-Dave.Martin@arm.com>
+ <1590614258-24728-4-git-send-email-Dave.Martin@arm.com>
+From:   Waiman Long <longman@redhat.com>
+Organization: Red Hat
+Message-ID: <35acb48d-6703-bed5-8c6d-739411eea679@redhat.com>
+Date:   Thu, 28 May 2020 09:45:00 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Linutronix-Spam-Score: -1.0
-X-Linutronix-Spam-Level: -
-X-Linutronix-Spam-Status: No , -1.0 points, 5.0 required,  ALL_TRUSTED=-1,SHORTCIRCUIT=-0.0001
+In-Reply-To: <1590614258-24728-4-git-send-email-Dave.Martin@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Michael, Thomas,
+On 5/27/20 5:17 PM, Dave Martin wrote:
+> Add the PR_SPEC_DISABLE_NOEXEC mode added in Linux 5.1
+> for the PR_SPEC_STORE_BYPASS "misfeature" of
+> PR_SET_SPECULATION_CTRL and PR_GET_SPECULATION_CTRL.
+>
+> Signed-off-by: Dave Martin <Dave.Martin@arm.com>
+> Cc: Waiman Long <longman@redhat.com>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> ---
+>   man2/prctl.2 | 22 ++++++++++++++++++++--
+>   1 file changed, 20 insertions(+), 2 deletions(-)
+>
+> diff --git a/man2/prctl.2 b/man2/prctl.2
+> index b6fb51c..cab9915 100644
+> --- a/man2/prctl.2
+> +++ b/man2/prctl.2
+> @@ -1187,6 +1187,12 @@ The speculation feature is disabled, mitigation is enabled.
+>   Same as
+>   .B PR_SPEC_DISABLE
+>   but cannot be undone.
+> +.TP
+> +.BR PR_SPEC_DISABLE_NOEXEC " (since Linux 5.1)"
+> +Same as
+> +.BR PR_SPEC_DISABLE ,
+> +but but the state will be cleared on
+> +.BR execve (2).
+>   .RE
+>   .IP
+>   If all bits are 0,
+> @@ -1251,6 +1257,17 @@ with the same value for
+>   .I arg2
+>   will fail with the error
+>   .BR EPERM .
+> +.\" commit 71368af9027f18fe5d1c6f372cfdff7e4bde8b48
+> +.TP
+> +.BR PR_SPEC_DISABLE_NOEXEC " (since Linux 5.1)"
+> +Same as
+> +.BR PR_SPEC_DISABLE ,
+> +but but the state will be cleared on
+> +.BR execve (2).
+> +Currently only supported for
+> +.I arg2
+> +equal to
+> +.B PR_SPEC_STORE_BYPASS.
+>   .RE
+>   .IP
+>   Any unsupported value in
+> @@ -1899,11 +1916,12 @@ was
+>   .BR PR_SET_SPECULATION_CTRL
+>   and
+>   .IR arg3
+> -is neither
+> +is not
+>   .BR PR_SPEC_ENABLE ,
+>   .BR PR_SPEC_DISABLE ,
+> +.BR PR_SPEC_FORCE_DISABLE ,
+>   nor
+> -.BR PR_SPEC_FORCE_DISABLE .
+> +.BR PR_SPEC_DISABLE_NOEXEC .
+>   .SH VERSIONS
+>   The
+>   .BR prctl ()
 
-"Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> writes:
+Acked-by: Waiman Long <longman@redhat.com>
 
-> I expect that the small change at Thomas P proposes in this patch is
-> correct (i.e., iopl(2) operates per-thread, not per-process). I
-> remember that you touch the relevant kernel source file often. Perhaps
-> you are able to give a quick Ack?
->>
->>   man2/iopl.2 | 6 +++---
->>   1 file changed, 3 insertions(+), 3 deletions(-)
->>
->> diff --git a/man2/iopl.2 b/man2/iopl.2
->> index e5b216a14..329095808 100644
->> --- a/man2/iopl.2
->> +++ b/man2/iopl.2
->> @@ -39,7 +39,7 @@ iopl \- change I/O privilege level
->>   .BI "int iopl(int " level );
->>   .SH DESCRIPTION
->>   .BR iopl ()
->> -changes the I/O privilege level of the calling process,
->> +changes the I/O privilege level of the calling thread,
-
-I'm fine with the s/process/thread/ changes. The permissions are really
-per thread.
-
-Though the manpage should mention that a thread inherits the permissions
-from the parent, i.e. clone() vs. fork(), exec().
-
->>   as specified by the two least significant bits in
->>   .IR level .
->>   .PP
->> @@ -50,7 +50,7 @@ Since these X servers require access to all 65536 I/O
->> ports, the
->>   call is not sufficient.
->>   .PP
->>   In addition to granting unrestricted I/O port access, running at a higher
->> -I/O privilege level also allows the process to disable interrupts.
->> +I/O privilege level also allows the thread to disable interrupts.
-
-This paragraph became outdated as of
-
-   a24ca9976843 ("x86/iopl: Remove legacy IOPL option")
-
-in v5.5. The kernel no longer allows user space to disable
-interrupts. It still grants access to _ALL_ 64k ioports.
-
-Also:
-
-> This call is necessary to allow 8514-compatible X servers to run under
-> Linux.  Since these X servers require access to all 65536 I/O ports,
-> the ioperm(2) call is not sufficient.
-
-is outdated.
-
-ioperm() allows to set all 64k bits, but its significantly slower than
-iopl(3) because it needs to copy 8k of data on context switch while
-iopl(3) just maps an 'all bits set' static bitmap.
-
-Aside of that only really old x servers rely on iopl(3).
-
-Thanks,
-
-        tglx
