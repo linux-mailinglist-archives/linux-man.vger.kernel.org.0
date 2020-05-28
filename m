@@ -2,135 +2,167 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B03B61E583E
-	for <lists+linux-man@lfdr.de>; Thu, 28 May 2020 09:11:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B74441E5BA0
+	for <lists+linux-man@lfdr.de>; Thu, 28 May 2020 11:16:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725836AbgE1HLx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 28 May 2020 03:11:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58796 "EHLO
+        id S1728229AbgE1JQi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 28 May 2020 05:16:38 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49830 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725601AbgE1HLw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 28 May 2020 03:11:52 -0400
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 305E1C05BD1E;
-        Thu, 28 May 2020 00:11:52 -0700 (PDT)
-Received: by mail-ej1-x643.google.com with SMTP id k11so5675130ejr.9;
-        Thu, 28 May 2020 00:11:52 -0700 (PDT)
+        with ESMTP id S1728151AbgE1JQg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 28 May 2020 05:16:36 -0400
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AF034C05BD1E
+        for <linux-man@vger.kernel.org>; Thu, 28 May 2020 02:16:35 -0700 (PDT)
+Received: by mail-ej1-x641.google.com with SMTP id h21so31269371ejq.5
+        for <linux-man@vger.kernel.org>; Thu, 28 May 2020 02:16:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=16DIrmRA1E1JnL9soIzFZEu2gqgGZH7RX+KOOjHexd0=;
-        b=Hk98kg66914RxtIc5J3bFwPiLx5SZgO2Jetwyp4qg3R43GKFn1BNXce3HpdBLRTjir
-         2oYUFHOhUsf5Oe9YC4tUUohIG1SYyrZOr9GMlowRq0RcQ16KKpkdKalPLHuarT6WNXUw
-         NfZALsBj3b1EP7xmtg9cNa9hO3Ucq7gI5uObgeA+WFJRE53QOLNIlLF6MFbDDtD//h30
-         ixCyF03HF+6KXHFU4VgoKviVd3E0RQPkMssEFp+1SQwDyxa/J8j9gH7uAqqIrxIg5+fZ
-         +aKZEem2DQT/Z9aJpIWb83OId/FloBL8f7m/KBiDnUFt8KAShZWDlvhpGzfDP0VfwYHq
-         663g==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=XdX06rEHpkE8epYWRg2MpHmZs4dJ4cPOZrHumDiipC0=;
+        b=Y7je4jJMAEaUJ6zYEGIR1/medJEzQjsOKljP/spIt/PY/UChNTgwe0AYcKfJbmEeI5
+         gJI3nvP98pQhg/2evLaJ1TVjvxpmHOFWxCs6pG78URcBZUv/Cs8lW7l6XVXTYaW8yCwn
+         UjT8gHFZz7yWpaXS/ULak6oBvKrfXJFjqY7kemYEfjzG54Ig8eTFaWNtKq5z+taxgN8j
+         HOJ+us+BNpcbBA2b5Hq0dbFzgnghGboYS9ejEVECbfdAQ7qJVgAiMJUWgK7hQZvKhkUA
+         izF7l+7g8rgnJIbN7CEQ8n540D0Db0XSo6dfpswXt0ZR1lgLlPzCbgemXwgpoQLzC0DN
+         1kPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=16DIrmRA1E1JnL9soIzFZEu2gqgGZH7RX+KOOjHexd0=;
-        b=hTV89YiVHpyjcTr6h70rM9cgv6UlJykAwrQOiZo/7fvk3o7RHFf5xHU1D/lXIugnjr
-         iN23l5IdNp8WBlljCZoV0Lwfg/Bt1L+RD07+WR+c8qNzPtYOVT/oHsw4dbmu8+A4g3A2
-         0x5kbUlgj1IuPQTwAgfY4HUpJikIUjeX6Nl8B2aEs0pz9yLGndgUorm4ck4rjUgAqt8x
-         Z367rYZUfu4n3zEmT6r5el1KFELmn8oLGXmDyjme1qCDz3AJ6W+5p2Id5aQPUiCxkO/3
-         aO3jTtGnIXXDTAVBcp3e+Ses7/cY7kDu9FIwh/Q2MR+lqjsWKMhDjP616z4HbQaCOdMl
-         oXZw==
-X-Gm-Message-State: AOAM530Ms+QYRqnlyecEHWhFr/KalezIUB3AdFYKsAjsg+f95JHGbA+O
-        Db4sn55+as5P9nH+lTj/qwoU5bTNHC4SIq6pdYk=
-X-Google-Smtp-Source: ABdhPJzq9SmQSN0CtkdmJ2bqv3wLw2c+pM+QFBXLaM0M7eNHWJLkA9cXACQ1aCEEF/5xwXliqATOMilfHMSFjb9kpGs=
-X-Received: by 2002:a17:906:51b:: with SMTP id j27mr1639266eja.246.1590649910884;
- Thu, 28 May 2020 00:11:50 -0700 (PDT)
-MIME-Version: 1.0
-References: <1590614258-24728-1-git-send-email-Dave.Martin@arm.com>
-In-Reply-To: <1590614258-24728-1-git-send-email-Dave.Martin@arm.com>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=XdX06rEHpkE8epYWRg2MpHmZs4dJ4cPOZrHumDiipC0=;
+        b=nd25yPXvx/6C0Lxby7DvkNrLegfeu/ydmG8AFSRrKhMgwH7riROs1PKe856AioEIj7
+         x9wru/Qv+rsL4WPbn3FktYu/DHFBTVWgmHxAHGGUfSabIeesmbSNk/HG4bifC9diyDrQ
+         JsZK+QqnCUNQoM8GHUcCKP7KTSBXBwZkUpSIE0nfoFqltFxMR7kDiSkLFB/GpcKBDoHl
+         dRs1gdg8JDCxcY+akWitKeIDnflzEa+ck4tuAEIE/ooeoXo3MfCEUQVoXhwOejBcFlYc
+         79zmnOwaI4sHR+Y3k6X3xY+7QqOgtuAlJvZLMG1hVyhYz53PR6DtOts5zXpuNpfjErJn
+         IobQ==
+X-Gm-Message-State: AOAM530Lx1w8YPAxmGvukxZ3/z2ZYdoONBm40YFF9O1XFcM8qB9EkGwh
+        Tvo2QZLIxCKnkby8Jepoz6OipkLf9kk=
+X-Google-Smtp-Source: ABdhPJyu/JUjb9v48TbVXRV/LiMG56M5n1RRI9p+MFiWa40my4bRfG1FBkEudVxfdPyiDp6eTLW+jQ==
+X-Received: by 2002:a17:906:f189:: with SMTP id gs9mr2008756ejb.203.1590657394169;
+        Thu, 28 May 2020 02:16:34 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2516:6501:a84b:ccd6:785a:2f0f? ([2001:a61:2516:6501:a84b:ccd6:785a:2f0f])
+        by smtp.gmail.com with ESMTPSA id dt12sm4980532ejb.102.2020.05.28.02.16.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 28 May 2020 02:16:33 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
+Subject: Re: core sysctl
+To:     Jonny Grant <jg@jguk.org>
+References: <9e98156e-3ba9-e656-bb8f-c54229b5ac11@jguk.org>
+ <CAKgNAkhkASJ8+Xe64_ifM1_GgrNSCd6Vx0GDdkJ7aFfJ7RG=7A@mail.gmail.com>
+ <0e0f3d4e-b811-3423-ffe9-2fd68900c1a0@jguk.org>
+ <CAKgNAkgRSAf2MVA-XMbvoQTk88T5j=Hn2-nyzZBo-tVrLxvbsA@mail.gmail.com>
+ <0e4f5e7d-85bc-11d6-c73a-16509ab2a3e9@jguk.org>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Thu, 28 May 2020 09:11:40 +0200
-Message-ID: <CAKgNAkhHzrNHjpRAKo_cU7+0-OGP9eyvmdA=AD3OgvVDq8vjcQ@mail.gmail.com>
-Subject: Re: [PATCH v2 0/6] prctl.2 man page updates for Linux 5.6
-To:     Dave Martin <Dave.Martin@arm.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        linux-arch <linux-arch@vger.kernel.org>,
-        linux-arm-kernel@lists.infradead.org,
-        Amit Daniel Kachhap <amit.kachhap@arm.com>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Thomas Gleixner <tglx@linutronix.de>,
-        Tim Chen <tim.c.chen@linux.intel.com>,
-        Waiman Long <longman@redhat.com>,
-        Will Deacon <will@kernel.org>,
-        Vincenzo Frascino <vincenzo.frascino@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <6d57dced-2c9d-480b-8e4e-02ecbe42e4a9@gmail.com>
+Date:   Thu, 28 May 2020 11:16:32 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <0e4f5e7d-85bc-11d6-c73a-16509ab2a3e9@jguk.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Dave
+Hello Jonny,
 
-On Wed, 27 May 2020 at 23:17, Dave Martin <Dave.Martin@arm.com> wrote:
->
-> A bunch of updates to the prctl(2) man page to fill in missing
-> prctls (mostly) up to Linux 5.6 (along with a few other tweaks and
-> fixes).
->
-> Patches from the v1 series [1] that have been applied or rejected
-> already have been dropped.
->
-> People not Cc'd on the whole series can find the whole series at
-> https://lore.kernel.org/linux-man/ .
->
-> Patches:
->
->  * Patch 1 is a new (but trivial) formatting fix, unrelated to the new
->    prctls.
+On 5/27/20 5:22 PM, Jonny Grant wrote:
+> 
+> 
+> On 27/05/2020 14:32, Michael Kerrisk (man-pages) wrote:
+>> Hi Jonny
+>>
+>> On Wed, 27 May 2020 at 15:23, Jonny Grant <jg@jguk.org> wrote:
+>>>
+>>>
+>>>
+>>> On 27/05/2020 14:06, Michael Kerrisk (man-pages) wrote:
+>>>> Hi Jonny,
+>>>>
+>>>> On Mon, 25 May 2020 at 17:08, Jonny Grant <jg@jguk.org> wrote:
+>>>>>
+>>>>> Suggestion for some additional information on this page:
+>>>>>
+>>>>> http://man7.org/linux/man-pages/man5/core.5.html
+>>>>>
+>>>>> Could "Core dumps and systemd" be extended to give an
+>>>>> example of sysctl making a temporary change?
+>>>>>
+>>>>> eg set to the filename and signal that causes the core dump:
+>>>>>
+>>>>> # sysctl -w kernel.core_pattern="%e-%s.core"
+>>>>
+>>>> I'm a little confused: what do you mean by "making a *temporary*
+>>>> change" (i.e., where does "temporary" come into it)?
+>>>>
+>>>> Thanks,
+>>>>
+>>>> Michael
+>>>>
+>>>
+>>> As I understood, this core pattern is set until reboot.
+>>
+>> Okay, now I understand. Next question: what's the value in having the
+>> signal number in the filename?
+> 
+> The signal number indicates the reason the core was dumped, > eg 11 SIGSEGV,  SIGTRAP is 5.
 
-Applied.
+Sure, it tells us what signal triggered the core dump.
+My reason for the question was that it doesn't tell us the
+*reason* for the core dump--for example, SIGSEGV can be
+generated for many reasons.
 
->  * Patches 2-3 relate to the speculation control prctls.  These are
->    unmodified from v1, but need review.
+> %P %t %I also useful.
 
-Applied, and pushed (since there were no review comments from last version).
+Okay. I applied the patch below.
 
->  * Patches 4-5 relate to the arm64 prctls from v1, with reviewer
->    feedback incorporated.  (See notes in the patches.)
-
-I'll hold off on these patches, to see if review comments come in.
-
->  * Patch 6 is *draft* wording for the arm64 address tagging prctls.
->    The semantics of address tagging is particularly slippery, so
->    this needs discussion before merging.
-
-Okay -- I'll hold off with that patch too.
-
-Cheers,
+Thanks,
 
 Michael
 
-> [1] https://lore.kernel.org/linux-man/29a02b16-dd61-6186-1340-fcc7d5225ad0@gmail.com/T/#t
->
->
-> Dave Martin (6):
->   prctl.2: ffix use literal hyphens when referencing kernel docs
->   prctl.2: Add PR_SPEC_INDIRECT_BRANCH for SPECULATION_CTRL prctls
->   prctl.2: Add PR_SPEC_DISABLE_NOEXEC for SPECULATION_CTRL prctls
->   prctl.2: Add SVE prctls (arm64)
->   prctl.2: Add PR_PAC_RESET_KEYS (arm64)
->   prctl.2: Add tagged address ABI control prctls (arm64)
->
->  man2/prctl.2 | 444 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
->  1 file changed, 435 insertions(+), 9 deletions(-)
->
-> --
-> 2.1.4
->
+
+diff --git a/man5/core.5 b/man5/core.5
+index 9725ff64a..6dbaa69b8 100644
+--- a/man5/core.5
++++ b/man5/core.5
+@@ -533,7 +533,7 @@ For more extensive details, see the
+ .BR coredumpctl (1)
+ manual page.
+ .PP
+-To disable the
++To (persistently) disable the
+ .BR systemd (1)
+ mechanism that archives core dumps, restoring to something more like
+ traditional Linux behavior, one can set an override for the
+@@ -548,6 +548,18 @@ mechanism, using something like:
+ .EE
+ .in
+ .PP
++It is also possible to temporarily (i.e., until the next reboot) change the
++.I core_patter
++setting using a command such as the following
++(which causes the names of core dump files to include the executable name
++as well as the number of the signal which triggered the core dump):
++.PP
++.in +4n
++.EX
++# \fBsysctl \-w kernel.core_pattern="%e\-%s.core"\fP
++.EE
++.in
++.PP
+ .\"
+ .SH NOTES
+ The
 
 
---
+-- 
 Michael Kerrisk
 Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
 Linux/UNIX System Programming Training: http://man7.org/training/
