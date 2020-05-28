@@ -2,65 +2,88 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6DDFD1E5C28
-	for <lists+linux-man@lfdr.de>; Thu, 28 May 2020 11:36:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 088A51E5C33
+	for <lists+linux-man@lfdr.de>; Thu, 28 May 2020 11:38:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728252AbgE1JgH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 28 May 2020 05:36:07 -0400
-Received: from us-smtp-delivery-1.mimecast.com ([207.211.31.120]:21852 "EHLO
-        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1727981AbgE1JgG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 28 May 2020 05:36:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1590658566;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=m0aYzz3nH2uEbTQ3n4uYzX3uk+4ra+gAmmReAU7Irco=;
-        b=YHIjFvx6SNCnKybf7Wv4aiu8BY90nnLzILL86kudZfvbConrU4AThAXD6Eoi5qdNXh+8q2
-        gWAWW8NLm0VNO8QV1GKbTjfselRHwjcBA24zNuDqefWIHOJTsHdg6qiw1Niq1CAyUB+hGN
-        XOnVCU9fIPkDqSe06gF3rfpXeGBDUog=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-109--lB-pq1wM3uppJsBRLqrhQ-1; Thu, 28 May 2020 05:36:04 -0400
-X-MC-Unique: -lB-pq1wM3uppJsBRLqrhQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4F78C107BEF6;
-        Thu, 28 May 2020 09:36:03 +0000 (UTC)
-Received: from oldenburg2.str.redhat.com (ovpn-112-91.ams2.redhat.com [10.36.112.91])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id C90A19CB9;
-        Thu, 28 May 2020 09:35:59 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     Carlos O'Donell <carlos@redhat.com>
-Cc:     "Michael Kerrisk \(man-pages\)" <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: [PATCH] ld.so.8: Update "Hardware capabilities" section for glibc 2.31.
-References: <57abae5e-2394-0542-9e21-10c0bb837078@redhat.com>
-Date:   Thu, 28 May 2020 11:35:58 +0200
-In-Reply-To: <57abae5e-2394-0542-9e21-10c0bb837078@redhat.com> (Carlos
-        O'Donell's message of "Wed, 27 May 2020 16:02:27 -0400")
-Message-ID: <87pnaoe70h.fsf@oldenburg2.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
+        id S1728347AbgE1JiJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 28 May 2020 05:38:09 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53170 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728349AbgE1JiI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 28 May 2020 05:38:08 -0400
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com [IPv6:2a00:1450:4864:20::629])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 76E31C05BD1E
+        for <linux-man@vger.kernel.org>; Thu, 28 May 2020 02:38:08 -0700 (PDT)
+Received: by mail-ej1-x629.google.com with SMTP id l27so9228750ejc.1
+        for <linux-man@vger.kernel.org>; Thu, 28 May 2020 02:38:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=B44EgXMratvcUgMPL5ieKPYCeDuwYT4f+QWtSVPwgeU=;
+        b=ncECb9AOFUZQGRpY5qvHWvC2aFhdMco/1Cl5cVt1UT9WLDimA2ynew0EBXYYkImjz1
+         F3eX4iKcpDD2JXnu2IiTqR+8oJCazksm4oNmyU78jzpSxYHfPUZlQzg2xJ4qTOeviUAN
+         Bs4rNQ0Uz9c1XlnXIoEq0+ckae28bBJPeuDiI6PZmDLrJFf6O6ODs2txCQUYBPkON8X8
+         Nd/qQNYd+oyk5D64jtjYJXtOGbQ/nGCwd6LADrdqIU4cf8BN8Vofh9vUV0WYkmRNpIs1
+         PJhM5aR7rPgtO2vTwDbtO/eDHKNxhzuyjfr/CXfSI/QLo7mvdeFOqtHs2Szb+5vrfGEB
+         04Rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=B44EgXMratvcUgMPL5ieKPYCeDuwYT4f+QWtSVPwgeU=;
+        b=f/8cRnVJnfFW9wmRxL8UBzVzzw8SyGBSJb81ZVJ9dkLvsWgzZk//OxAg8c9rNYZcDr
+         xX8BtPh6nhBWRqSA3KfjbLwvucTyVhuSDY6UP9XF3dsvdee8/of7QqEFUK4c9myQPvnl
+         13whlwuR+tKpvIsKqN8omMNPiws5x6Nl+juARNfAKR2KEKdfSA25u99Abnrz5yYKhfMr
+         PY6OmfXaRPEB1bvhVoz8CQ/JPu8NQkluQjGctPYLMODfwoRa7D3BK0jjGABbJ9VM+ZEr
+         Z5By4x2+oUqjAl0x9L715RkY0rmy/N7iEH57imdZb4o93AByb2sScwd6jP6V9FFOlKAj
+         RZ8w==
+X-Gm-Message-State: AOAM533RyUQXmHf4Q/1FRFv7vDT0hKcZRtSHlrnipMvebeaJ/KQXWDHn
+        Zf5TkVXTExVSgNwag/MIyRs06oak8XQ=
+X-Google-Smtp-Source: ABdhPJwmHwjjuv8LIYXdr+JKJlli7YpQ4OlP2Ey7cKoiGxglKWW/vDBkdfz/R28+53uYb+S9sd4CwQ==
+X-Received: by 2002:a17:906:edd3:: with SMTP id sb19mr2096890ejb.39.1590658687151;
+        Thu, 28 May 2020 02:38:07 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2516:6501:a84b:ccd6:785a:2f0f? ([2001:a61:2516:6501:a84b:ccd6:785a:2f0f])
+        by smtp.gmail.com with ESMTPSA id x26sm4502990edv.61.2020.05.28.02.38.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 28 May 2020 02:38:06 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, Jonny Grant <jg@jguk.org>,
+        linux-man@vger.kernel.org
+Subject: Re: core sysctl
+To:     Jakub Wilk <jwilk@jwilk.net>
+References: <9e98156e-3ba9-e656-bb8f-c54229b5ac11@jguk.org>
+ <CAKgNAkhkASJ8+Xe64_ifM1_GgrNSCd6Vx0GDdkJ7aFfJ7RG=7A@mail.gmail.com>
+ <0e0f3d4e-b811-3423-ffe9-2fd68900c1a0@jguk.org>
+ <CAKgNAkgRSAf2MVA-XMbvoQTk88T5j=Hn2-nyzZBo-tVrLxvbsA@mail.gmail.com>
+ <0e4f5e7d-85bc-11d6-c73a-16509ab2a3e9@jguk.org>
+ <6d57dced-2c9d-480b-8e4e-02ecbe42e4a9@gmail.com>
+ <20200528092821.z6esjkiyocn5qp2m@jwilk.net>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <6433ab7c-607f-3cec-d3fc-07fd76535f7e@gmail.com>
+Date:   Thu, 28 May 2020 11:38:03 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+In-Reply-To: <20200528092821.z6esjkiyocn5qp2m@jwilk.net>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Carlos O'Donell:
+On 5/28/20 11:28 AM, Jakub Wilk wrote:
+> * Michael Kerrisk <mtk.manpages@gmail.com>, 2020-05-28, 11:16:
+>> +.I core_patter
+> 
+> Trailing "n" is missing.
 
-> +The following names are currently recognized as of the release of glibc 2.31:
-> +.\" This information comes from glibc's sysdeps/*/dl-procinfo.c and is
-> +.\" currently not directly documented in the glibc manual. We document
-> +.\" it here with the help of the glibc maintainers.
+Thanks, Jakub.
 
-I'm not sure if this list is correct.  Did you filter the hwcap strings
-based on HWCAP_IMPORTANT?
 
-Thanks,
-Florian
-
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
