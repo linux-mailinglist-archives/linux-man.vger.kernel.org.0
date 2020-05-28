@@ -2,88 +2,129 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 088A51E5C33
-	for <lists+linux-man@lfdr.de>; Thu, 28 May 2020 11:38:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2A4F91E5C6A
+	for <lists+linux-man@lfdr.de>; Thu, 28 May 2020 11:51:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728347AbgE1JiJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 28 May 2020 05:38:09 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53170 "EHLO
+        id S2387557AbgE1JvK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 28 May 2020 05:51:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55226 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728349AbgE1JiI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 28 May 2020 05:38:08 -0400
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com [IPv6:2a00:1450:4864:20::629])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 76E31C05BD1E
-        for <linux-man@vger.kernel.org>; Thu, 28 May 2020 02:38:08 -0700 (PDT)
-Received: by mail-ej1-x629.google.com with SMTP id l27so9228750ejc.1
-        for <linux-man@vger.kernel.org>; Thu, 28 May 2020 02:38:08 -0700 (PDT)
+        with ESMTP id S2387493AbgE1JvK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 28 May 2020 05:51:10 -0400
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D2CAAC05BD1E
+        for <linux-man@vger.kernel.org>; Thu, 28 May 2020 02:51:09 -0700 (PDT)
+Received: by mail-wm1-x343.google.com with SMTP id r9so2462143wmh.2
+        for <linux-man@vger.kernel.org>; Thu, 28 May 2020 02:51:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
+        d=jguk.org; s=google;
+        h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=B44EgXMratvcUgMPL5ieKPYCeDuwYT4f+QWtSVPwgeU=;
-        b=ncECb9AOFUZQGRpY5qvHWvC2aFhdMco/1Cl5cVt1UT9WLDimA2ynew0EBXYYkImjz1
-         F3eX4iKcpDD2JXnu2IiTqR+8oJCazksm4oNmyU78jzpSxYHfPUZlQzg2xJ4qTOeviUAN
-         Bs4rNQ0Uz9c1XlnXIoEq0+ckae28bBJPeuDiI6PZmDLrJFf6O6ODs2txCQUYBPkON8X8
-         Nd/qQNYd+oyk5D64jtjYJXtOGbQ/nGCwd6LADrdqIU4cf8BN8Vofh9vUV0WYkmRNpIs1
-         PJhM5aR7rPgtO2vTwDbtO/eDHKNxhzuyjfr/CXfSI/QLo7mvdeFOqtHs2Szb+5vrfGEB
-         04Rw==
+        bh=s9jgd90vN9IZjGwAz4BmUFosjX+SepBC1VTk+3DMk/8=;
+        b=eqvzq5J2Bmy79HsYI6M1HW7ygzk/fgFi5qP7PHeXJAKIUByhzQMSjHPSpO13iiKbzW
+         kobCQihaEh0/RtIxD244X6BroXWmTr1iIbKc1tLTkNpRdVT89VZSAloOdDHspIf/WwlD
+         jWAIRQgPLAxDcuEQfPCwQMQfC06fBFhvDIWweiDdYHQEvtv90G4BPLC69+sR5RV69Yr2
+         XRhkomoF+8fnyEu9nESSSHbeNCMwjf5naH5r/1QF/lG7VO4883ZqqWRtMsUHmJyrHsNl
+         B0CHadWBkD1jkiEaY0zUt7mwgeQCQjWoXFOCHTFzxHLhED/XZDUhZDVG0Qr5UzFnzjeG
+         cnJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=B44EgXMratvcUgMPL5ieKPYCeDuwYT4f+QWtSVPwgeU=;
-        b=f/8cRnVJnfFW9wmRxL8UBzVzzw8SyGBSJb81ZVJ9dkLvsWgzZk//OxAg8c9rNYZcDr
-         xX8BtPh6nhBWRqSA3KfjbLwvucTyVhuSDY6UP9XF3dsvdee8/of7QqEFUK4c9myQPvnl
-         13whlwuR+tKpvIsKqN8omMNPiws5x6Nl+juARNfAKR2KEKdfSA25u99Abnrz5yYKhfMr
-         PY6OmfXaRPEB1bvhVoz8CQ/JPu8NQkluQjGctPYLMODfwoRa7D3BK0jjGABbJ9VM+ZEr
-         Z5By4x2+oUqjAl0x9L715RkY0rmy/N7iEH57imdZb4o93AByb2sScwd6jP6V9FFOlKAj
-         RZ8w==
-X-Gm-Message-State: AOAM533RyUQXmHf4Q/1FRFv7vDT0hKcZRtSHlrnipMvebeaJ/KQXWDHn
-        Zf5TkVXTExVSgNwag/MIyRs06oak8XQ=
-X-Google-Smtp-Source: ABdhPJwmHwjjuv8LIYXdr+JKJlli7YpQ4OlP2Ey7cKoiGxglKWW/vDBkdfz/R28+53uYb+S9sd4CwQ==
-X-Received: by 2002:a17:906:edd3:: with SMTP id sb19mr2096890ejb.39.1590658687151;
-        Thu, 28 May 2020 02:38:07 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2516:6501:a84b:ccd6:785a:2f0f? ([2001:a61:2516:6501:a84b:ccd6:785a:2f0f])
-        by smtp.gmail.com with ESMTPSA id x26sm4502990edv.61.2020.05.28.02.38.06
+        bh=s9jgd90vN9IZjGwAz4BmUFosjX+SepBC1VTk+3DMk/8=;
+        b=IZg0JELVzUXcVy21Era/DRPmKCZfYsAXt/cLYiPb6n2NQALwDGPm2a9NK/LGoRfw4F
+         E3DqpdTslsNUVNy2n0VOYuVtfqU0fyTvcaXzlm2l4jB6EovSZ33Ja7hK4cqWAS4qrfUX
+         xf1xPt4ZyH8bU6d+ZxZvYZ2d6oREXij9l4bQZ6j5NnebPBaNHUUJeEZljt5lT+SPJa86
+         vr66z0EXGDGjRqThgAUwWke7HzB2Ak+1/RkBPhqkNT1slZl12nKoXhKBBzH3HQ7V3smL
+         /W4gDGc3j/aPxYcselZxZ+c+S3BdRMw7I4+5b60bz9o45xTzowLk0q6H3HMydjLus3fW
+         kX5w==
+X-Gm-Message-State: AOAM5314mOwAAi9MeVc3K9xP60wnJzsMhmfT1Pweq32NPay7oErJTNpo
+        1hwcSvgahTaO275VQ/dhF9uRq27tNso=
+X-Google-Smtp-Source: ABdhPJyv4myiuUoo+pAMWSA4K7bKhDUOLUYe5PTlgsraIZLCh5X8OwO/YBrF+621SQo5BiWg/Ma7hQ==
+X-Received: by 2002:a1c:a74d:: with SMTP id q74mr2587014wme.177.1590659468249;
+        Thu, 28 May 2020 02:51:08 -0700 (PDT)
+Received: from [192.168.0.12] (cpc87281-slou4-2-0-cust47.17-4.cable.virginm.net. [92.236.12.48])
+        by smtp.gmail.com with ESMTPSA id a10sm5571285wmf.46.2020.05.28.02.51.07
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 28 May 2020 02:38:06 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Jonny Grant <jg@jguk.org>,
-        linux-man@vger.kernel.org
+        Thu, 28 May 2020 02:51:07 -0700 (PDT)
 Subject: Re: core sysctl
-To:     Jakub Wilk <jwilk@jwilk.net>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
 References: <9e98156e-3ba9-e656-bb8f-c54229b5ac11@jguk.org>
  <CAKgNAkhkASJ8+Xe64_ifM1_GgrNSCd6Vx0GDdkJ7aFfJ7RG=7A@mail.gmail.com>
  <0e0f3d4e-b811-3423-ffe9-2fd68900c1a0@jguk.org>
  <CAKgNAkgRSAf2MVA-XMbvoQTk88T5j=Hn2-nyzZBo-tVrLxvbsA@mail.gmail.com>
  <0e4f5e7d-85bc-11d6-c73a-16509ab2a3e9@jguk.org>
  <6d57dced-2c9d-480b-8e4e-02ecbe42e4a9@gmail.com>
- <20200528092821.z6esjkiyocn5qp2m@jwilk.net>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <6433ab7c-607f-3cec-d3fc-07fd76535f7e@gmail.com>
-Date:   Thu, 28 May 2020 11:38:03 +0200
+From:   Jonny Grant <jg@jguk.org>
+Message-ID: <40375a37-3f28-9f5f-3512-ecfd82277c49@jguk.org>
+Date:   Thu, 28 May 2020 10:51:07 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200528092821.z6esjkiyocn5qp2m@jwilk.net>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <6d57dced-2c9d-480b-8e4e-02ecbe42e4a9@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 5/28/20 11:28 AM, Jakub Wilk wrote:
-> * Michael Kerrisk <mtk.manpages@gmail.com>, 2020-05-28, 11:16:
->> +.I core_patter
+
+
+On 28/05/2020 10:16, Michael Kerrisk (man-pages) wrote:
+> Hello Jonny,
 > 
-> Trailing "n" is missing.
+> On 5/27/20 5:22 PM, Jonny Grant wrote:
+>>
+>>
+>> On 27/05/2020 14:32, Michael Kerrisk (man-pages) wrote:
+>>> Hi Jonny
+>>>
+>>> On Wed, 27 May 2020 at 15:23, Jonny Grant <jg@jguk.org> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 27/05/2020 14:06, Michael Kerrisk (man-pages) wrote:
+>>>>> Hi Jonny,
+>>>>>
+>>>>> On Mon, 25 May 2020 at 17:08, Jonny Grant <jg@jguk.org> wrote:
+>>>>>>
+>>>>>> Suggestion for some additional information on this page:
+>>>>>>
+>>>>>> http://man7.org/linux/man-pages/man5/core.5.html
+>>>>>>
+>>>>>> Could "Core dumps and systemd" be extended to give an
+>>>>>> example of sysctl making a temporary change?
+>>>>>>
+>>>>>> eg set to the filename and signal that causes the core dump:
+>>>>>>
+>>>>>> # sysctl -w kernel.core_pattern="%e-%s.core"
+>>>>>
+>>>>> I'm a little confused: what do you mean by "making a *temporary*
+>>>>> change" (i.e., where does "temporary" come into it)?
+>>>>>
+>>>>> Thanks,
+>>>>>
+>>>>> Michael
+>>>>>
+>>>>
+>>>> As I understood, this core pattern is set until reboot.
+>>>
+>>> Okay, now I understand. Next question: what's the value in having the
+>>> signal number in the filename?
+>>
+>> The signal number indicates the reason the core was dumped, > eg 11 SIGSEGV,  SIGTRAP is 5.
+> 
+> Sure, it tells us what signal triggered the core dump.
+> My reason for the question was that it doesn't tell us the
+> *reason* for the core dump--for example, SIGSEGV can be
+> generated for many reasons.
 
-Thanks, Jakub.
+Yes you're right. I'm sure you know all this already, there are a few crash handlers that uses gdb to generate a 
+backtrace automatically.
 
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Thank you for adding the change
+Jonny
