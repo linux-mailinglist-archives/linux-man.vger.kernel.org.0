@@ -2,89 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 257E21E9098
-	for <lists+linux-man@lfdr.de>; Sat, 30 May 2020 12:40:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C04661E926C
+	for <lists+linux-man@lfdr.de>; Sat, 30 May 2020 17:58:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727947AbgE3KkD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 30 May 2020 06:40:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59552 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725813AbgE3KkC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 30 May 2020 06:40:02 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1950FC03E969
-        for <linux-man@vger.kernel.org>; Sat, 30 May 2020 03:40:02 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id x14so6701000wrp.2
-        for <linux-man@vger.kernel.org>; Sat, 30 May 2020 03:40:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jguk.org; s=google;
-        h=from:subject:to:message-id:date:user-agent:mime-version
-         :content-language:content-transfer-encoding;
-        bh=c9jek56u3Je/Pi7hOshBLp5DuO3IFZTJ/zOXPc57l0o=;
-        b=FWhPXwhxgZkB7jGumFJRkHKwIVVJFky7ZiMkkKAVOCapuYkPWJjIPmMjjrZ/Gl8HiX
-         KZZdNFP/rs1tUzh03kZOM2z6eivl7cqAAko/fqhx0mcX/lbw4YldOhj7/vw1hyZESauO
-         gUE8UxagnyCQY7A6D5FJmUaauyKmXomgz8mqWNENMiiY7YvUh2vEQugLObPKRZddTitM
-         yIAsy/70nEAyOeU021gJsqRamtrCLtirIfUSX2BNZksErjUr9LoW2htzEs8Q3xVfQHMI
-         gyU0NMS0FqeYk6y+8yMj0gqAg5wbSi7FFdawEsnRqn4S9pWevC1nN3peHiE5FMZkGpld
-         /+Ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:subject:to:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=c9jek56u3Je/Pi7hOshBLp5DuO3IFZTJ/zOXPc57l0o=;
-        b=YK8l1SDWzBUiTqYPq+bSTUkQKy/ejBKVTgNGwePljsnnPsd5ZsNQmGdP7raVMRTjLX
-         WoWQHW5jQzSOKMA/0eIqwIMknug7UlYOTMip5RS1JwKuaGAKs6voCJVjXuITImvG8hyg
-         Hcy14kJGTEa/S1uCx81r8wdJwxIjzwgN+bhnGJ6ukw1YAKToSaS0Zy7AHk6pkjbm/AmG
-         Fz5Q5MADpHl9aHMabPIKMOv6WS5ekGGA14yJs0WbEZOGJ6kc4Ng3J0OatUAaj6gfq7f8
-         b6NgatCpZFByYiYTWqMBJU3oDGIftKVMUUKcR75NhuuJot9yKZ08jt8kj8LYQCv3Q2dq
-         7qPA==
-X-Gm-Message-State: AOAM533yg410bAkjwJHv1CzkV4j31Ru09ns4h566tMMoaiB1ezbejwwq
-        7iupe4LFPZg8Xw3oq155Z7lZdRx0wkk=
-X-Google-Smtp-Source: ABdhPJyaPxf9bbOLvZRPlo7F+fSi87yAu2YldoGHNL3dGMQfnpKN47ZI6s+PencthnRxj4+XimtCQQ==
-X-Received: by 2002:a5d:5112:: with SMTP id s18mr12588337wrt.160.1590835199067;
-        Sat, 30 May 2020 03:39:59 -0700 (PDT)
-Received: from [192.168.0.12] (cpc87281-slou4-2-0-cust47.17-4.cable.virginm.net. [92.236.12.48])
-        by smtp.gmail.com with ESMTPSA id o10sm13241923wrq.40.2020.05.30.03.39.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 30 May 2020 03:39:57 -0700 (PDT)
-From:   Jonny Grant <jg@jguk.org>
-Subject: core man page %e
-To:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-Message-ID: <ae5293ba-17dd-fd6d-54b0-312a008e3167@jguk.org>
-Date:   Sat, 30 May 2020 11:39:57 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+        id S1729151AbgE3P6p (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 30 May 2020 11:58:45 -0400
+Received: from smtpout1.mo804.mail-out.ovh.net ([79.137.123.220]:45961 "EHLO
+        smtpout1.mo804.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1729149AbgE3P6p (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 30 May 2020 11:58:45 -0400
+Received: from mxplan6.mail.ovh.net (unknown [10.109.143.186])
+        by mo804.mail-out.ovh.net (Postfix) with ESMTPS id 40B6A3F8139E;
+        Sat, 30 May 2020 17:58:43 +0200 (CEST)
+Received: from jwilk.net (37.59.142.98) by DAG4EX2.mxp6.local (172.16.2.32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Sat, 30 May
+ 2020 17:58:42 +0200
+Authentication-Results: garm.ovh; auth=pass (GARM-98R0026c72b73f-97e2-4d7b-a7a2-56f3a2d3662b,C15CABF17BDAF07289B45B28B89BB66390077FDB) smtp.auth=jwilk@jwilk.net
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+CC:     <linux-man@vger.kernel.org>
+Subject: [PATCH] proc.5: ffix
+Date:   Sat, 30 May 2020 17:58:41 +0200
+Message-ID: <20200530155841.9627-1-jwilk@jwilk.net>
+X-Mailer: git-send-email 2.27.0.rc2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 7BIT
+Content-Type:   text/plain; charset=US-ASCII
+X-Originating-IP: [37.59.142.98]
+X-ClientProxiedBy: DAG4EX2.mxp6.local (172.16.2.32) To DAG4EX2.mxp6.local
+ (172.16.2.32)
+X-Ovh-Tracer-GUID: 911101a0-3f02-4c24-9d54-37691f72eb0d
+X-Ovh-Tracer-Id: 9417871247264831453
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduhedrudeftddgleefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpefhvffufffkofgggfgtihesthekredtredttdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhepvdehjeejffejjedvkeehheejieelhffftdduteefheeukeeuiedvudehveehfefhnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrdelkeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello mtk
+Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+---
+ man5/proc.5 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-I've noticed "%e-%s.core" often gives something other than the filename and the name is truncated to 16 bytes:-
+diff --git a/man5/proc.5 b/man5/proc.5
+index 5886bac99..485b3dfc7 100644
+--- a/man5/proc.5
++++ b/man5/proc.5
+@@ -532,8 +532,8 @@ Furthermore, a process may change the memory location that this file refers via
+ .BR prctl (2)
+ operations such as
+ .BR PR_SET_MM_ARG_START .
+-+.IP
+-+Think of this file as the command line that the process wants you to see.
++.IP
++Think of this file as the command line that the process wants you to see.
+ .TP
+ .IR /proc/[pid]/comm " (since Linux 2.6.33)"
+ .\" commit 4614a696bd1c3a9af3a08f0e5874830a85b889d4
+-- 
+2.27.0.rc2
 
-ThreadPoolServi-5.core
-Chrome_InProcUt-5.core
-
-This was set:
-sysctl -w kernel.core_pattern="%e-%s.core"
-
-
-
-In multithreaded applications it looks like %e is giving something other than the filename, perhaps a thread entry-point 
-symbol name.
-
-https://www.man7.org/linux/man-pages/man5/core.5.html
-
-            %e  executable filename (without path prefix)
-
-Could this be updated to:
-
-            %e  executable filename or thread name truncated to 16 bytes
-
-Cheers, Jonny
