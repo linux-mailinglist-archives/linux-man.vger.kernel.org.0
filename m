@@ -2,81 +2,107 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CA19A1E9CC2
-	for <lists+linux-man@lfdr.de>; Mon,  1 Jun 2020 06:40:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E166B1EA1BF
+	for <lists+linux-man@lfdr.de>; Mon,  1 Jun 2020 12:21:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725765AbgFAEkR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 1 Jun 2020 00:40:17 -0400
-Received: from hs-162.6.buanalintas.co.id ([223.165.6.162]:38790 "EHLO
-        mx.bestprofit-futures.co.id" rhost-flags-OK-FAIL-OK-OK)
-        by vger.kernel.org with ESMTP id S1725290AbgFAEkQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 1 Jun 2020 00:40:16 -0400
-X-Greylist: delayed 11775 seconds by postgrey-1.27 at vger.kernel.org; Mon, 01 Jun 2020 00:40:15 EDT
-Received: from localhost (localhost [127.0.0.1])
-        by mx.bestprofit-futures.co.id (Postfix) with ESMTP id 37CD852534B;
-        Mon,  1 Jun 2020 07:41:51 +0700 (WIB)
-Received: from mx.bestprofit-futures.co.id ([127.0.0.1])
-        by localhost (mx.bestprofit-futures.co.id [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id E10tXvuXJTcz; Mon,  1 Jun 2020 07:41:50 +0700 (WIB)
-Received: from localhost (localhost [127.0.0.1])
-        by mx.bestprofit-futures.co.id (Postfix) with ESMTP id CC03652533F;
-        Mon,  1 Jun 2020 07:41:50 +0700 (WIB)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mx.bestprofit-futures.co.id CC03652533F
+        id S1726022AbgFAKVN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 1 Jun 2020 06:21:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48964 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725972AbgFAKVL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 1 Jun 2020 06:21:11 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 41F9CC061A0E
+        for <linux-man@vger.kernel.org>; Mon,  1 Jun 2020 03:21:10 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id l10so10893286wrr.10
+        for <linux-man@vger.kernel.org>; Mon, 01 Jun 2020 03:21:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bestprofit-futures.co.id; s=4D3D1390-5211-11EA-8C0C-8C41A122B001;
-        t=1590972110; bh=zLTonXbKn6LYrnOZVETw9C2bepTvRzI70GQOlIiRCC0=;
-        h=MIME-Version:To:From:Date:Message-Id;
-        b=ydIHy0UmKk+dS/87QjynwMJzpSBTuIhsWgqMYdta1VYD3YVZxhmnS8hW1PlxhhLLu
-         CrhhT7d7Sgulc9B40RmPfz4JHKpaTq1xXvLwCfgyCrKHorSW0nUEfJlwPfgpTSeQj/
-         zFcNpSWB8nGQ0EV/v4G/LTIaTU7p5u4m3sCT3zEBizLee7Hya/ycqyAnQ05q/Ut/Xy
-         yWFng/qS9vNbCSf9z8dx2u2PUSk9mQIdXrTQ0DoYdoE+ZfuZ30ZNt+FfUcM+UTkxAO
-         OYkF7IY2bAhQlqmYVFFX/ZmbUtdA3yqpRGv6A0IcTuqNxDwP4RLyOwQQHFRQ8K1JIa
-         MHGJnr6VPIITg==
-X-Virus-Scanned: amavisd-new at mx.bestprofit-futures.co.id
-Received: from mx.bestprofit-futures.co.id ([127.0.0.1])
-        by localhost (mx.bestprofit-futures.co.id [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id 9m1BIPLpGFPU; Mon,  1 Jun 2020 07:41:50 +0700 (WIB)
-Received: from [10.81.249.6] (unknown [105.8.6.41])
-        by mx.bestprofit-futures.co.id (Postfix) with ESMTPSA id 1AD96525308;
-        Mon,  1 Jun 2020 07:41:42 +0700 (WIB)
-Content-Type: text/plain; charset="utf-8"
+        d=jguk.org; s=google;
+        h=from:subject:to:references:message-id:date:user-agent:mime-version
+         :in-reply-to:content-language:content-transfer-encoding;
+        bh=ccJBRa2qX2AbGjtcRmB0gTU2CLQK27ZxnhzTsCY92KU=;
+        b=ZR8zIBAlR+zkrrvxV4GGBhiX+ulIxJRsSGj+MDKSQ2lN8yqDMWtPLMCB1HJuZm2Tei
+         eIqpKmFlQl4QXhIrdgQR7XioDbkrgPDuc1gHC8hIfV/JVJ1bTi86L8dGGUQ8nAib/0v7
+         DLGfHBQB0KP1AVtOfXZCfJQyJ2Chb743qfPiC44ZaEaQusELSAlZYQ8h1kYOh/Xm+ofL
+         xXyjEm1oGUyv6mUOVBD2EJ1LGwPfOq6t5GXag4fGOFIxb6m19oMZszP72IVR3c/orZp8
+         h4i1iMU2C8dGbY+GzjZXuu68W8ro8e78ftHPyh11E6BZHm0Ubjnbdv3jGybIB1JPieWZ
+         +DeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:subject:to:references:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=ccJBRa2qX2AbGjtcRmB0gTU2CLQK27ZxnhzTsCY92KU=;
+        b=FF2X4JNfGc4vC0KicbtggqI/NJxqbFTW1lAoUrrSldogksAb95d9sbGeRs/A+Sa1YW
+         AResAKsgegg7v2aK0nr/4GT0XVWl31CFUK/OKT11QF4o/p45GxU6w8YAllRBhYIYy/Hv
+         5OjRMTOxeiNHCNZX9V+l/3rns94IhI/QlpfFpLpkvHAmd/3j3Q8o44tRTvr8mON1b9fr
+         qyLLRL1677ZQJspJhCUcOadiWv2m91siVV0641BkHTZxmxhWwEWDgFgeuFyQ+5BYR/0R
+         aYilFSS7gXFIhIAEOCcBaQPGf/1TgtDS3ZcF31WWE+iz6E9V2nZ0s5ymJXSaYu0Lx5nG
+         ToXQ==
+X-Gm-Message-State: AOAM530pq0pi5iifpPfIIHDBJVqRPiKZM6b+XuFGrXyCdIR3tDuo/g+e
+        olbJIZAX83ccHNa06otWVNRNhleIKb8=
+X-Google-Smtp-Source: ABdhPJysyqlZA+dJMQFppPSx1MTBVehUF/KLfgXF1fySeZsYn32dQJBshGzIyL3tppt60V776l99ng==
+X-Received: by 2002:a5d:4ec3:: with SMTP id s3mr22772311wrv.103.1591006868648;
+        Mon, 01 Jun 2020 03:21:08 -0700 (PDT)
+Received: from [192.168.0.12] (cpc87281-slou4-2-0-cust47.17-4.cable.virginm.net. [92.236.12.48])
+        by smtp.gmail.com with ESMTPSA id o20sm20884793wra.29.2020.06.01.03.21.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 01 Jun 2020 03:21:07 -0700 (PDT)
+From:   Jonny Grant <jg@jguk.org>
+Subject: Re: core man page %e
+To:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>
+References: <ae5293ba-17dd-fd6d-54b0-312a008e3167@jguk.org>
+Message-ID: <99a02979-3d47-6ef8-c619-00d9115321ec@jguk.org>
+Date:   Mon, 1 Jun 2020 11:21:07 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
-Subject: =?utf-8?q?Wohlt=C3=A4tigkeitsspende_von_2=2E000=2E000_Millionen_Euro?=
-To:     Recipients <yoshi@bestprofit-futures.co.id>
-From:   ''Tayeb Souami'' <yoshi@bestprofit-futures.co.id>
-Date:   Mon, 01 Jun 2020 02:41:35 +0200
-Reply-To: Tayebsouam.spende@gmail.com
-Message-Id: <20200601004143.1AD96525308@mx.bestprofit-futures.co.id>
+In-Reply-To: <ae5293ba-17dd-fd6d-54b0-312a008e3167@jguk.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Lieber Freund,
+Hi Mtk,
 
-Ich bin Herr Tayeb Souami, New Jersey, Vereinigte Staaten von Amerika, der =
-Mega-Gewinner von $ 315million In Mega Millions Jackpot, spende ich an 5 zu=
-f=C3=A4llige Personen, wenn Sie diese E-Mail erhalten, dann wurde Ihre E-Ma=
-il nach einem Spinball ausgew=C3=A4hlt.Ich habe den gr=C3=B6=C3=9Ften Teil =
-meines Verm=C3=B6gens auf eine Reihe von Wohlt=C3=A4tigkeitsorganisationen =
-und Organisationen verteilt.Ich habe mich freiwillig dazu entschieden, die =
-Summe von =E2=82=AC 2.000.000,00 an Sie als eine der ausgew=C3=A4hlten 5 zu=
- spenden, um meine Gewinne zu =C3=BCberpr=C3=BCfen, sehen Sie bitte meine Y=
-ou Tube Seite unten.
+BTW, if I add "%P-%e-%s.core" every core starts with the same
+"P1000-"
 
-UHR MICH HIER: https://www.youtube.com/watch?v=3DZ6ui8ZDQ6Ks
+The man page shows:
+  %P  PID of dumped process, as seen in the initial PID namespace
+                (since Linux 3.12)
 
+Do you see similar? I was only needing something to make the filename unique, so %t is enough.
 
-Das ist dein Spendencode: [TS530342018]
+Cheers, Jonny
 
 
-Antworten Sie mit dem SPENDE-CODE an diese
-
- E-Mail:Tayebsouam.spende@gmail.com
-
-Ich hoffe, Sie und Ihre Familie gl=C3=BCcklich zu machen.
-
-Gr=C3=BC=C3=9Fe
-Herr Tayeb Souami
+On 30/05/2020 11:39, Jonny Grant wrote:
+> Hello mtk
+> 
+> I've noticed "%e-%s.core" often gives something other than the filename and the name is truncated to 16 bytes:-
+> 
+> ThreadPoolServi-5.core
+> Chrome_InProcUt-5.core
+> 
+> This was set:
+> sysctl -w kernel.core_pattern="%e-%s.core"
+> 
+> 
+> 
+> In multithreaded applications it looks like %e is giving something other than the filename, perhaps a thread entry-point 
+> symbol name.
+> 
+> https://www.man7.org/linux/man-pages/man5/core.5.html
+> 
+>             %e  executable filename (without path prefix)
+> 
+> Could this be updated to:
+> 
+>             %e  executable filename or thread name truncated to 16 bytes
+> 
+> Cheers, Jonny
