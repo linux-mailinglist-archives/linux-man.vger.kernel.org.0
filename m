@@ -2,94 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A07521EB5B3
-	for <lists+linux-man@lfdr.de>; Tue,  2 Jun 2020 08:14:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2CDB21ECD7E
+	for <lists+linux-man@lfdr.de>; Wed,  3 Jun 2020 12:26:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725900AbgFBGOW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 2 Jun 2020 02:14:22 -0400
-Received: from us-smtp-delivery-1.mimecast.com ([207.211.31.120]:39525 "EHLO
-        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1725616AbgFBGOW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Jun 2020 02:14:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1591078460;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=mYP0xgPJfTySWJ+6ulC8+3QRXTd8XnTX4jpO0nT64hE=;
-        b=F1qUdSmmrp+KtBU6GFUsxxazodFaK4d1zU8vFVUxVCB8NHpErpmR/StAIio6VlfvCCaT5X
-        OcfzP23lXth7cANlX4TuxgI/ru+GYmiZPmb3XUSSbLedjde2wY984n0PgzoPJo4RDRgUOT
-        A0bLvlYWITAIv+cgEc15plLMzuAhUD0=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-47-4FdgEc1oNxeSEJkgVEgf4Q-1; Tue, 02 Jun 2020 02:14:19 -0400
-X-MC-Unique: 4FdgEc1oNxeSEJkgVEgf4Q-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1FF197BAC;
-        Tue,  2 Jun 2020 06:14:18 +0000 (UTC)
-Received: from oldenburg2.str.redhat.com (ovpn-112-170.ams2.redhat.com [10.36.112.170])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id 8616B2DE74;
-        Tue,  2 Jun 2020 06:14:14 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     Carlos O'Donell <carlos@redhat.com>
-Cc:     "Michael Kerrisk \(man-pages\)" <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: [PATCH v2] ld.so.8: Update "Hardware capabilities" section for glibc 2.31.
-References: <57abae5e-2394-0542-9e21-10c0bb837078@redhat.com>
-        <87pnaoe70h.fsf@oldenburg2.str.redhat.com>
-        <14751c26-4c4d-24c1-df12-429931b61780@redhat.com>
-Date:   Tue, 02 Jun 2020 08:14:12 +0200
-In-Reply-To: <14751c26-4c4d-24c1-df12-429931b61780@redhat.com> (Carlos
-        O'Donell's message of "Mon, 1 Jun 2020 23:09:10 -0400")
-Message-ID: <87r1uy3sgb.fsf@oldenburg2.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
+        id S1725888AbgFCK0Y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 3 Jun 2020 06:26:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46794 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725854AbgFCK0X (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Jun 2020 06:26:23 -0400
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 53239C08C5C0
+        for <linux-man@vger.kernel.org>; Wed,  3 Jun 2020 03:26:23 -0700 (PDT)
+Received: by mail-ed1-x544.google.com with SMTP id p18so1286436eds.7
+        for <linux-man@vger.kernel.org>; Wed, 03 Jun 2020 03:26:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=K7E07vrAOsUMYnfUPvdCjsh86G6z1tMem1U690Z96iE=;
+        b=Plt4t97fif3XtYaXvYB8ZOZVEmp07MeARF7HhW+iYaD2mBghiudeL/noB//hw1S8T3
+         75V2rtIEJJ5SA7iy1Qjm/Epybwvlr9/XG9p8HECh3n3iITv9XvKqI19mbhEhpoqzdecB
+         iOgz6Koo8T9xGpgUH99m46Yd81Cqo0VcfUV2NeiStYtGKw0F16pgMTGU2SrADShemRTF
+         cojfsm9ELIT7M5jqY/CB0bsGIGj64eU6a7JrcAIn4sRdI00Muz3l/Zh01CJHHZA9Idn5
+         D+pTNKyEurJTdMWXuR1Q13nl7GU8vppvMhrX5YCDzkwi2o7BVuHO0X01EFe/FL/CONxl
+         Ebkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=K7E07vrAOsUMYnfUPvdCjsh86G6z1tMem1U690Z96iE=;
+        b=sbDGp7KY9dHWCpxTa0ddKcvYXATxtCBZ3e8XabhUdnwPoBx7nSi8mDzTkvqkGT9CKp
+         RTRoGcACPxIS821gKRLxPzwZAeFSF1io+TdzbQr6/C7KM15JO4OJGoaYGOz0+ef4svmL
+         X/3HxOwzl4aMmCfKNQ1bX186HIYPO5s3cHqG5poIkTVeial8zVT+PB+3a8MUjo/75VF8
+         9iimjVKpKgWS8zQieSUNCE++UMO0xHqhb2AX76oMbBq68YcPxWYBsvnaQRKdM318aP6h
+         hdN7KOrefb1n8+Fjnex1ahd1wan3Fjzrbe7XAOB4S4E5zC4GqC3vi4ZIlABYYnVQB73D
+         R08w==
+X-Gm-Message-State: AOAM532ZfdakUsKp9ijYol4wAR8JT3XUL/RSNDg2duaH9/JK7bOx0t32
+        DVRT/r00r8tTAq2JS+CE32wYdlcFdlp3UELe7uo=
+X-Google-Smtp-Source: ABdhPJwIwbs1HL/TYROJBrulHrPdUeh3swgxuWt1ccTXFB8LJar/3K+st9SL3QqrUnRN3o6gNzNNvOyj1QBIVLbTJGQ=
+X-Received: by 2002:aa7:c71a:: with SMTP id i26mr18007709edq.149.1591179981963;
+ Wed, 03 Jun 2020 03:26:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+References: <20200529092530.25207-1-amir73il@gmail.com>
+In-Reply-To: <20200529092530.25207-1-amir73il@gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Wed, 3 Jun 2020 12:26:10 +0200
+Message-ID: <CAKgNAkgfrSbAnCV=JJWh3ELH9PDTjidn=cJ4s77gtffdj5hU-w@mail.gmail.com>
+Subject: Re: [PATCH 0/3] fanotify man page updates for final v5.7
+To:     Amir Goldstein <amir73il@gmail.com>
+Cc:     Jan Kara <jack@suse.cz>,
+        Matthew Bobrowski <mbobrowski@mbobrowski.org>,
+        linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Carlos O'Donell:
+On Fri, 29 May 2020 at 11:25, Amir Goldstein <amir73il@gmail.com> wrote:
+>
+> Hi Michael,
+>
+> We made a last minute call to disable the FAN_DIR_MODIFY for v5.7.
+> Here is a man page update with some promissed cleanups.
 
-> +Care should be taken when packaging such application with a package mana=
-ger,
-> +particularly the scenario where an optimized library is being removed.  =
-With
-> +certain package managers, particularly rpm, the newer version of the
+Thanks, Amir. I'll just hold off a little longer on processing these,
+in case there are Acked-bys / review comments.
 
-Twice =E2=80=9Cparticularly=E2=80=9D.
+Cheers,
 
-> +application is installed first, which means that for a period of time du=
-ring
-> +the upgrade all applications that use the library may start with a mixed=
- set of
-> +libraries e.g.  the old library from the feature-based search path, and =
-new
+Michael
 
-Commas arount e.g.?
+> Amir Goldstein (3):
+>   Revert "fanotify.7, fanotify_mark.2: Document FAN_DIR_MODIFY"
+>   fanotify_init.2: move out of place entry FAN_REPORT_FID
+>   fanotify.7, fanotify_mark.2: Clarify FAN_ONDIR in output mask
+>
+>  man2/fanotify_init.2 | 60 ++++++++++++++---------------
+>  man2/fanotify_mark.2 | 50 ++----------------------
+>  man7/fanotify.7      | 91 ++++++++++++++------------------------------
+>  3 files changed, 61 insertions(+), 140 deletions(-)
+>
+> --
+> 2.17.1
+>
 
-> +libraries from the upgrade. To avoid this scenario the new library versi=
-on
-> +should delete all known optimized libraries in the post-install phase.
 
-There is a different mechanism: Debian has patched glibc to disable
-hwcap subdirectors if the file /etc/ld.so.nohwcap exists.
-
-You now list the AT_PLATFORM directories (determined by the kernel on
-most architectures) along the regular hwcaps directories, although they
-are handled somewhat differently.  For example, on s390x, if you have a
-=E2=80=9Cz15=E2=80=9D machine (as indicated by AT_PLATFORM), the =E2=80=9Cz=
-13=E2=80=9D subdirectory is
-not selected.  ldconfig will add it to the cache, but it will not be
-used at run time.  I'm not sure if your proposed description gives
-readers the right idea what happens.
-
-Thanks,
-Florian
-
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
