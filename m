@@ -2,130 +2,88 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0253C1F068E
-	for <lists+linux-man@lfdr.de>; Sat,  6 Jun 2020 14:46:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A479E1F06A8
+	for <lists+linux-man@lfdr.de>; Sat,  6 Jun 2020 15:18:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728831AbgFFMqC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 6 Jun 2020 08:46:02 -0400
-Received: from mx01-sz.bfs.de ([194.94.69.67]:19505 "EHLO mx01-sz.bfs.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1728828AbgFFMqB (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 6 Jun 2020 08:46:01 -0400
-Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
-        by mx01-sz.bfs.de (Postfix) with ESMTPS id A27F120302;
-        Sat,  6 Jun 2020 14:45:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
-        t=1591447558;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=jz6qrPJ6eZbTOtVMGVjU4LpVNJP3TfwzwcJrkov5IP4=;
-        b=EF4Qo6RdAbk6evjjwQJAHifszaV+TtBzgYrIeemIgxkN4FkIu3E6F3L4W32akrQK5qc+uR
-        Ec5f/H8lWgevyzdxmhnKB0lzr0+9nUesn1TJiympYHA8hRJKZ1AfmNafQu6JH3mW2Vng9p
-        WnWQr+Xlhxr+T/IFHBUNVqgh/YoYYnq8dPq21qXBXPi/tZXvPIF7al3lmzopcgRqfCQ3lU
-        9QFqw+1KYWFnMayyXrET5psyVhgH4qGtOGkqk7c9XrfyBBTROnGAFvUkFSeit4st6LH9pJ
-        c+PAAmJ+quGftGAuseEBoGn+WG+e60ljhjQm0yzyGfabGb3lQOxgfBFtRSizBA==
-Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
- (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.1913.5; Sat, 6 Jun 2020
- 14:45:58 +0200
-Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
- SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%6]) with mapi id
- 15.01.1913.005; Sat, 6 Jun 2020 14:45:58 +0200
-From:   Walter Harms <wharms@bfs.de>
-To:     John Marshall <John.W.Marshall@glasgow.ac.uk>,
-        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
-CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-Subject: AW: random(3) and RAND_MAX
-Thread-Topic: random(3) and RAND_MAX
-Thread-Index: AQHWO12uQc3q+9KhbEeQvdYRDsPD3KjLh8mk
-Date:   Sat, 6 Jun 2020 12:45:58 +0000
-Message-ID: <627c601ec03b4da9b1ce98ee0e61a6ba@bfs.de>
-References: <02185B3C-F6E5-4674-BB34-E549E04C5B37@glasgow.ac.uk>
-In-Reply-To: <02185B3C-F6E5-4674-BB34-E549E04C5B37@glasgow.ac.uk>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.137.16.40]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+        id S1726352AbgFFNSQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 6 Jun 2020 09:18:16 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37496 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726078AbgFFNSQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 6 Jun 2020 09:18:16 -0400
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C71ECC03E96A
+        for <linux-man@vger.kernel.org>; Sat,  6 Jun 2020 06:18:15 -0700 (PDT)
+Received: by mail-wm1-x32f.google.com with SMTP id c71so10852571wmd.5
+        for <linux-man@vger.kernel.org>; Sat, 06 Jun 2020 06:18:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=jguk.org; s=google;
+        h=from:subject:to:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=nECMNBtVh4ZbuJEFuh/KNS8SrUrjrAQG5CUn+3WRfZA=;
+        b=E6V6C0ebIceR3l9wiMfuH6+4T6CXfP6XGNsjIDltRVIVN17KQxaYWPh3MeVWg3EtAC
+         aT6ziKoEjxo/SO3PATAySSYFwJUhhSxC4i0D1VMFT87dsZe2XW3HMtS/opdbo/vaSIoz
+         72eIGtNULyuXC6gYF3q8LXf6028hEvczwjb4ZT1uVZoks4MNoOV6AFj22n5t/zHniZ33
+         gH9hPb9Ng+unaPVE4GGR1aQIAw7v6L3g3PPDHQlJFsMLexMXBInT+W5BhNCUHAkCNEgy
+         j6oDAXHbPSsBnHQA8GwkmubTxuFFDV0MbyrZfGX1sZUFhP8sNL8JI2wUBJfSHu4JVooW
+         iEMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:subject:to:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=nECMNBtVh4ZbuJEFuh/KNS8SrUrjrAQG5CUn+3WRfZA=;
+        b=rgEIXhWjJPBhyD32VVaAETQ21bTGG/4c8aboWM6qqjZe+njUx8n9iIDNEaxPtjJumQ
+         cRE8wKle+UkXRWTwYTX13dJW9rHlEmY8ghNL3sOw1p2NMBzbHouFHbtoxKnggsPGGqEj
+         4U7kvC8Jwk9G5kT2eDELPXMVGvt1MGCFuhKFWIYrLKdAWHjJYTZJBQcn6Vdl5ClUVHP6
+         kqzmAFzeVxefE3LSbS+453NDw+smP/Mf4xkPD56HivkzAiWMn2hC4Z3KJgyReKx/eeDP
+         QtOL+qNPdwaVnB4lu8nI6dVyVK8F4vGw0C0lk0JiiEqqvYuudS/+R5DoyaktlO4o8HZx
+         qDHA==
+X-Gm-Message-State: AOAM531wXB3Sa2EfLN9RO5XA4I6kPlRUAJbICrquo/yxUabtQYaqbYkm
+        PZqgAYId0JrtVMvWjOPAk8KvOfpwAJA=
+X-Google-Smtp-Source: ABdhPJyYRpaOVPY48/Zqme6/Qk+Vm6oj0hdbHJCoWssPXAZNoL7ktU9jSXeze8QjI5zAy55t+fSeVQ==
+X-Received: by 2002:a05:600c:645:: with SMTP id p5mr7170736wmm.156.1591449494202;
+        Sat, 06 Jun 2020 06:18:14 -0700 (PDT)
+Received: from [192.168.0.12] (cpc87281-slou4-2-0-cust47.17-4.cable.virginm.net. [92.236.12.48])
+        by smtp.gmail.com with ESMTPSA id 88sm17809805wre.45.2020.06.06.06.18.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 06 Jun 2020 06:18:13 -0700 (PDT)
+From:   Jonny Grant <jg@jguk.org>
+Subject: core(5)
+To:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>
+Message-ID: <9000a831-9a0f-0577-5755-95b301218383@jguk.org>
+Date:   Sat, 6 Jun 2020 14:18:12 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-X-Spam-Status: No, score=-0.13
-Authentication-Results: mx01-sz.bfs.de;
-        none
-X-Spamd-Result: default: False [-0.13 / 7.00];
-         ARC_NA(0.00)[];
-         TO_DN_EQ_ADDR_SOME(0.00)[];
-         HAS_XOIP(0.00)[];
-         FROM_HAS_DN(0.00)[];
-         RCPT_COUNT_THREE(0.00)[3];
-         FREEMAIL_ENVRCPT(0.00)[gmail.com];
-         TO_MATCH_ENVRCPT_ALL(0.00)[];
-         TAGGED_RCPT(0.00)[];
-         MIME_GOOD(-0.10)[text/plain];
-         TO_DN_SOME(0.00)[];
-         DKIM_SIGNED(0.00)[];
-         NEURAL_HAM(-0.00)[-1.000];
-         FREEMAIL_TO(0.00)[glasgow.ac.uk,gmail.com];
-         RCVD_NO_TLS_LAST(0.10)[];
-         FROM_EQ_ENVFROM(0.00)[];
-         MIME_TRACE(0.00)[0:+];
-         RCVD_COUNT_TWO(0.00)[2];
-         MID_RHS_MATCH_FROM(0.00)[];
-         BAYES_HAM(-0.13)[67.40%]
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi John,
-i have read the pages and you are right. POSIX says:
-rand -> 0...RAND_MAX
-random -> 0...2^31-1
+Hello
 
-that RAND_MAX is 2^31-1 in some cases does not matter. IMHO
-it is wrong to mention RAND_MAX in the random page. it can
-simply be replaced with (2**31-1)
+Some feedback on this page
+https://man7.org/linux/man-pages/man5/core.5.html
+
+1) "disk file" sounds rather old fashioned, usually would just say "file", on this page, removing the word "disk"
+
+"The default action of certain signals is to cause a process to
+terminate and produce a /core dump file/, a disk file containing an"
 
 
-re,
- wh
-________________________________________
-Von: linux-man-owner@vger.kernel.org <linux-man-owner@vger.kernel.org> im A=
-uftrag von John Marshall <John.W.Marshall@glasgow.ac.uk>
-Gesendet: Freitag, 5. Juni 2020 19:21:00
-An: mtk.manpages@gmail.com
-Cc: linux-man@vger.kernel.org
-Betreff: random(3) and RAND_MAX
+2) We wouldn't regularly say "nonwritable" in English, "not writeable" is better English
 
-Observed in CentOS 8's man-pages-4.15-6.el8.x86_64 and also on man-pages Gi=
-t master:
 
-Man-pages's rand.3 says rand() returns values in the range [0, RAND_MAX] an=
-d is very clear that this is inclusive. This is the same as the POSIX descr=
-iption of rand(3).
+3) Could i ask to clarify my understanding. For this "The binary being executed by the process does not have read
+           permission enabled."
+-- is this when the binary permissions are changed after it starts running?
+I thought a core file was just a dump from RAM, does it really even need to open the ELF file again?
 
-Man-pages's random.3 says random() returns values "in the range from 0 to R=
-AND_MAX". However POSIX describes random() as returning values "in the rang=
-e from 0 to 2^31-1".
 
-In practice glibc and musl both fix RAND_MAX as a constant 2^31-1 so on the=
-se platforms it is the same thing. Similarly on macOS. It appears that Free=
-BSD used to have a slightly lower value of RAND_MAX but several months ago =
-raised it to 2^31-1 similarly. OTOH it appears that Windows, Cygwin, etc st=
-ill use a much smaller value for RAND_MAX (32767) but the full POSIX range =
-for random(3).
+4) I noticed %P always gave me P1200 even after a reboot I recall, I had expected it be '1', do you see similar?
 
-So random.3 describing the range as 0..RAND_MAX is correct on Linux (unless=
- you're using a very unusual libc) but misleading when used as a reference =
-for writing code portable to other platforms. It would be good to change ra=
-ndom.3 to refer to the hardcoded constant (2^31-1) instead of RAND_MAX (and=
- perhaps add a note that on Linux this is the same as RAND_MAX), or at leas=
-t to add a note saying that RAND_MAX may be an unrelated value on other pla=
-tforms.
-
-Thanks,
-
-    John
+Cheers, Jonny
