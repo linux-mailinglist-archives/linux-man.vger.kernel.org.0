@@ -2,111 +2,102 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 55CDB1F1979
-	for <lists+linux-man@lfdr.de>; Mon,  8 Jun 2020 14:58:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 52B791F1C44
+	for <lists+linux-man@lfdr.de>; Mon,  8 Jun 2020 17:41:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729002AbgFHM6c (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 8 Jun 2020 08:58:32 -0400
-Received: from mx01-muc.bfs.de ([193.174.230.67]:37370 "EHLO mx01-muc.bfs.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1728472AbgFHM6c (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 8 Jun 2020 08:58:32 -0400
-X-Greylist: delayed 458 seconds by postgrey-1.27 at vger.kernel.org; Mon, 08 Jun 2020 08:58:31 EDT
-Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
-        by mx01-muc.bfs.de (Postfix) with ESMTPS id 1661420346;
-        Mon,  8 Jun 2020 14:50:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
-        t=1591620652;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=HFy4Fu1TTgumsHBIU3Gs+bPtI6CP9qvkMvVyzmTlBtM=;
-        b=TZiLBIPwLt3cEfNhfx7InwqBKJsMKeYkdBUKe1yQdYGcBI/bsZRxkKq6XFwTwd5MSrtPoz
-        MYKnVP6vozF/nGmGzi1Ii2Qfg2QE4cUe2hkl/zjTbxxhnp7l5u/8Bq3p+9l6tSzITKXUjQ
-        jecPcnVJocQYKr2T8fmedQgf6+NP84zGZvsgmdV1FYxve5fb4WEKZ3HDEqQHSi3FUIxSBg
-        Rs8wKyQUDP03Pd4CkJ5FcXE9A1lfGH+BHDr+bZJyr9KsM82ThgRP+w4zCytq+LcUTaC+Fl
-        GXm5rNBmfbY3n5zUG5fpSo5V9VG4b4apnSWydmvOj93boRytY9jnCcFDSS37wA==
-Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
- (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.1913.5; Mon, 8 Jun 2020
- 14:50:51 +0200
-Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
- SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%6]) with mapi id
- 15.01.1913.005; Mon, 8 Jun 2020 14:50:51 +0200
-From:   Walter Harms <wharms@bfs.de>
+        id S1730333AbgFHPli (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 8 Jun 2020 11:41:38 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53450 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1730332AbgFHPlh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 8 Jun 2020 11:41:37 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2324CC08C5C2
+        for <linux-man@vger.kernel.org>; Mon,  8 Jun 2020 08:41:37 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id c3so17896034wru.12
+        for <linux-man@vger.kernel.org>; Mon, 08 Jun 2020 08:41:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=d7R47SM/Fm9nS2O+GFiwvM71xTnatBBIchUUvTW6QUs=;
+        b=upQ7S2gWnplwzD2hhvKYhCMmLtLpjxXnNa5HNKcAs0fcKNJyrKH9SWcAXamNKBeoRu
+         0cEBGWSa/3GdEMB65n+hsqDVU6rLu+rQ5TfltjztKqdc4zXD61trHIS0R+wnvuPczIVL
+         Ssy7UyBDb0YMAZq+C9E4rv2iRVV5KkzJKIi5GqjTW19qnfaNKZXnhIHlA/FSfSsdqsTx
+         x6lltj7Q+Hn5VkHp7bf+YfTzDF+iOsEuIBjepAsdmIhQ5U1LyPzSF30xKs+2BAUTzUPl
+         rdWkpPcWDKITxIGAE4ZDc/lMT0kU04/EQviYVtmhZTEJ1JvcvC6ILabyV3ILpMwi3HvR
+         stfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=d7R47SM/Fm9nS2O+GFiwvM71xTnatBBIchUUvTW6QUs=;
+        b=XNS6obsyYGErdlxq0JYll9qmhqlbkw4GYr5owVxLB+AwllCY/6JRlN5mZpm3r3J48A
+         cGoyF+Vtq1JIuYZ8j5crZfEdKBFtRouLyuE/JYCsf9B+upJpmuJ6qbPfvXqkfLA/kpVG
+         haRnkH11ACWesQXzOqixwI7zKvuteiVBNrEwV6TmejioFkXiUYHIYmnfofSSfd17QfjA
+         yHCfZMACyMIfNeMBBteB4uiG3oepSeV0GiSCJiBA7TvUyvV9UxuGeLxmZlrNNw7V64ad
+         RN5D6wjQhoF8KglfgBXFhP8Yk7xD4VOy9iBWd2ZgC7Ldn+ikf14Aw/mbEOMt0BmiLDwF
+         7WKw==
+X-Gm-Message-State: AOAM530TfzOIyipK5k0ATZvvWCzy81Y0XwTz09sD1YiWsq9I8d/Az7ZH
+        o7edb0ySdhiFQHG5TWS97EFnp6hpMuU=
+X-Google-Smtp-Source: ABdhPJwEvgDjSrxmFNP5+tk5MtvvWSo4IWx+qGIqxfMcSKm2vOpHBydfFY/DI/yTPtDLXX0jlZ8V0g==
+X-Received: by 2002:adf:fd4f:: with SMTP id h15mr23798212wrs.397.1591630895331;
+        Mon, 08 Jun 2020 08:41:35 -0700 (PDT)
+Received: from [192.168.178.63] (x5f734b84.dyn.telefonica.de. [95.115.75.132])
+        by smtp.gmail.com with ESMTPSA id h27sm172043wrb.18.2020.06.08.08.41.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 08 Jun 2020 08:41:34 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] proc.5: ffix
 To:     Jakub Wilk <jwilk@jwilk.net>
-CC:     John Marshall <John.W.Marshall@glasgow.ac.uk>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-Subject: AW: AW: [patch] random.3: wfix: RAND_MAX is for rand(3)
-Thread-Topic: AW: [patch] random.3: wfix: RAND_MAX is for rand(3)
-Thread-Index: AQHWPYSXs4CUHQyQf0i9Em/+EFgdCqjOjqei///ikICAADmeRQ==
-Date:   Mon, 8 Jun 2020 12:50:51 +0000
-Message-ID: <1113d0a16dab434089eae4a80bf9674e@bfs.de>
-References: <02185B3C-F6E5-4674-BB34-E549E04C5B37@glasgow.ac.uk>
- <627c601ec03b4da9b1ce98ee0e61a6ba@bfs.de>
- <20200608110416.GA21314@Johns-MacBook-Pro.local>
- <f653054ab6ae480b8286386c432cf8b9@bfs.de>,<20200608112101.fuilahvdbacmdah6@jwilk.net>
-In-Reply-To: <20200608112101.fuilahvdbacmdah6@jwilk.net>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.137.16.39]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+References: <20200530155841.9627-1-jwilk@jwilk.net>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <084648b1-9b57-286c-62c6-4768aa144901@gmail.com>
+Date:   Mon, 8 Jun 2020 17:41:31 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-X-Spam-Status: No, score=4.77
-X-Spam-Level: ****
-Authentication-Results: mx01-muc.bfs.de;
-        none
-X-Spamd-Result: default: False [4.77 / 7.00];
-         ARC_NA(0.00)[];
-         TO_DN_EQ_ADDR_SOME(0.00)[];
-         HAS_XOIP(0.00)[];
-         FROM_HAS_DN(0.00)[];
-         RCPT_COUNT_THREE(0.00)[4];
-         FREEMAIL_ENVRCPT(0.00)[gmail.com];
-         TO_MATCH_ENVRCPT_ALL(0.00)[];
-         TAGGED_RCPT(0.00)[];
-         MIME_GOOD(-0.10)[text/plain];
-         RSPAMD_URIBL(4.50)[jwilk.net:email];
-         TO_DN_SOME(0.00)[];
-         BAYES_HAM(-1.23)[89.43%];
-         DKIM_SIGNED(0.00)[];
-         RCVD_NO_TLS_LAST(0.10)[];
-         FROM_EQ_ENVFROM(0.00)[];
-         MIME_TRACE(0.00)[0:+];
-         RCVD_COUNT_TWO(0.00)[2];
-         MID_RHS_MATCH_FROM(0.00)[];
-         SUSPICIOUS_RECIPS(1.50)[];
-         FREEMAIL_CC(0.00)[glasgow.ac.uk,gmail.com,vger.kernel.org]
+In-Reply-To: <20200530155841.9627-1-jwilk@jwilk.net>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-misunderstanding,
+On 5/30/20 5:58 PM, Jakub Wilk wrote:
+> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+> ---
+>  man5/proc.5 | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/man5/proc.5 b/man5/proc.5
+> index 5886bac99..485b3dfc7 100644
+> --- a/man5/proc.5
+> +++ b/man5/proc.5
+> @@ -532,8 +532,8 @@ Furthermore, a process may change the memory location that this file refers via
+>  .BR prctl (2)
+>  operations such as
+>  .BR PR_SET_MM_ARG_START .
+> -+.IP
+> -+Think of this file as the command line that the process wants you to see.
+> +.IP
+> +Think of this file as the command line that the process wants you to see.
+>  .TP
+>  .IR /proc/[pid]/comm " (since Linux 2.6.33)"
+>  .\" commit 4614a696bd1c3a9af3a08f0e5874830a85b889d4
 
-the page random(3) says (in my version)
-"range from 0 to 2**31-1." it does not mention
-rand_max, INT32_MAX or some other constant only the numerical value.
+Thanks, Jakub. Patch applied.
 
-It happens to be INT32_MAX, but in this case i would simply drop it.
-________________________________________
-Von: Jakub Wilk <jwilk@jwilk.net>
-Gesendet: Montag, 8. Juni 2020 13:21:01
-An: Walter Harms
-Cc: John Marshall; Michael Kerrisk; linux-man@vger.kernel.org
-Betreff: Re: AW: [patch] random.3: wfix: RAND_MAX is for rand(3)
+Cheers,
 
-* Walter Harms <wharms@bfs.de>, 2020-06-08, 11:10:
->INT32_MAX is not mentioned in the POSIX page
+Michael
 
-Yes, it is:
-https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/stdint.h.html#tag=
-_13_47_03_02
 
---
-Jakub Wilk
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
