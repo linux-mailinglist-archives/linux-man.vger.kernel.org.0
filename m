@@ -2,108 +2,121 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1104F1F4D51
-	for <lists+linux-man@lfdr.de>; Wed, 10 Jun 2020 07:54:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E1A9B1F4D68
+	for <lists+linux-man@lfdr.de>; Wed, 10 Jun 2020 08:01:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725988AbgFJFyF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 10 Jun 2020 01:54:05 -0400
-Received: from mout-p-101.mailbox.org ([80.241.56.151]:51528 "EHLO
-        mout-p-101.mailbox.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726068AbgFJFyC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 10 Jun 2020 01:54:02 -0400
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:105:465:1:2:0])
-        (using TLSv1.2 with cipher ECDHE-RSA-CHACHA20-POLY1305 (256/256 bits))
-        (No client certificate requested)
-        by mout-p-101.mailbox.org (Postfix) with ESMTPS id 49hblR2dW9zKmrq;
-        Wed, 10 Jun 2020 07:53:55 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at heinlein-support.de
-Received: from smtp2.mailbox.org ([80.241.60.241])
-        by spamfilter05.heinlein-hosting.de (spamfilter05.heinlein-hosting.de [80.241.56.123]) (amavisd-new, port 10030)
-        with ESMTP id UoN5h8M60M3c; Wed, 10 Jun 2020 07:53:52 +0200 (CEST)
-From:   Aleksa Sarai <cyphar@cyphar.com>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, linux-api@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        viro@zeniv.linux.org.uk, christian@brauner.io,
-        Aleksa Sarai <cyphar@cyphar.com>
-Subject: [PATCH] symlink.7: document magic-links more completely
-Date:   Wed, 10 Jun 2020 15:53:19 +1000
-Message-Id: <20200610055319.26374-1-cyphar@cyphar.com>
-In-Reply-To: <20200414103524.wjhyfobzpjk236o7@yavin.dot.cyphar.com>
-References: <20200414103524.wjhyfobzpjk236o7@yavin.dot.cyphar.com>
+        id S1726035AbgFJGBS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 10 Jun 2020 02:01:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41340 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725988AbgFJGBQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 10 Jun 2020 02:01:16 -0400
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0698FC05BD1E
+        for <linux-man@vger.kernel.org>; Tue,  9 Jun 2020 23:01:16 -0700 (PDT)
+Received: by mail-ed1-x543.google.com with SMTP id t21so487888edr.12
+        for <linux-man@vger.kernel.org>; Tue, 09 Jun 2020 23:01:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc:content-transfer-encoding;
+        bh=Mz+JYXF/q3ahrvI/z7JWO5z4x0W0fGkc/I2NjDtdgi4=;
+        b=o8ehr6Fw6ENRZf9nc476Nu0XRlBXVNR4sO/KKMXZrl+8oCA7YYNXD/dHdMFfgCYE2z
+         SKteSV35Z/25ktBdVBwMIDPr7tjdobA3XEvN+AntAnpeHvnweSBSeF5cKFn4JIrCpPtD
+         wxzLx5kf5QYt/ZgxWcwPrsLdTtUau2HPB9H15sBMrHGD+EMF/LqcSryNiJE7P8mJQ3nX
+         3VBl4n9ar1K1QhTC1TXn/BaFqP5Cq1AZlam+ebfSDW7f417HLZ7i9oP+xVUgC6Xxh7Db
+         LoyQPKkFugKJeyuIKEZfJYQKPJGi/oMSBHBowdNw8I4bzYkgNs6Jcac0eEg7lNhBz3eY
+         UPqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc:content-transfer-encoding;
+        bh=Mz+JYXF/q3ahrvI/z7JWO5z4x0W0fGkc/I2NjDtdgi4=;
+        b=NoFPF24TDqVMPFh+Ugxu7pX980MBcmRgBmu3wPtsY10HOtWoLP5TqGIp2oaqLm8MsU
+         I0K4+CEJMmVcjhbX/e226DQ7Xpl+Rst2EN01WHxQ7VpzQHfq+RPEVyvp9/8H93UlOYdq
+         4Y5xvCgo9JZ2lB3R3DwIxMdsPoMhLIGCl7prlU0rTzkGg5yEPZ7Sdp+rbCh+bD6ODw1d
+         VwzbGAnNjTb9LIPwFSyBaAOU2RwMTTTfRsqc+MlXz/3kQaSJ/ZTyo8vZ90pFTP9oSLss
+         NFEZwKy7cCyAURL/5WuAgLi/knrE/a7881ZB4ueWZYFEnOgaozWE9wg7aQ7BibIpGUzl
+         18AQ==
+X-Gm-Message-State: AOAM532kuuf0joH9I/i6syS9QjAhfJUXptvWHPgi01bQnnHjRThi6L3m
+        Y4DDrR1K5D/2yNmlQBM+JOLM3GVVya9SPrgATAdLOx+Rpk8=
+X-Google-Smtp-Source: ABdhPJz29aJhN2ajuQ5BSd9w2FlfE+kRycOqwdObVlzbfKtm6yNG2SC2NjSjbeoH6Y9iWqvyoUShyiz6onYsFNqNmOk=
+X-Received: by 2002:a05:6402:1606:: with SMTP id f6mr1088203edv.286.1591768874444;
+ Tue, 09 Jun 2020 23:01:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 3F5A41750
-X-Rspamd-Score: 2.16 / 15.00 / 15.00
+References: <57abae5e-2394-0542-9e21-10c0bb837078@redhat.com>
+ <87pnaoe70h.fsf@oldenburg2.str.redhat.com> <14751c26-4c4d-24c1-df12-429931b61780@redhat.com>
+ <87r1uy3sgb.fsf@oldenburg2.str.redhat.com>
+In-Reply-To: <87r1uy3sgb.fsf@oldenburg2.str.redhat.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Wed, 10 Jun 2020 08:00:00 +0200
+Message-ID: <CAKgNAkjB3-LvJaTQ5cHyc-cduD6Yr0_dBrSmN_bih+YOzuBCww@mail.gmail.com>
+Subject: Re: [PATCH v2] ld.so.8: Update "Hardware capabilities" section for
+ glibc 2.31.
+To:     Florian Weimer <fweimer@redhat.com>
+Cc:     "Carlos O'Donell" <carlos@redhat.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Hi Carlos,
 
-Sorry for the delay and here is the patch I promised in this thread.
+What's the status of this patch?
 
---8<---------------------------------------------------------------------8<--
+Thanks,
 
-Traditionally, magic-links have not been a well-understood topic in
-Linux. This helps clarify some of the terminology used in openat2.2.
+Michael
 
-Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
----
- man7/symlink.7 | 31 ++++++++++++++++++++++---------
- 1 file changed, 22 insertions(+), 9 deletions(-)
 
-diff --git a/man7/symlink.7 b/man7/symlink.7
-index 07b1db3a3764..ed99bc4236f1 100644
---- a/man7/symlink.7
-+++ b/man7/symlink.7
-@@ -84,6 +84,21 @@ as they are implemented on Linux and other systems,
- are outlined here.
- It is important that site-local applications also conform to these rules,
- so that the user interface can be as consistent as possible.
-+.SS Magic-links
-+There is a special class of symlink-like objects known as "magic-links" which
-+can be found in certain pseudo-filesystems such as
-+.BR proc (5)
-+(examples include
-+.IR /proc/[pid]/exe " and " /proc/[pid]/fd/* .)
-+Unlike normal symlinks, magic-links are not resolved through
-+pathname-expansion, but instead act as direct references to the kernel's own
-+representation of a file handle. As such, these magic-links allow users to
-+access files which cannot be referenced with normal paths (such as unlinked
-+files still referenced by a running program.)
-+.PP
-+Because they can bypass ordinary
-+.BR mount_namespaces (7)-based
-+restrictions, magic-links have been used as attack vectors in various exploits.
- .SS Symbolic link ownership, permissions, and timestamps
- The owner and group of an existing symbolic link can be changed
- using
-@@ -99,16 +114,14 @@ of a symbolic link can be changed using
- or
- .BR lutimes (3).
- .PP
--On Linux, the permissions of a symbolic link are not used
--in any operations; the permissions are always
--0777 (read, write, and execute for all user categories),
- .\" Linux does not currently implement an lchmod(2).
--and can't be changed.
--(Note that there are some "magic" symbolic links in the
--.I /proc
--directory tree\(emfor example, the
--.IR /proc/[pid]/fd/*
--files\(emthat have different permissions.)
-+On Linux, the permissions of an ordinary symbolic link are not used in any
-+operations; the permissions are always 0777 (read, write, and execute for all
-+user categories), and can't be changed.
-+.PP
-+However, magic-links do not follow this rule. They can have a non-0777 mode,
-+though this mode is not currently used in any permission checks.
-+
- .\"
- .\" The
- .\" 4.4BSD
--- 
-2.26.2
+On Tue, 2 Jun 2020 at 08:14, Florian Weimer <fweimer@redhat.com> wrote:
+>
+> * Carlos O'Donell:
+>
+> > +Care should be taken when packaging such application with a package ma=
+nager,
+> > +particularly the scenario where an optimized library is being removed.=
+  With
+> > +certain package managers, particularly rpm, the newer version of the
+>
+> Twice =E2=80=9Cparticularly=E2=80=9D.
+>
+> > +application is installed first, which means that for a period of time =
+during
+> > +the upgrade all applications that use the library may start with a mix=
+ed set of
+> > +libraries e.g.  the old library from the feature-based search path, an=
+d new
+>
+> Commas arount e.g.?
+>
+> > +libraries from the upgrade. To avoid this scenario the new library ver=
+sion
+> > +should delete all known optimized libraries in the post-install phase.
+>
+> There is a different mechanism: Debian has patched glibc to disable
+> hwcap subdirectors if the file /etc/ld.so.nohwcap exists.
+>
+> You now list the AT_PLATFORM directories (determined by the kernel on
+> most architectures) along the regular hwcaps directories, although they
+> are handled somewhat differently.  For example, on s390x, if you have a
+> =E2=80=9Cz15=E2=80=9D machine (as indicated by AT_PLATFORM), the =E2=80=
+=9Cz13=E2=80=9D subdirectory is
+> not selected.  ldconfig will add it to the cache, but it will not be
+> used at run time.  I'm not sure if your proposed description gives
+> readers the right idea what happens.
+>
+> Thanks,
+> Florian
+>
 
+
+--
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
