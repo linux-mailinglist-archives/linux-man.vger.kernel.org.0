@@ -2,121 +2,252 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E1A9B1F4D68
-	for <lists+linux-man@lfdr.de>; Wed, 10 Jun 2020 08:01:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1DFC61F5162
+	for <lists+linux-man@lfdr.de>; Wed, 10 Jun 2020 11:44:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726035AbgFJGBS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 10 Jun 2020 02:01:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41340 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725988AbgFJGBQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 10 Jun 2020 02:01:16 -0400
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0698FC05BD1E
-        for <linux-man@vger.kernel.org>; Tue,  9 Jun 2020 23:01:16 -0700 (PDT)
-Received: by mail-ed1-x543.google.com with SMTP id t21so487888edr.12
-        for <linux-man@vger.kernel.org>; Tue, 09 Jun 2020 23:01:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc:content-transfer-encoding;
-        bh=Mz+JYXF/q3ahrvI/z7JWO5z4x0W0fGkc/I2NjDtdgi4=;
-        b=o8ehr6Fw6ENRZf9nc476Nu0XRlBXVNR4sO/KKMXZrl+8oCA7YYNXD/dHdMFfgCYE2z
-         SKteSV35Z/25ktBdVBwMIDPr7tjdobA3XEvN+AntAnpeHvnweSBSeF5cKFn4JIrCpPtD
-         wxzLx5kf5QYt/ZgxWcwPrsLdTtUau2HPB9H15sBMrHGD+EMF/LqcSryNiJE7P8mJQ3nX
-         3VBl4n9ar1K1QhTC1TXn/BaFqP5Cq1AZlam+ebfSDW7f417HLZ7i9oP+xVUgC6Xxh7Db
-         LoyQPKkFugKJeyuIKEZfJYQKPJGi/oMSBHBowdNw8I4bzYkgNs6Jcac0eEg7lNhBz3eY
-         UPqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc:content-transfer-encoding;
-        bh=Mz+JYXF/q3ahrvI/z7JWO5z4x0W0fGkc/I2NjDtdgi4=;
-        b=NoFPF24TDqVMPFh+Ugxu7pX980MBcmRgBmu3wPtsY10HOtWoLP5TqGIp2oaqLm8MsU
-         I0K4+CEJMmVcjhbX/e226DQ7Xpl+Rst2EN01WHxQ7VpzQHfq+RPEVyvp9/8H93UlOYdq
-         4Y5xvCgo9JZ2lB3R3DwIxMdsPoMhLIGCl7prlU0rTzkGg5yEPZ7Sdp+rbCh+bD6ODw1d
-         VwzbGAnNjTb9LIPwFSyBaAOU2RwMTTTfRsqc+MlXz/3kQaSJ/ZTyo8vZ90pFTP9oSLss
-         NFEZwKy7cCyAURL/5WuAgLi/knrE/a7881ZB4ueWZYFEnOgaozWE9wg7aQ7BibIpGUzl
-         18AQ==
-X-Gm-Message-State: AOAM532kuuf0joH9I/i6syS9QjAhfJUXptvWHPgi01bQnnHjRThi6L3m
-        Y4DDrR1K5D/2yNmlQBM+JOLM3GVVya9SPrgATAdLOx+Rpk8=
-X-Google-Smtp-Source: ABdhPJz29aJhN2ajuQ5BSd9w2FlfE+kRycOqwdObVlzbfKtm6yNG2SC2NjSjbeoH6Y9iWqvyoUShyiz6onYsFNqNmOk=
-X-Received: by 2002:a05:6402:1606:: with SMTP id f6mr1088203edv.286.1591768874444;
- Tue, 09 Jun 2020 23:01:14 -0700 (PDT)
+        id S1727911AbgFJJoq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 10 Jun 2020 05:44:46 -0400
+Received: from foss.arm.com ([217.140.110.172]:55924 "EHLO foss.arm.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1727909AbgFJJoq (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 10 Jun 2020 05:44:46 -0400
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+        by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 857B91F1;
+        Wed, 10 Jun 2020 02:44:45 -0700 (PDT)
+Received: from arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+        by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8786F3F73D;
+        Wed, 10 Jun 2020 02:44:44 -0700 (PDT)
+Date:   Wed, 10 Jun 2020 10:44:42 +0100
+From:   Dave Martin <Dave.Martin@arm.com>
+To:     Will Deacon <will@kernel.org>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org, linux-arch@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v2 4/6] prctl.2: Add SVE prctls (arm64)
+Message-ID: <20200610094440.GD25945@arm.com>
+References: <1590614258-24728-1-git-send-email-Dave.Martin@arm.com>
+ <1590614258-24728-5-git-send-email-Dave.Martin@arm.com>
+ <20200609095734.GA25362@willie-the-truck>
+ <20200609140948.GA25945@arm.com>
+ <20200609144905.GA28353@willie-the-truck>
 MIME-Version: 1.0
-References: <57abae5e-2394-0542-9e21-10c0bb837078@redhat.com>
- <87pnaoe70h.fsf@oldenburg2.str.redhat.com> <14751c26-4c4d-24c1-df12-429931b61780@redhat.com>
- <87r1uy3sgb.fsf@oldenburg2.str.redhat.com>
-In-Reply-To: <87r1uy3sgb.fsf@oldenburg2.str.redhat.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Wed, 10 Jun 2020 08:00:00 +0200
-Message-ID: <CAKgNAkjB3-LvJaTQ5cHyc-cduD6Yr0_dBrSmN_bih+YOzuBCww@mail.gmail.com>
-Subject: Re: [PATCH v2] ld.so.8: Update "Hardware capabilities" section for
- glibc 2.31.
-To:     Florian Weimer <fweimer@redhat.com>
-Cc:     "Carlos O'Donell" <carlos@redhat.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200609144905.GA28353@willie-the-truck>
+User-Agent: Mutt/1.5.23 (2014-03-12)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Carlos,
+On Tue, Jun 09, 2020 at 03:49:05PM +0100, Will Deacon wrote:
+> On Tue, Jun 09, 2020 at 03:11:42PM +0100, Dave Martin wrote:
+> > On Tue, Jun 09, 2020 at 10:57:35AM +0100, Will Deacon wrote:
+> > > On Wed, May 27, 2020 at 10:17:36PM +0100, Dave Martin wrote:
+> > > > diff --git a/man2/prctl.2 b/man2/prctl.2
+> > > > index cab9915..91df7c8 100644
+> > > > --- a/man2/prctl.2
+> > > > +++ b/man2/prctl.2
+> > > > @@ -1291,6 +1291,148 @@ call failing with the error
+> > > >  .BR ENXIO .
+> > > >  For further details, see the kernel source file
+> > > >  .IR Documentation/admin\-guide/kernel\-parameters.txt .
+> > > > +.\" prctl PR_SVE_SET_VL
+> > > > +.\" commit 2d2123bc7c7f843aa9db87720de159a049839862
+> > > > +.\" linux-5.6/Documentation/arm64/sve.rst
+> > > > +.TP
+> > > > +.BR PR_SVE_SET_VL " (since Linux 4.15, only on arm64)"
+> > > > +Configure the thread's SVE vector length,
+> > > > +as specified by
+> > > > +.IR "(int) arg2" .
+> > > > +Arguments
+> > > > +.IR arg3 ", " arg4 " and " arg5
+> > > > +are ignored.
+> > > > +.IP
+> > > > +The bits of
+> > > > +.I arg2
+> > > > +corresponding to
+> > > > +.B PR_SVE_VL_LEN_MASK
+> > > > +must be set to the desired vector length in bytes.
+> > > > +This is interpreted as an upper bound:
+> > > > +the kernel will select the greatest available vector length
+> > > > +that does not exceed the value specified.
+> > > > +In particular, specifying
+> > > > +.B SVE_VL_MAX
+> > > > +(defined in
+> > > > +.I <asm/sigcontext.h>)
+> > > > +for the
+> > > > +.B PR_SVE_VL_LEN_MASK
+> > > > +bits requests the maximum supported vector length.
+> > > > +.IP
+> > > > +In addition,
+> > > > +.I arg2
+> > > > +must be set to one of the following combinations of flags:
+> > > 
+> > > How about saying:
+> > > 
+> > >   In addition, the other bits of arg2 must be set according to the following
+> > >   combinations of flags:
+> > > 
+> > > Otherwise I find it a bit fiddly to read, because it's valid to have
+> > > flags of 0 and a non-zero length.
+> > 
+> > 0 is listed, so I hoped that was clear enough.
+> > 
+> > Maybe just write "must be one of the following values:"?
+> > 
+> > 0 is a value, but I can see why you might be uneasy about 0 being
+> > described as a "combination of flags".
+> 
+> It's more that arg2 *also* holds the length, so saying that arg2 must
+> be set to a combination of flags isn't quite right, because it's actually
+> to set to a combination of flags and the length.
+> 
+> > > > +.RS
+> > > > +.TP
+> > > > +.B 0
+> > > > +Perform the change immediately.
+> > > > +At the next
+> > > > +.BR execve (2)
+> > > > +in the thread,
+> > > > +the vector length will be reset to the value configured in
+> > > > +.IR /proc/sys/abi/sve_default_vector_length .
+> > > 
+> > > (implementation note: does this mean that 'sve_default_vl' should be
+> > >  an atomic_t, as it can be accessed concurrently? We probably need
+> > >  {READ,WRITE}_ONCE() at the very least, as I'm not seeing any locks
+> > >  that help us here...)
+> > 
+> > Is this purely theoretical?  Can you point to what could go wrong?
+> 
+> If the write is torn by the compiler, then a concurrent reader could end
+> up seeing a bogus value. There could also be ToCToU issues if it's re-read.
 
-What's the status of this patch?
+It won't be torn in practice, no decision logic depends on the value
+read, and you can't even get from the write to the read or vice-versa
+without crossing a TU boundary (even under LTO), so there's basically
+zero scope for sabotXXXXXoptimisation by the compiler.
 
-Thanks,
+Only root is allowed to write this thing anyway.
 
-Michael
+> > While I doubt I thought about this very hard and I agree that you're
+> > right in principle, I think there are probably non-atomic sysctls and
+> > debugs files etc. all over the place.
+> > 
+> > I didn't want to clutter the code unnecessarily.
+> 
+> Right, but KCSAN is coming along and so somebody less familiar with the code
+> will hit this eventually.
 
+So the issue is theoretical, probably one of very many similar issues,
+and anyway we have a tool for tracking them down if we need to?
 
-On Tue, 2 Jun 2020 at 08:14, Florian Weimer <fweimer@redhat.com> wrote:
->
-> * Carlos O'Donell:
->
-> > +Care should be taken when packaging such application with a package ma=
-nager,
-> > +particularly the scenario where an optimized library is being removed.=
-  With
-> > +certain package managers, particularly rpm, the newer version of the
->
-> Twice =E2=80=9Cparticularly=E2=80=9D.
->
-> > +application is installed first, which means that for a period of time =
-during
-> > +the upgrade all applications that use the library may start with a mix=
-ed set of
-> > +libraries e.g.  the old library from the feature-based search path, an=
-d new
->
-> Commas arount e.g.?
->
-> > +libraries from the upgrade. To avoid this scenario the new library ver=
-sion
-> > +should delete all known optimized libraries in the post-install phase.
->
-> There is a different mechanism: Debian has patched glibc to disable
-> hwcap subdirectors if the file /etc/ld.so.nohwcap exists.
->
-> You now list the AT_PLATFORM directories (determined by the kernel on
-> most architectures) along the regular hwcaps directories, although they
-> are handled somewhat differently.  For example, on s390x, if you have a
-> =E2=80=9Cz15=E2=80=9D machine (as indicated by AT_PLATFORM), the =E2=80=
-=9Cz13=E2=80=9D subdirectory is
-> not selected.  ldconfig will add it to the cache, but it will not be
-> used at run time.  I'm not sure if your proposed description gives
-> readers the right idea what happens.
->
-> Thanks,
-> Florian
->
+I'm playing devil's advocate here, but I'd debate whether it's worth
+it -- or even wise -- to fix these piecemeal unless we're confident this
+is an egregious case.  Doing so may encourage a false sense of safety.
+When we're in a position to do a treewide cleanup, that would be better,
+no?
 
+> > > > +.B PR_SVE_VL_INHERIT
+> > > > +Perform the change immediately.
+> > > > +Subsequent
+> > > > +.BR execve (2)
+> > > > +calls will preserve the new vector length.
+> > > > +.TP
+> > > > +.B PR_SVE_SET_VL_ONEXEC
+> > > > +Defer the change, so that it is performed at the next
+> > > > +.BR execve (2)
+> > > > +in the thread.
+> > > > +Further
+> > > > +.BR execve (2)
+> > > > +calls will reset the vector length to the value configured in
+> > > > +.IR /proc/sys/abi/sve_default_vector_length .
+> > > > +.TP
+> > > > +.B "PR_SVE_SET_VL_ONEXEC | PR_SVE_VL_INHERIT"
+> > > > +Defer the change, so that it is performed at the next
+> > > > +.BR execve (2)
+> > > > +in the thread.
+> > > > +Further
+> > > > +.BR execve (2)
+> > > > +calls will preserve the new vector length.
+> > > > +.RE
+> > > > +.IP
+> > > > +In all cases,
+> > > > +any previously pending deferred change is canceled.
+> > > > +.IP
+> > > > +The call fails with error
+> > > > +.B EINVAL
+> > > > +if SVE is not supported on the platform, if
+> > > > +.I arg2
+> > > > +is unrecognized or invalid, or the value in the bits of
+> > > > +.I arg2
+> > > > +corresponding to
+> > > > +.B PR_SVE_VL_LEN_MASK
+> > > > +is outside the range
+> > > > +.BR SVE_VL_MIN .. SVE_VL_MAX
+> > > > +or is not a multiple of 16.
+> > > > +.IP
+> > > > +On success,
+> > > > +a nonnegative value is returned that describes the
+> > > > +.I selected
+> > > > +configuration,
+> > > 
+> > > If I'm reading the kernel code correctly, this is slightly weird, as
+> > > the returned value may contain the PR_SVE_VL_INHERIT flag but it will
+> > > never contain the PR_SVE_SET_VL_ONEXEC flag. Is that right?
+> > 
+> > Yes, which is an oddity.
+> > 
+> > I suppose we could fake that up actually by returning that flag if
+> > sve_vl and sve_vl_onexec are different, but we don't currently do this.
+> 
+> I don't think there's any need to change the code, but I think this stuff
+> is worth documenting.
+> 
+> > > If so, maybe just say something like:
+> > > 
+> > >   On success, a nonnegative value is returned that describes the selected
+> > >   configuration in the same way as PR_SVE_GET_VL.
+> > 
+> > How does that help?  PR_SVE_GET_VL doesn't fully clarify the oddity you
+> > call out anyway.
+> 
+> It clarifies it enough for my liking (by explicitly talking about "the bit
+> corresponding to PR_SVE_VL_INHERIT" and not about PR_SVE_SET_VL_ONEXEC),
+> but either way, I think saying that the return value is the same is a
+> useful clarification. If you want to make PR_SVE_GET_VL more explicit,
+> we could do that too.
 
---
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Fair enough.  I'll just refer to PR_SVE_GET_VL, as you suggest.
+
+I'm not keen to add any new wording at this stage.
+
+> > > > +.B PR_SVE_SET_VL_ONEXEC
+> > > > +flag may crash the calling process.
+> > > > +The conditions for using it safely are complex and system-dependent.
+> > > > +Don't use it unless you really know what you are doing.
+> > > > +.IP
+> > > > +For more information, see the kernel source file
+> > > > +.I Documentation/arm64/sve.rst
+> > > > +.\"commit b693d0b372afb39432e1c49ad7b3454855bc6bed
+> > > > +(or
+> > > > +.I Documentation/arm64/sve.txt
+> > > > +before Linux 5.3).
+> > > 
+> > > I think I'd drop the kernel reference here, as it feels like we're saying
+> > > "only do this if you know what you're doing" on one hand, but then "if you
+> > > don't know what you're doing, see this other documentation" on the other.
+> > 
+> > Well, the docmuentation doesn't answer those questions either.
+> > 
+> > I could just swap the warning and the cross-reference, so that the
+> > cross-reference doesn't seem to follow on from "knowing what you're
+> > doing"?
+> 
+> Ok.
+
+OK, I'll aim to do that then.
+
+Cheers
+---Dave
