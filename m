@@ -2,91 +2,114 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id ACBDA1F5AB8
-	for <lists+linux-man@lfdr.de>; Wed, 10 Jun 2020 19:42:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CFFD71F5DA5
+	for <lists+linux-man@lfdr.de>; Wed, 10 Jun 2020 23:19:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726809AbgFJRmP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 10 Jun 2020 13:42:15 -0400
-Received: from foss.arm.com ([217.140.110.172]:33814 "EHLO foss.arm.com"
+        id S1726159AbgFJVTZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 10 Jun 2020 17:19:25 -0400
+Received: from mail.kernel.org ([198.145.29.99]:58576 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726254AbgFJRmO (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 10 Jun 2020 13:42:14 -0400
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-        by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 008B91FB;
-        Wed, 10 Jun 2020 10:42:14 -0700 (PDT)
-Received: from gaia (unknown [172.31.20.19])
-        by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E487E3F6CF;
-        Wed, 10 Jun 2020 10:42:12 -0700 (PDT)
-Date:   Wed, 10 Jun 2020 18:42:05 +0100
-From:   Catalin Marinas <catalin.marinas@arm.com>
-To:     Dave Martin <Dave.Martin@arm.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org, linux-arch@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org,
-        Will Deacon <will@kernel.org>,
-        Vincenzo Frascino <vincenzo.frascino@arm.com>
-Subject: Re: [RFC PATCH v2 6/6] prctl.2: Add tagged address ABI control
- prctls (arm64)
-Message-ID: <20200610174205.GL26099@gaia>
-References: <1590614258-24728-1-git-send-email-Dave.Martin@arm.com>
- <1590614258-24728-7-git-send-email-Dave.Martin@arm.com>
- <20200609172232.GA63286@C02TF0J2HF1T.local>
- <20200610100641.GF25945@arm.com>
- <20200610152634.GJ26099@gaia>
- <20200610164209.GH25945@arm.com>
+        id S1726114AbgFJVTY (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 10 Jun 2020 17:19:24 -0400
+Received: from tleilax.poochiereds.net (68-20-15-154.lightspeed.rlghnc.sbcglobal.net [68.20.15.154])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by mail.kernel.org (Postfix) with ESMTPSA id 985B72072E;
+        Wed, 10 Jun 2020 21:19:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=default; t=1591823964;
+        bh=kKyDiU0/UB9Ct/ho+PM0wjzZ9KjHfNMjLQ0wPGw7GWg=;
+        h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+        b=K3A/3KYtsM442gkErVWP+R/oKC3+bEGFkDcxGE0Taod/Ze0sSh/kk9wGw8LPFdt83
+         VtTluqRNcgOYIqzQbIt4tzRs/dmQB2UC+QX5IifWsfiLdO2gXomYBut4GwPiy1+8Ht
+         BiwO5pGz0OPtA3UEDICp3f7Igysr3pE/+c6hZazE=
+Message-ID: <fe141babe698296f96fde39a8da85005506fd0f0.camel@kernel.org>
+Subject: Re: [PATCH][man-pages] sync.2: syncfs() now returns errors if
+ writeback fails
+From:   Jeff Layton <jlayton@kernel.org>
+To:     Eric Biggers <ebiggers@kernel.org>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Date:   Wed, 10 Jun 2020 17:19:22 -0400
+In-Reply-To: <20200610155013.GA1339@sol.localdomain>
+References: <20200610103347.14395-1-jlayton@kernel.org>
+         <20200610155013.GA1339@sol.localdomain>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.36.3 (3.36.3-1.fc32) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200610164209.GH25945@arm.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Jun 10, 2020 at 05:42:09PM +0100, Dave P Martin wrote:
-> On Wed, Jun 10, 2020 at 04:26:34PM +0100, Catalin Marinas wrote:
-> > On Wed, Jun 10, 2020 at 11:06:42AM +0100, Dave P Martin wrote:
-> > > On Tue, Jun 09, 2020 at 06:22:32PM +0100, Catalin Marinas wrote:
-> > > > On Wed, May 27, 2020 at 10:17:38PM +0100, Dave P Martin wrote:
-> > > > > +.IP
-> > > > > +The level of support is selected by
-> > > > > +.IR "(unsigned int) arg2" ,
-> > > > 
-> > > > We use (unsigned long) for arg2.
-> > > 
-> > > Hmmm, not quite sure how I came up with unsigned int here.  I'll just
-> > > drop this: the type in the prctl() prototype is unsigned long anyway.
-> > > 
-> > > The type is actually moot in this case, since the valid values all fit
-> > > in an unsigned int.
+On Wed, 2020-06-10 at 08:50 -0700, Eric Biggers wrote:
+> On Wed, Jun 10, 2020 at 06:33:47AM -0400, Jeff Layton wrote:
+> > A patch has been merged for v5.8 that changes how syncfs() reports
+> > errors. Change the sync() manpage accordingly.
 > > 
-> > Passing an int doesn't require that the top 32-bit of the long are
-> > zeroed (in case anyone writes the low-level SVC by hand).
+> > Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> > ---
+> >  man2/sync.2 | 24 +++++++++++++++++++++++-
+> >  1 file changed, 23 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/man2/sync.2 b/man2/sync.2
+> > index 7198f3311b05..27e04cff5845 100644
+> > --- a/man2/sync.2
+> > +++ b/man2/sync.2
+> > @@ -86,11 +86,26 @@ to indicate the error.
+> >  is always successful.
+> >  .PP
+> >  .BR syncfs ()
+> > -can fail for at least the following reason:
+> > +can fail for at least the following reasons:
+> >  .TP
+> >  .B EBADF
+> >  .I fd
+> >  is not a valid file descriptor.
+> > +.TP
+> > +.B EIO
+> > +An error occurred during synchronization.
+> > +This error may relate to data written to any file on the filesystem, or on
+> > +metadata related to the filesytem itself.
+> > +.TP
+> > +.B ENOSPC
+> > +Disk space was exhausted while synchronizing.
+> > +.TP
+> > +.BR ENOSPC ", " EDQUOT
+> > +Data was written to a files on NFS or another filesystem which does not
+> > +allocate space at the time of a
+> > +.BR write (2)
+> > +system call, and some previous write failed due to insufficient
+> > +storage space.
+> >  .SH VERSIONS
+> >  .BR syncfs ()
+> >  first appeared in Linux 2.6.39;
+> > @@ -121,6 +136,13 @@ or
+> >  .BR syncfs ()
+> >  provide the same guarantees as fsync called on every file in
+> >  the system or filesystem respectively.
+> > +.PP
+> > +In mainline kernel versions prior to 5.8,
+> > +.\" commit 735e4ae5ba28c886d249ad04d3c8cc097dad6336
+> > +.BR syncfs ()
+> > +will only fail with EBADF when passed a bad file descriptor. In 5.8
+> > +and later kernels, it will also report an error if one or more inodes failed
+> > +to be written back since the last syncfs call.
 > 
-> Fair point, I was forgetting that wrinkle.  Anyway, the convention in
-> this page seems to be that if the type is unsigned long, we don't
-> mention it, because the prctl() prototype says that already.
+> The sentence "In mainline kernel versions prior to 5.8, syncfs() will only fail
+> with EBADF when passed a bad file descriptor" is ambiguous.  It could mean that
+> EBADF can now mean other things too.
 > 
-> Question: the glibc prototype for prctl is variadic, so surely any
-> calls that don't explicitly cast the args to unsigned long are already
-> theoretically broken?  The #defines (and 0) are all implicitly int.
-> This probably affects lots of prctls.
+> Maybe write: "In mainline kernel versions prior to 5.8, syncfs() will only fail
+> when passed a bad file descriptor (EBADF)."
 > 
-> We may get away with it because the compiler is almost certainly going
-> to favour a mov over a ldr for getting small integers into regs, and mov
-> <Wd> fortunately zeroes the top bits for us anyway.
+> - Eric
 
-So does LDR Wd.
+Good point. Fixed in my tree using your verbiage. I'll send out a v2
+patch once I give others a chance to comment.
 
-Anyway, I think glibc (or my reading of it) has something like like:
-
-  register long _x1 asm ("x1") = _x1tmp;
-
-before invoking the SVC. I assume this would do the right conversion to
-long. I can't tell about other libraries but I'd say it's their
-responsibility to convert the args to long before calling the kernel's
-prctl().
-
+Thanks!
 -- 
-Catalin
+Jeff Layton <jlayton@kernel.org>
+
