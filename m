@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 694E31F5F98
-	for <lists+linux-man@lfdr.de>; Thu, 11 Jun 2020 03:42:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 646771F5F99
+	for <lists+linux-man@lfdr.de>; Thu, 11 Jun 2020 03:42:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726462AbgFKBmc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 10 Jun 2020 21:42:32 -0400
-Received: from mail.kernel.org ([198.145.29.99]:51340 "EHLO mail.kernel.org"
+        id S1726416AbgFKBmg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 10 Jun 2020 21:42:36 -0400
+Received: from mail.kernel.org ([198.145.29.99]:51414 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726268AbgFKBmc (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 10 Jun 2020 21:42:32 -0400
+        id S1726268AbgFKBmf (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 10 Jun 2020 21:42:35 -0400
 Received: from localhost.localdomain (c-73-231-172-41.hsd1.ca.comcast.net [73.231.172.41])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id 28CA02078D;
-        Thu, 11 Jun 2020 01:42:30 +0000 (UTC)
+        by mail.kernel.org (Postfix) with ESMTPSA id 2C73F207ED;
+        Thu, 11 Jun 2020 01:42:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1591839751;
-        bh=EljkInNLGMvn8sqEOhIvgvEadNNBohcUyaI6FD1kgZE=;
+        s=default; t=1591839755;
+        bh=gq1jMBSi1avmXNTz1ZIZKTdtMiKuWtdztxDiSEkmWW0=;
         h=Date:From:To:Subject:In-Reply-To:From;
-        b=LIq0fEA7SCIuFbScjnV89IgLtJRgIjp8jESzuS0m/3POTwT4f/tOqqWLzuJtaKKFA
-         PM3Oin1p9Xcvnw4x13iivhZPMJaPtaTa0fovtM73CH0EEgY9D9PPJSWNACSXNrv3q5
-         ewx4Ttrqgv0ZPzzGyCl8hv1PSqo/gDa+rOfwYMVc=
-Date:   Wed, 10 Jun 2020 18:42:29 -0700
+        b=TL6qTLAYqRKLk8PHOEiNWhDlpkxLefe/M/Ecb5KFwj6PAAV+0cV0xcilXN0hlsg+X
+         ldcvxYcX3twXJKOoQd5ybqymc8YPrYXCyRh0R7mQXFLtA+MmhGAhrDepYLPjGFP9Hj
+         NqML7TZsCgf4VZkLNy+mNsdXQjL/eOcnCSi5DxU4=
+Date:   Wed, 10 Jun 2020 18:42:33 -0700
 From:   Andrew Morton <akpm@linux-foundation.org>
 To:     akpm@linux-foundation.org, alexander.h.duyck@linux.intel.com,
         axboe@kernel.dk, bgeffon@google.com, christian.brauner@ubuntu.com,
@@ -35,9 +35,8 @@ To:     akpm@linux-foundation.org, alexander.h.duyck@linux.intel.com,
         shakeelb@google.com, sj38.park@gmail.com, sjpark@amazon.de,
         sonnyrao@google.com, sspatil@google.com, surenb@google.com,
         timmurray@google.com, torvalds@linux-foundation.org, vbabka@suse.cz
-Subject:  [patch 21/25] mm/madvise: support both pid and pidfd for
- process_madvise
-Message-ID: <20200611014229.aHtg-8rXi%akpm@linux-foundation.org>
+Subject:  [patch 22/25] mm/madvise: allow KSM hints for remote API
+Message-ID: <20200611014233.UbeuqJB9Y%akpm@linux-foundation.org>
 In-Reply-To: <20200610184053.3fa7368ab80e23bfd44de71f@linux-foundation.org>
 User-Agent: s-nail v14.8.16
 Sender: linux-man-owner@vger.kernel.org
@@ -45,132 +44,92 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Minchan Kim <minchan@kernel.org>
-Subject: mm/madvise: support both pid and pidfd for process_madvise
+From: Oleksandr Natalenko <oleksandr@redhat.com>
+Subject: mm/madvise: allow KSM hints for remote API
 
-There is a demand[1] to support pid as well pidfd for process_madvise
-to reduce unnecessary syscall to get pidfd if the user has control of
-the target process (ie, they could guarantee the process is not gone or
-pid is not reused).
+It all began with the fact that KSM works only on memory that is marked by
+madvise().  And the only way to get around that is to either:
 
-This patch aims for supporting both options like waitid(2).  So, the
-syscall is currently,
+  * use LD_PRELOAD; or
+  * patch the kernel with something like UKSM or PKSM.
 
-        int process_madvise(idtype_t idtype, id_t id, void *addr,
-                size_t length, int advice, unsigned long flags);
+(i skip ptrace can of worms here intentionally)
 
-@which is actually idtype_t for userspace library and currently, it
-supports P_PID and P_PIDFD.
+To overcome this restriction, lets employ a new remote madvise API.  This
+can be used by some small userspace helper daemon that will do auto-KSM
+job for us.
 
-[1]  https://lore.kernel.org/linux-mm/9d849087-3359-c4ab-fbec-859e8186c509@virtuozzo.com/
+I think of two major consumers of remote KSM hints:
 
-Link: http://lkml.kernel.org/r/20200302193630.68771-6-minchan@kernel.org
+  * hosts, that run containers, especially similar ones and especially in
+    a trusted environment, sharing the same runtime like Node.js;
+
+  * heavy applications, that can be run in multiple instances, not
+    limited to opensource ones like Firefox, but also those that cannot be
+    modified since they are binary-only and, maybe, statically linked.
+
+Speaking of statistics, more numbers can be found in the very first
+submission, that is related to this one [1].  For my current setup with
+two Firefox instances I get 100 to 200 MiB saved for the second instance
+depending on the amount of tabs.
+
+1 FF instance with 15 tabs:
+
+   $ echo "$(cat /sys/kernel/mm/ksm/pages_sharing) * 4 / 1024" | bc
+   410
+
+2 FF instances, second one has 12 tabs (all the tabs are different):
+
+   $ echo "$(cat /sys/kernel/mm/ksm/pages_sharing) * 4 / 1024" | bc
+   592
+
+At the very moment I do not have specific numbers for containerised
+workload, but those should be comparable in case the containers share
+similar/same runtime.
+
+[1] https://lore.kernel.org/patchwork/patch/1012142/
+
+Link: http://lkml.kernel.org/r/20200302193630.68771-8-minchan@kernel.org
+Signed-off-by: Oleksandr Natalenko <oleksandr@redhat.com>
 Signed-off-by: Minchan Kim <minchan@kernel.org>
-Suggested-by: Kirill Tkhai <ktkhai@virtuozzo.com>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Reviewed-by: Vlastimil Babka <vbabka@suse.cz>
-Cc: Christian Brauner <christian@brauner.io>
+Reviewed-by: SeongJae Park <sjpark@amazon.de>
 Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
 Cc: Brian Geffon <bgeffon@google.com>
+Cc: Christian Brauner <christian@brauner.io>
 Cc: Daniel Colascione <dancol@google.com>
 Cc: Jann Horn <jannh@google.com>
 Cc: Jens Axboe <axboe@kernel.dk>
 Cc: Joel Fernandes <joel@joelfernandes.org>
 Cc: Johannes Weiner <hannes@cmpxchg.org>
 Cc: John Dias <joaodias@google.com>
+Cc: Kirill Tkhai <ktkhai@virtuozzo.com>
 Cc: Michal Hocko <mhocko@suse.com>
-Cc: Oleksandr Natalenko <oleksandr@redhat.com>
 Cc: Sandeep Patil <sspatil@google.com>
 Cc: SeongJae Park <sj38.park@gmail.com>
-Cc: SeongJae Park <sjpark@amazon.de>
 Cc: Shakeel Butt <shakeelb@google.com>
 Cc: Sonny Rao <sonnyrao@google.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
 Cc: Tim Murray <timmurray@google.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>
 Cc: Christian Brauner <christian.brauner@ubuntu.com>
 Cc: <linux-man@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- include/linux/syscalls.h |    3 ++-
- mm/madvise.c             |   36 +++++++++++++++++++++++-------------
- 2 files changed, 25 insertions(+), 14 deletions(-)
+ mm/madvise.c |    4 ++++
+ 1 file changed, 4 insertions(+)
 
---- a/include/linux/syscalls.h~mm-support-both-pid-and-pidfd-for-process_madvise
-+++ a/include/linux/syscalls.h
-@@ -878,7 +878,8 @@ asmlinkage long sys_munlockall(void);
- asmlinkage long sys_mincore(unsigned long start, size_t len,
- 				unsigned char __user * vec);
- asmlinkage long sys_madvise(unsigned long start, size_t len, int behavior);
--asmlinkage long sys_process_madvise(int pidfd, unsigned long start,
-+
-+asmlinkage long sys_process_madvise(int which, pid_t pid, unsigned long start,
- 			size_t len, int behavior, unsigned long flags);
- asmlinkage long sys_remap_file_pages(unsigned long start, unsigned long size,
- 			unsigned long prot, unsigned long pgoff,
---- a/mm/madvise.c~mm-support-both-pid-and-pidfd-for-process_madvise
+--- a/mm/madvise.c~mm-madvise-allow-ksm-hints-for-remote-api
 +++ a/mm/madvise.c
-@@ -1208,11 +1208,10 @@ SYSCALL_DEFINE3(madvise, unsigned long,
- 	return do_madvise(current, current->mm, start, len_in, behavior);
- }
- 
--SYSCALL_DEFINE5(process_madvise, int, pidfd, unsigned long, start,
-+SYSCALL_DEFINE6(process_madvise, int, which, pid_t, upid, unsigned long, start,
- 		size_t, len_in, int, behavior, unsigned long, flags)
- {
- 	int ret;
--	struct fd f;
- 	struct pid *pid;
- 	struct task_struct *task;
- 	struct mm_struct *mm;
-@@ -1223,20 +1222,31 @@ SYSCALL_DEFINE5(process_madvise, int, pi
- 	if (!process_madvise_behavior_valid(behavior))
- 		return -EINVAL;
- 
--	f = fdget(pidfd);
--	if (!f.file)
--		return -EBADF;
--
--	pid = pidfd_pid(f.file);
--	if (IS_ERR(pid)) {
--		ret = PTR_ERR(pid);
--		goto fdput;
-+	switch (which) {
-+	case P_PID:
-+		if (upid <= 0)
-+			return -EINVAL;
-+
-+		pid = find_get_pid(upid);
-+		if (!pid)
-+			return -ESRCH;
-+		break;
-+	case P_PIDFD:
-+		if (upid < 0)
-+			return -EINVAL;
-+
-+		pid = pidfd_get_pid(upid);
-+		if (IS_ERR(pid))
-+			return PTR_ERR(pid);
-+		break;
-+	default:
-+		return -EINVAL;
- 	}
- 
- 	task = get_pid_task(pid, PIDTYPE_PID);
- 	if (!task) {
- 		ret = -ESRCH;
--		goto fdput;
-+		goto put_pid;
- 	}
- 
- 	mm = mm_access(task, PTRACE_MODE_ATTACH_FSCREDS);
-@@ -1249,7 +1259,7 @@ SYSCALL_DEFINE5(process_madvise, int, pi
- 	mmput(mm);
- release_task:
- 	put_task_struct(task);
--fdput:
--	fdput(f);
-+put_pid:
-+	put_pid(pid);
- 	return ret;
- }
+@@ -1014,6 +1014,10 @@ process_madvise_behavior_valid(int behav
+ 	switch (behavior) {
+ 	case MADV_COLD:
+ 	case MADV_PAGEOUT:
++#ifdef CONFIG_KSM
++	case MADV_MERGEABLE:
++	case MADV_UNMERGEABLE:
++#endif
+ 		return true;
+ 	default:
+ 		return false;
 _
