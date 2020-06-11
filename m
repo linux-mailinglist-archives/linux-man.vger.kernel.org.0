@@ -2,147 +2,144 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6489C1F6145
-	for <lists+linux-man@lfdr.de>; Thu, 11 Jun 2020 07:26:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3E0471F6F0A
+	for <lists+linux-man@lfdr.de>; Thu, 11 Jun 2020 22:53:20 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726473AbgFKF0S (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 11 Jun 2020 01:26:18 -0400
-Received: from mail.kernel.org ([198.145.29.99]:48226 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726445AbgFKF0S (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 11 Jun 2020 01:26:18 -0400
-Received: from localhost.localdomain (c-73-231-172-41.hsd1.ca.comcast.net [73.231.172.41])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id D262B20814;
-        Thu, 11 Jun 2020 05:26:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1591853177;
-        bh=co1Z+JR1q55cII5ea/ze8rJGvtBAHJC4FKXuUUQ2je8=;
-        h=Date:From:To:Subject:In-Reply-To:From;
-        b=eP/A6VKnOmAqP8n3iBxo9KmfeOs/yTYwbc5FDuGBTSpc7w28bCayr5ETgWESwhKFe
-         NSVpkVmwZJHNLopFU1aak5q4E8Bx2gi6SvKHHUOglCt1gu/Yr/vH2t+XEieALPh9Lj
-         dscGg/BFlImtU9BTwFKI+c3SwXrFPYIdw7zez4FU=
-Date:   Wed, 10 Jun 2020 22:26:16 -0700
-From:   Andrew Morton <akpm@linux-foundation.org>
-To:     alexander.h.duyck@linux.intel.com, axboe@kernel.dk,
-        bgeffon@google.com, christian.brauner@ubuntu.com,
-        christian@brauner.io, dancol@google.com, hannes@cmpxchg.org,
-        jannh@google.com, joaodias@google.com, joel@joelfernandes.org,
-        ktkhai@virtuozzo.com, linux-man@vger.kernel.org, mhocko@suse.com,
-        minchan@kernel.org, mm-commits@vger.kernel.org,
-        oleksandr@redhat.com, shakeelb@google.com, sj38.park@gmail.com,
-        sjpark@amazon.de, sonnyrao@google.com, sspatil@google.com,
-        surenb@google.com, timmurray@google.com, vbabka@suse.cz
-Subject:  [to-be-updated]
- mm-madvise-allow-ksm-hints-for-remote-api.patch removed from -mm tree
-Message-ID: <20200611052616.EK9KeDxsR%akpm@linux-foundation.org>
-In-Reply-To: <20200610184053.3fa7368ab80e23bfd44de71f@linux-foundation.org>
-User-Agent: s-nail v14.8.16
+        id S1726251AbgFKUxT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 11 Jun 2020 16:53:19 -0400
+Received: from us-smtp-1.mimecast.com ([207.211.31.81]:48865 "EHLO
+        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1726180AbgFKUxS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 11 Jun 2020 16:53:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1591908796;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=gwVlHEWxzrDeDBm9P98R8eQ7FF2oFMGcUD7oanNOe1A=;
+        b=Dbpman70nKPs+OSTb96vSDxa16pX22ccYS16zJdJS2pAJpBOeFFayjzkXDBfL44eAcQxPW
+        yyBwNBxbLk6zVXUbp6CXbTQ26V/gEMsqpUCnY8s4i7Hk0EAoXpWGH/OujGQiQNl/ThPTeI
+        1ITdD1tm9dARL1swnfdZcCC6nml7FLM=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-329-eLa29M7YPuqeu_Kxck1ZeQ-1; Thu, 11 Jun 2020 16:53:13 -0400
+X-MC-Unique: eLa29M7YPuqeu_Kxck1ZeQ-1
+Received: by mail-qk1-f200.google.com with SMTP id 205so6198127qkh.5
+        for <linux-man@vger.kernel.org>; Thu, 11 Jun 2020 13:53:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:organization
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding;
+        bh=gwVlHEWxzrDeDBm9P98R8eQ7FF2oFMGcUD7oanNOe1A=;
+        b=Oi2sofzOzadWg89BeFVJOErnHmL2fX9vVJt8WpuB16ijEOFY1NEKyKLeFl79qfc+xp
+         ZdER816MFP+U88bZCGr8pBG4bh0fR3XLhmZZBVe29f+W6qi5p9x6oGQ+myAcy5XoK4z5
+         q7KuFTWOadfUMo6XMw29L7URw9znr/nH1ikzlgt/OW54iGXPRm5lvjrbgWqjvgm9HMnW
+         XCEGi6ITUxN2+MikxzJXdkPHq8QluXsRw3UGW39zK1Rfz2CIO8p10HLUV2rnoEP7DiVb
+         wFWio4oyV4Kx8Iu4t4FtjPp0JgLGoj4Z3VuJR4VD9n4Oz3XSNPi4lS6SExL60UCfJLYZ
+         qztw==
+X-Gm-Message-State: AOAM532xEUDjzZ4kCwokP1xGLUWj/aNa6hxlfXhXlooudXvvCbTe0SVk
+        G6EHkaIzRkZ4Oawx+M0hLT+v7devQsEB9RgHLksuLpaTdj2bZ0dd+VgRIArNayXrxCMJc8war0a
+        8CxArYtb8DIZD4FCLEo83
+X-Received: by 2002:ac8:5648:: with SMTP id 8mr10422731qtt.280.1591908792217;
+        Thu, 11 Jun 2020 13:53:12 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJza+kNYIO/d626VrcYpo81PDlKcS5VULZDmUV3LY2ukVz/xw86b6qtIt3eTLJjDddwwMfSyDA==
+X-Received: by 2002:ac8:5648:: with SMTP id 8mr10422713qtt.280.1591908791984;
+        Thu, 11 Jun 2020 13:53:11 -0700 (PDT)
+Received: from [192.168.1.4] (198-84-170-103.cpe.teksavvy.com. [198.84.170.103])
+        by smtp.gmail.com with ESMTPSA id r77sm2888984qke.6.2020.06.11.13.53.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 11 Jun 2020 13:53:10 -0700 (PDT)
+Subject: Re: [PATCH v2] ld.so.8: Update "Hardware capabilities" section for
+ glibc 2.31.
+To:     mtk.manpages@gmail.com, Florian Weimer <fweimer@redhat.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+References: <57abae5e-2394-0542-9e21-10c0bb837078@redhat.com>
+ <87pnaoe70h.fsf@oldenburg2.str.redhat.com>
+ <14751c26-4c4d-24c1-df12-429931b61780@redhat.com>
+ <87r1uy3sgb.fsf@oldenburg2.str.redhat.com>
+ <CAKgNAkjB3-LvJaTQ5cHyc-cduD6Yr0_dBrSmN_bih+YOzuBCww@mail.gmail.com>
+From:   Carlos O'Donell <carlos@redhat.com>
+Organization: Red Hat
+Message-ID: <84511dbb-2c38-b928-3155-1027a6078a96@redhat.com>
+Date:   Thu, 11 Jun 2020 16:53:09 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <CAKgNAkjB3-LvJaTQ5cHyc-cduD6Yr0_dBrSmN_bih+YOzuBCww@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On 6/10/20 2:00 AM, Michael Kerrisk (man-pages) wrote:
+> Hi Carlos,
+> 
+> What's the status of this patch?
 
-The patch titled
-     Subject: mm/madvise: allow KSM hints for remote API
-has been removed from the -mm tree.  Its filename was
-     mm-madvise-allow-ksm-hints-for-remote-api.patch
+I'm currently rewriting the language of the section to split apart the
+AT_PLATFORM and AT_HWCAP parts.
 
-This patch was dropped because an updated version will be merged
+They each behave differently. AT_PLATFORM is a non-nested singular platform
+directory that is searched with no fallback, and that needs to clarified
+and called out. While AT_HWCAP is drastically different in behaviour.
 
-------------------------------------------------------
-From: Oleksandr Natalenko <oleksandr@redhat.com>
-Subject: mm/madvise: allow KSM hints for remote API
+When done we'll have two lists, and two explanations for the search paths
+and their orders.
 
-It all began with the fact that KSM works only on memory that is marked by
-madvise().  And the only way to get around that is to either:
+I'm doing this as part of the upstream review of this infrasturcture
+because we're going to change the behaviour in an upcoming release. With
+the changes in place we'll have a good place to say "... and now it's different."
 
-  * use LD_PRELOAD; or
-  * patch the kernel with something like UKSM or PKSM.
+In summary: Still working on it. Expect v3.
 
-(i skip ptrace can of worms here intentionally)
+> On Tue, 2 Jun 2020 at 08:14, Florian Weimer <fweimer@redhat.com> wrote:
+>>
+>> * Carlos O'Donell:
+>>
+>>> +Care should be taken when packaging such application with a package manager,
+>>> +particularly the scenario where an optimized library is being removed.  With
+>>> +certain package managers, particularly rpm, the newer version of the
+>>
+>> Twice “particularly”.
+>>
+>>> +application is installed first, which means that for a period of time during
+>>> +the upgrade all applications that use the library may start with a mixed set of
+>>> +libraries e.g.  the old library from the feature-based search path, and new
+>>
+>> Commas arount e.g.?
+>>
+>>> +libraries from the upgrade. To avoid this scenario the new library version
+>>> +should delete all known optimized libraries in the post-install phase.
+>>
+>> There is a different mechanism: Debian has patched glibc to disable
+>> hwcap subdirectors if the file /etc/ld.so.nohwcap exists.
+>>
+>> You now list the AT_PLATFORM directories (determined by the kernel on
+>> most architectures) along the regular hwcaps directories, although they
+>> are handled somewhat differently.  For example, on s390x, if you have a
+>> “z15” machine (as indicated by AT_PLATFORM), the “z13” subdirectory is
+>> not selected.  ldconfig will add it to the cache, but it will not be
+>> used at run time.  I'm not sure if your proposed description gives
+>> readers the right idea what happens.
+>>
+>> Thanks,
+>> Florian
+>>
+> 
+> 
+> --
+> Michael Kerrisk
+> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+> Linux/UNIX System Programming Training: http://man7.org/training/
+> 
 
-To overcome this restriction, lets employ a new remote madvise API.  This
-can be used by some small userspace helper daemon that will do auto-KSM
-job for us.
 
-I think of two major consumers of remote KSM hints:
-
-  * hosts, that run containers, especially similar ones and especially in
-    a trusted environment, sharing the same runtime like Node.js;
-
-  * heavy applications, that can be run in multiple instances, not
-    limited to opensource ones like Firefox, but also those that cannot be
-    modified since they are binary-only and, maybe, statically linked.
-
-Speaking of statistics, more numbers can be found in the very first
-submission, that is related to this one [1].  For my current setup with
-two Firefox instances I get 100 to 200 MiB saved for the second instance
-depending on the amount of tabs.
-
-1 FF instance with 15 tabs:
-
-   $ echo "$(cat /sys/kernel/mm/ksm/pages_sharing) * 4 / 1024" | bc
-   410
-
-2 FF instances, second one has 12 tabs (all the tabs are different):
-
-   $ echo "$(cat /sys/kernel/mm/ksm/pages_sharing) * 4 / 1024" | bc
-   592
-
-At the very moment I do not have specific numbers for containerised
-workload, but those should be comparable in case the containers share
-similar/same runtime.
-
-[1] https://lore.kernel.org/patchwork/patch/1012142/
-
-Link: http://lkml.kernel.org/r/20200302193630.68771-8-minchan@kernel.org
-Signed-off-by: Oleksandr Natalenko <oleksandr@redhat.com>
-Signed-off-by: Minchan Kim <minchan@kernel.org>
-Reviewed-by: SeongJae Park <sjpark@amazon.de>
-Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
-Cc: Brian Geffon <bgeffon@google.com>
-Cc: Christian Brauner <christian@brauner.io>
-Cc: Daniel Colascione <dancol@google.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Joel Fernandes <joel@joelfernandes.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: John Dias <joaodias@google.com>
-Cc: Kirill Tkhai <ktkhai@virtuozzo.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Sandeep Patil <sspatil@google.com>
-Cc: SeongJae Park <sj38.park@gmail.com>
-Cc: Shakeel Butt <shakeelb@google.com>
-Cc: Sonny Rao <sonnyrao@google.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Tim Murray <timmurray@google.com>
-Cc: Vlastimil Babka <vbabka@suse.cz>
-Cc: Christian Brauner <christian.brauner@ubuntu.com>
-Cc: <linux-man@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/madvise.c |    4 ++++
- 1 file changed, 4 insertions(+)
-
---- a/mm/madvise.c~mm-madvise-allow-ksm-hints-for-remote-api
-+++ a/mm/madvise.c
-@@ -1014,6 +1014,10 @@ process_madvise_behavior_valid(int behav
- 	switch (behavior) {
- 	case MADV_COLD:
- 	case MADV_PAGEOUT:
-+#ifdef CONFIG_KSM
-+	case MADV_MERGEABLE:
-+	case MADV_UNMERGEABLE:
-+#endif
- 		return true;
- 	default:
- 		return false;
-_
-
-Patches currently in -mm which might be from oleksandr@redhat.com are
-
+-- 
+Cheers,
+Carlos.
 
