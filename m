@@ -2,156 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 118191F7DF9
-	for <lists+linux-man@lfdr.de>; Fri, 12 Jun 2020 22:08:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0B9861F8327
+	for <lists+linux-man@lfdr.de>; Sat, 13 Jun 2020 14:01:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726310AbgFLUId (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 12 Jun 2020 16:08:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51786 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726283AbgFLUIc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 12 Jun 2020 16:08:32 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BA637C03E96F
-        for <linux-man@vger.kernel.org>; Fri, 12 Jun 2020 13:08:32 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id e1so11155727wrt.5
-        for <linux-man@vger.kernel.org>; Fri, 12 Jun 2020 13:08:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=w3YwGske1UTiios0XkJzMmupYxjHXIWNj37tCOwkYZo=;
-        b=MYJ6d4P4leg49jxFl7OUAF3CYSZoFzkW2n2h/XDW9oL4t8++iHzww0s8VbN6B0PgkH
-         OknkOWRVZQTwwXMjbELhs+Clv3tiO4I1UMMycFQ6/RNHRzb7GeN00rJ1mL8xjqDMsk1/
-         e+Of8KOqleMZrFuqLCG42VTm4t5jMESLqrPtrIZDj39wQUrzRfDAkxBjbdT1DZ/4lP+Z
-         zw5JIan7ao+jQewOu7P3J37KfkEY1rRRg9Gi4t4xaF6JT1Rxb8QfXoMyS+Jw1yAawJzD
-         HZWNN2OrA8AdTUYVL5RroSAs001bJE1zf0X9xXBQNsw7WWfGYba42oscxXqIvsHl3sLV
-         AMhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=w3YwGske1UTiios0XkJzMmupYxjHXIWNj37tCOwkYZo=;
-        b=WSpDbd1gZWncLKMWTRLOon/ARoHYX5x8aC7ilA1hLPh4m7+wkqPCT7IrhvDLuY+9zB
-         awk3QzOHpaV90f3h9GDxZwzLBs5+l1AxS7h3qUYICmoWalxTyyNuXF1TRh2O4bh4uMwY
-         PZCpNd4Gnu18LiwsLgqpk4yVH4EQvr9N/pbuUKtLU+lsAcVZAee8M/Y/POS86nzYe8GK
-         TMLgdB7CVZwgahUNQ0aBpHlAPtTdHSRHJ5wuUqG7/tDY6K/mp0kPq95+3uZlVcIvQUVK
-         xsJlT8hNyIS+oRTwrp8e2xu+QDrPnKKolbRhdknnlfivtZxH1/GDLuhPJHBGUGnAGu9v
-         YxzQ==
-X-Gm-Message-State: AOAM532/A8TAUw7R1G74v3PiHnBAlcQh8xbM0ghlB3rfWl5L1FdSImbd
-        IXPjTikcFCu8GOsfKJ+SMtk=
-X-Google-Smtp-Source: ABdhPJwJhZmbycwsgq+tQSS9QuIttUnbd5m/dgSOnfNS6qCOosVA7aRe/vH53tHJbHoZPM1SD1H7ww==
-X-Received: by 2002:adf:e908:: with SMTP id f8mr16514362wrm.184.1591992511435;
-        Fri, 12 Jun 2020 13:08:31 -0700 (PDT)
-Received: from ?IPv6:2001:a61:253c:8201:b2fb:3ef8:ca:1604? ([2001:a61:253c:8201:b2fb:3ef8:ca:1604])
-        by smtp.gmail.com with ESMTPSA id v27sm12553641wrv.81.2020.06.12.13.08.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 12 Jun 2020 13:08:30 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com
-Subject: Re: connect.2: can return EACCES because of SELinux
-To:     Stefan Puiu <stefan.puiu@gmail.com>,
-        lnx-man <linux-man@vger.kernel.org>
-References: <CACKs7VBdc4_gU=oVz82soZCuukgQzD4V33VcJ81cL7gimRto-Q@mail.gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <089aeecf-fed4-659b-5b5e-335100b3748b@gmail.com>
-Date:   Fri, 12 Jun 2020 22:08:29 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+        id S1726100AbgFMMBK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 13 Jun 2020 08:01:10 -0400
+Received: from us-smtp-1.mimecast.com ([205.139.110.61]:54340 "EHLO
+        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1726030AbgFMMBJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 13 Jun 2020 08:01:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1592049668;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=0otap4uEP4pLT7wy8CZPviRWo82/qmSeO+vlchp1bC8=;
+        b=fc0rCfAPhYab8cMIzaJBjsujzloXod7aliA0n7u16BzXIBgxtQn+tEn6rnYQJAVV/3S0NB
+        p5YfSGTjdk2MS9MNNoipJX9fXq+W70r2suvPEHq0ciLgCWnBtRartJrPBw1adRvhUVybwf
+        XpM3UOASfkj1LXbxdkwLiSwyviQDa+I=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-440-70701-_2OZCfDrVMOV7Xwg-1; Sat, 13 Jun 2020 08:01:04 -0400
+X-MC-Unique: 70701-_2OZCfDrVMOV7Xwg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B6421BFC1;
+        Sat, 13 Jun 2020 12:01:03 +0000 (UTC)
+Received: from oldenburg2.str.redhat.com (ovpn-112-41.ams2.redhat.com [10.36.112.41])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 015625D9C5;
+        Sat, 13 Jun 2020 12:00:59 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
+To:     Carlos O'Donell <carlos@redhat.com>
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
+Subject: Re: [PATCH v2] ld.so.8: Update "Hardware capabilities" section for glibc 2.31.
+References: <57abae5e-2394-0542-9e21-10c0bb837078@redhat.com>
+        <87pnaoe70h.fsf@oldenburg2.str.redhat.com>
+        <14751c26-4c4d-24c1-df12-429931b61780@redhat.com>
+        <87r1uy3sgb.fsf@oldenburg2.str.redhat.com>
+        <CAKgNAkjB3-LvJaTQ5cHyc-cduD6Yr0_dBrSmN_bih+YOzuBCww@mail.gmail.com>
+        <84511dbb-2c38-b928-3155-1027a6078a96@redhat.com>
+Date:   Sat, 13 Jun 2020 14:00:58 +0200
+In-Reply-To: <84511dbb-2c38-b928-3155-1027a6078a96@redhat.com> (Carlos
+        O'Donell's message of "Thu, 11 Jun 2020 16:53:09 -0400")
+Message-ID: <87ftaz41l1.fsf@oldenburg2.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
 MIME-Version: 1.0
-In-Reply-To: <CACKs7VBdc4_gU=oVz82soZCuukgQzD4V33VcJ81cL7gimRto-Q@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Stefan,,
+* Carlos O'Donell:
 
-On 5/29/20 9:11 AM, Stefan Puiu wrote:
-> Hi Michael,
-> 
-> Hope you are well with the lockdown and all.
-> 
-> Recently I had to troubleshoot a problem where a connect() call was
-> returning EACCES:
-> 
-> 17648 socket(AF_INET, SOCK_STREAM, IPPROTO_IP) = 37
-> 17648 connect(37, {sa_family=AF_INET, sin_port=htons(8081),
-> sin_addr=inet_addr("10.12.1.201")}, 16) = -1 EACCES (Permission
-> denied)
-> 
-> I've traced this to SELinux policy denying the connection. This is on
-> a Fedora 23 VM:
-> 
-> $ cat /etc/redhat-release
-> Fedora release 23 (Twenty Three)
-> $ uname -a
-> Linux mako-fedora-01 4.8.13-100.fc23.x86_64 #1 SMP Fri Dec 9 14:51:40
-> UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-> 
-> The manpage says this can happen when connecting to a broadcast
-> address, or when a local firewall rule blocks the connection. However,
-> the address above is unicast, and using 'wget' from another account to
-> access the URL works fine.
-> 
-> The context is that we're building an OS image, and this involves
-> downloading RPMs through a proxy. The proxy (polipo) is labelled by
-> SELinux, and I guess there is some sort of policy that says "proxy can
-> only connect to HTTP ports". When trying to connect to a server
-> listening on a port that is not labeled as an HTTP server port, I
-> guess SELinux steps in. With 'setenforce 0', the build works fine. In
-> the kernel sources I see connect() calls security_socket_connect()
-> (see https://elixir.bootlin.com/linux/latest/source/net/socket.c#L1855),
-> which calls whatever security hooks are registered. I see the SELinux
-> hook getting registered at
-> https://elixir.bootlin.com/linux/latest/source/security/selinux/hooks.c#L7047,
-> and setting a perf probe on the call proves that the
-> selinux_socket_connect function gets called (while tcp_v4_connect() is
-> not).
-> 
-> How about adding this to the manpage?
+> On 6/10/20 2:00 AM, Michael Kerrisk (man-pages) wrote:
+>> Hi Carlos,
+>> 
+>> What's the status of this patch?
+>
+> I'm currently rewriting the language of the section to split apart the
+> AT_PLATFORM and AT_HWCAP parts.
+>
+> They each behave differently. AT_PLATFORM is a non-nested singular platform
+> directory that is searched with no fallback, and that needs to clarified
+> and called out. While AT_HWCAP is drastically different in behaviour.
 
-I thought I replied to this message, but it looks like I did not.
-As you may already have realized, I applied this patch. Thanks
-for sending it.
+I think AT_PLATFORM behaves like any of the AT_HWCAP directories, except
+that the name is determined by information from the kernel.
 
-Cheers,
+Thanks,
+Florian
 
-Michael
-
-> 
-> diff --git a/man2/connect.2 b/man2/connect.2
-> index 125ca33ef..9763739c7 100644
-> --- a/man2/connect.2
-> +++ b/man2/connect.2
-> @@ -155,6 +155,13 @@ in the path prefix.
->  The user tried to connect to a broadcast address without having the socket
->  broadcast flag enabled or the connection request failed because of a local
->  firewall rule.
-> +
-> +.B EACCES
-> +can also be returned if a SELinux policy denied a connection (for
-> +example, if there is a policy saying that an HTTP proxy can only
-> +connect to ports associated with HTTP servers, and the proxy tries to
-> +connect to a different port).
-> +
->  .TP
->  .B EADDRINUSE
->  Local address is already in use.
-> @@ -297,4 +304,5 @@ is shown in
->  .BR getsockname (2),
->  .BR listen (2),
->  .BR socket (2),
-> -.BR path_resolution (7)
-> +.BR path_resolution (7),
-> +.BR selinux (8)
-> 
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
