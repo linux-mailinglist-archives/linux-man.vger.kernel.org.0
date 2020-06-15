@@ -2,82 +2,80 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9B8151F85EA
-	for <lists+linux-man@lfdr.de>; Sun, 14 Jun 2020 01:34:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EB00A1F8D57
+	for <lists+linux-man@lfdr.de>; Mon, 15 Jun 2020 07:43:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726820AbgFMXeN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 13 Jun 2020 19:34:13 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48136 "EHLO
+        id S1726440AbgFOFm6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 15 Jun 2020 01:42:58 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41364 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726812AbgFMXeM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 13 Jun 2020 19:34:12 -0400
-Received: from mail-ua1-x944.google.com (mail-ua1-x944.google.com [IPv6:2607:f8b0:4864:20::944])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C51E3C08C5C2
-        for <linux-man@vger.kernel.org>; Sat, 13 Jun 2020 16:34:11 -0700 (PDT)
-Received: by mail-ua1-x944.google.com with SMTP id z47so4451759uad.5
-        for <linux-man@vger.kernel.org>; Sat, 13 Jun 2020 16:34:11 -0700 (PDT)
+        with ESMTP id S1725648AbgFOFm6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 15 Jun 2020 01:42:58 -0400
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com [IPv6:2607:f8b0:4864:20::52e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4D3C2C061A0E
+        for <linux-man@vger.kernel.org>; Sun, 14 Jun 2020 22:42:58 -0700 (PDT)
+Received: by mail-pg1-x52e.google.com with SMTP id h10so3400748pgq.10
+        for <linux-man@vger.kernel.org>; Sun, 14 Jun 2020 22:42:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=Jfkt21qi51Oe1qrMFTj04izu3a2tcNqhS64qzySR/1Y=;
-        b=C6DeD2BQrF0SNzwEKhhMZ4TR4Ti/TXO0uA+U1KlTFAM9tkWweoHLUj8BGsLPb1sdon
-         cbH9jiJCqhefSL9sdjIa6Y9Sa8y6XvsMeeyPJRyKY68+NJoa+KeBhkJzstIU+tsOIwHx
-         WRbAlaHszkP3MdSlN0r0cOFjHASWZWqCZcpmJYQ6zA9sAMDBIXPe+a/QsAQ9JG2xBDTP
-         lnuaRQo+Fb9ssughTJ63PvYk1chFbHxenPodGRae2AsdJL4I9/lOYNVGHQlW0hhFXAAU
-         Eh7bxisD1BcJsRCfAsgMA25MwtkW07HoBAmP/o+LDmAOcsbJ2nHEQz+ZjJQIfZzHTQfs
-         0DLA==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=oCmocoWTtWXRQ2cxihMauwC9ep2CSy/lTK3BYn7oRCI=;
+        b=bMB7XyVN2bijomDKOSQFSlwKcww2on9m/7XxzRKFeIGXpi4a78HFOFxsOpykXe7FQS
+         CFJFyQKtNQigQP88BYMBbshEJ7MwjRwTobBV57D0mU9UqJXF9A1TPbx7OT16S/9G3+RQ
+         LUOnEMg6OVyCiYdWT31yLoEDsofaWt6ivw+e09SAwhGvaQ5CKH3W+eIvlCBJxa1y2Q1/
+         86Ox14FLvmHCyDYdzHvXiOxz/YHMmcsuXr1XixkMRdho7dujQ1iScG7tRPBsnyPl3ix/
+         fedwefXdj/WG6Mpnwby4IBQ5pddJq6kw//o7AGrqg06TBGlL/XgisICtntw1ieIeE40I
+         HyVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=Jfkt21qi51Oe1qrMFTj04izu3a2tcNqhS64qzySR/1Y=;
-        b=fBoac/M6pC++033pNF++r/1KkVlIybkCg0j1e3DQSeaBe7c4AOQJzK084qPXS6iRCe
-         luh/TdvkAwWZ4fF2USKXzr8fPMyquxcYFE5hELvCkfpZ7/HX9HB8GlmzUDrVGnpfl8TL
-         fpvkVEUGJ7jGXvc6Ct7L4siOSj4rYb1Nxh1BNHwNQi7BYrxDop/tYbHvpMxSkYYvYHmK
-         JmFhBzMdaBCsJhlkVw9Wc1XtGnbGTs2JKTqF2IY53o2uGo1svZ1/s50NzAzc3UNkJFP5
-         dxMM2iCj9VW/VlQBTgzKbAlOKuw3IwS3MyM0iyeO8FYCkzCo8pq3qu2Xx+SKozbc8tCI
-         wyKA==
-X-Gm-Message-State: AOAM533A4vSR6lz8Pqk3Mzntcj+EKNcx8UCFxo3nsLPyBgZ7Cq3k0dD7
-        RV4CjPSTQYJnsNFVZJuKgNbqYvDUtFdUIv965gE=
-X-Google-Smtp-Source: ABdhPJx0Z0Dz9NRAriPLswZG3zPjTym+HbukBkSveBNEng6cBcj2yNFdEFkDl1xVaVzvtuhbKDIHY65/I+mQn8wy1qU=
-X-Received: by 2002:ab0:1609:: with SMTP id k9mr15419758uae.3.1592091249557;
- Sat, 13 Jun 2020 16:34:09 -0700 (PDT)
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=oCmocoWTtWXRQ2cxihMauwC9ep2CSy/lTK3BYn7oRCI=;
+        b=bL/6KT5FQ5k9fO20s56DNn/6NU/a9f43CMh7JKQhbCvIWI/R8q2P7iFy02Al/lszyq
+         fuw8IKhCY4m6Mgjn0Otl6LKis1Q2rvt3qHvpwqcn+Ya4o1XarXaxb42oBsNDen2s0/0p
+         trUbGePBGVhnFmXbuz844cZ+TNZYwwwz7UNCR+nH4mAIbuhgp2uzkL3otRI4afLOY7IL
+         CscM+/vzmvZMp7/FzNlLMvSFv2wVV4X5j53miCD/Lmdw91Y8+iu8Uku6JLodkEslqI/l
+         93A2gkFsXQmmOE2SsHlzW8lGgNO8sBTkkcbrf07LsiWGH4dDcaJa5HECWK1aNM9GKr3U
+         UFfA==
+X-Gm-Message-State: AOAM533qvUkBTGGH6SKoos8TX68DNReOl/bLctXM4r8d1Gn1lcgTxaHx
+        xJ0u9nmo9pSHx3dciaOfHCQzchG2BLZCsrXza/Y=
+X-Google-Smtp-Source: ABdhPJwUDLBXXabpVQKX7TD2D7cHK5YNMCP0PqZ9bJ5ghYhxNhDdnYopHzVJSVKjsqwMn31n/2AIkyZQT2W6S5RORmQ=
+X-Received: by 2002:a63:455c:: with SMTP id u28mr11029910pgk.374.1592199776990;
+ Sun, 14 Jun 2020 22:42:56 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a67:b309:0:0:0:0:0 with HTTP; Sat, 13 Jun 2020 16:34:09
- -0700 (PDT)
-Reply-To: cfolimited1@gmail.com
-From:   CFO LIMITED <moorealbert000@gmail.com>
-Date:   Sat, 13 Jun 2020 16:34:09 -0700
-Message-ID: <CADrFPgkSm-A91rZHaM-tNisOsp8B9ussRVNW_cbJu7STfpefZA@mail.gmail.com>
-Subject: MAIL FROM CFO LTD ( Apply For Affordable Loan at a Lower Interest
- Rate )
-To:     undisclosed-recipients:;
+References: <CACKs7VBdc4_gU=oVz82soZCuukgQzD4V33VcJ81cL7gimRto-Q@mail.gmail.com>
+ <089aeecf-fed4-659b-5b5e-335100b3748b@gmail.com>
+In-Reply-To: <089aeecf-fed4-659b-5b5e-335100b3748b@gmail.com>
+From:   Stefan Puiu <stefan.puiu@gmail.com>
+Date:   Mon, 15 Jun 2020 08:42:47 +0300
+Message-ID: <CACKs7VB969xNR1NZbLLeYLqiMXD4Hq1ba+c41uipOy86AAcoXg@mail.gmail.com>
+Subject: Re: connect.2: can return EACCES because of SELinux
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     lnx-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
--- 
-Good Day
+Hi Michael,
 
-We are a registered Private Loan Investment Company in the United
-Kingdom, we also registered with the Turkish British Chamber of
-Commerce and Industry (TBCCI) we have operations in Europe and Asia.
+On Fri, Jun 12, 2020 at 11:08 PM Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+>
+> Hello Stefan,,
+[...]
+> I thought I replied to this message, but it looks like I did not.
+> As you may already have realized, I applied this patch. Thanks
+> for sending it.
 
-We are seeking for beneficiaries who source for fund to
-expand/relocating their business interest abroad. We are ready to fund
-projects outside Turkey and United Kingdom in the form of Soft Loan.
-We grant loans to both corporate and private entities at a low
-interest rate of 2% R.O.I per annul.
+Yes, I did see my name mentioned in the release notes, together with
+the patch title :).
 
-We like to grant loan in the following sectors: oil/Gas, banking, real
-estate, stock speculation and mining, transportation, health sector
-and tobacco, Communication Services, Agriculture Forestry & Fishing,
-thus any sector. The terms are very flexible and interesting.
+Thanks!
 
-Please contact us for more details;
-
-Kind regards,
-
-Paul McCann
+>
+> Cheers,
+>
+> Michael
