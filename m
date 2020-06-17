@@ -2,71 +2,128 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 279F11FC1DB
-	for <lists+linux-man@lfdr.de>; Wed, 17 Jun 2020 00:51:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 04B771FC7CB
+	for <lists+linux-man@lfdr.de>; Wed, 17 Jun 2020 09:46:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725941AbgFPWun (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 16 Jun 2020 18:50:43 -0400
-Received: from gateway21.websitewelcome.com ([192.185.45.140]:46189 "EHLO
-        gateway21.websitewelcome.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725849AbgFPWum (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 16 Jun 2020 18:50:42 -0400
-Received: from cm14.websitewelcome.com (cm14.websitewelcome.com [100.42.49.7])
-        by gateway21.websitewelcome.com (Postfix) with ESMTP id DC77540156E8D
-        for <linux-man@vger.kernel.org>; Tue, 16 Jun 2020 17:50:41 -0500 (CDT)
-Received: from gator3278.hostgator.com ([198.57.247.242])
-        by cmsmtp with SMTP
-        id lKPhjPjFzSxZVlKPhjb9Bv; Tue, 16 Jun 2020 17:50:41 -0500
-X-Authority-Reason: nr=8
-Received: from 89-69-237-178.dynamic.chello.pl ([89.69.237.178]:33352 helo=localhost)
-        by gator3278.hostgator.com with esmtpa (Exim 4.93)
-        (envelope-from <arkadiusz@drabczyk.org>)
-        id 1jlKPg-00438g-PI; Tue, 16 Jun 2020 17:50:41 -0500
-Date:   Wed, 17 Jun 2020 00:50:34 +0200
-From:   Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH] fread.3: Explain that file position is moved after
+        id S1726270AbgFQHq3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 17 Jun 2020 03:46:29 -0400
+Received: from mx01-muc.bfs.de ([193.174.230.67]:29898 "EHLO mx01-muc.bfs.de"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1725901AbgFQHq2 (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 17 Jun 2020 03:46:28 -0400
+Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
+        by mx01-muc.bfs.de (Postfix) with ESMTPS id 067EE20346;
+        Wed, 17 Jun 2020 09:46:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
+        t=1592379986;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=UZSoUnMd0qOmDls6NqSBSknrcXqZ7ov6uzTKzBtNGpk=;
+        b=IX+gai0hszygSPSjmDYLkZVYtW6wDz3Ex/jh2I31osjL4iVXLlIZQFh6nbx+hkmrqASTHE
+        u4gMPcGunRShBOES5E4OYopKFDDnZOlssdGWZ2JqPfUQNDp9EffJfHeu3rFbcQjCNnkz5g
+        NZAJoagG7Oi2pzoDaI4IBI4f4x2Hc/IbxDWerocSwjAjBA8MOn0Y0+l02YAwwKNr4y4biJ
+        t6jkLuqi4AIl2SW6iUFr8NzmQHymmo65MTFCFOBjdIlpBwToOimIfVLCUy2MPgD3kOhNgL
+        5h5VYs2pMvfpNxcb4snMED4fct5YVDdqtSYETkq0m+mJr72n1Ru+lD2E9iMdiw==
+Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
+ (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.1913.5; Wed, 17 Jun
+ 2020 09:46:25 +0200
+Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
+ SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%6]) with mapi id
+ 15.01.1913.005; Wed, 17 Jun 2020 09:46:25 +0200
+From:   Walter Harms <wharms@bfs.de>
+To:     Arkadiusz Drabczyk <arkadiusz@drabczyk.org>,
+        Jakub Wilk <jwilk@jwilk.net>
+CC:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Subject: AW: [PATCH] fread.3: Explain that file position is moved after
  calling fread()/fwrite()
-Message-ID: <20200616225034.e4uzibuemo7lpmet@comp.lan>
+Thread-Topic: [PATCH] fread.3: Explain that file position is moved after
+ calling fread()/fwrite()
+Thread-Index: AQHWRA6rt9L9Mj5+0kyabTt0DOxZ96jbdxuAgABAVwCAALIsJQ==
+Date:   Wed, 17 Jun 2020 07:46:25 +0000
+Message-ID: <3294b2a2fae14460984e2f3162f7ec35@bfs.de>
 References: <20200616182659.12365-1-arkadiusz@drabczyk.org>
- <20200616190017.5y3pwpb22w2jeqls@jwilk.net>
+ <20200616190017.5y3pwpb22w2jeqls@jwilk.net>,<20200616225034.e4uzibuemo7lpmet@comp.lan>
+In-Reply-To: <20200616225034.e4uzibuemo7lpmet@comp.lan>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.137.16.39]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200616190017.5y3pwpb22w2jeqls@jwilk.net>
-User-Agent: NeoMutt/20180716
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator3278.hostgator.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - drabczyk.org
-X-BWhitelist: no
-X-Source-IP: 89.69.237.178
-X-Source-L: No
-X-Exim-ID: 1jlKPg-00438g-PI
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 89-69-237-178.dynamic.chello.pl (localhost) [89.69.237.178]:33352
-X-Source-Auth: arkadiusz@drabczyk.org
-X-Email-Count: 3
-X-Source-Cap: cmt1bXZicmg7cmt1bXZicmg7Z2F0b3IzMjc4Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
+X-Spam-Status: No, score=1.41
+X-Spam-Level: *
+Authentication-Results: mx01-muc.bfs.de;
+        none
+X-Spamd-Result: default: False [1.41 / 7.00];
+         ARC_NA(0.00)[];
+         TO_DN_EQ_ADDR_SOME(0.00)[];
+         HAS_XOIP(0.00)[];
+         FROM_HAS_DN(0.00)[];
+         RCPT_COUNT_THREE(0.00)[4];
+         FREEMAIL_ENVRCPT(0.00)[gmail.com];
+         TO_MATCH_ENVRCPT_ALL(0.00)[];
+         TAGGED_RCPT(0.00)[];
+         MIME_GOOD(-0.10)[text/plain];
+         TO_DN_SOME(0.00)[];
+         BAYES_HAM(-0.09)[64.78%];
+         DKIM_SIGNED(0.00)[];
+         RCVD_NO_TLS_LAST(0.10)[];
+         FROM_EQ_ENVFROM(0.00)[];
+         MIME_TRACE(0.00)[0:+];
+         RCVD_COUNT_TWO(0.00)[2];
+         MID_RHS_MATCH_FROM(0.00)[];
+         SUSPICIOUS_RECIPS(1.50)[];
+         FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org]
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi,
+i do not think character is correct it would confuse fseek() it says:
+"The new position, measured in bytes"
+
+to make things more complicated fread has a "size" and returns the
+number of "things" read (" This number equals the number of bytes=20
+transferred only  when size  is 1.").
+
+therefor i would suggest to move the success case
+> > +The file position indicator for the stream is advanced by the number
+> > +of characters successfully read or written.
+into the "description section"
+
+And add a word about partial reads into the "return value" section. E.g.
+to make clear what happens when you try to read size=3D10 while only 4 are =
+left.
+
+jm2c
+ wh
+
+________________________________________
+Von: linux-man-owner@vger.kernel.org [linux-man-owner@vger.kernel.org] im A=
+uftrag von Arkadiusz Drabczyk [arkadiusz@drabczyk.org]
+Gesendet: Mittwoch, 17. Juni 2020 00:50
+An: Jakub Wilk
+Cc: Michael Kerrisk; linux-man@vger.kernel.org
+Betreff: Re: [PATCH] fread.3: Explain that file position is moved after cal=
+ling fread()/fwrite()
+
 On Tue, Jun 16, 2020 at 09:00:17PM +0200, Jakub Wilk wrote:
 > * Arkadiusz Drabczyk <arkadiusz@drabczyk.org>, 2020-06-16, 20:26:
 > > +The file position indicator for the stream is advanced by the number
 > > +of characters successfully read or written.
-> 
+>
 > s/characters/bytes/
 
 It says `characters' in C11 and C17
-https://web.archive.org/web/20181230041359if_/http://www.open-std.org/jtc1/sc22/wg14/www/abq/c17_updated_proposed_fdis.pdf
+https://web.archive.org/web/20181230041359if_/http://www.open-std.org/jtc1/=
+sc22/wg14/www/abq/c17_updated_proposed_fdis.pdf
 standards:
 
 "Description
@@ -84,5 +141,5 @@ partial element is read, its value is indeterminate."
 but indeed `bytes' sounds nicer especially if unsigned char is not
 mentioned in the manpage. I sent v2.
 
--- 
+--
 Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
