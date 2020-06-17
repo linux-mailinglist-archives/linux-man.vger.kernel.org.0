@@ -2,84 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2A2D71FCD58
-	for <lists+linux-man@lfdr.de>; Wed, 17 Jun 2020 14:26:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EBB791FCEED
+	for <lists+linux-man@lfdr.de>; Wed, 17 Jun 2020 15:58:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725901AbgFQM0Z (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 17 Jun 2020 08:26:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39832 "EHLO
+        id S1726809AbgFQN6V (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 17 Jun 2020 09:58:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54210 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725860AbgFQM0Z (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 17 Jun 2020 08:26:25 -0400
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 77BB7C061573
-        for <linux-man@vger.kernel.org>; Wed, 17 Jun 2020 05:26:23 -0700 (PDT)
-Received: by mail-wr1-x42e.google.com with SMTP id r7so2150952wro.1
-        for <linux-man@vger.kernel.org>; Wed, 17 Jun 2020 05:26:23 -0700 (PDT)
+        with ESMTP id S1726495AbgFQN6U (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 17 Jun 2020 09:58:20 -0400
+Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com [IPv6:2a00:1450:4864:20::244])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 820BCC06174E
+        for <linux-man@vger.kernel.org>; Wed, 17 Jun 2020 06:58:20 -0700 (PDT)
+Received: by mail-lj1-x244.google.com with SMTP id 9so2971869ljc.8
+        for <linux-man@vger.kernel.org>; Wed, 17 Jun 2020 06:58:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jguk.org; s=google;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=xqyfOwzU2G5TV7uvCFjzCV2McV62EnLpX6tN9Uc33HI=;
-        b=mbT7wH2EdMxQt6qoTukvKFeXt7fAX3CwXjI5YcKmaJiXvhsjz53U+q/6UdzBwg96Z9
-         ttYJYxGRYsXGdC5grffgV6eCwFjW2a2tyM5rjaQlfeBCFqNDuKEAZ31W6Fb7hnKiNgpn
-         23gDesvgXG9zKzm45K45171I8gh1/ZfhTBdwrJCxm3x91Wqk61c/fyqTeSJP2CQysvf8
-         b5qMh+SwV+v5FQoEBGltVZ18Cr/BdVWtJDUyde2s+0myqkMQbECpc6DOYSx4+RjdkHl/
-         fIL4wHgcaaA3x70GgK/vuWmzkD/sgZvQsLRvsbGK9ayUGUBnaREtUsWHonblh30rIh1f
-         kC2A==
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=maPCfdjfNPdO8h4ZXH6vB9OR+0m2ipvV+6Dqb7XX8ug=;
+        b=gFEhWp0oaIxbd7iADabCdDYmKXzRPTDDP8SAMo6tsIhZoen1Hgq8b8l5os71rUGIYF
+         QSspaXHdYehnFoXRQKh9K5FNZN9dCC7mRbS9TyTx1Es5RWOjSZjdkNJxSrvCgzgGR+Zj
+         HHxnrckCoylEJeqbxowWQfmdDglfuDKFVyJ0fmI6yH9bZTA8T+a/qRl1b1qWm+hMjMTE
+         z87lNWXXXItGJjkMM++aIDwCUNxoKP7Hy3jlGxvPJZtwAU05OqXQj7Q5kDfe+/VykGym
+         97RpPJIsOnfIxuREekYJEpoOHgSnjTqPx+hCXr0ZVctvbfsvC/wW5CDz2QGYAPTsSvnm
+         7KRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=xqyfOwzU2G5TV7uvCFjzCV2McV62EnLpX6tN9Uc33HI=;
-        b=BNIV0p0uTERAzq3MYO+buTSvvDWe48be//OpvtoheSJr/iPv94djbFAX97KtHt3Q/z
-         MlXLQux0E3/uNUKYkpBDq4QYWmYEpZ9en1kqS73JBI/X/8/dkxQJ2D/9ZzoZoCcAC5hQ
-         71cUFkWARxtBxYXCPkR0mm8XaxSw6gcORheSyIZHQ7DBYBN3BhVAKrATkgI1z5+TfHrC
-         /DroVsii7RUssFo/RH4t/L10EohVIdrDn/EebfU9ASq0lugp3HWwgQrwpI/17YtGLK3U
-         EcDd5CUS9C3YOqdZrpKSN/C+FNy1vqkoZXCVPrO1y9NZdBGw7Ss1WugDxpeSiBcH243U
-         FmqQ==
-X-Gm-Message-State: AOAM533jWAkOAh/fSR3GvfYtZAOz2x7tnXemoCOuoZkGGljt/ziW9Vls
-        RwkpOcsOfV410Ju7F91ao/sExWeJrXA=
-X-Google-Smtp-Source: ABdhPJyhkJ846eT2KXAFv3By/4gr3dNLuopJ1YjEMQ5B/amLOE/ny8AKZUtNnqt1rwTUmw2RYLIo6Q==
-X-Received: by 2002:adf:fc0c:: with SMTP id i12mr8176014wrr.365.1592396781981;
-        Wed, 17 Jun 2020 05:26:21 -0700 (PDT)
-Received: from [192.168.0.12] (cpc87281-slou4-2-0-cust47.17-4.cable.virginm.net. [92.236.12.48])
-        by smtp.gmail.com with ESMTPSA id j18sm35138619wrn.59.2020.06.17.05.26.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2020 05:26:21 -0700 (PDT)
-Subject: Re: gettid
-To:     Ponnuvel Palaniyappan <pponnuvel@gmail.com>
-Cc:     Jakub Wilk <jwilk@jwilk.net>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-References: <23ca3363-5a24-9862-4872-811678527b50@jguk.org>
- <20200617102232.7zzi2klj3onh2nur@jwilk.net>
- <cbbb7e4f-8774-c598-e9d3-6f13142dc3d3@jguk.org>
- <CAOL8xrW0O0gmVjx03ji9XEsLb_gg=zZ336P0Y=21KbKdOhM_vw@mail.gmail.com>
-From:   Jonny Grant <jg@jguk.org>
-Message-ID: <880daed8-229b-1637-7b6d-a7126433b26e@jguk.org>
-Date:   Wed, 17 Jun 2020 13:26:20 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=maPCfdjfNPdO8h4ZXH6vB9OR+0m2ipvV+6Dqb7XX8ug=;
+        b=p2ng+k891KPzx0iZdAO1Sk8zrkmyU1acSehbcDKAXo/Jl/aaVed7NFlNha0D5CQAM9
+         zEHuX2Yb6I//d/Dg+Uy75WYiDs3rG+S8NXn86V04AnPft2NUkcNWEmG48HvkKrLMwXm9
+         k4RU4drEauTZiZiSVhUoePJoMiMzWpkrzPnIzWxNePWKYYzFrwhZicEJqT6Q4JU/v9uz
+         8Jda/rJM9y0psm49VJ8R1YwC8dbPPu+OOvf68KiTVUIkMV5764x1BRonrySlloVBuYWc
+         vYe39JaINuYTsW0ROx75gVbqfc5RhS8MsabLvSSoyE90bykJVfLqbLYkNGgFCaNB07TR
+         tRbg==
+X-Gm-Message-State: AOAM532biYRpg7dTYhhotxs6T2frQTnz6WjkuSyIysTCz+E7K2TOCqLZ
+        59zqVjKl428rRXckynVuDE38AB3dihwW8DihZsg=
+X-Google-Smtp-Source: ABdhPJwJsCETMMxmVMxb5gfF7stqZt9P2iLZWdfJdRjcmCW+pah/cDMk4Fyg3PLe1YXk8tFsHL82b7oVh8zH98ZCU/8=
+X-Received: by 2002:a2e:3003:: with SMTP id w3mr4037930ljw.11.1592402298957;
+ Wed, 17 Jun 2020 06:58:18 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAOL8xrW0O0gmVjx03ji9XEsLb_gg=zZ336P0Y=21KbKdOhM_vw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+From:   Jezzbuffalo Ventures <jezzbuffalove@gmail.com>
+Date:   Wed, 17 Jun 2020 15:58:07 +0200
+Message-ID: <CAAuvJ6YH3zhSyZ9T=Z8FZJqcKSWU87x_bu_A1wcvRPZbPQCaFw@mail.gmail.com>
+Subject: Request for Representation
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Jezzbuffalo Ventures (Pty) Ltd.
+Shop No.4 Statehouse. 273 Lilian Ngoyi Str Cnr Quartz str.
+Jhb South Africa. Cells: +27780764712 Web: www.jezzbuffalo.co.za
 
+Dear Sir,
+Your firm has been introduced to us as manufacturer; We as a marketing
+agency in South Africa are interested in doing business with you as
+your agent/representative here in South Africa. Could you please send
+your agency terms: - Email:
+jbv.salesrep@gmail.com / salesrepocletusigwe@safrica.com
 
-On 17/06/2020 13:10, Ponnuvel Palaniyappan wrote:
-> The default C++ mode, when no -std= is specified, for g++ 9.3.0 is
-> gnu++14 (it's the same for g++ 10.1.0, too).
-> 
->> Looks like it is set by default, even when specifying the C++ standard version for g++
-> Why this happens is explained in libstd++'s faq:
-> https://gcc.gnu.org/onlinedocs/libstdc++/faq.html#faq.predefined
+Wishing a lasting business relationship with you!
 
-Fair enough
+Yours Sincerely,
+Cletus.I.O (CEO)
