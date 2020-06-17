@@ -2,69 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EBB791FCEED
-	for <lists+linux-man@lfdr.de>; Wed, 17 Jun 2020 15:58:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 65F6E1FD3BE
+	for <lists+linux-man@lfdr.de>; Wed, 17 Jun 2020 19:52:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726809AbgFQN6V (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 17 Jun 2020 09:58:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54210 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726495AbgFQN6U (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 17 Jun 2020 09:58:20 -0400
-Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com [IPv6:2a00:1450:4864:20::244])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 820BCC06174E
-        for <linux-man@vger.kernel.org>; Wed, 17 Jun 2020 06:58:20 -0700 (PDT)
-Received: by mail-lj1-x244.google.com with SMTP id 9so2971869ljc.8
-        for <linux-man@vger.kernel.org>; Wed, 17 Jun 2020 06:58:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=maPCfdjfNPdO8h4ZXH6vB9OR+0m2ipvV+6Dqb7XX8ug=;
-        b=gFEhWp0oaIxbd7iADabCdDYmKXzRPTDDP8SAMo6tsIhZoen1Hgq8b8l5os71rUGIYF
-         QSspaXHdYehnFoXRQKh9K5FNZN9dCC7mRbS9TyTx1Es5RWOjSZjdkNJxSrvCgzgGR+Zj
-         HHxnrckCoylEJeqbxowWQfmdDglfuDKFVyJ0fmI6yH9bZTA8T+a/qRl1b1qWm+hMjMTE
-         z87lNWXXXItGJjkMM++aIDwCUNxoKP7Hy3jlGxvPJZtwAU05OqXQj7Q5kDfe+/VykGym
-         97RpPJIsOnfIxuREekYJEpoOHgSnjTqPx+hCXr0ZVctvbfsvC/wW5CDz2QGYAPTsSvnm
-         7KRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=maPCfdjfNPdO8h4ZXH6vB9OR+0m2ipvV+6Dqb7XX8ug=;
-        b=p2ng+k891KPzx0iZdAO1Sk8zrkmyU1acSehbcDKAXo/Jl/aaVed7NFlNha0D5CQAM9
-         zEHuX2Yb6I//d/Dg+Uy75WYiDs3rG+S8NXn86V04AnPft2NUkcNWEmG48HvkKrLMwXm9
-         k4RU4drEauTZiZiSVhUoePJoMiMzWpkrzPnIzWxNePWKYYzFrwhZicEJqT6Q4JU/v9uz
-         8Jda/rJM9y0psm49VJ8R1YwC8dbPPu+OOvf68KiTVUIkMV5764x1BRonrySlloVBuYWc
-         vYe39JaINuYTsW0ROx75gVbqfc5RhS8MsabLvSSoyE90bykJVfLqbLYkNGgFCaNB07TR
-         tRbg==
-X-Gm-Message-State: AOAM532biYRpg7dTYhhotxs6T2frQTnz6WjkuSyIysTCz+E7K2TOCqLZ
-        59zqVjKl428rRXckynVuDE38AB3dihwW8DihZsg=
-X-Google-Smtp-Source: ABdhPJwJsCETMMxmVMxb5gfF7stqZt9P2iLZWdfJdRjcmCW+pah/cDMk4Fyg3PLe1YXk8tFsHL82b7oVh8zH98ZCU/8=
-X-Received: by 2002:a2e:3003:: with SMTP id w3mr4037930ljw.11.1592402298957;
- Wed, 17 Jun 2020 06:58:18 -0700 (PDT)
+        id S1726594AbgFQRwE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 17 Jun 2020 13:52:04 -0400
+Received: from gateway34.websitewelcome.com ([192.185.148.140]:16448 "EHLO
+        gateway34.websitewelcome.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1726558AbgFQRwE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 17 Jun 2020 13:52:04 -0400
+X-Greylist: delayed 1302 seconds by postgrey-1.27 at vger.kernel.org; Wed, 17 Jun 2020 13:52:03 EDT
+Received: from cm13.websitewelcome.com (cm13.websitewelcome.com [100.42.49.6])
+        by gateway34.websitewelcome.com (Postfix) with ESMTP id B63588A7AEA
+        for <linux-man@vger.kernel.org>; Wed, 17 Jun 2020 12:30:18 -0500 (CDT)
+Received: from gator3278.hostgator.com ([198.57.247.242])
+        by cmsmtp with SMTP
+        id lbtCjIP8XwgQAlbtCjq7B2; Wed, 17 Jun 2020 12:30:18 -0500
+X-Authority-Reason: nr=8
+Received: from 89-69-237-178.dynamic.chello.pl ([89.69.237.178]:60364 helo=localhost)
+        by gator3278.hostgator.com with esmtpa (Exim 4.93)
+        (envelope-from <arkadiusz@drabczyk.org>)
+        id 1jlbtB-000GNW-Bo; Wed, 17 Jun 2020 12:30:17 -0500
+Date:   Wed, 17 Jun 2020 19:30:10 +0200
+From:   Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
+To:     Walter Harms <wharms@bfs.de>
+Cc:     Jakub Wilk <jwilk@jwilk.net>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Subject: Re: [PATCH] fread.3: Explain that file position is moved after
+ calling fread()/fwrite()
+Message-ID: <20200617173010.vekk35vrslmtdm6r@comp.lan>
+References: <20200616182659.12365-1-arkadiusz@drabczyk.org>
+ <20200616190017.5y3pwpb22w2jeqls@jwilk.net>
+ <20200616225034.e4uzibuemo7lpmet@comp.lan>
+ <3294b2a2fae14460984e2f3162f7ec35@bfs.de>
 MIME-Version: 1.0
-From:   Jezzbuffalo Ventures <jezzbuffalove@gmail.com>
-Date:   Wed, 17 Jun 2020 15:58:07 +0200
-Message-ID: <CAAuvJ6YH3zhSyZ9T=Z8FZJqcKSWU87x_bu_A1wcvRPZbPQCaFw@mail.gmail.com>
-Subject: Request for Representation
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3294b2a2fae14460984e2f3162f7ec35@bfs.de>
+User-Agent: NeoMutt/20180716
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator3278.hostgator.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - drabczyk.org
+X-BWhitelist: no
+X-Source-IP: 89.69.237.178
+X-Source-L: No
+X-Exim-ID: 1jlbtB-000GNW-Bo
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 89-69-237-178.dynamic.chello.pl (localhost) [89.69.237.178]:60364
+X-Source-Auth: arkadiusz@drabczyk.org
+X-Email-Count: 1
+X-Source-Cap: cmt1bXZicmg7cmt1bXZicmg7Z2F0b3IzMjc4Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Jezzbuffalo Ventures (Pty) Ltd.
-Shop No.4 Statehouse. 273 Lilian Ngoyi Str Cnr Quartz str.
-Jhb South Africa. Cells: +27780764712 Web: www.jezzbuffalo.co.za
+On Wed, Jun 17, 2020 at 07:46:25AM +0000, Walter Harms wrote:
+> Hi,
+> i do not think character is correct it would confuse fseek() it says:
+> "The new position, measured in bytes"
 
-Dear Sir,
-Your firm has been introduced to us as manufacturer; We as a marketing
-agency in South Africa are interested in doing business with you as
-your agent/representative here in South Africa. Could you please send
-your agency terms: - Email:
-jbv.salesrep@gmail.com / salesrepocletusigwe@safrica.com
+ok, v2 already sent.
 
-Wishing a lasting business relationship with you!
+> to make things more complicated fread has a "size" and returns the
+> number of "things" read (" This number equals the number of bytes 
+> transferred only  when size  is 1.").
+> 
+> therefor i would suggest to move the success case
+> > > +The file position indicator for the stream is advanced by the number
+> > > +of characters successfully read or written.
+> into the "description section"
 
-Yours Sincerely,
-Cletus.I.O (CEO)
+ok, let's see what Michael thinks about it.
+
+> And add a word about partial reads into the "return value" section. E.g.
+> to make clear what happens when you try to read size=10 while only 4 are left.
+> 
+
+Isn't it already covered by this fragment:
+
+"If an error occurs, or the end of the file is reached, the return
+value is a short item count (or zero)."
+
+?
+
+-- 
+Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
