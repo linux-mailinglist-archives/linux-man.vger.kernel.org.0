@@ -2,116 +2,145 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0682D1FF594
-	for <lists+linux-man@lfdr.de>; Thu, 18 Jun 2020 16:49:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 240051FFB48
+	for <lists+linux-man@lfdr.de>; Thu, 18 Jun 2020 20:47:06 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726906AbgFROsA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 18 Jun 2020 10:48:00 -0400
-Received: from mx01-sz.bfs.de ([194.94.69.67]:28970 "EHLO mx01-sz.bfs.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726927AbgFROr5 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 18 Jun 2020 10:47:57 -0400
-Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
-        by mx01-sz.bfs.de (Postfix) with ESMTPS id BC6612010F;
-        Thu, 18 Jun 2020 16:47:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
-        t=1592491674;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=G9NVVD1N/uRcMq7lhd2zTTZDfCws+SZDw9j4nJCt3fQ=;
-        b=pKpGnXzBZDOUwg/J8CsEtYlqH3YQ+GsU6VV9auj/Pu9TSw+jAR/BKGD5zdOSW9+QxgDp4e
-        ElGi7+2BW95FcyV4R8mMUkfaEtXxxKyiJFO39UEJwGXG+2lp2CLW474a8EYtK5wOEJfMg1
-        3aaQg6Y4GRCJ3Phdl/EyckPkH00Wum2QzlCtC/oFVFo5+Qmaeat5AIq9fcg22ijyhY0ZHW
-        SJcNbQT21N5eh5BjE+vtI71nKi40aVH2KkzxPhoIw3RMtgKmtKM5J2U3a0E+C6WG6TqWKC
-        LYa37KV5S9ddkuD6DmPv2UuSOgfS1xRWH3J3FevkQYMddKV7q0ntyQ10zkJ1wg==
-Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
- (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.1913.5; Thu, 18 Jun
- 2020 16:47:54 +0200
-Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
- SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%6]) with mapi id
- 15.01.1913.005; Thu, 18 Jun 2020 16:47:54 +0200
-From:   Walter Harms <wharms@bfs.de>
-To:     Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
-CC:     "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-Subject: AW: [PATCH] fread.3: Add example
-Thread-Topic: [PATCH] fread.3: Add example
-Thread-Index: AQHWRNqZsZlOY/GUP0iTGXI/zRsqmqjeDiq7gAAxoICAADFVag==
-Date:   Thu, 18 Jun 2020 14:47:54 +0000
-Message-ID: <80edb808679e48cc905421345c249127@bfs.de>
-References: <20200617184530.20811-1-arkadiusz@drabczyk.org>
- <be5391cc853c41a683069fa0c42d0a88@bfs.de>,<20200618133647.rq2w6lanuatoweri@comp.lan>
-In-Reply-To: <20200618133647.rq2w6lanuatoweri@comp.lan>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.137.16.40]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+        id S1727805AbgFRSrF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 18 Jun 2020 14:47:05 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38526 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726981AbgFRSrF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Jun 2020 14:47:05 -0400
+Received: from inpost.hi.is (inpost.hi.is [IPv6:2a00:c88:4000:1650::165:62])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7B408C06174E
+        for <linux-man@vger.kernel.org>; Thu, 18 Jun 2020 11:47:04 -0700 (PDT)
+Received: from hekla.rhi.hi.is (hekla.rhi.hi.is [IPv6:2a00:c88:4000:1650::165:2])
+        by inpost.hi.is (8.14.7/8.14.7) with ESMTP id 05IIkxVr006596
+        (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO)
+        for <linux-man@vger.kernel.org>; Thu, 18 Jun 2020 18:46:59 GMT
+DKIM-Filter: OpenDKIM Filter v2.11.0 inpost.hi.is 05IIkxVr006596
+Received: from hekla.rhi.hi.is (localhost [127.0.0.1])
+        by hekla.rhi.hi.is (8.14.4/8.14.4) with ESMTP id 05IIkxlN025558
+        for <linux-man@vger.kernel.org>; Thu, 18 Jun 2020 18:46:59 GMT
+Received: (from bjarniig@localhost)
+        by hekla.rhi.hi.is (8.14.4/8.14.4/Submit) id 05IIkx9C025557
+        for linux-man@vger.kernel.org; Thu, 18 Jun 2020 18:46:59 GMT
+Date:   Thu, 18 Jun 2020 18:46:59 +0000
+From:   Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
+To:     linux-man@vger.kernel.org
+Subject: [PATCH] man3/*: srcfix: use a one-font macro for one argument
+Message-ID: <20200618184659.GA25549@rhi.hi.is>
 MIME-Version: 1.0
-X-Spam-Status: No, score=-0.06
-Authentication-Results: mx01-sz.bfs.de;
-        none
-X-Spamd-Result: default: False [-0.06 / 7.00];
-         ARC_NA(0.00)[];
-         TO_DN_EQ_ADDR_SOME(0.00)[];
-         HAS_XOIP(0.00)[];
-         FROM_HAS_DN(0.00)[];
-         RCPT_COUNT_THREE(0.00)[3];
-         FREEMAIL_ENVRCPT(0.00)[gmail.com];
-         TO_MATCH_ENVRCPT_ALL(0.00)[];
-         TAGGED_RCPT(0.00)[];
-         MIME_GOOD(-0.10)[text/plain];
-         TO_DN_SOME(0.00)[];
-         BAYES_HAM(-0.06)[61.36%];
-         DKIM_SIGNED(0.00)[];
-         NEURAL_HAM(-0.00)[-0.983];
-         RCVD_NO_TLS_LAST(0.10)[];
-         FROM_EQ_ENVFROM(0.00)[];
-         MIME_TRACE(0.00)[0:+];
-         FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org];
-         RCVD_COUNT_TWO(0.00)[2];
-         MID_RHS_MATCH_FROM(0.00)[]
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.5.20 (2009-12-10)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+[ Only sent to the list as the maintainer (Michael Kerrisk (man pages))
+does not want these corrections.]
 
-________________________________________
-Von: Arkadiusz Drabczyk [arkadiusz@drabczyk.org]
-Gesendet: Donnerstag, 18. Juni 2020 15:36
+  Correct the misuse of a two-font macro, which function is to
 
->>
->> +    ret =3D fread(buffer, 1, 1, fp);
->> +    if (ret !=3D 1) {
->> +        fprintf(stderr, "fread() failed: %zu\en", ret);
->> +        exit(EXIT_FAILURE);
->> +    }
->> +
->> please drop a line what case you want to explain here, looks like the sa=
-me as above.
+1) use the first font for the odd numbered arguments and the second
+font for the even numbered arguments
 
->As said a few lines above, this retrieves ELF class. I wanted to show
->that file pointer moves automatically after fread() finishes.
+2) join the arguments without an intervening space.
 
-ok i get the point(s).
-1. you show you can read an "item" a bunch of bytes
+Signed-off-by: Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
+---
+ man3/ftw.3         |  2 +-
+ man3/posix_spawn.3 | 12 ++++++------
+ man3/sincos.3      |  2 +-
+ man3/y0.3          |  2 +-
+ 4 files changed, 9 insertions(+), 9 deletions(-)
 
-the second read() should demonstrate that consecutive reads return
- consecutive blocks of data (here the magic and class id of an ELF).
-
-perhaps you can support what want to show with a
-printf("pos=3D%ld\n",ftell(fp));
-before and after read.
-
-hope that helps,
-re,
- wh
-
---
-Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
+diff --git a/man3/ftw.3 b/man3/ftw.3
+index a0bcab43e..72d17e3d5 100644
+--- a/man3/ftw.3
++++ b/man3/ftw.3
+@@ -418,7 +418,7 @@ For predictable results, use
+ .BR nftw ().
+ .SH BUGS
+ According to POSIX.1-2008, when the
+-.IR typeflag
++.I typeflag
+ argument passed to
+ .IR fn ()
+ contains
+diff --git a/man3/posix_spawn.3 b/man3/posix_spawn.3
+index 7e14e28bf..43d736c04 100644
+--- a/man3/posix_spawn.3
++++ b/man3/posix_spawn.3
+@@ -160,9 +160,9 @@ Since glibc 2.24, the
+ function commences by calling
+ .BR clone (2)
+ with
+-.BR CLONE_VM
++.B CLONE_VM
+ and
+-.BR CLONE_VFORK
++.B CLONE_VFORK
+ flags.
+ Older implementations use
+ .BR fork (2),
+@@ -220,9 +220,9 @@ the requested file.
+ .PP
+ .SS pre-exec() step: housekeeping
+ In between the
+-.BR fork()
++.B fork()
+ and the
+-.BR exec()
++.B exec()
+ steps, a child process may need to perform a set of housekeeping actions.
+ The
+ .BR posix_spawn ()
+@@ -386,7 +386,7 @@ flag is not set, the child inherits the parent's process group ID.
+ .B POSIX_SPAWN_USEVFORK
+ Since glibc 2.24, this flag has no effect.
+ On older implementations, setting this flag forces the
+-.BR fork()
++.B fork()
+ step to use
+ .BR vfork (2)
+ instead of
+@@ -493,7 +493,7 @@ place the PID of the child process in
+ .IR pid ,
+ and return 0.
+ If there is an error during the
+-.BR fork()
++.B fork()
+ step,
+ then no child is created,
+ the contents of
+diff --git a/man3/sincos.3 b/man3/sincos.3
+index b3149af99..7d5c29724 100644
+--- a/man3/sincos.3
++++ b/man3/sincos.3
+@@ -62,7 +62,7 @@ The following errors can occur:
+ Domain error: \fIx\fP is an infinity
+ .I errno
+ is set to
+-.BR EDOM
++.B EDOM
+ (but see BUGS).
+ An invalid floating-point exception
+ .RB ( FE_INVALID )
+diff --git a/man3/y0.3 b/man3/y0.3
+index b227876e0..ad39a002f 100644
+--- a/man3/y0.3
++++ b/man3/y0.3
+@@ -210,7 +210,7 @@ Range error: result overflow
+ .\" e.g., yn(10, 1e-40) on glibc 2.8/x86-32
+ .I errno
+ is set to
+-.BR ERANGE
++.B ERANGE
+ (but see BUGS).
+ An overflow floating-point exception
+ .RB ( FE_OVERFLOW )
+-- 
+2.27.0
