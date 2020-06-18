@@ -2,46 +2,34 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0BC031FFBE2
-	for <lists+linux-man@lfdr.de>; Thu, 18 Jun 2020 21:37:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 542241FFD26
+	for <lists+linux-man@lfdr.de>; Thu, 18 Jun 2020 23:08:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728157AbgFRTh5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 18 Jun 2020 15:37:57 -0400
-Received: from gateway33.websitewelcome.com ([192.185.146.70]:20096 "EHLO
-        gateway33.websitewelcome.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1728069AbgFRTh4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Jun 2020 15:37:56 -0400
-X-Greylist: delayed 1262 seconds by postgrey-1.27 at vger.kernel.org; Thu, 18 Jun 2020 15:37:56 EDT
+        id S1728519AbgFRVIj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 18 Jun 2020 17:08:39 -0400
+Received: from gateway20.websitewelcome.com ([192.185.55.25]:48839 "EHLO
+        gateway20.websitewelcome.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1726478AbgFRVIi (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Jun 2020 17:08:38 -0400
+X-Greylist: delayed 1344 seconds by postgrey-1.27 at vger.kernel.org; Thu, 18 Jun 2020 17:08:38 EDT
 Received: from cm11.websitewelcome.com (cm11.websitewelcome.com [100.42.49.5])
-        by gateway33.websitewelcome.com (Postfix) with ESMTP id C2FE8528D04
-        for <linux-man@vger.kernel.org>; Thu, 18 Jun 2020 14:16:52 -0500 (CDT)
+        by gateway20.websitewelcome.com (Postfix) with ESMTP id 78C38400D18EC
+        for <linux-man@vger.kernel.org>; Thu, 18 Jun 2020 14:23:43 -0500 (CDT)
 Received: from gator3278.hostgator.com ([198.57.247.242])
         by cmsmtp with SMTP
-        id m01sjHNXehmVTm01sj9qv4; Thu, 18 Jun 2020 14:16:52 -0500
+        id m1O4jJ62qhmVTm1O4jBYiL; Thu, 18 Jun 2020 15:43:52 -0500
 X-Authority-Reason: nr=8
-Received: from 89-69-237-178.dynamic.chello.pl ([89.69.237.178]:49422 helo=localhost)
+Received: from 89-69-237-178.dynamic.chello.pl ([89.69.237.178]:60428 helo=comp.lan)
         by gator3278.hostgator.com with esmtpa (Exim 4.93)
         (envelope-from <arkadiusz@drabczyk.org>)
-        id 1jm01r-000yjh-Pu; Thu, 18 Jun 2020 14:16:52 -0500
-Date:   Thu, 18 Jun 2020 21:16:44 +0200
+        id 1jm1O4-0021tY-0e; Thu, 18 Jun 2020 15:43:52 -0500
 From:   Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
-To:     Walter Harms <wharms@bfs.de>
-Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-Subject: Re: [PATCH] fread.3: return value
-Message-ID: <20200618191644.v74spg2nquf4qtyv@comp.lan>
-References: <20200616182659.12365-1-arkadiusz@drabczyk.org>
- <20200616190017.5y3pwpb22w2jeqls@jwilk.net>
- <20200616225034.e4uzibuemo7lpmet@comp.lan>
- <3294b2a2fae14460984e2f3162f7ec35@bfs.de>
- <20200617173010.vekk35vrslmtdm6r@comp.lan>
- <4d901a75517246baa6a5f82f291c0595@bfs.de>
- <20200618114344.rsgecwlvpmesfa7a@comp.lan>
- <726938c5daec4d5fbe7e85a121eff984@bfs.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <726938c5daec4d5fbe7e85a121eff984@bfs.de>
-User-Agent: NeoMutt/20180716
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] atoi.3: Explain disadvantages of atoi()
+Date:   Thu, 18 Jun 2020 22:42:41 +0200
+Message-Id: <20200618204241.14476-1-arkadiusz@drabczyk.org>
+X-Mailer: git-send-email 2.9.0
 X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
 X-AntiAbuse: Primary Hostname - gator3278.hostgator.com
 X-AntiAbuse: Original Domain - vger.kernel.org
@@ -50,13 +38,13 @@ X-AntiAbuse: Sender Address Domain - drabczyk.org
 X-BWhitelist: no
 X-Source-IP: 89.69.237.178
 X-Source-L: No
-X-Exim-ID: 1jm01r-000yjh-Pu
+X-Exim-ID: 1jm1O4-0021tY-0e
 X-Source: 
 X-Source-Args: 
 X-Source-Dir: 
-X-Source-Sender: 89-69-237-178.dynamic.chello.pl (localhost) [89.69.237.178]:49422
+X-Source-Sender: 89-69-237-178.dynamic.chello.pl (comp.lan) [89.69.237.178]:60428
 X-Source-Auth: arkadiusz@drabczyk.org
-X-Email-Count: 4
+X-Email-Count: 1
 X-Source-Cap: cmt1bXZicmg7cmt1bXZicmg7Z2F0b3IzMjc4Lmhvc3RnYXRvci5jb20=
 X-Local-Domain: yes
 Sender: linux-man-owner@vger.kernel.org
@@ -64,68 +52,45 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Jun 18, 2020 at 02:32:02PM +0000, Walter Harms wrote:
-> >If the requested size is 4 but there are only 3 bytes left then
-> >fread() will return 0, no matter what's the value of nmemb because
-> >it's not able to read even a single item and feof() will return
-> >non-zero. I think that this is explained clearly enough in the
-> >manpage.
-> 
-> IMHO i would be more clear to drop that "short item count". 
-> "If an error occurs, or the end of the file is reached, the  return value is zero"
+I believe new users should be discouraged from using atoi() and that
+its disadvantages should be explained.
 
-But the thing is that return value does not have to be zero, at least
-when the end of the file is reached. Check this:
+I added the information that 0 is returned on error - although C
+standard and POSIX say that "If the value of the result cannot be
+represented, the behavior is undefined." there are some
+interpretations that 0 has to be returned
+https://stackoverflow.com/questions/38393162/what-can-i-assume-about-the-behaviour-of-atoi-on-error
+and this is also what happens in practice with glibc, musl and uClibc.
 
-#include <stdio.h>
-#include <stdlib.h>
+Signed-off-by: Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
+---
+ man3/atoi.3 | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-int main(void)
-{
-  FILE *fp = fopen("/bin/sh", "rb");
-  if (!fp) {
-    perror("fopen");
-    return EXIT_FAILURE;
-  }
-
-  fseek(fp, -10, SEEK_END);
-
-  unsigned char buffer[12];
-
-  size_t ret = fread(buffer, 4, 3, fp);
-  if (ret != 3) {
-    fprintf(stderr, "fread() failed: %zu\n", ret);
-    printf("feof: %d\n", feof(fp) ? 1 : 0);
-    exit(EXIT_FAILURE);
-  }
-
-  fclose(fp);
-
-  exit(EXIT_SUCCESS);
-}
-
-Output:
-
-fread() failed: 2
-feof: 1
-
-> >That is interesting. POSIX
-> >https://pubs.opengroup.org/onlinepubs/9699919799.2008edition/ says
-> >that "If a partial element is read, its value is unspecified.". But as
-> >fread() returns number of items it has successfully read the returned
-> >value should always be checked and it's different than requested nmemb
-> >it means an error and I guess there is no way to tell how many bytes
-> >have been partially read - for example if size == 4 and nmemb == 1 and
-> >returned value is 0 you don't know if fread() read 1, 2 or 3 bytes.
-> 
-> the GNU version fills the buffer with the remaining bytes
-
-And so does libuClibc-0.9.33.2 and musl 1.1.20-git-79-gd6c855c that I
-have at hand. It's probably the easiest implementation of fread(). 
-
-> but returns 0.
-
-That's not always the case as I showed above.
-
+diff --git a/man3/atoi.3 b/man3/atoi.3
+index c5894d3..3c6527a 100644
+--- a/man3/atoi.3
++++ b/man3/atoi.3
+@@ -81,7 +81,18 @@ functions behave the same as
+ except that they convert the initial portion of the
+ string to their return type of \fIlong\fP or \fIlong long\fP.
+ .SH RETURN VALUE
+-The converted value.
++The converted value or 0 on error.
++.SH BUGS
++.I errno
++is not set on error so there is no way to distinguish between 0 as an
++error and as the converted value.
++No checks for overflow or underflow are done.
++Only input in decimal base can be converted.
++It's recommended to use
++.BR strtol ()
++and
++.BR strtoul ()
++family of functions in new programs.
+ .SH ATTRIBUTES
+ For an explanation of the terms used in this section, see
+ .BR attributes (7).
 -- 
-Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
+2.9.0
+
