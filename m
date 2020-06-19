@@ -2,64 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D518E20083A
-	for <lists+linux-man@lfdr.de>; Fri, 19 Jun 2020 13:56:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0ADF72008A6
+	for <lists+linux-man@lfdr.de>; Fri, 19 Jun 2020 14:27:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732225AbgFSL4y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 19 Jun 2020 07:56:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55536 "EHLO
+        id S1726382AbgFSM04 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 19 Jun 2020 08:26:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60084 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1732823AbgFSL4q (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Jun 2020 07:56:46 -0400
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 75833C06174E
-        for <linux-man@vger.kernel.org>; Fri, 19 Jun 2020 04:56:46 -0700 (PDT)
-Received: by mail-wm1-x341.google.com with SMTP id j198so8680623wmj.0
-        for <linux-man@vger.kernel.org>; Fri, 19 Jun 2020 04:56:46 -0700 (PDT)
+        with ESMTP id S1726201AbgFSM02 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Jun 2020 08:26:28 -0400
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B7BFDC06174E
+        for <linux-man@vger.kernel.org>; Fri, 19 Jun 2020 05:26:26 -0700 (PDT)
+Received: by mail-ej1-x643.google.com with SMTP id mb16so10006121ejb.4
+        for <linux-man@vger.kernel.org>; Fri, 19 Jun 2020 05:26:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=VobvufT27JhXUNne6i+RStTUA7sp/m+0jdbeqhO1qF4=;
-        b=mFZIcoRcHGy6SMljk+IXdThmXdRxa7XBBVpDBD2qll+rzJyzF5D+i84eMqc1T4WVgK
-         Qi3RStC4iRyLe+i8cptqfd8l4Pd/l6yLjik8dVjEtcMeuVwqAaHzuOs4qkPokoyk8fZc
-         ZyJ1jaLstYWvrGQhdM5A/gkwMeiCygNZq5tEyilVSqnp8+kYXkpWnpiilLSv8pQnnJ5x
-         Id2FyN2e3HvcxnpG2p2kSoYf7cMvfqGJYTS7Hp7ZApepZm1PXZaa0o8cATBofSWMZ1ba
-         l3ZS9wTkPeIjwh+3K/xGWNx/hC8kgBt93Y4MFBaVcQ1BeGr+MciLxFxyKo9kL9mHjWs/
-         7buA==
+        bh=3qXtvOETXLzbqL/mN7wRlEjGJYiP/jFz5Vj6fCDdiEU=;
+        b=pLUoGi6pk0KvKxmsH1oDhGaWFJt3lTwYKpy6cebKg8H+7U6lPxErhgSEYHfzonTl92
+         s1vSadMFBO+6KvmqjZstxPnBWp1KZe+KeUX0l17w66+ltt2dT/QxDkoq92/NmGp4ecbB
+         gVtqkrydI6ZOoCl6aKRrgS5xBBCk0E9TfAN8hWA9mehaYhaV4Ekjq5xsIohA91iK8IXy
+         4Y2GWe2xT047HWy30Rz/UG4wOmG+4RKEMwvxUqNoQIsAmtK/McK0v2zI7US5kMR8GYmH
+         lwAP9IrBotiaHCqowq/ua6/8+aJrtCyp/CCmu+iWMfd472p77RwkfVqBwnupq6T3da21
+         eV/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=VobvufT27JhXUNne6i+RStTUA7sp/m+0jdbeqhO1qF4=;
-        b=uV23kCmg+8z2WSL0l8OswmDvFw98CFTE1Ei7N5U0kE+E/2o07DYWPMDygrO8H8a+hi
-         w7zH744VWbA73ChDAwpGHjgXV9bxrIZaaDm9jf+Fdxz20GYOqPypY44/Pp+6JZKoMhAL
-         fnB8aIkcUVnWJ/o6S9CQJo1iZ2EgKMhfys6rG6NlxuK1I0/7t1+h00hYviDOpIPPLgJl
-         pr4QYYX5+LVJLVEE9W0FI/wXFgGfscdQm2cT9NzbmQfR5JSvsfBWd0z/bJQlAq/XR0f/
-         dyPEqbREdmyEJUgPqMxdX+y4xGxKzdLm0mytvDvpAiMXipi+K9p961jfnMT3CtqgdN1U
-         8W6g==
-X-Gm-Message-State: AOAM531uw5hPUUxgyakrcQHD5G9xMv7q+pB7dKuJN8XhAVM04w+s7xeo
-        G4aEe3OIg16UOV+o9DDDXkxsH2zhrWk=
-X-Google-Smtp-Source: ABdhPJz82BO+KdUVaQOzLIVtWYYrVOtfYqaa5FmudlESvsLJNe2nUDSUp4KArfzga1V8UFbpj6XbfQ==
-X-Received: by 2002:a05:600c:210:: with SMTP id 16mr3590200wmi.185.1592567805032;
-        Fri, 19 Jun 2020 04:56:45 -0700 (PDT)
+        bh=3qXtvOETXLzbqL/mN7wRlEjGJYiP/jFz5Vj6fCDdiEU=;
+        b=PRxOgkOO75JZiQ8yXNKHY9RIforqBmOznxICsPAGTAmbsBUHZauOtPsAZrUdXOBUH6
+         0rbBphQmfzk1z4+Mj26km6V3akPIOIPYY0h3AHqu/JTtVYi0i1KDRytMsBXjEtmlfK+B
+         PUeT/6+fdT6kHTe9KE5YDCMZ2URJs8NiW0ZIDrD1aCiBcW+KJRJhXYUdgGyCxM6bc5gj
+         EaY0nOedzHPTMKmNJjZEXPWgkhwl26g8NuFbVYdOhsOufKh5bTmx1RPMFqdTN8Ma6qmL
+         cRmqAcQeHWEQDzSRCQqutFyAOhl4ILVFS2rsh68QM+Vg0s1JU8UMKC28tlh3jx5qKC/X
+         zdvQ==
+X-Gm-Message-State: AOAM530RFhhRUqqsPRK23yEYfJ2ONR/F9/qR0dwXUJ5amZmPj9ST8fqx
+        +BahcTqpRNv/oW7TIhkxYvUcGm3XEJo=
+X-Google-Smtp-Source: ABdhPJxonAImCGciMG+C417S89brIK73OKv+fjRWtfokR8lr7YlqvLRUhgBJByMxe/EfM3LsF1U+kg==
+X-Received: by 2002:a17:906:2a4d:: with SMTP id k13mr3552158eje.253.1592569585256;
+        Fri, 19 Jun 2020 05:26:25 -0700 (PDT)
 Received: from ?IPv6:2001:a61:253c:8201:b2fb:3ef8:ca:1604? ([2001:a61:253c:8201:b2fb:3ef8:ca:1604])
-        by smtp.gmail.com with ESMTPSA id u13sm6843083wrp.53.2020.06.19.04.56.44
+        by smtp.gmail.com with ESMTPSA id r6sm4755396edq.44.2020.06.19.05.26.24
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 19 Jun 2020 04:56:44 -0700 (PDT)
+        Fri, 19 Jun 2020 05:26:24 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] proc.5: Inform that comm in /proc/pid/{stat,status} might
- also be truncated
+Subject: Re: [PATCH] atoi.3: Explain disadvantages of atoi()
 To:     Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
-References: <20200617205125.28163-1-arkadiusz@drabczyk.org>
+References: <20200618204241.14476-1-arkadiusz@drabczyk.org>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <a03ce3d1-9608-84f9-a074-ac3ca1781444@gmail.com>
-Date:   Fri, 19 Jun 2020 13:56:41 +0200
+Message-ID: <f2230a74-ceb3-a081-a328-129160289960@gmail.com>
+Date:   Fri, 19 Jun 2020 14:26:21 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200617205125.28163-1-arkadiusz@drabczyk.org>
+In-Reply-To: <20200618204241.14476-1-arkadiusz@drabczyk.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -70,47 +69,54 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hello Arkadiusz,
 
-On 6/17/20 10:51 PM, Arkadiusz Drabczyk wrote:
-> pgrep for example searches for a process name in /proc/pid/status and
-> therefore cannot find processes whose names are longer than 15
-> characters unless -f is specified.
+On 6/18/20 10:42 PM, Arkadiusz Drabczyk wrote:
+> I believe new users should be discouraged from using atoi() and that
+> its disadvantages should be explained.
+> 
+> I added the information that 0 is returned on error - although C
+> standard and POSIX say that "If the value of the result cannot be
+> represented, the behavior is undefined." there are some
+> interpretations that 0 has to be returned
+> https://stackoverflow.com/questions/38393162/what-can-i-assume-about-the-behaviour-of-atoi-on-error
+> and this is also what happens in practice with glibc, musl and uClibc.
 > 
 > Signed-off-by: Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
 
-Thanks. Patch applied.
+Thanks. Patch applied. I also made a few small tweaks. The 
+results have been pushed to master.
 
-Cheers,
+Thanks,
 
 Michael
 
 > ---
->  man5/proc.5 | 6 ++++++
->  1 file changed, 6 insertions(+)
+>  man3/atoi.3 | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
 > 
-> diff --git a/man5/proc.5 b/man5/proc.5
-> index 538c6c6..edaf281 100644
-> --- a/man5/proc.5
-> +++ b/man5/proc.5
-> @@ -2089,6 +2089,9 @@ The process ID.
->  .TP
->  (2) \fIcomm\fP \ %s
->  The filename of the executable, in parentheses.
-> +Strings longer than
-> +.B TASK_COMM_LEN
-> +(16) characters (including the terminating null byte) are silently truncated.
->  This is visible whether or not the executable is swapped out.
->  .TP
->  (3) \fIstate\fP \ %c
-> @@ -2504,6 +2507,9 @@ The fields are as follows:
->  .IP * 2
->  .IR Name :
->  Command run by this process.
-> +Strings longer than
-> +.B TASK_COMM_LEN
-> +(16) characters (including the terminating null byte) are silently truncated.
->  .IP *
->  .IR Umask :
->  Process umask, expressed in octal with a leading zero; see
+> diff --git a/man3/atoi.3 b/man3/atoi.3
+> index c5894d3..3c6527a 100644
+> --- a/man3/atoi.3
+> +++ b/man3/atoi.3
+> @@ -81,7 +81,18 @@ functions behave the same as
+>  except that they convert the initial portion of the
+>  string to their return type of \fIlong\fP or \fIlong long\fP.
+>  .SH RETURN VALUE
+> -The converted value.
+> +The converted value or 0 on error.
+> +.SH BUGS
+> +.I errno
+> +is not set on error so there is no way to distinguish between 0 as an
+> +error and as the converted value.
+> +No checks for overflow or underflow are done.
+> +Only input in decimal base can be converted.
+> +It's recommended to use
+> +.BR strtol ()
+> +and
+> +.BR strtoul ()
+> +family of functions in new programs.
+>  .SH ATTRIBUTES
+>  For an explanation of the terms used in this section, see
+>  .BR attributes (7).
 > 
 
 
