@@ -2,155 +2,220 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4687020093F
-	for <lists+linux-man@lfdr.de>; Fri, 19 Jun 2020 15:00:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8F01F2017C4
+	for <lists+linux-man@lfdr.de>; Fri, 19 Jun 2020 18:47:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731569AbgFSNAV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 19 Jun 2020 09:00:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37056 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728851AbgFSNAS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Jun 2020 09:00:18 -0400
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B357FC06174E;
-        Fri, 19 Jun 2020 06:00:17 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id q11so9626252wrp.3;
-        Fri, 19 Jun 2020 06:00:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ljPyNN/Qwakhqe+XqUeYOBqoxf7hProQtLOxnDnQs48=;
-        b=Gc6uaCkqyn8M5NULiegeLR+e+X1JkduCf6rQvSXt8Nl16hZHSKp2biDEJ8StKzqR/r
-         1Wcjd6LIBwveF4quZvhVEW1BvqnKkGvhoT4QbYs+t14SeTniS5Jpo561hQW3anupFQ+h
-         EFw3T4P2N4ooBB930lvjBYYc3LowpM2sdscZQr0c2LD91eS9EEuWp/4whuZVEGXRXAE6
-         jxzIEcdC933SSrQBX4e4nzYKv9MIi2LI5lpgVjanijHeT/MApW5lCMIkXQhgiNfqqJHU
-         SwW/fGCEkhxW25+gw/NVDAGvNI3BwUOureUH9XB37sQTh7bgE+2mqxcONVvzg7O2n6kQ
-         vDuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=ljPyNN/Qwakhqe+XqUeYOBqoxf7hProQtLOxnDnQs48=;
-        b=CvMx+mkD62Dq04psuMvzSbQcqlPFBs31c2evxVd2nbU1hXWSqA79UmHs9tJvufBqkx
-         YnkBF5PAEoTW2ucmY4tKkc2+FwfJ/tnkiNjMsM+uId+n3wLOeKCLv5Y6CnLWcn/YTl31
-         UT6MPitT6oOr+hbCQ96qM2XMSY6cMdkry+BAQq5ufJqm5DHu6ApeoIjVgRHciaCEG9BI
-         1f+fuDdtLkMWb5uj8dnhjrtG0wQZUL5yzyigIS64S9Hlos3V7VT9kgoW+Owj1qCn2qxT
-         zMfC8Y8fOb8V1+z2CIsScK9UThDSv9Dqx1qI8N7BB7ycQGCBrNrQPdA2u0Ya/w3z7tw5
-         OGdQ==
-X-Gm-Message-State: AOAM532L4FFcfaUrhsCIJlIbOfzgKNLhbFk/srsYpH0kMrd5YGy9Mokl
-        gXxWDEqNneecRNLTDX2OCzE=
-X-Google-Smtp-Source: ABdhPJx/JZS/Eblefk0zI3gb+uu+uT/5gLoiMz5ESaB+mWGa/RKum9IKOsU9NdFWwNFwyMESL8EE2Q==
-X-Received: by 2002:a05:6000:341:: with SMTP id e1mr4003694wre.1.1592571616385;
-        Fri, 19 Jun 2020 06:00:16 -0700 (PDT)
-Received: from ?IPv6:2001:a61:253c:8201:b2fb:3ef8:ca:1604? ([2001:a61:253c:8201:b2fb:3ef8:ca:1604])
-        by smtp.gmail.com with ESMTPSA id e15sm7147479wme.9.2020.06.19.06.00.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 19 Jun 2020 06:00:15 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org, viro@zeniv.linux.org.uk,
-        christian@brauner.io
-Subject: Re: [PATCH] symlink.7: document magic-links more completely
-To:     Aleksa Sarai <cyphar@cyphar.com>
-References: <20200414103524.wjhyfobzpjk236o7@yavin.dot.cyphar.com>
- <20200610055319.26374-1-cyphar@cyphar.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <fe72a276-a977-2589-ee83-d6ac8a21fbfa@gmail.com>
-Date:   Fri, 19 Jun 2020 15:00:15 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+        id S2395421AbgFSQnI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 19 Jun 2020 12:43:08 -0400
+Received: from buzzer.stormbind.net ([148.251.100.85]:36438 "EHLO
+        buzzer.stormbind.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2388125AbgFSQnH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Jun 2020 12:43:07 -0400
+X-Greylist: delayed 462 seconds by postgrey-1.27 at vger.kernel.org; Fri, 19 Jun 2020 12:43:05 EDT
+Received: from digital0638.lan (unknown [IPv6:2a02:6d40:2b51:fc01:49e5:d515:df94:338c])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+        (No client certificate requested)
+        by buzzer.stormbind.net (Postfix) with ESMTPSA id 6EE1B6004E2;
+        Fri, 19 Jun 2020 18:35:17 +0200 (CEST)
+Received: from sven by digital0638.lan with local (Exim 4.92)
+        (envelope-from <sven@stormbind.net>)
+        id 1jmJz1-0007Bq-Pr; Fri, 19 Jun 2020 18:35:15 +0200
+Date:   Fri, 19 Jun 2020 18:35:15 +0200
+From:   Sven Hoexter <sven@stormbind.net>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: [patch] update kernel documentation references in cgroups(7) and
+ cpuset(7)
+Message-ID: <20200619163515.GA27524@stormbind.net>
 MIME-Version: 1.0
-In-Reply-To: <20200610055319.26374-1-cyphar@cyphar.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Spam-Status: No, score=0.0 required=3.5 tests=UNPARSEABLE_RELAY
+        autolearn=disabled version=3.4.2
+X-Spam-Report: *  0.0 UNPARSEABLE_RELAY Informational: message has unparseable relay
+        *      lines
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on buzzer.stormbind.net
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Aleksa,
+cgroups-v1/v2 documentation got moved to the "admin-guide" subfolder
+and converted from .txt files to .rst
+---
+ man7/cgroups.7 | 38 +++++++++++++++++++-------------------
+ man7/cpuset.7  |  2 +-
+ 2 files changed, 20 insertions(+), 20 deletions(-)
 
-On 6/10/20 7:53 AM, Aleksa Sarai wrote:
-> Hi Michael,
-> 
-> Sorry for the delay and here is the patch I promised in this thread.
-
-Thanks!
-
-Patch applied.
-
-Cheers,
-
-Michael
-
-
-> --8<---------------------------------------------------------------------8<--
-> 
-> Traditionally, magic-links have not been a well-understood topic in
-> Linux. This helps clarify some of the terminology used in openat2.2.
-> 
-> Signed-off-by: Aleksa Sarai <cyphar@cyphar.com>
-> ---
->  man7/symlink.7 | 31 ++++++++++++++++++++++---------
->  1 file changed, 22 insertions(+), 9 deletions(-)
-> 
-> diff --git a/man7/symlink.7 b/man7/symlink.7
-> index 07b1db3a3764..ed99bc4236f1 100644
-> --- a/man7/symlink.7
-> +++ b/man7/symlink.7
-> @@ -84,6 +84,21 @@ as they are implemented on Linux and other systems,
->  are outlined here.
->  It is important that site-local applications also conform to these rules,
->  so that the user interface can be as consistent as possible.
-> +.SS Magic-links
-> +There is a special class of symlink-like objects known as "magic-links" which
-> +can be found in certain pseudo-filesystems such as
-> +.BR proc (5)
-> +(examples include
-> +.IR /proc/[pid]/exe " and " /proc/[pid]/fd/* .)
-> +Unlike normal symlinks, magic-links are not resolved through
-> +pathname-expansion, but instead act as direct references to the kernel's own
-> +representation of a file handle. As such, these magic-links allow users to
-> +access files which cannot be referenced with normal paths (such as unlinked
-> +files still referenced by a running program.)
-> +.PP
-> +Because they can bypass ordinary
-> +.BR mount_namespaces (7)-based
-> +restrictions, magic-links have been used as attack vectors in various exploits.
->  .SS Symbolic link ownership, permissions, and timestamps
->  The owner and group of an existing symbolic link can be changed
->  using
-> @@ -99,16 +114,14 @@ of a symbolic link can be changed using
->  or
->  .BR lutimes (3).
->  .PP
-> -On Linux, the permissions of a symbolic link are not used
-> -in any operations; the permissions are always
-> -0777 (read, write, and execute for all user categories),
->  .\" Linux does not currently implement an lchmod(2).
-> -and can't be changed.
-> -(Note that there are some "magic" symbolic links in the
-> -.I /proc
-> -directory tree\(emfor example, the
-> -.IR /proc/[pid]/fd/*
-> -files\(emthat have different permissions.)
-> +On Linux, the permissions of an ordinary symbolic link are not used in any
-> +operations; the permissions are always 0777 (read, write, and execute for all
-> +user categories), and can't be changed.
-> +.PP
-> +However, magic-links do not follow this rule. They can have a non-0777 mode,
-> +though this mode is not currently used in any permission checks.
-> +
->  .\"
->  .\" The
->  .\" 4.4BSD
-> 
-
-
+diff --git a/man7/cgroups.7 b/man7/cgroups.7
+index 7a7210177..4b4afbbd7 100644
+--- a/man7/cgroups.7
++++ b/man7/cgroups.7
+@@ -76,7 +76,7 @@ with the result that many inconsistencies arose between controllers
+ and management of the cgroup hierarchies became rather complex.
+ (A longer description of these problems can be found in
+ the kernel source file
+-.IR Documentation/cgroup\-v2.txt .)
++.IR Documentation/admin\-guide/cgroup\-v2.rst .)
+ .PP
+ Because of the problems with the initial cgroups implementation
+ (cgroups version 1),
+@@ -264,7 +264,7 @@ Cgroups can be guaranteed a minimum number of "CPU shares"
+ when a system is busy.
+ This does not limit a cgroup's CPU usage if the CPUs are not busy.
+ For further information, see
+-.IR Documentation/scheduler/sched-design-CFS.txt .
++.IR Documentation/scheduler/sched\-design\-CFS.rst .
+ .IP
+ In Linux 3.2,
+ this controller was extended to provide CPU "bandwidth" control.
+@@ -275,27 +275,27 @@ then within each scheduling period
+ an upper limit on the CPU time allocated to the processes in a cgroup.
+ This upper limit applies even if there is no other competition for the CPU.
+ Further information can be found in the kernel source file
+-.IR Documentation/scheduler/sched\-bwc.txt .
++.IR Documentation/scheduler/sched\-bwc.rst .
+ .TP
+ .IR cpuacct " (since Linux 2.6.24; " \fBCONFIG_CGROUP_CPUACCT\fP )
+ This provides accounting for CPU usage by groups of processes.
+ .IP
+ Further information can be found in the kernel source file
+-.IR Documentation/cgroup\-v1/cpuacct.txt .
++.IR Documentation/admin\-guide/cgroup\-v1/cpuacct.rst .
+ .TP
+ .IR cpuset " (since Linux 2.6.24; " \fBCONFIG_CPUSETS\fP )
+ This cgroup can be used to bind the processes in a cgroup to
+ a specified set of CPUs and NUMA nodes.
+ .IP
+ Further information can be found in the kernel source file
+-.IR Documentation/cgroup\-v1/cpusets.txt .
++.IR Documentation/admin\-guide/cgroup\-v1/cpusets.rst .
+ .TP
+ .IR memory " (since Linux 2.6.25; " \fBCONFIG_MEMCG\fP )
+ The memory controller supports reporting and limiting of process memory, kernel
+ memory, and swap used by cgroups.
+ .IP
+ Further information can be found in the kernel source file
+-.IR Documentation/cgroup\-v1/memory.txt .
++.IR Documentation/admin\-guide/cgroup\-v1/memory.rst .
+ .TP
+ .IR devices " (since Linux 2.6.26; " \fBCONFIG_CGROUP_DEVICE\fP )
+ This supports controlling which processes may create (mknod) devices as
+@@ -305,7 +305,7 @@ Hierarchy is enforced, so new rules must not
+ violate existing rules for the target or ancestor cgroups.
+ .IP
+ Further information can be found in the kernel source file
+-.IR Documentation/cgroup-v1/devices.txt .
++.IR Documentation/admin\-guide/cgroup\-v1/devices.rst .
+ .TP
+ .IR freezer " (since Linux 2.6.28; " \fBCONFIG_CGROUP_FREEZER\fP )
+ The
+@@ -318,7 +318,7 @@ also causes its children, for example, processes in
+ to be frozen.
+ .IP
+ Further information can be found in the kernel source file
+-.IR Documentation/cgroup-v1/freezer-subsystem.txt .
++.IR Documentation/admin\-guide/cgroup\-v1/freezer\-subsystem.rst .
+ .TP
+ .IR net_cls " (since Linux 2.6.29; " \fBCONFIG_CGROUP_NET_CLASSID\fP )
+ This places a classid, specified for the cgroup, on network packets
+@@ -330,7 +330,7 @@ This applies only to packets
+ leaving the cgroup, not to traffic arriving at the cgroup.
+ .IP
+ Further information can be found in the kernel source file
+-.IR Documentation/cgroup-v1/net_cls.txt .
++.IR Documentation/admin\-guide/cgroup\-v1/net_cls.rst .
+ .TP
+ .IR blkio " (since Linux 2.6.33; " \fBCONFIG_BLK_CGROUP\fP )
+ The
+@@ -347,41 +347,41 @@ The second is a throttling policy which specifies
+ upper I/O rate limits on a device.
+ .IP
+ Further information can be found in the kernel source file
+-.IR Documentation/cgroup-v1/blkio-controller.txt .
++.IR Documentation/admin\-guide/cgroup\-v1/blkio\-controller.rst .
+ .TP
+ .IR perf_event " (since Linux 2.6.39; " \fBCONFIG_CGROUP_PERF\fP )
+ This controller allows
+ .I perf
+ monitoring of the set of processes grouped in a cgroup.
+ .IP
+-Further information can be found in the kernel source file
+-.IR tools/perf/Documentation/perf-record.txt .
++Further information can be found in the kernel source files in
++.IR tools/perf/Documentation/admin\-guide/perf/ .
+ .TP
+ .IR net_prio " (since Linux 3.3; " \fBCONFIG_CGROUP_NET_PRIO\fP )
+ This allows priorities to be specified, per network interface, for cgroups.
+ .IP
+ Further information can be found in the kernel source file
+-.IR Documentation/cgroup-v1/net_prio.txt .
++.IR Documentation/admin\-guide/cgroup\-v1/net_prio.rst .
+ .TP
+ .IR hugetlb " (since Linux 3.5; " \fBCONFIG_CGROUP_HUGETLB\fP )
+ This supports limiting the use of huge pages by cgroups.
+ .IP
+ Further information can be found in the kernel source file
+-.IR Documentation/cgroup-v1/hugetlb.txt .
++.IR Documentation/admin\-guide/cgroup\-v1/hugetlb.rst .
+ .TP
+ .IR pids " (since Linux 4.3; " \fBCONFIG_CGROUP_PIDS\fP )
+ This controller permits limiting the number of process that may be created
+ in a cgroup (and its descendants).
+ .IP
+ Further information can be found in the kernel source file
+-.IR Documentation/cgroup-v1/pids.txt .
++.IR Documentation/admin\-guide/cgroup\-v1/pids.rst .
+ .TP
+ .IR rdma " (since Linux 4.11; " \fBCONFIG_CGROUP_RDMA\fP )
+ The RDMA controller permits limiting the use of
+ RDMA/IB-specific resources per cgroup.
+ .IP
+ Further information can be found in the kernel source file
+-.IR Documentation/cgroup-v1/rdma.txt .
++.IR Documentation/admin\-guide/cgroup\-v1/rdma.rst .
+ .\"
+ .SS Creating cgroups and moving processes
+ A cgroup filesystem initially contains a single root cgroup, '/',
+@@ -566,7 +566,7 @@ An improved mechanism for notification of empty cgroups is provided by the
+ file.
+ .PP
+ For more changes, see the
+-.I Documentation/cgroup-v2.txt
++.I Documentation/admin\-guide/cgroup\-v2.rst
+ file in the kernel source.
+ .PP
+ Some of the new behaviors listed above saw subsequent modification with
+@@ -648,7 +648,7 @@ it is silently ignored in noninitial namespaces.
+ .\"
+ .SS Cgroups v2 controllers
+ The following controllers, documented in the kernel source file
+-.IR Documentation/cgroup-v2.txt ,
++.IR Documentation/admin\-guide/cgroup\-v2.rst ,
+ are supported in cgroups version 2:
+ .TP
+ .IR cpu " (since Linux 4.15)"
+@@ -1878,4 +1878,4 @@ mount option.
+ .BR user_namespaces (7)
+ .PP
+ The kernel source file
+-.IR Documentation/admin-guide/cgroup-v2.rst .
++.IR Documentation/admin\-guide/cgroup\-v2.rst .
+diff --git a/man7/cpuset.7 b/man7/cpuset.7
+index 44e63d64f..fdfc3b662 100644
+--- a/man7/cpuset.7
++++ b/man7/cpuset.7
+@@ -1503,7 +1503,7 @@ syntax that works on any shell, but alas more obscurely, by using the
+ .BR migratepages (8),
+ .BR numactl (8)
+ .PP
+-.IR Documentation/cgroup\-v1/cpusets.txt
++.IR Documentation/admin\-guide/cgroup\-v1/cpusets.rst
+ in the Linux kernel source tree
+ .\" commit 45ce80fb6b6f9594d1396d44dd7e7c02d596fef8
+ (or
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.20.1
+
