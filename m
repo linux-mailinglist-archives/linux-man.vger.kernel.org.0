@@ -2,63 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 80DA7200738
-	for <lists+linux-man@lfdr.de>; Fri, 19 Jun 2020 12:48:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D518E20083A
+	for <lists+linux-man@lfdr.de>; Fri, 19 Jun 2020 13:56:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732450AbgFSKsO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 19 Jun 2020 06:48:14 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45034 "EHLO
+        id S1732225AbgFSL4y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 19 Jun 2020 07:56:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55536 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1732399AbgFSKsN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Jun 2020 06:48:13 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 30BF9C06174E
-        for <linux-man@vger.kernel.org>; Fri, 19 Jun 2020 03:48:13 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id a6so7266423wrm.4
-        for <linux-man@vger.kernel.org>; Fri, 19 Jun 2020 03:48:13 -0700 (PDT)
+        with ESMTP id S1732823AbgFSL4q (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Jun 2020 07:56:46 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 75833C06174E
+        for <linux-man@vger.kernel.org>; Fri, 19 Jun 2020 04:56:46 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id j198so8680623wmj.0
+        for <linux-man@vger.kernel.org>; Fri, 19 Jun 2020 04:56:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Qlb7cRqsae2Ls5Qd8KZugE5xRGqcMx5agK6zndI+aug=;
-        b=kKQ0Df2qxmqjGbUnIU/sH3VbMZbn8y8AIhsLYP/SQj5AZEKhTewZ1ZKc7iCHmYhFAd
-         Wc80Q/Zzfnad2QBKc0nihTsrtJnrxMD2aK6NhphL1Xh3VH65DEmkfRZByULpYUQxWZpQ
-         FzFewj7zq3tvMmk0X1VNU78PjuDsmAQzC5f/5mFbQeCW/Jkxt3Fe5H2aAf0KFLXWZRW8
-         hj9rnsYg9LMvZw/MaTJrYZKeEZPWyS0ZvuUTcgsXYv9V7kVYqZjEJDjpti6D6XbpCuSl
-         B+lqSKN0RJcW3gMVTnc9olka7K3Moc41amSKpo7T18TCAh1mdIAMdY2Hmw0h+KO855EL
-         Ns6g==
+        bh=VobvufT27JhXUNne6i+RStTUA7sp/m+0jdbeqhO1qF4=;
+        b=mFZIcoRcHGy6SMljk+IXdThmXdRxa7XBBVpDBD2qll+rzJyzF5D+i84eMqc1T4WVgK
+         Qi3RStC4iRyLe+i8cptqfd8l4Pd/l6yLjik8dVjEtcMeuVwqAaHzuOs4qkPokoyk8fZc
+         ZyJ1jaLstYWvrGQhdM5A/gkwMeiCygNZq5tEyilVSqnp8+kYXkpWnpiilLSv8pQnnJ5x
+         Id2FyN2e3HvcxnpG2p2kSoYf7cMvfqGJYTS7Hp7ZApepZm1PXZaa0o8cATBofSWMZ1ba
+         l3ZS9wTkPeIjwh+3K/xGWNx/hC8kgBt93Y4MFBaVcQ1BeGr+MciLxFxyKo9kL9mHjWs/
+         7buA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=Qlb7cRqsae2Ls5Qd8KZugE5xRGqcMx5agK6zndI+aug=;
-        b=iEhLVyRpRMQnymg17maieMvwncATmSxwLZNhyAxgyYEBM8wG37ZAgqlvVnaeTRnp9b
-         b+x0BFL0l1uF8CQrwq9D+blyXHuep0OXrmHxVxQs/A6ZtoeefJGGl3rAoPuXEsp2snCr
-         QFBYFzMBxKpLfns5uZnMBTrJJcobVnZN92/JV5N/PFiWObjxzYw8HkIgXi4bM217Me24
-         SPRdl3h2xgXr3u3Y2QK7G0nM7A8i9aeVoj/dmYd1b1yePIPF5+hj74XWZYPlR/iG4H0B
-         CoFTP5PBGyo7PMCPvajw2bu7f9HKcbpfK3vmObnuGOWJ1/flTUM6EUQDsbnJ0rzuZJwC
-         lH9Q==
-X-Gm-Message-State: AOAM531/S2WYSPBPsUWjJFOxYFhYeK4HzsZ2bZ4Cf0D2+YU/7B4j1JD1
-        U3h4MsjPMH5nCa8AkytGFVjzA8olCWs=
-X-Google-Smtp-Source: ABdhPJyfgPv33yXWvMEXeaA89+Nk9N9DmoifzCbv+zUqKJ33uwwZj0A2Hq8TMFixfBdKsGl17JmH+w==
-X-Received: by 2002:adf:aa94:: with SMTP id h20mr3216158wrc.327.1592563691846;
-        Fri, 19 Jun 2020 03:48:11 -0700 (PDT)
+        bh=VobvufT27JhXUNne6i+RStTUA7sp/m+0jdbeqhO1qF4=;
+        b=uV23kCmg+8z2WSL0l8OswmDvFw98CFTE1Ei7N5U0kE+E/2o07DYWPMDygrO8H8a+hi
+         w7zH744VWbA73ChDAwpGHjgXV9bxrIZaaDm9jf+Fdxz20GYOqPypY44/Pp+6JZKoMhAL
+         fnB8aIkcUVnWJ/o6S9CQJo1iZ2EgKMhfys6rG6NlxuK1I0/7t1+h00hYviDOpIPPLgJl
+         pr4QYYX5+LVJLVEE9W0FI/wXFgGfscdQm2cT9NzbmQfR5JSvsfBWd0z/bJQlAq/XR0f/
+         dyPEqbREdmyEJUgPqMxdX+y4xGxKzdLm0mytvDvpAiMXipi+K9p961jfnMT3CtqgdN1U
+         8W6g==
+X-Gm-Message-State: AOAM531uw5hPUUxgyakrcQHD5G9xMv7q+pB7dKuJN8XhAVM04w+s7xeo
+        G4aEe3OIg16UOV+o9DDDXkxsH2zhrWk=
+X-Google-Smtp-Source: ABdhPJz82BO+KdUVaQOzLIVtWYYrVOtfYqaa5FmudlESvsLJNe2nUDSUp4KArfzga1V8UFbpj6XbfQ==
+X-Received: by 2002:a05:600c:210:: with SMTP id 16mr3590200wmi.185.1592567805032;
+        Fri, 19 Jun 2020 04:56:45 -0700 (PDT)
 Received: from ?IPv6:2001:a61:253c:8201:b2fb:3ef8:ca:1604? ([2001:a61:253c:8201:b2fb:3ef8:ca:1604])
-        by smtp.gmail.com with ESMTPSA id f2sm6309566wmj.39.2020.06.19.03.48.11
+        by smtp.gmail.com with ESMTPSA id u13sm6843083wrp.53.2020.06.19.04.56.44
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 19 Jun 2020 03:48:11 -0700 (PDT)
+        Fri, 19 Jun 2020 04:56:44 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] man-pages.7: wfix
-To:     Jakub Wilk <jwilk@jwilk.net>
-References: <20200618212649.7889-1-jwilk@jwilk.net>
+Subject: Re: [PATCH] proc.5: Inform that comm in /proc/pid/{stat,status} might
+ also be truncated
+To:     Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
+References: <20200617205125.28163-1-arkadiusz@drabczyk.org>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <20b8c5ed-0c8e-812f-4c09-074dfb723608@gmail.com>
-Date:   Fri, 19 Jun 2020 12:48:08 +0200
+Message-ID: <a03ce3d1-9608-84f9-a074-ac3ca1781444@gmail.com>
+Date:   Fri, 19 Jun 2020 13:56:41 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200618212649.7889-1-jwilk@jwilk.net>
+In-Reply-To: <20200617205125.28163-1-arkadiusz@drabczyk.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -67,29 +68,14 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Jakub,
+Hello Arkadiusz,
 
-On 6/18/20 11:26 PM, Jakub Wilk wrote:
-> Reorder full wordings to match the order of abbreviations.
+On 6/17/20 10:51 PM, Arkadiusz Drabczyk wrote:
+> pgrep for example searches for a process name in /proc/pid/status and
+> therefore cannot find processes whose names are longer than 15
+> characters unless -f is specified.
 > 
-> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
-> ---
->  man7/man-pages.7 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man7/man-pages.7 b/man7/man-pages.7
-> index 6216e254d..eecba8996 100644
-> --- a/man7/man-pages.7
-> +++ b/man7/man-pages.7
-> @@ -837,7 +837,7 @@ when rendering a page with, say:
->  In general, the use of abbreviations such as "e.g.", "i.e.", "etc.",
->  "cf.", and "a.k.a." should be avoided,
->  in favor of suitable full wordings
-> -("for example", "that is", "compare to", "and so on", "also known as").
-> +("for example", "that is", "and so on", "compare to", "also known as").
->  .PP
->  The only place where such abbreviations may be acceptable is in
->  .I short
+> Signed-off-by: Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
 
 Thanks. Patch applied.
 
@@ -97,6 +83,35 @@ Cheers,
 
 Michael
 
+> ---
+>  man5/proc.5 | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/man5/proc.5 b/man5/proc.5
+> index 538c6c6..edaf281 100644
+> --- a/man5/proc.5
+> +++ b/man5/proc.5
+> @@ -2089,6 +2089,9 @@ The process ID.
+>  .TP
+>  (2) \fIcomm\fP \ %s
+>  The filename of the executable, in parentheses.
+> +Strings longer than
+> +.B TASK_COMM_LEN
+> +(16) characters (including the terminating null byte) are silently truncated.
+>  This is visible whether or not the executable is swapped out.
+>  .TP
+>  (3) \fIstate\fP \ %c
+> @@ -2504,6 +2507,9 @@ The fields are as follows:
+>  .IP * 2
+>  .IR Name :
+>  Command run by this process.
+> +Strings longer than
+> +.B TASK_COMM_LEN
+> +(16) characters (including the terminating null byte) are silently truncated.
+>  .IP *
+>  .IR Umask :
+>  Process umask, expressed in octal with a leading zero; see
+> 
 
 
 -- 
