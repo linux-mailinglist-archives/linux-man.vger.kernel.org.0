@@ -2,35 +2,35 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3DB532024D0
-	for <lists+linux-man@lfdr.de>; Sat, 20 Jun 2020 17:39:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6EF5A202507
+	for <lists+linux-man@lfdr.de>; Sat, 20 Jun 2020 18:03:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725851AbgFTPj6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 20 Jun 2020 11:39:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56416 "EHLO
+        id S1726065AbgFTQDm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 20 Jun 2020 12:03:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60090 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725826AbgFTPj6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Jun 2020 11:39:58 -0400
+        with ESMTP id S1725880AbgFTQDm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Jun 2020 12:03:42 -0400
 Received: from inpost.hi.is (inpost.hi.is [IPv6:2a00:c88:4000:1650::165:62])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 79D22C06174E
-        for <linux-man@vger.kernel.org>; Sat, 20 Jun 2020 08:39:57 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D3D7BC06174E
+        for <linux-man@vger.kernel.org>; Sat, 20 Jun 2020 09:03:41 -0700 (PDT)
 Received: from hekla.rhi.hi.is (hekla.rhi.hi.is [IPv6:2a00:c88:4000:1650::165:2])
-        by inpost.hi.is (8.14.7/8.14.7) with ESMTP id 05KFdmwp006606
+        by inpost.hi.is (8.14.7/8.14.7) with ESMTP id 05KG3cUZ008002
         (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-        Sat, 20 Jun 2020 15:39:48 GMT
-DKIM-Filter: OpenDKIM Filter v2.11.0 inpost.hi.is 05KFdmwp006606
+        Sat, 20 Jun 2020 16:03:38 GMT
+DKIM-Filter: OpenDKIM Filter v2.11.0 inpost.hi.is 05KG3cUZ008002
 Received: from hekla.rhi.hi.is (localhost [127.0.0.1])
-        by hekla.rhi.hi.is (8.14.4/8.14.4) with ESMTP id 05KFdmaK019598;
-        Sat, 20 Jun 2020 15:39:48 GMT
+        by hekla.rhi.hi.is (8.14.4/8.14.4) with ESMTP id 05KG3c1X020703;
+        Sat, 20 Jun 2020 16:03:38 GMT
 Received: (from bjarniig@localhost)
-        by hekla.rhi.hi.is (8.14.4/8.14.4/Submit) id 05KFdm9F019597;
-        Sat, 20 Jun 2020 15:39:48 GMT
-Date:   Sat, 20 Jun 2020 15:39:48 +0000
+        by hekla.rhi.hi.is (8.14.4/8.14.4/Submit) id 05KG3crr020702;
+        Sat, 20 Jun 2020 16:03:38 GMT
+Date:   Sat, 20 Jun 2020 16:03:38 +0000
 From:   Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] man4/*: srcfix, remove trailing space in "strings"
-Message-ID: <20200620153947.GA19551@rhi.hi.is>
+Subject: [PATCH] man5/proc.5: srcfix, trim trailing space
+Message-ID: <20200620160338.GA20693@rhi.hi.is>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -40,60 +40,55 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-  Trim trailing space.
+Output is from: test-groff -b -mandoc -T utf8 -rF0 -t -w w -z
+
+  [ "test-groff" is a developmental version of "groff" ]
+
+Input file is ./proc.5
+
+troff: <proc.5>:4410: warning: trailing space
+troff: <proc.5>:5206: warning: trailing space
+troff: <proc.5>:5488: warning: trailing space
+
+###
 
   There is no change in the output from "nroff" and "groff".
 
 Signed-off-by: Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
 ---
- man4/console_codes.4 | 4 ++--
- man4/initrd.4        | 2 +-
- man4/loop.4          | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ man5/proc.5 | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/man4/console_codes.4 b/man4/console_codes.4
-index 113f43151..be34a0d91 100644
---- a/man4/console_codes.4
-+++ b/man4/console_codes.4
-@@ -397,11 +397,11 @@ ESC [ 11 ; \fIn\fP ]	Set bell duration in msec.
- ESC [ 12 ; \fIn\fP ]	Bring specified console to the front.
- ESC [ 13 ]      	Unblank the screen.
- ESC [ 14 ; \fIn\fP ]   	Set the VESA powerdown interval in minutes.
--ESC [ 15 ]      	T{
-+ESC [ 15 ]	T{
- Bring the previous console to the front
- (since Linux 2.6.0).
- T}
--ESC [ 16 ; \fIn\fP ]   	T{
-+ESC [ 16 ; \fIn\fP ]	T{
- Set the cursor blink interval in milliseconds
- (since Linux 4.2).
- T}
-diff --git a/man4/initrd.4 b/man4/initrd.4
-index a10736456..e41917817 100644
---- a/man4/initrd.4
-+++ b/man4/initrd.4
-@@ -75,7 +75,7 @@ is a read-only block device.
- This device is a RAM disk that is initialized (e.g., loaded)
- by the boot loader before the kernel is started.
- The kernel then can use
--.IR /dev/initrd "'s "
-+.IR /dev/initrd "'s"
- contents for a two-phase system boot-up.
- .PP
- In the first boot-up phase, the kernel starts up
-diff --git a/man4/loop.4 b/man4/loop.4
-index 510ed88a7..1623cad0e 100644
---- a/man4/loop.4
-+++ b/man4/loop.4
-@@ -42,7 +42,7 @@ You could do
- .in +4n
- .EX
- $ \fBdd if=/dev/zero of=file.img bs=1MiB count=10\fP
--$ \fBsudo losetup /dev/loop4 file.img \fP
-+$ \fBsudo losetup /dev/loop4 file.img\fP
- $ \fBsudo mkfs -t ext4 /dev/loop4\fP
- $ \fBsudo mkdir /myloopdev\fP
- $ \fBsudo mount /dev/loop4 /myloopdev\fP
+diff --git a/man5/proc.5 b/man5/proc.5
+index 0e9d56fec..6645a1ae8 100644
+--- a/man5/proc.5
++++ b/man5/proc.5
+@@ -4407,7 +4407,7 @@ on older kernels).
+ This file contains information about the status of the
+ directory cache (dcache).
+ The file contains six numbers,
+-.IR nr_dentry ", " nr_unused ", " age_limit " (age in seconds), "
++.IR nr_dentry ", " nr_unused ", " age_limit " (age in seconds),"
+ .I want_pages
+ (pages requested by system) and two dummy values.
+ .RS
+@@ -5203,7 +5203,7 @@ This file is documented in the Linux kernel source file
+ .I Documentation/initrd.txt
+ before Linux 4.10).
+ .TP
+-.IR /proc/sys/kernel/reboot\-cmd " (Sparc only) "
++.IR /proc/sys/kernel/reboot\-cmd " (Sparc only)"
+ This file seems to be a way to give an argument to the SPARC
+ ROM/Flash boot loader.
+ Maybe to tell it what to do after
+@@ -5485,7 +5485,7 @@ is reduced accordingly.
+ See
+ .BR ptrace (2).
+ .TP
+-.IR /proc/sys/kernel/zero\-paged " (PowerPC only) "
++.IR /proc/sys/kernel/zero\-paged " (PowerPC only)"
+ This file
+ contains a flag.
+ When enabled (nonzero), Linux-PPC will pre-zero pages in
 -- 
 2.27.0
