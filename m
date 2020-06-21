@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C46F620293F
-	for <lists+linux-man@lfdr.de>; Sun, 21 Jun 2020 09:08:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7AD8C20294D
+	for <lists+linux-man@lfdr.de>; Sun, 21 Jun 2020 09:21:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729384AbgFUHIf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 21 Jun 2020 03:08:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50658 "EHLO
+        id S1729379AbgFUHV0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 21 Jun 2020 03:21:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52616 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729379AbgFUHIe (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 21 Jun 2020 03:08:34 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 07C33C061794
-        for <linux-man@vger.kernel.org>; Sun, 21 Jun 2020 00:08:34 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id q5so1181735wru.6
-        for <linux-man@vger.kernel.org>; Sun, 21 Jun 2020 00:08:33 -0700 (PDT)
+        with ESMTP id S1729343AbgFUHV0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 21 Jun 2020 03:21:26 -0400
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 80681C061794
+        for <linux-man@vger.kernel.org>; Sun, 21 Jun 2020 00:21:24 -0700 (PDT)
+Received: by mail-wm1-x343.google.com with SMTP id a6so2391043wmm.0
+        for <linux-man@vger.kernel.org>; Sun, 21 Jun 2020 00:21:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ibyWPXafph/Ci78csFMIHbM9YjIGkx60FkmJG+LhFyo=;
-        b=Ro58cvxoqAYyjgn7fcIe7nnNktKyoboU/1jJ4LCz0TKrkUSxswGiMbjNfWQjj9upMD
-         UnB4ZV63SnCPoQTIFHrePIHq/xAERz+cerVzGftUAUOE2Lynq5dk6bfZWioTN6KBmOeZ
-         pigrhSAjTGyGis5kzDajrokGbsnlpmaE9NLgAw6criG6lLRq53UVu0bOQT+LUhql3tdS
-         vmRqCmnblY7vDMIE6h4hMamhUNGgA3WgmDpDUT4bM/rQd7HQYIDForgM/fhjvOKMOKMt
-         RYLFQ6F7lCQ7V3PX53msjMtzJxTAgsDHCLSGabGoNr59emOMC2qf1u/G6g+6zBOxW0uV
-         hFkg==
+        bh=XLpgkq4DUZtxwZhzXhdbGYRIZm64Gy/KE34FrAXqWkk=;
+        b=loK0uabeEvrmQzhr3iYS5MObVap/fhmACIbdSaTkBnuTUAIsbIjneBV6Ui+DYsAW1R
+         BLgQSW/jD7JiNHHaLb7oEe6S1p5xMTV13EBK0USzxQK/l1OaAwNYjxapcq0jSHXz+2qo
+         +EfLu7yL5p3V8ItOz7XCZ9FCAQrxdZIct70dBEiU3hX+4kQTjpqOT1ykmxYmN7Pim/4b
+         8fEs+OnP+zhxfVsnH4GdfasZkmXpKKwcSHA5V3jtwwdon8bTdCjFku+ueIBuxEmET+Mq
+         6uZy6raTTOng1J47BXN7Y4a0+qlqS+f7HkO4EwvL9sJ9sgvYDkA1LGAKQISqlq1Cl5iM
+         NS4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=ibyWPXafph/Ci78csFMIHbM9YjIGkx60FkmJG+LhFyo=;
-        b=MzX4dDQ6G9xeuovTLiTnTR06lAIwtq9r4p8oMhetnzu+fKYdKBQh4+iMTKGkPGiIYl
-         iKKpMZ8NjWAV9apD7Iv1vbhTZbs6jrrvgSYrc5ssCtI7l3zIITnEDm9DAnflra6Fgbi7
-         BG9rLz9H/3Y0EWRO4P6Vx9V7skIhtOfdZ9ItyoccU4TDPy25eVCPUpCk80R6Q9qnjWwW
-         TfrUUygQDF9hizdHM2CjvZT+EO9xpfOPH66U6Kxj2tbqeYDWjy4QJ3xheqAaiysNSwot
-         ayqoSZJ3+160mHHN5qKORjh/PKfCoDnojBIJ8pB0RAfg4bH9kvDmaX9f4cAlgkQDscdm
-         jkZQ==
-X-Gm-Message-State: AOAM5331ttauHqTdlYZZ2gzaW5HdhsUbUjc2ikdc1MeeD1yAAPeGr0h6
-        zDEcVdl7JsiucP7JKsbP+Q7SGcZ6
-X-Google-Smtp-Source: ABdhPJwFqdLFn/pArNAFqMrsBhmk6TSV0+r5EuxkzPe3I9o0hb2QtT3IpXKQSFPiP/Ez8b2QKjY3kw==
-X-Received: by 2002:a5d:4244:: with SMTP id s4mr10243518wrr.5.1592723311826;
-        Sun, 21 Jun 2020 00:08:31 -0700 (PDT)
+        bh=XLpgkq4DUZtxwZhzXhdbGYRIZm64Gy/KE34FrAXqWkk=;
+        b=Mw3v4YiGgzJUs4qLG0kB285Z3IjT0o8EcvG1q78p6gKKqtwCF2vxK9Gi5esAMp+eBJ
+         NDEo0YMRYeVUtdhN+v+V9bDxhGHy1tFz2Q4vAUg5SXVyQRcMJ1JLTkz/Xhzwt05lrgRg
+         ETMG79jFF7t494kZqLFSPCBClWtIUDJcTTYTBYbqR2yZVAw2Aj7QBw+WLCwG2ncL1Nxh
+         cnhISBWOtIT/uWALHD6eWD1BywUTKLpGb2Ty3X1i2d5t9pZhN2lHQim0Yuxu0iP9xuIS
+         g5qh6Ye9VDA5y+6TV/6vpvjjPQzqW/FBAkGNhQRBy3zb365DDsKC5Il+6WtWC0Brqfvc
+         7fXg==
+X-Gm-Message-State: AOAM533zTGTPmZYFh+sXArTgf0huCgY+LAo1cFpXn/n8G5fKdKbsBHk9
+        62HEPJIE9UcIxrTsrXYDjW3Vd+y/
+X-Google-Smtp-Source: ABdhPJz15I03+79fWkNKCpLg/QD5y8Hg7rkTNrk3dCFqq3CZ0KCYON6IhnZYSCZXtXhOQ36PUkgjXw==
+X-Received: by 2002:a7b:cd06:: with SMTP id f6mr12152856wmj.8.1592724082468;
+        Sun, 21 Jun 2020 00:21:22 -0700 (PDT)
 Received: from ?IPv6:2001:a61:253c:8201:b2fb:3ef8:ca:1604? ([2001:a61:253c:8201:b2fb:3ef8:ca:1604])
-        by smtp.gmail.com with ESMTPSA id 30sm8475952wrm.74.2020.06.21.00.08.31
+        by smtp.gmail.com with ESMTPSA id n16sm3483985wmc.40.2020.06.21.00.21.21
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 21 Jun 2020 00:08:31 -0700 (PDT)
+        Sun, 21 Jun 2020 00:21:22 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] man2/*: srcfix: fix warnings from "mandoc -Tlint"
+Subject: Re: [PATCH] man3/*: srcfx, fix warnings from "mandoc -Tlint"
 To:     Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
-References: <20200620192931.GA29605@rhi.hi.is>
+References: <20200620204349.GA449@rhi.hi.is>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <ab15e2ff-70cd-0aea-a3f5-ed4d7f4cd6b6@gmail.com>
-Date:   Sun, 21 Jun 2020 09:08:28 +0200
+Message-ID: <f2a4590c-b383-73cd-a92b-873085397937@gmail.com>
+Date:   Sun, 21 Jun 2020 09:21:21 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200620192931.GA29605@rhi.hi.is>
+In-Reply-To: <20200620204349.GA449@rhi.hi.is>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,1136 +69,801 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hello Bjarni,
 
-On 6/20/20 9:29 PM, Bjarni Ingi Gislason wrote:
+On 6/20/20 10:43 PM, Bjarni Ingi Gislason wrote:
 >   Remove superfluous paragraph macros.
 > 
->   Remove ".br" if it is before a line that starts with a space
-> character, as such lines automatically cause a break.
+>   Remove request ".br" if it precedes a line, that begins with a space,
+> as such lines automatically cause a break.
 > 
-> ###
-> 
->   The output is unchanged, except two empty lines are added at the
-> bottom (before the footer line) in the output of "nroff" for the files
-> "alloc_hugepages.2" and "userfaultfd.2".
-> 
+>   There is no change in the output from "nroff" and "groff".
+
+Thanks. Patch applied, but I had to do some changes manually,
+since the patch wouldn't apply as a whole. The pieces
+
+>  man3/gethostbyname.3               | 1 -
+>  man3/getrpcent.3                   | 1 -
+>  man3/getsubopt.3                   | 2 --
+>  man3/ilogb.3                       | 1 -
+>  man3/posix_spawn.3                 | 2 --
+
+were broken, for reasons that were not immediately obvious to me.
+(There was a similar problem in the man2/* patch).
+
+Cheers,
+
+Michael
+
+
 > ###
 > 
 >   Examples of warnings from "mandoc -Tlint":
 > 
-> mandoc: access.2:283:2: WARNING: skipping paragraph macro: PP after SH
+> mandoc: bindresvport.3:41:2: WARNING: skipping paragraph macro: PP after SH
 > 
-> mandoc: adjtimex.2:185:2: WARNING: skipping paragraph macro: PP empty
+> mandoc: crypt.3:228:2: WARNING: skipping paragraph macro: PP empty
 > 
-> mandoc: futex.2:728:2: WARNING: skipping paragraph macro: IP empty
+> mandoc: dlinfo.3:151:2: WARNING: skipping paragraph macro: IP empty
 > 
-> mandoc: getsid.2:48:2: WARNING: skipping paragraph macro: br before text line with leading blank
+> mandoc: exec.3:86:2: WARNING: skipping paragraph macro: PP after SS
 > 
-> mandoc: init_module.2:290:2: WARNING: skipping paragraph macro: PP after SS
-> 
-> mandoc: ioctl_fideduperange.2:27:2: WARNING: skipping paragraph macro: br after SH
-> 
+> mandoc: getsubopt.3:45:2: WARNING: skipping paragraph macro: br before text line with leading blank
 > 
 > Signed-off-by: Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
-
-Thanks. Patch applied.
-
-Michael
-
 > ---
->  man2/access.2               | 1 -
->  man2/adjtimex.2             | 1 -
->  man2/alloc_hugepages.2      | 2 +-
->  man2/chown.2                | 1 -
->  man2/clone.2                | 8 --------
->  man2/eventfd.2              | 1 -
->  man2/fork.2                 | 1 -
->  man2/futex.2                | 4 ----
->  man2/getgroups.2            | 1 -
->  man2/getrusage.2            | 2 --
->  man2/getsid.2               | 1 -
->  man2/init_module.2          | 1 -
->  man2/io_cancel.2            | 3 ---
->  man2/io_destroy.2           | 3 ---
->  man2/io_getevents.2         | 4 ----
->  man2/io_setup.2             | 3 ---
->  man2/io_submit.2            | 3 ---
->  man2/ioctl_ficlonerange.2   | 2 --
->  man2/ioctl_fideduperange.2  | 3 ---
->  man2/ioctl_fslabel.2        | 2 --
->  man2/ioctl_getfsmap.2       | 5 -----
->  man2/memfd_create.2         | 1 -
->  man2/mlock.2                | 1 -
->  man2/mmap.2                 | 2 --
->  man2/mprotect.2             | 1 -
->  man2/mremap.2               | 1 -
->  man2/open.2                 | 1 -
->  man2/pciconfig_read.2       | 1 -
->  man2/perf_event_open.2      | 3 ---
->  man2/pidfd_open.2           | 1 -
->  man2/pivot_root.2           | 2 --
->  man2/prctl.2                | 1 -
->  man2/ptrace.2               | 2 --
->  man2/quotactl.2             | 2 --
->  man2/readv.2                | 1 -
->  man2/recvmmsg.2             | 1 -
->  man2/s390_guarded_storage.2 | 1 -
->  man2/select.2               | 4 ----
->  man2/select_tut.2           | 2 --
->  man2/semget.2               | 1 -
->  man2/set_mempolicy.2        | 1 -
->  man2/setns.2                | 1 -
->  man2/setpgid.2              | 1 -
->  man2/shmop.2                | 3 ---
->  man2/sigpending.2           | 1 -
->  man2/sigprocmask.2          | 1 -
->  man2/sigsuspend.2           | 1 -
->  man2/stat.2                 | 5 -----
->  man2/statx.2                | 5 -----
->  man2/syscalls.2             | 1 -
->  man2/sysctl.2               | 1 -
->  man2/truncate.2             | 1 -
->  man2/uname.2                | 1 -
->  man2/userfaultfd.2          | 4 +---
->  man2/vfork.2                | 2 --
->  55 files changed, 2 insertions(+), 108 deletions(-)
+>  man3/__setfpucw.3                  | 3 ---
+>  man3/bindresvport.3                | 1 -
+>  man3/catgets.3                     | 1 -
+>  man3/crypt.3                       | 4 ++--
+>  man3/dl_iterate_phdr.3             | 1 -
+>  man3/dlinfo.3                      | 1 -
+>  man3/dlsym.3                       | 1 -
+>  man3/errno.3                       | 2 +-
+>  man3/exec.3                        | 4 ----
+>  man3/exit.3                        | 1 -
+>  man3/fdim.3                        | 1 -
+>  man3/fmtmsg.3                      | 1 -
+>  man3/ftime.3                       | 1 -
+>  man3/getaddrinfo.3                 | 1 -
+>  man3/getgrouplist.3                | 1 -
+>  man3/gethostbyname.3               | 1 -
+>  man3/gethostid.3                   | 1 -
+>  man3/getnameinfo.3                 | 1 -
+>  man3/getpass.3                     | 2 +-
+>  man3/getrpcent.3                   | 1 -
+>  man3/getsubopt.3                   | 2 --
+>  man3/hsearch.3                     | 2 --
+>  man3/ilogb.3                       | 1 -
+>  man3/makecontext.3                 | 1 -
+>  man3/malloc.3                      | 1 -
+>  man3/memcmp.3                      | 1 -
+>  man3/mq_open.3                     | 1 -
+>  man3/ntp_gettime.3                 | 1 -
+>  man3/posix_spawn.3                 | 2 --
+>  man3/pthread_atfork.3              | 1 -
+>  man3/pthread_getattr_default_np.3  | 1 -
+>  man3/pthread_mutexattr_setrobust.3 | 1 -
+>  man3/pthread_setname_np.3          | 1 -
+>  man3/rcmd.3                        | 3 ---
+>  man3/realpath.3                    | 2 +-
+>  man3/sem_wait.3                    | 1 -
+>  man3/setbuf.3                      | 2 +-
+>  man3/setjmp.3                      | 2 --
+>  man3/shm_open.3                    | 6 ------
+>  man3/strptime.3                    | 1 -
+>  man3/system.3                      | 1 -
+>  man3/termios.3                     | 5 -----
+>  man3/tzset.3                       | 1 -
+>  man3/undocumented.3                | 1 -
+>  man3/xdr.3                         | 1 -
+>  man3/y0.3                          | 1 -
+>  46 files changed, 6 insertions(+), 67 deletions(-)
 > 
-> diff --git a/man2/access.2 b/man2/access.2
-> index 8b97d7fce..592e2c4dc 100644
-> --- a/man2/access.2
-> +++ b/man2/access.2
-> @@ -280,7 +280,6 @@ SVr4, 4.3BSD, POSIX.1-2001, POSIX.1-2008.
->  .BR faccessat ():
->  POSIX.1-2008.
->  .SH NOTES
-> -.PP
->  .BR Warning :
->  Using these calls to check if a user is authorized to, for example,
->  open a file before actually doing so using
-> diff --git a/man2/adjtimex.2 b/man2/adjtimex.2
-> index c9c3ac8d9..e457145b5 100644
-> --- a/man2/adjtimex.2
-> +++ b/man2/adjtimex.2
-> @@ -182,7 +182,6 @@ while (buf.time.tv_usec < 0) {
->  }
->  .EE
->  .in
-> -.PP
->  .TP
->  .BR ADJ_MICRO " (since Linux 2.6.26)"
->  .\" commit eea83d896e318bda54be2d2770d2c5d6668d11db
-> diff --git a/man2/alloc_hugepages.2 b/man2/alloc_hugepages.2
-> index 0a341bf35..14ed0516a 100644
-> --- a/man2/alloc_hugepages.2
-> +++ b/man2/alloc_hugepages.2
-> @@ -143,7 +143,7 @@ to map files in this virtual filesystem.
->  The maximal number of huge pages can be specified using the
->  .B hugepages=
->  boot parameter.
-> -.PP
-> +.\".PP
->  .\" requires CONFIG_HUGETLB_PAGE (under "Processor type and features")
->  .\" and CONFIG_HUGETLBFS (under "Filesystems").
->  .\" mount -t hugetlbfs hugetlbfs /huge
-> diff --git a/man2/chown.2 b/man2/chown.2
-> index f2dec9045..c845d0388 100644
-> --- a/man2/chown.2
-> +++ b/man2/chown.2
-> @@ -447,7 +447,6 @@ has got the same syscall number, and
->  .BR chown ()
->  got the newly introduced number.
->  .SH EXAMPLES
-> -.PP
->  The following program changes the ownership of the file named in
->  its second command-line argument to the value specified in its
->  first command-line argument.
-> diff --git a/man2/clone.2 b/man2/clone.2
-> index 8e73afe38..e0fe7545f 100644
-> --- a/man2/clone.2
-> +++ b/man2/clone.2
-> @@ -104,7 +104,6 @@ In the remainder of this page, the terminology "the clone call" is used
->  when noting details that apply to all of these interfaces,
->  .\"
->  .SS The clone() wrapper function
-> -.PP
->  When the child process is created with the
->  .BR clone ()
->  wrapper function,
-> @@ -156,7 +155,6 @@ The remaining arguments to
->  are discussed below.
->  .\"
->  .SS clone3()
-> -.PP
->  The
->  .BR clone3 ()
->  system call provides a superset of the functionality of the older
-> @@ -235,7 +233,6 @@ The remaining fields in the
->  argument are discussed below.
->  .\"
->  .SS Equivalence between clone() and clone3() arguments
-> -.PP
->  Unlike the older
->  .BR clone ()
->  interface, where arguments are passed individually, in the newer
-> @@ -275,7 +272,6 @@ tls	tls	See CLONE_SETTLS
->  .RE
->  .\"
->  .SS The child termination signal
-> -.PP
->  When the child process terminates, a signal may be sent to the parent.
->  The termination signal is specified in the low byte of
->  .I flags
-> @@ -295,7 +291,6 @@ If no signal (i.e., zero) is specified, then the parent process is not signaled
->  when the child terminates.
->  .\"
->  .SS The set_tid array
-> -.PP
->  By default, the kernel chooses the next sequential PID for the new
->  process in each of the PID namespaces where it is present.
->  When creating a process with
-> @@ -380,7 +375,6 @@ Otherwise the PID
->  entry for this PID namespace must be 1.
->  .\"
->  .SS The flags mask
-> -.PP
->  Both
->  .BR clone ()
->  and
-> @@ -1527,7 +1521,6 @@ These system calls
->  are Linux-specific and should not be used in programs
->  intended to be portable.
->  .SH NOTES
-> -.PP
->  One use of these systems calls
->  is to implement threads: multiple flows of control in a program that
->  run concurrently in a shared address space.
-> @@ -1559,7 +1552,6 @@ system call can be used to test whether two processes share various
->  resources such as a file descriptor table,
->  System V semaphore undo operations, or a virtual address space.
+> diff --git a/man3/__setfpucw.3 b/man3/__setfpucw.3
+> index f130be4d7..be546d6b9 100644
+> --- a/man3/__setfpucw.3
+> +++ b/man3/__setfpucw.3
+> @@ -52,11 +52,8 @@ can be used.
+>  .B __setfpucw(0x1372)
 >  .PP
-> -.PP
->  Handlers registered using
->  .BR pthread_atfork (3)
->  are not executed during a clone call.
-> diff --git a/man2/eventfd.2 b/man2/eventfd.2
-> index 9d4b4271e..e966ac20a 100644
-> --- a/man2/eventfd.2
-> +++ b/man2/eventfd.2
-> @@ -358,7 +358,6 @@ eventfd file descriptor,
->  returning 0 if the correct number of bytes was transferred,
->  or \-1 otherwise.
->  .SH EXAMPLES
-> -.PP
->  The following program creates an eventfd file descriptor
->  and then forks to create a child process.
->  While the parent briefly sleeps,
-> diff --git a/man2/fork.2 b/man2/fork.2
-> index 05754663f..85cc681d8 100644
-> --- a/man2/fork.2
-> +++ b/man2/fork.2
-> @@ -279,7 +279,6 @@ System call was interrupted by a signal and will be restarted.
->  .SH CONFORMING TO
->  POSIX.1-2001, POSIX.1-2008, SVr4, 4.3BSD.
->  .SH NOTES
-> -.PP
->  Under Linux,
->  .BR fork ()
->  is implemented using copy-on-write pages, so the only penalty that it incurs
-> diff --git a/man2/futex.2 b/man2/futex.2
-> index dd1464752..2c0c1259a 100644
-> --- a/man2/futex.2
-> +++ b/man2/futex.2
-> @@ -37,7 +37,6 @@ futex \- fast user-space locking
->  .IR Note :
->  There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
-> -.PP
->  The
->  .BR futex ()
->  system call provides a method for waiting until a certain condition becomes
-> @@ -726,7 +725,6 @@ If
->  .I timeout
->  is NULL, the operation can block indefinitely.
->  .IP
-> -.IP
->  The
->  .I uaddr2
->  argument is ignored.
-> @@ -1315,7 +1313,6 @@ operation.
->  .\""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
->  .\"
->  .SH RETURN VALUE
-> -.PP
->  In the event of an error (and assuming that
->  .BR futex ()
->  was invoked via
-> @@ -1685,7 +1682,6 @@ and the timeout expired before the operation completed.
->  .\""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
->  .\"
->  .SH VERSIONS
-> -.PP
->  Futexes were first made available in a stable kernel release
->  with Linux 2.6.0.
->  .PP
-> diff --git a/man2/getgroups.2 b/man2/getgroups.2
-> index ef446d284..4f718915e 100644
-> --- a/man2/getgroups.2
-> +++ b/man2/getgroups.2
-> @@ -54,7 +54,6 @@ Feature Test Macro Requirements for glibc (see
->      Glibc 2.19 and earlier:
->          _BSD_SOURCE
->  .SH DESCRIPTION
-> -.PP
->  .BR getgroups ()
->  returns the supplementary group IDs of the calling process in
->  .IR list .
-> diff --git a/man2/getrusage.2 b/man2/getrusage.2
-> index a8e8f89c3..d27301c00 100644
-> --- a/man2/getrusage.2
-> +++ b/man2/getrusage.2
-> @@ -46,7 +46,6 @@ getrusage \- get resource usage
->  .PP
->  .BI "int getrusage(int " who ", struct rusage *" usage );
->  .SH DESCRIPTION
-> -.PP
->  .BR getrusage ()
->  returns resource usage measures for
->  .IR who ,
-> @@ -184,7 +183,6 @@ completed (usually to await availability of a resource).
->  The number of times a context switch resulted due to a higher
->  priority process becoming runnable or because the current process
->  exceeded its time slice.
-> -.PP
->  .SH RETURN VALUE
->  On success, zero is returned.
->  On error, \-1 is returned, and
-> diff --git a/man2/getsid.2 b/man2/getsid.2
-> index a912b651f..1f9a8fbec 100644
-> --- a/man2/getsid.2
-> +++ b/man2/getsid.2
-> @@ -45,7 +45,6 @@ Feature Test Macro Requirements for glibc (see
->  .RS 4
->  _XOPEN_SOURCE\ >=\ 500
->  .\"    || _XOPEN_SOURCE\ &&\ _XOPEN_SOURCE_EXTENDED
+>  Set FPU control word on the i386 architecture to
 > -.br
->      || /* Since glibc 2.12: */ _POSIX_C_SOURCE\ >=\ 200809L
->  .RE
->  .PD
-> diff --git a/man2/init_module.2 b/man2/init_module.2
-> index a4d41318b..96a6172fd 100644
-> --- a/man2/init_module.2
-> +++ b/man2/init_module.2
-> @@ -287,7 +287,6 @@ See the Linux kernel source file
->  .I include/linux/module.h
->  for some useful background information.
->  .SS Linux 2.4 and earlier
-> -.PP
->  In Linux 2.4 and earlier, the
->  .BR init_module ()
->  system call was rather different:
-> diff --git a/man2/io_cancel.2 b/man2/io_cancel.2
-> index a685b5b6a..68129896e 100644
-> --- a/man2/io_cancel.2
-> +++ b/man2/io_cancel.2
-> @@ -18,7 +18,6 @@ io_cancel \- cancel an outstanding asynchronous I/O operation
->  .IR Note :
->  There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
-> -.PP
->  The
->  .BR io_cancel ()
->  system call
-> @@ -54,10 +53,8 @@ The AIO context specified by \fIctx_id\fP is invalid.
->  .BR io_cancel ()
->  is not implemented on this architecture.
->  .SH VERSIONS
-> -.PP
->  The asynchronous I/O system calls first appeared in Linux 2.5.
->  .SH CONFORMING TO
-> -.PP
->  .BR io_cancel ()
->  is Linux-specific and should not be used
->  in programs that are intended to be portable.
-> diff --git a/man2/io_destroy.2 b/man2/io_destroy.2
-> index 155fc48c5..e7cdf0203 100644
-> --- a/man2/io_destroy.2
-> +++ b/man2/io_destroy.2
-> @@ -17,7 +17,6 @@ io_destroy \- destroy an asynchronous I/O context
->  .IR Note :
->  There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
-> -.PP
->  The
->  .BR io_destroy ()
->  system call
-> @@ -43,10 +42,8 @@ The AIO context specified by \fIctx_id\fP is invalid.
->  .BR io_destroy ()
->  is not implemented on this architecture.
->  .SH VERSIONS
-> -.PP
->  The asynchronous I/O system calls first appeared in Linux 2.5.
->  .SH CONFORMING TO
-> -.PP
->  .BR io_destroy ()
->  is Linux-specific and should not be used in programs
->  that are intended to be portable.
-> diff --git a/man2/io_getevents.2 b/man2/io_getevents.2
-> index 601e8bf6b..a7d955041 100644
-> --- a/man2/io_getevents.2
-> +++ b/man2/io_getevents.2
-> @@ -20,7 +20,6 @@ io_getevents \- read asynchronous I/O events from the completion queue
->  .IR Note :
->  There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
-> -.PP
->  The
->  .BR io_getevents ()
->  system call
-> @@ -80,10 +79,8 @@ out of range.
->  .BR io_getevents ()
->  is not implemented on this architecture.
->  .SH VERSIONS
-> -.PP
->  The asynchronous I/O system calls first appeared in Linux 2.5.
->  .SH CONFORMING TO
-> -.PP
->  .BR io_getevents ()
->  is Linux-specific and should not be used in
->  programs that are intended to be portable.
-> @@ -123,7 +120,6 @@ An invalid
->  may cause a segmentation fault instead of generating the error
->  .BR EINVAL .
+>       \- extended precision
+> -.br
+>       \- rounding to nearest
+> -.br
+>       \- exceptions on overflow, zero divide and NaN
 >  .SH SEE ALSO
-> -.PP
->  .BR io_cancel (2),
->  .BR io_destroy (2),
->  .BR io_setup (2),
-> diff --git a/man2/io_setup.2 b/man2/io_setup.2
-> index b11d77635..f54cc938c 100644
-> --- a/man2/io_setup.2
-> +++ b/man2/io_setup.2
-> @@ -17,7 +17,6 @@ io_setup \- create an asynchronous I/O context
->  .IR Note :
->  There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
-> -.PP
->  The
->  .BR io_setup ()
->  system call
-> @@ -58,10 +57,8 @@ Insufficient kernel resources are available.
->  .BR io_setup ()
->  is not implemented on this architecture.
->  .SH VERSIONS
-> -.PP
->  The asynchronous I/O system calls first appeared in Linux 2.5.
->  .SH CONFORMING TO
-> -.PP
->  .BR io_setup ()
->  is Linux-specific and should not be used in programs
->  that are intended to be portable.
-> diff --git a/man2/io_submit.2 b/man2/io_submit.2
-> index 2b0981766..145be4f54 100644
-> --- a/man2/io_submit.2
-> +++ b/man2/io_submit.2
-> @@ -19,7 +19,6 @@ io_submit \- submit asynchronous I/O blocks for processing
->  .IR Note :
->  There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
-> -.PP
->  The
->  .BR io_submit ()
->  system call
-> @@ -233,10 +232,8 @@ but the submitting context does not have the
->  .B CAP_SYS_ADMIN
->  capability.
->  .SH VERSIONS
-> -.PP
->  The asynchronous I/O system calls first appeared in Linux 2.5.
->  .SH CONFORMING TO
-> -.PP
->  .BR io_submit ()
->  is Linux-specific and should not be used in
->  programs that are intended to be portable.
-> diff --git a/man2/ioctl_ficlonerange.2 b/man2/ioctl_ficlonerange.2
-> index c3da7dc1b..652ad5bce 100644
-> --- a/man2/ioctl_ficlonerange.2
-> +++ b/man2/ioctl_ficlonerange.2
-> @@ -24,7 +24,6 @@
->  .SH NAME
->  ioctl_ficlonerange, ioctl_ficlone \- share some the data of one file with another file
->  .SH SYNOPSIS
-> -.br
->  .B #include <sys/ioctl.h>
->  .br
->  .B #include <linux/fs.h>
-> @@ -86,7 +85,6 @@ ioctl clones entire files.
->  On error, \-1 is returned, and
->  .I errno
->  is set to indicate the error.
-> -.PP
->  .SH ERRORS
->  Error codes can be one of, but are not limited to, the following:
->  .TP
-> diff --git a/man2/ioctl_fideduperange.2 b/man2/ioctl_fideduperange.2
-> index 2c420693b..fa5f87c57 100644
-> --- a/man2/ioctl_fideduperange.2
-> +++ b/man2/ioctl_fideduperange.2
-> @@ -24,7 +24,6 @@
->  .SH NAME
->  ioctl_fideduperange \- share some the data of one file with another file
->  .SH SYNOPSIS
-> -.br
->  .B #include <sys/ioctl.h>
->  .br
->  .B #include <linux/fs.h>
-> @@ -142,12 +141,10 @@ code is set to
->  for success, a negative error code in case of error, or
->  .B FILE_DEDUPE_RANGE_DIFFERS
->  if the data did not match.
-> -.PP
->  .SH RETURN VALUE
->  On error, \-1 is returned, and
->  .I errno
->  is set to indicate the error.
-> -.PP
->  .SH ERRORS
->  Error codes can be one of, but are not limited to, the following:
->  .TP
-> diff --git a/man2/ioctl_fslabel.2 b/man2/ioctl_fslabel.2
-> index ef483cbf2..75f54876b 100644
-> --- a/man2/ioctl_fslabel.2
-> +++ b/man2/ioctl_fslabel.2
-> @@ -24,7 +24,6 @@
->  .SH NAME
->  ioctl_fslabel \- get or set a filesystem label
->  .SH SYNOPSIS
-> -.br
->  .B #include <sys/ioctl.h>
->  .br
->  .B #include <linux/fs.h>
-> @@ -47,7 +46,6 @@ operation requires privilege
->  On success zero is returned.  On error, \-1 is returned, and
->  .I errno
->  is set to indicate the error.
-> -.PP
->  .SH ERRORS
->  Error can include (but are not limited to) the following:
->  .TP
-> diff --git a/man2/ioctl_getfsmap.2 b/man2/ioctl_getfsmap.2
-> index f7039b7be..3e1fa9aaa 100644
-> --- a/man2/ioctl_getfsmap.2
-> +++ b/man2/ioctl_getfsmap.2
-> @@ -24,7 +24,6 @@
->  .SH NAME
->  ioctl_getfsmap \- retrieve the physical layout of the filesystem
->  .SH SYNOPSIS
-> -.br
->  .B #include <sys/ioctl.h>
->  .br
->  .B #include <linux/fs.h>
-> @@ -83,7 +82,6 @@ Filesystem mappings are copied into the
->  array, which immediately follows the header data.
->  .\"
->  .SS Fields of struct fsmap_head
-> -.PP
->  The
->  .I fmh_iflags
->  field is a bit mask passed to the kernel to alter the output.
-> @@ -121,7 +119,6 @@ The
->  fields must be set to zero.
->  .\"
->  .SS Keys
-> -.PP
->  The two key records in
->  .I fsmap_head.fmh_keys
->  specify the lowest and highest extent records in the keyspace that the caller
-> @@ -161,7 +158,6 @@ The function
->  provides this functionality.
->  .\"
->  .SS Fields of struct fsmap
-> -.PP
->  The
->  .I fmr_device
->  field uniquely identifies the underlying storage device.
-> @@ -326,7 +322,6 @@ Inode bit map.
->  On error, \-1 is returned, and
->  .I errno
->  is set to indicate the error.
-> -.PP
->  .SH ERRORS
->  The error placed in
->  .I errno
-> diff --git a/man2/memfd_create.2 b/man2/memfd_create.2
-> index 8fdb32fa7..a66940239 100644
-> --- a/man2/memfd_create.2
-> +++ b/man2/memfd_create.2
-> @@ -205,7 +205,6 @@ The
->  .BR memfd_create ()
->  system call is Linux-specific.
->  .SH NOTES
-> -.PP
->  .\" See also http://lwn.net/Articles/593918/
->  .\" and http://lwn.net/Articles/594919/ and http://lwn.net/Articles/591108/
->  The
-> diff --git a/man2/mlock.2 b/man2/mlock.2
-> index b7a176a61..4a52773c2 100644
-> --- a/man2/mlock.2
-> +++ b/man2/mlock.2
-> @@ -89,7 +89,6 @@ Lock pages that are currently resident and mark the entire range so
->  that the remaining nonresident pages are locked when they are populated
->  by a page fault.
->  .PP
-> -.PP
->  If
->  .I flags
->  is 0,
-> diff --git a/man2/mmap.2 b/man2/mmap.2
-> index 6f2600e1f..d92806265 100644
-> --- a/man2/mmap.2
-> +++ b/man2/mmap.2
-> @@ -670,7 +670,6 @@ is defined in \fI<unistd.h>\fP to a value greater than 0.
->  .\" -1: unavailable, 0: ask using sysconf().
->  .\" glibc defines it to 1.
->  .SH NOTES
-> -.PP
->  Memory mapped by
->  .BR mmap ()
->  is preserved across
-> @@ -907,7 +906,6 @@ however, this doesn't work on
->  .SH EXAMPLES
->  .\" FIXME . Add an example here that uses an anonymous shared region for
->  .\" IPC between parent and child.
-> -.PP
->  The following program prints part of the file specified in
->  its first command-line argument to standard output.
->  The range of bytes to be printed is specified via offset and length
-> diff --git a/man2/mprotect.2 b/man2/mprotect.2
-> index 397597b7b..992f3887b 100644
-> --- a/man2/mprotect.2
-> +++ b/man2/mprotect.2
-> @@ -285,7 +285,6 @@ is equivalent to
->  .BR mprotect ().
->  .SH EXAMPLES
->  .\" sigaction.2 refers to this example
-> -.PP
->  The program below demonstrates the use of
->  .BR mprotect ().
->  The program allocates four pages of memory, makes the third
-> diff --git a/man2/mremap.2 b/man2/mremap.2
-> index 4728fdf81..9577041bc 100644
-> --- a/man2/mremap.2
-> +++ b/man2/mremap.2
-> @@ -265,7 +265,6 @@ intended to be portable.
->  .\" .BR mremap (2)
->  .\" call with completely different semantics.
->  .SH NOTES
-> -.PP
->  .BR mremap ()
->  changes the
->  mapping between virtual addresses and memory pages.
-> diff --git a/man2/open.2 b/man2/open.2
-> index db2367dba..eb75437ff 100644
-> --- a/man2/open.2
-> +++ b/man2/open.2
-> @@ -1696,7 +1696,6 @@ the corresponding conventional APIs.
->  .\"
->  .\"
->  .SS O_DIRECT
-> -.PP
->  The
->  .B O_DIRECT
->  flag may impose alignment restrictions on the length and address
-> diff --git a/man2/pciconfig_read.2 b/man2/pciconfig_read.2
-> index 90139041d..ee60b364e 100644
-> --- a/man2/pciconfig_read.2
-> +++ b/man2/pciconfig_read.2
-> @@ -20,7 +20,6 @@ pciconfig_read, pciconfig_write, pciconfig_iobase \- pci device information hand
->  .BI "          unsigned long " devfn );
+>  .BR feclearexcept (3)
+> diff --git a/man3/bindresvport.3 b/man3/bindresvport.3
+> index fafe9624d..024113df4 100644
+> --- a/man3/bindresvport.3
+> +++ b/man3/bindresvport.3
+> @@ -38,7 +38,6 @@ bindresvport \- bind a socket to a privileged IP port
+>  .BI "int bindresvport(int " sockfd ", struct sockaddr_in *" sin );
 >  .fi
 >  .SH DESCRIPTION
 > -.PP
->  Most of the interaction with PCI devices is already handled by the
->  kernel PCI layer,
->  and thus these calls should not normally need to be accessed from user space.
-> diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
-> index 3e3626207..7d24ba47d 100644
-> --- a/man2/perf_event_open.2
-> +++ b/man2/perf_event_open.2
-> @@ -74,7 +74,6 @@ event periodically writes measurements to a buffer that can then
->  be accessed via
->  .BR mmap (2).
->  .SS Arguments
-> -.PP
->  The
->  .I pid
->  and
-> @@ -2813,7 +2812,6 @@ in a process's context.
->  To restore the old behavior, write the value 2 to
->  .IR /sys/devices/cpu/rdpmc .
->  .SS perf_event ioctl calls
-> -.PP
->  Various ioctls act on
->  .BR perf_event_open ()
->  file descriptors:
-> @@ -3008,7 +3006,6 @@ to the calling process or inherited events from a parent process.
->  Only group leaders are enabled and disabled,
->  not any other members of the groups.
->  .SS perf_event related configuration files
-> -.PP
->  Files in
->  .I /proc/sys/kernel/
->  .RS 4
-> diff --git a/man2/pidfd_open.2 b/man2/pidfd_open.2
-> index 9f6e328d3..909f3a2d6 100644
-> --- a/man2/pidfd_open.2
-> +++ b/man2/pidfd_open.2
-> @@ -143,7 +143,6 @@ with the
->  flag.
->  .\"
->  .SS Use cases for PID file descriptors
-> -.PP
->  A PID file descriptor returned by
->  .BR pidfd_open ()
->  (or by
-> diff --git a/man2/pivot_root.2 b/man2/pivot_root.2
-> index 9be7ac75a..81760810d 100644
-> --- a/man2/pivot_root.2
-> +++ b/man2/pivot_root.2
-> @@ -214,7 +214,6 @@ Helper programs for this process exist; see
->  .BR switch_root (8).
->  .\"
->  .SS pivot_root(\(dq.\(dq, \(dq.\(dq)
-> -.PP
->  .I new_root
->  and
->  .I put_old
-> @@ -275,7 +274,6 @@ was first implemented and will not change now.
->  .\" FIXME
->  .\" Would it be better, because simpler, to use unshare(2)
->  .\" rather than clone(2) in the example below?
-> -.PP
->  The program below demonstrates the use of
->  .BR pivot_root ()
->  inside a mount namespace that is created using
-> diff --git a/man2/prctl.2 b/man2/prctl.2
-> index ce03e4186..d18f6ec9e 100644
-> --- a/man2/prctl.2
-> +++ b/man2/prctl.2
-> @@ -377,7 +377,6 @@ Note that modern MIPS implementations (MIPS R6 and newer) support
->  .B FR=1
->  mode only.
->  .IP
-> -.IP
->  Applications that use the O32 FP32 ABI can operate only when this bit is
->  .I unset
->  .RB ( FR=0 ;
-> diff --git a/man2/ptrace.2 b/man2/ptrace.2
-> index bf95748d3..83f9dc753 100644
-> --- a/man2/ptrace.2
-> +++ b/man2/ptrace.2
-> @@ -421,7 +421,6 @@ for dumping signals from the process-wide signal queue.
->  If this flag is not set,
->  signals are read from the per-thread queue of the specified thread.
->  .in
-> -.PP
->  .TP
->  .BR PTRACE_GETSIGMASK " (since Linux 3.11)"
->  .\" commit 29000caecbe87b6b66f144f72111f0d02fbbf0c1
-> @@ -2680,7 +2679,6 @@ check\(emfor example,
->  .BR ptrace ()
->  .BR PTRACE_ATTACH .
->  (See the "Ptrace access mode checking" discussion above.)
-> -.IP
->  .IP *
->  .BR ptrace ()
->  .BR PTRACE_TRACEME .
-> diff --git a/man2/quotactl.2 b/man2/quotactl.2
-> index 7af12bf2a..239d8a9d8 100644
-> --- a/man2/quotactl.2
-> +++ b/man2/quotactl.2
-> @@ -36,7 +36,6 @@ quotactl \- manipulate disk quotas
->  ", caddr_t " addr );
->  .fi
->  .SH DESCRIPTION
-> -.PP
->  The quota system can be used to set per-user, per-group, and per-project limits
->  on the amount of disk space used on a filesystem.
->  For each user and/or group,
-> @@ -688,7 +687,6 @@ The
->  .IR special ", " id " and " addr
->  arguments are ignored.
+>  .BR bindresvport ()
+>  is used to bind the socket referred to by the
+>  file descriptor
+> diff --git a/man3/catgets.3 b/man3/catgets.3
+> index e509a3ffa..495db8f35 100644
+> --- a/man3/catgets.3
+> +++ b/man3/catgets.3
+> @@ -57,7 +57,6 @@ the application if it is to be saved or modified.
+>  The return string is
+>  always terminated with a null byte (\(aq\e0\(aq).
 >  .SH RETURN VALUE
 > -.PP
 >  On success,
->  .BR quotactl ()
->  returns 0; on error \-1
-> diff --git a/man2/readv.2 b/man2/readv.2
-> index 481b2f3d2..ba59d6788 100644
-> --- a/man2/readv.2
-> +++ b/man2/readv.2
-> @@ -184,7 +184,6 @@ The file referred to by
->  .I fd
->  must be capable of seeking.
->  .SS preadv2() and pwritev2()
-> -.PP
->  These system calls are similar to
->  .BR preadv ()
->  and
-> diff --git a/man2/recvmmsg.2 b/man2/recvmmsg.2
-> index a00c88ac1..fd40f2aa8 100644
-> --- a/man2/recvmmsg.2
-> +++ b/man2/recvmmsg.2
-> @@ -190,7 +190,6 @@ In the current implementation, however, the error code can be overwritten
->  in the meantime by an unrelated network event on a socket,
->  for example an incoming ICMP packet.
->  .SH EXAMPLES
-> -.PP
->  The following program uses
->  .BR recvmmsg ()
->  to receive multiple messages on a socket and stores
-> diff --git a/man2/s390_guarded_storage.2 b/man2/s390_guarded_storage.2
-> index 26c417933..528a3e26d 100644
-> --- a/man2/s390_guarded_storage.2
-> +++ b/man2/s390_guarded_storage.2
-> @@ -170,6 +170,5 @@ header.
->  .\" .UR https://developer.ibm.com/javasdk/2017/09/25/concurrent-scavenge-using-guarded-storage-facility-works/
->  .\" the article with the description of its usage in the Java Garbage Collection
->  .\" .UE
-> -.PP
->  .SH SEE ALSO
->  .BR syscall (2)
-> diff --git a/man2/select.2 b/man2/select.2
-> index 744eb10b4..7f4343ba3 100644
-> --- a/man2/select.2
-> +++ b/man2/select.2
-> @@ -237,7 +237,6 @@ is specified as NULL,
->  blocks indefinitely waiting for a file descriptor to become ready.
->  .\"
->  .SS pselect()
-> -.PP
->  The
->  .BR pselect ()
->  system call allows an application to safely wait until either
-> @@ -316,7 +315,6 @@ pthread_sigmask(SIG_SETMASK, &origmask, NULL);
->  .EE
->  .in
+>  .BR catgets ()
+>  returns a pointer to an internal buffer area
+> diff --git a/man3/crypt.3 b/man3/crypt.3
+> index 393a95a80..060aadd90 100644
+> --- a/man3/crypt.3
+> +++ b/man3/crypt.3
+> @@ -225,8 +225,8 @@ then the result has the form:
+>  .RS
 >  .PP
+>  $\fIid\fP$\fIsalt\fP$\fIencrypted\fP
 > -.PP
->  The reason that
->  .BR pselect ()
->  is needed is that if one wants to wait for either a signal
-> @@ -512,7 +510,6 @@ or reading from a pipe that may be empty,
->  nonblocking I/O is used when reading from and writing to the pipe.)
->  .\"
->  .SS Emulating usleep(3)
+>  .RE
+> +.PP
+>  .I id
+>  identifies the encryption method used instead of DES and this
+>  then determines how the rest of the password string is interpreted.
+> @@ -285,8 +285,8 @@ result has the form
+>  .RS
+>  .PP
+>  $\fIid\fP$\fIrounds=yyy\fP$\fIsalt\fP$\fIencrypted\fP
 > -.PP
->  Before the advent of
->  .BR usleep (3),
->  some code employed a call to
-> @@ -622,7 +619,6 @@ for a discussion of the difference between the kernel and libc
->  notion of the signal set.
->  .\"
->  .SS Historical glibc details
-> -.PP
->  Glibc 2.0 provided an incorrect version of
->  .BR pselect ()
->  that did not take a
-> diff --git a/man2/select_tut.2 b/man2/select_tut.2
-> index a41065f09..f683dd49d 100644
-> --- a/man2/select_tut.2
-> +++ b/man2/select_tut.2
-> @@ -33,7 +33,6 @@
->  .SH NAME
->  select, pselect \- synchronous I/O multiplexing
->  .SH SYNOPSIS
-> -.PP
->  See
->  .BR select (2)
->  .SH DESCRIPTION
-> @@ -54,7 +53,6 @@ and
->  .BR pselect (),
->  see
->  .BR select (2).
-> -.PP
->  .\"
->  .SS Combining signal and data events
->  .BR pselect ()
-> diff --git a/man2/semget.2 b/man2/semget.2
-> index 8c7930b88..1fcbd5dc1 100644
-> --- a/man2/semget.2
-> +++ b/man2/semget.2
-> @@ -395,7 +395,6 @@ $ \fB./t_semget link p 1\fP       # Generates same key as \(aqmykey\(aq
->  ID = 9
+>  .RE
+> +.PP
+>  where \fIyyy\fP is the number of hashing rounds actually used.
+>  The number of rounds actually used is 1000 if
+>  .I xxx
+> diff --git a/man3/dl_iterate_phdr.3 b/man3/dl_iterate_phdr.3
+> index de6036f65..2cd16cf2e 100644
+> --- a/man3/dl_iterate_phdr.3
+> +++ b/man3/dl_iterate_phdr.3
+> @@ -295,7 +295,6 @@ Name: "/lib64/ld-linux-x86-64.so.2" (7 segments)
+>       6: [0x7f55718afba0; memsz:    460] flags: 0x4; PT_GNU_RELRO
 >  .EE
 >  .in
 > -.PP
 >  .SS Program source
 >  \&
->  .nf
-> diff --git a/man2/set_mempolicy.2 b/man2/set_mempolicy.2
-> index 8fd0922ab..c63734260 100644
-> --- a/man2/set_mempolicy.2
-> +++ b/man2/set_mempolicy.2
-> @@ -184,7 +184,6 @@ node ID specified in
->  and so forth, until none of the specified nodes contain free memory.
->  Pages will not be allocated from any node not specified in the
->  .IR nodemask .
+>  .EX
+> diff --git a/man3/dlinfo.3 b/man3/dlinfo.3
+> index 2d8e854ad..1587a5b0e 100644
+> --- a/man3/dlinfo.3
+> +++ b/man3/dlinfo.3
+> @@ -148,7 +148,6 @@ fields of the buffer allocated in the previous step.
+>  Use a
+>  .B RTLD_DI_SERINFO
+>  to obtain the library search paths.
 > -.IP
->  .TP
->  .B MPOL_INTERLEAVE
->  This mode interleaves page allocations across the nodes specified in
-> diff --git a/man2/setns.2 b/man2/setns.2
-> index 126847505..28ed7d294 100644
-> --- a/man2/setns.2
-> +++ b/man2/setns.2
-> @@ -142,7 +142,6 @@ int fd = pidfd_open(1234, 0);
->  setns(fd, CLONE_NEWUSER | CLONE_NEWNET | CLONE_NEWUTS);
+>  .RE
+>  .IP
+>  The
+> diff --git a/man3/dlsym.3 b/man3/dlsym.3
+> index 5feb54add..2abb0b1d0 100644
+> --- a/man3/dlsym.3
+> +++ b/man3/dlsym.3
+> @@ -105,7 +105,6 @@ and
+>  from
+>  .IR <dlfcn.h> .
+>  .PP
+> -.PP
+>  The function
+>  .BR dlvsym ()
+>  does the same as
+> diff --git a/man3/errno.3 b/man3/errno.3
+> index 2456af555..f557ad2cf 100644
+> --- a/man3/errno.3
+> +++ b/man3/errno.3
+> @@ -145,7 +145,7 @@ $ \fBerrno \-s permission\fP
+>  EACCES 13 Permission denied
 >  .EE
 >  .in
 > -.PP
+> +.\".PP
+>  .\" POSIX.1 (2001 edition) lists the following symbolic error names.  Of
+>  .\" these, \fBEDOM\fP and \fBERANGE\fP are in the ISO C standard.  ISO C
+>  .\" Amendment 1 defines the additional error number \fBEILSEQ\fP for
+> diff --git a/man3/exec.3 b/man3/exec.3
+> index 21d47f1dd..c52ae10f8 100644
+> --- a/man3/exec.3
+> +++ b/man3/exec.3
+> @@ -83,7 +83,6 @@ to be executed.
+>  The functions can be grouped based on the letters following the "exec" prefix.
 >  .\"
->  .SS Details for specific namespace types
->  Note the following details and restrictions when reassociating with
-> diff --git a/man2/setpgid.2 b/man2/setpgid.2
-> index 29f20f3ef..cc06d8791 100644
-> --- a/man2/setpgid.2
-> +++ b/man2/setpgid.2
-> @@ -75,7 +75,6 @@ Feature Test Macro Requirements for glibc (see
+>  .SS l - execl(), execlp(), execle()
+> -.PP
+>  The
+>  .I "const char\ *arg"
+>  and subsequent ellipses can be thought of as
+> @@ -105,7 +104,6 @@ By contrast with the 'l' functions, the 'v' functions (below) specify the
+>  command-line arguments of the executed program as a vector.
+>  .\"
+>  .SS v - execv(), execvp(), execvpe()
+> -.PP
+>  The
+>  .I "char\ *const argv[]"
+>  argument is an array of pointers to null-terminated strings that
+> @@ -116,7 +114,6 @@ The array of pointers
+>  .I must
+>  be terminated by a null pointer.
+>  .SS e - execle(), execvpe()
+> -.PP
+>  The environment of the caller is specified via the argument
+>  .IR envp .
+>  The
+> @@ -133,7 +130,6 @@ image from the external variable
+>  .I environ
+>  in the calling process.
+>  .SS p - execlp(), execvp(), execvpe()
+> -.PP
+>  These functions duplicate the actions of the shell in
+>  searching for an executable file
+>  if the specified filename does not contain a slash (/) character.
+> diff --git a/man3/exit.3 b/man3/exit.3
+> index a06c8cf3d..0193accfa 100644
+> --- a/man3/exit.3
+> +++ b/man3/exit.3
+> @@ -107,7 +107,6 @@ so it is not thread-safe.
+>  .SH CONFORMING TO
+>  POSIX.1-2001, POSIX.1-2008, C89, C99, SVr4, 4.3BSD.
+>  .SH NOTES
+> -.PP
+>  The behavior is undefined if one of the functions registered using
+>  .BR atexit (3)
+>  and
+> diff --git a/man3/fdim.3 b/man3/fdim.3
+> index dc138e0c1..2477dd0f0 100644
+> --- a/man3/fdim.3
+> +++ b/man3/fdim.3
+> @@ -67,7 +67,6 @@ is set to
+>  An overflow floating-point exception
+>  .RB ( FE_OVERFLOW )
+>  is raised.
+> -.PP
+>  .SH VERSIONS
+>  These functions first appeared in glibc in version 2.1.
+>  .SH ATTRIBUTES
+> diff --git a/man3/fmtmsg.3 b/man3/fmtmsg.3
+> index 174f61757..70dbd6788 100644
+> --- a/man3/fmtmsg.3
+> +++ b/man3/fmtmsg.3
+> @@ -325,7 +325,6 @@ unknown mount option
+>  TO FIX: See mount(8).
+>  .EE
+>  .in
+> -.PP
+>  .SH SEE ALSO
+>  .BR addseverity (3),
+>  .BR perror (3)
+> diff --git a/man3/ftime.3 b/man3/ftime.3
+> index d24893bb1..cb11110eb 100644
+> --- a/man3/ftime.3
+> +++ b/man3/ftime.3
+> @@ -102,7 +102,6 @@ gives microseconds;
+>  .BR clock_gettime (2)
+>  gives nanoseconds but is not as widely available.
+>  .SH BUGS
+> -.PP
+>  Early glibc2 is buggy and returns 0 in the
+>  .I millitm
+>  field;
+> diff --git a/man3/getaddrinfo.3 b/man3/getaddrinfo.3
+> index 1e3a524b7..f3757d194 100644
+> --- a/man3/getaddrinfo.3
+> +++ b/man3/getaddrinfo.3
+> @@ -424,7 +424,6 @@ function frees the memory that was allocated
+>  for the dynamically allocated linked list
+>  .IR res .
+>  .SS Extensions to getaddrinfo() for Internationalized Domain Names
+> -.PP
+>  Starting with glibc 2.3.4,
+>  .BR getaddrinfo ()
+>  has been extended to selectively allow the incoming and outgoing
+> diff --git a/man3/getgrouplist.3 b/man3/getgrouplist.3
+> index cfb0676a5..ebb61a5fe 100644
+> --- a/man3/getgrouplist.3
+> +++ b/man3/getgrouplist.3
+> @@ -122,7 +122,6 @@ in the array
+>  even when the number of groups exceeds
+>  .IR *ngroups .
+>  .SH EXAMPLES
+> -.PP
+>  The program below displays the group list for the user named in its
+>  first command-line argument.
+>  The second command-line argument specifies the
+> diff --git a/man3/gethostbyname.3 b/man3/gethostbyname.3
+> index 41d4359b4..776ada84e 100644
+> --- a/man3/gethostbyname.3
+> +++ b/man3/gethostbyname.3
+> @@ -254,7 +254,6 @@ keyword was used to control the order of host lookups as defined in
+>  .I /etc/host.conf
+>  .RB ( host.conf (5)).
+>  .PP
+> -.PP
+>  The \fIhostent\fP structure is defined in \fI<netdb.h>\fP as follows:
+>  .PP
+>  .in +4n
+> diff --git a/man3/gethostid.3 b/man3/gethostid.3
+> index 4fef906cb..b355b0ffa 100644
+> --- a/man3/gethostid.3
+> +++ b/man3/gethostid.3
+> @@ -42,7 +42,6 @@ Feature Test Macro Requirements for glibc (see
+>  .in
+>  .PP
+>  .ad l
+> -.br
+>  .BR gethostid ():
 >  .RS 4
->  _XOPEN_SOURCE\ >=\ 500
+>  _BSD_SOURCE || _XOPEN_SOURCE\ >=\ 500
+> diff --git a/man3/getnameinfo.3 b/man3/getnameinfo.3
+> index 65dd1528d..9f38bef74 100644
+> --- a/man3/getnameinfo.3
+> +++ b/man3/getnameinfo.3
+> @@ -116,7 +116,6 @@ If set, then the numeric form of the service address is returned.
+>  (When not set, this will still happen in case the service's name
+>  cannot be determined.)
+>  .SS Extensions to getnameinfo() for Internationalized Domain Names
+> -.PP
+>  Starting with glibc 2.3.4,
+>  .BR getnameinfo ()
+>  has been extended to selectively allow
+> diff --git a/man3/getpass.3 b/man3/getpass.3
+> index eb2c2e864..c3aa806de 100644
+> --- a/man3/getpass.3
+> +++ b/man3/getpass.3
+> @@ -128,7 +128,7 @@ Removed in POSIX.1-2001.
+>  .\" are transmitted as part of the password.
+>  .\" Since libc 5.4.19 also line editing is disabled, so that also
+>  .\" backspace and the like will be seen as part of the password.
+> -.PP
+> +.
+>  In the GNU C library implementation, if
+>  .I /dev/tty
+>  cannot be opened, the prompt is written to
+> diff --git a/man3/getrpcent.3 b/man3/getrpcent.3
+> index e113fc039..cb8d5cab5 100644
+> --- a/man3/getrpcent.3
+> +++ b/man3/getrpcent.3
+> @@ -24,7 +24,6 @@ RPC entry
+>  .B "void endrpcent(void);"
+>  .fi
+>  .SH DESCRIPTION
+> -.PP
+>  The
+>  .BR getrpcent (),
+>  .BR getrpcbyname (),
+> diff --git a/man3/getsubopt.3 b/man3/getsubopt.3
+> index 27cd708e0..6cf2d7a82 100644
+> --- a/man3/getsubopt.3
+> +++ b/man3/getsubopt.3
+> @@ -42,7 +42,6 @@ Feature Test Macro Requirements for glibc (see
+>  .PD 0
+>  _XOPEN_SOURCE\ >= 500
 >  .\"    || _XOPEN_SOURCE\ &&\ _XOPEN_SOURCE_EXTENDED
 > -.br
 >      || /* Since glibc 2.12: */ _POSIX_C_SOURCE\ >=\ 200809L
+>  .PD
 >  .RE
->  .PP
-> diff --git a/man2/shmop.2 b/man2/shmop.2
-> index d5b6e9da1..e7a4f7aed 100644
-> --- a/man2/shmop.2
-> +++ b/man2/shmop.2
-> @@ -240,7 +240,6 @@ from
->  into
->  .IR "void\ *" .
->  .SH NOTES
-> -.PP
->  After a
->  .BR fork (2),
->  the child inherits the attached shared memory segments.
-> @@ -292,7 +291,6 @@ The implementation places no intrinsic per-process limit on the
->  number of shared memory segments
->  .RB ( SHMSEG ).
->  .SH EXAMPLES
-> -.PP
->  The two programs shown below exchange a string using a shared memory segment.
->  Further details about the programs are given below.
->  First, we show a shell session demonstrating their use.
-> @@ -332,7 +330,6 @@ shared memory segment by the writer:
->  Hello, world
->  .EE
->  .in
-> -.PP
->  .\"
->  .SS Program source: svshm_string.h
->  The following header file is included by the "reader" and "writer" programs.
-> diff --git a/man2/sigpending.2 b/man2/sigpending.2
-> index bc2dc65c8..9391626c9 100644
-> --- a/man2/sigpending.2
-> +++ b/man2/sigpending.2
-> @@ -44,7 +44,6 @@ Feature Test Macro Requirements for glibc (see
->  _POSIX_C_SOURCE
->  .ad b
->  .SH DESCRIPTION
-> -.PP
->  .BR sigpending ()
->  returns the set of signals that are pending for delivery to the calling
->  thread (i.e., the signals which have been raised while blocked).
-> diff --git a/man2/sigprocmask.2 b/man2/sigprocmask.2
-> index 6e59c5a58..015ad4a6b 100644
-> --- a/man2/sigprocmask.2
-> +++ b/man2/sigprocmask.2
-> @@ -165,7 +165,6 @@ and
->  as NULL.
->  .\"
->  .SS C library/kernel differences
-> -.PP
->  The kernel's definition of
->  .I sigset_t
->  differs in size from that used
-> diff --git a/man2/sigsuspend.2 b/man2/sigsuspend.2
-> index 4d2aca6f2..f4d97d10e 100644
-> --- a/man2/sigsuspend.2
-> +++ b/man2/sigsuspend.2
-> @@ -85,7 +85,6 @@ The call was interrupted by a signal;
+> @@ -143,7 +142,6 @@ T}	Thread safety	MT-Safe
 >  .SH CONFORMING TO
 >  POSIX.1-2001, POSIX.1-2008.
 >  .SH NOTES
 > -.PP
->  Normally,
->  .BR sigsuspend ()
->  is used in conjunction with
-> diff --git a/man2/stat.2 b/man2/stat.2
-> index 998c5e82e..a5f983b67 100644
-> --- a/man2/stat.2
-> +++ b/man2/stat.2
-> @@ -67,12 +67,9 @@ Feature Test Macro Requirements for glibc (see
->  .BR lstat ():
->  .RS 4
->  /* glibc 2.19 and earlier */ _BSD_SOURCE
-> -.br
->      || /* Since glibc 2.20 */ _DEFAULT_SOURCE
-> -.br
->      || _XOPEN_SOURCE\ >=\ 500
->  .\"   _XOPEN_SOURCE\ &&\ _XOPEN_SOURCE_EXTENDED
-> -.br
->      || /* Since glibc 2.10: */ _POSIX_C_SOURCE\ >=\ 200112L
->  .RE
+>  Since
+>  .BR getsubopt ()
+>  overwrites any commas it finds in the string
+> diff --git a/man3/hsearch.3 b/man3/hsearch.3
+> index 85454c500..80545f851 100644
+> --- a/man3/hsearch.3
+> +++ b/man3/hsearch.3
+> @@ -193,7 +193,6 @@ In the event of an error, these two functions set
+>  .I errno
+>  to indicate the cause of the error.
+>  .SH ERRORS
+> -.PP
+>  .BR hcreate_r ()
+>  and
+>  .BR hdestroy_r ()
+> @@ -298,7 +297,6 @@ updating the \fIdata\fP for the given \fIkey\fP in this case.
 >  .PP
-> @@ -90,7 +87,6 @@ _ATFILE_SOURCE
->  .PD
+>  Individual hash table entries can be added, but not deleted.
+>  .SH EXAMPLES
+> -.PP
+>  The following program inserts 24 items into a hash table, then prints
+>  some of them.
+>  .PP
+> diff --git a/man3/ilogb.3 b/man3/ilogb.3
+> index 56685295f..22b68a91c 100644
+> --- a/man3/ilogb.3
+> +++ b/man3/ilogb.3
+> @@ -119,7 +119,6 @@ is raised, and
+>  is set to
+>  .B EDOM
+>  (but see BUGS).
+> -.IP
+>  .TP
+>  Domain error: \fIx\fP is an infinity
+>  An invalid floating-point exception
+> diff --git a/man3/makecontext.3 b/man3/makecontext.3
+> index c3d6a78f9..1d8429fa4 100644
+> --- a/man3/makecontext.3
+> +++ b/man3/makecontext.3
+> @@ -150,7 +150,6 @@ Nevertheless, starting with version 2.8, glibc makes some changes to
+>  .BR makecontext (),
+>  to permit this on some 64-bit architectures (e.g., x86-64).
+>  .SH EXAMPLES
+> -.PP
+>  The example program below demonstrates the use of
+>  .BR getcontext (3),
+>  .BR makecontext (),
+> diff --git a/man3/malloc.3 b/man3/malloc.3
+> index d0270ea98..91b411e70 100644
+> --- a/man3/malloc.3
+> +++ b/man3/malloc.3
+> @@ -58,7 +58,6 @@ Feature Test Macro Requirements for glibc (see
+>          _GNU_SOURCE
 >  .ad
 >  .SH DESCRIPTION
 > -.PP
->  These functions return information about a file, in the buffer pointed to by
->  .IR statbuf .
->  No permissions are required on the file itself, but\(emin the case of
-> @@ -356,7 +352,6 @@ The
->  can be used in tools that scan directories
->  to prevent mass-automounting of a directory of automount points.
->  .IP
+>  The
+>  .BR malloc ()
+>  function allocates
+> diff --git a/man3/memcmp.3 b/man3/memcmp.3
+> index 247eed223..d0676201f 100644
+> --- a/man3/memcmp.3
+> +++ b/man3/memcmp.3
+> @@ -76,7 +76,6 @@ T}	Thread safety	MT-Safe
+>  .SH CONFORMING TO
+>  POSIX.1-2001, POSIX.1-2008, C89, C99, SVr4, 4.3BSD.
+>  .SH NOTES
+> -.PP
+>  Do not use
+>  .BR memcmp ()
+>  to compare security critical data, such as cryptographic secrets,
+> diff --git a/man3/mq_open.3 b/man3/mq_open.3
+> index ac6eb3ff2..9c3e8b4fc 100644
+> --- a/man3/mq_open.3
+> +++ b/man3/mq_open.3
+> @@ -126,7 +126,6 @@ specify the maximum number of messages and
+>  the maximum size of messages that the queue will allow.
+>  This structure is defined as follows:
+>  .PP
+> -.PP
+>  .in +4n
+>  .EX
+>  struct mq_attr {
+> diff --git a/man3/ntp_gettime.3 b/man3/ntp_gettime.3
+> index 0b4798990..725f7939e 100644
+> --- a/man3/ntp_gettime.3
+> +++ b/man3/ntp_gettime.3
+> @@ -66,7 +66,6 @@ struct timeval {
+>  };
+>  .EE
+>  .in
 > -.IP
->  This flag is Linux-specific; define
->  .B _GNU_SOURCE
->  .\" Before glibc 2.16, defining _ATFILE_SOURCE sufficed
-> diff --git a/man2/statx.2 b/man2/statx.2
-> index 1e9e6a199..33d110f9f 100644
-> --- a/man2/statx.2
-> +++ b/man2/statx.2
-> @@ -41,9 +41,7 @@ statx \- get file status (extended)
->  .BI "int statx(int " dirfd ", const char *" pathname ", int " flags ","
->  .BI "          unsigned int " mask ", struct statx *" statxbuf );
->  .fi
+>  .TP
+>  .I maxerror
+>  Maximum error, in microseconds.
+> diff --git a/man3/posix_spawn.3 b/man3/posix_spawn.3
+> index 43d736c04..54fe775cc 100644
+> --- a/man3/posix_spawn.3
+> +++ b/man3/posix_spawn.3
+> @@ -217,7 +217,6 @@ is used if the caller requests it,
+>  or if there is no cleanup expected in the child before it
+>  .BR exec (3)s
+>  the requested file.
 > -.PP
->  .SH DESCRIPTION
+>  .SS pre-exec() step: housekeeping
+>  In between the
+>  .B fork()
+> @@ -536,7 +535,6 @@ and
+>  .BR posix_spawnp ()
+>  functions are available since glibc 2.2.
+>  .SH CONFORMING TO
 > -.PP
->  This function returns information about a file, storing it in the buffer
->  pointed to by
->  .IR statxbuf .
-> @@ -100,7 +98,6 @@ struct statx_timestamp {
->  (Note that reserved space and padding is omitted.)
->  .SS
->  Invoking \fBstatx\fR():
+>  POSIX.1-2001, POSIX.1-2008.
+>  .\" FIXME . This piece belongs in spawnattr_setflags(3)
+>  .\" The
+> diff --git a/man3/pthread_atfork.3 b/man3/pthread_atfork.3
+> index faf9a2fca..c91abb8f7 100644
+> --- a/man3/pthread_atfork.3
+> +++ b/man3/pthread_atfork.3
+> @@ -65,7 +65,6 @@ Any of the three arguments may be NULL if no handler is needed
+>  in the corresponding phase of
+>  .BR fork (2)
+>  processing.
 > -.PP
->  To access a file's status, no permissions are required on the file itself,
->  but in the case of
->  .BR statx ()
-> @@ -288,7 +285,6 @@ as one or more bits may, in the future, be used to specify an
->  extension to the buffer.
->  .SS
->  The returned information
+>  .SH RETURN VALUE
+>  On success,
+>  .BR pthread_atfork ()
+> diff --git a/man3/pthread_getattr_default_np.3 b/man3/pthread_getattr_default_np.3
+> index f668c9bff..c550fdb2d 100644
+> --- a/man3/pthread_getattr_default_np.3
+> +++ b/man3/pthread_getattr_default_np.3
+> @@ -114,7 +114,6 @@ Detach state:        JOINABLE
+>  Inherit scheduler:   INHERIT
+>  .EE
+>  .in
 > -.PP
->  The status information for the target file is returned in the
->  .I statx
->  structure pointed to by
-> @@ -420,7 +416,6 @@ For further information on the above fields, see
->  .BR inode (7).
->  .\"
->  .SS File attributes
+>  .SS Program source
+>  \&
+>  .EX
+> diff --git a/man3/pthread_mutexattr_setrobust.3 b/man3/pthread_mutexattr_setrobust.3
+> index 58c145383..6151abca4 100644
+> --- a/man3/pthread_mutexattr_setrobust.3
+> +++ b/man3/pthread_mutexattr_setrobust.3
+> @@ -186,7 +186,6 @@ were also defined.
+>  These GNU-specific APIs, which first appeared in glibc 2.4,
+>  are nowadays obsolete and should not be used in new programs.
+>  .SH EXAMPLES
+> -.PP
+>  The program below demonstrates the use of the robustness attribute of a
+>  mutex attributes object.
+>  In this program, a thread holding the mutex
+> diff --git a/man3/pthread_setname_np.3 b/man3/pthread_setname_np.3
+> index 5f5afa9ac..acea0b468 100644
+> --- a/man3/pthread_setname_np.3
+> +++ b/man3/pthread_setname_np.3
+> @@ -127,7 +127,6 @@ filesystem:
+>  .BR pthread_getname_np ()
+>  retrieves it from the same location.
+>  .SH EXAMPLES
+> -.PP
+>  The program below demonstrates the use of
+>  .BR pthread_setname_np ()
+>  and
+> diff --git a/man3/rcmd.3 b/man3/rcmd.3
+> index 70f3f510b..c883580e4 100644
+> --- a/man3/rcmd.3
+> +++ b/man3/rcmd.3
+> @@ -114,7 +114,6 @@ All four functions are used by the
+>  .BR rshd (8)
+>  server (among others).
+>  .SS rcmd()
 > -.PP
 >  The
->  .I stx_attributes
->  field contains a set of ORed flags that indicate additional attributes
-> diff --git a/man2/syscalls.2 b/man2/syscalls.2
-> index c6b8d8bf9..0b89f422a 100644
-> --- a/man2/syscalls.2
-> +++ b/man2/syscalls.2
-> @@ -904,7 +904,6 @@ There was briefly
->  added in Linux 2.6.13, and removed in 2.6.16;
->  this system call was never available to user space.
->  .SH NOTES
+>  .BR rcmd ()
+>  function
+> @@ -162,7 +161,6 @@ although you may be able to get its attention by using out-of-band data.
+>  The protocol is described in detail in
+>  .BR rshd (8).
+>  .SS rresvport()
 > -.PP
->  Roughly speaking, the code belonging to the system call
->  with number __NR_xxx defined in
->  .I /usr/include/asm/unistd.h
-> diff --git a/man2/sysctl.2 b/man2/sysctl.2
-> index 687333fbd..523489d2a 100644
-> --- a/man2/sysctl.2
-> +++ b/man2/sysctl.2
-> @@ -124,7 +124,6 @@ Furthermore,
->  glibc does not provide a wrapper for this system call,
->  necessitating the use of
->  .BR syscall (2).
+>  The
+>  .BR rresvport ()
+>  function is used to obtain a socket with a privileged
+> @@ -186,7 +184,6 @@ for a circular search of the port range;
+>  on (successful) return, it contains the port number that was bound to.
+>  .\"
+>  .SS iruserok() and ruserok()
 > -.PP
->  .SH BUGS
->  The object names vary between kernel versions,
->  making this system call worthless for applications.
-> diff --git a/man2/truncate.2 b/man2/truncate.2
-> index b69119835..fe5825b90 100644
-> --- a/man2/truncate.2
-> +++ b/man2/truncate.2
-> @@ -62,7 +62,6 @@ Feature Test Macro Requirements for glibc (see
->  .RS 4
->  _XOPEN_SOURCE\ >=\ 500
->  .\"    || _XOPEN_SOURCE\ &&\ _XOPEN_SOURCE_EXTENDED
-> -.br
->      || /* Since glibc 2.12: */ _POSIX_C_SOURCE\ >=\ 200809L
->      || /* Glibc versions <= 2.19: */ _BSD_SOURCE
->  .RE
-> diff --git a/man2/uname.2 b/man2/uname.2
-> index 55c139a56..166e39849 100644
-> --- a/man2/uname.2
-> +++ b/man2/uname.2
-> @@ -136,7 +136,6 @@ Part of the utsname information is also accessible via
->  .IR version ,
->  .IR domainname }.
->  .SS C library/kernel differences
-> -.PP
->  Over time, increases in the size of the
->  .I utsname
->  structure have led to three successive versions of
-> diff --git a/man2/userfaultfd.2 b/man2/userfaultfd.2
-> index 0a7b65f22..8fb851fa7 100644
-> --- a/man2/userfaultfd.2
-> +++ b/man2/userfaultfd.2
-> @@ -131,7 +131,7 @@ single threaded non-cooperative userfaultfd manager implementations.
->  .\"     problematic for multi-threaded monitor. I even suspect that it would be
->  .\"     impossible to ensure synchronization between page faults and non-page
->  .\"     fault events in multi-threaded monitor.
+>  The
+>  .BR iruserok ()
+>  and
+> diff --git a/man3/realpath.3 b/man3/realpath.3
+> index 28917a9f9..de43eccf3 100644
+> --- a/man3/realpath.3
+> +++ b/man3/realpath.3
+> @@ -182,7 +182,7 @@ A typical source fragment would be
+>  .in
+>  .PP
+>  (But see the BUGS section.)
 > -.PP
 > +.\".PP
->  .\" FIXME elaborate about non-cooperating mode, describe its limitations
->  .\" for kernels before 4.11, features added in 4.11
->  .\" and limitations remaining in 4.11
-> @@ -211,7 +211,6 @@ Up to Linux 4.11,
->  userfaultfd can be used only with anonymous private memory mappings.
->  Since Linux 4.11,
->  userfaultfd can be also used with hugetlbfs and shared memory mappings.
+>  .\"     2012-05-05, According to Casper Dik, the statement about
+>  .\"     Solaris was not true at least as far back as 1997, and
+>  .\"     may never have been true.
+> diff --git a/man3/sem_wait.3 b/man3/sem_wait.3
+> index 156971eba..ccd631419 100644
+> --- a/man3/sem_wait.3
+> +++ b/man3/sem_wait.3
+> @@ -157,7 +157,6 @@ T}	Thread safety	MT-Safe
+>  .SH CONFORMING TO
+>  POSIX.1-2001, POSIX.1-2008.
+>  .SH EXAMPLES
 > -.PP
->  .\"
->  .SS Reading from the userfaultfd structure
->  Each
-> @@ -766,4 +765,3 @@ main(int argc, char *argv[])
->  .PP
->  .I Documentation/admin-guide/mm/userfaultfd.rst
->  in the Linux kernel source tree
+>  The (somewhat trivial) program shown below operates on an
+>  unnamed semaphore.
+>  The program expects two command-line arguments.
+> diff --git a/man3/setbuf.3 b/man3/setbuf.3
+> index 50dccff0b..18f756703 100644
+> --- a/man3/setbuf.3
+> +++ b/man3/setbuf.3
+> @@ -194,7 +194,7 @@ functions conform to C89 and C99.
+>  .\" On 4.2BSD and 4.3BSD systems,
+>  .\" .BR setbuf ()
+>  .\" always uses a suboptimal buffer size and should be avoided.
 > -.PP
-> diff --git a/man2/vfork.2 b/man2/vfork.2
-> index 7787cd290..491f0395d 100644
-> --- a/man2/vfork.2
-> +++ b/man2/vfork.2
-> @@ -175,7 +175,6 @@ remaining blocked until the child either terminates or calls
->  and cannot rely on any specific behavior with respect to shared memory.
->  .\" In AIXv3.1 vfork is equivalent to fork.
+> +.\".PP
+>  You must make sure that the space that
+>  .I buf
+>  points to still exists by the time
+> diff --git a/man3/setjmp.3 b/man3/setjmp.3
+> index 0e58bde97..e6a6c9bb0 100644
+> --- a/man3/setjmp.3
+> +++ b/man3/setjmp.3
+> @@ -96,7 +96,6 @@ call because the "fake" return returns the value provided in
+>  If the programmer mistakenly passes the value 0 in
+>  .IR val ,
+>  the "fake" return will instead return 1.
+> -.PP
+>  .SS sigsetjmp() and siglongjmp()
+>  .BR sigsetjmp ()
+>  and
+> @@ -149,7 +148,6 @@ T{
+>  .BR siglongjmp ()
+>  T}	Thread safety	MT-Safe
+>  .TE
+> -.PP
+>  .SH CONFORMING TO
+>  .BR setjmp (),
+>  .BR longjmp ():
+> diff --git a/man3/shm_open.3 b/man3/shm_open.3
+> index c04fa455b..3ee91fab2 100644
+> --- a/man3/shm_open.3
+> +++ b/man3/shm_open.3
+> @@ -271,7 +271,6 @@ may be set to either the calling process's effective group ID
+>  or, if the object is visible in the filesystem,
+>  the group ID of the parent directory.
 >  .SH NOTES
 > -.PP
->  Some consider the semantics of
->  .BR vfork ()
->  to be an architectural blemish, and the 4.2BSD man page stated:
-> @@ -308,7 +307,6 @@ Since 2.2.0-pre9 (on i386, somewhat later on
->  other architectures) it is an independent system call.
->  Support was added in glibc 2.0.112.
->  .SH BUGS
+>  POSIX leaves the behavior of the combination of
+>  .B O_RDONLY
+>  and
+> @@ -336,10 +335,8 @@ struct shmbuf {
+>  };
+>  .EE
+>  .in
 > -.PP
->  Details of the signal handling are obscure and differ between systems.
->  The BSD man page states:
->  "To avoid a possible deadlock situation, processes that are children
+>  .\"
+>  .SS Program source: pshm_ucase_bounce.c
+> -.PP
+>  The "bounce" program creates a new shared memory object with the name
+>  given in its command-line argument and sizes the object to
+>  match the size of the
+> @@ -425,10 +422,8 @@ main(int argc, char *argv[])
+>  }
+>  .EE
+>  .in
+> -.PP
+>  .\"
+>  .SS Program source: pshm_ucase_send.c
+> -.PP
+>  The "send" program takes two command-line arguments:
+>  the pathname of a shared memory object previously created by the "bounce"
+>  program and a string that is to be copied into that object.
+> @@ -507,7 +502,6 @@ main(int argc, char *argv[])
+>  }
+>  .EE
+>  .in
+> -.PP
+>  .SH SEE ALSO
+>  .BR close (2),
+>  .BR fchmod (2),
+> diff --git a/man3/strptime.3 b/man3/strptime.3
+> index a04f2531c..9403df2e1 100644
+> --- a/man3/strptime.3
+> +++ b/man3/strptime.3
+> @@ -313,7 +313,6 @@ T}	Thread safety	MT-Safe env locale
+>  .SH CONFORMING TO
+>  POSIX.1-2001, POSIX.1-2008, SUSv2.
+>  .SH NOTES
+> -.PP
+>  In principle, this function does not initialize
+>  .I tm
+>  but
+> diff --git a/man3/system.3 b/man3/system.3
+> index 621a3e8da..997b1a3de 100644
+> --- a/man3/system.3
+> +++ b/man3/system.3
+> @@ -211,7 +211,6 @@ return value that is indistinguishable from the case
+>  where a shell could not be executed in the child process.
+>  .\"
+>  .SS Caveats
+> -.PP
+>  Do not use
+>  .BR system ()
+>  from a privileged program
+> diff --git a/man3/termios.3 b/man3/termios.3
+> index f0a690d2b..b05f13a1b 100644
+> --- a/man3/termios.3
+> +++ b/man3/termios.3
+> @@ -88,7 +88,6 @@ Feature Test Macro Requirements for glibc (see
+>  The termios functions describe a general terminal interface that is
+>  provided to control asynchronous communications ports.
+>  .SS The termios structure
+> -.PP
+>  Many of the functions described here have a \fItermios_p\fP argument
+>  that is a pointer to a \fItermios\fP structure.
+>  This structure contains at least the following members:
+> @@ -670,7 +669,6 @@ and
+>  see the description of
+>  noncanonical mode below.
+>  .SS Retrieving and changing terminal settings
+> -.PP
+>  .BR tcgetattr ()
+>  gets the parameters associated with the object referred by \fIfd\fP and
+>  stores them in the \fItermios\fP structure referenced by
+> @@ -837,7 +835,6 @@ in noncanonical mode to return either 0, or \-1 with
+>  set to
+>  .BR EAGAIN .
+>  .SS Raw mode
+> -.PP
+>  .BR cfmakeraw ()
+>  sets the terminal to something like the
+>  "raw" mode of the old Version 7 terminal driver:
+> @@ -858,7 +855,6 @@ termios_p\->c_cflag |= CS8;
+>  .in
+>  .\"
+>  .SS Line control
+> -.PP
+>  .BR tcsendbreak ()
+>  transmits a continuous stream of zero-valued bits for a specific
+>  duration, if the terminal is using asynchronous serial data
+> @@ -982,7 +978,6 @@ It takes the same arguments as
+>  .BR cfsetispeed (),
+>  and sets both input and output speed.
+>  .SH RETURN VALUE
+> -.PP
+>  .BR cfgetispeed ()
+>  returns the input baud rate stored in the
+>  \fItermios\fP
+> diff --git a/man3/tzset.3 b/man3/tzset.3
+> index 845f6283e..e64854bc1 100644
+> --- a/man3/tzset.3
+> +++ b/man3/tzset.3
+> @@ -234,7 +234,6 @@ T}	Thread safety	MT-Safe env locale
+>  .SH CONFORMING TO
+>  POSIX.1-2001, POSIX.1-2008, SVr4, 4.3BSD.
+>  .SH NOTES
+> -.PP
+>  4.3BSD had a function
+>  .BI "char *timezone(" zone ", " dst )
+>  that returned the
+> diff --git a/man3/undocumented.3 b/man3/undocumented.3
+> index e240ef294..6e4fb4339 100644
+> --- a/man3/undocumented.3
+> +++ b/man3/undocumented.3
+> @@ -42,7 +42,6 @@ similar to that of the other Linux section 3 man pages), and send it to
+>  .B mtk.manpages@gmail.com
+>  for inclusion in the next man page release.
+>  .SS The list
+> -.PP
+>  .BR authdes_create (3),
+>  .BR authdes_getucred (3),
+>  .BR authdes_pk_create (3),
+> diff --git a/man3/xdr.3 b/man3/xdr.3
+> index b6da59d3e..7ba5d1153 100644
+> --- a/man3/xdr.3
+> +++ b/man3/xdr.3
+> @@ -12,7 +12,6 @@
+>  .SH NAME
+>  xdr \- library routines for external data representation
+>  .SH SYNOPSIS AND DESCRIPTION
+> -.PP
+>  These routines allow C programmers to describe
+>  arbitrary data structures in a machine-independent fashion.
+>  Data for remote procedure calls are transmitted using these
+> diff --git a/man3/y0.3 b/man3/y0.3
+> index ad39a002f..5c4f0a678 100644
+> --- a/man3/y0.3
+> +++ b/man3/y0.3
+> @@ -85,7 +85,6 @@ _XOPEN_SOURCE \ >=\ 600
+>  .RE
+>  .ad b
+>  .SH DESCRIPTION
+> -.PP
+>  The
+>  .BR y0 ()
+>  and
 > 
 
 
