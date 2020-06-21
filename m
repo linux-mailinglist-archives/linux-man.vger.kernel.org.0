@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 79371202931
-	for <lists+linux-man@lfdr.de>; Sun, 21 Jun 2020 08:59:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9946720293A
+	for <lists+linux-man@lfdr.de>; Sun, 21 Jun 2020 09:03:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729349AbgFUG7S (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 21 Jun 2020 02:59:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49228 "EHLO
+        id S1729394AbgFUHDI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 21 Jun 2020 03:03:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49832 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729346AbgFUG7Q (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 21 Jun 2020 02:59:16 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 200A9C061794
-        for <linux-man@vger.kernel.org>; Sat, 20 Jun 2020 23:59:16 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id g21so8386334wmg.0
-        for <linux-man@vger.kernel.org>; Sat, 20 Jun 2020 23:59:16 -0700 (PDT)
+        with ESMTP id S1729374AbgFUHDI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 21 Jun 2020 03:03:08 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 334FDC061794
+        for <linux-man@vger.kernel.org>; Sun, 21 Jun 2020 00:03:08 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id l10so13563458wrr.10
+        for <linux-man@vger.kernel.org>; Sun, 21 Jun 2020 00:03:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=pex8moGw1eSO4p/vaCVG19Nmb74oTbWa8m5l3Or+NdE=;
-        b=sgkj2YSGkiz2hREFvSThk0bBq3EaGksZLAVZp2G16uRZlqOuoOhp9G0GGOjNpWOWxa
-         n3tJBMeu6qmH4hAmpgS7EyrbFiUUUnsDJ+L02Inkqh3rFxUIPBF5B3Bp/h9jaRn5gG3n
-         f7ISO/i+PnwsUibW3zrwI8iSw4x15xmqqlzXQZ0JU1jADQ/upCTgvWhMGajyd2an8F00
-         aHdDzJ74jTii/H+vyxGSv885OISEnxVJuW5Cll+PiQnnIaKMR0br6iPzfIG08hpNPbYy
-         oufHO3eZ+XoI8t4Hl+Eup6PbazCYIwG+EW1FYdIqYaz523Z1PjPiDClPfxm4m0sA1ThS
-         0Kxg==
+        bh=feMec/GXC8/AqRvkhfzzJ2lZdCZZyA7WMX32AjeBC/Y=;
+        b=GdvCbWSAojyozYIKDIKU//dtqg9JUwhmdDtAJQemXBkj7OWD0JqtnJpSzq5kYWynY2
+         3nGSXIAUkNO2g91BR205ICGrSzm2vRaoSolZg92appntDdiXh4aqnkVcsI7i/YIGYZ9A
+         3NXnMs/MLRaGL0qTQJ5HNPEXu7IA2YLWyEFMAsul9hJq6O2dw/xmP9wMI2g+P73itC8h
+         W2PzHhQoM9joawPmgQnnY7RA2k1txRECcOSkOFLjVf+qfsMDZRZUAmf1eEqFmU055Haa
+         C0soZvuuvQYPJDk0S0Y0U9YhCE4ZIOL1wl7/heNRUvOwvk+YO4Yu3K63WrGz9+FqOceI
+         D+Mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=pex8moGw1eSO4p/vaCVG19Nmb74oTbWa8m5l3Or+NdE=;
-        b=XYJW+rIqNnn33kUFz2s0pODT9SThL3t23mdlejAk/G6JVyb2poBP6T8Y2/44QdackU
-         CPlk2a0rd7msnN1djPUA/MywQYKmaWgBbl0+ae7DdawXTkssOC/UjemwiFWZoYlcz+Gm
-         31TIcIedJ2QTdiZND0R2KkXF+MBWaBvYVb2oV9ZRo/J5zd+Xhv2129gLaoGtdv4I3lp8
-         irG08twyDj9mho58HrX3Ra3NE1a+0fTmygOHxSbmPDMcE7EfbEUkzElEP+E3XyWmCS/j
-         /XPhXysHLXWJFtQsR8WSr1y5UstOEh2MVqhyrptZRpEiaDKQx2y4JSoFDA9bFBBfsSUV
-         Arcg==
-X-Gm-Message-State: AOAM533y6YMiSnsidZP6QPfwHHH/bRsU13a8bTDEcxUU6ZEEZi521jia
-        rRdpCSjzY1x/4Yyo0Ywbd8s6qIXB
-X-Google-Smtp-Source: ABdhPJw9osgH1HGUmr6nLwJgucKDo00Ibe0sJIxNJUVRQm/v+XvCBFK5WJlRx6YDw8bN81Hj1ekXYA==
-X-Received: by 2002:a05:600c:2201:: with SMTP id z1mr11905144wml.70.1592722753565;
-        Sat, 20 Jun 2020 23:59:13 -0700 (PDT)
+        bh=feMec/GXC8/AqRvkhfzzJ2lZdCZZyA7WMX32AjeBC/Y=;
+        b=XebKqkv/RZZGHZU0ZRzz6xDPqAFgY1Nzxdtx4WLhTrs7a78nmqGh8zuKYYdeuymYzY
+         ieQlcIae0rAhJShZmG7pMNl8eYtrA4ZEN5hKFvVY+Yu9qcCN+KPRUEUPkzMQY/Ycxtdd
+         zk0lFHV1sJHwra9oLo2g/I7CCtl5tu6g+PsuQPoN/13NcZwi2xI6C1h2OFy4Q4QLAIaE
+         rOjWHC5W4fbEzTigkVdKuyyq7nzmT6lyLlhu1eiqsWk15oV5XtnuR/nSh0jho4ke24ju
+         51Df5ga1AJNizScgmTHd3q4saP4ZQ/E3ldUdcxjB2XgASLp4tTOIJLbIj5NHPa7GY6Vs
+         D8Cw==
+X-Gm-Message-State: AOAM53154lfdpatI1oktfgv2v5oV8xvP5qY3C7CBOy0w9FLyDACcR+JG
+        dHaeJcvcCMiZE/csXGeFEnlu9xdd
+X-Google-Smtp-Source: ABdhPJxRiTMCKOvNzRZwpbYEjVqS4Edlb4Qc5HYle4dAeJWZwlXmRRhNKF96x9AntIJLWxE2+n04xA==
+X-Received: by 2002:adf:9205:: with SMTP id 5mr12045551wrj.232.1592722986728;
+        Sun, 21 Jun 2020 00:03:06 -0700 (PDT)
 Received: from ?IPv6:2001:a61:253c:8201:b2fb:3ef8:ca:1604? ([2001:a61:253c:8201:b2fb:3ef8:ca:1604])
-        by smtp.gmail.com with ESMTPSA id n16sm3435860wmc.40.2020.06.20.23.59.13
+        by smtp.gmail.com with ESMTPSA id 104sm12855617wrl.25.2020.06.21.00.03.05
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 20 Jun 2020 23:59:13 -0700 (PDT)
+        Sun, 21 Jun 2020 00:03:06 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] man5/proc.5: srcfix, trim trailing space
+Subject: Re: [PATCH] man7/*: srcfix, trim trailing space
 To:     Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
-References: <20200620160338.GA20693@rhi.hi.is>
+References: <20200620170639.GA23494@rhi.hi.is>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <76bc832a-4aeb-7db2-3ba7-facb4017df67@gmail.com>
-Date:   Sun, 21 Jun 2020 08:59:12 +0200
+Message-ID: <fc5fd564-24bd-8f66-0852-e1c781303df9@gmail.com>
+Date:   Sun, 21 Jun 2020 09:03:05 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200620160338.GA20693@rhi.hi.is>
+In-Reply-To: <20200620170639.GA23494@rhi.hi.is>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,16 +69,38 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hello Bjarni,
 
-On 6/20/20 6:03 PM, Bjarni Ingi Gislason wrote:
+On 6/20/20 7:06 PM, Bjarni Ingi Gislason wrote:
+>   Trim tailing space in "strings".
+> 
+>   There is no change in the output from "nroff" and "groff".
+> 
+> ###
+> 
 > Output is from: test-groff -b -mandoc -T utf8 -rF0 -t -w w -z
 > 
 >   [ "test-groff" is a developmental version of "groff" ]
 > 
-> Input file is ./proc.5
+> troff: <attributes.7>:510: warning: trailing space
+> troff: <attributes.7>:512: warning: trailing space
+> troff: <attributes.7>:513: warning: trailing space
+> troff: <attributes.7>:516: warning: trailing space
+> troff: <attributes.7>:649: warning: trailing space
+> troff: <attributes.7>:681: warning: trailing space
+> troff: <attributes.7>:720: warning: trailing space
+> ####
 > 
-> troff: <proc.5>:4410: warning: trailing space
-> troff: <proc.5>:5206: warning: trailing space
-> troff: <proc.5>:5488: warning: trailing space
+> troff: <environ.7>:181: warning: trailing space
+> troff: <environ.7>:182: warning: trailing space
+> ####
+> 
+> troff: <ip.7>:820: warning: trailing space
+> ####
+> 
+> troff: <signal.7>:316: warning: trailing space
+> Signed-off-by: Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
+> 
+> ####
+
 
 Thanks. Applied.
 
@@ -86,44 +108,103 @@ Cheers,
 
 Michael
 
->   There is no change in the output from "nroff" and "groff".
-> 
-> Signed-off-by: Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
 > ---
->  man5/proc.5 | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+>  man7/attributes.7 | 14 +++++++-------
+>  man7/environ.7    |  4 ++--
+>  man7/ip.7         |  2 +-
+>  man7/signal.7     |  2 +-
+>  4 files changed, 11 insertions(+), 11 deletions(-)
 > 
-> diff --git a/man5/proc.5 b/man5/proc.5
-> index 0e9d56fec..6645a1ae8 100644
-> --- a/man5/proc.5
-> +++ b/man5/proc.5
-> @@ -4407,7 +4407,7 @@ on older kernels).
->  This file contains information about the status of the
->  directory cache (dcache).
->  The file contains six numbers,
-> -.IR nr_dentry ", " nr_unused ", " age_limit " (age in seconds), "
-> +.IR nr_dentry ", " nr_unused ", " age_limit " (age in seconds),"
->  .I want_pages
->  (pages requested by system) and two dummy values.
->  .RS
-> @@ -5203,7 +5203,7 @@ This file is documented in the Linux kernel source file
->  .I Documentation/initrd.txt
->  before Linux 4.10).
->  .TP
-> -.IR /proc/sys/kernel/reboot\-cmd " (Sparc only) "
-> +.IR /proc/sys/kernel/reboot\-cmd " (Sparc only)"
->  This file seems to be a way to give an argument to the SPARC
->  ROM/Flash boot loader.
->  Maybe to tell it what to do after
-> @@ -5485,7 +5485,7 @@ is reduced accordingly.
->  See
->  .BR ptrace (2).
->  .TP
-> -.IR /proc/sys/kernel/zero\-paged " (PowerPC only) "
-> +.IR /proc/sys/kernel/zero\-paged " (PowerPC only)"
->  This file
->  contains a flag.
->  When enabled (nonzero), Linux-PPC will pre-zero pages in
+> diff --git a/man7/attributes.7 b/man7/attributes.7
+> index 4c20c0919..1c8a464b0 100644
+> --- a/man7/attributes.7
+> +++ b/man7/attributes.7
+> @@ -507,13 +507,13 @@ synchronization.
+>  Unlike
+>  .IR race ,
+>  which causes both readers and
+> -writers of internal objects to be regarded as MT-Unsafe, \" and AS-Unsafe,
+> +writers of internal objects to be regarded as MT-Unsafe,\" and AS-Unsafe,
+>  this mark is applied to writers only.
+> -Writers remain \" equally
+> -MT-Unsafe \" and AS-Unsafe
+> +Writers remain\" equally
+> +MT-Unsafe\" and AS-Unsafe
+>  to call,
+>  but the then-mandatory constness of objects they
+> -modify enables readers to be regarded as MT-Safe \" and AS-Safe
+> +modify enables readers to be regarded as MT-Safe\" and AS-Safe
+>  (as long as no other reasons for them to be unsafe remain),
+>  since the lack of synchronization is not a problem when the
+>  objects are effectively constant.
+> @@ -646,7 +646,7 @@ called concurrently with locale changes may
+>  behave in ways that do not correspond to any of the locales active
+>  during their execution, but an unpredictable mix thereof.
+>  .IP
+> -We do not mark these functions as MT-Unsafe, \" or AS-Unsafe,
+> +We do not mark these functions as MT-Unsafe,\" or AS-Unsafe,
+>  however,
+>  because functions that modify the locale object are marked with
+>  .I const:locale
+> @@ -678,7 +678,7 @@ environment with
+>  or similar, without any guards to ensure
+>  safety in the presence of concurrent modifications.
+>  .IP
+> -We do not mark these functions as MT-Unsafe, \" or AS-Unsafe,
+> +We do not mark these functions as MT-Unsafe,\" or AS-Unsafe,
+>  however,
+>  because functions that modify the environment are all marked with
+>  .I const:env
+> @@ -717,7 +717,7 @@ GNU C Library
+>  internal data structure without any guards to ensure
+>  safety in the presence of concurrent modifications.
+>  .IP
+> -We do not mark these functions as MT-Unsafe, \" or AS-Unsafe,
+> +We do not mark these functions as MT-Unsafe,\" or AS-Unsafe,
+>  however,
+>  because functions that modify this data structure are all marked with
+>  .I const:sigintr
+> diff --git a/man7/environ.7 b/man7/environ.7
+> index cd4d884d1..3d654b77f 100644
+> --- a/man7/environ.7
+> +++ b/man7/environ.7
+> @@ -178,8 +178,8 @@ influenced by the presence or value of certain environment variables.
+>  Examples include the following:
+>  .IP * 3
+>  The variables
+> -.BR LANG ", " LANGUAGE ", " NLSPATH ", " LOCPATH ", "
+> -.BR LC_ALL ", " LC_MESSAGES ", "
+> +.BR LANG ", " LANGUAGE ", " NLSPATH ", " LOCPATH ,
+> +.BR LC_ALL ", " LC_MESSAGES ,
+>  and so on influence locale handling; see
+>  .BR catopen (3),
+>  .BR gettext (3),
+> diff --git a/man7/ip.7 b/man7/ip.7
+> index 834f6465b..86b7ed22e 100644
+> --- a/man7/ip.7
+> +++ b/man7/ip.7
+> @@ -817,7 +817,7 @@ address is
+>  .B AF_UNSPEC
+>  when the source was unknown.
+>  When the error originated from the network, all IP options
+> -.RB ( IP_OPTIONS ", " IP_TTL ", "
+> +.RB ( IP_OPTIONS ", " IP_TTL ,
+>  etc.) enabled on the socket and contained in the
+>  error packet are passed as control messages.
+>  The payload of the packet causing the error is returned as normal payload.
+> diff --git a/man7/signal.7 b/man7/signal.7
+> index e53f38a7c..f6868e38b 100644
+> --- a/man7/signal.7
+> +++ b/man7/signal.7
+> @@ -313,7 +313,7 @@ and
+>  cannot be caught, blocked, or ignored.
+>  .PP
+>  Up to and including Linux 2.2, the default behavior for
+> -.BR SIGSYS ", " SIGXCPU ", " SIGXFSZ ", "
+> +.BR SIGSYS ", " SIGXCPU ", " SIGXFSZ ,
+>  and (on architectures other than SPARC and MIPS)
+>  .B SIGBUS
+>  was to terminate the process (without a core dump).
 > 
 
 
