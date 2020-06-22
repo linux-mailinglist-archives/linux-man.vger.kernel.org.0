@@ -2,67 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 159FB2039BE
-	for <lists+linux-man@lfdr.de>; Mon, 22 Jun 2020 16:40:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BB867203BC9
+	for <lists+linux-man@lfdr.de>; Mon, 22 Jun 2020 18:02:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729259AbgFVOku (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 22 Jun 2020 10:40:50 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58790 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729264AbgFVOku (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Jun 2020 10:40:50 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CAA66C061573
-        for <linux-man@vger.kernel.org>; Mon, 22 Jun 2020 07:40:49 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id x16so5981905wmj.1
-        for <linux-man@vger.kernel.org>; Mon, 22 Jun 2020 07:40:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=b/ZRPbO8jsQKAFFQpnOLSOnkjIHUqWfO82MHB5a0+1w=;
-        b=jeNWePCV8fEHC28VmMLDR0hcF8/TzYcioCh80X3lFwfPCdyev/6tUOK/RGyWeleLkd
-         /c03VHHSrXTSoMhXEXLFSJa4VKVp4fh3gdDhi1rUQO1gFRche4nfCnPzXqpEROHWNuO2
-         CryB52Suc6G5Gr51/+xYWj5ahHrD+ret7Hla3KlH+NsSml+QovJ00bY9vUODpuYlKZJQ
-         ioRYHfT7TbqoYSckwsmWynCuiCvdY/VZw/UJcf+6m7CWZGf/c7mev86oi3DhaKw5ucMB
-         ofmyHhkzc0SE8LSbskq3hxRuPpRryHAZAORUPFzDAK8hn4IWc2IlZPZMb55vxXPSCc/E
-         7LyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=b/ZRPbO8jsQKAFFQpnOLSOnkjIHUqWfO82MHB5a0+1w=;
-        b=dE/twLGNYwvhjjXObFgsAXvwvd+N23Ajz/gBtCFTy3bbgjqsdKoigi4nueBBZnFdmI
-         CqPTT+zqm2rVD+CP3eiwKlf7lFsNVOyU3rPIMF2I39Z8fROGsuQcQEDCVLttAHTK+Dqv
-         MgUg8zSkZvYGu5QhF5mVXPzN1YFlDszaupz5bW3usa9BMkdPI3+kBR7EydwJfnXy6+bg
-         cJuxAD13Zf9qfjcGPonFUo1XcBdeC40O4/wNpqzsbPusdtEpy9c8nU52ASoL9ecSwVF+
-         ivKSENZY0sNfZLPmTnf36CNZ1gNrycEmJDhnMV6MjqVapEKfRF5SJvgOmlPLuBlz2tBF
-         BM2g==
-X-Gm-Message-State: AOAM530npzDDx0U1mW+mKNfKqV8QnPosUNqD5bwqXMOMuFHfImZdIH9m
-        Ap0j/dzCh/s6XrtWPhxLi01D2eZ0WCo2Y3reuhGoPb/Igvc=
-X-Google-Smtp-Source: ABdhPJx9Z8G15wDSa9wSc9hytD0X3mIMXeNW5+Sn6NvmelqVS/vxlcu4KIfqX6pT5f+W3DJnCgmaxbfJvWi/WshS3Gg=
-X-Received: by 2002:a1c:ab04:: with SMTP id u4mr19989269wme.52.1592836848201;
- Mon, 22 Jun 2020 07:40:48 -0700 (PDT)
+        id S1729563AbgFVQC0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 22 Jun 2020 12:02:26 -0400
+Received: from sonic302-21.consmr.mail.ne1.yahoo.com ([66.163.186.147]:44562
+        "EHLO sonic302-21.consmr.mail.ne1.yahoo.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1729803AbgFVQCX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Jun 2020 12:02:23 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1592841741; bh=cK2qy9Lv5SAgMg9nAvfVmkJPj46H3ss3vOVyjpHm6Nk=; h=Date:From:Reply-To:Subject:References:From:Subject; b=imnMzKvnrwdEkzevY9v55JCHWrS7mFcRp2xLflBpdsWBX5v32iTt1Jwj292Sqyxc6zTWfVf6UW3RltjDxv8H8ZAxxFg96tpPBoXA2f/GRkfTuiNcUr3yDzOGiHeT9IqR//B+9C8c9YoGDJPnAeuuKcQvLl1HS8J+STK4/r0WZ3jbtWFF0MKDjydg+AbeXShoRDHqwsqAaAi7D9jDq8wNDWBIR81puaAh7APGDPK32RqjpFS85hxXrbmotW59Gm/gC9SoLB52q4udtwMI++FS4HYmIHt+kUh9tNcMAsNUvFYo0HWMN59EiLf7lYGm/4AR40adfmghUfkmt4dYpTZmZQ==
+X-YMail-OSG: AhKkJLAVM1lDQ3XPPTTJWpEw.A_YPk4v7tBrtMEv9XTYrBN0vKxPyUyPokZyCLH
+ 0NPJEnbM.Ixt5u0eXkMwZesEBqS.rCtCLJgnod2Yg.I9TXOm0suNzcmJ92mBaA3mHgRFUusjI.6E
+ 3Gu4LEq019.le8uhDgpgUZ.YgtmiKAQJK6Bd4WPLqozbdEc8urSPipLpvwJTvKec65xmptWyRiVv
+ 5wejfhjut7ltVV2EWvbGnxpPsKrHXW63gZY0z7W.qC8yTTTM6xXIAPM6OYdYDYNn.6t5yJFWlC1P
+ OIdbZEYbWLsjaYGAZ3nhw68imywZs7JgVqTzxfR4ZQQxpuo3K8t9CM9O0hpOCt10FP__XXwyrmrD
+ TCoCE7B_Edu3G.zjOUn_rksR4jYB.m1Rp.1vZ_bLxnQwCiAul5Wqfj8PNdUGzT.zvxnBCUVqWq9J
+ 8hXM6oMyn8gklCF.R8KCTVo6NRJRq4thjGWIexrpJEGu0QolvkJTIALFEd6_slAReLmAOEup3xKy
+ .77XY9y0L2WZlQcf1QY4ryEv90HkLK9R59Zd1MxuC8qefRgY6y6xUFmVBWO8SDJCCjnQpB48PRDP
+ pRTSfD8hEjxrcMoyLQRR8ik6SRBEuL1N.zoJ2juJT7TtdJItukcqyaFlw7VOC6cm49vWb13NtnZ0
+ gQ2bWEWTG5v0uAlc54_ulltpKs.Fgm6hkagBtyzunEJ52PGAuturV.LPWyLoBYPiB1KC1HlV8gI8
+ yJqtTplsyPL2eALndgi_xv5WXRslUdVun50zfx9iDK5v_kT1lyZrnl7BpPa5N7roHYs5FCR3fGlt
+ 00HJ7sf.lnan3Im8PEbT96k38NwI6o6wqQk3XTx1x0TOib38VwKLgaWNY916uiRI1upzFCMVqmW6
+ hKW.i_z2qDWeeQaZVyBhDmfLTpSCKpEZXqJt.HWEa0uB7F6lyRoT1rQEzhMY_zbISz6YbRmtNDlq
+ VLlEzjYA6uILpMVD7EkmwXGP0XOJgDIix93HShigByDXDbmOlbnVPelpKvxPRFg3gnhpf.0Rc47i
+ 08Ic.liUMCD9zHGFCga9cXgoGaM8kFbRyDB3CB8uLHuuV8rIwOstkm24RLt0t3H1wtfuP85AC7r8
+ v042NbRsPX1Mj80LTxFt.KStV8ND4Dc1.IiPBslhVUpEA9f2YrGnkjCHG4.U4j0M0U489djAouYX
+ y9F8lECiGIH30pwUi5p9NUzViYBtaTM7ID67rbGjIKdkEdFs14rCm3KSzct0U2izLUB1NerwsRiF
+ IQWasnNhp61WOxqpf4zyo6bEJMCV1B8QkTG.8HvHCcJtAwYQhWHkE5SwAzxSGopkwGBC4.Xf9
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic302.consmr.mail.ne1.yahoo.com with HTTP; Mon, 22 Jun 2020 16:02:21 +0000
+Date:   Mon, 22 Jun 2020 16:02:19 +0000 (UTC)
+From:   Karim Zakari <kariim1960z@gmail.com>
+Reply-To: kzakari04@gmail.com
+Message-ID: <1507214802.1850985.1592841739314@mail.yahoo.com>
+Subject: URGENT REPLY.
 MIME-Version: 1.0
-From:   Luiz Henrique Laurini <luizhenriquelaurini@gmail.com>
-Date:   Mon, 22 Jun 2020 11:40:37 -0300
-Message-ID: <CADry9i-r-r_W6w3ta1rMYbycZZmg-sT=ftuDBVvsoqDtkCG8eQ@mail.gmail.com>
-Subject: Clarify in fcntl(2) whether using F_SETFL, F_GETLK, F_SETLK, and
- F_SETLKW on shared memory should behave the same as for a normal file
-To:     linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+References: <1507214802.1850985.1592841739314.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.16138 YMailNodin Mozilla/5.0 (Windows NT 6.1; ) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36
+To:     unlisted-recipients:; (no To-header on input)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is my first time posting to any mailing list, so I apologize for
-any mistakes.
 
-The fcntl(3p) says:
-When the file descriptor fildes refers to a shared memory object, the
-behavior of fcntl() shall be the same as for a regular file except the
-effect of the following values for the argument cmd shall  be
-unspecified:  F_SETFL, F_GETLK, F_SETLK, and F_SETLKW.
 
-However, fcntl(2) says nothing about that. I think it should clarify
-whether or not using these values with shared memory objects is
-expected to work the same as with regular files.
+Good-Day Friend,
+
+ Hope you are doing great Today. I have a proposed business deal worthy (US$16.5 Million Dollars) that will benefit both parties. This is legitimate' legal and your personality will not be compromised.
+
+Waiting for your response for more details, As you are willing to execute this business opportunity with me.
+
+Sincerely Yours,
+Mr. Karim Zakari.
