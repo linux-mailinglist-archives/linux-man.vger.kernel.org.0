@@ -2,243 +2,104 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4924620405F
-	for <lists+linux-man@lfdr.de>; Mon, 22 Jun 2020 21:29:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E8660205036
+	for <lists+linux-man@lfdr.de>; Tue, 23 Jun 2020 13:13:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728512AbgFVT3d (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 22 Jun 2020 15:29:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47356 "EHLO
+        id S1732335AbgFWLNr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 23 Jun 2020 07:13:47 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52210 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728594AbgFVT3X (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Jun 2020 15:29:23 -0400
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com [IPv6:2607:f8b0:4864:20::544])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A9F67C061573;
-        Mon, 22 Jun 2020 12:29:23 -0700 (PDT)
-Received: by mail-pg1-x544.google.com with SMTP id b5so8653309pgm.8;
-        Mon, 22 Jun 2020 12:29:23 -0700 (PDT)
+        with ESMTP id S1732191AbgFWLNq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 23 Jun 2020 07:13:46 -0400
+Received: from mail-il1-x143.google.com (mail-il1-x143.google.com [IPv6:2607:f8b0:4864:20::143])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 45CD8C061755
+        for <linux-man@vger.kernel.org>; Tue, 23 Jun 2020 04:13:46 -0700 (PDT)
+Received: by mail-il1-x143.google.com with SMTP id x9so5079479ila.3
+        for <linux-man@vger.kernel.org>; Tue, 23 Jun 2020 04:13:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=8Ul/VyioCZgSyOOWRzsGy5FBJiYJTcxPpaUmWpPopUw=;
-        b=aSwM6DsYB1/dpxaO1GdMEYGz5So4Bsx1gHNxIcRQmwSHWyd2LDIyy526R7Dm3vg/U0
-         hPW8FovOHjF3ncjzSwNS49l65o4mEwt+stfbXxbXTtabuP9VzJKt5kNpsKqf8gWbm7e8
-         Jy7KLq/Oa8nWPd65hZpHq6atvB/hDkCkGB5hzYKgwST5ssIXtMTaX607CWH2DAsebuZc
-         TknY4iL3TlMu7nX6yjVZb1gWo1BmzG1feeMDspM9plW9Ecx/qLNW1DSCzw3r6Hp5ot3y
-         5HWMB02qByZbhRTIdJ8xnRPm+YzVrRE+zMT+QXXnuQNRfRXjGlzZvKk1PtjLFbK8TCW7
-         Zqcg==
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=D7l/Y2nU4ivOXB3kYNarWKNDy1SUWuawPt7q4q/Bhv4=;
+        b=pja+sD3lYNamNxxQdsgMjabhTWV8OSKrh1lfZkSBkPTJk0fqugK+Z5/zDroVIKQX+P
+         QNMxk3n4aYkvFnuHBOWxu9akBqW0pHTjMD7bxcCwviCz+ghofkMfOEf1ywZazd6F2iC8
+         vuVbAInO6Po3G6VzgXRU5NrsWyK1PPRfFR8VixG28QLYRQeafZdKkbH2OFsA2x02+2Nj
+         9joLjl+8THcHxFFuOYpiMyyI2ZCZ8bhVbSot2QaoevFoiiU8JWQy6T8QbG+CAbM5tHfK
+         CxoNGmsTQgDYPPcGGEe2NLwLkA4qT1e5iXnbnH8GlXBMAqKDdwqVgRD1JyLonEnQ6myM
+         I7MQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
-         :in-reply-to:references:mime-version:content-transfer-encoding;
-        bh=8Ul/VyioCZgSyOOWRzsGy5FBJiYJTcxPpaUmWpPopUw=;
-        b=tizh9Qd0OK37FJWAgfKljBC95Ijjiw8oKgWCjVSfGUDJFuOpjc3nc11Lg9JxlqdTDJ
-         uoyUOFcSv1rfgC1C+n1StKCJ3807mFHHRZZVzaFJ5jiiy1QYtOZrOEw+h/VshX2Nh/Yy
-         vawH70gORfmVcS8fgGv+XclBgyC3mNg8VMIa5c97/cO8YTnHLOXpEkPXvsGgNacC+/9z
-         1++UAdzWcQlmP2dYwLdAuDJzrFXB4opxTNat3F47Jx9xDOTMXC/rMcpb0jmks3/1Bn3h
-         Fa0MPnXC7e1PKJMPNekh65GJhgugeKQLgyJSjX+77zcwFL77tVlNfbO23XkFY68jvLMc
-         pN9A==
-X-Gm-Message-State: AOAM5317J7vIKpPmmWHRdgpd1GVJ97/6iXR+2YBev1MKOBI3gFwkhUiO
-        NGgE49GND1o8GmNI0Pj3aJj0J/XD
-X-Google-Smtp-Source: ABdhPJw2WQbvHFWoo0cnD9rBNEULjMl/Sezb/fUY29hFdcN9wqV/dwQmcM+u/jI25YdJul3DpG7Ejg==
-X-Received: by 2002:a63:cd4d:: with SMTP id a13mr14285541pgj.49.1592854163147;
-        Mon, 22 Jun 2020 12:29:23 -0700 (PDT)
-Received: from bbox-1.mtv.corp.google.com ([2620:15c:211:1:3e01:2939:5992:52da])
-        by smtp.gmail.com with ESMTPSA id mu17sm264603pjb.53.2020.06.22.12.29.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Jun 2020 12:29:21 -0700 (PDT)
-From:   Minchan Kim <minchan@kernel.org>
-To:     Andrew Morton <akpm@linux-foundation.org>
-Cc:     LKML <linux-kernel@vger.kernel.org>,
-        Christian Brauner <christian.brauner@ubuntu.com>,
-        linux-mm <linux-mm@kvack.org>, linux-api@vger.kernel.org,
-        oleksandr@redhat.com, Suren Baghdasaryan <surenb@google.com>,
-        Tim Murray <timmurray@google.com>,
-        Sandeep Patil <sspatil@google.com>,
-        Sonny Rao <sonnyrao@google.com>,
-        Brian Geffon <bgeffon@google.com>,
-        Michal Hocko <mhocko@suse.com>,
-        Johannes Weiner <hannes@cmpxchg.org>,
-        Shakeel Butt <shakeelb@google.com>,
-        John Dias <joaodias@google.com>,
-        Joel Fernandes <joel@joelfernandes.org>,
-        Jann Horn <jannh@google.com>,
-        alexander.h.duyck@linux.intel.com, sj38.park@gmail.com,
-        David Rientjes <rientjes@google.com>,
-        Arjun Roy <arjunroy@google.com>,
-        Minchan Kim <minchan@kernel.org>,
-        Vlastimil Babka <vbabka@suse.cz>,
-        Christian Brauner <christian@brauner.io>,
-        Daniel Colascione <dancol@google.com>,
-        Jens Axboe <axboe@kernel.dk>,
-        Kirill Tkhai <ktkhai@virtuozzo.com>,
-        SeongJae Park <sjpark@amazon.de>, linux-man@vger.kernel.org
-Subject: [PATCH v8 4/4] mm/madvise: check fatal signal pending of target process
-Date:   Mon, 22 Jun 2020 12:29:00 -0700
-Message-Id: <20200622192900.22757-5-minchan@kernel.org>
-X-Mailer: git-send-email 2.27.0.111.gc72c7da667-goog
-In-Reply-To: <20200622192900.22757-1-minchan@kernel.org>
-References: <20200622192900.22757-1-minchan@kernel.org>
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=D7l/Y2nU4ivOXB3kYNarWKNDy1SUWuawPt7q4q/Bhv4=;
+        b=L2epwKxdUukh69dYOuZcBaFGbf7Z/3Q/XagimTufEaowfqwy1LtTda8TwBUH2uglrj
+         SFX9d9hs4jaY0B1qaVrtpdX9XTaGrR2GWgNZb0VL6dbeAdtt1oci1rYvlZZjFUWEio/G
+         1OpkHmPy4iHQWBOK1/AL37iPOUwhVq+qtgQikvDe1vnGrFPxsy88bDCjeiHP6JKeoqDh
+         m3+VJmmCsMYeUUP+0pKT5NYZES9aNdikeBn87kQrYD2F2BY8sMEv1tLqAk6UPJwT+iQ7
+         x9wMa6lUmSgdCi3bEa+cU5X2928uGBvi/d269EjlL0Pg24BOKjSZM6MXotbR/gAV6XcM
+         m/gg==
+X-Gm-Message-State: AOAM532cGpm3WoPvamSByfmLwxJYMKbG1b1VHnkvl4jgeIQHfwyNW0sB
+        ygefIdxbiy8NTzJbYWjI3RFxV4HSxoCwXu4o9wU=
+X-Google-Smtp-Source: ABdhPJzIEurHd7iC70yNwaNq6+qw7rYB5KdDbEokntYaJQini2dcISbYcUVlJQximgCeuFWdJ1LNgy5ayV5ak4F+yxY=
+X-Received: by 2002:a05:6e02:c:: with SMTP id h12mr21559251ilr.125.1592910825697;
+ Tue, 23 Jun 2020 04:13:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: by 2002:a05:6638:14d3:0:0:0:0 with HTTP; Tue, 23 Jun 2020 04:13:45
+ -0700 (PDT)
+Reply-To: sarahkoffi389@yahoo.co.jp
+From:   Sarah Koffi <elnana194@gmail.com>
+Date:   Tue, 23 Jun 2020 12:13:45 +0100
+Message-ID: <CA+NUCuT9WL-s01W1FbOtvx=cRuGU4z=pgGT8ZX6-UpZ1jjpa7Q@mail.gmail.com>
+Subject: Greetings From Mrs. Sarah Koffi
+To:     sarahkoffi389@yahoo.co.jp
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Bail out to prevent unnecessary CPU overhead if target process has pending
-fatal signal during (MADV_COLD|MADV_PAGEOUT) operation.
+Greetings From Mrs. Sarah Koffi
 
-Link: http://lkml.kernel.org/r/20200302193630.68771-4-minchan@kernel.org
-Signed-off-by: Minchan Kim <minchan@kernel.org>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Reviewed-by: Vlastimil Babka <vbabka@suse.cz>
-Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
-Cc: Brian Geffon <bgeffon@google.com>
-Cc: Christian Brauner <christian@brauner.io>
-Cc: Daniel Colascione <dancol@google.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Joel Fernandes <joel@joelfernandes.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: John Dias <joaodias@google.com>
-Cc: Kirill Tkhai <ktkhai@virtuozzo.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Oleksandr Natalenko <oleksandr@redhat.com>
-Cc: Sandeep Patil <sspatil@google.com>
-Cc: SeongJae Park <sj38.park@gmail.com>
-Cc: SeongJae Park <sjpark@amazon.de>
-Cc: Shakeel Butt <shakeelb@google.com>
-Cc: Sonny Rao <sonnyrao@google.com>
-Cc: Tim Murray <timmurray@google.com>
-Cc: Christian Brauner <christian.brauner@ubuntu.com>
-Cc: <linux-man@vger.kernel.org>
----
- mm/madvise.c | 29 +++++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 8 deletions(-)
+I'm contacting you based on your good profiles I read and for a good
+reasons, I am in search of a property to buy in your country as I
+intended to come over to your
+country for investment, Though I have not meet with you before but I
+believe that one has to risk confiding in someone to succeed sometimes
+in life.
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 23abca3f93fa..a16dba21cdf6 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -39,6 +39,7 @@
- struct madvise_walk_private {
- 	struct mmu_gather *tlb;
- 	bool pageout;
-+	struct task_struct *target_task;
- };
- 
- /*
-@@ -319,6 +320,10 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
- 	if (fatal_signal_pending(current))
- 		return -EINTR;
- 
-+	if (private->target_task &&
-+			fatal_signal_pending(private->target_task))
-+		return -EINTR;
-+
- #ifdef CONFIG_TRANSPARENT_HUGEPAGE
- 	if (pmd_trans_huge(*pmd)) {
- 		pmd_t orig_pmd;
-@@ -480,12 +485,14 @@ static const struct mm_walk_ops cold_walk_ops = {
- };
- 
- static void madvise_cold_page_range(struct mmu_gather *tlb,
-+			     struct task_struct *task,
- 			     struct vm_area_struct *vma,
- 			     unsigned long addr, unsigned long end)
- {
- 	struct madvise_walk_private walk_private = {
- 		.pageout = false,
- 		.tlb = tlb,
-+		.target_task = task,
- 	};
- 
- 	tlb_start_vma(tlb, vma);
-@@ -493,7 +500,8 @@ static void madvise_cold_page_range(struct mmu_gather *tlb,
- 	tlb_end_vma(tlb, vma);
- }
- 
--static long madvise_cold(struct vm_area_struct *vma,
-+static long madvise_cold(struct task_struct *task,
-+			struct vm_area_struct *vma,
- 			struct vm_area_struct **prev,
- 			unsigned long start_addr, unsigned long end_addr)
- {
-@@ -506,19 +514,21 @@ static long madvise_cold(struct vm_area_struct *vma,
- 
- 	lru_add_drain();
- 	tlb_gather_mmu(&tlb, mm, start_addr, end_addr);
--	madvise_cold_page_range(&tlb, vma, start_addr, end_addr);
-+	madvise_cold_page_range(&tlb, task, vma, start_addr, end_addr);
- 	tlb_finish_mmu(&tlb, start_addr, end_addr);
- 
- 	return 0;
- }
- 
- static void madvise_pageout_page_range(struct mmu_gather *tlb,
-+			     struct task_struct *task,
- 			     struct vm_area_struct *vma,
- 			     unsigned long addr, unsigned long end)
- {
- 	struct madvise_walk_private walk_private = {
- 		.pageout = true,
- 		.tlb = tlb,
-+		.target_task = task,
- 	};
- 
- 	tlb_start_vma(tlb, vma);
-@@ -542,7 +552,8 @@ static inline bool can_do_pageout(struct vm_area_struct *vma)
- 		inode_permission(file_inode(vma->vm_file), MAY_WRITE) == 0;
- }
- 
--static long madvise_pageout(struct vm_area_struct *vma,
-+static long madvise_pageout(struct task_struct *task,
-+			struct vm_area_struct *vma,
- 			struct vm_area_struct **prev,
- 			unsigned long start_addr, unsigned long end_addr)
- {
-@@ -558,7 +569,7 @@ static long madvise_pageout(struct vm_area_struct *vma,
- 
- 	lru_add_drain();
- 	tlb_gather_mmu(&tlb, mm, start_addr, end_addr);
--	madvise_pageout_page_range(&tlb, vma, start_addr, end_addr);
-+	madvise_pageout_page_range(&tlb, task, vma, start_addr, end_addr);
- 	tlb_finish_mmu(&tlb, start_addr, end_addr);
- 
- 	return 0;
-@@ -938,7 +949,8 @@ static int madvise_inject_error(int behavior,
- #endif
- 
- static long
--madvise_vma(struct vm_area_struct *vma, struct vm_area_struct **prev,
-+madvise_vma(struct task_struct *task, struct vm_area_struct *vma,
-+		struct vm_area_struct **prev,
- 		unsigned long start, unsigned long end, int behavior)
- {
- 	switch (behavior) {
-@@ -947,9 +959,9 @@ madvise_vma(struct vm_area_struct *vma, struct vm_area_struct **prev,
- 	case MADV_WILLNEED:
- 		return madvise_willneed(vma, prev, start, end);
- 	case MADV_COLD:
--		return madvise_cold(vma, prev, start, end);
-+		return madvise_cold(task, vma, prev, start, end);
- 	case MADV_PAGEOUT:
--		return madvise_pageout(vma, prev, start, end);
-+		return madvise_pageout(task, vma, prev, start, end);
- 	case MADV_FREE:
- 	case MADV_DONTNEED:
- 		return madvise_dontneed_free(vma, prev, start, end, behavior);
-@@ -1166,7 +1178,8 @@ int do_madvise(struct task_struct *target_task, struct mm_struct *mm,
- 			tmp = end;
- 
- 		/* Here vma->vm_start <= start < tmp <= (end|vma->vm_end). */
--		error = madvise_vma(vma, &prev, start, tmp, behavior);
-+		error = madvise_vma(target_task, vma, &prev,
-+					start, tmp, behavior);
- 		if (error)
- 			goto out;
- 		start = tmp;
--- 
-2.27.0.111.gc72c7da667-goog
+My name is Mrs. Sarah Koffi. My late husband deals on Crude Oil with
+Federal Government of Sudan and he has a personal Oil firm in Bentiu
+Oil zone town and Upper
+Nile city. What I have experience physically, I don't wish to
+experience it again in my life due to the recent civil Ethnic war
+cause by our President Mr. Salva Kiir
+and the rebel leader Mr Riek Machar, I have been Under United Nation
+refuge camp in chad to save my life and that of my little daughter.
 
+Though, I do not know how you will feel to my proposal, but the truth
+is that I sneaked into Chad our neighboring country where I am living
+now as a refugee.
+I escaped with my little daughter when the rebels bust into our house
+and killed my husband as one of the big oil dealers in the country,
+ever since then, I have being on the run.
+
+I left my country and move to Chad our neighboring country with the
+little ceasefire we had, due to the face to face peace meeting accord
+coordinated by the US Secretary of State, Mr John Kerry and United
+Nations in Ethiopia (Addis Ababa) between our President Mr Salva Kiir
+and the rebel leader Mr Riek Machar to stop this war.
+
+I want to solicit for your partnership with trust to invest the $8
+million dollars deposited by my late husband in Bank because my life
+is no longer safe in our country, since the rebels are looking for the
+families of all the oil business men in the country to kill, saying
+that they are they one that is milking the country dry.
+
+I will offer you 20% of the total fund for your help while I will
+partner with you for the investment in your country.
+If I get your reply.
+
+I will wait to hear from you so as to give you details.With love from
+
+ i need you to contact me here sarahkoffi389@yahoo.co.jp
+
+Mrs. Sarah Koffi
