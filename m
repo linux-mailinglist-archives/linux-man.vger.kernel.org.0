@@ -2,73 +2,85 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A4F3D20558D
-	for <lists+linux-man@lfdr.de>; Tue, 23 Jun 2020 17:10:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 82EAA2055D9
+	for <lists+linux-man@lfdr.de>; Tue, 23 Jun 2020 17:26:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732862AbgFWPKj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 23 Jun 2020 11:10:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60902 "EHLO
+        id S1732909AbgFWP0d (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 23 Jun 2020 11:26:33 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35150 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1732781AbgFWPKj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 23 Jun 2020 11:10:39 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 403F1C061573
-        for <linux-man@vger.kernel.org>; Tue, 23 Jun 2020 08:10:39 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id o11so13201517wrv.9
-        for <linux-man@vger.kernel.org>; Tue, 23 Jun 2020 08:10:39 -0700 (PDT)
+        with ESMTP id S1732781AbgFWP0d (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 23 Jun 2020 11:26:33 -0400
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com [IPv6:2a00:1450:4864:20::633])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 35553C061573
+        for <linux-man@vger.kernel.org>; Tue, 23 Jun 2020 08:26:33 -0700 (PDT)
+Received: by mail-ej1-x633.google.com with SMTP id a1so8019772ejg.12
+        for <linux-man@vger.kernel.org>; Tue, 23 Jun 2020 08:26:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jguk.org; s=google;
-        h=to:from:subject:message-id:date:user-agent:mime-version
-         :content-language:content-transfer-encoding;
-        bh=FfLgauf0Tgk4mSN2XMydbABLQOucf4Ic8LJkVjr29TI=;
-        b=UPJQWt8WDe5qxsDup6jbMX4lPSpWpBZU6j1oZbb+yEJoZV+tInhPWybZ5eueBseobp
-         PyuDpuUDUKfENV6b0JxtfnlV7z9zdVfNZLlPntUoyEjGEn8+HI0gGaiOEonzAthsdEqo
-         z3uJaqU4WqVcujXsq5xNOjFuOt9qvaTu7p+ukyG6O9xTb5UUdI5QDUf9gCcdhB4GCUc0
-         o2hKLxjFTu9/ymmIyK9V+ZUL3pTjZuKiovadAW3e8LUqY1CJWJO+Yc8hpPntim6JT2WO
-         IaqiK6+1jhLk+ITOae8mwQeTtqx4hzcOi4PK7xEhBDChE1Yrhm8DI4qJOVA6RZb7YbIO
-         4SKg==
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=TSk5I2XGyol57/zZG2K08TicM7Vn/98gFy9a9VX/YoM=;
+        b=dYA+PlaS15gl+2RYImKY+B/iRL7czqEcptRrRsnCiYsZFozutpV4wDSLib6g0e16kI
+         F7TPSULyLN8oSqUKUTxb0uGSdZCPbe58grmgykeim936MtNefLxnb3YG1pDil822kYVk
+         a/AIoJ5c4PnLYlb5pEe4ouOQlYUximonNQ+b7BFE1IXPoD1cDmIi2uf1MbWNODRSfHaK
+         dDu2XhEDMB9O8BmqpyOxWi3+KcuAgg9mjS82v4hTM8kkC2YE1P9CvCkQHHOYzB5dh/ZF
+         BaXV5oh6aGRFFEPAxD6qUTxvqdcAaALwF1iON0VdhiUxN6eLvc4xshEv9BZy69lIbMkd
+         p8pQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:from:subject:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=FfLgauf0Tgk4mSN2XMydbABLQOucf4Ic8LJkVjr29TI=;
-        b=c0Sbb9CdcnCR4+9RBX5ZdfB908/+qUKJUtF3pBB+YMcXCq12Fz2FRp70WeFaSs7VtW
-         gQOeXsGiZCwC2kD+ywyibSE7gb/dJyvDhMFrb3micH+Aqh9IRhQFGc9eg0fSD3J6F7m5
-         naqd1mEhFIEnt9QRWZwMm3IdwcpZ5uviV7zzg3YcjVuy56HpDwJ7JOdI0wQLMXK39sG6
-         gx5cinvK7Fhgwgd7+HyGY8tIH7oPHaHfCBBo1grwhDpjzL3x4rug64F+28psIJk9QKl+
-         RizZ5vzVy7SBGuE5ImEsvejE8XEqrrK4UznpIK4FD3N5gxuvC/jl9dOpapFJ4s4VnFfV
-         Rd/A==
-X-Gm-Message-State: AOAM531TS8oUnmkQzw7MH9QQ/+l/cG8hRLVavoJbiXvlya9I6LLQiqDB
-        a8WBWpOHfAadAm3nDJMdVvGOlisLNiY=
-X-Google-Smtp-Source: ABdhPJznw2gW+LRPWjnws/lUlA5bpSEdDZGl9MaA/4x9Mk+UMqyPLHqF8Wdp0+Buu72QxTCSwDtj0g==
-X-Received: by 2002:adf:f452:: with SMTP id f18mr1988929wrp.78.1592925037863;
-        Tue, 23 Jun 2020 08:10:37 -0700 (PDT)
-Received: from [192.168.0.12] (cpc87281-slou4-2-0-cust47.17-4.cable.virginm.net. [92.236.12.48])
-        by smtp.gmail.com with ESMTPSA id a81sm4512202wmd.25.2020.06.23.08.10.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 23 Jun 2020 08:10:35 -0700 (PDT)
-To:     linux-man <linux-man@vger.kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-From:   Jonny Grant <jg@jguk.org>
-Subject: cfree
-Message-ID: <5d5d6c55-8736-0eec-aaa4-7ec86f925109@jguk.org>
-Date:   Tue, 23 Jun 2020 16:10:34 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=TSk5I2XGyol57/zZG2K08TicM7Vn/98gFy9a9VX/YoM=;
+        b=NPVnr3BauSoY7rv7SmzHFRb0W4bQugO/jijoMZ25yaei0/ddKzGhMHutH5D6eL9zqo
+         XZ0OEtvsxwOwuts1KbjFHdW6JzORWOFHwp9cQmg2C57fXLAM5snXZqsM8kE5t5Sve1vG
+         kSKKclIqJrJ+jV9/blY3sUew4HB7+IB6X3o91MkP1jmkgAr1H5dGB4y1ZwWmxXrkzlJA
+         iBhy4+X+0PR0gKUw2+6vZH+PMHWOJlJ0z7pKUNxKr6hDAKvxEd3uNcoZ/GgXBCajBkPt
+         m0Fc4PYi63mmgzUH3KTfb7iMV+22ZddhssIOv0/1d8OSvPKlmKRihvoA2wxc9MObaLc5
+         MXxA==
+X-Gm-Message-State: AOAM533B7IiI6cxjaARxdxygKsQwg0YDuKgpfLliGoBZ4mIg5rwZD9BQ
+        tapnN0VZ5MVVtmzjG0Lwd8LyeJtZN+AzROTmi9x3H4KBkWw=
+X-Google-Smtp-Source: ABdhPJyTczU/23sXQTRi6Uo75s3mO41TjMn8xksj/7EsUdlt4UMJ0auJNzH+zgztD5KEYgm+8eBEPR615qFyjGESHAk=
+X-Received: by 2002:a17:906:3d41:: with SMTP id q1mr21307267ejf.12.1592925991897;
+ Tue, 23 Jun 2020 08:26:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+References: <5d5d6c55-8736-0eec-aaa4-7ec86f925109@jguk.org>
+In-Reply-To: <5d5d6c55-8736-0eec-aaa4-7ec86f925109@jguk.org>
+From:   Ponnuvel Palaniyappan <pponnuvel@gmail.com>
+Date:   Tue, 23 Jun 2020 16:26:20 +0100
+Message-ID: <CAOL8xrWNebKaCbqewOApUW2OgHus-kDE7pVvd_aUDL0HuOuFhg@mail.gmail.com>
+Subject: Re: cfree
+To:     Jonny Grant <jg@jguk.org>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello
-Is it time to remove this old man page? it's two years since it was removed from glibc
+In case it's deemed necessary to keep it, I think the sentence
+"Starting with version 2.26, it has been removed from glibc." from the
+DESCRIPTION section can be removed because:
+    0. It's already been noted under VERSIONS
+    1. DESCRIPTION is probably not the best place for this info in any case
 
-2017-08-02: glibc 2.26 released
+Thanks,
+Ponnuvel
 
-https://man7.org/linux/man-pages/man3/cfree.3.html
+On Tue, Jun 23, 2020 at 4:11 PM Jonny Grant <jg@jguk.org> wrote:
+>
+> Hello
+> Is it time to remove this old man page? it's two years since it was removed from glibc
+>
+> 2017-08-02: glibc 2.26 released
+>
+> https://man7.org/linux/man-pages/man3/cfree.3.html
+>
+> Thank you, Jonny
 
-Thank you, Jonny
+
+
+-- 
+Regards,
+Ponnuvel P
