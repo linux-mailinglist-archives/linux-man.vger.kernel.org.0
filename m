@@ -2,85 +2,79 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 82EAA2055D9
-	for <lists+linux-man@lfdr.de>; Tue, 23 Jun 2020 17:26:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7954320689B
+	for <lists+linux-man@lfdr.de>; Wed, 24 Jun 2020 01:46:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732909AbgFWP0d (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 23 Jun 2020 11:26:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35150 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1732781AbgFWP0d (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 23 Jun 2020 11:26:33 -0400
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com [IPv6:2a00:1450:4864:20::633])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 35553C061573
-        for <linux-man@vger.kernel.org>; Tue, 23 Jun 2020 08:26:33 -0700 (PDT)
-Received: by mail-ej1-x633.google.com with SMTP id a1so8019772ejg.12
-        for <linux-man@vger.kernel.org>; Tue, 23 Jun 2020 08:26:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=TSk5I2XGyol57/zZG2K08TicM7Vn/98gFy9a9VX/YoM=;
-        b=dYA+PlaS15gl+2RYImKY+B/iRL7czqEcptRrRsnCiYsZFozutpV4wDSLib6g0e16kI
-         F7TPSULyLN8oSqUKUTxb0uGSdZCPbe58grmgykeim936MtNefLxnb3YG1pDil822kYVk
-         a/AIoJ5c4PnLYlb5pEe4ouOQlYUximonNQ+b7BFE1IXPoD1cDmIi2uf1MbWNODRSfHaK
-         dDu2XhEDMB9O8BmqpyOxWi3+KcuAgg9mjS82v4hTM8kkC2YE1P9CvCkQHHOYzB5dh/ZF
-         BaXV5oh6aGRFFEPAxD6qUTxvqdcAaALwF1iON0VdhiUxN6eLvc4xshEv9BZy69lIbMkd
-         p8pQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=TSk5I2XGyol57/zZG2K08TicM7Vn/98gFy9a9VX/YoM=;
-        b=NPVnr3BauSoY7rv7SmzHFRb0W4bQugO/jijoMZ25yaei0/ddKzGhMHutH5D6eL9zqo
-         XZ0OEtvsxwOwuts1KbjFHdW6JzORWOFHwp9cQmg2C57fXLAM5snXZqsM8kE5t5Sve1vG
-         kSKKclIqJrJ+jV9/blY3sUew4HB7+IB6X3o91MkP1jmkgAr1H5dGB4y1ZwWmxXrkzlJA
-         iBhy4+X+0PR0gKUw2+6vZH+PMHWOJlJ0z7pKUNxKr6hDAKvxEd3uNcoZ/GgXBCajBkPt
-         m0Fc4PYi63mmgzUH3KTfb7iMV+22ZddhssIOv0/1d8OSvPKlmKRihvoA2wxc9MObaLc5
-         MXxA==
-X-Gm-Message-State: AOAM533B7IiI6cxjaARxdxygKsQwg0YDuKgpfLliGoBZ4mIg5rwZD9BQ
-        tapnN0VZ5MVVtmzjG0Lwd8LyeJtZN+AzROTmi9x3H4KBkWw=
-X-Google-Smtp-Source: ABdhPJyTczU/23sXQTRi6Uo75s3mO41TjMn8xksj/7EsUdlt4UMJ0auJNzH+zgztD5KEYgm+8eBEPR615qFyjGESHAk=
-X-Received: by 2002:a17:906:3d41:: with SMTP id q1mr21307267ejf.12.1592925991897;
- Tue, 23 Jun 2020 08:26:31 -0700 (PDT)
-MIME-Version: 1.0
-References: <5d5d6c55-8736-0eec-aaa4-7ec86f925109@jguk.org>
-In-Reply-To: <5d5d6c55-8736-0eec-aaa4-7ec86f925109@jguk.org>
-From:   Ponnuvel Palaniyappan <pponnuvel@gmail.com>
-Date:   Tue, 23 Jun 2020 16:26:20 +0100
-Message-ID: <CAOL8xrWNebKaCbqewOApUW2OgHus-kDE7pVvd_aUDL0HuOuFhg@mail.gmail.com>
-Subject: Re: cfree
-To:     Jonny Grant <jg@jguk.org>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+        id S2387514AbgFWXqN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 23 Jun 2020 19:46:13 -0400
+Received: from gateway36.websitewelcome.com ([192.185.201.2]:35484 "EHLO
+        gateway36.websitewelcome.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1731990AbgFWXqN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 23 Jun 2020 19:46:13 -0400
+X-Greylist: delayed 1501 seconds by postgrey-1.27 at vger.kernel.org; Tue, 23 Jun 2020 19:46:13 EDT
+Received: from cm14.websitewelcome.com (cm14.websitewelcome.com [100.42.49.7])
+        by gateway36.websitewelcome.com (Postfix) with ESMTP id 42F1540C13029
+        for <linux-man@vger.kernel.org>; Tue, 23 Jun 2020 17:21:11 -0500 (CDT)
+Received: from gator3278.hostgator.com ([198.57.247.242])
+        by cmsmtp with SMTP
+        id nrtJjZTlaSxZVnrtJjivrJ; Tue, 23 Jun 2020 17:59:45 -0500
+X-Authority-Reason: nr=8
+Received: from 89-69-237-178.dynamic.chello.pl ([89.69.237.178]:49926 helo=comp.lan)
+        by gator3278.hostgator.com with esmtpa (Exim 4.93)
+        (envelope-from <arkadiusz@drabczyk.org>)
+        id 1jnrtI-000rdm-Cw; Tue, 23 Jun 2020 17:59:44 -0500
+From:   Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] ld.so.8: Explain than empty entry in LD_LIBRARY_PATH means cwd
+Date:   Wed, 24 Jun 2020 00:59:10 +0200
+Message-Id: <20200623225910.1008-1-arkadiusz@drabczyk.org>
+X-Mailer: git-send-email 2.9.0
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator3278.hostgator.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - drabczyk.org
+X-BWhitelist: no
+X-Source-IP: 89.69.237.178
+X-Source-L: No
+X-Exim-ID: 1jnrtI-000rdm-Cw
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 89-69-237-178.dynamic.chello.pl (comp.lan) [89.69.237.178]:49926
+X-Source-Auth: arkadiusz@drabczyk.org
+X-Email-Count: 2
+X-Source-Cap: cmt1bXZicmg7cmt1bXZicmg7Z2F0b3IzMjc4Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-In case it's deemed necessary to keep it, I think the sentence
-"Starting with version 2.26, it has been removed from glibc." from the
-DESCRIPTION section can be removed because:
-    0. It's already been noted under VERSIONS
-    1. DESCRIPTION is probably not the best place for this info in any case
+If this was ever going to change the test case is very simple:
 
-Thanks,
-Ponnuvel
+/tmp $ touch libc.so.6
+/tmp $ LD_LIBRARY_PATH=: sh
+sh: error while loading shared libraries: libc.so.6: file too short
 
-On Tue, Jun 23, 2020 at 4:11 PM Jonny Grant <jg@jguk.org> wrote:
->
-> Hello
-> Is it time to remove this old man page? it's two years since it was removed from glibc
->
-> 2017-08-02: glibc 2.26 released
->
-> https://man7.org/linux/man-pages/man3/cfree.3.html
->
-> Thank you, Jonny
+Signed-off-by: Arkadiusz Drabczyk <arkadiusz@drabczyk.org>
+---
+ man8/ld.so.8 | 1 +
+ 1 file changed, 1 insertion(+)
 
-
-
+diff --git a/man8/ld.so.8 b/man8/ld.so.8
+index 9034612..2e98b7f 100644
+--- a/man8/ld.so.8
++++ b/man8/ld.so.8
+@@ -319,6 +319,7 @@ A list of directories in which to search for
+ ELF libraries at execution time.
+ The items in the list are separated by either colons or semicolons,
+ and there is no support for escaping either separator.
++A zero-length directory name indicates the current working directory.
+ .IP
+ This variable is ignored in secure-execution mode.
+ .IP
 -- 
-Regards,
-Ponnuvel P
+2.9.0
+
