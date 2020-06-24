@@ -2,164 +2,103 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2788220726D
-	for <lists+linux-man@lfdr.de>; Wed, 24 Jun 2020 13:46:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 508B42075FD
+	for <lists+linux-man@lfdr.de>; Wed, 24 Jun 2020 16:46:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2389315AbgFXLqU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 24 Jun 2020 07:46:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53522 "EHLO
+        id S2390251AbgFXOqL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 24 Jun 2020 10:46:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53002 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388491AbgFXLqU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Jun 2020 07:46:20 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B8F0CC061573
-        for <linux-man@vger.kernel.org>; Wed, 24 Jun 2020 04:46:19 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id o11so1946862wrv.9
-        for <linux-man@vger.kernel.org>; Wed, 24 Jun 2020 04:46:19 -0700 (PDT)
+        with ESMTP id S2390518AbgFXOqL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Jun 2020 10:46:11 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AF37CC061573
+        for <linux-man@vger.kernel.org>; Wed, 24 Jun 2020 07:46:10 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id q15so2581317wmj.2
+        for <linux-man@vger.kernel.org>; Wed, 24 Jun 2020 07:46:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
+        d=jguk.org; s=google;
+        h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=TG+3Yt794zufQExT0UWyVAX8Qvfy4SNgipPuIvysBSk=;
-        b=VQ5LeveCSO35XhetIJEHXtpx6C1TZmIw2v2CLHeifcEHap6od6n8AjII4w/lH0r4Wi
-         9Tx1ncl2X2OD2xe9J0TAr4SFWoWYuvTgMrGs+Bn8Gaefmgs9YQY8sPbIA1FWtGMcEdW5
-         TVoTyXHMp/oJtqM1F3h+GYW44UGFMFS0FSEQTL28sW1o1YnU0sHg2Vq59/C2h7ac6WRk
-         lwVlIxp5NwwKvKG3xqtbYYopAA80PJF63GnCnMNRQr91VjSPjuie/EasltXThpWphbka
-         9JCfMSVN2sdNs4wdZALAuU7icIjd65YLeaBYsNxzHr37r2w0ZScv4f+PJdSWnTdz8CMm
-         JOMA==
+        bh=v+GnqbV97wGyQrtuJEFpb6OGaBsoJyc5OvtA2yKG1iA=;
+        b=DsSGDFwRD+/I9NZ+qm6Hjxk6Zf92dBen0b2ZqquTYRFt7KihasGX4sQ71C2C6dMBEh
+         zp5KMKyXUHxtby3rQ0dP/SS+FBUlgLLreFc8nwUVtq9ce2P5H7WGMr7jWVRWwIwXF19+
+         FG9tHFWL+LnfBZHJFEDy+XDIjNa80ih03eRrUItelCibTkLsdl/6cCP1esczxifF563a
+         K+m2YVPcvj7Ld8LzKewRgB+M3PTPkPJqBF6hOhMtdN0d/W21HrAcYcX9jmtqR57ibgEP
+         6sDL/xh1urNpk0/uovuC3E3cHwJ7GhLdpw4GnekGsg6xWnAdyL8wbuaIUCn53goaLclS
+         zemw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=TG+3Yt794zufQExT0UWyVAX8Qvfy4SNgipPuIvysBSk=;
-        b=PNOaghaznQrNVUKdNixehqNOCIM5EnVouiJUHVMyBe6vPIDd93P6az4QTrI+YKs0Wm
-         mmnyZAzCHONK6HjBuIMYLoxiL3mqNnoWf3F9p6Hh2/vgqUMZCUrNx1wY0b4+mu7pxzdi
-         Ofl/3YiT9gImW2mwlpjZM/ET8xsfHgFrUsAeeUb3RpgiRI65ghk4ahffSGYVyGn27okw
-         vbeRkZPiDJ0vPpUUodk5OO93N4rz1G4ecHBOD5q4E1Wu0ac5ZND2DBqkDeLOdn8L5nWp
-         NYEG2WmzE8yuXDcHeb3oY4XtqwL93gW8qkhcbAydYEiMP1hT5/wHQ7f/XxL10C5gtPlw
-         1fZw==
-X-Gm-Message-State: AOAM5325wg0ZuiUapGaBGE5YLbzwGwr6iVK/fcZKavT4vwIK3kvtbHcb
-        sNVuLwSkK6+V1w4rQaqDigJmv/n4
-X-Google-Smtp-Source: ABdhPJzHAp0bCJJ7IQjOpvrR1Y4gP6D7oN25uSod/5Xih/GfvAnZvoANqGbOTJnwLWjyJRaFuY1ISw==
-X-Received: by 2002:adf:aad7:: with SMTP id i23mr30715979wrc.331.1592999178348;
-        Wed, 24 Jun 2020 04:46:18 -0700 (PDT)
-Received: from ?IPv6:2001:a61:253c:8201:b2fb:3ef8:ca:1604? ([2001:a61:253c:8201:b2fb:3ef8:ca:1604])
-        by smtp.gmail.com with ESMTPSA id w2sm15671831wrs.77.2020.06.24.04.46.17
+        bh=v+GnqbV97wGyQrtuJEFpb6OGaBsoJyc5OvtA2yKG1iA=;
+        b=OJk2xHFDsaYcdMnWm3IMoj4EKQuoR9z1sJYfM6eP0I4KzmHuzaGnW9HsCJjt7D4Yui
+         ikSpXpOfb45KeqZEr4flxI5cyhsDlINIe0OT55tt3XZF5xw8dJiRCDH32+99TePntcMG
+         etKsiKx+Eh+BCmN45OxsAwkqgi72EoP2CS6I8uD4UmN+Pj8AGnnUR3ZRX1kaVDslBjjk
+         IdCTnSmZg2F9t+2IpF2i4AEaPaJgrEBYl+vD9UW7GzrnqrNfJK/PqVyg1AfK+hX7ZbWl
+         0gh+yXEsP8bzeinInMzHGi/3OqS8DYKCPUG1dE5SmVGe3Ae7AL4NhkqG1uOk4zaj8JVi
+         cUkQ==
+X-Gm-Message-State: AOAM530QDM+afKzJZB7Sby6G0towG9jYxJwm5nLkAedRk50T38/6dC2R
+        7+JtMPnyfmV/Cr6hgkoTFacBl7FghNc=
+X-Google-Smtp-Source: ABdhPJxe91xIekyNxC0hFhn8Wy+Yf4ShZ2EDh3AG5CfPok+4PvMlPci8fxdICByjpCDymZY3CHxOXg==
+X-Received: by 2002:a1c:9613:: with SMTP id y19mr29338292wmd.135.1593009969089;
+        Wed, 24 Jun 2020 07:46:09 -0700 (PDT)
+Received: from [192.168.0.12] (cpc87281-slou4-2-0-cust47.17-4.cable.virginm.net. [92.236.12.48])
+        by smtp.gmail.com with ESMTPSA id r8sm12833260wrp.40.2020.06.24.07.46.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 24 Jun 2020 04:46:17 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] capabilities.7: typo: lowering niceness is special
-To:     Dan Kenigsberg <danken@redhat.com>
-References: <CAHOEP55A2UKBWrdGcmeT6pu4rTZwu3ZDF1PC0eYvjJa80ghgvg@mail.gmail.com>
- <5e2ac5a7-628d-a798-8c55-5819a9d765d2@gmail.com>
- <CAHOEP54tRnJjon8rncyiKWVnkPXMYEk8Rom3d9_AO0SwfpNCiA@mail.gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <72093794-fc30-2500-b082-6392de440146@gmail.com>
-Date:   Wed, 24 Jun 2020 13:46:15 +0200
+        Wed, 24 Jun 2020 07:46:08 -0700 (PDT)
+Subject: Re: cfree
+To:     mtk.manpages@gmail.com
+Cc:     linux-man <linux-man@vger.kernel.org>
+References: <5d5d6c55-8736-0eec-aaa4-7ec86f925109@jguk.org>
+ <CAKgNAkgxGJad18cAJ53eHAow=nJo6bvpAdLUVGA4+vcjZ11FdA@mail.gmail.com>
+From:   Jonny Grant <jg@jguk.org>
+Message-ID: <3e87db0e-f7e2-d47f-2a91-e110ffaf343e@jguk.org>
+Date:   Wed, 24 Jun 2020 15:46:07 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <CAHOEP54tRnJjon8rncyiKWVnkPXMYEk8Rom3d9_AO0SwfpNCiA@mail.gmail.com>
+In-Reply-To: <CAKgNAkgxGJad18cAJ53eHAow=nJo6bvpAdLUVGA4+vcjZ11FdA@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Dan,
 
-On 6/24/20 1:17 PM, Dan Kenigsberg wrote:
-> On Wed, Jun 24, 2020 at 1:16 PM Michael Kerrisk (man-pages)
-> <mtk.manpages@gmail.com> wrote:
->>
->> Hi Dan,
->>
->> On 6/11/20 7:13 AM, Dan Kenigsberg wrote:
->>> Anyone can raise the niceness value. Only lowering requires CAP_SYS_NICE.
->>>
->>>     $ nice -n +2 nice
->>>     2
->>>     $ nice -n -2 nice
->>>     nice: cannot set niceness: Permission denied
->>>     0
->>>     $ sudo nice -n -2 nice
->>>     -2
->>>
->>> Signed-off-by: Dan Kenigsberg <danken@redhat.com>
->>
->> As I'm sure you're aware, the meaning of the nice value
->> is always a source of confusion! In writing the original text,
->> my intent was that the reader would understand that [higher nice
->> value] == [more negative nice value], but obviously that that
->> could be ambiguous.
-> 
-> Indeed, I'm aware of the old confusion. Some of it stems from people
-> thinking about this value as a priority. However, it was named
-> "niceness" because higher value means lesser cpu time. I think that
-> the man page language should stick to the code and command line
-> arguments (`nice -n +2` makes the value higher and the process less
-> likely to run)
-> 
->>
->>> ---
->>>  man7/capabilities.7 | 2 +-
->>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/man7/capabilities.7 b/man7/capabilities.7
->>> index 6254c0ac0..64a9f8e34 100644
->>> --- a/man7/capabilities.7
->>> +++ b/man7/capabilities.7
->>> @@ -527,7 +527,7 @@ drop capabilities from the system-wide capability
->>> bounding set.
->>>  .PD 0
->>>  .RS
->>>  .IP * 2
->>> -Raise process nice value
->>> +Lower process nice value
->>>  .RB ( nice (2),
->>>  .BR setpriority (2))
->>>  and change the nice value for arbitrary processes;
->>
->> I instead applied a differnt patch, as below.
->> I hope it works for you.
->>
->> Cheers,
->>
->> Michael
->>
->> diff --git a/man7/capabilities.7 b/man7/capabilities.7
->> index 8f212bead..bf9949ad2 100644
->> --- a/man7/capabilities.7
->> +++ b/man7/capabilities.7
->> @@ -556,7 +556,7 @@ drop capabilities from the system-wide capability bounding set.
->>  .PD 0
->>  .RS
->>  .IP * 2
->> -Raise process nice value
->> +Give process a higher (i.e., more negative) nice value
-> 
-> To me, this suggestion adds to the confusion. Higher numbers are
-> typically considered "less negative", not more.
-> How about saying:
-> 
-> Lower process nice value (i.e. make it less nice to other processes)
-> 
->>  .RB ( nice (2),
->>  .BR setpriority (2))
->>  and change the nice value for arbitrary processes;
 
-You know what, I think I should have just gone with your original proposal!
-And now I've done that. If people are confused, they can read nice(2) and 
-sched(7).
+On 24/06/2020 09:09, Michael Kerrisk (man-pages) wrote:
+> On Tue, 23 Jun 2020 at 17:10, Jonny Grant <jg@jguk.org> wrote:
+>>
+>> Hello
+>> Is it time to remove this old man page? it's two years since it was removed from glibc
+>>
+>> 2017-08-02: glibc 2.26 released
+>>
+>> https://man7.org/linux/man-pages/man3/cfree.3.html
+> 
+> The general philosophy is to maintain historical info in man-pages,
+> since new manual pages may be installed on an old system. Also, people
+> may need to look at old code, and understand what it does.
 
-Thanks,
+Fair enough.
 
-Michael
+Although I would imagine anyone trying to use a function called cfree() would already understand they should use free()
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Could the key point that cfree() is deprecated and removed be highlighted at the top of the man page?
+
+I'd be temped to just have :-
+
+
+DEPRECATED
+       This function should not be used, it was non-standard and removed in glibc version 2.26 2017-08-02.
+
+NAME
+       cfree - free allocated memory
+
+
+Regards
+Jonny
