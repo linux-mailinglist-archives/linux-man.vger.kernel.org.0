@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6F900209674
-	for <lists+linux-man@lfdr.de>; Thu, 25 Jun 2020 00:37:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0E8D5209675
+	for <lists+linux-man@lfdr.de>; Thu, 25 Jun 2020 00:37:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2388739AbgFXWhH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 24 Jun 2020 18:37:07 -0400
-Received: from mail.kernel.org ([198.145.29.99]:37992 "EHLO mail.kernel.org"
+        id S1732806AbgFXWhM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 24 Jun 2020 18:37:12 -0400
+Received: from mail.kernel.org ([198.145.29.99]:38052 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1732772AbgFXWhH (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 24 Jun 2020 18:37:07 -0400
+        id S1732772AbgFXWhK (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 24 Jun 2020 18:37:10 -0400
 Received: from X1 (nat-ab2241.sltdut.senawave.net [162.218.216.4])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id BFCC220768;
-        Wed, 24 Jun 2020 22:37:05 +0000 (UTC)
+        by mail.kernel.org (Postfix) with ESMTPSA id 12BA0208C7;
+        Wed, 24 Jun 2020 22:37:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1593038226;
-        bh=weB4RF82cTJ24KBZkPvsN6R/mqzZksRmhlUijtYwo/o=;
+        s=default; t=1593038229;
+        bh=0PUS/nMUuEjVDqi+ZORYMClrO7o9WCfrDxrwAmyIiVs=;
         h=Date:From:To:Subject:From;
-        b=nTomen1cqoXYzdx0w/CARsi6lqftUYat5Y/xMufprEm0I+KLKWT28o5GkpYviMLYZ
-         ak8c/XUWjRsmzDv6qbGxWGU7NXRnl24YGJOkIy1/rEQ5Lum94w9t6zQW0EJKMWe3Ns
-         7r2ptj/WjHed2jT2JSLxKoti1+6dYV7rdaLT1lJY=
-Date:   Wed, 24 Jun 2020 15:37:05 -0700
+        b=ftIjUQI3wWvOHkF294bEtwwGXmE1To9jDmXsoixr5QzuQw2uNtwRZZuhXE49YdCzx
+         cNIl6Fa3tvjN63JKl1f3dyifou4Y5LsM6h9eyLUZ0bVcPhlTmIywdKkblzqc1ePvNX
+         UALCPCNNHGPZPV9Mi5lkWOFbBY+k+8RDsd6B1QIw=
+Date:   Wed, 24 Jun 2020 15:37:08 -0700
 From:   akpm@linux-foundation.org
 To:     mm-commits@vger.kernel.org, vbabka@suse.cz, timmurray@google.com,
         surenb@google.com, sspatil@google.com, sonnyrao@google.com,
@@ -32,11 +32,16 @@ To:     mm-commits@vger.kernel.org, vbabka@suse.cz, timmurray@google.com,
         linux-man@vger.kernel.org, ktkhai@virtuozzo.com,
         joel@joelfernandes.org, joaodias@google.com, jannh@google.com,
         hannes@cmpxchg.org, dancol@google.com,
-        christian.brauner@ubuntu.com, bgeffon@google.com, axboe@kernel.dk,
+        christian.brauner@ubuntu.com, christian@brauner.io,
+        bgeffon@google.com, axboe@kernel.dk,
         alexander.h.duyck@linux.intel.com, minchan@kernel.org
-Subject:  + pid-move-pidfd_get_pid-to-pidc.patch added to -mm tree
-Message-ID: <20200624223705.kl7cu%akpm@linux-foundation.org>
+Subject:  +
+ =?us-ascii?Q?mm-madvise-introduce-process=5Fmadvise-syscall-an-external-?=
+ =?us-ascii?Q?memory-hinting-api.patch?= added to -mm tree
+Message-ID: <20200624223708.Oq2hS%akpm@linux-foundation.org>
 User-Agent: s-nail v14.9.10
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -44,14 +49,14 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 
 The patch titled
-     Subject: pid: move pidfd_get_pid() to pid.c
+     Subject: mm/madvise: introduce process_madvise() syscall: an external memory hinting API
 has been added to the -mm tree.  Its filename is
-     pid-move-pidfd_get_pid-to-pidc.patch
+     mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api.patch
 
 This patch should soon appear at
-    http://ozlabs.org/~akpm/mmots/broken-out/pid-move-pidfd_get_pid-to-pidc.patch
+    http://ozlabs.org/~akpm/mmots/broken-out/mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api.patch
 and later at
-    http://ozlabs.org/~akpm/mmotm/broken-out/pid-move-pidfd_get_pid-to-pidc.patch
+    http://ozlabs.org/~akpm/mmotm/broken-out/mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api.patch
 
 Before you just go and hit "reply", please:
    a) Consider who else should be cc'ed
@@ -66,24 +71,216 @@ there every 3-4 working days
 
 ------------------------------------------------------
 From: Minchan Kim <minchan@kernel.org>
-Subject: pid: move pidfd_get_pid() to pid.c
+Subject: mm/madvise: introduce process_madvise() syscall: an external memory hinting API
 
-process_madvise syscall needs pidfd_get_pid function to translate pidfd to
-pid so this patch move the function to kernel/pid.c.
+There is usecase that System Management Software(SMS) want to give a
+memory hint like MADV_[COLD|PAGEEOUT] to other processes and in the
+case of Android, it is the ActivityManagerService.
 
-Link: http://lkml.kernel.org/r/20200302193630.68771-5-minchan@kernel.org
-Link: http://lkml.kernel.org/r/20200622192900.22757-3-minchan@kernel.org
+The information required to make the reclaim decision is not known to
+the app.  Instead, it is known to the centralized userspace
+daemon(ActivityManagerService), and that daemon must be able to
+initiate reclaim on its own without any app involvement.
+
+To solve the issue, this patch introduces a new syscall process_madvise(2).
+It uses pidfd of an external process to give the hint. It also supports
+vector address range because Android app has thousands of vmas due to
+zygote so it's totally waste of CPU and power if we should call the
+syscall one by one for each vma.(With testing 2000-vma syscall vs
+1-vector syscall, it showed 15% performance improvement.  I think it
+would be bigger in real practice because the testing ran very cache
+friendly environment).
+
+Another potential use case for the vector range is to amortize the cost
+ofTLB shootdowns for multiple ranges when using MADV_DONTNEED; this
+could benefit users like TCP receive zerocopy and malloc implementations.
+In future, we could find more usecases for other advises so let's make it
+happens as API since we introduce a new syscall at this moment.  With
+that, existing madvise(2) user could replace it with process_madvise(2)
+with their own pid if they want to have batch address ranges support
+feature.
+
+ince it could affect other process's address range, only privileged
+process(PTRACE_MODE_ATTACH_FSCREDS) or something else(e.g., being the
+same UID) gives it the right to ptrace the process could use it
+successfully. The flag argument is reserved for future use if we need to
+extend the API.
+
+I think supporting all hints madvise has/will supported/support to
+process_madvise is rather risky.  Because we are not sure all hints
+make sense from external process and implementation for the hint may
+rely on the caller being in the current context so it could be
+error-prone.  Thus, I just limited hints as MADV_[COLD|PAGEOUT] in this
+patch.
+
+If someone want to add other hints, we could hear hear the usecase and
+review it for each hint.  It's safer for maintenance rather than
+introducing a buggy syscall but hard to fix it later.
+
+So finally, the API is as follows,
+
+      ssize_t process_madvise(int pidfd, const struct iovec *iovec,
+                unsigned long vlen, int advice, unsigned int flags);
+
+    DESCRIPTION
+      The process_madvise() system call is used to give advice or directions
+      to the kernel about the address ranges from external process as well as
+      local process. It provides the advice to address ranges of process
+      described by iovec and vlen. The goal of such advice is to improve system
+      or application performance.
+
+      The pidfd selects the process referred to by the PID file descriptor
+      specified in pidfd. (See pidofd_open(2) for further information)
+
+      The pointer iovec points to an array of iovec structures, defined in
+      <sys/uio.h> as:
+
+        struct iovec {
+            void *iov_base;         /* starting address */
+            size_t iov_len;         /* number of bytes to be advised */
+        };
+
+      The iovec describes address ranges beginning at address(iov_base)
+      and with size length of bytes(iov_len).
+
+      The vlen represents the number of elements in iovec.
+
+      The advice is indicated in the advice argument, which is one of the
+      following at this moment if the target process specified by pidfd is
+      external.
+
+        MADV_COLD
+        MADV_PAGEOUT
+
+      Permission to provide a hint to external process is governed by a
+      ptrace access mode PTRACE_MODE_ATTACH_FSCREDS check; see ptrace(2).
+
+      The process_madvise supports every advice madvise(2) has if target
+      process is in same thread group with calling process so user could
+      use process_madvise(2) to extend existing madvise(2) to support
+      vector address ranges.
+
+    RETURN VALUE
+      On success, process_madvise() returns the number of bytes advised.
+      This return value may be less than the total number of requested
+      bytes, if an error occurred. The caller should check return value
+      to determine whether a partial advice occurred.
+
+FAQ:
+
+Q.1 - Why does any external entity have better knowledge?
+
+Quote from Sandeep
+
+"For Android, every application (including the special SystemServer)
+are forked from Zygote.  The reason of course is to share as many
+libraries and classes between the two as possible to benefit from the
+preloading during boot.
+
+After applications start, (almost) all of the APIs end up calling into
+this SystemServer process over IPC (binder) and back to the
+application.
+
+In a fully running system, the SystemServer monitors every single
+process periodically to calculate their PSS / RSS and also decides
+which process is "important" to the user for interactivity.
+
+So, because of how these processes start _and_ the fact that the
+SystemServer is looping to monitor each process, it does tend to *know*
+which address range of the application is not used / useful.
+
+Besides, we can never rely on applications to clean things up
+themselves.  We've had the "hey app1, the system is low on memory,
+please trim your memory usage down" notifications for a long time[1].
+They rely on applications honoring the broadcasts and very few do.
+
+So, if we want to avoid the inevitable killing of the application and
+restarting it, some way to be able to tell the OS about unimportant
+memory in these applications will be useful.
+
+- ssp
+
+Q.2 - How to guarantee the race(i.e., object validation) between when
+giving a hint from an external process and get the hint from the target
+process?
+
+process_madvise operates on the target process's address space as it
+exists at the instant that process_madvise is called.  If the space
+target process can run between the time the process_madvise process
+inspects the target process address space and the time that
+process_madvise is actually called, process_madvise may operate on
+memory regions that the calling process does not expect.  It's the
+responsibility of the process calling process_madvise to close this
+race condition.  For example, the calling process can suspend the
+target process with ptrace, SIGSTOP, or the freezer cgroup so that it
+doesn't have an opportunity to change its own address space before
+process_madvise is called.  Another option is to operate on memory
+regions that the caller knows a priori will be unchanged in the target
+process.  Yet another option is to accept the race for certain
+process_madvise calls after reasoning that mistargeting will do no
+harm.  The suggested API itself does not provide synchronization.  It
+also apply other APIs like move_pages, process_vm_write.
+
+The race isn't really a problem though.  Why is it so wrong to require
+that callers do their own synchronization in some manner?  Nobody
+objects to write(2) merely because it's possible for two processes to
+open the same file and clobber each other's writes --- instead, we tell
+people to use flock or something.  Think about mmap.  It never
+guarantees newly allocated address space is still valid when the user
+tries to access it because other threads could unmap the memory right
+before.  That's where we need synchronization by using other API or
+design from userside.  It shouldn't be part of API itself.  If someone
+needs more fine-grained synchronization rather than process level,
+there were two ideas suggested - cookie[2] and anon-fd[3].  Both are
+applicable via using last reserved argument of the API but I don't
+think it's necessary right now since we have already ways to prevent
+the race so don't want to add additional complexity with more
+fine-grained optimization model.
+
+To make the API extend, it reserved an unsigned long as last argument
+so we could support it in future if someone really needs it.
+
+Q.3 - Why doesn't ptrace work?
+
+Injecting an madvise in the target process using ptrace would not work
+for us because such injected madvise would have to be executed by the
+target process, which means that process would have to be runnable and
+that creates the risk of the abovementioned race and hinting a wrong
+VMA.  Furthermore, we want to act the hint in caller's context, not the
+callee's, because the callee is usually limited in cpuset/cgroups or
+even freezed state so they can't act by themselves quick enough, which
+causes more thrashing/kill.  It doesn't work if the target process are
+ptraced(e.g., strace, debugger, minidump) because a process can have at
+most one ptracer.
+
+[1] https://developer.android.com/topic/performance/memory"
+
+[2] process_getinfo for getting the cookie which is updated whenever
+    vma of process address layout are changed - Daniel Colascione -
+    https://lore.kernel.org/lkml/20190520035254.57579-1-minchan@kernel.org/T/#m7694416fd179b2066a2c62b5b139b14e3894e224
+
+[3] anonymous fd which is used for the object(i.e., address range)
+    validation - Michal Hocko -
+    https://lore.kernel.org/lkml/20200120112722.GY18451@dhcp22.suse.cz/
+
+[minchan@kernel.org: fix process_madvise build break for arm64]
+  Link: http://lkml.kernel.org/r/20200303145756.GA219683@google.com
+[minchan@kernel.org: fix build error for mips of process_madvise]
+  Link: http://lkml.kernel.org/r/20200508052517.GA197378@google.com
+[akpm@linux-foundation.org: fix patch ordering issue]
+Link: http://lkml.kernel.org/r/20200302193630.68771-3-minchan@kernel.org
+Link: http://lkml.kernel.org/r/20200508183320.GA125527@google.com
+Link: http://lkml.kernel.org/r/20200622192900.22757-4-minchan@kernel.org
 Signed-off-by: Minchan Kim <minchan@kernel.org>
 Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Suggested-by: Alexander Duyck <alexander.h.duyck@linux.intel.com>
-Reviewed-by: Alexander Duyck <alexander.h.duyck@linux.intel.com>
-Acked-by: Christian Brauner <christian.brauner@ubuntu.com>
 Reviewed-by: Vlastimil Babka <vbabka@suse.cz>
 Acked-by: David Rientjes <rientjes@google.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Jann Horn <jannh@google.com>
+Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
 Cc: Brian Geffon <bgeffon@google.com>
+Cc: Christian Brauner <christian@brauner.io>
 Cc: Daniel Colascione <dancol@google.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Jens Axboe <axboe@kernel.dk>
 Cc: Joel Fernandes <joel@joelfernandes.org>
 Cc: Johannes Weiner <hannes@cmpxchg.org>
 Cc: John Dias <joaodias@google.com>
@@ -101,73 +298,371 @@ Cc: <linux-man@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- include/linux/pid.h |    1 +
- kernel/exit.c       |   17 -----------------
- kernel/pid.c        |   17 +++++++++++++++++
- 3 files changed, 18 insertions(+), 17 deletions(-)
+ arch/alpha/kernel/syscalls/syscall.tbl      |    1 
+ arch/arm/tools/syscall.tbl                  |    1 
+ arch/arm64/include/asm/unistd.h             |    2 
+ arch/arm64/include/asm/unistd32.h           |    2 
+ arch/ia64/kernel/syscalls/syscall.tbl       |    1 
+ arch/m68k/kernel/syscalls/syscall.tbl       |    1 
+ arch/microblaze/kernel/syscalls/syscall.tbl |    1 
+ arch/mips/kernel/syscalls/syscall_n32.tbl   |    1 
+ arch/mips/kernel/syscalls/syscall_n64.tbl   |    1 
+ arch/mips/kernel/syscalls/syscall_o32.tbl   |    1 
+ arch/parisc/kernel/syscalls/syscall.tbl     |    1 
+ arch/powerpc/kernel/syscalls/syscall.tbl    |    1 
+ arch/s390/kernel/syscalls/syscall.tbl       |    1 
+ arch/sh/kernel/syscalls/syscall.tbl         |    1 
+ arch/sparc/kernel/syscalls/syscall.tbl      |    1 
+ arch/x86/entry/syscalls/syscall_32.tbl      |    1 
+ arch/x86/entry/syscalls/syscall_64.tbl      |    2 
+ arch/xtensa/kernel/syscalls/syscall.tbl     |    1 
+ include/linux/compat.h                      |    4 
+ include/linux/syscalls.h                    |    2 
+ include/uapi/asm-generic/unistd.h           |    4 
+ kernel/sys_ni.c                             |    2 
+ mm/madvise.c                                |  121 ++++++++++++++++++
+ 23 files changed, 152 insertions(+), 2 deletions(-)
 
---- a/include/linux/pid.h~pid-move-pidfd_get_pid-to-pidc
-+++ a/include/linux/pid.h
-@@ -77,6 +77,7 @@ extern const struct file_operations pidf
- struct file;
+--- a/arch/alpha/kernel/syscalls/syscall.tbl~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/alpha/kernel/syscalls/syscall.tbl
+@@ -482,3 +482,4 @@
+ 550	common	watch_mount			sys_watch_mount
+ 551	common	watch_sb			sys_watch_sb
+ 552	common	fsinfo				sys_fsinfo
++553	common	process_madvise			sys_process_madvise
+--- a/arch/arm64/include/asm/unistd32.h~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/arm64/include/asm/unistd32.h
+@@ -893,6 +893,8 @@ __SYSCALL(__NR_watch_mount, sys_watch_mo
+ __SYSCALL(__NR_watch_sb, sys_watch_sb)
+ #define __NR_fsinfo 442
+ __SYSCALL(__NR_fsinfo, sys_fsinfo)
++#define __NR_fsinfo 443
++__SYSCALL(__NR_process_madvise, compat_sys_process_madvise)
  
- extern struct pid *pidfd_pid(const struct file *file);
-+struct pid *pidfd_get_pid(unsigned int fd);
+ /*
+  * Please add new compat syscalls above this comment and update
+--- a/arch/arm64/include/asm/unistd.h~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/arm64/include/asm/unistd.h
+@@ -38,7 +38,7 @@
+ #define __ARM_NR_compat_set_tls		(__ARM_NR_COMPAT_BASE + 5)
+ #define __ARM_NR_COMPAT_END		(__ARM_NR_COMPAT_BASE + 0x800)
  
- static inline struct pid *get_pid(struct pid *pid)
- {
---- a/kernel/exit.c~pid-move-pidfd_get_pid-to-pidc
-+++ a/kernel/exit.c
-@@ -1475,23 +1475,6 @@ end:
- 	return retval;
+-#define __NR_compat_syscalls		443
++#define __NR_compat_syscalls		444
+ #endif
+ 
+ #define __ARCH_WANT_SYS_CLONE
+--- a/arch/arm/tools/syscall.tbl~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/arm/tools/syscall.tbl
+@@ -456,3 +456,4 @@
+ 440	common	watch_mount			sys_watch_mount
+ 441	common	watch_sb			sys_watch_sb
+ 442	common	fsinfo				sys_fsinfo
++443	common	process_madvise			sys_process_madvise
+--- a/arch/ia64/kernel/syscalls/syscall.tbl~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/ia64/kernel/syscalls/syscall.tbl
+@@ -363,3 +363,4 @@
+ 440	common	watch_mount			sys_watch_mount
+ 441	common	watch_sb			sys_watch_sb
+ 442	common	fsinfo				sys_fsinfo
++443	common	process_madvise			sys_process_madvise
+--- a/arch/m68k/kernel/syscalls/syscall.tbl~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/m68k/kernel/syscalls/syscall.tbl
+@@ -442,3 +442,4 @@
+ 440	common	watch_mount			sys_watch_mount
+ 441	common	watch_sb			sys_watch_sb
+ 442	common	fsinfo				sys_fsinfo
++443	common	process_madvise			sys_process_madvise
+--- a/arch/microblaze/kernel/syscalls/syscall.tbl~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/microblaze/kernel/syscalls/syscall.tbl
+@@ -448,3 +448,4 @@
+ 440	common	watch_mount			sys_watch_mount
+ 441	common	watch_sb			sys_watch_sb
+ 442	common	fsinfo				sys_fsinfo
++443	common	process_madvise			sys_process_madvise
+--- a/arch/mips/kernel/syscalls/syscall_n32.tbl~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/mips/kernel/syscalls/syscall_n32.tbl
+@@ -381,3 +381,4 @@
+ 440	n32	watch_mount			sys_watch_mount
+ 441	n32	watch_sb			sys_watch_sb
+ 442	n32	fsinfo				sys_fsinfo
++443	n32	process_madvise			compat_sys_process_madvise
+--- a/arch/mips/kernel/syscalls/syscall_n64.tbl~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/mips/kernel/syscalls/syscall_n64.tbl
+@@ -357,3 +357,4 @@
+ 440	n64	watch_mount			sys_watch_mount
+ 441	n64	watch_sb			sys_watch_sb
+ 442	n64	fsinfo				sys_fsinfo
++443	n64	process_madvise			sys_process_madvise
+--- a/arch/mips/kernel/syscalls/syscall_o32.tbl~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/mips/kernel/syscalls/syscall_o32.tbl
+@@ -430,3 +430,4 @@
+ 440	o32	watch_mount			sys_watch_mount
+ 441	o32	watch_sb			sys_watch_sb
+ 442	o32	fsinfo				sys_fsinfo
++443	o32	process_madvise			sys_process_madvise		compat_sys_process_madvise
+--- a/arch/parisc/kernel/syscalls/syscall.tbl~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/parisc/kernel/syscalls/syscall.tbl
+@@ -440,3 +440,4 @@
+ 440	common	watch_mount			sys_watch_mount
+ 441	common	watch_sb			sys_watch_sb
+ 442	common	fsinfo				sys_fsinfo
++443	common	process_madvise			sys_process_madvise		compat_sys_process_madvise
+--- a/arch/powerpc/kernel/syscalls/syscall.tbl~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/powerpc/kernel/syscalls/syscall.tbl
+@@ -532,3 +532,4 @@
+ 440	common	watch_mount			sys_watch_mount
+ 441	common	watch_sb			sys_watch_sb
+ 442	common	fsinfo				sys_fsinfo
++443	common	process_madvise			sys_process_madvise		compat_sys_process_madvise
+--- a/arch/s390/kernel/syscalls/syscall.tbl~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/s390/kernel/syscalls/syscall.tbl
+@@ -445,3 +445,4 @@
+ 440	common	watch_mount		sys_watch_mount			sys_watch_mount
+ 441	common	watch_sb		sys_watch_sb			sys_watch_sb
+ 442	common	fsinfo			sys_fsinfo			sys_fsinfo
++443	common	process_madvise		sys_process_madvise		compat_sys_process_madvise
+--- a/arch/sh/kernel/syscalls/syscall.tbl~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/sh/kernel/syscalls/syscall.tbl
+@@ -445,3 +445,4 @@
+ 440	common	watch_mount			sys_watch_mount
+ 441	common	watch_sb			sys_watch_sb
+ 442	common	fsinfo				sys_fsinfo
++443	common	process_madvise			sys_process_madvise
+--- a/arch/sparc/kernel/syscalls/syscall.tbl~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/sparc/kernel/syscalls/syscall.tbl
+@@ -488,3 +488,4 @@
+ 440	common	watch_mount			sys_watch_mount
+ 441	common	watch_sb			sys_watch_sb
+ 442	common	fsinfo				sys_fsinfo
++443	common	process_madvise			sys_process_madvise		compat_sys_process_madvise
+--- a/arch/x86/entry/syscalls/syscall_32.tbl~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/x86/entry/syscalls/syscall_32.tbl
+@@ -447,3 +447,4 @@
+ 440	i386	watch_mount		sys_watch_mount
+ 441	i386	watch_sb		sys_watch_sb
+ 442	i386	fsinfo			sys_fsinfo
++443	i386	process_madvise		sys_process_madvise		compat_sys_process_madvise
+--- a/arch/x86/entry/syscalls/syscall_64.tbl~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/x86/entry/syscalls/syscall_64.tbl
+@@ -364,6 +364,7 @@
+ 440	common	watch_mount		sys_watch_mount
+ 441	common	watch_sb		sys_watch_sb
+ 442	common	fsinfo			sys_fsinfo
++443	64	process_madvise		sys_process_madvise
+ 
+ #
+ # x32-specific system call numbers start at 512 to avoid cache impact
+@@ -407,3 +408,4 @@
+ 545	x32	execveat		compat_sys_execveat
+ 546	x32	preadv2			compat_sys_preadv64v2
+ 547	x32	pwritev2		compat_sys_pwritev64v2
++548	x32	process_madvise		compat_sys_process_madvise
+--- a/arch/xtensa/kernel/syscalls/syscall.tbl~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/arch/xtensa/kernel/syscalls/syscall.tbl
+@@ -413,3 +413,4 @@
+ 440	common	watch_mount			sys_watch_mount
+ 441	common	watch_sb			sys_watch_sb
+ 442	common	fsinfo				sys_fsinfo
++443	common	process_madvise			sys_process_madvise
+--- a/include/linux/compat.h~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/include/linux/compat.h
+@@ -827,6 +827,10 @@ asmlinkage long compat_sys_pwritev64v2(u
+ 		unsigned long vlen, loff_t pos, rwf_t flags);
+ #endif
+ 
++asmlinkage ssize_t compat_sys_process_madvise(compat_int_t pidfd,
++		const struct compat_iovec __user *vec,
++		compat_ulong_t vlen, compat_int_t behavior,
++		compat_uint_t flags);
+ 
+ /*
+  * Deprecated system calls which are still defined in
+--- a/include/linux/syscalls.h~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/include/linux/syscalls.h
+@@ -881,6 +881,8 @@ asmlinkage long sys_munlockall(void);
+ asmlinkage long sys_mincore(unsigned long start, size_t len,
+ 				unsigned char __user * vec);
+ asmlinkage long sys_madvise(unsigned long start, size_t len, int behavior);
++asmlinkage long sys_process_madvise(int pidfd, const struct iovec __user *vec,
++		unsigned long vlen, int behavior, unsigned int flags);
+ asmlinkage long sys_remap_file_pages(unsigned long start, unsigned long size,
+ 			unsigned long prot, unsigned long pgoff,
+ 			unsigned long flags);
+--- a/include/uapi/asm-generic/unistd.h~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/include/uapi/asm-generic/unistd.h
+@@ -865,9 +865,11 @@ __SYSCALL(__NR_watch_mount, sys_watch_mo
+ __SYSCALL(__NR_watch_sb, sys_watch_sb)
+ #define __NR_fsinfo 442
+ __SYSCALL(__NR_fsinfo, sys_fsinfo)
++#define __NR_fsinfo 443
++__SC_COMP(__NR_process_madvise, sys_process_madvise, compat_sys_process_madvise)
+ 
+ #undef __NR_syscalls
+-#define __NR_syscalls 443
++#define __NR_syscalls 444
+ 
+ /*
+  * 32 bit systems traditionally used different
+--- a/kernel/sys_ni.c~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/kernel/sys_ni.c
+@@ -287,6 +287,8 @@ COND_SYSCALL(mlockall);
+ COND_SYSCALL(munlockall);
+ COND_SYSCALL(mincore);
+ COND_SYSCALL(madvise);
++COND_SYSCALL(process_madvise);
++COND_SYSCALL_COMPAT(process_madvise);
+ COND_SYSCALL(remap_file_pages);
+ COND_SYSCALL(mbind);
+ COND_SYSCALL_COMPAT(mbind);
+--- a/mm/madvise.c~mm-madvise-introduce-process_madvise-syscall-an-external-memory-hinting-api
++++ a/mm/madvise.c
+@@ -17,6 +17,7 @@
+ #include <linux/falloc.h>
+ #include <linux/fadvise.h>
+ #include <linux/sched.h>
++#include <linux/sched/mm.h>
+ #include <linux/ksm.h>
+ #include <linux/fs.h>
+ #include <linux/file.h>
+@@ -988,6 +989,18 @@ madvise_behavior_valid(int behavior)
+ 	}
  }
  
--static struct pid *pidfd_get_pid(unsigned int fd)
--{
--	struct fd f;
--	struct pid *pid;
--
--	f = fdget(fd);
--	if (!f.file)
--		return ERR_PTR(-EBADF);
--
--	pid = pidfd_pid(f.file);
--	if (!IS_ERR(pid))
--		get_pid(pid);
--
--	fdput(f);
--	return pid;
--}
--
- static long kernel_waitid(int which, pid_t upid, struct waitid_info *infop,
- 			  int options, struct rusage *ru)
- {
---- a/kernel/pid.c~pid-move-pidfd_get_pid-to-pidc
-+++ a/kernel/pid.c
-@@ -518,6 +518,23 @@ struct pid *find_ge_pid(int nr, struct p
- 	return idr_get_next(&ns->idr, &nr);
- }
- 
-+struct pid *pidfd_get_pid(unsigned int fd)
++static bool
++process_madvise_behavior_valid(int behavior)
 +{
-+	struct fd f;
-+	struct pid *pid;
-+
-+	f = fdget(fd);
-+	if (!f.file)
-+		return ERR_PTR(-EBADF);
-+
-+	pid = pidfd_pid(f.file);
-+	if (!IS_ERR(pid))
-+		get_pid(pid);
-+
-+	fdput(f);
-+	return pid;
++	switch (behavior) {
++	case MADV_COLD:
++	case MADV_PAGEOUT:
++		return true;
++	default:
++		return false;
++	}
 +}
 +
- /**
-  * pidfd_create() - Create a new pid file descriptor.
+ /*
+  * The madvise(2) system call.
   *
+@@ -1035,6 +1048,11 @@ madvise_behavior_valid(int behavior)
+  *  MADV_DONTDUMP - the application wants to prevent pages in the given range
+  *		from being included in its core dump.
+  *  MADV_DODUMP - cancel MADV_DONTDUMP: no longer exclude from core dump.
++ *  MADV_COLD - the application is not expected to use this memory soon,
++ *		deactivate pages in this range so that they can be reclaimed
++ *		easily if memory pressure hanppens.
++ *  MADV_PAGEOUT - the application is not expected to use this memory soon,
++ *		page out the pages in this range immediately.
+  *
+  * return values:
+  *  zero    - success
+@@ -1169,3 +1187,106 @@ SYSCALL_DEFINE3(madvise, unsigned long,
+ {
+ 	return do_madvise(current, current->mm, start, len_in, behavior);
+ }
++
++static int process_madvise_vec(struct task_struct *target_task,
++		struct mm_struct *mm, struct iov_iter *iter, int behavior)
++{
++	struct iovec iovec;
++	int ret = 0;
++
++	while (iov_iter_count(iter)) {
++		iovec = iov_iter_iovec(iter);
++		ret = do_madvise(target_task, mm, (unsigned long)iovec.iov_base,
++					iovec.iov_len, behavior);
++		if (ret < 0)
++			break;
++		iov_iter_advance(iter, iovec.iov_len);
++	}
++
++	return ret;
++}
++
++static ssize_t do_process_madvise(int pidfd, struct iov_iter *iter,
++				int behavior, unsigned int flags)
++{
++	ssize_t ret;
++	struct pid *pid;
++	struct task_struct *task;
++	struct mm_struct *mm;
++	size_t total_len = iov_iter_count(iter);
++
++	if (flags != 0)
++		return -EINVAL;
++
++	pid = pidfd_get_pid(pidfd);
++	if (IS_ERR(pid))
++		return PTR_ERR(pid);
++
++	task = get_pid_task(pid, PIDTYPE_PID);
++	if (!task) {
++		ret = -ESRCH;
++		goto put_pid;
++	}
++
++	if (task->mm != current->mm &&
++			!process_madvise_behavior_valid(behavior)) {
++		ret = -EINVAL;
++		goto release_task;
++	}
++
++	mm = mm_access(task, PTRACE_MODE_ATTACH_FSCREDS);
++	if (IS_ERR_OR_NULL(mm)) {
++		ret = IS_ERR(mm) ? PTR_ERR(mm) : -ESRCH;
++		goto release_task;
++	}
++
++	ret = process_madvise_vec(task, mm, iter, behavior);
++	if (ret >= 0)
++		ret = total_len - iov_iter_count(iter);
++
++	mmput(mm);
++release_task:
++	put_task_struct(task);
++put_pid:
++	put_pid(pid);
++	return ret;
++}
++
++SYSCALL_DEFINE5(process_madvise, int, pidfd, const struct iovec __user *, vec,
++		unsigned long, vlen, int, behavior, unsigned int, flags)
++{
++	ssize_t ret;
++	struct iovec iovstack[UIO_FASTIOV];
++	struct iovec *iov = iovstack;
++	struct iov_iter iter;
++
++	ret = import_iovec(READ, vec, vlen, ARRAY_SIZE(iovstack), &iov, &iter);
++	if (ret >= 0) {
++		ret = do_process_madvise(pidfd, &iter, behavior, flags);
++		kfree(iov);
++	}
++	return ret;
++}
++
++#ifdef CONFIG_COMPAT
++COMPAT_SYSCALL_DEFINE5(process_madvise, compat_int_t, pidfd,
++			const struct compat_iovec __user *, vec,
++			compat_ulong_t, vlen,
++			compat_int_t, behavior,
++			compat_uint_t, flags)
++
++{
++	ssize_t ret;
++	struct iovec iovstack[UIO_FASTIOV];
++	struct iovec *iov = iovstack;
++	struct iov_iter iter;
++
++	ret = compat_import_iovec(READ, vec, vlen, ARRAY_SIZE(iovstack),
++				&iov, &iter);
++	if (ret >= 0) {
++		ret = do_process_madvise(pidfd, &iter, behavior, flags);
++		kfree(iov);
++	}
++	return ret;
++}
++#endif
 _
 
 Patches currently in -mm which might be from minchan@kernel.org are
