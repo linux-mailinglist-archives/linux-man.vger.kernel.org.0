@@ -2,133 +2,131 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0FE60207078
-	for <lists+linux-man@lfdr.de>; Wed, 24 Jun 2020 11:55:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 25B882070F1
+	for <lists+linux-man@lfdr.de>; Wed, 24 Jun 2020 12:16:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2389824AbgFXJy7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 24 Jun 2020 05:54:59 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36440 "EHLO
+        id S2388095AbgFXKQM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 24 Jun 2020 06:16:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39696 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2389015AbgFXJy7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Jun 2020 05:54:59 -0400
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 17C17C061573;
-        Wed, 24 Jun 2020 02:54:58 -0700 (PDT)
-Received: by mail-ed1-x543.google.com with SMTP id m21so1013453eds.13;
-        Wed, 24 Jun 2020 02:54:58 -0700 (PDT)
+        with ESMTP id S2387962AbgFXKQL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Jun 2020 06:16:11 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8EF27C061573
+        for <linux-man@vger.kernel.org>; Wed, 24 Jun 2020 03:16:11 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id f139so1948731wmf.5
+        for <linux-man@vger.kernel.org>; Wed, 24 Jun 2020 03:16:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=6H5qYMtCo3j532h08vTJqyu1KgDHrrx/sdBMuWK8E0g=;
-        b=QVSPGU6LdTKLEEu9/AxrE5nzTi2DV0DstmSWFHmZrZOOeJYfej2noNVmD9cnkAOUGo
-         c3IoEdxG2aIo/XyIqjib7efVM4LNVdWD6BqKWjFrfirLjMt2SEF2H3tQrEVvDlZ//+k9
-         iktDGAAcMdAMs76SmmBfjCB63O06Sk76AWeo9sG7QCT7kN31BbArk/ijsvuf4z3x2nq2
-         cPXiWKai0219BCuFv0SpjYATjNBZyVBdpyvfXsvSkUxtjaXYHGhE6tj2A59SjuvWJB7X
-         7re1ze37vzMd7677WDykNQFNsFmpqfpOcxckiiNknDawyooA+wGkImUaQ/mwpBbNr18j
-         AdjQ==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=SztEf+Ur7U76Wg4fs9fFM/jVdxnivPSnTsvk/iBUSDQ=;
+        b=GC8e/b92mJJdKEVSxGXnFcHFV/u/j+K2/qux4wdy4y6/wEmaY0oq+jfzwlyok3QvuD
+         BLsQGbj33YtbXjq3ahX4Od4zoe/bTA4+XdTmG9kOE7IvGdJsGlMr54wr2I73Dg4XEaW1
+         ySddAFzjmTa0D42aHm2U0QkXSD/jpZ5JKN8nK2vXnP9FDsO/8j03DVJ+4yt2cI9W3yQZ
+         rkcBHMJXrsAyMzKsu75yJt9Y+8zocykBJT2KOzpKtkSqHllsYpgYoZoQI3a4IITXKM83
+         fcP85n6vNbPAahC0a4jm0ZCBEpfX9KYOGfzYj4O/A3PkPeC6aDW2+IA/CT4x04LTmK8Y
+         j9xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=6H5qYMtCo3j532h08vTJqyu1KgDHrrx/sdBMuWK8E0g=;
-        b=OLXXO1FaosuPMXVr2mohK03UumYTnSrA8i4kkuMwTGJJYLmejbDlb27Hbq1l6xem5I
-         XqT3xO8F9KtnyrjWsWzQ6YJIrddSlDJL1ksjnZ7lKhfCBOipt9ZW4/z4dl4R7hgnTzdg
-         9pG24dWrtRGwqdzeDS4TpF4BbGr6sCKp7GUHXpLrrqocGFj0y8a2c8tza+plyEfwtQN0
-         4hqYarGBazav2YJ34DIJD44rTGNFk09T1xkYENoIo8E6HYEzMK1H2bWe6tkqgE+6mPw6
-         Sxr39pfrVRkGKN6KuC9DYJHOlvvTPp2LFoPvoxSTzLx8xXIw4KSPbwQFIspW6XqNFeIb
-         iLfw==
-X-Gm-Message-State: AOAM531v+wH1JlRYtzaPey8H0+5c28Fo0jEzEw3on+109L+A6pD0tHjm
-        cHPSHUAIy82iHHFvn68cT42uqtEtEwikx845o0fl+g==
-X-Google-Smtp-Source: ABdhPJyJoip/kxANYNh48iyyon/dnoEekTGf1XavrA56sqyiYNH85iGl3VDvze8hxcPKC9asvovZ82zDsn9pIgm0Tk8=
-X-Received: by 2002:a05:6402:3048:: with SMTP id bu8mr2554110edb.367.1592992496294;
- Wed, 24 Jun 2020 02:54:56 -0700 (PDT)
-MIME-Version: 1.0
-References: <1590614258-24728-1-git-send-email-Dave.Martin@arm.com>
- <1590614258-24728-7-git-send-email-Dave.Martin@arm.com> <20200609172232.GA63286@C02TF0J2HF1T.local>
- <20200610100641.GF25945@arm.com> <20200610152634.GJ26099@gaia>
- <20200610164209.GH25945@arm.com> <20200610174205.GL26099@gaia> <20200615145115.GL25945@arm.com>
-In-Reply-To: <20200615145115.GL25945@arm.com>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=SztEf+Ur7U76Wg4fs9fFM/jVdxnivPSnTsvk/iBUSDQ=;
+        b=ImlDNxOX7hdwaMcliEeisdUzs42oEk18oOpQlYHnD7nyJrTM2n/79H2UrulE6ezwzW
+         3b9owRNPsMtPN4qvA4xRYxxFQzvwbF5EH4SDQiJhL7TzNv8S2830KOL25Dd8GngEWPo0
+         L/HpcHMDyCqr30xbe59Q7DJoIIBjNa3/AID/YqrrdwfuXFVL49ntfZT8aHrhW+GZX7W+
+         ccZms0kTw+DdrqlJJJJJrRniuzM+HrRDobn4xn7LdhpxFa/w51eVuwcXLeqnnt1G7qv9
+         RTti43D+x9OIC3rQkf3aX1be/touHiFd7dMhZAZZ9AQ5UY9OF3lPHPpFcVUEYqYU8H8D
+         T4nA==
+X-Gm-Message-State: AOAM532k/TB+hTrkLPbg2pLPj5/UcCUJDKQnWSzuHoqo8aF+rW64ipDp
+        IRY+UuXVGUTpXTvpgFds9xresSCK
+X-Google-Smtp-Source: ABdhPJybBcAzs8dgRiBofzhgRX8hfVoWd/fMf2y9sEoWBO93bnOHCcyCGGzUmasNrgmwWsU/topplg==
+X-Received: by 2002:a7b:c186:: with SMTP id y6mr30467667wmi.82.1592993770039;
+        Wed, 24 Jun 2020 03:16:10 -0700 (PDT)
+Received: from ?IPv6:2001:a61:253c:8201:b2fb:3ef8:ca:1604? ([2001:a61:253c:8201:b2fb:3ef8:ca:1604])
+        by smtp.gmail.com with ESMTPSA id c143sm7516882wmd.1.2020.06.24.03.16.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 24 Jun 2020 03:16:09 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] capabilities.7: typo: lowering niceness is special
+To:     Dan Kenigsberg <danken@redhat.com>
+References: <CAHOEP55A2UKBWrdGcmeT6pu4rTZwu3ZDF1PC0eYvjJa80ghgvg@mail.gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Wed, 24 Jun 2020 11:54:45 +0200
-Message-ID: <CAKgNAkgnH7f4bNiF8q-GOY_xz1x9gYnDjMTw=vpR7ONxoL=cdw@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 6/6] prctl.2: Add tagged address ABI control prctls (arm64)
-To:     Dave Martin <Dave.Martin@arm.com>
-Cc:     Catalin Marinas <catalin.marinas@arm.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        linux-arch <linux-arch@vger.kernel.org>,
-        linux-arm-kernel@lists.infradead.org,
-        Will Deacon <will@kernel.org>,
-        Vincenzo Frascino <vincenzo.frascino@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <5e2ac5a7-628d-a798-8c55-5819a9d765d2@gmail.com>
+Date:   Wed, 24 Jun 2020 12:16:07 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
+MIME-Version: 1.0
+In-Reply-To: <CAHOEP55A2UKBWrdGcmeT6pu4rTZwu3ZDF1PC0eYvjJa80ghgvg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Dave
+Hi Dan,
 
-Is there a plan for future work on this patch?
+On 6/11/20 7:13 AM, Dan Kenigsberg wrote:
+> Anyone can raise the niceness value. Only lowering requires CAP_SYS_NICE.
+> 
+>     $ nice -n +2 nice
+>     2
+>     $ nice -n -2 nice
+>     nice: cannot set niceness: Permission denied
+>     0
+>     $ sudo nice -n -2 nice
+>     -2
+> 
+> Signed-off-by: Dan Kenigsberg <danken@redhat.com>
 
-Thanks,
+As I'm sure you're aware, the meaning of the nice value
+is always a source of confusion! In writing the original text,
+my intent was that the reader would understand that [higher nice
+value] == [more negative nice value], but obviously that that
+could be ambiguous.
+
+> ---
+>  man7/capabilities.7 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/man7/capabilities.7 b/man7/capabilities.7
+> index 6254c0ac0..64a9f8e34 100644
+> --- a/man7/capabilities.7
+> +++ b/man7/capabilities.7
+> @@ -527,7 +527,7 @@ drop capabilities from the system-wide capability
+> bounding set.
+>  .PD 0
+>  .RS
+>  .IP * 2
+> -Raise process nice value
+> +Lower process nice value
+>  .RB ( nice (2),
+>  .BR setpriority (2))
+>  and change the nice value for arbitrary processes;
+
+I instead applied a differnt patch, as below.
+I hope it works for you.
+
+Cheers,
 
 Michael
 
-On Mon, 15 Jun 2020 at 16:51, Dave Martin <Dave.Martin@arm.com> wrote:
->
-> On Wed, Jun 10, 2020 at 06:42:05PM +0100, Catalin Marinas wrote:
-> > On Wed, Jun 10, 2020 at 05:42:09PM +0100, Dave P Martin wrote:
-> > > On Wed, Jun 10, 2020 at 04:26:34PM +0100, Catalin Marinas wrote:
-> > > > On Wed, Jun 10, 2020 at 11:06:42AM +0100, Dave P Martin wrote:
-> > > > > On Tue, Jun 09, 2020 at 06:22:32PM +0100, Catalin Marinas wrote:
-> > > > > > On Wed, May 27, 2020 at 10:17:38PM +0100, Dave P Martin wrote:
-> > > > > > > +.IP
-> > > > > > > +The level of support is selected by
-> > > > > > > +.IR "(unsigned int) arg2" ,
-> > > > > >
-> > > > > > We use (unsigned long) for arg2.
-> > > > >
-> > > > > Hmmm, not quite sure how I came up with unsigned int here.  I'll just
-> > > > > drop this: the type in the prctl() prototype is unsigned long anyway.
-> > > > >
-> > > > > The type is actually moot in this case, since the valid values all fit
-> > > > > in an unsigned int.
-> > > >
-> > > > Passing an int doesn't require that the top 32-bit of the long are
-> > > > zeroed (in case anyone writes the low-level SVC by hand).
-> > >
-> > > Fair point, I was forgetting that wrinkle.  Anyway, the convention in
-> > > this page seems to be that if the type is unsigned long, we don't
-> > > mention it, because the prctl() prototype says that already.
-> > >
-> > > Question: the glibc prototype for prctl is variadic, so surely any
-> > > calls that don't explicitly cast the args to unsigned long are already
-> > > theoretically broken?  The #defines (and 0) are all implicitly int.
-> > > This probably affects lots of prctls.
-> > >
-> > > We may get away with it because the compiler is almost certainly going
-> > > to favour a mov over a ldr for getting small integers into regs, and mov
-> > > <Wd> fortunately zeroes the top bits for us anyway.
-> >
-> > So does LDR Wd.
-> >
-> > Anyway, I think glibc (or my reading of it) has something like like:
-> >
-> >   register long _x1 asm ("x1") = _x1tmp;
-> >
-> > before invoking the SVC. I assume this would do the right conversion to
-> > long. I can't tell about other libraries but I'd say it's their
-> > responsibility to convert the args to long before calling the kernel's
-> > prctl().
->
-> Ignore me.  I was worrying that glibc would propagate junk in the high
-> bits of int arguments, due to treating them as longs.  Actually, it
-> will, but it doesn't matter where we explicitly cast the argument to int
-> inside the kernel (thanks as usual to -fno-strict-overflow).
->
-> Cheers
-> ---Dave
+diff --git a/man7/capabilities.7 b/man7/capabilities.7
+index 8f212bead..bf9949ad2 100644
+--- a/man7/capabilities.7
++++ b/man7/capabilities.7
+@@ -556,7 +556,7 @@ drop capabilities from the system-wide capability bounding set.
+ .PD 0
+ .RS
+ .IP * 2
+-Raise process nice value
++Give process a higher (i.e., more negative) nice value
+ .RB ( nice (2),
+ .BR setpriority (2))
+ and change the nice value for arbitrary processes;
 
 
 
