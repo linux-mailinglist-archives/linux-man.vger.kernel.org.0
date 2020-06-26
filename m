@@ -2,64 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 44DE020AE93
-	for <lists+linux-man@lfdr.de>; Fri, 26 Jun 2020 10:54:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 682A520AEB7
+	for <lists+linux-man@lfdr.de>; Fri, 26 Jun 2020 11:06:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726003AbgFZIyi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 26 Jun 2020 04:54:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48252 "EHLO
+        id S1726165AbgFZJGY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 26 Jun 2020 05:06:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50070 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725850AbgFZIyi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 26 Jun 2020 04:54:38 -0400
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com [IPv6:2a00:1450:4864:20::631])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3702FC08C5C1
-        for <linux-man@vger.kernel.org>; Fri, 26 Jun 2020 01:54:38 -0700 (PDT)
-Received: by mail-ej1-x631.google.com with SMTP id o18so4152042eje.7
-        for <linux-man@vger.kernel.org>; Fri, 26 Jun 2020 01:54:38 -0700 (PDT)
+        with ESMTP id S1725820AbgFZJGY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 26 Jun 2020 05:06:24 -0400
+Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ABBE7C08C5C1;
+        Fri, 26 Jun 2020 02:06:23 -0700 (PDT)
+Received: by mail-ej1-x642.google.com with SMTP id dr13so8646305ejc.3;
+        Fri, 26 Jun 2020 02:06:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=woJkQIjeb20qDpaTA5AdD32a+Iukxf+56CGseYV3DAk=;
-        b=BrIGw6n20Fu+7T69K5+mye7WKBpJqHvVH5oJxeEGTx1nKAz3IRAoOHbbRMSqCd13/n
-         0W7NPaebG2umbi8ocAm76J884nRbmN98D/bNTP4ZTtlqSd3oT/wiIK8qrlWTy3Fb45Yw
-         uhTQP+Qly3YNPLKH28dbVL/deEK1bTVCdHmKpmMzPtZOlYdeu/FArLd5jyMNlYEIneeV
-         2tFDLf/tOkH7TVMjTLMm2zgb42bu2UCquA3Yb3HS3ETpl/ogBpM7N6vVHej4HCMnUQTB
-         kaAJ6uaBP+Doa+yYuIysQPXkkECV31ZRNbonbjK9/8TDnOAez/VHyP1JqAHkj4A4W2fg
-         jDjA==
+        bh=7k82GdfRQZIx/YywdeTQaGLOZj9qWIQ3HM2GGjeWyUU=;
+        b=muNc1zvPbOcqM0AZGa4ENKGHHvs5qfjHgOqwmOWYFZO6IyGXNbaDyWW5hFIMQxXQhZ
+         RjnHnqug0gx0eOoNveqteLuQCK6bDC1OIzfMko9z+I0Mevu6IqfoNFbPWE7Y7Sq3TMAV
+         6OXYsWsbn5SWFuuqvAlrw1J9MtZox2rxgCFpEwlXB9hzwLOLFIHLgLiUN4rHdsBnKppd
+         SfaoJJL656l5uRFUKbbrXqDLjkMHRiq3o11BzcpEtNcBG12vc4gaiNHIfcf0LGOK5+B5
+         brljkx1ZY8TUHLQHQZc8vb3xmlNW6kzGZHitgbLb8PIJH+S/UQ3FbTUAmd/EZJgKJ/v3
+         uhGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=woJkQIjeb20qDpaTA5AdD32a+Iukxf+56CGseYV3DAk=;
-        b=D6ltTjMYj31Oqdojrp8Gf+yUh1/H7qS61n4yRbaee9Y5nkH1G6+eWx02LsxUNzDWdH
-         vZocAD7V80arX/t8Puivk7AtAYJycn9z4fz+eok7KI+P60PpZf/HhbzLLtKylurZvb3u
-         M/ftFgVeRdPDX4BcRWyqyTVJilgiaC4NvXdG0+R0U2kK/1la/i4D7nbWaY/DR0/aieFu
-         AQAVVWkGZHFe0x51ymUyhlui3fidP1DK3TJq1GaVUqDu+9VEuWcm02RamuWd46TE8qBF
-         6qa+csgl+DT8H5Gh2F0Wy/bl91Z7NLi0eAr+oPnc565dCbaWs9O4sBCjVITezqLKAAw/
-         fqwA==
-X-Gm-Message-State: AOAM530riW0gRym6sK+Ct7VPAhywRL6R8A73hDPM3YUjgHmTqBp5CwQC
-        NeWAkhJWJx0IpxrnIw68zuVqBOiw
-X-Google-Smtp-Source: ABdhPJzjoIhDoNVFchAjNOySRl3Sxz5/hr5QzP6xGwhwi3tNJlE8pfN7QZbPdO+2uGSumzUlj7Lwfg==
-X-Received: by 2002:a17:906:46cd:: with SMTP id k13mr1605315ejs.312.1593161676821;
-        Fri, 26 Jun 2020 01:54:36 -0700 (PDT)
+        bh=7k82GdfRQZIx/YywdeTQaGLOZj9qWIQ3HM2GGjeWyUU=;
+        b=DhjLeXuKsyRtshxmowmH1q+8Z8OFIPT8i4CqJIPr6JqsyeW66VhW0UcvzJ43nahSMr
+         Fu+dMOVQRfy4uzQ/rXgVuUR2UkNVa91xfZmvCQECsl6XrKAh6wossBkdOjxVNpwB7SAC
+         RoEOMON7d8+vjgeTQM/3QQjRJEvUvAbjqhJfEPQbXwcZD2t14qWVv2KJKSibVzx1Rm8q
+         06YN0W9FzTtemW/eegL/hORAVPrGj94P4xa/FeK/sPFCd4C0IIgKa8L+4IoIMMvzoj7H
+         tt8YcyJKs0Nx2gAadYJRyZzA+6rkm2apZdvnM/Dy73eH/0e9j3e8Es/778ai75ZnfYXf
+         SITg==
+X-Gm-Message-State: AOAM531zov1beIzto09gSaOVDwKHvY9CkG9Jh66a2rGO2f8wIwUg+GW6
+        NwlzSehixluScIneF1Aaf5K+qXIO
+X-Google-Smtp-Source: ABdhPJwL/O8ELz2OXgRCyWiTh5z9d1vYQ0aRl6btpPl1+FavJ/m62CF9RL3vOD1b4KD41Lf3WwdYDw==
+X-Received: by 2002:a17:906:4086:: with SMTP id u6mr1807597ejj.9.1593162382413;
+        Fri, 26 Jun 2020 02:06:22 -0700 (PDT)
 Received: from ?IPv6:2001:a61:253c:8201:b2fb:3ef8:ca:1604? ([2001:a61:253c:8201:b2fb:3ef8:ca:1604])
-        by smtp.gmail.com with ESMTPSA id sd15sm11109472ejb.66.2020.06.26.01.54.36
+        by smtp.gmail.com with ESMTPSA id z15sm18408763eju.18.2020.06.26.02.06.21
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 26 Jun 2020 01:54:36 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Carlos O'Donell <carlos@redhat.com>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: POSIX writer locks can't be recursive
-To:     Kumar Kartikeya Dwivedi <memxor@gmail.com>
-References: <CAP01T764kz5T+m+8sV0o30enBL1TagF7RQSjU0XcVJ0PvL0PTg@mail.gmail.com>
+        Fri, 26 Jun 2020 02:06:21 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        ebiggers@kernel.org
+Subject: Re: [PATCH v2] sync.2: syncfs() now returns errors if writeback fails
+To:     Jeff Layton <jlayton@kernel.org>
+References: <20200625233731.61555-1-jlayton@kernel.org>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <8d7edc37-6b5f-1dd9-5f7f-b4e15a9ae39a@gmail.com>
-Date:   Fri, 26 Jun 2020 10:54:35 +0200
+Message-ID: <3e2d6625-72bd-324c-b6d3-4e2a4bc5e369@gmail.com>
+Date:   Fri, 26 Jun 2020 11:06:19 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <CAP01T764kz5T+m+8sV0o30enBL1TagF7RQSjU0XcVJ0PvL0PTg@mail.gmail.com>
+In-Reply-To: <20200625233731.61555-1-jlayton@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -68,30 +69,75 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Carlos,
+Hi Jeff,
 
-Could you comment here, as this was your text in pthread_rwlockattr_setkind_np(3)?
+On 6/26/20 1:37 AM, Jeff Layton wrote:
+> A patch has been merged for v5.8 that changes how syncfs() reports
+> errors. Change the sync() manpage accordingly.
+> 
+> Signed-off-by: Jeff Layton <jlayton@kernel.org>
 
-On 6/25/20 2:32 PM, Kumar Kartikeya Dwivedi wrote:
-> Hi,
-> In pthread_rwlockattr_setkind_np(3), the explanation for
-> PTHREAD_RWLOCK_PREFER_WRITER_NP reads:
-> 
->> This is ignored by glibc because the POSIX requirement to support
->> recursive writer locks would cause this option to create trivial
->> deadlocks;
-> 
-> I think this should be "reader locks" instead, since it is
-> undefined[1] for a thread holding a write lock to call
-> pthread_rwlock_wrlock(3) again (glibc returns EDEADLK, musl simply
-> deadlocks). There's no such requirement in POSIX either. Please let me
-> know if I'm missing something.
-> 
-> [1]: https://pubs.opengroup.org/onlinepubs/007908799/xsh/pthread_rwlock_wrlock.html
+Thanks. Patch applied. (I've not yet pushed it, in case any 
+review comments might still come in.)
 
 Cheers,
 
 Michael
+
+> ---
+>  man2/sync.2 | 24 +++++++++++++++++++++++-
+>  1 file changed, 23 insertions(+), 1 deletion(-)
+> 
+>  v2: update the NOTES verbiage according to Eric's suggestion
+> 
+> diff --git a/man2/sync.2 b/man2/sync.2
+> index 7198f3311b05..61e994c5affc 100644
+> --- a/man2/sync.2
+> +++ b/man2/sync.2
+> @@ -86,11 +86,26 @@ to indicate the error.
+>  is always successful.
+>  .PP
+>  .BR syncfs ()
+> -can fail for at least the following reason:
+> +can fail for at least the following reasons:
+>  .TP
+>  .B EBADF
+>  .I fd
+>  is not a valid file descriptor.
+> +.TP
+> +.B EIO
+> +An error occurred during synchronization.
+> +This error may relate to data written to any file on the filesystem, or on
+> +metadata related to the filesytem itself.
+> +.TP
+> +.B ENOSPC
+> +Disk space was exhausted while synchronizing.
+> +.TP
+> +.BR ENOSPC ", " EDQUOT
+> +Data was written to a files on NFS or another filesystem which does not
+> +allocate space at the time of a
+> +.BR write (2)
+> +system call, and some previous write failed due to insufficient
+> +storage space.
+>  .SH VERSIONS
+>  .BR syncfs ()
+>  first appeared in Linux 2.6.39;
+> @@ -121,6 +136,13 @@ or
+>  .BR syncfs ()
+>  provide the same guarantees as fsync called on every file in
+>  the system or filesystem respectively.
+> +.PP
+> +In mainline kernel versions prior to 5.8,
+> +.\" commit 735e4ae5ba28c886d249ad04d3c8cc097dad6336
+> +.BR syncfs ()
+> +will only fail when passed a bad file descriptor (EBADF). In 5.8
+> +and later kernels, it will also report an error if one or more inodes failed
+> +to be written back since the last syncfs call.
+>  .SH BUGS
+>  Before version 1.3.20 Linux did not wait for I/O to complete
+>  before returning.
+> 
+
 
 -- 
 Michael Kerrisk
