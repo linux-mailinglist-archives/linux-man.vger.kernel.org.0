@@ -2,109 +2,84 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6FC0D20E1C8
-	for <lists+linux-man@lfdr.de>; Mon, 29 Jun 2020 23:59:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0A3AC20E080
+	for <lists+linux-man@lfdr.de>; Mon, 29 Jun 2020 23:57:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731498AbgF2U7c (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 29 Jun 2020 16:59:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43376 "EHLO
+        id S2389742AbgF2Uqo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 29 Jun 2020 16:46:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43358 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731246AbgF2TNB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Jun 2020 15:13:01 -0400
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2B250C0005E9;
-        Mon, 29 Jun 2020 04:52:27 -0700 (PDT)
-Received: by mail-ej1-x644.google.com with SMTP id l12so16228482ejn.10;
-        Mon, 29 Jun 2020 04:52:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=z4T8FYIuY1Y9y77Ieqlt8yjK4mMZI204Yh7+ny2pOxI=;
-        b=NSw0+NYOEWUX09qhxIhnQuDptMz9usR2acyi5MT3qtQDq+jauX9JV0dCNi+hWPVZKA
-         8PITL1jUFfcQhJboYmU1vI/EQ5kfRyxTWQ2mdSe93/utFbWDgAAn4jX2K2chejuh0RUw
-         PVc6VhEVd6bgpByATmWgDNn9QcLyc9jiDyAcd+Kj5gU6D3ToMNpIMN/1ot03nTRx/gYY
-         iWVIvcp2xEutzLW5dxNzSdIJgGZUKeYFTjyTpgmrEkHSnqxAx1OYq+20VnYPq/LT6QYU
-         Ths+XT2EYO4scy8hAvLNjOZbH0sBhjW7D7TgenH6hwS9ZPS5Gombm09nV7zneDKp9HUF
-         Qo3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=z4T8FYIuY1Y9y77Ieqlt8yjK4mMZI204Yh7+ny2pOxI=;
-        b=sKDr8ozB9dwf+BIP+yOM/F/bWYvc+uvl1Jk5SJjiP+Q0ip2dsxVN+2WkYaAp+toban
-         i96LLtJHxhmlV+0XLTtKCtidGnijXVhrmsO1/VUzDmu3+vJxtsS5+R97a4nhyAPysCE2
-         Aroc3VISYEobd/XbrtSqlIxmA2Eb3au96q6pCVaKag4E2JX8qFGDzoyM6MpeULXQmCRt
-         ZIubiPDuHIMyGLYfocu5iQpVrEIkLvT7YGPvntrYDAX42JmdIphzfYmMaY8VhC5DUd0i
-         yPjGMJPqvlY9kXfPg21vMTT2yY1+8RpVYb8/RKgQtgYUa65W48Jue9FnH98YwPenYsMu
-         2/Dw==
-X-Gm-Message-State: AOAM530+w7k3zenp4VIIEtrhkTaIOneRzOzprBzGen9ZCKF7K8yZ6b6k
-        QJR2NPclAXapqR4qDRmHKrc=
-X-Google-Smtp-Source: ABdhPJw9VywqY/CryAfoqmrag72OopJvW/lVO6GIt4MIPEZf6gSRTEOjsN3NrsEflaVIfLx4tCcXFA==
-X-Received: by 2002:a17:907:7283:: with SMTP id dt3mr13997833ejc.195.1593431545811;
-        Mon, 29 Jun 2020 04:52:25 -0700 (PDT)
-Received: from ?IPv6:2001:a61:253c:8201:b2fb:3ef8:ca:1604? ([2001:a61:253c:8201:b2fb:3ef8:ca:1604])
-        by smtp.gmail.com with ESMTPSA id w8sm28008278eds.41.2020.06.29.04.52.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Jun 2020 04:52:25 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Will Deacon <will@kernel.org>,
-        Vincenzo Frascino <vincenzo.frascino@arm.com>
-Subject: Re: [PATCH v3 0/2] prctl.2 man page updates for Linux 5.6
-To:     Dave Martin <Dave.Martin@arm.com>
-References: <1593020162-9365-1-git-send-email-Dave.Martin@arm.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <c17e330c-69f7-da7a-feae-cb8b8f5d7ea0@gmail.com>
-Date:   Mon, 29 Jun 2020 13:52:24 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+        with ESMTP id S1731545AbgF2TNw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Jun 2020 15:13:52 -0400
+X-Greylist: delayed 345 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Mon, 29 Jun 2020 05:13:48 PDT
+Received: from buzzer.stormbind.net (buzzer.stormbind.net [IPv6:2a01:4f8:201:5373::85])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 68CDFC00E3F3
+        for <linux-man@vger.kernel.org>; Mon, 29 Jun 2020 05:13:48 -0700 (PDT)
+Received: from digital0638.lan (unknown [IPv6:2a02:6d40:2b51:fc01:49e5:d515:df94:338c])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+        (No client certificate requested)
+        by buzzer.stormbind.net (Postfix) with ESMTPSA id 81D38600392;
+        Mon, 29 Jun 2020 14:08:00 +0200 (CEST)
+Received: from sven by digital0638.lan with local (Exim 4.92)
+        (envelope-from <sven@stormbind.net>)
+        id 1jpsZr-0006iH-UH; Mon, 29 Jun 2020 14:07:59 +0200
+Date:   Mon, 29 Jun 2020 14:07:59 +0200
+From:   Sven Hoexter <sven@stormbind.net>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Subject: Re: [patch] update kernel documentation references in cgroups(7) and
+ cpuset(7)
+Message-ID: <20200629120759.GA14586@stormbind.net>
+References: <20200619163515.GA27524@stormbind.net>
+ <CAKgNAkjJDC3ejYqh8sqg7Ka_yh+=TAdvi-=suHEihjqsbvGnpA@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <1593020162-9365-1-git-send-email-Dave.Martin@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKgNAkjJDC3ejYqh8sqg7Ka_yh+=TAdvi-=suHEihjqsbvGnpA@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Spam-Status: No, score=0.0 required=3.5 tests=UNPARSEABLE_RELAY
+        autolearn=disabled version=3.4.2
+X-Spam-Report: *  0.0 UNPARSEABLE_RELAY Informational: message has unparseable relay
+        *      lines
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on buzzer.stormbind.net
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Dave,
+On Mon, Jun 29, 2020 at 01:40:50PM +0200, Michael Kerrisk (man-pages) wrote:
+> On Fri, 19 Jun 2020 at 18:35, Sven Hoexter <sven@stormbind.net> wrote:
 
-On 6/24/20 7:36 PM, Dave Martin wrote:
-> A bunch of updates to the prctl(2) man page to fill in missing
-> prctls (mostly) up to Linux 5.6 (along with a few other tweaks and
-> fixes).
-> 
-> Patches from the v2 series [1] that have been applied or rejected
-> already have been dropped.
-> 
-> All that remain here now are the SVE and tagged address ABI controls
-> for arm64.
-> 
-> 
-> 
-> [1] https://lore.kernel.org/linux-man/1590614258-24728-1-git-send-email-Dave.Martin@arm.com/
-> 
-> 
-> Dave Martin (2):
->   prctl.2: Add SVE prctls (arm64)
->   prctl.2: Add tagged address ABI control prctls (arm64)
-> 
->  man2/prctl.2 | 331 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 331 insertions(+)
-Thanks. I've pushed these changes to master now.
+Hi,
 
-Cheers,
+> > cgroups-v1/v2 documentation got moved to the "admin-guide" subfolder
+> > and converted from .txt files to .rst
+> 
+> Thanks for your patch and for the ping, and sorry I did not respond
+> earlier. I had not forgotten this patch, but I was still working out
+> what to do with it.
+> 
+> The general philosophy in man-pages is to maintain historical
+> information, since the man-pages that are installed on a system may
+> not correspond to the kernel running on that system.
 
-Michael
+Indeed, a valid point I did not consider.
 
 
+> In the context of
+> your patch, what this means is that I would prefer to have text like:
+> 
+> [[
+> The kernel source file
+> .IR Documentation/admin\-guide/cgroup\-v2.rst
+> (or
+> .IR Documentation/admin-guide/cgroup-v2.rst in Linux x.y and earlier)
+> ]]
+> 
+> Would you be willing to revise your patch to that style?
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Sure, I will prepare a new version.
+
+Regards,
+Sven
