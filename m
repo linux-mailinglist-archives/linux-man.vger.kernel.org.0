@@ -2,84 +2,107 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0A3AC20E080
-	for <lists+linux-man@lfdr.de>; Mon, 29 Jun 2020 23:57:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5197A20DEFD
+	for <lists+linux-man@lfdr.de>; Mon, 29 Jun 2020 23:53:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2389742AbgF2Uqo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 29 Jun 2020 16:46:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43358 "EHLO
+        id S1730103AbgF2UbY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 29 Jun 2020 16:31:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56144 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731545AbgF2TNw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Jun 2020 15:13:52 -0400
-X-Greylist: delayed 345 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Mon, 29 Jun 2020 05:13:48 PDT
-Received: from buzzer.stormbind.net (buzzer.stormbind.net [IPv6:2a01:4f8:201:5373::85])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 68CDFC00E3F3
-        for <linux-man@vger.kernel.org>; Mon, 29 Jun 2020 05:13:48 -0700 (PDT)
-Received: from digital0638.lan (unknown [IPv6:2a02:6d40:2b51:fc01:49e5:d515:df94:338c])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-        (No client certificate requested)
-        by buzzer.stormbind.net (Postfix) with ESMTPSA id 81D38600392;
-        Mon, 29 Jun 2020 14:08:00 +0200 (CEST)
-Received: from sven by digital0638.lan with local (Exim 4.92)
-        (envelope-from <sven@stormbind.net>)
-        id 1jpsZr-0006iH-UH; Mon, 29 Jun 2020 14:07:59 +0200
-Date:   Mon, 29 Jun 2020 14:07:59 +0200
-From:   Sven Hoexter <sven@stormbind.net>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Subject: Re: [patch] update kernel documentation references in cgroups(7) and
- cpuset(7)
-Message-ID: <20200629120759.GA14586@stormbind.net>
-References: <20200619163515.GA27524@stormbind.net>
- <CAKgNAkjJDC3ejYqh8sqg7Ka_yh+=TAdvi-=suHEihjqsbvGnpA@mail.gmail.com>
+        with ESMTP id S2387492AbgF2UbB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Jun 2020 16:31:01 -0400
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 483D1C061755
+        for <linux-man@vger.kernel.org>; Mon, 29 Jun 2020 13:31:01 -0700 (PDT)
+Received: by mail-ed1-x544.google.com with SMTP id e22so14122979edq.8
+        for <linux-man@vger.kernel.org>; Mon, 29 Jun 2020 13:31:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=Zji6wMculjsm4q5vy/M56MNYOngVPZ1bs2mBGpSYh1I=;
+        b=O+fcB60m7DJatC9FCbf9ddKDxYeZcadauIWAZyYU7ef1OUpCa2bowXIkRg27u3mjcr
+         1tQdjtnTAt0Z/HfKRTyAmmNK1Gzaq0ge3qO+McmnGI+H2Yri2o+fcoHM/ENReqermPTl
+         +JCN8HSQ2j6syZgG0/+daRsNCScOAOH4Ef+24AZV3ExYnyPDeq8T5ROoTQ1qZDknWVyJ
+         Q++uvwHAAnU14UJYI4AThenpXkOcO7pDdbRRZPE/Og0N1g+Y9tmXHLIvpVEKNC+EbmZk
+         a0VlOm+mRY7SBe5Z0XxNeP6qk96kV+cYjpWMMNBo6/QhxKxRdFb9BXrcz2M8yaU8Ma1X
+         AAMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=Zji6wMculjsm4q5vy/M56MNYOngVPZ1bs2mBGpSYh1I=;
+        b=IchRTqitr3j7hpfQg1A/cfdbgfAdBlsh1OAEMFNUZax/JIpXLJ/hq8Af4yWdq770d1
+         Lmp39hxq1+Kx8SFtkMCofvFv2ADKKLbZziyO6ik32IYZOJ4ZsiGN5f/q2/k5BLx1d4M0
+         x/nRc4HTysm3Lg+0cQVaxJDyRE3P1MTcnQvM7/Q9PNvRqFpEtijhCV/UGO+T28MhRlkN
+         nk53yhiyC262WX8UVp1RUQ9sERFYXGHR7hUCpNVMNLtGrpIFeYQ4knRhmmTk+j7iOI7p
+         wh6oymdODoHJKY7WR1k8tU6UCXOetAzQKXehF+IcK0OqOJqZUs6riAL7Fj4BBMlFr2Ep
+         51KQ==
+X-Gm-Message-State: AOAM531X6Btx7OGorg86pHbc9JgM/9fIA/HwfEIvgI0w2p1gre1E9iTr
+        YnuoFvBehcqeNj+rvKXGu1HcLQWcIYwgqqtLnIJOGf9G
+X-Google-Smtp-Source: ABdhPJziprvOAvf1IgWfsUBdTabsZ9HcRr04/p216gpzx/d6PCZF/REyPA/KPUth5OZA59+b6psz4h+FKIsw/SLl0/c=
+X-Received: by 2002:a50:9f8c:: with SMTP id c12mr16383781edf.149.1593462660026;
+ Mon, 29 Jun 2020 13:31:00 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAKgNAkjJDC3ejYqh8sqg7Ka_yh+=TAdvi-=suHEihjqsbvGnpA@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Spam-Status: No, score=0.0 required=3.5 tests=UNPARSEABLE_RELAY
-        autolearn=disabled version=3.4.2
-X-Spam-Report: *  0.0 UNPARSEABLE_RELAY Informational: message has unparseable relay
-        *      lines
-X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on buzzer.stormbind.net
+References: <0608691a-6400-0a44-1031-a693f57dee52@jguk.org>
+In-Reply-To: <0608691a-6400-0a44-1031-a693f57dee52@jguk.org>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 29 Jun 2020 22:30:48 +0200
+Message-ID: <CAKgNAkgH4L-_A0LqqYyk621EmRqDOqAbG80gR-bu4Fk6jcEskA@mail.gmail.com>
+Subject: Re: strcpy compared to POSIX strcpy
+To:     Jonny Grant <jg@jguk.org>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Jun 29, 2020 at 01:40:50PM +0200, Michael Kerrisk (man-pages) wrote:
-> On Fri, 19 Jun 2020 at 18:35, Sven Hoexter <sven@stormbind.net> wrote:
+Hi Jonny
 
-Hi,
+On Mon, 29 Jun 2020 at 15:41, Jonny Grant <jg@jguk.org> wrote:
+>
+> Hi Michael,
+>
+> Returning to an old topic, noticed strcpy man page is different from the POSIX spec with regards to "terminating NUL character" or "null-terminated" shouldn't man pages should follow POSIX style writing "NUL"?
+>
+> https://man7.org/linux/man-pages/man3/strcpy.3.html
+>
+> https://man7.org/linux/man-pages/man3/strcpy.3p.html
+>
+> https://pubs.opengroup.org/onlinepubs/9699919799/functions/strcpy.html
+>
+> Another function even has nul in the name
+> https://man7.org/linux/man-pages/man3/strchrnul.3.html
 
-> > cgroups-v1/v2 documentation got moved to the "admin-guide" subfolder
-> > and converted from .txt files to .rst
-> 
-> Thanks for your patch and for the ping, and sorry I did not respond
-> earlier. I had not forgotten this patch, but I was still working out
-> what to do with it.
-> 
-> The general philosophy in man-pages is to maintain historical
-> information, since the man-pages that are installed on a system may
-> not correspond to the kernel running on that system.
+It's not so simple. In POSIX/SUS, you will find variously:
 
-Indeed, a valid point I did not consider.
+terminating NUL character
+terminating NUL
+terminating null character
+terminating null byte
+
+There's even one instance of "terminating NULL character" (in
+<net/if.h>; I estimate it's a bug).
+
+In the C standard (C11), "terminating null character" seems to be used
+exclusively, but as I understand the C standard [char == byte] by
+definition.
+
+I've tried to consistently use "terminating null byte" across all
+pages in man-pages. See also the discussion in man-pages(7).
+
+Cheers,
+
+Michael
 
 
-> In the context of
-> your patch, what this means is that I would prefer to have text like:
-> 
-> [[
-> The kernel source file
-> .IR Documentation/admin\-guide/cgroup\-v2.rst
-> (or
-> .IR Documentation/admin-guide/cgroup-v2.rst in Linux x.y and earlier)
-> ]]
-> 
-> Would you be willing to revise your patch to that style?
 
-Sure, I will prepare a new version.
 
-Regards,
-Sven
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
