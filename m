@@ -2,104 +2,127 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5197A20DEFD
-	for <lists+linux-man@lfdr.de>; Mon, 29 Jun 2020 23:53:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5D9F420EF63
+	for <lists+linux-man@lfdr.de>; Tue, 30 Jun 2020 09:34:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730103AbgF2UbY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 29 Jun 2020 16:31:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56144 "EHLO
+        id S1731033AbgF3He3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 30 Jun 2020 03:34:29 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46082 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2387492AbgF2UbB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Jun 2020 16:31:01 -0400
-Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 483D1C061755
-        for <linux-man@vger.kernel.org>; Mon, 29 Jun 2020 13:31:01 -0700 (PDT)
-Received: by mail-ed1-x544.google.com with SMTP id e22so14122979edq.8
-        for <linux-man@vger.kernel.org>; Mon, 29 Jun 2020 13:31:01 -0700 (PDT)
+        with ESMTP id S1730089AbgF3He3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 30 Jun 2020 03:34:29 -0400
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B53CDC061755
+        for <linux-man@vger.kernel.org>; Tue, 30 Jun 2020 00:34:28 -0700 (PDT)
+Received: by mail-ed1-x543.google.com with SMTP id n2so6183530edr.5
+        for <linux-man@vger.kernel.org>; Tue, 30 Jun 2020 00:34:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=Zji6wMculjsm4q5vy/M56MNYOngVPZ1bs2mBGpSYh1I=;
-        b=O+fcB60m7DJatC9FCbf9ddKDxYeZcadauIWAZyYU7ef1OUpCa2bowXIkRg27u3mjcr
-         1tQdjtnTAt0Z/HfKRTyAmmNK1Gzaq0ge3qO+McmnGI+H2Yri2o+fcoHM/ENReqermPTl
-         +JCN8HSQ2j6syZgG0/+daRsNCScOAOH4Ef+24AZV3ExYnyPDeq8T5ROoTQ1qZDknWVyJ
-         Q++uvwHAAnU14UJYI4AThenpXkOcO7pDdbRRZPE/Og0N1g+Y9tmXHLIvpVEKNC+EbmZk
-         a0VlOm+mRY7SBe5Z0XxNeP6qk96kV+cYjpWMMNBo6/QhxKxRdFb9BXrcz2M8yaU8Ma1X
-         AAMw==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=KQbAEvdCV3rR5co4j6NysNIn7tFccMNGMBz7xCIrj/8=;
+        b=n3aK8voHYxAb+twsT2RySkLWHRSM98duo+fGFEuSh92/UHTFs+pDgVpTZ6U5/pV4ex
+         JpkWwMTvptqEx1f79mXcbivr687OIBUSElng5r4T5xFR/XDr8UBBraCuuy/yrhRkwmfO
+         DmzcMSrQy3XTUuYIcdbsuxtElU9g6HA6oWWHM7pFcuYwE81z/ktwMDd1g7vTcknIQ0Sx
+         75M9rvKhjJkWUwwK7+2MmINBYMKMIK7j0F2qcZGGb/5xOIEvh2d3xt/+hrSUI9ivDoG4
+         n+fLDeuyWwykSpi2PiTiyXBnPm0SMOCJd4s6/pMRjdhq+iljfSozSggPmhP1+iCI6UJE
+         8S9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=Zji6wMculjsm4q5vy/M56MNYOngVPZ1bs2mBGpSYh1I=;
-        b=IchRTqitr3j7hpfQg1A/cfdbgfAdBlsh1OAEMFNUZax/JIpXLJ/hq8Af4yWdq770d1
-         Lmp39hxq1+Kx8SFtkMCofvFv2ADKKLbZziyO6ik32IYZOJ4ZsiGN5f/q2/k5BLx1d4M0
-         x/nRc4HTysm3Lg+0cQVaxJDyRE3P1MTcnQvM7/Q9PNvRqFpEtijhCV/UGO+T28MhRlkN
-         nk53yhiyC262WX8UVp1RUQ9sERFYXGHR7hUCpNVMNLtGrpIFeYQ4knRhmmTk+j7iOI7p
-         wh6oymdODoHJKY7WR1k8tU6UCXOetAzQKXehF+IcK0OqOJqZUs6riAL7Fj4BBMlFr2Ep
-         51KQ==
-X-Gm-Message-State: AOAM531X6Btx7OGorg86pHbc9JgM/9fIA/HwfEIvgI0w2p1gre1E9iTr
-        YnuoFvBehcqeNj+rvKXGu1HcLQWcIYwgqqtLnIJOGf9G
-X-Google-Smtp-Source: ABdhPJziprvOAvf1IgWfsUBdTabsZ9HcRr04/p216gpzx/d6PCZF/REyPA/KPUth5OZA59+b6psz4h+FKIsw/SLl0/c=
-X-Received: by 2002:a50:9f8c:: with SMTP id c12mr16383781edf.149.1593462660026;
- Mon, 29 Jun 2020 13:31:00 -0700 (PDT)
-MIME-Version: 1.0
-References: <0608691a-6400-0a44-1031-a693f57dee52@jguk.org>
-In-Reply-To: <0608691a-6400-0a44-1031-a693f57dee52@jguk.org>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=KQbAEvdCV3rR5co4j6NysNIn7tFccMNGMBz7xCIrj/8=;
+        b=hbvP7FGPeoCPu8lv8zzteNSzXcj0WOMNzKIr7hXEe97LdnpMswU/VaZIHkQGfn7EJp
+         E3dTgc4aTF0wNsg/Yfb22rC4cwszIMGDOBRTd46fV/mC5rjD+lw7SdOYvctYOh32l2Sf
+         EC6OiLKvwkAao6wrZuz1Yiu9XngqeDn4GB0thWTynG9ujT1WenswB1brhxIWaJ39WMoF
+         AHBhEl5jMBvLdpJKfpENvSrUN106GMkEZaZ5w04XTjEIT3hxduLAJzjtCuGmAqw+jVvd
+         8IxJwnnE89M5gMKySHcOl/1UIux42p4IOMQ9SiLLIlyeSLqKUBVEzPyUHtp7BV5JKiO0
+         dVDg==
+X-Gm-Message-State: AOAM532YfeStGpA/3lYCCK1/KeP4DkzwECCCK7eapNsfqNHuBtaAusaD
+        sjyWbiCT+waYR7xzW4flvo8=
+X-Google-Smtp-Source: ABdhPJy+L1vVg9EyAQO+c2hWWKKkbVK7myXHhr0+KndPZiDhEzQ5+J0bWjCMuonyuuVghsIKmvf9cg==
+X-Received: by 2002:a05:6402:b57:: with SMTP id bx23mr20544272edb.304.1593502467463;
+        Tue, 30 Jun 2020 00:34:27 -0700 (PDT)
+Received: from ?IPv6:2001:a61:253c:8201:b2fb:3ef8:ca:1604? ([2001:a61:253c:8201:b2fb:3ef8:ca:1604])
+        by smtp.gmail.com with ESMTPSA id c4sm1364712ejb.17.2020.06.30.00.34.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 30 Jun 2020 00:34:26 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        linux-kernel@i4.cs.fau.de
+Subject: Re: [PATCH] hosts.5: Clarify capability for IPv6 outside of examples
+To:     Thomas Bartelsmeier <t.bartelsmeier@gmail.com>
+References: <20200629150716.3086-1-t.bartelsmeier@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 29 Jun 2020 22:30:48 +0200
-Message-ID: <CAKgNAkgH4L-_A0LqqYyk621EmRqDOqAbG80gR-bu4Fk6jcEskA@mail.gmail.com>
-Subject: Re: strcpy compared to POSIX strcpy
-To:     Jonny Grant <jg@jguk.org>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <886b35b3-00da-6240-127d-6b85de3679ec@gmail.com>
+Date:   Tue, 30 Jun 2020 09:34:26 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
+MIME-Version: 1.0
+In-Reply-To: <20200629150716.3086-1-t.bartelsmeier@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Jonny
+Hello Thomas,
 
-On Mon, 29 Jun 2020 at 15:41, Jonny Grant <jg@jguk.org> wrote:
->
-> Hi Michael,
->
-> Returning to an old topic, noticed strcpy man page is different from the POSIX spec with regards to "terminating NUL character" or "null-terminated" shouldn't man pages should follow POSIX style writing "NUL"?
->
-> https://man7.org/linux/man-pages/man3/strcpy.3.html
->
-> https://man7.org/linux/man-pages/man3/strcpy.3p.html
->
-> https://pubs.opengroup.org/onlinepubs/9699919799/functions/strcpy.html
->
-> Another function even has nul in the name
-> https://man7.org/linux/man-pages/man3/strchrnul.3.html
+On 6/29/20 5:07 PM, Thomas Bartelsmeier wrote:
+> Resolves https://bugzilla.kernel.org/show_bug.cgi?id=208279
+> 
+> Signed-off-by: Thomas Bartelsmeier <t.bartelsmeier@gmail.com>
 
-It's not so simple. In POSIX/SUS, you will find variously:
-
-terminating NUL character
-terminating NUL
-terminating null character
-terminating null byte
-
-There's even one instance of "terminating NULL character" (in
-<net/if.h>; I estimate it's a bug).
-
-In the C standard (C11), "terminating null character" seems to be used
-exclusively, but as I understand the C standard [char == byte] by
-definition.
-
-I've tried to consistently use "terminating null byte" across all
-pages in man-pages. See also the discussion in man-pages(7).
+Thanks. Patch applied.
 
 Cheers,
 
 Michael
 
-
-
-
+> ---
+> 
+> The first addition should be relatively uncontroversial.
+> As the prevalence of IPv6 continues to increase, it is about
+> time to not only mention the IPv6 compatibility of the hosts
+> file in the examples at the very bottom of the man page.
+> 
+> The second addition is in relation to the Bugzilla report.
+> It is a simple statement which is true even for the default
+> version of the hosts file and its two entries for localhost.
+> However, I do not consider it necessary for any casual user to
+> add both IPv4 and IPv6 addresses for any hosts.
+> Therefore, I cautiously did not change the wording criticized in
+> the bug report in case of any possible negative interactions.
+> As a result, the second addition is meant to be for completeness
+> and for use by people who know they actually need this.
+> 
+>  man5/hosts.5 | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/man5/hosts.5 b/man5/hosts.5
+> index cb055f5f6..1230f9303 100644
+> --- a/man5/hosts.5
+> +++ b/man5/hosts.5
+> @@ -42,6 +42,7 @@ line should be present with the following information:
+>  IP_address canonical_hostname [aliases...]
+>  .RE
+>  .PP
+> +The IP address can conform to either IPv4 or IPv6.
+>  Fields of the entry are separated by any number of blanks and/or
+>  tab characters.
+>  Text from a "#" character until the end of the line is
+> @@ -53,6 +54,8 @@ alphabetic character and end with an alphanumeric character.
+>  Optional aliases provide for name changes, alternate spellings,
+>  shorter hostnames, or generic hostnames (for example,
+>  .IR localhost ).
+> +If required, a host may have two separate entries in this file;
+> +one for each version of the Internet Protocol (IPv4 and IPv6).
+>  .PP
+>  The Berkeley Internet Name Domain (BIND) Server implements the
+>  Internet name server for UNIX systems.
+> 
 
 
 -- 
