@@ -2,35 +2,35 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A91A2211596
-	for <lists+linux-man@lfdr.de>; Thu,  2 Jul 2020 00:06:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4338221159D
+	for <lists+linux-man@lfdr.de>; Thu,  2 Jul 2020 00:08:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726144AbgGAWGA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Jul 2020 18:06:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37062 "EHLO
+        id S1726413AbgGAWIx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Jul 2020 18:08:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37530 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725771AbgGAWGA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Jul 2020 18:06:00 -0400
+        with ESMTP id S1725771AbgGAWIx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Jul 2020 18:08:53 -0400
 Received: from inpost.hi.is (inpost.hi.is [IPv6:2a00:c88:4000:1650::165:62])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 86143C08C5C1
-        for <linux-man@vger.kernel.org>; Wed,  1 Jul 2020 15:05:59 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B84B1C08C5C1
+        for <linux-man@vger.kernel.org>; Wed,  1 Jul 2020 15:08:52 -0700 (PDT)
 Received: from hekla.rhi.hi.is (hekla.rhi.hi.is [IPv6:2a00:c88:4000:1650::165:2])
-        by inpost.hi.is (8.14.7/8.14.7) with ESMTP id 061M5sht019203
+        by inpost.hi.is (8.14.7/8.14.7) with ESMTP id 061M8os7019228
         (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-        Wed, 1 Jul 2020 22:05:54 GMT
-DKIM-Filter: OpenDKIM Filter v2.11.0 inpost.hi.is 061M5sht019203
+        Wed, 1 Jul 2020 22:08:50 GMT
+DKIM-Filter: OpenDKIM Filter v2.11.0 inpost.hi.is 061M8os7019228
 Received: from hekla.rhi.hi.is (localhost [127.0.0.1])
-        by hekla.rhi.hi.is (8.14.4/8.14.4) with ESMTP id 061M5rsD025013;
-        Wed, 1 Jul 2020 22:05:54 GMT
+        by hekla.rhi.hi.is (8.14.4/8.14.4) with ESMTP id 061M8oQj025127;
+        Wed, 1 Jul 2020 22:08:50 GMT
 Received: (from bjarniig@localhost)
-        by hekla.rhi.hi.is (8.14.4/8.14.4/Submit) id 061M5rZZ025012;
-        Wed, 1 Jul 2020 22:05:53 GMT
-Date:   Wed, 1 Jul 2020 22:05:53 +0000
+        by hekla.rhi.hi.is (8.14.4/8.14.4/Submit) id 061M8oRd025126;
+        Wed, 1 Jul 2020 22:08:50 GMT
+Date:   Wed, 1 Jul 2020 22:08:50 +0000
 From:   Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] man1/*: ffix, change '-' to '\-' for options
-Message-ID: <20200701220553.GA24941@rhi.hi.is>
+Subject: [PATCH] man2/*: ffix, change '-' to '\-' for options
+Message-ID: <20200701220850.GA25056@rhi.hi.is>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -44,78 +44,138 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
 ---
- man1/locale.1       | 8 ++++----
- man1/memusage.1     | 2 +-
- man1/memusagestat.1 | 4 ++--
- 3 files changed, 7 insertions(+), 7 deletions(-)
+ man2/alloc_hugepages.2   | 2 +-
+ man2/listxattr.2         | 6 +++---
+ man2/mkdir.2             | 4 ++--
+ man2/open.2              | 2 +-
+ man2/ptrace.2            | 2 +-
+ man2/sched_setaffinity.2 | 2 +-
+ man2/seccomp.2           | 2 +-
+ man2/stat.2              | 2 +-
+ man2/unshare.2           | 2 +-
+ 9 files changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/man1/locale.1 b/man1/locale.1
-index 587795728..5506354bd 100644
---- a/man1/locale.1
-+++ b/man1/locale.1
-@@ -58,7 +58,7 @@ the behavior is as follows:
- .BR \-a ", " \-\-all\-locales
- Display a list of all available locales.
- The
--.B -v
-+.B \-v
- option causes the
- .B LC_IDENTIFICATION
- metadata about each locale to be included in the output.
-@@ -66,7 +66,7 @@ metadata about each locale to be included in the output.
- .BR \-m ", " \-\-charmaps
- Display the available charmaps (character set description files).
- To display the current character set for the locale, use
--\fBlocale -c charmap\fR.
-+\fBlocale \-c charmap\fR.
- .PP
- The
- .B locale
-@@ -195,8 +195,8 @@ in the shell profile file so that the custom locale will be used in the
- subsequent user sessions:
- .PP
+diff --git a/man2/alloc_hugepages.2 b/man2/alloc_hugepages.2
+index 14ed0516a..a5e6cb138 100644
+--- a/man2/alloc_hugepages.2
++++ b/man2/alloc_hugepages.2
+@@ -146,5 +146,5 @@ boot parameter.
+ .\".PP
+ .\" requires CONFIG_HUGETLB_PAGE (under "Processor type and features")
+ .\" and CONFIG_HUGETLBFS (under "Filesystems").
+-.\" mount -t hugetlbfs hugetlbfs /huge
++.\" mount \-t hugetlbfs hugetlbfs /huge
+ .\" SHM_HUGETLB
+diff --git a/man2/listxattr.2 b/man2/listxattr.2
+index 28b55c1e1..40fcf377c 100644
+--- a/man2/listxattr.2
++++ b/man2/listxattr.2
+@@ -203,9 +203,9 @@ and then listing the attributes with the example program.
+ .in +4n
  .EX
--$ \fBmkdir -p $HOME/.locale\fP
--$ \fBI18NPATH=./wrk/ localedef -f UTF-8 -i fi_SE $HOME/.locale/fi_SE.UTF-8\fP
-+$ \fBmkdir \-p $HOME/.locale\fP
-+$ \fBI18NPATH=./wrk/ localedef \-f UTF-8 \-i fi_SE $HOME/.locale/fi_SE.UTF-8\fP
- $ \fBLOCPATH=$HOME/.locale LC_ALL=fi_SE.UTF-8 date\fP
- $ \fBecho "export LOCPATH=\e$HOME/.locale" >> $HOME/.bashrc\fP
- $ \fBecho "export LANG=fi_SE.UTF-8" >> $HOME/.bashrc\fP
-diff --git a/man1/memusage.1 b/man1/memusage.1
-index 9292fb8f0..ce50e6f16 100644
---- a/man1/memusage.1
-+++ b/man1/memusage.1
-@@ -55,7 +55,7 @@ can also be intercepted.
- can output the collected data in textual form, or it can use
- .BR memusagestat (1)
- (see the
--.B -p
-+.B \-p
- option,  below)
- to create a PNG file containing graphical representation
- of the collected data.
-diff --git a/man1/memusagestat.1 b/man1/memusagestat.1
-index 411622446..a1c40cd86 100644
---- a/man1/memusagestat.1
-+++ b/man1/memusagestat.1
-@@ -31,7 +31,7 @@ creates a PNG file containing a graphical representation of the
- memory profiling data in the file
- .IR datafile ;
- that file is generated via the
--.I -d
-+.I \-d
- (or
- .IR --data )
- option of
-@@ -41,7 +41,7 @@ The red line in the graph shows the heap usage (allocated memory)
- and the green line shows the stack usage.
- The x-scale is either the number of memory-handling function calls or
- (if the
--.I -t
-+.I \-t
- option is specified)
- time.
- .SH OPTIONS
+ $ \fBtouch /tmp/foo\fP
+-$ \fBsetfattr -n user.fred -v chocolate /tmp/foo\fP
+-$ \fBsetfattr -n user.frieda -v bar /tmp/foo\fP
+-$ \fBsetfattr -n user.empty /tmp/foo\fP
++$ \fBsetfattr \-n user.fred \-v chocolate /tmp/foo\fP
++$ \fBsetfattr \-n user.frieda \-v bar /tmp/foo\fP
++$ \fBsetfattr \-n user.empty /tmp/foo\fP
+ $ \fB./listxattr /tmp/foo\fP
+ user.fred: chocolate
+ user.frieda: bar
+diff --git a/man2/mkdir.2 b/man2/mkdir.2
+index 6411080fc..e01062869 100644
+--- a/man2/mkdir.2
++++ b/man2/mkdir.2
+@@ -66,9 +66,9 @@ The newly created directory will be owned by the effective user ID of the
+ process.
+ If the directory containing the file has the set-group-ID
+ bit set, or if the filesystem is mounted with BSD group semantics
+-.RI ( "mount -o bsdgroups"
++.RI ( "mount \-o bsdgroups"
+ or, synonymously
+-.IR "mount -o grpid" ),
++.IR "mount \-o grpid" ),
+ the new directory will inherit the group ownership from its parent;
+ otherwise it will be owned by the effective group ID of the process.
+ .PP
+diff --git a/man2/open.2 b/man2/open.2
+index eb75437ff..9ab75516c 100644
+--- a/man2/open.2
++++ b/man2/open.2
+@@ -1192,7 +1192,7 @@ does not support
+ refers to a regular file that is too large to be opened.
+ The usual scenario here is that an application compiled
+ on a 32-bit platform without
+-.I -D_FILE_OFFSET_BITS=64
++.I \-D_FILE_OFFSET_BITS=64
+ tried to open a file whose size exceeds
+ .I (1<<31)-1
+ bytes;
+diff --git a/man2/ptrace.2 b/man2/ptrace.2
+index 1233ee994..4d50d2f70 100644
+--- a/man2/ptrace.2
++++ b/man2/ptrace.2
+@@ -2270,7 +2270,7 @@ to the tracee after
+ returns.
+ This is an ordinary signal (similar to one which can be
+ generated by
+-.IR "kill -TRAP" ),
++.IR "kill \-TRAP" ),
+ not a special kind of ptrace-stop.
+ Employing
+ .B PTRACE_GETSIGINFO
+diff --git a/man2/sched_setaffinity.2 b/man2/sched_setaffinity.2
+index 6b54d202e..00a0ce65c 100644
+--- a/man2/sched_setaffinity.2
++++ b/man2/sched_setaffinity.2
+@@ -324,7 +324,7 @@ system has two cores, each with two CPUs:
+ .PP
+ .in +4n
+ .EX
+-$ \fBlscpu | egrep -i 'core.*:|socket'\fP
++$ \fBlscpu | egrep \-i 'core.*:|socket'\fP
+ Thread(s) per core:    2
+ Core(s) per socket:    2
+ Socket(s):             1
+diff --git a/man2/seccomp.2 b/man2/seccomp.2
+index 731e775f4..14b3b443c 100644
+--- a/man2/seccomp.2
++++ b/man2/seccomp.2
+@@ -940,7 +940,7 @@ numbers on this architecture:
+ .PP
+ .in +4n
+ .EX
+-$ \fBuname -m\fP
++$ \fBuname \-m\fP
+ x86_64
+ $ \fBsyscall_nr() {
+     cat /usr/src/linux/arch/x86/syscalls/syscall_64.tbl | \e
+diff --git a/man2/stat.2 b/man2/stat.2
+index a5f983b67..ad85e17d7 100644
+--- a/man2/stat.2
++++ b/man2/stat.2
+@@ -432,7 +432,7 @@ or
+ .IR blkcnt_t .
+ This error can occur when, for example,
+ an application compiled on a 32-bit platform without
+-.I -D_FILE_OFFSET_BITS=64
++.I \-D_FILE_OFFSET_BITS=64
+ calls
+ .BR stat ()
+ on a file whose size exceeds
+diff --git a/man2/unshare.2 b/man2/unshare.2
+index 720c43ca1..4b7dbb89a 100644
+--- a/man2/unshare.2
++++ b/man2/unshare.2
+@@ -474,7 +474,7 @@ new shell are in separate mount namespaces:
+ .EX
+ $ \fBreadlink /proc/$$/ns/mnt\fP
+ mnt:[4026531840]
+-$ \fBsudo ./unshare -m /bin/bash\fP
++$ \fBsudo ./unshare \-m /bin/bash\fP
+ # \fBreadlink /proc/$$/ns/mnt\fP
+ mnt:[4026532325]
+ .EE
 -- 
 2.27.0
