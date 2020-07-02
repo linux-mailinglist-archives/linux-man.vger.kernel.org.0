@@ -2,63 +2,92 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D296A2116B5
-	for <lists+linux-man@lfdr.de>; Thu,  2 Jul 2020 01:38:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5B8EF21202C
+	for <lists+linux-man@lfdr.de>; Thu,  2 Jul 2020 11:41:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726464AbgGAXiE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Jul 2020 19:38:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51276 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726438AbgGAXiE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Jul 2020 19:38:04 -0400
-Received: from inpost.hi.is (inpost.hi.is [IPv6:2a00:c88:4000:1650::165:62])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 41718C08C5C1
-        for <linux-man@vger.kernel.org>; Wed,  1 Jul 2020 16:38:04 -0700 (PDT)
-Received: from hekla.rhi.hi.is (hekla.rhi.hi.is [IPv6:2a00:c88:4000:1650::165:2])
-        by inpost.hi.is (8.14.7/8.14.7) with ESMTP id 061Nc1mR023542
-        (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-        Wed, 1 Jul 2020 23:38:01 GMT
-DKIM-Filter: OpenDKIM Filter v2.11.0 inpost.hi.is 061Nc1mR023542
-Received: from hekla.rhi.hi.is (localhost [127.0.0.1])
-        by hekla.rhi.hi.is (8.14.4/8.14.4) with ESMTP id 061Nc1DN029267;
-        Wed, 1 Jul 2020 23:38:01 GMT
-Received: (from bjarniig@localhost)
-        by hekla.rhi.hi.is (8.14.4/8.14.4/Submit) id 061Nc1TZ029248;
-        Wed, 1 Jul 2020 23:38:01 GMT
-Date:   Wed, 1 Jul 2020 23:38:01 +0000
-From:   Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] man8/*: ffix, change '-' to '\-' for options
-Message-ID: <20200701233801.GA29209@rhi.hi.is>
+        id S1727057AbgGBJlq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 2 Jul 2020 05:41:46 -0400
+Received: from us-smtp-1.mimecast.com ([205.139.110.61]:44886 "EHLO
+        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1725287AbgGBJlq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Jul 2020 05:41:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1593682904;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=otHkOaIeH581GEjy8u2mxjoQIJ9VnLDjphgnTEOC07k=;
+        b=Scfqkb+lo1dwAIrAnoaR3H6X46G2LEM7YRpC75IQ8cwn97+t0hXGlWB7/Q1EZOuY+16gjM
+        Xb92PzaWv+3/L6Fh3Mo56mnWRYLKR6TVZH8EE+jFBaSdSHaWqoOfhx+iq44UUZj+3CdkDY
+        iaHlUT8fYTUn/8Wntn+icSszS+Qy5Hs=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-170-LtaEbmigPPOIpO_QQDYP5g-1; Thu, 02 Jul 2020 05:41:40 -0400
+X-MC-Unique: LtaEbmigPPOIpO_QQDYP5g-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D7EA1107ACCA;
+        Thu,  2 Jul 2020 09:41:38 +0000 (UTC)
+Received: from oldenburg2.str.redhat.com (ovpn-112-162.ams2.redhat.com [10.36.112.162])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 5E7C073FDE;
+        Thu,  2 Jul 2020 09:41:37 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
+To:     Aleksa Sarai <cyphar@cyphar.com>
+Cc:     "Michael Kerrisk \(man-pages\)" <mtk.manpages@gmail.com>,
+        pgajdos <pgajdos@suse.cz>, eppers@posteo.de,
+        linux-man <linux-man@vger.kernel.org>, libc-alpha@sourceware.org
+Subject: Re: openat2.h location (openat2.2)
+References: <20200630141703.GB12757@laura.suse.cz>
+        <CAKgNAki+Zh-D_eYLsF_yryYF+BStLdUj=ROWKO2MRb+Yvp4PHA@mail.gmail.com>
+        <20200630223348.rrr23sfuh7p46top@yavin.dot.cyphar.com>
+Date:   Thu, 02 Jul 2020 11:41:35 +0200
+In-Reply-To: <20200630223348.rrr23sfuh7p46top@yavin.dot.cyphar.com> (Aleksa
+        Sarai's message of "Wed, 1 Jul 2020 08:33:48 +1000")
+Message-ID: <878sg2dzjk.fsf@oldenburg2.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/1.5.20 (2009-12-10)
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-  Change '-' to '\-' for the prefix of names to indicate an option.
+* Aleksa Sarai:
 
-Signed-off-by: Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
----
- man8/nscd.8 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> On 2020-06-30, Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
+>> [CC += Aleksa, linux-man@]
+>> 
+>> Hello Petr,
+>> 
+>> I'm bringing Aleksa, the creator of the system call, into CC.
+>> 
+>> Aleksa, the issue is that the header file (<openat2.h>) documented in
+>> the manual page that you sent does not (yet) exist (and the bug
+>> reporter therefore suggests that the manual page should say to include
+>> <linux/openat2.h>.
+>> 
+>> I'm guessing that there is (or was) a plan to add a <openat2.h> header
+>> file to glibc. What is the status?
+>
+> Yes, Florian asked me to put the openat2 definitions into a separate
+> header (openat2.h) so that it could be just copied by glibc rather than
+> having to do any more hacks around <fcntl.h>.
 
-diff --git a/man8/nscd.8 b/man8/nscd.8
-index a0b3733e4..8ddc538d3 100644
---- a/man8/nscd.8
-+++ b/man8/nscd.8
-@@ -87,7 +87,7 @@ invalidates its cache:
- .PP
- .in +4n
- .EX
--$ \fBnscd -i\fP \fI<database>\fP
-+$ \fBnscd \-i\fP \fI<database>\fP
- .EE
- .in
- .SH SEE ALSO
--- 
-2.27.0
+We still need to document the original *at functions. 8-( That's a
+precondition for adding openat2 (which should come with its own
+documentation right from the start).
+
+<https://sourceware.org/pipermail/libc-alpha/2020-May/113545.html>
+
+> I guess those plans haven't come to fruition yet? I'm fine with telling
+> users to use <linux/openat2.h> in the meantime.
+
+If we include <linux/openat2.h> from the glibc header, the transition
+should be unproblematic because there won't be any multi-definition
+errors.
+
+Thanks,
+Florian
+
