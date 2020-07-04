@@ -2,81 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AF6AE214228
-	for <lists+linux-man@lfdr.de>; Sat,  4 Jul 2020 02:02:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 59FD4214645
+	for <lists+linux-man@lfdr.de>; Sat,  4 Jul 2020 16:03:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726455AbgGDACS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 3 Jul 2020 20:02:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46668 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726188AbgGDACS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 3 Jul 2020 20:02:18 -0400
-Received: from inpost.hi.is (inpost.hi.is [IPv6:2a00:c88:4000:1650::165:62])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2165FC061794
-        for <linux-man@vger.kernel.org>; Fri,  3 Jul 2020 17:02:17 -0700 (PDT)
-Received: from hekla.rhi.hi.is (hekla.rhi.hi.is [IPv6:2a00:c88:4000:1650::165:2])
-        by inpost.hi.is (8.14.7/8.14.7) with ESMTP id 06402C8i001810
-        (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-        Sat, 4 Jul 2020 00:02:12 GMT
-DKIM-Filter: OpenDKIM Filter v2.11.0 inpost.hi.is 06402C8i001810
-Received: from hekla.rhi.hi.is (localhost [127.0.0.1])
-        by hekla.rhi.hi.is (8.14.4/8.14.4) with ESMTP id 06402CSO001814;
-        Sat, 4 Jul 2020 00:02:12 GMT
-Received: (from bjarniig@localhost)
-        by hekla.rhi.hi.is (8.14.4/8.14.4/Submit) id 06402Bc4001813;
-        Sat, 4 Jul 2020 00:02:11 GMT
-Date:   Sat, 4 Jul 2020 00:02:11 +0000
-From:   Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH] man3/*: ffix, change '-' to '\-' for options
-Message-ID: <20200704000211.GA1330@rhi.hi.is>
-References: <20200701225059.GA26940@rhi.hi.is>
- <47d84128-6235-c1c0-b54e-cf1e87836297@gmail.com>
+        id S1728112AbgGDODE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 4 Jul 2020 10:03:04 -0400
+Received: from mail.kernel.org ([198.145.29.99]:51506 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1728086AbgGDODD (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sat, 4 Jul 2020 10:03:03 -0400
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl [83.86.89.107])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by mail.kernel.org (Postfix) with ESMTPSA id 8842A21707;
+        Sat,  4 Jul 2020 14:03:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=default; t=1593871383;
+        bh=URxPKIHQL7SkJXwUkdzXDCnSnjDxxoHjfZVsU7XPN0c=;
+        h=From:To:Cc:Subject:Date:From;
+        b=lNw6k9kfAw5gsYe5uk+i6vpwYxW8sPZrQ3zJh/DdSYq5sBWnedFlAfvfydfdhzSd/
+         5pD7iKApSSjp/0/TIeK4LE8RucNAdRx2g8DQbmGxgcmX0CicZUyaelPskm+wN3Udro
+         ecZ+W68QdR9MKn44hzZwB/Q+1X+dQevcyOI6Dnlw=
+From:   Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To:     viro@zeniv.linux.org.uk, mtk.manpages@gmail.com, shuah@kernel.org,
+        linux-api@vger.kernel.org
+Cc:     linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-man@vger.kernel.org, linux-kselftest@vger.kernel.org,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH 0/3] readfile(2): a new syscall to make open/read/close faster
+Date:   Sat,  4 Jul 2020 16:02:46 +0200
+Message-Id: <20200704140250.423345-1-gregkh@linuxfoundation.org>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <47d84128-6235-c1c0-b54e-cf1e87836297@gmail.com>
-User-Agent: Mutt/1.5.20 (2009-12-10)
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Jul 02, 2020 at 12:27:25PM +0200, Michael Kerrisk (man-pages) wrote:
-> Hello Bjarni,
-> 
-> On 7/2/20 12:50 AM, Bjarni Ingi Gislason wrote:
-> >   Change '-' to '\-' for the prefix of names to indicate an option.
-> > 
-> > Signed-off-by: Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
-> 
-> Patch applied, but:
-> 
-> > ---
-> >  man3/dlopen.3             | 2 +-
-> >  man3/fts.3                | 2 +-
-> >  man3/getsubopt.3          | 2 +-
-> >  man3/insque.3             | 2 +-
-> >  man3/mq_getattr.3         | 2 +-
-> >  man3/posix_spawn.3        | 8 ++++----
-> >  man3/pthread_setname_np.3 | 2 +-
-> >  man3/sincos.3             | 2 +-
-> >  man3/strfromd.3           | 6 +++---
-> 
-> The above piece was broken, so I applied manually. Was your patch 
-> against master?
-> 
-  I always use my own copy of the repository where I apply my new
-patches to.
+Here is a tiny new syscall, readfile, that makes it simpler to read
+small/medium sized files all in one shot, no need to do open/read/close.
+This is especially helpful for tools that poke around in procfs or
+sysfs, making a little bit of a less system load than before, especially
+as syscall overheads go up over time due to various CPU bugs being
+addressed.
 
-  The difference is the non-applied patches to master, that change a
-two-fonts macro to a single-font macro for a single argument.
+There are 4 patches in this series, the first 3 are against the kernel
+tree, adding the syscall logic, wiring up the syscall, and adding some
+tests for it.
 
-  In this case in the man3/strfromd.3, ".B f" (master has ".BR f").
+The last patch is agains the man-pages project, adding a tiny man page
+to try to describe the new syscall.
 
-  So my "git pull" sometimes causes a merge conflict, which is easy for
-me to correct.
+Greg Kroah-Hartman (3):
+  readfile: implement readfile syscall
+  arch: wire up the readfile syscall
+  selftests: add readfile(2) selftests
+
+ arch/alpha/kernel/syscalls/syscall.tbl        |   1 +
+ arch/arm/tools/syscall.tbl                    |   1 +
+ arch/arm64/include/asm/unistd.h               |   2 +-
+ arch/arm64/include/asm/unistd32.h             |   2 +
+ arch/ia64/kernel/syscalls/syscall.tbl         |   1 +
+ arch/m68k/kernel/syscalls/syscall.tbl         |   1 +
+ arch/microblaze/kernel/syscalls/syscall.tbl   |   1 +
+ arch/mips/kernel/syscalls/syscall_n32.tbl     |   1 +
+ arch/mips/kernel/syscalls/syscall_n64.tbl     |   1 +
+ arch/mips/kernel/syscalls/syscall_o32.tbl     |   1 +
+ arch/parisc/kernel/syscalls/syscall.tbl       |   1 +
+ arch/powerpc/kernel/syscalls/syscall.tbl      |   1 +
+ arch/s390/kernel/syscalls/syscall.tbl         |   1 +
+ arch/sh/kernel/syscalls/syscall.tbl           |   1 +
+ arch/sparc/kernel/syscalls/syscall.tbl        |   1 +
+ arch/x86/entry/syscalls/syscall_32.tbl        |   1 +
+ arch/x86/entry/syscalls/syscall_64.tbl        |   1 +
+ arch/xtensa/kernel/syscalls/syscall.tbl       |   1 +
+ fs/open.c                                     |  50 +++
+ include/linux/syscalls.h                      |   2 +
+ include/uapi/asm-generic/unistd.h             |   4 +-
+ tools/testing/selftests/Makefile              |   1 +
+ tools/testing/selftests/readfile/.gitignore   |   3 +
+ tools/testing/selftests/readfile/Makefile     |   7 +
+ tools/testing/selftests/readfile/readfile.c   | 285 +++++++++++++++++
+ .../selftests/readfile/readfile_speed.c       | 301 ++++++++++++++++++
+ 26 files changed, 671 insertions(+), 2 deletions(-)
+ create mode 100644 tools/testing/selftests/readfile/.gitignore
+ create mode 100644 tools/testing/selftests/readfile/Makefile
+ create mode 100644 tools/testing/selftests/readfile/readfile.c
+ create mode 100644 tools/testing/selftests/readfile/readfile_speed.c
 
 -- 
-Bjarni I. Gislason
+2.27.0
+
