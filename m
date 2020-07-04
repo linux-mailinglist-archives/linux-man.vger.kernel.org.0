@@ -2,154 +2,81 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A34E0213987
-	for <lists+linux-man@lfdr.de>; Fri,  3 Jul 2020 13:44:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AF6AE214228
+	for <lists+linux-man@lfdr.de>; Sat,  4 Jul 2020 02:02:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726147AbgGCLoz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 3 Jul 2020 07:44:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46110 "EHLO
+        id S1726455AbgGDACS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 3 Jul 2020 20:02:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46668 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725984AbgGCLoz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 3 Jul 2020 07:44:55 -0400
-Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 54130C08C5C1
-        for <linux-man@vger.kernel.org>; Fri,  3 Jul 2020 04:44:55 -0700 (PDT)
-Received: by mail-ed1-x544.google.com with SMTP id a8so26230048edy.1
-        for <linux-man@vger.kernel.org>; Fri, 03 Jul 2020 04:44:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=FV4puqrLvvh7vWvJSadUEPvduW3MaEKPGhjCIKQUB5A=;
-        b=lmI3jSvWhyxonl1rEvjmmNK++MXP6qJNg3H625sY83L6pBXPhjZjDC1/ngO5bJdaur
-         SCBf2LiXpAFOknGLrLY4YDspblOdzLh539KGx6UIizRIfUxyLuoe1scIpQpqD61ZTv8i
-         /yMZahTE09JdzDM6D9tao9r+PC7obIMEx2RJmFxuV2PyrG58rvkbbjsWfmsc7nXl5RtM
-         Hvkk54Oz2HhXy9TAg4djlaALxXcsDLxKGbJSfT/p4pc/rqMSzRrfn2akJ7rzeqDdYmMI
-         lj8ODkXTl98a/pT6oPILTYCCY8Oz6WhbcJgTQUiJGijT8FUWti3DCcDQWRxTmiXUyJOu
-         dGEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=FV4puqrLvvh7vWvJSadUEPvduW3MaEKPGhjCIKQUB5A=;
-        b=Y012hAQEgRJoaEcmZKHBqhaCreCuJlm6FYkd1nVyWnrvYrQSxjjBqV6+WqYCbRT70u
-         WGq/Bcx7uWK5/otBAereAa0azFE44UW8yO3QTda6Fo383zZhoyXP3MuZPvHFavlako1k
-         e/9yNBEmCLE9WhkxwK95ENS29f8eEP/eNTmae2ZIShOHhgeOtLfJ0iz1I3VKHma6xsJu
-         Ttxwj+Ew/smDrsP3jHMLi1wMGzGT5FQBy0nr7wBYCCNBC7Q/JbSOlEpeUAn1FQzV0UVR
-         wL2Qu+1+UacoC35Cs02b7CAziJ/j4+hJXq0PeynlBeR8MDSp9LDuhjWLfFygbBJik+S1
-         1V1Q==
-X-Gm-Message-State: AOAM531HNJCOLGUVpljgj3RwfXzJtnowtiawo//uRyBaFAOnwmxkT7x4
-        0Vkj28cIijVtlpW8Tgw2ndbtlYei
-X-Google-Smtp-Source: ABdhPJw/Ns+L8z0y/4jtOfUOi1eEvP6QLUh6miGDFnolHGznkkfCWve+ADZrq9q4+pPfiR/DfBpZHA==
-X-Received: by 2002:a50:b084:: with SMTP id j4mr40449855edd.131.1593776693967;
-        Fri, 03 Jul 2020 04:44:53 -0700 (PDT)
-Received: from ?IPv6:2001:a61:253c:8201:b2fb:3ef8:ca:1604? ([2001:a61:253c:8201:b2fb:3ef8:ca:1604])
-        by smtp.gmail.com with ESMTPSA id t2sm12558550eds.60.2020.07.03.04.44.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Jul 2020 04:44:53 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] send.2, recv.2: add msg_iovlen POSIX note
-To:     Alyssa Ross <hi@alyssa.is>
-References: <20200703012540.19730-1-hi@alyssa.is>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <03214748-5ff4-6edc-e119-afd8f6669948@gmail.com>
-Date:   Fri, 3 Jul 2020 13:44:53 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+        with ESMTP id S1726188AbgGDACS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 3 Jul 2020 20:02:18 -0400
+Received: from inpost.hi.is (inpost.hi.is [IPv6:2a00:c88:4000:1650::165:62])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2165FC061794
+        for <linux-man@vger.kernel.org>; Fri,  3 Jul 2020 17:02:17 -0700 (PDT)
+Received: from hekla.rhi.hi.is (hekla.rhi.hi.is [IPv6:2a00:c88:4000:1650::165:2])
+        by inpost.hi.is (8.14.7/8.14.7) with ESMTP id 06402C8i001810
+        (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+        Sat, 4 Jul 2020 00:02:12 GMT
+DKIM-Filter: OpenDKIM Filter v2.11.0 inpost.hi.is 06402C8i001810
+Received: from hekla.rhi.hi.is (localhost [127.0.0.1])
+        by hekla.rhi.hi.is (8.14.4/8.14.4) with ESMTP id 06402CSO001814;
+        Sat, 4 Jul 2020 00:02:12 GMT
+Received: (from bjarniig@localhost)
+        by hekla.rhi.hi.is (8.14.4/8.14.4/Submit) id 06402Bc4001813;
+        Sat, 4 Jul 2020 00:02:11 GMT
+Date:   Sat, 4 Jul 2020 00:02:11 +0000
+From:   Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH] man3/*: ffix, change '-' to '\-' for options
+Message-ID: <20200704000211.GA1330@rhi.hi.is>
+References: <20200701225059.GA26940@rhi.hi.is>
+ <47d84128-6235-c1c0-b54e-cf1e87836297@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20200703012540.19730-1-hi@alyssa.is>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <47d84128-6235-c1c0-b54e-cf1e87836297@gmail.com>
+User-Agent: Mutt/1.5.20 (2009-12-10)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Alyssa,
-
-On 7/3/20 3:25 AM, Alyssa Ross wrote:
-> msg_iovlen is incorrectly typed (according to POSIX) in addition to
-> msg_controllen, but unlike msg_controllen, this wasn't mentioned for
-> msg_iovlen.
+On Thu, Jul 02, 2020 at 12:27:25PM +0200, Michael Kerrisk (man-pages) wrote:
+> Hello Bjarni,
 > 
-> msg_iovlen being incorrectly typed hasn't been reported as a GCC bug,
-> but there's no point since it is caused by the same underlying issue.
+> On 7/2/20 12:50 AM, Bjarni Ingi Gislason wrote:
+> >   Change '-' to '\-' for the prefix of names to indicate an option.
+> > 
+> > Signed-off-by: Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
 > 
-> Sources: POSIX.1-2017 (<sys/socket.h>), Linux (include/linux/socket.h)
+> Patch applied, but:
 > 
-> Signed-off-by: Alyssa Ross <hi@alyssa.is>
-
-Thanks. Patch applied.
-
-Cheers,
-
-Michael
-
-> ---
->  man2/recv.2 | 13 +++++++++----
->  man2/send.2 | 13 +++++++++----
->  2 files changed, 18 insertions(+), 8 deletions(-)
+> > ---
+> >  man3/dlopen.3             | 2 +-
+> >  man3/fts.3                | 2 +-
+> >  man3/getsubopt.3          | 2 +-
+> >  man3/insque.3             | 2 +-
+> >  man3/mq_getattr.3         | 2 +-
+> >  man3/posix_spawn.3        | 8 ++++----
+> >  man3/pthread_setname_np.3 | 2 +-
+> >  man3/sincos.3             | 2 +-
+> >  man3/strfromd.3           | 6 +++---
 > 
-> diff --git a/man2/recv.2 b/man2/recv.2
-> index 78ae86e52..7c4b70c7a 100644
-> --- a/man2/recv.2
-> +++ b/man2/recv.2
-> @@ -533,13 +533,18 @@ field of the
->  .I msghdr
->  structure should be typed as
->  .IR socklen_t ,
-> -but glibc currently types it as
-> +and the
-> +.I msg_iovlen
-> +field should be typed as
-> +.IR int ,
-> +but glibc currently types both as
->  .IR size_t .
-> -.\" glibc bug raised 12 Mar 2006
-> +.\" glibc bug for msg_controllen raised 12 Mar 2006
->  .\" http://sourceware.org/bugzilla/show_bug.cgi?id=2448
->  .\" The problem is an underlying kernel issue: the size of the
-> -.\" __kernel_size_t type used to type this field varies
-> -.\" across architectures, but socklen_t is always 32 bits.
-> +.\" __kernel_size_t type used to type these fields varies
-> +.\" across architectures, but socklen_t is always 32 bits,
-> +.\" as (at least with GCC) is int.
->  .PP
->  See
->  .BR recvmmsg (2)
-> diff --git a/man2/send.2 b/man2/send.2
-> index 0dd35d783..de224b307 100644
-> --- a/man2/send.2
-> +++ b/man2/send.2
-> @@ -441,13 +441,18 @@ field of the
->  .I msghdr
->  structure should be typed as
->  .IR socklen_t ,
-> -but glibc currently types it as
-> +and the
-> +.I msg_iovlen
-> +field should be typed as
-> +.IR int ,
-> +but glibc currently types both as
->  .IR size_t .
-> -.\" glibc bug raised 12 Mar 2006
-> +.\" glibc bug for msg_controllen raised 12 Mar 2006
->  .\" http://sourceware.org/bugzilla/show_bug.cgi?id=2448
->  .\" The problem is an underlying kernel issue: the size of the
-> -.\" __kernel_size_t type used to type this field varies
-> -.\" across architectures, but socklen_t is always 32 bits.
-> +.\" __kernel_size_t type used to type these fields varies
-> +.\" across architectures, but socklen_t is always 32 bits,
-> +.\" as (at least with GCC) is int.
->  .PP
->  See
->  .BR sendmmsg (2)
+> The above piece was broken, so I applied manually. Was your patch 
+> against master?
 > 
+  I always use my own copy of the repository where I apply my new
+patches to.
 
+  The difference is the non-applied patches to master, that change a
+two-fonts macro to a single-font macro for a single argument.
+
+  In this case in the man3/strfromd.3, ".B f" (master has ".BR f").
+
+  So my "git pull" sometimes causes a merge conflict, which is easy for
+me to correct.
 
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Bjarni I. Gislason
