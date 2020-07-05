@@ -2,93 +2,99 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CB01C214E00
-	for <lists+linux-man@lfdr.de>; Sun,  5 Jul 2020 18:37:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 36511214EEF
+	for <lists+linux-man@lfdr.de>; Sun,  5 Jul 2020 21:39:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726996AbgGEQhv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 5 Jul 2020 12:37:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52566 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726956AbgGEQhu (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Jul 2020 12:37:50 -0400
-Received: from inpost.hi.is (inpost.hi.is [IPv6:2a00:c88:4000:1650::165:62])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6A9B0C061794
-        for <linux-man@vger.kernel.org>; Sun,  5 Jul 2020 09:37:50 -0700 (PDT)
-Received: from hekla.rhi.hi.is (hekla.rhi.hi.is [IPv6:2a00:c88:4000:1650::165:2])
-        by inpost.hi.is (8.14.7/8.14.7) with ESMTP id 065GblmD022497
-        (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-        Sun, 5 Jul 2020 16:37:47 GMT
-DKIM-Filter: OpenDKIM Filter v2.11.0 inpost.hi.is 065GblmD022497
-Received: from hekla.rhi.hi.is (localhost [127.0.0.1])
-        by hekla.rhi.hi.is (8.14.4/8.14.4) with ESMTP id 065GblOa018505;
-        Sun, 5 Jul 2020 16:37:47 GMT
-Received: (from bjarniig@localhost)
-        by hekla.rhi.hi.is (8.14.4/8.14.4/Submit) id 065Gbl4i018504;
-        Sun, 5 Jul 2020 16:37:47 GMT
-Date:   Sun, 5 Jul 2020 16:37:47 +0000
-From:   Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
-To:     mtk.manpages@gmail.com
+        id S1727916AbgGETjj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 5 Jul 2020 15:39:39 -0400
+Received: from luckmann.name ([213.239.213.133]:48687 "EHLO
+        static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1727892AbgGETjj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Jul 2020 15:39:39 -0400
+X-Greylist: delayed 301 seconds by postgrey-1.27 at vger.kernel.org; Sun, 05 Jul 2020 15:39:38 EDT
+Received: from localhost (localhost [127.0.0.1])
+  (uid 502)
+  by static.213-239-213-133.clients.your-server.de with local
+  id 0000000000E580FE.000000005F022B4C.000061DB; Sun, 05 Jul 2020 21:34:36 +0200
+Date:   Sun, 5 Jul 2020 21:34:36 +0200
+From:   Helge Kreutzmann <debian@helgefjell.de>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] man[13]/*: ffix: change '--' to '\-\-' (options) or '\(em'
- (em-dash)
-Message-ID: <20200705163747.GA18495@rhi.hi.is>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Subject: Re: Errors in man pages, here: dsp56k(4): Formatting
+Message-ID: <20200705193436.GB24600@Debian-50-lenny-64-minimal>
+References: <20200419064754.GA30260@Debian-50-lenny-64-minimal>
+ <fd828f05-acd5-c848-431b-5e12f4587da3@gmail.com>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-25051-1593977676-0001-2"
 Content-Disposition: inline
-User-Agent: Mutt/1.5.20 (2009-12-10)
+In-Reply-To: <fd828f05-acd5-c848-431b-5e12f4587da3@gmail.com>
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-  Change '--' to '\-\-' for options and '--' between words to '\(em'
-(em-dash).
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
 
-Signed-off-by: Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
----
- man1/memusagestat.1 | 2 +-
- man3/dlsym.3        | 2 +-
- man3/posix_spawn.3  | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+--=_luckmann.name-25051-1593977676-0001-2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/man1/memusagestat.1 b/man1/memusagestat.1
-index a1c40cd86..809f4ba3e 100644
---- a/man1/memusagestat.1
-+++ b/man1/memusagestat.1
-@@ -33,7 +33,7 @@ memory profiling data in the file
- that file is generated via the
- .I \-d
- (or
--.IR --data )
-+.IR \-\-data )
- option of
- .BR memusage (1).
- .PP
-diff --git a/man3/dlsym.3 b/man3/dlsym.3
-index 2abb0b1d0..58519b5d8 100644
---- a/man3/dlsym.3
-+++ b/man3/dlsym.3
-@@ -145,7 +145,7 @@ function is a GNU extension.
- There are several scenarios when the address of a global symbol is NULL.
- For example, a symbol can be placed at zero address by the linker, via
- a linker script or with
--.I --defsym
-+.I \-\-defsym
- command-line option. Undefined weak symbols also have NULL value.
- Finally, the symbol value may be the result of
- a GNU indirect function (IFUNC) resolver function that returns
-diff --git a/man3/posix_spawn.3 b/man3/posix_spawn.3
-index f425a39e3..cb7faabcc 100644
---- a/man3/posix_spawn.3
-+++ b/man3/posix_spawn.3
-@@ -429,7 +429,7 @@ If
- .I file_actions
- is NULL, then no special action is taken, and standard
- .BR exec (3)
--semantics apply--file descriptors open before the exec
-+semantics apply\(emfile descriptors open before the exec
- remain open in the new process,
- except those for which the
- .B FD_CLOEXEC
--- 
-2.27.0
+Hello Michael,
+On Mon, Apr 20, 2020 at 08:35:47AM +0200, Michael Kerrisk (man-pages) wrote:
+> On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
+> > The formatting is inconsistent and incomplete:
+> >=20
+> > a) Formatting bold?
+> >=20
+> > msgid "#include E<lt>asm/dsp56k.hE<gt>\n"
+> >=20
+> >=20
+> > b) In this string the formatting for dspk56k seems missing:
+> > "The dsp56k device is a character device with major number 55 and minor=
+ "
+> > "number 0."
+> >=20
+> >=20
+> > c) No formatting, italic?
+> > msgid "/dev/dsp56k"
+>=20
+> Fixed.
+
+Are these changes in version 5.07? We imported them some time ago but
+all three are still present.
+
+Thanks!
+
+--=20
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
+
+--=_luckmann.name-25051-1593977676-0001-2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl8CK0sACgkQQbqlJmgq
+5nAxqxAAlg4HsSQCuDuo8pRtCnpQDYFSDNNnAPJr3tetB0ANzU5DiwVMV8mcUQIn
+/ush7D6Ub2jn48U0sREb83QuFptGMYrTbCRWJxG6jjwJu6ZhzbRjxSwdm9hcQUrb
+oJmMZjNRbRPkLXLH/YQAHcNOlhTekAQKXXfQYkxINt6yIOJhmaCYBX8L36pEx3Mc
+5dV9nOxubtlNLX6mpK9Qhrjy/WETpXe0A96apV+ePxPO6Eikjk5CA7aWpVWQ2CTy
+H0ZTtyl4qapyH/3pLawunCDI4+2g6lv5tDWNiWlnaEzfnQw/JUG0b4kKQhyMfRY6
+Ofgrlqqev2EUD+KRkVHN7tSV9820rCiw2yG6x1xIpftgmI22iNStnh2chq+Cqmz7
+mAuUiUa03UKpXuqimf+C1x1CLv5Ilc6n9NdG8oyXYt6y2ndHMmschpCbVZHUp5pC
+SebWx1+x7YoEQuF6z5pxecrv0Wknf7HMqtYHj8KvtIQWaV5PLreWcvr/azxvFEVV
+n+5KIuiXmewkJQrBuR8ZdNyN/w+0NN3w8O2hpzJj3CsKJd4oVuMLeFJgm/pT56Xf
+lahnqw1pMMOp4OGwPKq1L0+fD77oK9InkDTKVXdNuMPMe5aIiGiD0MmBBhjfN1a9
+uvW8PVKl+shqCAevCSiGoC8udJ4ZPNenp+0yeBOAXJ3PEUnhtUU=
+=Y2vj
+-----END PGP SIGNATURE-----
+
+--=_luckmann.name-25051-1593977676-0001-2--
