@@ -2,32 +2,31 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 36511214EEF
-	for <lists+linux-man@lfdr.de>; Sun,  5 Jul 2020 21:39:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6D999214EFE
+	for <lists+linux-man@lfdr.de>; Sun,  5 Jul 2020 21:50:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727916AbgGETjj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 5 Jul 2020 15:39:39 -0400
-Received: from luckmann.name ([213.239.213.133]:48687 "EHLO
+        id S1728020AbgGETu1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 5 Jul 2020 15:50:27 -0400
+Received: from luckmann.name ([213.239.213.133]:49309 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1727892AbgGETjj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Jul 2020 15:39:39 -0400
-X-Greylist: delayed 301 seconds by postgrey-1.27 at vger.kernel.org; Sun, 05 Jul 2020 15:39:38 EDT
+        by vger.kernel.org with ESMTP id S1728006AbgGETu1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Jul 2020 15:50:27 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E580FE.000000005F022B4C.000061DB; Sun, 05 Jul 2020 21:34:36 +0200
-Date:   Sun, 5 Jul 2020 21:34:36 +0200
+  id 0000000000E58014.000000005F022F01.0000644E; Sun, 05 Jul 2020 21:50:25 +0200
+Date:   Sun, 5 Jul 2020 21:50:25 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: dsp56k(4): Formatting
-Message-ID: <20200705193436.GB24600@Debian-50-lenny-64-minimal>
-References: <20200419064754.GA30260@Debian-50-lenny-64-minimal>
- <fd828f05-acd5-c848-431b-5e12f4587da3@gmail.com>
+Subject: Re: Errors in man pages, here: initrd(4): Markup
+Message-ID: <20200705195024.GC24600@Debian-50-lenny-64-minimal>
+References: <20200419064805.GA30886@Debian-50-lenny-64-minimal>
+ <e7c88c22-f8b4-80f1-a1bc-fa0179ea8290@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-25051-1593977676-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-25678-1593978625-0001-2"
 Content-Disposition: inline
-In-Reply-To: <fd828f05-acd5-c848-431b-5e12f4587da3@gmail.com>
+In-Reply-To: <e7c88c22-f8b4-80f1-a1bc-fa0179ea8290@gmail.com>
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -39,36 +38,75 @@ X-Mailing-List: linux-man@vger.kernel.org
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-25051-1593977676-0001-2
+--=_luckmann.name-25678-1593978625-0001-2
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hello Michael,
-On Mon, Apr 20, 2020 at 08:35:47AM +0200, Michael Kerrisk (man-pages) wrote:
-> On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
-> > The formatting is inconsistent and incomplete:
+On Mon, Apr 20, 2020 at 10:18:41AM +0200, Michael Kerrisk (man-pages) wrote:
+> I need more explanation of all of the remaining:
+
+Sorry, missed this one.
+
+> > --
+> > Markup "linuxrc"
 > >=20
-> > a) Formatting bold?
-> >=20
-> > msgid "#include E<lt>asm/dsp56k.hE<gt>\n"
-> >=20
-> >=20
-> > b) In this string the formatting for dspk56k seems missing:
-> > "The dsp56k device is a character device with major number 55 and minor=
+> > "It is also possible for the I</linuxrc> executable to change the norma=
+l root "
+> > "device.  For I</linuxrc> to change the normal root device, I</proc> mu=
+st be "
+> > "mounted.  After mounting I</proc>, I</linuxrc> changes the normal root=
  "
-> > "number 0."
+> > "device by writing into the proc files I</proc/sys/kernel/real-root-dev=
+>, I</"
+> > "proc/sys/kernel/nfs-root-name>, and I</proc/sys/kernel/nfs-root-addrs>=
+=2E  For "
+> > "a physical root device, the root device is changed by having I</linuxr=
+c> "
+> > "write the new root filesystem device number into I</proc/sys/kernel/re=
+al-"
+> > "root-dev>.  For an NFS root filesystem, the root device is changed by =
+having "
+> > "I</linuxrc> write the NFS setting into files I</proc/sys/kernel/nfs-ro=
+ot-"
+> > "name> and I</proc/sys/kernel/nfs-root-addrs> and then writing 0xff (e.=
+g., "
+> > "the pseudo-NFS-device number) into file I</proc/sys/kernel/real-root-d=
+ev>.  "
+> > "For example, the following shell command line would change the normal =
+root "
+> > "device to I</dev/hdb1>:"
+> > --
+> > Markup "linuxrc"
 > >=20
+> > "The main motivation for implementing B<initrd> was to allow for modula=
+r "
+> > "kernel configuration at system installation."
+> > --
+> > Markup "linuxrc"
 > >=20
-> > c) No formatting, italic?
-> > msgid "/dev/dsp56k"
->=20
-> Fixed.
+> > "The executable I</linuxrc> loads the necessary modules from the initia=
+l root "
+> > "filesystem."
+> > --
+> > Markup "initrd"
+> >=20
+> > "Last but not least, Linux distributions on CD-ROM may use B<initrd> fo=
+r easy "
+> > "installation from the CD-ROM.  The distribution can use B<LOADLIN> to "
+> > "directly load I</dev/initrd> from CD-ROM without the need of any flopp=
+ies.  "
+> > "The distribution could also use a B<LILO> boot floppy and then bootstr=
+ap a "
+> > "bigger RAM disk via I</dev/initrd> from the CD-ROM."
 
-Are these changes in version 5.07? We imported them some time ago but
-all three are still present.
+I cannot reproduce what the translator wanted to point out here.
+Sorry. Please close.
 
-Thanks!
+Greetings
+
+         Helge
 
 --=20
       Dr. Helge Kreutzmann                     debian@helgefjell.de
@@ -76,25 +114,25 @@ Thanks!
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_luckmann.name-25051-1593977676-0001-2
+--=_luckmann.name-25678-1593978625-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl8CK0sACgkQQbqlJmgq
-5nAxqxAAlg4HsSQCuDuo8pRtCnpQDYFSDNNnAPJr3tetB0ANzU5DiwVMV8mcUQIn
-/ush7D6Ub2jn48U0sREb83QuFptGMYrTbCRWJxG6jjwJu6ZhzbRjxSwdm9hcQUrb
-oJmMZjNRbRPkLXLH/YQAHcNOlhTekAQKXXfQYkxINt6yIOJhmaCYBX8L36pEx3Mc
-5dV9nOxubtlNLX6mpK9Qhrjy/WETpXe0A96apV+ePxPO6Eikjk5CA7aWpVWQ2CTy
-H0ZTtyl4qapyH/3pLawunCDI4+2g6lv5tDWNiWlnaEzfnQw/JUG0b4kKQhyMfRY6
-Ofgrlqqev2EUD+KRkVHN7tSV9820rCiw2yG6x1xIpftgmI22iNStnh2chq+Cqmz7
-mAuUiUa03UKpXuqimf+C1x1CLv5Ilc6n9NdG8oyXYt6y2ndHMmschpCbVZHUp5pC
-SebWx1+x7YoEQuF6z5pxecrv0Wknf7HMqtYHj8KvtIQWaV5PLreWcvr/azxvFEVV
-n+5KIuiXmewkJQrBuR8ZdNyN/w+0NN3w8O2hpzJj3CsKJd4oVuMLeFJgm/pT56Xf
-lahnqw1pMMOp4OGwPKq1L0+fD77oK9InkDTKVXdNuMPMe5aIiGiD0MmBBhjfN1a9
-uvW8PVKl+shqCAevCSiGoC8udJ4ZPNenp+0yeBOAXJ3PEUnhtUU=
-=Y2vj
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl8CLv4ACgkQQbqlJmgq
+5nBkahAAkOhwCO+E0YoklrXq7MahCvky8FITOT6JDOtHwn4vwFGEwYCjMkT4PTuG
+iEum1SvkpKfC+YgI+Z3RIv6nk3jzdIi4wbe/QMOFg13OFnG4KmDadb1w97g9FGs0
+lWFvJC7uR+eCnYXd/htzkc7ayQjh6sMyWQTbcpXRXHejaYIJxFF4ZRJgCAAjf3O3
+/Bpp0tUBzAG3hvK+U0HsNq634Burapl/0AUYIpICp96KGdnkzHjcO/6mXPd4khBg
+i6BLm5CWp6Bz/KdXIvJxLQzqgSWb9TjsSLfOUgjB/NzVCWya0VMxYw2l328DNa/m
+qPAXzSt1915xJgWfDGJuAYnL7d8caAAZL+k1YeSHdechXa/yLf47MG2tVoBTuRLA
++76set8d2hRReAjqC/757HTroLFbZ34+iKcBafqd9djBJc8CFaLs5edWBykDmupz
+Ux6/ZrZJLvZ9Z1RwdbKFZYh5M1U4hFK3wkuRgO6vZ89ygq6DJJgfYj9LqLIDmcjR
+OzXZgE+je0N5nbdCxCujIi2el56S/fRfhC8qSKoY6y/cbZignHezf++6dWxFaGDB
+Ru9aGdcDApyur6AeDeXzDfwf1nvwutt3VZ3q1w4QQR2O/+2uDAp8YIQ/KNczx1Ei
+vd1o1uwWp0tq5ORtzcWxZB0AyZS1ox1o1mXAFno5tkmGif9TZJg=
+=TOze
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-25051-1593977676-0001-2--
+--=_luckmann.name-25678-1593978625-0001-2--
