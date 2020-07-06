@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C7A6C2155BC
-	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:41:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 470FA2155BD
+	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:43:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728422AbgGFKl5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Jul 2020 06:41:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48702 "EHLO
+        id S1728448AbgGFKnD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Jul 2020 06:43:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48874 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728414AbgGFKl4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:41:56 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 66F2EC061794
-        for <linux-man@vger.kernel.org>; Mon,  6 Jul 2020 03:41:56 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id z15so28982058wrl.8
-        for <linux-man@vger.kernel.org>; Mon, 06 Jul 2020 03:41:56 -0700 (PDT)
+        with ESMTP id S1728414AbgGFKnD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:43:03 -0400
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 44DA8C061794
+        for <linux-man@vger.kernel.org>; Mon,  6 Jul 2020 03:43:03 -0700 (PDT)
+Received: by mail-wm1-x342.google.com with SMTP id f18so41385527wml.3
+        for <linux-man@vger.kernel.org>; Mon, 06 Jul 2020 03:43:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ndqbO5D09tSW+CP18c10QosrZgdZusi0AHf21Y/aedM=;
-        b=PTb3pxwXTsTsCYPq97RM/7Jfnc7Wc25XXeJ8NPQTpN3S5ES9c7QnSriY6i7b9zPNNg
-         Wtnx2f/Rjj+4RDUNO/wr3Xbeul2X0hZoanljypMMZIJzwfJ79lfX6R7IiJsaIBLTt2It
-         qkx/6E8jaHWgN03wZNlcr54BBtBYI5JxmC1qSDJyyLT2VGRBLYJfZBn+XO6ajo9hq5cK
-         HKBUMJLiMb7foeoykRkAwPmqbqNhoKq6V30bNfBChJFRyTL8p9huZWfzl75Lprkzbjnl
-         Oco+kQ6DqOlxg5NG0inYAIDPRA/odBaWg69Pm+YcOOPAsQB3s3j+CP6j3xElqvgVQiX5
-         xhWw==
+        bh=DEDALXAFq0+IHM9mG+Lo4Q6WaCGnFVc2XZJaW4AO7Z0=;
+        b=IJEK5nlobipE+yuXHMxjIQ1v7q3JJp+FLBEaUHO37XB4tljOL+zZNMhgO0q5JuK1/j
+         rDT3citOLAQID5KdcGTy0IrDpiMOMbLX/kwqWBlnfVyaCZFfaLUXcNmBxUTZ62DQH8rB
+         MBqajMlw4UxmDSfyQOKanSKkGuqAv5CFCe4z48qaL/f/alXY/Thvogdup5m9oGArdVrK
+         84XRCEU00pfod29mvsKa5qjiy8FVVRPiau4jLgLHHZb/M3DgyURithL/47V8jlo0yGxf
+         1QTKgvlxnJHm9ktRVVbzSbXcltywgbf6qrw2uo7sSWzxbfDgKTs4+HiaeRPJsKNGNSyL
+         GNmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=ndqbO5D09tSW+CP18c10QosrZgdZusi0AHf21Y/aedM=;
-        b=udh7b7maejng9flaUgRTJFpCVl1S/GcIFpiqGEGhOMhWY9tY5LYtMCDcLAqnYEdRsK
-         4us9uht44kVqk4Th0RbhnxRfDc6LioqZLO6PZVm00ezrn0CvD6ZWV/FuQQAGnEVnYWXW
-         tf7vasfTk5osMn+XRJSBk3ms3ZmNhDCFnS5iC5fqF6Cjd50iM6hSexhzoys+JTdYOQCc
-         9W9StizzHSWr12wOVkL9sLOFwPpOhMs49mlT7GdUXEaLZx2kph4Kw0rSNGrl9jborOTL
-         vqJIXwsES1gdg/DS5NSEgG2uiX4lfegKTtjMkqbpW+UUsYbCPhVyJecEG8UyZGUF9EoD
-         QEhg==
-X-Gm-Message-State: AOAM5303MlXDvfftnJ/eDLafsRkRhfqITRgyoJ/dU7k3QI+Q4d1vqGkX
-        mH3iMtF6usTl5ZWAG0+45tb+SrSK
-X-Google-Smtp-Source: ABdhPJw+kVSwVfQxVIMCmZJPjDLssQmOLT14dKluzKU+RUDM4w4+M5btlrMSEozwGWXgachNhLq03Q==
-X-Received: by 2002:adf:f751:: with SMTP id z17mr50242729wrp.114.1594032114908;
-        Mon, 06 Jul 2020 03:41:54 -0700 (PDT)
+        bh=DEDALXAFq0+IHM9mG+Lo4Q6WaCGnFVc2XZJaW4AO7Z0=;
+        b=NgCk5J8iINxyRqO2RwGpt5rR2H7Pik9SkOqZ7SRyKNi+58bvHhpjo8zb3z5lJDCkEW
+         BmiYUgmQZZvvq5zsFXY/rbAoaWqBumoYCeMS+EC5i+3pmUTRXhAh59tRoktAX4UHCx83
+         i3r4Xpy7KaMB+fRhwWiFCf7q3dHqlIvqDMuvSUnnUmnYNt4FaimR911grI9L6/K2nY3q
+         XUxvSX4osduUVnfH92DlwmK+V+34zZZJrf8KhHA/fi95BzVGPfZl8t0kfHwayt3+kMCN
+         fU/1tzoFwvZLJh8Nj5VHt6tDshm7HytaydKqaWXCQzheSr+H/IzDqqPApMKB/MBPtPPE
+         I49g==
+X-Gm-Message-State: AOAM531FVjd10CtYoVFgDEhkEE8kYMKOpNRCDsPGCQBDi42i0lPNR3bE
+        jxuBbKw7jtVGdcbCMNhY6sFk8HUX
+X-Google-Smtp-Source: ABdhPJzmWVgRD/GzKQpMpkJid1P/hKsIRLm62bvBjogkKcSZDf3grFR8NKWwox2W2kw4eKuHEhfXPw==
+X-Received: by 2002:a1c:bcd4:: with SMTP id m203mr48214659wmf.124.1594032181741;
+        Mon, 06 Jul 2020 03:43:01 -0700 (PDT)
 Received: from ?IPv6:2001:a61:3adb:8201:9649:88f:51f8:6a21? ([2001:a61:3adb:8201:9649:88f:51f8:6a21])
-        by smtp.gmail.com with ESMTPSA id s15sm23445179wmj.41.2020.07.06.03.41.53
+        by smtp.gmail.com with ESMTPSA id u10sm22845881wml.29.2020.07.06.03.43.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Jul 2020 03:41:54 -0700 (PDT)
+        Mon, 06 Jul 2020 03:43:01 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, herer: mmap.2, spelling
+Subject: Re: Errors in man pages, here: open.2, typo
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200706101431.GA26642@Debian-50-lenny-64-minimal>
+References: <20200706101453.GA26677@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <10d5d2e7-a89a-fc01-c0d5-d0e976f209c8@gmail.com>
-Date:   Mon, 6 Jul 2020 12:41:53 +0200
+Message-ID: <16ea655d-a933-f17d-6c7f-be3945ee72d3@gmail.com>
+Date:   Mon, 6 Jul 2020 12:43:00 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200706101431.GA26642@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200706101453.GA26677@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -104,24 +104,20 @@ On 7/6/20 12:14 PM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Man page: mmap.2
-
-I think you meant: mremap.2...
-
-> Issue: Randolf → Randolph
+> Man page: open.2
+> Issue: same was → same ways
 > 
-> "Your favorite text book on operating systems for more information on paged "
-> "memory (e.g., I<Modern Operating Systems> by Andrew S.\\& Tanenbaum, "
-> "I<Inside Linux> by Randolf Bentson, I<The Design of the UNIX Operating "
-> "System> by Maurice J.\\& Bach)"
+> "When these APIs are given a I<dirfd> argument of B<AT_FDCWD> or the "
+> "specified pathname is absolute, then they handle their pathname argument in "
+> "the same was as the corresponding conventional APIs.  However, in this case, "
+> "several of the APIs have a I<flags> argument that provides access to "
+> "functionality that is not available with the corresponding conventional APIs."
 
+Thanks. Fixed: ==> "same way".
 
-Nice catch! Fixed.
-
-Thanks,
+Cheers,
 
 Michael
-
 
 
 -- 
