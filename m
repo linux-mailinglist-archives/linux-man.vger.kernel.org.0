@@ -2,108 +2,94 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CB4112156B5
-	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 13:51:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 886ED215944
+	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 16:20:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728941AbgGFLv7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Jul 2020 07:51:59 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59556 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728414AbgGFLv6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 07:51:58 -0400
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6080BC061794
-        for <linux-man@vger.kernel.org>; Mon,  6 Jul 2020 04:51:58 -0700 (PDT)
-Received: by mail-wm1-x341.google.com with SMTP id q15so38932197wmj.2
-        for <linux-man@vger.kernel.org>; Mon, 06 Jul 2020 04:51:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=eYgrILVvpoG4eoal8geAwUOlsDgty2lEy8SLW+xC+Fw=;
-        b=KV/4POUlNoGu21RRC3CkJJ6+UoQejxnZYiUlT6K2pThCeMwuh93kFkE82vMtfZ5p0c
-         yejB+h2D+3FweENEOYF/2iSo1ky8Ajw1ffscEcXzsAcIzwZuTj4M/l46iK4yFiE8oIoB
-         DdYIPcqRlqswUhW+YOXBXBQudAgJb4IgyXQNFUu9jMZzv3W3ESZPs86mpyXbmOtMNRT5
-         pOv4+p590MkwnZRhDiGA5WPcQ/v5UYc/UxZJKX0EbaXr4G/cM/0Jt0pxBhjCi7wGubR8
-         pc7p8+464gzGV5iTle8/6vVOrdisBUSn2l8GyU7wuW1r1tSwKNCsJBxMghtD3CtEWO1Z
-         Gmaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=eYgrILVvpoG4eoal8geAwUOlsDgty2lEy8SLW+xC+Fw=;
-        b=bi2NZsrwyIVef756AJKfbbB5CjYJImvLAaxWTfbsRSceAVMLCRq9nP2fxsyMjEDVRr
-         azjdVFlG3PJH57Jg6xnT/Y6CQl5EmZ1mLaXdV3EVdKlOoAinkZThvM1XDMZa7KVo7+Jg
-         DUfnZ46JWRwksg44pZrLb4YyadQK5SCjidx+DNB6VwKGkYnOWkLC8BVroL+BmCi+BNPc
-         QiQrT1qdt1lkrE2tA0iVqJ4t60IE4mRuvMF75Dy1Ce/piCU8tVx03ZQVMI5L+11H5Uze
-         FdhDFw9GUyY9UotL3oSxEdqDlrJxbJbegHzZQzqrHAiQOhHaHiNexC2HnCaS+qHnvMIC
-         c9Lw==
-X-Gm-Message-State: AOAM533zX5e4KrVYwEGRGOtxDkJG9G9iIgSYP3dzTkEgYoiMmVBR7amT
-        D2x1/wZ7C/Oyx/bcnP5YWe1n3ENA
-X-Google-Smtp-Source: ABdhPJx+RYJnAnIzgVGJW0xm47pLMPIL9eCdQp7/ipykkClWOqpxTxA0Qj702qL+LYrQuIGeVWYaow==
-X-Received: by 2002:a7b:c18f:: with SMTP id y15mr49909960wmi.85.1594036313790;
-        Mon, 06 Jul 2020 04:51:53 -0700 (PDT)
-Received: from ?IPv6:2001:a61:3adb:8201:9649:88f:51f8:6a21? ([2001:a61:3adb:8201:9649:88f:51f8:6a21])
-        by smtp.gmail.com with ESMTPSA id k185sm23183680wmk.47.2020.07.06.04.51.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Jul 2020 04:51:52 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] man3/*: srcfix: remove superfluous quotes around
- space-free arguments
-To:     Jakub Wilk <jwilk@jwilk.net>,
-        Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
-References: <20200705134014.GA10659@rhi.hi.is>
- <20200706043133.pznhl57cs5revfun@jwilk.net>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <2492abac-ac1d-e017-f0dc-29468233fc1d@gmail.com>
-Date:   Mon, 6 Jul 2020 13:51:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-MIME-Version: 1.0
-In-Reply-To: <20200706043133.pznhl57cs5revfun@jwilk.net>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+        id S1729190AbgGFOUh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Jul 2020 10:20:37 -0400
+Received: from luckmann.name ([213.239.213.133]:51523 "EHLO
+        static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1728961AbgGFOUh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 10:20:37 -0400
+Received: from localhost (localhost [127.0.0.1])
+  (uid 502)
+  by static.213-239-213-133.clients.your-server.de with local
+  id 0000000000E58044.000000005F033333.0000133A; Mon, 06 Jul 2020 16:20:35 +0200
+Date:   Mon, 6 Jul 2020 16:20:35 +0200
+From:   Helge Kreutzmann <debian@helgefjell.de>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: Re: Errors in man pages, here: shmop.2: singular/plural
+Message-ID: <20200706142035.GB4418@Debian-50-lenny-64-minimal>
+References: <20200706101634.GA26824@Debian-50-lenny-64-minimal>
+ <039c4923-5470-2607-1b1c-a7e818e0df9b@gmail.com>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-4922-1594045235-0001-2"
+Content-Disposition: inline
+In-Reply-To: <039c4923-5470-2607-1b1c-a7e818e0df9b@gmail.com>
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 7/6/20 6:31 AM, Jakub Wilk wrote:
-> THe strfmon(3) change is unrelated to the other changes, and should have 
-> been in a separate patch.
-> 
-> * Bjarni Ingi Gislason <bjarniig@rhi.hi.is>, 2020-07-05, 13:40:
->> --- a/man3/strfmon.3
->> +++ b/man3/strfmon.3
->> @@ -29,10 +29,10 @@ strfmon, strfmon_l \- convert monetary value to a string
->> .B #include <monetary.h>
->> .PP
->> .BI "ssize_t strfmon(char *" s ", size_t " max ", const char *" format ,
->> -.B "...);"
->> +.IB  ... );
-> 
-> For variadic function the convention seems to be to format "..." in 
-> bold; see scanf(3), printf(3), wprintf(3) and execv(3) man pages. This 
-> makes sense, because unlike argument names, "..." appear literally in 
-> the function prototypes.
-> 
->> -.B const char *" format , "...);"
->> +.BI "const char *" format , ... );
-> 
-> Ditto. So this line should be:
-> 
-> .BI "const char *" format ", ...);"
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
 
-Thanks, Jakub. Fixed.
+--=_luckmann.name-4922-1594045235-0001-2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Cheers,
+Hello Michael,
+On Mon, Jul 06, 2020 at 12:52:48PM +0200, Michael Kerrisk (man-pages) wrote:
+> On 7/6/20 12:16 PM, Helge Kreutzmann wrote:
+> > **
+> >=20
+> > Man page: shmop.2
+> > Issue: file is =E2=86=92 files are
+> >=20
+> > "The following header file is included by the \"reader\" and \"writer\"=
+ "
+> > "programs."
+>=20
+> This isn't correct. "is" agrees with the singular "header file".
 
-Michael
+Yes, I see it know when looking at the entire rendered man page.
 
+Sorry for the noise.
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Greetings
+
+        Helge
+
+--=20
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
+
+--=_luckmann.name-4922-1594045235-0001-2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl8DMzMACgkQQbqlJmgq
+5nD4TA/6Ane4UGv2eplYDHTYm+vmZX5QxaUMNX0A5mAFSCjhG6XfbtYpJqFVl9eo
+9aKJluD7KkmUsJMrjtDXzmEGaKKdFX0XrtomK5GECc84vpjs7md8+7VwAoq2EUsO
+UeSnvEGC+hdFb697ZnPEyOKPXS63/q5mluVKChPpyLEdmC1OwzXnmUXXu2rq+8Ed
+QObqCA7ba8yyI3x7XuQHHJPdQ5tUVPPTDlFSOqhEAs0FgptbCGjGc1IY+JFexNZm
+yvIrmdwOQHF5YLsu5/r+PHU1YygyAcMF9jXEIt6vKjETipXYz73GyNneuUExY4ZR
+QytL3ajPVUKLfrMcdDFt1YcQwIHBC2XVggJhiR3rOjG1/L9lYb0A99pAm8T3VmQC
+jkfGtC88JOmhnHIMbph2glgIqLvIK5rQgdeC9/s3pyn7ecIC46JP5mHsEo7fRAHz
+l9KErIE4+Y8d537gnVoVRmxWNn2yhme2XmemTj9ZyEds25f6VqHfPFSz9rHSqUSM
+2LpPI08nocAVoS0uBodsmjd4LLPmDBFwQWhb0Qd7LUyuRYdn13uZO9r4yhcwVWw0
+M8qPBxvcdVEsJ3xpoklfRmIhx11JgTU5QsCdE0BuFgmSjn+rnN3+x9vMxufUQ4Xe
+0QuSGj5twtoBU1CGdSUPdqde9EasGwJmWTldIo/fE9PIP9FFvYw=
+=Ouse
+-----END PGP SIGNATURE-----
+
+--=_luckmann.name-4922-1594045235-0001-2--
