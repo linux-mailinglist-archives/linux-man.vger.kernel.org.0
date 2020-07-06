@@ -2,130 +2,116 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4D18221551C
-	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:06:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1734B21552D
+	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:11:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728508AbgGFKGs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Jul 2020 06:06:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43284 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728264AbgGFKGs (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:06:48 -0400
-Received: from mail-ot1-x341.google.com (mail-ot1-x341.google.com [IPv6:2607:f8b0:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 969EDC061794
-        for <linux-man@vger.kernel.org>; Mon,  6 Jul 2020 03:06:48 -0700 (PDT)
-Received: by mail-ot1-x341.google.com with SMTP id e90so694656ote.1
-        for <linux-man@vger.kernel.org>; Mon, 06 Jul 2020 03:06:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=RQcREDBsUzTKNoYccyFUGKZ9okpCj5ePJVpNZ/qEGIg=;
-        b=U7QBRPZChLo33BmemDu03wTkofYChrOllC7oG5sZ0chB8JNZ7y3n9UKgBwnzY8ZZxi
-         Rlkf3APE3mdhggIOCmAUnp1ezy294imLmV9Cf2mBfeV9mxvrrbGV/LtcRNBldAfGCY2L
-         L4w2JqRNkRJL94VdkXSlcpX+7fX5IUiChzgIhIUZIwNdlDYo/SWFbKNFCu/chMKjoZll
-         Z/nLZbfHYC+Tzc0PZhplMmlJ2x4cwZGZ0yPOhjvn88XOKeRpSEIa/ADxUvI98xUweIWk
-         inDVMBApv90PAQ+S2cqsD/UoM/IF3whBe2lj+upikZ+8cSYjf9vfb28Iq+iqUz0uAvE8
-         atLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=RQcREDBsUzTKNoYccyFUGKZ9okpCj5ePJVpNZ/qEGIg=;
-        b=g2tQo8uRo1J12ieASqbnDFESyN1H7YTkTjb/1kfBqB/KANGIQ4zGWyyJzfo6J8hWbf
-         C+NIAivIDJcxEVIghuDj6rI9xqwvkmwrBHK1n751SA5mtvsp6/CP+2u/ryvSVVnd3gGm
-         JpP8kb8ppY6uTJCFxMVDjzC0rLpt6+e1YVXC4jETLXYlhZAeq8/M3yQDf5U1QnkY4vCH
-         gTQMCpBALiNOQ2atDAwZBFfJfZmZ1T9MAj1X3IO+RU7fC6dH1/FTJM0FZCJroNLTojBW
-         jSaYoDl4jSxVeSxvXJw+ufN286PtC4I46qMOvscncQG2PJwRoK2l8AV3ewM84ZLSKUPW
-         KFkA==
-X-Gm-Message-State: AOAM531HrsIjpsUeeEIFpvl9yLIeAo/OvPARpr7YWZ3oxu6Wyr9HKRYc
-        dqJ1DBXnW5VsU3r6iO1cpU0DKRzM7e/qD1dsxZ3eNA==
-X-Google-Smtp-Source: ABdhPJwX+HsDXtBx9MbnTZSeDwHRJXWc7RUZ2X09y0lMAmLYYGHgBUwJ3u8NKreocv9mw1oJqGqJWu4giM1fcXyp9AY=
-X-Received: by 2002:a9d:66d7:: with SMTP id t23mr40070865otm.323.1594030007906;
- Mon, 06 Jul 2020 03:06:47 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200419064754.GA30260@Debian-50-lenny-64-minimal> <fd828f05-acd5-c848-431b-5e12f4587da3@gmail.com>
-In-Reply-To: <fd828f05-acd5-c848-431b-5e12f4587da3@gmail.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 6 Jul 2020 12:06:36 +0200
-Message-ID: <CAKgNAkhHKEDTGQGfW+=MTKZR_uOf=2FR4mkRMX=m+xzht3mPyA@mail.gmail.com>
-Subject: Re: Errors in man pages, here: dsp56k(4): Formatting
-To:     Helge Kreutzmann <debian@helgefjell.de>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+        id S1728300AbgGFKLQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Jul 2020 06:11:16 -0400
+Received: from luckmann.name ([213.239.213.133]:54993 "EHLO
+        static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1728299AbgGFKLQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:11:16 -0400
+Received: from localhost (localhost [127.0.0.1])
+  (uid 502)
+  by static.213-239-213-133.clients.your-server.de with local
+  id 0000000000E5805E.000000005F02F8C1.0000670D; Mon, 06 Jul 2020 12:11:13 +0200
+Date:   Mon, 6 Jul 2020 12:11:13 +0200
+From:   Helge Kreutzmann <debian@helgefjell.de>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: Errors in man pages, here: execve.2, missing full stop
+Message-ID: <20200706101113.GA26272@Debian-50-lenny-64-minimal>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-26381-1594030273-0001-2"
+Content-Disposition: inline
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Helge,
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
 
-On Mon, 20 Apr 2020 at 08:35, Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
->
-> On 4/19/20 8:47 AM, Helge Kreutzmann wrote:
-> > Dear manpages maintainers.
-> > the manpage-l10n project maintains a large number of translations of
-> > man pages both from a large variety of sources (including manpages) as
-> > well for a large variety of target languages.
-> >
-> > During their work translators notice different possible issues in the
-> > original (english) man pages. Sometiems this is a straightforward
-> > typo, sometimes a hard to read sentence, sometimes this is a convention
-> > not held up and sometimes we simply do not understand the original.
-> >
-> > We use several distributions as sources and update regularly (at
-> > least every 2 month). This means we are fairly recent (some
-> > distributions like archlinux also update frequently) but might miss
-> > the latest upstream version once a while, so the error might be
-> > already fixed. We apologize and ask you to close the issue immediately
-> > if this should be the case, but given the huge volume of projects and
-> > the very limited number of volunteers we are not able to double check
-> > each and every issue.
-> >
-> > Secondly we translators see the manpages in the neutral po format,
-> > i.e. converted and harmonized, but not the original source (be it man,
-> > groff, xml or other). So we cannot provide a true patch (where
-> > possible), but only an approximation which you need to translate into
-> > your source format.
-> >
-> > Finally the issues I'm reporting have accumulated over time and are
-> > not always discovered by me, so sometimes my description of the
-> > problem my be a bit limited - do not hesitate to ask so we can clarify
-> > them.
-> >
-> > I'm now reporting the errors for your project. As requested, each
-> > issue is sent in an unique mail for easier tracking on your side. If
-> > future reports should use another channel, please let me know.
-> >
-> > **
-> >
-> > The formatting is inconsistent and incomplete:
-> >
-> > a) Formatting bold?
-> >
-> > msgid "#include E<lt>asm/dsp56k.hE<gt>\n"
-> >
-> >
-> > b) In this string the formatting for dspk56k seems missing:
-> > "The dsp56k device is a character device with major number 55 and minor "
-> > "number 0."
-> >
-> >
-> > c) No formatting, italic?
-> > msgid "/dev/dsp56k"
+--=_luckmann.name-26381-1594030273-0001-2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for checking this!
+Dear linux man page maintainer,
+the manpage-l10n project maintains a large number of translations of
+man pages both from a large variety of sources (including linux man
+pages) as well for a large variety of target languages.
 
-Okay -- somewhere along the way I messed up. I had fixed (1) but not
-(b) and (c). Fixed now.
+During their work translators notice different possible issues in the
+original (english) man pages. Sometimes this is a straightforward
+typo, sometimes a hard to read sentence, sometimes this is a
+convention not held up and sometimes we simply do not understand the
+original.
 
-Cheers,
+We use several distributions as sources and update regularly (at
+least every 2 month). This means we are fairly recent (some
+distributions like archlinux also update frequently) but might miss
+the latest upstream version once in a while, so the error might be
+already fixed. We apologize and ask you to close the issue immediately
+if this should be the case, but given the huge volume of projects and
+the very limited number of volunteers we are not able to double check
+each and every issue.
 
-Michael
+Secondly we translators see the manpages in the neutral po format,
+i.e. converted and harmonized, but not the original source (be it man,
+groff, xml or other). So we cannot provide a true patch (where
+possible), but only an approximation which you need to convert into
+your source format.
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Finally the issues I'm reporting have accumulated over time and are
+not always discovered by me, so sometimes my description of the
+problem my be a bit limited - do not hesitate to ask so we can clarify
+them.
+
+I'm now reporting the errors for your project. If future reports
+should use another channel, please let me know.
+
+**
+
+Man page: execve.2
+Issue: Missing full stop after "NULL pointer"
+
+"I<argv> is an array of pointers to strings passed to the new program as it=
+s "
+"command-line arguments.  By convention, the first of these strings (i.e., "
+"I<argv[0]>)  should contain the filename associated with the file being "
+"executed.  The I<argv> array must be terminated by a NULL pointer (Thus, i=
+n "
+"the new program, I<argv[argc]> will be NULL.)"
+
+--=20
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
+
+--=_luckmann.name-26381-1594030273-0001-2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl8C+MEACgkQQbqlJmgq
+5nCRug//aCtDRdOmQ3a08C8u78fN1gm/0MrWVivZgfSPnyf5ibGg87MrYIwIWEnW
+UHXQbEt4XsMhNoATxYM8dvj1zAwlV/H31BvGsljPezVZrLyh7SRTNHhRzdzzrXRM
+UBPpT3bJkzOYGMA3EeX6YUnxqyi/HIWpaw3tUPaVAQueR9Iaq6oan2iVEWZ90bmN
+7OEaa5c4Oe2PVa/n4TFVCPd7NycX3WF7SeYnel9WPESHhOwku52KjqxQRRJXzLz5
+rbKOxO7VAKEgYjwfYSKZ0vLU4qS5L3HzYoakfG+qatADXkww40jYaj5paQExZyGd
+pGtCA7bKSu+AF30Reec2saT2CYxMjohNuurLBC7IdUcW77qHwiZBRqPb7tbzPu7Y
+fQZ/z+vz0JK8UkK9eFj7tmRSMdm7s2vYVsKQXvmHgV2lgwZlkug3EkURbJ9NOqEd
+CYSZiRLDmnRPlOKCzvH+gHRdTn5U2RJGuq7Q9vjfZ5eIRknKGFy/M8KUdbdbDqVk
+4UUAMrFiV92hJa1a1ajYPTrwDmQe0v7J3UIxjATtqxOSu2QkuPSYdZD0Dgr7rYfD
+kw6ux5VA6nKu04+nTr2hfb+zpXh06EzaaNWo0NrX4KF+vpBC117ZysSmUPqfg4YH
+X7auQFM6i8udzyjFWeiqESmjf15hAfLL3dZLSXKAPJDLqGJVDaQ=
+=rJ5Q
+-----END PGP SIGNATURE-----
+
+--=_luckmann.name-26381-1594030273-0001-2--
