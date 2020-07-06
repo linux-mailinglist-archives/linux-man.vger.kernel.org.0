@@ -2,123 +2,129 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D125D215631
-	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 13:18:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 45A8D215677
+	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 13:34:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728712AbgGFLSw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Jul 2020 07:18:52 -0400
-Received: from mail.kernel.org ([198.145.29.99]:60660 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1728578AbgGFLSw (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 6 Jul 2020 07:18:52 -0400
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl [83.86.89.107])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id 9C7E020724;
-        Mon,  6 Jul 2020 11:18:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1594034332;
-        bh=zmLR8ixp5sAk1S+ev5fAN5kR8hjaY/WGUGOCG/81gPc=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=swRHZ9dvM6Cdv2zekhNMV5k8dNEu5dGipKH3rVjPbGLGCwuhLwkDdl1GwEcPdDnbu
-         rcN1I4YSJ4naOdnXogcVK4SJxbTijKBeQUXqVVcIGAqeTJwAcOVJxLCp9Nj4Uhnw4W
-         Ol1iWX3rSZsd442n+Ko+ekIdbXr6fZBXRtoJI5vI=
-Date:   Mon, 6 Jul 2020 13:18:49 +0200
-From:   Greg KH <gregkh@linuxfoundation.org>
-To:     Jan Ziak <0xe2.0x9a.0x9b@gmail.com>
-Cc:     Matthew Wilcox <willy@infradead.org>, linux-api@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-kselftest@vger.kernel.org, linux-man@vger.kernel.org,
-        mtk.manpages@gmail.com, shuah@kernel.org, viro@zeniv.linux.org.uk
-Subject: Re: [PATCH 0/3] readfile(2): a new syscall to make open/read/close
- faster
-Message-ID: <20200706111849.GA84659@kroah.com>
-References: <CAODFU0q6CrUB_LkSdrbp5TQ4Jm6Sw=ZepZwD-B7-aFudsOvsig@mail.gmail.com>
- <20200705021631.GR25523@casper.infradead.org>
- <CAODFU0qwtPTaBRbA3_ufA6N7fajhi61Sp5iE75Shdk25NSOTLA@mail.gmail.com>
- <20200705031208.GS25523@casper.infradead.org>
- <CAODFU0q=nDdx7D1NUxTQshBjqgTCYPpKzog78XZLjoPqnZqXvw@mail.gmail.com>
- <20200705032732.GT25523@casper.infradead.org>
- <CAODFU0rSqQsO9rSiA8Ke=+mk_NgEdFDHPMfmXGSmzmkqQh1KYw@mail.gmail.com>
- <20200705115851.GB1227929@kroah.com>
- <CAODFU0ovM-i=4fNKSzp9SgO_FjPcAOZ0R8S4iRXyGm+QL53C1A@mail.gmail.com>
+        id S1728925AbgGFLex (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Jul 2020 07:34:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56884 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728921AbgGFLex (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 07:34:53 -0400
+Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DE427C061794
+        for <linux-man@vger.kernel.org>; Mon,  6 Jul 2020 04:34:52 -0700 (PDT)
+Received: by mail-ej1-x644.google.com with SMTP id l12so41917270ejn.10
+        for <linux-man@vger.kernel.org>; Mon, 06 Jul 2020 04:34:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=R0AZnqr4ODMVA37XSNg0f7anlh0+RN3z4C+8d+haseQ=;
+        b=vHhidlouPe7067FmJUW2EgpiNtW5bXc2cPGb+8Fxme7zGr9O9Sn146Ma8wm3dH60UI
+         L+R9pg5KHoB801AYMiMFPseDGXXI9gelim0g0OOM7G79470L4calaQ4SrwaVPVDkyYfY
+         90ibPlcBS/JWa5fmFphzpij9evZ3Qj/UU/VIZuN+uBppyoZi9BmlBOQ1i6QeAU4rd9Px
+         81JX6b3b6Na2siWo7WE/ryVLLb0Wge4fBRfLpIK8+zKWVe6xMoGutPQ67UMKu1l/k0v2
+         Z1liAK0CIitl9czMXtxYKyey8+VW34fRScAabDeEh6X40fEF1x/5ZRemI3epxvrudxLj
+         pTSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=R0AZnqr4ODMVA37XSNg0f7anlh0+RN3z4C+8d+haseQ=;
+        b=HYibR9cfloxTxDzXBp9e7wRHWq+DJ1fSZ9BauEoHpmCEV1K1NKo0s8fWMy250W46fv
+         W9GKo0ZAPqD/SGankfs7Jo6/ycvV9inIKtlHMmm6ot0/Z1hQLRONxiospyFA6y5mZCdw
+         Fam4oQqnZT0knYew2DHqwvWfVy35z5D/Z2amVZ9/dZQeLz3cLfAvNjE+d5JD7qzrus+O
+         +ZhUfpCXS/P7TDdsi3sUvYLY6V2fQZ8iaDCwWCSVOVj2D9L2LsNjApE3T+afsae1SsN8
+         lO6AlByXNdUWXxh7YWIZMXBFIA52k8ACegKnKj5vM/plmxktX64Kv1pUrYA2fJLgwlB7
+         3tMA==
+X-Gm-Message-State: AOAM530c0hE7RXbscHK+6judcUw9FJ7w9vJwTSYWM/z33n9F1PD8i+4v
+        kdefmAGCmrOyg1yYHbp4cShE6tvk
+X-Google-Smtp-Source: ABdhPJycKy0Udu4l13mLHaBQ5iOQou0ZyqdPvtmg2/QM48LC6968aT6t1jfqTiU5hQc4DdTkIuPixQ==
+X-Received: by 2002:a17:906:e089:: with SMTP id gh9mr18624557ejb.482.1594035291328;
+        Mon, 06 Jul 2020 04:34:51 -0700 (PDT)
+Received: from ?IPv6:2001:a61:3adb:8201:9649:88f:51f8:6a21? ([2001:a61:3adb:8201:9649:88f:51f8:6a21])
+        by smtp.gmail.com with ESMTPSA id o20sm16230274ejr.64.2020.07.06.04.34.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 06 Jul 2020 04:34:50 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Errors in man pages, here: fork.2, markup
+To:     Helge Kreutzmann <debian@helgefjell.de>
+References: <20200706101249.GA26480@Debian-50-lenny-64-minimal>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <6d7b6333-9243-21a1-e1bc-6723d0695008@gmail.com>
+Date:   Mon, 6 Jul 2020 13:34:49 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAODFU0ovM-i=4fNKSzp9SgO_FjPcAOZ0R8S4iRXyGm+QL53C1A@mail.gmail.com>
+In-Reply-To: <20200706101249.GA26480@Debian-50-lenny-64-minimal>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Jul 06, 2020 at 08:07:46AM +0200, Jan Ziak wrote:
-> On Sun, Jul 5, 2020 at 1:58 PM Greg KH <gregkh@linuxfoundation.org> wrote:
-> >
-> > On Sun, Jul 05, 2020 at 06:09:03AM +0200, Jan Ziak wrote:
-> > > On Sun, Jul 5, 2020 at 5:27 AM Matthew Wilcox <willy@infradead.org> wrote:
-> > > >
-> > > > On Sun, Jul 05, 2020 at 05:18:58AM +0200, Jan Ziak wrote:
-> > > > > On Sun, Jul 5, 2020 at 5:12 AM Matthew Wilcox <willy@infradead.org> wrote:
-> > > > > >
-> > > > > > You should probably take a look at io_uring.  That has the level of
-> > > > > > complexity of this proposal and supports open/read/close along with many
-> > > > > > other opcodes.
-> > > > >
-> > > > > Then glibc can implement readfile using io_uring and there is no need
-> > > > > for a new single-file readfile syscall.
-> > > >
-> > > > It could, sure.  But there's also a value in having a simple interface
-> > > > to accomplish a simple task.  Your proposed API added a very complex
-> > > > interface to satisfy needs that clearly aren't part of the problem space
-> > > > that Greg is looking to address.
-> > >
-> > > I believe that we should look at the single-file readfile syscall from
-> > > a performance viewpoint. If an application is expecting to read a
-> > > couple of small/medium-size files per second, then neither readfile
-> > > nor readfiles makes sense in terms of improving performance. The
-> > > benefits start to show up only in case an application is expecting to
-> > > read at least a hundred of files per second. The "per second" part is
-> > > important, it cannot be left out. Because readfile only improves
-> > > performance for many-file reads, the syscall that applications
-> > > performing many-file reads actually want is the multi-file version,
-> > > not the single-file version.
-> >
-> > It also is a measurable increase over reading just a single file.
-> > Here's my really really fast AMD system doing just one call to readfile
-> > vs. one call sequence to open/read/close:
-> >
-> >         $ ./readfile_speed -l 1
-> >         Running readfile test on file /sys/devices/system/cpu/vulnerabilities/meltdown for 1 loops...
-> >         Took 3410 ns
-> >         Running open/read/close test on file /sys/devices/system/cpu/vulnerabilities/meltdown for 1 loops...
-> >         Took 3780 ns
-> >
-> > 370ns isn't all that much, yes, but it is 370ns that could have been
-> > used for something else :)
+On 7/6/20 12:12 PM, Helge Kreutzmann wrote:
+> Dear linux man page maintainer,
+> the manpage-l10n project maintains a large number of translations of
+> man pages both from a large variety of sources (including linux man
+> pages) as well for a large variety of target languages.
 > 
-> I am curious as to how you amortized or accounted for the fact that
-> readfile() first needs to open the dirfd and then close it later.
-
-I do not open a dirfd, look at the benchmark code in the patch, it's all
-right there.
-
-I can make it simpler, will do that for the next round as I want to make
-it really obvious for people to test on their hardware.
-
-> >From performance viewpoint, only codes where readfile() is called
-> multiple times from within a loop make sense:
+> During their work translators notice different possible issues in the
+> original (english) man pages. Sometimes this is a straightforward
+> typo, sometimes a hard to read sentence, sometimes this is a
+> convention not held up and sometimes we simply do not understand the
+> original.
 > 
-> dirfd = open();
-> for(...) {
->   readfile(dirfd, ...);
-> }
-> close(dirfd);
+> We use several distributions as sources and update regularly (at
+> least every 2 month). This means we are fairly recent (some
+> distributions like archlinux also update frequently) but might miss
+> the latest upstream version once in a while, so the error might be
+> already fixed. We apologize and ask you to close the issue immediately
+> if this should be the case, but given the huge volume of projects and
+> the very limited number of volunteers we are not able to double check
+> each and every issue.
+> 
+> Secondly we translators see the manpages in the neutral po format,
+> i.e. converted and harmonized, but not the original source (be it man,
+> groff, xml or other). So we cannot provide a true patch (where
+> possible), but only an approximation which you need to convert into
+> your source format.
+> 
+> Finally the issues I'm reporting have accumulated over time and are
+> not always discovered by me, so sometimes my description of the
+> problem my be a bit limited - do not hesitate to ask so we can clarify
+> them.
+> 
+> I'm now reporting the errors for your project. If future reports
+> should use another channel, please let me know.
+> 
+> **
+> 
+> Man page: fork.2
+> Issue:  any fork handlers → any B<fork>() handlers
+> 
+> "Since version 2.3.3, rather than invoking the kernel's B<fork>()  system "
+> "call, the glibc B<fork>()  wrapper that is provided as part of the NPTL "
+> "threading implementation invokes B<clone>(2)  with flags that provide the "
+> "same effect as the traditional system call.  (A call to B<fork>()  is "
+> "equivalent to a call to B<clone>(2)  specifying I<flags> as just "
+> "B<SIGCHLD>.)  The glibc wrapper invokes any fork handlers that have been "
+> "established using B<pthread_atfork>(3)."
 
-No need to open dirfd at all, my benchmarks did not do that, just pass
-in an absolute path if you don't want to.  But if you want to, because
-you want to read a bunch of files, you can, faster than you could if you
-wanted to read a number of individual files without it :)
+No. "fork handler" is a term. Just like exit handler. Or clean-up
+handler.
 
-thanks,
+Thanks,
 
-greg k-h
+Michael
+
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
