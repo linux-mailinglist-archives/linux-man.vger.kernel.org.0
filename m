@@ -2,27 +2,27 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 647B8215561
-	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:17:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 83255215562
+	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:17:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728734AbgGFKRY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Jul 2020 06:17:24 -0400
+        id S1728630AbgGFKRv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Jul 2020 06:17:51 -0400
 Received: from luckmann.name ([213.239.213.133]:54993 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1728787AbgGFKRV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:17:21 -0400
+        by vger.kernel.org with ESMTP id S1728713AbgGFKRu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:17:50 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5805E.000000005F02FA2F.0000693D; Mon, 06 Jul 2020 12:17:19 +0200
-Date:   Mon, 6 Jul 2020 12:17:19 +0200
+  id 0000000000E5805E.000000005F02FA46.00006966; Mon, 06 Jul 2020 12:17:42 +0200
+Date:   Mon, 6 Jul 2020 12:17:42 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: strcmp.3, punctuation
-Message-ID: <20200706101719.GA26907@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: strcmp.3, inconsistency
+Message-ID: <20200706101741.GA26942@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-26941-1594030639-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-26982-1594030662-0001-2"
 Content-Disposition: inline
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
@@ -35,8 +35,8 @@ X-Mailing-List: linux-man@vger.kernel.org
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-26941-1594030639-0001-2
-Content-Type: text/plain; charset=utf-8
+--=_luckmann.name-26982-1594030662-0001-2
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
@@ -77,9 +77,21 @@ should use another channel, please let me know.
 **
 
 Man page: strcmp.3
-Issue: ; =E2=86=92 Full stop
+Issue: The programm output says byte, the fourth line in the code says char=
+acters
 
-"a positive value if I<s1> is greater than I<s2>;"
+"    if (res =3D=3D 0) {\n"
+"        printf(\"E<lt>str1E<gt> and E<lt>str2E<gt> are equal\");\n"
+"        if (argc E<gt> 3)\n"
+"            printf(\" in the first %d characters\\en\", atoi(argv[3]));\n"
+"        printf(\"\\en\");\n"
+"    } else if (res E<lt> 0) {\n"
+"        printf(\"E<lt>str1E<gt> is less than E<lt>str2E<gt> (%d)\\en\", re=
+s);\n"
+"    } else {\n"
+"        printf(\"E<lt>str1E<gt> is greater than E<lt>str2E<gt> (%d)\\en\",=
+ res);\n"
+"    }\n"
 
 --=20
       Dr. Helge Kreutzmann                     debian@helgefjell.de
@@ -87,25 +99,25 @@ Issue: ; =E2=86=92 Full stop
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_luckmann.name-26941-1594030639-0001-2
+--=_luckmann.name-26982-1594030662-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl8C+i8ACgkQQbqlJmgq
-5nA2kBAAifHuQbHd/gRN/BiX2dOhogsdg7u8e1crppk0FNOOzTc3a6j7mXxe5kgR
-eoytZs46o7/U4I8cxVZeEZiToDDR5xfxOwYEzuVTqlHgEhe8LXJhZSd4BV+qipoT
-UuCTc1aLmgSyzWkaDmCeXu23LiqEItEpq4Lu03gnuvUBMJqySVOzqG55vLaQCBWY
-okOk13SXW0HIvMKn31p6pkEnGKiWVaBjGPfgYIKVu63ShWfo5Muk+UwJRR1CIjI7
-i61jXpNdKLEQSPDtmEZ0jVeAuPoPCDQ+pWJyJ3cRvIMhpu4RMKK5+MxSur9Alh7+
-KS/0MjUY31rzQ2z7RtpkRbQdPaUTsjOVvjUyxcXAysoez0ugoGLt0KiidBCK3Lp5
-2BmSjb7r4MdNMTEz9V/HKgHx2P2Eq4jCoyvCgFBCILPU7rFW04pUDx1H/T4tpq3K
-NSYRYmym7c+lWmTC/2BN4icXjmZiWDWriTIRK3Sx3TBaZiTan0AqviuL3giJAE16
-6UeE68quSNPMhSawRQfjZhoG4TZLeN/UCmHaqAjRNQoozoLHrfknArRbKWyihT9g
-5BYm210KoNUPubSsqN6DVXB4AsLvLn7PV9ltNo6WHf4xyPXAzWTeZkVWf549q+/Q
-gheNvcYh8CeMozVtiQhcOfXDwRmhs0C+Y3Je2xFNCCAdM+SHRJ0=
-=is5V
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl8C+kUACgkQQbqlJmgq
+5nATwBAAhmBGn8a9/piQV0HXR6R6x4lJCQzEVQ3KYhaD3D9K/b7Xn12bh4yhipUQ
+gLP37FGlPouScckxene3G+XHS2vi+GP0ORd9A83bO0I8wCdguSf8mzHrK2fnvxqn
+FEowWJokDI8ltZwsobyQMppBDQhbMMYQEEh/jKTQ3Q/2inMv5KUB7RConZg8LBiG
+z38VfRhf6jb3vY5uInHF1vSMxmAXMJi6CBEZjpS297VlG1MuR2VAvUDE/00l47FQ
+zTzZfZLbV6mG+o5mVI+rxucNZ3zgT1Xq+NAcU+s3ZmcMOPkleLppK1cKsndTyiVq
+Bp0QdKrWBkBZicWpe/VOnDyd47Bq8Kpo/8uTTiYaDQ9b2lLN9wIdiDRnfY+s1znF
+lJiAjKqUrPna5XPq8n84Vm1389IUkLMCCZFQ6/Cilk0EDEDiEayObI9oa66TZpwG
+EsjLNUea5KPmdiRnUnQgLFu7TFHgPrfeTbncHSr253s/51vV3dyYIHKf0K5HNwof
+yIeYiEfA9NtCBlvfdON+0fGDRDRc51tYgqW/eGUDtTxosoITJtOVt/Nsc7w9z115
+E5nSTo5aEkBVgMNcdVV5QCKuddgcA7b0DYEgfZroEV7WUWl9CYaazmOHz8AvoRzw
+otzX3OD5GwFPRVPU8dSXQzeQwCy+f2/1QTYlqPbPuj46fpm2U+s=
+=aahn
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-26941-1594030639-0001-2--
+--=_luckmann.name-26982-1594030662-0001-2--
