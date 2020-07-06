@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 43C402155D8
-	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:51:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AFF932155DC
+	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:52:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728527AbgGFKvQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Jul 2020 06:51:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50138 "EHLO
+        id S1728521AbgGFKww (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Jul 2020 06:52:52 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50384 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728525AbgGFKvQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:51:16 -0400
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CEF62C061794
-        for <linux-man@vger.kernel.org>; Mon,  6 Jul 2020 03:51:15 -0700 (PDT)
-Received: by mail-ej1-x644.google.com with SMTP id w16so41842501ejj.5
-        for <linux-man@vger.kernel.org>; Mon, 06 Jul 2020 03:51:15 -0700 (PDT)
+        with ESMTP id S1728264AbgGFKwv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:52:51 -0400
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1FA60C061794
+        for <linux-man@vger.kernel.org>; Mon,  6 Jul 2020 03:52:51 -0700 (PDT)
+Received: by mail-ej1-x641.google.com with SMTP id o18so37413673eje.7
+        for <linux-man@vger.kernel.org>; Mon, 06 Jul 2020 03:52:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=/tmt/mapjlU/NrxE1PqXCuud2AiSjuoLGZdqKkE73Gw=;
-        b=kEDp/s2fgZzvWwEfdxxnC5p6zfT/U8D0H/t6zlmF/EG3r2rMXWIiQZNzJvb5rZmsKp
-         JfKIsXfPq/xctHwEFVWLghUOnBZyDdmniEunrd5jIBqq+bsdZ424MrRc1GHwRcxykNmA
-         rIAURo/4ENtBGaCfIGCekbB9TCFYG/u+16mdTt7iFUiux85ci8/kbyShu9s3jdn1PeNf
-         iQvAwBB7nEWGTsDD/N/BNNZEkSwVIU5eF2cQR9qfvAjCRxMC2D+Kj03FdRbyPaVkJ4jd
-         KlMykJ5TIX9XPkrokkxNzO9gVcMfu2pZezno4bB9B8nueqQtARkcCQW0beHrZpLkxAzI
-         Yp6g==
+        bh=MfclSk3xZaGPYTtQ8NZnFz2VqhzcVxuxfrBkWE6ryBI=;
+        b=P8AQOfYyumq6UVfeZjsSfmg0lgvDNStoTKQJ0mc1CwUgcFMxV8fKlchtvlEeFTj8/h
+         JLIxxShS7tqQ7p/PGPcUs1z8toFkVy/UvjuercP12lhL3sz3cfs7bfAJ3HAAe6r4HjF0
+         57CsohT7R8YqidvcEziAZCDUOSKQP6sMwoFrODYAWqKPyzeddwyfgxAnL4CoCouhFEaO
+         2aXbTZ01x/tYnFnasjThyn5pMjc9pzx44LtwHOmd29H5nAnYtU3EXQypiIDNXgQl4CZO
+         3oVzotqfVuR6h01ZOjkL8OF9ubnWJWuRf7K05rdQa3windVU70Evn/iwv+wcvTfTitAQ
+         Ri4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=/tmt/mapjlU/NrxE1PqXCuud2AiSjuoLGZdqKkE73Gw=;
-        b=Z1UgPhbiGfWyfycs4v3/h/nm+gQ3PuF5onIkiZfcC5t1vZOcdjyjF5lu2J/879SWJx
-         NPVzOlp6tKn86YMX5Q/4W5i/OJkhZbEaZ+0DoJFRUvBLDAxFv0ONKtiT2f6a5T0Geo/a
-         lHLUfpCIFtUaQ8S/ePirX3/06BzvjHHagXwS4HCjboqCGDS2FldpagpNpBQYQveNR3PD
-         I/uilvSfqfV76PcwL0pH9n/n4IAncdz5kzPmLnDaIk7rEJByBnC0/Adh7Lsl7poZuvvX
-         KKnphP8w43KFHrZHma0Guz+0pict8A2hAYwvbwXB/U8+udpuvmPen8oy5zG3F1OAE1l7
-         a6Hw==
-X-Gm-Message-State: AOAM5337x39alXkcdfoEh/2f/UEPAyeElgWdwb88iCQKf4+sfrDozWxw
-        pOOgtRZQb8XJyU3x6faM2/wP9h17
-X-Google-Smtp-Source: ABdhPJyPtFH8HnwZ7UbXTB9EccOwwYv+/wuF9fVgEv5b/gp03SYjbjn7ZNFS3XVywruogRno9ryc1w==
-X-Received: by 2002:a17:906:4685:: with SMTP id a5mr40523590ejr.46.1594032674317;
-        Mon, 06 Jul 2020 03:51:14 -0700 (PDT)
+        bh=MfclSk3xZaGPYTtQ8NZnFz2VqhzcVxuxfrBkWE6ryBI=;
+        b=j7Azp3qUqTH3YzyOIF9+mUaTkjoIYSX/ertM7y+Ig6YPJsFu3mduJsrgP0jmtyqgxr
+         onsAjMyc3tuym3SsUPoeIx5cB0QipyUoZPJdZZWknaVmI0AzjGWsJzFTrPttUcq+xHKN
+         wJ9oy4MPK0i7YmcBP+hbT51L2ZwzyWScP4XH57ylgQzSLfP7P1tcOk7sZCMMIJJpXn+W
+         kR7NFl+X5yL/5yHkm5Jn1lLgSzkkbzzk/9RMHMc4PuLriT1pt+zV6LmmF6axIkN1iZtS
+         86Q+RYqiYcuKAnXie3UvRl2mvMz8ICPo59b7DFfnSCLWsVmxwt7Jhc4/NKlGkHyfT/I4
+         TA+Q==
+X-Gm-Message-State: AOAM532fWZaYWsfEjvm67QZLWdbTsZHFX5HUouobvZtvYxbyeryK1kdg
+        5nObfxJltU+rAhbqgiDI/KBvG8+s
+X-Google-Smtp-Source: ABdhPJzogG6sMke2UYCnMqx87MnVjgBjEdX93IiidxPi/HiN7yU5JIreyoHMTr7Xk92eCst51ITepA==
+X-Received: by 2002:a17:906:ae56:: with SMTP id lf22mr42140936ejb.59.1594032769596;
+        Mon, 06 Jul 2020 03:52:49 -0700 (PDT)
 Received: from ?IPv6:2001:a61:3adb:8201:9649:88f:51f8:6a21? ([2001:a61:3adb:8201:9649:88f:51f8:6a21])
-        by smtp.gmail.com with ESMTPSA id z20sm22957951edq.97.2020.07.06.03.51.13
+        by smtp.gmail.com with ESMTPSA id dg8sm24688518edb.56.2020.07.06.03.52.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Jul 2020 03:51:13 -0700 (PDT)
+        Mon, 06 Jul 2020 03:52:49 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, resolver.3: Typo?
+Subject: Re: Errors in man pages, here: shmop.2: singular/plural
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200706101611.GA26790@Debian-50-lenny-64-minimal>
+References: <20200706101634.GA26824@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <a437829d-a3ef-e8f1-9d32-68f4743e4fb6@gmail.com>
-Date:   Mon, 6 Jul 2020 12:51:13 +0200
+Message-ID: <039c4923-5470-2607-1b1c-a7e818e0df9b@gmail.com>
+Date:   Mon, 6 Jul 2020 12:52:48 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200706101611.GA26790@Debian-50-lenny-64-minimal>
-Content-Type: text/plain; charset=windows-1252
+In-Reply-To: <20200706101634.GA26824@Debian-50-lenny-64-minimal>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -104,15 +104,15 @@ On 7/6/20 12:16 PM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Man page: resolver.3
-> Issue: 2x res_query? Shouldn't it be res_nquery once?
+> Man page: shmop.2
+> Issue: file is → files are
 > 
-> "The following functions are lower-level routines used by B<res_query>()/"
-> "B<res_query>()."
+> "The following header file is included by the \"reader\" and \"writer\" "
+> "programs."
 
-Yes. Fixed.
+This isn't correct. "is" agrees with the singular "header file".
 
-Cheers,
+Thanks,
 
 Michael
 
