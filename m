@@ -2,27 +2,27 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3A422215555
-	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:16:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3501D215557
+	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:16:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728628AbgGFKQO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Jul 2020 06:16:14 -0400
+        id S1728693AbgGFKQf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Jul 2020 06:16:35 -0400
 Received: from luckmann.name ([213.239.213.133]:54993 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1728283AbgGFKQN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:16:13 -0400
+        by vger.kernel.org with ESMTP id S1728283AbgGFKQf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:16:35 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5805E.000000005F02F9EC.000068C7; Mon, 06 Jul 2020 12:16:12 +0200
-Date:   Mon, 6 Jul 2020 12:16:12 +0200
+  id 0000000000E5805E.000000005F02FA02.000068ED; Mon, 06 Jul 2020 12:16:34 +0200
+Date:   Mon, 6 Jul 2020 12:16:34 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, resolver.3: Typo?
-Message-ID: <20200706101611.GA26790@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: shmop.2: singular/plural
+Message-ID: <20200706101634.GA26824@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-26823-1594030572-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-26861-1594030594-0001-2"
 Content-Disposition: inline
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
@@ -35,8 +35,8 @@ X-Mailing-List: linux-man@vger.kernel.org
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-26823-1594030572-0001-2
-Content-Type: text/plain; charset=us-ascii
+--=_luckmann.name-26861-1594030594-0001-2
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
@@ -76,11 +76,11 @@ should use another channel, please let me know.
 
 **
 
-Man page: resolver.3
-Issue: 2x res_query? Shouldn't it be res_nquery once?
+Man page: shmop.2
+Issue: file is =E2=86=92 files are
 
-"The following functions are lower-level routines used by B<res_query>()/"
-"B<res_query>()."
+"The following header file is included by the \"reader\" and \"writer\" "
+"programs."
 
 --=20
       Dr. Helge Kreutzmann                     debian@helgefjell.de
@@ -88,25 +88,25 @@ Issue: 2x res_query? Shouldn't it be res_nquery once?
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_luckmann.name-26823-1594030572-0001-2
+--=_luckmann.name-26861-1594030594-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl8C+esACgkQQbqlJmgq
-5nCZuQ/+J54uXiNW/7MEtSi5dgCVTVmrY0lyifm65wogiOuovbiOHpNmhEGbetzp
-fa6y01JQQJKniueqpP2fhTjGG2+oS8IfNKqTQpaGQz5gaonWipJXEE12ABgZUanV
-kQpDaqSBZWbReADjp7Ckmxdl5IcAM8fBEQogsoURP2L+2F6X/A/RHNRwzuQnb7+W
-IIvjRbBzJUd3X3YiIdtQ+GF59mrynsXycWQdBN+iBPzWwSCbNi+SKOB4L9emVHho
-ns9HCR9u74z9NpT+07l4p8JnbGjSbE16nE2kM5S5zLP/o+hfxf5pByhFURMScN5A
-Bj9U2RcsXz3xJpahY4J+xzOVn9OJS22no/hTBEEeo9fHepZ6B7zcbzJ6PUcSe/k3
-XJsEJmxgeaYfBu5SYhDW7W3H+Ad6e6OC99Qvh2++DfTd7FHkeNFcI91f+5bDbbAv
-+OO0gGYuCNwz01VF/Wtaq1midGLQz/nPoLKL1r4t1xSGPMB6zx3//WqradWv7Lq3
-HA6W6OapOOkP75L54/Uwu0gXPV1vCHxuh3y2s6a0or/ewiaGuNmduxxcgySkWCYa
-eRLSqQE9YIFWMzCNBtheYlr81bBp6oS5h6IP2Wv2KOBAj9Y2M2ovMBBm8QuvSNfk
-kfJsMIwG7/h4phAa4FoU+F9KcLPp9+bh6wCiCXJBp9klV6fpkn8=
-=kFGs
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl8C+gEACgkQQbqlJmgq
+5nDdbA//Q8nw2I0Te5O+prxkxepjZ6DtAbD9MM3XPW5ZxCku5KQuDsg75QMdAFFD
+7Yk+F9lDziiErTkYs3/WlJXeMe/2Hn9006+3jRhGUnxVzfeEwWcRWk8rqhaqQcfq
+Oq+8HhkD+CdWn2HIhU0ywRI63gPYpow6Xk0gYamemjbcT2S7inLg8mneFrwOBYPK
++jxluydwHHWX2rPdK1LvWE6yP+MunYeadpNxT24Ofva+h1eCrb/Pu2u2EUuSkHaA
+E05tc2P7XihJLdaJyxigJadqmMf/yUoJ/y8jbKY/oqO7FFUhp8REyRfHiaiCGY3x
+3XMvmTL8hFK6i4q0vmGZSUKC+5Du9ImmxS5p2LJocAQ81MJu1hMjfWjcZq5JOd3I
+vxPKutqQSZqGlCcEA7z1esWABdu2LxV+xEN+fHvA4eRzRYdIkoaHCyY2/fMqdHH9
+/SO/86/xtb2ZOzBMB/EUz0/QAqYG0K0Ha9uJXLYrrmytjXCScE9l+vACDBhsUIqo
+5oe8Kx2T6Z8hjQedCxHhoKVycQL/Zax+95EZYlbl3U1MVRVMRX4piYp/+0R2aE+M
+2eNG/KhS/sanT1mydeEGmDiWTkywO/+0Vd2nMgrfPjLVT4ZB7vnjGd+XZD/ycJ99
+zcMJdbTzFjsIQL2AuPmfJQrO08wyWf02D2K+2sG5b9d0RJ55gCY=
+=SNBk
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-26823-1594030572-0001-2--
+--=_luckmann.name-26861-1594030594-0001-2--
