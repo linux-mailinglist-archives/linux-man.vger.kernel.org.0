@@ -2,27 +2,27 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7725A21554C
-	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:15:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 51AAC215550
+	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:15:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728826AbgGFKOz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Jul 2020 06:14:55 -0400
+        id S1728638AbgGFKP2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Jul 2020 06:15:28 -0400
 Received: from luckmann.name ([213.239.213.133]:54993 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1728264AbgGFKOz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:14:55 -0400
+        by vger.kernel.org with ESMTP id S1728628AbgGFKP2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:15:28 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5805E.000000005F02F99D.0000685D; Mon, 06 Jul 2020 12:14:53 +0200
-Date:   Mon, 6 Jul 2020 12:14:53 +0200
+  id 0000000000E5805E.000000005F02F9BE.00006885; Mon, 06 Jul 2020 12:15:26 +0200
+Date:   Mon, 6 Jul 2020 12:15:26 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: open.2, typo
-Message-ID: <20200706101453.GA26677@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: proc.5, self-reference
+Message-ID: <20200706101526.GA26718@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-26717-1594030493-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-26757-1594030526-0001-2"
 Content-Disposition: inline
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
@@ -35,8 +35,8 @@ X-Mailing-List: linux-man@vger.kernel.org
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-26717-1594030493-0001-2
-Content-Type: text/plain; charset=utf-8
+--=_luckmann.name-26757-1594030526-0001-2
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
@@ -76,17 +76,15 @@ should use another channel, please let me know.
 
 **
 
-Man page: open.2
-Issue: same was =E2=86=92 same ways
+Man page: proc.5
+Issue: Reference to proc(5) in proc(5)?
 
-"When these APIs are given a I<dirfd> argument of B<AT_FDCWD> or the "
-"specified pathname is absolute, then they handle their pathname argument i=
-n "
-"the same was as the corresponding conventional APIs.  However, in this cas=
-e, "
-"several of the APIs have a I<flags> argument that provides access to "
-"functionality that is not available with the corresponding conventional AP=
-Is."
+"This file provides a superset of the B<prctl>(2)  B<PR_SET_NAME> and "
+"B<PR_GET_NAME> operations, and is employed by B<pthread_setname_np>(3)  wh=
+en "
+"used to rename threads other than the caller.  The value in this file is "
+"used for the I<%e> specifier in I</proc/sys/kernel/core_pattern>; see "
+"B<proc>(5)."
 
 --=20
       Dr. Helge Kreutzmann                     debian@helgefjell.de
@@ -94,25 +92,25 @@ Is."
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_luckmann.name-26717-1594030493-0001-2
+--=_luckmann.name-26757-1594030526-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl8C+Z0ACgkQQbqlJmgq
-5nCeRw//SFgRCRA0Db2eJhAs3/RaIpqJtY4pd5lYPagq8jIvONTziUi/feFa5ktm
-ZQOO/s8RqQ1JLMU9c0tDPjsMe7IyoLSksMmjxe4JX3ysK/ftgmZ845rrrom8xEez
-IXDo+bURQL8ZBs4VTGrH6vCt8MliJm1B5cwncXiX5gGa7AxhK99ELtBBzFFTfm0Y
-u/BQIa6G9pMgC5p8SXm1BQaBu4FtVRaREqTDhqu9XMwhsD2vlxkWufuYBve3+bKL
-jJsx5ojBFZUcYgPPTWUlzg3lpVRSof2sxfQtgc2JcnZWM9EYOJRb6gfJ0Q8Q1/Yq
-Kc5JWqqb6C9KU2iWqew3/VsDmlj8iyzDxH9jWzjoA3Io5b9LnpwBi9X97RBpI8XA
-FX6GV57ID1rLdVQxwFsmsU5Vmv03f7LZ4Yu5tPKCa3bJeMKjvDvaS4bo5ay2wr9n
-0l9Dv543IQFXMBMcS520w7tRbSeVo5wprjlFcTdHmwzzUMj/YqnWFE6tTNZblJln
-lUVHXhKfg9uUMhzUqsMOmrvsjpG65Z/SRwh6N0zYUf1mqjenw0pWq/7nIvCB1RYw
-hcDmX9VGAQ4d92nA0wYTBD1hN0jcUM4Ye6VEmKLpB8QULd3CoVpJwMunmJTdnT8Q
-Xbbpg8rJ/KYLaeZDw2L2dRORCUMG3h/50iI1RMQ0fa7LUdBNJ3E=
-=HisD
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAl8C+b4ACgkQQbqlJmgq
+5nDsEw//TcaX4AIPvJsx2Hax8SCkQyCBp57RkkAN1Becgq0dopj/EvC4/5H1roYk
+6oBl6bhkogI0naSliTYmf/NteBHPjwoPTc/MrdtepNUgdQG0gjrWn9O9HUnnwUPL
+xwiyEi555jmgTj+ofCbmAeWAarZlf46dJwmmz93v0XVyJzCGEIP57ZGmZS8/MrBk
+IZLHRXDLWxEiT0MUvP/l/zhAi2lb9eoidviFPqq01F9L5R2Er+N8sZF4vTFsC+xi
+qa8rEXg4q//OblyGgCFsBAs2hudcSdBkP6H8/yeE2/3ovJMHBN6DA8pfuz5IsMq3
+C/oNS19DHJUffTDuLEjJAzRTTeUzWncV9OciApdl2668AjjJ236KkfRgNGPz9UYU
+r77H7AGtEBqEemW8vFhCfImNP/CTn+Put2mECEsT4yzbBHDfnbbr+t+l1QMi+y7s
+vRjQcHMQp5agln54/ZVfYOkMW1BKJnheJrkzvPWdaEGHyqBIImjdBXt9oPBvl9mE
+2/1r4kPOhCDijmGasOdVhKsCYFibWby3J4anGP+o/uQUzj+EeN/udV/aqc1LXMLD
+dDauQ1kit74PlVGfhu/pFBGYauJEXwlQwrPrh08lQ2RfCRLRQi3CT/nqgaLJ2mkF
+K1sHFocw4yLwQDKk1cH12bXqzEzZdbRskDSS5szQ606GC87IFcg=
+=omnr
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-26717-1594030493-0001-2--
+--=_luckmann.name-26757-1594030526-0001-2--
