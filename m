@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 35CA22155E5
-	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:55:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 62B102155F3
+	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:57:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728595AbgGFKzO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Jul 2020 06:55:14 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50758 "EHLO
+        id S1728671AbgGFK5Z (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Jul 2020 06:57:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51102 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728765AbgGFKzO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:55:14 -0400
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C9472C061794
-        for <linux-man@vger.kernel.org>; Mon,  6 Jul 2020 03:55:13 -0700 (PDT)
-Received: by mail-ej1-x641.google.com with SMTP id n26so27915509ejx.0
-        for <linux-man@vger.kernel.org>; Mon, 06 Jul 2020 03:55:13 -0700 (PDT)
+        with ESMTP id S1728670AbgGFK5Y (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:57:24 -0400
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9B5C3C061794
+        for <linux-man@vger.kernel.org>; Mon,  6 Jul 2020 03:57:24 -0700 (PDT)
+Received: by mail-ej1-x643.google.com with SMTP id lx13so23198831ejb.4
+        for <linux-man@vger.kernel.org>; Mon, 06 Jul 2020 03:57:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=0EUJcfCUrEw71Q03nY1rIa5Hk1iH/D+W0i5MvdxM0mA=;
-        b=u23ickjG7e+alMfRlpD7Kh7p1ovRMNyrDnEBvq/w44LA47kA2d3rIIZjbuZiYtTBfw
-         xmD+oIw+9DGTE/lUA8UMA6GK/VpbLdUiPq5dc1ctGW4vp+O7/VyV28u+KNcG72I8yx2V
-         ujxGLhWkEdpOsFRC/joFohMTlvsegHzOJll/alawn4qb0MZGdFz9qoHktE8twTqI8J0s
-         OA/xDsU0a0Jq9dXgOo+KYD3aqApy64F1aEwmyi5ZXOz2CeuRqisSzTYZByrIERUPHid5
-         N0pscOOHe2Vy9xd+/OAGKoZ74t/FxxiMoHn8Nt+BUtcrPpC5fK5CB5N6uS3iH2g7xrq+
-         tb3g==
+        bh=qfKHo7VhmVTI+mBAnKwM6Y3YQA6DQO9Qwedhoe1HKJo=;
+        b=U1mg858N08dD/jcStiaxyZATErJZymFe77aYUieJ9H+OAAIHSPaDNkT62oOBrYLcfB
+         poit1wP4cz9/nBS89iJwud4ZaIdvJr6LaExDkRKL14fiBnwDSTYUq0wuB75PRVDjA2Mi
+         tw3P8hmNsSkQoEm3W77MIJ/zBjcpDrKHYvJyY2SnhzhgnzMNW7jhiciU7x7lwhY4/uKm
+         ANYKqWU41hXB5LXRyWFDHekRHMnHK9+ycQ36vyTTKyMnbG8NvtGlFV1kWlOcm3zpI+lf
+         jPXXMPnH5UdmwitJIaPL2GiepIF5qNCXxUzEd7lQkEujby8ibOq2lAvjSj9W+NfYdgPV
+         4Y5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=0EUJcfCUrEw71Q03nY1rIa5Hk1iH/D+W0i5MvdxM0mA=;
-        b=T2j4/rhk4taNmVJZZLY9IFmy3KdKUwwJprh/Ry24vX0Ip8hPqCwU1/rxSJ0vr+MMXF
-         YJWPrXLlwLtyfqZXG86IeVjnEKBcbzqCX52NocwtY8fsbBZ//iHQ+WKC/BV07zfuo9O0
-         f/ZnBubPSR8OG78v5Bypt19IQa5AiN6GaO4rCkAvlLYf5toA/d5gnidlf+x/8QGe9RaP
-         tOibHm99DLVHaU4ApCcHm5FL8vdEJs45aZApfcq2lgSofpzCaCAH+2JFQ+Npfk6PcqNM
-         S6LrXzXyfPZNYC5a2ny0oM0yp/TuAjhvgh7KtJ7TKbr5/Dqnpw2TyC6FCxGjfexXDrG2
-         VPeQ==
-X-Gm-Message-State: AOAM530gwrWMJ5SgRm7vcpu0bm2+PhVHe2G6JRVT1TTzGn7cPdWZR69k
-        cDPmU4m3BvbpNPIkz5ZxojtioVTN
-X-Google-Smtp-Source: ABdhPJxI7ZpJrgfkWeE4dw2Lw0EUIr5U+PSxqficm07iyNlfIS84jit2XWvQqAT3o76Kf7TV0wUukA==
-X-Received: by 2002:a17:906:9387:: with SMTP id l7mr41170124ejx.274.1594032912324;
-        Mon, 06 Jul 2020 03:55:12 -0700 (PDT)
+        bh=qfKHo7VhmVTI+mBAnKwM6Y3YQA6DQO9Qwedhoe1HKJo=;
+        b=no/iU/A/52ufMrEBABjakuBCUS2eGX1xY0CwFKWy0o+JXx86IOknarHWXtWRzlCBhL
+         vOgk/W86wjDhCV8wvAXaRTZurc3OuVCCdUDiNY1BPKuSuqoJ/Xm8ZnIB+DfjU+0rRDT0
+         ZmIAJbbbiIJ+6ZLDUB7vY5a8dNL69u7/EkurB4TaCRxWGBLZMU8s1XdQbPNyGI7Jm3Y7
+         FWLF7T3v0oN875430daWbBAF3fzyhB6Iq7alr0BlOC2dW6GLJ3NbO50wdIdj+97GHDws
+         f7ybkozaGS67YMpB5mqf442XNxi9zaLPFQapM3EgGaEQpwyf/33J7cfnF8a+ygTWfj5X
+         A37g==
+X-Gm-Message-State: AOAM532x9R1UGgAEfVRp2DzNqkxv999uH9Px8RN7Im0L84D1XCCtDR1Y
+        i/wOi+u80AbG22nEmZe2SFR4HwCN
+X-Google-Smtp-Source: ABdhPJyDc8+HK0NOSP7wRLq43SqMuPRAZ1/ba9YR4IfMaNxuEQXORZNHZWBzWnn4/Dk1rYyvwLqVfw==
+X-Received: by 2002:a17:906:2714:: with SMTP id z20mr42496936ejc.469.1594033043151;
+        Mon, 06 Jul 2020 03:57:23 -0700 (PDT)
 Received: from ?IPv6:2001:a61:3adb:8201:9649:88f:51f8:6a21? ([2001:a61:3adb:8201:9649:88f:51f8:6a21])
-        by smtp.gmail.com with ESMTPSA id a25sm22601516eds.77.2020.07.06.03.55.11
+        by smtp.gmail.com with ESMTPSA id g21sm23737448edu.2.2020.07.06.03.57.22
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Jul 2020 03:55:11 -0700 (PDT)
+        Mon, 06 Jul 2020 03:57:22 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: strcmp.3, punctuation
+Subject: Re: Errors in man pages, here: strcmp.3, inconsistency
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200706101719.GA26907@Debian-50-lenny-64-minimal>
+References: <20200706101741.GA26942@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <5523ad2b-95dd-363f-061b-fb1839bd15ae@gmail.com>
-Date:   Mon, 6 Jul 2020 12:55:10 +0200
+Message-ID: <9bf82e45-254b-a8be-75fb-2644093edd44@gmail.com>
+Date:   Mon, 6 Jul 2020 12:57:21 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200706101719.GA26907@Debian-50-lenny-64-minimal>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <20200706101741.GA26942@Debian-50-lenny-64-minimal>
+Content-Type: text/plain; charset=windows-1252
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -105,15 +105,25 @@ On 7/6/20 12:17 PM, Helge Kreutzmann wrote:
 > **
 > 
 > Man page: strcmp.3
-> Issue: ; → Full stop
+> Issue: The programm output says byte, the fourth line in the code says characters
 > 
-> "a positive value if I<s1> is greater than I<s2>;"
+> "    if (res == 0) {\n"
+> "        printf(\"E<lt>str1E<gt> and E<lt>str2E<gt> are equal\");\n"
+> "        if (argc E<gt> 3)\n"
+> "            printf(\" in the first %d characters\\en\", atoi(argv[3]));\n"
+> "        printf(\"\\en\");\n"
+> "    } else if (res E<lt> 0) {\n"
+> "        printf(\"E<lt>str1E<gt> is less than E<lt>str2E<gt> (%d)\\en\", res);\n"
+> "    } else {\n"
+> "        printf(\"E<lt>str1E<gt> is greater than E<lt>str2E<gt> (%d)\\en\", res);\n"
+> "    }\n"
 
-Thanks. Fixed.
+Wow! Nice catch! Code changed.
 
 Cheers,
 
 Michael
+
 
 
 -- 
