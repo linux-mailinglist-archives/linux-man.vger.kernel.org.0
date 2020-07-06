@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9AB1A2155A9
-	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:36:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C52DD2155B2
+	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:38:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728597AbgGFKgX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Jul 2020 06:36:23 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47844 "EHLO
+        id S1728872AbgGFKiM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Jul 2020 06:38:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48126 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728422AbgGFKgX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:36:23 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1960AC061794
-        for <linux-man@vger.kernel.org>; Mon,  6 Jul 2020 03:36:23 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id j4so37826738wrp.10
-        for <linux-man@vger.kernel.org>; Mon, 06 Jul 2020 03:36:22 -0700 (PDT)
+        with ESMTP id S1728737AbgGFKiL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:38:11 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8CE1BC061794
+        for <linux-man@vger.kernel.org>; Mon,  6 Jul 2020 03:38:11 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id r12so40189858wrj.13
+        for <linux-man@vger.kernel.org>; Mon, 06 Jul 2020 03:38:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=C/4KR176bH+mIs4iRzhh/8ayl+E3+KboQB3WGn8krNU=;
-        b=fBW93Av7V5f4ZXO0rHl40hG5A6LHlcPj/3T1iylVs936AT4PnjCuiYpDsJCsf4olK8
-         nf66IuYOl0yo4SjExowmBWf1hLxzOozXfiGYuNxc9c+cYuv2D6ni1ZMFK3QTRkV4lYrC
-         jv+e1UQlaGOMgzNfFC2h7VOYjEWnWJZ5ljl3GhtaryijgyOmK6679wKHvZ5IE7nouKx3
-         CHiYJPmUqXo4hF9+M6RRAZuGHQVSHmg+hURBvH3X6uvKezQOjoI2IcP9kn684ysp8xvY
-         LRyXBfrss1TtyCxggFzBqMDYzbwycfIPzjrd0HSDgc06JI932p+TK4XnmbAd5GD8o6dd
-         7Cow==
+        bh=M/T2W7W2At8KzOYBx/4CIllHIyRbJXJ4Mtq/7YwBLaw=;
+        b=XGV4vsjayDjBv47q7rz6Ijg+SnDSL7cIZjW10mZkvLbEPb3KTb1NETUzUkFUaqn3rq
+         T49xxaE6Nv8nhITM9Dd9m0zPso03ifwuyYAqH7G8vN7uh6rTRS6PqBeYMEmvykTUPdna
+         SqvsH16mYkDZ9pMY3oj1gGIh39qY4jTdAhTgx96KxZYc1829OVDgXAZwb//8sTq/ZPGy
+         6WJNoHKNzg3NAfGduiPKsyjQnyCTvvz98upImS9eFW5lXkhzty80QWeCKidaE7VOSb4e
+         /Q8CUlrb+no4Yodmt9PcSUwzrGtXkyhZxQCPA9mIBLw+o6x6Za7hhvxcz4DFFHeI7UGv
+         sMgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=C/4KR176bH+mIs4iRzhh/8ayl+E3+KboQB3WGn8krNU=;
-        b=KA8XLqdBqXgZAEGRE9HSGlIOdUfwD5UzEF9QYTGJGmCPTu1DrIqXMpNEhifWRUKpTH
-         KruqLA7Y8eyHbB0xaEN6UX7IB5GePh96CIYelR9FbjVkR6ZCpSBbPfqj0nIB0+XC2rFx
-         cG73V/uVoZu6cU4BCsxP+HixcV4SyQdO7+uAPUYw8d+wO+0+M2JZZ0HVrQ45l3VAoDGp
-         5MwLjrrFNseGJd9W+y6F+xK85O0w5pM/In2XcDruConG1oU/7c4bFnXgYPzQgVgUzqq4
-         dW5y8VBg4SLNknumEakg0kzqJ0F9SlESq3BtXqe5f4D+BOmLCipVIpTYo403DEXUN3fn
-         Yg6w==
-X-Gm-Message-State: AOAM5314fktGqUU+CJnrBsJBqc/6Gesn3tF8T6oZSC1pY6aCvnq6WeqK
-        bOXZb9ElI/YlFLvfFHFbgb/hofcq
-X-Google-Smtp-Source: ABdhPJyWcbdCg8EJFoUNoFkUPTr2yFxx0HczmWXbgb44uOKkJ8tgnKE9hQSDOEGouqvlLMo3RYZFBA==
-X-Received: by 2002:adf:f60c:: with SMTP id t12mr51742638wrp.198.1594031781512;
-        Mon, 06 Jul 2020 03:36:21 -0700 (PDT)
+        bh=M/T2W7W2At8KzOYBx/4CIllHIyRbJXJ4Mtq/7YwBLaw=;
+        b=a8U9Y1eGE+hAVZcblJQGf3n8qx9/1YUG8aSjyM7YJKEBGc6wMtHmQ+To+lYkmamEMA
+         kv/ArArLje6lYvWL6SMuwjAMnMRjpPL3KFRG4uVzxexst6r5yFkbVnFljilWFvgMX808
+         O7rIYF22P0mYd1tHshKuuG4JsEBkX/jC9c5YWTTCtZY9whKOVKBNvLsBOFpcmpXqnpK7
+         rTXe41zJwGO4vAiGzEfrs9MDn5iUBzju9oP6FDD3nrBTmQ0xrOP3hV99uRHMk4bGjWqB
+         TTwwPsCkOtCyaf0fTwyJranfvOeqbFVmBzkHw3woLOhdV9Op3M4XDlrjE8GV5H2dMz0F
+         5LVw==
+X-Gm-Message-State: AOAM5329HX5Jb1ORg2w7xslYg3uU7d8HrOxA1Zv4sz/zT8AQbxcSDusR
+        7L6dwbEx217tBXsEwLcmr9HQyEx/
+X-Google-Smtp-Source: ABdhPJzbkpzRmfSL2Q/yCSJXu5nXJoGxomk2on+NI0rYydestHkBnZBXuttg7y6Y8YL62L4xx4oqkQ==
+X-Received: by 2002:adf:9c8c:: with SMTP id d12mr46987346wre.369.1594031890097;
+        Mon, 06 Jul 2020 03:38:10 -0700 (PDT)
 Received: from ?IPv6:2001:a61:3adb:8201:9649:88f:51f8:6a21? ([2001:a61:3adb:8201:9649:88f:51f8:6a21])
-        by smtp.gmail.com with ESMTPSA id z6sm22530949wmf.33.2020.07.06.03.36.20
+        by smtp.gmail.com with ESMTPSA id r1sm23387240wrt.73.2020.07.06.03.38.09
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Jul 2020 03:36:21 -0700 (PDT)
+        Mon, 06 Jul 2020 03:38:09 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: execve.2, missing full stop
+Subject: Re: Errors in man pages, here: getusershell.3, mssing markup?
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200706101145.GA26382@Debian-50-lenny-64-minimal>
+References: <20200706101319.GA26520@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <94cba80a-4173-8e46-8663-306511a46989@gmail.com>
-Date:   Mon, 6 Jul 2020 12:36:20 +0200
+Message-ID: <08fd9f21-96ce-41d6-d560-dba35c8002ce@gmail.com>
+Date:   Mon, 6 Jul 2020 12:38:08 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200706101145.GA26382@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200706101319.GA26520@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=windows-1252
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -67,7 +67,7 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 7/6/20 12:11 PM, Helge Kreutzmann wrote:
+On 7/6/20 12:13 PM, Helge Kreutzmann wrote:
 > Dear linux man page maintainer,
 > the manpage-l10n project maintains a large number of translations of
 > man pages both from a large variety of sources (including linux man
@@ -104,14 +104,12 @@ On 7/6/20 12:11 PM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Man page: execve.2
-> Issue: Missing final full stop
->  
-> "I<envp> is an array of pointers to strings, conventionally of the form "
-> "B<key=value>, which are passed as the environment of the new program.  The "
-> "I<envp> array must be terminated by a NULL pointer"
+> Man page: getusershell.3
+> Issue: Missing markup for filename?
+> 
+> "/etc/shells\n"
 
-Fixed. Thanks, Helge.
+Thanks. Fixed.
 
 Cheers,
 
