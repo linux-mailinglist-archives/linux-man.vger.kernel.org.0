@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 62B102155F3
-	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 12:57:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E2537215604
+	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 13:01:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728671AbgGFK5Z (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Jul 2020 06:57:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51102 "EHLO
+        id S1728701AbgGFLBI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Jul 2020 07:01:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51682 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728670AbgGFK5Y (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 06:57:24 -0400
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9B5C3C061794
-        for <linux-man@vger.kernel.org>; Mon,  6 Jul 2020 03:57:24 -0700 (PDT)
-Received: by mail-ej1-x643.google.com with SMTP id lx13so23198831ejb.4
-        for <linux-man@vger.kernel.org>; Mon, 06 Jul 2020 03:57:24 -0700 (PDT)
+        with ESMTP id S1728613AbgGFLBH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Jul 2020 07:01:07 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 47081C061794
+        for <linux-man@vger.kernel.org>; Mon,  6 Jul 2020 04:01:07 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id o11so40360574wrv.9
+        for <linux-man@vger.kernel.org>; Mon, 06 Jul 2020 04:01:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=qfKHo7VhmVTI+mBAnKwM6Y3YQA6DQO9Qwedhoe1HKJo=;
-        b=U1mg858N08dD/jcStiaxyZATErJZymFe77aYUieJ9H+OAAIHSPaDNkT62oOBrYLcfB
-         poit1wP4cz9/nBS89iJwud4ZaIdvJr6LaExDkRKL14fiBnwDSTYUq0wuB75PRVDjA2Mi
-         tw3P8hmNsSkQoEm3W77MIJ/zBjcpDrKHYvJyY2SnhzhgnzMNW7jhiciU7x7lwhY4/uKm
-         ANYKqWU41hXB5LXRyWFDHekRHMnHK9+ycQ36vyTTKyMnbG8NvtGlFV1kWlOcm3zpI+lf
-         jPXXMPnH5UdmwitJIaPL2GiepIF5qNCXxUzEd7lQkEujby8ibOq2lAvjSj9W+NfYdgPV
-         4Y5A==
+        bh=vuN1CI0B/krk6QEiMLLjDssQM5bwSokXiNyj/LUOT6o=;
+        b=AKnM3oKA9/BJLMsMEmliNMwOjU6G7rnzVc8qn504bDoyBo6nKaIM0Jeuf8sa2+e688
+         7BydzevGdmlyGDSLgV4xwFLtgRLFA6/ZyUYqPkN6W6PjhRXflIYJZPKAt5jgsd8tGKp7
+         X9d0g7sHbQAUCVzL/Kgbw449mIW03PmS0eLOVCmtXvn6n7oAsCcRsr3XcEzi/KSn5pQp
+         2ex8neNoxFw+50GxH4ygq8Or1SCpSS5OQJntUoiPl7pDBkhdrvXcl1XW7Fr96HxJr0RP
+         PxX6rsxUgxcPGK28f+xgw3c1bF4Wd8jpMKT8eilpP0dCN+b13wONYqnyyyp7wuJ6Zh1u
+         Izog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=qfKHo7VhmVTI+mBAnKwM6Y3YQA6DQO9Qwedhoe1HKJo=;
-        b=no/iU/A/52ufMrEBABjakuBCUS2eGX1xY0CwFKWy0o+JXx86IOknarHWXtWRzlCBhL
-         vOgk/W86wjDhCV8wvAXaRTZurc3OuVCCdUDiNY1BPKuSuqoJ/Xm8ZnIB+DfjU+0rRDT0
-         ZmIAJbbbiIJ+6ZLDUB7vY5a8dNL69u7/EkurB4TaCRxWGBLZMU8s1XdQbPNyGI7Jm3Y7
-         FWLF7T3v0oN875430daWbBAF3fzyhB6Iq7alr0BlOC2dW6GLJ3NbO50wdIdj+97GHDws
-         f7ybkozaGS67YMpB5mqf442XNxi9zaLPFQapM3EgGaEQpwyf/33J7cfnF8a+ygTWfj5X
-         A37g==
-X-Gm-Message-State: AOAM532x9R1UGgAEfVRp2DzNqkxv999uH9Px8RN7Im0L84D1XCCtDR1Y
-        i/wOi+u80AbG22nEmZe2SFR4HwCN
-X-Google-Smtp-Source: ABdhPJyDc8+HK0NOSP7wRLq43SqMuPRAZ1/ba9YR4IfMaNxuEQXORZNHZWBzWnn4/Dk1rYyvwLqVfw==
-X-Received: by 2002:a17:906:2714:: with SMTP id z20mr42496936ejc.469.1594033043151;
-        Mon, 06 Jul 2020 03:57:23 -0700 (PDT)
+        bh=vuN1CI0B/krk6QEiMLLjDssQM5bwSokXiNyj/LUOT6o=;
+        b=QMSjv+2M3AfYnwZ79zdJzt8MyMl4IrWhRCI5QPDtfPr1kP7OtN/PVTcr5t+/A8G52I
+         IZgfTV/4xV06kRrl7W0t0PsAIqkte8L4UWvp6IEurDcPssZm4r8wPPQ+CM3Cii8niDEP
+         TKKRSYdbjLk6XedYRbZ+xbBz4szMvfVpayuCdzQglwif3fx2n7Xc15fafTGRfGbMil9b
+         fxgL/bZAq1UgsQhBvLxvFXcwT7Ke9jddDQlZ1V+nwF2u2pvEaz9Jgf+AvKOkvTem7Dh1
+         hfXC4zh3vBxGyvYOXP/QYy8i0RTU1VkrAj9OrFKnIxplMg+lIOK+8U2ZUzDaCtPbQWZI
+         hucg==
+X-Gm-Message-State: AOAM533WmWPmftQH2GT+B3mfdU5aCIzy3tfx/Z6/MKFrRWX6HbISHC3v
+        +ygPI4ddo279RtcrG8hrvEf/oIPn
+X-Google-Smtp-Source: ABdhPJwtntyoINKJDmjHpZfofdqdlC2KarwzFuDKSqGKP0p8Oi6frUEkQeU/v3HFqyV5LF3+gC0Ziw==
+X-Received: by 2002:a05:6000:6:: with SMTP id h6mr47095368wrx.26.1594033265778;
+        Mon, 06 Jul 2020 04:01:05 -0700 (PDT)
 Received: from ?IPv6:2001:a61:3adb:8201:9649:88f:51f8:6a21? ([2001:a61:3adb:8201:9649:88f:51f8:6a21])
-        by smtp.gmail.com with ESMTPSA id g21sm23737448edu.2.2020.07.06.03.57.22
+        by smtp.gmail.com with ESMTPSA id t141sm3290484wmt.26.2020.07.06.04.01.04
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Jul 2020 03:57:22 -0700 (PDT)
+        Mon, 06 Jul 2020 04:01:05 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: strcmp.3, inconsistency
+Subject: Re: Errors in man pages, here: expm1.3, bogus full stop
 To:     Helge Kreutzmann <debian@helgefjell.de>
-References: <20200706101741.GA26942@Debian-50-lenny-64-minimal>
+References: <20200706101221.GA26426@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <9bf82e45-254b-a8be-75fb-2644093edd44@gmail.com>
-Date:   Mon, 6 Jul 2020 12:57:21 +0200
+Message-ID: <5e2ae325-1998-0a72-9e03-b2a0bd0fe6e2@gmail.com>
+Date:   Mon, 6 Jul 2020 13:01:04 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200706101741.GA26942@Debian-50-lenny-64-minimal>
+In-Reply-To: <20200706101221.GA26426@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=windows-1252
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -67,7 +67,7 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 7/6/20 12:17 PM, Helge Kreutzmann wrote:
+On 7/6/20 12:12 PM, Helge Kreutzmann wrote:
 > Dear linux man page maintainer,
 > the manpage-l10n project maintains a large number of translations of
 > man pages both from a large variety of sources (including linux man
@@ -104,26 +104,23 @@ On 7/6/20 12:17 PM, Helge Kreutzmann wrote:
 > 
 > **
 > 
-> Man page: strcmp.3
-> Issue: The programm output says byte, the fourth line in the code says characters
+> Man page: expm1.3
+> Issue: bogus full stop after infinity
 > 
-> "    if (res == 0) {\n"
-> "        printf(\"E<lt>str1E<gt> and E<lt>str2E<gt> are equal\");\n"
-> "        if (argc E<gt> 3)\n"
-> "            printf(\" in the first %d characters\\en\", atoi(argv[3]));\n"
-> "        printf(\"\\en\");\n"
-> "    } else if (res E<lt> 0) {\n"
-> "        printf(\"E<lt>str1E<gt> is less than E<lt>str2E<gt> (%d)\\en\", res);\n"
-> "    } else {\n"
-> "        printf(\"E<lt>str1E<gt> is greater than E<lt>str2E<gt> (%d)\\en\", res);\n"
-> "    }\n"
+> "Before approximately glibc version 2.11, B<expm1>()  raised a bogus invalid "
+> "floating-point exception in addition to the expected overflow exception, and "
+> "returned a NaN instead of positive infinity.  for some large positive I<x> "
+> "values,"
 
-Wow! Nice catch! Code changed.
+This page comes from POSIX. I haven't checked whether the problem
+was in the original source, or introduced during import of the pages.
 
-Cheers,
+However, I'm going to ignore this one, since it's on my TODO
+list to move to a more recent set of POSIX manual pages.
+
+Thanks,
 
 Michael
-
 
 
 -- 
