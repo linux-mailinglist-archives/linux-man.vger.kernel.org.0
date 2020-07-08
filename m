@@ -2,75 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4A9EC215D0D
-	for <lists+linux-man@lfdr.de>; Mon,  6 Jul 2020 19:25:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 600BF21879A
+	for <lists+linux-man@lfdr.de>; Wed,  8 Jul 2020 14:33:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729671AbgGFRZp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Jul 2020 13:25:45 -0400
-Received: from foss.arm.com ([217.140.110.172]:58314 "EHLO foss.arm.com"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1729666AbgGFRZp (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 6 Jul 2020 13:25:45 -0400
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-        by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F3030D6E;
-        Mon,  6 Jul 2020 10:25:44 -0700 (PDT)
-Received: from arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-        by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BF14C3F68F;
-        Mon,  6 Jul 2020 10:25:43 -0700 (PDT)
-Date:   Mon, 6 Jul 2020 18:25:41 +0100
-From:   Dave Martin <Dave.Martin@arm.com>
-To:     Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc:     viro@zeniv.linux.org.uk, mtk.manpages@gmail.com, shuah@kernel.org,
-        linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
-        linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 0/3] readfile(2): a new syscall to make open/read/close
- faster
-Message-ID: <20200706172541.GG10992@arm.com>
-References: <20200704140250.423345-1-gregkh@linuxfoundation.org>
+        id S1729205AbgGHMdr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Jul 2020 08:33:47 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60346 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729191AbgGHMda (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Jul 2020 08:33:30 -0400
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com [IPv6:2607:f8b0:4864:20::d44])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C0955C08E90F
+        for <linux-man@vger.kernel.org>; Wed,  8 Jul 2020 05:33:29 -0700 (PDT)
+Received: by mail-io1-xd44.google.com with SMTP id k23so46693731iom.10
+        for <linux-man@vger.kernel.org>; Wed, 08 Jul 2020 05:33:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to
+         :content-transfer-encoding;
+        bh=/vBVbAxvijag95IA6OM26aTa2bKDnUtimRlc1mZm/7M=;
+        b=CtDA46Te1kJYGFqAkgr9Vub/YrG6WB2S+VlEURQEEM4x6m9sjli+Jz/yotFRmV/AMR
+         T/h2d+e8At09eChsFX2C+mUFLH+FsdwAy78KAtzHqTPpG69rhvmbmMUpZSALFUdgKxT3
+         rKV4TF8A0J+Za5tWsTPtObTKnCJJSeTUvLM0KCUCLapZUiUA/CE0qJguNsnmAcBYT7Bw
+         PUSSiRKtit7eL05YbTu8d4vZk3Rk52mtpEQs926eluhEg6IUrqIesfOKILheZFFzZp0P
+         0kRnPxRkSyAb2gIupk6cQmoDhkGW5ga2ONIfRh7Ui0T+vXHI9OfE4hLpnUDNkQjQgdsE
+         pxTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to:content-transfer-encoding;
+        bh=/vBVbAxvijag95IA6OM26aTa2bKDnUtimRlc1mZm/7M=;
+        b=YRaG0+UqdXBGUA//fXHBoENj0oYoy+RZeNkyFdF6SRM78xMtpBfQeJpmhMwc7vUUuC
+         hD/v3V0RYcQq5nt2AlZdIvIffU/RAQffzWjh1FyYm5/kNnrog+ssNHItXChrKDAK9kNg
+         Kb/oyAmEiZJjuN3UTanhsXRS113jxvqEQ05h+V1jtCABfbnRsF7sgfc7HVQzndov7w7B
+         La0Gq5PYaFwA7n8pKzYBsiT7N/S6pnNf7fg6QM+PNRgpXw4mXzIxC1WyFnpzXeiTiNQL
+         NOCiqg4EYnN45bOn94/1odGzVMJNgosheNss9j9AlfDlMyjB4SsxlsjWG8nabtFaA7cU
+         CS6w==
+X-Gm-Message-State: AOAM532wt+73oSAJv0HL9D1PBFzFQTNVEdKEcoAJjZX19XBcL0g92QrF
+        T3ncInfS3lJe6Y/bxY++NeKn16EZH5FpJAzg0Vg=
+X-Google-Smtp-Source: ABdhPJy69qBRFRW2d2u+0xyGHVfmVbQRW6SQ4gKLQIvGwSNWfhZDhNcIlxNh+7AirNZFy3An0aJSkt25Q8y7juQZu8o=
+X-Received: by 2002:a05:6638:12c7:: with SMTP id v7mr64754290jas.56.1594211609022;
+ Wed, 08 Jul 2020 05:33:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200704140250.423345-1-gregkh@linuxfoundation.org>
-User-Agent: Mutt/1.5.23 (2014-03-12)
+Received: by 2002:a05:6602:1582:0:0:0:0 with HTTP; Wed, 8 Jul 2020 05:33:28
+ -0700 (PDT)
+Reply-To: mmsafiatou057@gmail.com
+From:   "Mrs. Safitaou Zoungrana" <richardlaurentdr@gmail.com>
+Date:   Wed, 8 Jul 2020 12:33:28 +0000
+Message-ID: <CALJAiTVXhrKZYOHVoupnx6hmXXD0i2k4MOSO6HW+mj1BAydXhA@mail.gmail.com>
+Subject: My Dear Beloved One,
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sat, Jul 04, 2020 at 04:02:46PM +0200, Greg Kroah-Hartman wrote:
-> Here is a tiny new syscall, readfile, that makes it simpler to read
-> small/medium sized files all in one shot, no need to do open/read/close.
-> This is especially helpful for tools that poke around in procfs or
-> sysfs, making a little bit of a less system load than before, especially
-> as syscall overheads go up over time due to various CPU bugs being
-> addressed.
-> 
-> There are 4 patches in this series, the first 3 are against the kernel
-> tree, adding the syscall logic, wiring up the syscall, and adding some
-> tests for it.
-> 
-> The last patch is agains the man-pages project, adding a tiny man page
-> to try to describe the new syscall.
+My Dear Beloved One,
 
-General question, using this series as an illustration only:
+I greet you in the name of God almighty the givers of all good things
+in life. Please kindly pardon me for any inconvenience this letter may
+cost you because I know it may come to you as a surprise as we have no
+previous correspondence.  I sent this mail praying for it to reach you
+in good health, since I myself are in a very critical health condition
+in which I sleep every night without knowing if I may be alive to see
+the next day.
 
+I am Mrs. Safiatou Zoungrana,  the wife of late Engineer Ralph
+Alphonso Zoungrana from Paris France but based here in Burkina Faso
+West Africa since eight years ago as a business woman dealing with
+gold exportation and Sales. We have been married for years before his
+sudden death although we were childless. I have been diagnosed with
+ovarian cancer and I have been battling with the sickness when my late
+lovely husband of a blessed memory was alive. May his soul rest in
+peace, Amen.
 
-At the risk of starting a flamewar, why is this needed?  Is there a
-realistic usecase that would get significant benefit from this?
+My late Husband left the sum of =E2=82=AC7.900.000.00 Seven Million Nine
+Hundred Thousand Euros in a fix/suspense account in one of the prime
+bank here in Burkina Faso. Recently, my Doctor told me that I have few
+days to live due to the cancer problem. The one that disturbs me most
+is my blood pressure sickness.
 
-A lot of syscalls seem to get added that combine or refactor the
-functionality of existing syscalls without justifying why this is
-needed (or even wise).  This case feels like a solution, not a
-primitive, so I wonder if the long-term ABI fragmentation is worth the
-benefit.
+Having known my health condition I decided to seek for your kind
+assistance to transfer this fund into your account and you will use it
+to establish an orphanage home in my name. I will give you more
+details about the project as soon as I receive your reply in my
+private email (mmsafiatou057@gmail.com) to handle this project because
+I do not want to state all here until I see your reply, desire and
+commitment to handle this project.
 
-I ask because I'd like to get an idea of the policy on what is and is
-not considered a frivolous ABI extension.
-
-(I'm sure a usecase must be in mind, but it isn't mentioned here.
-Certainly the time it takes top to dump the contents of /proc leaves
-something to be desired.)
-
-Cheers
----Dave
+My Regards to your family.
+Mrs. Safiatou Zoungrana.
