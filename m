@@ -2,187 +2,133 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AF14E21E035
-	for <lists+linux-man@lfdr.de>; Mon, 13 Jul 2020 20:52:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B17BE21E04A
+	for <lists+linux-man@lfdr.de>; Mon, 13 Jul 2020 20:58:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726960AbgGMSv6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 13 Jul 2020 14:51:58 -0400
-Received: from mail.kernel.org ([198.145.29.99]:36242 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726934AbgGMSv4 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 13 Jul 2020 14:51:56 -0400
-Received: from quaco.ghostprotocols.net (unknown [179.97.37.151])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id A52E62067D;
-        Mon, 13 Jul 2020 18:51:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1594666315;
-        bh=LJYNdMjGh9jhnhTSdjGmRfj4ZZPmYTCiDmXsEYK+rbA=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=xcUtfiYB9gVw0idtGZ0ckHJ2AwARiBsz3B5pO/4Xsnz0RRlywvnR9X3VFXsqG5tBe
-         5BFF04XGFk0AfoP+GCDL7YcFUld9kJx5NTN7ySezxdO8tPJlxVaKmnlPfv01njAyWF
-         f3dcdWXOvMV/lHwrEnxNT6iK1jKKpuEn4rBQVCxk=
-Received: by quaco.ghostprotocols.net (Postfix, from userid 1000)
-        id 1C9B440094; Mon, 13 Jul 2020 15:51:52 -0300 (-03)
-Date:   Mon, 13 Jul 2020 15:51:52 -0300
-From:   Arnaldo Carvalho de Melo <acme@kernel.org>
-To:     Alexey Budankov <alexey.budankov@linux.intel.com>
-Cc:     Peter Zijlstra <peterz@infradead.org>,
-        Ravi Bangoria <ravi.bangoria@linux.ibm.com>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Ingo Molnar <mingo@redhat.com>,
-        James Morris <jmorris@namei.org>,
-        Namhyung Kim <namhyung@kernel.org>,
-        Serge Hallyn <serge@hallyn.com>, Jiri Olsa <jolsa@redhat.com>,
-        Song Liu <songliubraving@fb.com>,
-        Andi Kleen <ak@linux.intel.com>,
-        Stephane Eranian <eranian@google.com>,
-        Igor Lubashev <ilubashe@akamai.com>,
-        Thomas Gleixner <tglx@linutronix.de>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        "linux-security-module@vger.kernel.org" 
-        <linux-security-module@vger.kernel.org>,
-        "selinux@vger.kernel.org" <selinux@vger.kernel.org>,
-        "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
-        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH v8 00/12] Introduce CAP_PERFMON to secure system
- performance monitoring and observability
-Message-ID: <20200713185152.GA18094@kernel.org>
-References: <f96f8f8a-e65c-3f36-dc85-fc3f5191e8c5@linux.intel.com>
- <76718dc6-5483-5e2e-85b8-64e70306ee1f@linux.ibm.com>
- <7776fa40-6c65-2aa6-1322-eb3a01201000@linux.intel.com>
- <20200710170911.GD7487@kernel.org>
- <0d2e2306-22b2-a730-dc3f-edb3538b6561@linux.intel.com>
- <20200713121746.GA7029@kernel.org>
- <0fadcf78-8b0e-ed03-a554-cc172b7d249c@linux.intel.com>
+        id S1726338AbgGMS6u (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 13 Jul 2020 14:58:50 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43142 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726321AbgGMS6u (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 13 Jul 2020 14:58:50 -0400
+Received: from inpost.hi.is (inpost.hi.is [IPv6:2a00:c88:4000:1650::165:62])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D6849C061755
+        for <linux-man@vger.kernel.org>; Mon, 13 Jul 2020 11:58:49 -0700 (PDT)
+Received: from hekla.rhi.hi.is (hekla.rhi.hi.is [IPv6:2a00:c88:4000:1650::165:2])
+        by inpost.hi.is (8.14.7/8.14.7) with ESMTP id 06DIwhUA001848
+        (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+        Mon, 13 Jul 2020 18:58:43 GMT
+DKIM-Filter: OpenDKIM Filter v2.11.0 inpost.hi.is 06DIwhUA001848
+Received: from hekla.rhi.hi.is (localhost [127.0.0.1])
+        by hekla.rhi.hi.is (8.14.4/8.14.4) with ESMTP id 06DIwh7b031867;
+        Mon, 13 Jul 2020 18:58:43 GMT
+Received: (from bjarniig@localhost)
+        by hekla.rhi.hi.is (8.14.4/8.14.4/Submit) id 06DIwhDp031866;
+        Mon, 13 Jul 2020 18:58:43 GMT
+Date:   Mon, 13 Jul 2020 18:58:43 +0000
+From:   Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH] man3/*: ffix, change '-' to '\-' for options
+Message-ID: <20200713185843.GA31638@rhi.hi.is>
+References: <20200701225059.GA26940@rhi.hi.is>
+ <47d84128-6235-c1c0-b54e-cf1e87836297@gmail.com>
+ <20200704000211.GA1330@rhi.hi.is>
+ <3defbf91-5022-b042-ee2b-779fa5931343@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <0fadcf78-8b0e-ed03-a554-cc172b7d249c@linux.intel.com>
-X-Url:  http://acmel.wordpress.com
+In-Reply-To: <3defbf91-5022-b042-ee2b-779fa5931343@gmail.com>
+User-Agent: Mutt/1.5.20 (2009-12-10)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Em Mon, Jul 13, 2020 at 03:37:51PM +0300, Alexey Budankov escreveu:
-> 
-> On 13.07.2020 15:17, Arnaldo Carvalho de Melo wrote:
-> > Em Mon, Jul 13, 2020 at 12:48:25PM +0300, Alexey Budankov escreveu:
+On Mon, Jul 06, 2020 at 10:45:00AM +0200, Michael Kerrisk (man-pages) wrote:
+> On 7/4/20 2:02 AM, Bjarni Ingi Gislason wrote:
+> > On Thu, Jul 02, 2020 at 12:27:25PM +0200, Michael Kerrisk (man-pages) wrote:
+> >> Hello Bjarni,
 > >>
-> >> On 10.07.2020 20:09, Arnaldo Carvalho de Melo wrote:
-> >>> Em Fri, Jul 10, 2020 at 05:30:50PM +0300, Alexey Budankov escreveu:
-> >>>> On 10.07.2020 16:31, Ravi Bangoria wrote:
-> >>>>>> Currently access to perf_events, i915_perf and other performance
-> >>>>>> monitoring and observability subsystems of the kernel is open only for
-> >>>>>> a privileged process [1] with CAP_SYS_ADMIN capability enabled in the
-> >>>>>> process effective set [2].
-> > 
-> >>>>>> This patch set introduces CAP_PERFMON capability designed to secure
-> >>>>>> system performance monitoring and observability operations so that
-> >>>>>> CAP_PERFMON would assist CAP_SYS_ADMIN capability in its governing role
-> >>>>>> for performance monitoring and observability subsystems of the kernel.
-> > 
-> >>>>> I'm seeing an issue with CAP_PERFMON when I try to record data for a
-> >>>>> specific target. I don't know whether this is sort of a regression or
-> >>>>> an expected behavior.
-> > 
-> >>>> Thanks for reporting and root causing this case. The behavior looks like
-> >>>> kind of expected since currently CAP_PERFMON takes over the related part
-> >>>> of CAP_SYS_ADMIN credentials only. Actually Perf security docs [1] say
-> >>>> that access control is also subject to CAP_SYS_PTRACE credentials.
-> > 
-> >>> I think that stating that in the error message would be helpful, after
-> >>> all, who reads docs? 8-)
-> > 
-> >> At least those who write it :D ...
-> > 
-> > Everybody should read it, sure :-)
-> >  
-> >>> I.e., this:
+> >> On 7/2/20 12:50 AM, Bjarni Ingi Gislason wrote:
+> >>>   Change '-' to '\-' for the prefix of names to indicate an option.
 > >>>
-> >>> $ ./perf stat ls
-> >>>   Error:
-> >>>   Access to performance monitoring and observability operations is limited.
-> >>> $
-> >>>
-> >>> Could become:
-> >>>
-> >>> $ ./perf stat ls
-> >>>   Error:
-> >>>   Access to performance monitoring and observability operations is limited.
-> >>>   Right now only CAP_PERFMON is granted, you may need CAP_SYS_PTRACE.
-> >>> $
+> >>> Signed-off-by: Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
 > >>
-> >> It would better provide reference to perf security docs in the tool output.
-> > 
-> > So add a 3rd line:
-> > 
-> > $ ./perf stat ls
-> >   Error:
-> >   Access to performance monitoring and observability operations is limited.
-> >   Right now only CAP_PERFMON is granted, you may need CAP_SYS_PTRACE.
-> >   Please read the 'Perf events and tool security' document:
-> >   https://www.kernel.org/doc/html/latest/admin-guide/perf-security.html
-
-> If it had that patch below then message change would not be required.
-
-Sure, but the tool should continue to work and provide useful messages
-when running on kernels without that change. Pointing to the document is
-valid and should be done, that is an agreed point. But the tool can do
-some checks, narrow down the possible causes for the error message and
-provide something that in most cases will make the user make progress.
-
-> However this two sentences in the end of whole message would still add up:
-> "Please read the 'Perf events and tool security' document:
->  https://www.kernel.org/doc/html/latest/admin-guide/perf-security.html"
-
-We're in violent agreement here. :-)
- 
-> > 
-> >> Looks like extending ptrace_may_access() check for perf_events with CAP_PERFMON
-> > 
-> > You mean the following?
-> 
-> Exactly that.
-
-Sure, lets then wait for others to chime in and then you can go ahead
-and submit that patch.
-
-Peter?
-
-- Arnaldo
- 
-> > 
-> > diff --git a/kernel/events/core.c b/kernel/events/core.c
-> > index 856d98c36f56..a2397f724c10 100644
-> > --- a/kernel/events/core.c
-> > +++ b/kernel/events/core.c
-> > @@ -11595,7 +11595,7 @@ SYSCALL_DEFINE5(perf_event_open,
-> >  		 * perf_event_exit_task() that could imply).
-> >  		 */
-> >  		err = -EACCES;
-> > -		if (!ptrace_may_access(task, PTRACE_MODE_READ_REALCREDS))
-> > +		if (!perfmon_capable() && !ptrace_may_access(task, PTRACE_MODE_READ_REALCREDS))
-> >  			goto err_cred;
-> >  	}
-> > 
-> >> makes monitoring simpler and even more secure to use since Perf tool need
-> >> not to start/stop/single-step and read/write registers and memory and so on
-> >> like a debugger or strace-like tool. What do you think?
-> > 
-> > I tend to agree, Peter?
-> >  
-> >> Alexei
+> >> Patch applied, but:
 > >>
-> >>>
-> >>> - Arnaldo
+> >>> ---
+> >>>  man3/dlopen.3             | 2 +-
+> >>>  man3/fts.3                | 2 +-
+> >>>  man3/getsubopt.3          | 2 +-
+> >>>  man3/insque.3             | 2 +-
+> >>>  man3/mq_getattr.3         | 2 +-
+> >>>  man3/posix_spawn.3        | 8 ++++----
+> >>>  man3/pthread_setname_np.3 | 2 +-
+> >>>  man3/sincos.3             | 2 +-
+> >>>  man3/strfromd.3           | 6 +++---
+> >>
+> >> The above piece was broken, so I applied manually. Was your patch 
+> >> against master?
+> >>
+> >   I always use my own copy of the repository where I apply my new
+> > patches to.
 > 
-> Alexei
+> Please don't. When I've rejected particular changes (as below),
+> for reasons that I already explained (several times), then basing
+> your patches on private repo that still has those changes will
+> just cause breakage and wasted time for me. Please base patches
+> off a pristine master.
+> 
+  I do not support bad, wrong decisions.
+
+  I do not support misuse.
+
+  Your "trouble" is a direct consequence of your decisions.
+
+  I have already answered your "explanations".
+
+####
+
+  "Since breaking out of bad habits, rather than acquiring new
+ones, is the toughest part of learning we must expect from that
+system permanent mental damage for most students exposed to
+it."
+
+Page xxxvii in:
+
+On the Cruelty of Really Teaching Computing Science
+
+Edsger W. Dykstra (Dijkstra)
+
+SIGCSE Bulletin 1989, 21(1), pages xxv-xxxix.
+Also "www.cs.utexas.edu/users/EWD/"
+
+###
+
+  "The problems of the real world are primarily those you are
+left with when you refuse to apply their effective solutions."
+
+Page xxxviii in:
+
+On the Cruelty of Really Teaching Computing Science
+
+Edsger W. Dykstra (Dijkstra)
+
+SIGCSE Bulletin 1989, 21(1), pages xxv-xxxix.
+Also "www.cs.utexas.edu/users/EWD/"
+
+###
+
+	It is necessary to consider all consequences of
+	the proposed action in all states of nature.
+
+There are lots of consequences of any given action.  Many of the
+problems of society today are at least partly due to the failure
+to realize that the "obvious" action taken had so many bad side
+effects.
+
+Herman Rubin in the Usenet forum "misc.education.science".
 
 -- 
-
-- Arnaldo
+Bjarni I. Gislason
