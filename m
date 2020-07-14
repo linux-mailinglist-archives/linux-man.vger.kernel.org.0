@@ -2,91 +2,103 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9F23C21EAF0
-	for <lists+linux-man@lfdr.de>; Tue, 14 Jul 2020 10:07:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8189421EE8E
+	for <lists+linux-man@lfdr.de>; Tue, 14 Jul 2020 13:00:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726619AbgGNIHP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 14 Jul 2020 04:07:15 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51302 "EHLO
+        id S1726817AbgGNLAA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 14 Jul 2020 07:00:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49656 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725793AbgGNIHP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 14 Jul 2020 04:07:15 -0400
-Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D3FB2C061755
-        for <linux-man@vger.kernel.org>; Tue, 14 Jul 2020 01:07:14 -0700 (PDT)
-Received: by mail-ed1-x544.google.com with SMTP id g20so16196661edm.4
-        for <linux-man@vger.kernel.org>; Tue, 14 Jul 2020 01:07:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=VxG136uE7k/7DQKw2dWH82lAeA2t/fDkcPS0g4RMW9A=;
-        b=El1qSrVlx5j8OzqWY+jAkGIyxjaAfYH+cAXX/jS9K9Nm7LDsD7Ow20X6ZI/9L4i34m
-         i6WsR0CtSO9QTmeXYDIWsjH1tlcEOcfyjR+Yn6OuRbJMAlEjvHkjEtfJJvDtJKZFb57q
-         UXgWM5FxsZRScs6IL4dz92fo4cR62DnQk6wXY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=VxG136uE7k/7DQKw2dWH82lAeA2t/fDkcPS0g4RMW9A=;
-        b=KW76KZIs0dS2sBS4pODvcDrmAI4h7Zr22a4FzTcXH5hszOrRMRIi8apjOvGNaBe0zp
-         GnWp/sXvjOcpBc+p1hbKmwKl1udVn5SjQipueP9fhuXbZFFGsQ+CnbH9au/ECUBSA2WF
-         0JECpGRyAuS23DpliufwLhtaYa0MuZwTy6T5hV5W8307Mt4P8VNK+kyALqOvj2T5aETK
-         0Z4uSDpXaXK5mXWwrIy37lOhnFmwrOYrL+zqDZ595FFebdKGNJagKV0gLNWYk1h6yjxw
-         pJSNJy54kL9GFX3ZMGKIT8YHL8Gbe/7ciGFsSQOvg9DsTeyuC0RQcvOd1HoMvo6e3nd9
-         c0rw==
-X-Gm-Message-State: AOAM5302bLhimnK+0lIgFxDEX6cm9QYWzf9cJF1/n808H1akNcxvAcae
-        +uwPhnsr5TTJCv10/J67IjtMpEoc9alMyAG8YcUx4g==
-X-Google-Smtp-Source: ABdhPJzWasYoseKAcvHkcWBtEYPiZDeYidABizN8Y9lJDS4GoTapol5Yea6vIlDc4ozwIskC2c/AS3sLTWFc+1jaNwk=
-X-Received: by 2002:a05:6402:1687:: with SMTP id a7mr3263957edv.358.1594714033497;
- Tue, 14 Jul 2020 01:07:13 -0700 (PDT)
+        with ESMTP id S1726534AbgGNK77 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 14 Jul 2020 06:59:59 -0400
+Received: from merlin.infradead.org (merlin.infradead.org [IPv6:2001:8b0:10b:1231::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9F5F9C061755;
+        Tue, 14 Jul 2020 03:59:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+        d=infradead.org; s=merlin.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+        References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+        Content-Transfer-Encoding:Content-ID:Content-Description;
+        bh=KCn+kBkY41F8RAgWcwTEUNO45YXItqYO+Iu35+qvwg0=; b=uWSIo5ytqOEjoxKysyDcE0PzIr
+        3zYDDQNcSq1GT1+ymnYDW8VImOa65X2m7iJ18QceLqoGgZAFN3pz2Iqm2g666/7X6BiV2p0MD9Uha
+        1A2hvnp78AssVI56e53PbylkRhVW7b3cBci4X/oqvn3uOVFkFlRAbjoOkIiBhsPCY6As3BQtlTv/h
+        TPZl/ufHiOsWClJXnK/3uQVbm8NSyW738l10nTqejGk44g1x3I+UA1CoTSCUTrTBj54ZO4C4raeN8
+        VT8vvrZ70FUDuRNNEGUSWYPEjKskqgjUwM07JBLoF9qjIjHCpZI2IpvoziP5sRcOAFB/JJ8l9xk4J
+        rXv6V17Q==;
+Received: from j217100.upc-j.chello.nl ([24.132.217.100] helo=noisy.programming.kicks-ass.net)
+        by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+        id 1jvIev-00015n-SH; Tue, 14 Jul 2020 10:59:38 +0000
+Received: from hirez.programming.kicks-ass.net (hirez.programming.kicks-ass.net [192.168.1.225])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (Client did not present a certificate)
+        by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 31B1D300130;
+        Tue, 14 Jul 2020 12:59:34 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+        id 162DD28B91060; Tue, 14 Jul 2020 12:59:34 +0200 (CEST)
+Date:   Tue, 14 Jul 2020 12:59:34 +0200
+From:   Peter Zijlstra <peterz@infradead.org>
+To:     Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc:     Alexey Budankov <alexey.budankov@linux.intel.com>,
+        Ravi Bangoria <ravi.bangoria@linux.ibm.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Ingo Molnar <mingo@redhat.com>,
+        James Morris <jmorris@namei.org>,
+        Namhyung Kim <namhyung@kernel.org>,
+        Serge Hallyn <serge@hallyn.com>, Jiri Olsa <jolsa@redhat.com>,
+        Song Liu <songliubraving@fb.com>,
+        Andi Kleen <ak@linux.intel.com>,
+        Stephane Eranian <eranian@google.com>,
+        Igor Lubashev <ilubashe@akamai.com>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        "linux-security-module@vger.kernel.org" 
+        <linux-security-module@vger.kernel.org>,
+        "selinux@vger.kernel.org" <selinux@vger.kernel.org>,
+        "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH v8 00/12] Introduce CAP_PERFMON to secure system
+ performance monitoring and observability
+Message-ID: <20200714105934.GU10769@hirez.programming.kicks-ass.net>
+References: <f96f8f8a-e65c-3f36-dc85-fc3f5191e8c5@linux.intel.com>
+ <76718dc6-5483-5e2e-85b8-64e70306ee1f@linux.ibm.com>
+ <7776fa40-6c65-2aa6-1322-eb3a01201000@linux.intel.com>
+ <20200710170911.GD7487@kernel.org>
+ <0d2e2306-22b2-a730-dc3f-edb3538b6561@linux.intel.com>
+ <20200713121746.GA7029@kernel.org>
+ <0fadcf78-8b0e-ed03-a554-cc172b7d249c@linux.intel.com>
+ <20200713185152.GA18094@kernel.org>
 MIME-Version: 1.0
-References: <CAODFU0q6CrUB_LkSdrbp5TQ4Jm6Sw=ZepZwD-B7-aFudsOvsig@mail.gmail.com>
- <20200705115021.GA1227929@kroah.com> <20200714065110.GA8047@amd>
-In-Reply-To: <20200714065110.GA8047@amd>
-From:   Miklos Szeredi <miklos@szeredi.hu>
-Date:   Tue, 14 Jul 2020 10:07:02 +0200
-Message-ID: <CAJfpegu8AXZWQh3W39PriqxVna+t3D2pz23t_4xEVxGcNf1AUA@mail.gmail.com>
-Subject: Re: [PATCH 0/3] readfile(2): a new syscall to make open/read/close faster
-To:     Pavel Machek <pavel@denx.de>
-Cc:     Greg KH <gregkh@linuxfoundation.org>,
-        Jan Ziak <0xe2.0x9a.0x9b@gmail.com>,
-        Linux API <linux-api@vger.kernel.org>,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-kselftest@vger.kernel.org,
-        linux-man <linux-man@vger.kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>, shuah@kernel.org,
-        Al Viro <viro@zeniv.linux.org.uk>, io-uring@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200713185152.GA18094@kernel.org>
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Jul 14, 2020 at 8:51 AM Pavel Machek <pavel@denx.de> wrote:
->
-> Hi!
->
-> > > At first, I thought that the proposed system call is capable of
-> > > reading *multiple* small files using a single system call - which
-> > > would help increase HDD/SSD queue utilization and increase IOPS (I/O
-> > > operations per second) - but that isn't the case and the proposed
-> > > system call can read just a single file.
-> >
-> > If you want to do this for multple files, use io_ring, that's what it
-> > was designed for.  I think Jens was going to be adding support for the
-> > open/read/close pattern to it as well, after some other more pressing
-> > features/fixes were finished.
->
-> What about... just using io_uring for single file, too? I'm pretty
-> sure it can be wrapped in a library that is simple to use, avoiding
-> need for new syscall.
+On Mon, Jul 13, 2020 at 03:51:52PM -0300, Arnaldo Carvalho de Melo wrote:
 
-Just wondering:  is there a plan to add strace support to io_uring?
-And I don't just mean the syscalls associated with io_uring, but
-tracing the ring itself.
+> > > diff --git a/kernel/events/core.c b/kernel/events/core.c
+> > > index 856d98c36f56..a2397f724c10 100644
+> > > --- a/kernel/events/core.c
+> > > +++ b/kernel/events/core.c
+> > > @@ -11595,7 +11595,7 @@ SYSCALL_DEFINE5(perf_event_open,
+> > >  		 * perf_event_exit_task() that could imply).
+> > >  		 */
+> > >  		err = -EACCES;
+> > > -		if (!ptrace_may_access(task, PTRACE_MODE_READ_REALCREDS))
+> > > +		if (!perfmon_capable() && !ptrace_may_access(task, PTRACE_MODE_READ_REALCREDS))
+> > >  			goto err_cred;
+> > >  	}
+> > > 
+> > >> makes monitoring simpler and even more secure to use since Perf tool need
+> > >> not to start/stop/single-step and read/write registers and memory and so on
+> > >> like a debugger or strace-like tool. What do you think?
+> > > 
+> > > I tend to agree, Peter?
 
-I think that's quite important as io_uring becomes mainstream.
+So this basically says that if CAP_PERFMON, we don't care about the
+ptrace() permissions? Just like how CAP_SYS_PTRACE would always allow
+the ptrace checks?
 
-Thanks,
-Miklos
+I suppose that makes sense.
