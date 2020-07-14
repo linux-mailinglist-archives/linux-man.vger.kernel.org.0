@@ -2,108 +2,125 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D3EAF21EFDA
-	for <lists+linux-man@lfdr.de>; Tue, 14 Jul 2020 13:56:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C2E5421F624
+	for <lists+linux-man@lfdr.de>; Tue, 14 Jul 2020 17:29:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726889AbgGNL4I (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 14 Jul 2020 07:56:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58326 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727858AbgGNL4E (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 14 Jul 2020 07:56:04 -0400
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com [IPv6:2a00:1450:4864:20::541])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2D418C08C5DE
-        for <linux-man@vger.kernel.org>; Tue, 14 Jul 2020 04:56:03 -0700 (PDT)
-Received: by mail-ed1-x541.google.com with SMTP id a1so11286127edt.10
-        for <linux-man@vger.kernel.org>; Tue, 14 Jul 2020 04:56:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=+sjMIjM2/JFepdRAXpOHb7ghC5LhQeVZQ0Kayo5azeY=;
-        b=BWruN3AFlA46ZLoJRaXr2SIqdS24ok0rzjPKi9syKMhMKh0JxzioNs8EdhKj+fmaW8
-         LtFlAX3lpklg05W9WQ2EZYCE821vzWc7x2++w2jVILwn2boWbSBMsrC6/5ApTmFgISg3
-         lazdTrnPmPdLzow7yla7Nzl2D4pVlMvE8cJJk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=+sjMIjM2/JFepdRAXpOHb7ghC5LhQeVZQ0Kayo5azeY=;
-        b=WsFx6u6sOj4NQRHUbwq87fXWp1pRuFtR6VSMKTYldJeM8JX4nupDpnnz6lmHR1qFmp
-         1VklH2czX71Bb1EiZc7Lyz9DSKZk20wvN4DZctvRF/Q36l0vcFB5d0IlLIcTZ1zkN02u
-         D6QU5KGhue83lxBAhmEv17V0CkQlRY+h/2HP0w+OHeNXoSO1QjqMxd6lFI/gL801oxcT
-         a+oJlOVJHgukVF6ar++PoMLU2FcC8exqt7FDh51vHQy91Kn5NDl7m31BQa28KqT8boKA
-         Wewy8K1ONXf+f1/DyCtOxd4HHVugKxUgsh1M2r9Zx7n4khkl+RHbs6k9z+veJATcjqMF
-         kOZA==
-X-Gm-Message-State: AOAM531MRqaTQLb4v/Jz27cM8Jb/AM3QLrB/NAa84/mu8TCAatvhfZbH
-        nlbe6ewKQ8LQS7YvUc9PMcPwxYX0WO9kiO6iKNW6Ow==
-X-Google-Smtp-Source: ABdhPJx7T4CbUMQ5B2n8Maq8US8S/XJNlgydPVNLLLOLr6IH9mheDQ+RV1Tk59Uievz5SqNyI1kTrxdL9hey9Cb11rE=
-X-Received: by 2002:a05:6402:1d0b:: with SMTP id dg11mr3988736edb.212.1594727761659;
- Tue, 14 Jul 2020 04:56:01 -0700 (PDT)
+        id S1726767AbgGNP1l (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 14 Jul 2020 11:27:41 -0400
+Received: from mail.kernel.org ([198.145.29.99]:47622 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1725884AbgGNP1k (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 14 Jul 2020 11:27:40 -0400
+Received: from quaco.ghostprotocols.net (unknown [179.97.37.151])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by mail.kernel.org (Postfix) with ESMTPSA id E4F1F221EF;
+        Tue, 14 Jul 2020 15:27:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=default; t=1594740460;
+        bh=QoYjwUwCr8iv3vS0vUx9ZHDJWPjQ+QNqL1IS1uCDfws=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=IlF+/jEnPt4EseeRoIoPFjobQsVIxxHoMUxeaU6x4iPB5I+zcKXAo29Qsj3LrlSOt
+         F6aKwji3bHjIa+iFYvuEuppwWSC+Pr6wSidVxI+lDpf5/hUfxbTwvOv1iYZzWp3Zte
+         6KaHlCF6JXLRFZMGMOyPUXEr32zu95cx5ogg8TB4=
+Received: by quaco.ghostprotocols.net (Postfix, from userid 1000)
+        id 1478540094; Tue, 14 Jul 2020 12:27:38 -0300 (-03)
+Date:   Tue, 14 Jul 2020 12:27:38 -0300
+From:   Arnaldo Carvalho de Melo <acme@kernel.org>
+To:     Peter Zijlstra <peterz@infradead.org>
+Cc:     Alexey Budankov <alexey.budankov@linux.intel.com>,
+        Ravi Bangoria <ravi.bangoria@linux.ibm.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Ingo Molnar <mingo@redhat.com>,
+        James Morris <jmorris@namei.org>,
+        Namhyung Kim <namhyung@kernel.org>,
+        Serge Hallyn <serge@hallyn.com>, Jiri Olsa <jolsa@redhat.com>,
+        Song Liu <songliubraving@fb.com>,
+        Andi Kleen <ak@linux.intel.com>,
+        Stephane Eranian <eranian@google.com>,
+        Igor Lubashev <ilubashe@akamai.com>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        "linux-security-module@vger.kernel.org" 
+        <linux-security-module@vger.kernel.org>,
+        "selinux@vger.kernel.org" <selinux@vger.kernel.org>,
+        "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH v8 00/12] Introduce CAP_PERFMON to secure system
+ performance monitoring and observability
+Message-ID: <20200714152738.GB43671@kernel.org>
+References: <f96f8f8a-e65c-3f36-dc85-fc3f5191e8c5@linux.intel.com>
+ <76718dc6-5483-5e2e-85b8-64e70306ee1f@linux.ibm.com>
+ <7776fa40-6c65-2aa6-1322-eb3a01201000@linux.intel.com>
+ <20200710170911.GD7487@kernel.org>
+ <0d2e2306-22b2-a730-dc3f-edb3538b6561@linux.intel.com>
+ <20200713121746.GA7029@kernel.org>
+ <0fadcf78-8b0e-ed03-a554-cc172b7d249c@linux.intel.com>
+ <20200713185152.GA18094@kernel.org>
+ <20200714105934.GU10769@hirez.programming.kicks-ass.net>
 MIME-Version: 1.0
-References: <CAODFU0q6CrUB_LkSdrbp5TQ4Jm6Sw=ZepZwD-B7-aFudsOvsig@mail.gmail.com>
- <20200705115021.GA1227929@kroah.com> <20200714065110.GA8047@amd>
- <CAJfpegu8AXZWQh3W39PriqxVna+t3D2pz23t_4xEVxGcNf1AUA@mail.gmail.com> <4e92b851-ce9a-e2f6-3f9a-a4d47219d320@gmail.com>
-In-Reply-To: <4e92b851-ce9a-e2f6-3f9a-a4d47219d320@gmail.com>
-From:   Miklos Szeredi <miklos@szeredi.hu>
-Date:   Tue, 14 Jul 2020 13:55:50 +0200
-Message-ID: <CAJfpegvroouw5ndHv+395w5PP1c+pUyp=-T8qhhvSnFbhbRehg@mail.gmail.com>
-Subject: Re: [PATCH 0/3] readfile(2): a new syscall to make open/read/close faster
-To:     Pavel Begunkov <asml.silence@gmail.com>
-Cc:     Pavel Machek <pavel@denx.de>, Greg KH <gregkh@linuxfoundation.org>,
-        Jan Ziak <0xe2.0x9a.0x9b@gmail.com>,
-        Linux API <linux-api@vger.kernel.org>,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-kselftest@vger.kernel.org,
-        linux-man <linux-man@vger.kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>, shuah@kernel.org,
-        Al Viro <viro@zeniv.linux.org.uk>, io-uring@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200714105934.GU10769@hirez.programming.kicks-ass.net>
+X-Url:  http://acmel.wordpress.com
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Jul 14, 2020 at 1:36 PM Pavel Begunkov <asml.silence@gmail.com> wrote:
->
-> On 14/07/2020 11:07, Miklos Szeredi wrote:
-> > On Tue, Jul 14, 2020 at 8:51 AM Pavel Machek <pavel@denx.de> wrote:
-> >>
-> >> Hi!
-> >>
-> >>>> At first, I thought that the proposed system call is capable of
-> >>>> reading *multiple* small files using a single system call - which
-> >>>> would help increase HDD/SSD queue utilization and increase IOPS (I/O
-> >>>> operations per second) - but that isn't the case and the proposed
-> >>>> system call can read just a single file.
-> >>>
-> >>> If you want to do this for multple files, use io_ring, that's what it
-> >>> was designed for.  I think Jens was going to be adding support for the
-> >>> open/read/close pattern to it as well, after some other more pressing
-> >>> features/fixes were finished.
-> >>
-> >> What about... just using io_uring for single file, too? I'm pretty
-> >> sure it can be wrapped in a library that is simple to use, avoiding
-> >> need for new syscall.
-> >
-> > Just wondering:  is there a plan to add strace support to io_uring?
-> > And I don't just mean the syscalls associated with io_uring, but
-> > tracing the ring itself.
->
-> What kind of support do you mean? io_uring is asynchronous in nature
-> with all intrinsic tracing/debugging/etc. problems of such APIs.
-> And there are a lot of handy trace points, are those not enough?
->
-> Though, this can be an interesting project to rethink how async
-> APIs are worked with.
+Em Tue, Jul 14, 2020 at 12:59:34PM +0200, Peter Zijlstra escreveu:
+> On Mon, Jul 13, 2020 at 03:51:52PM -0300, Arnaldo Carvalho de Melo wrote:
+> 
+> > > > diff --git a/kernel/events/core.c b/kernel/events/core.c
+> > > > index 856d98c36f56..a2397f724c10 100644
+> > > > --- a/kernel/events/core.c
+> > > > +++ b/kernel/events/core.c
+> > > > @@ -11595,7 +11595,7 @@ SYSCALL_DEFINE5(perf_event_open,
+> > > >  		 * perf_event_exit_task() that could imply).
+> > > >  		 */
+> > > >  		err = -EACCES;
+> > > > -		if (!ptrace_may_access(task, PTRACE_MODE_READ_REALCREDS))
+> > > > +		if (!perfmon_capable() && !ptrace_may_access(task, PTRACE_MODE_READ_REALCREDS))
+> > > >  			goto err_cred;
+> > > >  	}
 
-Yeah, it's an interesting problem.  The uring has the same events, as
-far as I understand, that are recorded in a multithreaded strace
-output (syscall entry, syscall exit); nothing more is needed.
+> > > >> makes monitoring simpler and even more secure to use since Perf tool need
+> > > >> not to start/stop/single-step and read/write registers and memory and so on
+> > > >> like a debugger or strace-like tool. What do you think?
 
-I do think this needs to be integrated into strace(1), otherwise the
-usefulness of that tool (which I think is *very* high) would go down
-drastically as io_uring usage goes up.
+> > > > I tend to agree, Peter?
 
-Thanks,
-Miklos
+> So this basically says that if CAP_PERFMON, we don't care about the
+> ptrace() permissions? Just like how CAP_SYS_PTRACE would always allow
+> the ptrace checks?
+
+> I suppose that makes sense.
+
+Yeah, it in fact addresses the comment right above it:
+
+        if (task) {
+                err = mutex_lock_interruptible(&task->signal->exec_update_mutex);
+                if (err)
+                        goto err_task;
+
+                /*
+                 * Reuse ptrace permission checks for now.
+                 *
+                 * We must hold exec_update_mutex across this and any potential
+                 * perf_install_in_context() call for this new event to
+                 * serialize against exec() altering our credentials (and the
+                 * perf_event_exit_task() that could imply).
+                 */
+                err = -EACCES;
+                if (!ptrace_may_access(task, PTRACE_MODE_READ_REALCREDS))
+                        goto err_cred;
+        }
+
+
+that "for now" part :-)
+
+Idea is to not require CAP_PTRACE for that, i.e. the attack surface for the
+perf binary is reduced.
+
+- Arnaldo
