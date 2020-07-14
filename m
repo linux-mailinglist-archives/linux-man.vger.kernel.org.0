@@ -2,70 +2,79 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EA89D21E2A8
-	for <lists+linux-man@lfdr.de>; Mon, 13 Jul 2020 23:51:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6639F21E89D
+	for <lists+linux-man@lfdr.de>; Tue, 14 Jul 2020 08:51:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726670AbgGMVve (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 13 Jul 2020 17:51:34 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41554 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726150AbgGMVve (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 13 Jul 2020 17:51:34 -0400
-Received: from inpost.hi.is (inpost.hi.is [IPv6:2a00:c88:4000:1650::165:62])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A3B1CC061755
-        for <linux-man@vger.kernel.org>; Mon, 13 Jul 2020 14:51:33 -0700 (PDT)
-Received: from hekla.rhi.hi.is (hekla.rhi.hi.is [IPv6:2a00:c88:4000:1650::165:2])
-        by inpost.hi.is (8.14.7/8.14.7) with ESMTP id 06DLpUjl010054
-        (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-        Mon, 13 Jul 2020 21:51:30 GMT
-DKIM-Filter: OpenDKIM Filter v2.11.0 inpost.hi.is 06DLpUjl010054
-Received: from hekla.rhi.hi.is (localhost [127.0.0.1])
-        by hekla.rhi.hi.is (8.14.4/8.14.4) with ESMTP id 06DLpUqP007509;
-        Mon, 13 Jul 2020 21:51:30 GMT
-Received: (from bjarniig@localhost)
-        by hekla.rhi.hi.is (8.14.4/8.14.4/Submit) id 06DLpUb9007508;
-        Mon, 13 Jul 2020 21:51:30 GMT
-Date:   Mon, 13 Jul 2020 21:51:30 +0000
-From:   Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Subject: Re: [PATCH] man1/*: srcfix: remove superfluous quotes around
- space-free arguments
-Message-ID: <20200713215130.GA7245@rhi.hi.is>
-References: <20200705132529.GA9922@rhi.hi.is>
- <CAKgNAkjG6mov6to301WzOznPB1WVAOtXytid5PF7iPk7eb3PGg@mail.gmail.com>
+        id S1725905AbgGNGvO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 14 Jul 2020 02:51:14 -0400
+Received: from jabberwock.ucw.cz ([46.255.230.98]:56354 "EHLO
+        jabberwock.ucw.cz" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725853AbgGNGvO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 14 Jul 2020 02:51:14 -0400
+Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
+        id DC2511C0BE2; Tue, 14 Jul 2020 08:51:10 +0200 (CEST)
+Date:   Tue, 14 Jul 2020 08:51:10 +0200
+From:   Pavel Machek <pavel@denx.de>
+To:     Greg KH <gregkh@linuxfoundation.org>
+Cc:     Jan Ziak <0xe2.0x9a.0x9b@gmail.com>, linux-api@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-kselftest@vger.kernel.org, linux-man@vger.kernel.org,
+        mtk.manpages@gmail.com, shuah@kernel.org, viro@zeniv.linux.org.uk
+Subject: Re: [PATCH 0/3] readfile(2): a new syscall to make open/read/close
+ faster
+Message-ID: <20200714065110.GA8047@amd>
+References: <CAODFU0q6CrUB_LkSdrbp5TQ4Jm6Sw=ZepZwD-B7-aFudsOvsig@mail.gmail.com>
+ <20200705115021.GA1227929@kroah.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha1;
+        protocol="application/pgp-signature"; boundary="EeQfGwPcQSOJBaQU"
 Content-Disposition: inline
-In-Reply-To: <CAKgNAkjG6mov6to301WzOznPB1WVAOtXytid5PF7iPk7eb3PGg@mail.gmail.com>
-User-Agent: Mutt/1.5.20 (2009-12-10)
+In-Reply-To: <20200705115021.GA1227929@kroah.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Jul 06, 2020 at 11:53:50AM +0200, Michael Kerrisk (man-pages) wrote:
-> Bjarni,
-> 
-> On Sun, 5 Jul 2020 at 15:25, Bjarni Ingi Gislason <bjarniig@rhi.hi.is> wrote:
-> >
-> >   Remove quotes around a space-free argument for the single-font macros.
-> 
-> Your commit message doesn't explain why this patch/this series is
-> useful. Please explain.
-> 
 
-  Remove the misuse of quotation marks.
+--EeQfGwPcQSOJBaQU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-####
+Hi!
 
-Know yourself, and the kinds of errors you make.  Once you have
-found and fixed a bug, make sure that you eliminate other bugs
-that might be similar.  Think about what happened so you can
-avoid making that kid of mistake again.
+> > At first, I thought that the proposed system call is capable of
+> > reading *multiple* small files using a single system call - which
+> > would help increase HDD/SSD queue utilization and increase IOPS (I/O
+> > operations per second) - but that isn't the case and the proposed
+> > system call can read just a single file.
+>=20
+> If you want to do this for multple files, use io_ring, that's what it
+> was designed for.  I think Jens was going to be adding support for the
+> open/read/close pattern to it as well, after some other more pressing
+> features/fixes were finished.
 
-Brian W. Kernighan, Rob Pike "The Practice of
-Programming". Addison-Wesley. 1999. Page 137.
+What about... just using io_uring for single file, too? I'm pretty
+sure it can be wrapped in a library that is simple to use, avoiding
+need for new syscall.
+							Pavel
+						=09
+--=20
+(english) http://www.livejournal.com/~pavelmachek
+(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
+g.html
 
--- 
-Bjarni I. Gislason
+--EeQfGwPcQSOJBaQU
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iEYEARECAAYFAl8NVd4ACgkQMOfwapXb+vL5bQCgufDkd33qQk4uXDkH3RR5GPmL
+zNYAn03OZe2uS3B1ptb/sq4bdkcbtv1l
+=CLsu
+-----END PGP SIGNATURE-----
+
+--EeQfGwPcQSOJBaQU--
