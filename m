@@ -2,79 +2,109 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7FC4E220BA3
-	for <lists+linux-man@lfdr.de>; Wed, 15 Jul 2020 13:17:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0343A221589
+	for <lists+linux-man@lfdr.de>; Wed, 15 Jul 2020 21:51:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729098AbgGOLRr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 15 Jul 2020 07:17:47 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50072 "EHLO
+        id S1726785AbgGOTvB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 15 Jul 2020 15:51:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44724 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728183AbgGOLRq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Jul 2020 07:17:46 -0400
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B74E5C061755
-        for <linux-man@vger.kernel.org>; Wed, 15 Jul 2020 04:17:45 -0700 (PDT)
-Received: by mail-ej1-x642.google.com with SMTP id lx13so1771352ejb.4
-        for <linux-man@vger.kernel.org>; Wed, 15 Jul 2020 04:17:45 -0700 (PDT)
+        with ESMTP id S1726736AbgGOTvA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Jul 2020 15:51:00 -0400
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com [IPv6:2607:f8b0:4864:20::22c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4227DC061755
+        for <linux-man@vger.kernel.org>; Wed, 15 Jul 2020 12:51:00 -0700 (PDT)
+Received: by mail-oi1-x22c.google.com with SMTP id k4so3188828oik.2
+        for <linux-man@vger.kernel.org>; Wed, 15 Jul 2020 12:51:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=d36YHplCMirbgD4jsm9iiSsScUQBT0kq02wpatVLBW4=;
-        b=owYkw9H+jixtnqPVsHambBg2CPYzVapNmjmalnWHAUj6CqyQ1RFUpmMrP07n76fkj7
-         NS8NLR5H1OFkXBqkfn8SY8ugzdg0o/CHt0EIs+hJnDpVYpzc74f9QGO5rOh+JiCOmh8d
-         KiLeMxC9pf6ll2qSQwcf3gJk/dJix9+95GYtM=
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=Zr0djk8U/pKZNtH0a3LzCcpHVBvumtjXUpc3nIOVVJQ=;
+        b=YqK3eVL87s+kWD9HXy8N4yjaFzw2UcOw3PeljpZ4zb8tY5r2UZ6sEXKwNldAntmjHU
+         xcllF/vHJR+DX571rnYfmK8aacJbUewFFbzoP/BiccPwW4NFZfYvmCoc1b7tPkiAAzdd
+         kz5mSGWARPYee9So2B+oEAF/EMJ4SZOYALlp6TtKT8x1zq3PtoRpGeD7NkHewCDGqUHy
+         kdxF0oSidVDi0hrpXcsxBdiCIctKEeyVVNfehAMUhRbx5CaiPWw0dDpZxQqr1Yw0yR13
+         /SmaLSz+58Ox/aZF6eYjPH96hloflQn2HQdKxBrtttYvU1HxPMVqXkjbN2MfCJ1ap/Rr
+         NOfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=d36YHplCMirbgD4jsm9iiSsScUQBT0kq02wpatVLBW4=;
-        b=I3hVOuH2XmKKpBhqpd9KntLAegibkS/TcU9R3oU0kW+5RcYU3UuT7DI6pM5Hfk9Zlr
-         50o/+r0PqgWQjWw0f07E6H19Ay232mfj9Dm3ynu5L2OF1be4IasAlx8Yd/WOPph/bV1I
-         tCVtKfpYVzPYwWcvgc+lu5yK3B0p2jRbJJAUtPdaiMo9uekGMA0MKlC9ixc187CE6t3H
-         sMa+gqkcv3QphKWOMMKpm1SOoWIrt2bG8rE1cFV8rnOetbyw6tlD3lHOZiP5S9JddYnf
-         ziLSILYj8//SDUPD6VJ0fQvDjY+CdmfwuNZyAf3ydM1ya7/cryBwSGAjaMSWsg2DHKyV
-         NyFQ==
-X-Gm-Message-State: AOAM532YvAUmiZOuYL6xQ1O7KuiWfM7Q7GHqcWi47oN7OZcTashhMu0g
-        GF+aWokLhw5hUwPj/HCXwaRhYUAGxZWUH6oML6qfDoBRQl9apw==
-X-Google-Smtp-Source: ABdhPJyXSSd4bLurpX7NDuOxlnBU83e5FmXysyseSL84xDfKaag97WmFFsMQICL9c5g504AEcCVDu+1+ti+ViVw8zoc=
-X-Received: by 2002:a17:906:1c05:: with SMTP id k5mr8513898ejg.320.1594811864449;
- Wed, 15 Jul 2020 04:17:44 -0700 (PDT)
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=Zr0djk8U/pKZNtH0a3LzCcpHVBvumtjXUpc3nIOVVJQ=;
+        b=E+UQ55jig3x2N3YuvL3YYOCb7eQAQ0or7deTS42rxM40l6GHrm5aHH34JDcaHM8nOp
+         w4E5mVnJ641p3WJvcMr61+j9KIKtCwXA9uA+Co81Olatmx0NYGKj5spwfV5jgaZ0dGbg
+         uaaIdinxwRSkyzyKnDtzigj79BilleGVzC1YMXmBDMbyVZfD+itDf8tBtzQWWkRrAj2S
+         gi5xwQGt8KcocuPX5Zz/OA/ogpKc7Z4bMSzbqo8PC9cprTicEyCYXf1e+wC/P/CVIl8Q
+         z5vTdhtZ8wN7Xi9Qil1nZVhKXUrYOFoYa33njmSw4FgX0joo/19oRFrIFZ/+gFwwPdNh
+         83mQ==
+X-Gm-Message-State: AOAM5321PDqh+5KoSNNbgQgNfOce6SERTpAdjXrTxOIaftmLBBpkoYIg
+        PeUd8ZlnLvKvACBBkCgzA3Bo1EGOjXxRh4IEdIM=
+X-Google-Smtp-Source: ABdhPJwAQD7f2EBS/1xBI8ASuhONTgNiHMXOQYqemaYcub+X/bCknThwddN0mKr1wUaikY21JHJ3fUrQY9hblEcbuQ8=
+X-Received: by 2002:a54:4798:: with SMTP id o24mr1131087oic.148.1594842659593;
+ Wed, 15 Jul 2020 12:50:59 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAODFU0q6CrUB_LkSdrbp5TQ4Jm6Sw=ZepZwD-B7-aFudsOvsig@mail.gmail.com>
- <20200705115021.GA1227929@kroah.com> <20200714065110.GA8047@amd>
- <CAJfpegu8AXZWQh3W39PriqxVna+t3D2pz23t_4xEVxGcNf1AUA@mail.gmail.com>
- <4e92b851-ce9a-e2f6-3f9a-a4d47219d320@gmail.com> <CAJfpegvroouw5ndHv+395w5PP1c+pUyp=-T8qhhvSnFbhbRehg@mail.gmail.com>
- <7584d754-2044-a892-cf29-65259b9c4eb1@gmail.com> <CAJfpegvkw5Exptz=gY5bRy2U8GjvTo+muBHsgdF_PA5=hyhmSA@mail.gmail.com>
- <b3adac43-f4ec-7820-1297-59eee206f308@gmail.com> <df17d629-59ea-3262-fae4-28c05e5c9294@gmail.com>
-In-Reply-To: <df17d629-59ea-3262-fae4-28c05e5c9294@gmail.com>
-From:   Miklos Szeredi <miklos@szeredi.hu>
-Date:   Wed, 15 Jul 2020 13:17:33 +0200
-Message-ID: <CAJfpegsQZh5_bxgeeMmJEdXBh+Hx9cTScYh09V0uL1vJ9Cn1xQ@mail.gmail.com>
-Subject: Re: [PATCH 0/3] readfile(2): a new syscall to make open/read/close faster
-To:     Pavel Begunkov <asml.silence@gmail.com>
-Cc:     Pavel Machek <pavel@denx.de>, Greg KH <gregkh@linuxfoundation.org>,
-        Jan Ziak <0xe2.0x9a.0x9b@gmail.com>,
-        Linux API <linux-api@vger.kernel.org>,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-kselftest@vger.kernel.org,
-        linux-man <linux-man@vger.kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>, shuah@kernel.org,
-        Al Viro <viro@zeniv.linux.org.uk>, io-uring@vger.kernel.org
+References: <CAP01T764kz5T+m+8sV0o30enBL1TagF7RQSjU0XcVJ0PvL0PTg@mail.gmail.com>
+ <8d7edc37-6b5f-1dd9-5f7f-b4e15a9ae39a@gmail.com>
+In-Reply-To: <8d7edc37-6b5f-1dd9-5f7f-b4e15a9ae39a@gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Wed, 15 Jul 2020 21:50:48 +0200
+Message-ID: <CAKgNAkhLgzog_DjePBh5mHMfesmc5aWpURPHrCXLJMXQWZFYTg@mail.gmail.com>
+Subject: Re: POSIX writer locks can't be recursive
+To:     Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc:     "Carlos O'Donell" <carlos@redhat.com>,
+        linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Jul 15, 2020 at 11:02 AM Pavel Begunkov <asml.silence@gmail.com> wrote:
+Hi Carlos,
 
-> I think, if you're going to push this idea, we should start a new thread
-> CC'ing strace devs.
-
-Makes sense.   I've pruned the Cc list, so here's the link for reference:
-
-https://lore.kernel.org/linux-fsdevel/CAJfpegu3EwbBFTSJiPhm7eMyTK2MzijLUp1gcboOo3meMF_+Qg@mail.gmail.com/T/#u
+Ping!
 
 Thanks,
-Miklos
+
+Michael
+
+On Fri, 26 Jun 2020 at 10:54, Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+>
+> Hi Carlos,
+>
+> Could you comment here, as this was your text in pthread_rwlockattr_setkind_np(3)?
+>
+> On 6/25/20 2:32 PM, Kumar Kartikeya Dwivedi wrote:
+> > Hi,
+> > In pthread_rwlockattr_setkind_np(3), the explanation for
+> > PTHREAD_RWLOCK_PREFER_WRITER_NP reads:
+> >
+> >> This is ignored by glibc because the POSIX requirement to support
+> >> recursive writer locks would cause this option to create trivial
+> >> deadlocks;
+> >
+> > I think this should be "reader locks" instead, since it is
+> > undefined[1] for a thread holding a write lock to call
+> > pthread_rwlock_wrlock(3) again (glibc returns EDEADLK, musl simply
+> > deadlocks). There's no such requirement in POSIX either. Please let me
+> > know if I'm missing something.
+> >
+> > [1]: https://pubs.opengroup.org/onlinepubs/007908799/xsh/pthread_rwlock_wrlock.html
+>
+> Cheers,
+>
+> Michael
+>
+> --
+> Michael Kerrisk
+> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+> Linux/UNIX System Programming Training: http://man7.org/training/
+
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
