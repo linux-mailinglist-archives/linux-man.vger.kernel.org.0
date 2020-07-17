@@ -2,85 +2,101 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BA92C22326C
-	for <lists+linux-man@lfdr.de>; Fri, 17 Jul 2020 06:36:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BA95E22365F
+	for <lists+linux-man@lfdr.de>; Fri, 17 Jul 2020 09:59:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725936AbgGQEgs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 17 Jul 2020 00:36:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37424 "EHLO
+        id S1726930AbgGQH7t (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 17 Jul 2020 03:59:49 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40352 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725300AbgGQEgs (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 17 Jul 2020 00:36:48 -0400
-X-Greylist: delayed 598 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 16 Jul 2020 21:36:47 PDT
-Received: from mail.python.org (mail.python.org [IPv6:2a03:b0c0:2:d0::71:1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C3CC1C061755
-        for <linux-man@vger.kernel.org>; Thu, 16 Jul 2020 21:36:47 -0700 (PDT)
-Received: from auth1-smtp.messagingengine.com (auth1-smtp.messagingengine.com [66.111.4.227])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by mail.python.org (Postfix) with ESMTPSA id 4B7J3p4H99zpFJF;
-        Fri, 17 Jul 2020 00:26:46 -0400 (EDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=python.org; s=200901;
-        t=1594960006; bh=uG6/FKMXQxgmoSgry6uU8lqi5nHXFrSxKjOceFzZCdk=;
-        h=From:To:Cc:Subject:Date:From;
-        b=th57CzEXF+kuQAmdT3qKmSscwCCUj6qc36FSwzDrgslXdPSYw7GQmrISfkkfollJy
-         +4tGdOVc9Yet7N2QPX66mVoPUBKCzoDcKHXTi3MzCTCvQVct/+Ed9e0/ZKjr/BAwjH
-         bwbKnI/XAEbEEPqiN+/LBrAtoQfGSE2iasuQEFSU=
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
-        by mailauth.nyi.internal (Postfix) with ESMTP id 7596027C0054;
-        Fri, 17 Jul 2020 00:26:45 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute2.internal (MEProxy); Fri, 17 Jul 2020 00:26:45 -0400
-X-ME-Sender: <xms:hSgRX0OzhVLAGc5Ufg96Pj_4dn8BfPSxfrAYOsEipSWpl-mZQH0ufw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrfeehgdekhecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertd
-    dtnecuhfhrohhmpeeuvghnjhgrmhhinhcurfgvthgvrhhsohhnuceosggvnhhjrghmihhn
-    sehphihthhhonhdrohhrgheqnecuggftrfgrthhtvghrnheptdejveevteffjedvhfelfe
-    etuddvheeigeeiudeuhfejudekteeuveefteehkeeknecukfhppeeiiedrgedurddutdeg
-    rddvtdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
-    gstghpodhmvghsmhhtphgruhhthhhpvghrshhonhgrlhhithihqddvtdduieekfeefjedq
-    udduleeitdeiheefqdgsvghnjhgrmhhinheppehphihthhhonhdrohhrghesfhgrshhtmh
-    grihhlrdgtohhm
-X-ME-Proxy: <xmx:hSgRX6-hteXytJTS3ZcJoe8tn3fj85TaALQoICBLvshV0FPpD0wZlA>
-    <xmx:hSgRX7RpTcT354RC1Mo_-_qTJT_RD-Q18faVyr94gDr5LQRRdP2F9w>
-    <xmx:hSgRX8slwfDPycNkQ4OhAmq-rrVZl463KQV-T34nJttCegAAe_JOmQ>
-    <xmx:hSgRX2ojkr-TQYFercXC40qeZGJJU5tOJ3BfxOTmzb1UN3ORfnjlAg>
-Received: from localhost.localdomain (c-66-41-104-20.hsd1.mn.comcast.net [66.41.104.20])
-        by mail.messagingengine.com (Postfix) with ESMTPA id 139263280065;
-        Fri, 17 Jul 2020 00:26:45 -0400 (EDT)
-From:   Benjamin Peterson <benjamin@python.org>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] cgroup_namespaces.7: wfix
-Date:   Thu, 16 Jul 2020 23:26:43 -0500
-Message-Id: <20200717042643.1013586-1-benjamin@python.org>
-X-Mailer: git-send-email 2.25.1
+        with ESMTP id S1726105AbgGQH7s (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 17 Jul 2020 03:59:48 -0400
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4F0DAC061755
+        for <linux-man@vger.kernel.org>; Fri, 17 Jul 2020 00:59:48 -0700 (PDT)
+Received: by mail-ed1-x543.google.com with SMTP id by13so6952014edb.11
+        for <linux-man@vger.kernel.org>; Fri, 17 Jul 2020 00:59:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=QfjDOqFvw/zKKy6d/P8jQC7N5sTq4gon7Qtip5uwV9w=;
+        b=dl4loOnMPGPgR9318vhNHSH7KWqzRWIHB1ftSmhYPZHHcUsJ6/cskQZtikZ0On8nD6
+         KXfaJi5JaLriCAvp4DvhgNj1+zZ7ErwpKfMsZPBdg3/8v/iU7XM+m2kjp9m3q4wpNNFl
+         U05ezmfHpKAWigEEH6koE2ZKHfIKfJc6w2DZ4cDvrFB2OOKjBmjpaPvSOZH8XoTYeVDQ
+         vve1LCEllN66bhe2D0mU5y1oei4UAnO76j2ErybPoO7cxnGCK7ArCQ97ioftbLf/t2ay
+         0Il3uYccjgYxY0SQ39qnXfGxTnypm+tIdhVJsfhLcrfiEhS905/Px0143h9TMHe1zmNg
+         xhwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=QfjDOqFvw/zKKy6d/P8jQC7N5sTq4gon7Qtip5uwV9w=;
+        b=fFvgLYa1pMx5hlLRKydkDJkSN+/FAXNSZXlnCLnt8HNHTpOsUx03LYTv16lbPsxuZE
+         DH6zWHTKg0r20m/TSFiAGm+LN57Ko6xWX5X4cTSjhqS86ld9HXtosMJX4VPnLjg6zlHq
+         ATx5SmxzXVBRhfpVD6JbL3uykG/r/IhoTidSc2FGFadngVd9AlchlMG+ANktb5pPYjfC
+         9n6P1v3bGoQMRBFORNMS7xh0pASSycM0Vdv1rLc+4VG1Q5tWKiG5jk3pYEYR4gruNrb1
+         DUeHnBevELb7H8B5tlBlW0x4I7jaDdc1vKNofEFGzbYqto0VMyHdVF9uJZ1214tEMfs0
+         Hyzg==
+X-Gm-Message-State: AOAM533UyvFYCboRadVU0LdQIoCC7XK7RLWL6NSnbf1VfOYl7HoljpQe
+        9DhVHAmeKBIQ1q+tCONgzGiT9LhY
+X-Google-Smtp-Source: ABdhPJy0fylcg/7at/ysU1vk23sTxYucx06ORwjFSkdFxfPFn1XIR+PToS0+7Ps5t+edDMJKP0VZHA==
+X-Received: by 2002:aa7:d341:: with SMTP id m1mr7850122edr.50.1594972786718;
+        Fri, 17 Jul 2020 00:59:46 -0700 (PDT)
+Received: from ?IPv6:2001:a61:3adb:8201:9649:88f:51f8:6a21? ([2001:a61:3adb:8201:9649:88f:51f8:6a21])
+        by smtp.gmail.com with ESMTPSA id b4sm7482573edx.96.2020.07.17.00.59.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 17 Jul 2020 00:59:45 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] cgroup_namespaces.7: wfix
+To:     Benjamin Peterson <benjamin@python.org>
+References: <20200717042643.1013586-1-benjamin@python.org>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <b3d9ded4-6396-6153-ec64-6263914bdad8@gmail.com>
+Date:   Fri, 17 Jul 2020 09:59:42 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200717042643.1013586-1-benjamin@python.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Benjamin Peterson <benjamin@python.org>
----
- man7/cgroup_namespaces.7 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 7/17/20 6:26 AM, Benjamin Peterson wrote:
+> Signed-off-by: Benjamin Peterson <benjamin@python.org>
 
-diff --git a/man7/cgroup_namespaces.7 b/man7/cgroup_namespaces.7
-index 773379aeb..1acb82feb 100644
---- a/man7/cgroup_namespaces.7
-+++ b/man7/cgroup_namespaces.7
-@@ -235,7 +235,7 @@ In the absence of cgroup namespacing, because the cgroup directory
- .IR /cg/1
- is owned (and writable) by UID 9000 and process
- .I X
--is also owned by user ID 9000, then process
-+is also owned by user ID 9000, process
- .I X
- would be able to modify the contents of cgroups files
- (i.e., change cgroup settings) not only in
+Thanks, Benjamin. Patch applied.
+
+Cheers,
+
+Michael
+
+> ---
+>  man7/cgroup_namespaces.7 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/man7/cgroup_namespaces.7 b/man7/cgroup_namespaces.7
+> index 773379aeb..1acb82feb 100644
+> --- a/man7/cgroup_namespaces.7
+> +++ b/man7/cgroup_namespaces.7
+> @@ -235,7 +235,7 @@ In the absence of cgroup namespacing, because the cgroup directory
+>  .IR /cg/1
+>  is owned (and writable) by UID 9000 and process
+>  .I X
+> -is also owned by user ID 9000, then process
+> +is also owned by user ID 9000, process
+>  .I X
+>  would be able to modify the contents of cgroups files
+>  (i.e., change cgroup settings) not only in
+> 
+
+
 -- 
-2.25.1
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
