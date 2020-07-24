@@ -2,107 +2,77 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8ED0522C2DC
-	for <lists+linux-man@lfdr.de>; Fri, 24 Jul 2020 12:13:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3E93222C386
+	for <lists+linux-man@lfdr.de>; Fri, 24 Jul 2020 12:45:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726892AbgGXKNq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 24 Jul 2020 06:13:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35280 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727808AbgGXKNp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Jul 2020 06:13:45 -0400
-Received: from mail-oo1-xc41.google.com (mail-oo1-xc41.google.com [IPv6:2607:f8b0:4864:20::c41])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CAF4EC0619D3
-        for <linux-man@vger.kernel.org>; Fri, 24 Jul 2020 03:13:45 -0700 (PDT)
-Received: by mail-oo1-xc41.google.com with SMTP id o36so1686419ooi.11
-        for <linux-man@vger.kernel.org>; Fri, 24 Jul 2020 03:13:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=37LF4If0zQNvAMNurj0rHBEzT6s1sGcntldhSyGL+Is=;
-        b=LJ6K15P7YpeBJtjLk7pLFWCZq4C4Uq/3kBcsrFVZpARDP+GfGbpNz3H37mjweSUuIT
-         q9AMY4VqcBjdKaWhVpFFZNJZ/HIPaTXZBytdLh7DlVyKS9cBOAAd5zmKEnZaneiVwY34
-         sx1w4JtthwlqxduTzRl8CD1d7iMUkhTMec/GozFV8q1aVBYeTiHIkt/L2biCPwza8Wed
-         My7zdR+uPgdN8eayKcteQNs3l5jQNmJbJ3M3BAA9YO2l+JBHSTr7dDLeRnb3j+gyS9R5
-         9Ne0bMeDQQQg1j+IthbUyr5Qh/hgmSPCVnpfEzG5uXngWewm/cAq7ZyF4CeYoV/Rk2BR
-         Pr/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=37LF4If0zQNvAMNurj0rHBEzT6s1sGcntldhSyGL+Is=;
-        b=QSsViqOkGgW/g4LdUmhQIxyUpxwUKaogio0H+f1TP0zRXRLlv5MeTYmBe7tIDlZEHj
-         U1pLx+o+CthAMciLD9m6D0Ou1/hftA6hPeJbWqSv+/FHzmATLAZFGaEMHEW0fM5onYi5
-         phK63+IapCzJ4ls2eVNPH8uEgnrC4lTFu7srQCPY20rkkX+JhJuNp+jQV24bTPPeGCoU
-         b27ehtRFf0XLJbH/I9kID4C1vuKAzlEpg5xdwlJbb868Ww2Tbw7JFUVXBr/ySYowzYIo
-         5DxB8wGD3EOIiTjC5giPJyJUvOO95+a+cDD5pK7rNjv15H1N/v8gT1Iqjl3xyFhQlysf
-         Gsag==
-X-Gm-Message-State: AOAM532BK5AeofRN6lS6zNN5RCvgNXOdrLe76ebwqRTsQoadtWSJ1nzt
-        9A/Rg4giNhp05qSMWQwVipbR1SGqV/Y+O5p18Aw=
-X-Google-Smtp-Source: ABdhPJxTt5Nft650xmANUY+3791acf5P0FyTYrg0DlAXguN3oTP4E9WGXvhHO7SPzFXmVysyqHRgE28poT5QacvU/TE=
-X-Received: by 2002:a4a:ba8b:: with SMTP id d11mr8667572oop.80.1595585625041;
- Fri, 24 Jul 2020 03:13:45 -0700 (PDT)
+        id S1726740AbgGXKpk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 24 Jul 2020 06:45:40 -0400
+Received: from us-smtp-delivery-1.mimecast.com ([207.211.31.120]:39437 "EHLO
+        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1726553AbgGXKpk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Jul 2020 06:45:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1595587539;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=dP5qwmAy0dGXBb00hD2b2i9QHk2HM2volq4yxKaXFGc=;
+        b=LaYKZqXQ0rauFMy1hH05iTC+u242Noj90Qj95Wa9MIDscahEreew9tESrauZ7vmdAYeFm8
+        69ZbmSGxBPlTPk3QspeaWrHVp6cS2/moJSM7nKWX/D/IVc1OISPh4e95dO63SoTKjKsZ6b
+        DhBp5yTYqRrUpj+NBasKzBxrb6G4jBI=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-107-0QXk46cJP8CQv4Knyv0-Ww-1; Fri, 24 Jul 2020 06:45:37 -0400
+X-MC-Unique: 0QXk46cJP8CQv4Knyv0-Ww-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8ED028014D7;
+        Fri, 24 Jul 2020 10:45:36 +0000 (UTC)
+Received: from warthog.procyon.org.uk (ovpn-112-32.rdu2.redhat.com [10.10.112.32])
+        by smtp.corp.redhat.com (Postfix) with ESMTP id 083FF5D9E2;
+        Fri, 24 Jul 2020 10:45:34 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+        Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+        Kingdom.
+        Registered in England and Wales under Company Registration No. 3798903
+From:   David Howells <dhowells@redhat.com>
+In-Reply-To: <CAKgNAkjyXcXZkEczRz2yvJRFBy2zAwTaNfyiSmskAFWN_3uY1g@mail.gmail.com>
+References: <CAKgNAkjyXcXZkEczRz2yvJRFBy2zAwTaNfyiSmskAFWN_3uY1g@mail.gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     dhowells@redhat.com, Petr Vorel <pvorel@suse.cz>,
+        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Christian Brauner <christian.brauner@ubuntu.com>,
+        lkml <linux-kernel@vger.kernel.org>
+Subject: Re: Mount API manual pages
 MIME-Version: 1.0
-References: <20200723215333.13779-1-vapier@gentoo.org> <20200724000315.yx5otylik6oqqy6d@localhost.localdomain>
-In-Reply-To: <20200724000315.yx5otylik6oqqy6d@localhost.localdomain>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Fri, 24 Jul 2020 12:13:33 +0200
-Message-ID: <CAKgNAkjwwxrM_ry-b1rtrVc8YjfNE=p4iAht85P+mBs6Eq0U-w@mail.gmail.com>
-Subject: Re: [PATCH] drop spurious t comment header
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <2007334.1595587534.1@warthog.procyon.org.uk>
+Date:   Fri, 24 Jul 2020 11:45:34 +0100
+Message-ID: <2007335.1595587534@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Branden, Mike,
+Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
 
-On Fri, 24 Jul 2020 at 02:03, G. Branden Robinson
-<g.branden.robinson@gmail.com> wrote:
->
-> At 2020-07-23T17:53:33-0400, Mike Frysinger wrote:
-> > From: Mike Frysinger <vapier@chromium.org>
-> >
-> > A bunch of pages have this random comment at the start of its header,
-> > but most do not.  Just trim it everywhere.
->
-> It's pretty misleading to call it "random";
+> Would you be willing to do the following please:
+> 
+> 1. Review the pages that you already wrote to see what needs to be
+> updated. (I did take a look at some of those pages a while back, and
+> some pieces--I don't recall the details--were out of sync with the
+> implementation.)
+> 
+> 2. Resend the pages, one patch per page.
+> 
+> 3. Please CC linux-man@, linux-api@, linux-kernel@, and the folk in CC
+> on this message.
 
-(True.)
+For this week and next, I have an online language course taking up 8-10 hours
+a day.  I'll pick it up in August, if that's okay with you.
 
-> it is a hint to the man
-> program to preprocess the man page text through tbl.
+David
 
-Yes, that's my understanding. But I believe that these days it's no
-longer needed(?). tbl(1) just gets used as needed, regardless of the
-presence of the 't' comment, right?
-
-> This is documented in subsection "Interaction with preprocessors" of
-> groff_man(5).
->
-> The patch itself might be fine; the first couple of pages it alters
-> indeed use no tables, according to the check I ran:
->         grep -l '^\.\s*TS' man[1-8]/*
->
-> ...but the comment is certainly not meaningless noise, which is what
-> "random" suggests, and I would not characterize the change this in a
-> commit message.
-
-See my comments above. For 15 years or at least, I've not paid any
-attention to adding the 't' comments when I added tables to pages, and
-I do recall anyone reporting ill effects. So, I'm inclined to apply
-Mike's patch, but will hold off a moment, in case there's other
-feedback.
-
-Cheers,
-
-Michael
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
