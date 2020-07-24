@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CDB4122C3E5
-	for <lists+linux-man@lfdr.de>; Fri, 24 Jul 2020 12:57:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 83EEC22C3E8
+	for <lists+linux-man@lfdr.de>; Fri, 24 Jul 2020 12:58:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726553AbgGXK5g (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 24 Jul 2020 06:57:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42148 "EHLO
+        id S1726702AbgGXK6C (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 24 Jul 2020 06:58:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42216 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726483AbgGXK5g (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Jul 2020 06:57:36 -0400
-Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BB2C5C0619D3
-        for <linux-man@vger.kernel.org>; Fri, 24 Jul 2020 03:57:35 -0700 (PDT)
-Received: by mail-ed1-x544.google.com with SMTP id n2so6733935edr.5
-        for <linux-man@vger.kernel.org>; Fri, 24 Jul 2020 03:57:35 -0700 (PDT)
+        with ESMTP id S1726483AbgGXK6C (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Jul 2020 06:58:02 -0400
+Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 658C3C0619D3
+        for <linux-man@vger.kernel.org>; Fri, 24 Jul 2020 03:58:02 -0700 (PDT)
+Received: by mail-ej1-x642.google.com with SMTP id c10so1384059ejs.5
+        for <linux-man@vger.kernel.org>; Fri, 24 Jul 2020 03:58:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=m64UqtJAf3FW2fZKnRJhGkH4kOrf823CcpX7fHHu5bM=;
-        b=QwR4/wG3DDJ+29thS1xzDcnqWW9TJ583VS+yb7S1u+xyFtN7naRcGTk+OU1CPXLvpc
-         rr5qcC/wZfc7+gDlBlOfqSd0i5RbUKs0nIUo59Kk2X1m//unRHNXzlkdF0P3py5SyUiB
-         hmybgw3d/9V9Ie6QHEvjhQ1bUZAbPHfQghvuLqKIQ7RkMAjScOQp74dyJsCPLQEREsol
-         6klC9aI8eHaag7PF3tYO83PJWZIXLUCrWtIkSP4igFchb/W9cXmajRtptEoYGDldGU/5
-         +7K7MoFKRMFWDjjKiuHkgHW8l+bGE66I9+a/2l5u0mqOojc1KzpL8EUaSbKdwZFhBTRz
-         0C1g==
+        bh=a4k7LfEY9aCRTk3xlmbvKAwInrQZYRut7U1h3DiVUJY=;
+        b=EKmk1H6P1E5JJSctsl3rB6cEKAl//u7xYCbz9Vdyd/mBSckQyYJkPPeg4MIJuRmkIB
+         pJkYX9fYNqZzQTBxvZdBS8ALbQyxKgWgm3RnwBY9pO+CDbeftn6oxhDr0N8Dux1Xtk4B
+         KP0p5Dn26YbCWKaub9o0rjIBLkKSTTe7Vcc+D1scgFZbKrxBB+0TOBhnL6i00nQOqpOE
+         dUsk1zd09DdRUUe6VIrmL/sVUNCbcRFyiDbIq85nCTuVvD67yRz9W73g/yd00i77EeEm
+         dOqXi9tO6pd/VQKlxhjTfnQ31+thVtD5DPNkyC+eMos5/KqBBA6WGUrqc5HwmqOrGnvH
+         vJWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=m64UqtJAf3FW2fZKnRJhGkH4kOrf823CcpX7fHHu5bM=;
-        b=gVXtWihX15ml+BZ18HNXfTITGds7fXoBgLlVGvoUBFPwl/2yrZheFrcxAiYh5SiqYe
-         9OmKpHs9Zn73YSWDQcVvAaZH6ZdL0zPUODppB3q3DPeSwcjh91rVTi84Vw51/K34KzdZ
-         6wMQwQ0x24pUp8BK9MXJyge87beVflEXz3q8MRs36Jz9OuGg8fD2D7SW04aCLy1MIyt1
-         ye7TFb4HxL9xE2GmWO+2BAzhHdlRCSsKifsN7iGrJTN0CY8wYUWMGoP2oXuAVyLcL47B
-         YxALkF+7+Ay6bDk8Axvef3MImc/OwDuy/JOCBE36jg72CLWy3eq332l/4rcG3fcRovwM
-         LUoA==
-X-Gm-Message-State: AOAM5305wuf1GvngjXL4d8A6hFPSGYM5EJNlFHvDBygHScZL1ceNLwLl
-        nkQ4/em3yxaZTLgExwx4UyWMFO4q
-X-Google-Smtp-Source: ABdhPJzjcaBmnjAk7kUQ9el8GHBpJL59gbmBDnENTX/r1uvsqwaaAK0+U98WBkpqvISVKIByCC/oUA==
-X-Received: by 2002:aa7:dbd9:: with SMTP id v25mr6659550edt.137.1595588254018;
-        Fri, 24 Jul 2020 03:57:34 -0700 (PDT)
+        bh=a4k7LfEY9aCRTk3xlmbvKAwInrQZYRut7U1h3DiVUJY=;
+        b=nVze3GOAujnyB7ZE0Wu4CvmtaUsAmWxM9flmld0Zr5MI3GEnKCI6gQw1Y5NfgduMPJ
+         MSIRw1PhdhU39tgaaAdG5TlevaXye3N0tnMV38SkJgOZ/TfT3AqfWhA9RTtqcbOFIVLh
+         JY/nYI8dSp1c1NZkeRqBz3rpWwb2OpIR6VEjlXTfpdb/lqNHWEsPOokLjeJXMoV8wSoE
+         VpNQnjeIRi7KHoMgqsFg/ZLLon8CUz551k7LL4cwXDTfmV1ggCd1RYXcKjCVbtwwBq5x
+         JmTRqvVYu3favfm7MnDbiAqljbhHS7YI64TTjXxR0pCPyU5i1qZ+L8Kg8irS9FuWxg4k
+         sQ1g==
+X-Gm-Message-State: AOAM5330L/SAKtw7W1gmzexcxqdFmDy/qdEJ4a99C8xsDa0RKQTUUsFw
+        UEwRwp3WnVs75mfp8kVWjRaGfyZx
+X-Google-Smtp-Source: ABdhPJylTi4ehdKl4NzKwWBXkNgPDYGuhvf5tuVURA+zn6P4ymJ6v3EHLRRzhWRyuNytvdn0VVBGVQ==
+X-Received: by 2002:a17:906:1b45:: with SMTP id p5mr8436558ejg.51.1595588280899;
+        Fri, 24 Jul 2020 03:58:00 -0700 (PDT)
 Received: from ?IPv6:2001:a61:3adb:8201:9649:88f:51f8:6a21? ([2001:a61:3adb:8201:9649:88f:51f8:6a21])
-        by smtp.gmail.com with ESMTPSA id bw7sm407480ejb.5.2020.07.24.03.57.32
+        by smtp.gmail.com with ESMTPSA id z15sm480546edr.13.2020.07.24.03.57.59
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 24 Jul 2020 03:57:33 -0700 (PDT)
+        Fri, 24 Jul 2020 03:58:00 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] use standard .\" comment style
+Subject: Re: [PATCH] trim leading blank comment line
 To:     Mike Frysinger <vapier@gentoo.org>
-References: <20200723215337.13823-1-vapier@gentoo.org>
+References: <20200723215340.13867-1-vapier@gentoo.org>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <4557e7e6-f134-695d-2b4e-cba6a03be1b4@gmail.com>
-Date:   Fri, 24 Jul 2020 12:57:30 +0200
+Message-ID: <85bdaf5c-fe2a-5a3b-d7ad-ffcc166b200c@gmail.com>
+Date:   Fri, 24 Jul 2020 12:57:59 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <20200723215337.13823-1-vapier@gentoo.org>
+In-Reply-To: <20200723215340.13867-1-vapier@gentoo.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -72,10 +72,9 @@ Hello Mike,
 On 7/23/20 11:53 PM, Mike Frysinger wrote:
 > From: Mike Frysinger <vapier@chromium.org>
 > 
-> The \" comment produces blank lines.  Use the .\" that the vast
-> majority of the codebase uses instead.
+> Very few pages do this, so trim them.
 
-Thanks. Applied.
+Thanks. Patch applied.
 
 Cheers,
 
@@ -83,128 +82,88 @@ Michael
 
 > Signed-off-by: Mike Frysinger <vapier@gentoo.org>
 > ---
->  man2/keyctl.2          |  8 ++++----
->  man2/perf_event_open.2 | 10 +++++-----
->  man3/makecontext.3     |  2 +-
->  man7/keyrings.7        |  6 +++---
->  man7/pid_namespaces.7  |  2 +-
->  5 files changed, 14 insertions(+), 14 deletions(-)
+>  man5/repertoiremap.5        | 1 -
+>  man7/keyrings.7             | 1 -
+>  man7/persistent-keyring.7   | 1 -
+>  man7/process-keyring.7      | 1 -
+>  man7/session-keyring.7      | 1 -
+>  man7/thread-keyring.7       | 1 -
+>  man7/user-keyring.7         | 1 -
+>  man7/user-session-keyring.7 | 1 -
+>  8 files changed, 8 deletions(-)
 > 
-> diff --git a/man2/keyctl.2 b/man2/keyctl.2
-> index b758f331bd28..ea954d7fab85 100644
-> --- a/man2/keyctl.2
-> +++ b/man2/keyctl.2
-> @@ -592,9 +592,9 @@ Writing to the buffer is attempted only when
->  is non-NULL and the specified buffer size
->  is large enough to accept the descriptive string
->  (including the terminating null byte).
-> -'\" Function commentary says it copies up to buflen bytes, but see the
-> -'\" (buffer && buflen >= ret) condition in keyctl_describe_key() in
-> -'\" security/keyctl.c
-> +.\" Function commentary says it copies up to buflen bytes, but see the
-> +.\" (buffer && buflen >= ret) condition in keyctl_describe_key() in
-> +.\" security/keyctl.c
->  In order to determine whether the buffer size was too small,
->  check to see if the return value of the operation is greater than
->  .IR arg4 .
-> @@ -963,7 +963,7 @@ Use the UID-specific session keyring
->  as the new default keyring.
->  .TP
->  .BR KEY_REQKEY_DEFL_REQUESTOR_KEYRING " (since Linux 2.6.29)"
-> -'\" 8bbf4976b59fc9fc2861e79cab7beb3f6d647640
-> +.\" 8bbf4976b59fc9fc2861e79cab7beb3f6d647640
->  Use the requestor keyring.
->  .\" FIXME The preceding explanation needs to be expanded.
->  .\" Is the following correct:
-> diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
-> index eee3b887074b..2492fc75a815 100644
-> --- a/man2/perf_event_open.2
-> +++ b/man2/perf_event_open.2
-> @@ -2601,7 +2601,7 @@ is a string describing the backing of the allocated memory.
->  .RE
->  .TP
->  .BR PERF_RECORD_AUX " (since Linux 4.1)"
-> -\" commit 68db7e98c3a6ebe7284b6cf14906ed7c55f3f7f0
-> +.\" commit 68db7e98c3a6ebe7284b6cf14906ed7c55f3f7f0
->  This record reports that new data is available in the separate
->  AUX buffer region.
->  .IP
-> @@ -2638,7 +2638,7 @@ if set, then the data returned has overwritten previous data.
->  .RE
->  .TP
->  .BR PERF_RECORD_ITRACE_START " (since Linux 4.1)"
-> -\" ec0d7729bbaed4b9d2d3fada693278e13a3d1368
-> +.\" ec0d7729bbaed4b9d2d3fada693278e13a3d1368
->  This record indicates which process has initiated an instruction
->  trace event, allowing tools to properly correlate the instruction
->  addresses in the AUX buffer with the proper executable.
-> @@ -2661,7 +2661,7 @@ thread ID of the thread starting an instruction trace.
->  .RE
->  .TP
->  .BR PERF_RECORD_LOST_SAMPLES " (since Linux 4.2)"
-> -\" f38b0dbb491a6987e198aa6b428db8692a6480f8
-> +.\" f38b0dbb491a6987e198aa6b428db8692a6480f8
->  When using hardware sampling (such as Intel PEBS) this record
->  indicates some number of samples that may have been lost.
->  .IP
-> @@ -2680,7 +2680,7 @@ the number of potentially lost samples.
->  .RE
->  .TP
->  .BR PERF_RECORD_SWITCH " (since Linux 4.3)"
-> -\" commit 45ac1403f564f411c6a383a2448688ba8dd705a4
-> +.\" commit 45ac1403f564f411c6a383a2448688ba8dd705a4
->  This record indicates a context switch has happened.
->  The
->  .B PERF_RECORD_MISC_SWITCH_OUT
-> @@ -2698,7 +2698,7 @@ struct {
->  .EE
->  .TP
->  .BR PERF_RECORD_SWITCH_CPU_WIDE " (since Linux 4.3)"
-> -\" commit 45ac1403f564f411c6a383a2448688ba8dd705a4
-> +.\" commit 45ac1403f564f411c6a383a2448688ba8dd705a4
->  As with
->  .B PERF_RECORD_SWITCH
->  this record indicates a context switch has happened,
-> diff --git a/man3/makecontext.3 b/man3/makecontext.3
-> index 1d8429fa45db..c311f49f9496 100644
-> --- a/man3/makecontext.3
-> +++ b/man3/makecontext.3
-> @@ -1,4 +1,4 @@
-> -\" Copyright (C) 2001 Andries Brouwer (aeb@cwi.nl)
-> +.\" Copyright (C) 2001 Andries Brouwer (aeb@cwi.nl)
->  .\" and Copyright (C) 2006 Michael Kerrisk <mtk.manpages@gmail.com>
->  .\"
->  .\" %%%LICENSE_START(VERBATIM)
+> diff --git a/man5/repertoiremap.5 b/man5/repertoiremap.5
+> index a76e866f8f43..06d4814d5722 100644
+> --- a/man5/repertoiremap.5
+> +++ b/man5/repertoiremap.5
+> @@ -1,4 +1,3 @@
+> -.\"
+>  .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+>  .\" This is free documentation; you can redistribute it and/or
+>  .\" modify it under the terms of the GNU General Public License as
 > diff --git a/man7/keyrings.7 b/man7/keyrings.7
-> index 0e0bd0a9514a..0983a4da948e 100644
+> index 0983a4da948e..cbe8a6fb0ebd 100644
 > --- a/man7/keyrings.7
 > +++ b/man7/keyrings.7
-> @@ -105,9 +105,9 @@ the key is scheduled for garbage collection.
->  The kernel provides several basic types of key:
->  .TP
->  .I """keyring"""
-> -'\" Note that keyrings use different fields in struct key in order to store
-> -'\" their data - index_key instead of type/description and name_link/keys
-> -'\" instead of payload.
-> +.\" Note that keyrings use different fields in struct key in order to store
-> +.\" their data - index_key instead of type/description and name_link/keys
-> +.\" instead of payload.
->  Keyrings are special keys which store a set of links
->  to other keys (including other keyrings),
->  analogous to a directory holding links to files.
-> diff --git a/man7/pid_namespaces.7 b/man7/pid_namespaces.7
-> index f2aa25884de3..9d893fcf26c1 100644
-> --- a/man7/pid_namespaces.7
-> +++ b/man7/pid_namespaces.7
-> @@ -262,7 +262,7 @@ namespace that is the
->  .I parent
->  of the child's PID namespace,
->  rather than the "init" process in the child's own PID namespace.
-> -\" Furthermore, by definition, the parent of the "init" process
-> +.\" Furthermore, by definition, the parent of the "init" process
->  .\" of a PID namespace resides in the parent PID namespace.
+> @@ -1,4 +1,3 @@
+> -.\"
+>  .\" Copyright (C) 2014 Red Hat, Inc. All Rights Reserved.
+>  .\" Written by David Howells (dhowells@redhat.com)
+>  .\" and Copyright (C) 2016 Michael Kerrisk <mtk.manpages@gmail.com>
+> diff --git a/man7/persistent-keyring.7 b/man7/persistent-keyring.7
+> index 3367ec153f47..de56255c1d68 100644
+> --- a/man7/persistent-keyring.7
+> +++ b/man7/persistent-keyring.7
+> @@ -1,4 +1,3 @@
+> -.\"
+>  .\" Copyright (C) 2014 Red Hat, Inc. All Rights Reserved.
+>  .\" Written by David Howells (dhowells@redhat.com)
 >  .\"
->  .\" ============================================================
+> diff --git a/man7/process-keyring.7 b/man7/process-keyring.7
+> index c4dbd127f5a3..9f48aa9c2143 100644
+> --- a/man7/process-keyring.7
+> +++ b/man7/process-keyring.7
+> @@ -1,4 +1,3 @@
+> -.\"
+>  .\" Copyright (C) 2014 Red Hat, Inc. All Rights Reserved.
+>  .\" Written by David Howells (dhowells@redhat.com)
+>  .\"
+> diff --git a/man7/session-keyring.7 b/man7/session-keyring.7
+> index 0b886be5e702..829d1e975e36 100644
+> --- a/man7/session-keyring.7
+> +++ b/man7/session-keyring.7
+> @@ -1,4 +1,3 @@
+> -.\"
+>  .\" Copyright (C) 2014 Red Hat, Inc. All Rights Reserved.
+>  .\" Written by David Howells (dhowells@redhat.com)
+>  .\"
+> diff --git a/man7/thread-keyring.7 b/man7/thread-keyring.7
+> index a09ab4c565e9..0cc429b58c91 100644
+> --- a/man7/thread-keyring.7
+> +++ b/man7/thread-keyring.7
+> @@ -1,4 +1,3 @@
+> -.\"
+>  .\" Copyright (C) 2014 Red Hat, Inc. All Rights Reserved.
+>  .\" Written by David Howells (dhowells@redhat.com)
+>  .\"
+> diff --git a/man7/user-keyring.7 b/man7/user-keyring.7
+> index f13674eeeaa3..de2d7029e699 100644
+> --- a/man7/user-keyring.7
+> +++ b/man7/user-keyring.7
+> @@ -1,4 +1,3 @@
+> -.\"
+>  .\" Copyright (C) 2014 Red Hat, Inc. All Rights Reserved.
+>  .\" Written by David Howells (dhowells@redhat.com)
+>  .\"
+> diff --git a/man7/user-session-keyring.7 b/man7/user-session-keyring.7
+> index 91664dd50297..0934e08e2122 100644
+> --- a/man7/user-session-keyring.7
+> +++ b/man7/user-session-keyring.7
+> @@ -1,4 +1,3 @@
+> -.\"
+>  .\" Copyright (C) 2014 Red Hat, Inc. All Rights Reserved.
+>  .\" Written by David Howells (dhowells@redhat.com)
+>  .\"
 > 
 
 
