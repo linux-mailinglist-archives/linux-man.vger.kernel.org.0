@@ -2,121 +2,133 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 62EA022C470
-	for <lists+linux-man@lfdr.de>; Fri, 24 Jul 2020 13:37:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 90CAB22C4E9
+	for <lists+linux-man@lfdr.de>; Fri, 24 Jul 2020 14:16:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726503AbgGXLhF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 24 Jul 2020 07:37:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48226 "EHLO
+        id S1726591AbgGXMQE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 24 Jul 2020 08:16:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54366 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726483AbgGXLhF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Jul 2020 07:37:05 -0400
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DFB52C0619D3
-        for <linux-man@vger.kernel.org>; Fri, 24 Jul 2020 04:37:04 -0700 (PDT)
-Received: by mail-ej1-x643.google.com with SMTP id ga4so9618578ejb.11
-        for <linux-man@vger.kernel.org>; Fri, 24 Jul 2020 04:37:04 -0700 (PDT)
+        with ESMTP id S1726539AbgGXMQE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Jul 2020 08:16:04 -0400
+Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com [IPv6:2607:f8b0:4864:20::1042])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 02E5CC0619D3
+        for <linux-man@vger.kernel.org>; Fri, 24 Jul 2020 05:16:04 -0700 (PDT)
+Received: by mail-pj1-x1042.google.com with SMTP id cv18so5781129pjb.1
+        for <linux-man@vger.kernel.org>; Fri, 24 Jul 2020 05:16:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=gEKC/NZk3GhNbs+FPOLOr5/hYGM2NNV1qqwX7IPaLVo=;
-        b=pWQuechkkqw9d6qL8LVTpxzgmubHx/3ZM+T8qgJ/+zdVt9I7Tvj0ifXCLvFZf9Hc1G
-         5Ks45rTRPjy9z+GK0FEUBJgXFPAtze1ooblPzL1df+UWBCYh19/FatVU2gFroeYT0+B1
-         3GwWeTN+B8qse9tiiE3R3FKiiiDfF1h57IGIugsZ/mPvqpyhnVbyoz+V+fHqOCTMXEXP
-         v9geW6PFjvtXv0PYQwz83npD20m8HldEHIHSABLpezeCAn6JQv/gu5D+ZEdMZLS2aMDD
-         E0OMTiO1sA1FmViWiWNZwBwa0aoqTUd1sMNsnUBR/GCl/J0yLdaua+Hah2Op/DqoLF3J
-         rt5Q==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=JCki89vmAkDqKrv9qzdOapNq1VLMzc7x57rICn+CJTo=;
+        b=aJzH2Hlc6grh8ZtEQX+hDCJ5xvYazNBdrKmD2qLDjxG59IRnj3yCMQEi8e1rtYvxUS
+         fL6eAnLxD8/8WtpUsV1P9a5q48ujq4WIoIjI4UGQsKN/ZkFrpuV83/18042PPhCyQWvU
+         h0RA7SZrWNokqLdSLL/rh6uNMN9vQyclGmdcYgKlJBNmMIGe2qyuwjrs6hC0opBc7SiK
+         t6ALVY9q8t4IVoODlbPCOZy2dxj+I6iwTabdgib0pEqsbGzEJJJhzKwBNQbkV4jaahta
+         n6yqwuE6U6MQlqry3Y1m3+/1Ghkhxj9h2I2ixTXSxiBsY1suQlBfFxETwIiZtycAuSQU
+         vhpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=gEKC/NZk3GhNbs+FPOLOr5/hYGM2NNV1qqwX7IPaLVo=;
-        b=rpIXI3QCpmx2Nc4jovPUnVT0N21KaP4JbSkytit4J+baiV7U7adS0/ux6Y9+NkRJwz
-         LX134TAZpfPZoMpLsDeUpiQwFhK2akjYYax3VkgkwLABOuHcJEzFwP5F0im6BGIzASW9
-         DCbJZMPWm7tGU3th6qYNBrVxLbq/+FhT76j1WGiXcS8N4jKvyul/odZRVeJ6BtLguE6k
-         RjePpqkwsFS/y8h/bpco+IwYlhrk7ncufObrLsPAsLsaNOm9i1/S/YtWwSTGpRQst0hd
-         gTpiex8hjItiX7ekUlItnvnhEZl0S8DfOzRj23cjknwgrou3lZ0jo9QeTLhDWy94vUrT
-         SwSQ==
-X-Gm-Message-State: AOAM5306o8NjaGWcc7W73p7JLK/zesHlOsQQQn+PbTFa2sBegLm4tpWm
-        sft3/TEpn18R1P5n+/5wk9jGtwda
-X-Google-Smtp-Source: ABdhPJxS9ld+/Y4qOuwbQhtEUFNNDVpfBm9WIJi8hgXZPUtAJ3LbEHqBF2FUsNQ37uHtVVtIa2bj8Q==
-X-Received: by 2002:a17:907:20c4:: with SMTP id qq4mr8427842ejb.85.1595590623321;
-        Fri, 24 Jul 2020 04:37:03 -0700 (PDT)
-Received: from ?IPv6:2001:a61:3adb:8201:9649:88f:51f8:6a21? ([2001:a61:3adb:8201:9649:88f:51f8:6a21])
-        by smtp.gmail.com with ESMTPSA id v9sm483494ejd.102.2020.07.24.04.37.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 24 Jul 2020 04:37:02 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [patch] Add note about there is no default permission mode in
- umask man page
-To:     kevin dankwardt <kevin.dankwardt@gmail.com>
-References: <CAJUC52H2YPD2B7Nh-eDO-QzbwuyYiNokYAWYQU1z0hWRpJ3y8A@mail.gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <31626a3a-6d3e-c8fa-af98-b98b356fcdcf@gmail.com>
-Date:   Fri, 24 Jul 2020 13:36:59 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=JCki89vmAkDqKrv9qzdOapNq1VLMzc7x57rICn+CJTo=;
+        b=SVjhW840aH7VDBMSEIIz5TJRbq88WSoKiKjmS+uA38bWViM81wC/ZW7om4XEx7V/hs
+         sPmTpfXNOrolhiBKJBX1Rg1iRpFmF2uQnjvdb1/TkUod+OGZ1M2gMUYCIG+NmeNe+7Ov
+         ePrBoXqx4ZhLVMt0dUzWjsyNKka5ZVqc1Pp7+o1XkwEGGJM2cZryHGvkFkioH/aKHf5u
+         IbkX3rO1JmxhZK2PwOS86u5jBsiWBYWoFDInpl529x1nUnI+NjUlPib/4uMiUtPfd5Z9
+         U1WLQ2WFuyoyXqm6AFLPOtSHqnfgdLTpRre4HKOz8mAjHYjo3dtNegv6XxG3KAYnr/QE
+         jbaA==
+X-Gm-Message-State: AOAM533l7T+NxrMTk/xaIz1h/mKxk5NuEkanrjoXfEOvhNkS6H+ql+G7
+        HIEO6eXhNTsppmssjRgXfjSjIJg6
+X-Google-Smtp-Source: ABdhPJzNuJTOMUHClQiJk4WBZEi03cSO3whkhmFjoYHsCFzlB7MLWHKHB3LyeRiLEGPIQxTgkrK69Q==
+X-Received: by 2002:a17:902:c3cb:: with SMTP id j11mr8181963plj.324.1595592963567;
+        Fri, 24 Jul 2020 05:16:03 -0700 (PDT)
+Received: from localhost.localdomain ([1.129.254.95])
+        by smtp.gmail.com with ESMTPSA id bf11sm5773921pjb.48.2020.07.24.05.16.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Jul 2020 05:16:02 -0700 (PDT)
+Date:   Fri, 24 Jul 2020 22:15:58 +1000
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Subject: Re: [PATCH] drop spurious t comment header
+Message-ID: <20200724121555.e4l2okob3x3fzk5z@localhost.localdomain>
+References: <20200723215333.13779-1-vapier@gentoo.org>
+ <20200724000315.yx5otylik6oqqy6d@localhost.localdomain>
+ <CAKgNAkjwwxrM_ry-b1rtrVc8YjfNE=p4iAht85P+mBs6Eq0U-w@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CAJUC52H2YPD2B7Nh-eDO-QzbwuyYiNokYAWYQU1z0hWRpJ3y8A@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="5tra5dodqfrczl7z"
+Content-Disposition: inline
+In-Reply-To: <CAKgNAkjwwxrM_ry-b1rtrVc8YjfNE=p4iAht85P+mBs6Eq0U-w@mail.gmail.com>
+User-Agent: NeoMutt/20180716
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Kevin!
 
-On 7/23/20 8:39 PM, kevin dankwardt wrote:
-> man pages version 5.08
-> 
->>From 884004f93893cb01002d886387c78ba58d1aff53 Mon Sep 17 00:00:00 2001
-> From: Kevin Dankwardt <kevin.dankwardt@gmail.com>
-> Date: Thu, 23 Jul 2020 11:31:55 -0700
-> Subject: [PATCH] Add note about there is no default permission mode
-> 
-> ---
->  man2/umask.2 | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/man2/umask.2 b/man2/umask.2
-> index e74e8ef..6bc8ba1 100644
-> --- a/man2/umask.2
-> +++ b/man2/umask.2
-> @@ -138,6 +138,8 @@ Inspecting this field in
->  .IR /proc/self/status
->  allows a process to retrieve its umask without at the same time changing
-> it.
->  .PP
-> +The Linux kernel has no default permission modes for created files or
-> directories and thus the permission modes are non-deterministic for a file
-> or directory created with no requested permission modes.
-> +.PP
->  The umask setting also affects the permissions assigned to POSIX IPC
-> objects
->  .RB ( mq_open (3),
->  .BR sem_open (3),
+--5tra5dodqfrczl7z
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The umask(2) page seems the wrong place for a note such as this,
-since this doesn't really relate to the umask. I assume that what
-you really care about here is a call to open(2) that wrongly 
-omits mode:
+At 2020-07-24T12:13:33+0200, Michael Kerrisk (man-pages) wrote:
+> On Fri, 24 Jul 2020 at 02:03, G. Branden Robinson
+> <g.branden.robinson@gmail.com> wrote:
+> > it is a hint to the man
+> > program to preprocess the man page text through tbl.
+>=20
+> Yes, that's my understanding. But I believe that these days it's no
+> longer needed(?). tbl(1) just gets used as needed, regardless of the
+> presence of the 't' comment, right?
 
-fd = open(path, O_CREAT | O_RDWR);
+[A few "strace -f -e execve"s later...]
 
-The open(2) manual page already warns against that, but I have 
-reworded the text in that page a little to further emphasize the
-point.
+Hmm, for the man-db man(1) in Debian bullseye (testing), at least, this
+is true!  And checking its own man page, it looks like it was true as
+far back as April 2001 (the horizon of its Git history).
 
-Cheers,
+I guess there are so many man pages that embed tables without including
+the hint that the man-db maintainers decided not to leave the comment to
+chance.  The only other man-like program I know if in anything like wide
+use on Linux systems is mandoc, which does all its own parsing and
+doesn't depend on a *roff at all.
 
-Michael
+Retaining an accurate comment would be a kindness to other man
+implementations I'm not aware of and to weirdos like me who run groff
+directly because we develop it (though admittedly, even for us, there is
+the crutch of grog(1)).  But I'll grant--these populations may be small.
 
+> See my comments above. For 15 years or at least, I've not paid any
+> attention to adding the 't' comments when I added tables to pages, and
+> I do recall anyone reporting ill effects. So, I'm inclined to apply
+> Mike's patch, but will hold off a moment, in case there's other
+> feedback.
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Sounds fair.
+
+Regards,
+Branden
+
+--5tra5dodqfrczl7z
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl8a0OsACgkQ0Z6cfXEm
+bc62chAAjnnYOY3YA0lD3rQMD7pX5Fzy0424glHdL206Aq5vQ7IkNCCzRyIvVIH1
+mXmASbSCyNPPLOfXi6e4IXZ4Yf/zvhv/Awr3Gv3Tb+8coq4+Ab6tk+ahYMquSc6J
+fuJWrSYYIJI2g9G7heLvQOW547ZB3B1rijn5OiyRpld2nYayu1397hmC73AFgbqE
+1iNxIqv8Dqk7KIIVflzNOJwY4WFfsH57FqHQl9mDeuXSUKNoM/SwbWWHI/UCJS/c
+f7JJKPwG1R8gVWxdqsfWvAl5wWDl6GIyaue29pVLmJpHQa0MgDg4jorxRd4cCH24
+zDHcwxsVho0VJsJVxPXxXpRJgqgkYirDNGrwqDm0uIg5Z0ewVIHW5mmoTo6hSJgX
+1HZcVVRq58xu//0MHnFiL1/ivfsv4Z7Q87Dmnm6p+l5yun70caHqCABeT6coK+0R
+fZhohaO+ikKbUvxXTjtwve/+T39b/7wYKqneJC8prVGjKRml7wNfPYGo6+FTad/A
+ooBYk9bdWox8eZXQme6dI61k3Kpr430FindxxKl6Vh4MpY4PNaYS0xlWAlX7iTdf
+Opk7TDLPyYWC+ctdUhoqXbmtFp/909SBtiVRzP/mUWMbi7GIktRwSePncBry7Dnt
+K6QTMYeaUGY3l86KIdZ78H6rY303osphDDtY5g/WTYTx/Ttm+XY=
+=e67g
+-----END PGP SIGNATURE-----
+
+--5tra5dodqfrczl7z--
