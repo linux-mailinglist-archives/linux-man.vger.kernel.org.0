@@ -2,320 +2,103 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8ABB622DC47
-	for <lists+linux-man@lfdr.de>; Sun, 26 Jul 2020 08:23:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A2B9222E26A
+	for <lists+linux-man@lfdr.de>; Sun, 26 Jul 2020 22:01:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725789AbgGZGXs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 26 Jul 2020 02:23:48 -0400
-Received: from smtp.gentoo.org ([140.211.166.183]:54288 "EHLO smtp.gentoo.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1725298AbgGZGXs (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sun, 26 Jul 2020 02:23:48 -0400
-Received: from vapier.lan (localhost [127.0.0.1])
-        by smtp.gentoo.org (Postfix) with ESMTP id 7E60C34F177;
-        Sun, 26 Jul 2020 06:23:43 +0000 (UTC)
-From:   Mike Frysinger <vapier@gentoo.org>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
+        id S1726427AbgGZUB6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 26 Jul 2020 16:01:58 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36688 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726292AbgGZUB6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 26 Jul 2020 16:01:58 -0400
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E1630C0619D2
+        for <linux-man@vger.kernel.org>; Sun, 26 Jul 2020 13:01:56 -0700 (PDT)
+Received: by mail-wm1-x331.google.com with SMTP id k20so5070074wmi.5
+        for <linux-man@vger.kernel.org>; Sun, 26 Jul 2020 13:01:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:references:from:cc:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=DdBm+Lk6kWPH3BMLZ2RaAnb3Uptti217lWUE/VYHR+E=;
+        b=L9OJMGvxSUrVXAzdY5xuBo1fitY1aTLhcxGb0U6IPSDBUZ27FGfXdd8r8SiPZkpunt
+         2Tae16sjWvZ4D+NQapahOUT/XEVAn/fEuHzTZukqocS9zfgdAXsJ3T9iFEARRJgRLcNx
+         Dr8YM14t8WT8Z6ACFnsY5yUHYxz8EJh8CHC1CtbAnIJYFOiGbq7q90/ThPRvoWtElbLz
+         P152uoAm7+UagLuCjBpLS+HKul8F9yf+I/BxSYwuLtliyL9/9NK08ePB3QgYKPXgzYgL
+         HgEk+STy5wOtDRrvpIpXj4L2FM9G6x3avS+2JIzzfENeedWZ9EFqZyx74mVlyRYBqc3o
+         CfLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:references:from:cc:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=DdBm+Lk6kWPH3BMLZ2RaAnb3Uptti217lWUE/VYHR+E=;
+        b=ARfjeNu4cqxtV+eZdPTpsg4tDOkF375FXNZEsx/bR3MIaExLWta44gTbRu3IQ5keA9
+         iuqae8cltX0SaCkOKBkUQtiA9CBV1vysx/2t1x9YyirARIcbCf9bZQYMnCzKUHZs5B4c
+         pj5aN3zdzpm49Lgf4c8d6CCaF+XLraPFYl6qxHSqagSgj/2JZMAIRVoeFCEflE5fQZ4p
+         2CT+zDffPzbP9lm9+M1ZtzzNXVCtkdBpmsQNceURbFfpjEwW1d8lDWMHue+oJksydlMt
+         ZKmjnByrRzWPpJXnilRAi2AotA88UbIGr3zx2SOfKsB72RAGB5scYSuIx6q8tHM9XesP
+         +XDg==
+X-Gm-Message-State: AOAM5331kK7BPanxTv0b7cH/7aCWw4zpgFfORQvBTenK7fL0yvXiye9D
+        vVt7E8WFtKTwfNekhV9xKwNkerxb
+X-Google-Smtp-Source: ABdhPJwgBABWvw3LFJIpMlFhy6E36tBbegs6sCROUKBh49KNSGJP2kAVhGfEaNEvh5JpChYia5R64Q==
+X-Received: by 2002:a1c:2dc6:: with SMTP id t189mr18573802wmt.26.1595793715183;
+        Sun, 26 Jul 2020 13:01:55 -0700 (PDT)
+Received: from [192.168.0.160] ([93.115.133.118])
+        by smtp.gmail.com with ESMTPSA id k126sm16127640wme.17.2020.07.26.13.01.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 26 Jul 2020 13:01:54 -0700 (PDT)
+Subject: Re: queue.3: Document CIRCLEQ_ macros
+To:     mtk.manpages@gmail.com
+References: <581130f1-f6eb-5845-40e1-220f7edae526@gmail.com>
+ <CAKgNAkiCbfZjjTGp6Dy02ejMKRz5+NbKeNN8Et9yW8yvSbuVhA@mail.gmail.com>
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] [rfc] drop "coding: UTF-8" header
-Date:   Sun, 26 Jul 2020 02:23:40 -0400
-Message-Id: <20200726062340.28800-1-vapier@gentoo.org>
-X-Mailer: git-send-email 2.26.2
+Message-ID: <e842e268-09ad-80c2-5324-7efd5610c8ef@gmail.com>
+Date:   Sun, 26 Jul 2020 22:01:53 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=8bit
+In-Reply-To: <CAKgNAkiCbfZjjTGp6Dy02ejMKRz5+NbKeNN8Et9yW8yvSbuVhA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Mike Frysinger <vapier@chromium.org>
+Hola Michael,
 
-This header is used inconsistently -- man pages are UTF-8 encoded
-but not setting this marker.  It's only respected by the man-db
-package, and seems a bit anachronistic at this point when UTF-8
-is the standard default nowadays.
+On 7/25/20 9:15 PM, Michael Kerrisk (man-pages) wrote:
+> Hello Alejandro
+> 
+> On Sat, 25 Jul 2020 at 12:13, Alejandro Colomar <colomar.6.4.3@gmail.com> wrote:
+>>
+>> Hi all,
+>>
+>> I'm going to use CIRCLEQ and I found out that it's undocumented.  I'm
+>> going to document it in queue.3 and I would like to know if someone is
+>> already working on that to not duplicate efforts.
+> 
+> No one is working on this, so it would be great if you could document CIRCLEQ.
 
-Signed-off-by: Mike Frysinger <vapier@gentoo.org>
----
- man1/iconv.1                | 2 --
- man3/mbstowcs.3             | 1 -
- man3/newlocale.3            | 1 -
- man5/locale.5               | 1 -
- man7/armscii-8.7            | 1 -
- man7/charsets.7             | 1 -
- man7/cp1251.7               | 1 -
- man7/cp1252.7               | 1 -
- man7/iso_8859-1.7           | 1 -
- man7/iso_8859-10.7          | 1 -
- man7/iso_8859-11.7          | 1 -
- man7/iso_8859-13.7          | 1 -
- man7/iso_8859-14.7          | 1 -
- man7/iso_8859-15.7          | 1 -
- man7/iso_8859-16.7          | 1 -
- man7/iso_8859-2.7           | 1 -
- man7/iso_8859-3.7           | 1 -
- man7/iso_8859-4.7           | 1 -
- man7/iso_8859-5.7           | 1 -
- man7/iso_8859-6.7           | 1 -
- man7/iso_8859-7.7           | 1 -
- man7/iso_8859-8.7           | 1 -
- man7/iso_8859-9.7           | 1 -
- man7/koi8-r.7               | 1 -
- man7/koi8-u.7               | 1 -
- man8/iconvconfig.8          | 2 --
- scripts/convert_to_utf_8.sh | 2 +-
- 27 files changed, 1 insertion(+), 29 deletions(-)
+Genial!  Lo haré entonces.
 
-diff --git a/man1/iconv.1 b/man1/iconv.1
-index 3649e6dbe12e..8207e1cea3d6 100644
---- a/man1/iconv.1
-+++ b/man1/iconv.1
-@@ -1,5 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
--.\"
- .\" Copyright (C) 2014 Marko Myllynen <myllynen@redhat.com>
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man3/mbstowcs.3 b/man3/mbstowcs.3
-index f92ab681c56f..cf650506eb80 100644
---- a/man3/mbstowcs.3
-+++ b/man3/mbstowcs.3
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright (c) Bruno Haible <haible@clisp.cons.org>
- .\" and Copyright 2014 Michael Kerrisk <mtk.manpages@gmail.com>
- .\"
-diff --git a/man3/newlocale.3 b/man3/newlocale.3
-index 2d71f1a8cf51..86b961fc628d 100644
---- a/man3/newlocale.3
-+++ b/man3/newlocale.3
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright (C) 2014 Michael Kerrisk <mtk.manpages@gmail.com>
- .\"
- .\" %%%LICENSE_START(VERBATIM)
-diff --git a/man5/locale.5 b/man5/locale.5
-index 85e548bc17f3..f6b63da9d956 100644
---- a/man5/locale.5
-+++ b/man5/locale.5
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright (C) 1994  Jochen Hein (Hein@Student.TU-Clausthal.de)
- .\" Copyright (C) 2008  Petr Baudis (pasky@suse.cz)
- .\" Copyright (C) 2014 Michael Kerrisk <mtk@manpages@gmail.com>
-diff --git a/man7/armscii-8.7 b/man7/armscii-8.7
-index 94c51e3680c0..163c81d5b27f 100644
---- a/man7/armscii-8.7
-+++ b/man7/armscii-8.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 2009  Lefteris Dimitroulakis <edimitro at tee.gr>
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/charsets.7 b/man7/charsets.7
-index 439ea7343708..79d1c1442238 100644
---- a/man7/charsets.7
-+++ b/man7/charsets.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright (c) 1996 Eric S. Raymond <esr@thyrsus.com>
- .\" and Copyright (c) Andries Brouwer <aeb@cwi.nl>
- .\"
-diff --git a/man7/cp1251.7 b/man7/cp1251.7
-index 382de42c8510..fdc1af847300 100644
---- a/man7/cp1251.7
-+++ b/man7/cp1251.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 2009    Lefteris Dimitroulakis (edimitro@tee.gr)
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/cp1252.7 b/man7/cp1252.7
-index 07ac84bf5d19..759a4061d0bb 100644
---- a/man7/cp1252.7
-+++ b/man7/cp1252.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 2014 (C) Marko Myllynen <myllynen@redhat.com>
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/iso_8859-1.7 b/man7/iso_8859-1.7
-index 202768231f51..8c57bcfbc3eb 100644
---- a/man7/iso_8859-1.7
-+++ b/man7/iso_8859-1.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 1993-1995 Daniel Quinlan (quinlan@yggdrasil.com)
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/iso_8859-10.7 b/man7/iso_8859-10.7
-index 82c8eeda5f7f..02f89221cdb0 100644
---- a/man7/iso_8859-10.7
-+++ b/man7/iso_8859-10.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 2009    Lefteris Dimitroulakis (edimitro@tee.gr)
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/iso_8859-11.7 b/man7/iso_8859-11.7
-index 073ddc65771e..afc931b00e98 100644
---- a/man7/iso_8859-11.7
-+++ b/man7/iso_8859-11.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 2009 Lefteris Dimitroulakis <edimitro at tee.gr>
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/iso_8859-13.7 b/man7/iso_8859-13.7
-index 06de48839aa8..6a5304b11a51 100644
---- a/man7/iso_8859-13.7
-+++ b/man7/iso_8859-13.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 2009   Lefteris Dimitroulakis (edimitro@tee.gr)
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/iso_8859-14.7 b/man7/iso_8859-14.7
-index 592bd0838e05..cb39a9e915fd 100644
---- a/man7/iso_8859-14.7
-+++ b/man7/iso_8859-14.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 2009   Lefteris Dimitroulakis (edimitro@tee.gr)
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/iso_8859-15.7 b/man7/iso_8859-15.7
-index 5e71a41aae60..9946b0bc266f 100644
---- a/man7/iso_8859-15.7
-+++ b/man7/iso_8859-15.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 1993-1995 Daniel Quinlan (quinlan@yggdrasil.com)
- .\" Copyright 1999      Dimitri Papadopoulos (dpo@club-internet.fr)
- .\"
-diff --git a/man7/iso_8859-16.7 b/man7/iso_8859-16.7
-index 8d9b5a259586..5bf518279b07 100644
---- a/man7/iso_8859-16.7
-+++ b/man7/iso_8859-16.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 2002 Ionel Mugurel Ciobîcă (IMCiobica@netscape.net)
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/iso_8859-2.7 b/man7/iso_8859-2.7
-index 095f0612d0ca..a9e478b58d66 100644
---- a/man7/iso_8859-2.7
-+++ b/man7/iso_8859-2.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 1999 Roman Maurer (roman.maurer@hermes.si)
- .\" Copyright 1993-1995 Daniel Quinlan (quinlan@yggdrasil.com)
- .\"
-diff --git a/man7/iso_8859-3.7 b/man7/iso_8859-3.7
-index 5f2605852f3d..b9e00fd10ed9 100644
---- a/man7/iso_8859-3.7
-+++ b/man7/iso_8859-3.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 2009  Lefteris Dimitroulakis (edimitro@tee.gr)
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/iso_8859-4.7 b/man7/iso_8859-4.7
-index 6eefaef93989..4ef5c0e05a44 100644
---- a/man7/iso_8859-4.7
-+++ b/man7/iso_8859-4.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 2009  Lefteris Dimitroulakis (edimitro@tee.gr)
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/iso_8859-5.7 b/man7/iso_8859-5.7
-index 7e3c8cec1087..1396b36de92e 100644
---- a/man7/iso_8859-5.7
-+++ b/man7/iso_8859-5.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 2009   Lefteris Dimitroulakis (edimitro@tee.gr)
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/iso_8859-6.7 b/man7/iso_8859-6.7
-index 5e1608a2e342..d2c5aea085d5 100644
---- a/man7/iso_8859-6.7
-+++ b/man7/iso_8859-6.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 2009  Lefteris Dimitroulakis (edimitro@tee.gr)
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/iso_8859-7.7 b/man7/iso_8859-7.7
-index f59570888089..97bb728d803b 100644
---- a/man7/iso_8859-7.7
-+++ b/man7/iso_8859-7.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 1999      Dimitri Papadopoulos (dpo@club-internet.fr)
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/iso_8859-8.7 b/man7/iso_8859-8.7
-index b7e1c5f7b53a..bdfaa571cad7 100644
---- a/man7/iso_8859-8.7
-+++ b/man7/iso_8859-8.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 2009   Lefteris Dimitroulakis (edimitro@tee.gr)
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/iso_8859-9.7 b/man7/iso_8859-9.7
-index b97efc29cf15..705971e454c9 100644
---- a/man7/iso_8859-9.7
-+++ b/man7/iso_8859-9.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 2002      Dimitri Papadopoulos (dpo@club-internet.fr)
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/koi8-r.7 b/man7/koi8-r.7
-index 7ee9e2927d42..7d1977eb3832 100644
---- a/man7/koi8-r.7
-+++ b/man7/koi8-r.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 2001      Alexey Mahotkin <alexm@hsys.msk.ru>
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man7/koi8-u.7 b/man7/koi8-u.7
-index 0c56e949f3e4..987918724d7f 100644
---- a/man7/koi8-u.7
-+++ b/man7/koi8-u.7
-@@ -1,4 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
- .\" Copyright 2009  Lefteris Dimitroulakis <edimitro at tee.gr>
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/man8/iconvconfig.8 b/man8/iconvconfig.8
-index 2cc3536f4c11..b572829659b5 100644
---- a/man8/iconvconfig.8
-+++ b/man8/iconvconfig.8
-@@ -1,5 +1,3 @@
--'\" t -*- coding: UTF-8 -*-
--.\"
- .\" Copyright (C) 2014 Marko Myllynen <myllynen@redhat.com>
- .\"
- .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
-diff --git a/scripts/convert_to_utf_8.sh b/scripts/convert_to_utf_8.sh
-index b8a5e83baee1..28f5a72cf8c7 100755
---- a/scripts/convert_to_utf_8.sh
-+++ b/scripts/convert_to_utf_8.sh
-@@ -33,7 +33,7 @@ fi
- out_dir="$1"
- shift
- 
--enc_line="'\\\" t -*- coding: UTF-8 -*-"
-+enc_line=""
- 
- for f in "$@"; do
-     enc=$(file -bi "$f" | cut -d = -f 2)
--- 
-2.26.2
+I found out that there was documentation in the past and it got removed 
+at commit ``c0f21a05f0c6cbd25677fdeef5dc1f1b2e9ffbb8``, probably by 
+accident, when reimporting from the FreeBSD man page to fix some other 
+problem.  I'll base my changes on those old docs.
 
+> 
+> Thanks,
+> 
+> Michael
+> 
+
+De nada.  Encantado de colaborar :)
+
+Alex
+
+PS: Me dijiste que tenías que hablar un poco de español, así que aquí 
+estoy para ayudarte ;)
