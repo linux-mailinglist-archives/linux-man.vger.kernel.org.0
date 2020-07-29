@@ -2,79 +2,169 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 764C6231CE2
-	for <lists+linux-man@lfdr.de>; Wed, 29 Jul 2020 12:47:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7AB50232114
+	for <lists+linux-man@lfdr.de>; Wed, 29 Jul 2020 16:56:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726365AbgG2Krf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 29 Jul 2020 06:47:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53726 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726299AbgG2Kre (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 29 Jul 2020 06:47:34 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 128BDC061794;
-        Wed, 29 Jul 2020 03:47:33 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id y3so21170584wrl.4;
-        Wed, 29 Jul 2020 03:47:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=wK94wipvZy12QHdsgnIrWCRKfd/LxIY7DwkTjjpR/Yk=;
-        b=Tgya0dv8V9YHXI6eXXudTH66utU+rO2y9SBlYsFHvW4J6cU4clIi1IWhPlm4dQlFD3
-         l5Ppx0hDZVPdktF/+6+lWsEUYBZj5taMgsRlS8320DJLWIP7EIIzkWAUbJlu4Pz1L6Y0
-         H4LKuCZK9mDVqW6mQP0hRYoU3Q2YM6+pIuw/V6u627/1q7EqkX2CkFzJZ22mDOfZO7YT
-         GqmQTK2oePHArQU7ycKB6qU9nhDRloN+iqJuy45McY7r7QDl/KqESm5P/sn9+XZoeTDY
-         HKV38o1UE7oGKXfGfg/AHEzVzBJYXYDi1Sv7cYzaZeTiE4ZCvEGeiqIwI9E1vv2vyPFL
-         +AOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=wK94wipvZy12QHdsgnIrWCRKfd/LxIY7DwkTjjpR/Yk=;
-        b=ne0AxFly5GKF95nuGjkvN3D+KrESCRdJTyC5Jdu7OTrY+xFgkBmu4/R6GkAjtZy4yt
-         u2w8EVyljYPENQS7EUVr7TYHLmVFm5iIwRx1gQvl4YIsOYNS/4jUsVuA3lC24wZq103U
-         q1zF1lKs2AZv/V908UCCqT/Ieh1TM/A9wEwPKRkwhgWUUjHfOzZPrbIGEEAmORPqEnJj
-         w+C7xTKQIwr3sy2+31R7rOqwxTpjhO8zdHqZZKPBF+ixaZmI91xMPQH+50NegP50DevJ
-         JZ7NONXqy02oP9oJHQv6VskjSSDcxn3m5TF0K/GahMOha2QL9Fwwy5b7PI79lUtuGgjv
-         krwA==
-X-Gm-Message-State: AOAM533fpo2O2JBF4hoNIHHzSQiTkDOaQN/DBqkCCidVLFyi2r+SfDYw
-        Il4oQXWbmzri/ZFyj1ImiDXcnCMA
-X-Google-Smtp-Source: ABdhPJwGiGlWgbSsztVOt2vL4N+N/f45f8ttrFeiuTsfylWxA5vWAFm+oqytsD9UvCnO7p69PvVOuA==
-X-Received: by 2002:adf:ca03:: with SMTP id o3mr21349179wrh.330.1596019651636;
-        Wed, 29 Jul 2020 03:47:31 -0700 (PDT)
-Received: from ?IPv6:2001:a61:3adb:8201:9649:88f:51f8:6a21? ([2001:a61:3adb:8201:9649:88f:51f8:6a21])
-        by smtp.gmail.com with ESMTPSA id g126sm4221597wme.16.2020.07.29.03.47.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2020 03:47:31 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Carlos O'Donell <carlos@redhat.com>,
-        Florian Weimer <fweimer@redhat.com>,
-        Paul Eggert <eggert@cs.ucla.edu>,
-        Joseph Myers <joseph@codesourcery.com>,
-        Linux API <linux-api@vger.kernel.org>
-Subject: Re: [RFC PATCH] Replacing "master-slave" terminology for
- pseudoterminals
-To:     "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
-        linux-man <linux-man@vger.kernel.org>, enh <enh@google.com>,
-        Zack Weinberg <zackw@panix.com>
-References: <b3b4cf95-5eaa-0b4e-34cc-1a855e7148b6@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <b86a95ff-8662-60e6-dfa9-9d8d07a24576@gmail.com>
-Date:   Wed, 29 Jul 2020 12:47:30 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        id S1726391AbgG2O4f (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 29 Jul 2020 10:56:35 -0400
+Received: from foss.arm.com ([217.140.110.172]:53056 "EHLO foss.arm.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726353AbgG2O4f (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 29 Jul 2020 10:56:35 -0400
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+        by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7FF6430E;
+        Wed, 29 Jul 2020 07:56:34 -0700 (PDT)
+Received: from arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+        by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 602763F66E;
+        Wed, 29 Jul 2020 07:56:33 -0700 (PDT)
+Date:   Wed, 29 Jul 2020 15:56:31 +0100
+From:   Dave Martin <Dave.Martin@arm.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-arch <linux-arch@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Vincenzo Frascino <vincenzo.frascino@arm.com>,
+        Will Deacon <will@kernel.org>,
+        linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 0/2] prctl.2 man page updates for Linux 5.6
+Message-ID: <20200729145630.GH21941@arm.com>
+References: <1593020162-9365-1-git-send-email-Dave.Martin@arm.com>
+ <c17e330c-69f7-da7a-feae-cb8b8f5d7ea0@gmail.com>
+ <20200720165205.GI30452@arm.com>
+ <CAKgNAkggayFEjHgPNu1HzvXGfSDoCq=Y-Ni4iv=RBYk2Eb6U1Q@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <b3b4cf95-5eaa-0b4e-34cc-1a855e7148b6@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKgNAkggayFEjHgPNu1HzvXGfSDoCq=Y-Ni4iv=RBYk2Eb6U1Q@mail.gmail.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-> Eventually, I think we should take this discussion also to the 
-> mailing list,
+On Mon, Jul 20, 2020 at 11:31:16PM +0200, Michael Kerrisk (man-pages) wrote:
+> Hello Dave,
+> 
+> TL;DR: don't worry about the small stuff; I'm happy to do the minor
+> edits given the high quality of your patches.
+> 
+> On Mon, 20 Jul 2020 at 18:52, Dave Martin <Dave.Martin@arm.com> wrote:
+> >
+> > On Mon, Jun 29, 2020 at 01:52:24PM +0200, Michael Kerrisk (man-pages) wrote:
+> > > Hi Dave,
+> > >
+> > > On 6/24/20 7:36 PM, Dave Martin wrote:
+> > > > A bunch of updates to the prctl(2) man page to fill in missing
+> > > > prctls (mostly) up to Linux 5.6 (along with a few other tweaks and
+> > > > fixes).
+> > > >
+> > > > Patches from the v2 series [1] that have been applied or rejected
+> > > > already have been dropped.
+> > > >
+> > > > All that remain here now are the SVE and tagged address ABI controls
+> > > > for arm64.
+> > > >
+> > > >
+> > > >
+> > > > [1] https://lore.kernel.org/linux-man/1590614258-24728-1-git-send-email-Dave.Martin@arm.com/
+> > > >
+> > > >
+> > > > Dave Martin (2):
+> > > >   prctl.2: Add SVE prctls (arm64)
+> > > >   prctl.2: Add tagged address ABI control prctls (arm64)
+> > > >
+> > > >  man2/prctl.2 | 331 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+> > > >  1 file changed, 331 insertions(+)
+> > > Thanks. I've pushed these changes to master now.
+> >
+> > Thanks -- btw I finally got around to reviewing master, and noted a few
+> > editorial changes that man-pages(7) does not make any statement about:
+> >
+> > "arg1, arg2, and arg3"
+> >
+> >         Do you strictly prefer the command before "and" here?
+> >
+> >         Conventionally, the final comma would typically be omitted in
+> >         prose, except where the list members are complex enough that the
+> >         command is required to assist parsing.  However, lists of formal
+> >         arguments are not quite vanilla prose.
+> 
+> There are two camps wrt that comma. I prefer the so-called Oxford
+> comma convention, as shown above. man-pages uses it generally.
+> 
+> > "Providing that" -> "Provided that"
+> >
+> >         Any particular rationale here?
+> 
+> Either would be fine; the past tense is just slightly better, to my ear.
+> 
+> > "error EFOO" -> "the error EFOO"
+> >
+> >         Is this a rule, in general?
+> 
+> I think the change that you refer to was actually: "with EFOO" to
+> "with the error EFOO". The former is just a little too brief, to my
+> ear.
+> 
+> > .IP \(bu 2
+> >
+> >         I assumed that specifying an explicit indentation amount would
+> >         be fragile.  Going with the default behaviour also tends to
+> >         result in a more consistent appearance.  Do you have any
+> >         recommandations in this area?
+> >
+> >         Do you have rules about the order to use bullet symbols?  I tend
+> >         to avoid \(bu if possible, since while it's "correct", nroff can
+> >         render it nastily as an unadorned letter "o" (e.g., with -Tascii
+> >         or LC_CTYPE=C).  This is particlarly annoying if the indent is
+> >         <= 2, since then the "o" tends to be visually swallowed by the
+> >         following text (i.e., to a casual glance it looks like a word,
+> >         particlarly if the following text is not capitalised).  Perhaps
+> >         this is a bad glyph substitution decision in nroff rather than
+> >         something that should be fixed in the man-pages source, but the
+> >         man-pages source may be easier to fix...
+> >
+> >         There is already inconsistency here: there are may top-level
+> >         lists using ".IP *" in prctl.2, and plenty of places where the
+> >         default indentation is used.
+> 
+> I must admit that I'm in the process of rethinking bulleted lists, and
+> I have not come to a conclusion (and that's why nothing is said in
+> man-pages(7), and also why there is currently inconsistency).
+> 
+> Using .IP with the default indent (8n) results in a very deep indent
+> between the glyph and the text, so it's not my preference.
 
-That should have read: "the linux-kernel@ mailing list".
+Is it worth trying to change the default indent in the macro package, or
+will that just upset other people?
+
+
+> Your note about the poor rendering with "-Tascii" is interesting.
+> Perhaps ".IP \(bu 3" may be better. But, I really do not know: do
+> people really render with "-Tascii" these days?
+
+Probably not, though it may happen depending on the locale and/or
+terminal type settings in minimal distro installs.
+
+It's a minor annoyance at worst, and probably not worth fixing...
+
+
+> > Should any of these be written up in man-pages(7), or is there a checker
+> > than can detect them?
+> 
+> Perhaps man-pages should say something about the Oxford comma.
+
+Fair enough.
+
+> > I wan't to minimise the amount of tweaking you have to do when merging
+> > patches.
+> 
+> If every patch that I received was of the same quality as yours are,
+> my life would be much easier. The tweaks are minimal work on my part.
+> Don't worry. Just send me more patches :-).
+
+OK, I won't agonise too much over this, then.
+
+Cheers
+---Dave
