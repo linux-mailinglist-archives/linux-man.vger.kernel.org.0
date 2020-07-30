@@ -2,73 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2A8D9232F5C
-	for <lists+linux-man@lfdr.de>; Thu, 30 Jul 2020 11:17:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 51F0F23310E
+	for <lists+linux-man@lfdr.de>; Thu, 30 Jul 2020 13:38:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728825AbgG3JQ7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 30 Jul 2020 05:16:59 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35222 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728817AbgG3JQ7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 30 Jul 2020 05:16:59 -0400
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CFF0FC061794;
-        Thu, 30 Jul 2020 02:16:58 -0700 (PDT)
-Received: by mail-ej1-x641.google.com with SMTP id a21so27211602ejj.10;
-        Thu, 30 Jul 2020 02:16:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=QKcnc8Aqr1chcusd+6sJkpdtZLqBuC1B6x2jdVQqzgM=;
-        b=ncyM/+OVZllzruYDxXQfd8r6M6il+xv3SZ2j7Eu3s3WHGlowl88+SbOcixVZGIwIAl
-         41jOoclWK6TL62PkpSAt6tEqh2sQ2rCbvKzcAg88yEA1nKMhvGalnTFu9kaSQ9CxRl1y
-         fmv2pVsDoR6Y789kln5re/mLVWE+lYhqsXtnG+roqV2O5ARl+FuOuC4OyST8WqHLkExc
-         Jq13PR0CaI+HD2e8TpevrZAAzMa4ig1PcbUT6/wZlaPykBZel3co80YgdpPw8AfjyEgQ
-         Q2HMSjNjIQUhfNOYxgC4f7iBECp422wgsHx6w1F5fDXT558pzwPG71jJGf7mBEWymURh
-         P/7g==
+        id S1726615AbgG3LiJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 30 Jul 2020 07:38:09 -0400
+Received: from us-smtp-2.mimecast.com ([207.211.31.81]:29174 "EHLO
+        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1727112AbgG3LiI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 30 Jul 2020 07:38:08 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1596109086;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=ZTMGVusCv/ZSTNoZER+G4z7hN5Ba3yDpH65wafBaIYE=;
+        b=VU89hwUV0+LE6V2Ozt9Tg0skfqwRyOm5ibiU1SsV6IFxV3STVx2O4wLNqHJ/XOhwFrE8e/
+        W+Zg7Bifnkb8FCDO6D3vVPOnwK964tK0yLT5MSnGFzRIKjyNALLLkuLObDq9Ntn8iOoNfA
+        OWAormiF+JUO0Lz+Vp2gLG3eH64ITOE=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-355-x9KerWFPOOWasB28dMbioA-1; Thu, 30 Jul 2020 07:38:05 -0400
+X-MC-Unique: x9KerWFPOOWasB28dMbioA-1
+Received: by mail-qv1-f71.google.com with SMTP id e6so17919172qva.2
+        for <linux-man@vger.kernel.org>; Thu, 30 Jul 2020 04:38:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=QKcnc8Aqr1chcusd+6sJkpdtZLqBuC1B6x2jdVQqzgM=;
-        b=uIXpdUurhPTEZ3F6c46HQVGINolYJZax073ubm0PumBnuoSXtkij844cTBa2JiHbPV
-         9nPLKaa/7lEU8qjzpETJGyiZbpIFruOJTWYu5hfebpVWwp6WXlBOmVNc2E9RE3BDbqEp
-         tFo6XvrCwvMFNf75O8XhDfb4JIhcBqCtGmS/OY6q3MJSqHfbv0ilR0BhFWdO7nnlpJ6V
-         K8+Yb7CRkDRjDlbAIcouY4hrBmsFRgk7su4G3Nh90bonE//fFbVToOnCf5u/JGE2Ncpt
-         Bhz5jsN9jtERYlsQJsjrm1QojbrXCrV2lul/WCULEwChFcipS+Vy8UrLskntlGicOzIm
-         Lkcw==
-X-Gm-Message-State: AOAM532zRRrCR74G+BCBB4BdFiNKPyzV7aOVAlkND6Po2RdK63yMV8Ih
-        q01LZo6PoejxslPa5h1l6ZVVcPBs
-X-Google-Smtp-Source: ABdhPJwdiXbqfDjC/Eun9qiqYlaZfRBQjZS17hXfP5sc/DEO6W0TOqUzmEkz2DU4PQC1tBgdc+e4nA==
-X-Received: by 2002:a17:906:a2c2:: with SMTP id by2mr1630521ejb.86.1596100617335;
-        Thu, 30 Jul 2020 02:16:57 -0700 (PDT)
-Received: from ?IPv6:2001:a61:3adb:8201:9649:88f:51f8:6a21? ([2001:a61:3adb:8201:9649:88f:51f8:6a21])
-        by smtp.gmail.com with ESMTPSA id s4sm5048639ejx.94.2020.07.30.02.16.55
+        h=x-gm-message-state:subject:to:cc:references:from:organization
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding;
+        bh=ZTMGVusCv/ZSTNoZER+G4z7hN5Ba3yDpH65wafBaIYE=;
+        b=csrMK03hkAatu/0GEDXm6C6woLWIeQBGunQv5i2Yy9jmURlF8/zMntJdd7YacN5XIK
+         N/ATiznMvvIlUC8FLsnTA1fR+HUFIn0/k+KCcaG1d3NRVrd3GJ7zP4YCNqSwd6OsaSak
+         wM2GxBsZq4hPfnQpTVPlyBTZKRMlrstsjLOGxRVIHAxt8q14Hh1tx0I+YMrcBkFOBTrk
+         G8nIi4hRQjKV9+WnzXN7wHP2M9wHF3Dgnl6BrIlyqPzgDlPzvYIVY/H72YvDymHp0AyR
+         Cw6/55cmm6569X1vuWBJmiSraa6AOEE2aKJ+7x0nY+CGQ16/PgxbHEfAApLdVIqh+TnW
+         OO8w==
+X-Gm-Message-State: AOAM5326bXuRYnutG6evQJS5vzvQsVStnBk0gABwmjG4uL9gnPwpzo4y
+        nzPxwbgNMm0s4Ugif7yIgr2i7FfdsqGsZ8yPIt0kUdxDHEVu7UnqQAm9qGzFrsHOSAP7Zz82HSo
+        4Fmtyb47of9iU+n7f2xb6
+X-Received: by 2002:ac8:7b9c:: with SMTP id p28mr2463073qtu.283.1596109084550;
+        Thu, 30 Jul 2020 04:38:04 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyQBR9N5/KPd8YACjNDDCygW8qxscqge6sglHY2wMjDmrqo/OXZply9Zf4IRjUryhmihi40ZQ==
+X-Received: by 2002:ac8:7b9c:: with SMTP id p28mr2463056qtu.283.1596109084349;
+        Thu, 30 Jul 2020 04:38:04 -0700 (PDT)
+Received: from [192.168.1.16] (198-84-214-74.cpe.teksavvy.com. [198.84.214.74])
+        by smtp.gmail.com with ESMTPSA id u21sm3983141qkk.1.2020.07.30.04.38.02
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Jul 2020 02:16:56 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com,
+        Thu, 30 Jul 2020 04:38:03 -0700 (PDT)
+Subject: Re: [RFC PATCH] Replacing "master-slave" terminology for
+ pseudoterminals
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
         "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Zack Weinberg <zackw@panix.com>,
-        Carlos O'Donell <carlos@redhat.com>,
-        Florian Weimer <fweimer@redhat.com>,
+        linux-man <linux-man@vger.kernel.org>, enh <enh@google.com>,
+        Zack Weinberg <zackw@panix.com>
+Cc:     Florian Weimer <fweimer@redhat.com>,
         Paul Eggert <eggert@cs.ucla.edu>,
         Joseph Myers <joseph@codesourcery.com>,
         Linux API <linux-api@vger.kernel.org>
-Subject: Re: [RFC PATCH] Replacing "master-slave" terminology for
- pseudoterminals
-To:     enh <enh@google.com>
 References: <b3b4cf95-5eaa-0b4e-34cc-1a855e7148b6@gmail.com>
- <CAJgzZopP=O1cZ2M=3h6Q-X08+eVMPQE_zOCnsEjN=hUTHOkYwQ@mail.gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <24960dff-1d54-b617-26ba-bad168e70ee8@gmail.com>
-Date:   Thu, 30 Jul 2020 11:16:55 +0200
+ <88273c2f-ce21-db54-688d-5bebd4a81ecd@redhat.com>
+ <cbf7666c-440e-b4bd-0ff6-712123845fae@gmail.com>
+From:   Carlos O'Donell <carlos@redhat.com>
+Organization: Red Hat
+Message-ID: <c690ad2f-5f3c-5a8b-7b4c-ad29976aeab0@redhat.com>
+Date:   Thu, 30 Jul 2020 07:38:02 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <CAJgzZopP=O1cZ2M=3h6Q-X08+eVMPQE_zOCnsEjN=hUTHOkYwQ@mail.gmail.com>
+In-Reply-To: <cbf7666c-440e-b4bd-0ff6-712123845fae@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -77,33 +80,18 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Elliot,
+On 7/30/20 5:16 AM, Michael Kerrisk (man-pages) wrote:
+> I know what you mean. One reason for that verbosity is the need to
+> clearly distinguish "pseudoterminal device/end" from "pseudoterminal
+> device pair". It's hard to avoid being wordy there.
 
-Thanks for looking at the patch.
-
-On 7/29/20 6:31 PM, enh wrote:
-> yeah, the old terminology was so non-obvious that reading through this,
-> every change seemed like an improvement in clarity.
-> 
-> my only suggestion would be to consistently use tty_fd and pty_fd in the
-> function signatures rather than just fd. (the presence or absence of 'p' in
-> the function name is a clue, i hadn't picked up on that until i
-> tried rewriting code to use pty/tty rather than master/slave.)
-
-Yes, I've made that change now also.
-
-> (aside: i was surprised by multiplexor rather than multiplexer, but grep
-> says man7.org has 2 multiplexors to 1 multiplexer, so lgtm.)
-
-Carlos also commented on this. I've changed it (and also
-in other manual pages where "multiplexor" appeared)
-
-
-Cheers,
-
-Michael
+The perfect is the enemy of the good. My feeling is that as others
+write this text in emails or discussions, we'll eventually all settle
+on some other short form we find agreeable and then later we can adjust
+the man pages to use that. Until then taking the lead to change this
+language is the correct way forward.
 
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Cheers,
+Carlos.
+
