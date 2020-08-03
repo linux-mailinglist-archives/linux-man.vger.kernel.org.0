@@ -2,99 +2,99 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D3EC8239D83
-	for <lists+linux-man@lfdr.de>; Mon,  3 Aug 2020 04:38:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C9AA623A7DE
+	for <lists+linux-man@lfdr.de>; Mon,  3 Aug 2020 15:42:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726276AbgHCCiV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 2 Aug 2020 22:38:21 -0400
-Received: from mail.cn.fujitsu.com ([183.91.158.132]:34481 "EHLO
-        heian.cn.fujitsu.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1725820AbgHCCiU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 2 Aug 2020 22:38:20 -0400
-X-IronPort-AV: E=Sophos;i="5.75,428,1589212800"; 
-   d="scan'208";a="97478248"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
-  by heian.cn.fujitsu.com with ESMTP; 03 Aug 2020 10:38:11 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
-        by cn.fujitsu.com (Postfix) with ESMTP id 8D8184CE5449
-        for <linux-man@vger.kernel.org>; Mon,  3 Aug 2020 10:38:09 +0800 (CST)
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 3 Aug 2020 10:38:12 +0800
-From:   Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To:     <linux-man@vger.kernel.org>
-CC:     Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Subject: [PATCH] loop.4: Document loop_configure ioctl
-Date:   Mon, 3 Aug 2020 10:38:13 +0800
-Message-ID: <1596422293-3122-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
+        id S1727015AbgHCNmE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 3 Aug 2020 09:42:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53930 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726785AbgHCNmD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 3 Aug 2020 09:42:03 -0400
+Received: from mail-oi1-x241.google.com (mail-oi1-x241.google.com [IPv6:2607:f8b0:4864:20::241])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 854FDC06174A;
+        Mon,  3 Aug 2020 06:42:03 -0700 (PDT)
+Received: by mail-oi1-x241.google.com with SMTP id z22so2660754oid.1;
+        Mon, 03 Aug 2020 06:42:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=n1O9BpBkGKm0Dn1d9dK+DgN04J7paPhI+arHj4RxQqc=;
+        b=BzpkbIFAc7As9Wym8RKGqk6I4F1OJEEtLMtRyBlh3IoB7rJNlIT1odIF3gRrxit8qx
+         EwcUmL+FGwcYKufF3XqRap+T6SRfHWDIc6vVpon7z4O/24jfujo2nrxRPCqaBQqQmDWG
+         21l6Cx/kZTiUQxDod1FFaLNpAYrg8RimD+3dp4Vpt577FqGNpy5pvEgDJ+8NNnJ6n5M5
+         SRa/DP/UjKBJZJKZspg3/M+cQWJQj0x9DpBLvShILLdzcR88gCRsT/an6BPdEVvwfleL
+         bBBdV5B73iquzgbAMHUo2bjHIoIee1a17Bn+DSpbtlwXci3SGFsvgzaTGje5KOn/bl/7
+         kTcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=n1O9BpBkGKm0Dn1d9dK+DgN04J7paPhI+arHj4RxQqc=;
+        b=mbY+qt0Y0VMs9MQ5ljdR4n6dPE2Kw5C/wjhgh9Giq8RYSCRb60SxhsDiljE9czpRxO
+         NE2uDDhswh9eL7kjlEiMHduO8iArIj1VDJckmvpp//0XOPe6IHQN199oe6SvjzAI8LYN
+         sufx6Ue0x3xvq3oOm/cL05IzSz1D/XsYx7+YSY+my0AOpMl9A2Rad8nJynfJ+9KAOouG
+         s2mOtfTt7Lr5ouXRQQVtnAGLzw/mv/wR108Ls3Mahqb3slWHMg6rAFTFbMDecaAyqySw
+         zVNfBQETfrl56sCECx/pFqE2wh0RMCxLQrR5bCSQmC8Kzxbrga7Qk7z3iwaGChjqcDXi
+         aIgw==
+X-Gm-Message-State: AOAM532V8x4YgYdVyG3HQsw8l6HIWmow5yBsG6CVc/AoT8c+Gd1Qi8xe
+        EIavaz9VhRQC4EdqP6rIi9sntDsArPM8TdxkYAc=
+X-Google-Smtp-Source: ABdhPJy2s7JnnAMZg+Xjgd7o2046/kvLCZ5lfDdRATFloMgGUURRfOJSzm3J9BVGqcakar8pvBhf+VKMRGJfuuONzlk=
+X-Received: by 2002:a05:6808:b36:: with SMTP id t22mr12769611oij.159.1596462118081;
+ Mon, 03 Aug 2020 06:41:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 8D8184CE5449.AE5DF
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No
+References: <CAKgNAkjyXcXZkEczRz2yvJRFBy2zAwTaNfyiSmskAFWN_3uY1g@mail.gmail.com>
+ <2007335.1595587534@warthog.procyon.org.uk>
+In-Reply-To: <2007335.1595587534@warthog.procyon.org.uk>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 3 Aug 2020 15:41:46 +0200
+Message-ID: <CAKgNAkgYZ4HrFpOW_n8BshbR8d=03wetmxX2zNv7hX4ZmeQPmg@mail.gmail.com>
+Subject: Re: Mount API manual pages
+To:     David Howells <dhowells@redhat.com>
+Cc:     Petr Vorel <pvorel@suse.cz>,
+        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Christian Brauner <christian.brauner@ubuntu.com>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- man4/loop.4 | 35 +++++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+On Fri, 24 Jul 2020 at 12:45, David Howells <dhowells@redhat.com> wrote:
+>
+> Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
+>
+> > Would you be willing to do the following please:
+> >
+> > 1. Review the pages that you already wrote to see what needs to be
+> > updated. (I did take a look at some of those pages a while back, and
+> > some pieces--I don't recall the details--were out of sync with the
+> > implementation.)
+> >
+> > 2. Resend the pages, one patch per page.
+> >
+> > 3. Please CC linux-man@, linux-api@, linux-kernel@, and the folk in CC
+> > on this message.
+>
+> For this week and next, I have an online language course taking up 8-10 hours
+> a day.  I'll pick it up in August, if that's okay with you.
 
-diff --git a/man4/loop.4 b/man4/loop.4
-index 2dcbac807..abf722a25 100644
---- a/man4/loop.4
-+++ b/man4/loop.4
-@@ -177,6 +177,41 @@ This value must be a power of two in the range
- otherwise, an
- .B EINVAL
- error results.
-+.TP
-+.BR LOOP_CONFIGURE " (since Linux 5.8)"
-+.\" commit 3448914e8cc550ba792d4ccc74471d1ca4293aae
-+Setup and configure all loop device parameters using the (third)
-+.BR ioctl (2)
-+argument at once.
-+This argument is a pointer to
-+.I loop_config
-+structure, defined in
-+.I <linux/loop.h>
-+as:
-+.IP
-+.in +4n
-+.EX
-+struct loop_config {
-+    __u32               fd;
-+    __u32               block_size;
-+    struct loop_info64  info;
-+    __u64               __reserved[8];
-+};
-+.EE
-+.in
-+.IP
-+In addition to doing what
-+.BR LOOP_SET_STATUS
-+can do,
-+.BR LOOP_CONFIGURE
-+can also be used to set the correct block size immediately
-+by setting loop_config.block_size. Explicitly request
-+direct I/O mode by setting
-+.BR LO_FLAGS_DIRECT_IO
-+in loop_config.info.lo_flags. Explicitly request read-only
-+mode by setting
-+.BR LO_FLAGS_READ_ONLY
-+in loop_config.info.lo_flags.
- .PP
- Since Linux 2.6, there are two new
- .BR ioctl (2)
--- 
-2.23.0
+Hi David,
+
+This is just a reminder mail :-).
+
+Cheers,
+
+Michael
 
 
 
+--
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
