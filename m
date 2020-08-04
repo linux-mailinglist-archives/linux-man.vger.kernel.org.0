@@ -2,79 +2,128 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0A13E23BD05
-	for <lists+linux-man@lfdr.de>; Tue,  4 Aug 2020 17:15:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 41BA723BED1
+	for <lists+linux-man@lfdr.de>; Tue,  4 Aug 2020 19:25:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729225AbgHDPOk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 4 Aug 2020 11:14:40 -0400
-Received: from mout01.posteo.de ([185.67.36.65]:41466 "EHLO mout01.posteo.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1729528AbgHDPN7 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 4 Aug 2020 11:13:59 -0400
-Received: from submission (posteo.de [89.146.220.130]) 
-        by mout01.posteo.de (Postfix) with ESMTPS id 5F99116005F
-        for <linux-man@vger.kernel.org>; Tue,  4 Aug 2020 17:13:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.net; s=2017;
-        t=1596554017; bh=quK1rcVU/Rvfi+zu8LUbeO/XQGjv+zZzrVxvpGx7D7s=;
-        h=From:To:Cc:Subject:Date:From;
-        b=FN+khMzWnc2CdpXcJY60GkV2WvMCpsVZQl6gqUvTs8XULA3jtsbrf+n5bEq55HXlu
-         pI2nkJkIpqyN+uegRedes2/pQO0H8Wj4lQjlrSP4vOr9s+tEMaNQEkqQotawEU1ROY
-         XZ44Y122aBdXE89uRVXmcuYi2A05BWiRuhIn+NivBtjgiXWgtzqYh2DOQdiFpALbGC
-         7bf5/DOyE2zn11x5cANYskonwf0cfT0dyxE30aUZYvSbIlofJaLNEzThrFGtgbTbld
-         jlPWAqHoxBTAD0jzY4jy+KB3giSw0ij3qhOnwkbP0dn/nKtvi4zzhNpPQdqp4KelC0
-         AJPEATgTMdVDQ==
-Received: from customer (localhost [127.0.0.1])
-        by submission (posteo.de) with ESMTPSA id 4BLdYr42Szz6tm5;
-        Tue,  4 Aug 2020 17:13:36 +0200 (CEST)
-From:   John Scott <jscott@posteo.net>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Subject: [patch] math_error.7: tfix 'fettestexcept'
-Date:   Tue, 04 Aug 2020 11:13:24 -0400
-Message-ID: <2307706.5A7OvHLFAv@t450>
+        id S1729996AbgHDRZV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 4 Aug 2020 13:25:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56286 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729965AbgHDRZU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Aug 2020 13:25:20 -0400
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com [IPv6:2a00:1450:4864:20::241])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A8233C061756
+        for <linux-man@vger.kernel.org>; Tue,  4 Aug 2020 10:25:19 -0700 (PDT)
+Received: by mail-lj1-x241.google.com with SMTP id t6so31551978ljk.9
+        for <linux-man@vger.kernel.org>; Tue, 04 Aug 2020 10:25:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=RXauyaNpJWaHWHUFoCmJEOgEHnWy8BHkyRckLun7378=;
+        b=eKiLu+oT3PzUQxgwb0aeO+3QR6BelCNjEuogqKv3421diZZdImy3wzNi7b9sHkjJSh
+         3JIquL5IVeOz3Osv/rJJDfH3gHO6ozcpqIs4dwN6jGzXPIqcc3VbzjwVbU1xFRdrEFY5
+         9hhtcWl7RJSqwRORKZyEeufhZ/Cnu5+UNlwAlQqXb04A8zAN7mqgxtoYeJ4kUz8B2nKD
+         p2HZtPXhvqNvpPOZBfQiq+S2S+YZqAyzr7fWvbvoSsQCRGhELPOVWa1Pt1ZbSJMM+G4m
+         RmBvh9iw11Un5aRoH+SpgtB8Nii0AUmq33vKxf28+Occq5Tiqrvh0+Ji4A2edhQ44Wa5
+         MO+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=RXauyaNpJWaHWHUFoCmJEOgEHnWy8BHkyRckLun7378=;
+        b=a5RL+5squofhKsEnUBiG3ULNsHWPhuEf11YXaVupcZhoy+4QssfQVpeVTUuO43RdFP
+         zpFRoDGbexjajDNuLMPToNiBaNytAc5ea7+iin+Sq91y/cg3hzcD8sE4/C3Og8Mn6l8P
+         UUZjatYtFQ2UrKcWIkogiCcn8DH2vPY/mliPtcH6Cq4JL8oT5/vXACYgqyAm9P7mgzR7
+         BEQxT0/eCtvBQ99DcPxe+A3Rg/ulYLEIQtwVlSrRkX8O+3IHigvNUgnN4s52Z+uCmFcs
+         E5F7vbj+1btDS0DDThPVng8cwi+AIntxds4rzKORnjT1iH0hijtbOB/mlGrOu3FRHQ4e
+         6+Bw==
+X-Gm-Message-State: AOAM530Yx1C9L7XMC3uSKNEAlYynGzzecZYpxJcv9BukpZQR2g4Uop5E
+        D85BTsNiatvV7eghq/vJTZoPzaOpd5wk2Sux8Nd+uA==
+X-Google-Smtp-Source: ABdhPJwC0ySOJJPqlRyJdn37WyyeeRdp8xWy9btQxYVtSBnHFw9HIk87PImZ4eVPHdT6uZIWpmmUFvUVuJuoj9xeUq8=
+X-Received: by 2002:a2e:6804:: with SMTP id c4mr3166135lja.216.1596561916899;
+ Tue, 04 Aug 2020 10:25:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart2599899.bymOcEXxXD"; micalg="pgp-sha256"; protocol="application/pgp-signature"
+References: <b3b4cf95-5eaa-0b4e-34cc-1a855e7148b6@gmail.com>
+ <88273c2f-ce21-db54-688d-5bebd4a81ecd@redhat.com> <cbf7666c-440e-b4bd-0ff6-712123845fae@gmail.com>
+ <c690ad2f-5f3c-5a8b-7b4c-ad29976aeab0@redhat.com> <CAJgzZoqR4Vh0phZjrDB9dgxNPzH0a35YjC1CwKb3mREOFn5Kbg@mail.gmail.com>
+ <c756202e-7af8-c1b4-e99f-d77f3eae8c09@gmail.com>
+In-Reply-To: <c756202e-7af8-c1b4-e99f-d77f3eae8c09@gmail.com>
+From:   enh <enh@google.com>
+Date:   Tue, 4 Aug 2020 10:25:05 -0700
+Message-ID: <CAJgzZoqFvn649xG5XSNBmUutgGQ8b16ELhVsdf0XD0QwFrRtZw@mail.gmail.com>
+Subject: Re: [RFC PATCH] Replacing "master-slave" terminology for pseudoterminals
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     "Carlos O'Donell" <carlos@redhat.com>,
+        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Zack Weinberg <zackw@panix.com>,
+        Florian Weimer <fweimer@redhat.com>,
+        Paul Eggert <eggert@cs.ucla.edu>,
+        Joseph Myers <joseph@codesourcery.com>,
+        Linux API <linux-api@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
---nextPart2599899.bymOcEXxXD
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+On Fri, Jul 31, 2020 at 12:48 AM Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+>
+> Hi Elliot,
+>
+> On 7/30/20 10:35 PM, enh wrote:
+> > On Thu, Jul 30, 2020 at 4:38 AM Carlos O'Donell <carlos@redhat.com> wrote:
+> >>
+> >> On 7/30/20 5:16 AM, Michael Kerrisk (man-pages) wrote:
+> >>> I know what you mean. One reason for that verbosity is the need to
+> >>> clearly distinguish "pseudoterminal device/end" from "pseudoterminal
+> >>> device pair". It's hard to avoid being wordy there.
+> >>
+> >> The perfect is the enemy of the good. My feeling is that as others
+> >> write this text in emails or discussions, we'll eventually all settle
+> >> on some other short form we find agreeable and then later we can adjust
+> >> the man pages to use that.
+> >
+> > based on my own brief experience, i'm expecting that _code_ will
+> > settle on pty and tty. but if you're reading the man pages to
+> > understand the concepts -- which are inherently quite confusing -- i
+> > think spelling things out in longhand might remain useful in that
+> > context.
+> >
+> >> Until then taking the lead to change this
+> >> language is the correct way forward.
+> >
+> > yeah, definitely.
+> >
+> > i'd prefer for michael to go first -- since the bionic documentation
+> > is basically just a link to man7.org, and even without that he's the
+> > canonical source -- but i'm happy to go first and submit my change
+> > first if it helps us make progress :-)
+>
+> I'd prefer to take this a little slowly. I don't plan to merge the
+> changes just yet. I'm interested to get a bit more feedback first,
+> including from Zack. (I'm guessing Zack is on holiday or so, which
+> is why we've not heard from him.) Also, if we have rough consensus
+> on this change, I would like to raise it with the POSIX folk; it
+> would of course be great if there was a corresponding change in the
+> standard, so that we all (all UNIX) have a common set of reference
+> terms.
 
-Hi,
+the good news is that it came up at this week's austin group meeting...
 
-I've added a patch based on git, or you may merge from master
-on https://salsa.debian.org/jscott/man-pages.git
+the bad news is that (afaik) none of us were there.
 
-diff --git a/man7/math_error.7 b/man7/math_error.7
-index 876c1d8fc..6f022166f 100644
---- a/man7/math_error.7
-+++ b/man7/math_error.7
-@@ -193,7 +193,7 @@ This identifier is supposed to indicate which of the two
-error-notification mechanisms
-.RI ( errno ,
-exceptions retrievable via
--.BR fettestexcept (3))
-+.BR fetestexcept (3))
-is in use.
-The standards require that at least one be in use,
-but permit both to be available.
---nextPart2599899.bymOcEXxXD
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
+i had been planning to suggest we try to join next week anyway, to
+avoid having this stall again.
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQT287WtmxUhmhucNnhyvHFIwKstpwUCXyl7FAAKCRByvHFIwKst
-p5DQAP48lnhsu/KNLtL2rMAWn1y7tgQVBiQpgSjYHwtM8xwVfQEA0a4r0ATtWKlO
-CbFZUlS2/h1FhJgwiKrDb0qsz2Ze+gY=
-=IHCF
------END PGP SIGNATURE-----
-
---nextPart2599899.bymOcEXxXD--
-
-
-
+> Cheers,
+>
+> Michael
+>
+>
+> --
+> Michael Kerrisk
+> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+> Linux/UNIX System Programming Training: http://man7.org/training/
