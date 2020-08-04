@@ -2,90 +2,135 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D53E523BABC
-	for <lists+linux-man@lfdr.de>; Tue,  4 Aug 2020 14:52:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 782EA23BAC5
+	for <lists+linux-man@lfdr.de>; Tue,  4 Aug 2020 14:55:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726432AbgHDMwS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 4 Aug 2020 08:52:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42410 "EHLO
+        id S1726090AbgHDMzf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 4 Aug 2020 08:55:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42904 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725932AbgHDMwS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Aug 2020 08:52:18 -0400
-Received: from mail-ot1-x342.google.com (mail-ot1-x342.google.com [IPv6:2607:f8b0:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 66BE6C06174A;
-        Tue,  4 Aug 2020 05:52:18 -0700 (PDT)
-Received: by mail-ot1-x342.google.com with SMTP id k12so13627624otr.1;
-        Tue, 04 Aug 2020 05:52:18 -0700 (PDT)
+        with ESMTP id S1726058AbgHDMze (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Aug 2020 08:55:34 -0400
+Received: from mail-oo1-xc44.google.com (mail-oo1-xc44.google.com [IPv6:2607:f8b0:4864:20::c44])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 76162C06174A
+        for <linux-man@vger.kernel.org>; Tue,  4 Aug 2020 05:55:34 -0700 (PDT)
+Received: by mail-oo1-xc44.google.com with SMTP id s190so7966399ooa.13
+        for <linux-man@vger.kernel.org>; Tue, 04 Aug 2020 05:55:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
          :subject:to:cc;
-        bh=pMO7xyI02u/N3BhtYFkNjauZHH09qS1894eAogsqric=;
-        b=dqIg4irnWWoY+Y5RxKJEqmwSgROMfRLLQIvLQwZca2rpKDo+n6etnvAPBYGleJ2+rw
-         jBiX/nOfWx/KPTZ+doBnbFLdjLRLYeTh/KC+XddIFecTlCgj3Kz6xWUknyUmLCEZj1pF
-         3/yiVCFgroeRsYd+JHeXuLL+PDpZvBTSoyXnk1zINW6r6exODy/+inAb/JZ9SgJA9+Gi
-         YMpWh1BkQ1EqMT59UfeO02muIwdsbe/bCllv+ixdsQB+3LNrsSgFNOOhk+nLb/NNAJXc
-         mm6zfNBrDtQ09G+t5EP4VXefsJl+NAzUp21zavSkxdQ709N3ZafisgwGqq/DdhpmOuoS
-         G/TA==
+        bh=/6KvGnn6snhyvKKPmDIdSw/7/7L/ZaYWcuUoLobinu4=;
+        b=TWLrudB8Pvp6Q8I6FCV0qLhHu0KvRV6GBjbyqE7OHe3SCKfo8bfdsNZP6k+JEqMh6n
+         wnq1qfTxRKslX7vt3E8cH/aTv2rtq56/QXFS+lxrvxqCIO+hGKZWv4cR+75gCBzAVyb2
+         YUbRlbcEG9ya5X0Khg15Y1pQfms3f7xI7WHZO9L9WVx8vUmvsdDi1HQ2MFz2p7bjMfKF
+         IYC8aGXHYp58YZlvqFrNeZOkx05pfHwU8fdmUvkzcNoogUI+vImdGUZXgapidF1EpsdX
+         gvXlA1FNYgM7Q0EJabFqly42Agmt/mt+sg6wLNj/CQvxyEZ0/hv3mjNs1bZNP9Tw3yBM
+         zKYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
          :from:date:message-id:subject:to:cc;
-        bh=pMO7xyI02u/N3BhtYFkNjauZHH09qS1894eAogsqric=;
-        b=miZ+VmBXEUKfFTu+ijNYuOna1/VqK1PIElAiqn5MIIfVmQ7ttDtRcJqLb91wqxQJxp
-         eGtTabL+VfVbr86ILJjcEFRnGXuxbvqxA//IZIHXAi1WNgr6qORXGVYHChVyMF5XfRzr
-         ntLzUsjmAxK0RR3Rn07buw6JezemDKVGzTEijGBO1taXu8xM0ONu/H2zU7Juv7RTIBt/
-         NFjCSY2kAX2Dy2aBcJ7EDnOToz7UptSzQbECFjuQwqkQb4rAdjbwdW2IVC7VFztCqN2P
-         PjjxS4Npp/r9Ijc9xjIkku8p53V9x3cd7K44HD8ldBLrFp01ysBCe19cHNKQeWRTD2RO
-         yXOw==
-X-Gm-Message-State: AOAM5306947phWW2hNEfrgOOidBKPsYoW+eRdx03r9ABtMl1hUTGfRqS
-        fU6zEbe/KTNYKPSjL3IM5gYH3AfMvelz9rgrEgo=
-X-Google-Smtp-Source: ABdhPJwantcnKcYDUuZ2NeqMXi+nkqQYITvuIUuQn8NpTq7Q1pEvWayGqwiPzaoF9nt+Lij6f/xZwIc/mvJLcfV14IM=
-X-Received: by 2002:a05:6830:148f:: with SMTP id s15mr16155634otq.323.1596545537578;
- Tue, 04 Aug 2020 05:52:17 -0700 (PDT)
+        bh=/6KvGnn6snhyvKKPmDIdSw/7/7L/ZaYWcuUoLobinu4=;
+        b=ZfsB7BgFZ+ysAjiiHcT4xwigJj3niVLnvvBhDgSM+J+g+Ty00PDNVbbLl6Ni7eOstr
+         Fn2KJP6B4qoKmZ/goNYce/v8qYNFUzAuSvGhoqqntvx2L0lENCyRAk0hHvwgLsANFgvq
+         3hkVP0QGLQXoK4LxXzLUuXZIKl9yUDRgq6l94w3nTbnWtQ9AabxM4pmm7jenLpAgFdTX
+         n2HFmBimdbthO3SaaXvDGO7VyR1NkfLi05a307DXJ5sLG6jTOdvnc3MmjJa12gE7DqVS
+         JGhc/JWqs6fxj5Zse1Q48rxp1ir1+cfwhhdGcqFeU0xn3Z44EOooZ9XWE0a4OR+mX4cQ
+         TTlA==
+X-Gm-Message-State: AOAM532S4Rzob8OgMKifcXYy7GnOJ0Lr8d5t3pvhzpwjy3WGAzOu5nGQ
+        frXvuCtE66AXXVcg8c/v4AKGHxByeAA+m13A8PM=
+X-Google-Smtp-Source: ABdhPJw0TXrZ5oV54QhVW4qZsO+ffYC1s3n5/cni7444Bg00ysp6k+Rw8+83RIUWYcoiJIxsvwlKMXafBKZk1L6bKsk=
+X-Received: by 2002:a4a:a21d:: with SMTP id m29mr18395321ool.17.1596545733737;
+ Tue, 04 Aug 2020 05:55:33 -0700 (PDT)
 MIME-Version: 1.0
-References: <1593020162-9365-1-git-send-email-Dave.Martin@arm.com>
- <c17e330c-69f7-da7a-feae-cb8b8f5d7ea0@gmail.com> <20200720165205.GI30452@arm.com>
- <CAKgNAkggayFEjHgPNu1HzvXGfSDoCq=Y-Ni4iv=RBYk2Eb6U1Q@mail.gmail.com> <20200729145630.GH21941@arm.com>
-In-Reply-To: <20200729145630.GH21941@arm.com>
+References: <1596422293-3122-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+In-Reply-To: <1596422293-3122-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Tue, 4 Aug 2020 14:52:05 +0200
-Message-ID: <CAKgNAkhrjuAXOey2Mp64oitqyjyTu1Zbtx0dy5J2-qzpyFf33Q@mail.gmail.com>
-Subject: Re: [PATCH v3 0/2] prctl.2 man page updates for Linux 5.6
-To:     Dave Martin <Dave.Martin@arm.com>
-Cc:     linux-arch <linux-arch@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Vincenzo Frascino <vincenzo.frascino@arm.com>,
-        Will Deacon <will@kernel.org>,
-        linux-arm-kernel@lists.infradead.org
+Date:   Tue, 4 Aug 2020 14:55:22 +0200
+Message-ID: <CAKgNAkh=6rB653=auHyMRL=Xfo5+aDM7upbzaXDC9mofPO+hvg@mail.gmail.com>
+Subject: Re: [PATCH] loop.4: Document loop_configure ioctl
+To:     Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-> > >         There is already inconsistency here: there are may top-level
-> > >         lists using ".IP *" in prctl.2, and plenty of places where the
-> > >         default indentation is used.
-> >
-> > I must admit that I'm in the process of rethinking bulleted lists, and
-> > I have not come to a conclusion (and that's why nothing is said in
-> > man-pages(7), and also why there is currently inconsistency).
-> >
-> > Using .IP with the default indent (8n) results in a very deep indent
-> > between the glyph and the text, so it's not my preference.
->
-> Is it worth trying to change the default indent in the macro package, or
-> will that just upset other people?
+Hello Yang Xu,
 
-I imagine it would break other stuff.
+Thank you for your patch. Please see my comments below.
+
+On Mon, 3 Aug 2020 at 04:38, Yang Xu <xuyang2018.jy@cn.fujitsu.com> wrote:
+>
+> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+> ---
+>  man4/loop.4 | 35 +++++++++++++++++++++++++++++++++++
+>  1 file changed, 35 insertions(+)
+>
+> diff --git a/man4/loop.4 b/man4/loop.4
+> index 2dcbac807..abf722a25 100644
+> --- a/man4/loop.4
+> +++ b/man4/loop.4
+> @@ -177,6 +177,41 @@ This value must be a power of two in the range
+>  otherwise, an
+>  .B EINVAL
+>  error results.
+> +.TP
+> +.BR LOOP_CONFIGURE " (since Linux 5.8)"
+> +.\" commit 3448914e8cc550ba792d4ccc74471d1ca4293aae
+> +Setup and configure all loop device parameters using the (third)
+> +.BR ioctl (2)
+> +argument at once.
+> +This argument is a pointer to
+> +.I loop_config
+> +structure, defined in
+> +.I <linux/loop.h>
+> +as:
+> +.IP
+> +.in +4n
+> +.EX
+> +struct loop_config {
+> +    __u32               fd;
+> +    __u32               block_size;
+> +    struct loop_info64  info;
+> +    __u64               __reserved[8];
+> +};
+> +.EE
+> +.in
+> +.IP
+> +In addition to doing what
+> +.BR LOOP_SET_STATUS
+> +can do,
+> +.BR LOOP_CONFIGURE
+> +can also be used to set the correct block size immediately
+> +by setting loop_config.block_size. Explicitly request
+> +direct I/O mode by setting
+> +.BR LO_FLAGS_DIRECT_IO
+> +in loop_config.info.lo_flags. Explicitly request read-only
+> +mode by setting
+> +.BR LO_FLAGS_READ_ONLY
+> +in loop_config.info.lo_flags.
+
+The last two sentences (starting "Explicitly request") are hard for me
+to understand. Could you expand the wording here a little please to
+clarify?
 
 Thanks,
 
 Michael
+
+>  .PP
+>  Since Linux 2.6, there are two new
+>  .BR ioctl (2)
+> --
+> 2.23.0
+>
+>
+>
+
 
 -- 
 Michael Kerrisk
