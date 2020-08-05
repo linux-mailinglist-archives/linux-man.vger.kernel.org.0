@@ -2,133 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 190EC23C353
-	for <lists+linux-man@lfdr.de>; Wed,  5 Aug 2020 04:13:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DC9CA23CD17
+	for <lists+linux-man@lfdr.de>; Wed,  5 Aug 2020 19:20:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725904AbgHECN4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 4 Aug 2020 22:13:56 -0400
-Received: from mail.cn.fujitsu.com ([183.91.158.132]:51332 "EHLO
-        heian.cn.fujitsu.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1725864AbgHECNz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Aug 2020 22:13:55 -0400
-X-IronPort-AV: E=Sophos;i="5.75,435,1589212800"; 
-   d="scan'208";a="97623746"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
-  by heian.cn.fujitsu.com with ESMTP; 05 Aug 2020 10:13:49 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
-        by cn.fujitsu.com (Postfix) with ESMTP id E9FE44CE34E0;
-        Wed,  5 Aug 2020 10:13:48 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 5 Aug 2020 10:13:49 +0800
-Subject: Re: [PATCH] loop.4: Document loop_configure ioctl
-To:     <mtk.manpages@gmail.com>
-CC:     linux-man <linux-man@vger.kernel.org>
-References: <1596422293-3122-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <CAKgNAkh=6rB653=auHyMRL=Xfo5+aDM7upbzaXDC9mofPO+hvg@mail.gmail.com>
-From:   Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <a4753a28-0554-d0db-0397-4b2bb9d2684c@cn.fujitsu.com>
-Date:   Wed, 5 Aug 2020 10:13:48 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        id S1728538AbgHERUC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 5 Aug 2020 13:20:02 -0400
+Received: from us-smtp-1.mimecast.com ([207.211.31.81]:52216 "EHLO
+        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1728779AbgHERTD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 5 Aug 2020 13:19:03 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1596647942;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=kZTBrunrXrFalb8MiTTYY4li8BGfP27s1yfj7FYVgAs=;
+        b=H57vQJgbJYH+pX6ni1jRJAdarIIAqoo8Xcrix3Hvslhd+xFefYx19jQf2k8yIQcTI1Uorc
+        hcbdWymPhD3TwqxuUmbEm1agkDk2KZtO9QZJ1/3qG/GG3f0ilxCqQqnjv1bPnTVPtI4PbH
+        wAJXl2VxvTjr2VA3MDxgKgcgFaDhGI0=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-449-Y4-7UuimPtOA66nnqm_UqQ-1; Wed, 05 Aug 2020 13:18:56 -0400
+X-MC-Unique: Y4-7UuimPtOA66nnqm_UqQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A38031B18BCD;
+        Wed,  5 Aug 2020 17:18:46 +0000 (UTC)
+Received: from warthog.procyon.org.uk (ovpn-112-32.rdu2.redhat.com [10.10.112.32])
+        by smtp.corp.redhat.com (Postfix) with ESMTP id 7DBA95D9DC;
+        Wed,  5 Aug 2020 17:18:45 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+        Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+        Kingdom.
+        Registered in England and Wales under Company Registration No. 3798903
+From:   David Howells <dhowells@redhat.com>
+In-Reply-To: <CAKgNAkgYZ4HrFpOW_n8BshbR8d=03wetmxX2zNv7hX4ZmeQPmg@mail.gmail.com>
+References: <CAKgNAkgYZ4HrFpOW_n8BshbR8d=03wetmxX2zNv7hX4ZmeQPmg@mail.gmail.com> <CAKgNAkjyXcXZkEczRz2yvJRFBy2zAwTaNfyiSmskAFWN_3uY1g@mail.gmail.com> <2007335.1595587534@warthog.procyon.org.uk>
+To:     mtk.manpages@gmail.com
+Cc:     dhowells@redhat.com, Petr Vorel <pvorel@suse.cz>,
+        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Christian Brauner <christian.brauner@ubuntu.com>,
+        lkml <linux-kernel@vger.kernel.org>
+Subject: Re: Mount API manual pages
 MIME-Version: 1.0
-In-Reply-To: <CAKgNAkh=6rB653=auHyMRL=Xfo5+aDM7upbzaXDC9mofPO+hvg@mail.gmail.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: E9FE44CE34E0.A1470
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <2329755.1596647924.1@warthog.procyon.org.uk>
+Date:   Wed, 05 Aug 2020 18:18:44 +0100
+Message-ID: <2329756.1596647924@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael
+Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
 
-> Hello Yang Xu,
-> 
-> Thank you for your patch. Please see my comments below.
-> 
-> On Mon, 3 Aug 2020 at 04:38, Yang Xu <xuyang2018.jy@cn.fujitsu.com> wrote:
->>
->> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
->> ---
->>   man4/loop.4 | 35 +++++++++++++++++++++++++++++++++++
->>   1 file changed, 35 insertions(+)
->>
->> diff --git a/man4/loop.4 b/man4/loop.4
->> index 2dcbac807..abf722a25 100644
->> --- a/man4/loop.4
->> +++ b/man4/loop.4
->> @@ -177,6 +177,41 @@ This value must be a power of two in the range
->>   otherwise, an
->>   .B EINVAL
->>   error results.
->> +.TP
->> +.BR LOOP_CONFIGURE " (since Linux 5.8)"
->> +.\" commit 3448914e8cc550ba792d4ccc74471d1ca4293aae
->> +Setup and configure all loop device parameters using the (third)
->> +.BR ioctl (2)
->> +argument at once.
->> +This argument is a pointer to
->> +.I loop_config
->> +structure, defined in
->> +.I <linux/loop.h>
->> +as:
->> +.IP
->> +.in +4n
->> +.EX
->> +struct loop_config {
->> +    __u32               fd;
->> +    __u32               block_size;
->> +    struct loop_info64  info;
->> +    __u64               __reserved[8];
->> +};
->> +.EE
->> +.in
->> +.IP
->> +In addition to doing what
->> +.BR LOOP_SET_STATUS
->> +can do,
->> +.BR LOOP_CONFIGURE
->> +can also be used to set the correct block size immediately
->> +by setting loop_config.block_size. Explicitly request
->> +direct I/O mode by setting
->> +.BR LO_FLAGS_DIRECT_IO
->> +in loop_config.info.lo_flags. Explicitly request read-only
->> +mode by setting
->> +.BR LO_FLAGS_READ_ONLY
->> +in loop_config.info.lo_flags.
-> 
-> The last two sentences (starting "Explicitly request") are hard for me
-> to understand. Could you expand the wording here a little please to
-> clarify?
+> This is just a reminder mail :-).
 
-In drivers/block/loop.c code, set status function(loop_set_status) 
-doesn't handle LO_FLAGS_READ_ONLY flag and ingore it. it is the same for
-LO_FLAGS_DIRECT_IO flag. "Explicitly request" is compared with 
-LOOP_SET_STATUS ioctl.
+Yep - I haven't forgotten.  Spent a chunk of time arguing with reinventors and
+arguing with a failing dishwasher.  I have some other manpages that I'm
+sprucing up too for the notifications stuff.
 
-Best Regards
-Yang Xu
-> 
-> Thanks,
-> 
-> Michael
-> 
->>   .PP
->>   Since Linux 2.6, there are two new
->>   .BR ioctl (2)
->> --
->> 2.23.0
->>
->>
->>
-> 
-> 
-
+David
 
