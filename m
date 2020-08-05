@@ -2,68 +2,140 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DC9CA23CD17
-	for <lists+linux-man@lfdr.de>; Wed,  5 Aug 2020 19:20:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 79E1223D0CD
+	for <lists+linux-man@lfdr.de>; Wed,  5 Aug 2020 21:53:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728538AbgHERUC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 5 Aug 2020 13:20:02 -0400
-Received: from us-smtp-1.mimecast.com ([207.211.31.81]:52216 "EHLO
-        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1728779AbgHERTD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 5 Aug 2020 13:19:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1596647942;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=kZTBrunrXrFalb8MiTTYY4li8BGfP27s1yfj7FYVgAs=;
-        b=H57vQJgbJYH+pX6ni1jRJAdarIIAqoo8Xcrix3Hvslhd+xFefYx19jQf2k8yIQcTI1Uorc
-        hcbdWymPhD3TwqxuUmbEm1agkDk2KZtO9QZJ1/3qG/GG3f0ilxCqQqnjv1bPnTVPtI4PbH
-        wAJXl2VxvTjr2VA3MDxgKgcgFaDhGI0=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-449-Y4-7UuimPtOA66nnqm_UqQ-1; Wed, 05 Aug 2020 13:18:56 -0400
-X-MC-Unique: Y4-7UuimPtOA66nnqm_UqQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A38031B18BCD;
-        Wed,  5 Aug 2020 17:18:46 +0000 (UTC)
-Received: from warthog.procyon.org.uk (ovpn-112-32.rdu2.redhat.com [10.10.112.32])
-        by smtp.corp.redhat.com (Postfix) with ESMTP id 7DBA95D9DC;
-        Wed,  5 Aug 2020 17:18:45 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-        Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-        Kingdom.
-        Registered in England and Wales under Company Registration No. 3798903
-From:   David Howells <dhowells@redhat.com>
-In-Reply-To: <CAKgNAkgYZ4HrFpOW_n8BshbR8d=03wetmxX2zNv7hX4ZmeQPmg@mail.gmail.com>
-References: <CAKgNAkgYZ4HrFpOW_n8BshbR8d=03wetmxX2zNv7hX4ZmeQPmg@mail.gmail.com> <CAKgNAkjyXcXZkEczRz2yvJRFBy2zAwTaNfyiSmskAFWN_3uY1g@mail.gmail.com> <2007335.1595587534@warthog.procyon.org.uk>
-To:     mtk.manpages@gmail.com
-Cc:     dhowells@redhat.com, Petr Vorel <pvorel@suse.cz>,
-        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Christian Brauner <christian.brauner@ubuntu.com>,
-        lkml <linux-kernel@vger.kernel.org>
-Subject: Re: Mount API manual pages
+        id S1728320AbgHETxU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 5 Aug 2020 15:53:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46370 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727871AbgHEQuU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 5 Aug 2020 12:50:20 -0400
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com [IPv6:2a00:1450:4864:20::541])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A5C5AC061A1D
+        for <linux-man@vger.kernel.org>; Wed,  5 Aug 2020 04:21:13 -0700 (PDT)
+Received: by mail-ed1-x541.google.com with SMTP id c2so26352867edx.8
+        for <linux-man@vger.kernel.org>; Wed, 05 Aug 2020 04:21:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=Mnr6e6Prt3cAG4hQcPqDlTpqD25F8aoAn5XMFSneQUs=;
+        b=OW/i5qfu3Feb2HDqcowZD30pqFA7KVcdRi/Rx6pq6HjYSfWwcBBX2lx+YhVNrlVZ88
+         yktffH/XYXeR8cuJR+K7vh0P8+rsCT6S1kOb8UaawQkTvmJAcWckIKHL2dTDbGBRs3ag
+         H7DwB+qXVQdnshYswlwNhCLrGNNmE+g3epjjK7TBtrJ4Bye2zbyVztMFfrva2bhuilXI
+         xD8hn7tHjPxiy0EQM4yKRLuVsS2iAmy6lVZqXhlVXMucJ9x+Iy08JJnNTEHhzSqu/iMA
+         Ua9j20gc4LnB9w16KoGLCQMraa//rrtYjDnskxjnDewTYa525vUiUCQqbl+bMB5rOux7
+         gh0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=Mnr6e6Prt3cAG4hQcPqDlTpqD25F8aoAn5XMFSneQUs=;
+        b=Dyl7abvKU8GpYFPgtgEx4QF+Ak6ts9QDK7838dqHKoE43zAvjKUcg/GydIuO8hCxer
+         V4MAu/BNPY9KEth/AXgk94EygmMPbBVp9LDr2lg76M4PadQuQKS8+ste9F2x3uauu6Hx
+         q2z0Gdi/X7JnzTpxzGgsuDD3gdcpOJ4+wZFai1PbevCyOnELpZYSdNjvwHfdSPk4Ij7/
+         meqnqG9iEe9pj36IfLSbUNK4gTOkwZkfbYPRAHQbxVm7QEtboNC7zhVVfLUzo1wylXJ7
+         6ux85LtcsSywZgt6CMXeIINVScGowEQuBj2s827Wxw1kYKc9OiV2E4ATm6Q3njBBxnOV
+         1JKw==
+X-Gm-Message-State: AOAM533Usn/TMfvY2rayqegoQEcOJOztsK+sRXn2L/MXa7xY8/xvlIfH
+        NdtuUSXi9uTB063+gXGbx09fTci/l6J2du+9gRY=
+X-Google-Smtp-Source: ABdhPJyhnTtJoM0pHcLI3xJQMUBUIC5WDBuDuT9UVXgcQ7XTOVkSRjqAKzqFVuRpF2z+TKDHOkzfh67T1WzWKnt35MY=
+X-Received: by 2002:a05:6402:1ac8:: with SMTP id ba8mr2189994edb.316.1596626472082;
+ Wed, 05 Aug 2020 04:21:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <2329755.1596647924.1@warthog.procyon.org.uk>
-Date:   Wed, 05 Aug 2020 18:18:44 +0100
-Message-ID: <2329756.1596647924@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+From:   Michael Kerrisk <mtk.manpages@gmail.com>
+Date:   Wed, 5 Aug 2020 13:21:01 +0200
+Message-ID: <CALxWeYrisuzEPVEHOQSFJ8G_=8-VTAOTNBquyszOZMid7YfT=Q@mail.gmail.com>
+Subject: Pseudoterminal terminology in POSIX
+To:     austin-group-l@opengroup.org
+Cc:     "Carlos O'Donell" <carlos@redhat.com>,
+        Zack Weinberg <zackw@panix.com>,
+        Florian Weimer <fweimer@redhat.com>,
+        Paul Eggert <eggert@cs.ucla.edu>,
+        Andrew Josey <ajosey@opengroup.org>,
+        Michael Kerrisk-manpages <mtk.manpages@gmail.com>,
+        Joseph Myers <joseph@codesourcery.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        Geoff Clare <gwc@opengroup.org>,
+        Elliot Hughes <enh@google.com>,
+        libc-alpha <libc-alpha@sourceware.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
+Elliot Hughes and I both noticed a point from "Minutes of the 3rd August 2020
+Teleconference":
 
-> This is just a reminder mail :-).
+[[
+On Tue, Aug 4, 2020 at 5:52 PM Andrew Josey <ajosey@opengroup.org> wrote:
+>
+> All
+> Enclosed are the minutes of yesterdays teleconference
+> regards
+> Andrew
 
-Yep - I haven't forgotten.  Spent a chunk of time arguing with reinventors and
-arguing with a failing dishwasher.  I have some other manpages that I'm
-sprucing up too for the notifications stuff.
+[...]
 
-David
+> * General news
+>
+> We discussed terminology usage, in particuler terms such as
+> master/slave, blacklist/whitelist.  It was agreed some terminology
+> for pseudo-terminals could be better described using more functionally
+> descriptive terms, but the details of this are left to a future bug
+> report.  Andrew and Geoff took an action to investigate further
+> and come back with an analysis.
+]]
 
+I see that Elliot already replied to the Minutes with some thoughts
+about this. I had already been working on thismail on the topic, which
+reiterates some details that Elliot gave, but also adds some
+information, and brings a lot of relevant people into CC. (I've
+already notified those people that only subscribers can post to the
+Austin list, and presumably those not already subscribed will
+subscribe if they want to add to the discussion.)
+
+The master-slave terminology with respect to pseudoterminals has
+recently been under active discussion in the GNU C library and Linux
+man-pages mailing lists (see [1]). Currently, we are considering at
+least one possible proposal for a language change, but there may yet
+be others. In any case, I and others thought it would be a wise idea
+to involve TOG in this discussion, so that, ideally, we could come up
+with a shared standard for replacement terminology.
+
+The proposal that has seen some discussion, and met with some positive
+feedback, is [2]. The concept was proposed by Elliot, inspired by a
+similar change that was made in relevant golang libraries; I've
+written an implementation of the idea (i.e., a proposed patch) for the
+Linux manual pages (again, see [2]).
+
+The essence of the idea is simple. Let's not invent completely new
+terms, but rather rework existing (familiar) terminology a little, as
+follows:
+
+    pseudoterminal (device) ==> "pseudoterminal device pair"
+
+   slave ==> "terminal device"
+           (or "terminal end of the pseudoterminal device pair")
+
+    master ==> "pseudoterminal device"
+           (or "pseudoterminal end of the pseudoterminal device pair")
+
+The resulting language (as it appears in the proposed changes for the
+Linux manual pages) is reasonably clear, albeit a little clunky in
+places (wordings like "the (pseudo)terminal end of the pseudoterminal
+device pair" are clear, but a little verbose).
+
+Aside from the obvious points (raising a bug on the Austin bug
+tracker, and proposing line edits to the standard), is there anything
+else that we can do to help along the process of changing the
+terminology in POSIX? Also, any feedback on the proposal in [2] would be
+welcome.
+
+With best regards,
+
+Michael Kerrisk
+
+[1] https://sourceware.org/pipermail/libc-alpha/2020-July/115792.html
+
+[2] https://lore.kernel.org/linux-man/b3b4cf95-5eaa-0b4e-34cc-1a855e7148b6@gmail.com/
