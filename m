@@ -2,118 +2,75 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 38B5323E81A
-	for <lists+linux-man@lfdr.de>; Fri,  7 Aug 2020 09:43:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 01DAD23E8E7
+	for <lists+linux-man@lfdr.de>; Fri,  7 Aug 2020 10:30:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726923AbgHGHnr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 7 Aug 2020 03:43:47 -0400
-Received: from mx01-sz.bfs.de ([194.94.69.67]:60572 "EHLO mx01-sz.bfs.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1725805AbgHGHnr (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 7 Aug 2020 03:43:47 -0400
-X-Greylist: delayed 424 seconds by postgrey-1.27 at vger.kernel.org; Fri, 07 Aug 2020 03:43:45 EDT
-Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
-        by mx01-sz.bfs.de (Postfix) with ESMTPS id 495ED2044F;
-        Fri,  7 Aug 2020 09:36:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
-        t=1596785798;
+        id S1726382AbgHGIaL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 7 Aug 2020 04:30:11 -0400
+Received: from us-smtp-1.mimecast.com ([207.211.31.81]:53569 "EHLO
+        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1727101AbgHGIaL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Aug 2020 04:30:11 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1596789010;
         h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=uSgnbwZNsvaXAj5ykFB5zMWiBSvvUbcAk6o4CE65DyM=;
-        b=fn4ERJecC2ra4sQG8jwDJiIN0bdaqA5FIVStPIrq/uSAciC43AIT8XEEI5kRt2GmbiGvAh
-        vObK7/UDJ9f/1EVTuanMzFc4vrFBtLLnh/shqadmglNtJWgnuXvBOqSMFxE4MsNKM/61Lv
-        nUhtyR11iuqpHUwFqnbNbAW/JyDbij6wFuP8lp+zM9qW9Fy/aEGLndueiijdAozq8VkaWi
-        40hUrQyZiwv1T5imP7RFf1o/i854fKZBV4AUFk08nH5aYISPdMAXUQLXZIzWxu9LxUDkSf
-        MXnkvJz4o/SDrIqzdXGBjnGWAAB9/uRT1aCj+yqnqUyCz+B0nC8LusP8gXI5SA==
-Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
- (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2044.4; Fri, 7 Aug 2020
- 09:36:37 +0200
-Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
- SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%6]) with mapi id
- 15.01.2044.004; Fri, 7 Aug 2020 09:36:37 +0200
-From:   Walter Harms <wharms@bfs.de>
-To:     Yang Xu <xuyang2018.jy@cn.fujitsu.com>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-Subject: AW: [PATCH v2 2/3] loop.4: add some details about lo_flag
-Thread-Topic: [PATCH v2 2/3] loop.4: add some details about lo_flag
-Thread-Index: AQHWa9blucxVrdjxxUaJJX0mE9lFJqksP6gn
-Date:   Fri, 7 Aug 2020 07:36:37 +0000
-Message-ID: <f25c32a3f4934b329523505796964f63@bfs.de>
-References: <1596707314-2361-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>,<1596707314-2361-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-In-Reply-To: <1596707314-2361-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.137.16.39]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+        bh=3wgRp3qqnRAOy+euitkhJbhM028nnx02EgZJs1Iovzk=;
+        b=bVlyqOdcFLiUiqvkBj885od6pdHp8zx4BshUB8YX6ycCSsF7g/HSRDMf05m9US7NFzv9CM
+        4B4bg2aJ/Pc83GEScn8H0QR3zhNSS5v6aCYjlUeIcl7Kn5gyLFoO4uP3DAvaKN/okyWbnO
+        RaRpsIX4KTS6Ddd4ZkObcaNNIquCQqc=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-33-llJOKjN2OnaLxGBmsKMN0g-1; Fri, 07 Aug 2020 04:30:08 -0400
+X-MC-Unique: llJOKjN2OnaLxGBmsKMN0g-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 47BD61005510;
+        Fri,  7 Aug 2020 08:30:07 +0000 (UTC)
+Received: from localhost (unknown [10.33.36.145])
+        by smtp.corp.redhat.com (Postfix) with ESMTP id DF3AB1001B07;
+        Fri,  7 Aug 2020 08:30:06 +0000 (UTC)
+Date:   Fri, 7 Aug 2020 09:30:06 +0100
+From:   Jonathan Wakely <jwakely@redhat.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: [patch] printf.3: Fix description of %a hexfloat output
+Message-ID: <20200807083006.GA2498449@redhat.com>
 MIME-Version: 1.0
-X-Spam-Status: No, score=-0.33
-Authentication-Results: mx01-sz.bfs.de;
-        none
-X-Spamd-Result: default: False [-0.33 / 7.00];
-         ARC_NA(0.00)[];
-         TO_DN_EQ_ADDR_SOME(0.00)[];
-         HAS_XOIP(0.00)[];
-         FROM_HAS_DN(0.00)[];
-         TO_DN_SOME(0.00)[];
-         TO_MATCH_ENVRCPT_ALL(0.00)[];
-         MIME_GOOD(-0.10)[text/plain];
-         DKIM_SIGNED(0.00)[];
-         RCPT_COUNT_TWO(0.00)[2];
-         NEURAL_HAM(-0.00)[-1.034];
-         RCVD_NO_TLS_LAST(0.10)[];
-         FROM_EQ_ENVFROM(0.00)[];
-         MIME_TRACE(0.00)[0:+];
-         RCVD_COUNT_TWO(0.00)[2];
-         MID_RHS_MATCH_FROM(0.00)[];
-         BAYES_HAM(-0.33)[75.76%]
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Clacks-Overhead: GNU Terry Pratchett
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi,
-IMHO "first" and "last" is something that should be avoided in documentatio=
-n
-because the meaning may change in future releases.
-I guess you want to say: lo_number and reserved ?
+The description of hexadecimal floating-point output is missing a
+character describing the exponent. The guarantee of at least one digit
+in the exponent is present in both C99 and POSIX.
 
-re,
- wh
-________________________________________
-Von: linux-man-owner@vger.kernel.org [linux-man-owner@vger.kernel.org] im A=
-uftrag von Yang Xu [xuyang2018.jy@cn.fujitsu.com]
-Gesendet: Donnerstag, 6. August 2020 11:48
-An: linux-man@vger.kernel.org
-Cc: Yang Xu
-Betreff: [PATCH v2 2/3] loop.4: add some details about lo_flag
-
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- man4/loop.4 | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/man4/loop.4 b/man4/loop.4
-index 1f8a31ac7..41abe0122 100644
---- a/man4/loop.4
-+++ b/man4/loop.4
-@@ -136,6 +136,9 @@ Allow automatic partition scanning.
- Use direct io mode to access backing file.
- .RE
+diff --git a/man3/printf.3 b/man3/printf.3
+index 18000bc70..d3510f7df 100644
+--- a/man3/printf.3
++++ b/man3/printf.3
+@@ -730,7 +730,7 @@ conversion, the
+ .I double
+ argument is converted to hexadecimal notation (using the letters abcdef)
+ in the style
+-.RB [\-] 0x h \&. hhhh p \(+-;
++.RB [\-] 0x h \&. hhhh p \(+-d;
+ for
+ .B A
+ conversion the prefix
+@@ -746,6 +746,8 @@ and otherwise is sufficiently large to distinguish values of type
+ .IR double .
+ The digit before the decimal point is unspecified for nonnormalized
+ numbers, and nonzero but otherwise unspecified for normalized numbers.
++The exponent always contains at least one
++digit; if the value is zero, the exponent is 0.
  .TP
-+.I The LOOP_SET_STATUS can not set the first and last flag because
-+they are both set from kernel.
-+.TP
- .B LOOP_GET_STATUS
- Get the status of the loop device.
- The (third)
---
-2.23.0
-
-
+ .B c
+ If no
 
