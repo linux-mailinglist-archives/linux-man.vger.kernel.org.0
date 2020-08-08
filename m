@@ -2,126 +2,163 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E665823F150
-	for <lists+linux-man@lfdr.de>; Fri,  7 Aug 2020 18:35:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6414723F97A
+	for <lists+linux-man@lfdr.de>; Sun,  9 Aug 2020 01:18:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726058AbgHGQfj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 7 Aug 2020 12:35:39 -0400
-Received: from mx01-sz.bfs.de ([194.94.69.67]:48349 "EHLO mx01-sz.bfs.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726013AbgHGQfU (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 7 Aug 2020 12:35:20 -0400
-Received: from SRVEX01-MUC.bfs.intern (unknown [10.161.90.31])
-        by mx01-sz.bfs.de (Postfix) with ESMTPS id CCA1F2010F;
-        Fri,  7 Aug 2020 18:35:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
-        t=1596818114;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=d6RJesMcKWo7cast7P1LaTWaXeP5IYA97+Mn3n2DTGI=;
-        b=Po/0iH4OFAIZnXPir9DzxRmtHxTeZqKL8qY7zh5APXiSgM+Cz3i8Dzmj/hjqZ71vBo98RS
-        6hCyumtsmEmrfLabPd1EAI4il0qvd0D4v94AvJRZkPDk1fP3oc0hhH9Luch7p6ncCUEi40
-        Tx2793URDUOBxVro9ch+tKB3ilcXHrYKhD5WcwkrqcHOUWI4N3olul9VA5u2UO4eyCxi8U
-        vdSwBBnsyu/kgXf406U0PhluGpkQ/jc+xKxd4L6S+Egr5XnfgZPk4cHwsanPeDkC+EsKvD
-        cPwUQ7infnjhS+XN7vLS3wrtl+d50ULen+eByEcUuvQcdSh9ah1DAHCvPkb3VA==
-Received: from SRVEX01-MUC.bfs.intern (10.161.90.31) by SRVEX01-MUC.bfs.intern
- (10.161.90.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2044.4; Fri, 7 Aug 2020
- 18:35:14 +0200
-Received: from SRVEX01-MUC.bfs.intern ([fe80::5d64:49:5476:e21f]) by
- SRVEX01-MUC.bfs.intern ([fe80::5d64:49:5476:e21f%4]) with mapi id
- 15.01.2044.004; Fri, 7 Aug 2020 18:35:14 +0200
-From:   Walter Harms <wharms@bfs.de>
-To:     David Howells <dhowells@redhat.com>
-CC:     "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>,
-        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-        "christian.brauner@ubuntu.com" <christian.brauner@ubuntu.com>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: AW: AW: [PATCH 5/5] Add manpage for fsconfig(2)
-Thread-Topic: AW: [PATCH 5/5] Add manpage for fsconfig(2)
-Thread-Index: AQHWbMQ0XBZ8wH0Poku30knI5+vNu6kszUyO///m8wCAACNmbQ==
-Date:   Fri, 7 Aug 2020 16:35:14 +0000
-Message-ID: <61ef401b229f44ee8cc57ff292a3fc9c@bfs.de>
-References: <a2fe568438aa45e9a63a3a7d9d64a73f@bfs.de>
- <159680892602.29015.6551860260436544999.stgit@warthog.procyon.org.uk>,<159680897140.29015.15318866561972877762.stgit@warthog.procyon.org.uk>,<45107.1596817654@warthog.procyon.org.uk>
-In-Reply-To: <45107.1596817654@warthog.procyon.org.uk>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.137.16.40]
-x-tm-as-product-ver: SMEX-14.0.0.3031-8.6.1012-25590.001
-x-tm-as-result: No-10--5.127400-5.000000
-x-tmase-matchedrid: Zt7FBlK+zO7RubRCcrbc5pzEHTUOuMX33dCmvEa6IiGoLZarzrrPmVwO
-        JjUNGcWTvqKlPiBL76d3r1Dr7ZPfTM+9kIneOZlhQ10sagR2+EEA+JHhu0IR5pGhAvBSa2i/IZR
-        vYk3GLWrOOomeC9zbqKHdurFnqCT5QLBrHsp/dPMVwr9AY0ZEvXDbaRpvS7UJlwV2iaAfSWeDGx
-        /OQ1GV8t0H8LFZNFG73Yq8RVaZivUOMH2CZRwlNdjAzKACs402DiRTr+W0b8T2E7k5i1o8mSC1m
-        XJsa75A
-x-tm-as-user-approved-sender: No
-x-tm-as-user-blocked-sender: No
-x-tmase-result: 10--5.127400-5.000000
-x-tmase-version: SMEX-14.0.0.3031-8.6.1012-25590.001
-x-tm-snts-smtp: 8C69108A6CB5A07348DE85815151D065995B2165A6263346249A422E729C119C2000:9
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+        id S1726009AbgHHXSU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 8 Aug 2020 19:18:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35864 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725950AbgHHXSU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Aug 2020 19:18:20 -0400
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com [IPv6:2607:f8b0:4864:20::643])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 06CF8C061756
+        for <linux-man@vger.kernel.org>; Sat,  8 Aug 2020 16:18:19 -0700 (PDT)
+Received: by mail-pl1-x643.google.com with SMTP id q17so2916389pls.9
+        for <linux-man@vger.kernel.org>; Sat, 08 Aug 2020 16:18:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=TuZd5rQ0GqJIAdVm4soumHo7Agco5ov5qnu2djGPXGg=;
+        b=b99pcrJZUG05cwdbDeO2v2oXunctElMwxvNhU0ewQVo9Bum5WuRj2Taz/htNFUjBAW
+         uLmYQouMTPy7Kx1d3iM1/B+lUdj+H7Xo96Gkk8gr5BAlt2kxcrWEu6GkU87OJFYGwR0K
+         h8yKs/8cOPWwLZ8X7dBdEn7IJSwP+1pndTIlWO7knjDvOKfEWYxeegmSQDAd5NjCWlH6
+         oRKOhtxySobGayr6F/dRXu+Gg+972zJz3d4YK/8LwPQJAdt86mc+Q1yyiADVTKu5/ZJm
+         z5QdLD825aix0DrF2pALrZLOs4refo0QIDEwNQUkKtwuzhYR6hkkDIBsp31avdA8lBWw
+         uCrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=TuZd5rQ0GqJIAdVm4soumHo7Agco5ov5qnu2djGPXGg=;
+        b=RJCZfj7k74ggSvOOSKagTE0W2fQM9+Ni3KxIwVBsf5ZqGR1p42PbIHBujmYFuE9Sqt
+         hsz7U7Gj0tAKlgQat+A6Ng1h/RLQnO3XtpVbcL7wDu9CPlPYpFMF+aSKPENNhO24z4f6
+         OtNVabc/OvyglHWezEJPM7++CkyllCKvagEmeMCKL05zDF1ahjvY2UhyitwwvnDZoR+l
+         AwSlYNDqDHb5IdkJpj7RV3r3CqdX4eovOC3OuMuD+Jz9yuynXrnZr6jOzEfQaFxk4ZHg
+         5Ibss81pA8uNECObQzaJbxMowDPrWgRfyVRnu0UZUNVSW1oJpE/xU4sBLYAInLvh4ndC
+         U6Lw==
+X-Gm-Message-State: AOAM531KSmVcBbtd619Qgz/caCbeE+cBtq9FBX0uVi5Eap4u7O1FgGeS
+        d66jUcHi/TnPfv6kSz48zbs=
+X-Google-Smtp-Source: ABdhPJyJP6GGcnWznHAZM5pvWuBY4KpVlOTyczF5JYt3q54oR9IUQ9ACQjRR3jL9NWHYF7bVEIfHlg==
+X-Received: by 2002:a17:90a:19d1:: with SMTP id 17mr10959872pjj.93.1596928696062;
+        Sat, 08 Aug 2020 16:18:16 -0700 (PDT)
+Received: from [192.168.43.169] ([107.242.120.52])
+        by smtp.gmail.com with ESMTPSA id d9sm15867871pgv.45.2020.08.08.16.18.13
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sat, 08 Aug 2020 16:18:15 -0700 (PDT)
+Subject: Re: Pseudoterminal terminology in POSIX
+To:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        austin-group-l@opengroup.org
+Cc:     Carlos O'Donell <carlos@redhat.com>,
+        Zack Weinberg <zackw@panix.com>,
+        Florian Weimer <fweimer@redhat.com>,
+        Paul Eggert <eggert@cs.ucla.edu>,
+        Andrew Josey <ajosey@opengroup.org>,
+        Joseph Myers <joseph@codesourcery.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        Geoff Clare <gwc@opengroup.org>,
+        Elliot Hughes <enh@google.com>,
+        libc-alpha <libc-alpha@sourceware.org>
+References: <CALxWeYrisuzEPVEHOQSFJ8G_=8-VTAOTNBquyszOZMid7YfT=Q@mail.gmail.com>
+From:   Larry Dwyer <larryd.kbd@gmail.com>
+Message-ID: <6425d636-7f48-3a73-ef0e-7bb5b991360c@gmail.com>
+Date:   Sat, 8 Aug 2020 16:18:10 -0700
+User-Agent: Mozilla/5.0 (Windows NT 5.1; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-X-Spam-Status: No, score=1.27
-X-Spam-Level: *
-Authentication-Results: mx01-sz.bfs.de;
-        none
-X-Spamd-Result: default: False [1.27 / 7.00];
-         ARC_NA(0.00)[];
-         TO_DN_EQ_ADDR_SOME(0.00)[];
-         HAS_XOIP(0.00)[];
-         FROM_HAS_DN(0.00)[];
-         TO_DN_SOME(0.00)[];
-         FREEMAIL_ENVRCPT(0.00)[gmail.com];
-         TO_MATCH_ENVRCPT_ALL(0.00)[];
-         TAGGED_RCPT(0.00)[];
-         MIME_GOOD(-0.10)[text/plain];
-         MID_RHS_MATCH_FROM(0.00)[];
-         DKIM_SIGNED(0.00)[];
-         BAYES_HAM(-0.23)[72.43%];
-         RCPT_COUNT_SEVEN(0.00)[7];
-         NEURAL_HAM(-0.00)[-0.911];
-         RCVD_NO_TLS_LAST(0.10)[];
-         FROM_EQ_ENVFROM(0.00)[];
-         MIME_TRACE(0.00)[0:+];
-         FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,ubuntu.com];
-         RCVD_COUNT_TWO(0.00)[2];
-         SUSPICIOUS_RECIPS(1.50)[]
+In-Reply-To: <CALxWeYrisuzEPVEHOQSFJ8G_=8-VTAOTNBquyszOZMid7YfT=Q@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-found it,
-next i will look for version not varsion
+How about the "control" side and the "terminal" side (of the paired 
+device files)?
 
+Cheers,
+Larry
 
-________________________________________
-Von: David Howells [dhowells@redhat.com]
-Gesendet: Freitag, 7. August 2020 18:27
-An: Walter Harms
-Cc: dhowells@redhat.com; mtk.manpages@gmail.com; linux-fsdevel@vger.kernel.=
-org; christian.brauner@ubuntu.com; linux-man@vger.kernel.org; linux-api@vge=
-r.kernel.org; linux-kernel@vger.kernel.org
-Betreff: Re: AW: [PATCH 5/5] Add manpage for fsconfig(2)
-
-Walter Harms <wharms@bfs.de> wrote:
-
-> maybe it is obvious but i did not see it ..
-> starting with what kernel version are these features available ?
-
-See:
-
-        +.SH VERSIONS
-        +.BR fsconfig ()
-        +was added to Linux in kernel 5.1.
-
-David
-
+On 8/5/2020 4:21 AM, Michael Kerrisk via austin-group-l at The Open 
+Group wrote:
+> Elliot Hughes and I both noticed a point from "Minutes of the 3rd August 2020
+> Teleconference":
+> 
+> [[
+> On Tue, Aug 4, 2020 at 5:52 PM Andrew Josey <ajosey@opengroup.org> wrote:
+>>
+>> All
+>> Enclosed are the minutes of yesterdays teleconference
+>> regards
+>> Andrew
+> 
+> [...]
+> 
+>> * General news
+>>
+>> We discussed terminology usage, in particuler terms such as
+>> master/slave, blacklist/whitelist.  It was agreed some terminology
+>> for pseudo-terminals could be better described using more functionally
+>> descriptive terms, but the details of this are left to a future bug
+>> report.  Andrew and Geoff took an action to investigate further
+>> and come back with an analysis.
+> ]]
+> 
+> I see that Elliot already replied to the Minutes with some thoughts
+> about this. I had already been working on thismail on the topic, which
+> reiterates some details that Elliot gave, but also adds some
+> information, and brings a lot of relevant people into CC. (I've
+> already notified those people that only subscribers can post to the
+> Austin list, and presumably those not already subscribed will
+> subscribe if they want to add to the discussion.)
+> 
+> The master-slave terminology with respect to pseudoterminals has
+> recently been under active discussion in the GNU C library and Linux
+> man-pages mailing lists (see [1]). Currently, we are considering at
+> least one possible proposal for a language change, but there may yet
+> be others. In any case, I and others thought it would be a wise idea
+> to involve TOG in this discussion, so that, ideally, we could come up
+> with a shared standard for replacement terminology.
+> 
+> The proposal that has seen some discussion, and met with some positive
+> feedback, is [2]. The concept was proposed by Elliot, inspired by a
+> similar change that was made in relevant golang libraries; I've
+> written an implementation of the idea (i.e., a proposed patch) for the
+> Linux manual pages (again, see [2]).
+> 
+> The essence of the idea is simple. Let's not invent completely new
+> terms, but rather rework existing (familiar) terminology a little, as
+> follows:
+> 
+>      pseudoterminal (device) ==> "pseudoterminal device pair"
+> 
+>     slave ==> "terminal device"
+>             (or "terminal end of the pseudoterminal device pair")
+> 
+>      master ==> "pseudoterminal device"
+>             (or "pseudoterminal end of the pseudoterminal device pair")
+> 
+> The resulting language (as it appears in the proposed changes for the
+> Linux manual pages) is reasonably clear, albeit a little clunky in
+> places (wordings like "the (pseudo)terminal end of the pseudoterminal
+> device pair" are clear, but a little verbose).
+> 
+> Aside from the obvious points (raising a bug on the Austin bug
+> tracker, and proposing line edits to the standard), is there anything
+> else that we can do to help along the process of changing the
+> terminology in POSIX? Also, any feedback on the proposal in [2] would be
+> welcome.
+> 
+> With best regards,
+> 
+> Michael Kerrisk
+> 
+> [1] https://sourceware.org/pipermail/libc-alpha/2020-July/115792.html
+> 
+> [2] https://lore.kernel.org/linux-man/b3b4cf95-5eaa-0b4e-34cc-1a855e7148b6@gmail.com/
+> 
+> 
