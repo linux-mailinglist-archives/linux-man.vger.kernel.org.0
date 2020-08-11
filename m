@@ -2,61 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 94998241C3B
-	for <lists+linux-man@lfdr.de>; Tue, 11 Aug 2020 16:20:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 933C3241F3B
+	for <lists+linux-man@lfdr.de>; Tue, 11 Aug 2020 19:29:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728788AbgHKOUO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 11 Aug 2020 10:20:14 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49334 "EHLO
+        id S1729325AbgHKR3n (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 11 Aug 2020 13:29:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50378 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728516AbgHKOUN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 11 Aug 2020 10:20:13 -0400
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E089DC06174A
-        for <linux-man@vger.kernel.org>; Tue, 11 Aug 2020 07:20:12 -0700 (PDT)
-Received: by mail-ej1-x644.google.com with SMTP id t10so8923716ejs.8
-        for <linux-man@vger.kernel.org>; Tue, 11 Aug 2020 07:20:12 -0700 (PDT)
+        with ESMTP id S1729218AbgHKR3l (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 11 Aug 2020 13:29:41 -0400
+Received: from mail-il1-x142.google.com (mail-il1-x142.google.com [IPv6:2607:f8b0:4864:20::142])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B07FBC06174A
+        for <linux-man@vger.kernel.org>; Tue, 11 Aug 2020 10:29:40 -0700 (PDT)
+Received: by mail-il1-x142.google.com with SMTP id c6so11379888ilo.13
+        for <linux-man@vger.kernel.org>; Tue, 11 Aug 2020 10:29:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
+        d=sysmgr.org; s=google;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=VtVNUXL/pcdG1uzLUlw0dL+8bXGpofZHcxiTfjeo5mY=;
-        b=mTcI9lNn7p4ScJNSgzMtlrYCH/QfMpo6KStZwWtrFavM2PdimJaoRX93OPFK1vDG1H
-         WUIet6D6Bt9fzbIr1t3J5qgGEMGMywZQwsD01mQ2HRCvFFBrtJbf70V3HvGp6ja+KSoS
-         MUJldwWFBHIThsEakVZsLP0wDVXbVIyXnL/cHyLhXtT+vcsImathZ0/E9JoReKU+ys1q
-         9FgGciEB79zHVeo8kWYiwLLNSohRlu6G2ckqwnv1WdORZ60PAfXLm6+F58tjtpD2PLrR
-         5WK5nDzV0CT1HFilcSV2za5+myvbqmlX5ED3ooQEJPNNtOBXtr3UxADboS7oE1nMeBUw
-         hBIw==
+        bh=/s61rSkiOseXW43LDVy/P9Oy+oq8rWhujfDX8qCU1h4=;
+        b=UDlGHm2pjRvylzP/6YeuLoNZoSiQfXFLwmZ0EZ7kpkde7RlkcW7BvcgUD+/kLLpcCp
+         KtEHDyRkOEavyEYFj7pGDdN0nqGSq+ita81SPL0x6vy3tsd8kuARpO8maCsGKaXVnXzF
+         I81bQrCSHe4MEs+9IfmyY/EGR/9AJmP7lRh2n4r50CiB8e4TxzeNyp3MErdgxhdc88i+
+         RJ1pHtb6xjLpMXuw7FYqr1kJKckh7AijJ7WFMzfNHo5rpOrxkDSEGMY3uiBsQ4VMysB6
+         EhgebXDsuLZuMCQwvWMU7saaMzk9ZDewrakYH8Tzwo79IzIknT5E6iF/UDYddoUzRWlJ
+         748w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=VtVNUXL/pcdG1uzLUlw0dL+8bXGpofZHcxiTfjeo5mY=;
-        b=TZS42YRov7j6sQvnv3A8zrllz5KM+a8t+vjkML9nOQLoaj1bWrg+dFTqCulcCGGM9f
-         l37nDzTmXg/D3oIvBDw+ioFSPwhFCivbZHuVAzxaLQSXM9KHNKoSEpm7L3u2ydsZRfw2
-         kBXgBN/8lm8KmKmbvIx/MgOQQ9SNEdbGIkdDcXuqGgM50P5VPKK6QMmE/swexvki1SPf
-         0IbMPEkBZNoxjyOk/WXRXCdUi4uuMvcieGdvFHVlMNlv0shPOLDL5HacPxC8mPfnZImU
-         NoieUp00irfr3punyx4CJzyenxMJV5DcfgHCb9DUb3k5QWbU0gcu2b1GwYVXuz6W2186
-         mwjg==
-X-Gm-Message-State: AOAM532z/rxfHsL0RSC0018+KsEddGvpJ6TpGfQtRl21QZ/JuZq3vrth
-        X+0BWygG0OzLAKXZSs9F+eognTW8ucRdrvlJ5Fuqv3JWmDc=
-X-Google-Smtp-Source: ABdhPJzGr3Ua/nn4H6XA11I12hDbLwgfj64UyuqIyfU/w9K3LJacuMx9/xLIRkhU7WmC61mHlpxKIjzV/buoa+DCo/I=
-X-Received: by 2002:a17:907:20db:: with SMTP id qq27mr27739976ejb.550.1597155611674;
- Tue, 11 Aug 2020 07:20:11 -0700 (PDT)
+        bh=/s61rSkiOseXW43LDVy/P9Oy+oq8rWhujfDX8qCU1h4=;
+        b=kQNE4gehg22NIXaaf39pS+zW9DZh9IrBhgB9+PAIvh5KjMabAvDFhIjoRlCLJuIv81
+         o6+rALRl27iKC0FvbnAJS2s0KTvk27S56cZL/OqRdnEOnBsRl/rxsqp7fysq9WzmguKd
+         zJpa11ZriMG9NW8FJ+sQmvurJhJVPebdBy+OQY26Knyw1wuMitCGBhUtF/z/l1tS3D4t
+         9VB9DZgcrSRvk9mk5nuKy+0hJD/shT6rharApdRTwVYEbgv7b0PxgGu5oXatK+AoTncP
+         g+h+Z+ep5KcZUpTROwkOz711vXzI3cf/+bLnvMg+CQFHByQDPOCNK7OnWdhxf9KB0rLN
+         wwMg==
+X-Gm-Message-State: AOAM5332vrrT+QZFa9S1B1FB3MiG0OG7yz4eFqbGkXxaT7Qmiv3TMYML
+        FaH2qwImmag0MtfgcbOdpF0MDuWr2WozWzU41QloOw==
+X-Google-Smtp-Source: ABdhPJyWhh/e2gkCYOwRBEa4F54GILxf967/r99zhgu+YxuneQzyf4c75YqS4LbXeIp4JrnhT98aal7WuwA9y9caKlk=
+X-Received: by 2002:a92:4a02:: with SMTP id m2mr8730961ilf.258.1597166980101;
+ Tue, 11 Aug 2020 10:29:40 -0700 (PDT)
 MIME-Version: 1.0
 References: <CALxWeYrisuzEPVEHOQSFJ8G_=8-VTAOTNBquyszOZMid7YfT=Q@mail.gmail.com>
- <6425d636-7f48-3a73-ef0e-7bb5b991360c@gmail.com> <20200810135821.GA11918@panix.com>
- <3ace6e62-d3cc-ef7b-56b2-9b6b5c724d5b@gmail.com> <20200811115121.GA29807@panix.com>
-In-Reply-To: <20200811115121.GA29807@panix.com>
-From:   Michael Kerrisk <mtk.manpages@gmail.com>
-Date:   Tue, 11 Aug 2020 16:20:00 +0200
-Message-ID: <CALxWeYo=h6D3GDrGVLER7amw8S1XoVq2KuDT9u_D=zV3oDreDg@mail.gmail.com>
+ <6425d636-7f48-3a73-ef0e-7bb5b991360c@gmail.com> <722119e5-9047-7c47-0d1c-2afeb946d5ca@gmail.com>
+In-Reply-To: <722119e5-9047-7c47-0d1c-2afeb946d5ca@gmail.com>
+From:   "Joshua M. Clulow" <josh@sysmgr.org>
+Date:   Tue, 11 Aug 2020 10:29:28 -0700
+Message-ID: <CAEwA5nKtyJTnQEXZZaiHywTpfDCprmupnCiq9kf5oupV7iG8RA@mail.gmail.com>
 Subject: Re: Pseudoterminal terminology in POSIX
-To:     Thor Lancelot Simon <tls@netbsd.org>
-Cc:     Larry Dwyer <larryd.kbd@gmail.com>,
+To:     mtk.manpages@gmail.com
+Cc:     Larry Dwyer <larryd.kbd@gmail.com>, austin-group-l@opengroup.org,
         Florian Weimer <fweimer@redhat.com>,
         linux-man <linux-man@vger.kernel.org>,
-        Geoff Clare <gwc@opengroup.org>, austin-group-l@opengroup.org,
         Andrew Josey <ajosey@opengroup.org>,
         libc-alpha <libc-alpha@sourceware.org>,
         Elliot Hughes <enh@google.com>,
@@ -67,31 +65,35 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Aug 11, 2020 at 1:51 PM Thor Lancelot Simon via austin-group-l
-at The Open Group <austin-group-l@opengroup.org> wrote:
+On Tue, 11 Aug 2020 at 01:33, Michael Kerrisk man-pages via
+austin-group-l at The Open Group <austin-group-l@opengroup.org> wrote:
+> On 8/9/20 1:18 AM, Larry Dwyer via Libc-alpha wrote:
+> > How about the "control" side and the "terminal" side (of the paired
+> > device files)?
 >
-> On Tue, Aug 11, 2020 at 10:31:58AM +0200, Michael Kerrisk (man-pages) wrote:
-> > On 8/10/20 3:58 PM, Thor Lancelot Simon wrote:
-> > > On Sat, Aug 08, 2020 at 04:18:10PM -0700, Larry Dwyer via austin-group-l at The Open Group wrote:
-> > >> How about the "control" side and the "terminal" side (of the paired device
-> > >> files)?
-> > >
-> > > How about the "pty side" and the "tty side"?  It seems hard to be more
-> > > neutral than that and we can be sure there is no ambiguity.
-> >
-> > This is an option that came up in the glibc/Linux man-pages discussion.
-> > My objection is that I want proper nouns that one can use in a prose
-> > description of pseudoterminals.
->
-> All names are proper nouns.
->
-> They might not be the particular proper nouns that we're used to seeing,
-> but they are still proper nouns!
+> Thanks for the suggestion. As far as I'm concerned, that would
+> also be an option worth considering.
 
-Let me clarify then: my preference is to have natural language nouns,
-words that a speaker who was unfamiliar with the domain would know (or
-could reasonably guess) how to pronounce when reading them.
+I work on the illumos project and a few of us have been having a
+(not yet public) discussion about this lately as well.  I think the
+best one we could think of was:
 
-Thanks,
+    the "control" side for the result of posix_openpt()
 
-Michael
+    the "subordinate" side for the result of ptsname() and open(),
+    "/dev/pts" still makes sense, etc
+
+    we would rename our "/dev/ptmx" device file the "manager
+    driver" rather than the "master"
+
+We would strongly consider using the same shift as other projects,
+but I think only if they actually make sense; e.g., the "terminal"
+and "pseudoterminal" end doesn't really stand out as completely
+clear.
+
+
+Cheers.
+
+-- 
+Joshua M. Clulow
+http://blog.sysmgr.org
