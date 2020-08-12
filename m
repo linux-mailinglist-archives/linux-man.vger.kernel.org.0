@@ -2,98 +2,103 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 933C3241F3B
-	for <lists+linux-man@lfdr.de>; Tue, 11 Aug 2020 19:29:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 70E9E24263A
+	for <lists+linux-man@lfdr.de>; Wed, 12 Aug 2020 09:43:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729325AbgHKR3n (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 11 Aug 2020 13:29:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50378 "EHLO
+        id S1726479AbgHLHnP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 12 Aug 2020 03:43:15 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40474 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729218AbgHKR3l (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 11 Aug 2020 13:29:41 -0400
-Received: from mail-il1-x142.google.com (mail-il1-x142.google.com [IPv6:2607:f8b0:4864:20::142])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B07FBC06174A
-        for <linux-man@vger.kernel.org>; Tue, 11 Aug 2020 10:29:40 -0700 (PDT)
-Received: by mail-il1-x142.google.com with SMTP id c6so11379888ilo.13
-        for <linux-man@vger.kernel.org>; Tue, 11 Aug 2020 10:29:40 -0700 (PDT)
+        with ESMTP id S1726255AbgHLHnP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 12 Aug 2020 03:43:15 -0400
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 160F0C06174A
+        for <linux-man@vger.kernel.org>; Wed, 12 Aug 2020 00:43:15 -0700 (PDT)
+Received: by mail-wr1-x42d.google.com with SMTP id z18so1057544wrm.12
+        for <linux-man@vger.kernel.org>; Wed, 12 Aug 2020 00:43:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sysmgr.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=/s61rSkiOseXW43LDVy/P9Oy+oq8rWhujfDX8qCU1h4=;
-        b=UDlGHm2pjRvylzP/6YeuLoNZoSiQfXFLwmZ0EZ7kpkde7RlkcW7BvcgUD+/kLLpcCp
-         KtEHDyRkOEavyEYFj7pGDdN0nqGSq+ita81SPL0x6vy3tsd8kuARpO8maCsGKaXVnXzF
-         I81bQrCSHe4MEs+9IfmyY/EGR/9AJmP7lRh2n4r50CiB8e4TxzeNyp3MErdgxhdc88i+
-         RJ1pHtb6xjLpMXuw7FYqr1kJKckh7AijJ7WFMzfNHo5rpOrxkDSEGMY3uiBsQ4VMysB6
-         EhgebXDsuLZuMCQwvWMU7saaMzk9ZDewrakYH8Tzwo79IzIknT5E6iF/UDYddoUzRWlJ
-         748w==
+        d=gmail.com; s=20161025;
+        h=from:subject:to:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=S1eFJHWccNqRhxKZ3Sn6oKbyr9JFOl2Licf8x9zCqng=;
+        b=Mh9NQwn/U4ffBLzG1nxliRhA0i5QsMCh0DWVyPZCvXZaXu7+S3GNicJqStcEUE8MQZ
+         x87G+LrHMFu2WxZfz0GWKBwEtG82ZOqTRXWq/ekvYIlIBejegiqT7dxkQsNAkTXNz1O5
+         VXPd9T3I66nOmKQjPfq7SVGAvspZw0p8E5BL9CSmDGobQgkPjc8hJmr55rvN7xJ+rIrp
+         //0SUGOCMsx54EDFoemMYDavzcw9P82n1VuTF814yVlM+4+EmEQjfa6OR8JwVzHvEDsA
+         LwJqeimybfI0za6dvrQxMS1eEL7sF4oip4ps8pvMBxzdysRXKLSdiQPR9ZqKdqctMjuz
+         mttQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=/s61rSkiOseXW43LDVy/P9Oy+oq8rWhujfDX8qCU1h4=;
-        b=kQNE4gehg22NIXaaf39pS+zW9DZh9IrBhgB9+PAIvh5KjMabAvDFhIjoRlCLJuIv81
-         o6+rALRl27iKC0FvbnAJS2s0KTvk27S56cZL/OqRdnEOnBsRl/rxsqp7fysq9WzmguKd
-         zJpa11ZriMG9NW8FJ+sQmvurJhJVPebdBy+OQY26Knyw1wuMitCGBhUtF/z/l1tS3D4t
-         9VB9DZgcrSRvk9mk5nuKy+0hJD/shT6rharApdRTwVYEbgv7b0PxgGu5oXatK+AoTncP
-         g+h+Z+ep5KcZUpTROwkOz711vXzI3cf/+bLnvMg+CQFHByQDPOCNK7OnWdhxf9KB0rLN
-         wwMg==
-X-Gm-Message-State: AOAM5332vrrT+QZFa9S1B1FB3MiG0OG7yz4eFqbGkXxaT7Qmiv3TMYML
-        FaH2qwImmag0MtfgcbOdpF0MDuWr2WozWzU41QloOw==
-X-Google-Smtp-Source: ABdhPJyWhh/e2gkCYOwRBEa4F54GILxf967/r99zhgu+YxuneQzyf4c75YqS4LbXeIp4JrnhT98aal7WuwA9y9caKlk=
-X-Received: by 2002:a92:4a02:: with SMTP id m2mr8730961ilf.258.1597166980101;
- Tue, 11 Aug 2020 10:29:40 -0700 (PDT)
+        h=x-gm-message-state:from:subject:to:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=S1eFJHWccNqRhxKZ3Sn6oKbyr9JFOl2Licf8x9zCqng=;
+        b=jeD6dOgPqQK3f6rPenDvYVsqQj8J9J7d1U+PkD+I3I6tyuRVDlKiWPi6qRF42zWSlr
+         KVfSbgsoTATiz+jfpEHYhzdtJPSw97uCDmXIa/jNvnXLerY1Gfi6umm9l3Sdys4/50fP
+         IcS21MO+HMlD2ONBlgWi1YTcT0SGKHDrk9SgvUsPy8sa4omifWvjajAy8G8TMyRBzsD4
+         5D5g5a2ztUO44jo8/Dblo+L6wSJUJYYEaFl7yxXkrUdSPYxWLcZNDnF1O5N78wf1YGbs
+         7TEMN/QW3U/nyilzJ74HsqS0IRZ4agUxVKEuKI3RqWS4OSd8PIC3abhn8eb1GrKV2jlT
+         6LNQ==
+X-Gm-Message-State: AOAM533gqjHV4o0I77vRBNbKXYpELlEtN1tsBwLQ7F2o3RQtnWJ1V6U5
+        Lq8yNjErYozOB9awJVcZnnqkBIFoR+w=
+X-Google-Smtp-Source: ABdhPJylhqJNAZ1onvrkssLrgtdn7xC/9LHSBtyGg/jOKgfd0jK/qTDrr9lpp4cP61pCrMTelU/DfQ==
+X-Received: by 2002:a5d:6702:: with SMTP id o2mr31966820wru.364.1597218193355;
+        Wed, 12 Aug 2020 00:43:13 -0700 (PDT)
+Received: from [192.168.1.143] ([170.253.60.68])
+        by smtp.gmail.com with ESMTPSA id 3sm2234372wms.36.2020.08.12.00.43.12
+        for <linux-man@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2020 00:43:12 -0700 (PDT)
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+Subject: [patch] queue.3: Remove wrong code from example
+To:     linux-man@vger.kernel.org
+Message-ID: <82f99243-d624-1122-2b20-a4f1e6eb68cc@gmail.com>
+Date:   Wed, 12 Aug 2020 09:43:11 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-References: <CALxWeYrisuzEPVEHOQSFJ8G_=8-VTAOTNBquyszOZMid7YfT=Q@mail.gmail.com>
- <6425d636-7f48-3a73-ef0e-7bb5b991360c@gmail.com> <722119e5-9047-7c47-0d1c-2afeb946d5ca@gmail.com>
-In-Reply-To: <722119e5-9047-7c47-0d1c-2afeb946d5ca@gmail.com>
-From:   "Joshua M. Clulow" <josh@sysmgr.org>
-Date:   Tue, 11 Aug 2020 10:29:28 -0700
-Message-ID: <CAEwA5nKtyJTnQEXZZaiHywTpfDCprmupnCiq9kf5oupV7iG8RA@mail.gmail.com>
-Subject: Re: Pseudoterminal terminology in POSIX
-To:     mtk.manpages@gmail.com
-Cc:     Larry Dwyer <larryd.kbd@gmail.com>, austin-group-l@opengroup.org,
-        Florian Weimer <fweimer@redhat.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Andrew Josey <ajosey@opengroup.org>,
-        libc-alpha <libc-alpha@sourceware.org>,
-        Elliot Hughes <enh@google.com>,
-        Joseph Myers <joseph@codesourcery.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, 11 Aug 2020 at 01:33, Michael Kerrisk man-pages via
-austin-group-l at The Open Group <austin-group-l@opengroup.org> wrote:
-> On 8/9/20 1:18 AM, Larry Dwyer via Libc-alpha wrote:
-> > How about the "control" side and the "terminal" side (of the paired
-> > device files)?
->
-> Thanks for the suggestion. As far as I'm concerned, that would
-> also be an option worth considering.
+There was code containing ``CIRCLEQ_*`` in the examples for ``TAILQ_*``. 
+  It was introduced by accident in commit ``041abbe``.
 
-I work on the illumos project and a few of us have been having a
-(not yet public) discussion about this lately as well.  I think the
-best one we could think of was:
+ From 0c9dfbe9b1ce1130e9a92d1a16fbecd4a08bbe29 Mon Sep 17 00:00:00 2001
+From: Alejandro Colomar <colomar.6.4.3@gmail.com>
+Date: Wed, 12 Aug 2020 09:11:27 +0200
+Subject: [PATCH] queue.3: Remove wrong code from example
 
-    the "control" side for the result of posix_openpt()
+Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+---
+  man3/queue.3 | 12 ------------
+  1 file changed, 12 deletions(-)
 
-    the "subordinate" side for the result of ptsname() and open(),
-    "/dev/pts" still makes sense, etc
+diff --git a/man3/queue.3 b/man3/queue.3
+index ff1f42f3a..260a5b8a5 100644
+--- a/man3/queue.3
++++ b/man3/queue.3
+@@ -1219,18 +1219,6 @@ while (n1 != NULL) {
+  }
 
-    we would rename our "/dev/ptmx" device file the "manager
-    driver" rather than the "master"
-
-We would strongly consider using the same shift as other projects,
-but I think only if they actually make sense; e.g., the "terminal"
-and "pseudoterminal" end doesn't really stand out as completely
-clear.
-
-
-Cheers.
-
+  TAILQ_INIT(&head);
+-n2 = malloc(sizeof(struct entry));  /* Insert before. */
+-CIRCLEQ_INSERT_BEFORE(&head, n1, n2, entries);
+-                                    /* Forward traversal. */
+-for (np = head.cqh_first; np != (void *)&head;
+-        np = np\->entries.cqe_next)
+-    np\-> ...
+-                                    /* Reverse traversal. */
+-for (np = head.cqh_last; np != (void *)&head; np = np\->entries.cqe_prev)
+-    np\-> ...
+-                                    /* Delete. */
+-while (head.cqh_first != (void *)&head)
+-    CIRCLEQ_REMOVE(&head, head.cqh_first, entries);
+  .Ed
+  .Sh CONFORMING TO
+  Not in POSIX.1, POSIX.1-2001 or POSIX.1-2008.
 -- 
-Joshua M. Clulow
-http://blog.sysmgr.org
+2.28.0
