@@ -2,65 +2,54 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 50176245532
-	for <lists+linux-man@lfdr.de>; Sun, 16 Aug 2020 03:43:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5181A24562E
+	for <lists+linux-man@lfdr.de>; Sun, 16 Aug 2020 07:58:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728706AbgHPBna (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 15 Aug 2020 21:43:30 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53430 "EHLO
+        id S1729292AbgHPF6r (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 16 Aug 2020 01:58:47 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35836 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728111AbgHPBn3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Aug 2020 21:43:29 -0400
-Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com [IPv6:2a00:1450:4864:20::242])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C1506C061786
-        for <linux-man@vger.kernel.org>; Sat, 15 Aug 2020 18:43:28 -0700 (PDT)
-Received: by mail-lj1-x242.google.com with SMTP id h19so13744725ljg.13
-        for <linux-man@vger.kernel.org>; Sat, 15 Aug 2020 18:43:28 -0700 (PDT)
+        with ESMTP id S1728715AbgHPF6q (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 16 Aug 2020 01:58:46 -0400
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com [IPv6:2607:f8b0:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6FE89C061786;
+        Sat, 15 Aug 2020 22:58:46 -0700 (PDT)
+Received: by mail-pf1-x444.google.com with SMTP id d22so6558834pfn.5;
+        Sat, 15 Aug 2020 22:58:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=Bq4OvIdUwJpvYSOGzcS+78yeINRY4Kp3Rheq3HGXWqA=;
-        b=RGJPE4Vt9YCW6xMiFm6gOV/bpmeJj1OTOb3RWIIa/uoStX7cdU2zvwR+F8W1W2Mapj
-         PGU0b/7unQXLaJIOsdd7078nTUQmAoAP3BsQQEO7rza76S3TkrPaWumXMHldka7FYVOV
-         +PjpXtJcaiT/r/4sadt4O/2YE2jZR00WJ0dys=
+        d=gmail.com; s=20161025;
+        h=sender:date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=xfDUny3k7daRnnu+JmgS0reVwLpN25X4sfvcLKXBtAY=;
+        b=ppr1dL0afMTfeBMU26Ry6HP9oZgglRKtNXSzJ7/C2unWRWOjOfrudYAY98QPyjnB+8
+         KIkp0LJfbgdfUOFPsq749IFMhQXRyB23vjAH6e8290xQ9AJMYN5AGhvbVUmAafOQ3OGu
+         FVINmTGVIZQRG5XMcuqQdSYeZPcU237+rA6dOJ9V0TWX2J1keaOgRunsNmsJdzKnSNPm
+         UthjvBaJEsXtk8v82DDswyO7J1uNftajGvJscJ4sxfAOjiPX4on2zqVlE4oEcUfm/KVS
+         oMtwYYila44C6wvcsml0MiBEkBwUqMpzv6Scx7GTF/LrU8XRcvpyS3YwBPWthvCPq9OC
+         mHsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=Bq4OvIdUwJpvYSOGzcS+78yeINRY4Kp3Rheq3HGXWqA=;
-        b=tKPgFmTh14XCFQ2o1DuXaqCD1+ONpuLdNGfk6G32kLCVAqPah4p8JL6v3f5vPQAKeS
-         MxqdD0AEKao62Hnwla3f46cGNv6JpspZoK3mLtwDojWRGwWZEUCZhDPMQsgjj3x+uMnJ
-         Fm9u6zSiZzf5ZrXI1BAZxBHYnDoav3hCwvlrRXSKo/CElljrNMqsQp+6dWzpuy85GMnv
-         AQG5WMMDBFN3mWUgOQM+lS4E/DBSp6cSwxZ4d/6q4Xk30i0bladcpckSRd1ZQIcQ2FWw
-         SbgLNFAbLRs1QuvJ7wXjxe4UUTzjHysje1zg9Ng+nXhIeDI14Xehn1qLQBYcXYVE+Mqb
-         kDQg==
-X-Gm-Message-State: AOAM530cU5BuK5ZmNTSxt9jUfpHTyc7EazZYuQOtzjhkT+9gtZG1XUXm
-        z/myN6Y6eRE3oRTkLfd2kLNt0ZJG2iVv/A==
-X-Google-Smtp-Source: ABdhPJzFM/Qp8G56RpBI6dTNBaTdv20uNv/CrRbd22dVqvvvh7BzgevdMM+ysxE7yEtRAf3ROUQbmA==
-X-Received: by 2002:a2e:5c5:: with SMTP id 188mr4193654ljf.466.1597542206724;
-        Sat, 15 Aug 2020 18:43:26 -0700 (PDT)
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com. [209.85.167.47])
-        by smtp.gmail.com with ESMTPSA id t20sm2956503ljd.12.2020.08.15.18.43.24
-        for <linux-man@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 15 Aug 2020 18:43:25 -0700 (PDT)
-Received: by mail-lf1-f47.google.com with SMTP id b30so6625290lfj.12
-        for <linux-man@vger.kernel.org>; Sat, 15 Aug 2020 18:43:24 -0700 (PDT)
-X-Received: by 2002:a19:408d:: with SMTP id n135mr4357315lfa.192.1597542204274;
- Sat, 15 Aug 2020 18:43:24 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200814172939.55d6d80b6e21e4241f1ee1f3@linux-foundation.org>
- <20200815003102.dzZiwVm-K%akpm@linux-foundation.org> <CAHk-=wgZ6ZgRWRm0rGgLkYR-_XwKeuWxwbkBWxmCOzt7dGxWpg@mail.gmail.com>
- <20200815045900.GA2936603@google.com> <CAHk-=whZCVE_dtkjuCeJnDQxVAvUKASyP9xS16YqQNOm_yz3Sg@mail.gmail.com>
- <20200815183456.GB2936603@google.com>
-In-Reply-To: <20200815183456.GB2936603@google.com>
-From:   Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Sat, 15 Aug 2020 18:43:08 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wja2pDFa1cqwOW8R5bMVNmNMUv+AAdYuyn7ZOniq+eu6w@mail.gmail.com>
-Message-ID: <CAHk-=wja2pDFa1cqwOW8R5bMVNmNMUv+AAdYuyn7ZOniq+eu6w@mail.gmail.com>
-Subject: Re: [patch 18/39] mm/madvise: check fatal signal pending of target process
-To:     Minchan Kim <minchan@kernel.org>
+        h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+         :references:mime-version:content-disposition:in-reply-to;
+        bh=xfDUny3k7daRnnu+JmgS0reVwLpN25X4sfvcLKXBtAY=;
+        b=s7IWZnWiQYyEcBUwZhEj1YiP+3qMt5cQkSXeyiOrX/CbRH09D5YFy/2cKwwFp46dVw
+         DUk33IonvrhPz0Ne9pe2I2tEbIkQrBacdBnjj4sD2BG9wmD2cCQnYnNO+PzFRVdA10lc
+         zX30I3kHIfDJg1tes41/GsGV3Y5uaYErpfc2WgPVymYu98Zd988A1ZEmZdWDjuNRokuV
+         VPlDwuYH9b0LiRroIPzYuAx4XZV/x3cxLJQbGu3T0hoBrLPR1yjYs56jEvsfJodNmgf4
+         w0Y7mrFXlFE2wT8n24Tq9CiEApwvSAbMtnRM0BE+M1Rbpm/oLG7ZGoTmVxCYlyTyHDm3
+         On4w==
+X-Gm-Message-State: AOAM53018dygzrmlt0S29H4e5sxmVVFfntBqBKwMr/PN+wFiHS/vGD/I
+        S7IsHvDZl9HjQXlT+x5/X+b5b8HDlQM=
+X-Google-Smtp-Source: ABdhPJxgN2Swg5sZvzFSSyw6l9VUX6BEV7hl0Vqn3E5mwWLJ7Jk5lpNsmVi6MdmVjWmcddXQ4R662g==
+X-Received: by 2002:a63:cd56:: with SMTP id a22mr6204061pgj.259.1597557525701;
+        Sat, 15 Aug 2020 22:58:45 -0700 (PDT)
+Received: from google.com ([2620:15c:211:1:7220:84ff:fe09:5e58])
+        by smtp.gmail.com with ESMTPSA id 74sm13319854pfv.191.2020.08.15.22.58.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 15 Aug 2020 22:58:44 -0700 (PDT)
+Date:   Sat, 15 Aug 2020 22:58:42 -0700
+From:   Minchan Kim <minchan@kernel.org>
+To:     Linus Torvalds <torvalds@linux-foundation.org>
 Cc:     Andrew Morton <akpm@linux-foundation.org>,
         Alexander Duyck <alexander.h.duyck@linux.intel.com>,
         Jens Axboe <axboe@kernel.dk>,
@@ -83,44 +72,71 @@ Cc:     Andrew Morton <akpm@linux-foundation.org>,
         Suren Baghdasaryan <surenb@google.com>,
         Tim Murray <timmurray@google.com>,
         Vlastimil Babka <vbabka@suse.cz>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [patch 18/39] mm/madvise: check fatal signal pending of target
+ process
+Message-ID: <20200816055842.GC2936603@google.com>
+References: <20200814172939.55d6d80b6e21e4241f1ee1f3@linux-foundation.org>
+ <20200815003102.dzZiwVm-K%akpm@linux-foundation.org>
+ <CAHk-=wgZ6ZgRWRm0rGgLkYR-_XwKeuWxwbkBWxmCOzt7dGxWpg@mail.gmail.com>
+ <20200815045900.GA2936603@google.com>
+ <CAHk-=whZCVE_dtkjuCeJnDQxVAvUKASyP9xS16YqQNOm_yz3Sg@mail.gmail.com>
+ <20200815183456.GB2936603@google.com>
+ <CAHk-=wja2pDFa1cqwOW8R5bMVNmNMUv+AAdYuyn7ZOniq+eu6w@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wja2pDFa1cqwOW8R5bMVNmNMUv+AAdYuyn7ZOniq+eu6w@mail.gmail.com>
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sat, Aug 15, 2020 at 11:35 AM Minchan Kim <minchan@kernel.org> wrote:
->
-> > Now, it might be worth it to have some kind of "this mm is dying,
-> > don't bother" thing. We _kind_ of have things like that already in the
-> > form of the MMF_OOM_VICTIM flag (and TIF_MEMDIE is the per-thread
-> > image of it).
->
-> Maybe, we could use mm_struct's mm_users to check caller is exclusive
-> owner so that rest of all are existing.
+On Sat, Aug 15, 2020 at 06:43:08PM -0700, Linus Torvalds wrote:
+> On Sat, Aug 15, 2020 at 11:35 AM Minchan Kim <minchan@kernel.org> wrote:
+> >
+> > > Now, it might be worth it to have some kind of "this mm is dying,
+> > > don't bother" thing. We _kind_ of have things like that already in the
+> > > form of the MMF_OOM_VICTIM flag (and TIF_MEMDIE is the per-thread
+> > > image of it).
+> >
+> > Maybe, we could use mm_struct's mm_users to check caller is exclusive
+> > owner so that rest of all are existing.
+> 
+> Hmm. Checking mm_users sounds sane. But I think the /proc reference by
+> any get_task_mm() site will also count as a mm_user, so it's not quite
+> as useful as it could be.
+> 
+> In an optimal world, all the temporary "grab a reference to the mm"
+> would use mmgrab/mmdrop() that increments the mm_count, and "mm_users"
+> would mean the number of actual threads that are actively using it.
+> 
+> But that's not how it ends up working. mmgrab/mmdrop only keeps the
+> "struct mm_struct" around - it doesn't keep the vma's or the page
+> tables. So all the /proc users really do want to increase mm_users.
+> 
+> I don't see any obvious thing to check for that would be about "this
+> mm no longer makes sense to madvise on, because nobody cares any
+> more".
 
-Hmm. Checking mm_users sounds sane. But I think the /proc reference by
-any get_task_mm() site will also count as a mm_user, so it's not quite
-as useful as it could be.
+Yeah, there are bunch of places where makes false negaive potentially
+as well as proc but I expected it would be rather rare and even though
+it happens, finally, we can catch it up if they are temporally holding
+the refcount but our operation runs long.
+At worst case, it could make the operation void so we just wastes but
+when I consider the logic as optimization, it wouldn't be harmful to
+start with such *simple check* rather than adding more complication.
 
-In an optimal world, all the temporary "grab a reference to the mm"
-would use mmgrab/mmdrop() that increments the mm_count, and "mm_users"
-would mean the number of actual threads that are actively using it.
+If you still don't like the idea, at this point, I will drop the single
+patch as I mentioned because I don't think I have strong justification
+to add more complication here.
 
-But that's not how it ends up working. mmgrab/mmdrop only keeps the
-"struct mm_struct" around - it doesn't keep the vma's or the page
-tables. So all the /proc users really do want to increase mm_users.
+> 
+> > Please tell me if you found something weird in this patchset series
+> > so that in next cycle we could go smooth.
+> 
+> No, the only other thing that worried me was just possible locking,
+> but it looked like we already have all the "access page tables from
+> other processes" situations and it didn't seem to introduce anything
+> new in that respect.
 
-I don't see any obvious thing to check for that would be about "this
-mm no longer makes sense to madvise on, because nobody cares any
-more".
-
-> Please tell me if you found something weird in this patchset series
-> so that in next cycle we could go smooth.
-
-No, the only other thing that worried me was just possible locking,
-but it looked like we already have all the "access page tables from
-other processes" situations and it didn't seem to introduce anything
-new in that respect.
-
-                     Linus
+Thanks for the review, Linus.
