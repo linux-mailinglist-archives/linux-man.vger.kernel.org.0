@@ -2,71 +2,126 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7F7A62489EA
-	for <lists+linux-man@lfdr.de>; Tue, 18 Aug 2020 17:32:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2AE08248B34
+	for <lists+linux-man@lfdr.de>; Tue, 18 Aug 2020 18:11:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726585AbgHRPcp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 18 Aug 2020 11:32:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33802 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727020AbgHRPcl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Aug 2020 11:32:41 -0400
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com [IPv6:2a00:1450:4864:20::12e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EAAB8C061389
-        for <linux-man@vger.kernel.org>; Tue, 18 Aug 2020 08:32:40 -0700 (PDT)
-Received: by mail-lf1-x12e.google.com with SMTP id b30so10431782lfj.12
-        for <linux-man@vger.kernel.org>; Tue, 18 Aug 2020 08:32:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=BFFF3VWoncfe+Hj3FRWR5WHjZ4XQJ358pgRjNAVeVGA=;
-        b=CgHGO3wLw6Kwqv7854wVleA6HsP3HzuSX27l/m0J65K+F59PqDMMITqg1xBVUkC0Tk
-         pPmIzzYE6WO06TmRVqcB0o74MAbD4/jo2KUnvjxZVKQOZRMyxBkJ+H8AzXGu3WziaBZB
-         psA4FFTJ1i+0fsOBI17/mCYtNCjGjyq5gNF4OtewWKGtca4aOcQLxgiRf8tP821enoLy
-         rrAPgtsexIJom9zC35XJ567NhOcTtG1tJaiOXT88p0DTzIMnzIkt2G5Tdu2hF0M8jxWe
-         3+qnhtI6w2CcLNfjWSaITFy1Qf+B35OrYPgPdiWgwxjQG8ulv8Aoge7Pipzj65dl6lar
-         rM6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=BFFF3VWoncfe+Hj3FRWR5WHjZ4XQJ358pgRjNAVeVGA=;
-        b=LIbbVGipsvKtFqrtRCkA3//bLp3OZLp0oy1JWJqQmDC/SkVR/bGy3OnNfzO+hHiRQZ
-         ksyo60x38t7j+l9HHOyjRiiqfjfVopgu/pBRrgZD2nI4WEIPwCXhiUsPf+c83jAFOE0r
-         Uv/8VQX2/UbF8fUZLg41Cns/pAqpjz0dgsfx2Yw2gnn8c06yFPp8YBHykhexR8HqJCup
-         PbjamZHmtc4vVs3/ai8/Zr5KWrg3SUkNGDVqo3HxGSeNsn+STv+rCsfgzMdSDatgCeR+
-         i+uQJPlGr2wQUnBPWAd+vXlqP2LqZA/5+q3uiPxoq99iIIGCTor4BgawaUuK0L/w/ZEU
-         FATw==
-X-Gm-Message-State: AOAM533dthpPsd2TFpMjeogQuSEU9QrVI352nD5ynv1J4OiKUNUwPHsS
-        gNTSk3hgNWmk0H3uWbU983VheVFOdByQuZi4I4s=
-X-Google-Smtp-Source: ABdhPJxmeCfgELyjd24BR0m11nfjFRS62NLXzN6fQs8MskJ/nxAcyWUIckiKbmjk6GyYJYO8K75YjwXd+9quwcoSf1I=
-X-Received: by 2002:a19:ae0a:: with SMTP id f10mr9990141lfc.100.1597764759298;
- Tue, 18 Aug 2020 08:32:39 -0700 (PDT)
+        id S1726793AbgHRQK7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 18 Aug 2020 12:10:59 -0400
+Received: from foss.arm.com ([217.140.110.172]:44606 "EHLO foss.arm.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726779AbgHRQK7 (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 18 Aug 2020 12:10:59 -0400
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+        by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ED4AD1FB;
+        Tue, 18 Aug 2020 09:10:57 -0700 (PDT)
+Received: from arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+        by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9CFFD3F66B;
+        Tue, 18 Aug 2020 09:10:56 -0700 (PDT)
+Date:   Tue, 18 Aug 2020 17:10:54 +0100
+From:   Dave Martin <Dave.Martin@arm.com>
+To:     "Joshua M. Clulow" <josh@sysmgr.org>, mtk.manpages@gmail.com,
+        Larry Dwyer <larryd.kbd@gmail.com>,
+        Florian Weimer <fweimer@redhat.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        Andrew Josey <ajosey@opengroup.org>,
+        libc-alpha <libc-alpha@sourceware.org>,
+        Elliot Hughes <enh@google.com>,
+        Joseph Myers <joseph@codesourcery.com>,
+        austin-group-l@opengroup.org
+Subject: Re: Pseudoterminal terminology in POSIX
+Message-ID: <20200818161053.GC6642@arm.com>
+References: <CAEwA5nKtyJTnQEXZZaiHywTpfDCprmupnCiq9kf5oupV7iG8RA@mail.gmail.com>
+ <20200812131900.JbiVo%steffen@sdaoden.eu>
 MIME-Version: 1.0
-References: CAAJR7qZtkfZ+=vw5B-6Mmb_WhFfZkfTjJ0vaC3Q6u1v+up_PvA@mail.gmail.com <20200818152940.383D9C061342@lindbergh.monkeyblade.net>
-In-Reply-To: <20200818152940.383D9C061342@lindbergh.monkeyblade.net>
-From:   Rushil Umaretiya <rushilwiz@gmail.com>
-Date:   Tue, 18 Aug 2020 11:32:02 -0400
-Message-ID: <CAAJR7qbKpqVtHBKRKxV=cpzuJwsgtfnt-6vUMi3WbVBVbOTN9w@mail.gmail.com>
-Subject: Fwd: Undelivered Mail Returned to Sender
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200812131900.JbiVo%steffen@sdaoden.eu>
+User-Agent: Mutt/1.5.23 (2014-03-12)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Seems that I had html in the last one, 3rd time's the charm.
+On Wed, Aug 12, 2020 at 03:19:00PM +0200, Steffen Nurpmeso wrote:
+> Joshua M. Clulow via austin-group-l at The Open Group wrote in
+>  <CAEwA5nKtyJTnQEXZZaiHywTpfDCprmupnCiq9kf5oupV7iG8RA@mail.gmail.com>:
+>  |On Tue, 11 Aug 2020 at 01:33, Michael Kerrisk man-pages via
+>  |austin-group-l at The Open Group <austin-group-l@opengroup.org> wrote:
+>  |> On 8/9/20 1:18 AM, Larry Dwyer via Libc-alpha wrote:
+>  |>> How about the "control" side and the "terminal" side (of the paired
+>  |>> device files)?
+>  |>
+>  |> Thanks for the suggestion. As far as I'm concerned, that would
+>  |> also be an option worth considering.
+>  |
+>  |I work on the illumos project and a few of us have been having a
+>  |(not yet public) discussion about this lately as well.  I think the
+>  |best one we could think of was:
+>  |
+>  |    the "control" side for the result of posix_openpt()
+>  |
+>  |    the "subordinate" side for the result of ptsname() and open(),
+> 
+> You know, (In)Subordination has a very military touch, with
+> exclamation mark many may have heard it.  Also in traditional
+> (white western world) education as such.  Like in first the
+> pizzle, then the bull pizzle, maybe.  So to say.  In my ears this
+> sounds more aggressive and weird than slave, in a technical
+> combination of master/slave, ever could.
+> Also isn't it a bit submissive here; it is under control, but
+> other than that.
+> 
+>  |    "/dev/pts" still makes sense, etc
+>  |
+>  |    we would rename our "/dev/ptmx" device file the "manager
+>  |    driver" rather than the "master"
+>  |
+>  |We would strongly consider using the same shift as other projects,
+>  |but I think only if they actually make sense; e.g., the "terminal"
+>  |and "pseudoterminal" end doesn't really stand out as completely
+>  |clear.
+> 
+> Manager sounds strange here, i always liked manager/worker
+> terminologie for threads, and used them like that (and am the
+> opinion that .. but that is something different and has sailed),
+> but for a pseudo terminal?  I think that if the standard wants to
+> be future proof manager should be avoided.  These guys induce
+> strange, ruthless and devastating decisions which destroy life on
+> earth (as we used to know it), so i for one do not want to be
+> harassed by such a term.
 
-Small typo on sudo(8), as of 8/11/20, version in the options:
+Was this discussion concluded yet?
 
-     -B, --bell  Ring the bell as part of the password promp when a termina=
-l
-                 is present.  This option has no effect if an askpass pro=
-=E2=80=90
-                 gram is used.
+Question: was there ever an intention that a pty master-slave pair
+should resemble two real terminals connected to each other?  (e.g., two
+serial ports on the same machine, cabled together).
 
-somebody seemed to have missed a 't' in prompt
+
+POSIX seems pretty vague as to whether the pty master counts as a
+terminal or not.  In Linux, it has many but not all of the properties
+of a terminal.  It's not at all clear whether this is intentional, and
+I don't know whether other implementations behave similarly.
+
+The main distinctions I'm aware of are that the pty master cannot become
+the controlling terminal of any process, and that both master and slave
+have rather weird dialin/hangup semantics which appear rather ad-hoc and
+don't map nicely onto the behaviour of physical terminal lines.
+
+The master also has a few extra ioctls at its disposal for managing the
+pair.
+
+Other stuff does work identically on the pty master and slave though,
+such as setting termios modes.  I have a vague memory of successfully
+setting ECHO on both ends...
+
+
+IMHO, the real problem here is that pty devices are underspecified,
+and counterintuitive in some areas.  Changing the nomenclature won't fix
+that.
+
+Plus, renaming things won't kill off the old terminology, and with both
+naming schemes in circulation, people are likely to be even more
+confused than they were to start with, no?
+
+Cheers
+---Dave
