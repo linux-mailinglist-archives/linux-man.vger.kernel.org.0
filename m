@@ -2,260 +2,763 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A82DF24D166
-	for <lists+linux-man@lfdr.de>; Fri, 21 Aug 2020 11:25:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 14B4924D599
+	for <lists+linux-man@lfdr.de>; Fri, 21 Aug 2020 14:59:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728377AbgHUJZD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 21 Aug 2020 05:25:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53460 "EHLO
+        id S1726975AbgHUM7v (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 21 Aug 2020 08:59:51 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58550 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725806AbgHUJZA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Aug 2020 05:25:00 -0400
-Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com [IPv6:2607:f8b0:4864:20::d43])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C06A0C061385;
-        Fri, 21 Aug 2020 02:25:00 -0700 (PDT)
-Received: by mail-io1-xd43.google.com with SMTP id g13so1069217ioo.9;
-        Fri, 21 Aug 2020 02:25:00 -0700 (PDT)
+        with ESMTP id S1728721AbgHUM7l (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Aug 2020 08:59:41 -0400
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 60404C061385
+        for <linux-man@vger.kernel.org>; Fri, 21 Aug 2020 05:59:41 -0700 (PDT)
+Received: by mail-wr1-x42d.google.com with SMTP id d16so1833626wrq.9
+        for <linux-man@vger.kernel.org>; Fri, 21 Aug 2020 05:59:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=pMdNY3sv9mJXm4dWbAhnEfdGoUuG/B2UyNnuHuc9KrQ=;
-        b=fLO0TSGExzN8cxNQ+HY4Uv30yWCIgeN+YLPICKZFNRU3rnQbPtidPt12hSV2xyv10f
-         mtC6t4iAD/s8oUH9+VKkE9kxfAduMByf0LrD+665cQ41y2CLQqXNqBnGc20dFCh/mRPl
-         rHdk5YDiN5AcW0tBZ+d9EMKzkVQsEJyDWfj753CqyvC/8HQFsbp83baFAv9J9Iu2FpHK
-         eZhzIBpwoX8cdlw9pLVUZA8ZpcjatF8w6Cl+0JNG2OPyScvMtRS8H+GtNlYpgen4Uq8k
-         zaeVxVRECCXVtPdTD6DC6Vg+6ut6PawPsEF1lnTfdwR2XLjXmzv8nB0rGWYg3O+6TvCj
-         DFbg==
+        h=to:cc:from:subject:message-id:date:user-agent:mime-version
+         :content-language;
+        bh=kLYWOdcdqn5TgjLgLo7f5oVX510m0kkIBxscsEzS5dA=;
+        b=Jb5L//sQNtTMZOz8lmJElW779xJjJ84hcWy3CJ0/oR9lksbPkEJT2eSAgv/d/d3FxK
+         X3kUXWXy4vthhPIijYQWH1WuyCyKwgFfJOgv3FRsNiXp4ylBilEh97OIcLVdKfcTmDnE
+         tHaxGwvXQVjdjq6lHeQMxS3HPHE8Xc7FVk3NimxfHORamio9wWaFveKDqkqYIitVuv0C
+         a6Gi6fx/5uR8qm+syZ6VoMsTzGBU2qfjw5qVvnfAWdZoUtA4O7tNJrx6rbZwLxGkVZ7x
+         PZTlFSk9Keou0/uOK9gCTPJtEEOUi19gdxXw9Ce1M7NJdcqB42XuU4H42WeJiyMMovLn
+         +eJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=pMdNY3sv9mJXm4dWbAhnEfdGoUuG/B2UyNnuHuc9KrQ=;
-        b=f9+3VOQB6i7ZH8R0SQDfZiRKWhP6Mi1+xHpgy9ffkA3ppuCq+h/EGK73COsGcMHuE9
-         xRShxBYykfUwVuL9V0YWs+TysKaa7RMR84vRYTmFE/oifHwkbni1blXXg5601v6kpdU+
-         8lp1JLS7aWaeBtioB5ybItxWyacmDXEPUDaPe5CO0vcXv81kii62DEyiXhlRk9u8X53d
-         6/xnW6JphIEIkI/bZrCP6iz5C4+80peJCs949h0XtTboG5b/n4JZDi0Gg+R0adH4euN2
-         HoJ+qYqbiow6BqCOHDvwvyMurT2EgpKu/4SisxxBVjociFznknPgCOG1bg4MkvR23nZm
-         dODA==
-X-Gm-Message-State: AOAM530/mJxr4hnOpFb81weRimd0TJ+ZTlkYa9J5VnA/WCmvOWxw+ryt
-        uvBB/1vf66Hyl73g4TiEVvLG/lBJ1QKNK0ic3T8=
-X-Google-Smtp-Source: ABdhPJyLT/ftjg3C32lOMXRnk+cpBoBzYYYxiYa7eVyvpwipOeqTw+HhHTsQEVY0uwjyfwdW3GPNbyPdeq7FZujEgw0=
-X-Received: by 2002:a5e:980f:: with SMTP id s15mr1707909ioj.5.1598001899978;
- Fri, 21 Aug 2020 02:24:59 -0700 (PDT)
+        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+         :mime-version:content-language;
+        bh=kLYWOdcdqn5TgjLgLo7f5oVX510m0kkIBxscsEzS5dA=;
+        b=arAkbDjU2Iw1Zm+wrwDSnVkM4SQcT+lPgKK9eL3sCysnmbiyhKlzyGgubvJ9PO/D0U
+         6tlGvo0uZSLdBF+kMGpeXlkhDWrs2nqrKvNLoi4BCNVuhQXLTtIJ5lmdpdIaxdpGVw4i
+         EPOrM8X8tWixBH3k8zJbSFkpHazcF/+i2zwGN0TfZ4Gf98XIR+9eKuq9EVmknjah0ghk
+         ggFfxJK2XYyioMy+FhbbVOiaX2wH0NCRoj9k46nZe2bHQdZN5uqcHXc8J7jicqiQKIrT
+         pb4cjAg080hJxdC4v9yxNn9XBbrOiDj5QjoWRvK1K5RvmxaYuYE6DfQf+FI5IRaEoz/U
+         keFg==
+X-Gm-Message-State: AOAM533LALUoGAxHZXNEb4TzGUdeQduqxZmlWsdCQMrw4vt/zDmwHMOD
+        /PMOfPwn65qMAIBLCfjxZac=
+X-Google-Smtp-Source: ABdhPJyFL0AeaP23p7Q+H8Zm7GUZ8C5s4tBeDDlg9z76Uisrwumd6jq0I90+u3ZFz10pzc/QcXnkzw==
+X-Received: by 2002:adf:e411:: with SMTP id g17mr2791484wrm.77.1598014779964;
+        Fri, 21 Aug 2020 05:59:39 -0700 (PDT)
+Received: from [192.168.0.160] ([93.115.133.118])
+        by smtp.gmail.com with ESMTPSA id n12sm4545802wrq.63.2020.08.21.05.59.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 21 Aug 2020 05:59:39 -0700 (PDT)
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+Subject: [patch] queue.3: Document CIRCLEQ_* macros
+Message-ID: <88ac5f72-e35e-3912-4b24-c130d3696d91@gmail.com>
+Date:   Fri, 21 Aug 2020 14:59:38 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-References: <cover.1597993855.git.osandov@osandov.com> <64cc229872230dc6998a3dbf2264513870a8a6f6.1597994017.git.osandov@osandov.com>
-In-Reply-To: <64cc229872230dc6998a3dbf2264513870a8a6f6.1597994017.git.osandov@osandov.com>
-From:   Amir Goldstein <amir73il@gmail.com>
-Date:   Fri, 21 Aug 2020 12:24:48 +0300
-Message-ID: <CAOQ4uxgEpYqQ9MeuS=76tOtjFCrL8urkDoPoHxu+A5s4C2HGRA@mail.gmail.com>
-Subject: Re: [PATCH man-pages v5] Document encoded I/O
-To:     Omar Sandoval <osandov@osandov.com>
-Cc:     linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        Linux Btrfs <linux-btrfs@vger.kernel.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Christoph Hellwig <hch@infradead.org>,
-        Dave Chinner <david@fromorbit.com>,
-        Jann Horn <jannh@google.com>, Aleksa Sarai <cyphar@cyphar.com>,
-        Linux API <linux-api@vger.kernel.org>, kernel-team@fb.com,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/mixed;
+ boundary="------------F6C603E2C0146193B1E48077"
+Content-Language: en-US
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Aug 21, 2020 at 10:38 AM Omar Sandoval <osandov@osandov.com> wrote:
->
-> From: Omar Sandoval <osandov@fb.com>
->
-> This adds a new page, encoded_io(7), providing an overview of encoded
-> I/O and updates fcntl(2), open(2), and preadv2(2)/pwritev2(2) to
-> reference it.
->
-> Cc: Michael Kerrisk <mtk.manpages@gmail.com>
-> Cc: linux-man <linux-man@vger.kernel.org>
-> Signed-off-by: Omar Sandoval <osandov@fb.com>
-> ---
+This is a multi-part message in MIME format.
+--------------F6C603E2C0146193B1E48077
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Omar,
+===========
+DESCRIPTION
+===========
 
-Thanks for making the clarifications. Some questions below.
-
-[...]
-
-> +.PP
-> +As the filesystem page cache typically contains decoded data,
-> +encoded I/O bypasses the page cache.
-> +.SS Extent layout
-> +By using
-> +.IR len ,
-> +.IR unencoded_len ,
-> +and
-> +.IR unencoded_offset ,
-> +it is possible to refer to a subset of an unencoded extent.
-> +.PP
-> +In the simplest case,
-> +.I len
-> +is equal to
-> +.I unencoded_len
-> +and
-> +.I unencoded_offset
-> +is zero.
-> +This means that the entire unencoded extent is used.
-> +.PP
-> +However, suppose we read 50 bytes into a file
-> +which contains a single compressed extent.
-> +The filesystem must still return the entire compressed extent
-> +for us to be able to decompress it,
-> +so
-> +.I unencoded_len
-> +would be the length of the entire decompressed extent.
-> +However, because the read was at offset 50,
-> +the first 50 bytes should be ignored.
-> +Therefore,
-> +.I unencoded_offset
-> +would be 50,
-> +and
-> +.I len
-> +would accordingly be
-> +.IR unencoded_len\ -\ 50 .
-> +.PP
-> +Additionally, suppose we want to create an encrypted file with length 500,
-> +but the file is encrypted with a block cipher using a block size of 4096.
-> +The unencoded data would therefore include the appropriate padding,
-> +and
-> +.I unencoded_len
-> +would be 4096.
-> +However, to represent the logical size of the file,
-> +.I len
-> +would be 500
-> +(and
-> +.I unencoded_offset
-> +would be 0).
-> +.PP
-> +Similar situations can arise in other cases:
-> +.IP * 3
-> +If the filesystem pads data to the filesystem block size before compressing,
-> +then compressed files with a size unaligned to the filesystem block size will
-> +end with an extent with
-> +.I len
-> +<
-> +.IR unencoded_len .
-> +.IP *
-> +Extents cloned from the middle of a larger encoded extent with
-> +.B FICLONERANGE
-> +may have a non-zero
-> +.I unencoded_offset
-> +and/or
-> +.I len
-> +<
-> +.IR unencoded_len .
-> +.IP *
-> +If the middle of an encoded extent is overwritten,
-> +the filesystem may create extents with a non-zero
-> +.I unencoded_offset
-> +and/or
-> +.I len
-> +<
-> +.I unencoded_len
-> +for the parts that were not overwritten.
-
-So in this case, would the reader be getting extents "out of unencoded order"?
-e.g. unencoded range 0..4096 and then unencoded range 10..20?
-Or would reader be reading the encoded full block twice, once for
-ragne 0..10 and once for range 20..4096?
+Document ``CIRCLEQ_*`` macros, based on old documentation that was
+removed by accident in commit ``c0f21a0``, and improved to match the
+rest of the documentation in ``queue.3``.
 
 
+=======
+TESTING
+=======
 
-> +.SS Security
-> +Encoded I/O creates the potential for some security issues:
-> +.IP * 3
-> +Encoded writes allow writing arbitrary data which the kernel will decode on
-> +a subsequent read. Decompression algorithms are complex and may have bugs
-> +which can be exploited by maliciously crafted data.
-> +.IP *
-> +Encoded reads may return data which is not logically present in the file
-> +(see the discussion of
-> +.I len
-> +vs.
-> +.I unencoded_len
-> +above).
-> +It may not be intended for this data to be readable.
-> +.PP
-> +Therefore, encoded I/O requires privilege.
-> +Namely, the
-> +.B RWF_ENCODED
-> +flag may only be used when the file was opened with the
-> +.B O_ALLOW_ENCODED
-> +flag to
-> +.BR open (2),
-> +which requires the
-> +.B CAP_SYS_ADMIN
-> +capability.
-> +.B O_ALLOW_ENCODED
-> +may be set and cleared with
-> +.BR fcntl (2).
-> +Note that it is not cleared on
-> +.BR fork (2)
-> +or
-> +.BR execve (2);
-> +one may wish to use
-> +.B O_CLOEXEC
-> +with
-> +.BR O_ALLOW_ENCODED .
-> +.SS Filesystem support
-> +Encoded I/O is supported on the following filesystems:
-> +.TP
-> +Btrfs (since Linux 5.10)
-> +.IP
-> +Btrfs supports encoded reads and writes of compressed data.
-> +The data is encoded as follows:
-> +.RS
-> +.IP * 3
-> +If
-> +.I compression
-> +is
-> +.BR ENCODED_IOV_COMPRESSION_ZLIB ,
-> +then the encoded data is a single zlib stream.
-> +.IP *
-> +If
-> +.I compression
-> +is
-> +.BR ENCODED_IOV_COMPRESSION_LZO ,
-> +then the encoded data is compressed page by page with LZO1X
-> +and wrapped in the format documented in the Linux kernel source file
-> +.IR fs/btrfs/lzo.c .
+I run ``sudo make`` and then visualized the man page with
+``man 3 queue``, and the contents looked good.
 
-:-/ So maybe call it ENCODED_IOV_COMPRESSION_BTRFS_LZO?
 
-I understand why you want the encoding format not to be opaque, but
-I imagine the encoded data is not going to be migrated as is between
-different filesystems. So just call it for what it is - a private
-filesystem encoding
-format. If you have a format that is standard and other filesystems are likely
-to use, fine, but let's not make an API that discourages using
-"private" encoding, just for the sake of it and make life harder for no good
-reason.
+_______
 
-All the reader of this man page may be interested to know is which
-filesystems are expected to support which encoding types and a general
-description of what they mean (as you did).
-Making this page wrongly appear as a standard for encoding formats is not
-going to play out well...
+P.S.:  I noticed that ``git format-patch`` leaves a trailing space at
+some places:
+The line after ``@@ -1220,6 +1274,192 @@ while (n1 != NULL) {``
+The line just before the git version (``-- ``).
+However, none of those lines are additions to the code, so they
+shouldn't affect the result.
+Is that ok?
 
-> +.IP *
-> +If
-> +.I compression
-> +is
-> +.BR ENCODED_IOV_COMPRESSION_ZSTD ,
-> +then the encoded data is a single zstd frame compressed with the
-> +.I windowLog
-> +compression parameter set to no more than 17.
+I run ``git format-patch -1 HEAD --stdout > ../circleq.patch``.
 
-Even that small detail is a bit limiting to filesystems and should
-therefore be tagged as a private btrfs encoding IMO.
+P.S. 2:  I attached a copy of the patch just in case that the mailer
+adds any trailing spaces or any other weird things.  Please, tell me if
+there are any inconsistencies in the patch embedded below so that I can
+try to prevent them in the future.
 
-Thanks,
-Amir.
+
+________________________________________________________________________
+
+ From e8f4a79166042d52de8afdfb8530afc7de4fa977 Mon Sep 17 00:00:00 2001
+From: Alejandro Colomar <colomar.6.4.3@gmail.com>
+Date: Fri, 21 Aug 2020 14:27:36 +0200
+Subject: [PATCH] queue.3: Document CIRCLEQ_* macros
+
+Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+---
+  man3/queue.3 | 256 +++++++++++++++++++++++++++++++++++++++++++++++++--
+  1 file changed, 248 insertions(+), 8 deletions(-)
+
+diff --git a/man3/queue.3 b/man3/queue.3
+index 260a5b8a5..7fbb92fcc 100644
+--- a/man3/queue.3
++++ b/man3/queue.3
+@@ -110,10 +110,28 @@
+  .Nm TAILQ_LAST ,
+  .Nm TAILQ_NEXT ,
+  .Nm TAILQ_PREV ,
+-.Nm TAILQ_REMOVE
+-.\" .Nm TAILQ_SWAP
++.Nm TAILQ_REMOVE ,
++.\" .Nm TAILQ_SWAP ,
++.Nm CIRCLEQ_EMPTY ,
++.Nm CIRCLEQ_ENTRY ,
++.Nm CIRCLEQ_FIRST ,
++.Nm CIRCLEQ_FOREACH ,
++.Nm CIRCLEQ_FOREACH_REVERSE ,
++.Nm CIRCLEQ_HEAD ,
++.Nm CIRCLEQ_HEAD_INITIALIZER ,
++.Nm CIRCLEQ_INIT ,
++.Nm CIRCLEQ_INSERT_AFTER ,
++.Nm CIRCLEQ_INSERT_BEFORE ,
++.Nm CIRCLEQ_INSERT_HEAD ,
++.Nm CIRCLEQ_INSERT_TAIL ,
++.Nm CIRCLEQ_LAST ,
++.Nm CIRCLEQ_LOOP_NEXT ,
++.Nm CIRCLEQ_LOOP_PREV ,
++.Nm CIRCLEQ_NEXT ,
++.Nm CIRCLEQ_PREV ,
++.Nm CIRCLEQ_REMOVE
+  .Nd implementations of singly-linked lists, singly-linked tail queues,
+-lists and tail queues
++lists, tail queues, and circular queues
+  .Sh SYNOPSIS
+  .In sys/queue.h
+  .\"
+@@ -198,11 +216,30 @@ lists and tail queues
+  .Fn TAILQ_PREV "TYPE *elm" "HEADNAME" "TAILQ_ENTRY NAME"
+  .Fn TAILQ_REMOVE "TAILQ_HEAD *head" "TYPE *elm" "TAILQ_ENTRY NAME"
+  .\" .Fn TAILQ_SWAP "TAILQ_HEAD *head1" "TAILQ_HEAD *head2" "TYPE" 
+"TAILQ_ENTRY NAME"
++.Fn CIRCLEQ_EMPTY "CIRCLEQ_HEAD *head"
++.Fn CIRCLEQ_ENTRY "TYPE"
++.Fn CIRCLEQ_FIRST "CIRCLEQ_HEAD *head"
++.Fn CIRCLEQ_FOREACH "TYPE *var" "CIRCLEQ_HEAD *head" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_FOREACH_REVERSE "TYPE *var" "CIRCLEQ_HEAD *head" 
+"CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_HEAD "HEADNAME" "TYPE"
++.Fn CIRCLEQ_HEAD_INITIALIZER "CIRCLEQ_HEAD head"
++.Fn CIRCLEQ_INIT "CIRCLEQ_HEAD *head"
++.Fn CIRCLEQ_INSERT_AFTER "CIRCLEQ_HEAD *head" "TYPE *listelm" "TYPE 
+*elm" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_INSERT_BEFORE "CIRCLEQ_HEAD *head" "TYPE *listelm" "TYPE 
+*elm" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_INSERT_HEAD "CIRCLEQ_HEAD *head" "TYPE *elm" "CIRCLEQ_ENTRY 
+NAME"
++.Fn CIRCLEQ_INSERT_TAIL "CIRCLEQ_HEAD *head" "TYPE *elm" "CIRCLEQ_ENTRY 
+NAME"
++.Fn CIRCLEQ_LAST "CIRCLEQ_HEAD *head"
++.Fn CIRCLEQ_LOOP_NEXT "CIRCLEQ_HEAD *head" "TYPE *elm" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_LOOP_PREV "CIRCLEQ_HEAD *head" "TYPE *elm" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_NEXT "TYPE *elm" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_PREV "TYPE *elm" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_REMOVE "CIRCLEQ_HEAD *head" "TYPE *elm" "CIRCLEQ_ENTRY NAME"
+  .\"
+  .Sh DESCRIPTION
+-These macros define and operate on four types of data structures:
+-singly-linked lists, singly-linked tail queues, lists, and tail queues.
+-All four structures support the following functionality:
++These macros define and operate on five types of data structures:
++singly-linked lists, singly-linked tail queues, lists, tail queues, and
++circular queues.
++All five structures support the following functionality:
+  .Pp
+  .Bl -enum -compact -offset indent
+  .It
+@@ -313,6 +350,21 @@ Each head entry requires two pointers rather than one.
+  Code size is about 15% greater and operations run about 20% slower
+  than singly-linked lists.
+  .El
++.Pp----
++Circular queues add the following functionality over the above:
++.Bl -enum -compact -offset indent
++.It
++The first and last entries are connected.
++.El
++.Pp
++However:
++.Pp
++.Bl -enum -compact -offset indent
++.It
++The termination condition for traversal is more complex.
++.It
++Code size is about 40% greater and operations run about 45% slower than 
+lists.
++.El
+  .Pp
+  In the macro definitions,
+  .Fa TYPE
+@@ -321,8 +373,9 @@ that must contain a field of type
+  .Li SLIST_ENTRY ,
+  .Li STAILQ_ENTRY ,
+  .Li LIST_ENTRY ,
+-or
+  .Li TAILQ_ENTRY ,
++or
++.Li CIRCLEQ_ENTRY ,
+  named
+  .Fa NAME .
+  The argument
+@@ -332,8 +385,9 @@ using the macros
+  .Li SLIST_HEAD ,
+  .Li STAILQ_HEAD ,
+  .Li LIST_HEAD ,
++.Li TAILQ_HEAD ,
+  or
+-.Li TAILQ_HEAD .
++.Li CIRCLEQ_HEAD .
+  See the examples below for further explanation of how these
+  macros are used.
+  .Ss Singly-linked lists
+@@ -1220,6 +1274,192 @@ while (n1 != NULL) {
+
+  TAILQ_INIT(&head);
+  .Ed
++.Ss Circular queues
++A circular queue is headed by a structure defined by the
++.Nm CIRCLEQ_HEAD
++macro.
++This structure contains a pair of pointers,
++one to the first element in the circular queue and the other to
++the last element in the circular queue.
++The elements are doubly linked so that an arbitrary element can be
++removed without traversing the circular queue.
++New elements can be added to the circular queue after an existing element,
++before an existing element, at the head of the circular queue,
++or at the end of the circular queue.
++A
++.Fa CIRCLEQ_HEAD
++structure is declared as follows:
++.Bd -literal -offset indent
++CIRCLEQ_HEAD(HEADNAME, TYPE) head;
++.Ed
++.Pp
++where
++.Li HEADNAME
++is the name of the structure to be defined, and
++.Li TYPE
++is the type of the elements to be linked into the circular queue.
++A pointer to the head of the circular queue can later be declared as:
++.Bd -literal -offset indent
++struct HEADNAME *headp;
++.Ed
++.Pp
++(The names
++.Li head
++and
++.Li headp
++are user selectable.)
++.Pp
++The macro
++.Nm CIRCLEQ_HEAD_INITIALIZER
++evaluates to an initializer for the circular queue
++.Fa head .
++.Pp
++The macro
++.Nm CIRCLEQ_EMPTY
++evaluates to true if there are no items on the circular queue.
++.Pp
++The macro
++.Nm CIRCLEQ_ENTRY
++declares a structure that connects the elements in
++the circular queue.
++.Pp
++The macro
++.Nm CIRCLEQ_FIRST
++returns the first item on the circular queue.
++.Pp
++The macro
++.Nm CIRCLEQ_FOREACH
++traverses the circular queue referenced by
++.Fa head
++in the forward direction, assigning each element in turn to
++.Fa var .
++.Fa var
++is set to
++.Fa &head
++if the loop completes normally, or if there were no elements.
++.Pp
++The macro
++.Nm CIRCLEQ_FOREACH_REVERSE
++traverses the circular queue referenced by
++.Fa head
++in the reverse direction, assigning each element in turn to
++.Fa var .
++.Pp
++The macro
++.Nm CIRCLEQ_INIT
++initializes the circular queue referenced by
++.Fa head .
++.Pp
++The macro
++.Nm CIRCLEQ_INSERT_HEAD
++inserts the new element
++.Fa elm
++at the head of the circular queue.
++.Pp
++The macro
++.Nm CIRCLEQ_INSERT_TAIL
++inserts the new element
++.Fa elm
++at the end of the circular queue.
++.Pp
++The macro
++.Nm CIRCLEQ_INSERT_AFTER
++inserts the new element
++.Fa elm
++after the element
++.Fa listelm .
++.Pp
++The macro
++.Nm CIRCLEQ_INSERT_BEFORE
++inserts the new element
++.Fa elm
++before the element
++.Fa listelm .
++.Pp
++The macro
++.Nm CIRCLEQ_LAST
++returns the last item on the circular queue.
++.Pp
++The macro
++.Nm CIRCLEQ_NEXT
++returns the next item on the circular queue, or
++.Fa &head
++if this item is the last one.
++.Pp
++The macro
++.Nm CIRCLEQ_PREV
++returns the previous item on the circular queue, or
++.Fa &head
++if this item is the first one.
++.Pp
++The macro
++.Nm CIRCLEQ_LOOP_NEXT
++returns the next item on the circular queue.
++If
++.Fa elm
++is the last element on the circular queue, the first element is returned.
++.Pp
++The macro
++.Nm CIRCLEQ_LOOP_PREV
++returns the previous item on the circular queue.
++If
++.Fa elm
++is the first element on the circular queue, the last element is returned.
++.Pp
++The macro
++.Nm CIRCLEQ_REMOVE
++removes the element
++.Fa elm
++from the circular queue.
++.Ss Circular queue example
++.Bd -literal
++CIRCLEQ_HEAD(circleq, entry) head =
++    CIRCLEQ_HEAD_INITIALIZER(head);
++struct circleq *headp;			/* Circular queue head. */
++struct entry {
++	...
++	CIRCLEQ_ENTRY(entry) entries;	/* Circular queue. */
++	...
++} *n1, *n2, *n3, *np;
++
++CIRCLEQ_INIT(&head);			/* Initialize the queue. */
++
++n1 = malloc(sizeof(struct entry));	/* Insert at the head. */
++CIRCLEQ_INSERT_HEAD(&head, n1, entries);
++
++n1 = malloc(sizeof(struct entry));	/* Insert at the tail. */
++CIRCLEQ_INSERT_TAIL(&head, n1, entries);
++
++n2 = malloc(sizeof(struct entry));	/* Insert after. */
++CIRCLEQ_INSERT_AFTER(&head, n1, n2, entries);
++
++n3 = malloc(sizeof(struct entry));	/* Insert before. */
++CIRCLEQ_INSERT_BEFORE(&head, n2, n3, entries);
++
++CIRCLEQ_REMOVE(&head, n2, entries);	/* Deletion. */
++free(n2);
++					/* Forward traversal. */
++CIRCLEQ_FOREACH(np, &head, entries)
++	np\-> ...
++					/* Reverse traversal. */
++CIRCLEQ_FOREACH_REVERSE(np, &head, entries)
++	np\-> ...
++					/* CircleQ Deletion. */
++while (!CIRCLEQ_EMPTY(&head)) {
++	n1 = CIRCLEQ_FIRST(&head);
++	CIRCLEQ_REMOVE(&head, n1, entries);
++	free(n1);
++}
++					/* Faster CircleQ Deletion. */
++n1 = CIRCLEQ_FIRST(&head);
++while (n1 != (void *)&head) {
++	n2 = CIRCLEQ_NEXT(n1, entries);
++	free(n1);
++	n1 = n2;
++}
++
++CIRCLEQ_INIT(&head);
++.Ed
+  .Sh CONFORMING TO
+  Not in POSIX.1, POSIX.1-2001 or POSIX.1-2008.
+  Present on the BSDs.
+-- 
+2.28.0
+
+--------------F6C603E2C0146193B1E48077
+Content-Type: text/x-patch; charset=UTF-8;
+ name="circleq.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="circleq.patch"
+
+From e8f4a79166042d52de8afdfb8530afc7de4fa977 Mon Sep 17 00:00:00 2001
+From: Alejandro Colomar <colomar.6.4.3@gmail.com>
+Date: Fri, 21 Aug 2020 14:27:36 +0200
+Subject: [PATCH] queue.3: Document CIRCLEQ_* macros
+
+Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+---
+ man3/queue.3 | 256 +++++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 248 insertions(+), 8 deletions(-)
+
+diff --git a/man3/queue.3 b/man3/queue.3
+index 260a5b8a5..7fbb92fcc 100644
+--- a/man3/queue.3
++++ b/man3/queue.3
+@@ -110,10 +110,28 @@
+ .Nm TAILQ_LAST ,
+ .Nm TAILQ_NEXT ,
+ .Nm TAILQ_PREV ,
+-.Nm TAILQ_REMOVE
+-.\" .Nm TAILQ_SWAP
++.Nm TAILQ_REMOVE ,
++.\" .Nm TAILQ_SWAP ,
++.Nm CIRCLEQ_EMPTY ,
++.Nm CIRCLEQ_ENTRY ,
++.Nm CIRCLEQ_FIRST ,
++.Nm CIRCLEQ_FOREACH ,
++.Nm CIRCLEQ_FOREACH_REVERSE ,
++.Nm CIRCLEQ_HEAD ,
++.Nm CIRCLEQ_HEAD_INITIALIZER ,
++.Nm CIRCLEQ_INIT ,
++.Nm CIRCLEQ_INSERT_AFTER ,
++.Nm CIRCLEQ_INSERT_BEFORE ,
++.Nm CIRCLEQ_INSERT_HEAD ,
++.Nm CIRCLEQ_INSERT_TAIL ,
++.Nm CIRCLEQ_LAST ,
++.Nm CIRCLEQ_LOOP_NEXT ,
++.Nm CIRCLEQ_LOOP_PREV ,
++.Nm CIRCLEQ_NEXT ,
++.Nm CIRCLEQ_PREV ,
++.Nm CIRCLEQ_REMOVE
+ .Nd implementations of singly-linked lists, singly-linked tail queues,
+-lists and tail queues
++lists, tail queues, and circular queues
+ .Sh SYNOPSIS
+ .In sys/queue.h
+ .\"
+@@ -198,11 +216,30 @@ lists and tail queues
+ .Fn TAILQ_PREV "TYPE *elm" "HEADNAME" "TAILQ_ENTRY NAME"
+ .Fn TAILQ_REMOVE "TAILQ_HEAD *head" "TYPE *elm" "TAILQ_ENTRY NAME"
+ .\" .Fn TAILQ_SWAP "TAILQ_HEAD *head1" "TAILQ_HEAD *head2" "TYPE" "TAILQ_ENTRY NAME"
++.Fn CIRCLEQ_EMPTY "CIRCLEQ_HEAD *head"
++.Fn CIRCLEQ_ENTRY "TYPE"
++.Fn CIRCLEQ_FIRST "CIRCLEQ_HEAD *head"
++.Fn CIRCLEQ_FOREACH "TYPE *var" "CIRCLEQ_HEAD *head" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_FOREACH_REVERSE "TYPE *var" "CIRCLEQ_HEAD *head" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_HEAD "HEADNAME" "TYPE"
++.Fn CIRCLEQ_HEAD_INITIALIZER "CIRCLEQ_HEAD head"
++.Fn CIRCLEQ_INIT "CIRCLEQ_HEAD *head"
++.Fn CIRCLEQ_INSERT_AFTER "CIRCLEQ_HEAD *head" "TYPE *listelm" "TYPE *elm" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_INSERT_BEFORE "CIRCLEQ_HEAD *head" "TYPE *listelm" "TYPE *elm" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_INSERT_HEAD "CIRCLEQ_HEAD *head" "TYPE *elm" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_INSERT_TAIL "CIRCLEQ_HEAD *head" "TYPE *elm" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_LAST "CIRCLEQ_HEAD *head"
++.Fn CIRCLEQ_LOOP_NEXT "CIRCLEQ_HEAD *head" "TYPE *elm" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_LOOP_PREV "CIRCLEQ_HEAD *head" "TYPE *elm" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_NEXT "TYPE *elm" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_PREV "TYPE *elm" "CIRCLEQ_ENTRY NAME"
++.Fn CIRCLEQ_REMOVE "CIRCLEQ_HEAD *head" "TYPE *elm" "CIRCLEQ_ENTRY NAME"
+ .\"
+ .Sh DESCRIPTION
+-These macros define and operate on four types of data structures:
+-singly-linked lists, singly-linked tail queues, lists, and tail queues.
+-All four structures support the following functionality:
++These macros define and operate on five types of data structures:
++singly-linked lists, singly-linked tail queues, lists, tail queues, and
++circular queues.
++All five structures support the following functionality:
+ .Pp
+ .Bl -enum -compact -offset indent
+ .It
+@@ -313,6 +350,21 @@ Each head entry requires two pointers rather than one.
+ Code size is about 15% greater and operations run about 20% slower
+ than singly-linked lists.
+ .El
++.Pp----
++Circular queues add the following functionality over the above:
++.Bl -enum -compact -offset indent
++.It
++The first and last entries are connected.
++.El
++.Pp
++However:
++.Pp
++.Bl -enum -compact -offset indent
++.It
++The termination condition for traversal is more complex.
++.It
++Code size is about 40% greater and operations run about 45% slower than lists.
++.El
+ .Pp
+ In the macro definitions,
+ .Fa TYPE
+@@ -321,8 +373,9 @@ that must contain a field of type
+ .Li SLIST_ENTRY ,
+ .Li STAILQ_ENTRY ,
+ .Li LIST_ENTRY ,
+-or
+ .Li TAILQ_ENTRY ,
++or
++.Li CIRCLEQ_ENTRY ,
+ named
+ .Fa NAME .
+ The argument
+@@ -332,8 +385,9 @@ using the macros
+ .Li SLIST_HEAD ,
+ .Li STAILQ_HEAD ,
+ .Li LIST_HEAD ,
++.Li TAILQ_HEAD ,
+ or
+-.Li TAILQ_HEAD .
++.Li CIRCLEQ_HEAD .
+ See the examples below for further explanation of how these
+ macros are used.
+ .Ss Singly-linked lists
+@@ -1220,6 +1274,192 @@ while (n1 != NULL) {
+ 
+ TAILQ_INIT(&head);
+ .Ed
++.Ss Circular queues
++A circular queue is headed by a structure defined by the
++.Nm CIRCLEQ_HEAD
++macro.
++This structure contains a pair of pointers,
++one to the first element in the circular queue and the other to
++the last element in the circular queue.
++The elements are doubly linked so that an arbitrary element can be
++removed without traversing the circular queue.
++New elements can be added to the circular queue after an existing element,
++before an existing element, at the head of the circular queue,
++or at the end of the circular queue.
++A
++.Fa CIRCLEQ_HEAD
++structure is declared as follows:
++.Bd -literal -offset indent
++CIRCLEQ_HEAD(HEADNAME, TYPE) head;
++.Ed
++.Pp
++where
++.Li HEADNAME
++is the name of the structure to be defined, and
++.Li TYPE
++is the type of the elements to be linked into the circular queue.
++A pointer to the head of the circular queue can later be declared as:
++.Bd -literal -offset indent
++struct HEADNAME *headp;
++.Ed
++.Pp
++(The names
++.Li head
++and
++.Li headp
++are user selectable.)
++.Pp
++The macro
++.Nm CIRCLEQ_HEAD_INITIALIZER
++evaluates to an initializer for the circular queue
++.Fa head .
++.Pp
++The macro
++.Nm CIRCLEQ_EMPTY
++evaluates to true if there are no items on the circular queue.
++.Pp
++The macro
++.Nm CIRCLEQ_ENTRY
++declares a structure that connects the elements in
++the circular queue.
++.Pp
++The macro
++.Nm CIRCLEQ_FIRST
++returns the first item on the circular queue.
++.Pp
++The macro
++.Nm CIRCLEQ_FOREACH
++traverses the circular queue referenced by
++.Fa head
++in the forward direction, assigning each element in turn to
++.Fa var .
++.Fa var
++is set to
++.Fa &head
++if the loop completes normally, or if there were no elements.
++.Pp
++The macro
++.Nm CIRCLEQ_FOREACH_REVERSE
++traverses the circular queue referenced by
++.Fa head
++in the reverse direction, assigning each element in turn to
++.Fa var .
++.Pp
++The macro
++.Nm CIRCLEQ_INIT
++initializes the circular queue referenced by
++.Fa head .
++.Pp
++The macro
++.Nm CIRCLEQ_INSERT_HEAD
++inserts the new element
++.Fa elm
++at the head of the circular queue.
++.Pp
++The macro
++.Nm CIRCLEQ_INSERT_TAIL
++inserts the new element
++.Fa elm
++at the end of the circular queue.
++.Pp
++The macro
++.Nm CIRCLEQ_INSERT_AFTER
++inserts the new element
++.Fa elm
++after the element
++.Fa listelm .
++.Pp
++The macro
++.Nm CIRCLEQ_INSERT_BEFORE
++inserts the new element
++.Fa elm
++before the element
++.Fa listelm .
++.Pp
++The macro
++.Nm CIRCLEQ_LAST
++returns the last item on the circular queue.
++.Pp
++The macro
++.Nm CIRCLEQ_NEXT
++returns the next item on the circular queue, or
++.Fa &head
++if this item is the last one.
++.Pp
++The macro
++.Nm CIRCLEQ_PREV
++returns the previous item on the circular queue, or
++.Fa &head
++if this item is the first one.
++.Pp
++The macro
++.Nm CIRCLEQ_LOOP_NEXT
++returns the next item on the circular queue.
++If
++.Fa elm
++is the last element on the circular queue, the first element is returned.
++.Pp
++The macro
++.Nm CIRCLEQ_LOOP_PREV
++returns the previous item on the circular queue.
++If
++.Fa elm
++is the first element on the circular queue, the last element is returned.
++.Pp
++The macro
++.Nm CIRCLEQ_REMOVE
++removes the element
++.Fa elm
++from the circular queue.
++.Ss Circular queue example
++.Bd -literal
++CIRCLEQ_HEAD(circleq, entry) head =
++    CIRCLEQ_HEAD_INITIALIZER(head);
++struct circleq *headp;			/* Circular queue head. */
++struct entry {
++	...
++	CIRCLEQ_ENTRY(entry) entries;	/* Circular queue. */
++	...
++} *n1, *n2, *n3, *np;
++
++CIRCLEQ_INIT(&head);			/* Initialize the queue. */
++
++n1 = malloc(sizeof(struct entry));	/* Insert at the head. */
++CIRCLEQ_INSERT_HEAD(&head, n1, entries);
++
++n1 = malloc(sizeof(struct entry));	/* Insert at the tail. */
++CIRCLEQ_INSERT_TAIL(&head, n1, entries);
++
++n2 = malloc(sizeof(struct entry));	/* Insert after. */
++CIRCLEQ_INSERT_AFTER(&head, n1, n2, entries);
++
++n3 = malloc(sizeof(struct entry));	/* Insert before. */
++CIRCLEQ_INSERT_BEFORE(&head, n2, n3, entries);
++
++CIRCLEQ_REMOVE(&head, n2, entries);	/* Deletion. */
++free(n2);
++					/* Forward traversal. */
++CIRCLEQ_FOREACH(np, &head, entries)
++	np\-> ...
++					/* Reverse traversal. */
++CIRCLEQ_FOREACH_REVERSE(np, &head, entries)
++	np\-> ...
++					/* CircleQ Deletion. */
++while (!CIRCLEQ_EMPTY(&head)) {
++	n1 = CIRCLEQ_FIRST(&head);
++	CIRCLEQ_REMOVE(&head, n1, entries);
++	free(n1);
++}
++					/* Faster CircleQ Deletion. */
++n1 = CIRCLEQ_FIRST(&head);
++while (n1 != (void *)&head) {
++	n2 = CIRCLEQ_NEXT(n1, entries);
++	free(n1);
++	n1 = n2;
++}
++
++CIRCLEQ_INIT(&head);
++.Ed
+ .Sh CONFORMING TO
+ Not in POSIX.1, POSIX.1-2001 or POSIX.1-2008.
+ Present on the BSDs.
+-- 
+2.28.0
+
+
+--------------F6C603E2C0146193B1E48077--
