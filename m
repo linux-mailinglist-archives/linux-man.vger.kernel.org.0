@@ -2,101 +2,94 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BEB7924E70C
-	for <lists+linux-man@lfdr.de>; Sat, 22 Aug 2020 13:29:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8A2DF24E70F
+	for <lists+linux-man@lfdr.de>; Sat, 22 Aug 2020 13:31:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727870AbgHVL3k (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 22 Aug 2020 07:29:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41042 "EHLO
+        id S1727827AbgHVLbP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 22 Aug 2020 07:31:15 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41284 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726920AbgHVL3j (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 22 Aug 2020 07:29:39 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8CC35C061573
-        for <linux-man@vger.kernel.org>; Sat, 22 Aug 2020 04:29:38 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id 88so4214818wrh.3
-        for <linux-man@vger.kernel.org>; Sat, 22 Aug 2020 04:29:38 -0700 (PDT)
+        with ESMTP id S1727113AbgHVLbM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 22 Aug 2020 07:31:12 -0400
+Received: from mail-oo1-xc42.google.com (mail-oo1-xc42.google.com [IPv6:2607:f8b0:4864:20::c42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E845BC061573
+        for <linux-man@vger.kernel.org>; Sat, 22 Aug 2020 04:31:09 -0700 (PDT)
+Received: by mail-oo1-xc42.google.com with SMTP id j16so906010ooc.7
+        for <linux-man@vger.kernel.org>; Sat, 22 Aug 2020 04:31:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=1dcr8OMaxSVNYloN4RD/kfJwbyBTCkXzoSQ4UNoS6zk=;
-        b=G7t9gjrSjFTI1XVIAxgOzYRfC1AMWaZUo7Fndx8+/pCHMwhHs6l5nwlbu1W2TaAvnW
-         2ir9GCJ2WkBl8K+MMqYRZ4kmHFDDnabXH8iouobfJuyqtD3jyrj+ySH25L0yBWQbTlPF
-         u34NZ4e1bD27c1PjVkTx3W7cWG4WYW90tw/3TJqsy/NSIT2YSEE3Hw8vAUauDICb/3mx
-         F5Nb+p2j4pCVmxshG3zcxZZgMoEsz8EuK1BQRqZrlePG0SvbQxd/r26SjEx4KSZtYb/H
-         F0HuikmqXirmV5USTRYfZ2V6ewTSVt4Pt6q2raJSOd8Sp6LWS4+a4mZoUfkt9mZLpPUf
-         f8Vw==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=oShCORvSWK28td8NWeRnWpsW643KqS7fzamCzbs3nPc=;
+        b=AXhDBnmJedz3lze5n8vOi9Y763mmAEuRJtcvg+fetd5HxyRG7Io0HFQoCsxhaAYuco
+         S7EBGpbVreRoDRkuwTL6CLTNGxShJ+xHuzd/+IEwVdzv8bI+AxtLd030xBx1Hbc24uL1
+         gczdtvK9+kSglYLtcELpmy1fyxs74Xg8cvbOEwqulGnAxriEf3Xor6pUR1pzh2zpL0ZZ
+         FJ87YdNU4ySU3WNcJDB+xZSAdvTdrv96iMltpIIDZeMTmqHuXFeForxm4zx1SoXzz1Nk
+         QWk9SLRJEwDvhPYC5P3qIYYurrI601yVmfN4qcAGdrCFGzyiQcy9rF4Lv7Gsn178+6Hz
+         XUhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=1dcr8OMaxSVNYloN4RD/kfJwbyBTCkXzoSQ4UNoS6zk=;
-        b=WVxE5hC80qIi0Bf6QL93r5LfkovD2hFraPzR+KWdB2M3mkxPASkpbnLHBWmsb6+l4w
-         syofvUt9oX9ojNCp0bJfcawZOiry5xPRs9XXwDr5b0nHKFWXJ/wsn5w+1eO4GxSFMewW
-         MGgQHL4sxzZdjVvBcmNOaS56WbQM/FTMZeixE1AQGlzhvX2ZK00wFmCJGpCh77CNvnip
-         V/GJZrcFuRVevXxrTcqtwcVWnTR1gDWws9sGqkx1Lhtpf3yKft3u/Ewk51znyj4ba69a
-         dKVu1BnwxDr1sOFk+6vo1LHKO5BAZJ2rp/MBaGtYrotEBxGgngkJvw9oQNhjx/rnR6S6
-         KbSg==
-X-Gm-Message-State: AOAM530NtRuKChMi1ymHihWgs9mDQXL2sgqwgkvbGbnm5ylvZ0an/yms
-        Hak33lESSQE5rgRjcDjGz6zSop/xHyNCaw==
-X-Google-Smtp-Source: ABdhPJyrksTtO7K2odr7UJuzn6uyhCbR1UtG8efv1NB38LpN7TcFfNH8BjTvSDRTyF8XeoeUFE8VtQ==
-X-Received: by 2002:adf:b454:: with SMTP id v20mr1175370wrd.102.1598095776441;
-        Sat, 22 Aug 2020 04:29:36 -0700 (PDT)
-Received: from localhost.localdomain ([194.230.147.231])
-        by smtp.gmail.com with ESMTPSA id t23sm11068717wra.74.2020.08.22.04.29.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 22 Aug 2020 04:29:35 -0700 (PDT)
-Subject: Re: [PATCH] cgroups.7: wfix
-To:     Thomas Piekarski <t.piekarski@deloquencia.de>
-Cc:     linux-man <linux-man@vger.kernel.org>
-References: <ee32e31f-7b79-b54b-b378-9faa7a9a372e@deloquencia.de>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <ae26f37c-6613-bd7d-94fc-127c234cf34c@gmail.com>
-Date:   Sat, 22 Aug 2020 13:29:31 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=oShCORvSWK28td8NWeRnWpsW643KqS7fzamCzbs3nPc=;
+        b=j+elIDMekKz2BNbj9rBPYP4fiZDYyCUXz+wnTtj1rHieuct8MTO022m9wFMWN0beZy
+         NDP7EFcJw3oAIzUanQKEVH+9xCYfRBZzVjXb2t5fZHUKxVFKPw9rMfgRb7iDv/4ceP5I
+         ayN8qB+lIOi5jdgEoB8gnDL0v19ZVvtQcRcYxF36WfcuJJZ3UHPVOpSy/r3nKvj6DqTM
+         MLOLXLWM7fLx4l6DUThjiXeuEOJmrPMvNSjARKbpbCMNmBOLV1gFZOBWD4HIBFtuIyCU
+         64lUzFmhBTwiK6pghDZaFYQib+o38gKynnaJrpkistgHWkmjxU6dPAue4bknK6Uju/DT
+         ziqQ==
+X-Gm-Message-State: AOAM530jAto3WRMsCW5Lo4TQUeVy2fb6SMpZIvC0wBsYVC/a0SgB0Xu5
+        jKgk5M3JTRR6AO3CY3AhBqhaNCoCJ75tHmZSCdOnUoSCdnU=
+X-Google-Smtp-Source: ABdhPJxPpv1HwshdJrm1mIpd+f5qHfRbydyuZ4w8Kh8t3k9G++tj/WzCVFH0cI+QwRJs0bZVDLQfNRIGzBX3GnB72YY=
+X-Received: by 2002:a4a:2514:: with SMTP id g20mr5442213ooa.80.1598095869243;
+ Sat, 22 Aug 2020 04:31:09 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <ee32e31f-7b79-b54b-b378-9faa7a9a372e@deloquencia.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <e95bd107-7a2a-1595-a796-8305badf97d7@deloquencia.de>
+ <3e3f07ef-d48c-2469-f95c-0964f7ae42d9@gmail.com> <20200822084238.o5g4ethy5uhpng6m@jwilk.net>
+In-Reply-To: <20200822084238.o5g4ethy5uhpng6m@jwilk.net>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Sat, 22 Aug 2020 13:30:57 +0200
+Message-ID: <CAKgNAkiW7ZLmf9z9rjxfHQVqOQ+Rzm9h4SUjO2664-Yjyr5xBw@mail.gmail.com>
+Subject: Re: [PATCH] bpf-helpers.7: wfix
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     Thomas Piekarski <t.piekarski@deloquencia.de>,
+        linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 8/19/20 5:19 PM, Thomas Piekarski wrote:
-> Removing repeated word "the"
-> 
-> Signed-off-by: Thomas Piekarski <t.piekarski@deloquencia.de>
+On Sat, 22 Aug 2020 at 10:42, Jakub Wilk <jwilk@jwilk.net> wrote:
+>
+> * Michael Kerrisk (man-pages) <mtk.manpages@gmail.com>, 2020-08-22, 10:26:
+> >On 8/19/20 5:18 PM, Thomas Piekarski wrote:
+> >>Removing repeated word "will"
+> >>
+> >>Signed-off-by: Thomas Piekarski <t.piekarski@deloquencia.de>
+> >
+> >Hi Thomas,
+> >
+> >
+> >This one is a little difficult, because the page is generated from
+> >scripts. (It is pretty much unique in this respect in the man-pages
+> >set.)
+> >
+> >Looks like a patch is needed against the kernel source file
+> >include/uapi/linux/bpf.h. Do you want to send a patch for that?
+>
+> It's already fixed there:
+> https://git.kernel.org/linus/bfdfa51702dec67e9fcd52568b4cf3c7f799db8b
 
-
-Thanks, Thomas. Patch applied.
+Thanks for checking that Jakub. I just regenerated the page from the
+current kernel source.
 
 Cheers,
 
 Michael
 
-
-> ---
->   man7/cgroups.7 | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/man7/cgroups.7 b/man7/cgroups.7
-> index 8ca19e4a8..f189c7a87 100644
-> --- a/man7/cgroups.7
-> +++ b/man7/cgroups.7
-> @@ -879,8 +879,7 @@ Each nonroot cgroup in the v2 hierarchy contains a 
-> read-only file,
->   .IR cgroup.events ,
->   whose contents are key-value pairs
->   (delimited by newline characters, with the key and value separated by 
-> spaces)
-> -providing state information about the
-> -the cgroup:
-> +providing state information about the cgroup:
->   .PP
->   .in +4n
->   .EX
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
