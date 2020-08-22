@@ -2,146 +2,405 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DD07924E952
-	for <lists+linux-man@lfdr.de>; Sat, 22 Aug 2020 21:10:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E846E24E98F
+	for <lists+linux-man@lfdr.de>; Sat, 22 Aug 2020 22:03:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728611AbgHVTJ7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 22 Aug 2020 15:09:59 -0400
-Received: from mx01-sz.bfs.de ([194.94.69.67]:14064 "EHLO mx02-sz.bfs.de"
-        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1728398AbgHVTJz (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 22 Aug 2020 15:09:55 -0400
-Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
-        by mx02-sz.bfs.de (Postfix) with ESMTPS id EBE4220303
-        for <linux-man@vger.kernel.org>; Sat, 22 Aug 2020 21:09:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
-        t=1598123392;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:mime-version:mime-version:content-type:content-type;
-        bh=6OhnS+PQlLdt9pCs/f4peGRo6hgzbZsi4VK/oh60hhs=;
-        b=0Sbd+zd70BN441Aa5ij9qqsQMfuoET7Z1VKYb9K69Kv+dmQp3fQGUip7DPYn495zW/rotA
-        hAiU1GHCUG2r9KbENmY+mvlbH5kDojvUIPMcLQSXsMhfBpLe0NGFde7VHifbnk4X2Mlq9r
-        wk4uzynvpFzssrrWniS0Gand8yQo8CkzeeQvGJJMZ2b/SxWRLmxA/HV2rEFFqKR8wqfDT4
-        nVdR8WB666VjnNWwHYYHB26qrYgnCIk07ljkp4KAJK0czzej/qtQNXn7FaiizqyPpI7/vt
-        snPTc6VW2Amn3IutoTVG8cOVGHqx+JSn8FebdBvdfXmG6HE1ICskQMcEAMLynQ==
-Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
- (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2044.4; Sat, 22 Aug
- 2020 21:09:51 +0200
-Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
- SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%6]) with mapi id
- 15.01.2044.004; Sat, 22 Aug 2020 21:09:51 +0200
-From:   Walter Harms <wharms@bfs.de>
-To:     linux-man <linux-man@vger.kernel.org>
-Subject: beta-tester for insque.c needed
-Thread-Topic: beta-tester for insque.c needed
-Thread-Index: AQHWeKbMDPdnwJrKPkqguj4nw3hRPg==
-Date:   Sat, 22 Aug 2020 19:09:51 +0000
-Message-ID: <185f510eee65464f8fd8deeb9b4689e0@bfs.de>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.137.16.40]
-x-tm-as-product-ver: SMEX-14.0.0.3031-8.6.1012-25620.002
-x-tm-as-result: No-10--5.287600-5.000000
-x-tmase-matchedrid: 6yXf2grjkv/RubRCcrbc5pzEHTUOuMX33dCmvEa6IiGoLZarzrrPmcZz
-        CC0RExuZeaa+M+QbKhVTMlllQTFW8ba+UQqsuMYYiJwEp8weVXwh5ozUsuASImWCfbzydb0gaku
-        BjIoLWyf9VAfQOqUygrI7zVffJqTzUynTI57As0JaHOMn1y2oVepQisROQz3+11Y4mi2dy32TKl
-        KOZ1pI837cGd19dSFd
-x-tm-as-user-approved-sender: No
-x-tm-as-user-blocked-sender: No
-x-tmase-result: 10--5.287600-5.000000
-x-tmase-version: SMEX-14.0.0.3031-8.6.1012-25620.002
-x-tm-snts-smtp: 78B6C43A82140E065A53A69F21AEDFD7FB835F9A1E0946C5F01F336A1B3360632000:9
-Content-Type: multipart/mixed;
-        boundary="_002_185f510eee65464f8fd8deeb9b4689e0bfsde_"
+        id S1726391AbgHVUCF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 22 Aug 2020 16:02:05 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36030 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725932AbgHVUCE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 22 Aug 2020 16:02:04 -0400
+Received: from mail-oi1-x243.google.com (mail-oi1-x243.google.com [IPv6:2607:f8b0:4864:20::243])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DE95DC061573;
+        Sat, 22 Aug 2020 13:02:03 -0700 (PDT)
+Received: by mail-oi1-x243.google.com with SMTP id z22so4668213oid.1;
+        Sat, 22 Aug 2020 13:02:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=8IiD3vUE6EEJl1AA2/turgrRFDws92XHOWsRzC5fMok=;
+        b=qTEUgJSUXzJN5AOuP9ResZi+yF29K13u1JR/YZS/osrDWTI8NfuisUZhpuUGQ+GaFL
+         TdM5Egt1DeMhmNvCDnZ8H4AbVKiO2MnAJRCeMfAdrFUChbSKF8+blPb9ev+Q7UXG1Jom
+         nQvYm45NDfJZbvmEwLF9FPn4REju4imkst4xVTo0LeDXPLQqgIhvny+8uwWwbDQ6KepL
+         i1UdmehHkeMvSxJkEBquZEYQFpY81KTuI53TJ7C6ekyMvIS7a8OpOalEZCKnYlsGDU6u
+         g308eTGQrAE/suGt+MLyCD7xfzPCQAwGXhilvmpSlTlx5tWowZWWErS/zbFCpqptSY5M
+         WMxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=8IiD3vUE6EEJl1AA2/turgrRFDws92XHOWsRzC5fMok=;
+        b=lT11C1V4nafazr0UlHJy51F9oO2TvZDv1JEkZmvtgfnmSK/aANO0PEOk/w/Eog+Gm5
+         ozXKB6vjZR9pQo/J82Yi5WzIwr1HIsISd0oHCUj9d/oBWxGcyNpGiZxpH/zetes5o8gA
+         PcGs62ygsN4PzUshGVgsdhw27RAs8wtu3f3u9Ya2t1Z6OPDuw3PWTOOK8a6QCVf4jmY8
+         XiccJ59cRuvAoXoWAS+kJnMUAikqRqeHYKRCfo/8JoVZDR/4oohbY41p9URuAyAYHJp4
+         syk1THUl8woV0aSP+SS1/wvXcDu/Rs9yiJFFPSr5nuPsM1TNPif10jtB38n+OSMiWUfT
+         20Hw==
+X-Gm-Message-State: AOAM5309unT+6W4TmHV6Tliv595vVJHD1djzUvNNCwCusfbPkiZhBVJ9
+        z2Fc42gxg9tJ1mVmdtbNUoAQZ0AvThTY2MSMuspy5CDCcMd6ww==
+X-Google-Smtp-Source: ABdhPJwSYBSkAmUi4ScvQ8LQh+85txZ70bPMwFvGDP2ojBWmyBEoEuWS8WCN9YbjA7dbm9TYWjVPssOOjwxjz/UMIdo=
+X-Received: by 2002:aca:cd56:: with SMTP id d83mr5747684oig.177.1598126523142;
+ Sat, 22 Aug 2020 13:02:03 -0700 (PDT)
 MIME-Version: 1.0
-X-Spam-Status: No, score=2.64
-X-Spam-Level: **
-Authentication-Results: mx02-sz.bfs.de;
-        none
-X-Spamd-Result: default: False [2.64 / 7.00];
-         ARC_NA(0.00)[];
-         HAS_XOIP(0.00)[];
-         FROM_HAS_DN(0.00)[];
-         TO_MATCH_ENVRCPT_ALL(0.00)[];
-         MIME_GOOD(-0.10)[multipart/mixed,text/plain,text/x-csrc];
-         MIME_BAD_ATTACHMENT(1.60)[c];
-         MIME_BASE64_TEXT_BOGUS(1.00)[];
-         RCPT_COUNT_ONE(0.00)[1];
-         HAS_ATTACHMENT(0.00)[];
-         DKIM_SIGNED(0.00)[];
-         TO_DN_ALL(0.00)[];
-         MIME_BASE64_TEXT(0.10)[];
-         NEURAL_HAM(-0.00)[-0.549];
-         RCVD_NO_TLS_LAST(0.10)[];
-         FROM_EQ_ENVFROM(0.00)[];
-         MIME_TRACE(0.00)[0:+,1:+,2:+];
-         RCVD_COUNT_TWO(0.00)[2];
-         MID_RHS_MATCH_FROM(0.00)[];
-         BAYES_HAM(-0.06)[61.68%]
+References: <159680892602.29015.6551860260436544999.stgit@warthog.procyon.org.uk>
+In-Reply-To: <159680892602.29015.6551860260436544999.stgit@warthog.procyon.org.uk>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Sat, 22 Aug 2020 22:01:50 +0200
+Message-ID: <CAKgNAkiQ7bhvKw3jVT46AZcGDwN-PLPAdYX731a8Dcw+ZDQeaQ@mail.gmail.com>
+Subject: Re: [PATCH 1/5] Add manpage for open_tree(2)
+To:     David Howells <dhowells@redhat.com>
+Cc:     Alexander Viro <viro@zeniv.linux.org.uk>,
+        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+        Christian Brauner <christian.brauner@ubuntu.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
---_002_185f510eee65464f8fd8deeb9b4689e0bfsde_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Hello David,
 
-Hi List,
-i rewrote the example from insque.3
-the code now uses a zero-size array and
-has a demo for remque.
+Thanks for sending these pages!
 
-i need some feedback if that is working perhaps
-with other libc version than glibc. (note i tested on=20
-arm and x86_64).
+On Fri, 7 Aug 2020 at 16:02, David Howells <dhowells@redhat.com> wrote:
+>
+> Add a manual page to document the open_tree() system call.
+>
+> Signed-off-by: David Howells <dhowells@redhat.com>
+> ---
+>
+>  man2/open_tree.2 |  260 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 260 insertions(+)
+>  create mode 100644 man2/open_tree.2
+>
+> diff --git a/man2/open_tree.2 b/man2/open_tree.2
+> new file mode 100644
+> index 000000000..a360b11a5
+> --- /dev/null
+> +++ b/man2/open_tree.2
+> @@ -0,0 +1,260 @@
+> +'\" t
+> +.\" Copyright (c) 2020 David Howells <dhowells@redhat.com>
+> +.\"
+> +.\" %%%LICENSE_START(VERBATIM)
+> +.\" Permission is granted to make and distribute verbatim copies of this
+> +.\" manual provided the copyright notice and this permission notice are
+> +.\" preserved on all copies.
+> +.\"
+> +.\" Permission is granted to copy and distribute modified versions of this
+> +.\" manual under the conditions for verbatim copying, provided that the
+> +.\" entire resulting derived work is distributed under the terms of a
+> +.\" permission notice identical to this one.
+> +.\"
+> +.\" Since the Linux kernel and libraries are constantly changing, this
+> +.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+> +.\" responsibility for errors or omissions, or for damages resulting from
+> +.\" the use of the information contained herein.  The author(s) may not
+> +.\" have taken the same level of care in the production of this manual,
+> +.\" which is licensed free of charge, as they might when working
+> +.\" professionally.
+> +.\"
+> +.\" Formatted or processed versions of this manual, if unaccompanied by
+> +.\" the source, must acknowledge the copyright and authors of this work.
+> +.\" %%%LICENSE_END
+> +.\"
+> +.TH OPEN_TREE 2 2020-08-07 "Linux" "Linux Programmer's Manual"
+> +.SH NAME
+> +open_tree \- Pick or clone mount object and attach to fd
+> +.SH SYNOPSIS
+> +.nf
+> +.B #include <sys/types.h>
+> +.br
 
-cu,
- wh
+Remove all instances of ".br" here in the SYNOPSIS. They aren't needed
+(because of the .nf above).
 
---_002_185f510eee65464f8fd8deeb9b4689e0bfsde_
-Content-Type: text/x-csrc; name="insque.c"
-Content-Description: insque.c
-Content-Disposition: attachment; filename="insque.c"; size=1856;
-	creation-date="Sat, 22 Aug 2020 17:53:00 GMT";
-	modification-date="Sat, 22 Aug 2020 17:53:00 GMT"
-Content-Transfer-Encoding: base64
+> +.B #include <sys/mount.h>
+> +.br
+> +.B #include <unistd.h>
+> +.br
+> +.BR "#include <fcntl.h>           " "/* Definition of AT_* constants */"
+> +.PP
+> +.BI "int open_tree(int " dirfd ", const char *" pathname ", unsigned int " flags );
+> +.fi
+> +.PP
+> +.IR Note :
+> +There are no glibc wrappers for these system calls.
+> +.SH DESCRIPTION
+> +.BR open_tree ()
+> +picks the mount object specified by the pathname and attaches it to a new file
+> +descriptor or clones it and attaches the clone to the file descriptor.  The
+> +resultant file descriptor is indistinguishable from one produced by
+> +.BR open "(2) with " O_PATH .
+> +.PP
+> +In the case that the mount object is cloned, the clone will be "unmounted" and
+> +destroyed when the file descriptor is closed if it is not otherwise mounted
+> +somewhere by calling
+> +.BR move_mount (2).
+> +.PP
+> +To select a mount object, no permissions are required on the object referred
+> +to by the path, but execute (search) permission is required on all of the
+> +directories in
+> +.I pathname
+> +that lead to the object.
+> +.PP
+> +To clone an object, however, the caller must have mount capabilities and
+> +permissions.
 
-I2luY2x1ZGUgPHN0ZGlvLmg+CiNpbmNsdWRlIDxzdGRsaWIuaD4KI2luY2x1ZGUgPHVuaXN0ZC5o
-PgojaW5jbHVkZSA8c3RyaW5nLmg+CiNpbmNsdWRlIDxzZWFyY2guaD4KCnN0cnVjdCBlbGVtZW50
-IHsKCXN0cnVjdCBlbGVtZW50ICpmb3J3YXJkOwoJc3RydWN0IGVsZW1lbnQgKmJhY2t3YXJkOwoJ
-Y2hhciBwYXlsb2FkW107Cn07CgpzdGF0aWMgc3RydWN0IGVsZW1lbnQgKm5ld19lbGVtZW50KGNo
-YXIgKmFyZykKewoJc3RydWN0IGVsZW1lbnQgKmU7CgoJZSA9IGNhbGxvYyhzaXplb2Yoc3RydWN0
-IGVsZW1lbnQpKzErc3RybGVuKGFyZyksMSk7CglpZiAoZSA9PSBOVUxMKSB7CgkJZnByaW50Zihz
-dGRlcnIsICJtYWxsb2MoKSBmYWlsZWRcbiIpOwoJCWV4aXQoRVhJVF9GQUlMVVJFKTsKCX0KCXN0
-cmNweShlLT5wYXlsb2FkLGFyZyk7CglyZXR1cm4gZTsKfQoKaW50IG1haW4oaW50IGFyZ2MsIGNo
-YXIgKmFyZ3ZbXSkKewoJc3RydWN0IGVsZW1lbnQgKmZpcnN0LCAqZWxlbSwgKnByZXY7CglpbnQg
-Y2lyY3VsYXIsIG9wdCwgZXJyZm5kOwoKCS8qIFRoZSAiLWMiIGNvbW1hbmQtbGluZSBvcHRpb24g
-Y2FuIGJlIHVzZWQgdG8gc3BlY2lmeSB0aGF0IHRoZQoJICAgbGlzdCBpcyBjaXJjdWxhciAqLwoK
-CWVycmZuZCA9IDA7CgljaXJjdWxhciA9IDA7Cgl3aGlsZSAoKG9wdCA9IGdldG9wdChhcmdjLCBh
-cmd2LCAiYyIpKSAhPSAtMSkgewoJCXN3aXRjaCAob3B0KSB7CgkJY2FzZSAnYyc6CgkJCWNpcmN1
-bGFyID0gMTsKCQkJYnJlYWs7CgkJZGVmYXVsdDoKCQkJZXJyZm5kID0gMTsKCQkJYnJlYWs7CgkJ
-fQoJfQoKCWlmIChlcnJmbmQgfHwgb3B0aW5kID49IGFyZ2MpIHsKCQlmcHJpbnRmKHN0ZGVyciwg
-IlVzYWdlOiAlcyBbLWNdIHN0cmluZy4uLlxuIiwgYXJndlswXSk7CgkJZXhpdChFWElUX0ZBSUxV
-UkUpOwoJfQoKCS8qIENyZWF0ZSBmaXJzdCBlbGVtZW50IGFuZCBwbGFjZSBpdCBpbiB0aGUgbGlu
-a2VkIGxpc3QgKi8KCgllbGVtID0gbmV3X2VsZW1lbnQoYXJndltvcHRpbmRdKTsKCWZpcnN0ID0g
-ZWxlbTsKCglpZiAoY2lyY3VsYXIpIHsKCQllbGVtLT5mb3J3YXJkID0gZWxlbTsKCQllbGVtLT5i
-YWNrd2FyZCA9IGVsZW07CgkJaW5zcXVlKGVsZW0sIGVsZW0pOwoJfSBlbHNlIHsKCQlpbnNxdWUo
-ZWxlbSwgTlVMTCk7Cgl9CgoJLyogQWRkIHJlbWFpbmluZyBjb21tYW5kLWxpbmUgYXJndW1lbnRz
-IGFzIGxpc3QgZWxlbWVudHMgKi8KCgl3aGlsZSAoKytvcHRpbmQgPCBhcmdjKSB7CgkJcHJldiA9
-IGVsZW07CgkJZWxlbSA9IG5ld19lbGVtZW50KGFyZ3Zbb3B0aW5kXSk7CgkJaW5zcXVlKGVsZW0s
-IHByZXYpOwoJfQoKCS8qIFRyYXZlcnNlIHRoZSBsaXN0IGZyb20gdGhlIHN0YXJ0LCBwcmludGlu
-ZyBlbGVtZW50IG5hbWVzICovCgoJcHJpbnRmKCJUcmF2ZXJzaW5nIGNvbXBsZXRlZCBsaXN0Olxu
-Iik7CgllbGVtID0gZmlyc3Q7CglkbyB7CgkJcHJpbnRmKCIgICAgICVzXG4iLCBlbGVtLT5wYXls
-b2FkKTsKCQllbGVtID0gZWxlbS0+Zm9yd2FyZDsKCX0gd2hpbGUgKGVsZW0gIT0gTlVMTCAmJiBl
-bGVtICE9IGZpcnN0KTsKCglpZiAoZWxlbSA9PSBmaXJzdCkKCQlwcmludGYoIlRoYXQgd2FzIGEg
-Y2lyY3VsYXIgbGlzdFxuIik7CgoJZWxlbT1maXJzdDsKCWRvIAoJewoJCXN0cnVjdCBlbGVtZW50
-ICpuZXh0OwoJCW5leHQ9IGVsZW0tPmZvcndhcmQ7CgkJcHJpbnRmKCJmcmVlICVzXG4iLCBlbGVt
-LT5wYXlsb2FkKTsKCQlyZW1xdWUoZWxlbSk7CgkJZnJlZShlbGVtKTsKCQlpZiAoY2lyY3VsYXIg
-JiYgZWxlbT09bmV4dCApIAoJCQlicmVhazsKCQllbGVtPW5leHQ7Cgl9IHdoaWxlIChlbGVtICE9
-IE5VTEwgKTsKCWV4aXQoRVhJVF9TVUNDRVNTKTsKfQo=
+Can you reword the last sentence in more detail please, explaining
+"mount capabilities and permissions".
 
---_002_185f510eee65464f8fd8deeb9b4689e0bfsde_--
+> +.PP
+> +.BR open_tree ()
+> +uses
+> +.IR pathname ", " dirfd " and " flags
+> +to locate the target object in one of a variety of ways:
+> +.TP
+> +[*] By absolute path.
+> +.I pathname
+> +points to an absolute path and
+> +.I dirfd
+> +is ignored.  The object is looked up by name, starting from the root of the
+> +filesystem as seen by the calling process.
+> +.TP
+> +[*] By cwd-relative path.
+> +.I pathname
+> +points to a relative path and
+> +.IR dirfd " is " AT_FDCWD .
+> +The object is looked up by name, starting from the current working directory.
+> +.TP
+> +[*] By dir-relative path.
+> +.I pathname
+> +points to relative path and
+> +.I dirfd
+> +indicates a file descriptor pointing to a directory.  The object is looked up
+> +by name, starting from the directory specified by
+> +.IR dirfd .
+> +.TP
+> +[*] By file descriptor.
+> +.I pathname
+> +is "",
+> +.I dirfd
+> +indicates a file descriptor and
+> +.B AT_EMPTY_PATH
+> +is set in
+> +.IR flags .
+> +The mount attached to the file descriptor is queried directly.  The file
+> +descriptor may point to any type of file, not just a directory.
+> +
+
+Manual page source should in general never contain blank lines; these
+can cause odd renderings in various formats (e.g., PDF). Could you
+please fix this in all pages.
+
+> +.\"______________________________________________________________
+
+Please delete the above line.
+
+> +.PP
+> +.I flags
+> +can be used to control the operation of the function and to influence a
+> +path-based lookup.  A value for
+> +.I flags
+> +is constructed by OR'ing together zero or more of the following constants:
+> +.TP
+> +.BR AT_EMPTY_PATH
+> +.\" commit 65cfc6722361570bfe255698d9cd4dccaf47570d
+> +If
+> +.I pathname
+> +is an empty string, operate on the file referred to by
+> +.IR dirfd
+> +(which may have been obtained from
+> +.BR open "(2) with"
+> +.BR O_PATH ", from " fsmount (2)
+> +or from another
+> +.BR open_tree ()).
+> +If
+> +.I dirfd
+> +is
+> +.BR AT_FDCWD ,
+> +the call operates on the current working directory.
+> +In this case,
+> +.I dirfd
+> +can refer to any type of file, not just a directory.
+> +This flag is Linux-specific; define
+> +.B _GNU_SOURCE
+> +.\" Before glibc 2.16, defining _ATFILE_SOURCE sufficed
+> +to obtain its definition.
+> +.TP
+> +.BR AT_NO_AUTOMOUNT
+> +Don't automount the terminal ("basename") component of
+
+Better: s/terminal/final/
+
+> +.I pathname
+> +if it is a directory that is an automount point.  This flag allows the
+> +automount point itself to be picked up or a mount cloned that is rooted on the
+> +automount point.  The
+> +.B AT_NO_AUTOMOUNT
+> +flag has no effect if the mount point has already been mounted over.
+> +This flag is Linux-specific; define
+> +.B _GNU_SOURCE
+> +.\" Before glibc 2.16, defining _ATFILE_SOURCE sufficed
+> +to obtain its definition.
+> +.TP
+> +.B AT_SYMLINK_NOFOLLOW
+> +If
+> +.I pathname
+> +is a symbolic link, do not dereference it: instead pick up or clone a mount
+> +rooted on the link itself.
+> +.TP
+> +.B OPEN_TREE_CLOEXEC
+> +Set the close-on-exec flag for the new file descriptor.  This will cause the
+> +file descriptor to be closed automatically when a process exec's.
+> +.TP
+> +.B OPEN_TREE_CLONE
+> +Rather than directly attaching the selected object to the file descriptor,
+> +clone the object, set the root of the new mount object to that point and
+> +attach the clone to the file descriptor.
+> +.TP
+> +.B AT_RECURSIVE
+> +This is only permitted in conjunction with OPEN_TREE_CLONE.  It causes the
+> +entire mount subtree rooted at the selected spot to be cloned rather than just
+> +that one mount object.
+> +
+> +
+
+Remove the blank lines above please.
+
+> +.SH EXAMPLE
+
+The standard section order for manual pages (see man-pages(7)) is:
+           NAME
+           SYNOPSIS
+           DESCRIPTION
+           RETURN VALUE
+           ERRORS
+           VERSIONS
+           CONFORMING TO
+           NOTES
+           BUGS
+           EXAMPLES
+           SEE ALSO
+
+Could you move this section to just above SEE ALSO please (and retitle
+as EXAMPLES). Presumably this may need fixing in other pages too.
+
+> +The
+> +.BR open_tree ()
+> +function can be used like the following:
+> +.PP
+> +.RS
+> +.nf
+> +fd1 = open_tree(AT_FDCWD, "/mnt", 0);
+> +fd2 = open_tree(fd1, "",
+> +                AT_EMPTY_PATH | OPEN_TREE_CLONE | AT_RECURSIVE);
+> +move_mount(fd2, "", AT_FDCWD, "/mnt2", MOVE_MOUNT_F_EMPTY_PATH);
+> +.fi
+> +.RE
+> +.PP
+> +This would attach the path point for "/mnt" to fd1, then it would copy the
+> +entire subtree at the point referred to by fd1 and attach that to fd2; lastly,
+> +it would attach the clone to "/mnt2".
+> +
+> +
+
+Please remove blank lines.
+
+> +.\"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+> +.\"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+> +.\"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Lines like the above are rather clutter in the page source. I prefer
+not to have them. Could you remove in all pages please.
+
+> +.SH RETURN VALUE
+> +On success, the new file descriptor is returned.  On error, \-1 is returned,
+> +and
+> +.I errno
+> +is set appropriately.
+> +.SH ERRORS
+> +.TP
+> +.B EACCES
+> +Search permission is denied for one of the directories
+> +in the path prefix of
+> +.IR pathname .
+> +(See also
+> +.BR path_resolution (7).)
+> +.TP
+> +.B EBADF
+> +.I dirfd
+> +is not a valid open file descriptor.
+> +.TP
+> +.B EFAULT
+> +.I pathname
+> +is NULL or
+> +.IR pathname
+> +point to a location outside the process's accessible address space.
+> +.TP
+> +.B EINVAL
+> +Reserved flag specified in
+> +.IR flags .
+> +.TP
+> +.B ELOOP
+> +Too many symbolic links encountered while traversing the pathname.
+> +.TP
+> +.B ENAMETOOLONG
+> +.I pathname
+> +is too long.
+> +.TP
+> +.B ENOENT
+> +A component of
+> +.I pathname
+> +does not exist, or
+> +.I pathname
+> +is an empty string and
+> +.B AT_EMPTY_PATH
+> +was not specified in
+> +.IR flags .
+> +.TP
+> +.B ENOMEM
+> +Out of memory (i.e., kernel memory).
+> +.TP
+> +.B ENOTDIR
+> +A component of the path prefix of
+> +.I pathname
+> +is not a directory or
+> +.I pathname
+> +is relative and
+> +.I dirfd
+> +is a file descriptor referring to a file other than a directory.
+> +.SH VERSIONS
+> +.BR open_tree ()
+> +was added to Linux in kernel 4.18.
+
+The version number here is wrong. It's 5.2. I presume this needs to be
+fixed in all of the other pages.
+
+> +.SH CONFORMING TO
+> +.BR open_tree ()
+> +is Linux-specific.
+> +.SH NOTES
+> +Glibc does not (yet) provide a wrapper for the
+> +.BR open_tree ()
+> +system call; call it using
+> +.BR syscall (2).
+> +.SH SEE ALSO
+> +.BR fsmount (2),
+> +.BR move_mount (2),
+> +.BR open (2)
+
+Thanks,
+
+Michael
+
+--
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
