@@ -2,69 +2,101 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5C28324E670
-	for <lists+linux-man@lfdr.de>; Sat, 22 Aug 2020 10:42:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BEB7924E70C
+	for <lists+linux-man@lfdr.de>; Sat, 22 Aug 2020 13:29:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725924AbgHVImo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 22 Aug 2020 04:42:44 -0400
-Received: from smtpout1.mo804.mail-out.ovh.net ([79.137.123.220]:51505 "EHLO
-        smtpout1.mo804.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725877AbgHVImn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 22 Aug 2020 04:42:43 -0400
-Received: from mxplan6.mail.ovh.net (unknown [10.109.143.167])
-        by mo804.mail-out.ovh.net (Postfix) with ESMTPS id F01475992276;
-        Sat, 22 Aug 2020 10:42:40 +0200 (CEST)
-Received: from jwilk.net (37.59.142.103) by DAG4EX2.mxp6.local (172.16.2.32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Sat, 22 Aug
- 2020 10:42:40 +0200
-Authentication-Results: garm.ovh; auth=pass (GARM-103G005887434ee-3065-4501-a5c6-9ba4f763b720,
-                    0757F9ECDC574B1294C6F9B57BB3441E5D059665) smtp.auth=jwilk@jwilk.net
-Date:   Sat, 22 Aug 2020 10:42:38 +0200
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-CC:     Thomas Piekarski <t.piekarski@deloquencia.de>,
-        <linux-man@vger.kernel.org>
-Subject: Re: [PATCH] bpf-helpers.7: wfix
-Message-ID: <20200822084238.o5g4ethy5uhpng6m@jwilk.net>
-References: <e95bd107-7a2a-1595-a796-8305badf97d7@deloquencia.de>
- <3e3f07ef-d48c-2469-f95c-0964f7ae42d9@gmail.com>
+        id S1727870AbgHVL3k (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 22 Aug 2020 07:29:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41042 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726920AbgHVL3j (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 22 Aug 2020 07:29:39 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8CC35C061573
+        for <linux-man@vger.kernel.org>; Sat, 22 Aug 2020 04:29:38 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id 88so4214818wrh.3
+        for <linux-man@vger.kernel.org>; Sat, 22 Aug 2020 04:29:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=1dcr8OMaxSVNYloN4RD/kfJwbyBTCkXzoSQ4UNoS6zk=;
+        b=G7t9gjrSjFTI1XVIAxgOzYRfC1AMWaZUo7Fndx8+/pCHMwhHs6l5nwlbu1W2TaAvnW
+         2ir9GCJ2WkBl8K+MMqYRZ4kmHFDDnabXH8iouobfJuyqtD3jyrj+ySH25L0yBWQbTlPF
+         u34NZ4e1bD27c1PjVkTx3W7cWG4WYW90tw/3TJqsy/NSIT2YSEE3Hw8vAUauDICb/3mx
+         F5Nb+p2j4pCVmxshG3zcxZZgMoEsz8EuK1BQRqZrlePG0SvbQxd/r26SjEx4KSZtYb/H
+         F0HuikmqXirmV5USTRYfZ2V6ewTSVt4Pt6q2raJSOd8Sp6LWS4+a4mZoUfkt9mZLpPUf
+         f8Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=1dcr8OMaxSVNYloN4RD/kfJwbyBTCkXzoSQ4UNoS6zk=;
+        b=WVxE5hC80qIi0Bf6QL93r5LfkovD2hFraPzR+KWdB2M3mkxPASkpbnLHBWmsb6+l4w
+         syofvUt9oX9ojNCp0bJfcawZOiry5xPRs9XXwDr5b0nHKFWXJ/wsn5w+1eO4GxSFMewW
+         MGgQHL4sxzZdjVvBcmNOaS56WbQM/FTMZeixE1AQGlzhvX2ZK00wFmCJGpCh77CNvnip
+         V/GJZrcFuRVevXxrTcqtwcVWnTR1gDWws9sGqkx1Lhtpf3yKft3u/Ewk51znyj4ba69a
+         dKVu1BnwxDr1sOFk+6vo1LHKO5BAZJ2rp/MBaGtYrotEBxGgngkJvw9oQNhjx/rnR6S6
+         KbSg==
+X-Gm-Message-State: AOAM530NtRuKChMi1ymHihWgs9mDQXL2sgqwgkvbGbnm5ylvZ0an/yms
+        Hak33lESSQE5rgRjcDjGz6zSop/xHyNCaw==
+X-Google-Smtp-Source: ABdhPJyrksTtO7K2odr7UJuzn6uyhCbR1UtG8efv1NB38LpN7TcFfNH8BjTvSDRTyF8XeoeUFE8VtQ==
+X-Received: by 2002:adf:b454:: with SMTP id v20mr1175370wrd.102.1598095776441;
+        Sat, 22 Aug 2020 04:29:36 -0700 (PDT)
+Received: from localhost.localdomain ([194.230.147.231])
+        by smtp.gmail.com with ESMTPSA id t23sm11068717wra.74.2020.08.22.04.29.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 22 Aug 2020 04:29:35 -0700 (PDT)
+Subject: Re: [PATCH] cgroups.7: wfix
+To:     Thomas Piekarski <t.piekarski@deloquencia.de>
+Cc:     linux-man <linux-man@vger.kernel.org>
+References: <ee32e31f-7b79-b54b-b378-9faa7a9a372e@deloquencia.de>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <ae26f37c-6613-bd7d-94fc-127c234cf34c@gmail.com>
+Date:   Sat, 22 Aug 2020 13:29:31 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; format=flowed
-Content-Disposition: inline
-In-Reply-To: <3e3f07ef-d48c-2469-f95c-0964f7ae42d9@gmail.com>
-User-Agent: NeoMutt/20180716
-X-Originating-IP: [37.59.142.103]
-X-ClientProxiedBy: DAG2EX1.mxp6.local (172.16.2.11) To DAG4EX2.mxp6.local
- (172.16.2.32)
-X-Ovh-Tracer-GUID: 1bc3bf59-40e6-4f94-86aa-ad9c5ffc88ed
-X-Ovh-Tracer-Id: 15744584297456457693
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduiedruddugedgtdekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvffukfhfgggtuggjfghisehttdertddtredvnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpeeujeekvefhhfefudefueelfeeikeejfeeghfejgeejjeefgfevledvieetfeehteenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrddutdefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepmhigphhlrghniedrmhgrihhlrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehjfihilhhksehjfihilhhkrdhnvghtpdhrtghpthhtoheplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
+In-Reply-To: <ee32e31f-7b79-b54b-b378-9faa7a9a372e@deloquencia.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Michael Kerrisk (man-pages) <mtk.manpages@gmail.com>, 2020-08-22, 10:26:
->On 8/19/20 5:18 PM, Thomas Piekarski wrote:
->>Removing repeated word "will"
->>
->>Signed-off-by: Thomas Piekarski <t.piekarski@deloquencia.de>
->
->Hi Thomas,
->
->
->This one is a little difficult, because the page is generated from 
->scripts. (It is pretty much unique in this respect in the man-pages 
->set.)
->
->Looks like a patch is needed against the kernel source file 
->include/uapi/linux/bpf.h. Do you want to send a patch for that?
+On 8/19/20 5:19 PM, Thomas Piekarski wrote:
+> Removing repeated word "the"
+> 
+> Signed-off-by: Thomas Piekarski <t.piekarski@deloquencia.de>
 
-It's already fixed there:
-https://git.kernel.org/linus/bfdfa51702dec67e9fcd52568b4cf3c7f799db8b
 
--- 
-Jakub Wilk
+Thanks, Thomas. Patch applied.
+
+Cheers,
+
+Michael
+
+
+> ---
+>   man7/cgroups.7 | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/man7/cgroups.7 b/man7/cgroups.7
+> index 8ca19e4a8..f189c7a87 100644
+> --- a/man7/cgroups.7
+> +++ b/man7/cgroups.7
+> @@ -879,8 +879,7 @@ Each nonroot cgroup in the v2 hierarchy contains a 
+> read-only file,
+>   .IR cgroup.events ,
+>   whose contents are key-value pairs
+>   (delimited by newline characters, with the key and value separated by 
+> spaces)
+> -providing state information about the
+> -the cgroup:
+> +providing state information about the cgroup:
+>   .PP
+>   .in +4n
+>   .EX
