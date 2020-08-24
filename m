@@ -2,186 +2,199 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 56DE72509E5
-	for <lists+linux-man@lfdr.de>; Mon, 24 Aug 2020 22:17:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EAC7F250C50
+	for <lists+linux-man@lfdr.de>; Tue, 25 Aug 2020 01:25:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726090AbgHXURv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 24 Aug 2020 16:17:51 -0400
-Received: from mga17.intel.com ([192.55.52.151]:60144 "EHLO mga17.intel.com"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1725904AbgHXURv (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 24 Aug 2020 16:17:51 -0400
-IronPort-SDR: GjA9Z3K8yeQOd1vVVwjguWMfxheIeLx3QdEcDUp8phhxqCuaUyaQ1kGXFSrpXx7CJnxUoCr+ao
- FPH2sALB1pAw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9723"; a="136046843"
-X-IronPort-AV: E=Sophos;i="5.76,349,1592895600"; 
-   d="scan'208";a="136046843"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
-  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2020 13:17:50 -0700
-IronPort-SDR: Nwz8vCjMFKCoaqkMNet8SYnLrh4iSaSjsJz2L+/k7Pch+nY070XVTCBBiwLNHr8H7IQKr0KHF/
- zbvv+42vh8qQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,349,1592895600"; 
-   d="scan'208";a="499046477"
-Received: from linux.intel.com ([10.54.29.200])
-  by fmsmga006.fm.intel.com with ESMTP; 24 Aug 2020 13:17:50 -0700
-Received: from [10.249.225.234] (abudanko-mobl.ccr.corp.intel.com [10.249.225.234])
-        by linux.intel.com (Postfix) with ESMTP id 80FE85805EB;
-        Mon, 24 Aug 2020 13:17:47 -0700 (PDT)
-Subject: Re: [PATCH v1] perf_event_open.2: update the man page with
- CAP_PERFMON related information
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, James Morris <jmorris@namei.org>,
-        Serge Hallyn <serge@hallyn.com>,
-        Stephen Smalley <sds@tycho.nsa.gov>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Arnaldo Carvalho de Melo <acme@kernel.org>,
-        Ingo Molnar <mingo@redhat.com>,
-        Thomas Gleixner <tglx@linutronix.de>,
-        Andi Kleen <ak@linux.intel.com>,
-        linux-kernel <linux-kernel@vger.kernel.org>
-References: <18d1083d-efe5-f5f8-c531-d142c0e5c1a8@linux.intel.com>
- <ed6f63bd-5dcb-425d-60ee-311a68756bfe@gmail.com>
-From:   Alexey Budankov <alexey.budankov@linux.intel.com>
-Organization: Intel Corp.
-Message-ID: <e3ff6ff2-8fa5-de27-3bc4-f578b6957de8@linux.intel.com>
-Date:   Mon, 24 Aug 2020 23:17:46 +0300
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+        id S1728247AbgHXXZH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 24 Aug 2020 19:25:07 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60998 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726090AbgHXXZF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 24 Aug 2020 19:25:05 -0400
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com [IPv6:2607:f8b0:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D8CEBC061574
+        for <linux-man@vger.kernel.org>; Mon, 24 Aug 2020 16:25:04 -0700 (PDT)
+Received: by mail-pf1-x443.google.com with SMTP id m71so5829206pfd.1
+        for <linux-man@vger.kernel.org>; Mon, 24 Aug 2020 16:25:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mbobrowski-org.20150623.gappssmtp.com; s=20150623;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=XMAW5uOgAylcLyp8Jn6MnPI/HRmfUlDk+WapLQUXI1o=;
+        b=kDrOGA8AsSdwlrp7T/aD7wvYFjM45SGe1iaYbJYjuRfaIgK5HZX7cRdiQM7aLK0LEA
+         dj8gulQ6h3OsDwM8fudCXQ/33H/ZwSjyQDAvufYAp+xif1CUwPgixdkJ+X4gcry38RRZ
+         9jYlXzq5Qx2juIglmXRtngEtDgP7hXtFP61eyNitvDRKYK+hU4usmGPCJ8nJt09TM5qQ
+         WrCyt/C0+w8YXan0rQnflz/4oOdCm8d9sQ7UYco35CHZBtNo3KUbTCaJlw+TGrLz+nj6
+         t9ZMfGiVuFUbci4EOfe3f4IipoxwXxCwXWHWWPuDhfQf0iseZO6of76aO/HkwkWsxiz9
+         HeRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=XMAW5uOgAylcLyp8Jn6MnPI/HRmfUlDk+WapLQUXI1o=;
+        b=t8fwytmtrxKCvuFKOaglU96J+iXdo96slvHqIJ5ZVRL+Juo1ABkzEkZzT4aG3hlN5I
+         SX2lBAd1EUreN1j1gxg7NRUy9ACqePXgRPQX6cehzRWjx83B5RxmwdBjETqKtX+oc8s/
+         +H99Ioeg0LN8X5YansodmBEuqn1lOMz+CrWyHCVISZoEL6Fr8kyLiBIanJJq+JfkyhQv
+         poHnRmkREqrtBLRGrox2I6LLqKq8LMZndZg4dAe1BHlafImhqL8H0QMA4NHIBcPQG8xC
+         Av/dwChaWwHsOyTMegMvQxleEXj3Ew30Z8aEUlNitcbrwJJTA8UFEi3D9zVBzVEoMuIs
+         WRYQ==
+X-Gm-Message-State: AOAM532l1L0M6LpoP/6cynfdPKtLDgBHr2q6iAbT+j2LvAa/hSpHA9Mc
+        c21PcNA7mrSiX0P7Zhc6X6qr
+X-Google-Smtp-Source: ABdhPJx/c+WLXnTc0vFeOPiFyIIHMlQrOKlf5yyLgBjWsV0okcrgTzNGmI296cqubuXI80iTIieZ5Q==
+X-Received: by 2002:a17:902:7048:: with SMTP id h8mr5210182plt.225.1598311504182;
+        Mon, 24 Aug 2020 16:25:04 -0700 (PDT)
+Received: from mail.bobrowski.net (mail.bobrowski.net. [112.213.34.247])
+        by smtp.gmail.com with ESMTPSA id x1sm7698885pfn.178.2020.08.24.16.25.01
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 24 Aug 2020 16:25:03 -0700 (PDT)
+Date:   Tue, 25 Aug 2020 09:24:58 +1000
+From:   Matthew Bobrowski <mbobrowski@mbobrowski.org>
+To:     Amir Goldstein <amir73il@gmail.com>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, Jan Kara <jack@suse.cz>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH 2/3] fanotify.7, fanotify_init.2: Document
+ FAN_REPORT_DIR_FID
+Message-ID: <20200824232458.GA28622@mail.bobrowski.net>
+References: <20200824080326.5012-1-amir73il@gmail.com>
+ <20200824080326.5012-3-amir73il@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <ed6f63bd-5dcb-425d-60ee-311a68756bfe@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200824080326.5012-3-amir73il@gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
-
-On 23.08.2020 20:28, Michael Kerrisk (man-pages) wrote:
-> Hello Alexey,
+On Mon, Aug 24, 2020 at 11:03:25AM +0300, Amir Goldstein wrote:
+> Document fanotify_init(2) flag FAN_REPORT_DIR_FID and event info type
+> FAN_EVENT_INFO_TYPE_DFID.
 > 
-> Could you look at the question below and update the patch.
-> 
-> On 2/17/20 9:18 AM, Alexey Budankov wrote:
->>
->> Extend perf_event_open 2 man page with the information about
->> CAP_PERFMON capability designed to secure performance monitoring
->> and observability operation in a system according to the principle
->> of least privilege [1] (POSIX IEEE 1003.1e, 2.2.2.39).
->>
->> [1] https://sites.google.com/site/fullycapable/, posix_1003.1e-990310.pdf
->>
->> Signed-off-by: Alexey Budankov <alexey.budankov@linux.intel.com>
->> ---
->>   man2/perf_event_open.2 | 27 +++++++++++++++++++++++++++
->>   1 file changed, 27 insertions(+)
->>
->> diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
->> index 89d267c02..e9aab2ca1 100644
->> --- a/man2/perf_event_open.2
->> +++ b/man2/perf_event_open.2
->> @@ -98,6 +98,8 @@ when running on the specified CPU.
->>   .BR "pid == \-1" " and " "cpu >= 0"
->>   This measures all processes/threads on the specified CPU.
->>   This requires
->> +.B CAP_PERFMON
->> +or
->>   .B CAP_SYS_ADMIN
->>   capability or a
->>   .I /proc/sys/kernel/perf_event_paranoid
->> @@ -2920,6 +2922,8 @@ to hold the result.
->>   This allows attaching a Berkeley Packet Filter (BPF)
->>   program to an existing kprobe tracepoint event.
->>   You need
->> +.B CAP_PERFMON
->> +or
->>   .B CAP_SYS_ADMIN
->>   privileges to use this ioctl.
->>   .IP
->> @@ -2962,6 +2966,8 @@ have multiple events attached to a tracepoint.
->>   Querying this value on one tracepoint event returns the id
->>   of all BPF programs in all events attached to the tracepoint.
->>   You need
->> +.B CAP_PERFMON
->> +or
->>   .B CAP_SYS_ADMIN
->>   privileges to use this ioctl.
->>   .IP
->> @@ -3170,6 +3176,8 @@ it was expecting.
->>   .TP
->>   .B EACCES
->>   Returned when the requested event requires
->> +.B CAP_PERFMON
->> +or
->>   .B CAP_SYS_ADMIN
->>   permissions (or a more permissive perf_event paranoid setting).
->>   Some common cases where an unprivileged process
->> @@ -3291,6 +3299,8 @@ setting is specified.
->>   It can also happen, as with
->>   .BR EACCES ,
->>   when the requested event requires
->> +.B CAP_PERFMON
->> +or
->>   .B CAP_SYS_ADMIN
->>   permissions (or a more permissive perf_event paranoid setting).
->>   This includes setting a breakpoint on a kernel address,
->> @@ -3321,6 +3331,23 @@ The official way of knowing if
->>   support is enabled is checking
->>   for the existence of the file
->>   .IR /proc/sys/kernel/perf_event_paranoid .
->> +.PP
->> +.B CAP_PERFMON
->> +capability (since Linux X.Y) provides secure approach to
-> 
-> What's the version?
+> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 
-It's since Linux 5.8 .
+I've made one minor suggestion below. Other than that, this patch
+looks healthy to me.
 
+Reviewed-by: Matthew Bobrowski <mbobrowski@mbobrowski.org>
+
+> ---
+>  man2/fanotify_init.2 | 35 +++++++++++++++++++++++++++++++++--
+>  man7/fanotify.7      | 30 ++++++++++++++++++++++++++----
+>  2 files changed, 59 insertions(+), 6 deletions(-)
 > 
->> +performance monitoring and observability operations in a system
->> +according to the principal of least privilege (POSIX IEEE 1003.1e).
->> +Accessing system performance monitoring and observability operations
->> +using
->> +.B CAP_PERFMON
->> +capability singly, without the rest of
->> +.B CAP_SYS_ADMIN
->> +credentials, excludes chances to misuse the credentials and makes
+> diff --git a/man2/fanotify_init.2 b/man2/fanotify_init.2
+> index 54646e3c6..c58ae4493 100644
+> --- a/man2/fanotify_init.2
+> +++ b/man2/fanotify_init.2
+> @@ -1,4 +1,4 @@
+> -.\" Copyright (C) 2013, Heinrich Schuchardt <xypron.glpk@gmx.de>
+> +\" Copyright (C) 2013, Heinrich Schuchardt <xypron.glpk@gmx.de>
+>  .\"
+>  .\" %%%LICENSE_START(VERBATIM)
+>  .\" Permission is granted to make and distribute verbatim copies of this
+> @@ -191,7 +191,38 @@ is not permitted with this flag and will result in the error
+>  .BR EINVAL .
+>  See
+>  .BR fanotify (7)
+> -for additional information.
+> +for additional details.
+> +.TP
+> +.BR FAN_REPORT_DIR_FID " (since Linux 5.9)"
+> +Events for fanotify groups initialized with this flag will contain
+> +(see exceptions below) additional information about a directory object
+> +correlated to an event.
+> +An additional record of type
+> +.BR FAN_EVENT_INFO_TYPE_DFID
+> +encapsulates the information about the directory object and is included
+> +alongside the generic event metadata structure.
+> +For events that occur on a non-directory object, the additional structure
+> +includes a file handle that identifies the parent directory filesystem object.
+> +Note that there is no guarantee that the directory filesystem object will be
+> +found at the location described by the file handle information at the time
+> +the event is received.
+> +In combination with the flag
+
+I think it would read a lot nicer if we used:
+When combined with the flag
+
+> +.BR FAN_REPORT_FID ,
+> +two records may be reported with events that occur on a non-directory object,
+> +one to identify the non-directory object itself and one to identify the parent
+> +directory object.
+> +Note that in some cases, a filesystem object does not have a parent,
+> +for example, when an event occurs on an unlinked but open file.
+> +In that case, with the
+> +.BR FAN_REPORT_FID
+> +flag, the event will be reported with only one record to identify the
+> +non-directory object itself, because there is no directory associated with
+> +the event. Without the
+> +.BR FAN_REPORT_FID
+> +flag, no event will be reported.
+> +See
+> +.BR fanotify (7)
+> +for additional details.
+>  .PP
+>  The
+>  .I event_f_flags
+> diff --git a/man7/fanotify.7 b/man7/fanotify.7
+> index a7b219168..00fc56368 100644
+> --- a/man7/fanotify.7
+> +++ b/man7/fanotify.7
+> @@ -140,12 +140,13 @@ until either a file event occurs or the call is interrupted by a signal
+>  (see
+>  .BR signal (7)).
+>  .PP
+> -The use of the
+> -.BR FAN_REPORT_FID
+> -flag in
+> +The use of one of the flags
+> +.BR FAN_REPORT_FID ,
+> +.BR FAN_REPORT_DIR_FID
+> +in
+>  .BR fanotify_init (2)
+>  influences what data structures are returned to the event listener for each
+> -event. Events reported to a group initialized with this flag will
+> +event. Events reported to a group initialized with one of these flags will
+>  use file handles to identify filesystem objects instead of file descriptors.
+>  .TP
+>  After a successful
+> @@ -412,6 +413,19 @@ a single information record is expected to be attached to the event with
+>  .I info_type
+>  field value of
+>  .BR FAN_EVENT_INFO_TYPE_FID .
+> +When an fanotify file descriptor is created using the combination of
+> +.BR FAN_REPORT_FID
+> +and
+> +.BR FAN_REPORT_DIR_FID ,
+> +there may be two information records attached to the event. One with
+> +.I info_type
+> +field value of
+> +.BR FAN_EVENT_INFO_TYPE_DFID ,
+> +identifying a parent directory object, and one with
+> +.I info_type
+> +field value of
+> +.BR FAN_EVENT_INFO_TYPE_FID ,
+> +identifying a non-directory object.
+>  The
+>  .I fanotify_event_info_header
+>  contains a
+> @@ -469,6 +483,14 @@ field is
+>  the
+>  .IR file_handle
+>  identifies the object correlated to the event.
+> +If the value of
+> +.I info_type
+> +field is
+> +.BR FAN_EVENT_INFO_TYPE_DFID ,
+> +the
+> +.IR file_handle
+> +identifies the directory object correlated to the event or the parent directory
+> +of the non-directory object correlated to the event.
+>  .PP
+>  The following macros are provided to iterate over a buffer containing
+>  fanotify event metadata returned by a
+> -- 
+> 2.17.1
 > 
-> I think that wording like "using CAP_PERFMON rather than the much
-> more powerful CAP_SYS_ADMIN..."
-
-Sounds good to me like this, or similar:
-
-"Accessing system performance monitoring and observability operations
- using CAP_PERFMON rather than the much more powerful CAP_SYS_ADMIN
- excludes chances to misuse credentials and makes operations more
- secure."
-
-> 
->> +the operations more secure.
->> +.B CAP_SYS_ADMIN
->> +usage for secure system performance monitoring and observability
->> +is discouraged with respect to
->> +.B CAP_PERFMON
->> +capability.
->>   .SH BUGS
->>   The
->>   .B F_SETOWN_EX
-> 
-> Thanks,
-> 
-> Michael
-> 
-
-Thanks,
-Alexei
-
-P.S.
-I am on vacations till 08/31.
-Please expect delay in response.
-
+/M
