@@ -2,99 +2,85 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C4F6C24FADB
-	for <lists+linux-man@lfdr.de>; Mon, 24 Aug 2020 12:00:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8158F24FB0A
+	for <lists+linux-man@lfdr.de>; Mon, 24 Aug 2020 12:08:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726673AbgHXKAw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 24 Aug 2020 06:00:52 -0400
-Received: from mx2.suse.de ([195.135.220.15]:58656 "EHLO mx2.suse.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1728472AbgHXKAt (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 24 Aug 2020 06:00:49 -0400
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-        by mx2.suse.de (Postfix) with ESMTP id 03DB9AA55;
-        Mon, 24 Aug 2020 10:01:18 +0000 (UTC)
-Received: by quack2.suse.cz (Postfix, from userid 1000)
-        id DDC2E1E1316; Mon, 24 Aug 2020 12:00:47 +0200 (CEST)
-Date:   Mon, 24 Aug 2020 12:00:47 +0200
-From:   Jan Kara <jack@suse.cz>
-To:     Amir Goldstein <amir73il@gmail.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, Jan Kara <jack@suse.cz>,
-        Matthew Bobrowski <mbobrowski@mbobrowski.org>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH 3/3] fanotify.7, fanotify_init.2: Document FAN_REPORT_NAME
-Message-ID: <20200824100047.GD24877@quack2.suse.cz>
-References: <20200824080326.5012-1-amir73il@gmail.com>
- <20200824080326.5012-4-amir73il@gmail.com>
+        id S1726513AbgHXKIc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 24 Aug 2020 06:08:32 -0400
+Received: from us-smtp-delivery-1.mimecast.com ([207.211.31.120]:34581 "EHLO
+        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1726303AbgHXKIb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 24 Aug 2020 06:08:31 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1598263710;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=niBQvcJM3tboigqGIQvzntcj0FQMHRCY5rtN6djQmRo=;
+        b=gZLYfwEWpVEAQ3mwWhfRXqx/tWFIy0oz9g6lvjMyQoR1PmxsuYaxw7z2I9HMMI0+cWmuZG
+        /wHUAmcqzDv2QiWKMaSrAUGWcUz8vA/Ne8xmRq5nusLJ2nM38kwt8nBTlzmA0V7MfH7Lq+
+        z+PliDNMDo4DKWCZxGROqhVUqyvp1Mo=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-7-OFTgyMFtMyaGYi25_niVHg-1; Mon, 24 Aug 2020 06:08:26 -0400
+X-MC-Unique: OFTgyMFtMyaGYi25_niVHg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EDE5DAEF60;
+        Mon, 24 Aug 2020 10:08:24 +0000 (UTC)
+Received: from warthog.procyon.org.uk (ovpn-120-127.rdu2.redhat.com [10.10.120.127])
+        by smtp.corp.redhat.com (Postfix) with ESMTP id 420BA7C84C;
+        Mon, 24 Aug 2020 10:08:23 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+        Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+        Kingdom.
+        Registered in England and Wales under Company Registration No. 3798903
+From:   David Howells <dhowells@redhat.com>
+In-Reply-To: <CAKgNAkjHcxYpzVohhJnxcHXO4s-4Ti_pNsmTZrD-CMu-EUCOoA@mail.gmail.com>
+References: <CAKgNAkjHcxYpzVohhJnxcHXO4s-4Ti_pNsmTZrD-CMu-EUCOoA@mail.gmail.com> <159680892602.29015.6551860260436544999.stgit@warthog.procyon.org.uk> <159680894741.29015.5588747939240667925.stgit@warthog.procyon.org.uk>
+To:     mtk.manpages@gmail.com
+Cc:     dhowells@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
+        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+        Christian Brauner <christian.brauner@ubuntu.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>, Karel Zak <kzak@redhat.com>
+Subject: Re: [PATCH 2/5] Add manpages for move_mount(2) and open_tree(2)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200824080326.5012-4-amir73il@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <287643.1598263702.1@warthog.procyon.org.uk>
+Content-Transfer-Encoding: quoted-printable
+Date:   Mon, 24 Aug 2020 11:08:22 +0100
+Message-ID: <287644.1598263702@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon 24-08-20 11:03:26, Amir Goldstein wrote:
-> Document fanotify_init(2) flag FAN_REPORT_NAME and the format of the
-> event info type FAN_EVENT_INFO_TYPE_DFID_NAME.
-> 
-> The fanotify_fid.c example is extended to also report the name of the
-> created file or sub-directory.
-> 
-> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
 
-Just one spelling fix below. Otherwise feel free to add:
+> > +To access the source mount object or the destination mountpoint, no
+> > +permissions are required on the object itself, but if either pathname=
+ is
+> > +supplied, execute (search) permission is required on all of the direc=
+tories
+> > +specified in
+> > +.IR from_pathname " or " to_pathname .
+> > +.PP
+> > +The caller does, however, require the appropriate capabilities or per=
+mission
+> > +to effect a mount.
+> =
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+> Maybe better: s/effect/create/
 
-								Honza
+The mount has already been created.  We're moving/attaching it.  Maybe:
 
+	The caller does, however, require the appropriate privilege (Linux:
+	the CAP_SYS_ADMIN capability) to move or attach mounts.
 
-> diff --git a/man2/fanotify_init.2 b/man2/fanotify_init.2
-> index c58ae4493..a2e2a17fc 100644
-> --- a/man2/fanotify_init.2
-> +++ b/man2/fanotify_init.2
-> @@ -223,6 +223,60 @@ flag, no event will be reported.
->  See
->  .BR fanotify (7)
->  for additional details.
-> +.TP
-> +.BR FAN_REPORT_NAME " (since Linux 5.9)"
-> +Events for fanotify groups initialized with this flag will contain additional
-> +information about the name of the directory entry correlated to an event.
-> +This flag must be provided in conjunction with the flag
-> +.BR FAN_REPORT_DIR_FID .
-> +Providing this flag value without
-> +.BR FAN_REPORT_DIR_FID
-> +will result in the error
-> +.BR EINVAL .
-> +This flag may be combined with the flag
-> +.BR FAN_REPORT_FID .
-> +An additional record of type
-> +.BR FAN_EVENT_INFO_TYPE_DFID_NAME ,
-> +which encapsulates the information about the directory entry is included
-> +alongside the generic event metadata structure and substitutes the additional
-> +information record of type
-> +.BR FAN_EVENT_INFO_TYPE_DFID .
-> +The additional record includes a file handle that identifies a directory
-> +filesystem object followed by a name that identifies an entry in that
-> +directory.
-> +For the directory entry modification events
-> +.BR FAN_CREATE ,
-> +.BR FAN_DELETE ,
-> +and
-> +.BR FAN_MOVE ,
-> +the reported name is that of the created/deleted/moved directory entry.
-> +For other events that occur on a directory object, the reported file handle
-> +is that of the directory object itself and the reported name is '.'.
-> +For other events that occur on a non-directory object, the reported file handle
-> +is that of the parent directory object and the reported name is the name of a
-> +directory entry where the object was located at the time of the event.
-> +The rational behind this logic is that the reported directory file handle can
-       ^^^^^^^ rationale
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+David
+
