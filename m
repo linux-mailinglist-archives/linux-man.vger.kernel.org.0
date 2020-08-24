@@ -2,279 +2,186 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7BD4A25073F
-	for <lists+linux-man@lfdr.de>; Mon, 24 Aug 2020 20:15:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 56DE72509E5
+	for <lists+linux-man@lfdr.de>; Mon, 24 Aug 2020 22:17:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726759AbgHXSPU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 24 Aug 2020 14:15:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40858 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726734AbgHXSPN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 24 Aug 2020 14:15:13 -0400
-Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com [IPv6:2607:f8b0:4864:20::1044])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4427DC061574
-        for <linux-man@vger.kernel.org>; Mon, 24 Aug 2020 11:15:12 -0700 (PDT)
-Received: by mail-pj1-x1044.google.com with SMTP id ds1so4727969pjb.1
-        for <linux-man@vger.kernel.org>; Mon, 24 Aug 2020 11:15:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=osandov-com.20150623.gappssmtp.com; s=20150623;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=2H1DsCGSEolWbM6/6S8X+IARSJD5xYKklV75KG6kw1c=;
-        b=HThBHzx02h2hx7FP1Llj6ZjEny1sZzYfXl/L2BU/JCHU5/N4CcQl1QTHqTIEiInl/j
-         tqeRenXsZOaGtMHhh0dTub2YaS8ctrd3pve1GyFL8953lpa+1pgdp+fFNEj/wlzGIib7
-         NzsnBEASOqEgDjiG9VzA3ZUo7FHkwpmvjisqKHhfduBaIABBViS0T2yEpuKuK4C28KYL
-         f/WSXnyO+tfaztu3fnD1Lp3SHznm578XP4rRx7tDiwpIsAjo9+zAIEyNR0pmg642e/RT
-         H/r3mW8bo1u71Ac72o6zwAu84wXTXKes0xGKKV+QWKRBF93hrYCqH4S5mOdnEDmW5Tt6
-         5/dA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=2H1DsCGSEolWbM6/6S8X+IARSJD5xYKklV75KG6kw1c=;
-        b=Axj+wbQkYw6iCSmA2GpnpxtomxDTcsQ6Z0u4XJjU5dq/k6ahfwAloyyd1Xdo46WfwQ
-         EWn0QbRT50fcF7/fTGMb9TWKCCRL6sIxqBwicz5xzjrN/GKLkkh5DbjEUgeJas9icsK3
-         tqGLF9IvRzKQG1pRVjRO/dQqnoyFP7QJwRvIOu77L9DGoxOG5hOdL4Ms3+vhRT092+U+
-         muomQZ4bSEXMwUqP31o5u2bSFTHGO5e5+oK0cm/bPvK6wVh8NNK5e782kW7T24Bs19L5
-         D+ZYby51nS7yDmPhi6rVvM8cUJEJU0dcSU/fKgwPPVMWTYUCuj3ZispLH00puFGZC3oc
-         /wQQ==
-X-Gm-Message-State: AOAM531k7Y4QgaZjH9rt5k0kJ6VmAolBPwbcH8fFHe7qyGbhPOZMZV3B
-        1AoVkAUXV8Ygw9advIIeo3l8mQ==
-X-Google-Smtp-Source: ABdhPJywFVsfgo/OoiN2BG3s26Rd5sVCX9V5b+FnlmIr1/YqL3kXWNd40mzoefn+Aii1VOsFPJLxaw==
-X-Received: by 2002:a17:90b:3543:: with SMTP id lt3mr447396pjb.180.1598292912248;
-        Mon, 24 Aug 2020 11:15:12 -0700 (PDT)
-Received: from exodia.localdomain ([2620:10d:c090:400::5:e8ea])
-        by smtp.gmail.com with ESMTPSA id s29sm10237799pgo.68.2020.08.24.11.15.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2020 11:15:11 -0700 (PDT)
-Date:   Mon, 24 Aug 2020 11:15:03 -0700
-From:   Omar Sandoval <osandov@osandov.com>
-To:     Amir Goldstein <amir73il@gmail.com>
-Cc:     linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        Linux Btrfs <linux-btrfs@vger.kernel.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Christoph Hellwig <hch@infradead.org>,
-        Dave Chinner <david@fromorbit.com>,
-        Jann Horn <jannh@google.com>, Aleksa Sarai <cyphar@cyphar.com>,
-        Linux API <linux-api@vger.kernel.org>, kernel-team@fb.com,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: [PATCH man-pages v5] Document encoded I/O
-Message-ID: <20200824181503.GB193404@exodia.localdomain>
-References: <cover.1597993855.git.osandov@osandov.com>
- <64cc229872230dc6998a3dbf2264513870a8a6f6.1597994017.git.osandov@osandov.com>
- <CAOQ4uxgEpYqQ9MeuS=76tOtjFCrL8urkDoPoHxu+A5s4C2HGRA@mail.gmail.com>
+        id S1726090AbgHXURv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 24 Aug 2020 16:17:51 -0400
+Received: from mga17.intel.com ([192.55.52.151]:60144 "EHLO mga17.intel.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1725904AbgHXURv (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 24 Aug 2020 16:17:51 -0400
+IronPort-SDR: GjA9Z3K8yeQOd1vVVwjguWMfxheIeLx3QdEcDUp8phhxqCuaUyaQ1kGXFSrpXx7CJnxUoCr+ao
+ FPH2sALB1pAw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9723"; a="136046843"
+X-IronPort-AV: E=Sophos;i="5.76,349,1592895600"; 
+   d="scan'208";a="136046843"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2020 13:17:50 -0700
+IronPort-SDR: Nwz8vCjMFKCoaqkMNet8SYnLrh4iSaSjsJz2L+/k7Pch+nY070XVTCBBiwLNHr8H7IQKr0KHF/
+ zbvv+42vh8qQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,349,1592895600"; 
+   d="scan'208";a="499046477"
+Received: from linux.intel.com ([10.54.29.200])
+  by fmsmga006.fm.intel.com with ESMTP; 24 Aug 2020 13:17:50 -0700
+Received: from [10.249.225.234] (abudanko-mobl.ccr.corp.intel.com [10.249.225.234])
+        by linux.intel.com (Postfix) with ESMTP id 80FE85805EB;
+        Mon, 24 Aug 2020 13:17:47 -0700 (PDT)
+Subject: Re: [PATCH v1] perf_event_open.2: update the man page with
+ CAP_PERFMON related information
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, James Morris <jmorris@namei.org>,
+        Serge Hallyn <serge@hallyn.com>,
+        Stephen Smalley <sds@tycho.nsa.gov>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Arnaldo Carvalho de Melo <acme@kernel.org>,
+        Ingo Molnar <mingo@redhat.com>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        Andi Kleen <ak@linux.intel.com>,
+        linux-kernel <linux-kernel@vger.kernel.org>
+References: <18d1083d-efe5-f5f8-c531-d142c0e5c1a8@linux.intel.com>
+ <ed6f63bd-5dcb-425d-60ee-311a68756bfe@gmail.com>
+From:   Alexey Budankov <alexey.budankov@linux.intel.com>
+Organization: Intel Corp.
+Message-ID: <e3ff6ff2-8fa5-de27-3bc4-f578b6957de8@linux.intel.com>
+Date:   Mon, 24 Aug 2020 23:17:46 +0300
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAOQ4uxgEpYqQ9MeuS=76tOtjFCrL8urkDoPoHxu+A5s4C2HGRA@mail.gmail.com>
+In-Reply-To: <ed6f63bd-5dcb-425d-60ee-311a68756bfe@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Aug 21, 2020 at 12:24:48PM +0300, Amir Goldstein wrote:
-> On Fri, Aug 21, 2020 at 10:38 AM Omar Sandoval <osandov@osandov.com> wrote:
-> >
-> > From: Omar Sandoval <osandov@fb.com>
-> >
-> > This adds a new page, encoded_io(7), providing an overview of encoded
-> > I/O and updates fcntl(2), open(2), and preadv2(2)/pwritev2(2) to
-> > reference it.
-> >
-> > Cc: Michael Kerrisk <mtk.manpages@gmail.com>
-> > Cc: linux-man <linux-man@vger.kernel.org>
-> > Signed-off-by: Omar Sandoval <osandov@fb.com>
-> > ---
-> 
-> Omar,
-> 
-> Thanks for making the clarifications. Some questions below.
-> 
-> [...]
-> 
-> > +.PP
-> > +As the filesystem page cache typically contains decoded data,
-> > +encoded I/O bypasses the page cache.
-> > +.SS Extent layout
-> > +By using
-> > +.IR len ,
-> > +.IR unencoded_len ,
-> > +and
-> > +.IR unencoded_offset ,
-> > +it is possible to refer to a subset of an unencoded extent.
-> > +.PP
-> > +In the simplest case,
-> > +.I len
-> > +is equal to
-> > +.I unencoded_len
-> > +and
-> > +.I unencoded_offset
-> > +is zero.
-> > +This means that the entire unencoded extent is used.
-> > +.PP
-> > +However, suppose we read 50 bytes into a file
-> > +which contains a single compressed extent.
-> > +The filesystem must still return the entire compressed extent
-> > +for us to be able to decompress it,
-> > +so
-> > +.I unencoded_len
-> > +would be the length of the entire decompressed extent.
-> > +However, because the read was at offset 50,
-> > +the first 50 bytes should be ignored.
-> > +Therefore,
-> > +.I unencoded_offset
-> > +would be 50,
-> > +and
-> > +.I len
-> > +would accordingly be
-> > +.IR unencoded_len\ -\ 50 .
-> > +.PP
-> > +Additionally, suppose we want to create an encrypted file with length 500,
-> > +but the file is encrypted with a block cipher using a block size of 4096.
-> > +The unencoded data would therefore include the appropriate padding,
-> > +and
-> > +.I unencoded_len
-> > +would be 4096.
-> > +However, to represent the logical size of the file,
-> > +.I len
-> > +would be 500
-> > +(and
-> > +.I unencoded_offset
-> > +would be 0).
-> > +.PP
-> > +Similar situations can arise in other cases:
-> > +.IP * 3
-> > +If the filesystem pads data to the filesystem block size before compressing,
-> > +then compressed files with a size unaligned to the filesystem block size will
-> > +end with an extent with
-> > +.I len
-> > +<
-> > +.IR unencoded_len .
-> > +.IP *
-> > +Extents cloned from the middle of a larger encoded extent with
-> > +.B FICLONERANGE
-> > +may have a non-zero
-> > +.I unencoded_offset
-> > +and/or
-> > +.I len
-> > +<
-> > +.IR unencoded_len .
-> > +.IP *
-> > +If the middle of an encoded extent is overwritten,
-> > +the filesystem may create extents with a non-zero
-> > +.I unencoded_offset
-> > +and/or
-> > +.I len
-> > +<
-> > +.I unencoded_len
-> > +for the parts that were not overwritten.
-> 
-> So in this case, would the reader be getting extents "out of unencoded order"?
-> e.g. unencoded range 0..4096 and then unencoded range 10..20?
-> Or would reader be reading the encoded full block twice, once for
-> ragne 0..10 and once for range 20..4096?
+Hi Michael,
 
-The latter. If the file refers to the same encoded data twice, reading
-the file sequentially with RWF_ENCODED will return it twice (with
-different offsets each time). This is obviously not perfect, but it
-keeps the interface simpler: the abstraction is not "what exactly is the
-extent layout of the file" but rather "I want to read this logical range
-of data", even if that involves pulling in some details from the extent
-metadata.
+On 23.08.2020 20:28, Michael Kerrisk (man-pages) wrote:
+> Hello Alexey,
+> 
+> Could you look at the question below and update the patch.
+> 
+> On 2/17/20 9:18 AM, Alexey Budankov wrote:
+>>
+>> Extend perf_event_open 2 man page with the information about
+>> CAP_PERFMON capability designed to secure performance monitoring
+>> and observability operation in a system according to the principle
+>> of least privilege [1] (POSIX IEEE 1003.1e, 2.2.2.39).
+>>
+>> [1] https://sites.google.com/site/fullycapable/, posix_1003.1e-990310.pdf
+>>
+>> Signed-off-by: Alexey Budankov <alexey.budankov@linux.intel.com>
+>> ---
+>>   man2/perf_event_open.2 | 27 +++++++++++++++++++++++++++
+>>   1 file changed, 27 insertions(+)
+>>
+>> diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
+>> index 89d267c02..e9aab2ca1 100644
+>> --- a/man2/perf_event_open.2
+>> +++ b/man2/perf_event_open.2
+>> @@ -98,6 +98,8 @@ when running on the specified CPU.
+>>   .BR "pid == \-1" " and " "cpu >= 0"
+>>   This measures all processes/threads on the specified CPU.
+>>   This requires
+>> +.B CAP_PERFMON
+>> +or
+>>   .B CAP_SYS_ADMIN
+>>   capability or a
+>>   .I /proc/sys/kernel/perf_event_paranoid
+>> @@ -2920,6 +2922,8 @@ to hold the result.
+>>   This allows attaching a Berkeley Packet Filter (BPF)
+>>   program to an existing kprobe tracepoint event.
+>>   You need
+>> +.B CAP_PERFMON
+>> +or
+>>   .B CAP_SYS_ADMIN
+>>   privileges to use this ioctl.
+>>   .IP
+>> @@ -2962,6 +2966,8 @@ have multiple events attached to a tracepoint.
+>>   Querying this value on one tracepoint event returns the id
+>>   of all BPF programs in all events attached to the tracepoint.
+>>   You need
+>> +.B CAP_PERFMON
+>> +or
+>>   .B CAP_SYS_ADMIN
+>>   privileges to use this ioctl.
+>>   .IP
+>> @@ -3170,6 +3176,8 @@ it was expecting.
+>>   .TP
+>>   .B EACCES
+>>   Returned when the requested event requires
+>> +.B CAP_PERFMON
+>> +or
+>>   .B CAP_SYS_ADMIN
+>>   permissions (or a more permissive perf_event paranoid setting).
+>>   Some common cases where an unprivileged process
+>> @@ -3291,6 +3299,8 @@ setting is specified.
+>>   It can also happen, as with
+>>   .BR EACCES ,
+>>   when the requested event requires
+>> +.B CAP_PERFMON
+>> +or
+>>   .B CAP_SYS_ADMIN
+>>   permissions (or a more permissive perf_event paranoid setting).
+>>   This includes setting a breakpoint on a kernel address,
+>> @@ -3321,6 +3331,23 @@ The official way of knowing if
+>>   support is enabled is checking
+>>   for the existence of the file
+>>   .IR /proc/sys/kernel/perf_event_paranoid .
+>> +.PP
+>> +.B CAP_PERFMON
+>> +capability (since Linux X.Y) provides secure approach to
+> 
+> What's the version?
 
-> > +.SS Security
-> > +Encoded I/O creates the potential for some security issues:
-> > +.IP * 3
-> > +Encoded writes allow writing arbitrary data which the kernel will decode on
-> > +a subsequent read. Decompression algorithms are complex and may have bugs
-> > +which can be exploited by maliciously crafted data.
-> > +.IP *
-> > +Encoded reads may return data which is not logically present in the file
-> > +(see the discussion of
-> > +.I len
-> > +vs.
-> > +.I unencoded_len
-> > +above).
-> > +It may not be intended for this data to be readable.
-> > +.PP
-> > +Therefore, encoded I/O requires privilege.
-> > +Namely, the
-> > +.B RWF_ENCODED
-> > +flag may only be used when the file was opened with the
-> > +.B O_ALLOW_ENCODED
-> > +flag to
-> > +.BR open (2),
-> > +which requires the
-> > +.B CAP_SYS_ADMIN
-> > +capability.
-> > +.B O_ALLOW_ENCODED
-> > +may be set and cleared with
-> > +.BR fcntl (2).
-> > +Note that it is not cleared on
-> > +.BR fork (2)
-> > +or
-> > +.BR execve (2);
-> > +one may wish to use
-> > +.B O_CLOEXEC
-> > +with
-> > +.BR O_ALLOW_ENCODED .
-> > +.SS Filesystem support
-> > +Encoded I/O is supported on the following filesystems:
-> > +.TP
-> > +Btrfs (since Linux 5.10)
-> > +.IP
-> > +Btrfs supports encoded reads and writes of compressed data.
-> > +The data is encoded as follows:
-> > +.RS
-> > +.IP * 3
-> > +If
-> > +.I compression
-> > +is
-> > +.BR ENCODED_IOV_COMPRESSION_ZLIB ,
-> > +then the encoded data is a single zlib stream.
-> > +.IP *
-> > +If
-> > +.I compression
-> > +is
-> > +.BR ENCODED_IOV_COMPRESSION_LZO ,
-> > +then the encoded data is compressed page by page with LZO1X
-> > +and wrapped in the format documented in the Linux kernel source file
-> > +.IR fs/btrfs/lzo.c .
-> 
-> :-/ So maybe call it ENCODED_IOV_COMPRESSION_BTRFS_LZO?
-> 
-> I understand why you want the encoding format not to be opaque, but
-> I imagine the encoded data is not going to be migrated as is between
-> different filesystems. So just call it for what it is - a private
-> filesystem encoding
-> format. If you have a format that is standard and other filesystems are likely
-> to use, fine, but let's not make an API that discourages using
-> "private" encoding, just for the sake of it and make life harder for no good
-> reason.
-> 
-> All the reader of this man page may be interested to know is which
-> filesystems are expected to support which encoding types and a general
-> description of what they mean (as you did).
-> Making this page wrongly appear as a standard for encoding formats is not
-> going to play out well...
-> 
-> > +.IP *
-> > +If
-> > +.I compression
-> > +is
-> > +.BR ENCODED_IOV_COMPRESSION_ZSTD ,
-> > +then the encoded data is a single zstd frame compressed with the
-> > +.I windowLog
-> > +compression parameter set to no more than 17.
-> 
-> Even that small detail is a bit limiting to filesystems and should
-> therefore be tagged as a private btrfs encoding IMO.
+It's since Linux 5.8 .
 
-Agreed, I'll make the LZO and ZSTD encodings Btrfs-specific. My
-assumption was that decoders would look at the filesystem type from,
-say, statfs(2), but making it explicit in the encoding is much better.
-On the other hand, I think ENCODED_IOV_COMPRESSION_ZLIB is generic
-enough to be reused.
+> 
+>> +performance monitoring and observability operations in a system
+>> +according to the principal of least privilege (POSIX IEEE 1003.1e).
+>> +Accessing system performance monitoring and observability operations
+>> +using
+>> +.B CAP_PERFMON
+>> +capability singly, without the rest of
+>> +.B CAP_SYS_ADMIN
+>> +credentials, excludes chances to misuse the credentials and makes
+> 
+> I think that wording like "using CAP_PERFMON rather than the much
+> more powerful CAP_SYS_ADMIN..."
 
-Thanks for taking a look!
+Sounds good to me like this, or similar:
+
+"Accessing system performance monitoring and observability operations
+ using CAP_PERFMON rather than the much more powerful CAP_SYS_ADMIN
+ excludes chances to misuse credentials and makes operations more
+ secure."
+
+> 
+>> +the operations more secure.
+>> +.B CAP_SYS_ADMIN
+>> +usage for secure system performance monitoring and observability
+>> +is discouraged with respect to
+>> +.B CAP_PERFMON
+>> +capability.
+>>   .SH BUGS
+>>   The
+>>   .B F_SETOWN_EX
+> 
+> Thanks,
+> 
+> Michael
+> 
+
+Thanks,
+Alexei
+
+P.S.
+I am on vacations till 08/31.
+Please expect delay in response.
+
