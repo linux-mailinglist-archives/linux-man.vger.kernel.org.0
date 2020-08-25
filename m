@@ -2,107 +2,83 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6D5F52517C0
-	for <lists+linux-man@lfdr.de>; Tue, 25 Aug 2020 13:36:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C2E112517ED
+	for <lists+linux-man@lfdr.de>; Tue, 25 Aug 2020 13:41:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729882AbgHYLf7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 25 Aug 2020 07:35:59 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34002 "EHLO
+        id S1730088AbgHYLlR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 25 Aug 2020 07:41:17 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34830 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728993AbgHYLfq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 25 Aug 2020 07:35:46 -0400
-Received: from mail-oi1-x243.google.com (mail-oi1-x243.google.com [IPv6:2607:f8b0:4864:20::243])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D8020C061574
-        for <linux-man@vger.kernel.org>; Tue, 25 Aug 2020 04:35:45 -0700 (PDT)
-Received: by mail-oi1-x243.google.com with SMTP id z22so11294215oid.1
-        for <linux-man@vger.kernel.org>; Tue, 25 Aug 2020 04:35:45 -0700 (PDT)
+        with ESMTP id S1730087AbgHYLlF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 25 Aug 2020 07:41:05 -0400
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8373BC061574
+        for <linux-man@vger.kernel.org>; Tue, 25 Aug 2020 04:41:05 -0700 (PDT)
+Received: by mail-wr1-x42d.google.com with SMTP id w13so12058538wrk.5
+        for <linux-man@vger.kernel.org>; Tue, 25 Aug 2020 04:41:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=OvtW+n3q9mFQct3up2DvDtJ3hBX/zI5e/cEE1ctnoJY=;
-        b=ir9J8bt5aoYgBpeDJAmkUiq9eVchXQ95kWFMrS74CjYV3ctDqYyh0gnupa9emiNPhB
-         lXdvrj5A6lgMN54DDcHQLmzY7/yA5V9xwU85AB990ZuagjDGkwgFL1WZskQmgWxK3MW4
-         0GOK5DQMLrr8PO52DBjTg2Dst8AZBslW4HfPwZtLTP/lAVYYic3tmlrxWr7KOUPitY0o
-         o652uM8huVvM8ARocybLoMJaqj2HIkc112qY7CtUOegzF/PvhOgr7yFf3iJchx97VxSe
-         GUUQ8NTgYl4zw6veVovuvuWAynzy00XHXNbiVIgdzI4fZtYUZ7wBiOk0PONbuTDmLxFS
-         YSCg==
+        h=from:to:cc:subject:date:message-id;
+        bh=NsVooNNIZRhzorgbFdQnON0dZ5UrRh9XnZL0Zqvq0c4=;
+        b=HQmRCBYYRzzJDDvXYwyz5+//Ly7E2EwFBW0Vvt+9SDYw47r1S2VyvMQkVK32XqxCvL
+         nxQj8gL8AH/HUAWZpXKUNtFQ3iMWIVqnMIdWOL6Bv/08l3GZ+RtE4K0otZh8AWr5ZPQ+
+         rAb2dYfSZltV9c1OT+J9+MpKFeB8+Sly1zbFKsDWJITOXIhb7dIV+GlEvP63f14BDstO
+         U0mLo1DxvCTbuuR+ezyhUtqR+nCoJ0iYs/DC39NdTNWk02wThEbH943nKdHcfFc/ATms
+         u4TO/AMm080QJ04yNh8M4PKVdm3YWAltzufzAv0dEwm9ntRlMI1AZRqMnbAFunsr60ry
+         MhgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=OvtW+n3q9mFQct3up2DvDtJ3hBX/zI5e/cEE1ctnoJY=;
-        b=A1T1hVUCknp+BZtV/CBAaI4lrNGyfVmHQ2AYd9JpsZHgfNrn+tmml6l2Wzy1G1/JX6
-         DhaHbE83K6JQfm82PHkPVUqsXs+WBodWtQIV9IQhVcUbYyyX8M2MQwctmUPaIOhm5u/Z
-         RHCF3yj6rh8Ld7Z6F7Xa9b4EZQ6B7nP3FgP0e+VLsMW7v6zebVIIZUXFdd29QRfR7Mpd
-         PM2uxsFwsxxyo+wyOA1SPtb7O1gfQ1xeT0SVt+87HAho3UA5tQ+8Gf3y4NFvDWdJdXT5
-         S8K5vMfleUyPM++sevAiSLXjLAVk4Dl4674pudifqn8TVF5N6SNfQtyWZeM+zVyPJEHg
-         ZtgA==
-X-Gm-Message-State: AOAM532CNGrgEMdCGDR5IRWl0IXovM4EwtPZrmlnMBmS+wB1cw35s5Sx
-        0SfHi10MKv3u0jATLkkpR955oh35+mBxy1bsU98=
-X-Google-Smtp-Source: ABdhPJycM7EUD0Yo08t9Z75TycaoExcbR79exqnP7Q1q88rNahIQV+Tgx1Sf6m69EtYF6z4QoDfjZr1oI4k5q7edgaA=
-X-Received: by 2002:aca:fc85:: with SMTP id a127mr722116oii.148.1598355345202;
- Tue, 25 Aug 2020 04:35:45 -0700 (PDT)
-MIME-Version: 1.0
-References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
- <e1b424c2-77c1-e995-a866-67a122d7bb07@gmail.com> <20200825111924.gwf3ck4bdq42lrzr@jwilk.net>
-In-Reply-To: <20200825111924.gwf3ck4bdq42lrzr@jwilk.net>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Tue, 25 Aug 2020 13:35:33 +0200
-Message-ID: <CAKgNAkisp5xz+gOfLAv2XnTZfkOa+sdoKz7nBJjFvUPyWmWbGQ@mail.gmail.com>
-Subject: Re: [patch] memusage.1, bind.2, eventfd.2, futex.2,
- open_by_handle_at.2, perf_event_open.2, poll.2, signalfd.2, sysctl.2,
- timerfd_create.2, bsearch.3, cmsg.3, getaddrinfo.3, getaddrinfo_a.3
- getgrouplist.3, insque.3, malloc_info.3, mbsinit.3, mbstowcs.3,
- pthread_create.3, pthread_setaffinity_np.3, queue.3, rtnetlink.3, shm_open.3,
- strptime.3, tsearch.3, aio.7, fanotify.7, inotify.7, unix.7: Use sizeof consistently
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=NsVooNNIZRhzorgbFdQnON0dZ5UrRh9XnZL0Zqvq0c4=;
+        b=Q38NGocHHwz/cC2WG8gItXoagyBOPlHkO8LW9Q015kN2+V8TkcmJfZ++Kx2CyJKDu7
+         0Xux87wX9ri7PUYH5vU/ILN5g6NuSz8APovR3R8Zjs55K9eeSArrH/teuv72zFDMbJIt
+         xcCRn/KyqQu/MOXSe6qfYRpodF1MOryQq1zn6ZKWXbhbbpJffbT2loTZiyfsejbdTdKC
+         p/MqJ2p03CU3badt0Kz0ElGNFnNCeTXkCi2zr+nl72GW3qvZgUl5Lm5l3DPBYKa7wvnx
+         P504j6Jyv+9twOAva0QsMZy51nDkGrxM16KCoCzbsiqPgUfVEOp5gD53lEj0W4zDzQoS
+         pChQ==
+X-Gm-Message-State: AOAM533S7Kt8MAvUeONHWjgCv1Y41V+yHihKOE5NakvgdyIGjH7cP2Q7
+        BARrYfd79dL0ZmFCSFwwMaQ=
+X-Google-Smtp-Source: ABdhPJwwhrn7EsPr4uZ+JlKX2DnId5YXWDftAUuWYXQUvIlvWQX4p796Fx2iTVUaKiwyVPNiXhEtVQ==
+X-Received: by 2002:adf:9361:: with SMTP id 88mr11113892wro.403.1598355663984;
+        Tue, 25 Aug 2020 04:41:03 -0700 (PDT)
+Received: from localhost.localdomain ([141.226.8.56])
+        by smtp.gmail.com with ESMTPSA id g18sm31256574wru.27.2020.08.25.04.41.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2020 04:41:03 -0700 (PDT)
+From:   Amir Goldstein <amir73il@gmail.com>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     Jan Kara <jack@suse.cz>,
+        Matthew Bobrowski <mbobrowski@mbobrowski.org>,
+        linux-man@vger.kernel.org
+Subject: [PATCH v2 0/3] Fanotify man page updates for v5.9
+Date:   Tue, 25 Aug 2020 14:40:53 +0300
+Message-Id: <20200825114056.5179-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.17.1
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Jakub,
+Hi Michael,
 
-Once again, thanks for jumping in...
-
-On Tue, 25 Aug 2020 at 13:19, Jakub Wilk <jwilk@jwilk.net> wrote:
->
-> * Michael Kerrisk <mtk.manpages@gmail.com>, 2020-08-25, 12:29:
-> >>      ``(sizeof(x) * INT_MAX * 2)`` doesn't overflow.
-> >>
-> >>      ``(INT_MAX * 2 * sizeof(x))`` overflows, giving incorrect
-> >>      results.
-> >
-> >(3) Is this true? "gcc -Wall" does not complain about this.
->
-> My GCC (10.2.0) does, even without -Wall:
->
->    $ gcc test-overflow.c
->    test-overflow.c: In function 'main':
->    test-overflow.c:8:52: warning: integer overflow in expression of type 'int' results in '-2' [-Woverflow]
->        8 |  printf("INT_MAX * 2 * sizeof(x) = %zu\n", INT_MAX * 2 * sizeof(x));
->          |                                                    ^
->
-> >sizeof((sizeof(x) * INT_MAX * 2)) == 8
-> >sizeof(INT_MAX * 2 * sizeof(x)) == 8
->
-> Hmm? If there was no overflow, surely you should get a number larger
-> than INT_MAX...
-
-Yes, I goofed :-(. There is no compiler warning for "sizeof(INT_MAX *
-2 * sizeof(x))", which is what I tested, but as you point out, there
-is a warning for "INT_MAX * 2 * sizeof(x)".
+Posting v2 with Reviewed-by from Jan Kara and Matthew Bobrowski
+and fixes for a few minor issues they pointed out.
 
 Thanks,
+Amir.
 
-Michael
+
+Amir Goldstein (3):
+  fanotify.7, fanotify_mark.2: Generalize documentation of
+    FAN_REPORT_FID
+  fanotify.7, fanotify_init.2: Document FAN_REPORT_DIR_FID
+  fanotify.7, fanotify_init.2: Document FAN_REPORT_NAME
+
+ man2/fanotify_init.2 | 115 ++++++++++++++++++++++---
+ man2/fanotify_mark.2 |  50 ++++-------
+ man7/fanotify.7      | 200 +++++++++++++++++++++++++++++--------------
+ 3 files changed, 256 insertions(+), 109 deletions(-)
 
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.17.1
+
