@@ -2,323 +2,185 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CB1332517EE
-	for <lists+linux-man@lfdr.de>; Tue, 25 Aug 2020 13:41:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 26E962517F4
+	for <lists+linux-man@lfdr.de>; Tue, 25 Aug 2020 13:41:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730050AbgHYLl3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 25 Aug 2020 07:41:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34852 "EHLO
+        id S1728993AbgHYLls (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 25 Aug 2020 07:41:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34908 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730090AbgHYLlK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 25 Aug 2020 07:41:10 -0400
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 936B7C061757
-        for <linux-man@vger.kernel.org>; Tue, 25 Aug 2020 04:41:09 -0700 (PDT)
-Received: by mail-wm1-x335.google.com with SMTP id s20so2090324wmj.1
-        for <linux-man@vger.kernel.org>; Tue, 25 Aug 2020 04:41:09 -0700 (PDT)
+        with ESMTP id S1730020AbgHYLlc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 25 Aug 2020 07:41:32 -0400
+Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com [IPv6:2607:f8b0:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 05E9EC061574
+        for <linux-man@vger.kernel.org>; Tue, 25 Aug 2020 04:41:32 -0700 (PDT)
+Received: by mail-ot1-x344.google.com with SMTP id o8so7353591otp.9
+        for <linux-man@vger.kernel.org>; Tue, 25 Aug 2020 04:41:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references;
-        bh=rSQOv97EsGyMlC01xBjmj8u5bC1JLV0emyHWTtaoKFA=;
-        b=gdN4IjWkTSa4OyjAsg8t1S4XuqHOngdg/SA62Q1MaU2uAendauAptPQ6ULLXesgzQZ
-         nB/cH49WsIUb21M3qjXHW/Ai/36bJNx3/lCruq//xQn1mI4Qelzbg9FkE6o7ViVKI1sc
-         WQttR0KiyKxqUFuJmx6XKGaZHVegS/BzU3Dfhw7Gg/k9GIu6onflFPi8UH8F3ZtXqu/3
-         LcjkbXYEH1qKRBvYh8LdgLyK1bUX3+szBvZEg6XAvmO0YNcNwc2rRGmoO2ujqivcSPAu
-         ILNWPd7o4lNldk0kDeu0bslLNXGwlbXS0Bz/EOIGHHLfI3+DXCHCQp8aXwvBAWwtpTaC
-         kFdQ==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=MwGfhROLWwRTn9qEJPkoTNHXFvVGAO46aSFzsWHLP5g=;
+        b=jYOyre+/3qGUXB/zlnYVKTuBM+EmEbZSEcEWpcN6kYdkvd0NUa49fAPtqLkasNgR9C
+         q9h5ownzphnDnM4p9laFKRr7wsM9GQNrGLWn/KKa53Rz4WyIDFqvDDBRkRzPCzc0HJ0L
+         wKivDwJ3pwyVvTfZ0rXD/Zrq+63yLtOr3uSHRWTXppiACR+ctuRDa9gp1ST6g7YNiypH
+         Ni0KkRM6QDYJP+buNAlK3x84eSGy67yVTWpMuDRRO4weksB9BCoTSpoCht/EnUFjnk8N
+         gC33Cy3UliF/KT2shEVLC93sAmb0DZGcQvwsk4S+LU9xgJ1FCnmPnqdQEBuwz0Sr1PcP
+         BUvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references;
-        bh=rSQOv97EsGyMlC01xBjmj8u5bC1JLV0emyHWTtaoKFA=;
-        b=qURIT17Xrnv+koTnY2odg7q3MxhZmRK1S/ek/D3J/TTHLcuQY+4PvFRXShaOrIqJ5Z
-         oltO5GcJjWt1vkMeRRd/jTqQoJtw7WzMAH5nUdBDFV9lHUu4NcFulSUuDMsFBbOXGPDH
-         zvA5ETa7N+yq0J3qcU34hGI/XYi+7oo4GLY7/A95grk6Xr5aGrXo9hGnrGpoCmoR/G+E
-         pW3UPpQTzqFcscVdzFDGFZxpru9UiJVLFopa6fWKg0/UollnzSvVfuQTKlTCoexokW6A
-         Dru7CZ97mWx20wZQrQVC4+adKLfY6AkkMDXKn9vEr6sQ4UYngAzWHYGjOJ3mNPVjYU3C
-         c0+Q==
-X-Gm-Message-State: AOAM530HUnKW2I/kAwC/BU5umL2ZvGto2QQqWlKMDlhVmPXUgCz13uZB
-        fTqPFZ1LvYKVRgrZVAP8UhWnShAzS9o=
-X-Google-Smtp-Source: ABdhPJz983okXJtRnfeYZ/Y3x7Hp2fFhZuC8a3jM+Bw72NeFsiDgdEaEF5OGvc5KNfq955vX9h5N9w==
-X-Received: by 2002:a1c:2b04:: with SMTP id r4mr1611142wmr.76.1598355668114;
-        Tue, 25 Aug 2020 04:41:08 -0700 (PDT)
-Received: from localhost.localdomain ([141.226.8.56])
-        by smtp.gmail.com with ESMTPSA id g18sm31256574wru.27.2020.08.25.04.41.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2020 04:41:07 -0700 (PDT)
-From:   Amir Goldstein <amir73il@gmail.com>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     Jan Kara <jack@suse.cz>,
-        Matthew Bobrowski <mbobrowski@mbobrowski.org>,
-        linux-man@vger.kernel.org
-Subject: [PATCH v2 3/3] fanotify.7, fanotify_init.2: Document FAN_REPORT_NAME
-Date:   Tue, 25 Aug 2020 14:40:56 +0300
-Message-Id: <20200825114056.5179-4-amir73il@gmail.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200825114056.5179-1-amir73il@gmail.com>
-References: <20200825114056.5179-1-amir73il@gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=MwGfhROLWwRTn9qEJPkoTNHXFvVGAO46aSFzsWHLP5g=;
+        b=LPOUnKIWNhHHUp6vTyjBDZ2zNlAjEmS31Q1L1f3YSfZ5d0iCx4c4vzxe26G1bnb6OL
+         WXI2VewBbBYDYdb1FJol9KkgPcaHyjwhsH0VDTWP9yi/nen/6ghwIpbHNGCbIBCwHmx7
+         hisdt8e8F0XUS/zeO1xEimAMls2aF66iF3dZGjd80rX7QLgMWoY+RZ+XwYSf54I7Be/b
+         vpbGeyibohQLD5EBPkdnw+eycSzwj9x1tSXa6xpv+NL2aY+evVcW80J+g4b8U472T9Xv
+         72EfKSR4Xa/IibkV/mGlzP+hO2CRaqrLNVUz5rCZMNT7je/UjvO6lICS6BByMwEHmPis
+         k/lg==
+X-Gm-Message-State: AOAM533fXjUgSI0+uDbJXETtrc0/KGLXUr9oes+sjbJxQGw+Lw92OoXU
+        GamC/PGgSBYZI1/FBnzzy/Wx0OkNQw6qWFRkqZ0=
+X-Google-Smtp-Source: ABdhPJxXonEe/xI/07WIkYKYNpoTKmkL2jQ2058JzXQX+iDfdU7rRNSMyGyq5ovgoHKtGM+VIQLL5lPHF2azcSmeoXg=
+X-Received: by 2002:a05:6830:149a:: with SMTP id s26mr6465825otq.114.1598355691273;
+ Tue, 25 Aug 2020 04:41:31 -0700 (PDT)
+MIME-Version: 1.0
+References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
+ <e1b424c2-77c1-e995-a866-67a122d7bb07@gmail.com> <20200825111924.gwf3ck4bdq42lrzr@jwilk.net>
+ <d084b7eb-a691-52e8-4996-5080af0175de@gmail.com>
+In-Reply-To: <d084b7eb-a691-52e8-4996-5080af0175de@gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Tue, 25 Aug 2020 13:41:20 +0200
+Message-ID: <CAKgNAki_wyf7dCShjpAaRLUeuL=+EFZYeVp0fY-EKHyOBW2hRw@mail.gmail.com>
+Subject: Re: [patch] memusage.1, bind.2, eventfd.2, futex.2,
+ open_by_handle_at.2, perf_event_open.2, poll.2, signalfd.2, sysctl.2,
+ timerfd_create.2, bsearch.3, cmsg.3, getaddrinfo.3, getaddrinfo_a.3
+ getgrouplist.3, insque.3, malloc_info.3, mbsinit.3, mbstowcs.3,
+ pthread_create.3, pthread_setaffinity_np.3, queue.3, rtnetlink.3, shm_open.3,
+ strptime.3, tsearch.3, aio.7, fanotify.7, inotify.7, unix.7: Use sizeof consistently
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+Cc:     Jakub Wilk <jwilk@jwilk.net>, linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Document fanotify_init(2) flag FAN_REPORT_NAME and the format of the
-event info type FAN_EVENT_INFO_TYPE_DFID_NAME.
+Hello Alex,
 
-The fanotify_fid.c example is extended to also report the name of the
-created file or sub-directory.
+On Tue, 25 Aug 2020 at 13:34, Alejandro Colomar <colomar.6.4.3@gmail.com> wrote:
+>
+> Hello Michael & Jakub,
+>
+> On 8/25/20 12:29 PM, Michael Kerrisk (man-pages) wrote:
+> > I would really have preferred three patches here, since:
+>
+> I can do that.
+>
+> >
+> >> - Never use a space after ``sizeof``, and always use parentheses
+> >>   instead.
+> >>
+> >>      Rationale:
+> >>
+> >>      https://www.kernel.org/doc/html/v5.8/process/coding-style.html#spaces
+> >
+> > (1) This is completely unproblematic from my point of view.
+>
+> Actually there was only one appearance of that (and another one that
+> used a space before the parentheses).  It's unproblematic, but it's so
+> minor that it can be fixed easily.
+>
+> >> - Use the name of the variable instead of the type as argument
+> >>   for ``sizeof``, wherever possible.
+> >>
+> >>      Rationale:
+> >>
+> >>
+> https://www.kernel.org/doc/html/v5.8/process/coding-style.html#allocating-memory
+> >
+> > (2) This one is up for debate. In many cases it makes sense to do
+> > this. However, there are cases where I think that using the struct
+> > name can actually help readability. And when I grep through the kernel
+> > source, of around 139k lines that use "sizeof", some 37k take a
+> 'struct type'
+> > as an argument. SI, I think this kind of change may need to be
+> considered on
+> > a case by case basis, rather than as a blanket change.
+>
+> Ok. I can send a set of patches with a patch for each page.
 
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Matthew Bobrowski <mbobrowski@mbobrowski.org>
----
- man2/fanotify_init.2 | 54 +++++++++++++++++++++++++++++
- man7/fanotify.7      | 81 ++++++++++++++++++++++++++++++++++----------
- 2 files changed, 118 insertions(+), 17 deletions(-)
+Okay. Don't do them all at once, since we may change strategy while
+discussing the first few patches.
 
-diff --git a/man2/fanotify_init.2 b/man2/fanotify_init.2
-index 6167a1c37..27dbfe498 100644
---- a/man2/fanotify_init.2
-+++ b/man2/fanotify_init.2
-@@ -223,6 +223,60 @@ flag, no event will be reported.
- See
- .BR fanotify (7)
- for additional details.
-+.TP
-+.BR FAN_REPORT_NAME " (since Linux 5.9)"
-+Events for fanotify groups initialized with this flag will contain additional
-+information about the name of the directory entry correlated to an event.
-+This flag must be provided in conjunction with the flag
-+.BR FAN_REPORT_DIR_FID .
-+Providing this flag value without
-+.BR FAN_REPORT_DIR_FID
-+will result in the error
-+.BR EINVAL .
-+This flag may be combined with the flag
-+.BR FAN_REPORT_FID .
-+An additional record of type
-+.BR FAN_EVENT_INFO_TYPE_DFID_NAME ,
-+which encapsulates the information about the directory entry is included
-+alongside the generic event metadata structure and substitutes the additional
-+information record of type
-+.BR FAN_EVENT_INFO_TYPE_DFID .
-+The additional record includes a file handle that identifies a directory
-+filesystem object followed by a name that identifies an entry in that
-+directory.
-+For the directory entry modification events
-+.BR FAN_CREATE ,
-+.BR FAN_DELETE ,
-+and
-+.BR FAN_MOVE ,
-+the reported name is that of the created/deleted/moved directory entry.
-+For other events that occur on a directory object, the reported file handle
-+is that of the directory object itself and the reported name is '.'.
-+For other events that occur on a non-directory object, the reported file handle
-+is that of the parent directory object and the reported name is the name of a
-+directory entry where the object was located at the time of the event.
-+The rationale behind this logic is that the reported directory file handle can
-+be passed to
-+.BR open_by_handle_at (2)
-+to get an open directory file descriptor and that file descriptor along with
-+the reported name can be used to call
-+.BR fstatat (2).
-+The same rule that applies to record type
-+.BR FAN_EVENT_INFO_TYPE_DFID
-+also applies to record type
-+.BR FAN_EVENT_INFO_TYPE_DFID_NAME \ -
-+if a non-directory object has no parent, either the event will not be reported
-+or it will be reported without the directory entry information.
-+Note that there is no guarantee that the filesystem object will be found at the
-+location described by the directory entry information at the time the event is
-+received.
-+See
-+.BR fanotify (7)
-+for additional details.
-+.TP
-+.B FAN_REPORT_DFID_NAME
-+This is a synonym for
-+.RB ( FAN_REPORT_DIR_FID | FAN_REPORT_NAME ).
- .PP
- The
- .I event_f_flags
-diff --git a/man7/fanotify.7 b/man7/fanotify.7
-index fa1c85159..65fb2720a 100644
---- a/man7/fanotify.7
-+++ b/man7/fanotify.7
-@@ -467,6 +467,12 @@ the
- .IR file_handle
- identifies the modified directory and not the created/deleted/moved child
- object.
-+If the value of
-+.I info_type
-+field is
-+.BR FAN_EVENT_INFO_TYPE_DFID_NAME ,
-+the file handle is followed by a null terminated string that identifies the
-+created/deleted/moved directory entry name.
- For other events such as
- .BR FAN_OPEN ,
- .BR FAN_ATTRIB ,
-@@ -487,7 +493,18 @@ field is
- the
- .IR file_handle
- identifies the directory object correlated to the event or the parent directory
--of the non-directory object correlated to the event.
-+of a non-directory object correlated to the event.
-+If the value of
-+.I info_type
-+field is
-+.BR FAN_EVENT_INFO_TYPE_DFID_NAME ,
-+the
-+.IR file_handle
-+identifies the same directory object that would be reported with
-+.BR FAN_EVENT_INFO_TYPE_DFID
-+and the file handle is followed by a null terminated string that identifies the
-+name of a directory entry in that directory, or '.' to identify the directory
-+object itself.
- .PP
- The following macros are provided to iterate over a buffer containing
- fanotify event metadata returned by a
-@@ -672,12 +689,17 @@ events for the monitored directory itself.
- Fanotify monitoring of directories is not recursive:
- to monitor subdirectories under a directory,
- additional marks must be created.
--(But note that the fanotify API provides no way of detecting when a
--subdirectory has been created under a marked directory,
--which makes recursive monitoring difficult.)
--Monitoring mounts offers the capability to monitor a whole directory tree.
-+The
-+.B FAN_CREATE
-+event can be used for detecting when a subdirectory has been created under
-+a marked directory.
-+An additional mark must then be set on the newly created subdirectory.
-+This approach is racy, because it can lose events that occurred inside the
-+newly created subdirectory, before a mark is added on that subdirectory.
-+Monitoring mounts offers the capability to monitor a whole directory tree
-+in a race free manner.
- Monitoring filesystems offers the capability to monitor changes made from
--any mount of a filesystem instance.
-+any mount of a filesystem instance in a race free manner.
- .PP
- The event queue can overflow.
- In this case, events are lost.
-@@ -961,9 +983,8 @@ main(int argc, char *argv[])
- .EE
- .\"
- .SS Example program: fanotify_fid.c
--The second program is an example of fanotify being used with
--.B FAN_REPORT_FID
--enabled.
-+The second program is an example of fanotify being used with a group that
-+identifies objects by file handles.
- The program marks the filesystem object that is passed as
- a command-line argument
- and waits until an event of type
-@@ -984,7 +1005,7 @@ This is followed by the creation of a regular file,
- This results in a
- .B FAN_CREATE
- event being generated and reported against the file's parent watched
--directory object.
-+directory object and with the created file name.
- Program execution ends once all events captured within the buffer have
- been processed.
- .PP
-@@ -994,6 +1015,7 @@ been processed.
- Listening for events.
- FAN_CREATE (file created):
-         Directory /home/user has been modified.
-+        Entry 'testfile.txt' is not a subdirectory.
- All events processed successfully. Program exiting.
- 
- $ \fBtouch /home/user/testfile.txt\fP              # In another terminal
-@@ -1008,7 +1030,7 @@ This specific action results in a
- .B FAN_CREATE
- event being generated and is reported with the
- .B FAN_ONDIR
--flag set.
-+flag set and with the created directory name.
- .PP
- .in +4n
- .EX
-@@ -1016,6 +1038,7 @@ flag set.
- Listening for events.
- FAN_CREATE | FAN_ONDIR (subdirectory created):
-         Directory /home/user has been modified.
-+        Entry 'testdir' is a subdirectory.
- All events processed successfully. Program exiting.
- 
- $ \fBmkdir \-p /home/user/testdir\fP          # In another terminal
-@@ -1048,6 +1071,8 @@ main(int argc, char **argv)
-     struct file_handle *file_handle;
-     struct fanotify_event_metadata *metadata;
-     struct fanotify_event_info_fid *fid;
-+    const char *file_name;
-+    struct stat sb;
- 
-     if (argc != 2) {
-         fprintf(stderr, "Invalid number of command line arguments.\en");
-@@ -1061,10 +1086,10 @@ main(int argc, char **argv)
-     }
- 
- 
--    /* Create an fanotify file descriptor with FAN_REPORT_FID as a flag
--       so that program can receive fid events. */
-+    /* Create an fanotify file descriptor with FAN_REPORT_DFID_NAME as a flag
-+       so that program can receive fid events with directory entry name. */
- 
--    fd = fanotify_init(FAN_CLASS_NOTIF | FAN_REPORT_FID, 0);
-+    fd = fanotify_init(FAN_CLASS_NOTIF | FAN_REPORT_DFID_NAME, 0);
-     if (fd == \-1) {
-         perror("fanotify_init");
-         exit(EXIT_FAILURE);
-@@ -1100,7 +1125,13 @@ main(int argc, char **argv)
- 
-         /* Ensure that the event info is of the correct type */
- 
--        if (fid\->hdr.info_type != FAN_EVENT_INFO_TYPE_FID) {
-+        if (fid\->hdr.info_type == FAN_EVENT_INFO_TYPE_FID ||
-+            fid\->hdr.info_type == FAN_EVENT_INFO_TYPE_DFID) {
-+            file_name = NULL;
-+        } else if (fid\->hdr.info_type == FAN_EVENT_INFO_TYPE_DFID_NAME) {
-+            file_name = file_handle->f_handle +
-+                        file_handle->handle_bytes;
-+        } else {
-             fprintf(stderr, "Received unexpected event info type.\en");
-             exit(EXIT_FAILURE);
-         }
-@@ -1111,8 +1142,8 @@ main(int argc, char **argv)
-         if (metadata\->mask == (FAN_CREATE | FAN_ONDIR))
-             printf("FAN_CREATE | FAN_ONDIR (subdirectory created):\en");
- 
--        /* metadata\->fd is set to FAN_NOFD when FAN_REPORT_FID is
--           enabled.  To obtain a file descriptor for the file object
-+        /* metadata\->fd is set to FAN_NOFD when the group identifies objects
-+           by file handles.  To obtain a file descriptor for the file object
-            corresponding to an event you can use the struct file_handle
-            that\(aqs provided within the fanotify_event_info_fid in
-            conjunction with the open_by_handle_at(2) system call.
-@@ -1146,6 +1177,22 @@ main(int argc, char **argv)
-         path[path_len] = \(aq\e0\(aq;
-         printf("\etDirectory \(aq%s\(aq has been modified.\en", path);
- 
-+        if (file_name) {
-+            ret = fstatat(event_fd, file_name, &sb, 0);
-+            if (ret == \-1) {
-+                if (errno != ENOENT) {
-+                    perror("fstatat");
-+                    exit(EXIT_FAILURE);
-+                }
-+                printf("\etEntry \(aq%s\(aq does not exist.\en", file_name);
-+            } else if ((sb.st_mode & S_IFMT) == S_IFDIR) {
-+                printf("\etEntry \(aq%s\(aq is a subdirectory.\en", file_name);
-+            } else {
-+                printf("\etEntry \(aq%s\(aq is not a subdirectory.\en",
-+                        file_name);
-+            }
-+        }
-+
-         /* Close associated file descriptor for this event */
- 
-         close(event_fd);
--- 
-2.17.1
+> >> - When the result of ``sizeof`` is multiplied (or otherwise modified),
+> >>   write ``sizeof`` in the first place.
+> >>
+> >>      Rationale:
+> >>
+> >>      ``(sizeof(x) * INT_MAX * 2)`` doesn't overflow.
+> >>
+> >>      ``(INT_MAX * 2 * sizeof(x))`` overflows, giving incorrect
+> >>      results.
+> >
+> > (3) Is this true? "gcc -Wall" does not complain about this. And, I
+> > thought that in both cases, all operands in the expression
+> > would be promoted to the largest type. And, on my x86-64 system,
+> >
+> > sizeof((sizeof(x) * INT_MAX * 2)) == 8
+> > sizeof(INT_MAX * 2 * sizeof(x)) == 8
+> >
+> > But, I will say tht I'm not a language lawyer, and C still
+> > sometimes has surprises for me. At the least, I'd like to know
+> > more about this point.
+>
+> Well, when I said the first one doesn't overflow, I meant it's much
+> less likely.
+>
+> In C, successive multiplications are evaluated left to right (*), and
+> therefore here is what happens:
+>
+> ``(sizeof(x) * INT_MAX * 2)``:
+>
+> 1) sizeof(x) * INT_MAX  (the type is the largest of both, which is
+>                          size_t (unsigned long; uint64_t)).
+> 2) ANS * 2              (the type is again the largest: size_t)
+>
+> ``(INT_MAX * 2 * sizeof(x))``:
+>
+> 1) INT_MAX * 2          (the type is the largest of both, which is
+>                          int as both are int (int; int32_t), so the
+>                          result is already truncated as it doesn't fit
+>                          an int; at this point, the intermediate result
+>                          will be 2^32 - 2 (``INT_MAX - 1``) (if I did
+>                          the math right)).
+> 2) ANS * 2              (the type is again the largest of both: size_t;
+>                          however, ANS was already incorrect, so the
+>                          result will be an incorrect size_t value)
+>
+> > sizeof((sizeof(x) * INT_MAX * 2)) == 8
+>
+> Here you were overflowing a uint64_t (if x were a char, it would not
+> overflow, and the result would be close to UINT64_MAX).
+>
+> > sizeof(INT_MAX * 2 * sizeof(x)) == 8
+>
+> Here you were overflowing int32_t, and it would overflow regardless of
+> sizeof(x).
 
+Thanks for the lesson in C basics. I clearly did need a refresher :-}.
+
+You and Jakub are of course correct.
+
+If you send the patches in the order (as I numbered in my previous reply):
+
+(1)
+(3)
+(2) as multiple pieces
+
+that would be best, since the first two patches should obviously be
+applied, and then we can discuss the last patch(es) case by case.
+
+Thanks,
+
+Michael
