@@ -2,127 +2,86 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 56C2325140B
-	for <lists+linux-man@lfdr.de>; Tue, 25 Aug 2020 10:19:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 13CC625159C
+	for <lists+linux-man@lfdr.de>; Tue, 25 Aug 2020 11:40:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728599AbgHYITt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 25 Aug 2020 04:19:49 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59496 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728080AbgHYITr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 25 Aug 2020 04:19:47 -0400
-Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com [IPv6:2607:f8b0:4864:20::d41])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CDE33C061574
-        for <linux-man@vger.kernel.org>; Tue, 25 Aug 2020 01:19:46 -0700 (PDT)
-Received: by mail-io1-xd41.google.com with SMTP id v6so11564868iow.11
-        for <linux-man@vger.kernel.org>; Tue, 25 Aug 2020 01:19:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=MqgJLrCutYarVltqr4Ci+dzGADQJ+1vVuYXN2ibqDvs=;
-        b=sl06qRMLlo0qG+efzqyanelkTrWIMJvq41Gvh7CLdBHBVuZMjhHM/AIYhD52feKfRF
-         69safk+M3rnHHsqhlzK4ZGz35CJeAbnKOBUy+usoLNoGZajH3hrmXTMWhL733n8H7TzZ
-         5V/cX5yLBRurrnrPBuRcU1elGomH4o7NltENnKKewx0kLjgaKUzYC2fI3rMlgq1QaAOw
-         eTTcxpcXZbG+qKnoxHUA9TiVOt+YwfGieY0Lp1VAfMR80foUxJV4AGzTdKizvr0xfm0V
-         lw6rTbmuIXYKFkmYJ0ofK4bBmTtaaBB1dEWYcf/5OKjPbJ0+wSjMJcWNvyAa7LPiEWWd
-         jYXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=MqgJLrCutYarVltqr4Ci+dzGADQJ+1vVuYXN2ibqDvs=;
-        b=qXpMS3s3Qu/NFshSKooO7SFSWJjZIsjfjXxAoQDZG7JcroGOmtr0d0OW5xTQAcwCcJ
-         9GdegPF38C4mgmSqdk6h3DPkAXejxBn4PsJYskGu+xgH+icIHNqmEBkhK0SJyfSZtBrY
-         Ur6cBiYGAca7kx4HmOOdreqdCYf5aZ8/Ctm3Lpn+7384+IqbdGQpITOK3iXsxnesY96u
-         A//H/5CC+UxmBADF3nTaegReTUyJjN0HdBdqEkWGr/ZCkygJ598GjStE6mECcpdWXkJE
-         5ppTQCzE5yz4iB0yDPtBt/n19/3u9GYlWO+3vLORrfR91K4RgN+2XgBvUlXb5+KwYVio
-         AJuw==
-X-Gm-Message-State: AOAM533c7v8uMsSroGjyUixWmTZWtnTLRDh6To33Rt08tW9K9whuZD4o
-        Lut8eGTH4HLwxLFgVHUdNYUlYH1Xagoi4dxOX4M=
-X-Google-Smtp-Source: ABdhPJzHerq1FKTNrCzX4bpZ388U8qGMJL5NiYsWRBHinpQV2Nir5wNsSfddLUqwhAE8vHDHFrdvno6y2kqZeUFO9sc=
-X-Received: by 2002:a02:3f16:: with SMTP id d22mr9357853jaa.30.1598343586148;
- Tue, 25 Aug 2020 01:19:46 -0700 (PDT)
+        id S1729499AbgHYJkb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 25 Aug 2020 05:40:31 -0400
+Received: from sonic313-13.consmr.mail.bf2.yahoo.com ([74.6.133.123]:40180
+        "EHLO sonic313-13.consmr.mail.bf2.yahoo.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1729462AbgHYJka (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 25 Aug 2020 05:40:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1598348429; bh=ZYZvy+Qaw/dXt8bYbJ9dbPZBZLLQyQWYsj5yGRQem/A=; h=Date:From:Reply-To:Subject:References:From:Subject; b=DPY3MDHa6EKh0SEY59aUXalvR+HdEEYGe+R814tqNjNaIBd1by9Cawv3FbYmNrohs848cIU1tsMlpBNLUxf9K8DkLIBaEaarS9pHxpVntuejbC+6XEinTBeTDaBa35r8LJMV5I5Xr912KTykVuXNh1/S119uVCyWPW2EckHdBOuyzmPFQ8u2H+xl4Nqlr1+ULWg9UE7yoVDPpXoCLJVdFZlSHIpHfDlKsxzS43fINoUM2jayrrOlFWmhd8lmHggxUQ6JhyYDWeehcWB/TWkbJ/DOW23v8SQW+5uyzMqOs8w2Y+9X3MC9EUvFzymxIpRPyzmYa0zEsBHO5JFwRdYKOA==
+X-YMail-OSG: e2V.VpIVM1mzFxGiyWvjwbXvi2a6bU6H8mmK7ovYl7DIMLYcm4FhCViznavfkIs
+ A.rs6E2AYNVST5wO9zd3Lsde4HEpMiB7Fin0N18VAlfN7fRd0JLgxz79gVzRp.gBVwKZbcKjGiDM
+ 1qP24IaTObs78ybu5BAoKanpQS2oV0ceX57titt5Vujg1bUH2qUQtYOq.MPnDKNX2QIXNUQcENA1
+ 4oD5zw4KbYlOatu2GEN4F0pi8NQRNRUXJ116Kb1A5OEbTesIwt_ueZ_VgWJ2Efi_oAHFOLyN1FML
+ 2SFyxTp_AfwDHf1fP7rtbvzfk8tPcQTCQ_mhTtTUQIidIrEnox0WWQYy9FRRm6Ylfg.GCuSQLlLe
+ ZbCjObZ.bnO9mmiUM_u.ePhSdAmhd0p9GQs_XKyj5E8EphYpyURHAh576Prjo6JhModnHov4QzG4
+ ZW0NAHZglq2xzgPhs69Tmrj8ubovMU6NtS3KPTvG.G05J87Gp0AgMCK7I.PZa8DfWrbbUxtkSfUw
+ .wRiEUG6EF5Lste3qgRwLP_eyaYsisbmxOzAyrLkVRGH3ERQDowhhJfq7xLKPR2gSiYwQlhdJr1A
+ PqU9aiwhACf2CZ_Jeu6.KyXSD0GGbXe9SPbj2orijrFKGWUXklmbbFPs_LPyHIGbdvG7BAL3pbpb
+ SmZIlGNWdDLgErcwZscosIcTovjjqJO3J1vTAFGZHTFrrl1h5aU__Iv.BZNm4DTI.8BOobR2G.I0
+ XCvdoLFAccPFcnFXCJYlXYA10cn8iCySAD8UOdFj34r3hWBZ_rj7opdDl83AbxOeBgx7Hbp7Atmb
+ bTuzKfyI1fdDI4KbKuiAKVmhK.4O0lf4o6y6.XSWQhoPmqPgX9lIQZvxTJEVdz7EJBE3CnxJy5wj
+ Xuy70twR0N4qH4SI05ppsGowcF4eNHMEcRqYmwUSk1AR9yoQQdaXeQ7lJ0_7uvOOhE_ZYM309s9W
+ NpJzybuUWT5U8pQ1N3dBIzILl9fD0FAZjAvduNHFzNnihUNEo47wox8_Q0uma6gIGBL8cy6r9KDM
+ HRg2xFwBe_pLptE2RkISWjwAULOkBdO94LYdN23Io4d9tilgJLTqWWKZcjkJGw7na5U438SR6y1l
+ 5tpNF..GRuH28ofP8MU6pUbt6ln7dTlW_cYB81jgs3tpYj4pbgoKjlTtHPELTCm1Ime.pPAl_WGr
+ YCtn.xyrq1Bcq2NRjI2py7_2L0RebYTVjQ0sArrWRhWlY9UfkMEFNFJg1VW2rL5agP4AApoGd_AW
+ 7qIZhqGvm3sDprX4f3Q1TmU4Phm4ZGsq6SNCncFOTOITb_jKIEdSfvFDdN7cdq8fAWd4qjcrqnJz
+ 27of61bpYq7Ul2XhltDeUIKIYvFpdvI03PIi946Ql3UDxE5HTx33Nubp8z3.r33UXFV.T1Kb.a3c
+ TlpPhQduNbqHrhKTuHEL9CCivumFXroD.uSjAtFGgDcbaDiuGkQ--
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic313.consmr.mail.bf2.yahoo.com with HTTP; Tue, 25 Aug 2020 09:40:29 +0000
+Date:   Tue, 25 Aug 2020 09:40:26 +0000 (UTC)
+From:   "Mr. Thompson Govo" <mrthompson.govo2214@gmail.com>
+Reply-To: mrthompson.govo2@gmail.com
+Message-ID: <1470571842.5286552.1598348426939@mail.yahoo.com>
+Subject: Hello Dear,
 MIME-Version: 1.0
-References: <20200824080326.5012-1-amir73il@gmail.com> <20200824080326.5012-2-amir73il@gmail.com>
- <20200824235048.GA29428@mail.bobrowski.net>
-In-Reply-To: <20200824235048.GA29428@mail.bobrowski.net>
-From:   Amir Goldstein <amir73il@gmail.com>
-Date:   Tue, 25 Aug 2020 11:19:35 +0300
-Message-ID: <CAOQ4uxitp36zeid9WLgDjvQS=4pDbGZa0GRZOotooNcshy4D0w@mail.gmail.com>
-Subject: Re: [PATCH 1/3] fanotify.7, fanotify_mark.2: Generalize documentation
- of FAN_REPORT_FID
-To:     Matthew Bobrowski <mbobrowski@mbobrowski.org>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, Jan Kara <jack@suse.cz>,
-        linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+References: <1470571842.5286552.1598348426939.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.16455 YMailNodin Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0
+To:     unlisted-recipients:; (no To-header on input)
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Aug 25, 2020 at 2:50 AM Matthew Bobrowski
-<mbobrowski@mbobrowski.org> wrote:
->
-> On Mon, Aug 24, 2020 at 11:03:24AM +0300, Amir Goldstein wrote:
-> > With fanotify_init(2) flag FAN_REPORT_FID, the group identifies
-> > filesystem objects by file handles in a single event info record of type
-> > FAN_EVENT_INFO_TYPE_FID.
-> >
-> > We indend to add support for new fanotify_init(2) flags for which the
-> > group identifies filesystem objects by file handles and add more event
-> > info record types.
-> >
-> > To that end, start by changing the language of the man page to refer
-> > to a "group that identifies filesystem objects by file handles" instead
-> > of referring to the FAN_REPORT_FID flag and document the extended event
-> > format structure in a more generic manner that allows more than a single
-> > event info record and not only a record of type FAN_EVENT_INFO_TYPE_FID.
-> >
-> > Clarify that the object identified by the file handle refers to the
-> > directory in directory entry modification events.
-> >
-> > Remove a note about directory entry modification events and monitoring
-> > a mount point that I found to be too confusing and out of context.
-> >
-> > Signed-off-by: Amir Goldstein <amir73il@gmail.com>
->
-> ...
->
-> > diff --git a/man7/fanotify.7 b/man7/fanotify.7
-> > index a7d60b2b9..a7b219168 100644
-> > --- a/man7/fanotify.7
-> > +++ b/man7/fanotify.7
-> > @@ -110,13 +110,11 @@ Two types of events are generated:
-> >  events and
-> >  .I permission
-> >  events.
-> > -Notification events are merely informative
-> > -and require no action to be taken by
-> > -the receiving application with the exception being that the file
-> > -descriptor provided within a generic event must be closed.
-> > -The closing of file descriptors for each event applies only to
-> > -applications that have initialized fanotify without using
-> > -.BR FAN_REPORT_FID
-> > +Notification events are merely informative and require no action to be taken
-> > +by the receiving application with one exception - if a valid file descriptor
-> > +is provided within a generic event, the file descriptor must be closed.
->
-> Changes read well up until this point.
->
-> > +File descriptors are not provided with event to applications that have
-> > +created fanotify group so that it identifies filesystem objects by file handles
-> >  (see below).
->
-> Then there's this sentence, which doesn't really read overly smoothly
-> as if there was a few words missing or something. Or, quite possibly
-> it's just me not understanding something?
->
+Hello Dear,
 
-Yeh. I think this sentence doesn't serve anything in this context.
-I will remove it.
+I am Mr. Thompson Govo. and I work with UNITED BANK OF AFRICA. Please
+Can you use ATM Visa card to withdraw money at ATM cash machine in
+your country? I want to transfer money to you from my country; it=E2=80=99s
+part of money taken by some old politician that was forced out of
+power.
 
-So can I add your reviewed-by on this patch as well?
+I will change the account details to yours, and apply for a visa card
+with your details in our bank, they will send the visa card to you and
+you will be withdrawing money with it and always send my own
+percentage of the money, and the money we are talking about is
+$8.4Million us dollars.
 
-Thanks!
-Amir.
+Whatever amount you withdraw daily, you will send 50% to me and you
+will take 50%, the visa card and the bank account will be on your
+name, I will be waiting for your information as soon as possible.
+Your name.......................... .................
+
+Age........................... ......................
+
+Sex........................... ......................
+
+Country....................... ......................
+
+Occupation.................... ......................
+
+Phone number........................ ................
+
+         contact me with this my private emails I.D (mrthompson.govo2@gmail=
+.com)
+
+
+Best Regards.
+
+Mr. Thompson Govo
