@@ -2,185 +2,100 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 26E962517F4
-	for <lists+linux-man@lfdr.de>; Tue, 25 Aug 2020 13:41:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B8B53251800
+	for <lists+linux-man@lfdr.de>; Tue, 25 Aug 2020 13:46:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728993AbgHYLls (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 25 Aug 2020 07:41:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34908 "EHLO
+        id S1729885AbgHYLpz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 25 Aug 2020 07:45:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35538 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730020AbgHYLlc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 25 Aug 2020 07:41:32 -0400
-Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com [IPv6:2607:f8b0:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 05E9EC061574
-        for <linux-man@vger.kernel.org>; Tue, 25 Aug 2020 04:41:32 -0700 (PDT)
-Received: by mail-ot1-x344.google.com with SMTP id o8so7353591otp.9
-        for <linux-man@vger.kernel.org>; Tue, 25 Aug 2020 04:41:31 -0700 (PDT)
+        with ESMTP id S1729882AbgHYLpe (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 25 Aug 2020 07:45:34 -0400
+Received: from mail-oi1-x243.google.com (mail-oi1-x243.google.com [IPv6:2607:f8b0:4864:20::243])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 433ADC061574
+        for <linux-man@vger.kernel.org>; Tue, 25 Aug 2020 04:45:24 -0700 (PDT)
+Received: by mail-oi1-x243.google.com with SMTP id h3so11311453oie.11
+        for <linux-man@vger.kernel.org>; Tue, 25 Aug 2020 04:45:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
          :subject:to:cc;
-        bh=MwGfhROLWwRTn9qEJPkoTNHXFvVGAO46aSFzsWHLP5g=;
-        b=jYOyre+/3qGUXB/zlnYVKTuBM+EmEbZSEcEWpcN6kYdkvd0NUa49fAPtqLkasNgR9C
-         q9h5ownzphnDnM4p9laFKRr7wsM9GQNrGLWn/KKa53Rz4WyIDFqvDDBRkRzPCzc0HJ0L
-         wKivDwJ3pwyVvTfZ0rXD/Zrq+63yLtOr3uSHRWTXppiACR+ctuRDa9gp1ST6g7YNiypH
-         Ni0KkRM6QDYJP+buNAlK3x84eSGy67yVTWpMuDRRO4weksB9BCoTSpoCht/EnUFjnk8N
-         gC33Cy3UliF/KT2shEVLC93sAmb0DZGcQvwsk4S+LU9xgJ1FCnmPnqdQEBuwz0Sr1PcP
-         BUvg==
+        bh=P2rsC/WcYffyTBJQEtRbz9XUflwmHwNX5nZDHQVNfAQ=;
+        b=cNNTLKXMiMVpxAKz6RQ6ZggNbjpHO7aNckBtdJ/N5HDL/RXR9xBXowPFgvH0W/xylA
+         RR28bYdBf5nB8nH5BtJpPRJ17cosv0+eP6Y0zaGMs4R5KiOVy7Ypbhnj4Qwz+Udw9xMb
+         O/LOJywdjd436WwEM48eNDioEQjoCcQ8tmOPV9h8KD/pQ/oloEUa0beCMHbnDwZ1rbAO
+         jbuiXWDvdEh4iN9QEDd3P0os3BsIkUudLoB08GHz29O+RNgomDXp6CmiqYvzxsvv2Qq3
+         N0K454iU0bO47PdCIPYHD+Mg+0PxGP+oQVsxMQiBRQw9zWJF3ZTq9O84VqohVge2iGgL
+         +Utw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
          :from:date:message-id:subject:to:cc;
-        bh=MwGfhROLWwRTn9qEJPkoTNHXFvVGAO46aSFzsWHLP5g=;
-        b=LPOUnKIWNhHHUp6vTyjBDZ2zNlAjEmS31Q1L1f3YSfZ5d0iCx4c4vzxe26G1bnb6OL
-         WXI2VewBbBYDYdb1FJol9KkgPcaHyjwhsH0VDTWP9yi/nen/6ghwIpbHNGCbIBCwHmx7
-         hisdt8e8F0XUS/zeO1xEimAMls2aF66iF3dZGjd80rX7QLgMWoY+RZ+XwYSf54I7Be/b
-         vpbGeyibohQLD5EBPkdnw+eycSzwj9x1tSXa6xpv+NL2aY+evVcW80J+g4b8U472T9Xv
-         72EfKSR4Xa/IibkV/mGlzP+hO2CRaqrLNVUz5rCZMNT7je/UjvO6lICS6BByMwEHmPis
-         k/lg==
-X-Gm-Message-State: AOAM533fXjUgSI0+uDbJXETtrc0/KGLXUr9oes+sjbJxQGw+Lw92OoXU
-        GamC/PGgSBYZI1/FBnzzy/Wx0OkNQw6qWFRkqZ0=
-X-Google-Smtp-Source: ABdhPJxXonEe/xI/07WIkYKYNpoTKmkL2jQ2058JzXQX+iDfdU7rRNSMyGyq5ovgoHKtGM+VIQLL5lPHF2azcSmeoXg=
-X-Received: by 2002:a05:6830:149a:: with SMTP id s26mr6465825otq.114.1598355691273;
- Tue, 25 Aug 2020 04:41:31 -0700 (PDT)
+        bh=P2rsC/WcYffyTBJQEtRbz9XUflwmHwNX5nZDHQVNfAQ=;
+        b=qAnrzBRpp0wkphZLb0/jY4ZCIxiLIneIHHSKbulaW8eyrfMM6QNVYCYcjDsO/J8jd+
+         Y6N41XDYaXKmOXkrY5hXgDj+qNajmddaBJgFomZKy6xB91ZpuO/VRkaEr4UP/gjDPOwh
+         E0AfdyLSGJEtF2W7WvjvGeG7Mfe2JvClceUpk+y900uw5nU6E8AFoI0591K8BRRRXcZH
+         /8K9FWWLaCxdKTQcWMMSrXIcjaZn+ptuWoohbgr12UqtLDi+hde/ZsfA+mKiUG8ICJjg
+         clSsiDU77qt+DxyK5upyfg27apSVmO2ayC6axa5w80K5G3KzhA0t7fmHg0I7m5pIdreB
+         InbA==
+X-Gm-Message-State: AOAM531GGeJ8ggWqoG8dFWIDZ5qTCTFYsG7KLEorgAuPsT5hRBtUNpMB
+        SQcd874eqt+BqyU7l1RogxTJUkElRMLnT7HN0uNOxYjEp1E=
+X-Google-Smtp-Source: ABdhPJx+gMiKvxeZf82aUHu6QklAdeOx+lFsH5SXLCfNnqCTJ+lMWiuCZFPZxys2gjDKVKT06/2/A87O/7XWDgKxqBE=
+X-Received: by 2002:aca:fc85:: with SMTP id a127mr738975oii.148.1598355923681;
+ Tue, 25 Aug 2020 04:45:23 -0700 (PDT)
 MIME-Version: 1.0
-References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
- <e1b424c2-77c1-e995-a866-67a122d7bb07@gmail.com> <20200825111924.gwf3ck4bdq42lrzr@jwilk.net>
- <d084b7eb-a691-52e8-4996-5080af0175de@gmail.com>
-In-Reply-To: <d084b7eb-a691-52e8-4996-5080af0175de@gmail.com>
+References: <20200824080326.5012-1-amir73il@gmail.com> <20200824080326.5012-2-amir73il@gmail.com>
+In-Reply-To: <20200824080326.5012-2-amir73il@gmail.com>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Tue, 25 Aug 2020 13:41:20 +0200
-Message-ID: <CAKgNAki_wyf7dCShjpAaRLUeuL=+EFZYeVp0fY-EKHyOBW2hRw@mail.gmail.com>
-Subject: Re: [patch] memusage.1, bind.2, eventfd.2, futex.2,
- open_by_handle_at.2, perf_event_open.2, poll.2, signalfd.2, sysctl.2,
- timerfd_create.2, bsearch.3, cmsg.3, getaddrinfo.3, getaddrinfo_a.3
- getgrouplist.3, insque.3, malloc_info.3, mbsinit.3, mbstowcs.3,
- pthread_create.3, pthread_setaffinity_np.3, queue.3, rtnetlink.3, shm_open.3,
- strptime.3, tsearch.3, aio.7, fanotify.7, inotify.7, unix.7: Use sizeof consistently
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-Cc:     Jakub Wilk <jwilk@jwilk.net>, linux-man <linux-man@vger.kernel.org>
+Date:   Tue, 25 Aug 2020 13:45:12 +0200
+Message-ID: <CAKgNAkg55kB0PXW6epUs_m0VQLpj=bsvkjAwpmVSuzLrAnwz+w@mail.gmail.com>
+Subject: Re: [PATCH 1/3] fanotify.7, fanotify_mark.2: Generalize documentation
+ of FAN_REPORT_FID
+To:     Amir Goldstein <amir73il@gmail.com>
+Cc:     Jan Kara <jack@suse.cz>,
+        Matthew Bobrowski <mbobrowski@mbobrowski.org>,
+        linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Alex,
+Hi Amir,
 
-On Tue, 25 Aug 2020 at 13:34, Alejandro Colomar <colomar.6.4.3@gmail.com> wrote:
+On Mon, 24 Aug 2020 at 10:03, Amir Goldstein <amir73il@gmail.com> wrote:
 >
-> Hello Michael & Jakub,
+> With fanotify_init(2) flag FAN_REPORT_FID, the group identifies
+> filesystem objects by file handles in a single event info record of type
+> FAN_EVENT_INFO_TYPE_FID.
 >
-> On 8/25/20 12:29 PM, Michael Kerrisk (man-pages) wrote:
-> > I would really have preferred three patches here, since:
+> We indend to add support for new fanotify_init(2) flags for which the
+> group identifies filesystem objects by file handles and add more event
+> info record types.
 >
-> I can do that.
+> To that end, start by changing the language of the man page to refer
+> to a "group that identifies filesystem objects by file handles" instead
+> of referring to the FAN_REPORT_FID flag and document the extended event
+> format structure in a more generic manner that allows more than a single
+> event info record and not only a record of type FAN_EVENT_INFO_TYPE_FID.
 >
-> >
-> >> - Never use a space after ``sizeof``, and always use parentheses
-> >>   instead.
-> >>
-> >>      Rationale:
-> >>
-> >>      https://www.kernel.org/doc/html/v5.8/process/coding-style.html#spaces
-> >
-> > (1) This is completely unproblematic from my point of view.
+> Clarify that the object identified by the file handle refers to the
+> directory in directory entry modification events.
 >
-> Actually there was only one appearance of that (and another one that
-> used a space before the parentheses).  It's unproblematic, but it's so
-> minor that it can be fixed easily.
->
-> >> - Use the name of the variable instead of the type as argument
-> >>   for ``sizeof``, wherever possible.
-> >>
-> >>      Rationale:
-> >>
-> >>
-> https://www.kernel.org/doc/html/v5.8/process/coding-style.html#allocating-memory
-> >
-> > (2) This one is up for debate. In many cases it makes sense to do
-> > this. However, there are cases where I think that using the struct
-> > name can actually help readability. And when I grep through the kernel
-> > source, of around 139k lines that use "sizeof", some 37k take a
-> 'struct type'
-> > as an argument. SI, I think this kind of change may need to be
-> considered on
-> > a case by case basis, rather than as a blanket change.
->
-> Ok. I can send a set of patches with a patch for each page.
+> Remove a note about directory entry modification events and monitoring
+> a mount point that I found to be too confusing and out of context.
 
-Okay. Don't do them all at once, since we may change strategy while
-discussing the first few patches.
-
-> >> - When the result of ``sizeof`` is multiplied (or otherwise modified),
-> >>   write ``sizeof`` in the first place.
-> >>
-> >>      Rationale:
-> >>
-> >>      ``(sizeof(x) * INT_MAX * 2)`` doesn't overflow.
-> >>
-> >>      ``(INT_MAX * 2 * sizeof(x))`` overflows, giving incorrect
-> >>      results.
-> >
-> > (3) Is this true? "gcc -Wall" does not complain about this. And, I
-> > thought that in both cases, all operands in the expression
-> > would be promoted to the largest type. And, on my x86-64 system,
-> >
-> > sizeof((sizeof(x) * INT_MAX * 2)) == 8
-> > sizeof(INT_MAX * 2 * sizeof(x)) == 8
-> >
-> > But, I will say tht I'm not a language lawyer, and C still
-> > sometimes has surprises for me. At the least, I'd like to know
-> > more about this point.
->
-> Well, when I said the first one doesn't overflow, I meant it's much
-> less likely.
->
-> In C, successive multiplications are evaluated left to right (*), and
-> therefore here is what happens:
->
-> ``(sizeof(x) * INT_MAX * 2)``:
->
-> 1) sizeof(x) * INT_MAX  (the type is the largest of both, which is
->                          size_t (unsigned long; uint64_t)).
-> 2) ANS * 2              (the type is again the largest: size_t)
->
-> ``(INT_MAX * 2 * sizeof(x))``:
->
-> 1) INT_MAX * 2          (the type is the largest of both, which is
->                          int as both are int (int; int32_t), so the
->                          result is already truncated as it doesn't fit
->                          an int; at this point, the intermediate result
->                          will be 2^32 - 2 (``INT_MAX - 1``) (if I did
->                          the math right)).
-> 2) ANS * 2              (the type is again the largest of both: size_t;
->                          however, ANS was already incorrect, so the
->                          result will be an incorrect size_t value)
->
-> > sizeof((sizeof(x) * INT_MAX * 2)) == 8
->
-> Here you were overflowing a uint64_t (if x were a char, it would not
-> overflow, and the result would be close to UINT64_MAX).
->
-> > sizeof(INT_MAX * 2 * sizeof(x)) == 8
->
-> Here you were overflowing int32_t, and it would overflow regardless of
-> sizeof(x).
-
-Thanks for the lesson in C basics. I clearly did need a refresher :-}.
-
-You and Jakub are of course correct.
-
-If you send the patches in the order (as I numbered in my previous reply):
-
-(1)
-(3)
-(2) as multiple pieces
-
-that would be best, since the first two patches should obviously be
-applied, and then we can discuss the last patch(es) case by case.
+If I understand correctly, this patch is just about improving the
+description of existing behavior, in preparation for later patches
+that describe new behavior (to be added in 5.9), and once you've
+revised after Matthew's comments I can apply immediately, right?
 
 Thanks,
 
 Michael
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
