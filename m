@@ -2,77 +2,89 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3EAEA25569D
-	for <lists+linux-man@lfdr.de>; Fri, 28 Aug 2020 10:42:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E57162556D4
+	for <lists+linux-man@lfdr.de>; Fri, 28 Aug 2020 10:47:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728016AbgH1Img (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 28 Aug 2020 04:42:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58286 "EHLO
+        id S1728016AbgH1Irb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 28 Aug 2020 04:47:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59114 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726643AbgH1Imb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 28 Aug 2020 04:42:31 -0400
-Received: from mail-oo1-xc43.google.com (mail-oo1-xc43.google.com [IPv6:2607:f8b0:4864:20::c43])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 929DEC061264
-        for <linux-man@vger.kernel.org>; Fri, 28 Aug 2020 01:42:30 -0700 (PDT)
-Received: by mail-oo1-xc43.google.com with SMTP id u28so87090ooe.12
-        for <linux-man@vger.kernel.org>; Fri, 28 Aug 2020 01:42:30 -0700 (PDT)
+        with ESMTP id S1726834AbgH1Ir0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 28 Aug 2020 04:47:26 -0400
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com [IPv6:2607:f8b0:4864:20::335])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 867ECC061264
+        for <linux-man@vger.kernel.org>; Fri, 28 Aug 2020 01:47:26 -0700 (PDT)
+Received: by mail-ot1-x335.google.com with SMTP id j3so165687otk.13
+        for <linux-man@vger.kernel.org>; Fri, 28 Aug 2020 01:47:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
          :subject:to:cc;
-        bh=iZa6LVxj1Z4mfscI5sQ8fLu/mwS140PHqxfRtT5KNb8=;
-        b=qQ5ZNo9QzkLsS6gQOtwQ1aXqss6Hz1Kbd5rI+/EZRobilBczZ1K+W3aojloKUtVBUO
-         ekYylUQ3YNlABQDsZkkzawYV4QTM/+KpsMvu6e3LwuDZj/ViNtBtSkgyTE8HOZuZEaiF
-         AI282t7rn1hstUgNQPOvxMIxgGupnSIX7g75SxPQ/JA7jTpPRh2yg2fGh94oYOkrdiJw
-         j1Js/sb/A6vvsvida8J/im190ra4FmMpXC26SPOl6VF7Zu8g8y2unNz7NwtpxlveO6NZ
-         AeqUBWiMWlFzzgSVbuUazybRVXy3lck0d9jeJL4R+N7KpScd0u8VQObxBY0Js2cqmd5s
-         pd1w==
+        bh=HNLoE1LZovH0L20J/Vkc79jf3CmTCuxquBxbYq0vEb8=;
+        b=mdo2EB8Dl9elzkcVJmmiDgpn8KpWj8tmW3mRVitPuIGbhTD/WYFNoDTN1O6TDkygRN
+         pGWkaaqZJNEUP9VkJoAGdkwEaqbEf4ikJeeAlJNs25ht03zhwYS22ce9mYtI8W5WCTtQ
+         MSvwjOWm6AHV0eCAq8vNuctaAFhEl9VMrjUfDWCTqfI3wLecgyzgX5ftb6xZ4o8dtkbO
+         QjYelkgfkLTiPMK9vqf6l+f2+Cm3UzNxHny85UZZ+Yo0V+NwzeEZPaXjck66lVfxE6E9
+         KY5vmQ7Sg/6V7FAeYczsS48KMcHhVLDUKY9Tk5XuVqFCtNsFZxib5eyyERM8mBukCkSC
+         9JFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
          :from:date:message-id:subject:to:cc;
-        bh=iZa6LVxj1Z4mfscI5sQ8fLu/mwS140PHqxfRtT5KNb8=;
-        b=gEtAujolKh6LCVhDn6XpPIQFmN0TnsVxjx1QfFdo2VX12MfJ7yhClBYnli2GJPy9e6
-         wVWMHb6RgJTS2kZtRgU5BoYHEuUDzZPeHRIoKdRbcgIMEuTW0DFdV3kokVuBXqydeQw3
-         rSoTCJKTAzsji63CHw8GfYBNFQRMvToEFH1KoO/2ck1FjnLsUZABJcSLkYtJrPqte4Sc
-         CGanxB+PmnMT5bMPoRmuxz2s7J37FYME2D+8TQiH+LOeuLeYOY31g5R5l1KRoz/GHh+9
-         wg+pKVLU+6fzwtRnOcOYCa+gN4i33z7saVqH2WGZWX4k+H1eqyU/z21lXPjudyz7kCHu
-         +eog==
-X-Gm-Message-State: AOAM533hnXUmFtmL2OLtQBjcR5YToQllDqJ9PJ9CBhvIFL2Wq4X/3JS4
-        +qfNKbEBdgFKxl+QG/hjuwmDM5cIFtCww5D4hyFKPA78xGQ=
-X-Google-Smtp-Source: ABdhPJyUZfhRQ3UZb8k/zYeCp0SMThBkSXl+dWwsUYlHMdB710D2Zmx2ha8CGFMeNfeKlNn3GTtmiilblL2nFCP2ho0=
-X-Received: by 2002:a4a:ea06:: with SMTP id x6mr405980ood.14.1598604149951;
- Fri, 28 Aug 2020 01:42:29 -0700 (PDT)
+        bh=HNLoE1LZovH0L20J/Vkc79jf3CmTCuxquBxbYq0vEb8=;
+        b=TjmjRYjvbGszBT7n1E+y3ODwLYHQ9f0mfu1hGq5LRXs9no2VBpZBluDecgywx0T640
+         qGr9O1IybSysxrttrntgPP3qApUg5S7Y3jv7+eOVpcaP3WFv0Bz1bkkMTXjoa0ARqXWc
+         mMGzQ905Vyx3nm+rVGeXRD5jf+r82N/C2QJwj8dckUoeu5PtVmYdlkVjl6hvsPy/4NuD
+         IVjwRjCD+KdJ0tMOo7wCrwpixYRkHojQBvelwkYQc96paUaH9rZAT4xWCwrWkPpmZkgt
+         HC3k6XsgbnwwXcX7AlNp75Jzu/coClwJAnTHqlSWC8kXP/2H34QYpaIfvoqWI0aRNlnP
+         2UmQ==
+X-Gm-Message-State: AOAM533e1HSiKbFoj2bBXPnLNghYwqnF+PoEw+6MJZ14qwowonLRFu5C
+        /v0UQywJzSWKTG9hlod8g3xYXHkvsCyvAR1AQcQ=
+X-Google-Smtp-Source: ABdhPJyWIujRwRS/Nuog7xFVpou91xFck2dOODDKd3sXwyCFaFyrjLIiFd9yC/oU1LSQgoKt7NL/McJ3q0FuCmV7iuM=
+X-Received: by 2002:a05:6830:1648:: with SMTP id h8mr357961otr.323.1598604444291;
+ Fri, 28 Aug 2020 01:47:24 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200825114056.5179-1-amir73il@gmail.com>
-In-Reply-To: <20200825114056.5179-1-amir73il@gmail.com>
+References: <CAEGFa3zWvHb4NCvVkvsRm7N1-EnE1qqvFDfDQT9mjiHi0imPQg@mail.gmail.com>
+In-Reply-To: <CAEGFa3zWvHb4NCvVkvsRm7N1-EnE1qqvFDfDQT9mjiHi0imPQg@mail.gmail.com>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Fri, 28 Aug 2020 10:42:18 +0200
-Message-ID: <CAKgNAkj2m0pwvBYED=AbdHoo5JXtqsTij6qCkQYUfBO5=fzCbw@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] Fanotify man page updates for v5.9
-To:     Amir Goldstein <amir73il@gmail.com>
-Cc:     Jan Kara <jack@suse.cz>,
-        Matthew Bobrowski <mbobrowski@mbobrowski.org>,
-        linux-man <linux-man@vger.kernel.org>
+Date:   Fri, 28 Aug 2020 10:47:12 +0200
+Message-ID: <CAKgNAkgMDBvHH7BWa=k5y=L4QBjTbZH24fFrm8KHgqFQfAOpAw@mail.gmail.com>
+Subject: Re: Omitted convention in man-pages - conventions for writing Linux
+ man pages
+To:     Mike P <4mikepalmer@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Amir,
+Hello Mike,
 
-On Tue, 25 Aug 2020 at 13:41, Amir Goldstein <amir73il@gmail.com> wrote:
+On Sat, 22 Aug 2020 at 15:40, Mike P <4mikepalmer@gmail.com> wrote:
 >
-> Hi Michael,
+> Reported by Mike Palmer, Waterville, Co. Kerry, Ireland   Sat Aug 22 14:32:29 IST 2020
 >
-> Posting v2 with Reviewed-by from Jan Kara and Matthew Bobrowski
-> and fixes for a few minor issues they pointed out.
+> The file
+> man7.org/linux/man-pages/man7/man-pages.7.html
+> does not contain a reference to the correct usage of the asterisk.
+> Many man pages do contain asterisks as well as strings such as [-].
+> Though the asterisk is used in CLI commands often as a wildcard,
+> it is not clear how any such use may be legitimate in commands
+> defined by a given man page.
+> Does the asterisk in a specific man page serve as a universal
+> wildcard, or does it have a scope specific to the man page?
 
-Should I be merging these already, or waiting on the revised version
-of your "fanotify.7, fanotify_mark.2: Generalize documentation of
-FAN_REPORT_FID" patch?
+I'm not sure whether it's possible to write a general guideline. I
+guess I'd be interested to see a few more concrete examples of
+variations in usage before trying to.
+
+> An example of where the asterisk is used without explanation
+> is in STTY(1).
+
+At the top of that page it says: "An * marks non-POSIX settings." Does
+that not cover it? Or have a I missed something?
 
 Thanks,
 
@@ -80,23 +92,7 @@ Michael
 
 
 
-> Amir Goldstein (3):
->   fanotify.7, fanotify_mark.2: Generalize documentation of
->     FAN_REPORT_FID
->   fanotify.7, fanotify_init.2: Document FAN_REPORT_DIR_FID
->   fanotify.7, fanotify_init.2: Document FAN_REPORT_NAME
->
->  man2/fanotify_init.2 | 115 ++++++++++++++++++++++---
->  man2/fanotify_mark.2 |  50 ++++-------
->  man7/fanotify.7      | 200 +++++++++++++++++++++++++++++--------------
->  3 files changed, 256 insertions(+), 109 deletions(-)
->
-> --
-> 2.17.1
->
-
-
---
+-- 
 Michael Kerrisk
 Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
 Linux/UNIX System Programming Training: http://man7.org/training/
