@@ -2,87 +2,53 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C75F725B534
-	for <lists+linux-man@lfdr.de>; Wed,  2 Sep 2020 22:15:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2562525B8AF
+	for <lists+linux-man@lfdr.de>; Thu,  3 Sep 2020 04:20:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727030AbgIBUOn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 2 Sep 2020 16:14:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37526 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726936AbgIBUOe (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 2 Sep 2020 16:14:34 -0400
-Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com [IPv6:2607:f8b0:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 48BCBC061244;
-        Wed,  2 Sep 2020 13:14:34 -0700 (PDT)
-Received: by mail-ot1-x343.google.com with SMTP id k20so466106otr.1;
-        Wed, 02 Sep 2020 13:14:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=suskJZAhhjGPyfzpjHKUgDnYaYIBJVKayGrzunUwjkE=;
-        b=NXneTfPzbwpxYqCpRItbeYtQ9ktjsEXsnMi3VhIDt7E2w+tuR2J10+9TbnlH1W8/dv
-         XfVUTcfvUK+ioH/yneIC/qH7le9q6ZJLgU9OpM7C08On7oAC7At3hmyKJ3aiQxrsgxwF
-         19dkOCqc3J2IkUG8gmevfWneEBnFhvohbzA0RQIRtTw8rsox+815w8XOHzdNoJ8V19rf
-         8An8U7yDj9LV+Az4y2Xsx5xjyUDCE9SVyntKrgFSbpVlJyxSwSUINspIfrjzX/TzYC4y
-         F1ewYXKoFn3EtnmkUDvn6JmehjS480KcGpiFuoaRnRyw9oNv4uFoREXNGJquCvm1cXED
-         X+Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=suskJZAhhjGPyfzpjHKUgDnYaYIBJVKayGrzunUwjkE=;
-        b=pJN2wDEtd2/DbZFGOMWL33mm7m9pWLtnFp5x/JcLP4Vzn4DQc8f1LqM4d/+oEU9AEt
-         PwLhy4QafzYEgZC/LuMZ3QxEcDylGTxnyppMpLfQ77KzpHyY6TaXl1exSBZFPDrpYABj
-         yAkHW6JV4sO5kKLuX9FqNks98wO9XKFN+XPOzKLJ2zHOh4e28+kc7dKGIuDgnxrVNwpc
-         DwAFj0n31DQJ4PhLafhL8vcPToOshKDVKmjHr04jVoXZ1Qd6ge6on53JhOExH/Hu5oEt
-         vEJnNsfmLVWsX9OB36UKcssE/BUj2nAuADNpy7zHqCjicxLaRdxwgCOe44FbtLUeO05n
-         cwGQ==
-X-Gm-Message-State: AOAM533gJtJQEx7KFGWh5kjE+vzbyAVC3wbaRDd32Qho27v2i45Mb4Hs
-        gjDN86W4e8JYBduu5gngWPpM0ym7NifW/+zxLVQcTMmJ
-X-Google-Smtp-Source: ABdhPJzOOPPiscqZ4JYYa0ccAxr0YcUZaX1N88o+045RfHWYTYf7vSZhHIwwpjHUdFsqhszvg18l83mlBUfhZeLwHZM=
-X-Received: by 2002:a9d:a2b:: with SMTP id 40mr8974otg.308.1599077673643; Wed,
- 02 Sep 2020 13:14:33 -0700 (PDT)
+        id S1726776AbgICCUU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 2 Sep 2020 22:20:20 -0400
+Received: from 94637-75753.cloudwaysapps.com ([138.197.78.220]:51954 "EHLO
+        94637-75753.cloudwaysapps.com" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1726686AbgICCUU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 2 Sep 2020 22:20:20 -0400
+Received: from Shop01 (94637-75753.cloudwaysapps.com [127.0.0.1])
+        by 94637-75753.cloudwaysapps.com (Postfix) with SMTP id F04EA24F4F;
+        Mon, 31 Aug 2020 23:39:20 +0000 (UTC)
+Received: from [173.29.215.203]
+        by Shop01 with ESMTP id EFF46AEABDC
+        for <info@gainwellgroup.vn>; Mon, 31 Aug 2020 17:38:29 -0700
+Message-ID: <09466g3c-3b--38o2@3818jiv.l.9x>
+From:   "Nassir Uddin" <fkinneyofd@tampabay.rr.com>
+Reply-To: "Nassir Uddin" <fkinneyofd@tampabay.rr.com>
+To:     info@gainwellgroup.vn
+Subject: Dear Sir/Madam
+Date:   Mon, 31 Aug 20 17:38:29 GMT
+X-Mailer: QUALCOMM Windows Eudora Version 5.1
 MIME-Version: 1.0
-References: <159827188271.306468.16962617119460123110.stgit@warthog.procyon.org.uk>
- <159827190508.306468.12755090833140558156.stgit@warthog.procyon.org.uk>
- <CAKgNAkho1WSOsxvCYQOs7vDxpfyeJ9JGdTL-Y0UEZtO3jVfmKw@mail.gmail.com> <667616.1599063270@warthog.procyon.org.uk>
-In-Reply-To: <667616.1599063270@warthog.procyon.org.uk>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Wed, 2 Sep 2020 22:14:22 +0200
-Message-ID: <CAKgNAkhjDB9bvQ0h5b13fkbhuP9tYrkBQe7w1cbeOH8gM--D0g@mail.gmail.com>
-Subject: Re: [PATCH 4/5] Add manpage for fsopen(2) and fsmount(2)
-To:     David Howells <dhowells@redhat.com>
-Cc:     Alexander Viro <viro@zeniv.linux.org.uk>,
-        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/alternative;
+        boundary="..7_0F_4E8."
+X-Priority: 3
+X-MSMail-Priority: Normal
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, 2 Sep 2020 at 18:14, David Howells <dhowells@redhat.com> wrote:
->
-> Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
->
-> > The term "filesystem configuration context" is introduced, but never
-> > really explained. I think it would be very helpful to have a sentence
-> > or three that explains this concept at the start of the page.
->
-> Does that need a .7 manpage?
 
-I was hoping a sentence or a paragraph in this page might suffice. Do
-you think more is required?
+--..7_0F_4E8.
+Content-Type: text/plain;
+Content-Transfer-Encoding: quoted-printable
 
-Cheers,
+Dear Sir/Madam,
 
-Michael
+We are an Investment/Project Service Company.
+We are looking for Partners that will part with us in a project that is ec=
+onomically viable and financially profitable with zero risk.
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Kindly express your interest to partner with us.
+
+Regards.
+Nassir Uddin
+
+--..7_0F_4E8.--
+
