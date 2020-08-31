@@ -2,85 +2,94 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 81E07256581
-	for <lists+linux-man@lfdr.de>; Sat, 29 Aug 2020 09:02:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 14B76257A80
+	for <lists+linux-man@lfdr.de>; Mon, 31 Aug 2020 15:33:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725929AbgH2HCh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 29 Aug 2020 03:02:37 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40238 "EHLO
+        id S1727883AbgHaNdV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 31 Aug 2020 09:33:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36022 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725886AbgH2HCg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 29 Aug 2020 03:02:36 -0400
-Received: from casper.infradead.org (casper.infradead.org [IPv6:2001:8b0:10b:1236::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0F73BC061236;
-        Sat, 29 Aug 2020 00:02:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-        d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-        References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-        Content-Transfer-Encoding:Content-ID:Content-Description;
-        bh=9U9dGK0bqJLSVOUuBWXaxoDilhxzVYEaDPKgn3CAclI=; b=YfaX1TJf7HA6uhNhJQiWhVOa96
-        f0ehNVUSyn/j0g/TXrjTt2eoL7mJwEB4PB/JJiVMi5LP9i0Al6Caf4Lm0tnG4qPm+56zU1QgHO5KD
-        zRUe6vhjo0W4XXSUuEeI/I+YhnlDlJDIpE0Vz0B3crHHkxS+LD7Ce5nKBERAGV3SrwNdc5jXEkH+L
-        TT9HMk6Idvnye6juI2mrnxGfJz/Y9+Bftdi20lxWcnnRC5XMrPf7C8x6ilSfuCiEiXoBdRoCP3Rv1
-        ADtVbrtSOnk1GeYxMvqzbU/Yz18EpXB8qaJ0Olsk4Ci3SFrP0SCj75p0juusf5HA04sAnypvPh5mq
-        hT3wh4Ww==;
-Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat Linux))
-        id 1kBusg-0000WP-5C; Sat, 29 Aug 2020 07:02:30 +0000
-Date:   Sat, 29 Aug 2020 08:02:30 +0100
-From:   Christoph Hellwig <hch@infradead.org>
-To:     Arnd Bergmann <arnd@arndb.de>
-Cc:     Minchan Kim <minchan@kernel.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        LKML <linux-kernel@vger.kernel.org>,
-        Christian Brauner <christian.brauner@ubuntu.com>,
-        linux-mm <linux-mm@kvack.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        Oleksandr Natalenko <oleksandr@redhat.com>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Tim Murray <timmurray@google.com>,
-        Sandeep Patil <sspatil@google.com>,
-        Sonny Rao <sonnyrao@google.com>,
-        Brian Geffon <bgeffon@google.com>,
-        Michal Hocko <mhocko@suse.com>,
-        Johannes Weiner <hannes@cmpxchg.org>,
-        Shakeel Butt <shakeelb@google.com>,
-        John Dias <joaodias@google.com>,
-        Joel Fernandes <joel@joelfernandes.org>,
-        Jann Horn <jannh@google.com>,
-        alexander.h.duyck@linux.intel.com,
-        SeongJae Park <sj38.park@gmail.com>,
-        David Rientjes <rientjes@google.com>,
-        Arjun Roy <arjunroy@google.com>,
-        Vlastimil Babka <vbabka@suse.cz>,
-        Christian Brauner <christian@brauner.io>,
-        Daniel Colascione <dancol@google.com>,
-        Jens Axboe <axboe@kernel.dk>,
-        Kirill Tkhai <ktkhai@virtuozzo.com>,
-        SeongJae Park <sjpark@amazon.de>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: [PATCH v8 3/4] mm/madvise: introduce process_madvise() syscall:
- an external memory hinting API
-Message-ID: <20200829070230.GA1099@infradead.org>
-References: <20200622192900.22757-1-minchan@kernel.org>
- <20200622192900.22757-4-minchan@kernel.org>
- <CAK8P3a0Mnp2ekmX-BX9yr+N8fy2=gBtASELLXoa9uGSpSS9aOA@mail.gmail.com>
+        with ESMTP id S1726968AbgHaN1q (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Aug 2020 09:27:46 -0400
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com [IPv6:2a00:1450:4864:20::241])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E1C00C0619EE
+        for <linux-man@vger.kernel.org>; Mon, 31 Aug 2020 06:26:40 -0700 (PDT)
+Received: by mail-lj1-x241.google.com with SMTP id w14so6689344ljj.4
+        for <linux-man@vger.kernel.org>; Mon, 31 Aug 2020 06:26:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:sender:from:date:message-id:subject:to;
+        bh=o69Nac3LLMj5CDhyPqLcnP7WGq46U4gQb9HzFdG/MvE=;
+        b=kc8b/w+wOTtF7zLYRjvrR1jPT/ZK7Vk2mKpv3jAxE9VT67C9fVlpfW9Y+phL1vuGxq
+         Hb3x1FpXZuW578gvCk5O04B73B4LZoP7kKsmw9UxgkoXE6gTVKzovNHYGFhIYhijFRil
+         nl0JSzi7hR74DeD8nMnyt6lcP4qNdUY/Lc8F+58ZXu/CzzOM7yUQDtVLUEwdsGkyt5VA
+         d9qEgMSd8orYp0jlQehk7NI5qh7PWtCoIKmsR98GatwAE0LmWdvtpQ20BCG/6na9SXJC
+         dRhbpFzqkzfoYJgpg/F8CGs3itwyW4e/YfM/kFooNAjpi/4QSH5iWMSkHbbwXEQIlTwE
+         oN6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:sender:from:date
+         :message-id:subject:to;
+        bh=o69Nac3LLMj5CDhyPqLcnP7WGq46U4gQb9HzFdG/MvE=;
+        b=huSUWsBUyWIztUq/6kAnOGjQU5j1SRaD9N69X5sJGUaP35YnkGDojnz+KkMMmygdfm
+         cce1kCY/jtSf0dhC/tmxoYMHVJc0f00jFMvUfi1itIJpDe0U5ey5nMhtVxp/SniNKTOk
+         NcBEB2dPLP725q0aXEs/Oim4MEa/j3lOQYYRwNrHAnfMbMW+iGtG3jItIYEyoSfvduvl
+         jy7gBsZysiApR4cl+jpXBTMXy/vlGSKACxNi6NzVUNjP+8enh5SO0VfqwmTjLpONl0G3
+         Kl+nxqJH7gL5wUtG3ttJXeyfQviTILj/yHfliw3rhQxhzEFMuVBGYjU9YL+uCh8aOiER
+         vA+Q==
+X-Gm-Message-State: AOAM533oZpXz7DjlMCiuBJyC8zaLAillFT0yPrUOmXhZ3qEuixqglRa5
+        47wPaVWbaBryD9EB0Ga1VgllNjzzxdWvGsMNQF8=
+X-Google-Smtp-Source: ABdhPJwwxnLJ+boQ5AWjXxG674YSv8HYua8cHn0ffhUvKkWm/U6sy8uO7QhVk0w3Z6JDIeHHrXTyb5x5hxbubByOKbo=
+X-Received: by 2002:a2e:1511:: with SMTP id s17mr724722ljd.81.1598880399293;
+ Mon, 31 Aug 2020 06:26:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAK8P3a0Mnp2ekmX-BX9yr+N8fy2=gBtASELLXoa9uGSpSS9aOA@mail.gmail.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Reply-To: marie_avis12@yahoo.com
+Received: by 2002:a2e:9817:0:0:0:0:0 with HTTP; Mon, 31 Aug 2020 06:26:38
+ -0700 (PDT)
+From:   Miss Maris Avis <marie.avis11@gmail.com>
+Date:   Mon, 31 Aug 2020 13:26:38 +0000
+X-Google-Sender-Auth: FfeQe1Uhq_bzJWJ1eFQ7t2v5C-w
+Message-ID: <CADTVshP+AqENJRYaXa3w3RXtbFi9dvwrKoG-vr=u5b93NO3RnQ@mail.gmail.com>
+Subject: Hello
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Aug 28, 2020 at 07:40:08PM +0200, Arnd Bergmann wrote:
-> Every syscall that passes an iovec seems to do this. If we make import_iovec()
-> handle both cases directly, this syscall and a number of others can
-> be simplified, and you avoid the x32 entry point I mentioned above
+My Dear,
 
-FYI, I do have a series that does this (even tested) and kills tons of
-compat syscalls by that.  But by doing that I found the problem that
-compat syscalls issued by io_uring don't trigger in_compat_syscall().
-I need to go back to fixing the io_uring vs in_compat_syscall() issue
-(probably for 5.9) and then submit the whole thing.
+My name is Miss Marie Avis the only daughter of Mr. Gabriel Avis, my
+Father was dealing in Cocoa and Timber in this country before his
+death,  It is my pleasure to contact you for a business venture which
+I intend to establish in your country. Though I have not met with you
+before but I believe one has to risk confiding before you can succeed
+sometimes in life.
+
+I can confide in you for my brighter future since you are a human
+being like me. There is this huge amount of Ten Million five hundred
+thousand United States dollars. ($10.500.000.00) which my late Father
+kept for me in a suspense account with one of the bank here in Abidjan
+Cote d'Ivoire before he was assassinated by unknown persons, Now I
+have decided to invest these money in your country or anywhere safe
+enough for me.
+
+I want you to help me claim this fund from the bank and have it
+transfer into your personal account in your country for investment
+purposes in your country in these areas:
+
+1). Telecommunication
+2). The transport Industry
+3). Five Star Hotel
+4). Tourism
+5). Real Estate
+
+If you can be of assistance to me I will be pleased to offer you 20%
+of the total fund.
+
+I await your soonest response.
+
+Respectfully yours,
+Miss Marie Evis
+Tel: +225597438528
