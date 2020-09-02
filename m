@@ -2,67 +2,90 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0A4BA259E5C
-	for <lists+linux-man@lfdr.de>; Tue,  1 Sep 2020 20:46:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6870A25AF86
+	for <lists+linux-man@lfdr.de>; Wed,  2 Sep 2020 17:41:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730729AbgIASqZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 1 Sep 2020 14:46:25 -0400
-Received: from albireo.enyo.de ([37.24.231.21]:58188 "EHLO albireo.enyo.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726102AbgIASqY (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 1 Sep 2020 14:46:24 -0400
-Received: from [172.17.203.2] (helo=deneb.enyo.de)
-        by albireo.enyo.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        id 1kDBIB-00022C-08; Tue, 01 Sep 2020 18:46:03 +0000
-Received: from fw by deneb.enyo.de with local (Exim 4.92)
-        (envelope-from <fw@deneb.enyo.de>)
-        id 1kDBIA-0007dD-RY; Tue, 01 Sep 2020 20:46:02 +0200
-From:   Florian Weimer <fw@deneb.enyo.de>
-To:     Minchan Kim <minchan@kernel.org>
-Cc:     Andrew Morton <akpm@linux-foundation.org>,
-        LKML <linux-kernel@vger.kernel.org>,
-        Christian Brauner <christian.brauner@ubuntu.com>,
-        linux-mm <linux-mm@kvack.org>, linux-api@vger.kernel.org,
-        oleksandr@redhat.com, Suren Baghdasaryan <surenb@google.com>,
-        Tim Murray <timmurray@google.com>,
-        Sandeep Patil <sspatil@google.com>,
-        Sonny Rao <sonnyrao@google.com>,
-        Brian Geffon <bgeffon@google.com>,
-        Michal Hocko <mhocko@suse.com>,
-        Johannes Weiner <hannes@cmpxchg.org>,
-        Shakeel Butt <shakeelb@google.com>,
-        John Dias <joaodias@google.com>,
-        Joel Fernandes <joel@joelfernandes.org>,
-        Jann Horn <jannh@google.com>,
-        alexander.h.duyck@linux.intel.com, sj38.park@gmail.com,
-        David Rientjes <rientjes@google.com>,
-        Arjun Roy <arjunroy@google.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Vlastimil Babka <vbabka@suse.cz>,
-        Christian Brauner <christian@brauner.io>,
-        Daniel Colascione <dancol@google.com>,
-        Jens Axboe <axboe@kernel.dk>,
-        Kirill Tkhai <ktkhai@virtuozzo.com>,
-        SeongJae Park <sjpark@amazon.de>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v9 3/3] mm/madvise: introduce process_madvise() syscall: an external memory hinting API
-References: <20200901000633.1920247-1-minchan@kernel.org>
-        <20200901000633.1920247-4-minchan@kernel.org>
-Date:   Tue, 01 Sep 2020 20:46:02 +0200
-In-Reply-To: <20200901000633.1920247-4-minchan@kernel.org> (Minchan Kim's
-        message of "Mon, 31 Aug 2020 17:06:33 -0700")
-Message-ID: <87blippc7p.fsf@mid.deneb.enyo.de>
+        id S1726800AbgIBPkm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 2 Sep 2020 11:40:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45608 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727827AbgIBPBf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 2 Sep 2020 11:01:35 -0400
+Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com [IPv6:2607:f8b0:4864:20::244])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 68B97C061244;
+        Wed,  2 Sep 2020 08:01:33 -0700 (PDT)
+Received: by mail-oi1-x244.google.com with SMTP id w16so655041oia.2;
+        Wed, 02 Sep 2020 08:01:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=nJe4bseURKFlSbOPv7F3NIQsZoqm5FYsgLr0QZUs55k=;
+        b=s+mAMeELwz+mjnmSPT3Zj6IVhbRc6v9DjE4m0Xbm+6ZuyynublUKEyZ7uAGImlVD/v
+         hvWGvgfkJV8LYZ30EvV8n1YN14fdkFmrBNoXGJljpY+0YaHsr31K392JhbyNnku5b/tv
+         sU9Tn88lvEMYCuk/+NlLaPtooFhkdwUQAJVMn4+GOkzi5tYPRsZuSS+mPfSj/EwXWKV4
+         pQSUsfw3YeJwbpGID5609rp6rdSmGKszfPM5CjpxZoUuh3JdwZ1wmBHyXvVB5T1FkFzC
+         2qUxvC9ZMKC70/Nc6hBV4y1pm71Fcp50MkEGf8t9e+i25q7t9CCsvRdT+AcbjLtANyLU
+         jX9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=nJe4bseURKFlSbOPv7F3NIQsZoqm5FYsgLr0QZUs55k=;
+        b=mclaPPKu9RulT0vnSine7oTnscct7i0w3bQYuZGsRnTxjtnViecDkWOPtE6+obHy18
+         we37SgRQGGVt/mpBJveCgc/e0S0XJMUq7AVxO8DDuyYxVfX+o/2gSvU8evBLosRDFmYf
+         6TF2lfcdFTD1gjM0Bkl++QWC9xluIdYlv1G/QLGA9iOcCio+J9SsW2EIZPuaNS7xNLGL
+         Y7/7S7oExGEyu6LeHjuU2V16umCmXSZ3ncK6a6Y5s5VsXc3msSJilhlu6xznnNmTWTxs
+         5mJFaBF7rZckVsWXINBBSAz1plM8VsxRA/pG+7XSbtDVcsHM5T1xXbVbBocLp+VAPzws
+         jK9g==
+X-Gm-Message-State: AOAM530kYEMkTXg+hRmYNFIwmnyK1FSWOX3SffYG+rz/pnH4x2xba20M
+        +zv51IAud9PwuFbyI0F1IZV9xuBryhAzGp8UpRw=
+X-Google-Smtp-Source: ABdhPJx/mXwElQ9ceRtlLkNMe4EmP2VKMWxpRmh+9jLPadSxEg/xZ12/Z1JM/YjWMx/YjFp+H/WaIu4DAIHja8b/REQ=
+X-Received: by 2002:a54:4117:: with SMTP id l23mr2346042oic.177.1599058892842;
+ Wed, 02 Sep 2020 08:01:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <159827188271.306468.16962617119460123110.stgit@warthog.procyon.org.uk>
+ <159827190508.306468.12755090833140558156.stgit@warthog.procyon.org.uk>
+In-Reply-To: <159827190508.306468.12755090833140558156.stgit@warthog.procyon.org.uk>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Wed, 2 Sep 2020 17:01:21 +0200
+Message-ID: <CAKgNAkho1WSOsxvCYQOs7vDxpfyeJ9JGdTL-Y0UEZtO3jVfmKw@mail.gmail.com>
+Subject: Re: [PATCH 4/5] Add manpage for fsopen(2) and fsmount(2)
+To:     David Howells <dhowells@redhat.com>
+Cc:     Alexander Viro <viro@zeniv.linux.org.uk>,
+        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Minchan Kim:
+Hi David,
 
->       ssize_t process_madvise(int pidfd, const struct iovec *iovec,
->                 unsigned long vlen, int advice, unsigned int flags);
+One further thought...
 
-size_t for vlen provides a clearer hint regarding the type of special
-treatment needed for ILP32 here (zero extension, not changing the type
-to long long).
+> +++ b/man2/fsopen.2
+[...]
+> +.BR fsopen ()
+> +creates a blank filesystem configuration context within the kernel for the
+> +filesystem named in the
+> +.I fsname
+> +parameter, puts it into creation mode and attaches it to a file descriptor,
+> +which it then returns.
+
+The term "filesystem configuration context" is introduced, but never
+really explained. I think it would be very helpful to have a sentence
+or three that explains this concept at the start of the page.
+
+Cheers,
+
+Michael
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
