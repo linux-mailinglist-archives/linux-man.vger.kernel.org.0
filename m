@@ -2,68 +2,87 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5A93725B111
-	for <lists+linux-man@lfdr.de>; Wed,  2 Sep 2020 18:15:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C75F725B534
+	for <lists+linux-man@lfdr.de>; Wed,  2 Sep 2020 22:15:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728436AbgIBQOo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 2 Sep 2020 12:14:44 -0400
-Received: from us-smtp-2.mimecast.com ([207.211.31.81]:43505 "EHLO
-        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1728483AbgIBQOh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 2 Sep 2020 12:14:37 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1599063276;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=gq3PYF0gH8Upn/AlKMBtYe87jdOYmG1nzMekq+7sJyM=;
-        b=ELRNvMxw6Bnu79OyRIBHL/2MZLagWtTxlQGJSc8Su3XRcIK/Y3fT9k7HXNqRWLgmBtWR3n
-        06ErOD/x0BfTpa5YgdQocbM9fw3n1zUzxx8mM8/Dwn6vCQhLrs223Um6wjVnjU4igHiRNH
-        wFr1exaALsjYNM6imcBjOhmDADFVPSU=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-157-fljllp1xPEa5OhAcrU6DUg-1; Wed, 02 Sep 2020 12:14:34 -0400
-X-MC-Unique: fljllp1xPEa5OhAcrU6DUg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D7ED71005504;
-        Wed,  2 Sep 2020 16:14:32 +0000 (UTC)
-Received: from warthog.procyon.org.uk (ovpn-113-6.rdu2.redhat.com [10.10.113.6])
-        by smtp.corp.redhat.com (Postfix) with ESMTP id 880967E306;
-        Wed,  2 Sep 2020 16:14:31 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-        Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-        Kingdom.
-        Registered in England and Wales under Company Registration No. 3798903
-From:   David Howells <dhowells@redhat.com>
-In-Reply-To: <CAKgNAkho1WSOsxvCYQOs7vDxpfyeJ9JGdTL-Y0UEZtO3jVfmKw@mail.gmail.com>
-References: <CAKgNAkho1WSOsxvCYQOs7vDxpfyeJ9JGdTL-Y0UEZtO3jVfmKw@mail.gmail.com> <159827188271.306468.16962617119460123110.stgit@warthog.procyon.org.uk> <159827190508.306468.12755090833140558156.stgit@warthog.procyon.org.uk>
-To:     mtk.manpages@gmail.com
-Cc:     dhowells@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
+        id S1727030AbgIBUOn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 2 Sep 2020 16:14:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37526 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726936AbgIBUOe (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 2 Sep 2020 16:14:34 -0400
+Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com [IPv6:2607:f8b0:4864:20::343])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 48BCBC061244;
+        Wed,  2 Sep 2020 13:14:34 -0700 (PDT)
+Received: by mail-ot1-x343.google.com with SMTP id k20so466106otr.1;
+        Wed, 02 Sep 2020 13:14:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=suskJZAhhjGPyfzpjHKUgDnYaYIBJVKayGrzunUwjkE=;
+        b=NXneTfPzbwpxYqCpRItbeYtQ9ktjsEXsnMi3VhIDt7E2w+tuR2J10+9TbnlH1W8/dv
+         XfVUTcfvUK+ioH/yneIC/qH7le9q6ZJLgU9OpM7C08On7oAC7At3hmyKJ3aiQxrsgxwF
+         19dkOCqc3J2IkUG8gmevfWneEBnFhvohbzA0RQIRtTw8rsox+815w8XOHzdNoJ8V19rf
+         8An8U7yDj9LV+Az4y2Xsx5xjyUDCE9SVyntKrgFSbpVlJyxSwSUINspIfrjzX/TzYC4y
+         F1ewYXKoFn3EtnmkUDvn6JmehjS480KcGpiFuoaRnRyw9oNv4uFoREXNGJquCvm1cXED
+         X+Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=suskJZAhhjGPyfzpjHKUgDnYaYIBJVKayGrzunUwjkE=;
+        b=pJN2wDEtd2/DbZFGOMWL33mm7m9pWLtnFp5x/JcLP4Vzn4DQc8f1LqM4d/+oEU9AEt
+         PwLhy4QafzYEgZC/LuMZ3QxEcDylGTxnyppMpLfQ77KzpHyY6TaXl1exSBZFPDrpYABj
+         yAkHW6JV4sO5kKLuX9FqNks98wO9XKFN+XPOzKLJ2zHOh4e28+kc7dKGIuDgnxrVNwpc
+         DwAFj0n31DQJ4PhLafhL8vcPToOshKDVKmjHr04jVoXZ1Qd6ge6on53JhOExH/Hu5oEt
+         vEJnNsfmLVWsX9OB36UKcssE/BUj2nAuADNpy7zHqCjicxLaRdxwgCOe44FbtLUeO05n
+         cwGQ==
+X-Gm-Message-State: AOAM533gJtJQEx7KFGWh5kjE+vzbyAVC3wbaRDd32Qho27v2i45Mb4Hs
+        gjDN86W4e8JYBduu5gngWPpM0ym7NifW/+zxLVQcTMmJ
+X-Google-Smtp-Source: ABdhPJzOOPPiscqZ4JYYa0ccAxr0YcUZaX1N88o+045RfHWYTYf7vSZhHIwwpjHUdFsqhszvg18l83mlBUfhZeLwHZM=
+X-Received: by 2002:a9d:a2b:: with SMTP id 40mr8974otg.308.1599077673643; Wed,
+ 02 Sep 2020 13:14:33 -0700 (PDT)
+MIME-Version: 1.0
+References: <159827188271.306468.16962617119460123110.stgit@warthog.procyon.org.uk>
+ <159827190508.306468.12755090833140558156.stgit@warthog.procyon.org.uk>
+ <CAKgNAkho1WSOsxvCYQOs7vDxpfyeJ9JGdTL-Y0UEZtO3jVfmKw@mail.gmail.com> <667616.1599063270@warthog.procyon.org.uk>
+In-Reply-To: <667616.1599063270@warthog.procyon.org.uk>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Wed, 2 Sep 2020 22:14:22 +0200
+Message-ID: <CAKgNAkhjDB9bvQ0h5b13fkbhuP9tYrkBQe7w1cbeOH8gM--D0g@mail.gmail.com>
+Subject: Re: [PATCH 4/5] Add manpage for fsopen(2) and fsmount(2)
+To:     David Howells <dhowells@redhat.com>
+Cc:     Alexander Viro <viro@zeniv.linux.org.uk>,
         "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
         linux-man <linux-man@vger.kernel.org>,
         Linux API <linux-api@vger.kernel.org>,
         lkml <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 4/5] Add manpage for fsopen(2) and fsmount(2)
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <667615.1599063270.1@warthog.procyon.org.uk>
-Date:   Wed, 02 Sep 2020 17:14:30 +0100
-Message-ID: <667616.1599063270@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
+On Wed, 2 Sep 2020 at 18:14, David Howells <dhowells@redhat.com> wrote:
+>
+> Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
+>
+> > The term "filesystem configuration context" is introduced, but never
+> > really explained. I think it would be very helpful to have a sentence
+> > or three that explains this concept at the start of the page.
+>
+> Does that need a .7 manpage?
 
-> The term "filesystem configuration context" is introduced, but never
-> really explained. I think it would be very helpful to have a sentence
-> or three that explains this concept at the start of the page.
+I was hoping a sentence or a paragraph in this page might suffice. Do
+you think more is required?
 
-Does that need a .7 manpage?
+Cheers,
 
-David
+Michael
 
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
