@@ -2,84 +2,105 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6518925BFE5
-	for <lists+linux-man@lfdr.de>; Thu,  3 Sep 2020 13:10:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9E8BF25C805
+	for <lists+linux-man@lfdr.de>; Thu,  3 Sep 2020 19:26:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726789AbgICLIj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 3 Sep 2020 07:08:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32768 "EHLO
+        id S1727799AbgICR01 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 3 Sep 2020 13:26:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35294 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728073AbgICLGM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 3 Sep 2020 07:06:12 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A5642C061258
-        for <linux-man@vger.kernel.org>; Thu,  3 Sep 2020 04:06:08 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id w5so2734880wrp.8
-        for <linux-man@vger.kernel.org>; Thu, 03 Sep 2020 04:06:08 -0700 (PDT)
+        with ESMTP id S1726327AbgICR0X (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 3 Sep 2020 13:26:23 -0400
+Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com [IPv6:2607:f8b0:4864:20::1044])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B623AC061244;
+        Thu,  3 Sep 2020 10:26:23 -0700 (PDT)
+Received: by mail-pj1-x1044.google.com with SMTP id k15so1874524pji.3;
+        Thu, 03 Sep 2020 10:26:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=iV0glNL8qGnLZK4vLFajDqfpV+c1mxo3QkFloavyg/k=;
-        b=epS2IonfdjeR8/bjDmJBAnvk+u1ci/FxDRipQK3jLwB4jbGgKNz5AXQ+XcWtsZT/kc
-         abOYNt5YlnR1neQ80T7N0AFl4He96KP+PktloN0Qe3pIHahvzNK/127Whkwbrx2+EHtx
-         9XYic0oOFrEWnqZ9eF08TketSpD+8dSLIdR5QrXwGvVny8GvFWtlM9cB9KKoEIcUo+Al
-         OFBjyofBDaMVbfVUotBFrl2AesItiKKOQ8y/0piEdGArJ53lpTz8bZhYwoWdbFO+KzDT
-         prJay9+0+PDxY01n3nTfKUw4RTT2L2RdMhzWNyqEcangb7cZMtwcpI8TYoURjRg1gTzi
-         j8vA==
+        h=sender:date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=mlukllwXOvEWBwyxT6IJZnJXvBsYB26IwXfjpSrBgXM=;
+        b=HTCenVFaASPOOyrZ4MuSvt5EQz8zWSEllLs/FvI1XXSg5kvv6+Bfy+9RyaGOfKCUlT
+         M2N1CGRU4EKEWXTpNDHMaioJyuVY2r0F06hCuFhb7m6Q7yeQpYbv8Re9zlzH0R1Nkyv1
+         GZ/KqhXoJhgW9OkWC1479sBJDsYwX/AaHj3ElLQIxjpMW4fPMqBEqwlOXtF/PKWtPmCR
+         J50WmGly6CxH1zk2qLeeFWMTSGTpzk/PaaX0AGSsm9A/MZyrlu/WoCRSKrS6qBYAsMme
+         fN3L53GqDHqDURfeVggvctHVfNI386/EhhjVCxHfshKbf8brlz3qhdHOULrCRJ931s8K
+         3xfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=iV0glNL8qGnLZK4vLFajDqfpV+c1mxo3QkFloavyg/k=;
-        b=HAa2sb4tLF4FRsIgyiR8QzzqVeTnPs1uT0bKwo+/btr32m/AjYB/ZqMlctJ5IeKJQf
-         GeHns+qLn296WFpLB5lbAM0kxqBrrJoFwnZ128uFFqb/iXleSbTstFoIN81pKvJ9fma7
-         8E0RAH6RXSQ/yIjrj0WmrFy8tkTan4s6mFrZpfJ9opRaykn7bzFVuM4Vl+J53cs+TZQI
-         P665AmUNSC2T++emGeMn/lEEDoy/oZUocs07we1oeZE+qGoVGSiT12s73ZG2qMNc6bjO
-         9w8Wp/k41hjPjcUJ3YlqCuy+WDdXYSAG0qBDCfZhPqYQvmK187KDhxAJSDRGG24pnjB8
-         cW9A==
-X-Gm-Message-State: AOAM530PQoRVdVVIsD/LkzB4nM9ujsbg3/QwtPGy50eQZZszi2zZU0ks
-        Y7iE1Hr+PJJJUZ4o3RMV6T0=
-X-Google-Smtp-Source: ABdhPJyt2WyGCiV4MYdkNwWprY2J9QSLyTPBnvodbjR4X8tyCuQCXAmbXzRKCdh1m3ZAfokW7BdSqA==
-X-Received: by 2002:a5d:4e0f:: with SMTP id p15mr1867562wrt.155.1599131167200;
-        Thu, 03 Sep 2020 04:06:07 -0700 (PDT)
-Received: from localhost.localdomain ([93.115.133.118])
-        by smtp.googlemail.com with ESMTPSA id 92sm4187174wra.19.2020.09.03.04.06.05
+        h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+         :references:mime-version:content-disposition:in-reply-to;
+        bh=mlukllwXOvEWBwyxT6IJZnJXvBsYB26IwXfjpSrBgXM=;
+        b=UV3x2r9vsmaAkbUoX0bSDq19rc1vO9kIE52oL3VhPAxX6Sy0A9ZodevEKe/x088bFg
+         Wb3QTIrUIRKTpmvkD0ZTSScUfAwk8kCxIz21Pog6C4Fm4hEc/ra3aKB3i6nCfGZ1Kuvf
+         9lEqApaxDz09g0cPTrPPYM6aw7DWGGH7JRg/Tb1USVIJo93N86RjOPiXdu8GYlkpa3L5
+         CPDgIt7G3Nb0ASZJv86eASBtedqNVFZTxt35/iyow1J5kHTnbVQVCLVRWCrdWkCiysf/
+         zTDPl4dzUgUyCanZGHDWELc6vCNowbCSafA6kLA0l5dgf/LoGRpCsq/Kqdm8cq9gyCjG
+         X8GA==
+X-Gm-Message-State: AOAM530DK/QMinv7OwVB7mFWveB/rlkQ/CcKj0WmcrO7cySD65th+70l
+        fXJEBuvmGh4fyTJqJQ98bx7HX0FPTZs=
+X-Google-Smtp-Source: ABdhPJzH6ua6oUgv3mANunm8XzcHBa3n2YthyvHZ4FbZ3oyARraK6utFFmoqIxB2J7WlM3nGx/eerw==
+X-Received: by 2002:a17:90a:5298:: with SMTP id w24mr4009307pjh.221.1599153982408;
+        Thu, 03 Sep 2020 10:26:22 -0700 (PDT)
+Received: from google.com ([2620:15c:211:1:7220:84ff:fe09:5e58])
+        by smtp.gmail.com with ESMTPSA id d8sm3230786pgt.19.2020.09.03.10.26.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2020 04:06:06 -0700 (PDT)
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org,
-        Alejandro Colomar <colomar.6.4.3@gmail.com>
-Subject: [PATCH] mbsinit.3: wsfix
-Date:   Thu,  3 Sep 2020 13:05:22 +0200
-Message-Id: <20200903110522.147678-1-colomar.6.4.3@gmail.com>
-X-Mailer: git-send-email 2.28.0
+        Thu, 03 Sep 2020 10:26:21 -0700 (PDT)
+Date:   Thu, 3 Sep 2020 10:26:18 -0700
+From:   Minchan Kim <minchan@kernel.org>
+To:     Florian Weimer <fw@deneb.enyo.de>
+Cc:     Andrew Morton <akpm@linux-foundation.org>,
+        LKML <linux-kernel@vger.kernel.org>,
+        Christian Brauner <christian.brauner@ubuntu.com>,
+        linux-mm <linux-mm@kvack.org>, linux-api@vger.kernel.org,
+        oleksandr@redhat.com, Suren Baghdasaryan <surenb@google.com>,
+        Tim Murray <timmurray@google.com>,
+        Sandeep Patil <sspatil@google.com>,
+        Sonny Rao <sonnyrao@google.com>,
+        Brian Geffon <bgeffon@google.com>,
+        Michal Hocko <mhocko@suse.com>,
+        Johannes Weiner <hannes@cmpxchg.org>,
+        Shakeel Butt <shakeelb@google.com>,
+        John Dias <joaodias@google.com>,
+        Joel Fernandes <joel@joelfernandes.org>,
+        Jann Horn <jannh@google.com>,
+        alexander.h.duyck@linux.intel.com, sj38.park@gmail.com,
+        David Rientjes <rientjes@google.com>,
+        Arjun Roy <arjunroy@google.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Vlastimil Babka <vbabka@suse.cz>,
+        Christian Brauner <christian@brauner.io>,
+        Daniel Colascione <dancol@google.com>,
+        Jens Axboe <axboe@kernel.dk>,
+        Kirill Tkhai <ktkhai@virtuozzo.com>,
+        SeongJae Park <sjpark@amazon.de>, linux-man@vger.kernel.org
+Subject: Re: [PATCH v9 3/3] mm/madvise: introduce process_madvise() syscall:
+ an external memory hinting API
+Message-ID: <20200903172618.GB1959033@google.com>
+References: <20200901000633.1920247-1-minchan@kernel.org>
+ <20200901000633.1920247-4-minchan@kernel.org>
+ <87blippc7p.fsf@mid.deneb.enyo.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87blippc7p.fsf@mid.deneb.enyo.de>
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
----
- man3/mbsinit.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Tue, Sep 01, 2020 at 08:46:02PM +0200, Florian Weimer wrote:
+> * Minchan Kim:
+> 
+> >       ssize_t process_madvise(int pidfd, const struct iovec *iovec,
+> >                 unsigned long vlen, int advice, unsigned int flags);
+> 
+> size_t for vlen provides a clearer hint regarding the type of special
+> treatment needed for ILP32 here (zero extension, not changing the type
+> to long long).
+> 
 
-diff --git a/man3/mbsinit.3 b/man3/mbsinit.3
-index 663f9d9ed..aeaa6ce88 100644
---- a/man3/mbsinit.3
-+++ b/man3/mbsinit.3
-@@ -59,7 +59,7 @@ in initial state is to set it to zero:
- .in +4n
- .EX
- mbstate_t state;
--memset(&state,0,sizeof(mbstate_t));
-+memset(&state, 0, sizeof(mbstate_t));
- .EE
- .in
- .PP
--- 
-2.28.0
-
+All existing system calls using iove in Linux uses unsigned long so
+I want to be consistent with them unless process_madvise need something
+speicial.
