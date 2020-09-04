@@ -2,53 +2,53 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E885A25DCBC
-	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 17:04:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 51FBC25DCBF
+	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 17:05:20 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730248AbgIDPEM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 4 Sep 2020 11:04:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37330 "EHLO
+        id S1730301AbgIDPFT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Sep 2020 11:05:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37504 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729942AbgIDPEL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 11:04:11 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DBBE4C061244
-        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 08:04:10 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id g4so7081959wrs.5
-        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 08:04:10 -0700 (PDT)
+        with ESMTP id S1729942AbgIDPFT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 11:05:19 -0400
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4FDC0C061244
+        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 08:05:18 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id j2so7071123wrx.7
+        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 08:05:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:from:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=UsroY9yvZ3Q7XhJ7YgGF5PQPlyOrvc5t4k6usFw5KxY=;
-        b=umMPfpHL4goOb19NQzF2Nj48h1xyJlpZjTWJGa47RWKjYLQwslSqnJyD/1DK2e5klr
-         D8HBzjAPEPVH/NqoW1f7OdNdpvCKjrCxHKNiXUyWlfUckrt+5lYzR0x7iEYS3L8DvzAa
-         cYwGS0Jtpo4dBK4ctjp6aNwWFue7+8GVWMilFbSPBTroaICWSlCDOBKgoICnhjLgH849
-         ibqzkhVVZI8QQgxePLdIIIo7zackDFgaW+K/Rs/x0gn2bhAXqEmY3nouhxSb8Lr1wZni
-         8uCipHKB+idJ8DClzEIcZ8kUHgFYX8LB5RQN9x1pCexDrmNcJTswH3l1d2vt3X9gaMT9
-         0zlw==
+        bh=9CFNhhb6MvgN/Xg42jNOeB691e1jg76wBxoiDOxX9tM=;
+        b=mkUOrL4xp7JVBAWrvlP23Utn1yd51nlHRsHO2LhJOk7uZaKf+VQyE0IGXeDRCueckL
+         PyeCuzC0N3oBI0XgUvfHPP5T4Vbjs35DVr1X8bb63idRjQf0jxpTozECi+lFJkUXuTkR
+         fS+IuMQCZLejaMC5rMXvqGDr2xTHIOkPtoDBU2e148jHjQWFwq+z/tRbDYLS2DOeTk0G
+         TWz/mfdbhWIjqTD1UVkgCNjRoOr73DZii54wfcIU3Y0PRXYCrfGsk1YCSciLqqTqJBW4
+         sEhgsMUICOnXmt108aT9Ael6H6GyeKTtj0jkrnEbvzMrnxGFX0HbDbLCxvKJmfhBWUVb
+         Tvuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:from:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=UsroY9yvZ3Q7XhJ7YgGF5PQPlyOrvc5t4k6usFw5KxY=;
-        b=jb52qJT1H/65xRYPdj/AmyzhZVD+2EvJaX2yYNausDLJAOCEjODE/OpkC99Dl6wQxQ
-         mnop3wSgfHcdhksMGBrOnNwW19sRf7Kmm9n0oFnejRtbn+oLRqfz7tI5+mnwq//+NjWA
-         XkkrA6tnbHLyz9ybh2js+ZACc0x2mNAgrBGX7dFHUHEyCIe2uQnU9eqCT/K4h2lUasZ0
-         SLF6o0iHP2w2XgoZIuLlhb5BHdbVM3crXTjlaJ/1bdRtydZw2ERIICC4mzbUSkGoJJ5a
-         Pl6Hi+8ryv2sskB0vYcKpIyD0GruyMbQAWuoJfefzUipSEOCGpZOJQZ1q+V8zY4VgJDI
-         eaBA==
-X-Gm-Message-State: AOAM530Z+ryL6cYpWjz6o2AwkJS88ka2pApmMFZxk09JcwQEzdKBaGKD
-        wUpgTvjn9d/xuv+BgO0x+DY=
-X-Google-Smtp-Source: ABdhPJyBf5Dk+aoz5HgvZO+ZGwyjIuHV+787sTCIQiURZ7kawzUn4oagfQSKXBcfLvT+pAat6fGozw==
-X-Received: by 2002:a5d:4bcf:: with SMTP id l15mr8004129wrt.384.1599231849592;
-        Fri, 04 Sep 2020 08:04:09 -0700 (PDT)
+        bh=9CFNhhb6MvgN/Xg42jNOeB691e1jg76wBxoiDOxX9tM=;
+        b=owAOjsn9s15cO0rXH5g0aJZ5583vIGidV8JqwyxVDlpylaiw6XCOWsKodaCevmIkj4
+         3tH/Z/puWzqn2K7tZWCYicaJk50Bro/9EN3PvdewfAIKnvx6DcTnTwdhjCjl0ZMw5fb6
+         C06UC/RstSevTOHS9kqUkjTerJ4Pd3QHf3x2OaEpPQDa8MtRlOG4YSyzAHDQ6lKMqQVM
+         v8062Tm9pPrmwogdSGMzWwgG9XX2/5jMz2um5Bqr+64GQaJeM8f2y+lSfli6PwG3nR3o
+         gt5LcYG8WdmW5zB469wRKeq7Mm+ZX2H7tJf+yxpn2NF98vytQT4GSaM6JPH9yNn/EErZ
+         w7qg==
+X-Gm-Message-State: AOAM531lTWvsNNymzG1gqXDWtsGZo9SKv7veUDTS2jn0a1/z3aCG22e6
+        7zPzZVjgynwUVIXJ49LLzcLKZeMrsgE=
+X-Google-Smtp-Source: ABdhPJzNeZ2/ZxlTTRf03i/290pQTfQE9vpQ1qUb8wzVPKrufX/D7Eyaf0lVrESOuGT30EYlKLNUVQ==
+X-Received: by 2002:adf:9ed4:: with SMTP id b20mr8177605wrf.206.1599231917094;
+        Fri, 04 Sep 2020 08:05:17 -0700 (PDT)
 Received: from [192.168.0.160] ([93.115.133.118])
-        by smtp.gmail.com with ESMTPSA id v204sm11987866wmg.20.2020.09.04.08.04.08
+        by smtp.gmail.com with ESMTPSA id p11sm11090439wma.11.2020.09.04.08.05.16
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2020 08:04:09 -0700 (PDT)
-Subject: [PATCH (2) 30/34] aio.7: Use sizeof consistently
+        Fri, 04 Sep 2020 08:05:16 -0700 (PDT)
+Subject: [PATCH (2) 31/34] fanotify.7: Use sizeof consistently
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
@@ -72,8 +72,8 @@ References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <6e6d6796-32e0-9cc1-1e6c-4abb0b702499@gmail.com>
  <718db444-6679-224e-c649-6dd219b9db3c@gmail.com>
  <36a9ef8e-6fd9-e074-2a19-d8529f425501@gmail.com>
-Message-ID: <93a1103a-8964-d213-2892-5dc7fe8513f1@gmail.com>
-Date:   Fri, 4 Sep 2020 17:04:08 +0200
+Message-ID: <1d9ef046-8c69-1e40-4f7f-5fbee25aadbc@gmail.com>
+Date:   Fri, 4 Sep 2020 17:05:15 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
@@ -86,10 +86,10 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From 33a09662331be9666c2f69dc60a792d9deee761e Mon Sep 17 00:00:00 2001
+From 75af70465a8e60aa1d96b32d843b074966b7a878 Mon Sep 17 00:00:00 2001
 From: Alejandro Colomar <colomar.6.4.3@gmail.com>
-Date: Thu, 3 Sep 2020 21:57:28 +0200
-Subject: [PATCH 30/34] aio.7: Use sizeof consistently
+Date: Thu, 3 Sep 2020 21:58:14 +0200
+Subject: [PATCH 31/33] fanotify.7: Use sizeof consistently
 
 Use ``sizeof`` consistently through all the examples in the following
 way:
@@ -102,26 +102,22 @@ way:
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man7/aio.7 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ man7/fanotify.7 | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/man7/aio.7 b/man7/aio.7
-index dd05dce83..d3ab3f422 100644
---- a/man7/aio.7
-+++ b/man7/aio.7
-@@ -311,11 +311,11 @@ main(int argc, char *argv[])
+diff --git a/man7/fanotify.7 b/man7/fanotify.7
+index a7d60b2b9..29c818027 100644
+--- a/man7/fanotify.7
++++ b/man7/fanotify.7
+@@ -808,8 +808,7 @@ handle_events(int fd)
 
-     /* Allocate our arrays */
+                     response.fd = metadata\->fd;
+                     response.response = FAN_ALLOW;
+-                    write(fd, &response,
+-                          sizeof(struct fanotify_response));
++                    write(fd, &response, sizeof(response));
+                 }
 
--    ioList = calloc(numReqs, sizeof(struct ioRequest));
-+    ioList = calloc(numReqs, sizeof(*ioList));
-     if (ioList == NULL)
-         errExit("calloc");
-
--    aiocbList = calloc(numReqs, sizeof(struct aiocb));
-+    aiocbList = calloc(numReqs, sizeof(*aiocbList));
-     if (aiocbList == NULL)
-         errExit("calloc");
-
+                 /* Handle closing of writable file event */
 -- 
 2.28.0
