@@ -2,58 +2,57 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0054E25DB3D
-	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 16:19:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1ECF225DB28
+	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 16:16:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730526AbgIDOT1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 4 Sep 2020 10:19:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53030 "EHLO
+        id S1730470AbgIDNor (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Sep 2020 09:44:47 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53218 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730511AbgIDNnQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 09:43:16 -0400
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E64D4C061245
-        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 06:43:14 -0700 (PDT)
-Received: by mail-wm1-x331.google.com with SMTP id a65so6110892wme.5
-        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 06:43:14 -0700 (PDT)
+        with ESMTP id S1730550AbgIDNol (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 09:44:41 -0400
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4201DC061244
+        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 06:44:28 -0700 (PDT)
+Received: by mail-wr1-x42d.google.com with SMTP id k15so6779525wrn.10
+        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 06:44:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:from:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=YM6bwJ+FvAT8KW/t9DGCCxo+APMUB8LPCHdU84GE3Pk=;
-        b=AWcIktn/rwWPpwF8K8dF15SenAdox1tKDocF2yZomaEv3nJoDtOxBOCzuxWGoERWRm
-         BszPJNSBS6YK9rQVTEPIAmzU/Q//Sl8oRXgp+mYep5kgeDc+a+D9rxsfh26CnMOq1OpN
-         mN0ZHz/v064lR148z/+9aNhoa1RVMIIQaLnfdNzhq+7dzjCjPH/aKuW0nwmkLxGWDwsd
-         3n1NyY2PDIwP3Vn7ZKXG3XP3+XA0L+8F0fT9hNVL/25KJTA2/F6MJou9t6JC3XielAFn
-         LyxaSgXqfUXFTTwfVpl3dM3hjJQTmo36xau7IORJC7aQQFZtrhhRgvjzD4bemTcZ8hCK
-         DybA==
+        bh=hvHNwitLaKgwzR8P6OQ3CdUvf3YJ3c1a+mizPrv30lI=;
+        b=r+7m1RrzQYQAAAeHf6UVe3FN0FiApuPYMCqb3/yvI8vD47zTG3Rt9bfYgOPTq8+i5m
+         cmYzocloy6HWMzQnGLsMLU7oL8rlI9HM0NVKp9oabT/aKFZuTtX9zU17ki5q+QzTg14L
+         /yaxykO5BCw3iBJzPPdA7OpijAQAt32TXmdoEIlP9Upt2pvRfJ357iynBqepkb/zb7BA
+         5w2H/vq27yRwLJip6AT4gmddZLOZ7fFknNflH+V9h2yNDap0ioHfYrIBPS15W7HCMQfD
+         K2G3h6ZAin7TBOfK7WXDCHOZLkqMeTwJ/fzyj5Q+JP2iNN6JP2ZoRPoFoi7lp/Nd5Tee
+         3WMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:from:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=YM6bwJ+FvAT8KW/t9DGCCxo+APMUB8LPCHdU84GE3Pk=;
-        b=IeiQzyF6zRQr8yfCyUrOQ5Kjz/hz0eNcdZNJDawCSyyMab3k10FNlWGGt3DCWQPShr
-         cpSnsOwwDnhwx8ooDBEAxmg/AVf9tgLDHxWlPDmbNfFeVndrxPwmagwBe5avfnfLf5kQ
-         DA8X2FCidVAJEuHQCmUaNJ3XRjVf/JbSyZrF4yDr/gl6DGG2nkRDYkZU2u0rNrspZtDL
-         IWUpvRfeIte+nGbfLDbHP+/zX5ZmGR8420+3vZKJTRDLJPl2MBaLZe5xQCOqjEN3hU9w
-         l3/lww+TQ6iXe59Jq9GzXIsyu87MWk6AMpcMqwz+t/QCwtGtuYHm26MxsmJCnx4S90H9
-         7tAA==
-X-Gm-Message-State: AOAM532NBWN27JiZ78/0OQk+ew0UDPDkq4zeB0P01661DMoQgUgLMnND
-        2vKNacP8BToua0ZfJlhBjZo=
-X-Google-Smtp-Source: ABdhPJyZKfChGNSrUHNUB6W4Ai3dWFkP1nECeKyoF54Z00g+sUB3960QGkyKQfqMpSUOlGUht98mRQ==
-X-Received: by 2002:a1c:7e02:: with SMTP id z2mr7682912wmc.138.1599226992634;
-        Fri, 04 Sep 2020 06:43:12 -0700 (PDT)
+        bh=hvHNwitLaKgwzR8P6OQ3CdUvf3YJ3c1a+mizPrv30lI=;
+        b=BVSQK/KDE0FkMCYQFUa2K62ti3OJh7LDBKLsnuEB+ycMq0LPlNSGl/Ql9SeEWx9Fey
+         6jxYnH8lzD47Ar3n7x6KwMK0Noz1hykEpUn2WMat737u9Oe1JV2orTN3vjx7p4aVT6lm
+         AOEZ3cEh1fUWdjSsIs6gpR1LdDAq11LZ0VPVQBrAlwOqT2eu29lscSDtdIluEVtTvSOl
+         afyjtdRyHP+1L8l4uEHX+w+gd0n35q+u51Rk/I295vMqubMMez3CMRkP6qHsUMl5bvNu
+         YTvqIWOK/tT9TxyQosSK4GDxxSfGtY5LKzuZ2VHufZnaiYb8wnA/jk+JNZoCO7z7mhnK
+         CPCg==
+X-Gm-Message-State: AOAM533HV4EVkdiHVbsCBGJNRnrejpKUInYg+CxB/utJ65djelEGFYaq
+        HMliRNQJ39j9NVoua7BO+Yo=
+X-Google-Smtp-Source: ABdhPJxqkFazpYwjlmrl3y0KIPKmw13LMmsAAYgKFNr7ysph8mA8mIxdAdHttCNEBj+iv2YCQEf3Tg==
+X-Received: by 2002:a5d:680e:: with SMTP id w14mr7295700wru.50.1599227057302;
+        Fri, 04 Sep 2020 06:44:17 -0700 (PDT)
 Received: from [192.168.0.160] ([93.115.133.118])
-        by smtp.gmail.com with ESMTPSA id u16sm11946571wmc.7.2020.09.04.06.43.11
+        by smtp.gmail.com with ESMTPSA id z13sm11532949wro.97.2020.09.04.06.44.16
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2020 06:43:12 -0700 (PDT)
-Subject: [PATCH (2) 09/34] sysctl.2: Use sizeof consistently
+        Fri, 04 Sep 2020 06:44:16 -0700 (PDT)
+Subject: [PATCH (2) 10/34] signalfd.2: Use sizeof consistently
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
 References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
- <e1b424c2-77c1-e995-a866-67a122d7bb07@gmail.com>
  <20200825111924.gwf3ck4bdq42lrzr@jwilk.net>
  <d084b7eb-a691-52e8-4996-5080af0175de@gmail.com>
  <CAKgNAki_wyf7dCShjpAaRLUeuL=+EFZYeVp0fY-EKHyOBW2hRw@mail.gmail.com>
@@ -71,12 +70,13 @@ References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <c2636c53-e81c-881a-2938-08871e1b176c@gmail.com>
  <257c9374-3253-9091-c116-045ee16590c0@gmail.com>
  <40ba6e68-c2f6-649c-2225-6037e3c0c077@gmail.com>
-Message-ID: <afec3122-19aa-02f4-0850-7000552ceb95@gmail.com>
-Date:   Fri, 4 Sep 2020 15:43:11 +0200
+ <afec3122-19aa-02f4-0850-7000552ceb95@gmail.com>
+Message-ID: <da654939-dcc2-e1f8-65d9-a873325d4609@gmail.com>
+Date:   Fri, 4 Sep 2020 15:44:16 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <40ba6e68-c2f6-649c-2225-6037e3c0c077@gmail.com>
+In-Reply-To: <afec3122-19aa-02f4-0850-7000552ceb95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -85,10 +85,10 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From 90572d59a4f3b1986e57c0b32e14e4e68ecab716 Mon Sep 17 00:00:00 2001
+From 9a10e681849a57f75d89cf6943901a3df8097399 Mon Sep 17 00:00:00 2001
 From: Alejandro Colomar <colomar.6.4.3@gmail.com>
-Date: Thu, 3 Sep 2020 21:39:56 +0200
-Subject: [PATCH 09/34] sysctl.2: Use sizeof consistently
+Date: Thu, 3 Sep 2020 21:41:31 +0200
+Subject: [PATCH 10/34] signalfd.2: Use sizeof consistently
 
 Use ``sizeof`` consistently through all the examples in the following
 way:
@@ -101,21 +101,23 @@ way:
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man2/sysctl.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man2/signalfd.2 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/man2/sysctl.2 b/man2/sysctl.2
-index 65f79516d..161060490 100644
---- a/man2/sysctl.2
-+++ b/man2/sysctl.2
-@@ -154,7 +154,7 @@ main(void)
-     size_t osnamelth;
-     int name[] = { CTL_KERN, KERN_OSTYPE };
+diff --git a/man2/signalfd.2 b/man2/signalfd.2
+index 96d502a50..92e9fd7ef 100644
+--- a/man2/signalfd.2
++++ b/man2/signalfd.2
+@@ -502,8 +502,8 @@ main(int argc, char *argv[])
+         handle_error("signalfd");
 
--    memset(&args, 0, sizeof(struct __sysctl_args));
-+    memset(&args, 0, sizeof(args));
-     args.name = name;
-     args.nlen = sizeof(name)/sizeof(name[0]);
-     args.oldval = osname;
+     for (;;) {
+-        s = read(sfd, &fdsi, sizeof(struct signalfd_siginfo));
+-        if (s != sizeof(struct signalfd_siginfo))
++        s = read(sfd, &fdsi, sizeof(fdsi));
++        if (s != sizeof(fdsi))
+             handle_error("read");
+
+         if (fdsi.ssi_signo == SIGINT) {
 -- 
 2.28.0
