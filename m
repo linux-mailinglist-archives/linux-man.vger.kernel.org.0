@@ -2,58 +2,57 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 59BC125E06F
-	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 18:58:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5EBB525E070
+	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 18:59:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727827AbgIDQ62 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 4 Sep 2020 12:58:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55122 "EHLO
+        id S1726029AbgIDQ7P (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Sep 2020 12:59:15 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55240 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725966AbgIDQ61 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 12:58:27 -0400
+        with ESMTP id S1725966AbgIDQ7P (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 12:59:15 -0400
 Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 93B15C061244
-        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 09:58:26 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id o5so7357994wrn.13
-        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 09:58:26 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6A26BC061244
+        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 09:59:13 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id z1so7452398wrt.3
+        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 09:59:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=2SvK2gklbjKHEzQkrET+G6ipr7UetbW+KoQM1zJ1abI=;
-        b=gfIZ8+bafHvMdHDcG27Iy9tY3Nf7jL9M8euHE5dgBKq00LQHJ1l/qq+UxbJQDlTEK7
-         dQ8bm+u17HBczcNdZ3+/QNQ0CMZ5sXfg1MnZxKTJH/d153HWRwDmsAjTEXiWSBNqqmfB
-         dhMViNNsoHP87pguYBzOH0GwvDN3XYLVOyWC0jMjpL6Tg0EBzNky3XORh/m9VWvaqHIl
-         fGZ71t2mhreODUo+tex8kDCPZTWToS2zEe6mzwwymM+YO4b4s7Dka5iFLEvWJjZY9Whc
-         07RBIef49NnbCLJi/okma2gOV+LOvUbQLRY4dLgX5u7UARhDqY0Jk3E3BbZQYt4d5jK5
-         nBXg==
+        bh=CNgKKv49fmvK8kSi256MLQNjluEuWQlBPsq/g96cg4Q=;
+        b=cBOpSZ0RErMmcCFRdJ35dfjQxX0t62w1lABw7mpfxo1LCCJjU6MgUF8scHzPX44h5Z
+         L48NXoRF+ljTTDgR4aPYHOAZypZkU6DycIwfKw6Rdf/VvuxpqJYgh48QKM5UvCTRhkuj
+         KrSpQHRSGz+JUwy+9oIWVec4wyzBe2FxwnYU7Grfj2EhD7PQILkm4t3KJxoK9WZexn3i
+         cKMcrNywhIazDZ2g6s5LWvOAyvNM66tzlvvzstWgzKcCRRtshccy+IBYCIvb9J26X4Hs
+         HDRaT4QRYUQ570MD7mxcZzSJALXXmIDC15LV2s/AgDENrvPEcBqRKa8Fumxa1XJzWKVA
+         qfMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=2SvK2gklbjKHEzQkrET+G6ipr7UetbW+KoQM1zJ1abI=;
-        b=CwmrFhIchAXj+94xbP5o4kcLYy03lPBlDjcJzx+vU8LL1zELxjsjS6gQrWyWkwIgdK
-         SuDIqN59zk2J+o6Pyn2Fd2q6HijUqx3/MIR8WfA3KUxFMF54qxHBcFkf7Qzp38dITx/r
-         ZPpl1xvNbqY8+eO4eEafG9iIWS4D/n8E1+OsMbqhWYKbRMgDBd40jW3gp4FsDzm+CAUM
-         Coq6hyT7m7XPYucR7PHRZ0nD9B9uXZfHr9H2NGy2THWwFslHG7TwkCc5LXLUc4DNAFhD
-         xFTyMeeRgoM5IdGbOaEctDUTvCvgWO33z+im5wQyBNrBB5RJNGaT6C58/3oHIYkfp+9p
-         NPbA==
-X-Gm-Message-State: AOAM5318XdLAyQOapQrQjJr0I5h2VjIduUW/6UKq9yFffXi3HYDmqgJy
-        soIxqmCLVlvxHPmOPZS8tm8fzW1fDv8=
-X-Google-Smtp-Source: ABdhPJwVigyIYvJBSMulXpNIrendMc6jrShEdtYroLQ3CEPf60/x59+w8ktlCVYGy+zuoG8bJ+HyDg==
-X-Received: by 2002:adf:ee8d:: with SMTP id b13mr7695003wro.249.1599238705122;
-        Fri, 04 Sep 2020 09:58:25 -0700 (PDT)
+        bh=CNgKKv49fmvK8kSi256MLQNjluEuWQlBPsq/g96cg4Q=;
+        b=g1XHqmXlEyL4mGg0Gb9DykhAVK6CKMXOGNaqw2N1zwrEFh+MMvguWuJiELFgkdyTWv
+         uHovt4NVVljmLCJM/qg857KstZ5FVcZhv4zAtZLiir66N3Tmgo8XreCmDKvpp7fZpMlS
+         gwhHepLv1h1eIYRqpaJIMM6XuymlD/BX/ojOYiqog9awE6MtQ3SskCWU4Q+ynIWw+pNN
+         GUjompnt1duKGa5k2E4PLwKrarqZ4NstepAleDzKu5Yx80fZL52CoIfuhECzBJdWE4PQ
+         5syuQOZ4E7aEeYKx1eHC/AFeOUBmD4ObjmXq/i42xFVKmdfHOlfoG/VZ/8zPaGb/c/RB
+         PzIw==
+X-Gm-Message-State: AOAM533F3kAXsUVBNxx1479/eEhfJkn8+g+GY1OWXJFFKq0IZ0K3Y1+H
+        FO4nenj+lM07eoRTeRfxSJ0=
+X-Google-Smtp-Source: ABdhPJxt+xt41NIrGi19f3RXYsn7CkspRQcuRZsxH9n3ElvVMGx4nZO4ntrahMuCnM14EAKWhHIyHQ==
+X-Received: by 2002:a5d:67c2:: with SMTP id n2mr8117778wrw.4.1599238752058;
+        Fri, 04 Sep 2020 09:59:12 -0700 (PDT)
 Received: from ?IPv6:2001:a61:3ab0:7001:e081:d401:3da8:e4bc? ([2001:a61:3ab0:7001:e081:d401:3da8:e4bc])
-        by smtp.gmail.com with ESMTPSA id f3sm12290736wmb.35.2020.09.04.09.58.24
+        by smtp.gmail.com with ESMTPSA id r14sm12558449wrn.56.2020.09.04.09.59.11
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2020 09:58:24 -0700 (PDT)
+        Fri, 04 Sep 2020 09:59:11 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         Jakub Wilk <jwilk@jwilk.net>
-Subject: Re: [PATCH (2) 24/34] queue.3: Use sizeof consistently
+Subject: Re: [PATCH (2) 25/34] rtnetlink.3: Use sizeof consistently
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
- <c2636c53-e81c-881a-2938-08871e1b176c@gmail.com>
  <257c9374-3253-9091-c116-045ee16590c0@gmail.com>
  <40ba6e68-c2f6-649c-2225-6037e3c0c077@gmail.com>
  <afec3122-19aa-02f4-0850-7000552ceb95@gmail.com>
@@ -72,13 +71,14 @@ References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <5343bbd1-b03f-29bf-2def-c27ba3a3616e@gmail.com>
  <4eba3ee9-bb6a-810f-55ae-7f0d76d446a7@gmail.com>
  <82aa16c3-60fe-68b3-103f-6d438563f3c2@gmail.com>
+ <6e6d6796-32e0-9cc1-1e6c-4abb0b702499@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <00642d3b-f0a6-9761-a039-ef56f538165e@gmail.com>
-Date:   Fri, 4 Sep 2020 18:58:23 +0200
+Message-ID: <73bca1fd-d60c-65d0-1aef-21828b2522ec@gmail.com>
+Date:   Fri, 4 Sep 2020 18:59:10 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <82aa16c3-60fe-68b3-103f-6d438563f3c2@gmail.com>
+In-Reply-To: <6e6d6796-32e0-9cc1-1e6c-4abb0b702499@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -89,11 +89,11 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hello Alex,
 
-On 9/4/20 4:50 PM, Alejandro Colomar wrote:
->>From 6f3e17cf38bc3718332c7151899e253dbc91affb Mon Sep 17 00:00:00 2001
+On 9/4/20 4:52 PM, Alejandro Colomar wrote:
+>>From eca0c1500aa4db77c8c8d079798fe080e83e9935 Mon Sep 17 00:00:00 2001
 > From: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> Date: Thu, 3 Sep 2020 21:53:51 +0200
-> Subject: [PATCH 24/34] queue.3: Use sizeof consistently
+> Date: Thu, 3 Sep 2020 21:55:00 +0200
+> Subject: [PATCH 25/34] rtnetlink.3: Use sizeof consistently
 > 
 > Use ``sizeof`` consistently through all the examples in the following
 > way:
@@ -105,113 +105,31 @@ On 9/4/20 4:50 PM, Alejandro Colomar wrote:
 > 	https://www.kernel.org/doc/html/v5.8/process/coding-style.html#allocating-memory
 > 
 > Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+> ---
+>  man3/rtnetlink.3 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/man3/rtnetlink.3 b/man3/rtnetlink.3
+> index 07bb1fbf9..2d9fa05a2 100644
 
-I don't think this change improves readability. Looking at the code as
-it is, one can immediately see that it is the same structure being 
-allocated everywhere. After the change, that's not so obvious. I think
-I won't apply this.
+Patch applied.
 
-Cheers,
+Thanks,
 
 Michael
 
-> ---
->  man3/queue.3 | 32 ++++++++++++++++----------------
->  1 file changed, 16 insertions(+), 16 deletions(-)
+
+> --- a/man3/rtnetlink.3
+> +++ b/man3/rtnetlink.3
+> @@ -105,7 +105,7 @@ unsigned int mtu = 1000;
+>  int rtnetlink_sk = socket(AF_NETLINK, SOCK_DGRAM, NETLINK_ROUTE);
 > 
-> diff --git a/man3/queue.3 b/man3/queue.3
-> index 55cd5847e..2ea5ff4f5 100644
-> --- a/man3/queue.3
-> +++ b/man3/queue.3
-> @@ -559,10 +559,10 @@ struct entry {
-> 
->  SLIST_INIT(&head);			/* Initialize the list. */
-> 
-> -n1 = malloc(sizeof(struct entry));	/* Insert at the head. */
-> +n1 = malloc(sizeof(*n1));		/* Insert at the head. */
->  SLIST_INSERT_HEAD(&head, n1, entries);
-> 
-> -n2 = malloc(sizeof(struct entry));	/* Insert after. */
-> +n2 = malloc(sizeof(*n2));		/* Insert after. */
->  SLIST_INSERT_AFTER(n1, n2, entries);
-> 
->  SLIST_REMOVE(&head, n2, entry, entries);/* Deletion. */
-> @@ -775,13 +775,13 @@ struct entry {
-> 
->  STAILQ_INIT(&head);			/* Initialize the queue. */
-> 
-> -n1 = malloc(sizeof(struct entry));	/* Insert at the head. */
-> +n1 = malloc(sizeof(*n1));		/* Insert at the head. */
->  STAILQ_INSERT_HEAD(&head, n1, entries);
-> 
-> -n1 = malloc(sizeof(struct entry));	/* Insert at the tail. */
-> +n1 = malloc(sizeof(*n1));		/* Insert at the tail. */
->  STAILQ_INSERT_TAIL(&head, n1, entries);
-> 
-> -n2 = malloc(sizeof(struct entry));	/* Insert after. */
-> +n2 = malloc(sizeof(*n2));		/* Insert after. */
->  STAILQ_INSERT_AFTER(&head, n1, n2, entries);
->  					/* Deletion. */
->  STAILQ_REMOVE(&head, n2, entry, entries);
-> @@ -975,13 +975,13 @@ struct entry {
-> 
->  LIST_INIT(&head);			/* Initialize the list. */
-> 
-> -n1 = malloc(sizeof(struct entry));	/* Insert at the head. */
-> +n1 = malloc(sizeof(*n1));		/* Insert at the head. */
->  LIST_INSERT_HEAD(&head, n1, entries);
-> 
-> -n2 = malloc(sizeof(struct entry));	/* Insert after. */
-> +n2 = malloc(sizeof(*n2));		/* Insert after. */
->  LIST_INSERT_AFTER(n1, n2, entries);
-> 
-> -n3 = malloc(sizeof(struct entry));	/* Insert before. */
-> +n3 = malloc(sizeof(*n3));		/* Insert before. */
->  LIST_INSERT_BEFORE(n2, n3, entries);
-> 
->  LIST_REMOVE(n2, entries);		/* Deletion. */
-> @@ -1233,16 +1233,16 @@ struct entry {
-> 
->  TAILQ_INIT(&head);			/* Initialize the queue. */
-> 
-> -n1 = malloc(sizeof(struct entry));	/* Insert at the head. */
-> +n1 = malloc(sizeof(*n1));		/* Insert at the head. */
->  TAILQ_INSERT_HEAD(&head, n1, entries);
-> 
-> -n1 = malloc(sizeof(struct entry));	/* Insert at the tail. */
-> +n1 = malloc(sizeof(*n1));		/* Insert at the tail. */
->  TAILQ_INSERT_TAIL(&head, n1, entries);
-> 
-> -n2 = malloc(sizeof(struct entry));	/* Insert after. */
-> +n2 = malloc(sizeof(*n2));		/* Insert after. */
->  TAILQ_INSERT_AFTER(&head, n1, n2, entries);
-> 
-> -n3 = malloc(sizeof(struct entry));	/* Insert before. */
-> +n3 = malloc(sizeof(*n3));		/* Insert before. */
->  TAILQ_INSERT_BEFORE(n2, n3, entries);
-> 
->  TAILQ_REMOVE(&head, n2, entries);	/* Deletion. */
-> @@ -1426,16 +1426,16 @@ struct entry {
-> 
->  CIRCLEQ_INIT(&head);			/* Initialize the queue. */
-> 
-> -n1 = malloc(sizeof(struct entry));	/* Insert at the head. */
-> +n1 = malloc(sizeof(*n1));		/* Insert at the head. */
->  CIRCLEQ_INSERT_HEAD(&head, n1, entries);
-> 
-> -n1 = malloc(sizeof(struct entry));	/* Insert at the tail. */
-> +n1 = malloc(sizeof(*n1));		/* Insert at the tail. */
->  CIRCLEQ_INSERT_TAIL(&head, n1, entries);
-> 
-> -n2 = malloc(sizeof(struct entry));	/* Insert after. */
-> +n2 = malloc(sizeof(*n2));		/* Insert after. */
->  CIRCLEQ_INSERT_AFTER(&head, n1, n2, entries);
-> 
-> -n3 = malloc(sizeof(struct entry));	/* Insert before. */
-> +n3 = malloc(sizeof(*n3));		/* Insert before. */
->  CIRCLEQ_INSERT_BEFORE(&head, n2, n3, entries);
-> 
->  CIRCLEQ_REMOVE(&head, n2, entries);	/* Deletion. */
+>  memset(&req, 0, sizeof(req));
+> -req.nh.nlmsg_len = NLMSG_LENGTH(sizeof(struct ifinfomsg));
+> +req.nh.nlmsg_len = NLMSG_LENGTH(sizeof(req.if));
+>  req.nh.nlmsg_flags = NLM_F_REQUEST;
+>  req.nh.nlmsg_type = RTM_NEWLINK;
+>  req.if.ifi_family = AF_UNSPEC;
 > 
 
 
