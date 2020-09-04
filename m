@@ -2,56 +2,56 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EFCB725D5EC
-	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 12:21:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7ED8925D6AD
+	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 12:44:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729813AbgIDKVZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 4 Sep 2020 06:21:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50094 "EHLO
+        id S1729872AbgIDKoT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Sep 2020 06:44:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53600 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729797AbgIDKVY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 06:21:24 -0400
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0E67FC061244
-        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 03:21:20 -0700 (PDT)
-Received: by mail-wr1-x432.google.com with SMTP id g4so6189002wrs.5
-        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 03:21:19 -0700 (PDT)
+        with ESMTP id S1729584AbgIDKoS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 06:44:18 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B7746C061244
+        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 03:44:17 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id z1so6292310wrt.3
+        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 03:44:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:from:to:cc:references:message-id:date:user-agent
+        h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=0F/yfaRF/LGOqGalDoOFRUGDx/2DaD3vmDUF5bP65sQ=;
-        b=NRfHkZiMm68QlQD+YyMg88JMBgo9sfl5raWV1btTx7bsRBTl6CLulji2Bry5fvj1dv
-         ad41ToGqSc+tDZv9hZVhRZX7WmmGprR4oGQkXRnlA6xekQgIO+W71a3SX/MuC7wRp0/3
-         6OwCLZyT7ThxoqGSVzun8Tkow9uaexs1KhqxMgtcK8zPSCKp3DX5c/dKc3XD/+7LrE94
-         vPI2PKpaRD1OrmsGoz1WUE1WqYRQyONFNLno8aIjsWYkseRBb0rAwJ3ITtOLnZcy+Ebi
-         PRgqzTvN05QBIl8Sm+SXGEU+WB+awQSJUEtw6gBmFmrPrAuPdpcJFp6FHmLfKVtjFCEL
-         VNWA==
+        bh=Q71C7rChsf/aASDT6TvpsNsK9CnhqztxplmTJy/n6Xk=;
+        b=mR4+aQqXhKluNmr7N9O1eWrZGOsQ62lnw4+LV6jAfaeseseFOVwAu9pnxn4t3WuHuz
+         IDMzhxADvQdwsiL64gFlq3Fxz23hUFKI4M1n2XudyGME9vr8iEaBASfuIKFegDx7Qk96
+         U8sHdAM3IDtYmD41e/mBq1gaqKwE1R7PMsU9KHHIkyLA7Z6I9u8pa2nHZF0ezIDYJu5F
+         AytXq31TKLg+VU0vRu2JxQSAA3BlIlBrbW7LFnhP1n7iqqme6nPkb20/XmQ5t2dYta5z
+         vmTabUiUDtRkTXrs0qeChTCnIoOkHszkbmHjH7TZ0ANc7J9dLePMvy8K0dX5POMz5o3K
+         uinw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=0F/yfaRF/LGOqGalDoOFRUGDx/2DaD3vmDUF5bP65sQ=;
-        b=FXJZwhTDjjvBKXpKwh2Ul+Z742x/m5oPBV7wCknpYhZVMkuil07XEPt9MEGIyavCcM
-         +++IVk5cV0dQK+mtxMx3msspUm/3OMGnUlmou9+u+wlJy+KsUnzWnoFA9x0L3ydmKBSp
-         IEROmQTAQMmvB16yipWlRjzfsXwN+X15TfelSniO3b8uKmiqkzsCd549Su9nkWrYKKsu
-         sZw0IPGhFpWb01w1uh9oYpUhwmf/wCo+PCwpvzVVpgSpuUs/AvnWKit3adH4cS4KlhJt
-         648TsHUl2pRh11Fiahpb4i2FW2sE+ECb8341F5znz+ATmx42P/7d0ZkCDUwRYvC8dMyi
-         fbXw==
-X-Gm-Message-State: AOAM532+6XJ2HWZii81jtbrKjSkDJOMMH8cyWO/kahgTXKfv82kuiLwL
-        eBxK+cTsB0SVpIyyCWORRrg=
-X-Google-Smtp-Source: ABdhPJwmtt8073To8q0h1v4pJd4uG97ukWGngDqQbwnWCYxRcYPCWLb8vyqWuAzhn93gETAZWiXH0Q==
-X-Received: by 2002:a5d:4d51:: with SMTP id a17mr6837259wru.248.1599214878485;
-        Fri, 04 Sep 2020 03:21:18 -0700 (PDT)
-Received: from [192.168.0.160] ([93.115.133.118])
-        by smtp.gmail.com with ESMTPSA id c14sm10123794wrv.12.2020.09.04.03.21.17
+        bh=Q71C7rChsf/aASDT6TvpsNsK9CnhqztxplmTJy/n6Xk=;
+        b=i/APiOHavXpLSPfK4Pa/NOAxWOgH6E3Dkml5IDNbBktj9E9ZBRrjoCu+3efM5Hxpd3
+         f2zUHMET/5oAXSYjK1BtskaQz0Xnj947WO1tBvUvZO+2MAXLnjRmAHif3GRNW7WOUvyq
+         grLVQlZZE9JHCwHjDAM2CCObk67ZaF/MmNn5sF0drPXZoLLxzfN/pS3lWDUkmqTVbQez
+         kxzvLJJBTSZO9Q1dEJLwNTt/nBQrxURZqoygyv8KwO/pwZ7DIht9Guy9ZFYDoQBX9llW
+         FbvVF9uWsR39o2tbVJ4d2jIKwwqPAL/s4AOd1p6k2pFAPE9bCXa3rftQ1hAharqROtir
+         B43A==
+X-Gm-Message-State: AOAM5302FGy1k/lxEa7W0J/kSSPqECkOksiYN63D3GNjIw/0pwLGv6Cc
+        Lz1Up2RsYWQIj53XI7uGZkFoSgxV7K8=
+X-Google-Smtp-Source: ABdhPJzCZJaVSSAGkJ+vBC39DvM7yUqOEn7MzrrGezY0rVwUL61NRSU50AoJgZ5M2Di6saSkRswK+Q==
+X-Received: by 2002:adf:9c93:: with SMTP id d19mr7067420wre.275.1599216256387;
+        Fri, 04 Sep 2020 03:44:16 -0700 (PDT)
+Received: from ?IPv6:2001:a61:3ab0:7001:e081:d401:3da8:e4bc? ([2001:a61:3ab0:7001:e081:d401:3da8:e4bc])
+        by smtp.gmail.com with ESMTPSA id 11sm9945604wmi.14.2020.09.04.03.44.15
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2020 03:21:17 -0700 (PDT)
-Subject: [PATCH (2) 03/34] eventfd.2: Use sizeof consistently
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
+        Fri, 04 Sep 2020 03:44:15 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Jakub Wilk <jwilk@jwilk.net>
+Subject: Re: [PATCH (2) 02/34] bind.2: Use sizeof consistently
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <e1b424c2-77c1-e995-a866-67a122d7bb07@gmail.com>
  <20200825111924.gwf3ck4bdq42lrzr@jwilk.net>
@@ -65,10 +65,11 @@ References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <876dcc97-8151-7160-5eda-19307f0483c1@gmail.com>
  <462b75ca-bef8-063d-b6ec-d1c845fb1580@gmail.com>
  <d38d3644-698c-41e4-4d6a-5d999c0a3fdd@gmail.com>
-Message-ID: <26629635-bf4c-1279-314d-db92f11adbb7@gmail.com>
-Date:   Fri, 4 Sep 2020 12:21:17 +0200
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <7034126c-ecac-8a3c-bd22-6d28204c0839@gmail.com>
+Date:   Fri, 4 Sep 2020 12:44:14 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ Thunderbird/68.10.0
 MIME-Version: 1.0
 In-Reply-To: <d38d3644-698c-41e4-4d6a-5d999c0a3fdd@gmail.com>
 Content-Type: text/plain; charset=utf-8
@@ -79,50 +80,97 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From 5399e0a620c417c1003c17fb04a45ce1a7854acd Mon Sep 17 00:00:00 2001
-From: Alejandro Colomar <colomar.6.4.3@gmail.com>
-Date: Thu, 3 Sep 2020 21:25:59 +0200
-Subject: [PATCH 03/34] eventfd.2: Use sizeof consistently
+Hello Alex,
 
-Use ``sizeof`` consistently through all the examples in the following
-way:
+On 9/4/20 12:19 PM, Alejandro Colomar wrote:
+> Hello Michael,
+> 
+> On 9/4/20 10:20 AM, Michael Kerrisk (man-pages) wrote:
+>> I must admit that I don't care too much either way on this.
+>> That is to say, I'm not sure one way is any clearer than
+>> the other. However, I have applied the patch.
+> 
+> There are places where I wouldn't say there are any readability
+> benefits.  However, there are functions such as malloc() or memset(),
+> where using the type could lead to future bugs, so IMHO it's better to
+> just be consistent and use always the name, unless there are clear
+> readability problems (or other problems).
+> 
+> In the end, someone thought it to be important enough to write it in the
+> kernel coding style.
+> 
+> I don't expect all of these patches to be applied, as I had doubts when
+> writing some of them, but we can discuss those where it is better to
+> keep the type.
+> 
+>>
+>> In passing, I note that there is a clarity issue that I do
+>> find more significant though: the repeated calculations in
+>> the malloc() and printf() calls. So I changed that:
+>>
+> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=15fc4aab1f22c2d4f62ab7f74bbb844942708633
 
-- Use the name of the variable instead of its type as argument for
-  ``sizeof``.
+Patch applied.
 
-	Rationale:
-	https://www.kernel.org/doc/html/v5.8/process/coding-style.html#allocating-memory
+Cheers,
 
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
----
- man2/eventfd.2 | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Michael
 
-diff --git a/man2/eventfd.2 b/man2/eventfd.2
-index 804cf796b..35e83c957 100644
---- a/man2/eventfd.2
-+++ b/man2/eventfd.2
-@@ -415,8 +415,8 @@ main(int argc, char *argv[])
-             printf("Child writing %s to efd\en", argv[j]);
-             u = strtoull(argv[j], NULL, 0);
-                     /* strtoull() allows various bases */
--            s = write(efd, &u, sizeof(uint64_t));
--            if (s != sizeof(uint64_t))
-+            s = write(efd, &u, sizeof(u));
-+            if (s != sizeof(u))
-                 handle_error("write");
-         }
-         printf("Child completed write loop\en");
-@@ -427,8 +427,8 @@ main(int argc, char *argv[])
-         sleep(2);
 
-         printf("Parent about to read\en");
--        s = read(efd, &u, sizeof(uint64_t));
--        if (s != sizeof(uint64_t))
-+        s = read(efd, &u, sizeof(u));
-+        if (s != sizeof(u))
-             handle_error("read");
-         printf("Parent read %llu (0x%llx) from efd\en",
-                 (unsigned long long) u, (unsigned long long) u);
+> ------------------------------------------------------------------------
+>>From 54016160b603454fbe4f38d6a81886a03fe2ffdf Mon Sep 17 00:00:00 2001
+> From: Alejandro Colomar <colomar.6.4.3@gmail.com>
+> Date: Thu, 3 Sep 2020 21:24:43 +0200
+> Subject: [PATCH 02/34] bind.2: Use sizeof consistently
+> 
+> Use ``sizeof`` consistently through all the examples in the following
+> way:
+> 
+> - Use the name of the variable instead of its type as argument for
+>   ``sizeof``.
+> 
+> 	Rationale:
+> 	https://www.kernel.org/doc/html/v5.8/process/coding-style.html#allocating-memory
+> 
+> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+> ---
+>  man2/bind.2 | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/man2/bind.2 b/man2/bind.2
+> index 72aac9555..74e34b6bd 100644
+> --- a/man2/bind.2
+> +++ b/man2/bind.2
+> @@ -293,14 +293,14 @@ main(int argc, char *argv[])
+>      if (sfd == \-1)
+>          handle_error("socket");
+> 
+> -    memset(&my_addr, 0, sizeof(struct sockaddr_un));
+> +    memset(&my_addr, 0, sizeof(my_addr));
+>                          /* Clear structure */
+>      my_addr.sun_family = AF_UNIX;
+>      strncpy(my_addr.sun_path, MY_SOCK_PATH,
+>              sizeof(my_addr.sun_path) \- 1);
+> 
+>      if (bind(sfd, (struct sockaddr *) &my_addr,
+> -            sizeof(struct sockaddr_un)) == \-1)
+> +            sizeof(my_addr)) == \-1)
+>          handle_error("bind");
+> 
+>      if (listen(sfd, LISTEN_BACKLOG) == \-1)
+> @@ -309,7 +309,7 @@ main(int argc, char *argv[])
+>      /* Now we can accept incoming connections one
+>         at a time using accept(2) */
+> 
+> -    peer_addr_size = sizeof(struct sockaddr_un);
+> +    peer_addr_size = sizeof(peer_addr);
+>      cfd = accept(sfd, (struct sockaddr *) &peer_addr,
+>                   &peer_addr_size);
+>      if (cfd == \-1)
+> 
+
+
 -- 
-2.28.0
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
