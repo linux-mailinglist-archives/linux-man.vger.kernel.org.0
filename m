@@ -2,53 +2,53 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C183825D6DF
-	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 12:54:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 20C8425D6E1
+	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 12:55:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726811AbgIDKyW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 4 Sep 2020 06:54:22 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55166 "EHLO
+        id S1728636AbgIDKzV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Sep 2020 06:55:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55300 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726171AbgIDKyU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 06:54:20 -0400
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0300AC061244
-        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 03:54:20 -0700 (PDT)
-Received: by mail-wr1-x42b.google.com with SMTP id a17so6267458wrn.6
-        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 03:54:19 -0700 (PDT)
+        with ESMTP id S1726171AbgIDKzO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 06:55:14 -0400
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ECCEDC061244
+        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 03:55:13 -0700 (PDT)
+Received: by mail-wr1-x42f.google.com with SMTP id c18so6259548wrm.9
+        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 03:55:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:from:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=1LTQeAMBgrCv8czKUv0r1OeMIAWSdLCD++DpCX6t6Ks=;
-        b=OGgMoJkIpnP/2KeNCcCIUxllu2VuwTmha/KVgfgboWd3Yq4Yww8y/Sv22NoPhwkQvF
-         Bb+DBjo76fBFMZPZ5WxM/8lxvtWtgQDYEEULjriQl+RwCbVyabGrUnaXE88j3eReTMim
-         nsKfku4mDpLv5MjGJGprk5Q/0fr7KgvDDpBo9VLt1X2zYnO3ZoqGoWmzSSI75CoA5fx4
-         eIjfZBaFayODJVwFBXIwdPTYaRZM/7Q49UPzp4IuaewXdFLiofB0t0MGKKbxhW/WCrJY
-         IPgjfF54+D94mzNEK0HK1kRvxGGQkdLbPc2sPzXne3bgjPVc91BC8fomNm+fUFrTHGfG
-         cTBA==
+        bh=k7OlYnXCHzV1pS6PTQO+KzS5p5Tcr0/8MC72oAnxMy0=;
+        b=gUZONancnjlyFV5mBzAxSTEXaO8+Htd4JKb4KZK7bIi4UIvAFFcRnjdRfL1asho1NE
+         VoHT5H/+/zrMGTdVSniwVa9Ly1UIylou9VX2Oloo16SVL/PViueXFNl10+HxVBTO/Xi5
+         NkMfNqmtf+zHy70oI6UPoPcDK9CafWybeyfBPx5n5XT0N8KOoBnCMd2gXCNT1nkoUprA
+         ktQ2kMjK2z0Ou93gfAJyK7Up+ooR2EOqFAa8VZDai3gFz4Wl6p69aY5O8SHs2F8E3cbh
+         5l16WdXXHQYkjpJYTAFHJ+bNpdOPX7HUSX1VOAEjhB9e6dJQIHZj3aRk5lt6JWNKZrDk
+         ZwRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:from:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=1LTQeAMBgrCv8czKUv0r1OeMIAWSdLCD++DpCX6t6Ks=;
-        b=hu61gRaW8125hrL66AS3vXFNa1Zt2XNl+JHEYIPhlGcUoq+r0DmFPt5eUiQaMShyn6
-         it/Tnx2xl6jaqc3XyRQ8WZT0HqWke3JyymrYC12U4sfiXhOokj34OeeMMSJ+1lIeMjH9
-         WipNZcRJdNbyEZNIdUaF5rhuFlwCy34PRrKDZ++B2QeCu9DuZ5bfeZeGtfPROz+Q220L
-         gVlBdg7/J4F+9hssZAsP4o7iyvJD/8wmDAckAnxzog65WFxo+tUm54pIXSAvbnB9uaSP
-         GR3x9O51IeeiuDwvZXdAiFHoYluKYvJKv3NjPfpchbK0oIkthw1R/NIWNHMP6fDAuJtY
-         QbLA==
-X-Gm-Message-State: AOAM531C+rWd5zsFPZuX2+6hj/fNUXB21zCTVO/2nyVedLgqOWk6HKXO
-        ZRqJMJ4fUPSQ/M672vSmZ68=
-X-Google-Smtp-Source: ABdhPJxpS8RezP7cXGo81l2iK6CxqdcVh6EMG5jnF+mCbO2DRZhjOHHLwZEOu94LcLs+/kIlJRsw9w==
-X-Received: by 2002:a5d:4a48:: with SMTP id v8mr7097716wrs.304.1599216857357;
-        Fri, 04 Sep 2020 03:54:17 -0700 (PDT)
+        bh=k7OlYnXCHzV1pS6PTQO+KzS5p5Tcr0/8MC72oAnxMy0=;
+        b=p0H5UvHogh1d361B3f1lLiPUPKCSO+iK6xORmdKrfAxhQ7nZHA6VKxsOm1jvIM2Aai
+         hZSOmb/DqgrOCGTFUtRqPcVgsm65spnqvcu1sTo+zBx+p0MzDuGkZ0pRJqIDuershsmi
+         1hU0sej6iySlo7nBTNHL3wEbnXAOWb3nsQ4iy536a8FjEL6LFMftkPCC1mkzwpf2928b
+         eYCpZXSnvwLGTERlYzBoJ3ogUgCWD+pG0DA0Xyi8Yn9Amc/kC9UsNyiHHfzd/C2e1rJ4
+         nXEl2HWgwCLCwDIYr+Hb43gj0qDJqKUTvsejkxJY2xJ3FLbjOJEgflIRJxHC2s1fmDi5
+         7hmg==
+X-Gm-Message-State: AOAM530c0ET+BRSMKD0Ez2gjILf/3G+AAuioTSDGHibOfD4ToHaNCUdP
+        eUGyy5YR4/dugACLxM07nUbm8kDhqECQYQ==
+X-Google-Smtp-Source: ABdhPJzmVD+HXi/vTshNxTZ09O/UniHcw6AtGq7QcLGMAOu+YvQ2cSGi5YxncY09Y1q7SisMktKtfg==
+X-Received: by 2002:adf:e4cf:: with SMTP id v15mr6945455wrm.174.1599216912373;
+        Fri, 04 Sep 2020 03:55:12 -0700 (PDT)
 Received: from [192.168.0.160] ([93.115.133.118])
-        by smtp.gmail.com with ESMTPSA id y1sm10730810wmi.36.2020.09.04.03.54.16
+        by smtp.gmail.com with ESMTPSA id c6sm10499587wrr.15.2020.09.04.03.55.11
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2020 03:54:16 -0700 (PDT)
-Subject: [PATCH (2) 04/34] futex.2: Use sizeof consistently
+        Fri, 04 Sep 2020 03:55:11 -0700 (PDT)
+Subject: [PATCH (2) 05/34] open_by_handle_at.2: Use sizeof consistently
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
@@ -66,12 +66,13 @@ References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <462b75ca-bef8-063d-b6ec-d1c845fb1580@gmail.com>
  <d38d3644-698c-41e4-4d6a-5d999c0a3fdd@gmail.com>
  <26629635-bf4c-1279-314d-db92f11adbb7@gmail.com>
-Message-ID: <d38b1e35-2471-09a1-ad49-4509a30fd14a@gmail.com>
-Date:   Fri, 4 Sep 2020 12:54:15 +0200
+ <d38b1e35-2471-09a1-ad49-4509a30fd14a@gmail.com>
+Message-ID: <edf9e2a1-0612-437d-9fbf-e255e0d1df97@gmail.com>
+Date:   Fri, 4 Sep 2020 12:55:11 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <26629635-bf4c-1279-314d-db92f11adbb7@gmail.com>
+In-Reply-To: <d38b1e35-2471-09a1-ad49-4509a30fd14a@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -80,10 +81,10 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From 21cd85c6f11390c71ed4475f1f9d55910891cf23 Mon Sep 17 00:00:00 2001
+From 0176a7981aead1a202d5d0295b074e165b0d39dd Mon Sep 17 00:00:00 2001
 From: Alejandro Colomar <colomar.6.4.3@gmail.com>
-Date: Thu, 3 Sep 2020 21:27:01 +0200
-Subject: [PATCH 04/34] futex.2: Use sizeof consistently
+Date: Thu, 3 Sep 2020 21:27:55 +0200
+Subject: [PATCH 05/34] open_by_handle_at.2: Use sizeof consistently
 
 Use ``sizeof`` consistently through all the examples in the following
 way:
@@ -96,21 +97,30 @@ way:
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man2/futex.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man2/open_by_handle_at.2 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/man2/futex.2 b/man2/futex.2
-index 05696f617..6192b145a 100644
---- a/man2/futex.2
-+++ b/man2/futex.2
-@@ -1839,7 +1839,7 @@ main(int argc, char *argv[])
-        subsequently use the "shared" futex operations (i.e., not the
-        ones suffixed "_PRIVATE") */
+diff --git a/man2/open_by_handle_at.2 b/man2/open_by_handle_at.2
+index 78c3220f8..846957acf 100644
+--- a/man2/open_by_handle_at.2
++++ b/man2/open_by_handle_at.2
+@@ -586,7 +586,7 @@ main(int argc, char *argv[])
 
--    iaddr = mmap(NULL, sizeof(int) * 2, PROT_READ | PROT_WRITE,
-+    iaddr = mmap(NULL, sizeof(*iaddr) * 2, PROT_READ | PROT_WRITE,
-                 MAP_ANONYMOUS | MAP_SHARED, \-1, 0);
-     if (iaddr == MAP_FAILED)
-         errExit("mmap");
+     /* Reallocate file_handle structure with correct size */
+
+-    fhsize = sizeof(struct file_handle) + fhp\->handle_bytes;
++    fhsize = sizeof(*fhp) + fhp\->handle_bytes;
+     fhp = realloc(fhp, fhsize);         /* Copies fhp\->handle_bytes */
+     if (fhp == NULL)
+         errExit("realloc");
+@@ -707,7 +707,7 @@ main(int argc, char *argv[])
+
+     /* Given handle_bytes, we can now allocate file_handle structure */
+
+-    fhp = malloc(sizeof(struct file_handle) + handle_bytes);
++    fhp = malloc(sizeof(*fhp) + handle_bytes);
+     if (fhp == NULL)
+         errExit("malloc");
+
 -- 
 2.28.0
