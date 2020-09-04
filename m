@@ -2,55 +2,55 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 846F725DD06
-	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 17:17:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CC13B25DD09
+	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 17:18:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730297AbgIDPR6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 4 Sep 2020 11:17:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39458 "EHLO
+        id S1730286AbgIDPSp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Sep 2020 11:18:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39580 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730271AbgIDPR5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 11:17:57 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DBDB2C061244
-        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 08:17:56 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id c15so7078861wrs.11
-        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 08:17:56 -0700 (PDT)
+        with ESMTP id S1730160AbgIDPSo (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 11:18:44 -0400
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5E431C061244
+        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 08:18:44 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id g4so7129060wrs.5
+        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 08:18:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=HcCYYA/il/B2KFj/EzdzEiJruXHVvR4cP2+OPsoWPXE=;
-        b=phkhlNfd7dk6eXwjE56evbho1PukNIFH9g4ePs2AfRkwvDtosq8djERzWHF+YL0Wqo
-         qq4kVR3evOkpUve/ZhpC4Dseg+MC+KcYE7yp+noY+B9rC9A3QsLBkt1/v5BKCNjckIvW
-         CDWIb3Ats3sgAxgVjyT+rPd4vu42YxLv9x36iixJNSqC+iREplFAXHrpueOAKIv9wuQM
-         jMiGaVKWNr0jCvNP1L0ttAT/+zTXXBNAgEvp2gtwc+cr3sUJ7rz7BBfIG6xsY/oyZmLk
-         sluKZwIfX7OXwZakawBc3lYP1F/mnspDkNDMJgSkbvoFk79gOG6fzdzDXsIx8cyhD8pi
-         udtw==
+        bh=ZwUNq5j/+za5/cN1C86Rx3fD2yIImeyQeNCg9ljwQfc=;
+        b=get8afEB3IitQYU7XQZdWhcG992tlEaTZLj525pul0oLA4aTGupuJgWowBiVyCgr1U
+         FAppIlduACZlrnzFeM/BCYaBImar9jT9j79fvoZ0SPIfFwLbAjt8nGeHrXso/wpug1AJ
+         yBNmB14S/q2Fd6ha8iq9YygXopkY30wb05Q22JVYTVvPyu7bla7wPiUP6tLhJWH27Bh6
+         Y95qV3iKScMNQB7EttXyT/E8qL7GvJxJ8nZVZgVfMWUAtd0+90xU8uoawb+OXZ9TY4Hk
+         B8V0pnQk4+BzolwKoftyKoevE3DiPCSBMH08YtZU5RgWgiDt6OBS8j5JdEfMUmGPGQ+X
+         ZG/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=HcCYYA/il/B2KFj/EzdzEiJruXHVvR4cP2+OPsoWPXE=;
-        b=A103U7/mxkhYrBqpqzy7SXfDywuGuy+LkDxq2+VF7feqguH55fHBZBc+C8/3SmsxEH
-         ufTu+GxI5uofZzHsdjq5D+0FE0LCCEMzHbsY05D/qcXvOnHVLJqA6vNEQCP5SX9k2u6W
-         4RoLL32frzjMXgYEp9KSH0dh5mj068QdQ166UEBOeqZzb5GIgboAhbEC0o2++TszOw+Q
-         WeTLqEgzk2ZaeD6SmKanPOVFdciX8LfrFGOAok14EvLnuZlxcCo8o+XFC3H7Ij3cm+q/
-         2NJ8M93NLc7fHV+OruC81kqZeWG/e0HrMXvjLemXEl71EB5WDbIo7Yzxbxda9jYYAM/B
-         OxHw==
-X-Gm-Message-State: AOAM53279sWRrLJ3Dhdc9TWBk3po6nOB8EzZSjBqFHw/PqmU+syex/E+
-        rfo9U1BmT6+R/uDoasmeqGYq69vVoUc=
-X-Google-Smtp-Source: ABdhPJyEuKgdMnVuCLMER7Ctzs2j0z7vQ3xcWU058cM3Plcj9R2g9nsKStAS3HIYIwGB2Z71IA36aw==
-X-Received: by 2002:adf:8306:: with SMTP id 6mr8077389wrd.256.1599232675519;
-        Fri, 04 Sep 2020 08:17:55 -0700 (PDT)
+        bh=ZwUNq5j/+za5/cN1C86Rx3fD2yIImeyQeNCg9ljwQfc=;
+        b=jr8/E0ZU90U1wGsK/iafrkdweXRtvMrFopVr5kMbFMC0HlpcMBJIDvV0WbksSZUaMd
+         C5zl3ZWuAKoQeto+V8T8aec+gFWFdxaQSefwt1/txKksZ5tKYUkvFcqnZcd/0C75CMqq
+         ubRHH+4Tc31FMY5AiuAdvXA/jkppT27TChY/nWdNM+nmtB5YjwmdCEKXRHOhwJMPpyrv
+         xj6mKkQOHW7Lg5fUq4sAaxgNgk8T4VUPEm2I3tu8SWRK3dIPwG5enPXxT8LHRUTk2Nva
+         3PNXZoyN9+OAQhCWcwgvztM80vFJ9g8lkvL6bbjxl2unKsYhiJ9ThmyoFU95Dk+HGq5u
+         qGig==
+X-Gm-Message-State: AOAM530Rm+FeZi16Q2AJhSnS7SoaMLR3o2l/DUOt9gPLh1bFUXPqWN7b
+        PNgg6CLDIdkVLTrRuDdzcbm1RtSAFf8=
+X-Google-Smtp-Source: ABdhPJws/HR9GLkld06XjC3hAZHwjZLBq2pNa7GDL3x8Cnm7YBIc26Htb6h6TR6FnhfR3zSyQY8F+w==
+X-Received: by 2002:adf:8405:: with SMTP id 5mr8102505wrf.393.1599232723098;
+        Fri, 04 Sep 2020 08:18:43 -0700 (PDT)
 Received: from ?IPv6:2001:a61:3ab0:7001:e081:d401:3da8:e4bc? ([2001:a61:3ab0:7001:e081:d401:3da8:e4bc])
-        by smtp.gmail.com with ESMTPSA id j7sm11512822wrs.11.2020.09.04.08.17.54
+        by smtp.gmail.com with ESMTPSA id o16sm11218166wrp.52.2020.09.04.08.18.42
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2020 08:17:54 -0700 (PDT)
+        Fri, 04 Sep 2020 08:18:42 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         Jakub Wilk <jwilk@jwilk.net>
-Subject: Re: [PATCH (2) 12/34] bsearch.3: Use sizeof consistently
+Subject: Re: [PATCH (2) 13/34] cmsg.3: Use sizeof consistently
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <d72263bb-7c84-3f33-ee44-a2cac2e2662c@gmail.com>
@@ -71,13 +71,14 @@ References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <da654939-dcc2-e1f8-65d9-a873325d4609@gmail.com>
  <aec8bb20-6693-f876-0e2e-5574bd3b7af6@gmail.com>
  <8458b842-7d4b-f19b-c596-7f529dd48ba6@gmail.com>
+ <497bc4f4-31f5-91a5-8bc4-469e22b26502@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <088770dc-c606-495c-7f08-ab3573ec8104@gmail.com>
-Date:   Fri, 4 Sep 2020 17:17:53 +0200
+Message-ID: <b16d7678-4c9d-317b-ac7a-b7866cbb0413@gmail.com>
+Date:   Fri, 4 Sep 2020 17:18:41 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <8458b842-7d4b-f19b-c596-7f529dd48ba6@gmail.com>
+In-Reply-To: <497bc4f4-31f5-91a5-8bc4-469e22b26502@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -86,13 +87,11 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Alex,
-
-On 9/4/20 3:46 PM, Alejandro Colomar wrote:
->>From 886db3bad74f35fc40a1238a0d2f35ace3dc7620 Mon Sep 17 00:00:00 2001
+Hi Alex,On 9/4/20 3:50 PM, Alejandro Colomar wrote:
+>>From ba70b1e8addad4ef9f2a490d2069b112d09ba9f1 Mon Sep 17 00:00:00 2001
 > From: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> Date: Thu, 3 Sep 2020 21:43:23 +0200
-> Subject: [PATCH 12/34] bsearch.3: Use sizeof consistently
+> Date: Thu, 3 Sep 2020 21:44:41 +0200
+> Subject: [PATCH 13/34] cmsg.3: Use sizeof consistently
 > 
 > Use ``sizeof`` consistently through all the examples in the following
 > way:
@@ -102,38 +101,32 @@ On 9/4/20 3:46 PM, Alejandro Colomar wrote:
 > 
 > 	Rationale:
 > 	https://www.kernel.org/doc/html/v5.8/process/coding-style.html#allocating-memory
-> 
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 
-Patch applied. Thanks!
+
+Patch applied. Thanks.
 
 Cheers,
 
 Michael
 
+> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 > ---
->  man3/bsearch.3 | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  man3/cmsg.3 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/man3/bsearch.3 b/man3/bsearch.3
-> index 88e0e6ea1..6859bdba2 100644
-> --- a/man3/bsearch.3
-> +++ b/man3/bsearch.3
-> @@ -124,12 +124,12 @@ main(int argc, char **argv)
->  {
->      int i;
-> 
-> -    qsort(months, nr_of_months, sizeof(struct mi), compmi);
-> +    qsort(months, nr_of_months, sizeof(months[0]), compmi);
->      for (i = 1; i < argc; i++) {
->          struct mi key, *res;
->          key.name = argv[i];
->          res = bsearch(&key, months, nr_of_months,
-> -                      sizeof(struct mi), compmi);
-> +                      sizeof(months[0]), compmi);
->          if (res == NULL)
->              printf("\(aq%s\(aq: unknown month\en", argv[i]);
->          else
+> diff --git a/man3/cmsg.3 b/man3/cmsg.3
+> index 99ee950f9..3d6288901 100644
+> --- a/man3/cmsg.3
+> +++ b/man3/cmsg.3
+> @@ -203,7 +203,7 @@ for (cmsg = CMSG_FIRSTHDR(&msgh); cmsg != NULL;
+>          cmsg = CMSG_NXTHDR(&msgh, cmsg)) {
+>      if (cmsg\->cmsg_level == IPPROTO_IP
+>              && cmsg\->cmsg_type == IP_TTL) {
+> -        memcpy(&receive_ttl, CMSG_DATA(cmsg), sizeof(int));
+> +        memcpy(&receive_ttl, CMSG_DATA(cmsg), sizeof(received_ttl));
+>          break;
+>      }
+>  }
 > 
 
 
