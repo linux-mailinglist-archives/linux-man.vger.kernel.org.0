@@ -2,52 +2,52 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4CD5625DA85
-	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 15:53:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0186E25DAA2
+	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 15:55:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730653AbgIDNxP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 4 Sep 2020 09:53:15 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54568 "EHLO
+        id S1730630AbgIDNzU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Sep 2020 09:55:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54774 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730696AbgIDNxK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 09:53:10 -0400
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0ECF3C061244
-        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 06:53:10 -0700 (PDT)
-Received: by mail-wm1-x336.google.com with SMTP id z9so6188486wmk.1
-        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 06:53:09 -0700 (PDT)
+        with ESMTP id S1730586AbgIDNy0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 09:54:26 -0400
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D4398C061245
+        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 06:54:23 -0700 (PDT)
+Received: by mail-wr1-x430.google.com with SMTP id a17so6826353wrn.6
+        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 06:54:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:from:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
         bh=WwNYTggejNuyIEsoVbILmcVDcQF6/lx2M5FZ3cnG58U=;
-        b=GvuMknC5ee3f8zTA7Ydg8NSUmS/JXtWMOIN5UMYHkI2YtX330Ea8qw7D+EO02FTwsI
-         y4r9gYxfBYq8hat2s9GAqMI1zOJJ1mSWqWn/8uLVBoQg72skTHzUX+nEYZcLJNrYOxDS
-         z3ZXHfkDD7UVhvAozIMaK2oqIV/yChpDIN74k1yVUZuqhVbtLDoQSzAgmDQPwqZmLoyO
-         n49af/mqAFRtKFJRQcVwIpauMa7UJ0SyY1TeyPS3phFWH2YepYFoOHcmy5lbMjBPbuHu
-         Ii+on6RsR+fjW+5A44Qkk1Ix5Xng/X853CmjoFe85Jgvr7K5+Ux2yPfprpnsXaNtf3SA
-         8t1g==
+        b=AVmAGjSJXnUXej2SNOn57YIEwNKADoSS9WhteKWiP/4sn07kXEJSvf+kJtlGedPzs0
+         qYHghJ3JxB23O9yPH8RKFm0IvzTY/2JzlqdNXUz0MrPD7XUBlp/w+hUF0hhXkGVa/MD6
+         DFec9vT2S8SKPDvI/Us91ZyEK2oy1qAbs9Rp/1rvE4RwqFY5ajSEZKGJFrSIu9yZNzxl
+         s8NajWEzeFOWglTRz8DRaFIzU25lK8jgPCYHGsM+joV6mcXykozyJxrQZZlek9o9MnEO
+         H3bzP/vXWQ/RLzXzqLrAiAraC1TjZDlAfpCp2OhwN1jA27bWSDYeBHX4BqxulWBgYKLv
+         14tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:from:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
         bh=WwNYTggejNuyIEsoVbILmcVDcQF6/lx2M5FZ3cnG58U=;
-        b=N9KLGz509AnNTFFMKfOJ2zuynPSgvx2P/5pPcG+V69VJASQOv1TY33fD4hNIakeZKb
-         CryjxbKLHWJqgcH6hKl1DNE5YMIjimcISUS8YYiki0fPM9c76bP2QoUDmcqN3K95HfLM
-         Ararat/wCTj7wCte+7x5sC4ipSClUjRyodmrbvFJZ/LQbBYdYQ82VlBilyNIvXV8U3fx
-         i2/7AonxzyzC/Ed6g/KcafM4hC0vmD7X3rVz4rEABe2sI+CSXLfelANoVGS54vldbpLG
-         fo4TrRTQ2QOOnoPT035PNdygaTCS0iK5QIinZ6pXfMJqJvW+P9znclGButv1DN6wf+Tc
-         QLfw==
-X-Gm-Message-State: AOAM530dk+3KIAcjjn+8kFI+rCIKToPw+9CqkZ6RudY2pBue64raYuQT
-        z7qUctOljwB8kdZ92ndibdM=
-X-Google-Smtp-Source: ABdhPJxqwa0K3/wHfmzi8z4ZwaUVzOgWEJzuUwNspNJTbk9zRPJTEDmc7pfzPyyR2Q7FrCXY7oCYaA==
-X-Received: by 2002:a1c:7e16:: with SMTP id z22mr8323970wmc.117.1599227588783;
-        Fri, 04 Sep 2020 06:53:08 -0700 (PDT)
+        b=JvPXEy5hRJjc3Ch+iFmBaJZQIyKZG3A/Djew8ftdvsS/Vt9j3B3tnCIiTt45SE9Lps
+         l9cJRY21++ZBeRa2xKRk5qeySAMmeBr+8NevUbrIDzfkF3JQNCxQlxPR2icm8Atn7+jj
+         mI0kx48Q7inXFgD7p9V1lrLhI28KlHPW0QeozSvi+zyyySgFF75Pt2NaPh/XFM2h2A0H
+         GOg64/FaB5W/Yy5rBNqDOzE4Hpk2IxlNSOx2G5l/rE713ztRXfUDL3ltTdaZMPvZJDN7
+         zkXTlckmTZwKGgLdgMV9JLXT++9teo5e70Hk2RLzkfePgEtWWAiTgbdvVZL/I4f1MCjy
+         1dVw==
+X-Gm-Message-State: AOAM531vIQuc+tZqbslyLsx9HZodXb06X0Sa+TIDgVUibz2pTxL2kzDX
+        sq7+FJlE8SfRAgWuNxyCGDQ=
+X-Google-Smtp-Source: ABdhPJxLych9XGSyJJ44u6X8DGAlwWZsToRmea7/S6spzVe6T2dWMmKBKdDAFeS0J5EHnwQ+4+osyw==
+X-Received: by 2002:adf:ca06:: with SMTP id o6mr7511197wrh.181.1599227662566;
+        Fri, 04 Sep 2020 06:54:22 -0700 (PDT)
 Received: from [192.168.0.160] ([93.115.133.118])
-        by smtp.gmail.com with ESMTPSA id o2sm11771933wmo.37.2020.09.04.06.53.07
+        by smtp.gmail.com with ESMTPSA id z14sm10543806wrh.14.2020.09.04.06.54.21
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2020 06:53:08 -0700 (PDT)
+        Fri, 04 Sep 2020 06:54:22 -0700 (PDT)
 Subject: [PATCH (2) 15/34] getaddrinfo.3: Use sizeof consistently
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
@@ -72,8 +72,8 @@ References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <8458b842-7d4b-f19b-c596-7f529dd48ba6@gmail.com>
  <497bc4f4-31f5-91a5-8bc4-469e22b26502@gmail.com>
  <8160510c-4d9e-7f30-e810-648b0b58a986@gmail.com>
-Message-ID: <d7db8e23-8e86-10ee-f221-30d7e3bd657e@gmail.com>
-Date:   Fri, 4 Sep 2020 15:53:07 +0200
+Message-ID: <84a80180-c828-e2e3-8f66-9948721bea4a@gmail.com>
+Date:   Fri, 4 Sep 2020 15:54:21 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
