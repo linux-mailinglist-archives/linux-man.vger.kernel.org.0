@@ -2,58 +2,57 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A766725DBC7
-	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 16:32:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E235325DBDC
+	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 16:35:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730677AbgIDOci (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 4 Sep 2020 10:32:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60592 "EHLO
+        id S1730801AbgIDOe7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Sep 2020 10:34:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60958 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730641AbgIDOcZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 10:32:25 -0400
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AE39FC061244
-        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 07:32:24 -0700 (PDT)
-Received: by mail-wm1-x32d.google.com with SMTP id e17so6293113wme.0
-        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 07:32:24 -0700 (PDT)
+        with ESMTP id S1730498AbgIDOev (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 10:34:51 -0400
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C8DDAC061244
+        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 07:34:49 -0700 (PDT)
+Received: by mail-wr1-x433.google.com with SMTP id c18so6955046wrm.9
+        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 07:34:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:from:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=uQKJZ+qtK33u63kQ7cJldWC9ljpHz9vhlQxcH0Pp0Nk=;
-        b=X01YIPiVO02W9lpnRRxVjyPyf1jxOJ7gxBDOU053KzcvkBkDelrQw8ZsN+gZ/LvRKg
-         Vog4/DHuSV3hj08vI5/cC1M9YB/hNWscs28sxZ88yfBg9eXYNIGdpDjhZOybu2gJ73N5
-         WZYGObv+3xT9v2Tkkv5KHhZsNQto0RveaIMd6GfFxIPYakJ76XbGQGPZWj9vnj0wcISb
-         BtJ2LV4I0vUSHNWhLe3afH7NNVajHbyX3TfugKDunjR1qGqsA3f4XzPqKjW3kavT8dU8
-         B7o+te7PodSsn2TcgAEbqxrqExGklWC0rDpZ481Q19Gc29Te9JGhH/S9YU/JDCtxAhJZ
-         3ugg==
+        bh=Q77zCt4T1NzAkoqG6BveVP+4BEXkEaYckjZgJTDBXdg=;
+        b=m0F+w72d0ieUQvvXl3G8P64zp+ZpOayPYlcR5PESigywG/mXY70JNcCJw8YF0Vxdzf
+         3XNtXrgFMw5HJYY4g35iX5Jno1du0EZn2tAdOUQ//NDLA1MqKSWJTVyoTJykln2V0/8F
+         sHunEj+hXM2dLuhmzQO3/4JLGFDfUZ/e5MkutT75EcSkpFm28gKZokrruc7qEUGGENWh
+         QyDrd29gaMckHHVhcvrgJIjfzJjr5u2vw+PpDP5n+O7mY+5aSja5EMT4HF+sD+2q5tk8
+         nzp7VzyvClQDw9x4AtSRjjfY16tIDB8wj9tLFHoq/d3AOnFzzNJ2p4mOFa4EM8BDF9Uv
+         m7qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:from:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=uQKJZ+qtK33u63kQ7cJldWC9ljpHz9vhlQxcH0Pp0Nk=;
-        b=NBDyZDWu/Z7RXC7i5fbd7F56/djnV9a2wY97H6SUZ11j5rtAq3cBlZMND7swRZb5tR
-         UDwEdVgHURS9x/74eDdWyxIbPavSP3Ju3QkczCO5+vSVrAU6q7XMu919piMQYH2FyLD7
-         sN75xnqW+eES4e098KlIvI9Q8ZARCREH+tkl7Luh0YZYBPiB44FFg0ENeDpJpz40iWIh
-         fGZJBstC/xyQhpuUttSEcIBEo4X0TvVE0byTa6+lsX+MyztEELiUOm71j2hwYPZbZ8Id
-         XKQPXhzCeEakWEqSrepoH9N3up2ALTc+4hP9X/gZm+5nIWISekElUchotev13BLDIm/8
-         42tw==
-X-Gm-Message-State: AOAM533tkoagUtxJ4qnehZuSUtzmRBFNfU/cudR1nvNGTD9XwwMCKKwy
-        JMZ1GSy/UBhO3tEUqaUeg3k=
-X-Google-Smtp-Source: ABdhPJy2B/YCbo4cdaqBqjPQWe2VVhcCUY9dk5E/KS0Zci7kYoLt/gw8X/pgYgX+HGrJnLOVLZ/f9g==
-X-Received: by 2002:a1c:28d5:: with SMTP id o204mr8329335wmo.104.1599229938805;
-        Fri, 04 Sep 2020 07:32:18 -0700 (PDT)
+        bh=Q77zCt4T1NzAkoqG6BveVP+4BEXkEaYckjZgJTDBXdg=;
+        b=OsfJXCqvTcP2sybCRDx+UhcHdMw/sJPjuvTxa+KkmZi9hDd+Mz2h2IYXGqWb11aUKm
+         Ds4haUVlw5qvsdL8iBPt7MTKwrCgDu+AyDqV8v2gMTYy479nnQNcNe5dPOVKtqiR2X4F
+         +SVRqJFdAVP5z3ELeuNz1HEZLlbpOhdrp166cXxBE4kw8xT5cKoFDeZ5hYgDcr5EVVQS
+         Z3x3MpflR4y8ZPyD4No+ohHbviNjbQ5b0m9lBQlKw6TsSOC8gB9Ruz8Hrx1N7vMewG/2
+         E+qnSte/e3bvyIPT/fZvXJaG993Ng1NqVHJWv9AoJxFZ84AzpJbRrJygc4fvPKfYgdrW
+         b6mQ==
+X-Gm-Message-State: AOAM530Q0f7oZJGZ+stZCXpunMMf0wj1fubEfhyvwqF61HHEckfteYFv
+        XSmc4ImVsjdhRkHVTXpDZsP8nUVDBDo=
+X-Google-Smtp-Source: ABdhPJx1AcOEk8Ax9Ot+nNTt/j5ZK58Nh5hgv7p+3rCrtVrOaLfgDP35HBIWTDqlzYbpzHQaE5NB2g==
+X-Received: by 2002:a5d:6343:: with SMTP id b3mr8452503wrw.179.1599230088438;
+        Fri, 04 Sep 2020 07:34:48 -0700 (PDT)
 Received: from [192.168.0.160] ([93.115.133.118])
-        by smtp.gmail.com with ESMTPSA id f1sm11718684wrt.20.2020.09.04.07.32.17
+        by smtp.gmail.com with ESMTPSA id p9sm11382542wrt.21.2020.09.04.07.34.47
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2020 07:32:18 -0700 (PDT)
-Subject: [PATCH (2) 16/34] getaddrinfo.3: Use sizeof consistently
+        Fri, 04 Sep 2020 07:34:47 -0700 (PDT)
+Subject: [PATCH (2) 17/34] getgrouplist.3: Use sizeof consistently
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
 References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
- <d3537144-e4da-8359-bc08-4eaf8c7bd059@gmail.com>
  <9fcc512e-a12c-5b28-126f-aaf1854ed290@gmail.com>
  <2b288808-c840-343f-9e56-8097765e5528@gmail.com>
  <876dcc97-8151-7160-5eda-19307f0483c1@gmail.com>
@@ -72,12 +71,13 @@ References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <497bc4f4-31f5-91a5-8bc4-469e22b26502@gmail.com>
  <8160510c-4d9e-7f30-e810-648b0b58a986@gmail.com>
  <d7db8e23-8e86-10ee-f221-30d7e3bd657e@gmail.com>
-Message-ID: <87d5b09a-a3c8-622c-d731-5d42644a5f24@gmail.com>
-Date:   Fri, 4 Sep 2020 16:32:17 +0200
+ <87d5b09a-a3c8-622c-d731-5d42644a5f24@gmail.com>
+Message-ID: <61d2f2f9-08d0-9f1a-9642-ae56b3f4b61d@gmail.com>
+Date:   Fri, 4 Sep 2020 16:34:47 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <d7db8e23-8e86-10ee-f221-30d7e3bd657e@gmail.com>
+In-Reply-To: <87d5b09a-a3c8-622c-d731-5d42644a5f24@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -86,10 +86,10 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From f926f02eede41183aed7ae279eb333273bd0c8dc Mon Sep 17 00:00:00 2001
+From 7ca60fc88b831818c1f1722919af220a646761ab Mon Sep 17 00:00:00 2001
 From: Alejandro Colomar <colomar.6.4.3@gmail.com>
-Date: Thu, 3 Sep 2020 21:46:35 +0200
-Subject: [PATCH 16/34] getaddrinfo.3: Use sizeof consistently
+Date: Thu, 3 Sep 2020 21:47:15 +0200
+Subject: [PATCH 17/34] getgrouplist.3: Use sizeof consistently
 
 Use ``sizeof`` consistently through all the examples in the following
 way:
@@ -102,21 +102,21 @@ way:
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man3/getaddrinfo.3 | 2 +-
+ man3/getgrouplist.3 | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man3/getaddrinfo.3 b/man3/getaddrinfo.3
-index 158fd2e31..70e6b4cc0 100644
---- a/man3/getaddrinfo.3
-+++ b/man3/getaddrinfo.3
-@@ -721,7 +721,7 @@ main(int argc, char *argv[])
-     /* Read datagrams and echo them back to sender */
+diff --git a/man3/getgrouplist.3 b/man3/getgrouplist.3
+index 372f2613f..ff8d89e3f 100644
+--- a/man3/getgrouplist.3
++++ b/man3/getgrouplist.3
+@@ -164,7 +164,7 @@ main(int argc, char *argv[])
 
-     for (;;) {
--        peer_addr_len = sizeof(struct sockaddr_storage);
-+        peer_addr_len = sizeof(peer_addr);
-         nread = recvfrom(sfd, buf, BUF_SIZE, 0,
-                 (struct sockaddr *) &peer_addr, &peer_addr_len);
-         if (nread == \-1)
+     ngroups = atoi(argv[2]);
+
+-    groups = malloc(sizeof(gid_t) * ngroups);
++    groups = malloc(sizeof(*groups) * ngroups);
+     if (groups == NULL) {
+         perror("malloc");
+         exit(EXIT_FAILURE);
 -- 
 2.28.0
