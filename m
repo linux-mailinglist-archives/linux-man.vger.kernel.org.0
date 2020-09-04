@@ -2,58 +2,57 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 896DF25DC3D
-	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 16:52:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DBDD925DC6E
+	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 16:54:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730237AbgIDOwV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 4 Sep 2020 10:52:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35452 "EHLO
+        id S1730840AbgIDOyX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Sep 2020 10:54:23 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35758 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730160AbgIDOwU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 10:52:20 -0400
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5C7E4C061244
-        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 07:52:20 -0700 (PDT)
-Received: by mail-wm1-x32a.google.com with SMTP id u18so6329011wmc.3
-        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 07:52:20 -0700 (PDT)
+        with ESMTP id S1730836AbgIDOyV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 10:54:21 -0400
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AD6ADC061244
+        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 07:54:20 -0700 (PDT)
+Received: by mail-wr1-x42a.google.com with SMTP id x14so7004629wrl.12
+        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 07:54:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:from:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=JzdzZ31b9D79F9t07+Z5d4d99esrregG7WVX/aSiSnA=;
-        b=bMd7pmBP9BNySHvdV91bOt49ctPYgCBAgIiUj6gFmmavm2o+/c06tP+Zk8U7VX56N5
-         q3j6UoEQzdre4LIMy1czg6sMB+2Z4DV4ptPS2lf5/XRQMNVVNQYZWWeciFteSEQvcX8U
-         Au+gidGU/cmYNjXvrMNk30whhiAj4zjbvpRK+xvwTYcLMg+GqdT9+8GATjohGnveRn5i
-         pXydHKg11rBhDFt27irtQ/LA/hS0FCdBeL3wb4oIHo4VUExsk2AO2HpFybo0m0vl6rxg
-         6xdOSvqhdAZRnd+8lknUnADe6FqP+FliWSbq3gbYhYhqAZju3fuKqo9C57u62UGhkT3M
-         Vq3Q==
+        bh=+rtcuq3xemETVSSUqslfQ376ly84RZzTo5i8odbYvSU=;
+        b=bEQFiaRjK16cOnKunL4ErwUZPM/nJe1+akOr0OsTRUATxyoAgJNA5KCTgquITVO77b
+         /c8s6MvYh0RN60FsPVWVzPpw+D/m7lBsnk+borCsWpZ2NVnxweg9ecObadc94FZknUB3
+         52eyS98XrQD920W/cNmzlRGBuH+4Dv9DRPm9Jyuceu9xMLhye8yY/YvuzvTNgPf4Vczp
+         AGxvVhwKrlZOayJJEWcbqdLXWV/wWJ99+hRZYL0YH7MXmVeNpZOpmuIkAy5pIGT28yFo
+         K2A7fOP6XZgAioG9NnyqaQragWdDxvgxHznM0FqkC9P3sHPTAdh1H4ION+Xty7Kx+bZR
+         GcIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:from:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=JzdzZ31b9D79F9t07+Z5d4d99esrregG7WVX/aSiSnA=;
-        b=LSVggPz8XBsANkA+sYSHUIY828uVfv9q03FdFLuHMjUD9yJ6J0RO7qiFhdT0CnJUyM
-         6PfwaRoCUW49lDu4vZCM4/StHvLAH5tJ5NJpFlcfvYW/Re6VsEC/oUeHwxVSaZVKIR0Z
-         8eZv5t7Fg25BkVYFDLVl+QR8hZgajVU0u29FSBUOJnNow3m6xt8cid9anHhBpaYboZRp
-         A2ulR38Oxww2dk/tZBSMBjQ/C22fS7yJv3RVeoMX81kzyxGWHsrSkRcaKJ30Blg5wdBY
-         998cSe/LDIVG4tU4MTSisGH0hfIWtyYtFK6JXgowCSYjLlT/BxNZSRsyevOpViORw8EY
-         Ii8A==
-X-Gm-Message-State: AOAM532SA/xX9D81ZuX5mfLnE7+di8Qjb1JYa0XSr/0wUhnFL+hLVT+C
-        5CSxbV8fui1M4zXtAFxcEA0=
-X-Google-Smtp-Source: ABdhPJz8zMYqGa4wKDUlmSut9PTjCHJdgcB0jQ8xlMQIiIlYLwqoF8nWFCyndj1xkWGhGxMR2B+iYw==
-X-Received: by 2002:a7b:cb4e:: with SMTP id v14mr8367691wmj.140.1599231138557;
-        Fri, 04 Sep 2020 07:52:18 -0700 (PDT)
+        bh=+rtcuq3xemETVSSUqslfQ376ly84RZzTo5i8odbYvSU=;
+        b=OeXLYi1mI06x7XT3/23CRAcbu/NT2uANzM5pfl/CslvDld+dM1oNAhpP1mvRarZSyH
+         lyzCrRlAx6IOlGeOnPb6hiI/by5yGLdAyuDwnEoX4GyVoHIiHjU3EP8tG5gkuBa0ZsJ3
+         9xMH5rx7PKnuCwzxmXBG9fdSZJlxNP1CO1GDCkitx93rbHP+cSWMQ9zZdhZ1nYdgc78j
+         nzxPOrqhxliEhb3LljT8vPessZ/yo6Ham7kx6vAC08W5I3mvp7uFisAJkucUqXYlmq6O
+         yLD0i0VCzwmw8Y1MswZYuF5treTZE4BF4VdVwgZQy5S7Q7CBrOKCKjcCaAx9CCW8h0DD
+         larw==
+X-Gm-Message-State: AOAM532FYL30cRZMCDSgwhu7rddpZZCuwMsj0XKuY15DsRxoQ4ZfD7vF
+        TAo21cyuVLqpzrMjpL4wIZbvykxeyp8=
+X-Google-Smtp-Source: ABdhPJww3BwIWgYXM5MGZMc0Nhiocv3LTe3/rTK5Jnj+R4YhNBmfMEd/kcOJdmYZFjfKv3s2d4jFAQ==
+X-Received: by 2002:a5d:684b:: with SMTP id o11mr8448555wrw.101.1599231258503;
+        Fri, 04 Sep 2020 07:54:18 -0700 (PDT)
 Received: from [192.168.0.160] ([93.115.133.118])
-        by smtp.gmail.com with ESMTPSA id b2sm11536696wmh.47.2020.09.04.07.52.17
+        by smtp.gmail.com with ESMTPSA id l21sm11654253wmj.25.2020.09.04.07.54.17
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2020 07:52:18 -0700 (PDT)
-Subject: [PATCH (2) 25/34] rtnetlink.3: Use sizeof consistently
+        Fri, 04 Sep 2020 07:54:17 -0700 (PDT)
+Subject: [PATCH (2) 26/34] rtnetlink.3: Use sizeof consistently
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
 References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
- <c2636c53-e81c-881a-2938-08871e1b176c@gmail.com>
  <257c9374-3253-9091-c116-045ee16590c0@gmail.com>
  <40ba6e68-c2f6-649c-2225-6037e3c0c077@gmail.com>
  <afec3122-19aa-02f4-0850-7000552ceb95@gmail.com>
@@ -72,12 +71,13 @@ References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <5343bbd1-b03f-29bf-2def-c27ba3a3616e@gmail.com>
  <4eba3ee9-bb6a-810f-55ae-7f0d76d446a7@gmail.com>
  <82aa16c3-60fe-68b3-103f-6d438563f3c2@gmail.com>
-Message-ID: <6e6d6796-32e0-9cc1-1e6c-4abb0b702499@gmail.com>
-Date:   Fri, 4 Sep 2020 16:52:17 +0200
+ <6e6d6796-32e0-9cc1-1e6c-4abb0b702499@gmail.com>
+Message-ID: <718db444-6679-224e-c649-6dd219b9db3c@gmail.com>
+Date:   Fri, 4 Sep 2020 16:54:16 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <82aa16c3-60fe-68b3-103f-6d438563f3c2@gmail.com>
+In-Reply-To: <6e6d6796-32e0-9cc1-1e6c-4abb0b702499@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -86,10 +86,10 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From eca0c1500aa4db77c8c8d079798fe080e83e9935 Mon Sep 17 00:00:00 2001
+From 2b7a02916c24af8cbb0cbb071a7223fe48a52571 Mon Sep 17 00:00:00 2001
 From: Alejandro Colomar <colomar.6.4.3@gmail.com>
-Date: Thu, 3 Sep 2020 21:55:00 +0200
-Subject: [PATCH 25/34] rtnetlink.3: Use sizeof consistently
+Date: Thu, 3 Sep 2020 21:55:11 +0200
+Subject: [PATCH 26/34] rtnetlink.3: Use sizeof consistently
 
 Use ``sizeof`` consistently through all the examples in the following
 way:
@@ -106,17 +106,17 @@ Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/man3/rtnetlink.3 b/man3/rtnetlink.3
-index 07bb1fbf9..2d9fa05a2 100644
+index 2d9fa05a2..f8b6c255a 100644
 --- a/man3/rtnetlink.3
 +++ b/man3/rtnetlink.3
-@@ -105,7 +105,7 @@ unsigned int mtu = 1000;
- int rtnetlink_sk = socket(AF_NETLINK, SOCK_DGRAM, NETLINK_ROUTE);
-
- memset(&req, 0, sizeof(req));
--req.nh.nlmsg_len = NLMSG_LENGTH(sizeof(struct ifinfomsg));
-+req.nh.nlmsg_len = NLMSG_LENGTH(sizeof(req.if));
- req.nh.nlmsg_flags = NLM_F_REQUEST;
- req.nh.nlmsg_type = RTM_NEWLINK;
- req.if.ifi_family = AF_UNSPEC;
+@@ -114,7 +114,7 @@ req.if.ifi_change = 0xffffffff; /* ??? */
+ rta = (struct rtattr *)(((char *) &req) +
+                          NLMSG_ALIGN(req.nh.nlmsg_len));
+ rta\->rta_type = IFLA_MTU;
+-rta\->rta_len = RTA_LENGTH(sizeof(unsigned int));
++rta\->rta_len = RTA_LENGTH(sizeof(mtu));
+ req.nh.nlmsg_len = NLMSG_ALIGN(req.nh.nlmsg_len) +
+                               RTA_LENGTH(sizeof(mtu));
+ memcpy(RTA_DATA(rta), &mtu, sizeof(mtu));
 -- 
 2.28.0
