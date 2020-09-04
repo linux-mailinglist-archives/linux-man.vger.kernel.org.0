@@ -2,55 +2,55 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AF3AC25E08D
-	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 19:08:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 362B525E098
+	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 19:14:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726621AbgIDRIQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 4 Sep 2020 13:08:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56618 "EHLO
+        id S1726406AbgIDRO3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Sep 2020 13:14:29 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57600 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725966AbgIDRIM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 13:08:12 -0400
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8CA9EC061244
-        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 10:08:11 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id w2so6719974wmi.1
-        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 10:08:11 -0700 (PDT)
+        with ESMTP id S1726114AbgIDRO2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 13:14:28 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F157CC061244
+        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 10:14:27 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id e16so7476332wrm.2
+        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 10:14:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=2j2pnzTMA4AivpxkIC5wKEG8sSRUyML4gypZ5ze1rJ0=;
-        b=eUH+PXu79jFjl5U8NalmYOMN4vLYaAg/K374ndReOeeEDLshK4q0aU98LZduLX+MdA
-         bnWntZ3c8HOhPNp3jFAeT+UPBIfjZ6pAekojzAUmaPqqzIO39xm4lO6GKsroZZWDkGwu
-         8FNVjGxFjczTbdqLcLE96RuzpPqI/S+KEBfK2XztGwzjaeDYbTkETE1DVTVim4oCxxbw
-         L6H40uoScbhyxXNYEYu1VXYeWf9awg85XfTxf18xJaGEmCX8N2MRwzWIGwa0cR/pZ2RH
-         ZFoaOdZdL9J07kSRVWKceKRxQ8ERhR/H3KdibVJ1nrHhIbBATCmqhfqNCg95UumiLf2E
-         3lGg==
+        bh=+fqzPmXJVGNYOsTmoxXR/Nms/Yl4h+Fg6pOLvSt1DeI=;
+        b=EcPM3enJWA79Dy0BKqUK1mDJQfT933txeV1tfDb1hTlt/S0sE1ZsS5M6tMM5vDuovq
+         p82noYAQTWDXFFPbx7L20XvU2QoNcWGFAoeuj2B9b++UmQrOEcwmQCML/svy5WCYyJQJ
+         86YMgcc4CZDhziU3apGrJMp0mCebC263RsJVhddXY8OGoSGM1Q9wxshJ7u9j23K9uVNv
+         9upMcWcgvmkoAvtSTqNEe2F0/yF4ofDoyFVvJKlqNw+OoET8BkQhhtqzkzAoJp1hTQiM
+         RsZWeDUJrs/SaRpOLgh+3AwP6U4x6YAWIFhX/cLggSCczSnguq0Txci2KU3MIukQPAZ1
+         benA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=2j2pnzTMA4AivpxkIC5wKEG8sSRUyML4gypZ5ze1rJ0=;
-        b=ka43SUmIbpRJY3kWtql+4dRBW3xs4f8P1nUx+VChoF1bFCW3S+6fHD68h3ilIsVu0/
-         3Je44B8/RFEXliDbua1wD0C89ytyHJfzE4/Q+o8UZLAUVErWy3piQ4zxBfGMHqjSbIeZ
-         KYgM+82qGnkpW4xEGmXVJSMCvswJHKdri+bYQV5mKeKwJ88Cat18ic0dwDrQw1EBfZMV
-         HeoWpo21IhNaQ2TC2vpFsJkfCrtap6gDiiUP1/Gy/0k5vDei566S+eZ4bg7fZx/Dihy5
-         N6ATZFiDMtRFk5pOi+RcjxAJVvS0CWqzWYudThkjAEKoD/aSoWeWUweqEA+VNF3Pgs73
-         uruQ==
-X-Gm-Message-State: AOAM531/VfaPGtWP9u6HPps0SAUT+0D+R0Q16dRinyH8mXh0B9bi+6Cv
-        o9Gwmaz4VkwsMgvM9yVMnhc=
-X-Google-Smtp-Source: ABdhPJzo0m6QnqOSItGE07wuv1GEioU6uEUXQmuEiEOv1CaBTN/X3drwU2jg3BfPFy6346VV9U/h3w==
-X-Received: by 2002:a1c:f402:: with SMTP id z2mr8232847wma.87.1599239290213;
-        Fri, 04 Sep 2020 10:08:10 -0700 (PDT)
+        bh=+fqzPmXJVGNYOsTmoxXR/Nms/Yl4h+Fg6pOLvSt1DeI=;
+        b=j4YcXdGIldU9aXmG4ERBzm7vP6j8Vc9DZWCKkA/tqy8/zjxap8iseGUKqF7J8tFdoA
+         Cpn8rlbbYOcsTgp1m+vdp0JftRbvu7r63i4K7lBUcY4CmZiGXeZNiPSigHxkzDRsMTY8
+         E+s7p4O9vuMoGKOl+1n6ZUNDj+mBe60bn6Wu+ZaR7ZuMG9Ji2NAdyFLxA4ZoKdfoQZ0d
+         oJqZTbMGGKWOuxla8iJ8/ECsTXsgmKYaiDOW3EE0keaj9NSUPoYNObuFCygxQjfIjruX
+         BILPloXrQh3vboHwhjYmeq+Q4XGIRKk8boD94S/0mMRKmG2xtKJUZyg4N9pXMGIJ8W/9
+         Sz5A==
+X-Gm-Message-State: AOAM53163i6+EclPwnrFWR4K5Uvj9RCJKWLjno2UUONqf+qkgfwyu7A9
+        z1jwMTEtezyoyDOIBhm6xfc=
+X-Google-Smtp-Source: ABdhPJyW7VbM6AZEUh/4TvylesiQ+JlMOrzoNSMg5sSkOV+dYx2Dg8+B0+kxiLGZCmFZgni087HW8g==
+X-Received: by 2002:adf:c552:: with SMTP id s18mr8387714wrf.209.1599239666705;
+        Fri, 04 Sep 2020 10:14:26 -0700 (PDT)
 Received: from ?IPv6:2001:a61:3ab0:7001:e081:d401:3da8:e4bc? ([2001:a61:3ab0:7001:e081:d401:3da8:e4bc])
-        by smtp.gmail.com with ESMTPSA id y1sm13154989wru.87.2020.09.04.10.08.09
+        by smtp.gmail.com with ESMTPSA id m3sm12500109wmb.26.2020.09.04.10.14.25
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2020 10:08:09 -0700 (PDT)
+        Fri, 04 Sep 2020 10:14:25 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         Jakub Wilk <jwilk@jwilk.net>
-Subject: Re: [PATCH (2) 32/34] inotify.7: Use sizeof consistently
+Subject: Re: [PATCH (2) 33/34] inotify.7: Use sizeof consistently
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <da654939-dcc2-e1f8-65d9-a873325d4609@gmail.com>
@@ -71,14 +71,14 @@ References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <6e6d6796-32e0-9cc1-1e6c-4abb0b702499@gmail.com>
  <718db444-6679-224e-c649-6dd219b9db3c@gmail.com>
  <36a9ef8e-6fd9-e074-2a19-d8529f425501@gmail.com>
- <95c11dfe-2be6-def9-3a7f-a8d1f540fcb9@gmail.com>
+ <9801a51e-040d-46a5-62f5-658d8622f5d4@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <6b64cfac-6619-266a-ac4f-f8a34d5975d1@gmail.com>
-Date:   Fri, 4 Sep 2020 19:08:08 +0200
+Message-ID: <e8483522-d0fd-2f7b-f2bb-b3a8c607a66d@gmail.com>
+Date:   Fri, 4 Sep 2020 19:14:25 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <95c11dfe-2be6-def9-3a7f-a8d1f540fcb9@gmail.com>
+In-Reply-To: <9801a51e-040d-46a5-62f5-658d8622f5d4@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -87,13 +87,17 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+Hello Alex,
 
-On 9/4/20 5:06 PM, Alejandro Colomar wrote:
->>From 464c2941b936df850f03d7d9df382dc2c46f37f1 Mon Sep 17 00:00:00 2001
+I noticed that you sometimes split out several patches to the same
+page. Thanks for doing that. As you realize sometimes, there might
+be differnt decisions for different patches to the same page.
+
+On 9/4/20 5:07 PM, Alejandro Colomar wrote:
+>>From 0d4adf855466fe5c36e378eb704abafd45fc6417 Mon Sep 17 00:00:00 2001
 > From: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> Date: Thu, 3 Sep 2020 21:58:59 +0200
-> Subject: [PATCH 32/34] inotify.7: Use sizeof consistently
+> Date: Thu, 3 Sep 2020 21:59:11 +0200
+> Subject: [PATCH 33/34] inotify.7: Use sizeof consistently
 > 
 > Use ``sizeof`` consistently through all the examples in the following
 > way:
@@ -106,13 +110,11 @@ On 9/4/20 5:06 PM, Alejandro Colomar wrote:
 > 
 > Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 
-I think this change would weaken the example. The point is that when
-traversing through these variable-length structures, the length of each
-structure is the size of the fixed-size component (struct inotify_event)
-plus the variable-length piece. The code as it stands emphasizes that.
-The patch would leave that point less clear. I won't apply this one.
+The above said, I'm also not inclined to apply this patch. Watch 
+descriptors are by definition 'int', so I don't think this change
+improves readability. I think I won't apply this.
 
-Thanks,
+Cheers,
 
 Michael
 
@@ -121,17 +123,18 @@ Michael
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 > diff --git a/man7/inotify.7 b/man7/inotify.7
-> index 9b2d7a4e5..4093bba5a 100644
+> index 4093bba5a..f1a1667e3 100644
 > --- a/man7/inotify.7
 > +++ b/man7/inotify.7
-> @@ -968,7 +968,7 @@ handle_events(int fd, int *wd, int argc, char* argv[])
->          /* Loop over all events in the buffer */
+> @@ -1031,7 +1031,7 @@ main(int argc, char* argv[])
 > 
->          for (ptr = buf; ptr < buf + len;
-> -                ptr += sizeof(struct inotify_event) + event\->len) {
-> +                ptr += sizeof(*event) + event\->len) {
+>      /* Allocate memory for watch descriptors */
 > 
->              event = (const struct inotify_event *) ptr;
+> -    wd = calloc(argc, sizeof(int));
+> +    wd = calloc(argc, sizeof(*wd));
+>      if (wd == NULL) {
+>          perror("calloc");
+>          exit(EXIT_FAILURE);
 > 
 
 
