@@ -2,58 +2,57 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4960025DC31
-	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 16:48:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F034F25DC36
+	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 16:50:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730021AbgIDOsb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 4 Sep 2020 10:48:31 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34862 "EHLO
+        id S1730249AbgIDOuN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Sep 2020 10:50:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35112 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729942AbgIDOsb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 10:48:31 -0400
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3BDE3C061244
-        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 07:48:28 -0700 (PDT)
-Received: by mail-wm1-x331.google.com with SMTP id u18so6317837wmc.3
-        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 07:48:28 -0700 (PDT)
+        with ESMTP id S1730224AbgIDOuH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 10:50:07 -0400
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BD1F3C061244
+        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 07:50:06 -0700 (PDT)
+Received: by mail-wr1-x42f.google.com with SMTP id z1so7067358wrt.3
+        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 07:50:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:from:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=zZf4zG8TY7obV0JWUhpWydMD5Qsdk1pcWHAAE4SCeCA=;
-        b=h7a7wA6mh48XaPZmFEN2a53qlkCoWH1lCXY03phEAXn8wQofZnZtQZmxGg5dNnmlKL
-         tuW1clv7KGM0Z4wIHe/zQNMBz6xtVpwMOdYTdWhymh98aC3qq5Rn5o3yWNJHPQlRYBqT
-         MS1RLzzC1Ikg005CQ/k+dFbpTBGjO9yA7+DeFJ/GOxgp9R/G8x0x+O5b4IHi+uWwN347
-         B4ZMXvydepBEeAVuanlOXEiSgjJAKGFOcsdvadUVKtJWlw8AvQRUXHnusSqErqWbzs8u
-         1z7TXLFZbd3hZwGncO6RP3skmvuwi7NOTP4bL5l5hGT470B7n3hMJoZzpHMvo/2+A574
-         Ee2w==
+        bh=Brs9rBH+M71jcl7Duc9mb/EnlTa2q8Ery2HaOG9sO6E=;
+        b=vTsl7j0FjC0kRkQjOjQHUIujEB0ApjoKqZfkvyDESt7ge/JZKpMsdqsxLQYhfFkmxA
+         MeAz3Lm1P9zVqOaNYH659s/HgReI+GqepwBAdFaCc6tgY5fGpbpm1YiV2B25RuSTHhCV
+         M7HLxMdKzqX8GM4r7Ti+G4/Bq7UhLEOT6ME+29hfEgN4WdD+yuxw7iaH5I9F+CQBbSCl
+         pK+f8hkFEtznHl474vdpmD1rRU69gIHj5vWFsbtIzuPiI3EXof8l7jz/naMCCkN23KvY
+         28ppCfdzLAOlcWTqH9I+BBx3b+8ZZZLquV2V7dMsZviRf9VvrsJcIKUAf3A235a5ebTr
+         5xtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:from:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=zZf4zG8TY7obV0JWUhpWydMD5Qsdk1pcWHAAE4SCeCA=;
-        b=hUkArRO3ZCrcoeMuUVVmNRXlhtnO9wOm0F4iQI9N9xcPyupRHwUYGaa+ycSRwIDSbZ
-         dmpfHxTrjrIe3IslQcsibCbzK/6SEyTPAtMDRuloIBI8e+yf/38TfYvVTGqNwn6Br6L5
-         vW3O5bsmatK+JrcJ9ijGU7qiioD2U/nBg2Xq8F90q9lN+YJ4ZF3Z4cLzqJLV66wIFiBo
-         ju5ru7oVOB99NOlR5sb51KFJkBxP6QjhyQzmlbQLOCBVFtHqxvQmq0YQ9Ym7B2ft0AT9
-         qG4twscTgML1huVj0esQ+Qc5IZnBVE872uihy1GHK4CgWoo+zuIL3LLVot969KQS2QcC
-         eiQA==
-X-Gm-Message-State: AOAM531RywgpQV+XdD62SLZHjtQUS/AlU7mkiku6DS8Dry8BygM5dXA/
-        484xCu/TML6sQaIXqvtOojs=
-X-Google-Smtp-Source: ABdhPJyUgIJyEXzAD0fmQs7tEeQFGw6bU0YA/0qapG1yNImTDBe9mLKl3zzbYQ99DuvVerSJ1W1C+Q==
-X-Received: by 2002:a05:600c:2257:: with SMTP id a23mr8328277wmm.102.1599230907045;
-        Fri, 04 Sep 2020 07:48:27 -0700 (PDT)
+        bh=Brs9rBH+M71jcl7Duc9mb/EnlTa2q8Ery2HaOG9sO6E=;
+        b=m/O0JJ/wNoU76JxETzttsc+Ta8nKVVOs1Wn6XY7aMVnCVOGev4MpH59d4eQZ2QPcS4
+         OFLMUXGyhXdcpWGUQVzgQg3B9fcZuEWEMbS2+Ofdtq4i8Uvh29hwOH9IIq4E9tRhvs3Y
+         BSveQNg2J1QS3yjbjEyykJP6dr3gJz6IcpoLPn9Jyy5NRcxb9npnSBlyLuH9ajwXKWci
+         Hd03JDbQyNxTfZ8q/u+1uB2LWY9P76iAxKx5AjUScunbrO1py/ktw30u31a6Cp3f7tiP
+         wnDzqnHSKxBAHM1Q5azqJXnM0F3RMR5+sPX0IMhHaBy2troHs8oWfMPva89X03baMYmY
+         OMNA==
+X-Gm-Message-State: AOAM531aHKP/KuZJfEkF0tEfJQGN0lOT5wNEpteRDpnuL1d/qtPLRZ2K
+        4efGiJdINCWZ0CESmcDOplg=
+X-Google-Smtp-Source: ABdhPJwIJ5MJzooItmLAzppuSoGT4BQgAL8UVv+/PXZGZy2YOJj8jp9AEEtE1KniZmvVHkMFf6KgbQ==
+X-Received: by 2002:adf:b19c:: with SMTP id q28mr8602049wra.392.1599231004505;
+        Fri, 04 Sep 2020 07:50:04 -0700 (PDT)
 Received: from [192.168.0.160] ([93.115.133.118])
-        by smtp.gmail.com with ESMTPSA id i26sm12351792wmb.17.2020.09.04.07.48.26
+        by smtp.gmail.com with ESMTPSA id m3sm11876187wmb.26.2020.09.04.07.50.02
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2020 07:48:26 -0700 (PDT)
-Subject: [PATCH (2) 22/34] pthread_create.3: Use sizeof consistently
+        Fri, 04 Sep 2020 07:50:02 -0700 (PDT)
+Subject: [PATCH (2) 23/34] pthread_setaffinity_np.3: Use sizeof consistently
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
 References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
- <26629635-bf4c-1279-314d-db92f11adbb7@gmail.com>
  <d38b1e35-2471-09a1-ad49-4509a30fd14a@gmail.com>
  <edf9e2a1-0612-437d-9fbf-e255e0d1df97@gmail.com>
  <c2636c53-e81c-881a-2938-08871e1b176c@gmail.com>
@@ -72,12 +71,13 @@ References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <3c25bbda-bc90-1364-77cd-2c637f09d611@gmail.com>
  <af5bf8ce-8bb8-3819-a8e4-1454be92097f@gmail.com>
  <4f0ff40c-2a63-736d-698f-0efc436c3678@gmail.com>
-Message-ID: <5343bbd1-b03f-29bf-2def-c27ba3a3616e@gmail.com>
-Date:   Fri, 4 Sep 2020 16:48:25 +0200
+ <5343bbd1-b03f-29bf-2def-c27ba3a3616e@gmail.com>
+Message-ID: <4eba3ee9-bb6a-810f-55ae-7f0d76d446a7@gmail.com>
+Date:   Fri, 4 Sep 2020 16:50:02 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <4f0ff40c-2a63-736d-698f-0efc436c3678@gmail.com>
+In-Reply-To: <5343bbd1-b03f-29bf-2def-c27ba3a3616e@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -86,10 +86,10 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From 03783d811fad4783b394c01a4ac68ca6d92b6c58 Mon Sep 17 00:00:00 2001
+From ba0d73749a85e835aa43a4134a1b6906062943f3 Mon Sep 17 00:00:00 2001
 From: Alejandro Colomar <colomar.6.4.3@gmail.com>
-Date: Thu, 3 Sep 2020 21:52:22 +0200
-Subject: [PATCH 22/34] pthread_create.3: Use sizeof consistently
+Date: Thu, 3 Sep 2020 21:53:12 +0200
+Subject: [PATCH 23/34] pthread_setaffinity_np.3: Use sizeof consistently
 
 Use ``sizeof`` consistently through all the examples in the following
 way:
@@ -102,21 +102,28 @@ way:
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man3/pthread_create.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man3/pthread_setaffinity_np.3 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/man3/pthread_create.3 b/man3/pthread_create.3
-index d86188e6b..5ffb14586 100644
---- a/man3/pthread_create.3
-+++ b/man3/pthread_create.3
-@@ -361,7 +361,7 @@ main(int argc, char *argv[])
+diff --git a/man3/pthread_setaffinity_np.3 b/man3/pthread_setaffinity_np.3
+index 24499f550..57aaf1251 100644
+--- a/man3/pthread_setaffinity_np.3
++++ b/man3/pthread_setaffinity_np.3
+@@ -194,13 +194,13 @@ main(int argc, char *argv[])
+     for (j = 0; j < 8; j++)
+         CPU_SET(j, &cpuset);
 
-     /* Allocate memory for pthread_create() arguments */
+-    s = pthread_setaffinity_np(thread, sizeof(cpu_set_t), &cpuset);
++    s = pthread_setaffinity_np(thread, sizeof(cpuset), &cpuset);
+     if (s != 0)
+         handle_error_en(s, "pthread_setaffinity_np");
 
--    tinfo = calloc(num_threads, sizeof(struct thread_info));
-+    tinfo = calloc(num_threads, sizeof(*tinfo));
-     if (tinfo == NULL)
-         handle_error("calloc");
+     /* Check the actual affinity mask assigned to the thread */
+
+-    s = pthread_getaffinity_np(thread, sizeof(cpu_set_t), &cpuset);
++    s = pthread_getaffinity_np(thread, sizeof(cpuset), &cpuset);
+     if (s != 0)
+         handle_error_en(s, "pthread_getaffinity_np");
 
 -- 
 2.28.0
