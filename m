@@ -2,53 +2,53 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 81D9E25DB3C
-	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 16:19:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0054E25DB3D
+	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 16:19:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730513AbgIDNm5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 4 Sep 2020 09:42:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52888 "EHLO
+        id S1730526AbgIDOT1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Sep 2020 10:19:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53030 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730500AbgIDNmq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 09:42:46 -0400
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 40B25C061249
-        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 06:42:21 -0700 (PDT)
-Received: by mail-wr1-x42b.google.com with SMTP id a17so6787130wrn.6
-        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 06:42:21 -0700 (PDT)
+        with ESMTP id S1730511AbgIDNnQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 09:43:16 -0400
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E64D4C061245
+        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 06:43:14 -0700 (PDT)
+Received: by mail-wm1-x331.google.com with SMTP id a65so6110892wme.5
+        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 06:43:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:from:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=xrJDtAMywpp0r69v2xw9XFpEIg6qI1aiKVI5HH7X18Y=;
-        b=mkKfypJhPsS6jr8OhmvfOb0csG//Awxn2I9EOlPQeZL/LdF9EbuN6FQRw43B5zVW2C
-         SxWckl3cVFbmWd7J6SZkpZYl8VD50kAe/6O4/V49+dXXAeVKr6xpVA9oJQTviXLCuZws
-         rTEguUMoIZ+MOrw+qFqoE7KeR7kXnZrlJQcenErBxRg1M3UT+MWF/fP3csR4OW70rosP
-         gBgDwmgXYX44YhIOUKgz8wZukUVoHDaxNGhhl39Qju7wTGu/RJipWirQOSK8Qr3vqZ9s
-         HPD57m7t55NgjEXW3eigA0B7jWvgx4iMr5t32jMkp8wrfHMXRY+cmNq/7DFFpIBTB9s/
-         sh6w==
+        bh=YM6bwJ+FvAT8KW/t9DGCCxo+APMUB8LPCHdU84GE3Pk=;
+        b=AWcIktn/rwWPpwF8K8dF15SenAdox1tKDocF2yZomaEv3nJoDtOxBOCzuxWGoERWRm
+         BszPJNSBS6YK9rQVTEPIAmzU/Q//Sl8oRXgp+mYep5kgeDc+a+D9rxsfh26CnMOq1OpN
+         mN0ZHz/v064lR148z/+9aNhoa1RVMIIQaLnfdNzhq+7dzjCjPH/aKuW0nwmkLxGWDwsd
+         3n1NyY2PDIwP3Vn7ZKXG3XP3+XA0L+8F0fT9hNVL/25KJTA2/F6MJou9t6JC3XielAFn
+         LyxaSgXqfUXFTTwfVpl3dM3hjJQTmo36xau7IORJC7aQQFZtrhhRgvjzD4bemTcZ8hCK
+         DybA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:from:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=xrJDtAMywpp0r69v2xw9XFpEIg6qI1aiKVI5HH7X18Y=;
-        b=DIdypjIXfFn9ghizgJSAF3Qf/zXm/aWnrAzhONKVY3WRYqpympbaopiqhY/FEIE1WH
-         jcQQdB1+ydRjCKNdZWL70hqYbMEbuw0wlH6lC+cq4HVYbkkTxaYYpJ7B44KX1n/6z+Ve
-         YICNV66dyVRmfrNATI/pkAQE5/+qw0VIulV0Thr+QNgPQWhXOigXrpJ1rkZOCtAoPGwW
-         ztq+i9Z7nUnxxmf9ljp9MKJXvLBxU1f5y8jba69kkSlUFt2IFjH36wATaS7klslznG7y
-         azDcgUnttnvTTHcFvqJQX3AQ3g8eYokxr6iF2CR0gZcETL1PCbEzRYBY5PLKzO5/neE+
-         fN1g==
-X-Gm-Message-State: AOAM530VbczC5SBSsw4SAkbqewbDowiSQG5qzH5pxXWqn0uxi46nYDvV
-        i2A5hZEHKDLO8lgDiN5EnB8=
-X-Google-Smtp-Source: ABdhPJwSba6KBAaPijiqLGe0bj2t1rgu5rtZqslBnhl3m6CZ6UcrvPxxPL4eFFdtI3jG0tqecGyDhw==
-X-Received: by 2002:adf:cd05:: with SMTP id w5mr7634249wrm.62.1599226939494;
-        Fri, 04 Sep 2020 06:42:19 -0700 (PDT)
+        bh=YM6bwJ+FvAT8KW/t9DGCCxo+APMUB8LPCHdU84GE3Pk=;
+        b=IeiQzyF6zRQr8yfCyUrOQ5Kjz/hz0eNcdZNJDawCSyyMab3k10FNlWGGt3DCWQPShr
+         cpSnsOwwDnhwx8ooDBEAxmg/AVf9tgLDHxWlPDmbNfFeVndrxPwmagwBe5avfnfLf5kQ
+         DA8X2FCidVAJEuHQCmUaNJ3XRjVf/JbSyZrF4yDr/gl6DGG2nkRDYkZU2u0rNrspZtDL
+         IWUpvRfeIte+nGbfLDbHP+/zX5ZmGR8420+3vZKJTRDLJPl2MBaLZe5xQCOqjEN3hU9w
+         l3/lww+TQ6iXe59Jq9GzXIsyu87MWk6AMpcMqwz+t/QCwtGtuYHm26MxsmJCnx4S90H9
+         7tAA==
+X-Gm-Message-State: AOAM532NBWN27JiZ78/0OQk+ew0UDPDkq4zeB0P01661DMoQgUgLMnND
+        2vKNacP8BToua0ZfJlhBjZo=
+X-Google-Smtp-Source: ABdhPJyZKfChGNSrUHNUB6W4Ai3dWFkP1nECeKyoF54Z00g+sUB3960QGkyKQfqMpSUOlGUht98mRQ==
+X-Received: by 2002:a1c:7e02:: with SMTP id z2mr7682912wmc.138.1599226992634;
+        Fri, 04 Sep 2020 06:43:12 -0700 (PDT)
 Received: from [192.168.0.160] ([93.115.133.118])
-        by smtp.gmail.com with ESMTPSA id u6sm10743968wrn.95.2020.09.04.06.42.18
+        by smtp.gmail.com with ESMTPSA id u16sm11946571wmc.7.2020.09.04.06.43.11
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2020 06:42:18 -0700 (PDT)
-Subject: [PATCH (2) 08/34] poll.2: Use sizeof consistently
+        Fri, 04 Sep 2020 06:43:12 -0700 (PDT)
+Subject: [PATCH (2) 09/34] sysctl.2: Use sizeof consistently
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
@@ -70,12 +70,13 @@ References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <edf9e2a1-0612-437d-9fbf-e255e0d1df97@gmail.com>
  <c2636c53-e81c-881a-2938-08871e1b176c@gmail.com>
  <257c9374-3253-9091-c116-045ee16590c0@gmail.com>
-Message-ID: <40ba6e68-c2f6-649c-2225-6037e3c0c077@gmail.com>
-Date:   Fri, 4 Sep 2020 15:42:17 +0200
+ <40ba6e68-c2f6-649c-2225-6037e3c0c077@gmail.com>
+Message-ID: <afec3122-19aa-02f4-0850-7000552ceb95@gmail.com>
+Date:   Fri, 4 Sep 2020 15:43:11 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <257c9374-3253-9091-c116-045ee16590c0@gmail.com>
+In-Reply-To: <40ba6e68-c2f6-649c-2225-6037e3c0c077@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -84,10 +85,10 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From 791b2082c91de4fb49a1a46e9c11d294aac09050 Mon Sep 17 00:00:00 2001
+From 90572d59a4f3b1986e57c0b32e14e4e68ecab716 Mon Sep 17 00:00:00 2001
 From: Alejandro Colomar <colomar.6.4.3@gmail.com>
-Date: Thu, 3 Sep 2020 21:34:52 +0200
-Subject: [PATCH 08/34] poll.2: Use sizeof consistently
+Date: Thu, 3 Sep 2020 21:39:56 +0200
+Subject: [PATCH 09/34] sysctl.2: Use sizeof consistently
 
 Use ``sizeof`` consistently through all the examples in the following
 way:
@@ -100,21 +101,21 @@ way:
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man2/poll.2 | 2 +-
+ man2/sysctl.2 | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man2/poll.2 b/man2/poll.2
-index 940c51da5..9b42822c0 100644
---- a/man2/poll.2
-+++ b/man2/poll.2
-@@ -596,7 +596,7 @@ main(int argc, char *argv[])
-     }
+diff --git a/man2/sysctl.2 b/man2/sysctl.2
+index 65f79516d..161060490 100644
+--- a/man2/sysctl.2
++++ b/man2/sysctl.2
+@@ -154,7 +154,7 @@ main(void)
+     size_t osnamelth;
+     int name[] = { CTL_KERN, KERN_OSTYPE };
 
-     num_open_fds = nfds = argc \- 1;
--    pfds = calloc(nfds, sizeof(struct pollfd));
-+    pfds = calloc(nfds, sizeof(*pfds));
-     if (pfds == NULL)
-         errExit("malloc");
-
+-    memset(&args, 0, sizeof(struct __sysctl_args));
++    memset(&args, 0, sizeof(args));
+     args.name = name;
+     args.nlen = sizeof(name)/sizeof(name[0]);
+     args.oldval = osname;
 -- 
 2.28.0
