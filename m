@@ -2,55 +2,55 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9E5A325DDE6
-	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 17:38:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5903225DDEA
+	for <lists+linux-man@lfdr.de>; Fri,  4 Sep 2020 17:38:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726111AbgIDPiA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 4 Sep 2020 11:38:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42560 "EHLO
+        id S1726032AbgIDPi5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Sep 2020 11:38:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42710 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726032AbgIDPiA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 11:38:00 -0400
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E2D4AC061244
-        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 08:37:57 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id t10so7224511wrv.1
-        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 08:37:57 -0700 (PDT)
+        with ESMTP id S1725984AbgIDPi4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Sep 2020 11:38:56 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 78B4CC061244
+        for <linux-man@vger.kernel.org>; Fri,  4 Sep 2020 08:38:56 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id c19so7764937wmd.1
+        for <linux-man@vger.kernel.org>; Fri, 04 Sep 2020 08:38:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=H+Cb1ZUD59VXXW/nLry+Xs8YOafoLjF6agvlk3g6jFc=;
-        b=jgC34q/u3YpZrSdx8+SmlH9ESFUIxYIUB/8WnxQDAm38o+TGDYb/brMQSzI596TMF6
-         4lzBzNZtYLIEzWzj/ZM5asBrH42LTsbucNithEjfkpEzwLXtgnxNTSuDOxmayVstzBZh
-         dUn5hSDAaL+9dIr+DNSmqyVDqlmFXnaUkRF5JffzR/oqI9D9RzwBt0Cw8KbC1BJH3yJ9
-         K4f3hqWOVA7utQppUqycl/Zg/3d+50nM8D0gf2jQvH8B8/gJz+R85IPR5OnNpu96QNDU
-         kPyimz0SLaT1tfSzENILyahmL5meFcmF+4iNc+RfYeG4LACFsJvQcf8Ke9WINAQVqI0q
-         v4yA==
+        bh=gy7c0gszVdvYo8Wa4sTSMUNXOcaKRbjqnFIlUswtfDA=;
+        b=IoNugXojoEfYsq2QkbuUO9Pc4c7lXPmrdnMYuFStiIS0p+i9ewtc+PJh1GGzlXEtqu
+         omqBqGD6yppe4CbRu+APkj2kuhC/1rqwAAyjy5SW3lOAIIrA3bYt72iQ54V4+zSCQ7KD
+         4ZxRHQkhAPv3goXqDrxRPZLErhRNn7dBtuUGAY6ZYN7A5drPXwYQUjDjn3YcnveH2xZp
+         dUGe8Vvojd7kc0iSiOG8XkvgxTu23JLVFHKMpvq+VdWtPbTBOmEdFzw1m6G2bDo9rB6b
+         NE8gtLfZCCvvCBhD5Ti+6XTjgWbREkkcZXevMhtyEhH2cQxRfFnVCHsVSnSuFZMsZsIA
+         gOTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=H+Cb1ZUD59VXXW/nLry+Xs8YOafoLjF6agvlk3g6jFc=;
-        b=b/bD2n/ZFqLWPj/BJN05dH9yEsKLOBmHezJTXseRYNN8pgrVpZAednNWKJfWXvYHUs
-         gD/NQniWK/dCqp5ZM7ycVqi6TnT2Lvyp/sZhjcDY+IaHB9fY8E1/Eg0peFxpHsA0Rgii
-         /iEdO3FEFtjD/5+QOrrLiM2WJ4c8d2p+/FRXBOSvxSIK0ETbllj1aEhNeHaK87iUgAny
-         e6IByVtnT6raK5iZY2xwr25T8Md4DtiGJgMSqiv/KjtCKUzqxTveyFNPr35ETqmcQ0FE
-         GOq2tcW2g4l/1H6U7mHvFCn9TBb+bijMO0MVxIqGZQL12NEBO2rRbTSHngUICSTu9PHA
-         vI8Q==
-X-Gm-Message-State: AOAM5326dv6sHAuEQzO28xTBthqxF0uhFwYJUpHx7VltqHX/L6x/2E4e
-        sOc9qbsZwI8AQDE7+fLEqFA=
-X-Google-Smtp-Source: ABdhPJxXWlNWG26FQQyHVYArD6BksTXWDIVqjAFzUw12gh5MTdVaFf9446M3IyD9KHS5FNV9MRR2aA==
-X-Received: by 2002:a5d:5273:: with SMTP id l19mr8638592wrc.64.1599233876490;
-        Fri, 04 Sep 2020 08:37:56 -0700 (PDT)
+        bh=gy7c0gszVdvYo8Wa4sTSMUNXOcaKRbjqnFIlUswtfDA=;
+        b=Lawkq89aBM03iot4wSYtTPiXp/chkrhK8rj83XHN3BJNkcoapC7aveyH/wJYGvdbpj
+         BTtOlt6S66RvgnnMSk6JSXWU/eAAxygRXVfvUnqN8hilRcyJDeigbPVvpAtChymoupaB
+         oD1YfPOjbPpSV1RRawozmfR0r5ziA8q2tznLMeQnCgp+FacL4cUn5ByWAsb+zASUUCMa
+         OQP5B7uTElbOohNBBltI7BoEWMZ71zX2SOgLbmWqOxRrFCGO5+hNfuvXC5Qr4j5yJB87
+         UNTkh0DtFMU3bj5kAEERf8mrTboDPukCcaY7ECAMopYm+paA5dAqQr7Iap7fUR8Gz44f
+         tPGA==
+X-Gm-Message-State: AOAM530/sMT5dlRCWTohTfDU+saeP8CNbHcDUTKXJPJmAMliCWCdXsIG
+        to8Ds2Yjl/k5171zl1Z/b9s=
+X-Google-Smtp-Source: ABdhPJwsO/e0myXBK0NPdaTSIlT2So6a3h2jWy3HOX9S4CeaAcLyGkMxemXkg1tmYrP0Ho9e5GNKEg==
+X-Received: by 2002:a1c:234b:: with SMTP id j72mr8312988wmj.153.1599233935159;
+        Fri, 04 Sep 2020 08:38:55 -0700 (PDT)
 Received: from ?IPv6:2001:a61:3ab0:7001:e081:d401:3da8:e4bc? ([2001:a61:3ab0:7001:e081:d401:3da8:e4bc])
-        by smtp.gmail.com with ESMTPSA id l10sm11476513wru.59.2020.09.04.08.37.54
+        by smtp.gmail.com with ESMTPSA id i3sm11841892wrs.4.2020.09.04.08.38.54
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2020 08:37:54 -0700 (PDT)
+        Fri, 04 Sep 2020 08:38:54 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         Jakub Wilk <jwilk@jwilk.net>
-Subject: Re: [PATCH (2) 28/34] strptime.3: Use sizeof consistently
+Subject: Re: [PATCH (2) 31/34] fanotify.7: Use sizeof consistently
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <da654939-dcc2-e1f8-65d9-a873325d4609@gmail.com>
@@ -71,14 +71,14 @@ References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <6e6d6796-32e0-9cc1-1e6c-4abb0b702499@gmail.com>
  <718db444-6679-224e-c649-6dd219b9db3c@gmail.com>
  <36a9ef8e-6fd9-e074-2a19-d8529f425501@gmail.com>
- <4dd8f9a4-8cb2-0a50-f186-5b493655abf3@gmail.com>
+ <1d9ef046-8c69-1e40-4f7f-5fbee25aadbc@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <7b7e5610-183f-e23f-0504-924a87821927@gmail.com>
-Date:   Fri, 4 Sep 2020 17:37:53 +0200
+Message-ID: <3d1801e5-6c83-3a90-1bd7-25b6d33e0607@gmail.com>
+Date:   Fri, 4 Sep 2020 17:38:54 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <4dd8f9a4-8cb2-0a50-f186-5b493655abf3@gmail.com>
+In-Reply-To: <1d9ef046-8c69-1e40-4f7f-5fbee25aadbc@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -87,13 +87,13 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+Hello Alex,
 
-On 9/4/20 4:57 PM, Alejandro Colomar wrote:
->>From f000e36d106a22d68f26e9cebe84758854739a42 Mon Sep 17 00:00:00 2001
+On 9/4/20 5:05 PM, Alejandro Colomar wrote:
+>>From 75af70465a8e60aa1d96b32d843b074966b7a878 Mon Sep 17 00:00:00 2001
 > From: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> Date: Thu, 3 Sep 2020 21:56:21 +0200
-> Subject: [PATCH 28/34] strptime.3: Use sizeof consistently
+> Date: Thu, 3 Sep 2020 21:58:14 +0200
+> Subject: [PATCH 31/33] fanotify.7: Use sizeof consistently
 > 
 > Use ``sizeof`` consistently through all the examples in the following
 > way:
@@ -106,30 +106,32 @@ On 9/4/20 4:57 PM, Alejandro Colomar wrote:
 > 
 > Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 
-Patch applied.
+Thanks. Patch applied.
 
-Thanks,
+Cheers,
 
 Michael
 
 
+
 > ---
->  man3/strptime.3 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  man7/fanotify.7 | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 > 
-> diff --git a/man3/strptime.3 b/man3/strptime.3
-> index d12f298ff..ab7d76f9a 100644
-> --- a/man3/strptime.3
-> +++ b/man3/strptime.3
-> @@ -429,7 +429,7 @@ main(void)
->      struct tm tm;
->      char buf[255];
+> diff --git a/man7/fanotify.7 b/man7/fanotify.7
+> index a7d60b2b9..29c818027 100644
+> --- a/man7/fanotify.7
+> +++ b/man7/fanotify.7
+> @@ -808,8 +808,7 @@ handle_events(int fd)
 > 
-> -    memset(&tm, 0, sizeof(struct tm));
-> +    memset(&tm, 0, sizeof(tm));
->      strptime("2001\-11\-12 18:31:01", "%Y\-%m\-%d %H:%M:%S", &tm);
->      strftime(buf, sizeof(buf), "%d %b %Y %H:%M", &tm);
->      puts(buf);
+>                      response.fd = metadata\->fd;
+>                      response.response = FAN_ALLOW;
+> -                    write(fd, &response,
+> -                          sizeof(struct fanotify_response));
+> +                    write(fd, &response, sizeof(response));
+>                  }
+> 
+>                  /* Handle closing of writable file event */
 > 
 
 
