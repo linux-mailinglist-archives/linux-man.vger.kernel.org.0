@@ -2,82 +2,83 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BACF025E613
-	for <lists+linux-man@lfdr.de>; Sat,  5 Sep 2020 10:07:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 77AD325E683
+	for <lists+linux-man@lfdr.de>; Sat,  5 Sep 2020 10:27:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726261AbgIEIH2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 5 Sep 2020 04:07:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53022 "EHLO
+        id S1726403AbgIEI1z (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 5 Sep 2020 04:27:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56158 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725818AbgIEIH1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Sep 2020 04:07:27 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8B5AFC061244
-        for <linux-man@vger.kernel.org>; Sat,  5 Sep 2020 01:07:24 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id g4so9643355wrs.5
-        for <linux-man@vger.kernel.org>; Sat, 05 Sep 2020 01:07:24 -0700 (PDT)
+        with ESMTP id S1726372AbgIEI1z (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Sep 2020 04:27:55 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7EB1EC061244
+        for <linux-man@vger.kernel.org>; Sat,  5 Sep 2020 01:27:54 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id e17so8851526wme.0
+        for <linux-man@vger.kernel.org>; Sat, 05 Sep 2020 01:27:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=3FSh0VnzSNhd4M1r5wug5Dtx3sspZOjk34NTx18RDv4=;
-        b=nencwAf1U4yWKngpygIhEqv8nteo1AHkEW9G+kAkSq78mbYL7TOoac/Z1J9ywKsAtV
-         BrN/dW2KCwJQ3jyD4qL0FBiUHGZT/KsI0AwRfW2cuU+Y6ISoOhQCcYuc2hfDUatiea2S
-         u/55hfs0arKchCQzWRWlha5lhNeveVrgjyCbUpLbduM9ragvztKUPnn0BUXuPWRAb9w9
-         HPSS7IoXA3fOb9nYB7nu3SlW45Y7SGlm4CIiHOLZkLOfxc9Z9aKQw6kpAOFke0nz8EkO
-         KzqeqTWw02d5U4wdi2COnb7NLodxp49hDujW//mvCnfPhgrVdLfgsk6h/cZQnBxl2HH9
-         O/Rg==
+        bh=vczM3ERb4aPO6QtDeh4kMNI5dv4lMdbH3IKvOzhBsJ8=;
+        b=me0ZYJ/jOJ98Tx/NtGwYrCmTbwzGZ/opeDvlICGrypx7i5q1T18qRcnIv45frPLCrQ
+         cnP/XPkR0zRi05FjSQZAtm+U2W/zI2IogcHpRCi4yWCChRmvtWrbNCz3feApif+88P/E
+         dn/8M4lQtw+LTZ7EdD+fBzU4cy43erdgGxqzRD0CPaqGmh+ZGubACId/OL+vvXnv+kbV
+         1nDc8TRZeLAzxn/AonDnyumQfXHVopDhJli99z9Q2D4GSO0Q46HXkYVZmLEkgskE8zuJ
+         J9av0oYXg0Yoc1iblTMIf2IOqXU1MHr4ZFe9tOCEKlL03NTV39Lpv+vHQmsgPk4g/jAp
+         Vh6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=3FSh0VnzSNhd4M1r5wug5Dtx3sspZOjk34NTx18RDv4=;
-        b=i51uHiD1UuH7C1gMj7p6whKe41QMDIC0qIn8bY5H4DfCD6pnKkGgw/LJWnBWWvROzY
-         cVi8p0EQlJPJMnzdZYMT0c4c3hlxqkfYWu2Oim1rwIwqNzfFzaDzarBccu8UvTU3kO2F
-         2PriOQtZhW8kquLpOgabhO+vgV7YWWudVfv12yygdwvtzXsOpPAO7gI4Vu6kolM+0zOV
-         VOI6S6JwpyRu2t1ykpUiAQPVOWB7c+V9ZlYtQkH1cjh+UiXogJgm6rmS0cKvztn5jFe1
-         vRallkQbPsqrcaLaQ/w7LlTlwWGVvxYTSgBHZgoUEfZihokoaL/9tw1IIl+ONSTTbdkW
-         tRfA==
-X-Gm-Message-State: AOAM530A0KwxZYCRt2mEiN1aQrB5LSwg3EaQSrtc7hXoNlUlK4+PEqbK
-        vMTzpsRrjKpSgHQ9DF3hHw4=
-X-Google-Smtp-Source: ABdhPJxDUlttlO6Ke0lr/ezAn5Ts2EPkOT1qrj1m2+icc5/Fg9T/7eKQ5k7eXECZKkCdqYRRdvu0lQ==
-X-Received: by 2002:adf:f5ce:: with SMTP id k14mr10883042wrp.286.1599293243130;
-        Sat, 05 Sep 2020 01:07:23 -0700 (PDT)
+        bh=vczM3ERb4aPO6QtDeh4kMNI5dv4lMdbH3IKvOzhBsJ8=;
+        b=Dg2gBs0NaSeGts5XsZEYPPAWT7lNFjMJJ5nwjxWDoz9YhkazUzEr6YEM28XUAAdqXE
+         UR8mpoeLVgSULm4qCIbIL3cELytPbyX/sa+yJ4+Jz00kHbsECKakvz2JPTWvl8HDPM67
+         usu2O2y51XhhE4N3jtsYoqv8uYSH6UW0TvU5ECJF2PT50mCPDOx+1SN+py8I5hMHjpJd
+         +Z/Y993vR7mv6bCWH0b4OOLcBwPPm2bVnl3vykyDDUqzjR/uVWZ317xdYSVuBP0GVztK
+         8v9aWe9+AD+gCGLLvFc+WKj+trLmkUcsmWJOKOSkySKy0k9wTBw+RvkG3rxGWuc7e8OT
+         93WA==
+X-Gm-Message-State: AOAM533isk23ZQVE4KPRDYWFPRNXZUd/IZq5Use5AruaQIWTmM2uOZjd
+        C05MQRxbTcMe2UY35UNudEo=
+X-Google-Smtp-Source: ABdhPJzpReGBaJk6n3KI5HxWicqwU9FP5McnB+0w5ramB2tQA8MWjN6Kc1qV8Dvvwf/kJ6RWC2ciVw==
+X-Received: by 2002:a7b:c5c1:: with SMTP id n1mr10731328wmk.125.1599294473210;
+        Sat, 05 Sep 2020 01:27:53 -0700 (PDT)
 Received: from ?IPv6:2001:a61:3ab0:7001:e081:d401:3da8:e4bc? ([2001:a61:3ab0:7001:e081:d401:3da8:e4bc])
-        by smtp.gmail.com with ESMTPSA id q192sm18017244wme.13.2020.09.05.01.07.22
+        by smtp.gmail.com with ESMTPSA id h5sm16679905wrt.31.2020.09.05.01.27.52
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 05 Sep 2020 01:07:22 -0700 (PDT)
+        Sat, 05 Sep 2020 01:27:52 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         Jakub Wilk <jwilk@jwilk.net>
-Subject: Re: [PATCH (2) 11/34] timerfd_create.2: Use sizeof consistently
+Subject: Re: [PATCH (2) 34/34] unix.7: Use sizeof consistently
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
- <d72263bb-7c84-3f33-ee44-a2cac2e2662c@gmail.com>
- <806999b7-8947-d350-2125-f04b69846f37@gmail.com>
- <d3537144-e4da-8359-bc08-4eaf8c7bd059@gmail.com>
- <9fcc512e-a12c-5b28-126f-aaf1854ed290@gmail.com>
- <2b288808-c840-343f-9e56-8097765e5528@gmail.com>
- <876dcc97-8151-7160-5eda-19307f0483c1@gmail.com>
- <462b75ca-bef8-063d-b6ec-d1c845fb1580@gmail.com>
- <d38d3644-698c-41e4-4d6a-5d999c0a3fdd@gmail.com>
- <26629635-bf4c-1279-314d-db92f11adbb7@gmail.com>
- <d38b1e35-2471-09a1-ad49-4509a30fd14a@gmail.com>
- <edf9e2a1-0612-437d-9fbf-e255e0d1df97@gmail.com>
- <c2636c53-e81c-881a-2938-08871e1b176c@gmail.com>
- <257c9374-3253-9091-c116-045ee16590c0@gmail.com>
- <40ba6e68-c2f6-649c-2225-6037e3c0c077@gmail.com>
- <afec3122-19aa-02f4-0850-7000552ceb95@gmail.com>
- <da654939-dcc2-e1f8-65d9-a873325d4609@gmail.com>
  <aec8bb20-6693-f876-0e2e-5574bd3b7af6@gmail.com>
- <d0fad983-97f0-f855-1b1d-cb0770e7f0a9@gmail.com>
+ <8458b842-7d4b-f19b-c596-7f529dd48ba6@gmail.com>
+ <497bc4f4-31f5-91a5-8bc4-469e22b26502@gmail.com>
+ <8160510c-4d9e-7f30-e810-648b0b58a986@gmail.com>
+ <d7db8e23-8e86-10ee-f221-30d7e3bd657e@gmail.com>
+ <87d5b09a-a3c8-622c-d731-5d42644a5f24@gmail.com>
+ <61d2f2f9-08d0-9f1a-9642-ae56b3f4b61d@gmail.com>
+ <4bb9e639-83ee-ede0-f6ad-dfc16787d358@gmail.com>
+ <3c25bbda-bc90-1364-77cd-2c637f09d611@gmail.com>
+ <af5bf8ce-8bb8-3819-a8e4-1454be92097f@gmail.com>
+ <4f0ff40c-2a63-736d-698f-0efc436c3678@gmail.com>
+ <5343bbd1-b03f-29bf-2def-c27ba3a3616e@gmail.com>
+ <4eba3ee9-bb6a-810f-55ae-7f0d76d446a7@gmail.com>
+ <82aa16c3-60fe-68b3-103f-6d438563f3c2@gmail.com>
+ <6e6d6796-32e0-9cc1-1e6c-4abb0b702499@gmail.com>
+ <718db444-6679-224e-c649-6dd219b9db3c@gmail.com>
+ <36a9ef8e-6fd9-e074-2a19-d8529f425501@gmail.com>
+ <70efd632-15b4-0d18-8c05-7a4ea7fe2353@gmail.com>
+ <fa6e973f-0a09-a9d2-a6c6-e6359d84df9e@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <ab62123b-28ea-1eb5-a3df-7411dc90d7c5@gmail.com>
-Date:   Sat, 5 Sep 2020 10:07:19 +0200
+Message-ID: <eb934301-27b4-245e-da89-28bde26c2bf1@gmail.com>
+Date:   Sat, 5 Sep 2020 10:27:49 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <d0fad983-97f0-f855-1b1d-cb0770e7f0a9@gmail.com>
+In-Reply-To: <fa6e973f-0a09-a9d2-a6c6-e6359d84df9e@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -86,62 +87,70 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 9/4/20 5:14 PM, Michael Kerrisk (man-pages) wrote:
-> Hello Alex,
-> 
-> On 9/4/20 3:45 PM, Alejandro Colomar wrote:
->> >From d347c933a8c253028f8f76c4170b65b85ce7d605 Mon Sep 17 00:00:00 2001
->> From: Alejandro Colomar <colomar.6.4.3@gmail.com>
->> Date: Thu, 3 Sep 2020 21:42:28 +0200
->> Subject: [PATCH 11/34] timerfd_create.2: Use sizeof consistently
->>
->> Use ``sizeof`` consistently through all the examples in the following
->> way:
->>
->> - Use the name of the variable instead of its type as argument for
->>   ``sizeof``.
->>
->> 	Rationale:
->> 	https://www.kernel.org/doc/html/v5.8/process/coding-style.html#allocating-memory
->>
->> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> 
-> Applied. Thanks!
-> 
-> Michael
+Hi Alex,
 
-I've changed my mind on this one (for similar reasons to patch 03/34).
-The buffer here must be an 8-byte integer; it's baked into the API,
-and I think it's helpful to show the type, to emphasize this point.
-I've decided not to apply this patch.
+On 9/4/20 5:12 PM, Alejandro Colomar wrote:
+> Hi Michael,
+> 
+> Sorry for the deep threading, I noticed it late and I tried to fix it in
+> the last messages.  Also there's some email where I forgot to remove
+> "Re:" from the subject.
+
+Yes, the threading made things a little tricky, especially when it
+came to trying to review what I'd done. Did you not send with 
+"git send-email"? Usually that threads things nicely (all patches 
+after the first as replies to the first patch).
+
+> Well, that's all!  I can see 2 or 3 patches where I have doubts, but I
+> think most of them are straightforward.
+
+So, I've still not processed patches 21, 22, and 29. And in review,
+I see that I am wondering about whether I should maintain 1, 5, 17,
+18, and 19. These all involve the use of malloc() or similar.
+
+The existing pattern was something like:
+
+    struct mytype *x;   // Or some simple type such as 'int'
+    ...
+    x = malloc(n * sizeof(struct mytpe));
+
+and your patches change it to:
+
+    struct mytype *x;
+    ...
+    x = malloc(n * sizeof(*x));
+
+I'm not sure that always helps readability.
+
+Part of the problem is the use of C90 in the code.
+
+Do you both agree with me that both of the following c99
+forms are better than the original:
+
+    struct mytype *x = malloc(n * sizeof(struct mytpe));
+    struct mytype *x = malloc(n * sizeof(*x));
+
+?
+
+I *think* I mildly prefer the first form, but I'm open to
+arguments that the latter form is preferable. Of course, the
+fact that there might be more than one point where an 'alloc'
+is done and assigned to 'x' may influence the argument. Thus
+
+
+    struct mytype *x = malloc(n * sizeof(struct mytpe));
+    ...
+    x = malloc(p * sizeof(struct mytype));
+
+vs
+
+    struct mytype *x = malloc(n * sizeof(*x));
+    ...
+    x = malloc(p * sizeof(*x));
 
 Thanks,
 
 Michael
-
->> ---
->>  man2/timerfd_create.2 | 4 ++--
->>  1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/man2/timerfd_create.2 b/man2/timerfd_create.2
->> index 67a13dba3..fd4acf3e9 100644
->> --- a/man2/timerfd_create.2
->> +++ b/man2/timerfd_create.2
->> @@ -700,8 +700,8 @@ main(int argc, char *argv[])
->>      printf("timer started\en");
->>
->>      for (tot_exp = 0; tot_exp < max_exp;) {
->> -        s = read(fd, &exp, sizeof(uint64_t));
->> -        if (s != sizeof(uint64_t))
->> +        s = read(fd, &exp, sizeof(exp));
->> +        if (s != sizeof(exp))
->>              handle_error("read");
->>
->>          tot_exp += exp;
->>
-> 
-> 
-
 
 -- 
 Michael Kerrisk
