@@ -2,63 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4AD0625E8AE
-	for <lists+linux-man@lfdr.de>; Sat,  5 Sep 2020 17:28:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E024E25E8B3
+	for <lists+linux-man@lfdr.de>; Sat,  5 Sep 2020 17:32:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726266AbgIEP2Y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 5 Sep 2020 11:28:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35562 "EHLO
+        id S1726568AbgIEPc7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 5 Sep 2020 11:32:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36256 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726261AbgIEP2W (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Sep 2020 11:28:22 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CCAADC061244
-        for <linux-man@vger.kernel.org>; Sat,  5 Sep 2020 08:28:21 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id b79so9379033wmb.4
-        for <linux-man@vger.kernel.org>; Sat, 05 Sep 2020 08:28:21 -0700 (PDT)
+        with ESMTP id S1726261AbgIEPc6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Sep 2020 11:32:58 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1A2DFC061244
+        for <linux-man@vger.kernel.org>; Sat,  5 Sep 2020 08:32:57 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id x14so10297016wrl.12
+        for <linux-man@vger.kernel.org>; Sat, 05 Sep 2020 08:32:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
+        h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=0nNvByQnJwcxYoHTUrtylGiWUzSX4iCwqd0yHk04v+I=;
-        b=cu7UO9Yxh8EkuZxa58O1j1/t5t3/6AnZn8lQDcr8uBJ8CDckkfe8/iHkmMcDNTum/Y
-         1geb/hQI6IUv8qaw2dLdDOA+XfV2SSpwmIHXUVfye+SC2RGwWDY1hCNrDq161qvQodNE
-         IaU3m+3+4vhDNrG6gWSac9A5fENTEhbFf/9BBTOi0rqhVbdtiKYLEp5qIMqb2jgxl6vF
-         orYCOLcYR7mZv3VIDZiQSujJFt2j1wOkPlRCJnkt/H5UP46TxbWTr8FnDG5CptbxTTgP
-         T9VhBX3Er6bqdWvQ16HytrDujj2jB9BU+ljA7PSRKMkQKFYltiFEVp0Ty2LcwCpRjKqQ
-         N9QA==
+        bh=ZxTg9vx/2feFu0OlcJkEafuCk6ApqJTpOswYr1khP24=;
+        b=Nb0gy3ZOJ7hbBINRv0mq3B5O7+wXRlXKe7TTVXRF6hrsY0q/0hx4hDNTlcSYvUhi5x
+         zxsaZS0GyJCBuCpSLLMhH9oBq7Wkk3j7N31Ya/AAG5jODeoMFlR0O95SOTC1YwbX9+Ky
+         9BXMUV6Vzyfj3k5NbZABx7XGZvbH87EKvS58RZrvtnkGGmqbptuUm4AMgsMbEd/0Nope
+         oCB13o37CqAKPE2qsPtmZfCs4Bg50mGFtfFbks7G5iurBN2YEo+MtBpg0w/MumE0Z4Ko
+         H8E2d8k3bLX0eFI5Mz4Yu08BqJCQybEMh1cpx3mI5LkU22eDSBoRgmoMeM3B6ApA/Yyt
+         XJyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=0nNvByQnJwcxYoHTUrtylGiWUzSX4iCwqd0yHk04v+I=;
-        b=K5Nii3FJ/XRrtLlz2eFqVQaE7WSMGSe1gxsk+qbcas7SjNP2U6R+Wiryes1tnnKtER
-         gmllmYKPSHiw0oakMqDLilMfkE7IyJoAHSTbkOaMVjsDRISftXAqeDyyarWOcmWSJkho
-         CJQB1bEBBwYPuqVpNTt5y09AZQEM7YuNsrrDDr8D6s021KXAMpkcfoIDsx6g8gKE++O6
-         ugROqQrNT4648bCIDMNEDkX3Z2FHVtKk9VruHW9b1jqBwZ/KBYGRQ+z6ZKbIQiTwydYD
-         PeO2CGh07kusD8Hj3znm1RQ/SCcwePDhNdeRqSBz44K9padd0xi6wtoTOcwjWU5HyTHz
-         da5A==
-X-Gm-Message-State: AOAM530aYSkx3IosbJbVTx1p28HkpP1qL+gI7lpf4SsqJ5dJdUOGrTkO
-        pkJdTD7yuiUX8riCXFf+azVaGNokI9g=
-X-Google-Smtp-Source: ABdhPJzGNV4H4IwsresOWivTgLdANArG9aISsjVcCN+lkbkDoL9MMafJovkitT7bWdcqJLTMs8JYUw==
-X-Received: by 2002:a7b:c00c:: with SMTP id c12mr13434364wmb.54.1599319698851;
-        Sat, 05 Sep 2020 08:28:18 -0700 (PDT)
-Received: from ?IPv6:2001:a61:3ab0:7001:e081:d401:3da8:e4bc? ([2001:a61:3ab0:7001:e081:d401:3da8:e4bc])
-        by smtp.gmail.com with ESMTPSA id n17sm15750121wrw.0.2020.09.05.08.28.17
+        bh=ZxTg9vx/2feFu0OlcJkEafuCk6ApqJTpOswYr1khP24=;
+        b=D/xaNpCJFyj5NTUGCCoFEv+YeNb3kbBj7Sa/QhVVh3wsxLGnU5yGn1TFJhCVUfStAS
+         Vm1xJxpouLXJr3u/OZejP0iJUh1cmzVtrgig74It96ftpJNAlgrEzkk+DC9XZrzUKPMD
+         uiewxi9lRe6f81zpK790SPqPbI3RHQbcAXtCzEt8epO7iMGbMQ3U+5DkWlS1Z6+EgyVL
+         NLIlXF+9o7Sjak12pcCfnGRp5J8Th6x29Ngz9QFz+NQaqVeAJo6tOK2fwcVe0pUEGF1g
+         dxvtFvYsgsv3jPSd8A9Z4hOsdcN3aUZ87JSpToNRmRN77SU9QK7HuETuLLIWcr7Tp+fn
+         LkEQ==
+X-Gm-Message-State: AOAM532pPkf17UKrOfYxnwaRmh0cihPKCzsTx+3Q8pBvaHOes4Wsqqpv
+        nGNALVjYIJtoWpHnmROa2Fwe2QlBmjc=
+X-Google-Smtp-Source: ABdhPJxnDeuwF3FKeerkwZ8WNo9f5/9axSd637gOm37VtJqBcBAHwU/Z6u3eGkwvTCFjSDFxTfi2Kg==
+X-Received: by 2002:adf:e583:: with SMTP id l3mr12684389wrm.72.1599319974690;
+        Sat, 05 Sep 2020 08:32:54 -0700 (PDT)
+Received: from [192.168.0.160] ([93.115.133.118])
+        by smtp.gmail.com with ESMTPSA id w21sm18626883wmk.34.2020.09.05.08.32.53
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 05 Sep 2020 08:28:18 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] tsearch.3: Use size_t for malloc() argument
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-References: <20200905101724.107211-1-colomar.6.4.3@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <91b07c51-fded-57db-28bf-9406a1e2e8db@gmail.com>
-Date:   Sat, 5 Sep 2020 17:28:17 +0200
+        Sat, 05 Sep 2020 08:32:54 -0700 (PDT)
+Subject: Re: [PATCH 35/35] qsort.3: Use sizeof consistently
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
+ <20200905142037.522910-1-colomar.6.4.3@gmail.com>
+ <c5bde196-b3a0-10dc-1404-0c46fee14a8d@gmail.com>
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+Message-ID: <d304e467-9551-25d8-b07c-49a69f868a44@gmail.com>
+Date:   Sat, 5 Sep 2020 17:32:53 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20200905101724.107211-1-colomar.6.4.3@gmail.com>
+In-Reply-To: <c5bde196-b3a0-10dc-1404-0c46fee14a8d@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -67,43 +69,52 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 9/5/20 12:17 PM, Alejandro Colomar wrote:
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> ---
->  man3/tsearch.3 | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+On 9/5/20 5:27 PM, Michael Kerrisk (man-pages) wrote:> On 9/5/20 4:20
+PM, Alejandro Colomar wrote:
+>> Use ``sizeof`` consistently through all the examples in the following
+>> way:
+>>
+>> - Use the name of the variable instead of its type as argument for
+>>   ``sizeof``.
+>>
+>> 	Rationale:
+>>
+https://www.kernel.org/doc/html/v5.8/process/coding-style.html#allocating-memory
+>>
+>> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+>
+> I'm not convinced about this one. Do you really think it
+> improves readability? I kinda feel that it does not.
 
-Thanks, Alex. Patch applied?
+Well, I have two different ideas for this one.
+In terms of readability, `char *` might seem clearer.
+In terms of preventing bugs, `argv[0]` seems safer.
+For real code I would use the latter.  For the man, I have doubts.
 
-Cheers,
+Follow your intuition :)
 
-Michael
-
-> diff --git a/man3/tsearch.3 b/man3/tsearch.3
-> index f0ff80e8c..32ddb8127 100644
-> --- a/man3/tsearch.3
-> +++ b/man3/tsearch.3
-> @@ -271,6 +271,7 @@ in order.
->  .EX
->  #define _GNU_SOURCE     /* Expose declaration of tdestroy() */
->  #include <search.h>
-> +#include <stddef.h>
->  #include <stdlib.h>
->  #include <stdio.h>
->  #include <time.h>
-> @@ -278,7 +279,7 @@ in order.
->  static void *root = NULL;
->  
->  static void *
-> -xmalloc(unsigned n)
-> +xmalloc(size_t n)
->  {
->      void *p;
->      p = malloc(n);
-> 
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+>
+> Thanks,
+>
+> Michael
+>
+>> ---
+>>  man3/qsort.3 | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/man3/qsort.3 b/man3/qsort.3
+>> index b49c2a9d3..e1af43cf0 100644
+>> --- a/man3/qsort.3
+>> +++ b/man3/qsort.3
+>> @@ -150,7 +150,7 @@ main(int argc, char *argv[])
+>>          exit(EXIT_FAILURE);
+>>      }
+>>
+>> -    qsort(&argv[1], argc \- 1, sizeof(char *), cmpstringp);
+>> +    qsort(&argv[1], argc \- 1, sizeof(argv[0]), cmpstringp);
+>>
+>>      for (j = 1; j < argc; j++)
+>>          puts(argv[j]);
+>>
+>
+>
