@@ -2,58 +2,57 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6209225E852
-	for <lists+linux-man@lfdr.de>; Sat,  5 Sep 2020 16:21:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DA1B425E854
+	for <lists+linux-man@lfdr.de>; Sat,  5 Sep 2020 16:21:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728264AbgIEOVY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 5 Sep 2020 10:21:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53578 "EHLO
+        id S1728264AbgIEOVy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 5 Sep 2020 10:21:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53660 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727875AbgIEOVX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Sep 2020 10:21:23 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9598DC061245
-        for <linux-man@vger.kernel.org>; Sat,  5 Sep 2020 07:21:21 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id v4so9282741wmj.5
-        for <linux-man@vger.kernel.org>; Sat, 05 Sep 2020 07:21:21 -0700 (PDT)
+        with ESMTP id S1727875AbgIEOVy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Sep 2020 10:21:54 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 97C4DC061244
+        for <linux-man@vger.kernel.org>; Sat,  5 Sep 2020 07:21:53 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id c15so10185545wrs.11
+        for <linux-man@vger.kernel.org>; Sat, 05 Sep 2020 07:21:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=vdSygWmtopXUM6L5CHdZ1vzgWUUKf4w9ZxJE9UnZupk=;
-        b=h15sCyPrx/isADaiG+8gD9GaTHA9pmSVtCEK22c1KXw2Pk6CDjwQZcdWTtW7+/RByu
-         wj4SC3hdYfJ4XZT78mhlgbEItAF7O4e438dPjxippALl926/nJXchKDZd4DEWqn096ev
-         3H95TIVh55xgcPg/n9t9UfFmvKMaUIKqOS9Xo11MtsYx9L3SQYVFrtjOvaKfXxiBKHfj
-         Gc3SWz9uaLoMgpYcIXrKYBwSPBaqpSNsiNbFfIEOo+GSzCWKHY+1XWJY26DcVJ15sJrv
-         9s6ShIKD2xJrI1+7wAvGiYb22CQWih4PvIbiqv6QBLY7pFiGDiqBf2j936r6pxeWAArR
-         F0tw==
+        bh=0tl2jLM8OMxox+GcryR4VV4ZJ0DlfjyguOxoJIQ/ghk=;
+        b=Ua1tjouL70t+r91m3/dGOS8dm8okBg8STv67C0qVcYSkeZWPowlZuDYR4zq2L6CbP2
+         Co8WU7yPTbGjUbOa8Nj2zt8KA98mk5OUYC7mqBlqyMPVOc4hwpxPRKyouIo1xMzAkivh
+         F8Po6k5+gWnHgLzT6jP2zP5Z1wS7a42BFe+KXWyHbwu5X1o66ch1n/SBurrVvDAlH19L
+         Uj2vy5MiXaTio4xbhxYkjDcPoJ3+YXwBRYUbq1dW/RozpU8nShKR79fcYrk8aFHROsQ+
+         rPzBGbRo1WQRD5UCsf65jY1/GMOK7gfctk4sQHd7WuqLuI/xb5tzt4bbO11YuceiiKd9
+         +Q3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=vdSygWmtopXUM6L5CHdZ1vzgWUUKf4w9ZxJE9UnZupk=;
-        b=lEnYXNvKUE/RN+ADDrhJCGNvxx9B80ANYMNVbexAkjTWmjaPaId5+N8g/J3S5RNmY0
-         Ief/RRn+wrECEIBGUqn8h8tyKdFXdjbFgHJZbPNEQo8/lHDmccW8Gi33ti5bt43NSPGe
-         y7xM30ofQANe0YY+4/iN0el7sUWEmQDZMzSK9gMlX8vvlhqDJ7Mvxu18dwDM7CCwh/9C
-         DRR6f9DfmU4PUltzSoA//yG+SsT1+qPG7Rjk+bLURptw6EY0DKwFevFvER76/DRt4Llj
-         ZJRi8FqEGYeTcttmFTfu+maouoNpfClZ6Nyh2SrVpY7zzu13rF/S8QjTWs2iNXxh2Pdt
-         I9ug==
-X-Gm-Message-State: AOAM530zrFibVUCo9d4AaGnWiorA7vFKXxXEWA16PVZVuFKv5DtXKWO6
-        jxXP0ssC4agF+wD8U1IHO2o=
-X-Google-Smtp-Source: ABdhPJz+gynmaR112ZsGzrwoXZIjlzLGGmRXniWxZvUKD0fxiT6U35CWzuoiwysxiga6r59gjQoAOQ==
-X-Received: by 2002:a05:600c:2257:: with SMTP id a23mr12917366wmm.102.1599315680200;
-        Sat, 05 Sep 2020 07:21:20 -0700 (PDT)
+        bh=0tl2jLM8OMxox+GcryR4VV4ZJ0DlfjyguOxoJIQ/ghk=;
+        b=RmqueWxbXanyjB6PwIDJI7IzKNbr2BmwoBnVgwCu7udK00xg86/5I6CCrMGmOAubdg
+         UDHSt4dTq5HA7DV1DSUvEkZ8LbPhiMhS0NrB6ioCVGTzSl50ZZIdAvvdYG/VjxfJ+EcT
+         XBPv3zYirF0WT2nzepcjDX4Cgvn9w/YRF9cbKbcF2lYA0liR+s1k7nVZ6wX4qlGchbPz
+         D+tRFla/bIXSjlJZZZrJcrRIGnGTXxCgTvIQYXrhHOO+qUolK5JfP5CaNwvJqX2aaPaf
+         IGxIBbxy6h9e4kgIUdj2p1hG8vpiDLVqzCX7lJmIk2BCWmVaugRnyDqDET3Qt/SLdhkp
+         ORSw==
+X-Gm-Message-State: AOAM533uj5YqIAp2oPck1fNkh/oYOiAFJVEN/TdADp7dxu891M+eL68w
+        wi+7UmBZWxfUDF952y8V2bytieXwKeM=
+X-Google-Smtp-Source: ABdhPJxyckYZltBR96JesBQ1CTVYssch2V++oKV/styLJ1MWMgXWseEayY5hMTQ2iYrv2L4M0guYvA==
+X-Received: by 2002:adf:ef0a:: with SMTP id e10mr12502322wro.362.1599315712264;
+        Sat, 05 Sep 2020 07:21:52 -0700 (PDT)
 Received: from ?IPv6:2001:a61:3ab0:7001:e081:d401:3da8:e4bc? ([2001:a61:3ab0:7001:e081:d401:3da8:e4bc])
-        by smtp.gmail.com with ESMTPSA id h2sm18149689wrp.69.2020.09.05.07.21.18
+        by smtp.gmail.com with ESMTPSA id m13sm17783606wrr.74.2020.09.05.07.21.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 05 Sep 2020 07:21:19 -0700 (PDT)
+        Sat, 05 Sep 2020 07:21:51 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         Jakub Wilk <jwilk@jwilk.net>
-Subject: Re: [PATCH (2) 21/34] mbstowcs.3: Use sizeof consistently
+Subject: Re: [PATCH (2) 22/34] pthread_create.3: Use sizeof consistently
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
- <26629635-bf4c-1279-314d-db92f11adbb7@gmail.com>
  <d38b1e35-2471-09a1-ad49-4509a30fd14a@gmail.com>
  <edf9e2a1-0612-437d-9fbf-e255e0d1df97@gmail.com>
  <c2636c53-e81c-881a-2938-08871e1b176c@gmail.com>
@@ -72,13 +71,14 @@ References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
  <3c25bbda-bc90-1364-77cd-2c637f09d611@gmail.com>
  <af5bf8ce-8bb8-3819-a8e4-1454be92097f@gmail.com>
  <4f0ff40c-2a63-736d-698f-0efc436c3678@gmail.com>
+ <5343bbd1-b03f-29bf-2def-c27ba3a3616e@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <4fd750e7-bf8a-5c10-c1be-81f3b7cc36c3@gmail.com>
-Date:   Sat, 5 Sep 2020 16:21:16 +0200
+Message-ID: <f08b1057-d20e-7982-c997-1d94c6203cfc@gmail.com>
+Date:   Sat, 5 Sep 2020 16:21:50 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <4f0ff40c-2a63-736d-698f-0efc436c3678@gmail.com>
+In-Reply-To: <5343bbd1-b03f-29bf-2def-c27ba3a3616e@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -89,11 +89,11 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hello Alex,
 
-On 9/4/20 4:45 PM, Alejandro Colomar wrote:
->>From 1b70e7a1da093e4a8e3be79aaed623b21c10e763 Mon Sep 17 00:00:00 2001
+On 9/4/20 4:48 PM, Alejandro Colomar wrote:
+>>From 03783d811fad4783b394c01a4ac68ca6d92b6c58 Mon Sep 17 00:00:00 2001
 > From: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> Date: Thu, 3 Sep 2020 21:51:07 +0200
-> Subject: [PATCH 21/34] mbstowcs.3: Use sizeof consistently
+> Date: Thu, 3 Sep 2020 21:52:22 +0200
+> Subject: [PATCH 22/34] pthread_create.3: Use sizeof consistently
 > 
 > Use ``sizeof`` consistently through all the examples in the following
 > way:
@@ -104,31 +104,31 @@ On 9/4/20 4:45 PM, Alejandro Colomar wrote:
 > 	Rationale:
 > 	https://www.kernel.org/doc/html/v5.8/process/coding-style.html#allocating-memory
 
+
 Patch applied.
 
 Cheers,
 
 Michael
 
-> 
+
 > Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 > ---
->  man3/mbstowcs.3 | 2 +-
+>  man3/pthread_create.3 | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/man3/mbstowcs.3 b/man3/mbstowcs.3
-> index cf650506e..2f9fbc17c 100644
-> --- a/man3/mbstowcs.3
-> +++ b/man3/mbstowcs.3
-> @@ -186,7 +186,7 @@ main(int argc, char *argv[])
->      /* Allocate wide character string of the desired size.  Add 1
->         to allow for terminating null wide character (L\(aq\e0\(aq). */
+> diff --git a/man3/pthread_create.3 b/man3/pthread_create.3
+> index d86188e6b..5ffb14586 100644
+> --- a/man3/pthread_create.3
+> +++ b/man3/pthread_create.3
+> @@ -361,7 +361,7 @@ main(int argc, char *argv[])
 > 
-> -    wcs = calloc(mbslen + 1, sizeof(wchar_t));
-> +    wcs = calloc(mbslen + 1, sizeof(*wcs));
->      if (wcs == NULL) {
->          perror("calloc");
->          exit(EXIT_FAILURE);
+>      /* Allocate memory for pthread_create() arguments */
+> 
+> -    tinfo = calloc(num_threads, sizeof(struct thread_info));
+> +    tinfo = calloc(num_threads, sizeof(*tinfo));
+>      if (tinfo == NULL)
+>          handle_error("calloc");
 > 
 
 
