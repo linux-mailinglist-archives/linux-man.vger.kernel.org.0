@@ -2,101 +2,80 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7DC6425E884
-	for <lists+linux-man@lfdr.de>; Sat,  5 Sep 2020 16:52:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AB83B25E89A
+	for <lists+linux-man@lfdr.de>; Sat,  5 Sep 2020 17:17:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726468AbgIEOwk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 5 Sep 2020 10:52:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58330 "EHLO
+        id S1726468AbgIEPQl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 5 Sep 2020 11:16:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33558 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726302AbgIEOwj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Sep 2020 10:52:39 -0400
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 81BBAC061244
-        for <linux-man@vger.kernel.org>; Sat,  5 Sep 2020 07:52:37 -0700 (PDT)
-Received: by mail-wr1-x42d.google.com with SMTP id o5so10227409wrn.13
-        for <linux-man@vger.kernel.org>; Sat, 05 Sep 2020 07:52:37 -0700 (PDT)
+        with ESMTP id S1727875AbgIEPQM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Sep 2020 11:16:12 -0400
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AFDECC061244
+        for <linux-man@vger.kernel.org>; Sat,  5 Sep 2020 08:15:17 -0700 (PDT)
+Received: by mail-wr1-x432.google.com with SMTP id m6so10345506wrn.0
+        for <linux-man@vger.kernel.org>; Sat, 05 Sep 2020 08:15:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=C0GUf0d7WFiliMz5WL6Y10cDG+sA1XAEua+OHW9d32o=;
-        b=GmZ81LBMlMsoexZImXuEJ9ER4B/+9fMaFmRpyJxF7VsbpOGbqt1y32Z2hnGfoMvq2Q
-         EnD1/Hb2ktZlRAx0WoDNRXuApaIXgBweMUiAVU/PlG1bUFka1KgNZIiN4u6BIMxbjN/7
-         eWcQMsvOyHXrGxE2F70J5vd6ZkFV88S2eLRwH4Bb3tOfsPhyrOOMixYG/rKWvzkT9Bil
-         WDIdLD8cd9Y/Kjm1TJNmzvYXXdl6X1SHi7MbOVY7jUeyAtu0gmEaZW30Njn3Z1IXLkAY
-         TzuOyQudDpouQMfEyH+QurzEjCg4KtqP6McY57gXALV6tqa3PP1f0v1kzMLWkowhW45g
-         /Lvw==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=rCgWtz+u6PYUC2JolAnz1yarXg7wwb7cqlKt96uQEJQ=;
+        b=R+XeVyybdcqQh7HSYBn8LPJDb2qZRfJzX1wDjCkO5/Pm90/CNXyYnTMOi+jaYjzD3J
+         vItdzIsGm4FSKO15ob4zNIh/K8E8Ja/YumWPdvWhLTr4qAc2OSrzIW8EZpeMDD+X7xGQ
+         PbsHYz7UYEBv23ouPAO6x8BSxDmZah0pVxtOrQMJqQU7bHR58qbhmZ8dF6Jldyup8F4r
+         SnsuypVUKFCB4vkUw1Ta4k5In8SwI4mofW44Z2PjcsmCNkpZgETR/eiCE+VM0XdvLbHE
+         14fC56ZKyB609JG/pjK8BV+b0M/sPsjTzvLkC0c0D7cImn/lQXp6n3kCxjddYdlyGF8s
+         yB0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=C0GUf0d7WFiliMz5WL6Y10cDG+sA1XAEua+OHW9d32o=;
-        b=g1PHG0S6vW6f5Ia6DU4ZhN2ghv1mvIYa37eUMbgx77sfU4FTBQZljMGaguHsoDLzo3
-         Nw3MLV/a0ltMWt3rKHubGPDYHJMFRGDW4QlN+BBHmkmw1F/ZwftLQ+zJl445/3k4DPW9
-         Zuk1eWSTHAqYeTpF/BoXn5SHL9IeQhkLQGYpsza9VDuKwqju/GJtUac4MGElKvgMUqFm
-         ltJHKDPKYkU4gKRAQztNYB8A72mxioYG6vupC6uWtaF9HV/xqcFmo6bRBLH5frSnugzV
-         lTvQzy8pEnwumzNS9y/iuiJF1P4qARCeyXGxkLUaJ+K+W4TgYsGx+Zr7AxK3+i73C957
-         UYJA==
-X-Gm-Message-State: AOAM531Aiq/Hu+1A1nQT0HBxms/5QlLIfzlZSdSJzmDle/I5khbZ0o0+
-        KgmE7WVviJT38SJkEbGTHMzjcZELqiY=
-X-Google-Smtp-Source: ABdhPJx+Kudu2iTDxR0WKhvDFbwCGyXFcS02+bY1vpiqqyeEpNvHrDpsj7TjbSsbpt3WKlAkPm3YMQ==
-X-Received: by 2002:adf:f492:: with SMTP id l18mr13356648wro.280.1599317551365;
-        Sat, 05 Sep 2020 07:52:31 -0700 (PDT)
-Received: from [192.168.0.160] ([93.115.133.118])
-        by smtp.gmail.com with ESMTPSA id 2sm18182437wrs.64.2020.09.05.07.52.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 05 Sep 2020 07:52:30 -0700 (PDT)
-Subject: Re: [PATCH (2) 34/34] unix.7: Use sizeof consistently
-To:     mtk.manpages@gmail.com
-Cc:     linux-man <linux-man@vger.kernel.org>, Jakub Wilk <jwilk@jwilk.net>
-References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
- <d7db8e23-8e86-10ee-f221-30d7e3bd657e@gmail.com>
- <87d5b09a-a3c8-622c-d731-5d42644a5f24@gmail.com>
- <61d2f2f9-08d0-9f1a-9642-ae56b3f4b61d@gmail.com>
- <4bb9e639-83ee-ede0-f6ad-dfc16787d358@gmail.com>
- <3c25bbda-bc90-1364-77cd-2c637f09d611@gmail.com>
- <af5bf8ce-8bb8-3819-a8e4-1454be92097f@gmail.com>
- <4f0ff40c-2a63-736d-698f-0efc436c3678@gmail.com>
- <5343bbd1-b03f-29bf-2def-c27ba3a3616e@gmail.com>
- <4eba3ee9-bb6a-810f-55ae-7f0d76d446a7@gmail.com>
- <82aa16c3-60fe-68b3-103f-6d438563f3c2@gmail.com>
- <6e6d6796-32e0-9cc1-1e6c-4abb0b702499@gmail.com>
- <718db444-6679-224e-c649-6dd219b9db3c@gmail.com>
- <36a9ef8e-6fd9-e074-2a19-d8529f425501@gmail.com>
- <70efd632-15b4-0d18-8c05-7a4ea7fe2353@gmail.com>
- <fa6e973f-0a09-a9d2-a6c6-e6359d84df9e@gmail.com>
- <eb934301-27b4-245e-da89-28bde26c2bf1@gmail.com>
- <3777a325-ef49-27df-d21b-375900e34fed@gmail.com>
- <CAKgNAkiEsM-itdZ-cJAribFuAGoaLT4Nd4HDSSNOYm2MpOCCrg@mail.gmail.com>
+        bh=rCgWtz+u6PYUC2JolAnz1yarXg7wwb7cqlKt96uQEJQ=;
+        b=DMe6zj2hHRjEi9cznK2Eevcyx3XJEnf4li7B5old7ZJzLy+Bun7dKjsJV6uKJgarwa
+         qxCDAQh55f7VId8SuEXpAqSnbR0FSLiY6BtG3VD+CHHqzuv/+PRgbZ169YQ/5lsg/YET
+         klTcCxIV1Nt+WLPghJQvy9fkHnY9UZbQcR+PUIBaZzDQkWzbyEx0pRJFbKyaAhqdMY4t
+         xoUd+UZ0rHiUKq1/lO4JGgc6D1Et28d7WFZJqHGT3F6jsDpZBJ9yoe9jadPb+pIHK+cZ
+         1LgmjDU1zt2MDBMXUX2pZfOePFaqEqCZzGplDiybud2tSnYejvEpYO/Frv2/7uhgOV1V
+         PMtQ==
+X-Gm-Message-State: AOAM531AfcYXV1qc41yoXhtktyDnx+HM79BhtJIgVPJEavG6w9ES2Ami
+        s+NgDoqFTmGSd/1g3LcCeds=
+X-Google-Smtp-Source: ABdhPJw3/u1dkgV+9XfD9KbUmhOY68NYtUBCSBUWwHVxdbtBE0LmimxnkoRhdWLVrSqsUYw+uSxmNQ==
+X-Received: by 2002:adf:e610:: with SMTP id p16mr13762068wrm.71.1599318916412;
+        Sat, 05 Sep 2020 08:15:16 -0700 (PDT)
+Received: from localhost.localdomain ([93.115.133.118])
+        by smtp.googlemail.com with ESMTPSA id t4sm17905363wre.30.2020.09.05.08.15.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2020 08:15:15 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <302224e0-5d23-1bb3-e1a7-4d74d602099c@gmail.com>
-Date:   Sat, 5 Sep 2020 16:52:30 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH 0/7] Remove and/or fix casts
+Date:   Sat,  5 Sep 2020 17:14:54 +0200
+Message-Id: <20200905151501.609036-1-colomar.6.4.3@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-In-Reply-To: <CAKgNAkiEsM-itdZ-cJAribFuAGoaLT4Nd4HDSSNOYm2MpOCCrg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Michael,
+Hi Michael,
 
-On 9/5/20 4:38 PM, Michael Kerrisk (man-pages) wrote:
-> See commit 48d05103071830b6708a3ecabeddcdef5f3daa44.
+[PATCH 1/7] sock_diag.7: Remove unneeded casts
+[PATCH 2/7] pthread_sigmask.3: Remove unneeded casts
+[PATCH 3/7] msgop.2: Remove unneeded casts
+[PATCH 4/7] user_namespaces.7: Remove unneeded cast
+[PATCH 5/7] dlopen.3: Remove unneeded cast
+[PATCH 6/7] bsearch.3: Fix intermediate type and remove unneeded cast
+[PATCH 7/7] qsort.3: Fix casts
 
-It looks good.  Maybe I'd keep the cosmetic blank line after the
-declaration+alloc in insque.3...
+Here's a set of patches removing unneeded casts when they are
+unneeded or incorrect, and fixing those that are incorrect but can't
+be removed.
 
-> Thanks for your input Alex, it's been really helpful!
+Regards,
 
-Thank you very much!  I'm really happy to read that!
-I learnt a lot these days.
-
-Cheers,
 Alex.
+
