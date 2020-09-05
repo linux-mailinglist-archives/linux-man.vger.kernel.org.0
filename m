@@ -2,128 +2,99 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4F46325E8DB
-	for <lists+linux-man@lfdr.de>; Sat,  5 Sep 2020 17:44:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D1C2B25E8FD
+	for <lists+linux-man@lfdr.de>; Sat,  5 Sep 2020 18:12:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726590AbgIEPoH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 5 Sep 2020 11:44:07 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37964 "EHLO
+        id S1726456AbgIEQMU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 5 Sep 2020 12:12:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42284 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726568AbgIEPoF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Sep 2020 11:44:05 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A0935C061244
-        for <linux-man@vger.kernel.org>; Sat,  5 Sep 2020 08:44:04 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id c19so9409664wmd.1
-        for <linux-man@vger.kernel.org>; Sat, 05 Sep 2020 08:44:04 -0700 (PDT)
+        with ESMTP id S1726468AbgIEQMQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Sep 2020 12:12:16 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4C45EC061244
+        for <linux-man@vger.kernel.org>; Sat,  5 Sep 2020 09:12:16 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id c18so10383110wrm.9
+        for <linux-man@vger.kernel.org>; Sat, 05 Sep 2020 09:12:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=X6DrovQs8bx3ggaNxEE5tAjFzjJuv45GKfQMkbWe3SM=;
-        b=Zu3apOuhfS3vMHe+Kj6LdnUAShSpl9KqJLRUOuRLkHhtwl8GDEJHOEZe17p9IH+p/q
-         PZRocqhVdF4n0h3MkbhddJJWjD7UTCRniym4PBztpOdtOVmfUDPumj6y5d+gWudRaH8h
-         gaIOasAqGfwsYolnkPAcjzDymC+ikUnS7yLZMGz+fq9vPMlsSeeIDGvpMGTL8ZLu0NjZ
-         eoiiAERWAEoWlCJwm9AFb4ipVu4chcwIVruae5TlvOaxWiJO/KgqQCPHTLHTJlH+mAzb
-         o1l962e4Yz4/e7tiBe3i4rS6wI6XY4SvwcAo5kIwvvsN1CWe6f+shF5JwJiLiCiC1Ea8
-         OJFg==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=apzO6XZ2nZuhsby3oq82HWN0vjrMfN5jclvaAOFE0D4=;
+        b=KKcKFUclFqFUUbATq/OpsuNBfsEBR85aziEN9gUmLr6l5WDABjQpuH3kPq5itVLxEK
+         JKFodc0zfWBpApPfLSv1TQFA8RmadDY+WVpfauUn6lgTmQrCC89fJQcNXENVH7+1JssG
+         iMq9wb+lpIzSvpCXjauDfsOyWSXrFQ4GqTDdFhFb2Mnna697ijDmfULyPwyzHTuTXRD7
+         i4daKyFQrfJCt/SOIdRFDUsUscD3fMiKveROB3M26H1g0K6NIvmH0X13VgXs/nTjG1AK
+         VrKhvHO4GbQYUGlmKT0tyrXS2ZQkXy6qdgQqUEPKdYgeAAT5cRdAeOT5aB1lZuFdVP01
+         f6cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=X6DrovQs8bx3ggaNxEE5tAjFzjJuv45GKfQMkbWe3SM=;
-        b=KnXBFRXD/u0xeyb0/5+NYqUH6+dRH8o6bvBGax1UeCghKxZnJ6hlW3vocEJBQJL9Hf
-         UGbY3AdQS0huCuUPhnsh8QhtOMGa7V+imfYy2pY4oLSiyHNzm2UAbVlmGshduN8hgpwG
-         2ZMw07CdVkEFQpexwXMzHApKM5zCQHxLgJ09AL2uGqx6I2j1OgjXePvssJi4QA8CjIg+
-         vyxWZu79TWe+qyw6N698WWGhXzV8NbOAIJq9tyWXQNe81i6FkuLrOC0wz6mjEiTRldZa
-         QIIH2x4IrQobX45PW5ptYaDMI2bqzx8GPWqSwy+igyRRFOzBeZpgGxhDunGdTEYsu/P2
-         zOQg==
-X-Gm-Message-State: AOAM5338fFBXBVI0kaR/Rocb4840RXmralXwVFaioHZKp2EfALnIdg7H
-        QBAjm47+glApTjWddGsd8qjrT5GBex8=
-X-Google-Smtp-Source: ABdhPJwawNqwyXRxspYkBAVSSKUh2ol6KohunD6vFRBY/wMIZ0MViTbZfhlJk0MaFDL34EAQHHDQmw==
-X-Received: by 2002:a7b:c24b:: with SMTP id b11mr13200942wmj.134.1599320642947;
-        Sat, 05 Sep 2020 08:44:02 -0700 (PDT)
-Received: from ?IPv6:2001:a61:3ab0:7001:e081:d401:3da8:e4bc? ([2001:a61:3ab0:7001:e081:d401:3da8:e4bc])
-        by smtp.gmail.com with ESMTPSA id o4sm14388258wru.55.2020.09.05.08.44.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 05 Sep 2020 08:44:02 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] fanotify.3: Pass array to read(2) directly instead of a
- pointer to it
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-References: <20200905112844.228160-1-colomar.6.4.3@gmail.com>
- <5cfd695c-dfaf-a58f-f4d4-174617cd2f23@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <e877e940-d542-206f-d5ee-9a1a0b697fe8@gmail.com>
-Date:   Sat, 5 Sep 2020 17:44:01 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=apzO6XZ2nZuhsby3oq82HWN0vjrMfN5jclvaAOFE0D4=;
+        b=STCVmShkqUB67p8/wC6GzcpruP7eU+YlRvcvUyvNHEcgNn754KRZRL5aAXzGydleh4
+         hzYlHUuHWIDrtHPIyeuNqeH/6hJop9a3XvDbHmpaheZNdy3n9ROPbqNk+lAhlYP4au7W
+         58Dv+p0Y7C+MGPYiGt5HxPtWd/Xi4sdcfq6cJFiSb7sJ1pluTdC8RXiyzGAqRZOC9FB8
+         PqFHy3MSpsyCanbTk2LbmXa4fNzMoDcpMZ5jUqj5q0LPPRJT7Gi6oz95v3hPHliwFtTJ
+         jwi9wVpu0BRAA+isqV6/F4qM8ZVtaI9eaddTZNJ9VkAM6lfFCe4GN9u75lYbAuOTAmKP
+         mcBw==
+X-Gm-Message-State: AOAM533eIdcB7NfKSuqKat+UfFgdfKMkd/VhbE/094ayztqinNsOc/Pm
+        9iuY0LScmtB/NYzgSTDbs8QAJVN18wk=
+X-Google-Smtp-Source: ABdhPJwy6z4emmuyginy/DaPwEcuMl9Qw+bcS/ZKjNAKFATLemW6wtxpy9tvpNZwyMg3tJUnyTQPLA==
+X-Received: by 2002:a5d:554c:: with SMTP id g12mr12846241wrw.294.1599322335045;
+        Sat, 05 Sep 2020 09:12:15 -0700 (PDT)
+Received: from localhost.localdomain ([93.115.133.118])
+        by smtp.googlemail.com with ESMTPSA id f6sm24462852wme.32.2020.09.05.09.12.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2020 09:12:14 -0700 (PDT)
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org,
+        Alejandro Colomar <colomar.6.4.3@gmail.com>
+Subject: [PATCH v2] tsearch.3: Simplify type usage and remove unneeded casts
+Date:   Sat,  5 Sep 2020 18:10:52 +0200
+Message-Id: <20200905161050.711839-1-colomar.6.4.3@gmail.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <5f25c03b-9b34-e4cf-2b70-69472bcfcfd2@gmail.com>
+References: <5f25c03b-9b34-e4cf-2b70-69472bcfcfd2@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <5cfd695c-dfaf-a58f-f4d4-174617cd2f23@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 9/5/20 1:42 PM, Alejandro Colomar wrote:
-> Hi Michael,
-> 
-> I had a typo in the subject.  It's fanotify.7; please fix it when
-> applying the patch.
+The type of `val` is `int **`, and it will work with tsearch()
+anyway because of implicit cast from `void *`, so declaring it as an
+`int **` simplifies the code.
 
-Patch applied. and title line fixed.
+Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+---
+ man3/tsearch.3 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Thanks, Alex.
-
-Cheers,
-
-Michael
-
-> On 9/5/20 1:28 PM, Alejandro Colomar wrote:
->> It doesn't make any sense to pass a pointer to the array to read(2).
->>
->> It might make sense to pass a pointer to the first element of the array,
->> but that is already implicitly done when passing the array, which decays
->> to that pointer, so it's simpler to pass the array.
->>
->> And anyway, the cast was unneeded, as any pointer is implicitly casted
->> to `void *`.
->>
->> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
->> ---
->>  man7/fanotify.7 | 4 ++--
->>  1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/man7/fanotify.7 b/man7/fanotify.7
->> index c18ab68ed..c3d40b56d 100644
->> --- a/man7/fanotify.7
->> +++ b/man7/fanotify.7
->> @@ -818,7 +818,7 @@ handle_events(int fd)
->>  
->>          /* Read some events */
->>  
->> -        len = read(fd, (void *) &buf, sizeof(buf));
->> +        len = read(fd, buf, sizeof(buf));
->>          if (len == \-1 && errno != EAGAIN) {
->>              perror("read");
->>              exit(EXIT_FAILURE);
->> @@ -1111,7 +1111,7 @@ main(int argc, char **argv)
->>  
->>      /* Read events from the event queue into a buffer */
->>  
->> -    len = read(fd, (void *) &events_buf, sizeof(events_buf));
->> +    len = read(fd, events_buf, sizeof(events_buf));
->>      if (len == \-1 && errno != EAGAIN) {
->>          perror("read");
->>          exit(EXIT_FAILURE);
->>
-
-
+diff --git a/man3/tsearch.3 b/man3/tsearch.3
+index 2e8403130..7b82d9bd3 100644
+--- a/man3/tsearch.3
++++ b/man3/tsearch.3
+@@ -323,7 +323,7 @@ action(const void *nodep, VISIT which, int depth)
+ int
+ main(void)
+ {
+-    void *val;
++    int **val;
+ 
+     srand(time(NULL));
+     for (int i = 0; i < 12; i++) {
+@@ -332,7 +332,7 @@ main(void)
+         val = tsearch((void *) ptr, &root, compare);
+         if (val == NULL)
+             exit(EXIT_FAILURE);
+-        else if ((*(int **) val) != ptr)
++        else if (*val != ptr)
+             free(ptr);
+     }
+     twalk(root, action);
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.28.0
+
