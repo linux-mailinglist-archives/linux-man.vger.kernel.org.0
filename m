@@ -2,117 +2,85 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AC63125E9DF
-	for <lists+linux-man@lfdr.de>; Sat,  5 Sep 2020 21:43:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3E3BF25EB4F
+	for <lists+linux-man@lfdr.de>; Sun,  6 Sep 2020 00:10:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728426AbgIETnI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 5 Sep 2020 15:43:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46402 "EHLO
+        id S1728663AbgIEWKh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 5 Sep 2020 18:10:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40710 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728423AbgIETnG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Sep 2020 15:43:06 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 727C5C061244
-        for <linux-man@vger.kernel.org>; Sat,  5 Sep 2020 12:43:04 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id m6so10744564wrn.0
-        for <linux-man@vger.kernel.org>; Sat, 05 Sep 2020 12:43:04 -0700 (PDT)
+        with ESMTP id S1728563AbgIEWKg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Sep 2020 18:10:36 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D6CABC061244
+        for <linux-man@vger.kernel.org>; Sat,  5 Sep 2020 15:10:35 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id c19so9789643wmd.1
+        for <linux-man@vger.kernel.org>; Sat, 05 Sep 2020 15:10:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=vHpII1Yd40pgOxZBInrn86QhE1N+9KJlFvpZiSoaVsY=;
-        b=HeD6AgEF6hNL0LNbbc49a//rh7t9twkDr9PJyof9zU+a6Wol8UdM65MA2h1H/Wf/Lw
-         cQB4t+8gC6rMfdxcTVQnw9aM0DPgRoTi8aCcxbM+hhNmchQ/btI2vaYWwflzXoUVN3F/
-         R0LHuM0UP5hUET/XeKhCuTFjrmWGEX/xe4PqRIsxt1fuS9naO9b6VYzATiYz+imE977+
-         3zqivyYV4/Y/vdbF7ZDMPJzC4Y7DQ87Pkx67RlIbIeHwbwEFiX2dJYM9/GeWcJQtoclx
-         wbtysK7fWVbk9hN8k0196gdRUoewp0oyAzaQrAgjhWDIfLgAxf811DImfEj5Dy+bBHsU
-         PGAA==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=359965SKKlTZVcFdSFygAV6Tv61JPcl/0WOZjBwbkTc=;
+        b=UZUgOCN3ZSZHnyjCAi1RtGQVku5wW0Ed3m6ccwWboHZ1HKVH2pp9WHXmwKSmXLQ7ba
+         7SrzgLuGA72E+Cod3q8tpBs3ZFYB1UQOcKDzS8wekVvNA8A42fN2sPVU+snfDcvZRys3
+         Mn+9cJKGEVc9ZSht5vzoXnaD2LeQ/hDsz9RQzvOMPNyn46n8CJjHjZBE7/NAO84zaLak
+         u8BQT/eUcDxf7PQEmtMQlLxNkATK9BrRjdKxJ2HnYKqGbV4JQtQ+qkvDbjvPD8lAZsmx
+         X+IclFveg9LS+NAItAuKq5/qUh0tW296pnBR0mljQSynC/+nv0UNrfgdwf7prc24n0+N
+         /7oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=vHpII1Yd40pgOxZBInrn86QhE1N+9KJlFvpZiSoaVsY=;
-        b=d7iXqLUc3PI2GV2EjjYy8nu1o97bimPjh6umwZ9fNtsTpIbiXc4naqXITPaL5rt/s9
-         X02VcYsEG6Bdb5DM4UoZQFy334tyt7KA0yOKcB2hITucabrg8pPx+BzJD67bfjKGzSfH
-         lGbBZX1KlFgWw7KQAIkvsLdxkxRjoQVkFFirnVG5GypxkcTlY2H6FiriN59BhTpYa4cw
-         ENPSGqGkDgXTkaiIk5B9s5+ne84IyFf5WIdvEVpN2uiCr10h8KXCyGV7kZ7lxXaI8SB3
-         1P6Z1ZL0ZXz0onw5rSjZSQ0t3lwH/MxHU4JS8K7kYccMNQI7rCvJKER8yrkHbuEzCvmO
-         CG3Q==
-X-Gm-Message-State: AOAM531fA3fiUELnWbE8aFwXn12HpFiLKIcIWTSuqJW8zSI+dpSEi6tV
-        +HQ/QcASsvYvRTtY3XeH6rCMhO50ROo=
-X-Google-Smtp-Source: ABdhPJyr8Rf+dplyI1IjrlpXdBik1hbZ3XPfF5+TscMGkqbC3GUWk+aGdkX7VJKcB7RDDF9uoE7E9Q==
-X-Received: by 2002:a5d:4710:: with SMTP id y16mr13929951wrq.203.1599334982990;
-        Sat, 05 Sep 2020 12:43:02 -0700 (PDT)
-Received: from ?IPv6:2001:a61:3ab0:7001:e081:d401:3da8:e4bc? ([2001:a61:3ab0:7001:e081:d401:3da8:e4bc])
-        by smtp.gmail.com with ESMTPSA id r14sm18959668wrc.41.2020.09.05.12.43.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 05 Sep 2020 12:43:02 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] tsearch.3: Simplify type usage and remove unneeded
- casts
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-References: <5f25c03b-9b34-e4cf-2b70-69472bcfcfd2@gmail.com>
- <20200905161050.711839-1-colomar.6.4.3@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <c27b577c-b8b6-4267-78f4-eba030a8ea48@gmail.com>
-Date:   Sat, 5 Sep 2020 21:42:59 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        bh=359965SKKlTZVcFdSFygAV6Tv61JPcl/0WOZjBwbkTc=;
+        b=mD5Ks+hiOmV4qcrf0DGIJX3cscydUf2OZs9xnmCvo+UehVkwe5sC9FdbNzOWW165c/
+         ORW7x6xiHllgelPa0xJnXjtKjCd6A5fjPFga+z1TM3dXHZsmxWUgncEEB+dQsVCLOuPd
+         EhKkIFyFw87p0y4U7U2jNbOxEkxCcVvffxcaVunfrZE4h6pzhvZFPgPzYlh8J8zr7f5+
+         uUhfgyOpDdNJgYhs/HP+5DZENHEkxYQEbr6E4dMtBGTKVSG6Jk1Xz6rhgChxZzDCYkuu
+         vD7SxWDRjKbJvVTAKo+joXvuoLO5h0VMF92Ze6ezM8iWW/+0e9xqgDwybDf0NSf8D910
+         +Tfg==
+X-Gm-Message-State: AOAM532nrp8F90lZZfKveLzxnEaQGxbS7JAZ/K88gHq0Stwdqi5KXZPh
+        zBVFDu+fBiYhOxDKuxjZRXE=
+X-Google-Smtp-Source: ABdhPJxEi5YmYyZrzTtkAd+mqBZQFmNuuZSnbXWxSjXhz5KpHZYXR6d1QuWF+QQYO/Xpx+STwKDjAA==
+X-Received: by 2002:a1c:7f8b:: with SMTP id a133mr14550215wmd.155.1599343834577;
+        Sat, 05 Sep 2020 15:10:34 -0700 (PDT)
+Received: from localhost.localdomain ([93.115.133.118])
+        by smtp.googlemail.com with ESMTPSA id i6sm21234819wra.1.2020.09.05.15.10.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2020 15:10:34 -0700 (PDT)
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org,
+        Alejandro Colomar <colomar.6.4.3@gmail.com>
+Subject: [PATCH] stdarg.3: Declare variables with different types in different lines
+Date:   Sun,  6 Sep 2020 00:09:35 +0200
+Message-Id: <20200905220934.1319354-1-colomar.6.4.3@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-In-Reply-To: <20200905161050.711839-1-colomar.6.4.3@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Alex,
+Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+---
+ man3/stdarg.3 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-On 9/5/20 6:10 PM, Alejandro Colomar wrote:
-> The type of `val` is `int **`, and it will work with tsearch()
-> anyway because of implicit cast from `void *`, so declaring it as an
-> `int **` simplifies the code.
-
-Thanks, patch applied.
-
-Cheers,
-
-Michael
-
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> ---
->  man3/tsearch.3 | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/man3/tsearch.3 b/man3/tsearch.3
-> index 2e8403130..7b82d9bd3 100644
-> --- a/man3/tsearch.3
-> +++ b/man3/tsearch.3
-> @@ -323,7 +323,7 @@ action(const void *nodep, VISIT which, int depth)
->  int
->  main(void)
->  {
-> -    void *val;
-> +    int **val;
->  
->      srand(time(NULL));
->      for (int i = 0; i < 12; i++) {
-> @@ -332,7 +332,7 @@ main(void)
->          val = tsearch((void *) ptr, &root, compare);
->          if (val == NULL)
->              exit(EXIT_FAILURE);
-> -        else if ((*(int **) val) != ptr)
-> +        else if (*val != ptr)
->              free(ptr);
->      }
->      twalk(root, action);
-> 
-
-
+diff --git a/man3/stdarg.3 b/man3/stdarg.3
+index 4ca1247fc..662de73c0 100644
+--- a/man3/stdarg.3
++++ b/man3/stdarg.3
+@@ -285,7 +285,8 @@ foo(char *fmt, ...)   /* '...' is C syntax for a variadic function */
+ {
+     va_list ap;
+     int d;
+-    char c, *s;
++    char c;
++    char *s;
+ 
+     va_start(ap, fmt);
+     while (*fmt)
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.28.0
+
