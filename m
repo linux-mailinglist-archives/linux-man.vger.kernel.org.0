@@ -2,116 +2,115 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1F44725E89C
-	for <lists+linux-man@lfdr.de>; Sat,  5 Sep 2020 17:17:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2F76325E8A7
+	for <lists+linux-man@lfdr.de>; Sat,  5 Sep 2020 17:24:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726320AbgIEPRR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 5 Sep 2020 11:17:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33764 "EHLO
+        id S1726320AbgIEPYb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 5 Sep 2020 11:24:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34966 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728257AbgIEPQg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Sep 2020 11:16:36 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CF721C061251
-        for <linux-man@vger.kernel.org>; Sat,  5 Sep 2020 08:15:24 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id e16so10328882wrm.2
-        for <linux-man@vger.kernel.org>; Sat, 05 Sep 2020 08:15:24 -0700 (PDT)
+        with ESMTP id S1726266AbgIEPY3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Sep 2020 11:24:29 -0400
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 82EB0C061244
+        for <linux-man@vger.kernel.org>; Sat,  5 Sep 2020 08:24:28 -0700 (PDT)
+Received: by mail-wr1-x430.google.com with SMTP id z4so10331511wrr.4
+        for <linux-man@vger.kernel.org>; Sat, 05 Sep 2020 08:24:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=ktRkTYE5nMbEqCwKovv04Oa0XS1vXwkDe73rwsXBdLo=;
-        b=cCJz53+7R4aXeaG5RhICIEBME4GVBdh0fljTTPDv4fvMfhuXUFCp7ZxbrTyOPWvKyh
-         QSr81MNSQQijqeLTxh2Ndg302LpxLLM00f6SMaiSf9bq4PG4JpI3EQ98dvMCnvaDd1cO
-         arng/UkXcY13xOnqJ0ih2WtjLbSUeA9z6LyJOU68EzRtGBjGfdHumI4KRwkSOd8dt4ZP
-         UbkNucT7zFAYY19KtTKuXsTRF49756E5WOCj9teoQ5E75XAQKYrDhhM/MBYt2j+Klcoj
-         2Y+jLqKz4VGcF8nSJdEHDvbm5wNJP3CjW5rOR6VlI1nk6NBKPmWP2tdMW4Mg3aDqF2JU
-         8aRg==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=+wZ9UnSUNCf0UijyLuB00G7MEe6Cjh9RsytJzfDULXs=;
+        b=f+RP1WwIS4eULyHgR1BBoReavJFbXkBqnJpxxCaxLvyVDedAr7nscrxM87YDEWA8+Q
+         CxepjGU6cWwzB/t8v5qgbysKQexRsySJjXMQWQwypmO+Otz+laTDXMoFylPrICKthldT
+         N6qVTnL3MxfGg/7UZ8yYzwcgfhvzK/SQWtTYNdLMPylLiF23TncWRQaK6JrUI4b3mKal
+         6UOqzNHBFSJAVSHDyFX4UNP8AVpAh9jKCf0UMXHXKcuCRv7q8P9YRAjoIvnb9My/QhiK
+         2+A2FV0PzE9TtDK41mlkz4oayM5Fhg51u8aGmjXrDXFSYl36qExsrQtUUySzjHzG8g5n
+         p33A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=ktRkTYE5nMbEqCwKovv04Oa0XS1vXwkDe73rwsXBdLo=;
-        b=DIwAHQAHt2skR3AZNzJQQMwdm/VftHgni+8p9/QnuwsnF6NtzxkjfM2n5+21sIEHGE
-         34d80b9MnqxaVBw0Whac5Pe5r3uutnP5Z1QUiZNRTkegu8ESuz0GpTwkUjHd6ZJlqIOf
-         XjkSnSz5dfKVNetoGP9VCd0HES93/CKuUogVXgI5AXnUBIF4AHwPcWKDckVd0DmWA1HG
-         aC1rTbtTGbRFW30h9qjq/GEwzs4PYndQKMEwfIQjId4BLPs43jRB3Q3isXXdv+iw+z9F
-         cfg8MInI7SCzYI4/NMITo6M+cdBHNRyU238Ys/Zi17TX4tJQ3cjBEInpcaNTDa45fZlk
-         Iefw==
-X-Gm-Message-State: AOAM533JmkgIuA4wXUtfCAzH0/7smzK75OEqkEeBcv85398+2l4n72AI
-        yRPkOrIlhHbsRHuAEklZm7Y=
-X-Google-Smtp-Source: ABdhPJyik7goisSK3tQYDml96ZuB/LofeVPXpSO04elE1KklK9EXfxpr9Jce2pkRjeZuPx49CsddSA==
-X-Received: by 2002:a05:6000:1282:: with SMTP id f2mr13702411wrx.251.1599318923105;
-        Sat, 05 Sep 2020 08:15:23 -0700 (PDT)
-Received: from localhost.localdomain ([93.115.133.118])
-        by smtp.googlemail.com with ESMTPSA id t4sm17905363wre.30.2020.09.05.08.15.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2020 08:15:22 -0700 (PDT)
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org,
-        Alejandro Colomar <colomar.6.4.3@gmail.com>
-Subject: [PATCH 7/7] qsort.3: Fix casts
-Date:   Sat,  5 Sep 2020 17:15:01 +0200
-Message-Id: <20200905151501.609036-8-colomar.6.4.3@gmail.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200905151501.609036-1-colomar.6.4.3@gmail.com>
-References: <20200905151501.609036-1-colomar.6.4.3@gmail.com>
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=+wZ9UnSUNCf0UijyLuB00G7MEe6Cjh9RsytJzfDULXs=;
+        b=Omu2T77WpQXKvSMJffont9U6+ZKwY5311I/RUMxTOHC3a8k3ZWq7rEF9bt9r8cwgpo
+         qd7BWOGB7dYptTUzL9tGH+efI/yc0VoiJPrKVSuG7JWJ4im3xZiIlxgDDAvb8AuMZAPT
+         FZ//pVB323vR8Q0ipTFZkW8S8QDJfbeMvTc8FCihb8O7OzUT/YS76bsEOKhMjp4bCf85
+         3/HCKAYdv4cVE986Ys5LIQTSICKHOq1t34/KVXyCarn1HFZpiqhir1ozH8tfyaXNd0AA
+         /npR+75hYijWQ4MPEdyWPjIV4Iket5pVtufQkm9nAJ9KBzOkLX9YVX4pNaIGTN4UjIBF
+         Grzg==
+X-Gm-Message-State: AOAM533BLhwgkdKsmiQGt86LMNQHqyTDwEfsZ2+KhFvhsbqaXGHe8ouB
+        Ch1wVXihD19ToSM2pUgIWn4=
+X-Google-Smtp-Source: ABdhPJyQS5jOJChfLgtkY2f4EDkSXzc3N70A5TZYCXXvdcJ9O3wt62o6QG0eEAXrqkL+QetyYzv1yA==
+X-Received: by 2002:adf:f3c6:: with SMTP id g6mr13910800wrp.340.1599319463608;
+        Sat, 05 Sep 2020 08:24:23 -0700 (PDT)
+Received: from ?IPv6:2001:a61:3ab0:7001:e081:d401:3da8:e4bc? ([2001:a61:3ab0:7001:e081:d401:3da8:e4bc])
+        by smtp.gmail.com with ESMTPSA id a11sm13864463wmm.18.2020.09.05.08.24.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 05 Sep 2020 08:24:23 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>,
+        Jakub Wilk <jwilk@jwilk.net>
+Subject: Re: [PATCH (2) 34/34] unix.7: Use sizeof consistently
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+References: <cc176298-50e2-7831-f2f7-21be8cae9075@gmail.com>
+ <87d5b09a-a3c8-622c-d731-5d42644a5f24@gmail.com>
+ <61d2f2f9-08d0-9f1a-9642-ae56b3f4b61d@gmail.com>
+ <4bb9e639-83ee-ede0-f6ad-dfc16787d358@gmail.com>
+ <3c25bbda-bc90-1364-77cd-2c637f09d611@gmail.com>
+ <af5bf8ce-8bb8-3819-a8e4-1454be92097f@gmail.com>
+ <4f0ff40c-2a63-736d-698f-0efc436c3678@gmail.com>
+ <5343bbd1-b03f-29bf-2def-c27ba3a3616e@gmail.com>
+ <4eba3ee9-bb6a-810f-55ae-7f0d76d446a7@gmail.com>
+ <82aa16c3-60fe-68b3-103f-6d438563f3c2@gmail.com>
+ <6e6d6796-32e0-9cc1-1e6c-4abb0b702499@gmail.com>
+ <718db444-6679-224e-c649-6dd219b9db3c@gmail.com>
+ <36a9ef8e-6fd9-e074-2a19-d8529f425501@gmail.com>
+ <70efd632-15b4-0d18-8c05-7a4ea7fe2353@gmail.com>
+ <fa6e973f-0a09-a9d2-a6c6-e6359d84df9e@gmail.com>
+ <eb934301-27b4-245e-da89-28bde26c2bf1@gmail.com>
+ <3777a325-ef49-27df-d21b-375900e34fed@gmail.com>
+ <CAKgNAkiEsM-itdZ-cJAribFuAGoaLT4Nd4HDSSNOYm2MpOCCrg@mail.gmail.com>
+ <302224e0-5d23-1bb3-e1a7-4d74d602099c@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <be82d618-8c1e-b2a1-80a6-7acf359defbd@gmail.com>
+Date:   Sat, 5 Sep 2020 17:24:22 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <302224e0-5d23-1bb3-e1a7-4d74d602099c@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-`p1` (and `p2` too) is `const void *` and it comes from a
-`const char **` (for legacy reasons, argv is not `const` but should be
-treated as if it were).  That means, the ultimate `char` is `const`:
-"a pointer to a pointer to a const char".
+Hello Alex,
 
-Let's see what is going on before the fix first, and then the fix.
+On 9/5/20 4:52 PM, Alejandro Colomar wrote:
+> Hello Michael,
+> 
+> On 9/5/20 4:38 PM, Michael Kerrisk (man-pages) wrote:
+>> See commit 48d05103071830b6708a3ecabeddcdef5f3daa44.
+> 
+> It looks good.  Maybe I'd keep the cosmetic blank line after the
+> declaration+alloc in insque.3...
 
-Before the fix:
+I kinda prefer not to have it.
 
-`(char *const *)` (I removed the space on purpose) casts `p1` to be
-"a pointer to a const pointer to a non-const char".  That's clearly
-not what it originally was.
+>> Thanks for your input Alex, it's been really helpful!
+> 
+> Thank you very much!  I'm really happy to read that!
+> I learnt a lot these days.
 
-Then we dereference, ending with a `char *const`, which is
-"a const pointer to a non-const char".  But given that the pointer value
-is passed to a function, `const` doesn't make sense there, because the
-function will already take a copy of it, so it is impossible to modify
-the pointer itself.
+I learned a few things too :-).
 
-The fix:
+Cheers,
 
-`(const char **)` The only thing that is const is the ultimate `char`,
-which is the only thing that matters, because it is the only thing
-strcmp(3) has access to (everything else, i.e. the pointers, are
-copies).
+Michael
 
-Then, after the dereference we end up with `const char *`, the type of
-argv (more or less, as previously noted), which is also the type of the
-arguments to strcmp(3).
-
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
----
- man3/qsort.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/man3/qsort.3 b/man3/qsort.3
-index e1af43cf0..24f0b6c92 100644
---- a/man3/qsort.3
-+++ b/man3/qsort.3
-@@ -137,7 +137,7 @@ cmpstringp(const void *p1, const void *p2)
-        pointers to char", but strcmp(3) arguments are "pointers
-        to char", hence the following cast plus dereference */
- 
--    return strcmp(* (char * const *) p1, * (char * const *) p2);
-+    return strcmp(*(const char **) p1, *(const char **) p2);
- }
- 
- int
 -- 
-2.28.0
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
