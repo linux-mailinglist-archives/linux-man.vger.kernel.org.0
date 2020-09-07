@@ -2,164 +2,85 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C11CE25F45B
-	for <lists+linux-man@lfdr.de>; Mon,  7 Sep 2020 09:54:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C8F8025F4B5
+	for <lists+linux-man@lfdr.de>; Mon,  7 Sep 2020 10:12:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726821AbgIGHyc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 7 Sep 2020 03:54:32 -0400
-Received: from mx01-sz.bfs.de ([194.94.69.67]:42613 "EHLO mx01-sz.bfs.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726419AbgIGHyb (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 7 Sep 2020 03:54:31 -0400
-Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
-        by mx01-sz.bfs.de (Postfix) with ESMTPS id 2CA9220596;
-        Mon,  7 Sep 2020 09:54:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
-        t=1599465269;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=P/YGS9xhhpuTq4a0JABBWcdgXs1c32XtjbtMUwlcP6U=;
-        b=klkFyxu+fm76wxNo016MRk5noBxQrpSoU4b7ztLo7PRRI8OJ9mMnSo52v55LY73c/7c4JP
-        L7v+P3r8OyM/cryX/QOVugN50p/XHNFKO/i7xZ0jXvTcezDrEot90BIzuyXai+QouNipYE
-        taod7GyZh0iLQBPSEfpXWpLSqgqFzN84obmrzV2/0kaGLgZ8REQQDFChE5gR2sKzy1s+if
-        g0vtMPOA3msl/LzL20lqX0+fYcPe4+QppPNDwdGNdZor9SoWYUwGHbyW3QW2dDy3FSZ8KV
-        x4taVa4u7NtkPL7/dlljRdbxtEKSmdGTqu+/XNOVyI5atQMHkXDw8gcTixceiw==
-Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
- (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2044.4; Mon, 7 Sep 2020
- 09:54:28 +0200
-Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
- SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%6]) with mapi id
- 15.01.2044.004; Mon, 7 Sep 2020 09:54:28 +0200
-From:   Walter Harms <wharms@bfs.de>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        id S1728067AbgIGIMC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 7 Sep 2020 04:12:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41180 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728013AbgIGILn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Sep 2020 04:11:43 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 34A75C061573
+        for <linux-man@vger.kernel.org>; Mon,  7 Sep 2020 01:11:43 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id g4so14780265wrs.5
+        for <linux-man@vger.kernel.org>; Mon, 07 Sep 2020 01:11:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=hHsO0R4ZrzadBQPoY+OSfqc7huoK6myTXc44VpgFaUg=;
+        b=aIxjc7bc2VGziHB9gxoMyCbJISbheDOMYm7nUZQ4jzzoURQHqSvK2mum8siO4C3z1W
+         e2N969mCM8oPYwi4NbfyAoMRlD1LOnu4+4x+geZwJkmDeWzaWsssLaxvXIkZ0dysoCw4
+         NtR1OPtT3TwFObnvQs6JLvxRDXIA2Q3Bs7HNkt0bwZuJIyT8yYrnHOU89ApVADxf8PD+
+         YENNz2rAH3x3TPiqXERWS0DHsiXJYMvVFpXQib+g+D8TUc5i3RxWb42YCMxDNBjLTTC4
+         PPZSEwCFjI/Yr1GvdUeLWvQAoYDNzlv98QyV8i5RwJPcg+0zd1ljO/wygKb9tGOICUcO
+         LiKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=hHsO0R4ZrzadBQPoY+OSfqc7huoK6myTXc44VpgFaUg=;
+        b=LeYwRu4re7G9/pJlFVsdx49ueUuEGimiyPc2+Aksn4aFaXNQorfDBh8Kfp2mzmiZ51
+         2qZAq6iJyWhKUvHzo1bUMn49kKn8tyWfhGUBCf4+5O6rgf7EnGFkldXd9142PA/JvCKK
+         +8cS12kfD816z58oqIZR7qst+8hDIkqGXG6WBQmxtcFQxenopEXaPRtCGN3NpmrwvHeJ
+         TJcI1cClI0ReCbTcQNSACjrb7HWaRX+7YXqWzsm7ynOCqbXJ8X8a6pj/0sskTcVhc0IA
+         xHy20rXvfVDVsPYr51ShwOygXGAFeIx7JI1A/oxFfYPz3hpX7ipKh8iPbdiemN9K+hS7
+         yoNg==
+X-Gm-Message-State: AOAM530XYHnk4mCkSpld/iDEqWOjdCXomWKMaVhOdaI1gmFcyh2o81Km
+        a3FSbFUQ4TfJnvEPrEuNxqF87adgK8d7lQ==
+X-Google-Smtp-Source: ABdhPJyqcBH1YvTJz+behIBxVy6bmdlOyPk/x/Kf7fp1bV7GJLSBbXV4Q/1AD210Mk+yN5k0/SQk+w==
+X-Received: by 2002:adf:e690:: with SMTP id r16mr16152906wrm.15.1599466301878;
+        Mon, 07 Sep 2020 01:11:41 -0700 (PDT)
+Received: from localhost.localdomain ([170.253.60.68])
+        by smtp.googlemail.com with ESMTPSA id d5sm28843522wrb.28.2020.09.07.01.11.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2020 01:11:41 -0700 (PDT)
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org,
         Alejandro Colomar <colomar.6.4.3@gmail.com>
-CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-Subject: AW: [PATCH v2] tsearch.3: Simplify type usage and remove unneeded
- casts
-Thread-Topic: [PATCH v2] tsearch.3: Simplify type usage and remove unneeded
- casts
-Thread-Index: AQHWg59XEevPrCOAkke9WUD6b6rYHqlaUL6AgAJ9bvU=
-Date:   Mon, 7 Sep 2020 07:54:28 +0000
-Message-ID: <16456ba5979244e0981c3764fd564c49@bfs.de>
-References: <5f25c03b-9b34-e4cf-2b70-69472bcfcfd2@gmail.com>
- <20200905161050.711839-1-colomar.6.4.3@gmail.com>,<c27b577c-b8b6-4267-78f4-eba030a8ea48@gmail.com>
-In-Reply-To: <c27b577c-b8b6-4267-78f4-eba030a8ea48@gmail.com>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.129.18.210]
-x-tm-as-product-ver: SMEX-14.0.0.3031-8.6.1012-25650.005
-x-tm-as-result: No-10--9.727400-5.000000
-x-tmase-matchedrid: q51PvYY4nNTRubRCcrbc5pzEHTUOuMX33dCmvEa6IiHgYNP0+4v1no4m
-        akWSIXbD/Wk0p6g0kZIZkOuFEoLztHr3YPuyCqcH4t2mucDkRBECn5QffvZFlWOMyb1Ixq8Vdkk
-        6onL8WMzQftcvF9LRG0La6Wfm4nJp/Cg9J3OaIb9+J3gtIe0gAzFcf92WG8u/5NZMkA6RI/DFpY
-        Y/Yh3ladpqDQBlV+5irMZTfWObzrYDI91I0N0Y7y9cBNSlgvYqukqRCdoXqVokt9BigJAcVt2T8
-        69EU2W81VkuYdrbp0cHdptXFFME78r9HDn98b6Sl2fRVpVyo6R9LQinZ4QefNQdB5NUNSsiV2g5
-        +g4QNgKNo+PRbWqfRLI7zVffJqTzBviwU0sFgBzawxgQUUyoNSXo/FZRMLgZ9/GaEPXvV6zXVg6
-        W7tv2qn7cGd19dSFd
-x-tm-as-user-approved-sender: No
-x-tm-as-user-blocked-sender: No
-x-tmase-result: 10--9.727400-5.000000
-x-tmase-version: SMEX-14.0.0.3031-8.6.1012-25650.005
-x-tm-snts-smtp: 3AF0EF6247199F743AF8F8107EB9D213FE8BDD8CB5FCC4783BF0CF41CD4FEC5D2000:9
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Subject: [PATCH] hcreate.3: Declare variables with different types in different lines
+Date:   Mon,  7 Sep 2020 10:11:33 +0200
+Message-Id: <20200907081133.11002-1-colomar.6.4.3@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-X-Spam-Status: No, score=0.00
-Authentication-Results: mx01-sz.bfs.de;
-        none
-X-Spamd-Result: default: False [0.00 / 7.00];
-         ARC_NA(0.00)[];
-         TO_DN_EQ_ADDR_SOME(0.00)[];
-         HAS_XOIP(0.00)[];
-         FROM_HAS_DN(0.00)[];
-         RCPT_COUNT_THREE(0.00)[3];
-         FREEMAIL_ENVRCPT(0.00)[gmail.com];
-         TO_MATCH_ENVRCPT_ALL(0.00)[];
-         TAGGED_RCPT(0.00)[];
-         MIME_GOOD(-0.10)[text/plain];
-         BAYES_SPAM(0.00)[24.05%];
-         TO_DN_SOME(0.00)[];
-         DKIM_SIGNED(0.00)[];
-         NEURAL_HAM(-0.00)[-0.937];
-         FREEMAIL_TO(0.00)[gmail.com];
-         RCVD_NO_TLS_LAST(0.10)[];
-         FROM_EQ_ENVFROM(0.00)[];
-         MIME_TRACE(0.00)[0:+];
-         RCVD_COUNT_TWO(0.00)[2];
-         MID_RHS_MATCH_FROM(0.00)[]
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello,
-i am sorry to interrupt here but ...
-IMHO the void *val is here for a reason, because it means
-"this can be anything" the reason why int ** works here is
-that the example uses int. You make the example to specific
-in this case. may be the example from bsearch is better here.
+Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+---
+ man3/hsearch.3 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/man3/hsearch.3 b/man3/hsearch.3
+index 2fd2dc2cd..5c281c974 100644
+--- a/man3/hsearch.3
++++ b/man3/hsearch.3
+@@ -315,7 +315,8 @@ static char *data[] = { "alpha", "bravo", "charlie", "delta",
+ int
+ main(void)
+ {
+-    ENTRY e, *ep;
++    ENTRY e;
++    ENTRY *ep;
+ 
+     hcreate(30);
+ 
+-- 
+2.28.0
 
-
-________________________________________
-
-Von: linux-man-owner@vger.kernel.org [linux-man-owner@vger.kernel.org] im A=
-uftrag von Michael Kerrisk (man-pages) [mtk.manpages@gmail.com]
-Gesendet: Samstag, 5. September 2020 21:42
-An: Alejandro Colomar
-Cc: mtk.manpages@gmail.com; linux-man@vger.kernel.org
-Betreff: Re: [PATCH v2] tsearch.3: Simplify type usage and remove unneeded =
-casts
-
-Hello Alex,
-
-On 9/5/20 6:10 PM, Alejandro Colomar wrote:
-> The type of `val` is `int **`, and it will work with tsearch()
-> anyway because of implicit cast from `void *`, so declaring it as an
-> `int **` simplifies the code.
-
-Thanks, patch applied.
-
-Cheers,
-
-Michael
-
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> ---
->  man3/tsearch.3 | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/man3/tsearch.3 b/man3/tsearch.3
-> index 2e8403130..7b82d9bd3 100644
-> --- a/man3/tsearch.3
-> +++ b/man3/tsearch.3
-> @@ -323,7 +323,7 @@ action(const void *nodep, VISIT which, int depth)
->  int
->  main(void)
->  {
-> -    void *val;
-> +    int **val;
->
->      srand(time(NULL));
->      for (int i =3D 0; i < 12; i++) {
-> @@ -332,7 +332,7 @@ main(void)
->          val =3D tsearch((void *) ptr, &root, compare);
->          if (val =3D=3D NULL)
->              exit(EXIT_FAILURE);
-> -        else if ((*(int **) val) !=3D ptr)
-> +        else if (*val !=3D ptr)
->              free(ptr);
->      }
->      twalk(root, action);
->
-
-
---
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
