@@ -2,131 +2,164 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B533725F3AA
-	for <lists+linux-man@lfdr.de>; Mon,  7 Sep 2020 09:13:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C11CE25F45B
+	for <lists+linux-man@lfdr.de>; Mon,  7 Sep 2020 09:54:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726800AbgIGHNX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 7 Sep 2020 03:13:23 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60454 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726443AbgIGHNV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Sep 2020 03:13:21 -0400
-Received: from mail-oi1-x241.google.com (mail-oi1-x241.google.com [IPv6:2607:f8b0:4864:20::241])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F394BC061573
-        for <linux-man@vger.kernel.org>; Mon,  7 Sep 2020 00:13:19 -0700 (PDT)
-Received: by mail-oi1-x241.google.com with SMTP id x19so12785079oix.3
-        for <linux-man@vger.kernel.org>; Mon, 07 Sep 2020 00:13:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=eETryqJbTXIE1kE95W5i2N5z8rjrqGcOKwWemh+qoho=;
-        b=h+WNtiXz4cpKH3g9vjCKvq2igSNBgN1qEJQ8wRNYb3FMAfWm0GdWene6+tOTT4orG4
-         W09zFqUy0/WJvfQkJEzf2BRZEzwSrXN4h7bm/mjWLWEBVMBKjBoR17qiZUOdskQVKrFz
-         sHiylz8/hOW9iN9z/V9xMBHghIRW+KRkhKzQFBv+0ubs5UXa8rjpCgOLvo8Kp4FPr6RP
-         VYvPPTVoscHD+/Uia2z4YWUnxwQTRrz/I4W1DbO5Jk9GzbahpsT9Y8gImHWHE6+T+21K
-         /a0nFoik/lZeBMVmqPmc9RcKkVHInW/TCegXriUSg774dvBXGfD7nfoZWWHPJNFAYZjb
-         TjAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=eETryqJbTXIE1kE95W5i2N5z8rjrqGcOKwWemh+qoho=;
-        b=dm87s20U7WO7uBSMKjqKu9EGRfvrr98l3lEZ3Ms9NY0ldig5Tu8UUTQbSvzjQ14/8e
-         LpoRPAINS0XYMoo8/XOCTWPxMZQkRnWpZF8dqUn/i0djPK8Dy82XmaW8l09/MY7ERZDy
-         DcL3i+flkX3VWf5R/g70H82w6XWDggszLYHPiaj7pr45jFJ/jp6Scm761A94m1k58Mhg
-         AQrr3GSI4GhNXjJTI81z3TqfKLKSqGPm3AbQF5LY7R5nQ1p0120bmuqjg8+x9wMQbfRu
-         3IFsgZCYV4DiIyOdOT1tlWYRFKa46i11wksi1EVsMiMYnIyeCpqAwtfeY0YAWFhWvWhS
-         /UHw==
-X-Gm-Message-State: AOAM530lnBtuSorwtxGScUk6vYkvOUoF1jtOPF7MWvTugpVbkvKNkdDH
-        w0OCpgxqG2wv3UvRRnxV9oP1f860qyKBRplP2O8=
-X-Google-Smtp-Source: ABdhPJzFU3bsp7WCDk5FIz/PIbrCEf3717HPr7PeNTvr+cDu3QIG3zTienb5F+MwHIP1w/VuhKMMW7gsGGE91afzCmU=
-X-Received: by 2002:aca:fc85:: with SMTP id a127mr11528007oii.148.1599462799329;
- Mon, 07 Sep 2020 00:13:19 -0700 (PDT)
+        id S1726821AbgIGHyc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 7 Sep 2020 03:54:32 -0400
+Received: from mx01-sz.bfs.de ([194.94.69.67]:42613 "EHLO mx01-sz.bfs.de"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726419AbgIGHyb (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 7 Sep 2020 03:54:31 -0400
+Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
+        by mx01-sz.bfs.de (Postfix) with ESMTPS id 2CA9220596;
+        Mon,  7 Sep 2020 09:54:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
+        t=1599465269;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=P/YGS9xhhpuTq4a0JABBWcdgXs1c32XtjbtMUwlcP6U=;
+        b=klkFyxu+fm76wxNo016MRk5noBxQrpSoU4b7ztLo7PRRI8OJ9mMnSo52v55LY73c/7c4JP
+        L7v+P3r8OyM/cryX/QOVugN50p/XHNFKO/i7xZ0jXvTcezDrEot90BIzuyXai+QouNipYE
+        taod7GyZh0iLQBPSEfpXWpLSqgqFzN84obmrzV2/0kaGLgZ8REQQDFChE5gR2sKzy1s+if
+        g0vtMPOA3msl/LzL20lqX0+fYcPe4+QppPNDwdGNdZor9SoWYUwGHbyW3QW2dDy3FSZ8KV
+        x4taVa4u7NtkPL7/dlljRdbxtEKSmdGTqu+/XNOVyI5atQMHkXDw8gcTixceiw==
+Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
+ (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2044.4; Mon, 7 Sep 2020
+ 09:54:28 +0200
+Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
+ SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%6]) with mapi id
+ 15.01.2044.004; Mon, 7 Sep 2020 09:54:28 +0200
+From:   Walter Harms <wharms@bfs.de>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        Alejandro Colomar <colomar.6.4.3@gmail.com>
+CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Subject: AW: [PATCH v2] tsearch.3: Simplify type usage and remove unneeded
+ casts
+Thread-Topic: [PATCH v2] tsearch.3: Simplify type usage and remove unneeded
+ casts
+Thread-Index: AQHWg59XEevPrCOAkke9WUD6b6rYHqlaUL6AgAJ9bvU=
+Date:   Mon, 7 Sep 2020 07:54:28 +0000
+Message-ID: <16456ba5979244e0981c3764fd564c49@bfs.de>
+References: <5f25c03b-9b34-e4cf-2b70-69472bcfcfd2@gmail.com>
+ <20200905161050.711839-1-colomar.6.4.3@gmail.com>,<c27b577c-b8b6-4267-78f4-eba030a8ea48@gmail.com>
+In-Reply-To: <c27b577c-b8b6-4267-78f4-eba030a8ea48@gmail.com>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.129.18.210]
+x-tm-as-product-ver: SMEX-14.0.0.3031-8.6.1012-25650.005
+x-tm-as-result: No-10--9.727400-5.000000
+x-tmase-matchedrid: q51PvYY4nNTRubRCcrbc5pzEHTUOuMX33dCmvEa6IiHgYNP0+4v1no4m
+        akWSIXbD/Wk0p6g0kZIZkOuFEoLztHr3YPuyCqcH4t2mucDkRBECn5QffvZFlWOMyb1Ixq8Vdkk
+        6onL8WMzQftcvF9LRG0La6Wfm4nJp/Cg9J3OaIb9+J3gtIe0gAzFcf92WG8u/5NZMkA6RI/DFpY
+        Y/Yh3ladpqDQBlV+5irMZTfWObzrYDI91I0N0Y7y9cBNSlgvYqukqRCdoXqVokt9BigJAcVt2T8
+        69EU2W81VkuYdrbp0cHdptXFFME78r9HDn98b6Sl2fRVpVyo6R9LQinZ4QefNQdB5NUNSsiV2g5
+        +g4QNgKNo+PRbWqfRLI7zVffJqTzBviwU0sFgBzawxgQUUyoNSXo/FZRMLgZ9/GaEPXvV6zXVg6
+        W7tv2qn7cGd19dSFd
+x-tm-as-user-approved-sender: No
+x-tm-as-user-blocked-sender: No
+x-tmase-result: 10--9.727400-5.000000
+x-tmase-version: SMEX-14.0.0.3031-8.6.1012-25650.005
+x-tm-snts-smtp: 3AF0EF6247199F743AF8F8107EB9D213FE8BDD8CB5FCC4783BF0CF41CD4FEC5D2000:9
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <20200904161203.598281-1-zwisler@google.com>
-In-Reply-To: <20200904161203.598281-1-zwisler@google.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 7 Sep 2020 09:13:08 +0200
-Message-ID: <CAKgNAkiAkyUjd=cUvASaT2tyhaCdiMF48KA3Ov_1mQf0=J2PXw@mail.gmail.com>
-Subject: Re: [PATCH] Add NOSYMFOLLOW flags to mount(2) and statfs(2)
-To:     Ross Zwisler <zwisler@chromium.org>
-Cc:     Ross Zwisler <zwisler@google.com>,
-        linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=0.00
+Authentication-Results: mx01-sz.bfs.de;
+        none
+X-Spamd-Result: default: False [0.00 / 7.00];
+         ARC_NA(0.00)[];
+         TO_DN_EQ_ADDR_SOME(0.00)[];
+         HAS_XOIP(0.00)[];
+         FROM_HAS_DN(0.00)[];
+         RCPT_COUNT_THREE(0.00)[3];
+         FREEMAIL_ENVRCPT(0.00)[gmail.com];
+         TO_MATCH_ENVRCPT_ALL(0.00)[];
+         TAGGED_RCPT(0.00)[];
+         MIME_GOOD(-0.10)[text/plain];
+         BAYES_SPAM(0.00)[24.05%];
+         TO_DN_SOME(0.00)[];
+         DKIM_SIGNED(0.00)[];
+         NEURAL_HAM(-0.00)[-0.937];
+         FREEMAIL_TO(0.00)[gmail.com];
+         RCVD_NO_TLS_LAST(0.10)[];
+         FROM_EQ_ENVFROM(0.00)[];
+         MIME_TRACE(0.00)[0:+];
+         RCVD_COUNT_TWO(0.00)[2];
+         MID_RHS_MATCH_FROM(0.00)[]
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Ross,
+Hello,
+i am sorry to interrupt here but ...
+IMHO the void *val is here for a reason, because it means
+"this can be anything" the reason why int ** works here is
+that the example uses int. You make the example to specific
+in this case. may be the example from bsearch is better here.
 
-On Fri, 4 Sep 2020 at 18:12, Ross Zwisler <zwisler@chromium.org> wrote:
->
-> These flags should first appear in Linux kernel version v5.10.
->
-> Signed-off-by: Ross Zwisler <zwisler@google.com>
 
-Thanks for the patch. I will try to keep track of this, but if you
-happened to notice whether this goes in in 5.10, and pinged this mail
-thread, that would be great.
+
+________________________________________
+
+Von: linux-man-owner@vger.kernel.org [linux-man-owner@vger.kernel.org] im A=
+uftrag von Michael Kerrisk (man-pages) [mtk.manpages@gmail.com]
+Gesendet: Samstag, 5. September 2020 21:42
+An: Alejandro Colomar
+Cc: mtk.manpages@gmail.com; linux-man@vger.kernel.org
+Betreff: Re: [PATCH v2] tsearch.3: Simplify type usage and remove unneeded =
+casts
+
+Hello Alex,
+
+On 9/5/20 6:10 PM, Alejandro Colomar wrote:
+> The type of `val` is `int **`, and it will work with tsearch()
+> anyway because of implicit cast from `void *`, so declaring it as an
+> `int **` simplifies the code.
+
+Thanks, patch applied.
 
 Cheers,
 
 Michael
 
+> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 > ---
-> The nosymfollow kernel code has been merged into Al Viro's tree and
-> should be part of the v5.10 merge window.
-> https://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs.git/commit/?h=work.misc&id=dab741e0e02bd3c4f5e2e97be74b39df2523fc6e
-> ---
->  man2/mount.2  | 10 ++++++++++
->  man2/statfs.2 |  4 ++++
->  2 files changed, 14 insertions(+)
+>  man3/tsearch.3 | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/man2/mount.2 b/man2/mount.2
-> index f565ee578..039e4b83b 100644
-> --- a/man2/mount.2
-> +++ b/man2/mount.2
-> @@ -280,6 +280,16 @@ the
->  flag to
->  .BR open (2)
->  was specified for all file opens to this filesystem).
-> +.TP
-> +.B MS_NOSYMFOLLOW
-> +Do not follow symlinks when resolving paths.  Symlinks can still be created,
-> +and
-> +.BR readlink (1),
-> +.BR readlink (2),
-> +.BR realpath (1)
-> +and
-> +.BR realpath (3)
-> +all still work properly.
->  .PP
->  From Linux 2.4 onward, some of the above flags are
->  settable on a per-mount basis,
-> diff --git a/man2/statfs.2 b/man2/statfs.2
-> index 0fc537c14..d5edf2a50 100644
-> --- a/man2/statfs.2
-> +++ b/man2/statfs.2
-> @@ -206,6 +206,10 @@ Writes are synched to the filesystem immediately (see the description of
->  .B O_SYNC
->  in
->  .BR open (2)).
-> +.TP
-> +.B ST_NOSYMFOLLOW
-> +Symlinks are not followed when resolving paths; see
-> +.BR mount (2).
->  .PP
->  Nobody knows what
->  .I f_fsid
-> --
-> 2.28.0.526.ge36021eeef-goog
+> diff --git a/man3/tsearch.3 b/man3/tsearch.3
+> index 2e8403130..7b82d9bd3 100644
+> --- a/man3/tsearch.3
+> +++ b/man3/tsearch.3
+> @@ -323,7 +323,7 @@ action(const void *nodep, VISIT which, int depth)
+>  int
+>  main(void)
+>  {
+> -    void *val;
+> +    int **val;
+>
+>      srand(time(NULL));
+>      for (int i =3D 0; i < 12; i++) {
+> @@ -332,7 +332,7 @@ main(void)
+>          val =3D tsearch((void *) ptr, &root, compare);
+>          if (val =3D=3D NULL)
+>              exit(EXIT_FAILURE);
+> -        else if ((*(int **) val) !=3D ptr)
+> +        else if (*val !=3D ptr)
+>              free(ptr);
+>      }
+>      twalk(root, action);
 >
 
 
--- 
+--
 Michael Kerrisk
 Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
 Linux/UNIX System Programming Training: http://man7.org/training/
