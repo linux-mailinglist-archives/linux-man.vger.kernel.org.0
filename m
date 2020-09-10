@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4A2C0265260
-	for <lists+linux-man@lfdr.de>; Thu, 10 Sep 2020 23:16:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 10279265273
+	for <lists+linux-man@lfdr.de>; Thu, 10 Sep 2020 23:18:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726167AbgIJVQU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 10 Sep 2020 17:16:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34814 "EHLO
+        id S1726286AbgIJVSe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 10 Sep 2020 17:18:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34914 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728070AbgIJVPM (ORCPT
+        with ESMTP id S1728071AbgIJVPM (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Thu, 10 Sep 2020 17:15:12 -0400
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1D365C0617B1;
-        Thu, 10 Sep 2020 14:14:35 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id b79so2084088wmb.4;
-        Thu, 10 Sep 2020 14:14:35 -0700 (PDT)
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8935CC061573;
+        Thu, 10 Sep 2020 14:14:37 -0700 (PDT)
+Received: by mail-wr1-x430.google.com with SMTP id o5so8702841wrn.13;
+        Thu, 10 Sep 2020 14:14:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=0rmRvieIxW6w6Hujt5CiR0Rwq1pQq0cocC0G8EaOjkE=;
-        b=Lrf/nS2wudBHaIRCI6azYCYMZ+8s/X4Ec3o/uNo8iU89ykB2ev1ibIGe1wmkUKQmrn
-         aYYwsYgTxv0GuJqazaU1fo2rq5nikDob0pS2p3mkgwTmZ7ppjXUreLVIIvKqj0gzLNdf
-         GwQowtnhIrwSylUXAvNTr4rZ66w9QM1ysuIcRezq+MXqrpDQMSy6XQGDMqJvXRpyhuq+
-         ShXG4T8cHoIoYQu6ZRDaFJEusN0qyVRtP9Tldhdro+pCx9lkqMEybafRgZMOJi1RwZRN
-         7gVqarjdPHO5kg/uEEGcp3HT8PvlmQtD6GBW7Iy8LRTJgiBinYZ4AciF4usjPJd+jc7C
-         cNDA==
+        bh=TzEm2scSLES6WjsyM6iO//Wl6U7ZWi8QP6rMUqxU0zw=;
+        b=USeiSt9vAcfkIWT9ODmSAMpQPtyLMHNWQHaduLG/9afYqf6Knq4YkuBT4Mr37TFUoz
+         c/Kcjwq2udc5pXHNQHlKIjeHB/YOxtSE6N82CNVqhlVegtg8jApTy0Uu5rnZ1aeDm3T/
+         d2HX/18Wzt+WfKv3edOv/TjuWFGkt7FHpwBpNhm3+qmXrsJJrt1c0p/4B1QoXlpc2XOT
+         VnuzXbSL44JrwwiYY0NK1Wv4whvqKtJ/PdmM3CPTHjRufai6adpAmB2wC1gZKEEMzv7o
+         ibbWpTelzXyKWsNXrbj6k4f7vWNP6NIcfDY8FzCuC6rLQy/I5ESRiIkDycnIa5os/wlt
+         uilQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=0rmRvieIxW6w6Hujt5CiR0Rwq1pQq0cocC0G8EaOjkE=;
-        b=YQbiBQBgrF6dB2G51xgp8yXOnpb3EQSOtQmCVGJIPaHRMJwdUOpK9VuVacCjv/N/6b
-         MZ/4pzxVZmicpDuLCFHqSuQOtVs0eKjyqMjxznVIYk7M7ZsYbjoPfOrCkN/v6/BBMHux
-         k+fXj0ilsKfC6qamsrZIKHFXQFeP7OWwvsoSUSC8I0HwiCtF8xhdwbDYRl6f4seJ6su4
-         6e9OrQaOhQIt9dEoX1E5hCHHjF7+uweNZ3d4VUaFFj6sxcw+rvlduegelUNcfSZ7Ogg1
-         zMpGj3Xa5oRWml4OByu6embpNwQmRlUcVcQB+IExNen/CJsgme7OZAE0Cp4svcs75P4p
-         8yCw==
-X-Gm-Message-State: AOAM531I7oUe3oAXM5KmTEG6tBhXnccjhPgGrAjrqsZoJlQ3VJD0tL/+
-        GHBR9+Vaf4OCm/D4Vcnc4XisnbiWbjxZpQ==
-X-Google-Smtp-Source: ABdhPJxkO127Dd8c0CWq4p8iMgimgA8Gt8rCKHI8qRygPG1kKnxfptqFXCeDu/JSucjOXlGqR9V3OQ==
-X-Received: by 2002:a1c:b407:: with SMTP id d7mr2029134wmf.59.1599772473857;
-        Thu, 10 Sep 2020 14:14:33 -0700 (PDT)
+        bh=TzEm2scSLES6WjsyM6iO//Wl6U7ZWi8QP6rMUqxU0zw=;
+        b=aNTmlTRFMAcNHxd4XBuYoU4gGjviWAoVHi9IGJ6Uk1On0NDvHxhsX+KtqTytvamPAy
+         1gZDfg7twESjuhpNDgpH3Def3xLvoCX/UZ28DuaT1NLNA0OJNgwkuW6nL0UEkA406jzt
+         TakJ71C3EanGP3DcDzc04vQk2beQm1/oC6Tq8LuhD6hYArFBnMejVIsg7BH90TTCI2Fy
+         30orKmH6iWZsTspPqTJ9Pxppmj+v2k0n9Ug9rUQpKNEXZ1lh7aE9JFBaPVZLTPVxrjDY
+         AUFRHVJ9vsxlqZLO1ezyLLZd3bufKzwrZespkxacNkpu2iWJc+rkRgyHxWP9sXKWfNHX
+         johQ==
+X-Gm-Message-State: AOAM530ezB8wF7co41x63+lPqDTC1YePssjyVlm75AB/AYgl1D/HMD0K
+        0sYBfkDuyLNG/TSN5+yghE4=
+X-Google-Smtp-Source: ABdhPJwv7cN1eq4601HFYnL0/rT91pwU2DwpXiShKv8XGjktS3Bd6466LCwNF1S+gEgFcmDWI9WrhQ==
+X-Received: by 2002:a5d:470e:: with SMTP id y14mr6637853wrq.354.1599772474914;
+        Thu, 10 Sep 2020 14:14:34 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id l10sm111502wru.59.2020.09.10.14.14.32
+        by smtp.googlemail.com with ESMTPSA id l10sm111502wru.59.2020.09.10.14.14.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2020 14:14:33 -0700 (PDT)
+        Thu, 10 Sep 2020 14:14:34 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org, linux-kernel@vger.kernel.org,
         Alejandro Colomar <colomar.6.4.3@gmail.com>
-Subject: [PATCH 22/24] membarrier.2: Note that glibc does not provide a wrapper
-Date:   Thu, 10 Sep 2020 23:13:43 +0200
-Message-Id: <20200910211344.3562-23-colomar.6.4.3@gmail.com>
+Subject: [PATCH 23/24] select_tut.2: Use MAX(a, b) from <sys/param.h>
+Date:   Thu, 10 Sep 2020 23:13:44 +0200
+Message-Id: <20200910211344.3562-24-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
 References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
@@ -64,44 +64,56 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Notes: I copied .nf and .fi from futex.2, but they made no visual difference.
-What do they actually do?
-
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man2/membarrier.2 | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ man2/select_tut.2 | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/man2/membarrier.2 b/man2/membarrier.2
-index 8825de71e..f65c6be5c 100644
---- a/man2/membarrier.2
-+++ b/man2/membarrier.2
-@@ -26,9 +26,15 @@
- .SH NAME
- membarrier \- issue memory barriers on a set of threads
- .SH SYNOPSIS
-+.nf
-+.PP
- .B #include <linux/membarrier.h>
- .PP
- .BI "int membarrier(int " cmd ", int " flags ");"
-+.fi
-+.PP
-+.IR Note :
-+There is no glibc wrapper for this system call; see NOTES.
- .SH DESCRIPTION
- The
- .BR membarrier ()
-@@ -270,6 +276,9 @@ Examples where
- .BR membarrier ()
- can be useful include implementations
- of Read-Copy-Update libraries and garbage collectors.
-+.PP
-+Glibc does not provide a wrapper for this system call; call it using
-+.BR syscall (2).
- .SH EXAMPLES
- Assuming a multithreaded application where "fast_path()" is executed
- very frequently, and where "slow_path()" is executed infrequently, the
+diff --git a/man2/select_tut.2 b/man2/select_tut.2
+index f683dd49d..d23683d75 100644
+--- a/man2/select_tut.2
++++ b/man2/select_tut.2
+@@ -354,6 +354,7 @@ from one TCP port to another.
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <unistd.h>
++#include <sys/param.h>      /* Definition of MAX(a, b) */
+ #include <sys/select.h>
+ #include <string.h>
+ #include <signal.h>
+@@ -364,9 +365,6 @@ from one TCP port to another.
+ 
+ static int forward_port;
+ 
+-#undef max
+-#define max(x,y) ((x) > (y) ? (x) : (y))
+-
+ static int
+ listen_socket(int listen_port)
+ {
+@@ -483,7 +481,7 @@ main(int argc, char *argv[])
+         FD_ZERO(&writefds);
+         FD_ZERO(&exceptfds);
+         FD_SET(h, &readfds);
+-        nfds = max(nfds, h);
++        nfds = MAX(nfds, h);
+ 
+         if (fd1 > 0 && buf1_avail < BUF_SIZE)
+             FD_SET(fd1, &readfds);
+@@ -499,11 +497,11 @@ main(int argc, char *argv[])
+ 
+         if (fd1 > 0) {
+             FD_SET(fd1, &exceptfds);
+-            nfds = max(nfds, fd1);
++            nfds = MAX(nfds, fd1);
+         }
+         if (fd2 > 0) {
+             FD_SET(fd2, &exceptfds);
+-            nfds = max(nfds, fd2);
++            nfds = MAX(nfds, fd2);
+         }
+ 
+         ready = select(nfds + 1, &readfds, &writefds, &exceptfds, NULL);
 -- 
 2.28.0
 
