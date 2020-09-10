@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1CA8026525B
-	for <lists+linux-man@lfdr.de>; Thu, 10 Sep 2020 23:15:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A3FEE26525A
+	for <lists+linux-man@lfdr.de>; Thu, 10 Sep 2020 23:15:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726841AbgIJVPv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 10 Sep 2020 17:15:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34846 "EHLO
+        id S1726167AbgIJVPe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 10 Sep 2020 17:15:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34802 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728036AbgIJVOr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 10 Sep 2020 17:14:47 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A6A97C0617A1;
-        Thu, 10 Sep 2020 14:14:26 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id z1so8762930wrt.3;
-        Thu, 10 Sep 2020 14:14:26 -0700 (PDT)
+        with ESMTP id S1728045AbgIJVOu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 10 Sep 2020 17:14:50 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9C4B2C0617A2;
+        Thu, 10 Sep 2020 14:14:27 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id e17so1975713wme.0;
+        Thu, 10 Sep 2020 14:14:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=kVpAIfBHlKKnBhZV8vhXwdUPQ2Bvfn5GqICMyE+J7Ms=;
-        b=ZzHsxghq7dnyH0+9+wcEhtX+ZJO5fL+hOdeFcbgAMFcp2THuM7HHaNBFz1cSF/ZQ42
-         xTWpNaly0y6nJa8QeyiMIp2uJn5mGaUjSPq6tr5n/o7Ztl66a1XwrsB4E8FpUliAkEYn
-         Za+/n0AJXus5Afu6QU5EwpLnl1x3ABgeBUgzz+TjGjtcQTnT6R4Hl6VhkEBgjXvo3Z5f
-         ta1drycf71PzWqo098QwQjs1K29rQrlI+z9UuY3UCIE+d90QBw/mCzZ/pN5pltnRi+PC
-         K9P15+7EZyZdZDBTgqigLhZqLp2fiXF0pBsg2d8ve4fhCY2BPgi3Lxa7peRTQc15Tfg6
-         fLOA==
+        bh=M08gFpIlSmow5oYYQAIlxFRJ5rmGf8HdsQiiFx5PB80=;
+        b=hSlVc92c37ipgS5BcaKHH9cYLrHPxMptprD4AeEcjS+xesSoobhqswsJLZMGRU9ejE
+         GdeNad+CIa/3MZG6TnXLchPCIYQrroAJV/MOS5uCkhKVp3M6LirvwF3DgXo3bmkrOb9J
+         OHJLMlADrQQeBJ7ec5oBx0RRmlEYZcUIwAoKTX+HSJ5HtRmYuwaX4IzuwcNwR8Df/yeV
+         8/Wki1YAMmVyf+u587XAxtLFR9UaxrysKeAFY7J3neU2Q1tj/OEiOV3PcIG1301BICci
+         eRtK9WxYvj4Basaa8q6XBlcuU4ELYBm8H/YhhDqhuM6ydIrmpBZTUsNQsj5RTP3FENUJ
+         XPTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=kVpAIfBHlKKnBhZV8vhXwdUPQ2Bvfn5GqICMyE+J7Ms=;
-        b=H69ulZWPXJNcAFWBFEMJip7FCRogp8kxJeslAhL0KK//DZBJodMRSQYCy+8Z2/KMz2
-         9qWdzhfp0rV7/60fh8KM+1/oBSVKdMcYCDARcCrOQ6MkkQy9PENj0voDwTHjFBU+pwE5
-         V5l6sPrDmffwiPxVvH7rr2wmS4oBu+En/a3fe6unRcq64uO56pwSByGaTFwkeu3Q9yT9
-         72gFNrdU+LnQVmycrRHLzThqg5BankYKZrhn9V0lU34P+C+k6kfKggdR5XlIFDYMymgO
-         KbeyD6Tgiafpq1BjGuDT8kyTRCAR98lYvehxzJIRlow7MqhD5j4r81UEVz65jtEQf1UN
-         68BQ==
-X-Gm-Message-State: AOAM532jIMI8HyDjPX5mFUKv5xai9qoG0oI9BypOMSZqBbBfryV5MIzz
-        h4O72Atq7f5h53g9DvhfZCA=
-X-Google-Smtp-Source: ABdhPJwYz7zdqFqJrfyGx+gesPs5OJdM14z1j+mzMxn58UVkLVWI0E66+WnLJ8uLHogySW16htb7/Q==
-X-Received: by 2002:a5d:5042:: with SMTP id h2mr11048791wrt.409.1599772465334;
-        Thu, 10 Sep 2020 14:14:25 -0700 (PDT)
+        bh=M08gFpIlSmow5oYYQAIlxFRJ5rmGf8HdsQiiFx5PB80=;
+        b=ONS5HeXCviVB9Y5nIo0buVlqEOdcjlh/F5JPs9sUzIn1VtPW8LQ/nuV4pKGJCBZ7iN
+         2nr7iDXfeLSuujRjjwoCLnNz+DJ3shFERIcZjg4AgXCmYA/I6/GnOBtcZlu6OpkuhDYE
+         3oLWqTTiz18NmVWFNI88VoAXSelsGgWf+zYj04I2cwvZ0Ng81gGzaDNec3WcBeKOewM8
+         F1HfJi7LGwl29JfDChWFdN41wJsjJdO6R4M/tm++DZiQ7sfilri464Lgt+ed6wFYSpH7
+         vcLf5B7haAbt2hHx7B/B+F2Z+38ul3Fzmg+VNzn4e8ZlHxQ5EpC8XoAoG9q2+J7oM95M
+         YvlQ==
+X-Gm-Message-State: AOAM532VwEgis5wQ5XAggnsvdy1/wQL/y2CYFfAxt+p2dSuybBRyiPxl
+        UAdQ4OytUeGs8O3rSFqaYTM=
+X-Google-Smtp-Source: ABdhPJzLL6AQGYjtsDB/LxcOwshcuWzaHMoNo06SXh8WYb6IBE3b9fPIikwFQS90vNHysmL8gKHvng==
+X-Received: by 2002:a05:600c:2257:: with SMTP id a23mr2029057wmm.102.1599772466385;
+        Thu, 10 Sep 2020 14:14:26 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id l10sm111502wru.59.2020.09.10.14.14.24
+        by smtp.googlemail.com with ESMTPSA id l10sm111502wru.59.2020.09.10.14.14.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2020 14:14:24 -0700 (PDT)
+        Thu, 10 Sep 2020 14:14:25 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org, linux-kernel@vger.kernel.org,
         Alejandro Colomar <colomar.6.4.3@gmail.com>
-Subject: [PATCH 14/24] fread.3: Move ARRAY_SIZE logic into macro
-Date:   Thu, 10 Sep 2020 23:13:35 +0200
-Message-Id: <20200910211344.3562-15-colomar.6.4.3@gmail.com>
+Subject: [PATCH 15/24] unix.7: Use sizeof() to get buffer size (instead of hardcoding macro name)
+Date:   Thu, 10 Sep 2020 23:13:36 +0200
+Message-Id: <20200910211344.3562-16-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
 References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
@@ -66,33 +66,69 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man3/fread.3 | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ man7/unix.7 | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/man3/fread.3 b/man3/fread.3
-index 4c5dc3dbc..8e71e620e 100644
---- a/man3/fread.3
-+++ b/man3/fread.3
-@@ -136,6 +136,8 @@ Class: 0x02
- #include <stdio.h>
- #include <stdlib.h>
+diff --git a/man7/unix.7 b/man7/unix.7
+index f61b51424..50828a5bc 100644
+--- a/man7/unix.7
++++ b/man7/unix.7
+@@ -991,7 +991,7 @@ main(int argc, char *argv[])
  
-+#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
-+
- int
- main(void)
- {
-@@ -147,9 +149,7 @@ main(void)
+             /* Wait for next data packet. */
  
-     unsigned char buffer[4];
+-            ret = read(data_socket, buffer, BUFFER_SIZE);
++            ret = read(data_socket, buffer, sizeof(buffer));
+             if (ret == \-1) {
+                 perror("read");
+                 exit(EXIT_FAILURE);
+@@ -999,16 +999,16 @@ main(int argc, char *argv[])
  
--    size_t ret =
--        fread(buffer, sizeof(buffer) / sizeof(*buffer), sizeof(*buffer),
--              fp);
-+    size_t ret = fread(buffer, ARRAY_SIZE(buffer), sizeof(*buffer), fp);
-     if (ret != sizeof(*buffer)) {
-         fprintf(stderr, "fread() failed: %zu\en", ret);
+             /* Ensure buffer is 0\-terminated. */
+ 
+-            buffer[BUFFER_SIZE \- 1] = 0;
++            buffer[sizeof(buffer) \- 1] = 0;
+ 
+             /* Handle commands. */
+ 
+-            if (!strncmp(buffer, "DOWN", BUFFER_SIZE)) {
++            if (!strncmp(buffer, "DOWN", sizeof(buffer))) {
+                 down_flag = 1;
+                 break;
+             }
+ 
+-            if (!strncmp(buffer, "END", BUFFER_SIZE)) {
++            if (!strncmp(buffer, "END", sizeof(buffer))) {
+                 break;
+             }
+ 
+@@ -1020,7 +1020,7 @@ main(int argc, char *argv[])
+         /* Send result. */
+ 
+         sprintf(buffer, "%d", result);
+-        ret = write(data_socket, buffer, BUFFER_SIZE);
++        ret = write(data_socket, buffer, sizeof(buffer));
+         if (ret == \-1) {
+             perror("write");
+             exit(EXIT_FAILURE);
+@@ -1116,7 +1116,7 @@ main(int argc, char *argv[])
+ 
+     /* Receive result. */
+ 
+-    ret = read(data_socket, buffer, BUFFER_SIZE);
++    ret = read(data_socket, buffer, sizeof(buffer));
+     if (ret == \-1) {
+         perror("read");
          exit(EXIT_FAILURE);
+@@ -1124,7 +1124,7 @@ main(int argc, char *argv[])
+ 
+     /* Ensure buffer is 0\-terminated. */
+ 
+-    buffer[BUFFER_SIZE \- 1] = 0;
++    buffer[sizeof(buffer) \- 1] = 0;
+ 
+     printf("Result = %s\en", buffer);
+ 
 -- 
 2.28.0
 
