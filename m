@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 10279265273
-	for <lists+linux-man@lfdr.de>; Thu, 10 Sep 2020 23:18:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7A7D626525E
+	for <lists+linux-man@lfdr.de>; Thu, 10 Sep 2020 23:16:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726286AbgIJVSe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 10 Sep 2020 17:18:34 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34914 "EHLO
+        id S1727800AbgIJVP7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 10 Sep 2020 17:15:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34916 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728071AbgIJVPM (ORCPT
+        with ESMTP id S1728077AbgIJVPM (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Thu, 10 Sep 2020 17:15:12 -0400
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8935CC061573;
-        Thu, 10 Sep 2020 14:14:37 -0700 (PDT)
-Received: by mail-wr1-x430.google.com with SMTP id o5so8702841wrn.13;
-        Thu, 10 Sep 2020 14:14:37 -0700 (PDT)
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2B817C0617B9;
+        Thu, 10 Sep 2020 14:14:38 -0700 (PDT)
+Received: by mail-wm1-x336.google.com with SMTP id c19so2696836wmd.1;
+        Thu, 10 Sep 2020 14:14:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=TzEm2scSLES6WjsyM6iO//Wl6U7ZWi8QP6rMUqxU0zw=;
-        b=USeiSt9vAcfkIWT9ODmSAMpQPtyLMHNWQHaduLG/9afYqf6Knq4YkuBT4Mr37TFUoz
-         c/Kcjwq2udc5pXHNQHlKIjeHB/YOxtSE6N82CNVqhlVegtg8jApTy0Uu5rnZ1aeDm3T/
-         d2HX/18Wzt+WfKv3edOv/TjuWFGkt7FHpwBpNhm3+qmXrsJJrt1c0p/4B1QoXlpc2XOT
-         VnuzXbSL44JrwwiYY0NK1Wv4whvqKtJ/PdmM3CPTHjRufai6adpAmB2wC1gZKEEMzv7o
-         ibbWpTelzXyKWsNXrbj6k4f7vWNP6NIcfDY8FzCuC6rLQy/I5ESRiIkDycnIa5os/wlt
-         uilQ==
+        bh=gqjbEQ+JeLk9q1JnfATQ7HDINLif+TFuce7/ySYMVUw=;
+        b=r7Hhw5pK13gbq+j9zlfRVbSPt5nuEHSI2HsW1G3gee4gpU/+brOMrgStnitQQeuFJM
+         FkhMwtO57Ab5+okqlXO8W0nhmwRtpXNBZj6J7ANxpU+cmq8EskHCJ/EnGAv/T0VC5tJS
+         yXfLkdpNB8rVovQ7IrvA5xN9GF4T+7gcx7jQ1KUTUI2RLvCq5uC80EnGwnQYTvLQ77lz
+         qkpqj1UnB5uspLCGk318paFoXfRaQzDM4CQ71RWnN4icoocNFXjCM9vNVB+Db5VLyDrV
+         BJ5zbLMa7YICiIJ5Opcoq5wNSLLmc5zMZBF8rUjvq/KEbPuivBUJJ0rPwgELdTADaWLt
+         c7gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=TzEm2scSLES6WjsyM6iO//Wl6U7ZWi8QP6rMUqxU0zw=;
-        b=aNTmlTRFMAcNHxd4XBuYoU4gGjviWAoVHi9IGJ6Uk1On0NDvHxhsX+KtqTytvamPAy
-         1gZDfg7twESjuhpNDgpH3Def3xLvoCX/UZ28DuaT1NLNA0OJNgwkuW6nL0UEkA406jzt
-         TakJ71C3EanGP3DcDzc04vQk2beQm1/oC6Tq8LuhD6hYArFBnMejVIsg7BH90TTCI2Fy
-         30orKmH6iWZsTspPqTJ9Pxppmj+v2k0n9Ug9rUQpKNEXZ1lh7aE9JFBaPVZLTPVxrjDY
-         AUFRHVJ9vsxlqZLO1ezyLLZd3bufKzwrZespkxacNkpu2iWJc+rkRgyHxWP9sXKWfNHX
-         johQ==
-X-Gm-Message-State: AOAM530ezB8wF7co41x63+lPqDTC1YePssjyVlm75AB/AYgl1D/HMD0K
-        0sYBfkDuyLNG/TSN5+yghE4=
-X-Google-Smtp-Source: ABdhPJwv7cN1eq4601HFYnL0/rT91pwU2DwpXiShKv8XGjktS3Bd6466LCwNF1S+gEgFcmDWI9WrhQ==
-X-Received: by 2002:a5d:470e:: with SMTP id y14mr6637853wrq.354.1599772474914;
-        Thu, 10 Sep 2020 14:14:34 -0700 (PDT)
+        bh=gqjbEQ+JeLk9q1JnfATQ7HDINLif+TFuce7/ySYMVUw=;
+        b=kEi5HWlsSUHqpDGOM7ZPm2ZJVK5pXcSkC5n9eg5CBpAUwXqTF9RzS7ewocViQJ1H8a
+         b3z5rpMF4SnIzkJI/IinzHaS/n5CfgzMwh3Am1vXGsZE/3KzLsX1NunW6vuMZIIxLR2S
+         IM9LZG39AP+ph3y4j9V8PvXOAz7MvGYI6fLvL2RFz0n+PZJzsw5NqT8jDD35m9UV2pO6
+         KOkG810SfyTmr6XZGPJ+IAAW11eJlUi7sczxGMJgOaU0wLVMab6xw57KBrCb37wMbGVS
+         YRy59CSd19TsoEoDbK5h06L/yVu0r8q90loyaNbj7JSNeEEcS/A/OJJvX6e/DhqpAKlc
+         usdA==
+X-Gm-Message-State: AOAM533rBeaoG/1D40ZPUo4Z5a+BHatI5mvD2uE+7oJ+YcjsPE06cVNa
+        fNSiozdPkO+bI4kTZlnMoErDP3KUnGaoGA==
+X-Google-Smtp-Source: ABdhPJxHGbplOCq5jecEPOZxBdgiWprOth8QXrm8mch/AOOOTx9KgrikTnPnDiZVlvo7tVGaHpQ76A==
+X-Received: by 2002:a7b:c2aa:: with SMTP id c10mr1952809wmk.86.1599772475861;
+        Thu, 10 Sep 2020 14:14:35 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id l10sm111502wru.59.2020.09.10.14.14.33
+        by smtp.googlemail.com with ESMTPSA id l10sm111502wru.59.2020.09.10.14.14.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2020 14:14:34 -0700 (PDT)
+        Thu, 10 Sep 2020 14:14:35 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org, linux-kernel@vger.kernel.org,
         Alejandro Colomar <colomar.6.4.3@gmail.com>
-Subject: [PATCH 23/24] select_tut.2: Use MAX(a, b) from <sys/param.h>
-Date:   Thu, 10 Sep 2020 23:13:44 +0200
-Message-Id: <20200910211344.3562-24-colomar.6.4.3@gmail.com>
+Subject: [PATCH 24/24] bpf.2: Add missing headers
+Date:   Thu, 10 Sep 2020 23:13:45 +0200
+Message-Id: <20200910211344.3562-25-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
 References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
@@ -64,56 +64,40 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+I added some headers to reduce the number of warnings.
+I found the needed headers by using grep, but maybe some of them
+shouldn't be included directly.
+
+The example still has many problems to compile.
+
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man2/select_tut.2 | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ man2/bpf.2 | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/man2/select_tut.2 b/man2/select_tut.2
-index f683dd49d..d23683d75 100644
---- a/man2/select_tut.2
-+++ b/man2/select_tut.2
-@@ -354,6 +354,7 @@ from one TCP port to another.
- #include <stdlib.h>
- #include <stdio.h>
- #include <unistd.h>
-+#include <sys/param.h>      /* Definition of MAX(a, b) */
- #include <sys/select.h>
- #include <string.h>
- #include <signal.h>
-@@ -364,9 +365,6 @@ from one TCP port to another.
- 
- static int forward_port;
- 
--#undef max
--#define max(x,y) ((x) > (y) ? (x) : (y))
--
- static int
- listen_socket(int listen_port)
+diff --git a/man2/bpf.2 b/man2/bpf.2
+index b45acde76..d26d6a43d 100644
+--- a/man2/bpf.2
++++ b/man2/bpf.2
+@@ -981,6 +981,18 @@ ioctl(event_fd, PERF_EVENT_IOC_SET_BPF, prog_fd);
+  * 3. attach prog_fd to raw socket via setsockopt()
+  * 4. print number of received TCP/UDP packets every second
+  */
++#include <assert.h>
++#include <errno.h>
++#include <stddef.h>
++#include <stdio.h>
++#include <string.h>
++#include <sys/socket.h>
++#include <unistd.h>
++#include <linux/bpf.h>
++#include <linux/if_ether.h>
++#include <linux/in.h>
++#include <linux/ip.h>
++
+ int
+ main(int argc, char **argv)
  {
-@@ -483,7 +481,7 @@ main(int argc, char *argv[])
-         FD_ZERO(&writefds);
-         FD_ZERO(&exceptfds);
-         FD_SET(h, &readfds);
--        nfds = max(nfds, h);
-+        nfds = MAX(nfds, h);
- 
-         if (fd1 > 0 && buf1_avail < BUF_SIZE)
-             FD_SET(fd1, &readfds);
-@@ -499,11 +497,11 @@ main(int argc, char *argv[])
- 
-         if (fd1 > 0) {
-             FD_SET(fd1, &exceptfds);
--            nfds = max(nfds, fd1);
-+            nfds = MAX(nfds, fd1);
-         }
-         if (fd2 > 0) {
-             FD_SET(fd2, &exceptfds);
--            nfds = max(nfds, fd2);
-+            nfds = MAX(nfds, fd2);
-         }
- 
-         ready = select(nfds + 1, &readfds, &writefds, &exceptfds, NULL);
 -- 
 2.28.0
 
