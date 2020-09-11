@@ -2,144 +2,179 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B3DDE2660E4
-	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 16:04:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5F0272663AE
+	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 18:22:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726277AbgIKODB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Sep 2020 10:03:01 -0400
-Received: from mx01-muc.bfs.de ([193.174.230.67]:3762 "EHLO mx01-muc.bfs.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726257AbgIKNUu (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 11 Sep 2020 09:20:50 -0400
-X-Greylist: delayed 516 seconds by postgrey-1.27 at vger.kernel.org; Fri, 11 Sep 2020 09:20:43 EDT
-Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
-        by mx01-muc.bfs.de (Postfix) with ESMTPS id 8F42420199;
-        Fri, 11 Sep 2020 15:07:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
-        t=1599829623;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=6E3rYFAFmZrISpyCxa1f771HtF2yNOuq1RjadVZhysY=;
-        b=rDSYCSe7ZDYYWhX+S+0BxwHBsDov1d5CDxN/hhv82w+5fy/R0WfK9WAXSR2A60w0uMgCwt
-        2kcnccbMF246KRqUhFNl8c3pN75jEOSbygmo96+oDwohB2pqSEs2GNXpYAWsSwK8wJ5I3d
-        GOmKgb5uhmsQXhc70RWgSDFU6qmLGmJIcQIqQxQeZ0P6lk34pTVwqPoa6WylUkHiWYRXNk
-        SwvYtE45epmTBdPQTgKkOQinJUnD0OpyaXIFf+GGkYE7mb22wpdS+yj2LWsKt2hthFiaM4
-        a8XQGCIqZYg++BvfXlxfK1/Eb9G6sC8IJnPgynur5iMlcHhzZ2tUTvPch73B0g==
-Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
- (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2044.4; Fri, 11 Sep
- 2020 15:07:02 +0200
-Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
- SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%6]) with mapi id
- 15.01.2044.004; Fri, 11 Sep 2020 15:07:02 +0200
-From:   Walter Harms <wharms@bfs.de>
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
-CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: AW: [PATCH 17/24] get_phys_pages.3: Write 'long' instead of 'long
- int'
-Thread-Topic: [PATCH 17/24] get_phys_pages.3: Write 'long' instead of 'long
- int'
-Thread-Index: AQHWh7gQECdZaDE3LEKYFjT0sUW8TaljZ7N2
-Date:   Fri, 11 Sep 2020 13:07:02 +0000
-Message-ID: <c15e4262afea4820961bd36e3386b582@bfs.de>
-References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>,<20200910211344.3562-18-colomar.6.4.3@gmail.com>
-In-Reply-To: <20200910211344.3562-18-colomar.6.4.3@gmail.com>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.137.16.40]
-x-tm-as-product-ver: SMEX-14.0.0.3031-8.6.1012-25658.007
-x-tm-as-result: No-10--1.508000-5.000000
-x-tmase-matchedrid: v0Uhv4cnyYWe/kF8Pup4HBvgzEPRJaDEWw/S0HB7eoMTiSW9r3PknDyj
-        o+AkzeHqoM9050SCTLIS+pOxtKEjwvXYz2/SDtYzLFqCUQ7xhcyNY/pqxovzxZ9enr+Dhl0GKKi
-        9XIZVdsUEonpJ5L2U1+Mwa0EiWUk5jNea/HVv9rw/ApMPW/xhXkyQ5fRSh265Dfheddyhsqvqs9
-        E0tCHijOfOVcxjDhcwlnP9MMAZcdoLbigRnpKlKZx+7GyJjhAUMZAz0VgWU08+j5WrtZqnge0RO
-        L8uCZYTkvX/T0z5mGJfaa/N/1NR2T5rzQ1n8RpZ30V9wDbJOG3hwGKyRldHxWfvpucVLz+0xutS
-        1t8Wq0GIonbnNHgEwM/qYWYfQTGnSQOPumGIku0fwV6sBPR0lg==
-x-tm-as-user-approved-sender: No
-x-tm-as-user-blocked-sender: No
-x-tmase-result: 10--1.508000-5.000000
-x-tmase-version: SMEX-14.0.0.3031-8.6.1012-25658.007
-x-tm-snts-smtp: 23665965B90E02EF2CE2DBDB51D0574D52A33A8D3B7234A9258B1F5BAE02FE182000:9
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+        id S1726173AbgIKQWA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Sep 2020 12:22:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34016 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726181AbgIKP2e (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Sep 2020 11:28:34 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 16F7FC061757;
+        Fri, 11 Sep 2020 08:28:34 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id l9so5187564wme.3;
+        Fri, 11 Sep 2020 08:28:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=1BB9JHSvWV/knAkuiQWfPijYXPNnyQ+2JuUiQV6W6Co=;
+        b=hwGFgj6rLFGOvu+SssqhWzZFJEv8sPF5dIxYcGW++Eeox4zHxIA8V3jnztSNZcC5HA
+         7GYHV6vMUV78fu6uOr695EyySJpQchFnAzxwdnml9WBnTpujtdkneRN6etPKcRNXlJEy
+         IY91k0GWNzqylGCxSdfvmr6g6IKMAnOiUt+mpMgwx6knE3OxB0VIRbML8d2VrqBeum3e
+         IQQWFFcHusMwprkT0OB8OKCabfFc4ACHelN0ZkzfDMSIuw0NUV5DU3KiFWfRO7HY9oJr
+         Pwynlzf1pRD6b0lvmEmqLfxOZi4epzjRfe0fVAg7OH0CvbTgipYsInBQTPzyhneniZl2
+         LJOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=1BB9JHSvWV/knAkuiQWfPijYXPNnyQ+2JuUiQV6W6Co=;
+        b=ANK67CUB2f8n7hHQ2uB0bN17/IfXpFt5b0x9jgG5Itdc+3A0NPFgRTMnmvY+mP4+hQ
+         rxqqEqbgI1GaziZahtdIW1No7yFtFq3kjhmhhgMKrYtcFU6L+Rfrxgco9fJaTK0eQtsY
+         p/iB5m9NttK1yXA/4HyhtTFE1euHlgoldg/BtUCAaADEDVCxDw6HqdRfto5cGnAY65G+
+         HTiWfyWjfYNYR47f5SPOLdnlHxiUWqkIsEfbFlhhWofbu6tW3l1V8MhMH7p5boyToL9x
+         f4W+l4GVmsVslsNEd/YTj5KqQeeDgN4EHkk4xCMuvkAjpsqlVlU+TLiQMdvT6dqwHOn9
+         QPOw==
+X-Gm-Message-State: AOAM530NreBzxunPtqewmu9vzvj44xUDWUzF9Bt/x9PVKiDgqRwPXBtk
+        Ms0ZZLttn3iCBotZj5qFM7ThmvSTPWA=
+X-Google-Smtp-Source: ABdhPJxZ37zKSDi/TZF/gdLnnwwzC878nrj8mTt1e42H+rmVQ8OpYdwtkXBfiwhn8Nl6P7tf8kFrAw==
+X-Received: by 2002:a7b:c14d:: with SMTP id z13mr2743776wmi.107.1599838112235;
+        Fri, 11 Sep 2020 08:28:32 -0700 (PDT)
+Received: from [192.168.1.143] ([170.253.60.68])
+        by smtp.gmail.com with ESMTPSA id d3sm5360958wrr.84.2020.09.11.08.28.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2020 08:28:31 -0700 (PDT)
+Subject: Re: [PATCH 12/24] getgrent_r.3: Use sizeof() to get buffer size
+ (instead of hardcoding macro name)
+To:     Stefan Puiu <stefan.puiu@gmail.com>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        lnx-man <linux-man@vger.kernel.org>, linux-kernel@vger.kernel.org
+References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
+ <20200910211344.3562-13-colomar.6.4.3@gmail.com>
+ <CACKs7VD_p=d+nvuFxkWofSE6jCoKAKx5w44_5ciTJ0NX_H1ZFA@mail.gmail.com>
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+Message-ID: <7dd2ab72-3ce7-1f50-229a-e663c3df2dcd@gmail.com>
+Date:   Fri, 11 Sep 2020 17:28:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-X-Spam-Status: No, score=-0.04
-Authentication-Results: mx01-muc.bfs.de;
-        none
-X-Spamd-Result: default: False [-0.04 / 7.00];
-         ARC_NA(0.00)[];
-         TO_DN_EQ_ADDR_SOME(0.00)[];
-         HAS_XOIP(0.00)[];
-         FROM_HAS_DN(0.00)[];
-         RCPT_COUNT_THREE(0.00)[4];
-         FREEMAIL_ENVRCPT(0.00)[gmail.com];
-         TO_MATCH_ENVRCPT_ALL(0.00)[];
-         TAGGED_RCPT(0.00)[];
-         MIME_GOOD(-0.10)[text/plain];
-         TO_DN_SOME(0.00)[];
-         DKIM_SIGNED(0.00)[];
-         NEURAL_HAM(-0.00)[-1.036];
-         FREEMAIL_TO(0.00)[gmail.com];
-         RCVD_NO_TLS_LAST(0.10)[];
-         FROM_EQ_ENVFROM(0.00)[];
-         MIME_TRACE(0.00)[0:+];
-         RCVD_COUNT_TWO(0.00)[2];
-         MID_RHS_MATCH_FROM(0.00)[];
-         BAYES_HAM(-0.04)[57.85%]
+In-Reply-To: <CACKs7VD_p=d+nvuFxkWofSE6jCoKAKx5w44_5ciTJ0NX_H1ZFA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Stefan,
+
+On 2020-09-11 16:35, Stefan Puiu wrote:
+ > Hi,
+ >
+ > On Fri, Sep 11, 2020 at 12:15 AM Alejandro Colomar
+ > <colomar.6.4.3@gmail.com> wrote:
+ >>
+ >> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+ >> ---
+ >>   man3/getgrent_r.3 | 2 +-
+ >>   1 file changed, 1 insertion(+), 1 deletion(-)
+ >>
+ >> diff --git a/man3/getgrent_r.3 b/man3/getgrent_r.3
+ >> index 81d81a851..76deec370 100644
+ >> --- a/man3/getgrent_r.3
+ >> +++ b/man3/getgrent_r.3
+ >> @@ -186,7 +186,7 @@ main(void)
+ >>
+ >>       setgrent();
+ >>       while (1) {
+ >> -        i = getgrent_r(&grp, buf, BUFLEN, &grpp);
+ >> +        i = getgrent_r(&grp, buf, sizeof(buf), &grpp);
+ >
+ > I'm worried that less attentive people might copy/paste parts of this
+ > in their code, where maybe buf is just a pointer, and expect it to
+ > work. Maybe leaving BUFLEN here is useful as a reminder that they need
+ > to change something to adapt the code?
+ >
+ > Just my 2 cents,
+ > Stefan.
+ >
+That's a very good point.
+
+So we have 3 options and I will propose now a 4th one.  Let's see all
+of them and see which one is better for the man pages.
+
+1.-	Use the macro everywhere.
+
+pros:
+- It is still valid when the buffer is a pointer and not an array.
+cons:
+- Hardcodes the initializer.  If the array is later initialized with a
+   different value, it may produce a silent bug, or a compilation break.
+
+2.-	Use sizeof() everywhere, and the macro for the initializer.
+
+pros:
+- It is valid as long as the buffer is an array.
+cons:
+- If the code gets into a function, and the buffer is then a pointer,
+   it will definitively produce a silent bug.
+
+3.-	Use sizeof() everywhere, and a magic number for the initializer.
+
+The same as 2.
+
+4.-	Use ARRAY_BYTES() macro
+
+pros:
+- It is always safe and when code changes, it may break compilation, but
+   never a silent bug.
+cons:
+- Add a few lines of code.  Maybe too much complexity for an example.
+   But I'd say that it is the only safe option, and in real code it
+   should probably be used more, so maybe it's good to show a good practice.
 
 
-sys/sysinfo.h:extern long int get_phys_pages (void)
+Here's my definition for ARRAY_BYTES(), which is makes use of
+must_be_array() similar to the kernel ARRAY_SIZE():
 
-for the real world i would say that long int =3D=3D long but for the same r=
-eason
-i would say what the include says and stay away from discussions.
+4.1-
 
-jm2c,
- wh
-________________________________________
-Von: linux-man-owner@vger.kernel.org [linux-man-owner@vger.kernel.org] im A=
-uftrag von Alejandro Colomar [colomar.6.4.3@gmail.com]
-Gesendet: Donnerstag, 10. September 2020 23:13
-An: mtk.manpages@gmail.com
-Cc: linux-man@vger.kernel.org; linux-kernel@vger.kernel.org; Alejandro Colo=
-mar
-Betreff: [PATCH 17/24] get_phys_pages.3: Write 'long' instead of 'long int'
+#define is_same_type(a, b)					\
+	__builtin_types_compatible_p(__typeof__(a), __typeof__(b))
+#define is_array(a)			(!is_same_type((a), &(a)[0]))
+#define must_be__(e, ...)	(				\
+	0 * (int)sizeof(					\
+		struct {					\
+			_Static_assert((e)  __VA_OPT__(,)  __VA_ARGS__); \
+			char ISO_C_forbids_a_struct_with_no_members__; \
+		}						\
+	)							\
+)
+#define must_be_array__(a)	must_be__(is_array(a), "Not an array!")
+#define ARRAY_BYTES(arr)	(sizeof(arr) + must_be_array__(arr))
 
-For consistency.
 
-Most man pages use 'long' instead of 'long int'.
+The macro makes use of quite a few GNU extensions, though, which might
+be too much to ask.
 
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
----
- man3/get_phys_pages.3 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Actually, I was also going to propose this macro for the kernel itself,
+to make it a bit safer.
 
-diff --git a/man3/get_phys_pages.3 b/man3/get_phys_pages.3
-index 4a9177dfd..97ba625b7 100644
---- a/man3/get_phys_pages.3
-+++ b/man3/get_phys_pages.3
-@@ -30,8 +30,8 @@ page counts
- .nf
- .B "#include <sys/sysinfo.h>"
- .PP
--.B long int get_phys_pages(void);
--.B long int get_avphys_pages(void);
-+.B long get_phys_pages(void);
-+.B long get_avphys_pages(void);
- .fi
- .SH DESCRIPTION
- The function
---
-2.28.0
+There's a much simpler version of ARRAY_BYTES(), which requires the
+macro to be defined in a header that is not a system header (to avoid
+silencing warnings), and also requires a recent version of the compiler
+to show a warning:
 
+4.2-
+
+#define ARRAY_SIZE(arr)		(sizeof(arr) / sizeof((arr)[0])
+#define ARRAY_BYTES(arr)	(sizeof((arr)[0]) * ARRAY_SIZE(arr))
+
+
+What do you all think about the 5 different options?  I don't know which
+one is better.
