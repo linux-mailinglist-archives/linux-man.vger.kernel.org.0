@@ -2,68 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 34E182668A5
-	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 21:17:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9C3E82668AF
+	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 21:24:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725817AbgIKTRd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Sep 2020 15:17:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41690 "EHLO
+        id S1725815AbgIKTYZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Sep 2020 15:24:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42718 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725863AbgIKTRZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Sep 2020 15:17:25 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E974CC061757;
-        Fri, 11 Sep 2020 12:17:24 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id k18so5752832wmj.5;
-        Fri, 11 Sep 2020 12:17:24 -0700 (PDT)
+        with ESMTP id S1725770AbgIKTYM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Sep 2020 15:24:12 -0400
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B22CFC061573;
+        Fri, 11 Sep 2020 12:24:11 -0700 (PDT)
+Received: by mail-wr1-x42e.google.com with SMTP id w5so12501694wrp.8;
+        Fri, 11 Sep 2020 12:24:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=M66Xqbib3jxWHl0Zo9EsaSkpUQSezfQpVd1dql9x5f0=;
-        b=O7Tt9fsq1Lgq1+JZlqN6zjniKxqWjBmlRu+z9ZHNNwIcK9L7Ar/6x/NMyJRn/fZkJb
-         3nAJNrH8gufM/Kor3b2uX6Nd/orjMn6WbssDka8rohRX8lFRbSEpFRQeHCELiONnT58m
-         fvqkYDYNBeMB1dR2dRIMUUHR2ecI/0HsDPBfNHsenLFsTWD6I6MyTNu+CCVZ3TNQhTMo
-         F2qiY6ecsGAhryDSyCfk55kiZqKF+lOfYzoy4Jj62fyknpW5gqHnLl49kFbaDi0EN6H6
-         uVoHOZKxexPzAiqksjqPUqwxH3qG0kcuW0eU/Sxv4lOMOTcUHWpP5lrr7+V7hInxkQsb
-         3Frw==
+        bh=1mfwa+bfzGByFN7dyl+NfuUTCSKakmUOReWHAYo+s6Q=;
+        b=i+gqQpVdc1yKBM/qpcJKtRghF/U68gVAi0xr+4Rk75dMAWnl+S4EarnGXaggqqzYob
+         8YVnZT0JKZntIfGwt+KBK25yqdQZhR9Q+rPX8hW6n/QUyvdm0P6ufyMXZ7RJPRwN57MA
+         Se33qW8OsVREREcLz+rWZUGoRbHemAKGg9PBeyk9k0PgoQOUdRJcnAVb8i8k+WAJnQth
+         bAJNpHO+vkh0oFbRP7lBbFsTgm5wiYeQC1CzxucSzPV0kMm/k6qH5LXMPiAZOQgCWCCp
+         59Q67wU1Af79DP0k38u05aNVz9LFuQa2r8tjF49d/ETBjDH5ikfxSUOgoUPpt5BvyYMF
+         8QyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=M66Xqbib3jxWHl0Zo9EsaSkpUQSezfQpVd1dql9x5f0=;
-        b=pE7/qbZZBA4KhnJfxOQpLBRM1Qrx/KJutQoor6m1bgv0kEs1qP5HwnUsA5JPcckoSu
-         /kp+JRDBFbXt89WYnvj4WqRkKGzu0u02LxoQS80PPNYvIwIslkenHS6a4QQGRo8leQ42
-         fkuxplOr3uQhOGVcVCNDo2NUYQOCBHI4jiMW+mPmDSeotgbeb0wb5boCQ4ZUBHpITcsv
-         vGjE10hQtrY3f/spw+xFY3FzxQDsAWFRuKesYGSZho+btqAnMfww90bNiMyxxYJ+1++h
-         eVYv//UUCdsJyU7Qk3b03Dl5utdmHZ10Bdhibuk1Pb4A/7CGjDvn4KxA89s5xDWqJegl
-         6Jxg==
-X-Gm-Message-State: AOAM531P4wwNx7daJ/FJLBnpULCn5hknk90eQCpK8DPFub1uB5pIW3Ep
-        HhytVqCqG9kKhpHd12gB71vbpxModv03og==
-X-Google-Smtp-Source: ABdhPJx5slPijII0Mz3wqmT5afERKxgAnnrFAuaQ1q2SQC34EA7BS8DNA2X86u4FQJuXgEbmsLLXDA==
-X-Received: by 2002:a1c:4187:: with SMTP id o129mr3517237wma.113.1599851842567;
-        Fri, 11 Sep 2020 12:17:22 -0700 (PDT)
+        bh=1mfwa+bfzGByFN7dyl+NfuUTCSKakmUOReWHAYo+s6Q=;
+        b=NNZd/ZqJcmsTBUifp2KZF5ewGJpV0vexI6KqucLyCoWe+jmfBfFvbBd98SWEcCm0FT
+         sNarrXg8JfgZ+2kfjxoA9bbV47QkRpcLdOGDbNVb/CRTcdWMAsfms+eFFGJza6uE7Tx/
+         iGOVFqQ7DsJHMzlVhRbOOs4IPSQ31tI5ffLv5JzA+JrM10sh1LATA4sVRAnHN6UcAAM4
+         PNDczHEY4M/LmD3Oxcy83TobRGnWnntnUkhbfsOD6pOB+HJ1VHzp/jw0kH1tKdK/cSQq
+         HdxD/c+e5gmW2VXbmstzyJLsoslLhCj+5BrulsuzevYldF3VXPnoV5By5rmYVewNItfu
+         s/dg==
+X-Gm-Message-State: AOAM5324OJyqKTCxgn413uukMKwuvgTRUOfqp+GOkyYK7TSaknl7dgKL
+        i/F6KEKEbWxSsxIc/iDqNeCERsuwJkDsOg==
+X-Google-Smtp-Source: ABdhPJzdilnfVr5wS0eFl3XNnyZ65+ZE1fauA4XAzww2Ohzj9LOBDGeLTdsIPVs8F3n/WgDosPqklA==
+X-Received: by 2002:a5d:674c:: with SMTP id l12mr3450964wrw.325.1599852250003;
+        Fri, 11 Sep 2020 12:24:10 -0700 (PDT)
 Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id q20sm5856182wmj.5.2020.09.11.12.17.21
+        by smtp.gmail.com with ESMTPSA id f6sm6225270wro.5.2020.09.11.12.24.09
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2020 12:17:21 -0700 (PDT)
-Subject: Re: AW: [PATCH 12/24] getgrent_r.3: Use sizeof() to get buffer size
- (instead of hardcoding macro name)
+        Fri, 11 Sep 2020 12:24:09 -0700 (PDT)
+Subject: Re: AW: [PATCH 17/24] get_phys_pages.3: Write 'long' instead of 'long
+ int'
 To:     Walter Harms <wharms@bfs.de>,
         "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
 Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
         "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
- <20200910211344.3562-13-colomar.6.4.3@gmail.com>
- <00ae0174f35241efa962286b9247c590@bfs.de>
+ <20200910211344.3562-18-colomar.6.4.3@gmail.com>
+ <c15e4262afea4820961bd36e3386b582@bfs.de>
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <c2b43a9c-ae80-fae6-16a4-09c9aab73ac1@gmail.com>
-Date:   Fri, 11 Sep 2020 21:17:20 +0200
+Message-ID: <14eaf338-2a29-18fe-c319-bcaddd5f86d1@gmail.com>
+Date:   Fri, 11 Sep 2020 21:24:08 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <00ae0174f35241efa962286b9247c590@bfs.de>
+In-Reply-To: <c15e4262afea4820961bd36e3386b582@bfs.de>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -72,20 +72,28 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Walter,
 
-On 2020-09-11 14:50, Walter Harms wrote:
-> BUFLEN should  be remove completely or stay
+
+On 2020-09-11 15:07, Walter Harms wrote:
 > 
-> jm2c
+> 
+> sys/sysinfo.h:extern long int get_phys_pages (void)
+> 
+> for the real world i would say that long int == long but for the same reason
+> i would say what the include says and stay away from discussions.
+> 
+> jm2c,
 >   wh
 
-Sorry that you weren't CC'd in the conversation we are having about it.
-You can have a look at it here:
+I think that the man-pages don't need to follow other projects' 
+inconsistencies.  'long int' == 'long', so I think it's better to be 
+consistent here and hope that the other projects do that too.
 
-https://lore.kernel.org/linux-man/ab12151d-6951-2a36-2fc6-ea7eed538c45@gmail.com/T/#m423de347de6a64d099887d4ce615660d16d5b0e6
+A newbie may see 'long int' and 'long' used differently in the man-pages 
+and wonder that there might be a good reason for that to happen, and 
+won't understand why.
 
-I'll CC you in the next reply there.
+So I stand by this patch.
 
 Cheers,
 
