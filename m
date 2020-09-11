@@ -2,67 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id F3F64265CA1
-	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 11:39:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 071FB265D2E
+	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 12:00:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725730AbgIKJjc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Sep 2020 05:39:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36362 "EHLO
+        id S1725828AbgIKJ7u (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Sep 2020 05:59:50 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39430 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725710AbgIKJj1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Sep 2020 05:39:27 -0400
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 36635C061573;
-        Fri, 11 Sep 2020 02:39:27 -0700 (PDT)
-Received: by mail-wm1-x341.google.com with SMTP id a65so3785854wme.5;
-        Fri, 11 Sep 2020 02:39:27 -0700 (PDT)
+        with ESMTP id S1725781AbgIKJ7V (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Sep 2020 05:59:21 -0400
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7E4AEC061573;
+        Fri, 11 Sep 2020 02:59:20 -0700 (PDT)
+Received: by mail-wm1-x343.google.com with SMTP id b79so4176422wmb.4;
+        Fri, 11 Sep 2020 02:59:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=5hHhevKkSsgdftQx56ODr43cbiFX1hQApEa0oVESpDg=;
-        b=gXA0WTqp3UsDDGMuHpjHxusHJVqLz8Lq+KtDVBI6/Z3tGapO8nP24nfQLJLA8z3s3O
-         TEccDhTCOwsX1wPPqD4U4Xuh+EoC4LihMkjt61ezq0O3wH9LptoUlQBJmxPUB1kwTENM
-         xIu5sdwe9y/s1S09in3NvyFsptzxfAnxdqFbbhDVet7a7rkIfbkyTvodHbSCt+DdMDYL
-         MYae5XH+Fz2T/MoMfwE/sbjNrpUWPOF1c8xyeYgukkkcs1HPPU2IGdIUT5gZg0g0g4nC
-         3K6tkS/FhEU8PrvkE6BZs/qBJaIUzE8Rago+ynn4EEQtro9bvQrPIPwiFprZPlOF4uLd
-         0m6A==
+        bh=38aZsz59xvLtmdIjzfxB1EkwG+OjFx2kIIc5EQe6fJs=;
+        b=OW/v/SkbLGJh7zNSa8ionJNhI0iUB3hGCWvhahcJmgYfehSWrtEFFjlkay3gMO5461
+         2NbBov5GNNo9EpP98fxq9HnfI4fgi8HEtr76VHtnavR8GdJf0/94ZF9EDK+ctnveQ4A2
+         lWQhsqlM2Ua1uHzVS0qDg090ynwFLSdUAfhZf8+D+ztKDiEaEME2sBMxGDieMgLaWaKO
+         esD0VVoC1oKiNTOY6jgJ33x0DBOAdZoER7B4sx1haiJURnDPXwgHnYBJvVYyLgr2PPUQ
+         3F+vCPqTklDlO1RwA/zhWJ7jrb3ypKI9P2nK844+vw615Vk3lUf5oekuNDzj8RMEe8XM
+         9INg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=5hHhevKkSsgdftQx56ODr43cbiFX1hQApEa0oVESpDg=;
-        b=uM4R4yvNXe1xB3EpHhw70FsIKlHJ2IBrplSmU8rAKrHeEYwyMyOnT6zyC1sPyD/Q+s
-         zZP4/hyCmxY8WXeatZUAuvQlne1vhKjQwaqDim2hRvnUCSGFrAi9uMgzalDssMOu6Opp
-         R/hQYi/C8PfysFVK7iT5cpR3QECaOXQ/8cuf2mqzo9xWwCxqjwZcEgBOal4Itson8Py3
-         l0eMwhmvAKctE8qEeFQwgj/lDdaRbXSiIQTFzQhaaRHVHhMqXqfmPaxUwaleyv4deQgx
-         uHVleZYnYAWqokhX7QKGwXanLScQ8r9L1QQviYGnxlyUWS6F+3mXhUOuWgWVnK5+xI5c
-         Ld+A==
-X-Gm-Message-State: AOAM5317l50GZKgWqJjWoZ3F1CixV9Y6xnLXIFZdG/ZoXv6Oucx8dQ//
-        oXTbXahVr7kySdgSXL7dwc2Rt0Z3+MM=
-X-Google-Smtp-Source: ABdhPJyPmK+V32DnUdvtk52Joh6rZv8jqXWWSup3REwqjAhKYXcxQHMfPNYQRUvZDZOAjsGKHbdbiA==
-X-Received: by 2002:a7b:c14d:: with SMTP id z13mr1289383wmi.19.1599817165561;
-        Fri, 11 Sep 2020 02:39:25 -0700 (PDT)
-Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id l10sm3117129wru.59.2020.09.11.02.39.24
+        bh=38aZsz59xvLtmdIjzfxB1EkwG+OjFx2kIIc5EQe6fJs=;
+        b=R3zXFyy6xJyppV5Awq+ucum/YlV7XQdfRE6qVWcP34AXaoNBzlvleNIl477PTCZWeD
+         UC5dLAumFXSrQ0tIrNAGr3VeiZIpmu+/gTogQE3CkpOiQ3OKeWQiDDBZkA6eHdQk4X3B
+         nVDTgxy4v1ZWY9LEry4+JFR6Sg4ENPvsKIzTHeTyW929ILWNJcEQpdENwFTmQ7znwx+H
+         9As7wDuNzLGoREoHhZDXtBLja1EvFo8KwtIwQ331BeRT/1E8EtkJ4elPaL88EIjW9EJW
+         I9lCSasPF5T4xwxd6h/NNPUDYpWJCCRSauXN9Ti9vURsvczLO+rO418AazkciCtGVEv6
+         6/jg==
+X-Gm-Message-State: AOAM531u4Zu1MOZznhm4b2dzPgU3/UNGtQGwNNoggvrnte6Ko/z6AJ3y
+        ULDi60IzeFDCWj0Ki5JhN8M0v8kg1H8=
+X-Google-Smtp-Source: ABdhPJzYDuq8h7Ust8YsgfBSh3gzW+xSBYKs2O/AL900uRJt1k+VZmabVJtpO5SgSnMretdz8PIx1g==
+X-Received: by 2002:a1c:7911:: with SMTP id l17mr1360710wme.179.1599818358647;
+        Fri, 11 Sep 2020 02:59:18 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
+        by smtp.gmail.com with ESMTPSA id 97sm3606122wrm.15.2020.09.11.02.59.17
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2020 02:39:25 -0700 (PDT)
+        Fri, 11 Sep 2020 02:59:18 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        linux-kernel@vger.kernel.org
 Subject: Re: [PATCH 01/24] inet_net_pton.3: Use 'PRIx32' rather than "%x" when
  printing 'uint32_t' values
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
  <20200910211344.3562-2-colomar.6.4.3@gmail.com>
  <928d25b7-7f97-f9b9-80ce-0550c18131c2@gmail.com>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <050c5399-8f08-5ae6-2546-0cafd055780a@gmail.com>
-Date:   Fri, 11 Sep 2020 11:39:24 +0200
+ <050c5399-8f08-5ae6-2546-0cafd055780a@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <04da2934-1a38-2f3f-d2ed-475a0531a1c8@gmail.com>
+Date:   Fri, 11 Sep 2020 11:59:17 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <928d25b7-7f97-f9b9-80ce-0550c18131c2@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <050c5399-8f08-5ae6-2546-0cafd055780a@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
@@ -70,53 +72,37 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Hi Alex,
 
-On 2020-09-11 11:31, Michael Kerrisk (man-pages) wrote:
-> Hi Alex,
-> 
-> On 9/10/20 11:13 PM, Alejandro Colomar wrote:
->> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
->> ---
->>   man3/inet_net_pton.3 | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
+On 9/11/20 11:39 AM, Alejandro Colomar wrote:
+> Hi Michael,
+
+[...]
+
+
+>> So, I'm in a little bit of doubt about patches 01 and 02. Does
+>> this really win us anything? On the one hand, %"PRIx32" is more
+>> difficult to read than %x. On the other, does it win us anything
+>> in terms of portability? At first glance, the answers seems to me
+>> to be "no". Your thoughts?
 >>
->> diff --git a/man3/inet_net_pton.3 b/man3/inet_net_pton.3
->> index 00f94b9d4..d74a33d74 100644
->> --- a/man3/inet_net_pton.3
->> +++ b/man3/inet_net_pton.3
->> @@ -332,6 +332,7 @@ Raw address:              c1a80180
->>   /* Link with "\-lresolv" */
->>   
->>   #include <arpa/inet.h>
->> +#include <inttypes.h>
->>   #include <stdio.h>
->>   #include <stdlib.h>
->>   
->> @@ -381,7 +382,7 @@ main(int argc, char *argv[])
->>          may not have been touched by inet_net_ntop(), and so will still
->>          have any initial value that was specified in argv[2]. */
->>   
->> -    printf("Raw address:              %x\en", htonl(addr.s_addr));
->> +    printf("Raw address:              %"PRIx32"\en", htonl(addr.s_addr));
->>   
->>       exit(EXIT_SUCCESS);
->>   }
+>> Thanks,
+>>
+>> Michael
 > 
-> So, I'm in a little bit of doubt about patches 01 and 02. Does
-> this really win us anything? On the one hand, %"PRIx32" is more
-> difficult to read than %x. On the other, does it win us anything
-> in terms of portability? At first glance, the answers seems to me
-> to be "no". Your thoughts?
-> 
-> Thanks,
-> 
-> Michael
+> On 16-bit systems 'unsigned int' might be shorter than 'uint32_t'.
+> There it would make a difference, I guess.
 
-On 16-bit systems 'unsigned int' might be shorter than 'uint32_t'.
-There it would make a difference, I guess.
-
+I guess. But even un the 80s, when (I think) htonl() appeared,
+I kind of doubt that there were many such systems. I think 
+I'll skip these patches.
 
 Thanks,
 
-Alex
+Michael
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
