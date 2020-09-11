@@ -2,65 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 38D9B265AE6
-	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 09:55:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 182F4265AEC
+	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 09:57:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725788AbgIKHyx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Sep 2020 03:54:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48472 "EHLO
+        id S1725550AbgIKH5b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Sep 2020 03:57:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48870 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725767AbgIKHyt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Sep 2020 03:54:49 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9F1CAC061573;
-        Fri, 11 Sep 2020 00:54:48 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id m6so10531825wrn.0;
-        Fri, 11 Sep 2020 00:54:48 -0700 (PDT)
+        with ESMTP id S1725601AbgIKH5W (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Sep 2020 03:57:22 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 23E58C061573;
+        Fri, 11 Sep 2020 00:57:21 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id t10so10522792wrv.1;
+        Fri, 11 Sep 2020 00:57:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=yefDfyzMV3D0zYfLubpfnreXDIUekY8KZxUMEU76Oe4=;
-        b=nsgmUcQTca2wsBY+8niyqzwafdlFRwS90MFzZ2EgeLZCHdr6dglWpoC23+BzH90cNl
-         sypAd81PKLiT52nRhEe2HNu9EdlTl/3qxxFDJ8j4ZnNk51U/6zREhRy4DYeW251H7JIw
-         +a3DygUFtUT09n+sTwiGuoTdIvLg4wE/vHW2NyfMdM4Zjl+95DbgTXz5+s3cNbqSfSM4
-         SVRCHYvzKHZ7UNmxMHgMIjesMdsSa1d6GDKm2ZNe2wcvRdoD4+NV4VmiHjRNS3A6PMxO
-         Hdb1HvcaL4lclzgZkl1ntkSHVTp1d9UU2+k9f82gR7S197gHYWifoqfKbeA/3RO9H2fk
-         KzoA==
+        bh=wk2q5AGOwAwjutqqbOwBXvu26ifImkLbzfUxSzk8coo=;
+        b=LVI0R/bOCNMS1R2UQ1bSJCr5koKXf6TL+0jsAxqboOky3dB4Uj8BwuZ4j1cDyUhgWO
+         NaVtNM3ppkAfCIAud9f+rH3M5o69G0wHvYswCYwS0PFfC1J7JAjLnlw9ha6wT3KMRgGY
+         bT9Uj44rkjw1CUAEw2yhBpXTEt7fEORvImuXfhqSmezhQJP3o+xwf5J9ZalfDHjt5tjY
+         4x3VJJzuoKz9HdG02n/UxT8WV2y5h4MNNNDF+eG7bWRfUqkmfQFLMoTa5wmmPv481jSC
+         RdtHZ6n7V9fwrdjubp4K144O7wak6KF98SZNL6rE9xt5YYEzzFQ78mR2dgBz5pTW1d4k
+         37Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=yefDfyzMV3D0zYfLubpfnreXDIUekY8KZxUMEU76Oe4=;
-        b=IWy1NnKZuyD6+nmuZllH/OcnCpWAoaKIYBTVW+LnVXp+jKqHZRlqhmWx/aKod+sLWE
-         0k5rYO+K8Rhn2nhU/BNfESydZoc3NkbdqnKhsjoO2efJsnQIgoI/z/TNjewBVzrFgd1W
-         QhTLDBOHopRQfJ1PcNBh4bAmSn38TMek/hT9TqSbWDXIDQTw6QpSHGPFXQZxNz3M+gHH
-         s+8DcjWXV+6sDL7xo2qqzYYoGEuHxbMaDQ0pq3jVyqq+reX6LEkNSzx3MixWmtS020Tv
-         qytrI2Pe7FNq/XU06bMDf/WqeHi+9s4cQ+Uqxo2v9SofHODgDlHw8ZiLo/ColElALmw3
-         fu9g==
-X-Gm-Message-State: AOAM530GSEvfrLLo8eKd7Anf1uqAJvuVzjilseI7rJmFwyw6Gz/FQG7R
-        o/6xIwydGIsajjsjEHwQCO4Ab+P6sVk=
-X-Google-Smtp-Source: ABdhPJy/o+3kHMIOS4EPxqJOfnqVnKAzpt6HZXJYMRTO2NN1q8WKr0TccZgEUDjLl5XAO7/zwuB4Gw==
-X-Received: by 2002:adf:cf01:: with SMTP id o1mr719399wrj.421.1599810886868;
-        Fri, 11 Sep 2020 00:54:46 -0700 (PDT)
+        bh=wk2q5AGOwAwjutqqbOwBXvu26ifImkLbzfUxSzk8coo=;
+        b=Gqtg/NudeSSMRqoeqbzLB1TKl6+lpO8znjFYck6eGa3Ide4rfOqGMVWCgV0u8S9/93
+         Jqb1X1cmsHHc0FU2aIjxjf/oXfifvvankocrmj0mdx63ijVsVWQ219q0AzIhwFfxG6Ld
+         wb0q/wXN9qxvG8NYVbGXWoHjwbnETRfTcEUo5SNOcwJUPHTEUTqCHU8iN9zyUSv96BJd
+         gE8asqzeVZFaX+kdvLO0FFOqKJ9P4r/2X9rBTwFnHMZP5qgCVbC3hSWgasYhTp9p7BT+
+         4E3aS0HytnHtYX4RvpRC9O9XSNwvSkTAtltlVvljTKGtycyil3Ya7q1/12tugpyOGvdz
+         t07A==
+X-Gm-Message-State: AOAM530bsJSKRq9Nig/XG9qHZAZwV6vdpc9y9+d2UTls0qYSVqh/wPHS
+        FxXtXCJbQ3d7RfXPnV5+fuD/LsA5f8M=
+X-Google-Smtp-Source: ABdhPJxoshTKFkDIJMcaAT6c7PFP8bxmJd19E/Es3JR/hfSovZZhA3uJLxCrqpPFrjZYiLkfWOyHpA==
+X-Received: by 2002:a5d:5404:: with SMTP id g4mr733197wrv.134.1599811040290;
+        Fri, 11 Sep 2020 00:57:20 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id q4sm3024523wru.65.2020.09.11.00.54.45
+        by smtp.gmail.com with ESMTPSA id g8sm2606822wmd.12.2020.09.11.00.57.19
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2020 00:54:46 -0700 (PDT)
+        Fri, 11 Sep 2020 00:57:19 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 23/24] select_tut.2: Use MAX(a, b) from <sys/param.h>
+Subject: Re: [PATCH 06/24] timer_create.2: Cast to 'unsigned long' rathen than
+ 'long' when printing with "%lx"
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
- <20200910211344.3562-24-colomar.6.4.3@gmail.com>
+ <20200910211344.3562-7-colomar.6.4.3@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <ede06e4b-7217-1315-6035-9116df9b02c0@gmail.com>
-Date:   Fri, 11 Sep 2020 09:54:45 +0200
+Message-ID: <9d60a974-734e-d14a-fa3f-ceab43d2dc0f@gmail.com>
+Date:   Fri, 11 Sep 2020 09:57:18 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200910211344.3562-24-colomar.6.4.3@gmail.com>
+In-Reply-To: <20200910211344.3562-7-colomar.6.4.3@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,68 +70,43 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
-
 On 9/10/20 11:13 PM, Alejandro Colomar wrote:
 > Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 
-I'm reluctant to apply this, because MAX() is not a standard
-macro. I suppose it may not be present on some other UNIX
-systems. You thoughts?
+
+Thanks, Alex. Patch Applied.
 
 Cheers,
 
 Michael
 
+
 > ---
->  man2/select_tut.2 | 10 ++++------
->  1 file changed, 4 insertions(+), 6 deletions(-)
+>  man2/timer_create.2 | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/man2/select_tut.2 b/man2/select_tut.2
-> index f683dd49d..d23683d75 100644
-> --- a/man2/select_tut.2
-> +++ b/man2/select_tut.2
-> @@ -354,6 +354,7 @@ from one TCP port to another.
->  #include <stdlib.h>
->  #include <stdio.h>
->  #include <unistd.h>
-> +#include <sys/param.h>      /* Definition of MAX(a, b) */
->  #include <sys/select.h>
->  #include <string.h>
->  #include <signal.h>
-> @@ -364,9 +365,6 @@ from one TCP port to another.
+> diff --git a/man2/timer_create.2 b/man2/timer_create.2
+> index e9a8b8503..9c9907739 100644
+> --- a/man2/timer_create.2
+> +++ b/man2/timer_create.2
+> @@ -390,7 +390,7 @@ print_siginfo(siginfo_t *si)
+>      tidp = si\->si_value.sival_ptr;
 >  
->  static int forward_port;
+>      printf("    sival_ptr = %p; ", si\->si_value.sival_ptr);
+> -    printf("    *sival_ptr = 0x%lx\en", (long) *tidp);
+> +    printf("    *sival_ptr = 0x%lx\en", (unsigned long) *tidp);
 >  
-> -#undef max
-> -#define max(x,y) ((x) > (y) ? (x) : (y))
-> -
->  static int
->  listen_socket(int listen_port)
->  {
-> @@ -483,7 +481,7 @@ main(int argc, char *argv[])
->          FD_ZERO(&writefds);
->          FD_ZERO(&exceptfds);
->          FD_SET(h, &readfds);
-> -        nfds = max(nfds, h);
-> +        nfds = MAX(nfds, h);
+>      or = timer_getoverrun(*tidp);
+>      if (or == \-1)
+> @@ -454,7 +454,7 @@ main(int argc, char *argv[])
+>      if (timer_create(CLOCKID, &sev, &timerid) == \-1)
+>          errExit("timer_create");
 >  
->          if (fd1 > 0 && buf1_avail < BUF_SIZE)
->              FD_SET(fd1, &readfds);
-> @@ -499,11 +497,11 @@ main(int argc, char *argv[])
+> -    printf("timer ID is 0x%lx\en", (long) timerid);
+> +    printf("timer ID is 0x%lx\en", (unsigned long) timerid);
 >  
->          if (fd1 > 0) {
->              FD_SET(fd1, &exceptfds);
-> -            nfds = max(nfds, fd1);
-> +            nfds = MAX(nfds, fd1);
->          }
->          if (fd2 > 0) {
->              FD_SET(fd2, &exceptfds);
-> -            nfds = max(nfds, fd2);
-> +            nfds = MAX(nfds, fd2);
->          }
+>      /* Start the timer */
 >  
->          ready = select(nfds + 1, &readfds, &writefds, &exceptfds, NULL);
 > 
 
 
