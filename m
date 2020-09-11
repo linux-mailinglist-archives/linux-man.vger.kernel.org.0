@@ -2,88 +2,132 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E9C32265F8A
-	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 14:28:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 73D36265FD9
+	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 14:54:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725886AbgIKM1o (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Sep 2020 08:27:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33024 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725784AbgIKMVN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Sep 2020 08:21:13 -0400
-Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com [IPv6:2607:f8b0:4864:20::244])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 47E58C061573;
-        Fri, 11 Sep 2020 05:21:12 -0700 (PDT)
-Received: by mail-oi1-x244.google.com with SMTP id w16so9271714oia.2;
-        Fri, 11 Sep 2020 05:21:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=PAY5e79HIyPiP3CUcve1Tj4nEV9yBhSTgHOjkBA3dK4=;
-        b=CB8CyjFbMIQqXATVVkWH25mTl8jijugrT5o9xJKnQCHb2mqLV4yiSmAkIgaqYHcSgQ
-         d/FEp57R++sC8yO8e/85jdPE10a66I5T2tA6wO05ecu22toQhzelRIa8woazTmWqBusf
-         B6YTpyJlmKHfeSAlO4Z8hDTchu5F0euZnRLVtT42zFR/5/omZnrwUxKSj7VdC/Y1R9Qi
-         HFo8F9t9T93qYLRtuMEQQBagwLMcz6AP3rs7wjAit320NIk9dCSyqpAr6K285q8fI/YP
-         MzhTBCvZJLP6GmfDUZpRpvxmpVKAimxx2Ua4jIQVP6f0qkW+GKq2VHimDBqXXI9XfhCM
-         lHOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=PAY5e79HIyPiP3CUcve1Tj4nEV9yBhSTgHOjkBA3dK4=;
-        b=AIhfYIthK96HAphXs/b2ahs4KpoVvrRovaV90LtAH8zDZlOduPqvRPwP2rc15039P7
-         wywFRva9bXp9TMDfArF5wuO5aPjJ3ISdmxHOqH83InpG/E9Hp9bvAsBYC6ZKH/ytBEMn
-         xPabZyOqbkxs+tsp5J0LYiYy9bgCNLb3uzQiiY3X9wEof64N5YEMrM1PHIXiqXOysSlM
-         gT7cu0SA0mH0UiS8Q6sBaY11WoFM3s6wGdfvxf0FJaSA3mq7A2SUAR77HVnnAr9QfFH5
-         seMmALJhEedb1jrYOZSn/U/O5OxDEvgwiBTUP+n9eb3f7ljo8f2VoSenTo4KuIQlQ5z8
-         w+qg==
-X-Gm-Message-State: AOAM532/v2gVCNekwR0x3hxeNeqirQ6ok0SIUhcFx6WjJ53EfAlvRdfk
-        7JoYhrHqC8r1IMUt8JTzwmZUIaOWkYCKEOIOxRM=
-X-Google-Smtp-Source: ABdhPJzmkHJZlB6cVPx57xni1maCEZAkiIuTYiKwgIwUl+YW7wmqwby9Wyix2LyI65YIMAEfnbLXlbmr0OCTP2CrWGY=
-X-Received: by 2002:aca:ec53:: with SMTP id k80mr1045219oih.92.1599826870993;
- Fri, 11 Sep 2020 05:21:10 -0700 (PDT)
+        id S1725949AbgIKMxr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Sep 2020 08:53:47 -0400
+Received: from mx01-sz.bfs.de ([194.94.69.67]:40956 "EHLO mx01-sz.bfs.de"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1725920AbgIKMvU (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 11 Sep 2020 08:51:20 -0400
+Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
+        by mx01-sz.bfs.de (Postfix) with ESMTPS id E6ECB2073B;
+        Fri, 11 Sep 2020 14:50:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
+        t=1599828647;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=82BtCr1BIfXgeDl5GXv1rw/fP+DslEOiz8/6ePx0tO8=;
+        b=UIOFBFd2nSIIZr+VOEBljBZTefEvhs6PwXX/6SIywkqd/bhD/7EQBYIv0cpz8R/oRm8vGX
+        q0OvHXUtMM0wO6vyPBXyurUwVwykVNIlYydM/jOpiRkXsED374eHWsO5QcPBiYrQmfvK3v
+        wwbP/Emr0Oi3j5qDbu5Fx3bYV2FTtvqNd+/1vi8FfbvuNUOmGz2ciAA84qktoP/aZhT8S7
+        21ZMja7QhVX4TioSvXw7ihiJYgvhp2wzIQu7tZMdn6AJcnJlsS4Sb9/2UAATHaOdgfdxPS
+        jA9hoG3kMuKV5V5Si5NtO6OdbFdppSVnqEX8XpEhwuEBhCdiCYwUMijSqDNpiA==
+Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
+ (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2044.4; Fri, 11 Sep
+ 2020 14:50:47 +0200
+Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
+ SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%6]) with mapi id
+ 15.01.2044.004; Fri, 11 Sep 2020 14:50:47 +0200
+From:   Walter Harms <wharms@bfs.de>
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
+        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
+CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: AW: [PATCH 12/24] getgrent_r.3: Use sizeof() to get buffer size
+ (instead of hardcoding macro name)
+Thread-Topic: [PATCH 12/24] getgrent_r.3: Use sizeof() to get buffer size
+ (instead of hardcoding macro name)
+Thread-Index: AQHWh7eCoX2qxL9OEkaYnOmAJnp5MKljZJ9j
+Date:   Fri, 11 Sep 2020 12:50:47 +0000
+Message-ID: <00ae0174f35241efa962286b9247c590@bfs.de>
+References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>,<20200910211344.3562-13-colomar.6.4.3@gmail.com>
+In-Reply-To: <20200910211344.3562-13-colomar.6.4.3@gmail.com>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.137.16.40]
+x-tm-as-product-ver: SMEX-14.0.0.3031-8.6.1012-25658.007
+x-tm-as-result: No-10--0.239100-5.000000
+x-tmase-matchedrid: WWTMasqpueEI9V8p1Mx66XbspjK6JP6qDZxgL2y+vXeRmBpkPchPVWhk
+        SwpykoqVxTsa1zsKwGCfw/TEAf8XTEfX0Ayg3UN3lNomdZyIWKIBDya2JbH/+rqmXM36L3kB6f0
+        gaty5G7GXoanwS/0YwxfSrzWwageNLGmmJTL2jhwD2WXLXdz+ATCeYh/W8m8dmyiLZetSf8mZMP
+        CnTMzfOiq2rl3dzGQ1K7ZhaGn+KBbGTvO0edBGBrShWvgR6aJXJcNhWMWLHUv6M/DbU1xGLVGaw
+        EjxIvbJERzzV5VclxnkTB6XPPm2NbZ4ys4g32NHW96NbUtxv39wKbJm8PBDLa3lqFG8MgYtra3V
+        Vcd6EV7L9ApLJriTv0MMprcbiest
+x-tm-as-user-approved-sender: No
+x-tm-as-user-blocked-sender: No
+x-tmase-result: 10--0.239100-5.000000
+x-tmase-version: SMEX-14.0.0.3031-8.6.1012-25658.007
+x-tm-snts-smtp: B294097DC822586E46F0A54352DFCF7B02EB2CD9229A448E42B646A1F205ABC52000:9
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <20200910210059.34759-1-stephen.smalley.work@gmail.com> <20200911092320.GA1302235@horizon>
-In-Reply-To: <20200911092320.GA1302235@horizon>
-From:   Stephen Smalley <stephen.smalley.work@gmail.com>
-Date:   Fri, 11 Sep 2020 08:20:11 -0400
-Message-ID: <CAEjxPJ5j4vHMdH9TC501Q1yFtHoYS1d3zibFr-3BJ0QSdMgAgA@mail.gmail.com>
-Subject: Re: [PATCH] socket.7,unix.7: add initial description for SO_PEERSEC
-To:     Simon McVittie <smcv@collabora.com>,
-        James Morris <jmorris@namei.org>,
-        "Serge E. Hallyn" <serge@hallyn.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org,
-        LSM List <linux-security-module@vger.kernel.org>,
-        SElinux list <selinux@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=0.02
+Authentication-Results: mx01-sz.bfs.de;
+        none
+X-Spamd-Result: default: False [0.02 / 7.00];
+         ARC_NA(0.00)[];
+         TO_DN_EQ_ADDR_SOME(0.00)[];
+         HAS_XOIP(0.00)[];
+         FROM_HAS_DN(0.00)[];
+         RCPT_COUNT_THREE(0.00)[4];
+         FREEMAIL_ENVRCPT(0.00)[gmail.com];
+         TO_MATCH_ENVRCPT_ALL(0.00)[];
+         TAGGED_RCPT(0.00)[];
+         MIME_GOOD(-0.10)[text/plain];
+         BAYES_SPAM(0.02)[51.18%];
+         TO_DN_SOME(0.00)[];
+         DKIM_SIGNED(0.00)[];
+         NEURAL_HAM(-0.00)[-0.848];
+         FREEMAIL_TO(0.00)[gmail.com];
+         RCVD_NO_TLS_LAST(0.10)[];
+         FROM_EQ_ENVFROM(0.00)[];
+         MIME_TRACE(0.00)[0:+];
+         RCVD_COUNT_TWO(0.00)[2];
+         MID_RHS_MATCH_FROM(0.00)[]
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Sep 11, 2020 at 5:23 AM Simon McVittie <smcv@collabora.com> wrote:
->
-> On Thu, 10 Sep 2020 at 17:00:59 -0400, Stephen Smalley wrote:
-> > +For SELinux, the security context string is a null-terminated
-> > +string and the returned length includes the terminating null.
-> > +Other security modules may differ.
->
-> We discussed this interface a while ago when I was setting up dbus to
-> use SO_PEERSEC. It would be really useful if the man page documented
-> what callers can and can't expect from an unknown LSM, so that the
-> author of the next D-Bus-equivalent doesn't have to turn up on the
-> linux-security-module list and annoy maintainers like I did.
->
-> Perhaps something like this?
->
->     The security context string may include a terminating null character
->     in the returned length, but is not guaranteed to do so:
->     a security context "foo" might be represented as either {'f','o','o'}
->     of length 3 or {'f','o','o','\0'} of length 4, which are considered
->     to be interchangeable. It is printable, does not contain non-terminating
->     null characters, and is in an unspecified encoding (in particular it is
->     not guaranteed to be ASCII or UTF-8).
+BUFLEN should  be remove completely or stay
 
-Works for me.  Do the security subsystem maintainers concur?
+jm2c
+ wh
+________________________________________
+Von: linux-man-owner@vger.kernel.org [linux-man-owner@vger.kernel.org] im A=
+uftrag von Alejandro Colomar [colomar.6.4.3@gmail.com]
+Gesendet: Donnerstag, 10. September 2020 23:13
+An: mtk.manpages@gmail.com
+Cc: linux-man@vger.kernel.org; linux-kernel@vger.kernel.org; Alejandro Colo=
+mar
+Betreff: [PATCH 12/24] getgrent_r.3: Use sizeof() to get buffer size (inste=
+ad of hardcoding macro name)
+
+Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+---
+ man3/getgrent_r.3 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/man3/getgrent_r.3 b/man3/getgrent_r.3
+index 81d81a851..76deec370 100644
+--- a/man3/getgrent_r.3
++++ b/man3/getgrent_r.3
+@@ -186,7 +186,7 @@ main(void)
+
+     setgrent();
+     while (1) {
+-        i =3D getgrent_r(&grp, buf, BUFLEN, &grpp);
++        i =3D getgrent_r(&grp, buf, sizeof(buf), &grpp);
+         if (i)
+             break;
+         printf("%s (%d):", grpp\->gr_name, grpp\->gr_gid);
+--
+2.28.0
+
