@@ -2,68 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C681D265E97
-	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 13:13:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DAA01265EEC
+	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 13:42:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725829AbgIKLNA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Sep 2020 07:13:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50756 "EHLO
+        id S1725783AbgIKLmw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Sep 2020 07:42:52 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55322 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725730AbgIKLM6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Sep 2020 07:12:58 -0400
+        with ESMTP id S1725779AbgIKLm3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Sep 2020 07:42:29 -0400
 Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0D3A3C061573;
-        Fri, 11 Sep 2020 04:12:58 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id a65so4045471wme.5;
-        Fri, 11 Sep 2020 04:12:57 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5CF22C061757
+        for <linux-man@vger.kernel.org>; Fri, 11 Sep 2020 04:42:28 -0700 (PDT)
+Received: by mail-wm1-x342.google.com with SMTP id s13so4139624wmh.4
+        for <linux-man@vger.kernel.org>; Fri, 11 Sep 2020 04:42:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
+        h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=qwJP8YlWNcgr4cgyIQwKXfW5zHjsUL7pEHb3diYc4xI=;
-        b=tg8qveRPDWNmDM+Y8CjDDiAaX96w2+CFkPbT3D879hTaTv7wGl5MJ9TuARK33REjAn
-         KNq4ffMGvriPOKmjhzltuEex6NP+n9UMx0BD8KHJeLgORnJkX3PWsrv7hb2hx1O+6XF3
-         KYwv0w6joavd00kWEHtKy4h/3oz6IfTQgG7Hcow4TjFeoRm+rUvq6nciYWGS12HVJBR1
-         UyCk80yZH/qaPK5cGLGD3ONdKK+rtcO4fYRyh4xFQvHy+oJ7ZvwL34rgwvgmG4FqFt+p
-         GZufk8fXJr/jTJCoo6nHHmXQrauUTUmxmnIeblBDPzjmr/NI5k6LNoSLtlDfEnJFUw82
-         G6zw==
+        bh=HKWhX36ND8UY6ly4qcDo3pMPWXTyMefHR44TJDlOz1s=;
+        b=aKUfGlDZllAd9O6gbjL5hapkCZncVlDt1rOFQahKuvw3D0O4z2taYRv7nPaPGMVP1/
+         VlCwOwiFIveBfk5bVivtXPCSntStV6OUTa2dEizSeLa1YrlrbELJH6pROX6ptMx6j4Sh
+         5+ieoEaNNvuie4uURvwKi5gM7I+h4IpV9N3m9f7+w6CoP2kXQ+fAx+EXDfTFWcCuV1+H
+         HHa+FzfX2cogIuQmsf/ZUvcrgbRoIH40iz1WBPlEwlhJHmUkWzPl4etpxPGpzpAxnkyH
+         NS8XnYW6l31RrKrEirqFk5x3LWhXGaSsFk8e0KqTBa83K7Q7GgDQMaJb3JgM7VCZLv1i
+         OcOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=qwJP8YlWNcgr4cgyIQwKXfW5zHjsUL7pEHb3diYc4xI=;
-        b=ihva6xQzyYMeh7+WlGojK6oR2qNm4hGklI4u+b5UDCuWZe89WmnO+6W9rW2kZP5EPU
-         p6OtqmsS3rmKEnBoDnrr3/UKYFHmykcIGU9MsArGL5EGAOmkmhaLlrFves1s6y4DhHQb
-         DzbliDGMy0W7inmVfAOfNFViDzFuxmkzu4o3Z+7Xi6Uv8gJQXNcf4ekXsv6b0Rj3/nJq
-         zNIQntFBNHweZGjvnqUKaqbwjrsvWGemivOwM3d6MgFb2iHW2RLY0EUEUNRy+JjFtzNF
-         M72qGUDozJ7JMWScJGSA0l9AP4PKIdID8XXnSFN8dIUduPZd/utmuiXcb0W6Q1Afb31G
-         Q7vw==
-X-Gm-Message-State: AOAM5308fdoGTsqBtWlAqJcZrOWcIomV4udzq+XhlcoKg+6Q/IgmOHml
-        FizsbdWWNWR8mQq8U/TMewudtnlWch0=
-X-Google-Smtp-Source: ABdhPJxxWzhyKgOqdkAUjgS89qpQS5yE/o7B1r5NiMGkkkXLNbIIN68a06R5x4SvQbRGBVOUG2s+BA==
-X-Received: by 2002:a1c:7d16:: with SMTP id y22mr1799214wmc.104.1599822776471;
-        Fri, 11 Sep 2020 04:12:56 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id b194sm3718739wmd.42.2020.09.11.04.12.55
+        bh=HKWhX36ND8UY6ly4qcDo3pMPWXTyMefHR44TJDlOz1s=;
+        b=lgVOjUhXzo1/o87h0uPECSvxs2PS5qJ6Ju8PQz4heG6m0C0Sfdv7s8xLWbFw/gxwgw
+         oypaz562VXu4d9i2trruolvR+YgyT6tzleZQFZ6avCwx7mdAiGaDIqf+Pd7mm7h1gipC
+         BgfEaInKF2V6YJ3V++O2STRy0/VuvJQ+caK2hTGINyanBfoKbL2XRgV+yLnA3AZLTNbp
+         wtOnyYLphHx3BG2lDn/crIYgu03UrfzUvS1qRJkHpNZ691ycVgQCp1nK87XuEHArVvas
+         C9xghEq3/+QwJidDmdyiTc3/uwjLnSR/himV//UEULD5UXhacI1NSm0+kBDdYq4INomk
+         hngQ==
+X-Gm-Message-State: AOAM532ShINGwg9sL34BLbpClLQI/fCOJyBnstOT4FAj7Iy17ir0ePyY
+        r9S0r4X59bsn+tbN/2ieAj7la7YUHz4=
+X-Google-Smtp-Source: ABdhPJzd3o7lESeC2M8gtWqphTKQLWi6tsRDl1j5Wt357ONNib2aJ9Oxeis9nl7KcavkIJKLBIhpIw==
+X-Received: by 2002:a1c:c906:: with SMTP id f6mr1921928wmb.9.1599824546860;
+        Fri, 11 Sep 2020 04:42:26 -0700 (PDT)
+Received: from [192.168.1.143] ([170.253.60.68])
+        by smtp.gmail.com with ESMTPSA id 70sm4118472wme.15.2020.09.11.04.42.25
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2020 04:12:55 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 19/24] pthread_setname_np.3: ffix
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+        Fri, 11 Sep 2020 04:42:26 -0700 (PDT)
+Subject: Re: [PATCH 22/24] membarrier.2: Note that glibc does not provide a
+ wrapper
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
 References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
- <20200910211344.3562-20-colomar.6.4.3@gmail.com>
- <e651f418-ada8-19e1-359e-9906994108eb@gmail.com>
- <2c2150bc-d4df-e821-1717-6450540b6c71@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <b6902713-54f0-3d9f-2c02-92eb94b278a6@gmail.com>
-Date:   Fri, 11 Sep 2020 13:12:55 +0200
+ <20200910211344.3562-23-colomar.6.4.3@gmail.com>
+ <20200911093333.blym5ufplu7xzhwx@jwilk.net>
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+Message-ID: <70bc7300-0553-d913-48b7-1880b8cb9e27@gmail.com>
+Date:   Fri, 11 Sep 2020 13:42:25 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <2c2150bc-d4df-e821-1717-6450540b6c71@gmail.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <20200911093333.blym5ufplu7xzhwx@jwilk.net>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
@@ -71,60 +70,24 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
-
-On 9/11/20 10:32 AM, Alejandro Colomar wrote:
-> Hi Michael,
+On 2020-09-11 11:33, Jakub Wilk wrote:
+> * Alejandro Colomar <colomar.6.4.3@gmail.com>, 2020-09-10, 23:13:
+>> I copied .nf and .fi from futex.2, but they made no visual difference.
+>> What do they actually do?
 > 
-> The indentation in the original code was a bit weird (specifically, the 
-> 'do {' part had one more indentation level than the closing '} while'), 
-> so I simply chose something nice.  See the original page, and if you 
-> think it's ok keep it, else find something nice :)
+> .nf disables filling and adjusting; .fi re-enables them:
+> https://www.gnu.org/software/groff/manual/html_node/Filling-and-Adjusting.html 
+> 
+> https://www.gnu.org/software/groff/manual/html_node/Manipulating-Filling-and-Adjusting.html 
+> 
+> 
+> In membarrier.2's SYNOPSIS section, there's just a single short line in 
+> each paragraph, so it makes no difference.
+> 
+> It does make a difference in futex.2.
+> 
+Thanks, Jakub.
 
-Sorry -- I was being a bit slow. Now I see what you mean.
-I've fixed it, but in a different way.
+Cheers,
 
-Thanks,
-
-Michael
-
-> On 2020-09-11 09:58, Michael Kerrisk (man-pages) wrote:
->> Hi Alex,
->>
->> On 9/10/20 11:13 PM, Alejandro Colomar wrote:
->>> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
->>> ---
->>>   man3/pthread_setname_np.3 | 5 +++--
->>>   1 file changed, 3 insertions(+), 2 deletions(-)
->>
->> What's the rationale for this patch?
->>
->> Thanks,
->>
->> Michael
->>>
->>> diff --git a/man3/pthread_setname_np.3 b/man3/pthread_setname_np.3
->>> index b206f66c0..4dc4960cd 100644
->>> --- a/man3/pthread_setname_np.3
->>> +++ b/man3/pthread_setname_np.3
->>> @@ -164,8 +164,9 @@ THREADFOO
->>>   
->>>   #define NAMELEN 16
->>>   
->>> -#define errExitEN(en, msg) \e
->>> -            do { errno = en; perror(msg); exit(EXIT_FAILURE); \e
->>> +#define errExitEN(en, msg) do \e
->>> +        { \
->>> +            errno = en; perror(msg); exit(EXIT_FAILURE); \e
->>>           } while (0)
->>>   
->>>   static void *
->>>
->>
->>
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Alex
