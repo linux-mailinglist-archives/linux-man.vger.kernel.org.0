@@ -2,67 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B16CC265B39
-	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 10:13:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1FABA265BA8
+	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 10:32:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725535AbgIKINF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Sep 2020 04:13:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51362 "EHLO
+        id S1725747AbgIKIcz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Sep 2020 04:32:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54392 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725468AbgIKINF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Sep 2020 04:13:05 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6BFCFC061573;
-        Fri, 11 Sep 2020 01:13:04 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id z9so3902527wmk.1;
-        Fri, 11 Sep 2020 01:13:04 -0700 (PDT)
+        with ESMTP id S1725710AbgIKIcw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Sep 2020 04:32:52 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4ABD7C061573;
+        Fri, 11 Sep 2020 01:32:49 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id z4so10625848wrr.4;
+        Fri, 11 Sep 2020 01:32:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
+        h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=/OA1KQZcR7gYn+DF0+tu9xr0W15DodW6Woi0CUV9fZU=;
-        b=cyaRqe7R5wKr097BgYGWClD/e/vdOEv3M2peromlstHbtr66DFcFAIn8kwtFtSNNII
-         naW3GFAzqJbJ90ytL2BfTzIbwkwZHdrlupsSIvcSdFL+ARusGi/Wz7wgQWr5l0xYMCnq
-         B4bWWBDas0PJKVcQVk8ttzmHoXe+mks4WTyIx8OIFwhxYyOOidwBnjcBmLOQHw9c9QV3
-         gflFjHHX3gJ+VdRvosB5cy1yVI8kBn7C2NhGW+bmwMeZihfazDtmpt2WYGrfLvAgckz6
-         6ls3SyNT7pvy2hhezh1raxJQ7cVPLFWL40NpqgxaknIZ1vvbVofyK6UGIcDLw+pSQT1f
-         uc3Q==
+        bh=Z1BdTesaiWepAKQgkXe2/VRpo4TMuPhA/hVEY2EsNes=;
+        b=FCz4mf1TvXnhkZPG/EKBmAkSoRy5n5UqUUUpOwRLyvwAtExoj8ag/7DIFuQeT2UIYe
+         9Nvp9Bv6lDlBJ8/DYVSh64kfGwYlCtX5o4u3FB6qTTSlyN6cbbjn0iXF8MkhmZu41HAV
+         x8EHJyqiSpZIDJq2P5xd+uSbehV5X48vfLya8VHaZfWUSN/k1khSA2f9xjVBmIsASwmd
+         3qvX1pK8c+odgguYiVr2a4f/7DNbGQXjvsiQEsmeXgbtgkubn9g0jEQZidJViLIcL1AE
+         mIK5tajmdP9aQbtudrR8hI8eOfZ9lYxKdLiIsi7V8Xm/zQl/qKxS1xpywLR0+j4Ltep5
+         Sw2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=/OA1KQZcR7gYn+DF0+tu9xr0W15DodW6Woi0CUV9fZU=;
-        b=QGKpK/BZPIqMHtqeQmyPGUBs2liZxasst5YCEbNo0g7dwRUCREQAyxL2Vqm/TyiKKu
-         oa1sdA46DG6LIUkmiORzwaQeVmiYf0csGuYd1aI1nwKZ//ai7fDe+XmnCepef+yJGX/R
-         C2O/SvuRyikBtesjyA2YT45Hb+gtUvtYtjKb1W/dfogAtW4Zh7P378g6UxF6jjapAmU4
-         2ZL7WInqxrnRdW9mpkK97MwqZhJ9PX+zqgxDRdyeYxSjm1xzEfMKwYoxMBKDlqWXKyMn
-         T/cJiUy9Rh1KsdLzxct0e0FhsStgHJxLa+/oSmfeJ5oKRB3oMbYOjbGSmxzHZ50uyDfH
-         eeyg==
-X-Gm-Message-State: AOAM530bLcLh8WmWfQ/Q8AwAM31bs+fG/oQ7nq2UcgORezk4ka+DA/PY
-        os71YFfs2Mo9I6Ynv6tT98uHdWCZ0iA=
-X-Google-Smtp-Source: ABdhPJyqVdjcrkGxIed+coChWfs+YIHgg89MoFrd7u4/haiuIfHFZl+HbrrJnIbkfWVItr2BgF4IQQ==
-X-Received: by 2002:a1c:e389:: with SMTP id a131mr984399wmh.181.1599811982849;
-        Fri, 11 Sep 2020 01:13:02 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id z14sm2959346wrh.14.2020.09.11.01.13.01
+        bh=Z1BdTesaiWepAKQgkXe2/VRpo4TMuPhA/hVEY2EsNes=;
+        b=MMo6uNeec/dCvCdflOEfVjX1hm5gbzT2NrqtKxgjzWUtoWVkJ7awVsJXtg+gLNvjSn
+         cngKDSC25nKvtqMKNNqK+oyWujizNH9so3MmD61vMYt5fuOP5Y7yK3bG23pvcE4XUoz+
+         +2UZyjDXJq/iYJB945m2F7YboBiA8QfskhJs5+Z7cO5aW1MUr+JMc6i3KMoc6Y9L71HV
+         7otCBKLJQklidN3EP9ne6h4TONW7KKaQj4TrpkO3tyhIM6nZno0kTGneU6BUK5YkJWHy
+         dQP7Z/p55DiBcp/SEy8be/dWv1wd3/zc8mV1xUsLLdFYiTDEqaxOFCfT+Y7hQVpe5O4W
+         q/5w==
+X-Gm-Message-State: AOAM530ax1WV76fzrS8NETLlI4OoWORJzNPMfe5q2pwtyMs7QeuZfyAD
+        KYTiIf9iDuPBKoGRTT+dUTvaIuAfZwk=
+X-Google-Smtp-Source: ABdhPJxOWurkA5YX7UdI/LgvTafEOTuVMTm1UKSLu8O3eGKrM5/MNGhlh75KG8ayCguSP3t09Ixgjg==
+X-Received: by 2002:a5d:6a47:: with SMTP id t7mr875493wrw.75.1599813167695;
+        Fri, 11 Sep 2020 01:32:47 -0700 (PDT)
+Received: from [192.168.1.143] ([170.253.60.68])
+        by smtp.gmail.com with ESMTPSA id l16sm3347215wrb.70.2020.09.11.01.32.46
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2020 01:13:02 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 04/24] eventfd.2: Use 'PRIxN' macros when printing C99
- fixed-width integer types
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+        Fri, 11 Sep 2020 01:32:47 -0700 (PDT)
+Subject: Re: [PATCH 19/24] pthread_setname_np.3: ffix
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
- <20200910211344.3562-5-colomar.6.4.3@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <6f0dbdcb-1939-036a-8a20-791bb57db975@gmail.com>
-Date:   Fri, 11 Sep 2020 10:13:01 +0200
+ <20200910211344.3562-20-colomar.6.4.3@gmail.com>
+ <e651f418-ada8-19e1-359e-9906994108eb@gmail.com>
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+Message-ID: <2c2150bc-d4df-e821-1717-6450540b6c71@gmail.com>
+Date:   Fri, 11 Sep 2020 10:32:46 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20200910211344.3562-5-colomar.6.4.3@gmail.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <e651f418-ada8-19e1-359e-9906994108eb@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
@@ -70,45 +69,48 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 9/10/20 11:13 PM, Alejandro Colomar wrote:
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+Hi Michael,
 
-Thanks, Alex. Patch Applied.
+The indentation in the original code was a bit weird (specifically, the 
+'do {' part had one more indentation level than the closing '} while'), 
+so I simply chose something nice.  See the original page, and if you 
+think it's ok keep it, else find something nice :)
 
 Cheers,
 
-Michael
+Alex
 
-> ---
->  man2/eventfd.2 | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+On 2020-09-11 09:58, Michael Kerrisk (man-pages) wrote:
+> Hi Alex,
 > 
-> diff --git a/man2/eventfd.2 b/man2/eventfd.2
-> index 929234ab7..71e9d85b4 100644
-> --- a/man2/eventfd.2
-> +++ b/man2/eventfd.2
-> @@ -386,6 +386,7 @@ Parent read 28 (0x1c) from efd
->  .EX
->  #include <sys/eventfd.h>
->  #include <unistd.h>
-> +#include <inttypes.h>           /* Definition of PRIu64 & PRIx64 */
->  #include <stdlib.h>
->  #include <stdio.h>
->  #include <stdint.h>             /* Definition of uint64_t */
-> @@ -430,8 +431,7 @@ main(int argc, char *argv[])
->          s = read(efd, &u, sizeof(uint64_t));
->          if (s != sizeof(uint64_t))
->              handle_error("read");
-> -        printf("Parent read %llu (0x%llx) from efd\en",
-> -                (unsigned long long) u, (unsigned long long) u);
-> +        printf("Parent read %"PRIu64" (0x%"PRIx64") from efd\en", u, u);
->          exit(EXIT_SUCCESS);
->  
->      case \-1:
+> On 9/10/20 11:13 PM, Alejandro Colomar wrote:
+>> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+>> ---
+>>   man3/pthread_setname_np.3 | 5 +++--
+>>   1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+> What's the rationale for this patch?
+> 
+> Thanks,
+> 
+> Michael
+>>
+>> diff --git a/man3/pthread_setname_np.3 b/man3/pthread_setname_np.3
+>> index b206f66c0..4dc4960cd 100644
+>> --- a/man3/pthread_setname_np.3
+>> +++ b/man3/pthread_setname_np.3
+>> @@ -164,8 +164,9 @@ THREADFOO
+>>   
+>>   #define NAMELEN 16
+>>   
+>> -#define errExitEN(en, msg) \e
+>> -            do { errno = en; perror(msg); exit(EXIT_FAILURE); \e
+>> +#define errExitEN(en, msg) do \e
+>> +        { \
+>> +            errno = en; perror(msg); exit(EXIT_FAILURE); \e
+>>           } while (0)
+>>   
+>>   static void *
+>>
+> 
+> 
