@@ -2,89 +2,166 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 60D96266690
-	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 19:29:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 25D4526665A
+	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 19:26:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726341AbgIKR2z (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Sep 2020 13:28:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38602 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726095AbgIKM5k (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Sep 2020 08:57:40 -0400
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 63785C061573
-        for <linux-man@vger.kernel.org>; Fri, 11 Sep 2020 05:47:47 -0700 (PDT)
-Received: by mail-wr1-x433.google.com with SMTP id s12so11331954wrw.11
-        for <linux-man@vger.kernel.org>; Fri, 11 Sep 2020 05:47:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=to:cc:from:subject:message-id:date:user-agent:mime-version
-         :content-language:content-transfer-encoding;
-        bh=GWBnBdX9fOdx32O5Pi4OBj1YpzgXYQxUbEw9xhKaStg=;
-        b=NP5RNGBDfUoa84uNe4amrN62QRIatjT1IO16mU5M4khY8a1OQq9VhWEPIBINqY5oJc
-         7466VJPHQvcrZ9XH7MV2ZzoAS/4R08GoJqe06bTCgRHTQRY14/fmvjw6AJH+04qenLf2
-         ZKZUblNae9M/SGEJ+jeAVKabK/vh488DSArx/mrIkPL3Ij/3vt8hnTTGaS4yy2KqvlVI
-         ojhUq0XZxTwFfg7dINH75rjS3IDE3cq7WbzKJpUoudzhWmpEKxAe1ocACf3YbtPA/Oa1
-         b4k9sTuTIIS5wB+GtJYy36frxQUqKJ3ZKUUIpaLoilb457C0JiEnU6B8kPXpsosPyzsE
-         J7aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=GWBnBdX9fOdx32O5Pi4OBj1YpzgXYQxUbEw9xhKaStg=;
-        b=azgXfl7nuR8IMEgr+Zm4Q0kmvNlGue15VhziYt4p51O+6797XZSeJjAHAgbtyb1Hj6
-         qRPIK2MeI0ePMIrpHW6aenAGGOMLweK78kDaUofFjrM6bkbGoQ5dVkhVp8N/7eR487g4
-         GOU0iJHmhJ+ATUlibZ5V2G/lfBQHG3PGJjH+B3QnjAvWUkmGw1FqGOn/m9H91GQmltvO
-         ZIiZSTVHOthp8g/K0Gl4F1xx/2TjeaFxoj1VVy2hZKYUOJj4O+AvtYhDyUNVdMHOyx8X
-         A3yf3d2IP/+pLMi9h0LQojwHVg/SMSQMHvph5yEuZBq//usTO1O0pD/odTJfd71HcN5H
-         aJLg==
-X-Gm-Message-State: AOAM532SgXZy5C7fd7RkOVsyakuS58sjgZ8+HJw7jJkLKlJBSIgWZ66T
-        LjeZ0WjG3RjEhGUW1c2KTInNORsykhc=
-X-Google-Smtp-Source: ABdhPJwGJw2CN4DZY6rxQ/2uqekJHlhnO++60CKUDlVaoyWdmemZN0ALTdy7+g0YNYw6MFaepePFRQ==
-X-Received: by 2002:adf:9125:: with SMTP id j34mr2118828wrj.157.1599828465231;
-        Fri, 11 Sep 2020 05:47:45 -0700 (PDT)
-Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id b76sm4416069wme.45.2020.09.11.05.47.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2020 05:47:44 -0700 (PDT)
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Subject: [IDEA] New pages for types: structs and typedfefs
-Message-ID: <fb6463f6-49d7-e473-d5e1-1cdf8375e498@gmail.com>
-Date:   Fri, 11 Sep 2020 14:47:43 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        id S1726325AbgIKR0X (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Sep 2020 13:26:23 -0400
+Received: from mx01-sz.bfs.de ([194.94.69.67]:61832 "EHLO mx02-sz.bfs.de"
+        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
+        id S1726113AbgIKM6j (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 11 Sep 2020 08:58:39 -0400
+Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
+        by mx02-sz.bfs.de (Postfix) with ESMTPS id 47814203DB;
+        Fri, 11 Sep 2020 14:58:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
+        t=1599829089;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=L40kMvMDswtpltZSdpT2pESFvFP3UMEywRhPksC0OFM=;
+        b=UceLh3yjMngBR5/Qvj7HvIY0HAeDiRCxVLyMtTDi0NPdAAcTYkgvyhTc1U6RcBrOjuewrK
+        bYIJdIwJwaqcaiB1zrDPb0hYqepR8c0rgCkOii8N1Q2d8wfmvm5qHhppgCHFjMqoVlR03g
+        oE1Iq6x7Kav22cn9DseS5uVy++SppatNguZthiD+jO4WvPVmtwLmyqbSD0zWYGsih5rIBU
+        9AE0wxy95hXa5m4uceNa5NJdPY07pDafT+Li1ry4Tez7+PdI9PHJ8TM8TvXpDMvKDfJA78
+        khQZfRjM63n/EeUJRpM4MrRs/AN/HZuzkpbfnk60KiWudU9ZTAJ0OF699EdjZQ==
+Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
+ (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2044.4; Fri, 11 Sep
+ 2020 14:58:08 +0200
+Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
+ SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%6]) with mapi id
+ 15.01.2044.004; Fri, 11 Sep 2020 14:58:08 +0200
+From:   Walter Harms <wharms@bfs.de>
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
+        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
+CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: AW: [PATCH 22/24] membarrier.2: Note that glibc does not provide a
+ wrapper
+Thread-Topic: [PATCH 22/24] membarrier.2: Note that glibc does not provide a
+ wrapper
+Thread-Index: AQHWh7ekvr9SJXm8Bk6Na0a/qHv10aljZXyt
+Date:   Fri, 11 Sep 2020 12:58:08 +0000
+Message-ID: <4ace434523f5491b9efcc7af175ad781@bfs.de>
+References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>,<20200910211344.3562-23-colomar.6.4.3@gmail.com>
+In-Reply-To: <20200910211344.3562-23-colomar.6.4.3@gmail.com>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.137.16.40]
+x-tm-as-product-ver: SMEX-14.0.0.3031-8.6.1012-25658.007
+x-tm-as-result: No-10--5.836500-5.000000
+x-tmase-matchedrid: mvluSfSKbybRubRCcrbc5pzEHTUOuMX33dCmvEa6IiGoLZarzrrPmcLd
+        MXfog1WYIoALBmt6oJro1ttwfWN15pzPBTBc3KHCcN+LFb07lxjTVHD9mbrDhPn6214PlHOF5sZ
+        TwYHfBM5dK5hwx1Qr/D4WjpSMg/WIGWYDzz6TOfN08zy97KsgJktc8DbogbSE31GU/N5W5BAe7c
+        YFPRDDky2r+gTHbeatYulifZwH2NwKiVwZzGFT+ovqrlGw2G/kK/YFZTiDf+oHBnQgwI04wXgjV
+        dZjIv+OkOKRdfUdaLPDtlQ2P5abstyjX5A5gwm8ngIgpj8eDcByZ8zcONpAscRB0bsfrpPIfiAq
+        rjYtFiQi9ZpRcNkm3ev0/9pGGTCy9L4KR8QlEnkm03R7Tulizn7cGd19dSFd
+x-tm-as-user-approved-sender: No
+x-tm-as-user-blocked-sender: No
+x-tmase-result: 10--5.836500-5.000000
+x-tmase-version: SMEX-14.0.0.3031-8.6.1012-25658.007
+x-tm-snts-smtp: EDE4EE60ADE6A64433D92AF2A2C537335EA378D2A0CA6DA44C33A284CBBBCC872000:9
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=-0.00
+Authentication-Results: mx02-sz.bfs.de;
+        none
+X-Spamd-Result: default: False [-0.00 / 7.00];
+         ARC_NA(0.00)[];
+         TO_DN_EQ_ADDR_SOME(0.00)[];
+         HAS_XOIP(0.00)[];
+         FROM_HAS_DN(0.00)[];
+         RCPT_COUNT_THREE(0.00)[4];
+         TO_DN_SOME(0.00)[];
+         TO_MATCH_ENVRCPT_ALL(0.00)[];
+         TAGGED_RCPT(0.00)[];
+         MIME_GOOD(-0.10)[text/plain];
+         FREEMAIL_ENVRCPT(0.00)[gmail.com];
+         DKIM_SIGNED(0.00)[];
+         NEURAL_HAM(-0.00)[-1.091];
+         FREEMAIL_TO(0.00)[gmail.com];
+         RCVD_NO_TLS_LAST(0.10)[];
+         FROM_EQ_ENVFROM(0.00)[];
+         MIME_TRACE(0.00)[0:+];
+         RCVD_COUNT_TWO(0.00)[2];
+         MID_RHS_MATCH_FROM(0.00)[];
+         BAYES_HAM(-0.00)[23.94%]
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Michael,
+the groff commands are ducument in man 7 groff
+.nf       No filling or adjusting of output-lines.
+.fi       Fill output lines
 
-In the past, when I was beginning to learn C, I had a lot of trouble 
-with the types.
+(for me) a typical use is like this:
+.nf
 
-When you want to know about a function, you just type 'man function' and 
-that tells you everything you need to know.
+struct timeval {
+    time_t      tv_sec;     /* seconds */
+    suseconds_t tv_usec;    /* microseconds */
+};
+.fi
 
-However, when you need to use a type, such as a struct or one of those 
-weird POSIX types (e.g., loff_t), the only solution is to grep through 
-the system headers (e.g., 'cd /usr/include/; grep -rn "struct 
-timespec"'), unless you already know in which man page the type appears.
+In the top section you prevent indenting (if any).
 
-I remember well when I wanted to use 'ssize_t' for the first time: it 
-was a nightmare to find which header I had to include to get it.
+hth
+ wh
+________________________________________
+Von: linux-man-owner@vger.kernel.org [linux-man-owner@vger.kernel.org] im A=
+uftrag von Alejandro Colomar [colomar.6.4.3@gmail.com]
+Gesendet: Donnerstag, 10. September 2020 23:13
+An: mtk.manpages@gmail.com
+Cc: linux-man@vger.kernel.org; linux-kernel@vger.kernel.org; Alejandro Colo=
+mar
+Betreff: [PATCH 22/24] membarrier.2: Note that glibc does not provide a wra=
+pper
 
-Do you agree that it would be a good idea to write man pages for the 
-types, or at least write link pages that link to the page where the type 
-is mentioned?
+Notes: I copied .nf and .fi from futex.2, but they made no visual differenc=
+e.
+What do they actually do?
 
-Thanks,
+Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+---
+ man2/membarrier.2 | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
+diff --git a/man2/membarrier.2 b/man2/membarrier.2
+index 8825de71e..f65c6be5c 100644
+--- a/man2/membarrier.2
++++ b/man2/membarrier.2
+@@ -26,9 +26,15 @@
+ .SH NAME
+ membarrier \- issue memory barriers on a set of threads
+ .SH SYNOPSIS
++.nf
++.PP
+ .B #include <linux/membarrier.h>
+ .PP
+ .BI "int membarrier(int " cmd ", int " flags ");"
++.fi
++.PP
++.IR Note :
++There is no glibc wrapper for this system call; see NOTES.
+ .SH DESCRIPTION
+ The
+ .BR membarrier ()
+@@ -270,6 +276,9 @@ Examples where
+ .BR membarrier ()
+ can be useful include implementations
+ of Read-Copy-Update libraries and garbage collectors.
++.PP
++Glibc does not provide a wrapper for this system call; call it using
++.BR syscall (2).
+ .SH EXAMPLES
+ Assuming a multithreaded application where "fast_path()" is executed
+ very frequently, and where "slow_path()" is executed infrequently, the
+--
+2.28.0
 
-Alex
