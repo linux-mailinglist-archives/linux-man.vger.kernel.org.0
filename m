@@ -2,91 +2,127 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D5784265BDE
-	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 10:46:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3FBE3265C3B
+	for <lists+linux-man@lfdr.de>; Fri, 11 Sep 2020 11:12:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725768AbgIKIqd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Sep 2020 04:46:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56498 "EHLO
+        id S1725779AbgIKJMj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Sep 2020 05:12:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60494 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725550AbgIKIqa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Sep 2020 04:46:30 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 639FAC061573;
-        Fri, 11 Sep 2020 01:46:29 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id z1so10653261wrt.3;
-        Fri, 11 Sep 2020 01:46:29 -0700 (PDT)
+        with ESMTP id S1725774AbgIKJMh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Sep 2020 05:12:37 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BA75DC061573;
+        Fri, 11 Sep 2020 02:12:36 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id q9so3729329wmj.2;
+        Fri, 11 Sep 2020 02:12:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=eJ0yT3gfPHpaAjung1PNqKo0Lcs/UYE3s1xPfQ/WBMY=;
-        b=B0mdWQvwCU3TIVMqLrIK4juZPymnz9Wkz8pceQZ5YEBCEEJwlWicaEfk5udMeMWRvw
-         S7r8Nxaaf0C5vCYnWyCLwBIdsagVeptymFC2QCCachwK1FIHGip8xa1zFSv/YPfsnht3
-         9En4Gp3csGFrHP4ucwoC2XZy//grYyC7lfycUZmQqgma6vkMvPEvWEX8qGOHgx1Iwou2
-         /DMHRsquF3EGemHq/r7ESwhV504lAGnxm0ruyLn9Qs/BNpiomaI0CHP8YDDJLhw6w02y
-         MTHPGRevdCFil+AW0vBBewAOTiZhhVwk1wWeoF94xJi7Bqzvn6NOCv8fJbnlxCfwB/aO
-         uS6w==
+        bh=iVuZbTVcQSrrVEPpwKsg24X5Ol39bwWfizZYHRTRwPE=;
+        b=GmK/pO173Z7r1u4+xT3311cYlKHzLPAiztBWYn5MYKwfwG0bz/LvKT88CQ/Gh7xb4O
+         IpBKgdHzLrkwpf9kQRsMY1W/Xyl4NF7o5OBZxOx5Tb811QphL1xcxgI2iYkScbk+rgCI
+         Eoxvn2Db6tb7dytYTIlUUpDVu7xxU9DJVeBX3fR2QL3D3bvT88cZQ4Sj+F5y/tH4dtVJ
+         W+1NwmRsa9bLvM9OyoIIElKUmBc+F88awwiIWreR6oTm4y5T6MeIkgheBkwU8KYqdtUY
+         +9pOX4wV7SrpCy/sTJW1fmznzt1vKJii9TKLmV9qAxYZy/WWS6ZfjShGnMC79N08exGt
+         A6yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=eJ0yT3gfPHpaAjung1PNqKo0Lcs/UYE3s1xPfQ/WBMY=;
-        b=foDyAlEOHjjWah6PJI7jYnh8v9YMmzynttHrVm1xru3Af1YX+wWt0vNGnc0vgYNfBj
-         7764WokQOceJ7qOzJVD87XJnV0ST/c7dRctFPYBArC4lDaDHyzdHVujD5RCh67Hv+xoa
-         6qOzCkXLTDiY3jU1Cru26ylCT1NHvikCB12yhCekpl+A1ImXXWiTk8vmtsz+P3+dAGcP
-         11R7psgY3AYpXKSr1b0uc/8kjuoTK7RGGPxzB1qDQ0BkOzm+TJAnDJ0iH4Tm4j04LFDW
-         +Pc7IrXTcRZW/JiNKQUZUrTmnpEQWqhrhvydAnlWA8fCQjHE6q6wZ8rfaDkIyX9kPGWq
-         yruw==
-X-Gm-Message-State: AOAM533thSZNyvdHbciKTAkxs6tFUI4AzBgoEd3ax6nrtjoDDlF2mViq
-        T+3npbZelXatXiq/t+Y51MRfc/Z516E=
-X-Google-Smtp-Source: ABdhPJxbHpJznZI2P6w9ukjTjQI+4WATpoBMFz4rjnF23qsfl4GQLckyNE2ELYFkXhn9qeYK6dLsng==
-X-Received: by 2002:a5d:560d:: with SMTP id l13mr906697wrv.49.1599813987884;
-        Fri, 11 Sep 2020 01:46:27 -0700 (PDT)
-Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id t16sm3201418wrm.57.2020.09.11.01.46.27
+        bh=iVuZbTVcQSrrVEPpwKsg24X5Ol39bwWfizZYHRTRwPE=;
+        b=mfZrH55W7LwobMmpvwDBl47DMJoVnNvb852yJ3wMvELyg4HuxoSZllFZNbpKF/5KRL
+         ae238QF+iHklyVPKd+4VkVGHOzmggsmjE32v5l2ht4f/agHmwp3sAUvAsgz+piYwoY3i
+         HqJEfp/Gf+v0C2a6LEipRkd9f47aAcbfWwDmUSSvxOCa9wMvIbTxHNE2CvcEhRVMfJNC
+         qJ01fLOuP45rFBSGZxaCSI0AgAah+btfF8W62a/uTnwK6kYccVLAs2cgjfiItqi4HnU1
+         LPt2UM30JMmn8IWaHs9cT8i/fSxRtA6VbBEAHwl4AtQpc7hK1Cw5EqvbWToEFN1lSJ64
+         bFUg==
+X-Gm-Message-State: AOAM530mPOktggTeW4eK8obGwrkDVMpbVGXHU0NyM3zuHnJ9DYWlXSfl
+        0WL+SnqxV5bezMQpTaYFiqrkAX4BuAk=
+X-Google-Smtp-Source: ABdhPJx8kfDW9s3wW6bRWmuOFhIdsaM5hLLM9wNa7SZ8j/C8DbkXiAKxqBNiH5lveHMZq6ai7xMY8Q==
+X-Received: by 2002:a1c:2983:: with SMTP id p125mr1201608wmp.21.1599815555072;
+        Fri, 11 Sep 2020 02:12:35 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
+        by smtp.gmail.com with ESMTPSA id i3sm3307338wrs.4.2020.09.11.02.12.33
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2020 01:46:27 -0700 (PDT)
-Subject: Re: [PATCH 23/24] select_tut.2: Use MAX(a, b) from <sys/param.h>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
+        Fri, 11 Sep 2020 02:12:34 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 24/24] bpf.2: Add missing headers
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
- <20200910211344.3562-24-colomar.6.4.3@gmail.com>
- <ede06e4b-7217-1315-6035-9116df9b02c0@gmail.com>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <e10294cf-e7fc-6ef4-55e9-c09ba30d995f@gmail.com>
-Date:   Fri, 11 Sep 2020 10:46:26 +0200
+ <20200910211344.3562-25-colomar.6.4.3@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <eb985a52-1f4e-0c48-9bb0-3ad91646ad2c@gmail.com>
+Date:   Fri, 11 Sep 2020 11:12:33 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <ede06e4b-7217-1315-6035-9116df9b02c0@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <20200910211344.3562-25-colomar.6.4.3@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Hi Alex,
 
-On 2020-09-11 09:54, Michael Kerrisk (man-pages) wrote:
-> Hi Alex,
+On 9/10/20 11:13 PM, Alejandro Colomar wrote:
+> I added some headers to reduce the number of warnings.
+> I found the needed headers by using grep, but maybe some of them
+> shouldn't be included directly.
 > 
-> On 9/10/20 11:13 PM, Alejandro Colomar wrote:
->> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+> The example still has many problems to compile.
+
+Yes, there are so many problems there, I'm not sure it's really worth
+adding the header files. It increases the impression that this is
+somehow a complete program,  when it's not. I agree this is a bit of
+a mess, but I think it's probably best to leave the example as is.
+As the manual page  says:
+
+       Some  complete working code can be found in the samples/bpf direc‐
+       tory in the kernel source tree.
+
+Thanks,
+
+Michael
 > 
-> I'm reluctant to apply this, because MAX() is not a standard
-> macro. I suppose it may not be present on some other UNIX
-> systems. You thoughts?
+> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+> ---
+>  man2/bpf.2 | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/man2/bpf.2 b/man2/bpf.2
+> index b45acde76..d26d6a43d 100644
+> --- a/man2/bpf.2
+> +++ b/man2/bpf.2
+> @@ -981,6 +981,18 @@ ioctl(event_fd, PERF_EVENT_IOC_SET_BPF, prog_fd);
+>   * 3. attach prog_fd to raw socket via setsockopt()
+>   * 4. print number of received TCP/UDP packets every second
+>   */
+> +#include <assert.h>
+> +#include <errno.h>
+> +#include <stddef.h>
+> +#include <stdio.h>
+> +#include <string.h>
+> +#include <sys/socket.h>
+> +#include <unistd.h>
+> +#include <linux/bpf.h>
+> +#include <linux/if_ether.h>
+> +#include <linux/in.h>
+> +#include <linux/ip.h>
+> +
+>  int
+>  main(int argc, char **argv)
+>  {
+> 
 
-I know the BSDs have it; maybe not all of them (I don't know them all), 
-but it is present at least in OpenBSD, libbsd, FreeBSD so I guess it's 
-common enough.
-For other UNIX systems, I have no idea.
-Maybe there's some unicorn UNIX that doesn't have it... impossible to tell.
 
-Cheers,
-
-Alex
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
