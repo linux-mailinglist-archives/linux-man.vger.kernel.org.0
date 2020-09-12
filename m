@@ -2,106 +2,91 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C65BC267988
-	for <lists+linux-man@lfdr.de>; Sat, 12 Sep 2020 12:29:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 30602267C6E
+	for <lists+linux-man@lfdr.de>; Sat, 12 Sep 2020 23:08:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725836AbgILK3U (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 12 Sep 2020 06:29:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40792 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725825AbgILK3T (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Sep 2020 06:29:19 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8F054C061573
-        for <linux-man@vger.kernel.org>; Sat, 12 Sep 2020 03:29:18 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id o5so13740144wrn.13
-        for <linux-man@vger.kernel.org>; Sat, 12 Sep 2020 03:29:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=NqveXbqVfN6t9HiKZQ9/LEIdGpHgXugDIC6Xk5RmRO0=;
-        b=BnWNmRAJvSrLSUIsPN/g4yCc3sigxFIyRUKTwVNDSOdJnzbFSr+Ie9vu/F80dE8CHV
-         kRiilBrLIbyYP3vGpveVJmp7iP+9uqKv+iutujLiiOT92ANXNELRHKHeblpBNPEMCFLD
-         2xA/poWUbwfHLb9FulVEbAX+HNkA++/hJ03p61tUWteCXCNJYOPq5+ntwO8a7jzlox+V
-         Okrk80NXUWvKFiSg3UQutoY74WmVavBuJJ2cYnkPETurZmzacIalyT40pQqgIB325cld
-         1hHeTZByJjvH9xKIbNRboFQJcNRFSbPuJ1L/s2BoDihLUCfpBFrgdGLM9K3wgwp9QqPc
-         Uv9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=NqveXbqVfN6t9HiKZQ9/LEIdGpHgXugDIC6Xk5RmRO0=;
-        b=SREovP1ZzEHsYAkDzjWwrzPQxQ1g0PhrrBBCRjbLf5uETkpZ5wjdaFG1CkxvESppjH
-         b2FPYvgSLFnFwIWKKdGIidJ9iaAO+COgDlkb9TiDsu6YScLGb6mDCO8DvX3/N7G5Dc2/
-         l2OnyhuJUYaC5Y98zSqc0jNIi8tSqXGKw1+tLN4eZaEyqvA9n9OANYXZ6Kbp7n/zPe6G
-         LGgzg/c1QXbYVp85TFiB3DB9e7TQ6Jt/p56p9APjYkhwiBO61zTYtETcoiwtSYq5c67I
-         5FrikKJ8/8tTlvnbgx8Xu0YsLv/8yZEMPtBCgp5rcf/kibcuZnZgZbJXGL9ZztXH8uBq
-         iWuw==
-X-Gm-Message-State: AOAM533dW/Wxc1KxPc2TLiW6Ff0hSvlglE0R66mbeyYS8RwSgjpTK1I7
-        EyawZCPYYA24nWxAs4DKMF/UDOAmyPSuZA==
-X-Google-Smtp-Source: ABdhPJx0Wo/Tll7c6JSukvG1OzIqLp+67lxexEnS4GmCYMIa+Yxeyc0dnAhjrhrexF4WweMejBmkEw==
-X-Received: by 2002:adf:f852:: with SMTP id d18mr6236972wrq.245.1599906556967;
-        Sat, 12 Sep 2020 03:29:16 -0700 (PDT)
-Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id p11sm9118344wma.11.2020.09.12.03.29.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2020 03:29:16 -0700 (PDT)
-Subject: Re: [PATCH 10/12] spu_run.2: Cast 'int' to 'unsigned int' when
- printing with "%x"
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-References: <20200911231411.28406-1-colomar.6.4.3@gmail.com>
- <20200911231411.28406-11-colomar.6.4.3@gmail.com>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <0dc39cc2-6cbf-b8f9-3b21-f216c70f17f2@gmail.com>
-Date:   Sat, 12 Sep 2020 12:29:15 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        id S1725913AbgILVIL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 12 Sep 2020 17:08:11 -0400
+Received: from eu-smtp-delivery-151.mimecast.com ([207.82.80.151]:39807 "EHLO
+        eu-smtp-delivery-151.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1725884AbgILVIK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Sep 2020 17:08:10 -0400
+Received: from AcuMS.aculab.com (156.67.243.126 [156.67.243.126]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ uk-mta-152-zrJDEg8gOCS9olL-jujjvg-1; Sat, 12 Sep 2020 22:07:38 +0100
+X-MC-Unique: zrJDEg8gOCS9olL-jujjvg-1
+Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) by
+ AcuMS.aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) with Microsoft SMTP
+ Server (TLS) id 15.0.1347.2; Sat, 12 Sep 2020 22:07:38 +0100
+Received: from AcuMS.Aculab.com ([fe80::43c:695e:880f:8750]) by
+ AcuMS.aculab.com ([fe80::43c:695e:880f:8750%12]) with mapi id 15.00.1347.000;
+ Sat, 12 Sep 2020 22:07:38 +0100
+From:   David Laight <David.Laight@ACULAB.COM>
+To:     "'Michael Kerrisk (man-pages)'" <mtk.manpages@gmail.com>,
+        "Alejandro Colomar" <colomar.6.4.3@gmail.com>
+CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 01/24] inet_net_pton.3: Use 'PRIx32' rather than "%x" when
+ printing 'uint32_t' values
+Thread-Topic: [PATCH 01/24] inet_net_pton.3: Use 'PRIx32' rather than "%x"
+ when printing 'uint32_t' values
+Thread-Index: AQHWiB5QTRM4xYy+JEuo3yfg2blY96llf04A
+Date:   Sat, 12 Sep 2020 21:07:38 +0000
+Message-ID: <8ed10b6c63df4ff095f1341648405f03@AcuMS.aculab.com>
+References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
+ <20200910211344.3562-2-colomar.6.4.3@gmail.com>
+ <928d25b7-7f97-f9b9-80ce-0550c18131c2@gmail.com>
+In-Reply-To: <928d25b7-7f97-f9b9-80ce-0550c18131c2@gmail.com>
+Accept-Language: en-GB, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.202.205.107]
 MIME-Version: 1.0
-In-Reply-To: <20200911231411.28406-11-colomar.6.4.3@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+Authentication-Results: relay.mimecast.com;
+        auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
+X-Mimecast-Spam-Score: 0.001
+X-Mimecast-Originator: aculab.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+RnJvbTogTWljaGFlbCBLZXJyaXNrDQo+IFNlbnQ6IDExIFNlcHRlbWJlciAyMDIwIDEwOjMxDQo+
+IA0KPiBIaSBBbGV4LA0KPiANCj4gT24gOS8xMC8yMCAxMToxMyBQTSwgQWxlamFuZHJvIENvbG9t
+YXIgd3JvdGU6DQo+ID4gU2lnbmVkLW9mZi1ieTogQWxlamFuZHJvIENvbG9tYXIgPGNvbG9tYXIu
+Ni40LjNAZ21haWwuY29tPg0KPiA+IC0tLQ0KPiA+ICBtYW4zL2luZXRfbmV0X3B0b24uMyB8IDMg
+KystDQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkN
+Cj4gPg0KPiA+IGRpZmYgLS1naXQgYS9tYW4zL2luZXRfbmV0X3B0b24uMyBiL21hbjMvaW5ldF9u
+ZXRfcHRvbi4zDQo+ID4gaW5kZXggMDBmOTRiOWQ0Li5kNzRhMzNkNzQgMTAwNjQ0DQo+ID4gLS0t
+IGEvbWFuMy9pbmV0X25ldF9wdG9uLjMNCj4gPiArKysgYi9tYW4zL2luZXRfbmV0X3B0b24uMw0K
+PiA+IEBAIC0zMzIsNiArMzMyLDcgQEAgUmF3IGFkZHJlc3M6ICAgICAgICAgICAgICBjMWE4MDE4
+MA0KPiA+ICAvKiBMaW5rIHdpdGggIlwtbHJlc29sdiIgKi8NCj4gPg0KPiA+ICAjaW5jbHVkZSA8
+YXJwYS9pbmV0Lmg+DQo+ID4gKyNpbmNsdWRlIDxpbnR0eXBlcy5oPg0KPiA+ICAjaW5jbHVkZSA8
+c3RkaW8uaD4NCj4gPiAgI2luY2x1ZGUgPHN0ZGxpYi5oPg0KPiA+DQo+ID4gQEAgLTM4MSw3ICsz
+ODIsNyBAQCBtYWluKGludCBhcmdjLCBjaGFyICphcmd2W10pDQo+ID4gICAgICAgICBtYXkgbm90
+IGhhdmUgYmVlbiB0b3VjaGVkIGJ5IGluZXRfbmV0X250b3AoKSwgYW5kIHNvIHdpbGwgc3RpbGwN
+Cj4gPiAgICAgICAgIGhhdmUgYW55IGluaXRpYWwgdmFsdWUgdGhhdCB3YXMgc3BlY2lmaWVkIGlu
+IGFyZ3ZbMl0uICovDQo+ID4NCj4gPiAtICAgIHByaW50ZigiUmF3IGFkZHJlc3M6ICAgICAgICAg
+ICAgICAleFxlbiIsIGh0b25sKGFkZHIuc19hZGRyKSk7DQo+ID4gKyAgICBwcmludGYoIlJhdyBh
+ZGRyZXNzOiAgICAgICAgICAgICAgJSJQUkl4MzIiXGVuIiwgaHRvbmwoYWRkci5zX2FkZHIpKTsN
+Cj4gPg0KPiA+ICAgICAgZXhpdChFWElUX1NVQ0NFU1MpOw0KPiA+ICB9DQo+IA0KPiBTbywgSSdt
+IGluIGEgbGl0dGxlIGJpdCBvZiBkb3VidCBhYm91dCBwYXRjaGVzIDAxIGFuZCAwMi4gRG9lcw0K
+PiB0aGlzIHJlYWxseSB3aW4gdXMgYW55dGhpbmc/IE9uIHRoZSBvbmUgaGFuZCwgJSJQUkl4MzIi
+IGlzIG1vcmUNCj4gZGlmZmljdWx0IHRvIHJlYWQgdGhhbiAleC4gT24gdGhlIG90aGVyLCBkb2Vz
+IGl0IHdpbiB1cyBhbnl0aGluZw0KPiBpbiB0ZXJtcyBvZiBwb3J0YWJpbGl0eT8gQXQgZmlyc3Qg
+Z2xhbmNlLCB0aGUgYW5zd2VycyBzZWVtcyB0byBtZQ0KPiB0byBiZSAibm8iLiBZb3VyIHRob3Vn
+aHRzPw0KDQpPbiAzMmJpdCBzeXN0ZW1zIHVpbnQzMl90IG1pZ2h0IGJlIGVpdGhlciAnaW50JyBv
+ciAnbG9uZycuDQpTbyB0aGUgZm9ybWF0IGhhcyB0byBtYXRjaCAtIGV2ZW4gdGhvdWdoIHRoZSBB
+QkkgaXMgcHJvYmFibHkNCnRoZSBzYW1lIGluIGJvdGggY2FzZXMuDQoNCk1pbmQgeW91LCBodG9u
+bCgpIGl0c2VsZiBjb3VsZCBiZSBwcm9ibGVtYXRpYy4NCk9uIEJFIHN5c3RlbXMgaXQgaXMgbGlr
+ZWx5IHRvIGJlICNkZWZpbmUgaHRvbmwoeCkgKHgpDQpzbyB0aGUgdHlwZSBpcyB3aGF0ZXZlciB3
+YXMgcGFzc2VkLg0KT24gTEUgc3lzdGVtcyBpdCBtaWdodCBldmVuIGJlIGxvbmcgaHRvbmwobG9u
+ZykNCiAtIHdoaWNoIGlzIGl0cyBoaXN0b3JpYyBwcm90b3R5cGUuDQoNCglEYXZpZA0KDQotDQpS
+ZWdpc3RlcmVkIEFkZHJlc3MgTGFrZXNpZGUsIEJyYW1sZXkgUm9hZCwgTW91bnQgRmFybSwgTWls
+dG9uIEtleW5lcywgTUsxIDFQVCwgVUsNClJlZ2lzdHJhdGlvbiBObzogMTM5NzM4NiAoV2FsZXMp
+DQo=
 
-I think this patch of mine should not be applied.
-
-printf() will internally reinterpret the 'int' as 'unsigned int'
-anyway, and the behaviour is completely defined AFAIK.
-
-Relevant standard: C18 §6.5.2.2 6
-
-And in the case you do want this patch, I should have written
-'unsigned int' in the cast, for consistency.
-
-Thanks,
-
-Alex
-
-On 2020-09-12 01:14, Alejandro Colomar wrote:
- > Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
- > ---
- >   man2/spu_run.2 | 2 +-
- >   1 file changed, 1 insertion(+), 1 deletion(-)
- >
- > diff --git a/man2/spu_run.2 b/man2/spu_run.2
- > index b6bc2c131..ddd03ffd3 100644
- > --- a/man2/spu_run.2
- > +++ b/man2/spu_run.2
- > @@ -254,7 +254,7 @@ int main(void)
- >        *   0x00000002 (spu was stopped due to stop\-and\-signal)
- >        * | 0x12340000 (the stop\-and\-signal code)
- >        */
- > -    printf("SPU Status: %#08x\en", spu_status);
- > +    printf("SPU Status: %#08x\en", (unsigned) spu_status);
- >
- >       exit(EXIT_SUCCESS);
- >   }
- >
