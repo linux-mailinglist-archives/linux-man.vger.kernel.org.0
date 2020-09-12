@@ -2,112 +2,106 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1CC3126795C
-	for <lists+linux-man@lfdr.de>; Sat, 12 Sep 2020 12:06:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C65BC267988
+	for <lists+linux-man@lfdr.de>; Sat, 12 Sep 2020 12:29:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725833AbgILKGq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 12 Sep 2020 06:06:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37354 "EHLO
+        id S1725836AbgILK3U (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 12 Sep 2020 06:29:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40792 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725813AbgILKGp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Sep 2020 06:06:45 -0400
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ED22DC061573
-        for <linux-man@vger.kernel.org>; Sat, 12 Sep 2020 03:06:44 -0700 (PDT)
-Received: by mail-wr1-x432.google.com with SMTP id t10so13789308wrv.1
-        for <linux-man@vger.kernel.org>; Sat, 12 Sep 2020 03:06:44 -0700 (PDT)
+        with ESMTP id S1725825AbgILK3T (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Sep 2020 06:29:19 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8F054C061573
+        for <linux-man@vger.kernel.org>; Sat, 12 Sep 2020 03:29:18 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id o5so13740144wrn.13
+        for <linux-man@vger.kernel.org>; Sat, 12 Sep 2020 03:29:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:from:to:cc:references:message-id:date:user-agent
+        h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=TpxsaYYFcB3O3onk9aKNbwp/ggfQOT8mnJfVPTj+vkA=;
-        b=lvnbxsww2tE3N1j31O0a6XsCRIQdOug7WPRSFZqxRC+p2UOkau9Ida+lbREHqiSnAT
-         rhWDfsqARacjvz3hliWRjwi8bqpZwkGg7+2y0TZKf3XsK9oUiffqRe261k5nz9mOzcCN
-         oa5e1BH92Wtmg5xQNMJ3oq4cRaTBAP1t9gammCFC++4uViedag5OasMzwN+KdPf1uRiS
-         iNZL+vLMghF3rZ7BrhQ7kv7dylToYWF/2mrs/oOBX5lws59qXr6JkxQbUlkQC3CBKuGT
-         uu7ejd4c+DLW/AXNRPojyvMJ0/x3udRWLKhNtvMQQyPrl4PX/ZyMUDmBSWFDgnVfOCju
-         oakQ==
+        bh=NqveXbqVfN6t9HiKZQ9/LEIdGpHgXugDIC6Xk5RmRO0=;
+        b=BnWNmRAJvSrLSUIsPN/g4yCc3sigxFIyRUKTwVNDSOdJnzbFSr+Ie9vu/F80dE8CHV
+         kRiilBrLIbyYP3vGpveVJmp7iP+9uqKv+iutujLiiOT92ANXNELRHKHeblpBNPEMCFLD
+         2xA/poWUbwfHLb9FulVEbAX+HNkA++/hJ03p61tUWteCXCNJYOPq5+ntwO8a7jzlox+V
+         Okrk80NXUWvKFiSg3UQutoY74WmVavBuJJ2cYnkPETurZmzacIalyT40pQqgIB325cld
+         1hHeTZByJjvH9xKIbNRboFQJcNRFSbPuJ1L/s2BoDihLUCfpBFrgdGLM9K3wgwp9QqPc
+         Uv9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=TpxsaYYFcB3O3onk9aKNbwp/ggfQOT8mnJfVPTj+vkA=;
-        b=Lc74g4RbPhwiMKnd93RwFsdr5MEF6fLM44vel5IPlyUsdsMRRfhJIawAMFA2824IvV
-         VmwWLLITIq0TUSIQ+x634FGUgb2tu6PqZNyNLZDd28ODD5y86WwKtk0iDE7K9vVPpTyt
-         6+z/T5WCp5YBkmyRQ/6BZSBYwtk3cZONmIQWumTBeVqWFnokwuOPWXMmIsnknhfxVfqJ
-         ZY6wxQQFwU4UfceiK8R1DSNTtJgmWLz6QdB3am1F/iFGNDIxQhvkfAWikx0tIe6n3RYa
-         gu/5nQg6J9OUqbrl9jdvCnupwS8yljZBfov3MbPAAgIfWjYqew9/UiOt0S7gSoz7/BzN
-         0aWA==
-X-Gm-Message-State: AOAM532fiCguPRn4+5QAWkU/9nq7VNjPEvKH6jRCYlqqmb9qoz8LPvgg
-        gzLrB8P15inpHqpz/bFzhPfGsNIM7C1+ZQ==
-X-Google-Smtp-Source: ABdhPJwt9LzoKwy8B35EWOBaoPFCJl2Wsgq7xQz0pBgH/aadgG4qDvtPWZVScIkEJJlb/o1+ylxS1g==
-X-Received: by 2002:adf:dcc3:: with SMTP id x3mr6107740wrm.120.1599905203046;
-        Sat, 12 Sep 2020 03:06:43 -0700 (PDT)
+        bh=NqveXbqVfN6t9HiKZQ9/LEIdGpHgXugDIC6Xk5RmRO0=;
+        b=SREovP1ZzEHsYAkDzjWwrzPQxQ1g0PhrrBBCRjbLf5uETkpZ5wjdaFG1CkxvESppjH
+         b2FPYvgSLFnFwIWKKdGIidJ9iaAO+COgDlkb9TiDsu6YScLGb6mDCO8DvX3/N7G5Dc2/
+         l2OnyhuJUYaC5Y98zSqc0jNIi8tSqXGKw1+tLN4eZaEyqvA9n9OANYXZ6Kbp7n/zPe6G
+         LGgzg/c1QXbYVp85TFiB3DB9e7TQ6Jt/p56p9APjYkhwiBO61zTYtETcoiwtSYq5c67I
+         5FrikKJ8/8tTlvnbgx8Xu0YsLv/8yZEMPtBCgp5rcf/kibcuZnZgZbJXGL9ZztXH8uBq
+         iWuw==
+X-Gm-Message-State: AOAM533dW/Wxc1KxPc2TLiW6Ff0hSvlglE0R66mbeyYS8RwSgjpTK1I7
+        EyawZCPYYA24nWxAs4DKMF/UDOAmyPSuZA==
+X-Google-Smtp-Source: ABdhPJx0Wo/Tll7c6JSukvG1OzIqLp+67lxexEnS4GmCYMIa+Yxeyc0dnAhjrhrexF4WweMejBmkEw==
+X-Received: by 2002:adf:f852:: with SMTP id d18mr6236972wrq.245.1599906556967;
+        Sat, 12 Sep 2020 03:29:16 -0700 (PDT)
 Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id t16sm9533844wrm.57.2020.09.12.03.06.42
+        by smtp.gmail.com with ESMTPSA id p11sm9118344wma.11.2020.09.12.03.29.16
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2020 03:06:42 -0700 (PDT)
-Subject: [PATCH v2 08/12] clock_getres.2: Cast 'time_t' very small,values to
- 'int' for printf() and fix the length modifiers
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     Jakub Wilk <jwilk@jwilk.net>, linux-man@vger.kernel.org
+        Sat, 12 Sep 2020 03:29:16 -0700 (PDT)
+Subject: Re: [PATCH 10/12] spu_run.2: Cast 'int' to 'unsigned int' when
+ printing with "%x"
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
 References: <20200911231411.28406-1-colomar.6.4.3@gmail.com>
- <20200911231411.28406-9-colomar.6.4.3@gmail.com>
- <20200912055538.sihehmrxj6xwlwxx@jwilk.net>
- <39788961-f3d2-af73-f6fe-9bdd79c1ca14@gmail.com>
-Message-ID: <9d6f2b87-c3b8-60fc-6363-e976b7acbe8b@gmail.com>
-Date:   Sat, 12 Sep 2020 12:06:41 +0200
+ <20200911231411.28406-11-colomar.6.4.3@gmail.com>
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+Message-ID: <0dc39cc2-6cbf-b8f9-3b21-f216c70f17f2@gmail.com>
+Date:   Sat, 12 Sep 2020 12:29:15 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <39788961-f3d2-af73-f6fe-9bdd79c1ca14@gmail.com>
+In-Reply-To: <20200911231411.28406-11-colomar.6.4.3@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Michael, here is the improved patch with Jakub's review applied.
+Hi Michael,
 
-Jakub, I added a line acknowledging your review.
+I think this patch of mine should not be applied.
+
+printf() will internally reinterpret the 'int' as 'unsigned int'
+anyway, and the behaviour is completely defined AFAIK.
+
+Relevant standard: C18 §6.5.2.2 6
+
+And in the case you do want this patch, I should have written
+'unsigned int' in the cast, for consistency.
 
 Thanks,
 
 Alex
 
-----------------------------------------------------
- From cd0e8df57be9ebee47be5c5988a980e462c89085 Mon Sep 17 00:00:00 2001
-From: Alejandro Colomar <colomar.6.4.3@gmail.com>
-Date: Sat, 12 Sep 2020 11:53:01 +0200
-Subject: [PATCH v2 08/12] clock_getres.2: Cast 'time_t' very small
-values to 'int' for printf() and fix the length modifiers
-
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
-Reviewed-by: Jakub Wilk <jwilk@jwilk.net>
----
-  man2/clock_getres.2 | 6 ++++--
-  1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/man2/clock_getres.2 b/man2/clock_getres.2
-index 8fc7c6fef..0c14203ee 100644
---- a/man2/clock_getres.2
-+++ b/man2/clock_getres.2
-@@ -491,8 +491,10 @@ displayClock(clockid_t clock, char *name, bool showRes)
-      if (days > 0)
-          printf("%ld days + ", days);
-
--    printf("%2ldh %2ldm %2lds", (ts.tv_sec % SECS_IN_DAY) / 3600,
--            (ts.tv_sec % 3600) / 60, ts.tv_sec % 60);
-+    printf("%2dh %2dm %2ds",
-+            (int) (ts.tv_sec % SECS_IN_DAY) / 3600,
-+            (int) (ts.tv_sec % 3600) / 60,
-+            (int) ts.tv_sec % 60);
-      printf(")\en");
-
-      if (clock_getres(clock, &ts) == \-1) {
--- 
-2.28.0
+On 2020-09-12 01:14, Alejandro Colomar wrote:
+ > Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+ > ---
+ >   man2/spu_run.2 | 2 +-
+ >   1 file changed, 1 insertion(+), 1 deletion(-)
+ >
+ > diff --git a/man2/spu_run.2 b/man2/spu_run.2
+ > index b6bc2c131..ddd03ffd3 100644
+ > --- a/man2/spu_run.2
+ > +++ b/man2/spu_run.2
+ > @@ -254,7 +254,7 @@ int main(void)
+ >        *   0x00000002 (spu was stopped due to stop\-and\-signal)
+ >        * | 0x12340000 (the stop\-and\-signal code)
+ >        */
+ > -    printf("SPU Status: %#08x\en", spu_status);
+ > +    printf("SPU Status: %#08x\en", (unsigned) spu_status);
+ >
+ >       exit(EXIT_SUCCESS);
+ >   }
+ >
