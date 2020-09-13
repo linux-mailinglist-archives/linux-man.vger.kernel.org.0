@@ -2,95 +2,107 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6C3DF2680DC
-	for <lists+linux-man@lfdr.de>; Sun, 13 Sep 2020 20:46:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8A8962680F0
+	for <lists+linux-man@lfdr.de>; Sun, 13 Sep 2020 21:12:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725939AbgIMSq6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Sep 2020 14:46:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53906 "EHLO
+        id S1725956AbgIMTM3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Sep 2020 15:12:29 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57756 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725936AbgIMSq5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Sep 2020 14:46:57 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 315C2C06174A
-        for <linux-man@vger.kernel.org>; Sun, 13 Sep 2020 11:46:56 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id m6so16388104wrn.0
-        for <linux-man@vger.kernel.org>; Sun, 13 Sep 2020 11:46:56 -0700 (PDT)
+        with ESMTP id S1725936AbgIMTMZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Sep 2020 15:12:25 -0400
+Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com [IPv6:2607:f8b0:4864:20::42a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2DFDAC06174A
+        for <linux-man@vger.kernel.org>; Sun, 13 Sep 2020 12:12:25 -0700 (PDT)
+Received: by mail-pf1-x42a.google.com with SMTP id f18so10669028pfa.10
+        for <linux-man@vger.kernel.org>; Sun, 13 Sep 2020 12:12:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=v2OpVnarl9suOAhvDyvfJmi70uOg2Dkz2U49TfZVBig=;
-        b=lJoBcoXOxLDcK/9luylWbbAA4I/1EhoVN5jfcPxv2zztXJ17o5eEXS0H0jHDzCB3VS
-         2cwnlMse9i3i5vQye8A9T2/1UZGcIVkIqvw1TBCYB4QO+Yixt9JJenhiPoHWEr0LVubN
-         ergllz51xgjGaLyK3lNjzjRl6cN8DvZjB/Lrlhf0Op+vg1PTOz87D63F/9eV5kcGW2Ji
-         yPQNN5g8P9SywQ+GeFJ976rSzXreX5Y1IcbaGYN4Xb/ZgAJPYvYlOvqsEa5u6GDdgqgf
-         56YGHalUAMcHEXBgkBeM6fnB2phZ6X+dJ5Z/JhDu3JGd5rKHt+0qAmxL2HqvFmPnnSGc
-         /Kzw==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references;
+        bh=n3gy988OT7du1yJqjCxcJW9YJhfWIDV8F/IEm0UjyNQ=;
+        b=GyPuTtiSgbikU1uQk7uN9PKLHzInzrcCRA1ETrM7XUZuq1HMN1vv7qMTW5S5I9U/nc
+         XStmKzoryVElLDPFhFL8vw22dNevRv5Vv29+w6mNfY/dNWXbp89M/Gmwg0Z26BCiV1jq
+         wlv0tq866jfAttNqaUmKTMW5MSzcoey1+5ajfqjnjmzA/dNF3r1X30HaX8GRAG4ZiXDW
+         nIasO3aE993DQ8sOmJEcb2A+6lWllKVm2Du5GRCSqe26ERL+g1KeNjM4IMR7KZyygR00
+         LHXWSpfq2eLQbUaERlWhf+glw7IMp7mnZ9siue/7rnp3wSMs+gNKAS6vJLOy0Qdaj/7z
+         NVqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=v2OpVnarl9suOAhvDyvfJmi70uOg2Dkz2U49TfZVBig=;
-        b=h2A8tYCkV3p4vnixtNqiAXhBj+XZMC5U9YonQMMoZDeCDVRJEdqwpLs+2j9VZGE9SQ
-         8EXidFw0aydpKM/ARx1WoGvkqnkJt0sqzKyA4w+MAcCPH15H+c/06+m8k5R62ve5PMr0
-         p+P4Edb/zSPkmvvgHDBLY9naPeDa+Z9HbTtjx1RXGeOooiYXnjcYZY6Qxiw+XEZQdTFQ
-         yAQob33ROZkQx1Hu1dBkhIPmEfrIuAS7nAT12rq4TSi6Np5/r/eBTYRiL5slCEccHZ81
-         trE3mQMuCIiKa/noCtYL9plA/O3JOh4MQPK00E9PKxMEyqzv/3xIHbyAUw0KWkc0Igug
-         iXMQ==
-X-Gm-Message-State: AOAM530dArHXmO/86OTRGhEErsTMHqwPNGiVjOXqkMEUCdpoKBIx7j5v
-        sBZmD8klU9/tVaC4FvzJEyWmhB5P05tSuA==
-X-Google-Smtp-Source: ABdhPJwYN1hI9+KVfOt+vRbCQkTHYzNzMKMYNzN9KHHlfLpJKnt4QxkRoD1RI5D4100gMH64RNRayQ==
-X-Received: by 2002:adf:ec90:: with SMTP id z16mr11681766wrn.145.1600022815318;
-        Sun, 13 Sep 2020 11:46:55 -0700 (PDT)
-Received: from [192.168.0.160] ([93.115.133.118])
-        by smtp.gmail.com with ESMTPSA id q84sm3863194wme.23.2020.09.13.11.46.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 13 Sep 2020 11:46:54 -0700 (PDT)
-Subject: Re: [PATCH] stat.2: fixed inode printing in example program
-To:     Konstantin Bukin <kbukin@gmail.com>
-Cc:     "Dmitry V. Levin" <ldv@altlinux.org>, linux-man@vger.kernel.org,
-        mtk.manpages@gmail.com
-References: <20200913173801.GA15488@altlinux.org>
- <9f5d1d00-9946-5cc0-cc74-3c4820b37c59@gmail.com>
- <CAF98MAKanUQtQN18Rh1F-YEhUqFix9+6aWVHuqSPLWHrJA93TA@mail.gmail.com>
- <ee5cc545-b04a-647f-e8e2-2692af9f1f8e@gmail.com>
- <CAF98MAKZL2oL4U=jPxO4hTm8G7Y7P0D-F26ZSXEWgZEDGO+U2Q@mail.gmail.com>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <139b02b1-901f-c7fc-71ec-3688c062e22b@gmail.com>
-Date:   Sun, 13 Sep 2020 20:46:54 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-MIME-Version: 1.0
-In-Reply-To: <CAF98MAKZL2oL4U=jPxO4hTm8G7Y7P0D-F26ZSXEWgZEDGO+U2Q@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references;
+        bh=n3gy988OT7du1yJqjCxcJW9YJhfWIDV8F/IEm0UjyNQ=;
+        b=ldr8J4Y69EOs/n6CM0wg5i3dCrpVJ7sBv4aU+kG1q1RTJwDfT4N6L8MeXHMvERs5KY
+         wcd6VJcs79wVaYd+2AA0N6JWFe02cVNVy43fJ7X3SufUTzZ10VbJeHqn5bUTfJGXmrXC
+         oeuk9nn6ZwZPBzzON4+c8ELCWelmcXXnkEA95VXh8F6q7rH3se3GWDiowM2AyNgcnO5H
+         /Gs5hF43qNN9iMgxPa/qAQeBGLtzIqRg50cFmqfrmLXz5GcbkD4KWz7emRsiHDa+vLr6
+         4CEXC5WXASnuSY7V7dwqFDEMGIpJVB7JhyqnQvF/FSC45lRITvOX4/iHF/oLGlbdKyu0
+         WvUw==
+X-Gm-Message-State: AOAM533McDF/JpGG4k1y/XF+zHjVEY+VWhyBZ8ztWDIsG/oW63wW5jh1
+        4R431uC/GeYxPfiv8mgaEl90LrMTNS0=
+X-Google-Smtp-Source: ABdhPJzu4hboVdU7uK9f1RQfRbBBSEPbLC74RxuF0J1blRZnPf7QfxCXMoL2/b2PvMB7Fam0X916wg==
+X-Received: by 2002:a62:e501:0:b029:13c:1611:6527 with SMTP id n1-20020a62e5010000b029013c16116527mr10505009pff.7.1600024344683;
+        Sun, 13 Sep 2020 12:12:24 -0700 (PDT)
+Received: from sc-xterm-41.nvidia.com. (thunderhill.nvidia.com. [216.228.112.22])
+        by smtp.googlemail.com with ESMTPSA id gi20sm6934030pjb.28.2020.09.13.12.12.23
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 13 Sep 2020 12:12:24 -0700 (PDT)
+From:   Konstantin Bukin <kbukin@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Konstantin Bukin <kbukin@gmail.com>, linux-man@vger.kernel.org
+Subject: [PATCH] stat.2: fixed inode printing in example program
+Date:   Sun, 13 Sep 2020 12:12:01 -0700
+Message-Id: <20200913191201.1991-1-kbukin@gmail.com>
+X-Mailer: git-send-email 2.17.0
+In-Reply-To: <139b02b1-901f-c7fc-71ec-3688c062e22b@gmail.com>
+References: <139b02b1-901f-c7fc-71ec-3688c062e22b@gmail.com>
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+inode numbers are expected to be positive. Casting them to a signed type
+may result in printing negative values. E.g. running example program on
+the following file:
 
+$ ls -li test.txt
+9280843260537405888 -r--r--r-- 1 kbukin hardware 300 Jul 21 06:36 test.txt
 
-On 9/13/20 8:42 PM, Konstantin Bukin wrote:
->>> Mind I'll send a new patch?
->> Sure.
-> 
-> The new patch uses "%lld" instead of "%ld".
-> 
-> Thank you,
-> Konsstantin.
+resutls in the following output:
 
-BTW, please reply to the thread when submitting a new version of a
-patch, so the thread can be easily followed.
+$ ./example test.txt
+ID of containing device:  [0,480]
+File type:                regular file
+I-node number:            -9165900813172145728
+Mode:                     100444 (octal)
+Link count:               1
+Ownership:                UID=2743   GID=30
+Preferred I/O block size: 32768 bytes
+File size:                300 bytes
+Blocks allocated:         8
+Last status change:       Tue Jul 21 06:36:50 2020
+Last file access:         Sat Sep 12 14:13:38 2020
+Last file modification:   Tue Jul 21 06:36:50 2020
 
+Such erroneous reporting happens for inode values greater than maximum
+value which can be stored in signed long. Casting does not seem to be
+necessary here. Printing inode as unsigned long long fixes the issue.
+---
+ man2/stat.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-If you use git send-email, this might help:
+diff --git a/man2/stat.2 b/man2/stat.2
+index 7e5417480..82eaefcda 100644
+--- a/man2/stat.2
++++ b/man2/stat.2
+@@ -681,7 +681,7 @@ main(int argc, char *argv[])
+     default:       printf("unknown?\en");                break;
+     }
+ 
+-    printf("I\-node number:            %ld\en", (long) sb.st_ino);
++    printf("I\-node number:            %llu\en", (unsigned long long) sb.st_ino);
+ 
+     printf("Mode:                     %lo (octal)\en",
+             (unsigned long) sb.st_mode);
+-- 
+2.17.0
 
-https://burzalodowa.wordpress.com/2013/10/05/how-to-send-patches-with-git-send-email/
-
-Thanks,
-
-Alex
