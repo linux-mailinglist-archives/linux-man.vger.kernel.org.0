@@ -2,120 +2,116 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2E917267E0C
-	for <lists+linux-man@lfdr.de>; Sun, 13 Sep 2020 07:51:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B1743267E0D
+	for <lists+linux-man@lfdr.de>; Sun, 13 Sep 2020 07:54:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725883AbgIMFvn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Sep 2020 01:51:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48646 "EHLO
+        id S1725883AbgIMFyU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Sep 2020 01:54:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49050 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725806AbgIMFvk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Sep 2020 01:51:40 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7FA79C061573
-        for <linux-man@vger.kernel.org>; Sat, 12 Sep 2020 22:51:39 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id a9so8204926wmm.2
-        for <linux-man@vger.kernel.org>; Sat, 12 Sep 2020 22:51:39 -0700 (PDT)
+        with ESMTP id S1725806AbgIMFyU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Sep 2020 01:54:20 -0400
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D7304C061573
+        for <linux-man@vger.kernel.org>; Sat, 12 Sep 2020 22:54:17 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id m6so15261167wrn.0
+        for <linux-man@vger.kernel.org>; Sat, 12 Sep 2020 22:54:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=zGXBroznAPS1im5pONSGCEYd6zO7icIXfCjwiGp0Ouo=;
-        b=t6UlhYr/zc4zbQWKHQS9VIUT9o5dAUX2vmexJW1NW2tmfCS1z53SHl4a4kwVyytEo3
-         wOnOnvuj1NB3myVHD4eTlefubFgYZCmNxOtYdojvJlDltL2G54IbNkrJp/RBkAljIvwT
-         aqds4z4WTm4Axkf10+aU2p7EW3OIOkcGQQGeCL9N61U+p3v+NJuY6tD2P4oB8MmXzMdA
-         jNesKmt+v4dztLZ7JwJQfw3wljF8ULBDf9H3u/8yj2U0lN5NkNoeW3F/I+wE/YGXa0mL
-         cwbMCzmIWwhYe0OKI3LJlWmJBbF1YMs7EPreT3udq4WgyTdtKaezjpOZ8zb36/8TxnZK
-         aIXA==
+        bh=7ydjh74hW2xyShb/M6kd40VjN9zQYWvPq0IDvP4QhpU=;
+        b=MWOjVpV+tqnxzr3C061JCIvgysKKg94wCakxi9Cl31fA38oiHOS8XI2oMfTL1eV4uA
+         Zzw8hPEgmP7Rp1j8s3k9MT1EqF7a609jlMnd4JFBAEuHCatsFQ5oCSw0roRVuUGufYAE
+         6j/zV8T2HpGfEN4vPT7W8HUkKKggC2DezhEJ1F/36GZPEhL4/pPUP+r4mS1mhvlhbWNR
+         0fPApm2HRjVi3fRLxovOouza/Xe+paMvL3APiLfQzxAYdnUpmUXump8fJlqOGb27dELG
+         olFjeHvdknsn5FTUGYcp7O/bS0QEhM//ByD5YJ6ki3vxN66xekZZuTd3lLD1XVd5O8U9
+         KDag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=zGXBroznAPS1im5pONSGCEYd6zO7icIXfCjwiGp0Ouo=;
-        b=eRFTf2b5ANWYGtVWN7XLz6efpgApaf7XeC+C+4H7oKuOwvIEQd1sEFHtdKmPhA89A6
-         rIpUV5FYf1M0oeT6cT6GH0orns5bG94I/9JeWu2+vkrTpMkcq6fsnV/ahHBB/SYCIy6N
-         zmg6Z2uqVXZa42NvLIy5cBGr++BeYSfAGY2AIsj7Xvt4hElT0osXetcjndDRYH2YpXOy
-         gLKLEztiOazzYr5/TKN2LwtDz0rM1FQYcWAIPKnFRYYXWHRsDnmTGxpqk8Av954i+F0B
-         WlTj0VybECWVvRV5i0Imh3aqeAFKNXNKUZEfF9HvCCRb+ayfDS/fbzH2E7bnHjTEbI77
-         BRMA==
-X-Gm-Message-State: AOAM533adpTVmx33aTCWLWAs87zdg//alahcH95XOzJ7KwVeBcDvjbEr
-        kOK5ixPDtG0floaw3+Fxo1rM+nHck5Q=
-X-Google-Smtp-Source: ABdhPJw11GqtYgKljuq1BI/PpwJqpk7F3kcq0n5TdpNBFIav3bmAxsfSiD9Ra0v7xP/IOR2tCp4XPA==
-X-Received: by 2002:a1c:dd45:: with SMTP id u66mr9643076wmg.117.1599976297795;
-        Sat, 12 Sep 2020 22:51:37 -0700 (PDT)
+        bh=7ydjh74hW2xyShb/M6kd40VjN9zQYWvPq0IDvP4QhpU=;
+        b=V1cNheqM/RUOS6DqgzaWXm/tpeV1e5cqGjM8NjonmZzjoCD4w2rw5dvaG4xlsCTQlT
+         T7QoN+UrVI1EjC/AFh3vwS1ZiVQ6O5vN/ttqmPEYaMi/CkZNWybdBjIL/Oay4l1JhTON
+         TZRF9cyEmFsPe3+JfaEtNe4KzeUXAGbhYXduFYida0YOMrKWKT4tgkcMoKLWsAGcz7pV
+         R1fjhVvCu+ovG7d2yyu1cXgZJ7AiJ7rywx/ZU1gD/olfsTGR0WvoQG5th7Z/Xem6px4o
+         j9mC7hBsIegFTsbxf8bcMuLqYvMqsF7zPBB9XjKntJ9FcOJexCHUAgW9MqmDfS6yX9Bp
+         2c2Q==
+X-Gm-Message-State: AOAM532qErmGW0kTpt4FZ/rRIUAF8u8OJjxx0SnUPVqGkxFwDatHf3Mn
+        F6Ox8BkBh9nAOwp3MtctnKSB9mzFScU=
+X-Google-Smtp-Source: ABdhPJw2qIg1F4xiXDWM+ZGJPOzPN4/rFvY6RUl/TgdamvS0kXSOAixePIYEMferUtPR5y1UOmHE5Q==
+X-Received: by 2002:adf:9e06:: with SMTP id u6mr9759407wre.208.1599976455160;
+        Sat, 12 Sep 2020 22:54:15 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id z14sm13432714wrh.14.2020.09.12.22.51.36
+        by smtp.gmail.com with ESMTPSA id o9sm13396991wrw.58.2020.09.12.22.54.14
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2020 22:51:37 -0700 (PDT)
+        Sat, 12 Sep 2020 22:54:14 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH 07/12] userfaultfd.2: Use 'PRIx64' rather than "%llx" when
- printing 64-bit fixed-width types
+Subject: Re: [PATCH 10/12] spu_run.2: Cast 'int' to 'unsigned int' when
+ printing with "%x"
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <20200911231411.28406-1-colomar.6.4.3@gmail.com>
- <20200911231411.28406-8-colomar.6.4.3@gmail.com>
+ <20200911231411.28406-11-colomar.6.4.3@gmail.com>
+ <0dc39cc2-6cbf-b8f9-3b21-f216c70f17f2@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <608e820d-84ac-b143-cad0-1bcfc5aac227@gmail.com>
-Date:   Sun, 13 Sep 2020 07:51:36 +0200
+Message-ID: <ac533f16-70c8-71a5-995b-865f976d65d5@gmail.com>
+Date:   Sun, 13 Sep 2020 07:54:13 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200911231411.28406-8-colomar.6.4.3@gmail.com>
+In-Reply-To: <0dc39cc2-6cbf-b8f9-3b21-f216c70f17f2@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 9/12/20 1:14 AM, Alejandro Colomar wrote:
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+Hi Alex,
 
-Thanks, Alex. Patch applied.
+On 9/12/20 12:29 PM, Alejandro Colomar wrote:
+> Hi Michael,
+> 
+> I think this patch of mine should not be applied.
+> 
+> printf() will internally reinterpret the 'int' as 'unsigned int'
+> anyway, and the behaviour is completely defined AFAIK.
+> 
+> Relevant standard: C18 §6.5.2.2 6
+> 
+> And in the case you do want this patch, I should have written
+> 'unsigned int' in the cast, for consistency.
 
-Cheers,
+Okay. 
+
+Thanks,
 
 Michael
 
 
-
-> ---
->  man2/userfaultfd.2 | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/man2/userfaultfd.2 b/man2/userfaultfd.2
-> index 126d4a854..c7e42804a 100644
-> --- a/man2/userfaultfd.2
-> +++ b/man2/userfaultfd.2
-> @@ -566,6 +566,7 @@ Read address 0x7fd30106ec0f in main(): C
->     Licensed under the GNU General Public License version 2 or later.
->  */
->  #define _GNU_SOURCE
-> +#include <inttypes.h>
->  #include <sys/types.h>
->  #include <stdio.h>
->  #include <linux/userfaultfd.h>
-> @@ -650,8 +651,8 @@ fault_handler_thread(void *arg)
->          /* Display info about the page\-fault event */
->  
->          printf("    UFFD_EVENT_PAGEFAULT event: ");
-> -        printf("flags = %llx; ", msg.arg.pagefault.flags);
-> -        printf("address = %llx\en", msg.arg.pagefault.address);
-> +        printf("flags = %"PRIx64"; ", msg.arg.pagefault.flags);
-> +        printf("address = %"PRIx64"\en", msg.arg.pagefault.address);
->  
->          /* Copy the page pointed to by \(aqpage\(aq into the faulting
->             region. Vary the contents that are copied in, so that it
-> @@ -673,7 +674,7 @@ fault_handler_thread(void *arg)
->          if (ioctl(uffd, UFFDIO_COPY, &uffdio_copy) == \-1)
->              errExit("ioctl\-UFFDIO_COPY");
->  
-> -        printf("        (uffdio_copy.copy returned %lld)\en",
-> +        printf("        (uffdio_copy.copy returned %"PRId64")\en",
->                  uffdio_copy.copy);
->      }
->  }
+> On 2020-09-12 01:14, Alejandro Colomar wrote:
+>  > Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+>  > ---
+>  >   man2/spu_run.2 | 2 +-
+>  >   1 file changed, 1 insertion(+), 1 deletion(-)
+>  >
+>  > diff --git a/man2/spu_run.2 b/man2/spu_run.2
+>  > index b6bc2c131..ddd03ffd3 100644
+>  > --- a/man2/spu_run.2
+>  > +++ b/man2/spu_run.2
+>  > @@ -254,7 +254,7 @@ int main(void)
+>  >        *   0x00000002 (spu was stopped due to stop\-and\-signal)
+>  >        * | 0x12340000 (the stop\-and\-signal code)
+>  >        */
+>  > -    printf("SPU Status: %#08x\en", spu_status);
+>  > +    printf("SPU Status: %#08x\en", (unsigned) spu_status);
+>  >
+>  >       exit(EXIT_SUCCESS);
+>  >   }
+>  >
 > 
 
 
