@@ -2,65 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 68ADC267E0A
-	for <lists+linux-man@lfdr.de>; Sun, 13 Sep 2020 07:47:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EA9F8267E09
+	for <lists+linux-man@lfdr.de>; Sun, 13 Sep 2020 07:47:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725909AbgIMFrJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Sep 2020 01:47:09 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47896 "EHLO
+        id S1725902AbgIMFrE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Sep 2020 01:47:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47904 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725918AbgIMFqz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Sep 2020 01:46:55 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F17D7C061757
-        for <linux-man@vger.kernel.org>; Sat, 12 Sep 2020 22:46:53 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id o5so15163543wrn.13
-        for <linux-man@vger.kernel.org>; Sat, 12 Sep 2020 22:46:53 -0700 (PDT)
+        with ESMTP id S1725909AbgIMFq4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Sep 2020 01:46:56 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 61FC7C061573
+        for <linux-man@vger.kernel.org>; Sat, 12 Sep 2020 22:46:56 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id l15so3699959wmh.1
+        for <linux-man@vger.kernel.org>; Sat, 12 Sep 2020 22:46:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=XbLT3ml6vbwd8TEjFaGZFkT3J3K9ouyZCh5XdCqFNyc=;
-        b=aSbPdCyn56Y0F106hxDdFyp2a+JktmQwTmNnu3gqhWnbdnSe9W7T8Ak8sABL0oeoyW
-         mSfBg6Re+l0EoRMTzybzHY7UpHh6tfOQaeeQbgygNa2N7XShpromuU66qEBa1rudcyid
-         mzUEgIVtzJfANvcE0LSYJZRin11zpftzZXb75ycexHCxFjjRxF11OHp1AZVPZlcSxWRX
-         QNlraPHnb0WbFBPUlLlm2XsEpP2JOvF998CfTinIeQCIIcoSqt6UI4NP0s6CypstG5NO
-         lSG0+sa2nkPw0FvTUtZLX2IGzQig8ame7xGbBFqhPDh6svyoetCPRRhGmFo7Pa5yU6xD
-         0XHA==
+        bh=j0n5yEarhpbA4UAxQL++W1vWH4m6lKztJBnb4EqKtXA=;
+        b=EYbs4oZ+1ni6AluxwOrUIGx6gyJHTIBen6Idb3Ot8szvO9ZPDykfqxmndDAIKg0HZ6
+         mghAkZtGBFo/nfo5R5Cis+8L+Eee7C1Yyka+a5AX9db4jfaT39U8mNkbEngBScE5WxaY
+         BXWo6cBdwnCfXpggLIm0BlbgotxXeZBZGEOWGHX8rXuXGosskH6AOE7HPzq+nN7hND8s
+         kCOtwKPygWUVuaTCg/D6Ho83CBaMcMOn3W30L/vglokB8q4Ji67oCgLtFPiRJ9HiuEX8
+         0HZXD/gLYcwi3XqwNJepfrx2A/oveC+HUXUNZUB1o84zmTNQyK42G2lyXZvOGeurBQPH
+         19Kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=XbLT3ml6vbwd8TEjFaGZFkT3J3K9ouyZCh5XdCqFNyc=;
-        b=Z3BzAHi6ZTtOvjR53cmsujdVIGfXp8X+bao3+IUnX1db/G2G9FLR8xGPnYE5H2izON
-         LXOJiXwlAIjcEydezVuMz8FvIS7L8Sdwof0K2rUkNGVlQe0e+LM1kELcwixqbMY1pCOK
-         QSnsfqIUicSoS2i7HCX+Q3PiN/gshFnUOHoQVJTh6sUC1k8y3wSt2wEGottEQZQymXMe
-         7Rvtn6uXsd0MygUIk4FEdhDSJp4AKOVrWaN7FT+K1yRZbzpG4xSgThOHWXhZhksxjM1+
-         k9wDtcPKcYr5IQ6GBYw8o5ss/8BzCIqbRmZPgLNuvmwlj3DUxHtD/TEGnrACNNRwEXqO
-         kdRA==
-X-Gm-Message-State: AOAM530NIuY9rL7X6/SLzX6hNoPf+MsISfZTiF3P9nB5xXc8PB+BCbMZ
-        HL5yb6u9ZNzMFfuiG+NSeDPVQWO/VNw=
-X-Google-Smtp-Source: ABdhPJwJvAGnoYtf1G8fu+g/BVML/BwzI57XaDusqUcmySDoO4x1Bi+kyu9N5JFzGEev3/O4uX/7JA==
-X-Received: by 2002:a5d:67cd:: with SMTP id n13mr9418848wrw.51.1599976010946;
-        Sat, 12 Sep 2020 22:46:50 -0700 (PDT)
+        bh=j0n5yEarhpbA4UAxQL++W1vWH4m6lKztJBnb4EqKtXA=;
+        b=KLTBBlI9ZMsfDFpxKghdX0UZjqizTJ3myMadVRe98lkzBE7jHwcHdnirzchv6lXJIf
+         14ZvNizEDyRJrnMtugOFYqYcFjO5gLFC4l/xFWu7gvZn4P8xqKkQCH82nJKe+oTa/Uth
+         3HEChafrRj7yDt7r+xxtXenLZNV7PCPidmhkndwSbVhrNTmPMVU6E751LvkP2vqJirdS
+         caip1eWObIRlVDcJHiXuq3mo6ll8OEnbxTTPOlWSw5Pcz4En6qAKhOMcMPIZKcA9AlcX
+         bUXNboxLb6mfOi2MYxp+djZm8Ts2R/15VBmLtn88RnFFQyX6xmZwqOaMRTLr64znAdXS
+         g9tQ==
+X-Gm-Message-State: AOAM533wHCxq1Eq8iPbGVNw2DjthoLw0wAnTeIu1CQhCA6GLZvAnKPft
+        OJLw9Y4FNL6/KJwBPGdKl6hGqQUYrE8=
+X-Google-Smtp-Source: ABdhPJxuhOmOmKvc39tEKGsw3iEQ13h8XEvM/TyNPmrGyCZiEMWgeVQFq0VBRsUd3GTw/2HwiTSwbQ==
+X-Received: by 2002:a1c:e1c2:: with SMTP id y185mr5369345wmg.182.1599976014848;
+        Sat, 12 Sep 2020 22:46:54 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id o6sm14277990wrm.76.2020.09.12.22.46.50
+        by smtp.gmail.com with ESMTPSA id c14sm13119646wrv.12.2020.09.12.22.46.54
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2020 22:46:50 -0700 (PDT)
+        Sat, 12 Sep 2020 22:46:54 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH 02/12] malloc_hook.3: Remove unneeded cast, and print
- 'size_t' with "%zu"
+Subject: Re: [PATCH 09/12] open_by_handle_at.2: Use "%u" rather than "%d" when
+ printing 'unsigned int' values
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <20200911231411.28406-1-colomar.6.4.3@gmail.com>
- <20200911231411.28406-3-colomar.6.4.3@gmail.com>
+ <20200911231411.28406-10-colomar.6.4.3@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <dde9c18a-a0ab-feaa-6932-0d5b6b8bf856@gmail.com>
-Date:   Sun, 13 Sep 2020 07:46:49 +0200
+Message-ID: <f810b316-e30f-202b-8907-9d5d97432dc0@gmail.com>
+Date:   Sun, 13 Sep 2020 07:46:53 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200911231411.28406-3-colomar.6.4.3@gmail.com>
+In-Reply-To: <20200911231411.28406-10-colomar.6.4.3@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -79,24 +79,22 @@ Cheers,
 Michael
 
 > ---
->  man3/malloc_hook.3 | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  man2/open_by_handle_at.2 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/man3/malloc_hook.3 b/man3/malloc_hook.3
-> index a509dc72f..fb45e30f2 100644
-> --- a/man3/malloc_hook.3
-> +++ b/man3/malloc_hook.3
-> @@ -130,8 +130,8 @@ my_malloc_hook(size_t size, const void *caller)
->      old_malloc_hook = __malloc_hook;
+> diff --git a/man2/open_by_handle_at.2 b/man2/open_by_handle_at.2
+> index fb8940696..53c8c7968 100644
+> --- a/man2/open_by_handle_at.2
+> +++ b/man2/open_by_handle_at.2
+> @@ -600,7 +600,7 @@ main(int argc, char *argv[])
+>         for later reuse by t_open_by_handle_at.c */
 >  
->      /* printf() might call malloc(), so protect it too. */
-> -    printf("malloc(%u) called from %p returns %p\en",
-> -            (unsigned int) size, caller, result);
-> +    printf("malloc(%zu) called from %p returns %p\en",
-> +            size, caller, result);
->  
->      /* Restore our own hooks */
->      __malloc_hook = my_malloc_hook;
+>      printf("%d\en", mount_id);
+> -    printf("%d %d   ", fhp\->handle_bytes, fhp\->handle_type);
+> +    printf("%u %d   ", fhp\->handle_bytes, fhp\->handle_type);
+>      for (int j = 0; j < fhp\->handle_bytes; j++)
+>          printf(" %02x", fhp\->f_handle[j]);
+>      printf("\en");
 > 
 
 
