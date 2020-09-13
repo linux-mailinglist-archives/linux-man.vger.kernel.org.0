@@ -2,81 +2,103 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 833E1267FE0
-	for <lists+linux-man@lfdr.de>; Sun, 13 Sep 2020 17:16:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A3F87268007
+	for <lists+linux-man@lfdr.de>; Sun, 13 Sep 2020 17:50:06 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725939AbgIMPQt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Sep 2020 11:16:49 -0400
-Received: from vmicros1.altlinux.org ([194.107.17.57]:41958 "EHLO
-        vmicros1.altlinux.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725937AbgIMPQs (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Sep 2020 11:16:48 -0400
-Received: from mua.local.altlinux.org (mua.local.altlinux.org [192.168.1.14])
-        by vmicros1.altlinux.org (Postfix) with ESMTP id 5D69B72CA54;
-        Sun, 13 Sep 2020 18:16:42 +0300 (MSK)
-Received: by mua.local.altlinux.org (Postfix, from userid 508)
-        id 448A17CFA2F; Sun, 13 Sep 2020 18:16:42 +0300 (MSK)
-Date:   Sun, 13 Sep 2020 18:16:42 +0300
-From:   "Dmitry V. Levin" <ldv@altlinux.org>
-To:     Konstantin Bukin <kbukin@gmail.com>
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] stat.2: fixed inode printing in example program
-Message-ID: <20200913151642.GA14054@altlinux.org>
-References: <20200913150449.11188-1-kbukin@gmail.com>
+        id S1725939AbgIMPuF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Sep 2020 11:50:05 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55124 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725936AbgIMPuA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Sep 2020 11:50:00 -0400
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com [IPv6:2607:f8b0:4864:20::644])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F3B81C06174A
+        for <linux-man@vger.kernel.org>; Sun, 13 Sep 2020 08:49:59 -0700 (PDT)
+Received: by mail-pl1-x644.google.com with SMTP id x18so3318314pll.6
+        for <linux-man@vger.kernel.org>; Sun, 13 Sep 2020 08:49:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=/E7cx5L8JtvOfQMgPCP65sK6s7G0QiBQXi3QJz+yIPg=;
+        b=cAmbgfG1EZBnQ8vO8VmD9tSi6HyPz0KdTiYYRZYzRP9V26gQL2r8VnDnZtgHZjp72F
+         VkHOm5ZBquuvKEntffBxiFmH33Ar4tMExlPkEnPiEqWH+sE7GLgjzB3SRniEL9Da7bVj
+         STkttcw8ZTUjQFWJG+TY0T4tBgijasp4XZ7ltQ+lF97n6a8H/KtJx+RoLOsp3r8g1bWE
+         bLWPSF6LBtfyXBMNOrNEBS1t/7O7VBYId0Y3zNRu6vfBqH4/zg0LqroBVp58GmRZ57Oo
+         3m0+i6viG2VUynhTrsXrmu+4o/UsS9YUdM48zslDSlCPROH7kmqAq1x7qS/vQXaOssLo
+         Dkgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=/E7cx5L8JtvOfQMgPCP65sK6s7G0QiBQXi3QJz+yIPg=;
+        b=PudD14wbX2sTJ9fwHeqDMrJ6Qv7rWC7ETbAHU/fM8pooW9EK0faBN/OnROY61x3JE1
+         xLA9IXi0HC3npT4ut7aQVgmYDV42DlR/NHGK+i6ximl4bNLGFvPKS0oOEQFdntESJeVX
+         ZiyEC8UjoA1lOepZKSj1YhU4Hh6xHHSkoIxDsnKmR2s+MwL9j0IaMwGVe/Sxx9Vqb0vd
+         80WodQ4tVK8jExNwLiGk7/y7KCILiEBSj6esHo9O0Des7NBtF3a2iKEY/C6eqKNBahVv
+         d7hyNxOlNGgZ7JupMQAdrQMxgBxgS79O1Xv2I9yMGCUzpKPOzLIRe3GK01XWlG+OBDye
+         51SQ==
+X-Gm-Message-State: AOAM533w1lr22IgZuGogrJ37e0ecw+zSQsyIK74FY7oV710XLrZ6uGH7
+        KILNvs8n2zftESS20hKtAQHgZgFD6RTwM6BYv5Y=
+X-Google-Smtp-Source: ABdhPJzr2EzmsKgzz/b7dEzGgGM0X2pw+SUDYEdx1pgK+TB5YWmcegu/nNq7HRY/Y8f6wHAknf7dUwY5uX1k9D+MCWI=
+X-Received: by 2002:a17:902:7606:: with SMTP id k6mr10444556pll.171.1600012199357;
+ Sun, 13 Sep 2020 08:49:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200913150449.11188-1-kbukin@gmail.com>
+References: <CAFDeuWPmWWHatxnZ9HsYN2fp3gagHOKCsKmVDj0F6us9XWKwFQ@mail.gmail.com>
+ <20200913141808.GM3265@brightrain.aerifal.cx>
+In-Reply-To: <20200913141808.GM3265@brightrain.aerifal.cx>
+From:   =?UTF-8?B?w4lyaWNvIFJvbGlt?= <erico.erc@gmail.com>
+Date:   Sun, 13 Sep 2020 12:49:48 -0300
+Message-ID: <CAFDeuWM5Bu1Hq7FFUBvoxHJfEUTD=FDK35aJUQEYFGyCnx37NQ@mail.gmail.com>
+Subject: [PATCH v2] posix_fallocate.3: add EOPNOTSUPP error code.
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, musl@lists.openwall.com,
+        ericonr@disroot.org
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sun, Sep 13, 2020 at 08:04:49AM -0700, Konstantin Bukin wrote:
-> inode numbers are expected to be positive. Casting them to a signed type
-> may result in printing negative values. E.g. running example program on
-> the following file:
-> 
-> $ ls -li test.txt
-> 9280843260537405888 -r--r--r-- 1 kbukin hardware 300 Jul 21 06:36 test.txt
-> 
-> resutls in the following output:
-> 
-> $ ./example test.txt
-> ID of containing device:  [0,480]
-> File type:                regular file
-> I-node number:            -9165900813172145728
-> Mode:                     100444 (octal)
-> Link count:               1
-> Ownership:                UID=2743   GID=30
-> Preferred I/O block size: 32768 bytes
-> File size:                300 bytes
-> Blocks allocated:         8
-> Last status change:       Tue Jul 21 06:36:50 2020
-> Last file access:         Sat Sep 12 14:13:38 2020
-> Last file modification:   Tue Jul 21 06:36:50 2020
-> 
-> Such erroneous reporting happens for inode values greater than maximum
-> value which can be stored in signed long. Casting does not seem to be
-> necessary here. Printing inode as unsigned long fixes the issue.
-> ---
->  man2/stat.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man2/stat.2 b/man2/stat.2
-> index 7e5417480..76997bcbe 100644
-> --- a/man2/stat.2
-> +++ b/man2/stat.2
-> @@ -681,7 +681,7 @@ main(int argc, char *argv[])
->      default:       printf("unknown?\en");                break;
->      }
->  
-> -    printf("I\-node number:            %ld\en", (long) sb.st_ino);
-> +    printf("I\-node number:            %lu\en", sb.st_ino);
+As can be seen in
 
-By the way, the type of st_ino is ino_t which might be larger than long,
-so both the old and the new variants are not correct.
+https://git.musl-libc.org/cgit/musl/tree/src/fcntl/posix_fallocate.c?id=73cc775bee53300c7cf759f37580220b18ac13d3
 
+musl libc returns the syscall's errors directly, which means it doesn't
+perform the same emulation as glibc, and can return EOPNOTSUPP to an
+application, which isnt't listed in ERRORS.
+---
 
+This patch replaces "[patch] posix_fallocate.3: add note about error
+codes for musl." from
+https://lore.kernel.org/linux-man/CAFDeuWPmWWHatxnZ9HsYN2fp3gagHOKCsKmVDj0F6us9XWKwFQ@mail.gmail.com/T/#t
+
+posix_fallocate(3p) doesn't list EOPNOTSUPP as an error that can be
+returned to applications. Should it be noted in the man page that this
+is something added/required by Linux? (I might be mistaken regarding
+this assumption).
+
+ man3/posix_fallocate.3 | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/man3/posix_fallocate.3 b/man3/posix_fallocate.3
+index 58338d673..125bcc12b 100644
+--- a/man3/posix_fallocate.3
++++ b/man3/posix_fallocate.3
+@@ -98,6 +98,13 @@ There is not enough space left on the device
+containing the file
+ referred to by
+ .IR fd .
+ .TP
++.B EOPNOTSUPP
++The filesystem containing the file referred to by
++.IR fd
++does not support this operation.
++This error code can be returned by libc's that don't perform the
++emulation shown in NOTES, such as musl libc.
++.TP
+ .B ESPIPE
+ .I fd
+ refers to a pipe.
 -- 
-ldv
+2.28.0
