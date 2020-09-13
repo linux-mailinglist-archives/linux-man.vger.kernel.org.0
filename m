@@ -2,107 +2,89 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8A8962680F0
-	for <lists+linux-man@lfdr.de>; Sun, 13 Sep 2020 21:12:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 597822680FC
+	for <lists+linux-man@lfdr.de>; Sun, 13 Sep 2020 21:32:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725956AbgIMTM3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Sep 2020 15:12:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57756 "EHLO
+        id S1725943AbgIMTcX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Sep 2020 15:32:23 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60828 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725936AbgIMTMZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Sep 2020 15:12:25 -0400
-Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com [IPv6:2607:f8b0:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2DFDAC06174A
-        for <linux-man@vger.kernel.org>; Sun, 13 Sep 2020 12:12:25 -0700 (PDT)
-Received: by mail-pf1-x42a.google.com with SMTP id f18so10669028pfa.10
-        for <linux-man@vger.kernel.org>; Sun, 13 Sep 2020 12:12:25 -0700 (PDT)
+        with ESMTP id S1725966AbgIMTcR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Sep 2020 15:32:17 -0400
+Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com [IPv6:2607:f8b0:4864:20::244])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 43ACEC06174A
+        for <linux-man@vger.kernel.org>; Sun, 13 Sep 2020 12:32:17 -0700 (PDT)
+Received: by mail-oi1-x244.google.com with SMTP id t76so15488429oif.7
+        for <linux-man@vger.kernel.org>; Sun, 13 Sep 2020 12:32:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references;
-        bh=n3gy988OT7du1yJqjCxcJW9YJhfWIDV8F/IEm0UjyNQ=;
-        b=GyPuTtiSgbikU1uQk7uN9PKLHzInzrcCRA1ETrM7XUZuq1HMN1vv7qMTW5S5I9U/nc
-         XStmKzoryVElLDPFhFL8vw22dNevRv5Vv29+w6mNfY/dNWXbp89M/Gmwg0Z26BCiV1jq
-         wlv0tq866jfAttNqaUmKTMW5MSzcoey1+5ajfqjnjmzA/dNF3r1X30HaX8GRAG4ZiXDW
-         nIasO3aE993DQ8sOmJEcb2A+6lWllKVm2Du5GRCSqe26ERL+g1KeNjM4IMR7KZyygR00
-         LHXWSpfq2eLQbUaERlWhf+glw7IMp7mnZ9siue/7rnp3wSMs+gNKAS6vJLOy0Qdaj/7z
-         NVqA==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=wZsOmR16VAE04H7T88YvUjADxLu6sevmq/aT5mF/1KQ=;
+        b=ozbUBCajC6vzwmw54yg04TLIjfr7Iv3ZkLySC6iLwpV8mq1Eyx0rWHjLQeZ2Dw2YgU
+         6AH3kgRhorHKLUb9bZwTnEZ05UGpitUKWdTYibCy5SNv5OlunQCUSaBHggvfPwx1co+P
+         lcERg8b3hryYy9ku1Zf4dklt9p6iluW29rR84X/cHdO3KtNwUzJOp5Bwgfh0h3Zglt2O
+         CCVsg/zqtZn4SDRWCdsanyo69yJ/lsf7iASRStlPG2NS3lGmrDDU45Y4STvOkieiucBN
+         /gaoCxGSMGtARCPnq3kt2JgoRdg0YJ87k4Yb2JKY0VGpXvyYlUmSALrPxMqiNv9w/41D
+         04hQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references;
-        bh=n3gy988OT7du1yJqjCxcJW9YJhfWIDV8F/IEm0UjyNQ=;
-        b=ldr8J4Y69EOs/n6CM0wg5i3dCrpVJ7sBv4aU+kG1q1RTJwDfT4N6L8MeXHMvERs5KY
-         wcd6VJcs79wVaYd+2AA0N6JWFe02cVNVy43fJ7X3SufUTzZ10VbJeHqn5bUTfJGXmrXC
-         oeuk9nn6ZwZPBzzON4+c8ELCWelmcXXnkEA95VXh8F6q7rH3se3GWDiowM2AyNgcnO5H
-         /Gs5hF43qNN9iMgxPa/qAQeBGLtzIqRg50cFmqfrmLXz5GcbkD4KWz7emRsiHDa+vLr6
-         4CEXC5WXASnuSY7V7dwqFDEMGIpJVB7JhyqnQvF/FSC45lRITvOX4/iHF/oLGlbdKyu0
-         WvUw==
-X-Gm-Message-State: AOAM533McDF/JpGG4k1y/XF+zHjVEY+VWhyBZ8ztWDIsG/oW63wW5jh1
-        4R431uC/GeYxPfiv8mgaEl90LrMTNS0=
-X-Google-Smtp-Source: ABdhPJzu4hboVdU7uK9f1RQfRbBBSEPbLC74RxuF0J1blRZnPf7QfxCXMoL2/b2PvMB7Fam0X916wg==
-X-Received: by 2002:a62:e501:0:b029:13c:1611:6527 with SMTP id n1-20020a62e5010000b029013c16116527mr10505009pff.7.1600024344683;
-        Sun, 13 Sep 2020 12:12:24 -0700 (PDT)
-Received: from sc-xterm-41.nvidia.com. (thunderhill.nvidia.com. [216.228.112.22])
-        by smtp.googlemail.com with ESMTPSA id gi20sm6934030pjb.28.2020.09.13.12.12.23
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 13 Sep 2020 12:12:24 -0700 (PDT)
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=wZsOmR16VAE04H7T88YvUjADxLu6sevmq/aT5mF/1KQ=;
+        b=h2++s+yB4r0ZHbuucCu/0/g6I83yLoMe1NTGPA8ol8AMJwC/HnlXFZ83Xb4EunfWcD
+         sq3DKYr0WxwFhXQSpFNCkKHOKVxIFk9aDcs+iGbxxV0K4v4aNPeB3/EWAuIYvMUHu/er
+         v+ic/DsciFxfVhOJ1DyG5LsW+eDKYSAQaNUeklDHs/NfBOBkhi1BKVvbS+Qv1gpln/BQ
+         awCyKQaAMl37+FtyieLnPSoSOPjiCC9laYbptMCZYtV2tEtZDEGcptvy8A4rirmChytd
+         HTE+kjYO7WrM2zuksX2Ky7VXPdwIFGZCxF3z+5WycPuvSH0ZPsSspcvqMT5hS0stwQ4T
+         e4kA==
+X-Gm-Message-State: AOAM533URz/PoKq6x2znKQeLlSSVu26bRj/JCu7MtGlUH3Xz6PJbPvPE
+        vGwXuEPhjRXL1XVdGQqPozYtFkX+257lUiUtCCbufj9iNdg=
+X-Google-Smtp-Source: ABdhPJyDjKzvjiGRiCCgM6dD5q6K0RyA/BSfetPwo7SBy+8Dvgb4XZV8OjsMfWQMEI5qd4K5UvBOUMz7MeJ7ltxv4I0=
+X-Received: by 2002:a05:6808:8ca:: with SMTP id k10mr6125252oij.84.1600025536705;
+ Sun, 13 Sep 2020 12:32:16 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200913182949.29815-1-kbukin@gmail.com> <68e2c613-3ccf-a62d-f2ae-3e33e9450a3a@gmail.com>
+In-Reply-To: <68e2c613-3ccf-a62d-f2ae-3e33e9450a3a@gmail.com>
 From:   Konstantin Bukin <kbukin@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Konstantin Bukin <kbukin@gmail.com>, linux-man@vger.kernel.org
-Subject: [PATCH] stat.2: fixed inode printing in example program
-Date:   Sun, 13 Sep 2020 12:12:01 -0700
-Message-Id: <20200913191201.1991-1-kbukin@gmail.com>
-X-Mailer: git-send-email 2.17.0
-In-Reply-To: <139b02b1-901f-c7fc-71ec-3688c062e22b@gmail.com>
-References: <139b02b1-901f-c7fc-71ec-3688c062e22b@gmail.com>
+Date:   Sun, 13 Sep 2020 12:32:05 -0700
+Message-ID: <CAF98MAJoPx1YOyV6DQhFSj1S++1jffgUdae4989FqicpBYkuug@mail.gmail.com>
+Subject: Re: [PATCH] stat.2: fixed inode printing in example program
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+Cc:     linux-man@vger.kernel.org, mtk.manpages@gmail.com,
+        "Dmitry V. Levin" <ldv@altlinux.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-inode numbers are expected to be positive. Casting them to a signed type
-may result in printing negative values. E.g. running example program on
-the following file:
+Fair enough, cast is needed. I replied in the main thread with a fixed patc=
+h.
 
-$ ls -li test.txt
-9280843260537405888 -r--r--r-- 1 kbukin hardware 300 Jul 21 06:36 test.txt
+Thank you,
+Konstantin.
 
-resutls in the following output:
-
-$ ./example test.txt
-ID of containing device:  [0,480]
-File type:                regular file
-I-node number:            -9165900813172145728
-Mode:                     100444 (octal)
-Link count:               1
-Ownership:                UID=2743   GID=30
-Preferred I/O block size: 32768 bytes
-File size:                300 bytes
-Blocks allocated:         8
-Last status change:       Tue Jul 21 06:36:50 2020
-Last file access:         Sat Sep 12 14:13:38 2020
-Last file modification:   Tue Jul 21 06:36:50 2020
-
-Such erroneous reporting happens for inode values greater than maximum
-value which can be stored in signed long. Casting does not seem to be
-necessary here. Printing inode as unsigned long long fixes the issue.
----
- man2/stat.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/man2/stat.2 b/man2/stat.2
-index 7e5417480..82eaefcda 100644
---- a/man2/stat.2
-+++ b/man2/stat.2
-@@ -681,7 +681,7 @@ main(int argc, char *argv[])
-     default:       printf("unknown?\en");                break;
-     }
- 
--    printf("I\-node number:            %ld\en", (long) sb.st_ino);
-+    printf("I\-node number:            %llu\en", (unsigned long long) sb.st_ino);
- 
-     printf("Mode:                     %lo (octal)\en",
-             (unsigned long) sb.st_mode);
--- 
-2.17.0
-
+On Sun, Sep 13, 2020 at 11:43 AM Alejandro Colomar
+<colomar.6.4.3@gmail.com> wrote:
+>
+> > Such erroneous reporting happens for inode values greater than maximum
+> > value which can be stored in signed long. Casting does not seem to be
+> > necessary here. Printing inode as unsigned long long fixes the issue.
+>
+> The cast is necessary.
+>
+> Relevant standard: C18 =C2=A76.5.2.2 6
+>
+> Details: 'ino_t' may (and will likely) be defined as 'unsigned long'.
+> If you try to print an 'unsigned long' with "%llu" you will:
+> - have Undefined Behavior (and a warning) if 'sizeof(long) < sizeof(long
+> long)'.
+> - have a warning if 'sizeof(long) =3D=3D sizeof(long long)'.
+>
+> So if you want to use 'unsigned long long', you'll need to cast.
+>
+> Cheers,
+>
+> Alex
