@@ -2,91 +2,121 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 30602267C6E
-	for <lists+linux-man@lfdr.de>; Sat, 12 Sep 2020 23:08:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7D984267E08
+	for <lists+linux-man@lfdr.de>; Sun, 13 Sep 2020 07:47:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725913AbgILVIL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 12 Sep 2020 17:08:11 -0400
-Received: from eu-smtp-delivery-151.mimecast.com ([207.82.80.151]:39807 "EHLO
-        eu-smtp-delivery-151.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725884AbgILVIK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Sep 2020 17:08:10 -0400
-Received: from AcuMS.aculab.com (156.67.243.126 [156.67.243.126]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- uk-mta-152-zrJDEg8gOCS9olL-jujjvg-1; Sat, 12 Sep 2020 22:07:38 +0100
-X-MC-Unique: zrJDEg8gOCS9olL-jujjvg-1
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) with Microsoft SMTP
- Server (TLS) id 15.0.1347.2; Sat, 12 Sep 2020 22:07:38 +0100
-Received: from AcuMS.Aculab.com ([fe80::43c:695e:880f:8750]) by
- AcuMS.aculab.com ([fe80::43c:695e:880f:8750%12]) with mapi id 15.00.1347.000;
- Sat, 12 Sep 2020 22:07:38 +0100
-From:   David Laight <David.Laight@ACULAB.COM>
-To:     "'Michael Kerrisk (man-pages)'" <mtk.manpages@gmail.com>,
-        "Alejandro Colomar" <colomar.6.4.3@gmail.com>
-CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 01/24] inet_net_pton.3: Use 'PRIx32' rather than "%x" when
- printing 'uint32_t' values
-Thread-Topic: [PATCH 01/24] inet_net_pton.3: Use 'PRIx32' rather than "%x"
- when printing 'uint32_t' values
-Thread-Index: AQHWiB5QTRM4xYy+JEuo3yfg2blY96llf04A
-Date:   Sat, 12 Sep 2020 21:07:38 +0000
-Message-ID: <8ed10b6c63df4ff095f1341648405f03@AcuMS.aculab.com>
-References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
- <20200910211344.3562-2-colomar.6.4.3@gmail.com>
- <928d25b7-7f97-f9b9-80ce-0550c18131c2@gmail.com>
-In-Reply-To: <928d25b7-7f97-f9b9-80ce-0550c18131c2@gmail.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+        id S1725922AbgIMFq4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Sep 2020 01:46:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47878 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725909AbgIMFqs (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Sep 2020 01:46:48 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1DA27C061573
+        for <linux-man@vger.kernel.org>; Sat, 12 Sep 2020 22:46:48 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id m6so15254092wrn.0
+        for <linux-man@vger.kernel.org>; Sat, 12 Sep 2020 22:46:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=68azweH4jnwfkly5eA9fP812E/wsUjn3vlEEpws7X+c=;
+        b=mPyXPZQsx46r5BUMC+6CqACeYzzLl6x9t7dfz9aJi9EUS6Lk9Hi/RUr8clvVf4ZShb
+         YRUwFcRy7JqryAKSyqv4r/yeU9mMgemebtEp8flwmfVySNwospxTeFIidI/XT7VmVtY9
+         lq8ZAnmY5Xj0Xl8mL6Np0Wu6sAlwFI3O2jj1yuBsFfxfhdo6xjxxG1vUifgQuQSflTeR
+         s/hhrS3W9MY6etachK86IOM4fZxsGe9f2RT+dx/UQ6gFAF6mtaqMJITM8GfZJ369iorY
+         xJOcnkdzoWTOvkfQwoCkgFCKDzBWu+QKir5S9yRM/yBUJWZjHGinOHZR7voFc+3dwaPH
+         bKQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=68azweH4jnwfkly5eA9fP812E/wsUjn3vlEEpws7X+c=;
+        b=nSwmY0VlhnUeMWYjNEGhmNM5eFSvxbfqFfWFaM6d7ZkDu70dWDr9nxCezrSwGRnDkM
+         mpC55gLvgaMYRsWLKKpZpoH8fUr5F3tgdne1x4cS5ojiQ7tqDx8pPGtbm6uKfnhF7icY
+         avfKI0yzrJv/CQEMxyXtBTnIJU18UzsMV6KgL4Ff0uGnkLUKjJEvfwVtmB5Kl92sLqAi
+         Ryidd8Ze6AhZd3/fxWRJmExJO4zkdyIjtv9yCnL44JaG0iaOjQRLFeMGlWnAU0Lj/CGB
+         2ldGFUd76volElAq1tGvA24gq2n4gTn0Hp9XZ5X8k2yX9EaVKzvVmfyln+lFthRyodjc
+         qoig==
+X-Gm-Message-State: AOAM530JdjOj39wfPJwu14DH9fyNu7rvnk/06D+4SKpf0/+0BCcgeJvQ
+        dXrVKofUaAUwNCftGaQRxfp3m/foGrY=
+X-Google-Smtp-Source: ABdhPJxEMl1gl81c0wR752yNUht34bLbDnP7ySXJKz9oUbqsb0OVlo//ah21BK/ZGugiaIlxJosmzA==
+X-Received: by 2002:a5d:4c44:: with SMTP id n4mr9487617wrt.272.1599976004472;
+        Sat, 12 Sep 2020 22:46:44 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
+        by smtp.gmail.com with ESMTPSA id n10sm595180wmk.7.2020.09.12.22.46.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 12 Sep 2020 22:46:43 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH 06/12] rtld-audit.7: Use "%u" rather than "%d" when
+ printing 'unsigned int' values
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+References: <20200911231411.28406-1-colomar.6.4.3@gmail.com>
+ <20200911231411.28406-7-colomar.6.4.3@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <2a067caa-f30f-0dcd-170f-31383723fdad@gmail.com>
+Date:   Sun, 13 Sep 2020 07:46:42 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
-        auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
-X-Mimecast-Spam-Score: 0.001
-X-Mimecast-Originator: aculab.com
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
+In-Reply-To: <20200911231411.28406-7-colomar.6.4.3@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-RnJvbTogTWljaGFlbCBLZXJyaXNrDQo+IFNlbnQ6IDExIFNlcHRlbWJlciAyMDIwIDEwOjMxDQo+
-IA0KPiBIaSBBbGV4LA0KPiANCj4gT24gOS8xMC8yMCAxMToxMyBQTSwgQWxlamFuZHJvIENvbG9t
-YXIgd3JvdGU6DQo+ID4gU2lnbmVkLW9mZi1ieTogQWxlamFuZHJvIENvbG9tYXIgPGNvbG9tYXIu
-Ni40LjNAZ21haWwuY29tPg0KPiA+IC0tLQ0KPiA+ICBtYW4zL2luZXRfbmV0X3B0b24uMyB8IDMg
-KystDQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkN
-Cj4gPg0KPiA+IGRpZmYgLS1naXQgYS9tYW4zL2luZXRfbmV0X3B0b24uMyBiL21hbjMvaW5ldF9u
-ZXRfcHRvbi4zDQo+ID4gaW5kZXggMDBmOTRiOWQ0Li5kNzRhMzNkNzQgMTAwNjQ0DQo+ID4gLS0t
-IGEvbWFuMy9pbmV0X25ldF9wdG9uLjMNCj4gPiArKysgYi9tYW4zL2luZXRfbmV0X3B0b24uMw0K
-PiA+IEBAIC0zMzIsNiArMzMyLDcgQEAgUmF3IGFkZHJlc3M6ICAgICAgICAgICAgICBjMWE4MDE4
-MA0KPiA+ICAvKiBMaW5rIHdpdGggIlwtbHJlc29sdiIgKi8NCj4gPg0KPiA+ICAjaW5jbHVkZSA8
-YXJwYS9pbmV0Lmg+DQo+ID4gKyNpbmNsdWRlIDxpbnR0eXBlcy5oPg0KPiA+ICAjaW5jbHVkZSA8
-c3RkaW8uaD4NCj4gPiAgI2luY2x1ZGUgPHN0ZGxpYi5oPg0KPiA+DQo+ID4gQEAgLTM4MSw3ICsz
-ODIsNyBAQCBtYWluKGludCBhcmdjLCBjaGFyICphcmd2W10pDQo+ID4gICAgICAgICBtYXkgbm90
-IGhhdmUgYmVlbiB0b3VjaGVkIGJ5IGluZXRfbmV0X250b3AoKSwgYW5kIHNvIHdpbGwgc3RpbGwN
-Cj4gPiAgICAgICAgIGhhdmUgYW55IGluaXRpYWwgdmFsdWUgdGhhdCB3YXMgc3BlY2lmaWVkIGlu
-IGFyZ3ZbMl0uICovDQo+ID4NCj4gPiAtICAgIHByaW50ZigiUmF3IGFkZHJlc3M6ICAgICAgICAg
-ICAgICAleFxlbiIsIGh0b25sKGFkZHIuc19hZGRyKSk7DQo+ID4gKyAgICBwcmludGYoIlJhdyBh
-ZGRyZXNzOiAgICAgICAgICAgICAgJSJQUkl4MzIiXGVuIiwgaHRvbmwoYWRkci5zX2FkZHIpKTsN
-Cj4gPg0KPiA+ICAgICAgZXhpdChFWElUX1NVQ0NFU1MpOw0KPiA+ICB9DQo+IA0KPiBTbywgSSdt
-IGluIGEgbGl0dGxlIGJpdCBvZiBkb3VidCBhYm91dCBwYXRjaGVzIDAxIGFuZCAwMi4gRG9lcw0K
-PiB0aGlzIHJlYWxseSB3aW4gdXMgYW55dGhpbmc/IE9uIHRoZSBvbmUgaGFuZCwgJSJQUkl4MzIi
-IGlzIG1vcmUNCj4gZGlmZmljdWx0IHRvIHJlYWQgdGhhbiAleC4gT24gdGhlIG90aGVyLCBkb2Vz
-IGl0IHdpbiB1cyBhbnl0aGluZw0KPiBpbiB0ZXJtcyBvZiBwb3J0YWJpbGl0eT8gQXQgZmlyc3Qg
-Z2xhbmNlLCB0aGUgYW5zd2VycyBzZWVtcyB0byBtZQ0KPiB0byBiZSAibm8iLiBZb3VyIHRob3Vn
-aHRzPw0KDQpPbiAzMmJpdCBzeXN0ZW1zIHVpbnQzMl90IG1pZ2h0IGJlIGVpdGhlciAnaW50JyBv
-ciAnbG9uZycuDQpTbyB0aGUgZm9ybWF0IGhhcyB0byBtYXRjaCAtIGV2ZW4gdGhvdWdoIHRoZSBB
-QkkgaXMgcHJvYmFibHkNCnRoZSBzYW1lIGluIGJvdGggY2FzZXMuDQoNCk1pbmQgeW91LCBodG9u
-bCgpIGl0c2VsZiBjb3VsZCBiZSBwcm9ibGVtYXRpYy4NCk9uIEJFIHN5c3RlbXMgaXQgaXMgbGlr
-ZWx5IHRvIGJlICNkZWZpbmUgaHRvbmwoeCkgKHgpDQpzbyB0aGUgdHlwZSBpcyB3aGF0ZXZlciB3
-YXMgcGFzc2VkLg0KT24gTEUgc3lzdGVtcyBpdCBtaWdodCBldmVuIGJlIGxvbmcgaHRvbmwobG9u
-ZykNCiAtIHdoaWNoIGlzIGl0cyBoaXN0b3JpYyBwcm90b3R5cGUuDQoNCglEYXZpZA0KDQotDQpS
-ZWdpc3RlcmVkIEFkZHJlc3MgTGFrZXNpZGUsIEJyYW1sZXkgUm9hZCwgTW91bnQgRmFybSwgTWls
-dG9uIEtleW5lcywgTUsxIDFQVCwgVUsNClJlZ2lzdHJhdGlvbiBObzogMTM5NzM4NiAoV2FsZXMp
-DQo=
+On 9/12/20 1:14 AM, Alejandro Colomar wrote:
+> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 
+Thanks, Alex. Patch applied.
+
+Cheers,
+
+Michael
+
+> ---
+>  man7/rtld-audit.7 | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/man7/rtld-audit.7 b/man7/rtld-audit.7
+> index f90731261..b1b7dfebc 100644
+> --- a/man7/rtld-audit.7
+> +++ b/man7/rtld-audit.7
+> @@ -508,7 +508,7 @@ This is reportedly fixed in glibc 2.10.
+>  unsigned int
+>  la_version(unsigned int version)
+>  {
+> -    printf("la_version(): %d\en", version);
+> +    printf("la_version(): %u\en", version);
+>  
+>      return version;
+>  }
+> @@ -572,7 +572,7 @@ la_symbind32(Elf32_Sym *sym, unsigned int ndx, uintptr_t *refcook,
+>  {
+>      printf("la_symbind32(): symname = %s; sym\->st_value = %p\en",
+>              symname, sym\->st_value);
+> -    printf("        ndx = %d; flags = %#x", ndx, *flags);
+> +    printf("        ndx = %u; flags = %#x", ndx, *flags);
+>      printf("; refcook = %p; defcook = %p\en", refcook, defcook);
+>  
+>      return sym\->st_value;
+> @@ -584,7 +584,7 @@ la_symbind64(Elf64_Sym *sym, unsigned int ndx, uintptr_t *refcook,
+>  {
+>      printf("la_symbind64(): symname = %s; sym\->st_value = %p\en",
+>              symname, sym\->st_value);
+> -    printf("        ndx = %d; flags = %#x", ndx, *flags);
+> +    printf("        ndx = %u; flags = %#x", ndx, *flags);
+>      printf("; refcook = %p; defcook = %p\en", refcook, defcook);
+>  
+>      return sym\->st_value;
+> 
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
