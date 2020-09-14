@@ -2,99 +2,102 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4544C2688C0
-	for <lists+linux-man@lfdr.de>; Mon, 14 Sep 2020 11:49:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DD46F2688C9
+	for <lists+linux-man@lfdr.de>; Mon, 14 Sep 2020 11:51:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726381AbgINJtI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 14 Sep 2020 05:49:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50776 "EHLO
+        id S1726250AbgINJvj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 14 Sep 2020 05:51:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51176 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726275AbgINJtF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 14 Sep 2020 05:49:05 -0400
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 77FD1C061788
-        for <linux-man@vger.kernel.org>; Mon, 14 Sep 2020 02:49:03 -0700 (PDT)
-Received: by mail-wm1-x330.google.com with SMTP id a9so10576253wmm.2
-        for <linux-man@vger.kernel.org>; Mon, 14 Sep 2020 02:49:03 -0700 (PDT)
+        with ESMTP id S1726239AbgINJvj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 14 Sep 2020 05:51:39 -0400
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D2D82C06174A;
+        Mon, 14 Sep 2020 02:51:38 -0700 (PDT)
+Received: by mail-wr1-x42d.google.com with SMTP id z4so18005042wrr.4;
+        Mon, 14 Sep 2020 02:51:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=WUVoSgWa/G/V37YzuwMiG88pKhDqa4z8qfurj43jeMQ=;
-        b=LwT007stAX7JDS7TfSmg8oWylzYYMnMohsPbw1GlDzg0kdJv7ScJ6UYcXqkTYHwu8J
-         Kh5QiSAcl+yzqeQO+0/yc6y0yZ3smucEgPvRjS6CQ3G0B/46gkbmCzSL+hU3RMUGudm6
-         J0LZyts7PvEo1V9vnCxYy1gBGr3/eY9C9Oj631TdPrmCI3dqBFGeMns86HRajxXQnn7/
-         pJ8CO2MTox4RPoEir5gov9MNN8qd/OZq3fU71I5lhA2l7rlLe4N9i6fbQSbe6rrlDh5G
-         JcW8bvX3DKZO+FdMXqfJCHo8s7Ft3HLLVYWQE8dW8O8gUcVTsWAp43FaioNniJiIPQKB
-         z40w==
+        bh=OdPU8Glfgir5UGsLoaaR7zgD8ovaCIilI+lFeo550Mc=;
+        b=b49weJcH6PKR2Z53mJBlxpDIYL0sIIAyGxhNIHuIupgPHXDkqT8WMNvBLi67Wg/Vtu
+         X8t87+drB2WSh86N7yG0ae2zRb5sG5KacfLS1XkMOk10lfNTRy0RMBoEdflqx8DCBlvL
+         gSQ4+oJTH8D3wPdNxMEr6v//fJDbzLebLUhaJq0BwCl8xx+EY3ODoaSXyIU78Tqsd4Yj
+         UCiqqjKxd7OSve+LgMMsnz+gGV3iy0SFX82X0evk2OeSRvO4s3HmXqDZ5on9Hdb0X1dm
+         W3N9TAUoEQckxOIS3+kmTR2FZEakukP8wDfni8PPPYSmquQqAmQ6iNOTMc53aKG+h0kX
+         mq9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=WUVoSgWa/G/V37YzuwMiG88pKhDqa4z8qfurj43jeMQ=;
-        b=LWuHrhV36soeMf0ed0dAlJZchwLIBgQDkLcClhsMrNn3kdN+DGYc/QOKn4pXSsEYrP
-         RdpWVeBFFU8aePeJQ6TAKb/NVgkVVlKhwusRb7LxUF2gcC/ZZ+kpFddr23sH6/3RkuWC
-         UomqSlNsWD2vll84VUw3Y4D9PQF1or68ZOVh4kpshOcF/hSaVhiOJ3+WND9qlEozUUsj
-         grUiy3zpWb5rTDFe/ZJ8Oyt/yzsP046uLn4MkAsh+auRQyoUzB5kuMVKs9D5sT1hxmDM
-         b7UnyMsKAsxcymi03OLnBiSVtfKxtzaSypBGDS1iMxA0rKhdEnGm4gHF/qypO3JNMBKF
-         Q1Kg==
-X-Gm-Message-State: AOAM530YSFGSKjuMDfc5AHv36rsg9BPJqhiZzsrQiRVhfr85dHO+F0vu
-        Q4uTGml++aKDvGmPm2WLESyTJW/L6nM=
-X-Google-Smtp-Source: ABdhPJx6LeB+49pvxPop/vsTRiOcXuvSh2nw0iidlu4VG5s9SDvxvOJICx3ncVmMPgwf33eW7g+PCg==
-X-Received: by 2002:a1c:8f:: with SMTP id 137mr14077041wma.158.1600076941352;
-        Mon, 14 Sep 2020 02:49:01 -0700 (PDT)
+        bh=OdPU8Glfgir5UGsLoaaR7zgD8ovaCIilI+lFeo550Mc=;
+        b=JWc01H9jpIG+01ycA1U2QS9Lp4hwtswVdx4fdFp/A04+D90dQQF0Sj3OUgSvQZKgCh
+         WgWdq0giJ1LzOwafidzPOrYh3kKxWA+uvOhRbv2Hm/mKhGtTgwbq0n5vcf3vi1pecSd0
+         HfTJUTzHI7fEEaBI/NjI2MqaMgQsprwvet455UlKKnJQHz7LkNq3R9PGlhRKjGtNWXkJ
+         qj/lshZiB493UGv14x40e9EUYA3sKgZuB8QAISg/bhGO/ouvJR3598gTA2vj3+mKBHKU
+         ZERNnGxwb7mqYBj1KxOr5Oofq1tw6wX40wFgrIA3CTgi4PibBYRJWxXGGbeEIWqfV5vu
+         sJTw==
+X-Gm-Message-State: AOAM531hcRJviQVCADb6AwSVIYxUpxNGaPSGlWayJT8GrKOjDnmVc24x
+        t7NVBKXuZkHj+0J5H0TpNXKodaF/IGFQVA==
+X-Google-Smtp-Source: ABdhPJzRQXKi/lmZeJMsqxP+fAP2yo3FHSbrArpnL1NVhxPOVWpLcHeZ/t+tmjw0nMe4HoHpmYG6Sw==
+X-Received: by 2002:a5d:518b:: with SMTP id k11mr14712742wrv.369.1600077095401;
+        Mon, 14 Sep 2020 02:51:35 -0700 (PDT)
 Received: from [192.168.0.160] ([93.115.133.118])
-        by smtp.gmail.com with ESMTPSA id q84sm6870807wme.23.2020.09.14.02.49.00
+        by smtp.gmail.com with ESMTPSA id o4sm19620709wru.55.2020.09.14.02.51.34
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2020 02:49:00 -0700 (PDT)
-Subject: Re: [IDEA] New pages for types: structs and typedfefs
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-References: <fb6463f6-49d7-e473-d5e1-1cdf8375e498@gmail.com>
- <6c5b89f8-4281-4434-cbee-28f88d07920c@gmail.com>
- <4ea99048-4bfd-9cba-44cd-9c37fdad8fce@gmail.com>
- <CAKgNAkjys+LYn1qaSXhM2gJfkv_UOnpeNPyh3QCqNLcMNBKB+g@mail.gmail.com>
- <20200914091954.mjqcki6kz45hczs5@jwilk.net>
+        Mon, 14 Sep 2020 02:51:34 -0700 (PDT)
+Subject: Re: AW: AW: [PATCH 12/24] getgrent_r.3: Use sizeof() to get buffer
+ size (instead of hardcoding macro name)
+To:     Walter Harms <wharms@bfs.de>,
+        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
+Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
+ <20200910211344.3562-13-colomar.6.4.3@gmail.com>
+ <00ae0174f35241efa962286b9247c590@bfs.de>
+ <c2b43a9c-ae80-fae6-16a4-09c9aab73ac1@gmail.com>
+ <67f68125677e4e17aa1742b88267e05f@bfs.de>
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <eba5debe-f18f-86d4-52f0-1938b3337202@gmail.com>
-Date:   Mon, 14 Sep 2020 11:49:00 +0200
+Message-ID: <fe9ea5de-d09e-2013-22ee-3fff8f3f1c0e@gmail.com>
+Date:   Mon, 14 Sep 2020 11:51:34 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20200914091954.mjqcki6kz45hczs5@jwilk.net>
+In-Reply-To: <67f68125677e4e17aa1742b88267e05f@bfs.de>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Walter,
+
+On 9/14/20 11:24 AM, Walter Harms wrote:
+> missunderstanding,
+> i do not want to discuss sizeof() vs define
+
+I did understand, that was point (3).
+
+> 
+> in this example you do:
+> #define BUFLEN 4096
+>  char buf[BUFLEN];
+> getgrent_r(&grp, buf, sizeof(buf), &grpp);
+> 
+> so there is no real need for BUFLEN anymore
+> so donig
+>  char buf[BUFLEN]; -> char buf[4096];
+> would remove BUFLEN
+> 
 
 
-On 9/14/20 11:19 AM, Jakub Wilk wrote:
-> * Michael Kerrisk <mtk.manpages@gmail.com>, 2020-09-13, 14:01:
->>> No, I don't have a PDF.  I usually search here:
->>>
->>> https://pubs.opengroup.org/onlinepubs/9699919799/
->>
->> You can get a PDF by registering as a member of The Open Group.
-> 
-> Alternatively, you could download HTML versions of the standards:
-> 
-> https://pubs.opengroup.org/onlinepubs/007908799/download/susv2.tar.bz2
-> https://pubs.opengroup.org/onlinepubs/007904975/download/susv3.tar.bz2
-> https://pubs.opengroup.org/onlinepubs/9699919799/download/susv4-2018.tar.bz2
-> 
-> 
-> These should be even more greppable than the PDFs. (But I admit I've
-> never seen the PDFs. I found the The Open Group registration form too
-> intimidating.)
-> 
+However, I think that might be better as a separate patch.
 
-
-Great!
+I really don't have many arguments for nor against it.
 
 Thanks,
 
