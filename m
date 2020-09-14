@@ -2,114 +2,165 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 12FDE2693AE
-	for <lists+linux-man@lfdr.de>; Mon, 14 Sep 2020 19:39:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AA7CE269465
+	for <lists+linux-man@lfdr.de>; Mon, 14 Sep 2020 20:08:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725994AbgINRju (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 14 Sep 2020 13:39:50 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46726 "EHLO
+        id S1726072AbgINSHn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 14 Sep 2020 14:07:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43518 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726365AbgINMZy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 14 Sep 2020 08:25:54 -0400
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com [IPv6:2a00:1450:4864:20::542])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0918AC061A2D
-        for <linux-man@vger.kernel.org>; Mon, 14 Sep 2020 05:12:26 -0700 (PDT)
-Received: by mail-ed1-x542.google.com with SMTP id g4so17354254edk.0
-        for <linux-man@vger.kernel.org>; Mon, 14 Sep 2020 05:12:25 -0700 (PDT)
+        with ESMTP id S1726134AbgINSHQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 14 Sep 2020 14:07:16 -0400
+Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com [IPv6:2607:f8b0:4864:20::f44])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BB53BC06174A;
+        Mon, 14 Sep 2020 11:07:15 -0700 (PDT)
+Received: by mail-qv1-xf44.google.com with SMTP id q10so216214qvs.1;
+        Mon, 14 Sep 2020 11:07:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=gxYQz48aGorfvze6exW0FuIKKJvVhs5z+cRnEenJUaY=;
-        b=Rlw98hdGztEJhY/dvT5qY5U2/a6YVe2VW7gCoiGy66JOw/MiagvSVPaKAOYzrAbcvp
-         CtdC9xtT1oOIGl2DxSjyHvdvqzOMSOmkFkIQ+edAWIX8MqeiiwJE14iIoiq2k6kaK6C1
-         dP4TesGW8uE3jEh/t/oYQQMaIoBi3GkPT41IW3pJmkiO1MK3ppoyKYJQq0UcB7Ben7OX
-         fXzQGfYxtWVFDXqBYRWH8Za3nNtqZtDmtvq6UCEVeaCwkssCkbtvXDcOuIBUtTIz00ek
-         lJBCcoFTrN3yzaure4ArD7CNGR4uBc9OVMHT1M+W9uZao6B4oaZHEgZrgmy90w256GDa
-         3XnA==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=5cS4S52/ivmcWHzOjUPY4AEjw85T58jQTfSasZl/Goc=;
+        b=FJhRhoqKijSkFo2NNl4y6osks5SS1dlbFfvB0LjzDf3FD+fIrLnMc9FDSQz+Pnyivz
+         6A14GwWYuL4xBqRsx2NGEP81iz5bVTQHZEyHDadB2RPkyCfgkhsfouOTlvXwYLHkrNn2
+         zE4vfX/LvtEt4Eed3E3ce1rFbkO8Rx3TP7DPxTzAdUQW/VE+kqojgz9WTKak+oS7bDgT
+         l9WEDw4RsXje1yYpRq9bJ18EfTI0fGiVT4+7PaG/UKJo5uPFYtCFl5pGqmlA/fQhe2Y/
+         HPzc2sVYjAPPPHDGow3evKQAiUUGnVxOhRzVLUYxWurhNvMGkNjudA0YNwFi8BLKyEPY
+         AyuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=gxYQz48aGorfvze6exW0FuIKKJvVhs5z+cRnEenJUaY=;
-        b=LIurux5OALwkHo7+6+e5bnS9u1yxakPkLV5wFpMYyiCkf7XZplnEfHQTGPQ9GixnCt
-         oR8imeVZ+KJveURuBf+jADuWQNhsMX/ZgpFCMDlmaJH/tVz1BALJH2vTqBZVjIRuoDDW
-         j7pnMD6ZHspE2dT1RRlChl7qg5yyajK/0lx89WJQscG+kbQybx9nKpHAQ1k12Hjjt0RF
-         OB4LVRywOnpuQ8PaBiuWsEELTXnLjW1YQPu5PvjlLnNLWOOWHShpRJRwwaOLl/qw4Aa0
-         WObZeq9Yvz5pJmfk6EpV/3CgNnzXp5wb5ylm2h3nm4uI6/7hLvxI54aAA9wpo/TebRA8
-         4hrA==
-X-Gm-Message-State: AOAM531cptuMDOh5wZhQAJOw/xFMhkLjBjkjWR7XTrF/2XVOV1DCdMNk
-        QRPotK9JsBtMhQRMb/SjlBiMNsqYP9U0iuLiSfQ=
-X-Google-Smtp-Source: ABdhPJwbvgkEHNJcEHkXiA6b7TGJqUc5w2zPkFUe/MHgrFuy7XQMo5SstIE5cyDhzH36HmCbiCWpw9jP0Ui+yMXi5Ec=
-X-Received: by 2002:aa7:dc08:: with SMTP id b8mr17285729edu.271.1600085544588;
- Mon, 14 Sep 2020 05:12:24 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=5cS4S52/ivmcWHzOjUPY4AEjw85T58jQTfSasZl/Goc=;
+        b=NVbUpkElgmVI5+lkJWZrwSWfzC14LK3W3Vq63J9j7JZdW8DTedhtLKCBohLy/OTab2
+         YqM49EZMSXspRoUg2AFmOZxXbGWG/ZzF/491erGwMrzne5v+ILWGzoUg1U0mDGXdrYvY
+         Wtom/Q0fQFP8lyEkcI6Wy3AmoaOh/yLnJl1sbamJ546vI5JElsUxjB3eKbK51cqeV9x7
+         Jyntawt95jUii5des8vJwrs60YdFKrwuomFYrLh6GuM3x1bnaxX6krRNegvJtEMVBI16
+         y4D1fa14o2WdsC2AslhPUWDciWACwUcDM3rZuT1aIlLWr7YsoR7XYd+4qn4peVPNNbjG
+         +rcA==
+X-Gm-Message-State: AOAM531+3fvm5quRDHZnRi9cqNf9zDwA9+t1jzxYwHNZqJVtfqwbNbHC
+        ZxYUpRa0Khrwl1a/lypBWSI=
+X-Google-Smtp-Source: ABdhPJz0CEz8IP33W+amLFQ03M7/CVQLV3Wox1IyeKYUsaqNsmiCQMhx2cHyOFKbh8MNVm8pKPT14g==
+X-Received: by 2002:a0c:cc13:: with SMTP id r19mr14127259qvk.15.1600106833276;
+        Mon, 14 Sep 2020 11:07:13 -0700 (PDT)
+Received: from puritycontrol.fios-router.home (pool-96-234-167-227.bltmmd.fios.verizon.net. [96.234.167.227])
+        by smtp.gmail.com with ESMTPSA id n136sm13675972qkn.14.2020.09.14.11.07.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2020 11:07:12 -0700 (PDT)
+From:   Stephen Smalley <stephen.smalley.work@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, linux-security-module@vger.kernel.org,
+        selinux@vger.kernel.org, smcv@collabora.com, jmorris@namei.org,
+        serge@hallyn.com, Stephen Smalley <stephen.smalley.work@gmail.com>
+Subject: [PATCH v2] socket.7,unix.7: add initial description for SO_PEERSEC
+Date:   Mon, 14 Sep 2020 14:07:00 -0400
+Message-Id: <20200914180700.11003-1-stephen.smalley.work@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Received: by 2002:a17:906:6945:0:0:0:0 with HTTP; Mon, 14 Sep 2020 05:12:24
- -0700 (PDT)
-Reply-To: mrsmegwilliam6@gmail.com
-From:   Ms Mary Mcniff <dhlcouriercompanymiami@gmail.com>
-Date:   Mon, 14 Sep 2020 05:12:24 -0700
-Message-ID: <CAG_OktqqbFqk75km-Jf96ovZPidGJ6O_3gV0ywRWx_Hnb5o-xw@mail.gmail.com>
-Subject: Your Respond ASAP
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+SO_PEERSEC was introduced for AF_UNIX stream sockets connected via
+connect(2) in Linux 2.6.2 [1] and later augmented to support AF_UNIX stream
+and datagram sockets created via socketpair(2) in Linux 4.18 [2].  Document
+SO_PEERSEC in the socket.7 and unix.7 man pages following the example
+of the existing SO_PEERCRED descriptions.  SO_PEERSEC is also supported
+on AF_INET sockets when using labeled IPSEC or NetLabel but defer
+adding a description of that support to a separate patch.
+
+The module-independent description of the security context returned
+by SO_PEERSEC is from Simon McVittie <smcv@collabora.com>.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/tglx/history.git/commit/?id=da6e57a2e6bd7939f610d957afacaf6a131e75ed
+
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=0b811db2cb2aabc910e53d34ebb95a15997c33e7
+
+Signed-off-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+---
+v2 adds kernel commit info to the description and man page and uses
+the suggested text from Simon McVittie for the description of
+the security context string in a module-neutral way.
+
+ man7/socket.7 |  5 +++++
+ man7/unix.7   | 46 ++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 51 insertions(+)
+
+diff --git a/man7/socket.7 b/man7/socket.7
+index 21e891791..c3635f95b 100644
+--- a/man7/socket.7
++++ b/man7/socket.7
+@@ -690,6 +690,11 @@ Return the credentials of the peer process connected to this socket.
+ For further details, see
+ .BR unix (7).
+ .TP
++.BR SO_PEERSEC " (since Linux 2.6.2)"
++Return the security context of the peer socket connected to this socket.
++For further details, see
++.BR unix (7).
++.TP
+ .B SO_PRIORITY
+ Set the protocol-defined priority for all packets to be sent on
+ this socket.
+diff --git a/man7/unix.7 b/man7/unix.7
+index 50828a5bc..298521d4a 100644
+--- a/man7/unix.7
++++ b/man7/unix.7
+@@ -349,6 +349,52 @@ stream sockets and for
+ .B AF_UNIX
+ stream and datagram socket pairs created using
+ .BR socketpair (2).
++.TP
++.B SO_PEERSEC
++This read-only socket option returns the
++security context of the peer socket connected to this socket.
++By default, this will be the same as the security context of
++the process that created the peer socket unless overridden
++by the policy or by a process with the required permissions.
++.IP
++The argument to
++.BR getsockopt (2)
++is a pointer to a
++buffer of the specified length in bytes
++into which the security context string will be copied.
++If the buffer length is less than the length of the security
++context string, then
++.BR getsockopt (2)
++will return the required length
++via
++.I optlen
++and return \-1 and sets
++.I errno
++to
++.BR ERANGE .
++The caller should allocate at least
++.BR NAME_MAX
++bytes for the buffer initially although this is not guaranteed
++to be sufficient.  Resizing the buffer to the returned length
++and retrying may be necessary.
++.IP
++The security context string may include a terminating null character
++in the returned length, but is not guaranteed to do so: a security
++context "foo" might be represented as either {'f','o','o'} of length 3
++or {'f','o','o','\\0'} of length 4, which are considered to be
++interchangeable. It is printable, does not contain non-terminating
++null characters, and is in an unspecified encoding (in particular it
++is not guaranteed to be ASCII or UTF-8).
++.IP
++The use of this option for sockets in the
++.B AF_UNIX
++address family
++is supported since Linux 2.6.2 for connected stream sockets and
++since Linux 4.18,
++.\" commit 0b811db2cb2aabc910e53d34ebb95a15997c33e7
++also for stream and datagram socket pairs created
++using
++.BR socketpair (2).
+ .\"
+ .SS Autobind feature
+ If a
 -- 
-From Chief Compliance Officer, Citigroup Inc CITIBANK
-388 Greenwich St, New York, 10013, United States United.
-PAYMENT CODE: FRB010
-Swift: PTBLBXXX
-==============================================
+2.25.1
 
-Attention: Beneficiary,
-
-We write to inform you that Series of meetings have been held over the
-past 2 weeks with the Secretary General of United Nations,U.S
-Department of State and Dubai Union Organization this ended last
-week.And parcel is under our custody right now, It will deliver to you
-within 24 hours once you clear the charges which will cost you
-according to the BANKERS COURIER SERVICES that wish to deliver your
-ATM CARD card to
-you immediately.
-
-However, it is the pleasure of this office to inform you that your ATM
-CARD number; is 29741733 and it has been approved and upgraded in your
-favor .you call me for the pin code numbers. The ATM CARD value is us
-$10.5 Million only.
-
-Kindly contact the paying bank for the claim of your ATM visa card
-payment fund $10,500,000.00 through the below contact information;
-
-Contact Person:Mr Williams S Young
-Director of Financial Controller
-Bank Name: CITIBANK
-Bank address; 388 Greenwich St,
-New York City,10013, United States
-Email:mrsmegwilliam6@gmail.com
-
-Reconfirm the following information?
-
-(1)Your Full Name=============
-(2)Mobile Phone Number======
-(3)Current Home Address==== ====
-(4)Fax Number================
-(5)Passport/Drivers license ======
-
-Endeavor to keep me posted once you contacted the officer in charge
-through the above mentioned information.
-
-Your timely response is highly appreciated.To this end, you are
-required to forward your payment information as follows to enable us
-load your fund into the card with your information and deliver it to
-your door step. as the BANKERS COURIER SERVICES are in charge of the
-delivery services to your destination.
-
-Yours truly;
-
-Ms Mary Mcniff.
-Chief Compliance Officer, Citigroup Inc
-FEDERAL RESERVE SYSTEM.
-Email: marymcniff7@gmail.com.
