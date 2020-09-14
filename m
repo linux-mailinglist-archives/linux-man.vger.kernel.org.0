@@ -2,94 +2,99 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 002522688BA
-	for <lists+linux-man@lfdr.de>; Mon, 14 Sep 2020 11:48:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4544C2688C0
+	for <lists+linux-man@lfdr.de>; Mon, 14 Sep 2020 11:49:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726334AbgINJsG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 14 Sep 2020 05:48:06 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50620 "EHLO
+        id S1726381AbgINJtI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 14 Sep 2020 05:49:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50776 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726309AbgINJsF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 14 Sep 2020 05:48:05 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BF904C06174A
-        for <linux-man@vger.kernel.org>; Mon, 14 Sep 2020 02:48:04 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id k18so10530796wmj.5
-        for <linux-man@vger.kernel.org>; Mon, 14 Sep 2020 02:48:04 -0700 (PDT)
+        with ESMTP id S1726275AbgINJtF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 14 Sep 2020 05:49:05 -0400
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 77FD1C061788
+        for <linux-man@vger.kernel.org>; Mon, 14 Sep 2020 02:49:03 -0700 (PDT)
+Received: by mail-wm1-x330.google.com with SMTP id a9so10576253wmm.2
+        for <linux-man@vger.kernel.org>; Mon, 14 Sep 2020 02:49:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=G1xKsjXsb8G48gO+/rJcWWH47JQVfIvHBaSmisZ56LU=;
-        b=GSAyO4CrUgu68tOjTwatfbSGRQeTZ5c2fKHcNP7VSw8HFyOnhkB1h/r6PX7uKIeUXV
-         HGPjQZmVhc5ye8Y6EqwMaJznDcNphB109DK5eZglk2sjf8oIzeF9c7SQ6sriMDfp5M1w
-         yooJJNuWctsrWqjrBfoddHqswYh84QHu0QnoJkOc+q0+vfOH4pwzkspzVBEks5HYDBWL
-         sLKEj1o894dBMUuN2AcwlotSd/T5gXSevLUzd4JrN7mwW48y4iLu3OsuHZcuHjRmYrCp
-         NVdSKp4U6c1tb9YRB6/8iAThjbXFgzgxOwAgkvGOioltd0aHKEikSVemMnAh9Wwcu72e
-         OJXA==
+        bh=WUVoSgWa/G/V37YzuwMiG88pKhDqa4z8qfurj43jeMQ=;
+        b=LwT007stAX7JDS7TfSmg8oWylzYYMnMohsPbw1GlDzg0kdJv7ScJ6UYcXqkTYHwu8J
+         Kh5QiSAcl+yzqeQO+0/yc6y0yZ3smucEgPvRjS6CQ3G0B/46gkbmCzSL+hU3RMUGudm6
+         J0LZyts7PvEo1V9vnCxYy1gBGr3/eY9C9Oj631TdPrmCI3dqBFGeMns86HRajxXQnn7/
+         pJ8CO2MTox4RPoEir5gov9MNN8qd/OZq3fU71I5lhA2l7rlLe4N9i6fbQSbe6rrlDh5G
+         JcW8bvX3DKZO+FdMXqfJCHo8s7Ft3HLLVYWQE8dW8O8gUcVTsWAp43FaioNniJiIPQKB
+         z40w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=G1xKsjXsb8G48gO+/rJcWWH47JQVfIvHBaSmisZ56LU=;
-        b=HTSjGx8OkawCCZ+5SRSrQh34KRKnh/5HqZbqA7xXPJUfGb9oEELkHNIRYPl1xlXPTw
-         EXN4emzXEAu1WGuNgtYIVVV+YnJtMCnvXAAl2g/zHxZh74Dzs+k4nbupzNZcFI08vSF0
-         jzFSuvmwe6PNB+gZV5eV5fgNLZmlUAMr3HYyz+AI6FXF2SwNO+9PjKjdESquKuh1gcsb
-         krDrWw90fSqFj/Rh4K2VZrgRkP82eSDUcNlU6wlIuzRaZJHcx8EPAoPOLYWnytSAxHUL
-         nOm+cAlWYCrrIrzYL7R5SgN57QRB08MMHp6AGaNwrCbEmCqW73SVUwe2hM9EOcqJKAAR
-         REzA==
-X-Gm-Message-State: AOAM5339clWJzNmPdP4GBh+ajQ+Wgulcy9o/CAxWM/WoHrGQvb4Wq7qf
-        88bzaU4pDNXjiv74IOHKxsq9FmhGpkw=
-X-Google-Smtp-Source: ABdhPJy02wL/GxIo1gNQBolT+PdJ5BLbtusw3T9VOFQErgfdKImw2i7P6unmoHBzzmAD9gFWNjZObA==
-X-Received: by 2002:a7b:c085:: with SMTP id r5mr14959057wmh.52.1600076883318;
-        Mon, 14 Sep 2020 02:48:03 -0700 (PDT)
+        bh=WUVoSgWa/G/V37YzuwMiG88pKhDqa4z8qfurj43jeMQ=;
+        b=LWuHrhV36soeMf0ed0dAlJZchwLIBgQDkLcClhsMrNn3kdN+DGYc/QOKn4pXSsEYrP
+         RdpWVeBFFU8aePeJQ6TAKb/NVgkVVlKhwusRb7LxUF2gcC/ZZ+kpFddr23sH6/3RkuWC
+         UomqSlNsWD2vll84VUw3Y4D9PQF1or68ZOVh4kpshOcF/hSaVhiOJ3+WND9qlEozUUsj
+         grUiy3zpWb5rTDFe/ZJ8Oyt/yzsP046uLn4MkAsh+auRQyoUzB5kuMVKs9D5sT1hxmDM
+         b7UnyMsKAsxcymi03OLnBiSVtfKxtzaSypBGDS1iMxA0rKhdEnGm4gHF/qypO3JNMBKF
+         Q1Kg==
+X-Gm-Message-State: AOAM530YSFGSKjuMDfc5AHv36rsg9BPJqhiZzsrQiRVhfr85dHO+F0vu
+        Q4uTGml++aKDvGmPm2WLESyTJW/L6nM=
+X-Google-Smtp-Source: ABdhPJx6LeB+49pvxPop/vsTRiOcXuvSh2nw0iidlu4VG5s9SDvxvOJICx3ncVmMPgwf33eW7g+PCg==
+X-Received: by 2002:a1c:8f:: with SMTP id 137mr14077041wma.158.1600076941352;
+        Mon, 14 Sep 2020 02:49:01 -0700 (PDT)
 Received: from [192.168.0.160] ([93.115.133.118])
-        by smtp.gmail.com with ESMTPSA id f14sm2364321wme.22.2020.09.14.02.48.02
+        by smtp.gmail.com with ESMTPSA id q84sm6870807wme.23.2020.09.14.02.49.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2020 02:48:02 -0700 (PDT)
-Subject: Re: [PATCH v2 08/12] clock_getres.2: Cast 'time_t' very small,values
- to 'int' for printf() and fix the length modifiers
+        Mon, 14 Sep 2020 02:49:00 -0700 (PDT)
+Subject: Re: [IDEA] New pages for types: structs and typedfefs
 To:     Jakub Wilk <jwilk@jwilk.net>
 Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-References: <20200911231411.28406-1-colomar.6.4.3@gmail.com>
- <20200911231411.28406-9-colomar.6.4.3@gmail.com>
- <20200912055538.sihehmrxj6xwlwxx@jwilk.net>
- <39788961-f3d2-af73-f6fe-9bdd79c1ca14@gmail.com>
- <9d6f2b87-c3b8-60fc-6363-e976b7acbe8b@gmail.com>
- <20200914091150.66x6za5cn5s7xc4p@jwilk.net>
+References: <fb6463f6-49d7-e473-d5e1-1cdf8375e498@gmail.com>
+ <6c5b89f8-4281-4434-cbee-28f88d07920c@gmail.com>
+ <4ea99048-4bfd-9cba-44cd-9c37fdad8fce@gmail.com>
+ <CAKgNAkjys+LYn1qaSXhM2gJfkv_UOnpeNPyh3QCqNLcMNBKB+g@mail.gmail.com>
+ <20200914091954.mjqcki6kz45hczs5@jwilk.net>
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <4cf2d555-0bb5-6725-b4f2-9d79b47807c6@gmail.com>
-Date:   Mon, 14 Sep 2020 11:48:01 +0200
+Message-ID: <eba5debe-f18f-86d4-52f0-1938b3337202@gmail.com>
+Date:   Mon, 14 Sep 2020 11:49:00 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20200914091150.66x6za5cn5s7xc4p@jwilk.net>
+In-Reply-To: <20200914091954.mjqcki6kz45hczs5@jwilk.net>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Jakub,
-
-On 9/14/20 11:11 AM, Jakub Wilk wrote:
-> * Alejandro Colomar <colomar.6.4.3@gmail.com>, 2020-09-12, 12:06:
->> Jakub, I added a line acknowledging your review.
-> [...]
->> Reviewed-by: Jakub Wilk <jwilk@jwilk.net>
-> 
-> I don't know about linux-man policies, but for the kernel development,
-> Reviewed-by is not just an acknowledgment. It's a strong statement that
-> is supposed to be added by the reviewer, not by the patch author:
-> https://www.kernel.org/doc/html/v5.8/process/submitting-patches.html#using-reported-by-tested-by-reviewed-by-suggested-by-and-fixes
-> 
-> 
 
 
-Sorry, I didn't know.
+On 9/14/20 11:19 AM, Jakub Wilk wrote:
+> * Michael Kerrisk <mtk.manpages@gmail.com>, 2020-09-13, 14:01:
+>>> No, I don't have a PDF.  I usually search here:
+>>>
+>>> https://pubs.opengroup.org/onlinepubs/9699919799/
+>>
+>> You can get a PDF by registering as a member of The Open Group.
+> 
+> Alternatively, you could download HTML versions of the standards:
+> 
+> https://pubs.opengroup.org/onlinepubs/007908799/download/susv2.tar.bz2
+> https://pubs.opengroup.org/onlinepubs/007904975/download/susv3.tar.bz2
+> https://pubs.opengroup.org/onlinepubs/9699919799/download/susv4-2018.tar.bz2
+> 
+> 
+> These should be even more greppable than the PDFs. (But I admit I've
+> never seen the PDFs. I found the The Open Group registration form too
+> intimidating.)
+> 
+
+
+Great!
 
 Thanks,
 
