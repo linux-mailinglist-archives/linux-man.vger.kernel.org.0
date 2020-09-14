@@ -2,52 +2,52 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A89DD268961
-	for <lists+linux-man@lfdr.de>; Mon, 14 Sep 2020 12:39:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 640432689A4
+	for <lists+linux-man@lfdr.de>; Mon, 14 Sep 2020 12:55:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726428AbgINKis (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 14 Sep 2020 06:38:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58340 "EHLO
+        id S1726468AbgINKzf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 14 Sep 2020 06:55:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32786 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726383AbgINKiD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 14 Sep 2020 06:38:03 -0400
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 34A62C06174A
-        for <linux-man@vger.kernel.org>; Mon, 14 Sep 2020 03:38:02 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id l9so10711599wme.3
-        for <linux-man@vger.kernel.org>; Mon, 14 Sep 2020 03:38:02 -0700 (PDT)
+        with ESMTP id S1726458AbgINKzV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 14 Sep 2020 06:55:21 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E8CB4C06174A
+        for <linux-man@vger.kernel.org>; Mon, 14 Sep 2020 03:55:19 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id g4so18205155wrs.5
+        for <linux-man@vger.kernel.org>; Mon, 14 Sep 2020 03:55:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ygCj+pSfgx0RZXw421A0XasjykZKBJwT/rCkpGppjnc=;
-        b=nkCpy2Q97LNXIC1ZbGCdBSbA6DeMm9yF04c3jyEeGPBHdZj+Wmf//Et38nfiSyi1C5
-         PqeUEIRHGwk/KQ0A28roL1UWfHFYH/ArDAs8IcXjkEM93VVCEK13/PexG5rP7D56+0pJ
-         Ae66qReWzSkcZv4PIfzD2iDkTYvaQQFQBbeEwOIkx8j+sbtN5d7S7kLz2qWIkiGRedOm
-         m4vFaODB7Q35iYsUf5qvNw01d2r6KdV7jrJdvNMukLWSSltkkD4BkwnZ64JeIJBE5foK
-         bd9LwSk9nsHSlLsRzmkutc7soT2IatZFTElComju6MysGV4oHcpjHbQxxFvF/Hw5Mkn5
-         hmVA==
+        bh=j2155HAufL3iHxjsNvDsxE1LD1omqPO5jDvU9xJUCAc=;
+        b=MkAePpT92CeYippyL1R4L8Wtzs7mjt8rFFJbTAW7+M2nSEFY/phWdMUuZR/ms06or+
+         KuQNDhFOugDAx8MCwsM9dCbvaBuGiOOaMzrUX4FM5DHUp3H7c+awgoCZOjT9Chr7KEOS
+         C8KRqO9aC8rcae1pdzjPUaQ3hDFbQynx6Fqek5ASMOFf93MYi32ctCi70RvLvcDFGhj9
+         YsZ/7sVe71mK3NinGvp0yAsf8zqSK76gqSO9tm8LqLMQwoKHD3sCqcjrv9nKss0W8jz5
+         YhCVk9YiWTzK58bw3+E90EtRYa+jsMvFDPfPOBvX/MQ+R4vya8YO3ftg8+j+XZz+vWsf
+         5uRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=ygCj+pSfgx0RZXw421A0XasjykZKBJwT/rCkpGppjnc=;
-        b=bS8zmPwPoXWgEiaHzRiMknIm7wKUiYZ/8mW0x/A5sBvDDyhXokJNch5yD5+r/GxzFM
-         bgnlbd3zk31U0idHlmWyEIucnWgtUHWjezcjX4dW6Pzxcmcgmrh0JslFjeOh4U1H5i8D
-         z0attR60R1Qj521NPpZvob2Gy2FtTatesz0ArcEm7z8qjzAS+ntJ9lSvIhvWPLFIV4ZR
-         u//Rpn+JTPMJfOUd5h5Yhc+auKp78smLJNxKYE2C/MN762T7cktKZrQdc9pVzAu47xkX
-         i4Q7hVRDnTAbGqQ5tSF5Vz4R5uIOGg9PoTkn6an6fTOQo7Dnf0agFRmO8mMEH9UXXIWK
-         6S/g==
-X-Gm-Message-State: AOAM533A1OSSEYTcnA+VwVPBIpyYDsYbrDq4IyiOOwQLGyNGoRKh/XmN
-        KQlf6d+98PddkLWY31Vo7PM=
-X-Google-Smtp-Source: ABdhPJxzsFXv0HB7lXCJoQV7bvnEDOv4JQVvOaMYSTX7wQoID2Gk/eo+Wsq6o84P3UlbevqTe3UC0Q==
-X-Received: by 2002:a7b:c4d9:: with SMTP id g25mr14241022wmk.15.1600079880741;
-        Mon, 14 Sep 2020 03:38:00 -0700 (PDT)
+        bh=j2155HAufL3iHxjsNvDsxE1LD1omqPO5jDvU9xJUCAc=;
+        b=bT/4Eor+3GW4LcS3704DMy9FHlFLq5VEpsnAkajKMVyhQsM7TNB1H0VKPDHZo66QMY
+         pQHjLCINu+I+wEyjsUXNEWBPHFK41BdJClBB0DuXb8C+Jyjzfckw7TId3q99rzCPzZ5w
+         hOsksLBvB7GfzSDoGKqF6Jxt7bTPHUAZitdUb+Bm04TCUCoL2MZ16RYGf0ujgq1k9vX8
+         WyIardLJufO5Rqk4zPlmNdP0gbRVdfHg1SRqx8OcWFx/NQS00WYgsBfxxD87rKX0wOo0
+         x6nThOJweGpstP41NxCK02yiYRxcEqSuJOsMEwYSiQnp5Jx1zHDCpZ2VI6JI7kf4mlcm
+         t5vw==
+X-Gm-Message-State: AOAM5302ZlFqlG+0gekOh5wtLGkQi3MGS5bUmXIOI/WGer7t50g/j2XC
+        1sk6zQPi38BwLIKk8g0IqLs=
+X-Google-Smtp-Source: ABdhPJx2Hh1CdDAFsl9e1DXXt6QAqbtX3tVTP2zmA35tNrS7JLsUYD4HdJYsZi9KTPJbn/7KBmXl2w==
+X-Received: by 2002:adf:f2d0:: with SMTP id d16mr14691607wrp.332.1600080918509;
+        Mon, 14 Sep 2020 03:55:18 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id h186sm19317472wmf.24.2020.09.14.03.37.59
+        by smtp.gmail.com with ESMTPSA id z15sm19805263wrv.94.2020.09.14.03.55.17
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2020 03:38:00 -0700 (PDT)
+        Mon, 14 Sep 2020 03:55:17 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>,
         Florian Weimer <fweimer@redhat.com>,
         libbsd@lists.freedesktop.org
@@ -61,13 +61,14 @@ References: <fb6463f6-49d7-e473-d5e1-1cdf8375e498@gmail.com>
  <3a56a8af-6371-89f3-cac2-31dd64791c99@gmail.com>
  <65e2bdf5-425b-9381-b1ac-3f101113c70f@gmail.com>
  <af73c477-c8a6-c03f-c6db-ab613b8d6d2f@gmail.com>
+ <23bfb4c9-9cab-8d1f-46a2-00932501b5b8@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <23bfb4c9-9cab-8d1f-46a2-00932501b5b8@gmail.com>
-Date:   Mon, 14 Sep 2020 12:37:57 +0200
+Message-ID: <a160fb7e-2f72-9532-ada5-9978a994d3bd@gmail.com>
+Date:   Mon, 14 Sep 2020 12:55:17 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <af73c477-c8a6-c03f-c6db-ab613b8d6d2f@gmail.com>
+In-Reply-To: <23bfb4c9-9cab-8d1f-46a2-00932501b5b8@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -76,117 +77,36 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Alex,
+Hi Alex,
 
-On 9/14/20 2:20 AM, Alejandro Colomar wrote:
->>From ffd8ea312527935cd86cc7ed1133a08d4e642b06 Mon Sep 17 00:00:00 2001
-> From: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> Date: Mon, 14 Sep 2020 02:07:50 +0200
-> Subject: [RFC] First draft for system_data_types.7 (and links to it:
->  <type>.3)
+On 9/14/20 12:37 PM, Michael Kerrisk (man-pages) wrote:
+> Hello Alex,
 > 
-> Hi Michael,
+> On 9/14/20 2:20 AM, Alejandro Colomar wrote:
+> I'm going to hold my finger in the wind, and say: lets restrict the
+> list to what seem like the most relevant APIs, where obviously that is
+> a somewhat subjective choice. You could include all the other APIs in
+> .\" comments, so we can see what's excluded, and this may trigger some
+> tweaking. So, for 'struct timespec' the list might be as simple as:
 > 
-> This is my first draft.
-> 
-> There are still TODO things:
-> - Add types (obviously)
-> - Write specific "Conforming to" versions
->   For now I just wrote POSIX, but I'll write the specific versions.
+> clock_gettime(2), clock_nanosleep(2), nanosleep(2)
+> timerfd_gettime(2), timer_gettime(2)
 
-Good. I think that we can get away with just mentioning one each of
-POSIX.1-200x and Cxx, with the latter starting at C99. I think C89 is
-far enough back in time that we don't need to clutter the page with
-it. Something like:
+Just to add to this. Even if limiting to "relevant" APIs,
+I think some of the lists might still be quite long (which 
+is okay). For example, I do expect the 'time_t' list will
+remain long.
 
-Conforming to: C99 and later; POSIX.1-2001 and later.
+Some of your items in the 'timer_t' list definitely don't
+belong (timer_getoverrun, timer_delete).
 
+The 'sigval' list looks about right.
 
->   Should I write the latest one, the oldest one, or how?
-
-See above.
-
->   For C versions I did the following:
-> 	If the type has been there since C89, I wrote C89, C99.
-> 	If the type is >= C99, I wrote C99.
-> 	If the type is >= C11, I wrote C11.
-> - Correctly highlight function names and similar (see timer_t)
->   For this first draft, I just want to show you the idea.  I'll add
->   italics and all that stuff later on.
-> - Review "See also" (right now: all results of 'grep -rl <type>')
->   I put everything that came up with grep in the See also section.
->   Is it too much?  Any other references I should add?
-
-I am ambivalent on the question of "is it too much?". Some of those
-lists seem rather long. But the question of whether it is valuable to
-mention *all* of the APIs is open: maybe it is; maybe it is not. Then
-again, trying to be exhaustive, makes the lists fragile (new API
-appears, but we forgot to add it to the list). And then if we
-do not include all of the APIs, what are the criteria for
-inclusion/exclusion?
-
-I'm going to hold my finger in the wind, and say: lets restrict the
-list to what seem like the most relevant APIs, where obviously that is
-a somewhat subjective choice. You could include all the other APIs in
-.\" comments, so we can see what's excluded, and this may trigger some
-tweaking. So, for 'struct timespec' the list might be as simple as:
-
-clock_gettime(2), clock_nanosleep(2), nanosleep(2)
-timerfd_gettime(2), timer_gettime(2)
-
-Note by the way, that that list is not a subset of your list.
-Instead, I looked inside the pages that you listed to see which APIs
-seemed "relevant".
-
-I cannot think of other references that you should add.
-
-You better include suseconds_t in the next draft :-).
-
-I think it would be better not to split the types into separate lists.
-Instead (and note the formatting) order by type name:
-
-.TP
-.BI "union " sigval
-...
-.TP
-.I time_t
-...
-.TP
-.I timer_t
-...
-.TP
-.BI "struct " timespec
-...
-.TP
-.BI "struct " timeval
-...
-
-Having seen how it looks with the header files, I'm going to suggest a
-differnt approach. Let's put them on a separate line, something like:
-
-Obtained by including: <abc.h> or <xyz.h>
-
-> ---
->  man3/sigval.3            |   1 +
->  man3/time_t.3            |   1 +
->  man3/timer_t.3           |   1 +
->  man3/timespec.3          |   1 +
->  man3/timeval.3           |   1 +
-
-It's an open question whether the links should be in section 3 or 
-section 7. Do you have any thoughts on what's better?
-
-Don't get wrapped up in including too many more types in the
-yet, while we try to iron out the format.
-
-Also, I'd like to see the types added incrementally (one or a few
-at a time), so that it's easy to comment on each type, when needed.
+I think the 'timeval' list could be trimmed back a bit.
 
 Thanks,
 
 Michael
-
-
 
 -- 
 Michael Kerrisk
