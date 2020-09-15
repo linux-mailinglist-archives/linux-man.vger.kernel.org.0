@@ -2,540 +2,173 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 80BAB26AFE5
-	for <lists+linux-man@lfdr.de>; Tue, 15 Sep 2020 23:49:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8C19D26B08D
+	for <lists+linux-man@lfdr.de>; Wed, 16 Sep 2020 00:13:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728040AbgIOVsw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 15 Sep 2020 17:48:52 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43908 "EHLO
+        id S1727767AbgIOWNZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 15 Sep 2020 18:13:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54776 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727816AbgIOVam (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 15 Sep 2020 17:30:42 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6CD73C06178C
-        for <linux-man@vger.kernel.org>; Tue, 15 Sep 2020 14:30:41 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id d4so825965wmd.5
-        for <linux-man@vger.kernel.org>; Tue, 15 Sep 2020 14:30:41 -0700 (PDT)
+        with ESMTP id S1727743AbgIOQkN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 15 Sep 2020 12:40:13 -0400
+Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com [IPv6:2607:f8b0:4864:20::843])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 879A2C06174A;
+        Tue, 15 Sep 2020 09:40:12 -0700 (PDT)
+Received: by mail-qt1-x843.google.com with SMTP id 19so3692131qtp.1;
+        Tue, 15 Sep 2020 09:40:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=qUr9Ig+WcPDt4F9ngMEdH1NqAH95blBQQVqDoJwh91s=;
-        b=d70ddXq+BfmZS61HHlevYP5PftdCM6i0mUtca8Tj0A2q23Fe/oTlpBDdA+trB7Vd9U
-         i8wJXyjEdtRYc38zwSX7D1LWH5ilzVMLrSNe0O5cU8K87mRVuIKE5+sTZjBN3ese1fi4
-         lDqUPvNJq17/a+VDCLEoO87rm4vw/3+vqWI4fgjPQ3QKRuqnP8JsLnPrmvubp2Hv21Ja
-         A9sUBAMPctU2h8Py0uKftmsPn1dKVTa/uljllCMBPHUOdK14fRmsUJ6YvqDYjrA145JY
-         TEa/lnPJipMT5agSMJcXrMRJ6ANUv4NQolIjsmZN4Q0VNSr/2Qm3QhGxBqXtkX+RDyfY
-         6XHQ==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=U5qBWD/Pi0YOP8OO3FMwldARNgB9cZIIn6+Wxa36CQY=;
+        b=E6lqfbQkfG5cw1N/zZndHc9MDrrZlnZBINXTqhxJacElStwMCdApV/IGKoLPc7JKvo
+         ls1jmd613FgEYWRtp2i7AvOKWYeRCHc32Cx7psWDd/XND3OeGlb34spPddQXCPoubtbZ
+         FhVetIW/5sSw3g6TmYnndob5PzwfNKAKDjQsG3Di3fF3cM/L10qkKOLpArjOAQPEH5pM
+         q5ouIAFYI3ics2jvYIbehRLimcljUO+GeToQRHJW9WoRhfFwSogSfSnTwh/uTNH8gmeJ
+         EHKelxBDFcoFNoxwwrHSqt45Od+BBSQRo5T2bx0ohuTGz9tyeAfr1cTqS+2zpufPwCPy
+         a6+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=qUr9Ig+WcPDt4F9ngMEdH1NqAH95blBQQVqDoJwh91s=;
-        b=g4NpUZAxTT2DLTzMGdX+a51R08E0du3c45Y5/qFs+vyDhdS2+FQv/THx2KC8Vm+OVz
-         FyVPElENxUjXIhtaC19TlmO7kHMsfdr42L6vYeylg0wVY1Cc7wGfZnXfQPVXaya9DJTc
-         JwoQDfjMWO3dxiw2Bs79eXQdd75IRt6HaEKIBPFj6UutGqhFVaPDbA2UOZ+gQLfALrix
-         B5hOtK3NyL48zqtV+dwzBbnlr1ESPnxdzSq8ORdXOfb8ivvxSULucD88M7qtyhbvdwRT
-         c6FsOLI4x9G1ojjiMwRGVgs47LJUvaLW/LI5ynDRozer+bRUtSN3DYP1cB+WBoEJ4g4U
-         hSng==
-X-Gm-Message-State: AOAM5333aTxxudiQ4vRp0xEdRf4nF+d5wDfc7WcZO+/lcA/0qxvr5QDk
-        nFm06moea9VukG2s8a1F3Uk=
-X-Google-Smtp-Source: ABdhPJwdyCXMqzE3bsrSGNc4HNmk5g+PrZuuROwCy/Qmor82zcJLLmCk2eh7O3u9y4g/da2SAGrt9w==
-X-Received: by 2002:a1c:bb06:: with SMTP id l6mr725782wmf.175.1600205439922;
-        Tue, 15 Sep 2020 14:30:39 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id 63sm1307400wrc.63.2020.09.15.14.30.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2020 14:30:39 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        fweimer@redhat.com, libbsd@lists.freedesktop.org, jwilk@jwilk.net
-Subject: Re: [RFC v4] system_data_types.7: Document sigval, ssize_t,
- suseconds_t, time_t, timer_t, timespec & timeval
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-References: <6dc80c25-85bf-925c-49c2-f79865027c0f@gmail.com>
- <20200915133306.35033-1-colomar.6.4.3@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <adc89159-48bf-de72-ab88-985c2e61a842@gmail.com>
-Date:   Tue, 15 Sep 2020 23:30:38 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        bh=U5qBWD/Pi0YOP8OO3FMwldARNgB9cZIIn6+Wxa36CQY=;
+        b=fYWRRrRzPSP2ySyJJCcccPtatQ3O/tnDk7MthaMZH5FHfwLwlwXjmBgd9cdrFusxZx
+         KcL6XYmkely/RfKJze/92VTwixBV8a5UldMuVIq7kv9y9XSgcgQwnrTHgMbN8lDbrgnG
+         E8CRq7g0aLAWRkS6kc8if3s+zBJ8Szz9JLe2N2B+9HFlYWHc909UpwABqPOLvtQZJOht
+         5imrDre3AXCaO+ysIQmIzLPP3ct7wRBqRAxqOEIpsZTKVNPxdt+nHUl3zavxY/7TK/ze
+         vTqnyki2XwuqsCIrejgd5Vy1jcOal8bKZE7t/ySWznr12lFJ0LvrH+u1CNE/CnXSN2lQ
+         9BeQ==
+X-Gm-Message-State: AOAM5334Btbd262e0UXVPIy/aOMMwUASfH3In9j3n0LKU4iR6fKCPBgH
+        jItKjRsF95PsbEtSxz+/Edw=
+X-Google-Smtp-Source: ABdhPJwueNIF6/j3D1/WkJFmXEjp48g8rttDimycmnaHu3TGo4GNviuYN1Rnl3JKAC8BKAmtlLdogQ==
+X-Received: by 2002:ac8:2942:: with SMTP id z2mr19342171qtz.376.1600188011702;
+        Tue, 15 Sep 2020 09:40:11 -0700 (PDT)
+Received: from puritycontrol.fios-router.home (pool-96-234-167-227.bltmmd.fios.verizon.net. [96.234.167.227])
+        by smtp.gmail.com with ESMTPSA id 71sm17162340qki.85.2020.09.15.09.40.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2020 09:40:11 -0700 (PDT)
+From:   Stephen Smalley <stephen.smalley.work@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, linux-security-module@vger.kernel.org,
+        selinux@vger.kernel.org, smcv@collabora.com, jmorris@namei.org,
+        serge@hallyn.com, paul@paul-moore.com,
+        Stephen Smalley <stephen.smalley.work@gmail.com>
+Subject: [PATCH] socket.7,ip.7: Document SO_PEERSEC for AF_INET sockets
+Date:   Tue, 15 Sep 2020 12:39:59 -0400
+Message-Id: <20200915163959.25334-1-stephen.smalley.work@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20200915133306.35033-1-colomar.6.4.3@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+Augment the description of SO_PEERSEC to cover AF_INET sockets
+in addition to the prior description for AF_UNIX.
 
-On 9/15/20 3:33 PM, Alejandro Colomar wrote:
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> ---
-> 
-> Hi Michael,
-> 
-> This is already a release candidate, I'd say.
+SO_PEERSEC for TCP sockets was introduced in Linux 2.6.17 [1], and
+SO_PEERSEC for SCTP sockets was introduced in Linux 4.17 [2].
 
-Okay. Time to nit pick :-). Do not be too dispirited,
-I think we started with some of the most difficult types...
+This does not cover usage of SCM_SECURITY for UDP sockets, which
+was also introduced in the same commit for 2.6.17.
 
-> Changelog since Draft v3:
-> 
-> - Specify POSIX versions
-> - ffix
-> - wfix
-> - Curate See also
+Examples of the necessary labeled IPSEC and NetLabel configurations
+to enable use of SO_PEERSEC for TCP and SCTP sockets can be found in
+the SELinux Notebook [3] and the selinux-testsuite [4].
 
-> On 2020-09-15 08:22, Michael Kerrisk (man-pages) wrote:
->> I think the reader won't easily deduce the above ordering.
->> I think just the following will be fine:
->> * (1)/(2) (merged is fine)
->> * The rest, ordered alphabetically.
-> 
-> I'm not sure I fully understood it.  Please check the updated comments.
-> No type required actual modifications after that change.
-> 
-> Basically, I merged (3) & (4).
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=2c7946a7bf45ae86736ab3b43d0085e43947945c
 
-I soppose what I meant is that POSIX defers to the C standard
-in the cases where they overlap, and I'd expect that the set
-of headers specified in the C standard and in POSIX might be the
-same, but where they're not, I suspect the list of POSIX headers
-would always be a superset of the C headers. So, just make a 
-single list of those headers, followed by 3 and 4 (merged)
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d452930fd3b9031e59abfeddb2fa383f1403d61a
 
-[...]
+[3] https://github.com/SELinuxProject/selinux-notebook
 
->  man7/system_data_types.7 | 304 +++++++++++++++++++++++++++++++++++++++
->  1 file changed, 304 insertions(+)
->  create mode 100644 man7/system_data_types.7
-> 
-> diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-> new file mode 100644
-> index 000000000..9011ce74e
-> --- /dev/null
-> +++ b/man7/system_data_types.7
-> @@ -0,0 +1,304 @@
-> +.\" Copyright (c) 2020 by Alejandro Colomar <colomar.6.4.3@gmail.com>
-> +.\"
-> +.\" %%%LICENSE_START(VERBATIM)
-> +.\" Permission is granted to make and distribute verbatim copies of this
-> +.\" manual provided the copyright notice and this permission notice are
-> +.\" preserved on all copies.
-> +.\"
-> +.\" Permission is granted to copy and distribute modified versions of this
-> +.\" manual under the conditions for verbatim copying, provided that the
-> +.\" entire resulting derived work is distributed under the terms of a
-> +.\" permission notice identical to this one.
-> +.\"
-> +.\" Since the Linux kernel and libraries are constantly changing, this
-> +.\" manual page may be incorrect or out-of-date.  The author(s) assume no
-> +.\" responsibility for errors or omissions, or for damages resulting from
-> +.\" the use of the information contained herein.  The author(s) may not
-> +.\" have taken the same level of care in the production of this manual,
-> +.\" which is licensed free of charge, as they might when working
-> +.\" professionally.
-> +.\"
-> +.\" Formatted or processed versions of this manual, if unaccompanied by
-> +.\" the source, must acknowledge the copyright and authors of this work.
-> +.\" %%%LICENSE_END
-> +.\"
-> +.\"
-> +.TH SYSTEM_DATA_TYPES 7 2020-09-13 "Linux" "Linux Programmer's Manual"
-> +.SH NAME
-> +system_data_types \- overview of system data types
-> +.SH DESCRIPTION
-> +.\" TODO:
-> +.\"	* Add types
-> +.\"	* Curate "See also"
-> +.\" Layout:
-> +.\"	A list of type names (the struct/union keyword will be omitted).
-> +.\"	Each entry will have the following parts:
-> +.\"		* Include
-> +.\"			The headers will be in the following order:
-> +.\"			1) The header(s) that shall define the type
-> +.\"			   according to the C standard,
-> +.\"			   in alphabetical order.
-> +.\"			2) The header that shall define the type
-> +.\"			   according to POSIX.
+[4] https://github.com/SELinuxProject/selinux-testsuite
+---
+ man7/ip.7     | 56 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ man7/socket.7 |  2 +-
+ 2 files changed, 57 insertions(+), 1 deletion(-)
 
-See my comments above.
-
-> +.\"			3) All other headers that shall define the type
-> +.\"			   as described in the previous header
-> +.\"			   according to POSIX,
-> +.\"			   and
-> +.\"			   all other headers that define the type
-> +.\"			   that are Linux specific,
-> +.\"			   in alphabetical order.
-> +.\"
-> +.\"		* Definition (no "Definition" header)
-> +.\"			Only struct/union types will have definition;
-> +.\"			typedefs will remain opaque.
-> +.\"
-> +.\"		* Description (no "Description" header)
-> +.\"			A few lines describing the type.
-> +.\"
-> +.\"		* Conforming to
-> +.\"			example: CXY and later; POSIX.1-XXXX and later.
-> +.\"			Forget about pre-C99 C standards (i.e., C89/C90)
-> +.\"
-> +.\"		* Notes (optional)
-> +.\"
-> +.\"		* See also
-> +.TP
-> +.I sigval
-> +.IP
-> +Include:
-> +.I <signal.h>
-> +.IP
-> +.EX
-> +union sigval {
-> +    int     sigval_int; /* Integer value */
-> +    void   *sigval_ptr; /* Pointer value */
-> +};
-> +.EE
-> +.IP
-> +Data passed with a signal.
-> +.IP
-> +Conforming to: POSIX.1-2001 and later.
-> +.IP
-> +See also:
-> +.BR rt_sigqueueinfo (2),
-> +.BR sigaction (2),
-> +.BR mq_notify (3),
-
-I think we can drop mq_notify(3). Its relationship to sigval is 
-somewhat indirect, and is covered via sigevent(7).
-
-> +.BR pthread_sigqueue (3),
-> +.BR sigqueue (3),
-> +.BR sigevent (7)
-> +.TP
-> +.I ssize_t
-> +.IP
-> +Include:
-
-Okay, now I look closer at these lists. How have you determined them?
-
-> +.I <sys/types.h>
-> +or
-> +.I <aio.h>
-> +or
-> +.I <limits.h>
-
-The type is mentioned in the <limits.h> spec, but it is not required to 
-be defined by that header. (grep is not enough; one must read the text, 
-sorry :-).)
-
-> +or
-> +.I <monetary.h>
-> +or
-> +.I <mqueue.h>
-> +or
-> +.I <regex.h>
-
-The type is mentioned in the <regex.h> spec, but it is not required to 
-be defined by that header.
-
-> +or
-> +.I <stdio.h>
-> +or
-> +.I <sys/msg.h>
-> +or
-> +.I <sys/socket.h>
-> +or
-> +.I <sys/uio.h>
-> +or
-> +.I <unistd.h>
-> +.IP
-> +Used for a count of bytes or an error indication.
-> +According to POSIX, it shall be a signed integer type
-> +capable of storing values at least in the range [-1,
-> +.BR SSIZE_MAX ].
-> +.IP
-> +Conforming to: POSIX.1-2001 and later.
-
-Today I learned: size_t is in C99, but ssize_t is not!
-
-> +.IP
-> +See also:
-
-Okay -- I think this list really is rather too long; I'm not
-convinced that it brings value.
-
-I suggest dropping the pages marked XX. The remaining can serve
-as the (commonly used) exemplars of APIs that use this type.
-
-XX > +.BR copy_file_range (2),
-XX > +.BR getrandom (2),
-XX > +.BR getxattr (2),
-XX > +.BR listxattr (2),
-XX > +.BR msgrcv (2),
-XX > +.BR pread (2),
-XX > +.BR process_vm_readv (2),
-> +.BR read (2),
-XX > +.BR readahead (2),
-> +.BR readlink (2),
-> +.BR readv (2),
-> +.BR recv (2),
-> +.BR send (2),
-XX > +.BR sendfile (2),
-XX > +.BR splice (2),
-XX > +.BR tee (2),
-XX > +.BR vmsplice (2),
-> +.BR write (2),
-XX > +.BR aio_return (3),
-XX > +.BR getdirentries (3),
-XX > +.BR getline (3),
-XX > +.BR mq_receive (3),
-XX > +.BR strfmon (3),
-XX > +.BR swab (3),
-XX > +.BR mq_receive (3)
-> +.IP
-> +See also the
-> +.I size_t
-> +type in this page.
-
-But size_t is not in this page (yet). Is it in your tree?
-
-By the way,from my reading of POSIX.1-2008, the list of headers that 
-define size_t is:
-
-<sys/types.h>
-<aio.h>
-<glob.h>
-<grp.h>
-<iconv.h>
-<monetary.h>
-<mqueue.h>
-<ndbm.h>
-<pwd.h>
-<regex.h>
-<search.h>
-<signal.h>
-<stddef.h>
-<stdio.h>
-<stdlib.h>
-<string.h>
-<strings.h>
-<sys/mman.h>
-<sys/msg.h>
-<sys/sem.h>
-<sys/shm.h>
-<sys/socket.h>
-<sys/uio.h>
-<time.h>
-<trace.h> # But omit, because not on Linux
-<unistd.h>
-<wchar.h>
-<wordexp.h>
-
-> +.TP
-> +.I suseconds_t
-> +.IP
-> +Include:
-> +.I <sys/types.h>
-> +or
-> +.I <sys/select.h>
-> +or
-> +.I <sys/time.h>
-> +or
-> +.I <unistd.h>
-
-The type is mentioned in the <limits.h> spec, but it is not required to
-be defined by that header. grep is not enough; one must read the text,
-sorry :-).
-
-> +.IP
-> +Used for time in microseconds.
-> +According to POSIX, it shall be a signed integer type
-> +capable of storing values at least in the range [-1, 1000000].
-> +.IP
-> +Conforming to: POSIX.1-2001 and later.
-> +.\".IP
-> +.\"See also:
-
-Remove the above two lines.
-
-> +.IP
-> +See also the
-> +.I timeval
-> +structure in this page.
-> +.TP
-> +.I time_t
-> +.IP
-> +Include:
-> +.I <time.h>
-> +or
-> +.I <sys/types.h>
-> +or
-> +.I <sched.h>
-
-<sched.h> only defines time_t since POSIX.1-2008, as far as I can
-tell! I'm not sure how/if we want to represent that detail.
-
-> +or
-> +.I <sys/msg.h>
-> +or
-> +.I <sys/select.h>
-> +or
-> +.I <sys/sem.h>
-> +or
-> +.I <sys/shm.h>
-> +or
-> +.I <sys/stat.h>
-> +or
-> +.I <sys/time.h>
-> +or
-> +.I <utime.h>
-> +.IP
-> +Used for time in seconds.
-> +According to POSIX, it shall be an integer type.
-> +.IP
-> +Conforming to: C99 and later; POSIX.1-2001 and later.
-> +.IP
-> +See also:
-
-Drop lines marked XX
-
-> +.BR stime (2),
-> +.BR time (2)XX > +.BR timer_settime (2),
-
-(time_t turns up only as part of timespec)
-
-> +.BR ctime (3),
-> +.BR difftime (3),
-XX > +.BR timegm (3)
-
-(timegm(3) is not in POSIX; let's ignore it in this page.)
-
-> +.TP
-> +.I timer_t
-> +.IP
-> +Include:
-> +.I <sys/types.h>
-> +or
-> +.I <time.h>
-> +.IP
-> +Used for timer ID returned by
-> +.BR timer_create (2).
-> +According to POSIX,
-> +there are no defined comparison or assignment operators for this type.
-> +.IP
-> +Conforming to: POSIX.1-2001 and later.
-> +.IP
-> +See also:
-> +.BR timer_create (2),
-> +.BR timer_delete (2),
-> +.BR timer_getoverrun (2),
-> +.BR timer_settime (2)
-> +.TP
-> +.I timespec
-> +.IP
-> +Include:
-> +.I <time.h>
-> +or
-> +.I <aio.h>
-> +or
-> +.I <mqueue.h>
-> +or
-> +.I <pthread.h>
-
-AFAICS, the type is mentioned in the <pthread.h> spec, but it is not 
-required to be defined by that header.
-
-> +or
-> +.I <sched.h>
-> +or
-> +.I <semaphore.h>
-
-AFAICS, the type is mentioned in the <semaphore.h> spec, but it is not 
-required to be defined by that header.
-
-> +or
-> +.I <signal.h>
-> +or
-> +.I <sys/select.h>
-> +or
-> +.I <sys/stat.h>
-> +or
-> +.I <trace.h>
-
-AFAICS, the type is mentioned in the <trace.h> spec, but it is not 
-required to be defined by that header.
-
-> +.IP
-> +.EX
-> +struct timespec {
-> +    time_t  tv_sec;  /* Seconds */
-> +    long    tv_nsec; /* Nanoseconds */
-> +};
-> +.EE
-> +.IP
-> +Describes times in seconds and nanoseconds.
-> +.IP
-> +Conforming to: C11 and later; POSIX.1-2001 and later.
-> +.IP
-> +See also:
-> +.BR clock_gettime (2),
-> +.BR clock_nanosleep (2),
-> +.BR nanosleep (2),
-> +.BR timerfd_gettime (2),
-> +.BR timer_gettime (2)
-> +.TP
-> +.I timeval
-> +.IP
-> +Include:
-> +.I <sys/time.h>
-> +or
-> +.I <sys/resource.h>
-> +or
-> +.I <sys/select.h>
-> +or
-> +.I <utmpx.h>
-> +.IP
-> +.EX
-> +struct timeval {
-> +    time_t      tv_sec;  /* Seconds */
-> +    suseconds_t tv_usec; /* Microseconds */
-> +};
-> +.EE
-> +.IP
-> +Describes times in seconds and microseconds.
-> +.IP
-> +Conforming to: POSIX.1-2001 and later.
-> +.IP
-> +See also:
-
-Let's limit things to a representative sample:
-
-XX > +.BR futimesat (2),
-
-futimesat() is obsolete and nonstandard.
-
-> +.BR gettimeofday (2),
-> +.BR select (2),
-> +.BR utimes (2),
-> +.BR adjtime (3),
-> +.BR futimes (3),
-XX > +.BR rpc (3),
-XX > +.BR rtime (3),
-
-These two are probably more obscure. We don't need to mention
-them, I think.
-
-> +.BR timeradd (3)
-
-Thanks,
-
-Michael
-
+diff --git a/man7/ip.7 b/man7/ip.7
+index c522b219c..03a9f3f7c 100644
+--- a/man7/ip.7
++++ b/man7/ip.7
+@@ -979,6 +979,62 @@ Argument is an
+ .I ip_mreq_source
+ structure as described under
+ .BR IP_ADD_SOURCE_MEMBERSHIP .
++.TP
++.BR SO_PEERSEC " (since Linux 2.6.17)"
++If labeled IPSEC or NetLabel is configured on both the sending and
++receiving hosts, this read-only socket option returns the security
++context of the peer socket connected to this socket.  By default, this
++will be the same as the security context of the process that created
++the peer socket unless overridden by the policy or by a process with
++the required permissions.
++.IP
++The argument to
++.BR getsockopt (2)
++is a pointer to a
++buffer of the specified length in bytes
++into which the security context string will be copied.
++If the buffer length is less than the length of the security
++context string, then
++.BR getsockopt (2)
++will return the required length
++via
++.I optlen
++and return \-1 and sets
++.I errno
++to
++.BR ERANGE .
++The caller should allocate at least
++.BR NAME_MAX
++bytes for the buffer initially although this is not guaranteed
++to be sufficient.  Resizing the buffer to the returned length
++and retrying may be necessary.
++.IP
++The security context string may include a terminating null character
++in the returned length, but is not guaranteed to do so: a security
++context "foo" might be represented as either {'f','o','o'} of length 3
++or {'f','o','o','\\0'} of length 4, which are considered to be
++interchangeable. It is printable, does not contain non-terminating
++null characters, and is in an unspecified encoding (in particular it
++is not guaranteed to be ASCII or UTF-8).
++.IP
++The use of this option for sockets in the
++.B AF_INET
++address family
++is supported since Linux 2.6.17
++.\" commit 2c7946a7bf45ae86736ab3b43d0085e43947945c
++for TCP sockets and since Linux
++4.17
++.\" commit d452930fd3b9031e59abfeddb2fa383f1403d61a
++for SCTP sockets.
++.IP
++For SELinux, NetLabel only conveys the MLS portion of the security
++context of the peer across the wire, defaulting the rest of the
++security context to the values defined in the policy for the
++netmsg initial security identifier (SID). However, NetLabel can
++be configured to pass full security contexts over loopback.  Labeled
++IPSEC always passes full security contexts as part of establishing
++the security association (SA) and looks them up based on the association
++for each packet.
+ .SS /proc interfaces
+ The IP protocol
+ supports a set of
+diff --git a/man7/socket.7 b/man7/socket.7
+index c3635f95b..2f9039333 100644
+--- a/man7/socket.7
++++ b/man7/socket.7
+@@ -693,7 +693,7 @@ For further details, see
+ .BR SO_PEERSEC " (since Linux 2.6.2)"
+ Return the security context of the peer socket connected to this socket.
+ For further details, see
+-.BR unix (7).
++.BR unix (7) and ip(7).
+ .TP
+ .B SO_PRIORITY
+ Set the protocol-defined priority for all packets to be sent on
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.25.1
+
