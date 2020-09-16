@@ -2,59 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3110926CB2D
-	for <lists+linux-man@lfdr.de>; Wed, 16 Sep 2020 22:23:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 376D926CB2F
+	for <lists+linux-man@lfdr.de>; Wed, 16 Sep 2020 22:23:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727297AbgIPUX3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 16 Sep 2020 16:23:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60724 "EHLO
+        id S1727096AbgIPUXb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 16 Sep 2020 16:23:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60718 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727096AbgIPR2k (ORCPT
+        with ESMTP id S1727098AbgIPR2k (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Wed, 16 Sep 2020 13:28:40 -0400
 Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 25B89C061354
-        for <linux-man@vger.kernel.org>; Wed, 16 Sep 2020 03:53:20 -0700 (PDT)
-Received: by mail-wm1-x341.google.com with SMTP id q9so2316817wmj.2
-        for <linux-man@vger.kernel.org>; Wed, 16 Sep 2020 03:53:20 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2E94FC06121F
+        for <linux-man@vger.kernel.org>; Wed, 16 Sep 2020 04:01:58 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id y15so2541942wmi.0
+        for <linux-man@vger.kernel.org>; Wed, 16 Sep 2020 04:01:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=rU3x4N3mg4zOyUYFrimkAp2ncKFqVV0gnh0/UtcTLyQ=;
-        b=oZaa2qcU/v8SGUX6hCDfHZQUXcYkB50d3NN/NHQivqOs2UfXUqyEEu8ArMGZaxcOGt
-         rockpDYGirb9RHygiLFBO4DL42+gvXCXdBVB7g1RUx9xpZlIk8+gu+o9nxAZIqEjKsPQ
-         S3ILzUBwo5r166OLM7W90TiyX9xcMrIv7OGrAAJ20zZO7/UU/pGG+cODrj/ot05KzcD5
-         jAA9oojphAt0gVNsisAXVSTDXdtbsuog7cV/LbVI4hLA3hKwibHZBuSwsSxsivps8/vi
-         Q1qi8RwMKXiXtNhZZuAL5kMIr9M0efTN9OWDzEJ1E2DCfTYid4wVlhjxCGFA/SBNl1Sh
-         la/Q==
+        bh=APVguqqQZSSyuzoPoaHS5WsyGKf6igRfOX5HRSiB3Rc=;
+        b=slTYQBJX3iMMxD6F+/Dj6TT1W6R90RLHwemmwFHn9WFEzcgeA+gMZWzBdZI8X4oOpI
+         8NJO4SMScEPGhB8ArTiR/EB+5FDQ5jqpz6x9wgivE/n9TIXW1CfAMTy5bxsnI1Ys1ozs
+         txSCOEA4NDkcR5AjlIGX7IktgTpuaGG75h/EGDpbfvygMvEhJPeeR8EH8T62k8cdcs2Y
+         dhy1UFh3oThwJmTCyVpEE+zyF6jFxtJqhw3ZnzZLddXQnnkRksP+5ETrHm+OgDAE5OJG
+         ZZjqqNwaFHZnW79rcXP8hSpGLu51/31YIA7SybMG1KEu5jckjusKK4FWeEgd5GnYn4CM
+         85zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=rU3x4N3mg4zOyUYFrimkAp2ncKFqVV0gnh0/UtcTLyQ=;
-        b=ObE2ceoC89dtU/iV4S2fILRhKQ57oGMpHxQPz6S6yq0M3mc6lpi0QmRElZp3OvFecc
-         gygMlJmxUnnFZ6F4AR6Df6K2SOFegPI/Y8U8L+FdDjFPKlCtwiNNHt7CgMfTkrlt6AbR
-         9CmuqOuXRF/BqppPUC/omLh9rr+HMnZKFy2brW8GURhi0lZkSdw+i23kKgyt50Jz4EFB
-         YTh7EdMBscKp2DQ0GLHr/Qkn0rJ8J+80Q5nHO7J25fCUoqYbm7hKRf4u2xDAVuJVrCpl
-         Ugetqnebum7RMpZ+CQa6HH2yoiXT4C1o5HQouxTk3zgt+n0UjEDzxw3OjjrvvrY/CxLl
-         JweA==
-X-Gm-Message-State: AOAM533npL7NFADOeg3DUwDMXGTrdO+oI2aHZeaAKrJRgY0pIyvTVDh1
-        l1Yv/8HCq0ZInoAjKOruHTscvKKLndPfIg==
-X-Google-Smtp-Source: ABdhPJwRioaKI9h68lXguEvA1pCYV7SyEX9OVBagu4pZsXb6PxsLG6+YGi0ARgSwPI9WIPLBowcrcg==
-X-Received: by 2002:a1c:7c13:: with SMTP id x19mr4185463wmc.45.1600253598598;
-        Wed, 16 Sep 2020 03:53:18 -0700 (PDT)
+        bh=APVguqqQZSSyuzoPoaHS5WsyGKf6igRfOX5HRSiB3Rc=;
+        b=bt2rABD2UBBS2BdtnPsZI3i4yGZG/u3v17bRF+vjCnk/8CFNKUJ1zC7LjhKc2Olz5k
+         qhBRM2Tg7GhodZj0xNEMFrzV+r1TOlMWoBH2MSiIiT/DROcq4Yw0yRr51ejT4GfWy3sU
+         maLrDGro6ywwuXy4A8s/49SSH6mEc5jdS4yEXxliitgGVSXHbDwv6VhZ9g0qy7Jb6fql
+         YWYaFGVzIeHN43c4PgD21nN70AMwGpmTqmkbzGNl0DgA2aJrOPaQVaiZclDaIY+es3+K
+         vP1Y4PCWgfaAnTmfnOqLA8HggXErRqLyVDT1SgTCjJoLhe5QjG86VwLCHMBxWb7xnEP2
+         Atzg==
+X-Gm-Message-State: AOAM533oNL+1sIn95pVnkhocn/3tbfk501cQr9hldXpEDfSHSuvIJQFG
+        V7Lt9JQF7m8FxFi7hx8Djgk8MDXAwjBgFA==
+X-Google-Smtp-Source: ABdhPJx5m4wdJr7w3XeDDQvAAe/k7wHtqMC4VucI8geDX9jHalVeLNoikRLB6+XijpzvoPrGQRSrZA==
+X-Received: by 2002:a1c:59c3:: with SMTP id n186mr4123477wmb.32.1600254116580;
+        Wed, 16 Sep 2020 04:01:56 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id p1sm7170616wma.0.2020.09.16.03.53.17
+        by smtp.googlemail.com with ESMTPSA id u126sm5817296wmu.9.2020.09.16.04.01.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2020 03:53:17 -0700 (PDT)
+        Wed, 16 Sep 2020 04:01:55 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org, tg@mirbsd.org, fweimer@redhat.com,
         jwilk@jwilk.net, libbsd@lists.freedesktop.org,
         Andries.Brouwer@cwi.nl, Alejandro Colomar <colomar.6.4.3@gmail.com>
-Subject: [RFC v5] system_data_types.7: Document types: sigval, ssize_t, suseconds_t, time_t, timer_t, timespec, timeval
-Date:   Wed, 16 Sep 2020 12:52:29 +0200
-Message-Id: <20200916105228.16952-1-colomar.6.4.3@gmail.com>
+Subject: [RFC v6] system_data_types.7: Document types: sigval, ssize_t, suseconds_t, time_t, timer_t, timespec, timeval
+Date:   Wed, 16 Sep 2020 13:01:45 +0200
+Message-Id: <20200916110144.17568-1-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <6dc80c25-85bf-925c-49c2-f79865027c0f@gmail.com>
 References: <6dc80c25-85bf-925c-49c2-f79865027c0f@gmail.com>
@@ -127,16 +127,16 @@ Cheers,
 
 Alex.
 
- man7/system_data_types.7 | 304 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 304 insertions(+)
+ man7/system_data_types.7 | 272 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 272 insertions(+)
  create mode 100644 man7/system_data_types.7
 
 diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
 new file mode 100644
-index 000000000..1616d858c
+index 000000000..8fc827332
 --- /dev/null
 +++ b/man7/system_data_types.7
-@@ -0,0 +1,304 @@
+@@ -0,0 +1,272 @@
 +.\" Copyright (c) 2020 by Alejandro Colomar <colomar.6.4.3@gmail.com>
 +.\"
 +.\" %%%LICENSE_START(VERBATIM)
@@ -176,15 +176,16 @@ index 000000000..1616d858c
 +.\"			The headers will be in the following order:
 +.\"			1) The header(s) that shall define the type
 +.\"			   according to the C standard,
++.\"			   and
++.\"			   the header that shall define the type
++.\"			   according to POSIX,
 +.\"			   in alphabetical order.
-+.\"			2) The header that shall define the type
-+.\"			   according to POSIX.
-+.\"			3) All other headers that shall define the type
++.\"			2) All other headers that shall define the type
 +.\"			   as described in the previous header
 +.\"			   according to POSIX,
-+.\"			   and
-+.\"			   all other headers that define the type
-+.\"			   that are Linux specific,
++.\"			   in alphabetical order.
++.\"			*) All headers that define the type
++.\"			   *if* the type is not defined by C nor POSIX,
 +.\"			   in alphabetical order.
 +.\"
 +.\"		* Definition (no "Definition" header)
@@ -221,7 +222,6 @@ index 000000000..1616d858c
 +See also:
 +.BR rt_sigqueueinfo (2),
 +.BR sigaction (2),
-+.BR mq_notify (3),
 +.BR pthread_sigqueue (3),
 +.BR sigqueue (3),
 +.BR sigevent (7)
@@ -233,13 +233,9 @@ index 000000000..1616d858c
 +or
 +.I <aio.h>
 +or
-+.I <limits.h>
-+or
 +.I <monetary.h>
 +or
 +.I <mqueue.h>
-+or
-+.I <regex.h>
 +or
 +.I <stdio.h>
 +or
@@ -259,31 +255,12 @@ index 000000000..1616d858c
 +Conforming to: POSIX.1-2001 and later.
 +.IP
 +See also:
-+.BR copy_file_range (2),
-+.BR getrandom (2),
-+.BR getxattr (2),
-+.BR listxattr (2),
-+.BR msgrcv (2),
-+.BR pread (2),
-+.BR process_vm_readv (2),
 +.BR read (2),
-+.BR readahead (2),
 +.BR readlink (2),
 +.BR readv (2),
 +.BR recv (2),
 +.BR send (2),
-+.BR sendfile (2),
-+.BR splice (2),
-+.BR tee (2),
-+.BR vmsplice (2),
-+.BR write (2),
-+.BR aio_return (3),
-+.BR getdirentries (3),
-+.BR getline (3),
-+.BR mq_receive (3),
-+.BR strfmon (3),
-+.BR swab (3),
-+.BR mq_receive (3)
++.BR write (2)
 +.\".IP	FIXME: When size_t is added, uncomment
 +.\"See also the
 +.\".I size_t
@@ -297,16 +274,12 @@ index 000000000..1616d858c
 +.I <sys/select.h>
 +or
 +.I <sys/time.h>
-+or
-+.I <unistd.h>
 +.IP
 +Used for time in microseconds.
 +According to POSIX, it shall be a signed integer type
 +capable of storing values at least in the range [-1, 1000000].
 +.IP
 +Conforming to: POSIX.1-2001 and later.
-+.\".IP
-+.\"See also:
 +.IP
 +See also the
 +.I timeval
@@ -315,9 +288,9 @@ index 000000000..1616d858c
 +.I time_t
 +.IP
 +Include:
-+.I <time.h>
-+or
 +.I <sys/types.h>
++or
++.I <time.h>
 +or
 +.I <sched.h>
 +or
@@ -340,13 +313,17 @@ index 000000000..1616d858c
 +.IP
 +Conforming to: C99 and later; POSIX.1-2001 and later.
 +.IP
++Notes:
++.I <sched.h>
++defines
++.I time_t
++since POSIX.1-2008.
++.IP
 +See also:
 +.BR stime (2),
 +.BR time (2),
-+.BR timer_settime (2),
 +.BR ctime (3),
-+.BR difftime (3),
-+.BR timegm (3)
++.BR difftime (3)
 +.TP
 +.I timer_t
 +.IP
@@ -377,19 +354,13 @@ index 000000000..1616d858c
 +or
 +.I <mqueue.h>
 +or
-+.I <pthread.h>
-+or
 +.I <sched.h>
-+or
-+.I <semaphore.h>
 +or
 +.I <signal.h>
 +or
 +.I <sys/select.h>
 +or
 +.I <sys/stat.h>
-+or
-+.I <trace.h>
 +.IP
 +.EX
 +struct timespec {
@@ -432,14 +403,11 @@ index 000000000..1616d858c
 +Conforming to: POSIX.1-2001 and later.
 +.IP
 +See also:
-+.BR futimesat (2),
 +.BR gettimeofday (2),
 +.BR select (2),
 +.BR utimes (2),
 +.BR adjtime (3),
 +.BR futimes (3),
-+.BR rpc (3),
-+.BR rtime (3),
 +.BR timeradd (3)
 -- 
 2.28.0
