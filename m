@@ -2,149 +2,108 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DCEDC26C64F
-	for <lists+linux-man@lfdr.de>; Wed, 16 Sep 2020 19:45:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B414526C747
+	for <lists+linux-man@lfdr.de>; Wed, 16 Sep 2020 20:23:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727396AbgIPRpL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 16 Sep 2020 13:45:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35154 "EHLO
+        id S1727879AbgIPSXE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 16 Sep 2020 14:23:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41230 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726884AbgIPRoz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 16 Sep 2020 13:44:55 -0400
-Received: from mail-oo1-xc41.google.com (mail-oo1-xc41.google.com [IPv6:2607:f8b0:4864:20::c41])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 651A7C06121D
-        for <linux-man@vger.kernel.org>; Wed, 16 Sep 2020 04:00:34 -0700 (PDT)
-Received: by mail-oo1-xc41.google.com with SMTP id t3so1535349ook.8
-        for <linux-man@vger.kernel.org>; Wed, 16 Sep 2020 04:00:34 -0700 (PDT)
+        with ESMTP id S1727963AbgIPSW4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 16 Sep 2020 14:22:56 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D04EAC014D90
+        for <linux-man@vger.kernel.org>; Wed, 16 Sep 2020 06:14:45 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id m6so6923456wrn.0
+        for <linux-man@vger.kernel.org>; Wed, 16 Sep 2020 06:14:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=+LktgfZVmMrV3QnN8hzXp04EDsZZiMBtoKKSgMnQx48=;
-        b=mNhxikRm6RgAstI0fTHEdshJ9glH5AMJlQrWa2NRc6V43pwEs9NzlXlRhcKPo5sUAX
-         vHR6IRjtvQRZXCiVNgrP9fkEQOG0XYW93n6FHhjKe9kf3Auwp0GeOJJ+ei8cDZiSHIgv
-         kqIK4K1O5EIP9i5qBmM/N0X0rBIsV5l2/pF5VlbJ2mK6xepd70DQDgKl6Akr481QmX6a
-         PjkSLbZ6j6v8KkgqAC4XWwGjkjhdJxEQ/dKPSO8ysPvlqBLBYjjXKbqy3b/+aEt8+jIL
-         j3TJC2IMENB/DTW4az6BrGPk1ZFVYUJ8vBtr/hkUGyAk9Df6Z4Wzo77GzIrV9Z+B3YnH
-         e0ig==
+        h=to:cc:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=4wpQO23vyH2OsX64bQ7vP4/vkgXh69ZcXcXjnx9vS+g=;
+        b=uAl1dekKWO8OK3s69ElQggx/vj4P3sNYp5B6NzMI6Gzo8bjBIejXM/eOOOQovWp6Ze
+         Llo+Jil0EHS01vBHjmyf1ZFq46ag1b+Ve0cqBIkmW5/3pqcVfc3m4jl7orxBlAMMUsD1
+         BUvmW7SOHMoeiwhwURZgYKURydFKk8N+NWNZacrCNJOZGQlt0xtIe7tCOxRmMfEPLwrJ
+         JxHdk07+hbfl9FNeiZwz4I874A7A43ZbU6Ir3e8UrNHapEzX6C06GbXVF9oRO1Q+GB8W
+         PnquBkwdJmNAvP5a7fWpE512B0BLdqYV0jSObFshl8uMPEqaIfMR1aLdMXL4LNBl8dHn
+         spTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=+LktgfZVmMrV3QnN8hzXp04EDsZZiMBtoKKSgMnQx48=;
-        b=mseM3Iq9QGxdCJ4HNBo7p2Uz4md0I6i6nhWppwj/qJ3eWP9fjL8NF4CByMtuAfIhxg
-         DFqq9vPRKMBTl69093YEPL1S4OvoscbpR3cxrjInWRs9UwqPjMlpM0QOtDK4keuNnn5/
-         O1LTIah5XKgXT0Gg08CvBJNwm5LnO4I6swHhOdUH+OxkwXEtzwBjFvJPwloQ+dq3Cs2L
-         mA+lnvrsM72s858r260jf/4FCpr7JYq3Zz4P4paVfjogsdx9y6RezBZyW1KSspQIh5kH
-         6zOQJQ+xmw5Fi2aoLsqI77WXQTfECgU7SEOTcOydrWAamj684IRZdE39riXj7+cUqCLz
-         Gs0A==
-X-Gm-Message-State: AOAM532ANrW6bP1D8Kt6Dk5S8SC7U0R0U/AQin4QjNzg+NmEnD3CAPRc
-        7BBdQOtmuX9dizn+WTiFkaNt5Zm3BlxAhTafvA0=
-X-Google-Smtp-Source: ABdhPJzO3TIhegibdZY0n7cBDPuqoPKyjhXA89oQGxeQpQzJmeu2+6UtXXbu9pGS0Cj6tWPeFuiIR/Rj5+WCBictAmE=
-X-Received: by 2002:a4a:8dd5:: with SMTP id a21mr17260562ool.17.1600254033635;
- Wed, 16 Sep 2020 04:00:33 -0700 (PDT)
+        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=4wpQO23vyH2OsX64bQ7vP4/vkgXh69ZcXcXjnx9vS+g=;
+        b=JCOjHe6lX1ewe0Jgj9aZwLjDyTRSNXFNnk0GACryySAof/SpCy4ZE6W7lpLHJPUCnW
+         A1uJx/eBSKgl/a4jSwxI45ll9GvH50sKp4woriLJzcZziAyrNTgA/cY/x20pILfsR3p8
+         UdVy7GROLrhvJMkwFupI5Vru+sVnJQqGvVswzxZTztOeJxincrF4c/ZClYXRCUo9+aeb
+         qRFP3qeaOhjBevsnceoX5ax8+6ZoRaDzFcnbaLihLDXHBihXVzbH8zNGEHVyGd5YE8Y3
+         ZGkvOLgiyFZT9DzRJJWYmluKB6V4nJXofkAuUSehYIYJxuflOR7xDAj3wIw9wjP3VYcZ
+         5TdA==
+X-Gm-Message-State: AOAM531Lq9o16VVuA4nkLeiKh3u7Y2V9t0EKgrpIHiW2bDsJlPOzgVyD
+        XkZj15tFOrlZEi4to61syKs/noh68+A=
+X-Google-Smtp-Source: ABdhPJwC1hg74ne2iRGXpX2tAxVx57+cKCVSKnQbkGh5zoJEO5HdMgPkrZPcIlUXWz0ghqT/uNTkBg==
+X-Received: by 2002:adf:f4c6:: with SMTP id h6mr26406008wrp.310.1600262084301;
+        Wed, 16 Sep 2020 06:14:44 -0700 (PDT)
+Received: from [192.168.1.133] ([170.253.60.68])
+        by smtp.gmail.com with ESMTPSA id n66sm5514640wmb.35.2020.09.16.06.14.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2020 06:14:43 -0700 (PDT)
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+Subject: [BUG] sigaction.2: s/sigval_t/union sigval/
+Message-ID: <181e9d30-baf7-cc5c-3016-71e83504ab04@gmail.com>
+Date:   Wed, 16 Sep 2020 15:14:42 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-References: <6dc80c25-85bf-925c-49c2-f79865027c0f@gmail.com>
- <20200915133306.35033-1-colomar.6.4.3@gmail.com> <adc89159-48bf-de72-ab88-985c2e61a842@gmail.com>
- <Pine.BSM.4.64L.2009160057420.11260@herc.mirbsd.org> <79018b23-d4d3-4524-d49a-9cf18b9008aa@gmail.com>
- <20200916100649.GA476613@if>
-In-Reply-To: <20200916100649.GA476613@if>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Wed, 16 Sep 2020 13:00:22 +0200
-Message-ID: <CAKgNAkjhxgGCPrtB8QCgnNvJQLNBJ1SzwcR_4_VKaz_fsqwD7A@mail.gmail.com>
-Subject: Re: [RFC v4] system_data_types.7: Document sigval, ssize_t,
- suseconds_t, time_t, timer_t, timespec & timeval
-To:     "Andries E. Brouwer" <Andries.Brouwer@cwi.nl>
-Cc:     Thorsten Glaser <tg@mirbsd.org>,
-        Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Jakub Wilk <jwilk@jwilk.net>, libbsd@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-man-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Andries,
+Hi Michael,
 
-It's kind of you to reply; thank you!
+sigaction.2 uses the name 'sigval_t', which is:
 
-On Wed, 16 Sep 2020 at 12:06, Andries E. Brouwer <Andries.Brouwer@cwi.nl> wrote:
->
-> On Wed, Sep 16, 2020 at 10:03:13AM +0200, Michael Kerrisk (man-pages) wrote:
-> > [CC += AEB]
-> >
-> >> Michael Kerrisk (man-pages) dixit:
-> >>
-> >>>> +.\" %%%LICENSE_START(VERBATIM)
-> >>>> +.\" Permission is granted to make and distribute verbatim copies of this
-> >>>> +.\" manual provided the copyright notice and this permission notice are
-> >>>> +.\" preserved on all copies.
-> >>>> +.\"
-> >>>> +.\" Permission is granted to copy and distribute modified versions of this
-> >>>> +.\" manual under the conditions for verbatim copying, provided that the
-> >>>> +.\" entire resulting derived work is distributed under the terms of a
-> >>>> +.\" permission notice identical to this one.
-> >>>> +.\"
-> >>>> +.\" Since the Linux kernel and libraries are constantly changing, this
-> >>>> +.\" manual page may be incorrect or out-of-date.  The author(s) assume no
-> >>>> +.\" responsibility for errors or omissions, or for damages resulting from
-> >>>> +.\" the use of the information contained herein.  The author(s) may not
-> >>>> +.\" have taken the same level of care in the production of this manual,
-> >>>> +.\" which is licensed free of charge, as they might when working
-> >>>> +.\" professionally.
-> >>>> +.\"
-> >>>> +.\" Formatted or processed versions of this manual, if unaccompanied by
-> >>>> +.\" the source, must acknowledge the copyright and authors of this work.
-> >>>> +.\" %%%LICENSE_END
-> >>
-> >> I severely object.
-> >
-> > The "verbatim" license has been the most widely used license in
-> > manual pages, almost since the inception of the project 27 years
-> > ago. (Currently more than half of the pages carry this license.)
-> >
-> > I don't know the origin of the license (perhaps AEB does),
->
-> Digging through old sources reveals:
->
-> I started maintaing man-pages in 1995.
-> My first release was man-pages-1.6.
-> That release contained 245 man pages with the above license.
->
-> The first release that had the above license was man-pages-1.4,
-> released Sep 1994 by Rik Faith.
-> It contained 234 man pages with the above license.
-> man-pages-1.4.Announce describes that there are now
-> 238 pages with "verbatim copying" and
-> 41 pages with "GNU General Public License".
->
-> Earlier, man-pages-1.3 (released Jun 1994) by Rik Faith had
-> messy copyright statements or nothing at all, and Rik Faith made
-> for 1.4 a serious attempt at providing each page with a proper license.
->
-> So, this text came from Rik Faith.
-> It mentions "this manual page", so was probably written
-> especially for this manpage collection.
 
-Thanks for the insight. I had noticed that the license wasn't there
-right at the start, but that it appeared very soon afterwards. It
-hadn't occurred to me that perhaps Rik might be the author of the
-license.
+// <x86_64-linux-gnu/bits/types/__sigval_t.h>
+/* Type for data associated with a signal.  */
+#ifdef __USE_POSIX199309
+union sigval
+{
+   int sival_int;
+   void *sival_ptr;
+};
 
-> You might ask him for further details.
+typedef union sigval __sigval_t;
+#else
+union __sigval
+{
+   int __sival_int;
+   void *__sival_ptr;
+};
 
-I tried a few times over the years to contact Rik on other matters,
-but either I was using the wrong channels, or he didn't reply. I'll
-try again via another channel.
+typedef union __sigval __sigval_t;
+#endif
 
-Cheers,
 
-Michael
+and then:
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+x86_64-linux-gnu/bits/types/sigval_t.h:16:typedef __sigval_t sigval_t;
+
+
+I think the man page should use the POSIX naming, shouldn't it?
+
+___________
+
+BTW:  I sent Draft v6 for system_data_types.7 2h+ ago, but I don't see 
+it on lore.kernel.org.
+
+Did you receive it?  Should I wait, or send it again?
+
+Thanks,
+
+Alex
