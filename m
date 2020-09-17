@@ -2,86 +2,159 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 23DCA26D3B6
-	for <lists+linux-man@lfdr.de>; Thu, 17 Sep 2020 08:33:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0542F26D448
+	for <lists+linux-man@lfdr.de>; Thu, 17 Sep 2020 09:10:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726169AbgIQGdF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 17 Sep 2020 02:33:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41300 "EHLO
+        id S1726269AbgIQHKa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 17 Sep 2020 03:10:30 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47050 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726109AbgIQGdE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Sep 2020 02:33:04 -0400
-Received: from mail-oi1-x243.google.com (mail-oi1-x243.google.com [IPv6:2607:f8b0:4864:20::243])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8EBD8C06174A
-        for <linux-man@vger.kernel.org>; Wed, 16 Sep 2020 23:33:04 -0700 (PDT)
-Received: by mail-oi1-x243.google.com with SMTP id x69so1233456oia.8
-        for <linux-man@vger.kernel.org>; Wed, 16 Sep 2020 23:33:04 -0700 (PDT)
+        with ESMTP id S1726245AbgIQHK0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Sep 2020 03:10:26 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A083AC06174A;
+        Thu, 17 Sep 2020 00:10:22 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id m6so838906wrn.0;
+        Thu, 17 Sep 2020 00:10:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=DMBoDEWAlXkGDAFBA7naRgZVNcH2+gqdKoUEGylGF8w=;
-        b=QLnGCF0D0Uh3O8OXR8ezrdb/LQWw5/UzOlgpYEwgrOujW9dNV1tOzOLP4LAovX0O5q
-         8lbv04CXqzM1e3QPdsfjwrGUacdDSxlfE/KvriMzNzzX5tn5gNNU28UP92lvPiHQX6sl
-         3Qqc2qFpx2Sxdbkp/QF3raAtLeyrn8ZJ3MP+AZGbJ1Ml5R+aIENihmAv2y33JEBiVF4K
-         Xd7DDfTEvUsCJW3xqGwj1yS0ejRSrLi+Ms+B+9zaWyc8GT0hXC42OA9b/ViFQe0TAYDi
-         dtSrLgAD0c8qk8ENFfeOf66qbLVXHaM78q3b2TT1RrjzxLcYLu79DtXBB2OzYPSn3d0P
-         ryng==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=A31FuXoR1fQi2PzgN3S9/yzmUsIB4Q6KUIbYTBZoMUg=;
+        b=WO6I9dBUgrgvztEMZwkfHNMPP/CKACvZCioIJaptH8xoBI6jJujARKF/odQGVTV2dP
+         nDWKqH13Nq62i9fWlpCqtsiS8LqxeJKkMGA29wdqudKfCSG1jaRapBKTY4O+TuuambpR
+         oK55fMREyHLZ2jNwyCuQLSfRBPw42sCrnovx85TfTSVmkxDZ4ti/mGlR8pBcM/eoTR9e
+         DfT2hD5j9wutP7lU0b2dhd6qB06L1XL0pNZgMGu4O6RIIfjDiMN1AQtrSdlhoef/YuVI
+         EHBni56clsLw3JOdJYAzCqQfbEerCL4EXO8b8bIiwOiZDro/N5w5oKEIrtb1+XaAE/BH
+         RKYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=DMBoDEWAlXkGDAFBA7naRgZVNcH2+gqdKoUEGylGF8w=;
-        b=JiPaw7/SPt69AjPFokFeVIxE7BScWgeFsfS1q1/1g3lGbFZFVvMQXreXvAqFN4KWUm
-         h1aHTcDm0Y3NC9lmqHvfJCRNeHkttZtNXC78a2rzzqg5zKijJm4eKhB3dn0Zfr5sfvnQ
-         QoX70Xq9l6lOeS7Sz7ArBSbiNbUwxe/afUyfBPo1vyORYZRTv1lKDdfdPU0pizFHYvim
-         DGUlk2xr3SzfGqjJFmY4gjFZzv2kOr7xVKnp/dciBpEq4kxS1eI44PpD/PT/AmlhINLU
-         O46uDQdU+DnVNacpTA3VvcKBJbM/T9zuGtqtvkl7Z5JeIx7qINByvGDNABPyM+MSkdvJ
-         YQuA==
-X-Gm-Message-State: AOAM530uv9oC9QbcMLb6vTVI40/7Wg5LXUbZJsY6DeTW20V/Kt98Bb9u
-        wt4NDud2M3+VmK9+JRKbSnbFtWnWyT/Ia2yMK9A=
-X-Google-Smtp-Source: ABdhPJxRPzrBdD9O3eQN1QAbtu6dM7fC7eJccCFauPt7HwYndHQDU2xd1baup/0uIHmsd1xn8Ar3pv7vC3mgocBjVqs=
-X-Received: by 2002:a54:458f:: with SMTP id z15mr3859979oib.148.1600324383993;
- Wed, 16 Sep 2020 23:33:03 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAMneLzkwN9JTKUE-CsMOVPk_1J3PeuUjsQ8M_P7MXno56-O5QA@mail.gmail.com>
-In-Reply-To: <CAMneLzkwN9JTKUE-CsMOVPk_1J3PeuUjsQ8M_P7MXno56-O5QA@mail.gmail.com>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=A31FuXoR1fQi2PzgN3S9/yzmUsIB4Q6KUIbYTBZoMUg=;
+        b=nZMRPEZBz78xo7sJz9F/56ECdb62vNOhnL6ZNBbfLUcenUb5mR/whUVdZQDDcDxJ2g
+         oRiCmD9goQTf9Pd2ieS2gNJmByqzXZwxMSGle3UugSF+aJng3pXaLqrAyebUzU+war0l
+         ZMJP3CMoyll1b4FmaYhEz7URM9f2gGgkiaUOqb0BFQzr/mjNKc9OJOU1sXQV+36JX18+
+         NhYEUMSarxLBiGqfHi6IEDHCAFedtnncNn5TAogTfnOF/5+r5bledalUNSktxGsF+USw
+         MJ++B0JqrUteKmrDj5yJflElF0QkKDcrbYDs3zH95O+GdxrVcRqQdphmH6h0isrs1hzt
+         teqQ==
+X-Gm-Message-State: AOAM531FHCKj6lFaysVq3pgQM6K48eiAhpBLgtmlD3L5QfNsV2q9PRDU
+        9nS37qY0BsSFUUSU1/jUzgk=
+X-Google-Smtp-Source: ABdhPJxG2Ct8Tj/O6+K1c9CT4v8cdLErCg7r24QQV1rlVen0F9dx2EeyYaxRf3gDiMJlsTrSDWHQrQ==
+X-Received: by 2002:adf:c404:: with SMTP id v4mr29923632wrf.17.1600326620779;
+        Thu, 17 Sep 2020 00:10:20 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
+        by smtp.gmail.com with ESMTPSA id i15sm2842919wrb.91.2020.09.17.00.10.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2020 00:10:20 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>,
+        netdev <netdev@vger.kernel.org>, beej@beej.us
+Subject: Re: [patch] freeaddrinfo.3: memory leaks in freeaddrinfo examples
+To:     Marko Hrastovec <marko.hrastovec@gmail.com>
+References: <CAA+iEG_gYH0Em5Ff+xwFkcuph32AKvAu=CQvREEy1q8c8C7Tvg@mail.gmail.com>
+ <CAKgNAkgQO+Spi=g6sC8dXdEGkJDOLziBYaxa7phdT9tQL=BuVA@mail.gmail.com>
+ <CAA+iEG9eAwkmYiVoUTxSptVsijeD8NqRTR6tRHuboo8MdB9jqg@mail.gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Thu, 17 Sep 2020 08:32:52 +0200
-Message-ID: <CAKgNAkg55Ou7DxArcypxQ+itL2WrHxD5NWSX6LkQV4n_++Wsjw@mail.gmail.com>
-Subject: Re: getgroups(3p) typo
-To:     Kevin Brebanov <kevin.brebanov@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <41a3c0be-56fc-cbe2-523b-2719cdcb7264@gmail.com>
+Date:   Thu, 17 Sep 2020 09:10:19 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <CAA+iEG9eAwkmYiVoUTxSptVsijeD8NqRTR6tRHuboo8MdB9jqg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Kevin
+[CC += beej, to alert the author about the memory leaks 
+in the network programming guide]
 
-On Thu, 16 Aug 2018 at 00:02, Kevin Brebanov <kevin.brebanov@gmail.com> wrote:
->
-> Hi,
->
-> It looks like the getgroups(3p) manpage has a typo.
-> (http://man7.org/linux/man-pages/man3/getgroups.3p.html)
->
-> Under the "Examples" section:
-> ---
-> int nogroups;
->
-> ngroups = getgroups(ngroups_max, group);
-> ---
->
-> "nogroups" is declared but the return value of getgroups is assigned
-> to "ngroups".
+Hello Marko,
 
-This is a bug in the upstream standard. I've filed bug reports:
+> On Thu, Sep 17, 2020 at 7:42 AM Michael Kerrisk (man-pages) <
+> mtk.manpages@gmail.com> wrote:
+> 
+>> Hi Marko,
+>>
+>> On Thu, 17 Sep 2020 at 07:34, Marko Hrastovec <marko.hrastovec@gmail.com>
+>> wrote:
+>>>
+>>> Hi,
+>>>
+>>> examples in freeaddrinfo.3 have a memory leak, which is replicated in
+>> many real world programs copying an example from manual pages. The two
+>> examples should have different order of lines, which is done in the
+>> following patch.
+>>>
+>>> diff --git a/man3/getaddrinfo.3 b/man3/getaddrinfo.3
+>>> index c9a4b3e43..4d383bea0 100644
+>>> --- a/man3/getaddrinfo.3
+>>> +++ b/man3/getaddrinfo.3
+>>> @@ -711,13 +711,13 @@ main(int argc, char *argv[])
+>>>          close(sfd);
+>>>      }
+>>>
+>>> +    freeaddrinfo(result);           /* No longer needed */
+>>> +
+>>>      if (rp == NULL) {               /* No address succeeded */
+>>>          fprintf(stderr, "Could not bind\en");
+>>>          exit(EXIT_FAILURE);
+>>>      }
+>>>
+>>> -    freeaddrinfo(result);           /* No longer needed */
+>>> -
+>>>      /* Read datagrams and echo them back to sender */
+>>>
+>>>      for (;;) {
+>>> @@ -804,13 +804,13 @@ main(int argc, char *argv[])
+>>>          close(sfd);
+>>>      }
+>>>
+>>> +    freeaddrinfo(result);           /* No longer needed */
+>>> +
+>>>      if (rp == NULL) {               /* No address succeeded */
+>>>          fprintf(stderr, "Could not connect\en");
+>>>          exit(EXIT_FAILURE);
+>>>      }
+>>>
+>>> -    freeaddrinfo(result);           /* No longer needed */
+>>> -
+>>>      /* Send remaining command\-line arguments as separate
+>>>         datagrams, and read responses from server */
+>>>
+>>
+>> When you say "memory leak", do you mean that something like valgrind
+>> complains? I mean, strictly speaking, there is no memory leak that I
+>> can see that is fixed by that patch, since the if-branches that the
+>> freeaddrinfo() calls are shifted above terminates the process in each
+>> case.
+>
+> you are right about terminating the process. However, people copy that
+> example and put the code in function changing "exit" to "return". There are
+> a bunch of examples like that here https://beej.us/guide/bgnet/html/#poll,
+> for instance.
 
-https://austingroupbugs.net/view.php?id=1399
-https://austingroupbugs.net/view.php?id=1400
+Oh -- I see what you mean.
+
+> That error bothered me when reading the network programming
+> guide https://beej.us/guide/bgnet/html/. Than I looked for information
+> elsewhere:
+> -
+> https://stackoverflow.com/questions/6712740/valgrind-reporting-that-getaddrinfo-is-leaking-memory
+> -
+> https://stackoverflow.com/questions/15690303/server-client-sockets-freeaddrinfo3-placement
+> And finally, I checked manual pages and saw where these errors come from.
+> 
+> When you change that to a function and return without doing freeaddrinfo,
+> that is a memory leak. I believe an example should show good programming
+> practices. Relying on exiting and clearing the memory in that case is not
+> such a case. In my opinion, these examples lead people to make mistakes in
+> their programs.
+
+Yes, I can buy that argument. I've applied your patch.
 
 Thanks,
 
