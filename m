@@ -2,123 +2,92 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D2BB826E73F
-	for <lists+linux-man@lfdr.de>; Thu, 17 Sep 2020 23:16:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B862826E956
+	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 01:16:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726426AbgIQVQS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 17 Sep 2020 17:16:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37422 "EHLO
+        id S1726129AbgIQXQZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 17 Sep 2020 19:16:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56034 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726022AbgIQVQR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Sep 2020 17:16:17 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 679F3C061351
-        for <linux-man@vger.kernel.org>; Thu, 17 Sep 2020 14:16:17 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id m6so3533570wrn.0
-        for <linux-man@vger.kernel.org>; Thu, 17 Sep 2020 14:16:17 -0700 (PDT)
+        with ESMTP id S1726102AbgIQXQZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Sep 2020 19:16:25 -0400
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2D04AC061756
+        for <linux-man@vger.kernel.org>; Thu, 17 Sep 2020 16:16:25 -0700 (PDT)
+Received: by mail-ej1-x641.google.com with SMTP id u21so5602309eja.2
+        for <linux-man@vger.kernel.org>; Thu, 17 Sep 2020 16:16:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=+3rqRK5rdpi0b8U0ru0zyyxcFK1B/8Ay/rbIhsNis7w=;
-        b=jEs+9Gcn/AzIGqKg2n+Y7xzqxPxR7ZZ8w2RY4pyzaJyHlfzVF6lXiYWRZlUpmRGaZy
-         TgP3BULBetsvvZXmQihRorGWAksJQrKNoCrmJnGv5LK/7cA/TFIf9O1BD12gxdLBSKTc
-         Ku3EzZ9AgV8XajfhGkZ1lMvFuZgRDLlflHykCiR4znirrRv2kuYEcBwtkqdPHnoFc0sv
-         CJTNKlMF9dPnaoxBERVvPEYHSowMUK1FdOYk6uJPaZ+vflLkazoD4VDdZk1ePQ8WB1LB
-         NlY3BJXa+oHcaNqx4ipdE+Q8bvsuSSY+JsWobpaW5TvEJbvOKc3AjL52oh9rqM9VJCld
-         8xog==
+        d=paul-moore-com.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=jJGw9Ip9s8kfLfRW8uaiYRslvSC0oKoTfTsXs1hgUOg=;
+        b=0ZFhCZ1f7A8KQAHT47UYHLerak4RLebvoKeI/USWgkNzfwtUiN5MxsFKw2rf+Sa1rJ
+         YMxTW+0K6npYVuXbe2tNYhfbexb/E0FWWJWmLtUVvOgKHqpJ0BT/AY9NxTaWrUGI3Cxn
+         8qnes04L+ALbwKr68rD3fT81wCeb3kWu3XE/nPqZYvG9I7Y6ch5nHKjMbzZOFsBjq8VP
+         EWszMimXMMYAU0bcjGDUOHOPOY6euwJNrWWOEtzCOPuNzemoDxQ5tn5sBugpxL2X0hWp
+         RAvcDu3zcPhCgh2h8Yp3dG8VXYk//XsQ2D+9igHLjMQhwc5A/mFWBDraKx19pNOo9NZ5
+         tXVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=+3rqRK5rdpi0b8U0ru0zyyxcFK1B/8Ay/rbIhsNis7w=;
-        b=myVSL0vT0yTtQPvrpw21//zfVXpPDScvp6P4mwzZYde4BcZXu3wn0hX6XgxIlk2Ltl
-         vyZneAbxFUomb0ZtRNZORHyMMZ/sUWcOzEmYIpZ1TZrp33JTFrO7z1Sn/XXcLnHBQUvx
-         HgZBFaHeZK1J5tyBtjwY/nQeOfUSf7kykr4KrxucnaFmkfbXEqCwO4Iy1lctXHYdrJzi
-         cyG7YnMLVIzEBjlVYXvZSe0jWqEy8rmEwI5fosS5wo/2paVp4k8BHQW0RaZs+JquK9ap
-         C5bsol477wdC37JS9iLvAQuxutwAZqQdpXJTlDRAR6WdXPPpSjkvwathhw6mV9WI6NxV
-         TdhQ==
-X-Gm-Message-State: AOAM530GlOxHBCNYwWpTbdV9yXFDANRHbWVfKgFvTOvkbi0Nj34+sW9p
-        KziIHOBUDTKCVOa0pZZNbDU=
-X-Google-Smtp-Source: ABdhPJxK1EunIQyF2NHf2HDalbF251hfohQb1TRZcFQWoQr7WpcVIQixB8ncX0ZGVMu5lzUIVliEhw==
-X-Received: by 2002:a5d:6283:: with SMTP id k3mr35476111wru.191.1600377376102;
-        Thu, 17 Sep 2020 14:16:16 -0700 (PDT)
-Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id c10sm1082771wmk.30.2020.09.17.14.16.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2020 14:16:15 -0700 (PDT)
-Subject: Re: [PATCH v7 0/8] Document system data types
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, tg@mirbsd.org, fweimer@redhat.com,
-        jwilk@jwilk.net, libbsd@lists.freedesktop.org,
-        Andries.Brouwer@cwi.nl
-References: <6dc80c25-85bf-925c-49c2-f79865027c0f@gmail.com>
- <20200917104305.12270-1-colomar.6.4.3@gmail.com>
- <a4840762-ecdf-121d-198b-537125cad603@gmail.com>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <14a4d983-0d97-e616-2326-c62afc95cb88@gmail.com>
-Date:   Thu, 17 Sep 2020 23:16:14 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=jJGw9Ip9s8kfLfRW8uaiYRslvSC0oKoTfTsXs1hgUOg=;
+        b=JbX33ur+y9hCpkXWb5Mn+0t83qeATVl3iGSd9q/ehxj5t+JtrwXOv8F1/biPu6JRO2
+         qARoqymeW+/94VKeTuGL+6ENsATldTfjrq4OeRcAZDTxBpcy3Q5oLpyUTyOesD7R21mz
+         1dDOlMO6zE6J7HPAQrzBXKLlFUKEB2nghthPezGHJyKaW6yjuRY1UYm+gKf9F1i8+xl/
+         Oy3ouu/oOnAkfjh2okTlm00fIn+ckfg2bvsJK6nGbvgo34ZionVLY+z2NJBYxBf2spUP
+         bZQbnpSQX/ioGGJyLycryiRu5+v6NyWRIx46Gjtf7SdddfTo2mVLxEd/dEQmRNnV4ZDE
+         ghsQ==
+X-Gm-Message-State: AOAM532v5MoLS9kjsincKrqhiN2onQ2x2NOdoOXtd9SheX4mdDeVEfox
+        i16msNuuu+luOaJIJSXde9aGgVapSwRvb2HgQZH7
+X-Google-Smtp-Source: ABdhPJxaLm/9H1fV+azAHf7j1P5F3UCgxuYNs3M6qzzFfqkOIvAc6tC+Bxlb37TUxvOXGvJ8OV5DfT+LQlmpAE5Irdw=
+X-Received: by 2002:a17:906:2301:: with SMTP id l1mr16036046eja.488.1600384583416;
+ Thu, 17 Sep 2020 16:16:23 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <a4840762-ecdf-121d-198b-537125cad603@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20200917173143.57241-1-stephen.smalley.work@gmail.com>
+In-Reply-To: <20200917173143.57241-1-stephen.smalley.work@gmail.com>
+From:   Paul Moore <paul@paul-moore.com>
+Date:   Thu, 17 Sep 2020 19:16:12 -0400
+Message-ID: <CAHC9VhQchXj6yHSTHgB_4wrk+dadz=KCg05pxYhX21_y1n82QA@mail.gmail.com>
+Subject: Re: [PATCH] ip.7: Document IP_PASSSEC for UDP sockets
+To:     Stephen Smalley <stephen.smalley.work@gmail.com>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        linux-security-module@vger.kernel.org, selinux@vger.kernel.org,
+        smcv@collabora.com, James Morris <jmorris@namei.org>,
+        Serge Hallyn <serge@hallyn.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On Thu, Sep 17, 2020 at 1:31 PM Stephen Smalley
+<stephen.smalley.work@gmail.com> wrote:
+>
+> Document the IP_PASSSEC socket option and SCM_SECURITY
+> ancillary/control message type for UDP sockets.
+>
+> IP_PASSSEC for UDP sockets was introduced in Linux 2.6.17 [1].
+>
+> Example NetLabel and IPSEC configurations and usage of this option
+> can be found in the SELinux Notebook [2] and SELinux testsuite [3].
+>
+> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=2c7946a7bf45ae86736ab3b43d0085e43947945c
+>
+> [2] https://github.com/SELinuxProject/selinux-notebook
+>
+> [3] https://github.com/SELinuxProject/selinux-testsuite
+>
+> Signed-off-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+> ---
+>  man7/ip.7 | 48 ++++++++++++++++++++++++++++++++++++++++++------
+>  1 file changed, 42 insertions(+), 6 deletions(-)
 
+Thanks for including the note about the SCM_SECURITY/IP_HDRINCL
+conflict.  I figure it's probably not the best for another SELinux
+person to ACK this, but I will mark it as "reviewed".
 
-On 2020-09-17 23:05, Michael Kerrisk (man-pages) wrote:
-> Hello Alex
-> 
-> On 9/17/20 12:42 PM, Alejandro Colomar wrote:
->> Hi Michael,
->>
->> I'm proud enough of the result to commit it now :-}.
-> 
-> And fair enough! It's been a great piece of work!
+Reviewed-by: Paul Moore <paul@paul-moore.com>
 
-Thank you, Michael!
-
-> 
->> Changelog since v6:
->>
->> - ffix
->> - wsfix
->> - wfix
->> - Change ordering of headers (no actual change)
->> - Curate See also (sigval)
->> - Add NOTES section (about structures)
-> 
-> I've merged all of the patches. However, I then squashed
-> all the patches adding the links into a single commit.
-
-That's fine.
-
-> 
->> On 2020-09-17 12:27, Michael Kerrisk (man-pages) wrote:
->>> That sounds okay to me. I presume you plan to uncomment the
->>> lines above that mention sigevent and siginfo_t, right?
->>
->> Right.
-> 
-> Did you actually do that.? It seems not. Wanna send me
-> a patch?
-
-Oh, I meant that I plan to uncomment those lines when we document those 
-other types (to not have broken references).
-
-> 
-> Thanks,
-> 
-> Michael
-> 
-> 
-
-Cheers,
-
-Alex.
+-- 
+paul moore
+www.paul-moore.com
