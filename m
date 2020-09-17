@@ -2,69 +2,120 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E9DF726CE89
-	for <lists+linux-man@lfdr.de>; Thu, 17 Sep 2020 00:18:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B3C7F26D32E
+	for <lists+linux-man@lfdr.de>; Thu, 17 Sep 2020 07:42:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726280AbgIPWSR convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Wed, 16 Sep 2020 18:18:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49522 "EHLO
+        id S1726109AbgIQFm4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 17 Sep 2020 01:42:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33590 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726494AbgIPWR5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 16 Sep 2020 18:17:57 -0400
-Received: from herc.mirbsd.org (herc.mirbsd.org [IPv6:2001:470:1f15:10c:202:b3ff:feb7:54e8])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 2B151C0611C3
-        for <linux-man@vger.kernel.org>; Wed, 16 Sep 2020 14:41:15 -0700 (PDT)
-Received: from herc.mirbsd.org (tg@herc.mirbsd.org [192.168.0.82])
-        by herc.mirbsd.org (8.14.9/8.14.5) with ESMTP id 08GLW57C002692
-        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-        Wed, 16 Sep 2020 21:32:07 GMT
-Date:   Wed, 16 Sep 2020 21:32:05 +0000 (UTC)
-From:   Thorsten Glaser <tg@mirbsd.org>
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        fweimer@redhat.com, linux-man@vger.kernel.org,
-        Andries.Brouwer@cwi.nl, jwilk@jwilk.net,
-        libbsd@lists.freedesktop.org
-Subject: Re: [RFC v6] system_data_types.7: Document types: sigval, ssize_t,
- suseconds_t, time_t, timer_t, timespec, timeval
-In-Reply-To: <6555a55b-54d1-5c8c-848f-fac64e765b45@gmail.com>
-Message-ID: <Pine.BSM.4.64L.2009162128250.11176@herc.mirbsd.org>
-References: <6dc80c25-85bf-925c-49c2-f79865027c0f@gmail.com>
- <20200916110144.17568-1-colomar.6.4.3@gmail.com> <48f5e6ed-f288-151a-50dc-bcf396ff34b6@gmail.com>
- <6555a55b-54d1-5c8c-848f-fac64e765b45@gmail.com>
-Content-Language: de-DE-1901, en-GB
-X-Message-Flag: Your mailer is broken. Get an update at http://www.washington.edu/pine/getpine/pcpine.html for free.
+        with ESMTP id S1726106AbgIQFm4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Sep 2020 01:42:56 -0400
+Received: from mail-oi1-x243.google.com (mail-oi1-x243.google.com [IPv6:2607:f8b0:4864:20::243])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9D44BC06174A;
+        Wed, 16 Sep 2020 22:42:55 -0700 (PDT)
+Received: by mail-oi1-x243.google.com with SMTP id x14so1110814oic.9;
+        Wed, 16 Sep 2020 22:42:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=ZiCysG9rGG0ieg+s7X253x3mvbTARAdRWOXVI95pEMg=;
+        b=FNCfH6IuT6kTlzKOC9rjiTAIw5PAbNQ9xlZshvDYoY8iwUk25gSqJOIHq1+kVELp1W
+         DF+JvftYWYcuHAjve2MwLyPJkRdkX9ff1Eb0ITUykXlPOamZKYVYFpZ6hz/UdNczuQT6
+         /3htkSqS18vdfCCq8tdKkTMVOz9HTI5P/6RzN3Y5c/tB3zf5qJyTxxHktLL26+6iqVzX
+         EU5+wAmWmnaATGDSJKqeVKmHtxt7s8FDkE3PnoUkvXvXROnPhNJ0hXr1WDU4qke6eZjJ
+         fFAR4e0bXxYRTOi+t3iu6MKIivLBywMz1X+B3gvNL5aEGLmEiajttblKJm41KXBNljKD
+         qgxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=ZiCysG9rGG0ieg+s7X253x3mvbTARAdRWOXVI95pEMg=;
+        b=fZrynUJP0oBTBhvURxgp0t/9PJZSWV99udpnE9nvJo6HdfJg2n502c7A5+n8WaT0F8
+         GtvDbz3FnmK4cMecI5OrkU4K/AxHihgG78VuCajgE5lOlyuARgCUwRF8PmK3ZVzXQoBK
+         5eNpIlmO6dxyA61kw2kWLvlwV+NOH2+6iDEAPYDr215EMOpWS0EqPt8PGeI8T9eyMijw
+         bRhdSjhgouGM5M1YZBt8+0fHtAfl+oHg5BW+yNq3ism56razKdgQwPKfNgCDsG4DwqWi
+         NEZ6BWflWyrJWMy3OilhYawc+Ahn6xyYUHEtxFLhXh++KXkXv36k7eeJoT6+WtQO6Bv7
+         8tRQ==
+X-Gm-Message-State: AOAM531mukXQzFt9FB+OR0ArMVstTS7wgSxtm96LqVVEKyqnFGhFFuqI
+        GwVINEJWGIsGu28my6ZkRVCzcVXpuydFvo60i5E=
+X-Google-Smtp-Source: ABdhPJwyTsIk2A34T/0C/jclVNbj1SEzX9/td6vL5Jh+OSlZKJCflhcxhU+xCP3zpUJmQ7d8NO5RSYx2UKl0g9JTBZM=
+X-Received: by 2002:aca:5903:: with SMTP id n3mr5443792oib.159.1600321374909;
+ Wed, 16 Sep 2020 22:42:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=utf-8
-Content-Transfer-Encoding: 8BIT
+References: <CAA+iEG_gYH0Em5Ff+xwFkcuph32AKvAu=CQvREEy1q8c8C7Tvg@mail.gmail.com>
+In-Reply-To: <CAA+iEG_gYH0Em5Ff+xwFkcuph32AKvAu=CQvREEy1q8c8C7Tvg@mail.gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Thu, 17 Sep 2020 07:42:43 +0200
+Message-ID: <CAKgNAkgQO+Spi=g6sC8dXdEGkJDOLziBYaxa7phdT9tQL=BuVA@mail.gmail.com>
+Subject: Re: [patch] freeaddrinfo.3: memory leaks in freeaddrinfo examples
+To:     Marko Hrastovec <marko.hrastovec@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        netdev <netdev@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Alejandro Colomar dixit:
+Hi Marko,
 
-> POSIX does more or less the same:
-> It has a ¿main? header where the type is defined
+On Thu, 17 Sep 2020 at 07:34, Marko Hrastovec <marko.hrastovec@gmail.com> wrote:
+>
+> Hi,
+>
+> examples in freeaddrinfo.3 have a memory leak, which is replicated in many real world programs copying an example from manual pages. The two examples should have different order of lines, which is done in the following patch.
+>
+> diff --git a/man3/getaddrinfo.3 b/man3/getaddrinfo.3
+> index c9a4b3e43..4d383bea0 100644
+> --- a/man3/getaddrinfo.3
+> +++ b/man3/getaddrinfo.3
+> @@ -711,13 +711,13 @@ main(int argc, char *argv[])
+>          close(sfd);
+>      }
+>
+> +    freeaddrinfo(result);           /* No longer needed */
+> +
+>      if (rp == NULL) {               /* No address succeeded */
+>          fprintf(stderr, "Could not bind\en");
+>          exit(EXIT_FAILURE);
+>      }
+>
+> -    freeaddrinfo(result);           /* No longer needed */
+> -
+>      /* Read datagrams and echo them back to sender */
+>
+>      for (;;) {
+> @@ -804,13 +804,13 @@ main(int argc, char *argv[])
+>          close(sfd);
+>      }
+>
+> +    freeaddrinfo(result);           /* No longer needed */
+> +
+>      if (rp == NULL) {               /* No address succeeded */
+>          fprintf(stderr, "Could not connect\en");
+>          exit(EXIT_FAILURE);
+>      }
+>
+> -    freeaddrinfo(result);           /* No longer needed */
+> -
+>      /* Send remaining command\-line arguments as separate
+>         datagrams, and read responses from server */
+>
 
-It does?
+When you say "memory leak", do you mean that something like valgrind
+complains? I mean, strictly speaking, there is no memory leak that I
+can see that is fixed by that patch, since the if-branches that the
+freeaddrinfo() calls are shifted above terminates the process in each
+case.
 
-When I look at one of the headers, for example…
-https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/sys_time.h.html
-… I see a number of types being defined, but the types don’t have
-their own pages nor is described which is the “main” header (the same
-goes for constants, e.g. NULL is defined by several headers).
+Thanks,
 
-Or is wording like…
+Michael
 
-     The <stdlib.h> header shall define NULL as described in [10]<stddef.h>.
 
-… where you get the notion of a “main header” from?
-If so, where in the standard is this expectation documented?
-
-Curious,
-//mirabilos
 -- 
-“It is inappropriate to require that a time represented as
- seconds since the Epoch precisely represent the number of
- seconds between the referenced time and the Epoch.”
-	-- IEEE Std 1003.1b-1993 (POSIX) Section B.2.2.2
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
