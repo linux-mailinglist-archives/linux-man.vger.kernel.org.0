@@ -2,65 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 764C62706A5
-	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 22:16:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8D3752706C9
+	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 22:17:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726828AbgIRUQq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 18 Sep 2020 16:16:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53096 "EHLO
+        id S1726321AbgIRURY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 18 Sep 2020 16:17:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53256 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726168AbgIRUQE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 16:16:04 -0400
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D94E2C0613CE
-        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 13:16:03 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id l9so6757749wme.3
-        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 13:16:03 -0700 (PDT)
+        with ESMTP id S1726139AbgIRURA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 16:17:00 -0400
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 71D26C0613CE
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 13:17:00 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id z4so6805767wrr.4
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 13:17:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=gBQRXIIS9qnBHstyqkjXUV+QoSAoeLbWWMcRo4jcJfo=;
-        b=igmEVEpWdnCRrLOIgktTHzs+3vyXgMc/re1XjQkx239iaM6KPoM8auEp7IYjPRK74k
-         oKWyZMj11oo66xcXfhFcDb6Eerm7RTzeTb9Y5/NSJNPcqRjj0uj3+11p/IUEKNJSnXmZ
-         PdX4JDfkpZrC20v+g58OHjeMQYQhTkcN12IxrY9PdYVDYg44B6ohlZez/NOHcaL2FNBL
-         ATuIQqNam9gr2rB2HDT8j0T2J52HS7YM9B/vnLguNhHhgij7vd2hvcvdpSuPcJR5vkeD
-         8+1MDBFSguxhbE9vrb+HMPCdQWlbFWhRwFuGQek0vrT11uLA9vfRXIp+5Bz+5QGZWJPd
-         05Iw==
+        bh=5HDHDl1NRuozEbNWekau30KmhOHOnej+n6/ScrwXvW8=;
+        b=C2SF9M6rU+EzViwU3GsCDXnPMxOc6r/rf5uPeK9AAJMKEZJQzXnCu1/QYAkS7/FvwL
+         Kny6LBy8a4wTK5CkEcAb24JJjl93CoX0jIfHzDMwEghVM8O8o0Yx20kNF1C65C8sGDhq
+         GIgc33Ly5QDd1rIO2elwCzmDCjTfMja2cSQ7PCnFsy78rJWYs2YusaXe59KmR7qduUJy
+         f/SXpHzVl7SZevp8weMHll8/hck2Zm9kNaJuHxF/JISZCfeR7vecxxartn+Vb503Vmx2
+         l9rwhNHTJqOkBBLlgPUDUhq9YDzuqpYVsxgPiDzo4IwJPJrn2dNm7E/Gz4bpRf2VpW8S
+         FEOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=gBQRXIIS9qnBHstyqkjXUV+QoSAoeLbWWMcRo4jcJfo=;
-        b=jBj6Hm8TCwPRcqHs+/557Rx8sf91tVzN8s0zrUsSMpUwtBfhB3j/5IcTXPi1CojLif
-         Y+eFulqN26UfUvhyCkaSMtShS5eFl01mZyMG4zHuWNsXl/6UOVC2qinwvwnTyW6yClYi
-         i4AqtMTSY+UXZ0G2TuLBgfFWeZmiYyAVB5oZ/ya8AjAUt2Z7HqWDeHvHVe3O26XJ/Em+
-         KvcNW9gUbHiAsYGbK196FJ+a+c07YqsoGUBueTZasMpLZaM2NlutsRHNqEtVT/V0STJ5
-         PqNY62IfxVABl2DR6IHlpwbgPA1xHa5LuC3BT888NY9YbbxZQqxpj8S/4erB62GwvKCD
-         cyzA==
-X-Gm-Message-State: AOAM532WaXf2jMGeGiK74/mMKaQkBejPX3sCEc9KsmBG+d+h6kmpsiaS
-        j7M8ENf81XsFkhetqkMrILU=
-X-Google-Smtp-Source: ABdhPJylJs4XGnDq/eJNp9nl26CTldbBCHfI6NRUY2Jk9RCERmEHczma3njl56kizGYHQGjjAWNbWQ==
-X-Received: by 2002:a1c:e904:: with SMTP id q4mr18279488wmc.151.1600460162542;
-        Fri, 18 Sep 2020 13:16:02 -0700 (PDT)
+        bh=5HDHDl1NRuozEbNWekau30KmhOHOnej+n6/ScrwXvW8=;
+        b=EAV07gLt3yNWhzt0X4AV7Rfy5Fw2r/C1bqkvnnlbfgV39dQpsolTQ8LvPkqVrBaEDI
+         IMksxgJVUPQeeSrffA6qG9PGJOc7Oa3u5zPLbhgcCQ8hOoQ8lEr610JgxEyybM6fil2l
+         osbxBy1eOVpeQ0YEY1+L4K2pS4NOvzMsXRbfvFHEGm0JU075iJPd4Z0hSXSMMiok8L/1
+         EhDe0wDp1poUZxTZo1m5PAvc2y2rIozHkgxCqpYhfc11JgJT4KgMJA1eT6tsj/Nq732M
+         xyaVqoeStgWKswq3m8zblNuEDV7tOWh7PFxMtLQnyj+yv+0iHgLZdaxOW+sQlf+ipfux
+         3WXg==
+X-Gm-Message-State: AOAM532KDol63X4wNFNna0OPsrsjfjKreSrSZiOU99wg9hP55QHAD3nJ
+        Apyh0vrIinG6YdhSBEycHpQ=
+X-Google-Smtp-Source: ABdhPJysgjAMJfmtmLgGMcZt6xLXULmf+hHSXsxxobK1AQugTJtbXBqx+3125sbOsXo+8bY/sz2v5A==
+X-Received: by 2002:a5d:4c52:: with SMTP id n18mr38679120wrt.267.1600460219126;
+        Fri, 18 Sep 2020 13:16:59 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id b64sm7054868wmh.13.2020.09.18.13.16.01
+        by smtp.gmail.com with ESMTPSA id o4sm6861963wrv.86.2020.09.18.13.16.58
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2020 13:16:02 -0700 (PDT)
+        Fri, 18 Sep 2020 13:16:58 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         libc-alpha@sourceware.org
-Subject: Re: [PATCH 1/4] system_data_types.7: srcfix: Remove TODO comment
+Subject: Re: [PATCH 2/4] system_data_types.7: wfix: sort referenced types
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <20200918120440.30281-1-colomar.6.4.3@gmail.com>
- <20200918120440.30281-2-colomar.6.4.3@gmail.com>
+ <20200918120440.30281-3-colomar.6.4.3@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <680a4501-06ba-c15f-92c5-17c5a4ed4c44@gmail.com>
-Date:   Fri, 18 Sep 2020 22:16:01 +0200
+Message-ID: <42b70e9a-6508-ec97-f725-d336670fd3c8@gmail.com>
+Date:   Fri, 18 Sep 2020 22:16:57 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200918120440.30281-2-colomar.6.4.3@gmail.com>
+In-Reply-To: <20200918120440.30281-3-colomar.6.4.3@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -79,23 +79,25 @@ Michael
 
 
 > ---
->  man7/system_data_types.7 | 3 ---
->  1 file changed, 3 deletions(-)
+>  man7/system_data_types.7 | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
 > diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-> index 041e7e243..72afe9e81 100644
+> index 72afe9e81..5ef470386 100644
 > --- a/man7/system_data_types.7
 > +++ b/man7/system_data_types.7
-> @@ -27,9 +27,6 @@
->  .SH NAME
->  system_data_types \- overview of system data types
->  .SH DESCRIPTION
-> -.\" TODO:
-> -.\"	* Add types
-> -.\"	* Curate "See also"
->  .\" Layout:
->  .\"	A list of type names (the struct/union keyword will be omitted).
->  .\"	Each entry will have the following parts:
+> @@ -179,9 +179,9 @@ See also:
+>  .BR offsetof (3)
+>  .IP
+>  See also the
+> -.I ssize_t
+> -and
+>  .I ptrdiff_t
+> +and
+> +.I ssize_t
+>  types in this page.
+>  .TP
+>  .I ssize_t
 > 
 
 
