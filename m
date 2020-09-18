@@ -2,162 +2,112 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2348A2705D7
-	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 21:55:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0F88E27060E
+	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 22:13:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726154AbgIRTz6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 18 Sep 2020 15:55:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49802 "EHLO
+        id S1726168AbgIRUNi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 18 Sep 2020 16:13:38 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52520 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726139AbgIRTz6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 15:55:58 -0400
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 82DAEC0613CE
-        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 12:55:57 -0700 (PDT)
-Received: by mail-wr1-x431.google.com with SMTP id m6so6787961wrn.0
-        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 12:55:57 -0700 (PDT)
+        with ESMTP id S1726154AbgIRUNh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 16:13:37 -0400
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 72FFFC0613CE
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 13:13:37 -0700 (PDT)
+Received: by mail-wm1-x342.google.com with SMTP id w2so6427341wmi.1
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 13:13:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=bpBb8qVn1ytCWPw5tGy4VvRl08ObSYmIlZUFikvf5Dg=;
-        b=gfh1GElvGkUar+62RsLf2HulFO3dw66DHDgkuJcsvljcabygWtHYNngg6enCQpdNsX
-         AfgsHWvc21/6w0vhZVe2UsjlcMs0+vfArAc45LRIxJLYcfdXB1d/NIzOPoi4DHuKCeLC
-         a/CZzzu4G8UJlHOUyP0th0Rz5aRsYyae/KUtqUPjooIcjUBbh+xhnnZE9dADYwUzaJ8M
-         g8Yh+JOd9vkvs7neAgXZjkmQ6LpCaamsEqYcojtWR/AAAsC+Sw+jptvWbFXPQv+i4UBP
-         Vzm0YDj+hgJZBZkeyD100+n21UN2wg8BtScXbWu1QbvvXiRjCNW/Ez4ZqlC6Upi7tHzQ
-         sFrQ==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=GxgqoMUihVnBYcKK3++0fUno1KXCcWqFmu2cEU2H1Cw=;
+        b=tj/IzhJnTPhcsDlaRalaDWA3OV/RDIcVHwJroFthdHmhFKzzMUIP56qQuwztsC0DPH
+         7BTPvq4sewqW4kRIPTbtqbpkRXp/H50xMh1qpBeW2aqagO/Ky1x8jTpldvVYhJAqugWZ
+         xo3EvV46hwAKMaXG/a0YVWVdOxat0ieamyktGbfbQ4+SL7zGC4vRprkPf0r7YNIv8ssj
+         JuUs95EQbXVAlJwiol2eSh1ovpi8eRaM//1Ispdf3yiETQLyBUFhu/ztneY5XptoCwRD
+         3eBihYC8bUOD/So8JoqXXbvOJMnlDPnpfEiKU5rdmiqGGIN6zB7Pa3Jk+m33dpVOgVhj
+         +kNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=bpBb8qVn1ytCWPw5tGy4VvRl08ObSYmIlZUFikvf5Dg=;
-        b=lbG9SSTjadPetRtwMaDnviJI7V6P+xv9LERMsy2edsmuBhhkM9CUAGnODuOm8Br5+U
-         RbVuhrkEsxw7czcj5P2bDMQOYifaEooOCk4GHPdh0/as/TozLOBxlOiPRUO+b9g3LGPD
-         x33/ZGmS4MbngU0PeU8+7M8EsBMcgTKHOphqnGFo/QpMGdMwVQcK9NkrjRDRoWtbgcJO
-         /N/Hy3KLy94BzVy04eOwjoue3OLJfL3rtXd4GdqN6Sq4kyEBu+8756oJrYUX8k6jU59r
-         Y9k8/8OhYEa99GACtxn85CFgEnvLblvCrxr2MnGsZHwW7NoPb2oeblaSJ8xmBiWckT3b
-         xJEg==
-X-Gm-Message-State: AOAM531Y12h+RgOgAwuufIV0xYL1NkMroO5Y5PcO7YCrl4MPc6iHY8fi
-        CflzxfPkcBotHIk2xW+bPLU=
-X-Google-Smtp-Source: ABdhPJxfshuojVeg4zE64lrH4oMWcsD6dVhgXe+kO5BM/X2Z9Gs9LBjbMrTSwYoH0VlsvrF4nq288g==
-X-Received: by 2002:a5d:67c2:: with SMTP id n2mr37490971wrw.4.1600458955877;
-        Fri, 18 Sep 2020 12:55:55 -0700 (PDT)
-Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id b64sm6976107wmh.13.2020.09.18.12.55.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2020 12:55:55 -0700 (PDT)
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-        Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>,
-        Paul Eggert <eggert@cs.ucla.edu>
-Subject: [RFC] system_data_types.7: Specify the length modifiers for the variables that have them
-Date:   Fri, 18 Sep 2020 21:54:02 +0200
-Message-Id: <20200918195401.117531-1-colomar.6.4.3@gmail.com>
-X-Mailer: git-send-email 2.28.0
+        bh=GxgqoMUihVnBYcKK3++0fUno1KXCcWqFmu2cEU2H1Cw=;
+        b=EP8gOHYAyYemf1LLD6LEzvuO15tLX4MpDRGwGVMhHTfUg2hU81vgORNs3DLa07SeKx
+         v/2hG+5HdIj8KEcP6egldV1Xc6KGB5NeyESNj9ydhPbmKsPoTU4DelIF7GCCC49StH0A
+         kcgVbOW0YUJf1deikY9MjBZFyYzaS3B/xZ6UjRiEj5OlflEf3p3GZisH9dZVueuoCu2T
+         aZjFUlRpaJReeE2CPkfo0mnfiT2EYerLgfIpiHB4mmcYFmOydg7Pk5kAYEZLokRpPjgS
+         a7N/SjrfH+nqIRJDTPNHOKPndp5paJ86CNzYy/DYC4htioKY/defRGSo4gwl+jQ3vlc9
+         FvFw==
+X-Gm-Message-State: AOAM53358dCuyDSwZxDNcxV4Sp8OJ7J8C+38sz+/ph/3RjU3hVr4Bvg1
+        X15b2lCS2Ci/WOdlfODioKI=
+X-Google-Smtp-Source: ABdhPJwsfuxNQoKsFaXLNqkklX1tGt/0iaYLc/6nSut6Sbm711qpD7MJJ6UArMq7LtcXGZeO+NXrKg==
+X-Received: by 2002:a1c:7f8b:: with SMTP id a133mr18295683wmd.155.1600460016164;
+        Fri, 18 Sep 2020 13:13:36 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
+        by smtp.gmail.com with ESMTPSA id 10sm6592820wmi.37.2020.09.18.13.13.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2020 13:13:35 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        libc-alpha@sourceware.org, Paul Eggert <eggert@cs.ucla.edu>,
+        Florian Weimer <fweimer@redhat.com>
+Subject: Re: [PATCH 0/2] Document size_t
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+References: <20200918112755.21428-1-colomar.6.4.3@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <c357dd2a-71b0-4f23-55e6-fbde975ae5ee@gmail.com>
+Date:   Fri, 18 Sep 2020 22:13:32 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200918112755.21428-1-colomar.6.4.3@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Reported-by: Florian Weimer <fweimer@redhat.com>
-Reported-by: Paul Eggert <eggert@cs.ucla.edu>
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
----
+On 9/18/20 1:27 PM, Alejandro Colomar wrote:
+> Hi Michael,
+> 
+> I documented size_t.
+> 
+> There is a minor thing with this patch:
+> It references to a not yet documented type: ptrdiff_t
+> It's just that I'm going to document it next...
 
-Hi Florian and Paul,
+No problem.
 
-Thanks for the input. (for completeness, the thread was here: https://lore.kernel.org/linux-man/87imcb0y53.fsf@oldenburg2.str.redhat.com/).
+I realize you may want to add some pieces, after the comments from 
+Florian and Paul, but this patch series is good for merging as is, and 
+I'm merging it. You can send a follow-up patch mentioning %zd and %zu
+when ready.
 
-Would you maybe improve the wording?  Or is it OK like this?
+
+> In the See also, I just put a few important pages.
+> Maybe you want to include a few more.
+
+I added read(2) and write(2).
 
 Thanks,
 
-Alex
+Michael
 
- man7/system_data_types.7 | 52 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
 
-diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-index b705ed5ae..4830a4a7d 100644
---- a/man7/system_data_types.7
-+++ b/man7/system_data_types.7
-@@ -107,6 +107,22 @@ capable of storing values in the range
- .BR "" [ PTRDIFF_MIN ,
- .BR PTRDIFF_MAX ].
- .IP
-+The length modifier for
-+.I ptrdiff_t
-+for the
-+.BR printf (3)
-+and the
-+.BR scanf (3)
-+families of functions is
-+.BR t ;
-+resulting commonly in
-+.B %td
-+or
-+.BR %ti
-+for printing
-+.I ptrdiff_t
-+variables.
-+.IP
- Conforming to: C99 and later; POSIX.1-2001 and later.
- .IP
- See also the
-@@ -339,6 +355,22 @@ it shall be an unsigned integer type
- capable of storing values in the range [0,
- .BR SIZE_MAX ].
- .IP
-+The length modifier for
-+.I size_t
-+for the
-+.BR printf (3)
-+and the
-+.BR scanf (3)
-+families of functions is
-+.BR z ;
-+resulting commonly in
-+.B %zu
-+or
-+.BR %zx
-+for printing
-+.I size_t
-+variables.
-+.IP
- Conforming to: C99 and later; POSIX.1-2001 and later.
- .IP
- Notes:
-@@ -396,6 +428,26 @@ According to POSIX, it shall be a signed integer type
- capable of storing values at least in the range [-1,
- .BR SSIZE_MAX ].
- .IP
-+Glibc provides a length modifier for
-+.I ssize_t
-+for the
-+.BR printf (3)
-+and the
-+.BR scanf (3)
-+families of functions, which is
-+.BR z ;
-+resulting commonly in
-+.B %zd
-+or
-+.BR %zi
-+for printing
-+.I ssize_t
-+variables.
-+Note that POSIX doesn't provide this length modifier,
-+and therefore portable programs should avoid using it.
-+Instead, such programs should cast the value to
-+.IR intmax_t .
-+.IP
- Conforming to: POSIX.1-2001 and later.
- .IP
- See also:
+
+> Alejandro Colomar (2):
+>   system_data_types.7: Document size_t
+>   size_t.3: New link to new documented type in system_data_types(7)
+> 
+>  man3/size_t.3            |   1 +
+>  man7/system_data_types.7 | 103 +++++++++++++++++++++++++++++++++++++--
+>  2 files changed, 100 insertions(+), 4 deletions(-)
+>  create mode 100644 man3/size_t.3
+> 
+
+
 -- 
-2.28.0
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
