@@ -2,73 +2,107 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4F915270850
-	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 23:32:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CCD9B270853
+	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 23:33:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726245AbgIRVck (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 18 Sep 2020 17:32:40 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([63.128.21.124]:21175 "EHLO
-        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726139AbgIRVck (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 17:32:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1600464759;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=ElkO9GlfVJyfFJjNY90v6whFjzuQEuhuYZIPa17EyGc=;
-        b=PfimjVZ5LtcqVzRmbjKs0bAMu+pZqhECdvEcKCh4GMPEhwTyr+Q/UnKHB+WbDI5LkXRuuK
-        +jbFCnqaoh9ag/cDjUnEYdbTuJ/ocVpp6sLgRSZhsL13wpHgSH9QDF62/kzun4ASsOn4pM
-        PrbMm0pYmepSnxGrTBaK6ATU5BZBlNA=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-420-1ewHTUKyO5mRbN38AmVfWA-1; Fri, 18 Sep 2020 17:32:37 -0400
-X-MC-Unique: 1ewHTUKyO5mRbN38AmVfWA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8C88F18B9F91;
-        Fri, 18 Sep 2020 21:32:36 +0000 (UTC)
-Received: from oldenburg2.str.redhat.com (ovpn-113-177.ams2.redhat.com [10.36.113.177])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id 66C4C78803;
-        Fri, 18 Sep 2020 21:32:35 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-        Paul Eggert <eggert@cs.ucla.edu>
-Subject: Re: [PATCH 0/2] Document size_t
-References: <20200918112755.21428-1-colomar.6.4.3@gmail.com>
-        <c357dd2a-71b0-4f23-55e6-fbde975ae5ee@gmail.com>
-        <16920ef9-1b0d-b582-b87e-fe915522ccd1@gmail.com>
-Date:   Fri, 18 Sep 2020 23:32:33 +0200
-In-Reply-To: <16920ef9-1b0d-b582-b87e-fe915522ccd1@gmail.com> (Alejandro
-        Colomar's message of "Fri, 18 Sep 2020 23:28:09 +0200")
-Message-ID: <87o8m2ydn2.fsf@oldenburg2.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
+        id S1726192AbgIRVd2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 18 Sep 2020 17:33:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36904 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726185AbgIRVd2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 17:33:28 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 60031C0613CE
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 14:33:28 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id a17so6946667wrn.6
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 14:33:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=bOtSppfEodFSDiablyHU8+FLXGx2UDsUlHyY5Dht2hU=;
+        b=bi1fd9QnX2vy/jTzKIQPDVM2QwHG3TQ5siAtCqYPRnzJiXjC3QMYMP+4oDoPZtjRUH
+         zcpHKhokJMcOAGjda8s70C9hAs5kGoiU9P/X5G5f5EvzqWumE4uiXQcA68m5t8stesTP
+         nVzgyrP+iQap9Eeyljj/bHJ053zntZIUt33QB53g9VLPPRjXy84BLcAj/xGCvK9rUHbL
+         CCqMXUXEiXLd7Bt61yb7T/BrY9W+yJtOcZHkhXvSUslzk+yh+rOhpuQPL1priwWUTNFR
+         L+05J47apEYxsRpUXGJbIB8gWsGM0cfVflFTItKcSIM4unk2GS2+YjkPYZtYXeKB9Htk
+         Mrhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=bOtSppfEodFSDiablyHU8+FLXGx2UDsUlHyY5Dht2hU=;
+        b=C5m+bjM2XHjO2GdpZ9buvEv0DR+YTrSb4ng6ktHSytbU+XMdpjp1CTnsE27xh3bLFd
+         CparevVTx5GbSHvrSqCU7U9jvdqqEIX11K1GwWnRptRgp/xlcw6QH9xFw6QD97cH6PZJ
+         RBFjJvmdfoJKuaAU5sSprGXMqxUWKK15J2Gi0BT/crZGwZEy74HGdX4yK2+Nk2KsKyD0
+         vFSxs4CKZg3EdOizpc7ACBi3E+Y2AQR2XqpqIcgGsklN4SpE1Fptq9zJxmOsUvCdDiFM
+         C8VIJWNSv+p5DljwMcb7A6azNmyTmhWvqn4Aofuw3f86KGTwJ/rTwfEwxeS9DjsXoNY/
+         uWJA==
+X-Gm-Message-State: AOAM530z9ICk8K3CNWXLszOXpeCqh1ArDyROHcrDFuyci74Gl8AfqNBv
+        HI8k513ODoD4/A2K+BIA9fhTHkp/AHc=
+X-Google-Smtp-Source: ABdhPJyzfKcvnHrIHnhajNyHMSMiZaAxcmkfCiyAK/n5DzpNYiS6BA285UUWVcvweIHgAyPhfdoz0A==
+X-Received: by 2002:adf:f903:: with SMTP id b3mr40852353wrr.142.1600464807040;
+        Fri, 18 Sep 2020 14:33:27 -0700 (PDT)
+Received: from [192.168.1.143] ([170.253.60.68])
+        by smtp.gmail.com with ESMTPSA id p1sm21499700wma.0.2020.09.18.14.33.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2020 14:33:26 -0700 (PDT)
+Subject: Re: [PATCH 3/3] regmatch_t.3: New page for new documented type in
+ system_data_types(7)
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org
+References: <20200918132943.55424-1-colomar.6.4.3@gmail.com>
+ <20200918132943.55424-4-colomar.6.4.3@gmail.com>
+ <4de9a11b-5bcb-4a37-1a15-a476c94277fe@gmail.com>
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+Message-ID: <6ae8c100-f5cd-7853-1bca-2bcbdc992ce5@gmail.com>
+Date:   Fri, 18 Sep 2020 23:33:25 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+In-Reply-To: <4de9a11b-5bcb-4a37-1a15-a476c94277fe@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Alejandro Colomar:
 
->>> In the See also, I just put a few important pages.
->>> Maybe you want to include a few more.
->> I added read(2) and write(2).
->
-> Fine.  I didn't remember their arguments are 'size_t'.  I was under
-> the idea that they used 'ssize_t'.
 
-The outliers are readv and writev, which use int for the array length
-argument (at least in POSIX).
+On 2020-09-18 22:45, Michael Kerrisk (man-pages) wrote:
+> On 9/18/20 3:29 PM, Alejandro Colomar wrote:
+>> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+> 
+> 
+> Thanks, Alex. Patch applied. But title should say "New link...",
+> rather than "New page..." (I fixed it).
+> 
+> Cheers,
+> 
+> Michael
+> 
+> 
+>> ---
+>>   man3/regmatch_t.3 | 1 +
+>>   1 file changed, 1 insertion(+)
+>>   create mode 100644 man3/regmatch_t.3
+>>
+>> diff --git a/man3/regmatch_t.3 b/man3/regmatch_t.3
+>> new file mode 100644
+>> index 000000000..db50c0f09
+>> --- /dev/null
+>> +++ b/man3/regmatch_t.3
+>> @@ -0,0 +1 @@
+>> +.so man7/system_data_types.7
+>>
+> 
+> 
+
+
+Oops! Typo.
 
 Thanks,
-Florian
--- 
-Red Hat GmbH, https://de.redhat.com/ , Registered seat: Grasbrunn,
-Commercial register: Amtsgericht Muenchen, HRB 153243,
-Managing Directors: Charles Cachera, Brian Klemm, Laurie Krebs, Michael O'Neill
 
+Alex
