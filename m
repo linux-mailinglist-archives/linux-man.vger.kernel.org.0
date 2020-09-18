@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 985EE2702DE
-	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 19:05:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A1EC12702DF
+	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 19:05:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726290AbgIRRFJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 18 Sep 2020 13:05:09 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51756 "EHLO
+        id S1726306AbgIRRFK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 18 Sep 2020 13:05:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51762 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726250AbgIRRFJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 13:05:09 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CE6FFC0613CE
-        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 10:05:08 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id j2so6356185wrx.7
-        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 10:05:08 -0700 (PDT)
+        with ESMTP id S1726250AbgIRRFK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 13:05:10 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D6405C0613CE
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 10:05:09 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id k18so6279923wmj.5
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 10:05:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=H+CkArZ5VWtQCTVtTOwWWAlnvz7yGJkBxEgazsWO8GA=;
-        b=J735Ji7bDQpMoNgk2RFXQg+ZG4u88z8OTMsQbwjcMyJWl01y1t/vrgM0LBk6Nk9V1e
-         Z+ye5r4gsOeUUHj2E4kP+8R43+Gba2Lu0GFQq9q87cHetosqIIrKI6+Iq1lyEiquqVfI
-         e5isV/WgDwZ20GJYuSWl9lE0cDhEOsZrXSIevLmGBZSvLsVriwC9E5s7cqGyD0h88tyb
-         nQtB0bOYrt47eaoF3CBgkuYOItzShVLWZcKzQRj1oB0XEHNeAv+hlCjeF+RusdP3FlTG
-         X6bfKiNAc2hT9X/F5uke30RGdGA0mJxCI+KZP/eq2HUYrDN7vET9uQs88muWpY328qKe
-         wOIQ==
+        bh=+kBK4Z4G82hnx6cp99PHW4FFs5idd6MPIKftRGfW7Zo=;
+        b=HGm0izWZWcXebRsLznAzZRQF78iKFjVw38wnHXvF+j7+9J37xEQsdtYDgsnNeQGN4M
+         eTKchiclgUUl4bgnNYXf3Vl6A15QdNXym0FjfvXMnHX6jS1UmbujMj1KL+hbmtvDIBxH
+         Nmk8WyGBJolwA0cSm89SQpgC0nQUjp5AaChzrUhlGJsBDOZa4mcQzhrDJaNXnY75iaX5
+         nSGHGgQoKtGwkyarb/A02dXY/F9qZeXcdt0fJfYVmhglnD25rOeKL14j6Ig8FEkuUbWO
+         wV4iZcSpZu0p2h+FArb97cV6WUkeXmgmSJVkAHFmRm6m63f7RxPvGUMBh1L47jb21Nn0
+         BRow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=H+CkArZ5VWtQCTVtTOwWWAlnvz7yGJkBxEgazsWO8GA=;
-        b=HX8rtmPVGfYzi+Eyo4VKkba5VTzEVyyGmnqXRtjgagqZ8GinMeZd+N0G4GMHMgLesQ
-         IA8MmFIOmSG0AvmCuD9iSJxtde6RDR7vlF7949E026VmCvAiaG6YGlyL4mL2yGArUsQ3
-         vBg78ji9ADkM+rJWum2V5FA6amIEXNA6UTu5cji6c6zT72gYt5ulaf6fabSx4yIYd8d4
-         WdGQX3a64iFxq25g4xbSpKHpQUcK6ER4pltPw1go7/makoGjWphMtpiw2Fudlm0unkFU
-         aXu+wTWdpXbFAQvTXPbBWRZIfovC2OSvuuMsAPxVA0sMN+nKPe3Uf5b4ix6i5Qhf6Sdo
-         fFfg==
-X-Gm-Message-State: AOAM53329rD2XB76j5w349Juu4O6oMzdY9I3mOQ+ayT59G5cVNCAs/9t
-        K7kzdJOFIH35i0NuI0LFr/0=
-X-Google-Smtp-Source: ABdhPJwmBzip9CD2+f2bdKGpZAzrc/ilk4DtpLjslGTKtt0b7QJJWYew717mn0GV1XUZ8dLah5JYnw==
-X-Received: by 2002:a5d:4a0e:: with SMTP id m14mr41218996wrq.313.1600448707557;
-        Fri, 18 Sep 2020 10:05:07 -0700 (PDT)
+        bh=+kBK4Z4G82hnx6cp99PHW4FFs5idd6MPIKftRGfW7Zo=;
+        b=thI6BWS6ZCpG4pJQSxJZB+5twy1xBwupySSHlpxkpEf0Jia6iblev9+Z0ZLt409mWe
+         2nD3Gvuq74RBWG3zQbeI9K/8f0GYyqVijnTTJ7akpwuDUTUL4VmLr6nAntxp2Pf/2Dbm
+         4mcmraA+9F710RsWu3LHb0ge3sm9HN0n6Q2IEBY1kLSdlTB5gwZzU5OdXhN8SBm/EKHU
+         eZhm1fEf5esNOyHx6IYfRrGkcnX7l849hgwfHq5H7NpnOCBfXh7wgR/xrUq7i66CfAXh
+         jytDjqt0hI/c9sfM1rlSRLWAZbMOMaGeCcNjUVHylfFZGlx3dnD9UGsstwlGkJxnlUcX
+         gk/g==
+X-Gm-Message-State: AOAM530i2ffpy5jOjlKO8+zLHVHc6J4906ZjrnVJrDSw4OxZiHAwuKJ5
+        ihfo2w89STMKoEfB3qT/KTM=
+X-Google-Smtp-Source: ABdhPJxdcKfcC9jrXFS9MaMyag+wYVaDTPgMc4nbE9uoQiQn9XThm0wZRIXZeRZ9gkgiCMojBwUW+A==
+X-Received: by 2002:a1c:81c9:: with SMTP id c192mr15916203wmd.2.1600448708580;
+        Fri, 18 Sep 2020 10:05:08 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id q18sm6321208wre.78.2020.09.18.10.05.06
+        by smtp.googlemail.com with ESMTPSA id q18sm6321208wre.78.2020.09.18.10.05.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2020 10:05:07 -0700 (PDT)
+        Fri, 18 Sep 2020 10:05:08 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org,
         Alejandro Colomar <colomar.6.4.3@gmail.com>
-Subject: [PATCH 7/9] aiocb.3: New link to new documented type in system_data_types(7)
-Date:   Fri, 18 Sep 2020 19:04:41 +0200
-Message-Id: <20200918170442.94920-8-colomar.6.4.3@gmail.com>
+Subject: [PATCH 8/9] system_data_types.7: Document siginfo_t
+Date:   Fri, 18 Sep 2020 19:04:42 +0200
+Message-Id: <20200918170442.94920-9-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200918170442.94920-1-colomar.6.4.3@gmail.com>
 References: <20200918170442.94920-1-colomar.6.4.3@gmail.com>
@@ -63,19 +63,69 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Note: There are a few members off this structure that are
+not required by POSIX (XSI extensions, and such).
+
+I simply chose to not document them at all.
+
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man3/aiocb.3 | 1 +
- 1 file changed, 1 insertion(+)
- create mode 100644 man3/aiocb.3
+ man7/system_data_types.7 | 35 ++++++++++++++++++++++++++++++++---
+ 1 file changed, 32 insertions(+), 3 deletions(-)
 
-diff --git a/man3/aiocb.3 b/man3/aiocb.3
-new file mode 100644
-index 000000000..db50c0f09
---- /dev/null
-+++ b/man3/aiocb.3
-@@ -0,0 +1 @@
-+.so man7/system_data_types.7
+diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
+index f7d25bec9..b705ed5ae 100644
+--- a/man7/system_data_types.7
++++ b/man7/system_data_types.7
+@@ -213,6 +213,35 @@ See also:
+ See also the
+ .I aiocb
+ structure in this page.
++.\"------------------------------------- siginfo_t --------------------/
++.TP
++.I siginfo_t
++.IP
++Include:
++.IR <signal.h> ;
++or
++.IR <sys/wait.h> .
++.IP
++.EX
++typedef struct {
++    int             si_signo; /* Signal number */
++    int             si_code; /* Signal code */
++
++    pid_t           si_pid; /* Sending process ID */
++    uid_t           si_uid; /* Real user ID of sending process */
++    void           *si_addr; /* Address of faulting instruction */
++    int             si_status; /* Exit value or signal */
++
++    union sigval    si_value; /* Signal value */
++} siginfo_t;
++.EE
++.\".IP
++.\" FIXME: Add a description?
++.IP
++Conforming to: POSIX.1-2001 and later.
++.IP
++See also:
++.BR regexec (3)
+ .\"------------------------------------- sigval -----------------------/
+ .TP
+ .I sigval
+@@ -239,9 +268,9 @@ See also:
+ See also the
+ .I sigevent
+ structure
+-.\"and the
+-.\".I siginfo_t	FIXME
+-.\"type
++and the
++.I siginfo_t
++type
+ in this page.
+ .\"------------------------------------- size_t -----------------------/
+ .TP
 -- 
 2.28.0
 
