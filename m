@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id ECD9E26FE7F
-	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 15:30:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6EECC26FE80
+	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 15:30:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726541AbgIRNaM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 18 Sep 2020 09:30:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46764 "EHLO
+        id S1726629AbgIRNaN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 18 Sep 2020 09:30:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46770 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726126AbgIRNaM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 09:30:12 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0D005C0613CE
+        with ESMTP id S1726126AbgIRNaN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 09:30:13 -0400
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F273BC0613CE
         for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 06:30:12 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id e17so5353723wme.0
-        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 06:30:11 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id k15so5625609wrn.10
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 06:30:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=7fCb+PwTb6LStE6GDE1r8cR5yiz2/U9ALjY1o6t4YR4=;
-        b=FMZt/PMoie48K07BlTb3raRZy18MncioDeDTlSnfs7yuy4JbBnDA09rGmS0craL5HO
-         hujd+RcWI0Ug5fMzOxQIx0itkR3M5n7wKCLll6j8kO7tw88Ggw9b+jLZaOtRHwEjAI7f
-         GHZGP5IN2T0XApb5dwOQq0wyB2A2nF998Kl4/A+2iIN2D63Tq7h71SSjbdlcsxU/5RfC
-         oRnhO3qCkn1efHSbg6/f/qqU0IPXO5T8xp0dV5P3DzWK4b58V1pQRNFAFgm0efggG5N4
-         mA+n1ZFMSvP6MUMrsePlm/SAqYKTpVC/7yWglLLbvkOWfj9UH2qtKzeoht4nusJZoTkD
-         jXKg==
+        bh=kx/zCLUn0N/EkjssmDwazOm4rFROomjDdsbIZFUQq1U=;
+        b=U+F7cMN6w7G3AQWxAlZ7b5ziqf7maIE4zZFLTiKEMENHh5is5WoZMCxD7KxecS7/Nn
+         bN0qDAOp5fK6AQ9F5hTlzgGkGzDExMobnOZTpqdiN8OtspelULItQpBgBhPoRHOipOs+
+         Q3AqzcjyelFD/gErWgoCA5I3ILaeN1i0ECFidoc+OmZvDiRyvEUMRJufXRJHikP1O57K
+         v5BNL8crUy9B5m7kcvz0TiScVZ7pEDH5ZzSebkJ73yTv6AyShk2DDzpuSKrEaQ+q6Pmg
+         mkCn7gaIKbK/uu1vujDWMMbxf6/gF99MqL4EOGnvVseqXWekon1bKDeruA2D9MFkZT9U
+         qBfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=7fCb+PwTb6LStE6GDE1r8cR5yiz2/U9ALjY1o6t4YR4=;
-        b=T28JQqSZ1HXYIXkFosKC2jCzICUWroHRykpHUPY4/6VFwLeINKqR/eIICWc+2smfo1
-         zswL17dUCSS8jnmvjfsgptlERFCkZ/JWwZPLdHsibWJxNcjCt7JY310qDxJoK1jMr5DA
-         P4O+JEP0JYD5MsVIw+E5OcxW/mOq2uEeWhohZxGOaVTEGCAhxgsl0fgxJr9TjR8jBq4w
-         EXtBGagocQ2+saVz6PTomCbesRSPmsnI1Nhkr3zjLtrCXOXoluMTwQKpl7KcIvjzg+MW
-         ZVMh35+QjfQMTEuavanQCNYfjAREgmiOJxKqCPPiO6eIvbt9PaTwiwtoppcKQhn9MOAr
-         MbrQ==
-X-Gm-Message-State: AOAM531EwlZc9kqr7ykam2RxWqji/TWwjqOCFZYmq2KkJHziKwWE2rGx
-        rV+DHlO2yxcW/uS76Sv+3Fs=
-X-Google-Smtp-Source: ABdhPJxsgjv6lrkhrLXw96Szt/DEXMqTGLnvs2yAPnOgy2iqyP11o+myYxAeDZ2Wk2SiI9tZmSmhtg==
-X-Received: by 2002:a7b:c4c3:: with SMTP id g3mr16383916wmk.128.1600435810547;
-        Fri, 18 Sep 2020 06:30:10 -0700 (PDT)
+        bh=kx/zCLUn0N/EkjssmDwazOm4rFROomjDdsbIZFUQq1U=;
+        b=pIemw6jGtZWn7xUbaLqiFdlXm3exovdHTW2lLni7ED1jBYcw7YLnnV6Fut6clov38F
+         5Vk9+pOnZ3Fl2wNfnZPBmh5yjI9zMMPA6HWPylntPsp9+OJ7uWaYAZB0SHTxSsl50cLB
+         YWLwn6m7upy4B9AbMC/500tI7af9sGWa5UUM9TmoYWynKijakJ1NQvg8SV1lxm7X2vPo
+         B2gJje8RJBbMFh8Qvx9oQOUQXLZXFXctVL+7VWyPkcykLKcS/pXlA3v0DO1OeMIgvjAg
+         n6UjgFBYcMzFbv4Txsiub+4fvw4TxysFWqP9NZpR/MC0xSDqHiAbIJMxtsVZHgfPpQGf
+         QQSw==
+X-Gm-Message-State: AOAM530LpP2FALNI1spmTRxDsakMVAnlWwGBbWfTWHqPCTrcPqa1Lh+X
+        Ot5PoC+cRSa2DUp33fsrluc=
+X-Google-Smtp-Source: ABdhPJzlJuuZIFVk3oEBxkGChXxDB9WuSiSgXMgsVYw0MqOg6i4sr+CvAscPwU86Mx2pZKksLmYa0g==
+X-Received: by 2002:a5d:5106:: with SMTP id s6mr40317761wrt.166.1600435811675;
+        Fri, 18 Sep 2020 06:30:11 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id k12sm5304764wrn.39.2020.09.18.06.30.09
+        by smtp.googlemail.com with ESMTPSA id k12sm5304764wrn.39.2020.09.18.06.30.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2020 06:30:10 -0700 (PDT)
+        Fri, 18 Sep 2020 06:30:11 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org,
         Alejandro Colomar <colomar.6.4.3@gmail.com>
-Subject: [PATCH 1/3] system_data_types.7: ffix
-Date:   Fri, 18 Sep 2020 15:29:42 +0200
-Message-Id: <20200918132943.55424-2-colomar.6.4.3@gmail.com>
+Subject: [PATCH 2/3] system_data_types.7: Document regmatch_t
+Date:   Fri, 18 Sep 2020 15:29:43 +0200
+Message-Id: <20200918132943.55424-3-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200918132943.55424-1-colomar.6.4.3@gmail.com>
 References: <20200918132943.55424-1-colomar.6.4.3@gmail.com>
@@ -65,31 +65,50 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man7/system_data_types.7 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ man7/system_data_types.7 | 23 +++++++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
 
 diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-index 16dcb7d66..2ccbfe817 100644
+index 2ccbfe817..d3dee2747 100644
 --- a/man7/system_data_types.7
 +++ b/man7/system_data_types.7
-@@ -65,7 +65,7 @@ system_data_types \- overview of system data types
- .I ptrdiff_t
- .IP
- Include:
--.I <stddef.h>.
-+.IR <stddef.h> .
- .IP
- Used for a count of elements, and array indices.
- It is the result of subtracting two pointers.
-@@ -85,7 +85,7 @@ types in this page.
+@@ -82,6 +82,25 @@ and
+ .I ssize_t
+ types in this page.
+ .TP
++.I regmatch_t
++.IP
++Include:
++.IR <regex.h> .
++.IP
++.EX
++typedef struct {
++    regoff_t    rm_so; /* Byte offset from start of string
++                        * to start of substring */
++    regoff_t    rm_eo; /* Byte offset from start of string of the
++                        * first character after the end of substring */
++} regmatch_t;
++.EE
++.IP
++Conforming to: POSIX.1-2001 and later.
++.IP
++See also:
++.BR regexec (3)
++.TP
  .I regoff_t
  .IP
  Include:
--.I <regex.h>.
-+.IR <regex.h> .
+@@ -104,8 +123,8 @@ type or a
+ type.
  .IP
- According to POSIX, it shall be a signed integer type
- capable of storing the largest value that can be stored in either a
+ See also the
+-.\".I regmatch_t	FIXME
+-.\"structure and the
++.I regmatch_t
++structure and the
+ .I ptrdiff_t
+ and
+ .I ssize_t
 -- 
 2.28.0
 
