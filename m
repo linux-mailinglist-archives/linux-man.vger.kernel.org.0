@@ -2,65 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 345A22707D7
-	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 23:09:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 219CC2707DB
+	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 23:10:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726157AbgIRVJM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 18 Sep 2020 17:09:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33144 "EHLO
+        id S1726154AbgIRVKN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 18 Sep 2020 17:10:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33298 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726118AbgIRVJM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 17:09:12 -0400
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 24764C0613CE
-        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 14:09:12 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id a17so6902112wrn.6
-        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 14:09:12 -0700 (PDT)
+        with ESMTP id S1726118AbgIRVKN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 17:10:13 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E4F84C0613CE
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 14:10:12 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id q9so6535413wmj.2
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 14:10:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=+L0r/O+yQ/CkV/8LViTMRTt07EOIerBDXTyuTusPZac=;
-        b=mpdMaZQClfc+GDfw42aWI4zq9glBGRWPA3YMtFxCBdADdXDHzRzU6Rnt/clSMUMMjQ
-         7UEACxpnWpK5aQz/4qGPueB0aUfO00QC4qhmAqzyeLap+I0Mw1WQEc/u4v+kijeq5z8r
-         fQ4qx/5VAN6H/7QjLOrswWWw8Ow/TpN7ataO9MK/LJ1zl+2spC5xi7WwLjrbmETDAN/w
-         26PuPcamRgRpGvL36DYVUcXodeJwqBQdMioTzCHZLUdRSnOqcMR7Ra6BvEwV41GFuw8K
-         5ortWf1Q5s2sfGAfunPTaj0MhnR0Me4zOctC/d2QfOYlS+/AH5ZJ+LLcy+omt/fjBSek
-         GA9Q==
+        bh=7FDmSDkWw/RvOPtMOC3lMHzlJiQSY2ZG0s0oAZtCOog=;
+        b=qd+WDEU7ohgszxuYgMV1b9GsUK0stwhzM94pHMXdZeqvmOM7PBGKAE7vq0JGKIiyt3
+         4LdPxZMjTnRRDQH/A5+YsnxpCbV6CXUS6KBxb5PSZE6seEtriEDqnGo+bl8iW3hTUjOa
+         Zs583JURznjxFRcEntoMtM7A2wL3HvakcfhhbvTPZhFYZYykdzFT/MMc2s7H39WrwVxb
+         Fl+9nDuL6oXXOOUAu1fJUd9vEjj33QEeWE8SYtLEUZsH7FgWT5m+T5x/pLQcZxg+iCE4
+         NYZO9xD5+iab7cKj42sLqDdUm6E6wAXKLww3e+bgrOq+/PNhMG5np5YfpmXJa3lJfq1v
+         jVgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=+L0r/O+yQ/CkV/8LViTMRTt07EOIerBDXTyuTusPZac=;
-        b=DB6Qsu+DVFHNwhtmHs4pBUOSUqtKeSpMq2i7wNbBvekGtIJ5XithsC6XjTaZzMS99y
-         6IjMSNTGFWLZhqaeuktO/4LNcyxSpZrqoIdp9qrgcP4dG0d9O+0rUyNlgkOodrVOXOf8
-         nWVDuUAAv6JVPu4XAD+50knkawjSIMyIjC3wsBQr1qWFJYUCl253PoTh0GrvyxWwbiBl
-         jEBEbjkn5c5K7I9NxPpSb2B5HigbFkPulfLQuwV4UAi8lopyQPouC0wNdkFDRxycdKoT
-         i+OeKfREAOZlMvikxL8unwjDgCOWyHwcIRrwDo/3iB9a26lwhJlHQI0kc9pzF+7lvRyb
-         HSUw==
-X-Gm-Message-State: AOAM533m8zPD7qawkuGfQfTzz5vgg0XYRrZaQlmhmb4mcCHNXFZAXuL5
-        /zK4zwa0RAZ+TP/HoXHi6GA=
-X-Google-Smtp-Source: ABdhPJzM34kLjyQCbUDV0FIFl3ddWw3t3nGAiU3ftB7cAiXnRqcUSCwKOqUqT8TNL2SybghcMycIvA==
-X-Received: by 2002:adf:ce01:: with SMTP id p1mr23326797wrn.61.1600463350856;
-        Fri, 18 Sep 2020 14:09:10 -0700 (PDT)
+        bh=7FDmSDkWw/RvOPtMOC3lMHzlJiQSY2ZG0s0oAZtCOog=;
+        b=eqA57Lhee4alX8M+d8+cs4BLpDSmwBDIm7Depk1HawsS7pE7BLzLsuqU8WnvnQKlmO
+         MEw1IkH1dINLTcKUMogd27GuBkyzpX1YU138AGUy/F3t37fw79B8khaPhCO92YQVIddx
+         kYEI9v5FTgP8WxhnsKk4VmtuHp2s3Rpo3FkGzgKysAx1X7avhmCvpLg9/zyITEMLH8rF
+         vwQZRlAD5GwHbk8wbQ+eEI+jWUvDzor4P8glOWYvIjWJ/aUBlisYT3qg9BNU7Pw+GxH6
+         PyJmKcyhukjLMuhY/vwUMff0jV5BWFeCbAPZWbEwSzvXS+z2277r0UHSKptMpvdUIERL
+         Blpw==
+X-Gm-Message-State: AOAM533H1jAYYazk8Od9JkBqIJcnbazgvAMa4PhgMnnKnJiQwacdRWNR
+        eWg0LNEMGj1aePdnITRwoM4=
+X-Google-Smtp-Source: ABdhPJzu2vIMonvpdWUxBO1yvJCL0mHsNS4FEde05WOrFcFLmzG6sX0Ns5g4TApLHfCfuYVsO8u1RA==
+X-Received: by 2002:a7b:c015:: with SMTP id c21mr17551673wmb.87.1600463411660;
+        Fri, 18 Sep 2020 14:10:11 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id u66sm7108266wme.12.2020.09.18.14.09.09
+        by smtp.gmail.com with ESMTPSA id t4sm7427501wrr.26.2020.09.18.14.10.10
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2020 14:09:10 -0700 (PDT)
+        Fri, 18 Sep 2020 14:10:11 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         libc-alpha@sourceware.org
-Subject: Re: [PATCH 3/9] system_data_types.7: Document sigevent
+Subject: Re: [PATCH 4/9] sigevent.3: New link to new documented type in
+ system_data_types(7)
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <20200918170442.94920-1-colomar.6.4.3@gmail.com>
- <20200918170442.94920-4-colomar.6.4.3@gmail.com>
+ <20200918170442.94920-5-colomar.6.4.3@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <0f7cd0c7-9fac-e177-9147-4ce67e64bd7c@gmail.com>
-Date:   Fri, 18 Sep 2020 23:09:09 +0200
+Message-ID: <8cea2a6b-bbe1-3289-a0c2-3baa75ec757a@gmail.com>
+Date:   Fri, 18 Sep 2020 23:10:10 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200918170442.94920-4-colomar.6.4.3@gmail.com>
+In-Reply-To: <20200918170442.94920-5-colomar.6.4.3@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -68,99 +69,31 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Alex,
+Hi Alex,
 
 On 9/18/20 7:04 PM, Alejandro Colomar wrote:
 > Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 > ---
->  man7/system_data_types.7 | 57 ++++++++++++++++++++++++++++++++++++----
->  1 file changed, 52 insertions(+), 5 deletions(-)
+>  man3/sigevent.3 | 1 +
+>  1 file changed, 1 insertion(+)
+>  create mode 100644 man3/sigevent.3
 
+I think that I won't apply this, since it will hide sigevent(7).
+Okay?
 
-Thanks, Alex. Patch applied. I added a line re description, 
-deferring to sigevent(7).
-
-Cheers,
+Thanks,
 
 Michael
 
 
-> diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-> index 48871e4eb..53c289e31 100644
-> --- a/man7/system_data_types.7
-> +++ b/man7/system_data_types.7
-> @@ -133,6 +133,51 @@ and
->  .I ssize_t
->  types in this page.
->  .TP
-> +.I sigevent
-> +.IP
-> +Include:
-> +.IR <signal.h> ;
-> +or
-> +.I <aio.h>
-> +or
-> +.I <mqueue.h>
-> +or
-> +.IR <time.h> .
-> +.IP
-> +.EX
-> +struct sigevent {
-> +    int             sigev_notify; /* Notification type */
-> +    int             sigev_signo;  /* Signal number */
-> +    union sigval    sigev_value;  /* Signal value */
-> +    void          (*sigev_notify_function)(union sigval);
-> +                                  /* Notification function */
-> +    pthread_attr_t *sigev_notify_attributes;
-> +                                  /* Notification attributes */
-> +};
-> +.EE
-> +.\".IP
-> +.\" FIXME: Add a description?
-> +.IP
-> +Conforming to: POSIX.1-2001 and later.
-> +.IP
-> +Notes:
-> +.I <aio.h>
-> +and
-> +.I <time.h>
-> +define
-> +.I sigevent
-> +since POSIX.1-2008.
-> +.IP
-> +See also:
-> +.BR timer_create (2),
-> +.BR getaddrinfo_a (3),
-> +.BR lio_listio (3),
-> +.BR mq_notify (3)
-> +.\".IP
-> +.\"See also the
-> +.\".I aiocb	FIXME
-> +.\"structure in this page.
-> +.TP
->  .I sigval
->  .IP
->  Include:
-> @@ -153,12 +198,14 @@ See also:
->  .BR pthread_sigqueue (3),
->  .BR sigqueue (3),
->  .BR sigevent (7)
-> -.\".IP
-> -.\"See also the
-> -.\".I sigevent	FIXME
-> -.\"structure and the
-> +.IP
-> +See also the
-> +.I sigevent
-> +structure
-> +.\"and the
->  .\".I siginfo_t	FIXME
-> -.\"type in this page.
-> +.\"type
-> +in this page.
->  .TP
->  .I size_t
->  .IP
+> 
+> diff --git a/man3/sigevent.3 b/man3/sigevent.3
+> new file mode 100644
+> index 000000000..db50c0f09
+> --- /dev/null
+> +++ b/man3/sigevent.3
+> @@ -0,0 +1 @@
+> +.so man7/system_data_types.7
 > 
 
 
