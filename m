@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id F31202702DA
-	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 19:05:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6BEB52702DB
+	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 19:05:06 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726174AbgIRRFE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 18 Sep 2020 13:05:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51736 "EHLO
+        id S1726044AbgIRRFG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 18 Sep 2020 13:05:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51742 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725955AbgIRRFE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 13:05:04 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1F451C0613CE
-        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 10:05:04 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id z9so6278795wmk.1
-        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 10:05:04 -0700 (PDT)
+        with ESMTP id S1725955AbgIRRFG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 13:05:06 -0400
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A543EC0613CE
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 10:05:05 -0700 (PDT)
+Received: by mail-wr1-x434.google.com with SMTP id a17so6339423wrn.6
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 10:05:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=fW0x58u4mE/ClCvm3tVSGnzntro9bdBmymrzQVWitaY=;
-        b=cVKfrTXUCuQlu2sqAQO2t1BVwdSAZ7hB7z8QlJMD2dVVdVkoGK3C4oTJisLFaDo5vC
-         apCZXzVSJg80LhpEeHQKSwKFCG/cXO8+FZzEUEKu0LXY4VmqjuBSthPRkwWXLbsY+6gD
-         yiqkXU+hWbcx0voiAVyIsDOW/XSBlzcbOZ+KUvxAOC1fi8FSv5EEeiUNDAxN9J+0DFTP
-         GC73n8r02lQbWG1i/AXJ2TZ1et8qyhXIGxK0iEX6soWgt0A2yUFz4wQH/SSd65e7SqM+
-         Ju+y1umJRaDjA8sdX7vZP5DmfgKBT1onCw2mXIuDTUqXqsuVuHzjNLMB6fjbZq3My365
-         GCTA==
+        bh=Lam0AIFJ1s7ztQIVz6fWGXXy75KVP7HCMRgiuQj0lxM=;
+        b=tJ/QwvY7Iwwqng40lSnMjho93PHn5zQQ9vDMaoqrKAsBr8rLDNp0RQgqsSTCB+Xkk6
+         8L5kugV8eaxCWE+sv7Y0GaqBnMvMUcKXKFXZ6z3lSsj/Z5LuqumuyoJbQNQjiyxHpKyC
+         Z59emBKXXxNlmOF3K1ZCFCU0GUT32EuJoay0IpvpfZzmeTP40pxo0G6HX0k8wuEchhQ6
+         4dVQAkbQilTsaVy2mcMcWhul5W9MnkO/eYRoP8lshPbt8+IcWxXamxmT/PGR1SeiX+2c
+         PGAVGkC+pQXabeCPbbumMW3kzzWTVVN9Nw57i/Qh2PH4PX5W2cr4LBP23bWGWxJyQMpM
+         WL3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=fW0x58u4mE/ClCvm3tVSGnzntro9bdBmymrzQVWitaY=;
-        b=ce71/lyV5GeSExxLc5cHFknI8NQWmZ9GKoBgeBOo5sJtCrOvGaZOeLMWSsVXKauQ7E
-         moc7aA92JUeqEtt4jer9DwQoR2SyQi63umzPq6aLAiU66eSGtgY2XU2r5Tqm+6KRcpTX
-         ZEHbSuR1EQ5eqkSvBHoI6xU5usziym9TQUyYFOlLxPevCxalO3Edl8n3yxbbAaNWOmaC
-         WXHcZR6A5pV0GbWewaw0FE0udi+YcFzXy43E96p2jIEw8Q1f3mJVlf2t9LXQAP3EyUIO
-         aL7wQB1Dq6Jc7NQT81pl7ca/tAmsfE0kY7rLiGHJRo/vFm24OPZCRv37Q/9t/U0FndNF
-         dicw==
-X-Gm-Message-State: AOAM5334/JTSwgNAUEiYp5sl2Lz3TFrMsbWkTuL7SOUpfeYwKoLUmFGI
-        RerxKLl2GWISm2iO3qdyamM=
-X-Google-Smtp-Source: ABdhPJxCiUTe8oUXtzxVCCW6W5LYe1Pl2kMGQWwjU3rd8eCUWxuzNfqSQbOu3qV+EqHl18YLmuMLnw==
-X-Received: by 2002:a1c:e389:: with SMTP id a131mr17078161wmh.181.1600448702822;
-        Fri, 18 Sep 2020 10:05:02 -0700 (PDT)
+        bh=Lam0AIFJ1s7ztQIVz6fWGXXy75KVP7HCMRgiuQj0lxM=;
+        b=V8+e+HQFDP3Z4iS5SQgHKLv2MgLHejdj7SKbfkdqO8NXDAIaHxnOjiq1BSMuyfK9Xd
+         WYBW2ZpwfKOIwp8jp4vNoQSFcbGmh5QyEUcRVJ/2v+UtM87DZ/Sv6trGFaqjZwMX8iMe
+         fp+HaLB/MuxwLHbcQSWuuOyOWtjMIUK/R2a9FN9IQvSKrT1SQGJdE0Coa23jO4eCSrnS
+         kbPdPZtXVcQ87S1SdfsV8fSvqHKpSlVb7WaHclBh3wiv8UOCNg3iser0KrZAETaVnV3N
+         pobGHx0nlXR5vsUbS/AQSMtu1HdBT99Fjytl1dvJU0+JzMTo03yImhKvBhaGMCx26yxi
+         /+fQ==
+X-Gm-Message-State: AOAM531PPqvZ6xZNrawqWktpaRB5MraGroBE/YGsVRuSywzne3/9Feiu
+        bcWJB/NKLG6KBQxEyBM0hzA=
+X-Google-Smtp-Source: ABdhPJzi7rfVM1lLSvVmd9YUERSBAp5v4x+RiHDlm33MWAQXTijv2jNV4/+5JaEjy/pe1MEQ2rec8A==
+X-Received: by 2002:a5d:6343:: with SMTP id b3mr41257439wrw.179.1600448703872;
+        Fri, 18 Sep 2020 10:05:03 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id q18sm6321208wre.78.2020.09.18.10.05.01
+        by smtp.googlemail.com with ESMTPSA id q18sm6321208wre.78.2020.09.18.10.05.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2020 10:05:02 -0700 (PDT)
+        Fri, 18 Sep 2020 10:05:03 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org,
         Alejandro Colomar <colomar.6.4.3@gmail.com>
-Subject: [PATCH 3/9] system_data_types.7: Document sigevent
-Date:   Fri, 18 Sep 2020 19:04:37 +0200
-Message-Id: <20200918170442.94920-4-colomar.6.4.3@gmail.com>
+Subject: [PATCH 4/9] sigevent.3: New link to new documented type in system_data_types(7)
+Date:   Fri, 18 Sep 2020 19:04:38 +0200
+Message-Id: <20200918170442.94920-5-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200918170442.94920-1-colomar.6.4.3@gmail.com>
 References: <20200918170442.94920-1-colomar.6.4.3@gmail.com>
@@ -65,85 +65,17 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man7/system_data_types.7 | 57 ++++++++++++++++++++++++++++++++++++----
- 1 file changed, 52 insertions(+), 5 deletions(-)
+ man3/sigevent.3 | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 man3/sigevent.3
 
-diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-index 48871e4eb..53c289e31 100644
---- a/man7/system_data_types.7
-+++ b/man7/system_data_types.7
-@@ -133,6 +133,51 @@ and
- .I ssize_t
- types in this page.
- .TP
-+.I sigevent
-+.IP
-+Include:
-+.IR <signal.h> ;
-+or
-+.I <aio.h>
-+or
-+.I <mqueue.h>
-+or
-+.IR <time.h> .
-+.IP
-+.EX
-+struct sigevent {
-+    int             sigev_notify; /* Notification type */
-+    int             sigev_signo;  /* Signal number */
-+    union sigval    sigev_value;  /* Signal value */
-+    void          (*sigev_notify_function)(union sigval);
-+                                  /* Notification function */
-+    pthread_attr_t *sigev_notify_attributes;
-+                                  /* Notification attributes */
-+};
-+.EE
-+.\".IP
-+.\" FIXME: Add a description?
-+.IP
-+Conforming to: POSIX.1-2001 and later.
-+.IP
-+Notes:
-+.I <aio.h>
-+and
-+.I <time.h>
-+define
-+.I sigevent
-+since POSIX.1-2008.
-+.IP
-+See also:
-+.BR timer_create (2),
-+.BR getaddrinfo_a (3),
-+.BR lio_listio (3),
-+.BR mq_notify (3)
-+.\".IP
-+.\"See also the
-+.\".I aiocb	FIXME
-+.\"structure in this page.
-+.TP
- .I sigval
- .IP
- Include:
-@@ -153,12 +198,14 @@ See also:
- .BR pthread_sigqueue (3),
- .BR sigqueue (3),
- .BR sigevent (7)
--.\".IP
--.\"See also the
--.\".I sigevent	FIXME
--.\"structure and the
-+.IP
-+See also the
-+.I sigevent
-+structure
-+.\"and the
- .\".I siginfo_t	FIXME
--.\"type in this page.
-+.\"type
-+in this page.
- .TP
- .I size_t
- .IP
+diff --git a/man3/sigevent.3 b/man3/sigevent.3
+new file mode 100644
+index 000000000..db50c0f09
+--- /dev/null
++++ b/man3/sigevent.3
+@@ -0,0 +1 @@
++.so man7/system_data_types.7
 -- 
 2.28.0
 
