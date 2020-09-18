@@ -2,65 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E0984270612
-	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 22:14:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7ED68270613
+	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 22:14:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726205AbgIRUOF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 18 Sep 2020 16:14:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52586 "EHLO
+        id S1726218AbgIRUOT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 18 Sep 2020 16:14:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52628 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726118AbgIRUOD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 16:14:03 -0400
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8C915C0613CE
-        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 13:14:02 -0700 (PDT)
-Received: by mail-wm1-x341.google.com with SMTP id e17so6431775wme.0
-        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 13:14:02 -0700 (PDT)
+        with ESMTP id S1726118AbgIRUOT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 16:14:19 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C3A78C0613CE
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 13:14:18 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id c18so6795270wrm.9
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 13:14:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=yWWmUHFbHlB1wGckFLdk4pWMPDhTI9TJlnQIFh5mYKk=;
-        b=YwqcQJmxgGmZkoW945UA6S1UjPKyLdT7nKFLZkaQtZV+GMOmp8PO1b7KPWvn+9wiHe
-         U9y+K8yem/+5eci9W2PxaGTkBuL7B9/mxl4BWBWxWKenU2vJkrmI8AJulTcYuf/7S8w9
-         qdPBRFAekqMtLqRwcp81apnLtb85VN2aWyZye4+yvRTp+HP6BNyGkbQDb4R51f/RXWGY
-         vyi36qVb6o7Yxy7EZtvPcuzafisSvjDVFvSw16xZZvJel3jrhPONUbso9kEX8Y2pFRtM
-         kBTxhb2YiJ7gtRU0rUh/CmzFhPdXzl9ryYFSRTIOY5BsfcLZKJ3tu9fi+gRPjI4ihkmQ
-         5/nQ==
+        bh=3wuH4qdQTUwE1LDmRpZ/fyjbLAHqleIeb108GByoCig=;
+        b=Uic00AEitBLN7DUVbalKcYm8Ln0+kqZhhzZSaI66hwCoX1JZRSao/rz8phYCpSFoKL
+         awyNfXf+jnFxi/2bRPiVoqTZwsU+ortNJ+zB/8vK1YLYUksckShq7/MPAU8X7Eg5uxhV
+         UDWbxBMN7xq6Jggf6nof0x+v1oskZHEwTPn07+t3cngxC9nwlt8fTKEruiCUCixbvlJk
+         khSjGmPgnC2R3ZqYoJTQDmeMrz6wH06347NCtgBIaWyYbmMAkqz30QfX4KAZ4msZxXNV
+         90udQ5vEqPPNw3V2O1XUZViBPbFcJx8Wl3v8o5qPxCQAhnPExAAc19eM6sW0q3MZAFpb
+         styw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=yWWmUHFbHlB1wGckFLdk4pWMPDhTI9TJlnQIFh5mYKk=;
-        b=fYSodxq6m6SevUZxLEay+eYIvuO9QAuKtlqCkyLFXXwNXxwlDSQKqb7p9C0zJMSLK0
-         e30TVhsoHD04n2K/H71rHzkrt2W4hdnmWwimNfjLYI3pW+qcPJTlXPmthyMo/B62nJ1n
-         JWoZtxPoEXpyhuwKrYCEh2/evPHp1dif4STOS6DZJjLIljFOIbWx6dstqsy0Cvgx32o8
-         YHyYzyZJJBDhC5QiPky5SvTw9Wd4sTjXvq71ylXTcfILfGfFhByr65JEMoFw5+PRZ/wc
-         /i0hx4ZWq5fk7kBqh5t7QDub3f9B7eW8RMmTl1D9KpVITb9fqVdnYPS/Iok2OkVGHwIo
-         UffQ==
-X-Gm-Message-State: AOAM532BkTBnxFLK10vNQfdvXR47eTypAColx9+TVL1vS+YqSYTg3xi5
-        9EBnL3jVHK5T7EpytrbCDLo=
-X-Google-Smtp-Source: ABdhPJy3JLwBVz8oEd+TFTnmqWgJpoykrmyI0EhyU+2gvdKTVP4CInno2xgGhDdYYo+HjoZ1AAN3xA==
-X-Received: by 2002:a1c:9ecb:: with SMTP id h194mr16827930wme.140.1600460041191;
-        Fri, 18 Sep 2020 13:14:01 -0700 (PDT)
+        bh=3wuH4qdQTUwE1LDmRpZ/fyjbLAHqleIeb108GByoCig=;
+        b=mvLiCWfsFmdnikzfREgqv36vClTBkapxMKc0X6fGTl19WkTD9fTwD6kk0e1BE5eahc
+         vPKt6o11wZQgs1PBJj8auMn29j+LO5qMpzQYutX7AJxt+3W+RvA2XY0SXT1rLUH0fsU9
+         GjjIi7oGrhTz0OQKdG7uCXY3BlFA8J9wP8z74Wb9LYAvMqliL/eVTtWgbgQBOZ8k6/By
+         IOry2nOIm3PYTbzhiVzifx9HeOeIC6ofjFJu6UX0iBCWGcc47HumRNdq2u30pTGJwK5t
+         WNoun3aPbs8fF+FtjZj8lIg7dLMgQbtukxR6213sDcz2HLui5C+exvGmlMMZQjbi12Om
+         Dmyw==
+X-Gm-Message-State: AOAM530PbX76ehuvYfcM3H61Hfv4vu4W7oF1vhXZVnvdkSziszbb9eAM
+        W0Zh1kCRyt1wTpSa9lVTJVk=
+X-Google-Smtp-Source: ABdhPJz/z6oflRq36WdA1Hc05re16fLVb+0gbENxbpltpBzJIX8t7BV6kytVZEu8L146Aqw2L6tS5g==
+X-Received: by 2002:adf:e304:: with SMTP id b4mr38086406wrj.141.1600460057542;
+        Fri, 18 Sep 2020 13:14:17 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id l126sm6646578wmf.39.2020.09.18.13.14.00
+        by smtp.gmail.com with ESMTPSA id 11sm6801396wmi.14.2020.09.18.13.14.16
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2020 13:14:00 -0700 (PDT)
+        Fri, 18 Sep 2020 13:14:17 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         libc-alpha@sourceware.org
-Subject: Re: [PATCH 1/2] system_data_types.7: Document size_t
+Subject: Re: [PATCH 2/2] size_t.3: New link to new documented type in
+ system_data_types(7)
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <20200918112755.21428-1-colomar.6.4.3@gmail.com>
- <20200918112755.21428-2-colomar.6.4.3@gmail.com>
+ <20200918112755.21428-3-colomar.6.4.3@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <5622dc89-6ae6-ce38-dc6b-8744d4ce0c25@gmail.com>
-Date:   Fri, 18 Sep 2020 22:13:59 +0200
+Message-ID: <8dbd99ff-257c-7935-b3ba-c8f31f912050@gmail.com>
+Date:   Fri, 18 Sep 2020 22:14:16 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200918112755.21428-2-colomar.6.4.3@gmail.com>
+In-Reply-To: <20200918112755.21428-3-colomar.6.4.3@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -78,130 +79,17 @@ Thanks,
 Michael
 
 > ---
->  man7/system_data_types.7 | 103 +++++++++++++++++++++++++++++++++++++--
->  1 file changed, 99 insertions(+), 4 deletions(-)
+>  man3/size_t.3 | 1 +
+>  1 file changed, 1 insertion(+)
+>  create mode 100644 man3/size_t.3
 > 
-> diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-> index 84fea85b9..041e7e243 100644
-> --- a/man7/system_data_types.7
-> +++ b/man7/system_data_types.7
-> @@ -92,6 +92,101 @@ See also:
->  .\".I siginfo_t
->  .\"type in this page.
->  .TP
-> +.I size_t
-> +.IP
-> +Include:
-> +.I <stddef.h>
-> +or
-> +.IR <sys/types.h> ;
-> +or
-> +.I <aio.h>
-> +or
-> +.I <glob.h>
-> +or
-> +.I <grp.h>
-> +or
-> +.I <iconv.h>
-> +or
-> +.I <monetary.h>
-> +or
-> +.I <mqueue.h>
-> +or
-> +.I <ndbm.h>
-> +or
-> +.I <pwd.h>
-> +or
-> +.I <regex.h>
-> +or
-> +.I <search.h>
-> +or
-> +.I <signal.h>
-> +or
-> +.I <stdio.h>
-> +or
-> +.I <stdlib.h>
-> +or
-> +.I <string.h>
-> +or
-> +.I <strings.h>
-> +or
-> +.I <sys/mman.h>
-> +or
-> +.I <sys/msg.h>
-> +or
-> +.I <sys/sem.h>
-> +or
-> +.I <sys/shm.h>
-> +or
-> +.I <sys/socket.h>
-> +or
-> +.I <sys/uio.h>
-> +or
-> +.I <time.h>
-> +or
-> +.I <unistd.h>
-> +or
-> +.I <wchar.h>
-> +or
-> +.IR <wordexp.h> .
-> +.IP
-> +Used for a count of bytes.  It is the result of the
-> +.I sizeof
-> +operator.
-> +According to the C language standard,
-> +it shall be an unsigned integer type
-> +capable of storing values in the range [0,
-> +.BR SIZE_MAX ].
-> +.IP
-> +Conforming to: C99 and later; POSIX.1-2001 and later.
-> +.IP
-> +Notes:
-> +.IR <aio.h> ,
-> +.IR <glob.h> ,
-> +.IR <grp.h> ,
-> +.IR <iconv.h> ,
-> +.IR <mqueue.h> ,
-> +.IR <pwd.h> ,
-> +.IR <signal.h>
-> +and
-> +.IR <sys/socket.h>
-> +define
-> +.I size_t
-> +since POSIX.1-2008.
-> +.IP
-> +See also:
-> +.BR fread (3),
-> +.BR fwrite (3),
-> +.BR memcmp (3),
-> +.BR memcpy (3),
-> +.BR memset (3),
-> +.BR offsetof (3)
-> +.IP
-> +See also the
-> +.I ssize_t
-> +and
-> +.I ptrdiff_t
-> +types in this page.
-> +.TP
->  .I ssize_t
->  .IP
->  Include:
-> @@ -127,10 +222,10 @@ See also:
->  .BR recv (2),
->  .BR send (2),
->  .BR write (2)
-> -.\".IP	FIXME: When size_t is added, uncomment
-> -.\"See also the
-> -.\".I size_t
-> -.\"type in this page.
-> +.IP
-> +See also the
-> +.I size_t
-> +type in this page.
->  .TP
->  .I suseconds_t
->  .IP
+> diff --git a/man3/size_t.3 b/man3/size_t.3
+> new file mode 100644
+> index 000000000..db50c0f09
+> --- /dev/null
+> +++ b/man3/size_t.3
+> @@ -0,0 +1 @@
+> +.so man7/system_data_types.7
 > 
 
 
