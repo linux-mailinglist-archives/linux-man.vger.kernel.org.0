@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8794B2702DC
-	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 19:05:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9BA4E2702DD
+	for <lists+linux-man@lfdr.de>; Fri, 18 Sep 2020 19:05:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725955AbgIRRFH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 18 Sep 2020 13:05:07 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51748 "EHLO
+        id S1726273AbgIRRFI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 18 Sep 2020 13:05:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51752 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726250AbgIRRFH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 13:05:07 -0400
+        with ESMTP id S1726250AbgIRRFI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Sep 2020 13:05:08 -0400
 Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AD8E2C0613CF
-        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 10:05:06 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id z4so6348624wrr.4
-        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 10:05:06 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C8849C0613CE
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 10:05:07 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id o5so6334858wrn.13
+        for <linux-man@vger.kernel.org>; Fri, 18 Sep 2020 10:05:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=fxX4ISt0PhpLQBbe9U4z7go9zw8KkASTBVWH3HxBGwU=;
-        b=XXQeEF4LrFUcLemyDj/gs8RIliJw6JUvvulNdGH56vYEsH/dswhCbStQ49EGAeCxxR
-         JcG5pHsvYBvdibg71I1TBDDqWUdKUZy+Vp4XsWGL1VEAEfQu6w25JCCiZQAwyeSORBCM
-         YQzmBXYyYBWitlquqnxArkRuQpdUGONfBTTqqfvfv6JbmwyNyGeSBzAScdMMPe7PQoz7
-         K887yW+3bNm6BFkSEI38Jsy/Yyq6cHBgK3a4bfJA3VIzIWLvwBzQijk3lj+LUy0dirCs
-         F1aZFpwIaMAW8s/z1FuoL1x2J60QygyU5EeHjWIrNS7IPGVEkTD83ACj/U3CtRV61C2B
-         UJHg==
+        bh=6XmpYGY/5N8PVzQG8fsEduO6+tH2B8i3BoLl9XVGC7s=;
+        b=vG4/uGNzCxB7oTUNL9B0PCvLCFf6glh20TxLs/aT1WjJn+Z0AdUh4jU1XM3Giq00v5
+         YvNwYdlVdCN3MHvKCiI3hC4z36/EtbhaDakW6dVxCEnv2gJ93FfqsC4DA4kNYEOI9G4L
+         sgwohFDQAqWROpqvU5vt5J0HFmr2c5ffw/06/tHRJV5g+bSPeYQBluoAoHXuwHtTuzZD
+         Wx/EKdqwSB/UmQJVFoWQEkGW61TFfR7ZBmSNyPbVT5AVC8xk7ULQyCdLwEEbeuAIrRZk
+         Biw2HVGw6guV5onDg8JjKGAqTVt+j53E/oYc18MpAud4iYBomMbz754EpI/Y1CQqYILn
+         nCCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=fxX4ISt0PhpLQBbe9U4z7go9zw8KkASTBVWH3HxBGwU=;
-        b=c1PFJAmzXkjgwt6h5XLFQ4VNhEEpYASAOsy23bRrDS3FPr6IwTH+8SeTOFaxcNCBjT
-         +VugQ8YtHbXpVw7iTyuRLKMbgP+XwlfrjGna4eoW73Pt8raEjymkwZ0eMXhu/ZqZBvUh
-         4iCdJnPkPVeibpjTZVFP82vN5yBQ6Rv4JbUjM23+kNPONwlLITZQUMyjIUiPE5I3GjGj
-         +MnULo2eZjQJACYWq8J4fo8WQnO38iVUao3glmuD3+FueM2JENQEY7hi0KdjfFZXEwdA
-         yRt5GUNdbSkbe5/lLBoOqzmK81x50naSF6Gfg6/l12yzRi1a5esNn0eWu6Vez5xenjXY
-         vK+Q==
-X-Gm-Message-State: AOAM533h7Shi478XxVRgyF8fV4ldnxMI1eA9YNlzhyLUNHbZ/x1WZl7h
-        HPPTZkptvEODC+BY9ZMnOAs=
-X-Google-Smtp-Source: ABdhPJwpp4tzYMjcqKzz72YuyUjVvbb+Vejpf8ZZat6MNXvymIRZUWh5k8YY1nTDWywK/V+RIFmM0g==
-X-Received: by 2002:adf:e304:: with SMTP id b4mr37446334wrj.141.1600448705370;
-        Fri, 18 Sep 2020 10:05:05 -0700 (PDT)
+        bh=6XmpYGY/5N8PVzQG8fsEduO6+tH2B8i3BoLl9XVGC7s=;
+        b=IoA4caM6VopRHUU2zB9EsBaJi95xNhwJgfH8QcRlLuqyUM0UvxFlFmB2VHA9+Sb6kt
+         tv2qFcY3ymRh2gRVksdYgHEBhrwjgVBtTmh+z7L+i62RSoeqNT3xL/tMnPiNxIw4MM6t
+         UlJiqB94Kpj1jXwoS6ukZENLSjDqW2MzY+4DBjVoesDdjwKSkDNF72GihuM9FIXoMfpm
+         u/Vwzq3RvY5liH+fuoBdmZKxsBAXOF9O4WtlOLvbKat3v12k2D0L4u9kQQ7I6XH9RMc8
+         i8MVFZRryxE8/Du6gL3xDteeIYBrtu/g6Tnm0xpwJnJ2mIkrCx4vrbPHQpPdjZU2BFhZ
+         FuVA==
+X-Gm-Message-State: AOAM533a1qvFB3Ffpk2jzJXoxdDeslZAzqUsZVesHfjZG6MHiWK3cUb3
+        BY91Q8vDvtzskWo6PhhNUcU=
+X-Google-Smtp-Source: ABdhPJwB8TnfyrPZp6CXY1ISfE3y6/6KbKiIGjlGEL0TUFcme0nZohnQeT+VFKad65nnCNeAK4O+/A==
+X-Received: by 2002:adf:f88d:: with SMTP id u13mr41690518wrp.213.1600448706470;
+        Fri, 18 Sep 2020 10:05:06 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id q18sm6321208wre.78.2020.09.18.10.05.04
+        by smtp.googlemail.com with ESMTPSA id q18sm6321208wre.78.2020.09.18.10.05.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2020 10:05:04 -0700 (PDT)
+        Fri, 18 Sep 2020 10:05:05 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org,
         Alejandro Colomar <colomar.6.4.3@gmail.com>
-Subject: [PATCH 5/9] system_data_types.7: srcfix: cosmetic: Visually sparate types
-Date:   Fri, 18 Sep 2020 19:04:39 +0200
-Message-Id: <20200918170442.94920-6-colomar.6.4.3@gmail.com>
+Subject: [PATCH 6/9] system_data_types.7: Document aiocb
+Date:   Fri, 18 Sep 2020 19:04:40 +0200
+Message-Id: <20200918170442.94920-7-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200918170442.94920-1-colomar.6.4.3@gmail.com>
 References: <20200918170442.94920-1-colomar.6.4.3@gmail.com>
@@ -65,109 +65,67 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man7/system_data_types.7 | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ man7/system_data_types.7 | 40 ++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 36 insertions(+), 4 deletions(-)
 
 diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-index 53c289e31..8c0c78954 100644
+index 8c0c78954..f7d25bec9 100644
 --- a/man7/system_data_types.7
 +++ b/man7/system_data_types.7
-@@ -61,6 +61,7 @@ system_data_types \- overview of system data types
+@@ -61,6 +61,38 @@ system_data_types \- overview of system data types
  .\"		* Notes (optional)
  .\"
  .\"		* See also
-+.\"------------------------------------- ptrdiff_t --------------------/
++.\"------------------------------------- aiocb ------------------------/
++.TP
++.I aiocb
++.IP
++Include:
++.IR <aio.h> .
++.IP
++.EX
++struct aiocb {
++    int             aio_fildes;    /* File descriptor */
++    off_t           aio_offset;    /* File offset */
++    volatile void  *aio_buf;       /* Location of buffer */
++    size_t          aio_nbytes;    /* Length of transfer */
++    int             aio_reqprio;   /* Request priority offset */
++    struct sigevent aio_sigevent;  /* Signal number and value */
++    int             aio_lio_opcode;/* Operation to be performed */
++};
++.EE
++.\".IP
++.\" FIXME: Add a description?
++.IP
++Conforming to: POSIX.1-2001 and later.
++.IP
++See also:
++.BR aio_cancel (3),
++.BR aio_error (3),
++.BR aio_fsync (3),
++.BR aio_read (3),
++.BR aio_return (3),
++.BR aio_suspend (3),
++.BR aio_write (3),
++.BR lio_listio (3)
+ .\"------------------------------------- ptrdiff_t --------------------/
  .TP
  .I ptrdiff_t
- .IP
-@@ -81,6 +82,7 @@ See also the
- and
- .I ssize_t
- types in this page.
-+.\"------------------------------------- regmatch_t -------------------/
- .TP
- .I regmatch_t
- .IP
-@@ -103,6 +105,7 @@ Conforming to: POSIX.1-2001 and later.
- .IP
- See also:
- .BR regexec (3)
-+.\"------------------------------------- regoff_t ---------------------/
- .TP
- .I regoff_t
- .IP
-@@ -132,6 +135,7 @@ structure and the
- and
- .I ssize_t
- types in this page.
-+.\"------------------------------------- sigevent ---------------------/
- .TP
- .I sigevent
- .IP
-@@ -177,6 +181,7 @@ See also:
- .\"See also the
- .\".I aiocb	FIXME
- .\"structure in this page.
-+.\"------------------------------------- sigval -----------------------/
+@@ -177,10 +209,10 @@ See also:
+ .BR getaddrinfo_a (3),
+ .BR lio_listio (3),
+ .BR mq_notify (3)
+-.\".IP
+-.\"See also the
+-.\".I aiocb	FIXME
+-.\"structure in this page.
++.IP
++See also the
++.I aiocb
++structure in this page.
+ .\"------------------------------------- sigval -----------------------/
  .TP
  .I sigval
- .IP
-@@ -206,6 +211,7 @@ structure
- .\".I siginfo_t	FIXME
- .\"type
- in this page.
-+.\"------------------------------------- size_t -----------------------/
- .TP
- .I size_t
- .IP
-@@ -301,6 +307,7 @@ See also the
- and
- .I ssize_t
- types in this page.
-+.\"------------------------------------- ssize_t ----------------------/
- .TP
- .I ssize_t
- .IP
-@@ -343,6 +350,7 @@ See also the
- and
- .I size_t
- types in this page.
-+.\"------------------------------------- suseconds_t ------------------/
- .TP
- .I suseconds_t
- .IP
-@@ -362,6 +370,7 @@ Conforming to: POSIX.1-2001 and later.
- See also the
- .I timeval
- structure in this page.
-+.\"------------------------------------- time_t -----------------------/
- .TP
- .I time_t
- .IP
-@@ -402,6 +411,7 @@ See also:
- .BR time (2),
- .BR ctime (3),
- .BR difftime (3)
-+.\"------------------------------------- timer_t ----------------------/
- .TP
- .I timer_t
- .IP
-@@ -422,6 +432,7 @@ See also:
- .BR timer_delete (2),
- .BR timer_getoverrun (2),
- .BR timer_settime (2)
-+.\"------------------------------------- timespec ---------------------/
- .TP
- .I timespec
- .IP
-@@ -457,6 +468,7 @@ See also:
- .BR nanosleep (2),
- .BR timerfd_gettime (2),
- .BR timer_gettime (2)
-+.\"------------------------------------- timeval ----------------------/
- .TP
- .I timeval
- .IP
 -- 
 2.28.0
 
