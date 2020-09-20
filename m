@@ -2,91 +2,144 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8AF25270BEC
-	for <lists+linux-man@lfdr.de>; Sat, 19 Sep 2020 10:46:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6E7E2271699
+	for <lists+linux-man@lfdr.de>; Sun, 20 Sep 2020 20:06:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726097AbgISIqL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 19 Sep 2020 04:46:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55852 "EHLO
+        id S1726055AbgITSGr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 20 Sep 2020 14:06:47 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51314 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726054AbgISIqL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 19 Sep 2020 04:46:11 -0400
-Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com [IPv6:2607:f8b0:4864:20::242])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5BFBAC0613CE
-        for <linux-man@vger.kernel.org>; Sat, 19 Sep 2020 01:46:11 -0700 (PDT)
-Received: by mail-oi1-x242.google.com with SMTP id z26so10188160oih.12
-        for <linux-man@vger.kernel.org>; Sat, 19 Sep 2020 01:46:11 -0700 (PDT)
+        with ESMTP id S1726043AbgITSGr (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Sep 2020 14:06:47 -0400
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6DAF2C061755
+        for <linux-man@vger.kernel.org>; Sun, 20 Sep 2020 11:06:47 -0700 (PDT)
+Received: by mail-wm1-x342.google.com with SMTP id w2so9966403wmi.1
+        for <linux-man@vger.kernel.org>; Sun, 20 Sep 2020 11:06:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to;
-        bh=kMjjLWC+QZCu49EToaaQWx/sJBNzzF8yZ1fQivdtIto=;
-        b=F14/xJmRDDhnjGDddQs0Na42mi2U0ABlwkJtJ1l2mSokIJX9z/uMwiLFbFqniA1ATC
-         03DwshHDDavFJZpN1sBllY1kXhib0qM6cdA4UikW9dTx71yP1dbibaQYd0vsnUGqKuFJ
-         qWk3GRdhTmpaBWZHYAwx/AsrmA+YQj0F/Awbd3jrr9HmrtxL5GhMYVLPUlDX6a77veiU
-         SZPVmL7He3tPUhsYI56mYlE95s42VhdPWxhZ2KmceYlFdnBfHyi/hDR6UbVajopg0ZgO
-         jG4Tv6iVxpfWppCDbu9HBQRem0q2AGAuI3+VsGukc84v8UbFJz3qeNytlY5FA6slzaLN
-         yyvw==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=TjB3DapvNpGrqWmWt4MCPPKQPoM3j9bVSq3D5a/jKPY=;
+        b=JBm3kMyZGNOtAWntTuwcGoyZqs5qbmu3meRpVdQKhRd58xbvVkBttQ3IBx7pb53qPu
+         M62T60zf35IpQq5ZGyQU5ofRCTIoY0Lp9B1vc+Ti+rC3ppaJHW+ZHIhMpZKnYMHjmE1g
+         EQjWyDR1czIY1TleBfxocL0e3tmScghkaZq8rav4eEi52/bnd4zHG+0xzv1drsCs7fI4
+         5J0GkKDQVqMVo88B+nnVfs696gtFFTI1Qd6/fixY7xbvlttCvzvH+scGHLffgXSRjRbW
+         w1VihnvCaVtyl5jjGBfOCwSWA+1Fk1e8e5msbLO7qwrXBB1C5+6yJCLfzcX+VEEJpnjy
+         aGnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to;
-        bh=kMjjLWC+QZCu49EToaaQWx/sJBNzzF8yZ1fQivdtIto=;
-        b=dh/TG8VevTJy7KzG/gY53uicgPg5QnnVkY/w0ZCGWJk+x7F1H4Ov/NNpYbX+lgTmY5
-         eyjxxSn3I5aulLBV+0T3+r4h1w7P+VhDdB14B6hYjJ7K1mRkhrh6JVSLqUToW4heyoHl
-         8CYKULnAEx5gVlDbSYQJh/jEKfTy9B8DqAh/lRIo9XvVNcYGshHcC68iE2dsdxYUVkjL
-         fLKFAysGD9sHJNs6ccu4FHnirR1V7BQK6P5Z13+waxCzI1LThZOJUp5ik/g5biGWmyMS
-         Ees3b3SYmsb8RKRPZYWr9/QgwBer3Fu408R+ZcUhnvWmUh12caxB5FJ1dMGD/Vhp3ojq
-         H7/w==
-X-Gm-Message-State: AOAM530y7m4ajHfNtXNdIKGb4b0E1W2pNsoesitgh56uL0siR6Eh0wOW
-        WZz7haBpx06SaESnjiqrRs4mgpQLQngSg8AvMlc=
-X-Google-Smtp-Source: ABdhPJxnJdCZbOHxI9lx8e6602ZXLxQbsXGFmlJ0argIVs2WYH1iHno8BlLQr6M2NQy+0kAAJkPDFCT9ygOe3eTBNic=
-X-Received: by 2002:a54:458f:: with SMTP id z15mr10148657oib.148.1600505170700;
- Sat, 19 Sep 2020 01:46:10 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=TjB3DapvNpGrqWmWt4MCPPKQPoM3j9bVSq3D5a/jKPY=;
+        b=tJkTjLgaIAdeOoeWIUbOdlmMcgw5D6jBgVnDOx98L+IC2OMswWkCyKcFXrNJqSmwom
+         CSr4koUKdaZpEqBbR1ep73109ujCrWySLZfrRYWyLdGPcWggz2rfzG+CWKCY6IWdHUQ7
+         xvQEMfzf1lFsJwAFP1KgfeyoHsxv79rFYYfDI7zFrvXP8n/pJgind4L+/MoyBuQyGbXv
+         HS2CGVJ952ea/AeTVZ91uucqcQnG02UZp/r/cqealgItOfuPTQ7RFxDr5oXu4vLZX7Uh
+         F/WT6PNXkrpdvOpPU5tA0Hx6LV66AIBuHgKlxRq9TV+A8VHVjKvpWu5JH/uRNnAcwaTP
+         4VCA==
+X-Gm-Message-State: AOAM533F4qH9UTCoZGMlzkXb7KEOHB4kJ3G75c5QMo6xa8fcXjnX/7DE
+        VsNypo50Cs6BB7JVG0ACn6k=
+X-Google-Smtp-Source: ABdhPJySWDxLK4UmMND8Qa2AWP8o0Zfrk3K4ACCzTlXViAdtePA9Ea3u62meEcR8l+9tuWtg+299Vg==
+X-Received: by 2002:a1c:5a86:: with SMTP id o128mr25192512wmb.129.1600625206094;
+        Sun, 20 Sep 2020 11:06:46 -0700 (PDT)
+Received: from localhost.localdomain ([93.115.133.118])
+        by smtp.googlemail.com with ESMTPSA id d2sm16402029wro.34.2020.09.20.11.06.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2020 11:06:45 -0700 (PDT)
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org,
+        Alejandro Colomar <colomar.6.4.3@gmail.com>
+Subject: [PATCH v2 8/9] system_data_types.7: Document siginfo_t
+Date:   Sun, 20 Sep 2020 20:05:51 +0200
+Message-Id: <20200920180551.63608-1-colomar.6.4.3@gmail.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <a5e4490c-b796-c13f-fb74-75ebc7dbe321@gmail.com>
+References: <a5e4490c-b796-c13f-fb74-75ebc7dbe321@gmail.com>
 MIME-Version: 1.0
-References: <fb6463f6-49d7-e473-d5e1-1cdf8375e498@gmail.com>
- <6c5b89f8-4281-4434-cbee-28f88d07920c@gmail.com> <4ea99048-4bfd-9cba-44cd-9c37fdad8fce@gmail.com>
- <CAKgNAkjys+LYn1qaSXhM2gJfkv_UOnpeNPyh3QCqNLcMNBKB+g@mail.gmail.com> <20200918021603.GA596604@thunder.hadrons.org>
-In-Reply-To: <20200918021603.GA596604@thunder.hadrons.org>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Sat, 19 Sep 2020 10:45:59 +0200
-Message-ID: <CAKgNAkgDFmqvUswP03+a-ibGxhP6XT-3sjwwT_dK5EUkFBReVg@mail.gmail.com>
-Subject: Re: [IDEA] New pages for types: structs and typedfefs
-To:     Guillem Jover <guillem@hadrons.org>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        libbsd@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Guillem
+Note: There are a few members off this structure that are
+not required by POSIX (XSI extensions, and such).
 
-On Fri, 18 Sep 2020 at 04:16, Guillem Jover <guillem@hadrons.org> wrote:
-> Regarding conflicts, I specifically chose to place all libbsd man
-> pages in the 3bsd section (both in filename and in the .Dt macro, to
-> avoid an actual conflict, and to not override the system man pages.
-> So once a man page appears in say man-pages, then that will take
-> precedence:
->
->   $ man explicit_bzero # man-pages version recentish addition
->
-> vs
->
->   $ man 3bsd explicit_bzero # libbsd version
+I simply chose to not document them at all.
 
-Yes. Thanks for arranging things that way!
+Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+---
+
+Hello Michael,
+
+Clearly I needed the weekend!
+Here's the patch as it should have been.
 
 Cheers,
 
-Michael
+Alex
 
+ man7/system_data_types.7 | 39 ++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 36 insertions(+), 3 deletions(-)
 
+diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
+index a7955f331..080f0057f 100644
+--- a/man7/system_data_types.7
++++ b/man7/system_data_types.7
+@@ -213,6 +213,39 @@ See also:
+ See also the
+ .I aiocb
+ structure in this page.
++.\"------------------------------------- siginfo_t --------------------/
++.TP
++.I siginfo_t
++.IP
++Include:
++.IR <signal.h> ;
++or
++.IR <sys/wait.h> .
++.IP
++.EX
++typedef struct {
++    int             si_signo; /* Signal number */
++    int             si_code; /* Signal code */
++
++    pid_t           si_pid; /* Sending process ID */
++    uid_t           si_uid; /* Real user ID of sending process */
++    void           *si_addr; /* Address of faulting instruction */
++    int             si_status; /* Exit value or signal */
++
++    union sigval    si_value; /* Signal value */
++} siginfo_t;
++.EE
++.\".IP
++.\" FIXME: Add a description?
++.IP
++Conforming to: POSIX.1-2001 and later.
++.IP
++See also:
++.BR pidfd_send_signal (2),
++.BR rt_sigqueueinfo (2),
++.BR sigaction (2),
++.BR sigwaitinfo (2),
++.BR psiginfo (3)
+ .\"------------------------------------- sigval -----------------------/
+ .TP
+ .I sigval
+@@ -239,9 +272,9 @@ See also:
+ See also the
+ .I sigevent
+ structure
+-.\"and the
+-.\".I siginfo_t	FIXME
+-.\"type
++and the
++.I siginfo_t
++type
+ in this page.
+ .\"------------------------------------- size_t -----------------------/
+ .TP
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.28.0
+
