@@ -2,108 +2,110 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B4B0A271B44
-	for <lists+linux-man@lfdr.de>; Mon, 21 Sep 2020 09:14:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6E640271BE4
+	for <lists+linux-man@lfdr.de>; Mon, 21 Sep 2020 09:32:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726430AbgIUHON (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 21 Sep 2020 03:14:13 -0400
-Received: from mx2.suse.de ([195.135.220.15]:40256 "EHLO mx2.suse.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726211AbgIUHON (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 21 Sep 2020 03:14:13 -0400
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-        t=1600672451;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=svbwHwBodOTvgdlvY5XDzm7sMwGYP2RjQJZ+9FLSCds=;
-        b=jJJ5gd9pBpyUA1mZ1gMOozlsHeBnD1yxFRFP7ZwGRXbukVMmG5I7CT+TXuG/dmHFW7G28w
-        HyNkLcslbrFGD1EKuR/7Cb2o48JQQPDTUvmrNJkTNJqdLK+NZsRU5UelYVPv1pjxwdubEu
-        LXO7uAo7LNgnjuW5ygH/OywJvAOxyZc=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-        by mx2.suse.de (Postfix) with ESMTP id D96A5ABB2;
-        Mon, 21 Sep 2020 07:14:46 +0000 (UTC)
-Date:   Mon, 21 Sep 2020 09:14:10 +0200
-From:   Michal Hocko <mhocko@suse.com>
-To:     Christoph Hellwig <hch@infradead.org>
-Cc:     Minchan Kim <minchan@kernel.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        LKML <linux-kernel@vger.kernel.org>,
-        Christian Brauner <christian.brauner@ubuntu.com>,
-        linux-mm <linux-mm@kvack.org>, linux-api@vger.kernel.org,
-        oleksandr@redhat.com, Suren Baghdasaryan <surenb@google.com>,
-        Tim Murray <timmurray@google.com>,
-        Sandeep Patil <sspatil@google.com>,
-        Sonny Rao <sonnyrao@google.com>,
-        Brian Geffon <bgeffon@google.com>,
-        Johannes Weiner <hannes@cmpxchg.org>,
-        Shakeel Butt <shakeelb@google.com>,
-        John Dias <joaodias@google.com>,
-        Joel Fernandes <joel@joelfernandes.org>,
-        Jann Horn <jannh@google.com>,
-        alexander.h.duyck@linux.intel.com, sj38.park@gmail.com,
-        David Rientjes <rientjes@google.com>,
-        Arjun Roy <arjunroy@google.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Vlastimil Babka <vbabka@suse.cz>,
-        Christian Brauner <christian@brauner.io>,
-        Daniel Colascione <dancol@google.com>,
-        Jens Axboe <axboe@kernel.dk>,
-        Kirill Tkhai <ktkhai@virtuozzo.com>,
-        SeongJae Park <sjpark@amazon.de>, linux-man@vger.kernel.org
-Subject: Re: [PATCH v9 3/3] mm/madvise: introduce process_madvise() syscall:
- an external memory hinting API
-Message-ID: <20200921071410.GB12990@dhcp22.suse.cz>
-References: <20200901000633.1920247-1-minchan@kernel.org>
- <20200901000633.1920247-4-minchan@kernel.org>
- <20200921065633.GA8070@infradead.org>
+        id S1726474AbgIUHcT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 21 Sep 2020 03:32:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33012 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726211AbgIUHcT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 21 Sep 2020 03:32:19 -0400
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0A0DDC061755
+        for <linux-man@vger.kernel.org>; Mon, 21 Sep 2020 00:32:19 -0700 (PDT)
+Received: by mail-wm1-x336.google.com with SMTP id l15so10872189wmh.1
+        for <linux-man@vger.kernel.org>; Mon, 21 Sep 2020 00:32:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=N9uy/xSueGr5PU8aS+soPA0ETeIPtVZthgKt41AQrqY=;
+        b=I983jGzNBaWkGDTC9hFnbr8vf0+WKDHrLYwj/l6Jl0pfLp4ifqmayTMLitb03v2e2G
+         0MokDDyQqg9ZDYWbIVDecWkRaSWzWHPFOmAOLJMmnFhkBRtFwOiaCiIi7ruO6W1qIacB
+         1ZiPUbJs+InsZGDd+f7iU9WG2QEeZB0fkNw8Ql/CdkUHipH1UJAcTEGJj3p4I+wibMas
+         yPR02tTsfqrpMUFxmyKQHvdNgsH9iqkV7joIlxF5+ArOX3UUMBgd/hHDBAa48oE3EnO9
+         mtvMAF7iMnpXkJjQVbC8MPAzJCbwFxoVE8YC3lUXW56WCqjElJh+aQQxx37Zz3oQK/dK
+         zGaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=N9uy/xSueGr5PU8aS+soPA0ETeIPtVZthgKt41AQrqY=;
+        b=IdPWXES5ncKyy3es4Be80+KgGi58vOcDc7QMt44JTlPfW0lL9E2Pp+pgahehdWoYRV
+         yzg0n5yYRp8N5JQWtGo2Oyv4gT05z/s7LRrbw7zACeFZTImueYCGilvdQWxYGt959Hrs
+         GctNbYW5tTvELcxuQAzmkKDyfZoQ5MwAcwsMLUJjbEoEkszvo0qs3FufoWP2fSSgjq9/
+         8IZyC6ZIruBjihMhXCAzdSbP0KiZBV7GNbDpiZL/BVyi6UMtQ1Mh8R1eQgy8X4e2dqc/
+         hGZ03PIJlHYNrrfYl8loWBAsNkV51QfLwUr1WlL6h99YqY6HJdjPuJ0metMoXreJSO11
+         jAPA==
+X-Gm-Message-State: AOAM5326mYzbdKvYl3umIOPQcda/5sl/lxfrEqYPfPhcyjXWEHUlD7k/
+        5dBzEv06y8zyTGDCx27ej4oNUTmSb8c=
+X-Google-Smtp-Source: ABdhPJxFAr/b8NTC1bdHkf9ZPEsRP6VpACh4FC3+b7552Zvt5wCk19rgwFra8mZGxL6wIbhXsi0I8A==
+X-Received: by 2002:a1c:5988:: with SMTP id n130mr14974049wmb.95.1600673535813;
+        Mon, 21 Sep 2020 00:32:15 -0700 (PDT)
+Received: from [192.168.1.143] ([170.253.60.68])
+        by smtp.gmail.com with ESMTPSA id n2sm20243571wma.29.2020.09.21.00.32.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2020 00:32:15 -0700 (PDT)
+Subject: man-pages.7: Simplify indentation of structure definitions, shell
+ session logs, and so on
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+References: <20200920214012.454410-1-colomar.6.4.3@gmail.com>
+ <61f4e2a4-d468-ceba-2ccf-ce0c061aa20b@gmail.com>
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+Message-ID: <f70c7f62-9d61-71aa-67cf-43501a29bccc@gmail.com>
+Date:   Mon, 21 Sep 2020 09:32:14 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200921065633.GA8070@infradead.org>
+In-Reply-To: <61f4e2a4-d468-ceba-2ccf-ce0c061aa20b@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon 21-09-20 07:56:33, Christoph Hellwig wrote:
-> On Mon, Aug 31, 2020 at 05:06:33PM -0700, Minchan Kim wrote:
-> > There is usecase that System Management Software(SMS) want to give a
-> > memory hint like MADV_[COLD|PAGEEOUT] to other processes and in the
-> > case of Android, it is the ActivityManagerService.
-> > 
-> > The information required to make the reclaim decision is not known to
-> > the app.  Instead, it is known to the centralized userspace
-> > daemon(ActivityManagerService), and that daemon must be able to
-> > initiate reclaim on its own without any app involvement.
-> > 
-> > To solve the issue, this patch introduces a new syscall process_madvise(2).
-> > It uses pidfd of an external process to give the hint. It also supports
-> > vector address range because Android app has thousands of vmas due to
-> > zygote so it's totally waste of CPU and power if we should call the
-> > syscall one by one for each vma.(With testing 2000-vma syscall vs
-> > 1-vector syscall, it showed 15% performance improvement.  I think it
-> > would be bigger in real practice because the testing ran very cache
-> > friendly environment).
-> 
-> I'm really not sure this syscall is a good idea.  If you want central
-> control you should implement an IPC mechanisms that allows your
-> supervisor daemon to tell the application to perform the madvice
-> instead of forcing the behavior on it.
+Hello Michael,
 
-Even though I am not entirely happy about the interface [1]. As it seems
-I am in minority in my concern I backed off and decided to not block this
-work because I do not see the problem with the functionality itself. And
-I find it very useful for userspace driven memory management people are
-asking for a long time.
 
-This functionality shouldn't be much different from the standard memory
-reclaim. It has some limitations (e.g. it can only handle mapped memory)
-but allows to pro-actively swap out or reclaim disk based memory based
-on a specific knowlege of the workload. Kernel is not able to do the
-same.
+Indentation of structure definitions, shell session logs, and so on
 
-[1] http://lkml.kernel.org/r/20200117115225.GV19428@dhcp22.suse.cz
--- 
-Michal Hocko
-SUSE Labs
+When  structure definitions, shell session logs, and so on are included
+in running text, indent them by 4 spaces (i.e.,  a  block  enclosed  by
+.in +4n and .in), format them using the .EX and EE macros, and surround
+them with suitable paragraph markers (either .PP or .IP).  For example:
+
+                .PP
+                .in +4n
+                .EX
+                int
+                main(int argc, char *argv[])
+                {
+                    return 0;
+                }
+                .EE
+                .in
+                .PP
+
+
+That could be simplified to the following, right?:
+
+                .IP
+                .EX
+                int
+                main(int argc, char *argv[])
+                {
+                    return 0;
+                }
+                .EE
+                .PP
+
+Or is there any difference?
+
+
+Thanks,
+
+Alex
