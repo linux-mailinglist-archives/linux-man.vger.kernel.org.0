@@ -2,121 +2,80 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 05AEC2745A8
-	for <lists+linux-man@lfdr.de>; Tue, 22 Sep 2020 17:44:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1E7AF2745A9
+	for <lists+linux-man@lfdr.de>; Tue, 22 Sep 2020 17:44:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726672AbgIVPoV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 22 Sep 2020 11:44:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49358 "EHLO
+        id S1726682AbgIVPoX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 22 Sep 2020 11:44:23 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49364 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726566AbgIVPoV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 22 Sep 2020 11:44:21 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 33B8DC061755
-        for <linux-man@vger.kernel.org>; Tue, 22 Sep 2020 08:44:21 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id x23so3829213wmi.3
-        for <linux-man@vger.kernel.org>; Tue, 22 Sep 2020 08:44:21 -0700 (PDT)
+        with ESMTP id S1726566AbgIVPoX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 22 Sep 2020 11:44:23 -0400
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5B3F0C061755
+        for <linux-man@vger.kernel.org>; Tue, 22 Sep 2020 08:44:23 -0700 (PDT)
+Received: by mail-wm1-x335.google.com with SMTP id e17so3851947wme.0
+        for <linux-man@vger.kernel.org>; Tue, 22 Sep 2020 08:44:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=3pCsQAXgsOsasV517KEYUIxDMwXz5AtPJfJx3bz3+mg=;
-        b=DQjcmf3me3qnJBvCpDv6m5PgBKuMR3fkdt8H92yZAggYbQrX30f5NZostUNMfkIIMp
-         Ipcf42WQW8EkF+KtaQ5VSSTpxYLM0QJGTmUD50fmKAXaIlVvqFUa4NZP5UV+euEm1I7J
-         0XsEENyktrGC7bLZlHOCP1LIW4gqBH8cbjZNYoGSdii0ooGtVUDNAReRTAAEnfbcyG3I
-         Ple0g3fjubZrd0gfNysHqgEcL/UkXYRyKu0aMw7T9nvuoV9lSw2uOKE/QKZ8W5KCR0oz
-         Edjz0vf4Y+/ZrGac0ncfY6r8bG0AwM9mjGBE0wTQpSGCj0z0Aw++IOYOVkR96dC8+Tmg
-         quyg==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=fVImbFenIXvvRSIyy9qms7t9U5BPRZMAL44UUGmYoWI=;
+        b=l4QjSYL0qiDyEyY3gNVGZSoZl2ohurN6zY8KK2x6p6DZBszuHHFJmrmIxd524+PqhH
+         5PA0KbeJRKDFdRulCCH2PZ2aIyg/rNttiZ6SUsvhpOTPH0BaZL0UtG42ZbYJpWl7d/Ad
+         zqVZmcdJb0Za+DEPzlsz7AoMSQioYAxSmyS074EnDx6cnLzHNGOogjFJw4SIx3S+5RfI
+         +RFugEViuk/8+Hi9e4xW3CBlhEh+k+UBdTP6Lf4nr6QWR1hfldT4wjFCI3wUB0U/hIyv
+         w3iG2EWyX5YipLYu6SzvNJUXCzp1HdTML2NmoyC6UvXPhWcQbXe4xg7jxTojr2fcmmxE
+         CRXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=3pCsQAXgsOsasV517KEYUIxDMwXz5AtPJfJx3bz3+mg=;
-        b=AsU4ATnD8LqPe8L4oOnCsbETZf4KtAG50KuPmQb87VH6J+P0DOamwVlUk8BMMeMul3
-         sxkupZJzubTtBeZrCb/eHLB51nzC/EeOB4Hoivwj3k3cv4k1joTFBUwxoYfHXhlbbJO6
-         T7ozI5epkRloMXh2XhBCI3JzZure3YQ2Lmcb4EIS/DJBWOGqqGrcGD2oLuvmw4I3EO7I
-         mwiNJgJvObXjsF1g6h9Jau/fQmYBYqBxwmaeXg0K0hjUlsZ/wwXeJdrKOIj2pOnTPVcr
-         KvScA8+57d+ACSjbhEpKwFz1iTKyZFvdET7IgDl4RLQqn4YsqPK/Xm3hlACCUGKMV2Ax
-         mAFw==
-X-Gm-Message-State: AOAM532GDpI5W+1MViF5iqHtjLOcf2VsRU6ZLIkWHXaAyyuzobPx9HwM
-        lDHdDU3O5ErY2FXeFL1Ywv4=
-X-Google-Smtp-Source: ABdhPJxMJAGuH2uohNcZaX3R/I6HVatUkedN4fAa5/Z6cTVjgivrWeezauE7icA4dvRM+49mAG+E3A==
-X-Received: by 2002:a7b:c215:: with SMTP id x21mr1643874wmi.138.1600789459825;
-        Tue, 22 Sep 2020 08:44:19 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=fVImbFenIXvvRSIyy9qms7t9U5BPRZMAL44UUGmYoWI=;
+        b=mgm2lr7pdU4LUS3X5lO7QctwkXa/hBjDkq+tUNJKpRHfZ4IW40sIkZAsyO8Oh2v2t6
+         9y3IOPgF6H7li7rPC2W9SPrlmJU3Jmv/bEeuBjQsvmSHuWvnpDinu3LtDev4X1dBxo7l
+         G3XvktmXbkkAtLT1tdDg92jfhsm286ZuTM9UghEHB8wifZQZ1TRHCiZoceisoGRyBdUH
+         bfdzzf5110traJJyVIDz5gQTsN9+ch1QHgWoFfNGPbH4VCKMWHvTLbXVH7Cxi1TPuMrZ
+         XZjTdfrjMtR02wpTXb2zlb56dipQ7oY1afv0tWN5rlKQ89S1X5awO0qo+vy8bUvrS8u3
+         coxw==
+X-Gm-Message-State: AOAM530mtbbRgHFrJBXFq1UvqsKa93kungSL/sETLO4PhUYHmZmpSxuj
+        JIS/kWe8J9rVguWggbEGUqo=
+X-Google-Smtp-Source: ABdhPJy1wHfoi6rRdZtAHmT/ILUaaIgTN71OXVyioKvzmUfgShPuOn/0MTfr4EModHpVgVDagGdWPg==
+X-Received: by 2002:a7b:c345:: with SMTP id l5mr1624145wmj.123.1600789460779;
+        Tue, 22 Sep 2020 08:44:20 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id t1sm4802644wmi.16.2020.09.22.08.44.18
+        by smtp.googlemail.com with ESMTPSA id t1sm4802644wmi.16.2020.09.22.08.44.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2020 08:44:19 -0700 (PDT)
+        Tue, 22 Sep 2020 08:44:20 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org,
         Alejandro Colomar <colomar.6.4.3@gmail.com>
-Subject: [PATCH 1/2] system_data_types.7: Add 'fexcept_t'
-Date:   Tue, 22 Sep 2020 17:38:22 +0200
-Message-Id: <20200922153822.33728-1-colomar.6.4.3@gmail.com>
+Subject: [PATCH 2/2] fexcept_t.3: New link to system_data_types(7)
+Date:   Tue, 22 Sep 2020 17:38:23 +0200
+Message-Id: <20200922153822.33728-2-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200922153822.33728-1-colomar.6.4.3@gmail.com>
+References: <20200922153822.33728-1-colomar.6.4.3@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Note:  I used this commit to fix the comment that separates with gid_t.
-
-It wasn't aligned with the rest (col 72).
-
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
+ man3/fexcept_t.3 | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 man3/fexcept_t.3
 
-Hi Michael,
-
-Would you prefer a separate patch for the cosmetic change?
-I put it in the same one, as it was in an adjacent line,
-and the diff looks good; to avoid noise in the log.
-But maybe a separate commit is better.
-
-Thanks,
-
-Alex
-
- man7/system_data_types.7 | 24 +++++++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
-
-diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-index 59c64fb89..97411a193 100644
---- a/man7/system_data_types.7
-+++ b/man7/system_data_types.7
-@@ -111,7 +111,29 @@ Conforming to: C99 and later; POSIX.1-2001 and later.
- .IP
- See also:
- .BR fenv (3)
--.\"------------------------------------- gid_t ----------------------/
-+.\"------------------------------------- fexcept_t --------------------/
-+.TP
-+.I fexcept_t
-+.IP
-+Include:
-+.IR <fenv.h> .
-+.IP
-+Represents the floating-point status flags collectively,
-+including any status the implementation associates with the flags.
-+A floating-point status flag is a system variable
-+whose value is set (but never cleared)
-+when a floating-point exception is raised,
-+which occurs as a side-effect of
-+exceptional floating-point arithmetic to provide auxiliary information.
-+A floating-point control mode is a system variable whose
-+value may be set by the user to affect
-+the subsequent behavior of floating-point arithmetic.
-+.IP
-+Conforming to: C99 and later; POSIX.1-2001 and later.
-+.IP
-+See also:
-+.BR fenv (3)
-+.\"------------------------------------- gid_t ------------------------/
- .TP
- .I gid_t
- .IP
+diff --git a/man3/fexcept_t.3 b/man3/fexcept_t.3
+new file mode 100644
+index 000000000..db50c0f09
+--- /dev/null
++++ b/man3/fexcept_t.3
+@@ -0,0 +1 @@
++.so man7/system_data_types.7
 -- 
 2.28.0
 
