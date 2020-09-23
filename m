@@ -2,73 +2,72 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AC4D5274A3D
-	for <lists+linux-man@lfdr.de>; Tue, 22 Sep 2020 22:40:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3B4A427522E
+	for <lists+linux-man@lfdr.de>; Wed, 23 Sep 2020 09:14:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726576AbgIVUks convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Tue, 22 Sep 2020 16:40:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38390 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726179AbgIVUkr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 22 Sep 2020 16:40:47 -0400
-Received: from herc.mirbsd.org (herc.mirbsd.org [IPv6:2001:470:1f15:10c:202:b3ff:feb7:54e8])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id E68E5C061755
-        for <linux-man@vger.kernel.org>; Tue, 22 Sep 2020 13:40:43 -0700 (PDT)
-Received: from herc.mirbsd.org (tg@herc.mirbsd.org [192.168.0.82])
-        by herc.mirbsd.org (8.14.9/8.14.5) with ESMTP id 08MKcDn7021107
-        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-        Tue, 22 Sep 2020 20:38:15 GMT
-Date:   Tue, 22 Sep 2020 20:38:13 +0000 (UTC)
-From:   Thorsten Glaser <tg@mirbsd.org>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        libbsd@lists.freedesktop.org
-Subject: Re: [IDEA] New pages for types: structs and typedfefs
-In-Reply-To: <CAKgNAkiKyK6=QHoopQwBAVe6ACKY+JXGMyr4KzzXkofg560BQA@mail.gmail.com>
-Message-ID: <Pine.BSM.4.64L.2009222032470.12616@herc.mirbsd.org>
-References: <fb6463f6-49d7-e473-d5e1-1cdf8375e498@gmail.com>
- <6c5b89f8-4281-4434-cbee-28f88d07920c@gmail.com> <4ea99048-4bfd-9cba-44cd-9c37fdad8fce@gmail.com>
- <CAKgNAkjys+LYn1qaSXhM2gJfkv_UOnpeNPyh3QCqNLcMNBKB+g@mail.gmail.com>
- <d093c1a5-b31a-1200-3cd6-6b5d2cf28ad3@gmail.com> <3a56a8af-6371-89f3-cac2-31dd64791c99@gmail.com>
- <65e2bdf5-425b-9381-b1ac-3f101113c70f@gmail.com>
- <CAKgNAkiKyK6=QHoopQwBAVe6ACKY+JXGMyr4KzzXkofg560BQA@mail.gmail.com>
-Content-Language: de-DE-1901, en-GB
-X-Message-Flag: Your mailer is broken. Get an update at http://www.washington.edu/pine/getpine/pcpine.html for free.
+        id S1726557AbgIWHO4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 23 Sep 2020 03:14:56 -0400
+Received: from hermes.cta.br ([161.24.235.5]:37620 "EHLO hermes.cta.br"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726550AbgIWHOz (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 23 Sep 2020 03:14:55 -0400
+X-Greylist: delayed 2935 seconds by postgrey-1.27 at vger.kernel.org; Wed, 23 Sep 2020 03:14:54 EDT
+Received: from localhost (localhost [127.0.0.1])
+        by hermes.cta.br (Postfix) with ESMTP id DB0311707378;
+        Wed, 23 Sep 2020 03:01:35 -0300 (-03)
+Received: from hermes.cta.br ([127.0.0.1])
+        by localhost (hermes.cta.br [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id tDh_m7Xu6DVz; Wed, 23 Sep 2020 03:01:35 -0300 (-03)
+Received: from localhost (localhost [127.0.0.1])
+        by hermes.cta.br (Postfix) with ESMTP id 718FD15A5D7E;
+        Wed, 23 Sep 2020 01:50:16 -0300 (-03)
+DKIM-Filter: OpenDKIM Filter v2.10.3 hermes.cta.br 718FD15A5D7E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cta.br;
+        s=50824260-A46F-11E8-B5E3-16F5207DEC71; t=1600836616;
+        bh=PEgy+RpcsckcVXxslQn6d+tc//P81+6V7lvSU9dRFp0=;
+        h=MIME-Version:To:From:Date:Message-Id;
+        b=zFFKMAA6sjSTjqeIoH+0yY/ONrUfz4CZVtTeXyYi/0S/LZhfTaG8f5CHoouSEPiVP
+         nGCkf0vROQyl3F13zmt1Z0P+1g552/DWNAgDkd8h5OES6yWRdI9N23ZmRAaoI3Yvps
+         Yb5vapD4pSVP29rnc7dhATsjFjEMFed5vfG7PMqov9IldFpnHX5sMeC8cJE2iYLVpM
+         KKwDUwqVa8VIntXmBAJjAUnTOc+c9U0+v18GGukaTpXS/8AK4d1Ylu3RwrFe5QyUzq
+         oOm2lSzWNj1LKO3g3H256tkob9Xs1GC7Zj2pucpo7FHX3UZ2AVCeKBusV4yEmXLsFN
+         b8oDkX5bkTv9A==
+X-Virus-Scanned: amavisd-new at cta.br
+Received: from hermes.cta.br ([127.0.0.1])
+        by localhost (hermes.cta.br [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id pdho74v_GNzT; Wed, 23 Sep 2020 01:50:16 -0300 (-03)
+Received: from [10.120.212.214] (unknown [105.12.3.179])
+        by hermes.cta.br (Postfix) with ESMTPSA id A90D516E8CFB;
+        Wed, 23 Sep 2020 01:24:20 -0300 (-03)
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=utf-8
-Content-Transfer-Encoding: 8BIT
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: spende von 2,000,000 euro
+To:     Recipients <scco@cta.br>
+From:   ''Tayeb souami'' <scco@cta.br>
+Date:   Wed, 23 Sep 2020 06:26:39 +0200
+Reply-To: Tayebsouam.spende@gmail.com
+Message-Id: <20200923042421.A90D516E8CFB@hermes.cta.br>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Michael Kerrisk (man-pages) dixit:
+Hallo mein lieber Freund
+                                  Mein Name ist Tayeb Souami aus New Jersey=
+ in Amerika und ich habe den America Lottery Jackpot von 315 Millionen Euro=
+ gewonnen. Ich habe mich entschlossen, die Summe von 2.000.000 Euro an f=FC=
+nf gl=FCckliche Personen zu spenden, und Sie wurden als einer der Beg=FCnst=
+igten ausgew=E4hlt. Bitte klicken Sie auf diesen Link, um mehr =FCber meine=
+n Gewinn zu erfahren.
 
->I think quoting POSIX is fine (fair use etc.)
 
-“fair use” only applies to the USA. For pieces quoted under
-USA “fair use” copyright still applies in all other countries,
-and, worse, you can’t issue a licence for it (as you don’t own
-it).
+UHR MICH HIER: https://www.youtube.com/watch?v=3DZ6ui8ZDQ6Ks
 
-https://pubs.opengroup.org/onlinepubs/9699919799/frontmatter/notice.html
-specifically reserves the copyright for POSIX.
+Bitte kontaktieren Sie mich =FCber diese E-Mail: Tayebsouam.spende@gmail.com
 
-https://pubs.opengroup.org/onlinepubs/9699919799/help/terms.html
-specifically does not issue a licence for reproduction.
 
-I know that some POSIX documents were re-released under a free-ish
-licence some time ago for inclusion into some manual pages, but I
-don’t have a reference for that and don’t know the scope.
+Ich hoffe, Sie und Ihre Familie gl=FCcklich zu machen.
 
-Please get explicit permission from The Open Group before quoting
-from POSIX in anything you intend to distribute to the general public.
-
-Thanks,
-//mirabilos (current hat: Debian Developer nōn-US)
--- 
-I believe no one can invent an algorithm. One just happens to hit upon it
-when God enlightens him. Or only God invents algorithms, we merely copy them.
-If you don't believe in God, just consider God as Nature if you won't deny
-existence.		-- Coywolf Qi Hunt
+Gr=FC=DFe
+Herr Tayeb Souami
