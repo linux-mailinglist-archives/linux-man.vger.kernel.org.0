@@ -2,275 +2,260 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B5B592771D6
-	for <lists+linux-man@lfdr.de>; Thu, 24 Sep 2020 15:09:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EB780277273
+	for <lists+linux-man@lfdr.de>; Thu, 24 Sep 2020 15:35:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727880AbgIXNJz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 24 Sep 2020 09:09:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45602 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727704AbgIXNJz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Sep 2020 09:09:55 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 637D5C0613CE;
-        Thu, 24 Sep 2020 06:09:55 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id e2so3549898wme.1;
-        Thu, 24 Sep 2020 06:09:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=SaITC2xFCqSXNs4nD9he4WvhlKQrsR7E/aVI3TI6hoE=;
-        b=Nnwg/d5BfKIwz6FzofVEv/rsQSA+r8ITrJkA/4vXploQm3T9VnIIM+L9R1TP5NXLS8
-         87lcPyza/TkztZNc066bt04bpn6lxk+RkJUkAGIVihvorQ1VMr45u+CRV173iek4E9BD
-         dssk2KahZFHkzXSbqKDy35qAB/6fn7LFQDbveLmZJL2ESvMMHGQ/TKGYdcifjxp7T7np
-         khN7k+LYTDf1rChp6Sh02rE2jNl5i99/QcYT+fxizhPDeV9LKUvY2o/RY+psh0dWcWzJ
-         +Rcujg32/x0Yb2gvMhmRA5WDAM0wtB3Gnl6rWX2yxukAW5RPJ43SMWAEOjtr25+3FKCw
-         blmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=SaITC2xFCqSXNs4nD9he4WvhlKQrsR7E/aVI3TI6hoE=;
-        b=jSziscH6UXCIv1JpbW0azu6+rUZw9qBGGY99Qk9oYho1Im0s5BkzuP1gro05/LfeBm
-         KbtEEw+6GeCqXXL79K0YDiLK3SNMKVKd2H1nW49rO6jTrzOKl9lLWZM/Lk8YrHFkAOgN
-         l/Ssf+YvebW+VnxtWFaNEKgssNiz3RJ5zJhgz8iNBG82SuYjaIXLyWtyADqgnYYi8tj1
-         PORqi77i86735cY9tmnTKZu6+VSYDH9ZIIFV+zqFzbnpB1LHqdF6VVDn7pVJfB6yH53T
-         avjX9gcxmsMISrZq9LEKgovBbpSpFxA8yIPHJqn/Qw06PcYLMH0OBKDjMBQrZrtctEQr
-         2/wg==
-X-Gm-Message-State: AOAM530sjBFCnV7dzR1//nKO45W+eKlcuGTkkIsPb4uwaUqGFGmHZE6X
-        iYZ9URCLWmRGUu8HuGEFfTk=
-X-Google-Smtp-Source: ABdhPJze4r4mH5cmyqnhTRx33p9Tw4RS69UmbPIvW7HP9BJ9ztI659XOk00LCCDDMLhxMnqoBE7dKQ==
-X-Received: by 2002:a1c:a551:: with SMTP id o78mr4782923wme.4.1600952993912;
-        Thu, 24 Sep 2020 06:09:53 -0700 (PDT)
-Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id l18sm3699246wrp.84.2020.09.24.06.09.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2020 06:09:53 -0700 (PDT)
-Subject: Re: [PATCH 12/24] getgrent_r.3: Use sizeof() to get buffer size
- (instead of hardcoding macro name)
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Stefan Puiu <stefan.puiu@gmail.com>
-Cc:     lnx-man <linux-man@vger.kernel.org>, linux-kernel@vger.kernel.org,
-        Walter Harms <wharms@bfs.de>
-References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
- <20200910211344.3562-13-colomar.6.4.3@gmail.com>
- <CACKs7VD_p=d+nvuFxkWofSE6jCoKAKx5w44_5ciTJ0NX_H1ZFA@mail.gmail.com>
- <7dd2ab72-3ce7-1f50-229a-e663c3df2dcd@gmail.com>
- <CACKs7VDzgUyDM9FhRR69Aqw2-0xiZC86EhkqSmD5P68derRBFw@mail.gmail.com>
- <de87f720-68fd-02ef-1ce4-aba7593dd84a@gmail.com>
- <caf93f04-4d73-0377-8787-ad38d217795d@gmail.com>
- <40803904-63c6-9770-85df-fe39f430131a@gmail.com>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <b17a4e7c-477b-4eaa-b66f-a9455fb36cbb@gmail.com>
-Date:   Thu, 24 Sep 2020 15:09:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        id S1728031AbgIXNf2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 24 Sep 2020 09:35:28 -0400
+Received: from mail.kernel.org ([198.145.29.99]:53762 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1727742AbgIXNf2 (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Thu, 24 Sep 2020 09:35:28 -0400
+Received: from aquarius.haifa.ibm.com (nesher1.haifa.il.ibm.com [195.110.40.7])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+        (No client certificate requested)
+        by mail.kernel.org (Postfix) with ESMTPSA id 90FE6238E4;
+        Thu, 24 Sep 2020 13:35:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=default; t=1600954527;
+        bh=gmPXyAX6NRORABRS1X+O+hlaJaxz4SMaYcsWwU32+YQ=;
+        h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+        b=p32nBzNWVSlkrVPnxwe/lSmc0i585xyETJ13vozHH4MSaiQYdYQhbLRYp8OcGNviF
+         A3s8z1nuUKq2G3l1nKn8slJz++kKmb/ls5QtnT5kqETxZYNCs9p2nQ4ZN/ur/PWnmp
+         cAZVHTBRLlUKnA2dGaS9fYLKh/bUtZqXJRPNtM3c=
+From:   Mike Rapoport <rppt@kernel.org>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     Andrew Morton <akpm@linux-foundation.org>,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        Andy Lutomirski <luto@kernel.org>,
+        Arnd Bergmann <arnd@arndb.de>, Borislav Petkov <bp@alien8.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christopher Lameter <cl@linux.com>,
+        Dan Williams <dan.j.williams@intel.com>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        David Hildenbrand <david@redhat.com>,
+        Elena Reshetova <elena.reshetova@intel.com>,
+        "H. Peter Anvin" <hpa@zytor.com>, Idan Yaniv <idan.yaniv@ibm.com>,
+        Ingo Molnar <mingo@redhat.com>,
+        James Bottomley <jejb@linux.ibm.com>,
+        "Kirill A. Shutemov" <kirill@shutemov.name>,
+        Matthew Wilcox <willy@infradead.org>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Mike Rapoport <rppt@linux.ibm.com>,
+        Mike Rapoport <rppt@kernel.org>,
+        Palmer Dabbelt <palmer@dabbelt.com>,
+        Paul Walmsley <paul.walmsley@sifive.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        Shuah Khan <shuah@kernel.org>, Tycho Andersen <tycho@tycho.ws>,
+        Will Deacon <will@kernel.org>, linux-api@vger.kernel.org,
+        linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org,
+        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        linux-kselftest@vger.kernel.org, linux-nvdimm@lists.01.org,
+        linux-riscv@lists.infradead.org, x86@kernel.org
+Subject: [PATCH] man2: new page describing memfd_secret() system call
+Date:   Thu, 24 Sep 2020 16:35:13 +0300
+Message-Id: <20200924133513.1589-1-rppt@kernel.org>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200924132904.1391-1-rppt@kernel.org>
+References: <20200924132904.1391-1-rppt@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <40803904-63c6-9770-85df-fe39f430131a@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+From: Mike Rapoport <rppt@linux.ibm.com>
 
-On 2020-09-24 13:38, Michael Kerrisk (man-pages) wrote:
- > On 9/24/20 11:35 AM, Alejandro Colomar wrote:
- >> Hi,
- >>
- >> On 2020-09-23 22:35, Michael Kerrisk (man-pages) wrote:
- >>> On 9/15/20 12:03 PM, Stefan Puiu wrote:
- >>>> Hi,
- >>>>
- >>>> On Fri, Sep 11, 2020 at 6:28 PM Alejandro Colomar
- >>>> <colomar.6.4.3@gmail.com> wrote:
- >>>>>
- >>>>> Hi Stefan,
- >>>>>
- >>>>> On 2020-09-11 16:35, Stefan Puiu wrote:
- >>>>>    > Hi,
- >>>>>    >
- >>>>>    > On Fri, Sep 11, 2020 at 12:15 AM Alejandro Colomar
- >>>>>    > <colomar.6.4.3@gmail.com> wrote:
- >>>>>    >>
- >>>>>    >> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
- >>>>>    >> ---
- >>>>>    >>   man3/getgrent_r.3 | 2 +-
- >>>>>    >>   1 file changed, 1 insertion(+), 1 deletion(-)
- >>>>>    >>
- >>>>>    >> diff --git a/man3/getgrent_r.3 b/man3/getgrent_r.3
- >>>>>    >> index 81d81a851..76deec370 100644
- >>>>>    >> --- a/man3/getgrent_r.3
- >>>>>    >> +++ b/man3/getgrent_r.3
- >>>>>    >> @@ -186,7 +186,7 @@ main(void)
- >>>>>    >>
- >>>>>    >>       setgrent();
- >>>>>    >>       while (1) {
- >>>>>    >> -        i = getgrent_r(&grp, buf, BUFLEN, &grpp);
- >>>>>    >> +        i = getgrent_r(&grp, buf, sizeof(buf), &grpp);
- >>>>>    >
- >>>>>    > I'm worried that less attentive people might copy/paste 
-parts of this
- >>>>>    > in their code, where maybe buf is just a pointer, and expect 
-it to
- >>>>>    > work. Maybe leaving BUFLEN here is useful as a reminder that 
-they need
- >>>>>    > to change something to adapt the code?
- >>>>>    >
- >>>>>    > Just my 2 cents,
- >>>>>    > Stefan.
- >>>>>    >
- >>>>> That's a very good point.
- >>>>>
- >>>>> So we have 3 options and I will propose now a 4th one.  Let's see all
- >>>>> of them and see which one is better for the man pages.
- >>>>>
- >>>>> 1.-     Use the macro everywhere.
- >>>>>
- >>>>> pros:
- >>>>> - It is still valid when the buffer is a pointer and not an array.
- >>>>> cons:
- >>>>> - Hardcodes the initializer.  If the array is later initialized 
-with a
- >>>>>      different value, it may produce a silent bug, or a 
-compilation break.
- >>>>>
- >>>>> 2.-     Use sizeof() everywhere, and the macro for the initializer.
- >>>>>
- >>>>> pros:
- >>>>> - It is valid as long as the buffer is an array.
- >>>>> cons:
- >>>>> - If the code gets into a function, and the buffer is then a pointer,
- >>>>>      it will definitively produce a silent bug.
- >>>>>
- >>>>> 3.-     Use sizeof() everywhere, and a magic number for the 
-initializer.
- >>>>>
- >>>>> The same as 2.
- >>>>>
- >>>>> 4.-     Use ARRAY_BYTES() macro
- >>>>>
- >>>>> pros:
- >>>>> - It is always safe and when code changes, it may break 
-compilation, but
- >>>>>      never a silent bug.
- >>>>> cons:
- >>>>> - Add a few lines of code.  Maybe too much complexity for an example.
- >>>>>      But I'd say that it is the only safe option, and in real code it
- >>>>>      should probably be used more, so maybe it's good to show a 
-good practice.
- >>>>
- >>>> If you ask me, I think examples should be simple and easy to
- >>>> understand, and easy to copy/paste in your code. I'd settle for easy
- >>>> enough, not perfect or completely foolproof. If you need to look up
- >>>> obscure gcc features to understand an example, that's not very
- >>>> helpful. So I'd be more inclined to prefer version 1 above. But let's
- >>>> see Michael's opinion on this.
- >>>>
- >>>> Just my 2c,
- >>>
- >>> So, the fundamental problem is that C is nearly 50 years old.
- >>> It's a great high-level assembly language, but when it comes
- >>> to nuances like this it gets pretty painful. One can do macro
- >>> magic of the kind you suggest, but I agree with Stefan that it
- >>> gets confusing and distracting for the reader. I think I also
- >>> lean to solution 1. Yes, it's not perfect, but it's easy to
- >>> understand, and I don't think we can or should try and solve
- >>> the broken-ness of C in the manual pages.
- >>>
- >>> Thanks,
- >>>
- >>> Michael
- >>>
- >>>
- >>
- >> I was reverting the 3 patches I introduced (they changed from solution 1
- >> to solution 2), and also was grepping for already existing solution 2 in
- >> the pages (it seems that solution 2 was a bit more extended than
- >> solution 1).
- >>
- >> While doing that, I've been thinking about it again...
- >>
- >> There's a good thing about sizeof (even though I admit it's very
- >> insecure; and I never use it for myself), especially for the man pages:
- >>
- >> I'll copy here a sample from getnameinfo.3 to ilustrate it:
- >>
- >> [[
- >> .EX
- >> struct sockaddr *addr;     /* input */
- >> socklen_t addrlen;         /* input */
- >> char hbuf[NI_MAXHOST], sbuf[NI_MAXSERV];
- >>
- >> if (getnameinfo(addr, addrlen, hbuf, sizeof(hbuf), sbuf,
- >>               sizeof(sbuf), NI_NUMERICHOST | NI_NUMERICSERV) == 0)
- >>       printf("host=%s, serv=%s\en", hbuf, sbuf);
- >> .EE
- >> ]]
- >>
- >> Here, it's clear to the reader that the 4th argument to 'getnameinfo()'
- >> is the size of the buffer passed as the 3rd argument.
- >>
- >> If the function call was changed to
- >>
- >> [[
- >> getnameinfo(addr, addrlen, hbuf, NI_MAXHOST, sbuf,
- >>               sizeof(sbuf), NI_NUMERICHOST | NI_NUMERICSERV)
- >> ]]
- >>
- >> then it would be less clear, and the reader should go back and forth to
- >> see where that comes from.  In this short example it is relatively very
- >> clear, but in some examples it might be less clear.
- >>
- >> Would you maintain your preference for solution 1?
- >>
- >>
- >> Also... I am trying to patch glibc to provide a safe version of
- >> 'nitems()', and shortly after they accept that patch (if they do), I'll
- >> send another one to add a safe 'array_bytes()' based on 'nitems()'.
- >>
- >> Maybe the examples could use 'array_bytes()'; although is will be a
- >> glibc extension, and non-existent in any other POSIX systems, of course,
- >> which would make the examples non-portable, but still can be solved with
- >> a simple
- >>
- >> [[
- >> #if !defined(array_bytes)
- >> #define array_bytes() sizeof()
- >> #endif
- >> ]]
- >>
- >> But again it complicates the examples...
- >
- > (And I'd rather not...)
- >
- >> I'm not sure at all about what should be done.  Please comment.  If you
- >> still prefer solution 1, I'll send you a patch with the revert + fixes,
- >> but I think it's very delicate.
- >
- > Okay -- I agree with your perspective of the getnameinfo example.
- >
- > So, I think maybe solution 1 is clearer sometimes, and other times
- > solution 2 is clearer. I don't feel too strongly about this
+Signed-off-by: Mike Rapoport <rppt@linux.ibm.com>
+---
+ man2/memfd_secret.2 | 176 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 176 insertions(+)
+ create mode 100644 man2/memfd_secret.2
 
-Me neither.
+diff --git a/man2/memfd_secret.2 b/man2/memfd_secret.2
+new file mode 100644
+index 000000000..e4ecd3662
+--- /dev/null
++++ b/man2/memfd_secret.2
+@@ -0,0 +1,176 @@
++.\" Copyright (c) 2020, IBM Corporation.
++.\" Written by Mike Rapoport <rppt@linux.ibm.com>
++.\"
++.\" Based on memfd_create(2) man page
++.\" Copyright (C) 2014 Michael Kerrisk <mtk.manpages@gmail.com>
++.\" and Copyright (C) 2014 David Herrmann <dh.herrmann@gmail.com>
++.\"
++.\" %%%LICENSE_START(GPLv2+)
++.\"
++.\" This program is free software; you can redistribute it and/or modify
++.\" it under the terms of the GNU General Public License as published by
++.\" the Free Software Foundation; either version 2 of the License, or
++.\" (at your option) any later version.
++.\"
++.\" This program is distributed in the hope that it will be useful,
++.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
++.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
++.\" GNU General Public License for more details.
++.\"
++.\" You should have received a copy of the GNU General Public
++.\" License along with this manual; if not, see
++.\" <http://www.gnu.org/licenses/>.
++.\" %%%LICENSE_END
++.\"
++.TH MEMFD_SECRET 2 2020-08-02 Linux "Linux Programmer's Manual"
++.SH NAME
++memfd_secret \- create an anonymous file to map secret memory regions
++.SH SYNOPSIS
++.nf
++.B #include <linux/secretmem.h>
++.PP
++.BI "int memfd_secret(unsigned long " flags ");"
++.fi
++.PP
++.IR Note :
++There is no glibc wrapper for this system call; see NOTES.
++.SH DESCRIPTION
++.BR memfd_secret ()
++creates an anonymous file and returns a file descriptor that refers to it.
++The file can only be memory-mapped;
++the memory in such mapping
++will have stronger protection than usual memory mapped files,
++and so it can be used to store application secrets.
++Unlike a regular file, a file created with
++.BR memfd_secret ()
++lives in RAM and has a volatile backing storage.
++Once all references to the file are dropped, it is automatically released.
++The initial size of the file is set to 0.
++Following the call, the file size should be set using
++.BR ftruncate (2).
++.PP
++The memory areas obtained with
++.BR mmap (2)
++from the file descriptor are exclusive to the owning context.
++These areas are removed from the kernel page tables
++and only the page table of the process holding the file descriptor
++maps the corresponding physical memory.
++.PP
++The following values may be bitwise ORed in
++.IR flags
++to control the behavior of
++.BR memfd_secret (2):
++.TP
++.BR FD_CLOEXEC
++Set the close-on-exec flag on the new file descriptor.
++See the description of the
++.B O_CLOEXEC
++flag in
++.BR open (2)
++for reasons why this may be useful.
++.PP
++.TP
++.BR SECRETMEM_UNCACHED
++In addition to excluding memory areas from the kernel page tables,
++mark the memory mappings uncached in the page table of the owning process.
++Such mappings can be used to prevent speculative loads
++and cache-based side channels.
++This mode of
++.BR memfd_secret ()
++is not supported on all architectures.
++.PP
++See also NOTES below.
++.PP
++As its return value,
++.BR memfd_secret ()
++returns a new file descriptor that can be used to refer to an anonymous file.
++This file descriptor is opened for both reading and writing
++.RB ( O_RDWR )
++and
++.B O_LARGEFILE
++is set for the file descriptor.
++.PP
++With respect to
++.BR fork (2)
++and
++.BR execve (2),
++the usual semantics apply for the file descriptor created by
++.BR memfd_secret ().
++A copy of the file descriptor is inherited by the child produced by
++.BR fork (2)
++and refers to the same file.
++The file descriptor is preserved across
++.BR execve (2),
++unless the close-on-exec flag has been set.
++.PP
++The memory regions backed with
++.BR memfd_secret ()
++are locked in the same way as
++.BR mlock (2),
++however the implementation will not try to
++populate the whole range during the
++.BR mmap ()
++call.
++The amount of memory allowed for memory mappings
++of the file descriptor obeys the same rules as
++.BR mlock (2)
++and cannot exceed
++.B RLIMIT_MEMLOCK.
++.SH RETURN VALUE
++On success,
++.BR memfd_secret ()
++returns a new file descriptor.
++On error, \-1 is returned and
++.I errno
++is set to indicate the error.
++.SH ERRORS
++.TP
++.B ENOSYS
++.BR memfd_secret ()
++is not implemented on this architecture.
++.TP
++.B EINVAL
++.I flags
++included unknown bits.
++.TP
++.B EMFILE
++The per-process limit on the number of open file descriptors has been reached.
++.TP
++.B EMFILE
++The system-wide limit on the total number of open files has been reached.
++.TP
++.B ENOMEM
++There was insufficient memory to create a new anonymous file.
++.SH VERSIONS
++The
++.BR memfd_secret (2)
++system call first appeared in Linux 5.X;
++.SH CONFORMING TO
++The
++.BR memfd_secret (2)
++system call is Linux-specific.
++.SH NOTES
++The
++.BR memfd_secret (2)
++system call provides an ability to hide information
++from the operating system.
++Normally Linux userspace mappings are protected from other users,
++but they are visible to the privileged code.
++The mappings created using
++.BR memfd_secret ()
++are hidden from the kernel as well.
++.PP
++If an architecture supports
++.B SECRETMEM_UNCACHED,
++the mappings also have protection from speculative execution vulnerabilties,
++at the expense of increased memory access latency.
++Care should be taken when using
++.B
++SECRETMEM_UNCACHED
++to avoid degrading application performance.
++.SH SEE ALSO
++.BR fcntl (2),
++.BR ftruncate (2),
++.BR mlock (2),
++.BR mmap (2),
++.BR setrlimit (2),
+-- 
+2.25.4
 
- > (because we can't solve the bugger problem, which is C).
- > I'm fine with not reverting the three patches you
- > refer to. I'm going to leave this decision to you :-)!
- >
- > Thanks,
- >
- > Michael
- >
- >
-
-I'll keep it as is now. :)
-
-Thanks,
-
-Alex
