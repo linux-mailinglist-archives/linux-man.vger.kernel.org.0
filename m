@@ -2,199 +2,138 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D25E62765DD
-	for <lists+linux-man@lfdr.de>; Thu, 24 Sep 2020 03:30:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5094E276B70
+	for <lists+linux-man@lfdr.de>; Thu, 24 Sep 2020 10:06:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725273AbgIXBae (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 23 Sep 2020 21:30:34 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([216.205.24.124]:20412 "EHLO
-        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726193AbgIXBac (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 23 Sep 2020 21:30:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1600911031;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=I96QA6skXAeUoVraJL4FZBGK1rX5FMtM4hBBvWhO+/w=;
-        b=WVB6rEdZAizW7VZETz9SijHV0PeSdWyGobv4gLGaVB/0gEyybHMmm7ilQ3tLukjKtcHyyA
-        lWBflmtL8SV3ruDjoh+AHRuHAmtsnUOJivVzDaWWJoKczAtaZpM/yIbuIYx8CrMfDruYsA
-        bXV4v81nSUek16oaXqTZIWfEi2o06so=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-575-aBO5ECanOKiQWjObPM359A-1; Wed, 23 Sep 2020 21:30:26 -0400
-X-MC-Unique: aBO5ECanOKiQWjObPM359A-1
-Received: by mail-qk1-f200.google.com with SMTP id 196so1018702qkn.6
-        for <linux-man@vger.kernel.org>; Wed, 23 Sep 2020 18:30:26 -0700 (PDT)
+        id S1727166AbgIXIG3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 24 Sep 2020 04:06:29 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55044 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727089AbgIXIG2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Sep 2020 04:06:28 -0400
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com [IPv6:2a00:1450:4864:20::542])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7AA5CC0613CE;
+        Thu, 24 Sep 2020 01:06:28 -0700 (PDT)
+Received: by mail-ed1-x542.google.com with SMTP id k14so2474323edo.1;
+        Thu, 24 Sep 2020 01:06:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=DhS5zCUfUZ5BpudzCueI3P+8aqCX/31QjaGKTQtiybo=;
+        b=Lm09FPDzX2HQ6SYT4Dp4mSGZpkmXWi9C7O2x8X2iUia+mTEg5Isp6ofoZ51RbAN0GU
+         f/qEGEtJTeFvY1njXD9WoBXhDwnn2BYsQO3bJ1gQ62iBHzXvT90Zcj95YsWXAxwQVNYd
+         K5DoaexSnWKE/ePaXTXwh1DdMhJjHHyOHZkkr2yU7t5IT/W7cNz24ffXcg76+eOgI1d8
+         hvjvGjNiL5TwLf7R8bZHP6Z92rLeOzMtN0YH/Tky7G5P8dOfBh1Gvbctww8LzfeaEDpO
+         W8UDQyYLEQZzpYKUgEMMkeMTTfQ9PsD+MqEOgyzdkpXSTtBkFI9ceuT8fuTG7mZx+16p
+         574w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:organization
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:content-transfer-encoding;
-        bh=I96QA6skXAeUoVraJL4FZBGK1rX5FMtM4hBBvWhO+/w=;
-        b=T70NExNBbaDwPzjPfWS/Hhn+fHsKI2Zv0MfSM9fcTl6ruDwTCpzq6xkkMqNxv0DpKB
-         8xeyuAdY5TuK4L74q/I7b62dZqPfvOvmgxl7DAuocpC4ZRSY+j9kTqgvvdeNdo69N2BT
-         8APopdZKXswftP5ZRyVhZxadKMPY16vjtJ2ITZLiJuABAFHJ5zSJqrQicP8+sJz1QkVw
-         rKfNTli7N6Oix5pda6/XkDjMJgKnqfzn8gUeR6lu2k3plb97l2R+6uvyOOy2gsz1kzaA
-         cckPttYPg+VIAb1mUf1jT4yxfwVnihdg6iyfpwTARnbE/dPlwNzXuXFjoqNDQ7hDBNwV
-         kPaA==
-X-Gm-Message-State: AOAM532MFntSMhxUTcDmSexDCT0T6AX3Q87WD04T5Dxo9XDMLHyjWCYm
-        vQbJy2VCJtuxB4STmuxJVHTQKCsou69trOl7wsY9m7hGiq485sepvHPfyVHKOluDZVkGK7gc0Oe
-        qP/zFkqrYY9qYLNo6smZY
-X-Received: by 2002:a05:620a:7f6:: with SMTP id k22mr2678903qkk.337.1600911025569;
-        Wed, 23 Sep 2020 18:30:25 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJz2nny+uNhPo3s2QXoUgtNQKqtQqwP4VG7YdDYfzhT0SNth54zazuLd4OAzXszHLEhV3uQo7g==
-X-Received: by 2002:a05:620a:7f6:: with SMTP id k22mr2678886qkk.337.1600911025292;
-        Wed, 23 Sep 2020 18:30:25 -0700 (PDT)
-Received: from [192.168.1.16] (198-84-214-74.cpe.teksavvy.com. [198.84.214.74])
-        by smtp.gmail.com with ESMTPSA id e1sm1165894qtb.0.2020.09.23.18.30.23
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=DhS5zCUfUZ5BpudzCueI3P+8aqCX/31QjaGKTQtiybo=;
+        b=HCbW+xGo5kxFnpNWOTIp9V6IlWwreoeze9smd6HZ3Bv+DSSFm8u1SFEPxGqS24LdRG
+         YTdK2T3XbHdkLmHuq0W58MjBF4srwwfOACPbDoPQikBLFOTxyFTY2wNM/YvcSGIs91fR
+         W7hcTvve6j6lWRvjjWQhGluMmgMmB9S6lceDsxU9vkGmGBhvsqja339p76Nclhj4rS0R
+         SQHXoY7oUkPgLvDHhRdnaGkXy6iTjwqJYwS3CVe1ES6vNMy7uROqR7YAceC5nPUd0eUk
+         v0RaqH4nax8CR60GkLEnSkrWodeegK5rrN6DXsbuQMRkpA1KrgFVPm7KoVOj/u9yuO9T
+         0wlQ==
+X-Gm-Message-State: AOAM532GMcI2Jr7ovN6H+VMaVE+9+W+dPUg62KTPzbexamhCGC685X1z
+        ZKmDRTxj/kdxmsfdgRcNU44=
+X-Google-Smtp-Source: ABdhPJzIprzDU3RErUhZ32VFhVr2cg98LN+NVaRKC6CfXxw5WUEhgcEVYjL/KcqC5+uueBKFH1uNBQ==
+X-Received: by 2002:a05:6402:3c8:: with SMTP id t8mr3244616edw.266.1600934787086;
+        Thu, 24 Sep 2020 01:06:27 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
+        by smtp.gmail.com with ESMTPSA id f17sm1952836eds.45.2020.09.24.01.06.25
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2020 18:30:24 -0700 (PDT)
-Subject: Re: [PATCH] rtld-audit.7: Clarify la_version handshake
-To:     Florian Weimer <fweimer@redhat.com>, linux-man@vger.kernel.org,
-        =?UTF-8?Q?Ludovic_Court=c3=a8s?= <ludo@gnu.org>
-Cc:     libc-alpha@sourceware.org
-References: <874knosoyq.fsf@oldenburg2.str.redhat.com>
-From:   Carlos O'Donell <carlos@redhat.com>
-Organization: Red Hat
-Message-ID: <e95f918c-2004-fc3d-044a-d66023e57cd7@redhat.com>
-Date:   Wed, 23 Sep 2020 21:30:23 -0400
+        Thu, 24 Sep 2020 01:06:26 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com
+Subject: Re: [PATCH 22/24] membarrier.2: Note that glibc does not provide a
+ wrapper
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
+ <20200910211344.3562-23-colomar.6.4.3@gmail.com>
+ <4ace434523f5491b9efcc7af175ad781@bfs.de>
+ <20200921143617.2iskdncu3diginqn@localhost.localdomain>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <2862c745-a23a-95d2-157e-7f91f671f839@gmail.com>
+Date:   Thu, 24 Sep 2020 10:06:23 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <874knosoyq.fsf@oldenburg2.str.redhat.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <20200921143617.2iskdncu3diginqn@localhost.localdomain>
+Content-Type: text/plain; charset=windows-1252
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 9/23/20 7:38 AM, Florian Weimer via Libc-alpha wrote:
-> Returning its argument without further checks is almost always
-> wrong for la_version.
+Hi Branden,
 
-What you write here is the way I understand the interface to work.
-
-As Andreas noted there is one typo.
-
-I suggest changing the example to match, otherwise people might
-keep cribbing that code ;-)
- 
-> Signed-off-by: Florian Weimer <fweimer@redhat.com>
+On 9/21/20 4:36 PM, G. Branden Robinson wrote:
+> At 2020-09-11T12:58:08+0000, Walter Harms wrote:
+>> the groff commands are ducument in man 7 groff
+>> .nf       No filling or adjusting of output-lines.
+>> .fi       Fill output lines
+>>
+>> (for me) a typical use is like this:
+>> .nf
+>>
+>> struct timeval {
+>>     time_t      tv_sec;     /* seconds */
+>>     suseconds_t tv_usec;    /* microseconds */
+>> };
+>> .fi
+>>
+>> In the top section you prevent indenting (if any).
 > 
+> The above will not work as desired for typesetter output, a.k.a., "troff
+> devices", such as PostScript or PDF.  The initial code indent might work
+> okay but the alignment of the field names will become
+> ragged/mis-registered and the comments even more so.
 
-I agree that la_version should return LAV_CURRENT, that is the
-expected way to implement the function, and returning less than
-LAV_CURRENT is required to implement older interfaces and be
-more compatible with older releases.
+Yes.
 
-As an example I encouraged Ludovic to solve a Guix path problem
-with LD_AUDIT and you can see it here:
-https://issues.guix.gnu.org/41189
-
-+unsigned int
-+la_version (unsigned int v)
-+{
-+  if (v != LAV_CURRENT)
-+    error (1, 0, "cannot handle interface version %u", v);
-+
-...
-+  return v;
-+}
-
-While this is OK, in that if it's not an exact match the audit
-module errors out, or if it is a match returns v which is
-LAV_CURRENT.
-
-It could have been more relaxed:
-
-if (v < LAV_CURRENT)
-  error (...)
-...
-return LAV_CURRENT;
-
-Your changes here int he man page would have clarified that to
-some extent.
-
-> ---
->  man7/rtld-audit.7 | 31 ++++++++++++++++++++++---------
->  1 file changed, 22 insertions(+), 9 deletions(-)
+> This is because a proportional font is used by default for troff
+> devices.  The classical man macros, going back to Version 7 Unix (1979)
+> had no good solution for this problem and Unix room tradition at Murray
+> Hill going all the way back to (what we now call) the First Edition
+> manual in 1971 was to read the man pages on a typewriter--a Teletype
+> Model 33 or Model 37.  Typewriters, of course, always[1] used monospaced
+> fonts.
 > 
-> diff --git a/man7/rtld-audit.7 b/man7/rtld-audit.7
-> index b1b7dfebc..ca8afa752 100644
-> --- a/man7/rtld-audit.7
-> +++ b/man7/rtld-audit.7
-> @@ -70,17 +70,30 @@ the auditing library.
->  When invoking this function, the dynamic linker passes, in
->  .IR version ,
->  the highest version of the auditing interface that the linker supports.
-> -If necessary, the auditing library can check that this version
-> -is sufficient for its requirements.
->  .PP
-> -As its function result,
-> -this function should return the version of the auditing interface
-> -that this auditing library expects to use (returning
-> +A typical implementation of this function simply returns the constant
-> +.BR LAV_CURRENT ,
-> +which indicates the version of
-> +.I <link.h>
-> +that was used to build the audit module.  If the dynamic linker does
-> +not support this version of the audit interface, it will refuse to
-> +activate this audit module.  If the function returns zero, the dynamic
-> +linker also does not activate this audit module.
-> +.PP
-> +In order to enable backwards compatibility with older dynamic linkers,
-> +an audit module can examine the
-> +.I version
-> +argument and return an earlier version than
-> +.BR LAV_CURRENT ,
-> +assuming the module can adjust its implement to match the requirements
-
-s/implement/implementation/g (Andreas caught this in his review)
-
-> +of the previous version of the audit interface.  The
-> +.B la_version
-> +function should not return the value of
->  .I version
-> -is acceptable).
-> -If the returned value is 0,
-> -or a version that is greater than that supported by the dynamic linker,
-> -then the audit library is ignored.
-> +without further checks because it could correspond to an interface
-> +that does not match the
-> +.I <link.h>
-> +definitions used to build the audit module.
->  .SS la_objsearch()
->  \&
->  .nf
+> Version 9 Unix (1986) introduced .EX and .EE for setting material in a
+> monospaced font even if the device used proportional type by default.
+> (Plan 9 troff inherited them.)  GNU roff has supporteds .EX and .EE as
+> well, for over 13 years, and its implementations are ultra-permissively
+> licensed so other *roffs like Heirloom Doctools have picked them up.
+> Therefore I recommend .EX and .EE for all code examples.
 > 
+> They are very simple to use.  In the above, simply replace ".nf" with
+> ".EX" and ".fi" with ".EE".
+> 
+> Regards,
+> Branden
+> 
+> [1] Not completely true; variable-pitch typewriters (such as 10/12 point
+> selectable) were fairly common and some expensive models like the IBM
+> Executive even featured true proportional type.
 
-May I additionally suggest something like this to the example?
+Thanks for the interesting history, Branden!
 
-diff --git a/man7/rtld-audit.7 b/man7/rtld-audit.7
-index b1b7dfebc..8a4008b2a 100644
---- a/man7/rtld-audit.7
-+++ b/man7/rtld-audit.7
-@@ -510,7 +510,11 @@ la_version(unsigned int version)
- {
-     printf("la_version(): %u\en", version);
- 
--    return version;
-+    if (version > LAV_CURRENT)
-+      printf ("la_version(): rtld supports newer interfaces.\n");
-+
-+    /* Request the version we knew about at compile time.  */
-+    return LAV_CURRENT;
- }
- 
- char *
----
+From time toi time I wonder if the function prototypes in
+the SYNOPSIS should also be inside .EX/.EE. Your thoughts?
 
-Post a v2?
+Thanks,
+
+Michael
+
 
 -- 
-Cheers,
-Carlos.
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
