@@ -2,98 +2,103 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4B438276E3A
-	for <lists+linux-man@lfdr.de>; Thu, 24 Sep 2020 12:08:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 28BBD276E5A
+	for <lists+linux-man@lfdr.de>; Thu, 24 Sep 2020 12:13:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727325AbgIXKI5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 24 Sep 2020 06:08:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45758 "EHLO
+        id S1727349AbgIXKNc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 24 Sep 2020 06:13:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46456 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726645AbgIXKI4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Sep 2020 06:08:56 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8DF6AC0613CE
-        for <linux-man@vger.kernel.org>; Thu, 24 Sep 2020 03:08:56 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id g4so3138555wrs.5
-        for <linux-man@vger.kernel.org>; Thu, 24 Sep 2020 03:08:56 -0700 (PDT)
+        with ESMTP id S1726949AbgIXKNc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Sep 2020 06:13:32 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3FC4AC0613CE
+        for <linux-man@vger.kernel.org>; Thu, 24 Sep 2020 03:13:32 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id d4so2916322wmd.5
+        for <linux-man@vger.kernel.org>; Thu, 24 Sep 2020 03:13:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=BhgQcF7+tGJba/XNRfqqlRdHHmj6Ko5nU0+X0QymJN0=;
-        b=PaqepXU2gydavKB5yuxFtvlZR8pkzkuykb71YS6SCishXvS2X5teFjwwd8Vcx4ecBz
-         0puSFRyV/9WbKOxVvjaPUvUZnv0KhPSrP3+nSmBSIskw0zoBqKjr07avrppecrreSLwd
-         jhq8etGxhXxkNRryR58zDn1gITEWJ3pduxtLFHkBsYuTBMl1cewTrqkNgZUKMTZS5zfX
-         bDbrkFh9SpXtGj3+y0cuhjAyE7HaU6X0DLkjJOF04DjkT25u3s6oEuaHjIfAPeJ1BhA8
-         a7Pfnyb2OpoqHUM51nC87lcaiCPu824UFVzrI/RQJAQlsC/A4cBpwO/hStaomCdpu2Jz
-         anIQ==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=ereKgH/OhPvP8Pl+SsxLimFCCqX3CQBGmYUng5V4PZE=;
+        b=YONzIrGVUTMQCYnFluGFdVCxwAz1icXWrhE5wuaedtqL5UW9ffDhnlxbGjm7yhMj3M
+         Y5HnS8brUBHa3J+5iiuRIVJ7TP2olvzqCS1xan9sxP4F8ij5uDnkAoNYHQ22aho/CxH8
+         kJeIJo/qVHYbg3Rg/e7u3KekPQfqhOXPtcqgynVhGbV2hp1gUgeljq0qYa0SKVUH58le
+         e0ZKQJmNRoRtrqJkE1s/uWbGEpbEJE+EMuBmQ2WiTuL7SqMRlwyeiCrWm16BJuetlqLx
+         vsJii0s3NBVTafesYrU6pp/9EtlV/ofgg8sqVPNNu38szq1w7m1N76FIBDUnSsNvl+Yv
+         WcfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=BhgQcF7+tGJba/XNRfqqlRdHHmj6Ko5nU0+X0QymJN0=;
-        b=Wi8QuoaW4EPRuG6LmE4D8h6j24A+5NqB0WU0ImB/CkI6KfycpDkkvEh1DPM45cDZ2g
-         uPaWVlEKzBCxygJDyS6miAVNv5rDO40DAo9izlwD95Qgqx3D3TaWRtMDn1yjCQPuV1ir
-         GsRpdPjtiDtaJAqo+bZkEwXDm5XunsrV/40Zu6CnD3Ifje+Vnc7C9p9O0srrEY0tjMQv
-         izla0BZfEmD3zST0JeAmb1s6wNCVycYxR+v8ydu34pfJSnf4Z8IImZpM2wv20On52v7V
-         COndbGDZtjFhHB9Q0pKL7UsstmNxaZdWDIz6Ip1VwvofpaZyvo9693zslbB+EW+Gxikc
-         Hw8w==
-X-Gm-Message-State: AOAM532CA6cK/f05WRhI1kmVwG7QqBsLaAoYN0F00Yt0HveyWErRz8VA
-        mgUyclwgQLnLOWVm/mwxSckH+HT5Q0Q=
-X-Google-Smtp-Source: ABdhPJz9s3MBUo++pEeueBvNBOilPYZfkiRsTjLyJ+AfgazEK7cPtj+cgxMn3y3iaVpS6lJVVrxXrQ==
-X-Received: by 2002:adf:e4c5:: with SMTP id v5mr4085727wrm.320.1600942135082;
-        Thu, 24 Sep 2020 03:08:55 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id z11sm3047124wru.88.2020.09.24.03.08.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2020 03:08:54 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH 2/2] imaxdiv_t.3: New link to system_data_types(7)
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-References: <20200924095854.77221-1-colomar.6.4.3@gmail.com>
- <20200924095854.77221-2-colomar.6.4.3@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <88f21b6f-2f6c-56f5-0248-88fa2fb4c460@gmail.com>
-Date:   Thu, 24 Sep 2020 12:08:53 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        bh=ereKgH/OhPvP8Pl+SsxLimFCCqX3CQBGmYUng5V4PZE=;
+        b=ntw4QjAr+gLRSimGgJ2sc9AyJrzP7Vy4J6ydXJxwoA4bC3ojgB/GjjmCIAhDbwKIhP
+         P+KV/jay8a4NQPIw/xzm3nXUxdp7RwY10tYwmgI8gGwrpe/kTHPVEi4ed9VCIMJivyYA
+         L25+qMcJGkRmIR9RxC+5N3t/JBtxu4KHouZvCYcwDv5DrP8GeGk8zfBgnF6jDoZ7/7Fo
+         oe6lhnEQkisVhfwDgMpI3ZOP2IQcfLYIETWF80Y4Thm8XEXPjKSB9OJdNK5Dz+BUNwoo
+         +XYfr/NcYAn5buBf06gsA9mVdzr9c425VQMh8J/SvrrB3T0YxeLQmsv19XCrfiSPFdge
+         +phw==
+X-Gm-Message-State: AOAM531UFWreL8hJX62iBJqxwzVorMTf3+moPPuVZ+7JNlAAvS15r7oI
+        5cIVQklmF6C1npHoXTvlg60=
+X-Google-Smtp-Source: ABdhPJwdCa363I+AGbJkgX5qO0yIYSx/G0wpLy3g2NTxEJhUeKp163d9tDUTR+NcVK4NaXjbHnZE0w==
+X-Received: by 2002:a1c:bcd6:: with SMTP id m205mr4097981wmf.68.1600942410910;
+        Thu, 24 Sep 2020 03:13:30 -0700 (PDT)
+Received: from localhost.localdomain ([170.253.60.68])
+        by smtp.googlemail.com with ESMTPSA id m4sm3333032wro.18.2020.09.24.03.13.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2020 03:13:30 -0700 (PDT)
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org,
+        Alejandro Colomar <colomar.6.4.3@gmail.com>
+Subject: [PATCH 1/6] system_data_types.7: Add div_t
+Date:   Thu, 24 Sep 2020 12:13:04 +0200
+Message-Id: <20200924101308.78204-1-colomar.6.4.3@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-In-Reply-To: <20200924095854.77221-2-colomar.6.4.3@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 9/24/20 11:58 AM, Alejandro Colomar wrote:
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+---
+ man7/system_data_types.7 | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-
-Thanks, Alex. Patch applied.
-
-Cheers,
-
-Michael
-
-
-> ---
->  man3/imaxdiv_t.3 | 1 +
->  1 file changed, 1 insertion(+)
->  create mode 100644 man3/imaxdiv_t.3
-> 
-> diff --git a/man3/imaxdiv_t.3 b/man3/imaxdiv_t.3
-> new file mode 100644
-> index 000000000..db50c0f09
-> --- /dev/null
-> +++ b/man3/imaxdiv_t.3
-> @@ -0,0 +1 @@
-> +.so man7/system_data_types.7
-> 
-
-
+diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
+index c00345741..077d669b4 100644
+--- a/man7/system_data_types.7
++++ b/man7/system_data_types.7
+@@ -95,6 +95,28 @@ See also:
+ .BR aio_suspend (3),
+ .BR aio_write (3),
+ .BR lio_listio (3)
++.\"------------------------------------- div_t ------------------------/
++.TP
++.I div_t
++.IP
++Include:
++.IR <stdlib.h> .
++.IP
++.EX
++typedef struct {
++    int quot; /* Quotient */
++    int rem;  /* Remainder */
++} div_t;
++.EE
++.IP
++It is the type of the value returned by the
++.I div (3)
++function.
++.IP
++Conforming to: C99 and later; POSIX.1-2001 and later.
++.IP
++See also:
++.BR div (3)
+ .\"------------------------------------- fenv_t -----------------------/
+ .TP
+ .I fenv_t
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.28.0
+
