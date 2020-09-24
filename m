@@ -2,251 +2,241 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6BD88276B90
-	for <lists+linux-man@lfdr.de>; Thu, 24 Sep 2020 10:15:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AED4E276D92
+	for <lists+linux-man@lfdr.de>; Thu, 24 Sep 2020 11:35:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727218AbgIXIPf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 24 Sep 2020 04:15:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56460 "EHLO
+        id S1726267AbgIXJfk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 24 Sep 2020 05:35:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40620 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727207AbgIXIPf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Sep 2020 04:15:35 -0400
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1C08AC0613CE
-        for <linux-man@vger.kernel.org>; Thu, 24 Sep 2020 01:15:35 -0700 (PDT)
-Received: by mail-ej1-x644.google.com with SMTP id r7so3180186ejs.11
-        for <linux-man@vger.kernel.org>; Thu, 24 Sep 2020 01:15:35 -0700 (PDT)
+        with ESMTP id S1726265AbgIXJfk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Sep 2020 05:35:40 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 383DBC0613CE;
+        Thu, 24 Sep 2020 02:35:40 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id a17so3030363wrn.6;
+        Thu, 24 Sep 2020 02:35:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
+        h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=XH5500UO76QnT6o3jKHOWPuGPDO+DzLhxw92qc95knk=;
-        b=gHr4kyr0w9Ns2lb79WBz2KL7ooWEWwn7pV7zxMQwEEe9uTqWguYt6kRh1IbOz7MAZd
-         ga9Kjlv6kMFAA7KoKqH0woanLPUSvqk0TppGLFKc8PnvL8d2M+gDPHFyzZ12RMCoqsCJ
-         /uwop2HAtefliJZpeMlj5Cjwzf+C8ngFGXBYAfB4K5HEDGhSuGIBEpFLbHSK7DT3rE02
-         I7hr/ke5Glcc65X6DCE/Fw39H540k0zZk0zDaEArrgAWqQXDFuOPM8Xhfk3zz8a4miAi
-         nCPyKRrshiyYqQWT+G5AWHGoG1PdncnXkGVVmlsWjIXRYcdhtkfJOS+7qtH7qalNMWcL
-         dmlw==
+        bh=mWKLykc7+L9z/a9rp1P82g18a9rKt5xttoYSDyDmlQE=;
+        b=tF4wtKgn5eJMksNoBZwBoYjUPDvMxSARI8SkHvzlkXt8UNi/9TdgzFxeUInxnox162
+         OFzLuORcjft/HFMGjiYaa39xYRr+9InNCfreVqFRqUxjqZiU3frPzxABS2uN4NqywLBl
+         szLzHDUN5EFI1UhwvOxKAhxEhMJ1rhdzwJk8GZj6UPr3v1673W2ZTGCe+wfvEyGGB+dk
+         P87QovhT0SWa3fKSG6zOFMGWrkO9Y9ZIXPaZ/YOG2RrcvulQQW/Xl2B8gNNN5zxokdYF
+         m+dSZjimVwvSLX8wk+3kxco4GUgsngQeoSFbq4hs/1Xvcn21lYYIFZ/QLomxPZEN4duc
+         0dxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=XH5500UO76QnT6o3jKHOWPuGPDO+DzLhxw92qc95knk=;
-        b=AscW9o5If5oIj99sPypqZhbRQ1GkjqNyuRMbQZa9v4aSTiQy0xWlhZpaPGfBolMr02
-         +8G06rZjv1WU/eQ7zhwmRuuQwmMDTu0RGpy6uaHDVXZRrQIpFMOcXTrgNTCf0p5E9lsx
-         CtBDzPIN5hSBlY0Jb4fEnNyFh/QQVI84jVEwlSvdzML6gGzHwEmsBEMVRJVRyVlNh9oa
-         OXE2YyAhrQNeny+S6Jq2StZnqPmOITpoE8MR+yHnFOPqO6Fi7dZPca25SOT+eFUPN3/e
-         PFkFrRD2qKsbtAs59ybUgU9skjH/Iiynsdn6FoCadJgZ41ZZoXFwXAdVFvFFBzLHeJ14
-         Q0nw==
-X-Gm-Message-State: AOAM533QtBC94l2r0/Exapwx71Pj8X5wFMf84suozDDAAlLFwSky3R36
-        mOOiBKoABxSRF15HW3pcydw5sV9Q1ro=
-X-Google-Smtp-Source: ABdhPJxuzlus42omKjp6jEy5oeQiSNDp3p2DEg8n4f3Du6ulNTUBC0GR9n2C4mP6eLQoiLSZ6Rnd5Q==
-X-Received: by 2002:a17:907:94cf:: with SMTP id dn15mr3511443ejc.114.1600935333716;
-        Thu, 24 Sep 2020 01:15:33 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id rl14sm1750694ejb.109.2020.09.24.01.15.32
+        bh=mWKLykc7+L9z/a9rp1P82g18a9rKt5xttoYSDyDmlQE=;
+        b=MIuEHOGLBOruZjm8zTKLQ3CtifmeAmxuI165ptgAicDb1Clds5TiykGaaE2/14+sGb
+         XyIn0WvNl0rmMlDOpgTcZtGGroF7JURaHBh70+BVwd7sDAhvQL5t2KCfoc3bfrmsLCmv
+         mIVVA0JWIm4ptA461rHsMwcy5oCAWJopDyq+82YsOYOo72TYrsLJKR5U2BL7a/W39nvM
+         fd+taueyxxdHDDheuAmzrZGQtocYkJJnuWfheoTsrtttYVG2Q9uFGf8oOhm4z9XWUZ+y
+         +Bg4ro3vQx/e/JyZxpjG7g4NM25lHNkv3P/Tb1tTt3G3NWfWmzspIxB6oLZ1V9yv1izN
+         8c+A==
+X-Gm-Message-State: AOAM531HYF0eAFZeKmrw62JAf/ous/Z7N/DY9/fSU7ekoL6aXDTT1c9e
+        xqXrkah86DvYd2ui2bYgAo0J5aMLacI=
+X-Google-Smtp-Source: ABdhPJylFOfpbrfb0kRYwh2LZgnvt+qiRfvk/mXnoZPdSHZxpXFoxKrDQxk8f0/eyPo+sEYGtIDmcw==
+X-Received: by 2002:a5d:444b:: with SMTP id x11mr4050517wrr.402.1600940138869;
+        Thu, 24 Sep 2020 02:35:38 -0700 (PDT)
+Received: from [192.168.1.143] ([170.253.60.68])
+        by smtp.gmail.com with ESMTPSA id q186sm2789334wma.45.2020.09.24.02.35.37
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2020 01:15:32 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com
-Subject: Re: man-pages.7: Simplify indentation of structure definitions, shell
- session logs, and so on
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-References: <20200920214012.454410-1-colomar.6.4.3@gmail.com>
- <61f4e2a4-d468-ceba-2ccf-ce0c061aa20b@gmail.com>
- <f70c7f62-9d61-71aa-67cf-43501a29bccc@gmail.com>
- <CAKgNAki7=AJ7p2AwPkf9+4AkYKdOL6b4D0NyVdwZzu-qHFvGiA@mail.gmail.com>
- <20200921141552.tpuhdxo24lc6e7dh@localhost.localdomain>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <3814ebff-9ce7-ca81-25a7-427d0d255342@gmail.com>
-Date:   Thu, 24 Sep 2020 10:15:31 +0200
+        Thu, 24 Sep 2020 02:35:38 -0700 (PDT)
+Subject: Re: [PATCH 12/24] getgrent_r.3: Use sizeof() to get buffer size
+ (instead of hardcoding macro name)
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        Stefan Puiu <stefan.puiu@gmail.com>
+Cc:     lnx-man <linux-man@vger.kernel.org>, linux-kernel@vger.kernel.org,
+        Walter Harms <wharms@bfs.de>
+References: <20200910211344.3562-1-colomar.6.4.3@gmail.com>
+ <20200910211344.3562-13-colomar.6.4.3@gmail.com>
+ <CACKs7VD_p=d+nvuFxkWofSE6jCoKAKx5w44_5ciTJ0NX_H1ZFA@mail.gmail.com>
+ <7dd2ab72-3ce7-1f50-229a-e663c3df2dcd@gmail.com>
+ <CACKs7VDzgUyDM9FhRR69Aqw2-0xiZC86EhkqSmD5P68derRBFw@mail.gmail.com>
+ <de87f720-68fd-02ef-1ce4-aba7593dd84a@gmail.com>
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+Message-ID: <caf93f04-4d73-0377-8787-ad38d217795d@gmail.com>
+Date:   Thu, 24 Sep 2020 11:35:36 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20200921141552.tpuhdxo24lc6e7dh@localhost.localdomain>
-Content-Type: text/plain; charset=windows-1252
+In-Reply-To: <de87f720-68fd-02ef-1ce4-aba7593dd84a@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Branden,
+Hi,
 
-On 9/21/20 4:15 PM, G. Branden Robinson wrote:
-> At 2020-09-21T09:49:11+0200, Michael Kerrisk (man-pages) wrote:
->> On Mon, 21 Sep 2020 at 09:32, Alejandro Colomar <colomar.6.4.3@gmail.com> wrote:
->>> Indentation of structure definitions, shell session logs, and so on
->>>
->>> When  structure definitions, shell session logs, and so on are included
->>> in running text, indent them by 4 spaces (i.e.,  a  block  enclosed  by
->>> .in +4n and .in), format them using the .EX and EE macros, and surround
->>> them with suitable paragraph markers (either .PP or .IP).  For example:
->>>
->>>                 .PP
->>>                 .in +4n
->>>                 .EX
->>>                 int
->>>                 main(int argc, char *argv[])
->>>                 {
->>>                     return 0;
->>>                 }
->>>                 .EE
->>>                 .in
->>>                 .PP
->>>
->>>
->>> That could be simplified to the following, right?:
->>>
->>>                 .IP
->>>                 .EX
->>>                 int
->>>                 main(int argc, char *argv[])
->>>                 {
->>>                     return 0;
->>>                 }
->>>                 .EE
->>>                 .PP
->>>
->>> Or is there any difference?
+On 2020-09-23 22:35, Michael Kerrisk (man-pages) wrote:
+> On 9/15/20 12:03 PM, Stefan Puiu wrote:
+>> Hi,
 >>
->> .IP indents by 8 spaces by default, I think.
+>> On Fri, Sep 11, 2020 at 6:28 PM Alejandro Colomar
+>> <colomar.6.4.3@gmail.com> wrote:
+>>>
+>>> Hi Stefan,
+>>>
+>>> On 2020-09-11 16:35, Stefan Puiu wrote:
+>>>   > Hi,
+>>>   >
+>>>   > On Fri, Sep 11, 2020 at 12:15 AM Alejandro Colomar
+>>>   > <colomar.6.4.3@gmail.com> wrote:
+>>>   >>
+>>>   >> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+>>>   >> ---
+>>>   >>   man3/getgrent_r.3 | 2 +-
+>>>   >>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>>   >>
+>>>   >> diff --git a/man3/getgrent_r.3 b/man3/getgrent_r.3
+>>>   >> index 81d81a851..76deec370 100644
+>>>   >> --- a/man3/getgrent_r.3
+>>>   >> +++ b/man3/getgrent_r.3
+>>>   >> @@ -186,7 +186,7 @@ main(void)
+>>>   >>
+>>>   >>       setgrent();
+>>>   >>       while (1) {
+>>>   >> -        i = getgrent_r(&grp, buf, BUFLEN, &grpp);
+>>>   >> +        i = getgrent_r(&grp, buf, sizeof(buf), &grpp);
+>>>   >
+>>>   > I'm worried that less attentive people might copy/paste parts of this
+>>>   > in their code, where maybe buf is just a pointer, and expect it to
+>>>   > work. Maybe leaving BUFLEN here is useful as a reminder that they need
+>>>   > to change something to adapt the code?
+>>>   >
+>>>   > Just my 2 cents,
+>>>   > Stefan.
+>>>   >
+>>> That's a very good point.
+>>>
+>>> So we have 3 options and I will propose now a 4th one.  Let's see all
+>>> of them and see which one is better for the man pages.
+>>>
+>>> 1.-     Use the macro everywhere.
+>>>
+>>> pros:
+>>> - It is still valid when the buffer is a pointer and not an array.
+>>> cons:
+>>> - Hardcodes the initializer.  If the array is later initialized with a
+>>>     different value, it may produce a silent bug, or a compilation break.
+>>>
+>>> 2.-     Use sizeof() everywhere, and the macro for the initializer.
+>>>
+>>> pros:
+>>> - It is valid as long as the buffer is an array.
+>>> cons:
+>>> - If the code gets into a function, and the buffer is then a pointer,
+>>>     it will definitively produce a silent bug.
+>>>
+>>> 3.-     Use sizeof() everywhere, and a magic number for the initializer.
+>>>
+>>> The same as 2.
+>>>
+>>> 4.-     Use ARRAY_BYTES() macro
+>>>
+>>> pros:
+>>> - It is always safe and when code changes, it may break compilation, but
+>>>     never a silent bug.
+>>> cons:
+>>> - Add a few lines of code.  Maybe too much complexity for an example.
+>>>     But I'd say that it is the only safe option, and in real code it
+>>>     should probably be used more, so maybe it's good to show a good practice.
+>>
+>> If you ask me, I think examples should be simple and easy to
+>> understand, and easy to copy/paste in your code. I'd settle for easy
+>> enough, not perfect or completely foolproof. If you need to look up
+>> obscure gcc features to understand an example, that's not very
+>> helpful. So I'd be more inclined to prefer version 1 above. But let's
+>> see Michael's opinion on this.
+>>
+>> Just my 2c,
 > 
-> 7 "ens" on nroff devices (like terminals), 7.2n on troff devices.
+> So, the fundamental problem is that C is nearly 50 years old.
+> It's a great high-level assembly language, but when it comes
+> to nuances like this it gets pretty painful. One can do macro
+> magic of the kind you suggest, but I agree with Stefan that it
+> gets confusing and distracting for the reader. I think I also
+> lean to solution 1. Yes, it's not perfect, but it's easy to
+> understand, and I don't think we can or should try and solve
+> the broken-ness of C in the manual pages.
+> 
+> Thanks,
+> 
+> Michael
+> 
+> 
 
-D'oh, yes. 7!
+I was reverting the 3 patches I introduced (they changed from solution 1 
+to solution 2), and also was grepping for already existing solution 2 in 
+the pages (it seems that solution 2 was a bit more extended than 
+solution 1).
 
-> An "en" is a traditional typesetting unit of measure, the width of a
-> letter "n" in the font being used.  For monospaced fonts, including
-> those used in character-cell terminals--barring the employment of CJK
-> "fullwidth" code points--this is the same width as a space.
-> 
->> Also, .IP won't indent further, if we are already in an area of
->> indented paragraphs.
-> 
-> This is true.  In my maintenance work on groff's man pages I have
-> devised an idiom of calling .RS twice, putting in the desired material,
-> and then calling .RE twice.
-> 
-> In membarrier(2), however, life is simple because no code examples are
-> being nested inside an indented paragraph (.IP).  I'm attaching a patch;
-> it produces no visible difference in output, not even white space
-> changes.
-> 
-> I should add that my suggestion is to _not_ specify precise indentation
-> amounts in man pages, as this is a presentation matter and readers may
-> prefer tighter or more generous indentation, which they can control via
-> the IN register; that is, passing -rIN to the groff command.  (Or, more
-> likely, by configuring it in their man.local file so all pages that
-> respect the user's wishes are consistent.)
-> 
-> I've been improving the groff_man(7) page over the past few years to
-> document all of this stuff much better, and recently in groff git[1]
-> I've split out a groff_man_style(7) page.  The latter is (as near as
-> makes no difference) a strict superset of the former.
-> 
-> Michael's site has a fairly recent snapshot of these pages:
->   https://man7.org/linux/man-pages/man7/groff_man.7.html
->   https://man7.org/linux/man-pages/man7/groff_man_style.7.html
-> 
-> Feedback is welcome.  For the latter page, I still need to write my
-> grand introduction where I explain the real typesetting basics: filling,
-> adjusting, breaking, and how these all relate to hyphenation.
-> 
-> In my opinion, .in requests are never necessary in idiomatic,
-> well-written man pages and I'm happy to offer technical advice for how
-> to achieve the desired result without using them.
+While doing that, I've been thinking about it again...
 
-So, I don't disagree with you. (And as ever, thank you for your
-detailed input.) The pattern I use above (with ".in +4n/.in" was a
-hack that I cam up with to get code blocks with a "suitable"
-indent. Your suggestion of ".RS 4/.RE" (in your patch, which I've
-quoted inline below), does seem better. I'm not averse to changing
-things. But, there is a related question. I use a similar hack in
-the SYNOPSIS of many pages (e.g., chmod.2), to undent a single
-line:
+There's a good thing about sizeof (even though I admit it's very 
+insecure; and I never use it for myself), especially for the man pages:
+
+I'll copy here a sample from getnameinfo.3 to ilustrate it:
 
 [[
-.PP
-.in -4n
-Feature Test Macro Requirements for glibc (see
-.BR feature_test_macros (7)):
-.in
-.PP
+.EX
+struct sockaddr *addr;     /* input */
+socklen_t addrlen;         /* input */
+char hbuf[NI_MAXHOST], sbuf[NI_MAXSERV];
+
+if (getnameinfo(addr, addrlen, hbuf, sizeof(hbuf), sbuf,
+             sizeof(sbuf), NI_NUMERICHOST | NI_NUMERICSERV) == 0)
+     printf("host=%s, serv=%s\en", hbuf, sbuf);
+.EE
 ]]
 
-Presumably, that could be replaced with ".RS -4/.RE", but is
-there something even better?
+Here, it's clear to the reader that the 4th argument to 'getnameinfo()' 
+is the size of the buffer passed as the 3rd argument.
+
+If the function call was changed to
+
+[[
+getnameinfo(addr, addrlen, hbuf, NI_MAXHOST, sbuf,
+             sizeof(sbuf), NI_NUMERICHOST | NI_NUMERICSERV)
+]]
+
+then it would be less clear, and the reader should go back and forth to 
+see where that comes from.  In this short example it is relatively very 
+clear, but in some examples it might be less clear.
+
+Would you maintain your preference for solution 1?
+
+
+Also... I am trying to patch glibc to provide a safe version of 
+'nitems()', and shortly after they accept that patch (if they do), I'll 
+send another one to add a safe 'array_bytes()' based on 'nitems()'.
+
+Maybe the examples could use 'array_bytes()'; although is will be a 
+glibc extension, and non-existent in any other POSIX systems, of course, 
+which would make the examples non-portable, but still can be solved with 
+a simple
+
+[[
+#if !defined(array_bytes)
+#define array_bytes() sizeof()
+#endif
+]]
+
+But again it complicates the examples...
+
+
+I'm not sure at all about what should be done.  Please comment.  If you 
+still prefer solution 1, I'll send you a patch with the revert + fixes, 
+but I think it's very delicate.
 
 Thanks,
 
-Michael
-> 
-> I'm also happy to prepare patches for man-pages documents implementing
-> my recommendations.  :)
-> 
-> Regards,
-> Branden
-> 
-> [1] https://git.savannah.gnu.org/cgit/groff.git
-> 
-
-======
-
-Use .RS/.RE man macros instead of .in requests.
-
-diff --git a/man2/membarrier.2 b/man2/membarrier.2
-index f65c6be5c..526bb3819 100644
---- a/man2/membarrier.2
-+++ b/man2/membarrier.2
-@@ -60,11 +60,11 @@ The key idea is to replace, for these matching
- barriers, the fast-side memory barriers by simple compiler barriers,
- for example:
- .PP
--.in +4n
-+.RS 4
- .EX
- asm volatile ("" : : : "memory")
- .EE
--.in
-+.RE
- .PP
- and replace the slow-side memory barriers by calls to
- .BR membarrier ().
-@@ -285,7 +285,7 @@ very frequently, and where "slow_path()" is executed infrequently, the
- following code (x86) can be transformed using
- .BR membarrier ():
- .PP
--.in +4n
-+.RS
- .EX
- #include <stdlib.h>
- 
-@@ -332,13 +332,13 @@ main(int argc, char **argv)
-     exit(EXIT_SUCCESS);
- }
- .EE
--.in
-+.RE
- .PP
- The code above transformed to use
- .BR membarrier ()
- becomes:
- .PP
--.in +4n
-+.RS
- .EX
- #define _GNU_SOURCE
- #include <stdlib.h>
-@@ -421,4 +421,4 @@ main(int argc, char **argv)
-     exit(EXIT_SUCCESS);
- }
- .EE
--.in
-+.RE
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Alex
