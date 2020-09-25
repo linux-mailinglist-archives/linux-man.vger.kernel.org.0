@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DDE9C2781A9
-	for <lists+linux-man@lfdr.de>; Fri, 25 Sep 2020 09:33:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 758902781AC
+	for <lists+linux-man@lfdr.de>; Fri, 25 Sep 2020 09:33:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727443AbgIYHdH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 25 Sep 2020 03:33:07 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45910 "EHLO
+        id S1727401AbgIYHdN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 25 Sep 2020 03:33:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45916 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727441AbgIYHdH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 25 Sep 2020 03:33:07 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 24192C0613CE
-        for <linux-man@vger.kernel.org>; Fri, 25 Sep 2020 00:33:07 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id q9so1989373wmj.2
-        for <linux-man@vger.kernel.org>; Fri, 25 Sep 2020 00:33:07 -0700 (PDT)
+        with ESMTP id S1727067AbgIYHdJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 25 Sep 2020 03:33:09 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5943FC0613CE
+        for <linux-man@vger.kernel.org>; Fri, 25 Sep 2020 00:33:09 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id k18so2105077wmj.5
+        for <linux-man@vger.kernel.org>; Fri, 25 Sep 2020 00:33:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=hCakttq2xJC+3A2ls+Ur67tsq8FdsIDuSbR0awxBJns=;
-        b=RtD9e/B1itrgip0GmD+1A4r1gu9YfxjgNkfyFoyPog6MmAFq5maQcvnPA5ky4/1Cwz
-         2GmkI7qqw2ifQit5pXBQkGYAPZOMPE77SIBgszAK5n0Gzn/F9GtJTWT9JutJvbDOmDu4
-         Ut32FNtIUeCM+k9O8i21bzZJ0l4oKhig2i/xf32/gg1Jc2j7xXSes/FnQAz4j/fmbkty
-         ktMVM3nqLpzK9xGuExkSyeEaFFJLHhvOCl+9rQhOJluTYQNe7lQMFZh4vfaujcdopp+f
-         MOuOKADKcWiwuefDJmLsQDQDqQip/LtoK391hbK7xCw17x7406BHST8ZBErj11NtyQ3L
-         6BOA==
+        bh=JGLlghhCNxGdQ6DonRvIxy4L2936vdWDz40BGOfKii0=;
+        b=tcepQUKYcA3v6mhLuROPS+KCgnRZHwum4Jin6NV06ywZwZB35Uch6XOcfJ2x0mTbqf
+         OQio3ZhQOWJxjVN1PkXxOZwWQy7cl8igBd7Lcng86wK9R3KuriVg1IwexW2hgW0IxQRE
+         +ssIG1o2MRRSw5d8rCjzst3n7xc8rwsYXUKMGTwEWircS3sEIw2hPWmd1YfvzRWJN4/g
+         iNR9WC7rH4VPwnGn24fYXaSZFkPsLJTbLZ9aW8dJUjZ3E1aYfh8Jx0dcShTtDVrX5xr/
+         vpg0cVe+biLT2Ew4I6WWvq/yMkbJzny1jJIRSAcnDqs2S9U0RLU7DFflC8BLexQMmOqE
+         Oakw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=hCakttq2xJC+3A2ls+Ur67tsq8FdsIDuSbR0awxBJns=;
-        b=X8Vp6N6KfsJD8vj28DZB3r8PkthUY4duMkpFo57/6p/JRit3qGiZEdT2f2ixMrdXE2
-         B3EmRpm7UZpN8iU80uPsiTwO53tjA+WZ40PA1betuPE9f/9hQkopjCK0Y7Zk7DTmqb0Q
-         hOZe+Hjh/RRxECC6vBfVWMNAnfcB6iy8Br4cutzHhDDi8LbeoTFTAy3VXE9QS0INJoP0
-         Ef+UAxK5AakxXZfL/cb1aD8fNUviHDtSWUNLbNseZFw6vOzu6XbVKLX2yNk6IDA9ifIK
-         8si753bd4xqoDW/0pkurEI7ep+xAx0uSRDQIqnScRk81cxj7z8rJxzgQJqgjNuRojFNa
-         U2Tg==
-X-Gm-Message-State: AOAM533sre3lk517GyFDwtn/ZRMbs9H/6Pfb/aXjir2ZUhO4/BDyXtHm
-        oOuXtqxGam5CBk0eZJxIV6o=
-X-Google-Smtp-Source: ABdhPJxZqYlzXVgjBMwIQkKOpOhv00QQtOlmgILVVjS9bDAlKZEWYalhFT9b1B5KQKaH4aa3v7PSmg==
-X-Received: by 2002:a1c:bcd4:: with SMTP id m203mr1571082wmf.75.1601019185890;
-        Fri, 25 Sep 2020 00:33:05 -0700 (PDT)
+        bh=JGLlghhCNxGdQ6DonRvIxy4L2936vdWDz40BGOfKii0=;
+        b=HA6SHMSfMkca1p8L45Zqggu5eJnF2US0Av/jn2psZZFUo6ckU0dittpFrJK8uIE/6X
+         IE1igFFOHgDoU5+YxbRbAMiD7MeKZ02ZRzlJgYj19M87Vpyy1LUJM0SH6GzTfnBOKHW7
+         hXZx3dTDKNgNlHF2ASonLekfYK3r3ct3iOOL8s4aL1W1ko0me1V6osfW0x9oehfnDRs1
+         SM3p8fjXGUTnaw/8D3p5fFtOdZpT8XOaIIXrK3ysXXRJ23KSqMCZjHPoTOU2yLUEaiW7
+         kZRpXN0yxGp4K9jpG7RwbrptDVfKtfGcNU7CUWPM2U4Iz+8sjLsyZiWHnMeGkgq4L7TI
+         wyGw==
+X-Gm-Message-State: AOAM532Ly+CycQrNXpIxLw6MtQdZbdkwXT2E74WZ4kcJiFXSQBRng13B
+        Aebn9bJlwC7nyrFu4LW8jy4=
+X-Google-Smtp-Source: ABdhPJxE9vt+fbuAzzYCH3KolbLOaXnXojpqjYj+w3ikLKhyCUfs5opVr8oOEv6kTcpq+I4NuwN1PQ==
+X-Received: by 2002:a1c:3b09:: with SMTP id i9mr1566463wma.43.1601019186966;
+        Fri, 25 Sep 2020 00:33:06 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id n2sm1974314wma.29.2020.09.25.00.33.04
+        by smtp.googlemail.com with ESMTPSA id n2sm1974314wma.29.2020.09.25.00.33.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2020 00:33:05 -0700 (PDT)
+        Fri, 25 Sep 2020 00:33:06 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org,
         Alejandro Colomar <colomar.6.4.3@gmail.com>
-Subject: [PATCH 09/10] seccomp.2: Use ARRAY_SIZE() macro instead of raw sizeof division
-Date:   Fri, 25 Sep 2020 09:31:40 +0200
-Message-Id: <20200925073140.173394-10-colomar.6.4.3@gmail.com>
+Subject: [PATCH 10/10] getgrent_r.3: Declare variables with different types in different lines
+Date:   Fri, 25 Sep 2020 09:31:41 +0200
+Message-Id: <20200925073140.173394-11-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200925073140.173394-1-colomar.6.4.3@gmail.com>
 References: <20200925073140.173394-1-colomar.6.4.3@gmail.com>
@@ -65,29 +65,22 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man2/seccomp.2 | 3 ++-
+ man3/getgrent_r.3 | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/man2/seccomp.2 b/man2/seccomp.2
-index d6b856c32..82eb04dc6 100644
---- a/man2/seccomp.2
-+++ b/man2/seccomp.2
-@@ -1051,6 +1051,7 @@ cecilia
- #include <sys/prctl.h>
- 
- #define X32_SYSCALL_BIT 0x40000000
-+#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
- 
- static int
- install_filter(int syscall_nr, int t_arch, int f_errno)
-@@ -1101,7 +1102,7 @@ install_filter(int syscall_nr, int t_arch, int f_errno)
-     };
- 
-     struct sock_fprog prog = {
--        .len = sizeof(filter) / sizeof(filter[0]),
-+        .len = ARRAY_SIZE(filter),
-         .filter = filter,
-     };
+diff --git a/man3/getgrent_r.3 b/man3/getgrent_r.3
+index 8170cd417..64d7f3ac1 100644
+--- a/man3/getgrent_r.3
++++ b/man3/getgrent_r.3
+@@ -181,7 +181,8 @@ in the stream with all other threads.
+ int
+ main(void)
+ {
+-    struct group grp, *grpp;
++    struct group grp;
++    struct group *grpp;
+     char buf[BUFLEN];
+     int i;
  
 -- 
 2.28.0
