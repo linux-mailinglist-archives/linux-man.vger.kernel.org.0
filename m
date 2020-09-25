@@ -2,93 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2484E278F76
-	for <lists+linux-man@lfdr.de>; Fri, 25 Sep 2020 19:17:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DD3B5278FC7
+	for <lists+linux-man@lfdr.de>; Fri, 25 Sep 2020 19:40:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727874AbgIYRRc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 25 Sep 2020 13:17:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51806 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726990AbgIYRRb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 25 Sep 2020 13:17:31 -0400
-Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com [IPv6:2607:f8b0:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8505AC0613CE
-        for <linux-man@vger.kernel.org>; Fri, 25 Sep 2020 10:17:31 -0700 (PDT)
-Received: by mail-ot1-x343.google.com with SMTP id c2so2987760otp.7
-        for <linux-man@vger.kernel.org>; Fri, 25 Sep 2020 10:17:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=YEH/XSpkvhX+dtbjahNhALhDbRc8yzIZJCZCiqlNFNw=;
-        b=dh1WeciZXfL5dKH5jkyP2371IeagCBiC+oLQP35N1uJyX1c/vbtkOKvUasstGw9vy3
-         i8IIwaBxPcbxra8fAg/K6LtlwbhcBOxZzZtqIOJZ2ceCQ0kRav5G3VQZptOZDX23KpqA
-         Y1Bl7GHlqtqfPit8FCSorVSrUzOudEc2n5d9IACP5A1nLXMBGqjWTmoz8nSTYfQAxr1H
-         +qa3DwhL25Y1XRiuFCOKbqfklQq0OruCVyV8qLZGEK2kFQsufTFkRNUaGqohZj5G6DAx
-         zg2lEewG9aWfjEdPvMzScbfEC88TutvNe0cFFHTuDd87ctUzTywW2/nPCXyMQqrAMgeg
-         DpMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=YEH/XSpkvhX+dtbjahNhALhDbRc8yzIZJCZCiqlNFNw=;
-        b=HnOw+KHtQdkO44L2fNtJw3s+zMe1/9eo0YjS57YQFHC6aXbXnojVBeiCorCRwCJEB9
-         0uLyN1ZjdVsnMgTm+62cQO+lUlLv5j2WNarRpupMOC+SaVUHZR6jmLxdS8WeRNEOCoCa
-         wYaVQmq8ElMI4oYur5xxKvX1/Yacp1koligbACfTOyF+/e7VrWbl7eNQr/TTQiRC8F1Y
-         Rb/kEGRrU7VWGnqXr/LAT/k13Adc+YIEPwxpGvTz/95AlSxnZ6kXmwZH7o2057RZV/8f
-         AL8uCpXTs9CNWg+2t3NhRyMOhQdgZYyRVy6ja5Gb0b/yB65R96JlBmQiZ1GVbriFM73x
-         FaZw==
-X-Gm-Message-State: AOAM530z/SQOInkBnisb36mVNmCeSkVy9Bf9BzSCT8/2XJgwoyMd8n/v
-        ostYsIfzS6SihLobelffmLBjGhjNqBI2ag7KW930shKM
-X-Google-Smtp-Source: ABdhPJxGLPwNGnSgzDHqQDFZ0DZfyS1ePHnkk7h26TQ+rP9E0zxYVOSB2Rgoq+buSVseNKIG1ffpBFDjXuJ5mxvRHi0=
-X-Received: by 2002:a9d:6d0b:: with SMTP id o11mr1009262otp.114.1601054250912;
- Fri, 25 Sep 2020 10:17:30 -0700 (PDT)
+        id S1727290AbgIYRkC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 25 Sep 2020 13:40:02 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([216.205.24.124]:50784 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1729653AbgIYRkB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 25 Sep 2020 13:40:01 -0400
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1601055600;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=i0NUkfA/IECNtbw53+ZcCVAPJL6aLyJb1AKj19Cje3A=;
+        b=jVFgk4zMnpvcfTciiUs28ZanhnM0OCKi/NOkCog1IRFmcW/MaeC2Wo4Ds7BW5vDeSG6YeP
+        RsWs1ZAX/H1jXzgX6iE09UvVn287EzfODD9oYR9Xo+XJ1iRouukdjtPLCJ7mJSOKSFB4M6
+        /YSGaPrrUENrQ1TnLEBjgxUgOtAvpJQ=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-289-dCpyZtn4ODenprkVglBi8A-1; Fri, 25 Sep 2020 13:39:56 -0400
+X-MC-Unique: dCpyZtn4ODenprkVglBi8A-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 852511891E89;
+        Fri, 25 Sep 2020 17:39:54 +0000 (UTC)
+Received: from localhost (unknown [10.33.36.4])
+        by smtp.corp.redhat.com (Postfix) with ESMTP id B420D5C1C7;
+        Fri, 25 Sep 2020 17:39:53 +0000 (UTC)
+Date:   Fri, 25 Sep 2020 18:39:52 +0100
+From:   Jonathan Wakely <jwakely@redhat.com>
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+Cc:     fweimer@redhat.com, linux-man@vger.kernel.org,
+        libc-alpha@sourceware.org, gcc@gcc.gnu.org, rusty@rustcorp.com.au,
+        linux-kernel@vger.kernel.org, libstdc++@gcc.gnu.org,
+        libc-coord@lists.openwall.com, enh@google.com
+Subject: Re: [PATCH v2] <sys/param.h>: Add nitems() and snitems() macros
+Message-ID: <20200925173952.GN6061@redhat.com>
+References: <20200922145844.31867-1-colomar.6.4.3@gmail.com>
+ <20200925132000.235033-1-colomar.6.4.3@gmail.com>
+ <f6257d7d-1cea-b45c-a858-b80bbc1f18b1@gmail.com>
+ <20200925144822.GM6061@redhat.com>
+ <22c110fe-4c92-e5e6-dc35-dbf00a97cfa2@gmail.com>
 MIME-Version: 1.0
-References: <87k0wifdi2.fsf@oldenburg2.str.redhat.com> <299e6651-fa82-8350-f36f-e578e8180859@gmail.com>
- <1f2734bb-fed4-07f9-94d8-4dbce661b5cf@redhat.com>
-In-Reply-To: <1f2734bb-fed4-07f9-94d8-4dbce661b5cf@redhat.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Fri, 25 Sep 2020 19:17:19 +0200
-Message-ID: <CAKgNAkg6wNytOZ4mbO26A6GvDRY1czSvAH1TMpSZogj7kSJzmA@mail.gmail.com>
-Subject: Re: [PATCH] rtld-audit.7: Clarify la_version handshake
-To:     "Carlos O'Donell" <carlos@redhat.com>
-Cc:     Florian Weimer <fweimer@redhat.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <22c110fe-4c92-e5e6-dc35-dbf00a97cfa2@gmail.com>
+X-Clacks-Overhead: GNU Terry Pratchett
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, 25 Sep 2020 at 18:14, Carlos O'Donell <carlos@redhat.com> wrote:
+On 25/09/20 18:30 +0200, Alejandro Colomar via Libstdc++ wrote:
+>Hello Jonathan,
 >
-> On 9/25/20 6:47 AM, Michael Kerrisk (man-pages) wrote:
-> > On 9/25/20 10:48 AM, Florian Weimer wrote:
-> >> Returning its argument without further checks is almost always
-> >> wrong for la_version.
-> >>
-> >> Signed-off-by: Florian Weimer <fweimer@redhat.com>
-> >
-> > Hello Florian,
-> >
-> > I've applied this patch locally. I'll merge into master
-> > in a few hours. Perhaps in the meantime there are acks/reviews
-> > that come in.
+>On 2020-09-25 16:48, Jonathan Wakely wrote:
+>> Do you really need to provide snitems?
+>>
+>> Users can use (ptrdiff_t)nitems if needed, can't they?
 >
-> Just for the record. This version looks good to me and addresses
-> my previous comments.
+>They can, but that adds casts in the code,
+>which makes longer lines that are somewhat harder to read.
+>To avoid that, users may sometimes omit the cast with possible UB.
+>BTW, I use
 >
-> Reviewed-by: Carlos O'Donell <carlos@redhat.com>
+>IMO, array indices should be declared as 'ptrdiff_t' always,
+>and not 'size_t'.  More generically, I use unsigned integer types for two
+>reasons:  bitwise operations, and library functions that require me to 
+>do so.
+>
+>I don't intend to force anyone with my opinion, of course,
+>but if I were to choose a type for 'nitems()', it would be 'ptrdiff_t'.
+>
+>However, for legacy reasons people will expect that macro to be unsigned,
+>so I'd have 'nitems()' unsigned, and then a signed version prefixed 
+>with an 's'.
+>
+>Some very interesting links about this topic:
+>
+>Bjarne Stroustrup (and others) about signed and unsigned integers:
+>https://www.youtube.com/watch?v=Puio5dly9N8&t=12m56s
+>https://www.youtube.com/watch?v=Puio5dly9N8&t=42m41s
+>
+>The two links above are two interesting moments of the same video.
+>
+>I guess that might be the reason they added std::ssize, BTW.
 
-Thanks, Carlos!
+Yes, I'm aware of all the rationale. I already said that it makes
+sense in C++ where you have generic code. I am not convinced that it's
+necessary to add to <sys/param.h> when all it does is a cast from
+size_t to ptrdiff_t.
 
-Cheers,
-
-Michael
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
