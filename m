@@ -2,65 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C9C63278212
-	for <lists+linux-man@lfdr.de>; Fri, 25 Sep 2020 09:57:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7E975278213
+	for <lists+linux-man@lfdr.de>; Fri, 25 Sep 2020 09:57:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727646AbgIYH5Q (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 25 Sep 2020 03:57:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49648 "EHLO
+        id S1727472AbgIYH5x (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 25 Sep 2020 03:57:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49740 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727428AbgIYH5Q (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 25 Sep 2020 03:57:16 -0400
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com [IPv6:2a00:1450:4864:20::541])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 38B4FC0613CE
-        for <linux-man@vger.kernel.org>; Fri, 25 Sep 2020 00:57:16 -0700 (PDT)
-Received: by mail-ed1-x541.google.com with SMTP id ay8so1527821edb.8
-        for <linux-man@vger.kernel.org>; Fri, 25 Sep 2020 00:57:16 -0700 (PDT)
+        with ESMTP id S1727067AbgIYH5w (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 25 Sep 2020 03:57:52 -0400
+Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9EEBDC0613CE
+        for <linux-man@vger.kernel.org>; Fri, 25 Sep 2020 00:57:52 -0700 (PDT)
+Received: by mail-ej1-x644.google.com with SMTP id p9so2367430ejf.6
+        for <linux-man@vger.kernel.org>; Fri, 25 Sep 2020 00:57:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ynQy4K618lCGuRJadE6wq4i2X9bfWcU3889Hn/Xa9zk=;
-        b=IfSnC74dIIQSa3RiGhtR/iW3qrCO307pTMoz8anMGf86wMnUeFMMB/oITLervROxw8
-         mBcCaP1KcCxhobXrMzNN1vVGT2TgAjivezUBY+f6p0ojmd2zHo1m1DrUIz6LS65qMh0I
-         60+rfSCSSSaatPhqThwxm8FhjFL0kgzGH5KRXHttmIVmHOkCFRTDfJF5LvVHD7o5vKZt
-         ObhnPZA6/aoeSNW/n1g7wKPXVTp+fPwjfMAY8GnU8RWWAG07OTcEsFl5mJR3TOcO9kKg
-         TcUL5EUedygKm/RJUc4s6+/x1q1CuWl2xEAK2mIQUu4cLSDnAr5mbH2UI2oxBprhXTLO
-         2IEA==
+        bh=+PkYEf8eapAAKBtChvg72HyUe70WqZ59o7exXALVqWM=;
+        b=sB6N7YB61dlmP9n6TZaakOGkZlAGfuaUcmQfGu1XO1OsJY8dhMI/jWeqlLSLzvGlgt
+         haHvJZJMKRJODzTUYoPnv84UvkLCrivi4JvUByHRjB5TsgUCVQS89M4GhtxCFXoXYT4y
+         g73UjLxl2ScRuA3f5wYlfcouu4oTSgsQt0FgBMrwngPcL3SrP3isl24uEFeXgM5EqGfH
+         n7DxqC2k+3YJnLPXERTLQ++B55SS81r7apzQ9BndtguIAIKh/uIRdX5q55onSuSVv776
+         ynGtqQQ9tRTH/umZQcYTKzRz9eoR7lT9uzirf2z8T54a6FEVTYB/JaFJN5b9HuVx3Amu
+         AwHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=ynQy4K618lCGuRJadE6wq4i2X9bfWcU3889Hn/Xa9zk=;
-        b=parlwnUSXSvvNcAHjuZG1tGXHrNtJDt0P08JUv9gTR3lqIersH2dP9OfvXDXrwV2jQ
-         BuXsVshbmtKkezo1VOeiEIFxv1cp+JZVlM+WqbkTokGzfzwON0l53QnL5SFPN+JbLdkH
-         EIJF6sN0fL0WEhdwzKh8IX1Ql/B3TthZot9Arku8qc6eeFSeulvfHe1oRIBAD9vND5dQ
-         kaJGXLlxIewFfc2yH9NfplYNKlv5Kj1vlMJnXwP/kL2vRWL1DGlP3dYXzDLNVt+ivR6T
-         K0bBq/DMmJy+Z8fyqLAHjeZgmCu7fVgxSEb/N2fTlgjMuiMgX0B3KAVots6kHkRVnDlB
-         U2jA==
-X-Gm-Message-State: AOAM531EWQ5KN4akaQXbl9hT2AaJINTgTrl2qSvs0vgY4k7etBugzP+H
-        ZRwwvMzJSG/cEVQh5e2a4ko=
-X-Google-Smtp-Source: ABdhPJxsIGzg7zTfsZdjT8sDmXNgGXzJQ0vWuouDdAWoYMcwpqu7JoE3Pxqz0GMgYKdNDdyDHkDIhA==
-X-Received: by 2002:a05:6402:28d:: with SMTP id l13mr2753467edv.293.1601020634849;
-        Fri, 25 Sep 2020 00:57:14 -0700 (PDT)
+        bh=+PkYEf8eapAAKBtChvg72HyUe70WqZ59o7exXALVqWM=;
+        b=inz3kFcd5scr7EWq0pCA9YA9lIbXHOSdnR8kok96rK/0mJEvkYcDFNIcdEy+AacarK
+         jE2dGD+vAgJG7FyItHRhOey/IAYD3KN8UDBDdRMo8lOp0Cri3UlHE84awFeOwFEUdVNh
+         UtzRSemqTyHmgXKHUcU/UPdYiw77rhU2Q1VoY7APcILY/O36ExcUbMTxrPaWGhFg/REt
+         NOqWcLrFNj25UMSoqcC9l8qFBZH6dG2W68CRtiU8eFAV2xFM6ZlNdFRiwo4VNSd+vV7o
+         XWoVcrm8XeDaeUDHpfTTbMvaHsU74WrkPM625pBkxD4SIvw7CXI8w8HXVzqlwyMYDQUb
+         V+KQ==
+X-Gm-Message-State: AOAM532AwE7lwwCa/XTlVrkNFzkE31I7KfcIFMpwTpe2hqD2mex+FkLD
+        ICsyLYcf3PYLB7CVvojGqdg=
+X-Google-Smtp-Source: ABdhPJznvldcuVZ6eOVizLPjEIYMVsE2MPhDEq6ROjwUTXkgGTyJV+TtlzmiZESPhankO0pmFEg7gQ==
+X-Received: by 2002:a17:907:2506:: with SMTP id y6mr1411372ejl.265.1601020671307;
+        Fri, 25 Sep 2020 00:57:51 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id u9sm1306084eje.119.2020.09.25.00.57.13
+        by smtp.gmail.com with ESMTPSA id v2sm1320070ejh.57.2020.09.25.00.57.50
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2020 00:57:13 -0700 (PDT)
+        Fri, 25 Sep 2020 00:57:50 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         libc-alpha@sourceware.org
-Subject: Re: [PATCH 01/10] system_data_types.7: ffix
+Subject: Re: [PATCH 10/10] getgrent_r.3: Declare variables with different
+ types in different lines
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <20200925073140.173394-1-colomar.6.4.3@gmail.com>
- <20200925073140.173394-2-colomar.6.4.3@gmail.com>
+ <20200925073140.173394-11-colomar.6.4.3@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <45d19727-1acc-d382-7465-70e50b653cf9@gmail.com>
-Date:   Fri, 25 Sep 2020 09:57:10 +0200
+Message-ID: <25fc10c2-7938-0b5d-0368-66e249ffaa18@gmail.com>
+Date:   Fri, 25 Sep 2020 09:57:49 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200925073140.173394-2-colomar.6.4.3@gmail.com>
+In-Reply-To: <20200925073140.173394-11-colomar.6.4.3@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -78,22 +79,23 @@ Cheers,
 Michael
 
 > ---
->  man7/system_data_types.7 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  man3/getgrent_r.3 | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-> index f40b1373f..095a20f6d 100644
-> --- a/man7/system_data_types.7
-> +++ b/man7/system_data_types.7
-> @@ -219,7 +219,7 @@ typedef struct {
->  .EE
->  .IP
->  It is the type of the value returned by the
-> -.I imaxdiv (3)
-> +.BR imaxdiv (3)
->  function.
->  .IP
->  Conforming to: C99 and later; POSIX.1-2001 and later.
+> diff --git a/man3/getgrent_r.3 b/man3/getgrent_r.3
+> index 8170cd417..64d7f3ac1 100644
+> --- a/man3/getgrent_r.3
+> +++ b/man3/getgrent_r.3
+> @@ -181,7 +181,8 @@ in the stream with all other threads.
+>  int
+>  main(void)
+>  {
+> -    struct group grp, *grpp;
+> +    struct group grp;
+> +    struct group *grpp;
+>      char buf[BUFLEN];
+>      int i;
+>  
 > 
 
 
