@@ -2,130 +2,357 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0866527A732
-	for <lists+linux-man@lfdr.de>; Mon, 28 Sep 2020 08:04:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A611A27AA2F
+	for <lists+linux-man@lfdr.de>; Mon, 28 Sep 2020 11:04:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726469AbgI1GEn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 28 Sep 2020 02:04:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46566 "EHLO
+        id S1726497AbgI1JEB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 28 Sep 2020 05:04:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46080 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726412AbgI1GEm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Sep 2020 02:04:42 -0400
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 94538C0613CE
-        for <linux-man@vger.kernel.org>; Sun, 27 Sep 2020 23:04:42 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id e11so3619085wme.0
-        for <linux-man@vger.kernel.org>; Sun, 27 Sep 2020 23:04:42 -0700 (PDT)
+        with ESMTP id S1726465AbgI1JEB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Sep 2020 05:04:01 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 97B7BC061755
+        for <linux-man@vger.kernel.org>; Mon, 28 Sep 2020 02:04:00 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id o5so306408wrn.13
+        for <linux-man@vger.kernel.org>; Mon, 28 Sep 2020 02:04:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Gho4CNsY+CexjH0akIbz8cz8tSZra67Ao+cUGJ6Xc0Y=;
-        b=s8bbpph5yEDZgfRFzZBnGEaT5Vylk1yCMGe4nHq+aZ63IH7GliUFmsUBr7zCLCotV3
-         68dyiR162FSr2iJFjHL4ujhNeH0RXgWet6nA5OhIinUOvouVLtLRrDoavGk63jPMoe0I
-         4wcu/KOoPxmzex4fMz4wrlTSWN5eaZ9tnFnJlfQr/ElTpmlhMXGrSKm4YtISARrLA7Do
-         b8827YFQdDun8JCTMxotShfWqju4B3ahUc8pMiXoJOmj6unPr4S89RbdJhYXXNi9XFHQ
-         ID/jZ2+uubZeWN2E0PE28RU2xLA3JF/Q+ejEly9gMJ1molATs+RpYyQaYt2ULz+NVzZV
-         Ne6Q==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=nXizI+GNhC0qWG0Anurfrcca7/BrqPFj4olS2KJxL94=;
+        b=JyxHACnE6s+hW0uoAkn1Bkr2GOhCWjteEDlirzqNH9OMlt52Lg3lakHhafAjqtwnNO
+         cNkx1Cho6rDwvPOcCLBuJ4ob6BU8oYNT6aMD3Hg3xoUC98/ea+voDPPZi2mkNOaT9/VI
+         6jUf6z97W8u4tAafImuqYMBcWeWUL7SwpHwmKzbNW8jUxb+D3LNZ+cZGosQYrZ+t91HN
+         2OaemDRyBLRFw8dsJ9mcIA5x8PUsYpgHfSqO8M+oGsi+8fKRShkTqHaxiu8Oxw0aVo+9
+         sk4f5Ute1oCzy3et3wf7Ml5OSfy3OgNbr/LMhwGdJ7czUeFPeGR08m32PffF/cpZgYQj
+         fdFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=Gho4CNsY+CexjH0akIbz8cz8tSZra67Ao+cUGJ6Xc0Y=;
-        b=g95x+NnzZAT7brnxmhcsLrtUmE0UaD5k5A+FvDI1EJF+JBlzlN8d/tTYXkKCycAS6/
-         Xlvid6dgXj6DjrjW0dBp3WZmYQc6TI1JC8xA7nDujLIvP5D5aBcf4z4yE55hI4kpYd1V
-         WNVxZuCi+uNZdSGbxwdLIgf+GxSlW0OyT9W7dgtJvRZNy5OV/I2iSHomW28ksj7x/xti
-         3sR84xhtMV8/IOjz/ZwDHhCPO2m4lZtk37w94kRnNPnw7gtD8qtptw7jUbvUiPOvl+uk
-         bXmGmZQxL0CvDykrKUqNYNFGY+E0KHeCerGdw54LFbmjfkfGTR+DfyVyYTHKNXYRCYFH
-         fPxQ==
-X-Gm-Message-State: AOAM5302kEDVdBmpWmbC8iTKIwld64LZP3FXuh+dEr5C3rsNHisPN7jH
-        V3ws4h1YMlRKTGWQBd6GlmY=
-X-Google-Smtp-Source: ABdhPJy2HXExIBTBNHtvfc3Mmc204NnXxsFRo295mE/wEm9M2sibydHQdZeA1gD71R2tQqKsfXRtfw==
-X-Received: by 2002:a1c:7918:: with SMTP id l24mr10064264wme.46.1601273081338;
-        Sun, 27 Sep 2020 23:04:41 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id v128sm7816908wme.2.2020.09.27.23.04.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 27 Sep 2020 23:04:40 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        libc-alpha@sourceware.org
-Subject: Re: [PATCH 2/3] system_data_types.7: Add 'FILE'
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-References: <20200927211345.20433-1-colomar.6.4.3@gmail.com>
- <20200927211345.20433-2-colomar.6.4.3@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <1a517588-29c1-f728-37ec-49e9825be321@gmail.com>
-Date:   Mon, 28 Sep 2020 08:04:39 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=nXizI+GNhC0qWG0Anurfrcca7/BrqPFj4olS2KJxL94=;
+        b=kgD5LsJnHsOB++v3LCnW/KG0mCJADzbGgWwEum7qtmzYxzqMZb4oz29Y+cTmQ3olhg
+         hfhhdpwGgsuT+M4oTioeJarFWIJAF3YgV2cW2to5Rm6qAodxdT8xuKCxazXJA9AAoAeD
+         D6nUvNTh+apHtj7G48pitfXoKKnHT+WY0+pCDnGfzGUa3qg7Gc9jEYtNKbSY059I7keM
+         lROT3azhUKr+9403Gc2md1O+Hm8M701uaQIvvYrywIIGatJkf/XDydjloYBkl0h/hkAy
+         9sf/b7gUWjShfyRoItQTmH/2pKg6sbwYcyR8sXEK57SP6lgWffaODLuypfifxpYzVsu3
+         Z/Lg==
+X-Gm-Message-State: AOAM532KI69/3wtkEzT/p999BAIk3RbZvlL5CvwRXKe81NZITo1uSQau
+        /AuM/KLt8DCsR2y54V2oK3c=
+X-Google-Smtp-Source: ABdhPJzn7pZ49QdwtxTMVGBBH1qE+x3I1Ywz1sY3tmPo2rlhmpxlDn8w7Tp4ftbSWjv1TKKLPJmmkw==
+X-Received: by 2002:adf:fe43:: with SMTP id m3mr524529wrs.19.1601283839251;
+        Mon, 28 Sep 2020 02:03:59 -0700 (PDT)
+Received: from localhost.localdomain ([170.253.60.68])
+        by smtp.googlemail.com with ESMTPSA id i16sm519912wrq.73.2020.09.28.02.03.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2020 02:03:58 -0700 (PDT)
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org,
+        g.branden.robinson@gmail.com,
+        Alejandro Colomar <colomar.6.4.3@gmail.com>
+Subject: [PATCH v2 1/3] system_data_types.7: ffix
+Date:   Mon, 28 Sep 2020 11:03:23 +0200
+Message-Id: <20200928090322.2058-1-colomar.6.4.3@gmail.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <836b6d7d-4433-18d0-78aa-542c419c02f2@gmail.com>
+References: <836b6d7d-4433-18d0-78aa-542c419c02f2@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20200927211345.20433-2-colomar.6.4.3@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+Normally, text under a section header starts in the next line after the
+header, without a blank line.  Follow that pattern.
 
-On 9/27/20 11:13 PM, Alejandro Colomar wrote:
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> ---
->  man7/system_data_types.7 | 23 +++++++++++++++++++++++
->  1 file changed, 23 insertions(+)
-> 
-> diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-> index ff0403df9..16930985e 100644
-> --- a/man7/system_data_types.7
-> +++ b/man7/system_data_types.7
-> @@ -197,6 +197,29 @@ Conforming to: C99 and later; POSIX.1-2001 and later.
->  See also:
->  .BR fenv (3)
->  .RE
-> +.\"------------------------------------- FILE -------------------------/
-> +.TP
-> +.I FILE
-> +.RS
-> +.br
+Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+---
 
-See my previous mail. In the meantime, I'm okay with applying
-this kind of formatting for this (and following) patches, though
-it may need changing later.
+Hi Michael,
 
-> +Include:
-> +.IR <stdio.h> ;
-> +or
-> +.IR <wchar.h> .
-> +.PP
-> +An object type used for streams.
-> +.PP
-> +Conforming to: C99 and later; POSIX.1-2001 and later.
-> +.PP
-> +See also:
-> +.BR fclose (3),
-> +.BR flockfile (3),
-> +.BR fopen (3),
-> +.BR fread (3),
-> +.BR stdin (3),
-> +.BR stdio (3),
-> +.BR unlocked_stdio (3)
+I had been using .PP because I hadn't seen .br before.
 
-Let's have fscanf() and fprintf() here. On the other hand,
-I think unlocked_stdio(3) probably isn't needed.
+I think .br is the correct format,
+following the pattern in already existing man pages.
 
-> +.RE
->  .\"------------------------------------- float_t ----------------------/
->  .TP
->  .I float_t
+BTW, is there any way to copy the CC list with git send-email
+from the email I'm answering to?
+Right now I'm manually copying all of them each time from Thunderbird.
 
-Thanks,
+Regards,
 
-Michael
+Alex
 
+ man7/system_data_types.7 | 58 ++++++++++++++++++++--------------------
+ 1 file changed, 29 insertions(+), 29 deletions(-)
 
+diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
+index 361e8d411..ff0403df9 100644
+--- a/man7/system_data_types.7
++++ b/man7/system_data_types.7
+@@ -66,7 +66,7 @@ system_data_types \- overview of system data types
+ .TP
+ .I aiocb
+ .RS
+-.PP
++.br
+ Include:
+ .IR <aio.h> .
+ .PP
+@@ -101,7 +101,7 @@ See also:
+ .TP
+ .I div_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <stdlib.h> .
+ .PP
+@@ -125,7 +125,7 @@ See also:
+ .TP
+ .I double_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <math.h> .
+ .PP
+@@ -167,7 +167,7 @@ type in this page.
+ .TP
+ .I fenv_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <fenv.h> .
+ .PP
+@@ -184,7 +184,7 @@ See also:
+ .TP
+ .I fexcept_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <fenv.h> .
+ .PP
+@@ -201,7 +201,7 @@ See also:
+ .TP
+ .I float_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <math.h> .
+ .PP
+@@ -243,7 +243,7 @@ type in this page.
+ .TP
+ .I gid_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <sys/types.h> ;
+ or
+@@ -280,7 +280,7 @@ See also:
+ .TP
+ .I id_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <sys/types.h> ;
+ or
+@@ -304,7 +304,7 @@ See also:
+ .TP
+ .I imaxdiv_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <inttypes.h> .
+ .PP
+@@ -328,7 +328,7 @@ See also:
+ .TP
+ .I lconv
+ .RS
+-.PP
++.br
+ Include:
+ .IR <locale.h> .
+ .PP
+@@ -377,7 +377,7 @@ See also:
+ .TP
+ .I ldiv_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <stdlib.h> .
+ .PP
+@@ -401,7 +401,7 @@ See also:
+ .TP
+ .I lldiv_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <stdlib.h> .
+ .PP
+@@ -425,7 +425,7 @@ See also:
+ .TP
+ .I pid_t
+ .RS
+-.PP
++.br
+ Include
+ .IR <sys/types.h> ;
+ or
+@@ -481,7 +481,7 @@ See also:
+ .TP
+ .I ptrdiff_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <stddef.h> .
+ .PP
+@@ -520,7 +520,7 @@ types in this page.
+ .TP
+ .I regmatch_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <regex.h> .
+ .PP
+@@ -545,7 +545,7 @@ See also:
+ .TP
+ .I regoff_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <regex.h> .
+ .PP
+@@ -577,7 +577,7 @@ types in this page.
+ .TP
+ .I sigevent
+ .RS
+-.PP
++.br
+ Include:
+ .IR <signal.h> ;
+ or
+@@ -626,7 +626,7 @@ structure in this page.
+ .TP
+ .I siginfo_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <signal.h> ;
+ or
+@@ -662,7 +662,7 @@ See also:
+ .TP
+ .I sigset_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <signal.h> ;
+ or
+@@ -691,7 +691,7 @@ See also:
+ .TP
+ .I sigval
+ .RS
+-.PP
++.br
+ Include:
+ .IR <signal.h> .
+ .PP
+@@ -723,7 +723,7 @@ in this page.
+ .TP
+ .I size_t
+ .RS
+-.PP
++.br
+ Include:
+ .I <stddef.h>
+ or
+@@ -846,7 +846,7 @@ types in this page.
+ .TP
+ .I ssize_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <sys/types.h> ;
+ or
+@@ -922,7 +922,7 @@ types in this page.
+ .TP
+ .I suseconds_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <sys/types.h> ;
+ or
+@@ -949,7 +949,7 @@ structure in this page.
+ .TP
+ .I time_t
+ .RS
+-.PP
++.br
+ Include:
+ .I <sys/types.h>
+ or
+@@ -992,7 +992,7 @@ See also:
+ .TP
+ .I timer_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <sys/types.h> ;
+ or
+@@ -1015,7 +1015,7 @@ See also:
+ .TP
+ .I timespec
+ .RS
+-.PP
++.br
+ Include:
+ .IR <time.h> ;
+ or
+@@ -1053,7 +1053,7 @@ See also:
+ .TP
+ .I timeval
+ .RS
+-.PP
++.br
+ Include:
+ .IR <sys/time.h> ;
+ or
+@@ -1086,7 +1086,7 @@ See also:
+ .TP
+ .I uid_t
+ .RS
+-.PP
++.br
+ Include:
+ .IR <sys/types.h> ;
+ or
+@@ -1120,7 +1120,7 @@ See also:
+ .TP
+ .I va_list
+ .RS
+-.PP
++.br
+ Include:
+ .IR <stdarg> ;
+ or
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.28.0
+
