@@ -2,138 +2,122 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 71D5B27AF59
-	for <lists+linux-man@lfdr.de>; Mon, 28 Sep 2020 15:48:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6271C27AF74
+	for <lists+linux-man@lfdr.de>; Mon, 28 Sep 2020 15:55:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726442AbgI1Nsg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 28 Sep 2020 09:48:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33798 "EHLO
+        id S1726348AbgI1NzN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 28 Sep 2020 09:55:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34804 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726420AbgI1Nsg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Sep 2020 09:48:36 -0400
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com [IPv6:2607:f8b0:4864:20::1042])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 610D4C061755;
-        Mon, 28 Sep 2020 06:48:36 -0700 (PDT)
-Received: by mail-pj1-x1042.google.com with SMTP id v14so693420pjd.4;
-        Mon, 28 Sep 2020 06:48:36 -0700 (PDT)
+        with ESMTP id S1726310AbgI1NzN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Sep 2020 09:55:13 -0400
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com [IPv6:2607:f8b0:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 72380C061755
+        for <linux-man@vger.kernel.org>; Mon, 28 Sep 2020 06:55:13 -0700 (PDT)
+Received: by mail-pf1-x441.google.com with SMTP id b124so1075396pfg.13
+        for <linux-man@vger.kernel.org>; Mon, 28 Sep 2020 06:55:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=qcXIwszJxys1WeZzFGHVIATFt+lOTNl2V4823JwrDqw=;
-        b=YraFdap6YUNGw79y8BW+bHPhR+FIT4qkQ7ks96O0UlVUQkT8avZ4r9++4Su4wFr4rM
-         SblvvnOaJcn1+Vf6Y/by89dZT6rY9t+mr03l5Zv3/vnufOrtBkCb0wdEyx/niCcyhj/8
-         eMRalnBrF6FWKsqL21Twz7295TxCP/QpEkOuNvm8Uxh8iNHuTopst5a2669HLQEw01jm
-         MmHho+flNxLrPH/CF+vqJOYUZtcBMaF0auMUnfD1TS/ybbmGrxt3UDH8A+099MIFthze
-         wNJLqk+NDTo3hAqc7UIsGmjBHkMGhwXWHkBRCsFGghVhFiDh9seN6UN9kApWJ/LJgujV
-         QtGQ==
+        bh=w6ry1jrnmrFAtvxhzK+IJqkRsxyq9TMn2yhHFvEivH8=;
+        b=Y7m9wrSv8X3sUxhaJibgFFc3mGBVaOd6NJ/+p6BOeUBBxDUP4Y6KL1DzHSpxdnC7wk
+         qClhIxqL6PkuwJcmly4Dmhd+iHmF8SP+mxzGDHW7TgmZsSPg6n6I17jaqN09yMk+02Wp
+         W0D4tdd8WK4qmiTcL2tBsQGr0CY0GnBOsB5VYC7zju6cYvthGB0d40xi5IYnKnlK1PlQ
+         r2s1dJsGpiCtpJ/cL8y8RZQRjgrQ0sCG79MkcXTsbMvEnhoYkAj7XY7tIZ7rdr1Qnmmx
+         rd1ye5Q7+WGQ+42zx+jj1i+GgmIpxfiFUAuykk8/el3NVtGDQ6T6GcvrFbUEwv1kS+Le
+         r9Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=qcXIwszJxys1WeZzFGHVIATFt+lOTNl2V4823JwrDqw=;
-        b=PWm3OulYpttKIzc3utZIMvWDBbnjr5yKHK2daG1S1UzLWoxePmE/62gBCiVtj2vt/Y
-         m91cEH06F3ixn2rB9/6BKn0t90KEnFsY0ZH6O2xCeUTEoW32+Y1N6aqcoVH/As9UB/e7
-         Rmv9pDC3xYmaxLPV5/fnEEiwGWPOcGehk8/KtOc31h3BnNt5xCUtR/IYY4K6fvn4F5nT
-         xJ5HAL9Q/7tFCWWHaSBkIpu2rSSg6SAizS+N9MviBvF4NWQTCBqQrDdr1GMr8y2nYqtT
-         PGDVMUQ0VBK/023VU/vAeSi4lByGy8EHzyRJzTPEixiaM27qg30wVJjM1N7KGRpkuP//
-         lQwQ==
-X-Gm-Message-State: AOAM531TgzVoVm2ZrV0BYXlyKsoQbPH9A/MXybhVPg7bVFx3W+oJcBW9
-        t/gyrA83zj8XVI+l5BLwjfE=
-X-Google-Smtp-Source: ABdhPJx27lSkeWR30cVXZEwujHwtlZErni0ftkJ7kzK+FwlKaDz5fjP9Nu/0o/CijDeeFbWv0ws7PQ==
-X-Received: by 2002:a17:90a:ec06:: with SMTP id l6mr1447543pjy.66.1601300915989;
-        Mon, 28 Sep 2020 06:48:35 -0700 (PDT)
-Received: from localhost.localdomain ([1.129.172.247])
-        by smtp.gmail.com with ESMTPSA id gb17sm1534398pjb.15.2020.09.28.06.48.33
+        bh=w6ry1jrnmrFAtvxhzK+IJqkRsxyq9TMn2yhHFvEivH8=;
+        b=n5Sj9Vu9V2W9OjcUMNoTtrf04D0+iVEohZ9vy/b/vHEtMaTIVGDzg8rpDPow3KanGN
+         e7l0fC9YODI7OO/miXuvYCMWwcUtwQB0qQjE85BenKM58n/sA/p4JVHbuhHzVw5jB1pZ
+         2vtZcuGkNcROJVWhkc3ev5FDxHfU0dWTO46L4r+4rqMjv59SDMyIt9LFo1vByTOLoHbB
+         AGEw2dSHfioDAUotLdZEgBmt7+YWE8UeHSY7fA0KuOWcf7X6J2I3vZGIEmK61fuIo9JO
+         zYqNpPWMX3UQNxscYPYUBY6xWsRUeqm55meyQAoE5oAp9LRn7dDdr03ybGyMpNG7HyQF
+         sgZA==
+X-Gm-Message-State: AOAM532b+Uu53aPAukLP75nuf6zHC8uobtLRAXmAeSLvvuDsghz2vkNj
+        mZFYmBcv7RtDvivnMH1Fxhg=
+X-Google-Smtp-Source: ABdhPJwAvyXCuUN9Xc7ZHSy63AtdQD3ixVxjuqUR8hLtPJA+MnW4sA6BaN3bhSrV4FslUd7IOo4y4g==
+X-Received: by 2002:a63:d65:: with SMTP id 37mr1238750pgn.139.1601301312999;
+        Mon, 28 Sep 2020 06:55:12 -0700 (PDT)
+Received: from localhost.localdomain ([1.129.175.25])
+        by smtp.gmail.com with ESMTPSA id p4sm1544307pju.29.2020.09.28.06.55.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2020 06:48:35 -0700 (PDT)
-Date:   Mon, 28 Sep 2020 23:48:27 +1000
+        Mon, 28 Sep 2020 06:55:12 -0700 (PDT)
+Date:   Mon, 28 Sep 2020 23:55:08 +1000
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-Cc:     linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
-        mtk.manpages@gmail.com
-Subject: Re: [PATCH 22/24] membarrier.2: Note that glibc does not provide a
- wrapper
-Message-ID: <20200928134824.nwvfa3k6ltar6dwz@localhost.localdomain>
-References: <20200927054657.ea2zaiesle6hwjit@localhost.localdomain>
- <562859fd-6740-1068-d9d0-9562140cec33@gmail.com>
- <20200928125227.yr2ugl23ib6mid76@localhost.localdomain>
- <5d4f71a6-8a5e-c683-fcbd-b5453435d736@gmail.com>
+Cc:     Dave Martin <Dave.Martin@arm.com>, mtk.manpages@gmail.com,
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org
+Subject: Re: [PATCH 1/2] system_data_types.7: Document size_t
+Message-ID: <20200928135506.2wsf3cwvkkbreqa3@localhost.localdomain>
+References: <20200918112755.21428-1-colomar.6.4.3@gmail.com>
+ <20200918112755.21428-2-colomar.6.4.3@gmail.com>
+ <20200928134122.GG6642@arm.com>
+ <8ce3d63c-445f-827b-a49a-914e8dd622d4@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="q2ajr4uvtcakqprz"
+        protocol="application/pgp-signature"; boundary="s5wptk7lgssa4yx6"
 Content-Disposition: inline
-In-Reply-To: <5d4f71a6-8a5e-c683-fcbd-b5453435d736@gmail.com>
+In-Reply-To: <8ce3d63c-445f-827b-a49a-914e8dd622d4@gmail.com>
 User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---q2ajr4uvtcakqprz
+--s5wptk7lgssa4yx6
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-At 2020-09-28T15:33:21+0200, Alejandro Colomar wrote:
-> On 2020-09-28 14:52, G. Branden Robinson wrote:
-> > At 2020-09-27T22:05:14+0200, Alejandro Colomar wrote:
-> >> 2)
-> >>
-> >>> .EX
-> >>> .BI "int fstat(int " fd ", struct stat *" statbuf );
-> >>> .EE
-> >>
-> >> 3)
-> >>
-> >>> .EX
-> >>> .BI "int fstat(int\~" fd ", struct stat *" statbuf );
-> >>> .EE
-> >>
-> >> I'd say number 2 is best.  Rationale: grep :)
-> >> I agree it's visually somewhat harder, but grepping is way easier.
-> >
-> > I don't see how (2) is any tougher to grep than (3)...?
-[...]
-> > $ grep 'fstat.*fd.*statbuf' man2/*
->=20
-> There are a few cases:  if I want to find declarations of type int,
-> I'd start with:
->=20
-> $ grep -rn "int\s"
->=20
-> or something like that.  "int\~" would break the ability to do that.
+Hi, Alex!
 
-That would, among more obscure cases, miss the style of function
-declaration used by people who get along without ctags:
+At 2020-09-28T15:48:14+0200, Alejandro Colomar wrote:
+> > Where does this arbitrary-looking list of headers come from?
+>=20
+> There are two parts:  left to the ';', and right to the ';'.
+>=20
+> Left: The canonical C standard header, and the canonical POSIX header,
+> in alphabetical order.
+>=20
+> Right: All other headers that shall define the header, according to
+> either the C or the POSIX standards, in alphabetical order.
 
-static int
-my_little_function(int foo, char bar)
+That's not a bad scheme but it is not inferable from the current man
+page text; I almost commented on the inconsistency in one of my earlier
+messages but deemed it out of scope.  Please document it, perhaps in an
+introductory paragraph at the top of the Description section.
 
-So I would tend to use grep 'int\>' to match a word boundary instead of
-a whitespace character.
+Or, you could spend a word to do the same work:
+
+gid_t   Include: <sys/types.h>.  Alternatively, <grp.h>, <pwd.h>,
+<signal.h>, <stropts.h>, <sys/ipc.h>, <sys/stat.h>, or <unistd.h>.
 
 Regards,
 Branden
 
---q2ajr4uvtcakqprz
+--s5wptk7lgssa4yx6
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl9x6agACgkQ0Z6cfXEm
-bc43NBAArvGHYFLhprdZLQ/1G/60LhG9InQEjk78YC8oHqDuN9NFvGmb4TAXOj73
-8/aGfTOXYjBi48FZWYAFfoR57LAXTdscV8K+B6kP5wAK7mlpe02iEz+zKGePaNzA
-ZckTkaj9R/0rxav8x5FkQ745iRdwnrnD+aiBERrBC/7OJryy44swrs3LcpGMPSVX
-gzP2PmbU91zoowt7Pqrct7ffbanpa2hqXyri6yaJf2mHrPLFS2m0srEG+ELYwg5M
-IJ7uD46pY9KkyzkUDHmfkG+aQ+gd0D8sneP3u5Bad8CVymLNQjOv9gcZrDov616h
-8uFLlJnvpzbP/RxFOEaXji2USNcKGS/yR/TPBFLXUyFrSr2yy5Vd4RbEqgyIWlry
-aulBOVpL7leMHxkCjH9SwZLm1FFdYUJKjlLWWiEIaFzETqCCauxddrJQmqGalUcQ
-mVHlz2ojo18+aqQi3QyMbjGgygxzm60zm/SDkdbJCVsrHYhGlunzZ8VMGf0LiCBK
-NvCQkq7alBUxfWdeHZPFDxq+OznPcWsBhsWVk/ZMJ+GI5ITc2LlT/wCMh4hVLYri
-ptVwvCehB27w52bJO1o1UgoTIXeTJpbufvRXP8NY2iQS7iOo+qWoCZuqsNRIZRzz
-3fgScpT/FacdlRHM0AL90wNp8P2bFnbnoGm1ZJoOpvWtted7wtg=
-=qCvX
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl9x6zoACgkQ0Z6cfXEm
+bc7t4w/8CuVE6jF59gFWPYWbTCu+HI+EXDlJ2QTeDv+606eraa0bDoqpJutDP4Y/
+e1YEaXs2ReVz3jIuf3w44EQp7Q5MqdlRhfLh8d/1NeyoJces5RuP6/V89ywNKuCN
+miZYOsVEMy8bim1ZMmk5qSLImzyWQNpy0qkNCqHZkLP8qT3FE0DzeUF7Mml/bF9r
+pAVeraOYzYbgK5pMRIWThEfbZNmYJQIeCK3ZxbUHrO6UOyCNe11snjLeF9Kn+GFJ
+cI4j1Ebt8+KBtfoy0zYZCuS5JApQc0ELCcIBLYtpQ5N/RU505VIXVHLqcot7CZzy
+nbm8bA3BLUz3C+8ki744B+zECeM1EsTWl9aBpRoabWg0NQFNZ+xRYRptK2q0qQuE
+ZN1coZmfA5B2+HDvf4F9pJCXINQRqjPiJMgP8upuHvDm3/52Kx9tKc1iWwbpdCYf
+AxGWF7vFneYpkRSDdB9KVOs0yARDq02p9VjRvG2C7ZQmbKUHeDRAIvJegEsrGDwf
+3xQxY/+Gcn85qYcYrZWWEYaVuyGt+5TzET/XiBTP9edmGB1pkSWhzvuDCKx0mk+r
+PytdPvZv/CriCWUOZ1el7V/WChj72PsI2j21WHrPX8n9e2vbXqTuq/dKiwq5hjvF
+wqMtyh82FFnzc1/NvbBeTjt43rmWHPfFdDyvLCsVXUnHQcYquz0=
+=e7kl
 -----END PGP SIGNATURE-----
 
---q2ajr4uvtcakqprz--
+--s5wptk7lgssa4yx6--
