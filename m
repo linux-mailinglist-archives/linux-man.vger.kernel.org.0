@@ -2,139 +2,118 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9BB6227AE3C
-	for <lists+linux-man@lfdr.de>; Mon, 28 Sep 2020 14:52:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 46D5027AE7E
+	for <lists+linux-man@lfdr.de>; Mon, 28 Sep 2020 14:58:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726583AbgI1Mwi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 28 Sep 2020 08:52:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53344 "EHLO
+        id S1726485AbgI1M63 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 28 Sep 2020 08:58:29 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54268 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726559AbgI1Mwi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Sep 2020 08:52:38 -0400
-Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com [IPv6:2607:f8b0:4864:20::1044])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ACA0BC0613CE;
-        Mon, 28 Sep 2020 05:52:36 -0700 (PDT)
-Received: by mail-pj1-x1044.google.com with SMTP id mn7so605998pjb.5;
-        Mon, 28 Sep 2020 05:52:36 -0700 (PDT)
+        with ESMTP id S1726380AbgI1M63 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Sep 2020 08:58:29 -0400
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com [IPv6:2607:f8b0:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 18555C061755
+        for <linux-man@vger.kernel.org>; Mon, 28 Sep 2020 05:58:29 -0700 (PDT)
+Received: by mail-pf1-x441.google.com with SMTP id x22so932469pfo.12
+        for <linux-man@vger.kernel.org>; Mon, 28 Sep 2020 05:58:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=zhY90fj6kROkZ+LIElw8VKqtyrqqKdD/BNmOEHg9tZ4=;
-        b=j7LQJXWloUQDuf3xZYh22xooImioNw9NlZLmK4HSdh0WkFiP1ttUrviwPxC7l8QLru
-         PuPzIlM2MhosduS9QZ+craxopXKoBu/D6bEJia2BWWNhvDV8otsv7vSX1fov9C27LIRz
-         51RAokvfM3uZx3ZLyJUtbL4GcWJ1VvPPmEh//nOeAt7yiZ31q388MjDUh47gdF2Py51Z
-         9lveMEPztsqf7RumAf4ALQK7ah/x1PwcVUsSR4puvcg4v7y1MYHhceFvGOJfEKdTg45Y
-         4+oCzLhLANgE6E4BC1KSBKFBYD/aHRHigHfMtoi+LTjZrUOjVZIaWr7g1WVIfJvYG+rA
-         V8/w==
+        bh=ENZG67x9qetx2PRNXJsVzTYri/BcGAZxhc4m/98gSAM=;
+        b=UV+Fs39twKbtuTcHGjpEhEhKrr2x4KN7mqmAVcr70yb1IH+aWJe4NsRXzeDdlOkih0
+         wvOCY+RwJFRnEjKy6DaSTEpHudBWKoBJaPWkaLMgYwtIjgNc97+kubf1nLkFNqxbcKNk
+         G2Np7IshRpI1ro9r0hZRms5C5KKLTaoSMADEgb2IOntTFmhACVLvWoT9N7+RgrLkJgcQ
+         CKvYRM8uZCCRGecRp5QwFaG93gGAfd2qFqTq719koT6dApky7kvHxhFBMCqXAJ/D6AS5
+         ADy++pbsuwbB9p0xWFha0gMXF1/ljCL1qbF52qRIhehMytTE8JMzdbdNjnXBjCHb68wm
+         xTyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=zhY90fj6kROkZ+LIElw8VKqtyrqqKdD/BNmOEHg9tZ4=;
-        b=Z9Spw2lIv5ER5XQIFLZ4ZQsQkz5MTNJIIZWCDRJ2DLXuSbnrf3QE38pK/LecNFICTg
-         uI5bvXgmkmdbaDrQueYKKg7+ZchgkAHelojFNViIXNagQpfoHT4zsaVrZR2RbR0ZbYqF
-         qJfFWAffnxsXad53JhengNDB09TVnPyf/zq+ZnHCYFZQLY15Qm+/g11b1oPKQRuL33oM
-         kBJPZ9Zo4EY/Glf4rMoLpQmoAwbe3zaHK46zZaNNBlMZ1xPYqBvP85fEIRh4QH1cRirA
-         FK6LUiIDlHFSCG7FF8w7Z8yuIKjoCp4tBnwqnDFXB987tlvrJ48ILy2QS+k3LejHXqyT
-         FseQ==
-X-Gm-Message-State: AOAM5316eXjL3Tlv9KV6IDlT2WXRLOlHsuH40SCcY8K3NhLrm6kqzq/D
-        tNTjQGX9Q+bLcu8fPaxczTI=
-X-Google-Smtp-Source: ABdhPJw1QdIyOywVoetqbWDE4NRTWKHI1M3hxbjSdbJTQmtn3LErFFIk5MVBto5IICtjK9KRVlPwBw==
-X-Received: by 2002:a17:90a:cb0f:: with SMTP id z15mr1162841pjt.76.1601297556306;
-        Mon, 28 Sep 2020 05:52:36 -0700 (PDT)
-Received: from localhost.localdomain ([1.129.175.39])
-        by smtp.gmail.com with ESMTPSA id r1sm1394823pgl.66.2020.09.28.05.52.33
+        bh=ENZG67x9qetx2PRNXJsVzTYri/BcGAZxhc4m/98gSAM=;
+        b=sb13d8N25HF0slZsjPNq9GFzrIP5Az/OEl364zSkcrXsDeAXupYSQ2re5T6nupchs6
+         0MM05h/TxO9Dvy4jPFQ46XHogqD6PLNGQC6kPJFhkTzGeeq40PRh91DFrM24+NOG8sjJ
+         FOs0uis+KzpopgsNzfML8Yaw3Sx056eA24pM9Jtc5NRlBjrPEOedG4VBm2rjoZafG4Wh
+         NX0RRsS02ib+TqL+4TOvS3sIcd1VVIqtxVP0oUi+le7ZSwn45qr+28h+cdfbWxdPMftn
+         vai0/59mws/XcEj/L8erO5LWH3enbC9sRGsWXfrCxU2pP2UgP590C4xoMmPvRaXa4kpF
+         I+AQ==
+X-Gm-Message-State: AOAM532NEc6agb7CsnwXqcGPT1Wobnk55qL3ShkHAxyaJmU12AGUIVfv
+        3pC3sKGP/KE7JqH6+q7cRiBuxzr2Rnw=
+X-Google-Smtp-Source: ABdhPJwwf3LL/B4mkSzXrKKWIge0K7qXHcmKrbKaX7AwDq0WoCG5IIygkvTF+bXt4Saf100vsxuzfQ==
+X-Received: by 2002:a65:67d7:: with SMTP id b23mr1078777pgs.362.1601297908671;
+        Mon, 28 Sep 2020 05:58:28 -0700 (PDT)
+Received: from localhost.localdomain ([1.129.173.67])
+        by smtp.gmail.com with ESMTPSA id 134sm1366026pgf.55.2020.09.28.05.58.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2020 05:52:35 -0700 (PDT)
-Date:   Mon, 28 Sep 2020 22:52:29 +1000
+        Mon, 28 Sep 2020 05:58:28 -0700 (PDT)
+Date:   Mon, 28 Sep 2020 22:58:21 +1000
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-Cc:     linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
-        mtk.manpages@gmail.com
-Subject: Re: [PATCH 22/24] membarrier.2: Note that glibc does not provide a
- wrapper
-Message-ID: <20200928125227.yr2ugl23ib6mid76@localhost.localdomain>
-References: <20200927054657.ea2zaiesle6hwjit@localhost.localdomain>
- <562859fd-6740-1068-d9d0-9562140cec33@gmail.com>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/2] system_data_types.7: srcfix
+Message-ID: <20200928125819.irrpwbn3j6qpzc7v@localhost.localdomain>
+References: <20200925080330.184303-1-colomar.6.4.3@gmail.com>
+ <20200927061015.4obt73pdhyh7wecu@localhost.localdomain>
+ <bff2769a-8999-b658-6bb3-5b4bfa8255d0@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="bxnq6uigh25hfq4e"
+        protocol="application/pgp-signature"; boundary="sbsa2caowca2du22"
 Content-Disposition: inline
-In-Reply-To: <562859fd-6740-1068-d9d0-9562140cec33@gmail.com>
+In-Reply-To: <bff2769a-8999-b658-6bb3-5b4bfa8255d0@gmail.com>
 User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---bxnq6uigh25hfq4e
+--sbsa2caowca2du22
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-At 2020-09-27T22:05:14+0200, Alejandro Colomar wrote:
-> Hi Branden,
->=20
-> * G. Branden Robinson via linux-man:
->=20
-> 1)
->=20
-> > .EX
-> > .B int fstat(int \c
-> > .IB fd , \~\c
-> > .B struct stat *\c
-> > .IB statbuf );
-> > .EE
->=20
-> 2)
->=20
-> > .EX
-> > .BI "int fstat(int " fd ", struct stat *" statbuf );
-> > .EE
->=20
-> 3)
->=20
-> > .EX
-> > .BI "int fstat(int\~" fd ", struct stat *" statbuf );
-> > .EE
->=20
-> I'd say number 2 is best.  Rationale: grep :)
-> I agree it's visually somewhat harder, but grepping is way easier.
+At 2020-09-27T22:24:19+0200, Alejandro Colomar wrote:
+> Yup, I introduced that line a few patches ago because
+> I didn't know .RB existed :)
 
-I don't see how (2) is any tougher to grep than (3)...?
+At the risk of being the sort of tedious jerk who promotes is own work,
+I recommend the table at the beginning of groff_man(7)[1], which can
+serve almost as a quick-reference card for the macro package.
 
-If I'm grepping, I'm usually concerned with things like
-variable/function names and not with punctuation, so if I were grepping
-for the above function signature I'd probably write:
+> BTW, thanks for all your comments.
+> Thanks to them I improved the style in system_data_types.7,
+> which I started a few weeks ago.
 
-$ grep 'fstat.*fd.*statbuf' man2/*
+I've noticed!  I'm subscribed to the list and I think your efforts have
+tripled the average monthly traffic. :D
 
-=2E..which would catch either of the above just fine.
-
-Am I missing something?
+But it's a good thing.  Section 7 of the manual is criminally underused,
+and data types have long been badly neglected in documentation, with
+functions sucking up all the oxygen.  In my opinion, every
+externally-visible symbol a library exposes should be documented.
 
 Regards,
 Branden
 
---bxnq6uigh25hfq4e
+[1] https://man7.org/linux/man-pages/man7/groff_man.7.html
+
+--sbsa2caowca2du22
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl9x3IsACgkQ0Z6cfXEm
-bc52tw/9HKtno49CUQ4+ViAvR6viNlcMwHVxJrJJc22XkN2A9aGUAw8+z0Y6Pt8S
-9QxdQl2WNZ+MOdAmUUH+WIBUVbMrbWUBgqPsJ6G/G0BONqDTc7rMmJsVKXQw2S+I
-hDs4yHq7EnYSXjtwSvZP79gYke9YDQItIfCoa915kn8BNbg67/Ps2uYx4Q9GacOM
-2weUV7gN5SaZErlPHrWCKsxP3pRslIgdcgBj/jcwdLb1v/NguihDW+rQj6qxvvDs
-yqybmf244RIP73v18KOCcgot7SuwTjgl0/ybyMaSWt49y0drXzYjXIiDzHuB6Hl1
-EF9ZWjte68CzFHP0rRloCPbdYh/PaerNa5+yNU2v/LOmf7E+yjrV9Zb2HwTY7qDg
-lRWsX8DWSRc6LD9xdbDeUASRrjbeOhqyX0KAfmAg5vn/b+DbiUZ6hadrt6O8TPO1
-ZOZGTuNsCc5fiR1MOhAfl5AmWaNxYKWJk7XAp8l+6WqWqXFdzIdwtOgEzAErilZv
-R17UYCyqLOqSxUXLeHpNbZL3X7L2LXnWnNMg+10O2wlbT7FUqn7OEixmT/M1GGUa
-YtilI020FMH3JAOXH/Z/xwFP+Ni8GPorHxWxR12ahC5BmlvuUNwKRdbpX2cWQVpQ
-xgClqT/edX7q2DLJrrqjt7m5WS6ABAIMUHrgQDce80uw5F14tJ4=
-=dzTk
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl9x3esACgkQ0Z6cfXEm
+bc791Q//di48JCkVw0QwKKZRoF4js7nkwqzJBmj7becVc7gnKjpPZCeCdEEI7JlG
+AAUjZVu0yLHRKXjDYvhNQXuusfktivhXhoWw0o3l/9bx1lAqhhE6p2jpG8/p/7OH
+C2raY/4DZKFg+sjWBfybtDkyIOCzLaphLRL5jrv1iow4JyDKH44+U0X34f59B2nl
+V5xdX9CEQAn9ospOY0segKl1KZuSa2k+xcQRMu6DDo2EBeQfDHC6vB1KdYrlFwMl
+xJXoidjPpsVrgvyG7OlUHc1seain3+u6dhqSK8wH3ILZLrOhHqMsyag5iTzagBFU
+5XtdLIO6v3iap7E7bboCRKYFDpAopbX853dy2Wa8EIG9we1jS6yapaa6/GREjnmE
+4AB99G9BlbPBqRisHPQvO2yV/i6i08BnxBXYIvpo1CLJTlx8aCbHPWvrnz584Nyf
+CFMS/Uvxl+MzVv0CgW8RIftpnGQ6BHUbDZXK/VINJ794adVJS8Y/tWn49u/NVweO
+nISdwkYZ2hxos99CqY50B+cj4kLOqbzwRAuAXexqOCPGW5O86OnHujOhf5cHFeAY
++6alA3e+iHqmm46Gy4j67BUGulTQkyJho1MHMdlpPsy1+foKtxJSdbPOvoXLGbp/
+FTuQo5nFxYVKgdSN2k5Uy7pry6VzjdVCid01VygCei8B2rRqY6A=
+=myg1
 -----END PGP SIGNATURE-----
 
---bxnq6uigh25hfq4e--
+--sbsa2caowca2du22--
