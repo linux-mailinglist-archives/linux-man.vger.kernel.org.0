@@ -2,116 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 37B5F27AA35
-	for <lists+linux-man@lfdr.de>; Mon, 28 Sep 2020 11:07:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C3C3927ABE3
+	for <lists+linux-man@lfdr.de>; Mon, 28 Sep 2020 12:34:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726500AbgI1JHM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 28 Sep 2020 05:07:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46576 "EHLO
+        id S1726672AbgI1Kex (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 28 Sep 2020 06:34:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60178 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726497AbgI1JHM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Sep 2020 05:07:12 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5138BC061755
-        for <linux-man@vger.kernel.org>; Mon, 28 Sep 2020 02:07:12 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id x14so322694wrl.12
-        for <linux-man@vger.kernel.org>; Mon, 28 Sep 2020 02:07:12 -0700 (PDT)
+        with ESMTP id S1726654AbgI1Kew (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Sep 2020 06:34:52 -0400
+Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com [IPv6:2607:f8b0:4864:20::343])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7AB2DC061755
+        for <linux-man@vger.kernel.org>; Mon, 28 Sep 2020 03:34:52 -0700 (PDT)
+Received: by mail-ot1-x343.google.com with SMTP id s66so426511otb.2
+        for <linux-man@vger.kernel.org>; Mon, 28 Sep 2020 03:34:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=SvbL/FWkkLWFHjYYCwQ3y1U1DTXWy/KiVlWKc6oKseY=;
-        b=JrbIg+Dy5rGTdt2+RaRvya0t0dR/B0iaWCriP92LzmZrpzlrPjRjWsh5/xc2o2fYwB
-         sTru18bP4KEDTqCTc0Qzu6Hm2JbbRkSgUiw/MtwcAWNS8GtuZTj6m/ZBRmJlxoEcPExJ
-         MxwqFdPkdeKjDTSZuJ/J/cruyzPcdDTChiVtHGt+h3dwUqe7GCQfNN30Mp02mwZ77gMn
-         YPek1FQUWy0W6JIoajkI5GXNPisvno1/gODchZvzwclsirGpJyOnn0g8gPGU+CtkpR2B
-         e0dIvZOA21wjSOPqyhPqu9gH1tzcZYrA/nwGHxf3bHO+qW7M0TUAdQevhZw78HnhFK/K
-         KETg==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=/ubzcjUxC4ySpG0tEYCkgNW0UuJl8bsjuosfD/oVg+g=;
+        b=jEFnBTluLrbVCx8lL/2tRbQ+8QPWG6P9Gzi5ILZTwyRM3gwhub9dzY04wEO1wnJKXp
+         i0o8ugGCHVXLNvPyabAWhccyjkA6hl0ULk2fO5zCyew+9Si0VQIAjiT+pWIlr6FqN5Xi
+         rJOk01TuUDfVYKSXv1SXilIc5G/IzH9f30pQ5uVvILN85dFs2xP4qZMxhR3CAOZQhqV6
+         btZbZYTs8N7qdxB0oc2AlNNYQNWpG0JivvVAIvho7vXNcKB+8sO5TEVvVG1TeOjVE/6f
+         cEMgy7abyaYWfb5oQPvoiTFoIswBHnU196iAvmpvgpjtCyNfwOd4XkHFbWcO/mgBbM9R
+         HDFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=SvbL/FWkkLWFHjYYCwQ3y1U1DTXWy/KiVlWKc6oKseY=;
-        b=RP7geskFkE7AxmQNnq0LRWyKx0ts09QbigH1ve/hefT2D2PBA3+KKjEIAg9C7mX45A
-         lTSt9utTk8OFRwl95AfjuK6KcvMR50dP2tunoNvj328im7/KcB6wVSG3YfvuFMjo3foM
-         TxHsChKIfobHnzEZMtXJkbtmZ4okCon6qwKffUMmHfYLbAfnHJVeKtjvFImIQ6+vIjHY
-         rRUta5i+UPcgjzf0C32I9FWuIOQwQufHytZ0GrN+9wOHm5u9kA3lP7ysgEqTMtf7k2Hp
-         rlsgGGEU15tN7Tg/9V4rYOV4h5IdnOQxXSD6bLRdtQBOsl7WeXEqUxwC5h70qSOPyrQi
-         HLiQ==
-X-Gm-Message-State: AOAM533XiX2ZdF1aPIk40uLPE0bDaIML1cXVAnF+n7GpcnJQxY0DRpst
-        4hNhFK0zj9Dnli/pxuObsYFVsubTQfM=
-X-Google-Smtp-Source: ABdhPJydgCphw2qrpbhb90D5z5o1RXayfB1DUqp5emxmqkLi12KFYTCba++B21pwI7mGvWB6J2TrVg==
-X-Received: by 2002:adf:f885:: with SMTP id u5mr528724wrp.382.1601284031060;
-        Mon, 28 Sep 2020 02:07:11 -0700 (PDT)
-Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id 10sm372825wmi.37.2020.09.28.02.07.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2020 02:07:10 -0700 (PDT)
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-        g.branden.robinson@gmail.com,
-        Alejandro Colomar <colomar.6.4.3@gmail.com>
-Subject: [PATCH v2 2/3] system_data_types.7: Add 'FILE'
-Date:   Mon, 28 Sep 2020 11:06:58 +0200
-Message-Id: <20200928090657.2221-1-colomar.6.4.3@gmail.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <1a517588-29c1-f728-37ec-49e9825be321@gmail.com>
-References: <1a517588-29c1-f728-37ec-49e9825be321@gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=/ubzcjUxC4ySpG0tEYCkgNW0UuJl8bsjuosfD/oVg+g=;
+        b=L6az4SQ3FmwvtWfDCKT+N+N+bWVoapOtwWQNUMc709quh9tzHerZ/bSLe+HblulmwZ
+         F2H1ccY9dIFUTqql8Hj4U5z8bUvnv5qw+aAF6wyPwnFlBcZmWtZFmaRCz89sh+IPWQVa
+         bdl3C3ybA6T2omDr67CLKZVprerPgCHaitdd/Yj8xKhlU57zdjm+BYiItLAu0cJEvpgr
+         ZYF1Hm/EboFEJWCXVai3gCZLIldas5buDBYo+3ss/uBFviLUhzjq7y9J80exD5QaLeOs
+         b3HHCw+8cV0KnF4J6YURBXjMPe28wN5/i6LG9T0Q6SufkmU+9xKj2BcLk0j+dbiqccYl
+         9w9A==
+X-Gm-Message-State: AOAM530PJbOaCpdkzt+ByhIa7uVv2JLgqnqbmGLV2lVUuh1fRTsENJ0G
+        IIoTFUoXxbvTJoqou9Y837sytnXB4rLwqiKD1jQ=
+X-Google-Smtp-Source: ABdhPJw2MLxt5c5HvKqS1y/a3BOtP0NpCnsaE7xMq6jz5xMP7jbL4mgZtAsC240KUmgvzms+4f7CEsWGF8J9ariAzos=
+X-Received: by 2002:a9d:6d0b:: with SMTP id o11mr492451otp.114.1601289291729;
+ Mon, 28 Sep 2020 03:34:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <836b6d7d-4433-18d0-78aa-542c419c02f2@gmail.com> <20200928090322.2058-1-colomar.6.4.3@gmail.com>
+In-Reply-To: <20200928090322.2058-1-colomar.6.4.3@gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 28 Sep 2020 12:34:40 +0200
+Message-ID: <CAKgNAkjOX27k+RFvJC+icZp3dC2bK7aQiTb4Qj4Oc=NfDYZP5w@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] system_data_types.7: ffix
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
----
- man7/system_data_types.7 | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+Hi Alex,
 
-Hi Michael,
+On Mon, 28 Sep 2020 at 11:04, Alejandro Colomar <colomar.6.4.3@gmail.com> wrote:
+>
+> Normally, text under a section header starts in the next line after the
+> header, without a blank line.  Follow that pattern.
+>
+> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+> ---
+>
+> Hi Michael,
+>
+> I had been using .PP because I hadn't seen .br before.
+>
+> I think .br is the correct format,
+> following the pattern in already existing man pages.
 
-Please hold until the ffix is applied (or not).
+I don't disagree with the formatting change, but I am wondering if
+there's a better way to do it. I tend to consider (perhaps wrongly)
+that the use of .sp and .br is unidiomatic, and over the years I have
+replaced a large of them with alternatives. (For example, in many
+cases, .sp was being used when .PP should have been.)
+
+If Branden does not tell us of something better, I will just apply
+your patch as is.
+
+> BTW, is there any way to copy the CC list with git send-email
+> from the email I'm answering to?
+> Right now I'm manually copying all of them each time from Thunderbird.
+
+Sorry, I don't know. (Not really an answer to your question,
+but are you also aware of "git format-patch --to=... --cc=..." ?)
 
 Thanks,
 
-Alex
-
-diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-index ff0403df9..16930985e 100644
---- a/man7/system_data_types.7
-+++ b/man7/system_data_types.7
-@@ -197,6 +197,29 @@ Conforming to: C99 and later; POSIX.1-2001 and later.
- See also:
- .BR fenv (3)
- .RE
-+.\"------------------------------------- FILE -------------------------/
-+.TP
-+.I FILE
-+.RS
-+.br
-+Include:
-+.IR <stdio.h> ;
-+or
-+.IR <wchar.h> .
-+.PP
-+An object type used for streams.
-+.PP
-+Conforming to: C99 and later; POSIX.1-2001 and later.
-+.PP
-+See also:
-+.BR fclose (3),
-+.BR flockfile (3),
-+.BR fopen (3),
-+.BR fprintf (3),
-+.BR fread (3),
-+.BR fscanf (3),
-+.BR stdin (3),
-+.BR stdio (3)
-+.RE
- .\"------------------------------------- float_t ----------------------/
- .TP
- .I float_t
--- 
-2.28.0
-
+Michael
