@@ -2,61 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7D49A27B50B
-	for <lists+linux-man@lfdr.de>; Mon, 28 Sep 2020 21:12:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3225D27BF55
+	for <lists+linux-man@lfdr.de>; Tue, 29 Sep 2020 10:26:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726551AbgI1TM6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 28 Sep 2020 15:12:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55670 "EHLO
+        id S1725710AbgI2I0j (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 29 Sep 2020 04:26:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36566 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726442AbgI1TM6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Sep 2020 15:12:58 -0400
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 88EFEC061755;
-        Mon, 28 Sep 2020 12:12:57 -0700 (PDT)
-Received: by mail-wr1-x443.google.com with SMTP id k15so2527601wrn.10;
-        Mon, 28 Sep 2020 12:12:57 -0700 (PDT)
+        with ESMTP id S1725550AbgI2I0j (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Sep 2020 04:26:39 -0400
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6AF62C061755
+        for <linux-man@vger.kernel.org>; Tue, 29 Sep 2020 01:26:37 -0700 (PDT)
+Received: by mail-wr1-x429.google.com with SMTP id s12so4285764wrw.11
+        for <linux-man@vger.kernel.org>; Tue, 29 Sep 2020 01:26:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=vz8QchO9cmYjlrvcRjFTzSFLrDWK4NlG4rgcy0Z2ls0=;
-        b=eZOsu7wLnWpgSk3ecwmrfrSrD/FefaVqzQUz8eDGKTOuBAiOxmJIQmNUyRwptMQ2nh
-         RrFUxfuzAf/kYMF+Q3lUFUHubksh1KnI3cW/izilWr0u5vcX9jVF7BqMBJmtebAfLe3Q
-         6FSpU9kcf70FwEhd4AOkAOk0vwPGmrKkcwK2lNN12mUnNXmfxPGEuLxPPyeTvG87QMRQ
-         h9qOj2jtnX8VvqXhdQX0v5N8FA2StGEu8EdQhtDgdbLMXaJZu7DQLR0WPJtkolMp1T/N
-         7edVHSN06lYkz54H4eG3KjNi5HhTZtJnCyM9IUXuY0yQ8Se/fYKitRVp57ujcB3/l2GB
-         yFTg==
+        bh=A1I8s2ldZQv2KwzI4RyxhubywS78YAmMBqJ1PsqvNHI=;
+        b=CTjWiPufF1J2ItmtK1vOqyjDIgjWj2gzUcr3ChKYuZ5HLnj31MBcFciAOOuaP6LNcr
+         PuBpD5Kxg9s5MiNdNMG83NnsC4D6foTT6bh+Tm5OedTbDiF/D38tzQ8VQr0VPi57a03+
+         U9yeDlc8ZhfGyB3hvSdCc/NWIfQuo47NwNa4fAPE9tL6fym6Wkm3g/5GTifyxvBzsz25
+         bySAUIWjjojN6PAicGujAzr0etpbADYSIayYplmJjxSzB0pyceMrzuyujH2gvCLBUVT9
+         AaWCr5KZVxR+/impH8+bXgHR0lclZR6ypbYzA+UDY6OemqRtxNdjsEZwhFsEAS/mkBNX
+         9AyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=vz8QchO9cmYjlrvcRjFTzSFLrDWK4NlG4rgcy0Z2ls0=;
-        b=QTo7RMO6kK7Vr6y09eMu6N7HA/YYwxsevvY8RtL5YSw90S+03hOO/42fOc7+7SQmdZ
-         2BgM+oGsE1qr7Oo8WE99x0hMGumzvLks5BP4VWkK2ZTIM27I+p/LsudBwc7fdI9yZDca
-         uNJ5s/fwvWveFkg9N/DuTzXd3qWeyYfxrJlThLZlCN5iT9irYXX2Q1m4Eh32f8zAoDqW
-         8W8jf+gdwLMkUdE0dSZKshbaIVUnU6nOqZUdQvztwsYcbuOxu8tbZnbkV4Sc2uFiqx1K
-         aHoUK1F1qvqyZKf1RCYLLCwWQqmI1EHceg7YDHgwx58EEEnjoY4LkpdTjmO0r0G+VOtN
-         7fnA==
-X-Gm-Message-State: AOAM533/889jyj43mhkzS+H42JrpyT0i27LyRB5dPKv8l98WleVwOYHM
-        G7vkVjWvnQnQFQSTexyYKeY=
-X-Google-Smtp-Source: ABdhPJxiovG5tEEYTxk/MpoF6F52R8oux8Nz02/E+YQwQi67lZw1/Wi5MOd0u/CLQO5ZyrON/8wPTw==
-X-Received: by 2002:adf:dd0b:: with SMTP id a11mr3152720wrm.422.1601320376258;
-        Mon, 28 Sep 2020 12:12:56 -0700 (PDT)
+        bh=A1I8s2ldZQv2KwzI4RyxhubywS78YAmMBqJ1PsqvNHI=;
+        b=iJ73NjNIOEbhfa8e6jgwMF9ll1f2Ld6wZ497FmVwUcRG4XV9+rt2Ol7/Ham2BQzpSG
+         TT9WNTZ/12VvpvW6RHwa1Pc/e7c60pFJCI5ZXrlEOOchy0tV919r5eR1IA1xLod/ano8
+         dT9X+hZrAZHbdO0CjeWDvDYLmvWCeYY26g2UWOXtf4Xc7i+Cw+dJBa7p3Qys+MA0c8xH
+         kZ+x1b9g+ZhHENN42oAIOdmAFJD7i9m6nzRtBAPoMa1PQlC9Dz0kOgk2JRalzNHpPPUU
+         04TBvKzwtm55+GEYygQx/fEMH3K1xTPFXPAei/MMr/P1zj4TETWmwtGrIO9MO1c67vLG
+         oDyg==
+X-Gm-Message-State: AOAM533T3l+/+2MLVjuHN2UImhWBwVyDn8CP8X3W/f/pJGJRjFdfw/PK
+        Jg2uSwC62boH561gwpRDMWyFe4mguwMLIg==
+X-Google-Smtp-Source: ABdhPJyxEDKa2wCoaNcgDYpXXG2OLQ4aBbRDQD4ljMNXDr5PxXCLJ26jKAs/Qn7bFkiPXgLWHkl0+w==
+X-Received: by 2002:a5d:444b:: with SMTP id x11mr2840278wrr.402.1601367996022;
+        Tue, 29 Sep 2020 01:26:36 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id u17sm3072159wri.45.2020.09.28.12.12.54
+        by smtp.googlemail.com with ESMTPSA id n3sm4485482wmn.28.2020.09.29.01.26.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2020 12:12:55 -0700 (PDT)
+        Tue, 29 Sep 2020 01:26:35 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-To:     libc-alpha@sourceware.org
+To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        libc-coord@lists.openwall.com, libstdc++@gcc.gnu.org,
-        gcc@gcc.gnu.org, linux-kernel@vger.kernel.org,
-        linux-man@vger.kernel.org, jwakely@redhat.com, fweimer@redhat.com,
-        ville.voutilainen@gmail.com, enh@google.com, rusty@rustcorp.com.au
-Subject: [PATCH v4] <sys/param.h>: Add nitems()
-Date:   Mon, 28 Sep 2020 21:12:37 +0200
-Message-Id: <20200928191237.32063-1-colomar.6.4.3@gmail.com>
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
+        gcc@gcc.gnu.org
+Subject: [PATCH 0/8] Add some <stdint.h> types
+Date:   Tue, 29 Sep 2020 10:25:17 +0200
+Message-Id: <20200929082524.49529-1-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -64,114 +62,61 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-'nitems()' calculates the length of an array in number of items.
-It is safe: if a pointer is passed to the macro (or function, in C++),
-the compilation is broken due to:
- - In >= C11: _Static_assert()
- - In C89, C99: Negative anonymous bitfield
- - In C++: The template requires an array
+Hi Michael,
 
-Some BSDs already provide a macro nitems() in <sys/param.h>,
-although it usually doesn't provide safety against pointers.
+I started with <stdint.h> types.
+I joined them by groups:
+intN_t instead of having an entry for each int8_t, int16_t, ...
+I think that way I could better explain the types, common things,
+differences, and exceptions.
 
-This patch uses the same name for compatibility reasons,
-and to be the least disruptive with existing code.
+I'll wait until you review them to write about the remaining <stdint.h>
+types: [u]int_leastN_t, [u]int_fastN_t, and [u]intptr_t.
 
-This patch also adds some other macros, which are required by 'nitems()':
+Thanks,
 
-__is_same_type(a, b):
-Returns non-zero if the two input arguments are of the same type.
-
-__is_array(arr):
-Returns non-zero if the input argument is of an array type.
-
-__must_be(expr, msg):
-Allows using _Static_assert() everywhere an expression can be used.
-It evaluates '(int)0' or breaks the compilation.
-
-__must_be_array(arr):
-It evaluates to '(int)0' if the argument is of an array type.
-Else, it breaks compilation.
-
-__nitems(arr):
-It implements the basic sizeof division needed to calculate the array length.
+Alex
 
 
-P.S.: I'd like to put this patch in the public domain.
+Alejandro Colomar (8):
+  system_data_types.7: Add 'intmax_t'
+  intmax_t.3: New link to system_data_types(7)
+  system_data_types.7: Add 'uintmax_t'
+  uintmax_t.3: New link to system_data_types(7)
+  system_data_types.7: Add intN_t family of types
+  int8_t.3, int16_t.3, int32_t.3, int64_t.3, intN_t.3: New links to
+    system_data_types(7)
+  system_data_types.7: Add uintN_t family of types
+  uint8_t.3, uint16_t.3, uint32_t.3, uint64_t.3, uintN_t.3: New links to
+    system_data_types(7)
 
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
----
+ man3/int16_t.3           |   1 +
+ man3/int32_t.3           |   1 +
+ man3/int64_t.3           |   1 +
+ man3/int8_t.3            |   1 +
+ man3/intN_t.3            |   1 +
+ man3/intmax_t.3          |   1 +
+ man3/uint16_t.3          |   1 +
+ man3/uint32_t.3          |   1 +
+ man3/uint64_t.3          |   1 +
+ man3/uint8_t.3           |   1 +
+ man3/uintN_t.3           |   1 +
+ man3/uintmax_t.3         |   1 +
+ man7/system_data_types.7 | 272 +++++++++++++++++++++++++++++++++++++++
+ 13 files changed, 284 insertions(+)
+ create mode 100644 man3/int16_t.3
+ create mode 100644 man3/int32_t.3
+ create mode 100644 man3/int64_t.3
+ create mode 100644 man3/int8_t.3
+ create mode 100644 man3/intN_t.3
+ create mode 100644 man3/intmax_t.3
+ create mode 100644 man3/uint16_t.3
+ create mode 100644 man3/uint32_t.3
+ create mode 100644 man3/uint64_t.3
+ create mode 100644 man3/uint8_t.3
+ create mode 100644 man3/uintN_t.3
+ create mode 100644 man3/uintmax_t.3
 
-A few changes since v3:
-
-- Macros don't need reserved names in their parameters,
-so I simplified those names.
-
-- I fixed some wrong indentation levels.
-
-- Renamed __array_len() to __nitems() for consistency.
-
-
- misc/sys/param.h | 47 +++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
-
-diff --git a/misc/sys/param.h b/misc/sys/param.h
-index d7c319b157..08d4093961 100644
---- a/misc/sys/param.h
-+++ b/misc/sys/param.h
-@@ -102,5 +102,52 @@
- #define MIN(a,b) (((a)<(b))?(a):(b))
- #define MAX(a,b) (((a)>(b))?(a):(b))
- 
-+/* Macros related to the types of variables */
-+#define __is_same_type(a, b)                                                  \
-+	__builtin_types_compatible_p(__typeof__(a), __typeof__(b))
-+#define __is_array(arr)	(!__is_same_type((arr), &(arr)[0]))
-+
-+/* Macros for embedding _Static_assert() in expressions */
-+#if __STDC_VERSION__ >= 201112L
-+# define __must_be(expr, msg)   (                                             \
-+        0 * (int)sizeof(                                                      \
-+          struct {                                                            \
-+            _Static_assert((expr), msg);                                      \
-+            char _ISO_C_forbids_a_struct_with_no_members;                     \
-+          }                                                                   \
-+        )                                                                     \
-+)
-+#else
-+# define __must_be(expr, msg)   (                                             \
-+        0 * (int)sizeof(                                                      \
-+          struct {                                                            \
-+            int  : (-!(expr));                                                \
-+            char _ISO_C_forbids_a_struct_with_no_members;                     \
-+          }                                                                   \
-+        )                                                                     \
-+)
-+#endif
-+#define __must_be_array(arr)	__must_be(__is_array(arr), "Must be an array!")
-+
-+/* Macros for array sizes */
-+#if defined(__cplusplus)
-+# if __cplusplus >= 201103L
-+template<typename _Tp, std::size_t _Len>
-+  constexpr inline std::size_t
-+  nitems(const _Tp(&)[_Len]) __THROW
-+  {
-+    return _Len;
-+  }
-+# else /* __cplusplus < 201103L */
-+template<typename _Tp, std::size_t _Len>
-+  char
-+  (&__nitems_chararr(const _Tp(&)[_Len]))[_Len];
-+#  define nitems(arr)	(sizeof(__nitems_chararr(arr)))
-+# endif /* __cplusplus < 201103L */
-+#else /* !defined(__cplusplus) */
-+# define __nitems(arr)	(sizeof((arr)) / sizeof((arr)[0]))
-+# define nitems(arr)	(__nitems(arr) + __must_be_array(arr))
-+#endif /* !defined(__cplusplus) */
-+
- 
- #endif  /* sys/param.h */
 -- 
 2.28.0
 
