@@ -2,149 +2,122 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0326D27BFBA
-	for <lists+linux-man@lfdr.de>; Tue, 29 Sep 2020 10:38:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 67FE927C268
+	for <lists+linux-man@lfdr.de>; Tue, 29 Sep 2020 12:31:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727743AbgI2Iiu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 29 Sep 2020 04:38:50 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38486 "EHLO
+        id S1725536AbgI2KbU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 29 Sep 2020 06:31:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55932 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727634AbgI2Iiu (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Sep 2020 04:38:50 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 15B1EC061755;
-        Tue, 29 Sep 2020 01:38:50 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id e11so6102014wme.0;
-        Tue, 29 Sep 2020 01:38:49 -0700 (PDT)
+        with ESMTP id S1725535AbgI2KbU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Sep 2020 06:31:20 -0400
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 11FE1C061755
+        for <linux-man@vger.kernel.org>; Tue, 29 Sep 2020 03:31:20 -0700 (PDT)
+Received: by mail-wm1-x32f.google.com with SMTP id a9so4252645wmm.2
+        for <linux-man@vger.kernel.org>; Tue, 29 Sep 2020 03:31:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=dmGf1FRJlXDhCUgK6fiA66lZin9rP4W1yXe+rkN5lfo=;
-        b=pRjMRO5D33ilsDuphOJlgFYEuejymTllYwEQ9NL8+sx9tiphg8R8mfSxOqQuMbbaEi
-         jCe/ztdfDU4IiL+/ZaTo890rYlE2ON37+Vzui24nT+qJsfycmWRAwBwShTIoVNt7ha6t
-         f+rzbyUumVTWZsOzspEIxB/8YpDP/uWJiUpR9QpEtpxYQgQ9AksWRYsX2CmYk/1gMBlG
-         2d4d8C35oP6HK5OsCrwueA2GYqlVLnywW3Ua/zd6j+h97yzVSL8tQi3mZgFCSXxzrIbO
-         hmXhw2Nh4DBKvH5g2uoieE6S5/YTTTd3KVQFt47CelNpQ8JbJ+ASD1CD3DT3c/xWFJBC
-         8iCg==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=E1t3SPrz1tzqgozq3k3EdjQeA/tisCaIpHg3rULbeX4=;
+        b=kUrC1ZQx4OHtQEnx5AyxxfHh4GVu9PGHEnJsWHAdKBO3Ni8LnosldjDs3Xd8KAr8Vt
+         QWov3bSkbE53Sa845Cu+4cRhUMHCHcKwChJ5n72vfvrOSidp4fpqVdsb33WtJagC/+MY
+         amwqWp+SqISkef+2IvMyI24bArCmn1IvM+iIgkdOVGNSDYNU+9/8TL+8YBd5Q6uTq4Ye
+         cW8v0Kd7jPlJDGgUweuo2Tgqohrkx0TME8edx9K3KH9N0WpewQwB3iRunGRu/bMMwqNE
+         I7kflN04Ipokl47mNhKMQz5s9AK0p5jc2HD7J5mT4MrhIhrYqOrmtoQ7cl5SwYI/dHd8
+         KP9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=dmGf1FRJlXDhCUgK6fiA66lZin9rP4W1yXe+rkN5lfo=;
-        b=iQI4oSJ47ZBwPGr8WJ1UcaI1hstlEP1byQeUI9yjQmDf4n4jx7l9HKkTh2j0EzRXWe
-         9TkH6mJI9s2VPrWDd7WIptc63znuiioVttsuozC/TL/Qs5AP0iZyaQxmiRBfEO1oZgmD
-         6KJbwTSn3QPOo/yi6XT5cQ1BTDvqA4nPLJJM243tn6jBGYEZV4W072bN6Y31w8/vaIkH
-         7GzKGGE3QbYaDawTnr0LUAyhjMpzrIdWdGAxGWYGWO4k02bqcvs9d6UO+UMRZN1tP86d
-         nZ6ldOaDQwhlPf6kY6QaIGWC4S6rTuQS00AbzLstIaH8qho/aAOKN5BtDYiz7sHVHRlb
-         +n2Q==
-X-Gm-Message-State: AOAM532smaB4hG9Kq+6Zm8Q5BhxH6/rpF47Rkl4rT7Sr3loV+fx/0D+V
-        NGW6gTx4lm2QDEV4XNuwARRzfORo01U=
-X-Google-Smtp-Source: ABdhPJyBHXd39b1Y0Nd8HyE5S8phPtTwTGwEELYDj45/RQlofUJDP7uVEvOWdHxonXnH9wFc7n5rdA==
-X-Received: by 2002:a05:600c:2189:: with SMTP id e9mr3304284wme.8.1601368728464;
-        Tue, 29 Sep 2020 01:38:48 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id z191sm1470344wme.40.2020.09.29.01.38.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2020 01:38:47 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org, linux-api@vger.kernel.org,
-        linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-ext4@vger.kernel.org
-Subject: Re: [PATCH] man/statx: Add STATX_ATTR_DAX
-To:     Ira Weiny <ira.weiny@intel.com>
-References: <20200505002016.1085071-1-ira.weiny@intel.com>
- <20200928164200.GA459459@iweiny-DESK2.sc.intel.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <ddf4dd69-6bf8-8ca7-cdd7-a949884d997f@gmail.com>
-Date:   Tue, 29 Sep 2020 10:38:46 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=E1t3SPrz1tzqgozq3k3EdjQeA/tisCaIpHg3rULbeX4=;
+        b=sDlpngxf4vT3kbU50U+6yB/KBgJyvbLu/Tx3T6zym2CZPulr0KSSZowRBXATamDHE6
+         vzpaZSV6MZ5LPA6MVqy/gdUAjdmnQLajuSR37i1SktIeRp+sPUh+1JCU605QoQiwxfQo
+         s1jkFojP7gXlrbAoIdo1Uc4BSi7saW7ONiI5X9OdzEFdqi7eIdqWis/lEYEMxpJwjlW0
+         9TNsySbr1YabcfLR5Dj8mHMUz21QF5OLviXf72Zb3qLu0pLOTOOKea6u8RStuK0mZZjw
+         x7I3m0raXkgaEuxln+xfkFPA+MhsOlIer/nocQG8/dfz0wzDxQb6VMJrXjGcMcjQ46c8
+         4hAA==
+X-Gm-Message-State: AOAM5320qLNLOK8STwQ9cx5wRFKnM6fYlYtcMpU/PDaq4K/aVQrVvddu
+        ElMvCnkaPHiB6M/XWLnGTQRJg8LzhCcpLw==
+X-Google-Smtp-Source: ABdhPJwbxOnyOy4pawxtBK8mNlT4AiqXrvNhTd5gNiOIltNZQ1sdtkOvL7rgpIMASnlcAg5xiR5YKw==
+X-Received: by 2002:a7b:c307:: with SMTP id k7mr3971742wmj.31.1601375477910;
+        Tue, 29 Sep 2020 03:31:17 -0700 (PDT)
+Received: from localhost.localdomain ([170.253.60.68])
+        by smtp.googlemail.com with ESMTPSA id t5sm5611464wrb.21.2020.09.29.03.31.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2020 03:31:17 -0700 (PDT)
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
+        gcc@gcc.gnu.org, colomar.6.4.3@gmail.org
+Subject: [PATCH v2 0/8] Add some <stdint.h> types
+Date:   Tue, 29 Sep 2020 12:30:22 +0200
+Message-Id: <20200929103028.56566-1-colomar.6.4.3@gmail.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200929082524.49529-1-colomar.6.4.3@gmail.com>
+References: <20200929082524.49529-1-colomar.6.4.3@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20200928164200.GA459459@iweiny-DESK2.sc.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Ira,
+Hi Michael,
 
-On 9/28/20 6:42 PM, Ira Weiny wrote:
-> On Mon, May 04, 2020 at 05:20:16PM -0700, 'Ira Weiny' wrote:
->> From: Ira Weiny <ira.weiny@intel.com>
->>
->> Linux 5.8 is slated to have STATX_ATTR_DAX support.
->>
->> https://lore.kernel.org/lkml/20200428002142.404144-4-ira.weiny@intel.com/
->> https://lore.kernel.org/lkml/20200504161352.GA13783@magnolia/
->>
->> Add the text to the statx man page.
->>
->> Signed-off-by: Ira Weiny <ira.weiny@intel.com>
-> 
-> Have I sent this to the wrong list?  Or perhaps I have missed a reply.
+I made a mistake when sending the emails, and I only CCd linux-man
+(and other lists) in PATCH 0/8.  The rest were only sent to you.
+Actually, I was playing with the --cc option in git format-patch.
 
-No, it's just me being a bit slow, I'm sorry. Thank you for pining.
+I'm resending all of them as v2.
 
-> I don't see this applied to the man-pages project.[1]  But perhaps I am looking
-> at the wrong place?
+I fixed a typo in 5/8, while the rest are all identical to v1.
 
-Your patch is applied now, and pushed to kernel .org. Thanks!
+Thanks,
 
-Cheers,
+Alex
 
-Michael
 
-> [1] git://git.kernel.org/pub/scm/docs/man-pages/man-pages.git
-> 
->> ---
->>  man2/statx.2 | 24 ++++++++++++++++++++++++
->>  1 file changed, 24 insertions(+)
->>
->> diff --git a/man2/statx.2 b/man2/statx.2
->> index 2e90f07dbdbc..14c4ab78e7bd 100644
->> --- a/man2/statx.2
->> +++ b/man2/statx.2
->> @@ -468,6 +468,30 @@ The file has fs-verity enabled.
->>  It cannot be written to, and all reads from it will be verified
->>  against a cryptographic hash that covers the
->>  entire file (e.g., via a Merkle tree).
->> +.TP
->> +.BR STATX_ATTR_DAX (since Linux 5.8)
->> +The file is in the DAX (cpu direct access) state.  DAX state attempts to
->> +minimize software cache effects for both I/O and memory mappings of this file.
->> +It requires a file system which has been configured to support DAX.
->> +.PP
->> +DAX generally assumes all accesses are via cpu load / store instructions which
->> +can minimize overhead for small accesses, but may adversely affect cpu
->> +utilization for large transfers.
->> +.PP
->> +File I/O is done directly to/from user-space buffers and memory mapped I/O may
->> +be performed with direct memory mappings that bypass kernel page cache.
->> +.PP
->> +While the DAX property tends to result in data being transferred synchronously,
->> +it does not give the same guarantees of O_SYNC where data and the necessary
->> +metadata are transferred together.
->> +.PP
->> +A DAX file may support being mapped with the MAP_SYNC flag, which enables a
->> +program to use CPU cache flush instructions to persist CPU store operations
->> +without an explicit
->> +.BR fsync(2).
->> +See
->> +.BR mmap(2)
->> +for more information.
->>  .SH RETURN VALUE
->>  On success, zero is returned.
->>  On error, \-1 is returned, and
->> -- 
->> 2.25.1
->>
+Alejandro Colomar (8):
+  system_data_types.7: Add 'intmax_t'
+  intmax_t.3: New link to system_data_types(7)
+  system_data_types.7: Add 'uintmax_t'
+  uintmax_t.3: New link to system_data_types(7)
+  system_data_types.7: Add intN_t family of types
+  int8_t.3, int16_t.3, int32_t.3, int64_t.3, intN_t.3: New links to
+    system_data_types(7)
+  system_data_types.7: Add uintN_t family of types
+  uint8_t.3, uint16_t.3, uint32_t.3, uint64_t.3, uintN_t.3: New links to
+    system_data_types(7)
 
+ man3/int16_t.3           |   1 +
+ man3/int32_t.3           |   1 +
+ man3/int64_t.3           |   1 +
+ man3/int8_t.3            |   1 +
+ man3/intN_t.3            |   1 +
+ man3/intmax_t.3          |   1 +
+ man3/uint16_t.3          |   1 +
+ man3/uint32_t.3          |   1 +
+ man3/uint64_t.3          |   1 +
+ man3/uint8_t.3           |   1 +
+ man3/uintN_t.3           |   1 +
+ man3/uintmax_t.3         |   1 +
+ man7/system_data_types.7 | 272 +++++++++++++++++++++++++++++++++++++++
+ 13 files changed, 284 insertions(+)
+ create mode 100644 man3/int16_t.3
+ create mode 100644 man3/int32_t.3
+ create mode 100644 man3/int64_t.3
+ create mode 100644 man3/int8_t.3
+ create mode 100644 man3/intN_t.3
+ create mode 100644 man3/intmax_t.3
+ create mode 100644 man3/uint16_t.3
+ create mode 100644 man3/uint32_t.3
+ create mode 100644 man3/uint64_t.3
+ create mode 100644 man3/uint8_t.3
+ create mode 100644 man3/uintN_t.3
+ create mode 100644 man3/uintmax_t.3
 
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.28.0
+
