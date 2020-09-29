@@ -2,129 +2,83 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 34C0627D299
-	for <lists+linux-man@lfdr.de>; Tue, 29 Sep 2020 17:21:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C381127D7A9
+	for <lists+linux-man@lfdr.de>; Tue, 29 Sep 2020 22:09:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728215AbgI2PVM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 29 Sep 2020 11:21:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45018 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725497AbgI2PVM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Sep 2020 11:21:12 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4AC1EC061755
-        for <linux-man@vger.kernel.org>; Tue, 29 Sep 2020 08:21:10 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id k10so5862095wru.6
-        for <linux-man@vger.kernel.org>; Tue, 29 Sep 2020 08:21:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=j6CWfSuHx4oEV7t3DuKOs4RFZl0O4aRaCU4fbuz96zQ=;
-        b=FiW0+JA1PsXPIa/hXrzE9T7uujm7fuwyjoJ69QUDJJqy8jYUPchRXM2XuqR2KS8itg
-         EOh+S5T1lYB5/mwTt9AACaypWUdZXkZcYCVO0EkoiTQ9wXibFPXl29/WaEGZ6jTTx40s
-         v3fhfQkzhUE5pbbIfZwxtIcAYXGkB8Z2tWP14Sxkock4qeJHF5kXl9OqgoCqR2RoxN2g
-         4p2BLJJdvoizHAUvoOyjacJPJR9tahbuc87/NTLAhm3oh7iLUbh088sKuereGRUkj68e
-         mqUL3pRR/qUOM9Msydq/iVCaRKUkhb9gQiCSoKV8NxamJxdwnpN8l3LZ1cPEJF2oOZwY
-         kseg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=j6CWfSuHx4oEV7t3DuKOs4RFZl0O4aRaCU4fbuz96zQ=;
-        b=czB8xZ2p6K1vKwmGrsEycpKPF9ISfh99YgJ8ipbydgXE4vL3N3BQ0RPhuiBL/tATAA
-         nKBNC5U+hVbouocOGnr8wN3PYZ+ntiomLms4Dbp8ad6zj7LWnG6qVReLq24jeIqtZm54
-         JpXHoHUPweAGsmzM5QfYSLfV6ojtFs7c7VXphlbj4NjzZ3gm+e7zvSjaW/jtqxbFP6cG
-         I3vVD72RzcJU0lhoTE8nbLwCkaJ4/wl5K1hzqTpJfJFkrCeXmTQKeSIxyjXTesJBGXhT
-         TiIlljE9d672qfI+kh+b1Mbhjz5Gqb8Dhofq3ZJwxIl3z97BiqdAkzq27f4813J8i5XR
-         +5Ug==
-X-Gm-Message-State: AOAM531m1P+3mQ7di+ghPSDIJZXymwAltMR2CDbR7moPJ0US3IjG5PNm
-        gMjq3AYqtBtsEMtmvtYiqSA=
-X-Google-Smtp-Source: ABdhPJzVE0WREXQgC2QSKignPOOM83m9ScVBy8f1U84WIvmdIuATsAU/CR9/gyIb1rxpvF5pDL6E9A==
-X-Received: by 2002:adf:eb86:: with SMTP id t6mr4918285wrn.411.1601392868961;
-        Tue, 29 Sep 2020 08:21:08 -0700 (PDT)
-Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id d18sm6215343wrm.10.2020.09.29.08.21.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2020 08:21:08 -0700 (PDT)
-Subject: Re: [PATCH v2] system_data_types.7: Improve "Include" wording and
- format, and explain it in NOTES
-To:     Dave Martin <Dave.Martin@arm.com>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-        g.branden.robinson@gmail.com
-References: <d714d0e3-e9fd-0f31-4d5c-4f9232a6b55b@gmail.com>
- <20200929142219.72683-1-colomar.6.4.3@gmail.com>
- <20200929144324.GM6642@arm.com>
- <3dae4d7f-3c08-4f1c-47ce-8815255ca24c@gmail.com>
- <7b4bcd7f-8e60-943d-b127-6926a53a29d3@gmail.com>
- <20200929151339.GO6642@arm.com>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <6be305d9-4fef-59ee-6552-f86cf2dc5267@gmail.com>
-Date:   Tue, 29 Sep 2020 17:21:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        id S1728940AbgI2UJZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 29 Sep 2020 16:09:25 -0400
+Received: from mga12.intel.com ([192.55.52.136]:11358 "EHLO mga12.intel.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1728362AbgI2UJY (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 29 Sep 2020 16:09:24 -0400
+IronPort-SDR: I6o5N5ZB5XeGju4hGb47jWEq6D4LgYlTRSt5gLMWp2X5dkKyGKaMVt16WxK5zZtljToYJmCgmZ
+ +rPOKesTzbDw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9759"; a="141683851"
+X-IronPort-AV: E=Sophos;i="5.77,319,1596524400"; 
+   d="scan'208";a="141683851"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2020 13:09:23 -0700
+IronPort-SDR: k6lbaEZ6Kq6Tr+55Ah3ph5fY75+ANMKj7k+/gRlGnkvYZBURkyULKf0K716ivLNtoUxR08T4/v
+ 25TNVXctKViA==
+X-IronPort-AV: E=Sophos;i="5.77,319,1596524400"; 
+   d="scan'208";a="493255431"
+Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
+  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2020 13:09:22 -0700
+Date:   Tue, 29 Sep 2020 13:09:22 -0700
+From:   Ira Weiny <ira.weiny@intel.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-xfs@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org
+Subject: Re: [PATCH] man/statx: Add STATX_ATTR_DAX
+Message-ID: <20200929200922.GC706602@iweiny-DESK2.sc.intel.com>
+References: <20200505002016.1085071-1-ira.weiny@intel.com>
+ <20200928164200.GA459459@iweiny-DESK2.sc.intel.com>
+ <ddf4dd69-6bf8-8ca7-cdd7-a949884d997f@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20200929151339.GO6642@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ddf4dd69-6bf8-8ca7-cdd7-a949884d997f@gmail.com>
+User-Agent: Mutt/1.11.1 (2018-12-01)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-
-
-On 2020-09-29 17:13, Dave Martin wrote:
-> On Tue, Sep 29, 2020 at 05:06:27PM +0200, Michael Kerrisk (man-pages) wrote:
->>
->>>   > Can we not just annotate each header listed with the originating
->>>   > standard, say:
->>>   >
->>>   > 	<stddef.h>	(C)
->>>   >
->>>   > 	<sys/types.h>	(POSIX)
->>>   > 	...		(POSIX)
->>>   > 	...
->>>
->>> That may be a good idea; I've thought about doing that in the past;
->>> but also thought that it's still too much noise.
->>> Let's see what others think about it.
->>
->> My thought is that maybe we can add this kind of info later,
->> providing we find a concise way to do it. But, for now, already
->> the info in the page is useful as is, and I don't want to stop
->> the momentum of Alex's work. So, for now, I think let's carry
->> on the current style.
->>
->>> The downside is that it adds a lot of lines,
->>> being harder to read for types with too many headers (e.g., size_t).
->>
->> That is also my concern.
+On Tue, Sep 29, 2020 at 10:38:46AM +0200, Michael Kerrisk (man-pages) wrote:
+> Hello Ira,
 > 
-> OK, that's fair -- I agree that the page makes a valuable contribution
-> already, so it makes sense to merge it in its current form and think
-> about improvements (if any are warranted) afterward.
+> On 9/28/20 6:42 PM, Ira Weiny wrote:
+> > On Mon, May 04, 2020 at 05:20:16PM -0700, 'Ira Weiny' wrote:
+> >> From: Ira Weiny <ira.weiny@intel.com>
+> >>
+> >> Linux 5.8 is slated to have STATX_ATTR_DAX support.
+> >>
+> >> https://lore.kernel.org/lkml/20200428002142.404144-4-ira.weiny@intel.com/
+> >> https://lore.kernel.org/lkml/20200504161352.GA13783@magnolia/
+> >>
+> >> Add the text to the statx man page.
+> >>
+> >> Signed-off-by: Ira Weiny <ira.weiny@intel.com>
+> > 
+> > Have I sent this to the wrong list?  Or perhaps I have missed a reply.
 > 
-> Apologies for the noise!
+> No, it's just me being a bit slow, I'm sorry. Thank you for pining.
+
+NP
+
 > 
-> Cheers
-> ---Dave
+> > I don't see this applied to the man-pages project.[1]  But perhaps I am looking
+> > at the wrong place?
 > 
+> Your patch is applied now, and pushed to kernel .org. Thanks!
 
+Sweet!  Thank you!
+Ira
 
-Hi Dave,
-
-No problem, suggestions are welcome!
-Actually, I want suggestions for that page.
-
-Actually, I should apologize for the noise...
-I don't know, but I may have sent a few hundred emails to this list in 
-the past 4 weeks :p
-
-Cheers,
-
-Alex
-
-
+> 
+> Cheers,
+> 
+> Michael
+> 
