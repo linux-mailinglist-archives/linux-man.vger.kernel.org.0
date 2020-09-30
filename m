@@ -2,164 +2,173 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4586A27F43F
-	for <lists+linux-man@lfdr.de>; Wed, 30 Sep 2020 23:32:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 246C527F5A6
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 01:06:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728660AbgI3VcY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 30 Sep 2020 17:32:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42010 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725814AbgI3VcY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Sep 2020 17:32:24 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 47189C061755
-        for <linux-man@vger.kernel.org>; Wed, 30 Sep 2020 14:32:24 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id z1so3362648wrt.3
-        for <linux-man@vger.kernel.org>; Wed, 30 Sep 2020 14:32:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=yOprEcnRItLOUw4UB3u8vhRDTu3vBUPGfX4kP+/SGbo=;
-        b=QkJgVFZGJtLFJU5jlLVANwr1iuLDKRo+tsyJ052z2gx+JF4a3mhZTcOmP6mx3vaAy9
-         wPsJoPKTSzGzSa/OAKQPehFkLW6Vopt71UxDjBQ9UGtl4K1oANyaLlMEp9FsEkmmp5vN
-         1HQe4JF/GbMutn5BjMGRJ4yyL3mZaoNiZ0igLcKsjZ1RKCiXEZS9/76H7AY0tsz7hrDv
-         KnVwfhoAMKoJwlltsGZvNAur4gnHSYvRm+hA+l/6oyyE3OTvjDVM1wEOUU7yj1T7Ju4S
-         tiLRHvBPU8w8cfURdzkwgtMN+3/q84OB1NO8co4LQLfw2QOfHse8J/VVKPShQutZE6vc
-         F7Aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=yOprEcnRItLOUw4UB3u8vhRDTu3vBUPGfX4kP+/SGbo=;
-        b=ozvD4qE+R79AxiJoIH27H8Su8pyKmT56+jQpY1pb4bZZ7Tre8/6BKGviXcHo/UA3F7
-         S49rvdnJzrhsbcT0VaoP4gUlf+8zdYQ7EBqsAHB7mkdqrdbGD4YpeuVgy5xpHwjigd5B
-         RaGGhHg2nQ+/MljILd8lM8hJ4ch2aUJJWnSZgVUbikvI7EII33KQEgiMTQjUs+px7fYl
-         LKpqCldh1tIhVZzvyi2Kh4/fHjYs9k9fvIKVW6N/t3M0a49iJJS/W5q3P6Bu7mt+4EWf
-         bLxIyFeDF7MmAI57JwrrN1VI0lh8wCyxYTFEzPDRhv75wvQwFpDEf09I1nik1rCmxrQV
-         ynUQ==
-X-Gm-Message-State: AOAM53163PZc45gjAf6d/J7gJlmvApqNbeDBL1t+/ZdnpS+0PtjzP9jk
-        i/kOI2WvozssQ1/DCS1+0/A=
-X-Google-Smtp-Source: ABdhPJzYW4tKPpoveZ+EV9DdBRZCDFu6hqP2uoLf86zDIdiFAygr4ozRoGSS5WxyHsOajH9h5I/zhA==
-X-Received: by 2002:adf:e802:: with SMTP id o2mr5080962wrm.309.1601501542879;
-        Wed, 30 Sep 2020 14:32:22 -0700 (PDT)
-Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id q20sm4801846wmc.39.2020.09.30.14.32.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2020 14:32:21 -0700 (PDT)
-Subject: Re: [PATCH v2 1/3] system_data_types.7: ffix
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org
-References: <836b6d7d-4433-18d0-78aa-542c419c02f2@gmail.com>
- <20200928090322.2058-1-colomar.6.4.3@gmail.com>
- <20200928130558.4qi6jitfwxg6ccm7@localhost.localdomain>
- <1fe937db-8874-a8fb-5e65-88b4b15702fe@gmail.com>
- <20200930104322.6ffed5lw3uqmlzph@localhost.localdomain>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <f9871768-cc7a-fac0-3500-6a0ccaa78099@gmail.com>
-Date:   Wed, 30 Sep 2020 23:32:20 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        id S1730338AbgI3XF5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 30 Sep 2020 19:05:57 -0400
+Received: from wnew2-smtp.messagingengine.com ([64.147.123.27]:43469 "EHLO
+        wnew2-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1730528AbgI3XEB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Sep 2020 19:04:01 -0400
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+        by mailnew.west.internal (Postfix) with ESMTP id C3B1D9E6;
+        Wed, 30 Sep 2020 19:03:31 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute4.internal (MEProxy); Wed, 30 Sep 2020 19:03:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tycho.pizza; h=
+        date:from:to:cc:subject:message-id:references:mime-version
+        :content-type:content-transfer-encoding:in-reply-to; s=fm1; bh=X
+        tI1tB6xpmgOimSVGwz0nFQ2Aj6bySi3TmcGUJtNKDE=; b=YjqRrknkoRvFSexBK
+        tWIx+0K77PM+g0q6zBEER8Mt7P/9XETbBwjWGh7driOG1BR0O0UdsvYOnDTthRRc
+        ZtHljtdgwIjc9VuXtrIcDEuKUTe6uU0+QeVPTIGm6he4GXmt5AsJuNGuoQP8On+1
+        T7L2sLAcw2uTnMsQOtb02PP3pBoDmPd2KeF8pXrWX8dmLM/KPPvGosaD6qnSEHdA
+        orkj6krPdLFTt3LWnJgHvHVeIQu8JeHkZR5UPUJiZ9AKn7+zmcYtk9vPPYQAIW67
+        8rfHmpgRHqQbLV/Gi6um89WtsDHHNE9+JHhA5SK3BDv7cZeA3D55UAstc6hoS8a2
+        1ddsQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:content-transfer-encoding:content-type
+        :date:from:in-reply-to:message-id:mime-version:references
+        :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+        :x-sasl-enc; s=fm3; bh=XtI1tB6xpmgOimSVGwz0nFQ2Aj6bySi3TmcGUJtNK
+        DE=; b=NQaPjYn0VYYM79zUlgVbI/HpUJfbGPk21tjYqk0fMqaQ+2xwfkmvV6TIS
+        pWiapS+Fyws9Z5VApdOhGuBwN/Y80rPEh+aeZiXrI373/amdb0AVVblB4/LcZqzR
+        EX7YCPM9MOVnsisrs8onXRMXzKU/1SA8FJrP+OGAh5APWHI6LdFxOepBQLBNFo+Q
+        s0DQWONJfi5XBUNM+PSLrC9UyGEAm5fPUVKhJUUCHwnm2vwIfMm0NXkV+ykLZA1D
+        ZB8lJ2B+MBD/0IkkzdX8wFplAMhfKL6aJEq5E4vvQ9aRHwPQcBoaTM0hkJ4wMSm3
+        0Jabe0jwdeHE+vpIy58XYf+HZv2jg==
+X-ME-Sender: <xms:wg51X5uj72nxaBN5fR3YSdO-qFbV_CB9A-VQ8jm8XnNanmrnzt8aLg>
+    <xme:wg51XycH4OzurAZwKlJz8r0cp0T0_Pct30D0uSeq7bp5L_Cugw99nNA6sHHmSOQUz
+    yT9SdbT9jsYltIC0PI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrfeefgddukecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvuffkfhggtggugfgjsehtkeertddttdejnecuhfhrohhmpefvhigthhho
+    ucetnhguvghrshgvnhcuoehthigthhhosehthigthhhordhpihiiiigrqeenucggtffrrg
+    htthgvrhhnpefhuedvvdelieevgeegjeeukeeuleejtdejfeetfeeujeefvdeltdethffh
+    ueekffenucfkphepjeefrddvudejrddutddriedtnecuvehluhhsthgvrhfuihiivgeptd
+    enucfrrghrrghmpehmrghilhhfrhhomhepthihtghhohesthihtghhohdrphhiiiiirg
+X-ME-Proxy: <xmx:wg51X8xtJIO64eSz3Q3M080KKG4JsHDj7Xiqdk0jQHSVU5u4kJcJjg>
+    <xmx:wg51XwN0G_bf6PI8i2pSy7aoPH3QowMLTbZ9x9Tu8Penm-lNtPlKbQ>
+    <xmx:wg51X5_b8jwQjzwKX0LihTsNRq6mbv5nYniW8rg6cHHtW5WkhK8iqw>
+    <xmx:ww51X9WkyHuURkpU7U4m7pwqtnbF1rpD9uOCHNOs5bTWUUeKuWgnsGDTfR_ZJcnT>
+Received: from cisco (c-73-217-10-60.hsd1.co.comcast.net [73.217.10.60])
+        by mail.messagingengine.com (Postfix) with ESMTPA id 1083A3064686;
+        Wed, 30 Sep 2020 19:03:29 -0400 (EDT)
+Date:   Wed, 30 Sep 2020 17:03:27 -0600
+From:   Tycho Andersen <tycho@tycho.pizza>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Sargun Dhillon <sargun@sargun.me>,
+        Kees Cook <keescook@chromium.org>,
+        Christian Brauner <christian@brauner.io>,
+        linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Aleksa Sarai <cyphar@cyphar.com>, Jann Horn <jannh@google.com>,
+        Alexei Starovoitov <ast@kernel.org>, wad@chromium.org,
+        bpf@vger.kernel.org, Song Liu <songliubraving@fb.com>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Linux Containers <containers@lists.linux-foundation.org>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        Robert Sesek <rsesek@google.com>
+Subject: Re: For review: seccomp_user_notif(2) manual page
+Message-ID: <20200930230327.GA1260245@cisco>
+References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
+ <20200930150330.GC284424@cisco>
+ <8bcd956f-58d2-d2f0-ca7c-0a30f3fcd5b8@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20200930104322.6ffed5lw3uqmlzph@localhost.localdomain>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <8bcd956f-58d2-d2f0-ca7c-0a30f3fcd5b8@gmail.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Branden & Michael,
+On Wed, Sep 30, 2020 at 10:34:51PM +0200, Michael Kerrisk (man-pages) wrote:
+> Hi Tycho,
+> 
+> Thanks for taking time to look at the page!
+> 
+> On 9/30/20 5:03 PM, Tycho Andersen wrote:
+> > On Wed, Sep 30, 2020 at 01:07:38PM +0200, Michael Kerrisk (man-pages) wrote:
+> >>        2. In order that the supervisor process can obtain  notifications
+> >>           using  the  listening  file  descriptor, (a duplicate of) that
+> >>           file descriptor must be passed from the target process to  the
+> >>           supervisor process.  One way in which this could be done is by
+> >>           passing the file descriptor over a UNIX domain socket  connec‐
+> >>           tion between the two processes (using the SCM_RIGHTS ancillary
+> >>           message type described in unix(7)).   Another  possibility  is
+> >>           that  the  supervisor  might  inherit  the file descriptor via
+> >>           fork(2).
+> > 
+> > It is technically possible to inherit the fd via fork, but is it
+> > really that useful? The child process wouldn't be able to actually do
+> > the syscall in question, since it would have the same filter.
+> 
+> D'oh! Yes, of course.
+> 
+> I think I was reaching because in an earlier conversation
+> you replied:
+> 
+> [[
+> > 3. The "target process" passes the "listening file descriptor"
+> >    to the "monitoring process" via the UNIX domain socket.
+> 
+> or some other means, it doesn't have to be with SCM_RIGHTS.
+> ]]
+> 
+> So, what other means?
+> 
+> Anyway, I removed the sentence mentioning fork().
 
-On 2020-09-30 12:43, G. Branden Robinson wrote:
- >> However, if using .br is a big headache, I would rather not use
- >> workarounds (as you proposed in an earlier email),
- >> and instead just live with the blank line.  It's not much of a
- >> problem.
- >
- > Was an actual decision taken on this?  I see patches continuing to roll
- > in containing this .br-based pattern.  I think if the extra line is
- > live-withable, it should be lived with (or one of my four proposed
- > alternatives could be used :) ), in preference to setting the bad
- > example of the "naked" .br requests.
+Whatever means people want :). fork() could work (it's how some of the
+tests for this feature work, but it's not particularly useful I don't
+think), clone(CLONE_FILES) is similar, seccomp_putfd, or maybe even
+cloning it via some pidfd interface that might be invented for
+re-opening files.
 
-No decision yet.
-We continued with the patch,
-considering that we might revert it
-or change it to a different approach in the future.
-Actually I thought Michael would have hold the patches until the decision,
-but he merged them, and it may be easier this way...
-we'll fix it when we decide.
+> >>        ┌─────────────────────────────────────────────────────┐
+> >>        │FIXME                                                │
+> >>        ├─────────────────────────────────────────────────────┤
+> >>        │From my experiments,  it  appears  that  if  a  SEC‐ │
+> >>        │COMP_IOCTL_NOTIF_RECV   is  done  after  the  target │
+> >>        │process terminates, then the ioctl()  simply  blocks │
+> >>        │(rather than returning an error to indicate that the │
+> >>        │target process no longer exists).                    │
+> > 
+> > Yeah, I think Christian wanted to fix this at some point,
+> 
+> Do you have a pointer that discussion? I could not find it with a 
+> quick search.
+> 
+> > but it's a
+> > bit sticky to do.
+> 
+> Can you say a few words about the nature of the problem?
 
-For me, I can live with the extra blank line.
-Michael, what are your thoughts?
+I remembered wrong, it's actually in the tree: 99cdb8b9a573 ("seccomp:
+notify about unused filter"). So maybe there's a bug here?
 
- >
- > man page markup is highly prone to cargo-culting; on the groff list not
- > too long ago, some sleuthing revealed an example of a typo that crept
- > into the X Window System man pages over 30 years ago and was not only
- > diligently retained there but faithfully copied elsewhere by people who
- > didn't realize what they were copying[1].
+> >>        ┌─────────────────────────────────────────────────────┐
+> >>        │FIXME                                                │
+> >>        ├─────────────────────────────────────────────────────┤
+> >>        │Interestingly, after the event  had  been  received, │
+> >>        │the  file descriptor indicates as writable (verified │
+> >>        │from the source code and by experiment). How is this │
+> >>        │useful?                                              │
+> > 
+> > You're saying it should just do EPOLLOUT and not EPOLLWRNORM? Seems
+> > reasonable.
+> 
+> No, I'm saying something more fundamental: why is the FD indicating as
+> writable? Can you write something to it? If yes, what? If not, then
+> why do these APIs want to say that the FD is writable?
 
-As someone who has written man-pages only for about a month,
-I completely ignore the problems about using .br.
-I see it easy in my mind:
-I want a line break (without fancy paragraph stuff), I write .br.
-I guess it's somewhat more complicated than that :-)
-You could probably convince me otherwise,
-and in fact you may have already...
+You can't via read(2) or write(2), but conceptually NOTIFY_RECV and
+NOTIFY_SEND are reading and writing events from the fd. I don't know
+that much about the poll interface though -- is it possible to
+indicate "here's a pseudo-read event"? It didn't look like it, so I
+just (ab-)used POLLIN and POLLOUT, but probably that's wrong.
 
- >
- >> I leave it up to you to decide what to do, Michael.
- >>
- >> My proposals:
- >> If you prefer consistency in the source, I'd rather not use
- >> workarounds: I'd just leave .PP, and accept the blank line
- >> I see those workarounds uglier than .br.
- >
- > Too bad for me.  But I admit I'm not proud of that .TQ thing.  :P
- >
- >> If you however prefer consistency in the visual page,
- >
- > That's not how it appears to me; I may be bringing too much insider
- > knowledge to the question, but I know when I see them that the things
- > you've termed section headings aren't true section headings.  Primarily
- > I can tell by the fact that their indentation is wrong for an .SH macro.
- >
- > But the knowledge isn't all that far inside.  The worst hand-written man
- > page I have ever seen in my life, or expect to see, was written by
- > Albert Cahalan, who hated *roff with a passion I have reserved only for
- > love affairs.  He learned just enough of the language to subvert man-db
- > and groff into accepting his plain-text document as a man page[2].
- >
- > I don't know what ever became of Mr. Cahalan, but I imagine that he is
- > somewhere working on processing Markdown with XML:FO and enjoying
- > himself immensely.
-
-8-O
-
-I'm curious as to how that man page displays...
-
- >
- > Regards,
- > Branden
- >
- > [1] https://lists.gnu.org/archive/html/groff/2019-03/msg00047.html
- > [2] 
-https://gitlab.com/procps-ng/procps/blob/7ac9a0e1f5606696dc799b773d5ec70183ca91a3/ps/ps.1
- >
-
-
-I was writing about the different options and testing them,
-when by accident I discovered that .RS alone, which I introduced lately,
-already fixed the problem we had in the beginning:
-.RS forces a line break after the tag
-(so .br is actually redundant right now).
-
-I guess we'll all be happy with just .RS, right? :-}
-
-Cheers,
-
-Alex
+Tycho
