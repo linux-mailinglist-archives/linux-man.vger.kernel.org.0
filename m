@@ -2,118 +2,211 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0DE7427E900
-	for <lists+linux-man@lfdr.de>; Wed, 30 Sep 2020 14:54:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2783527EBFF
+	for <lists+linux-man@lfdr.de>; Wed, 30 Sep 2020 17:13:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725776AbgI3MyY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 30 Sep 2020 08:54:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46590 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729737AbgI3MyY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Sep 2020 08:54:24 -0400
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com [IPv6:2607:f8b0:4864:20::62f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D963CC061755
-        for <linux-man@vger.kernel.org>; Wed, 30 Sep 2020 05:54:23 -0700 (PDT)
-Received: by mail-pl1-x62f.google.com with SMTP id f1so978371plo.13
-        for <linux-man@vger.kernel.org>; Wed, 30 Sep 2020 05:54:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=iEsyh8GHxeu44vtzBBR3NlkwMw0Z1G8PerbllmZFH94=;
-        b=Kcvz/AjKFRqerKGMz94QvGEtiNVFBztNsWhl6zhhK6x3xPAAedw5Spg8n20BfNhXPT
-         Eiom6xu9db68vXWp2SH/1MTg+iJhDDd/HP6pBjqcs4nSHvhEcd3r72buoGtB2x1UoaQg
-         yEWsHcNYTMoE3nxbImmURGnqjvI/rrRQDeuxn5HJ+rghU6lfbJaP+L4yv/xqWsdYyc2k
-         RSUkANYp1C3s7r8QJ7IrcdqXDDQUHGJVnHj0/Ci9LwTnnK/Ut9RZyd1DA4t6Qr4Fvy/2
-         2c+Z3rmCVr9T16OM/VVrvPsojEANdjG3rTj1vfACL79fqn/c7+lM6XP0CYrz2dThdR09
-         3Ocw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=iEsyh8GHxeu44vtzBBR3NlkwMw0Z1G8PerbllmZFH94=;
-        b=erWFsKSCdps94xKTjC23BI3HMgngZHPaVOMTjVzDFJb0fNzfonMbzvBvtqHQ8RBvo0
-         7Ul12herJbdfHtgVdDKMWJSUW9iLMIF+TfY3pGJ2X8P3WRmpWO6FZ77mq7PDUmFqeC0g
-         KJtrrSaAVrCqu86nPaWHd1T1W54ZgodddlULLsfCC1R8xF/nJrqjnAPd09yFy5/7jG0n
-         wHQAClu972x60hEOejUXCg82PBi1n8HTuN3tNzxCtI1YgApUeDdMARZxjkUJTXXSKtoY
-         nyBLjmKQCBUMhTaFZI4zXj3oWIXvQlNF5rXR+YB7QA2orWK2LpS4lZNNeG5eyPbmgvUx
-         G3mQ==
-X-Gm-Message-State: AOAM5330FL/gankmxNGysoFSD34bEAqHieQ9X0st1Syd2VVtFcgFYPOM
-        m9DYuY7fxf1ALgMhcP0kw9c=
-X-Google-Smtp-Source: ABdhPJxZ7Z23bWr2jER4tAp12IbkTLSF42iyh3vNdjiFzt1S3r8+OA1RD+vyz+geFoFiDYveOpUsxQ==
-X-Received: by 2002:a17:90a:e697:: with SMTP id s23mr2457874pjy.175.1601470463289;
-        Wed, 30 Sep 2020 05:54:23 -0700 (PDT)
-Received: from localhost.localdomain ([1.129.174.186])
-        by smtp.gmail.com with ESMTPSA id r14sm2254502pgm.7.2020.09.30.05.54.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2020 05:54:22 -0700 (PDT)
-Date:   Wed, 30 Sep 2020 22:54:19 +1000
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+        id S1728329AbgI3PMx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 30 Sep 2020 11:12:53 -0400
+Received: from wnew4-smtp.messagingengine.com ([64.147.123.18]:56947 "EHLO
+        wnew4-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1725385AbgI3PLm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Sep 2020 11:11:42 -0400
+X-Greylist: delayed 463 seconds by postgrey-1.27 at vger.kernel.org; Wed, 30 Sep 2020 11:11:41 EDT
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+        by mailnew.west.internal (Postfix) with ESMTP id 7A529ED7;
+        Wed, 30 Sep 2020 11:03:39 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute4.internal (MEProxy); Wed, 30 Sep 2020 11:03:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tycho.pizza; h=
+        date:from:to:cc:subject:message-id:references:mime-version
+        :content-type:content-transfer-encoding:in-reply-to; s=fm1; bh=O
+        2EF17WZ/x8X1RI5MVWmt+xk1RyPo0vTQ3NX9Sb+vZs=; b=am7DDlxzNqJJ/HMKX
+        6EImaKQCRBO+YQBosmTU/MBeym+pIXYs5pFWxWkM6VxrpHVLUKc32Ws2e8CSNR2b
+        rTvg8Hpqhnq7udku+D88pmcWVSPfQJcR5U2+fP9FTHH+EyMuOL4/5ylW5B2QSOoY
+        Z95ONSBf3M9Wx9mqv75OapljZryJqNYkz5oLa69Bx2lwz2AHYq8ypXUw3Jeu5o8s
+        uxuSP/Tz8QNumVG9xX5CxDumLaSFhoMIJLiNUwhn7/reSN2MD64cy5YJMV/hUJ7B
+        YKVN3P3Y+yiQEqKdo/93n3rjYTV1vweTVjusGX7N45XPM3oO1u6saGatdMFUymwC
+        LBipg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:content-transfer-encoding:content-type
+        :date:from:in-reply-to:message-id:mime-version:references
+        :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+        :x-sasl-enc; s=fm3; bh=O2EF17WZ/x8X1RI5MVWmt+xk1RyPo0vTQ3NX9Sb+v
+        Zs=; b=JFD7JWMS9HiqvLK4HnO73eiL0Th4Re6mGAXJ6LjJr8uoj9ZxRXmZTRiOu
+        Y+VlCn0rWJBYfMy2DXiltOm+bybcRBDI+926ctq4SoWdS+iEzjY2viEh4nBtKb4G
+        tLIUHWZDV3S3bkDGig/tjzifoVc+9eLUqCWBG/llXO1ikFSBphNLWVRhXvjUk/dc
+        UHqqykliIh5m2m9I0iooKqJbNOX50U18Q+/xhYCufJXKgbTX6tF7axKqFv4b6LNb
+        h+cMqqKmDRe102FSfxndG0HOXx4P/4NIxb5PSCWpviILJlDm8mGXdAbeQwG9/d0r
+        MJCtFobuMEMT/7Q91qWjGg9plWbCA==
+X-ME-Sender: <xms:SJ50X9WMVf6wrFQnac_h2hPhuA3CPkdOz7fcapezvARx8gaFW-6AoQ>
+    <xme:SJ50X9lwRvlf5WiuP-8ry6Z6SqY2oBJg-CQQwvNIFKCChHoBRJ2Y7C7XSGmHYjuI8
+    fvgT99VQtdcALDZqF4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrfedvgdektdcutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvuffkfhggtggugfgjsehtkeertddttdejnecuhfhrohhmpefvhigthhho
+    ucetnhguvghrshgvnhcuoehthigthhhosehthigthhhordhpihiiiigrqeenucggtffrrg
+    htthgvrhhnpefhuedvvdelieevgeegjeeukeeuleejtdejfeetfeeujeefvdeltdethffh
+    ueekffenucfkphepuddvkedruddtjedrvdeguddrudekgeenucevlhhushhtvghrufhiii
+    gvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehthigthhhosehthigthhhordhpihii
+    iigr
+X-ME-Proxy: <xmx:SJ50X5ZazZm7gmw0_d6hj_We0RbvDkbp-VGtgt5kfYoLSVDqgMZgWA>
+    <xmx:SJ50XwXC_daxyOb9ci8kzAyalUy4RR8AsRAwodN_8dkJC-hcq4dGAg>
+    <xmx:SJ50X3neO_WdEqGaDpwC7TFSObpShpW7mAkhw16qj5K5zOzyDpkzHQ>
+    <xmx:Sp50X89No2tDqetjd-skXbluhpOVZx6eOVB7yGxWe-fvmXQsUVyDouO9QCLIiUuX>
+Received: from cisco (unknown [128.107.241.184])
+        by mail.messagingengine.com (Postfix) with ESMTPA id 09B593064685;
+        Wed, 30 Sep 2020 11:03:32 -0400 (EDT)
+Date:   Wed, 30 Sep 2020 09:03:30 -0600
+From:   Tycho Andersen <tycho@tycho.pizza>
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Subject: Re: man-pages.7: Simplify indentation of structure definitions,
- shell session logs, and so on
-Message-ID: <20200930125417.ovlnfxhk5zgtuj46@localhost.localdomain>
-References: <20200920214012.454410-1-colomar.6.4.3@gmail.com>
- <61f4e2a4-d468-ceba-2ccf-ce0c061aa20b@gmail.com>
- <f70c7f62-9d61-71aa-67cf-43501a29bccc@gmail.com>
- <CAKgNAki7=AJ7p2AwPkf9+4AkYKdOL6b4D0NyVdwZzu-qHFvGiA@mail.gmail.com>
- <20200921141552.tpuhdxo24lc6e7dh@localhost.localdomain>
- <35b5a9ff-4133-8301-bb75-4b13f7861c9a@gmail.com>
- <20200930120242.vylnz5khajri5sz4@localhost.localdomain>
+Cc:     Sargun Dhillon <sargun@sargun.me>,
+        Kees Cook <keescook@chromium.org>,
+        Christian Brauner <christian@brauner.io>,
+        linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Aleksa Sarai <cyphar@cyphar.com>, Jann Horn <jannh@google.com>,
+        Alexei Starovoitov <ast@kernel.org>, wad@chromium.org,
+        bpf@vger.kernel.org, Song Liu <songliubraving@fb.com>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Linux Containers <containers@lists.linux-foundation.org>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        Robert Sesek <rsesek@google.com>
+Subject: Re: For review: seccomp_user_notif(2) manual page
+Message-ID: <20200930150330.GC284424@cisco>
+References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="zpgxcpifpydr5ebq"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20200930120242.vylnz5khajri5sz4@localhost.localdomain>
-User-Agent: NeoMutt/20180716
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On Wed, Sep 30, 2020 at 01:07:38PM +0200, Michael Kerrisk (man-pages) wrote:
+>        2. In order that the supervisor process can obtain  notifications
+>           using  the  listening  file  descriptor, (a duplicate of) that
+>           file descriptor must be passed from the target process to  the
+>           supervisor process.  One way in which this could be done is by
+>           passing the file descriptor over a UNIX domain socket  connec‐
+>           tion between the two processes (using the SCM_RIGHTS ancillary
+>           message type described in unix(7)).   Another  possibility  is
+>           that  the  supervisor  might  inherit  the file descriptor via
+>           fork(2).
 
---zpgxcpifpydr5ebq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+It is technically possible to inherit the fd via fork, but is it
+really that useful? The child process wouldn't be able to actually do
+the syscall in question, since it would have the same filter.
 
-At 2020-09-30T22:02:43+1000, G. Branden Robinson wrote:
-> [...] you can call .RE [...] as ".RE 2" to say "go back two
-> indentation levels"
+>           The  information  in  the notification can be used to discover
+>           the values of pointer arguments for the target process's  sys‐
+>           tem call.  (This is something that can't be done from within a
+>           seccomp filter.)  To do this (and  assuming  it  has  suitable
 
-Nope, that's wrong.  Forget I said that; I think I might now see
-something I can further improve in the documentation.
+s/To do this/One way to accomplish this/ perhaps, since there are
+others.
 
-You can see I'm still bedeviled by relative insets.  :-|
+>           permissions),   the   supervisor   opens   the   corresponding
+>           /proc/[pid]/mem file, seeks to the memory location that corre‐
+>           sponds to one of the pointer arguments whose value is supplied
+>           in the notification event, and reads bytes from that location.
+>           (The supervisor must be careful to avoid a race condition that
+>           can occur when doing this; see the  description  of  the  SEC‐
+>           COMP_IOCTL_NOTIF_ID_VALID ioctl(2) operation below.)  In addi‐
+>           tion, the supervisor can access other system information  that
+>           is  visible  in  user space but which is not accessible from a
+>           seccomp filter.
+> 
+>           ┌─────────────────────────────────────────────────────┐
+>           │FIXME                                                │
+>           ├─────────────────────────────────────────────────────┤
+>           │Suppose we are reading a pathname from /proc/PID/mem │
+>           │for  a system call such as mkdir(). The pathname can │
+>           │be an arbitrary length. How do we know how much (how │
+>           │many pages) to read from /proc/PID/mem?              │
+>           └─────────────────────────────────────────────────────┘
 
-I tend to never use the argument to .RE; I just call .RE multiple times
-to balance out my .RS calls, just like parentheses.  When I do that, I
-don't get surprised.
+PATH_MAX, I suppose.
 
-> without having to track or remember any indentation measurements.
+>        ┌─────────────────────────────────────────────────────┐
+>        │FIXME                                                │
+>        ├─────────────────────────────────────────────────────┤
+>        │From my experiments,  it  appears  that  if  a  SEC‐ │
+>        │COMP_IOCTL_NOTIF_RECV   is  done  after  the  target │
+>        │process terminates, then the ioctl()  simply  blocks │
+>        │(rather than returning an error to indicate that the │
+>        │target process no longer exists).                    │
 
-This part remains true.  :)
+Yeah, I think Christian wanted to fix this at some point, but it's a
+bit sticky to do. Note that if you e.g. rely on fork() above, the
+filter is shared with your current process, and this notification
+would never be possible. Perhaps another reason to omit that from the
+man page.
 
-Regards,
-Branden
+>        SECCOMP_IOCTL_NOTIF_ID_VALID
+>               This operation can be used to check that a notification ID
+>               returned by an earlier SECCOMP_IOCTL_NOTIF_RECV  operation
+>               is  still  valid  (i.e.,  that  the  target  process still
+>               exists).
+> 
+>               The third ioctl(2) argument is a  pointer  to  the  cookie
+>               (id) returned by the SECCOMP_IOCTL_NOTIF_RECV operation.
+> 
+>               This  operation is necessary to avoid race conditions that
+>               can  occur   when   the   pid   returned   by   the   SEC‐
+>               COMP_IOCTL_NOTIF_RECV   operation   terminates,  and  that
+>               process ID is reused by another process.   An  example  of
+>               this kind of race is the following
+> 
+>               1. A  notification  is  generated  on  the  listening file
+>                  descriptor.  The returned  seccomp_notif  contains  the
+>                  PID of the target process.
+> 
+>               2. The target process terminates.
+> 
+>               3. Another process is created on the system that by chance
+>                  reuses the PID that was freed when the  target  process
+>                  terminates.
+> 
+>               4. The  supervisor  open(2)s  the /proc/[pid]/mem file for
+>                  the PID obtained in step 1, with the intention of (say)
+>                  inspecting the memory locations that contains the argu‐
+>                  ments of the system call that triggered  the  notifica‐
+>                  tion in step 1.
+> 
+>               In the above scenario, the risk is that the supervisor may
+>               try to access the memory of a process other than the  tar‐
+>               get.   This  race  can be avoided by following the call to
+>               open with a SECCOMP_IOCTL_NOTIF_ID_VALID operation to ver‐
+>               ify  that  the  process that generated the notification is
+>               still alive.  (Note that  if  the  target  process  subse‐
+>               quently  terminates, its PID won't be reused because there
+>               remains an open reference to the /proc[pid]/mem  file;  in
+>               this  case, a subsequent read(2) from the file will return
+>               0, indicating end of file.)
+> 
+>               On success (i.e., the notification  ID  is  still  valid),
+>               this  operation  returns 0 On failure (i.e., the notifica‐
+                                          ^ need a period?
 
---zpgxcpifpydr5ebq
-Content-Type: application/pgp-signature; name="signature.asc"
+>        ┌─────────────────────────────────────────────────────┐
+>        │FIXME                                                │
+>        ├─────────────────────────────────────────────────────┤
+>        │Interestingly, after the event  had  been  received, │
+>        │the  file descriptor indicates as writable (verified │
+>        │from the source code and by experiment). How is this │
+>        │useful?                                              │
 
------BEGIN PGP SIGNATURE-----
+You're saying it should just do EPOLLOUT and not EPOLLWRNORM? Seems
+reasonable.
 
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl90f98ACgkQ0Z6cfXEm
-bc5ONBAAg2SM0XL0ljnAXr0hY5A3KmadEq/NrH77b9YfdQI2zR4aYFAMueCtOI7r
-r29NZtUpoMcxujilhbVyGYYUiTTUwOQDfZ+j3zhWlfo6bc1VAD2u6593lCgntUBP
-pNxFl3arnBsujzFonhzoSJbTFxnyr5kVfV/5qGcMddKGlKQI9BLmtUXN3ac6c/7C
-x0B2FthXhZ1DLox18OQs4D8Q8xgrXgrbzNyog26uXT7JlvmdP4fLRM3NeA6Hq2ZS
-IpbqzQ0VYD4QuGRCRpab35LuhTdynHj3SE09wSBLtFaBfTqy7QuASKbem64c9gu2
-Ida9wBKcfc77/UnwA7fCl3Ome9DU3U6zOf6ty1egYDkEEA3SOgveNxyr4bLi9pO3
-tNXrsGYsgnYZgIE0FhYEmjuaTbRB5ekNWvvwMOFXteZgJmvTd6/7rtAX3S+rR8HV
-Nf5SI1DgpgM7vU//ZqhpMICWVDn7ecYkBWQWpzB4jmIQDtQcOCIo+yCL8o0pM9KA
-Xz+veGmMvjwN6mmrMn0Y9HCEAvZKSRGLVkrFYL56/WNbKwQnq1dDcERXpzNl0Xue
-06KmUlaTVj68anhDE3SKgg+xUnJmPq1MUF2BcMCdQ6H5PFkQJMkSgxKXRtjqpFuN
-3xbucDYUtM+OcoVgxz0BfvBHxAUL2f2NQyZmBupWN1SCE3X0aoA=
-=ByZ2
------END PGP SIGNATURE-----
+> 
+> EXAMPLES
+>        The (somewhat contrived) program shown below demonstrates the use
 
---zpgxcpifpydr5ebq--
+May also be worth mentioning the example in
+samples/seccomp/user-trap.c as well.
+
+Tycho
