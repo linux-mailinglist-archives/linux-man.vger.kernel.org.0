@@ -2,67 +2,75 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2BD3527E848
-	for <lists+linux-man@lfdr.de>; Wed, 30 Sep 2020 14:13:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5B06427E873
+	for <lists+linux-man@lfdr.de>; Wed, 30 Sep 2020 14:22:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728235AbgI3MNj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 30 Sep 2020 08:13:39 -0400
-Received: from mo4-p00-ob.smtp.rzone.de ([81.169.146.163]:17828 "EHLO
-        mo4-p00-ob.smtp.rzone.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728042AbgI3MNj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Sep 2020 08:13:39 -0400
-X-Greylist: delayed 357 seconds by postgrey-1.27 at vger.kernel.org; Wed, 30 Sep 2020 08:13:38 EDT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1601468017;
-        s=strato-dkim-0002; d=kalchreuter.de;
-        h=Date:Message-ID:Subject:From:Cc:To:X-RZG-CLASS-ID:X-RZG-AUTH:From:
-        Subject:Sender;
-        bh=ZYPnjYo34RDUp1AbIzn3Y19gULW0UOb5k+y9NPygd40=;
-        b=CsK4ePi+6+E0vczk7ZjzQpRQbnTcGmFroCwUxOcRUi2MY15+rDZwI3s5nT9XG9C4qD
-        T8PjC+BL9Qs1m35A2kKaERJfPAE31HIi4YZW+BfKKIECLG+o0OmBLOOlAIn6SHpNpVfo
-        +Wz7RhWNp3GhHMuYkNB5v/OUjsQlSTiMfTapx0sHjE3WXhAWb4rXY5mLH/Itrz4s6BfX
-        lTskyHA/Tya5EwggVZANF7UVXLEnlSoA1GSwMWlnjRelTrLgqFosBbD1unAU/GQ5CJtE
-        u991D8DSrm4FCFQSLS74IOVFPRG1xxDakuZpiHEPzBqjvnJ2Jl9y6e9Ekx1vcVM/8CIq
-        chrg==
-X-RZG-AUTH: ":L2QWfFO8dO93X8MypduWHW/c7aDr3kz0lzYyuq1XNdzyRSRMf4tWwy7sZzbRGGFWRXvnUBwgLDCtJUflLINcIQVHccJHy1aTAGXI1NQ="
-X-RZG-CLASS-ID: mo00
-Received: from [IPv6:2003:e5:7737:bc00:ca60:ff:fec3:2d13]
-        by smtp.strato.de (RZmta 46.10.7 AUTH)
-        with ESMTPSA id R05aa8w8UC7bb73
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-        (Client did not present a certificate);
-        Wed, 30 Sep 2020 14:07:37 +0200 (CEST)
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-From:   Christoph Kalchreuter <christoph@kalchreuter.de>
-Subject: Typo in stat(2)
-Message-ID: <373374d2-851f-67f6-4059-90130aaab344@kalchreuter.de>
-Date:   Wed, 30 Sep 2020 14:07:36 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        id S1728296AbgI3MWk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 30 Sep 2020 08:22:40 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([63.128.21.124]:23042 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1728294AbgI3MWk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Sep 2020 08:22:40 -0400
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1601468559;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=inceEXCTEErdjmkMA6NadcOoYXuF8xz15j7JaBBbZN4=;
+        b=D/TdqeGeXrC1z6srCvrlw4ohGf2S3fGc0ukc9Sou8bcmAhjiqIDNj+73wjX3j4S+JRGwBR
+        e55oG6FOAKiE3hw+TCTRWuP1GOLAUcJja6sEael7ePDK7Fuk0TvhhJwQGotWiKAOZfvxK0
+        ty26WsscWPVUDHJ5KLpgB0lOGmGq5ms=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-350-wlDdDdvKP2eB4t2YfVwBUg-1; Wed, 30 Sep 2020 08:22:35 -0400
+X-MC-Unique: wlDdDdvKP2eB4t2YfVwBUg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5D61E802B5D;
+        Wed, 30 Sep 2020 12:22:34 +0000 (UTC)
+Received: from oldenburg2.str.redhat.com (ovpn-114-84.ams2.redhat.com [10.36.114.84])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 476D21002C01;
+        Wed, 30 Sep 2020 12:22:33 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
+To:     Christoph Kalchreuter <christoph@kalchreuter.de>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Typo in stat(2)
+References: <373374d2-851f-67f6-4059-90130aaab344@kalchreuter.de>
+Date:   Wed, 30 Sep 2020 14:22:31 +0200
+In-Reply-To: <373374d2-851f-67f6-4059-90130aaab344@kalchreuter.de> (Christoph
+        Kalchreuter's message of "Wed, 30 Sep 2020 14:07:36 +0200")
+Message-ID: <87pn63tpx4.fsf@oldenburg2.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: de-DE
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello,
+* Christoph Kalchreuter:
 
-I'm under the impression that I found three typing errors in stat(2).
+> There are three Letters "e" missing in Section "DESCRIPTION",
+> Subsection "The stat structure":
+>
+> struct timespec st_atim;  /* Time of last access */
+> struct timespec st_mtim;  /* Time of last modification */
+> sruct timespec st_ctim;  /* Time of last status change */
+>
+> should possibly be:
+>
+> struct timespec st_atime;  /* Time of last access */
+> struct timespec st_mtime;  /* Time of last modification */
+> sruct timespec st_ctime;  /* Time of last status change */
 
-Used distribution: "Ubuntu 18.04.5 LTS"
-Also appears in: "https://man7.org/linux/man-pages/man2/stat.2.html"
+This typo is also present in POSIX, so we cannot change it (like the
+creat function).
 
-There are three Letters "e" missing in Section "DESCRIPTION", Subsection "The 
-stat structure":
+Thanks,
+Florian
+-- 
+Red Hat GmbH, https://de.redhat.com/ , Registered seat: Grasbrunn,
+Commercial register: Amtsgericht Muenchen, HRB 153243,
+Managing Directors: Charles Cachera, Brian Klemm, Laurie Krebs, Michael O'Neill
 
-struct timespec st_atim;  /* Time of last access */
-struct timespec st_mtim;  /* Time of last modification */
-sruct timespec st_ctim;  /* Time of last status change */
-
-should possibly be:
-
-struct timespec st_atime;  /* Time of last access */
-struct timespec st_mtime;  /* Time of last modification */
-sruct timespec st_ctime;  /* Time of last status change */
