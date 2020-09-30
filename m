@@ -2,75 +2,118 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5B06427E873
-	for <lists+linux-man@lfdr.de>; Wed, 30 Sep 2020 14:22:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0DE7427E900
+	for <lists+linux-man@lfdr.de>; Wed, 30 Sep 2020 14:54:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728296AbgI3MWk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 30 Sep 2020 08:22:40 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([63.128.21.124]:23042 "EHLO
-        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1728294AbgI3MWk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Sep 2020 08:22:40 -0400
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1601468559;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=inceEXCTEErdjmkMA6NadcOoYXuF8xz15j7JaBBbZN4=;
-        b=D/TdqeGeXrC1z6srCvrlw4ohGf2S3fGc0ukc9Sou8bcmAhjiqIDNj+73wjX3j4S+JRGwBR
-        e55oG6FOAKiE3hw+TCTRWuP1GOLAUcJja6sEael7ePDK7Fuk0TvhhJwQGotWiKAOZfvxK0
-        ty26WsscWPVUDHJ5KLpgB0lOGmGq5ms=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-350-wlDdDdvKP2eB4t2YfVwBUg-1; Wed, 30 Sep 2020 08:22:35 -0400
-X-MC-Unique: wlDdDdvKP2eB4t2YfVwBUg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5D61E802B5D;
-        Wed, 30 Sep 2020 12:22:34 +0000 (UTC)
-Received: from oldenburg2.str.redhat.com (ovpn-114-84.ams2.redhat.com [10.36.114.84])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id 476D21002C01;
-        Wed, 30 Sep 2020 12:22:33 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     Christoph Kalchreuter <christoph@kalchreuter.de>
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Typo in stat(2)
-References: <373374d2-851f-67f6-4059-90130aaab344@kalchreuter.de>
-Date:   Wed, 30 Sep 2020 14:22:31 +0200
-In-Reply-To: <373374d2-851f-67f6-4059-90130aaab344@kalchreuter.de> (Christoph
-        Kalchreuter's message of "Wed, 30 Sep 2020 14:07:36 +0200")
-Message-ID: <87pn63tpx4.fsf@oldenburg2.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
+        id S1725776AbgI3MyY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 30 Sep 2020 08:54:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46590 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729737AbgI3MyY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Sep 2020 08:54:24 -0400
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com [IPv6:2607:f8b0:4864:20::62f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D963CC061755
+        for <linux-man@vger.kernel.org>; Wed, 30 Sep 2020 05:54:23 -0700 (PDT)
+Received: by mail-pl1-x62f.google.com with SMTP id f1so978371plo.13
+        for <linux-man@vger.kernel.org>; Wed, 30 Sep 2020 05:54:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=iEsyh8GHxeu44vtzBBR3NlkwMw0Z1G8PerbllmZFH94=;
+        b=Kcvz/AjKFRqerKGMz94QvGEtiNVFBztNsWhl6zhhK6x3xPAAedw5Spg8n20BfNhXPT
+         Eiom6xu9db68vXWp2SH/1MTg+iJhDDd/HP6pBjqcs4nSHvhEcd3r72buoGtB2x1UoaQg
+         yEWsHcNYTMoE3nxbImmURGnqjvI/rrRQDeuxn5HJ+rghU6lfbJaP+L4yv/xqWsdYyc2k
+         RSUkANYp1C3s7r8QJ7IrcdqXDDQUHGJVnHj0/Ci9LwTnnK/Ut9RZyd1DA4t6Qr4Fvy/2
+         2c+Z3rmCVr9T16OM/VVrvPsojEANdjG3rTj1vfACL79fqn/c7+lM6XP0CYrz2dThdR09
+         3Ocw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=iEsyh8GHxeu44vtzBBR3NlkwMw0Z1G8PerbllmZFH94=;
+        b=erWFsKSCdps94xKTjC23BI3HMgngZHPaVOMTjVzDFJb0fNzfonMbzvBvtqHQ8RBvo0
+         7Ul12herJbdfHtgVdDKMWJSUW9iLMIF+TfY3pGJ2X8P3WRmpWO6FZ77mq7PDUmFqeC0g
+         KJtrrSaAVrCqu86nPaWHd1T1W54ZgodddlULLsfCC1R8xF/nJrqjnAPd09yFy5/7jG0n
+         wHQAClu972x60hEOejUXCg82PBi1n8HTuN3tNzxCtI1YgApUeDdMARZxjkUJTXXSKtoY
+         nyBLjmKQCBUMhTaFZI4zXj3oWIXvQlNF5rXR+YB7QA2orWK2LpS4lZNNeG5eyPbmgvUx
+         G3mQ==
+X-Gm-Message-State: AOAM5330FL/gankmxNGysoFSD34bEAqHieQ9X0st1Syd2VVtFcgFYPOM
+        m9DYuY7fxf1ALgMhcP0kw9c=
+X-Google-Smtp-Source: ABdhPJxZ7Z23bWr2jER4tAp12IbkTLSF42iyh3vNdjiFzt1S3r8+OA1RD+vyz+geFoFiDYveOpUsxQ==
+X-Received: by 2002:a17:90a:e697:: with SMTP id s23mr2457874pjy.175.1601470463289;
+        Wed, 30 Sep 2020 05:54:23 -0700 (PDT)
+Received: from localhost.localdomain ([1.129.174.186])
+        by smtp.gmail.com with ESMTPSA id r14sm2254502pgm.7.2020.09.30.05.54.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2020 05:54:22 -0700 (PDT)
+Date:   Wed, 30 Sep 2020 22:54:19 +1000
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Subject: Re: man-pages.7: Simplify indentation of structure definitions,
+ shell session logs, and so on
+Message-ID: <20200930125417.ovlnfxhk5zgtuj46@localhost.localdomain>
+References: <20200920214012.454410-1-colomar.6.4.3@gmail.com>
+ <61f4e2a4-d468-ceba-2ccf-ce0c061aa20b@gmail.com>
+ <f70c7f62-9d61-71aa-67cf-43501a29bccc@gmail.com>
+ <CAKgNAki7=AJ7p2AwPkf9+4AkYKdOL6b4D0NyVdwZzu-qHFvGiA@mail.gmail.com>
+ <20200921141552.tpuhdxo24lc6e7dh@localhost.localdomain>
+ <35b5a9ff-4133-8301-bb75-4b13f7861c9a@gmail.com>
+ <20200930120242.vylnz5khajri5sz4@localhost.localdomain>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="zpgxcpifpydr5ebq"
+Content-Disposition: inline
+In-Reply-To: <20200930120242.vylnz5khajri5sz4@localhost.localdomain>
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Christoph Kalchreuter:
 
-> There are three Letters "e" missing in Section "DESCRIPTION",
-> Subsection "The stat structure":
->
-> struct timespec st_atim;  /* Time of last access */
-> struct timespec st_mtim;  /* Time of last modification */
-> sruct timespec st_ctim;  /* Time of last status change */
->
-> should possibly be:
->
-> struct timespec st_atime;  /* Time of last access */
-> struct timespec st_mtime;  /* Time of last modification */
-> sruct timespec st_ctime;  /* Time of last status change */
+--zpgxcpifpydr5ebq
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This typo is also present in POSIX, so we cannot change it (like the
-creat function).
+At 2020-09-30T22:02:43+1000, G. Branden Robinson wrote:
+> [...] you can call .RE [...] as ".RE 2" to say "go back two
+> indentation levels"
 
-Thanks,
-Florian
--- 
-Red Hat GmbH, https://de.redhat.com/ , Registered seat: Grasbrunn,
-Commercial register: Amtsgericht Muenchen, HRB 153243,
-Managing Directors: Charles Cachera, Brian Klemm, Laurie Krebs, Michael O'Neill
+Nope, that's wrong.  Forget I said that; I think I might now see
+something I can further improve in the documentation.
 
+You can see I'm still bedeviled by relative insets.  :-|
+
+I tend to never use the argument to .RE; I just call .RE multiple times
+to balance out my .RS calls, just like parentheses.  When I do that, I
+don't get surprised.
+
+> without having to track or remember any indentation measurements.
+
+This part remains true.  :)
+
+Regards,
+Branden
+
+--zpgxcpifpydr5ebq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl90f98ACgkQ0Z6cfXEm
+bc5ONBAAg2SM0XL0ljnAXr0hY5A3KmadEq/NrH77b9YfdQI2zR4aYFAMueCtOI7r
+r29NZtUpoMcxujilhbVyGYYUiTTUwOQDfZ+j3zhWlfo6bc1VAD2u6593lCgntUBP
+pNxFl3arnBsujzFonhzoSJbTFxnyr5kVfV/5qGcMddKGlKQI9BLmtUXN3ac6c/7C
+x0B2FthXhZ1DLox18OQs4D8Q8xgrXgrbzNyog26uXT7JlvmdP4fLRM3NeA6Hq2ZS
+IpbqzQ0VYD4QuGRCRpab35LuhTdynHj3SE09wSBLtFaBfTqy7QuASKbem64c9gu2
+Ida9wBKcfc77/UnwA7fCl3Ome9DU3U6zOf6ty1egYDkEEA3SOgveNxyr4bLi9pO3
+tNXrsGYsgnYZgIE0FhYEmjuaTbRB5ekNWvvwMOFXteZgJmvTd6/7rtAX3S+rR8HV
+Nf5SI1DgpgM7vU//ZqhpMICWVDn7ecYkBWQWpzB4jmIQDtQcOCIo+yCL8o0pM9KA
+Xz+veGmMvjwN6mmrMn0Y9HCEAvZKSRGLVkrFYL56/WNbKwQnq1dDcERXpzNl0Xue
+06KmUlaTVj68anhDE3SKgg+xUnJmPq1MUF2BcMCdQ6H5PFkQJMkSgxKXRtjqpFuN
+3xbucDYUtM+OcoVgxz0BfvBHxAUL2f2NQyZmBupWN1SCE3X0aoA=
+=ByZ2
+-----END PGP SIGNATURE-----
+
+--zpgxcpifpydr5ebq--
