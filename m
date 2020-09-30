@@ -2,81 +2,119 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D8EB727F033
-	for <lists+linux-man@lfdr.de>; Wed, 30 Sep 2020 19:23:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B3BE827F2A9
+	for <lists+linux-man@lfdr.de>; Wed, 30 Sep 2020 21:38:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731414AbgI3RXd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 30 Sep 2020 13:23:33 -0400
-Received: from esa3.mentor.iphmx.com ([68.232.137.180]:48755 "EHLO
-        esa3.mentor.iphmx.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731385AbgI3RXc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Sep 2020 13:23:32 -0400
-X-Greylist: delayed 426 seconds by postgrey-1.27 at vger.kernel.org; Wed, 30 Sep 2020 13:23:31 EDT
-IronPort-SDR: Cx4UW2elN3+C48T7rxSt2p3bA/LFXLDcB7aWT6KBTlEMoWKRdUXKbfyGAX6CNajkVM5+xxrYXK
- rFmAiPkFLrwl5zpW3BAWR093B4wV2fQ4FNFq86vVqeKpABytjC1AsRJt4zbm7sPQbEAx+7G7rB
- aQZK/v1LTOglfsXnRLdd7CUrGyDB00j51xygPLkWTyCKTs8PGK85bIPqoq3D28DlthLaILfo0X
- xwtus8zjf6IGgfPz+VMSapoJeSBrLe5549jqBhgpeo6P09UtKqVQjQVpzZMrX1eOSHLukZh6ir
- 9Rs=
-X-IronPort-AV: E=Sophos;i="5.77,322,1596528000"; 
-   d="scan'208";a="53426217"
-Received: from orw-gwy-02-in.mentorg.com ([192.94.38.167])
-  by esa3.mentor.iphmx.com with ESMTP; 30 Sep 2020 09:16:25 -0800
-IronPort-SDR: bjA6jjRy40MedrpsUuyiNbDgQCVq4j4EiKg0LiN8Rpb8WGFeKMcz40KD8fYRRYhjffazUEuqT6
- 3osl3hDFV+ceNE11D+n3OAG3A/13Cd8dsYBbuT/PvhTnj5aRLLuMq+PgPlx0mQE0YWBOmrq5uy
- IcLBTsq7YHH/5F4GDCcEFsSFaQFLeYe+b58xo9yxU37gE13duBSsqsDS5q6GF4FLWMkh+gwI3o
- oPPLREIonDrosPMOYLQyNO2/rpuQbIya+eNqzsGVgs5lbhBh+EPPpdw9g4LIfYe+tggDlFyrQH
- vl8=
-Date:   Wed, 30 Sep 2020 17:16:16 +0000
-From:   Joseph Myers <joseph@codesourcery.com>
-X-X-Sender: jsm28@digraph.polyomino.org.uk
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-CC:     Dave Martin <Dave.Martin@arm.com>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        <linux-man@vger.kernel.org>, <libc-alpha@sourceware.org>,
-        <mtk.manpages@gmail.com>
-Subject: Re: [PATCH 1/2] system_data_types.7: Document size_t
-In-Reply-To: <b49c082f-06fb-aeed-d6c0-6ab619215d43@gmail.com>
-Message-ID: <alpine.DEB.2.21.2009301710510.5720@digraph.polyomino.org.uk>
-References: <20200918112755.21428-1-colomar.6.4.3@gmail.com> <20200918112755.21428-2-colomar.6.4.3@gmail.com> <20200928134122.GG6642@arm.com> <8ce3d63c-445f-827b-a49a-914e8dd622d4@gmail.com> <20200928135506.2wsf3cwvkkbreqa3@localhost.localdomain>
- <20200928141524.GH6642@arm.com> <b49c082f-06fb-aeed-d6c0-6ab619215d43@gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+        id S1725814AbgI3Ti0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 30 Sep 2020 15:38:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52668 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725799AbgI3Ti0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Sep 2020 15:38:26 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4602AC061755
+        for <linux-man@vger.kernel.org>; Wed, 30 Sep 2020 12:38:26 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id s13so665865wmh.4
+        for <linux-man@vger.kernel.org>; Wed, 30 Sep 2020 12:38:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=Y5nQanRM8zeX4v5O6Q7JE7pfLTKkzK7e67KcBbUt93Y=;
+        b=F2YTkLYD6w3S0DBymmdRFWwrCXRjZ5mENk6Upxigd1u358UewtzmG7bQthInOn4ox0
+         cxt5CXrIXOoOW0kNr4IZk+VQ+EOzNpDSluevQCp41PTJ+hE/wg56++UbXIYdhLu+UKfq
+         E3IG/D8mA0KMoWRsuM6eAMH2s7SD/epVdN7TMM0sLtJN6mLwQ05S2odw4CWnzNo01P72
+         aJOA0s9PoflbJjbHUD5yxRhMZD4wCVBddU+0aDp69FfCFBZqD105wttoWR9n53t0v42D
+         JV7aHo7DvCl+I0kWvkpTARWuwiA1n+cofF3XBQtaUfzgszxjvDDqjEnVXvZJk8i9HLi0
+         /d/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=Y5nQanRM8zeX4v5O6Q7JE7pfLTKkzK7e67KcBbUt93Y=;
+        b=q3h8qEqhvseYFYj3kd+YGCUpDeyKHBn+xpBALO+QyWKTqiPrZRtOLzs9OjifSl0UeR
+         AjtzQcaT21MOhm99lzkSmhXU2EMK6OlyUepdgLDBYJiZW5OaI+HnQUAdRV7yf9Gjx9FC
+         LCJoPXfhAimPWyOyC7xKLF4YIGhlXoeJiwm/O/UAv6ssPv6XGqglURsquwOD+CYJvxCY
+         kUsbNLWb0aToOjqUJp/lmKKd77G7mqbLqj9pB0ODtkFsLYDNZxS6guJuiIkHKfSiiceS
+         ciWqkaMsVXoUw8hsHxSOV31xw0n23qP+vtut7JgvB0aWhT991/8ksJv0kSmyZavo+Pnx
+         CP8Q==
+X-Gm-Message-State: AOAM530HBOY3gzMn3+stZGIEUMkVPw0dGJLkUYqlGC5qZdUQD2eq/RXU
+        KPgJawTDTfWZ8b+ReUfv79MgHSLKmco=
+X-Google-Smtp-Source: ABdhPJzr8MaHDo8o8i96E+65s4dZ6ijChzf0NzxeUmruv4IfBWzynAASfco16473XVsnQAwNabmVPg==
+X-Received: by 2002:a1c:5458:: with SMTP id p24mr4684067wmi.160.1601494704420;
+        Wed, 30 Sep 2020 12:38:24 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
+        by smtp.gmail.com with ESMTPSA id n2sm4770913wma.29.2020.09.30.12.38.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2020 12:38:23 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Typo in stat(2)
+To:     Florian Weimer <fweimer@redhat.com>,
+        Christoph Kalchreuter <christoph@kalchreuter.de>
+References: <373374d2-851f-67f6-4059-90130aaab344@kalchreuter.de>
+ <87pn63tpx4.fsf@oldenburg2.str.redhat.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <060e7ecf-3590-2fcb-9f28-a1534d97ac7b@gmail.com>
+Date:   Wed, 30 Sep 2020 21:38:22 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-X-Originating-IP: [137.202.0.90]
-X-ClientProxiedBy: svr-ies-mbx-01.mgc.mentorg.com (139.181.222.1) To
- svr-ies-mbx-01.mgc.mentorg.com (139.181.222.1)
+In-Reply-To: <87pn63tpx4.fsf@oldenburg2.str.redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, 28 Sep 2020, Alejandro Colomar via Libc-alpha wrote:
-
-> > To clarify, does POSIX _guarantee_ that all of those headers define this
-> > type?  (I admit I'm too lazy to search through the POSIX standard for an
-> > answer to this).
+On 9/30/20 2:22 PM, Florian Weimer wrote:
+> * Christoph Kalchreuter:
 > 
-> Yes, POSIX does guarantee that all those headers define the type.
+>> There are three Letters "e" missing in Section "DESCRIPTION",
+>> Subsection "The stat structure":
+>>
+>> struct timespec st_atim;  /* Time of last access */
+>> struct timespec st_mtim;  /* Time of last modification */
+>> sruct timespec st_ctim;  /* Time of last status change */
+>>
+>> should possibly be:
+>>
+>> struct timespec st_atime;  /* Time of last access */
+>> struct timespec st_mtime;  /* Time of last modification */
+>> sruct timespec st_ctime;  /* Time of last status change */
+> 
+> This typo is also present in POSIX, so we cannot change it (like the
+> creat function).
 
-For a lot of cases where a header contains a function using a type in its 
-prototype, current POSIX requires that type to be defined in the header, 
-but older POSIX permitted it (by virtue of the *_t reservation) but did 
-not require it unless XSI extensions were enabled.
+Hi Christoph,
 
-The preferred glibc practice in such cases where older POSIX permitted the 
-definition and included functions using the type is not to make the 
-definition of the type in the header conditional on the POSIX version / 
-XSI extensions, but to enable the definition for all standards that 
-include the relevant function.  (This simplifies the headers, and also 
-simplifies the conform/ tests because they then don't need to handle 
-testing for a declaration of a function without being able to write its 
-type in the most straightforward way.)
+Florian was being very deadpan in his humor! The names 
+really are correct. In the header files, one can find
 
-The headers still need to include feature test macro conditionals and 
-special handling where a header is required by some standard to declare a 
-function without defining the corresponding type name.  (For example, ISO 
-C does not permit <stdio.h> to define va_list, so the header has to use an 
-implementation-namespace name for that type when declaring vprintf.)
+[[  # /usr/include/bits/stat.h
+
+    struct timespec st_atim;            /* Time of last access.  */
+    struct timespec st_mtim;            /* Time of last modification.  */
+    struct timespec st_ctim;            /* Time of last status change.  */
+# define st_atime st_atim.tv_sec        /* Backward compatibility.  */
+# define st_mtime st_mtim.tv_sec
+# define st_ctime st_ctim.tv_sec
+]]
+
+And struct timespec is defined as
+
+              struct timespec {
+                  time_t  tv_sec;  /* Seconds */
+                  long    tv_nsec; /* Nanoseconds */
+              };
+
+
+Thanks,
+
+Michael
 
 -- 
-Joseph S. Myers
-joseph@codesourcery.com
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
