@@ -2,173 +2,106 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 246C527F5A6
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 01:06:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 79EDB27F5DC
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 01:19:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730338AbgI3XF5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 30 Sep 2020 19:05:57 -0400
-Received: from wnew2-smtp.messagingengine.com ([64.147.123.27]:43469 "EHLO
-        wnew2-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1730528AbgI3XEB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Sep 2020 19:04:01 -0400
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
-        by mailnew.west.internal (Postfix) with ESMTP id C3B1D9E6;
-        Wed, 30 Sep 2020 19:03:31 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute4.internal (MEProxy); Wed, 30 Sep 2020 19:03:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tycho.pizza; h=
-        date:from:to:cc:subject:message-id:references:mime-version
-        :content-type:content-transfer-encoding:in-reply-to; s=fm1; bh=X
-        tI1tB6xpmgOimSVGwz0nFQ2Aj6bySi3TmcGUJtNKDE=; b=YjqRrknkoRvFSexBK
-        tWIx+0K77PM+g0q6zBEER8Mt7P/9XETbBwjWGh7driOG1BR0O0UdsvYOnDTthRRc
-        ZtHljtdgwIjc9VuXtrIcDEuKUTe6uU0+QeVPTIGm6he4GXmt5AsJuNGuoQP8On+1
-        T7L2sLAcw2uTnMsQOtb02PP3pBoDmPd2KeF8pXrWX8dmLM/KPPvGosaD6qnSEHdA
-        orkj6krPdLFTt3LWnJgHvHVeIQu8JeHkZR5UPUJiZ9AKn7+zmcYtk9vPPYQAIW67
-        8rfHmpgRHqQbLV/Gi6um89WtsDHHNE9+JHhA5SK3BDv7cZeA3D55UAstc6hoS8a2
-        1ddsQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-        messagingengine.com; h=cc:content-transfer-encoding:content-type
-        :date:from:in-reply-to:message-id:mime-version:references
-        :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-        :x-sasl-enc; s=fm3; bh=XtI1tB6xpmgOimSVGwz0nFQ2Aj6bySi3TmcGUJtNK
-        DE=; b=NQaPjYn0VYYM79zUlgVbI/HpUJfbGPk21tjYqk0fMqaQ+2xwfkmvV6TIS
-        pWiapS+Fyws9Z5VApdOhGuBwN/Y80rPEh+aeZiXrI373/amdb0AVVblB4/LcZqzR
-        EX7YCPM9MOVnsisrs8onXRMXzKU/1SA8FJrP+OGAh5APWHI6LdFxOepBQLBNFo+Q
-        s0DQWONJfi5XBUNM+PSLrC9UyGEAm5fPUVKhJUUCHwnm2vwIfMm0NXkV+ykLZA1D
-        ZB8lJ2B+MBD/0IkkzdX8wFplAMhfKL6aJEq5E4vvQ9aRHwPQcBoaTM0hkJ4wMSm3
-        0Jabe0jwdeHE+vpIy58XYf+HZv2jg==
-X-ME-Sender: <xms:wg51X5uj72nxaBN5fR3YSdO-qFbV_CB9A-VQ8jm8XnNanmrnzt8aLg>
-    <xme:wg51XycH4OzurAZwKlJz8r0cp0T0_Pct30D0uSeq7bp5L_Cugw99nNA6sHHmSOQUz
-    yT9SdbT9jsYltIC0PI>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrfeefgddukecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvuffkfhggtggugfgjsehtkeertddttdejnecuhfhrohhmpefvhigthhho
-    ucetnhguvghrshgvnhcuoehthigthhhosehthigthhhordhpihiiiigrqeenucggtffrrg
-    htthgvrhhnpefhuedvvdelieevgeegjeeukeeuleejtdejfeetfeeujeefvdeltdethffh
-    ueekffenucfkphepjeefrddvudejrddutddriedtnecuvehluhhsthgvrhfuihiivgeptd
-    enucfrrghrrghmpehmrghilhhfrhhomhepthihtghhohesthihtghhohdrphhiiiiirg
-X-ME-Proxy: <xmx:wg51X8xtJIO64eSz3Q3M080KKG4JsHDj7Xiqdk0jQHSVU5u4kJcJjg>
-    <xmx:wg51XwN0G_bf6PI8i2pSy7aoPH3QowMLTbZ9x9Tu8Penm-lNtPlKbQ>
-    <xmx:wg51X5_b8jwQjzwKX0LihTsNRq6mbv5nYniW8rg6cHHtW5WkhK8iqw>
-    <xmx:ww51X9WkyHuURkpU7U4m7pwqtnbF1rpD9uOCHNOs5bTWUUeKuWgnsGDTfR_ZJcnT>
-Received: from cisco (c-73-217-10-60.hsd1.co.comcast.net [73.217.10.60])
-        by mail.messagingengine.com (Postfix) with ESMTPA id 1083A3064686;
-        Wed, 30 Sep 2020 19:03:29 -0400 (EDT)
-Date:   Wed, 30 Sep 2020 17:03:27 -0600
-From:   Tycho Andersen <tycho@tycho.pizza>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Sargun Dhillon <sargun@sargun.me>,
+        id S1732084AbgI3XMB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 30 Sep 2020 19:12:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57636 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1731220AbgI3XMB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Sep 2020 19:12:01 -0400
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com [IPv6:2a00:1450:4864:20::52c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D317BC0613D0
+        for <linux-man@vger.kernel.org>; Wed, 30 Sep 2020 16:12:00 -0700 (PDT)
+Received: by mail-ed1-x52c.google.com with SMTP id j2so3649853eds.9
+        for <linux-man@vger.kernel.org>; Wed, 30 Sep 2020 16:12:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=5xNLcu2ZBibcOX9eRdIGOJeEwkJ0lfgOo9QwHDvHXzQ=;
+        b=Qj7K/vkx1A15tnnaZGTfZl+ftwHdXkr1sOL1XvvbJjxZt6685kUiCjB86O17zRpzT+
+         fjB3agEdH+lpJttlavg86WCDK/CZ/w8oa+3tm66zd471+mfvUnVBT4hdtV9fr6yowepg
+         +X46wdd3diEHymNJT8fTyl2VcCe6QysxchzK/I0DHPed+T2YFKyVudi6rWQpwhEcD3et
+         sd6uMoaB9fxNujxXaN2i+lH8Mzxt31C5S20E50O40rHcNBtvsXjvgoQYX09+AQJ5Z0i6
+         m98jq1Z/UM0SauyOxFb+wrxUMwuh71pRjyiDIAwjbJtiW/Y3Mc80NcR6gKB3CqeK9jM1
+         /Btg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=5xNLcu2ZBibcOX9eRdIGOJeEwkJ0lfgOo9QwHDvHXzQ=;
+        b=n3B9Cd16UA0onM23xjhm9PHww4OPLeqB6kRSe9FsyhhJ/efIxZMSs9j2rJkvxvSWDG
+         k3qoxWUt6aB/fOJFhloi+QKtK8zg536NCIHR6wbvlkTdEJK2Wb1+Sq0iRRJ2lDoa1Szt
+         Nq/f7n/sRSaM4aa9gJ1xkBjzjkbKbl8VKN5hHhbSoha+ENIJ+slEeQt5cyCeS0jixgia
+         qtjv2Y9hdlNaHNyVlxn1sTu0RPkwKHI1GHrbz//bnAf9b1HzPfmwaouKvMznD1SXuzGn
+         GyDIMWfNGEAa+pMjosLEXP4ppW3iBN2svwymIjHL1bqW+c8ChyaHq4stVpvJTsng8u0t
+         YsMQ==
+X-Gm-Message-State: AOAM531YlH4bJFQT2pG5IgdOxHvvqtMifS1N3yvMOk6a0srXddW75R1G
+        ngkS1A2PRXk+L00KAgB1BF2dW6CvCMp1m6ATb5Rmeg==
+X-Google-Smtp-Source: ABdhPJwrGlHwTQPZ++L0mLOF85y9/7LbEqNJ1w3mzMjO76tBkyLKmj9U5lGPSOwZW9qqkPLK2MLrOgZEPPp5jfWkAiQ=
+X-Received: by 2002:a50:e807:: with SMTP id e7mr5401960edn.84.1601507519254;
+ Wed, 30 Sep 2020 16:11:59 -0700 (PDT)
+MIME-Version: 1.0
+References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
+ <20200930150330.GC284424@cisco> <8bcd956f-58d2-d2f0-ca7c-0a30f3fcd5b8@gmail.com>
+ <20200930230327.GA1260245@cisco>
+In-Reply-To: <20200930230327.GA1260245@cisco>
+From:   Jann Horn <jannh@google.com>
+Date:   Thu, 1 Oct 2020 01:11:33 +0200
+Message-ID: <CAG48ez1VOUEHVQyo-2+uO7J+-jN5rh7=KmrMJiPaFjwCbKR1Sg@mail.gmail.com>
+Subject: Re: For review: seccomp_user_notif(2) manual page
+To:     Tycho Andersen <tycho@tycho.pizza>
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        Sargun Dhillon <sargun@sargun.me>,
         Kees Cook <keescook@chromium.org>,
         Christian Brauner <christian@brauner.io>,
         linux-man <linux-man@vger.kernel.org>,
         lkml <linux-kernel@vger.kernel.org>,
-        Aleksa Sarai <cyphar@cyphar.com>, Jann Horn <jannh@google.com>,
-        Alexei Starovoitov <ast@kernel.org>, wad@chromium.org,
-        bpf@vger.kernel.org, Song Liu <songliubraving@fb.com>,
+        Aleksa Sarai <cyphar@cyphar.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
+        Song Liu <songliubraving@fb.com>,
         Daniel Borkmann <daniel@iogearbox.net>,
         Andy Lutomirski <luto@amacapital.net>,
         Linux Containers <containers@lists.linux-foundation.org>,
         Giuseppe Scrivano <gscrivan@redhat.com>,
         Robert Sesek <rsesek@google.com>
-Subject: Re: For review: seccomp_user_notif(2) manual page
-Message-ID: <20200930230327.GA1260245@cisco>
-References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
- <20200930150330.GC284424@cisco>
- <8bcd956f-58d2-d2f0-ca7c-0a30f3fcd5b8@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8bcd956f-58d2-d2f0-ca7c-0a30f3fcd5b8@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Sep 30, 2020 at 10:34:51PM +0200, Michael Kerrisk (man-pages) wrote:
-> Hi Tycho,
-> 
-> Thanks for taking time to look at the page!
-> 
-> On 9/30/20 5:03 PM, Tycho Andersen wrote:
-> > On Wed, Sep 30, 2020 at 01:07:38PM +0200, Michael Kerrisk (man-pages) wrote:
-> >>        2. In order that the supervisor process can obtain  notifications
-> >>           using  the  listening  file  descriptor, (a duplicate of) that
-> >>           file descriptor must be passed from the target process to  the
-> >>           supervisor process.  One way in which this could be done is by
-> >>           passing the file descriptor over a UNIX domain socket  connec‐
-> >>           tion between the two processes (using the SCM_RIGHTS ancillary
-> >>           message type described in unix(7)).   Another  possibility  is
-> >>           that  the  supervisor  might  inherit  the file descriptor via
-> >>           fork(2).
-> > 
-> > It is technically possible to inherit the fd via fork, but is it
-> > really that useful? The child process wouldn't be able to actually do
-> > the syscall in question, since it would have the same filter.
-> 
-> D'oh! Yes, of course.
-> 
-> I think I was reaching because in an earlier conversation
-> you replied:
-> 
-> [[
-> > 3. The "target process" passes the "listening file descriptor"
-> >    to the "monitoring process" via the UNIX domain socket.
-> 
-> or some other means, it doesn't have to be with SCM_RIGHTS.
-> ]]
-> 
-> So, what other means?
-> 
-> Anyway, I removed the sentence mentioning fork().
-
-Whatever means people want :). fork() could work (it's how some of the
-tests for this feature work, but it's not particularly useful I don't
-think), clone(CLONE_FILES) is similar, seccomp_putfd, or maybe even
-cloning it via some pidfd interface that might be invented for
-re-opening files.
-
-> >>        ┌─────────────────────────────────────────────────────┐
-> >>        │FIXME                                                │
-> >>        ├─────────────────────────────────────────────────────┤
-> >>        │From my experiments,  it  appears  that  if  a  SEC‐ │
-> >>        │COMP_IOCTL_NOTIF_RECV   is  done  after  the  target │
-> >>        │process terminates, then the ioctl()  simply  blocks │
-> >>        │(rather than returning an error to indicate that the │
-> >>        │target process no longer exists).                    │
-> > 
-> > Yeah, I think Christian wanted to fix this at some point,
-> 
-> Do you have a pointer that discussion? I could not find it with a 
-> quick search.
-> 
-> > but it's a
-> > bit sticky to do.
-> 
-> Can you say a few words about the nature of the problem?
-
-I remembered wrong, it's actually in the tree: 99cdb8b9a573 ("seccomp:
-notify about unused filter"). So maybe there's a bug here?
-
-> >>        ┌─────────────────────────────────────────────────────┐
-> >>        │FIXME                                                │
-> >>        ├─────────────────────────────────────────────────────┤
-> >>        │Interestingly, after the event  had  been  received, │
-> >>        │the  file descriptor indicates as writable (verified │
-> >>        │from the source code and by experiment). How is this │
-> >>        │useful?                                              │
-> > 
-> > You're saying it should just do EPOLLOUT and not EPOLLWRNORM? Seems
-> > reasonable.
-> 
-> No, I'm saying something more fundamental: why is the FD indicating as
-> writable? Can you write something to it? If yes, what? If not, then
-> why do these APIs want to say that the FD is writable?
-
-You can't via read(2) or write(2), but conceptually NOTIFY_RECV and
-NOTIFY_SEND are reading and writing events from the fd. I don't know
-that much about the poll interface though -- is it possible to
-indicate "here's a pseudo-read event"? It didn't look like it, so I
-just (ab-)used POLLIN and POLLOUT, but probably that's wrong.
-
-Tycho
+T24gVGh1LCBPY3QgMSwgMjAyMCBhdCAxOjAzIEFNIFR5Y2hvIEFuZGVyc2VuIDx0eWNob0B0eWNo
+by5waXp6YT4gd3JvdGU6DQo+IE9uIFdlZCwgU2VwIDMwLCAyMDIwIGF0IDEwOjM0OjUxUE0gKzAy
+MDAsIE1pY2hhZWwgS2VycmlzayAobWFuLXBhZ2VzKSB3cm90ZToNCj4gPiBPbiA5LzMwLzIwIDU6
+MDMgUE0sIFR5Y2hvIEFuZGVyc2VuIHdyb3RlOg0KPiA+ID4gT24gV2VkLCBTZXAgMzAsIDIwMjAg
+YXQgMDE6MDc6MzhQTSArMDIwMCwgTWljaGFlbCBLZXJyaXNrIChtYW4tcGFnZXMpIHdyb3RlOg0K
+PiA+ID4+ICAgICAgICDilIzilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilJANCj4gPiA+PiAgICAgICAg4pSCRklYTUUgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICDilIINCj4gPiA+PiAgICAgICAg4pSc4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSkDQo+ID4gPj4gICAgICAgIOKUgkZy
+b20gbXkgZXhwZXJpbWVudHMsICBpdCAgYXBwZWFycyAgdGhhdCAgaWYgIGEgIFNFQ+KAkCDilIIN
+Cj4gPiA+PiAgICAgICAg4pSCQ09NUF9JT0NUTF9OT1RJRl9SRUNWICAgaXMgIGRvbmUgIGFmdGVy
+ICB0aGUgIHRhcmdldCDilIINCj4gPiA+PiAgICAgICAg4pSCcHJvY2VzcyB0ZXJtaW5hdGVzLCB0
+aGVuIHRoZSBpb2N0bCgpICBzaW1wbHkgIGJsb2NrcyDilIINCj4gPiA+PiAgICAgICAg4pSCKHJh
+dGhlciB0aGFuIHJldHVybmluZyBhbiBlcnJvciB0byBpbmRpY2F0ZSB0aGF0IHRoZSDilIINCj4g
+PiA+PiAgICAgICAg4pSCdGFyZ2V0IHByb2Nlc3Mgbm8gbG9uZ2VyIGV4aXN0cykuICAgICAgICAg
+ICAgICAgICAgICDilIINCj4gPiA+DQo+ID4gPiBZZWFoLCBJIHRoaW5rIENocmlzdGlhbiB3YW50
+ZWQgdG8gZml4IHRoaXMgYXQgc29tZSBwb2ludCwNCj4gPg0KPiA+IERvIHlvdSBoYXZlIGEgcG9p
+bnRlciB0aGF0IGRpc2N1c3Npb24/IEkgY291bGQgbm90IGZpbmQgaXQgd2l0aCBhDQo+ID4gcXVp
+Y2sgc2VhcmNoLg0KPiA+DQo+ID4gPiBidXQgaXQncyBhDQo+ID4gPiBiaXQgc3RpY2t5IHRvIGRv
+Lg0KPiA+DQo+ID4gQ2FuIHlvdSBzYXkgYSBmZXcgd29yZHMgYWJvdXQgdGhlIG5hdHVyZSBvZiB0
+aGUgcHJvYmxlbT8NCj4NCj4gSSByZW1lbWJlcmVkIHdyb25nLCBpdCdzIGFjdHVhbGx5IGluIHRo
+ZSB0cmVlOiA5OWNkYjhiOWE1NzMgKCJzZWNjb21wOg0KPiBub3RpZnkgYWJvdXQgdW51c2VkIGZp
+bHRlciIpLiBTbyBtYXliZSB0aGVyZSdzIGEgYnVnIGhlcmU/DQoNClRoYXQgdGhpbmcgb25seSBu
+b3RpZmllcyBvbiAtPnBvbGwsIGl0IGRvZXNuJ3QgdW5ibG9jayBpb2N0bHM7IGFuZA0KTWljaGFl
+bCdzIHNhbXBsZSBjb2RlIHVzZXMgU0VDQ09NUF9JT0NUTF9OT1RJRl9SRUNWIHRvIHdhaXQuIFNv
+IHRoYXQNCmNvbW1pdCBkb2Vzbid0IGhhdmUgYW55IGVmZmVjdCBvbiB0aGlzIGtpbmQgb2YgdXNh
+Z2UuDQo=
