@@ -2,56 +2,56 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4221D27F79A
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 03:53:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DC06F27F7E2
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 04:16:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729645AbgJABw7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 30 Sep 2020 21:52:59 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54454 "EHLO
+        id S1730378AbgJACOf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 30 Sep 2020 22:14:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57814 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725800AbgJABwc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Sep 2020 21:52:32 -0400
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E4447C0613D1
-        for <linux-man@vger.kernel.org>; Wed, 30 Sep 2020 18:52:30 -0700 (PDT)
-Received: by mail-ej1-x642.google.com with SMTP id dd13so5644245ejb.5
-        for <linux-man@vger.kernel.org>; Wed, 30 Sep 2020 18:52:30 -0700 (PDT)
+        with ESMTP id S1725892AbgJACOf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Sep 2020 22:14:35 -0400
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8B2A8C061755
+        for <linux-man@vger.kernel.org>; Wed, 30 Sep 2020 19:14:34 -0700 (PDT)
+Received: by mail-ej1-x641.google.com with SMTP id q13so5669705ejo.9
+        for <linux-man@vger.kernel.org>; Wed, 30 Sep 2020 19:14:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20161025;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc:content-transfer-encoding;
-        bh=1bLW1cuECr8U7GaM7z86G6hDD6exav2AJLPz5W/9Rmc=;
-        b=kWsAhO4IucLVoZpMkahGgNES5DttbXTJpcoZ05moKrnMJckcHdlnDveEpyQqJc8ldL
-         QfmGxf8Eh4Ts/puB9RclgWUNuwb8+d/iVmtJDeUBqGiXQbFScpcYNmbeq7REh8GBZzeT
-         kLpXr6famz6F0NUDrEYV8TJ5EJq6Nq8M6GVDbEf26mf8kaU1XPG2YffLFbMei3Nk91vQ
-         QdDbgSTH81W6Vq5el8rE1yJwMjFMyj2dtgPTKf+GCr0p1w2ZwEJrKJ3piLN2eBBO7yzq
-         DUiUUF2/1A5woJuzwtDu3Xmtc/UNDykkbFsVApnq68QIoe/tglaDjWjVMTFxgl8A6CWl
-         gExw==
+        bh=VRlF+sTfUEUU0FQV/Q3ZTIfFAHBYdXbqZatAP+Y9VjY=;
+        b=f3D4rSyONiBy/W2syYMtXYxEiZxsifbXExflXIoDgFLYJaq88Fye9iITAygHX0Inau
+         94AyiPomN616HnDcapWTX7fv1JiE7wFoC7v7CGcBX4h3ObrkigSJekXbgkrObeDgb8sA
+         RoePxFu67r3XoJaEPM8u2UGZdHgBWVWWciLe7zB2C32HVmLdywhAnM6XV9PG5GpX0DvI
+         ix1v3FQCqnYVPBd5u6kN3TyXKZYWMZEbJXQF83FDnR0n8xs7nobbIdjyzYkj9y3ye20i
+         unMoq/H84N4g7kWMxVnH5h0nwEh01QJ09jrh6oGSqFwyb22qu+9FNVlqLXAiqafRe4e+
+         z4xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc:content-transfer-encoding;
-        bh=1bLW1cuECr8U7GaM7z86G6hDD6exav2AJLPz5W/9Rmc=;
-        b=PAKCIZahCFmryLGAewCXj2IhL15fXzxZBX6gjP6TaAQbrVzGHBgwK5LG1sba6IRImw
-         mWh8f+02+tEcMQ76to2OFDkETE93R0HQ9X8HZ5C4GkLURDGnlLOowi7FTrF7WXydW8X3
-         sgJwvvzf/jNZjDAc4xkPkKndbgcTVfv29aUmQyGa5JmUF/tKLZNIU41x1Z602IViekrC
-         aFft1G1N9hz+kzgK9ZwYoaWx8OAIcUFeH/alz8K8UJ5eodn9N3tW2m95RJ7xNmTBVbyy
-         XY//UYOoKFy2qGC8Nq1vne6k8GZrmh5Uhsu/2/TCDBoDvBCNoTEd4XSHNINkcezqbQ5n
-         d3RQ==
-X-Gm-Message-State: AOAM5338zjBPJcipFMA5v38S7d03YZG5YMXHgbIaJVVTFY2FfgxCR0EK
-        mY0KAhfMINM2CArDWOD/l87Jc+YJ8j4dvhPSZjGVQg==
-X-Google-Smtp-Source: ABdhPJy9aveDYFv4Gp14hKtilrKvNnkWXVsoiclevL5nYsStDKDifSDiKxQQKSwQqipgFKjnKXSV1kjDNtmgRMOszBo=
-X-Received: by 2002:a17:906:1f94:: with SMTP id t20mr5795435ejr.493.1601517149212;
- Wed, 30 Sep 2020 18:52:29 -0700 (PDT)
+        bh=VRlF+sTfUEUU0FQV/Q3ZTIfFAHBYdXbqZatAP+Y9VjY=;
+        b=LIOB/ddOKcBgMOZ1tllHLt95YGoOVVq/bO8gZdmUw0hqmjzlw0tvznAFIEAB7VPLNE
+         zwI0JlBfcUNrUUdgvCsXXvIDj1oDe69T2aB0c2wd+y0ER19BCj4Kaz7+uAeMInsas13U
+         uRLM09HKe85fGwJBTUeqVKSiNmvoZrpZm/1BPSaoQlaFehk51VGh36rpccmcrGWnlbku
+         66biQkTfTnWvYZ6rNYmrzIJFw12XOI7tPi7pTrFzPbrUUUB0b+ZeyX/t5U4PejjiuY+B
+         3DyuwKMOP9YuBXKtuKxnCLMN3ns9bqrOJiTMcs0bAIDg6Bw5gRLtngZMBpns7tRomH/g
+         qGSg==
+X-Gm-Message-State: AOAM5313lPrxx+EkGDUs+oojXszBLwZ1/pOwiZbAWsoSCPGyegqUuy4X
+        fVbw+brx53BLWge+BzHqeYGk+MIKBDjY2JVLGddFng==
+X-Google-Smtp-Source: ABdhPJzFEQyU1Y0EFbRA6jhr+9dXp0C5I/GT8CyTqnw3SfFunhixdX0N+3zH6ptOPj+ZsewB07FSBmbyi/DGnGjyGEM=
+X-Received: by 2002:a17:907:94cf:: with SMTP id dn15mr5974052ejc.114.1601518472957;
+ Wed, 30 Sep 2020 19:14:32 -0700 (PDT)
 MIME-Version: 1.0
 References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
  <20200930150330.GC284424@cisco> <8bcd956f-58d2-d2f0-ca7c-0a30f3fcd5b8@gmail.com>
  <20200930230327.GA1260245@cisco> <CAG48ez1VOUEHVQyo-2+uO7J+-jN5rh7=KmrMJiPaFjwCbKR1Sg@mail.gmail.com>
- <20200930232456.GB1260245@cisco>
-In-Reply-To: <20200930232456.GB1260245@cisco>
+ <20200930232456.GB1260245@cisco> <CAG48ez2xn+_KznEztJ-eVTsTzkbf9CVgPqaAk7TpRNAqbdaRoA@mail.gmail.com>
+In-Reply-To: <CAG48ez2xn+_KznEztJ-eVTsTzkbf9CVgPqaAk7TpRNAqbdaRoA@mail.gmail.com>
 From:   Jann Horn <jannh@google.com>
-Date:   Thu, 1 Oct 2020 03:52:02 +0200
-Message-ID: <CAG48ez2xn+_KznEztJ-eVTsTzkbf9CVgPqaAk7TpRNAqbdaRoA@mail.gmail.com>
+Date:   Thu, 1 Oct 2020 04:14:06 +0200
+Message-ID: <CAG48ez3kpEDO1x_HfvOM2R9M78Ach9O_4+Pjs-vLLfqvZL+13A@mail.gmail.com>
 Subject: Re: For review: seccomp_user_notif(2) manual page
 To:     Tycho Andersen <tycho@tycho.pizza>
 Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
@@ -75,102 +75,108 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Oct 1, 2020 at 1:25 AM Tycho Andersen <tycho@tycho.pizza> wrote:
-> On Thu, Oct 01, 2020 at 01:11:33AM +0200, Jann Horn wrote:
-> > On Thu, Oct 1, 2020 at 1:03 AM Tycho Andersen <tycho@tycho.pizza> wrote=
-:
-> > > On Wed, Sep 30, 2020 at 10:34:51PM +0200, Michael Kerrisk (man-pages)=
- wrote:
-> > > > On 9/30/20 5:03 PM, Tycho Andersen wrote:
-> > > > > On Wed, Sep 30, 2020 at 01:07:38PM +0200, Michael Kerrisk (man-pa=
-ges) wrote:
-> > > > >>        =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+On Thu, Oct 1, 2020 at 3:52 AM Jann Horn <jannh@google.com> wrote:
+> On Thu, Oct 1, 2020 at 1:25 AM Tycho Andersen <tycho@tycho.pizza> wrote:
+> > On Thu, Oct 01, 2020 at 01:11:33AM +0200, Jann Horn wrote:
+> > > On Thu, Oct 1, 2020 at 1:03 AM Tycho Andersen <tycho@tycho.pizza> wro=
+te:
+> > > > On Wed, Sep 30, 2020 at 10:34:51PM +0200, Michael Kerrisk (man-page=
+s) wrote:
+> > > > > On 9/30/20 5:03 PM, Tycho Andersen wrote:
+> > > > > > On Wed, Sep 30, 2020 at 01:07:38PM +0200, Michael Kerrisk (man-=
+pages) wrote:
+> > > > > >>        =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
 =94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
 =80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
 =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
 =94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90
-> > > > >>        =E2=94=82FIXME                                           =
-     =E2=94=82
-> > > > >>        =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90
+> > > > > >>        =E2=94=82FIXME                                         =
+       =E2=94=82
+> > > > > >>        =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
 =94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
 =80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
 =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
 =94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=A4
-> > > > >>        =E2=94=82From my experiments,  it  appears  that  if  a  =
-SEC=E2=80=90 =E2=94=82
-> > > > >>        =E2=94=82COMP_IOCTL_NOTIF_RECV   is  done  after  the  ta=
-rget =E2=94=82
-> > > > >>        =E2=94=82process terminates, then the ioctl()  simply  bl=
-ocks =E2=94=82
-> > > > >>        =E2=94=82(rather than returning an error to indicate that=
- the =E2=94=82
-> > > > >>        =E2=94=82target process no longer exists).               =
-     =E2=94=82
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=A4
+> > > > > >>        =E2=94=82From my experiments,  it  appears  that  if  a=
+  SEC=E2=80=90 =E2=94=82
+> > > > > >>        =E2=94=82COMP_IOCTL_NOTIF_RECV   is  done  after  the  =
+target =E2=94=82
+> > > > > >>        =E2=94=82process terminates, then the ioctl()  simply  =
+blocks =E2=94=82
+> > > > > >>        =E2=94=82(rather than returning an error to indicate th=
+at the =E2=94=82
+> > > > > >>        =E2=94=82target process no longer exists).             =
+       =E2=94=82
+> > > > > >
+> > > > > > Yeah, I think Christian wanted to fix this at some point,
 > > > > >
-> > > > > Yeah, I think Christian wanted to fix this at some point,
+> > > > > Do you have a pointer that discussion? I could not find it with a
+> > > > > quick search.
+> > > > >
+> > > > > > but it's a
+> > > > > > bit sticky to do.
+> > > > >
+> > > > > Can you say a few words about the nature of the problem?
 > > > >
-> > > > Do you have a pointer that discussion? I could not find it with a
-> > > > quick search.
-> > > >
-> > > > > but it's a
-> > > > > bit sticky to do.
-> > > >
-> > > > Can you say a few words about the nature of the problem?
+> > > > I remembered wrong, it's actually in the tree: 99cdb8b9a573 ("secco=
+mp:
+> > > > notify about unused filter"). So maybe there's a bug here?
 > > >
-> > > I remembered wrong, it's actually in the tree: 99cdb8b9a573 ("seccomp=
-:
-> > > notify about unused filter"). So maybe there's a bug here?
+> > > That thing only notifies on ->poll, it doesn't unblock ioctls; and
+> > > Michael's sample code uses SECCOMP_IOCTL_NOTIF_RECV to wait. So that
+> > > commit doesn't have any effect on this kind of usage.
 > >
-> > That thing only notifies on ->poll, it doesn't unblock ioctls; and
-> > Michael's sample code uses SECCOMP_IOCTL_NOTIF_RECV to wait. So that
-> > commit doesn't have any effect on this kind of usage.
+> > Yes, thanks. And the ones stuck in RECV are waiting on a semaphore so
+> > we don't have a count of all of them, unfortunately.
+> >
+> > We could maybe look inside the wait_list, but that will probably make
+> > people angry :)
 >
-> Yes, thanks. And the ones stuck in RECV are waiting on a semaphore so
-> we don't have a count of all of them, unfortunately.
+> The easiest way would probably be to open-code the semaphore-ish part,
+> and let the semaphore and poll share the waitqueue. The current code
+> kind of mirrors the semaphore's waitqueue in the wqh - open-coding the
+> entire semaphore would IMO be cleaner than that. And it's not like
+> semaphore semantics are even a good fit for this code anyway.
 >
-> We could maybe look inside the wait_list, but that will probably make
-> people angry :)
+> Let's see... if we didn't have the existing UAPI to worry about, I'd
+> do it as follows (*completely* untested). That way, the ioctl would
+> block exactly until either there actually is a request to deliver or
+> there are no more users of the filter. The problem is that if we just
+> apply this patch, existing users of SECCOMP_IOCTL_NOTIF_RECV that use
+> an event loop and don't set O_NONBLOCK will be screwed. So we'd
+> probably also have to add some stupid counter in place of the
+> semaphore's counter that we can use to preserve the old behavior of
+> returning -ENOENT once for each cancelled request. :(
+>
+> I guess this is a nice point in favor of Michael's usual complaint
+> that if there are no man pages for a feature by the time the feature
+> lands upstream, there's a higher chance that the UAPI will suck
+> forever...
 
-The easiest way would probably be to open-code the semaphore-ish part,
-and let the semaphore and poll share the waitqueue. The current code
-kind of mirrors the semaphore's waitqueue in the wqh - open-coding the
-entire semaphore would IMO be cleaner than that. And it's not like
-semaphore semantics are even a good fit for this code anyway.
-
-Let's see... if we didn't have the existing UAPI to worry about, I'd
-do it as follows (*completely* untested). That way, the ioctl would
-block exactly until either there actually is a request to deliver or
-there are no more users of the filter. The problem is that if we just
-apply this patch, existing users of SECCOMP_IOCTL_NOTIF_RECV that use
-an event loop and don't set O_NONBLOCK will be screwed. So we'd
-probably also have to add some stupid counter in place of the
-semaphore's counter that we can use to preserve the old behavior of
-returning -ENOENT once for each cancelled request. :(
-
-I guess this is a nice point in favor of Michael's usual complaint
-that if there are no man pages for a feature by the time the feature
-lands upstream, there's a higher chance that the UAPI will suck
-forever...
-
-
+And I guess this would be the UAPI-compatible version - not actually
+as terrible as I thought it might be. Do y'all want this? If so, feel
+free to either turn this into a proper patch with Co-developed-by, or
+tell me that I should do it and I'll try to get around to turning it
+into something proper.
 
 diff --git a/kernel/seccomp.c b/kernel/seccomp.c
-index 676d4af62103..f0f4c68e0bc6 100644
+index 676d4af62103..d08c453fcc2c 100644
 --- a/kernel/seccomp.c
 +++ b/kernel/seccomp.c
-@@ -138,7 +138,6 @@ struct seccomp_kaddfd {
+@@ -138,7 +138,7 @@ struct seccomp_kaddfd {
   * @notifications: A list of struct seccomp_knotif elements.
   */
  struct notification {
 -       struct semaphore request;
++       bool canceled_reqs;
         u64 next_id;
         struct list_head notifications;
  };
-@@ -859,7 +858,6 @@ static int seccomp_do_user_notification(int this_syscal=
+@@ -859,7 +859,6 @@ static int seccomp_do_user_notification(int this_syscal=
 l,
         list_add(&n.list, &match->notif->notifications);
         INIT_LIST_HEAD(&n.addfd);
@@ -179,20 +185,44 @@ l,
         wake_up_poll(&match->wqh, EPOLLIN | EPOLLRDNORM);
         mutex_unlock(&match->notify_lock);
 
-@@ -1175,9 +1173,10 @@ find_notification(struct seccomp_filter *filter, u64=
- id)
+@@ -901,8 +900,20 @@ static int seccomp_do_user_notification(int this_sysca=
+ll,
+         * *reattach* to a notifier right now. If one is added, we'll need =
+to
+         * keep track of the notif itself and make sure they match here.
+         */
+-       if (match->notif)
++       if (match->notif) {
+                list_del(&n.list);
++
++               /*
++                * We are stuck with a UAPI that requires that after a spur=
+ious
++                * wakeup, SECCOMP_IOCTL_NOTIF_RECV must return immediately=
+.
++                * This is the tracking for that, keeping track of whether =
+we
++                * canceled a request after waking waiters, but before user=
+space
++                * picked up the notification.
++                */
++               if (n.state =3D=3D SECCOMP_NOTIFY_INIT)
++                       match->notif->canceled_reqs =3D true;
++       }
++
+ out:
+        mutex_unlock(&match->notify_lock);
 
-
- static long seccomp_notify_recv(struct seccomp_filter *filter,
--                               void __user *buf)
-+                               void __user *buf, bool blocking)
+@@ -1178,6 +1189,7 @@ static long seccomp_notify_recv(struct
+seccomp_filter *filter,
+                                void __user *buf)
  {
         struct seccomp_knotif *knotif =3D NULL, *cur;
 +       DECLARE_WAITQUEUE(wait, current);
         struct seccomp_notif unotif;
         ssize_t ret;
 
-@@ -1190,11 +1189,9 @@ static long seccomp_notify_recv(struct
+@@ -1190,11 +1202,9 @@ static long seccomp_notify_recv(struct
 seccomp_filter *filter,
 
         memset(&unotif, 0, sizeof(unotif));
@@ -207,7 +237,7 @@ seccomp_filter *filter,
         list_for_each_entry(cur, &filter->notif->notifications, list) {
                 if (cur->state =3D=3D SECCOMP_NOTIFY_INIT) {
                         knotif =3D cur;
-@@ -1202,14 +1199,32 @@ static long seccomp_notify_recv(struct
+@@ -1202,14 +1212,32 @@ static long seccomp_notify_recv(struct
 seccomp_filter *filter,
                 }
         }
@@ -232,7 +262,10 @@ ead
 +                       ret =3D -ENOTCON;
 +                       goto out;
 +               }
-+               if (blocking) {
++               if (filter->notif->canceled_reqs) {
++                       ret =3D -ENOENT;
++                       goto out;
++               } else {
 +                       /* No notifications pending - wait for one,
 then retry. */
 +                       mutex_unlock(&filter->notify_lock);
@@ -243,23 +276,21 @@ then retry. */
 +                               goto out;
 +                       }
 +                       goto retry;
-+               } else {
-+                       ret =3D -ENOENT;
-+                       goto out;
 +               }
         }
 
         unotif.id =3D knotif->id;
-@@ -1220,6 +1235,7 @@ static long seccomp_notify_recv(struct
+@@ -1220,6 +1248,8 @@ static long seccomp_notify_recv(struct
 seccomp_filter *filter,
         wake_up_poll(&filter->wqh, EPOLLOUT | EPOLLWRNORM);
         ret =3D 0;
  out:
++       filter->notif->canceled_reqs =3D false;
 +       finish_wait(&filter->wqh, &wait);
         mutex_unlock(&filter->notify_lock);
 
         if (ret =3D=3D 0 && copy_to_user(buf, &unotif, sizeof(unotif))) {
-@@ -1233,10 +1249,8 @@ static long seccomp_notify_recv(struct
+@@ -1233,10 +1263,8 @@ static long seccomp_notify_recv(struct
 seccomp_filter *filter,
                  */
                 mutex_lock(&filter->notify_lock);
@@ -272,22 +303,7 @@ seccomp_filter *filter,
                 mutex_unlock(&filter->notify_lock);
         }
 
-@@ -1412,11 +1426,12 @@ static long seccomp_notify_ioctl(struct file
-*file, unsigned int cmd,
- {
-        struct seccomp_filter *filter =3D file->private_data;
-        void __user *buf =3D (void __user *)arg;
-+       bool blocking =3D !(file->f_flags & O_NONBLOCK);
-
-        /* Fixed-size ioctls */
-        switch (cmd) {
-        case SECCOMP_IOCTL_NOTIF_RECV:
--               return seccomp_notify_recv(filter, buf);
-+               return seccomp_notify_recv(filter, buf, blocking);
-        case SECCOMP_IOCTL_NOTIF_SEND:
-                return seccomp_notify_send(filter, buf);
-        case SECCOMP_IOCTL_NOTIF_ID_VALID_WRONG_DIR:
-@@ -1485,7 +1500,6 @@ static struct file *init_listener(struct
+@@ -1485,7 +1513,6 @@ static struct file *init_listener(struct
 seccomp_filter *filter)
         if (!filter->notif)
                 goto out;
