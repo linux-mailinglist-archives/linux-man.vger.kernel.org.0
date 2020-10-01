@@ -2,70 +2,120 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D810A27FCB1
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 11:54:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C102027FCB6
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 11:57:50 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731243AbgJAJyY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 05:54:24 -0400
-Received: from smtpout1.mo529.mail-out.ovh.net ([178.32.125.2]:35787 "EHLO
-        smtpout1.mo529.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726992AbgJAJyX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 05:54:23 -0400
-Received: from mxplan6.mail.ovh.net (unknown [10.109.146.140])
-        by mo529.mail-out.ovh.net (Postfix) with ESMTPS id 1EA5A60E3144;
-        Thu,  1 Oct 2020 11:54:22 +0200 (CEST)
-Received: from jwilk.net (37.59.142.101) by DAG4EX2.mxp6.local (172.16.2.32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2044.4; Thu, 1 Oct 2020
- 11:54:21 +0200
-Authentication-Results: garm.ovh; auth=pass (GARM-101G004d80e5591-e3c1-4abe-88c4-4a4a189cf59a,
-                    F0B14C18231B464551FFF2B9AFC0668EFF10C516) smtp.auth=jwilk@jwilk.net
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-CC:     <linux-man@vger.kernel.org>
-Subject: [PATCH] feature_test_macros.7: Update list of macros that inhibit default definitions
-Date:   Thu, 1 Oct 2020 11:54:19 +0200
-Message-ID: <20201001095419.6908-1-jwilk@jwilk.net>
-X-Mailer: git-send-email 2.28.0
+        id S1731067AbgJAJ5t (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Oct 2020 05:57:49 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44266 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726992AbgJAJ5t (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 05:57:49 -0400
+Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com [IPv6:2607:f8b0:4864:20::12e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 982ECC0613D0
+        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 02:57:49 -0700 (PDT)
+Received: by mail-il1-x12e.google.com with SMTP id q5so5512871ilj.1
+        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 02:57:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=AWAysk5hl90ZNPpH5VeCVqq93SHFI8NGPpr1eS0BX1o=;
+        b=gAhiT1lbvQhziMGGvUvZkWT6IhP47L3fjttL15nxzBe2fmE1FylNztFLObhXJCKInQ
+         f7+IOdLWdib0q+rhGxcCZftg85A1eRWULIuOBcJbLIX011d8jKdf91TIM+vWCKjOTWWf
+         KYxen2bmDs+0yR38trqQ8BktQaVDXGx4CBdFAXsdQrJPYamO4CkmljZuW5l9Wu3/PyBu
+         mTY9/6jHFgpPJZGSPPOEx7yZ9Kg6emIXcbmsvM7rf3Pft8sS3eaOs+yIRm8oB4XFrIIy
+         anoTzgRdZqZnthKmQPeyXJZY27mL/jOiyS9L64A9o6EETJO8SmrqVRDPiR6UZrLNHFp9
+         6OWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=AWAysk5hl90ZNPpH5VeCVqq93SHFI8NGPpr1eS0BX1o=;
+        b=EXySqLqEddZE40eJrbK5vM4yXOQJeUm4AUb3Bk59MUXmCYLsDcgGVMOpcHasiAlqk7
+         GizQFngGQ84+URDQrApkyy0iCf95t7NP/s3cQZepPsQQTiR/XC101ycWxp+kvrwEnEGz
+         DNaHlBFUYHF29FEJ2FOt5gi03rkoW8XZ3vQvVhrWoILW4sNuLTpz4d2yudxpBAvB1q1U
+         MTeB6YtnOopcRwPtfC/Gtx5HFwS35ptMw1j7h3v5AHhYC7jbe36fpWlSzKyxkotrGwah
+         NT/hadvm0cq07Rq5JxHtFnPAyeXgxsiqyNedXPOjooSqShCeNsqrWrq8QBpRccrket2G
+         XhJg==
+X-Gm-Message-State: AOAM532GltawidWwYTD7biTiy+Y45hf8Bj10DuJwsSyj9uhcUD0/zR3K
+        YcOO1IIWNIhE5Rv/lvvK6zs/POesJXLuRYv5AR4THuB/rXQ=
+X-Google-Smtp-Source: ABdhPJwZCtVmWxu/rTyYHWvQ2n1vCZAyHOlkjFFoUI9b6V+oAfFAduYR8QLkQyvKUoaemqNt3EPiTHxYKVYsMK/NSsQ=
+X-Received: by 2002:a92:8912:: with SMTP id n18mr1801977ild.134.1601546267872;
+ Thu, 01 Oct 2020 02:57:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7BIT
-Content-Type:   text/plain; charset=US-ASCII
-X-Originating-IP: [37.59.142.101]
-X-ClientProxiedBy: DAG6EX1.mxp6.local (172.16.2.51) To DAG4EX2.mxp6.local
- (172.16.2.32)
-X-Ovh-Tracer-GUID: 0f985321-737a-47ec-9c15-6813704171c1
-X-Ovh-Tracer-Id: 12055573252616411101
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedujedrfeeggddvvdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhephffvufffkffoggfgtghisehtkeertdertddtnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpedvheejjeffjeejvdekheehjeeilefhffdtudetfeehueekueeivdduheevheefhfenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddruddtudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
+References: <f6179bab-bbad-22f7-0f87-c06988928ec2@gmail.com>
+In-Reply-To: <f6179bab-bbad-22f7-0f87-c06988928ec2@gmail.com>
+From:   Jonathan Wakely <jwakely.gcc@gmail.com>
+Date:   Thu, 1 Oct 2020 10:57:36 +0100
+Message-ID: <CAH6eHdSHEjjjDtBCFO93NXb3bCGtYg6L35injf6pz3bMoL=3Fw@mail.gmail.com>
+Subject: Re: [RFC] man7/system_data_types.7: Document [unsigned] __int128
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+Cc:     "gcc@gcc.gnu.org" <gcc@gcc.gnu.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
----
- man7/feature_test_macros.7 | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+On Thu, 1 Oct 2020 at 10:26, Alejandro Colomar via Gcc <gcc@gcc.gnu.org> wrote:
+>
+> Hi,
+>
+> I'm documenting the system data types in the man-pages,
+> and I was writing now about these types.
+>
+> I'm showing below both the rendered output and the source I have right now.
+>
+> Would you add anything to it?
+>
+> And I have some questions:
+>
+> Is 'signed __int128' a valid thing,
+> and if so is it completely equivalent to '__int128'?
 
-diff --git a/man7/feature_test_macros.7 b/man7/feature_test_macros.7
-index 8c80b087e..2d7bcacfc 100644
---- a/man7/feature_test_macros.7
-+++ b/man7/feature_test_macros.7
-@@ -672,10 +672,13 @@ and
- If any of
- .BR __STRICT_ANSI__ ,
- .BR _ISOC99_SOURCE ,
-+.BR _ISOC11_SOURCE
-+(since glibc 2.18),
- .BR _POSIX_SOURCE ,
- .BR _POSIX_C_SOURCE  ,
- .BR _XOPEN_SOURCE ,
--.BR _XOPEN_SOURCE_EXTENDED ,
-+.BR _XOPEN_SOURCE_EXTENDED
-+(in glibc 2.11 and earlier),
- .BR _BSD_SOURCE
- (in glibc 2.19 and earlier),
- or
--- 
-2.28.0
+Yes.
 
+> Is the GCC version correct?
+>
+> There's no implementation where 'long long' is 128 bits yet, right?
+
+Right.
+
+> Thanks,
+>
+> Alex
+>
+> Rendered output:
+> [[
+> __int128
+>        A signed integer type of a fixed width of exactly 128 bits.
+>
+>        According to GNU, it is supported only for targets which have an
+>        integer mode wide enough to hold 128 bits.
+
+"According to GNU"? Should that be GCC?
+
+The GNU project doesn't have anything to say about it.
+
+Maybe just "When using GCC, it is supported only ..."
+
+
+>
+>        Bugs: It is not possible to express an integer constant of  type
+>        __int128  in  implementations  where  long long is less than 128
+>        bits wide.
+>
+>        Conforming to: GCC 4.6.0 and later.
+
+It doesn't conform to anything, shouldn't this say "This type is a GNU
+extension." or just "This type is an extension." ?
+
+>
+>        Notes: This type is available without including any header.
+>
+>        See also the intmax_t, intN_t and  unsigned  __int128  types  in
+>        this page.
+
+Why would this type refer to intmax_t?
