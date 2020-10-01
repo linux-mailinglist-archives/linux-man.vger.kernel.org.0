@@ -2,37 +2,38 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D92F6280546
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 19:32:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A9D43280590
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 19:38:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732360AbgJARcQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 13:32:16 -0400
-Received: from zimbra.cs.ucla.edu ([131.179.128.68]:49028 "EHLO
+        id S1732417AbgJARiY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Oct 2020 13:38:24 -0400
+Received: from zimbra.cs.ucla.edu ([131.179.128.68]:50690 "EHLO
         zimbra.cs.ucla.edu" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1732213AbgJARcQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 13:32:16 -0400
+        with ESMTP id S1732096AbgJARiX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 13:38:23 -0400
 Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 77A6E160114;
-        Thu,  1 Oct 2020 10:32:15 -0700 (PDT)
+        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 4D700160114;
+        Thu,  1 Oct 2020 10:38:23 -0700 (PDT)
 Received: from zimbra.cs.ucla.edu ([127.0.0.1])
         by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id 3qcf_0LgGAsa; Thu,  1 Oct 2020 10:32:14 -0700 (PDT)
+        with ESMTP id QmjFZUm-wO-h; Thu,  1 Oct 2020 10:38:22 -0700 (PDT)
 Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id AB97C160115;
-        Thu,  1 Oct 2020 10:32:14 -0700 (PDT)
+        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 94CA3160115;
+        Thu,  1 Oct 2020 10:38:22 -0700 (PDT)
 X-Virus-Scanned: amavisd-new at zimbra.cs.ucla.edu
 Received: from zimbra.cs.ucla.edu ([127.0.0.1])
         by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id s_WRgq1VfJhf; Thu,  1 Oct 2020 10:32:14 -0700 (PDT)
+        with ESMTP id RAfiniQko2SL; Thu,  1 Oct 2020 10:38:22 -0700 (PDT)
 Received: from [192.168.1.9] (cpe-23-243-218-95.socal.res.rr.com [23.243.218.95])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTPSA id 76683160114;
-        Thu,  1 Oct 2020 10:32:14 -0700 (PDT)
-Subject: Re: [PATCH v2 1/2] system_data_types.7: Add 'void *'
+        by zimbra.cs.ucla.edu (Postfix) with ESMTPSA id 62505160114;
+        Thu,  1 Oct 2020 10:38:22 -0700 (PDT)
+Subject: Re: [PATCH v2 1/4] system_data_types.7: Add int_leastN_t family of
+ types
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>, mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org,
         gcc@gcc.gnu.org
-References: <41affebd-3354-9420-0048-bffd14535e95@gmail.com>
- <20201001154946.104626-2-colomar.6.4.3@gmail.com>
+References: <20201001143535.98990-1-colomar.6.4.3@gmail.com>
+ <20201001143535.98990-2-colomar.6.4.3@gmail.com>
 From:   Paul Eggert <eggert@cs.ucla.edu>
 Autocrypt: addr=eggert@cs.ucla.edu; prefer-encrypt=mutual; keydata=
  mQINBEyAcmQBEADAAyH2xoTu7ppG5D3a8FMZEon74dCvc4+q1XA2J2tBy2pwaTqfhpxxdGA9
@@ -78,12 +79,12 @@ Autocrypt: addr=eggert@cs.ucla.edu; prefer-encrypt=mutual; keydata=
  OPQwxh1jwqSrU5QwoNmSYegQSHLpIUurFz1iQUh1vpPXzKinkWEqv4IqA1ciL+LyySuLkp7M
  sJpVRMbWJCNWOOSbaH4oDBJ5dHMGc35x5mosCk90PXknuFDDsYHfDo5smf9lo6YXx7N9
 Organization: UCLA Computer Science Department
-Message-ID: <538b683f-01d2-6148-4f1d-1b293eb5cd6b@cs.ucla.edu>
-Date:   Thu, 1 Oct 2020 10:32:14 -0700
+Message-ID: <b116e906-2a5d-1a7e-2969-52036ab3e8c3@cs.ucla.edu>
+Date:   Thu, 1 Oct 2020 10:38:22 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20201001154946.104626-2-colomar.6.4.3@gmail.com>
+In-Reply-To: <20201001143535.98990-2-colomar.6.4.3@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -91,18 +92,12 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-If you're going to document this at all, I suggest documenting 'void' as well as 
-'void *', and putting both sets of documentation into the same man page.
+On 10/1/20 7:35 AM, Alejandro Colomar via Libc-alpha wrote:
+> +The narrowest signed integer type
+> +of a width of at least N bits,
 
-For 'void *' you should also mention that one cannot use arithmetic on void * 
-pointers, so they're special in that way too. Also, you should warn that because 
-one can convert from any pointer type to void * and then to any other pointer 
-type, it's a deliberate hole in C's type-checking. It might not also hurt to 
-mention 'void const *', 'void volatile *', 'void const volatile *', etc.
+Motivation is missing here. Why is there an int_leastN_t type at all? Also, on 
+all glibc platforms, int_leastN_t is equivalent to intN_t; this should probably 
+be mentioned.
 
-For 'void' you can mention the usual things, such as functions returning void, 
-and functions declared with (void) parameters, why one would want to cast to 
-(void), and so forth.
-
-You're starting to document the C language here, and if you're going to do that 
-you might as well do it right.
+Similarly for int_fastN_t.
