@@ -2,145 +2,100 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4DE0C280136
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 16:25:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D37AD28014C
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 16:32:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732298AbgJAOZQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 10:25:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57302 "EHLO
+        id S1732299AbgJAOcv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Oct 2020 10:32:51 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58478 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1732478AbgJAOZM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 10:25:12 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1DC6BC0613D0
-        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 07:25:10 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id v12so3324966wmh.3
-        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 07:25:10 -0700 (PDT)
+        with ESMTP id S1732020AbgJAOcu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 10:32:50 -0400
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8076CC0613D0
+        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 07:32:50 -0700 (PDT)
+Received: by mail-wr1-x443.google.com with SMTP id j2so6050760wrx.7
+        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 07:32:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=YCoLs9V7pTGgUojGQ/WeN/LycF/DEPdP2BvDla8AyI0=;
-        b=Nwz9XqeM4XFreuSxEHuP0LT/jSaVHzGkjs8pZTOVF21JvMZ209/mI5uFMZgdhrgiep
-         CRf8/8GwB79Lf1paDTCyNv+hnfi82vxs2a2JMyjdvX0t7TuodzEaeDKP0tJeaDxwU1EH
-         zVTB97RDfYCGmLEAacKgdD6jwPnumo+uo3UNYKYvLfFp6dQPTKBLMNTJO0ULthviVKYc
-         tb3QH5M1D9/ojv1qjlnUwS84bpqIxeKk+VT8uubdigwOO77fkFCYnRMCeV+klQJATkTt
-         kNtQrAkLBmtgcB9KIIKnus81nAhDFx4Q0VuHi/aIM8hyR1WGUdEEXpxd5xq7lFsNKa5R
-         LF0w==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=8PRt3SjpdYYac++OX0WY6GOu97dYGIha/oo+W8QsYYs=;
+        b=P0OiScoenml4g/Ct+RCsBp4giT2w1UOowthzYEnnwIk8qYPZ6/EsfT+qwRdiUYCY0W
+         8GRKl7+obEtlVdHlhSGZAodbzg0HKL/aJDkyhTU6O7kDxxauI7FtnMHiBmuv2iHntLxZ
+         T74kjYX5AnHeUU6m81Vw0AcjS+Lc0vFdcA4wM9yUsBi9GFkOdsytzxJQIk5bhqIpcC3a
+         +z+Moy5fFtiMVWgePYDKMeiHLPShnf+zgAiQTJztCD80gRKSI3PKgKl5PyngBNKa6Qxq
+         UxaHBAYHCgYHPKMlREZ0BZ9jB6ztvbbItYHuvtPTVYnfboj11EgTFeCkD5CYmZHQz6sA
+         9hZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=YCoLs9V7pTGgUojGQ/WeN/LycF/DEPdP2BvDla8AyI0=;
-        b=CvOlbyXJYE+cvA3AygVsqZpsjiyyhu7pFymDctxs/MZr9ZTU8KC3031F58Rzs9J5Kr
-         KVk5V/jggZjaEO06u4rtPYeoMQWTQ0v4q6PJWr7RYE3yOdAVCoG4+1PdgxYjvqZOsAWz
-         M6xRr5LvooPimCVT5IKgB9KoIo+RkVdXhizVXpLbU0hXkf7ns320oylQZaCDsLOWChBt
-         JLE5/LGdKH8fXtfq2g9YvRRCyOiUAHH6JLtMd51Np/9jyxI20zOylR9hC2T02S/5piUB
-         4/Lj3FHZ61nESPckwbrqGOBMxiNSPJppXCkaAT08KMAhUJ3VIbJGA1jXT2r7ZchnKhZr
-         MuPg==
-X-Gm-Message-State: AOAM531tDqu4Lzmk+RWqTFXk92lsvbzBUEk08HzOc3v40rQmfb0OjuDf
-        vh7hSYnd/iFi2dy7F4uO3bM=
-X-Google-Smtp-Source: ABdhPJwhKcthwHp9CjcGmRKvvyx3cyeSEGzYO9PLLVk+1vUXfNBwU9q5Jq/okbVlxM/202gOn4d69w==
-X-Received: by 2002:a1c:b703:: with SMTP id h3mr235389wmf.131.1601562308717;
-        Thu, 01 Oct 2020 07:25:08 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=8PRt3SjpdYYac++OX0WY6GOu97dYGIha/oo+W8QsYYs=;
+        b=dopil86q6sp5zX3tv0/t46lTowd6kKn9+tALebXs8qVUjvbSnbqyW0mZ6g5C/XQgs1
+         IV93qNhQoKAn983rmW+wgAy4QnwSG9D0eequ+cIT6s9o9xGoIyFuKE1Q8WBljPGHVvLN
+         9pZZu1enBM70KYEObVmR6P+kFHkMd96iw+OG7SMxzBGcGN6I7MdOgdSTedJwMrxFiTEc
+         7BCsTHbDi077himxrmk+e3vjCr23Du47g/W/K7xj2Oy4GlzhieYgKvKsKeGWxi6Wo9V5
+         ZxTI6bqHBOocA9EZU+c4RpTlzz6W3l2RtKN6YS6bXh4oXn9rfXVvSyQkdXBmRgK228lM
+         izww==
+X-Gm-Message-State: AOAM532V0MKOVkNVVrPlTWKWf+LZVln5BftSH8jco4P1A/7yK5pq3cI1
+        IVXtHjdYuHM1NARHOLE0bBs=
+X-Google-Smtp-Source: ABdhPJz1juDc2mZmIvqAjkQn2fUG+xqOnOE7JbGoGDIDf7n231VMMgYd4JQfEfhyXNdLkI4uJ67QLw==
+X-Received: by 2002:adf:a3db:: with SMTP id m27mr9944332wrb.277.1601562769162;
+        Thu, 01 Oct 2020 07:32:49 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id z191sm164483wme.40.2020.10.01.07.25.07
+        by smtp.googlemail.com with ESMTPSA id f23sm5463654wmc.3.2020.10.01.07.32.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2020 07:25:08 -0700 (PDT)
+        Thu, 01 Oct 2020 07:32:48 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH v2] system_data_types.7: Move "Bugs" after "Notes", as man-pages(7) specifies
-Date:   Thu,  1 Oct 2020 16:23:56 +0200
-Message-Id: <20201001142355.98424-1-colomar.6.4.3@gmail.com>
+        linux-man@vger.kernel.org, gcc@gcc.gnu.org,
+        libc-alpha@sourceware.org
+Subject: [PATCH v2 0/4] Document [u]int_fastN_t
+Date:   Thu,  1 Oct 2020 16:32:00 +0200
+Message-Id: <20201001143203.98803-1-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20201001132904.93549-1-colomar.6.4.3@gmail.com>
-References: <20201001132904.93549-1-colomar.6.4.3@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
----
+This patches are the v2 of the patches 5 to 8 of a previous patchset:
+https://lore.kernel.org/linux-man/886f5647-2911-951a-b62a-4f9b1ed8850f@gmail.com/T/#t
 
-Hi,
+Alejandro Colomar (4):
+  system_data_types.7: Add int_fastN_t family of types
+  int_fast8_t.3, int_fast16_t.3, int_fast32_t.3, int_fast64_t.3,
+    int_fastN_t.3: New links to system_data_types(7)
+  system_data_types.7: Add uint_fastN_t family of types
+  uint_fast8_t.3, uint_fast16_t.3, uint_fast32_t.3, uint_fast64_t.3,
+    uint_fastN_t.3: New links to system_data_types(7)
 
-I guess the patch before applies,
-but just in case, I rebased against what I think is your HEAD right now.
-You didn't upload it yet AFAICS, so I rebased my commits in the order
-you applied them.  I hope it works :)
+ man3/int_fast16_t.3      |   1 +
+ man3/int_fast32_t.3      |   1 +
+ man3/int_fast64_t.3      |   1 +
+ man3/int_fast8_t.3       |   1 +
+ man3/int_fastN_t.3       |   1 +
+ man3/uint_fast16_t.3     |   1 +
+ man3/uint_fast32_t.3     |   1 +
+ man3/uint_fast64_t.3     |   1 +
+ man3/uint_fast8_t.3      |   1 +
+ man3/uint_fastN_t.3      |   1 +
+ man7/system_data_types.7 | 157 +++++++++++++++++++++++++++++++++++++++
+ 11 files changed, 167 insertions(+)
+ create mode 100644 man3/int_fast16_t.3
+ create mode 100644 man3/int_fast32_t.3
+ create mode 100644 man3/int_fast64_t.3
+ create mode 100644 man3/int_fast8_t.3
+ create mode 100644 man3/int_fastN_t.3
+ create mode 100644 man3/uint_fast16_t.3
+ create mode 100644 man3/uint_fast32_t.3
+ create mode 100644 man3/uint_fast64_t.3
+ create mode 100644 man3/uint_fast8_t.3
+ create mode 100644 man3/uint_fastN_t.3
 
-Cheers,
-
-Alex
-
-
- man7/system_data_types.7 | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-index abaf9e3cc..4645ed5f4 100644
---- a/man7/system_data_types.7
-+++ b/man7/system_data_types.7
-@@ -40,13 +40,13 @@ system_data_types \- overview of system data types
- .\"		* Description (no "Description" header)
- .\"			A few lines describing the type.
- .\"
--.\"		* Bugs (if any)
--.\"
- .\"		* Conforming to (see NOTES)
- .\"			Format: CXY and later; POSIX.1-XXXX and later.
- .\"
- .\"		* Notes (optional)
- .\"
-+.\"		* Bugs (if any)
-+.\"
- .\"		* See also
- .\"------------------------------------- aiocb ------------------------/
- .TP
-@@ -368,6 +368,9 @@ for printing
- .I intmax_t
- values.
- .PP
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
-+.PP
- Bugs:
- .I intmax_t
- is not large enough to represent values of type
-@@ -378,9 +381,6 @@ is defined and
- .I long long
- is less than 128 bits wide.
- .PP
--Conforming to:
--C99 and later; POSIX.1-2001 and later.
--.PP
- See also the
- .I uintmax_t
- type in this page.
-@@ -1309,6 +1309,9 @@ for printing
- .I uintmax_t
- values.
- .PP
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
-+.PP
- Bugs:
- .I uintmax_t
- is not large enough to represent values of type
-@@ -1319,9 +1322,6 @@ is defined and
- .I unsigned long long
- is less than 128 bits wide.
- .PP
--Conforming to:
--C99 and later; POSIX.1-2001 and later.
--.PP
- See also the
- .I intmax_t
- type in this page.
 -- 
 2.28.0
 
