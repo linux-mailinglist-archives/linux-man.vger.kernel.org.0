@@ -2,167 +2,145 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 63FE727FA52
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 09:33:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EBE3D27FA5D
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 09:37:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725918AbgJAHdO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 03:33:14 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50206 "EHLO
+        id S1726992AbgJAHhq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Oct 2020 03:37:46 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50894 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725878AbgJAHdO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 03:33:14 -0400
-Received: from mail-oo1-xc2c.google.com (mail-oo1-xc2c.google.com [IPv6:2607:f8b0:4864:20::c2c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2E3FAC0613D0
-        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 00:33:14 -0700 (PDT)
-Received: by mail-oo1-xc2c.google.com with SMTP id w25so1207385oos.10
-        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 00:33:14 -0700 (PDT)
+        with ESMTP id S1725878AbgJAHhq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 03:37:46 -0400
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3F181C0613D0
+        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 00:37:44 -0700 (PDT)
+Received: by mail-wm1-x342.google.com with SMTP id j136so611687wmj.2
+        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 00:37:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=g3JKvFyZNhHQM+wQdGRtmfLYIXp8UOKQ75AeamGrNYQ=;
-        b=bIZt0PiRF+0JGCIqTqrwZ6PTqXpombk8iukwnvX1n1YIdl9+al1qp7PDjsgzIbPQUu
-         5tbWUhrWCcJ2PuvllRHe+dSvZfhI4cxS/SnuE2rki2FJ00Yl15PmpxbgATZhhQHyOZwa
-         HhTTErOA+yVJXFgJhdCtd4AXAdIjhIf/GcGSqkUpWaa/vcYajqScU1M55tP0oOTI5Oqf
-         mxfxVjLirCUkcAblGYGaKtHa/7rFYr0LlxwmObCqW7aTdIKPbc//3wE7A8T24Hel8igj
-         enQ//KoIro2pRBhkMzDtbWY2+qIkDWd/AVUUJFw+MdBfHjxqBQAjl6Shx8tuBxOshNwG
-         UZkQ==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=JDy1iD504EEbh7870dDmKQEzONn2gF6oL69vnKbkJvw=;
+        b=sRgQqidqXmTViIz6IEyi4ncAwb08ZeXE1kWQc4O+gmNq/01AVDicVHIxbPZB+cpbPw
+         CXYx3LbyfO2gkCAvJaTGhvy/7Ug8m7ZzNH9fPztZu8/2JcMh7Io608l0/baq6PPfS/VZ
+         nsvniCIS0AKp+uWnyHcarRoa5LuMakfVJU8AlGNFmg8n6l5DGIST3DchTHFWQYPGY/sw
+         gAT6LlL94FWz7m5vzXDKcmG/Z2HdoKp/QFeu8arEn0SBtU6lVOy6871aPSJcu0ljxrtw
+         v9ImFN++Ejd9s7h4GokaFOMVKTLi1Buec7v9Bp9ta5qaaKWfPaYhLF7n9viKACrKSfBh
+         Q10Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=g3JKvFyZNhHQM+wQdGRtmfLYIXp8UOKQ75AeamGrNYQ=;
-        b=cXAIHnnU1y1zFOiw294dM4D+VfV3XrMR1YqroxaAD3cks4ft+BsFin5mpSQtEEgWbh
-         VV16Z1Hxi80I/J3b9bCWNQd1J4g8rzTsp1iFOyIjYq6wp2vMO1cR7UQeGB/MG8eKx+zg
-         /tg8+Ss8ZnLjP7eMXlWF1RBCVq8/Pnn7kQlBUnLU+2Fy8s4N4S+iwp5SIZOYlyJ0gT70
-         E3gyDs8QXO8twLDMIVcatWFKwOYmBJKvD/tfqOrf2uTIxRUeqQZWrZWnEmkQWpBTCQK/
-         fG2TmtGuvUCk5J2A9yb2+H3T1P8CYVgkXFAKUK9F5e5pCfXqb9gxTJyGudJH2WZ+Edfv
-         sAUg==
-X-Gm-Message-State: AOAM531yr00FJz9tGQLL9+B2kobzY89d+8+bLZOGORxBCtCFtC7D+4Ov
-        WtwrqZP2+jfYYd5uuJVuBE70a/2ZU16litGYYJgNx8JwQ5M=
-X-Google-Smtp-Source: ABdhPJwjCyNWhiKSUHp1Pv6yn5tqxYx4yltStu8dmZJZrQbEWzK+NkkTiWLxKd+G2/5Voe2nRRO5UjYbaMnpUSV5EF8=
-X-Received: by 2002:a4a:751a:: with SMTP id j26mr4727249ooc.14.1601537593395;
- Thu, 01 Oct 2020 00:33:13 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200920214012.454410-1-colomar.6.4.3@gmail.com>
- <61f4e2a4-d468-ceba-2ccf-ce0c061aa20b@gmail.com> <f70c7f62-9d61-71aa-67cf-43501a29bccc@gmail.com>
- <CAKgNAki7=AJ7p2AwPkf9+4AkYKdOL6b4D0NyVdwZzu-qHFvGiA@mail.gmail.com>
- <20200921141552.tpuhdxo24lc6e7dh@localhost.localdomain> <35b5a9ff-4133-8301-bb75-4b13f7861c9a@gmail.com>
- <20200930120242.vylnz5khajri5sz4@localhost.localdomain> <20200930125417.ovlnfxhk5zgtuj46@localhost.localdomain>
-In-Reply-To: <20200930125417.ovlnfxhk5zgtuj46@localhost.localdomain>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=JDy1iD504EEbh7870dDmKQEzONn2gF6oL69vnKbkJvw=;
+        b=s6dkXGQjwB+SluFInKyxDr4Cj7VDrlvtxby3c/n9HDjV9n1vzpt9B00ZSEcIWGGfEl
+         oU65Uv6XjDtwn3j/H2bgajguy3XXAteCWb2LcCxF3Hs5zZb6SqW4GIBcsWcsRzoHVKca
+         22tQluMxZOIiThlHx7e32k/Ov/TmqdEJddRgklFXXdgPKqsl6r/5ru21vth+2jMo8Fx5
+         xdp//YiMrYT34UVH2zDIJvF3lI0fR1FmTfDYzdp+wnDdrjMJiohofmMUeYddQ6SGWU/b
+         8qwXRsc4sQlDQ3PmH+tCo82syNCGPhfykj5qthd8Im8dzlFYwgDBTsIh83Fw6LNbeKs8
+         iHNQ==
+X-Gm-Message-State: AOAM531FvHa2pZZ2UoX3EZ1PtGRyV/oTqjw7eG9/qpdwNtQcNPMiPdFv
+        8dCSvm23/h1lWbukcZdbX30=
+X-Google-Smtp-Source: ABdhPJyTWM+PpGZe1bz3rap94xJeJnRpHUX/ejMOiB2/FN9Abo+G5orqaJaU3re5jUMoRXi33F2neQ==
+X-Received: by 2002:a1c:5f54:: with SMTP id t81mr1327708wmb.142.1601537862901;
+        Thu, 01 Oct 2020 00:37:42 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
+        by smtp.gmail.com with ESMTPSA id 88sm7561868wrl.76.2020.10.01.00.37.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 01 Oct 2020 00:37:42 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        libc-alpha@sourceware.org
+Subject: Re: [PATCH v2 1/3] system_data_types.7: ffix
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+References: <836b6d7d-4433-18d0-78aa-542c419c02f2@gmail.com>
+ <20200928090322.2058-1-colomar.6.4.3@gmail.com>
+ <20200928130558.4qi6jitfwxg6ccm7@localhost.localdomain>
+ <1fe937db-8874-a8fb-5e65-88b4b15702fe@gmail.com>
+ <20200930104322.6ffed5lw3uqmlzph@localhost.localdomain>
+ <f9871768-cc7a-fac0-3500-6a0ccaa78099@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Thu, 1 Oct 2020 09:33:02 +0200
-Message-ID: <CAKgNAkgOYEV0HR-Y=a-FpeW4_Qoe6WAoZ6SAEbN=Yuz_g3z5Zw@mail.gmail.com>
-Subject: Re: man-pages.7: Simplify indentation of structure definitions, shell
- session logs, and so on
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <d145931a-3bea-7924-e353-08834cc592f0@gmail.com>
+Date:   Thu, 1 Oct 2020 09:37:41 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <f9871768-cc7a-fac0-3500-6a0ccaa78099@gmail.com>
+Content-Type: text/plain; charset=windows-1252
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Branden,
+Hi Alex, Branden,
+On 9/30/20 11:32 PM, Alejandro Colomar wrote:
+> Hi Branden & Michael,
+> 
+> On 2020-09-30 12:43, G. Branden Robinson wrote:
+>  >> However, if using .br is a big headache, I would rather not use
+>  >> workarounds (as you proposed in an earlier email),
+>  >> and instead just live with the blank line.  It's not much of a
+>  >> problem.
+>  >
+>  > Was an actual decision taken on this?  I see patches continuing to roll
+>  > in containing this .br-based pattern.  I think if the extra line is
+>  > live-withable, it should be lived with (or one of my four proposed
+>  > alternatives could be used :) ), in preference to setting the bad
+>  > example of the "naked" .br requests.
+> 
+> No decision yet.
+> We continued with the patch,
+> considering that we might revert it
+> or change it to a different approach in the future.
 
-Sorry -- I think I'm still not getting it.
+Yes. I figure we can easily clean up the inconsistency later.
 
-On Wed, 30 Sep 2020 at 14:54, G. Branden Robinson
-<g.branden.robinson@gmail.com> wrote:
->
-> At 2020-09-30T22:02:43+1000, G. Branden Robinson wrote:
-> > [...] you can call .RE [...] as ".RE 2" to say "go back two
-> > indentation levels"
->
-> Nope, that's wrong.  Forget I said that; I think I might now see
-> something I can further improve in the documentation.
->
-> You can see I'm still bedeviled by relative insets.  :-|
->
-> I tend to never use the argument to .RE; I just call .RE multiple times
-> to balance out my .RS calls, just like parentheses.  When I do that, I
-> don't get surprised.
->
-> > without having to track or remember any indentation measurements.
->
-> This part remains true.  :)
+> Actually I thought Michael would have hold the patches until the decision,
 
-Currently, I use the idiom
+I didn't want to slow you down,...
 
-.PP
-.in +4n
-.EX
-<code>
-.EE
-.in
-.PP
+> but he merged them, and it may be easier this way...
+> we'll fix it when we decide.
 
-or, if we're in indented paragraph territory:
+Yes.
 
-.IP
-.in +4n
-.EX
-<code>
-.EE
-.in
-.IP
+> For me, I can live with the extra blank line.
+> Michael, what are your thoughts?
 
-This is of course hacky, and of course in order to get it right, I
-need to know where to use .IP vs .PP.
+I can live with it too.
 
-I'd happily replace this with the use of ".RS 4/.EX/.EE/.RE", but
-what, if anything do I surround it with? And can I do it in a way that
-I don't need to care whether I'm currently in an indented zone of
-text?
+[...]
 
-I mean, if I use:
 
-.RS
-.RS 4
-.PP
-.EX
-int
-main(void)
-{
-    printf("Hello world\n");
-}
-.EE
-.PP
-.RE
-.RE
+> 
+>  >
+>  > Regards,
+>  > Branden
+>  >
+>  > [1] https://lists.gnu.org/archive/html/groff/2019-03/msg00047.html
+>  > [2] 
+> https://gitlab.com/procps-ng/procps/blob/7ac9a0e1f5606696dc799b773d5ec70183ca91a3/ps/ps.1
+>  >
+> 
+> 
+> I was writing about the different options and testing them,
+> when by accident I discovered that .RS alone, which I introduced lately,
+> already fixed the problem we had in the beginning:
+> .RS forces a line break after the tag
+> (so .br is actually redundant right now).
+> 
+> I guess we'll all be happy with just .RS, right? :-}
 
-That produces the desired results (4-space indent) if I am currently
-in an indented zone (.TP or .IP). (But it starts to get even more
-horribly verbose, in terms of markup, than what I currently use.)
+I think so.
 
-But if I use that same form in an unindented zone, then <code> is
-massively (12 spaces) indented. Instead, seem to need to say just:
-
-.RS +4
-.PP
-.EX
-int
-main(void)
-{
-    printf("Hello world\n");
-}
-.EE
-.PP
-.RE
-
-What I'd *ideally* like is a solution for indented code blocks that
-(in order or priority):
-
-1) is not more verbose than the current solution
-2) uses more idiomatic mark-up than the current solution
-3) uses exactly the same form, regardless of whether I'm currently in
-an indented region of text.
-
-So far, I don't see such a solution.
-
-Thanks,
+Cheers,
 
 Michael
+
+PS Alex, I believe we are at a sync point right now (i.e., I think
+that I do not have any unprocessed patches from you). Let me know if
+I'm wrong.
 
 -- 
 Michael Kerrisk
