@@ -2,633 +2,169 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 75A7F27FF49
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 14:37:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BD24D27FF86
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 14:54:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732018AbgJAMhB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 08:37:01 -0400
-Received: from youngberry.canonical.com ([91.189.89.112]:44562 "EHLO
-        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1732028AbgJAMgd (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 08:36:33 -0400
-Received: from mail-ej1-f72.google.com ([209.85.218.72])
-        by youngberry.canonical.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
-        (Exim 4.86_2)
-        (envelope-from <christian.brauner@canonical.com>)
-        id 1kNxov-0002Ns-Sb
-        for linux-man@vger.kernel.org; Thu, 01 Oct 2020 12:36:26 +0000
-Received: by mail-ej1-f72.google.com with SMTP id y25so2206538ejj.4
-        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 05:36:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:content-transfer-encoding
-         :in-reply-to;
-        bh=pQLrcvtjwaxa29P29Fz05lhxl5sbodvi8xVJcSTTUgA=;
-        b=VNPbTxzSswwRSSPuuN885qFz9+otcoauGu747srZk7Q6cuoMLHzBaVm+111/cC5+Fq
-         WXdThaP0hrFUEqk2XmyjzuUMmRkpYom9fFR/cGdvR0b5ATdMAduwxy4po8RpTOaSMzW4
-         IWMnBaQFBfL/vihztlJDUI1VGSCzBXNgF6V9f2gy7kShh0MiyK1iQf7vfX+xD7SuMmVL
-         2GGerHiTYFTa5AaNQRfclq5Jm3IEK07Yt0FTwTGH3Ai2TUgGncVamsEF4T1KuMMqGcly
-         /mMaOwghG04v406sMlBwpJmqoJZ+vRgtXRZz/jpj1xcwZYzxrFqRBGPwG7+N+HZ7LJzW
-         T3Ug==
-X-Gm-Message-State: AOAM532IR70MCSDT736UDrpoUb7a/bmPw2Fw42sPUP1j3V320Le/IT0G
-        6ShzI3AvARugoY59XFeXi+vMXuqF+HHjbZn2ncNVBIGjt0+tDUKAGN5fqLmcOwqCvJknoGz/f5A
-        GkebYDY6TdcRsFrhYI8f0kc12qvzRFk6wsGLrUg==
-X-Received: by 2002:aa7:dd01:: with SMTP id i1mr7978416edv.121.1601555784610;
-        Thu, 01 Oct 2020 05:36:24 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyO0PuIPAj7CQqmD3gjlr7AX1vJKwoilsE2LbwS5ZRQWOzgWJ3pkDiEQo3Et4wi8YvUTuzNyQ==
-X-Received: by 2002:aa7:dd01:: with SMTP id i1mr7978359edv.121.1601555783896;
-        Thu, 01 Oct 2020 05:36:23 -0700 (PDT)
-Received: from gmail.com ([176.32.19.8])
-        by smtp.gmail.com with ESMTPSA id r27sm3932646edx.33.2020.10.01.05.36.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2020 05:36:23 -0700 (PDT)
-Date:   Thu, 1 Oct 2020 14:36:19 +0200
-From:   Christian Brauner <christian.brauner@canonical.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Tycho Andersen <tycho@tycho.pizza>,
-        Sargun Dhillon <sargun@sargun.me>,
+        id S1732026AbgJAMyR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Oct 2020 08:54:17 -0400
+Received: from mail-eopbgr40065.outbound.protection.outlook.com ([40.107.4.65]:14504
+        "EHLO EUR03-DB5-obe.outbound.protection.outlook.com"
+        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
+        id S1732018AbgJAMyQ (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Thu, 1 Oct 2020 08:54:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MfOh+ry3wCwi1wzVykdc4tlK5LZWNQOA2/AUvu0QPgM=;
+ b=Mb3aqOWmSFcbaZhxLhtDhPZ7KEVxd5LLpEkm26LvqQjD96pwxIct72IF619906tE9ylQFT8CfwR2QrQ+IBtPoQ3fcLFULYT1jYVgbbliN58LUUJ3kTUjzNiIIzTsqk+bSHxPm2Xhj/+P1Y08gAVUy8JfNGOy+EB3/MFireLNfM8=
+Received: from AM5PR1001CA0026.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:206:2::39)
+ by VI1PR08MB3984.eurprd08.prod.outlook.com (2603:10a6:803:e9::27) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.32; Thu, 1 Oct
+ 2020 12:54:13 +0000
+Received: from VE1EUR03FT028.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:206:2:cafe::1a) by AM5PR1001CA0026.outlook.office365.com
+ (2603:10a6:206:2::39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.34 via Frontend
+ Transport; Thu, 1 Oct 2020 12:54:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; vger.kernel.org; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;vger.kernel.org; dmarc=pass action=none
+ header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT028.mail.protection.outlook.com (10.152.18.88) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3433.34 via Frontend Transport; Thu, 1 Oct 2020 12:54:12 +0000
+Received: ("Tessian outbound 7161e0c2a082:v64"); Thu, 01 Oct 2020 12:54:12 +0000
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: b2269c2368b56024
+X-CR-MTA-TID: 64aa7808
+Received: from 3fd292992578.1
+        by 64aa7808-outbound-1.mta.getcheckrecipient.com id 999B4A25-1DE6-4FE8-A486-CBFDC8AB56B5.1;
+        Thu, 01 Oct 2020 12:54:05 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+    by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 3fd292992578.1
+    (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+    Thu, 01 Oct 2020 12:54:05 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VP6wUBIk0JocwvOaSBi4eqWLf5PcmNEMSVwKxRv/sazsSKGNhO4vGNEyTZpsF9BR14p894HoohNXkmvCHtnFNhBV7XlP+5oe1Bz9P9J/rh7+o2leMjdjdGRxNbqBZuxM6Spe+ZjJLKSXcuUn+fc8NrDVfidknxnSXTWn5z3MGdItdPxXaPkj4IWKt1K5509Ze1DiyExoNREXy+iqPnPgcXNtClBDGOK4S13Iw1/z75HOeZlBO8LTl5oBJcV7js/OY3W27WhtresDS9+E/JiUsHi2O/QjxQcjnbq6P0rvD7FWbihILc1grvGOwiTILqfFA+6VLUdTkzSfogTIHZ3RSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MfOh+ry3wCwi1wzVykdc4tlK5LZWNQOA2/AUvu0QPgM=;
+ b=hRov9+xQRHLOK/vAs++zmRUSEXNuxztdogYUlEf5EIZSaZg969EcTQcuntEPS2YZOxPD6KZTKJBGNGYqC+NQY2rxytF8Yl5ePBAd/Oh9qmN3ALJuDDmrddO+BW1rz2XpJsiyk8ZIC2HMj065koDwLbQ6DqSm1dxqM50Zwlp7+DYKW9b/0qJooS043wHpTofoe9CzoDeKVtNOb6UIy/rkuIjFWXpXCcOAZ8RBh85xkaGnK7lcNM5vg6EUiecEYxoEYAAEPsX7itgZlmH7wdBOso15m24ITmcqjnV4yoK6AqiN4m2MMVqzOOW1dzJP9lKjOR8nxNbtLUsl/888nKagFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MfOh+ry3wCwi1wzVykdc4tlK5LZWNQOA2/AUvu0QPgM=;
+ b=Mb3aqOWmSFcbaZhxLhtDhPZ7KEVxd5LLpEkm26LvqQjD96pwxIct72IF619906tE9ylQFT8CfwR2QrQ+IBtPoQ3fcLFULYT1jYVgbbliN58LUUJ3kTUjzNiIIzTsqk+bSHxPm2Xhj/+P1Y08gAVUy8JfNGOy+EB3/MFireLNfM8=
+Authentication-Results-Original: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=arm.com;
+Received: from PR3PR08MB5564.eurprd08.prod.outlook.com (2603:10a6:102:87::18)
+ by PR3PR08MB5737.eurprd08.prod.outlook.com (2603:10a6:102:8d::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.34; Thu, 1 Oct
+ 2020 12:54:04 +0000
+Received: from PR3PR08MB5564.eurprd08.prod.outlook.com
+ ([fe80::784a:eb50:9684:50fe]) by PR3PR08MB5564.eurprd08.prod.outlook.com
+ ([fe80::784a:eb50:9684:50fe%7]) with mapi id 15.20.3433.036; Thu, 1 Oct 2020
+ 12:54:04 +0000
+Date:   Thu, 1 Oct 2020 13:54:02 +0100
+From:   Szabolcs Nagy <szabolcs.nagy@arm.com>
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+Cc:     Jonathan Wakely <jwakely.gcc@gmail.com>,
+        "gcc@gcc.gnu.org" <gcc@gcc.gnu.org>,
         linux-man <linux-man@vger.kernel.org>,
-        Song Liu <songliubraving@fb.com>, wad@chromium.org,
-        Kees Cook <keescook@chromium.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Jann Horn <jannh@google.com>, Robert Sesek <rsesek@google.com>,
-        Linux Containers <containers@lists.linux-foundation.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Giuseppe Scrivano <gscrivan@redhat.com>, bpf@vger.kernel.org,
-        Andy Lutomirski <luto@amacapital.net>,
-        Christian Brauner <christian@brauner.io>
-Subject: Re: For review: seccomp_user_notif(2) manual page
-Message-ID: <20201001123619.fdlk2xb56lej6rx3@gmail.com>
-References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
-MIME-Version: 1.0
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Subject: Re: [RFC] man7/system_data_types.7: Document [unsigned] __int128
+Message-ID: <20201001125401.GF29000@arm.com>
+References: <f6179bab-bbad-22f7-0f87-c06988928ec2@gmail.com>
+ <CAH6eHdSHEjjjDtBCFO93NXb3bCGtYg6L35injf6pz3bMoL=3Fw@mail.gmail.com>
+ <5ed7272e-1c81-d1f5-6a54-0fee4270199e@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
+In-Reply-To: <5ed7272e-1c81-d1f5-6a54-0fee4270199e@gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Originating-IP: [217.140.106.54]
+X-ClientProxiedBy: LNXP265CA0020.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:5e::32) To PR3PR08MB5564.eurprd08.prod.outlook.com
+ (2603:10a6:102:87::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from arm.com (217.140.106.54) by LNXP265CA0020.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:5e::32) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.32 via Frontend Transport; Thu, 1 Oct 2020 12:54:03 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 0fb66fe8-6569-4206-40d3-08d8660918ab
+X-MS-TrafficTypeDiagnostic: PR3PR08MB5737:|VI1PR08MB3984:
+X-Microsoft-Antispam-PRVS: <VI1PR08MB3984F4B92CCBD9CA23B50FA9ED300@VI1PR08MB3984.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original: ODp5ZSygwCXxigioCYaPo09yTJgjes+YWA2cu0sNiswTO7vGmHvCbm2b/Q5g8q3fjLhloJb5sAa26ngaamvJmouVQPnJcSBqk/t1dZPeeSQAHDTGb9JdIn3DdiMtMqLVfyX4YRqi6V8wm3zqn/afAelM5SLcV5EOBa4BM7FiGisFhr35jcaXabOmAMsJhXkuAX/3CyxbyZE/hNL+TXeUf0lbN/LYQQH7u2vqjrNyT9W//5OBVa+Zrl1YQT5aSlMF6MI8Sy80r8IopgDbeoxfLNAWzhKVuX9CDQv4vClrp6b07NYbQKGo8UfGJMWRN143sLDxGod3tbxg3m/aenERRA==
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR08MB5564.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(366004)(39860400002)(376002)(136003)(346002)(86362001)(26005)(186003)(36756003)(54906003)(66476007)(66946007)(316002)(33656002)(66556008)(44832011)(16526019)(2906002)(7696005)(52116002)(55016002)(5660300002)(8676002)(8886007)(1076003)(2616005)(478600001)(4326008)(8936002)(6916009)(956004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: PiSHwN9ZAC+hrj1ZD81vvAUhyPYeMDFaT9+FNt5UWZ7N2Br/caadl6rtTwlDR12RW+RSmWo4P8W2V0KzcxuRMJ9/YfzrkZd9dPK7NWebFXhyCeyKUJiEQZ/WbknDRVxzBzbSllUDa+L+h7Ev2D06bNouXoOG1mEDIN7TFbaTxMeD5TbfIJCxhXXZSnBVMlxO5uhFT+9JowePhKJSa0fh0hM0GkdFIZ9GBvwfYKWq0AxM8RT8w+culrF9BC3fW0R6IFTv2+OnVKR8ku6m1bjt7NHUpTSOL5nMkbb7DeUo8Tr3jivRv1jN657qtiXrZpIJK3nkst4cNSTuMcl7iFu/Ht01Vw0uqyrN2YaSwr+a3ns+Z5qBARU9w45UfwmyHHQXv/rwXZ9pIGi/fa1SjAvu8Rd54FC50r3a1D4VOd2tfk2qnTDVSN4z382xwf2tB+arZvBj9G1PtnWvxk6Q4AjFdiOSVjbV6OqfIIIR6n6aPexW9Nyl3T5LZApyA50FNPOAad7CJeZ1jPZ09yGa92GvV+J4XXwgbRDTAprDpDB8KDEpIbwwVoiNkNn9laozm4xnZxImZkFEKKe9aUj48iFUQobAuI5lF7Qp9SERR1lD1dC1nGHVEr/Pie/vzO/1vsvC7WcLBM4MEB/lEsDQSNO/cA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5737
+Original-Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: VE1EUR03FT028.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs: f706a378-e346-456d-5a67-08d866091364
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Drt5Y73BsERGJGqK3OQUjDTNEAUn9jP3IPgPc54xkNYwn6+C1PsgFoa9AezYZhpQwC/7nOUFEVkzkSJxNkvKEUSfR2kj0rLHqDrkhcFjdwv0DUspuPbOt+weFXmLwla6J2MHuVsBP8In7TGdMazCSqXodURUBk2cDH5os1DWQ0iiePygQAZXvQ/V2RP2KXcq0C/hbq+YLX/Z3U4fCcqNzemuQzeTHcmF7xqT/0v/nUn/0Yq0IroQbufspNpdEyAmHDJ45AR3jGBQt4R53TFkymMKlU1M2MR82JVwwPjYRmtAVM2MjgwiGynL63Mf9I6XZD8KA8yEPO3s0o6WWcU0W8I3o2B2ZNC5Xx18+rKT5wQEQChcd6l7wxtJmKl0eyJnFFJ1JcC8XK24FRbojXci9Q==
+X-Forefront-Antispam-Report: CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(136003)(39860400002)(376002)(346002)(396003)(46966005)(4326008)(2906002)(6862004)(47076004)(107886003)(356005)(81166007)(82740400003)(82310400003)(8936002)(336012)(2616005)(956004)(55016002)(8886007)(478600001)(44832011)(316002)(8676002)(86362001)(54906003)(36906005)(36756003)(186003)(7696005)(16526019)(26005)(5660300002)(33656002)(70206006)(1076003)(70586007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2020 12:54:12.6379
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0fb66fe8-6569-4206-40d3-08d8660918ab
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource: VE1EUR03FT028.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB3984
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-[I'm on vacation so I'll just give this a quick glance for now.]
+The 10/01/2020 12:14, Alejandro Colomar via Gcc wrote:
+> Here is the rendered intmax_t:
+> 
+> intmax_t
+>       Include: <stdint.h>.  Alternatively, <inttypes.h>.
+> 
+>       A  signed  integer type capable of representing any value of any
+>       signed integer type supported by the implementation.   According
+>       to  the C language standard, it shall be capable of storing val-
+>       ues in the range [INTMAX_MIN, INTMAX_MAX].
+> 
+>       The macro INTMAX_C() expands its argument to an integer constant
+>       of type intmax_t.
+> 
+>       The  length  modifier  for  intmax_t  for  the printf(3) and the
+>       scanf(3) families of functions is j; resulting commonly  in  %jd
+>       or %ji for printing intmax_t values.
+> 
+>       Bugs:  intmax_t  is not large enough to represent values of type
+>       __int128 in implementations where __int128 is defined  and  long
+>       long is less than 128 bits wide.
 
-On Wed, Sep 30, 2020 at 01:07:38PM +0200, Michael Kerrisk (man-pages) wrote:
-> Hi Tycho, Sargun (and all),
-> 
-> I knew it would be a big ask, but below is kind of the manual page
-> I was hoping you might write [1] for the seccomp user-space notification
-> mechanism. Since you didn't (and because 5.9 adds various new pieces 
-> such as SECCOMP_ADDFD_FLAG_SETFD and SECCOMP_IOCTL_NOTIF_ADDFD 
-> that also will need documenting [2]), I did :-). But of course I may 
-> have made mistakes...
-> 
-> I've shown the rendered version of the page below, and would love
-> to receive review comments from you and others, and acks, etc.
-> 
-> There are a few FIXMEs sprinkled into the page, including one
-> that relates to what appears to me to be a misdesign (possibly 
-> fixable) in the operation of the SECCOMP_IOCTL_NOTIF_RECV 
-> operation. I would be especially interested in feedback on that
-> FIXME, and also of course the other FIXMEs.
-> 
-> The page includes an extensive (albeit slightly contrived)
-> example program, and I would be happy also to receive comments
-> on that program.
-> 
-> The page source currently sits in a branch (along with the text
-> that you sent me for the seccomp(2) page) at
-> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/log/?h=seccomp_user_notif
-> 
-> Thanks,
-> 
-> Michael
-> 
-> [1] https://lore.kernel.org/linux-man/2cea5fec-e73e-5749-18af-15c35a4bd23c@gmail.com/#t
-> [2] Sargun, can you prepare something on SECCOMP_ADDFD_FLAG_SETFD
->     and SECCOMP_IOCTL_NOTIF_ADDFD to be added to this page?
-> 
-> =====
-> 
-> NAME
->        seccomp_user_notif - Seccomp user-space notification mechanism
-> 
-> SYNOPSIS
->        #include <linux/seccomp.h>
->        #include <linux/filter.h>
->        #include <linux/audit.h>
-> 
->        int seccomp(unsigned int operation, unsigned int flags, void *args);
-> 
-> DESCRIPTION
->        This  page  describes  the user-space notification mechanism pro‐
->        vided by the Secure Computing (seccomp) facility.  As well as the
->        use   of  the  SECCOMP_FILTER_FLAG_NEW_LISTENER  flag,  the  SEC‐
->        COMP_RET_USER_NOTIF action value, and the SECCOMP_GET_NOTIF_SIZES
->        operation  described  in  seccomp(2), this mechanism involves the
->        use of a number of related ioctl(2) operations (described below).
-> 
->    Overview
->        In conventional usage of a seccomp filter, the decision about how
->        to  treat  a particular system call is made by the filter itself.
->        The user-space notification mechanism allows the handling of  the
->        system  call  to  instead  be handed off to a user-space process.
+or __int128 is not an integer type.
 
-"In contrast, the user notification mechanism allows to delegate the
-handling of the system call of one process (target) to another
-user-space process (supervisor)."?
-
->        The advantages of doing this are that, by contrast with the  sec‐
->        comp  filter,  which  is  running on a virtual machine inside the
->        kernel, the user-space process has access to information that  is
->        unavailable to the seccomp filter and it can perform actions that
->        can't be performed from the seccomp filter.
-
-This section reads a bit difficult imho:
-"A suitably privileged supervisor can use the user notification
-mechanism to perform actions in lieu of the target. The supervisor will
-usually be able to retrieve information about the target and the
-performed system call that the seccomp filter itself cannot."
+integer types are either standard or extended.
+and __int128 is neither because it can be
+larger than intmax_t and stdint.h does not
+provide the necessary macros for it.
 
 > 
->        In the discussion that follows, the process  that  has  installed
->        the  seccomp filter is referred to as the target, and the process
->        that is notified by  the  user-space  notification  mechanism  is
->        referred  to  as  the  supervisor.  An overview of the steps per‐
->        formed by these two processes is as follows:
+>       Conforming to: C99 and later; POSIX.1-2001 and later.
 > 
->        1. The target process establishes a seccomp filter in  the  usual
->           manner, but with two differences:
-> 
->           · The seccomp(2) flags argument includes the flag SECCOMP_FIL‐
->             TER_FLAG_NEW_LISTENER.  Consequently, the return  value   of
->             the  (successful)  seccomp(2) call is a new "listening" file
->             descriptor that can be used to receive notifications.
+>       See also the uintmax_t type in this page.
 
-I think it would be good to mention that seccomp notify fds are
-O_CLOEXEC by default somewhere.
-
-> 
->           · In cases where it is appropriate, the seccomp filter returns
->             the  action value SECCOMP_RET_USER_NOTIF.  This return value
->             will trigger a notification event.
-> 
->        2. In order that the supervisor process can obtain  notifications
->           using  the  listening  file  descriptor, (a duplicate of) that
->           file descriptor must be passed from the target process to  the
->           supervisor process.  One way in which this could be done is by
->           passing the file descriptor over a UNIX domain socket  connec‐
->           tion between the two processes (using the SCM_RIGHTS ancillary
->           message type described in unix(7)).   Another  possibility  is
->           that  the  supervisor  might  inherit  the file descriptor via
->           fork(2).
-
-I think a few people have already pointed out other ways of retrieving
-an fd. :)
-
-> 
->        3. The supervisor process will receive notification events on the
->           listening  file  descriptor.   These  events  are  returned as
->           structures of type seccomp_notif.  Because this structure  and
->           its  size may evolve over kernel versions, the supervisor must
->           first determine the size of  this  structure  using  the  sec‐
->           comp(2)  SECCOMP_GET_NOTIF_SIZES  operation,  which  returns a
->           structure of type seccomp_notif_sizes.  The  supervisor  allo‐
->           cates a buffer of size seccomp_notif_sizes.seccomp_notif bytes
->           to receive notification events.   In  addition,the  supervisor
->           allocates  another  buffer  of  size  seccomp_notif_sizes.sec‐
->           comp_notif_resp  bytes  for  the  response  (a   struct   sec‐
->           comp_notif_resp  structure) that it will provide to the kernel
->           (and thus the target process).
-> 
->        4. The target process then performs its workload, which  includes
->           system  calls  that  will be controlled by the seccomp filter.
->           Whenever one of these system calls causes the filter to return
->           the  SECCOMP_RET_USER_NOTIF  action value, the kernel does not
->           execute the system call;  instead,  execution  of  the  target
->           process is temporarily blocked inside the kernel and a notifi‐
-
-Maybe mention that the task is killable when so blocked?
-
->           cation event is generated on the listening file descriptor.
-> 
->        5. The supervisor process can now repeatedly monitor the  listen‐
->           ing   file   descriptor  for  SECCOMP_RET_USER_NOTIF-triggered
->           events.   To  do  this,   the   supervisor   uses   the   SEC‐
->           COMP_IOCTL_NOTIF_RECV  ioctl(2)  operation to read information
->           about a notification event; this  operation  blocks  until  an
->           event  is  available.   The  operation returns a seccomp_notif
->           structure containing information about the system call that is
->           being attempted by the target process.
-> 
->        6. The    seccomp_notif    structure   returned   by   the   SEC‐
->           COMP_IOCTL_NOTIF_RECV operation includes the same  information
->           (a seccomp_data structure) that was passed to the seccomp fil‐
->           ter.  This information allows the supervisor to  discover  the
->           system  call number and the arguments for the target process's
->           system call.  In addition, the notification event contains the
->           PID of the target process.
-
-(Technically TID.)
-
-> 
->           The  information  in  the notification can be used to discover
->           the values of pointer arguments for the target process's  sys‐
->           tem call.  (This is something that can't be done from within a
->           seccomp filter.)  To do this (and  assuming  it  has  suitable
->           permissions),   the   supervisor   opens   the   corresponding
->           /proc/[pid]/mem file, seeks to the memory location that corre‐
->           sponds to one of the pointer arguments whose value is supplied
->           in the notification event, and reads bytes from that location.
->           (The supervisor must be careful to avoid a race condition that
->           can occur when doing this; see the  description  of  the  SEC‐
->           COMP_IOCTL_NOTIF_ID_VALID ioctl(2) operation below.)  In addi‐
->           tion, the supervisor can access other system information  that
->           is  visible  in  user space but which is not accessible from a
->           seccomp filter.
-> 
->           ┌─────────────────────────────────────────────────────┐
->           │FIXME                                                │
->           ├─────────────────────────────────────────────────────┤
->           │Suppose we are reading a pathname from /proc/PID/mem │
->           │for  a system call such as mkdir(). The pathname can │
->           │be an arbitrary length. How do we know how much (how │
->           │many pages) to read from /proc/PID/mem?              │
->           └─────────────────────────────────────────────────────┘
-
-This has already been answered, I believe.
-
-> 
->        7. Having  obtained  information  as  per  the previous step, the
->           supervisor may then choose to perform an action in response to
->           the  target  process's  system call (which, as noted above, is
->           not  executed  when  the  seccomp  filter  returns  the   SEC‐
->           COMP_RET_USER_NOTIF action value).
-
-Nit: It is not _yet_ executed it may very well be if the response is
-"continue". This should either mention that when the fd becomes
-_RECVable the system call is guaranteed to not have executed yet or
-specify that it is not yet executed, I think.
-
-> 
->           One  example  use case here relates to containers.  The target
->           process may be located inside a container where  it  does  not
->           have sufficient capabilities to mount a filesystem in the con‐
->           tainer's mount namespace.  However, the supervisor  may  be  a
->           more  privileged  process that that does have sufficient capa‐
->           bilities to perform the mount operation.
-> 
->        8. The supervisor then sends a response to the notification.  The
->           information  in  this  response  is used by the kernel to con‐
->           struct a return value for the target process's system call and
->           provide a value that will be assigned to the errno variable of
->           the target process.
-> 
->           The  response  is  sent  using  the   SECCOMP_IOCTL_NOTIF_RECV
->           ioctl(2)   operation,   which  is  used  to  transmit  a  sec‐
->           comp_notif_resp  structure  to  the  kernel.   This  structure
->           includes  a  cookie  value that the supervisor obtained in the
->           seccomp_notif    structure    returned     by     the     SEC‐
->           COMP_IOCTL_NOTIF_RECV operation.  This cookie value allows the
->           kernel to associate the response with the target process.
-
-I think here or above you should mention that the id or "cookie" _must_
-be used when a file descriptor to /proc/<pid>/mem or any /proc/<pid>/*
-is opened:
-fd = open(/proc/pid/*);
-verify_via_cookie_that_pid_still_alive(cookie);
-operate_on(fd)
-
-Otherwise this is a potential security issue.
-
-> 
->        9. Once the notification has been sent, the system  call  in  the
->           target  process  unblocks,  returning the information that was
->           provided by the supervisor in the notification response.
-> 
->        As a variation on the last two steps, the supervisor can  send  a
->        response  that tells the kernel that it should execute the target
->        process's   system   call;   see   the   discussion    of    SEC‐
->        COMP_USER_NOTIF_FLAG_CONTINUE, below.
-> 
->    ioctl(2) operations
->        The following ioctl(2) operations are provided to support seccomp
->        user-space notification.  For each of these operations, the first
->        (file  descriptor)  argument  of  ioctl(2)  is the listening file
->        descriptor returned by a call to seccomp(2) with the SECCOMP_FIL‐
->        TER_FLAG_NEW_LISTENER flag.
-> 
->        SECCOMP_IOCTL_NOTIF_RECV
->               This operation is used to obtain a user-space notification
->               event.  If no such event is currently pending, the  opera‐
->               tion  blocks  until  an  event occurs.  The third ioctl(2)
->               argument is a pointer to a structure of the following form
->               which  contains  information about the event.  This struc‐
->               ture must be zeroed out before the call.
-> 
->                   struct seccomp_notif {
->                       __u64  id;              /* Cookie */
->                       __u32  pid;             /* PID of target process */
->                       __u32  flags;           /* Currently unused (0) */
->                       struct seccomp_data data;   /* See seccomp(2) */
->                   };
-> 
->               The fields in this structure are as follows:
-> 
->               id     This is a cookie for the notification.   Each  such
->                      cookie  is  guaranteed  to be unique for the corre‐
->                      sponding seccomp  filter.   In  other  words,  this
->                      cookie  is  unique for each notification event from
->                      the target process.  The cookie value has the  fol‐
->                      lowing uses:
-> 
->                      · It     can     be     used    with    the    SEC‐
->                        COMP_IOCTL_NOTIF_ID_VALID ioctl(2)  operation  to
->                        verify that the target process is still alive.
-> 
->                      · When  returning  a  notification  response to the
->                        kernel, the supervisor must  include  the  cookie
->                        value in the seccomp_notif_resp structure that is
->                        specified   as   the   argument   of   the   SEC‐
->                        COMP_IOCTL_NOTIF_SEND operation.
-> 
->               pid    This  is  the  PID of the target process that trig‐
->                      gered the notification event.
-> 
->                      ┌─────────────────────────────────────────────────────┐
->                      │FIXME                                                │
->                      ├─────────────────────────────────────────────────────┤
->                      │This is a thread ID, rather than a PID, right?       │
->                      └─────────────────────────────────────────────────────┘
-
-Yes.
-
-> 
->               flags  This is a  bit  mask  of  flags  providing  further
->                      information on the event.  In the current implemen‐
->                      tation, this field is always zero.
-> 
->               data   This is a seccomp_data structure containing  infor‐
->                      mation  about  the  system  call that triggered the
->                      notification.  This is the same structure  that  is
->                      passed  to  the seccomp filter.  See seccomp(2) for
->                      details of this structure.
-> 
->               On success, this operation returns 0; on  failure,  -1  is
->               returned,  and  errno  is set to indicate the cause of the
->               error.  This operation can fail with the following errors:
-> 
->               EINVAL (since Linux 5.5)
->                      The seccomp_notif structure that was passed to  the
->                      call contained nonzero fields.
-> 
->               ENOENT The  target  process  was killed by a signal as the
->                      notification information was being generated.
-> 
->        ┌─────────────────────────────────────────────────────┐
->        │FIXME                                                │
->        ├─────────────────────────────────────────────────────┤
->        │From my experiments,  it  appears  that  if  a  SEC‐ │
->        │COMP_IOCTL_NOTIF_RECV   is  done  after  the  target │
->        │process terminates, then the ioctl()  simply  blocks │
->        │(rather than returning an error to indicate that the │
->        │target process no longer exists).                    │
->        │                                                     │
->        │I found that surprising, and it required  some  con‐ │
->        │tortions  in the example program.  It was not possi‐ │
->        │ble to code my SIGCHLD handler (which reaps the zom‐ │
->        │bie  when  the  worker/target process terminates) to │
->        │simply set a flag checked in the main  handleNotifi‐ │
->        │cations()  loop,  since  this created an unavoidable │
->        │race where the child might terminate  just  after  I │
->        │had  checked  the  flag,  but before I blocked (for‐ │
->        │ever!) in  the  SECCOMP_IOCTL_NOTIF_RECV  operation. │
->        │Instead,  I had to code the signal handler to simply │
->        │call _exit(2)  in  order  to  terminate  the  parent │
->        │process (the supervisor).                            │
->        │                                                     │
->        │Is  this  expected  behavior?  It seems to me rather │
->        │desirable that SECCOMP_IOCTL_NOTIF_RECV should  give │
->        │an error if the target process has terminated.       │
->        └─────────────────────────────────────────────────────┘
-
-This has been discussed later in the thread too, I believe. My patchset
-fixed a different but related bug in ->poll() when a filter becomes
-unused. I hadn't noticed this behavior since I'm always polling. (Pure
-ioctls() feel a bit fishy to me. :) But obviously a valid use.)
-
-> 
->        SECCOMP_IOCTL_NOTIF_ID_VALID
->               This operation can be used to check that a notification ID
->               returned by an earlier SECCOMP_IOCTL_NOTIF_RECV  operation
->               is  still  valid  (i.e.,  that  the  target  process still
->               exists).
-> 
->               The third ioctl(2) argument is a  pointer  to  the  cookie
->               (id) returned by the SECCOMP_IOCTL_NOTIF_RECV operation.
-> 
->               This  operation is necessary to avoid race conditions that
->               can  occur   when   the   pid   returned   by   the   SEC‐
->               COMP_IOCTL_NOTIF_RECV   operation   terminates,  and  that
->               process ID is reused by another process.   An  example  of
->               this kind of race is the following
-> 
->               1. A  notification  is  generated  on  the  listening file
->                  descriptor.  The returned  seccomp_notif  contains  the
->                  PID of the target process.
-> 
->               2. The target process terminates.
-> 
->               3. Another process is created on the system that by chance
->                  reuses the PID that was freed when the  target  process
->                  terminates.
-> 
->               4. The  supervisor  open(2)s  the /proc/[pid]/mem file for
->                  the PID obtained in step 1, with the intention of (say)
->                  inspecting the memory locations that contains the argu‐
->                  ments of the system call that triggered  the  notifica‐
->                  tion in step 1.
-> 
->               In the above scenario, the risk is that the supervisor may
->               try to access the memory of a process other than the  tar‐
->               get.   This  race  can be avoided by following the call to
->               open with a SECCOMP_IOCTL_NOTIF_ID_VALID operation to ver‐
->               ify  that  the  process that generated the notification is
->               still alive.  (Note that  if  the  target  process  subse‐
->               quently  terminates, its PID won't be reused because there
->               remains an open reference to the /proc[pid]/mem  file;  in
->               this  case, a subsequent read(2) from the file will return
->               0, indicating end of file.)
-> 
->               On success (i.e., the notification  ID  is  still  valid),
->               this  operation  returns 0 On failure (i.e., the notifica‐
-
-Missing a ".", I think.
-
->               tion ID is no longer valid), -1 is returned, and errno  is
->               set to ENOENT.
-> 
->        SECCOMP_IOCTL_NOTIF_SEND
->               This  operation  is  used  to send a notification response
->               back to the kernel.  The third ioctl(2) argument  of  this
->               structure  is  a  pointer  to a structure of the following
->               form:
-> 
->                   struct seccomp_notif_resp {
->                       __u64 id;               /* Cookie value */
->                       __s64 val;              /* Success return value */
->                       __s32 error;            /* 0 (success) or negative
->                                                  error number */
->                       __u32 flags;            /* See below */
->                   };
-> 
->               The fields of this structure are as follows:
-> 
->               id     This is the cookie value that  was  obtained  using
->                      the   SECCOMP_IOCTL_NOTIF_RECV   operation.    This
->                      cookie value allows the kernel to  correctly  asso‐
->                      ciate this response with the system call that trig‐
->                      gered the user-space notification.
-> 
->               val    This is the value that will be used for  a  spoofed
->                      success  return  for  the  target  process's system
->                      call; see below.
-> 
->               error  This is the value that will be used  as  the  error
->                      number  (errno)  for a spoofed error return for the
->                      target process's system call; see below.
-
-Nit: "val" is only used when "error" is not set.
-
-> 
->               flags  This is a bit mask that includes zero  or  more  of
->                      the following flags
-> 
->                      SECCOMP_USER_NOTIF_FLAG_CONTINUE (since Linux 5.5)
->                             Tell   the  kernel  to  execute  the  target
->                             process's system call.
-> 
->               Two kinds of response are possible:
-> 
->               · A response to the kernel telling it to execute the  tar‐
->                 get  process's  system  call.   In  this case, the flags
->                 field includes SECCOMP_USER_NOTIF_FLAG_CONTINUE and  the
->                 error and val fields must be zero.
-> 
->                 This  kind  of response can be useful in cases where the
->                 supervisor needs to do deeper analysis of  the  target's
->                 system  call  than  is  possible  from  a seccomp filter
->                 (e.g., examining the values of pointer arguments),  and,
->                 having  verified that the system call is acceptable, the
->                 supervisor wants to allow it to proceed.
-
-I think Jann has pointed this out. This needs to come with a big warning
-and I would explicitly put a:
-"The user notification mechanism cannot be used to implement a syscall
-security policy in user space!"
-You might want to take a look at the seccomp.h header file where I
-placed a giant warning about how to use this too.
-
-> 
->               · A spoofed return value for the target  process's  system
->                 call.   In  this  case,  the kernel does not execute the
->                 target process's system call, instead causing the system
->                 call to return a spoofed value as specified by fields of
->                 the seccomp_notif_resp structure.  The supervisor should
->                 set the fields of this structure as follows:
-> 
->                 +  flags  does  not contain SECCOMP_USER_NOTIF_FLAG_CON‐
->                    TINUE.
-> 
->                 +  error is set either to  0  for  a  spoofed  "success"
->                    return  or  to  a negative error number for a spoofed
->                    "failure" return.  In the  former  case,  the  kernel
->                    causes the target process's system call to return the
->                    value specified in the val field.  In the later case,
->                    the kernel causes the target process's system call to
->                    return -1, and errno is assigned  the  negated  error
->                    value.
-> 
->                 +  val is set to a value that will be used as the return
->                    value for a spoofed "success" return for  the  target
->                    process's  system  call.   The value in this field is
->                    ignored if the error field contains a nonzero value.
-> 
->               On success, this operation returns 0; on  failure,  -1  is
->               returned,  and  errno  is set to indicate the cause of the
->               error.  This operation can fail with the following errors:
-> 
->               EINPROGRESS
->                      A response to this notification  has  already  been
->                      sent.
-> 
->               EINVAL An invalid value was specified in the flags field.
-> 
->               EINVAL The       flags      field      contained      SEC‐
->                      COMP_USER_NOTIF_FLAG_CONTINUE, and the error or val
->                      field was not zero.
-> 
->               ENOENT The  blocked  system call in the target process has
->                      been interrupted by a signal handler.
-> 
-> NOTES
->        The file descriptor returned when seccomp(2) is employed with the
->        SECCOMP_FILTER_FLAG_NEW_LISTENER  flag  can  be  monitored  using
->        poll(2), epoll(7), and select(2).  When a notification  is  pend‐
->        ing,  these interfaces indicate that the file descriptor is read‐
->        able.
-
-This should also note that when a filter becomes unused, i.e. the last
-task using that filter in its filter hierarchy is dead (been
-reaped/autoreaped) ->poll() will notify with (E)POLLHUP.
-
-> 
->        ┌─────────────────────────────────────────────────────┐
->        │FIXME                                                │
->        ├─────────────────────────────────────────────────────┤
->        │Interestingly, after the event  had  been  received, │
->        │the  file descriptor indicates as writable (verified │
->        │from the source code and by experiment). How is this │
->        │useful?                                              │
->        └─────────────────────────────────────────────────────┘
-> 
-> EXAMPLES
->        The (somewhat contrived) program shown below demonstrates the use
->        of the interfaces described in this page.  The program creates  a
->        child  process  that  serves  as the "target" process.  The child
->        process  installs  a  seccomp  filter  that  returns   the   SEC‐
->        COMP_RET_USER_NOTIF  action  value if a call is made to mkdir(2).
->        The child process then calls mkdir(2) once for each of  the  sup‐
->        plied  command-line arguments, and reports the result returned by
->        the call.  After processing all arguments, the child process ter‐
->        minates.
-> 
->        The  parent  process  acts  as  the supervisor, listening for the
->        notifications that are generated when the  target  process  calls
->        mkdir(2).   When such a notification occurs, the supervisor exam‐
->        ines the memory of the target process (using /proc/[pid]/mem)  to
->        discover  the pathname argument that was supplied to the mkdir(2)
->        call, and performs one of the following actions:
-> 
->        · If the pathname begins with the prefix "/tmp/", then the super‐
->          visor  attempts  to  create  the  specified directory, and then
->          spoofs a return for the target  process  based  on  the  return
->          value  of  the  supervisor's  mkdir(2) call.  In the event that
->          that call succeeds, the spoofed success  return  value  is  the
->          length of the pathname.
-> 
->        · If  the pathname begins with "./" (i.e., it is a relative path‐
->          name), the supervisor sends a  SECCOMP_USER_NOTIF_FLAG_CONTINUE
->          response  to  the  kernel to say that kernel should execute the
->          target process's mkdir(2) call.
-
-Potentially problematic if the two processes have the same privilege
-level and the supervisor intends _CONTINUE to mean "is safe to execute".
-An attacker could try to re-write arguments afaict.
-A good an easy example is usually mknod() in a user namespace. A
-_CONTINUE is always safe since you can't create device nodes anyway.
-
-Sorry, I can't review the rest in sufficient detail since I'm on
-vacation still so I'm just going to shut up now. :)
-
-Christian
