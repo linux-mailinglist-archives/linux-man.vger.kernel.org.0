@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A00E727FD0F
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 12:16:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DB91F27FD11
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 12:16:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731682AbgJAKQe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 06:16:34 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47208 "EHLO
+        id S1725938AbgJAKQf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Oct 2020 06:16:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47214 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725938AbgJAKQe (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 06:16:34 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6024AC0613D0
-        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 03:16:32 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id o5so4988368wrn.13
-        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 03:16:32 -0700 (PDT)
+        with ESMTP id S1731704AbgJAKQf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 06:16:35 -0400
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5C564C0613E2
+        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 03:16:33 -0700 (PDT)
+Received: by mail-wm1-x342.google.com with SMTP id j136so1115072wmj.2
+        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 03:16:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=X8rsWLtq1jhJTIdFM84m0I4HjLr+vOX931//CgcGpkg=;
-        b=b24j5/MNjMgmrGdRg6s2fzdUzewEJvr/NmbEkrj23j3CDwiwOVffQQRMENDwW6utO8
-         lvKt3/MvAs2Ylpbz+vNw7aD3Rn2HeTcjoViA5Bo6xd5LdGrI58eerBZF3h0y9HMPwZIc
-         hIzPBMbKi2Xcsk0k2FOl/Jqmk9d7poomSwPAZRKR8TTY3wMlSRBdQEsLL1er4KQFzVuX
-         j05hfH7gR4PD/9ue1TnYAlMlgxznG3F0js/iRASYA83AXxnN1qz0+3NyEKO8p1Ktv4je
-         9yFA+AHxR7QAhkCHOOoc72s2bh2S95zMRQSnsWUdah4DWITleyIUjELHtlctlKTUM+s7
-         TJkQ==
+        bh=cdnXa1awL5WT+EWtvpL9/3anCoEKmUktHLxqkJ9nd7U=;
+        b=GxYbWCQINeA6Cga8qaad6Es1OORs8xf1L4OFsPicqRb9TXammgg5LU3GzULiW+yZFH
+         JntL1UzusEWG/msTJ9hjsZXXthfa6rcoeQHSKF69mCSaWEbp3dnMVquLbCTTKxZFzIBA
+         LVjWinmStK9Kwk91KZA3qxrYQUptXQcgJehSkpRUByp3QOnydwXTS10NIXfWUPplXgp4
+         +qeverNh/uG5dDR0mRX/frId3kxur6Gsk9b25w02dmJrzxkAaFwVuTZ+X8iMWkEIDrDT
+         Whqy3xWfznskgqiYOGfu4fEFzN5o5eazJErd4WzfbrshgANuLKBBWL1zZ6q4D7BFkD0X
+         2bDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=X8rsWLtq1jhJTIdFM84m0I4HjLr+vOX931//CgcGpkg=;
-        b=m+C7fhs6uoeZMh+QRaNuteM6Ry4dVDpuOvw0+jQHSPZV2UXucSnE1D2m7OF9KTSUy3
-         ZopkLl3hmv7aGNnHKqgERsdCdfMyviyXTE/YOBwQ88e4iE6DHjByqNdMhSApl7bVBO0M
-         es8mTbz9RO3D9DUzXFR5QbeiUrTsHMIwsto6V4sqnJnSmsjTdkql/IW82mZJ7gcPP3IT
-         oQXtTBMm1zNTCEbZxJm2x1f73+h79B4H85gkjasXAvoG6w2KWfYvpXr/xVp74aNDK/8V
-         bEHs02TeBQx+LtilbS7pWDAyfosKfwpUZwad9iODeaqGho0KPpp0cpNhZhsal39AUdPh
-         GtgQ==
-X-Gm-Message-State: AOAM530AOi8Y81x0Dt2p8i5hWdebOx5Q0UOrDEh/zXaSrl7V0egPqt61
-        XgpX+O+kdCHWirbap8Wz/LIX7TpJHN6q+w==
-X-Google-Smtp-Source: ABdhPJwpI4ZJaig47P2jScb2gB8XK04LwTt+u778QtKRjbraT0HdSbkI7cr7HjkRidwO9PBWWK8+ew==
-X-Received: by 2002:adf:c5c3:: with SMTP id v3mr8285708wrg.205.1601547391010;
-        Thu, 01 Oct 2020 03:16:31 -0700 (PDT)
+        bh=cdnXa1awL5WT+EWtvpL9/3anCoEKmUktHLxqkJ9nd7U=;
+        b=nwn4oMugZoOtyN0MRZCDnShuuB5N7U2BmDrzz8A897PGIOYK9VVlanQb7mJ3wuKVRf
+         Cggr/qUCbLY8r0NBJPZwa3uNDGCSSP5RC86u8T4b/cAGFhB7czkFKekSiwVqJXRTFp2G
+         6e+hr6WN719AbAPzXbIGQNyvVsEJJWz9NRdO9zFMMFRF4LB0N5kvmMGhIItsy3vllVjI
+         C2RUpEJgyJtr6806KZyrcn3u/uU0k0EKRM/jHgCYSSZg5xULpfje/CJkmM8wQem95Efk
+         nf/rddr+8nqhl3Ip6A/otx3O0AW1E2gJTFOsaw/aAoHjYV5VVlHeyObul1M7XVyggWN8
+         tkCA==
+X-Gm-Message-State: AOAM533jjmq4iG6qSBfiOUHbMbPjACpHTQhG5WF1wXIdOAq7F7NO1oJk
+        IgbOVo2GUJnSPIHxqyjN7HQ9XG4m+Fx8mQ==
+X-Google-Smtp-Source: ABdhPJykXatnP+Fpjbl2OVlUId/VPiptQunaerbe8RuUOIbi8kllq3IeeqTdaxBH/dzEI7c3tXzsKA==
+X-Received: by 2002:a7b:ce96:: with SMTP id q22mr7208486wmj.132.1601547392060;
+        Thu, 01 Oct 2020 03:16:32 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id i15sm8671922wrb.91.2020.10.01.03.16.30
+        by smtp.googlemail.com with ESMTPSA id i15sm8671922wrb.91.2020.10.01.03.16.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2020 03:16:30 -0700 (PDT)
+        Thu, 01 Oct 2020 03:16:31 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     colomar.6.4.3@gmail.com, linux-man@vger.kernel.org,
         libc-alpha@sourceware.org, gcc@gcc.gnu.org
-Subject: [PATCH 02/16] system_data_types.7: srcfix
-Date:   Thu,  1 Oct 2020 12:15:46 +0200
-Message-Id: <20201001101559.77163-3-colomar.6.4.3@gmail.com>
+Subject: [PATCH 03/16] system_data_types.7: srcfix
+Date:   Thu,  1 Oct 2020 12:15:47 +0200
+Message-Id: <20201001101559.77163-4-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201001101559.77163-1-colomar.6.4.3@gmail.com>
 References: <20201001101559.77163-1-colomar.6.4.3@gmail.com>
@@ -65,357 +65,57 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man7/system_data_types.7 | 105 ++++++++++++++++++++++++++-------------
- 1 file changed, 70 insertions(+), 35 deletions(-)
+ man7/system_data_types.7 | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
 diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-index 9cf67ee6f..a653a7b11 100644
+index a653a7b11..a099c0250 100644
 --- a/man7/system_data_types.7
 +++ b/man7/system_data_types.7
-@@ -71,7 +71,8 @@ struct aiocb {
- For further information about this structure, see
- .BR aio (7).
+@@ -406,7 +406,10 @@ Include:
+ Alternatively,
+ .IR <inttypes.h> .
  .PP
--Conforming to: POSIX.1-2001 and later.
-+Conforming to:
-+POSIX.1-2001 and later.
+-.IR int8_t ", " int16_t ", " int32_t ", " int64_t
++.IR int8_t ,
++.IR int16_t ,
++.IR int32_t ,
++.I int64_t
  .PP
- See also:
- .BR aio_cancel (3),
-@@ -102,7 +103,8 @@ It is the type of the value returned by the
- .BR div (3)
- function.
+ A signed integer type
+ of a fixed width of exactly N bits,
+@@ -418,7 +421,8 @@ capable of storing values in the range
+ substituting N by the appropriate number.
  .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- See also:
- .BR div (3)
-@@ -143,7 +145,8 @@ the type of
- .I double_t
- is implementation-defined.
- .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- See also the
- .I float_t
-@@ -161,7 +164,8 @@ This type represents the entire floating-point environment,
- including control modes and status flags; for further details, see
- .BR fenv (3).
- .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- See also:
- .BR fenv (3)
-@@ -178,7 +182,8 @@ This type represents the floating-point status flags collectively;
- for further details see
- .BR fenv (3).
- .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- See also:
- .BR fenv (3)
-@@ -195,7 +200,8 @@ Alternatively,
- .PP
- An object type used for streams.
- .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- See also:
- .BR fclose (3),
-@@ -243,7 +249,8 @@ the type of
- .I float_t
- is implementation-defined.
- .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- See also the
- .I double_t
-@@ -270,7 +277,8 @@ A type used to hold group IDs.
  According to POSIX,
- this shall be an integer type.
+-.IR int8_t ", " int16_t
++.IR int8_t ,
++.IR int16_t
+ and
+ .I int32_t
+ are required;
+@@ -1299,7 +1303,10 @@ Include:
+ Alternatively,
+ .IR <inttypes.h> .
  .PP
--Conforming to: POSIX.1-2001 and later.
-+Conforming to:
-+POSIX.1-2001 and later.
+-.IR uint8_t ", " uint16_t ", " uint32_t ", " uint64_t
++.IR uint8_t ,
++.IR uint16_t ,
++.IR uint32_t ,
++.I uint64_t
  .PP
- See also:
- .BR chown (2),
-@@ -299,7 +307,8 @@ this shall be an integer type that can be used to contain a
- or
- .IR gid_t .
+ An unsigned integer type
+ of a fixed width of exactly N bits,
+@@ -1310,7 +1317,8 @@ capable of storing values in the range [0,
+ substituting N by the appropriate number.
  .PP
--Conforming to: POSIX.1-2001 and later.
-+Conforming to:
-+POSIX.1-2001 and later.
- .PP
- See also:
- .BR getpriority (2),
-@@ -324,7 +333,8 @@ It is the type of the value returned by the
- .BR imaxdiv (3)
- function.
- .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- See also:
- .BR imaxdiv (3)
-@@ -379,7 +389,8 @@ is defined and
- .I long long
- is less than 128 bits wide.
- .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- See also the
- .I uintmax_t
-@@ -453,7 +464,8 @@ for scanning
- .I int8_t
- values.
- .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- See also the
- .IR __int128 ,
-@@ -505,7 +517,8 @@ Contains members related to the formatting of numeric values.
- In the "C" locale, its members have the values
- shown in the comments above.
- .PP
--Conforming to: C11 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C11 and later; POSIX.1-2001 and later.
- .PP
- See also:
- .BR setlocale (3),
-@@ -532,7 +545,8 @@ It is the type of the value returned by the
- .BR ldiv (3)
- function.
- .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- See also:
- .BR ldiv (3)
-@@ -556,7 +570,8 @@ It is the type of the value returned by the
- .BR lldiv (3)
- function.
- .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- See also:
- .BR lldiv (3)
-@@ -591,7 +606,8 @@ where the width of
- is no greater than the width of the type
- .IR long .
- .PP
--Conforming to: POSIX.1-2001 and later.
-+Conforming to:
-+POSIX.1-2001 and later.
- .PP
- See also:
- .BR fork (2),
-@@ -638,7 +654,8 @@ for printing
- .I ptrdiff_t
- values.
- .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- See also the
- .I size_t
-@@ -666,7 +683,8 @@ typedef struct {
- .PP
- This is a structure type used in regular expression matching.
- .PP
--Conforming to: POSIX.1-2001 and later.
-+Conforming to:
-+POSIX.1-2001 and later.
- .PP
- See also:
- .BR regexec (3)
-@@ -686,9 +704,11 @@ type or a
- .I ssize_t
- type.
- .PP
--Conforming to: POSIX.1-2001 and later.
-+Conforming to:
-+POSIX.1-2001 and later.
- .PP
--Notes: Prior to POSIX.1-2008, the type was capable of storing
-+Notes:
-+Prior to POSIX.1-2008, the type was capable of storing
- the largest value that can be stored in either an
- .I off_t
- type or a
-@@ -731,7 +751,8 @@ struct sigevent {
- For further details about this type, see
- .BR sigevent (7).
- .PP
--Conforming to: POSIX.1-2001 and later.
-+Conforming to:
-+POSIX.1-2001 and later.
- .PP
- Notes:
- .I <aio.h>
-@@ -778,7 +799,8 @@ For further details on this structure
- (including additional, Linux-specific fields), see
- .BR sigaction (2).
- .PP
--Conforming to: POSIX.1-2001 and later.
-+Conforming to:
-+POSIX.1-2001 and later.
- .PP
- See also:
- .BR pidfd_send_signal (2),
-@@ -802,7 +824,8 @@ or
- This is a type that represents a set of signals.
- According to POSIX, this shall be an integer or structure type.
- .PP
--Conforming to: POSIX.1-2001 and later.
-+Conforming to:
-+POSIX.1-2001 and later.
- .PP
- See also:
- .BR epoll_pwait (2),
-@@ -833,7 +856,8 @@ union sigval {
- .PP
- Data passed with a signal.
- .PP
--Conforming to: POSIX.1-2001 and later.
-+Conforming to:
-+POSIX.1-2001 and later.
- .PP
- See also:
- .BR pthread_sigqueue (3),
-@@ -915,7 +939,8 @@ for printing
- .I size_t
- values.
- .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- Notes:
- .IR <aio.h> ,
-@@ -1002,7 +1027,8 @@ by converting the value to
- and using its length modifier
- .RB ( j ).
- .PP
--Conforming to: POSIX.1-2001 and later.
-+Conforming to:
-+POSIX.1-2001 and later.
- .PP
- See also:
- .BR read (2),
-@@ -1039,7 +1065,8 @@ where the width of
- is no greater than the width of the type
- .IR long .
- .PP
--Conforming to: POSIX.1-2001 and later.
-+Conforming to:
-+POSIX.1-2001 and later.
- .PP
- See also the
- .I timeval
-@@ -1068,7 +1095,8 @@ or
- Used for time in seconds.
- According to POSIX, it shall be an integer type.
- .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- Notes:
- .I <sched.h>
-@@ -1097,7 +1125,8 @@ Used for timer ID returned by
  According to POSIX,
- there are no defined comparison or assignment operators for this type.
- .PP
--Conforming to: POSIX.1-2001 and later.
-+Conforming to:
-+POSIX.1-2001 and later.
- .PP
- See also:
- .BR timer_create (2),
-@@ -1130,7 +1159,8 @@ struct timespec {
- .PP
- Describes times in seconds and nanoseconds.
- .PP
--Conforming to: C11 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C11 and later; POSIX.1-2001 and later.
- .PP
- See also:
- .BR clock_gettime (2),
-@@ -1161,7 +1191,8 @@ struct timeval {
- .PP
- Describes times in seconds and microseconds.
- .PP
--Conforming to: POSIX.1-2001 and later.
-+Conforming to:
-+POSIX.1-2001 and later.
- .PP
- See also:
- .BR gettimeofday (2),
-@@ -1191,7 +1222,8 @@ A type used to hold user IDs.
- According to POSIX,
- this shall be an integer type.
- .PP
--Conforming to: POSIX.1-2001 and later.
-+Conforming to:
-+POSIX.1-2001 and later.
- .PP
- See also:
- .BR chown (2),
-@@ -1250,7 +1282,8 @@ is defined and
- .I unsigned long long
- is less than 128 bits wide.
- .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- See also the
- .I intmax_t
-@@ -1327,7 +1360,8 @@ for scanning
- .I uint16_t
- values.
- .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- See also the
- .IR __int128 ,
-@@ -1361,7 +1395,8 @@ and
- .BR va_end (3)
- to traverse the list of arguments.
- .PP
--Conforming to: C99 and later; POSIX.1-2001 and later.
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
- .PP
- See also:
- .BR va_start (3),
+-.IR uint8_t ", " uint16_t
++.IR uint8_t ,
++.IR uint16_t
+ and
+ .I uint32_t
+ are required;
 -- 
 2.28.0
 
