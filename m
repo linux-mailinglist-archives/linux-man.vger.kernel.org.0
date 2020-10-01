@@ -2,140 +2,117 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CC39327FE49
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 13:24:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A5A2D27FE53
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 13:27:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731839AbgJALYz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 07:24:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57720 "EHLO
+        id S1731839AbgJAL15 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Oct 2020 07:27:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58196 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731134AbgJALYx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 07:24:53 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E94FFC0613D0
-        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 04:24:52 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id z4so5258247wrr.4
-        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 04:24:52 -0700 (PDT)
+        with ESMTP id S1731819AbgJAL15 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 07:27:57 -0400
+Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com [IPv6:2607:f8b0:4864:20::d43])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 528E2C0613D0
+        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 04:27:57 -0700 (PDT)
+Received: by mail-io1-xd43.google.com with SMTP id z25so6170429iol.10
+        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 04:27:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=e5AiOQ1iBflZ/P76rMgvEvbBwF6DV/LYeEL1/9Qd74w=;
-        b=oIIICgZW4CH7rWh6/8yGASFpLR9jfPWtjYqurLvGN8JoejTEeUzFL5n1iH7PLCtEEF
-         ZFBTFQ0Xy1JfoM9oM6FWrfzcSPqCMveLW5if5mLi67XURVzBL7d+3nF2GFuQODJoR1EX
-         JR6DLCBziz48HcM5Wywf0Xb8C0TOqlsuupObbS1704WX5g+iclziOSr1iALea93fOfmC
-         C94yA8Sk1h8HWxje2q/GyTixeBeMvsfOewDmRh8EyAC5X1b8+KV0mm/fh0t/xtFAnIbg
-         iI4/olaodc03ZlaqrwQQVP4EgSONSVkxWLyUoJcdx/58ltvvJFjw+4xjrJrZsuGhgv1n
-         xOtA==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=CrEDQQm/x9Vgdpk82a1ymug92oKtBW0/ts4fw2xU1fI=;
+        b=KkAhe5cIWihmKrPu6ynTKehgyjLzMId0fo6HJwQyy/tBhEe/e9ghuRDspDMKnot5gg
+         kRhQG8SsEY/pDe02PwYpFTk8I+Vk1E2pHCbDtk7xdg0hz2FOKXy0A6Erh+F2LXqJb7+O
+         mVkwKagNP8BPKF4h4LgDPzPwi2FQD6RGT/VnqjtbLyxqWZQKb/jWILjuwPw11S3Ps3dC
+         quPRpx1sahqFXBagmQU7BPqeOADy0+489dbEoqoKooa1A7woImvUanLlpWm1VzoFXnc/
+         q48I43HA1GY29lkbl2u6RikgeIXDd8d4ir/FMU6AbbKSi23hCEGRVO8ny6yjUSzBQdfo
+         Pgaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=e5AiOQ1iBflZ/P76rMgvEvbBwF6DV/LYeEL1/9Qd74w=;
-        b=Vau1VbKdw4VOie+qvELKXPPpNAO6EqXRhkQ/lUpNYxmK5UiAEsV+lqgrtEp7dlYjEe
-         IuMkeh8zFNRd5FMiPJlDGQfDA1hAta1ZKId70dAuiutG9a1i88OPniDLWNqrOKH6E5fM
-         iRIL1eDfBGiLUrH0xLAlfvBl9QHfHiuYQ+XmMJnqNARDxwHgFD9Mws/lZspMCwFNDAct
-         /IsaGEGnPNVmmyheyyJWMhCbeN6KOPUoVGizgn1mBIkvKNAogTc6DW5wcn1P0PPuJzbj
-         7oYKqftmuhQKyHx+gETo3s2zapbLrRTkHc1HkPQRd673NvLiPYB2fxTcAqG+/ULqqWki
-         BDow==
-X-Gm-Message-State: AOAM531Paz5aVYMEM3to76//xfUTvti+Tv5zjdsiNowdloptMeDARmkr
-        9QanozGYlajzksZ3x0YJekrxJrzalEVlug==
-X-Google-Smtp-Source: ABdhPJwVikdMd1QbEMDclvQwv4AZguQb92VcGMUiGO8PwGs7MzYbFgeNH7AhGYhe66xgHFNmEwbb2w==
-X-Received: by 2002:adf:9f10:: with SMTP id l16mr9007574wrf.77.1601551491672;
-        Thu, 01 Oct 2020 04:24:51 -0700 (PDT)
-Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id v128sm7780099wme.2.2020.10.01.04.24.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2020 04:24:51 -0700 (PDT)
-Subject: Re: [RFC] man7/system_data_types.7: Document [unsigned] __int128
-To:     Jonathan Wakely <jwakely.gcc@gmail.com>
-Cc:     "gcc@gcc.gnu.org" <gcc@gcc.gnu.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-References: <f6179bab-bbad-22f7-0f87-c06988928ec2@gmail.com>
- <CAH6eHdSHEjjjDtBCFO93NXb3bCGtYg6L35injf6pz3bMoL=3Fw@mail.gmail.com>
- <5ed7272e-1c81-d1f5-6a54-0fee4270199e@gmail.com>
- <CAH6eHdS6PQfQN1ZLgNOyco3DyEA9xaHGqsFZmRySMFFA5B2rJA@mail.gmail.com>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <193018da-3926-5cd5-c60d-78dadd08b4e0@gmail.com>
-Date:   Thu, 1 Oct 2020 13:24:50 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=CrEDQQm/x9Vgdpk82a1ymug92oKtBW0/ts4fw2xU1fI=;
+        b=VbnPCVATZYiqZUNc5duMnGAUZPFROy4pGM6WnJ1ithyj9NN+e/VAoSrwFnY0xJPOTb
+         qitz/jqupR55h1IeSqhO4bzqrown+OgiL+y+lvV8rbDPZ3wlOFcl+3dQqlaXtlTGVSqH
+         VN831l/bL/LSeiefiwxQOIRo38nxvoIH3sN43e/Rzs89DKCgsa0XTbKrBiX+Z6pq0Ym+
+         7kARQcvd233vaPEwXbYtbZPH1VvA/Gq9CWchCTWZ7anlKLlmi6+sWzAubI+IzOheb9MH
+         7AVvqdwo1U90oFvUoVs3Jbn3wVJxGirhZuDr6BJsFl2imC0SnR4EqG1Sw0g+3a4w8EOX
+         mO6g==
+X-Gm-Message-State: AOAM533KfG3d7xiBDR+f8QZkALVKI2a/id8CFnygBpzN/03VnzwpvsFf
+        q+EpD/QmSH1/rQL/IsCfG16oW0dmjKwP1P2lArjjao12a5I=
+X-Google-Smtp-Source: ABdhPJyKRNyzPuCyW1c+OXlotwr8Jl2ocfi/fDrZ4Ims8PYPnN/rtlc7XDmapooIyDGdqesNcjEulorVTAVLX4mUSng=
+X-Received: by 2002:a02:e47:: with SMTP id 68mr5502918jae.78.1601551676687;
+ Thu, 01 Oct 2020 04:27:56 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAH6eHdS6PQfQN1ZLgNOyco3DyEA9xaHGqsFZmRySMFFA5B2rJA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20201001101559.77163-1-colomar.6.4.3@gmail.com>
+ <20201001101559.77163-6-colomar.6.4.3@gmail.com> <CAH6eHdQPvsfHcsWXNKXZsZcvWkmH6JOvcAivVFjq+HJEctG62w@mail.gmail.com>
+ <8dc9e60d-f838-87d5-2fc6-c34a84118916@gmail.com>
+In-Reply-To: <8dc9e60d-f838-87d5-2fc6-c34a84118916@gmail.com>
+From:   Jonathan Wakely <jwakely.gcc@gmail.com>
+Date:   Thu, 1 Oct 2020 12:27:45 +0100
+Message-ID: <CAH6eHdSBwvoXyT9ToYV=Su+vqyBwqnbbWjWsNVb14URdueG-JA@mail.gmail.com>
+Subject: Re: [PATCH 05/16] system_data_types.7: Add int_fastN_t family of types
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        GNU C Library <libc-alpha@sourceware.org>,
+        "gcc@gcc.gnu.org" <gcc@gcc.gnu.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Jonathan,
+On Thu, 1 Oct 2020 at 12:15, Alejandro Colomar <colomar.6.4.3@gmail.com> wrote:
+>
+>
+>
+> On 2020-10-01 13:07, Jonathan Wakely wrote:
+> [...]
+> >> +Notes:
+> >> +Some of these types may be optimized for size
+> >> +instead of raw performance.
+> >
+> > I'm not sure what this tells me as a programmer. What does "raw
+> > performance" means exactly? The text above says it's "the fastest",
+> > but then it says "may be optimized for size". I don't know how to
+> > interpret this. Is it fast or is it small, or something else? Is it
+> > optimized for small size? Natural word size? Cacheline size?
+> >
+> > I prefer the phrasing of the caveats in the C and POSIX standards
+> > which just say it might not be fastest for all purposes.
+> >
+> > How about "Where there is no single type that is fastest for all
+> > purposes, the implementation may choose any type with the required
+> > signedness and at least the minimum width."
+> >
+> > I don't see anything in this man page saying that the <stdint.h> types
+> > are all typedefs, rather than new types that are distinct from the
+> > standard integer types. That seems like useful information.
+> >
+>
+> Hi Jonathan,
+>
+> I wasn't sure about how to word it.
+>
+> In theory, they should be the fastest types; just that.
+> But then, for some reason, GCC decided that
+> int_fast8_t should be int8_t instead of int64_t,
+> because when using arrays of int_fast8_t,
+> it will create smaller arrays, which will be faster (less cache, etc.).
+>
+> (I remember having read that a long time ago, but I don't remember the
+> source, or if it's the actual reason).
 
-On 2020-10-01 12:50, Jonathan Wakely wrote:
->> Ok,  I thought that GCC is part of the GNU project, but I don't know how
->> much...
->> I'll use "When using GCC," :)
-> 
-> It is, but the GNU project is a large organisation, and has nothing to
-> say about non-standard types defined by GCC. Just because GCC is part
-> of a larger proejct, doesn't mean the entire project defines
-> something.
+So then that's still optimized for "raw performance", isn't it? The
+"raw performance" of copying an array of bytes is better than the "raw
+performance" of copying an array of 64-bit types. The meaning of "raw
+performance" depends on what you're doing, so I don't think it's a
+useful term without context.
 
+> How would you word that?
 
-Ok.
->>   >>         Conforming to: GCC 4.6.0 and later.
->>   >
->>   > It doesn't conform to anything, shouldn't this say "This type is a GNU
->>   > extension." or just "This type is an extension." ?
->>
->> That's what I had first: "Conforming to: GCC extension"
->> Then I thought that I could include the version information,
->> so I changed it to that.
->>
->> Maybe "GCC extension (since GCC 4.6.0)" would be better?
-> 
-> I don't think that information belongs in the Conforming To section at
-> all. The version that added the type is nothing to do with
-> conformance, because it's an extension and there is nothing to conform
-> to.
-> 
-> Look at 'man clock_gettime' for comparison. It has a VERSIONS section
-> and some individual constants are annotated with "(since Linux
-> 2.6.12)". That seems more appropriate for annotating individual types
-> within this man page which are not universally available.
-> 
+I gave a suggestion above.
 
-
-Thank you!
-
-Updated:
-
-[[
-__int128
-       A signed integer type of a fixed width of exactly 128 bits.
-
-       When  using  GCC, it is supported only for targets which have an
-       integer mode wide enough to hold 128 bits.
-
-       Versions: GCC 4.6.0 and later.
-
-       Conforming to: GCC extension.
-
-       Notes: This type is available without including any header.
-
-       Bugs: It is not possible to express an integer constant of  type
-       __int128  in  implementations  where  long long is less than 128
-       bits wide.
-
-       See also the intmax_t, intN_t and  unsigned  __int128  types  in
-       this page.
-]]
-
-Just one more thing:
-Would you say "GCC extension" or "GNU extension"?
-
-Thanks,
-
-Alex
+Don't use terms like "raw performance" that are meaningless without
+context. Using "no single type that is fastest for all purposes" makes
+it clearer that "fastest" isn't something universally true, it might
+be fastest for some purposes and not others.
