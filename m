@@ -2,145 +2,131 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EBE3D27FA5D
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 09:37:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5A95027FA74
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 09:45:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726992AbgJAHhq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 03:37:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50894 "EHLO
+        id S1725894AbgJAHpY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Oct 2020 03:45:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52074 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725878AbgJAHhq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 03:37:46 -0400
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3F181C0613D0
-        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 00:37:44 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id j136so611687wmj.2
-        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 00:37:44 -0700 (PDT)
+        with ESMTP id S1725878AbgJAHpY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 03:45:24 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 95986C0613D0;
+        Thu,  1 Oct 2020 00:45:23 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id t10so4474283wrv.1;
+        Thu, 01 Oct 2020 00:45:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=JDy1iD504EEbh7870dDmKQEzONn2gF6oL69vnKbkJvw=;
-        b=sRgQqidqXmTViIz6IEyi4ncAwb08ZeXE1kWQc4O+gmNq/01AVDicVHIxbPZB+cpbPw
-         CXYx3LbyfO2gkCAvJaTGhvy/7Ug8m7ZzNH9fPztZu8/2JcMh7Io608l0/baq6PPfS/VZ
-         nsvniCIS0AKp+uWnyHcarRoa5LuMakfVJU8AlGNFmg8n6l5DGIST3DchTHFWQYPGY/sw
-         gAT6LlL94FWz7m5vzXDKcmG/Z2HdoKp/QFeu8arEn0SBtU6lVOy6871aPSJcu0ljxrtw
-         v9ImFN++Ejd9s7h4GokaFOMVKTLi1Buec7v9Bp9ta5qaaKWfPaYhLF7n9viKACrKSfBh
-         Q10Q==
+        bh=xF7e0E8Lw4CA2Uq+qVpBw+cIQFKMIBUjuND9PoUrs5Y=;
+        b=d/vQ+VVk+keNzkTfJSJxtcXpSwp2e7QCaBNQZVU4obREwDbvYR4ZOkBAIn6nZtjLrb
+         3dRvKN+GZdP1oQFFW/WEgNG9Ppq4gVVv6NzUKiTksJwcvN9PabgGRW31N0rtN+ZwizBZ
+         Ir7qV4dK/89jGgUAjfx/Dt5qCN9CBfJEHDXQ3wXfHiKFfYxmdygBYHRXbft2M6MJDZht
+         8MsO994BspQhR23fIhIiWfa0x2AEEtJL394LV/ThsCeCMiTFdFm/rX53wswTwkK2O5Xj
+         iJx9UD43hnd5M2L/jQHIj83U3txiSLHzEMovktlDwd72Doib8y20ewhC18AZ/A7VLimt
+         CJeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=JDy1iD504EEbh7870dDmKQEzONn2gF6oL69vnKbkJvw=;
-        b=s6dkXGQjwB+SluFInKyxDr4Cj7VDrlvtxby3c/n9HDjV9n1vzpt9B00ZSEcIWGGfEl
-         oU65Uv6XjDtwn3j/H2bgajguy3XXAteCWb2LcCxF3Hs5zZb6SqW4GIBcsWcsRzoHVKca
-         22tQluMxZOIiThlHx7e32k/Ov/TmqdEJddRgklFXXdgPKqsl6r/5ru21vth+2jMo8Fx5
-         xdp//YiMrYT34UVH2zDIJvF3lI0fR1FmTfDYzdp+wnDdrjMJiohofmMUeYddQ6SGWU/b
-         8qwXRsc4sQlDQ3PmH+tCo82syNCGPhfykj5qthd8Im8dzlFYwgDBTsIh83Fw6LNbeKs8
-         iHNQ==
-X-Gm-Message-State: AOAM531FvHa2pZZ2UoX3EZ1PtGRyV/oTqjw7eG9/qpdwNtQcNPMiPdFv
-        8dCSvm23/h1lWbukcZdbX30=
-X-Google-Smtp-Source: ABdhPJyTWM+PpGZe1bz3rap94xJeJnRpHUX/ejMOiB2/FN9Abo+G5orqaJaU3re5jUMoRXi33F2neQ==
-X-Received: by 2002:a1c:5f54:: with SMTP id t81mr1327708wmb.142.1601537862901;
-        Thu, 01 Oct 2020 00:37:42 -0700 (PDT)
+        bh=xF7e0E8Lw4CA2Uq+qVpBw+cIQFKMIBUjuND9PoUrs5Y=;
+        b=r+gr5Iucm6an8QaDd2OH/4KKZ2LlWzlQHNhDfETH5cijOajO6q/8MIGxQXDxwRGSm1
+         oaURRn74f3eiCTQ17zvjTf9HptVGXZIGxleD3mWghbHIGjjPA4hmZeVeZh6hcK3GGWAi
+         X2hCNwanJG+HDPu8t+KNGZn34O5p0RXIEqlD7YxeYz5wxpSlMoartzuUM6tnoxmC9mmt
+         7iShWOwlD1pTZNgTYGWFQzpvo7f61DxRnZxkHetcwSwILsoG38e4Jx9a5y+DbnZgr1HN
+         JsSzSse4RosZ+J6+Ueybge1BiswOWPKLqcxLcfDE23WaXwb9j+0tfrcP5vQr6OLfaolk
+         BbBQ==
+X-Gm-Message-State: AOAM531F2xAqba33+NEvTlXO06LeFhVo3Min8AVHOPVSH98neCb4hzXI
+        MypRk8vzYsuko9DxO55hh0w=
+X-Google-Smtp-Source: ABdhPJxwv6BtYFAqC+AMaDOZb3qgtjlHwEicyt0p82kSHbH75ncrgFUe0TsFiNV7de54QZazE4hATA==
+X-Received: by 2002:adf:dd44:: with SMTP id u4mr6973042wrm.22.1601538322276;
+        Thu, 01 Oct 2020 00:45:22 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id 88sm7561868wrl.76.2020.10.01.00.37.41
+        by smtp.gmail.com with ESMTPSA id u66sm7145534wmg.44.2020.10.01.00.45.19
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2020 00:37:42 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        libc-alpha@sourceware.org
-Subject: Re: [PATCH v2 1/3] system_data_types.7: ffix
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-References: <836b6d7d-4433-18d0-78aa-542c419c02f2@gmail.com>
- <20200928090322.2058-1-colomar.6.4.3@gmail.com>
- <20200928130558.4qi6jitfwxg6ccm7@localhost.localdomain>
- <1fe937db-8874-a8fb-5e65-88b4b15702fe@gmail.com>
- <20200930104322.6ffed5lw3uqmlzph@localhost.localdomain>
- <f9871768-cc7a-fac0-3500-6a0ccaa78099@gmail.com>
+        Thu, 01 Oct 2020 00:45:21 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, Sargun Dhillon <sargun@sargun.me>,
+        Kees Cook <keescook@chromium.org>,
+        Christian Brauner <christian@brauner.io>,
+        linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Aleksa Sarai <cyphar@cyphar.com>, Jann Horn <jannh@google.com>,
+        Alexei Starovoitov <ast@kernel.org>, wad@chromium.org,
+        bpf@vger.kernel.org, Song Liu <songliubraving@fb.com>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Linux Containers <containers@lists.linux-foundation.org>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        Robert Sesek <rsesek@google.com>
+Subject: Re: For review: seccomp_user_notif(2) manual page
+To:     Tycho Andersen <tycho@tycho.pizza>
+References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
+ <20200930150330.GC284424@cisco>
+ <8bcd956f-58d2-d2f0-ca7c-0a30f3fcd5b8@gmail.com>
+ <20200930230327.GA1260245@cisco>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <d145931a-3bea-7924-e353-08834cc592f0@gmail.com>
-Date:   Thu, 1 Oct 2020 09:37:41 +0200
+Message-ID: <8f20d586-9609-ef83-c85a-272e37e684d8@gmail.com>
+Date:   Thu, 1 Oct 2020 09:45:19 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <f9871768-cc7a-fac0-3500-6a0ccaa78099@gmail.com>
-Content-Type: text/plain; charset=windows-1252
+In-Reply-To: <20200930230327.GA1260245@cisco>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex, Branden,
-On 9/30/20 11:32 PM, Alejandro Colomar wrote:
-> Hi Branden & Michael,
-> 
-> On 2020-09-30 12:43, G. Branden Robinson wrote:
->  >> However, if using .br is a big headache, I would rather not use
->  >> workarounds (as you proposed in an earlier email),
->  >> and instead just live with the blank line.  It's not much of a
->  >> problem.
->  >
->  > Was an actual decision taken on this?  I see patches continuing to roll
->  > in containing this .br-based pattern.  I think if the extra line is
->  > live-withable, it should be lived with (or one of my four proposed
->  > alternatives could be used :) ), in preference to setting the bad
->  > example of the "naked" .br requests.
-> 
-> No decision yet.
-> We continued with the patch,
-> considering that we might revert it
-> or change it to a different approach in the future.
-
-Yes. I figure we can easily clean up the inconsistency later.
-
-> Actually I thought Michael would have hold the patches until the decision,
-
-I didn't want to slow you down,...
-
-> but he merged them, and it may be easier this way...
-> we'll fix it when we decide.
-
-Yes.
-
-> For me, I can live with the extra blank line.
-> Michael, what are your thoughts?
-
-I can live with it too.
+On 10/1/20 1:03 AM, Tycho Andersen wrote:
+> On Wed, Sep 30, 2020 at 10:34:51PM +0200, Michael Kerrisk (man-pages) wrote:
+>> Hi Tycho,
+>>
+>> Thanks for taking time to look at the page!
+>>
+>> On 9/30/20 5:03 PM, Tycho Andersen wrote:
+>>> On Wed, Sep 30, 2020 at 01:07:38PM +0200, Michael Kerrisk (man-pages) wrote:
 
 [...]
 
+>>>>        ┌─────────────────────────────────────────────────────┐
+>>>>        │FIXME                                                │
+>>>>        ├─────────────────────────────────────────────────────┤
+>>>>        │Interestingly, after the event  had  been  received, │
+>>>>        │the  file descriptor indicates as writable (verified │
+>>>>        │from the source code and by experiment). How is this │
+>>>>        │useful?                                              │
+>>>
+>>> You're saying it should just do EPOLLOUT and not EPOLLWRNORM? Seems
+>>> reasonable.
+>>
+>> No, I'm saying something more fundamental: why is the FD indicating as
+>> writable? Can you write something to it? If yes, what? If not, then
+>> why do these APIs want to say that the FD is writable?
+> 
+> You can't via read(2) or write(2), but conceptually NOTIFY_RECV and
+> NOTIFY_SEND are reading and writing events from the fd. I don't know
+> that much about the poll interface though -- is it possible to
+> indicate "here's a pseudo-read event"? It didn't look like it, so I
+> just (ab-)used POLLIN and POLLOUT, but probably that's wrong.
 
-> 
->  >
->  > Regards,
->  > Branden
->  >
->  > [1] https://lists.gnu.org/archive/html/groff/2019-03/msg00047.html
->  > [2] 
-> https://gitlab.com/procps-ng/procps/blob/7ac9a0e1f5606696dc799b773d5ec70183ca91a3/ps/ps.1
->  >
-> 
-> 
-> I was writing about the different options and testing them,
-> when by accident I discovered that .RS alone, which I introduced lately,
-> already fixed the problem we had in the beginning:
-> .RS forces a line break after the tag
-> (so .br is actually redundant right now).
-> 
-> I guess we'll all be happy with just .RS, right? :-}
+I think the POLLIN thing is fine.
 
-I think so.
+So, I think maybe I now understand what you intended with setting
+POLLOUT: the notification has been received ("read") and now the
+FD can be used to NOTIFY_SEND ("write") a response. Right?
 
-Cheers,
+If that's correct, I don't have a problem with it. I just wonder:
+is it useful? IOW: are there situations where the process doing the
+NOTIFY_SEND might want to test for POLLOUT because the it doesn't
+know whether a NOTIFY_RECV has occurred? 
+
+Thanks,
 
 Michael
-
-PS Alex, I believe we are at a sync point right now (i.e., I think
-that I do not have any unprocessed patches from you). Let me know if
-I'm wrong.
 
 -- 
 Michael Kerrisk
