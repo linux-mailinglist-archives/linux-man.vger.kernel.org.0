@@ -2,102 +2,264 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A9D43280590
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 19:38:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0489328066C
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 20:21:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732417AbgJARiY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 13:38:24 -0400
-Received: from zimbra.cs.ucla.edu ([131.179.128.68]:50690 "EHLO
-        zimbra.cs.ucla.edu" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1732096AbgJARiX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 13:38:23 -0400
-Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 4D700160114;
-        Thu,  1 Oct 2020 10:38:23 -0700 (PDT)
-Received: from zimbra.cs.ucla.edu ([127.0.0.1])
-        by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id QmjFZUm-wO-h; Thu,  1 Oct 2020 10:38:22 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 94CA3160115;
-        Thu,  1 Oct 2020 10:38:22 -0700 (PDT)
-X-Virus-Scanned: amavisd-new at zimbra.cs.ucla.edu
-Received: from zimbra.cs.ucla.edu ([127.0.0.1])
-        by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id RAfiniQko2SL; Thu,  1 Oct 2020 10:38:22 -0700 (PDT)
-Received: from [192.168.1.9] (cpe-23-243-218-95.socal.res.rr.com [23.243.218.95])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTPSA id 62505160114;
-        Thu,  1 Oct 2020 10:38:22 -0700 (PDT)
-Subject: Re: [PATCH v2 1/4] system_data_types.7: Add int_leastN_t family of
- types
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>, mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-        gcc@gcc.gnu.org
-References: <20201001143535.98990-1-colomar.6.4.3@gmail.com>
- <20201001143535.98990-2-colomar.6.4.3@gmail.com>
-From:   Paul Eggert <eggert@cs.ucla.edu>
-Autocrypt: addr=eggert@cs.ucla.edu; prefer-encrypt=mutual; keydata=
- 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
-Organization: UCLA Computer Science Department
-Message-ID: <b116e906-2a5d-1a7e-2969-52036ab3e8c3@cs.ucla.edu>
-Date:   Thu, 1 Oct 2020 10:38:22 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        id S1730079AbgJASTS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Oct 2020 14:19:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36980 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729927AbgJASTS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 14:19:18 -0400
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 41EB8C0613E2
+        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 11:19:18 -0700 (PDT)
+Received: by mail-ej1-x643.google.com with SMTP id qp15so8556402ejb.3
+        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 11:19:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=QA7LeF2qBheMMLcfazviLbAdkWU8DJ0SHO9LgKI517k=;
+        b=a6/AKuLO+I4CN+TMUjHSBr60dhhYt2MStlCukeOxb7tSCFx191nyiwvXlYbx/oULgM
+         Qjm1B7m2UGwjacKKYaNXPULYCd6pYcf0W5/JGNdhPPJ4TPh4u53cacymVqRATF9XFnZ5
+         m1yQeHk9D8JcvcmVO3bWytivPIFmqqdzrEA56gm1NzYGoMTiqgvTvWdb7YBVb9KnjGFu
+         9EjOj0GQDKmMfH5lOLFXtHC/Og/rDVZBo5vzx/AJpOsuCoPlNn/wZe40Zt77WTJbLLVx
+         epUS8duTssquZj+AZsJ24noqMXJe4fheY6/TEFjBy8a4/CaW7hfoJNvNDOxJyXGHARek
+         TGxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=QA7LeF2qBheMMLcfazviLbAdkWU8DJ0SHO9LgKI517k=;
+        b=Uvez4MEcjfdIfhnmswLLDq5DrfXXsBEzLi1/ckOonRyAX5TdPkvFE3qacCbHj7eWmo
+         ewLwCi3OdMarMDe2S7wGmUySdvWuSbibDrLFqXCOsbhdZ3dY7VZd3qsQy9w/16ltalcr
+         6pW6yHufecnavaUy/fZdWiquTGJIslDdqS5H3+JT5kG2LVZYUWTRkOwsigx/lYeG1B4q
+         hd8x6VuQ4YWjK/Ek1qc8FrPzD/5L4gYxAD6tVcU52qWjDcu5s6cqguQ4nE168sRG4ETh
+         hVMrdZNM5wvAFlopKPkCUNfsFaJ6vF0ilW4aO7lgSPKnALeNXMieiexKzDFODj4s15KA
+         GHQw==
+X-Gm-Message-State: AOAM530fVPnpmBlefzwGxua77CtSX2eUE05/E4LShDbzFkfWJ4MdpC58
+        m9U/SxrNiyCD8IQ6P7NNWC3kvA4QrASasM+AuqrgYw==
+X-Google-Smtp-Source: ABdhPJxsiRsxYcHsuimS2roWYvKY4tDFvDoqHRG6FGHNTwGrOtVjCR7kuJzEufOvz3pAyBvOKtunPrSfTb5XNoYe65E=
+X-Received: by 2002:a17:906:1f94:: with SMTP id t20mr9609666ejr.493.1601576356489;
+ Thu, 01 Oct 2020 11:19:16 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20201001143535.98990-2-colomar.6.4.3@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
+ <CAG48ez3aqLs_-xgU0bThOLqRiiDWGObxcg-X9iFe6D5RDnLVJg@mail.gmail.com>
+ <20201001125043.dj6taeieatpw3a4w@gmail.com> <CAG48ez2U1K2XYZu6goRYwmQ-RSu7LkKSOhPt8_wPVEUQfm7Eeg@mail.gmail.com>
+ <20201001165850.GC1260245@cisco>
+In-Reply-To: <20201001165850.GC1260245@cisco>
+From:   Jann Horn <jannh@google.com>
+Date:   Thu, 1 Oct 2020 20:18:49 +0200
+Message-ID: <CAG48ez1W+Ym5=-PdUhyei_UCJov0agEF4YVyARL=pooWYmdEAg@mail.gmail.com>
+Subject: Re: For review: seccomp_user_notif(2) manual page
+To:     Tycho Andersen <tycho@tycho.pizza>
+Cc:     Christian Brauner <christian.brauner@canonical.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        Song Liu <songliubraving@fb.com>,
+        Will Drewry <wad@chromium.org>,
+        Kees Cook <keescook@chromium.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        Robert Sesek <rsesek@google.com>,
+        Linux Containers <containers@lists.linux-foundation.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Alexei Starovoitov <ast@kernel.org>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        bpf <bpf@vger.kernel.org>, Andy Lutomirski <luto@amacapital.net>,
+        Christian Brauner <christian@brauner.io>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 10/1/20 7:35 AM, Alejandro Colomar via Libc-alpha wrote:
-> +The narrowest signed integer type
-> +of a width of at least N bits,
+On Thu, Oct 1, 2020 at 6:58 PM Tycho Andersen <tycho@tycho.pizza> wrote:
+> On Thu, Oct 01, 2020 at 05:47:54PM +0200, Jann Horn via Containers wrote:
+> > On Thu, Oct 1, 2020 at 2:54 PM Christian Brauner
+> > <christian.brauner@canonical.com> wrote:
+> > > On Wed, Sep 30, 2020 at 05:53:46PM +0200, Jann Horn via Containers wr=
+ote:
+> > > > On Wed, Sep 30, 2020 at 1:07 PM Michael Kerrisk (man-pages)
+> > > > <mtk.manpages@gmail.com> wrote:
+> > > > > NOTES
+> > > > >        The file descriptor returned when seccomp(2) is employed w=
+ith the
+> > > > >        SECCOMP_FILTER_FLAG_NEW_LISTENER  flag  can  be  monitored=
+  using
+> > > > >        poll(2), epoll(7), and select(2).  When a notification  is=
+  pend=E2=80=90
+> > > > >        ing,  these interfaces indicate that the file descriptor i=
+s read=E2=80=90
+> > > > >        able.
+> > > >
+> > > > We should probably also point out somewhere that, as
+> > > > include/uapi/linux/seccomp.h says:
+> > > >
+> > > >  * Similar precautions should be applied when stacking SECCOMP_RET_=
+USER_NOTIF
+> > > >  * or SECCOMP_RET_TRACE. For SECCOMP_RET_USER_NOTIF filters acting =
+on the
+> > > >  * same syscall, the most recently added filter takes precedence. T=
+his means
+> > > >  * that the new SECCOMP_RET_USER_NOTIF filter can override any
+> > > >  * SECCOMP_IOCTL_NOTIF_SEND from earlier filters, essentially allow=
+ing all
+> > > >  * such filtered syscalls to be executed by sending the response
+> > > >  * SECCOMP_USER_NOTIF_FLAG_CONTINUE. Note that SECCOMP_RET_TRACE ca=
+n equally
+> > > >  * be overriden by SECCOMP_USER_NOTIF_FLAG_CONTINUE.
+> > > >
+> > > > In other words, from a security perspective, you must assume that t=
+he
+> > > > target process can bypass any SECCOMP_RET_USER_NOTIF (or
+> > > > SECCOMP_RET_TRACE) filters unless it is completely prohibited from
+> > > > calling seccomp(). This should also be noted over in the main
+> > > > seccomp(2) manpage, especially the SECCOMP_RET_TRACE part.
+> > >
+> > > So I was actually wondering about this when I skimmed this and a whil=
+e
+> > > ago but forgot about this again... Afaict, you can only ever load a
+> > > single filter with SECCOMP_FILTER_FLAG_NEW_LISTENER set. If there
+> > > already is a filter with the SECCOMP_FILTER_FLAG_NEW_LISTENER propert=
+y
+> > > in the tasks filter hierarchy then the kernel will refuse to load a n=
+ew
+> > > one?
+> > >
+> > > static struct file *init_listener(struct seccomp_filter *filter)
+> > > {
+> > >         struct file *ret =3D ERR_PTR(-EBUSY);
+> > >         struct seccomp_filter *cur;
+> > >
+> > >         for (cur =3D current->seccomp.filter; cur; cur =3D cur->prev)=
+ {
+> > >                 if (cur->notif)
+> > >                         goto out;
+> > >         }
+> > >
+> > > shouldn't that be sufficient to guarantee that USER_NOTIF filters can=
+'t
+> > > override each other for the same task simply because there can only e=
+ver
+> > > be a single one?
+> >
+> > Good point. Exceeeept that that check seems ineffective because this
+> > happens before we take the locks that guard against TSYNC, and also
+> > before we decide to which existing filter we want to chain the new
+> > filter. So if two threads race with TSYNC, I think they'll be able to
+> > chain two filters with listeners together.
+>
+> Yep, seems the check needs to also be in seccomp_can_sync_threads() to
+> be totally effective,
+>
+> > I don't know whether we want to eternalize this "only one listener
+> > across all the filters" restriction in the manpage though, or whether
+> > the man page should just say that the kernel currently doesn't support
+> > it but that security-wise you should assume that it might at some
+> > point.
+>
+> This requirement originally came from Andy, arguing that the semantics
+> of this were/are confusing, which still makes sense to me. Perhaps we
+> should do something like the below?
+[...]
+> +static bool has_listener_parent(struct seccomp_filter *child)
+> +{
+> +       struct seccomp_filter *cur;
+> +
+> +       for (cur =3D current->seccomp.filter; cur; cur =3D cur->prev) {
+> +               if (cur->notif)
+> +                       return true;
+> +       }
+> +
+> +       return false;
+> +}
+[...]
+> @@ -407,6 +419,11 @@ static inline pid_t seccomp_can_sync_threads(void)
+[...]
+> +               /* don't allow TSYNC to install multiple listeners */
+> +               if (flags & SECCOMP_FILTER_FLAG_NEW_LISTENER &&
+> +                   !has_listener_parent(thread->seccomp.filter))
+> +                       continue;
+[...]
+> @@ -1462,12 +1479,9 @@ static const struct file_operations seccomp_notify=
+_ops =3D {
+>  static struct file *init_listener(struct seccomp_filter *filter)
+[...]
+> -       for (cur =3D current->seccomp.filter; cur; cur =3D cur->prev) {
+> -               if (cur->notif)
+> -                       goto out;
+> -       }
+> +       if (has_listener_parent(current->seccomp.filter))
+> +               goto out;
 
-Motivation is missing here. Why is there an int_leastN_t type at all? Also, on 
-all glibc platforms, int_leastN_t is equivalent to intN_t; this should probably 
-be mentioned.
+I dislike this because it combines a non-locked check and a locked
+check. And I don't think this will work in the case where TSYNC and
+non-TSYNC race - if the non-TSYNC call nests around the TSYNC filter
+installation, the thread that called seccomp in non-TSYNC mode will
+still end up with two notifying filters. How about the following?
 
-Similarly for int_fastN_t.
+
+diff --git a/kernel/seccomp.c b/kernel/seccomp.c
+index 676d4af62103..c49ad8ba0bc1 100644
+--- a/kernel/seccomp.c
++++ b/kernel/seccomp.c
+@@ -1475,11 +1475,6 @@ static struct file *init_listener(struct
+seccomp_filter *filter)
+        struct file *ret =3D ERR_PTR(-EBUSY);
+        struct seccomp_filter *cur;
+
+-       for (cur =3D current->seccomp.filter; cur; cur =3D cur->prev) {
+-               if (cur->notif)
+-                       goto out;
+-       }
+-
+        ret =3D ERR_PTR(-ENOMEM);
+        filter->notif =3D kzalloc(sizeof(*(filter->notif)), GFP_KERNEL);
+        if (!filter->notif)
+@@ -1504,6 +1499,31 @@ static struct file *init_listener(struct
+seccomp_filter *filter)
+        return ret;
+ }
+
++/*
++ * Does @new_child have a listener while an ancestor also has a listener?
++ * If so, we'll want to reject this filter.
++ * This only has to be tested for the current process, even in the TSYNC c=
+ase,
++ * because TSYNC installs @child with the same parent on all threads.
++ * Note that @new_child is not hooked up to its parent at this point yet, =
+so
++ * we use current->seccomp.filter.
++ */
++static bool has_duplicate_listener(struct seccomp_filter *new_child)
++{
++       struct seccomp_filter *cur;
++
++       /* must be protected against concurrent TSYNC */
++       lockdep_assert_held(&current->sighand->siglock);
++
++       if (!new_child->notif)
++               return false;
++       for (cur =3D current->seccomp.filter; cur; cur =3D cur->prev) {
++               if (cur->notif)
++                       return true;
++       }
++
++       return false;
++}
++
+ /**
+  * seccomp_set_mode_filter: internal function for setting seccomp filter
+  * @flags:  flags to change filter behavior
+@@ -1575,6 +1595,9 @@ static long seccomp_set_mode_filter(unsigned int flag=
+s,
+        if (!seccomp_may_assign_mode(seccomp_mode))
+                goto out;
+
++       if (has_duplicate_listener(prepared))
++               goto out;
++
+        ret =3D seccomp_attach_filter(flags, prepared);
+        if (ret)
+                goto out;
