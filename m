@@ -2,59 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 205BC28015F
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 16:35:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8894C280160
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 16:35:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732298AbgJAOfz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 10:35:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58962 "EHLO
+        id S1732299AbgJAOf5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Oct 2020 10:35:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58968 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726412AbgJAOfz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 10:35:55 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 33174C0613D0
-        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 07:35:55 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id d4so3147602wmd.5
-        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 07:35:55 -0700 (PDT)
+        with ESMTP id S1726412AbgJAOf5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 10:35:57 -0400
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B53C2C0613D0
+        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 07:35:56 -0700 (PDT)
+Received: by mail-wm1-x334.google.com with SMTP id k18so3362223wmj.5
+        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 07:35:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=vF0ZAxZ1F3j39rAz66U7VSfcp0neuHkHZ1PWqUGKWdY=;
-        b=DTuTEgB8zfqZOdZND92sKEdhH9pNwqL4Txo2JVj8bzlOuXrkOciipmvb0j5tMFyxXn
-         TWvgzK3DfBD5nIBWV3wRYN/3HWlFkaWsUbqrPYA0IB+n5bc01o4R57trNd1efk8T/A4/
-         2pss3FRREgWtKFPgA8XGK5TMGwy8AzEoPl6Suk/1HdRx12ERLHMfMzfc9GYDsNB8Ld6T
-         haWfWUNshS+cHlJI7ytzBI9meIJQA8eWWkTTrCagY0PJK7Q5akmhbJ3syxDvpqq57JXB
-         WXLGCXwpyT7EWTG7h+gzs0JTt5W/Vs5nQ8ArnNnEyxkhW0JG+u0EiH6pFhkp7sMrAmZ7
-         tU1Q==
+        bh=btnmodXbjUP2U13z8cU7mIXNODGWQ7RLOqleIhkibo8=;
+        b=PpK9MrEewOVWy9b7baAy2pSenGTFjTvbw3lWfcmh0XeHvj4CEdMWxuYDALyp3lLIV1
+         +6RgTxRdeZEe31Houi/v2I3zmF3IvWT0C0M/Ps3SVLr8txIAveoNuRxcJChOT5sD4IXC
+         RdtfOHSFxK6uVS+EmpOkGyh3W8xpiVlfRRiDxkIvmUE0JrLTRrA6M+j536fMqlE4GH/f
+         QLnRySA394cbC0YBWmkxk5Mgcx7+nP65QGYFEGj9C8WUEc9TfQRp/IixnHQNRaGIA46D
+         DmlS66rapfK9NJnY9DsUX14IA4JR4QU/PgsfSkZcONYjFpMFxSrmVLKVggP8q/IJHj1P
+         SEwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=vF0ZAxZ1F3j39rAz66U7VSfcp0neuHkHZ1PWqUGKWdY=;
-        b=bu7/dPb/3LsPdVZBkzAk9oR9qwpgrjuXeCWEk663TXodl87nhyMcDfknPAHJAhkUJR
-         EWMmCgZbhdYPzpdIXQqVeknc2+ivw02JtfdzTKZk4bHD4ROQE6QY5inJ7hhxlGSPO+BV
-         MGqQCfYgDS626PF+x7fOL3P2kiXNIZCvXd/2qew33el0MElqSQ17L55neJo3SGqEleRv
-         zgxZBnk+gBEXbqbD3HMiiy+Tj7PKmS/EJeTK20gLczTUWH4HhUuDY0ggqzgrBDHBGcBy
-         cuyRNgoujaUpe2+z8oORF0KDPUgSawLgHdiwiWHwdgzTdur7bLT6Nt1HfiQeevaHJbVU
-         3WIQ==
-X-Gm-Message-State: AOAM5334P/whQsDTA1sS2CpAuXRsFpZkKM6xEJZ8CQFy4XmNNdA1/PBr
-        iYSjgICtQZNuh3CPb50r0IY=
-X-Google-Smtp-Source: ABdhPJw9ccjOe8Duy0bDiIqYP0xvr7I0ryBcvkJQvmU5lnF55vBeMmnO5XIBXfVuARLRVNA1KtYSnQ==
-X-Received: by 2002:a7b:c208:: with SMTP id x8mr360221wmi.30.1601562953871;
-        Thu, 01 Oct 2020 07:35:53 -0700 (PDT)
+        bh=btnmodXbjUP2U13z8cU7mIXNODGWQ7RLOqleIhkibo8=;
+        b=AcRaX/o5H58Z6HQP7JcOU+ibSyQvRbBjX2PKhFwG71uLbbANpKmECqb3jnAsjiL6zO
+         OYqQHfwjwC9jtIvdABpfi9uhjSx9GWZ1SinpQ4z3cWUNKggqYVPMUCyWSCC2kxgc0n9N
+         /1cWon7tJDwqJ6/SA1TidaTqS4/DEHOjXDTCy41Q1PwUjIha57cD4gVTyXx4Gy/7Gfd2
+         9yn9Dwvxi8gmXZHxbyt/vTXR0bbi2+X0xb0tnx3g7bKgf9yN+7P8cvuXXDGOUnUMtQid
+         2/5DNDtbGNpAs6op0GseWqDWqBwaEzQ7RV9tP7JWFZiwQv5UZZgZSQp6z5V2X8l1HyvS
+         QK+A==
+X-Gm-Message-State: AOAM530ml376jVk7A2FWi2DM1ueh8VVNWnTI6JdqPlVNzBhy2/18i6K5
+        jLB1P9Wyoh8+rqrLBxi4q8S+U8TYkSjR/A==
+X-Google-Smtp-Source: ABdhPJx1nhVtPXNVgzUlT3jL9JzOnvNZ38YEjpDHuu3OnAq0QCJZAs3r0RyCdtnoSmghVhyN/0GeHw==
+X-Received: by 2002:a1c:5583:: with SMTP id j125mr297835wmb.75.1601562955441;
+        Thu, 01 Oct 2020 07:35:55 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id p9sm209976wmg.34.2020.10.01.07.35.52
+        by smtp.googlemail.com with ESMTPSA id p9sm209976wmg.34.2020.10.01.07.35.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2020 07:35:53 -0700 (PDT)
+        Thu, 01 Oct 2020 07:35:54 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
         linux-man@vger.kernel.org, gcc@gcc.gnu.org,
         libc-alpha@sourceware.org
-Subject: [PATCH v2 1/4] system_data_types.7: Add int_leastN_t family of types
-Date:   Thu,  1 Oct 2020 16:35:33 +0200
-Message-Id: <20201001143535.98990-2-colomar.6.4.3@gmail.com>
+Subject: [PATCH v2 2/4] int_least8_t.3, int_least16_t.3, int_least32_t.3, int_least64_t.3, int_leastN_t.3: New links to system_data_types(7)
+Date:   Thu,  1 Oct 2020 16:35:34 +0200
+Message-Id: <20201001143535.98990-3-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201001143535.98990-1-colomar.6.4.3@gmail.com>
 References: <20201001143535.98990-1-colomar.6.4.3@gmail.com>
@@ -66,92 +66,53 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man7/system_data_types.7 | 72 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 72 insertions(+)
+ man3/int_least16_t.3 | 1 +
+ man3/int_least32_t.3 | 1 +
+ man3/int_least64_t.3 | 1 +
+ man3/int_least8_t.3  | 1 +
+ man3/int_leastN_t.3  | 1 +
+ 5 files changed, 5 insertions(+)
+ create mode 100644 man3/int_least16_t.3
+ create mode 100644 man3/int_least32_t.3
+ create mode 100644 man3/int_least64_t.3
+ create mode 100644 man3/int_least8_t.3
+ create mode 100644 man3/int_leastN_t.3
 
-diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-index c130b7256..3336de463 100644
---- a/man7/system_data_types.7
-+++ b/man7/system_data_types.7
-@@ -406,6 +406,78 @@ and
- .IR uint N _t
- types in this page.
- .RE
-+.\"------------------------------------- int_leastN_t -----------------/
-+.TP
-+.IR int_least N _t
-+.RS
-+Include:
-+.IR <stdint.h> .
-+Alternatively,
-+.IR <inttypes.h> .
-+.PP
-+.IR int_least8_t ,
-+.IR int_least16_t ,
-+.IR int_least32_t ,
-+.I int_least64_t
-+.PP
-+The narrowest signed integer type
-+of a width of at least N bits,
-+N being the value specified in its type name.
-+According to the C language standard, they shall be
-+capable of storing values in the range
-+.RB [ INT_LEAST N _MIN ,
-+.BR INT_LEAST N _MAX ],
-+substituting N by the appropriate number.
-+.PP
-+The length modifiers for the
-+.IR int_least N _t
-+types for the
-+.BR printf (3)
-+family of functions
-+are expanded by macros of the forms
-+.BR PRIdLEAST N
-+and
-+.BR PRIiLEAST N
-+(defined in
-+.IR <inttypes.h> );
-+resulting for example in
-+.B %"PRIdLEAST64"
-+or
-+.B %"PRIiLEAST64"
-+for printing
-+.I int_least64_t
-+values.
-+The length modifiers for the
-+.IR int_least N _t
-+types for the
-+.BR scanf (3)
-+family of functions
-+are expanded by macros of the forms
-+.BR SCNdLEAST N
-+and
-+.BR SCNiLEAST N,
-+(defined in
-+.IR <inttypes.h> );
-+resulting for example in
-+.B %"SCNdLEAST8"
-+or
-+.B %"SCNiLEAST8"
-+for scanning
-+.I int_least8_t
-+values.
-+.PP
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
-+.PP
-+See also the
-+.IR int_fast N _t ,
-+.IR int N _t ,
-+.IR uint_fast N _t ,
-+.IR uint_least N _t
-+and
-+.IR uint N _t
-+types in this page.
-+.RE
- .\"------------------------------------- intmax_t ---------------------/
- .TP
- .I intmax_t
+diff --git a/man3/int_least16_t.3 b/man3/int_least16_t.3
+new file mode 100644
+index 000000000..db50c0f09
+--- /dev/null
++++ b/man3/int_least16_t.3
+@@ -0,0 +1 @@
++.so man7/system_data_types.7
+diff --git a/man3/int_least32_t.3 b/man3/int_least32_t.3
+new file mode 100644
+index 000000000..db50c0f09
+--- /dev/null
++++ b/man3/int_least32_t.3
+@@ -0,0 +1 @@
++.so man7/system_data_types.7
+diff --git a/man3/int_least64_t.3 b/man3/int_least64_t.3
+new file mode 100644
+index 000000000..db50c0f09
+--- /dev/null
++++ b/man3/int_least64_t.3
+@@ -0,0 +1 @@
++.so man7/system_data_types.7
+diff --git a/man3/int_least8_t.3 b/man3/int_least8_t.3
+new file mode 100644
+index 000000000..db50c0f09
+--- /dev/null
++++ b/man3/int_least8_t.3
+@@ -0,0 +1 @@
++.so man7/system_data_types.7
+diff --git a/man3/int_leastN_t.3 b/man3/int_leastN_t.3
+new file mode 100644
+index 000000000..db50c0f09
+--- /dev/null
++++ b/man3/int_leastN_t.3
+@@ -0,0 +1 @@
++.so man7/system_data_types.7
 -- 
 2.28.0
 
