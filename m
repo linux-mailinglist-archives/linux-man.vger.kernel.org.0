@@ -2,234 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D06942804CE
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 19:12:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6E33F280541
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 19:31:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732905AbgJARMQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 13:12:16 -0400
-Received: from youngberry.canonical.com ([91.189.89.112]:52997 "EHLO
-        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1732867AbgJARMN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 13:12:13 -0400
-Received: from mail-ed1-f71.google.com ([209.85.208.71])
-        by youngberry.canonical.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
-        (Exim 4.86_2)
-        (envelope-from <christian.brauner@canonical.com>)
-        id 1kO27m-00081j-AZ
-        for linux-man@vger.kernel.org; Thu, 01 Oct 2020 17:12:10 +0000
-Received: by mail-ed1-f71.google.com with SMTP id d13so2452427edz.18
-        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 10:12:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:content-transfer-encoding
-         :in-reply-to;
-        bh=R1wJmFfDlNS2ZK16MyLmhBE/huODDJnjpuBQkOKkIq0=;
-        b=Ws6nBmEofWgTcrcrY5GQYEIRR2joag9wLlKqOoo6t6DjTkVRtGHjHmRHl6eWvds5zp
-         qz/mnlYIkIvSTRger66wYkK6GPVPAs/xFshYnQs8M0FhZs9+KTr5hV+ig2tdzhA3P7dQ
-         nMQv+ixPsde29etbcrI99smpubBMGUITCD9FbbAKc3MxrquMHybyOuzSaU4TJ7QVSDow
-         GiNvqITo5kbcEDujMjlb4/JQq59uu5lsGjeCZQy+t+KRlG7MErmlzosp8NTyUtCgSm3c
-         WTBdZLxLM0hw22vqpxCUYIaKOBx8YBnkbFrASLUSe29f/7cWQ9LaPxAFGuSYOlSw2C3I
-         6AkA==
-X-Gm-Message-State: AOAM5319bUGmjO+OKogGWE+nTYiwi0qEjqCNxa9rUGvmxub50uhbUwfY
-        bxtSVpTS0EYF/RCcHm43Mwb1atr9ooTe2msnwXiM54fwd6oIeat3nBsjp9z8VJvwAOc3TGL/i1g
-        VEXBwOEvYo+8sxyeFrGwhmiWa49MT7bljMgZnlA==
-X-Received: by 2002:a17:906:b74a:: with SMTP id fx10mr8883931ejb.232.1601572329842;
-        Thu, 01 Oct 2020 10:12:09 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJw4vHLdiKnihkbjdlGKbr1buFcgisWIoA1Dsbv/iU/iTwRqIjmoZt3gmk1xWndAA0SxTZa58g==
-X-Received: by 2002:a17:906:b74a:: with SMTP id fx10mr8883899ejb.232.1601572329483;
-        Thu, 01 Oct 2020 10:12:09 -0700 (PDT)
-Received: from gmail.com ([176.32.19.8])
-        by smtp.gmail.com with ESMTPSA id d24sm4644094edp.17.2020.10.01.10.12.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2020 10:12:08 -0700 (PDT)
-Date:   Thu, 1 Oct 2020 19:12:06 +0200
-From:   Christian Brauner <christian.brauner@canonical.com>
-To:     Tycho Andersen <tycho@tycho.pizza>
-Cc:     Jann Horn <jannh@google.com>,
+        id S1732407AbgJARbd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Oct 2020 13:31:33 -0400
+Received: from esa3.mentor.iphmx.com ([68.232.137.180]:32876 "EHLO
+        esa3.mentor.iphmx.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1732287AbgJARbc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 13:31:32 -0400
+IronPort-SDR: Vjoul8mRRCjAcWBd2jm4PIEhaKlu17jM4VcBeAgjKer6+Td8w0t28gjI2S8FrGf0wwkPQCu+QN
+ uc8Yjf7kxf/ZEnmGCQTf0cyCh3dRgh5ZXVZSpc9/AfAQGQBW3YK65LLQCWNH/f08pzrqdoj7SS
+ SHFI1tktb/zxYLkH/MU/DpUcu8c/N7XjRwnVgcddIHkP3dMZUhYqs7RnWrczn1UZihZCtflOx1
+ k4y9qeeJTl7LZOgzqblqgYzMcci9Jzjeg5MaWLshHX6OJ2Hfkm1OO+4/hMi8rhNVVk2BEj6sQX
+ q/E=
+X-IronPort-AV: E=Sophos;i="5.77,324,1596528000"; 
+   d="scan'208";a="53473929"
+Received: from orw-gwy-01-in.mentorg.com ([192.94.38.165])
+  by esa3.mentor.iphmx.com with ESMTP; 01 Oct 2020 09:31:32 -0800
+IronPort-SDR: 5j0x1AUJ1eFEKRFBHttUzOIhb8BbpHGu6fJMt8JnSd2CD7HV75mezuxZOzoZC/C02GHTfNSSa+
+ TThh8BOXX7OM9d+xdaGKM0fIyqwV/I/gE3KcpoUw2eGO1T2uSnisHnp/1azeN3O/y6BB3TGYrd
+ Foao/nUMACY7chgTgRWPOnpCRfpOhnSwWqeJVtliZr3dR4ifVthAABHyM53dH9qszHrmgaQnGj
+ tIaIFG7u3+prGYtqIxpXdlAkJZCMM3nWOnNSKKJVfZtRb32XpATAR+QticorIMCS9HmyAEssSg
+ GOA=
+Date:   Thu, 1 Oct 2020 17:31:26 +0000
+From:   Joseph Myers <joseph@codesourcery.com>
+X-X-Sender: jsm28@digraph.polyomino.org.uk
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+CC:     Jonathan Wakely <jwakely.gcc@gmail.com>,
+        "gcc@gcc.gnu.org" <gcc@gcc.gnu.org>,
         linux-man <linux-man@vger.kernel.org>,
-        Song Liu <songliubraving@fb.com>,
-        Will Drewry <wad@chromium.org>,
-        Kees Cook <keescook@chromium.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Giuseppe Scrivano <gscrivan@redhat.com>,
-        Robert Sesek <rsesek@google.com>,
-        Linux Containers <containers@lists.linux-foundation.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Alexei Starovoitov <ast@kernel.org>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        bpf <bpf@vger.kernel.org>, Andy Lutomirski <luto@amacapital.net>,
-        Christian Brauner <christian@brauner.io>
-Subject: Re: For review: seccomp_user_notif(2) manual page
-Message-ID: <20201001171206.jvkdx4htqux5agdv@gmail.com>
-References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
- <CAG48ez3aqLs_-xgU0bThOLqRiiDWGObxcg-X9iFe6D5RDnLVJg@mail.gmail.com>
- <20201001125043.dj6taeieatpw3a4w@gmail.com>
- <CAG48ez2U1K2XYZu6goRYwmQ-RSu7LkKSOhPt8_wPVEUQfm7Eeg@mail.gmail.com>
- <20201001165850.GC1260245@cisco>
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Subject: Re: [RFC] man7/system_data_types.7: Document [unsigned] __int128
+In-Reply-To: <5ed7272e-1c81-d1f5-6a54-0fee4270199e@gmail.com>
+Message-ID: <alpine.DEB.2.21.2010011724580.4323@digraph.polyomino.org.uk>
+References: <f6179bab-bbad-22f7-0f87-c06988928ec2@gmail.com> <CAH6eHdSHEjjjDtBCFO93NXb3bCGtYg6L35injf6pz3bMoL=3Fw@mail.gmail.com> <5ed7272e-1c81-d1f5-6a54-0fee4270199e@gmail.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20201001165850.GC1260245@cisco>
+Content-Type: text/plain; charset="US-ASCII"
+X-Originating-IP: [137.202.0.90]
+X-ClientProxiedBy: SVR-IES-MBX-07.mgc.mentorg.com (139.181.222.7) To
+ svr-ies-mbx-01.mgc.mentorg.com (139.181.222.1)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Oct 01, 2020 at 10:58:50AM -0600, Tycho Andersen wrote:
-> On Thu, Oct 01, 2020 at 05:47:54PM +0200, Jann Horn via Containers wrote:
-> > On Thu, Oct 1, 2020 at 2:54 PM Christian Brauner
-> > <christian.brauner@canonical.com> wrote:
-> > > On Wed, Sep 30, 2020 at 05:53:46PM +0200, Jann Horn via Containers wrote:
-> > > > On Wed, Sep 30, 2020 at 1:07 PM Michael Kerrisk (man-pages)
-> > > > <mtk.manpages@gmail.com> wrote:
-> > > > > NOTES
-> > > > >        The file descriptor returned when seccomp(2) is employed with the
-> > > > >        SECCOMP_FILTER_FLAG_NEW_LISTENER  flag  can  be  monitored  using
-> > > > >        poll(2), epoll(7), and select(2).  When a notification  is  pend‐
-> > > > >        ing,  these interfaces indicate that the file descriptor is read‐
-> > > > >        able.
-> > > >
-> > > > We should probably also point out somewhere that, as
-> > > > include/uapi/linux/seccomp.h says:
-> > > >
-> > > >  * Similar precautions should be applied when stacking SECCOMP_RET_USER_NOTIF
-> > > >  * or SECCOMP_RET_TRACE. For SECCOMP_RET_USER_NOTIF filters acting on the
-> > > >  * same syscall, the most recently added filter takes precedence. This means
-> > > >  * that the new SECCOMP_RET_USER_NOTIF filter can override any
-> > > >  * SECCOMP_IOCTL_NOTIF_SEND from earlier filters, essentially allowing all
-> > > >  * such filtered syscalls to be executed by sending the response
-> > > >  * SECCOMP_USER_NOTIF_FLAG_CONTINUE. Note that SECCOMP_RET_TRACE can equally
-> > > >  * be overriden by SECCOMP_USER_NOTIF_FLAG_CONTINUE.
-> > > >
-> > > > In other words, from a security perspective, you must assume that the
-> > > > target process can bypass any SECCOMP_RET_USER_NOTIF (or
-> > > > SECCOMP_RET_TRACE) filters unless it is completely prohibited from
-> > > > calling seccomp(). This should also be noted over in the main
-> > > > seccomp(2) manpage, especially the SECCOMP_RET_TRACE part.
-> > >
-> > > So I was actually wondering about this when I skimmed this and a while
-> > > ago but forgot about this again... Afaict, you can only ever load a
-> > > single filter with SECCOMP_FILTER_FLAG_NEW_LISTENER set. If there
-> > > already is a filter with the SECCOMP_FILTER_FLAG_NEW_LISTENER property
-> > > in the tasks filter hierarchy then the kernel will refuse to load a new
-> > > one?
-> > >
-> > > static struct file *init_listener(struct seccomp_filter *filter)
-> > > {
-> > >         struct file *ret = ERR_PTR(-EBUSY);
-> > >         struct seccomp_filter *cur;
-> > >
-> > >         for (cur = current->seccomp.filter; cur; cur = cur->prev) {
-> > >                 if (cur->notif)
-> > >                         goto out;
-> > >         }
-> > >
-> > > shouldn't that be sufficient to guarantee that USER_NOTIF filters can't
-> > > override each other for the same task simply because there can only ever
-> > > be a single one?
-> > 
-> > Good point. Exceeeept that that check seems ineffective because this
-> > happens before we take the locks that guard against TSYNC, and also
-> > before we decide to which existing filter we want to chain the new
-> > filter. So if two threads race with TSYNC, I think they'll be able to
-> > chain two filters with listeners together.
-> 
-> Yep, seems the check needs to also be in seccomp_can_sync_threads() to
-> be totally effective,
-> 
-> > I don't know whether we want to eternalize this "only one listener
-> > across all the filters" restriction in the manpage though, or whether
-> > the man page should just say that the kernel currently doesn't support
-> > it but that security-wise you should assume that it might at some
-> > point.
-> 
-> This requirement originally came from Andy, arguing that the semantics
-> of this were/are confusing, which still makes sense to me. Perhaps we
-> should do something like the below?
+On Thu, 1 Oct 2020, Alejandro Colomar via Gcc wrote:
 
-I think we should either keep up this restriction and then cement it in
-the manpage or add a flag to indicate that the notifier is
-non-overridable.
-I don't care about the default too much, i.e. whether it's overridable
-by default and exclusive if opting in or the other way around doesn't
-matter too much. But from a supervisor's perspective it'd be quite nice
-to be able to be sure that a notifier can't be overriden by another
-notifier.
+> Because 'intmax_t' has a bug
+> (actually I know GCC rejected the bug report,
+> but the problem is still there and users should be informed about this)
+> which is related to __int128.
 
-I think having a flag would provide the greatest flexibility but I agree
-that the semantics of multiple listeners are kinda odd.
+__int128 is not an integer type as defined by any existing version of ISO 
+C, precisely because it's wider than intmax_t, and changing intmax_t would 
+be a big ABI problem (involving new symbol versions for about 100 
+printf/scanf-related functions in glibc, 200 on platforms with multiple 
+long double variants).
 
-Below looks sane to me though again, I'm not sitting in fron of source
-code.
+See the proposed removal of intmax_t in C2x (accepted in principle at the 
+first virtual Freiburg meeting, but so far without any wording accepted 
+for any specific approach to removal regarding e.g. preprocessor 
+arithmetic and other places depending on intmax_t).  That removal would 
+allow __int128 to be considered an extended integer type as defined by C2x 
+and later (with int128_t typedef in <stdint.h>, etc.), if desired.
 
-Christian
-
-> diff --git a/kernel/seccomp.c b/kernel/seccomp.c
-> index 3ee59ce0a323..7b107207c2b0 100644
-> --- a/kernel/seccomp.c
-> +++ b/kernel/seccomp.c
-> @@ -376,6 +376,18 @@ static int is_ancestor(struct seccomp_filter *parent,
->  	return 0;
->  }
->  
-> +static bool has_listener_parent(struct seccomp_filter *child)
-> +{
-> +	struct seccomp_filter *cur;
-> +
-> +	for (cur = current->seccomp.filter; cur; cur = cur->prev) {
-> +		if (cur->notif)
-> +			return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
->  /**
->   * seccomp_can_sync_threads: checks if all threads can be synchronized
->   *
-> @@ -385,7 +397,7 @@ static int is_ancestor(struct seccomp_filter *parent,
->   * either not in the correct seccomp mode or did not have an ancestral
->   * seccomp filter.
->   */
-> -static inline pid_t seccomp_can_sync_threads(void)
-> +static inline pid_t seccomp_can_sync_threads(unsigned int flags)
->  {
->  	struct task_struct *thread, *caller;
->  
-> @@ -407,6 +419,11 @@ static inline pid_t seccomp_can_sync_threads(void)
->  				 caller->seccomp.filter)))
->  			continue;
->  
-> +		/* don't allow TSYNC to install multiple listeners */
-> +		if (flags & SECCOMP_FILTER_FLAG_NEW_LISTENER &&
-> +		    !has_listener_parent(thread->seccomp.filter))
-> +			continue;
-> +
->  		/* Return the first thread that cannot be synchronized. */
->  		failed = task_pid_vnr(thread);
->  		/* If the pid cannot be resolved, then return -ESRCH */
-> @@ -637,7 +654,7 @@ static long seccomp_attach_filter(unsigned int flags,
->  	if (flags & SECCOMP_FILTER_FLAG_TSYNC) {
->  		int ret;
->  
-> -		ret = seccomp_can_sync_threads();
-> +		ret = seccomp_can_sync_threads(flags);
->  		if (ret) {
->  			if (flags & SECCOMP_FILTER_FLAG_TSYNC_ESRCH)
->  				return -ESRCH;
-> @@ -1462,12 +1479,9 @@ static const struct file_operations seccomp_notify_ops = {
->  static struct file *init_listener(struct seccomp_filter *filter)
->  {
->  	struct file *ret = ERR_PTR(-EBUSY);
-> -	struct seccomp_filter *cur;
->  
-> -	for (cur = current->seccomp.filter; cur; cur = cur->prev) {
-> -		if (cur->notif)
-> -			goto out;
-> -	}
-> +	if (has_listener_parent(current->seccomp.filter))
-> +		goto out;
->  
->  	ret = ERR_PTR(-ENOMEM);
->  	filter->notif = kzalloc(sizeof(*(filter->notif)), GFP_KERNEL);
+-- 
+Joseph S. Myers
+joseph@codesourcery.com
