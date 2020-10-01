@@ -2,81 +2,91 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BC31A280332
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 17:50:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A5A52280408
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 18:35:20 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732704AbgJAPuI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 11:50:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42134 "EHLO
+        id S1732046AbgJAQfT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Oct 2020 12:35:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49138 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1732450AbgJAPuH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 11:50:07 -0400
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 43917C0613E2
-        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 08:50:07 -0700 (PDT)
-Received: by mail-wm1-x334.google.com with SMTP id e11so2538272wme.0
-        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 08:50:07 -0700 (PDT)
+        with ESMTP id S1732016AbgJAQfT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 12:35:19 -0400
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6C510C0613D0
+        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 09:35:19 -0700 (PDT)
+Received: by mail-wm1-x330.google.com with SMTP id t17so3816590wmi.4
+        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 09:35:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=PBP6z5DXc5+B6Aax/XZWoiuZJP1QI0X0/j3bu6pDZMc=;
-        b=FgWlVfc8VuzD3+QzLF6wwrBvaHlqAq6SxzJKixigitB+i7YbX3+fISzZMkfNvx6uc+
-         f/Ae7D2CWJftHAqobQn9ejS9guSn0xBq+rbqswe/eVhQ9M9SLWswUZi1qXhHkVFQ92Hv
-         pIA+b/ju9LMuN9yCMGOg1LN+iu5K5Tlg0MiRmsAy1twkJGnaQi1QO+4eMx0OsbyR+58i
-         B6Zm2A8j/K9cFKJlSeIL2ChbCQHECh945viTbGO9evSqGxJfQweIRKx4nZlJF3Piysro
-         U9BBnAZ2TllFN9K+TXKGYNaBv1M6x5hYpvlGaafvlRGhwtDXZDBNQrqXIJoGS8hkh7Jw
-         ZCIg==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=11QD+CRy8gW2VJAXfVXYdIxjO8J7FYtePN0T6bliunI=;
+        b=loyIIOZkEN2vPmm0mCft8Bipy6CbWxS+J/ARB17VhQU5DXfsfUukkcW+YH6wFzmwX9
+         DMhjrNtRKX7jyHWKX2qQx8jZT/uSNxXOdZ+pqmCAjLFCpWrU4T2no+RL3n/e8OGaU/9W
+         Jft2yvI83EFRY0hf/4GjZKVnDq93yO9OyLW041b5qjYoZRCBz69AN+hdriYnCJ/VbzNa
+         N3bPO6vvW1LtNIYMxymuk2X6Gnvpv5ND9gIBAi0s536EJgpORuL5UuSgICUTKU1VbDh2
+         Ch0zjo/KAZxmaSw8pPaKM9g6kesqLo9vHRtxDVrfGA8TWqCrC40TJOeKlasxe48EoMe/
+         vSpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=PBP6z5DXc5+B6Aax/XZWoiuZJP1QI0X0/j3bu6pDZMc=;
-        b=QTp3W5fiYJsU280hofwIOXdc9Mfs/oqCmzeIxTaqaW/Pefu/he4fnEwyTlKydokfCv
-         37DRURed+/w3sMTIcb4S2qwdn9AGnct6V8LCaV9emoanAuABus+B3WiIQrMwUAlYo3Lb
-         RXurdf/E46/2re1z0Ughq3e6nBXaGfGSwC8JM89m01gNXKsF7iCOf0P/94hPZ4IdmY0Y
-         itY9D6zqWYfWmVa7HofQKQv16S7pPkcrGTCRecq7cQWVLTvnijmaAznCfplDLV0m91pD
-         BUlXnS1mJt5lkOPIRirNVTxN8jyE4WsPixy/YIX3dgmCJ3a0RZvcbk7l24XV3x/Ort4U
-         dWeA==
-X-Gm-Message-State: AOAM531Ccb9Uo1AA9eC72g5KgdxwAVXZcYCHD12fOf+rMIe4/2yLVX4N
-        z/frM3ySU5XGYIU+F7G6UrQ=
-X-Google-Smtp-Source: ABdhPJyWyJYhIp1DvIAomPfrITEn0hr/h2w65gHSelb0U4jzbfeok26n5NLBm+nGVQSoKxKHtdA9+A==
-X-Received: by 2002:a7b:c2a9:: with SMTP id c9mr644648wmk.87.1601567406020;
-        Thu, 01 Oct 2020 08:50:06 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=11QD+CRy8gW2VJAXfVXYdIxjO8J7FYtePN0T6bliunI=;
+        b=MwzXAzCuvuHo80TDZB3iv0WBgMn5fRKijswFAkaWQMqnShJh/bh4C9bBOnLRvot+sf
+         HYsNaDn+F7Ij6vbFQrylxNLQSjM/6IJuI/IQWVfgpa66JDNXnioNXdaAQapwFC+mEAct
+         DyW5TfC9eZR8ewvv1KjVk3YWkPTux44v7gmoKpj2z2HZgxyaU43m89Kx5/Oe5lA6UuqC
+         qlIxfuleNSVIQYNK96tx25kiATUhKNZ24cgaSFJU/XfCDXD9gCqsu2GF1QQGyzgvX935
+         /BJGrqatziNJt+TJWY7f9nW0PO+Qk+lKsgMnmWfC+k3CuJSA0t9kVkIASx8yTsAUMh1y
+         YYQQ==
+X-Gm-Message-State: AOAM530gZML4ioRlr3IeKrFHwc3PVBpB2pLAOC9iwFitxGUg/ICilVmx
+        3jwn8tiyPbhHBAfC8hldMeWIFGzZhpjUSg==
+X-Google-Smtp-Source: ABdhPJzKc7AO/sR6c7jkVg28HBmCxytCKiOg93OVmu2DLBswAWpL+rBcsNK37XyKQHtFP3jYFxbt0w==
+X-Received: by 2002:a1c:398a:: with SMTP id g132mr840193wma.41.1601570118193;
+        Thu, 01 Oct 2020 09:35:18 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id t4sm10019933wrr.26.2020.10.01.08.50.04
+        by smtp.googlemail.com with ESMTPSA id f14sm10660997wrt.53.2020.10.01.09.35.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2020 08:50:05 -0700 (PDT)
+        Thu, 01 Oct 2020 09:35:17 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        linux-man@vger.kernel.org, gcc@gcc.gnu.org,
+        linux-man@vger.kernel.org, szabolcs.nagy@arm.com,
+        jwakely.gcc@gmail.com, gcc-patches@gcc.gnu.org,
         libc-alpha@sourceware.org
-Subject: [PATCH v2 2/2] void.3: New link to system_data_types(7)
-Date:   Thu,  1 Oct 2020 17:49:47 +0200
-Message-Id: <20201001154946.104626-3-colomar.6.4.3@gmail.com>
+Subject: [PATCH 0/4] Document 128-bit types
+Date:   Thu,  1 Oct 2020 18:34:40 +0200
+Message-Id: <20201001163443.106933-1-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <41affebd-3354-9420-0048-bffd14535e95@gmail.com>
-References: <41affebd-3354-9420-0048-bffd14535e95@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
----
- man3/void.3 | 1 +
- 1 file changed, 1 insertion(+)
- create mode 100644 man3/void.3
+Hi Michael,
 
-diff --git a/man3/void.3 b/man3/void.3
-new file mode 100644
-index 000000000..db50c0f09
---- /dev/null
-+++ b/man3/void.3
-@@ -0,0 +1 @@
-+.so man7/system_data_types.7
+I think this might be ready for a patch.
+
+I'm done for today :-)
+
+
+Cheers,
+
+Alex
+
+Alejandro Colomar (4):
+  system_data_types.7: Add '__int128'
+  __int128.3: New link to system_data_types(7)
+  system_data_types.7: Add 'unsigned __int128'
+  unsigned-__int128.3: New link to system_data_types(7)
+
+ man3/__int128.3          |  1 +
+ man3/unsigned-__int128.3 |  1 +
+ man7/system_data_types.7 | 75 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 77 insertions(+)
+ create mode 100644 man3/__int128.3
+ create mode 100644 man3/unsigned-__int128.3
+
 -- 
 2.28.0
 
