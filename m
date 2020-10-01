@@ -2,51 +2,51 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 04E0428048D
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 19:05:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D06942804CE
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 19:12:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732287AbgJARFy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 13:05:54 -0400
-Received: from youngberry.canonical.com ([91.189.89.112]:52633 "EHLO
+        id S1732905AbgJARMQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Oct 2020 13:12:16 -0400
+Received: from youngberry.canonical.com ([91.189.89.112]:52997 "EHLO
         youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1732159AbgJARFy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 13:05:54 -0400
-Received: from mail-ej1-f71.google.com ([209.85.218.71])
+        with ESMTP id S1732867AbgJARMN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 13:12:13 -0400
+Received: from mail-ed1-f71.google.com ([209.85.208.71])
         by youngberry.canonical.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
         (Exim 4.86_2)
         (envelope-from <christian.brauner@canonical.com>)
-        id 1kO21g-0007Sl-0d
-        for linux-man@vger.kernel.org; Thu, 01 Oct 2020 17:05:52 +0000
-Received: by mail-ej1-f71.google.com with SMTP id dc22so2496683ejb.21
-        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 10:05:52 -0700 (PDT)
+        id 1kO27m-00081j-AZ
+        for linux-man@vger.kernel.org; Thu, 01 Oct 2020 17:12:10 +0000
+Received: by mail-ed1-f71.google.com with SMTP id d13so2452427edz.18
+        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 10:12:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:content-transfer-encoding
          :in-reply-to;
-        bh=Aap9MP/HBi9/qankX0BesgfqzXvo4bvGgH/pO8G9acQ=;
-        b=Lg8rr94BO53CcaPJ5jirECw7IcI2yyxGuggnFk4cyk6Vq9eG3qqAp0lddWmCQmHE7+
-         hU+XaQJS832IOG+k+hbbQCxhVB67w71mBUAvJcZe5U1/W2EtMz78CjWt/bFEZhb6HH6F
-         mrJvcai+Ey8q6EfbG9OtIWwGfdc+KZC8qwFR4wUKwJvNsfR3nxnZrlo0cLqJIRpmKhCK
-         rgCzZ71yz8YW0V7Fip1UFX7gmQXxpKlI4Q/5PwNQdGIm4wkfMV9hbGNuowJoXo+xyeSK
-         dOFZ28IFnf29dDBAS6coLXDPPro/RHjKgrm/UjjrnuGoIhDQGXCIUlX6voqoNuUwRt8F
-         XAwA==
-X-Gm-Message-State: AOAM533pyymUNQDH9XV+u0YaYeYaWyjukhBrU/UIB/jXJAFZ5xpctPLD
-        pbiXYpeytVA386pljHpaueZqZ4L1U6xzhnj3Jyfe6NwKXcwCusOngGwEGXHHzmkPrl0sb7QsgIT
-        JMKcMgCXDbL1fkOQG7QMb1dA1CeB6cKpXExGnQQ==
-X-Received: by 2002:a17:906:71cc:: with SMTP id i12mr9027284ejk.507.1601571951467;
-        Thu, 01 Oct 2020 10:05:51 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJy2qQHjfUA/p72XDvjFE/grmCBGTMHvF+wL+iK51zUzW2MkqzKMh3QQkZ07n2iwyU6nbvl5MA==
-X-Received: by 2002:a17:906:71cc:: with SMTP id i12mr9027243ejk.507.1601571951125;
-        Thu, 01 Oct 2020 10:05:51 -0700 (PDT)
+        bh=R1wJmFfDlNS2ZK16MyLmhBE/huODDJnjpuBQkOKkIq0=;
+        b=Ws6nBmEofWgTcrcrY5GQYEIRR2joag9wLlKqOoo6t6DjTkVRtGHjHmRHl6eWvds5zp
+         qz/mnlYIkIvSTRger66wYkK6GPVPAs/xFshYnQs8M0FhZs9+KTr5hV+ig2tdzhA3P7dQ
+         nMQv+ixPsde29etbcrI99smpubBMGUITCD9FbbAKc3MxrquMHybyOuzSaU4TJ7QVSDow
+         GiNvqITo5kbcEDujMjlb4/JQq59uu5lsGjeCZQy+t+KRlG7MErmlzosp8NTyUtCgSm3c
+         WTBdZLxLM0hw22vqpxCUYIaKOBx8YBnkbFrASLUSe29f/7cWQ9LaPxAFGuSYOlSw2C3I
+         6AkA==
+X-Gm-Message-State: AOAM5319bUGmjO+OKogGWE+nTYiwi0qEjqCNxa9rUGvmxub50uhbUwfY
+        bxtSVpTS0EYF/RCcHm43Mwb1atr9ooTe2msnwXiM54fwd6oIeat3nBsjp9z8VJvwAOc3TGL/i1g
+        VEXBwOEvYo+8sxyeFrGwhmiWa49MT7bljMgZnlA==
+X-Received: by 2002:a17:906:b74a:: with SMTP id fx10mr8883931ejb.232.1601572329842;
+        Thu, 01 Oct 2020 10:12:09 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJw4vHLdiKnihkbjdlGKbr1buFcgisWIoA1Dsbv/iU/iTwRqIjmoZt3gmk1xWndAA0SxTZa58g==
+X-Received: by 2002:a17:906:b74a:: with SMTP id fx10mr8883899ejb.232.1601572329483;
+        Thu, 01 Oct 2020 10:12:09 -0700 (PDT)
 Received: from gmail.com ([176.32.19.8])
-        by smtp.gmail.com with ESMTPSA id s7sm4481136ejd.103.2020.10.01.10.05.49
+        by smtp.gmail.com with ESMTPSA id d24sm4644094edp.17.2020.10.01.10.12.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2020 10:05:50 -0700 (PDT)
-Date:   Thu, 1 Oct 2020 19:05:43 +0200
+        Thu, 01 Oct 2020 10:12:08 -0700 (PDT)
+Date:   Thu, 1 Oct 2020 19:12:06 +0200
 From:   Christian Brauner <christian.brauner@canonical.com>
-To:     Jann Horn <jannh@google.com>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+To:     Tycho Andersen <tycho@tycho.pizza>
+Cc:     Jann Horn <jannh@google.com>,
         linux-man <linux-man@vger.kernel.org>,
         Song Liu <songliubraving@fb.com>,
         Will Drewry <wad@chromium.org>,
@@ -56,95 +56,180 @@ Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
         Robert Sesek <rsesek@google.com>,
         Linux Containers <containers@lists.linux-foundation.org>,
         lkml <linux-kernel@vger.kernel.org>,
-        Alexei Starovoitov <ast@kernel.org>, bpf <bpf@vger.kernel.org>,
-        Andy Lutomirski <luto@amacapital.net>,
+        Alexei Starovoitov <ast@kernel.org>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        bpf <bpf@vger.kernel.org>, Andy Lutomirski <luto@amacapital.net>,
         Christian Brauner <christian@brauner.io>
 Subject: Re: For review: seccomp_user_notif(2) manual page
-Message-ID: <20201001170501.7umqgtfdx6jenkla@gmail.com>
+Message-ID: <20201001171206.jvkdx4htqux5agdv@gmail.com>
 References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
  <CAG48ez3aqLs_-xgU0bThOLqRiiDWGObxcg-X9iFe6D5RDnLVJg@mail.gmail.com>
  <20201001125043.dj6taeieatpw3a4w@gmail.com>
  <CAG48ez2U1K2XYZu6goRYwmQ-RSu7LkKSOhPt8_wPVEUQfm7Eeg@mail.gmail.com>
+ <20201001165850.GC1260245@cisco>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAG48ez2U1K2XYZu6goRYwmQ-RSu7LkKSOhPt8_wPVEUQfm7Eeg@mail.gmail.com>
+In-Reply-To: <20201001165850.GC1260245@cisco>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Oct 01, 2020 at 05:47:54PM +0200, Jann Horn wrote:
-> On Thu, Oct 1, 2020 at 2:54 PM Christian Brauner
-> <christian.brauner@canonical.com> wrote:
-> > On Wed, Sep 30, 2020 at 05:53:46PM +0200, Jann Horn via Containers wrote:
-> > > On Wed, Sep 30, 2020 at 1:07 PM Michael Kerrisk (man-pages)
-> > > <mtk.manpages@gmail.com> wrote:
-> > > > NOTES
-> > > >        The file descriptor returned when seccomp(2) is employed with the
-> > > >        SECCOMP_FILTER_FLAG_NEW_LISTENER  flag  can  be  monitored  using
-> > > >        poll(2), epoll(7), and select(2).  When a notification  is  pend‐
-> > > >        ing,  these interfaces indicate that the file descriptor is read‐
-> > > >        able.
+On Thu, Oct 01, 2020 at 10:58:50AM -0600, Tycho Andersen wrote:
+> On Thu, Oct 01, 2020 at 05:47:54PM +0200, Jann Horn via Containers wrote:
+> > On Thu, Oct 1, 2020 at 2:54 PM Christian Brauner
+> > <christian.brauner@canonical.com> wrote:
+> > > On Wed, Sep 30, 2020 at 05:53:46PM +0200, Jann Horn via Containers wrote:
+> > > > On Wed, Sep 30, 2020 at 1:07 PM Michael Kerrisk (man-pages)
+> > > > <mtk.manpages@gmail.com> wrote:
+> > > > > NOTES
+> > > > >        The file descriptor returned when seccomp(2) is employed with the
+> > > > >        SECCOMP_FILTER_FLAG_NEW_LISTENER  flag  can  be  monitored  using
+> > > > >        poll(2), epoll(7), and select(2).  When a notification  is  pend‐
+> > > > >        ing,  these interfaces indicate that the file descriptor is read‐
+> > > > >        able.
+> > > >
+> > > > We should probably also point out somewhere that, as
+> > > > include/uapi/linux/seccomp.h says:
+> > > >
+> > > >  * Similar precautions should be applied when stacking SECCOMP_RET_USER_NOTIF
+> > > >  * or SECCOMP_RET_TRACE. For SECCOMP_RET_USER_NOTIF filters acting on the
+> > > >  * same syscall, the most recently added filter takes precedence. This means
+> > > >  * that the new SECCOMP_RET_USER_NOTIF filter can override any
+> > > >  * SECCOMP_IOCTL_NOTIF_SEND from earlier filters, essentially allowing all
+> > > >  * such filtered syscalls to be executed by sending the response
+> > > >  * SECCOMP_USER_NOTIF_FLAG_CONTINUE. Note that SECCOMP_RET_TRACE can equally
+> > > >  * be overriden by SECCOMP_USER_NOTIF_FLAG_CONTINUE.
+> > > >
+> > > > In other words, from a security perspective, you must assume that the
+> > > > target process can bypass any SECCOMP_RET_USER_NOTIF (or
+> > > > SECCOMP_RET_TRACE) filters unless it is completely prohibited from
+> > > > calling seccomp(). This should also be noted over in the main
+> > > > seccomp(2) manpage, especially the SECCOMP_RET_TRACE part.
 > > >
-> > > We should probably also point out somewhere that, as
-> > > include/uapi/linux/seccomp.h says:
+> > > So I was actually wondering about this when I skimmed this and a while
+> > > ago but forgot about this again... Afaict, you can only ever load a
+> > > single filter with SECCOMP_FILTER_FLAG_NEW_LISTENER set. If there
+> > > already is a filter with the SECCOMP_FILTER_FLAG_NEW_LISTENER property
+> > > in the tasks filter hierarchy then the kernel will refuse to load a new
+> > > one?
 > > >
-> > >  * Similar precautions should be applied when stacking SECCOMP_RET_USER_NOTIF
-> > >  * or SECCOMP_RET_TRACE. For SECCOMP_RET_USER_NOTIF filters acting on the
-> > >  * same syscall, the most recently added filter takes precedence. This means
-> > >  * that the new SECCOMP_RET_USER_NOTIF filter can override any
-> > >  * SECCOMP_IOCTL_NOTIF_SEND from earlier filters, essentially allowing all
-> > >  * such filtered syscalls to be executed by sending the response
-> > >  * SECCOMP_USER_NOTIF_FLAG_CONTINUE. Note that SECCOMP_RET_TRACE can equally
-> > >  * be overriden by SECCOMP_USER_NOTIF_FLAG_CONTINUE.
+> > > static struct file *init_listener(struct seccomp_filter *filter)
+> > > {
+> > >         struct file *ret = ERR_PTR(-EBUSY);
+> > >         struct seccomp_filter *cur;
 > > >
-> > > In other words, from a security perspective, you must assume that the
-> > > target process can bypass any SECCOMP_RET_USER_NOTIF (or
-> > > SECCOMP_RET_TRACE) filters unless it is completely prohibited from
-> > > calling seccomp(). This should also be noted over in the main
-> > > seccomp(2) manpage, especially the SECCOMP_RET_TRACE part.
-> >
-> > So I was actually wondering about this when I skimmed this and a while
-> > ago but forgot about this again... Afaict, you can only ever load a
-> > single filter with SECCOMP_FILTER_FLAG_NEW_LISTENER set. If there
-> > already is a filter with the SECCOMP_FILTER_FLAG_NEW_LISTENER property
-> > in the tasks filter hierarchy then the kernel will refuse to load a new
-> > one?
-> >
-> > static struct file *init_listener(struct seccomp_filter *filter)
-> > {
-> >         struct file *ret = ERR_PTR(-EBUSY);
-> >         struct seccomp_filter *cur;
-> >
-> >         for (cur = current->seccomp.filter; cur; cur = cur->prev) {
-> >                 if (cur->notif)
-> >                         goto out;
-> >         }
-> >
-> > shouldn't that be sufficient to guarantee that USER_NOTIF filters can't
-> > override each other for the same task simply because there can only ever
-> > be a single one?
+> > >         for (cur = current->seccomp.filter; cur; cur = cur->prev) {
+> > >                 if (cur->notif)
+> > >                         goto out;
+> > >         }
+> > >
+> > > shouldn't that be sufficient to guarantee that USER_NOTIF filters can't
+> > > override each other for the same task simply because there can only ever
+> > > be a single one?
+> > 
+> > Good point. Exceeeept that that check seems ineffective because this
+> > happens before we take the locks that guard against TSYNC, and also
+> > before we decide to which existing filter we want to chain the new
+> > filter. So if two threads race with TSYNC, I think they'll be able to
+> > chain two filters with listeners together.
 > 
-> Good point. Exceeeept that that check seems ineffective because this
-> happens before we take the locks that guard against TSYNC, and also
-> before we decide to which existing filter we want to chain the new
-> filter. So if two threads race with TSYNC, I think they'll be able to
-> chain two filters with listeners together.
-
-That's a bug, imho. I don't have source code in front of me right now
-though.
-
+> Yep, seems the check needs to also be in seccomp_can_sync_threads() to
+> be totally effective,
 > 
-> I don't know whether we want to eternalize this "only one listener
-> across all the filters" restriction in the manpage though, or whether
-> the man page should just say that the kernel currently doesn't support
-> it but that security-wise you should assume that it might at some
-> point.
+> > I don't know whether we want to eternalize this "only one listener
+> > across all the filters" restriction in the manpage though, or whether
+> > the man page should just say that the kernel currently doesn't support
+> > it but that security-wise you should assume that it might at some
+> > point.
+> 
+> This requirement originally came from Andy, arguing that the semantics
+> of this were/are confusing, which still makes sense to me. Perhaps we
+> should do something like the below?
 
-Maybe. I would argue that it might be worth having at least a new
-flag/option to indicate either "This is a non-overridable filter." or at
-least for the seccomp notifier have an option to indicate that no other
-notifer can be installed.
+I think we should either keep up this restriction and then cement it in
+the manpage or add a flag to indicate that the notifier is
+non-overridable.
+I don't care about the default too much, i.e. whether it's overridable
+by default and exclusive if opting in or the other way around doesn't
+matter too much. But from a supervisor's perspective it'd be quite nice
+to be able to be sure that a notifier can't be overriden by another
+notifier.
+
+I think having a flag would provide the greatest flexibility but I agree
+that the semantics of multiple listeners are kinda odd.
+
+Below looks sane to me though again, I'm not sitting in fron of source
+code.
 
 Christian
+
+> diff --git a/kernel/seccomp.c b/kernel/seccomp.c
+> index 3ee59ce0a323..7b107207c2b0 100644
+> --- a/kernel/seccomp.c
+> +++ b/kernel/seccomp.c
+> @@ -376,6 +376,18 @@ static int is_ancestor(struct seccomp_filter *parent,
+>  	return 0;
+>  }
+>  
+> +static bool has_listener_parent(struct seccomp_filter *child)
+> +{
+> +	struct seccomp_filter *cur;
+> +
+> +	for (cur = current->seccomp.filter; cur; cur = cur->prev) {
+> +		if (cur->notif)
+> +			return true;
+> +	}
+> +
+> +	return false;
+> +}
+> +
+>  /**
+>   * seccomp_can_sync_threads: checks if all threads can be synchronized
+>   *
+> @@ -385,7 +397,7 @@ static int is_ancestor(struct seccomp_filter *parent,
+>   * either not in the correct seccomp mode or did not have an ancestral
+>   * seccomp filter.
+>   */
+> -static inline pid_t seccomp_can_sync_threads(void)
+> +static inline pid_t seccomp_can_sync_threads(unsigned int flags)
+>  {
+>  	struct task_struct *thread, *caller;
+>  
+> @@ -407,6 +419,11 @@ static inline pid_t seccomp_can_sync_threads(void)
+>  				 caller->seccomp.filter)))
+>  			continue;
+>  
+> +		/* don't allow TSYNC to install multiple listeners */
+> +		if (flags & SECCOMP_FILTER_FLAG_NEW_LISTENER &&
+> +		    !has_listener_parent(thread->seccomp.filter))
+> +			continue;
+> +
+>  		/* Return the first thread that cannot be synchronized. */
+>  		failed = task_pid_vnr(thread);
+>  		/* If the pid cannot be resolved, then return -ESRCH */
+> @@ -637,7 +654,7 @@ static long seccomp_attach_filter(unsigned int flags,
+>  	if (flags & SECCOMP_FILTER_FLAG_TSYNC) {
+>  		int ret;
+>  
+> -		ret = seccomp_can_sync_threads();
+> +		ret = seccomp_can_sync_threads(flags);
+>  		if (ret) {
+>  			if (flags & SECCOMP_FILTER_FLAG_TSYNC_ESRCH)
+>  				return -ESRCH;
+> @@ -1462,12 +1479,9 @@ static const struct file_operations seccomp_notify_ops = {
+>  static struct file *init_listener(struct seccomp_filter *filter)
+>  {
+>  	struct file *ret = ERR_PTR(-EBUSY);
+> -	struct seccomp_filter *cur;
+>  
+> -	for (cur = current->seccomp.filter; cur; cur = cur->prev) {
+> -		if (cur->notif)
+> -			goto out;
+> -	}
+> +	if (has_listener_parent(current->seccomp.filter))
+> +		goto out;
+>  
+>  	ret = ERR_PTR(-ENOMEM);
+>  	filter->notif = kzalloc(sizeof(*(filter->notif)), GFP_KERNEL);
