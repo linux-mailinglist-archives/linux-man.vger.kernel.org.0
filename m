@@ -2,128 +2,169 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 44B3B27F964
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 08:20:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 63FE727FA52
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 09:33:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725878AbgJAGUI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 02:20:08 -0400
-Received: from mo4-p00-ob.smtp.rzone.de ([81.169.146.221]:13038 "EHLO
-        mo4-p00-ob.smtp.rzone.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725883AbgJAGUI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 02:20:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1601533206;
-        s=strato-dkim-0002; d=kalchreuter.de;
-        h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:
-        X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
-        bh=0qaO5Hye2ZeaZ3ESNnCdsiUCPa0xe3NPNR75m9miX6c=;
-        b=X3EHklqUXOLB0i5ix30CkYkoryle8HCkKx4YWABQwe3/9FXvm6xczWp7kfhub58eKc
-        9WyAhZ2vElbxxLIu3XSXUmJxrMoXQtIYEh+k+D0xNIrLebqRLmC3+4hdOH4B+g5X6GaB
-        1Yx8ccpzeX8/l6TYsjs4xye/+UC9gicZOTL1EZoEnBQLWIAncrRjODU9TF5sPPau9/T4
-        ULUEW3EzPtaumizZO1BCsAocwmznJ+q8wpmiroCMPfXjRqQj3BN/Nz+tjmPaLuwPwDPC
-        hkGEt9QJ+47W7sAbzeWjjzCKyYqaystz/No5j5902BWQfBFN8TEesO0CfTurP2/cWP6b
-        /L2g==
-X-RZG-AUTH: ":L2QWfFO8dO93X8MypduWHW/c7aDr3kz0lzYyuq1XNdzyRSRMf4tWwy7sZzbRGGFWRXvnUBwgLDCtJUflLINcIQVHccJHy1aTAGXI1NQ="
-X-RZG-CLASS-ID: mo00
-Received: from [IPv6:2003:e5:7737:bc00:ca60:ff:fec3:2d13]
-        by smtp.strato.de (RZmta 47.1.9 AUTH)
-        with ESMTPSA id f0902ew916K25Nf
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-        (Client did not present a certificate);
-        Thu, 1 Oct 2020 08:20:02 +0200 (CEST)
-Subject: Re: Typo in stat(2)
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>
-Cc:     linux-man@vger.kernel.org
-References: <373374d2-851f-67f6-4059-90130aaab344@kalchreuter.de>
- <87pn63tpx4.fsf@oldenburg2.str.redhat.com>
- <060e7ecf-3590-2fcb-9f28-a1534d97ac7b@gmail.com>
-From:   Christoph Kalchreuter <christoph@kalchreuter.de>
-Message-ID: <013759c3-5ca3-749e-abe9-120c00f6007c@kalchreuter.de>
-Date:   Thu, 1 Oct 2020 08:20:02 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        id S1725918AbgJAHdO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Oct 2020 03:33:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50206 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725878AbgJAHdO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 03:33:14 -0400
+Received: from mail-oo1-xc2c.google.com (mail-oo1-xc2c.google.com [IPv6:2607:f8b0:4864:20::c2c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2E3FAC0613D0
+        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 00:33:14 -0700 (PDT)
+Received: by mail-oo1-xc2c.google.com with SMTP id w25so1207385oos.10
+        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 00:33:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=g3JKvFyZNhHQM+wQdGRtmfLYIXp8UOKQ75AeamGrNYQ=;
+        b=bIZt0PiRF+0JGCIqTqrwZ6PTqXpombk8iukwnvX1n1YIdl9+al1qp7PDjsgzIbPQUu
+         5tbWUhrWCcJ2PuvllRHe+dSvZfhI4cxS/SnuE2rki2FJ00Yl15PmpxbgATZhhQHyOZwa
+         HhTTErOA+yVJXFgJhdCtd4AXAdIjhIf/GcGSqkUpWaa/vcYajqScU1M55tP0oOTI5Oqf
+         mxfxVjLirCUkcAblGYGaKtHa/7rFYr0LlxwmObCqW7aTdIKPbc//3wE7A8T24Hel8igj
+         enQ//KoIro2pRBhkMzDtbWY2+qIkDWd/AVUUJFw+MdBfHjxqBQAjl6Shx8tuBxOshNwG
+         UZkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=g3JKvFyZNhHQM+wQdGRtmfLYIXp8UOKQ75AeamGrNYQ=;
+        b=cXAIHnnU1y1zFOiw294dM4D+VfV3XrMR1YqroxaAD3cks4ft+BsFin5mpSQtEEgWbh
+         VV16Z1Hxi80I/J3b9bCWNQd1J4g8rzTsp1iFOyIjYq6wp2vMO1cR7UQeGB/MG8eKx+zg
+         /tg8+Ss8ZnLjP7eMXlWF1RBCVq8/Pnn7kQlBUnLU+2Fy8s4N4S+iwp5SIZOYlyJ0gT70
+         E3gyDs8QXO8twLDMIVcatWFKwOYmBJKvD/tfqOrf2uTIxRUeqQZWrZWnEmkQWpBTCQK/
+         fG2TmtGuvUCk5J2A9yb2+H3T1P8CYVgkXFAKUK9F5e5pCfXqb9gxTJyGudJH2WZ+Edfv
+         sAUg==
+X-Gm-Message-State: AOAM531yr00FJz9tGQLL9+B2kobzY89d+8+bLZOGORxBCtCFtC7D+4Ov
+        WtwrqZP2+jfYYd5uuJVuBE70a/2ZU16litGYYJgNx8JwQ5M=
+X-Google-Smtp-Source: ABdhPJwjCyNWhiKSUHp1Pv6yn5tqxYx4yltStu8dmZJZrQbEWzK+NkkTiWLxKd+G2/5Voe2nRRO5UjYbaMnpUSV5EF8=
+X-Received: by 2002:a4a:751a:: with SMTP id j26mr4727249ooc.14.1601537593395;
+ Thu, 01 Oct 2020 00:33:13 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <060e7ecf-3590-2fcb-9f28-a1534d97ac7b@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <20200920214012.454410-1-colomar.6.4.3@gmail.com>
+ <61f4e2a4-d468-ceba-2ccf-ce0c061aa20b@gmail.com> <f70c7f62-9d61-71aa-67cf-43501a29bccc@gmail.com>
+ <CAKgNAki7=AJ7p2AwPkf9+4AkYKdOL6b4D0NyVdwZzu-qHFvGiA@mail.gmail.com>
+ <20200921141552.tpuhdxo24lc6e7dh@localhost.localdomain> <35b5a9ff-4133-8301-bb75-4b13f7861c9a@gmail.com>
+ <20200930120242.vylnz5khajri5sz4@localhost.localdomain> <20200930125417.ovlnfxhk5zgtuj46@localhost.localdomain>
+In-Reply-To: <20200930125417.ovlnfxhk5zgtuj46@localhost.localdomain>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Thu, 1 Oct 2020 09:33:02 +0200
+Message-ID: <CAKgNAkgOYEV0HR-Y=a-FpeW4_Qoe6WAoZ6SAEbN=Yuz_g3z5Zw@mail.gmail.com>
+Subject: Re: man-pages.7: Simplify indentation of structure definitions, shell
+ session logs, and so on
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Hi Branden,
 
-you're right, st_ctim is in struct stat if it's read via lstat and I missed the 
-NOTES-section where it's clearly stated ("The nanosecond components of each 
-timestamp are available via names of the form st_atim.tv_nsec").
+Sorry -- I think I'm still not getting it.
 
-I originally came from nftw(3) where I concluded from the sentence "sb is a 
-pointer to the stat structure returned by a call to stat(2) for fpath." that I 
-can find the description for struct stat in stat(2).
+On Wed, 30 Sep 2020 at 14:54, G. Branden Robinson
+<g.branden.robinson@gmail.com> wrote:
+>
+> At 2020-09-30T22:02:43+1000, G. Branden Robinson wrote:
+> > [...] you can call .RE [...] as ".RE 2" to say "go back two
+> > indentation levels"
+>
+> Nope, that's wrong.  Forget I said that; I think I might now see
+> something I can further improve in the documentation.
+>
+> You can see I'm still bedeviled by relative insets.  :-|
+>
+> I tend to never use the argument to .RE; I just call .RE multiple times
+> to balance out my .RS calls, just like parentheses.  When I do that, I
+> don't get surprised.
+>
+> > without having to track or remember any indentation measurements.
+>
+> This part remains true.  :)
 
-In stat(2) I found that "struct timespec st_mtim" exists in struct stat, so I 
-tried to read st_mtim.tv_sec from struct stat that nftw returned.
+Currently, I use the idiom
 
-But the compiler complained: "‘const struct stat’ has no member named ‘st_mtim’; 
-did you mean ‘st_mtime’" and I concluded that there is no st_mtim in struct stat 
-and as there isn't any description of st_atim, st_mtim and st_ctim in the 
-explanation "The fields in the stat structure are as follows:" I assumed that 
-it's an typing error in the manual.
+.PP
+.in +4n
+.EX
+<code>
+.EE
+.in
+.PP
 
-It isn't and I surely did something wrong somewhere (I've to admit that I'm not 
-that experienced programmer).
+or, if we're in indented paragraph territory:
 
-So, sorry for false alarm.
+.IP
+.in +4n
+.EX
+<code>
+.EE
+.in
+.IP
 
-Best,
-Christoph
+This is of course hacky, and of course in order to get it right, I
+need to know where to use .IP vs .PP.
 
+I'd happily replace this with the use of ".RS 4/.EX/.EE/.RE", but
+what, if anything do I surround it with? And can I do it in a way that
+I don't need to care whether I'm currently in an indented zone of
+text?
 
+I mean, if I use:
 
-On 9/30/20 9:38 PM, Michael Kerrisk (man-pages) wrote:
-> On 9/30/20 2:22 PM, Florian Weimer wrote:
->> * Christoph Kalchreuter:
->>
->>> There are three Letters "e" missing in Section "DESCRIPTION",
->>> Subsection "The stat structure":
->>>
->>> struct timespec st_atim;  /* Time of last access */
->>> struct timespec st_mtim;  /* Time of last modification */
->>> sruct timespec st_ctim;  /* Time of last status change */
->>>
->>> should possibly be:
->>>
->>> struct timespec st_atime;  /* Time of last access */
->>> struct timespec st_mtime;  /* Time of last modification */
->>> sruct timespec st_ctime;  /* Time of last status change */
->>
->> This typo is also present in POSIX, so we cannot change it (like the
->> creat function).
-> 
-> Hi Christoph,
-> 
-> Florian was being very deadpan in his humor! The names
-> really are correct. In the header files, one can find
-> 
-> [[  # /usr/include/bits/stat.h
-> 
->      struct timespec st_atim;            /* Time of last access.  */
->      struct timespec st_mtim;            /* Time of last modification.  */
->      struct timespec st_ctim;            /* Time of last status change.  */
-> # define st_atime st_atim.tv_sec        /* Backward compatibility.  */
-> # define st_mtime st_mtim.tv_sec
-> # define st_ctime st_ctim.tv_sec
-> ]]
-> 
-> And struct timespec is defined as
-> 
->                struct timespec {
->                    time_t  tv_sec;  /* Seconds */
->                    long    tv_nsec; /* Nanoseconds */
->                };
-> 
-> 
-> Thanks,
-> 
-> Michael
-> 
+.RS
+.RS 4
+.PP
+.EX
+int
+main(void)
+{
+    printf("Hello world\n");
+}
+.EE
+.PP
+.RE
+.RE
+
+That produces the desired results (4-space indent) if I am currently
+in an indented zone (.TP or .IP). (But it starts to get even more
+horribly verbose, in terms of markup, than what I currently use.)
+
+But if I use that same form in an unindented zone, then <code> is
+massively (12 spaces) indented. Instead, seem to need to say just:
+
+.RS +4
+.PP
+.EX
+int
+main(void)
+{
+    printf("Hello world\n");
+}
+.EE
+.PP
+.RE
+
+What I'd *ideally* like is a solution for indented code blocks that
+(in order or priority):
+
+1) is not more verbose than the current solution
+2) uses more idiomatic mark-up than the current solution
+3) uses exactly the same form, regardless of whether I'm currently in
+an indented region of text.
+
+So far, I don't see such a solution.
+
+Thanks,
+
+Michael
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
