@@ -2,205 +2,120 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4324828074E
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 20:59:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7530F280941
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 23:12:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729993AbgJAS67 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 14:58:59 -0400
-Received: from wnew1-smtp.messagingengine.com ([64.147.123.26]:43087 "EHLO
-        wnew1-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1729990AbgJAS5F (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 14:57:05 -0400
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
-        by mailnew.west.internal (Postfix) with ESMTP id 366651298;
-        Thu,  1 Oct 2020 14:56:36 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute6.internal (MEProxy); Thu, 01 Oct 2020 14:56:37 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tycho.pizza; h=
-        date:from:to:cc:subject:message-id:references:mime-version
-        :content-type:content-transfer-encoding:in-reply-to; s=fm1; bh=i
-        bq8LGhrZAKigNWOBMJB3QC8JFPS6HWHnRsmip0Juf8=; b=faefTIbsKtfeTFnxU
-        i6tdavFKCHLFdM2fxfyp1AHD15/aQqHWGz8vNOLmFkRRXqkpjgOsgLXT0+J0TZM5
-        qc9c7yfgRZ5TLa2zdVqFAV+uXEpLR/t+uKd9UIHwbYy2BGVLLo8EgUla4FNkk6E4
-        vK3g8QjsUQa0GfsJcY5g0+xbOEMp8ktmfX7VVq+AtUqd79eCBD7flPRARFIFWzlM
-        S0GS7Nkkh+WsmhH/Fp6zHBe6tCNT9gKvxYm7qiRBoITQYF7S0gAljeOXlTIQrL82
-        pFvMNcICudfy1edLjhUhpLzsIIvqI0fqXF7ogOTy6gwY1udn0/b+zhqyhyLacVBM
-        HzsKQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-        messagingengine.com; h=cc:content-transfer-encoding:content-type
-        :date:from:in-reply-to:message-id:mime-version:references
-        :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-        :x-sasl-enc; s=fm3; bh=ibq8LGhrZAKigNWOBMJB3QC8JFPS6HWHnRsmip0Ju
-        f8=; b=vbC/uYymsPNo3iCMQ0xDYDVah+dU7erOdTEDmHcMYHh7/G8rQptUkvKKA
-        NXouI6bqPOdVVEmAdVZwFeiyQqzVsU405xvQG6b6xwCBS5EJaDqnmpqNcrJ6RHGU
-        ZZK5qXcd1FVgkPQYEnTTcV2dxW2FDhydgh+1Fx9zHU+eN8JrbZQpKUVQve/zvP+N
-        PDwR0BRNg01821QELz1wEM1QlrlnrBP0gkYyXXqy1fuB2dA2kpXwmEiq1jb2nIME
-        xtGJYrTqngxi8q1mIM12Q+MDu2lGVYN32b1O3nLX8tDxRjRRLsBgVwRqxCcGAi2e
-        /8RZ5PMfF6Jl/Czmu7jomZbGVhYJA==
-X-ME-Sender: <xms:YSZ2X9IGt_5vqGNirJf3-Ds6_cUvWKo3DzBlb8o4ty41AieBQ4byOQ>
-    <xme:YSZ2X5KvnJFI98_uNRJE89n48VbgHilW_yWe1xAJmEAVKIHt2VszIhHsI87kHw-tc
-    i6pbRqEYDkpcLMcpJg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrfeeggddufeegucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvffukfhfgggtugfgjgesthekredttddtjeenucfhrhhomhepvfihtghh
-    ohcutehnuggvrhhsvghnuceothihtghhohesthihtghhohdrphhiiiiirgeqnecuggftrf
-    grthhtvghrnhephfeuvddvleeiveeggeejueekueeljedtjeefteefueejfedvledttefh
-    hfeukeffnecukfhppeejfedrvddujedruddtrdeitdenucevlhhushhtvghrufhiiigvpe
-    dtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehthigthhhosehthigthhhordhpihiiiigr
-X-ME-Proxy: <xmx:YSZ2X1tFbDPM3jV86AKWVj2gldrMSRfYkbW-dWu7EJ38u3Xb6M8QKg>
-    <xmx:YSZ2X-a1MEqFBm875iKjNBAXqENwyPQ-CZbWrDjZ1GwCziwqtM_CQg>
-    <xmx:YSZ2X0bbdbrl1NPEBNDskCUWuTjwkPgT9N_KiGqk3Suy_dZFJ3nMoA>
-    <xmx:YyZ2X0rL3WqWEU42QS71IgS-VqUZE0gAbbnzCHbHK1p5jaO9tNUVGFhnQGjv4E6G>
-Received: from cisco (c-73-217-10-60.hsd1.co.comcast.net [73.217.10.60])
-        by mail.messagingengine.com (Postfix) with ESMTPA id A23DD328005E;
-        Thu,  1 Oct 2020 14:56:32 -0400 (EDT)
-Date:   Thu, 1 Oct 2020 12:56:31 -0600
-From:   Tycho Andersen <tycho@tycho.pizza>
-To:     Jann Horn <jannh@google.com>
-Cc:     Christian Brauner <christian.brauner@canonical.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Song Liu <songliubraving@fb.com>,
-        Will Drewry <wad@chromium.org>,
-        Kees Cook <keescook@chromium.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Giuseppe Scrivano <gscrivan@redhat.com>,
-        Robert Sesek <rsesek@google.com>,
-        Linux Containers <containers@lists.linux-foundation.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Alexei Starovoitov <ast@kernel.org>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        bpf <bpf@vger.kernel.org>, Andy Lutomirski <luto@amacapital.net>,
-        Christian Brauner <christian@brauner.io>
-Subject: Re: For review: seccomp_user_notif(2) manual page
-Message-ID: <20201001185631.GD1260245@cisco>
-References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
- <CAG48ez3aqLs_-xgU0bThOLqRiiDWGObxcg-X9iFe6D5RDnLVJg@mail.gmail.com>
- <20201001125043.dj6taeieatpw3a4w@gmail.com>
- <CAG48ez2U1K2XYZu6goRYwmQ-RSu7LkKSOhPt8_wPVEUQfm7Eeg@mail.gmail.com>
- <20201001165850.GC1260245@cisco>
- <CAG48ez1W+Ym5=-PdUhyei_UCJov0agEF4YVyARL=pooWYmdEAg@mail.gmail.com>
+        id S1727810AbgJAVHI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Oct 2020 17:07:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34590 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727891AbgJAVGt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 17:06:49 -0400
+Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 31230C0613E3
+        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 14:06:49 -0700 (PDT)
+Received: by mail-ej1-x642.google.com with SMTP id gr14so10174746ejb.1
+        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 14:06:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sargun.me; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=GJfQdlSGvnYX8WTWiSSvgRRMTzNs36g2ODPiTwjRAs8=;
+        b=tkrBQe3EU3XlxTk9RswYWhAU4d1iEgcKP+mNKsyk7QnifbEkLUVCT/Bz9HiE4WZDH9
+         kPwoGKUUr+ktBtCxlwk704U4nOoVOcFG4gZqxD8/WNDpZpcxtCXcBKHmqjgCOI2sZjKz
+         RIHBYbLW3UYEy3kwlVU6CHuZOl2ouk0fj2blw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=GJfQdlSGvnYX8WTWiSSvgRRMTzNs36g2ODPiTwjRAs8=;
+        b=egtYo0jwNO2Gj3srZip3nooMq7BPU3OePMq3T2s90LNr3jWGfqFxCbOksDSJLexqFF
+         AOvYlSgiW3NtP7Jva5+1HQRxeECiQAZY9G/MddhIJ5Um8KePmJvMjbBfSgHIHSA0ZBHw
+         OX33FqEc79Mq3wDPCbOoYsU9+lmbUPxyODQN7rXAfQLjY8GEbVk+csJh0LRQYXdiBf/f
+         rE4SuQ3zGZuV5Y1CEKdOn/jSiDLrfoxX5buQNMxd81T6z3xVBuUks24ArBkizitxgENv
+         ibrmkluGMsqkJeF1RkCofg0KOX1EP5HPFo8aYwRvOgGm/dzXi4mrJs9TqEhv28jMg264
+         9mnA==
+X-Gm-Message-State: AOAM531j+rTAsXP/svftI0Vnyg78S1v5JqUfs2JnfL2wGy+uTAbEWpgV
+        2Q8a3+AIawvysduwWj5qJPTEHIuQgTs1LOTeOAgHZA==
+X-Google-Smtp-Source: ABdhPJwvS6nNR0DvYHDBM04oUTIB+MUropRM/aV9HBVmK+CT5YH4iBVjeeDR8WdQ3dsdp+vdjAc8sF9ARo7WZujAD1Q=
+X-Received: by 2002:a17:906:3e0c:: with SMTP id k12mr10020262eji.189.1601586407475;
+ Thu, 01 Oct 2020 14:06:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAG48ez1W+Ym5=-PdUhyei_UCJov0agEF4YVyARL=pooWYmdEAg@mail.gmail.com>
+References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
+In-Reply-To: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
+From:   Sargun Dhillon <sargun@sargun.me>
+Date:   Thu, 1 Oct 2020 14:06:10 -0700
+Message-ID: <CAMp4zn9XA-z_6UKvWkFh_U2wPRjZF3=QvrXX7EikO5AEovCWBA@mail.gmail.com>
+Subject: Re: For review: seccomp_user_notif(2) manual page
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Tycho Andersen <tycho@tycho.pizza>,
+        Kees Cook <keescook@chromium.org>,
+        Christian Brauner <christian@brauner.io>,
+        linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Aleksa Sarai <cyphar@cyphar.com>, Jann Horn <jannh@google.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Will Drewry <wad@chromium.org>, bpf@vger.kernel.org,
+        Song Liu <songliubraving@fb.com>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Linux Containers <containers@lists.linux-foundation.org>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        Robert Sesek <rsesek@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Oct 01, 2020 at 08:18:49PM +0200, Jann Horn wrote:
-> On Thu, Oct 1, 2020 at 6:58 PM Tycho Andersen <tycho@tycho.pizza> wrote:
-> > On Thu, Oct 01, 2020 at 05:47:54PM +0200, Jann Horn via Containers wrote:
-> > > On Thu, Oct 1, 2020 at 2:54 PM Christian Brauner
-> > > <christian.brauner@canonical.com> wrote:
-> > > > On Wed, Sep 30, 2020 at 05:53:46PM +0200, Jann Horn via Containers wrote:
-> > > > > On Wed, Sep 30, 2020 at 1:07 PM Michael Kerrisk (man-pages)
-> > > > > <mtk.manpages@gmail.com> wrote:
-> > > > > > NOTES
-> > > > > >        The file descriptor returned when seccomp(2) is employed with the
-> > > > > >        SECCOMP_FILTER_FLAG_NEW_LISTENER  flag  can  be  monitored  using
-> > > > > >        poll(2), epoll(7), and select(2).  When a notification  is  pend‐
-> > > > > >        ing,  these interfaces indicate that the file descriptor is read‐
-> > > > > >        able.
-> > > > >
-> > > > > We should probably also point out somewhere that, as
-> > > > > include/uapi/linux/seccomp.h says:
-> > > > >
-> > > > >  * Similar precautions should be applied when stacking SECCOMP_RET_USER_NOTIF
-> > > > >  * or SECCOMP_RET_TRACE. For SECCOMP_RET_USER_NOTIF filters acting on the
-> > > > >  * same syscall, the most recently added filter takes precedence. This means
-> > > > >  * that the new SECCOMP_RET_USER_NOTIF filter can override any
-> > > > >  * SECCOMP_IOCTL_NOTIF_SEND from earlier filters, essentially allowing all
-> > > > >  * such filtered syscalls to be executed by sending the response
-> > > > >  * SECCOMP_USER_NOTIF_FLAG_CONTINUE. Note that SECCOMP_RET_TRACE can equally
-> > > > >  * be overriden by SECCOMP_USER_NOTIF_FLAG_CONTINUE.
-> > > > >
-> > > > > In other words, from a security perspective, you must assume that the
-> > > > > target process can bypass any SECCOMP_RET_USER_NOTIF (or
-> > > > > SECCOMP_RET_TRACE) filters unless it is completely prohibited from
-> > > > > calling seccomp(). This should also be noted over in the main
-> > > > > seccomp(2) manpage, especially the SECCOMP_RET_TRACE part.
-> > > >
-> > > > So I was actually wondering about this when I skimmed this and a while
-> > > > ago but forgot about this again... Afaict, you can only ever load a
-> > > > single filter with SECCOMP_FILTER_FLAG_NEW_LISTENER set. If there
-> > > > already is a filter with the SECCOMP_FILTER_FLAG_NEW_LISTENER property
-> > > > in the tasks filter hierarchy then the kernel will refuse to load a new
-> > > > one?
-> > > >
-> > > > static struct file *init_listener(struct seccomp_filter *filter)
-> > > > {
-> > > >         struct file *ret = ERR_PTR(-EBUSY);
-> > > >         struct seccomp_filter *cur;
-> > > >
-> > > >         for (cur = current->seccomp.filter; cur; cur = cur->prev) {
-> > > >                 if (cur->notif)
-> > > >                         goto out;
-> > > >         }
-> > > >
-> > > > shouldn't that be sufficient to guarantee that USER_NOTIF filters can't
-> > > > override each other for the same task simply because there can only ever
-> > > > be a single one?
-> > >
-> > > Good point. Exceeeept that that check seems ineffective because this
-> > > happens before we take the locks that guard against TSYNC, and also
-> > > before we decide to which existing filter we want to chain the new
-> > > filter. So if two threads race with TSYNC, I think they'll be able to
-> > > chain two filters with listeners together.
-> >
-> > Yep, seems the check needs to also be in seccomp_can_sync_threads() to
-> > be totally effective,
-> >
-> > > I don't know whether we want to eternalize this "only one listener
-> > > across all the filters" restriction in the manpage though, or whether
-> > > the man page should just say that the kernel currently doesn't support
-> > > it but that security-wise you should assume that it might at some
-> > > point.
-> >
-> > This requirement originally came from Andy, arguing that the semantics
-> > of this were/are confusing, which still makes sense to me. Perhaps we
-> > should do something like the below?
-> [...]
-> > +static bool has_listener_parent(struct seccomp_filter *child)
-> > +{
-> > +       struct seccomp_filter *cur;
-> > +
-> > +       for (cur = current->seccomp.filter; cur; cur = cur->prev) {
-> > +               if (cur->notif)
-> > +                       return true;
-> > +       }
-> > +
-> > +       return false;
-> > +}
-> [...]
-> > @@ -407,6 +419,11 @@ static inline pid_t seccomp_can_sync_threads(void)
-> [...]
-> > +               /* don't allow TSYNC to install multiple listeners */
-> > +               if (flags & SECCOMP_FILTER_FLAG_NEW_LISTENER &&
-> > +                   !has_listener_parent(thread->seccomp.filter))
-> > +                       continue;
-> [...]
-> > @@ -1462,12 +1479,9 @@ static const struct file_operations seccomp_notify_ops = {
-> >  static struct file *init_listener(struct seccomp_filter *filter)
-> [...]
-> > -       for (cur = current->seccomp.filter; cur; cur = cur->prev) {
-> > -               if (cur->notif)
-> > -                       goto out;
-> > -       }
-> > +       if (has_listener_parent(current->seccomp.filter))
-> > +               goto out;
-> 
-> I dislike this because it combines a non-locked check and a locked
-> check. And I don't think this will work in the case where TSYNC and
-> non-TSYNC race - if the non-TSYNC call nests around the TSYNC filter
-> installation, the thread that called seccomp in non-TSYNC mode will
-> still end up with two notifying filters. How about the following?
+On Wed, Sep 30, 2020 at 4:07 AM Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+>
+> Hi Tycho, Sargun (and all),
+>
+> I knew it would be a big ask, but below is kind of the manual page
+> I was hoping you might write [1] for the seccomp user-space notification
+> mechanism. Since you didn't (and because 5.9 adds various new pieces
+> such as SECCOMP_ADDFD_FLAG_SETFD and SECCOMP_IOCTL_NOTIF_ADDFD
+> that also will need documenting [2]), I did :-). But of course I may
+> have made mistakes...
+>
+> I've shown the rendered version of the page below, and would love
+> to receive review comments from you and others, and acks, etc.
+>
+> There are a few FIXMEs sprinkled into the page, including one
+> that relates to what appears to me to be a misdesign (possibly
+> fixable) in the operation of the SECCOMP_IOCTL_NOTIF_RECV
+> operation. I would be especially interested in feedback on that
+> FIXME, and also of course the other FIXMEs.
+>
+> The page includes an extensive (albeit slightly contrived)
+> example program, and I would be happy also to receive comments
+> on that program.
+>
+> The page source currently sits in a branch (along with the text
+> that you sent me for the seccomp(2) page) at
+> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/log/?h=seccomp_user_notif
+>
+> Thanks,
+>
+> Michael
+>
+> [1] https://lore.kernel.org/linux-man/2cea5fec-e73e-5749-18af-15c35a4bd23c@gmail.com/#t
+> [2] Sargun, can you prepare something on SECCOMP_ADDFD_FLAG_SETFD
+>     and SECCOMP_IOCTL_NOTIF_ADDFD to be added to this page?
+>
+> ====
+>
+> --
+> Michael Kerrisk
+> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+> Linux/UNIX System Programming Training: http://man7.org/training/
 
-Sure, you can add,
+Should we consider the SECCOMP_GET_NOTIF_SIZES dance to be "deprecated" at
+this point, given that the extensible ioctl mechanism works? If we add
+new fields to the
+seccomp datastructures, we would move them from fixed-size ioctls, to
+variable sized
+ioctls that encode the datastructure size / length?
 
-Reviewed-by: Tycho Andersen <tycho@tycho.pizza>
-
-when you send it.
-
-Tycho
+-- This is mostly a question for Kees and Tycho.
