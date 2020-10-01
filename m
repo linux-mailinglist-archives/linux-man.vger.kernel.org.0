@@ -2,114 +2,195 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6F253280308
-	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 17:40:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8A66428031E
+	for <lists+linux-man@lfdr.de>; Thu,  1 Oct 2020 17:48:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732242AbgJAPk5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 11:40:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40716 "EHLO
+        id S1732119AbgJAPsW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Oct 2020 11:48:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41858 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731885AbgJAPk5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 11:40:57 -0400
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BCDB5C0613D0
-        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 08:40:55 -0700 (PDT)
-Received: by mail-wm1-x332.google.com with SMTP id e17so3421527wme.0
-        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 08:40:55 -0700 (PDT)
+        with ESMTP id S1732213AbgJAPsW (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 11:48:22 -0400
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 494B7C0613E2
+        for <linux-man@vger.kernel.org>; Thu,  1 Oct 2020 08:48:22 -0700 (PDT)
+Received: by mail-ej1-x643.google.com with SMTP id nw23so8802761ejb.4
+        for <linux-man@vger.kernel.org>; Thu, 01 Oct 2020 08:48:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=fqFP3HN3l4uO5fBioTCbaZrVXi5E66MzNy3MFePRkZ4=;
-        b=V6m5o+ngTYKh9hDrgdr5UQYgMY3BhEonD/frgkr4utQsscx+iNWDI8z/sAII/zVmDV
-         gmrFoAEKl4v3fJ9UF2DYDDIgbxAyjjq+G2H60l/nUvqdCVt2p8UBIfJ65HgDzdoOMF8M
-         4DGAb4u1heisUvHH+WmbBDeWNEUikXgYDq0g87KalBks8v7rX36O2naaw8iLm7bz/Ddo
-         L7wyNZCeSTyfZ3iOoyd+J50IPEABKJHZ4qI1pc09PEZID5HNfFfLC9+dJtlSQsgjEiUO
-         /SWnt14yXaDzL6VN2Eds1Qf3KvnyDR+jtnitWCbkLvFMWZEDtY3lDiGoFdPk/71rnuYS
-         3VUw==
+        d=google.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=8IFUkJPw/kRc69ZxpOZH7IdKr2uNB4GcMACMPjhB0mM=;
+        b=sY7GNFIvYaNfMnuHljMi/SlQZ6n4BcGZhCTAkvb73jwrTAP++F0FA96srmG4n+saym
+         LPs0Qo1rf+Gc/KbMjrfFVvv0dVBlQo5xErKWSXr8vfIbgudw/fJB81Prkbi9Pii7XtRh
+         bwufKgriflGSXWbjmbN1+qvivFzU+VKLk390fTxTMNBo7z+CsZ1XFTp/HjN3R699Gw+C
+         vfciTTmpKgNNA11LmOMtAz8ZR9nakBZvoaMyZp8Hz1UVlkM5vLsghRNGZtT0pDQ9PVkF
+         +xdKQnhRbsvPbhl29QQtDseBMWcFAJ8tpq31IZJtch0aWdpaPLCLP06UMF/rwp7udtiZ
+         WVOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=fqFP3HN3l4uO5fBioTCbaZrVXi5E66MzNy3MFePRkZ4=;
-        b=dp+QCa5KIYSfuSQfw3MQJ1SAVybXKTsmWj/jwA4YW8BJic4tlzb1ZORpxarnnP6rov
-         TayHffpipYicTnhQRNmQZW5AtQ9UGfAl6Z9DWpLRGbxOlx+51sqw/wJKV7b+QyoJPEZo
-         aCXgxTLZP7q74+BwSiyx5a/1fGie2fr2Ki/Om6+OTrpfJBmdAYsi366vBAN2bOMuXhII
-         qVYnbyXq6bCnP1adqabViBBPonhUZhUsOyGPS6+XufdIywheCMg2MkYFc+w38THIqGew
-         PH0tQJwir/0GanhTWMtKz75v6LZX2cY8gRkB2lPL7QKryBHPcLmsKpvvAfpRn9yRhKcl
-         MY2A==
-X-Gm-Message-State: AOAM530TJgIEKjPvQ0K1ab7OZszXTB0oGzyhkbaPie2qKTBqp9QO+Jn7
-        JzcISqIah0b51504/6SHaKg=
-X-Google-Smtp-Source: ABdhPJx7o1SSJ70w6kTCcopgpdbSO5dkTVIcGPMB9fX09h2q56vt4xQ/9FerBaa63wQ+gSGETnVVAA==
-X-Received: by 2002:a1c:a444:: with SMTP id n65mr625880wme.122.1601566854440;
-        Thu, 01 Oct 2020 08:40:54 -0700 (PDT)
-Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id v2sm9785312wrm.16.2020.10.01.08.40.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2020 08:40:53 -0700 (PDT)
-Subject: Re: [PATCH 0/2] Document void *
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, gcc@gcc.gnu.org,
-        libc-alpha@sourceware.org
-References: <20201001150638.102544-1-colomar.6.4.3@gmail.com>
- <71c5f264-38f4-18ee-fe96-39aad08c3369@gmail.com>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <41affebd-3354-9420-0048-bffd14535e95@gmail.com>
-Date:   Thu, 1 Oct 2020 17:40:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=8IFUkJPw/kRc69ZxpOZH7IdKr2uNB4GcMACMPjhB0mM=;
+        b=PpWAfH9RHmr3xynEVmVHgtxUFcuyhWiLUWtyvUqDlgbOzIAMXpMImT1iSg4uXrTpRw
+         qW+fwc5vyQPtN2NLJ0Vrw69bJzC1sltQOk8SKbewEHHcV8VJGGWJX+Xkdi89EJqDybBE
+         B82lknLImpeMsB5gUYRikAQiqsD9I8Z8RJdwWbUjK5HuYtU2niwBHsWaNXdkFEWT6E2T
+         lLWHvLWiBbQWJ/96rc46u0EG/3Fznkq2AKXp+rdjY9bWYL1wgO+TNJPVqA2MTpU4AX6C
+         V91YaAb13qjA8u/kOcvXgVUHwI4y0EFKDHxM0aXv4WAl3c4GfQlUjbLJRTFUIeZkH78T
+         +YiQ==
+X-Gm-Message-State: AOAM531CytAo8KjJFQmCMWjdPfcHwMiY/k5LdnDfptyqNiVakNBaiYJR
+        Hmx9al5r1BqC1WMJ4bGKzpP7K4s2j//aqz0danp93g==
+X-Google-Smtp-Source: ABdhPJzN5UXlteDmV4gmQvsi+vrDa7wXLtdd0FT669/Cj8yL3OSvmpnW8FNcV9j4cLbSCSgCO88bO4oWC48rzvXf8wo=
+X-Received: by 2002:a17:906:1f94:: with SMTP id t20mr8931066ejr.493.1601567300584;
+ Thu, 01 Oct 2020 08:48:20 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <71c5f264-38f4-18ee-fe96-39aad08c3369@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
+ <CAG48ez3aqLs_-xgU0bThOLqRiiDWGObxcg-X9iFe6D5RDnLVJg@mail.gmail.com> <20201001125043.dj6taeieatpw3a4w@gmail.com>
+In-Reply-To: <20201001125043.dj6taeieatpw3a4w@gmail.com>
+From:   Jann Horn <jannh@google.com>
+Date:   Thu, 1 Oct 2020 17:47:54 +0200
+Message-ID: <CAG48ez2U1K2XYZu6goRYwmQ-RSu7LkKSOhPt8_wPVEUQfm7Eeg@mail.gmail.com>
+Subject: Re: For review: seccomp_user_notif(2) manual page
+To:     Christian Brauner <christian.brauner@canonical.com>
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        Song Liu <songliubraving@fb.com>,
+        Will Drewry <wad@chromium.org>,
+        Kees Cook <keescook@chromium.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        Robert Sesek <rsesek@google.com>,
+        Linux Containers <containers@lists.linux-foundation.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Alexei Starovoitov <ast@kernel.org>, bpf <bpf@vger.kernel.org>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Christian Brauner <christian@brauner.io>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+On Thu, Oct 1, 2020 at 2:54 PM Christian Brauner
+<christian.brauner@canonical.com> wrote:
+> On Wed, Sep 30, 2020 at 05:53:46PM +0200, Jann Horn via Containers wrote:
+> > On Wed, Sep 30, 2020 at 1:07 PM Michael Kerrisk (man-pages)
+> > <mtk.manpages@gmail.com> wrote:
+> > > NOTES
+> > >        The file descriptor returned when seccomp(2) is employed with =
+the
+> > >        SECCOMP_FILTER_FLAG_NEW_LISTENER  flag  can  be  monitored  us=
+ing
+> > >        poll(2), epoll(7), and select(2).  When a notification  is  pe=
+nd=E2=80=90
+> > >        ing,  these interfaces indicate that the file descriptor is re=
+ad=E2=80=90
+> > >        able.
+> >
+> > We should probably also point out somewhere that, as
+> > include/uapi/linux/seccomp.h says:
+> >
+> >  * Similar precautions should be applied when stacking SECCOMP_RET_USER=
+_NOTIF
+> >  * or SECCOMP_RET_TRACE. For SECCOMP_RET_USER_NOTIF filters acting on t=
+he
+> >  * same syscall, the most recently added filter takes precedence. This =
+means
+> >  * that the new SECCOMP_RET_USER_NOTIF filter can override any
+> >  * SECCOMP_IOCTL_NOTIF_SEND from earlier filters, essentially allowing =
+all
+> >  * such filtered syscalls to be executed by sending the response
+> >  * SECCOMP_USER_NOTIF_FLAG_CONTINUE. Note that SECCOMP_RET_TRACE can eq=
+ually
+> >  * be overriden by SECCOMP_USER_NOTIF_FLAG_CONTINUE.
+> >
+> > In other words, from a security perspective, you must assume that the
+> > target process can bypass any SECCOMP_RET_USER_NOTIF (or
+> > SECCOMP_RET_TRACE) filters unless it is completely prohibited from
+> > calling seccomp(). This should also be noted over in the main
+> > seccomp(2) manpage, especially the SECCOMP_RET_TRACE part.
+>
+> So I was actually wondering about this when I skimmed this and a while
+> ago but forgot about this again... Afaict, you can only ever load a
+> single filter with SECCOMP_FILTER_FLAG_NEW_LISTENER set. If there
+> already is a filter with the SECCOMP_FILTER_FLAG_NEW_LISTENER property
+> in the tasks filter hierarchy then the kernel will refuse to load a new
+> one?
+>
+> static struct file *init_listener(struct seccomp_filter *filter)
+> {
+>         struct file *ret =3D ERR_PTR(-EBUSY);
+>         struct seccomp_filter *cur;
+>
+>         for (cur =3D current->seccomp.filter; cur; cur =3D cur->prev) {
+>                 if (cur->notif)
+>                         goto out;
+>         }
+>
+> shouldn't that be sufficient to guarantee that USER_NOTIF filters can't
+> override each other for the same task simply because there can only ever
+> be a single one?
 
-On 2020-10-01 17:34, Michael Kerrisk (man-pages) wrote:
-> Hello Alex,
-> 
-> On 10/1/20 5:06 PM, Alejandro Colomar wrote:
->> Hello Michael,
->>
->> This type is very special,
->> so I will probably have missed some details about it.
-> 
-> I do wonder if we actually need this in page at all, and given:
+Good point. Exceeeept that that check seems ineffective because this
+happens before we take the locks that guard against TSYNC, and also
+before we decide to which existing filter we want to chain the new
+filter. So if two threads race with TSYNC, I think they'll be able to
+chain two filters with listeners together.
 
+I don't know whether we want to eternalize this "only one listener
+across all the filters" restriction in the manpage though, or whether
+the man page should just say that the kernel currently doesn't support
+it but that security-wise you should assume that it might at some
+point.
 
-I think it should be.
-I would also document 'void', even if it's a bit weird...
-They are very useful, so why not document them?
+[...]
+> > >            if (procMemFd =3D=3D -1)
+> > >                errExit("Supervisor: open");
+> > >
+> > >            /* Check that the process whose info we are accessing is s=
+till alive.
+> > >               If the SECCOMP_IOCTL_NOTIF_ID_VALID operation (performe=
+d
+> > >               in checkNotificationIdIsValid()) succeeds, we know that=
+ the
+> > >               /proc/PID/mem file descriptor that we opened correspond=
+s to the
+> > >               process for which we received a notification. If that p=
+rocess
+> > >               subsequently terminates, then read() on that file descr=
+iptor
+> > >               will return 0 (EOF). */
+> > >
+> > >            checkNotificationIdIsValid(notifyFd, req->id);
+> > >
+> > >            /* Seek to the location containing the pathname argument (=
+i.e., the
+> > >               first argument) of the mkdir(2) call and read that path=
+name */
+> > >
+> > >            if (lseek(procMemFd, req->data.args[0], SEEK_SET) =3D=3D -=
+1)
+> > >                errExit("Supervisor: lseek");
+> > >
+> > >            ssize_t s =3D read(procMemFd, path, PATH_MAX);
+> > >            if (s =3D=3D -1)
+> > >                errExit("read");
+> >
+> > Why not pread() instead of lseek()+read()?
+>
+> With multiple arguments to be read process_vm_readv() should also be
+> considered.
 
-> 
->> Also, do you like the link name?
-> 
-> I really don't like it... I don't want to create files
-> whose names are globbing characters; that's a road to pain.
+process_vm_readv() can end up doing each read against a different
+process, which is sort of weird semantically. You would end up taking
+page faults at random addresses in unrelated processes, blocking on
+their mmap locks, potentially triggering their userfaultfd notifiers,
+and so on.
 
+Whereas if you first open /proc/$tid/mem, then re-check
+SECCOMP_IOCTL_NOTIF_ID_VALID, and then do the read, you know that
+you're only taking page faults on the process where you intended to do
+it.
 
-Yeah, me neither... :)
-
-> 
-> So, even if we did document this type in the page,
-> I don't think we can have a good link name. (I suppose we
-> could add it to the pagewithout having a link.)
-
-
-But maybe we can have a link void.3.
-
-> 
-> Thanks,
-> 
-> Michael
-> 
-
-
-Thanks,
-
-Alex
+So until there is a variant of process_vm_readv() that operates on
+pidfds, I would not recommend using that here.
