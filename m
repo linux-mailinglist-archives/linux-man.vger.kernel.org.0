@@ -2,70 +2,86 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 02DA22810BD
-	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 12:49:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EF1BC281106
+	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 13:12:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726329AbgJBKtW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 2 Oct 2020 06:49:22 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48906 "EHLO
+        id S1726010AbgJBLMc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 2 Oct 2020 07:12:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52460 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726017AbgJBKtV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 06:49:21 -0400
-Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com [IPv6:2607:f8b0:4864:20::d41])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6FB11C0613D0;
-        Fri,  2 Oct 2020 03:49:20 -0700 (PDT)
-Received: by mail-io1-xd41.google.com with SMTP id v8so1042751iom.6;
-        Fri, 02 Oct 2020 03:49:20 -0700 (PDT)
+        with ESMTP id S1725953AbgJBLMb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 07:12:31 -0400
+Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com [IPv6:2607:f8b0:4864:20::343])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9842EC0613D0
+        for <linux-man@vger.kernel.org>; Fri,  2 Oct 2020 04:12:31 -0700 (PDT)
+Received: by mail-ot1-x343.google.com with SMTP id y5so967534otg.5
+        for <linux-man@vger.kernel.org>; Fri, 02 Oct 2020 04:12:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=Y7KPKP7p/PqqwBahTdy6N1A9YW0I11vmbu6jK2YtETo=;
-        b=mMFnVyzpteyYEG2drBH9/DG5hd+xd4LQQe5ZOpOOODDlC1pyFJJtyrMI47BJq6CK8h
-         Jo0LCcbbNPQpFfRbhyGHVgR8DPOLdnh1l28sDLEUKl66VqWz+WGf0BK03E/QS+boVq5u
-         vNvzPIW9hk+Ln4TGDpWq71oRUQpBjMx480ngcsNDVLn0jNDBBLTp+QO/AKVlo2dpgzWy
-         Kebh+kWKkpmPQO/fQEFDM48g1uL42VkN8iAezCqy2cNHKg8NdWblIsbstkFLBUriovQy
-         KAE7QHSFYMgGY4YgzZsmvAemHmjndjbk/hs6BM8sxO8A0sK/s2GJMbLDk3b212qNak9/
-         t0pw==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=VzmH5aiG/VDxKVKq8QNnKqhxOdmVjcZhGWWtnRoQG7I=;
+        b=IWiV2+gLLTPFt1qMd3MIjXTw5POwmOq4MJ0ZPNlJ5+ACN9E/ZVmnL8ehjRNkKK6FiF
+         8nNyXSpJal8znhaBhQWIeqfoQbVqpfFnbz/r2B1zhWozMXU1Xw4LS6nsPsYkgRNb5jNC
+         ActkbVS/dJBXuPT4Q/LEcY3/ItrA9FzfcJn4wCWtfuoBI5hg/hA3/3/0EApzV4MX0u9w
+         aQdo1iZXtG3dDau5JWk54uMWRXR6DSVwIeUYEjUesXzP3I2e1dIfguLcpoDJhbHBpju+
+         CXs3P5v3mmiDByCBVr/5mN0xVww0UwlgB5y89nUU7Kvm16EIt7mlXmJMyTwmsulwvsDn
+         RjOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=Y7KPKP7p/PqqwBahTdy6N1A9YW0I11vmbu6jK2YtETo=;
-        b=jD67bNd+QepgmSHfOwyrDqXplJ/W4IaEqstG1ENNVO/gI3D1V0a5GPL9P+itlSRE7Y
-         zPpQPztoyHQ5FEcsCNBDiYQjd/pW2rCE4HpSj0xythrCM2hrvgrjcjEbrVlderDxcHXM
-         cawPkKEKPAES4j7yhko+JlUAKsWVGhwgjBMR3cuMLkWImxktUwZ7FYn5/JKcP+K1cQuM
-         H8Eh1NgTE0M8y45d3MHkqd1e3Yq3PSqV6yWILERpI7UEh1d4CvgOdpLp9leYI76hQPp1
-         oQuGqvMCeVN6WfvEV8fRPPBrRyGQPLtjPopdxnk1bZgnqG1nhTXs2n6fBoGD1SuI773t
-         CjYA==
-X-Gm-Message-State: AOAM532gVt79xkqR5LF94cJpQB03ADaBb09jmQD3xr1jybN0lb/dOE3i
-        CPSfnDJhxd0uKGCZE045ulU5bGJ8z8bsJkQ4UOzETdtw
-X-Google-Smtp-Source: ABdhPJx349vqLpVGHE/lDqiH+7sz10baae/2W3jVoGayF0faxEuUtK1SFYtlQpYsbOx4d25ywfaHVaxTYn2dzYhnOlA=
-X-Received: by 2002:a02:6cd0:: with SMTP id w199mr1480958jab.121.1601635759704;
- Fri, 02 Oct 2020 03:49:19 -0700 (PDT)
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=VzmH5aiG/VDxKVKq8QNnKqhxOdmVjcZhGWWtnRoQG7I=;
+        b=RQIOsGkM9sFrugnNqlSGJioxaq1ynmWYc9CpvUfuCDLKIYaouDoefDtM+wz82oEtAx
+         Zhnj2z6XIT6CZNrDNFghbPykV5412mkK0m1CKkMpzEo6X817nE8IDxnnI9yDjlZxH9D1
+         s34HFrZF1q4fbqVwi5k3ekd80IQ0R8I2XY/j+hrKM1cLaw6BsNRTQpT/wxkmeVoVlWZU
+         dO17F3BVyeP8+Zlo4kM/XA4o/FMJB0XCf35oLlqE5ZXFTFG5ij8k7btbVMKkeQicX8xg
+         EIQoNgaOOOJIwOuwhqe63y4kocobIGQi0skER4pzOxlJxENjviV0mD29QU6eHeMbNpKE
+         0YIA==
+X-Gm-Message-State: AOAM530UMPqyHciO508ljxXpaVoFVgCG8IIp2EVi9HxaICCGBcNl5dVM
+        VrgNyXBgGetWQnsODKmWVgS4thmXoQI0Ik7k5cA=
+X-Google-Smtp-Source: ABdhPJymgVU2MerXHsqmcupJZRtWGdCwvnQKs9QOis4Si/Cf/JPOTnhSxSpEhQMGIuKbaxHU+dP1bXqGNw5iAinDci4=
+X-Received: by 2002:a9d:2274:: with SMTP id o107mr1331797ota.323.1601637150841;
+ Fri, 02 Oct 2020 04:12:30 -0700 (PDT)
 MIME-Version: 1.0
-References: <41affebd-3354-9420-0048-bffd14535e95@gmail.com>
- <20201001154946.104626-2-colomar.6.4.3@gmail.com> <538b683f-01d2-6148-4f1d-1b293eb5cd6b@cs.ucla.edu>
- <4b86f6e9-0d8a-f14a-73ce-ebbdc9d9edba@gmail.com>
-In-Reply-To: <4b86f6e9-0d8a-f14a-73ce-ebbdc9d9edba@gmail.com>
-From:   Jonathan Wakely <jwakely.gcc@gmail.com>
-Date:   Fri, 2 Oct 2020 11:49:08 +0100
-Message-ID: <CAH6eHdSLbaqTyXaPnBxnR4n+WVHJCBDF=C9RXa6To1rSuv0D4w@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] system_data_types.7: Add 'void *'
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-Cc:     Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org,
-        GNU C Library <libc-alpha@sourceware.org>,
-        mtk.manpages@gmail.com,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "gcc@gcc.gnu.org" <gcc@gcc.gnu.org>
+References: <20201002103027636420.e5d6e3ba@spg.tu-darmstadt.de>
+In-Reply-To: <20201002103027636420.e5d6e3ba@spg.tu-darmstadt.de>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Fri, 2 Oct 2020 13:12:19 +0200
+Message-ID: <CAKgNAkjVGqh7BKa3JnKSg6o5fQsqvKg4Om9q1t9uPih4a=BshA@mail.gmail.com>
+Subject: Re: strsignal(3) mentions sys_siglist, which is gone
+To:     Hauke Fath <hf@spg.tu-darmstadt.de>
+Cc:     linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, 2 Oct 2020 at 09:28, Alejandro Colomar via Gcc <gcc@gcc.gnu.org> wrote:
-> However, it might be good that someone starts a page called
-> 'type_qualifiers(7)' or something like that.
+Hello Hauke,
 
-Who is this for? Who is trying to learn C from man pages? Should
-somebody stop them?
+On Fri, 2 Oct 2020 at 10:28, Hauke Fath <hf@spg.tu-darmstadt.de> wrote:
+>
+> Hi,
+>
+> strsignal(3) <https://man7.org/linux/man-pages/man3/strsignal.3.html>
+> mentions sys_siglist[], which according to
+> <https://sourceware.org/git/?p=glibc.git;a=commitdiff;h=b1ccfc061feee9ce616444ded8e1cd5acf9fa97f>
+> has been removed from glibc.
+>
+> Noted in Arch Linux, see
+> <https://lists.archlinux.org/pipermail/arch-general/2020-October/048173.html>.
+
+Thanks. There's actually more problems. Through some accident of
+history, sys_siglist was documented in both psignal(3) and
+strsignal(3). I've consolidated the discussion to strsignal(3) and
+noted that sys_siglist is no longer exported by glibc since v2.32.
+
+Cheers,
+
+Michael
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
