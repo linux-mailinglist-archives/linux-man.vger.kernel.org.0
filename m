@@ -2,45 +2,40 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 21E4D281878
-	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 19:00:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0B112281A2A
+	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 19:52:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2387908AbgJBRAX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 2 Oct 2020 13:00:23 -0400
-Received: from zimbra.cs.ucla.edu ([131.179.128.68]:48560 "EHLO
+        id S2388337AbgJBRwd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 2 Oct 2020 13:52:33 -0400
+Received: from zimbra.cs.ucla.edu ([131.179.128.68]:60030 "EHLO
         zimbra.cs.ucla.edu" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2387768AbgJBRAW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 13:00:22 -0400
-X-Greylist: delayed 416 seconds by postgrey-1.27 at vger.kernel.org; Fri, 02 Oct 2020 13:00:22 EDT
+        with ESMTP id S2388330AbgJBRwb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 13:52:31 -0400
 Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id AC1C6160065;
-        Fri,  2 Oct 2020 10:00:22 -0700 (PDT)
+        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 0045A160065;
+        Fri,  2 Oct 2020 10:52:30 -0700 (PDT)
 Received: from zimbra.cs.ucla.edu ([127.0.0.1])
         by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id CW2rExhnLIrm; Fri,  2 Oct 2020 10:00:22 -0700 (PDT)
+        with ESMTP id PNl63y8w0W1m; Fri,  2 Oct 2020 10:52:30 -0700 (PDT)
 Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id F15661600B2;
-        Fri,  2 Oct 2020 10:00:21 -0700 (PDT)
+        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 54FF816007A;
+        Fri,  2 Oct 2020 10:52:30 -0700 (PDT)
 X-Virus-Scanned: amavisd-new at zimbra.cs.ucla.edu
 Received: from zimbra.cs.ucla.edu ([127.0.0.1])
         by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id a9M36EGALxVz; Fri,  2 Oct 2020 10:00:21 -0700 (PDT)
+        with ESMTP id 3bJNuhKXNz_k; Fri,  2 Oct 2020 10:52:30 -0700 (PDT)
 Received: from [192.168.1.9] (cpe-23-243-218-95.socal.res.rr.com [23.243.218.95])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTPSA id B5D13160065;
-        Fri,  2 Oct 2020 10:00:21 -0700 (PDT)
-Subject: Re: [PATCH v2 1/2] system_data_types.7: Add 'void *'
-To:     David Laight <David.Laight@ACULAB.COM>,
-        'Alejandro Colomar' <colomar.6.4.3@gmail.com>
-Cc:     "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
-        "gcc@gcc.gnu.org" <gcc@gcc.gnu.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <41affebd-3354-9420-0048-bffd14535e95@gmail.com>
- <20201001154946.104626-2-colomar.6.4.3@gmail.com>
- <538b683f-01d2-6148-4f1d-1b293eb5cd6b@cs.ucla.edu>
- <4b86f6e9-0d8a-f14a-73ce-ebbdc9d9edba@gmail.com>
- <a2c3ceecca7648b3bb33f1c8bf8e7893@AcuMS.aculab.com>
+        by zimbra.cs.ucla.edu (Postfix) with ESMTPSA id 120D1160065;
+        Fri,  2 Oct 2020 10:52:30 -0700 (PDT)
+Subject: Re: [PATCH 1/4] system_data_types.7: Add '__int128'
+To:     Florian Weimer <fweimer@redhat.com>,
+        Alejandro Colomar via Libc-alpha <libc-alpha@sourceware.org>
+Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
+        linux-man@vger.kernel.org, gcc-patches@gcc.gnu.org,
+        mtk.manpages@gmail.com
+References: <20201001163443.106933-1-colomar.6.4.3@gmail.com>
+ <20201001163443.106933-2-colomar.6.4.3@gmail.com>
+ <87eemg97ew.fsf@oldenburg2.str.redhat.com>
 From:   Paul Eggert <eggert@cs.ucla.edu>
 Autocrypt: addr=eggert@cs.ucla.edu; prefer-encrypt=mutual; keydata=
  mQINBEyAcmQBEADAAyH2xoTu7ppG5D3a8FMZEon74dCvc4+q1XA2J2tBy2pwaTqfhpxxdGA9
@@ -86,12 +81,12 @@ Autocrypt: addr=eggert@cs.ucla.edu; prefer-encrypt=mutual; keydata=
  OPQwxh1jwqSrU5QwoNmSYegQSHLpIUurFz1iQUh1vpPXzKinkWEqv4IqA1ciL+LyySuLkp7M
  sJpVRMbWJCNWOOSbaH4oDBJ5dHMGc35x5mosCk90PXknuFDDsYHfDo5smf9lo6YXx7N9
 Organization: UCLA Computer Science Department
-Message-ID: <aecf70d7-964d-b7ea-712a-3d9108c4e9b4@cs.ucla.edu>
-Date:   Fri, 2 Oct 2020 10:00:21 -0700
+Message-ID: <f08ea5cf-d4ae-54aa-405b-829909156186@cs.ucla.edu>
+Date:   Fri, 2 Oct 2020 10:52:28 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <a2c3ceecca7648b3bb33f1c8bf8e7893@AcuMS.aculab.com>
+In-Reply-To: <87eemg97ew.fsf@oldenburg2.str.redhat.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -99,17 +94,5 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 10/2/20 2:10 AM, David Laight wrote:
->>   > Also, you should
->>   > warn that because one can convert from any pointer type to void * and
->>   > then to any other pointer type, it's a deliberate hole in C's
->>   > type-checking.
->>
-> That isn't what the C standard says at all.
-> What is says is that you can cast any data pointer to 'void *'
-> and then cast it back to the same type.
-
-I was talking about compile-time checking; you're talking about run-time 
-behavior. We're both right in our own domains. It is a tricky area, and this 
-suggests that perhaps we shouldn't be trying to document this stuff in a 
-libc/kernel manual.
+Why describe __int128_t in these man pages at all? __int128_t is not a property 
+of either the kernel or of glibc, so it's out of scope.
