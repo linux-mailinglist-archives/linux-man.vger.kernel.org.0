@@ -2,107 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0F835280F0A
-	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 10:35:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CB279280F3B
+	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 10:49:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725993AbgJBIfZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 2 Oct 2020 04:35:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56566 "EHLO
+        id S1726017AbgJBItC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 2 Oct 2020 04:49:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58666 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725961AbgJBIfZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 04:35:25 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CF539C0613D0
-        for <linux-man@vger.kernel.org>; Fri,  2 Oct 2020 01:35:24 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id q9so763242wmj.2
-        for <linux-man@vger.kernel.org>; Fri, 02 Oct 2020 01:35:24 -0700 (PDT)
+        with ESMTP id S2387550AbgJBItC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 04:49:02 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B8035C0613D0;
+        Fri,  2 Oct 2020 01:49:01 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id t10so885374wrv.1;
+        Fri, 02 Oct 2020 01:49:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=subject:from:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=D1p7Dd8EPKaUSCoq1xg8vdBZaYcJ4v74iy4lAfMhAFE=;
-        b=kW5hB0ENW3JD5hNFZcyc8YP4e66go6KDG9ayAPoqYbKeXFpV0tlGvykOdjLCkoQ0iL
-         4r55dLFQ/bF02y72wmEPwe+b1OFJgwYFweJVCTb6L0pDXZnD/X16UtgecDKLBP40+o6/
-         EPFKmwh8MOmWxJfqlDTDyMJLcRwRHQc5PpK5FyAjidBFbTQG19/DaVR/tdbaeS5RD+dg
-         OJV3y6GkkG1tW5dzDwvEq7+wcE9gC5tk7X7sv5uROiD/R7JUwc+Li90zdwf5zQG/FzWH
-         tqsnOLm7TjBfJGt0F5mK7kG2pdvxGI+1O/CUhWBsjIXreNVbfLDj+vOwmarWaA9YBumM
-         TG1A==
+        bh=K7eAm5kls60n05g4vOafAYjVrjTDKWTSLwCtfNq5U7w=;
+        b=GCrPAB9JCM+GcuECmdM2g6L33RNDCMeTnk96Sy7QRr1XfpkQRbolqbuoeQ/ZKlMQE8
+         XEWN8+3+0M/Q5RRyKMMh3cCz+CEPuxRIBKsZWDPjOQlPw41D5a3HUilPMsVKd6tbKCTp
+         TWkArQK1Te+bHUT+8zFq+XnkTb5KCH/U0cS/qU8FSOx+DJ9onp0MapLwGg5wJ80nt9tv
+         9tnLkWFXHuNQKv3I8ySkX3Xgcy6dRSevLZj4jjqS1+9mXvvoCoXe1SAW0IVQjTUgXz/p
+         XZA3iyiNISiVJIFgxf3k1sOmLYYierho4TNu6oVYHPiueCeYfyI3C+yBAdg84roRFamy
+         Mmvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=D1p7Dd8EPKaUSCoq1xg8vdBZaYcJ4v74iy4lAfMhAFE=;
-        b=Z8WjGGRlbMQy3SP963KnICCGRUnENYJj/nBlCMAyAPWJp6PbNO63PL0WJlKZwBPQXL
-         JvC5QPjGQv0aNa/rCcoYYL8l6wtRvRYVGj54qXr5aDqFzhJ2IN4fxWcSetIaU+JZvgvw
-         /uVCswddgK42CwRZ4EBU+jnMxFo4bDOSEQ9iNX+GeVEeshTCjbL6Ci+gyqCKkjazZfjj
-         6IRwUDGlWPGRjtPutFwzxAn81U0mgZtjO/t4nC3Q01jMzsTUUDcCY6XZAjF8DLOklo/1
-         4U0rRnm8rB8k3Rz5L2R/CpqHXC0a3/IQJkazatFarH9RNZrraJaHcOQ+i4QANPgMpZi/
-         aRFw==
-X-Gm-Message-State: AOAM533VVbLu1byX+kJg6BeyzcXr6S/q4CafHQr8Z+Kfxp91MXt4v9zJ
-        DE73Feu3teYYIbKkAKfvRHv8Nh1RZS8=
-X-Google-Smtp-Source: ABdhPJySfHlqN36IPsl85SM+iCvPc61PMX/EcoQfBZuiSo8AFSXHFjkQUV2sciP92GRGElCkTMvSmQ==
-X-Received: by 2002:a05:600c:2207:: with SMTP id z7mr1603995wml.42.1601627723550;
-        Fri, 02 Oct 2020 01:35:23 -0700 (PDT)
+        bh=K7eAm5kls60n05g4vOafAYjVrjTDKWTSLwCtfNq5U7w=;
+        b=bWWMNsNx9sbOduTKs2ypwMdfI3o2EmVOiad9Rt2Tsyn59YUq4YRgvZiQgu35jwA6V7
+         E1hE5qty3Zwl1H28pdx4NdfgXrGtx5o6WT7MhI2E/KeOsJY2v1kTFxZKS+sf20+CPCye
+         Pbol0FNX8SVEUEHhwt+A9mvklsbuptKmFrbcsPlByfsI6UMzDYZqHGHXH/FEQFT1KS8H
+         ifNtDHmx82Nk1Vynb/Wx9APm+SvmWJuatu8iCjAo7CNeVU9pYwSH8chBE1ZcsiA97wL1
+         GtRuQufAtsArct8jB7tkEoVUNVnV/HVNPdsRVo2tdFj6w4JAdSd4XLZDWTCzZCSZT/pX
+         YcUQ==
+X-Gm-Message-State: AOAM530LGrlRRn2nsSJDVZpmN2TAVZkwDGV3V4mEIbfKktOCYRds5Ojr
+        8qEFQN1mnJTmp4ci4o2dhhm7YUwXw7A=
+X-Google-Smtp-Source: ABdhPJxiHP8fC8neI4ZdLiTzpMZHOLYjfesrmeki2/9n/e6Ky8fP3VbEpZJPU4SP2JTIdntsN+GRIw==
+X-Received: by 2002:a5d:4247:: with SMTP id s7mr1730226wrr.167.1601628540258;
+        Fri, 02 Oct 2020 01:49:00 -0700 (PDT)
 Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id b8sm974172wmb.4.2020.10.02.01.35.22
+        by smtp.gmail.com with ESMTPSA id q4sm931747wru.65.2020.10.02.01.48.59
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2020 01:35:22 -0700 (PDT)
-Subject: Re: [PATCH v2 1/4] system_data_types.7: Add int_leastN_t family of
- types
-To:     Paul Eggert <eggert@cs.ucla.edu>, mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-        gcc@gcc.gnu.org
-References: <20201001143535.98990-1-colomar.6.4.3@gmail.com>
- <20201001143535.98990-2-colomar.6.4.3@gmail.com>
- <b116e906-2a5d-1a7e-2969-52036ab3e8c3@cs.ucla.edu>
+        Fri, 02 Oct 2020 01:48:59 -0700 (PDT)
+Subject: Re: [PATCH v2 1/2] system_data_types.7: Add 'void *'
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <f6711dc6-acd8-257d-811d-75aa4d4a60fe@gmail.com>
-Date:   Fri, 2 Oct 2020 10:35:22 +0200
+To:     mtk.manpages@gmail.com
+Cc:     Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org,
+        libc-alpha@sourceware.org, gcc@gcc.gnu.org,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <41affebd-3354-9420-0048-bffd14535e95@gmail.com>
+ <20201001154946.104626-2-colomar.6.4.3@gmail.com>
+ <538b683f-01d2-6148-4f1d-1b293eb5cd6b@cs.ucla.edu>
+ <4b86f6e9-0d8a-f14a-73ce-ebbdc9d9edba@gmail.com>
+Message-ID: <7c55f6cf-8cb1-7b63-30ec-990f8c370bf5@gmail.com>
+Date:   Fri, 2 Oct 2020 10:48:58 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <b116e906-2a5d-1a7e-2969-52036ab3e8c3@cs.ucla.edu>
+In-Reply-To: <4b86f6e9-0d8a-f14a-73ce-ebbdc9d9edba@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Paul,
+Hi Michael,
 
-On 2020-10-01 19:38, Paul Eggert wrote:
- > On 10/1/20 7:35 AM, Alejandro Colomar via Libc-alpha wrote:
- >> +The narrowest signed integer type
- >> +of a width of at least N bits,
- >
- > Motivation is missing here. Why is there an int_leastN_t type at all?
+On 2020-10-02 10:24, Alejandro Colomar wrote:
+> On 2020-10-01 19:32, Paul Eggert wrote:
+>  > For 'void *' you should also mention that one cannot use arithmetic on
+>  > void * pointers, so they're special in that way too.
+> 
+> Good suggestion!
+> 
+>  > Also, you should
+>  > warn that because one can convert from any pointer type to void * and
+>  > then to any other pointer type, it's a deliberate hole in C's
+>  > type-checking.
+> 
+> Also good.  I'll talk about generic function parameters for this.
+I think the patch as is now is complete enough to be added.
 
-Well, I'd say the motivation is for the standard to allow
-unicorn implementations that have types that are not of normal widths
-For example, this allows an implementation to have an int of 33 bits,
-have int_least32_t be that int, and then not provide int32_t.
-
-But, I'd say that writing this information in the man would only confuse
-readers, would not be helpful because those are actually unicorns.
-
-The few programmers that may need that info might better go to the standard.
-
- > Also, on all glibc platforms, int_leastN_t is equivalent to intN_t; this
- > should probably be mentioned.
-
-We deliberately decided to not give any information on this.
-Unless there's a strict requirement by the standard,
-or there's some very good reason for it,
-the programmer should treat typedefs as what they actaully are:
-opaque types with some width, signedness and other requirements,
-which we document here.
-
- >
- > Similarly for int_fastN_t.
-
-Same as above.
+So I won't rewrite it for now.
+Please review the patch as is,
+and I'll add more info to this type in the future.
 
 Thanks,
 
