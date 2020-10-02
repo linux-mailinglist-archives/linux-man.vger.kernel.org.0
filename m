@@ -2,51 +2,51 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4855B2812AC
-	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 14:29:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 280CF2812AD
+	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 14:29:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2387757AbgJBM3c (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 2 Oct 2020 08:29:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36028 "EHLO
+        id S2387717AbgJBM3d (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 2 Oct 2020 08:29:33 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36034 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2387717AbgJBM3b (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 08:29:31 -0400
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8759DC0613D0
-        for <linux-man@vger.kernel.org>; Fri,  2 Oct 2020 05:29:31 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id q9so1502888wmj.2
-        for <linux-man@vger.kernel.org>; Fri, 02 Oct 2020 05:29:31 -0700 (PDT)
+        with ESMTP id S1726090AbgJBM3d (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 08:29:33 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5B9F6C0613D0
+        for <linux-man@vger.kernel.org>; Fri,  2 Oct 2020 05:29:33 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id m6so1649056wrn.0
+        for <linux-man@vger.kernel.org>; Fri, 02 Oct 2020 05:29:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=8cz+CV5pNXM4qzGHkwy9PeCAvNAmfETDXfFqBxG+4kc=;
-        b=ZjBKKaa9tD22WMr4h/g6VC2rBj8qItN3MmNgi0FFEJAxw443cU/jHMIZyfGrfpEVEU
-         BQ1Rt2/P5Ryc5bQixjm29MwL/0JSmD79ZYUcnSJS42vxFLW4RfEAhn/AirHQDwumWFvn
-         /sRiKufqyiJgvobqRAzyS3OVPyaOoOgN6pei9qbWE6UrvtAA5nGeWG3a3XZjJ9xValRF
-         o52KA3rG7tyIkoRbcS8DuTMiY7cRYhrR/NiERX7Q8X4JNOPwgKkyDRm1QQqdaFDlyOq5
-         sUXlyg98jLu7v3FAJHv/dKI1XUeHvZtQ47MQAJYHBDHVZlpFWZRxzL5vFtq1w9AiCYLz
-         1eFQ==
+        bh=/b99LyK05qdoGmlqjCAwTH7D40V2Tos0MFEiUwyRRPM=;
+        b=dkrGyrpe/22I21yZXZ8fi1gO3knWNXg616Q2OQWUY2ZOhxkO1USITzMwZaYX0tnnii
+         Vg2/5bXSOw1hrMZPZIxe3mQ4XPx6ftKL9cwZJ/8Ai1u51s2UlhMqIFIy+o7oc17zbS9W
+         DHmRURLRELjFnohqTnwXL9LeFwtl4AZhDQhzI3stJUkQvIoy9yKZrOFq9bQXTqrICpr7
+         CUbQZkNvjD5dNEYb3QsQBg/G3p/datHoEpBHoOS4btNWYGhTqMuWB0RQweMJeGM/1laR
+         /8sAc7HGlPyjVo6M64r2ZKE7bxs2j6yzO3d6AP0+EgN4Bnni03t6Icf8qbParaW50UAY
+         Il5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=8cz+CV5pNXM4qzGHkwy9PeCAvNAmfETDXfFqBxG+4kc=;
-        b=ZhUnjCld8GT9P3YlzEEmYbX5vQUPdrfvyH9lhJNJp5jQkx9EUlaesuFxXnuVV6lwM3
-         Bcq4wZ7JCLqHB2vJcyoHSH11nFjkKRLmdLtQAN9kBwkI6GcE3wDMG/II97FNqWd9rEWo
-         OFuikOj3tFk2cbk8KtDq5tCRyqlQi4CANSR0c0KNa1V3S8auH9FxfBdLRsrHJWzO5bDp
-         1wgWTb+/Oy09R/KYnKPDuBsMpWgDxXgwhiWu4FLNqVKoJ1uzAUmPJ4tlcSWi6VH4/3SA
-         V56nXY/MtIWiciywdscWJn4QAWUJ9Ir7/hjH2t9EVsvpRTCbTFr4TSFxwXtW4scNZcPM
-         W/IQ==
-X-Gm-Message-State: AOAM532UR8yGy/fYauFKTOyZsgkcPVLN8/SqRFbVRhY9CG1GSPi3Riqb
-        ASGyGGnX+PNQsTZ1xtXf3KI=
-X-Google-Smtp-Source: ABdhPJy1B+YCEBg5Ha5BAMKVNboUw353pfwd/itvK6+fmZQp25ishGejMly0IBHuIQN76sU8TE0vgQ==
-X-Received: by 2002:a7b:c14d:: with SMTP id z13mr2590460wmi.19.1601641770272;
-        Fri, 02 Oct 2020 05:29:30 -0700 (PDT)
+        bh=/b99LyK05qdoGmlqjCAwTH7D40V2Tos0MFEiUwyRRPM=;
+        b=DdxixyG39TaGf39b372HGOO7xTUqT5fb7EgIBSSQZbxaEqq1D7PCgQ9b4cXT2MQ6Kz
+         rpLXNDIHQeV9DKt+I+KmbMLZYHFW634AUm6CmxwPLRjOHdpLfOmWR1QV5l21yh0j/Wgg
+         cOhOUwOW+R/IlsOo8ZNl/KxORtvSLk14EW1Y+GR4NXjACVFdmja21IHk7/H6G8GDjkWh
+         pf0ZfH5W8GW5U+V7iC/Jx35P+jr4p9DYSe/9/fSCzQhjEYZv8M80wLO2LuP1ls6JUHe+
+         QAjN13fpKiVefWC3mA3auU47KzkkYP+4RPGaJj5X2dc2+8sWMVZBscu487gciR50MySS
+         BpxQ==
+X-Gm-Message-State: AOAM533jGzJwwWG3eJ/MWdZXHvi8jwXT1eXpryu087LQogURxozDLOk6
+        4JMg4Nzg7QKlvDk2Wz4UyVU=
+X-Google-Smtp-Source: ABdhPJxXAqk0+DWhKl5WTa0YFkxbmb9S3jCCRqaH63pNJ2d02bizmESgkNjRNUPccgQCiEt3tFzJ+A==
+X-Received: by 2002:a5d:69cd:: with SMTP id s13mr2725286wrw.379.1601641771408;
+        Fri, 02 Oct 2020 05:29:31 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id u2sm1829331wre.7.2020.10.02.05.29.29
+        by smtp.googlemail.com with ESMTPSA id u2sm1829331wre.7.2020.10.02.05.29.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2020 05:29:29 -0700 (PDT)
+        Fri, 02 Oct 2020 05:29:30 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
@@ -54,9 +54,9 @@ Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
         libc-alpha@sourceware.org, fweimer@redhat.com,
         joseph@codesourcery.com, jwakely.gcc@gmail.com,
         szabolcs.nagy@arm.com
-Subject: [PATCH v2 1/4] system_data_types.7: Add '__int128'
-Date:   Fri,  2 Oct 2020 14:28:20 +0200
-Message-Id: <20201002122822.24277-2-colomar.6.4.3@gmail.com>
+Subject: [PATCH v2 2/4] __int128.3: New link to system_data_types(7)
+Date:   Fri,  2 Oct 2020 14:28:21 +0200
+Message-Id: <20201002122822.24277-3-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201001163443.106933-1-colomar.6.4.3@gmail.com>
 References: <20201001163443.106933-1-colomar.6.4.3@gmail.com>
@@ -68,67 +68,17 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man7/system_data_types.7 | 40 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
+ man3/__int128.3 | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 man3/__int128.3
 
-diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-index e545aa1a0..5f9aa648f 100644
---- a/man7/system_data_types.7
-+++ b/man7/system_data_types.7
-@@ -40,6 +40,8 @@ system_data_types \- overview of system data types
- .\"		* Description (no "Description" header)
- .\"			A few lines describing the type.
- .\"
-+.\"		* Versions (optional)
-+.\"
- .\"		* Conforming to (see NOTES)
- .\"			Format: CXY and later; POSIX.1-XXXX and later.
- .\"
-@@ -48,6 +50,44 @@ system_data_types \- overview of system data types
- .\"		* Bugs (if any)
- .\"
- .\"		* See also
-+.\"------------------------------------- __int128 ---------------------/
-+.TP
-+.I __int128
-+.RS
-+.RI [ signed ]
-+.I __int128
-+.PP
-+A signed integer type
-+of a fixed width of exactly 128 bits.
-+.PP
-+When using GCC,
-+it is supported only for targets where
-+the compiler is able to generate efficient code for 128-bit arithmetic.
-+.PP
-+Versions:
-+GCC 4.6.0 and later.
-+.PP
-+Conforming to:
-+This is a non-standard extension, present in GCC.
-+It is not standardized by the C language standard nor POSIX.
-+.PP
-+Notes:
-+This type is available without including any header.
-+.PP
-+Bugs:
-+It is not possible to express an integer constant of type
-+.I __int128
-+in implementations where
-+.I long long
-+is less than 128 bits wide.
-+.PP
-+See also the
-+.IR intmax_t ,
-+.IR int N _t
-+and
-+.I unsigned __int128
-+types in this page.
-+.RE
- .\"------------------------------------- aiocb ------------------------/
- .TP
- .I aiocb
+diff --git a/man3/__int128.3 b/man3/__int128.3
+new file mode 100644
+index 000000000..db50c0f09
+--- /dev/null
++++ b/man3/__int128.3
+@@ -0,0 +1 @@
++.so man7/system_data_types.7
 -- 
 2.28.0
 
