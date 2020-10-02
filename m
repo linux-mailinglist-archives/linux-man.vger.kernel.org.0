@@ -2,41 +2,44 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 514E2281CB7
-	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 22:14:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 84EFE281CD2
+	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 22:19:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725648AbgJBUOD convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Fri, 2 Oct 2020 16:14:03 -0400
-Received: from zimbra.cs.ucla.edu ([131.179.128.68]:33610 "EHLO
+        id S1725769AbgJBUT1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 2 Oct 2020 16:19:27 -0400
+Received: from zimbra.cs.ucla.edu ([131.179.128.68]:34560 "EHLO
         zimbra.cs.ucla.edu" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725379AbgJBUOD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 16:14:03 -0400
+        with ESMTP id S1725763AbgJBUT0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 16:19:26 -0400
 Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id EBB381600D1;
-        Fri,  2 Oct 2020 13:14:02 -0700 (PDT)
+        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 63F981600DA;
+        Fri,  2 Oct 2020 13:19:26 -0700 (PDT)
 Received: from zimbra.cs.ucla.edu ([127.0.0.1])
         by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id WxOiNx4hrrsE; Fri,  2 Oct 2020 13:14:02 -0700 (PDT)
+        with ESMTP id Tc9jUrd4rOYw; Fri,  2 Oct 2020 13:19:25 -0700 (PDT)
 Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 37F851600DA;
-        Fri,  2 Oct 2020 13:14:02 -0700 (PDT)
+        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 7BD381600DB;
+        Fri,  2 Oct 2020 13:19:25 -0700 (PDT)
 X-Virus-Scanned: amavisd-new at zimbra.cs.ucla.edu
 Received: from zimbra.cs.ucla.edu ([127.0.0.1])
         by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id tseiFp9g3r0C; Fri,  2 Oct 2020 13:14:02 -0700 (PDT)
+        with ESMTP id Ri1b8mfqEcJH; Fri,  2 Oct 2020 13:19:25 -0700 (PDT)
 Received: from [192.168.1.9] (cpe-23-243-218-95.socal.res.rr.com [23.243.218.95])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTPSA id EFEFC1600D1;
-        Fri,  2 Oct 2020 13:14:01 -0700 (PDT)
-Subject: Re: [PATCH v4 1/2] system_data_types.7: Add 'void *'
+        by zimbra.cs.ucla.edu (Postfix) with ESMTPSA id 4420F1600D1;
+        Fri,  2 Oct 2020 13:19:25 -0700 (PDT)
+Subject: Re: [PATCH 1/4] system_data_types.7: Add '__int128'
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        gcc-patches@gcc.gnu.org, libc-alpha@sourceware.org,
-        linux-kernel@vger.kernel.org, jwakely.gcc@gmail.com,
-        David.Laight@ACULAB.COM
-References: <20201002121645.23646-1-colomar.6.4.3@gmail.com>
- <20201002151419.32053-2-colomar.6.4.3@gmail.com>
- <3941e130-df05-778b-dc76-90cd58400192@cs.ucla.edu>
- <d794a058-0506-7c3c-6f3e-518a788933af@gmail.com>
+Cc:     Florian Weimer <fweimer@redhat.com>,
+        Alejandro Colomar via Libc-alpha <libc-alpha@sourceware.org>,
+        linux-man@vger.kernel.org, gcc-patches@gcc.gnu.org,
+        mtk.manpages@gmail.com
+References: <20201001163443.106933-1-colomar.6.4.3@gmail.com>
+ <20201001163443.106933-2-colomar.6.4.3@gmail.com>
+ <87eemg97ew.fsf@oldenburg2.str.redhat.com>
+ <f08ea5cf-d4ae-54aa-405b-829909156186@cs.ucla.edu>
+ <bcce5f89-6682-e089-d129-43c36fe3f392@gmail.com>
+ <daa5c152-0462-19d2-d327-0042f405a40c@cs.ucla.edu>
+ <be53c11a-1729-e895-e5a5-b9b6a42f29de@gmail.com>
 From:   Paul Eggert <eggert@cs.ucla.edu>
 Autocrypt: addr=eggert@cs.ucla.edu; prefer-encrypt=mutual; keydata=
  mQINBEyAcmQBEADAAyH2xoTu7ppG5D3a8FMZEon74dCvc4+q1XA2J2tBy2pwaTqfhpxxdGA9
@@ -82,36 +85,27 @@ Autocrypt: addr=eggert@cs.ucla.edu; prefer-encrypt=mutual; keydata=
  OPQwxh1jwqSrU5QwoNmSYegQSHLpIUurFz1iQUh1vpPXzKinkWEqv4IqA1ciL+LyySuLkp7M
  sJpVRMbWJCNWOOSbaH4oDBJ5dHMGc35x5mosCk90PXknuFDDsYHfDo5smf9lo6YXx7N9
 Organization: UCLA Computer Science Department
-Message-ID: <ff1700df-d383-44e7-24b4-da10000f83fc@cs.ucla.edu>
-Date:   Fri, 2 Oct 2020 13:14:01 -0700
+Message-ID: <936422e4-d292-d435-6c3c-333b924b8ad0@cs.ucla.edu>
+Date:   Fri, 2 Oct 2020 13:19:24 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <d794a058-0506-7c3c-6f3e-518a788933af@gmail.com>
+In-Reply-To: <be53c11a-1729-e895-e5a5-b9b6a42f29de@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8BIT
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 10/2/20 11:38 AM, Alejandro Colomar wrote:
+On 10/2/20 1:03 PM, Alejandro Colomar wrote:
+> I know it's not in stdint,
+> but I mean that it behaves as any other stdint type.
 
-> .I void *
-> 
-> renders with a space in between.
+It doesn't. There's no portable way to use scanf and printf on it. You can't 
+reliably convert it to intmax_t. It doesn't have the associated _MIN and _MAX 
+macros that the stdint types do. It's a completely different animal.
 
-That's odd, as "man(7)" says "All of the arguments will be printed next to each 
-other without intervening spaces". I'd play it safe and quote the arg anyway.
-
->  > %p works with any object pointer type (or in POSIX, any pointer type),
->  > not just  void *.
-> In theory, no (if otherwise, I'd like to know why):
-
-Oh, you're right. I had missed that. In GNU/Linux hosts, though, any pointer 
-(including function pointers) can be given to %p.
-
-The only platforms where %p wouldn't work on all pointers would be platforms 
-like IBM i, which has both 64-bit (process local) pointers and 128-bit (tagged 
-space) pointers and where you can declare and use pointers of different widths 
-in the same program.
+If all you need are a few bit-twiddling tricks on x86-64, it should work. But 
+watch out if you try to do something fancy, like multiply or divide or read or 
+print or atomics. There's a good reason it's excluded from intmax_t.
