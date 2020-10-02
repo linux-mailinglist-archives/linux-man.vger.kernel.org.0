@@ -2,91 +2,134 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 063A62813FD
-	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 15:26:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A5C912813FF
+	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 15:27:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726386AbgJBN0k (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 2 Oct 2020 09:26:40 -0400
-Received: from eu-smtp-delivery-151.mimecast.com ([185.58.86.151]:60358 "EHLO
-        eu-smtp-delivery-151.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726017AbgJBN0j (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 09:26:39 -0400
-Received: from AcuMS.aculab.com (156.67.243.126 [156.67.243.126]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- uk-mta-151-BQ346DrXNiO_-pdI0jz1dQ-1; Fri, 02 Oct 2020 14:26:36 +0100
-X-MC-Unique: BQ346DrXNiO_-pdI0jz1dQ-1
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) with Microsoft SMTP
- Server (TLS) id 15.0.1347.2; Fri, 2 Oct 2020 14:26:35 +0100
-Received: from AcuMS.Aculab.com ([fe80::43c:695e:880f:8750]) by
- AcuMS.aculab.com ([fe80::43c:695e:880f:8750%12]) with mapi id 15.00.1347.000;
- Fri, 2 Oct 2020 14:26:35 +0100
-From:   David Laight <David.Laight@ACULAB.COM>
-To:     'Jonathan Wakely' <jwakely.gcc@gmail.com>,
-        Alejandro Colomar <colomar.6.4.3@gmail.com>
-CC:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        gcc-patches <gcc-patches@gcc.gnu.org>,
-        "GNU C Library" <libc-alpha@sourceware.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "eggert@cs.ucla.edu" <eggert@cs.ucla.edu>
-Subject: RE: [PATCH 1/2] system_data_types.7: Add 'void *'
-Thread-Topic: [PATCH 1/2] system_data_types.7: Add 'void *'
-Thread-Index: AQHWmL4r/NIun6B3n0m5AaW7KwTTx6mESyQw
-Date:   Fri, 2 Oct 2020 13:26:35 +0000
-Message-ID: <46f6a94a518e468c82f19c5250878529@AcuMS.aculab.com>
-References: <20201002121645.23646-1-colomar.6.4.3@gmail.com>
- <20201002121645.23646-2-colomar.6.4.3@gmail.com>
- <CAH6eHdQD+4g4ne9akZ5TDbhfq9TR0JSSBQ5H+W+Fab=5dy7O+g@mail.gmail.com>
-In-Reply-To: <CAH6eHdQD+4g4ne9akZ5TDbhfq9TR0JSSBQ5H+W+Fab=5dy7O+g@mail.gmail.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+        id S1726176AbgJBN1W (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 2 Oct 2020 09:27:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44912 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726090AbgJBN1W (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 09:27:22 -0400
+Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com [IPv6:2607:f8b0:4864:20::d43])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7CE9AC0613D0;
+        Fri,  2 Oct 2020 06:27:22 -0700 (PDT)
+Received: by mail-io1-xd43.google.com with SMTP id y74so1488272iof.12;
+        Fri, 02 Oct 2020 06:27:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=gYNWbIX3wHxMLwSyqPl4DtbX/WZajm6O/P0Who7xZ1Q=;
+        b=QYCNwPCFm+MvnGav5d4ylmFNAA2oR2PsDXSLtak41cNErruhP88a6wAUom6fzh4hJw
+         clp/Xa7qoHT0wrbzXgT/k/7mO48W/qZ4Ai8ASllM0cQJ5Rhu0Usue/uIc4tF+c9GHPwY
+         xb5ePicL7qixZOAvD9q5okpr0KUYIDaREkdWxbwQV+XOMUl9Zh8NP5tE0iqb+ypunYDb
+         CX4R8Nf6BT5Y7BzuCCxCaUIo2y2aMf1FBv76QQ3bwD30uGBTG2egXtvNpZ5itxUtZe17
+         /vrZGuO0e4ebVLQx1Fe1qDc4HTeQsxqtOOGDYGziQixMLRMskwMmsmB1vnJeNn2r8l4D
+         0Usg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=gYNWbIX3wHxMLwSyqPl4DtbX/WZajm6O/P0Who7xZ1Q=;
+        b=tNQ1OZczpZOS2WomtVNPCOsEw+6cndQdWmfmZQcTX5CEhx1CMlo5/9HPxqltZoReI6
+         c6ZMkgKvH86wjunCmcIYFExAvORbjQDabTTjN/f4inwGdmi8yflRc2d5X4KEYIs1YHa1
+         cgHEzhxkEO6GtDYqeCe/BbblE9ptDDRc3p6/MlgW1cIAqB0opjB3wlaAtgPzjjt42wA+
+         UiIH/yyazteU6ljrwpfqKjkuAHY46icQzGXZjX2mDNZiFxJr1zAdnav8nMO17syzgr3Q
+         5QqMLvIyWnP8R/bAtfpqt4ZYk4h/d+aTWiKt+ZydINcc/sQR6BTSNOMJtKzQRDJLhQ0j
+         kWug==
+X-Gm-Message-State: AOAM531zY20bFMoNBAH/s1vuHbfep6f0NNE7OFVlUOxVXa3YERd1ogVx
+        W8EfXuUceW8Rm+0s3HnCm0CbgSxrRBeyfWzxyfc=
+X-Google-Smtp-Source: ABdhPJzmfjjOakmEA1Ir2GNxnKLbaQLxjeEDnBtdvP/iDkIltITKYbFY5ZSsvvp9V5rMgB8Ff3CpqWc1kVneHQQPWys=
+X-Received: by 2002:a5d:8b88:: with SMTP id p8mr1991911iol.172.1601645241799;
+ Fri, 02 Oct 2020 06:27:21 -0700 (PDT)
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
-        auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
+References: <41affebd-3354-9420-0048-bffd14535e95@gmail.com>
+ <20201001154946.104626-2-colomar.6.4.3@gmail.com> <538b683f-01d2-6148-4f1d-1b293eb5cd6b@cs.ucla.edu>
+ <4b86f6e9-0d8a-f14a-73ce-ebbdc9d9edba@gmail.com> <CAH6eHdSLbaqTyXaPnBxnR4n+WVHJCBDF=C9RXa6To1rSuv0D4w@mail.gmail.com>
+ <CAKgNAkiHbK4RU_a_165yg3O6W0-GZMNLQoBNbut6ME=bW7pvCw@mail.gmail.com>
+ <CAH6eHdQrmsHxZbk3+JxRVZ5qH1fhFzLxyigs+DtEzSg2cet+kw@mail.gmail.com> <63826e82-7a19-0ecc-f73c-56aa560a842f@gmail.com>
+In-Reply-To: <63826e82-7a19-0ecc-f73c-56aa560a842f@gmail.com>
+From:   Jonathan Wakely <jwakely.gcc@gmail.com>
+Date:   Fri, 2 Oct 2020 14:27:10 +0100
+Message-ID: <CAH6eHdTpzNk4+Rg-+kUCRDZPLHe7MBBf2PK5i1WqD4VeEs60oQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] system_data_types.7: Add 'void *'
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        Paul Eggert <eggert@cs.ucla.edu>,
+        linux-man <linux-man@vger.kernel.org>,
+        GNU C Library <libc-alpha@sourceware.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "gcc@gcc.gnu.org" <gcc@gcc.gnu.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-PiA+ICsuSSB2b2lkICoNCj4gPiArLlJTDQo+ID4gK0FjY29yZGluZyB0byB0aGUgQyBsYW5ndWFn
-ZSBzdGFuZGFyZCwNCj4gPiArYSBwb2ludGVyIHRvIGFueSBvYmplY3QgdHlwZSBtYXkgYmUgY29u
-dmVydGVkIHRvIGEgcG9pbnRlciB0bw0KPiA+ICsuSSB2b2lkDQo+ID4gK2FuZCBiYWNrLg0KPiA+
-ICtQT1NJWCBmdXJ0aGVyIHJlcXVpcmVzIHRoYXQgYW55IHBvaW50ZXIsDQo+ID4gK2luY2x1ZGlu
-ZyBwb2ludGVycyB0byBmdW5jdGlvbnMsDQo+ID4gK21heSBiZSBjb252ZXJ0ZWQgdG8gYSBwb2lu
-dGVyIHRvDQo+ID4gKy5JIHZvaWQNCj4gPiArYW5kIGJhY2suDQo+ID4gKy5QUA0KPiA+ICtDb252
-ZXJzaW9ucyBmcm9tIGFuZCB0byBhbnkgb3RoZXIgcG9pbnRlciB0eXBlIGFyZSBkb25lIGltcGxp
-Y2l0bHksDQo+ID4gK25vdCByZXF1aXJpbmcgY2FzdHMgYXQgYWxsLg0KPiA+ICtOb3RlIHRoYXQg
-dGhpcyBmZWF0dXJlIHByZXZlbnRzIGFueSBraW5kIG9mIHR5cGUgY2hlY2tpbmc6DQo+ID4gK3Ro
-ZSBwcm9ncmFtbWVyIHNob3VsZCBiZSBjYXJlZnVsIG5vdCB0byBjYXN0IGENCj4gPiArLkkgdm9p
-ZCAqDQo+ID4gK3ZhbHVlIHRvIGEgdHlwZSBpbmNvbXBhdGlibGUgdG8gdGhhdCBvZiB0aGUgdW5k
-ZXJseWluZyBkYXRhLA0KPiA+ICtiZWNhdXNlIHRoYXQgd291bGQgcmVzdWx0IGluIHVuZGVmaW5l
-ZCBiZWhhdmlvci4NCj4gPiArLlBQDQo+ID4gK1RoaXMgdHlwZSBpcyB1c2VmdWwgaW4gZnVuY3Rp
-b24gcGFyYW1ldGVycyBhbmQgcmV0dXJuIHZhbHVlDQo+ID4gK3RvIGFsbG93IHBhc3NpbmcgdmFs
-dWVzIG9mIGFueSB0eXBlLg0KPiA+ICtUaGUgZnVuY3Rpb24gd2lsbCB1c3VhbGx5IHVzZSBzb21l
-IG1lY2hhbmlzbSB0byBrbm93DQo+ID4gK29mIHdoaWNoIHR5cGUgdGhlIHVuZGVybHlpbmcgZGF0
-YSBwYXNzZWQgdG8gdGhlIGZ1bmN0aW9uIHJlYWxseSBpcy4NCj4gDQo+IFRoaXMgc2VudGVuY2Ug
-c2VlbXMgY2x1bmt5Lg0KPiANCj4gSG93IGFib3V0ICJUaGUgZnVuY3Rpb24gd2lsbCB0eXBpY2Fs
-bHkgdXNlIHNvbWUgbWVjaGFuaXNtIHRvIGtub3cgdGhlDQo+IHJlYWwgdHlwZSBvZiB0aGUgZGF0
-YSBiZWluZyBwYXNzZWQgdmlhIGEgcG9pbnRlciB0byB2b2lkLiINCj4gDQo+IEFuIGV4YW1wbGUg
-b2YgInNvbWUgbWVjaGFuaXNtIiBtaWdodCBiZSB1c2VmdWwsIHRob3VnaCBJIGRvbid0IGhhdmUN
-Cj4gb25lIHRvIG9mZmVyLg0KDQpJdCdzIGFsc28gYm9sbG9ja3MuDQoNClRoZXJlIGFyZSB0d28g
-bWFpbiBwbGFjZXMgJ3ZvaWQgKicgaXMgdXNlZDoNCjEpIGJ1ZmZlcnMgKGVnIGZ1bmN0aW9ucyBs
-aWtlIHJlYWQoKSBhbmQgd3JpdGUoKSkgd2hlbiB0aGUNCiAgIGFzc29jaWF0ZWQgYnl0ZSBsZW5n
-dGggaXMgYWxzbyBwYXNzZWQuDQogICBUaGlzIChzb3J0IG9mKSBpbmNsdWRlcyBtZW1vcnkgYWxs
-b2NhdGlvbiBmdW5jdGlvbnMuDQoyKSBQYXNzaW5nIGEgcGFyYW1ldGVyIGZvciBhIGNhbGxiYWNr
-IGZ1bmN0aW9uLg0KICAgSW4gdGhpcyBjYXNlIHRoZSBwb2ludGVyIGlzIGFsd2F5cyBjYXN0IGJh
-Y2sgdG8NCiAgIHRoZSBvcmlnaW5hbCB0eXBlIGJlZm9yZSBiZWluZyB1c2VkLg0KICAgDQpXaGF0
-IGl0IHNob3VsZG4ndCBiZSB1c2VkIGZvciBpcyBzdHJ1Y3R1cmVzIHlvdSBkb24ndA0Kd2FudCBv
-dGhlciBjb2RlIHRvIGxvb2sgaW5zaWRlIC0gdXNlIGluY29tcGxldGUgc3RydWN0cy4NCg0KCURh
-dmlkDQoNCi0NClJlZ2lzdGVyZWQgQWRkcmVzcyBMYWtlc2lkZSwgQnJhbWxleSBSb2FkLCBNb3Vu
-dCBGYXJtLCBNaWx0b24gS2V5bmVzLCBNSzEgMVBULCBVSw0KUmVnaXN0cmF0aW9uIE5vOiAxMzk3
-Mzg2IChXYWxlcykNCg==
+On Fri, 2 Oct 2020 at 14:20, Alejandro Colomar <colomar.6.4.3@gmail.com> wrote:
+>
+>
+>
+> On 2020-10-02 15:06, Jonathan Wakely wrote:
+>  > On Fri, 2 Oct 2020 at 12:31, Michael Kerrisk (man-pages)
+>  > <mtk.manpages@gmail.com> wrote:
+>  >>
+>  >> On Fri, 2 Oct 2020 at 12:49, Jonathan Wakely <jwakely.gcc@gmail.com>
+> wrote:
+>  >>>
+>  >>> On Fri, 2 Oct 2020 at 09:28, Alejandro Colomar via Gcc
+> <gcc@gcc.gnu.org> wrote:
+>  >>>> However, it might be good that someone starts a page called
+>  >>>> 'type_qualifiers(7)' or something like that.
+>  >>>
+>  >>> Who is this for? Who is trying to learn C from man pages? Should
+>  >>> somebody stop them?
+>  >>
+>  >> Yes, I think so. To add context, Alex has been doing a lot of work to
+>  >> build up the new system_data_types(7) page [1], which I think is
+>  >> especially useful for the POSIX system data types that are used with
+>  >> various APIs.
+>  >
+>  > It's definitely useful for types like struct siginfo_t and struct
+>  > timeval, which aren't in C.
+>
+> Hi Jonathan,
+>
+> But then the line is a bit diffuse.
+> Would you document 'ssize_t' and not 'size_t'?
 
+Yes. My documentation for ssize_t would mention size_t, refer to the C
+standard, and not define it.
+
+> Would you not document intN_t types?
+> Would you document stdint types, including 'intptr_t', and not 'void *'?
+
+I would document neither.
+
+I can see some small value in documenting size_t and the stdint types,
+as they are technically defined by the libc headers. But documenting
+void* seems very silly. It's one of the most fundamental built-in
+parts of the C language, not an interface provided by the system.
+
+> I guess the basic types (int, long, ...) can be left out for now,
+
+I should hope so!
+
+> and apart from 'int' those rarely are the most appropriate types
+> for most uses.
+> But other than that, I would document all of the types.
+> And even... when all of the other types are documented,
+> it will be only a little extra effort to document those,
+> so in the future I might consider that.
+
+[insert Jurassic Park meme "Your scientists were so preoccupied with
+whether or not they could, they didn't stop to think if they should."
+]
+
+I don't see value in bloating the man-pages with information nobody
+will ever use, and which doesn't (IMHO) belong there anyway. We seem
+to fundamentally disagree about what the man pages are for. I don't
+think they are supposed to teach C programming from scratch.
+
+
+> But yes, priority should probably go to Linux/POSIX-only types.
