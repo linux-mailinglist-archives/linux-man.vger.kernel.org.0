@@ -2,83 +2,92 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CFAE32812AF
-	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 14:29:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 36BB32813B3
+	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 15:06:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2387792AbgJBM3f (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 2 Oct 2020 08:29:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36044 "EHLO
+        id S1726569AbgJBNGd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 2 Oct 2020 09:06:33 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41720 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726090AbgJBM3f (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 08:29:35 -0400
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1D95CC0613D0
-        for <linux-man@vger.kernel.org>; Fri,  2 Oct 2020 05:29:35 -0700 (PDT)
-Received: by mail-wm1-x341.google.com with SMTP id e2so1575856wme.1
-        for <linux-man@vger.kernel.org>; Fri, 02 Oct 2020 05:29:35 -0700 (PDT)
+        with ESMTP id S1726282AbgJBNGd (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 09:06:33 -0400
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com [IPv6:2607:f8b0:4864:20::d44])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9739BC0613D0;
+        Fri,  2 Oct 2020 06:06:33 -0700 (PDT)
+Received: by mail-io1-xd44.google.com with SMTP id u6so1428227iow.9;
+        Fri, 02 Oct 2020 06:06:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=vnjks/Iu/u07UujIbudn6X9f6k1p5Vp0ZFcd3HnTlX0=;
-        b=hJpRUmBwXalWY5dgPs3w79HfadfM6rTcvUjU6ccGZDBkQJbrTkrWaw7eCadoQYhfTs
-         OOd/a+SC8UU1oW0yT5qaqMCErUrBTMQwEONEO73Ufg+cE8NRbjA/KgS/opRj3L3dSPpf
-         mNAfKMfzvwCy0az+0WjkTwgsMiNHRf/yndbfX5pZ6uIZfYleadm/qxF8OpZ1PNTTeg4i
-         WfiKbRBJyD9jCoqw7cZ5W77JYR4k7UCiaIyB/MZ0usKM8OZBIIEhDxWLMbdHivLr/G/t
-         CjgBCy0alUjlZeGtEdwWsuJj/rDhLG+U112Jmd+7nl61RZHhV61Ur6OeegvSFDTzXfbZ
-         R8iw==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=LtOofo94PCMfjpw9R/jhuE3xavKmxW8EYRlrREI1JLE=;
+        b=rIHSuR5nnY6yp+wlhLgEPMEKa81IbrqQJrRbqFCovSqjQFL5doKGXzIflxbU3d3/df
+         ZL9lJKSHXaGyzMBRm9iBXw8f+vgzsudAfamQPVHJvMxZY6mTOmgyYee7IiV7H9XUca5i
+         lInPsBro8sF8i80lNI64gfkYy9XXq91NurnrOndpRBgvaGgRpNxE+MzgW5ugaXHWQBJ0
+         9dUT8NfkNq1M3K4ABSEdeFsRfDRrh3HOko+LmJZahuZ2ilrz0gSmzHqha3DhkyzZnAtz
+         DG4jbWP9YH/d2WZpgNPY0F13KcHDhah97wIjhvN6NvMdCT9Ngx6u6WaoldldbZgVu4fV
+         9x7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=vnjks/Iu/u07UujIbudn6X9f6k1p5Vp0ZFcd3HnTlX0=;
-        b=sQAw1P/W9eUvs3vNAYx6rujnuC1f+6RSBLHJdjKZJB5svdlYDzjsikXkSUvroekfdl
-         2hLRvA0kxtkQnVlTjvQpeLjOIgZl6PT8nkeoAqlfuNqfsLGiWMOOlmONJ5+YeW8g8cEf
-         cGcU1BDBYtwp+B2giYgFLbNq6OjZucACoBzp1e9Fc4YgVTmQNyihI2/PLjSn0dc4AIWt
-         VRXXZGsOnb0w62Xz7ps6/gwWXyivIF650yuqrRYwDPlnvUH4apUyr3eEk1TrmtyhZeJ7
-         lFBXDNA2578WAlejshuzN67I42IvpjZyfA+om2757juojHuWgYiAIvvFq81y1vFicdRD
-         Mzgg==
-X-Gm-Message-State: AOAM531pi3kBeLILbzvzn9mlc+onX7ecCmgDO+x+oggslBnwPLfG3mHl
-        Yd6uCgT/joZ7/zVt/bUCVolx0jHyH6UXmA==
-X-Google-Smtp-Source: ABdhPJy46HJly4TZpcevcrByVyUzrGAMUgPgCCKFqXxATceVd760jKrHQb8sFO3qlQ99SsuDgJ+Grw==
-X-Received: by 2002:a7b:c183:: with SMTP id y3mr2676650wmi.84.1601641773874;
-        Fri, 02 Oct 2020 05:29:33 -0700 (PDT)
-Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id u2sm1829331wre.7.2020.10.02.05.29.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2020 05:29:33 -0700 (PDT)
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        linux-man@vger.kernel.org, gcc-patches@gcc.gnu.org,
-        libc-alpha@sourceware.org, fweimer@redhat.com,
-        joseph@codesourcery.com, jwakely.gcc@gmail.com,
-        szabolcs.nagy@arm.com
-Subject: [PATCH v2 4/4] unsigned-__int128.3: New link to system_data_types(7)
-Date:   Fri,  2 Oct 2020 14:28:23 +0200
-Message-Id: <20201002122822.24277-5-colomar.6.4.3@gmail.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20201001163443.106933-1-colomar.6.4.3@gmail.com>
-References: <20201001163443.106933-1-colomar.6.4.3@gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=LtOofo94PCMfjpw9R/jhuE3xavKmxW8EYRlrREI1JLE=;
+        b=uFG/cTnWnwA15s0wxUm8fmaQwwii/hjVTXCg4K0aEG4kttzftN/oD9Nd7U8gkmOD69
+         9aRpEwoiT+1caVjQB84bDTV8p0IF428LlhaTnwq82+PzDMiPt6jf8DLKPCIKH5DLNSjL
+         0KQXgUpsgnbdFNGWll1qAU9cUAELi9wBFMCBZVoPjrqxJAZ6olQm6HIA+FZ5LcyzO4YJ
+         uXoCUzCQkph38lHas1IJ081O+uwNIxJqXtU+KoiSXntwotRGMTw1atzO9oTFSjBdPHJj
+         AV3AwtsTvSjNip+4k5anp+wXXGeHkc73BiD1nfNmkGlmB7HQdR5Uv4O8BXC6r8SNVm6J
+         nwLA==
+X-Gm-Message-State: AOAM530S/MpL1BEpjYV4j2b0Fxac1XdRvvvD05w80bCxF2e2KsC1bwBB
+        XGKABuU4VYlGYssCTTJo89JY03nbx3V8/FBbMXQ=
+X-Google-Smtp-Source: ABdhPJw5L9jHE6rrtKMYan3FuRwtSrzDv3Snjif+ZR+ivIIsYcRSdFnZVMtwsWEro2HbimAei/kCumA2xQuMd7ig6pw=
+X-Received: by 2002:a02:ccdb:: with SMTP id k27mr2093934jaq.103.1601643992923;
+ Fri, 02 Oct 2020 06:06:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <41affebd-3354-9420-0048-bffd14535e95@gmail.com>
+ <20201001154946.104626-2-colomar.6.4.3@gmail.com> <538b683f-01d2-6148-4f1d-1b293eb5cd6b@cs.ucla.edu>
+ <4b86f6e9-0d8a-f14a-73ce-ebbdc9d9edba@gmail.com> <CAH6eHdSLbaqTyXaPnBxnR4n+WVHJCBDF=C9RXa6To1rSuv0D4w@mail.gmail.com>
+ <CAKgNAkiHbK4RU_a_165yg3O6W0-GZMNLQoBNbut6ME=bW7pvCw@mail.gmail.com>
+In-Reply-To: <CAKgNAkiHbK4RU_a_165yg3O6W0-GZMNLQoBNbut6ME=bW7pvCw@mail.gmail.com>
+From:   Jonathan Wakely <jwakely.gcc@gmail.com>
+Date:   Fri, 2 Oct 2020 14:06:20 +0100
+Message-ID: <CAH6eHdQrmsHxZbk3+JxRVZ5qH1fhFzLxyigs+DtEzSg2cet+kw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] system_data_types.7: Add 'void *'
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
+        Paul Eggert <eggert@cs.ucla.edu>,
+        linux-man <linux-man@vger.kernel.org>,
+        GNU C Library <libc-alpha@sourceware.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "gcc@gcc.gnu.org" <gcc@gcc.gnu.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
----
- man3/unsigned-__int128.3 | 1 +
- 1 file changed, 1 insertion(+)
- create mode 100644 man3/unsigned-__int128.3
+On Fri, 2 Oct 2020 at 12:31, Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+>
+> On Fri, 2 Oct 2020 at 12:49, Jonathan Wakely <jwakely.gcc@gmail.com> wrote:
+> >
+> > On Fri, 2 Oct 2020 at 09:28, Alejandro Colomar via Gcc <gcc@gcc.gnu.org> wrote:
+> > > However, it might be good that someone starts a page called
+> > > 'type_qualifiers(7)' or something like that.
+> >
+> > Who is this for? Who is trying to learn C from man pages? Should
+> > somebody stop them?
+>
+> Yes, I think so. To add context, Alex has been doing a lot of work to
+> build up the new system_data_types(7) page [1], which I think is
+> especially useful for the POSIX system data types that are used with
+> various APIs.
 
-diff --git a/man3/unsigned-__int128.3 b/man3/unsigned-__int128.3
-new file mode 100644
-index 000000000..db50c0f09
---- /dev/null
-+++ b/man3/unsigned-__int128.3
-@@ -0,0 +1 @@
-+.so man7/system_data_types.7
--- 
-2.28.0
+It's definitely useful for types like struct siginfo_t and struct
+timeval, which aren't in C.
 
+Trying to document C seems like a huge task, ill-suited for man-pages,
+and not worth the effort.
+
+Maybe some people prefer man pages, but for everybody else
+https://en.cppreference.com/w/c already exists and seems like a better
+use of time.
