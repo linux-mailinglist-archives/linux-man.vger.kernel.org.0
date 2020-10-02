@@ -2,99 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C9D7628113F
-	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 13:31:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6EB8E281156
+	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 13:40:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726029AbgJBLbm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 2 Oct 2020 07:31:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55378 "EHLO
+        id S1726010AbgJBLka (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 2 Oct 2020 07:40:30 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56718 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726017AbgJBLbm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 07:31:42 -0400
-Received: from mail-oi1-x243.google.com (mail-oi1-x243.google.com [IPv6:2607:f8b0:4864:20::243])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 06C36C0613D0;
-        Fri,  2 Oct 2020 04:31:42 -0700 (PDT)
-Received: by mail-oi1-x243.google.com with SMTP id u126so886737oif.13;
-        Fri, 02 Oct 2020 04:31:41 -0700 (PDT)
+        with ESMTP id S1725964AbgJBLka (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 07:40:30 -0400
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F3FB2C0613D0
+        for <linux-man@vger.kernel.org>; Fri,  2 Oct 2020 04:40:29 -0700 (PDT)
+Received: by mail-wm1-x342.google.com with SMTP id y15so1420864wmi.0
+        for <linux-man@vger.kernel.org>; Fri, 02 Oct 2020 04:40:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=mnnBdvVoAs7YLFpNF04SfBRR73VgOIK46UIMo67rx88=;
-        b=b+bW+RnH9hdevGaBLsw+/+/4vNzo+ITLwQZSERW+Zhk2zz9dMzvH8t8h5TbS3763u2
-         mn5Y7Ow6TAgIWi/Hi/+7YfnyELvFdcfZ9YgFBgQFqAE6VHnPM+cJSJwXtFCtiAQTJzXk
-         l0s5yqfC/cOW1nSic5DLrT730anc455Sa+KlovT95lKCA/Ip5M9KR6sBCPkLD+OqkHsy
-         oyjVi/GYk9jJYqD9fxcescGgDzLxKjMDpY/436hrHYGok3ce/+LakF511waH35hEvV8Z
-         f3H8yR4o2PczoRSVHRnCa/87QpDDvsIpjPBpCzkfk4NhLDX/b7vvFd7NOZ6kWRfiNOIE
-         uJng==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=pHBY8U3Ziim0pVm71zdOr2pmIo4mCjzt9zLjo5Po3ao=;
+        b=P5CLIRe3j7+Vmw9R0ZHskBK3DnSpaV4Z8sUJoDsLq00sQEA5LnLjkTRFdrGqI3PP4L
+         xgM5amyW9QXOihM9EW7JWBaxUGDpuaAwG9e34+XDM2Jx9eYyEM7qk4Zppaa3KfY5mdlk
+         Vc6zYdgyPem2doVotHL5eHUX5GFWBiPNNgA9TIvv6JjfibJbJd1EbjY8ggOzgzOD6hzM
+         X/OQQ3dgMIWerRf3vrHnHUqw1AAMIVcLz1JpndE2mGg/dtbq4Pk/gucflL8cfSak/zIZ
+         jfSKyOqurFcGAqU5tvxZjTpEw8CW08aDoWZWbAU8EruazZ274peES5x3OzjGv+rdsLUp
+         O6EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=mnnBdvVoAs7YLFpNF04SfBRR73VgOIK46UIMo67rx88=;
-        b=d+vrF47AWQmw8SjVq9j7u+arwjzz5Lw1S5lZ/Ed6Wpxx8jCbmIArd5TC3bA0/JYZ06
-         JBZcXLXfJ26HnaggmUi5pJWTiE6v6P7ctugFmvo8x2O6iucDj4NE6Rp7n94eq16Nzbbv
-         /EJX+nECiwTIq0S4KZVFfeKuwNF5hWgr5gsD5mPlctbksXp9tQFoYpX9NWpmAL7Ayj1A
-         zrSVg52ctjhSGMLRlZxLxofutzg3yBPG/uq3pBMOlXxiqW94tLz2GV14uOZP4g49m2FF
-         2rAvYey8U6K3Ev3WMsRhaElxnJ8h3BV8gygQnqZI5o7rviX/uRK9IOFLVaMwbGVOcukb
-         VOsQ==
-X-Gm-Message-State: AOAM531rSdIaqyL8fF1El+uO8ZELQNWyiPW985PQcblc3OHMKZ+QLdYr
-        KSXSwrYD/AdypSVmoyznQz+HfoDj4GXEeYpewpRjsPbX/sA=
-X-Google-Smtp-Source: ABdhPJyGTHyvmUMr1RMtxBqF2YvdVOrsmV8o2rkTprrgjfnFPKzZcnmIM/sWFnE40ck3efT53RVUbJUQy6sCGj7MMac=
-X-Received: by 2002:aca:ad08:: with SMTP id w8mr917932oie.148.1601638301365;
- Fri, 02 Oct 2020 04:31:41 -0700 (PDT)
-MIME-Version: 1.0
-References: <41affebd-3354-9420-0048-bffd14535e95@gmail.com>
- <20201001154946.104626-2-colomar.6.4.3@gmail.com> <538b683f-01d2-6148-4f1d-1b293eb5cd6b@cs.ucla.edu>
- <4b86f6e9-0d8a-f14a-73ce-ebbdc9d9edba@gmail.com> <CAH6eHdSLbaqTyXaPnBxnR4n+WVHJCBDF=C9RXa6To1rSuv0D4w@mail.gmail.com>
-In-Reply-To: <CAH6eHdSLbaqTyXaPnBxnR4n+WVHJCBDF=C9RXa6To1rSuv0D4w@mail.gmail.com>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=pHBY8U3Ziim0pVm71zdOr2pmIo4mCjzt9zLjo5Po3ao=;
+        b=ZHt1s+/Kwlhr30byqrfJMiDhSRvxM9aAYu1kc9Go8rtHXkcO9iKEVZBjhCoKfGM53V
+         DkOZN5/Raq0EbibnMPNUiVBb63HnD3654Bh9osJx6wQOAS/k3K0zzodhzP7BTGS23Zyy
+         3C+aoZ1l6nm9UbZ8hrMVHl9ragEIRxTbRdg4oPH0DSPQG94yzNTAWCTT5oMDgggcmaCz
+         z5FeVB7X6Tb7mNUqPSkGwCCWtySPZpftNOdKba2RJTc3NpEBnP1m+3SM6edNf0w+NFEf
+         vwUzHuaH3bmZZqk5S1CluHjFUDKI7WArvs94vL/g90U6pHkdV8RqyRnmhBFv83YPGDuf
+         dSZw==
+X-Gm-Message-State: AOAM533rN8uIAuIVHhYwVcEickcoohQ/pyPPPnURLyYEwDo3TR4s7yPu
+        a3PK6LaRu+/INc1lI5y8V/BAPXrGNUk=
+X-Google-Smtp-Source: ABdhPJwVIOHAH/3h5T9IRQQb9WrxYOxPj0OnnwPBVav0JjqbgdXsUC1McaHjPJHzj4hb0Gsnys+0ag==
+X-Received: by 2002:a1c:1f08:: with SMTP id f8mr2423210wmf.168.1601638828499;
+        Fri, 02 Oct 2020 04:40:28 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
+        by smtp.gmail.com with ESMTPSA id f1sm1441559wrx.75.2020.10.02.04.40.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2020 04:40:27 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] system_data_types.7: Remove duplicate reference
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+References: <20201002091504.14172-1-colomar.6.4.3@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Fri, 2 Oct 2020 13:31:30 +0200
-Message-ID: <CAKgNAkiHbK4RU_a_165yg3O6W0-GZMNLQoBNbut6ME=bW7pvCw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] system_data_types.7: Add 'void *'
-To:     Jonathan Wakely <jwakely.gcc@gmail.com>
-Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        Paul Eggert <eggert@cs.ucla.edu>,
-        linux-man <linux-man@vger.kernel.org>,
-        GNU C Library <libc-alpha@sourceware.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "gcc@gcc.gnu.org" <gcc@gcc.gnu.org>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <19f73301-52fb-c7cf-5c98-ed370f9acd46@gmail.com>
+Date:   Fri, 2 Oct 2020 13:40:25 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
+MIME-Version: 1.0
+In-Reply-To: <20201002091504.14172-1-colomar.6.4.3@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, 2 Oct 2020 at 12:49, Jonathan Wakely <jwakely.gcc@gmail.com> wrote:
->
-> On Fri, 2 Oct 2020 at 09:28, Alejandro Colomar via Gcc <gcc@gcc.gnu.org> wrote:
-> > However, it might be good that someone starts a page called
-> > 'type_qualifiers(7)' or something like that.
->
-> Who is this for? Who is trying to learn C from man pages? Should
-> somebody stop them?
+On 10/2/20 11:15 AM, Alejandro Colomar wrote:
+> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+> ---
+>  man7/system_data_types.7 | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
+> index 3cf3f0ec9..aab64e002 100644
+> --- a/man7/system_data_types.7
+> +++ b/man7/system_data_types.7
+> @@ -1192,7 +1192,6 @@ since POSIX.1-2008.
+>  See also:
+>  .BR read (2),
+>  .BR write (2),
+> -.BR memcmp (3),
+>  .BR fread (3),
+>  .BR fwrite (3),
+>  .BR memcmp (3),
 
-Yes, I think so. To add context, Alex has been doing a lot of work to
-build up the new system_data_types(7) page [1], which I think is
-especially useful for the POSIX system data types that are used with
-various APIs. With the addition of the integer types and 'void *'
-things are straying somewhat from POSIX into C. I think there is value
-in saying something about those types, but I'm somewhat neutral about
-their inclusion in the page. But Alex has done the work, and I'm
-willing to include those types in the page.
+Thanks, Alex. Patch applied.
 
-I do think that something like type_qualifiers(7) strays over the line
-of what should be covered in Linux man-pages, which are primarily
-about the kernel + libc APIs. [2]
-
-Thanks,
+Cheers,
 
 Michael
 
-[1] https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man7/system_data_types.7
-[2] Mind you, man-pages trayed over the line already very many years
-ago with operators(7), because who ever remembers all of the C
-operator precedences.
 
 -- 
 Michael Kerrisk
