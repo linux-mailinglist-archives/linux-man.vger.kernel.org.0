@@ -2,219 +2,88 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7AF682813D7
-	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 15:15:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 72C762813EA
+	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 15:19:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2387836AbgJBNPz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 2 Oct 2020 09:15:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43146 "EHLO
+        id S2387845AbgJBNTt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 2 Oct 2020 09:19:49 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43740 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2387767AbgJBNPz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 09:15:55 -0400
-Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com [IPv6:2607:f8b0:4864:20::d44])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 649C0C0613D0;
-        Fri,  2 Oct 2020 06:15:55 -0700 (PDT)
-Received: by mail-io1-xd44.google.com with SMTP id y74so1450014iof.12;
-        Fri, 02 Oct 2020 06:15:55 -0700 (PDT)
+        with ESMTP id S1726176AbgJBNTt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 09:19:49 -0400
+Received: from mail-il1-x142.google.com (mail-il1-x142.google.com [IPv6:2607:f8b0:4864:20::142])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C9727C0613D0
+        for <linux-man@vger.kernel.org>; Fri,  2 Oct 2020 06:19:48 -0700 (PDT)
+Received: by mail-il1-x142.google.com with SMTP id e5so1186363ils.10
+        for <linux-man@vger.kernel.org>; Fri, 02 Oct 2020 06:19:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=NV9+yrJq+JbCr6cFYFd6SzA3+a52bQ0Cmy5QJDHiFvU=;
-        b=itIlg738Y5xIaieU692HUBFF9lhBPxXt9di1Vf2sK41x0wWb6U6QH5BYo0bwkYsx/A
-         KANxg7AHYiX2jPcZ0PSh9uL19ETw6UQXs0c7U7PmLlYeRVesZ3mk9d26yLeIss/HZYpB
-         VqiG2B9ITR4OiWuuIFdPKgdL4ojk6E2gAho7G+FA7hpigx+RbPJVg8XWBsCRe38tdh7K
-         tlYK09GWkGYcERNxC91x0xYlAwp7tYt4GwNZCgHTSF4P+VgeIRKXzbKjpxYpFnQ1U2HP
-         V4kZvNFQ1ZxmuJ2F69nkqaUF4DaF+7ThmkziWkgveEJqNPJayAKDrZeZWK79ngwyX0vI
-         9BKQ==
+        bh=c4EMSgKsEa1VfOLgdiXAIx0EYhfFfhqdmTR1iKp1ODA=;
+        b=PAHjbIiuWYv/eU/GrWzW3ASamIHL12dbBdlmcoJZ6iIH7bp/s5bF+9mwB71Sq++9q1
+         jE2MqmrlXMtMGmpfrIWtYI+jI3MZBmK4YIdzkLjkGrrVUaNO/V1NGkVs1l25Oo1mtw7X
+         Z7WYK+5seEYM+l0lQh9OmUQfHUFd5AeehUY+p9pnljZTtD9KUYwaZezyDDKL5nLxRa/D
+         QswONnAqNyYHzY+NJBbcATKQ805j6NglxSY8J+e6G7CkJ/WI5VduzDW5FoRbEcTgB+AG
+         ZPIXEyZQGZ/js7yaGkBNNqCvO8xU0oUpWpbb9ayL2VERRdzoSE9RDmeOd8olEDB9vWZF
+         rZqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=NV9+yrJq+JbCr6cFYFd6SzA3+a52bQ0Cmy5QJDHiFvU=;
-        b=b1o7Wp+TQHmrNBk5sNvoHRMzvDwmjnBH5/0Ou9eoxtPtW45JfPUFT89hhkNl63Ms7r
-         ThE9fAtV3nJsJCPOlz/54p55zoRHaiuqoZJgqOLlV7ICJZVkA9rN8DUeJTi5h/CRUgwv
-         lHO+L+V6V0c9t30+rWqrqTFLgcD2yCUXxU3q0gslmtTi6XEUsgZ9BwwAFZo2G8u/aqF5
-         2nBhBIKyXYBDcRYlq0080fz10oTuAHfmMYKrmgO1hBF17zZ+vs5Tg5nhblXuX0jTgrPz
-         N0DEJzJseJn/Yu52voQSHSej4FBnavoGer0nkZy53YrYtBlLJRyB6I1dn9i9Ousx7Rsp
-         rqZQ==
-X-Gm-Message-State: AOAM530OPqryXm9pjKOxsqSz/D1I0pl7ET64P9PJvvmLAEf785fLwneW
-        3Qp0AxJXKYGF2jk2O4l8gZPlvxZA6aIKgBks20ogrJrL
-X-Google-Smtp-Source: ABdhPJwnNOqEg0c0RLPVInz9CgNB2jGjdrykkIa9igU9sNmuqp7vWpk5J62LSsNldqh8FpRt80vyDEDHZzM8eWUauIY=
-X-Received: by 2002:a02:e47:: with SMTP id 68mr2161854jae.78.1601644554674;
- Fri, 02 Oct 2020 06:15:54 -0700 (PDT)
+        bh=c4EMSgKsEa1VfOLgdiXAIx0EYhfFfhqdmTR1iKp1ODA=;
+        b=sj/jqdASuz4u3aYa5LpRqJJIupcEHKuKPhNBiFCg5wMfPPK8cU28dw2vT314nAvTuG
+         6THfxByA0Apouw6SInr1c7L9G9wLfOvhupqs3+meXszrqQWNUCf0A3XN05s3bm/HkmTL
+         UWn3r2qXybLNwW1tGOzlit4l00LuSwkZfA2ccTjJWE3/r/o995E5oepBy6Fub8+9RaSU
+         J8coCLVK0MG575rhza9s5uKQ6H5N1fzpds6fepWlqINM3zwvXMqgHQ2bbx9aUJ+iCW21
+         E5Dkat6PYzYV6bvKeDDAnufixCZbPcrXgi6M0Yqplsi2PQSa7I/chZGslpa2ILnRsy8E
+         G+Pg==
+X-Gm-Message-State: AOAM533DyCi++uhl9onm19F1cZinTxJhWfQvp3BSPyVNnNIX2JeWLxH/
+        0UNeAmFydq2uOviwy9G+8iVkAQAX9zAvpKyuI8AH6dagV9Y=
+X-Google-Smtp-Source: ABdhPJwN8vJHXJ26HVLzeGLOIAGOFVTgCb+D8goY8qma9ZOqtznswLaJzjoM5xHeAOfw/XjDTnCPuelYckkrgeMotwc=
+X-Received: by 2002:a05:6e02:e87:: with SMTP id t7mr1781692ilj.261.1601644788202;
+ Fri, 02 Oct 2020 06:19:48 -0700 (PDT)
 MIME-Version: 1.0
-References: <20201002121645.23646-1-colomar.6.4.3@gmail.com> <20201002121645.23646-2-colomar.6.4.3@gmail.com>
-In-Reply-To: <20201002121645.23646-2-colomar.6.4.3@gmail.com>
+References: <20201001150638.102544-1-colomar.6.4.3@gmail.com>
+ <71c5f264-38f4-18ee-fe96-39aad08c3369@gmail.com> <41affebd-3354-9420-0048-bffd14535e95@gmail.com>
+In-Reply-To: <41affebd-3354-9420-0048-bffd14535e95@gmail.com>
 From:   Jonathan Wakely <jwakely.gcc@gmail.com>
-Date:   Fri, 2 Oct 2020 14:15:43 +0100
-Message-ID: <CAH6eHdQD+4g4ne9akZ5TDbhfq9TR0JSSBQ5H+W+Fab=5dy7O+g@mail.gmail.com>
-Subject: Re: [PATCH 1/2] system_data_types.7: Add 'void *'
+Date:   Fri, 2 Oct 2020 14:19:37 +0100
+Message-ID: <CAH6eHdQhh46TjVc72meWFTWCi7iouAod0iC1zLRga+c-36G+ig@mail.gmail.com>
+Subject: Re: [PATCH 0/2] Document void *
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
         linux-man <linux-man@vger.kernel.org>,
-        gcc-patches <gcc-patches@gcc.gnu.org>,
         GNU C Library <libc-alpha@sourceware.org>,
-        linux-kernel@vger.kernel.org, eggert@cs.ucla.edu,
-        David.Laight@aculab.com
+        "gcc@gcc.gnu.org" <gcc@gcc.gnu.org>
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, 2 Oct 2020 at 13:17, Alejandro Colomar <colomar.6.4.3@gmail.com> wrote:
+On Thu, 1 Oct 2020 at 16:51, Alejandro Colomar via Gcc <gcc@gcc.gnu.org> wrote:
 >
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+> Hi Michael,
 >
-> system_data_types.7: void *: Add info about generic function parameters and return value
+> On 2020-10-01 17:34, Michael Kerrisk (man-pages) wrote:
+> > Hello Alex,
+> >
+> > On 10/1/20 5:06 PM, Alejandro Colomar wrote:
+> >> Hello Michael,
+> >>
+> >> This type is very special,
+> >> so I will probably have missed some details about it.
+> >
+> > I do wonder if we actually need this in page at all, and given:
 >
-> Reported-by: Paul Eggert <eggert@cs.ucla.edu>
-> Reported-by: David Laight <David.Laight@ACULAB.COM>
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 >
-> system_data_types.7: void *: Add info about pointer artihmetic
->
-> Reported-by: Paul Eggert <eggert@cs.ucla.edu>
-> Reported-by: David Laight <David.Laight@ACULAB.COM>
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
->
-> system_data_types.7: void *: Add Versions notes
->
-> Compatibility between function pointers and void * hasn't always been so.
-> Document when that was added to POSIX.
->
-> Reported-by: Michael Kerrisk <mtk.manpages@gmail.com>
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> ---
->  man7/system_data_types.7 | 80 +++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 78 insertions(+), 2 deletions(-)
->
-> diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-> index c82d3b388..277e05b12 100644
-> --- a/man7/system_data_types.7
-> +++ b/man7/system_data_types.7
-> @@ -679,7 +679,6 @@ See also the
->  .I uintptr_t
->  and
->  .I void *
-> -.\" TODO: Document void *
->  types in this page.
->  .RE
->  .\"------------------------------------- lconv ------------------------/
-> @@ -1780,7 +1779,6 @@ See also the
->  .I intptr_t
->  and
->  .I void *
-> -.\" TODO: Document void *
->  types in this page.
->  .RE
->  .\"------------------------------------- va_list ----------------------/
-> @@ -1814,6 +1812,84 @@ See also:
->  .BR va_copy (3),
->  .BR va_end (3)
->  .RE
-> +.\"------------------------------------- void * -----------------------/
-> +.TP
-> +.I void *
-> +.RS
-> +According to the C language standard,
-> +a pointer to any object type may be converted to a pointer to
-> +.I void
-> +and back.
-> +POSIX further requires that any pointer,
-> +including pointers to functions,
-> +may be converted to a pointer to
-> +.I void
-> +and back.
-> +.PP
-> +Conversions from and to any other pointer type are done implicitly,
-> +not requiring casts at all.
-> +Note that this feature prevents any kind of type checking:
-> +the programmer should be careful not to cast a
-> +.I void *
-> +value to a type incompatible to that of the underlying data,
-> +because that would result in undefined behavior.
-> +.PP
-> +This type is useful in function parameters and return value
-> +to allow passing values of any type.
-> +The function will usually use some mechanism to know
-> +of which type the underlying data passed to the function really is.
+> I think it should be.
+> I would also document 'void', even if it's a bit weird...
+> They are very useful, so why not document them?
 
-This sentence seems clunky.
+Because the man-pages are not a tutorial for the C language.
 
-How about "The function will typically use some mechanism to know the
-real type of the data being passed via a pointer to void."
+"The Linux man-pages project documents the Linux kernel and C library
+interfaces that are employed by user-space programs."
 
-An example of "some mechanism" might be useful, though I don't have
-one to offer.
-
-> +.PP
-> +A value of this type can't be dereferenced,
-> +as it would give a value of type
-> +.I void
-> +which is not possible.
-> +Likewise, pointer arithmetic is not possible with this type.
-> +However, in GNU C, poitner arithmetic is allowed
-
-Typo: pointer
-
-
-> +as an extension to the standard;
-> +this is done by treating the size of a
-> +.I void
-> +or of a function as 1.
-> +A consequence of this is that
-> +.I sizeof
-> +is also allowed on
-> +.I void
-> +and on function types, and returns 1.
-> +.PP
-> +The conversion specifier for
-> +.I void *
-> +for the
-> +.BR printf (3)
-> +and the
-> +.BR scanf (3)
-> +families of functions is
-> +.BR p ;
-> +resulting commonly in
-> +.B %p
-> +for printing
-> +.I void *
-> +values.
-
-What does "resulting commonly in %p for printing void * values" mean?
-
-Is this just explaining that the format specifier p is commonly used
-as "%p" (but sometimes as e.g. "%20p") ?
-I'm not sure the "resulting commonly ..." part adds anything of value,
-rather than just being confusing.
-
-> +.PP
-> +Versions:
-> +The POSIX requirement about compatibility between
-> +.I void *
-> +and function pointers was added in
-> +POSIX.1-2008 Technical Corrigendum 1 (2013).
-> +.PP
-> +Conforming to:
-> +C99 and later; POSIX.1-2001 and later.
-> +.PP
-> +See also:
-> +.BR malloc (3),
-> +.BR memcmp (3),
-> +.BR memcpy (3),
-> +.BR memset (3)
-> +.PP
-> +See also the
-> +.I intptr_t
-> +and
-> +.I uintptr_t
-> +types in this page.
-> +.RE
->  .\"--------------------------------------------------------------------/
->  .SH NOTES
->  The structures described in this manual page shall contain,
-> --
-> 2.28.0
->
+void and void* are not APIs.
