@@ -2,39 +2,45 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 17A26281858
-	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 18:53:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 21E4D281878
+	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 19:00:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725995AbgJBQx1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 2 Oct 2020 12:53:27 -0400
-Received: from zimbra.cs.ucla.edu ([131.179.128.68]:47150 "EHLO
+        id S2387908AbgJBRAX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 2 Oct 2020 13:00:23 -0400
+Received: from zimbra.cs.ucla.edu ([131.179.128.68]:48560 "EHLO
         zimbra.cs.ucla.edu" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725991AbgJBQx1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 12:53:27 -0400
+        with ESMTP id S2387768AbgJBRAW (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 13:00:22 -0400
+X-Greylist: delayed 416 seconds by postgrey-1.27 at vger.kernel.org; Fri, 02 Oct 2020 13:00:22 EDT
 Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 6C874160052;
-        Fri,  2 Oct 2020 09:53:26 -0700 (PDT)
+        by zimbra.cs.ucla.edu (Postfix) with ESMTP id AC1C6160065;
+        Fri,  2 Oct 2020 10:00:22 -0700 (PDT)
 Received: from zimbra.cs.ucla.edu ([127.0.0.1])
         by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id IzUKaIsyecQU; Fri,  2 Oct 2020 09:53:25 -0700 (PDT)
+        with ESMTP id CW2rExhnLIrm; Fri,  2 Oct 2020 10:00:22 -0700 (PDT)
 Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id AA237160065;
-        Fri,  2 Oct 2020 09:53:25 -0700 (PDT)
+        by zimbra.cs.ucla.edu (Postfix) with ESMTP id F15661600B2;
+        Fri,  2 Oct 2020 10:00:21 -0700 (PDT)
 X-Virus-Scanned: amavisd-new at zimbra.cs.ucla.edu
 Received: from zimbra.cs.ucla.edu ([127.0.0.1])
         by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id 8rffufaipKAM; Fri,  2 Oct 2020 09:53:25 -0700 (PDT)
+        with ESMTP id a9M36EGALxVz; Fri,  2 Oct 2020 10:00:21 -0700 (PDT)
 Received: from [192.168.1.9] (cpe-23-243-218-95.socal.res.rr.com [23.243.218.95])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTPSA id 439C2160052;
-        Fri,  2 Oct 2020 09:53:25 -0700 (PDT)
-Subject: Re: [PATCH v4 1/2] system_data_types.7: Add 'void *'
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        gcc-patches@gcc.gnu.org, libc-alpha@sourceware.org,
-        linux-kernel@vger.kernel.org, jwakely.gcc@gmail.com,
-        David.Laight@ACULAB.COM
-References: <20201002121645.23646-1-colomar.6.4.3@gmail.com>
- <20201002151419.32053-2-colomar.6.4.3@gmail.com>
+        by zimbra.cs.ucla.edu (Postfix) with ESMTPSA id B5D13160065;
+        Fri,  2 Oct 2020 10:00:21 -0700 (PDT)
+Subject: Re: [PATCH v2 1/2] system_data_types.7: Add 'void *'
+To:     David Laight <David.Laight@ACULAB.COM>,
+        'Alejandro Colomar' <colomar.6.4.3@gmail.com>
+Cc:     "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>,
+        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
+        "gcc@gcc.gnu.org" <gcc@gcc.gnu.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <41affebd-3354-9420-0048-bffd14535e95@gmail.com>
+ <20201001154946.104626-2-colomar.6.4.3@gmail.com>
+ <538b683f-01d2-6148-4f1d-1b293eb5cd6b@cs.ucla.edu>
+ <4b86f6e9-0d8a-f14a-73ce-ebbdc9d9edba@gmail.com>
+ <a2c3ceecca7648b3bb33f1c8bf8e7893@AcuMS.aculab.com>
 From:   Paul Eggert <eggert@cs.ucla.edu>
 Autocrypt: addr=eggert@cs.ucla.edu; prefer-encrypt=mutual; keydata=
  mQINBEyAcmQBEADAAyH2xoTu7ppG5D3a8FMZEon74dCvc4+q1XA2J2tBy2pwaTqfhpxxdGA9
@@ -80,12 +86,12 @@ Autocrypt: addr=eggert@cs.ucla.edu; prefer-encrypt=mutual; keydata=
  OPQwxh1jwqSrU5QwoNmSYegQSHLpIUurFz1iQUh1vpPXzKinkWEqv4IqA1ciL+LyySuLkp7M
  sJpVRMbWJCNWOOSbaH4oDBJ5dHMGc35x5mosCk90PXknuFDDsYHfDo5smf9lo6YXx7N9
 Organization: UCLA Computer Science Department
-Message-ID: <3941e130-df05-778b-dc76-90cd58400192@cs.ucla.edu>
-Date:   Fri, 2 Oct 2020 09:53:25 -0700
+Message-ID: <aecf70d7-964d-b7ea-712a-3d9108c4e9b4@cs.ucla.edu>
+Date:   Fri, 2 Oct 2020 10:00:21 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20201002151419.32053-2-colomar.6.4.3@gmail.com>
+In-Reply-To: <a2c3ceecca7648b3bb33f1c8bf8e7893@AcuMS.aculab.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -93,40 +99,17 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 10/2/20 8:14 AM, Alejandro Colomar wrote:
+On 10/2/20 2:10 AM, David Laight wrote:
+>>   > Also, you should
+>>   > warn that because one can convert from any pointer type to void * and
+>>   > then to any other pointer type, it's a deliberate hole in C's
+>>   > type-checking.
+>>
+> That isn't what the C standard says at all.
+> What is says is that you can cast any data pointer to 'void *'
+> and then cast it back to the same type.
 
-> +.I void *
-
-GNU style is a space between "void" and "*", so this should be '.I "void\ *"', 
-both here and elsewhere. The backslash prevents a line break.
-
-> +Conversions from and to any other pointer type are done implicitly,
-> +not requiring casts at all.
-> +Note that this feature prevents any kind of type checking:
-> +the programmer should be careful not to cast a
-
-Change "cast" to "convert", since the point is that no cast is needed.
-
-> +.PP
-> +The conversion specifier for
-> +.I void *
-> +for the
-> +.BR printf (3)
-> +and the
-> +.BR scanf (3)
-> +families of functions is
-> +.BR p ;
-> +resulting commonly in
-> +.B %p
-> +for printing
-> +.I void *
-> +values.
-
-%p works with any object pointer type (or in POSIX, any pointer type), not just 
-  void *.
-
-Should also mention "void const *", "void volatile *", etc. Plus it really 
-should talk about plain "void", saying that it's a placeholder as a return value 
-for functions, for casting away values, and as a keyword in C11 for functions 
-with no parameters (though this is being changed in the next C version!). I sent 
-comments about most of this stuff already.
+I was talking about compile-time checking; you're talking about run-time 
+behavior. We're both right in our own domains. It is a tricky area, and this 
+suggests that perhaps we shouldn't be trying to document this stuff in a 
+libc/kernel manual.
