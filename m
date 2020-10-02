@@ -2,147 +2,112 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CEA96280B4B
-	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 01:22:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 43063280E89
+	for <lists+linux-man@lfdr.de>; Fri,  2 Oct 2020 10:10:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727780AbgJAXVu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Oct 2020 19:21:50 -0400
-Received: from wnew4-smtp.messagingengine.com ([64.147.123.18]:57551 "EHLO
-        wnew4-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1727713AbgJAXT7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Oct 2020 19:19:59 -0400
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
-        by mailnew.west.internal (Postfix) with ESMTP id EC59BC3C;
-        Thu,  1 Oct 2020 19:19:27 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute6.internal (MEProxy); Thu, 01 Oct 2020 19:19:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tycho.pizza; h=
-        date:from:to:cc:subject:message-id:references:mime-version
-        :content-type:in-reply-to; s=fm1; bh=Tlpv2xmpynLkoXih5aMS72+SXJr
-        nQuj1c9PDv1ck7SY=; b=kAnlT5uGdLP7ZHMd/rvKFoooU2LN0P/lAm1T9lGIii9
-        PlCZZtGPEs9KopNalPJ1js1pctZjbJG4+5VJZLd8xgcuUGD0lB/o+gjOI3PoE73A
-        nSqQ8Q2QI14dzUcuv4Hwp/f4mNOKSvcc9D+iZEFSmXXjz2Ju79+QQTCRoVI59MEK
-        7AyZnYv/jn1FG+eg/72B5jYTQXhk6l1OG6/5PFZQ3LB1lWqU/ngZesv0afOq9ZAF
-        CsTk9T9YJGSpNOkdPBuDpt28Y325ugCfTNwVuV9dqB78wiXr2JqhYumstJ+GmL6c
-        qvl6DNKFjMKNoYCK6El7NsIsEq+/eBUSSNnHpQTCIYA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-        messagingengine.com; h=cc:content-type:date:from:in-reply-to
-        :message-id:mime-version:references:subject:to:x-me-proxy
-        :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=Tlpv2x
-        mpynLkoXih5aMS72+SXJrnQuj1c9PDv1ck7SY=; b=YrtEbGU8zOV9obkWiyW83q
-        2/eRqrLFuyhY7NReqTCUbwQ7+FodkpbVtxmew6Som6zYQUaIomR8EYreLV8eapAm
-        6eqGej3Y2c/lQ3mp+GOtMZaYOZh1dKAE9GAY91Mcpu/ZE3Gbn/trgk/Eg2ckRKQ3
-        u9WKLIwQqFn7UaWcFpr8q1hvzwhv3AdLOOGOJkWexZtKEP/WjJJV658CIVbvgMqr
-        YHVIMeNYI7n+WwIQSuwqsSnZutV3t1bKVzE2kH9biteKEDTnOQMzCTYYlON9leAk
-        kN4jD+zpv0yD+uFQanaCNkUrUsXTe9pf4CMFQrYR4OzXt//2ig8vm0kiE+XhTutQ
-        ==
-X-ME-Sender: <xms:_GN2Xzs6msGZQcTc-fvlIrR2UVr99TDXZStlH0IZnic86NoRJ9NPyA>
-    <xme:_GN2X0fpVR9i1T8XP7djV_kaeiQZhH1h01l6t-qwoijMuqjFD1aCLiPiwHtgtc9jX
-    kcZaodCQWqkpJQDJRc>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrfeehgddujecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfihtghhohcu
-    tehnuggvrhhsvghnuceothihtghhohesthihtghhohdrphhiiiiirgeqnecuggftrfgrth
-    htvghrnhepffekueefveeufefhhfelieffheeludeitdelkefhieejleeiffejvdelieeg
-    udeunecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpmhgrnhejrdhorhhgnecukfhppe
-    duvdekrddutdejrddvgedurdduieejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghr
-    rghmpehmrghilhhfrhhomhepthihtghhohesthihtghhohdrphhiiiiirg
-X-ME-Proxy: <xmx:_WN2X2x1_h2CgyVYMYJ__5ZQsJVg8mJwYeL-PB1IWWsQgXXX-SgZJw>
-    <xmx:_WN2XyNzSo_4tRUgtRsA5dgdIXms__i3HRiu9OJJXqkRXyJHA5g2zQ>
-    <xmx:_WN2Xz88rKAopdVohxCpJmT0eZAeVp1v0A4t1z4FgpG57OH2ZuwSRg>
-    <xmx:_mN2X3VXO3K-T_QMDwDJynXQdD85L8b36S_Vdf3u9tGGk1FuRsduqJHSVVlBJ2Rp>
-Received: from cisco (unknown [128.107.241.167])
-        by mail.messagingengine.com (Postfix) with ESMTPA id A1E8A3280066;
-        Thu,  1 Oct 2020 19:19:22 -0400 (EDT)
-Date:   Thu, 1 Oct 2020 17:19:15 -0600
-From:   Tycho Andersen <tycho@tycho.pizza>
-To:     Sargun Dhillon <sargun@sargun.me>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Kees Cook <keescook@chromium.org>,
-        Christian Brauner <christian@brauner.io>,
+        id S1726017AbgJBIKI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 2 Oct 2020 04:10:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52694 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725993AbgJBIKI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Oct 2020 04:10:08 -0400
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 12D74C0613D0
+        for <linux-man@vger.kernel.org>; Fri,  2 Oct 2020 01:10:08 -0700 (PDT)
+Received: by mail-wr1-x436.google.com with SMTP id k10so735495wru.6
+        for <linux-man@vger.kernel.org>; Fri, 02 Oct 2020 01:10:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=6saKikvunIQTzy9VDa8ect9p8mNJs0urWp3gRQrdgIE=;
+        b=Mz1gYZ2Mwa3u0OC1RPVkHx+inF7f9uRvH2jI6JLnFD3bLNv5cY+dDYcDyWeh+B5yGM
+         yn2K+wBVOqFlyxfLgaJcRrZQQcfD36PyJFw13P/4uWZ8VOsZ1TXZmiwHcvc8G6y0EpW9
+         cd28t6RO276Ax0vpqA23cIkWP2PtCadL+JR7YAgPkKULTGwfLI8/lsk+0NPwUKiAeI3/
+         /toD+hs495CuIK1InbIsz2vjq7y8KtOIz9wM8YuRsOgpm3eynqbOLjPRhQwVQyPlaZ5S
+         l5z4hx5z18hn3wFhEAmDJ7l5xecknPb7OG20amcT110ZXF5Pm4z2D9C4FeY0eyWTYIoQ
+         r0dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=6saKikvunIQTzy9VDa8ect9p8mNJs0urWp3gRQrdgIE=;
+        b=XG8IVVdrzEonCJYakls/NzvMAc6ybbV3qoM0389CjmYjDiYyC+lsUDztWLA+tMLtdc
+         h1TkPcPSr/gziwU+rIzcYkwsGh1YXB0QTYEWsTFyiTkxpKJPEBlPRgxaQWB6OB+DAjVU
+         Bp8HNgpM9UMctJuV52iltfSPea1jJ3dCXqXqLrIgQgRJnMktMQEc+LeaJVMko/TyKzeE
+         oybO59JUrv1eFnuSezQIOPTvf4DBBqqbR7v0hfndlU2TwtcL+PrFTYoeGu4oRhE+z8zv
+         T53z7Y1FMYC4UkyjXC1C4XeY5s7zJWEY5u3VyptCim2rclq3RZLBNtnyd7NOrrTVm364
+         uoHw==
+X-Gm-Message-State: AOAM533ik79A1XnSAdYoxFo8sik1+RkUglmvrBzhF1tVMWCqBe8hUXLY
+        ByFabpIYXd6s+Bsq2Uh0MMg=
+X-Google-Smtp-Source: ABdhPJw83aaqW7Yfk1b2jV78TmD789hbiTKe1QfM2NCOQZCvf4+5ml6EBJVpsuKNXFGtvOorUrVtqA==
+X-Received: by 2002:adf:eacb:: with SMTP id o11mr1526026wrn.209.1601626206675;
+        Fri, 02 Oct 2020 01:10:06 -0700 (PDT)
+Received: from [192.168.1.143] ([170.253.60.68])
+        by smtp.gmail.com with ESMTPSA id y14sm800110wma.48.2020.10.02.01.10.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2020 01:10:05 -0700 (PDT)
+Subject: Re: [RFC] man7/system_data_types.7: Document [unsigned] __int128
+To:     Joseph Myers <joseph@codesourcery.com>
+Cc:     Jonathan Wakely <jwakely.gcc@gmail.com>,
+        "gcc@gcc.gnu.org" <gcc@gcc.gnu.org>,
         linux-man <linux-man@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Aleksa Sarai <cyphar@cyphar.com>, Jann Horn <jannh@google.com>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Will Drewry <wad@chromium.org>, bpf@vger.kernel.org,
-        Song Liu <songliubraving@fb.com>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Andy Lutomirski <luto@amacapital.net>,
-        Linux Containers <containers@lists.linux-foundation.org>,
-        Giuseppe Scrivano <gscrivan@redhat.com>,
-        Robert Sesek <rsesek@google.com>
-Subject: Re: For review: seccomp_user_notif(2) manual page
-Message-ID: <20201001231915.GA16219@cisco>
-References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
- <CAMp4zn9XA-z_6UKvWkFh_U2wPRjZF3=QvrXX7EikO5AEovCWBA@mail.gmail.com>
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+References: <f6179bab-bbad-22f7-0f87-c06988928ec2@gmail.com>
+ <CAH6eHdSHEjjjDtBCFO93NXb3bCGtYg6L35injf6pz3bMoL=3Fw@mail.gmail.com>
+ <5ed7272e-1c81-d1f5-6a54-0fee4270199e@gmail.com>
+ <alpine.DEB.2.21.2010011724580.4323@digraph.polyomino.org.uk>
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+Message-ID: <5e12ffdb-4b7b-0720-98a1-3c111acff6ae@gmail.com>
+Date:   Fri, 2 Oct 2020 10:10:04 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMp4zn9XA-z_6UKvWkFh_U2wPRjZF3=QvrXX7EikO5AEovCWBA@mail.gmail.com>
+In-Reply-To: <alpine.DEB.2.21.2010011724580.4323@digraph.polyomino.org.uk>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Oct 01, 2020 at 02:06:10PM -0700, Sargun Dhillon wrote:
-> On Wed, Sep 30, 2020 at 4:07 AM Michael Kerrisk (man-pages)
-> <mtk.manpages@gmail.com> wrote:
-> >
-> > Hi Tycho, Sargun (and all),
-> >
-> > I knew it would be a big ask, but below is kind of the manual page
-> > I was hoping you might write [1] for the seccomp user-space notification
-> > mechanism. Since you didn't (and because 5.9 adds various new pieces
-> > such as SECCOMP_ADDFD_FLAG_SETFD and SECCOMP_IOCTL_NOTIF_ADDFD
-> > that also will need documenting [2]), I did :-). But of course I may
-> > have made mistakes...
-> >
-> > I've shown the rendered version of the page below, and would love
-> > to receive review comments from you and others, and acks, etc.
-> >
-> > There are a few FIXMEs sprinkled into the page, including one
-> > that relates to what appears to me to be a misdesign (possibly
-> > fixable) in the operation of the SECCOMP_IOCTL_NOTIF_RECV
-> > operation. I would be especially interested in feedback on that
-> > FIXME, and also of course the other FIXMEs.
-> >
-> > The page includes an extensive (albeit slightly contrived)
-> > example program, and I would be happy also to receive comments
-> > on that program.
-> >
-> > The page source currently sits in a branch (along with the text
-> > that you sent me for the seccomp(2) page) at
-> > https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/log/?h=seccomp_user_notif
-> >
-> > Thanks,
-> >
-> > Michael
-> >
-> > [1] https://lore.kernel.org/linux-man/2cea5fec-e73e-5749-18af-15c35a4bd23c@gmail.com/#t
-> > [2] Sargun, can you prepare something on SECCOMP_ADDFD_FLAG_SETFD
-> >     and SECCOMP_IOCTL_NOTIF_ADDFD to be added to this page?
-> >
-> > ====
-> >
-> > --
-> > Michael Kerrisk
-> > Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-> > Linux/UNIX System Programming Training: http://man7.org/training/
+On 2020-10-01 15:46, Jonathan Wakely wrote:
+ > I hope WG14 will adopt something like
+ > http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2465.pdf  and the
+ > whole mess will go away.
+ >
+ > intmax_t will be deprecated, and implementations can provide 128-bit
+ > integers without caveats.
+
+
+On 2020-10-01 19:31, Joseph Myers wrote:
+> On Thu, 1 Oct 2020, Alejandro Colomar via Gcc wrote:
 > 
-> Should we consider the SECCOMP_GET_NOTIF_SIZES dance to be "deprecated" at
-> this point, given that the extensible ioctl mechanism works? If we add
-> new fields to the
-> seccomp datastructures, we would move them from fixed-size ioctls, to
-> variable sized
-> ioctls that encode the datastructure size / length?
+>> Because 'intmax_t' has a bug
+>> (actually I know GCC rejected the bug report,
+>> but the problem is still there and users should be informed about this)
+>> which is related to __int128.
 > 
-> -- This is mostly a question for Kees and Tycho.
+> __int128 is not an integer type as defined by any existing version of ISO
+> C, precisely because it's wider than intmax_t, and changing intmax_t would
+> be a big ABI problem (involving new symbol versions for about 100
+> printf/scanf-related functions in glibc, 200 on platforms with multiple
+> long double variants).
+> 
+> See the proposed removal of intmax_t in C2x (accepted in principle at the
+> first virtual Freiburg meeting, but so far without any wording accepted
+> for any specific approach to removal regarding e.g. preprocessor
+> arithmetic and other places depending on intmax_t).  That removal would
+> allow __int128 to be considered an extended integer type as defined by C2x
+> and later (with int128_t typedef in <stdint.h>, etc.), if desired.
+> 
 
-It will tell you how big struct seccomp_data in the currently running
-kernel is, so it still seems useful/necessary to me, unless there's
-another way to figure that out.
 
-But I agree, I don't think the intent is to add anything else to
-struct seccomp_notif. (I don't know that it ever was.)
+Thanks for pointing out that the standard acknowledges
+the bug in [u]intmax_t.  It's good to know.
+Also good to know they plan to fix it.
 
-Tycho
+Thanks,
+
+Alex
