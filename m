@@ -2,135 +2,261 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1B5622822BA
-	for <lists+linux-man@lfdr.de>; Sat,  3 Oct 2020 10:55:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AAB5B2822F7
+	for <lists+linux-man@lfdr.de>; Sat,  3 Oct 2020 11:16:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725790AbgJCIzY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 3 Oct 2020 04:55:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55446 "EHLO
+        id S1725796AbgJCJQE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 3 Oct 2020 05:16:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58648 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725648AbgJCIzV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Oct 2020 04:55:21 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EC9B4C0613D0;
-        Sat,  3 Oct 2020 01:55:20 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id x14so4268311wrl.12;
-        Sat, 03 Oct 2020 01:55:20 -0700 (PDT)
+        with ESMTP id S1725782AbgJCJQE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Oct 2020 05:16:04 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AC2A2C0613D0;
+        Sat,  3 Oct 2020 02:16:03 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id 13so3880033wmf.0;
+        Sat, 03 Oct 2020 02:16:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=+bcD/CAAXV7lyNPV3QRgxAmLGFQtjxS5V6MhUGAQTGo=;
-        b=kz7MJAgBwohvqrukst++kx32d+paduyD9iPZrCimHFqPxFjuEPELd6j7o7Q+9ELrY6
-         RUzVvHA4WTHgemuAK2+6HRSapT8a3Nch4yGwtQ2FZcKtoDC3Dr9Kj3pY4h/qkhmtHJpL
-         KYeKk2rtHGpQwW1bIqCBHhHp+Gv9UC/DLQPGgIrRYXCJzBgzXQ6IZTZ608KkEuZ2YxL5
-         /kIxWsZB8gl67jqKSbVP34VX148GDj+K2GGTbnlakTxozieFvQzPPA+parBjPTOXgjE2
-         XsHJQQoJLwTPOXwa0y5ik3NgfaEETYDX912x6s5D0ASzTMEXCPD3Cf/juFo4tJ2mzwlr
-         xzQg==
+        bh=m0P8JkMZXhc03/pq5EHu9mWfz137xFeG46x+2gxsGT4=;
+        b=kxVK72B7aFhEAJB/ADqCtwB1ENn06h3P3cJL5ERGap8aM8Avaq9Okbih9wZ/E/7qul
+         gOTHC70NcwOy8xspzGEQZhbQ118hkF3p1H/ZrRKnTB2cm1wiedcQgYlytp87JRQjQCx4
+         yJUQ650b6jXqhmwhL8BtIduVJbGEJH/QLAya/dilzwQuw22gOQXelCmb/wxfeJ9VSWAj
+         ZGBgds49cl0H4+OhJQ2+WFydHXCJVBR7uoq6Mi+3+Fbp22ERTe3mP++R2Wzz9UCCInZj
+         Bz3zMnlVm4/oX/cEeNMvOl7uVztpVS+z0CUsM2tG5j/wJH07eiZpyQctp/WJXgSc33i7
+         37sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=+bcD/CAAXV7lyNPV3QRgxAmLGFQtjxS5V6MhUGAQTGo=;
-        b=ZlvKp95Db7q61BlRylRnR/UjCmGZa0hUR7ZnYEYjRJEHbW3YGMIWwywF1fgKf5YhOp
-         VkhXR9rItStbEPgsqoluGNRJzqqxIp0rDnz6rKEI3mELA19uiLw+hwcLhPJE8k4VJn5C
-         bhQNo/9gpLbAzZCX2YGNLcyZH+z06aSpNhBlGJT4KGq3SN+lw4hC4hNr7upVwUGR06Dp
-         1UziF1Ks4zMINwbcLOkXhCcQkvHGyrMa1k8ykkggmPGe1LvakBwMAj6UmfXoUsPLb+ec
-         JguRQOttuDQCrDJFQfX08hoe4LV/6aR8EWdf5ZlOR67DRoIWr38ln0XlRl6qAkEeq6U8
-         7oaQ==
-X-Gm-Message-State: AOAM5322J5GeFgE+NI4ighN2uHAEokcbM6xQ6HTnAo7N6Epa4t2x3V6O
-        vrc7JAlOzkacc1qNvqtJ06A=
-X-Google-Smtp-Source: ABdhPJyijR/eRLvEQ/ol/MBO40aPRhjsu5QPazk4ZLlz2mySjhCA6HuHEWQ+35KGye5dRPfmq7qzAw==
-X-Received: by 2002:adf:f6cd:: with SMTP id y13mr7139426wrp.161.1601715319616;
-        Sat, 03 Oct 2020 01:55:19 -0700 (PDT)
+        bh=m0P8JkMZXhc03/pq5EHu9mWfz137xFeG46x+2gxsGT4=;
+        b=TT9zh/pX3YmU1OvjG8sVaB9LqAf2xqnB1ReGs1mMaLUiOaQjD5jMIFn+tc5rX1oa06
+         uY1pcincbA/bSXwU1AhDdoaGbdMw4DjTPFVIwGv5Hg/tMmBSXryy6FuyjTcLcFlcIYrI
+         K4f93NjxuMtyvCIQsTIXCuQeg28bNLj0fiNih1DwAaxW2jw7gHm2M8lUIgqC5iE/8P7t
+         aM7dTRiq+iheZNM1S5h8b7g+cAxMlqUDMP7oLrslLWjO67B2uCrWwzYN1coS7WSmVtql
+         PkiVGYIWYtt5NWxuldPTlFmk0VeZv2rnSGRfOZiNiYDh3UdMEXJzQlK0gP5Ww0pZM1DV
+         I5tQ==
+X-Gm-Message-State: AOAM530v+wr1xbPp/Gh+osXT6/GiV/hdqlStpnhuz/oeDVzhQT2oAMco
+        HjEBAONKZh/tbTEzlm/N+8M=
+X-Google-Smtp-Source: ABdhPJx+s2SS8QodEzxxBylMUpDD9/5IlU3315eFLlqpHFSdHJzXsO4Z08heLzl7FeQNIOL9gdbWaQ==
+X-Received: by 2002:a05:600c:22c5:: with SMTP id 5mr6964074wmg.34.1601716562305;
+        Sat, 03 Oct 2020 02:16:02 -0700 (PDT)
 Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id b64sm4639194wmh.13.2020.10.03.01.55.18
+        by smtp.gmail.com with ESMTPSA id v9sm5096803wrv.35.2020.10.03.02.16.01
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Oct 2020 01:55:18 -0700 (PDT)
-Subject: Re: [PATCH v4 1/2] system_data_types.7: Add 'void *'
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org,
-        gcc-patches@gcc.gnu.org, libc-alpha@sourceware.org,
-        linux-kernel@vger.kernel.org, jwakely.gcc@gmail.com,
-        David.Laight@ACULAB.COM
-References: <20201002121645.23646-1-colomar.6.4.3@gmail.com>
- <20201002151419.32053-2-colomar.6.4.3@gmail.com>
- <3941e130-df05-778b-dc76-90cd58400192@cs.ucla.edu>
- <d794a058-0506-7c3c-6f3e-518a788933af@gmail.com>
- <ff1700df-d383-44e7-24b4-da10000f83fc@cs.ucla.edu>
- <5b01a17e-5819-115f-7972-7f849d4356df@gmail.com>
- <78368866-e848-d208-eef7-f3a93a797853@gmail.com>
- <20201003074807.swdpnwaq2rzigadl@localhost.localdomain>
+        Sat, 03 Oct 2020 02:16:01 -0700 (PDT)
+Subject: Re: Navigational corrections
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Jonathan Wakely <jwakely.gcc@gmail.com>,
+        Paul Eggert <eggert@cs.ucla.edu>,
+        linux-man <linux-man@vger.kernel.org>,
+        GNU C Library <libc-alpha@sourceware.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "gcc@gcc.gnu.org" <gcc@gcc.gnu.org>, David.Laight@ACULAB.COM
+References: <41affebd-3354-9420-0048-bffd14535e95@gmail.com>
+ <20201001154946.104626-2-colomar.6.4.3@gmail.com>
+ <538b683f-01d2-6148-4f1d-1b293eb5cd6b@cs.ucla.edu>
+ <4b86f6e9-0d8a-f14a-73ce-ebbdc9d9edba@gmail.com>
+ <CAH6eHdSLbaqTyXaPnBxnR4n+WVHJCBDF=C9RXa6To1rSuv0D4w@mail.gmail.com>
+ <CAKgNAkiHbK4RU_a_165yg3O6W0-GZMNLQoBNbut6ME=bW7pvCw@mail.gmail.com>
+ <CAH6eHdQrmsHxZbk3+JxRVZ5qH1fhFzLxyigs+DtEzSg2cet+kw@mail.gmail.com>
+ <63826e82-7a19-0ecc-f73c-56aa560a842f@gmail.com>
+ <CAH6eHdTpzNk4+Rg-+kUCRDZPLHe7MBBf2PK5i1WqD4VeEs60oQ@mail.gmail.com>
+ <4422e4bc-f54c-02cf-9b47-808d07ce8ba5@gmail.com>
+ <297e304a-758e-f703-d1e2-6708be3ffca8@gmail.com>
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <97b1b0d8-1f87-ac68-2ae9-92c2681ac49a@gmail.com>
-Date:   Sat, 3 Oct 2020 10:55:17 +0200
+Message-ID: <9c8f90c5-0f34-609f-8001-a61f90e05849@gmail.com>
+Date:   Sat, 3 Oct 2020 11:16:00 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20201003074807.swdpnwaq2rzigadl@localhost.localdomain>
-Content-Type: text/plain; charset=windows-1252; format=flowed
+In-Reply-To: <297e304a-758e-f703-d1e2-6708be3ffca8@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael and Branden,
+Hi Michael,
 
-On 2020-10-03 09:48, G. Branden Robinson wrote:
-> At 2020-10-03T09:10:14+0200, Michael Kerrisk (man-pages) wrote:
->> On 10/2/20 10:27 PM, Alejandro Colomar wrote:
->>> On 2020-10-02 22:14, Paul Eggert wrote:
->>>   > On 10/2/20 11:38 AM, Alejandro Colomar wrote:
->>>   >
->>>   >> .I void *
->>>   >>
->>>   >> renders with a space in between.
->>>   >
->>>   > That's odd, as "man(7)" says "All of the arguments will be
->>>   > printed next to each other without intervening spaces". I'd play
->>>   > it safe and quote the arg anyway.
->>>
->>> Oops, that's a bug in man(7).  Don't worry about it.
->>
->> I'm not sure where that text in man(7) comes from. However, for
->> clarity I would normally also use quotes in this case.
+On 2020-10-03 10:00, Michael Kerrisk (man-pages) wrote:
+ > Hi Alex, et al.
+ > On 10/2/20 3:51 PM, Alejandro Colomar wrote:
+ >>
+ >> Hi Jonathan,
+ >>
+ >> On 2020-10-02 15:27, Jonathan Wakely wrote:
+ >>> On Fri, 2 Oct 2020 at 14:20, Alejandro Colomar 
+<colomar.6.4.3@gmail.com> wrote:
+ >>>>
+ >>>>
+ >>>>
+ >>>> On 2020-10-02 15:06, Jonathan Wakely wrote:
+ >>>>    > On Fri, 2 Oct 2020 at 12:31, Michael Kerrisk (man-pages)
+ >>>>    > <mtk.manpages@gmail.com> wrote:
+ >>>>    >>
+ >>>>    >> On Fri, 2 Oct 2020 at 12:49, Jonathan Wakely 
+<jwakely.gcc@gmail.com>
+ >>>> wrote:
+ >>>>    >>>
+ >>>>    >>> On Fri, 2 Oct 2020 at 09:28, Alejandro Colomar via Gcc
+ >>>> <gcc@gcc.gnu.org> wrote:
+ >>>>    >>>> However, it might be good that someone starts a page called
+ >>>>    >>>> 'type_qualifiers(7)' or something like that.
+ >>>>    >>>
+ >>>>    >>> Who is this for? Who is trying to learn C from man pages? 
+Should
+ >>>>    >>> somebody stop them?
+ >>>>    >>
+ >>>>    >> Yes, I think so. To add context, Alex has been doing a lot 
+of work to
+ >>>>    >> build up the new system_data_types(7) page [1], which I think is
+ >>>>    >> especially useful for the POSIX system data types that are 
+used with
+ >>>>    >> various APIs.
+ >>>>    >
+ >>>>    > It's definitely useful for types like struct siginfo_t and struct
+ >>>>    > timeval, which aren't in C.
+ >>>>
+ >>>> Hi Jonathan,
+ >>>>
+ >>>> But then the line is a bit diffuse.
+ >>>> Would you document 'ssize_t' and not 'size_t'?
+ >>>
+ >>> Yes. My documentation for ssize_t would mention size_t, refer to the C
+ >>> standard, and not define it.
+ >>>
+ >>>> Would you not document intN_t types?
+ >>>> Would you document stdint types, including 'intptr_t', and not 
+'void *'?
+ >>>
+ >>> I would document neither.
+ >>>
+ >>> I can see some small value in documenting size_t and the stdint types,
+ >>> as they are technically defined by the libc headers. But documenting
+ >>> void* seems very silly. It's one of the most fundamental built-in
+ >>> parts of the C language, not an interface provided by the system.
+ >>>
+ >>>> I guess the basic types (int, long, ...) can be left out for now,
+ >>>
+ >>> I should hope so!
+ >>>
+ >>>> and apart from 'int' those rarely are the most appropriate types
+ >>>> for most uses.
+ >>>> But other than that, I would document all of the types.
+ >>>> And even... when all of the other types are documented,
+ >>>> it will be only a little extra effort to document those,
+ >>>> so in the future I might consider that.
+ >>>
+ >>> [insert Jurassic Park meme "Your scientists were so preoccupied with
+ >>> whether or not they could, they didn't stop to think if they should."
+ >>> ]
+ >>>
+ >>> I don't see value in bloating the man-pages with information nobody
+ >>> will ever use, and which doesn't (IMHO) belong there anyway. We seem
+ >>> to fundamentally disagree about what the man pages are for. I don't
+ >>> think they are supposed to teach C programming from scratch.
+ >>
+ >> Agree in part.
+ >> I'll try to think about it again.
+ >>
+ >> In the meantime, I trust Michael to tell me when something is way off :)
+ >>
+ >> Thanks, really!
+ >>
+ >> Alex
+ >
+ > So, I think a navigational correction is needed.
+ >
+ > My vision was that system_data_types(7) would most usefully document
+ > the POSIX types, but by now there's too much of C creeping in. I have
+ > been a little slow to react to that, and I apologize for that.
+ > But I think we should not go in that direction
+ >
+ > I think it is worth having types like ssize_t and size_t in
+ > the page, simply because they turn up with so many of the POSIX
+ > APIs, and people often don't understand some details of these
+ > types (such as the necessary prinf() specifiers). So, as long as
+ > we're going to have a page about these types, it's fine by
+ > me to include size_t and ssize_t.
+ >
+ > Types like [u]intN_t are definitely on the borderline for me. But,
+ > they do appear in various APIs in the Linux interface (either
+ > explicitly, or as the similar __u32 ___64, etc.). And again
+ > many people don't understand some basic details, such as
+ > the PRI and SCN constants, so I think it is useful to have them
+ > briefly summarized in one place, and as long as they are already
+ > in the page, then let's keep them.
+ >
+ > I think __int128 etc definitely doesn't belong in this page.
+ >
+ > And I'd like to back pedal a bit. I think we really shouldn't have
+ > [u]int_fastN_t
+ > [u]int_leastN_t
+ > in the page. They are C details that have nothing to with POSIX,
+ > the kernel, or libc. Could you send me a patch to remove these
+ > from the page? And again, my apologies for not being focused
+ > enough on the big picture sooner.
 
-Hi Michael and Branden,
+I'm fine with removing them.
+I only added them because while I was adding [u]intN_t,
+they were in the same page, and I just took them too.
+No problem with removing them.
 
-Here is the offending line:
+To be clear, I should remove [u]int_*astN_t, right?
 
-https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man7/man.7#n172
+ >
+ > I don't think 'void' belongs in this page. Nor basic types
+ > such as int, long, etc.
+Fine.
+
+
+ >
+ > The question of 'void *' is an interesting one. It is something
+ > like a fundamental C type, and not something that comes from POSIX.
+ > But, it does appear in POSIX APIs and often details of using
+ > the type are not well understood. So, as a matter of practicality,
+ > and again since you've done the work, I am inclined to include
+ > this type in the page, just so it can be handily referred to
+ > along with all of the other types.
+ >
+ > Looking ahead (and I hope none of the above disheartens you,
+ > since you've done a lot of great work for this page),
+
+Actually, not.
+Its good to have you tell me what is good for the man and what's not.
+Otherwise, I wouldn't know.
+I keep a branch with all of the rejected patches,
+just to have an idea of what I should not send you :-)
+
+ > it would
+ > be good if you could provide a bit of an advance roadmap about
+ > the types that you'd like to add to the page.
+
+Well, I didn't have a clear roadmap.
+I had some types which I clearly wanted to document,
+and they were ptrdiff_t, and ssize_t,
+which I documented in the first patches,
+and then I was finding related types,
+and also tended to document about types which I knew very well too,
+to have something useful to add to the description.
+
+I may now start writing about off_t and related types,
+which were the ones that made me want this page.
+
+ >
+ > Thanks,
+ >
+ > Michael
+ >
+ >
+ >
 
 Thanks,
 
 Alex
 
->>
->>> Michael, you might want to have a look at it.
->>>
->>> I'll also add Branden, who might have something to say about it.
->>
->> Yes, maybe Branden can add some insight.
-> 
-> The "short" answer[1] is that I think Alex is correct; Paul's caution is
-> unwarranted and arises from confusion with the font alternation macros
-> of the man(7) macro package.  Examples of the latter are .BI and .BR.
-> Those set their even-numbered arguments in one font and odd-numbered
-> arguments in another, with no space between them.  That suppression of
-> space is the reason they exist.  With the "single-font" macros like .B
-> and .I[2], if you don't want space, don't type it.
-> 
-> I could say more, including an annotated explanation of the groff and
-> Version 7 Unix man(7) implementations of the I macro, if desired.  :)
-> 
-> Regards,
-> Branden
-> 
-> [1] since as everyone knows, I struggle with brevity
-> [2] I (and others) discourage use of .SM and .SB because they can't be
-> distinguished from ordinary roman and bold type, respectively, on
-> terminals.
-> 
