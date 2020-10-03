@@ -2,104 +2,135 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7D27728224E
-	for <lists+linux-man@lfdr.de>; Sat,  3 Oct 2020 10:01:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1B5622822BA
+	for <lists+linux-man@lfdr.de>; Sat,  3 Oct 2020 10:55:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725681AbgJCIBv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 3 Oct 2020 04:01:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47280 "EHLO
+        id S1725790AbgJCIzY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 3 Oct 2020 04:55:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55446 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725648AbgJCIBv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Oct 2020 04:01:51 -0400
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E7F60C0613D0;
-        Sat,  3 Oct 2020 01:01:50 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id l15so2482806wmh.1;
-        Sat, 03 Oct 2020 01:01:50 -0700 (PDT)
+        with ESMTP id S1725648AbgJCIzV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Oct 2020 04:55:21 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EC9B4C0613D0;
+        Sat,  3 Oct 2020 01:55:20 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id x14so4268311wrl.12;
+        Sat, 03 Oct 2020 01:55:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
+        h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=vuCwt/HhHLXbCNrxSYxh8rmLHgkWRSUuSZzo3V3bnzU=;
-        b=uaW8pLwidd8y5z49rnqBXsRqXB7tmRS09/5CSrjqcEudalbI52Jqo12Cnt4dEGJN9c
-         paxf8K31rfBftIKBE3OUbDGnNUKn20or17NmeTRNYnn/QSAI67Z4tuIQM56oCyjLNj4d
-         g2GfHxaqPhmMreMD0AMDzkGgD5Xgmj1xPFEQHNS6Q9IZtWvCw+m6EgRHQueK4Pi830tM
-         y3yhqX77rN2+AK9KYTFLRmYnaRwUoNxG0WDWUcXQEk1+xP91e9EOm6/yeGpWMbkh3JN0
-         UZZs+59bIJUWYFOpiV1U8FbBAZ/nYLONgmGoHvD9DnJTEOgbh4rpsgP6L4eZ4Uq1DJBf
-         POlw==
+        bh=+bcD/CAAXV7lyNPV3QRgxAmLGFQtjxS5V6MhUGAQTGo=;
+        b=kz7MJAgBwohvqrukst++kx32d+paduyD9iPZrCimHFqPxFjuEPELd6j7o7Q+9ELrY6
+         RUzVvHA4WTHgemuAK2+6HRSapT8a3Nch4yGwtQ2FZcKtoDC3Dr9Kj3pY4h/qkhmtHJpL
+         KYeKk2rtHGpQwW1bIqCBHhHp+Gv9UC/DLQPGgIrRYXCJzBgzXQ6IZTZ608KkEuZ2YxL5
+         /kIxWsZB8gl67jqKSbVP34VX148GDj+K2GGTbnlakTxozieFvQzPPA+parBjPTOXgjE2
+         XsHJQQoJLwTPOXwa0y5ik3NgfaEETYDX912x6s5D0ASzTMEXCPD3Cf/juFo4tJ2mzwlr
+         xzQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=vuCwt/HhHLXbCNrxSYxh8rmLHgkWRSUuSZzo3V3bnzU=;
-        b=OyyYmfHBk54ZSsI2b9On60bz3D6uzyQz8vj3Gr3HkcH0qdHvlPzaxfPEcf/XjOgLkJ
-         xvUvDPDCXPe0OOfA6HDZBHNmFvtY4eSHxMxlPdoMztkneQLGWzgNsmmwy3o+2TeB8ux1
-         RUURnf7gFABokbmkEMTUALFNIzf6BKzVlx0PNMzQ+HsIEoPKPEeAUapLHoIDjSl8xzT1
-         ebLi4zII5bQ3oC805BjShMkTLNSi914c03+/ShauQNwyAKIKpxW+2Odfl+y2k3ytMUGi
-         ykMnHuFkEzUe5sHx92oBcdCc9akQxyUWsRkfca1u/0h+C27YzhAxqI1LnAQOI8ZUtbri
-         owAA==
-X-Gm-Message-State: AOAM532nl4vDYeFByMKXZudYP2t8QSCKxIdRt5qVFQ/0JuMY+0oZPJBC
-        l8cKAxuk9P4ZSYma8Mtrn7E=
-X-Google-Smtp-Source: ABdhPJzOlZZPqJA9PSu9JywlEz8QeDlrsQRirMEIQoF5VbbDBIe2P9dWlWXXL+XdwGeUd16pr3JeRw==
-X-Received: by 2002:a1c:2042:: with SMTP id g63mr6559588wmg.174.1601712109693;
-        Sat, 03 Oct 2020 01:01:49 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id f5sm4310777wmh.16.2020.10.03.01.01.48
+        bh=+bcD/CAAXV7lyNPV3QRgxAmLGFQtjxS5V6MhUGAQTGo=;
+        b=ZlvKp95Db7q61BlRylRnR/UjCmGZa0hUR7ZnYEYjRJEHbW3YGMIWwywF1fgKf5YhOp
+         VkhXR9rItStbEPgsqoluGNRJzqqxIp0rDnz6rKEI3mELA19uiLw+hwcLhPJE8k4VJn5C
+         bhQNo/9gpLbAzZCX2YGNLcyZH+z06aSpNhBlGJT4KGq3SN+lw4hC4hNr7upVwUGR06Dp
+         1UziF1Ks4zMINwbcLOkXhCcQkvHGyrMa1k8ykkggmPGe1LvakBwMAj6UmfXoUsPLb+ec
+         JguRQOttuDQCrDJFQfX08hoe4LV/6aR8EWdf5ZlOR67DRoIWr38ln0XlRl6qAkEeq6U8
+         7oaQ==
+X-Gm-Message-State: AOAM5322J5GeFgE+NI4ighN2uHAEokcbM6xQ6HTnAo7N6Epa4t2x3V6O
+        vrc7JAlOzkacc1qNvqtJ06A=
+X-Google-Smtp-Source: ABdhPJyijR/eRLvEQ/ol/MBO40aPRhjsu5QPazk4ZLlz2mySjhCA6HuHEWQ+35KGye5dRPfmq7qzAw==
+X-Received: by 2002:adf:f6cd:: with SMTP id y13mr7139426wrp.161.1601715319616;
+        Sat, 03 Oct 2020 01:55:19 -0700 (PDT)
+Received: from [192.168.1.143] ([170.253.60.68])
+        by smtp.gmail.com with ESMTPSA id b64sm4639194wmh.13.2020.10.03.01.55.18
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Oct 2020 01:01:49 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Sat, 03 Oct 2020 01:55:18 -0700 (PDT)
+Subject: Re: [PATCH v4 1/2] system_data_types.7: Add 'void *'
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org,
         gcc-patches@gcc.gnu.org, libc-alpha@sourceware.org,
-        eggert@cs.ucla.edu, linux-kernel@vger.kernel.org,
-        jwakely.gcc@gmail.com, David.Laight@ACULAB.COM
-Subject: Re: [PATCH v5 2/2] void.3: New link to system_data_types(7)
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-References: <20201002151419.32053-1-colomar.6.4.3@gmail.com>
- <20201002192814.14113-3-colomar.6.4.3@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <836888b0-22c8-0904-aa9d-04c987c5ef41@gmail.com>
-Date:   Sat, 3 Oct 2020 10:01:48 +0200
+        linux-kernel@vger.kernel.org, jwakely.gcc@gmail.com,
+        David.Laight@ACULAB.COM
+References: <20201002121645.23646-1-colomar.6.4.3@gmail.com>
+ <20201002151419.32053-2-colomar.6.4.3@gmail.com>
+ <3941e130-df05-778b-dc76-90cd58400192@cs.ucla.edu>
+ <d794a058-0506-7c3c-6f3e-518a788933af@gmail.com>
+ <ff1700df-d383-44e7-24b4-da10000f83fc@cs.ucla.edu>
+ <5b01a17e-5819-115f-7972-7f849d4356df@gmail.com>
+ <78368866-e848-d208-eef7-f3a93a797853@gmail.com>
+ <20201003074807.swdpnwaq2rzigadl@localhost.localdomain>
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+Message-ID: <97b1b0d8-1f87-ac68-2ae9-92c2681ac49a@gmail.com>
+Date:   Sat, 3 Oct 2020 10:55:17 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20201002192814.14113-3-colomar.6.4.3@gmail.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <20201003074807.swdpnwaq2rzigadl@localhost.localdomain>
+Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Alex,
+Hi Michael and Branden,
 
-On 10/2/20 9:28 PM, Alejandro Colomar wrote:
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+On 2020-10-03 09:48, G. Branden Robinson wrote:
+> At 2020-10-03T09:10:14+0200, Michael Kerrisk (man-pages) wrote:
+>> On 10/2/20 10:27 PM, Alejandro Colomar wrote:
+>>> On 2020-10-02 22:14, Paul Eggert wrote:
+>>>   > On 10/2/20 11:38 AM, Alejandro Colomar wrote:
+>>>   >
+>>>   >> .I void *
+>>>   >>
+>>>   >> renders with a space in between.
+>>>   >
+>>>   > That's odd, as "man(7)" says "All of the arguments will be
+>>>   > printed next to each other without intervening spaces". I'd play
+>>>   > it safe and quote the arg anyway.
+>>>
+>>> Oops, that's a bug in man(7).  Don't worry about it.
+>>
+>> I'm not sure where that text in man(7) comes from. However, for
+>> clarity I would normally also use quotes in this case.
 
-Patch applied.
+Hi Michael and Branden,
 
-And, I think we're now at a sync point.
+Here is the offending line:
+
+https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man7/man.7#n172
 
 Thanks,
 
-Michael
+Alex
 
-
-> ---
->  man3/void.3 | 1 +
->  1 file changed, 1 insertion(+)
->  create mode 100644 man3/void.3
+>>
+>>> Michael, you might want to have a look at it.
+>>>
+>>> I'll also add Branden, who might have something to say about it.
+>>
+>> Yes, maybe Branden can add some insight.
 > 
-> diff --git a/man3/void.3 b/man3/void.3
-> new file mode 100644
-> index 000000000..db50c0f09
-> --- /dev/null
-> +++ b/man3/void.3
-> @@ -0,0 +1 @@
-> +.so man7/system_data_types.7
+> The "short" answer[1] is that I think Alex is correct; Paul's caution is
+> unwarranted and arises from confusion with the font alternation macros
+> of the man(7) macro package.  Examples of the latter are .BI and .BR.
+> Those set their even-numbered arguments in one font and odd-numbered
+> arguments in another, with no space between them.  That suppression of
+> space is the reason they exist.  With the "single-font" macros like .B
+> and .I[2], if you don't want space, don't type it.
 > 
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+> I could say more, including an annotated explanation of the groff and
+> Version 7 Unix man(7) implementations of the I macro, if desired.  :)
+> 
+> Regards,
+> Branden
+> 
+> [1] since as everyone knows, I struggle with brevity
+> [2] I (and others) discourage use of .SM and .SB because they can't be
+> distinguished from ordinary roman and bold type, respectively, on
+> terminals.
+> 
