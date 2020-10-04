@@ -2,149 +2,102 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A14292823FA
-	for <lists+linux-man@lfdr.de>; Sat,  3 Oct 2020 13:52:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C99B4282A7F
+	for <lists+linux-man@lfdr.de>; Sun,  4 Oct 2020 13:50:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725775AbgJCLwW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 3 Oct 2020 07:52:22 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54356 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725770AbgJCLwW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Oct 2020 07:52:22 -0400
-Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 61F7EC0613D0;
-        Sat,  3 Oct 2020 04:52:22 -0700 (PDT)
-Received: by mail-ed1-x544.google.com with SMTP id k14so4632834edo.1;
-        Sat, 03 Oct 2020 04:52:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=9jUeJOkE+R9NG6baMFGsjz4iwRYo3Wny6Nrt0TprECc=;
-        b=AFnUZKncE3UnzmRtTddgX9n7+Qu83RYhHWz9lfC2d70z8AMDCWuDYy1ttE0HJJr0/h
-         2xItSWQpuA5ixgwnzyykRPXnfLsdYimEeA4WEhwl9lcB2i18WhM0NkBX1Yhkbwn/kOqx
-         XydzukkojXd6WTvCYlXFi9ERttG8YY7mcNpw07j9KbL3w6Alpt75ktcxID/YTHgNPVLa
-         GNFDUKDS4EXbpF5rp1eeA8foZy/Mz/7nZFbQBiud6/VgpGer+IYNOIlPMLxBbIvMq5/T
-         8g32G+lZEbH9lPAjpYyG63DT92bMh/VlCkS8lpQbyzTlhxmZadrj1VwWPH22mMbuNp2D
-         3eWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=9jUeJOkE+R9NG6baMFGsjz4iwRYo3Wny6Nrt0TprECc=;
-        b=do6p5EVnjW+Y35eg9t4/joPNt+jmUKktowiQ4g8D3PstM1pk0MOcNNlqY5OX3I2UhV
-         Gu9uPJOxC7ol4PdaIVpf8/bY/iKQuuwIZhd01xb9pBQtQ8qOljVB+bEFes7cgt8KgH3u
-         Thp/TSWarKXp3bGAnjox7/XNQbrYmG00uI1lcyITE8UhK1QA/TdhNXRykY07uDdLuLGD
-         4PjIpPYbdvgalsAj5jrM2qwO07gwk7bTR8mAg9ud4qkM6QRY+9oos1T2QafKq2QodABD
-         uxJA7jxCIUpwRpjA1FHiXmbMEhbHhpPUjQgvjI7AVDDWM7Ywi9PQrZ67l35c92tPkfkX
-         WX4A==
-X-Gm-Message-State: AOAM533a7xAOKlbXwWwP41zlPkgFlcrtdnE54GaWHHA1YODnkNyqZvdJ
-        /NQoHc6TunapXs2Zd6ZGPNk=
-X-Google-Smtp-Source: ABdhPJziFF3ELVq+4EAkPT4rZV3VGhexRs5C7ceVNwmKQQ+kAKFLTJbRmmzMHUAx92Gs6mKRbkhcig==
-X-Received: by 2002:aa7:c98f:: with SMTP id c15mr7130761edt.200.1601725941130;
-        Sat, 03 Oct 2020 04:52:21 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2479:6801:d8fe:4132:9f23:7e8f? ([2001:a61:2479:6801:d8fe:4132:9f23:7e8f])
-        by smtp.gmail.com with ESMTPSA id qh12sm40040ejb.55.2020.10.03.04.52.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Oct 2020 04:52:20 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com,
-        Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org,
-        gcc-patches@gcc.gnu.org, libc-alpha@sourceware.org,
-        linux-kernel@vger.kernel.org, jwakely.gcc@gmail.com,
-        David.Laight@ACULAB.COM
-Subject: Re: [PATCH v4 1/2] system_data_types.7: Add 'void *'
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-References: <20201002121645.23646-1-colomar.6.4.3@gmail.com>
- <20201002151419.32053-2-colomar.6.4.3@gmail.com>
- <3941e130-df05-778b-dc76-90cd58400192@cs.ucla.edu>
- <d794a058-0506-7c3c-6f3e-518a788933af@gmail.com>
- <ff1700df-d383-44e7-24b4-da10000f83fc@cs.ucla.edu>
- <5b01a17e-5819-115f-7972-7f849d4356df@gmail.com>
- <78368866-e848-d208-eef7-f3a93a797853@gmail.com>
- <20201003074807.swdpnwaq2rzigadl@localhost.localdomain>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <0aa019cd-3b56-76fc-e4d5-5c7d1d8c8e56@gmail.com>
-Date:   Sat, 3 Oct 2020 13:52:19 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+        id S1725840AbgJDLuJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 4 Oct 2020 07:50:09 -0400
+Received: from mx1.riseup.net ([198.252.153.129]:45482 "EHLO mx1.riseup.net"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1725907AbgJDLuI (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sun, 4 Oct 2020 07:50:08 -0400
+Received: from capuchin.riseup.net (capuchin-pn.riseup.net [10.0.1.176])
+        (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+        (Client CN "*.riseup.net", Issuer "Sectigo RSA Domain Validation Secure Server CA" (not verified))
+        by mx1.riseup.net (Postfix) with ESMTPS id 4C422Z2Z0rzFf2r;
+        Sun,  4 Oct 2020 04:44:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
+        t=1601811878; bh=6XHsOE9CFZ1ZJJ7QhXOibFLomDa1VkTbbKn4U6xv9g4=;
+        h=Date:From:To:Cc:Subject:From;
+        b=QGR9217fVGO0OU5i8Q5xH+H3FLl3O8q/CisEI3JEjWZ32Gmx6C32flP4t+DjUlISu
+         gfky6HxYHJKrWB/gSR+NxYrit8lsSoCL730gtv09hgggyS8wkmJg1rhqCjhvRFC2rU
+         2zZvlLn47l8nz6zWWucAURMDl1YUW/GWI8/wvuR8=
+X-Riseup-User-ID: C96D4632F9E13C5523BC7D9824D064BEE82AA691305499593879FDE14923A407
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+         by capuchin.riseup.net (Postfix) with ESMTPSA id 4C422Y01g1z8vXV;
+        Sun,  4 Oct 2020 04:44:36 -0700 (PDT)
+Date:   Sun, 4 Oct 2020 11:44:34 +0000
+From:   Samanta Navarro <ferivoz@riseup.net>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] mmap.2, proc.5, bpf-helpers.7, cpuset.7: tfix
+Message-ID: <20201004114434.pbetrwdehhgzibuw@localhost>
 MIME-Version: 1.0
-In-Reply-To: <20201003074807.swdpnwaq2rzigadl@localhost.localdomain>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 10/3/20 9:48 AM, G. Branden Robinson wrote:
-> At 2020-10-03T09:10:14+0200, Michael Kerrisk (man-pages) wrote:
->> On 10/2/20 10:27 PM, Alejandro Colomar wrote:
->>> On 2020-10-02 22:14, Paul Eggert wrote:
->>>  > On 10/2/20 11:38 AM, Alejandro Colomar wrote:
->>>  >
->>>  >> .I void *
->>>  >>
->>>  >> renders with a space in between.
->>>  >
->>>  > That's odd, as "man(7)" says "All of the arguments will be
->>>  > printed next to each other without intervening spaces". I'd play
->>>  > it safe and quote the arg anyway.
->>>
->>> Oops, that's a bug in man(7).  Don't worry about it.
->>
->> I'm not sure where that text in man(7) comes from. However, for
->> clarity I would normally also use quotes in this case.
->>
->>> Michael, you might want to have a look at it.
->>>
->>> I'll also add Branden, who might have something to say about it.
->>
->> Yes, maybe Branden can add some insight.
-> 
-> The "short" answer[1] is that I think Alex is correct; Paul's caution is
-> unwarranted and arises from confusion with the font alternation macros
-> of the man(7) macro package.  Examples of the latter are .BI and .BR.
-> Those set their even-numbered arguments in one font and odd-numbered
-> arguments in another, with no space between them.  That suppression of
-> space is the reason they exist.  With the "single-font" macros like .B
-> and .I[2], if you don't want space, don't type it.
-> 
-> I could say more, including an annotated explanation of the groff and
-> Version 7 Unix man(7) implementations of the I macro, if desired.  :)
+---
+ man2/mmap.2        | 2 +-
+ man5/proc.5        | 2 +-
+ man7/bpf-helpers.7 | 2 +-
+ man7/cpuset.7      | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-So, perhaps change:
-
-       All  of the arguments will be printed next to each
-       other without intervening spaces, so that  the  .BR  command
-       can  be used to specify a word in bold followed by a mark of
-       punctuation in Roman.
-
-to:
-
-       For the macros that produce alternating type faces,
-       the arguments will be printed next to each
-       other without intervening spaces, so that  the  .BR  command
-       can  be used to specify a word in bold followed by a mark of
-       punctuation in Roman.
-
-?
-
-> [1] since as everyone knows, I struggle with brevity
-> [2] I (and others) discourage use of .SM and .SB because they can't be
-> distinguished from ordinary roman and bold type, respectively, on
-> terminals.
-
-So, do you think it's worth discouraging this in man(7)?
-
-Thanks,
-
-Michael
- 
-
-
+diff --git a/man2/mmap.2 b/man2/mmap.2
+index 545597e..9393294 100644
+--- a/man2/mmap.2
++++ b/man2/mmap.2
+@@ -437,7 +437,7 @@ For other files, creating a mapping with this flag results in an
+ error.
+ .IP
+ Shared file mappings with this flag provide the guarantee that while
+-some memory is writably mapped in the address space of the process,
++some memory is mapped writable in the address space of the process,
+ it will be visible in the same file at the same offset even after
+ the system crashes or is rebooted.
+ In conjunction with the use of appropriate CPU instructions,
+diff --git a/man5/proc.5 b/man5/proc.5
+index 67b9e7a..ed30938 100644
+--- a/man5/proc.5
++++ b/man5/proc.5
+@@ -114,7 +114,7 @@ specific program
+ (so long as the program doesn't otherwise reveal itself by its behavior).
+ .\" As an additional bonus, since
+ .\" .IR /proc/[pid]/cmdline
+-.\" is unaccessible for other users,
++.\" is inaccessible for other users,
+ .\" poorly written programs passing sensitive information via
+ .\" program arguments are now protected against local eavesdroppers.
+ .TP
+diff --git a/man7/bpf-helpers.7 b/man7/bpf-helpers.7
+index a18be23..57d2185 100644
+--- a/man7/bpf-helpers.7
++++ b/man7/bpf-helpers.7
+@@ -2075,7 +2075,7 @@ egress path otherwise). This is the only flag supported for now.
+ .B Description
+ This helper is used in programs implementing policies at the
+ skb socket level. If the sk_buff \fIskb\fP is allowed to pass (i.e.
+-if the verdeict eBPF program returns \fBSK_PASS\fP), redirect it
++if the verdict eBPF program returns \fBSK_PASS\fP), redirect it
+ to the socket referenced by \fImap\fP (of type
+ \fBBPF_MAP_TYPE_SOCKHASH\fP) using hash \fIkey\fP\&. Both ingress and
+ egress interfaces can be used for redirection. The
+diff --git a/man7/cpuset.7 b/man7/cpuset.7
+index cbc6cf7..1d6c5ea 100644
+--- a/man7/cpuset.7
++++ b/man7/cpuset.7
+@@ -317,7 +317,7 @@ Flag (0 or 1).
+ If set (1), the kernel slab caches
+ for file I/O (directory and inode structures) are
+ uniformly spread across the cpuset.
+-By defaultBy default, is off (0) in the top cpuset,
++By default, is off (0) in the top cpuset,
+ and inherited from the parent cpuset in
+ newly created cpusets.
+ See the \fBMemory Spread\fR section, below.
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.28.0
+
