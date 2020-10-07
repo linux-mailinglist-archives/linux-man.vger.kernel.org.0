@@ -2,82 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9870228584A
-	for <lists+linux-man@lfdr.de>; Wed,  7 Oct 2020 07:57:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 574A7285853
+	for <lists+linux-man@lfdr.de>; Wed,  7 Oct 2020 08:01:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727107AbgJGF5W (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 7 Oct 2020 01:57:22 -0400
-Received: from smtpout1.mo804.mail-out.ovh.net ([79.137.123.220]:41553 "EHLO
-        smtpout1.mo804.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725970AbgJGF5W (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 7 Oct 2020 01:57:22 -0400
-Received: from mxplan6.mail.ovh.net (unknown [10.109.146.228])
-        by mo804.mail-out.ovh.net (Postfix) with ESMTPS id 2E8A06975581;
-        Wed,  7 Oct 2020 07:57:20 +0200 (CEST)
-Received: from jwilk.net (37.59.142.101) by DAG4EX2.mxp6.local (172.16.2.32)
+        id S1726312AbgJGGBB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 7 Oct 2020 02:01:01 -0400
+Received: from smtpout1.mo529.mail-out.ovh.net ([178.32.125.2]:43891 "EHLO
+        smtpout1.mo529.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1725970AbgJGGBB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 7 Oct 2020 02:01:01 -0400
+Received: from mxplan6.mail.ovh.net (unknown [10.108.1.97])
+        by mo529.mail-out.ovh.net (Postfix) with ESMTPS id 8DAC962CBCEC;
+        Wed,  7 Oct 2020 08:00:59 +0200 (CEST)
+Received: from jwilk.net (37.59.142.95) by DAG4EX2.mxp6.local (172.16.2.32)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2044.4; Wed, 7 Oct 2020
- 07:57:18 +0200
-Authentication-Results: garm.ovh; auth=pass (GARM-101G004b1eb2ce0-8baf-4597-bf1b-ee644ad4aaa5,
+ 08:00:58 +0200
+Authentication-Results: garm.ovh; auth=pass (GARM-95G0010d757987-e1e9-4140-bc38-73872da9c06a,
                     210046763DD62EE8B7C8A4EF62C50FB0A57902B4) smtp.auth=jwilk@jwilk.net
+Date:   Wed, 7 Oct 2020 08:00:56 +0200
 From:   Jakub Wilk <jwilk@jwilk.net>
-To:     <bpf@vger.kernel.org>, Alexei Starovoitov <ast@kernel.org>,
-        Daniel Borkmann <daniel@iogearbox.net>
-CC:     <linux-man@vger.kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Samanta Navarro <ferivoz@riseup.net>
-Subject: [PATCH] bpf: Fix typo in uapi/linux/bpf.h
-Date:   Wed, 7 Oct 2020 07:57:17 +0200
-Message-ID: <20201007055717.7319-1-jwilk@jwilk.net>
-X-Mailer: git-send-email 2.28.0
+To:     Samanta Navarro <ferivoz@riseup.net>
+CC:     <mtk.manpages@gmail.com>, <linux-man@vger.kernel.org>
+Subject: Re: [PATCH] mmap.2, proc.5, bpf-helpers.7, cpuset.7: tfix
+Message-ID: <20201007060056.s2jm3bpiomnspkvc@jwilk.net>
+References: <20201004114434.pbetrwdehhgzibuw@localhost>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7BIT
-Content-Type:   text/plain; charset=US-ASCII
-X-Originating-IP: [37.59.142.101]
-X-ClientProxiedBy: DAG1EX1.mxp6.local (172.16.2.1) To DAG4EX2.mxp6.local
+Content-Type: text/plain; charset="us-ascii"; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20201004114434.pbetrwdehhgzibuw@localhost>
+User-Agent: NeoMutt/20180716
+X-Originating-IP: [37.59.142.95]
+X-ClientProxiedBy: DAG2EX1.mxp6.local (172.16.2.11) To DAG4EX2.mxp6.local
  (172.16.2.32)
-X-Ovh-Tracer-GUID: c1d18d19-d613-4924-86e4-319cde4a1145
-X-Ovh-Tracer-Id: 6394829998014715753
+X-Ovh-Tracer-GUID: e8917575-028f-4d5f-b898-f04d1e43cfa3
+X-Ovh-Tracer-Id: 6456754491661015005
 X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedujedrgeehgddutddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvufffkffoggfgtghisehtkeertdertddtnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpedvheejjeffjeejvdekheehjeeilefhffdtudetfeehueekueeivdduheevheefhfenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddruddtudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdprhgtphhtthhopehfvghrihhvohiisehrihhsvghuphdrnhgvth
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedujedrgeehgddutdefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpeffhffvuffkfhggtggujggfihesthdtredttdervdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhephfefvdefheevhfekledtjeegleetfedvfedvuddvfefgudeuiedtieetvddthefgnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrdelheenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Reported-by: Samanta Navarro <ferivoz@riseup.net>
-Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
----
- include/uapi/linux/bpf.h       | 2 +-
- tools/include/uapi/linux/bpf.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Hi Samanta!
 
-diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
-index b6238b2209b7..4023d27b0951 100644
---- a/include/uapi/linux/bpf.h
-+++ b/include/uapi/linux/bpf.h
-@@ -2204,7 +2204,7 @@ union bpf_attr {
-  *	Description
-  *		This helper is used in programs implementing policies at the
-  *		skb socket level. If the sk_buff *skb* is allowed to pass (i.e.
-- *		if the verdeict eBPF program returns **SK_PASS**), redirect it
-+ *		if the verdict eBPF program returns **SK_PASS**), redirect it
-  *		to the socket referenced by *map* (of type
-  *		**BPF_MAP_TYPE_SOCKHASH**) using hash *key*. Both ingress and
-  *		egress interfaces can be used for redirection. The
-diff --git a/tools/include/uapi/linux/bpf.h b/tools/include/uapi/linux/bpf.h
-index b6238b2209b7..4023d27b0951 100644
---- a/tools/include/uapi/linux/bpf.h
-+++ b/tools/include/uapi/linux/bpf.h
-@@ -2204,7 +2204,7 @@ union bpf_attr {
-  *	Description
-  *		This helper is used in programs implementing policies at the
-  *		skb socket level. If the sk_buff *skb* is allowed to pass (i.e.
-- *		if the verdeict eBPF program returns **SK_PASS**), redirect it
-+ *		if the verdict eBPF program returns **SK_PASS**), redirect it
-  *		to the socket referenced by *map* (of type
-  *		**BPF_MAP_TYPE_SOCKHASH**) using hash *key*. Both ingress and
-  *		egress interfaces can be used for redirection. The
+* Samanta Navarro <ferivoz@riseup.net>, 2020-10-04, 11:44:
+>diff --git a/man7/bpf-helpers.7 b/man7/bpf-helpers.7
+>index a18be23..57d2185 100644
+>--- a/man7/bpf-helpers.7
+>+++ b/man7/bpf-helpers.7
+
+This man page is unusual in that it's automatically generated from the 
+Linux sources.
+
+I've just sent a patch to fix the bug there.
+
 -- 
-2.28.0
-
+Jakub Wilk
