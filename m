@@ -2,78 +2,90 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CA778286488
-	for <lists+linux-man@lfdr.de>; Wed,  7 Oct 2020 18:35:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 22B612865DB
+	for <lists+linux-man@lfdr.de>; Wed,  7 Oct 2020 19:26:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726981AbgJGQfG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 7 Oct 2020 12:35:06 -0400
-Received: from sonic308-9.consmr.mail.ne1.yahoo.com ([66.163.187.32]:41829
-        "EHLO sonic308-9.consmr.mail.ne1.yahoo.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726702AbgJGQfG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 7 Oct 2020 12:35:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1602088505; bh=PxMwWzXvs+dqOoH0/FHvFmQpYH2JguaCUHYAVLLmaiw=; h=Date:From:Reply-To:Subject:References:From:Subject; b=d5A3wTr4p6FFAxEclQLoWqBZReH9vJolSljgqkqtqBRUapz1RFqolauKtuCKpG8EomU/TFNdV2oAdtxbymsirbDYNqUvOA1fthWeRDBSf6AniGdS5idqmlmoaYgjUs2R8tVSSAIprzQTGGwlhvZZ7xIFtdhYaD+LV2pVKs3Y2EaknVpdG8zprZ/eP5ooC9+1LDAMz+fv7i+sxHZIgNpQPwyPKjl6qzwD1aIEH2TmfdxoF8meFcRt3E2wn/568Hbu9/oUocZY0eCBBkIXXilQAHYbehnC/vgTAx1/Hk+hs18VQSnaHQyP+mw7xdJr+uNc2QqLWWNqn1b6Fkaz3Ry+Xg==
-X-YMail-OSG: zTUHY28VM1mNGPP3H1XYVD9w8qOKKVeHQwj2DcAjpK5icPGUuwlh75KeRjrSlyL
- fHU2JPrtK2GQgTBMXPCwqv0KBwF1E28oWrbB14snVasXTKaTXeh.97dm0e5hgwJrPKAFzg113czc
- ffTND8vGz94SA1XuL1LWpRsBah6Qyr4n.PGyl9KgdDkeBBCOX8n2T3WqcUEw8onq6h4Sr0RBi2bh
- joi_k2eAKvyJNDQEbxKLQ7CLGhk.PLLnywnB03D9mrYtNO9IkDLyeOBFugje6pZ9g8vfwGYvVl9x
- hqIF7d1dSMDNWjEcvSCr6oyuVwA.FdBrhKHoJrFREihatCU26uSG8vr8C4TaPFcQuYzuGijVCyRx
- ulHu9L4rqKdPpbUkRV1acqpUdUQW9PvtMagKhF34h1tsXWrdtJ.CYVW7xOYRr7jRp_07CyU000.e
- z54cLrmbHLkzRBETeci1oXpiKaYZC41Ny5XvYXxYQRvcwL0jN9MVO3UtHRq900kvmLcZqkNZVin8
- LIbjw_396s2vZFlgn6ygvxXC2V_cIANiRZg342gj_SDLwIaBOLO95B3NbL_TxZey6q_sC_l1ZuUe
- uf80dteB_UN7a1ESuYIopbnB2atArmuzhErmXCarMxRfI40ThzkRYpaEVa5cxMxBjlPmbQMSQQsG
- mgtRu5GozuJQF2n5SQgpm8IboRg04cwvtoP.S2HlgAxK77gn9wgPewUzac0yqsfU1iqLTa8_WxGN
- z.HmYyKCICXW8rFFRMnWN1nx636i9.MBG7i2F9au14z7WfLVCLE_brvgrhPEg9gsuNKZVm3ELEpw
- 38LyDtbLiD5DyxWJQSiKR669_.5Zuss_NWnqCcarxa7Y5BOArcwYTkuxsUw1yWYI.k7QKPzQYVr.
- srmZeRdkHr6J.dszqhnaWD695Zbo6J1cikj2HpIhvzV7m4Wmu74yErB8Yh6aqBoZiMIunnI5BYuA
- 1mTdlUSVRkJTxPPuQNqk7X4GMcZ.sLjFkNdwKFKvvIKkuFdTN_cYdi4NnqATio3hdLbb9F_V8xCg
- 8kIfGkV149za5x7_jeK9xmuF6Fk7RkHmTZRLdXHCCIQd89xconxhc.0nmur_.1f6Jp6iWPSdt1Gf
- 7TgeX6JVzBj8V1juU6IRLxzDJsDtKi.oC8aptRrLYUo5gsVFlPhpI9YoZgUBTnNWDA9MmpurLV_Y
- u5Fb9P8d20PxV7sY4JhHS8aea8tCBsEvYLfHPVt8S7fyBWMw_jfDoIh4SBuRgQKL1RrrO6vhPgYh
- p5V5W70RVnSQhSA50Z1s6S8xiwoNQjHKYuob0__.q1f12TFVqzJfTxkILWZJPbQQQujyOOoNjO5P
- uDi2VdqpUK8tklZBM4lRlqKHasTvK0WThbBsHR2tGeXtruM.uDlLYBVQPlJ4Qv.m97gNgYDG450M
- FP5_kTFTe2Ad9qTrzGZRA8yRriWSVUCwP4lLLagYk9YviDQ--
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic308.consmr.mail.ne1.yahoo.com with HTTP; Wed, 7 Oct 2020 16:35:05 +0000
-Date:   Wed, 7 Oct 2020 16:35:00 +0000 (UTC)
-From:   Marilyn Robert <fredodinga22@gmail.com>
-Reply-To: marilyobert@gmail.com
-Message-ID: <1342188767.282264.1602088500007@mail.yahoo.com>
-Subject: =?UTF-8?B?0J3QsNGY0LzQuNC70LAg0LrQsNGYINCz0L7RgdC/0L7QtNCw0YDQvtGC?=
+        id S1728253AbgJGR0D (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 7 Oct 2020 13:26:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59224 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726348AbgJGR0D (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 7 Oct 2020 13:26:03 -0400
+Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com [IPv6:2607:f8b0:4864:20::242])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0DD3FC061755
+        for <linux-man@vger.kernel.org>; Wed,  7 Oct 2020 10:26:03 -0700 (PDT)
+Received: by mail-oi1-x242.google.com with SMTP id m128so3273538oig.7
+        for <linux-man@vger.kernel.org>; Wed, 07 Oct 2020 10:26:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=1EtQGzjrFX5ZxZ/yOocRataXDWYAMRZRf2rBbHL9ZGA=;
+        b=Msqn7nSRaZcMRzy3wBI6Nu1/ALbUMt+DRHd6gR37Zt1L3SVaQhHUCrEx8ZD91PCnf8
+         GCpWXXeNwVI+YWrF+FdFf02oKkZbq2OyTSbKwVafSl6Ko2H2ID8pnulh1CPOEX1INEwf
+         DzOsm8nDmbg0MAjcguv7GvclxoFuZVvIQ9Ls+mOj+04fUoMAcwloTTyCChQzMz8O47te
+         JhFqMRFGdsjBQojtL8nDVKyBC1HfanW9X3zA0xIDyktDSN9EcxQrNSQk8A6RsOzk/hVX
+         A52NUEragX8iOYc3VbdLAxWsqN+Ut8049b0YX37SjdCaJCo1qrpDnVbg7LjkLMXxI+SV
+         frNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=1EtQGzjrFX5ZxZ/yOocRataXDWYAMRZRf2rBbHL9ZGA=;
+        b=oS38eJcNguqrkB4ywPjF2l7iBHLf1kBFmCDkra13go2Hp5AOrcy2fP81o8T1cTBYDV
+         JEebTqG6KW7scQAUZpgghw6qZnF7HypEBzvJ+deGpMkWEqYP0s9tNRZOEzcAUniLBG36
+         1p7D8Jf7hYeS7qKP42FQixt2fQs/rXxoOsK5Q/Jw8h8gD1hHvDohEPlw9kIWOM7RxP49
+         J5nu0tnLxxBt0xRcgx5nmPZV7KjaxQCP2dUzV1xIlAR4s4fAUpJ+sp6xF9Dv4WQ4uyyc
+         iuwO+qocpW9xLlcDfHDvPQgD70qS9hN6AVJt0JLLFYKicrkG9SL+GqWim1Lovd84eKtb
+         Cc+w==
+X-Gm-Message-State: AOAM532mkchRW1KoLqa4MV9jTSJZ/22k85QgVWCQWZBR+DsnLlhApETJ
+        fvv53Pu82N3quDF5D7njl4NFu7IB6rbnMjnffNE1tIq6Hto=
+X-Google-Smtp-Source: ABdhPJwjBb6pdJpfHB2Vc3WCCDCxaf27afFaNMZwE3Oumy48WZ8Al8MsFdF2auy7nqE5cx1nCxJ/RqAWnT0b2B7EtXY=
+X-Received: by 2002:aca:ad08:: with SMTP id w8mr2526387oie.148.1602091562433;
+ Wed, 07 Oct 2020 10:26:02 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
-References: <1342188767.282264.1602088500007.ref@mail.yahoo.com>
-X-Mailer: WebService/1.1.16795 YMailNodin Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36
-To:     unlisted-recipients:; (no To-header on input)
+References: <20201004114434.pbetrwdehhgzibuw@localhost> <20201007060056.s2jm3bpiomnspkvc@jwilk.net>
+In-Reply-To: <20201007060056.s2jm3bpiomnspkvc@jwilk.net>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Wed, 7 Oct 2020 19:25:51 +0200
+Message-ID: <CAKgNAki0-tVVU=p6QAJKAce+4V5qdgOpey3HcKE09Hdv0zYaOw@mail.gmail.com>
+Subject: Re: [PATCH] mmap.2, proc.5, bpf-helpers.7, cpuset.7: tfix
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     Samanta Navarro <ferivoz@riseup.net>,
+        linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-DQoNCtCd0LDRmNC80LjQu9CwINC60LDRmCDQs9C+0YHQv9C+0LTQsNGA0L7Rgg0KDQrQiNCw0YEg
-0YHRg9C8IDY4LdCz0L7QtNC40YjQvdCwINC20LXQvdCwLCDQutC+0ZjQsCDRgdGC0YDQsNC00LAg
-0L7QtCDQv9GA0L7QtNC+0LvQttC10L0g0LrQsNGA0YbQuNC90L7QvCDQvdCwINC00L7RmNC60LAs
-INC+0LQg0YHQuNGC0LUg0LzQtdC00LjRhtC40L3RgdC60Lgg0LjQvdC00LjQutCw0YbQuNC4LCDQ
-vNC+0ZjQsNGC0LAg0YHQvtGB0YLQvtGY0LHQsCDQvdCw0LLQuNGB0YLQuNC90LAg0YHQtSDQstC7
-0L7RiNC4INC4INC+0YfQuNCz0LvQtdC00L3QviDQtSDQtNC10LrQsCDQvNC+0LbQtdCx0Lgg0L3Q
-tdC80LAg0LTQsCDQttC40LLQtdCw0Lwg0L/QvtCy0LXRnNC1INC+0LQg0YjQtdGB0YIg0LzQtdGB
-0LXRhtC4INC60LDQutC+INGA0LXQt9GD0LvRgtCw0YIg0L3QsCDQsdGA0LfQuNC+0YIg0YDQsNGB
-0YIg0Lgg0LHQvtC70LrQsNGC0LAg0YjRgtC+INGB0LUg0ZjQsNCy0YPQstCwINC60LDRmCDQvdC1
-0LAuINCc0L7RmNC+0YIg0YHQvtC/0YDRg9CzINC/0L7Rh9C40L3QsCDQvdC10LrQvtC70LrRgyDQ
-s9C+0LTQuNC90Lgg0L3QsNC90LDQt9Cw0LQg0Lgg0L3QsNGI0LjRgtC1INC00L7Qu9Cz0Lgg0LPQ
-vtC00LjQvdC4INCx0YDQsNC6INC90LUg0LHQtdCwINCx0LvQsNCz0L7RgdC70L7QstC10L3QuCDR
-gdC+INC90LjRgtGDINC10LTQvdC+INC00LXRgtC1LCDQv9C+INC90LXQs9C+0LLQsNGC0LAg0YHQ
-vNGA0YIg0LPQviDQvdCw0YHQu9C10LTQuNCyINGG0LXQu9C+0YLQviDQvdC10LPQvtCy0L4g0LHQ
-vtCz0LDRgtGB0YLQstC+Lg0KDQrQlNC+0LDRk9Cw0Lwg0LrQsNGYINCy0LDRgSDQvtGC0LrQsNC6
-0L4g0YHQtSDQv9C+0LzQvtC70LjQsiDQt9CwINGC0L7QsCwg0L/QvtC00LPQvtGC0LLQtdC9INGB
-0YPQvCDQtNCwINC00L7QvdC40YDQsNC8INGB0YPQvNCwINC+0LQgMiwgMzAwLCAwMDAg0LXQstGA
-0LAg0LfQsCDQv9C+0LzQvtGIINC90LAg0YHQuNGA0L7QvNCw0YjQvdC40YLQtSwg0YHQuNGA0L7Q
-vNCw0YjQvdC40YLQtSDQuCDQv9C+0LzQsNC70LrRgyDQv9GA0LjQstC40LvQtdCz0LjRgNCw0L3Q
-uNGC0LUg0LzQtdGT0YMg0LLQsNGI0LjRgtC1INGB0L7QsdGA0LDQvdC40ZjQsCAvINC+0L/RiNGC
-0LXRgdGC0LLQvi4g0JfQsNCx0LXQu9C10LbQtdGC0LUg0LTQtdC60LAg0L7QstC+0Zgg0YTQvtC9
-0LQg0LUg0LTQtdC/0L7QvdC40YDQsNC9INCy0L4g0LHQsNC90LrQsCDQutCw0LTQtSDRiNGC0L4g
-0YDQsNCx0L7RgtC10YjQtSDQvNC+0ZjQvtGCINGB0L7Qv9GA0YPQsy4gQXBwcmVjaWF0ZdC1INGG
-0LXQvdCw0Lwg0LDQutC+INC+0LHRgNC90LXRgtC1INCy0L3QuNC80LDQvdC40LUg0L3QsCDQvNC+
-0LXRgtC+INCx0LDRgNCw0ZrQtSDQt9CwINC/0YDQvtC/0LDQs9C40YDQsNGa0LUg0L3QsCDQvNCw
-0YHQsNC20LDRgtCwINC90LAg0LrRgNCw0LvRgdGC0LLQvtGC0L4sINGc0LUg0LLQuCDQtNCw0LTQ
-sNC8INC/0L7QstC10ZzQtSDQtNC10YLQsNC70Lgg0LfQsCDRgtC+0LAg0LrQsNC60L4g0LTQsCDQ
-v9C+0YHRgtCw0L/QuNGC0LUuDQoNCtCR0LvQsNCz0L7QtNCw0YDQsNC8DQrQky3Rk9CwINCc0LXR
-gNC40LvQuNC9INCg0L7QsdC10YDRgg==
+Hi Jakub, Samanta
+
+On Wed, 7 Oct 2020 at 08:00, Jakub Wilk <jwilk@jwilk.net> wrote:
+>
+> Hi Samanta!
+>
+> * Samanta Navarro <ferivoz@riseup.net>, 2020-10-04, 11:44:
+> >diff --git a/man7/bpf-helpers.7 b/man7/bpf-helpers.7
+> >index a18be23..57d2185 100644
+> >--- a/man7/bpf-helpers.7
+> >+++ b/man7/bpf-helpers.7
+>
+> This man page is unusual in that it's automatically generated from the
+> Linux sources.
+>
+> I've just sent a patch to fix the bug there.
+
+Thanks, jakub. That simplifies things!
+
+Samanta, I've applied your patch.
+
+Thanks,
+
+Michael
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
