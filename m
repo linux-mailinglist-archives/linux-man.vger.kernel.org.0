@@ -2,64 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B89652858D5
-	for <lists+linux-man@lfdr.de>; Wed,  7 Oct 2020 08:53:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 87FF22858D8
+	for <lists+linux-man@lfdr.de>; Wed,  7 Oct 2020 08:54:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727261AbgJGGx5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 7 Oct 2020 02:53:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45910 "EHLO
+        id S1727087AbgJGGyB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 7 Oct 2020 02:54:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45922 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725970AbgJGGx5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 7 Oct 2020 02:53:57 -0400
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F4127C061755;
-        Tue,  6 Oct 2020 23:53:56 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id f21so1118663wml.3;
-        Tue, 06 Oct 2020 23:53:56 -0700 (PDT)
+        with ESMTP id S1725970AbgJGGyB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 7 Oct 2020 02:54:01 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 226B8C061755;
+        Tue,  6 Oct 2020 23:54:01 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id e2so1112895wme.1;
+        Tue, 06 Oct 2020 23:54:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=z3XB1xSaIVxoCVFV+AIEHdeC2vRDuyX8I/AvqLi7N88=;
-        b=H2L+THlTzRfz5/3byTG37OmbuDrd0ZgYdwhG5F7zp1ezKqDAso825mZMJrkB6GLTuf
-         0e1PfBnifQN7LAy6EgPWJH5c3wyE4xUgVd+2+FPV5qV0MZprS2EdVMqGgV4rl+wm6mCj
-         tiHdTLERFygeWrEaFsp5wLlV0uLXZ9Gbggx2AFjTsDWmLGGpAs8P2KR6WwhqgC+zpCav
-         4xUGl8G8c7NlnW1x49QfTLBfxJ91tx+XnMOYD7nYnT7CGhTNxYEBoldGpiLbiP1/cdAm
-         6rn+o/waQIazqFm3iRo0BCCXpSpXRdONzYJv/If5FTeNplPMWW50XeHZyfHv/x8ck/JZ
-         VWrQ==
+        bh=Ob9nq6VFc7bTI/f8dcEEVfJzzE6WUMnV/UoxYuqk+3Y=;
+        b=gTD9DgIVPlTlS0aa0gpHruQSu5j25fGFhsGbiaDzxgtSvMtbqBFi3FjBUOK6mfL2q3
+         pLKGNWjxBk0hzLAYX17VdKqQohknze8riqlSG4CaNZrCPXZPhon+JqgBOmz/aLiECCnA
+         4IHHbPAwl/jHM4TOAGVsxchFTIQo00uXrqAttZzWMvgGyuW8pUY8sJkp6RyDprbwdRAJ
+         HXF0CL+ao7ytblXdGs83c2T6zExkQ/gfWzDYmvVXRFgttql/SEqUe7hLDJHqnJMrbCHX
+         sw/jRbEdzCbbh7Vpo0tQkHPB7SkmSBOzC10/GKcSAwykK7ipvWWxtGv4NckXA1x4Gf9I
+         aJKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=z3XB1xSaIVxoCVFV+AIEHdeC2vRDuyX8I/AvqLi7N88=;
-        b=oDM5Avt5ZEqV8gLLSEk9k96LJVzr7nKXXgdi2wP5as9frnC3aS4Fz7FZA5mUsVDg7O
-         VRaAtH9prK6LcRqZHdjKiRrF56S6NB+j0joSVrEv7ArYLpvTUU1xSC3z+YXkowWzDAHy
-         yV2stjh9WYNBYxih1CmH62y9MRmVGvMQ6cYzBojVn0hfzVct3TGjrXwuJH7HJDigqxAB
-         1NoMqkTnXYRV1ZXTsWN/nF8XBZ07q5MwcuclG/zubucJbcocNEGAnB25wUsp2TyHt7/L
-         DoyMa/TSZVsVdRxiTrHELBk7e/Lj65tPy4voqYvVA8UrIhvatzF8NL8+3nRWxiaZ5+RL
-         3cRQ==
-X-Gm-Message-State: AOAM533nQg9O9KmLlq8an8LY9fhJ13mr/uc62XjkgZj/CZuuuPUAtJUO
-        pW5GxtFlxgIMKYAcMHPtkVYoj0EP7bFvwA==
-X-Google-Smtp-Source: ABdhPJwJq72/bBf9D8rLb782aBEYIY6MXK33Uf83vsHI80STDbhIjSQlKpejF4CPAgNDDbnhf1znew==
-X-Received: by 2002:a7b:c0d8:: with SMTP id s24mr1571629wmh.156.1602053635461;
-        Tue, 06 Oct 2020 23:53:55 -0700 (PDT)
+        bh=Ob9nq6VFc7bTI/f8dcEEVfJzzE6WUMnV/UoxYuqk+3Y=;
+        b=jsAkSPg6QhgDmmwFf76pRc1qo87qfoe4A+Xfl+igxY2rgpEaksgI0IfXP0ADxUQeFr
+         JLIqUKS1IIZ8YFPHsBR/a1JpUmPjRwE1LAYs8/a9+XMNJ6Y+z8Fwk0cPIc/kkr2xiARo
+         +PC1+dUXGmhcKH+tHvFT/eoiFmhPuw0wJgFd1A38kEjBBh7k8dzt0fHXkWpQ4HEmwddW
+         vhrij1g5d2R7LzAdBhZ7PW+tyAxUAfLK6TpW6CroWo7DxKqzpL8K/BvTtnc3qQU290ai
+         nMHawVKi4/DJ+czjge7kBeT1SA+O2E1L1hxKDlA52h10XzM47+fbfXomoUkcyalEywQF
+         4+Xw==
+X-Gm-Message-State: AOAM530k6YYN3Bc3YlsM0zM7qlOm9Otbl4Tcpo2xU4J+JFNa5HBV3Am9
+        oZFhkxWxVN+SanQ0X4ibkWoJN8qoPC+19w==
+X-Google-Smtp-Source: ABdhPJwO7nhIpGzcPTaVFQoDII/x0Jo+vZPkKQLN0ImXae/nrD0j307rhQTRpbshSEVWrVYW/kjGfg==
+X-Received: by 2002:a1c:7c12:: with SMTP id x18mr1625391wmc.107.1602053639652;
+        Tue, 06 Oct 2020 23:53:59 -0700 (PDT)
 Received: from [192.168.43.156] (dynamic-046-114-000-081.46.114.pool.telefonica.de. [46.114.0.81])
-        by smtp.gmail.com with ESMTPSA id o6sm1447830wrm.69.2020.10.06.23.53.53
+        by smtp.gmail.com with ESMTPSA id f14sm1381078wme.22.2020.10.06.23.53.58
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2020 23:53:54 -0700 (PDT)
+        Tue, 06 Oct 2020 23:53:59 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         libc-alpha@sourceware.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] system_data_types.7: Add 'off_t'
+Subject: Re: [PATCH 2/2] off_t.3: New link to system_data_types(7)
 To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
 References: <20201005221247.13065-1-colomar.6.4.3@gmail.com>
+ <20201005221247.13065-2-colomar.6.4.3@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <b24d9f74-d07c-5d07-0788-eb8f1711d71d@gmail.com>
-Date:   Wed, 7 Oct 2020 08:53:52 +0200
+Message-ID: <720f2ffe-b553-13cb-3eb8-b9a093c4777b@gmail.com>
+Date:   Wed, 7 Oct 2020 08:53:57 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20201005221247.13065-1-colomar.6.4.3@gmail.com>
+In-Reply-To: <20201005221247.13065-2-colomar.6.4.3@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -70,82 +71,24 @@ X-Mailing-List: linux-man@vger.kernel.org
 On 10/6/20 12:12 AM, Alejandro Colomar wrote:
 > Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 
-Hi Alex,
+Thanks, Alex. Patch applied.
 
-Thanks, patch applied. And I trimmed the "See also" a little.
-I'd hold off on documenting loff_t and off64_t for the 
-moment. As you note in another mail, the *lseek* man page
-situation is a bit of a mess. I'm not yet sure what to do.
-
-Thanks,
+Cheers,
 
 Michael
 
 > ---
->  man7/system_data_types.7 | 50 ++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 50 insertions(+)
+>  man3/off_t.3 | 1 +
+>  1 file changed, 1 insertion(+)
+>  create mode 100644 man3/off_t.3
 > 
-> diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-> index b8cbc8ffe..916efef08 100644
-> --- a/man7/system_data_types.7
-> +++ b/man7/system_data_types.7
-> @@ -629,6 +629,56 @@ C99 and later; POSIX.1-2001 and later.
->  See also:
->  .BR lldiv (3)
->  .RE
-> +.\"------------------------------------- off_t ------------------------/
-> +.TP
-> +.I off_t
-> +.RS
-> +Include:
-> +.IR <sys/types.h> .
-> +Alternatively,
-> +.IR <aio.h> ,
-> +.IR <fcntl.h> ,
-> +.IR <stdio.h> ,
-> +.IR <sys/mman.h> ,
-> +.IR <sys/stat.h.h> ,
-> +or
-> +.IR <unistd.h> .
-> +.PP
-> +Used for file sizes.
-> +According to POSIX,
-> +this shall be a signed integer type.
-> +.PP
-> +Versions:
-> +.I <aio.h>
-> +and
-> +.I <stdio.h>
-> +define
-> +.I off_t
-> +since POSIX.1-2008.
-> +.PP
-> +Conforming to:
-> +POSIX.1-2001 and later.
-> +.PP
-> +See also:
-> +.BR fallocate (2),
-> +.BR lseek (2),
-> +.BR mmap (2),
-> +.BR mmap2 (2),
-> +.BR posix_fadvise (2),
-> +.BR pread (2),
-> +.BR preadv (2),
-> +.BR truncate (2),
-> +.BR fseeko (3),
-> +.BR getdirentries (3),
-> +.BR lockf (3),
-> +.BR posix_fallocate (3)
-> +.\".PP		TODO: loff_t, off64_t
-> +.\"See also the
-> +.\".I loff_t
-> +.\"and
-> +.\".I off64_t
-> +.\"types in this page.
-> +.RE
->  .\"------------------------------------- pid_t ------------------------/
->  .TP
->  .I pid_t
+> diff --git a/man3/off_t.3 b/man3/off_t.3
+> new file mode 100644
+> index 000000000..db50c0f09
+> --- /dev/null
+> +++ b/man3/off_t.3
+> @@ -0,0 +1 @@
+> +.so man7/system_data_types.7
 > 
 
 
