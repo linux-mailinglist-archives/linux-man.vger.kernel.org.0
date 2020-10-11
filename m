@@ -2,203 +2,104 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id F1D4728A678
-	for <lists+linux-man@lfdr.de>; Sun, 11 Oct 2020 11:04:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D2CE828A719
+	for <lists+linux-man@lfdr.de>; Sun, 11 Oct 2020 13:16:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729358AbgJKJEB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 11 Oct 2020 05:04:01 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50046 "EHLO
+        id S1726391AbgJKLQP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 11 Oct 2020 07:16:15 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41984 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725844AbgJKJEB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 11 Oct 2020 05:04:01 -0400
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 26214C0613CE
-        for <linux-man@vger.kernel.org>; Sun, 11 Oct 2020 02:04:01 -0700 (PDT)
-Received: by mail-wm1-x341.google.com with SMTP id p15so14262079wmi.4
-        for <linux-man@vger.kernel.org>; Sun, 11 Oct 2020 02:04:01 -0700 (PDT)
+        with ESMTP id S1725863AbgJKLQO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 11 Oct 2020 07:16:14 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0BD4DC0613CE
+        for <linux-man@vger.kernel.org>; Sun, 11 Oct 2020 04:16:14 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id b8so2421964wrn.0
+        for <linux-man@vger.kernel.org>; Sun, 11 Oct 2020 04:16:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Z44r8UU6ZAPzyN1qWkl6o8gXZRDomcRouRZGyS+32gs=;
-        b=gsvyfhuHf37aJCHjosRlAVpplDnpx3Tz3ClCtT6GHbMULKfC0pxa2AJLVmCccEq647
-         20/KvpLtwvv4G233tKsUk7dK8GcHoKpHCeK9Mn4IIIrv1nu0U2nyLgshjCkEyXPR+iNB
-         CZ1xAZ7NFs0atp3tCojmzsa+7GFDzWJaga9ijODPwyK0vCCRLQwF0oGRn7HJ0usIC457
-         HGMJ0FfhY9Tb3s2DkPQm5zSS/BFqHNeHmdq/T+MuS6SX6fbPRZpkDr4EPzKqHfql4ITp
-         QCHM+PSV0jem3AHupRr/fzP/zANxvCLCu022NKiOem7MGwY6q36NJPG/d0NPMDpHvAJW
-         hRaA==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=ge0NjdN+TQfIRqQLeTmkoreK4bFeN157MoLRI1Cm4lI=;
+        b=tzvd7cmhNzLYTwgs3XcjQEe+7JcwEAkhpQduW+Lj74DwX2PRzuP/ilyMhJCdi6GJeU
+         l/3SMn4EmiWvtQzZ0RSpVGSCO91/AemYnYtCdxXV2Xw/U9jgD0C1OosFX5u7WfxRoA5C
+         c9RntIlDnqftxAX9cOyFzELJbcV9zu5BV9s/6xUmeClb7WvyqiXCtnZ0t2u4+2r4nqZv
+         3D8a3/+SJIl1SwfsgXANQjTyrBra7P4k4mx/Mx2xf8EzsdQ4gFl9PKTZCYbem4RY0pZB
+         V/VvofPBqieRE1SrVQwYAgEcNj1DX2YA4GZtANIbRDZzTLMl/PtaB0vydlkidjTi6zLG
+         B8wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=Z44r8UU6ZAPzyN1qWkl6o8gXZRDomcRouRZGyS+32gs=;
-        b=TlIzjrVfhCj0glS9BwZBUhWMvwZpJm4xMascVQ21CoRTtxxeMPlcY9JAdm+7iLJ4fn
-         H0sAyRBSjd8RraMhFwbRx438PbmwqCRM6tmmjhvkgP54cOSThz4YVMltlPCAdIwhLSit
-         sR1G/SZAfIGk2Z05WYG8d54r8DnYWs3JEKiv4v2Qk839P0qRub5kyrFkLRYIP2TAmPOg
-         Avn2XtFjhSVF8ISUyimnM4InaCIdaCGBB7J2/Ejt7BPJnKbHlAGdykJbg7nZYcElHYYB
-         27fXC75/k+snf/MyyL3TtYAUv9BUXW0hIa9kn9o6QyLrs3GktWHc7/foHJOmWWsjoVr9
-         F6nw==
-X-Gm-Message-State: AOAM532Q5Uy/ap0IwAizOJLEB5LIl0YD40Ct7GL4M5ZCNPJyC9LMS0tX
-        Ejqdr1U26rVtRoLvkchTFDs=
-X-Google-Smtp-Source: ABdhPJwfRr4MtapqFOJSuh3PWX03RIieV5r6xK6iws+hf5z8ULDgM2CjunAFok9/QqKdgiuV1BydVQ==
-X-Received: by 2002:a7b:c394:: with SMTP id s20mr5886434wmj.176.1602407039653;
-        Sun, 11 Oct 2020 02:03:59 -0700 (PDT)
-Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id c8sm21142727wmd.18.2020.10.11.02.03.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 11 Oct 2020 02:03:59 -0700 (PDT)
-Subject: Re: [PATCH] queue.3: Replace incomplete example by a complete example
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org
-References: <20201010190226.19236-1-colomar.6.4.3@gmail.com>
- <899bb60e-368b-e7dd-9a87-715d094a8a10@gmail.com>
+        bh=ge0NjdN+TQfIRqQLeTmkoreK4bFeN157MoLRI1Cm4lI=;
+        b=dJuxHplmkJnULnrlvKdidNRPkPu2DSnHTpPr3I7vFvehQV36FYIkZ120Q093u9pcb2
+         NlrKNEtUXBkwFq9OqhqnyR1m7/khxnx7az5eNUIQwhVTGFie3lN/oyXlXlbV85TsQny+
+         ++6Bkg8U5YMos8XTpXq/YrKWPqaLEbzVO8JYTAE8U9pE1Bu07ELNxqgmhrChhMDUGt6+
+         KSs5S0t+iwCOKpHGgO6EBvV0cOJ4sqYY0njtP+7rB5P2us4tt4K56k0ht5i3Tl2Gsxdl
+         5zqyIisi3zXxvifMyy8a44RHWQnbPSTCAtEDMDy/K0N6ym1K4jX/XxDeUMdPw/oKwrHS
+         b1ow==
+X-Gm-Message-State: AOAM531XMymYFlvnZB10sBB3pIqf4gq8siQnvb0Zaf4vrXkVb2GiKdgb
+        /B8cZvTwrallG+KvCXp3DGg=
+X-Google-Smtp-Source: ABdhPJx+rEhq357glBjrM/8nxdPJZfiAJqltDCYoRCtE6/VGT/9Dw2roB4daW3ARTME+LF5j0p8H9A==
+X-Received: by 2002:adf:e7c8:: with SMTP id e8mr25663542wrn.358.1602414972476;
+        Sun, 11 Oct 2020 04:16:12 -0700 (PDT)
+Received: from localhost.localdomain ([170.253.60.68])
+        by smtp.googlemail.com with ESMTPSA id 64sm191344wmd.3.2020.10.11.04.16.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2020 04:16:11 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <9bc990f9-1605-b1c3-09d0-0a2dd68bd8f2@gmail.com>
-Date:   Sun, 11 Oct 2020 11:03:57 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org
+Subject: [PATCH 1/2] system_data_types.7: Add 'regex_t'
+Date:   Sun, 11 Oct 2020 13:15:25 +0200
+Message-Id: <20201011111525.9735-1-colomar.6.4.3@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-In-Reply-To: <899bb60e-368b-e7dd-9a87-715d094a8a10@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+---
+ man7/system_data_types.7 | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
+diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
+index a4a2e0ab8..8a894b2e0 100644
+--- a/man7/system_data_types.7
++++ b/man7/system_data_types.7
+@@ -786,6 +786,29 @@ and
+ .I ssize_t
+ types in this page.
+ .RE
++.\"------------------------------------- regex_t ----------------------/
++.TP
++.I regex_t
++.RS
++Include:
++.IR <regex.h> .
++.PP
++.EX
++typedef struct {
++    size_t  re_nsub; /* Number of parenthesized subexpressions. */
++} regex_t;
++.EE
++.PP
++This is a structure type used in regular expression matching.
++It holds a compiled regular expression, compiled with
++.IR regcomp (3).
++.PP
++Conforming to:
++POSIX.1-2001 and later.
++.PP
++See also:
++.BR regex (3)
++.RE
+ .\"------------------------------------- regmatch_t -------------------/
+ .TP
+ .I regmatch_t
+-- 
+2.28.0
 
-On 2020-10-11 08:00, Michael Kerrisk (man-pages) wrote:
-> Hello Alex:
-> 
-> On 10/10/20 9:02 PM, Alejandro Colomar wrote:
->> I added the EXAMPLES section.
->> The examples in this page are incomplete
->> (you can't copy&paste&compile&run).
->> I fixed the one about TAILQ first,
->> and the rest should follow.
->>
->> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> 
-> I have not (yet) applied this patch, because...
-
-
-Hi Michael,
-
-I thought that we could do it in the following steps:
-
-1) Fix the current page:
-	- Complete examples
-	- Use standard sections (such as EXAMPLES)
-2) Move the code from this page to new separate pages
-3) Fix the code in all of those pages to use "man" macros
-
-This way, the history can be easily followed in git,
-instead of having a few commits breaking everything.
-
-Also, I think this way it might be easier,
-and the improvements (such as better examples)
-can be seen from the beginning.
-Part 1 could be applied directly,
-while parts 2 & 3 should be applied at once.
-
-If the change was done abruptly, you couldn't apply any commits
-until all of the work is finished
-(otherwise, you would have broken pages).
-
-So I think this patch can be applied as part of this change.
-
-Cheers,
-
-Alex
-
-> 
->> ---
->>
->> Hi Michael,
->>
->> I think this page needs a big overhaul.
-> 
-> ... you are probably right. (And thank you for thinking
-> about the big picture.)
-> 
-> As you are probably aware, the page was essentially
-> lifted from BSD, and lightly edited, and this accounts
-> for many oddities by comparison with other pages.
-> 
->> First of all, it's a very big page,
->> where it's a bit difficult to go to the subsection you want.
-> 
-> Agreed.
-> 
->> Then, the examples are incomplete.
->> And also, the language of the page is weird.
-> 
-> Yes, there are some rather strange pieces in the page.
-> Just now, I noticed statements about % code size increase, etc,
-> which I'm sure were not measured on Linux (and in any case, such
-> numbers are prone to change, and don't belong in a manual page).
-
-
-Agreed.
-
-> 
->> I thought about having queue.h with an overview of all the different
->> data structures, and the differences about them.
->>
->> And then separate pages for each data structure:
->> slist.3, list.3,
->> stailq.3, tailq.3,
->> simpleq.3 (which right now isn't documented),
->> and circleq.3
->> with details about each macro and a complete example program.
->>
->> Your thoughts?
-> 
-> The above sounds about right to me. I'd happily accept patches
-> to do that, if you want to work on this.
-
-
-:-)
-
-> 
-> One thing I'd ask though. Unlike almost every page in
-> man-pages, this page uses mandoc mark-up (rather than "man").
-> This was a matter of the history, where at some point I
-> refreshed the page from BSD, and decided to retain the
-> mandoc markup,so that if a refresh was ever again done,
-> the diff would be easy to comprehend. If you do decide
-> to do this work, I think it would be desirable
-> to switch to "man" markup. Sound okay?
-
-
-Yes.
-
-> 
-> Replying to your other mail:
-> 
-> On 10/10/20 9:08 PM, Alejandro Colomar wrote:
->>
->>
->> On 2020-10-10 21:02, Alejandro Colomar wrote:
->>> I thought about having queue.h with an overview of all the different
->> I meant queue.3 (instead of queue.h).
-> 
-> Okay.
-> 
->> However, thinking about it,
->> if we strip if from the details about all of the macros,
->> it might be better as queue.7.
-> 
-> Let's leave it as queue.3 for the moment. If it makes
-> sense, we can easily switch it later, as the final step.
-
-
-Agree.
-
-> 
-> Thanks,
-> 
-> Michael
-> 
