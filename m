@@ -2,98 +2,190 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 47B0528A755
-	for <lists+linux-man@lfdr.de>; Sun, 11 Oct 2020 14:25:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 12A4B28A812
+	for <lists+linux-man@lfdr.de>; Sun, 11 Oct 2020 17:53:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2387797AbgJKMZ3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 11 Oct 2020 08:25:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52530 "EHLO
+        id S1730202AbgJKPx1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 11 Oct 2020 11:53:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55988 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2387744AbgJKMZ2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 11 Oct 2020 08:25:28 -0400
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6AC19C0613CE
-        for <linux-man@vger.kernel.org>; Sun, 11 Oct 2020 05:25:28 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id l15so12057291wmh.1
-        for <linux-man@vger.kernel.org>; Sun, 11 Oct 2020 05:25:28 -0700 (PDT)
+        with ESMTP id S1729044AbgJKPxG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 11 Oct 2020 11:53:06 -0400
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F223EC0613CE
+        for <linux-man@vger.kernel.org>; Sun, 11 Oct 2020 08:53:05 -0700 (PDT)
+Received: by mail-wr1-x441.google.com with SMTP id e18so16097618wrw.9
+        for <linux-man@vger.kernel.org>; Sun, 11 Oct 2020 08:53:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=4EfywtpQe1dPIm3hxDSyJpjf5fLj/xB09aQdD6W7dbM=;
-        b=cB43OILkno5N2zvgc8ozGpWr+BwuWSU5CTbSstpRc0YcgSIOBCrinLeEvugQB3RyK6
-         XlM3PX3H+y1rZ4LDLrDT+iUXTHmxqpF0rqmTmKslgrk81Nb445kdux31o6cf0l11pFG6
-         WQOmGJ+h1VxTdBhN2FXw2+iQeFmIYUk06CxkICrvBA3JJdZg9RJg/RQUNvQ2dymCFrPu
-         2zV0Smc4/0VsP9XTOYLnbznprVAmhQrHeWkZzwN80seAx2uA7Svnsj8ATAmCZSmPbEGG
-         etdhBh+QMEkBC2ba+G2/2gH5tvGAxbEocHDOqAaSt7ELxVQ1+s/MIausaoF1TPuCNPi4
-         0vow==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=K467OmKFuye8/53EC3tKRrqeSTTX3QPveu/czbFqnds=;
+        b=Q4tbq/Hjpy933Y4NpLJn9pIXH3QAFmT+LuhMpgBQwr+0y9HXtBIXoPf03n9KUWH83M
+         OzIMkACuAYoNn5OgT0YeOpzGw53pXwyHQeDsfutJ6HZVeIWPGYKJ12EeRzXW8v2K6+ol
+         oIhX85g8K+p/UyDPnV/qXVZTDUyRqRxlu11TO+moo6wpBbeBZPoFhEMmG4K3o0c1diHG
+         i4hLxXpB80wdB3zEbyraO1+QYxEZvzRo1Z4c5ZLZfB9SYHU1Dh5rcypKC/4OnSsP/Eo7
+         30nbRxoqVJC9K4fGyFhbYPDTQKXUBiItyjD1OSDGb8msyf7JY2JLkoDB1h1m9fhXmCHZ
+         0Nkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=4EfywtpQe1dPIm3hxDSyJpjf5fLj/xB09aQdD6W7dbM=;
-        b=S8yXSarDbrNjzsw7nU/bnHrzk2FnY0yNGeBGSMvAVHH+2lpknjVwxpKsP1eyCOwn4i
-         c9zwVTq7FZez09SQnbVjhYp1IcyT0O/ssYUTEyvSZ2sUZlwnbdhYO32xD9w7w7fqd+Gs
-         VLh5vPtAojXH8jNpeDCh6N1tNEHrNo01QpER6QL3ODAMcN5hFT+Ht7A+sKQ9jex96Ejd
-         CvXlWXtdo4gbucWQw3a7MH9gdQuLxLB9f6q6p7BuUZgg8DlDmuIJ6OVUH+pkICsKVer4
-         8dtRP7nQ6GFNppCci0O0poyJGbFOd8Pm+LQVqKUa2h8jaz0XzkIe5TelLB3JQvCxu5dW
-         eOwA==
-X-Gm-Message-State: AOAM533rnxiZTmaoIVWUAxd6wQ6CU3a64PFkUPs3xoniPR7xK4bzwn+9
-        N+HGITOK4wF3EYeDhH1XYXA=
-X-Google-Smtp-Source: ABdhPJwhCYKYnHfZtQ+x3zVvXF3VVknT/Y6G+aAeBcPhPZDZXSXR0+uYWPg6utYfw4Isc2H/6c304w==
-X-Received: by 2002:a1c:1905:: with SMTP id 5mr6812791wmz.32.1602419127122;
-        Sun, 11 Oct 2020 05:25:27 -0700 (PDT)
-Received: from [192.168.1.10] (static-176-175-73-29.ftth.abo.bbox.fr. [176.175.73.29])
-        by smtp.gmail.com with ESMTPSA id s185sm19062536wmf.3.2020.10.11.05.25.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 11 Oct 2020 05:25:26 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        libc-alpha@sourceware.org
-Subject: Re: [PATCH 2/2] regex_t.3: New link to system_data_types(7)
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-References: <20201011111525.9735-1-colomar.6.4.3@gmail.com>
- <20201011111525.9735-2-colomar.6.4.3@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <cab14834-1ed4-cce1-0f96-b39073dc159b@gmail.com>
-Date:   Sun, 11 Oct 2020 14:25:24 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+        bh=K467OmKFuye8/53EC3tKRrqeSTTX3QPveu/czbFqnds=;
+        b=Fktc3N4IwcBxK/yfGd9PsQA46znL2BwLdeYFhi7jYGTnuWyczLBpgB8GsKyPyw+l/P
+         cUcn1hFj6Z/qD15sIAVjEpZo9nU8fEjO6eMhCg8q42BjkGuiKis6MZy8voyKLtucMeOB
+         tj7Xc3k90VywN8BD16iwHkmhwxJFMLidLHTHIwZcQuknByv+VGWrYFdTKesckS4OBHyC
+         VhUSQMcs8MZvsX7jqAegfLg4rxnJP3GdtKMb8iP9Z/EsAyxNLANreCIdls244T8yD+9H
+         SD03spBQgknWCp1AWwzIvaCwL/7mr0wFlatdQIymjClCmUOO3THdU1I7fjmnV08yDaxT
+         jKXg==
+X-Gm-Message-State: AOAM532wP3CfVmyzLGsfk4FG4a3Yttj9qfwqFuA9vZlXOUcOWtpeA3Sx
+        /KxeaKHB2Iq7qHjR/6ASKtV24fuz2kA=
+X-Google-Smtp-Source: ABdhPJz3n+gvSOAG5vIzBtyIPrUwENTZDQ04Ac/7Vi/s7l4SWTCHL31ObtAAclkCsL0r/JzRraOc1Q==
+X-Received: by 2002:adf:c392:: with SMTP id p18mr24539798wrf.88.1602431584551;
+        Sun, 11 Oct 2020 08:53:04 -0700 (PDT)
+Received: from localhost.localdomain ([170.253.60.68])
+        by smtp.googlemail.com with ESMTPSA id c132sm20239094wmf.25.2020.10.11.08.53.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2020 08:53:03 -0700 (PDT)
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org
+Subject: [PATCH] queue.3: slist: Complete example
+Date:   Sun, 11 Oct 2020 17:51:21 +0200
+Message-Id: <20201011155120.30482-1-colomar.6.4.3@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-In-Reply-To: <20201011111525.9735-2-colomar.6.4.3@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 10/11/20 1:15 PM, Alejandro Colomar wrote:
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+---
+ man3/queue.3 | 102 +++++++++++++++++++++++++++++----------------------
+ 1 file changed, 59 insertions(+), 43 deletions(-)
 
-Thanks, Alex. Patch applied.
-
-Cheers,
-
-Michael
-
-
-> ---
->  man3/regex_t.3 | 1 +
->  1 file changed, 1 insertion(+)
->  create mode 100644 man3/regex_t.3
-> 
-> diff --git a/man3/regex_t.3 b/man3/regex_t.3
-> new file mode 100644
-> index 000000000..db50c0f09
-> --- /dev/null
-> +++ b/man3/regex_t.3
-> @@ -0,0 +1 @@
-> +.so man7/system_data_types.7
-> 
-
-
+diff --git a/man3/queue.3 b/man3/queue.3
+index ea43f018b..63c43dadc 100644
+--- a/man3/queue.3
++++ b/man3/queue.3
+@@ -545,49 +545,8 @@ from the list.
+ .\" .Fa head1
+ .\" and
+ .\" .Fa head2 .
+-.Ss Singly-linked list example
+-.Bd -literal
+-SLIST_HEAD(slisthead, entry) head =
+-    SLIST_HEAD_INITIALIZER(head);
+-struct slisthead *headp;		/* Singly-linked List
+-                                           head. */
+-struct entry {
+-	...
+-	SLIST_ENTRY(entry) entries;	/* Singly-linked List. */
+-	...
+-} *n1, *n2, *n3, *np;
+-
+-SLIST_INIT(&head);			/* Initialize the list. */
+-
+-n1 = malloc(sizeof(struct entry));	/* Insert at the head. */
+-SLIST_INSERT_HEAD(&head, n1, entries);
+-
+-n2 = malloc(sizeof(struct entry));	/* Insert after. */
+-SLIST_INSERT_AFTER(n1, n2, entries);
+-
+-SLIST_REMOVE(&head, n2, entry, entries);/* Deletion. */
+-free(n2);
+-
+-n3 = SLIST_FIRST(&head);
+-SLIST_REMOVE_HEAD(&head, entries);	/* Deletion from the head. */
+-free(n3);
+-					/* Forward traversal. */
+-SLIST_FOREACH(np, &head, entries)
+-	np\-> ...
+-.\"					/* Safe forward traversal. */
+-.\"SLIST_FOREACH_SAFE(np, &head, entries, np_temp) {
+-.\"	np\->do_stuff();
+-.\"	...
+-.\"	SLIST_REMOVE(&head, np, entry, entries);
+-.\"	free(np);
+-.\"}
+-
+-while (!SLIST_EMPTY(&head)) {		/* List Deletion. */
+-	n1 = SLIST_FIRST(&head);
+-	SLIST_REMOVE_HEAD(&head, entries);
+-	free(n1);
+-}
+-.Ed
++.Pp
++See the EXAMPLES section below for an example program using a singly-linked list.
+ .Ss Singly-linked tail queues
+ A singly-linked tail queue is headed by a structure defined by the
+ .Nm STAILQ_HEAD
+@@ -1409,6 +1368,63 @@ while (n1 != (void *)&head) {
+ CIRCLEQ_INIT(&head);
+ .Ed
+ .Sh EXAMPLES
++.Ss Singly-linked list example
++.Bd -literal
++
++#include <stddef.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <sys/queue.h>
++
++struct entry {
++    int data;
++    SLIST_ENTRY(entry) entries;             /* Singly-linked List. */
++};
++
++SLIST_HEAD(slisthead, entry);
++
++int
++main(void)
++{
++    struct entry    *n1, *n2, *n3, *np;
++    struct slisthead head;                  /* Singly-linked List
++                                               head. */
++
++    SLIST_INIT(&head);                      /* Initialize the queue. */
++
++    n1 = malloc(sizeof(struct entry));      /* Insert at the head. */
++    SLIST_INSERT_HEAD(&head, n1, entries);
++
++    n2 = malloc(sizeof(struct entry));      /* Insert after. */
++    SLIST_INSERT_AFTER(n1, n2, entries);
++
++    SLIST_REMOVE(&head, n2, entry, entries);/* Deletion. */
++    free(n2);
++
++    n3 = SLIST_FIRST(&head);
++    SLIST_REMOVE_HEAD(&head, entries);      /* Deletion from the head. */
++    free(n3);
++
++    for (int i = 0; i < 5; i++) {
++        n1 = malloc(sizeof(struct entry));
++        SLIST_INSERT_HEAD(&head, n1, entries);
++        n1->data = i;
++    }
++
++                                            /* Forward traversal. */
++    SLIST_FOREACH(np, &head, entries)
++        printf("%i\en", np->data);
++
++    while (!SLIST_EMPTY(&head)) {           /* List Deletion. */
++        n1 = SLIST_FIRST(&head);
++        SLIST_REMOVE_HEAD(&head, entries);
++        free(n1);
++    }
++    SLIST_INIT(&head);
++
++    exit(EXIT_SUCCESS);
++}
++.Ed
+ .Ss Tail queue example
+ .Bd -literal
+ #include <stddef.h>
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.28.0
+
