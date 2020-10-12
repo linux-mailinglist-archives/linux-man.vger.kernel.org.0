@@ -2,182 +2,173 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4E0A628A846
-	for <lists+linux-man@lfdr.de>; Sun, 11 Oct 2020 18:43:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3039928B1AE
+	for <lists+linux-man@lfdr.de>; Mon, 12 Oct 2020 11:37:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2388220AbgJKQnv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 11 Oct 2020 12:43:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35494 "EHLO
+        id S1729484AbgJLJhM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 12 Oct 2020 05:37:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49934 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388209AbgJKQnv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 11 Oct 2020 12:43:51 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A9B83C0613CE;
-        Sun, 11 Oct 2020 09:43:50 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id f21so14918501wml.3;
-        Sun, 11 Oct 2020 09:43:50 -0700 (PDT)
+        with ESMTP id S1726104AbgJLJhK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Oct 2020 05:37:10 -0400
+Received: from mail-oi1-x241.google.com (mail-oi1-x241.google.com [IPv6:2607:f8b0:4864:20::241])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E2566C0613CE
+        for <linux-man@vger.kernel.org>; Mon, 12 Oct 2020 02:37:09 -0700 (PDT)
+Received: by mail-oi1-x241.google.com with SMTP id j7so537725oie.12
+        for <linux-man@vger.kernel.org>; Mon, 12 Oct 2020 02:37:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=yzAgWgF9mhKy/kKX/y0fHZo8Q5uJhEcMBBl1raABagk=;
-        b=mbckgpCWcwoXi7aoGXQm3s/pUQ3QuiKfNkIO2QS5nfm0Fg+FIi9aC1YqHFr0ASHyap
-         bHcYybdzghSxuSSV71MksShoOhJ1H01WlkZe5GEb/cktowsBuQ8gcCuVEXEAlFhgCfWm
-         H1LW+pko4ZEPUNpZeRr0sVeRlxSOHnuk4vnTJ5EjITKTlmDOAClHumMW2eOOq79wmvOm
-         1BjqwteAT7TBkdU67BvUKloZZXvAEWTcIFM4FKIh7YjBJeL0+Ns/0z2EtWGGmOShnKCc
-         WU9HzearsmrWRjKMn9uBCm8oxjJ5H6Xud8jOSXz9b0uwC0fs63uHklxw9BYnHvDS5+rl
-         ovjw==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to;
+        bh=htJXvzGPFKtBPnZtmv2uJV+FncnxJKyqy5SKVNOPK8s=;
+        b=pBTtjC8Val0SNHxdb+zwX1f/Oc6YN8sfNkNIB+oI8GAgaFkJI8OycIYx1G0UpFMIE5
+         aIcC2gWl+SI9b+//UcXrg+mB8aGagetftJYPDhLqtvbjZLnexNWoBFtTa/WWTyUaC/Ra
+         OxwQK0+MPIwpcagQWbtG/qd7+MlvnT9x8guG50J+1vFJ+9efqqLD8LXqfXCn5+dLMtZg
+         /OF5QpPr2DwOhUe9umoVNB41wYQcU5LlooJH7AzutkUMgyV8hdlPIuzvErORzhYtYkg1
+         16GP7UWm71SzlDNhO1Ubajfb2gX+X7go4HRbVlLUeWXKR0sIUf15JFlziA7aEf5hQ1lE
+         AmzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=yzAgWgF9mhKy/kKX/y0fHZo8Q5uJhEcMBBl1raABagk=;
-        b=UT32u6CzibgMGInkZjlvXQdva4FdU4dVlJfimGlZUYM3C7gCftbmA79F6QmAItKZUR
-         21olMFjw1RGVyHpAi6ZpRqYR5QuRLYZSi7l3nbC5unKj9siTpsYTLIbebNmEoYuSTdqg
-         fyvJw/TM0fohqOeuUS7wTDWPDpNrrZ4FiMC5w00E7xiNIgw3CA+lTSDqBZsL64+hpWW5
-         StRDdlj+w+hxPvInEV7Wm/UK/iwmH9yH+UAxovmwbS8Nb6r5NtGZBWIIVj68QEi4enJe
-         GXAdFHWNG7x872vAxy/0gkjjuPCAWjCsPyjOYy3wZM7HxDCdJcvPBZ2hZxG2UA/yU8c7
-         uCVg==
-X-Gm-Message-State: AOAM531byp5OkVxfcTnR9qfL3u85pBD1DxrhNP8sa4EK7AQqAh/xZWfQ
-        vzwvTn7RacGY46X1jixOv4Q=
-X-Google-Smtp-Source: ABdhPJwMlUbeD2gRfxPdD32kFrNM5R3CniGrqAwCxx//4ML9IX0CVXg5RyUNHxugPq+5LdRQB131VA==
-X-Received: by 2002:a1c:6788:: with SMTP id b130mr7733457wmc.91.1602434629239;
-        Sun, 11 Oct 2020 09:43:49 -0700 (PDT)
-Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id c8sm22597111wmd.18.2020.10.11.09.43.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 11 Oct 2020 09:43:48 -0700 (PDT)
-Subject: Ping: Re: [PATCH v4] <sys/param.h>: Add nitems()
-To:     libc-alpha@sourceware.org
-Cc:     libc-coord@lists.openwall.com, libstdc++@gcc.gnu.org,
-        gcc@gcc.gnu.org, linux-kernel@vger.kernel.org,
-        linux-man@vger.kernel.org, jwakely@redhat.com, fweimer@redhat.com,
-        ville.voutilainen@gmail.com, enh@google.com, rusty@rustcorp.com.au
-References: <20200928191237.32063-1-colomar.6.4.3@gmail.com>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <e4986448-ab01-a8cd-96ab-905a0e5ab701@gmail.com>
-Date:   Sun, 11 Oct 2020 18:43:47 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to;
+        bh=htJXvzGPFKtBPnZtmv2uJV+FncnxJKyqy5SKVNOPK8s=;
+        b=LYBdNM897OID7kpuqBuQ9bk6vhC/xpwZbSkduXqntxnwYG34JU9GfJx3fKHCyTffrU
+         u8XcF/hH3cR5VyoVLRjrCHfyh9nXoNPUxYJQ7hu2qCt15qoHzeM3lYrX4mCNED16W6mN
+         CW0sLhzEhYTyjbtHHOuBiuXvXHz3rsic+U4oXceOlTyG2eOegyr5hgNsb4hAJBc5lvsL
+         HusZewsbAy9mN/4muy/edq8uNrmQgVlNUZaxRERqW8IXfJI9bFTMcTwqj94ph/s+S1lM
+         MdtdUadiHZmEQ/JUYNItZyemoHin+daO2dP11ojsOTLrFXwlkRfTAUIdJRWRyl96jUIX
+         phcw==
+X-Gm-Message-State: AOAM532ZQnzwGceJ3jNn+UL/V6c6DaUT0XuH3QgSu7UXQEOUjdDHymbj
+        243BOw99WIk9aXFUs90Lfdiz3R7H9aH+iDr1920NVBUTi7o=
+X-Google-Smtp-Source: ABdhPJx4LTQDVAeaqVJ9Y9FO/btojLCeqKvFMOkhsg1bxCe1+fJXi3152TAIh9QtgVvFfsd7RlqFiYiW4tBhtEMPvA4=
+X-Received: by 2002:aca:5903:: with SMTP id n3mr10549746oib.159.1602495429238;
+ Mon, 12 Oct 2020 02:37:09 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200928191237.32063-1-colomar.6.4.3@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <41affebd-3354-9420-0048-bffd14535e95@gmail.com>
+ <20201001154946.104626-2-colomar.6.4.3@gmail.com> <d460f3a6-c12b-637d-b474-3596611d10d3@gmail.com>
+ <41ab7ed9-3ce0-f8ad-38f4-c4bbeca138f8@gmail.com> <20201008135210.GA2956488@cventin.lip.ens-lyon.fr>
+In-Reply-To: <20201008135210.GA2956488@cventin.lip.ens-lyon.fr>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 12 Oct 2020 11:36:57 +0200
+Message-ID: <CAKgNAkhsfnRk0y9Js=y5XXabVQdA1U7Fc8hFJXPaxjTxJwWBVw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] system_data_types.7: Add 'void *'
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
+        gcc@gcc.gnu.org
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Ping.
+Hello Vincent,
 
-On 2020-09-28 21:12, Alejandro Colomar wrote:
-> 'nitems()' calculates the length of an array in number of items.
-> It is safe: if a pointer is passed to the macro (or function, in C++),
-> the compilation is broken due to:
->   - In >= C11: _Static_assert()
->   - In C89, C99: Negative anonymous bitfield
->   - In C++: The template requires an array
-> 
-> Some BSDs already provide a macro nitems() in <sys/param.h>,
-> although it usually doesn't provide safety against pointers.
-> 
-> This patch uses the same name for compatibility reasons,
-> and to be the least disruptive with existing code.
-> 
-> This patch also adds some other macros, which are required by 'nitems()':
-> 
-> __is_same_type(a, b):
-> Returns non-zero if the two input arguments are of the same type.
-> 
-> __is_array(arr):
-> Returns non-zero if the input argument is of an array type.
-> 
-> __must_be(expr, msg):
-> Allows using _Static_assert() everywhere an expression can be used.
-> It evaluates '(int)0' or breaks the compilation.
-> 
-> __must_be_array(arr):
-> It evaluates to '(int)0' if the argument is of an array type.
-> Else, it breaks compilation.
-> 
-> __nitems(arr):
-> It implements the basic sizeof division needed to calculate the array length.
-> 
-> 
-> P.S.: I'd like to put this patch in the public domain.
-> 
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> ---
-> 
-> A few changes since v3:
-> 
-> - Macros don't need reserved names in their parameters,
-> so I simplified those names.
-> 
-> - I fixed some wrong indentation levels.
-> 
-> - Renamed __array_len() to __nitems() for consistency.
-> 
-> 
->   misc/sys/param.h | 47 +++++++++++++++++++++++++++++++++++++++++++++++
->   1 file changed, 47 insertions(+)
-> 
-> diff --git a/misc/sys/param.h b/misc/sys/param.h
-> index d7c319b157..08d4093961 100644
-> --- a/misc/sys/param.h
-> +++ b/misc/sys/param.h
-> @@ -102,5 +102,52 @@
->   #define MIN(a,b) (((a)<(b))?(a):(b))
->   #define MAX(a,b) (((a)>(b))?(a):(b))
->   
-> +/* Macros related to the types of variables */
-> +#define __is_same_type(a, b)                                                  \
-> +	__builtin_types_compatible_p(__typeof__(a), __typeof__(b))
-> +#define __is_array(arr)	(!__is_same_type((arr), &(arr)[0]))
-> +
-> +/* Macros for embedding _Static_assert() in expressions */
-> +#if __STDC_VERSION__ >= 201112L
-> +# define __must_be(expr, msg)   (                                             \
-> +        0 * (int)sizeof(                                                      \
-> +          struct {                                                            \
-> +            _Static_assert((expr), msg);                                      \
-> +            char _ISO_C_forbids_a_struct_with_no_members;                     \
-> +          }                                                                   \
-> +        )                                                                     \
-> +)
-> +#else
-> +# define __must_be(expr, msg)   (                                             \
-> +        0 * (int)sizeof(                                                      \
-> +          struct {                                                            \
-> +            int  : (-!(expr));                                                \
-> +            char _ISO_C_forbids_a_struct_with_no_members;                     \
-> +          }                                                                   \
-> +        )                                                                     \
-> +)
-> +#endif
-> +#define __must_be_array(arr)	__must_be(__is_array(arr), "Must be an array!")
-> +
-> +/* Macros for array sizes */
-> +#if defined(__cplusplus)
-> +# if __cplusplus >= 201103L
-> +template<typename _Tp, std::size_t _Len>
-> +  constexpr inline std::size_t
-> +  nitems(const _Tp(&)[_Len]) __THROW
-> +  {
-> +    return _Len;
-> +  }
-> +# else /* __cplusplus < 201103L */
-> +template<typename _Tp, std::size_t _Len>
-> +  char
-> +  (&__nitems_chararr(const _Tp(&)[_Len]))[_Len];
-> +#  define nitems(arr)	(sizeof(__nitems_chararr(arr)))
-> +# endif /* __cplusplus < 201103L */
-> +#else /* !defined(__cplusplus) */
-> +# define __nitems(arr)	(sizeof((arr)) / sizeof((arr)[0]))
-> +# define nitems(arr)	(__nitems(arr) + __must_be_array(arr))
-> +#endif /* !defined(__cplusplus) */
-> +
->   
->   #endif  /* sys/param.h */
-> 
+On Thu, 8 Oct 2020 at 15:52, Vincent Lefevre <vincent@vinc17.net> wrote:
+>
+> On 2020-10-01 18:55:04 +0200, Alejandro Colomar via Gcc wrote:
+> > On 2020-10-01 18:38, Michael Kerrisk (man-pages) wrote:
+> > > > +According to the C language standard,
+> > > > +a pointer to any object type may be converted to a pointer to
+> > > > +.I void
+> > > > +and back.
+> > > > +POSIX further requires that any pointer,
+> > > > +including pointers to functions,
+> > > > +may be converted to a pointer to
+> > > > +.I void
+> > > > +and back.
+> > > I know you are correct about POSIX, but which part of the
+> > > standard did you find this information in? The only
+> > > reference that I find in POSIX is the dlsym() spec. Is it
+> > > covered also somewhere else in the standrd?
+> [...]
+> > I've bean searching, and dlsym is the only one:
+> [...]
+> > The most explicit paragraph in dlsym is the following:
+> >
+> > [[
+> > Note that conversion from a void * pointer to a function pointer as in:
+> >
+> > fptr = (int (*)(int))dlsym(handle, "my_function");
+> >
+> > is not defined by the ISO C standard.
+> > This standard requires this conversion to work correctly
+> > on conforming implementations.
+> > ]]
+>
+> I think that "this conversion" applies only to the dlsym context,
+> and the conversion isn't defined in general. Imagine that the
+> void * pointer to function pointer conversion requires the compiler
+> to generate additional code. The compiler may be able to detect
+> that dlsym will not be used in some contexts (e.g. because of
+> always false condition) and do not generate such additional code,
+> making the conversion to have undefined behavior.
+
+Thanks. It's a good point that you raise.
+
+I agree that the wording in the standard is not too clear. But I
+believe the intent really is to allow
+[void *] <==> [function pointer] casts.
+
+The most relevant pieces I can find are as follows:
+
+In the current standard, in CHANGE HISTORY for dlsum():
+
+[[
+Issue 6
+IEEE Std 1003.1-2001/Cor 1-2002, item XSH/TC1/D6/14 is applied,
+correcting an example, and
+adding text to the RATIONALE describing issues related to conversion
+of pointers to functions
+and back again.
+Issue 7
+POSIX.1-2008, Technical Corrigendum 1, XSH/TC1-2008/0074 [74] is applied.
+]]
+
+https://www.austingroupbugs.net/view.php?id=74
+This is a little thin. The initial report says:
+"The intent is simply to permit dlsym to use a void * as its return type."
+and no one seems to have questioned that.
+
+And then in https://pubs.opengroup.org/onlinepubs/7899949299/toc.pdf
+(TC1 for POSIXX.1-2001)
+
+there is:
+
+[[
+Change Number: XSH/TC1/D6/14 [XSH ERN 13]
+On Page: 259  Line: 8566,8590  Section: dlsym
+In the EXAMPLES section, change from:
+fptr = (int (*)(int))dlsym(handle, "my_function");
+to:
+*(void **)(&fptr) = dlsym(handle, "my_function");
+In the RATIONALE section on Page 260, Line 8590, change from:
+"None."
+to:
+"The C Standard does not require that pointers to functions can be
+cast back and forth to pointers to data. Indeed, the C Standard
+does not require that an object of type void* can hold a pointer
+to a function.  Systems supporting the X/Open System Interfaces
+Extension, however, do require that an object of type void* can
+hold a pointer to a function.  The result of converting a pointer
+to a function into a pointer to another data type (except void*)
+is still undefined, however.
+]]
+
+And one finds the above text in POSIX.1-2001 TC1 spec for dlsym(),
+although it was removed in POSIX.1-2008, and now we have just the
+smaller text that is present in the dlsym() page. But along the way, I
+can find nothing that speaks against the notion that POSIX was aiming
+to allow the more general cast of [void *] <==> [function pointer].
+Your thoughts?
+
+Thanks,
+
+Michael
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
