@@ -2,116 +2,121 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 29A2028FE6E
-	for <lists+linux-man@lfdr.de>; Fri, 16 Oct 2020 08:43:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A0CDE28FE86
+	for <lists+linux-man@lfdr.de>; Fri, 16 Oct 2020 08:50:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2394354AbgJPGnz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 16 Oct 2020 02:43:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38452 "EHLO
+        id S2394391AbgJPGug (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 16 Oct 2020 02:50:36 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39490 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2394351AbgJPGny (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 16 Oct 2020 02:43:54 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 53B53C061755
-        for <linux-man@vger.kernel.org>; Thu, 15 Oct 2020 23:43:54 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id s9so1391424wro.8
-        for <linux-man@vger.kernel.org>; Thu, 15 Oct 2020 23:43:54 -0700 (PDT)
+        with ESMTP id S1730492AbgJPGug (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 16 Oct 2020 02:50:36 -0400
+Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com [IPv6:2607:f8b0:4864:20::244])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3A553C061755;
+        Thu, 15 Oct 2020 23:50:35 -0700 (PDT)
+Received: by mail-oi1-x244.google.com with SMTP id h10so1317606oie.5;
+        Thu, 15 Oct 2020 23:50:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=CO+4/Z2fsvVmdTzTfVGlHNXEY38S2FaxfJ7cbdyK7rE=;
-        b=JmUz+nSvjJFxBGH8kmROBQ3Hw+iLNcIk5zUVKTuztWmVC2YwmeEMSgenKIGCjW1glr
-         rgK5d8RfZ6RbXKWCBquqLC2VVENV++Nao7HLsuKNm9bDN1scz4v5t+KfIVb5Mqw/sZYB
-         v4WHrL8L1T1CteHG7lu0GI7nTS20rxcanBYBae2gcdtm2tYynVHvzddW/2cvsa17uGT1
-         tw2AEedmBjy9upTGxE96N6IW3/E+M3ifVqXa+BlpmHhHzLDyz6FPYxuVuNq8hkApqYiZ
-         bykuH+tI6/ClN5blDGX0nvnDB9b0ALBYB/nfaIRcQGPQjntN+cU/hn1ORjWAm/Cx4rxK
-         usIQ==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=yp9ezkkjfxFU72KviY2SkL912AddVp1dJs01IZSrZBg=;
+        b=f7XD5Y6tkQqNxCb9E2piNE/vVBs2nIqq57a1OUPD+2wvy5Mlq3Tx1ZXcM9tHRRYK7x
+         eqL4Cc2a6SA8D4e4qUReAf3gDYqvBmbUTIOMNByP1SMSo80g4jqQD95ytopbeGsoXpUq
+         H+IFbMbZRNippsbYwMWl4lMLLOHZSeb6c/7ozB9qMwJTSOjTwrInneS7Y4vOfsc+xW8Z
+         8gy5YZuzw+zYfV8ugPK4XDNjsd+2ntOuQBfB5qCJHuY0QcQESfzrx+A1B2cAmCGq5c9D
+         m4J47Z1JuODqDzTcxzwAEHypWfNz/TiDZ9Eu3JtbykLszQWiVsPc2SXlWRsqi31mDfN5
+         abpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=CO+4/Z2fsvVmdTzTfVGlHNXEY38S2FaxfJ7cbdyK7rE=;
-        b=RQkDnPXdPkvMUrdKpVZajRoVqPzvuSQ7uvtCeMRlyYzOk9Z4IOTWSOcXC8OEaX9RpU
-         PTFumebvO/b16DYaF588DP5LqZQItPbvOEMDeKjDZOrYQxpnYQRvBZm3WSWMMV+LZeQq
-         GgxyN4jlnKied8JP8DdaQ3e9IX5kztIOJGCgTkmmBRa37hksSc/cqBXwWVXuk+4Q3blu
-         YkVGUPLC7IAJBp7m0ARRpHm4BUZh1tPvqcJXYzNFXlTz8d6qYd7dVh6i1FzGqChm1Ecf
-         /Zv1glFkRLvGsNUoWCLCs8WwlniHx3eHgR9I2OmnqvCnWQkLbfhnugZ9C31eAelFgh7r
-         S3cA==
-X-Gm-Message-State: AOAM533WCkg4K3ge48FQP/D1YvoY/Qp6hNCh7qS87v4Txv2G10lmDyF3
-        tK5JbB/bOhRPXK+zepFcXDM=
-X-Google-Smtp-Source: ABdhPJwRh4BdaAQHZyUyWuRT94UCtpVSV6uU7bf/bLlK7948/Qz/lph5b8naAu3aIXovwETpCiPguQ==
-X-Received: by 2002:adf:8362:: with SMTP id 89mr2167984wrd.280.1602830632946;
-        Thu, 15 Oct 2020 23:43:52 -0700 (PDT)
-Received: from [192.168.1.10] (static-176-175-73-29.ftth.abo.bbox.fr. [176.175.73.29])
-        by smtp.gmail.com with ESMTPSA id u15sm2109888wrm.77.2020.10.15.23.43.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2020 23:43:52 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>,
-        Ard Biesheuvel <ardb@kernel.org>,
-        David Howells <dhowells@redhat.com>
-Subject: Re: man kernel_lockdown.7
-To:     Heinrich Schuchardt <xypron.glpk@gmx.de>,
-        Matthew Garrett <mjg59@google.com>
-References: <8831670f-1e25-d05b-02ab-c370e35a4143@gmx.de>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <7b9485d9-e286-a61e-63b6-15459dfc1f17@gmail.com>
-Date:   Fri, 16 Oct 2020 08:43:51 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=yp9ezkkjfxFU72KviY2SkL912AddVp1dJs01IZSrZBg=;
+        b=FHuDFRpZyCfZoVwtegE5cd1P89DrQ5lLNdAMqHNYZuCSAdLE0JqdRbstgZl/dKYBjZ
+         /XukWmawwFFNJFJHchJROM0uCigB7cSOTaKB3oOKgOl5rBCSLQ2YVXNfY5yMEelU3bey
+         U0X6Z/FVZVXtxTsuOvkdCYUItBRsBB8qAnf8dFYTI9NWNJ9rgWao+0qXNh9i78KHI2w8
+         6zmvYH9suxLF2LnbNRD6Xa2I4PjHxwkNQfJo+RdNGEoiUDplDbBShQj5ihrxae+1YyRs
+         4wrmjOM13Y7jfOJPmX1+5t1sgfIUH3ow9ks0DBkHT4csl3BBZUurXyKcw5a+d9CxWOAR
+         KqzA==
+X-Gm-Message-State: AOAM531tVzCD5wfJpl5j/bu6+Tte3EKvkA6w6nNQMcaQzFbMoCkwt4j9
+        rxWlYYw71Vo/CrVN3l3C5sbnSqu/Iru2JOMht35vxwi26pA=
+X-Google-Smtp-Source: ABdhPJxxET8Z7gDhnMrab9PWw1QSWqPZi2aX8J9f+URrB7gyQFY/lMVbekd5YiqEg/0BXNj9zczVPsII0FL4f7AyZwM=
+X-Received: by 2002:aca:bb41:: with SMTP id l62mr1469702oif.148.1602831034578;
+ Thu, 15 Oct 2020 23:50:34 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <8831670f-1e25-d05b-02ab-c370e35a4143@gmx.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <159827188271.306468.16962617119460123110.stgit@warthog.procyon.org.uk>
+ <159827190508.306468.12755090833140558156.stgit@warthog.procyon.org.uk>
+ <CAKgNAkho1WSOsxvCYQOs7vDxpfyeJ9JGdTL-Y0UEZtO3jVfmKw@mail.gmail.com>
+ <667616.1599063270@warthog.procyon.org.uk> <CAKgNAkhjDB9bvQ0h5b13fkbhuP9tYrkBQe7w1cbeOH8gM--D0g@mail.gmail.com>
+ <CAKgNAkh9h3aA1hiYownT2O=xg5JmZwmJUCvQ1Z4f85MTq-26Fw@mail.gmail.com>
+In-Reply-To: <CAKgNAkh9h3aA1hiYownT2O=xg5JmZwmJUCvQ1Z4f85MTq-26Fw@mail.gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Fri, 16 Oct 2020 08:50:23 +0200
+Message-ID: <CAKgNAkju-65h1bKBUJQf-k=TCZeFmD9Nf4ZgZ9Mm_TQ1rQA6MA@mail.gmail.com>
+Subject: Re: [PATCH 4/5] Add manpage for fsopen(2) and fsmount(2)
+To:     David Howells <dhowells@redhat.com>
+Cc:     Alexander Viro <viro@zeniv.linux.org.uk>,
+        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Heinrich!
+Hi David,
 
-On 10/14/20 6:51 PM, Heinrich Schuchardt wrote:
-> Hello Matthew,
-> 
-> With commit 000d388ed3bbed ("security: Add a static lockdown policy
-> LSM") you added the following line to security/lockdown/lockdown.c:
-> 
-> pr_notice("Kernel is locked down from %s; see man kernel_lockdown.7\n"
+Another ping for these five patches please!
 
-This feature was in limbo for a very long time, but now I see that
-it was finally merged last year:
-
-  commit 000d388ed3bbed745f366ce71b2bb7c2ee70f449
-  Author: Matthew Garrett <matthewgarrett@google.com>
-  Date:   Mon Aug 19 17:17:39 2019 -0700
-
-      security: Add a static lockdown policy LSM
-
-I missed that that had been merged.
-
-> The manpage is not available on
-> 
-> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git.
-> 
-> I found a rather outdated draft by David here:
-> 
-> https://lwn.net/Articles/735564/
-
-I see that my Fedora system has a slightly different version
-of that page (obviously added a Fedora patch). I'm not sure
-which is more up to date; probably the Fedora page.
-
-> Is anybody working on it?
-
-Not so far. I suppose the simple thing would be to just merge
-the page that exists on Fedora. But I've no idea how much it
-needs tobe updated to reflect reality. Perhaps someone in CC
-can comment. Do you have any time to drive this along?
-
-Thanks,
+Cheers,
 
 Michael
+
+On Fri, 11 Sep 2020 at 14:44, Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+>
+> Hi David,
+>
+> A ping for these five patches please!
+>
+> Cheers,
+>
+> Michael
+>
+> On Wed, 2 Sep 2020 at 22:14, Michael Kerrisk (man-pages)
+> <mtk.manpages@gmail.com> wrote:
+> >
+> > On Wed, 2 Sep 2020 at 18:14, David Howells <dhowells@redhat.com> wrote:
+> > >
+> > > Michael Kerrisk (man-pages) <mtk.manpages@gmail.com> wrote:
+> > >
+> > > > The term "filesystem configuration context" is introduced, but never
+> > > > really explained. I think it would be very helpful to have a sentence
+> > > > or three that explains this concept at the start of the page.
+> > >
+> > > Does that need a .7 manpage?
+> >
+> > I was hoping a sentence or a paragraph in this page might suffice. Do
+> > you think more is required?
+> >
+> > Cheers,
+> >
+> > Michael
+> >
+> > --
+> > Michael Kerrisk
+> > Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+> > Linux/UNIX System Programming Training: http://man7.org/training/
+>
+>
+>
+> --
+> Michael Kerrisk
+> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+> Linux/UNIX System Programming Training: http://man7.org/training/
+
 
 
 -- 
