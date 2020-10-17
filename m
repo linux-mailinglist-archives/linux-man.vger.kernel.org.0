@@ -2,80 +2,277 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AFAEC2914D5
-	for <lists+linux-man@lfdr.de>; Sat, 17 Oct 2020 23:39:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BB02A291507
+	for <lists+linux-man@lfdr.de>; Sun, 18 Oct 2020 01:14:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2439808AbgJQViV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 17 Oct 2020 17:38:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59532 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2439809AbgJQViV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 17 Oct 2020 17:38:21 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0D0D6C0613D3
-        for <linux-man@vger.kernel.org>; Sat, 17 Oct 2020 14:38:21 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id n15so7292256wrq.2
-        for <linux-man@vger.kernel.org>; Sat, 17 Oct 2020 14:38:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=5cd56eslrHC4mcHzDHdyDLDdwLQaU0QfAtczsN6JJj0=;
-        b=IbqefqBZBW9gIFEk4KaG9gL0HZb2SyeMclzSilOqvAxemNPZ7MVzj6C8F1y6EutJ2W
-         wDadsh23kzG61/Gm1bTv2BghuBWLU2ruq4sstWRpRaHgF7wDKNTTo4XQvTSKqJPvn5y2
-         UMzLT1brlKjSYpyxdKyeAH0So+Tr2lAI8RddVZVznAYSklBB7aFG/uKsf3lywwKdTd7B
-         HzTi/H4iRQ0joY4nJf/mUfgf3y4YJjl+tBsvbKvh4oyYW4ETIlIXCJReMnrZt2HMgAtD
-         emr3dbugLu8cmHULEwm/XdAjTcthV6ncyoJQ+naAJ/S6qQKpj60GHczJpjgldgZSaVqk
-         RJpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=5cd56eslrHC4mcHzDHdyDLDdwLQaU0QfAtczsN6JJj0=;
-        b=Jcgp6ZH23dVzHVPmKcXK16HBPPjHG8jrsZjFxtqHeCp/z1VURhQcGRVCKVfR9KJlQy
-         fwURQCDXHefXbcOL2dNjO0fZFlLVr2bPzutYXro+mNMWGsS8Cf0Z2OqTBtWd0IKUd6DX
-         AcryIxM4p8lAsm2qC60CxUztJXPA2NeuMb05dkDPF7JlJrz/mS/qNszldBbLYx5d933c
-         zlobNsRL5HDJMstAINKhYM7lMhsDgRzXGqX+UHsV77FKYwcRbH3UffwwqX7mzpLc7vjF
-         pSx+XZbuCL3pQzneBEvY8/g6w0ncAVtl2jiAsIOYkm3r2dS5/57OHExA+ExVCzIaMeVJ
-         Lmqg==
-X-Gm-Message-State: AOAM5316Y2JQsMXS35adffh7FWUq2+Crbfp+Bm+p0T01oYBP0XNmKBW/
-        +sLZG391fX0Q39YGi14Rg5w=
-X-Google-Smtp-Source: ABdhPJwDtk42a/FOhjS+sgsjII58S6of6U1zLxXskeQxpk75TSQ8FB7EOU60HgIYn7JH/F3aZfzmgg==
-X-Received: by 2002:adf:9ec2:: with SMTP id b2mr11782949wrf.107.1602970699861;
-        Sat, 17 Oct 2020 14:38:19 -0700 (PDT)
-Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id p21sm8975324wmc.28.2020.10.17.14.38.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2020 14:38:19 -0700 (PDT)
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 3/3] clock_t.3: New link to system_data_types(3)
-Date:   Sat, 17 Oct 2020 23:37:59 +0200
-Message-Id: <20201017213758.9270-3-colomar.6.4.3@gmail.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20201017213758.9270-1-colomar.6.4.3@gmail.com>
-References: <20201017213758.9270-1-colomar.6.4.3@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+        id S2439905AbgJQXOy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 17 Oct 2020 19:14:54 -0400
+Received: from mail.kernel.org ([198.145.29.99]:48620 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S2439878AbgJQXOx (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sat, 17 Oct 2020 19:14:53 -0400
+Received: from localhost.localdomain (c-73-231-172-41.hsd1.ca.comcast.net [73.231.172.41])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by mail.kernel.org (Postfix) with ESMTPSA id 0998D20878;
+        Sat, 17 Oct 2020 23:14:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=default; t=1602976492;
+        bh=VAwWi4WCSi7loeB6+ApzSTtAS3FJGJG9OS1CfO0EI3g=;
+        h=Date:From:To:Subject:In-Reply-To:From;
+        b=yk7jXghKZNsFsTBXEnHxrQAuzdK3bvJhBXmcyPvThyi4TO0M3t2ckoPQ260OX3SN4
+         HyJDZRUfnV4a1hHpuee+SQzEa5wGJxGFW8nZ7+eHWQE+xoyP3e8h7johI0b/e2P75Q
+         YDiAN7ffeLVC+92ITFo4lmcSJeTC55umZnq7E8zo=
+Date:   Sat, 17 Oct 2020 16:14:50 -0700
+From:   Andrew Morton <akpm@linux-foundation.org>
+To:     akpm@linux-foundation.org, alexander.h.duyck@linux.intel.com,
+        axboe@kernel.dk, bgeffon@google.com, christian.brauner@ubuntu.com,
+        christian@brauner.io, dancol@google.com, fw@deneb.enyo.de,
+        hannes@cmpxchg.org, jannh@google.com, joaodias@google.com,
+        joel@joelfernandes.org, ktkhai@virtuozzo.com,
+        linux-man@vger.kernel.org, linux-mm@kvack.org, mhocko@suse.com,
+        minchan@kernel.org, mm-commits@vger.kernel.org,
+        oleksandr@redhat.com, rientjes@google.com, shakeelb@google.com,
+        sj38.park@gmail.com, sjpark@amazon.de, sonnyrao@google.com,
+        sspatil@google.com, surenb@google.com, timmurray@google.com,
+        torvalds@linux-foundation.org, vbabka@suse.cz
+Subject:  [patch 24/40] mm/madvise: pass mm to do_madvise
+Message-ID: <20201017231450.ZUTJgOnD5%akpm@linux-foundation.org>
+In-Reply-To: <20201017161314.88890b87fae7446ccc13c902@linux-foundation.org>
+User-Agent: s-nail v14.8.16
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+From: Minchan Kim <minchan@kernel.org>
+Subject: mm/madvise: pass mm to do_madvise
+
+Patch series "introduce memory hinting API for external process", v9.
+
+Now, we have MADV_PAGEOUT and MADV_COLD as madvise hinting API.  With
+that, application could give hints to kernel what memory range are
+preferred to be reclaimed.  However, in some platform(e.g., Android), the
+information required to make the hinting decision is not known to the app.
+Instead, it is known to a centralized userspace daemon(e.g.,
+ActivityManagerService), and that daemon must be able to initiate reclaim
+on its own without any app involvement.
+
+To solve the concern, this patch introduces new syscall -
+process_madvise(2).  Bascially, it's same with madvise(2) syscall but it
+has some differences.
+
+1. It needs pidfd of target process to provide the hint
+
+2. It supports only MADV_{COLD|PAGEOUT|MERGEABLE|UNMEREABLE} at this
+   moment.  Other hints in madvise will be opened when there are explicit
+   requests from community to prevent unexpected bugs we couldn't support.
+
+3. Only privileged processes can do something for other process's
+   address space.
+
+For more detail of the new API, please see "mm: introduce external memory
+hinting API" description in this patchset.
+
+This patch (of 3):
+
+In upcoming patches, do_madvise will be called from external process
+context so we shouldn't asssume "current" is always hinted process's
+task_struct.
+
+Furthermore, we must not access mm_struct via task->mm, but obtain it via
+access_mm() once (in the following patch) and only use that pointer [1],
+so pass it to do_madvise() as well.  Note the vma->vm_mm pointers are
+safe, so we can use them further down the call stack.
+
+And let's pass current->mm as arguments of do_madvise so it shouldn't
+change existing behavior but prepare next patch to make review easy.
+
+[vbabka@suse.cz: changelog tweak]
+[minchan@kernel.org: use current->mm for io_uring]
+  Link: http://lkml.kernel.org/r/20200423145215.72666-1-minchan@kernel.org
+[akpm@linux-foundation.org: fix it for upstream changes]
+[akpm@linux-foundation.org: whoops]
+[rdunlap@infradead.org: add missing includes]
+Link: https://lkml.kernel.org/r/20200901000633.1920247-1-minchan@kernel.org
+Link: http://lkml.kernel.org/r/20200622192900.22757-1-minchan@kernel.org
+Link: http://lkml.kernel.org/r/20200302193630.68771-2-minchan@kernel.org
+Link: http://lkml.kernel.org/r/20200622192900.22757-2-minchan@kernel.org
+Link: https://lkml.kernel.org/r/20200901000633.1920247-2-minchan@kernel.org
+Signed-off-by: Minchan Kim <minchan@kernel.org>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Reviewed-by: Vlastimil Babka <vbabka@suse.cz>
+Acked-by: David Rientjes <rientjes@google.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Jann Horn <jannh@google.com>
+Cc: Tim Murray <timmurray@google.com>
+Cc: Daniel Colascione <dancol@google.com>
+Cc: Sandeep Patil <sspatil@google.com>
+Cc: Sonny Rao <sonnyrao@google.com>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Shakeel Butt <shakeelb@google.com>
+Cc: John Dias <joaodias@google.com>
+Cc: Joel Fernandes <joel@joelfernandes.org>
+Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+Cc: SeongJae Park <sj38.park@gmail.com>
+Cc: Christian Brauner <christian@brauner.io>
+Cc: Kirill Tkhai <ktkhai@virtuozzo.com>
+Cc: Oleksandr Natalenko <oleksandr@redhat.com>
+Cc: SeongJae Park <sjpark@amazon.de>
+Cc: Christian Brauner <christian.brauner@ubuntu.com>
+Cc: Florian Weimer <fw@deneb.enyo.de>
+Cc: <linux-man@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- man3/clock_t.3 | 1 +
- 1 file changed, 1 insertion(+)
- create mode 100644 man3/clock_t.3
 
-diff --git a/man3/clock_t.3 b/man3/clock_t.3
-new file mode 100644
-index 000000000..db50c0f09
---- /dev/null
-+++ b/man3/clock_t.3
-@@ -0,0 +1 @@
-+.so man7/system_data_types.7
--- 
-2.28.0
+ fs/io_uring.c      |    2 +-
+ include/linux/mm.h |    2 +-
+ mm/madvise.c       |   32 ++++++++++++++++++--------------
+ 3 files changed, 20 insertions(+), 16 deletions(-)
 
+--- a/fs/io_uring.c~mm-madvise-pass-mm-to-do_madvise
++++ a/fs/io_uring.c
+@@ -3989,7 +3989,7 @@ static int io_madvise(struct io_kiocb *r
+ 	if (force_nonblock)
+ 		return -EAGAIN;
+ 
+-	ret = do_madvise(ma->addr, ma->len, ma->advice);
++	ret = do_madvise(current->mm, ma->addr, ma->len, ma->advice);
+ 	if (ret < 0)
+ 		req_set_fail_links(req);
+ 	io_req_complete(req, ret);
+--- a/include/linux/mm.h~mm-madvise-pass-mm-to-do_madvise
++++ a/include/linux/mm.h
+@@ -2579,7 +2579,7 @@ extern int __do_munmap(struct mm_struct
+ 		       struct list_head *uf, bool downgrade);
+ extern int do_munmap(struct mm_struct *, unsigned long, size_t,
+ 		     struct list_head *uf);
+-extern int do_madvise(unsigned long start, size_t len_in, int behavior);
++extern int do_madvise(struct mm_struct *mm, unsigned long start, size_t len_in, int behavior);
+ 
+ #ifdef CONFIG_MMU
+ extern int __mm_populate(unsigned long addr, unsigned long len,
+--- a/mm/madvise.c~mm-madvise-pass-mm-to-do_madvise
++++ a/mm/madvise.c
+@@ -258,6 +258,7 @@ static long madvise_willneed(struct vm_a
+ 			     struct vm_area_struct **prev,
+ 			     unsigned long start, unsigned long end)
+ {
++	struct mm_struct *mm = vma->vm_mm;
+ 	struct file *file = vma->vm_file;
+ 	loff_t offset;
+ 
+@@ -294,10 +295,10 @@ static long madvise_willneed(struct vm_a
+ 	get_file(file);
+ 	offset = (loff_t)(start - vma->vm_start)
+ 			+ ((loff_t)vma->vm_pgoff << PAGE_SHIFT);
+-	mmap_read_unlock(current->mm);
++	mmap_read_unlock(mm);
+ 	vfs_fadvise(file, offset, end - start, POSIX_FADV_WILLNEED);
+ 	fput(file);
+-	mmap_read_lock(current->mm);
++	mmap_read_lock(mm);
+ 	return 0;
+ }
+ 
+@@ -766,6 +767,8 @@ static long madvise_dontneed_free(struct
+ 				  unsigned long start, unsigned long end,
+ 				  int behavior)
+ {
++	struct mm_struct *mm = vma->vm_mm;
++
+ 	*prev = vma;
+ 	if (!can_madv_lru_vma(vma))
+ 		return -EINVAL;
+@@ -773,8 +776,8 @@ static long madvise_dontneed_free(struct
+ 	if (!userfaultfd_remove(vma, start, end)) {
+ 		*prev = NULL; /* mmap_lock has been dropped, prev is stale */
+ 
+-		mmap_read_lock(current->mm);
+-		vma = find_vma(current->mm, start);
++		mmap_read_lock(mm);
++		vma = find_vma(mm, start);
+ 		if (!vma)
+ 			return -ENOMEM;
+ 		if (start < vma->vm_start) {
+@@ -828,6 +831,7 @@ static long madvise_remove(struct vm_are
+ 	loff_t offset;
+ 	int error;
+ 	struct file *f;
++	struct mm_struct *mm = vma->vm_mm;
+ 
+ 	*prev = NULL;	/* tell sys_madvise we drop mmap_lock */
+ 
+@@ -855,13 +859,13 @@ static long madvise_remove(struct vm_are
+ 	get_file(f);
+ 	if (userfaultfd_remove(vma, start, end)) {
+ 		/* mmap_lock was not released by userfaultfd_remove() */
+-		mmap_read_unlock(current->mm);
++		mmap_read_unlock(mm);
+ 	}
+ 	error = vfs_fallocate(f,
+ 				FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE,
+ 				offset, end - start);
+ 	fput(f);
+-	mmap_read_lock(current->mm);
++	mmap_read_lock(mm);
+ 	return error;
+ }
+ 
+@@ -1045,7 +1049,7 @@ madvise_behavior_valid(int behavior)
+  *  -EBADF  - map exists, but area maps something that isn't a file.
+  *  -EAGAIN - a kernel resource was temporarily unavailable.
+  */
+-int do_madvise(unsigned long start, size_t len_in, int behavior)
++int do_madvise(struct mm_struct *mm, unsigned long start, size_t len_in, int behavior)
+ {
+ 	unsigned long end, tmp;
+ 	struct vm_area_struct *vma, *prev;
+@@ -1083,10 +1087,10 @@ int do_madvise(unsigned long start, size
+ 
+ 	write = madvise_need_mmap_write(behavior);
+ 	if (write) {
+-		if (mmap_write_lock_killable(current->mm))
++		if (mmap_write_lock_killable(mm))
+ 			return -EINTR;
+ 	} else {
+-		mmap_read_lock(current->mm);
++		mmap_read_lock(mm);
+ 	}
+ 
+ 	/*
+@@ -1094,7 +1098,7 @@ int do_madvise(unsigned long start, size
+ 	 * ranges, just ignore them, but return -ENOMEM at the end.
+ 	 * - different from the way of handling in mlock etc.
+ 	 */
+-	vma = find_vma_prev(current->mm, start, &prev);
++	vma = find_vma_prev(mm, start, &prev);
+ 	if (vma && start > vma->vm_start)
+ 		prev = vma;
+ 
+@@ -1131,19 +1135,19 @@ int do_madvise(unsigned long start, size
+ 		if (prev)
+ 			vma = prev->vm_next;
+ 		else	/* madvise_remove dropped mmap_lock */
+-			vma = find_vma(current->mm, start);
++			vma = find_vma(mm, start);
+ 	}
+ out:
+ 	blk_finish_plug(&plug);
+ 	if (write)
+-		mmap_write_unlock(current->mm);
++		mmap_write_unlock(mm);
+ 	else
+-		mmap_read_unlock(current->mm);
++		mmap_read_unlock(mm);
+ 
+ 	return error;
+ }
+ 
+ SYSCALL_DEFINE3(madvise, unsigned long, start, size_t, len_in, int, behavior)
+ {
+-	return do_madvise(start, len_in, behavior);
++	return do_madvise(current->mm, start, len_in, behavior);
+ }
+_
