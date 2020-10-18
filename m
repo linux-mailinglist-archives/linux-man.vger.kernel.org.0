@@ -2,106 +2,100 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D27452916CA
-	for <lists+linux-man@lfdr.de>; Sun, 18 Oct 2020 11:49:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 94665291793
+	for <lists+linux-man@lfdr.de>; Sun, 18 Oct 2020 15:05:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726182AbgJRJt1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 18 Oct 2020 05:49:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58056 "EHLO
+        id S1726643AbgJRNFf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 18 Oct 2020 09:05:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59908 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725320AbgJRJt1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 18 Oct 2020 05:49:27 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E176C061755
-        for <linux-man@vger.kernel.org>; Sun, 18 Oct 2020 02:49:26 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id p15so7448998wmi.4
-        for <linux-man@vger.kernel.org>; Sun, 18 Oct 2020 02:49:26 -0700 (PDT)
+        with ESMTP id S1725837AbgJRNF3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 18 Oct 2020 09:05:29 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1E736C061755
+        for <linux-man@vger.kernel.org>; Sun, 18 Oct 2020 06:05:28 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id f21so7703858wml.3
+        for <linux-man@vger.kernel.org>; Sun, 18 Oct 2020 06:05:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=PwyMLdGFZV0DcbLRaA7ceJBfZZ39UAFEInfdbAgwh+k=;
-        b=jCJMdw/FE6XoAcTtRjcc3u9RgK1vuJ8fptvEkiEdrddDpaqeke3rwOjikRs9ANvxXb
-         ZuIsaBPbE9ceOy+tQ8xzDPFdgztJrBPy7vGjpyEIaReSHviAoGZpTf67Bse4ziyprk5c
-         +ZcQR/J8Sqarc7oiIzMHjomZxXja+8RI7HVGUBjHLZxjz1cGFc8yMo6q/K6FD0VEZsVV
-         C7yFygIbA+E06pzBhlVuILQ04V2dYU0NdXirjBbYFd6rNTCPdH4lY204H6PK2RwYGQ4u
-         TPenOVir0QQNHt065cHJ9TEBenb2K8z/XNep/8QmSPvEsB6bTPCnnCoAr34S30xmGDWZ
-         YShw==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=GeRWraLytiEsBBP3JfKC5oWfgrYR1t1NebPAKa9X4co=;
+        b=juIll0TlfWXlrFMZdk5ZjKF1Zn6phutoT1GNH5DYJ38k0pS2GxRTXfynvx4/NNznMN
+         ax6MTPY1pqThUw4QJnbKsLhoD0+pAvW4rx2K5sZt7dKI92xIRhJCfdyS6i8iqsk5MRAA
+         spB522R5aDpLEgya27kxMbnlnfBotXL0u0VXBrnEz7TL5UiTByJx+ChxN6cLsUKAwE2g
+         wn2UV/ljfuMDuH+c+IYVZjUhABuaW0btlVktU4Jkpx7tML8uBaAKTMey/olG6a6jwmdG
+         QQVdHT9Ez2RCWcwx38HAEJVDb+xz/ANQkRrwPrzyB+nGzxKqHlbteexqUwb2i1WauiCB
+         i9VA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=PwyMLdGFZV0DcbLRaA7ceJBfZZ39UAFEInfdbAgwh+k=;
-        b=ckHUgqbg2GSIgEwsP7SIkye7Xed16xF4rBeTO3WwgvZJJckcSdro69lJJ40+99WLRk
-         edOgVVSIfWdLRcLQz4vaBiWHYIXAS/7Tu3cdycoREgUqhhGezXEd91FwVfQcxoZidQCy
-         9IBn3OoZmAXOX0VR5rKhhfD/Fc78kpdULn440jDZtVW8TF0ji6y3jEttTliAp4PWbvE3
-         4t8lxAZnRR81CrS1XZ3qZckTsxJNK0Q9fZh7xj3ekGdl7IEHogQNOxXzGcZVJK30J8fy
-         UuHIrbf6S0NdGuHdC6S5Hmw+t77ZfgEihJ2vNVymKN2Q7Grb6VxWGtcZ2aoO4dKpVWRL
-         mpwQ==
-X-Gm-Message-State: AOAM5310kgNny0Dmynb7WNcmiJydiT08M9Sek1YL47PtJKoDklZ/RRTC
-        TqU2uQyqfYBwoH0GR6M2nY4=
-X-Google-Smtp-Source: ABdhPJy9rwvV+sw6jRJpS8UM3hgvC3rETAvNvWs2Pb/U+hX8yjSeqhPTyLhppea6j9DLFP0SD12KzQ==
-X-Received: by 2002:a1c:67c5:: with SMTP id b188mr11913250wmc.164.1603014565146;
-        Sun, 18 Oct 2020 02:49:25 -0700 (PDT)
-Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id a127sm12075076wmh.13.2020.10.18.02.49.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2020 02:49:24 -0700 (PDT)
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH v2 2/3] system_data_types.7: Add 'clock_t'
-Date:   Sun, 18 Oct 2020 11:49:17 +0200
-Message-Id: <20201018094917.9293-1-colomar.6.4.3@gmail.com>
-X-Mailer: git-send-email 2.28.0
+        bh=GeRWraLytiEsBBP3JfKC5oWfgrYR1t1NebPAKa9X4co=;
+        b=T5ezpaGeeJppihcd3PVuEYS3A2k184l+/4nKOonEJu9NXPZ4dtSh2fdvia3/9e7Vsq
+         7Uq0D4dGbM/KEQpV3NrKXNNpUc+Op/5Uvg0Om7smFzeEId9AFjtPUseaIdjcoMU0e+Kr
+         0N6uUh+8pT6zsyKnpLQlG2swaCDOnBQo0glpUp6yXJEH98RwY1TfgFB4bj84UbmUaN6T
+         fT4m8vWu2b/j+cLfH7Yxu5PqeBuErHPbyl7n4kEFW6XdZv2JrsyWLV9rvlfL/n9ytexx
+         olvghpl+8JsL/Nac6oZKUoemH4yMW4lcuUu27Ww4ulQvmgGVShgCVUjqGfb2q7AM3Vey
+         N3MQ==
+X-Gm-Message-State: AOAM532OMTG6CBf9Q+Xhujp2Q99nfu1M+iGrhS1jueh9adxa+BIITqIB
+        DenQd03lfx0/J/v4pACJ5P0=
+X-Google-Smtp-Source: ABdhPJzl0v0accLOcznTCM24HxtEJJG9gMdg09rcQMzUxJrbytIdJzuIcUfPxsdDdkyLXiaPcUhopA==
+X-Received: by 2002:a1c:6643:: with SMTP id a64mr13400154wmc.142.1603026326803;
+        Sun, 18 Oct 2020 06:05:26 -0700 (PDT)
+Received: from [192.168.1.10] (static-176-175-73-29.ftth.abo.bbox.fr. [176.175.73.29])
+        by smtp.gmail.com with ESMTPSA id t13sm12119814wmj.15.2020.10.18.06.05.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 18 Oct 2020 06:05:25 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        libc-alpha@sourceware.org, Zack Weinberg <zackw@panix.com>
+Subject: Re: [PATCH 1/3] system_data_types.7: time_t: Add Versions note
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
+        Paul Eggert <eggert@cs.ucla.edu>
+References: <20201017213758.9270-1-colomar.6.4.3@gmail.com>
+ <7dc0c08b-ebf8-3d79-75c8-7579f537cd48@cs.ucla.edu>
+ <78f7baf9-bd40-39d5-bbca-403381ec369a@gmail.com>
+ <2b275610-95cb-5d40-158e-3b1d9e7adde0@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <3dbfecdc-929f-3f4c-e4e8-420a558eecfb@gmail.com>
+Date:   Sun, 18 Oct 2020 15:05:23 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <2b275610-95cb-5d40-158e-3b1d9e7adde0@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
----
- man7/system_data_types.7 | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+>> Alex, I suggest either we drop this patch, or you could reword as
+>> something like:
+>>
+>> "In POSIX.1-2001, the type was specified as being either an integer
+>> type or a real-floating type. However, existing implementations
+>> used an integer type, and POSIX.1-2008 tightened the specification
+>> to reflect this."
+>>
+>> Thanks,
+>>
+>> Michael
+>>
+> 
+> Thanks, Paul!
+> 
+> Michael, I would opt for the simpler: drop the patch.
 
-diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-index 8a894b2e0..abc456f0b 100644
---- a/man7/system_data_types.7
-+++ b/man7/system_data_types.7
-@@ -85,6 +85,31 @@ See also:
- .BR aio_write (3),
- .BR lio_listio (3)
- .RE
-+.\"------------------------------------- clock_t ----------------------/
-+.TP
-+.I clock_t
-+.RS
-+Include:
-+.I <time.h>
-+or
-+.IR <sys/types.h> .
-+Alternatively,
-+.IR <sys/time.h> .
-+.PP
-+Used for system time in clock ticks or
-+.B CLOCKS_PER_SEC
-+(defined in
-+.IR <time.h> ).
-+According to POSIX,
-+it shall be an integer type or a real-floating type.
-+.PP
-+Conforming to:
-+C99 and later; POSIX.1-2001 and later.
-+.PP
-+See also:
-+.BR times (2),
-+.BR clock (3)
-+.RE
- .\"------------------------------------- div_t ------------------------/
- .TP
- .I div_t
+Okay.
+
+Thanks,
+
+Michael
+
+
 -- 
-2.28.0
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
