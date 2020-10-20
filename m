@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D3157293E96
+	by mail.lfdr.de (Postfix) with ESMTP id 666E9293E95
 	for <lists+linux-man@lfdr.de>; Tue, 20 Oct 2020 16:23:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2408041AbgJTOXp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S2408040AbgJTOXp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Tue, 20 Oct 2020 10:23:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39392 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39398 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2407989AbgJTOXp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 20 Oct 2020 10:23:45 -0400
+        with ESMTP id S2407989AbgJTOXo (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 20 Oct 2020 10:23:44 -0400
 Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 93308C061755
-        for <linux-man@vger.kernel.org>; Tue, 20 Oct 2020 07:23:43 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id c77so1995324wmd.4
-        for <linux-man@vger.kernel.org>; Tue, 20 Oct 2020 07:23:43 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9A344C0613CE
+        for <linux-man@vger.kernel.org>; Tue, 20 Oct 2020 07:23:44 -0700 (PDT)
+Received: by mail-wm1-x342.google.com with SMTP id b127so2123013wmb.3
+        for <linux-man@vger.kernel.org>; Tue, 20 Oct 2020 07:23:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=mmsFsfv/B3MScHqyQjkwZ06nYyX1lorlGxlwweOx9HM=;
-        b=DbBBriUoYCCI1iSy3gYl6weSxrBocX/ViIsL1SEEUcdBxoQyhM7Tr+A5xlULdWXLgK
-         BANh17r1W9M1+8y8Gkt+kjvWIq3cyffPfwTgDyEOC4uWXBoBDFM+sLpz/9/59KaPDLoS
-         6qpFJ2eWsYnM7XlniBJCFSVEApeCZNRzoN8bku1Z3Xqbb9W5HpuMcTmHksIssFfMDfYp
-         d/3yHuZyA0s42irVVK11g/46AncZ7T0WsZpINt3D+pxTv10j8WKy1JFhacajNnvH1diy
-         j1nJZAm3db/ax6oadQl12/SKllN57YG65AEwiSt2/Pb0+Pl52+0ZuluM8lTiwB4RW7sr
-         SVpQ==
+        bh=hgt+bR4Tevd5sxU7yCKi7CgfsprPB04M5XYVo9EqDJQ=;
+        b=BKGocP8+0lDLbg6ArozaTauLg7LMeGZ3u5/Mr74DnVx+7EiORE/uBZb5y7zr8LJfIq
+         F/jkzHJt6ZRyqbtqCbqtgoYTlRX5rBjAJhdRURdBRFotIPdo0yNB/AGLOi5CNZBiLhzI
+         m6+oIXNKNv7egFaFRygd7hxsDyhuwM9rK2g7Uu1iIhnd8qVrIrMSyzBEsMvpSmb9YIsW
+         BV0Aa9TDR6MoaE02ehA6bBwe40NbDfTGrXSXJ33M3ChTdlcquvOByaIGswbMnRlhHODa
+         BsJl3KgJOp3woE8yvLRMK4abnHi0HtlA6px0XOky37fCI6A45dvP/ERMSwo2J6PQOBaJ
+         dbFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=mmsFsfv/B3MScHqyQjkwZ06nYyX1lorlGxlwweOx9HM=;
-        b=hOiuz1yU2ZW9yzLbq+Hv+YkbScgRHE2NlAYxJsejeqJNvJ6l3UA3B0gTUZxFl8ruNQ
-         GhlWFylqw30cJ7feHBDevfa7ojLZy8jiYQUx6R6aPKUrqiallNYTRPqXdas3+I8cT4gp
-         rPnZe3YB+2TMGQhsK4h6ell6YCQ8wEG3oDezqekmdBTqeNXSFJCUhXjCdgwytqguraC+
-         Hitam66QzE8+6Xh6id5xmxU4G4thnHerhvcz9Z5B72XHVPna/9ysseGqDY5Mui5Wd/Y/
-         0XtszdA0AJI3nMgK/YdFo8lKUD3Zs57xyDHc15y1LKAs9Y1UVN8Fo1AU2RbwBA/tu9DW
-         VgyQ==
-X-Gm-Message-State: AOAM532t1EsoBVRe2vQ5H/SwTXicErci+EDSF0nbkQ7XhoaBxQOwdr16
-        NFGp4QHpKXAuX6d2xeLtcE2JOqLc+1w=
-X-Google-Smtp-Source: ABdhPJwzYi91lN0Rs2ouQc9UcGgwdgVzhI3NkaYttd6hm89/a1v1oAeSeg/TDyUhcWV+UX/OYzPc2g==
-X-Received: by 2002:a1c:a749:: with SMTP id q70mr1309267wme.117.1603203822369;
-        Tue, 20 Oct 2020 07:23:42 -0700 (PDT)
+        bh=hgt+bR4Tevd5sxU7yCKi7CgfsprPB04M5XYVo9EqDJQ=;
+        b=okHe2/AeE3xzzwAOZepK8Z8s38WJKMqjwe65d8c0tGdAE0y4BWGtAlcdqyG37DgwQj
+         VeplirH4QTwiWlqfHy6hC1CHNKIELq8IekjTecRCr5bnUZnk9W4nHJ/mDHBN3TZ/6Gm6
+         gcardSxDPGGgFhUnMC9Z9T8bUN2FnokPliY2RLxdnvoFEjOquyqPl8b5f0RZ/9eWEyKt
+         j+P1UVJR2Zuz8l7SgXlgjpePjd1RMgL1TpDKj5vAHQSTnawKzDlWXjr8ZZGdvocfN2+J
+         GtkDMJLHY/jo9oMrCTFtaWqvjROtNMOKxFxelYisfvnZ6u6T5DfhYZUYjiaGnHcrF54/
+         7NlA==
+X-Gm-Message-State: AOAM533EZqTyR5bls1t/thgxROS9GYcoZrk4DLo1Op0FclMI+qzmREsm
+        Rh7al7XcaEPyGlgs/kzc6A4=
+X-Google-Smtp-Source: ABdhPJxvXTckkuTNsrVQmsKdjWUfM5hyfWrDPbCE3PJJSV2A8cvuqCTn50aSj10Z5KklEh8uhyAYoQ==
+X-Received: by 2002:a1c:b402:: with SMTP id d2mr3398980wmf.128.1603203823422;
+        Tue, 20 Oct 2020 07:23:43 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id s19sm3422153wmc.0.2020.10.20.07.23.41
+        by smtp.googlemail.com with ESMTPSA id s19sm3422153wmc.0.2020.10.20.07.23.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2020 07:23:41 -0700 (PDT)
+        Tue, 20 Oct 2020 07:23:42 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 20/22] list.3: EXAMPLES: ffix: Use man markup
-Date:   Tue, 20 Oct 2020 16:21:45 +0200
-Message-Id: <20201020142146.61837-21-colomar.6.4.3@gmail.com>
+Subject: [PATCH 21/22] list.3: BUGS: Note LIST_FOREACH() limitations
+Date:   Tue, 20 Oct 2020 16:21:46 +0200
+Message-Id: <20201020142146.61837-22-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201020142146.61837-1-colomar.6.4.3@gmail.com>
 References: <20201020142146.61837-1-colomar.6.4.3@gmail.com>
@@ -65,32 +65,34 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man3/list.3 | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ man3/list.3 | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
 diff --git a/man3/list.3 b/man3/list.3
-index b22453ab9..bb64fff92 100644
+index bb64fff92..4aec14cc8 100644
 --- a/man3/list.3
 +++ b/man3/list.3
-@@ -262,8 +262,7 @@ Present on the BSDs
+@@ -261,6 +261,20 @@ Not in POSIX.1, POSIX.1-2001 or POSIX.1-2008.
+ Present on the BSDs
  (LIST macros first appeared in 4.4BSD).
  .SH BUGS
++The macro
++.BR LIST_FOREACH ()
++doesn't allow
++.I var
++to be removed or freed within the loop,
++as it would interfere with the traversal.
++The macro
++.BR LIST_FOREACH_SAFE (),
++which is not present in glibc,
++solves this bug by
++allowing to both remove
++.I var
++as well as free it from within the loop safely
++without interfering with the traversal.
  .SH EXAMPLES
--.Ss List example
--.Bd -literal
-+.EX
+ .EX
  #include <stddef.h>
- #include <stdio.h>
- #include <stdlib.h>
-@@ -314,7 +313,7 @@ main(void)
- 
-     exit(EXIT_SUCCESS);
- }
--.Ed
-+.EE
- .SH SEE ALSO
- .BR insque (3),
- .BR queue (3)
 -- 
 2.28.0
 
