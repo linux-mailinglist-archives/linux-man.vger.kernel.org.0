@@ -2,95 +2,160 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 760552930F6
-	for <lists+linux-man@lfdr.de>; Tue, 20 Oct 2020 00:11:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8BDC72933C8
+	for <lists+linux-man@lfdr.de>; Tue, 20 Oct 2020 06:08:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2387913AbgJSWLR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 19 Oct 2020 18:11:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57614 "EHLO
+        id S2387701AbgJTEIx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 20 Oct 2020 00:08:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56840 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2387912AbgJSWLR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 19 Oct 2020 18:11:17 -0400
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C4D9FC0613CE
-        for <linux-man@vger.kernel.org>; Mon, 19 Oct 2020 15:11:15 -0700 (PDT)
-Received: by mail-wm1-x341.google.com with SMTP id d81so963170wmc.1
-        for <linux-man@vger.kernel.org>; Mon, 19 Oct 2020 15:11:15 -0700 (PDT)
+        with ESMTP id S2387700AbgJTEIx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 20 Oct 2020 00:08:53 -0400
+Received: from mail-ot1-x342.google.com (mail-ot1-x342.google.com [IPv6:2607:f8b0:4864:20::342])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5ED30C0613CE
+        for <linux-man@vger.kernel.org>; Mon, 19 Oct 2020 21:08:53 -0700 (PDT)
+Received: by mail-ot1-x342.google.com with SMTP id m22so552840ots.4
+        for <linux-man@vger.kernel.org>; Mon, 19 Oct 2020 21:08:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=nzEDvVmL+XkwIsXACI0jd36BDLCD7YxI1bvIhtrebLA=;
-        b=nBpnJJ6ihoKASvrKYAHPm7nAlWTWBdFuPmHyl1B6/JwZpXhSaimov9LXwT7qN3igeO
-         tNkYXDi650xkZpKw9uvu6hFaKPy8s5gJOa7L/koM4gLMA0XYBjkzWxz+Jp28XihZ9h99
-         4NX+Wn4Uprz1zrMR5FNRcDDSyq/8hlVukdXSdWpyM3uTWuFvM80Z30eVEKOxkNeuCQvA
-         xry7c8qrZC9T0FFOfXhG9VwdDyBxcAgDPUwPor19X4cz2nOE7/F7HHh2BA4GtdeacLU8
-         QslHUW29tu6xnl5UbTy4jWkKWDwMa2AgFUwF9bfmoGfRLjJ5yEtbXoUefvhJBVXnFllv
-         9juA==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=tW+rcnLwORqWyKln0EyPJPLDzRItorQ/LcHBmhcWu+E=;
+        b=HO4Kqd8J5gE3LTUvrDbv2hFCR1c0e2FH3W3Iv9jR+wBuXbQjImLBVMq6pNoYQ61NjY
+         YxHgYkiHkzJ6I3FMnDgFb2oqtPNGc0udauNBjfR6X0vS0px/63U+gkjcamX3I4sTMGNU
+         bakXl3LGPbkvKxeoaXOYDdam+bK52BhvAYGobGDyFFTSR3FQrcqtDtEyqP+xl8li3lpy
+         X9v/NHNDT0rttusUKLePWX8+VJg4XetrWZ1YKgJ5JAMI5Dr4+67jtuHT0KK/hb8t08vM
+         zXHL3Ms8FqkNObUNO+ZgzIcZgbCzU2406Shp66dQbEMRCxy3i3L4e1Pqwhc5/4Y9mTOY
+         f9Zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=nzEDvVmL+XkwIsXACI0jd36BDLCD7YxI1bvIhtrebLA=;
-        b=rVcYMnN+XCk+u9pBzfk9yQ9F249VCqIYE2IwnElPtO+oxu+sU/IDsVr6NwIW5nknj0
-         T95vTd1zlAVE79GTsWbQITCm2/X/cAOdfX5HZ1LS2eiWZztJucVh7RU3nUOO9Zh3flD8
-         +tBslQEFacxZ4vA0LhsaEkSuJga94IUSt87iTWJCC4yCtozb5ekHJBrAdf7VHYgfdqQ9
-         l6zYkmdO4nzqNS3/pY8NhjNIrOpqm0OTNxnHG7BLMMHX4gV8LBCBzi90iB2CP2bJ6r99
-         apQAft0N+5ki7PET9ddlPmFwySTXQLy41g4znA62PktWzj+OSSH3QScyQ97oI5f+l6cC
-         ECFw==
-X-Gm-Message-State: AOAM532lr1KmbeUXagvc6dgE7LhrslJIC/RSA4NBGoT0Zj5Kgbg1KvRA
-        62/y/TwpnweUOEt9oeP3ZNq756bHlIg=
-X-Google-Smtp-Source: ABdhPJzzb1GLEKIqU7Y8VrgB8ypmEvqYZsDS2j44TI2YENE/2ZbhoUB2R0KohsGhRmFNqEHcY1k3jg==
-X-Received: by 2002:a05:600c:2144:: with SMTP id v4mr1323280wml.172.1603145474213;
-        Mon, 19 Oct 2020 15:11:14 -0700 (PDT)
-Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id s2sm1182118wmf.45.2020.10.19.15.11.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2020 15:11:13 -0700 (PDT)
-Subject: Re: \- vs - (Was [Re: [PATCH 2/3] system_data_types.7: Add
- 'clock_t'])
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-References: <20201017213758.9270-1-colomar.6.4.3@gmail.com>
- <20201017213758.9270-2-colomar.6.4.3@gmail.com>
- <e9162722-25f4-6d00-00c4-73ffb4fb6528@gmail.com>
- <706d3eea-60f8-c208-0cd4-3412ebfef263@gmail.com>
- <20201019181047.palj3nbvozlvnoqg@jwilk.net>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <67b18fbb-d0a1-a9bb-d0c0-0ba16910389d@gmail.com>
-Date:   Tue, 20 Oct 2020 00:11:12 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=tW+rcnLwORqWyKln0EyPJPLDzRItorQ/LcHBmhcWu+E=;
+        b=hZ4ujWx2T0ODfnByo94O7NlUjBB7G1SyRIT4t2Tqa4IgesF9/vpeWVGnljadLxxX6o
+         FxXT7C5E1m0FUjH2cbdUF95zbcB3Yp94q2tjr1Vkq4bGRGoa8+l6I/pH8sDfruRqswkr
+         +g3/VrEhOpU+U54oMYgY2z2kqvPUjfliZNL78gWY5VtJcDzxL/wbnrykduTKUFDTqEhS
+         Qx4rFAoJMqxXWc2tNXL/FIJ9J5RSiF/qN3JSgZ2KIgrFufu48D3BvHcox7KuPg1I+E7Q
+         D+E2tb9Zv3XEiQWU7U2TKHq5KGmNiKIC37B9hCmAZI0u+kxQ6KhYPlrILra37q2ynO0a
+         qQsg==
+X-Gm-Message-State: AOAM533Hd89is9y099e7flF+HpaZYJn17AWEQHT8j+vzSjxluQXBcosK
+        s56YjTe7gUeyOcC0oSy4sugac752pChZVH1ZPlY=
+X-Google-Smtp-Source: ABdhPJwd3ALU0b8c0qTkLhlARZXhJdDZXwfMausbOeE7jtdm3XcirZKhNIFhHgW1DrNUviBQheera6iGbIKcQ4XCo40=
+X-Received: by 2002:a9d:5183:: with SMTP id y3mr545981otg.308.1603166932699;
+ Mon, 19 Oct 2020 21:08:52 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20201019181047.palj3nbvozlvnoqg@jwilk.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <33af3ca2-d6ea-5f75-6ad2-e2f43eefe4fa@gmail.com>
+In-Reply-To: <33af3ca2-d6ea-5f75-6ad2-e2f43eefe4fa@gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Tue, 20 Oct 2020 06:08:41 +0200
+Message-ID: <CAKgNAkhDZK9YyvDNr+s=bT9Y6BGCtC7mrGuYa+bdrzQnhGSjhw@mail.gmail.com>
+Subject: Re: queue.3 overhaul
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Jakub,
+Hi Alex,
 
-On 2020-10-19 20:10, Jakub Wilk wrote:
-> * Alejandro Colomar <colomar.6.4.3@gmail.com>, 2020-10-19, 19:40:
->> Then, in the following code (taken from printf.3)
->> the escape is wrong (unneeded) by those guidelines?:
->>
->> [[
->> .SH NAME
->> printf, fprintf, dprintf, sprintf, snprintf, vprintf, vfprintf, vdprintf,
->> vsprintf, vsnprintf \- formatted output conversion
->> ]]
-> 
->  From the typographical point of view, the most appropriate character 
-> here would be \(en (en-dash); but for historical reasons, you're 
-> supposed to use \- (minus sign). This is documented in the man(7) manual 
-> page, section "Sections".
-> 
+On Mon, 19 Oct 2020 at 17:29, Alejandro Colomar <colomar.6.4.3@gmail.com> wrote:
+>
+> Hi Michael,
+>
+>
+> I'm working on moving and fixing code from queue.3 to different pages.
+>
+> I'd like to send you patches against a separate branch,
+> if you would create one, to ask you some questions from time to time,
+> and maybe get suggestions.
+>
+> Or maybe you could look at my branch on github
+> (https://github.com/alejandro-colomar/man-pages/commits/queue
+> (I may force push changes there sometimes))
 
+I created a remote to remote to track your work. But you'll need to
+ping me from time to tell me to take a look. Also, I think mail to
+this list to discuss directions (as you are now doing) is great.
 
-Thank you!
+> (BTW, if you have a look there,
+> you can see how I'm moving&fixing the code from queue.3
+> to the other pages and maybe suggest a different way).
 
-Alex
+This looks okay in principle.
+
+> Or maybe I can just show you small pieces of code (no patches),
+> like in this email.
+>
+> Whatever works best for you.
+
+Both ;-)
+
+> What do you think about this SYNOPSIS for list.3?:
+>
+> [[
+> .SH SYNOPSIS
+> .nf
+> .B #include <sys/queue.h>
+> .PP
+> .BI "int        LIST_EMPTY(LIST_HEAD *" head ");"
+> .B  "           LIST_ENTRY(TYPE);"
+> .BI "LIST_ENTRY LIST_FIRST(LIST_HEAD *" head ");"
+> .BI "           LIST_FOREACH(TYPE *" var ", LIST_HEAD *" head ",
+> LIST_ENTRY " NAME ");"
+> .\".BI "           LIST_FOREACH_FROM(TYPE *" var ", LIST_HEAD *" head ",
+> LIST_ENTRY " NAME ");"
+> .\".BI "           LIST_FOREACH_SAFE(TYPE *" var ", LIST_HEAD *" head ",
+> LIST_ENTRY " NAME ", TYPE *" temp_var ");"
+> .\".BI "           LIST_FOREACH_FROM_SAFE(TYPE *" var ", LIST_HEAD *"
+> head ", LIST_ENTRY " NAME ", TYPE *" temp_var ");"
+> .B  "           LIST_HEAD(HEADNAME, TYPE);"
+> .BI "LIST_HEAD  LIST_HEAD_INITIALIZER(LIST_HEAD " head ");"
+> .BI "void       LIST_INIT(LIST_HEAD *" head ");"
+> .BI "void       LIST_INSERT_AFTER(TYPE *" listelm ", TYPE *" elm ",
+> LIST_ENTRY " NAME ");"
+> .BI "void       LIST_INSERT_BEFORE(TYPE *" listelm ", TYPE *" elm ",
+> LIST_ENTRY " NAME ");"
+> .BI "void       LIST_INSERT_HEAD(LIST_HEAD *" head ", TYPE *" elm ",
+> LIST_ENTRY " NAME ");"
+> .BI "LIST_ENTRY LIST_NEXT(TYPE *" elm ", LIST_ENTRY " NAME ");"
+> .\".BI "LIST_ENTRY LIST_PREV(TYPE *" elm ", LIST_HEAD *" head ", TYPE,
+> LIST_ENTRY " NAME ");"
+> .BI "void       LIST_REMOVE(TYPE *" elm ", LIST_ENTRY " NAME ");"
+> .\".BI "void       IST_SWAP(LIST_HEAD *" head1 ", LIST_HEAD *" head2 ",
+> TYPE, LIST_ENTRY " NAME ");"
+> .fi
+> ]]
+>
+> Things to note:
+> - The (many) spaces are there because otherwise it's unreadable (at
+> least for me).
+
+But, I find the indentation confusing actually. When I see pieces such as
+
+       int        LIST_EMPTY(LIST_HEAD *head);
+                  LIST_ENTRY(TYPE);
+
+It visually looks to me as though the LIST_ENTRY piece is some
+extension of the LIST_EMPTY pest.
+
+I think it's best not to do horizontal indentation, but instead just
+use of vertical separation (.PP). We can perhaps revisit this later,
+to see if we can come up with something better.
+
+> Also, I kept the copyright from the University of California and added
+> myself:  I consider this to be a modified redistribution but not a
+> derived product; maybe I'm wrong in that (I'm not a lawyer :)).
+
+This seems okay to me.
+
+Thanks.
+
+Michael
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
