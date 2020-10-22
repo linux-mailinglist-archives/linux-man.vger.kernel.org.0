@@ -2,86 +2,126 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C228D2961C8
-	for <lists+linux-man@lfdr.de>; Thu, 22 Oct 2020 17:41:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A8ACC296407
+	for <lists+linux-man@lfdr.de>; Thu, 22 Oct 2020 19:48:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2901461AbgJVPlF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 22 Oct 2020 11:41:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44442 "EHLO
+        id S369265AbgJVRsj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 22 Oct 2020 13:48:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36158 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2895638AbgJVPlE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 22 Oct 2020 11:41:04 -0400
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D3294C0613CE
-        for <linux-man@vger.kernel.org>; Thu, 22 Oct 2020 08:41:00 -0700 (PDT)
-Received: by mail-wm1-x342.google.com with SMTP id k18so2784167wmj.5
-        for <linux-man@vger.kernel.org>; Thu, 22 Oct 2020 08:41:00 -0700 (PDT)
+        with ESMTP id S2900989AbgJVRsj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 22 Oct 2020 13:48:39 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 05092C0613CE
+        for <linux-man@vger.kernel.org>; Thu, 22 Oct 2020 10:48:39 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id n6so3553410wrm.13
+        for <linux-man@vger.kernel.org>; Thu, 22 Oct 2020 10:48:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=0M5bS9wwdu5/kobwt9AsN2XLWmLOEwHNBIMV9+VOea0=;
-        b=sBywALDIxT9npDmd8ti5zf6cTd8YIxuOskzJzURpBCN2YWKLazIWGRp7ODDPrrhtrn
-         XEt0OvZauc97WFacHU8PeikHXgcDnU247e6x/oVJ6YPudkKlOVnzrQm9cyKJqYa17iFH
-         JJLEk2LdlCX92yqwHMSjnrXQ7jJQqfbVodY55EsYhM54jqpOhpn4yoLi5iogsE6U8BtF
-         jjSiszRDyRXCDEc1r1QQDqSgzL/SeKdN33M8IH6xU+Dis8x2kSL+xVhOnyTxICmAIQOS
-         V6/L5/a5WFNl1cO7hqQkLnOLQlaxQbjgrNLTteJRd0e6DGDla1gYtN2BzTLithw9Jpln
-         LgvQ==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=mHMpq9Uau2EMbgProagCSVgtqHfuBKjfra1ziV13koU=;
+        b=H1h1zycoI8rg/NcT6DenUtcFdTQC0n9+S4M8zwFqKTht5O7/aoEa0owsfskpAyWMXU
+         jIr+MUze7WdtTMWcy1rHVX2E7HCiqcQng4n9mYHV55eUlAew+7Q+lG6YDzVpxb7//bqv
+         VEqEMHeklAKel2ql7FkPhEirIfFOap0ja1h0+CscUdArGRAU0SGcdAZExRxNdsZ150sk
+         Xa1urpR53DBo1OZrVY7VA953P622ZJfcwdrnptr02QOFs6hmRJ5wADdmY6CR8rm7JotJ
+         2MD44EKNS+hTyi7a4EpR8puM7Ba8Z7U7Dv2iPQm4pof62A6f/Lmm+jyezTXUx0QbnBRL
+         ITaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=0M5bS9wwdu5/kobwt9AsN2XLWmLOEwHNBIMV9+VOea0=;
-        b=jq+Lp2tS8TmCcovmsYlfvEp+VO+0wFcAUqVxcTovVZhC8wEPs3D33PT1eSP/eWw/qo
-         iR+/xUDUNBPYsrgv+M5B9zG3wfqj68nsgc3P3E8uZVbB8nz3AqpVNgtZ5J8K1M7jXHMJ
-         cvZAtcmjOHRe/rPn0Xx/VBXiCk5Ehl7J5AXtEzitnfVdItApFUYA4iykW9LzEkxCJPdw
-         5LSYHjKWmNnfDzycQr9LLmB0C8OkBOr6vJC1Qx44jnJKSsCNS0/9fTsvDia9iZaKeZ6Z
-         EwdqzYEgfmmDjSI1Vw0oHQbqW5jUB4r4UqevSqhL1JvL2XMRzYCDNDY2eCdYdlgBaj0A
-         MlGQ==
-X-Gm-Message-State: AOAM533LMzdNyU3UtWOA4Vt5qbEx5+2JNhRxAn4AHOcNZCeMXW/dpE/H
-        DPXj0jnYKJhTXZ3FX0WM3ko=
-X-Google-Smtp-Source: ABdhPJzO/w8NMQ7+wZVKLLtvgbGQW1vBlN0amzzfOuYRYLDQ7GczOMO+3xt0Ja8IJ54kAb0X0q7Q6Q==
-X-Received: by 2002:a1c:20ce:: with SMTP id g197mr3143734wmg.18.1603381259663;
-        Thu, 22 Oct 2020 08:40:59 -0700 (PDT)
-Received: from debian-VLC.home ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id f14sm4907745wrr.80.2020.10.22.08.40.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2020 08:40:58 -0700 (PDT)
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH] list.3: Sort alphabetically
-Date:   Thu, 22 Oct 2020 17:40:40 +0200
-Message-Id: <20201022154039.30048-1-colomar.6.4.3@gmail.com>
-X-Mailer: git-send-email 2.28.0
+        bh=mHMpq9Uau2EMbgProagCSVgtqHfuBKjfra1ziV13koU=;
+        b=evshQZNVglB+fBtxjZdbVA+0mKIZs0cNY9xECNk91X01qXmbiDWFw6CYKd4BUm+55P
+         MdL5UjrdSu4/+RjH3LwnEP6fhotWTEaByEPvdmjKqq67sQVaKjZ1+sLOaCG6uy3n6hYe
+         Rwsx/VnUL0NuYnJZhCUnIbUJxO664HUuAQfhBMomIQWhU+QjeELZmuWvm0+SmNzBZgmP
+         6/hG5kArUUvX9iEgOPfLpS5e7d3jbI50Nqd3j7ptovzx4mqqCEGmlxbR+3ocrU8tB5ew
+         z57EjIdpaTzWlZ/aBmCBTYtfKvzNnj128UUWXNWxn7+dcX+q5tcCWnbOKC7IzpZ//OTH
+         2N9g==
+X-Gm-Message-State: AOAM533AqRAST2KYCiHqjoj+vSKETCumHXaU+3emeof8WEhDP596s95c
+        WZ0hTn2MyUH1ac4XUE0hM5v1Llcj87M=
+X-Google-Smtp-Source: ABdhPJw7n9DB68aUL1odbhjErS42aRN2ydiYRFaamRJgf1F9aB9GCTwEeWVaxL01mBPfq8mrcPiZSA==
+X-Received: by 2002:adf:92e4:: with SMTP id 91mr3910525wrn.230.1603388917715;
+        Thu, 22 Oct 2020 10:48:37 -0700 (PDT)
+Received: from ?IPv6:2a01:e0a:597:6d00:9446:7902:22d6:6f78? ([2a01:e0a:597:6d00:9446:7902:22d6:6f78])
+        by smtp.gmail.com with ESMTPSA id d129sm5370043wmd.5.2020.10.22.10.48.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2020 10:48:36 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        libc-alpha@sourceware.org
+Subject: Re: [PATCH 00/10] slist.3: fork from queue.3
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+References: <20201022123821.22602-1-colomar.6.4.3@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <bbeda9b1-9844-a14d-9531-c65974d70f0f@gmail.com>
+Date:   Thu, 22 Oct 2020 19:48:32 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201022123821.22602-1-colomar.6.4.3@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
----
- man3/list.3 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Hi Alex,
 
-diff --git a/man3/list.3 b/man3/list.3
-index 0cbccfe00..ea1c76b4d 100644
---- a/man3/list.3
-+++ b/man3/list.3
-@@ -63,9 +63,9 @@ LIST_REMOVE
- .\".PP
- .\".BI "LIST_FOREACH_FROM(TYPE *" var ", LIST_HEAD *" head ", LIST_ENTRY " NAME ");"
- .\".PP
--.\".BI "LIST_FOREACH_SAFE(TYPE *" var ", LIST_HEAD *" head ", LIST_ENTRY " NAME ", TYPE *" temp_var ");"
--.\".PP
- .\".BI "LIST_FOREACH_FROM_SAFE(TYPE *" var ", LIST_HEAD *" head ", LIST_ENTRY " NAME ", TYPE *" temp_var ");"
-+.\".PP
-+.\".BI "LIST_FOREACH_SAFE(TYPE *" var ", LIST_HEAD *" head ", LIST_ENTRY " NAME ", TYPE *" temp_var ");"
- .PP
- .B LIST_HEAD(HEADNAME, TYPE);
- .PP
+On 10/22/20 2:38 PM, Alejandro Colomar wrote:
+> Hi Michael,
+> 
+> Here's slist.3.
+> 
+> I applied to this page all of the fixes you applied to list.3.
+> Also I noticed some unsorted macros,
+> so I'll check list.3 and sort them if necessary.
+
+Thanks! I've applied this series.
+
+Cheers,
+
+Michael
+
+> Alejandro Colomar (10):
+>   slist.3: New page that will hold the (slist) contents of queue.3
+>   queue.3, slist.3: NAME: Move code from queue.3 to slist.3
+>   queue.3, slist.3: SYNOPSIS: Move code from queue.3 to list.3
+>   queue.3, slist.3: DESCRIPTION: Move slist specific code from queue.3
+>     to slist.3
+>   queue.3, slist.3: EXAMPLES: Move example program from queue.3 to
+>     slist.3
+>   slist.3: Copy and adapt code from queue.3
+>   slist.3: ffix: Use man markup
+>   slist.3: Add details
+>   SLIST_EMPTY.3, SLIST_ENTRY.3, SLIST_FIRST.3, SLIST_FOREACH.3,
+>     SLIST_HEAD.3, SLIST_HEAD_INITIALIZER.3, SLIST_INIT.3,
+>     SLIST_INSERT_AFTER.3, SLIST_INSERT_HEAD.3, SLIST_NEXT.3,
+>     SLIST_REMOVE.3, SLIST_REMOVE_HEAD.3: Link to the new slist(3) page
+>     instead of queue(3)
+>   queue.3: SEE ALSO: Add slist(3)
+> 
+>  man3/SLIST_EMPTY.3            |   2 +-
+>  man3/SLIST_ENTRY.3            |   2 +-
+>  man3/SLIST_FIRST.3            |   2 +-
+>  man3/SLIST_FOREACH.3          |   2 +-
+>  man3/SLIST_HEAD.3             |   2 +-
+>  man3/SLIST_HEAD_INITIALIZER.3 |   2 +-
+>  man3/SLIST_INIT.3             |   2 +-
+>  man3/SLIST_INSERT_AFTER.3     |   2 +-
+>  man3/SLIST_INSERT_HEAD.3      |   2 +-
+>  man3/SLIST_NEXT.3             |   2 +-
+>  man3/SLIST_REMOVE.3           |   2 +-
+>  man3/SLIST_REMOVE_HEAD.3      |   2 +-
+>  man3/queue.3                  | 248 +-----------------------
+>  man3/slist.3                  | 355 ++++++++++++++++++++++++++++++++++
+>  14 files changed, 368 insertions(+), 259 deletions(-)
+>  create mode 100644 man3/slist.3
+> 
+
+
 -- 
-2.28.0
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
