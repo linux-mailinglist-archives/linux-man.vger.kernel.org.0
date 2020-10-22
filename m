@@ -2,172 +2,112 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7A25029540D
-	for <lists+linux-man@lfdr.de>; Wed, 21 Oct 2020 23:19:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8BF03295EA1
+	for <lists+linux-man@lfdr.de>; Thu, 22 Oct 2020 14:39:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2506034AbgJUVTI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 21 Oct 2020 17:19:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43916 "EHLO
+        id S2898369AbgJVMjM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 22 Oct 2020 08:39:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44370 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2437117AbgJUVTI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 21 Oct 2020 17:19:08 -0400
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com [IPv6:2607:f8b0:4864:20::542])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 62B1EC0613CE
-        for <linux-man@vger.kernel.org>; Wed, 21 Oct 2020 14:19:08 -0700 (PDT)
-Received: by mail-pg1-x542.google.com with SMTP id n16so2228405pgv.13
-        for <linux-man@vger.kernel.org>; Wed, 21 Oct 2020 14:19:08 -0700 (PDT)
+        with ESMTP id S2898420AbgJVMiw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 22 Oct 2020 08:38:52 -0400
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EAD7EC0613CE
+        for <linux-man@vger.kernel.org>; Thu, 22 Oct 2020 05:38:51 -0700 (PDT)
+Received: by mail-wr1-x42b.google.com with SMTP id y12so2190998wrp.6
+        for <linux-man@vger.kernel.org>; Thu, 22 Oct 2020 05:38:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=R/7xdFigitEdO/dtmCrQrqbH3q66fGSUMn+XQgBJhg4=;
-        b=YU/Gt9WiZlz2GLFPFvpNiflhlaLL37XakPKqx6uZW8Yo6ohi/O/whsmgavB+MfF5Uv
-         Gfez28Uv7JaDSy8SsdtTcaFjR/uHFNJvHGPEHlxiSLQQiKs7piqzIZ/PEGjp1veTLcal
-         4GZzb9SRlu27bj2LqyFP6UdDMPp11obPZRNAcQ6bDzPgZr3nxLVEQsZI9paqBsaXoDuh
-         xZxz7WBBJXNRPgDLQtPHKi0bCnjm0MfoOePMfzJ29sljQ3fHDV7wSW8naIHRxj3B5dKa
-         XbXGGAer6OUe5OVOJAc26b6Au9GQRcAoZ08q6eMuU9ZAd5l+BfV0/oJnr3Ssj6XeAJW+
-         1F3w==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=JS/SFFh0krSU3GczXAgQvpkJ1ZhgVN+uFwAR3gkKZHA=;
+        b=p9ZXy/9hH7aGlaGMU3QOsL3zlDJs8radAH6rlxrfDAQjDltR9CdcN3C3uywXdey2I4
+         TUwoeWiw+IMgV+43VIN/6umRrAjTpzDqfsBxDY2KVsifobJJun1VWQ1K/dWoVsmaAmPj
+         zSCBiatdvHRTfkLejIElwLHYTPtHrCr2jUGIETjkoIyJ/gxqd2NE6oNpkovBH5ORcL3h
+         sbX7zWN6VZgbMdbFNmKW4LPvFSoqmmYOeLbMf7qlyqVJH16on951RQ23yg+nhmn2lpUG
+         B3x08iQUmqnXm6wRARtFJMRV7mh2Bw2hEixKFyzxUrzedmyYJ5cyv/vtGT3cBJnLBSWx
+         9rYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=R/7xdFigitEdO/dtmCrQrqbH3q66fGSUMn+XQgBJhg4=;
-        b=sVJ50x5t2u6BJzxsqGZXvWdpilHnO043pkOvEAY2xfGIJGsL/+HIuxOaFgRhynoXQk
-         m8/ltBU4u+Vq2YqhwgwQzEP1m6VzLnFo7ZoxHBzkgxLBzaR3Bfy/XaJhbjJ98F1mieil
-         KtStkl+O9nJ99ak6/5M/hBcTxCdSHiuf75jVUddlWjRQxWsrwjvS7LIUxDvQ5rCEWPkZ
-         al7Ux3l+9EDsQYqvr7e/5m8YqY30ShOCnZo4R574/P7rnZUrbcIVxs2l3JTVj+WN6j7r
-         h48ID9x4tKEZK2lSKehs0ij/AaWQoYeXj1h2yTttGjsURyFnBVE0MnL6j+cK46hHy6Qo
-         HA4A==
-X-Gm-Message-State: AOAM533yixYmumjrbn2m95yM2N8gX4fSNfnBUY+tFCKut8KuSK0BgNMI
-        9rI56BZH6w1csuVUtSoOdqFRHx3UnvsTtA==
-X-Google-Smtp-Source: ABdhPJyyfYLSg7Xzh44SX71WWjp1qh28HCwJ/yO+lKI2vCEsabN9WKcnSPbSnfbehT+d6CMYsRz6LA==
-X-Received: by 2002:a62:1844:0:b029:152:80d3:8647 with SMTP id 65-20020a6218440000b029015280d38647mr5340905pfy.18.1603315147579;
-        Wed, 21 Oct 2020 14:19:07 -0700 (PDT)
-Received: from localhost.localdomain ([1.129.229.65])
-        by smtp.gmail.com with ESMTPSA id e1sm3259386pfd.198.2020.10.21.14.19.05
-        for <linux-man@vger.kernel.org>
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=JS/SFFh0krSU3GczXAgQvpkJ1ZhgVN+uFwAR3gkKZHA=;
+        b=pHciVJ5T3d92m3RmDuCxRe0LiqNVJismcWHNYM0vzMb8WGjJhlBJGHnLemqdh/410p
+         aFPiTHK7Qp3K21vB7/OsJKvCzKdIFV5FFVRadmi2TAX+y1WfJgDrSfNtDOhO6YaXBrcp
+         hZ14aBB0Yd8dnsI0bPfPMIHW2/kLuA+dyWclbmWFq/onWluA8FteBsd1gME5Rb23urcm
+         MHARrwcFkuok9ck28P+wpY/GiLXAWice0INN/RLewPgfI3HBP1RUQGQ5CYtD76fs6MQd
+         cPaMRvsxy1U65S5cjt7KhudtPI6CS7OLAJyTuz6y/Lrz1GD25gSkMfXH1GkvFBLEOXZ0
+         YmSQ==
+X-Gm-Message-State: AOAM532tvILRJ1SyyckeA2QEIizf7h1zwrpXYejMLXtm8oT01UOCDrx2
+        GZv0M7eIu3Q1pn5GIZSndws=
+X-Google-Smtp-Source: ABdhPJyOn+ckIUSJSag8zb7nAaHddvfzCwEnaDShTgL1IqWneuuQA8L0IVl/VhH/H2wc9e4NmZoUEw==
+X-Received: by 2002:adf:a345:: with SMTP id d5mr2704855wrb.55.1603370330586;
+        Thu, 22 Oct 2020 05:38:50 -0700 (PDT)
+Received: from debian-VLC.home ([170.253.60.68])
+        by smtp.googlemail.com with ESMTPSA id m1sm3573883wme.48.2020.10.22.05.38.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2020 14:19:07 -0700 (PDT)
-Date:   Thu, 22 Oct 2020 08:19:03 +1100
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     linux-man@vger.kernel.org
-Subject: Re: \- vs - (Was [Re: [PATCH 2/3] system_data_types.7: Add
- 'clock_t'])
-Message-ID: <20201021211901.ynp774quj4igisso@localhost.localdomain>
-References: <20201017213758.9270-1-colomar.6.4.3@gmail.com>
- <20201017213758.9270-2-colomar.6.4.3@gmail.com>
- <e9162722-25f4-6d00-00c4-73ffb4fb6528@gmail.com>
- <706d3eea-60f8-c208-0cd4-3412ebfef263@gmail.com>
- <20201019181047.palj3nbvozlvnoqg@jwilk.net>
+        Thu, 22 Oct 2020 05:38:49 -0700 (PDT)
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org
+Subject: [PATCH 00/10] slist.3: fork from queue.3
+Date:   Thu, 22 Oct 2020 14:38:12 +0200
+Message-Id: <20201022123821.22602-1-colomar.6.4.3@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="2lk4fknfdvvkxked"
-Content-Disposition: inline
-In-Reply-To: <20201019181047.palj3nbvozlvnoqg@jwilk.net>
-User-Agent: NeoMutt/20180716
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Michael,
 
---2lk4fknfdvvkxked
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Here's slist.3.
 
-Hi, Jakub!
+I applied to this page all of the fixes you applied to list.3.
+Also I noticed some unsorted macros,
+so I'll check list.3 and sort them if necessary.
 
-At 2020-10-19T20:10:47+0200, Jakub Wilk wrote:
-> * Alejandro Colomar <colomar.6.4.3@gmail.com>, 2020-10-19, 19:40:
-> > Then, in the following code (taken from printf.3)
-> > the escape is wrong (unneeded) by those guidelines?:
-> >=20
-> > [[
-> > .SH NAME
-> > printf, fprintf, dprintf, sprintf, snprintf, vprintf, vfprintf,
-> > vdprintf, vsprintf, vsnprintf \- formatted output conversion
-> > ]]
->=20
-> From the typographical point of view, the most appropriate character
-> here would be \(en (en-dash);
+Cheers,
 
-I agree with your conclusion below, but I don't believe the above is
-correct; there is a long tradition (that I learned from Knuth's TeXbook)
-of using en dashes exclusively for numeric ranges[1], though I found a
-source[2] that advises its use for non-numeric ranges like airline
-route expressions, sports scores, and "complex compound adjectives"[3].
-In none of these, however, is the en-dash surrounded by whitespace.
+Alex
 
-> but for historical reasons, you're supposed to use \- (minus sign).
+Alejandro Colomar (10):
+  slist.3: New page that will hold the (slist) contents of queue.3
+  queue.3, slist.3: NAME: Move code from queue.3 to slist.3
+  queue.3, slist.3: SYNOPSIS: Move code from queue.3 to list.3
+  queue.3, slist.3: DESCRIPTION: Move slist specific code from queue.3
+    to slist.3
+  queue.3, slist.3: EXAMPLES: Move example program from queue.3 to
+    slist.3
+  slist.3: Copy and adapt code from queue.3
+  slist.3: ffix: Use man markup
+  slist.3: Add details
+  SLIST_EMPTY.3, SLIST_ENTRY.3, SLIST_FIRST.3, SLIST_FOREACH.3,
+    SLIST_HEAD.3, SLIST_HEAD_INITIALIZER.3, SLIST_INIT.3,
+    SLIST_INSERT_AFTER.3, SLIST_INSERT_HEAD.3, SLIST_NEXT.3,
+    SLIST_REMOVE.3, SLIST_REMOVE_HEAD.3: Link to the new slist(3) page
+    instead of queue(3)
+  queue.3: SEE ALSO: Add slist(3)
 
-There's a very _good_ historical reason not to use the en-dash, in that
-it was not supported by the AT&T nroff and troff systems used to compose
-the earliest Unix manuals[4].  There was no special character escape
-documented for it in either the 1976 or 1992 revisions of CSTR #54, the
-(Nroff/)Troff User's Manual[5].  You motivated me to do some quick
-research; \(en was eventually coined and made its way into Documenter's
-Workbench troff, Plan 9 troff, Solaris troff, and Heirloom Doctools
-troff, all of which are source descendants of AT&T troff, and of course
-GNU troff, which is an independent implementation.  None define it for
-all of their output drivers, which makes sense as like any glyph, it's
-dependent upon font support.
+ man3/SLIST_EMPTY.3            |   2 +-
+ man3/SLIST_ENTRY.3            |   2 +-
+ man3/SLIST_FIRST.3            |   2 +-
+ man3/SLIST_FOREACH.3          |   2 +-
+ man3/SLIST_HEAD.3             |   2 +-
+ man3/SLIST_HEAD_INITIALIZER.3 |   2 +-
+ man3/SLIST_INIT.3             |   2 +-
+ man3/SLIST_INSERT_AFTER.3     |   2 +-
+ man3/SLIST_INSERT_HEAD.3      |   2 +-
+ man3/SLIST_NEXT.3             |   2 +-
+ man3/SLIST_REMOVE.3           |   2 +-
+ man3/SLIST_REMOVE_HEAD.3      |   2 +-
+ man3/queue.3                  | 248 +-----------------------
+ man3/slist.3                  | 355 ++++++++++++++++++++++++++++++++++
+ 14 files changed, 368 insertions(+), 259 deletions(-)
+ create mode 100644 man3/slist.3
 
-The Seventh Edition Unix man pages (the first to use the man(7) macro
-package), as far as my greps can tell, 100% consistent about using
-"<space>\-<space>" to set off the page title(s) from the summary in the
-Name section.
+-- 
+2.28.0
 
-mandb(8) implementations are generous in what they accept; the
-lexgrog(1) in Colin Watson's man-db package accepts any of:
-
-  --, \(hy, \(mi, \(en, and \(em
-
-=2E..plus the groff forms of the special character escapes (\[xx]), and is
-similarly tolerant of whitespace abutting them on either end[6].  Only
-a lone hyphen-minus is excepted from the above; I assume that is because
-it is too hard to reliably disambiguate from occurrences within page
-topic names--like man-pages(7).  However, this generosity is no reason
-to over-interpret Postel's Law and advocate chaos.
-
-Given that style authorities are divided over whether em-dashes mandate
-or forbid whitespace around them[7], I think it best to regard the
-topic/summary separator character as _sui generis_, and \-, which means
-nothing in ordinary typography is consequently an excellent choice.
-
-Regards,
-Branden
-
-[1] http://visualmatheditor.equatheque.net/doc/texbook.pdf (p. 4, PDF
-    page 15)
-[2] https://www.grammarly.com/blog/en-dash/
-[3] Apparently, one example would be "I prepared an old favorite
-    beverage of his, a vanilla ice cream=E2=80=93India pale ale float."
-[4] More accurately, the v1 Unix manual (1971) was composed with roff
-    ("old roff", as it was subsequently called).  nroff ("new roff") was
-    not written until 1972[8].
-[5] The title was changed over the course of its lifetime.
-[6] https://git.savannah.nongnu.org/cgit/man-db.git/tree/src/lexgrog.l
-[7] https://www.thepunctuationguide.com/em-dash.html
-[8] https://manpages.bsd.lv/history/mcilroy_21_10_2011.txt
-
---2lk4fknfdvvkxked
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl+QpbEACgkQ0Z6cfXEm
-bc6mkRAAk/tRHU0CFsQn8cWOYnHNoS4dTI1/1RMRGIITb3lCuSFQ6it8SePKw9nC
-BJqG77njkFeMcF6+KL7Hx7hw6UvLmciqsf0Eq3YrBzgFF1FrNrjlCWNATAR8Qf12
-DQRmg67U0bzAa3Wc6Ci70yT3X5sZZT/v6jChePHTFLgPxtlHi3L2fQrXG60w/adn
-V1EbcnfQaHJXZ0+Z76HEYUTYhhTRh0PTGZd2Xv2/KkH++XihdTfq1tRCN6lRgqlV
-sLH9ZswGNDTHYwVl3ntDO0qQ9HKdUJGdlcZQR2+SWbIGZ+IayagMGc0QkqcOQ6mu
-DKoRBv20kLbiuJ7pzcw1C4rzTmDhn8+3/AcSAfAqFlRziPIQJwizB5d6PIUZiCq5
-9hd5L+iDUpXhyRN8kerQkTBgQAUFO3iWy4T3pJgJntd4sTMCHMWi0Sw/jNFakdGC
-QspYiS+D1dOUAKlrEG/tkwOInDx6lcD61UHO6NOSAgxsRT8CmdToPhys32QQ7K87
-JfMBU3avHY+ZymVGGF5GimXNcWd/Om3L678k+QfEEAcmfo1X18uTPiq9bBhmbTUY
-kwtVjFDEqTDpN3BD21Jh4xQl4EodD99JuFyEzTpHTtdbZ5R8HdBEt6vvBNr3+ELw
-vBEYhVAUBqrqXUa5u82leK/Zk+/y3jqbCFyS5dBRASlrGtcyFnM=
-=Z9VO
------END PGP SIGNATURE-----
-
---2lk4fknfdvvkxked--
