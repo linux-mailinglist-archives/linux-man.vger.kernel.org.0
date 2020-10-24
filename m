@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2E82A297F6B
-	for <lists+linux-man@lfdr.de>; Sun, 25 Oct 2020 00:21:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7543D297F72
+	for <lists+linux-man@lfdr.de>; Sun, 25 Oct 2020 00:30:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1762457AbgJXWVm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 24 Oct 2020 18:21:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41148 "EHLO
+        id S1762607AbgJXWax (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 24 Oct 2020 18:30:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42534 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1762448AbgJXWVm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 24 Oct 2020 18:21:42 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D9B81C0613CE
-        for <linux-man@vger.kernel.org>; Sat, 24 Oct 2020 15:21:41 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id j7so7340675wrt.9
-        for <linux-man@vger.kernel.org>; Sat, 24 Oct 2020 15:21:41 -0700 (PDT)
+        with ESMTP id S1762265AbgJXWax (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 24 Oct 2020 18:30:53 -0400
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 812FFC0613CE
+        for <linux-man@vger.kernel.org>; Sat, 24 Oct 2020 15:30:51 -0700 (PDT)
+Received: by mail-wm1-x332.google.com with SMTP id w23so5751267wmi.4
+        for <linux-man@vger.kernel.org>; Sat, 24 Oct 2020 15:30:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=Wcjn5hGssAg6DYFxDeld1Mg5MxdNblHTxG5sds4ramY=;
-        b=Ta5dzIu7dGz9xORjEX24KocO26c82Ppt9IGCYwWJRXpjs5tQYT5Ob15nVlwfxrmti5
-         lNc0DgoYVidih5z8vD9BbAsPt7aG9i3h4NNfXBSNL+cs/6cb2O8kfrOGYYdUuFThUYNs
-         AL50Y1yrtbnLvAE3iNwACK3Zmc8dvtV2EoIsC+hd122iY2do6M5e4LSuAw6/BhL9W0Hv
-         jkN7HEaXTM8Ux/AeYb39PrWBBA2lgZXAWOI7CSMWmiLAnjxKGwTg0RxV7PlscWxvgiMb
-         2H60mfAWLFnAHCvjTYdu9Ir0auuALvdmgPVHCd/2Y3xbKXfnZgMIvrOzLwpgLzGciTlv
-         5+Kg==
+        bh=U9WaOrZR0fE9a7jDpBvLksT6eIEJrM0R+6UNSk7Gpww=;
+        b=nKxrYZiU0+phuHxMTrpVKbtV7bfycXEoP76kBEv3MeRG6lagH5VwGqdjVq3L4/pFcV
+         NFMFOuUqBjuNW6gOw0/Wku7EkRQl5OiYf/JHDzQK31MD8HGVr2R6YAwjJwaFoeLJlRrE
+         C9oe9RJW/aSg4BGvdtx2FMbbIoyhgsr7fPDWndeqpT/iUoAEZ0/vgoupnem1cRVd8+N0
+         DRdNQBlII3wNPwsBde8Jzmi8uEqEDFiJSHRv8OOKuEbFXZarIOChg3qST3BY1yTJqxRp
+         leNOQ4z3gqcMkLH8Eo8a6Z7+K+k45Oddg0peGCOg3YezkDxBW+3zEnZQ1RQAGszs+DbV
+         RQVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Wcjn5hGssAg6DYFxDeld1Mg5MxdNblHTxG5sds4ramY=;
-        b=uh+6PdV7ozulWO9/6bHgk/1GXoIKi7EDxJP2hlvn3H7A1gLdahqDx18KPmPsAFyLgH
-         ygFTukBikCi0Ng5gu3svTX8SFSdz/9skCoq2+ymdzdju2GpTHJvc3d1DpM8U5bxDjqxS
-         RNcKS8uOc2bZ6o9qVjHBrY4au1uxskCuBPr3Z9vo1UmYsrMrx2P/jXmFZbawRitjF8Fc
-         D8MF7CdFsSCl+XyELR7u0scWzi+JvWUFcd9yhS7VJhmAPLDWaU9uDkdKVgD8/RzjXzYM
-         C0HPpkN8wv+HIsRMHhSAVhfOe913/QGLjHu1RJqxWMWKyx6NWFyVEuRRkHql/Kuj01YR
-         i5sQ==
-X-Gm-Message-State: AOAM532Z6NldyZuYA86wPB9A9SojkxzHJ6OQxgqhH7J2RpHT0Iu5oT7W
-        6iiOWK2fYSevXBGGzQ/oavI=
-X-Google-Smtp-Source: ABdhPJzJ2B6rGbJsocbLoiTmBNF7VakHUxrnQfgIJOTzmcTgZvhzUsqmoEKCHLCPD0jlkF8a/RFSQw==
-X-Received: by 2002:adf:d84e:: with SMTP id k14mr10347828wrl.251.1603578100652;
-        Sat, 24 Oct 2020 15:21:40 -0700 (PDT)
+        bh=U9WaOrZR0fE9a7jDpBvLksT6eIEJrM0R+6UNSk7Gpww=;
+        b=ZcH/5WdgmEz1xqpXy1mDbkmPnaUF4rnrxuoi4V5JU44wu3ed44pApItFGDACsBkYeN
+         DAnwRtTx0WNVpD56AICRWv5lwhPXO+ibdXn8AQkqv+kfJgVAA2hz8UowVDzVnCtZXuDW
+         EWv+bqCBTV+49bYyrjByetz+MAMscUyLCIL/kiDxZRPUX3f5s0fsM743ClSZRkJIUZab
+         YW6/6Gzm2Yym5LLNVqOqnGVZ3+zf5hoOea/sIec02+t6SHHGityWa5N4lXwYg/kyeRDN
+         A/CPjqNX1I0feciZfjVJWzhW3TdKAO4UaO0J/+yOjNlnwvMu9E2TNGpo/MKCkv/+TuTR
+         0h7g==
+X-Gm-Message-State: AOAM532mt8PjTKKmcvT2cxe9hrcQn0T6zBM9uOuh0A7IX2X+8SaylzeA
+        nf6noVUpTN6oW3RNIdU0DQk=
+X-Google-Smtp-Source: ABdhPJxXo9tguhhOm9CybXgnvcE90bG/c+ZrFqXdrqgSFy41SoX8v49wnUjCteDh/glQoY10UHDZ0Q==
+X-Received: by 2002:a1c:6102:: with SMTP id v2mr991097wmb.75.1603578650110;
+        Sat, 24 Oct 2020 15:30:50 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id 133sm16427654wmb.2.2020.10.24.15.21.39
+        by smtp.googlemail.com with ESMTPSA id 71sm13739180wrm.20.2020.10.24.15.30.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2020 15:21:40 -0700 (PDT)
+        Sat, 24 Oct 2020 15:30:49 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 8/8] stailq.3: Add remaining details to complete the page
-Date:   Sun, 25 Oct 2020 00:21:16 +0200
-Message-Id: <20201024222115.6362-9-colomar.6.4.3@gmail.com>
+Subject: [PATCH 09/10] STAILQ_CONCAT.3, STAILQ_EMPTY.3, STAILQ_ENTRY.3, STAILQ_FIRST.3, STAILQ_FOREACH.3, STAILQ_HEAD.3, STAILQ_HEAD_INITIALIZER.3, STAILQ_INIT.3, STAILQ_INSERT_AFTER.3, STAILQ_INSERT_HEAD.3, STAILQ_INSERT_TAIL.3, STAILQ_NEXT.3, STAILQ_REMOVE.3, STAILQ_REMOVE_HEAD.3: Link to the new stailq(3) page instead of queue(3)
+Date:   Sun, 25 Oct 2020 00:30:20 +0200
+Message-Id: <20201024223020.11935-1-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201024222115.6362-1-colomar.6.4.3@gmail.com>
 References: <20201024222115.6362-1-colomar.6.4.3@gmail.com>
@@ -65,69 +65,124 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man3/stailq.3 | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
 
-diff --git a/man3/stailq.3 b/man3/stailq.3
-index 0abacd824..2896d27c9 100644
---- a/man3/stailq.3
-+++ b/man3/stailq.3
-@@ -51,6 +51,7 @@ STAILQ_REMOVE,
- .\"STAILQ_REMOVE_AFTER,
- STAILQ_REMOVE_HEAD,
- .\"STAILQ_SWAP
-+\- implementation of a singly-linked tail queue
- .SH SYNOPSIS
- .nf
- .B #include <sys/queue.h>
-@@ -100,6 +101,8 @@ STAILQ_REMOVE_HEAD,
- .\" .BI "                STAILQ_ENTRY " NAME ");"
- .fi
- .SH DESCRIPTION
-+These macros define and operate on singly-linked tail queues.
-+.PP
- In the macro definitions,
- .I TYPE
- is the name of a user-defined structure,
-@@ -292,11 +295,38 @@ from the tail queue.
- .\" and
- .\" .IR head2 .
- .SH RETURN VALUE
-+.BR STAILQ_EMPTY ()
-+returns nonzero if the queue is empty,
-+and zero if the queue contains at least one entry.
-+.PP
-+.BR STAILQ_FIRST (),
-+and
-+.BR STAILQ_NEXT ()
-+return a pointer to the first or next
-+.I STAILQ_ENTRY
-+structure, respectively.
-+.PP
-+.BR STAILQ_HEAD_INITIALIZER ()
-+returns an initializer that can be assigned to the queue
-+.IR head .
- .SH CONFORMING TO
- Not in POSIX.1, POSIX.1-2001 or POSIX.1-2008.
- Present on the BSDs
- (STAILQ macros first appeared in 4.4BSD).
- .SH BUGS
-+The macro
-+.BR STAILQ_FOREACH ()
-+doesn't allow
-+.I var
-+to be removed or freed within the loop,
-+as it would interfere with the traversal.
-+The macro
-+.BR STAILQ_FOREACH_SAFE (),
-+which is present on the BSDs but is not present in glibc,
-+fixes this limitation by allowing
-+.I var
-+to safely be removed from the list and freed from within the loop
-+without interfering with the traversal.
- .SH EXAMPLES
- .EX
- #include <stddef.h>
+I forgot these two commits.  Sending them now.
+
+
+ man3/STAILQ_CONCAT.3           | 2 +-
+ man3/STAILQ_EMPTY.3            | 2 +-
+ man3/STAILQ_ENTRY.3            | 2 +-
+ man3/STAILQ_FIRST.3            | 2 +-
+ man3/STAILQ_FOREACH.3          | 2 +-
+ man3/STAILQ_HEAD.3             | 2 +-
+ man3/STAILQ_HEAD_INITIALIZER.3 | 2 +-
+ man3/STAILQ_INIT.3             | 2 +-
+ man3/STAILQ_INSERT_AFTER.3     | 2 +-
+ man3/STAILQ_INSERT_HEAD.3      | 2 +-
+ man3/STAILQ_INSERT_TAIL.3      | 2 +-
+ man3/STAILQ_NEXT.3             | 2 +-
+ man3/STAILQ_REMOVE.3           | 2 +-
+ man3/STAILQ_REMOVE_HEAD.3      | 2 +-
+ 14 files changed, 14 insertions(+), 14 deletions(-)
+
+diff --git a/man3/STAILQ_CONCAT.3 b/man3/STAILQ_CONCAT.3
+index c2956c9fc..fbb71f02c 100644
+--- a/man3/STAILQ_CONCAT.3
++++ b/man3/STAILQ_CONCAT.3
+@@ -1 +1 @@
+-.so man3/queue.3
++.so man3/stailq.3
+diff --git a/man3/STAILQ_EMPTY.3 b/man3/STAILQ_EMPTY.3
+index c2956c9fc..fbb71f02c 100644
+--- a/man3/STAILQ_EMPTY.3
++++ b/man3/STAILQ_EMPTY.3
+@@ -1 +1 @@
+-.so man3/queue.3
++.so man3/stailq.3
+diff --git a/man3/STAILQ_ENTRY.3 b/man3/STAILQ_ENTRY.3
+index c2956c9fc..fbb71f02c 100644
+--- a/man3/STAILQ_ENTRY.3
++++ b/man3/STAILQ_ENTRY.3
+@@ -1 +1 @@
+-.so man3/queue.3
++.so man3/stailq.3
+diff --git a/man3/STAILQ_FIRST.3 b/man3/STAILQ_FIRST.3
+index c2956c9fc..fbb71f02c 100644
+--- a/man3/STAILQ_FIRST.3
++++ b/man3/STAILQ_FIRST.3
+@@ -1 +1 @@
+-.so man3/queue.3
++.so man3/stailq.3
+diff --git a/man3/STAILQ_FOREACH.3 b/man3/STAILQ_FOREACH.3
+index c2956c9fc..fbb71f02c 100644
+--- a/man3/STAILQ_FOREACH.3
++++ b/man3/STAILQ_FOREACH.3
+@@ -1 +1 @@
+-.so man3/queue.3
++.so man3/stailq.3
+diff --git a/man3/STAILQ_HEAD.3 b/man3/STAILQ_HEAD.3
+index c2956c9fc..fbb71f02c 100644
+--- a/man3/STAILQ_HEAD.3
++++ b/man3/STAILQ_HEAD.3
+@@ -1 +1 @@
+-.so man3/queue.3
++.so man3/stailq.3
+diff --git a/man3/STAILQ_HEAD_INITIALIZER.3 b/man3/STAILQ_HEAD_INITIALIZER.3
+index c2956c9fc..fbb71f02c 100644
+--- a/man3/STAILQ_HEAD_INITIALIZER.3
++++ b/man3/STAILQ_HEAD_INITIALIZER.3
+@@ -1 +1 @@
+-.so man3/queue.3
++.so man3/stailq.3
+diff --git a/man3/STAILQ_INIT.3 b/man3/STAILQ_INIT.3
+index c2956c9fc..fbb71f02c 100644
+--- a/man3/STAILQ_INIT.3
++++ b/man3/STAILQ_INIT.3
+@@ -1 +1 @@
+-.so man3/queue.3
++.so man3/stailq.3
+diff --git a/man3/STAILQ_INSERT_AFTER.3 b/man3/STAILQ_INSERT_AFTER.3
+index c2956c9fc..fbb71f02c 100644
+--- a/man3/STAILQ_INSERT_AFTER.3
++++ b/man3/STAILQ_INSERT_AFTER.3
+@@ -1 +1 @@
+-.so man3/queue.3
++.so man3/stailq.3
+diff --git a/man3/STAILQ_INSERT_HEAD.3 b/man3/STAILQ_INSERT_HEAD.3
+index c2956c9fc..fbb71f02c 100644
+--- a/man3/STAILQ_INSERT_HEAD.3
++++ b/man3/STAILQ_INSERT_HEAD.3
+@@ -1 +1 @@
+-.so man3/queue.3
++.so man3/stailq.3
+diff --git a/man3/STAILQ_INSERT_TAIL.3 b/man3/STAILQ_INSERT_TAIL.3
+index c2956c9fc..fbb71f02c 100644
+--- a/man3/STAILQ_INSERT_TAIL.3
++++ b/man3/STAILQ_INSERT_TAIL.3
+@@ -1 +1 @@
+-.so man3/queue.3
++.so man3/stailq.3
+diff --git a/man3/STAILQ_NEXT.3 b/man3/STAILQ_NEXT.3
+index c2956c9fc..fbb71f02c 100644
+--- a/man3/STAILQ_NEXT.3
++++ b/man3/STAILQ_NEXT.3
+@@ -1 +1 @@
+-.so man3/queue.3
++.so man3/stailq.3
+diff --git a/man3/STAILQ_REMOVE.3 b/man3/STAILQ_REMOVE.3
+index c2956c9fc..fbb71f02c 100644
+--- a/man3/STAILQ_REMOVE.3
++++ b/man3/STAILQ_REMOVE.3
+@@ -1 +1 @@
+-.so man3/queue.3
++.so man3/stailq.3
+diff --git a/man3/STAILQ_REMOVE_HEAD.3 b/man3/STAILQ_REMOVE_HEAD.3
+index c2956c9fc..fbb71f02c 100644
+--- a/man3/STAILQ_REMOVE_HEAD.3
++++ b/man3/STAILQ_REMOVE_HEAD.3
+@@ -1 +1 @@
+-.so man3/queue.3
++.so man3/stailq.3
 -- 
 2.28.0
 
