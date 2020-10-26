@@ -2,76 +2,124 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4BD1A298F06
-	for <lists+linux-man@lfdr.de>; Mon, 26 Oct 2020 15:19:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 47539298F8B
+	for <lists+linux-man@lfdr.de>; Mon, 26 Oct 2020 15:40:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1781161AbgJZOTT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 26 Oct 2020 10:19:19 -0400
-Received: from mail-wm1-f41.google.com ([209.85.128.41]:39289 "EHLO
-        mail-wm1-f41.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1781110AbgJZOS4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 26 Oct 2020 10:18:56 -0400
-Received: by mail-wm1-f41.google.com with SMTP id d3so12665048wma.4
-        for <linux-man@vger.kernel.org>; Mon, 26 Oct 2020 07:18:54 -0700 (PDT)
+        id S1781515AbgJZOan (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 26 Oct 2020 10:30:43 -0400
+Received: from mail-ot1-f65.google.com ([209.85.210.65]:43911 "EHLO
+        mail-ot1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1781510AbgJZOan (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 26 Oct 2020 10:30:43 -0400
+Received: by mail-ot1-f65.google.com with SMTP id k68so8129752otk.10;
+        Mon, 26 Oct 2020 07:30:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jguk.org; s=google;
-        h=from:subject:to:cc:message-id:date:user-agent:mime-version
-         :content-language:content-transfer-encoding;
-        bh=r/G7nY0gHsdoyEBP8Dsbsf9kNsp1OUm5DDXJRq4Of2k=;
-        b=joc72hqW3Gn8X98/dHq+Zb4TnUMEHzNg24HlrTkqInT4WCpDTjYDHynOYe8s2Q4tfk
-         G8LalPcI+OizKRddW5fxxbnQv/F497OMZDvoQb1JUjQVs6eIAaB3fHLYn2tMg3SZFIjH
-         goHR9QGsMTmqFZitRVCRBcEMzd26Bc1M4AcEddNTq4Km/p0s+4NwqHd4c5Spsc19iX5k
-         3hU6i3aDGZj96/PoPcOz7ah7ae5ddxyD9FYKQ++XtFxB8u4LonCVAbBAsvWb9vP4o8f7
-         SyhS4OBrbF8wPxknIhlBA+j68gSTe6X6lIPrmnLapN7F4qrRmGXbgM/fhIQTLLlZd0nN
-         4c9A==
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=+62REvLl90oSoyuDks7xdfiXCVRonn7cl65cbO1ln/E=;
+        b=JnQ0MIpC39NGj7T4hBFlbdnbI8BIWOudxMb9DwRB+2vErYWqGaeDk6rew3qbtnq6zE
+         xTQK3COatM2HRhx7Xj9lHlrGrcm71hnK8BNlqHvJIskesC/YoT/AlMOcjB5nyYP/qEr5
+         nGqst5eVhCd7URgCMzm/Z1ajkuwlpxD5SqPAKMFSs8E/vhjMV8gwqMpNkgRp9Bp6Xpn4
+         RRyiGkWI03aSsA5qqbLzT5bAviyyV57u+uzzZa6LYP23zz1MUbbGQTIEtIrCFOljySFY
+         9LUzk5kBx9rPqA30qiWylDiDgAPXMjP9b5T3y/ZQo5jB7TcU7uUb3usgvmVod9XA6i/4
+         aeSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:subject:to:cc:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=r/G7nY0gHsdoyEBP8Dsbsf9kNsp1OUm5DDXJRq4Of2k=;
-        b=pwAAWxhyH33AtvBPpQ3axk9gCp7tpPxUwS7O+Ow7WC0vpEnoJe7Odxe1sYWKzhUlqn
-         633uzpP+4tDSuCDJmLdKH31ZZn5Y69iTxlUM0wW/WViHQJXXHRCUTFTQn/kIK3azDZHX
-         yfQr+yAKKcX/+3X4C//Mrcc9hqWdFQiuPspiW19wnKcCmeScek323BaGbg6JlbZeumSX
-         K+YiuU8dQ7ynpIlHf1VEQ/F9+OtLPMdy13eU5K1Mpo5eD3ldZF3sJjXRyq8v5iQ0yX4R
-         /SoYkwaJVE5KpA2OsGAGJDZvXGDiIKMCRCXjBJCGlNlItoYeu2OhXKsYGKrHTT1ecJ1q
-         M8yA==
-X-Gm-Message-State: AOAM531VaBJCr/YBgJwNP1ktagtOWsM5x/yQ82jdbIWYA2wRYMOdEUgF
-        hvPO/riIleGwOHxZcXq6SpFbphDZ92qAdw==
-X-Google-Smtp-Source: ABdhPJys3iUskBadRoxkwnWHrkOP90YgrTAvfkPgEvhRu3L+70zHUvJfvhm0UIgURxa60SYWJdEz7Q==
-X-Received: by 2002:a7b:c451:: with SMTP id l17mr16712563wmi.127.1603721932820;
-        Mon, 26 Oct 2020 07:18:52 -0700 (PDT)
-Received: from [192.168.0.12] (cpc87281-slou4-2-0-cust47.17-4.cable.virginm.net. [92.236.12.48])
-        by smtp.gmail.com with ESMTPSA id b131sm1865782wmc.3.2020.10.26.07.18.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2020 07:18:52 -0700 (PDT)
-From:   Jonny Grant <jg@jguk.org>
-Subject: argz_create
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Message-ID: <c1b5cd3d-8be5-3845-1458-10d96ef29e11@jguk.org>
-Date:   Mon, 26 Oct 2020 14:18:51 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=+62REvLl90oSoyuDks7xdfiXCVRonn7cl65cbO1ln/E=;
+        b=iMxpJoL3xGlJWe9fCAkw24Z183mbIYd+7RyuQdsh6cPdOspTKXn1hCDi2vp1rWUyAy
+         e8rd8yiNDtMp9Df9KMNJxunQ02g2ONkTN3e/fkhMG37Td8RL/0sGY9BUj+n6gbKy6EGl
+         z7A2cDAO5+Dm2la8NgQK6WvHN3lTDG76+x+kPlNeaQ1HcK7ooPXvFKRItsgE2wGGlpFw
+         20HpOGYoE2acRxVruARID/EaZKvxBA8AJyWytISZpmq767jNGUeKuJw4w7tmU1cFD4uU
+         69RxQO50mFc+rw/y/iSHtPW3OVeyN8V80ft5/EKgXxLbacJQrFxaeSpVkTQnKL+ilRKC
+         iLIw==
+X-Gm-Message-State: AOAM5316PNo3JKV79GREk3Sr8ZPa2mzYVfqSbC2UcN9L/at3LWAeD4qI
+        AAtCm+MNej5yse5c58OWJRtw4CpFcq3Dz5T5ZuPLhkfL4gI=
+X-Google-Smtp-Source: ABdhPJwW15tzyEC/krpp35iEMIIcjSyagUOGYZYuoOMQvqf+nEg1onUBKRqqUolszW2AyHG3hi9a91s1aH2f5EGSzME=
+X-Received: by 2002:a05:6830:22eb:: with SMTP id t11mr13557647otc.114.1603722641926;
+ Mon, 26 Oct 2020 07:30:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+References: <63598b4f-6ce3-5a11-4552-cdfe308f68e4@gmail.com> <20201026135418.GN1884107@cisco>
+In-Reply-To: <20201026135418.GN1884107@cisco>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 26 Oct 2020 15:30:29 +0100
+Message-ID: <CAKgNAkgbvuEJ0rkLrZGgCf0OTC8YH2vxemNic8SsDxjh=Z22uw@mail.gmail.com>
+Subject: Re: For review: seccomp_user_notif(2) manual page [v2]
+To:     Tycho Andersen <tycho@tycho.pizza>
+Cc:     Sargun Dhillon <sargun@sargun.me>,
+        Christian Brauner <christian@brauner.io>,
+        Kees Cook <keescook@chromium.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        Song Liu <songliubraving@fb.com>,
+        Robert Sesek <rsesek@google.com>,
+        Containers <containers@lists.linux-foundation.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Aleksa Sarai <cyphar@cyphar.com>, Jann Horn <jannh@google.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
+        Andy Lutomirski <luto@amacapital.net>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello
+Hi Tycho,
 
-https://man7.org/linux/man-pages/man3/argz_create.3.html
+Thanks for getting back to me.
 
-BUGS         top
-       Argz vectors without a terminating null byte may lead to Segmentation
-       Faults.
+On Mon, 26 Oct 2020 at 14:54, Tycho Andersen <tycho@tycho.pizza> wrote:
+>
+> On Mon, Oct 26, 2020 at 10:55:04AM +0100, Michael Kerrisk (man-pages) wrote:
+> > Hi all (and especially Tycho and Sargun),
+> >
+> > Following review comments on the first draft (thanks to Jann, Kees,
+> > Christian and Tycho), I've made a lot of changes to this page.
+> > I've also added a few FIXMEs relating to outstanding API issues.
+> > I'd like a second pass review of the page before I release it.
+> > But also, this mail serves as a way of noting the outstanding API
+> > issues.
+> >
+> > Tycho: I still have an outstanding question for you at [2].
+> > [2] https://lore.kernel.org/linux-man/8f20d586-9609-ef83-c85a-272e37e684d8@gmail.com/
+>
+> I don't have that thread in my inbox any more, but I can reply here:
+> no, I don't know any users of this info, but I also don't anticipate
+> knowing how people will all use this feature :)
 
-Doesn't feel like this is a BUG to me. Is there a better section to add this? Almost all string handling functions may cause SEGV if passed a string without a null byte. Or even being passed a NULL ptr like strlen(NULL)..  I expect some of these may crash if passed NULL.
+Yes, but my questions were:
+
+[[
+[1] So, I think maybe I now understand what you intended with setting
+POLLOUT: the notification has been received ("read") and now the
+FD can be used to NOTIFY_SEND ("write") a response. Right?
+
+[2] If that's correct, I don't have a problem with it. I just wonder:
+is it useful? IOW: are there situations where the process doing the
+NOTIFY_SEND might want to test for POLLOUT because the it doesn't
+know whether a NOTIFY_RECV has occurred?
+]]
+
+So, do I understand right in [1]? (The implication from your reply is
+yes, but I want to be sure...)
+
+For [2], my question was not about users, but *use cases*. The
+question I asked myself is: why does the feature exist? Hence my
+question [2] reworded: "when you designed this, did you have in mind
+scenarios here the process doing the NOTIFY_SEND might need to test
+for POLLOUT because it doesn't know whether a NOTIFY_RECV has
+occurred?"
+
+Thanks,
+
+Michael
 
 
-May I ask if there is a way to link error_t to the definition, should be in errno.h
-
-Kind regards
-Jonny
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
