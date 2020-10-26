@@ -2,124 +2,195 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 47539298F8B
-	for <lists+linux-man@lfdr.de>; Mon, 26 Oct 2020 15:40:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C7D6F29917E
+	for <lists+linux-man@lfdr.de>; Mon, 26 Oct 2020 16:56:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1781515AbgJZOan (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 26 Oct 2020 10:30:43 -0400
-Received: from mail-ot1-f65.google.com ([209.85.210.65]:43911 "EHLO
-        mail-ot1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1781510AbgJZOan (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 26 Oct 2020 10:30:43 -0400
-Received: by mail-ot1-f65.google.com with SMTP id k68so8129752otk.10;
-        Mon, 26 Oct 2020 07:30:42 -0700 (PDT)
+        id S1784516AbgJZPyf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 26 Oct 2020 11:54:35 -0400
+Received: from mail-lj1-f196.google.com ([209.85.208.196]:38542 "EHLO
+        mail-lj1-f196.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1784511AbgJZPyf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 26 Oct 2020 11:54:35 -0400
+Received: by mail-lj1-f196.google.com with SMTP id m20so10754761ljj.5
+        for <linux-man@vger.kernel.org>; Mon, 26 Oct 2020 08:54:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=+62REvLl90oSoyuDks7xdfiXCVRonn7cl65cbO1ln/E=;
-        b=JnQ0MIpC39NGj7T4hBFlbdnbI8BIWOudxMb9DwRB+2vErYWqGaeDk6rew3qbtnq6zE
-         xTQK3COatM2HRhx7Xj9lHlrGrcm71hnK8BNlqHvJIskesC/YoT/AlMOcjB5nyYP/qEr5
-         nGqst5eVhCd7URgCMzm/Z1ajkuwlpxD5SqPAKMFSs8E/vhjMV8gwqMpNkgRp9Bp6Xpn4
-         RRyiGkWI03aSsA5qqbLzT5bAviyyV57u+uzzZa6LYP23zz1MUbbGQTIEtIrCFOljySFY
-         9LUzk5kBx9rPqA30qiWylDiDgAPXMjP9b5T3y/ZQo5jB7TcU7uUb3usgvmVod9XA6i/4
-         aeSw==
+        d=google.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=f9BpXZd1dePTO41DoQrRpftD/OWsykwv67IUek0mRlE=;
+        b=ds1ibtfW9ahR96Tlz4l3O2V/NUXaipvZr+aslTh6VXSfEM3kHadDmcLxHX3+fim6vJ
+         XY0aMB/b/crNHJ+KYUBJZ9iGD5uXLpL3GlW/LXPeqfuahvJ/oHJALa+ujnz4qCr+aF3G
+         r3YPp5iqz7DHWZi7sVTcnGmjsSpbh0UvP+A1D/jSGedwgiDcEzQA2CCrlL6Pp0TOOfRR
+         YMZcHkmybCLa/INJ/1vhYw0788bYvORlLQPrQTIeXQW7YGQIcVcM1gEQN52jutOBxAoP
+         ZwBh7dYIIgqLz9FcZRZd4P1UVyI45sguGjVKNUDIESjDnNWyFcFcsZjbvjMRfKowcfFd
+         EtFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=+62REvLl90oSoyuDks7xdfiXCVRonn7cl65cbO1ln/E=;
-        b=iMxpJoL3xGlJWe9fCAkw24Z183mbIYd+7RyuQdsh6cPdOspTKXn1hCDi2vp1rWUyAy
-         e8rd8yiNDtMp9Df9KMNJxunQ02g2ONkTN3e/fkhMG37Td8RL/0sGY9BUj+n6gbKy6EGl
-         z7A2cDAO5+Dm2la8NgQK6WvHN3lTDG76+x+kPlNeaQ1HcK7ooPXvFKRItsgE2wGGlpFw
-         20HpOGYoE2acRxVruARID/EaZKvxBA8AJyWytISZpmq767jNGUeKuJw4w7tmU1cFD4uU
-         69RxQO50mFc+rw/y/iSHtPW3OVeyN8V80ft5/EKgXxLbacJQrFxaeSpVkTQnKL+ilRKC
-         iLIw==
-X-Gm-Message-State: AOAM5316PNo3JKV79GREk3Sr8ZPa2mzYVfqSbC2UcN9L/at3LWAeD4qI
-        AAtCm+MNej5yse5c58OWJRtw4CpFcq3Dz5T5ZuPLhkfL4gI=
-X-Google-Smtp-Source: ABdhPJwW15tzyEC/krpp35iEMIIcjSyagUOGYZYuoOMQvqf+nEg1onUBKRqqUolszW2AyHG3hi9a91s1aH2f5EGSzME=
-X-Received: by 2002:a05:6830:22eb:: with SMTP id t11mr13557647otc.114.1603722641926;
- Mon, 26 Oct 2020 07:30:41 -0700 (PDT)
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=f9BpXZd1dePTO41DoQrRpftD/OWsykwv67IUek0mRlE=;
+        b=oduvz6q5c+mI8u5g+rRILEkMbdFG8DtpsRR5tTEzl5OtAGuhMeb/+j4kDZLBIAfBMQ
+         owyW4wjSwEY1nlj0nsxkXsvbLWhN5oXULviKKIpsn1L0HVKnN1BgQLnzHZMXeznFKZkL
+         VekqUJcQGN6h++d6yez84l2aDDoGgKAuDLZLKwiRA5IH0bHdw1A7HT3hgKhB2ibfrp+t
+         y1tMKRsDtNyzV9GoGrYXKby44xJS2r8VkKZGj7L9nKS5yY+e4P8qK9TfAzp0NE+o+Eeo
+         GEMEIdZ1f6SgWpK/cGv1BfX3JVVOzIR0X1hroqc77h5Wm5o/wn07wQkqHQWDniny98of
+         2Zog==
+X-Gm-Message-State: AOAM531VGVYFPSBFOATn3ykejP8RwVInXU1YQwRJ3UOmXU3NQJ4KOV/4
+        hF+S2hVKVPvJrBXCJRrii4RlZrWaa7SnVP5cshS3MweiIIpUSQ==
+X-Google-Smtp-Source: ABdhPJyfsg6Pn+1Y835UYicEETWbwyo+C5rrlUHlNo3ycyK5+vUjxRkzYBMWwSKKTQZitV4IVanOMj2G237Mp8vT7As=
+X-Received: by 2002:a2e:9c84:: with SMTP id x4mr5972527lji.326.1603727672694;
+ Mon, 26 Oct 2020 08:54:32 -0700 (PDT)
 MIME-Version: 1.0
-References: <63598b4f-6ce3-5a11-4552-cdfe308f68e4@gmail.com> <20201026135418.GN1884107@cisco>
-In-Reply-To: <20201026135418.GN1884107@cisco>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 26 Oct 2020 15:30:29 +0100
-Message-ID: <CAKgNAkgbvuEJ0rkLrZGgCf0OTC8YH2vxemNic8SsDxjh=Z22uw@mail.gmail.com>
-Subject: Re: For review: seccomp_user_notif(2) manual page [v2]
-To:     Tycho Andersen <tycho@tycho.pizza>
-Cc:     Sargun Dhillon <sargun@sargun.me>,
-        Christian Brauner <christian@brauner.io>,
+References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
+ <20200930150330.GC284424@cisco> <8bcd956f-58d2-d2f0-ca7c-0a30f3fcd5b8@gmail.com>
+ <20200930230327.GA1260245@cisco> <CAG48ez1VOUEHVQyo-2+uO7J+-jN5rh7=KmrMJiPaFjwCbKR1Sg@mail.gmail.com>
+ <20200930232456.GB1260245@cisco> <CAG48ez2xn+_KznEztJ-eVTsTzkbf9CVgPqaAk7TpRNAqbdaRoA@mail.gmail.com>
+ <CAG48ez3kpEDO1x_HfvOM2R9M78Ach9O_4+Pjs-vLLfqvZL+13A@mail.gmail.com> <656a37b5-75e3-0ded-6ba8-3bb57b537b24@gmail.com>
+In-Reply-To: <656a37b5-75e3-0ded-6ba8-3bb57b537b24@gmail.com>
+From:   Jann Horn <jannh@google.com>
+Date:   Mon, 26 Oct 2020 16:54:05 +0100
+Message-ID: <CAG48ez2Uy8=Tz9k1hcr0suLPHjbJi1qUviSGzDQ-XWEGsdNU+A@mail.gmail.com>
+Subject: Re: For review: seccomp_user_notif(2) manual page
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Tycho Andersen <tycho@tycho.pizza>,
+        Sargun Dhillon <sargun@sargun.me>,
         Kees Cook <keescook@chromium.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Giuseppe Scrivano <gscrivan@redhat.com>,
-        Song Liu <songliubraving@fb.com>,
-        Robert Sesek <rsesek@google.com>,
-        Containers <containers@lists.linux-foundation.org>,
+        Christian Brauner <christian@brauner.io>,
         linux-man <linux-man@vger.kernel.org>,
         lkml <linux-kernel@vger.kernel.org>,
-        Aleksa Sarai <cyphar@cyphar.com>, Jann Horn <jannh@google.com>,
+        Aleksa Sarai <cyphar@cyphar.com>,
         Alexei Starovoitov <ast@kernel.org>,
         Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
-        Andy Lutomirski <luto@amacapital.net>
+        Song Liu <songliubraving@fb.com>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Linux Containers <containers@lists.linux-foundation.org>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        Robert Sesek <rsesek@google.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Tycho,
-
-Thanks for getting back to me.
-
-On Mon, 26 Oct 2020 at 14:54, Tycho Andersen <tycho@tycho.pizza> wrote:
->
-> On Mon, Oct 26, 2020 at 10:55:04AM +0100, Michael Kerrisk (man-pages) wrote:
-> > Hi all (and especially Tycho and Sargun),
+On Sun, Oct 25, 2020 at 5:32 PM Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+> On 10/1/20 4:14 AM, Jann Horn wrote:
+> > On Thu, Oct 1, 2020 at 3:52 AM Jann Horn <jannh@google.com> wrote:
+> >> On Thu, Oct 1, 2020 at 1:25 AM Tycho Andersen <tycho@tycho.pizza> wrot=
+e:
+> >>> On Thu, Oct 01, 2020 at 01:11:33AM +0200, Jann Horn wrote:
+> >>>> On Thu, Oct 1, 2020 at 1:03 AM Tycho Andersen <tycho@tycho.pizza> wr=
+ote:
+> >>>>> On Wed, Sep 30, 2020 at 10:34:51PM +0200, Michael Kerrisk (man-page=
+s) wrote:
+> >>>>>> On 9/30/20 5:03 PM, Tycho Andersen wrote:
+> >>>>>>> On Wed, Sep 30, 2020 at 01:07:38PM +0200, Michael Kerrisk (man-pa=
+ges) wrote:
+> >>>>>>>>        =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90
+> >>>>>>>>        =E2=94=82FIXME                                           =
+     =E2=94=82
+> >>>>>>>>        =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=A4
+> >>>>>>>>        =E2=94=82From my experiments,  it  appears  that  if  a  =
+SEC=E2=80=90 =E2=94=82
+> >>>>>>>>        =E2=94=82COMP_IOCTL_NOTIF_RECV   is  done  after  the  ta=
+rget =E2=94=82
+> >>>>>>>>        =E2=94=82process terminates, then the ioctl()  simply  bl=
+ocks =E2=94=82
+> >>>>>>>>        =E2=94=82(rather than returning an error to indicate that=
+ the =E2=94=82
+> >>>>>>>>        =E2=94=82target process no longer exists).               =
+     =E2=94=82
+> >>>>>>>
+> >>>>>>> Yeah, I think Christian wanted to fix this at some point,
+> >>>>>>
+> >>>>>> Do you have a pointer that discussion? I could not find it with a
+> >>>>>> quick search.
+> >>>>>>
+> >>>>>>> but it's a
+> >>>>>>> bit sticky to do.
+> >>>>>>
+> >>>>>> Can you say a few words about the nature of the problem?
+> >>>>>
+> >>>>> I remembered wrong, it's actually in the tree: 99cdb8b9a573 ("secco=
+mp:
+> >>>>> notify about unused filter"). So maybe there's a bug here?
+> >>>>
+> >>>> That thing only notifies on ->poll, it doesn't unblock ioctls; and
+> >>>> Michael's sample code uses SECCOMP_IOCTL_NOTIF_RECV to wait. So that
+> >>>> commit doesn't have any effect on this kind of usage.
+> >>>
+> >>> Yes, thanks. And the ones stuck in RECV are waiting on a semaphore so
+> >>> we don't have a count of all of them, unfortunately.
+> >>>
+> >>> We could maybe look inside the wait_list, but that will probably make
+> >>> people angry :)
+> >>
+> >> The easiest way would probably be to open-code the semaphore-ish part,
+> >> and let the semaphore and poll share the waitqueue. The current code
+> >> kind of mirrors the semaphore's waitqueue in the wqh - open-coding the
+> >> entire semaphore would IMO be cleaner than that. And it's not like
+> >> semaphore semantics are even a good fit for this code anyway.
+> >>
+> >> Let's see... if we didn't have the existing UAPI to worry about, I'd
+> >> do it as follows (*completely* untested). That way, the ioctl would
+> >> block exactly until either there actually is a request to deliver or
+> >> there are no more users of the filter. The problem is that if we just
+> >> apply this patch, existing users of SECCOMP_IOCTL_NOTIF_RECV that use
+> >> an event loop and don't set O_NONBLOCK will be screwed. So we'd
+> >> probably also have to add some stupid counter in place of the
+> >> semaphore's counter that we can use to preserve the old behavior of
+> >> returning -ENOENT once for each cancelled request. :(
+> >>
+> >> I guess this is a nice point in favor of Michael's usual complaint
+> >> that if there are no man pages for a feature by the time the feature
+> >> lands upstream, there's a higher chance that the UAPI will suck
+> >> forever...
 > >
-> > Following review comments on the first draft (thanks to Jann, Kees,
-> > Christian and Tycho), I've made a lot of changes to this page.
-> > I've also added a few FIXMEs relating to outstanding API issues.
-> > I'd like a second pass review of the page before I release it.
-> > But also, this mail serves as a way of noting the outstanding API
-> > issues.
-> >
-> > Tycho: I still have an outstanding question for you at [2].
-> > [2] https://lore.kernel.org/linux-man/8f20d586-9609-ef83-c85a-272e37e684d8@gmail.com/
+> > And I guess this would be the UAPI-compatible version - not actually
+> > as terrible as I thought it might be. Do y'all want this? If so, feel
+> > free to either turn this into a proper patch with Co-developed-by, or
+> > tell me that I should do it and I'll try to get around to turning it
+> > into something proper.
 >
-> I don't have that thread in my inbox any more, but I can reply here:
-> no, I don't know any users of this info, but I also don't anticipate
-> knowing how people will all use this feature :)
+> Thanks for taking a shot at this.
+>
+> I tried applying the patch below to vanilla 5.9.0.
+> (There's one typo: s/ENOTCON/ENOTCONN).
+>
+> It seems not to work though; when I send a signal to my test
+> target process that is sleeping waiting for the notification
+> response, the process enters the uninterruptible D state.
+> Any thoughts?
 
-Yes, but my questions were:
+Ah, yeah, I think I was completely misusing the wait API. I'll go change th=
+at.
 
-[[
-[1] So, I think maybe I now understand what you intended with setting
-POLLOUT: the notification has been received ("read") and now the
-FD can be used to NOTIFY_SEND ("write") a response. Right?
+(Btw, in general, for reports about hangs like that, it can be helpful
+to have the contents of /proc/$pid/stack. And for cases where CPUs are
+spinning, the relevant part from the output of the "L" sysrq, or
+something like that.)
 
-[2] If that's correct, I don't have a problem with it. I just wonder:
-is it useful? IOW: are there situations where the process doing the
-NOTIFY_SEND might want to test for POLLOUT because the it doesn't
-know whether a NOTIFY_RECV has occurred?
-]]
+Also, I guess we can probably break this part of UAPI after all, since
+the only user of this interface seems to currently be completely
+broken in this case anyway? So I think we want the other
+implementation without the ->canceled_reqs logic after all.
 
-So, do I understand right in [1]? (The implication from your reply is
-yes, but I want to be sure...)
+I'm a bit on the fence now on whether non-blocking mode should use
+ENOTCONN or not... I guess if we returned ENOENT even when there are
+no more listeners, you'd have to disambiguate through the poll()
+revents, which would be kinda ugly?
 
-For [2], my question was not about users, but *use cases*. The
-question I asked myself is: why does the feature exist? Hence my
-question [2] reworded: "when you designed this, did you have in mind
-scenarios here the process doing the NOTIFY_SEND might need to test
-for POLLOUT because it doesn't know whether a NOTIFY_RECV has
-occurred?"
-
-Thanks,
-
-Michael
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+I'll try to turn this into a proper patch submission...
