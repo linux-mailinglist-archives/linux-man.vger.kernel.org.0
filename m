@@ -2,112 +2,138 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D141929921D
-	for <lists+linux-man@lfdr.de>; Mon, 26 Oct 2020 17:16:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BEEDF2992B5
+	for <lists+linux-man@lfdr.de>; Mon, 26 Oct 2020 17:44:33 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1775354AbgJZQQp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 26 Oct 2020 12:16:45 -0400
-Received: from mail-oi1-f194.google.com ([209.85.167.194]:45874 "EHLO
-        mail-oi1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1775172AbgJZQQp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 26 Oct 2020 12:16:45 -0400
-Received: by mail-oi1-f194.google.com with SMTP id j7so11006521oie.12
-        for <linux-man@vger.kernel.org>; Mon, 26 Oct 2020 09:16:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=LSS6d+k5exm+/iW4LOkMkY1+gSYdlPpeG68KVzH4mPw=;
-        b=t11GA+K/5vJkXfK6L2gz+eZqaMLO03g6aAR7fAn3X+bLqeRgU0411C9mo9/neu7NII
-         RRsofGRvACrDZs3TGX/bEQvNJxp/esZnCCNlgFknZszzZtPFq9/oYoIgBY09iL85uRxG
-         CKG1Q9naATmIHj6AybvvskyaUWdoCYeZKBrD4Orrp70RRFWOxeeqP+Z1g+hf0b8zf9lT
-         Fe/zs0UM+bTAaidT+5uaMuBamtV7Fvbb30sfNE2bF+V12gNhemEWizq9Ak2QBTgMo5mp
-         BBkfoD225L0O7KukPGDfs3IKIpNHYjThIHaxpOX7wU8vOzPs5RMUrZkTz9ZopSh7Y8nZ
-         H3LA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=LSS6d+k5exm+/iW4LOkMkY1+gSYdlPpeG68KVzH4mPw=;
-        b=f6ydoN4BUJb+GfhD6AUnpkKeiDD4wiZyUj8Tyz3W80P91uXRQmNJ5ERzXiRGYcaTGR
-         ycA6W0sLV6evAmokMrVfua9zWkybC25Ogy/TUxYJBtrPKwrMqWQoajjOIUVMN3Ef8GAZ
-         dLa/Qj0VpQoXGlHFRjPWk+QAhrsFOY3L/IV0aWhegFP2Wiy+oAK1+n3Hz0VnRwLj0mzA
-         uAj/HsQCAwBy1fXVtvH+R1aon2vDAI7TYTFAveUrLwNy35JX7BZGVX7zkzlcXolvT6ye
-         OiuZCb2U0kHC7iLMrhjgStGMxZ5oUTxzV5gkb89kpT27oO/bDgF72HbsQvOrpJnjkeYo
-         ADhw==
-X-Gm-Message-State: AOAM531L3FKlcC/jTfDLfo9io+D04RzjpgC2WHE8pnfVcFKAyFDu7ELw
-        XgCzyNBn+UqhgKj1SEmsRcXEKwlYb6Q/7z8CDhcNWeArims=
-X-Google-Smtp-Source: ABdhPJyz8lhn8NgD/+HumPN/y/mcOKP3yne1nBROLoxli9QL+mMbdG7ZRJfRJ+ciYinZh7k+TIp2AmvEXyx4ZlN8m2s=
-X-Received: by 2002:a05:6808:91a:: with SMTP id w26mr13484497oih.159.1603729004764;
- Mon, 26 Oct 2020 09:16:44 -0700 (PDT)
+        id S1780323AbgJZQmv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 26 Oct 2020 12:42:51 -0400
+Received: from new3-smtp.messagingengine.com ([66.111.4.229]:41297 "EHLO
+        new3-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1780057AbgJZQgH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 26 Oct 2020 12:36:07 -0400
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+        by mailnew.nyi.internal (Postfix) with ESMTP id 2244A580146;
+        Mon, 26 Oct 2020 10:32:21 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute6.internal (MEProxy); Mon, 26 Oct 2020 10:32:21 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tycho.pizza; h=
+        date:from:to:cc:subject:message-id:references:mime-version
+        :content-type:in-reply-to; s=fm1; bh=64+TAaOwh1IPJrs0ew/aA4+odj3
+        25YN8/5rfD/oYrDM=; b=LT8cpr5Kh6K0Ro6/cKplrnfXH3isKEpTudX+6zrtaMH
+        rLT6ENT8D6m5Ls3tAEPHkIGxwjzxn+c6bOsRXMcUR1Zn867zOOI1EG22nItmsh1J
+        8t6NamCrambbUlKLR+xYCCHHeIVfz6FBhleOZgrp5FiDxjn+ogGl+3lPVOs4SSqC
+        f+uiWMyXYlmuFtaYnTUIOLYITt1twmTNLJZ+jDoobhr0H4jKXL8llE57tYGQltqK
+        umeGNV2KvX/WGZ1IBRKhHIQDX7/IyKKARLOV8/AZtmBnkatzOKo/ZZliu0jFhlFH
+        ArQH7A7KodlOewJHxRul/sx1zmvT3frTgVE9/iNB5gw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:content-type:date:from:in-reply-to
+        :message-id:mime-version:references:subject:to:x-me-proxy
+        :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=64+TAa
+        Owh1IPJrs0ew/aA4+odj325YN8/5rfD/oYrDM=; b=NEUcPj6XHhh3kOzAu3ag/s
+        nPNkkMGeXt5W27d2BLHGXr0MkuBotIoRp1sLCzdvw/bjOTkUeVcwV0J1LVyYpaAa
+        Rc98WepKd+XaG2XU9w3WumMNLY7FnqmY7J0O2Xx1vKKODqNnDh3VTP/UU2HDRotL
+        9Nr8mSDPj5pFccM2hXmj8JDYqANVK9V3ck4o9yPTAzKx3ZCcHTxFgy7qGnpd3BJs
+        LRZouGJw9Y642r/7eMLyLcECaAD7MipxSQeqQT5rJIhcopR33yLDXW3BzsiZ6u95
+        vPi1pU4En6jkV37PXHo1Rg190XEL0Mr0f4sooFBeK2zBnrTxs0+ePt0vKu/UKuaw
+        ==
+X-ME-Sender: <xms:9N2WX6PPOt4w9dmLyTrvwF431bcJjjboqsm_d0A8rZOhAeDwE4EzWQ>
+    <xme:9N2WX4_20IFlSXcU4GQ8wn_pxGBjObeQ_MG5CKK3i-Hoj6Cs_cFczo5vZo95ZH3pE
+    o-j-jBUU_z1D7Zxn-U>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrkeejgddvlecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfihtghhohcu
+    tehnuggvrhhsvghnuceothihtghhohesthihtghhohdrphhiiiiirgeqnecuggftrfgrth
+    htvghrnhepffeukeekudejfefhjeevgeejgffhkefhffetleduvddufeekteelkeekhfef
+    udejnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucfkphepuddvkedruddtjedrvd
+    eguddrudejgeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
+    ohhmpehthigthhhosehthigthhhordhpihiiiigr
+X-ME-Proxy: <xmx:9N2WXxTNsUh_shhWVhMb0akcOziwH4cOttFK5z3kgrEWKdw11el7iQ>
+    <xmx:9N2WX6u1R11wX9PMoWrNC21SQLxb16_y0XwsjRlRkBF-1uE_QHMqcg>
+    <xmx:9N2WXyfApyQJzyOKT-d13Wos4LwRv33_wyIAQ9YMAGwCpxZi571hVw>
+    <xmx:9d2WX92bTXYLWO2P8bM6B32xPbmcdZJ4_nmk59JpTQc7lEF42DYGrw>
+Received: from cisco (unknown [128.107.241.174])
+        by mail.messagingengine.com (Postfix) with ESMTPA id 129D53064684;
+        Mon, 26 Oct 2020 10:32:15 -0400 (EDT)
+Date:   Mon, 26 Oct 2020 08:32:13 -0600
+From:   Tycho Andersen <tycho@tycho.pizza>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Sargun Dhillon <sargun@sargun.me>,
+        Christian Brauner <christian@brauner.io>,
+        Kees Cook <keescook@chromium.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        Song Liu <songliubraving@fb.com>,
+        Robert Sesek <rsesek@google.com>,
+        Containers <containers@lists.linux-foundation.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Aleksa Sarai <cyphar@cyphar.com>, Jann Horn <jannh@google.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
+        Andy Lutomirski <luto@amacapital.net>
+Subject: Re: For review: seccomp_user_notif(2) manual page [v2]
+Message-ID: <20201026143213.GO1884107@cisco>
+References: <63598b4f-6ce3-5a11-4552-cdfe308f68e4@gmail.com>
+ <20201026135418.GN1884107@cisco>
+ <CAKgNAkgbvuEJ0rkLrZGgCf0OTC8YH2vxemNic8SsDxjh=Z22uw@mail.gmail.com>
 MIME-Version: 1.0
-References: <c1b5cd3d-8be5-3845-1458-10d96ef29e11@jguk.org> <e795c4f3-e273-684a-012e-2b03d1f74285@gmail.com>
-In-Reply-To: <e795c4f3-e273-684a-012e-2b03d1f74285@gmail.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 26 Oct 2020 17:16:33 +0100
-Message-ID: <CAKgNAkjFxBQJU81YR-aBV0F6b+aZpzJmYm5ofba5dxuhYTOZpw@mail.gmail.com>
-Subject: Re: argz_create
-To:     Jonny Grant <jg@jguk.org>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKgNAkgbvuEJ0rkLrZGgCf0OTC8YH2vxemNic8SsDxjh=Z22uw@mail.gmail.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-> > May I ask if there is a way to link error_t to the definition, should
-> > be in errno.h
->
-> I don't quite understand what you are suggesting. Can you elaborate.
+On Mon, Oct 26, 2020 at 03:30:29PM +0100, Michael Kerrisk (man-pages) wrote:
+> Hi Tycho,
+> 
+> Thanks for getting back to me.
+> 
+> On Mon, 26 Oct 2020 at 14:54, Tycho Andersen <tycho@tycho.pizza> wrote:
+> >
+> > On Mon, Oct 26, 2020 at 10:55:04AM +0100, Michael Kerrisk (man-pages) wrote:
+> > > Hi all (and especially Tycho and Sargun),
+> > >
+> > > Following review comments on the first draft (thanks to Jann, Kees,
+> > > Christian and Tycho), I've made a lot of changes to this page.
+> > > I've also added a few FIXMEs relating to outstanding API issues.
+> > > I'd like a second pass review of the page before I release it.
+> > > But also, this mail serves as a way of noting the outstanding API
+> > > issues.
+> > >
+> > > Tycho: I still have an outstanding question for you at [2].
+> > > [2] https://lore.kernel.org/linux-man/8f20d586-9609-ef83-c85a-272e37e684d8@gmail.com/
+> >
+> > I don't have that thread in my inbox any more, but I can reply here:
+> > no, I don't know any users of this info, but I also don't anticipate
+> > knowing how people will all use this feature :)
+> 
+> Yes, but my questions were:
+> 
+> [[
+> [1] So, I think maybe I now understand what you intended with setting
+> POLLOUT: the notification has been received ("read") and now the
+> FD can be used to NOTIFY_SEND ("write") a response. Right?
+> 
+> [2] If that's correct, I don't have a problem with it. I just wonder:
+> is it useful? IOW: are there situations where the process doing the
+> NOTIFY_SEND might want to test for POLLOUT because the it doesn't
+> know whether a NOTIFY_RECV has occurred?
+> ]]
+> 
+> So, do I understand right in [1]? (The implication from your reply is
+> yes, but I want to be sure...)
 
-Perhaps the patch below suffices to address what you meant(?).
+Yes.
 
-Thanks,
+> For [2], my question was not about users, but *use cases*. The
+> question I asked myself is: why does the feature exist? Hence my
+> question [2] reworded: "when you designed this, did you have in mind
+> scenarios here the process doing the NOTIFY_SEND might need to test
+> for POLLOUT because it doesn't know whether a NOTIFY_RECV has
+> occurred?"
 
-Michael
+I did not.
 
-====
-
-commit 43891c16edf44b794b0ee794ff3add948a3fb22e (HEAD -> master)
-Author: Michael Kerrisk <mtk.manpages@gmail.com>
-Date:   Mon Oct 26 17:13:33 2020 +0100
-
-    argz_add.3, envz_add.3: Point out that 'error_t' is an integer type
-
-    Reported-by: Jonny Grant <jg@jguk.org>
-    Signed-off-by: Michael Kerrisk <mtk.manpages@gmail.com>
-
-diff --git a/man3/argz_add.3 b/man3/argz_add.3
-index 40b6eaa5d..bf80e906b 100644
---- a/man3/argz_add.3
-+++ b/man3/argz_add.3
-@@ -191,7 +191,8 @@ all null bytes (\(aq\e0\(aq) except the last by
- .IR sep .
- .SH RETURN VALUE
- All argz functions that do memory allocation have a return type of
--.IR error_t ,
-+.IR error_t
-+(an integer type),
- and return 0 for success, and
- .B ENOMEM
- if an allocation error occurs.
-diff --git a/man3/envz_add.3 b/man3/envz_add.3
-index c360c9604..d4ed0a8be 100644
---- a/man3/envz_add.3
-+++ b/man3/envz_add.3
-@@ -111,7 +111,8 @@ if there was one.
- removes all entries with value NULL.
- .SH RETURN VALUE
- All envz functions that do memory allocation have a return type of
--.IR error_t ,
-+.IR error_t
-+(an integer type),
- and return 0 for success, and
- .B ENOMEM
- if an allocation error occurs.
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Tycho
