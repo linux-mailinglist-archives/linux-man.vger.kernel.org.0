@@ -2,195 +2,115 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C7D6F29917E
-	for <lists+linux-man@lfdr.de>; Mon, 26 Oct 2020 16:56:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 993CE2991E3
+	for <lists+linux-man@lfdr.de>; Mon, 26 Oct 2020 17:08:26 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1784516AbgJZPyf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 26 Oct 2020 11:54:35 -0400
-Received: from mail-lj1-f196.google.com ([209.85.208.196]:38542 "EHLO
-        mail-lj1-f196.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1784511AbgJZPyf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 26 Oct 2020 11:54:35 -0400
-Received: by mail-lj1-f196.google.com with SMTP id m20so10754761ljj.5
-        for <linux-man@vger.kernel.org>; Mon, 26 Oct 2020 08:54:33 -0700 (PDT)
+        id S1784999AbgJZQI0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 26 Oct 2020 12:08:26 -0400
+Received: from mail-wr1-f42.google.com ([209.85.221.42]:41717 "EHLO
+        mail-wr1-f42.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1784998AbgJZQIZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 26 Oct 2020 12:08:25 -0400
+Received: by mail-wr1-f42.google.com with SMTP id s9so13234068wro.8
+        for <linux-man@vger.kernel.org>; Mon, 26 Oct 2020 09:08:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=f9BpXZd1dePTO41DoQrRpftD/OWsykwv67IUek0mRlE=;
-        b=ds1ibtfW9ahR96Tlz4l3O2V/NUXaipvZr+aslTh6VXSfEM3kHadDmcLxHX3+fim6vJ
-         XY0aMB/b/crNHJ+KYUBJZ9iGD5uXLpL3GlW/LXPeqfuahvJ/oHJALa+ujnz4qCr+aF3G
-         r3YPp5iqz7DHWZi7sVTcnGmjsSpbh0UvP+A1D/jSGedwgiDcEzQA2CCrlL6Pp0TOOfRR
-         YMZcHkmybCLa/INJ/1vhYw0788bYvORlLQPrQTIeXQW7YGQIcVcM1gEQN52jutOBxAoP
-         ZwBh7dYIIgqLz9FcZRZd4P1UVyI45sguGjVKNUDIESjDnNWyFcFcsZjbvjMRfKowcfFd
-         EtFw==
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=sv8mpk8x167aC/tx4ry2AwoJzYEmhQKHsmEbkDf41WM=;
+        b=J5HVfYfmfHjwDxePGpgTU7GWWGwoh3cTtdYvZRXkCO3XpaFzJ1uOl7bPzr1FBa52pu
+         6Z5v+OyhJmHhaQq1n+cDoq2o8C6sPC6hXKZ4MLV4jMOhGMzzPz0IcBD9FzQCqumonlKT
+         y1mAFde2sW0NtCT+6WRwqvDQX82Gv3kEYtAngx9co3UxU73kh38RVm426exRmr664pxK
+         wg1irAc+yRNZVpSBzLhofM65QEm9cAyQY3TDFCHMcEXVTKGwkJV2OUtc8fE1GDQaspJG
+         32lxb4flQYuPv8bprRGuo8IpQ5tGyaVGEIScVqul9CbRlO/iEuGQTBzri4W2Ri07V6Fg
+         9VKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=f9BpXZd1dePTO41DoQrRpftD/OWsykwv67IUek0mRlE=;
-        b=oduvz6q5c+mI8u5g+rRILEkMbdFG8DtpsRR5tTEzl5OtAGuhMeb/+j4kDZLBIAfBMQ
-         owyW4wjSwEY1nlj0nsxkXsvbLWhN5oXULviKKIpsn1L0HVKnN1BgQLnzHZMXeznFKZkL
-         VekqUJcQGN6h++d6yez84l2aDDoGgKAuDLZLKwiRA5IH0bHdw1A7HT3hgKhB2ibfrp+t
-         y1tMKRsDtNyzV9GoGrYXKby44xJS2r8VkKZGj7L9nKS5yY+e4P8qK9TfAzp0NE+o+Eeo
-         GEMEIdZ1f6SgWpK/cGv1BfX3JVVOzIR0X1hroqc77h5Wm5o/wn07wQkqHQWDniny98of
-         2Zog==
-X-Gm-Message-State: AOAM531VGVYFPSBFOATn3ykejP8RwVInXU1YQwRJ3UOmXU3NQJ4KOV/4
-        hF+S2hVKVPvJrBXCJRrii4RlZrWaa7SnVP5cshS3MweiIIpUSQ==
-X-Google-Smtp-Source: ABdhPJyfsg6Pn+1Y835UYicEETWbwyo+C5rrlUHlNo3ycyK5+vUjxRkzYBMWwSKKTQZitV4IVanOMj2G237Mp8vT7As=
-X-Received: by 2002:a2e:9c84:: with SMTP id x4mr5972527lji.326.1603727672694;
- Mon, 26 Oct 2020 08:54:32 -0700 (PDT)
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=sv8mpk8x167aC/tx4ry2AwoJzYEmhQKHsmEbkDf41WM=;
+        b=YZ3yarOdWTuwBfM5vq7xgJafGmkt3K/GZfgR20i2ga9Velg1Tsh0AGEL+zrXzQdBtR
+         MtyNgGDH1P/thsMD1KbAOLnSq7vX3W5tJqEe2AXW6uPqw3S6WgSs6lyAWwDJ6MpBcMGX
+         tM7hIgCCzjRbH6o7MgynSuCF//d324h/IA8B5hY3FvDftn4+atcplV5gRgWFyIiNF8gy
+         XwrDanihaC4Z97thlXYbdSiVa5ms09I11XBzTfjdkdOnDcfhFFN2U3XRIQIlwrfrANhm
+         o2xlrBqE/rUScEMQk2UzQHI7deAybLbg230pG8sf8+Dz15sCo3fcrTwR41LzsDphid3v
+         Ldlg==
+X-Gm-Message-State: AOAM531r+39SCyaZeGKgKjHgcAzPmEmvaZn7amlqh8scVNsLrIpP79bf
+        hoxg49sDM3XPi2HfH5ewbdmiZxYggz8=
+X-Google-Smtp-Source: ABdhPJzBaEgGddFzLd/cB7jeW+gNF1zyg3PTMU2SgVBuJGyMjmp40z3Ympip2/0KH9IUjI2jB+beeA==
+X-Received: by 2002:adf:e881:: with SMTP id d1mr18678594wrm.395.1603728503403;
+        Mon, 26 Oct 2020 09:08:23 -0700 (PDT)
+Received: from ?IPv6:2001:a61:245a:d801:2e74:88ad:ef9:5218? ([2001:a61:245a:d801:2e74:88ad:ef9:5218])
+        by smtp.gmail.com with ESMTPSA id a15sm25535944wrp.90.2020.10.26.09.08.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2020 09:08:22 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
+Subject: Re: argz_create
+To:     Jonny Grant <jg@jguk.org>
+References: <c1b5cd3d-8be5-3845-1458-10d96ef29e11@jguk.org>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <e795c4f3-e273-684a-012e-2b03d1f74285@gmail.com>
+Date:   Mon, 26 Oct 2020 17:08:21 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
- <20200930150330.GC284424@cisco> <8bcd956f-58d2-d2f0-ca7c-0a30f3fcd5b8@gmail.com>
- <20200930230327.GA1260245@cisco> <CAG48ez1VOUEHVQyo-2+uO7J+-jN5rh7=KmrMJiPaFjwCbKR1Sg@mail.gmail.com>
- <20200930232456.GB1260245@cisco> <CAG48ez2xn+_KznEztJ-eVTsTzkbf9CVgPqaAk7TpRNAqbdaRoA@mail.gmail.com>
- <CAG48ez3kpEDO1x_HfvOM2R9M78Ach9O_4+Pjs-vLLfqvZL+13A@mail.gmail.com> <656a37b5-75e3-0ded-6ba8-3bb57b537b24@gmail.com>
-In-Reply-To: <656a37b5-75e3-0ded-6ba8-3bb57b537b24@gmail.com>
-From:   Jann Horn <jannh@google.com>
-Date:   Mon, 26 Oct 2020 16:54:05 +0100
-Message-ID: <CAG48ez2Uy8=Tz9k1hcr0suLPHjbJi1qUviSGzDQ-XWEGsdNU+A@mail.gmail.com>
-Subject: Re: For review: seccomp_user_notif(2) manual page
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Tycho Andersen <tycho@tycho.pizza>,
-        Sargun Dhillon <sargun@sargun.me>,
-        Kees Cook <keescook@chromium.org>,
-        Christian Brauner <christian@brauner.io>,
-        linux-man <linux-man@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Aleksa Sarai <cyphar@cyphar.com>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
-        Song Liu <songliubraving@fb.com>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Andy Lutomirski <luto@amacapital.net>,
-        Linux Containers <containers@lists.linux-foundation.org>,
-        Giuseppe Scrivano <gscrivan@redhat.com>,
-        Robert Sesek <rsesek@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <c1b5cd3d-8be5-3845-1458-10d96ef29e11@jguk.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sun, Oct 25, 2020 at 5:32 PM Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
-> On 10/1/20 4:14 AM, Jann Horn wrote:
-> > On Thu, Oct 1, 2020 at 3:52 AM Jann Horn <jannh@google.com> wrote:
-> >> On Thu, Oct 1, 2020 at 1:25 AM Tycho Andersen <tycho@tycho.pizza> wrot=
-e:
-> >>> On Thu, Oct 01, 2020 at 01:11:33AM +0200, Jann Horn wrote:
-> >>>> On Thu, Oct 1, 2020 at 1:03 AM Tycho Andersen <tycho@tycho.pizza> wr=
-ote:
-> >>>>> On Wed, Sep 30, 2020 at 10:34:51PM +0200, Michael Kerrisk (man-page=
-s) wrote:
-> >>>>>> On 9/30/20 5:03 PM, Tycho Andersen wrote:
-> >>>>>>> On Wed, Sep 30, 2020 at 01:07:38PM +0200, Michael Kerrisk (man-pa=
-ges) wrote:
-> >>>>>>>>        =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90
-> >>>>>>>>        =E2=94=82FIXME                                           =
-     =E2=94=82
-> >>>>>>>>        =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=A4
-> >>>>>>>>        =E2=94=82From my experiments,  it  appears  that  if  a  =
-SEC=E2=80=90 =E2=94=82
-> >>>>>>>>        =E2=94=82COMP_IOCTL_NOTIF_RECV   is  done  after  the  ta=
-rget =E2=94=82
-> >>>>>>>>        =E2=94=82process terminates, then the ioctl()  simply  bl=
-ocks =E2=94=82
-> >>>>>>>>        =E2=94=82(rather than returning an error to indicate that=
- the =E2=94=82
-> >>>>>>>>        =E2=94=82target process no longer exists).               =
-     =E2=94=82
-> >>>>>>>
-> >>>>>>> Yeah, I think Christian wanted to fix this at some point,
-> >>>>>>
-> >>>>>> Do you have a pointer that discussion? I could not find it with a
-> >>>>>> quick search.
-> >>>>>>
-> >>>>>>> but it's a
-> >>>>>>> bit sticky to do.
-> >>>>>>
-> >>>>>> Can you say a few words about the nature of the problem?
-> >>>>>
-> >>>>> I remembered wrong, it's actually in the tree: 99cdb8b9a573 ("secco=
-mp:
-> >>>>> notify about unused filter"). So maybe there's a bug here?
-> >>>>
-> >>>> That thing only notifies on ->poll, it doesn't unblock ioctls; and
-> >>>> Michael's sample code uses SECCOMP_IOCTL_NOTIF_RECV to wait. So that
-> >>>> commit doesn't have any effect on this kind of usage.
-> >>>
-> >>> Yes, thanks. And the ones stuck in RECV are waiting on a semaphore so
-> >>> we don't have a count of all of them, unfortunately.
-> >>>
-> >>> We could maybe look inside the wait_list, but that will probably make
-> >>> people angry :)
-> >>
-> >> The easiest way would probably be to open-code the semaphore-ish part,
-> >> and let the semaphore and poll share the waitqueue. The current code
-> >> kind of mirrors the semaphore's waitqueue in the wqh - open-coding the
-> >> entire semaphore would IMO be cleaner than that. And it's not like
-> >> semaphore semantics are even a good fit for this code anyway.
-> >>
-> >> Let's see... if we didn't have the existing UAPI to worry about, I'd
-> >> do it as follows (*completely* untested). That way, the ioctl would
-> >> block exactly until either there actually is a request to deliver or
-> >> there are no more users of the filter. The problem is that if we just
-> >> apply this patch, existing users of SECCOMP_IOCTL_NOTIF_RECV that use
-> >> an event loop and don't set O_NONBLOCK will be screwed. So we'd
-> >> probably also have to add some stupid counter in place of the
-> >> semaphore's counter that we can use to preserve the old behavior of
-> >> returning -ENOENT once for each cancelled request. :(
-> >>
-> >> I guess this is a nice point in favor of Michael's usual complaint
-> >> that if there are no man pages for a feature by the time the feature
-> >> lands upstream, there's a higher chance that the UAPI will suck
-> >> forever...
-> >
-> > And I guess this would be the UAPI-compatible version - not actually
-> > as terrible as I thought it might be. Do y'all want this? If so, feel
-> > free to either turn this into a proper patch with Co-developed-by, or
-> > tell me that I should do it and I'll try to get around to turning it
-> > into something proper.
->
-> Thanks for taking a shot at this.
->
-> I tried applying the patch below to vanilla 5.9.0.
-> (There's one typo: s/ENOTCON/ENOTCONN).
->
-> It seems not to work though; when I send a signal to my test
-> target process that is sleeping waiting for the notification
-> response, the process enters the uninterruptible D state.
-> Any thoughts?
+Hello Jonny,
 
-Ah, yeah, I think I was completely misusing the wait API. I'll go change th=
-at.
+On 10/26/20 3:18 PM, Jonny Grant wrote:
+> Hello
+> 
+> https://man7.org/linux/man-pages/man3/argz_create.3.html
+> 
+> BUGS         top
+>        Argz vectors without a terminating null byte may lead to Segmentation
+>        Faults.
+> 
+> Doesn't feel like this is a BUG to me. Is there a better section to
+> add this? Almost all string handling functions may cause SEGV if
+> passed a string without a null byte. Or even being passed a NULL ptr
+> like strlen(NULL)..  I expect some of these may crash if passed
+> NULL.
 
-(Btw, in general, for reports about hangs like that, it can be helpful
-to have the contents of /proc/$pid/stack. And for cases where CPUs are
-spinning, the relevant part from the output of the "L" sysrq, or
-something like that.)
+Take a look at this paragraph:
 
-Also, I guess we can probably break this part of UAPI after all, since
-the only user of this interface seems to currently be completely
-broken in this case anyway? So I think we want the other
-implementation without the ->canceled_reqs logic after all.
+       An argz vector is a pointer to a character buffer together with  a
+       length.  The intended interpretation of the character buffer is an
+       array of strings, where the strings are separated  by  null  bytes
+       ('\0').   If  the  length  is nonzero, the last byte of the buffer
+       must be a null byte.
 
-I'm a bit on the fence now on whether non-blocking mode should use
-ENOTCONN or not... I guess if we returned ENOENT even when there are
-no more listeners, you'd have to disambiguate through the poll()
-revents, which would be kinda ugly?
+These functions have a surprising interface. The 'char **argz'
+are pointers to pointers to character buffers that have the form:
 
-I'll try to turn this into a proper patch submission...
+    ...\0....\0...\0
+
+That is, the buffers are not strings, but a series of strings laid end
+to end. The text you referring to is trying to say that there better
+be a '\0' t the end of the buffer... I'm not sure how necessary the
+sentence is, but this is not like a typical string handling function.
+(Probably 
+
+> May I ask if there is a way to link error_t to the definition, should
+> be in errno.h
+
+I don't quite understand what you are suggesting. Can you elaborate.
+
+Thanks,
+
+Michael
+
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
