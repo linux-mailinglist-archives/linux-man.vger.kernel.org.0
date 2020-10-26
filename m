@@ -2,186 +2,184 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AFEA7298735
-	for <lists+linux-man@lfdr.de>; Mon, 26 Oct 2020 08:08:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C357C298993
+	for <lists+linux-man@lfdr.de>; Mon, 26 Oct 2020 10:42:19 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1736775AbgJZHB4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 26 Oct 2020 03:01:56 -0400
-Received: from mail-oi1-f196.google.com ([209.85.167.196]:35385 "EHLO
-        mail-oi1-f196.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1736774AbgJZHB4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 26 Oct 2020 03:01:56 -0400
-Received: by mail-oi1-f196.google.com with SMTP id w191so9569924oif.2
-        for <linux-man@vger.kernel.org>; Mon, 26 Oct 2020 00:01:55 -0700 (PDT)
+        id S2391181AbgJZJkl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 26 Oct 2020 05:40:41 -0400
+Received: from mail-lf1-f66.google.com ([209.85.167.66]:36607 "EHLO
+        mail-lf1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1422403AbgJZJcd (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 26 Oct 2020 05:32:33 -0400
+Received: by mail-lf1-f66.google.com with SMTP id h6so10837027lfj.3
+        for <linux-man@vger.kernel.org>; Mon, 26 Oct 2020 02:32:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=zUJdfXOVZyub4Q0/iCXshqW67joTR+a5K0ak8gI5+vw=;
-        b=mEliIwilByOOwrTW//IakV2/FkWS/xLuJzUIGBoK4Uewv2AaoSQd4Q6fv1v6pG33Xb
-         QnIVzEDCP5DCiSViy/qcdBqomXPQoAsJ6b0vHQxtlOJFyhiKLvYw3/AgeVJuFjCSeEjK
-         oVhrzjU82RKWrhhhByCHoORly3JvX0f3bxRs4wCNf7aPgbJNMRp3k9Rmlt36rw3sEg/K
-         VcbiM81fsdTUFqfZoTUroHeNWYD/FRlhMTVPeuRrWUYjanA65B2IohYrTqaKtuOKXEpc
-         BJnqx2a9tMjKyxGwhVUzVW+Wbc+sQt3X6F3zokzGcQsEfp8Q1+LAbHR/YBP2q6aOLwUi
-         iY0w==
+        d=google.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=StRkGUih/x/ZPb5WlhQHkdi1r1gUGmh5+DpBU/QI0b8=;
+        b=bxArDnwnKKVb47+2JvvYUq8R/IEKsf7ylVrQGNciSnSoYPwE7dnVtR5YwfMO5uBNZw
+         fHEDR8Tr/1TRXyiJJq95vuLudMRzpJqxxDTnXOTuZKU6/Z3xjWXSTs4P9xyBhGIaB0Mj
+         dEj7BC/L/+TXKWqGb0DXEmgMH0eBzD3NgBeP5L0Bz4eQGAdM3hCz+SHgxO9GytIKoU4w
+         JiHeltxTxG2TscaaBmkbuFitP3camZYG1gpykQPwS9aCxt/gwIFltkyjA/3cOBDh9NN8
+         32EcuS/qkGiTUBRiM6AmttqPELBPELkKaBF1xwD7TWGHSMVEVSqBV892aAqbMi/3zsVw
+         Y4mQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=zUJdfXOVZyub4Q0/iCXshqW67joTR+a5K0ak8gI5+vw=;
-        b=P5OrSN4xoASj+ZkQCh3MMv2Xr+8+ZsIrqSxHJe/a8jWGERAqSxlDtsm+wrVGYB+3X7
-         x3CsgAIrL/nzDbxYQNPZxxX+UZKbjmQbzXC7UavfXJcKQMhMW1YuHnxcoYA/t2VTxofb
-         08Rnh9fpDJDHuOjn8P226yv6lKicJq5nFD+URjY33BnbyImlNEl0X0meFc/5RQ/v5SZb
-         EtNCbUSq0OheqfSE9hxcC+22iJcX6VGjDlozGoyHoNc7Tv02qXjgmMQy77qJL4to2+q9
-         dHa7/4UMBM3eOVyVbjDCkaxFJMWUm6LDjswAh/dL0yjodqwRoBEw/bponjL+GU59Wli5
-         3dpg==
-X-Gm-Message-State: AOAM5339+d5m16d3zsyyg3TPTQ6fMezCl5Nn25KOsfjDKoWpcTYkqedB
-        D/V8jAJ8zv1K8/x0D2haHqxR56DYbUxiUqutAUY3VsNb
-X-Google-Smtp-Source: ABdhPJy5U8KDqkBxzdrmRe/2xFtyvbmkWbXN/wBKgawm1yaBFPNig1X4C6wdnu1STeBeJAv7e0X44IV1pUD8y8rj1fA=
-X-Received: by 2002:a05:6808:91a:: with SMTP id w26mr11770827oih.159.1603695715040;
- Mon, 26 Oct 2020 00:01:55 -0700 (PDT)
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=StRkGUih/x/ZPb5WlhQHkdi1r1gUGmh5+DpBU/QI0b8=;
+        b=Tw47gwSirur5c1dFMCb0j0gcUYMXGZUt2gEnFZQzKkMWL4XDgU7G78XUht23XkflTM
+         eNE1VSSoX3sakuxJ9rU/mCbWOthsmPZSWemcYFOXdlpy/w24X4oNbRLogJjHyRITdhJ+
+         ZUUUH7XZqq2xvgu+XGGGCGtnYL0FEaW5l9iUXzMXdnegBsVPsqDFkCtaSKb6FBv82Byy
+         ZnwjS59lJhua6lRSXtZVaNwb6xSYQ5xyMg9czR1BaDm1yqBxGXJwp/7koe4r2b2XHxGn
+         49UkSHhaMAOFM5liDjLRHbbRzNDE8op2qED9dF3R5vfcBciD+ugVxglfJSAAXAF9P4aH
+         q8Tw==
+X-Gm-Message-State: AOAM531ADBWZb20713IVnptmlNc7HQ1tSDgrDAjidLR80/UTAQM3D1em
+        364Nj/u9ClYrTMUwmZsPwMBAxcBIvujLBcjgs3ym+w==
+X-Google-Smtp-Source: ABdhPJzBH+MPjCV8ct7DvlWTvTVhdnKL880/VXAqc2B1yNSMODbYCXhKALP0wqXMPnA3SOp/W9yOCEL7k8bIsiJOPMI=
+X-Received: by 2002:a05:6512:1182:: with SMTP id g2mr4425834lfr.198.1603704749529;
+ Mon, 26 Oct 2020 02:32:29 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200920214012.454410-1-colomar.6.4.3@gmail.com>
- <61f4e2a4-d468-ceba-2ccf-ce0c061aa20b@gmail.com> <f70c7f62-9d61-71aa-67cf-43501a29bccc@gmail.com>
- <CAKgNAki7=AJ7p2AwPkf9+4AkYKdOL6b4D0NyVdwZzu-qHFvGiA@mail.gmail.com>
- <20200921141552.tpuhdxo24lc6e7dh@localhost.localdomain> <35b5a9ff-4133-8301-bb75-4b13f7861c9a@gmail.com>
- <20200930120242.vylnz5khajri5sz4@localhost.localdomain> <20200930125417.ovlnfxhk5zgtuj46@localhost.localdomain>
- <CAKgNAkgOYEV0HR-Y=a-FpeW4_Qoe6WAoZ6SAEbN=Yuz_g3z5Zw@mail.gmail.com>
-In-Reply-To: <CAKgNAkgOYEV0HR-Y=a-FpeW4_Qoe6WAoZ6SAEbN=Yuz_g3z5Zw@mail.gmail.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 26 Oct 2020 08:00:00 +0100
-Message-ID: <CAKgNAkhvWp1L=3-krBWQ7rZ_Z7J5gPqwAzVpBF-3BPGfJ4Ojbw@mail.gmail.com>
-Subject: Re: man-pages.7: Simplify indentation of structure definitions, shell
- session logs, and so on
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
+References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
+ <CAG48ez3aqLs_-xgU0bThOLqRiiDWGObxcg-X9iFe6D5RDnLVJg@mail.gmail.com>
+ <5647b94a-4693-dad0-6e0d-ed178b495d65@gmail.com> <CAG48ez1PtJPQLrQ54P+uuuxbt6mri9wcP=1m1wgVuMWOSDMazg@mail.gmail.com>
+ <0f41f776-9379-9ee6-df4b-e7538f69313e@gmail.com> <CAG48ez1e-xKoJ_1v0DGMZ62WQCG7o7AUw+89DYEVbDpHWrdweA@mail.gmail.com>
+ <887d5a29-edaa-2761-1512-370c1f5c3a6f@gmail.com>
+In-Reply-To: <887d5a29-edaa-2761-1512-370c1f5c3a6f@gmail.com>
+From:   Jann Horn <jannh@google.com>
+Date:   Mon, 26 Oct 2020 10:32:03 +0100
+Message-ID: <CAG48ez2TcWb6SQ86XRJDdN-Ab_gO9-sXgpFnJODMXH60mCkBJQ@mail.gmail.com>
+Subject: Re: For review: seccomp_user_notif(2) manual page
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Tycho Andersen <tycho@tycho.pizza>,
+        Sargun Dhillon <sargun@sargun.me>,
+        Kees Cook <keescook@chromium.org>,
+        Christian Brauner <christian@brauner.io>,
+        linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Aleksa Sarai <cyphar@cyphar.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
+        Song Liu <songliubraving@fb.com>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Linux Containers <containers@lists.linux-foundation.org>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        Robert Sesek <rsesek@google.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Brnaden,
-
-A ping on the below, in case you have some thoughts.
-
-Thanks,
-
-Michael
-
-On Thu, 1 Oct 2020 at 09:33, Michael Kerrisk (man-pages)
+On Sat, Oct 24, 2020 at 2:53 PM Michael Kerrisk (man-pages)
 <mtk.manpages@gmail.com> wrote:
->
-> Hi Branden,
->
-> Sorry -- I think I'm still not getting it.
->
-> On Wed, 30 Sep 2020 at 14:54, G. Branden Robinson
-> <g.branden.robinson@gmail.com> wrote:
+> On 10/17/20 2:25 AM, Jann Horn wrote:
+> > On Fri, Oct 16, 2020 at 8:29 PM Michael Kerrisk (man-pages)
+> > <mtk.manpages@gmail.com> wrote:
+[...]
+> >> I'm not sure if I should write anything about this small UAPI
+> >> breakage in BUGS, or not. Your thoughts?
 > >
-> > At 2020-09-30T22:02:43+1000, G. Branden Robinson wrote:
-> > > [...] you can call .RE [...] as ".RE 2" to say "go back two
-> > > indentation levels"
-> >
-> > Nope, that's wrong.  Forget I said that; I think I might now see
-> > something I can further improve in the documentation.
-> >
-> > You can see I'm still bedeviled by relative insets.  :-|
-> >
-> > I tend to never use the argument to .RE; I just call .RE multiple times
-> > to balance out my .RS calls, just like parentheses.  When I do that, I
-> > don't get surprised.
-> >
-> > > without having to track or remember any indentation measurements.
-> >
-> > This part remains true.  :)
+> > Thinking about it a bit more: Any code that relies on pause() or
+> > epoll_wait() not restarting is buggy anyway, right? Because a signal
+> > could also arrive directly before entering the syscall, while
+> > userspace code is still executing? So one could argue that we're just
+> > enlarging a preexisting race. (Unless the signal handler checks the
+> > interrupted register state to figure out whether we already entered
+> > syscall handling?)
 >
-> Currently, I use the idiom
+> Yes, that all makes sense.
 >
-> .PP
-> .in +4n
-> .EX
-> <code>
-> .EE
-> .in
-> .PP
+> > If userspace relies on non-restarting behavior, it should be using
+> > something like epoll_pwait(). And that stuff only unblocks signals
+> > after we've already past the seccomp checks on entry.
 >
-> or, if we're in indented paragraph territory:
+> Thanks for elaborating that detail, since as soon as you talked
+> about "enlarging a preexisting race" above, I immediately wondered
+> sigsuspend(), pselect(), etc.
 >
-> .IP
-> .in +4n
-> .EX
-> <code>
-> .EE
-> .in
-> .IP
->
-> This is of course hacky, and of course in order to get it right, I
-> need to know where to use .IP vs .PP.
->
-> I'd happily replace this with the use of ".RS 4/.EX/.EE/.RE", but
-> what, if anything do I surround it with? And can I do it in a way that
-> I don't need to care whether I'm currently in an indented zone of
-> text?
->
-> I mean, if I use:
->
-> .RS
-> .RS 4
-> .PP
-> .EX
-> int
-> main(void)
-> {
->     printf("Hello world\n");
-> }
-> .EE
-> .PP
-> .RE
-> .RE
->
-> That produces the desired results (4-space indent) if I am currently
-> in an indented zone (.TP or .IP). (But it starts to get even more
-> horribly verbose, in terms of markup, than what I currently use.)
->
-> But if I use that same form in an unindented zone, then <code> is
-> massively (12 spaces) indented. Instead, seem to need to say just:
->
-> .RS +4
-> .PP
-> .EX
-> int
-> main(void)
-> {
->     printf("Hello world\n");
-> }
-> .EE
-> .PP
-> .RE
->
-> What I'd *ideally* like is a solution for indented code blocks that
-> (in order or priority):
->
-> 1) is not more verbose than the current solution
-> 2) uses more idiomatic mark-up than the current solution
-> 3) uses exactly the same form, regardless of whether I'm currently in
-> an indented region of text.
->
-> So far, I don't see such a solution.
->
-> Thanks,
->
-> Michael
->
-> --
-> Michael Kerrisk
-> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-> Linux/UNIX System Programming Training: http://man7.org/training/
+> (Mind you, I still wonder about the effect on system calls that
+> are normally nonrestartable because they have timeouts. My
+> understanding is that the kernel doesn't restart those system
+> calls because it's impossible for the kernel to restart the call
+> with the right timeout value. I wonder what happens when those
+> system calls are restarted in the scenario we're discussing.)
 
+Ah, that's an interesting edge case...
 
+> Anyway, returning to your point... So, to be clear (and to
+> quickly remind myself in case I one day reread this thread),
+> there is not a problem with sigsuspend(), pselect(), ppoll(),
+> and epoll_pwait() since:
+>
+> * Before the syscall, signals are blocked in the target.
+> * Inside the syscall, signals are still blocked at the time
+>   the check is made for seccomp filters.
+> * If a seccomp user-space notification  event kicks, the target
+>   is put to sleep with the signals still blocked.
+> * The signal will only get delivered after the supervisor either
+>   triggers a spoofed success/failure return in the target or the
+>   supervisor sends a CONTINUE response to the kernel telling it
+>   to execute the target's system call. Either way, there won't be
+>   any restarting of the target's system call (and the supervisor
+>   thus won't see multiple notifications).
+>
+> (Right?)
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Yeah.
+
+[...]
+> > So we should probably document the restarting behavior as something
+> > the supervisor has to deal with in the manpage; but for the
+> > "non-restarting syscalls can restart from the target's perspective"
+> > aspect, it might be enough to document this as quirky behavior that
+> > can't actually break correct code? (Or not document it at all. Dunno.)
+>
+> So, I've added the following to the page:
+>
+>    Interaction with SA_RESTART signal handlers
+>        Consider the following scenario:
+>
+>        =C2=B7 The target process has used sigaction(2)  to  install  a  s=
+ignal
+>          handler with the SA_RESTART flag.
+>
+>        =C2=B7 The target has made a system call that triggered a seccomp =
+user-
+>          space notification and the target is currently blocked until the
+>          supervisor sends a notification response.
+>
+>        =C2=B7 A  signal  is  delivered to the target and the signal handl=
+er is
+>          executed.
+>
+>        =C2=B7 When  (if)  the  supervisor  attempts  to  send  a  notific=
+ation
+>          response,  the SECCOMP_IOCTL_NOTIF_SEND ioctl(2)) operation will
+>          fail with the ENOENT error.
+>
+>        In this scenario, the kernel  will  restart  the  target's  system
+>        call.   Consequently,  the  supervisor  will receive another user-
+>        space notification.  Thus, depending on how many times the blocked
+>        system call is interrupted by a signal handler, the supervisor may
+>        receive multiple notifications for the same  system  call  in  the
+>        target.
+>
+>        One  oddity  is  that  system call restarting as described in this
+>        scenario will occur even for the blocking system calls  listed  in
+>        signal(7) that would never normally be restarted by the SA_RESTART
+>        flag.
+>
+> Does that seem okay?
+
+Sounds good to me.
+
+> In addition, I've queued a cross-reference in signal(7):
+>
+>        In certain circumstances, the seccomp(2) user-space notifi=E2=80=
+=90
+>        cation  feature can lead to restarting of system calls that
+>        would otherwise  never  be  restarted  by  SA_RESTART;  for
+>        details, see seccomp_user_notif(2).
