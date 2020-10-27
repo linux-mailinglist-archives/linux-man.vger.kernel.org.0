@@ -2,83 +2,104 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B42AF29ABC2
-	for <lists+linux-man@lfdr.de>; Tue, 27 Oct 2020 13:18:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id DF72929AC9A
+	for <lists+linux-man@lfdr.de>; Tue, 27 Oct 2020 14:00:42 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1751011AbgJ0MSY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 27 Oct 2020 08:18:24 -0400
-Received: from mx2.suse.de ([195.135.220.15]:37112 "EHLO mx2.suse.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1751008AbgJ0MSW (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 27 Oct 2020 08:18:22 -0400
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-        t=1603801101;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=WBz49ARXMK8IVJOaRbIheZJKq8IypKGIjPcbI7hB3Ag=;
-        b=aD5eGlPSmiGuFB3k68ZBviaiz0YEQ2zXE06VKj0H9o5C5z1gXFXy8VIWITYSovvU3RAqZT
-        BYITjE7DRiHtNDdwOnPN2ek5hJsHKl5saEC5UwpnW1rorWDbeFxlKbn1pehJBFetoeTh4L
-        MXHSUDCf4uyYmhawa8ZnXf66MFBQoNQ=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-        by mx2.suse.de (Postfix) with ESMTP id 45E78B30B;
-        Tue, 27 Oct 2020 12:18:20 +0000 (UTC)
-Date:   Tue, 27 Oct 2020 13:18:16 +0100
-From:   Michal Hocko <mhocko@suse.com>
-To:     Jann Horn <jannh@google.com>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Linux-MM <linux-mm@kvack.org>,
-        Mark Mossberg <mark.mossberg@gmail.com>
-Subject: Re: [PATCH] proc.5: Document inaccurate RSS due to SPLIT_RSS_COUNTING
-Message-ID: <20201027121816.GS20500@dhcp22.suse.cz>
-References: <20201012114940.1317510-1-jannh@google.com>
- <CAG48ez17=x9eHLGR-Uyx3xsVJv3W=4WsTs3HG5Fam5UP=CWXbQ@mail.gmail.com>
- <0a090c14-6b70-4284-bb2d-4fbfd1146aaf@gmail.com>
- <CAG48ez2gigjfi3_nmbyhDnb2bsi9K0Yc24y7HdSNDvtumWGbiw@mail.gmail.com>
+        id S2900386AbgJ0NAm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 27 Oct 2020 09:00:42 -0400
+Received: from mail-wm1-f66.google.com ([209.85.128.66]:54809 "EHLO
+        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2440565AbgJ0NAm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 27 Oct 2020 09:00:42 -0400
+Received: by mail-wm1-f66.google.com with SMTP id w23so1291407wmi.4
+        for <linux-man@vger.kernel.org>; Tue, 27 Oct 2020 06:00:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=bz0s3Qnmt4ju3ef+1d6xzZ5oz/ahHmlehjfC0bo2b/I=;
+        b=Owl7tcHNw7HAk48MARV3y8xjI6vAgWDhtbXmq1L3bxU8oH6ULTM1riJ39LB8Mu1zyj
+         +JN3OKVWd9+rzdMTedtYE20dx/6aJ839Eyi8T8nfEo9nJceoPDoTUav/n6sasjk2ZhB5
+         2/9VZOz2H3njAAAQaEzhgHFPOgleqDhZ9mw0J1t28zs+ALwakbNVD5AaX3m44lVZGOyP
+         8NNWSM+a8IPjULW2AKH0x1RTg7k73C8IG3Tr49CDovEr2TIUToJrqtpSIJueN6Kw6hBp
+         4nhAgKmoV3zhRVf4QI5O41NRm0oSv6O7uwhNU63aMzgaSNSmvSwKuB7Q2BnStZbQbirl
+         A4ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=bz0s3Qnmt4ju3ef+1d6xzZ5oz/ahHmlehjfC0bo2b/I=;
+        b=KqS/iipd2JHXTdOeWIGflrbR2Xx5MqSKv0nL51A86sS0SbpMF52IP8RgJW08i+NETK
+         UvW9wrf8QM2te7iHmUDsu4Ous4CdICE3WAiJYSPlxm6WmI4Wcz5y+sZHC01vq6Lvanru
+         o1P/Ii74W48ejy53qMWLXJWgsWxgp9qNR1ZDS170e+v3QM2Za8S9vLUBRb2hAjMNiQnU
+         ExA/3Rg82tpSxsYOxwo7IQZghKNl7tAgAZZW2g3Jo0G2J++3aqHIWeQEOImHkw1LbtzQ
+         56ug6ssX7u3XDyG/ivs91uNqyxZSv+VbWZ9iV/7WMy34Q+Ntzox+3+djUAQsGT13F+dJ
+         rt0A==
+X-Gm-Message-State: AOAM533zoDWksbFoU5e8s+LP4+iEgOqOE1a2tAoD57QeG8AWv79H010F
+        VlKtZk+TZ5dx00/D8SHd+VQEjm0g/2s=
+X-Google-Smtp-Source: ABdhPJxzxOMUC8AZ9wJrSB77WYFdlmF96oqUGPR9qSNfQhW0Kzo3G1aHRc814yBbCHXEz6eke0w29g==
+X-Received: by 2002:a1c:b6d4:: with SMTP id g203mr2547922wmf.132.1603803640087;
+        Tue, 27 Oct 2020 06:00:40 -0700 (PDT)
+Received: from ?IPv6:2001:a61:245a:d801:2e74:88ad:ef9:5218? ([2001:a61:245a:d801:2e74:88ad:ef9:5218])
+        by smtp.gmail.com with ESMTPSA id 26sm1770972wmk.42.2020.10.27.06.00.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2020 06:00:39 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] system_data_types: ffix
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+References: <20201027104737.26615-1-colomar.6.4.3@gmail.com>
+ <40613102-84bf-ea3b-254c-0739998cc40e@gmail.com>
+ <a7a213b2-c76f-1f13-d70c-f54a2b6cd6ee@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <db0b025b-e9f9-72de-66bc-1a4e3d2720d1@gmail.com>
+Date:   Tue, 27 Oct 2020 14:00:38 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAG48ez2gigjfi3_nmbyhDnb2bsi9K0Yc24y7HdSNDvtumWGbiw@mail.gmail.com>
+In-Reply-To: <a7a213b2-c76f-1f13-d70c-f54a2b6cd6ee@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue 27-10-20 11:35:35, Jann Horn wrote:
-> On Tue, Oct 27, 2020 at 8:05 AM Michael Kerrisk (man-pages)
-> <mtk.manpages@gmail.com> wrote:
-> > On 10/12/20 4:52 PM, Jann Horn wrote:
-> > > On Mon, Oct 12, 2020 at 1:49 PM Jann Horn <jannh@google.com> wrote:
-> > >> Since 34e55232e59f7b19050267a05ff1226e5cd122a5 (introduced back in
-> > >> v2.6.34), Linux uses per-thread RSS counters to reduce cache contention on
-> > >> the per-mm counters. With a 4K page size, that means that you can end up
-> > >> with the counters off by up to 252KiB per thread.
-> > >
-> > > Actually, as Mark Mossberg pointed out to me off-thread, the counters
-> > > can actually be off by many times more...
-> >
-> > So, does your patch to proc.5 need tweaking, or can I just apply as is?
-> 
-> The "(up to 63 pages per thread)" would have to go, the rest should be correct.
-> 
-> But as Michal said, if someone volunteers to get rid of this
-> optimization, maybe we don't need the documentation after all? But
-> that would probably require actually doing some careful
-> heavily-multithreaded benchmarking on a big machine with a few dozen
-> cores, or something like that, so that we know whether this
-> optimization actually is unimportant enough that we can just get rid
-> of it...
+On 10/27/20 11:53 AM, Alejandro Colomar wrote:
+> Ooops, '.7'
 
-Well, the original micro optimization didn't really come with some solid
-numbers based on real workloads. Artificial workloads are likely not
-very representative for this case because any potential counters overhead
-normally gets dispersed.
+Patch applied, and commit message fixed :-).
 
-I think this is the case where the benefit is so unclear that I would
-simply revert the whole thing and try to tune up for a real life
-workloads that actually sees a regression.
+Thanks,
+
+Michael
+
+> On 2020-10-27 11:52, Alejandro Colomar wrote:
+>> I forgot the '.3' in the commit msg again :(
+>>
+>> On 2020-10-27 11:47, Alejandro Colomar wrote:
+>>> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+>>> ---
+>>>   man7/system_data_types.7 | 2 +-
+>>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
+>>> index e98782545..e1e8f01ca 100644
+>>> --- a/man7/system_data_types.7
+>>> +++ b/man7/system_data_types.7
+>>> @@ -775,7 +775,7 @@ See also:
+>>>   .TP
+>>>   .I pid_t
+>>>   .RS
+>>> -Include
+>>> +Include:
+>>>   .IR <sys/types.h> .
+>>>   Alternatively,
+>>>   .IR <fcntl.h> ,
+>>>
+
 
 -- 
-Michal Hocko
-SUSE Labs
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
