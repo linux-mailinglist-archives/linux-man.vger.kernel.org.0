@@ -2,61 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 719CA29A981
-	for <lists+linux-man@lfdr.de>; Tue, 27 Oct 2020 11:24:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 18F0229A995
+	for <lists+linux-man@lfdr.de>; Tue, 27 Oct 2020 11:27:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2897982AbgJ0KYf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 27 Oct 2020 06:24:35 -0400
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:33196 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2897981AbgJ0KYf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 27 Oct 2020 06:24:35 -0400
-Received: by mail-wr1-f67.google.com with SMTP id b8so1282306wrn.0
-        for <linux-man@vger.kernel.org>; Tue, 27 Oct 2020 03:24:33 -0700 (PDT)
+        id S2898093AbgJ0K1E (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 27 Oct 2020 06:27:04 -0400
+Received: from mail-wm1-f67.google.com ([209.85.128.67]:50311 "EHLO
+        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2898088AbgJ0K1E (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 27 Oct 2020 06:27:04 -0400
+Received: by mail-wm1-f67.google.com with SMTP id 13so838615wmf.0
+        for <linux-man@vger.kernel.org>; Tue, 27 Oct 2020 03:27:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=UfqPSUdcPDhUAoCcWnkcN0KZ256NcxLOWKLZnS6LPlU=;
-        b=eZ66p4tj6aYzTIsmMkxBlDDHiFOF4M+/BPst70hej6SIHZC+dc0Y9rfNNuRk1OkF/a
-         9l/7/CXAPsvzfj/GhurYPGOyJRz6L3KKJGrfIYkk2CdOCrrDfkF/LLV8LpA8PZo3hBgO
-         P0fAWY90SC0Wn+SdfTDHz47BTyv8HaKVrfr473KFTs04ANahW7pMFry258quUo2T0GtL
-         sJ7mB7iKB8s2CqNbmMaXBSXYOFSDA+zz+X0IFV9d+qsQVkrihk8PleI8Wn9L4DMgjSK4
-         xtHUXW/KAQ+H0z1NP2yIHfIr3uaG0mwuIcGjP6YTm45po3OYG6d3AFF4hzHGfQWfvuA4
-         nFLQ==
+        bh=E0IvkJpeb17WVVy1YAWAp3rH+0DoT1wqD/wM6BAm3Fs=;
+        b=lQ9Y+xCqB2lGSWPDXKif9SN84cWw9/qiTzPtw6PlaDK+TF2XRr2WP8Kl1m5OGnTqaT
+         pcoNEcIlLk2tb6D/YoRchfPQsWan7s0umF8EW8kM5IjDV7POJ8qkYho7DehZOSE/ml3S
+         esHLt++QBbjrY56iYc2/KqwV6LckhTcSt/bfMJ/Pi1UfaB4d0UbE99ijaLetwmTuXx1i
+         mAFn4eflL+qrmj7+wrKPbeSpbm7XVCipOxI+qN1d0YxhlKLxbG4yEaGOdv2PezeRqizc
+         D2jyjC3IxRp8m0z4F/MZD06OooAqjreBamrW8RjZo2uzZTH1PgI0FEkuB/x6bfedYmDp
+         L3XA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=UfqPSUdcPDhUAoCcWnkcN0KZ256NcxLOWKLZnS6LPlU=;
-        b=Us47tsZ2zPSAToEVfhg7JP5MtEPoiGey4rU6ghwVoACyEFMs66v9GaYfALbWgRZl5J
-         2/uSVDbU9jvgF24Iw+drsNmZxRqTHOomcmJvm1EexJ0Zn/XY7yg6aZH5qgC+h7vXIuXA
-         by40zJl++pwF0Z/fzMOWs62mincao/vHGqfI6DVCf34q1bGKaCvWGLjC5AC3chVtuJmA
-         5SgrAYR6/bMMaW4UqtPQG6/cJVSBbqK32dYdCGaxqhFlnXBZ+vuZqdIHmbj0arM4mgiD
-         zLKMv+IZm59AUtpdxV1JO1tHAch2vr48unQC18g1yOUnw/6LXES0OsWqwh6QboYSt0PR
-         qJZQ==
-X-Gm-Message-State: AOAM533LCdVcYWbs8/B3KOi/NrFzWgEfvFiRFf20CAOUsJ8HtOiqJrqC
-        XZnu+hK4ONhNubXUXimq0aA=
-X-Google-Smtp-Source: ABdhPJycJnH2XCu6U4qjUqt/yDLIWxIjPwEHijLCM3OxnIi3C1QmUQJOeh7FbVtQp/xhB2dCGrO9XQ==
-X-Received: by 2002:a5d:6744:: with SMTP id l4mr2019705wrw.18.1603794273088;
-        Tue, 27 Oct 2020 03:24:33 -0700 (PDT)
+        bh=E0IvkJpeb17WVVy1YAWAp3rH+0DoT1wqD/wM6BAm3Fs=;
+        b=Auv7F3NZWaTTDpfuPSNz7y+B0urSosG4A+AWw6DQrVcm47u96fXo8mMz5q0Mb1Ksg+
+         miE6cx5gt/2SRq+bpyWZZPJzL7qU73c7g5bG4BRBNBmcFVDqZpnGOIkbDeBdGX/EuoQD
+         /mfMXAA9+7JaSEaYr8934QuIUvpHVVI22Zlvf0TtaOKsvVCtxEYoCYYmXcXeVzs71fdH
+         SsSO+c+/2ntPVNwofdGuh4W49pUe8N5PCZYGl/b53N6aTiNesSVOE60dsn7jPXmaRcK1
+         JK7NQPV8qFy/1LhjZg6AIeX/cg62dx1xk6Bez+AghEsj6IxFQPKBVq+zoyNiEMoQjY9L
+         l2qg==
+X-Gm-Message-State: AOAM532MZ3ru/PI5VjQp86MF1uRJ6CrVmt1T86JysF9YBbrFrhcbaw2x
+        lfz3nes1+XcZuZHuhfTIPVKrdrrxLlU=
+X-Google-Smtp-Source: ABdhPJyCwH0xaGUsxTQrw8VpS5lpwYkqdLnb2hNKGblFDoa19oQy2Nd21MnEWO12Dw0Hslk7Vbwx3w==
+X-Received: by 2002:a05:600c:228b:: with SMTP id 11mr1965706wmf.147.1603794421986;
+        Tue, 27 Oct 2020 03:27:01 -0700 (PDT)
 Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id n83sm1358998wma.39.2020.10.27.03.24.32
+        by smtp.gmail.com with ESMTPSA id i33sm1533243wri.79.2020.10.27.03.27.01
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2020 03:24:32 -0700 (PDT)
-Subject: Re: [PATCH v2 1/2] system_data_types.7: Add 'error_t'
+        Tue, 27 Oct 2020 03:27:01 -0700 (PDT)
+Subject: Re: [PATCH] system_data_types.7: srcfix
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org, jg@jguk.org
-References: <20201026221622.24879-1-colomar.6.4.3@gmail.com>
- <12701238-4167-261c-ccce-440233d01e39@gmail.com>
+Cc:     linux-man@vger.kernel.org
+References: <20201026223450.28183-1-colomar.6.4.3@gmail.com>
+ <0a104f3b-fdce-f094-7dee-966378b6f760@gmail.com>
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <f5c7b36d-f3dc-d9b1-cde5-cb2696cb39f5@gmail.com>
-Date:   Tue, 27 Oct 2020 11:24:31 +0100
+Message-ID: <38963a74-d34e-03f3-06c2-60df7451327c@gmail.com>
+Date:   Tue, 27 Oct 2020 11:27:00 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <12701238-4167-261c-ccce-440233d01e39@gmail.com>
+In-Reply-To: <0a104f3b-fdce-f094-7dee-966378b6f760@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -64,94 +64,36 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-
-
-On 2020-10-27 06:49, Michael Kerrisk (man-pages) wrote:
-> Hi Alex,
-> 
-> On 10/26/20 11:16 PM, Alejandro Colomar wrote:
->> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
->> ---
->>   man7/system_data_types.7 | 39 +++++++++++++++++++++++++++++++++++++++
->>   1 file changed, 39 insertions(+)
->>
->> diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
->> index 49ca2d8e1..4930aac8b 100644
->> --- a/man7/system_data_types.7
->> +++ b/man7/system_data_types.7
->> @@ -199,6 +199,45 @@ See also the
->>   .I float_t
->>   type in this page.
->>   .RE
->> +.\"------------------------------------- error_t ----------------------/
->> +.TP
->> +.I error_t
->> +.RS
->> +Include:
->> +.IR <argz.h> ,
->> +or
->> +.IR <envz.h> .
->> +Alternatively,
->> +.IR <errno.h> .
->> +.PP
->> +An integer type
->> +used for error reporting.
->> +A value of 0 means success, and nonzero means failure.
->> +Portable programs should use
->> +.I int
->> +instead.
->> +.PP
->> +Conforming to:
->> +Present in glibc.
->> +It is not standardized by the C language standard nor POSIX.
->> +.PP
->> +Notes:
->> +C11 standardized a similar type as an optional extension:
->> +.IR errno_t .
->> +However,
->> +.I errno_t
->> +is not present in POSIX.
->> +.PP
->> +.I <errno.h>
->> +defines this type if the macro
->> +.B _GNU_SOURCE
->> +is defined before including the header.
->> +.PP
->> +See also:
->> +.BR argz_add (3),
->> +.BR envz_add (3),
->> +.BR feature_test_macros (7)
->> +.RE
->>   .\"------------------------------------- fd_set -----------------------/
->>   .TP
->>   .I fd_set
-> 
-> 
-> So, I must say that I am skeptical about adding this type to the page.
-> There is a trade-off between having useful info and creating a page
-> that becomes so large that it becomes unwieldy.
-> 
-> error_t is an obscure [1], nonstandard type used by two API sets
-> (one of which is roughly a special case of the other). I'm so far
-> unconvinced of the value of adding this typr to the page.
-
 Hi Michael,
 
-Agreed.
+On 2020-10-27 06:54, Michael Kerrisk (man-pages) wrote:
+> Hi Alex,
+> 
+> On 10/26/20 11:34 PM, Alejandro Colomar wrote:
+>> Remove comment specifying the layout of the page.
+>>
+>> The page has grown enough to document the layout by itself.
+>> Anything that is not clear enough in the current layout
+>> should follow documented conventions.
+>>
+>> This comment is not needed anymore.
+> 
+> I think there's still some value in retaining this comment!
+> IMO, it's not completely obvious how each type should be
+> described from simply reading the existing entries.
 
-That type should never be used IMO,
-so I guess the line you added should be enough.
+
+Okay.
+I'll keep this patch in the 'rejected' branch,
+and maybe some day I'll pick it again :)
+
+> 
+> If we retain the comment, the "Notes" piece could
+> definitely be removed though.
+
+
+I'm not sure what you mean about this.
 
 Cheers,
 
 Alex
-
-> 
-> Cheers,
-> 
-> Michael
-> 
-> [1] Before Jonny Grant's mail yesterday, which I presume was
-> the inspiration for this patch, I had either neither heard of
-> the type or at least long ago forgotten about it.
-> 
