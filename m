@@ -2,98 +2,103 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 18F0229A995
-	for <lists+linux-man@lfdr.de>; Tue, 27 Oct 2020 11:27:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0F7C629A9D8
+	for <lists+linux-man@lfdr.de>; Tue, 27 Oct 2020 11:40:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2898093AbgJ0K1E (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 27 Oct 2020 06:27:04 -0400
-Received: from mail-wm1-f67.google.com ([209.85.128.67]:50311 "EHLO
-        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2898088AbgJ0K1E (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 27 Oct 2020 06:27:04 -0400
-Received: by mail-wm1-f67.google.com with SMTP id 13so838615wmf.0
-        for <linux-man@vger.kernel.org>; Tue, 27 Oct 2020 03:27:02 -0700 (PDT)
+        id S2898131AbgJ0K2v (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 27 Oct 2020 06:28:51 -0400
+Received: from mail-lj1-f194.google.com ([209.85.208.194]:32911 "EHLO
+        mail-lj1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2898049AbgJ0K2u (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 27 Oct 2020 06:28:50 -0400
+Received: by mail-lj1-f194.google.com with SMTP id c21so1168209ljj.0
+        for <linux-man@vger.kernel.org>; Tue, 27 Oct 2020 03:28:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=E0IvkJpeb17WVVy1YAWAp3rH+0DoT1wqD/wM6BAm3Fs=;
-        b=lQ9Y+xCqB2lGSWPDXKif9SN84cWw9/qiTzPtw6PlaDK+TF2XRr2WP8Kl1m5OGnTqaT
-         pcoNEcIlLk2tb6D/YoRchfPQsWan7s0umF8EW8kM5IjDV7POJ8qkYho7DehZOSE/ml3S
-         esHLt++QBbjrY56iYc2/KqwV6LckhTcSt/bfMJ/Pi1UfaB4d0UbE99ijaLetwmTuXx1i
-         mAFn4eflL+qrmj7+wrKPbeSpbm7XVCipOxI+qN1d0YxhlKLxbG4yEaGOdv2PezeRqizc
-         D2jyjC3IxRp8m0z4F/MZD06OooAqjreBamrW8RjZo2uzZTH1PgI0FEkuB/x6bfedYmDp
-         L3XA==
+        d=google.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=SXBs8vJX4cJod5E0ma8hUPOwIJojpK61dnpKV/ODZKw=;
+        b=SX3vumt+l2xFwFJ7RtGU6f2QwqvLXBNvJIBGPSr2ScNXfHRvXmCpg0n+1g5TYU5nLS
+         er6t1l0zNORBj09H+ZooUZPlhEvAKaZMbyK0tHvjx0xf52Lc9zV+/VxaRuXfwO4j3DZS
+         BSNoLT8j8uzFqjMddbNAbinjHbTmVWxpugf1ax7hBpEqrp2fvnzsaWEb4iG/OB2c4AIp
+         FrLQX+f5C4iZYd6tWM5RnEW7S020S60vUQngFeSZlbJMHUEJWPe4WaELOPFP4YaGQrF2
+         Er58dEZ1XpSNCN8LI1ddVAiSEzdRCBcuY84l0Wi5OvgFYxs5XmBA8iYYSQdbkdikXUET
+         gTzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=E0IvkJpeb17WVVy1YAWAp3rH+0DoT1wqD/wM6BAm3Fs=;
-        b=Auv7F3NZWaTTDpfuPSNz7y+B0urSosG4A+AWw6DQrVcm47u96fXo8mMz5q0Mb1Ksg+
-         miE6cx5gt/2SRq+bpyWZZPJzL7qU73c7g5bG4BRBNBmcFVDqZpnGOIkbDeBdGX/EuoQD
-         /mfMXAA9+7JaSEaYr8934QuIUvpHVVI22Zlvf0TtaOKsvVCtxEYoCYYmXcXeVzs71fdH
-         SsSO+c+/2ntPVNwofdGuh4W49pUe8N5PCZYGl/b53N6aTiNesSVOE60dsn7jPXmaRcK1
-         JK7NQPV8qFy/1LhjZg6AIeX/cg62dx1xk6Bez+AghEsj6IxFQPKBVq+zoyNiEMoQjY9L
-         l2qg==
-X-Gm-Message-State: AOAM532MZ3ru/PI5VjQp86MF1uRJ6CrVmt1T86JysF9YBbrFrhcbaw2x
-        lfz3nes1+XcZuZHuhfTIPVKrdrrxLlU=
-X-Google-Smtp-Source: ABdhPJyCwH0xaGUsxTQrw8VpS5lpwYkqdLnb2hNKGblFDoa19oQy2Nd21MnEWO12Dw0Hslk7Vbwx3w==
-X-Received: by 2002:a05:600c:228b:: with SMTP id 11mr1965706wmf.147.1603794421986;
-        Tue, 27 Oct 2020 03:27:01 -0700 (PDT)
-Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id i33sm1533243wri.79.2020.10.27.03.27.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2020 03:27:01 -0700 (PDT)
-Subject: Re: [PATCH] system_data_types.7: srcfix
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <20201026223450.28183-1-colomar.6.4.3@gmail.com>
- <0a104f3b-fdce-f094-7dee-966378b6f760@gmail.com>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <38963a74-d34e-03f3-06c2-60df7451327c@gmail.com>
-Date:   Tue, 27 Oct 2020 11:27:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=SXBs8vJX4cJod5E0ma8hUPOwIJojpK61dnpKV/ODZKw=;
+        b=C1nOBNhgUc5c9bqUs2hX3d+HhjNkFYoWadpo/6ejoce/opnF+3BGVhHTDdM8jnEbvm
+         wTq3y/Swmgm0wOb2VV5MaMT58jOBZ0QMZuz0lXiPGza45ytlM6NQl7vKhJ35KL/AY/+k
+         m/p7+0ZBkimo+XOlxLTkTiskq2WJp1Bk+IR3D0zHB9s1JNAHNQG4gGx9zJ5Pq5AplfML
+         P8J6DtpWSuv5UCbnHcsmiBq8R1mFKyO/P8B/Nk2IabIvNF7eCGgn9H0FCY8jwqYdB7F5
+         Sc5lNJ1OzTxot1rVNvQPx25QrDijP9QHIEThmEmR6NPBmWfcYUsrNo84i54gxJwWLrld
+         6bcg==
+X-Gm-Message-State: AOAM530cVtqK2V2rGOCnSdWfj62y0W6ajc4CXSNSSRDdNp9FdyVrpkKl
+        vre3fkAU6ufis5vcbeNIU65SmGFlG6S9Cl0+AKNfKQ==
+X-Google-Smtp-Source: ABdhPJxJshhNft3hUOxXAULUlOUPgHVANJYgBC/Mm8PWirgk1D2JwvX0yuxEiO1qIxFs4Z4pw393eScZt+DPrsMeX1c=
+X-Received: by 2002:a2e:9c84:: with SMTP id x4mr750615lji.326.1603794527981;
+ Tue, 27 Oct 2020 03:28:47 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <0a104f3b-fdce-f094-7dee-966378b6f760@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
+ <20200930150330.GC284424@cisco> <8bcd956f-58d2-d2f0-ca7c-0a30f3fcd5b8@gmail.com>
+ <20200930230327.GA1260245@cisco> <CAG48ez1VOUEHVQyo-2+uO7J+-jN5rh7=KmrMJiPaFjwCbKR1Sg@mail.gmail.com>
+ <20200930232456.GB1260245@cisco> <CAG48ez2xn+_KznEztJ-eVTsTzkbf9CVgPqaAk7TpRNAqbdaRoA@mail.gmail.com>
+ <CAG48ez3kpEDO1x_HfvOM2R9M78Ach9O_4+Pjs-vLLfqvZL+13A@mail.gmail.com>
+ <656a37b5-75e3-0ded-6ba8-3bb57b537b24@gmail.com> <CAG48ez2Uy8=Tz9k1hcr0suLPHjbJi1qUviSGzDQ-XWEGsdNU+A@mail.gmail.com>
+ <e2643168-b5d5-4d8c-947a-7895bcabc268@gmail.com>
+In-Reply-To: <e2643168-b5d5-4d8c-947a-7895bcabc268@gmail.com>
+From:   Jann Horn <jannh@google.com>
+Date:   Tue, 27 Oct 2020 11:28:20 +0100
+Message-ID: <CAG48ez2Nb95ae+XwZPYRju1KO-Ps_4R6QxN6ioUhOy2Uok=uAg@mail.gmail.com>
+Subject: Re: For review: seccomp_user_notif(2) manual page
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Tycho Andersen <tycho@tycho.pizza>,
+        Sargun Dhillon <sargun@sargun.me>,
+        Kees Cook <keescook@chromium.org>,
+        Christian Brauner <christian@brauner.io>,
+        linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Aleksa Sarai <cyphar@cyphar.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
+        Song Liu <songliubraving@fb.com>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Linux Containers <containers@lists.linux-foundation.org>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        Robert Sesek <rsesek@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+On Tue, Oct 27, 2020 at 7:14 AM Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+> On 10/26/20 4:54 PM, Jann Horn wrote:
+> > I'm a bit on the fence now on whether non-blocking mode should use
+> > ENOTCONN or not... I guess if we returned ENOENT even when there are
+> > no more listeners, you'd have to disambiguate through the poll()
+> > revents, which would be kinda ugly?
+>
+> I must confess, I'm not quite clear on which two cases you
+> are trying to distinguish. Can you elaborate?
 
-On 2020-10-27 06:54, Michael Kerrisk (man-pages) wrote:
-> Hi Alex,
-> 
-> On 10/26/20 11:34 PM, Alejandro Colomar wrote:
->> Remove comment specifying the layout of the page.
->>
->> The page has grown enough to document the layout by itself.
->> Anything that is not clear enough in the current layout
->> should follow documented conventions.
->>
->> This comment is not needed anymore.
-> 
-> I think there's still some value in retaining this comment!
-> IMO, it's not completely obvious how each type should be
-> described from simply reading the existing entries.
+Let's say someone writes a program whose responsibilities are just to
+handle seccomp events and to listen on some other fd for commands. And
+this is implemented with an event loop. Then once all the target
+processes are gone (including zombie reaping), we'll start getting
+EPOLLERR.
 
+If NOTIF_RECV starts returning -ENOTCONN at this point, the event loop
+can just call into the seccomp logic without any arguments; it can
+just call NOTIF_RECV one more time, see the -ENOTCONN, and terminate.
+The downside is that there's one more error code userspace has to
+special-case.
+This would be more consistent with what we'd be doing in the blocking case.
 
-Okay.
-I'll keep this patch in the 'rejected' branch,
-and maybe some day I'll pick it again :)
+If NOTIF_RECV keeps returning -ENOENT, the event loop has to also tell
+the seccomp logic what the revents are.
 
-> 
-> If we retain the comment, the "Notes" piece could
-> definitely be removed though.
-
-
-I'm not sure what you mean about this.
-
-Cheers,
-
-Alex
+I guess it probably doesn't really matter much.
