@@ -2,62 +2,51 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C7C5A29BD8B
-	for <lists+linux-man@lfdr.de>; Tue, 27 Oct 2020 17:49:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4D14829BE92
+	for <lists+linux-man@lfdr.de>; Tue, 27 Oct 2020 17:57:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1811798AbgJ0Qmf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 27 Oct 2020 12:42:35 -0400
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:45655 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1802032AbgJ0Qmb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 27 Oct 2020 12:42:31 -0400
-Received: by mail-wr1-f67.google.com with SMTP id e17so2633887wru.12
-        for <linux-man@vger.kernel.org>; Tue, 27 Oct 2020 09:42:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=lDnSx6ODKjeV6qkIAQSz+a3TFCNYhJHCIvuFxtCkJp4=;
-        b=ab6cKouZzm7C3WvbfgLkfLcI/c64ukqOZv6IEy5/iQJr4FB+4eYZh+CR7pxQgTCm3R
-         h8QcaCGi5gz9KjWK4BpqzqLO3YNEN7Y9x/v9itJlmT8UXD7VBAThmjRe4NPMRWAgs6ad
-         i2i2qj4eQJ3XfA2/LlrMopzmPH+wqajZOVqlND2cb85d4Z5AfOEBievf/3auwv8kC8zd
-         bpBPLRkdH1k3F+8qLkj4pfu2hDQ5HDUlRvEZ09XfevUm+LCX8o0tY5wi3/VPRooC5slQ
-         /wWGBiEpWr7ckG9JM7tIYwiBSUb5NVc6d6ogb3zcFjLGSnhW4eFVwHNXIwxfIVYsZQY+
-         F57w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=lDnSx6ODKjeV6qkIAQSz+a3TFCNYhJHCIvuFxtCkJp4=;
-        b=IP9LTgGstsK6NY7GjLdyeT0GK/Ire20aYkzN9AALJOutuGsEmhbE3uK5gNqr32FhNq
-         h4ltZvVttZDrMnuwl7b+OFwDO+H2tUDu0B2jRB5sdSCiUOzFh0kCthe1dx43CABgnrTp
-         wFPA0AX11+9E0nMODp379A0XLbHjHmDoM3DfjJuo7E8IlUCI0byCR5uGLCwNQ+4PmDNZ
-         /C7n88c2QzfpOvhjEKRIEJg/67S1Qtj7oFKsC7M/4lkNz7bDYAHJa7oaTCzvfp7WTfLr
-         2YwF1OFQVXR4Opx8wK2yYc5ZXPQNu5ZweHGi5qoGdoMBWfZjSuVPUp9qMMRITJVcDjzd
-         AZ+A==
-X-Gm-Message-State: AOAM531mrmOg4S/CJ7Cr/mRRntfurZQBFquOL/3aduY2nKE1P3WCMJPr
-        yyEeDHQCp6JDiHYxF3YVw9k=
-X-Google-Smtp-Source: ABdhPJzgKW67TbQAyHto/OCgjbv5jJL/+dEbKQzL9BA4WVSf1TAP3kiD6CVJDJ0HFWEdc187abwZ7Q==
-X-Received: by 2002:a5d:6681:: with SMTP id l1mr3951609wru.356.1603816948088;
-        Tue, 27 Oct 2020 09:42:28 -0700 (PDT)
-Received: from ?IPv6:2001:a61:245a:d801:2e74:88ad:ef9:5218? ([2001:a61:245a:d801:2e74:88ad:ef9:5218])
-        by smtp.gmail.com with ESMTPSA id a2sm2591415wrs.55.2020.10.27.09.42.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2020 09:42:27 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        libc-alpha@sourceware.org
-Subject: Re: [PATCH 5/6] system_data_types.7: Add 'off64_t'
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-References: <20201027162114.47521-1-colomar.6.4.3@gmail.com>
- <20201027162114.47521-6-colomar.6.4.3@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <4ccde54d-32a4-a560-39e3-d61e1e613762@gmail.com>
-Date:   Tue, 27 Oct 2020 17:42:26 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+        id S1813584AbgJ0QwF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 27 Oct 2020 12:52:05 -0400
+Received: from mga02.intel.com ([134.134.136.20]:31195 "EHLO mga02.intel.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1813141AbgJ0Qsb (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 27 Oct 2020 12:48:31 -0400
+IronPort-SDR: SG5A0/jqaTpytBk1TEhFegUwplx6AGZzEuGDtNpw8d1jSZz8F3wbDr8SJ8dHGAUUTOkT6Zv5ZT
+ RbBzUzlhIr3w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9787"; a="155087877"
+X-IronPort-AV: E=Sophos;i="5.77,424,1596524400"; 
+   d="scan'208";a="155087877"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2020 09:48:30 -0700
+IronPort-SDR: 999f4SZCkQh4jt4PoWuERWmMbxj0LbOq6PYtsIXn9iP9rfHIhf5z3uX5jG8jw6R2AC4MZxTSGp
+ WgV7OHpJgAqg==
+X-IronPort-AV: E=Sophos;i="5.77,424,1596524400"; 
+   d="scan'208";a="535869569"
+Received: from abudanko-mobl.ccr.corp.intel.com (HELO [10.249.227.94]) ([10.249.227.94])
+  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2020 09:48:27 -0700
+From:   Alexey Budankov <alexey.budankov@linux.intel.com>
+Subject: [PATCH v2] perf_event_open.2: update the man page with CAP_PERFMON
+ related information
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Arnaldo Carvalho de Melo <acme@kernel.org>,
+        Jiri Olsa <jolsa@redhat.com>,
+        Namhyung Kim <namhyung@kernel.org>,
+        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Ingo Molnar <mingo@redhat.com>,
+        Andi Kleen <ak@linux.intel.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        "linux-security-module@vger.kernel.org" 
+        <linux-security-module@vger.kernel.org>,
+        linux-kernel <linux-kernel@vger.kernel.org>
+Organization: Intel Corp.
+Message-ID: <33c10554-c0ee-9e46-2946-67a9deac6752@linux.intel.com>
+Date:   Tue, 27 Oct 2020 19:48:25 +0300
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <20201027162114.47521-6-colomar.6.4.3@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -65,69 +54,105 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 10/27/20 5:21 PM, Alejandro Colomar wrote:
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> ---
->  man7/system_data_types.7 | 31 +++++++++++++++++++++++++++++++
->  1 file changed, 31 insertions(+)
 
-I think we shouldn't document this.
-See https://www.opengroup.org/platform/lfs.html
+Extend perf_event_open 2 man page with the information about
+CAP_PERFMON capability designed to secure performance monitoring
+and observability operation in a system according to the principle
+of least privilege [1] (POSIX IEEE 1003.1e, 2.2.2.39).
 
-This type, and the _LARGEFILE64_SOURCE macro date
-to a time of transition in the 1990s. It's largely
-irrelevant now, i think.
+[1] https://sites.google.com/site/fullycapable/, posix_1003.1e-990310.pdf
 
-Thanks,
+Signed-off-by: Alexey Budankov <alexey.budankov@linux.intel.com>
+---
+ man2/perf_event_open.2 | 32 ++++++++++++++++++++++++++++++--
+ 1 file changed, 30 insertions(+), 2 deletions(-)
 
-Michael
-
-> diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-> index 313cf059e..0558060d3 100644
-> --- a/man7/system_data_types.7
-> +++ b/man7/system_data_types.7
-> @@ -751,6 +751,37 @@ and
->  .I off_t
->  types in this page.
->  .RE
-> +.\"------------------------------------- off64_t ----------------------/
-> +.TP
-> +.I off64_t
-> +.RS
-> +.IR Include :
-> +.IR <sys/types.h> .
-> +.PP
-> +Used for file sizes.
-> +It is a 64-bit signed integer type.
-> +.PP
-> +.IR "Conforming to" :
-> +Present in glibc.
-> +It is not standardized by the C language standard nor POSIX.
-> +.PP
-> +.IR Notes :
-> +The feature test macro
-> +.B _LARGEFILE64_SOURCE
-> +has to be defined for this type to be available.
-> +.PP
-> +.IR "See also" :
-> +.BR readahead (2),
-> +.BR sync_file_range (2),
-> +.BR lseek64 (3),
-> +.BR feature_test_macros (7)
-> +.PP
-> +See also the
-> +.I loff_t
-> +and
-> +.I off_t
-> +types in this page.
-> +.RE
->  .\"------------------------------------- off_t ------------------------/
->  .TP
->  .I off_t
-> 
-
-
+diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
+index 4827a359d..9810bc554 100644
+--- a/man2/perf_event_open.2
++++ b/man2/perf_event_open.2
+@@ -97,6 +97,8 @@ when running on the specified CPU.
+ .BR "pid == \-1" " and " "cpu >= 0"
+ This measures all processes/threads on the specified CPU.
+ This requires
++.B CAP_PERFMON
++(since Linux 5.8) or
+ .B CAP_SYS_ADMIN
+ capability or a
+ .I /proc/sys/kernel/perf_event_paranoid
+@@ -108,9 +110,11 @@ This setting is invalid and will return an error.
+ When
+ .I pid
+ is greater than zero, permission to perform this system call
+-is governed by a ptrace access mode
++is governed by
++.B CAP_PERFMON
++(since Linux 5.9) and a ptrace access mode
+ .B PTRACE_MODE_READ_REALCREDS
+-check; see
++check on older Linux versions; see
+ .BR ptrace (2).
+ .PP
+ The
+@@ -2925,6 +2929,8 @@ to hold the result.
+ This allows attaching a Berkeley Packet Filter (BPF)
+ program to an existing kprobe tracepoint event.
+ You need
++.B CAP_PERFMON
++(since Linux 5.8) or
+ .B CAP_SYS_ADMIN
+ privileges to use this ioctl.
+ .IP
+@@ -2967,6 +2973,8 @@ have multiple events attached to a tracepoint.
+ Querying this value on one tracepoint event returns the id
+ of all BPF programs in all events attached to the tracepoint.
+ You need
++.B CAP_PERFMON
++(since Linux 5.8) or
+ .B CAP_SYS_ADMIN
+ privileges to use this ioctl.
+ .IP
+@@ -3175,6 +3183,8 @@ it was expecting.
+ .TP
+ .B EACCES
+ Returned when the requested event requires
++.B CAP_PERFMON
++(since Linux 5.8) or
+ .B CAP_SYS_ADMIN
+ permissions (or a more permissive perf_event paranoid setting).
+ Some common cases where an unprivileged process
+@@ -3296,6 +3306,8 @@ setting is specified.
+ It can also happen, as with
+ .BR EACCES ,
+ when the requested event requires
++.B CAP_PERFMON
++(since Linux 5.8) or
+ .B CAP_SYS_ADMIN
+ permissions (or a more permissive perf_event paranoid setting).
+ This includes setting a breakpoint on a kernel address,
+@@ -3326,6 +3338,22 @@ The official way of knowing if
+ support is enabled is checking
+ for the existence of the file
+ .IR /proc/sys/kernel/perf_event_paranoid .
++.PP
++.B CAP_PERFMON
++capability (since Linux 5.8) provides secure approach to
++performance monitoring and observability operations in a system
++according to the principal of least privilege (POSIX IEEE 1003.1e).
++Accessing system performance monitoring and observability operations
++using
++.B CAP_PERFMON
++rather than the much more powerful
++.B CAP_SYS_ADMIN
++excludes chances to misuse credentials and makes operations more secure.
++.B CAP_SYS_ADMIN
++usage for secure system performance monitoring and observability
++is discouraged with respect to
++.B CAP_PERFMON
++capability.
+ .SH BUGS
+ The
+ .B F_SETOWN_EX
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.24.1
+
