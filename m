@@ -2,95 +2,122 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E3E3D29D991
-	for <lists+linux-man@lfdr.de>; Wed, 28 Oct 2020 23:57:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id EBEDA29DA7B
+	for <lists+linux-man@lfdr.de>; Thu, 29 Oct 2020 00:23:52 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2389855AbgJ1W4J (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 28 Oct 2020 18:56:09 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60110 "EHLO
+        id S1733098AbgJ1XXp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 28 Oct 2020 19:23:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36108 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2389704AbgJ1W4J (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Oct 2020 18:56:09 -0400
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com [IPv6:2607:f8b0:4864:20::62d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B3CC3C0613D1
-        for <linux-man@vger.kernel.org>; Wed, 28 Oct 2020 15:56:08 -0700 (PDT)
-Received: by mail-pl1-x62d.google.com with SMTP id j5so361152plk.7
-        for <linux-man@vger.kernel.org>; Wed, 28 Oct 2020 15:56:08 -0700 (PDT)
+        with ESMTP id S2388156AbgJ1XVo (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Oct 2020 19:21:44 -0400
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A2010C0613CF;
+        Wed, 28 Oct 2020 16:21:44 -0700 (PDT)
+Received: by mail-wm1-x342.google.com with SMTP id c18so805288wme.2;
+        Wed, 28 Oct 2020 16:21:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=6zGOuhTIRZSvVyxx3m4aE8CgCO2YW8w7ueb9xYPds3c=;
-        b=SEdMz9fsLWNQgMVzf4o0RAPD/AcIAPbuNHJfefzMBnk/O9d9g6sgbDmqXfCec5Xzxj
-         caBrjlmHD8fifIVTuqhHxUI5XhRh2T890Af5tLexqvSiZ266TQyAe+pQq/Xy1hRXF9YR
-         +U+lTkSiEjRN3SU9Xq1u0+VGj18uqELgouFRA=
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=IFTKNyt6bqnALkRjbZh3PaGE+gNdZmwnLOvwA8w0udo=;
+        b=Is8OAdSDbUBGpapP6gU+ECc+UFO8bxEyRVyr+SGzFJNtgijRgomcOI8O7hKH/WCqnI
+         Gn4Rko/CgvByT7E1lD6BqZghyskw4NztIynT0Q7Eupe2Rj/W9DsIInbweKEqC+jWH9NG
+         VHgFDB+KNlKnX0Q89Tevk0AVqW4rJbT/obreTxyFWKOCvGUsFGI1xmw+FmFWqYaO0S8Q
+         2Ca/eVEsrGhIljneUYC8p8WUMaXbJXvU31U91KMKBgbAVESP0+d4KwkZVO+tzrAKo2++
+         NrYEK/arMKe6kmqTalsDMpskNRMj2u+17USSWQMr6xuWxo6c2/tqHYPDxv74EzQuA7eo
+         sdJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=6zGOuhTIRZSvVyxx3m4aE8CgCO2YW8w7ueb9xYPds3c=;
-        b=GjqqafRT+ELtaRaXboOn6A3nIauV9wcb61ymfExb3UTYHl2PEJMZJNAspkXbWcKZrX
-         x0e1HfCKlg0R0TBBRPdLfRVnjNOoyPOE9cMTHoRibh27FnHDc43U++m0Qwnri/pu6mkh
-         7n0c1/7mKiAzbJO4US4gqQP8nf6XkU1CthJBE2EzOVmBWefwnTlF3vwQlUz8bZjyDi7w
-         fA2gh2xzaga1QZutvTy+0KetT36WBdvP4wk9UmlQSRtj9aJxwP9Rofj6i69rb1S9gQYn
-         aJIYGk+Dy4phD/vWvpgBp/kf3K5Z/047RMiw/DJ5kJz7iQDDWBAdUCb4/Cn0P/TtC5EB
-         q8+w==
-X-Gm-Message-State: AOAM531QKGUTv+BP+SlDZek8BizO0gTltniZPA7EduJgAbTNqIHS4yaW
-        sZijB5rZGVDBRnAF224evTMbUQ==
-X-Google-Smtp-Source: ABdhPJwAExtMg0Y9nbbQflCfUuQOXDWjgWSEdOk1MQhIgdQjFdwVeqs8tTy00tz6CV1C4vksZxX49Q==
-X-Received: by 2002:a17:902:b90c:b029:d6:868d:f566 with SMTP id bf12-20020a170902b90cb02900d6868df566mr913093plb.2.1603925768287;
-        Wed, 28 Oct 2020 15:56:08 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
-        by smtp.gmail.com with ESMTPSA id m129sm637972pfd.177.2020.10.28.15.56.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2020 15:56:07 -0700 (PDT)
-Date:   Wed, 28 Oct 2020 15:56:06 -0700
-From:   Kees Cook <keescook@chromium.org>
-To:     Jann Horn <jannh@google.com>
-Cc:     Tycho Andersen <tycho@tycho.pizza>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Sargun Dhillon <sargun@sargun.me>,
-        Christian Brauner <christian@brauner.io>,
-        linux-man <linux-man@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Aleksa Sarai <cyphar@cyphar.com>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
-        Song Liu <songliubraving@fb.com>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Andy Lutomirski <luto@amacapital.net>,
-        Linux Containers <containers@lists.linux-foundation.org>,
-        Giuseppe Scrivano <gscrivan@redhat.com>,
-        Robert Sesek <rsesek@google.com>
-Subject: Re: For review: seccomp_user_notif(2) manual page
-Message-ID: <202010281553.A72E162A7@keescook>
-References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
- <20200930150330.GC284424@cisco>
- <8bcd956f-58d2-d2f0-ca7c-0a30f3fcd5b8@gmail.com>
- <20200930230327.GA1260245@cisco>
- <CAG48ez1VOUEHVQyo-2+uO7J+-jN5rh7=KmrMJiPaFjwCbKR1Sg@mail.gmail.com>
- <20200930232456.GB1260245@cisco>
- <CAG48ez2xn+_KznEztJ-eVTsTzkbf9CVgPqaAk7TpRNAqbdaRoA@mail.gmail.com>
- <202010251725.2BD96926E3@keescook>
- <CAG48ez2b-fnsp8YAR=H5uRMT4bBTid_hyU4m6KavHxDko1Efog@mail.gmail.com>
- <CAG48ez2OWhpH3HHUJSrAmokJ8=SVwKrmQMSw0gEbTJmKE4myCw@mail.gmail.com>
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=IFTKNyt6bqnALkRjbZh3PaGE+gNdZmwnLOvwA8w0udo=;
+        b=YW/vI1w7pzJQq6aYqyuDU5Nw7vZbAqatSNFL5cJEiSzVhHZ7cPOGprOmkk+mGhuFmb
+         gl0PHj1xfqU4CC5pGqCBp6sutAC7gdotrV7uy+k89/SOIeean2GkkFgljEY+mdtit2bu
+         +u+VhfHlkbiOUV40AjlOs3BFbjskfIbF7/PMLONdOi+EykAGtcyc0rPg+6ZnWlwXYmL5
+         QYa1ci2muq6PTBphOv/yPBpG6mnSPIxsjuKEaBEdKeNp5ZmHC1ZBfrAlk4O/sHi22vmj
+         k64UfcFQHweEO766fFWycwEyn6Qxbd1Nw+DZ2A+CMPw4cv9m641+7C4QCQ2e1YQfiDcD
+         6eOQ==
+X-Gm-Message-State: AOAM531ntrjY7wxdknY3vzowcU0OkAnL/TcE0IKE5Nj/0yWuJBHVTD5a
+        SCnf+BXJy5AuOpT073DRy9Vgwa29QI0=
+X-Google-Smtp-Source: ABdhPJw7xUyzdI7CmYnSIQklZjolAqGtHWtMweqNApcd5oK1NgKUgJOYjgImayhtnTplz5xKq8R+CA==
+X-Received: by 2002:a1c:44d4:: with SMTP id r203mr6670734wma.152.1603865586688;
+        Tue, 27 Oct 2020 23:13:06 -0700 (PDT)
+Received: from ?IPv6:2001:a61:245a:d801:2e74:88ad:ef9:5218? ([2001:a61:245a:d801:2e74:88ad:ef9:5218])
+        by smtp.gmail.com with ESMTPSA id z6sm3442160wmi.1.2020.10.27.23.13.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2020 23:13:06 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com
+Subject: Re: [patch] socket.7: document SO_INCOMING_NAPI_ID
+To:     Sridhar Samudrala <sridhar.samudrala@intel.com>,
+        linux-man@vger.kernel.org, netdev@vger.kernel.org
+References: <1603847722-29024-1-git-send-email-sridhar.samudrala@intel.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <b3df59a9-a2c3-20c8-7563-e974e596dd2a@gmail.com>
+Date:   Wed, 28 Oct 2020 07:13:03 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAG48ez2OWhpH3HHUJSrAmokJ8=SVwKrmQMSw0gEbTJmKE4myCw@mail.gmail.com>
+In-Reply-To: <1603847722-29024-1-git-send-email-sridhar.samudrala@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Oct 26, 2020 at 11:31:01AM +0100, Jann Horn wrote:
-> Or I guess we could also just set O_NONBLOCK on the fd by default?
-> Since the one existing user is eventloop-based...
+On 10/28/20 2:15 AM, Sridhar Samudrala wrote:
+> Add documentation for SO_INCOMING_NAPI_ID in socket.7 man page.
 
-I thought about that initially, but it rubs me the wrong way: it
-violates least-surprise for me. File descriptors are expected to be
-default-blocking. It *is* a special fd, though, so maybe it could work.
-The only case I can think of it would break would be ioctl-loop case
-that is already buggy in that it didn't handle non-zero returns?
+Hello Sridhar,
+
+Thank you!
+
+Would it be possible for you to resubmit the patch, with a commit
+message that says how you obtained or verified the information.
+This info is useful for review, but also for understand changes
+when people look at the history in the future.
+
+Also, please start new sentences on new lines (so-called
+semantic newlines).
+
+Thanks,
+
+Michael
+
+> Signed-off-by: Sridhar Samudrala <sridhar.samudrala@intel.com>
+> ---
+>  man7/socket.7 | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/man7/socket.7 b/man7/socket.7
+> index 850d3162f..1f38273e9 100644
+> --- a/man7/socket.7
+> +++ b/man7/socket.7
+> @@ -519,6 +519,18 @@ This provides optimal NUMA behavior and keeps CPU caches hot.
+>  .\" SO_REUSEPORT logic, selecting the socket to receive the packet, ignores
+>  .\" SO_INCOMING_CPU setting.
+>  .TP
+> +.BR SO_INCOMING_NAPI_ID " (gettable since Linux 4.12)"
+> +.\" getsockopt 6d4339028b350efbf87c61e6d9e113e5373545c9
+> +Returns a system level unique ID called NAPI ID that is associated with a RX
+> +queue on which the last packet associated with that socket is received.
+> +.IP
+> +This can be used by an application to split the incoming flows among worker
+> +threads based on the RX queue on which the packets associated with the flows
+> +are received. It allows each worker thread to be associated with a NIC HW
+> +receive queue and service all the connection requests received on that RX
+> +queue. This mapping between a app thread and a HW NIC queue streamlines the
+> +flow of data from the NIC to the application.
+> +.TP
+>  .B SO_KEEPALIVE
+>  Enable sending of keep-alive messages on connection-oriented sockets.
+>  Expects an integer boolean flag.
+> 
+
 
 -- 
-Kees Cook
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
