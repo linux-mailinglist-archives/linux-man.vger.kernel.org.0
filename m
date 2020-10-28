@@ -2,90 +2,94 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 43DD129E04A
-	for <lists+linux-man@lfdr.de>; Thu, 29 Oct 2020 02:21:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4A8E429E0C5
+	for <lists+linux-man@lfdr.de>; Thu, 29 Oct 2020 02:36:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2390961AbgJ2BMM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 28 Oct 2020 21:12:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53816 "EHLO
+        id S1727787AbgJ2BZV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 28 Oct 2020 21:25:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51054 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2404299AbgJ2BMJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Oct 2020 21:12:09 -0400
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com [IPv6:2a00:1450:4864:20::12e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4709AC0613CF
-        for <linux-man@vger.kernel.org>; Wed, 28 Oct 2020 18:12:08 -0700 (PDT)
-Received: by mail-lf1-x12e.google.com with SMTP id l28so1176177lfp.10
-        for <linux-man@vger.kernel.org>; Wed, 28 Oct 2020 18:12:08 -0700 (PDT)
+        with ESMTP id S1729765AbgJ1WDj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Oct 2020 18:03:39 -0400
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com [IPv6:2a00:1450:4864:20::633])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0DC17C0613CF
+        for <linux-man@vger.kernel.org>; Wed, 28 Oct 2020 15:03:39 -0700 (PDT)
+Received: by mail-ej1-x633.google.com with SMTP id dk16so462484ejb.12
+        for <linux-man@vger.kernel.org>; Wed, 28 Oct 2020 15:03:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=2+uYu86LDWGsnC4W37LGE2qpMcN2MpffcV3JWIw2MFQ=;
-        b=vciGCxCgV8AP2QARHScqr2zKoGS/+nJtrToSziCQ8d8h1NRdDiev7b4FY2OwCqgP1d
-         pQbxRv3nm4M5jbQFhB27QEFUsCLY1i6eh1m09u0GR/aIZBCnQqfxLzxjTF3jSSNq63Ix
-         7tc/61a9Eg7G4x1Q2ubkcaETyM84zF0DBSoX0Z35kXIp9RaUo5oEwdbRcGo1NCv5ThrS
-         xv91Ll0nIZQR9E4a8eCFWpzRS93StI1OfrXVYHm3aQtiSQCjRfQnJM7yFQeATQ7e3KqK
-         nI1O4QIZNutVL1kAoz9zNnzUTHY2AP0CtWCW2iHkQa6Wv2OlTNpHsTkIDscq6Ww8Qb6w
-         b/Cw==
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=qeoJsvydWnOUd9yEtskRUxqS01CD3Ds+J9GEXvyCJgY=;
+        b=h9SCt0Vtm5YjUnA5PgmfW8frnfMiXFEAk/FJ7ezjghfPXuA4yF4uxV7AIbLoPtje7C
+         V9+bGx+qWPRwyPWce58d8kknEb2opKY0RAkRqZEfgoo3ePkvfil6DPhtePwjyxjPITFe
+         76Y2ioUCHh8F01TjJcnVgPR2HeZjpW9XfbhdRKE/QwvMsbCa4MayOUHtyfXLj99XkDfe
+         v0ANXVeb9g6wUWUepi+TsUMbvokgz/83THIwqhXM9Mg4PfbtcC1uOwQg4pdRh1NW7x5x
+         OCYLeU3Qha24jN5rSNOTINt10k5hSyimmh9vjnKh4hyuw61EcfZP8uEN3hMUrOtOLbsc
+         ying==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=2+uYu86LDWGsnC4W37LGE2qpMcN2MpffcV3JWIw2MFQ=;
-        b=KW9ULIEPyhTqo+1qnafCgYeAnKyMTJwJOUISH4WuedLeht4PRler37tC+yPDouZgFG
-         S6tqg/Xc3X2Vp/TY92sjU4fXv3q6CT9mDhAKA6OPKYPRXleBRL6PjeQM5lWwg5asyBlR
-         gZ+DwKdiSFJ/MgHbRYIl8s0RQmCbL3e55+LX5YV2WR4EWuhIEe0JOSO3tUkvhFzhpc9p
-         J05x3RoCIHE0WEryNBHrUWEreAIxLF0oTbLraHSrpiCk5fuuk6utYE5RPE9Lmm2HomU3
-         QtmtYg0ozhnMg6LLkRrAAsR0hPpWC6C/d/mHD4a+40+0LpwfytyyRlYZO7PFGlk5umOy
-         4u7w==
-X-Gm-Message-State: AOAM5311maj4VTrqTDF0HHJTRz4jo3DEGBAr9nUgB2gQTOfus5Qjls0x
-        oLG1XxSvm0WFAgt1Rk3RBVU+RJgoT612di5/jO2mXA==
-X-Google-Smtp-Source: ABdhPJzzc/J1JBJXAToRCeQHDdOVsoNE6U9yTJzDUPWdlDCEb1Uk4v5ySj0pBCeZjS4xxD+zSOrd96XH4omhzWIDEkE=
-X-Received: by 2002:a19:83c1:: with SMTP id f184mr559337lfd.97.1603933926604;
- Wed, 28 Oct 2020 18:12:06 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=qeoJsvydWnOUd9yEtskRUxqS01CD3Ds+J9GEXvyCJgY=;
+        b=teNP0UdQRX4WT+kTPxATmqmaLA1iDBX64qtuYXtjih3du9dPCdnTe7nKHc11x8aOuh
+         RyjXlwl+XosU2MVbbqH5Pv6PGI8lE0PiYdO7UeE/DrrYued/GZnFaKrs6e6nhWzkBMov
+         Af5ZJJD8lKYUw48YVOm7JR3GryiKHzXbqSilfIhz1f05oeA2yzAzmAYacZySV42r8mcD
+         QoyZoa7F/RzABCLn0H+tcUApPTmOemqx5fz2MjvyxXAkKQbVb5UTj7+98f+FnsISXWHB
+         k5TFsGhkLoberE2mguzyPinGJ+lYQUwj33EVwQWGIbp091azTOPwRbyleGXraBaKJhrD
+         /2VA==
+X-Gm-Message-State: AOAM532+FcuJzO3G8oJlbod4TU8ggjQfO0EpVFuunPkhHwh5CM2lt1wI
+        /4xj1BvgCoNVKsDV061RFfFG9rX0xwk=
+X-Google-Smtp-Source: ABdhPJyxOofNHHACoq84FB/usJm7ekKPzyJbE5/XAw/tSL22t6kEt3rZYD3kg8vw7A7fOeUzUs1RNA==
+X-Received: by 2002:a05:6000:1051:: with SMTP id c17mr7477908wrx.290.1603877597971;
+        Wed, 28 Oct 2020 02:33:17 -0700 (PDT)
+Received: from localhost.localdomain ([170.253.60.68])
+        by smtp.googlemail.com with ESMTPSA id r18sm3631926wrj.50.2020.10.28.02.33.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2020 02:33:17 -0700 (PDT)
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: [PATCH 1/3] strtol.3: EXAMPLES: Delimit output string using ""
+Date:   Wed, 28 Oct 2020 10:33:06 +0100
+Message-Id: <20201028093308.86310-2-colomar.6.4.3@gmail.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20201028093308.86310-1-colomar.6.4.3@gmail.com>
+References: <20201028093308.86310-1-colomar.6.4.3@gmail.com>
 MIME-Version: 1.0
-References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
- <20200930150330.GC284424@cisco> <8bcd956f-58d2-d2f0-ca7c-0a30f3fcd5b8@gmail.com>
- <20200930230327.GA1260245@cisco> <CAG48ez1VOUEHVQyo-2+uO7J+-jN5rh7=KmrMJiPaFjwCbKR1Sg@mail.gmail.com>
- <20200930232456.GB1260245@cisco> <CAG48ez2xn+_KznEztJ-eVTsTzkbf9CVgPqaAk7TpRNAqbdaRoA@mail.gmail.com>
- <202010251725.2BD96926E3@keescook> <CAG48ez2b-fnsp8YAR=H5uRMT4bBTid_hyU4m6KavHxDko1Efog@mail.gmail.com>
- <CAG48ez2OWhpH3HHUJSrAmokJ8=SVwKrmQMSw0gEbTJmKE4myCw@mail.gmail.com> <202010281553.A72E162A7@keescook>
-In-Reply-To: <202010281553.A72E162A7@keescook>
-From:   Jann Horn <jannh@google.com>
-Date:   Thu, 29 Oct 2020 02:11:39 +0100
-Message-ID: <CAG48ez0FS49ki=RfO_nrSnwH32g9oRS73OSUOhz6tVh+YwCNLg@mail.gmail.com>
-Subject: Re: For review: seccomp_user_notif(2) manual page
-To:     Kees Cook <keescook@chromium.org>
-Cc:     Tycho Andersen <tycho@tycho.pizza>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Sargun Dhillon <sargun@sargun.me>,
-        Christian Brauner <christian@brauner.io>,
-        linux-man <linux-man@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Aleksa Sarai <cyphar@cyphar.com>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
-        Song Liu <songliubraving@fb.com>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Andy Lutomirski <luto@amacapital.net>,
-        Linux Containers <containers@lists.linux-foundation.org>,
-        Giuseppe Scrivano <gscrivan@redhat.com>,
-        Robert Sesek <rsesek@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Oct 28, 2020 at 11:56 PM Kees Cook <keescook@chromium.org> wrote:
-> On Mon, Oct 26, 2020 at 11:31:01AM +0100, Jann Horn wrote:
-> > Or I guess we could also just set O_NONBLOCK on the fd by default?
-> > Since the one existing user is eventloop-based...
->
-> I thought about that initially, but it rubs me the wrong way: it
-> violates least-surprise for me. File descriptors are expected to be
-> default-blocking. It *is* a special fd, though, so maybe it could work.
-> The only case I can think of it would break would be ioctl-loop case
-> that is already buggy in that it didn't handle non-zero returns?
+Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+---
+ man3/strtol.3 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-We don't have any actual users that use the API that way outside of
-the kernel's selftest/sample code, right?
+diff --git a/man3/strtol.3 b/man3/strtol.3
+index 20b453330..0feb12dbb 100644
+--- a/man3/strtol.3
++++ b/man3/strtol.3
+@@ -236,7 +236,7 @@ strtol() returned 123
+ strtol() returned 123
+ .RB "$" " ./a.out 123abc"
+ strtol() returned 123
+-Further characters after number: abc
++Further characters after number: "abc"
+ .RB "$" " ./a.out 123abc 55"
+ strtol: Invalid argument
+ .RB "$" " ./a.out \(aq\(aq"
+@@ -289,7 +289,7 @@ main(int argc, char *argv[])
+     printf("strtol() returned %ld\en", val);
+ 
+     if (*endptr != \(aq\e0\(aq)        /* Not necessarily an error... */
+-        printf("Further characters after number: %s\en", endptr);
++        printf("Further characters after number: \e"%s\e"\en", endptr);
+ 
+     exit(EXIT_SUCCESS);
+ }
+-- 
+2.28.0
+
