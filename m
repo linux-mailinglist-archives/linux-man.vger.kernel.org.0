@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6806129DA6F
-	for <lists+linux-man@lfdr.de>; Thu, 29 Oct 2020 00:23:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 05AEB29DAC1
+	for <lists+linux-man@lfdr.de>; Thu, 29 Oct 2020 00:29:22 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732963AbgJ1XXZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 28 Oct 2020 19:23:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36204 "EHLO
+        id S2390330AbgJ1X3P (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 28 Oct 2020 19:29:15 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37334 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2390210AbgJ1XWR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Oct 2020 19:22:17 -0400
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7A22DC0613D1
-        for <linux-man@vger.kernel.org>; Wed, 28 Oct 2020 16:22:17 -0700 (PDT)
-Received: by mail-wm1-x32d.google.com with SMTP id c18so805966wme.2
-        for <linux-man@vger.kernel.org>; Wed, 28 Oct 2020 16:22:17 -0700 (PDT)
+        with ESMTP id S2390353AbgJ1X3O (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Oct 2020 19:29:14 -0400
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 33F5EC0613CF
+        for <linux-man@vger.kernel.org>; Wed, 28 Oct 2020 16:29:14 -0700 (PDT)
+Received: by mail-wm1-x32f.google.com with SMTP id c16so835361wmd.2
+        for <linux-man@vger.kernel.org>; Wed, 28 Oct 2020 16:29:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=46N4tgi3bgbpVcXgbJGAa+AxZfK8SkorbOp4JcY9lBE=;
-        b=G4DYwfgRc2z/GfyKQdJnFY57JgHGKXdVy/rcbUO44r6fGqR5ARz2PCly6/Liu+Dxr7
-         ee8hpKHhQ4L9Y9J96MX6q0JTwo34KbUNyI9/Tk+dax7FS2h7JYW7/quY+b9ft0AoXMvT
-         P0HF7ekdnnHq6xY8D/7gYrzqVm8WE36XDQW2QwZuNpRwFRfkzQEZ8oLzRW5G7KUSAyZ0
-         hx0HkCSIH680nKMqKAgdyF8kOJtwyhAWMC6IH5O9rZlel7o9CCZrG1P/L82c5XWxRnss
-         2DsWUVrxjkaJpsbp9TacqmoR9gdtDQIvQYr/B2/AY7TRmNAS6vIyjOzftlr0w2k2LVYa
-         mZlw==
+        bh=0z9djjMmXj9bf/B4qKdBZRniBJLkKe0wl9x+zcdmqhU=;
+        b=MmRox+KulOQPh/7dtPIb0ppluapHSCW0Je9Y395SYc1KFSRkP4kKQJkJtbb94yalIT
+         y9W4wACJc72bYgSPDmk5MJfhWj3Ujh5WnadPqKTH0SlXn6eWVv/wx9QQ2wLS7J6+n8Rl
+         f/NALjXviU4AWfXDmZ/3/6eYeXM/aUuCZgHu3bxKs4oKXO2QioSu5WdBQ3hxwh5myxa3
+         jp/01i6AzOxKTv73mGqBb0V3/Pp2K72Ae1iy1ioYDOP6K85lZFkpYj3oUhgCWkz1jFG8
+         8FCgkGTWdws7WOBNE4o5RCXbHVIvTPbIhI2KSYeLRqYT3RAdk7ODqxQGJyvTLglIkJnq
+         gKSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=46N4tgi3bgbpVcXgbJGAa+AxZfK8SkorbOp4JcY9lBE=;
-        b=Oo1KbVtmDGN8chjEnwlQJ/oOtBMgLcYstVJwQhlhXFF2rIGkAtDR1cZkBI2BVz7zF3
-         OeZtzMjPVw1BmoIxqC/yTu+3PfmKQXFB6oG2HP7PemEh5exbNUFv9RoGpH8OUi0L6Ur7
-         ZbEwkuyPowenUdoyNWmD+rYHfNMbg/zbJpYIOEGCTuxS93OsCC7LnH7dx87JahzoAwet
-         a+Qfqe8+UrM1pHOXG6rTbkrUWKJig6lTW6vburvIl7JdkvEgSktWXXkXIPPvogo2pw10
-         8/1UIF4HhY7gcDZHfCxOgVncMOmEBhk4c6rnhSRMQedk05OOdYex8OC1U8Yf+OU5A8qt
-         b7xg==
-X-Gm-Message-State: AOAM532OH4EJtkLsd1GiaK0QAFt6O65QaO2OwC+S3q02NeE9NMZ2BE+5
-        Jf7fmTI4IW8ag+7z+e2rYH/VzVUnR4Q=
-X-Google-Smtp-Source: ABdhPJwFHV+ENCS0cLlnbQkxnsLvyqgeDq4jSM2czzUhocrONdVaP+MeLH164i9IBCjdb3bo3qAv/Q==
-X-Received: by 2002:a1c:b757:: with SMTP id h84mr6907036wmf.108.1603877599196;
-        Wed, 28 Oct 2020 02:33:19 -0700 (PDT)
+        bh=0z9djjMmXj9bf/B4qKdBZRniBJLkKe0wl9x+zcdmqhU=;
+        b=PzF4DmvbY7zLTt1DP483Yfbm+hHaDPOxyQrup/SDklsqSj0Q4uAuPIffoSV24ulXJy
+         epTUbgVBhMsrWG0Hf08exngwhHiT8rUoxp80x6fOM2kcXfRQlWxEJukE8Jvv4X5/ueqF
+         uLVrOn1XYVIWpwkHuy5rOzSuNNH4rES7WoKSFMiMuMzKB53te3Q7xhWyzzGSXWE9w7g4
+         UKBcaPMgz0brHJm0kJeglybP3wscQuTQAZqn82s9izfTljPlUY5+MtvedwkooOCDQJRW
+         hI/wXao98tZTQqAcVlW+6XX4Y4cFIfpfmns4L5aks+maYznn/DrNwXbyI62LSlLnKVbG
+         KuOA==
+X-Gm-Message-State: AOAM532nSVJ8pqRhdGq9yYjFTeVw6xoBzi9PjFALCzU1kPwSC78VjNOC
+        Rqwrzv6nEBD9OWVbMN4qyjH5ekxLhLA=
+X-Google-Smtp-Source: ABdhPJz9uiCu/90G4sFlHoaXGW5rpBAM/c6rbrhEpnN+hG/anqjxGi/zRgm7hS5/2PD6u5tU8zEGtw==
+X-Received: by 2002:a1c:6154:: with SMTP id v81mr7191734wmb.20.1603877600563;
+        Wed, 28 Oct 2020 02:33:20 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id r18sm3631926wrj.50.2020.10.28.02.33.18
+        by smtp.googlemail.com with ESMTPSA id r18sm3631926wrj.50.2020.10.28.02.33.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2020 02:33:18 -0700 (PDT)
+        Wed, 28 Oct 2020 02:33:19 -0700 (PDT)
 From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 2/3] strtol.3: EXAMPLES: As the default base, use special value 0
-Date:   Wed, 28 Oct 2020 10:33:07 +0100
-Message-Id: <20201028093308.86310-3-colomar.6.4.3@gmail.com>
+Subject: [PATCH 3/3] strtol.3: EXAMPLES: Simplify errno checking (no expected change in behavior)
+Date:   Wed, 28 Oct 2020 10:33:08 +0100
+Message-Id: <20201028093308.86310-4-colomar.6.4.3@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201028093308.86310-1-colomar.6.4.3@gmail.com>
 References: <20201028093308.86310-1-colomar.6.4.3@gmail.com>
@@ -65,22 +65,23 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 ---
- man3/strtol.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man3/strtol.3 | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/man3/strtol.3 b/man3/strtol.3
-index 0feb12dbb..35252295e 100644
+index 35252295e..6b328fefe 100644
 --- a/man3/strtol.3
 +++ b/man3/strtol.3
-@@ -266,7 +266,7 @@ main(int argc, char *argv[])
+@@ -273,8 +273,7 @@ main(int argc, char *argv[])
+ 
+     /* Check for various possible errors */
+ 
+-    if ((errno == ERANGE && (val == LONG_MAX || val == LONG_MIN))
+-            || (errno != 0 && val == 0)) {
++    if (errno != 0) {
+         perror("strtol");
+         exit(EXIT_FAILURE);
      }
- 
-     str = argv[1];
--    base = (argc > 2) ? atoi(argv[2]) : 10;
-+    base = (argc > 2) ? atoi(argv[2]) : 0;
- 
-     errno = 0;    /* To distinguish success/failure after call */
-     val = strtol(str, &endptr, base);
 -- 
 2.28.0
 
