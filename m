@@ -2,139 +2,152 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EA8DA29E0E5
-	for <lists+linux-man@lfdr.de>; Thu, 29 Oct 2020 02:45:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 62B1C29E3DC
+	for <lists+linux-man@lfdr.de>; Thu, 29 Oct 2020 08:23:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729112AbgJ2Bna (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 28 Oct 2020 21:43:30 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58624 "EHLO
+        id S1725993AbgJ2HVZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 29 Oct 2020 03:21:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54758 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729111AbgJ2Bn2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Oct 2020 21:43:28 -0400
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com [IPv6:2a00:1450:4864:20::22a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B1FDFC0613CF
-        for <linux-man@vger.kernel.org>; Wed, 28 Oct 2020 18:43:26 -0700 (PDT)
-Received: by mail-lj1-x22a.google.com with SMTP id m20so1357975ljj.5
-        for <linux-man@vger.kernel.org>; Wed, 28 Oct 2020 18:43:26 -0700 (PDT)
+        with ESMTP id S1725971AbgJ2HVD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Oct 2020 03:21:03 -0400
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 18658C08EA7D
+        for <linux-man@vger.kernel.org>; Thu, 29 Oct 2020 00:13:53 -0700 (PDT)
+Received: by mail-wm1-x343.google.com with SMTP id k18so1415771wmj.5
+        for <linux-man@vger.kernel.org>; Thu, 29 Oct 2020 00:13:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=geZ/oO3CDuXNyCg7XC5g4ztQiJhRJ6O3ZCqLsRDfncw=;
-        b=sLyaw6q6IpMdxy0i+OrwQjeQfMFuDOZH3wZnxjQU/9rDKBm6tuuxuSZwVs5vSb5WCr
-         dhr5wJNw0eYDPLOVlnAfChnG0rwQ3X3IxyOhhms90HJjdyXu5TJC0nW/joAq2f2CND/0
-         CfiNH8M48AdnqYWCsLEkk41NY0rIcwZgm0kQcdKN0ApOcudxbm6lIQIC9aN3G5/6sTDd
-         E0nFCedw0IDNiUhrY+kLYDTgjCvAEsr7GQTQqiccy0MVtif7ayBSqtuFcqw/pBfWXhhK
-         7t/SE3CAxJQ50Fz1/BKEQTbMkwVW/T9PhUh0MdDok3/8p8gBv5Oh9gBVe4i4ApP4av2Y
-         EmxQ==
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=Jt66Ro6ChwF7B4WUC9O1hydUy4hsd8CqZ72SMpMelMs=;
+        b=INwvDTh4fObfAFt44nEj74IOpvd0GQBwUhKw9SimO73RmNQBxBuL+RXTxGV8HPtEVj
+         airCl644lol8BI0Rf10XV7HKRnvv39U43fdAn3VqQt6T/Q5lIU9ZgjuLgeAQCgiWwnBL
+         rq3nNlfw6VylwJZviROPGZVI8cP4rcNyi5Yr1uMRXEpo1L7S3L8AE2mcKcZBswt+wlCX
+         ihNjS3mW1WWoJD9JGhwmo0sUUMg/KC4UM9x/gR3MTreH2IW13VgPjvSKIMzphn3csT8Z
+         q2HIekFzhSedbow1jNXjBUw47Dtbaji4rrzmJLRXUQIB6hnuwU5GzWfHj9H7AuTndJ1V
+         M2cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=geZ/oO3CDuXNyCg7XC5g4ztQiJhRJ6O3ZCqLsRDfncw=;
-        b=nEn1+ChkAEqNAAx/Rk2HGECctccUMYJ97LGLmWH93ouK/cUM/4OqjOJg9caF2if1IJ
-         YboqDZHqjlP8SZJg/nCWIeH1l+avBVhgOnQtoEgUMasSvu2hHDBl5OkDUAQctXvVf5p9
-         nYTsuj3GGN2NJcyLaXb/OGkx1TEFf/zZ6ysBGE4sAI8yI3c5V4T0q7kdA/D+7UuTJ1SM
-         uIzXdclq+POLqhe6UtFYL/HJXs9tzt+q2Nxwehf6mgEWCR5MtRwypCKTlpbSwWexdfHn
-         iISf3H65AUapueUOQalGQVvCviR5lPMcgm9x0RGjjpzaFSg34RQUEs86GPaLoBALjN4B
-         CBag==
-X-Gm-Message-State: AOAM532GVtbga756xOl2P/lnFIi4OghIczTPmdt2ITcDmSuflr8Ar8VF
-        jX8qxIWWq2qXr68saw13bZgwvGum/cLPFBiNXtY6sQ==
-X-Google-Smtp-Source: ABdhPJz6TDKuIczDEuNWhwAZLwIsi7p/r5pwANkEoLv02bXcTUl1ox9pp4nTanH9lSHFwu+RpElyT1qPIgjQUosCQDo=
-X-Received: by 2002:a2e:b6cf:: with SMTP id m15mr744683ljo.74.1603935804881;
- Wed, 28 Oct 2020 18:43:24 -0700 (PDT)
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=Jt66Ro6ChwF7B4WUC9O1hydUy4hsd8CqZ72SMpMelMs=;
+        b=mQYPlu85XzyG+0cBgiAzCBjaO7XcgZ10shlN2e6N+HPazJAqa+MRpxxw2mJflOg7nK
+         97AvMYn5mkDmKxE6koaIC9fkm3KKPLRTma+fzHXVuRPpgKmQeJj6jDYsdj5JBv03rDjE
+         T7BGAp7XE+rwxgT1L+a/TLcv3oL5+MqaVtYcp3qCVZwzWnWlMA6ykjAD5L2k1rsh9G2C
+         qwKe/Mw3LrfXGY+t06Ey4PLeQ2/BIqTy9R6Q6cSsNDNjqX52blP4N7Mh/dqVOrrho4tu
+         ttlmRZDHOUZ4iS02ax1Iirg3eJuRZHDMZ3Fh4RiMNN43ngkND3Y8/fHXjGAmT+CfHIrQ
+         TMxw==
+X-Gm-Message-State: AOAM532weEIc9Fk2W8c58aJ6LnrTuWLEFGXjs5NfTS9SKi6ZsWYq7GWO
+        +QqMjZNMmXnJqdChO5/6y/Ke9MmM1fs=
+X-Google-Smtp-Source: ABdhPJyY/MtaRTjNN5AOkf46pA+dh7dnvI2F4pPRJ1xtbqTuaMJ9jy1IHPcE5/HFeuXd/TyGWLFvvA==
+X-Received: by 2002:a1c:203:: with SMTP id 3mr2695512wmc.128.1603955631449;
+        Thu, 29 Oct 2020 00:13:51 -0700 (PDT)
+Received: from ?IPv6:2001:a61:245a:d801:2e74:88ad:ef9:5218? ([2001:a61:245a:d801:2e74:88ad:ef9:5218])
+        by smtp.gmail.com with ESMTPSA id p9sm2640072wma.12.2020.10.29.00.13.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2020 00:13:50 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] getdents.2: Use 'ssize_t' instead of 'int'
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+References: <20201028221118.158108-1-colomar.6.4.3@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <ed5937c4-a590-1735-b716-0894657ff8fc@gmail.com>
+Date:   Thu, 29 Oct 2020 08:13:48 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-References: <63598b4f-6ce3-5a11-4552-cdfe308f68e4@gmail.com>
-In-Reply-To: <63598b4f-6ce3-5a11-4552-cdfe308f68e4@gmail.com>
-From:   Jann Horn <jannh@google.com>
-Date:   Thu, 29 Oct 2020 02:42:58 +0100
-Message-ID: <CAG48ez0fBE6AJfWh0in=WKkgt98y=KjAen=SQPyTYtvsUbF1yA@mail.gmail.com>
-Subject: Re: For review: seccomp_user_notif(2) manual page [v2]
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Kees Cook <keescook@chromium.org>
-Cc:     Tycho Andersen <tycho@tycho.pizza>,
-        Sargun Dhillon <sargun@sargun.me>,
-        Christian Brauner <christian@brauner.io>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Giuseppe Scrivano <gscrivan@redhat.com>,
-        Song Liu <songliubraving@fb.com>,
-        Robert Sesek <rsesek@google.com>,
-        Containers <containers@lists.linux-foundation.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Aleksa Sarai <cyphar@cyphar.com>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
-        Andy Lutomirski <luto@amacapital.net>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20201028221118.158108-1-colomar.6.4.3@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Oct 26, 2020 at 10:55 AM Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
->        static bool
->        getTargetPathname(struct seccomp_notif *req, int notifyFd,
->                          char *path, size_t len)
->        {
->            char procMemPath[PATH_MAX];
->
->            snprintf(procMemPath, sizeof(procMemPath), "/proc/%d/mem", req->pid);
->
->            int procMemFd = open(procMemPath, O_RDONLY);
->            if (procMemFd == -1)
->                errExit("\tS: open");
->
->            /* Check that the process whose info we are accessing is still alive.
->               If the SECCOMP_IOCTL_NOTIF_ID_VALID operation (performed
->               in checkNotificationIdIsValid()) succeeds, we know that the
->               /proc/PID/mem file descriptor that we opened corresponds to the
->               process for which we received a notification. If that process
->               subsequently terminates, then read() on that file descriptor
->               will return 0 (EOF). */
->
->            checkNotificationIdIsValid(notifyFd, req->id);
->
->            /* Read bytes at the location containing the pathname argument
->               (i.e., the first argument) of the mkdir(2) call */
->
->            ssize_t nread = pread(procMemFd, path, len, req->data.args[0]);
->            if (nread == -1)
->                errExit("pread");
+Hi Alex,
 
-As discussed at
-<https://lore.kernel.org/r/CAG48ez0m4Y24ZBZCh+Tf4ORMm9_q4n7VOzpGjwGF7_Fe8EQH=Q@mail.gmail.com>,
-we need to re-check checkNotificationIdIsValid() after reading remote
-memory but before using the read value in any way. Otherwise, the
-syscall could in the meantime get interrupted by a signal handler, the
-signal handler could return, and then the function that performed the
-syscall could free() allocations or return (thereby freeing buffers on
-the stack).
+On 10/28/20 11:11 PM, Alejandro Colomar wrote:
+> The glibc wrapper for getdents64() uses ssize_t.
 
-In essence, this pread() is (unavoidably) a potential use-after-free
-read; and to make that not have any security impact, we need to check
-whether UAF read occurred before using the read value. This should
-probably be called out elsewhere in the manpage, too...
+It also changed the types for the arguments, so those need to be 
+fixed too.
 
-Now, of course, **reading** is the easy case. The difficult case is if
-we have to **write** to the remote process... because then we can't
-play games like that. If we write data to a freed pointer, we're
-screwed, that's it. (And for somewhat unrelated bonus fun, consider
-that /proc/$pid/mem is originally intended for process debugging,
-including installing breakpoints, and will therefore happily write
-over "readonly" private mappings, such as typical mappings of
-executable code.)
+> And let's use it also for getdents().
 
-So, uuuuh... I guess if anyone wants to actually write memory back to
-the target process, we'd better come up with some dedicated API for
-that, using an ioctl on the seccomp fd that magically freezes the
-target process inside the syscall while writing to its memory, or
-something like that? And until then, the manpage should have a big fat
-warning that writing to the target's memory is simply not possible
-(safely).
+I actually think we should *not* change that. So long as their is
+no wrapper, we should show pretty much what the ABI exposes. (That
+makes me think that the return type should really be long; see 
+what you think about DEFINE_SYSCALL3 in the kernel sources.)
 
->            if (nread == 0) {
->                fprintf(stderr, "\tS: pread() of /proc/PID/mem "
->                        "returned 0 (EOF)\n");
->                exit(EXIT_FAILURE);
->            }
+And you added an include for <sys/types.h>. I'm not sure 
+whether that's needed, but it should be explained in the 
+commit message.
+
+Thanks,
+
+Michael
+
+> It makes more sense than int:
+> It's a count of bytes, and can report an error (-1).
+> 
+> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+> ---
+>  man2/getdents.2 | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/man2/getdents.2 b/man2/getdents.2
+> index a187fbcef..d660f1bc1 100644
+> --- a/man2/getdents.2
+> +++ b/man2/getdents.2
+> @@ -33,13 +33,13 @@
+>  getdents, getdents64 \- get directory entries
+>  .SH SYNOPSIS
+>  .nf
+> -.BI "int getdents(unsigned int " fd ", struct linux_dirent *" dirp ,
+> +.BI "ssize_t getdents(unsigned int " fd ", struct linux_dirent *" dirp ,
+>  .BI "             unsigned int " count );
+>  .PP
+>  .BR "#define _GNU_SOURCE" "        /* See feature_test_macros(7) */"
+>  .B #include <dirent.h>
+>  .PP
+> -.BI "int getdents64(unsigned int " fd ", struct linux_dirent64 *" dirp ,
+> +.BI "ssize_t getdents64(unsigned int " fd ", struct linux_dirent64 *" dirp ,
+>  .BI "             unsigned int " count );
+>  .fi
+>  .PP
+> @@ -266,6 +266,7 @@ inode#    file type  d_reclen  d_off   d_name
+>  #include <stdlib.h>
+>  #include <sys/stat.h>
+>  #include <sys/syscall.h>
+> +#include <sys/types.h>
+>  
+>  #define handle_error(msg) \e
+>          do { perror(msg); exit(EXIT_FAILURE); } while (0)
+> @@ -282,7 +283,8 @@ struct linux_dirent {
+>  int
+>  main(int argc, char *argv[])
+>  {
+> -    int fd, nread;
+> +    int fd;
+> +    ssize_t nread;
+>      char buf[BUF_SIZE];
+>      struct linux_dirent *d;
+>      char d_type;
+> @@ -301,7 +303,7 @@ main(int argc, char *argv[])
+>  
+>          printf("\-\-\-\-\-\-\-\-\-\-\-\-\-\-\- nread=%d \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\en", nread);
+>          printf("inode#    file type  d_reclen  d_off   d_name\en");
+> -        for (int bpos = 0; bpos < nread;) {
+> +        for (ssize_t bpos = 0; bpos < nread;) {
+>              d = (struct linux_dirent *) (buf + bpos);
+>              printf("%8ld  ", d\->d_ino);
+>              d_type = *(buf + bpos + d\->d_reclen \- 1);
+> 
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
