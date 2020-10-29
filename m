@@ -2,113 +2,182 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2F2FB29E494
-	for <lists+linux-man@lfdr.de>; Thu, 29 Oct 2020 08:44:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 31B7329E42A
+	for <lists+linux-man@lfdr.de>; Thu, 29 Oct 2020 08:36:15 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730158AbgJ2HkD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 29 Oct 2020 03:40:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55400 "EHLO
+        id S1726969AbgJ2H0j (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 29 Oct 2020 03:26:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55364 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727384AbgJ2HYs (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Oct 2020 03:24:48 -0400
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com [IPv6:2a00:1450:4864:20::131])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C4E21C0613A5
-        for <linux-man@vger.kernel.org>; Wed, 28 Oct 2020 21:26:34 -0700 (PDT)
-Received: by mail-lf1-x131.google.com with SMTP id 126so1590669lfi.8
-        for <linux-man@vger.kernel.org>; Wed, 28 Oct 2020 21:26:34 -0700 (PDT)
+        with ESMTP id S1728288AbgJ2HY7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Oct 2020 03:24:59 -0400
+Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com [IPv6:2a00:1450:4864:20::244])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F1C57C0613AD
+        for <linux-man@vger.kernel.org>; Wed, 28 Oct 2020 21:44:03 -0700 (PDT)
+Received: by mail-lj1-x244.google.com with SMTP id m16so1669268ljo.6
+        for <linux-man@vger.kernel.org>; Wed, 28 Oct 2020 21:44:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20161025;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=5bZHSqby9xc03fv8b/uQtgTC0sysq05Jdo5tS6hC7Bk=;
-        b=vCF7BqYvpPENaZQ1ij18cOuBn3mjiDl59S9e8pNu4I8MoMuZo8/ftg0Y9yOuESZN09
-         VBw04wGTblOlqn6/d//nxST8d02fERV2k+Yqvoj5KIf/bU8IslsX99d6mIRXJv1H9eZ7
-         dPdYqdkXenA5Mtf/Ci6Vn4NPk9RQpMYT+WOlqRhTU68ApcUfhfJDbQ4ydF1Vj8SKnJb5
-         kYkD7iFe2dzDG5UlFj7yPh8AaapCSTfLe8HSbb08Qh60EKjEcTHQBTCNu6MPXVwS2U+e
-         ddO/4+yG92LPOzOsogodfabgmFl0yPhga3RhQIlJ6Ulkl1MZebH5vSSbg1KnGyrTMNXW
-         E67w==
+        bh=8vJY7X+2qf9mk4yjNjSimkTKUqnRW4h3rIif/0iLOrE=;
+        b=gZ8H/p46CECRx9wDoVffbN/h0TJ0bUslUCW4zEC9UGCLKm/cXqu5uiZC1A8cryr+E8
+         e0dLqac5CrQ0wZy68hcC5mDMEnQW3ZBUwc7+nrlVGLwjzOWHmxGB84B6A7tq9XDnv19s
+         M7QjYPJ1Rgm+8fE1FFuZrcNgCnJkq5XlKbHAN6QN93QfeuU4o+r0DZj/rSPyFxLyR9HX
+         goLYDldHw4PKN4C16oNQfIjUL+sxQTmKcTIGcQlhOv8tjXF8krfMfUE47zD8S0ABnIzk
+         C8yOWDT4K5Mx4UbUn4ZaqYyEFrICmzbt6zNb1oXbkYLIFdMceLLg+ASw3I9w2T4L15rH
+         1NBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=5bZHSqby9xc03fv8b/uQtgTC0sysq05Jdo5tS6hC7Bk=;
-        b=EoF0sOrPsSCMCmzzykvRmmeLnxnn2duTMQ+ZXA1iphOirLL3WhXuoNMfSLFZ2651w4
-         kVbhHxPFSkEVfd50LRShcWGWt1bpr8JcNJ3ccLCengI7JmSECSlDn7IEfLnazi3sd5Ff
-         dxFBTQl9CBseJpamE2v9mH8uRjhWV+KMFzbet/3O2A+6PfarrZVHExbvdIqaTgfShrJ7
-         2HYhOCiq1ofnUKE8QZn6KkamyG+PHcIAun9GrNiX+bEmjEld3P386mJte5UVAcTtIt8M
-         f2luumN/Sqp4PK/TKDTgNj63Xc8p9/FlqDmK+HHomT8RMAXsS39eZD2uAl9m6SgJnN7g
-         j6vg==
-X-Gm-Message-State: AOAM5305CNszNFu/SPkpETxASGo7bBh0qBpqZL7PY+9M/DUiGc9O+il0
-        5fQdKi9tq5h2azReN1ENYadso32sjzcv/QUww/LHqg==
-X-Google-Smtp-Source: ABdhPJzKHFLrtcctmkuqmI3RamhnK2a1wmI/Y3U/6ijUcRKMrl5Xg1LaPRSJKCqbjtr8CcoK5kQQWSIr/nf0z+LrQ9A=
-X-Received: by 2002:a19:c357:: with SMTP id t84mr773624lff.34.1603945592793;
- Wed, 28 Oct 2020 21:26:32 -0700 (PDT)
+        bh=8vJY7X+2qf9mk4yjNjSimkTKUqnRW4h3rIif/0iLOrE=;
+        b=g6j37noehjHmBQ4NT9RrwCUNe3kMEMT2kTiy59we4EFUqRKBqbBhehcbowESTrz+lm
+         anZ3eSXAESCkFmaINtP5iVUdBCY9ShWE+KwAMXmN9p/BH9Yky3n6DHpPgTgIbyo2n06M
+         rneWfVjWKT225ovekB/A2kkk78VgTEheLIL2hoYdnNe/+EYa47hQR5qRzuhVUgAk5Uli
+         MMMzIXfJmyq9dbQK0peKIs9KIJbMu7Q/HYHEY9+/o+byRIozLdH8OLEbUJTmCzKyGHlj
+         9a6QGEioSQGXlE1205bMrmltFlWksZVTuIhttI/klZplA+m9EJ9pnGsGW2z+uTdtYDE+
+         mHcA==
+X-Gm-Message-State: AOAM5328jfweUwWKSlE/mfzFNUPXMuAaaWkhgKy+4qXR/vmDNiuvXE1Z
+        fBtc+kx4JGrRaWnq/KlU0MO6CGdoTqbBE97XfBLo1w==
+X-Google-Smtp-Source: ABdhPJw/sZxb5qRToKpsO6Tov3q5O2h9QxUZH9e9awkjhLv1ZkCLPaqe/eslUoWDbcpwUPRAcE7vE1CzAPHEQGncXAA=
+X-Received: by 2002:a2e:9c84:: with SMTP id x4mr981272lji.326.1603946642027;
+ Wed, 28 Oct 2020 21:44:02 -0700 (PDT)
 MIME-Version: 1.0
-References: <45f07f17-18b6-d187-0914-6f341fe90857@gmail.com>
- <20200930150330.GC284424@cisco> <8bcd956f-58d2-d2f0-ca7c-0a30f3fcd5b8@gmail.com>
- <20200930230327.GA1260245@cisco> <CAG48ez1VOUEHVQyo-2+uO7J+-jN5rh7=KmrMJiPaFjwCbKR1Sg@mail.gmail.com>
- <20200930232456.GB1260245@cisco> <CAG48ez2xn+_KznEztJ-eVTsTzkbf9CVgPqaAk7TpRNAqbdaRoA@mail.gmail.com>
- <202010251725.2BD96926E3@keescook> <CAG48ez2b-fnsp8YAR=H5uRMT4bBTid_hyU4m6KavHxDko1Efog@mail.gmail.com>
- <CAG48ez2OWhpH3HHUJSrAmokJ8=SVwKrmQMSw0gEbTJmKE4myCw@mail.gmail.com> <20201029021348.GB25673@cisco>
-In-Reply-To: <20201029021348.GB25673@cisco>
+References: <63598b4f-6ce3-5a11-4552-cdfe308f68e4@gmail.com>
+ <CAG48ez0fBE6AJfWh0in=WKkgt98y=KjAen=SQPyTYtvsUbF1yA@mail.gmail.com> <20201029020438.GA25673@cisco>
+In-Reply-To: <20201029020438.GA25673@cisco>
 From:   Jann Horn <jannh@google.com>
-Date:   Thu, 29 Oct 2020 05:26:05 +0100
-Message-ID: <CAG48ez2=8RBh_2D=WRKta4n3jvfTpD90j8DA-uOFAm86fKjSzw@mail.gmail.com>
-Subject: Re: For review: seccomp_user_notif(2) manual page
-To:     Tycho Andersen <tycho@tycho.pizza>
+Date:   Thu, 29 Oct 2020 05:43:35 +0100
+Message-ID: <CAG48ez1Jz5YqqEMFYoFhgSroHwMeiNqUU9i=QqLN2uLibKthDQ@mail.gmail.com>
+Subject: Re: For review: seccomp_user_notif(2) manual page [v2]
+To:     Tycho Andersen <tycho@tycho.pizza>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 Cc:     Kees Cook <keescook@chromium.org>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
         Sargun Dhillon <sargun@sargun.me>,
         Christian Brauner <christian@brauner.io>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        Song Liu <songliubraving@fb.com>,
+        Robert Sesek <rsesek@google.com>,
+        Containers <containers@lists.linux-foundation.org>,
         linux-man <linux-man@vger.kernel.org>,
         lkml <linux-kernel@vger.kernel.org>,
         Aleksa Sarai <cyphar@cyphar.com>,
         Alexei Starovoitov <ast@kernel.org>,
         Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
-        Song Liu <songliubraving@fb.com>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Andy Lutomirski <luto@amacapital.net>,
-        Linux Containers <containers@lists.linux-foundation.org>,
-        Giuseppe Scrivano <gscrivan@redhat.com>,
-        Robert Sesek <rsesek@google.com>
+        Andy Lutomirski <luto@amacapital.net>
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Oct 29, 2020 at 3:13 AM Tycho Andersen <tycho@tycho.pizza> wrote:
-> > > Consider the following scenario (with supervisor "S" and target "T"; S
-> > > wants to wait for events on two file descriptors seccomp_fd and
-> > > other_fd):
+On Thu, Oct 29, 2020 at 3:04 AM Tycho Andersen <tycho@tycho.pizza> wrote:
+> On Thu, Oct 29, 2020 at 02:42:58AM +0100, Jann Horn wrote:
+> > On Mon, Oct 26, 2020 at 10:55 AM Michael Kerrisk (man-pages)
+> > <mtk.manpages@gmail.com> wrote:
+> > >        static bool
+> > >        getTargetPathname(struct seccomp_notif *req, int notifyFd,
+> > >                          char *path, size_t len)
+> > >        {
+> > >            char procMemPath[PATH_MAX];
 > > >
-> > > S: starts poll() to wait for events on seccomp_fd and other_fd
-> > > T: performs a syscall that's filtered with RET_USER_NOTIF
-> > > S: poll() returns and signals readiness of seccomp_fd
-> > > T: receives signal SIGUSR1
-> > > T: syscall aborts, enters signal handler
-> > > T: signal handler blocks on unfiltered syscall (e.g. write())
-> > > S: starts SECCOMP_IOCTL_NOTIF_RECV
-> > > S: blocks because no syscalls are pending
+> > >            snprintf(procMemPath, sizeof(procMemPath), "/proc/%d/mem", req->pid);
 > > >
-> > > Depending on what other_fd is, this could in a worst case even lead to
-> > > a deadlock (if e.g. the signal handler wants to write to stdout, but
-> > > the stdout fd is hooked up to other_fd in the supervisor, but the
-> > > supervisor can't consume the data written because it's stuck in
-> > > seccomp handling).
+> > >            int procMemFd = open(procMemPath, O_RDONLY);
+> > >            if (procMemFd == -1)
+> > >                errExit("\tS: open");
 > > >
-> > > So we have to ensure that when existing code (like that crun code you
-> > > linked to) triggers this case, SECCOMP_IOCTL_NOTIF_RECV returns
-> > > immediately instead of blocking.
+> > >            /* Check that the process whose info we are accessing is still alive.
+> > >               If the SECCOMP_IOCTL_NOTIF_ID_VALID operation (performed
+> > >               in checkNotificationIdIsValid()) succeeds, we know that the
+> > >               /proc/PID/mem file descriptor that we opened corresponds to the
+> > >               process for which we received a notification. If that process
+> > >               subsequently terminates, then read() on that file descriptor
+> > >               will return 0 (EOF). */
+> > >
+> > >            checkNotificationIdIsValid(notifyFd, req->id);
+> > >
+> > >            /* Read bytes at the location containing the pathname argument
+> > >               (i.e., the first argument) of the mkdir(2) call */
+> > >
+> > >            ssize_t nread = pread(procMemFd, path, len, req->data.args[0]);
+> > >            if (nread == -1)
+> > >                errExit("pread");
 > >
-> > Or I guess we could also just set O_NONBLOCK on the fd by default?
-> > Since the one existing user is eventloop-based...
+> > As discussed at
+> > <https://lore.kernel.org/r/CAG48ez0m4Y24ZBZCh+Tf4ORMm9_q4n7VOzpGjwGF7_Fe8EQH=Q@mail.gmail.com>,
+> > we need to re-check checkNotificationIdIsValid() after reading remote
+> > memory but before using the read value in any way. Otherwise, the
+> > syscall could in the meantime get interrupted by a signal handler, the
+> > signal handler could return, and then the function that performed the
+> > syscall could free() allocations or return (thereby freeing buffers on
+> > the stack).
+> >
+> > In essence, this pread() is (unavoidably) a potential use-after-free
+> > read; and to make that not have any security impact, we need to check
+> > whether UAF read occurred before using the read value. This should
+> > probably be called out elsewhere in the manpage, too...
+> >
+> > Now, of course, **reading** is the easy case. The difficult case is if
+> > we have to **write** to the remote process... because then we can't
+> > play games like that. If we write data to a freed pointer, we're
+> > screwed, that's it. (And for somewhat unrelated bonus fun, consider
+> > that /proc/$pid/mem is originally intended for process debugging,
+> > including installing breakpoints, and will therefore happily write
+> > over "readonly" private mappings, such as typical mappings of
+> > executable code.)
+> >
+> > So, uuuuh... I guess if anyone wants to actually write memory back to
+> > the target process, we'd better come up with some dedicated API for
+> > that, using an ioctl on the seccomp fd that magically freezes the
 >
-> I feel like it's ok to return an error from the RECV ioctl() if
-> there's never going to be any more events on the fd; was there
-> something fundamentally wrong with your patch here:
-> https://lore.kernel.org/bpf/CAG48ez2xn+_KznEztJ-eVTsTzkbf9CVgPqaAk7TpRNAqbdaRoA@mail.gmail.com/
-> ?
+> By freeze here you mean a killable wait instead of an interruptible
+> wait, right?
 
-No, I have a new version of that about 80% done and hope to send it
-out soonish. (There's some stuff around tests that I still need to
-cobble together).
+Nope, nonkillable.
+
+Consider the case of vfork(), where a target process does something like this:
+
+void spawn_executable(char **argv, char **envv) {
+  pid_t child = vfork();
+  if (child == 0) {
+    char path[1000];
+    sprintf(path, ...);
+    execve(path, argv, envv);
+  }
+}
+
+and the seccomp notifier wants to look at the execve() path (as a
+somewhat silly example). The child process is just borrowing the
+parent's stack, and as soon as the child either gets far enough into
+execve() or dies, the parent continues using that stack. So keeping
+the child in killable sleep would not be enough to prevent reuse of
+the child's stack.
+
+
+But conceptually that's not really a big problem - we already have a
+way to force the target task to stay inside the seccomp code no matter
+if it gets SIGKILLed or whatever, and that is to take the notify_lock.
+When the target task wakes up and wants to continue executing, it has
+to first get through mutex_lock(&match->notify_lock) - and that will
+always block until the lock is free. So we could e.g. do something
+like:
+
+ - Grab references to the source pages in the supervisor's address
+space with get_user_pages_fast().
+ - Take mmap_sem on the target.
+ - Grab references to pages in the relevant range with pin_user_pages_remote().
+ - Drop the mmap_sem.
+ - Take the notify_lock.
+ - Recheck whether the notification with the right ID is still there.
+ - Copy data from the pinned source pages to the pinned target pages.
+ - Drop the notify_lock.
+ - Drop the page references.
+
+and this way we would still guarantee that the target process would
+only be blocked in noninterruptible sleep for a small amount of time
+(and would not be indirectly blocked on sleeping operations through
+the mutex). It'd be pretty straightforward, I think. But as long as we
+don't actually need it, it might be easier to just note in the manpage
+that this is not currently supported.
