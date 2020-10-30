@@ -2,82 +2,167 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2FD6F2A08F4
-	for <lists+linux-man@lfdr.de>; Fri, 30 Oct 2020 16:01:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8E9DE2A0E66
+	for <lists+linux-man@lfdr.de>; Fri, 30 Oct 2020 20:16:49 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726877AbgJ3PBQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 30 Oct 2020 11:01:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39436 "EHLO
+        id S1727424AbgJ3TPG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 30 Oct 2020 15:15:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51412 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726859AbgJ3PAa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Oct 2020 11:00:30 -0400
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com [IPv6:2a00:1450:4864:20::541])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 02E54C0613E8
-        for <linux-man@vger.kernel.org>; Fri, 30 Oct 2020 07:59:35 -0700 (PDT)
-Received: by mail-ed1-x541.google.com with SMTP id k9so6989084edo.5
-        for <linux-man@vger.kernel.org>; Fri, 30 Oct 2020 07:59:35 -0700 (PDT)
+        with ESMTP id S1726317AbgJ3TPF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Oct 2020 15:15:05 -0400
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com [IPv6:2a00:1450:4864:20::12a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 93E3BC0613CF
+        for <linux-man@vger.kernel.org>; Fri, 30 Oct 2020 12:15:05 -0700 (PDT)
+Received: by mail-lf1-x12a.google.com with SMTP id 184so9253705lfd.6
+        for <linux-man@vger.kernel.org>; Fri, 30 Oct 2020 12:15:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=9fkQXWnoPSypfyxvIrXWSyd1r4Ua0eeDJczOBpIf/BU=;
-        b=TjZDjTDUyG5IOPAjtKhDz6bJNm6DqwPh3GYjQnJOtk58Qe+VS+LrjG9D+UJTL89L5a
-         hPszd6YttBU2gVDN4Hgd0nVvKmUsgBGa0RfR9y4dU1VG6wqrOSeXXlqa/jT4b2a91QjD
-         sT+ma7QKBtdbME0ZKxl0kc6DEI2BSZsRxuMkNkQsvOWxO6URWAKkh65L3Tk879AJ4LqG
-         Bj9eXYFDUcjXqha9S32esb82rsLCjf9rEdFYrDoZfWxC18Um3HNxqbzetSufrWkdrmWB
-         Hgfuw2XlX0g8ZkLr3paRT5DvZbKL3ccSJq24BaLzNsiQWn1tArC4uUyPSHMQ3hVqPZo6
-         Sb9g==
+        d=google.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=wG/u6QLDIeO3+GPNzepwWscTWygaEgqcNOvOguEOtzE=;
+        b=GEScQJl/XRE+Al+2evygNVW34IiBSkoia8s5HzAl8Hv6DEbsHP21Lirga/6tIsjkoR
+         6pndjXo3bhKZOW1Dk5Uub2F/QyY+XpBeX+nLyHZxDUaPhBwraxjKmyUU389u1/xqXlL/
+         voC7OY6hmd5Fr4gE/vpOFEq+3M/K4uBWKjshMkpddljKtLvb7oEgjUepvGxdHLB+qlRi
+         lsXaJFer4KS7uPl33OEqYL9fA3HJYLgu76FbsgqoBkyILSU1vMZhuNLi6w9qOqfkXaAU
+         ytPJv1sI1qSIE1x7QKh8O++0G+mtEs+XlsK0dEAC2cz1JpC6LyJR8sRuqTs2bq0q6mTh
+         QDIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=9fkQXWnoPSypfyxvIrXWSyd1r4Ua0eeDJczOBpIf/BU=;
-        b=gWbnBMpbPeFjCb+ugPIkdB4kH5HP0VttQeMMjSLsI51i5+YL7Lswagorm7J3sPJqtW
-         ZVHQDlYj1uCQWsj09FgJ9uUv+ITS0Zeq8zekyd8nqVL9l/7Lgrfk8XJ8Ebws5GMGr3Lg
-         4KQv7/Bf7jV80C8PnCNUMyhGWHpmhNBm/ZlPaWTguvxJXs7f20BYl8vREAcdXefQqvIj
-         aV+JhRdNJLIZvC94d+AbScM2jxQqyhtmOrO3d3tG8dvH0hhFsfyzqDPKiDBu3Xd3MwXP
-         ZBdcUTdUnUt7/n4I6eq2SEmvECLTFVCEPgFdYFRXxpW/y7/nsrDB6xVr46S00TrJup7g
-         xG6A==
-X-Gm-Message-State: AOAM533qIfdHPrFSkKnB17Zu98LIAC01ZZq7NlqCfZu2+wGlF5mDf1ZC
-        29g0zPVDh9UB9955lpJejJkMWfETklxNMdJnaA==
-X-Google-Smtp-Source: ABdhPJz0XXuJnPS5g3+lbBiW+XXmkDUqYoNBDu76t3os6QvlPQSI6Onyl30CWs+Md1o+E0r28qs03HXLpOQosKz8YWo=
-X-Received: by 2002:a50:f307:: with SMTP id p7mr2761574edm.235.1604069974505;
- Fri, 30 Oct 2020 07:59:34 -0700 (PDT)
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=wG/u6QLDIeO3+GPNzepwWscTWygaEgqcNOvOguEOtzE=;
+        b=VFA0JLaypsOVop+HsOX/ZXZnRTT/tsIKJFEdRoR5TOOwQwe6DZJ+l3sOLQX/pxQhbr
+         eOO+/iV57vCcOab/Kk2BUJjAwRUSCqgPcrK9ijr/S8nJdi1KQjRR+HWR20WiWkP7HyT9
+         ytwAFklf5UH3hHowjU4CWJFc1WbT/Th2DT6JX7fb/2M0bwb4o4+cDSUtxIoMl5pAowGQ
+         PUm5Ajs4BUvhbMGYBrQtdEtQpO9hsdFkIUkg+brFGcYwi/kKGLAeMGRt7Fjz4VcHKptV
+         mOLmMA5aqk7eaVnxldEvIWUcwpNAfjp+reCBaEUcW8wahYofcEkly0J1hrHQknEotMqf
+         n6xg==
+X-Gm-Message-State: AOAM531sLeq/wWvGrSN/uSTEECE0qH/wje8ImHY8mggc9pXyP5ctWQZw
+        fmQgxi2mtIwOBIww54yJb2u9rL4VXAtbxKQA/JX/pw==
+X-Google-Smtp-Source: ABdhPJwWwVpiw9gJ/puN8rWssNkdz8vVGHPzS0mmXDNNvTGXQ5m+dUeuCNcHNeJlQwiyM5w1WvddtFCfbNI2DKeMRtk=
+X-Received: by 2002:a05:6512:1054:: with SMTP id c20mr1626841lfb.576.1604085303713;
+ Fri, 30 Oct 2020 12:15:03 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a50:f14c:0:0:0:0:0 with HTTP; Fri, 30 Oct 2020 07:59:34
- -0700 (PDT)
-Reply-To: li.anable85@gmail.com
-From:   Liliane Abel <k.griest04@gmail.com>
-Date:   Fri, 30 Oct 2020 15:59:34 +0100
-Message-ID: <CABAZL7=b-NWks3DKb=fdDjnu_xt_-CcJCqf-F5s0yQCFVH73-A@mail.gmail.com>
-Subject: 
-To:     undisclosed-recipients:;
+References: <63598b4f-6ce3-5a11-4552-cdfe308f68e4@gmail.com>
+ <CAG48ez0fBE6AJfWh0in=WKkgt98y=KjAen=SQPyTYtvsUbF1yA@mail.gmail.com> <0de41eb1-e1fd-85da-61b7-fac4e3006726@gmail.com>
+In-Reply-To: <0de41eb1-e1fd-85da-61b7-fac4e3006726@gmail.com>
+From:   Jann Horn <jannh@google.com>
+Date:   Fri, 30 Oct 2020 20:14:37 +0100
+Message-ID: <CAG48ez3qKg-ReY4R=S_thQ6tOzv2ZHV=xW5qBxpqs0iSjH_oFQ@mail.gmail.com>
+Subject: Re: For review: seccomp_user_notif(2) manual page [v2]
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Kees Cook <keescook@chromium.org>,
+        Tycho Andersen <tycho@tycho.pizza>,
+        Sargun Dhillon <sargun@sargun.me>,
+        Christian Brauner <christian@brauner.io>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        Song Liu <songliubraving@fb.com>,
+        Robert Sesek <rsesek@google.com>,
+        Containers <containers@lists.linux-foundation.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Aleksa Sarai <cyphar@cyphar.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
+        Andy Lutomirski <luto@amacapital.net>
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Dearest
+On Thu, Oct 29, 2020 at 3:19 PM Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+> On 10/29/20 2:42 AM, Jann Horn wrote:
+> > On Mon, Oct 26, 2020 at 10:55 AM Michael Kerrisk (man-pages)
+> > <mtk.manpages@gmail.com> wrote:
+> >>        static bool
+> >>        getTargetPathname(struct seccomp_notif *req, int notifyFd,
+> >>                          char *path, size_t len)
+> >>        {
+> >>            char procMemPath[PATH_MAX];
+> >>
+> >>            snprintf(procMemPath, sizeof(procMemPath), "/proc/%d/mem", req->pid);
+> >>
+> >>            int procMemFd = open(procMemPath, O_RDONLY);
+> >>            if (procMemFd == -1)
+> >>                errExit("\tS: open");
+> >>
+> >>            /* Check that the process whose info we are accessing is still alive.
+> >>               If the SECCOMP_IOCTL_NOTIF_ID_VALID operation (performed
+> >>               in checkNotificationIdIsValid()) succeeds, we know that the
+> >>               /proc/PID/mem file descriptor that we opened corresponds to the
+> >>               process for which we received a notification. If that process
+> >>               subsequently terminates, then read() on that file descriptor
+> >>               will return 0 (EOF). */
+> >>
+> >>            checkNotificationIdIsValid(notifyFd, req->id);
+> >>
+> >>            /* Read bytes at the location containing the pathname argument
+> >>               (i.e., the first argument) of the mkdir(2) call */
+> >>
+> >>            ssize_t nread = pread(procMemFd, path, len, req->data.args[0]);
+> >>            if (nread == -1)
+> >>                errExit("pread");
+> >
+> > As discussed at
+> > <https://lore.kernel.org/r/CAG48ez0m4Y24ZBZCh+Tf4ORMm9_q4n7VOzpGjwGF7_Fe8EQH=Q@mail.gmail.com>,
+> > we need to re-check checkNotificationIdIsValid() after reading remote
+> > memory but before using the read value in any way. Otherwise, the
+> > syscall could in the meantime get interrupted by a signal handler, the
+> > signal handler could return, and then the function that performed the
+> > syscall could free() allocations or return (thereby freeing buffers on
+> > the stack).
+> >
+> > In essence, this pread() is (unavoidably) a potential use-after-free
+> > read; and to make that not have any security impact, we need to check
+> > whether UAF read occurred before using the read value. This should
+> > probably be called out elsewhere in the manpage, too...
+>
+> Thanks very much for pointing me at this!
+>
+> So, I want to conform that the fix to the code is as simple as
+> adding a check following the pread() call, something like:
+>
+> [[
+>      ssize_t nread = pread(procMemFd, path, len, req->data.args[argNum]);
+>      if (nread == -1)
+>         errExit("Supervisor: pread");
+>
+>      if (nread == 0) {
+>         fprintf(stderr, "\tS: pread() of /proc/PID/mem "
+>                 "returned 0 (EOF)\n");
+>         exit(EXIT_FAILURE);
+>      }
+>
+>      if (close(procMemFd) == -1)
+>         errExit("Supervisor: close-/proc/PID/mem");
+>
+> +    /* Once again check that the notification ID is still valid. The
+> +       case we are particularly concerned about here is that just
+> +       before we fetched the pathname, the target's blocked system
+> +       call was interrupted by a signal handler, and after the handler
+> +       returned, the target carried on execution (past the interrupted
+> +       system call). In that case, we have no guarantees about what we
+> +       are reading, since the target's memory may have been arbitrarily
+> +       changed by subsequent operations. */
+> +
+> +    if (!notificationIdIsValid(notifyFd, req->id, "post-open"))
+> +        return false;
+> +
+>      /* We have no guarantees about what was in the memory of the target
+>         process. We therefore treat the buffer returned by pread() as
+>         untrusted input. The buffer should be terminated by a null byte;
+>         if not, then we will trigger an error for the target process. */
+>
+>      if (strnlen(path, nread) < nread)
+>          return true;
+> ]]
 
-Greeting my dear, I am Liliane Abel by name, The only daughter of late
-Mr.Benson Abel. My father is one of the top Politician in our country
-and my mother is a farmers and cocoa merchant when they were both
-alive. After the death of my mother, long ago, my father was
-controlling their business until he was poisoned by his business
-associates which he suffered and died.
-
-Before the death of my father, He told me about (two million five
-hundred thousand united states dollars) which he deposited in the bank
-in Lome-Togo, It was the money he intended to transfer overseas for
-investment before he was poisoned. He also instructed me that I should
-seek for foreign partners in any country of my choice who will assist
-me transfer this money in overseas account where the money will be
-wisely invested.
-I am seeking for your kind assistance in the following ways:  (1) to
-provide a safe bank account into where the money will be transferred
-for investment. (2) To serve as a guardian of this fund since I am a
-girl of 19 years old. (3) To make arrangement for me to come over to
-your country to further my education. This is my reason for writing to
-you. Please if you are willing to assist me I will offer you 25% of
-the total money. Reply if  you are interested
-Best regards.
-Liliane Abel.
+Yeah, that should do the job. With the caveat that a cancelled syscall
+could've also led to the memory being munmap()ed, so the nread==0 case
+could also happen legitimately - so you might want to move this check
+up above the nread==0 (mm went away) and nread==-1 (mm still exists,
+but read from address failed, errno EIO) checks if the error message
+shouldn't appear spuriously.
