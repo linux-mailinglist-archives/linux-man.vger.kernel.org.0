@@ -2,181 +2,144 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3BD362A0E7B
-	for <lists+linux-man@lfdr.de>; Fri, 30 Oct 2020 20:20:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E1CB82A0E90
+	for <lists+linux-man@lfdr.de>; Fri, 30 Oct 2020 20:24:34 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726607AbgJ3TUR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 30 Oct 2020 15:20:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52090 "EHLO
+        id S1727318AbgJ3TWw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 30 Oct 2020 15:22:52 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52312 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726163AbgJ3TT3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Oct 2020 15:19:29 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 09425C0613CF;
-        Fri, 30 Oct 2020 12:19:29 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id k21so3988090wmi.1;
-        Fri, 30 Oct 2020 12:19:28 -0700 (PDT)
+        with ESMTP id S1727582AbgJ3TUw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Oct 2020 15:20:52 -0400
+Received: from mail-lf1-x142.google.com (mail-lf1-x142.google.com [IPv6:2a00:1450:4864:20::142])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6BF99C0613D2
+        for <linux-man@vger.kernel.org>; Fri, 30 Oct 2020 12:20:52 -0700 (PDT)
+Received: by mail-lf1-x142.google.com with SMTP id a9so9279451lfc.7
+        for <linux-man@vger.kernel.org>; Fri, 30 Oct 2020 12:20:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=7viWtuYwRniajmZI1ykFCky/KA+cALVRK771wIKkhLo=;
-        b=jaqUrcduw6hykc1tMefvpih57LnKDGIE0F+TTCyugOZuGYmsgyhh1uB27g5t3eOncp
-         n22HmcvTsmm6gah+u0jBY9I6Uv+jynxF7IC5FjJsKlbR7+NVpHE64I+jgczgy/PkyvDx
-         pkGc4jDeuH2q1K/qBaO1PUf6m5svm6UeqFzt1b1wwkE4GWhY2KyUju+/3wBeJtwRE6Oc
-         WZSveYq/5efx2GkAIL29DfmRd4os4QdcfRfzbPdOe7lSR+NHCBV9oCANOU5mhLlPP8yr
-         XLYxc0poISbqrDa4qJBExOBCL/IfkK3Jq2tPmd0Dzy3s5uncYIe7U0Lpu2vBvcDQckM4
-         Al3A==
+        d=google.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=7ltXFGIEC1wD1/DcBqIE9Zp9UpD0Eob4weHsly+LU6s=;
+        b=NKzAXeWRhEzSsyPxWy8lABW/VB/K7yCL712Wgf/ZLf7MLh2aHZKNViiJYIbi5Z9IUk
+         0D2VbKnfwvyD2QdfVIYU+1lfoDbLp2UF9hubMPUnOM8plYKIesS4Jd32XnljUf+5Wr21
+         fZ+UR9thk5kKUDBVcXk7E/KewhR4XtulAfljMrcCfiNYGTQrDJ4EF1AvjbDZkzjilzB1
+         1k4tGbZ6wS/da8Gqb6S3LJWsxLFX5rCei0jdonnPR7zzIioIklmXmIkKlgBZLR+ERq9I
+         TtV6o7qnXxRlP9zqMwKYrd9GYW6Mnx069+xDdw7tkMGQAZ/IdoP9rZYBB5nLy51sfqsR
+         3SeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=7viWtuYwRniajmZI1ykFCky/KA+cALVRK771wIKkhLo=;
-        b=uT71w6XhMqt6e+5jBUGnDskfUEbWo3GjItKSNcIIYfbFDvsYQL5UJFbXIvlS3IZX0j
-         gTFsrdU2RKb08cp4mgnmK2ApUPhk0TA19pT35HZrNgzRtdWm62+/Z0c8kkjeApr2lad7
-         knFzl+wkmFb5GsZcj/0gPylZxdF0ylieQrdyJKBtCE1GG3P77GqRhnsaa6fpUjOofxRc
-         vHxZ1K38RCdP39c3y7jU4GwV7eSuuvmQiIcAemdbH3cGONQcc9c7tTMiA34kUEq7ERBE
-         oMB/rdW/ky16gPscZ+TgxflcRyVzwmB08BJ1swkBVlZNuEnfPmc7LNe6gcbMwIgtnxci
-         tdMA==
-X-Gm-Message-State: AOAM532rTItSls4QnLILbdHrnLMcIObhtdKhZvtw4i7Kqg80yluLzeyw
-        DCFdHppZXTyKAQvbZyvfBLFqI1sZXbc=
-X-Google-Smtp-Source: ABdhPJxET2qMKA+4Cv28BF5mZrpYa6OI25P7hqJ/cklYPpEkto8dpm7nhMAeE5CUwmY/dK7FZplEAw==
-X-Received: by 2002:a1c:9641:: with SMTP id y62mr4508628wmd.145.1604085567489;
-        Fri, 30 Oct 2020 12:19:27 -0700 (PDT)
-Received: from ?IPv6:2001:a61:245a:d801:2e74:88ad:ef9:5218? ([2001:a61:245a:d801:2e74:88ad:ef9:5218])
-        by smtp.gmail.com with ESMTPSA id e2sm12474935wrr.85.2020.10.30.12.19.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2020 12:19:26 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] futex.2: Use appropriate types
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-References: <20201030123956.36169-1-colomar.6.4.3@gmail.com>
- <20201030123956.36169-2-colomar.6.4.3@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <f556e3a4-8120-b57c-8da1-7a2273b5fd78@gmail.com>
-Date:   Fri, 30 Oct 2020 20:19:26 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=7ltXFGIEC1wD1/DcBqIE9Zp9UpD0Eob4weHsly+LU6s=;
+        b=UG3eRpj/iUO6tQhoN07d6lu/JX/4kkKaWqYWJkvjLQSIZRIPWaC4Cx5bw5mt2ZQ4dR
+         l4cBKwlJDbGLcbp0VouhA/bn8vMy8Dat+ZlMaTJc0ek2SX3DVA0UmPrXbkzMBr7We0PP
+         ve5kFaTDwZE+01IORVubVTDnA0meOMnccuOHIzlN9IpPTbXjjTv0NowDOopnBKRPwlZt
+         ajtER7nF/rz5G6gNoUBUXcGrAwCDeNl9//nDBeu7t3C4c1WpJFmOuYUJMRZqtJO+yGC1
+         6sDw7q8bqFmZ6zbIhPmi4uNbsl2YZTXUJuevbnSfgaPEx2KKij3LdW0lo3xyItgY9ylk
+         pqww==
+X-Gm-Message-State: AOAM531C0oU58MTFSjv/mademQI5QBDBE6Snxb6M0SetshMB7z3Mv2tr
+        21teYqspK/g8/MN3fiWXvgYPPhAMxMLRnqY0EdZyZw==
+X-Google-Smtp-Source: ABdhPJzPd9Yn3eLEZ6vKKsiFecuFzporMourNqE58Gif0brpSLNfw6y269RW0/w1hGnLsri5OaWqZgnLzVxfJTsympg=
+X-Received: by 2002:a19:c357:: with SMTP id t84mr1432560lff.34.1604085650471;
+ Fri, 30 Oct 2020 12:20:50 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20201030123956.36169-2-colomar.6.4.3@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <63598b4f-6ce3-5a11-4552-cdfe308f68e4@gmail.com>
+ <CAG48ez0fBE6AJfWh0in=WKkgt98y=KjAen=SQPyTYtvsUbF1yA@mail.gmail.com> <93cfdc79-4c48-bceb-3620-4c63e9f4822e@gmail.com>
+In-Reply-To: <93cfdc79-4c48-bceb-3620-4c63e9f4822e@gmail.com>
+From:   Jann Horn <jannh@google.com>
+Date:   Fri, 30 Oct 2020 20:20:24 +0100
+Message-ID: <CAG48ez3nH2Oiz9wMSpvUxxX_TRYTT98d3Nj1vnCuJOj9CCXH8Q@mail.gmail.com>
+Subject: Re: For review: seccomp_user_notif(2) manual page [v2]
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Kees Cook <keescook@chromium.org>,
+        Tycho Andersen <tycho@tycho.pizza>,
+        Sargun Dhillon <sargun@sargun.me>,
+        Christian Brauner <christian@brauner.io>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        Song Liu <songliubraving@fb.com>,
+        Robert Sesek <rsesek@google.com>,
+        Containers <containers@lists.linux-foundation.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Aleksa Sarai <cyphar@cyphar.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
+        Andy Lutomirski <luto@amacapital.net>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 10/30/20 1:39 PM, Alejandro Colomar wrote:
-> The Linux kernel uses the following:
-> 
-> kernel/futex.c:3778:
-> SYSCALL_DEFINE6(futex, u32 __user *, uaddr, int, op, u32, val,
-> 		struct __kernel_timespec __user *, utime, u32 __user *, uaddr2,
-> 		u32, val3)
-> 
-> Since there is no glibc wrapper, use the same types the kernel uses.
+On Thu, Oct 29, 2020 at 8:14 PM Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+> On 10/29/20 2:42 AM, Jann Horn wrote:
+> > As discussed at
+> > <https://lore.kernel.org/r/CAG48ez0m4Y24ZBZCh+Tf4ORMm9_q4n7VOzpGjwGF7_Fe8EQH=Q@mail.gmail.com>,
+> > we need to re-check checkNotificationIdIsValid() after reading remote
+> > memory but before using the read value in any way. Otherwise, the
+> > syscall could in the meantime get interrupted by a signal handler, the
+> > signal handler could return, and then the function that performed the
+> > syscall could free() allocations or return (thereby freeing buffers on
+> > the stack).
+> >
+> > In essence, this pread() is (unavoidably) a potential use-after-free
+> > read; and to make that not have any security impact, we need to check
+> > whether UAF read occurred before using the read value. This should
+> > probably be called out elsewhere in the manpage, too...
+> >
+> > Now, of course, **reading** is the easy case. The difficult case is if
+> > we have to **write** to the remote process... because then we can't
+> > play games like that. If we write data to a freed pointer, we're
+> > screwed, that's it. (And for somewhat unrelated bonus fun, consider
+> > that /proc/$pid/mem is originally intended for process debugging,
+> > including installing breakpoints, and will therefore happily write
+> > over "readonly" private mappings, such as typical mappings of
+> > executable code.)
+> >
+> > So, uuuuh... I guess if anyone wants to actually write memory back to
+> > the target process, we'd better come up with some dedicated API for
+> > that, using an ioctl on the seccomp fd that magically freezes the
+> > target process inside the syscall while writing to its memory, or
+> > something like that? And until then, the manpage should have a big fat
+> > warning that writing to the target's memory is simply not possible
+> > (safely).
+>
+> Thank you for your very clear explanation! It turned out to be
+> trivially easy to demonstrate this issue with a slightly modified
+> version of my program.
+>
+> As well as the change to the code example that I already mentioned
+> my reply of a few hours ago, I've added the following text to the
+> page:
+>
+>    Caveats regarding the use of /proc/[tid]/mem
+>        The discussion above noted the need to use the
+>        SECCOMP_IOCTL_NOTIF_ID_VALID ioctl(2) when opening the
+>        /proc/[tid]/mem file of the target to avoid the possibility of
+>        accessing the memory of the wrong process in the event that the
+>        target terminates and its ID is recycled by another (unrelated)
+>        thread.  However, the use of this ioctl(2) operation is also
+>        necessary in other situations, as explained in the following
+>        pargraphs.
 
-Thanks. Patch applied.
+(nit: paragraphs)
 
-Cheers,
+>        Consider the following scenario, where the supervisor tries to
+>        read the pathname argument of a target's blocked mount(2) system
+>        call:
+[...]
+> Seem okay?
 
-Michael
+Yeah, sounds good.
 
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> ---
->  man2/futex.2 | 27 ++++++++++++++-------------
->  1 file changed, 14 insertions(+), 13 deletions(-)
-> 
-> diff --git a/man2/futex.2 b/man2/futex.2
-> index 837adbd25..73de71623 100644
-> --- a/man2/futex.2
-> +++ b/man2/futex.2
-> @@ -26,12 +26,13 @@ futex \- fast user-space locking
->  .nf
->  .PP
->  .B #include <linux/futex.h>
-> +.B #include <stdint.h>
->  .B #include <sys/time.h>
->  .PP
-> -.BI "int futex(int *" uaddr ", int " futex_op ", int " val ,
-> +.BI "long futex(uint32_t *" uaddr ", int " futex_op ", uint32_t " val ,
->  .BI "          const struct timespec *" timeout , \
->  " \fR  /* or: \fBuint32_t \fIval2\fP */"
-> -.BI "          int *" uaddr2 ", int " val3 );
-> +.BI "          uint32_t *" uaddr2 ", uint32_t " val3 );
->  .fi
->  .PP
->  .IR Note :
-> @@ -581,8 +582,8 @@ any of the two supplied futex words:
->  .IP
->  .in +4n
->  .EX
-> -int oldval = *(int *) uaddr2;
-> -*(int *) uaddr2 = oldval \fIop\fP \fIoparg\fP;
-> +uint32_t oldval = *(uint32_t *) uaddr2;
-> +*(uint32_t *) uaddr2 = oldval \fIop\fP \fIoparg\fP;
->  futex(uaddr, FUTEX_WAKE, val, 0, 0, 0);
->  if (oldval \fIcmp\fP \fIcmparg\fP)
->      futex(uaddr2, FUTEX_WAKE, val2, 0, 0, 0);
-> @@ -1765,11 +1766,11 @@ Child  (18535) 4
->  #define errExit(msg)    do { perror(msg); exit(EXIT_FAILURE); \e
->                          } while (0)
->  
-> -static int *futex1, *futex2, *iaddr;
-> +static uint32_t *futex1, *futex2, *iaddr;
->  
->  static int
-> -futex(int *uaddr, int futex_op, int val,
-> -      const struct timespec *timeout, int *uaddr2, int val3)
-> +futex(uint32_t *uaddr, int futex_op, uint32_t val,
-> +      const struct timespec *timeout, uint32_t *uaddr2, uint32_t val3)
->  {
->      return syscall(SYS_futex, uaddr, futex_op, val,
->                     timeout, uaddr2, val3);
-> @@ -1779,9 +1780,9 @@ futex(int *uaddr, int futex_op, int val,
->     become 1, and then set the value to 0. */
->  
->  static void
-> -fwait(int *futexp)
-> +fwait(uint32_t *futexp)
->  {
-> -    int s;
-> +    long s;
->  
->      /* atomic_compare_exchange_strong(ptr, oldval, newval)
->         atomically performs the equivalent of:
-> @@ -1794,7 +1795,7 @@ fwait(int *futexp)
->      while (1) {
->  
->          /* Is the futex available? */
-> -        const int one = 1;
-> +        const uint32_t one = 1;
->          if (atomic_compare_exchange_strong(futexp, &one, 0))
->              break;      /* Yes */
->  
-> @@ -1811,13 +1812,13 @@ fwait(int *futexp)
->     so that if the peer is blocked in fpost(), it can proceed. */
->  
->  static void
-> -fpost(int *futexp)
-> +fpost(uint32_t *futexp)
->  {
-> -    int s;
-> +    long s;
->  
->      /* atomic_compare_exchange_strong() was described in comments above */
->  
-> -    const int zero = 0;
-> +    const uint32_t zero = 0;
->      if (atomic_compare_exchange_strong(futexp, &zero, 1)) {
->          s = futex(futexp, FUTEX_WAKE, 1, NULL, NULL, 0);
->          if (s  == \-1)
-> 
+> By the way, is there any analogous kind of issue concerning
+> pidfd_getfd()? I'm thinking not, but I wonder if I've missed
+> something.
 
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+When it is used by a seccomp supervisor, you mean? I think basically
+the same thing applies - when resource identifiers (such as memory
+addresses or file descriptors) are passed to a syscall, it generally
+has to be assumed that those identifiers may become invalid and be
+reused as soon as the syscall has returned.
