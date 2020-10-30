@@ -2,326 +2,221 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9F6BD2A0F92
-	for <lists+linux-man@lfdr.de>; Fri, 30 Oct 2020 21:36:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4365A2A0FCA
+	for <lists+linux-man@lfdr.de>; Fri, 30 Oct 2020 21:59:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727288AbgJ3U1Z (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 30 Oct 2020 16:27:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34388 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726297AbgJ3U1Z (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Oct 2020 16:27:25 -0400
-Received: from mail-il1-x141.google.com (mail-il1-x141.google.com [IPv6:2607:f8b0:4864:20::141])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D6C3AC0613D2
-        for <linux-man@vger.kernel.org>; Fri, 30 Oct 2020 13:27:24 -0700 (PDT)
-Received: by mail-il1-x141.google.com with SMTP id x20so7591051ilj.8
-        for <linux-man@vger.kernel.org>; Fri, 30 Oct 2020 13:27:24 -0700 (PDT)
+        id S1727314AbgJ3U7o (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 30 Oct 2020 16:59:44 -0400
+Received: from mx0b-000eb902.pphosted.com ([205.220.177.212]:55200 "EHLO
+        mx0b-000eb902.pphosted.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1726163AbgJ3U7o (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Oct 2020 16:59:44 -0400
+Received: from pps.filterd (m0220298.ppops.net [127.0.0.1])
+        by mx0a-000eb902.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id 09UKwJFZ008772;
+        Fri, 30 Oct 2020 15:59:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garmin.com; h=from : to : cc :
+ subject : date : message-id : references : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=pps1;
+ bh=ZHI+i5zrr8+Uiuw/11Hy44JW79pG9l7bSKyV8Vd6w5s=;
+ b=I4cE1xwR2LnD6cX8bg2dFIVh6Vdy10UjXnoE+gAS/Q4UjfJBoaqo07cvvQ51ZDLQkpVG
+ 1gBTEBdRazwUUoKo0zYeLtLV1eOO7vhFSrV1du9Q2VSRugeJtTjKbfxluqwyMu2/IWO7
+ v+pQHcr1+B1+2lVkEmTY3KSALqheKEoUnYuARsZ1fTul0u1IQ+tIgI75eNqlieJFb/gM
+ SJnLDj4smb6YD7rwRyY8aSQ5rIvJncIGAk3gZci7tght2wIKr3Jf7bm7wcGQDUf1xcqx
+ CF7Vsi7EFX//ZQ08NDVV9EW3jJNtgzzYq2vyOvUr96aSXGx4Txcnzl0Zc5tpSJQiWGY/ Eg== 
+Received: from nam10-mw2-obe.outbound.protection.outlook.com (mail-mw2nam10lp2104.outbound.protection.outlook.com [104.47.55.104])
+        by mx0a-000eb902.pphosted.com with ESMTP id 34cen22g4j-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Fri, 30 Oct 2020 15:59:31 -0500
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=at22lfkxjZs/5pV0GiF9AySRPZK2zgMJEWVxACvufbQqQivs0M2tq/eDXXbTaEsABmpDff/772k1WvKuzPorFhtwuZHLxAKIHWr2nQR1NK5bJtVc8Uq8gvjzSA/keiLjolhNB7Auq+lzsaxBomXDxBwtd6jVoI54zqgJkMGlZjIUj8qp+gulneVEDjow9DQ7iUaNLoZ7kWeKP3RT3XDgTLcDqQpj/J/wCe3U8/LyYLz+8XNevEeY8RYC2FjzUQxXJ44fscFFvZD2JJkz27lHjpIHOiQo0QDjheHXORhnrxEeq3BX/KSKCnNmuMUyub4jsrrtJ89nP+EcMPCMHjuX8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZHI+i5zrr8+Uiuw/11Hy44JW79pG9l7bSKyV8Vd6w5s=;
+ b=f7TgENze6R199hiYMt0pD3aXEpsR4DaL33FMYT/XGaJjNjjwZY+k/iygg/gwI2j6gkoF1ulw0BehfSeCODxYs+RuZAKrXoVZBpcC6I337qzSRNPgNw3kPWO4jkUf2npjL+PW59MZGDD7JCVf0ZMIqmNXpvaa8GIzEb1/rpYVWwn0dZUU+/ngimlIC8YRNXvbaom6ax2YISg8HS2laMVOBB4JJHfRvdM6qN3DrYzQbnOKfySN0zkb1SQxkiBRBWEgHmSeohjvBpDfAz+Sb5xdO5U4pW9dHu+cncgong07HsauaV/FJ7nzuwCzSQ4ZVXjZnvd1htBfm5mSn9kPAitSMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 204.77.163.244) smtp.rcpttodomain=gmail.com smtp.mailfrom=garmin.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=garmin.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sargun.me; s=google;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:content-transfer-encoding:in-reply-to
-         :user-agent;
-        bh=kuTknbqhK1g3g34Id4lOLSPvzBLGm3ypK3b32iZifKg=;
-        b=JcmDIem2DY8j3ivVnlrkMam0ek18/0CnWlwG377b0w6s30XPah+BB6apss2qjDJPk/
-         tRger9u7a/DBnbP+UE3nY2Ufv8AUayYoWm/SMtrKLpqy+0YSc9ENcNtPcbaU2PY2mMUp
-         N9a+88Sznpph7Deu3XgNM6Wo7kwi7Z1TZAzEk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:content-transfer-encoding
-         :in-reply-to:user-agent;
-        bh=kuTknbqhK1g3g34Id4lOLSPvzBLGm3ypK3b32iZifKg=;
-        b=kTmFkWHafMxItg6xOoqgiH4joCIdjgNC8UE161RSWvr69Cld46yY5DFynbnPk+TIm+
-         JfTdAFU4yFuvrGaQO60xS3M+sRvHHY1fhZ0bVsYrXr4bMez9gn6/4K/Mi+BGacZgwWO5
-         hVF2fequ5M0iNzZqQB4LWpyz2tuIHZ+lculbFr4vCgmHBADzEsO91FdMsVaD7Sc4j26F
-         89vtLEeuXLnuOgMDkXmHNsEnd6rk9+OAD7HvbvSo+cP/LdksQoOsuIWlDs/hi5SAwLdo
-         YroTN5a6BRQHvEGGzArIGuufFhPZlQbSMOI254ANmU8E+WbQ+pyBNw1IVZ66aWZdxVOj
-         RSuQ==
-X-Gm-Message-State: AOAM533/HXOISYX2ON4LJ/DiyKBI8uoZqE2l50LTQO530zyGfAskaacX
-        YhqyJEvPkcyapwlTb0IZbQFqWQ==
-X-Google-Smtp-Source: ABdhPJwdWv9Z3WhLsQ1bfA8nV/BDPpM8CGlCQuuS505gefn5JvsbjjIaN6ZFze/YAovCoe5uvhzl1g==
-X-Received: by 2002:a05:6e02:52c:: with SMTP id h12mr3133023ils.196.1604089643962;
-        Fri, 30 Oct 2020 13:27:23 -0700 (PDT)
-Received: from ircssh-2.c.rugged-nimbus-611.internal (80.60.198.104.bc.googleusercontent.com. [104.198.60.80])
-        by smtp.gmail.com with ESMTPSA id r17sm4934936iov.7.2020.10.30.13.27.23
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Fri, 30 Oct 2020 13:27:23 -0700 (PDT)
-Date:   Fri, 30 Oct 2020 20:27:21 +0000
-From:   Sargun Dhillon <sargun@sargun.me>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Tycho Andersen <tycho@tycho.pizza>,
-        Christian Brauner <christian@brauner.io>,
-        Kees Cook <keescook@chromium.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Giuseppe Scrivano <gscrivan@redhat.com>,
-        Song Liu <songliubraving@fb.com>,
-        Robert Sesek <rsesek@google.com>,
-        Containers <containers@lists.linux-foundation.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Aleksa Sarai <cyphar@cyphar.com>, Jann Horn <jannh@google.com>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
-        Andy Lutomirski <luto@amacapital.net>
-Subject: Re: For review: seccomp_user_notif(2) manual page [v2]
-Message-ID: <20201030202720.GA4088@ircssh-2.c.rugged-nimbus-611.internal>
-References: <63598b4f-6ce3-5a11-4552-cdfe308f68e4@gmail.com>
- <20201029085312.GC29881@ircssh-2.c.rugged-nimbus-611.internal>
- <48e5937b-80f5-c48b-1c67-e8c9db263ca5@gmail.com>
+ d=garmin.onmicrosoft.com; s=selector1-garmin-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZHI+i5zrr8+Uiuw/11Hy44JW79pG9l7bSKyV8Vd6w5s=;
+ b=yRjKnp6vU97QiAaK1BWmWv55Z0+apVqQq4NZNGRiaWmxF8ZpWejZqpUZbJ5B4hyyY8hYZm3Hx4cbF7a3uudKt0rg1CQjpjlcst7oTl35BUStUWHOzKtMCN/gIL9ibRzyrTrEbf/vqC3gnl30oCowlBeX+Dzk0xJYOxA/YYew7yijaAj1KAZcwLYSGKoXsoOhUzpcY0YWlizQdIbslFD5Kvz1wgW1yZEyBCdi0bhEDXKUeIEOlq7qnGnFWF4ZwQzzFIUAVKjM2WUC3521z0yA154VZ0EOfcXmmKB8XI90S2k3lRHZi5AkewkxbT0k1q2tNiw8w6ZCTIcfVsG7L5cBfA==
+Received: from MWHPR12CA0072.namprd12.prod.outlook.com (2603:10b6:300:103::34)
+ by MN2PR04MB5647.namprd04.prod.outlook.com (2603:10b6:208:3f::27) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.28; Fri, 30 Oct
+ 2020 20:59:29 +0000
+Received: from MW2NAM10FT033.eop-nam10.prod.protection.outlook.com
+ (2603:10b6:300:103:cafe::a0) by MWHPR12CA0072.outlook.office365.com
+ (2603:10b6:300:103::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18 via Frontend
+ Transport; Fri, 30 Oct 2020 20:59:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 204.77.163.244)
+ smtp.mailfrom=garmin.com; gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=pass action=none header.from=garmin.com;
+Received-SPF: Pass (protection.outlook.com: domain of garmin.com designates
+ 204.77.163.244 as permitted sender) receiver=protection.outlook.com;
+ client-ip=204.77.163.244; helo=edgetransport.garmin.com;
+Received: from edgetransport.garmin.com (204.77.163.244) by
+ MW2NAM10FT033.mail.protection.outlook.com (10.13.154.195) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3520.17 via Frontend Transport; Fri, 30 Oct 2020 20:59:29 +0000
+Received: from OLAWPA-EXMB1.ad.garmin.com (10.5.144.23) by
+ olawpa-edge3.garmin.com (10.60.4.226) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.1.2106.2; Fri, 30 Oct 2020 15:59:28 -0500
+Received: from OLAWPA-EXMB7.ad.garmin.com (10.5.144.21) by
+ OLAWPA-EXMB1.ad.garmin.com (10.5.144.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2106.2; Fri, 30 Oct 2020 15:59:28 -0500
+Received: from OLAWPA-EXMB7.ad.garmin.com ([fe80::68cc:dab9:e96a:c89]) by
+ OLAWPA-EXMB7.ad.garmin.com ([fe80::68cc:dab9:e96a:c89%23]) with mapi id
+ 15.01.2106.003; Fri, 30 Oct 2020 15:59:28 -0500
+From:   "Karstens, Nate" <Nate.Karstens@garmin.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        Adhemerval Zanella <adhemerval.zanella@linaro.org>
+CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
+        "willy@infradead.org" <willy@infradead.org>
+Subject: RE: [PATCH] system.3: Indicate MT-Unsafe
+Thread-Topic: [PATCH] system.3: Indicate MT-Unsafe
+Thread-Index: AQHWm/vtNluNXYsZokGE+MUwRkv21amLJ30AgAEN6VCAAI+HgIAetsaAgAVDqXA=
+Date:   Fri, 30 Oct 2020 20:59:28 +0000
+Message-ID: <a0ae5e9a19624a8f92d91dc8bb2c0113@garmin.com>
+References: <20201006161520.975-1-nate.karstens@garmin.com>
+ <6dec3d89-a16e-8be5-6f85-4ff4e51e9136@linaro.org>
+ <b9349b7939b140fc8e53d3b96807affc@garmin.com>
+ <65eb1d09-64b9-03d1-321f-440b857ac1b2@linaro.org>
+ <672fc29e-1c5c-8c6c-c9f0-dfbd32c5ff57@gmail.com>
+In-Reply-To: <672fc29e-1c5c-8c6c-c9f0-dfbd32c5ff57@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.50.4.7]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <48e5937b-80f5-c48b-1c67-e8c9db263ca5@gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ff1e3c08-5561-4c5d-1483-08d87d16b17b
+X-MS-TrafficTypeDiagnostic: MN2PR04MB5647:
+X-Microsoft-Antispam-PRVS: <MN2PR04MB564797D764336ABBDA6663C29C150@MN2PR04MB5647.namprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: wfETma+M+VpInHz6R+JQYd4IL1IT/PYRav4d1UL8RC8bi1e+GXPw9E+yr2R1ZPdj5g4pQ3B65PaMnUHNI4t9UAza/UWlEngRv58h9jGQBx9OOVuwizOIa6/dLhwzCvvJ4z1sA9/c5MFZtyIYXuoRGt/t5nHL/co3ZHbAEuvUF3fNwqazus3j3PLRipl5CrwZW1JHK0dsnWgMb8Kx9wWnw50ZKJt6qhfFG97xpxRLFc2W8oDv0UOVIxsfx1+Ki3ZzPX6jZCYKnYCv6y3DGjY2nhx5BHnttAAEhJU9+G+IxrfKx4dxWaU0x2uiy+CxBpDrS6SNVPZYxD3LESlkEEz94tB7cofz7RXX1oCljsP0999gVPpRRp3Mchn+TV0yKJAf/nk7aiyiWEJcVTTKLoQ/q5lBFGsHrAbVUyTWIpQ8nnb3mexgZuwx+KFLRjRSdQoHMPqOy1WAMa9Q0OzXTT8sx0EydWBtnQ2O2xC4g72Qo3Q=
+X-Forefront-Antispam-Report: CIP:204.77.163.244;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:edgetransport.garmin.com;PTR:extedge.garmin.com;CAT:NONE;SFS:(136003)(396003)(376002)(39860400002)(346002)(46966005)(86362001)(7636003)(83380400001)(2906002)(108616005)(24736004)(8676002)(356005)(82310400003)(186003)(70206006)(426003)(336012)(70586007)(8936002)(26005)(53546011)(7696005)(478600001)(5660300002)(82740400003)(47076004)(2616005)(36756003)(4326008)(54906003)(966005)(110136005)(316002);DIR:OUT;SFP:1102;
+X-OriginatorOrg: garmin.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2020 20:59:29.1981
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff1e3c08-5561-4c5d-1483-08d87d16b17b
+X-MS-Exchange-CrossTenant-Id: 38d0d425-ba52-4c0a-a03e-2a65c8e82e2d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=38d0d425-ba52-4c0a-a03e-2a65c8e82e2d;Ip=[204.77.163.244];Helo=[edgetransport.garmin.com]
+X-MS-Exchange-CrossTenant-AuthSource: MW2NAM10FT033.eop-nam10.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR04MB5647
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312,18.0.737
+ definitions=2020-10-30_10:2020-10-30,2020-10-30 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ adultscore=0 mlxlogscore=999 malwarescore=0 suspectscore=0 phishscore=0
+ bulkscore=0 impostorscore=0 lowpriorityscore=0 mlxscore=0 clxscore=1011
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2010300154
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Oct 29, 2020 at 09:37:21PM +0100, Michael Kerrisk (man-pages) wrote:
-> Hello Sargun,,
-> 
-> On 10/29/20 9:53 AM, Sargun Dhillon wrote:
-> > On Mon, Oct 26, 2020 at 10:55:04AM +0100, Michael Kerrisk (man-pages) wrote:
-> 
-> [...]
-> 
-> >>    ioctl(2) operations
-> >>        The following ioctl(2) operations are provided to support seccomp
-> >>        user-space notification.  For each of these operations, the first
-> >>        (file descriptor) argument of ioctl(2) is the listening file
-> >>        descriptor returned by a call to seccomp(2) with the
-> >>        SECCOMP_FILTER_FLAG_NEW_LISTENER flag.
-> >>
-> >>        SECCOMP_IOCTL_NOTIF_RECV
-> >>               This operation is used to obtain a user-space notification
-> >>               event.  If no such event is currently pending, the
-> >>               operation blocks until an event occurs.  The third
-> >>               ioctl(2) argument is a pointer to a structure of the
-> >>               following form which contains information about the event.
-> >>               This structure must be zeroed out before the call.
-> >>
-> >>                   struct seccomp_notif {
-> >>                       __u64  id;              /* Cookie */
-> >>                       __u32  pid;             /* TID of target thread */
-> >>                       __u32  flags;           /* Currently unused (0) */
-> >>                       struct seccomp_data data;   /* See seccomp(2) */
-> >>                   };
-> >>
-> >>               The fields in this structure are as follows:
-> >>
-> >>               id     This is a cookie for the notification.  Each such
-> >>                      cookie is guaranteed to be unique for the
-> >>                      corresponding seccomp filter.
-> >>
-> >>                      · It can be used with the
-> >>                        SECCOMP_IOCTL_NOTIF_ID_VALID ioctl(2) operation
-> >>                        to verify that the target is still alive.
-> >>
-> >>                      · When returning a notification response to the
-> >>                        kernel, the supervisor must include the cookie
-> >>                        value in the seccomp_notif_resp structure that is
-> >>                        specified as the argument of the
-> >>                        SECCOMP_IOCTL_NOTIF_SEND operation.
-> >>
-> >>               pid    This is the thread ID of the target thread that
-> >>                      triggered the notification event.
-> >>
-> >>               flags  This is a bit mask of flags providing further
-> >>                      information on the event.  In the current
-> >>                      implementation, this field is always zero.
-> >>
-> >>               data   This is a seccomp_data structure containing
-> >>                      information about the system call that triggered
-> >>                      the notification.  This is the same structure that
-> >>                      is passed to the seccomp filter.  See seccomp(2)
-> >>                      for details of this structure.
-> >>
-> >>               On success, this operation returns 0; on failure, -1 is
-> >>               returned, and errno is set to indicate the cause of the
-> >>               error.  This operation can fail with the following errors:
-> >>
-> >>               EINVAL (since Linux 5.5)
-> >>                      The seccomp_notif structure that was passed to the
-> >>                      call contained nonzero fields.
-> >>
-> >>               ENOENT The target thread was killed by a signal as the
-> >>                      notification information was being generated, or
-> >>                      the target's (blocked) system call was interrupted
-> >>                      by a signal handler.
-> >>
-> > 
-> > I think I commented in another thread somewhere that the supervisor is not 
-> > notified if the syscall is preempted. Therefore if it is performing a 
-> > preemptible, long-running syscall, you need to poll
-> > SECCOMP_IOCTL_NOTIF_ID_VALID in the background, otherwise you can
-> > end up in a bad situation -- like leaking resources, or holding on to
-> > file descriptors after the program under supervision has intended to
-> > release them.
-> 
-> It's been a long day, and I'm not sure I reallu understand this.
-> Could you outline the scnario in more detail?
-> 
-S: Sets up filter + interception for accept
-T: socket(AF_INET, SOCK_STREAM, 0) = 7
-T: bind(7, {127.0.0.1, 4444}, ..)
-T: listen(7, 10)
-T: pidfd_getfd(T, 7) = 7 # For the sake of discussion.
-T: accept(7, ...)
-S: Intercepts accept
-S: Does accept in background
-T: Receives signal, and accept(...) responds in EINTR
-T: close(7)
-S: Still running accept(7, ....), holding port 4444, so if now T retries
-   to bind to port 4444, things fail.
-
-> > A very specific example is if you're performing an accept on behalf
-> > of the program generating the notification, and the program intends
-> > to reuse the port. You can get into all sorts of awkward situations
-> > there.
-> 
-> [...]
-> 
-See above
-
-> > 	SECCOMP_IOCTL_NOTIF_ADDFD (Since Linux v5.9)
-> > 		This operations is used by the supervisor to add a file
-> > 		descriptor to the process that generated the notification.
-> > 		This can be used by the supervisor to enable "emulation"
-> > 		[Probably a better word] of syscalls which return file
-> > 		descriptors, such as socket(2), or open(2).
-> > 
-> > 		When the file descriptor is received by the process that
-> > 		is associated with the notification / cookie, it follows
-> > 		SCM_RIGHTS like semantics, and is evaluated by MAC.
-> 
-> I'm not sure what you mean by SCM_RIGHTS like semantics. Do you mean,
-> the file descriptor refers to the same open file description
-> ('struct file')?
-> 
-> "is evaluated by MAC"... Do you mean something like: the FD is 
-> subject  to LSM checks?
-> 
-The same model of SCM_RIGHTS, where it's checked against LSMs in the same way, 
-and if your lsm hooks in, it'll activate the same hook as moving the file via 
-SCM_RIGHTS would trigger. Also, SCM_RIGHTS does result in some aspects of the fd 
-being shared and others being different (like flags). Perhaps there's a better 
-term to describe these semantics.
-
-RE: Evaluated by MAC - yes, checked by LSMs.
-
-> > 		In addition, if it is a socket, it inherits the cgroup
-> > 		v1 classid and netprioidx of the receiving process.
-> > 
-> > 		The argument of this is as follows:
-> > 
-> > 			struct seccomp_notif_addfd {
-> > 				__u64 id;
-> > 				__u32 flags;
-> > 				__u32 srcfd;
-> > 				__u32 newfd;
-> > 				__u32 newfd_flags;
-> > 			};
-> > 
-> > 		id
-> > 			This is the cookie value that was obtained using
-> > 			SECCOMP_IOCTL_NOTIF_RECV.
-> > 
-> > 		flags
-> > 			A bitmask that includes zero or more of the
-> > 			SECCOMP_ADDFD_FLAG_* bits set
-> > 
-> > 			SECCOMP_ADDFD_FLAG_SETFD - Use dup2 (or dup3?)
-> > 				like semantics when copying the file
-> > 				descriptor.
-> > 
-> > 		srcfd
-> > 			The file descriptor number to copy in the
-> > 			supervisor process.
-> > 
-> > 		newfd
-> > 			If the SECCOMP_ADDFD_FLAG_SETFD flag is specified
-> > 			this will be the file descriptor that is used
-> > 			in the dup2 semantics. If this file descriptor
-> > 			exists in the receiving process, it is closed
-> > 			and replaced by this file descriptor in an
-> > 			atomic fashion. If the copy process fails
-> > 			due to a MAC failure, or if srcfd is invalid,
-> > 			the newfd will not be closed in the receiving
-> > 			process.
-> 
-> Great description!
-> 
-> > 			If SECCOMP_ADDFD_FLAG_SETFD it not set, then
-> > 			this value must be 0.
-> > 
-> > 		newfd_flags
-> > 			The file descriptor flags to set on
-> > 			the file descriptor after it has been received
-> > 			by the process. The only flag that can currently
-> > 			be specified is O_CLOEXEC.
-> > 
-> > 		On success, this operation returns the file descriptor
-> > 		number in the receiving process. On failure, -1 is returned.
-> > 
-> > 		It can fail with the following error codes:
-> > 
-> > 		EINPROGRESS
-> > 			The cookie number specified hasn't been received
-> > 			by the listener
-> 
-> I don't understand this. Can you say more about the scenario?
-> 
-
-This should not really happen. But if you do a ADDFD(...), on a notification 
-*before* you've received it, you will get this error. So for example,
---> epoll(....) -> returns
---> RECV(...) cookie id is 777
---> epoll(...) -> returns
-<-- ioctl(ADDFD, id = 778) # Notice how we haven't done a receive yet
-    where we've received a notification for 778.
-
-> > 		ENOENT
-> > 			The cookie number is not valid. This can happen
-> > 			if a response has already been sent, or if the
-> > 			syscall was interrupted
-> > 
-> > 		EBADF
-> > 			If the file descriptor specified in srcfd is
-> > 			invalid, or if the fd is out of range of the
-> > 			destination program.
-> 
-> The piece "or if the fd is out of range of the destination
-> program" is not clear to me. Can you say some more please.
-> 
-
-IIRC the maximum fd range is specific in proc by some sysctl named
-nr_open. It's also evaluated against RLIMITs, and nr_max.
-
-If nr-open (maximum fds open per process, iiirc) is 1000, even
-if 10 FDs are open, it wont work if newfd is 1001.
-
-> > 		EINVAL
-> > 			If flags or new_flags were unrecognized, or
-> > 			if newfd is non-zero, and SECCOMP_ADDFD_FLAG_SETFD
-> > 			has not been set.
-> > 
-> > 		EMFILE
-> > 			Too many files are open by the destination process.
-> > 
-> > 		[there's other error codes possible, like from the LSMs
-> > 		 or if memory can't be read / written or ebusy]
-> > 		 
-> > Does this help?
-> 
-> It's a good start!
-> 
-> Thanks,
-> 
-> Michael
-> 
-> 
-> -- 
-> Michael Kerrisk
-> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-> Linux/UNIX System Programming Training: http://man7.org/training/
+SSBkb24ndCBrbm93LCBteSBpbnRlcnByZXRhdGlvbiBvZiB3aGF0IGhhcHBlbnMgaXMgdGhhdCB0
+aGUgcmFjZSBpcyByZWxhdGVkIHRvIHRoZSByZXNvdXJjZXMgb2YgdGhlIGNhbGxlci4gSW5zaWRl
+IG9mIHN5c3RlbSgpIHRoZSBwcm9ncmFtIGVzc2VudGlhbGx5IGZvcmtlZCwgaW5jcmVhc2luZyB0
+aGUgT1MncyByZWZlcmVuY2UgY291bnQgb2YgdGhvc2UgZmlsZSBkZXNjcmlwdG9ycy4gQXQgdGhl
+IHNhbWUgdGltZSwgYW5vdGhlciB0aHJlYWQgaW4gdGhlIGNhbGxlciBhdHRlbXB0cyB0byBjbG9z
+ZSAmIHJlb3BlbiB0aG9zZSByZXNvdXJjZXMsIGJ1dCBmYWlscyBiZWNhdXNlIGl0IGNhbm5vdCBn
+ZXQgZXhjbHVzaXZlIGFjY2Vzcy4gSW4gYSBzaW5nbGUtdGhyZWFkZWQgcHJvY2VzcyB0aGlzIHdv
+dWxkIG5vdCBoYXBwZW4gYmVjYXVzZSBzeXN0ZW0oKSBkb2Vzbid0IHJldHVybiB1bnRpbCB0aGUg
+Y2hpbGQgcHJvY2VzcyBpcyBjb21wbGV0ZS4gSSB0aGluayBtb3N0IHBlb3BsZSB3aWxsIGNoZWNr
+IHRoZSB0aHJlYWQgc2FmZXR5IGF0dHJpYnV0ZSBhbmQgc28gY2hhbmdpbmcgdGhpcyB3aWxsIGJl
+IHRoZSBtb3N0IG9idmlvdXMgd2F5IHRvIGluZGljYXRlIGEgcG90ZW50aWFsIHByb2JsZW0uDQoN
+CkJ1dCBtYXliZSB0aGVyZSBpcyBzb21lIHN1YnRsZXR5IEknbSBub3QgcGlja2luZyB1cCBvbiwg
+SSdtIG9wZW4gdG8gb3RoZXIgaWRlYXMgb24gaG93IGJlc3QgdG8gY29tbXVuaWNhdGUgdGhpcy4N
+Cg0KVGhhbmtzLA0KDQpOYXRlDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBN
+aWNoYWVsIEtlcnJpc2sgKG1hbi1wYWdlcykgPG10ay5tYW5wYWdlc0BnbWFpbC5jb20+IA0KU2Vu
+dDogVHVlc2RheSwgT2N0b2JlciAyNywgMjAyMCAwMjowOA0KVG86IEFkaGVtZXJ2YWwgWmFuZWxs
+YSA8YWRoZW1lcnZhbC56YW5lbGxhQGxpbmFyby5vcmc+OyBLYXJzdGVucywgTmF0ZSA8TmF0ZS5L
+YXJzdGVuc0BnYXJtaW4uY29tPg0KQ2M6IG10ay5tYW5wYWdlc0BnbWFpbC5jb207IGxpbnV4LW1h
+bkB2Z2VyLmtlcm5lbC5vcmc7IGxpYmMtYWxwaGFAc291cmNld2FyZS5vcmc7IHdpbGx5QGluZnJh
+ZGVhZC5vcmcNClN1YmplY3Q6IFJlOiBbUEFUQ0hdIHN5c3RlbS4zOiBJbmRpY2F0ZSBNVC1VbnNh
+ZmUNCg0KT24gMTAvNy8yMCA4OjA2IFBNLCBBZGhlbWVydmFsIFphbmVsbGEgd3JvdGU6DQo+IEJ1
+dCBjYWxsaW5nIHN5c3RlbSBkb2VzIG5vdCByZWFsbHkgaW5jdXIgaW4gYSByYWNlIHcuci50IHRo
+ZSByZXNvdXJjZXMgDQo+IG9mIHRoZSBjYWxsZXIgaXRzZWxmIGFuZCBsZWFzdCBnbGliYyBkb2Vz
+IGhhbmRsZSBjb25jdXJyZW50IHNpZ2FjdGlvbnMgDQo+IGNhbGxzIGFuZCB0aHJlYWQgY2FuY2Vs
+bGF0aW9uIChieSByZWFwaW5nIHRoZSBjcmVhdGVkIHByb2Nlc3MpLiBJIGFtIA0KPiBub3Qgc3Vy
+ZSBhYm91dCBvdGhlciBsaWJjIGltcGxlbWVudGF0aW9uIHRob3VnaC4NCj4gDQo+IFRoZSBmaWxl
+IGxlYWthZ2Ugd2lsbCBiZSBvbmx5IGZvciB0aGUgc3Bhd24gcHJvZ3JhbSBpdHNlbGYgYW5kIA0K
+PiBhbHRob3VnaCBpdCBpcyBtaWdodCBjaGFyYWN0ZXJpemUgYXMgdW5zYWZlIHRvIGNhbGwgJ3N5
+c3RlbScgaW4gDQo+IG11bHRpdGhyZWFkIGVudmlyb25tZW50IEkgZG9uJ3QgdGhpbmsgdGhpcyBj
+aGFyYWN0ZXJpemUgYXMgTVQtdW5zYWZlIA0KPiAoYW5kIHdpdGggRkRfQ0xPRVhFQy9PX0NMT0VY
+RUMgc3lzdGVtIGlzIGluZGVlZCBzYWZlIGluIHRoaXMgcmVnYXJkaW5nKS4NCj4gDQo+IFNvIG1h
+eWJlIGRvY3VtZW50IHVzaW5nIGEgZGlmZmVyZW50IG1hcmt1cCB0byBtYWtlIGl0IGV4cGxpY2l0
+Pw0KDQpBbnkgZnVydGhlciBjb25jbHVzaW9ucyBvdXQgb2YgdGhpcz8NCg0KVGhhbmtzLA0KDQpN
+aWNoYWVsDQoNCj4gT24gMDcvMTAvMjAyMCAxMTozNSwgS2Fyc3RlbnMsIE5hdGUgd3JvdGU6DQo+
+PiBJJ20gZmluZSB3aXRoIGFkZGluZyBhICJyYWNlIiBxdWFsaWZpZXIuIERvIHlvdSBoYXZlIGFu
+eSBpZGVhcyBvbiB0aGUgdHlwZSBvZiByYWNlPyBJIGRpZG4ndCBzZWUgYW55dGhpbmcgaW4gdGhl
+IG90aGVyIG1hbi1wYWdlcyB0aGF0IGp1bXBlZCBvdXQgYXMgYmVpbmcgY29ycmVjdC4NCj4+DQo+
+PiBUaGFua3MsDQo+Pg0KPj4gTmF0ZQ0KPj4NCj4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0t
+DQo+PiBGcm9tOiBBZGhlbWVydmFsIFphbmVsbGEgPGFkaGVtZXJ2YWwuemFuZWxsYUBsaW5hcm8u
+b3JnPg0KPj4gU2VudDogVHVlc2RheSwgT2N0b2JlciAwNiwgMjAyMCAxMjoyNg0KPj4gVG86IEth
+cnN0ZW5zLCBOYXRlIDxOYXRlLkthcnN0ZW5zQGdhcm1pbi5jb20+OyBtdGsubWFucGFnZXNAZ21h
+aWwuY29tDQo+PiBDYzogbGludXgtbWFuQHZnZXIua2VybmVsLm9yZzsgbGliYy1hbHBoYUBzb3Vy
+Y2V3YXJlLm9yZzsgDQo+PiB3aWxseUBpbmZyYWRlYWQub3JnDQo+PiBTdWJqZWN0OiBSZTogW1BB
+VENIXSBzeXN0ZW0uMzogSW5kaWNhdGUgTVQtVW5zYWZlDQo+Pg0KPj4gQ0FVVElPTiAtIEVYVEVS
+TkFMIEVNQUlMOiBEbyBub3QgY2xpY2sgYW55IGxpbmtzIG9yIG9wZW4gYW55IGF0dGFjaG1lbnRz
+IHVubGVzcyB5b3UgdHJ1c3QgdGhlIHNlbmRlciBhbmQga25vdyB0aGUgY29udGVudCBpcyBzYWZl
+Lg0KPj4NCj4+DQo+PiBPbiAwNi8xMC8yMDIwIDEzOjE1LCBOYXRlIEthcnN0ZW5zIHZpYSBMaWJj
+LWFscGhhIHdyb3RlOg0KPj4+IFRoZSBmYWN0IHRoYXQgc3lzdGVtKDMpIGRvZXMgbm90IHN1cHBv
+cnQgcHRocmVhZF9hdGZvcmsoMykgYWxzbyANCj4+PiBtZWFucyB0aGF0IGl0IGlzIG5vdCB0aHJl
+YWQgc2FmZS4gU2VlIHRoZSBkaXNjdXNzaW9uIGZvciB0aGUgDQo+Pj4gcHJvcG9zYWwgb2YgYSBj
+bG9zZS1vbi1mb3JrIGZsYWcgaW4gdGhlIDIwMjAgQXByaWwgYW5kIE1heSB0aW1lZnJhbWUsIGVz
+cGVjaWFsbHk6DQo+Pj4NCj4+PiBodHRwczovL3VybGRlZmVuc2UuY29tL3YzL19faHR0cHM6Ly9s
+a21sLm9yZy9sa21sLzIwMjAvNS8xNS8xMDY3X187IQ0KPj4+ICFFIA0KPj4+IEpjNFlDM2lGbVEh
+RDlZVkFFNzYwaFQtWUZvT1QxNEttSXU0eTJjalFiOFpmbFZncFgtM3J4Z0JGMld2eHlBVFVlUW9n
+DQo+Pj4gWkYNCj4+PiBGZnYyc0lRJA0KPj4+DQo+Pj4gU2lnbmVkLW9mZi1ieTogTmF0ZSBLYXJz
+dGVucyA8bmF0ZS5rYXJzdGVuc0BnYXJtaW4uY29tPg0KPj4NCj4+IE5vdCBzdXJlIGlmIG1hbiBw
+YWdlcyBjaGFyYWN0ZXJpemVzIGZpbGUgZGVzY3JpcHRvciBsZWFrIGFzIG10LXVuc2FmZSwgYXQg
+bGVhc3Qgd2UgZG9uJ3QgaGF2ZSB0aGlzIGNvbmNlcHQgb24gZ2xpYmMgbWFudWFsLiAgSW4gZmFj
+dCwgSSB0aGluayBhZGRpbmcgYSBNVC1VbnNhZmUgbWFyayB0byB0aGlzIHBvdGVudGlhbGx5IG1h
+a2UgYW55IGxpYmMgY2FsbCB0aGF0IGlzIG5vdCBhdG9taWMgcG90ZW50aWFsbHkgTVQtVW5zYWZl
+LCBlaXRoZXIgd2hlbiB0aGV5IGRvIG5vdCBjb25jdXJyZW50IHRyaWdnZXIgcmFjZSBpc3N1ZXMg
+cmVnYXJkaW5nIG1lbW9yeSBzZW1hbnRpYy4gQXQgbGVhc3QgSSB0aGluayBpdCBzaG91bGQgYWRk
+IGEgJ3JhY2UnDQo+PiBtYXJrIHRvIGluZGljYXRlIHdoYXQgZXhhY3RseSBpcyBNVC11bnNhZmUg
+KGFzIGZvciBvdGhlciBpbXBsZW1lbnRhdGlvbnMpLg0KPj4NCj4+PiAtLS0NCj4+PiAgbWFuMy9z
+eXN0ZW0uMyB8IDIgKy0NCj4+PiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRl
+bGV0aW9uKC0pDQo+Pj4NCj4+PiBkaWZmIC0tZ2l0IGEvbWFuMy9zeXN0ZW0uMyBiL21hbjMvc3lz
+dGVtLjMgaW5kZXggDQo+Pj4gYWVmNDA0MTdhLi44NzMwZmFiZDMNCj4+PiAxMDA2NDQNCj4+PiAt
+LS0gYS9tYW4zL3N5c3RlbS4zDQo+Pj4gKysrIGIvbWFuMy9zeXN0ZW0uMw0KPj4+IEBAIC0xMjcs
+NyArMTI3LDcgQEAgbCBsIGwuDQo+Pj4gIEludGVyZmFjZSAgICBBdHRyaWJ1dGUgICAgICAgVmFs
+dWUNCj4+PiAgVHsNCj4+PiAgLkJSIHN5c3RlbSAoKQ0KPj4+IC1UfSAgIFRocmVhZCBzYWZldHkg
+ICBNVC1TYWZlDQo+Pj4gK1R9ICAgVGhyZWFkIHNhZmV0eSAgIE1ULVVuc2FmZQ0KPj4+ICAuVEUN
+Cj4+PiAgLlNIIENPTkZPUk1JTkcgVE8NCj4+PiAgUE9TSVguMS0yMDAxLCBQT1NJWC4xLTIwMDgs
+IEM4OSwgQzk5Lg0KPj4+DQo+Pg0KPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18N
+Cj4+DQo+PiBDT05GSURFTlRJQUxJVFkgTk9USUNFOiBUaGlzIGVtYWlsIGFuZCBhbnkgYXR0YWNo
+bWVudHMgYXJlIGZvciB0aGUgc29sZSB1c2Ugb2YgdGhlIGludGVuZGVkIHJlY2lwaWVudChzKSBh
+bmQgY29udGFpbiBpbmZvcm1hdGlvbiB0aGF0IG1heSBiZSBHYXJtaW4gY29uZmlkZW50aWFsIGFu
+ZC9vciBHYXJtaW4gbGVnYWxseSBwcml2aWxlZ2VkLiBJZiB5b3UgaGF2ZSByZWNlaXZlZCB0aGlz
+IGVtYWlsIGluIGVycm9yLCBwbGVhc2Ugbm90aWZ5IHRoZSBzZW5kZXIgYnkgcmVwbHkgZW1haWwg
+YW5kIGRlbGV0ZSB0aGUgbWVzc2FnZS4gQW55IGRpc2Nsb3N1cmUsIGNvcHlpbmcsIGRpc3RyaWJ1
+dGlvbiBvciB1c2Ugb2YgdGhpcyBjb21tdW5pY2F0aW9uIChpbmNsdWRpbmcgYXR0YWNobWVudHMp
+IGJ5IHNvbWVvbmUgb3RoZXIgdGhhbiB0aGUgaW50ZW5kZWQgcmVjaXBpZW50IGlzIHByb2hpYml0
+ZWQuIFRoYW5rIHlvdS4NCj4+DQoNCg0KLS0NCk1pY2hhZWwgS2Vycmlzaw0KTGludXggbWFuLXBh
+Z2VzIG1haW50YWluZXI7IGh0dHBzOi8vdXJsZGVmZW5zZS5jb20vdjMvX19odHRwOi8vd3d3Lmtl
+cm5lbC5vcmcvZG9jL21hbi1wYWdlcy9fXzshIUVKYzRZQzNpRm1RIUZnV0pRY2ZiX252dVE4Nm5r
+c0NMeFFweTE4LThuQlE1LThQeXBxVWtHVm9MQlc5ZEhaUVN0TkhoaXktSGh0UUx4dyQNCkxpbnV4
+L1VOSVggU3lzdGVtIFByb2dyYW1taW5nIFRyYWluaW5nOiBodHRwczovL3VybGRlZmVuc2UuY29t
+L3YzL19faHR0cDovL21hbjcub3JnL3RyYWluaW5nL19fOyEhRUpjNFlDM2lGbVEhRmdXSlFjZmJf
+bnZ1UTg2bmtzQ0x4UXB5MTgtOG5CUTUtOFB5cHFVa0dWb0xCVzlkSFpRU3ROSGhpeS05VER6cWVB
+JCANCg==
