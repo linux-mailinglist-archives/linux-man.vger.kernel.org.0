@@ -2,88 +2,107 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C32B42A1EEC
-	for <lists+linux-man@lfdr.de>; Sun,  1 Nov 2020 16:15:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id DE5FF2A204E
+	for <lists+linux-man@lfdr.de>; Sun,  1 Nov 2020 18:24:28 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726541AbgKAPPs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 1 Nov 2020 10:15:48 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60598 "EHLO
+        id S1727120AbgKARY1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 1 Nov 2020 12:24:27 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52062 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726499AbgKAPPs (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 1 Nov 2020 10:15:48 -0500
+        with ESMTP id S1727119AbgKARY1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 1 Nov 2020 12:24:27 -0500
 Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1D9D7C0617A6
-        for <linux-man@vger.kernel.org>; Sun,  1 Nov 2020 07:15:48 -0800 (PST)
-Received: by mail-wr1-x441.google.com with SMTP id y12so11676041wrp.6
-        for <linux-man@vger.kernel.org>; Sun, 01 Nov 2020 07:15:47 -0800 (PST)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B27F2C0617A6
+        for <linux-man@vger.kernel.org>; Sun,  1 Nov 2020 09:24:26 -0800 (PST)
+Received: by mail-wr1-x441.google.com with SMTP id s9so11899195wro.8
+        for <linux-man@vger.kernel.org>; Sun, 01 Nov 2020 09:24:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=WvcJ7qH7Qnz1sajneMjjpriHoNAR0aFra0L6ofGuYXo=;
-        b=p4GJiihDy7cvGrrLByyUWOQN7OrCogZG/rBVPEBt2eQXDJy/fM+yjD7QIP7Ja65SDB
-         kRS7o3bu9Gr4m8A2cUxKv22HfeDd52hBHNt+vCJ/aotxI0rA5er/zNBDCBpylBV4x1uQ
-         x4euH0fp3GYQNvw/isrGW+KpQarVfancKjFFQk/YzXRj55DfVn3NQMyBcWaoMWK/xdFG
-         pdSVu7aykZ2R8JHgP2/j8lyZ17Nd2BEaluqTFH4/54mlCMEP1BK0c8NQBnNZCCdVUMPv
-         /jh5lbS+BJbd3uaUtQ7r/MBJSO7tPjXtkjWyasxFoPWRHwiuIk4lAVP2axwJhBt3GXIX
-         g96A==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=Liu7HBDJBmhuQXO0xfb2Gxw6mah4L0uhG2c8CI74ywI=;
+        b=PSK+gm2sjbK9q/bqzprDZBlCF60v1sRhBW86r1vBso4DKKcvN6I72lOHPfNKPNqQQe
+         UvcdLmRpyf+ze9J32qDYZc8iZZbEqb5iYf+pbOk0yCmZIit7JDrKp7fvc+bPbEc68Jee
+         4nm89uA+y3FHX1rHcAKifCTmzmSOgUCwfBcPU8IEJdVSYXwvP0XUSb0zl64kfmsp8vmR
+         8AYoa4nwQrkVK3YLa5QNwSoX81Mr8ya+VX+UYTKfnWdeN6ebRLRIQ6SnfNr4KrPUWGhx
+         lfISdOi4C3Jbq4Pk4mti6FEDwgBJItLvbAdMw8amYpHRnQ+e7AEhxx+6rIp9IH15M4d5
+         aJDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=WvcJ7qH7Qnz1sajneMjjpriHoNAR0aFra0L6ofGuYXo=;
-        b=VGu0I+JjYqoxEXyF7KNdOvkcLJLUg58FUE7DT6GPi8UIbImKRRT7AxPhbRZG7pLimN
-         eUhiVzl8pCU8a+CkOz+wy8B9rBdFUVjFDSWB4+ZyNJv8WMICjuvCSRobHlxT/pk5JucY
-         cEyaUGQsgjynL81dVrAAnvxfla8CMdQ4tZx+vmRp+/7hja5qQz9SUP7EnRZEZqicngRn
-         pVpQCFn1fR1d8jKtgWm5yKQTEJaYFNq+mWhg4p0+yXTWIN9jaTzeT8VD7TMts2284AIF
-         UC01XtNwxuPB1plPjKtGhCpbbFFsccYrI2vwx349SM2jz46oz5FfDGQ1w/LM3M1AHn6O
-         7uEQ==
-X-Gm-Message-State: AOAM531OZuENIzmVtnm5fRRf05PVOofpqeonwNaGmqkS6V71DIWmAgUE
-        Zx08220a8QVQIZbN+DDcSC8=
-X-Google-Smtp-Source: ABdhPJwIc8UaKI/wjjdVCGXBOSaqYycFG2DZWgM/iezh2RKyZTcY6zWv7ORUPT2rsuejDOjSAFkQ/A==
-X-Received: by 2002:adf:ce91:: with SMTP id r17mr15555594wrn.326.1604243746721;
-        Sun, 01 Nov 2020 07:15:46 -0800 (PST)
-Received: from localhost.localdomain ([170.253.49.0])
-        by smtp.googlemail.com with ESMTPSA id i33sm19505430wri.79.2020.11.01.07.15.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2020 07:15:45 -0800 (PST)
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH] openat.2: SYNOPSIS: return long
-Date:   Sun,  1 Nov 2020 16:15:38 +0100
-Message-Id: <20201101151538.195120-1-colomar.6.4.3@gmail.com>
-X-Mailer: git-send-email 2.28.0
+        bh=Liu7HBDJBmhuQXO0xfb2Gxw6mah4L0uhG2c8CI74ywI=;
+        b=FBigAHBtgIuZLwlIo6OjxfhAXaNRZZcQoGigdTbB6hAK+GLeitPwn4AxMQR3WHaA8Y
+         8zi7cIjcrO/SD6Wcjt8i71cDcHF8EAldNowMDSO4l+XiRwSA1IFmUJ1Hjyv+TTwc2nAi
+         A1vo2uNfycRrg+SBrl+av3hcYuMjRfCxJlQXHVho+TI5I+nk27hPo9qEJ+KD7F6YGeyI
+         rLykLboUv2N+BbFGWnRhOXYGSGu037alh5gKRtqd0eyrylP/csSlDgl5qVvRYObBDEaV
+         eLVqG1B0/rWYbiTlxSf2kilblWRR/t+4T+6pUd38dqUQyd2dJ6vllzBCsBn9Haat+Zjh
+         Ylew==
+X-Gm-Message-State: AOAM532y+EC8PY87Ij9Z2rqh8lx9UHXVuMv/E8hObs/u5pmKviv8wDss
+        rFw6IswLAEEC06RXr7tPcTpLhxGJRmM=
+X-Google-Smtp-Source: ABdhPJznogPR0h2wazhLb5fXuaaD04r251klqNYnT5KRGV5xdP0proJw2qDoEhNztBdQOvmaptcglA==
+X-Received: by 2002:adf:e64e:: with SMTP id b14mr15473958wrn.68.1604251465248;
+        Sun, 01 Nov 2020 09:24:25 -0800 (PST)
+Received: from ?IPv6:2001:a61:245a:d801:2e74:88ad:ef9:5218? ([2001:a61:245a:d801:2e74:88ad:ef9:5218])
+        by smtp.gmail.com with ESMTPSA id e7sm18920431wrm.6.2020.11.01.09.24.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2020 09:24:24 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] mq_getsetattr.2: Use 'const' when appropriate
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+References: <20201101150830.184973-1-colomar.6.4.3@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <95bb85b6-4a80-4457-0403-09110ca20425@gmail.com>
+Date:   Sun, 1 Nov 2020 18:24:23 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201101150830.184973-1-colomar.6.4.3@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The Linux kernel uses long as the return type for this syscall.
-As glibc provides no wrapper, use the same type the kernel uses.
+On 11/1/20 4:08 PM, Alejandro Colomar wrote:
+> The Linux kernel uses the following:
+> 
+> ipc/mqueue.c:1480:
+> SYSCALL_DEFINE3(mq_getsetattr, mqd_t, mqdes,
+> 		const struct mq_attr __user *, u_mqstat,
+> 		struct mq_attr __user *, u_omqstat)
+> 
+> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
----
- man2/openat2.2 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Thanks, Alex. Patch applied.
 
-diff --git a/man2/openat2.2 b/man2/openat2.2
-index 3ea50138b..80e75139e 100644
---- a/man2/openat2.2
-+++ b/man2/openat2.2
-@@ -31,8 +31,8 @@ openat2 \- open and possibly create a file (extended)
- .B #include <fcntl.h>
- .B #include <openat2.h>
- .PP
--.BI "int openat2(int " dirfd ", const char *" pathname ,
--.BI "            struct open_how *" how ", size_t " size ");"
-+.BI "long openat2(int " dirfd ", const char *" pathname ,
-+.BI "            struct open_how *" how ", size_t " size );
- .fi
- .PP
- .IR Note :
+Cheers,
+
+Michael
+
+> ---
+>  man2/mq_getsetattr.2 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/man2/mq_getsetattr.2 b/man2/mq_getsetattr.2
+> index 3878789cf..80db11b7e 100644
+> --- a/man2/mq_getsetattr.2
+> +++ b/man2/mq_getsetattr.2
+> @@ -30,7 +30,7 @@ mq_getsetattr \- get/set message queue attributes
+>  .B #include <sys/types.h>
+>  .B #include <mqueue.h>
+>  .PP
+> -.BI "int mq_getsetattr(mqd_t " mqdes ", struct mq_attr *" newattr ","
+> +.BI "int mq_getsetattr(mqd_t " mqdes ", const struct mq_attr *" newattr ,
+>  .BI "                 struct mq_attr *" oldattr );
+>  .fi
+>  .PP
+> 
+
+
 -- 
-2.28.0
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
