@@ -2,264 +2,167 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6D4232A25DD
-	for <lists+linux-man@lfdr.de>; Mon,  2 Nov 2020 09:09:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8AB8A2A2A99
+	for <lists+linux-man@lfdr.de>; Mon,  2 Nov 2020 13:20:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727909AbgKBIIO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 2 Nov 2020 03:08:14 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45892 "EHLO
+        id S1728644AbgKBMUR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 2 Nov 2020 07:20:17 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56928 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727870AbgKBIIN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 2 Nov 2020 03:08:13 -0500
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com [IPv6:2a00:1450:4864:20::636])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 74841C0617A6
-        for <linux-man@vger.kernel.org>; Mon,  2 Nov 2020 00:08:13 -0800 (PST)
-Received: by mail-ej1-x636.google.com with SMTP id o9so15558966ejg.1
-        for <linux-man@vger.kernel.org>; Mon, 02 Nov 2020 00:08:13 -0800 (PST)
+        with ESMTP id S1728537AbgKBMUR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 2 Nov 2020 07:20:17 -0500
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A42E6C0617A6
+        for <linux-man@vger.kernel.org>; Mon,  2 Nov 2020 04:20:16 -0800 (PST)
+Received: by mail-wm1-x344.google.com with SMTP id c18so9184055wme.2
+        for <linux-man@vger.kernel.org>; Mon, 02 Nov 2020 04:20:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sargun.me; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=NVZ44lAakVATpaZn6AFMxLNo91zcFdfPA6KergmIid0=;
-        b=soliju8DduPmBCZLNq75kh9Cjsyu3/wq1kAN37XH8goV0Up7F182Vp9DHzuuUBhMF7
-         jqBgZ7ZzKJqc5CIdq82G7mDGVnFLoK8BiHObC4pnK1LH45Vz7jnV8eeV3IgQTVuPFg12
-         WZebtk8+oMrxX+jk59A8UgduGtdfL57NKzi4k=
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=U2tijFcvctBIz/3caC9Htt64LoYkeaLEIgb2C9fgcBY=;
+        b=DCf/KI0FQ+/Zl9NnHDZTYzgCFtgSD+RD2QcD4ajCBawCS3uMP0uMg+yIcN7ZFThl6I
+         UzMHHQ9duKuKLHVpo9zOoITCwPrMd/mb+e/71UdRSONISAAAVhsRdNJQQpOc5rX3DCI9
+         4fMViTPz4ylAkeBDeTAErWjIcZFcPb7magc2RThIJJUEGw+A/Ua20V40b5LFtA0hse1a
+         1vjm5qOy6hrgZKnqyh86flPTPhoXBzmQewWWog6SJWI15SgPjWWWfV3HXj0Hw/NXmmHw
+         uexAygV3Hf8FYP7gmKKmoVGHm/9C8Ukb8sN0h5FcKpJKCL6os3y1fYDIN0yUn0X1j4xO
+         y96A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=NVZ44lAakVATpaZn6AFMxLNo91zcFdfPA6KergmIid0=;
-        b=ZhnhZxmHfTNmU063SD4qYITfCzCScg6SysoTHp86lk21Dska/eNULPw2TF1nT6wjAc
-         Bdh0p8oKYzFSLLMyh6jwwXPqJtndtrQbYi+nrjCuZqQ8ozv13xUSKHKlJzsiV5aszJGR
-         2MyaUXNaIw0aXRV3eo7wwd+OTNosHIK0uZs5EwEF3nzWMXJoLGkg6DOE3yh6D6lIWgNf
-         Ag0HMUp78KJAaxtiK9hldNfssjOXDQj4sVWff9F2ftvb8M01beExBAXodwUCtXEv+ogW
-         g+55Hkk8y15Q4lHTODKzOLmnitxIHjsI9HZ/D9jSfYq1KZ8L8+xql1QXCZpqpAgfIEng
-         GQIg==
-X-Gm-Message-State: AOAM533wq7+hkecRRQPavKE+QPSUwBOoNBevpgf5rhRSMr8+NxemHzYj
-        Hh51p73AUT0WMzkAdp02EBbNMu8OuFoBv5JSN3ufbg==
-X-Google-Smtp-Source: ABdhPJyJ0vM7BjDtdEvFrChTYmDsUK3Y0Vog1NSqXCYj/o5upyCHDtPrccnZ5JayxBS8Fg5dur90nO5Uh2xWbLdvISA=
-X-Received: by 2002:a17:907:1008:: with SMTP id ox8mr8177911ejb.189.1604304490618;
- Mon, 02 Nov 2020 00:08:10 -0800 (PST)
-MIME-Version: 1.0
-References: <63598b4f-6ce3-5a11-4552-cdfe308f68e4@gmail.com>
- <20201029085312.GC29881@ircssh-2.c.rugged-nimbus-611.internal>
- <48e5937b-80f5-c48b-1c67-e8c9db263ca5@gmail.com> <20201030202720.GA4088@ircssh-2.c.rugged-nimbus-611.internal>
- <606199d6-b48c-fee2-6e79-1e52bd7f429f@gmail.com>
-In-Reply-To: <606199d6-b48c-fee2-6e79-1e52bd7f429f@gmail.com>
-From:   Sargun Dhillon <sargun@sargun.me>
-Date:   Mon, 2 Nov 2020 00:07:34 -0800
-Message-ID: <CAMp4zn9AaQ46EyG6QFrF33efpUHnK_TyMYkTicr=iwY5hcKrBg@mail.gmail.com>
-Subject: Re: For review: seccomp_user_notif(2) manual page [v2]
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=U2tijFcvctBIz/3caC9Htt64LoYkeaLEIgb2C9fgcBY=;
+        b=Icd6CIWoil/J/mK6UjiSLHmPgUZaZBXZ/QlpoCRtmP9cyMGglTtZlEmFRAWiDFNNdt
+         IcazUOVjoUftvx05TMBG/SR1HKgxQcF1HkyS5/DWS1oCZnhZEizl9eJOERwKzA0m/uSo
+         FIfeiG7Iq/oLkrIMY43+Ih2dIx5kb31opq41Fbeoo1w8zymNZHYRhQM1Aio7BuSRW3/F
+         RWjFX4NIb3WVmJI3IBDJVeaPQvCpQ2YpoYMsGSbvwcMW9WjO8ZB5zLd3dG4U/6DnxohH
+         SyU2K8Oz9RZm1pGizHBIyTL4bYa9zI2970TmInmTfK/+pLARIjXNcAPlmBS2VZ4UFJpD
+         Y6RA==
+X-Gm-Message-State: AOAM532PJ9EmEtA+XmdH/AU2gFML+xsSOUt5ZyOW5YK1ah2p4iuMoZqs
+        BkJaJ50+T1jA6CmuWqGAt2T7UmToepo=
+X-Google-Smtp-Source: ABdhPJxDFp9pgSAYg73DGjF/Ra+AglkcjlL+4x9fZl5lpG6t8WcjDRcRfARcywe0AoXpbcTjFmedPA==
+X-Received: by 2002:a1c:a90e:: with SMTP id s14mr17897462wme.46.1604319615188;
+        Mon, 02 Nov 2020 04:20:15 -0800 (PST)
+Received: from [192.168.1.143] ([170.253.60.68])
+        by smtp.gmail.com with ESMTPSA id x10sm21299157wrp.62.2020.11.02.04.20.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2020 04:20:14 -0800 (PST)
+Subject: Re: [PATCH] io_setup.2: SYNOPSIS: return long
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Tycho Andersen <tycho@tycho.pizza>,
-        Christian Brauner <christian@brauner.io>,
-        Kees Cook <keescook@chromium.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Giuseppe Scrivano <gscrivan@redhat.com>,
-        Song Liu <songliubraving@fb.com>,
-        Robert Sesek <rsesek@google.com>,
-        Containers <containers@lists.linux-foundation.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Aleksa Sarai <cyphar@cyphar.com>, Jann Horn <jannh@google.com>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
-        Andy Lutomirski <luto@amacapital.net>
-Content-Type: text/plain; charset="UTF-8"
+Cc:     linux-man@vger.kernel.org
+References: <20201101135957.90237-1-colomar.6.4.3@gmail.com>
+ <6362993f-88d7-5dd4-91b2-03d31ebc8bab@gmail.com>
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+Message-ID: <4de611f0-27e7-164a-bd40-21d276c015be@gmail.com>
+Date:   Mon, 2 Nov 2020 13:20:12 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
+MIME-Version: 1.0
+In-Reply-To: <6362993f-88d7-5dd4-91b2-03d31ebc8bab@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sat, Oct 31, 2020 at 9:27 AM Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
->
-> Hello Sargun,
->
-> Thanks for your reply.
->
-> On 10/30/20 9:27 PM, Sargun Dhillon wrote:
-> > On Thu, Oct 29, 2020 at 09:37:21PM +0100, Michael Kerrisk (man-pages)
-> > wrote:
->
-> [...]
->
-> >>> I think I commented in another thread somewhere that the
-> >>> supervisor is not notified if the syscall is preempted. Therefore
-> >>> if it is performing a preemptible, long-running syscall, you need
-> >>> to poll SECCOMP_IOCTL_NOTIF_ID_VALID in the background, otherwise
-> >>> you can end up in a bad situation -- like leaking resources, or
-> >>> holding on to file descriptors after the program under
-> >>> supervision has intended to release them.
-> >>
-> >> It's been a long day, and I'm not sure I reallu understand this.
-> >> Could you outline the scnario in more detail?
-> >>
-> > S: Sets up filter + interception for accept T: socket(AF_INET,
-> > SOCK_STREAM, 0) = 7 T: bind(7, {127.0.0.1, 4444}, ..) T: listen(7,
-> > 10) T: pidfd_getfd(T, 7) = 7 # For the sake of discussion.
->
-> Presumably, the preceding line should have been:
->
-> S: pidfd_getfd(T, 7) = 7 # For the sake of discussion.
-> (s/T:/S:/)
->
-> right?
+On 2020-11-02 08:37, Michael Kerrisk (man-pages) wrote:
+ > Hi Alex,
+ >
+ > On 11/1/20 2:59 PM, Alejandro Colomar wrote:
+ >> The Linux kernel uses a long as the return type for this syscall.
+ >> As glibc provides no wrapper, use the same types the kernel uses.
+ >
+ > I think we need this patch for all of the io* pages, right?
 
-Right.
->
->
-> > T: accept(7, ...) S: Intercepts accept S: Does accept in background
-> > T: Receives signal, and accept(...) responds in EINTR T: close(7) S:
-> > Still running accept(7, ....), holding port 4444, so if now T
-> > retries to bind to port 4444, things fail.
->
-> Okay -- I understand. Presumably the solution here is not to
-> block in accept(), but rather to use poll() to monitor both the
-> notification FD and the listening socket FD?
->
-You need to have some kind of mechanism to periodically check
-if the notification is still alive, and preempt the accept. It doesn't
-matter how exactly you "background" the accept (threads, or
-O_NONBLOCK + epoll).
+Hi Michael,
 
-The thing is you need to make sure that when the process
-cancels a syscall, you need to release the resources you
-may have acquired on its behalf or bad things can happen.
+For some reason, no.  AFAICS, only io_setup() really uses 'long'.
 
-> >>> A very specific example is if you're performing an accept on
-> >>> behalf of the program generating the notification, and the
-> >>> program intends to reuse the port. You can get into all sorts of
-> >>> awkward situations there.
-> >>
-> >> [...]
-> >>
-> > See above
->
-> [...]
->
-> >>> In addition, if it is a socket, it inherits the cgroup v1 classid
-> >>> and netprioidx of the receiving process.
-> >>>
-> >>> The argument of this is as follows:
-> >>>
-> >>> struct seccomp_notif_addfd { __u64 id; __u32 flags; __u32 srcfd;
-> >>> __u32 newfd; __u32 newfd_flags; };
-> >>>
-> >>> id This is the cookie value that was obtained using
-> >>> SECCOMP_IOCTL_NOTIF_RECV.
-> >>>
-> >>> flags A bitmask that includes zero or more of the
-> >>> SECCOMP_ADDFD_FLAG_* bits set
-> >>>
-> >>> SECCOMP_ADDFD_FLAG_SETFD - Use dup2 (or dup3?) like semantics
-> >>> when copying the file descriptor.
-> >>>
-> >>> srcfd The file descriptor number to copy in the supervisor
-> >>> process.
-> >>>
-> >>> newfd If the SECCOMP_ADDFD_FLAG_SETFD flag is specified this will
-> >>> be the file descriptor that is used in the dup2 semantics. If
-> >>> this file descriptor exists in the receiving process, it is
-> >>> closed and replaced by this file descriptor in an atomic fashion.
-> >>> If the copy process fails due to a MAC failure, or if srcfd is
-> >>> invalid, the newfd will not be closed in the receiving process.
-> >>
-> >> Great description!
-> >>
-> >>> If SECCOMP_ADDFD_FLAG_SETFD it not set, then this value must be
-> >>> 0.
-> >>>
-> >>> newfd_flags The file descriptor flags to set on the file
-> >>> descriptor after it has been received by the process. The only
-> >>> flag that can currently be specified is O_CLOEXEC.
-> >>>
-> >>> On success, this operation returns the file descriptor number in
-> >>> the receiving process. On failure, -1 is returned.
-> >>>
-> >>> It can fail with the following error codes:
-> >>>
-> >>> EINPROGRESS The cookie number specified hasn't been received by
-> >>> the listener
-> >>
-> >> I don't understand this. Can you say more about the scenario?
-> >>
-> >
-> > This should not really happen. But if you do a ADDFD(...), on a
-> > notification *before* you've received it, you will get this error. So
-> > for example,
-> > --> epoll(....) -> returns
-> > --> RECV(...) cookie id is 777
-> > --> epoll(...) -> returns
-> > <-- ioctl(ADDFD, id = 778) # Notice how we haven't done a receive yet
-> > where we've received a notification for 778.
->
-> Got it. Looking also at the source code, I came up with the
-> following:
->
->               EINPROGRESS
->                      The user-space notification specified in the id
->                      field exists but has not yet been fetched (by a
->                      SECCOMP_IOCTL_NOTIF_RECV) or has already been
->                      responded to (by a SECCOMP_IOCTL_NOTIF_SEND).
->
-> Does that seem okay?
->
-Looks good to me.
+Then there's io_submit(), which also declares a 'long', but gets that
+value from io_submit_one(), which returns an 'int';
+we could use either 'long' or 'int'
+in the manual page too for this one.
 
-> >>> ENOENT The cookie number is not valid. This can happen if a
-> >>> response has already been sent, or if the syscall was
-> >>> interrupted
-> >>>
-> >>> EBADF If the file descriptor specified in srcfd is invalid, or if
-> >>> the fd is out of range of the destination program.
-> >>
-> >> The piece "or if the fd is out of range of the destination program"
-> >> is not clear to me. Can you say some more please.
-> >>
-> >
-> > IIRC the maximum fd range is specific in proc by some sysctl named
-> > nr_open. It's also evaluated against RLIMITs, and nr_max.
-> >
-> > If nr-open (maximum fds open per process, iiirc) is 1000, even if 10
-> > FDs are open, it wont work if newfd is 1001.
->
-> Actually, the relevant limit seems to be just the RLIMIT_NOFILE
-> resource limit at least in my reading of fs/file.c::replace_fd().
-> So I made the text
->
->               EBADF  Allocating the file descriptor in the target would
->                      cause the target's RLIMIT_NOFILE limit to be
->                      exceeded (see getrlimit(2)).
->
->
+And then there are the others, which use plain 'int'.
 
-If you're above RLIMIT_NOFILE, you get EBADF.
+See at the end of this email the sources for this answer.
 
-When we do __receive_fd with a specific fd (newfd specified):
-https://elixir.bootlin.com/linux/latest/source/fs/file.c#L1086
+Cheers,
 
-it calls replace_fd, which calls expand_files. expand_files
-can fail with EMFILE.
+Alex
 
-> >>> EINVAL If flags or new_flags were unrecognized, or if newfd is
-> >>> non-zero, and SECCOMP_ADDFD_FLAG_SETFD has not been set.
-> >>>
-> >>> EMFILE Too many files are open by the destination process.
->
-> I'm not sure that the error can really occur. That's the error
-> that in most other places occurs when RLIMIT_NOFILE is exceeded.
-> But I may have missed something. More precisely, when do you think
-> EMFILE can occur?
->
-It can happen if the user specifies a newfd which is too large.
+ >
+ > Thanks,
+ >
+ > Michael
 
-> [...]
->
-> Thanks,
->
-> Michael
->
-> --
-> Michael Kerrisk
-> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-> Linux/UNIX System Programming Training: http://man7.org/training/
+fs/aio.c:1312:
+SYSCALL_DEFINE2(io_setup, unsigned, nr_events, aio_context_t __user *, ctxp)
+{
+	struct kioctx *ioctx = NULL;
+	unsigned long ctx;
+	long ret;
+...
+	return ret;
+}
+
+fs/aio.c:1381:
+SYSCALL_DEFINE1(io_destroy, aio_context_t, ctx)
+{
+	struct kioctx *ioctx = lookup_ioctx(ctx);
+	if (likely(NULL != ioctx)) {
+		struct ctx_rq_wait wait;
+		int ret;
+...
+		return ret;
+	}
+	pr_debug("EINVAL: invalid context id\n");
+	return -EINVAL;
+}
+
+fs/aio.c:1855:
+static int io_submit_one(struct kioctx *ctx, struct iocb __user *user_iocb,
+			 bool compat)
+
+
+fs/aio.c:1914:
+SYSCALL_DEFINE3(io_submit, aio_context_t, ctx_id, long, nr,
+		struct iocb __user * __user *, iocbpp)
+{
+	struct kioctx *ctx;
+	long ret = 0;
+	int i = 0;
+	struct blk_plug plug;
+...
+		ret = io_submit_one(ctx, user_iocb, false);
+...
+	return i ? i : ret;
+}
+
+fs/aio.c:2008:
+SYSCALL_DEFINE3(io_cancel, aio_context_t, ctx_id, struct iocb __user *, 
+iocb,
+		struct io_event __user *, result)
+{
+	struct kioctx *ctx;
+	struct aio_kiocb *kiocb;
+	int ret = -EINVAL;
+...
+
+	return ret;
+}
+
+fs/aio.c:2084:
+SYSCALL_DEFINE5(io_getevents, aio_context_t, ctx_id,
+		long, min_nr,
+		long, nr,
+		struct io_event __user *, events,
+		struct __kernel_timespec __user *, timeout)
+{
+	struct timespec64	ts;
+	int			ret;
+...
+	return ret;
+}
