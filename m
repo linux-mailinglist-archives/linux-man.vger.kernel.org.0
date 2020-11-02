@@ -2,115 +2,115 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 57F762A2B45
-	for <lists+linux-man@lfdr.de>; Mon,  2 Nov 2020 14:12:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6AD432A2BF9
+	for <lists+linux-man@lfdr.de>; Mon,  2 Nov 2020 14:51:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728359AbgKBNMm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 2 Nov 2020 08:12:42 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36762 "EHLO
+        id S1725849AbgKBNtb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 2 Nov 2020 08:49:31 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42490 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727324AbgKBNMl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 2 Nov 2020 08:12:41 -0500
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D04F7C0617A6
-        for <linux-man@vger.kernel.org>; Mon,  2 Nov 2020 05:12:39 -0800 (PST)
-Received: by mail-wm1-x343.google.com with SMTP id h62so4622875wme.3
-        for <linux-man@vger.kernel.org>; Mon, 02 Nov 2020 05:12:39 -0800 (PST)
+        with ESMTP id S1725844AbgKBNtb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 2 Nov 2020 08:49:31 -0500
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com [IPv6:2a00:1450:4864:20::131])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1743AC061A47
+        for <linux-man@vger.kernel.org>; Mon,  2 Nov 2020 05:49:31 -0800 (PST)
+Received: by mail-lf1-x131.google.com with SMTP id j30so17553194lfp.4
+        for <linux-man@vger.kernel.org>; Mon, 02 Nov 2020 05:49:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ajDdEx10UNA/d0Hmk6TgxULxR7a3Rd7frUnZNZh6DsM=;
-        b=hXCcwH1z9owjA/yW5G7D0qSwQfnBnW5CqrZKdrWQO/O4TR8Lpbc/i0gBSMTn/PNzQy
-         IVOamzh+0+sr6vLo5HKV71XxkQotK6DnlYrXWcvYDb5RQJQotgPyElATtD/mzuf98e4z
-         bEFvsamjSHKRijB2dlEV3TOvRawmb3pAmF5b5vpXq5hmksUWaQdx6Hvnoy/qBeAsfbS0
-         nh8XIb+XT0M0Xxt14ImEpJfEyiKyEfhbzoR0mstuWy/rTrJs//jBnFBAawpiVYafuvW8
-         lCgvRyhwvK0jqb0VQVQaFxH4fYtSALYMJ3VejUiI3KNLRj+jYofpgDSZ8sSoNTMzFNYK
-         TX1g==
+        d=google.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=crmhEgzkOmERlRibdWJQ5fJu4CKk3cly9oNaCdoNCWg=;
+        b=e6rC0R5eB3PGQ+ozTxEoHwxYIrjTzj/lowbcSttME14YVqM0lIps4VooUuhm29uIFE
+         q8sNXcIJGw1ny8hoRglYxZ9KpzrARGaG8u/N9tg9+2fxDLajahu8D7ztqKBx0+P+97wD
+         4+7gApcowelSqDo/j7gBpM0LF9LMwoRBhHlWlLF0AWUWkY6K823EIHiJsubXmHK+E3xk
+         lOAWs2Oo413J9KNPAL17FSBQ2PIaDC1vMh4rOc652o/EuV589g2E4DXpKlkXZkO6XhAc
+         gzqCT04f7oiU+lnIkGSrqs7iuqhzD+uA6V/Vg3+E84dav23WLkJXEsQtCLEKQAUdGu0f
+         o0cA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=ajDdEx10UNA/d0Hmk6TgxULxR7a3Rd7frUnZNZh6DsM=;
-        b=PSJxO3uiTzD4WMaS7jP5o3vv4jQ/y/MKpzUC1H/e7yjDV26k8GK4Ja+jvdJbZNG1tB
-         UWjptBvgqqKBk7eJaEG9rVaii+blNkbgogtVtUWWX6GzOrk+Go6STL+yrZhqJ3LoAaTU
-         uqgTwPPts/HV1eQLej4fH87JDgcitXyQJ33XuaaKDbEn4Mr/uTL9W/h79ZDk0Ahafl1S
-         LBReB1+XVc103lt7oe/bgecqilk8VaOmMho5/mnJOHzAr/2j6zNt5kHEbEVwz6ZuU2u4
-         I8tgen3J3o+BVWqjn9a27gOYWd5IGqgn9O8TZT05jXrA1uGqXX4gWolzWgBnV9ZjODDB
-         27pg==
-X-Gm-Message-State: AOAM5313MePKCZXsVAZV8BlZFrBpJlk7dOkoMG7PuwDkV9aYZ5HyQJXo
-        zW5zn2xeQFOaHC3US5Y9X8oAtfwNJ50=
-X-Google-Smtp-Source: ABdhPJxVZNjCnM53yT0RmgJPqhAvyTiMa8JZp6EhEQZQNo54krcWxRBM4lsI5WzKDGqYepoYMx3HRA==
-X-Received: by 2002:a05:600c:21c3:: with SMTP id x3mr17523732wmj.81.1604322758255;
-        Mon, 02 Nov 2020 05:12:38 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id z15sm21410586wrq.24.2020.11.02.05.12.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2020 05:12:37 -0800 (PST)
-Subject: Re: [PATCH] io_setup.2: SYNOPSIS: return long
-To:     mtk.manpages@gmail.com
-Cc:     linux-man <linux-man@vger.kernel.org>
-References: <20201101135957.90237-1-colomar.6.4.3@gmail.com>
- <6362993f-88d7-5dd4-91b2-03d31ebc8bab@gmail.com>
- <4de611f0-27e7-164a-bd40-21d276c015be@gmail.com>
- <CAKgNAkjcXEY+Gjstpg-038QeApEaGvW=Z803ZbmSmJ5KXz7vNQ@mail.gmail.com>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <7bba6ced-14f5-75af-933f-73eac0284a39@gmail.com>
-Date:   Mon, 2 Nov 2020 14:12:36 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=crmhEgzkOmERlRibdWJQ5fJu4CKk3cly9oNaCdoNCWg=;
+        b=UmP72zrFSJUNhgz3XET2hbhz5QBZhhNy3QpDQPVnjtC2c6gi76xel2cFA92ygvnjmP
+         PHklrZT6ZT/6inU7B/fRFboTMczHPRH43/kARdpghOXb9qSs9hnfd/0zsMaOZu8iHgCP
+         5ep+WdrgbSggOAS2/YetbXli6rAddtbjwLXC/HQlwwOw9oxmWXqMapchYC0SIk+ue1aq
+         XmodB3tgY5FN/Gb3DQvXbQP7PXHUHbt3Ke1FbNgPUz0WLa+VzdmKSwgpOyWkVQ+xxtUj
+         gSEIaWWAKr1mL1FNbx9hgehx/y10n64/mOIOr8aKbuqCYPfETig/xDjR/m1N1k0d9cI1
+         NLbQ==
+X-Gm-Message-State: AOAM533qaWfiPXNEdokTwp1Stp1xQuxeNDoSiw+FgNz8R1UYWfs5y2/D
+        IwrPwma7ZLRZfTQ4veB2k6rz1VLDf9SxaFNOimGGLQ==
+X-Google-Smtp-Source: ABdhPJzGqIM5asHLIuy+EbHVmr9RXtwczq03HEhFi/zVkHIauFUcnrDjghLCaRPEjzU8Vbt4y8sReBCfx7RX76nxcBo=
+X-Received: by 2002:a05:6512:51a:: with SMTP id o26mr5441083lfb.381.1604324969162;
+ Mon, 02 Nov 2020 05:49:29 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <CAKgNAkjcXEY+Gjstpg-038QeApEaGvW=Z803ZbmSmJ5KXz7vNQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <63598b4f-6ce3-5a11-4552-cdfe308f68e4@gmail.com>
+ <CAG48ez0fBE6AJfWh0in=WKkgt98y=KjAen=SQPyTYtvsUbF1yA@mail.gmail.com>
+ <0de41eb1-e1fd-85da-61b7-fac4e3006726@gmail.com> <CAG48ez3qKg-ReY4R=S_thQ6tOzv2ZHV=xW5qBxpqs0iSjH_oFQ@mail.gmail.com>
+ <9f9b8b86-6e49-17ef-e414-82e489b0b99a@gmail.com>
+In-Reply-To: <9f9b8b86-6e49-17ef-e414-82e489b0b99a@gmail.com>
+From:   Jann Horn <jannh@google.com>
+Date:   Mon, 2 Nov 2020 14:49:01 +0100
+Message-ID: <CAG48ez0W2zye2KeNiVaKq9RPtUhcUtzP0zOjULRQZbOuRyz+9w@mail.gmail.com>
+Subject: Re: For review: seccomp_user_notif(2) manual page [v2]
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Kees Cook <keescook@chromium.org>,
+        Tycho Andersen <tycho@tycho.pizza>,
+        Sargun Dhillon <sargun@sargun.me>,
+        Christian Brauner <christian@brauner.io>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        Song Liu <songliubraving@fb.com>,
+        Robert Sesek <rsesek@google.com>,
+        Containers <containers@lists.linux-foundation.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        Aleksa Sarai <cyphar@cyphar.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
+        Andy Lutomirski <luto@amacapital.net>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On Sat, Oct 31, 2020 at 9:31 AM Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+> On 10/30/20 8:14 PM, Jann Horn wrote:
+> > With the caveat that a cancelled syscall
+> > could've also led to the memory being munmap()ed, so the nread==0 case
+> > could also happen legitimately - so you might want to move this check
+> > up above the nread==0 (mm went away) and nread==-1 (mm still exists,
+> > but read from address failed, errno EIO) checks if the error message
+> > shouldn't appear spuriously.
+>
+> In any case, I've been refactoring (simplifying) that code a little.
+> I haven't so far rearranged the order of the checks, but I already
+> log message for the nread==0 case. (Instead, there will eventually
+> be an error when the response is sent.)
+>
+> I also haven't exactly tested the scenario you describe in the
+> seccomp unotify scenario, but I think the above is not correct. Here
+> are two scenarios I did test, simply with mmap() and /proc/PID/mem
+> (no seccomp involved):
+>
+> Scenario 1:
+> A creates a mapping at address X
+> B opens /proc/A/mem and and lseeks on resulting FD to offset X
+> A terminates
+> B reads from FD ==> read() returns 0 (EOF)
+>
+> Scenario 2:
+> A creates a mapping at address X
+> B opens /proc/A/mem and and lseeks on resulting FD to offset X
+> A unmaps mapping at address X
+> B reads from FD ==> read() returns -1 / EIO.
+>
+> That last scenario seems to contradict what you say, since I
+> think you meant that in this case read() should return 0 in
+> that case. Have I misunderstood you?
 
-
-On 2020-11-02 14:09, Michael Kerrisk (man-pages) wrote:
-> Hi Alex,
-> 
-> On Mon, 2 Nov 2020 at 13:20, Alejandro Colomar <colomar.6.4.3@gmail.com> wrote:
->>
->> On 2020-11-02 08:37, Michael Kerrisk (man-pages) wrote:
->>   > Hi Alex,
->>   >
->>   > On 11/1/20 2:59 PM, Alejandro Colomar wrote:
->>   >> The Linux kernel uses a long as the return type for this syscall.
->>   >> As glibc provides no wrapper, use the same types the kernel uses.
->>   >
->>   > I think we need this patch for all of the io* pages, right?
->>
->> Hi Michael,
->>
->> For some reason, no.  AFAICS, only io_setup() really uses 'long'.
-> 
-> But is not SYSCALL_DEFINEX() producing a prototype with return value
-> 'long' in all the cases? (I have not checked, I just presume so.)
-
-Hi Michael,
-
-Well, yes.
-SYSCALL_DEFINEx() produces a return type of long
-for _all_ syscalls, AFAICS.
-(as I said before, that macro is a bit obscure, but I can read that).
-
-Would you like to change all syscall man pages (without a wrapper)
-to use long as the return type?
-
-Thanks.
-
-Alex
-
-> 
-> Thanks,
-> 
-> Michael
-> 
-> 
-> 
-> 
+Sorry, I messed up the description when I wrote that. Yes, this looks
+as expected - EIO if the VMA is gone, 0 if the mm_users of the
+mm_struct have dropped to zero because all tasks that use the mm have
+exited.
