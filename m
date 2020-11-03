@@ -2,125 +2,144 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5D3F92A34DA
-	for <lists+linux-man@lfdr.de>; Mon,  2 Nov 2020 21:06:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5AA832A4F9F
+	for <lists+linux-man@lfdr.de>; Tue,  3 Nov 2020 20:04:59 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725941AbgKBUEv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 2 Nov 2020 15:04:51 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45252 "EHLO
+        id S1727852AbgKCTE6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 3 Nov 2020 14:04:58 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34266 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725809AbgKBUEv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 2 Nov 2020 15:04:51 -0500
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com [IPv6:2a00:1450:4864:20::136])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A2688C061A47
-        for <linux-man@vger.kernel.org>; Mon,  2 Nov 2020 12:04:50 -0800 (PST)
-Received: by mail-lf1-x136.google.com with SMTP id f9so19068363lfq.2
-        for <linux-man@vger.kernel.org>; Mon, 02 Nov 2020 12:04:50 -0800 (PST)
+        with ESMTP id S1727706AbgKCTE6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 3 Nov 2020 14:04:58 -0500
+Received: from mail-pf1-x449.google.com (mail-pf1-x449.google.com [IPv6:2607:f8b0:4864:20::449])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 482DAC0613D1
+        for <linux-man@vger.kernel.org>; Tue,  3 Nov 2020 11:04:58 -0800 (PST)
+Received: by mail-pf1-x449.google.com with SMTP id x9so1982282pff.10
+        for <linux-man@vger.kernel.org>; Tue, 03 Nov 2020 11:04:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=SygJ0YMRNg3kRA+P+/o9DS9VAcEeWET+xfXo18MSK8w=;
-        b=IenDEOwcE7acdWlt3upinLTTJLqi4UdRIK+PzIcZHwuf5PctnsoAcu0L8yOZf6HI57
-         vlaLdkuBhc5qdDVb0YDoMMcI+rHBUzP1McRaXIovcqGA3X5wyw0sq1O9rJjQTyvAFkj4
-         861P7yLhcvBsg8AEdFaV57Edi1EdHZvsLJOIhT0vSnbaUEmhGJo+AL4jNz0rqo8af+d7
-         cYAj0ZM/aUC4Y3Lce948K0l4awqBXzXiDZrI1AgyGl4zivZne7XLXGpiLRjzEdn9aDzo
-         98Kq0yEKIoz8niqnACP7ZZTeuT7fEmNkLrHA5ATKyJZvfX9PycBSL5wJNWljhEo8JtAX
-         fcFA==
+        h=sender:date:message-id:mime-version:subject:from:to:cc;
+        bh=97oxEDL0+5u6kRAuvPT2fBbsOsmtcz2aYWRBJ1sXcGc=;
+        b=vT0TJV8qIIidvm/Se5mv+DLnHo0P64eQxiI4Uy2eRZbHfGpUq7qmyYuDIGeo/XlClL
+         bqgvm3FAw2OYG7rLu1LrMA5k6cjpMCsUMHG3aLYPMYqdwaGJGaVLd2kplY9/3QqoVNAg
+         evlVgGYbAqtIHXh18krRf0/RDW6Zp5x4inRijAasXITB6+PSR5uX4GxAjwp9hAt4bncP
+         6v4pieW1jmPUpdgoOD/tcvIAgLsZK2OFpfFjQLKDmc3iUd+D1YMclgiYpo5nvOTQCXTO
+         8ginmpl7Yn4hGtiVoZJFQsPsTeTnjpNc2R4sAvQj5CL4COcNsEvnerfQjrHla/6A/GnQ
+         50VA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=SygJ0YMRNg3kRA+P+/o9DS9VAcEeWET+xfXo18MSK8w=;
-        b=PhtxjRm6tw8r/1QkS1DZPoqtwFlBCllAeIE5DOzSMYI9uAHu7G3K4IYlKaYLm1LbxS
-         4SzvZbBUwt1rh9QP6AC9zoNqIYznQ4+6GcCH+kzLP2hmwofur7mmzxCPkbrju9+UN4xo
-         BPx4bDbIVbMLC/5cby7S8PrNnj+J4CfM82idGu6bNEIdY9wM7Zvz2fY8n7ayb//p2KKA
-         rTlhc58vt05zEAsp7VYevEvPE40IecTC9j2un9LfexkxW+EUWdbjPWtiHaVuQg14aZ9u
-         dyW4yITUevxNlsvFRBlUfsZLWR1n0k62TlOilwRdgXA5bYiupBJ765HLxLYJui13FdGJ
-         9JGA==
-X-Gm-Message-State: AOAM530swZtybD9LL7OtjSBTtwCe4UW58w6aTPZ4x1uZ8kNyL93A5YVs
-        r9s2bE6yeCk/XY2Z9YJS0VWmq+9xQKdkAhDF0F/OHA==
-X-Google-Smtp-Source: ABdhPJxFX44DEsMSrcm7kaqxDUVJ2f5DqziIyHEn1UgPjdye5o9apeArOqF6mOkc2usLmVXmtr2vu76cCQnMUTiCBGM=
-X-Received: by 2002:a19:c357:: with SMTP id t84mr5844550lff.34.1604347488712;
- Mon, 02 Nov 2020 12:04:48 -0800 (PST)
-MIME-Version: 1.0
-References: <63598b4f-6ce3-5a11-4552-cdfe308f68e4@gmail.com>
- <20201029085312.GC29881@ircssh-2.c.rugged-nimbus-611.internal>
- <48e5937b-80f5-c48b-1c67-e8c9db263ca5@gmail.com> <20201030202720.GA4088@ircssh-2.c.rugged-nimbus-611.internal>
- <606199d6-b48c-fee2-6e79-1e52bd7f429f@gmail.com> <CAMp4zn9AaQ46EyG6QFrF33efpUHnK_TyMYkTicr=iwY5hcKrBg@mail.gmail.com>
- <964c2191-db78-ff4d-5664-1d80dc382df4@gmail.com> <CAMp4zn9Eaq7UQqL4Gk7Cs2O3dj1Gfp8L_YDpWxhvru_kVEBVfw@mail.gmail.com>
-In-Reply-To: <CAMp4zn9Eaq7UQqL4Gk7Cs2O3dj1Gfp8L_YDpWxhvru_kVEBVfw@mail.gmail.com>
-From:   Jann Horn <jannh@google.com>
-Date:   Mon, 2 Nov 2020 21:04:22 +0100
-Message-ID: <CAG48ez2vPUCiZX-swrE2oWx8j-6QCzCRiFGnCPFoGMN+oBFGQw@mail.gmail.com>
-Subject: Re: For review: seccomp_user_notif(2) manual page [v2]
-To:     Sargun Dhillon <sargun@sargun.me>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Tycho Andersen <tycho@tycho.pizza>,
-        Christian Brauner <christian@brauner.io>,
-        Kees Cook <keescook@chromium.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Giuseppe Scrivano <gscrivan@redhat.com>,
-        Song Liu <songliubraving@fb.com>,
-        Robert Sesek <rsesek@google.com>,
-        Containers <containers@lists.linux-foundation.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Aleksa Sarai <cyphar@cyphar.com>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Will Drewry <wad@chromium.org>, bpf <bpf@vger.kernel.org>,
-        Andy Lutomirski <luto@amacapital.net>
+        h=x-gm-message-state:sender:date:message-id:mime-version:subject:from
+         :to:cc;
+        bh=97oxEDL0+5u6kRAuvPT2fBbsOsmtcz2aYWRBJ1sXcGc=;
+        b=Yibh5S3FHeqmhYnemzOYv6bMmtZF50sFHTWKjfAe5oe1EMnNHxJonQMCy37lExos90
+         FztP5hiQZuM2OajlDjgRNRcfLH8bqKuF52IvBKHljoZJgMNNrJ2lRKPjx8vwx6+rzaCP
+         r8zicEed/f3LYiSe0gm7O/3jgRXQwJOZ21zoCaaHB/1gYu5LFRg36WAZ7WrPlDcpO/N3
+         zg36wGas3GMzIcKPNTHxyjgLZqdbdJdEY3OkCnLnbTbjtqrS/iItXB/K906D2ctfP2Hi
+         xRlC5zbEB6h+sNJkXtY8qg5O6+lNxaAv5+feq09QY53r0zsOYh6q7937xPTXeS7UORvn
+         54Gg==
+X-Gm-Message-State: AOAM532K6I0lZthuyN87qmLFdeH03QeNjJiVt9veck/XbCo1s7eN4qpp
+        EWoUhFIqTxhb1/HbNnYqTHp41ErS
+X-Google-Smtp-Source: ABdhPJwYZ9z6FfokB5jYc16eT4hSbAGMQeoQwheMYm0J540Z6IBMuFEIZdr6jldavj9WsNpAZdBa4Ov4
+Sender: "posk via sendgmr" <posk@posk.svl.corp.google.com>
+X-Received: from posk.svl.corp.google.com ([2620:15c:2cd:202:7220:84ff:fe09:7598])
+ (user=posk job=sendgmr) by 2002:a17:90b:293:: with SMTP id
+ az19mr139749pjb.1.1604430297543; Tue, 03 Nov 2020 11:04:57 -0800 (PST)
+Date:   Tue,  3 Nov 2020 11:04:33 -0800
+Message-Id: <20201103190433.373528-1-posk@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.29.1.341.ge80a0c044ae-goog
+Subject: [PATCH] membarrier.2: Update membarrier manpage for 5.10
+From:   Peter Oskolkov <posk@google.com>
+To:     mtk.manpages@gmail.com,
+        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
+        linux-man@vger.kernel.org,
+        "Paul E . McKenney" <paulmck@kernel.org>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Boqun Feng <boqun.feng@gmail.com>,
+        Paul Turner <pjt@google.com>,
+        Chris Kennelly <ckennelly@google.com>,
+        Peter Oskolkov <posk@posk.io>, Peter Oskolkov <posk@google.com>
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Nov 2, 2020 at 8:50 PM Sargun Dhillon <sargun@sargun.me> wrote:
-> On Mon, Nov 2, 2020 at 11:45 AM Michael Kerrisk (man-pages)
-> <mtk.manpages@gmail.com> wrote:
-> >    Caveats regarding blocking system calls
-> >        Suppose that the target performs a blocking system call (e.g.,
-> >        accept(2)) that the supervisor should handle.  The supervisor
-> >        might then in turn execute the same blocking system call.
-> >
-> >        In this scenario, it is important to note that if the target's
-> >        system call is now interrupted by a signal, the supervisor is not
-> >        informed of this.  If the supervisor does not take suitable steps
-> >        to actively discover that the target's system call has been
-> >        canceled, various difficulties can occur.  Taking the example of
-> >        accept(2), the supervisor might remain blocked in its accept(2)
-> >        holding a port number that the target (which, after the
-> >        interruption by the signal handler, perhaps closed  its listening
-> >        socket) might expect to be able to reuse in a bind(2) call.
-> >
-> >        Therefore, when the supervisor wishes to emulate a blocking system
-> >        call, it must do so in such a way that it gets informed if the
-> >        target's system call is interrupted by a signal handler.  For
-> >        example, if the supervisor itself executes the same blocking
-> >        system call, then it could employ a separate thread that uses the
-> >        SECCOMP_IOCTL_NOTIF_ID_VALID operation to check if the target is
-> >        still blocked in its system call.  Alternatively, in the accept(2)
-> >        example, the supervisor might use poll(2) to monitor both the
-> >        notification file descriptor (so as as to discover when the
-> >        target's accept(2) call has been interrupted) and the listening
-> >        file descriptor (so as to know when a connection is available).
-> >
-> >        If the target's system call is interrupted, the supervisor must
-> >        take care to release resources (e.g., file descriptors) that it
-> >        acquired on behalf of the target.
-> >
-> > Does that seem okay?
-> >
-> This is far clearer than my explanation. The one thing is that *just*
-> poll is not good enough, you would poll, with some timeout, and when
-> that timeout is hit, check if all the current notifications are valid,
-> as poll isn't woken up when an in progress notification goes off
-> AFAIK.
+Linux kernel commit 2a36ab717e8fe678d98f81c14a0b124712719840
+(part of 5.10 release) changed sys_membarrier prototype/parameters
+and added two new commands. This manpages patch reflects these
+changes, by mostly copying comments from the kernel patch
+into the manpage (I was also the author of the kernel change).
+---
+ man2/membarrier.2 | 41 +++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 39 insertions(+), 2 deletions(-)
 
-Arguably that's so terrible that it qualifies for being in the BUGS
-section of the manpage.
+diff --git a/man2/membarrier.2 b/man2/membarrier.2
+index 3064b2d2e..c95e97cb6 100644
+--- a/man2/membarrier.2
++++ b/man2/membarrier.2
+@@ -30,7 +30,7 @@ membarrier \- issue memory barriers on a set of threads
+ .PP
+ .B #include <linux/membarrier.h>
+ .PP
+-.BI "int membarrier(int " cmd ", int " flags ");"
++.BI "int membarrier(int " cmd ", unsigned int " flags ", int " cpu_id );"
+ .fi
+ .PP
+ .IR Note :
+@@ -165,6 +165,29 @@ core command prior to using it.
+ Register the process's intent to use
+ .BR MEMBARRIER_CMD_PRIVATE_EXPEDITED_SYNC_CORE .
+ .TP
++.BR MEMBARRIER_CMD_PRIVATE_EXPEDITED_RSEQ " (since Linux 5.10)"
++Ensure the caller thread, upon return from system call, that all its
++running thread siblings have any currently running rseq critical sections
++restarted if
++.I flags
++parameter is 0; if
++.I flags
++parameter is
++.BR MEMBARRIER_CMD_FLAG_CPU ,
++then this operation is performed only on CPU indicated by
++.I cpu_id .
++This guarantee is provided only for threads in
++the same process as the calling thread.
++.IP
++RSEQ membarrier is only available in the "private expedited" form.
++.IP
++A process must register its intent to use the private expedited rseq
++command prior to using it.
++.TP
++.BR MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_RSEQ " (since Linux 5.10)"
++Register the process's intent to use
++.BR MEMBARRIER_CMD_PRIVATE_EXPEDITED_RSEQ .
++.TP
+ .BR MEMBARRIER_CMD_SHARED " (since Linux 4.3)"
+ This is an alias for
+ .BR MEMBARRIER_CMD_GLOBAL
+@@ -172,7 +195,21 @@ that exists for header backward compatibility.
+ .PP
+ The
+ .I flags
+-argument is currently unused and must be specified as 0.
++argument must be specified as 0 unless the command is
++.BR MEMBARRIER_CMD_PRIVATE_EXPEDITED_RSEQ ,
++in which case
++.I flags
++can be either 0 or
++.BR MEMBARRIER_CMD_FLAG_CPU .
++.PP
++The
++.I cpu_id
++argument is ignored unless
++.I flags
++is
++.BR MEMBARRIER_CMD_FLAG_CPU ,
++in which case it must specify the CPU targeted by this membarrier
++command.
+ .PP
+ All memory accesses performed in program order from each targeted thread
+ are guaranteed to be ordered with respect to
+-- 
+2.29.1.341.ge80a0c044ae-goog
 
-If you want this to be fixed properly, I recommend that someone
-implements my proposal from
-<https://lore.kernel.org/lkml/CAG48ez1O2H5HDikPO-_o-toXTheU8GnZot9woGDsNRNJqSWesA@mail.gmail.com/>,
-unless you can come up with something better.
