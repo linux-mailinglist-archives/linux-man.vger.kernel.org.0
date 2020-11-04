@@ -2,83 +2,85 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3CE722A69E4
-	for <lists+linux-man@lfdr.de>; Wed,  4 Nov 2020 17:35:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E31792A6A12
+	for <lists+linux-man@lfdr.de>; Wed,  4 Nov 2020 17:42:53 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729382AbgKDQfa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 4 Nov 2020 11:35:30 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37436 "EHLO
+        id S1731196AbgKDQml (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 4 Nov 2020 11:42:41 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38566 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725896AbgKDQfa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Nov 2020 11:35:30 -0500
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8654EC0613D3
-        for <linux-man@vger.kernel.org>; Wed,  4 Nov 2020 08:35:29 -0800 (PST)
-Received: by mail-wr1-x442.google.com with SMTP id x7so22760659wrl.3
-        for <linux-man@vger.kernel.org>; Wed, 04 Nov 2020 08:35:29 -0800 (PST)
+        with ESMTP id S1731189AbgKDQml (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Nov 2020 11:42:41 -0500
+Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com [IPv6:2a00:1450:4864:20::243])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DABB4C0613D3
+        for <linux-man@vger.kernel.org>; Wed,  4 Nov 2020 08:42:40 -0800 (PST)
+Received: by mail-lj1-x243.google.com with SMTP id l10so2680336lji.4
+        for <linux-man@vger.kernel.org>; Wed, 04 Nov 2020 08:42:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=LssclLN5TRuNYcYXum3bb6ont1afHdo+Hw6+p0WzVwU=;
-        b=jtNnh3Qpy6Gar3Pgb2/H0UFeQLNYilGB/q98ZEV9NTKXKU9fbMKrEgCMuyQlmakfu9
-         1L7PnqmqC1Nh/o4i7NMe+lFTaMDI+U4ean55wAn8KJhtkCsftDOwSKFVfGWcx2kzutRQ
-         Efk0o+pvcwGEcj0yPyHN/6zXva70Y6gvW9fi/ccddN6a9fm1CGvJX6ZsNfJzQxlFlGMy
-         rNU2aXh4YrIZ71a/PZfSjos7lh4M4Ls1174hAuslmuT+O0TYZlTEhossZokl2DPGv2tg
-         pfmUrLPiRFv/BoEztIhoZjPZZDQrU16dmRrVrnTQpUehrTdyx9xmhkIE22O4y8HCVt0X
-         SGMg==
+        d=google.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=KI2EVxXmhKig6AR+BJoyCebe5SydFFdN3VoQv+qRTB0=;
+        b=HrjbsMBGx+1UI83TelvtO0rvWeOO5rJr/ZsVTqBcDpj1wPLGagpqBAuCgsjeMQDWxJ
+         h3O6geV7SjfJzYZrCikctUyXR2XXXmujDcQtpTzn0q6ioQqHR7uu217Qr7CTo/gByUl6
+         BgAA57WO2vD5m0vWwwRQ+ZdMbvADL+X3f4xOZWoxRsHXhsyB0Zl0F3xLGVXvFfi01jLQ
+         MyOa7EvmG2XX7ctZ4mbM/VBZyR4hmys7hezQapAqneDiTzjsn5UnpkT6ZFs/TbPeY6Ld
+         gA+nOlLb4AQRCakkA9n1YH5SnvwOXp+a7lunTdkqw4y990zBrkUK1NyOBgSmGOFEi9tG
+         axCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=LssclLN5TRuNYcYXum3bb6ont1afHdo+Hw6+p0WzVwU=;
-        b=OS6lTXXzvGfwOqW1+GULQXVEf8FdKj1NUhQDxnBEAhEVPnVQL7vGuYtns/ESz+A+Kq
-         9UBCLVEo8WjcIkjFr066QXCzBEBWiB+kZ1VvPnr56Wb68zmQgcybF3sFXol0+1kshLJZ
-         /ho/CQrIaivb5pYpptgZUnhr5O+m5Cgn4Zp3AX4MfJTqyNcgheuIHSpvt81BqrfZeZFf
-         bt4XDeq/yRPgsNWy7MS8gLSRalYk1AMp09t4XFDb6jwPczwmGrk0k0XRXFOHC2lGjFgP
-         BUPfmls+9UcTrc9fQoereEqwEgIuR0YOv7B6Q8FvogtJRsZcjqWujWODEMQvEag3UiyA
-         S3Lg==
-X-Gm-Message-State: AOAM530WkNt5Y7KodwxYxRbE++B28LL9tyCWMViNDiQ1VKO7OvZa+hrU
-        YSHcrvFddK5a+1OF9NMl7rI=
-X-Google-Smtp-Source: ABdhPJzJA0hZr2DMDoSbeedS2CBoGgqB1U3eOa/8nYfU2UoU6G03mN4R79n3wWK/y+Ak3tPm0MYQFQ==
-X-Received: by 2002:adf:dd89:: with SMTP id x9mr32981279wrl.284.1604507728358;
-        Wed, 04 Nov 2020 08:35:28 -0800 (PST)
-Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id x10sm3336751wrp.62.2020.11.04.08.35.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2020 08:35:27 -0800 (PST)
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH] strerror.3: tfix
-Date:   Wed,  4 Nov 2020 17:35:10 +0100
-Message-Id: <20201104163509.5795-1-colomar.6.4.3@gmail.com>
-X-Mailer: git-send-email 2.28.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=KI2EVxXmhKig6AR+BJoyCebe5SydFFdN3VoQv+qRTB0=;
+        b=Hw/vWx3ixeUt8zj33r9V0gJIb0d9zzqLSa6V6MUK9P1s37uj80gV7Lg13SCRhGFG3h
+         d6aiaJGU5uLzDsB/lwl49IeXteTFL4E24ZAUtnKMZAaIRVz6KKufnc9qK05W2ydwOUjF
+         suxtauBpr4ilZK2fWxKHfpOp0NSeOGwb57t5L8yid34P37lFpISb6x8OWUWx00JgAlJg
+         IguEwMApzKpUKnb8W26LT/b6Ynr6ltOTHn7WYNAZ5Vd+oPHhHS65WNW/qQeRo+f8Pc0N
+         Ed87VUHjIE5UUJ12ptH8GyxmN0v/s3HTFZ637uv80BFptcJYjVfSuDShzHEhPvehu7wr
+         +Vvg==
+X-Gm-Message-State: AOAM532ioTHkk3INKrbXskra8vxJyioK0PkFHC/X6QdJrCprixO7KxzL
+        Ti62oy7OeV1KGhXDHk0M1WkLj0jNCpu2nZk4HXHTYA==
+X-Google-Smtp-Source: ABdhPJxCrj22sr28us0p4uTjqQBErgPvznTaOtSJFSBHaG9S5gGYWPJ/XTqnGnRag/dz0xkJJBUnnNPOXgVlQzNDh5k=
+X-Received: by 2002:a2e:8e35:: with SMTP id r21mr8485139ljk.389.1604508159110;
+ Wed, 04 Nov 2020 08:42:39 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAPNVh5e_u0JcF7dE0sOs6DZrnw1zAw1f9VzCu4B+gO2fOF7AMA@mail.gmail.com>
+ <20201104162943.4823-1-colomar.6.4.3@gmail.com>
+In-Reply-To: <20201104162943.4823-1-colomar.6.4.3@gmail.com>
+From:   Peter Oskolkov <posk@google.com>
+Date:   Wed, 4 Nov 2020 08:42:27 -0800
+Message-ID: <CAPNVh5d4d1tTSL0aY6yf=deQjfAgdBW1oE4itcpdMOtv+VzojQ@mail.gmail.com>
+Subject: Re: [PATCH v3] membarrier.2: Update membarrier manual page for 5.10
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+        "Paul E . McKenney" <paulmck@kernel.org>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Boqun Feng <boqun.feng@gmail.com>,
+        Paul Turner <pjt@google.com>,
+        Chris Kennelly <ckennelly@google.com>,
+        Peter Oskolkov <posk@posk.io>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
----
- man3/strerror.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Wed, Nov 4, 2020 at 8:30 AM Alejandro Colomar
+<colomar.6.4.3@gmail.com> wrote:
+>
+[...]
+>
+> Hi Peter,
+>
+> I added those changes to the patch,
+> and added a signed-off-by on your behalf.
+> I think it's ready right now.
+[...]
 
-diff --git a/man3/strerror.3 b/man3/strerror.3
-index 1b95014ee..72b4d3994 100644
---- a/man3/strerror.3
-+++ b/man3/strerror.3
-@@ -252,7 +252,7 @@ T{
- T}	Thread safety	MT-Unsafe race:strerror
- T{
- .BR strerrorname_np (),
--.BR strerrordesc ()
-+.BR strerrordesc_np ()
- T}	Thread safety	MT-Safe
- T{
- .BR strerror_r (),
--- 
-2.28.0
+Hi Alex,
 
+Thanks a lot for your help! This looks good to me.
+
+Thanks,
+Peter
