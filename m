@@ -2,208 +2,231 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0DCF42A7D07
-	for <lists+linux-man@lfdr.de>; Thu,  5 Nov 2020 12:33:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D325B2A7D30
+	for <lists+linux-man@lfdr.de>; Thu,  5 Nov 2020 12:37:34 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730232AbgKELdp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 5 Nov 2020 06:33:45 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45034 "EHLO
+        id S1730015AbgKELhL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 5 Nov 2020 06:37:11 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45706 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730243AbgKELcZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Nov 2020 06:32:25 -0500
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5FCEFC0613CF
-        for <linux-man@vger.kernel.org>; Thu,  5 Nov 2020 03:32:25 -0800 (PST)
-Received: by mail-wm1-x341.google.com with SMTP id h2so1246066wmm.0
-        for <linux-man@vger.kernel.org>; Thu, 05 Nov 2020 03:32:25 -0800 (PST)
+        with ESMTP id S1730439AbgKELgh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Nov 2020 06:36:37 -0500
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com [IPv6:2607:f8b0:4864:20::230])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4F24BC0613CF
+        for <linux-man@vger.kernel.org>; Thu,  5 Nov 2020 03:36:36 -0800 (PST)
+Received: by mail-oi1-x230.google.com with SMTP id d9so1348536oib.3
+        for <linux-man@vger.kernel.org>; Thu, 05 Nov 2020 03:36:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=LJK7u4BZ+acfxCWgEvs6rAvI0CIvdVZMjqhAIB4DEBA=;
-        b=Vt8YrGDZqNnF0cdMGc69nI+8HzAbDbsVrtIZGwVYYj0RIJYcQl+iuSxP1MBxw0vAC4
-         YTiL3z53p9jM8Uac5fmE4te6otJX3+ETA9AP+GCouRgte5f7RAo7hMxO49+AXGaJe9no
-         T3LkiB6cCVROWqxmJHJ6jpasGufS8uvO3A7sKm8cxATHvUbUvbAezpkBeDStIfUCSd/P
-         1hkHKDjGbv1WDP1x0bLl4rKgxKmX+qnhCXxj295cjPuwc8nSDxLWscEknAWZoWJItCtj
-         kj143JRV/gm73ZkXL3U1b6gaGjnbjYisltQ7xsLWN3//gsoA174XiJAyTc5ZsYNkRJag
-         i3NA==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=eaiqLAMahVW1WwyJ8GF8raZ2Zw7YNCNzRTOR6UEEKg8=;
+        b=oWGGnB2ICGUFmpO0UGU2YugTB1HBNWhGF23t10VYnKpvybUpQ1asXGz0RD6qLCC0mK
+         c0CDeY68nSmRF6itGD+8/XKeztL3+Uec+gfboU50T8vXHRaRx5GBAhkrvsiSzD8Y+leQ
+         QSLq8f4mfJYVQW7CFDdktf4oiCp/BPAVy5NZWMxj2S+old5x1TcpbyJHEo8RW/qvIF93
+         ilp7w49t6xSSdkPlJitJfGJqbqxsVNlQm0m3cEuMHbtEhVx+D56w/rd/Bk7btBq0zbOY
+         QmBWkPBkaXBKLjAicN5oV00EVLniV/6hagVQwVyZspdZcjM9cRfM3xx4+c1AXcldfkX/
+         Lnsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=LJK7u4BZ+acfxCWgEvs6rAvI0CIvdVZMjqhAIB4DEBA=;
-        b=rhArfjJsbkyYbHacG+DF+WtO+7Fc0QjXN8s6/EtdzyTXt+KB6OkPvee2lWboqqmKCv
-         ymwN3AeL8g2JSZoU5v5FtAv0UFnBYedxh0XejWOydSlzYt2WISb+WR24S0FYso6nuYrt
-         CYpymH2OIiG70zHEKDhrgTP2zV50ANzivJ8WQL6pS+bIG01zhKPX8UKeLWEHY8XJrlx/
-         6BokAgixKwMKRaFdn15LcvOhzB4aaLQj0tCeR1hkL9A3dBNf+cDcGmccnJ0/HqAKl79A
-         5h5Frw8VQTkYe+HVsRKs6oFnQwaCXzBDmPMCKgBFUBkvFVS4V6NTd3VvUUO+rnaEL75C
-         J9Vw==
-X-Gm-Message-State: AOAM53214KBoFxdjxhQxx8FKvlxkyBTMJJkRT0vnKaZRK2C8K0Q5ZICw
-        Wzy00S89+AyA+FIzJuHKXwE=
-X-Google-Smtp-Source: ABdhPJzqz96f8tcrEeIbXST/AUvhvAVkmtRiwW+rswEsBRUhINlPGhgFIwJSvdZNK3wQJrn+PvpGCg==
-X-Received: by 2002:a1c:3c84:: with SMTP id j126mr2268820wma.151.1604575944083;
-        Thu, 05 Nov 2020 03:32:24 -0800 (PST)
-Received: from localhost.localdomain ([170.253.60.68])
-        by smtp.googlemail.com with ESMTPSA id r1sm2105898wro.18.2020.11.05.03.32.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2020 03:32:23 -0800 (PST)
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        Peter Oskolkov <posk@google.com>
-Cc:     linux-man@vger.kernel.org,
-        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-        "Paul E . McKenney" <paulmck@kernel.org>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Boqun Feng <boqun.feng@gmail.com>,
-        Paul Turner <pjt@google.com>,
-        Chris Kennelly <ckennelly@google.com>,
-        Peter Oskolkov <posk@posk.io>,
-        Alejandro Colomar <colomar.6.4.3@gmail.com>
-Subject: [PATCH v4] membarrier.2: Update membarrier manual page for 5.10
-Date:   Thu,  5 Nov 2020 12:32:00 +0100
-Message-Id: <20201105113159.19641-1-colomar.6.4.3@gmail.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <CAPNVh5e_u0JcF7dE0sOs6DZrnw1zAw1f9VzCu4B+gO2fOF7AMA@mail.gmail.com>
-References: <CAPNVh5e_u0JcF7dE0sOs6DZrnw1zAw1f9VzCu4B+gO2fOF7AMA@mail.gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=eaiqLAMahVW1WwyJ8GF8raZ2Zw7YNCNzRTOR6UEEKg8=;
+        b=DMGpnKN2ISVcUE86rlPKcgZivBk+p1o56xz6ao79kBju0ZmFst+RLAnOOjZLhAJQj6
+         88wFAAdt4OlQv8IWq0D6XwBx1t+tLQGuDVI7NeYl9YIBCJoKkuAJbC/JtfHhvpTSJy6G
+         bkaW7h49/P8/rV1GjDhTVtxM4lcQ5Etw0m7Yg65B1L4VmyGDU3fw8HhHKaYm49eR8XC+
+         ds1HgPIFQDHY+h80I7BmvfSF3rGcScC5EkjZoKLO6NQ8aR7sHq8c0s80UzkmFRvEeeh6
+         D/7lz8AlCyvK/jvqzrh30J/yZB/8P91Igt4Dk4JS60GBK8hB76wBJSezaNbwWgZtMbyG
+         Tz0w==
+X-Gm-Message-State: AOAM533kEUDvKhEgKMgDgDxiU5TMfLYrSrsWQby0Qsy4TpcSnr8WEIn3
+        uD1iT0yir1MGY7ZvUVp4z8xzj7eknkcaxsalyYQ=
+X-Google-Smtp-Source: ABdhPJysek8XbTYzBoAu666Ig/K8kytOtA4HgRXAE1Me/rLQ1ywQnf4KCD4YbMlFOjMjLOkK3kR2g9WykNg5FkgCVcQ=
+X-Received: by 2002:a05:6808:91a:: with SMTP id w26mr1295789oih.159.1604576195588;
+ Thu, 05 Nov 2020 03:36:35 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <f4a93b8c-8136-113b-d39d-72df43381fd9@gmail.com>
+In-Reply-To: <f4a93b8c-8136-113b-d39d-72df43381fd9@gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Thu, 5 Nov 2020 12:36:24 +0100
+Message-ID: <CAKgNAkhe-YN9MF2epm8_Qqi0b2Vp+YkrURQHduYz8+B6KfMiQQ@mail.gmail.com>
+Subject: Re: Format inline code
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Peter Oskolkov <posk@google.com>
-
-Linux kernel commit 2a36ab717e8fe678d98f81c14a0b124712719840
-(part of 5.10 release) changed sys_membarrier prototype/parameters
-and added two new commands. This manpages patch reflects these
-changes, by mostly copying comments from the kernel patch
-into the manpage (I was also the author of the kernel change).
-
-Signed-off-by: Peter Oskolkov <posk@google.com>
-Co-developed-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
-Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
----
-
-v4 fixes a typo.
+Hi Alex,
 
 
- man2/membarrier.2 | 60 +++++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 53 insertions(+), 7 deletions(-)
+On Thu, 5 Nov 2020 at 11:19, Alejandro Colomar <colomar.6.4.3@gmail.com> wrote:
+>
+> Hey Michael,
+>
+> I tried to reply to the old thread where we talked about it,
+> but I couldn't find it.
 
-diff --git a/man2/membarrier.2 b/man2/membarrier.2
-index 3064b2d2e..775a399b0 100644
---- a/man2/membarrier.2
-+++ b/man2/membarrier.2
-@@ -30,7 +30,7 @@ membarrier \- issue memory barriers on a set of threads
- .PP
- .B #include <linux/membarrier.h>
- .PP
--.BI "int membarrier(int " cmd ", int " flags ");"
-+.BI "int membarrier(int " cmd ", unsigned int " flags ", int " cpu_id );
- .fi
- .PP
- .IR Note :
-@@ -165,6 +165,29 @@ core command prior to using it.
- Register the process's intent to use
- .BR MEMBARRIER_CMD_PRIVATE_EXPEDITED_SYNC_CORE .
- .TP
-+.BR MEMBARRIER_CMD_PRIVATE_EXPEDITED_RSEQ " (since Linux 5.10)"
-+Ensure the caller thread, upon return from system call, that all its
-+running thread siblings have any currently running rseq critical sections
-+restarted if
-+.I flags
-+parameter is 0; if
-+.I flags
-+parameter is
-+.BR MEMBARRIER_CMD_FLAG_CPU ,
-+then this operation is performed only on CPU indicated by
-+.IR cpu_id .
-+This guarantee is provided only for threads in
-+the same process as the calling thread.
-+.IP
-+RSEQ membarrier is only available in the "private expedited" form.
-+.IP
-+A process must register its intent to use the private expedited rseq
-+command prior to using it.
-+.TP
-+.BR MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_RSEQ " (since Linux 5.10)"
-+Register the process's intent to use
-+.BR MEMBARRIER_CMD_PRIVATE_EXPEDITED_RSEQ .
-+.TP
- .BR MEMBARRIER_CMD_SHARED " (since Linux 4.3)"
- This is an alias for
- .BR MEMBARRIER_CMD_GLOBAL
-@@ -172,7 +195,21 @@ that exists for header backward compatibility.
- .PP
- The
- .I flags
--argument is currently unused and must be specified as 0.
-+argument must be specified as 0 unless the command is
-+.BR MEMBARRIER_CMD_PRIVATE_EXPEDITED_RSEQ ,
-+in which case
-+.I flags
-+can be either 0 or
-+.BR MEMBARRIER_CMD_FLAG_CPU .
-+.PP
-+The
-+.I cpu_id
-+argument is ignored unless
-+.I flags
-+is
-+.BR MEMBARRIER_CMD_FLAG_CPU ,
-+in which case it must specify the CPU targeted by this membarrier
-+command.
- .PP
- All memory accesses performed in program order from each targeted thread
- are guaranteed to be ordered with respect to
-@@ -251,7 +288,16 @@ commands.
- The
- .BR membarrier ()
- system call was added in Linux 4.3.
--.\"
-+.PP
-+Before Linux 5.10, the prototype for
-+.BR membarrier ()
-+was:
-+.PP
-+.in +4n
-+.EX
-+.BI "int membarrier(int " cmd ", int " flags );
-+.EE
-+.in
- .SH CONFORMING TO
- .BR membarrier ()
- is Linux-specific.
-@@ -350,9 +396,9 @@ becomes:
- static volatile int a, b;
- 
- static int
--membarrier(int cmd, int flags)
-+membarrier(int cmd, unsigned int flags, int cpu_id)
- {
--    return syscall(__NR_membarrier, cmd, flags);
-+    return syscall(__NR_membarrier, cmd, flags, cpu_id);
- }
- 
- static int
-@@ -362,7 +408,7 @@ init_membarrier(void)
- 
-     /* Check that membarrier() is supported. */
- 
--    ret = membarrier(MEMBARRIER_CMD_QUERY, 0);
-+    ret = membarrier(MEMBARRIER_CMD_QUERY, 0, 0);
-     if (ret < 0) {
-         perror("membarrier");
-         return \-1;
-@@ -389,7 +435,7 @@ static void
- slow_path(int *read_a)
- {
-     b = 1;
--    membarrier(MEMBARRIER_CMD_GLOBAL, 0);
-+    membarrier(MEMBARRIER_CMD_GLOBAL, 0, 0);
-     *read_a = a;
- }
- 
+I think it was p[robably in the thread that starts here:
+https://lore.kernel.org/linux-man/f70c7f62-9d61-71aa-67cf-43501a29bccc@gmail.com/
+
+> I think it was in a thread of some patch for system_data_types,
+> so I didn't know how to filter for it :/
+>
+> So let's start a clean thread for that.
+>
+> Currently, man-pages(7) proposes:
+>
+> =================
+> .PP
+> .in +4n
+> .EX
+> int
+> main(int argc, char *argv[])
+> {
+>      return 0;
+> }
+> .EE
+> .in
+> .PP
+> =================
+>
+> I think you said that it doesn't always work.
+>
+> I don't agree with that:
+> If you correctly use .RS/.RE instead of misusing .IP,
+> I think it will work always.
+>
+> I mean, if you have a block that is indented,
+> I propose to use .RS/.RE for the whole block,
+> instead of .IP for every paragraph
+> (if you use .IP, then yes,
+> that construct needs to be modified to use it too).
+> An implementation of what I mean is system_data_types.7.
+>
+> If you think it would still fail in some scenario,
+> please show me.
+>
+> Another problem of that construct is that it uses naked .in.
+> I agree with it.
+>
+> How about the following?:
+>
+> =================
+> .PP
+> .RS +4n
+> .EX
+> int
+> main(int argc, char *argv[])
+> {
+>      return 0;
+> }
+> .EE
+> .RE
+> .PP
+> =================
+>
+> I don't know if that syntax is correct,
+> but I tried it, and it seems to work.
+>
+> AFAIK, it will _always_ work
+> as long as blocks are correctly indented using .RS/.RE,
+> and it uses man macros only.
+
+So, suppose I want to produce output as follows, where XXXXXXXXX is
+the start of a hanging list (.TP):
+
+[[
+xxx(2)                     System Calls Manual                     xxx(2)
+
+       XXXXXXXXXX
+              Lorem  ipsum  dolor  sit amet, consectetur adipiscing elit,
+              sed do eiusmod tempor incididunt ut labore et dolore  magna
+              aliqua.  Ut enim ad minim veniam, quis nostrud exercitation
+              ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+                  int
+                  main(int argc, char *argv[])
+                  {
+                      return 0;
+                  }
+
+zzz                                yyy                             xxx(2)
+]]
+
+The way I currently produce that is markup something like:
+
+[[
+.TH xxx 2 yyy zzz
+.TP
+XXXXXXXXXX
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+enim ad minim veniam, quis nostrud exercitation ullamco laboris
+nisi ut aliquip ex ea commodo consequat.
+.IP
+.in +4n
+.EX
+int
+main(int argc, char *argv[])
+{
+    return 0;
+}
+.EE
+.in
+]]
+
+Downside: in the above, I need to know whether to use .IP or .PP,
+depending on whether I'm currently in an indented text block.
+
+I think you are suggesting that instead, I could do something like:
+
+[[
+.TH xxx 2 yyyyy zzzzz
+.TP
+XXXXXXXXXX
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+enim ad minim veniam, quis nostrud exercitation ullamco laboris
+nisi ut aliquip ex ea commodo consequat.
+.RS
+.PP
+.RS +4n
+.EX
+int
+main(int argc, char *argv[])
+{
+    return 0;
+}
+.EE
+.RE
+.RE
+]]
+
+I agree that this works, and has the virtue that I can consistently use
+
+.PP
+.RS +4n
+.EX
+...
+.EE
+.RE
+
+everywhere. The downside is that I have to add an extra .RS/.RE pair,
+and that's quite a bit of mark-up to add each time (to a construct
+that is already quite mark-up heavy). I don't totally object to the
+extra mark-up, but it would be nice if there was a way to accomplish
+the desired result (consistent mark-up everywhere) without requiring
+su much mark-up.
+
+Thanks,
+
+Michael
+
+
 -- 
-2.28.0
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
