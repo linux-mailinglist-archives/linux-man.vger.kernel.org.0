@@ -2,111 +2,212 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id F16F82A87D5
-	for <lists+linux-man@lfdr.de>; Thu,  5 Nov 2020 21:14:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D1FEC2A892A
+	for <lists+linux-man@lfdr.de>; Thu,  5 Nov 2020 22:37:22 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726729AbgKEUOh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 5 Nov 2020 15:14:37 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42372 "EHLO
+        id S1731860AbgKEVhW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 5 Nov 2020 16:37:22 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55266 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726214AbgKEUOh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Nov 2020 15:14:37 -0500
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 43C36C0613CF
-        for <linux-man@vger.kernel.org>; Thu,  5 Nov 2020 12:14:37 -0800 (PST)
-Received: by mail-wm1-x343.google.com with SMTP id c9so2820031wml.5
-        for <linux-man@vger.kernel.org>; Thu, 05 Nov 2020 12:14:37 -0800 (PST)
+        with ESMTP id S1730973AbgKEVhV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Nov 2020 16:37:21 -0500
+Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com [IPv6:2607:f8b0:4864:20::c2e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C9E1EC0613CF
+        for <linux-man@vger.kernel.org>; Thu,  5 Nov 2020 13:37:21 -0800 (PST)
+Received: by mail-oo1-xc2e.google.com with SMTP id i13so688421oou.11
+        for <linux-man@vger.kernel.org>; Thu, 05 Nov 2020 13:37:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=fXileg/9VEWA6CPsUeXyaEUoVXcO+vuSpdo2GRoPLSA=;
-        b=dVdoZifTupEa/Srw1g1DT4aOf/NlCJwTJ5YFK3mGST4PYT7IDd4aOnaBmqc/40DzZ0
-         2zKsXLPz5ZPkHs8afWdNRYZ2kfFaVDhpxxbRW5i2vFWs2w1mesPqvt9hGaVh0NiJuq2i
-         nQbmgDh40XDDGJ8WrP66QhrlbrFIn0YgsNz0jGO3B9Cmos2lI16QzicmeEz0QREs+6BL
-         zQ5A3uXZWawW0H8WflbmWntM1jR2Q9b80zfB7nCLQrs3gPt3KqnQoe6Gdv06nZ/85OT/
-         xBGcFKCrA8Ux1DgwjJC4iC1h7bvkr6f9A76wQ7vvaP68Zr8cFH8xOiJ+MXpYB5R2tPRb
-         pUBw==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=kq8W/kDUjZsLSa0NWRv66kt64G2wQTR2nKs0a1FgcMs=;
+        b=MoPEel4IwS7z35UU2c1QA/WEF4Dj/ewn4+DYYWg45Gtc6RKX+lo5hHYy6JHiWTRXeb
+         oBpuV/I8q0QPlFWn9Hwyw2eiDG4dgsE3/A8aoCWcMKb6OvvaGX1ziHtFlZ3zfFu+q2Gq
+         ED7wAGpt+nvO8De7rZpbjuv4C0x4DfyZlcSuDBe8rs+rUJurJrVK71YPGwY64gQ/rHim
+         mFBbcsYWuay3WBLBBz9sLi9pXD5ELe8zHYxADhHTMEm5UMFbblYtMR0bVVXAWaKUjvT8
+         QFDMhWefcd9YcmvGRoe750YVJbXeQBJTJN0eEQFc5yA4jnDi3JRpdhFWS48vSpwQJVFx
+         afvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=fXileg/9VEWA6CPsUeXyaEUoVXcO+vuSpdo2GRoPLSA=;
-        b=t6NB0cLjJixGO8xt2AJgYysddcEPoWFAx1yaEC0/4KKq5cj7xw1Z1cP9YO6JEOoAcj
-         iKA+eRwxHB1PY7VAv7x9EhROkhhpjPiD3meyrM7QmRyx3GfrgtiFE4PlVdKGSQa7Q6c0
-         2aS0H+jcIGZj6eOXnHUoUXDBlnXjtp+A6jrZHZVXxTKR0mwNtuEGp2Wfag7m23Z8FHpI
-         zf4n2NlcaGr1pcL7CG9Mt3IprBiWCGZ0QbyUBAJ3C6jtV7qTrnPkoHsNsSuM9HURJMHT
-         K7m/+Tj1o4b7aVJKMfZS7Zv+c+vRm0rPRdxqoaENIH6cFSMgpcA8BXkKy7iv1U2uf6h0
-         p4AQ==
-X-Gm-Message-State: AOAM533UCM6BlZ202oNkRwngXtkhOJOXmuN8O4+sRmIsxRLAlypce5iA
-        jS7BhS5oG/4q98l1It3xwyWyaJGUjuI=
-X-Google-Smtp-Source: ABdhPJw9Z3rFZ5KKG3GCtFwtUYgjPIqzaJPSgIR788f4iL4v/xF/kujVQfVTGNgW6mQyJDmEDuwVLA==
-X-Received: by 2002:a1c:cc01:: with SMTP id h1mr4755872wmb.114.1604607275814;
-        Thu, 05 Nov 2020 12:14:35 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.60.68])
-        by smtp.gmail.com with ESMTPSA id l3sm4541899wmf.0.2020.11.05.12.14.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2020 12:14:35 -0800 (PST)
-Subject: Re: [PATCH] strerror.3: tfix
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <20201104163509.5795-1-colomar.6.4.3@gmail.com>
- <de7e87c2-a438-7375-f491-b4efc3338b05@gmail.com>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <ff7b7aaf-1abc-2623-f919-bf97e7b96554@gmail.com>
-Date:   Thu, 5 Nov 2020 21:14:34 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=kq8W/kDUjZsLSa0NWRv66kt64G2wQTR2nKs0a1FgcMs=;
+        b=bkczsL1IodKXi9Ef2Obxoty9WbdUYsb5idEb8quIijziwjyC5Wvp1GfTUAn7wM45m2
+         K4E3ZKSAgzULCRdxWd7V2DxBijZbwy6xsqWg6j0GSKupzM3jrpBZj5yFGgjMrTH1fIgQ
+         bb8TOUboZcUks3koZUXIXatdJ6lWKvQeObtLbgNp2ZyeIUALDTsy9Ajhpel8sPuh0V5G
+         1n7AA415W+D9WNZtwmtU6lgTjKM8Zb25ILkZ2pnhdS3NF/z+RORR13v3oV4vETg26rrd
+         VQOl62n3Jo2y9b6g3M/w2rBDSfj78AzJruQXwMztyigllPXpg+koWd0+eo3wJwX6Kllu
+         pW9A==
+X-Gm-Message-State: AOAM532yqQQLifevRlXXlNUVxeNnKH/baoIc+xeb3U9AHDJb11RYCcDF
+        RxqYwtW7cvHW5Jb00a8SyAyQE2FCR5Y7fJAcNow=
+X-Google-Smtp-Source: ABdhPJxFeUpaYjW0DbkXqdqmxQ1C6InJlfwRGs5LSzAdAKhBlhELIeW06rWugbCBPB3jx4ox0SX1f88O7u0XX76WE6U=
+X-Received: by 2002:a4a:dd0a:: with SMTP id m10mr3235291oou.80.1604612241121;
+ Thu, 05 Nov 2020 13:37:21 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <de7e87c2-a438-7375-f491-b4efc3338b05@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <f4a93b8c-8136-113b-d39d-72df43381fd9@gmail.com>
+ <CAKgNAkhe-YN9MF2epm8_Qqi0b2Vp+YkrURQHduYz8+B6KfMiQQ@mail.gmail.com> <eb1afb92-9327-43e4-c4bf-6593289c9c3d@gmail.com>
+In-Reply-To: <eb1afb92-9327-43e4-c4bf-6593289c9c3d@gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Thu, 5 Nov 2020 22:37:10 +0100
+Message-ID: <CAKgNAkiWYUM1qg2HPRczMyd6hQFjhxPAcyRadOGZ6HLNeHuw1A@mail.gmail.com>
+Subject: Re: Format inline code
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Alex,
 
+On Thu, 5 Nov 2020 at 15:59, Alejandro Colomar <colomar.6.4.3@gmail.com> wrote:
+>
+>
+>
+> On 2020-11-05 12:36, Michael Kerrisk (man-pages) wrote:
+> > So, suppose I want to produce output as follows, where XXXXXXXXX is
+> > the start of a hanging list (.TP):
+> >
+> > [[
+> > xxx(2)                     System Calls Manual                     xxx(2)
+> >
+> >         XXXXXXXXXX
+> >                Lorem  ipsum  dolor  sit amet, consectetur adipiscing elit,
+> >                sed do eiusmod tempor incididunt ut labore et dolore  magna
+> >                aliqua.  Ut enim ad minim veniam, quis nostrud exercitation
+> >                ullamco laboris nisi ut aliquip ex ea commodo consequat.
+> >
+> >                    int
+> >                    main(int argc, char *argv[])
+> >                    {
+> >                        return 0;
+> >                    }
+> >
+> > zzz                                yyy                             xxx(2)
+> > ]]
+> >
+> > The way I currently produce that is markup something like:
+> >
+> > [[
+> > .TH xxx 2 yyy zzz
+> > .TP
+> > XXXXXXXXXX
+> > Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+> > eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+> > enim ad minim veniam, quis nostrud exercitation ullamco laboris
+> > nisi ut aliquip ex ea commodo consequat.
+> > .IP
+> > .in +4n
+> > .EX
+> > int
+> > main(int argc, char *argv[])
+> > {
+> >      return 0;
+> > }
+> > .EE
+> > .in
+> > ]]
+> >
+> > Downside: in the above, I need to know whether to use .IP or .PP,
+> > depending on whether I'm currently in an indented text block.
+> >
+> > I think you are suggesting that instead, I could do something like:
+> >
+> > [[
+> > .TH xxx 2 yyyyy zzzzz
+> > .TP
+> > XXXXXXXXXX
+> > Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+> > eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+> > enim ad minim veniam, quis nostrud exercitation ullamco laboris
+> > nisi ut aliquip ex ea commodo consequat.
+> > .RS
+> > .PP
+> > .RS +4n
+> > .EX
+> > int
+> > main(int argc, char *argv[])
+> > {
+> >      return 0;
+> > }
+> > .EE
+> > .RE
+> > .RE
+> > ]]
+> >
+> > I agree that this works, and has the virtue that I can consistently use
+> >
+> > .PP
+> > .RS +4n
+> > .EX
+> > ...
+> > .EE
+> > .RE
+> >
+> > everywhere. The downside is that I have to add an extra .RS/.RE pair,
+> > and that's quite a bit of mark-up to add each time (to a construct
+> > that is already quite mark-up heavy). I don't totally object to the
+> > extra mark-up, but it would be nice if there was a way to accomplish
+> > the desired result (consistent mark-up everywhere) without requiring
+> > su much mark-up.
+>
+> Hi Michael,
+>
+> On one hand, yes, it adds some lines of markup, i.e., a bit of noise.
+> On the other hand, I just see .RS/.RE as {/} in C scopes:
+> they clearly delimit logic blocks of text,
+> and also help in greatly reducing the quantity of .IP needed,
+> needing only .PP for most things, which simplifies logic.
+>
+> Choose your poison :p
 
-On 2020-11-05 10:51, Michael Kerrisk (man-pages) wrote:
-> On 11/4/20 5:35 PM, Alejandro Colomar wrote:
->> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
-> 
-> Thanks for catching that Alex! Patch applied.
+So, suppose we change this. Really, what I should have written is:
 
-You're welcome!
+[[
+.TH xxx 2 yyyyy zzzzz
+.TP
+XXXXXXXXXX
+.RS           <----- I moved this .RS
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+enim ad minim veniam, quis nostrud exercitation ullamco laboris
+nisi ut aliquip ex ea commodo consequat.
+.PP
+.RS +4n
+.EX
+int
+main(int argc, char *argv[])
+{
+    return 0;
+}
+.EE
+.RE
+.RE
+]]
 
-I found it while reading this: 
-https://linux-man-pages.blogspot.com/2020/11/man-pages-509-is-released.html
-:p
+So, any time we have a .TP block that might have inline code (or
+perhaps just multiple paragraphs), then the proposal is that we write
 
-Best,
+[[
+.TP
+HEADWORD
+.RS
+...
+.RE
+]]
 
-Alex
+But, what about the .TP blocks that contain just a single paragraph
+and no inline code? Do we omit the .RS/.RE? That's a little
+inconsistent and possibly confusing. On the other hand, if we add the
+.RS/.RE to such blocks, that's a lot of clutter. Do you see what I
+mean? It looks like there's no simple answer here.
 
-> 
-> Cheers,
-> 
-> Michael
-> 
->> ---
->>   man3/strerror.3 | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/man3/strerror.3 b/man3/strerror.3
->> index 1b95014ee..72b4d3994 100644
->> --- a/man3/strerror.3
->> +++ b/man3/strerror.3
->> @@ -252,7 +252,7 @@ T{
->>   T}	Thread safety	MT-Unsafe race:strerror
->>   T{
->>   .BR strerrorname_np (),
->> -.BR strerrordesc ()
->> +.BR strerrordesc_np ()
->>   T}	Thread safety	MT-Safe
->>   T{
->>   .BR strerror_r (),
->>
-> 
-> 
+Thanks,
+
+Michael
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
