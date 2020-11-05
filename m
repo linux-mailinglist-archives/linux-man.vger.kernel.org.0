@@ -2,100 +2,138 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C9DBD2A7B02
-	for <lists+linux-man@lfdr.de>; Thu,  5 Nov 2020 10:51:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BC5922A7B7F
+	for <lists+linux-man@lfdr.de>; Thu,  5 Nov 2020 11:19:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725827AbgKEJvr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 5 Nov 2020 04:51:47 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57564 "EHLO
+        id S1725998AbgKEKTQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 5 Nov 2020 05:19:16 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33574 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725308AbgKEJvr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Nov 2020 04:51:47 -0500
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D604AC0613CF
-        for <linux-man@vger.kernel.org>; Thu,  5 Nov 2020 01:51:46 -0800 (PST)
-Received: by mail-wm1-x344.google.com with SMTP id c16so937933wmd.2
-        for <linux-man@vger.kernel.org>; Thu, 05 Nov 2020 01:51:46 -0800 (PST)
+        with ESMTP id S1725827AbgKEKTP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Nov 2020 05:19:15 -0500
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5991CC0613CF
+        for <linux-man@vger.kernel.org>; Thu,  5 Nov 2020 02:19:15 -0800 (PST)
+Received: by mail-wm1-x333.google.com with SMTP id k18so1018820wmj.5
+        for <linux-man@vger.kernel.org>; Thu, 05 Nov 2020 02:19:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=6Sn2eung7Lpd9rICfZ27da0Z3rrZxQbaty2xPkTmsaI=;
-        b=mzYO4dLPWkDV7RDhq5amHymQ1mXYu1/5Boga/bLmpMpd1cct5Cncrgzbx9chT1TReY
-         8nu+seUSXtKtIbFN7eVs9uFvqHc6A1l/n0rTOY2kJ8buO2TjDyX6fCmYv78vHrU6uCtP
-         Cyw2fauveZmrTUCM1ZqmDWIknpBnOv5jVLwvKQwdFNtMJIwIPJdn78GM/pSbLBI3/+Ee
-         +N+qqPGOSuoHYflwu95Fp/ZcwF6gdwOvc9ElkO1SyLb5/ipd5gBL/l5M7CRIXPmSB0wM
-         IhN8U38+ZFl9O7qoRpT4oGZkkJRIEj+obI2YHkgj3saxIxTScrE6DL26MjOWZORU+3tG
-         ugYA==
+        h=to:cc:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=RWCamRY/oOg9ryzhPmA5KdmBSEcajC/Y08VvUMMvNok=;
+        b=FcQRQS/1mDlY8hFeHFMd0gUbSSmcMi+hfCgshzUzhH1iX9deRbcolepaUyAx4P+jWe
+         3ZdKLSkpahQiCkHXUSIaoH4tI10tIKgOVZbMRbTxlr8BqQZMzjzO/tK9FvGNCKhRa+yR
+         AE2hUMHBHEwgemKXI7QB3+mXgYFEC7jQWoEpdXNEOiGcsxugIwaTDYkmlvqHHKuL2zs3
+         0lgCJeM49omkoKz0MXGj3E4n4aeXFa9As9qzEAmgOX1dlOAjcM9RSX4h3aO1g5gmp503
+         sE31z09DLawigZa7SHR3Ivp9Oumpkr1pr5kq1t1OxQSEglB83e15jx/GZNR3mRWTYCRu
+         Kqvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=6Sn2eung7Lpd9rICfZ27da0Z3rrZxQbaty2xPkTmsaI=;
-        b=rpxVhr9ykmoxKBUkZxwFzJNeaQo27rUv4piR08KPu2nfgwHu6Vtosgq1Xobm+Ng8MN
-         ypQpD2koLrGJexWyqJGjT+UqvC7fpTtmEoFSmx+RovOUo6a9xgh9viFo7u+VSGvSVAQr
-         jze0v666J/YD3qqBR7N3vPmhl0karQu088bNH8Gi7lStEBr2cZFm8Nv5cMraeWiVtCjc
-         oRYatc5Vevt5gVotD5yRzRm8lgx+1unr7hmEajA9FSZogL9gkXV88cFDy6UmpYC5EFfn
-         cvTv8PpNWlWlGu/XBJJmX3f/9OKCOAsase12InDDBJMoJbo0/ovI456Jq8x1HH/j6Cq8
-         KOlw==
-X-Gm-Message-State: AOAM533paotxrRlk6u50jbAgpThCbTVvJfP+SIvwcxNEc9m/ooJ5FvAm
-        DlGzTukaaAv8y6Tw+zVpy5Wza+fiXjvzwg==
-X-Google-Smtp-Source: ABdhPJwUK5kRR6zhZjdCXIDcoNm8LCzbvaYxpVk7zdKWsJ9RM7QzN3S9S5gYx4TkqAqDcn2Xj5Bcsg==
-X-Received: by 2002:a1c:e087:: with SMTP id x129mr1769401wmg.2.1604569905434;
-        Thu, 05 Nov 2020 01:51:45 -0800 (PST)
-Received: from ?IPv6:2001:a61:245a:d801:2e74:88ad:ef9:5218? ([2001:a61:245a:d801:2e74:88ad:ef9:5218])
-        by smtp.gmail.com with ESMTPSA id l11sm1679364wro.89.2020.11.05.01.51.44
+        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=RWCamRY/oOg9ryzhPmA5KdmBSEcajC/Y08VvUMMvNok=;
+        b=h7G/0kBicBw20LwMB2BUxRqWlRnia/AVfMjITTekT5mdqXc6A4L3EFc11ghIiVxtUZ
+         /4fpSm39v6hv3fodbGex9zxXml/8S4FB8ZpFE1cNIUToXzOUHlCfIJKb2QKtmO6I6JWv
+         qXDvKuIWwCaFNyOO/hmK20NHIyd02KoJ8vZPxFr7zksX6kxpZoYfNj4vlBFj+BdP0F1o
+         f6q4Xzxyg2HNRXmC0IL7o7beHwcWe/YtyKK1dwnEj8k2NxKaClTGsh3066nhOFHhJW/m
+         wm7COoVsx88vX/zjrSlW8J2tcsuQSFa6iV/8b0sw8LHd5cSFv6+sNT+Sb9blGehWOnC9
+         XM1g==
+X-Gm-Message-State: AOAM532XnuBPfZ1dIgJccsC0LPz+k139oFaWdwPhhjj6CAfJwKefHvCP
+        uS8iYSwUjO67b0FVa+UblZ7zqvmsA2M=
+X-Google-Smtp-Source: ABdhPJwuGA9LVAP5FLFooW7bj916OC2tzktXhXvbOEqbDBHl9pA77+devVrP64A+ZpY9njuDKZFfmw==
+X-Received: by 2002:a7b:cbc8:: with SMTP id n8mr1895876wmi.124.1604571553028;
+        Thu, 05 Nov 2020 02:19:13 -0800 (PST)
+Received: from [192.168.1.143] ([170.253.60.68])
+        by smtp.gmail.com with ESMTPSA id n9sm1797300wmd.4.2020.11.05.02.19.12
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2020 01:51:44 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] strerror.3: tfix
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-References: <20201104163509.5795-1-colomar.6.4.3@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <de7e87c2-a438-7375-f491-b4efc3338b05@gmail.com>
-Date:   Thu, 5 Nov 2020 10:51:42 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+        Thu, 05 Nov 2020 02:19:12 -0800 (PST)
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+Subject: Format inline code
+Message-ID: <f4a93b8c-8136-113b-d39d-72df43381fd9@gmail.com>
+Date:   Thu, 5 Nov 2020 11:19:11 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20201104163509.5795-1-colomar.6.4.3@gmail.com>
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 11/4/20 5:35 PM, Alejandro Colomar wrote:
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+Hey Michael,
 
-Thanks for catching that Alex! Patch applied.
+I tried to reply to the old thread where we talked about it,
+but I couldn't find it.
+I think it was in a thread of some patch for system_data_types,
+so I didn't know how to filter for it :/
 
-Cheers,
+So let's start a clean thread for that.
 
-Michael
+Currently, man-pages(7) proposes:
 
-> ---
->  man3/strerror.3 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man3/strerror.3 b/man3/strerror.3
-> index 1b95014ee..72b4d3994 100644
-> --- a/man3/strerror.3
-> +++ b/man3/strerror.3
-> @@ -252,7 +252,7 @@ T{
->  T}	Thread safety	MT-Unsafe race:strerror
->  T{
->  .BR strerrorname_np (),
-> -.BR strerrordesc ()
-> +.BR strerrordesc_np ()
->  T}	Thread safety	MT-Safe
->  T{
->  .BR strerror_r (),
-> 
+=================
+.PP
+.in +4n
+.EX
+int
+main(int argc, char *argv[])
+{
+     return 0;
+}
+.EE
+.in
+.PP
+=================
+
+I think you said that it doesn't always work.
+
+I don't agree with that:
+If you correctly use .RS/.RE instead of misusing .IP,
+I think it will work always.
+
+I mean, if you have a block that is indented,
+I propose to use .RS/.RE for the whole block,
+instead of .IP for every paragraph
+(if you use .IP, then yes,
+that construct needs to be modified to use it too).
+An implementation of what I mean is system_data_types.7.
+
+If you think it would still fail in some scenario,
+please show me.
+
+Another problem of that construct is that it uses naked .in.
+I agree with it.
+
+How about the following?:
+
+=================
+.PP
+.RS +4n
+.EX
+int
+main(int argc, char *argv[])
+{
+     return 0;
+}
+.EE
+.RE
+.PP
+=================
+
+I don't know if that syntax is correct,
+but I tried it, and it seems to work.
+
+AFAIK, it will _always_ work
+as long as blocks are correctly indented using .RS/.RE,
+and it uses man macros only.
+
+Any thoughts?
 
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Thanks,
+
+Alex
