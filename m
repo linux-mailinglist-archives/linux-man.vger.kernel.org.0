@@ -2,74 +2,92 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 79EFE2B0FBC
-	for <lists+linux-man@lfdr.de>; Thu, 12 Nov 2020 22:04:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 24BDD2B0FEB
+	for <lists+linux-man@lfdr.de>; Thu, 12 Nov 2020 22:17:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727134AbgKLVEM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 12 Nov 2020 16:04:12 -0500
-Received: from mout.gmx.net ([212.227.17.22]:48669 "EHLO mout.gmx.net"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726759AbgKLVEL (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 12 Nov 2020 16:04:11 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
-        s=badeba3b8450; t=1605215050;
-        bh=8KoawiArhjVGvqBjgwaMhsOSEYd1mRFMOtLnoQB/iYY=;
-        h=X-UI-Sender-Class:Date:In-Reply-To:References:Subject:To:CC:From;
-        b=LHhesz/pOApNsjoVRYYEx9oV3jvBbBghZZFXiOKM4vm/8cWfOXS04EWfI+rn+X27x
-         JKQczejW+t1dCj7/7Q7QQ5zoPcC778djo7/plB7yAA+blmdDyF1Y2NLZwfQIvkISZr
-         yRU3p9Xlon3nUxUDQLsF6Skt2cBZoZWQvs3tKbfk=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from android-2b37cbcc6a0ad27c.fritz.box ([178.202.41.135]) by
- mail.gmx.com (mrgmx105 [212.227.17.168]) with ESMTPSA (Nemesis) id
- 1McpNy-1k4WyZ3gf4-00ZvRG; Thu, 12 Nov 2020 22:04:10 +0100
-Date:   Thu, 12 Nov 2020 22:04:08 +0100
-User-Agent: K-9 Mail for Android
-In-Reply-To: <b3fd673a-200c-78fd-97fc-862f41e54d21@gmail.com>
-References: <e18cbe1f-5dcf-c717-5790-912af6bbfa41@gmx.de> <24b18d8a-84cf-17c6-12cf-f2d0c979b6ad@gmail.com> <70217a4d-9525-a186-4560-02216dd4546a@gmx.de> <90f0f681-0770-9975-f370-415300d29fa9@gmail.com> <16CBDA59-F868-47E5-B88F-C9CF235BF8BD@gmx.de> <b3fd673a-200c-78fd-97fc-862f41e54d21@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+        id S1726844AbgKLVRh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 12 Nov 2020 16:17:37 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37948 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726337AbgKLVRg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 12 Nov 2020 16:17:36 -0500
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A7619C0613D1
+        for <linux-man@vger.kernel.org>; Thu, 12 Nov 2020 13:17:36 -0800 (PST)
+Received: by mail-wr1-x42f.google.com with SMTP id s8so7491181wrw.10
+        for <linux-man@vger.kernel.org>; Thu, 12 Nov 2020 13:17:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=Mcu727UddUrkrS9lF58bbSnsO9JecJetlVYwG4k9wQU=;
+        b=fnVfqVdEmJlyl1aEwYYz+6ip2V+YarSxs7WzILTPJJcRhCQo4VlLKcoXGcUxmlPuiV
+         ZizGk7hA+0D3UvTqDcHFEg5Amb4hkBfDP7y6qipwCR6sLE6jB1atzkUVDqcleKeRsvFW
+         DsNRE18FFUIrjgWKn+40qlwQLA2gOKl+DO9HqwZr8XScFQAFqwvn4gpcnd+I1gUPMlag
+         dwXLdYCfo/E7DyrDjW4Pk48iAwENeZyX2aKEAjY4UB5GJlaiJyaQ9EsmGXliqCJqhRUL
+         MkQRuryhFCC4sbE18rTWlbam9nBy95gxR3PmWVYgB/zvF3YPP1lJ87lrPbaRu9/q6j9n
+         r4gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=Mcu727UddUrkrS9lF58bbSnsO9JecJetlVYwG4k9wQU=;
+        b=naRADwu7QmL0h4B/3YsJTlNTA8AuQWBBz9gBfQ3hYuqTG4GbVX1Icon23RudGxSnxd
+         B66EMG9fglehfDHDJCarVAeh50DSY+n7uHqW082TyhQwXEBAnqvs8SMOLtzRQcmFY38x
+         lbuIokrHnkXVCac8Y/Fm6g1yNSJkLsz8M9TbN3U22uDK5/BffYi83zR2NwYnmYmokmbc
+         4summc4T7KfQM52BQK913c9uxNTYHPDZkUaXD+6UnlEXHw1CgpCLTa03+Mfn3FNqO4I2
+         hZjJksD7aH9aRCf7iQzru65TkyPNwLtHBw3qnl5rMNGjjI3ByJP13hpWE9TFZdfumTRZ
+         Liqw==
+X-Gm-Message-State: AOAM530q9Pbwv4/+u9e20fgBxPc79kWArQzn70/qal/FaaFp4Z4o2oJx
+        jMnNKn5GCxb0pr7deQzg9J0=
+X-Google-Smtp-Source: ABdhPJz5mT91cMD+F/3fDp/py/h00qErCCDsckWREunZ6rG/P5xYGI7euG8DKhZD0nqyeUXDtw6BjA==
+X-Received: by 2002:adf:fec6:: with SMTP id q6mr1449846wrs.168.1605215850793;
+        Thu, 12 Nov 2020 13:17:30 -0800 (PST)
+Received: from ?IPv6:2001:a61:24b3:de01:7310:e730:497d:ea6a? ([2001:a61:24b3:de01:7310:e730:497d:ea6a])
+        by smtp.gmail.com with ESMTPSA id p3sm2168477wrs.50.2020.11.12.13.17.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2020 13:17:26 -0800 (PST)
+Cc:     mtk.manpages@gmail.com
 Subject: Re: sigaction.2: clarification for SA_NODEFER needed
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-CC:     mtk.manpages@gmail.com
-From:   Heinrich Schuchardt <xypron.glpk@gmx.de>
-Message-ID: <C98DCC3D-49A0-4B02-943A-AA6F2622F66A@gmx.de>
-X-Provags-ID: V03:K1:TMO3Un/Dvrdp0v7lL5f2hLB9CqGSFA+38FsPDMzHwD7B4DtC/xN
- p0YKV7ldY/D744A3A8dXQaYCMBu/hzkfjHFhqcxsfSS+/bV/dlE4qqdQUijmWMlvt9CQqb2
- kWaKsYYrq34FPnkHClS4+dpo/WD9KCBtOfdRmozYcm4MUMm6KvDZ6cN/XMi6FOfJhzR2KAJ
- iZnGzG9mF7GD0GT7aSCHA==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:XrCuuOWD/qo=:FrVUcJyNZf5dWvzHqfvzqP
- 3UPP+T7WSXd3PqbhE1nvPN/ebhVq2/EwmuvMV+Os/19YuWS9j00UqYMDuisxJyCgNjph6pj3W
- Vo2aovU9pCCQtjqEpsc/e5xM9C5lphqHS/bC7X1ypeWl8P69Z/UcsNLcHKQdeUTe7ds271Iqt
- 1Dw6zQvwUpRWOUT90GwOZHW3cENH7FvC3PcKQ0S0AlpWBgF1YwC/7uoYzZ91yDcBYDzFteax2
- 9/hA4AqA/twTXOWZirH/5tsmRP8ZlcR34yWf3CERIfNnmYZgkCFMCojyv1Qe/Wp8J6XxPydpE
- Wn43qYmbQiEdtSJDKrpwWJQmHKMZo2BFzg8XA+npZomQka5NhOxNTSEJkSyPnfUU18ZUJgguQ
- aJY1U34m/SPU+JSKDhY/tCuclS9D/gJNAuH5YYWHorJY2kAr6QXaUMOijg4tP8PmV7MCftQHc
- ZVhq3oRGtGmHNnmVwP5YgEKTNXLvt1LNcuZDSMr3W3B7E9sVqnZKuYSGhZ4aBiy13ZU9tfwHj
- m3DvzofJGjBVDbQsJyo5FPwrdqhROryJcyLKQrViMpti2/O9FGSaH09sTol7Ka/f51QkdiR2s
- XDmRNYVsuxuCtHFcDz4A1hjabbcN85qBIhBknkQFhqtZDv+GKwph8QJI8e7XXGHAEFYt8Hegt
- lhr5JJwzRuz3jXNWYwk9LaLi4LgwgeP/ABNkGWm9T2Ev80TYPxaK32I/4T4+pDPjW+4gFivXc
- uBcVQQamv6AMeoa+SPv7AyfOvJWkP9AGItys9iC2LfBqwemWM5EjEO3cNzJpKW+aqCl2y8qYe
- qNdn+9ZkZKTP835uy6hvJaQwDKmqWdwURA8vJPqV7znfIbCuQe2KMuCum0sP+Zrb2YejdBtP+
- ljdAqpOJP6iPX5mBtKwg==
+To:     Heinrich Schuchardt <xypron.glpk@gmx.de>, linux-man@vger.kernel.org
+References: <e18cbe1f-5dcf-c717-5790-912af6bbfa41@gmx.de>
+ <24b18d8a-84cf-17c6-12cf-f2d0c979b6ad@gmail.com>
+ <70217a4d-9525-a186-4560-02216dd4546a@gmx.de>
+ <90f0f681-0770-9975-f370-415300d29fa9@gmail.com>
+ <16CBDA59-F868-47E5-B88F-C9CF235BF8BD@gmx.de>
+ <b3fd673a-200c-78fd-97fc-862f41e54d21@gmail.com>
+ <C98DCC3D-49A0-4B02-943A-AA6F2622F66A@gmx.de>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <5dfe378b-43eb-6d72-0312-8e31ea2bfa52@gmail.com>
+Date:   Thu, 12 Nov 2020 22:17:25 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
+MIME-Version: 1.0
+In-Reply-To: <C98DCC3D-49A0-4B02-943A-AA6F2622F66A@gmx.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Am 12=2E November 2020 22:01:58 MEZ schrieb "Michael Kerrisk (man-pages)" <=
-mtk=2Emanpages@gmail=2Ecom>:
->> Is there a function to change the signal mask without leaving the
->handler?
->
->sigprocmask(2)=2E
+On 11/12/20 10:04 PM, Heinrich Schuchardt wrote:
+> Am 12. November 2020 22:01:58 MEZ schrieb "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>:
+>>> Is there a function to change the signal mask without leaving the
+>> handler?
+>>
+>> sigprocmask(2).
+> 
+> You might want to add a link to the function in the note section.
+It's already mentioned in the subsection "Signal mask and
+pending signals". I think that's probably enough.
 
-You might want to add a link to the function in the note section=2E
+Thanks,
 
->
->Thanks,
->
->Michael
+Michael
 
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
