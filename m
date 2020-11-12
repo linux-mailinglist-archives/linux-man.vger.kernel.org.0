@@ -2,53 +2,54 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4B0BD2B0FEC
-	for <lists+linux-man@lfdr.de>; Thu, 12 Nov 2020 22:17:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8210A2B1010
+	for <lists+linux-man@lfdr.de>; Thu, 12 Nov 2020 22:21:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727139AbgKLVRi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 12 Nov 2020 16:17:38 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37954 "EHLO
+        id S1727337AbgKLVUW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 12 Nov 2020 16:20:22 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38414 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726337AbgKLVRi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 12 Nov 2020 16:17:38 -0500
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7A88BC0613D1
-        for <linux-man@vger.kernel.org>; Thu, 12 Nov 2020 13:17:38 -0800 (PST)
-Received: by mail-wm1-x32c.google.com with SMTP id 23so6951079wmg.1
-        for <linux-man@vger.kernel.org>; Thu, 12 Nov 2020 13:17:38 -0800 (PST)
+        with ESMTP id S1727164AbgKLVUW (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 12 Nov 2020 16:20:22 -0500
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0961BC0613D1
+        for <linux-man@vger.kernel.org>; Thu, 12 Nov 2020 13:20:22 -0800 (PST)
+Received: by mail-wm1-x334.google.com with SMTP id a3so6700262wmb.5
+        for <linux-man@vger.kernel.org>; Thu, 12 Nov 2020 13:20:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=subject:from:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=VrOtSVQJv0gakBnIZW+Ni1a09HwrKxbVZ4uCT/akGHA=;
-        b=DFVbqavWShR8p+cI6JnQ5ppgYvOOu/sHhwciLMWmQ92rREoT4BfQ2bfFzgueKpS/bd
-         c/8QjQUl4rxXEj9qmHdOYAFtswd3sgv+V/VtDV9gd/PzDizoBvVkm9vv/7rFE8obW78Q
-         5fZWcUVNIFdX4/YUbeJJc0kChSj4w0npN0FHXvEO8KyaAhdbiGx4zBMOalgvV9K/mFGX
-         L/n23uyZSkx0rD2nR+Kr3Sw2xffGXD5v1nue16re382x66n9njxqBYETiKeknptlx9C/
-         sw305Jx91WHeJ14nVXikxa12WWn5PrMPEV2QLNg2CdhwoPE1G1+YKfthKtD5nV1kJrB0
-         Ot5g==
+        bh=1IUwXl5W0hI3RDsBkOA5K+XDMP9wvse4WstNEJQ0M+U=;
+        b=mGaNBEw6QZppqShgz6AZw3WY3RqOk/6SsWuIFNvDlbX5zQcTTdoGLD5HT71Mm6faM7
+         kDzM62zKWcwTvYI093qhLD3CLbnJLFE32chxYGtpsmwTnUlFF+oGpjZ5ZHND5Y3mcUHw
+         d7EYOypXLdZkslYd7mB37DuLX2NkD3RZ4/0Cu2RvcpOv0MLZdP/8FYAUgr6TLfonxytk
+         GH+//4d8t8yA0LywYvzV/Q+j/4Wd6LEg17hZrxd8OqcFy+/LTw/KnHdykf0PB2vZeHY9
+         gaei7mKVJHzadVyRQdWW7pSh0rft+Jkqk6KljeL+Q3CFeERJ4j5DYobyP3REyQzhmJ49
+         8QYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=VrOtSVQJv0gakBnIZW+Ni1a09HwrKxbVZ4uCT/akGHA=;
-        b=BrCDkpFlDCyq5zHwCiBXxIEUL3ZwIKfj0UKbA3B1wHIJnHq0POy09W63Fbhjnw3wlm
-         x7izDpIN3wyxGXiUD2b2Jc89YjKDW/7G4L+SaZSiwvwcqT5htXFeEh0287bZPI6/5bzW
-         GWu89KHfFYzdqHveVANpygV0Sqt6zbbcTKmt+U6Dmp3fneZmxcyzCoNh51FgPo8PqnsM
-         tUjB0okP6bYuZI7MBGluqdGSRjXkMwpnFfYOK06N+YeWjvfRyw4CMUPGa9oYbsKGSWqP
-         2M2ZRbTXLcWasXzJN+SvLTqyRABisGQcnOZ03yGa+vCiazonKuyoGmYgB79Jz6mM8qJR
-         qbCQ==
-X-Gm-Message-State: AOAM5317p+MttSWcdn/u9mfI/kl33vGp79aRuoIBlbCODtLvFkklTBIA
-        W+OrMgemRFnMmyHB0v0tZy1Gq6DjKHiUiw==
-X-Google-Smtp-Source: ABdhPJzEWdJg+FYtAeVA41b5XVGb6tZDc4xmMDsM48hZqJJK89DpsYs42Amu8sXgeutP8C2xRUyPrg==
-X-Received: by 2002:a05:600c:2202:: with SMTP id z2mr1494209wml.115.1605215855941;
-        Thu, 12 Nov 2020 13:17:35 -0800 (PST)
+        bh=1IUwXl5W0hI3RDsBkOA5K+XDMP9wvse4WstNEJQ0M+U=;
+        b=D/bxS2magdLiTInCCHBTr0oQqWIOF1OKg6DDp/5b26kMTXrg/fXPVArUmFAe+GapKL
+         RFNt76cb5N5mqolbEla4mUqdJP4mzCPotpIiuruTguMDWsBb3EaW92oSuovuXMzyinsa
+         j5LO07m0Ak/ieP/YOu58jLDbrfQWPGmUp1OhB3nVlh1D6PqRxwwBt1oo5ZM5iQzxU/7d
+         8Ix3wXYtErJ/lL3J1fEBj2qi823fPVjG6kZh8to7T6ue24j1jw1Om00w798r6fFkZXZU
+         fFKsVHcskeaI43ayWAi+AXLjVyRZkSxks+rJRH3BAN28ax96/1616pkicD1+diHmu92v
+         JmlA==
+X-Gm-Message-State: AOAM531HrfQ7b0CFqKaZVas7yA77pnu9AMTi2ogy7DFQTnD6uiW/VwKq
+        Qn7XwlyQ5C2xjJzsVVJt42dAO+kyd5fRNQ==
+X-Google-Smtp-Source: ABdhPJxGX0GoqMy+zdGaIk+dL83FVHIUMIeFUmMvmQmEix3RAR8VAiYpRuYWctPrOGZkWclA4Ye8rQ==
+X-Received: by 2002:a05:600c:209:: with SMTP id 9mr1557098wmi.89.1605216008971;
+        Thu, 12 Nov 2020 13:20:08 -0800 (PST)
 Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id k1sm4336137wrp.23.2020.11.12.13.17.35
+        by smtp.gmail.com with ESMTPSA id n9sm7775629wmd.4.2020.11.12.13.20.04
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2020 13:17:35 -0800 (PST)
+        Thu, 12 Nov 2020 13:20:04 -0800 (PST)
 Subject: Re: Format inline code
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     "G . Branden Robinson" <g.branden.robinson@gmail.com>,
         linux-man <linux-man@vger.kernel.org>
@@ -57,13 +58,13 @@ References: <f10acb37-f929-c1fd-9827-c33aaf2955a1@gmail.com>
  <3f041e44-c5c7-f17a-9e99-125eeb6ccb0c@gmail.com>
  <387259c5-3051-8058-e99c-b17873fe7187@gmail.com>
  <CAKgNAkjsnu9+rxdLgZ5VzYxjFf_c1Ed0JUQ8=KHkK6Qw9X4B-Q@mail.gmail.com>
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-Message-ID: <bb5f3aad-d766-fb9e-e77a-09009fb7b599@gmail.com>
-Date:   Thu, 12 Nov 2020 22:17:34 +0100
+ <fbaf2a56-3f2e-e5ce-6ca2-e8f30156947d@gmail.com>
+Message-ID: <fb71a481-45a1-7511-97cf-bd2017562a16@gmail.com>
+Date:   Thu, 12 Nov 2020 22:20:04 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <CAKgNAkjsnu9+rxdLgZ5VzYxjFf_c1Ed0JUQ8=KHkK6Qw9X4B-Q@mail.gmail.com>
+In-Reply-To: <fbaf2a56-3f2e-e5ce-6ca2-e8f30156947d@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -71,80 +72,44 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
 
+> [[
+> .IP * 2
+> If
+> .B PERF_FORMAT_GROUP
+> was specified to allow reading all events in a group at once:
+> .IP
+> .in +4n
+> .EX
+> struct read_format {
+>     u64 nr;            /* The number of events */
+>     u64 time_enabled;  /* if PERF_FORMAT_TOTAL_TIME_ENABLED */
+>     u64 time_running;  /* if PERF_FORMAT_TOTAL_TIME_RUNNING */
+>     struct {
+>         u64 value;     /* The value of the event */
+>         u64 id;        /* if PERF_FORMAT_ID */
+>     } values[nr];
+> };
+> .EE
+> .in
+> .IP *
+> If
+> .B PERF_FORMAT_GROUP
+> was
+> .I not
+> specified:
+> .IP
+> .in +4n
+> .EX
+> struct read_format {
+>     u64 value;         /* The value of the event */
+>     u64 time_enabled;  /* if PERF_FORMAT_TOTAL_TIME_ENABLED */
+>     u64 time_running;  /* if PERF_FORMAT_TOTAL_TIME_RUNNING */
+>     u64 id;            /* if PERF_FORMAT_ID */
+> };
+> .EE
+> .in
+> ]]
 
-After the discovery I made today (See thread '.RS':
-https://lore.kernel.org/linux-man/eaee2c6e-cbb7-94b2-f6c4-9039d184e129@gmail.com/T/),
-
-[.RS 4/.RE] is not an option.
-It simply doesn't work in some contexts.
-
-I propose using the same as before:
-
-[[
-.in +4n
-.EX
-// Code
-.EE
-.in
-]]
-
-There are some cases using [.nf/.fi] instead of [.EX/.EE].
-I would replace those by [.EX/.EE].
-
-However, I would still do the change [.IP] -> [(.RS + .PP)/.RE],
-so almost always you'll have [.PP] surrounding code examples,
-and you'll only see [.IP] when it is really needed:
-in cases where you use its argument ([.IP * n]).
-In those cases, you should also use [.IP] for the code
-(see perf_event_open.2:1426):
-
-[[
-.IP * 2
-If
-.B PERF_FORMAT_GROUP
-was specified to allow reading all events in a group at once:
-.IP
-.in +4n
-.EX
-struct read_format {
-    u64 nr;            /* The number of events */
-    u64 time_enabled;  /* if PERF_FORMAT_TOTAL_TIME_ENABLED */
-    u64 time_running;  /* if PERF_FORMAT_TOTAL_TIME_RUNNING */
-    struct {
-        u64 value;     /* The value of the event */
-        u64 id;        /* if PERF_FORMAT_ID */
-    } values[nr];
-};
-.EE
-.in
-.IP *
-If
-.B PERF_FORMAT_GROUP
-was
-.I not
-specified:
-.IP
-.in +4n
-.EX
-struct read_format {
-    u64 value;         /* The value of the event */
-    u64 time_enabled;  /* if PERF_FORMAT_TOTAL_TIME_ENABLED */
-    u64 time_running;  /* if PERF_FORMAT_TOTAL_TIME_RUNNING */
-    u64 id;            /* if PERF_FORMAT_ID */
-};
-.EE
-.in
-]]
-
-This way, inline code, and only inline code, will use [.in],
-which will help grepping if it is ever needed.
-
-
-Your thoughts?
-
-
-Thanks,
-
-Alex
+Unless there's some simple fix for this using [.RS/.RE]
+that I didn't come up with...
