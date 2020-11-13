@@ -2,144 +2,209 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 601572B16EF
-	for <lists+linux-man@lfdr.de>; Fri, 13 Nov 2020 09:04:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E42062B1732
+	for <lists+linux-man@lfdr.de>; Fri, 13 Nov 2020 09:28:07 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726148AbgKMIEL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 13 Nov 2020 03:04:11 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54248 "EHLO
+        id S1726227AbgKMI2H (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 13 Nov 2020 03:28:07 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58050 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726147AbgKMIEL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Nov 2020 03:04:11 -0500
-Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com [IPv6:2607:f8b0:4864:20::52f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4DCB9C0613D1
-        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 00:03:58 -0800 (PST)
-Received: by mail-pg1-x52f.google.com with SMTP id 62so6453136pgg.12
-        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 00:03:58 -0800 (PST)
+        with ESMTP id S1725866AbgKMI2G (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Nov 2020 03:28:06 -0500
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com [IPv6:2607:f8b0:4864:20::52e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B35F9C0613D1
+        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 00:28:06 -0800 (PST)
+Received: by mail-pg1-x52e.google.com with SMTP id w4so6485600pgg.13
+        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 00:28:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=VO6DL3HcWPKbpBQJ9mQ8sD1brtnb97ZUT5A5TnB53SA=;
-        b=iccfZd2MPyPs+/nfwuqxUymDDvi1prq5wyhCSCvLCZro24thI9UB8ghTx45so/Q74I
-         +5qojkBSS5EAHcBqnQZMBZWt4K8Pa9/QCqwH11t115eHQdINqhZmPNaawF930+ucj6cC
-         lU/R1x/aV99tma9QQxtTcIVNcvS5Bb4zqEG2zABl/45rQmf9jpkgtEVZATdAee1EaIly
-         /FXeHthjs5Zzqcm7gNsg0PedukJiB4s+fYLuyYRhIyfwsy7S/3R643mYj3yK3EM/KMMo
-         xkJ4HqlnyoUrBMgHbH5exbxuTwfxegV1goPAh0kwCWnGGeTbmjrmO6LmaTWrcuV1+Edx
-         JLZw==
+        bh=hFLzeA6oSMR6YU3fZwNO1vyiywQFjcs+duTuPfKb+q8=;
+        b=mRZdzHxwl42GCgNeLocWU1ZlgZyRrVF6L4oGa4rwW5d470V5tXROuaxuzc7zq3fvtU
+         e+VbGjJcJoPP8GxBGRx5OpMUp/DdIM6eyiHqYU+bglV1CldJysOYf9E9mZTTkmhwRvVF
+         iR04Wk3hF8VKTc+Mb7vIWXedCtT7d30XPO4FQVWHMhRWmQ68owVUCvQOPbb4s+gagcTD
+         IBVboMFd3ISrnB6QX+/D20IVYGvKNnFeYXTTJRuVFOBK1SNZUYksLeaoVa7eDVU74LdE
+         BhIX7vkBrjrZRwM2LqUwFBzWgakJzbdzOW96R8V223uu02w2DWYPJ+YOaT2LTfOExLIg
+         5qGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=VO6DL3HcWPKbpBQJ9mQ8sD1brtnb97ZUT5A5TnB53SA=;
-        b=PBRf/L7wqBogplGgLD+8rSzQoIKH7jvl2WyS5YNUwYIWnujlcgdeq/GF/Ginvw3Rob
-         BqLQHyish9+nrC6WvmCQUP7OeN29Uf6dRkvtY+50w8nanIxErByY96Zd16z2v9wjDsQF
-         lhI6k8LcqM/VVANhF6etx0WOwN5dI64Wr3x+ryrtTPPWj2T949RUOd7ks2iYV8nmlv7H
-         hDk8ibahvv3xiDpQ+xxe7P0VKJODF179lHagz5+9cLUG1icnRZdKL4iy3tK+iOvLdYMk
-         0Rl1j7SQMWgXxqNUOtao6wfQtmbcItRofEewSEWPY29qJ/Z+NLaAFQv8A8e1bm+aLrc4
-         le1w==
-X-Gm-Message-State: AOAM533OsOOjXeo93BXEAz0+x1mm/aIn3mIVreBVwBNXda1dEdZ+GSSr
-        zpNT2PSWxJBuKX0MvvLhmJ2mA5j9dqI=
-X-Google-Smtp-Source: ABdhPJyp92snmNAofK9RA6gt+WVYGMIuE6eWCxQdQr7arP6rq+wQtZbV3XY0R+GDfyX1C65outlOZg==
-X-Received: by 2002:a63:db50:: with SMTP id x16mr1142356pgi.205.1605254637822;
-        Fri, 13 Nov 2020 00:03:57 -0800 (PST)
-Received: from localhost.localdomain ([1.144.241.9])
-        by smtp.gmail.com with ESMTPSA id fu5sm1216855pjb.11.2020.11.13.00.03.54
+        bh=hFLzeA6oSMR6YU3fZwNO1vyiywQFjcs+duTuPfKb+q8=;
+        b=ZSb+IM2QR3xnysB9+eKyU2Rmpy67l6EOn/GvpeQYOyLSfT36gX08X3sHufoqzcNC+/
+         C3WiMTTc+GygVCHqqALmJZ/4Cx1F4kDBouiCI4uMPxB5XB9bJvBrXmb0kX5Ii86MHlux
+         ekANIbjEK6MKuDanGJJhkp1zU9+6Irx7ulb3S69OmOCUVSL+D2ve7J+4E8hfyLJI/c5O
+         dCy9gUDvlMSKO0CpgCof8z7FbUlpCGleE0LN77kal/L5LU+g+NBSmeoCCIcUOCiuk3O5
+         CVez/QexGTDijDoXLqSDdQ6ahVwutuqA+RPBQgsCKKeYASnTr3QJCrKcId647uivX5qi
+         ZUhg==
+X-Gm-Message-State: AOAM530TDRDpU133C+O4ZmTn883ZrNBhskjjkzCAc13FWguUCxnEVZ/M
+        e+vBDSAyJg0OE9rEzykXnBs=
+X-Google-Smtp-Source: ABdhPJwsC/SF0f9zNB3D7k0ayujG1OYMZsknuYN30YIxbpn4cOYNzp+4IHv+4LdeSM7Lhr7Yg7Fhvg==
+X-Received: by 2002:a63:5421:: with SMTP id i33mr1262298pgb.316.1605256086170;
+        Fri, 13 Nov 2020 00:28:06 -0800 (PST)
+Received: from localhost.localdomain ([1.144.241.157])
+        by smtp.gmail.com with ESMTPSA id k8sm9047547pfh.6.2020.11.13.00.28.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2020 00:03:57 -0800 (PST)
-Date:   Fri, 13 Nov 2020 19:03:52 +1100
+        Fri, 13 Nov 2020 00:28:05 -0800 (PST)
+Date:   Fri, 13 Nov 2020 19:28:01 +1100
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org, colomar.6.4.3@gmail.com
-Subject: Re: .RS
-Message-ID: <20201113080349.vp6ggswc2jbhseki@localhost.localdomain>
-References: <ae05d6bd-af93-9b49-25a6-e9c69ae402ec@gmail.com>
- <20201111150950.u7lf3xeulydbd2vr@localhost.localdomain>
- <c6919fec-4a95-888d-93fd-ecb254ec2377@gmail.com>
- <20201112070915.ejttfz3lu3sphkkp@localhost.localdomain>
- <1ae93b8f-c6e2-f11d-0844-a8cf702f933b@gmail.com>
- <60a7fa20-d41e-12d9-a81e-558512a74f0c@gmail.com>
- <eaee2c6e-cbb7-94b2-f6c4-9039d184e129@gmail.com>
+To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
+Subject: Re: Format inline code
+Message-ID: <20201113082759.vqeufvucqg3agdhh@localhost.localdomain>
+References: <f10acb37-f929-c1fd-9827-c33aaf2955a1@gmail.com>
+ <20201106093845.12897-1-colomar.6.4.3@gmail.com>
+ <3f041e44-c5c7-f17a-9e99-125eeb6ccb0c@gmail.com>
+ <387259c5-3051-8058-e99c-b17873fe7187@gmail.com>
+ <CAKgNAkjsnu9+rxdLgZ5VzYxjFf_c1Ed0JUQ8=KHkK6Qw9X4B-Q@mail.gmail.com>
+ <bb5f3aad-d766-fb9e-e77a-09009fb7b599@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="nyhelkivr364tbi5"
+        protocol="application/pgp-signature"; boundary="dim4biwqzeeyppn3"
 Content-Disposition: inline
-In-Reply-To: <eaee2c6e-cbb7-94b2-f6c4-9039d184e129@gmail.com>
+In-Reply-To: <bb5f3aad-d766-fb9e-e77a-09009fb7b599@gmail.com>
 User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---nyhelkivr364tbi5
-Content-Type: text/plain; charset=utf-8
+--dim4biwqzeeyppn3
+Content-Type: multipart/mixed; boundary="td7tnhrndveqtkts"
+Content-Disposition: inline
+
+
+--td7tnhrndveqtkts
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-At 2020-11-12T21:57:34+0100, Alejandro Colomar (man-pages) wrote:
-> > * [.in 4] simply doesn't seem to work at all.
+At 2020-11-12T22:17:34+0100, Alejandro Colomar wrote:
+> There are some cases using [.nf/.fi] instead of [.EX/.EE].
+> I would replace those by [.EX/.EE].
 
-It's important here to check what request comes next.  Many of the man
-macros will change the indentation again on you.
+Yes!  I strongly encourage this, and recently finished fixing all of
+groff's man pages (about 60 of them) to clear the last vestiges of
+=2Enf/.fi.
 
-> > * [.RS 4] and [.RS +4n] seem to be equivalent.
-> > * [.RS 4] is different (worse) than [.in +4n]
-> >           in some very specific scenario:
-> >=20
-> and [.in 4n] seems to indent to absolute column 4.
+> However, I would still do the change [.IP] -> [(.RS + .PP)/.RE],
+> so almost always you'll have [.PP] surrounding code examples,
+> and you'll only see [.IP] when it is really needed:
+> in cases where you use its argument ([.IP * n]).
 
-Yes.  Many *roff requests are documented like .in is in groff(7).
+I think this is a good idea, too.  As I have tried to explain in
+groff_man(7)--at some length because this issue bedeviled me a long
+time--the "relative inset" macros should really be thought of separately
+=66rom paragraph indentation.  In a way it is regrettable that the default
+indent for paragraphs is different from the increment used for relative
+insets; if they were different, the distinction would be much more
+obvious to people.  But perhaps not, in the end, much less frustrating.
 
-   .in =C2=B1N    Change indentation according to =C2=B1N (default scaling =
-indica=E2=80=90
-             tor m).
+If you'd like to give me some feedback on the subsections "Horizontal
+and vertical spacing" and the .RS-related item in section "Notes" in
+groff_man_style(7), I'd appreciate it.
 
-The =C2=B1 indicates an optional sign.  Where there is no sign, the .in
-request performs absolute positioning.  I might have led you astray by
-bringing up the "|" operator before; a hazard of my unfortunate tendency
-to ramble when composing emails in haste.
+	https://man7.org/linux/man-pages/man7/groff_man_style.7.html
 
-The '+' that .RS forces as a prefix to its argument before passing it to
-=2Ein prevents the _macro_ argument from being interpreted as an absolute
-position (even if the "|" operator is used).
+> In those cases, you should also use [.IP] for the code
+> (see perf_event_open.2:1426):
+>=20
+> [[
+> .IP * 2
+> If
+> .B PERF_FORMAT_GROUP
+> was specified to allow reading all events in a group at once:
+> .IP
+> .in +4n
+> .EX
+> struct read_format {
+>     u64 nr;            /* The number of events */
+>     u64 time_enabled;  /* if PERF_FORMAT_TOTAL_TIME_ENABLED */
+>     u64 time_running;  /* if PERF_FORMAT_TOTAL_TIME_RUNNING */
+>     struct {
+>         u64 value;     /* The value of the event */
+>         u64 id;        /* if PERF_FORMAT_ID */
+>     } values[nr];
+> };
+> .EE
+> .in
 
-=2ETH foo 1 2020-11-13 "foo 1.2.3"
-=2ESH Name
-bar \- baz
-=2ESH Description
-foo
-=2ERS 4n
-indent
-=2ERS |5n
-bar
-=2ERE
-=2ERE
+Have you considered changing out this .IP/.in/.EX/.../.EE/.in pattern
+for .RS/.PP/.EX/.../.EX ?
 
-In the above example, "bar" is set 5 ens to the right of "foo", even
-though we tried to set it much farther left.
+I'm attaching two fake man pages based on the above content, following
+each approach.  The _only_ difference is in the man page footer, to make
+it easy to see which approach is used.
+
+> This way, inline code, and only inline code, will use [.in],
+> which will help grepping if it is ever needed.
+
+Don't .EX and .EE serve just as well for this?  I regret to say I'm not
+as familiar with the man-pages corpus as I should be, so I could be
+wrong.
 
 Regards,
 Branden
 
---nyhelkivr364tbi5
+--td7tnhrndveqtkts
+Content-Type: application/x-troff-man
+Content-Disposition: attachment; filename="alex.man"
+Content-Transfer-Encoding: quoted-printable
+
+=2ETH perf_event_open 2 2020-11-13 "man-pages 5.09+alex"=0A.SH Name=0Aperf_=
+event_open \- run those events wide open=0A.SH Description=0AThis performan=
+ce is over 9000.=0A.IP * 2=0AIf=0A.B PERF_FORMAT_GROUP=0Awas specified to a=
+llow reading all events in a group at once:=0A.IP=0A.in +4n=0A.EX=0Astruct =
+read_format {=0A    u64 nr;            /* The number of events */=0A    u64=
+ time_enabled;  /* if PERF_FORMAT_TOTAL_TIME_ENABLED */=0A    u64 time_runn=
+ing;  /* if PERF_FORMAT_TOTAL_TIME_RUNNING */=0A    struct {=0A        u64 =
+value;     /* The value of the event */=0A        u64 id;        /* if PERF=
+_FORMAT_ID */=0A    } values[nr];=0A};=0A.EE=0A.in=0A.IP *=0AIf=0A.B PERF_F=
+ORMAT_GROUP=0Awas=0A.I not=0Aspecified:=0A.IP=0A.in +4n=0A.EX=0Astruct read=
+_format {=0A    u64 value;         /* The value of the event */=0A    u64 t=
+ime_enabled;  /* if PERF_FORMAT_TOTAL_TIME_ENABLED */=0A    u64 time_runnin=
+g;  /* if PERF_FORMAT_TOTAL_TIME_RUNNING */=0A    u64 id;            /* if =
+PERF_FORMAT_ID */=0A};=0A.EE=0A.in=0A.IP *=0AMore stuff.=0A
+--td7tnhrndveqtkts
+Content-Type: application/x-troff-man
+Content-Disposition: attachment; filename="alex-branden.man"
+Content-Transfer-Encoding: quoted-printable
+
+=2ETH perf_event_open 2 2020-11-13 "man-pages 5.09+branden"=0A.SH Name=0Ape=
+rf_event_open \- run those events wide open=0A.SH Description=0AThis perfor=
+mance is over 9000.=0A.IP * 2=0AIf=0A.B PERF_FORMAT_GROUP=0Awas specified t=
+o allow reading all events in a group at once:=0A.RS 6n=0A.PP=0A.EX=0Astruc=
+t read_format {=0A    u64 nr;            /* The number of events */=0A    u=
+64 time_enabled;  /* if PERF_FORMAT_TOTAL_TIME_ENABLED */=0A    u64 time_ru=
+nning;  /* if PERF_FORMAT_TOTAL_TIME_RUNNING */=0A    struct {=0A        u6=
+4 value;     /* The value of the event */=0A        u64 id;        /* if PE=
+RF_FORMAT_ID */=0A    } values[nr];=0A};=0A.EE=0A.RE=0A.IP *=0AIf=0A.B PERF=
+_FORMAT_GROUP=0Awas=0A.I not=0Aspecified:=0A.RS 6n=0A.PP=0A.EX=0Astruct rea=
+d_format {=0A    u64 value;         /* The value of the event */=0A    u64 =
+time_enabled;  /* if PERF_FORMAT_TOTAL_TIME_ENABLED */=0A    u64 time_runni=
+ng;  /* if PERF_FORMAT_TOTAL_TIME_RUNNING */=0A    u64 id;            /* if=
+ PERF_FORMAT_ID */=0A};=0A.EE=0A.RE=0A.IP *=0AMore stuff.=0A
+--td7tnhrndveqtkts--
+
+--dim4biwqzeeyppn3
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl+uPdoACgkQ0Z6cfXEm
-bc7N+RAAhoC4UI8gxglIYh64fo2SNuinioqO6ZsRdgsAmb5qVdBQfa0KZHYvCmD6
-edz5XFx+ZhrXwlTx3rTwWR6RPcMoDREBodoUvnmLqXLAsr5ZpBG5jWEGdH3AByIG
-mRn0DsQvsh0fyZKymclPypnlJ8Trwa6TAT+mYl/PIS+FCWwP4sXKgs7vH32uhMJe
-VaCAXL65RCUt9SJuCwjpUbJiFKNP8HKmpVK/LOPWMkOHel4WtBVnc1dB4F4Bbpvl
-qV+PYnX8Ra70S5jNYM1qP24osyPsoXnSeJgIoXdRWQQl3PhqXzXCocwugpUVG3R2
-Za0m0Y3Ul1Zt7GRtAEg3NKh7GZtlM3QZ3EZoXwACryAJzBfXbcSCIRiKzWWlX17/
-o7IpaMxcB1Vb8Vj2XWu+a788IIPnnAKUXvwuzOIdvCy37dmqrAb3cC7WeTl/46q9
-/6iBrNX/WEMqfOx/smcedg5fscDsBvRir3OQ5VitNXwAnbYxZ0wLV439IGEhnJV6
-sMfvsC9/Tc6yr4KBgxaNtLwAoQYE200LvX8FgSz/qK4ZZ13ieyO4gpyoA7585P6s
-xrxZgNQgpEr/4/b1ME9NljfC2rDkIR3Vtl/pEmE+aKepWKVgGrQQvkbsw66g2NoC
-RgJdyTTorASngfktJsjn7wveHhC++PnLiUVu5ZwdsEBJ6uJiu6Y=
-=DS17
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl+uQ4QACgkQ0Z6cfXEm
+bc57ZQ/9HF8/cmNGVS7RUTw8XugXnrHLX1HLcwwqR2rUxvu5mDYNgfJqXrLuZvqT
+xbUWlb0vBtTdgWP56dXCIzfmoTdgNF1n7yMRkRzcYCXytutQaCOSKBys3hPgZZvX
+lw1XF8baxvQjoZ5s7i6oN0HBhG5X61Zr+dUw6XsWvScSooS0qylk8GnrELDB6tWn
+VKAVRHBd7lixbJpCr5GRPCeUZfNUXv6QC+5Eb+HxTIhdM7C/ulgffEsmaeLSOukt
+6bvBkcEutXgTmZSTbpqYF3a/V2VwnaWBt3x/4632IiIoPas6QHlIkuQ46GRyvcy9
+lwfkOzoyDG9srho2y4PMydveE3OFycFGuYmhjhrDu1UVw/2gHnhoFS4HJvyjvOS/
+tNUzlV13J/d4J9KP0qgmwUjax0QFwbzSekSqTt1lT6g+MeLvrTbK+WcVo1RZbkeN
+5z94H7fnaNLF/V4CobgyI0h+d5Sukxzg0FfOzHnlK4lhZuA25Ai7rkTV35gNZTs6
+q71geqtCggaWkPmhH20DMjYioJrISA5ag1/ftFLpPlnyVbJi2HpM+9V+ep8gem81
+dtm3v/Bq5UWodSkq32SDd6xWoZSbOej+jEXZD2FPnpmxISLmEZoo6Ap1MBDWj8ZJ
+Rlxzx1y6gaKZXHPHx/FCnHkmLFxaHvqSQHPjyTswSFampz7Qq2I=
+=5UpK
 -----END PGP SIGNATURE-----
 
---nyhelkivr364tbi5--
+--dim4biwqzeeyppn3--
