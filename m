@@ -2,209 +2,183 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E42062B1732
-	for <lists+linux-man@lfdr.de>; Fri, 13 Nov 2020 09:28:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0E3E22B178E
+	for <lists+linux-man@lfdr.de>; Fri, 13 Nov 2020 09:52:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726227AbgKMI2H (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 13 Nov 2020 03:28:07 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58050 "EHLO
+        id S1726270AbgKMIwK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 13 Nov 2020 03:52:10 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33624 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725866AbgKMI2G (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Nov 2020 03:28:06 -0500
-Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com [IPv6:2607:f8b0:4864:20::52e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B35F9C0613D1
-        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 00:28:06 -0800 (PST)
-Received: by mail-pg1-x52e.google.com with SMTP id w4so6485600pgg.13
-        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 00:28:06 -0800 (PST)
+        with ESMTP id S1726176AbgKMIwK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Nov 2020 03:52:10 -0500
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BD45AC0613D1
+        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 00:52:09 -0800 (PST)
+Received: by mail-wm1-x336.google.com with SMTP id h2so7402273wmm.0
+        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 00:52:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=hFLzeA6oSMR6YU3fZwNO1vyiywQFjcs+duTuPfKb+q8=;
-        b=mRZdzHxwl42GCgNeLocWU1ZlgZyRrVF6L4oGa4rwW5d470V5tXROuaxuzc7zq3fvtU
-         e+VbGjJcJoPP8GxBGRx5OpMUp/DdIM6eyiHqYU+bglV1CldJysOYf9E9mZTTkmhwRvVF
-         iR04Wk3hF8VKTc+Mb7vIWXedCtT7d30XPO4FQVWHMhRWmQ68owVUCvQOPbb4s+gagcTD
-         IBVboMFd3ISrnB6QX+/D20IVYGvKNnFeYXTTJRuVFOBK1SNZUYksLeaoVa7eDVU74LdE
-         BhIX7vkBrjrZRwM2LqUwFBzWgakJzbdzOW96R8V223uu02w2DWYPJ+YOaT2LTfOExLIg
-         5qGA==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=rb1UuvTxBCiuXAR7EZi9N/x04kga+FDjbhPfTlDJ8ZU=;
+        b=a0ZLbpGlzrgZCyYEiDcGUdv/EShWlLhVHI89mkQzJnq0vsyA/4DZcG/t0zbQYm6n13
+         vW4C7UCgpo0WO6aCrf6cpeoCiIogMpuEtdtrq+dmng7PtJuF4T0ja9Ny4P/v7bAJ74Lt
+         eTIjjRhuPyIHm6xWm38XTmgDcJ1QYDkWKsIFiPoGyfQLqcZjH2FY7le5AM63wS/FGtPK
+         uI5aKEf6PjBOh78B4UiThT95EunoTSiokYu/ebqAsL0ou8qO01BmX1xd8Vc1O/HcmNlQ
+         7zm2eS127pLuY6GEuSPTq1hfXqB4WQr1gE1lZ507pm3yPvn9Apsz6MlxCGZMBlwQHYd6
+         uDEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=hFLzeA6oSMR6YU3fZwNO1vyiywQFjcs+duTuPfKb+q8=;
-        b=ZSb+IM2QR3xnysB9+eKyU2Rmpy67l6EOn/GvpeQYOyLSfT36gX08X3sHufoqzcNC+/
-         C3WiMTTc+GygVCHqqALmJZ/4Cx1F4kDBouiCI4uMPxB5XB9bJvBrXmb0kX5Ii86MHlux
-         ekANIbjEK6MKuDanGJJhkp1zU9+6Irx7ulb3S69OmOCUVSL+D2ve7J+4E8hfyLJI/c5O
-         dCy9gUDvlMSKO0CpgCof8z7FbUlpCGleE0LN77kal/L5LU+g+NBSmeoCCIcUOCiuk3O5
-         CVez/QexGTDijDoXLqSDdQ6ahVwutuqA+RPBQgsCKKeYASnTr3QJCrKcId647uivX5qi
-         ZUhg==
-X-Gm-Message-State: AOAM530TDRDpU133C+O4ZmTn883ZrNBhskjjkzCAc13FWguUCxnEVZ/M
-        e+vBDSAyJg0OE9rEzykXnBs=
-X-Google-Smtp-Source: ABdhPJwsC/SF0f9zNB3D7k0ayujG1OYMZsknuYN30YIxbpn4cOYNzp+4IHv+4LdeSM7Lhr7Yg7Fhvg==
-X-Received: by 2002:a63:5421:: with SMTP id i33mr1262298pgb.316.1605256086170;
-        Fri, 13 Nov 2020 00:28:06 -0800 (PST)
-Received: from localhost.localdomain ([1.144.241.157])
-        by smtp.gmail.com with ESMTPSA id k8sm9047547pfh.6.2020.11.13.00.28.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2020 00:28:05 -0800 (PST)
-Date:   Fri, 13 Nov 2020 19:28:01 +1100
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>
-Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
-Subject: Re: Format inline code
-Message-ID: <20201113082759.vqeufvucqg3agdhh@localhost.localdomain>
-References: <f10acb37-f929-c1fd-9827-c33aaf2955a1@gmail.com>
- <20201106093845.12897-1-colomar.6.4.3@gmail.com>
- <3f041e44-c5c7-f17a-9e99-125eeb6ccb0c@gmail.com>
- <387259c5-3051-8058-e99c-b17873fe7187@gmail.com>
- <CAKgNAkjsnu9+rxdLgZ5VzYxjFf_c1Ed0JUQ8=KHkK6Qw9X4B-Q@mail.gmail.com>
- <bb5f3aad-d766-fb9e-e77a-09009fb7b599@gmail.com>
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=rb1UuvTxBCiuXAR7EZi9N/x04kga+FDjbhPfTlDJ8ZU=;
+        b=j6VAaxXN5Zd6Ip2yNPGNXwJRuJgXgpQDED+oANof1G983IrjTXNTru1WDmNxA0Ki7x
+         g8t7b+4u3xLZBgnJdpZ1k5PHJZv9lQh4tr7gvQG3VZFsD7EVlCWe6L5rUuJH6uYKBB4p
+         wax8z1UlnP2UHaXmXMP2RtQUe+HlCKKu1WTzU5pjfV6VP2xNJdYpe/iB1i1eF6jKmVsV
+         JIDKVbOKuGQfj6LaH1KJ13JkHMgB8ArNaRkCvHbmq7/L8D9A+SZJ4xjhHO2nr9emHTBs
+         IIwx6RT6SrPjU865j/Jk8HlWh1jjdkWf7nESjzxYe2WJZTZd7Y3a9ZRqWE8rIYEMf5Lm
+         vOfQ==
+X-Gm-Message-State: AOAM5311HqXl5mG/lY/IzGmEDSkHRys38xs56+37B6D1W8q1pxs4nB9/
+        v/uf9fdGh4WS3yDBPFkK0RXZIHOGZGY=
+X-Google-Smtp-Source: ABdhPJwCtS2Emz6X88wyH5I7gbsmHOI+xcEnHCFJpWuUB24Wy7BKJIfehwbqh0FJWmTudFQA43UBBQ==
+X-Received: by 2002:a1c:7fd7:: with SMTP id a206mr1421488wmd.135.1605257528449;
+        Fri, 13 Nov 2020 00:52:08 -0800 (PST)
+Received: from ?IPv6:2001:a61:24b3:de01:7310:e730:497d:ea6a? ([2001:a61:24b3:de01:7310:e730:497d:ea6a])
+        by smtp.gmail.com with ESMTPSA id v6sm11152928wrb.53.2020.11.13.00.52.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2020 00:52:07 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        colomar.6.4.3@gmail.com
+Subject: Re: .RS
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+References: <ae05d6bd-af93-9b49-25a6-e9c69ae402ec@gmail.com>
+ <20201111150950.u7lf3xeulydbd2vr@localhost.localdomain>
+ <c6919fec-4a95-888d-93fd-ecb254ec2377@gmail.com>
+ <20201112070915.ejttfz3lu3sphkkp@localhost.localdomain>
+ <1ae93b8f-c6e2-f11d-0844-a8cf702f933b@gmail.com>
+ <60a7fa20-d41e-12d9-a81e-558512a74f0c@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <ab209b21-a93e-fd7c-e447-c8ff507cb062@gmail.com>
+Date:   Fri, 13 Nov 2020 09:52:06 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="dim4biwqzeeyppn3"
-Content-Disposition: inline
-In-Reply-To: <bb5f3aad-d766-fb9e-e77a-09009fb7b599@gmail.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <60a7fa20-d41e-12d9-a81e-558512a74f0c@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-
---dim4biwqzeeyppn3
-Content-Type: multipart/mixed; boundary="td7tnhrndveqtkts"
-Content-Disposition: inline
-
-
---td7tnhrndveqtkts
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-At 2020-11-12T22:17:34+0100, Alejandro Colomar wrote:
-> There are some cases using [.nf/.fi] instead of [.EX/.EE].
-> I would replace those by [.EX/.EE].
-
-Yes!  I strongly encourage this, and recently finished fixing all of
-groff's man pages (about 60 of them) to clear the last vestiges of
-=2Enf/.fi.
-
-> However, I would still do the change [.IP] -> [(.RS + .PP)/.RE],
-> so almost always you'll have [.PP] surrounding code examples,
-> and you'll only see [.IP] when it is really needed:
-> in cases where you use its argument ([.IP * n]).
-
-I think this is a good idea, too.  As I have tried to explain in
-groff_man(7)--at some length because this issue bedeviled me a long
-time--the "relative inset" macros should really be thought of separately
-=66rom paragraph indentation.  In a way it is regrettable that the default
-indent for paragraphs is different from the increment used for relative
-insets; if they were different, the distinction would be much more
-obvious to people.  But perhaps not, in the end, much less frustrating.
-
-If you'd like to give me some feedback on the subsections "Horizontal
-and vertical spacing" and the .RS-related item in section "Notes" in
-groff_man_style(7), I'd appreciate it.
-
-	https://man7.org/linux/man-pages/man7/groff_man_style.7.html
-
-> In those cases, you should also use [.IP] for the code
-> (see perf_event_open.2:1426):
->=20
+On 11/12/20 8:57 PM, Alejandro Colomar (man-pages) wrote:
+> Hi Branden and Michael,
+> 
+> Okay, after some testing:
+> 
+> * [.in 4] simply doesn't seem to work at all.
+> * [.RS 4] and [.RS +4n] seem to be equivalent.
+> * [.RS 4] is different (worse) than [.in +4n]
+>           in some very specific scenario:
+> 
 > [[
 > .IP * 2
-> If
-> .B PERF_FORMAT_GROUP
-> was specified to allow reading all events in a group at once:
-> .IP
-> .in +4n
+> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+> nisi ut aliquip ex ea commodo consequat.
+> .\""""""""""""""""""""""""""""""""""""""""""
+> .IP		\" Indent is 2n after this
+> .in +4n		\" Indent is 6n after this
 > .EX
-> struct read_format {
->     u64 nr;            /* The number of events */
->     u64 time_enabled;  /* if PERF_FORMAT_TOTAL_TIME_ENABLED */
->     u64 time_running;  /* if PERF_FORMAT_TOTAL_TIME_RUNNING */
->     struct {
->         u64 value;     /* The value of the event */
->         u64 id;        /* if PERF_FORMAT_ID */
->     } values[nr];
-> };
+> I am indented 6n from normal paragraphs.
 > .EE
-> .in
+> .in		\" Return to normal
+> .\"""""""""""""""""""""""""""""""""""""""""""
+> .IP *
+> Augue interdum velit euismod in pellentesque.
+> Tristique senectus et netus et malesuada fames ac turpis egestas.
+> Gravida arcu ac tortor dignissim convallis.
+> .\"""""""""""""""""""""""""""""""""""""""""""
+> .IP		\" Indent is 2n after this
+> .RS 4		\" Indent is _4n_ after this
+> .EX
+> I am indented 4n from normal paragraphs!!!
+> .EE
+> .RE		\" Return to normal
+> .\"""""""""""""""""""""""""""""""""""""""""""
+> ]]
+> 
+> This happens in perf_event_open.2,
+> where [.in +4n] is used,
+> and when I changed it to [.RS/.RE] I saw this change in behavior.
+> 
+> Do you know why is that?
 
-Have you considered changing out this .IP/.in/.EX/.../.EE/.in pattern
-for .RS/.PP/.EX/.../.EX ?
+Hmmm -- I don't know. I was going to ask, doesn't s/>RS 4/.RS +4n/
+fix the problem? But I see that it does not.
 
-I'm attaching two fake man pages based on the above content, following
-each approach.  The _only_ difference is in the man page footer, to make
-it easy to see which approach is used.
+By the way, your comments (\") actually cause the rendered
+output to change, as far as I can see! In particular,
+the \" on the final .RE leads to some strangeness:
 
-> This way, inline code, and only inline code, will use [.in],
-> which will help grepping if it is ever needed.
+[[
+.IP * 2
+Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+nisi ut aliquip ex ea commodo consequat.
+.\""""""""""""""""""""""""""""""""""""""""""
+.IP             \" Indent is 2n after this
+.in +4n         \" Indent is 6n after this
+.EX
+I am indented 6n from normal paragraphs.
+.EE
+.in             \" Return to normal
+.\"""""""""""""""""""""""""""""""""""""""""""
+.IP *
+Augue interdum velit euismod in pellentesque.
+Tristique senectus et netus et malesuada fames ac turpis egestas.
+Gravida arcu ac tortor dignissim convallis.
+.\"""""""""""""""""""""""""""""""""""""""""""
+.IP             \" Indent is 2n after this
+.RS 4
+.EX
+I am indented 4n from normal paragraphs!!!
+.EE
+.RE             \" nom
+.\"""""""""""""""""""""""""""""""""""""""""""
+.PP
+Augue interdum velit euismod in pellentesque.
+]]
 
-Don't .EX and .EE serve just as well for this?  I regret to say I'm not
-as familiar with the man-pages corpus as I should be, so I could be
-wrong.
+Gives:
 
-Regards,
-Branden
+[[
+       * Lorem  ipsum dolor sit amet, consectetur adipiscing elit, sed do
+         eiusmod tempor incididunt ut labore et dolore magna aliqua.   Ut
+         enim  ad minim veniam, quis nostrud exercitation ullamco laboris
+         nisi ut aliquip ex ea commodo consequat.
 
---td7tnhrndveqtkts
-Content-Type: application/x-troff-man
-Content-Disposition: attachment; filename="alex.man"
-Content-Transfer-Encoding: quoted-printable
+             I am indented 6n from normal paragraphs.
 
-=2ETH perf_event_open 2 2020-11-13 "man-pages 5.09+alex"=0A.SH Name=0Aperf_=
-event_open \- run those events wide open=0A.SH Description=0AThis performan=
-ce is over 9000.=0A.IP * 2=0AIf=0A.B PERF_FORMAT_GROUP=0Awas specified to a=
-llow reading all events in a group at once:=0A.IP=0A.in +4n=0A.EX=0Astruct =
-read_format {=0A    u64 nr;            /* The number of events */=0A    u64=
- time_enabled;  /* if PERF_FORMAT_TOTAL_TIME_ENABLED */=0A    u64 time_runn=
-ing;  /* if PERF_FORMAT_TOTAL_TIME_RUNNING */=0A    struct {=0A        u64 =
-value;     /* The value of the event */=0A        u64 id;        /* if PERF=
-_FORMAT_ID */=0A    } values[nr];=0A};=0A.EE=0A.in=0A.IP *=0AIf=0A.B PERF_F=
-ORMAT_GROUP=0Awas=0A.I not=0Aspecified:=0A.IP=0A.in +4n=0A.EX=0Astruct read=
-_format {=0A    u64 value;         /* The value of the event */=0A    u64 t=
-ime_enabled;  /* if PERF_FORMAT_TOTAL_TIME_ENABLED */=0A    u64 time_runnin=
-g;  /* if PERF_FORMAT_TOTAL_TIME_RUNNING */=0A    u64 id;            /* if =
-PERF_FORMAT_ID */=0A};=0A.EE=0A.in=0A.IP *=0AMore stuff.=0A
---td7tnhrndveqtkts
-Content-Type: application/x-troff-man
-Content-Disposition: attachment; filename="alex-branden.man"
-Content-Transfer-Encoding: quoted-printable
+       * Augue interdum velit euismod in pellentesque.  Tristique  senec‐
+         tus et netus et malesuada fames ac turpis egestas.  Gravida arcu
+         ac tortor dignissim convallis.
 
-=2ETH perf_event_open 2 2020-11-13 "man-pages 5.09+branden"=0A.SH Name=0Ape=
-rf_event_open \- run those events wide open=0A.SH Description=0AThis perfor=
-mance is over 9000.=0A.IP * 2=0AIf=0A.B PERF_FORMAT_GROUP=0Awas specified t=
-o allow reading all events in a group at once:=0A.RS 6n=0A.PP=0A.EX=0Astruc=
-t read_format {=0A    u64 nr;            /* The number of events */=0A    u=
-64 time_enabled;  /* if PERF_FORMAT_TOTAL_TIME_ENABLED */=0A    u64 time_ru=
-nning;  /* if PERF_FORMAT_TOTAL_TIME_RUNNING */=0A    struct {=0A        u6=
-4 value;     /* The value of the event */=0A        u64 id;        /* if PE=
-RF_FORMAT_ID */=0A    } values[nr];=0A};=0A.EE=0A.RE=0A.IP *=0AIf=0A.B PERF=
-_FORMAT_GROUP=0Awas=0A.I not=0Aspecified:=0A.RS 6n=0A.PP=0A.EX=0Astruct rea=
-d_format {=0A    u64 value;         /* The value of the event */=0A    u64 =
-time_enabled;  /* if PERF_FORMAT_TOTAL_TIME_ENABLED */=0A    u64 time_runni=
-ng;  /* if PERF_FORMAT_TOTAL_TIME_RUNNING */=0A    u64 id;            /* if=
- PERF_FORMAT_ID */=0A};=0A.EE=0A.RE=0A.IP *=0AMore stuff.=0A
---td7tnhrndveqtkts--
+           I am indented 4n from normal paragraphs!!!
 
---dim4biwqzeeyppn3
-Content-Type: application/pgp-signature; name="signature.asc"
+Augue interdum velit euismod in pellentesque.
+]]
 
------BEGIN PGP SIGNATURE-----
+No indent at all on the final line!
 
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl+uQ4QACgkQ0Z6cfXEm
-bc57ZQ/9HF8/cmNGVS7RUTw8XugXnrHLX1HLcwwqR2rUxvu5mDYNgfJqXrLuZvqT
-xbUWlb0vBtTdgWP56dXCIzfmoTdgNF1n7yMRkRzcYCXytutQaCOSKBys3hPgZZvX
-lw1XF8baxvQjoZ5s7i6oN0HBhG5X61Zr+dUw6XsWvScSooS0qylk8GnrELDB6tWn
-VKAVRHBd7lixbJpCr5GRPCeUZfNUXv6QC+5Eb+HxTIhdM7C/ulgffEsmaeLSOukt
-6bvBkcEutXgTmZSTbpqYF3a/V2VwnaWBt3x/4632IiIoPas6QHlIkuQ46GRyvcy9
-lwfkOzoyDG9srho2y4PMydveE3OFycFGuYmhjhrDu1UVw/2gHnhoFS4HJvyjvOS/
-tNUzlV13J/d4J9KP0qgmwUjax0QFwbzSekSqTt1lT6g+MeLvrTbK+WcVo1RZbkeN
-5z94H7fnaNLF/V4CobgyI0h+d5Sukxzg0FfOzHnlK4lhZuA25Ai7rkTV35gNZTs6
-q71geqtCggaWkPmhH20DMjYioJrISA5ag1/ftFLpPlnyVbJi2HpM+9V+ep8gem81
-dtm3v/Bq5UWodSkq32SDd6xWoZSbOej+jEXZD2FPnpmxISLmEZoo6Ap1MBDWj8ZJ
-Rlxzx1y6gaKZXHPHx/FCnHkmLFxaHvqSQHPjyTswSFampz7Qq2I=
-=5UpK
------END PGP SIGNATURE-----
+Thanks,
 
---dim4biwqzeeyppn3--
+Michael
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
