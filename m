@@ -2,147 +2,230 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 029D12B17B3
-	for <lists+linux-man@lfdr.de>; Fri, 13 Nov 2020 10:00:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 08C962B1820
+	for <lists+linux-man@lfdr.de>; Fri, 13 Nov 2020 10:21:49 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726275AbgKMJAY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 13 Nov 2020 04:00:24 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34924 "EHLO
+        id S1726176AbgKMJVs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 13 Nov 2020 04:21:48 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38304 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726221AbgKMJAY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Nov 2020 04:00:24 -0500
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BFF1FC0613D1
-        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 01:00:23 -0800 (PST)
-Received: by mail-wr1-x436.google.com with SMTP id l1so8860142wrb.9
-        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 01:00:23 -0800 (PST)
+        with ESMTP id S1726352AbgKMJVp (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Nov 2020 04:21:45 -0500
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C0ACEC0613D1
+        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 01:21:44 -0800 (PST)
+Received: by mail-wm1-x341.google.com with SMTP id s13so7735037wmh.4
+        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 01:21:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=RQ/p9MCgkhfADWRadnk6JUoazXjtziVHoMgr1I+hoyI=;
-        b=bUo4Lj3rdooG9qFp9uOn0oE/gy8lsrBr89YXpSeSaXdKetp87J+/pdw2Q1H6a8tgLM
-         avp5eAk4j8zFW3xLJubrAL/CquCFDQvTV1IzL8A4GG/e5KZjB+FGAJP+FZSYd/Xl+uPa
-         gY9iH2HVfU9ai0o3KojeesHWpfCQOcMXSWjAv26i+UT6MufwM5q7njWWj1UhVz9Dnepg
-         +iimg+uM1dYXT3rCDiqDWgwV7KxCnyhQcjlGgjA0iCMNKin9xRM9YjKOYFOlDttaA9o0
-         p5Ugq/sqlmrgyVhQ98sgNSdZWhkeL3tm1j3aDg5PvjPK+BSn4NA9famjEBBj3y/ALo/3
-         SOCQ==
+        bh=ujRggEF4DIDMMTHM0DPMBpGFGlHLiWELuJygn+URERI=;
+        b=KSMpLmIMhGnoCUC4jqu63NpC4CbkL78aCM58tGXbapxE+7YdtrtUHjmHzy0DY0o//l
+         QQkZuJB+cmCHs36FHUrQt6ZwYT2Y6IhEauhEi8ndqEsu44IXlLC/4eWq1HTdlQgS44E6
+         pdKcL7iYfcaKDWJe5SioNk9fCzQE8OMotTaqTCnKC4QaZ356K/gnkYpN0lb94pVZ5Rzr
+         T7bpxH2Wgs6s/Y2dFVu2JJhmFMbFnwVpMR53vsCTg3AyvtPR+D5zv6Cp/m4cw8M+Kr8i
+         SlBN/et6yVdoGJPamhPwK55uD/7rfYz8bfAkYw6UqFQrX/RW3HjouVtlsGm6b6udN+Ss
+         Pvvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=RQ/p9MCgkhfADWRadnk6JUoazXjtziVHoMgr1I+hoyI=;
-        b=Ln6o4Uhlinc/Ld+011yhQyiWnYwIIX01hkjLk9YttCxXkjBYGYaApGmxYF3y2hY7tY
-         DnM8RvMmht3P4UxpYdKEM2Pukw8BbA89nBod/SqK6NHxQO35WyT1K+yySk2PFju5tpJU
-         FnMKvd7eNcpUYcxdbc+Ur/TrH8mI1b0LhtoRLjmjgPJDYTb1qHM2pZvUQthvOyp2ioW3
-         ArB+wqJloCgLEznqDA3CkdTBPDFaLFh4azaWWRSoW58YHZYBf4XRpcq3jy8gbfGec1Lm
-         lNf7kiMcg6z+LGoWC4Oi+DclO2P7TVpCJE4jZr8NMh6FTM8YSnjNE4E7RFDxXFcj/qwD
-         kFAg==
-X-Gm-Message-State: AOAM530P8ZfPp4xqE/ywXagZl68PIytVV/X1mUXDCEJFIIBHZZY8oBEQ
-        xvZlNa2uBSjPmtz/PMnagB1LXiX4f5c=
-X-Google-Smtp-Source: ABdhPJyW5wnHacLzCnUAZ8Wv+Uvgukf2UMS0aPj7HF9MN2SXhmCn4IaoWwCQvOT48Y6qiP8BjnHhnQ==
-X-Received: by 2002:a5d:42c9:: with SMTP id t9mr1990007wrr.13.1605258022280;
-        Fri, 13 Nov 2020 01:00:22 -0800 (PST)
+        bh=ujRggEF4DIDMMTHM0DPMBpGFGlHLiWELuJygn+URERI=;
+        b=PUzOV0rHMDW62PDXJoVul4TRAp/hS82w5qbhBzE8ySVKZphw6XtP8cOXRW7j9rEF1p
+         UVNvDNNzxi2ng2Gh6peIUARfAOwp9IJ8FciRVxE+Jmi9bZuKBNsu5wPNFNKREA6siWYq
+         cdOPiFmZGwIR6J6RAZVU8fu2iF2naYH1TlJry7jjGPZ0UA5V8Fbj7Ts8VXm67wigedf4
+         9o2t12Z4DaljBptEu314Bku2Dz1hpPacWb6rc69wPkJQvLai1Q7UQhVe5zOYj6ipF41f
+         tzAwyiy8bBLwu0FiBrQKM9o3XmyPStzSX+ltMwAaV36GTq8/1+wsoRGqp/57zUWaE8Kh
+         oDzA==
+X-Gm-Message-State: AOAM533m1rvScFJU0E6qisxLsqFoe3kYAyv4ySqlnFAcdssufRdqNJ5O
+        QVBqxrfmD3t8MSlRaizcLQ7ev0slKGc=
+X-Google-Smtp-Source: ABdhPJxfEvI7EXvUGGDTKH1HHmLJz0Qs0yepyIVOIJYzH8TmVSXDMfIVaeoZ1WjHgZVbIv7XJJKGQg==
+X-Received: by 2002:a1c:96cb:: with SMTP id y194mr1513444wmd.62.1605259303462;
+        Fri, 13 Nov 2020 01:21:43 -0800 (PST)
 Received: from ?IPv6:2001:a61:24b3:de01:7310:e730:497d:ea6a? ([2001:a61:24b3:de01:7310:e730:497d:ea6a])
-        by smtp.gmail.com with ESMTPSA id b8sm10744448wrv.57.2020.11.13.01.00.20
+        by smtp.gmail.com with ESMTPSA id f16sm10558057wrp.66.2020.11.13.01.21.42
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2020 01:00:21 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
-Subject: Re: Format inline code
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Alejandro Colomar <colomar.6.4.3@gmail.com>
-References: <f10acb37-f929-c1fd-9827-c33aaf2955a1@gmail.com>
- <20201106093845.12897-1-colomar.6.4.3@gmail.com>
- <3f041e44-c5c7-f17a-9e99-125eeb6ccb0c@gmail.com>
- <387259c5-3051-8058-e99c-b17873fe7187@gmail.com>
- <CAKgNAkjsnu9+rxdLgZ5VzYxjFf_c1Ed0JUQ8=KHkK6Qw9X4B-Q@mail.gmail.com>
- <bb5f3aad-d766-fb9e-e77a-09009fb7b599@gmail.com>
- <20201113082759.vqeufvucqg3agdhh@localhost.localdomain>
+        Fri, 13 Nov 2020 01:21:42 -0800 (PST)
+Cc:     mtk.manpages@gmail.com,
+        "G . Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man@vger.kernel.org, colomar.6.4.3@gmail.com
+Subject: Re: [RFC v1] perf_event_open.2: srcfix + ffix
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+References: <fb71a481-45a1-7511-97cf-bd2017562a16@gmail.com>
+ <20201112225528.99397-1-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <0323a942-1d12-9378-bdc0-8690adc1aaee@gmail.com>
-Date:   Fri, 13 Nov 2020 10:00:20 +0100
+Message-ID: <84882898-6208-73cc-cb52-1e1663d025e1@gmail.com>
+Date:   Fri, 13 Nov 2020 10:21:39 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.3.1
 MIME-Version: 1.0
-In-Reply-To: <20201113082759.vqeufvucqg3agdhh@localhost.localdomain>
-Content-Type: text/plain; charset=windows-1252
+In-Reply-To: <20201112225528.99397-1-alx.manpages@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Alex, Branden,
+Hi ALex,
 
-On 11/13/20 9:28 AM, G. Branden Robinson wrote:
-> At 2020-11-12T22:17:34+0100, Alejandro Colomar wrote:
->> There are some cases using [.nf/.fi] instead of [.EX/.EE].
->> I would replace those by [.EX/.EE].
+On 11/12/20 11:55 PM, Alejandro Colomar wrote:
+> Changes:
 > 
-> Yes!  I strongly encourage this, and recently finished fixing all of
-> groff's man pages (about 60 of them) to clear the last vestiges of
-> .nf/.fi.
+> - Use .RS/.RE combined with .PP, instead of .IP.
+> 	This adds markup lines,
+> 	but allows for more generic constructs that don't depend
+> 	on the context.
+> 	In case of .TP, add .RS right after the paragraph tag.
+> 	Exception: Single-paragraph .TP entries don't use .RS/.RE
+> - Separate .B or .I entries on separate lines for each.
+> - Fix .BR or .IR where 'R' is not needed.
+> - Use the following markup for code between paragraphs:
+> 	.PP	((unless .IP is _really_ needed))
+> 	.in +4n
+> 	.EX
+> 	//code
+> 	.EE
+> 	.in
 > 
->> However, I would still do the change [.IP] -> [(.RS + .PP)/.RE],
->> so almost always you'll have [.PP] surrounding code examples,
->> and you'll only see [.IP] when it is really needed:
->> in cases where you use its argument ([.IP * n]).
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
 > 
-> I think this is a good idea, too.  As I have tried to explain in
-> groff_man(7)--at some length because this issue bedeviled me a long
-> time--the "relative inset" macros should really be thought of separately
-> from paragraph indentation.  In a way it is regrettable that the default
-> indent for paragraphs is different from the increment used for relative
-> insets; if they were different, the distinction would be much more
-> obvious to people.  But perhaps not, in the end, much less frustrating.
+> Hi Michael,
 > 
-> If you'd like to give me some feedback on the subsections "Horizontal
-> and vertical spacing" and the .RS-related item in section "Notes" in
-> groff_man_style(7), I'd appreciate it.
-> 
-> 	https://man7.org/linux/man-pages/man7/groff_man_style.7.html
-> 
->> In those cases, you should also use [.IP] for the code
->> (see perf_event_open.2:1426):
->>
->> [[
->> .IP * 2
->> If
->> .B PERF_FORMAT_GROUP
->> was specified to allow reading all events in a group at once:
->> .IP
->> .in +4n
->> .EX
->> struct read_format {
->>     u64 nr;            /* The number of events */
->>     u64 time_enabled;  /* if PERF_FORMAT_TOTAL_TIME_ENABLED */
->>     u64 time_running;  /* if PERF_FORMAT_TOTAL_TIME_RUNNING */
->>     struct {
->>         u64 value;     /* The value of the event */
->>         u64 id;        /* if PERF_FORMAT_ID */
->>     } values[nr];
->> };
->> .EE
->> .in
-> 
-> Have you considered changing out this .IP/.in/.EX/.../.EE/.in pattern
-> for .RS/.PP/.EX/.../.EX ?
+> This is a sample of how I would change the code for indenting.
+> I also added some srcfixes that probably don't deserve a separate patch,
+> such as splitting lines or removing unnecessary "" or [.IR] -> [.I].
 
-But in the "-branden" version I see
+(It would have been simpler for the discussion if those were 
+omitted from the current patch.)
 
-[[
-.RS 6n
-]]
+> 
+> There are 29 net line additions due to splitting lines
+> and indenting code with markup instead of hardcoding.
+> 
+> So it means the remaining 44 net additions are due to [.RS/.RE].
+> Not too many considering the ~2800 lines involved.
+> 
+> Still between 1% and 2% of net additions.
+> 
+> I've compared side to side the man page from release 5.09,
+> and the page after this patch,
+> and the changes are minor
+> (just a forced new line for .TP entries with multiple paragraphs,
+> due to [.RS], as expected).
+> 
+> What do you think about these changes?
 
-If I understand correctly, then that number is calculated based on the
-".IP * 2" that precedes it. That doesn't seem good (since, maybe at 
-some point, one might want to change the .IP yo say ".IP  1) 3",
-and then one has to fix the .RS lines. Am I missing something?
+I think I'm *still* not really convinced. See below.
+
+>  man2/perf_event_open.2 | 463 ++++++++++++++++++++++++-----------------
+>  1 file changed, 268 insertions(+), 195 deletions(-)
+> 
+> diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
+> index eb7ab29ea..b99c9e30d 100644
+> --- a/man2/perf_event_open.2
+> +++ b/man2/perf_event_open.2
+
+[...]
+
+> @@ -1800,12 +1854,17 @@ by new.
+>  In overwrite mode, it might not be possible to infer where the
+>  new data began, and it is the consumer's job to disable
+>  measurement while reading to avoid possible data races.
+> -.IP
+> +.PP
+>  The
+> -.IR aux_head " and " aux_tail
+> +.I aux_head
+> +and
+> +.I aux_tail
+>  ring buffer pointers have the same behavior and ordering
+>  rules as the previous described
+> -.IR data_head " and " data_tail .
+> +.I data_head
+> +and
+> +.IR data_tail .
+> +.RE
+>  .PP
+>  The following 2^n ring-buffer pages have the layout described below.
+>  .PP
+> @@ -1845,15 +1904,15 @@ the fields with shorter descriptions are presented first.
+>  This indicates the size of the record.
+>  .TP
+>  .I misc
+> +.RS
+>  The
+>  .I misc
+>  field contains additional information about the sample.
+
+This renders as:
+
+       size   This indicates the size of the record.
+
+       misc
+              The  misc  field  contains additional information about the
+              sample.
+
+              The CPU mode can be determined from this value  by  masking
+              with  PERF_RECORD_MISC_CPUMODE_MASK  and looking for one of
+              the following (note these are not bit masks, only  one  can
+              be set at a time):
+
+This is anomalous. We have a newline after "misc", but not after "size",
+because of the proposal that we add ".RS/.RE" only in .TP blocks
+with multiple paragraphs.
+
+Whats the alternative? I guess we could *always* use .RS/.RE even inside
+.TP blocks that have only one paragraph, but:
+
+* That's even more markup
+* We end up with even more white space in the rendered output.
+* We almost certainly *don't* want to do this for .TP lists
+  that consist of multiple items where each list item is a 
+  rendered paragraph that is juust a line or two. [1]
+
+[...]
+
+At this point, I feel we are devoting a lot of energy to solving a
+problem that has no really good solution. The status quo is not ideal,
+but so far I'm not convinced that there's any compellingly better
+alternative. And moving to one of those alternatives will require
+changes in a lot of pages. I'm in favor of staying with the status quo.
 
 Thanks,
 
 Michael
+
+[1]
+I mean, I think this:
+
+[[
+HEAD   item text
+
+HEAD   item text
+
+HEAD   item text
+]]
+
+is preferable to this:
+
+[[
+HEAD
+       item text
+
+HEAD
+       item text
+
+HEAD
+       item text
+
+HEAD
+       item text
+
+]]
 
 
 -- 
