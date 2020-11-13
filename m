@@ -2,162 +2,110 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 07B1C2B1908
-	for <lists+linux-man@lfdr.de>; Fri, 13 Nov 2020 11:27:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 128222B191E
+	for <lists+linux-man@lfdr.de>; Fri, 13 Nov 2020 11:34:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726176AbgKMK1K (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 13 Nov 2020 05:27:10 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48540 "EHLO
+        id S1726176AbgKMKeQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 13 Nov 2020 05:34:16 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49626 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726275AbgKMK1J (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Nov 2020 05:27:09 -0500
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 93B2EC0613D1
-        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 02:27:09 -0800 (PST)
-Received: by mail-wr1-x431.google.com with SMTP id l1so9181533wrb.9
-        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 02:27:09 -0800 (PST)
+        with ESMTP id S1726275AbgKMKeP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Nov 2020 05:34:15 -0500
+Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com [IPv6:2607:f8b0:4864:20::530])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BB8D2C0613D1
+        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 02:34:05 -0800 (PST)
+Received: by mail-pg1-x530.google.com with SMTP id i7so6762779pgh.6
+        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 02:34:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=JJqmUtB/lW0eGAi0TEWOXA6/crSc9diIQFZjlRoGyHs=;
-        b=PXpl7ENYV0YViuJEZw/m6H7pyhG6XmRdYoV/JZ+ukMn5Bju51YDRBqAPDvXKP/IAxJ
-         oSRjaZ2rfCVsA9Z6ilsZ4ZA/Zn+1//raxYvy7lq+Rz/aDQShaIlVXplbgqpopIKY71xU
-         IQibqax/b6e1ppLhR5PaXG1TXIjFuohymGofvqpBbXWm1ZzZPvnfDE2hto2fVd80pPmc
-         SFTYgJyJ23mpNUkzG27AGnfOLNqTPTRsRM1K8342fCL3gh5+bw2wG/ulK9sLLOoMiYKu
-         zOybK8i+aDDTYsd3GYS8EGsJbR96tt7465DtFEo0xDweRb7XNF958mV9u2cbf2Q+l32D
-         VPow==
+        h=date:from:to:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=MxUFpKNRs68yodVd1W3KpgBctGqPb7jOOI6QmucuOOY=;
+        b=EQKOU0GfZj3PfcAGeP+r+zKFely1Nph7I73DqlB91BQd3IdKE/Hps6fp+p1xwjqta/
+         HFfTEVrPV2d8kWD7Sv9baj5es/SIT/F/CojOmaVzwtYFVsrOVM8gx4A/HfJ1GIiWu64N
+         lbyXccFslx4d5+sTQorT6yZVXO9GbvIZH5gNkQkXU4/a4rX0DMP7kTPuwQFCnMvkKt06
+         1DXN6jr9plFH4OT8oe/tBdIa7n6ZKPJUizAhe06dzSkArWoPCQ2wB0Zq0vu8jIRlwDJD
+         XqBDyc0NBqedl2TwB2UlYjGUFejyx5FMzlTtcgmGd7+IofVk66XXcTJs4Fcc8lqN5Crk
+         NvuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=JJqmUtB/lW0eGAi0TEWOXA6/crSc9diIQFZjlRoGyHs=;
-        b=Lsu/ubZO7Yu4e7y/5rBNqamEWxmueKfLPPXRFCkfkbvtSRIgc6oU45jjrmQKZsvVNA
-         vxgR8/9iwg9tbpM/fzzC3VMKSvMLRDLaEfPG04CLHfQhRknnYV2PRbOp8MU1pPKqjfpD
-         ZJjWo+76C+yj3c0dYRVlj+vD9HDzrg6DnZY4lSCh6/VIVbRpZWDbGwTfll0q1Ir3AIeA
-         HhYBkjmdVKzy706U/FIwGGR0j7gOJDDTDMW2q+Dot57kiF9mFGLdJ2M1YFW/CJppdjfi
-         +MxcJAY6g40kWSNa+rQk06pshfyEsYmjWLp6Yivw0R6kH79jcdgEMV5Or+imEXofjEPp
-         HS7Q==
-X-Gm-Message-State: AOAM532+FGscFftRLwXel8Amj18NTss8D+TvzoxaVsiV4ghN5h8XFyqy
-        c5eCzQdSB1qLrQMx4bgJ6tiByoNM0Hg=
-X-Google-Smtp-Source: ABdhPJwRJ9oAqZhAlqaQcqx5p0Ul4DHkDMXNTcyZe3zVMxcrIhk85gTT+OnjUSmQf9716K784+wWXQ==
-X-Received: by 2002:a5d:438f:: with SMTP id i15mr2543375wrq.121.1605263228113;
-        Fri, 13 Nov 2020 02:27:08 -0800 (PST)
-Received: from ?IPv6:2001:a61:24b3:de01:7310:e730:497d:ea6a? ([2001:a61:24b3:de01:7310:e730:497d:ea6a])
-        by smtp.gmail.com with ESMTPSA id l16sm10234654wrx.5.2020.11.13.02.27.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2020 02:27:07 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+        h=x-gm-message-state:date:from:to:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=MxUFpKNRs68yodVd1W3KpgBctGqPb7jOOI6QmucuOOY=;
+        b=QGBj1hHV5Poa6H+WPM4MiIT3Q+sTFUGJzkxbs5fc5/iVHRexGX3OGpahI09sz/vN86
+         CZCWSYRflJnGwzZdQguDWhvrRmzsB8fCmMbbjkoAQ/wkDeuQXiAxF2EaaT3Oab++z5ef
+         R3kNBxo5ttxcZ5QN2vU25NGzmwNIqqWs/ICKweliilOBIs/7IEP88665MtQULXTy0xMG
+         hZYiNBD4dEAfGcOooWCoro3KeM9yHe3Yt5rYQejhbNM2mUnrH233DL6fUO+zZgyI/rAA
+         7KhSAqTDiVMuDgCbHh7Na5Jw3g/WShLbQr09wUszMq9kquKpJPJyauSFRCBahZ2ABnCs
+         OFqA==
+X-Gm-Message-State: AOAM530x+xC3+JoM1DwvMRNnnHUE3p11NFzDUHKp2AxUC8g1S6+gWIL8
+        jIF192NAc+EYvLsHL+GgZbR40X9a5co=
+X-Google-Smtp-Source: ABdhPJxQSDSgzEWJA41yPk9saW9LYD5sSlqCeY6IODqMmZCN/WVxuQEOiVdORbWIAyXYPiT8bU9YSg==
+X-Received: by 2002:a17:90a:9205:: with SMTP id m5mr2147519pjo.200.1605263645170;
+        Fri, 13 Nov 2020 02:34:05 -0800 (PST)
+Received: from localhost.localdomain ([1.144.240.135])
+        by smtp.gmail.com with ESMTPSA id gz15sm9987582pjb.34.2020.11.13.02.34.03
+        for <linux-man@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2020 02:34:04 -0800 (PST)
+Date:   Fri, 13 Nov 2020 21:34:01 +1100
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     linux-man@vger.kernel.org
 Subject: Re: .RS
-To:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Message-ID: <20201113103359.zbid33lx3tqcgs7d@localhost.localdomain>
 References: <ae05d6bd-af93-9b49-25a6-e9c69ae402ec@gmail.com>
  <20201111150950.u7lf3xeulydbd2vr@localhost.localdomain>
  <c6919fec-4a95-888d-93fd-ecb254ec2377@gmail.com>
  <20201112070915.ejttfz3lu3sphkkp@localhost.localdomain>
- <1ae93b8f-c6e2-f11d-0844-a8cf702f933b@gmail.com>
- <60a7fa20-d41e-12d9-a81e-558512a74f0c@gmail.com>
- <ab209b21-a93e-fd7c-e447-c8ff507cb062@gmail.com>
- <a1705306-0d38-522a-e903-5e63aafdb4eb@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <9197f3ab-582f-7f4a-5e03-afdf7c10db99@gmail.com>
-Date:   Fri, 13 Nov 2020 11:27:04 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
 MIME-Version: 1.0
-In-Reply-To: <a1705306-0d38-522a-e903-5e63aafdb4eb@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="wkriao736v3kw27s"
+Content-Disposition: inline
+In-Reply-To: <20201112070915.ejttfz3lu3sphkkp@localhost.localdomain>
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi ALex,
 
-On 11/13/20 11:15 AM, Alejandro Colomar wrote:
-> 
-> Hi Michael,
-> 
-> On 11/13/20 9:52 AM, Michael Kerrisk (man-pages) wrote:
-> [...]
->>> Do you know why is that?
->>
->> Hmmm -- I don't know. I was going to ask, doesn't s/>RS 4/.RS +4n/
->> fix the problem? But I see that it does not.
-> 
-> No; I tried many things, but I didn't find a solution.
-> So, we'll have to keep using .in, right?
+--wkriao736v3kw27s
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-It looks that way to me.
+[sent to list only]
 
->> By the way, your comments (\") actually cause the rendered
->> output to change, as far as I can see! In particular,
->> the \" on the final .RE leads to some strangeness:
->>
->> [[
->> .IP * 2
->> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
->> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
->> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
->> nisi ut aliquip ex ea commodo consequat.
->> .\""""""""""""""""""""""""""""""""""""""""""
->> .IP             \" Indent is 2n after this
->> .in +4n         \" Indent is 6n after this
->> .EX
->> I am indented 6n from normal paragraphs.
->> .EE
->> .in             \" Return to normal
->> .\"""""""""""""""""""""""""""""""""""""""""""
->> .IP *
->> Augue interdum velit euismod in pellentesque.
->> Tristique senectus et netus et malesuada fames ac turpis egestas.
->> Gravida arcu ac tortor dignissim convallis.
->> .\"""""""""""""""""""""""""""""""""""""""""""
->> .IP             \" Indent is 2n after this
->> .RS 4
->> .EX
->> I am indented 4n from normal paragraphs!!!
->> .EE
->> .RE             \" nom
->> .\"""""""""""""""""""""""""""""""""""""""""""
->> .PP
->> Augue interdum velit euismod in pellentesque.
->> ]]
->>
->> Gives:
->>
->> [[
->>        * Lorem  ipsum dolor sit amet, consectetur adipiscing elit, sed do
->>          eiusmod tempor incididunt ut labore et dolore magna aliqua.   Ut
->>          enim  ad minim veniam, quis nostrud exercitation ullamco laboris
->>          nisi ut aliquip ex ea commodo consequat.
->>
->>              I am indented 6n from normal paragraphs.
->>
->>        * Augue interdum velit euismod in pellentesque.  Tristique  senec‐
->>          tus et netus et malesuada fames ac turpis egestas.  Gravida arcu
->>          ac tortor dignissim convallis.
->>
->>            I am indented 4n from normal paragraphs!!!
->>
->> Augue interdum velit euismod in pellentesque.
->> ]]
->>
->> No indent at all on the final line!
-> 
-> Hmm that's weird.  I added the comments in the email, so I didn't test them.
+At 2020-11-12T18:09:15+1100, G. Branden Robinson wrote:
+> Yes.  The unary plus is redundant for both .RS and .in.
 
-Branden could not reproduce, and now I can't either. So I must have
-messed up. Ignore my comments please.
+The above is a half-truth.  The unary plus is redundant for .RS, but not
+for .in.  I corrected myself as part of later discussion but I didn't
+want to let this error go without a clear and obvious corrigendum.
 
-Thanks,
+This stuff is confusiong enough without me adding to it!
 
-Michael
+My apologies.
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Regards,
+Branden
+
+--wkriao736v3kw27s
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl+uYQoACgkQ0Z6cfXEm
+bc7phxAAnrb5hMdyg7n1004NVEyjs6ROSCcz8g6ZvbGcgUxJw+AC3uM5HJkVEZqD
+IOXPrTHtuGWQAn8gUckJb1bg2dj0ZxSM7QmjGXgSAa8USeKOKxJuAjjGFgP2m3gJ
+116ikC9snjGNPKyPs4lmKOeXDi+tganbjlbMWOcnanZ/8WIAhnTZJQb3l9ayDLAM
+W5H40NXcsnJaIx5u9F34mnNPLYdD2IK0cbnSQEB+d+TmYiYNzp4DHbqzXJP3CWdJ
+3TSLOh2R3UaHb4sBze7t6v3YHYUF9B2IuLFbWLs8odLdp/mIcS5T2jVm/QnrclDQ
+YWJckkUoLkBbxu1xABa3XmJn0abq0xGbnIy0dftDJfdp4d/wbPgSTc731fWCRMTc
+5qmTq2XWnX5LPGfvU0UzPaQQ0rJYM9XZQQWdjkvuyrGDkXReSIP7MVSYLlRcw6th
+2nhuF/y2WN2yt4W2n10YUpOdQV73uitDunsoknY3YqkslISBV0OCa+dFl2eJ4HKV
+iXZa5+Djx5wlBpJI/II04CdPgfr0J/Q9ckV71xFlN3arlTE62hHiFvQIXo3zKrBN
+WZw+baUoI/HMxRTiDi9GjwDIFJxGhPR6TYKMo+w1KSjB5NNdfYHlkKXtzPdz+zhJ
+LKsA/+TR4Jb7z7F6VVrgTZuu4hKCJK2cgRBIf1mieb7ei8kl1w8=
+=byWs
+-----END PGP SIGNATURE-----
+
+--wkriao736v3kw27s--
