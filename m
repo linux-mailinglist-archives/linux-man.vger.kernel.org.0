@@ -2,112 +2,144 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1972E2B1642
-	for <lists+linux-man@lfdr.de>; Fri, 13 Nov 2020 08:18:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 601572B16EF
+	for <lists+linux-man@lfdr.de>; Fri, 13 Nov 2020 09:04:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726352AbgKMHSE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 13 Nov 2020 02:18:04 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47006 "EHLO
+        id S1726148AbgKMIEL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 13 Nov 2020 03:04:11 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54248 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726348AbgKMHSE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Nov 2020 02:18:04 -0500
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D65A3C0613D1
-        for <linux-man@vger.kernel.org>; Thu, 12 Nov 2020 23:17:53 -0800 (PST)
-Received: by mail-wm1-x334.google.com with SMTP id h62so7459226wme.3
-        for <linux-man@vger.kernel.org>; Thu, 12 Nov 2020 23:17:53 -0800 (PST)
+        with ESMTP id S1726147AbgKMIEL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 13 Nov 2020 03:04:11 -0500
+Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com [IPv6:2607:f8b0:4864:20::52f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4DCB9C0613D1
+        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 00:03:58 -0800 (PST)
+Received: by mail-pg1-x52f.google.com with SMTP id 62so6453136pgg.12
+        for <linux-man@vger.kernel.org>; Fri, 13 Nov 2020 00:03:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=cwFfHW80WvYgjwzgnjcBi7aspJECTXVlDg+WWHz61J0=;
-        b=dNM+4z5Pz1uoeYrsWq+ogVbjKzgl42mFz+vrkwk2s7Ft4wYi/6UMXMKxOddfyljA70
-         dOiO5GLGX+CIvnMFp0R90gDtB4ebhatxPPNx7C3nUlZSGsn1W4jovFqdHvBihH1ocPR8
-         7Prwklczmny/vUPCv60zkW7hNVjqTXzj1ckmvrs6Cv8JMZWmpG/FE52iZLSm7q1FU8sA
-         KQ8/s8oCz4DHLa/BRwi/81LuqFRy5D2KvDXVzUbpY3vd8UBD0gTtENeF7feBsaN2CPHW
-         bnshSt8oC38YQC8/SyqgcSDZA0K3e8r3OIFcFIHKpO+tCNJHoY9nhyEQ3d4w73bOAt0n
-         bkag==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=VO6DL3HcWPKbpBQJ9mQ8sD1brtnb97ZUT5A5TnB53SA=;
+        b=iccfZd2MPyPs+/nfwuqxUymDDvi1prq5wyhCSCvLCZro24thI9UB8ghTx45so/Q74I
+         +5qojkBSS5EAHcBqnQZMBZWt4K8Pa9/QCqwH11t115eHQdINqhZmPNaawF930+ucj6cC
+         lU/R1x/aV99tma9QQxtTcIVNcvS5Bb4zqEG2zABl/45rQmf9jpkgtEVZATdAee1EaIly
+         /FXeHthjs5Zzqcm7gNsg0PedukJiB4s+fYLuyYRhIyfwsy7S/3R643mYj3yK3EM/KMMo
+         xkJ4HqlnyoUrBMgHbH5exbxuTwfxegV1goPAh0kwCWnGGeTbmjrmO6LmaTWrcuV1+Edx
+         JLZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=cwFfHW80WvYgjwzgnjcBi7aspJECTXVlDg+WWHz61J0=;
-        b=lPR/bCMXSw2ghOoYPyxxZ5Vs88kYDqwxNqsoS8LQS1a0DDn8XYgLUwpFhXEzdYutTd
-         fm0JLVXFkgvZUYWDRP8CmB1FNq0MfXizc+sub6eSztU1JqaN1OL39GNHPq9TrPJuL75+
-         rw9NfxCJRnHdWl6+BjeeUD/pf6zW10/ThYNf33Sa+8WrkP9otHYA83SAyQDVvYqttGQb
-         G837rVLjsGPzORUYaTCqzSA7M8oHAPGBySMf2MlYnF+mcFsaaLRMycrP6Xh5QWnNa6dx
-         YlOYn61Q1xny9P9rrUv4IqCBhCct6rR8oXz9aOalfiguAW3lTT3hHQQTokc+5Z8DFovo
-         LK6w==
-X-Gm-Message-State: AOAM531isaY1UKSMPx3fJn40ludAfKHm4kP7fQHF4sMaYCeZvQ+MaxM0
-        9Dbj5JG8/S0ymNpDa2IxLlQCjsm74RM=
-X-Google-Smtp-Source: ABdhPJyuna4rcs7fV9o8EaYQppivrqCsmZ4/Sv/JtGEdC5rtz6aVAOOtkhEYiSrqda1H0mCLe7lhWA==
-X-Received: by 2002:a1c:7e8e:: with SMTP id z136mr1101988wmc.46.1605251872293;
-        Thu, 12 Nov 2020 23:17:52 -0800 (PST)
-Received: from ?IPv6:2001:a61:24b3:de01:7310:e730:497d:ea6a? ([2001:a61:24b3:de01:7310:e730:497d:ea6a])
-        by smtp.gmail.com with ESMTPSA id q12sm10219458wmc.45.2020.11.12.23.17.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2020 23:17:51 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
-Subject: Re: Rationale for .PD 0 in old commit
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=VO6DL3HcWPKbpBQJ9mQ8sD1brtnb97ZUT5A5TnB53SA=;
+        b=PBRf/L7wqBogplGgLD+8rSzQoIKH7jvl2WyS5YNUwYIWnujlcgdeq/GF/Ginvw3Rob
+         BqLQHyish9+nrC6WvmCQUP7OeN29Uf6dRkvtY+50w8nanIxErByY96Zd16z2v9wjDsQF
+         lhI6k8LcqM/VVANhF6etx0WOwN5dI64Wr3x+ryrtTPPWj2T949RUOd7ks2iYV8nmlv7H
+         hDk8ibahvv3xiDpQ+xxe7P0VKJODF179lHagz5+9cLUG1icnRZdKL4iy3tK+iOvLdYMk
+         0Rl1j7SQMWgXxqNUOtao6wfQtmbcItRofEewSEWPY29qJ/Z+NLaAFQv8A8e1bm+aLrc4
+         le1w==
+X-Gm-Message-State: AOAM533OsOOjXeo93BXEAz0+x1mm/aIn3mIVreBVwBNXda1dEdZ+GSSr
+        zpNT2PSWxJBuKX0MvvLhmJ2mA5j9dqI=
+X-Google-Smtp-Source: ABdhPJyp92snmNAofK9RA6gt+WVYGMIuE6eWCxQdQr7arP6rq+wQtZbV3XY0R+GDfyX1C65outlOZg==
+X-Received: by 2002:a63:db50:: with SMTP id x16mr1142356pgi.205.1605254637822;
+        Fri, 13 Nov 2020 00:03:57 -0800 (PST)
+Received: from localhost.localdomain ([1.144.241.9])
+        by smtp.gmail.com with ESMTPSA id fu5sm1216855pjb.11.2020.11.13.00.03.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2020 00:03:57 -0800 (PST)
+Date:   Fri, 13 Nov 2020 19:03:52 +1100
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-References: <6b34f96a-7930-3338-e286-c17fad67b5e3@gmail.com>
- <7b38be67-711a-fd8e-539a-bf946b3ee87f@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <cb2b9421-fd39-cb5b-8af4-2ef1c197698a@gmail.com>
-Date:   Fri, 13 Nov 2020 08:17:48 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org, colomar.6.4.3@gmail.com
+Subject: Re: .RS
+Message-ID: <20201113080349.vp6ggswc2jbhseki@localhost.localdomain>
+References: <ae05d6bd-af93-9b49-25a6-e9c69ae402ec@gmail.com>
+ <20201111150950.u7lf3xeulydbd2vr@localhost.localdomain>
+ <c6919fec-4a95-888d-93fd-ecb254ec2377@gmail.com>
+ <20201112070915.ejttfz3lu3sphkkp@localhost.localdomain>
+ <1ae93b8f-c6e2-f11d-0844-a8cf702f933b@gmail.com>
+ <60a7fa20-d41e-12d9-a81e-558512a74f0c@gmail.com>
+ <eaee2c6e-cbb7-94b2-f6c4-9039d184e129@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <7b38be67-711a-fd8e-539a-bf946b3ee87f@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="nyhelkivr364tbi5"
+Content-Disposition: inline
+In-Reply-To: <eaee2c6e-cbb7-94b2-f6c4-9039d184e129@gmail.com>
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi ALex,
 
+--nyhelkivr364tbi5
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 11/12/20 11:30 PM, Alejandro Colomar (man-pages) wrote:
-> 
-> 
-> On 11/12/20 11:26 PM, Alejandro Colomar (man-pages) wrote:
->> Hello Michael,
->>
->> I'd like to know, if you happen to remember it,
->> the rationale for using [.PD 0] + [.RS] + [.TP 24]
->> in perf_event_open.2.
->>
->> It was added in commit 2b538c3e5380cbe81a5c053cd183788e3a13f0cb.
->>
->> I guess it's related to the fact that
->> there are too many levels of indentation,
->> but is it really needed?
->> I think everything fits correctly in an 80-column terminal
->> without needing that workaround.
->>
->> Is it maybe for other than terminals?
->>
->> May I remove those in my attempt to simplify and standardize the markup?
->>
->> Thanks,
->>
->> Alex
->>
-> 
-> 
-> Ahhhh, It removes some unwanted blank lines, doesn't it?
+At 2020-11-12T21:57:34+0100, Alejandro Colomar (man-pages) wrote:
+> > * [.in 4] simply doesn't seem to work at all.
 
-Yes.
+It's important here to check what request comes next.  Many of the man
+macros will change the indentation again on you.
 
-Thanks,
+> > * [.RS 4] and [.RS +4n] seem to be equivalent.
+> > * [.RS 4] is different (worse) than [.in +4n]
+> >           in some very specific scenario:
+> >=20
+> and [.in 4n] seems to indent to absolute column 4.
 
-Michael
+Yes.  Many *roff requests are documented like .in is in groff(7).
 
+   .in =C2=B1N    Change indentation according to =C2=B1N (default scaling =
+indica=E2=80=90
+             tor m).
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+The =C2=B1 indicates an optional sign.  Where there is no sign, the .in
+request performs absolute positioning.  I might have led you astray by
+bringing up the "|" operator before; a hazard of my unfortunate tendency
+to ramble when composing emails in haste.
+
+The '+' that .RS forces as a prefix to its argument before passing it to
+=2Ein prevents the _macro_ argument from being interpreted as an absolute
+position (even if the "|" operator is used).
+
+=2ETH foo 1 2020-11-13 "foo 1.2.3"
+=2ESH Name
+bar \- baz
+=2ESH Description
+foo
+=2ERS 4n
+indent
+=2ERS |5n
+bar
+=2ERE
+=2ERE
+
+In the above example, "bar" is set 5 ens to the right of "foo", even
+though we tried to set it much farther left.
+
+Regards,
+Branden
+
+--nyhelkivr364tbi5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl+uPdoACgkQ0Z6cfXEm
+bc7N+RAAhoC4UI8gxglIYh64fo2SNuinioqO6ZsRdgsAmb5qVdBQfa0KZHYvCmD6
+edz5XFx+ZhrXwlTx3rTwWR6RPcMoDREBodoUvnmLqXLAsr5ZpBG5jWEGdH3AByIG
+mRn0DsQvsh0fyZKymclPypnlJ8Trwa6TAT+mYl/PIS+FCWwP4sXKgs7vH32uhMJe
+VaCAXL65RCUt9SJuCwjpUbJiFKNP8HKmpVK/LOPWMkOHel4WtBVnc1dB4F4Bbpvl
+qV+PYnX8Ra70S5jNYM1qP24osyPsoXnSeJgIoXdRWQQl3PhqXzXCocwugpUVG3R2
+Za0m0Y3Ul1Zt7GRtAEg3NKh7GZtlM3QZ3EZoXwACryAJzBfXbcSCIRiKzWWlX17/
+o7IpaMxcB1Vb8Vj2XWu+a788IIPnnAKUXvwuzOIdvCy37dmqrAb3cC7WeTl/46q9
+/6iBrNX/WEMqfOx/smcedg5fscDsBvRir3OQ5VitNXwAnbYxZ0wLV439IGEhnJV6
+sMfvsC9/Tc6yr4KBgxaNtLwAoQYE200LvX8FgSz/qK4ZZ13ieyO4gpyoA7585P6s
+xrxZgNQgpEr/4/b1ME9NljfC2rDkIR3Vtl/pEmE+aKepWKVgGrQQvkbsw66g2NoC
+RgJdyTTorASngfktJsjn7wveHhC++PnLiUVu5ZwdsEBJ6uJiu6Y=
+=DS17
+-----END PGP SIGNATURE-----
+
+--nyhelkivr364tbi5--
