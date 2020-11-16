@@ -2,118 +2,213 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 06F182B3AB3
-	for <lists+linux-man@lfdr.de>; Mon, 16 Nov 2020 01:18:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 830182B3AC3
+	for <lists+linux-man@lfdr.de>; Mon, 16 Nov 2020 01:26:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728119AbgKPASi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 15 Nov 2020 19:18:38 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55004 "EHLO
+        id S1728064AbgKPAZC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 15 Nov 2020 19:25:02 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55986 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727701AbgKPASi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 15 Nov 2020 19:18:38 -0500
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B3AE8C0613CF
-        for <linux-man@vger.kernel.org>; Sun, 15 Nov 2020 16:18:37 -0800 (PST)
-Received: by mail-wm1-x341.google.com with SMTP id 10so22239440wml.2
-        for <linux-man@vger.kernel.org>; Sun, 15 Nov 2020 16:18:37 -0800 (PST)
+        with ESMTP id S1727618AbgKPAZB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 15 Nov 2020 19:25:01 -0500
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9BD0FC0613CF
+        for <linux-man@vger.kernel.org>; Sun, 15 Nov 2020 16:25:01 -0800 (PST)
+Received: by mail-wr1-x42c.google.com with SMTP id k2so16944923wrx.2
+        for <linux-man@vger.kernel.org>; Sun, 15 Nov 2020 16:25:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=3DlKR7zqtT8ZfvO/73N/xOaFSc18Aj/m7mqKaRiPd+A=;
-        b=Ug5WDbiuuB+lzYvwnbTYkEQeN0UOmMLknXGmcgkZWrk/DObqp3bRV/O+At6xWINFxI
-         hIgqb7k5L0nNp8lLnuT6lRczsuK3pOIfdqkAWHJTRa3daB6bmBIOdFJUVlB9Vvx/Mbrb
-         +PLqWrhTmnAB9YP4duQn2Q/LobQSXrPp3x2z0TopulRqdb/cO0+0ofPKc863y4toNaMC
-         IiGD0okrISuwlOVmyjpwW6K78fePt/CNk/TlnAQ+qrC4oDQB2xLJjIN6JQkyU/a7bOPf
-         ER5wwM2Ra6gDwz+D5oiQR9OcM1RpmgO0ALaTa5SCumESYCFLAzPYd2jb1ijl8HXElVLJ
-         cBiA==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=GI7RRmq6kkw2pjmrK09BzcG8eoCb044PVOOwckzviQg=;
+        b=BiC+ZoQhfeaCZ0lmTkFsCZkUZYF9dVCssRsiYjtr+hnxOxtGvflq8G2fusYW8yhKO6
+         Wm0T0y1FLVHtW4dWWVVO1hGlBrIhs+Tp/SBQ0h68g9XprxxLsE0JQrUFvArGQMCkhRsY
+         1M3mzQBTh2JqnjdbmobmqLB/8dIMWCz03SEF3xzEl1wxKjV6OpDd4HupiP1X5OQhScZa
+         MlDwjsFtII2wp9FRL56I3P5EmX9BFONfXd4IBoAW7nkEAIuBSeroQRFOijU1d0Gdg3JQ
+         3h2u3oJL3s79pIwID6/sZ2yF6n2aLPOXCdIJ6gSXv7P1BCxzB0lbVQNVdVXc+IUnGdsM
+         NCkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=3DlKR7zqtT8ZfvO/73N/xOaFSc18Aj/m7mqKaRiPd+A=;
-        b=gJmLZNPeSliTyiPM1/gD2j57/CHT67iVD2vjm91EmA3yDgXC1YDzT2/IHkjgra775f
-         +P2mymKmBGMn3ank8blyCCVOmoksuz6SzGA8IQRJF9foEv6mp5JiYxOdja1XBVfdGgoi
-         neGu0coI2hXLBnrFChroeme8Y3GLpKr/WSLk8ShQS+WM0t0JgPpTNrpXQtkfa/lSGBwD
-         ZxoZK85ZKeZj11e2cvmlfFXPdKeNowht/7+lQFa7JxQfu5E8i9l1sYq6RupQtZ21aFrI
-         Eksfm6+BxOMYmKLH9J0aPhnAEsS/Vud4h3lZxqAQ/nx75wP1BgU482MM6a3uQgk5vYSq
-         oaEA==
-X-Gm-Message-State: AOAM531CHI8pmTp1smUsinvrPmLcNypx9NpMaDvcL2OYNFzZFJ0EIX+A
-        Tm2sjCpgis3+CeC7dSpoML7A5WpQMx7A3w==
-X-Google-Smtp-Source: ABdhPJxobiNbhhI9P9gMqST6fNF+1nX+2L34l4Gu82WhM8PdppTCVSTGQohgGj/5i4DupDYPj73idQ==
-X-Received: by 2002:a1c:2041:: with SMTP id g62mr12995700wmg.118.1605485916395;
-        Sun, 15 Nov 2020 16:18:36 -0800 (PST)
-Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id z6sm17133076wmi.1.2020.11.15.16.18.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2020 16:18:35 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH v2] Add script to get modified pages for commit msgs
-Date:   Mon, 16 Nov 2020 01:16:35 +0100
-Message-Id: <20201116001634.3663-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201115230807.1994-1-alx.manpages@gmail.com>
-References: <20201115230807.1994-1-alx.manpages@gmail.com>
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=GI7RRmq6kkw2pjmrK09BzcG8eoCb044PVOOwckzviQg=;
+        b=dYFgRWbXDDhYdbTo+EiXzaAc4DEpGS1F7dLamnvMURVBeSHVzMweu4rTEg2rTCGGa1
+         V/Jx3IQ5LQcCukWYY0qEM6KT5TG7/JknpGOjiwv/WZ/7b67MTZuzPTYsXlV49Zx5zMY+
+         8VDYWSZ5gDCKR19+6fZ9Fxrt+dbo2HqqUOmaT0PKGOE8LZagIueIkezJGz808Ck+6sQo
+         Om5nWqhyVWpomE9tQVGI/86PMcxh1VdsMlaz4P6atS5Qluoto99T6852RL5iAN8vLq7N
+         sVpIIW+IVi408dw06W7dHZ+RqmuMrJEusa2TGBOYieW35Fl0yfj+V9i3FwtdJvt8AFqz
+         +KUg==
+X-Gm-Message-State: AOAM533zEbXBiD4iFw8GRsswj2wt5RPoKoD+LpUivIABuUuqhs3sAc0W
+        H1f2j9Y7lbJ2ptuqrMVFSB0=
+X-Google-Smtp-Source: ABdhPJxdZXOvlXotLANOaQ+wQSOl5vQZ/X6aAE/owr+nuurQBEMyRIxAits0ptwto8EjWKrkeB6mow==
+X-Received: by 2002:a5d:4ec2:: with SMTP id s2mr16191828wrv.258.1605486300306;
+        Sun, 15 Nov 2020 16:25:00 -0800 (PST)
+Received: from [192.168.1.143] ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id c2sm21711964wrf.68.2020.11.15.16.24.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 15 Nov 2020 16:24:59 -0800 (PST)
+Subject: Re: [PATCH] ...: srcfix: 's/^.nf$/.EX/; s/^.fi$/.EE/'
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org,
+        "G . Branden Robinson" <g.branden.robinson@gmail.com>
+References: <20201115140737.247270-1-alx.manpages@gmail.com>
+ <f6eafa23-f893-4f78-6316-b7e0ea15489c@gmail.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <a7189561-5550-f06a-b5aa-2123bf8b8c2a@gmail.com>
+Date:   Mon, 16 Nov 2020 01:24:59 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <f6eafa23-f893-4f78-6316-b7e0ea15489c@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The script can be used this way:
+[[ Title trimmed; I couldn't read the contents on Thunderbird ]]
 
-git commit -sm "$(./scripts/modified_pages.sh): Short commit msg"
+Hi Michael,
 
-And then maybe --ammend and add a longer message.
+On 11/15/20 11:32 PM, Michael Kerrisk (man-pages) wrote:
+> Hi Alex,
+> 
+> On 11/15/20 3:07 PM, Alejandro Colomar wrote:
+>> Reported-by: G. Branden Robinson <g.branden.robinson@gmail.com>
+>> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+>> ---
+>>
+>> Hi Michael,
+>>
+>> As we discussed,
+>> I removed _every_ appearance of [.nf] and [.fi] from the pages.
+> 
+> Ooops -- I don't quite recall the details of that discussion.
+> But, this is not so simple.
 
-This is especially useful for changes to many pages at once,
-usually when running a script to apply some global changes.
+Actually, Branden and I discussed that a few days ago,
+and IIRC we (Branden, you, and I) mentioned it a long time ago.
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
+> 
+>> There were some unmatched [.nf] appearances,
+>> which I manually matched with [.EE].
+> 
+> In cases like this, it would probably be better to split this
+> out into separate patches with a small preparatory patch that
+> fixes the unbalanced .nf macros, followed by the bigger patch,
+> but even so, it's not so simple...
 
-Now it will also include new files and deleted files.
+Yes, I should've done that...
+I'll fix those separately.
+Actually one of those was my fault (tailq.3).
 
- scripts/modified_pages.sh | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
- create mode 100755 scripts/modified_pages.sh
+> 
+> .nf/.fi appears in two places generally:
+> (1) Inside the SYNOPSIS (many pages)
+> (2) Elsewhere in the page (fewer pages)
+> 
+> Probably, most (all?) cases in the second category should 
+> really be .EX/.EE.
+> 
+> But in the SYNOPSIS, .nf/.fi is used inconsistently. The 
+> majority of pages use it, but a substantial minority (200+ pages)
+> do not (e.g., chdir.2). (That inconsistency is a mess from
+> history.) Why does this matter? Well, theoretically at least,
+> pages might be rendered to something other than the terminal.
+> I care at least a little bit about PDF rendering[1], and the
+> inconsistency means that converting .nf/fi to .EX/.EE will
+> produce a very different appearance in pages that currently
+> do/don't use .nf/.fi in the SYNOPSIS.
+> 
+> What to do? I'm not sure. When I look at the PDF renderings,
+> using simply .nf/.fi (or nothing at all) in the SYNOPSIS
+> produces a variable-width-font output that is visually
+> appealing for the function prototypes. Switching to
+> .EX/.EE, the result is not unpleasant, but I'm not
+> sure I prefer it (in a PDF rendering).[2]
+> 
+> As a first step, all pages should probably be using .nf/.fi
+> in the SYNOPSIS. But, that's probably a painful manual edit.
+> I've been manually fixing pages over the years, but many
+> are not fixed yet.
 
-diff --git a/scripts/modified_pages.sh b/scripts/modified_pages.sh
-new file mode 100755
-index 000000000..c6bc064a4
---- /dev/null
-+++ b/scripts/modified_pages.sh
-@@ -0,0 +1,27 @@
-+#!/bin/bash
-+
-+## Usage:
-+## git commit -m "$(./scripts/modified_pages.sh): Short message here"
-+##
-+## How it works:
-+## 1) Read git status.
-+## 2) Staged changes are always before "Changes not staged for commit".
-+##    Cut from that point to not include pages not staged for commit.
-+## 3) Keep only lines containing "modified:" or "deleted:" or "new file:"
-+##    (each of those is a changed file)
-+## 4) Keep only the path, replacing git text by ", ".
-+## 5) Keep only the basenames of the files in 'man?/'.
-+## 6) Remove any newline characters.
-+## 7) Remove the comma before the first file
-+##
-+## The result is a list of all files with changes staged for commit,
-+## separated by ", ".
-+
-+
-+git status							\
-+|sed "/Changes not staged for commit:/q"			\
-+|grep -E "^\s*(modified|deleted|new file):"			\
-+|sed "s/^.*:\s*/, /"						\
-+|sed "s%man[1-9]/%%"						\
-+|tr -d '\n'							\
-+|sed "s/^, //"
--- 
-2.29.2
+Hmm, didn't think about those.
+I agree that it may be nicer with .nf/.fi for the SYNOPSIS
+from what you say
+(I'll try it myself).
+I'll see if I can come up with a script that
+keeps .nf/.fi in the SYNOPSIS
+and changes everything else.
 
+For the rest, you would change to .EX/.EE, right?
+
+> 
+>> That's the reason there are a few more insertions than deletions.
+> 
+> 
+> I manually fixed chroot.2, memfd_create.2, and tailq.3. Were there
+> any others?
+
+No... probably.
+I checked that the number of .nf+.fi was even for a single file,
+and that the total number of .nf equaled
+the total number of .fi in a directory
+(it was too much work to check every file).
+
+> 
+>> Woah, 439 KiB of a patch...
+> 
+> :-)
+> 
+>  
+>> I tested a few of the pages to see
+>> if anything changed in the rendered output.
+>> Apparently, no.
+>> I hope that holds throughout all of the modified pages.
+>>
+>> BTW, I had to script a bit to get the subject of the commit
+>> (as you can probably guess I didn't write that myself :p)
+>> Would you want to add that to 'scripts/'?
+> 
+> I myself have a small script based around the output of
+> 
+>    git status | grep 'modified:' | awk '{print $NF}'
+> 
+> How do you do it?
+
+I just sent a patch before reading this email.
+Mine is a bit more reliable I think,
+but maybe you can still improve it :)
+
+> 
+> Thanks,
+> 
+> Michael
+> 
+> [1] 
+> function pdfmanq {
+>     man -Tps -l $1 > /tmp/$(basename $1).$$.ps
+>     ps2pdf /tmp/$(basename $1).$$.ps $1.pdf
+> }
+> 
+> function pdfman {
+>     pdfmanq $1
+>     evince $1.pdf    # Or whatever PDF viewer you use
+> }
+> 
+> # pdfman somepage.n
+
+Thanks!
+
+> 
+> [2]
+> But I am perhaps old school on this point.
+> 
+
+I tend to be so too, even though I'm 27 :p
+
+Cheers,
+
+Alex
