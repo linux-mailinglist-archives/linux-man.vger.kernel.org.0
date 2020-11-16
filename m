@@ -2,139 +2,288 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 857DE2B5281
-	for <lists+linux-man@lfdr.de>; Mon, 16 Nov 2020 21:28:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 06CE32B535B
+	for <lists+linux-man@lfdr.de>; Mon, 16 Nov 2020 22:03:32 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732970AbgKPU1N (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 16 Nov 2020 15:27:13 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44248 "EHLO
+        id S1731118AbgKPVDI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 16 Nov 2020 16:03:08 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49900 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1732962AbgKPU1N (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Nov 2020 15:27:13 -0500
+        with ESMTP id S1726219AbgKPVDH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Nov 2020 16:03:07 -0500
 Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0D773C0613CF
-        for <linux-man@vger.kernel.org>; Mon, 16 Nov 2020 12:27:12 -0800 (PST)
-Received: by mail-wm1-x341.google.com with SMTP id d142so557219wmd.4
-        for <linux-man@vger.kernel.org>; Mon, 16 Nov 2020 12:27:11 -0800 (PST)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 41F52C0613CF;
+        Mon, 16 Nov 2020 13:03:07 -0800 (PST)
+Received: by mail-wm1-x341.google.com with SMTP id h21so650916wmb.2;
+        Mon, 16 Nov 2020 13:03:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=zzSf3kzEm3Bi3jHZVXl8BU6ulgs+XoBWopRXxn0pTQ8=;
-        b=U9F7Cpx1PtYLEE0/GWC9Rj2tgtfmsnpZ89Em2CEMQqYsMob4Ykj/cf7DnTqsIqVFxV
-         l2ItCEM7i2ka+GzHK5RD2cKQ6DlRLs6V+AZqAHhZnyCUXHYpU8+TTXCpH2kjheWMf1iT
-         5T0xSKySlwhjprSI5/MQYwTNdxsfJTq/O80wEkCqq0csZ4EteK6vKl0/BMSn2Xqpb22s
-         O4enrkute/totX5dKWrtuwgg/0JoxeacLZuk1eF7m2FrboVzb7acqe1UfL0t2KwZ4UOx
-         fE508yZyYJ/Lm2KLUKEJ7WGnVrDu0AXgfZqnHIJomEnv/ieJ7Po6NK7vJJeUkquQ7EDf
-         MhjQ==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=kIBok6LhmX2oON2re8xwKd0vvOgtGJnjM3IpLHusadw=;
+        b=TKwV9k+FZKUd2LAwXA+k72FWcs+EPrCRoALmGFbD1zvuHvxTQ+SSqk553M+WEdyPNp
+         UmdIZ88Rz6NEybpakhEMzRK+Ex8y/oxuPDgYrUWPK8ORLJ4vfIj5IMSnSW1s/xpgxPhu
+         l/9tL8fSIFraFFAnx1wLnxtKybQO2iFuutx+KxjMJJBHWrHfivKaN7s/aBUVJ5dCQo5a
+         XpeLRtYnvT99t9llbCTi70/dwIH2b0v8T76uTZLzqhr1a/fXg20tXBKmLtyGtfyq9TAO
+         ZlYZGmGgiO/ido1nqu2l+9NLu7Tpe8zdX+RBqaX6CjR6AzsxcijUPQQdvL1Hcr5GFp7O
+         iNOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=zzSf3kzEm3Bi3jHZVXl8BU6ulgs+XoBWopRXxn0pTQ8=;
-        b=q0zjEi89Kfcc2wexI/FNlTyHvHbcMP2DnpRzsEg0XPSIDFIwc9+NWl4dXQBDBc3CaL
-         7xWrR46alceq5sr/4+/M416h9fbV0XKkLZ1uP2QoADboLPs776g6sfBHIPKfCt2nJM7o
-         bo1MRT8XeSyiKJJewf7HHsn6kPb2IEqr5KfDB+5vwh8aVbMCh3Gzpad0FkQAcCvScbWM
-         wdwVHqAgNyxy9wuapy0SP059AoRlZRLl92keKzeBVaaPkKfGBUJfFil7RYjwvEaURgzV
-         guS8NfL7IQxDjH1nnc9usPpcEW4egkKMNl7+X7Dz6AWSnSfaTIySHwSCqA/WIfZru1kq
-         UWMA==
-X-Gm-Message-State: AOAM532vf24y8AqbqBc+0YrvkIilOCk/3PFEFZo3C4rsIRP8I2J+944V
-        MHM5OiBbLFiM4ss92IXHvETykBhijunx0w==
-X-Google-Smtp-Source: ABdhPJzXXqdlcjLYoiRI487ErszemFTbYKePmE0o4za1ZiFYSOYCGL+4jvztA0XjwnO9AHej1NQyiw==
-X-Received: by 2002:a1c:4e09:: with SMTP id g9mr714959wmh.40.1605558430475;
-        Mon, 16 Nov 2020 12:27:10 -0800 (PST)
-Received: from ?IPv6:2001:a61:24b3:de01:7310:e730:497d:ea6a? ([2001:a61:24b3:de01:7310:e730:497d:ea6a])
-        by smtp.gmail.com with ESMTPSA id n23sm470536wmk.24.2020.11.16.12.27.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2020 12:27:09 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] Add script to get modified pages for commit msgs
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <f3253576-63e6-1540-5a07-9b71a10c42e2@gmail.com>
- <20201116194218.5098-1-alx.manpages@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <1e43d7f8-f512-c7fa-3e1a-455a3bb292ea@gmail.com>
-Date:   Mon, 16 Nov 2020 21:27:07 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=kIBok6LhmX2oON2re8xwKd0vvOgtGJnjM3IpLHusadw=;
+        b=t9mB8kKZIwHcn2tGhg2w2FJNCHT1BifchaK6wy1B3mIClTxruuAnfApB0DCKDvPgoc
+         nIpZcHtqqgd1PGpYQc8yOtgIQZG8er85VhfZPkFe0hNgjsKZvkLHH7KtUgl2A+1IeqOg
+         OBOiAXBWhwVonAzJDwH9FICmB8ZxUI0RsWtIDW+7aDKJN4n4a/STy9HlYxvC1lq4iGQR
+         HUsT9SjL/aGoKoDBSsN+HNrNMRTgw5YMspxQmJ4L2yUhQLPvO6fquKq53updh/VOtqW7
+         8ptkXl+XpKaNRFD/KY+xecc3sIF/kCKRNrAKqW33zGdi4mdwk4LFzpi8oFYBeIX0aEXT
+         82vA==
+X-Gm-Message-State: AOAM53308CJ+n99DNSP3imEgCcoYlGoIbNp/o5hJEkAtV5ZnIZMlNPEd
+        cdzaj91KpaWoSmbJ6YFemso=
+X-Google-Smtp-Source: ABdhPJzOHhNlIpkSPa99BnwvG5LvoWEVPEOt0VC2sDFCF+lKYb8sZV+/i98RGOfuFhg4vt+8hd5CTg==
+X-Received: by 2002:a1c:c2c3:: with SMTP id s186mr813200wmf.160.1605560585749;
+        Mon, 16 Nov 2020 13:03:05 -0800 (PST)
+Received: from localhost.localdomain ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id p4sm24660325wrm.51.2020.11.16.13.03.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2020 13:03:05 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     rppt@kernel.org, mtk.manpages@gmail.com
+Cc:     Mike Rapoport <rppt@linux.ibm.com>, akpm@linux-foundation.org,
+        arnd@arndb.de, bp@alien8.de, catalin.marinas@arm.com, cl@linux.com,
+        colomar.6.4.3@gmail.com, dan.j.williams@intel.com,
+        dave.hansen@linux.intel.com, david@redhat.com,
+        elena.reshetova@intel.com, hpa@zytor.com, idan.yaniv@ibm.com,
+        jejb@linux.ibm.com, kirill@shutemov.name,
+        linux-api@vger.kernel.org, linux-arch@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-kselftest@vger.kernel.org, linux-man@vger.kernel.org,
+        linux-mm@kvack.org, linux-nvdimm@lists.01.org,
+        linux-riscv@lists.infradead.org, luto@kernel.org,
+        mark.rutland@arm.com, mingo@redhat.com, palmer@dabbelt.com,
+        paul.walmsley@sifive.com, peterz@infradead.org, shuah@kernel.org,
+        tglx@linutronix.de, tycho@tycho.ws, viro@zeniv.linux.org.uk,
+        will@kernel.org, willy@infradead.org, x86@kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>
+Subject: [PATCH v2] memfd_secret.2: New page describing memfd_secret() system call
+Date:   Mon, 16 Nov 2020 22:01:37 +0100
+Message-Id: <20201116210136.12390-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20201005073242.GA4251@kernel.org>
+References: <20201005073242.GA4251@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20201116194218.5098-1-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi ALex,
+From: Mike Rapoport <rppt@linux.ibm.com>
 
-On 11/16/20 8:42 PM, Alejandro Colomar wrote:
-> The script can be used this way:
-> 
-> git commit -sm "$(./scripts/modified_pages.sh): Short commit msg"
-> 
-> And then maybe --amend and add a longer message.
-> 
-> This is especially useful for changes to many pages at once,
-> usually when running a script to apply some global changes.
-> 
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> ---
->  scripts/modified_pages.sh | 34 ++++++++++++++++++++++++++++++++++
->  1 file changed, 34 insertions(+)
->  create mode 100755 scripts/modified_pages.sh
-> 
-> diff --git a/scripts/modified_pages.sh b/scripts/modified_pages.sh
-> new file mode 100755
-> index 000000000..f6c4a6cea
-> --- /dev/null
-> +++ b/scripts/modified_pages.sh
-> @@ -0,0 +1,34 @@
-> +#!/bin/bash
-> +
-> +## SPDX-License-Identifier: GPL-2.0-only
-> +########################################################################
-> +##
-> +## (C) Copyright 2020, Alejandro Colomar
-> +## This program is free software; you can redistribute it and/or
-> +## modify it under the terms of the GNU General Public License
-> +## as published by the Free Software Foundation; version 2.
-> +##
-> +## This program is distributed in the hope that it will be useful,
-> +## but WITHOUT ANY WARRANTY; without even the implied warranty of
-> +## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> +## GNU General Public License for more details
-> +## (http://www.gnu.org/licenses/gpl-2.0.html).
-> +##
-> +########################################################################
-> +##
-> +## The output of this script is a
-> +## list of all files with changes staged for commit
-> +## (basename only if the files are within "man?/"),
-> +## separated by ", ".
-> +## Usage:
-> +## git commit -m "$(./scripts/modified_pages.sh): Short message here"
-> +##
-> +
-> +
-> +git status							\
-> +|sed "/Changes not staged for commit:/q"			\
-> +|grep -E "^\s*(modified|deleted|new file):"			\
-> +|sed "s/^.*:\s*/, /"						\
-> +|sed "s%man[1-9]/%%"						\
-> +|tr -d '\n'							\
-> +|sed "s/^, //"
+Signed-off-by: Mike Rapoport <rppt@linux.ibm.com>
+Cowritten-by: Alejandro Colomar <alx.manpages@gmail.com>
+Acked-by: Alejandro Colomar <alx.manpages@gmail.com>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
 
-Thanks. Patch applied!
+Hi Mike,
+
+I added that note about not having a wrapper,
+fixed a few minor formatting and wording issues,
+and sorted ERRORS alphabetically.
 
 Cheers,
 
-Michael
+Alex
 
+ man2/memfd_secret.2 | 178 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 178 insertions(+)
+ create mode 100644 man2/memfd_secret.2
 
-
+diff --git a/man2/memfd_secret.2 b/man2/memfd_secret.2
+new file mode 100644
+index 000000000..4e617aa0e
+--- /dev/null
++++ b/man2/memfd_secret.2
+@@ -0,0 +1,178 @@
++.\" Copyright (c) 2020, IBM Corporation.
++.\" Written by Mike Rapoport <rppt@linux.ibm.com>
++.\"
++.\" Based on memfd_create(2) man page
++.\" Copyright (C) 2014 Michael Kerrisk <mtk.manpages@gmail.com>
++.\" and Copyright (C) 2014 David Herrmann <dh.herrmann@gmail.com>
++.\"
++.\" %%%LICENSE_START(GPLv2+)
++.\"
++.\" This program is free software; you can redistribute it and/or modify
++.\" it under the terms of the GNU General Public License as published by
++.\" the Free Software Foundation; either version 2 of the License, or
++.\" (at your option) any later version.
++.\"
++.\" This program is distributed in the hope that it will be useful,
++.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
++.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
++.\" GNU General Public License for more details.
++.\"
++.\" You should have received a copy of the GNU General Public
++.\" License along with this manual; if not, see
++.\" <http://www.gnu.org/licenses/>.
++.\" %%%LICENSE_END
++.\"
++.TH MEMFD_SECRET 2 2020-08-02 Linux "Linux Programmer's Manual"
++.SH NAME
++memfd_secret \- create an anonymous file to map secret memory regions
++.SH SYNOPSIS
++.nf
++.B #include <linux/secretmem.h>
++.PP
++.BI "int memfd_secret(unsigned long " flags ");"
++.fi
++.PP
++.IR Note :
++There is no glibc wrapper for this system call; see NOTES.
++.SH DESCRIPTION
++.BR memfd_secret ()
++creates an anonymous file and returns a file descriptor that refers to it.
++The file can only be memory-mapped;
++the memory in such mapping
++will have stronger protection than usual memory mapped files,
++and so it can be used to store application secrets.
++Unlike a regular file, a file created with
++.BR memfd_secret ()
++lives in RAM and has a volatile backing storage.
++Once all references to the file are dropped, it is automatically released.
++The initial size of the file is set to 0.
++Following the call, the file size should be set using
++.BR ftruncate (2).
++.PP
++The memory areas obtained with
++.BR mmap (2)
++from the file descriptor are exclusive to the owning context.
++These areas are removed from the kernel page tables
++and only the page table of the process holding the file descriptor
++maps the corresponding physical memory.
++.PP
++The following values may be bitwise ORed in
++.IR flags
++to control the behavior of
++.BR memfd_secret (2):
++.TP
++.BR FD_CLOEXEC
++Set the close-on-exec flag on the new file descriptor.
++See the description of the
++.B O_CLOEXEC
++flag in
++.BR open (2)
++for reasons why this may be useful.
++.PP
++.TP
++.BR SECRETMEM_UNCACHED
++In addition to excluding memory areas from the kernel page tables,
++mark the memory mappings uncached in the page table of the owning process.
++Such mappings can be used to prevent speculative loads
++and cache-based side channels.
++This mode of
++.BR memfd_secret ()
++is not supported on all architectures.
++.PP
++See also NOTES below.
++.PP
++As its return value,
++.BR memfd_secret ()
++returns a new file descriptor that can be used to refer to an anonymous file.
++This file descriptor is opened for both reading and writing
++.RB ( O_RDWR )
++and
++.B O_LARGEFILE
++is set for the file descriptor.
++.PP
++With respect to
++.BR fork (2)
++and
++.BR execve (2),
++the usual semantics apply for the file descriptor created by
++.BR memfd_secret ().
++A copy of the file descriptor is inherited by the child produced by
++.BR fork (2)
++and refers to the same file.
++The file descriptor is preserved across
++.BR execve (2),
++unless the close-on-exec flag has been set.
++.PP
++The memory regions backed with
++.BR memfd_secret ()
++are locked in the same way as
++.BR mlock (2),
++however the implementation will not try to
++populate the whole range during the
++.BR mmap ()
++call.
++The amount of memory allowed for memory mappings
++of the file descriptor obeys the same rules as
++.BR mlock (2)
++and cannot exceed
++.BR RLIMIT_MEMLOCK .
++.SH RETURN VALUE
++On success,
++.BR memfd_secret ()
++returns a new file descriptor.
++On error, \-1 is returned and
++.I errno
++is set to indicate the error.
++.SH ERRORS
++.TP
++.B EINVAL
++.I flags
++included unknown bits.
++.TP
++.B EMFILE
++The per-process limit on the number of open file descriptors has been reached.
++.TP
++.B EMFILE
++The system-wide limit on the total number of open files has been reached.
++.TP
++.B ENOMEM
++There was insufficient memory to create a new anonymous file.
++.TP
++.B ENOSYS
++.BR memfd_secret ()
++is not implemented on this architecture.
++.SH VERSIONS
++The
++.BR memfd_secret (2)
++system call first appeared in Linux 5.X;
++.SH CONFORMING TO
++The
++.BR memfd_secret (2)
++system call is Linux-specific.
++.SH NOTES
++The
++.BR memfd_secret (2)
++system call provides an ability to hide information
++from the operating system.
++Normally Linux userspace mappings are protected from other users,
++but they are visible to privileged code.
++The mappings created using
++.BR memfd_secret ()
++are hidden from the kernel as well.
++.PP
++If an architecture supports
++.BR SECRETMEM_UNCACHED ,
++the mappings also have protection from speculative execution vulnerabilties,
++at the expense of increased memory access latency.
++Care should be taken when using
++.B SECRETMEM_UNCACHED
++to avoid degrading application performance.
++.PP
++Glibc does not provide a wrapper for this system call; call it using
++.BR syscall (2).
++.SH SEE ALSO
++.BR fcntl (2),
++.BR ftruncate (2),
++.BR mlock (2),
++.BR mmap (2),
++.BR setrlimit (2)
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.29.2
+
