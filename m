@@ -2,134 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 263182B3E48
-	for <lists+linux-man@lfdr.de>; Mon, 16 Nov 2020 09:08:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4578F2B3E9C
+	for <lists+linux-man@lfdr.de>; Mon, 16 Nov 2020 09:29:50 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725904AbgKPIHX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 16 Nov 2020 03:07:23 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41732 "EHLO
+        id S1726628AbgKPI1B (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 16 Nov 2020 03:27:01 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44710 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727132AbgKPIHX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Nov 2020 03:07:23 -0500
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DBC75C0613CF
-        for <linux-man@vger.kernel.org>; Mon, 16 Nov 2020 00:07:22 -0800 (PST)
-Received: by mail-wm1-x341.google.com with SMTP id h2so22855503wmm.0
-        for <linux-man@vger.kernel.org>; Mon, 16 Nov 2020 00:07:22 -0800 (PST)
+        with ESMTP id S1726297AbgKPI1A (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Nov 2020 03:27:00 -0500
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com [IPv6:2607:f8b0:4864:20::230])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 65E72C0613CF
+        for <linux-man@vger.kernel.org>; Mon, 16 Nov 2020 00:26:59 -0800 (PST)
+Received: by mail-oi1-x230.google.com with SMTP id m17so17954136oie.4
+        for <linux-man@vger.kernel.org>; Mon, 16 Nov 2020 00:26:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=biYkPwcmTHuiXkyK9CkqDI1Bu5pPnIJ2aoh48hkKlLw=;
-        b=AAzUz568o044ZPWoqOsIJf20PSbLDngUTt4md9f1NAFgwvIpePRlAtCjNuRfePEyNc
-         xMbbTX1U3UvVjmO4o7knrwfND+BPG0WvoaGbf6jKTu17x8QxpYW+mtyC1EVyQ90Zset9
-         yzqC0DDLji/EEKk+3Xz2G9+5FE799HZsTqa8fKO1r3f5GyQI4waMANrRDArQvWx23hRD
-         9a2PjwhG29CG8qadrmwcGpvaYKoF1dOzop01f9OpdDkkvaEA3fnkNYhfpgPIFooTeOs4
-         GLx2aw41AHwHa3EzkfHomvgYvNn9I5tCX8WUiC8Dw0qH3Six6I1rfU5ZjROwUXo3fYRn
-         mzvQ==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=FIGPkZ6ndNPVWQkZbZ45hudpmzphCjRFXIFlvnjNTXY=;
+        b=edKnpsQ9aNkl8vNYKrRVCRLJbZUAk2ySe3d2IN3PytJdDkgFLtw0z5R6I6XrwTOMX2
+         csPU1wPlCjdQY/CoKaMxH8UjTJ13FI55x2mh1z7KH+DZgVx6ccd6NUCBWRpFj+DWeP6q
+         M7KIUmQiwR1SStiRH9uCPsEUj5nPkjACfx0ZrurrYHSJlNBCIU03AigKtn1i2yMAYTvp
+         UFI7OrOmdoSYBk/tIhb/OI8gNlOtPcsGMS/AyYX2lxBdbMg8KX2D++PZwloKPEtnKARD
+         qL5Vlnymxjb1KWxlIaMgGtleCO2aXg5yiNYBP7J9gBIKxGzUJXrcjBic6VVuQeXHTULG
+         cDNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=biYkPwcmTHuiXkyK9CkqDI1Bu5pPnIJ2aoh48hkKlLw=;
-        b=trv8i5eN1aUMDAeFEtg3ntATtYJ+EwDqKUoiMrEf2FfUsF1T1civY0w6xms76xHGKC
-         77A4b2m+1DbaWH2Fhh7L9AbKBmd0W2NyB0Gra/q1oYHsNidCWukyfye3jisWh8/QWcON
-         /Z39iJYaC41VR2eHFOEzs4Th4Z0lgKWStAEcTr116G9y3MxWG2jDPkkCTucSguvsuoLK
-         dKTAo1zJ5WpwN9a4f5z21G/ngMRofnGVMLu+X3B7NcIIg9ao9vy6bpxFZoKa2Axp9wSx
-         0TncbehCJyctNUOIHPSeZBJRwp24zxfqto1egcl0el3fJyVOoRjU1vJKhnoMcbW+148U
-         HYBA==
-X-Gm-Message-State: AOAM532Fn7GW2Jq48kZ0EBF7YLIodki7UxoMWb1T6dMZVOHq5wU9f1+9
-        DbhzHx6fIW81dFCZ0De4Db00+jAG3+ncsQ==
-X-Google-Smtp-Source: ABdhPJyDTUHTOv0rJ7HgeH6/KGAckOgcwSYfAOXZZX7iLJHUTgEVaaEuyXAvhwgO3cxooWxZ3siaQg==
-X-Received: by 2002:a1c:b487:: with SMTP id d129mr14562829wmf.38.1605514041270;
-        Mon, 16 Nov 2020 00:07:21 -0800 (PST)
-Received: from ?IPv6:2001:a61:24b3:de01:7310:e730:497d:ea6a? ([2001:a61:24b3:de01:7310:e730:497d:ea6a])
-        by smtp.gmail.com with ESMTPSA id g186sm30319770wma.1.2020.11.16.00.07.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2020 00:07:20 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] Add script to get modified pages for commit msgs
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20201115230807.1994-1-alx.manpages@gmail.com>
- <20201116001634.3663-1-alx.manpages@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <f3253576-63e6-1540-5a07-9b71a10c42e2@gmail.com>
-Date:   Mon, 16 Nov 2020 09:07:17 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=FIGPkZ6ndNPVWQkZbZ45hudpmzphCjRFXIFlvnjNTXY=;
+        b=c0l2k6oazBq9i70Um+EDCKTvMGWc1eqQNMkHtzl7tcdo7MLEOzMUfpr3peOgiJaeEi
+         KW2Jo3Kag8+7ZMzzkaf4CG4hezcm//RqIlI6j56BnFmWipcpU5EQti1FLNqlvIV+5maA
+         rSIWdECgzA/ksq/RK5yYdUQoUeg/Moog9zHqlSf82p+hs0F/pHraKQ9cyY6mlOX03AKI
+         GDyPvYvMY5/ZWKZajYs9jC5sKKUrM1sJIqPurW0agF+q1Xo2Foeuj7E/3QGPp1T31nKZ
+         Oso9A6xKWQoRM3l2FxK+E8G5zR6bvEIT31Aa2ueJdTKvSw0olkKz2XsBNpqRrYHFjRWg
+         jKvA==
+X-Gm-Message-State: AOAM5321yd5PsGViwNO5130GNZBtm5Y4t2Xf8rYqM8/zSXW2lGDmMYib
+        QOJkROCJ6f/mbB32KlZFtWSwyH2yvjEFWKuk+0o=
+X-Google-Smtp-Source: ABdhPJyVQN1q7b4d4U2I4WhHHa7Y2K00AIve6KbIjke/xJFmbRJPzFCW6B4xopCk5kZ/cOkplOjEjo1XIBXgTksOC7g=
+X-Received: by 2002:aca:548e:: with SMTP id i136mr9377522oib.177.1605515218743;
+ Mon, 16 Nov 2020 00:26:58 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20201116001634.3663-1-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20201115165256.497403-1-alx.manpages@gmail.com> <accea029-e467-4928-af40-d4cc1bc0be21@gmail.com>
+In-Reply-To: <accea029-e467-4928-af40-d4cc1bc0be21@gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 16 Nov 2020 09:26:47 +0100
+Message-ID: <CAKgNAkjrvVA8f5at5i1rMxMQ2juVamiG0NGtitXg6Qkyi3HgRg@mail.gmail.com>
+Subject: Re: [RFC] memusage.1, uri.7, user-keyring.7, user-session-keyring.7,
+ ld.so.8, tzselect.8: srcfix: Replace \f markup by .
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 11/16/20 1:16 AM, Alejandro Colomar wrote:
-> The script can be used this way:
-> 
-> git commit -sm "$(./scripts/modified_pages.sh): Short commit msg"
-> 
-> And then maybe --ammend and add a longer message.
-> 
-> This is especially useful for changes to many pages at once,
-> usually when running a script to apply some global changes.
-> 
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+On Sun, 15 Nov 2020 at 21:54, Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+>
+> Hi Alex,
+>
+> Briefly...
+>
+> > And I also found a few weird files (such as zic.8 and zdump.8).
+> > Where do those come from?
+> > I'll try to rewrite them using man(7) markup.
+>
+> Stop!! These pages are special. They are periodically imported from
+> the tz project. It's an odd situation. Glibc imports these tools
+> from the tz project, but does not release manual pages. So,
+> periodically (when Paul Eggert reminds me), I resync the pages from
+> the tz project. In general, I try to just leave them alone (although
+> I have suggested a few fixes upstream to Paul), although I see
+> I have touched some of those pages in global edits.
+>
+> > In the meantime,
+> > I would also have to omit those files from the input to the script.
+> > Do you have a list of such files?
+>
+> AFAIR, the only other special page is bpf-helpers.7, which
+> is generated from the kernel source files using scripts.
+> Every few months, I try to remember to run the scripts
+> to resync.
 
-Hi Alex,
-
-Can you resend with a copyright notice in the file.
+One more page that I forgot: tzfile.5 also comes from the tz project.
 
 Thanks,
 
 Michael
-
-> ---
-> 
-> Now it will also include new files and deleted files.
-> 
->  scripts/modified_pages.sh | 27 +++++++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
->  create mode 100755 scripts/modified_pages.sh
-> 
-> diff --git a/scripts/modified_pages.sh b/scripts/modified_pages.sh
-> new file mode 100755
-> index 000000000..c6bc064a4
-> --- /dev/null
-> +++ b/scripts/modified_pages.sh
-> @@ -0,0 +1,27 @@
-> +#!/bin/bash
-> +
-> +## Usage:
-> +## git commit -m "$(./scripts/modified_pages.sh): Short message here"
-> +##
-> +## How it works:
-> +## 1) Read git status.
-> +## 2) Staged changes are always before "Changes not staged for commit".
-> +##    Cut from that point to not include pages not staged for commit.
-> +## 3) Keep only lines containing "modified:" or "deleted:" or "new file:"
-> +##    (each of those is a changed file)
-> +## 4) Keep only the path, replacing git text by ", ".
-> +## 5) Keep only the basenames of the files in 'man?/'.
-> +## 6) Remove any newline characters.
-> +## 7) Remove the comma before the first file
-> +##
-> +## The result is a list of all files with changes staged for commit,
-> +## separated by ", ".
-> +
-> +
-> +git status							\
-> +|sed "/Changes not staged for commit:/q"			\
-> +|grep -E "^\s*(modified|deleted|new file):"			\
-> +|sed "s/^.*:\s*/, /"						\
-> +|sed "s%man[1-9]/%%"						\
-> +|tr -d '\n'							\
-> +|sed "s/^, //"
-> 
-
 
 -- 
 Michael Kerrisk
