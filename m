@@ -2,67 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 347592B517A
-	for <lists+linux-man@lfdr.de>; Mon, 16 Nov 2020 20:50:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 857DE2B5281
+	for <lists+linux-man@lfdr.de>; Mon, 16 Nov 2020 21:28:04 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730135AbgKPTsb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 16 Nov 2020 14:48:31 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38184 "EHLO
+        id S1732970AbgKPU1N (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 16 Nov 2020 15:27:13 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44248 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726156AbgKPTsb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Nov 2020 14:48:31 -0500
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E8AEFC0613CF
-        for <linux-man@vger.kernel.org>; Mon, 16 Nov 2020 11:48:29 -0800 (PST)
-Received: by mail-wm1-x334.google.com with SMTP id s13so421185wmh.4
-        for <linux-man@vger.kernel.org>; Mon, 16 Nov 2020 11:48:29 -0800 (PST)
+        with ESMTP id S1732962AbgKPU1N (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Nov 2020 15:27:13 -0500
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0D773C0613CF
+        for <linux-man@vger.kernel.org>; Mon, 16 Nov 2020 12:27:12 -0800 (PST)
+Received: by mail-wm1-x341.google.com with SMTP id d142so557219wmd.4
+        for <linux-man@vger.kernel.org>; Mon, 16 Nov 2020 12:27:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=VdWRrIfLJ5YehTrhGa+SiAvEw78dbyxUR0BVUndh/hA=;
-        b=urf1ZINNX84dSris/bphnTxah/DIlyXKMtHNTTWR2lnfnaB3iknoliYgsR8E2/xb8l
-         piPhfV43oyAEZDAXSO5WvA/f79ECxgYTSjTga/8lUwsRSCEp1MeBtzvDAUIVxoJuavo8
-         GRRyZX0PAKZDS7GNnADBNwQuDV+CfgxlHETzrITyflDVIhlrda6LYvxeJ7bDW3BfTM/G
-         FWIw/xqPLW94+AHXIvToHKhk7Nvg6l5pCBRn3Pg2dWMjKTme/mFhUIyQ0BxeAAL++MuH
-         nW1PZFV/GYPB9Rgz/v6eUaoj4EpdlM2WJ4Fil9NN6wSPKm8JAJe94gzpcqvmqJJRvMcc
-         zp5w==
+        bh=zzSf3kzEm3Bi3jHZVXl8BU6ulgs+XoBWopRXxn0pTQ8=;
+        b=U9F7Cpx1PtYLEE0/GWC9Rj2tgtfmsnpZ89Em2CEMQqYsMob4Ykj/cf7DnTqsIqVFxV
+         l2ItCEM7i2ka+GzHK5RD2cKQ6DlRLs6V+AZqAHhZnyCUXHYpU8+TTXCpH2kjheWMf1iT
+         5T0xSKySlwhjprSI5/MQYwTNdxsfJTq/O80wEkCqq0csZ4EteK6vKl0/BMSn2Xqpb22s
+         O4enrkute/totX5dKWrtuwgg/0JoxeacLZuk1eF7m2FrboVzb7acqe1UfL0t2KwZ4UOx
+         fE508yZyYJ/Lm2KLUKEJ7WGnVrDu0AXgfZqnHIJomEnv/ieJ7Po6NK7vJJeUkquQ7EDf
+         MhjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=VdWRrIfLJ5YehTrhGa+SiAvEw78dbyxUR0BVUndh/hA=;
-        b=iyjo54wm90RuJ7Rww7J/iSZf+0iahe/6yPdGUBDG808S4ZYnz5sCc4G4BRRM+MBTC0
-         Wt5tE2I2UN+GJCALE1mD3vZJZrn8/aLULohU6ZJUP2vlvfxL9AKthHhKB3A7+DVlDE1Q
-         GuI/Fs6EU6R0kCAfYAu15ZDAcr/Ugq3s7F+swKrzI4ka82xSNk/eVNW0xlOvLbjloZ2c
-         IvhOFroxqKtYZiYI8N8jZRRBf+AB2l92QHETdyyLD51Q19gFb5cxP+Vb68va+a1qNWxA
-         wbD3Tr5CqKXvGVaAsJ7XB86qvYYUJKMd8IjoFjuYSvuK/eTWKThB1lR4p9HY7wfNjSrW
-         Di8A==
-X-Gm-Message-State: AOAM531AOs7TOnyeuGvkZW7eSV8GeTKwsdmL91Ot+s5Cka2kzTw7VikL
-        9wJ4d4EsSnmJU3iEeyGRIzI=
-X-Google-Smtp-Source: ABdhPJxCYQCc/QFNy1lVhvJZpRb0bRTlfZmZ8UOmz8tvN3r+QkFP+OFXBODYNcEW4R/c18rLJQ8u8g==
-X-Received: by 2002:a1c:b783:: with SMTP id h125mr524461wmf.108.1605556108349;
-        Mon, 16 Nov 2020 11:48:28 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id x2sm18560102wru.44.2020.11.16.11.48.27
+        bh=zzSf3kzEm3Bi3jHZVXl8BU6ulgs+XoBWopRXxn0pTQ8=;
+        b=q0zjEi89Kfcc2wexI/FNlTyHvHbcMP2DnpRzsEg0XPSIDFIwc9+NWl4dXQBDBc3CaL
+         7xWrR46alceq5sr/4+/M416h9fbV0XKkLZ1uP2QoADboLPs776g6sfBHIPKfCt2nJM7o
+         bo1MRT8XeSyiKJJewf7HHsn6kPb2IEqr5KfDB+5vwh8aVbMCh3Gzpad0FkQAcCvScbWM
+         wdwVHqAgNyxy9wuapy0SP059AoRlZRLl92keKzeBVaaPkKfGBUJfFil7RYjwvEaURgzV
+         guS8NfL7IQxDjH1nnc9usPpcEW4egkKMNl7+X7Dz6AWSnSfaTIySHwSCqA/WIfZru1kq
+         UWMA==
+X-Gm-Message-State: AOAM532vf24y8AqbqBc+0YrvkIilOCk/3PFEFZo3C4rsIRP8I2J+944V
+        MHM5OiBbLFiM4ss92IXHvETykBhijunx0w==
+X-Google-Smtp-Source: ABdhPJzXXqdlcjLYoiRI487ErszemFTbYKePmE0o4za1ZiFYSOYCGL+4jvztA0XjwnO9AHej1NQyiw==
+X-Received: by 2002:a1c:4e09:: with SMTP id g9mr714959wmh.40.1605558430475;
+        Mon, 16 Nov 2020 12:27:10 -0800 (PST)
+Received: from ?IPv6:2001:a61:24b3:de01:7310:e730:497d:ea6a? ([2001:a61:24b3:de01:7310:e730:497d:ea6a])
+        by smtp.gmail.com with ESMTPSA id n23sm470536wmk.24.2020.11.16.12.27.09
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2020 11:48:27 -0800 (PST)
-Subject: Re: [PATCH] ...: srcfix: 's/^.nf$/.EX/; s/^.fi$/.EE/'
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org,
-        "G . Branden Robinson" <g.branden.robinson@gmail.com>
-References: <20201115140737.247270-1-alx.manpages@gmail.com>
- <f6eafa23-f893-4f78-6316-b7e0ea15489c@gmail.com>
- <a7189561-5550-f06a-b5aa-2123bf8b8c2a@gmail.com>
- <d927462c-d7c1-11c4-2515-e1a8f95d45bb@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <475fc41f-6256-ecaa-a374-2ac2a6cc3dd9@gmail.com>
-Date:   Mon, 16 Nov 2020 20:48:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        Mon, 16 Nov 2020 12:27:09 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] Add script to get modified pages for commit msgs
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+References: <f3253576-63e6-1540-5a07-9b71a10c42e2@gmail.com>
+ <20201116194218.5098-1-alx.manpages@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <1e43d7f8-f512-c7fa-3e1a-455a3bb292ea@gmail.com>
+Date:   Mon, 16 Nov 2020 21:27:07 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <d927462c-d7c1-11c4-2515-e1a8f95d45bb@gmail.com>
+In-Reply-To: <20201116194218.5098-1-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -70,33 +67,74 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi ALex,
 
+On 11/16/20 8:42 PM, Alejandro Colomar wrote:
+> The script can be used this way:
+> 
+> git commit -sm "$(./scripts/modified_pages.sh): Short commit msg"
+> 
+> And then maybe --amend and add a longer message.
+> 
+> This is especially useful for changes to many pages at once,
+> usually when running a script to apply some global changes.
+> 
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
+>  scripts/modified_pages.sh | 34 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 34 insertions(+)
+>  create mode 100755 scripts/modified_pages.sh
+> 
+> diff --git a/scripts/modified_pages.sh b/scripts/modified_pages.sh
+> new file mode 100755
+> index 000000000..f6c4a6cea
+> --- /dev/null
+> +++ b/scripts/modified_pages.sh
+> @@ -0,0 +1,34 @@
+> +#!/bin/bash
+> +
+> +## SPDX-License-Identifier: GPL-2.0-only
+> +########################################################################
+> +##
+> +## (C) Copyright 2020, Alejandro Colomar
+> +## This program is free software; you can redistribute it and/or
+> +## modify it under the terms of the GNU General Public License
+> +## as published by the Free Software Foundation; version 2.
+> +##
+> +## This program is distributed in the hope that it will be useful,
+> +## but WITHOUT ANY WARRANTY; without even the implied warranty of
+> +## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> +## GNU General Public License for more details
+> +## (http://www.gnu.org/licenses/gpl-2.0.html).
+> +##
+> +########################################################################
+> +##
+> +## The output of this script is a
+> +## list of all files with changes staged for commit
+> +## (basename only if the files are within "man?/"),
+> +## separated by ", ".
+> +## Usage:
+> +## git commit -m "$(./scripts/modified_pages.sh): Short message here"
+> +##
+> +
+> +
+> +git status							\
+> +|sed "/Changes not staged for commit:/q"			\
+> +|grep -E "^\s*(modified|deleted|new file):"			\
+> +|sed "s/^.*:\s*/, /"						\
+> +|sed "s%man[1-9]/%%"						\
+> +|tr -d '\n'							\
+> +|sed "s/^, //"
 
-On 11/16/20 11:28 AM, Michael Kerrisk (man-pages) wrote:
-[...]
-> 
-> I took a closer look [1], and it looks like only a minority
-> of these should be changed.
-> 
-> There are some that probably should be fixed (e.g., EXAMPLES)
-> to use .EX/.EE. I just fixed some of those.
-> 
-> But in other cases (e.g., perfmonctl.2, fenv.3), there are
-> inline function prototypes (as in SYNOPSIS) or some cases
-> where .nf/.fi is really being used to stop line filling.
-> 
-> Sometimes, in the latter case, .nf/.fi is being used to do
-> a "poor man's" table (e.g., see ioctl_tty.2); those should
-> be converted to real tables, since the "poor man's" version
-> does not render well in PDF (e.g., ioctl_tty.2). I just
-> fixed a few of the worst cases.
-> 
-> Of the remaining uses of .nf/.fi, I didn't notice any cases that
-> really bothered me. Maybe at this point it's a case of 
-> "move along, there's nothing to see here" :-).
-
-I see, those are not the droids I was looking for :-)
+Thanks. Patch applied!
 
 Cheers,
 
-Alex
+Michael
+
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
