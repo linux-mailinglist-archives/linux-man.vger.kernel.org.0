@@ -2,428 +2,364 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CA80F2B5A61
-	for <lists+linux-man@lfdr.de>; Tue, 17 Nov 2020 08:40:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 603772B5D2D
+	for <lists+linux-man@lfdr.de>; Tue, 17 Nov 2020 11:47:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726792AbgKQHiO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 17 Nov 2020 02:38:14 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34682 "EHLO
+        id S1727878AbgKQKqU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 17 Nov 2020 05:46:20 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35550 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725771AbgKQHiO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Nov 2020 02:38:14 -0500
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com [IPv6:2607:f8b0:4864:20::434])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 08C3BC0613CF;
-        Mon, 16 Nov 2020 23:38:14 -0800 (PST)
-Received: by mail-pf1-x434.google.com with SMTP id 131so6205422pfb.9;
-        Mon, 16 Nov 2020 23:38:14 -0800 (PST)
+        with ESMTP id S1727783AbgKQKqT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Nov 2020 05:46:19 -0500
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 93AA6C0613CF
+        for <linux-man@vger.kernel.org>; Tue, 17 Nov 2020 02:46:19 -0800 (PST)
+Received: by mail-wm1-x332.google.com with SMTP id 23so1750131wmg.1
+        for <linux-man@vger.kernel.org>; Tue, 17 Nov 2020 02:46:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=sender:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=l76dlHaWHc7Dq0KUHTpkImuQmVGCHAejP3hYRowTn7Y=;
-        b=pcCWfSZIES4jLntu5jyJnjl1l8gXPzlA6OJZVcO8jEjaBRqLf8dbv9S9GYigT3qTUC
-         5HMANmvj7pnDRFsOsdcPblDJ6Vg8ZbXpwDbyilda4SlqTLtzJxz7MPBqMV2l3WN0tbw4
-         mQ6W4rhJ5ee41wah7vHUiIZnTgr9jdWZAWD2YmaTWetNHd1u1Qh2b1JaiKw00uIKLbxs
-         +cFg3WEbMNks63lAWAeki0Ilk5bO/pS3CL+m1XaXpvXWzYcOVZz3hJ3/nZdHtMc2UqG+
-         WIgJFeEleo+gWaWXZgV9mUvE/p+DPUyvBThSlDcPbcgJxSyKjnpNEOpwOpUbuFtFNiWe
-         SLgQ==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=muql1Zth7JGtGSQwof/efZmYluZxp8Zw0mzZadTQctU=;
+        b=E6utAUyfv+3AZplkZMEnuwKzVnL/aKn9nv8Rwc1nV3tQgRIgvlAXyJRiR5i7schbJY
+         9rwD+QHNwET83cgJqaIRXByqK7ZgyBLDMYaJMP3GoW18FE9Riybda7UkF5FMt3IMNQb2
+         lZoC+XHNcA2hWYajZmsdnqsv+KV+puGDun40TWNQ1pDPnlM7Oq7fxO6ycRLm54ulkVlX
+         LtJ+AvWxqkIOPPprN5XhQfm1KQMt5NZtZYKae4sVR5gCIdjfCjd7cVxKJuwRK8zQ2VYU
+         lWRWjWlSBtjjTR6TnvJZ9rdA391VWWVZYVQXvTHKOwkYOMYwsoUBHQPmCcZ/44qBrB7s
+         iD8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
-         :mime-version:content-transfer-encoding;
-        bh=l76dlHaWHc7Dq0KUHTpkImuQmVGCHAejP3hYRowTn7Y=;
-        b=tfb59xz3gw3et3IsMQZ0ijxeEvxKQimPcaL098Czc18xYSWRvQKUxwNt+fojxaFLo0
-         3UoePlozKgoOqgREMBbun38fRk3iYPfM2+35pWclBveOv/THsWqWUr8fQqdh9Iv6BBoA
-         xnHsSc4be2ynrQC9xu/WUzhmMdGIxwmjpKgo3limCLsTNiDVCGMroKqJqsG08k7bQgKq
-         bTnbyM5hf4EvH1/FllotMvgBNP+RCbroufMDkZ7Ia4Apa3PZ+bZI2s9ZH4fNGQ1HtQIr
-         iNA/9HqXHZtX+h9dRDmlZ+Z1H/4KETeUxJkzhu2jylt6m33ep6X8CIM9zSitj+vGKjjQ
-         PIZA==
-X-Gm-Message-State: AOAM533C9LDn6GJEOnNIRV8rKHiOL+KwASB8ShzMWBFAaok5Xp1WHxAO
-        5BJDnTH1vF+yjGj59hN2V/Y=
-X-Google-Smtp-Source: ABdhPJze0yLJJu4frrXj1/BPOqjGHWn0knEzuolWnJ5xKdRRuYuzamTe/+Szg3/ZKmjvQyZpy2LwXQ==
-X-Received: by 2002:a63:db18:: with SMTP id e24mr2441696pgg.155.1605598693408;
-        Mon, 16 Nov 2020 23:38:13 -0800 (PST)
-Received: from balhae.roam.corp.google.com ([101.235.31.111])
-        by smtp.gmail.com with ESMTPSA id q200sm20547029pfq.95.2020.11.16.23.38.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2020 23:38:12 -0800 (PST)
-Sender: Namhyung Kim <namhyung@gmail.com>
-From:   Namhyung Kim <namhyung@kernel.org>
-To:     Arnaldo Carvalho de Melo <acme@kernel.org>,
-        Jiri Olsa <jolsa@redhat.com>, mtk.manpages@gmail.com,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Ingo Molnar <mingo@kernel.org>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        LKML <linux-kernel@vger.kernel.org>,
-        Stephane Eranian <eranian@google.com>,
-        Ian Rogers <irogers@google.com>,
-        Adrian Hunter <adrian.hunter@intel.com>,
-        Song Liu <songliubraving@fb.com>,
-        Kan Liang <kan.liang@linux.intel.com>,
-        Andi Kleen <ak@linux.intel.com>,
-        Vince Weaver <vincent.weaver@maine.edu>,
-        linux-perf-users@vger.kernel.org, linux-man@vger.kernel.org,
-        Namhyung Kim <namhyung@gmail.com>
-Subject: [PATCH v5] perf_event_open.2: Update man page with recent changes
-Date:   Tue, 17 Nov 2020 16:37:58 +0900
-Message-Id: <20201117073758.346744-1-namhyung@kernel.org>
-X-Mailer: git-send-email 2.29.2.299.gdc1121823c-goog
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=muql1Zth7JGtGSQwof/efZmYluZxp8Zw0mzZadTQctU=;
+        b=fLKbcFl9Y4/m9LsycljmiQyLqaCURhqxI/SpLYx9jz29O0014V6FkCACnLiR7BWjkk
+         /Lnl/0neMIg0b4SC8Mtbe0FS/eLgYj2NZ3o6ukeCmAHFET+apRLOY2B6UaXuyPchqDL0
+         NFQnLVLXKSidowdhNauGKbFRpkpL0qpCrgF1B1PU50qE6n8/fqvKyOc+vvD4Ry4ZKI/r
+         WOUXfPVr5xIzRzpwLrv8IxgBdKFu1ga76LzIXqHsyoTjEoJP96Fu1Mm8oSrE6vDv5pUX
+         gn1URVfPxmAsRX5Q++TBG2075+b9LiVuoQCBTAR9Ow7xgOa+V0yqL6t32CWR5tC6AGI5
+         mYnA==
+X-Gm-Message-State: AOAM533Y1veOYQGiozDNuT4bgQ/LEmwkAVE9eG6sY3mLY37WtGb419eO
+        2vS4Ed5KRi9RvLxSt9i5WST12D9CSAxwRA==
+X-Google-Smtp-Source: ABdhPJxUkBunHBJAsB0Vae15WS1AjJ5wp9c9HSxInFD2IHlVYQMaeJYMs34jv21aVW2zVHJqNCQp0g==
+X-Received: by 2002:a1c:6043:: with SMTP id u64mr3535282wmb.166.1605609977870;
+        Tue, 17 Nov 2020 02:46:17 -0800 (PST)
+Received: from ?IPv6:2001:a61:24b3:de01:7310:e730:497d:ea6a? ([2001:a61:24b3:de01:7310:e730:497d:ea6a])
+        by smtp.gmail.com with ESMTPSA id a144sm3166306wmd.47.2020.11.17.02.46.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2020 02:46:14 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: sigaction.2: clarification for SA_NODEFER needed
+To:     Dave Martin <Dave.Martin@arm.com>,
+        Heinrich Schuchardt <xypron.glpk@gmx.de>
+References: <e18cbe1f-5dcf-c717-5790-912af6bbfa41@gmx.de>
+ <24b18d8a-84cf-17c6-12cf-f2d0c979b6ad@gmail.com>
+ <70217a4d-9525-a186-4560-02216dd4546a@gmx.de>
+ <90f0f681-0770-9975-f370-415300d29fa9@gmail.com>
+ <16CBDA59-F868-47E5-B88F-C9CF235BF8BD@gmx.de> <20201116132141.GW6882@arm.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <3fac10ea-7fed-739b-4974-09845f34867f@gmail.com>
+Date:   Tue, 17 Nov 2020 11:46:11 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
+In-Reply-To: <20201116132141.GW6882@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Namhyung Kim <namhyung@gmail.com>
+Hi Dave,
 
-There are lots of changes as usual.  I've tried to fill some missing
-bits in the man page but it'd be nice if you could take a look and put
-more info there.
+Thanks a heap for taking a look at the text!
 
-Signed-off-by: Namhyung Kim <namhyung@gmail.com>
-[alx: ffix + tfix]
-Cowritten-by : Alejandro Colomar <alx.manpages@gmail.com>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man2/perf_event_open.2 | 280 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 278 insertions(+), 2 deletions(-)
+On 11/16/20 2:21 PM, Dave Martin wrote:
+> On Thu, Nov 12, 2020 at 09:57:35PM +0100, Heinrich Schuchardt wrote:
+>> Am 12. November 2020 21:45:56 MEZ schrieb "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>:
+>>> On 11/12/20 5:25 PM, Heinrich Schuchardt wrote:
+>>>
+>>> [...]
+>>>
+>>>> Hello Michael,
+>>>>
+>>>> this text is very helpful.
+>>>>
+>>>> "Signal mask and pending signals" already mentions that the signal
+>>> mask
+>>>> controls the blocking of signals. But maybe you could reiterate this
+>>> in
+>>>> 1d) and in the note below 5).
+>>>
+>>> Yes, that perhaps does not hurt. Some light tweaks:
+>>>
+>>>   Execution of signal handlers
+>>>     Whenever  there is a transition from kernel-mode to user-mode exe‐
+>>>     cution (e.g., on return from a system  call  or  scheduling  of  a
+>>>     thread onto the CPU), the kernel checks whether there is a pending
+>>>     signal for which the process has established a signal handler.  If
+>>>       there is such a pending signal, the following steps occur:
+>>>
+>>>     1. The  kernel performs the necessary preparatory steps for execu‐
+>>>          tion of the signal handler:
+>>>
+>>>          a) The signal is removed from the set of pending signals.
+>>>
+>>>        b) If the thread has defined an alternate signal  stack  (using
+>>>             sigaltstack(2)), then that stack is installed.
+>>>
+>>>        c) Various  pieces  of  signal-related context are saved into a
+>>>           "hidden" frame that is created on the stack.  The saved  in‐
+>>>             formation includes:
+> 
+> Can we delete "hidden" here?  (In a sense it's actually less hidden than
+> a typical compiler function frame, since we do provide an explicit
+> interface for poking about in the signal frame -- you can't do that with
+> function frames).
 
-diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
-index e7b0aa132..62731bbac 100644
---- a/man2/perf_event_open.2
-+++ b/man2/perf_event_open.2
-@@ -247,8 +247,17 @@ struct perf_event_attr {
-                                    due to exec */
-           use_clockid    :  1,  /* use clockid for time fields */
-           context_switch :  1,  /* context switch data */
-+          write_backward :  1,  /* Write ring buffer from end
-+                                   to beginning */
-+          namespaces     :  1,  /* include namespaces data */
-+          ksymbol        :  1,  /* include ksymbol events */
-+          bpf_event      :  1,  /* include bpf events */
-+          aux_output     :  1,  /* generate AUX records
-+                                   instead of events */
-+          cgroup         :  1,  /* include cgroup events */
-+          text_poke      :  1,  /* include text poke events */
- 
--          __reserved_1   : 37;
-+          __reserved_1   : 30;
- 
-     union {
-         __u32 wakeup_events;    /* wakeup every n events */
-@@ -867,6 +876,20 @@ is set higher than zero then the register
- values returned are those captured by
- hardware at the time of the sampled
- instruction's retirement.
-+.TP
-+.BR PERF_SAMPLE_PHYS_ADDR " (since Linux 4.13)"
-+.\" commit fc7ce9c74c3ad232b084d80148654f926d01ece7
-+Records physical address of data like in
-+.B PERF_SAMPLE_ADDR .
-+.TP
-+.BR PERF_SAMPLE_CGROUP " (since Linux 5.7)"
-+.\" commit 96aaab686505c449e24d76e76507290dcc30e008
-+Records (perf_event) cgroup id of the process.
-+This corresponds to the
-+.I id
-+field in the
-+.B PERF_RECORD_CGROUP
-+event.
- .RE
- .TP
- .I read_format
-@@ -1202,6 +1225,49 @@ information even with strict
- .I perf_event_paranoid
- settings.
- .TP
-+.IR write_backward " (since Linux 4.6)"
-+.\" commit 9ecda41acb971ebd07c8fb35faf24005c0baea12
-+This makes the ring buffer is written from end to beginning.
-+This is to support reading from overwritable ring buffer.
-+.TP
-+.IR namespaces " (since Linux 4.11)"
-+.\" commit e422267322cd319e2695a535e47c5b1feeac45eb
-+This enables the generation of
-+.B PERF_RECORD_NAMESPACES
-+records when a task is entering to a new namespace.
-+Each namespace has a combination of device and inode numbers.
-+.TP
-+.IR ksymbol " (since Linux 5.0)"
-+.\" commit 76193a94522f1d4edf2447a536f3f796ce56343b
-+This enables the generation of
-+.B PERF_RECORD_KSYMBOL
-+records when a new kernel symbols are registered or unregistered.
-+This is analyzing dynamic kernel functions like eBPF.
-+.TP
-+.IR bpf_event " (since Linux 5.0)"
-+.\" commit 6ee52e2a3fe4ea35520720736e6791df1fb67106
-+This enables the generation of
-+.B PERF_RECORD_BPF_EVENT
-+records when a eBPF program is loaded or unloaded.
-+.TP
-+.IR auxevent " (since Linux 5.4)"
-+.\" commit ab43762ef010967e4ccd53627f70a2eecbeafefb
-+This allows normal (non-AUX) events to generate data for AUX events
-+if the hardware supports it.
-+.TP
-+.IR cgroup " (since Linux 5.7)"
-+.\" commit 96aaab686505c449e24d76e76507290dcc30e008
-+This enables the generation of
-+.B PERF_RECORD_CGROUP
-+records when a new cgroup is created (and activated).
-+.TP
-+.IR text_poke " (since Linux 5.8)"
-+.\" commit e17d43b93e544f5016c0251d2074c15568d5d963
-+This enables the generation of
-+.B PERF_RECORD_TEXT_POKE
-+records when there's a changes to the kernel text
-+(i.e. self-modifying code).
-+.TP
- .IR wakeup_events ", " wakeup_watermark
- This union sets how many samples
- .RI ( wakeup_events )
-@@ -2131,7 +2197,7 @@ struct {
-     u64    nr;          /* if PERF_SAMPLE_CALLCHAIN */
-     u64    ips[nr];     /* if PERF_SAMPLE_CALLCHAIN */
-     u32    size;        /* if PERF_SAMPLE_RAW */
--    char  data[size];   /* if PERF_SAMPLE_RAW */
-+    char   data[size];  /* if PERF_SAMPLE_RAW */
-     u64    bnr;         /* if PERF_SAMPLE_BRANCH_STACK */
-     struct perf_branch_entry lbr[bnr];
-                         /* if PERF_SAMPLE_BRANCH_STACK */
-@@ -2148,6 +2214,8 @@ struct {
-     u64    abi;         /* if PERF_SAMPLE_REGS_INTR */
-     u64    regs[weight(mask)];
-                         /* if PERF_SAMPLE_REGS_INTR */
-+    u64    phys_addr;   /* if PERF_SAMPLE_PHYS_ADDR */
-+    u64    cgroup;      /* if PERF_SAMPLE_CGROUP */
- };
- .EE
- .in
-@@ -2570,6 +2638,18 @@ attr field.
- The number of values is the number of bits set in the
- .I sample_regs_intr
- bit mask.
-+.TP
-+.I phys_addr
-+If the
-+.B PERF_SAMPLE_PHYS_ADDR
-+flag is set, then 64-bit physical address is recorded.
-+.TP
-+.I cgroup
-+If the
-+.B PERF_SAMPLE_CGROUP
-+flag is set, then 64-bit cgroup id (for the perf_event subsystem) is recorded.
-+To get the pathname of the cgroup, the id should match to one in a
-+.B PERF_RECORD_CGROUP .
- .RE
- .TP
- .B PERF_RECORD_MMAP2
-@@ -2776,6 +2856,202 @@ or next (if switching out) process on the CPU.
- The thread ID of the previous (if switching in)
- or next (if switching out) thread on the CPU.
- .RE
-+.TP
-+.BR PERF_RECORD_NAMESPACES " (since Linux 4.11)"
-+.\" commit e422267322cd319e2695a535e47c5b1feeac45eb
-+This record includes various namespace information of a process.
-+.IP
-+.in +4n
-+.EX
-+struct {
-+    struct perf_event_header header;
-+    u32 pid;
-+    u32 tid;
-+    u64 nr_namespaces;
-+    struct { u64 dev, inode } [nr_namespaces];
-+    struct sample_id sample_id;
-+};
-+.EE
-+.in
-+.RS
-+.TP
-+.I pid
-+is the process ID
-+.TP
-+.I tid
-+is the thread ID
-+.TP
-+.I nr_namespace
-+is the number of namespaces in this record
-+.RE
-+.IP
-+Each namespace has
-+.I dev
-+and
-+.I inode
-+fields and is recorded in the
-+fixed position like below:
-+.RS
-+.TP
-+.BR NET_NS_INDEX = 0
-+Network namespace
-+.TP
-+.BR UTS_NS_INDEX = 1
-+UTS namespace
-+.TP
-+.BR IPC_NS_INDEX = 2
-+IPC namespace
-+.TP
-+.BR PID_NS_INDEX = 3
-+PID namespace
-+.TP
-+.BR USER_NS_INDEX = 4
-+User namespace
-+.TP
-+.BR MNT_NS_INDEX = 5
-+Mount namespace
-+.TP
-+.BR CGROUP_NS_INDEX = 6
-+Cgroup namespace
-+.RE
-+.TP
-+.BR PERF_RECORD_KSYMBOL " (since Linux 5.0)"
-+.\" commit 76193a94522f1d4edf2447a536f3f796ce56343b
-+This record indicates kernel symbol register/unregister events.
-+.IP
-+.in +4n
-+.EX
-+struct {
-+    struct perf_event_header header;
-+    u64 addr;
-+    u32 len;
-+    u16 ksym_type;
-+    u16 flags;
-+    char name[];
-+    struct sample_id sample_id;
-+};
-+.EE
-+.in
-+.RS
-+.TP
-+.I addr
-+is the address of the kernel symbol
-+.TP
-+.I len
-+is the length of the kernel symbol
-+.TP
-+.I ksym_type
-+is the type of the kernel symbol.
-+Currently following types are available:
-+.RS
-+.TP
-+.B PERF_RECORD_KSYMBOL_TYPE_BPF
-+The kernel symbols is a BPF function.
-+.RE
-+.TP
-+.I flags
-+If the
-+.B PERF_RECORD_KSYMBOL_FLAGS_UNREGISTER
-+is set, then this event is for unregistering the kernel symbol.
-+.RE
-+.TP
-+.BR PERF_RECORD_BPF_EVENT " (since Linux 5.0)"
-+.\" commit 6ee52e2a3fe4ea35520720736e6791df1fb67106
-+This record indicates BPF program is loaded or unloaded.
-+.IP
-+.in +4n
-+.EX
-+struct {
-+    struct perf_event_header header;
-+    u16 type;
-+    u16 flags;
-+    u32 id;
-+    u8 tag[BPF_TAG_SIZE];
-+    struct sample_id sample_id;
-+};
-+.EE
-+.in
-+.RS
-+.TP
-+.I type
-+is one of the following values:
-+.RS
-+.TP
-+.B PERF_BPF_EVENT_PROG_LOAD
-+A BPF program is loaded
-+.TP
-+.B PERF_BPF_EVENT_PROG_UNLOAD
-+A BPF program is unloaded
-+.RE
-+.TP
-+.I id
-+is the id of the BPF program.
-+.TP
-+.I tag
-+is the tag of the BPF program.
-+Currently,
-+.B BPF_TAG_SIZE
-+is defined as 8.
-+.RE
-+.TP
-+.BR PERF_RECORD_CGROUP " (since Linux 5.7)"
-+.\" commit 96aaab686505c449e24d76e76507290dcc30e008
-+This record indicates a new cgroup is created and activated.
-+.IP
-+.in +4n
-+.EX
-+struct {
-+    struct perf_event_header header;
-+    u64 id;
-+    char path[];
-+    struct sample_id sample_id;
-+};
-+.EE
-+.in
-+.RS
-+.TP
-+.I id
-+is the cgroup identifier.
-+This can be also retreived by
-+.BR name_to_handle_at (2)
-+on the cgroup path (as a file handle).
-+.TP
-+.I path
-+is the path of the cgroup from the root.
-+.RE
-+.TP
-+.BR PERF_RECORD_TEXT_POKE " (since Linux 5.8)"
-+.\" commit e17d43b93e544f5016c0251d2074c15568d5d963
-+This record indicates a change in the kernel text.
-+This includes addition and removal of the text
-+and the corresponding length is zero in this case.
-+.IP
-+.in +4n
-+.EX
-+struct {
-+    struct perf_event_header header;
-+    u64 addr;
-+    u16 old_len;
-+    u16 new_len;
-+    u8 bytes[];
-+    struct sample_id sample_id;
-+};
-+.EE
-+.in
-+.RS
-+.TP
-+.I addr
-+is the address of the change
-+.TP
-+.I old_len
-+is the old length
-+.TP
-+.I new_len
-+is the new length
-+.TP
-+.I bytes
-+contains old bytes immediately followed by new bytes.
-+.RE
- .RE
- .SS Overflow handling
- Events can be set to notify when a threshold is crossed,
+Yes, fair enough. I removed "hidden".
+
+>>>           + the  program  counter  register  (i.e., the address of the
+>>>             next instruction in the main program that should  be  exe‐
+>>>               cuted when the signal handler returns);
+> 
+> You might also want to add something like:
+> 
+> "Architecture-specific register state required for resuming the
+> interrupted program."
+
+Added.
+
+>>>             + the thread's current signal mask;
+>>>
+>>>             + the thread's alternate signal stack settings.
+>>>
+>>>        d) The  thread's  signal  mask is adjusted by adding the signal
+>>>           (unless the handler was  established  using  the  SA_NODEFER
+>>>           flag)  as  well  as  any  additional  signals  specified  in
+>>>           act->sa_mask when sigaction(2) was  called.   These  signals
+>>>             are thus blocked while the handler executes.
+> 
+> I'd delete "adjusted" since it adds nothing to the meaning.
+> 
+> Would this also be more readable if the logic is flipped around:
+
+Well, ummmm, yes it would.
+
+> --8<--
+> 
+> Any signals specified in act->sa_mask when registering the handler are
+> added to the thread's signal mask.  The signal being delivered is also
+> added to the signal mask, unless SA_NODEFER was specified when
+> registering the handler.
+
+Thanks. Adjusted pretty much as you wrote it.
+
+> -->8--
+> 
+>>>
+>>>     2. The  kernel  constructs  a  frame for the signal handler on the
+>>>        stack.  Within that frame, the return address points to a piece
+>>>        of  user-space  code called the signal trampoline (described in
+>>>          sigreturn(2)).
+> 
+> Not all architectures put the function return information on the stack.
+> 
+> The kernel has to explicitly fix up the pc to run the signal handler
+> here -- it doesn't happen by magic.  So maybe say for (2):
+> 
+> --8<--
+> 
+> The kernel sets the program counter for the thread to point to the first
+> instruction of the signal handler, and configures the return address for
+> this function to point to a piece of user-space code called the signal
+> trampoline [...].
+
+Thanks. Changed pretty much as you suggest.
+
+> -->8--
+> 
+>>>
+>>>     3. The kernel passes control back to user-space,  where  execution
+>>>          commences at the start of the signal handler function.
+>>>
+>>>     4. When  the  signal handler returns, control passes to the signal
+>>>          trampoline code.
+>>>
+>>>     5. The signal trampoline calls sigreturn(2), a  system  call  that
+>>>        uses the information in the "hidden" stack frame to restore the
+>>>        thread's signal mask and  alternate  stack  settings  to  their
+>>>        state before the signal handler was called.  Upon completion of
+>>>        the call to sigreturn(2), the kernel transfers control back  to
+>>>        user  space,  and the thread recommences execution at the point
+>>>          where it was interrupted by the signal handler.
+>>>
+>>>     Note that if the signal handler does not return (e.g., control  is
+>>>     transferred  out  of  the  handler  using sigsetjmp(3) or swapcon‐
+> 
+> siglongjmp(), not sigsetjmp().
+
+Yep, I spotted that one already and fixed it.
+
+>>>     text(3), or the handler executes a new  program  with  execve(2)),
+>>>     then the final step is not performed.  In particular, in such sce‐
+>>>     narios it is the programmer's responsibility to restore the  state
+>>>     of the signal mask, if it is desired unblock the signals that were
+>>>       blocked on entry to the signal handler.
+> 
+> I'm pretty sure sigsetjmp(), and probably setcontext(), _do_ restore the
+> signal mask.
+
+I'd already made adjustment here to note that siglongjmp() may or may
+not restore the signal mask. (See below.)
+
+And yes, you are right that those APIs restore the signal mask.
+I think I got confused because, as far as I know, swapcontext()
+and setcontext() do not restore the alternate signal stack settings. 
+(There is no call to sigaltstack() in the glibc implementations, 
+nor to sigreturn()--at least not on most implementations.) 
+I'm going to skirt the issue by dropping mention of *context().)
+
+Combining your other reply here:
+
+>>>> Is there a function to change the signal mask without leaving the
+>>> handler?
+>>>
+>>> sigprocmask(2).
+>>
+>> You might want to add a link to the function in the note section.
+> 
+> Actually, this is best avoided IMHO:
+> 
+> The behaviour of sigprocmask() is unspecified in multithreaded programs,
+> while pthread_sigmask() is not specified to be safe in signal handlers.
+
+I'm not sure I agree. sigprocmask() is explicitly specified as being 
+async-signal-safe, which suggests that POSIX blesses its use, at least
+in single-threaded programs. And notwithstanding what POSIX says, 
+sigprocmask() is safe on Linux/glibc in a MT process (since
+pthread_sigmask() is just a simple wrapper for sigprocmask()), and
+I'd guess the same is true on many (most?) other implementations as 
+well.
+
+> (Yay, POSIX.)
+> 
+> For these reasons, execve()'ing directly from a signal handler is not a
+> great idea.  It would probably be better to escape from the signal
+> handler with siglongjmp() or setcontext(), with the target sigjmp_buf or
+> ucontext previously set up do the execve().
+
+Well, setcontext() is no longer in POSIX.... (It was removed in
+POSIX.1-2008.) And the specification of longjmp() says:
+
+       It is recommended that applications do not call longjmp() or  sig‐
+       longjmp()  from  signal handlers. To avoid undefined behavior when
+       calling these functions from a  signal  handler,  the  application
+       needs to ensure one of the following two things:
+
+        1. After  the  call to longjmp() or siglongjmp() the process only
+           calls async-signal-safe functions and does not return from the
+           initial call to main().
+
+        2. Any  signal  whose  handler calls longjmp() or siglongjmp() is
+           blocked during every call to a non-async-signal-safe function,
+           and  no  such  calls are made after returning from the initial
+           call to main().
+
+So, in my reading of it, you're no better off than calling
+sigprocmask() from the signal handler. Do you agree?
+
+> With SA_SIGINFO, you can also update uc->uc_sigmask inside the signal
+> handler if you want to change the signal mask on return.  But that's
+> awkward to do portably, since sigaddset() and sigdelset() are not
+> specified to be safe in signal handlers either.
+
+I think you've misremembered here. At least as far back as 
+POSIX.1-2001, sigaddset() and sigdelset() are specified as
+async-signal-safe.
+
+By now, the text has evolved to:
+
+[[
+   Execution of signal handlers
+       Whenever there is a transition from kernel-mode to user-mode  exe‐
+       cution  (e.g.,  on  return  from  a system call or scheduling of a
+       thread onto the CPU), the kernel checks whether there is a pending
+       signal for which the process has established a signal handler.  If
+       there is such a pending signal, the following steps occur:
+
+       1. The kernel performs the necessary preparatory steps for  execu‐
+          tion of the signal handler:
+
+          a) The signal is removed from the set of pending signals.
+
+          b) If  the  signal  handler  was  installed by a call to sigac‐
+             tion(2) that specified the SA_ONSTACK flag  and  the  thread
+             has   defined  an  alternate  signal  stack  (using  sigalt‐
+             stack(2)), then that stack is installed.
+
+          c) Various pieces of signal-related context are  saved  into  a
+             special  frame  that is created on the stack.  The saved in‐
+             formation includes:
+
+             + the program counter register (i.e.,  the  address  of  the
+               next  instruction  in the main program that should be exe‐
+               cuted when the signal handler returns);
+
+             + architecture-specific register state required for resuming
+               the interrupted program;
+
+             + the thread's current signal mask;
+
+             + the thread's alternate signal stack settings.
+
+          d) Any  signals  specified in act->sa_mask when registering the
+             handler with sigprocmask(2) are added to the thread's signal
+             mask.   The signal being delivered is also added to the sig‐
+             nal mask, unless SA_NODEFER was specified  when  registering
+             the  handler.  These signals are thus blocked while the han‐
+             dler executes.
+
+       2. The kernel constructs a frame for the  signal  handler  on  the
+          stack.   The  kernel sets the program counter for the thread to
+          point to the first instruction of the signal handler  function,
+          and configures the return address for that function to point to
+          a piece of user-space code known as the signal trampoline  (de‐
+          scribed in sigreturn(2)).
+
+       3. The  kernel  passes control back to user-space, where execution
+          commences at the start of the signal handler function.
+
+       4. When the signal handler returns, control passes to  the  signal
+          trampoline code.
+
+       5. The  signal  trampoline  calls sigreturn(2), a system call that
+          uses the information in the stack frame created in  step  1  to
+          restore  the  thread's signal mask and alternate stack settings
+          to their state before the signal handler was called.  Upon com‐
+          pletion  of the call to sigreturn(2), the kernel transfers con‐
+          trol back to user space, and the thread  recommences  execution
+          at the point where it was interrupted by the signal handler.
+
+       Note  that if the signal handler does not return (e.g., control is
+       transferred out of the handler using siglongjmp(3), or the handler
+       executes a new program with execve(2)), then the final step is not
+       performed.  In particular, in such scenarios it  is  the  program‐
+       mer's  responsibility to restore the state of the signal mask (us‐
+       ing sigprocmask(2)), if it is desired to unblock the signals  that
+       were  blocked  on  entry  to  the signal handler.  (Note that sig‐
+       longjmp(3) may or may not restore the signal  mask,  depending  on
+       the savesigs value that was specified in the corresponding call to
+       sigsetjmp(3).)
+]]
+
+Thanks,
+
+Michael
+
+
 -- 
-2.29.2.299.gdc1121823c-goog
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
