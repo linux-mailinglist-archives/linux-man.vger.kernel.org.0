@@ -2,442 +2,352 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8A7EB2B7289
-	for <lists+linux-man@lfdr.de>; Wed, 18 Nov 2020 00:38:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 75E6F2B72AF
+	for <lists+linux-man@lfdr.de>; Wed, 18 Nov 2020 00:53:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728802AbgKQXin (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 17 Nov 2020 18:38:43 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42776 "EHLO
+        id S1726189AbgKQXwf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 17 Nov 2020 18:52:35 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44932 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725943AbgKQXim (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Nov 2020 18:38:42 -0500
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7AE5CC0613CF;
-        Tue, 17 Nov 2020 15:38:42 -0800 (PST)
-Received: by mail-wr1-x443.google.com with SMTP id m6so8207896wrg.7;
-        Tue, 17 Nov 2020 15:38:42 -0800 (PST)
+        with ESMTP id S1725964AbgKQXwf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Nov 2020 18:52:35 -0500
+Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com [IPv6:2607:f8b0:4864:20::d43])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3CDA4C0617A6
+        for <linux-man@vger.kernel.org>; Tue, 17 Nov 2020 15:52:35 -0800 (PST)
+Received: by mail-io1-xd43.google.com with SMTP id i18so90479ioa.3
+        for <linux-man@vger.kernel.org>; Tue, 17 Nov 2020 15:52:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=eYsGvnGfok9nqyvmTsx0B3hd1/UTNIvaTUnOR7h8Y6o=;
-        b=ps4LSafsCdKko1gl0ct8VPBYtOFOGwu37k3ewAfiuhGyIxoCA7Cy/Ok/8+jqLxA3X8
-         N8uhNGUaxOBBLQdHx4wmNLQICRxZTjryP30Z+Leb9TIGUar6pN+A+X5+4EbWlKktee8T
-         1K4+kRlC2klXzb7ZW5khpN2zogAF6JLhgAQ3XZNWjeXSAti9UP0/d/J/ofsYejW/tqBC
-         o8w8LchvOMwKJ/zxcdrdnr1+BsNdX/+b0XDZwSjfWPPwoXI/VvFDxJB8w03YYseYBAFE
-         7wGmo4ILQWkR7OgyBWPZP8/lXefJSti4wn+RBmpsaeHrA3wA3XF6LzdZFE+jxu4WD9c6
-         xrbg==
+        d=google.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=gk1CMu3dtFst57e5bJf5rsNpJ7gvtB9mEDWZEDCN6ko=;
+        b=MbgcJf7gS5AZJIWTUiEzNxurPub3nIfRbGt89vIT6m1hchqMWtHCztShdcJBKw9frB
+         agsBq1H05UCxG/qa9REarQ6DF/nvYQUaHYJzqw474thcJogcG99D7SOn928wD8JGnNXN
+         axlEZRKIdz6NovwkqM04CUJbGJUTT4fzmKtew+IAE7OkmHvizReMS0gosjK0iF4SuyyP
+         GsVJm8hnClXpNnSRHZOoQa3MMJKaOxWVZuUbRWlXMOBqthBnZ6p84JrhfoRX4imS0imh
+         8zz3NkinYFtw0JvtUFGRsPKWdxxXnFiaotN2x/c559qb6w1yC3cWyW6ALwGhB+Os4uoM
+         jYdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=eYsGvnGfok9nqyvmTsx0B3hd1/UTNIvaTUnOR7h8Y6o=;
-        b=UdRnkFXXfPEqq4hKZs1fYTlEwI87ASlKpRy9Ta1Pq+gnKlVQJaTVgIYKNUyW5InTHB
-         aKurdY0pbpOiuYIiv+bZ8WU0b+mJsvcqZTW9rbi0L0nJBS1YfCLRUboYs2f8NpV4Rn8S
-         ztUtL5Tt0Cbz2RNQ5W8jX+G+Ks8/A/Bt4L9guLUjUfrkkJWSCBdIp2vTUesWJ5TU1OS1
-         Hcv4Cw0jJ8lDLOCYoWBH7gt7ovmIPslVNH5U3hqypB1ANLvIyxUl+Swu4b2vQhvhfuq1
-         ap29r75j6gqptcWmcNqEqBBqAChSVydTpW+69J82wuJEDwdGZuGXzhmpVXWBN6A6+XgG
-         mxIA==
-X-Gm-Message-State: AOAM53118m/hE8HUy5NKCE49GI2Yt2E+qEDAIBfNkQ1L2trLReaDr15m
-        f+HpKiO57Y5JKJIWkTM1l9k=
-X-Google-Smtp-Source: ABdhPJyI0M8tK8vH48FSZwne0ewKND1kRXGQaJagXTez4XWx5mh2bwAMVf+EWrcx+IZjcTYPa4BcIQ==
-X-Received: by 2002:adf:fed1:: with SMTP id q17mr1814391wrs.393.1605656321166;
-        Tue, 17 Nov 2020 15:38:41 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id e3sm13576139wro.90.2020.11.17.15.38.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2020 15:38:40 -0800 (PST)
-Subject: Re: [PATCH v5] perf_event_open.2: Update man page with recent changes
-To:     Namhyung Kim <namhyung@kernel.org>, mtk.manpages@gmail.com
-Cc:     Arnaldo Carvalho de Melo <acme@kernel.org>,
-        Jiri Olsa <jolsa@redhat.com>, Ingo Molnar <mingo@kernel.org>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        LKML <linux-kernel@vger.kernel.org>,
-        Stephane Eranian <eranian@google.com>,
-        Ian Rogers <irogers@google.com>,
-        Adrian Hunter <adrian.hunter@intel.com>,
-        Song Liu <songliubraving@fb.com>,
-        Kan Liang <kan.liang@linux.intel.com>,
-        Andi Kleen <ak@linux.intel.com>,
-        Vince Weaver <vincent.weaver@maine.edu>,
-        linux-perf-users@vger.kernel.org, linux-man@vger.kernel.org,
-        Namhyung Kim <namhyung@gmail.com>
-References: <20201117073758.346744-1-namhyung@kernel.org>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <eea51ae5-d7d1-7dbc-04c1-8ae72b2c0754@gmail.com>
-Date:   Wed, 18 Nov 2020 00:38:39 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=gk1CMu3dtFst57e5bJf5rsNpJ7gvtB9mEDWZEDCN6ko=;
+        b=uiwnOWcCIxzK3ME6JCVe0GuvhMZ9lAzKMqB7v6DBBPCaJeO1931/ufWxWjmzUCLb9/
+         WLLyaR0OFoMjmESwQJJXDISfesZ0KkBamaTdDSTHtalpcy2nKHJr1f9lLv2KA75ejgMB
+         iyZjmMugxUUg5U7JdwdmsyEj4cP/cMrbQmCuCHGPaVhz6xUWrrqv1F9bzvWdRqAvpXdR
+         /2PGE2vRTEWWlGzACVygKznQgkxtEBvkU1w2ZFQtBTihR4KIQMg+QLsPxLg/s5kA3djb
+         v2Og9RkV58b98CsOl4o5Cg7+QIVuVVVdhaDkShADfy3INHF/Gzk/zeauARGMITdPk7gK
+         G8jQ==
+X-Gm-Message-State: AOAM530/r7TQqpFab/s0RhPpssAdV7Oa5Pt8mUkqrwogxdaAjaWZd7Xf
+        FsgU88WQ17Ls+V2MygndaqxwR+NTLAsf2RQXtYHCVg==
+X-Google-Smtp-Source: ABdhPJwqwjfOLJCu4GWXfntJzb3c+bRxVFmS5CkSM4EicmFs724+CmgiYRiH9n3bTui4yZzgVvkHWxZfH7iFKDxkrqA=
+X-Received: by 2002:a05:6638:1035:: with SMTP id n21mr5768577jan.107.1605657154127;
+ Tue, 17 Nov 2020 15:52:34 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20201117073758.346744-1-namhyung@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20201114014132.2439310-1-pcc@google.com> <20201116125709.GV6882@arm.com>
+In-Reply-To: <20201116125709.GV6882@arm.com>
+From:   Peter Collingbourne <pcc@google.com>
+Date:   Tue, 17 Nov 2020 15:52:23 -0800
+Message-ID: <CAMn1gO7-bfs+srjxG7Jxk7yq1C1iTar0tEb8TJV9giLOOdr=fA@mail.gmail.com>
+Subject: Re: [PATCH] sigaction.2: Document SA_EXPOSE_TAGBITS and the flag
+ support detection protocol
+To:     Dave Martin <Dave.Martin@arm.com>
+Cc:     Catalin Marinas <catalin.marinas@arm.com>,
+        Evgenii Stepanov <eugenis@google.com>,
+        Kostya Serebryany <kcc@google.com>,
+        Vincenzo Frascino <vincenzo.frascino@arm.com>,
+        Will Deacon <will@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+        "Eric W. Biederman" <ebiederm@xmission.com>,
+        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Linux ARM <linux-arm-kernel@lists.infradead.org>,
+        Kevin Brodsky <kevin.brodsky@arm.com>,
+        Andrey Konovalov <andreyknvl@google.com>,
+        Linux API <linux-api@vger.kernel.org>,
+        Helge Deller <deller@gmx.de>,
+        David Spickett <david.spickett@linaro.org>,
+        linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On Mon, Nov 16, 2020 at 4:57 AM Dave Martin <Dave.Martin@arm.com> wrote:
+>
+> On Fri, Nov 13, 2020 at 05:41:32PM -0800, Peter Collingbourne wrote:
+> > ---
+> > These features are implemented in this patch series:
+> >   https://lore.kernel.org/linux-arm-kernel/cover.1605235762.git.pcc@google.com/
+> > which is still under review, so the patch should not be applied
+> > yet.
+>
+> Good to see this -- I was vaguely intending to write something when the
+> patch landed, so this saves me a job :)
+>
+> >  man2/sigaction.2 | 62 ++++++++++++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 62 insertions(+)
+> >
+> > diff --git a/man2/sigaction.2 b/man2/sigaction.2
+> > index 6a8142324..82fb69e26 100644
+> > --- a/man2/sigaction.2
+> > +++ b/man2/sigaction.2
+> > @@ -250,6 +250,19 @@ This flag is meaningful only when establishing a signal handler.
+> >  .\" .I sa_sigaction
+> >  .\" field was added in Linux 2.1.86.)
+> >  .\"
+> > +.TP
+> > +.BR SA_UNSUPPORTED " (since Linux 5.x)"
+> > +This flag bit will never be supported by the kernel. It is used as
+> > +part of the flag support detection protocol described below.
+>
+> It is supported, just with a special behaviour that only affects the
+> sa_flags field of oact.
+>
+> It's also a bit wried to say that SA_UNSUPPORTED is supported "since some
+> specific version of Linux."  If we define the special behaviour for this
+> flag as "being supported", then saying "since Linux 5.x" just works
+> naturally.
 
+If we define SA_UNSUPPORTED using something like the language that you
+suggest below, maybe we can retroactively consider SA_UNSUPPORTED to
+have been supported since the beginning of time, so we don't need a
+"since" clause here.
 
-On 11/17/20 8:37 AM, Namhyung Kim wrote:
-> From: Namhyung Kim <namhyung@gmail.com>
-> 
-> There are lots of changes as usual.  I've tried to fill some missing
-> bits in the man page but it'd be nice if you could take a look and put
-> more info there.
-> 
-> Signed-off-by: Namhyung Kim <namhyung@gmail.com>
-> [alx: ffix + tfix]
-> Cowritten-by : Alejandro Colomar <alx.manpages@gmail.com>
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> ---
+> Can we make a concise statement here about what the flag does and how to
+> use it?
+>
+> It's preferable not to bury specification details in wordy rationale
+> sections unless there's really no way to describe the behaviour
+> concisely.
+>
+> Maybe: --8<--
+>
+> Check for extended sa_flags support.
+>
+> If the attempt to register a handler with this flag set in
+> act->sa_flags succeeds, and an immediately subsequent sigaction() call
+> specifying the same signal number n and with non-NULL oact yields
+> SA_UNSUPPORTED
+> .I clear
+> in oact->sa_flags, then extended sa_flags are supported.
+>
+> If the handler registration attempt fails, or if the subsequent
+> sigaction() call yields SA_UNSUPPORTED
+> .I set
+> in oact->sa_flags, then the caller must not assume that extended
+> sa_flags are supported.
+>
+> -->8--
 
-Hi Namhyung,
+I'm not sure about saying "extended sa_flags are supported" here since
+it could be read to mean that all of the extended sa_flags are
+supported, which won't be accurate if we add a new sa_flag in the
+future for example (but I'm not sure that we should talk about
+'extended sa_flags" anyway, see below).
 
-Patch applied!
+I would just say that what this flag allows you to do is dynamically
+probe for flag bit support. I've taken your wording, tried to make it
+more concise and inserted it here.
 
-Thanks,
+> Also, would it be a good idea to add something like the following?
+>
+> --8<--
+>
+> This flag may be specified alongside extended sa_flags whose meaning
+> depends on the result of the check.  Since the behaviour of the signal
+> handler cannot be guaranteed unless the check passes, it is wise to
+> block the affected signal while registering the handler and performing
+> the check in this case.
+>
+> -->8--
 
-Alex
+That would be good to mention in the "Dynamically probing for flag bit
+support" section, so I've done it. The language needed to be adjusted
+because you can't always block a synchronous signal such as SIGSEGV,
+so I recommend issuing the second sigaction in the signal handler
+itself in that case.
 
->  man2/perf_event_open.2 | 280 ++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 278 insertions(+), 2 deletions(-)
-> 
-> diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
-> index e7b0aa132..62731bbac 100644
-> --- a/man2/perf_event_open.2
-> +++ b/man2/perf_event_open.2
-> @@ -247,8 +247,17 @@ struct perf_event_attr {
->                                     due to exec */
->            use_clockid    :  1,  /* use clockid for time fields */
->            context_switch :  1,  /* context switch data */
-> +          write_backward :  1,  /* Write ring buffer from end
-> +                                   to beginning */
-> +          namespaces     :  1,  /* include namespaces data */
-> +          ksymbol        :  1,  /* include ksymbol events */
-> +          bpf_event      :  1,  /* include bpf events */
-> +          aux_output     :  1,  /* generate AUX records
-> +                                   instead of events */
-> +          cgroup         :  1,  /* include cgroup events */
-> +          text_poke      :  1,  /* include text poke events */
->  
-> -          __reserved_1   : 37;
-> +          __reserved_1   : 30;
->  
->      union {
->          __u32 wakeup_events;    /* wakeup every n events */
-> @@ -867,6 +876,20 @@ is set higher than zero then the register
->  values returned are those captured by
->  hardware at the time of the sampled
->  instruction's retirement.
-> +.TP
-> +.BR PERF_SAMPLE_PHYS_ADDR " (since Linux 4.13)"
-> +.\" commit fc7ce9c74c3ad232b084d80148654f926d01ece7
-> +Records physical address of data like in
-> +.B PERF_SAMPLE_ADDR .
-> +.TP
-> +.BR PERF_SAMPLE_CGROUP " (since Linux 5.7)"
-> +.\" commit 96aaab686505c449e24d76e76507290dcc30e008
-> +Records (perf_event) cgroup id of the process.
-> +This corresponds to the
-> +.I id
-> +field in the
-> +.B PERF_RECORD_CGROUP
-> +event.
->  .RE
->  .TP
->  .I read_format
-> @@ -1202,6 +1225,49 @@ information even with strict
->  .I perf_event_paranoid
->  settings.
->  .TP
-> +.IR write_backward " (since Linux 4.6)"
-> +.\" commit 9ecda41acb971ebd07c8fb35faf24005c0baea12
-> +This makes the ring buffer is written from end to beginning.
-> +This is to support reading from overwritable ring buffer.
-> +.TP
-> +.IR namespaces " (since Linux 4.11)"
-> +.\" commit e422267322cd319e2695a535e47c5b1feeac45eb
-> +This enables the generation of
-> +.B PERF_RECORD_NAMESPACES
-> +records when a task is entering to a new namespace.
-> +Each namespace has a combination of device and inode numbers.
-> +.TP
-> +.IR ksymbol " (since Linux 5.0)"
-> +.\" commit 76193a94522f1d4edf2447a536f3f796ce56343b
-> +This enables the generation of
-> +.B PERF_RECORD_KSYMBOL
-> +records when a new kernel symbols are registered or unregistered.
-> +This is analyzing dynamic kernel functions like eBPF.
-> +.TP
-> +.IR bpf_event " (since Linux 5.0)"
-> +.\" commit 6ee52e2a3fe4ea35520720736e6791df1fb67106
-> +This enables the generation of
-> +.B PERF_RECORD_BPF_EVENT
-> +records when a eBPF program is loaded or unloaded.
-> +.TP
-> +.IR auxevent " (since Linux 5.4)"
-> +.\" commit ab43762ef010967e4ccd53627f70a2eecbeafefb
-> +This allows normal (non-AUX) events to generate data for AUX events
-> +if the hardware supports it.
-> +.TP
-> +.IR cgroup " (since Linux 5.7)"
-> +.\" commit 96aaab686505c449e24d76e76507290dcc30e008
-> +This enables the generation of
-> +.B PERF_RECORD_CGROUP
-> +records when a new cgroup is created (and activated).
-> +.TP
-> +.IR text_poke " (since Linux 5.8)"
-> +.\" commit e17d43b93e544f5016c0251d2074c15568d5d963
-> +This enables the generation of
-> +.B PERF_RECORD_TEXT_POKE
-> +records when there's a changes to the kernel text
-> +(i.e. self-modifying code).
-> +.TP
->  .IR wakeup_events ", " wakeup_watermark
->  This union sets how many samples
->  .RI ( wakeup_events )
-> @@ -2131,7 +2197,7 @@ struct {
->      u64    nr;          /* if PERF_SAMPLE_CALLCHAIN */
->      u64    ips[nr];     /* if PERF_SAMPLE_CALLCHAIN */
->      u32    size;        /* if PERF_SAMPLE_RAW */
-> -    char  data[size];   /* if PERF_SAMPLE_RAW */
-> +    char   data[size];  /* if PERF_SAMPLE_RAW */
->      u64    bnr;         /* if PERF_SAMPLE_BRANCH_STACK */
->      struct perf_branch_entry lbr[bnr];
->                          /* if PERF_SAMPLE_BRANCH_STACK */
-> @@ -2148,6 +2214,8 @@ struct {
->      u64    abi;         /* if PERF_SAMPLE_REGS_INTR */
->      u64    regs[weight(mask)];
->                          /* if PERF_SAMPLE_REGS_INTR */
-> +    u64    phys_addr;   /* if PERF_SAMPLE_PHYS_ADDR */
-> +    u64    cgroup;      /* if PERF_SAMPLE_CGROUP */
->  };
->  .EE
->  .in
-> @@ -2570,6 +2638,18 @@ attr field.
->  The number of values is the number of bits set in the
->  .I sample_regs_intr
->  bit mask.
-> +.TP
-> +.I phys_addr
-> +If the
-> +.B PERF_SAMPLE_PHYS_ADDR
-> +flag is set, then 64-bit physical address is recorded.
-> +.TP
-> +.I cgroup
-> +If the
-> +.B PERF_SAMPLE_CGROUP
-> +flag is set, then 64-bit cgroup id (for the perf_event subsystem) is recorded.
-> +To get the pathname of the cgroup, the id should match to one in a
-> +.B PERF_RECORD_CGROUP .
->  .RE
->  .TP
->  .B PERF_RECORD_MMAP2
-> @@ -2776,6 +2856,202 @@ or next (if switching out) process on the CPU.
->  The thread ID of the previous (if switching in)
->  or next (if switching out) thread on the CPU.
->  .RE
-> +.TP
-> +.BR PERF_RECORD_NAMESPACES " (since Linux 4.11)"
-> +.\" commit e422267322cd319e2695a535e47c5b1feeac45eb
-> +This record includes various namespace information of a process.
-> +.IP
-> +.in +4n
-> +.EX
-> +struct {
-> +    struct perf_event_header header;
-> +    u32 pid;
-> +    u32 tid;
-> +    u64 nr_namespaces;
-> +    struct { u64 dev, inode } [nr_namespaces];
-> +    struct sample_id sample_id;
-> +};
-> +.EE
-> +.in
-> +.RS
-> +.TP
-> +.I pid
-> +is the process ID
-> +.TP
-> +.I tid
-> +is the thread ID
-> +.TP
-> +.I nr_namespace
-> +is the number of namespaces in this record
-> +.RE
-> +.IP
-> +Each namespace has
-> +.I dev
-> +and
-> +.I inode
-> +fields and is recorded in the
-> +fixed position like below:
-> +.RS
-> +.TP
-> +.BR NET_NS_INDEX = 0
-> +Network namespace
-> +.TP
-> +.BR UTS_NS_INDEX = 1
-> +UTS namespace
-> +.TP
-> +.BR IPC_NS_INDEX = 2
-> +IPC namespace
-> +.TP
-> +.BR PID_NS_INDEX = 3
-> +PID namespace
-> +.TP
-> +.BR USER_NS_INDEX = 4
-> +User namespace
-> +.TP
-> +.BR MNT_NS_INDEX = 5
-> +Mount namespace
-> +.TP
-> +.BR CGROUP_NS_INDEX = 6
-> +Cgroup namespace
-> +.RE
-> +.TP
-> +.BR PERF_RECORD_KSYMBOL " (since Linux 5.0)"
-> +.\" commit 76193a94522f1d4edf2447a536f3f796ce56343b
-> +This record indicates kernel symbol register/unregister events.
-> +.IP
-> +.in +4n
-> +.EX
-> +struct {
-> +    struct perf_event_header header;
-> +    u64 addr;
-> +    u32 len;
-> +    u16 ksym_type;
-> +    u16 flags;
-> +    char name[];
-> +    struct sample_id sample_id;
-> +};
-> +.EE
-> +.in
-> +.RS
-> +.TP
-> +.I addr
-> +is the address of the kernel symbol
-> +.TP
-> +.I len
-> +is the length of the kernel symbol
-> +.TP
-> +.I ksym_type
-> +is the type of the kernel symbol.
-> +Currently following types are available:
-> +.RS
-> +.TP
-> +.B PERF_RECORD_KSYMBOL_TYPE_BPF
-> +The kernel symbols is a BPF function.
-> +.RE
-> +.TP
-> +.I flags
-> +If the
-> +.B PERF_RECORD_KSYMBOL_FLAGS_UNREGISTER
-> +is set, then this event is for unregistering the kernel symbol.
-> +.RE
-> +.TP
-> +.BR PERF_RECORD_BPF_EVENT " (since Linux 5.0)"
-> +.\" commit 6ee52e2a3fe4ea35520720736e6791df1fb67106
-> +This record indicates BPF program is loaded or unloaded.
-> +.IP
-> +.in +4n
-> +.EX
-> +struct {
-> +    struct perf_event_header header;
-> +    u16 type;
-> +    u16 flags;
-> +    u32 id;
-> +    u8 tag[BPF_TAG_SIZE];
-> +    struct sample_id sample_id;
-> +};
-> +.EE
-> +.in
-> +.RS
-> +.TP
-> +.I type
-> +is one of the following values:
-> +.RS
-> +.TP
-> +.B PERF_BPF_EVENT_PROG_LOAD
-> +A BPF program is loaded
-> +.TP
-> +.B PERF_BPF_EVENT_PROG_UNLOAD
-> +A BPF program is unloaded
-> +.RE
-> +.TP
-> +.I id
-> +is the id of the BPF program.
-> +.TP
-> +.I tag
-> +is the tag of the BPF program.
-> +Currently,
-> +.B BPF_TAG_SIZE
-> +is defined as 8.
-> +.RE
-> +.TP
-> +.BR PERF_RECORD_CGROUP " (since Linux 5.7)"
-> +.\" commit 96aaab686505c449e24d76e76507290dcc30e008
-> +This record indicates a new cgroup is created and activated.
-> +.IP
-> +.in +4n
-> +.EX
-> +struct {
-> +    struct perf_event_header header;
-> +    u64 id;
-> +    char path[];
-> +    struct sample_id sample_id;
-> +};
-> +.EE
-> +.in
-> +.RS
-> +.TP
-> +.I id
-> +is the cgroup identifier.
-> +This can be also retreived by
-> +.BR name_to_handle_at (2)
-> +on the cgroup path (as a file handle).
-> +.TP
-> +.I path
-> +is the path of the cgroup from the root.
-> +.RE
-> +.TP
-> +.BR PERF_RECORD_TEXT_POKE " (since Linux 5.8)"
-> +.\" commit e17d43b93e544f5016c0251d2074c15568d5d963
-> +This record indicates a change in the kernel text.
-> +This includes addition and removal of the text
-> +and the corresponding length is zero in this case.
-> +.IP
-> +.in +4n
-> +.EX
-> +struct {
-> +    struct perf_event_header header;
-> +    u64 addr;
-> +    u16 old_len;
-> +    u16 new_len;
-> +    u8 bytes[];
-> +    struct sample_id sample_id;
-> +};
-> +.EE
-> +.in
-> +.RS
-> +.TP
-> +.I addr
-> +is the address of the change
-> +.TP
-> +.I old_len
-> +is the old length
-> +.TP
-> +.I new_len
-> +is the new length
-> +.TP
-> +.I bytes
-> +contains old bytes immediately followed by new bytes.
-> +.RE
->  .RE
->  .SS Overflow handling
->  Events can be set to notify when a threshold is crossed,
-> 
+>
+>
+> Also, can we reference the "Detecting flag support in sa_flags" by name?
+> It may be hard for people to find otherwise...
+
+Done.
+
+>
+>
+> > +.TP
+> > +.BR SA_EXPOSE_TAGBITS " (since Linux 5.x)"
+>
+> Shouldn't we mention the probe requirement here?
+>
+> --8<--
+>
+> Requires extended sa_flags support; otherwise, the effect of this flag
+> is unpecified.  See <section> [or SA_UNSUPPORTED if we think that's the
+> more concise description to refer to] for details.
+
+I wouldn't say "unspecified" here. In non-supporting kernels, the
+behavior is as if the flag is not set, and I've documented it in the
+"Dynamically probing for flag bit support" section.
+
+I'd probably leave this part as short as possible (just a reference to
+SA_UNSUPPORTED) because it will be copy-pasted into the description of
+any new flags.
+
+>
+> -->8--
+>
+> > +Normally, when delivering a signal, an architecture-specific
+> > +set of tag bits are cleared from the
+>
+> Maybe "address tag bits", to make it clearer which bits we're talking
+> about.  (But you're about to mention si_addr anyway, so perhaps this
+> clarification is redundant.)
+
+I think it's redundant, so I prefer to leave it as is.
+
+> > +.I si_addr
+> > +field of
+> > +.IR siginfo_t .
+> > +If this flag is set, the tag bits will be preserved in
+>
+> Should we say "any available tag bits" or "an architecture-specific
+> subset of the tag bits" or similar?
+>
+> This would cover us for the case where some arch can't always provide
+> them all (which I think is the case for MTE on arm64? ... but my memory
+> is hazy).
+
+Right, SIGSEGV/SEGV_MTESERR is the case where we don't have all the
+bits. I updated this to say that it's architecture specific.
+
+> > +.IR si_addr .
+> >  .SS The siginfo_t argument to a SA_SIGINFO handler
+> >  When the
+> >  .B SA_SIGINFO
+> > @@ -833,6 +846,55 @@ Triggered by a
+> >  .BR seccomp (2)
+> >  filter rule.
+> >  .RE
+> > +.SS Detecting flag support in sa_flags
+>
+> (Could be renamed to "Extended sa_flags support" if we want to be more
+> concise.)
+
+I'm not sure about calling these "extended sa_flags". Maybe in 10
+years from now, some programs will be able to rely on
+SA_EXPOSE_TAGBITS being supported, so from that perspective it would
+be the same as any other flag and not really an "extended" flag.
+
+> > +The Linux kernel supports a mechanism for programs to detect kernel
+> > +support for
+> > +.B SA_*
+> > +flags in
+> > +.IR sa_flags .
+> > +This mechanism is quite subtle for backwards compatibility reasons
+> > +related to the historical behavior of the kernel.
+>
+> Can we avoid the word "subtle"?  To me, this suggests a euphemism for
+> "doesn't work reliably", or "nobody knows whether it works".
+
+Okay, I removed this part.
+
+> Being more explicit about the actual reason for this design might help,
+> since the reason is actually fairly simple.  Maybe:
+>
+> --8<--
+>
+> Historically, the sigaction(2) call on Linux accepted unknown bits set
+> in act->sa_flags without error, and a second sigaction() call would
+> typically leave those bits set in oact->sa_flags.
+>
+> This means that support for new flags cannot be detected simply by
+> setting a flag in sa_flags.
+>
+> -->8--
+
+Yes, something like this would work. I reworded it to describe the old
+and new behavior in the same paragraph.
+
+>
+> > +
+> > +Starting with Linux 5.x, the kernel will clear any unrecognized bits
+> > +from the
+> > +.I sa_flags
+> > +value returned via
+> > +.I oldact
+> > +if those bits were set when the signal handler was originally installed.
+> > +Therefore, a program that only needs to be compatible with Linux 5.x
+> > +and above may test for flag bit support by issuing a second call to
+> > +.BR sigaction ()
+> > +and testing whether the bit remains set in
+> > +.IR oldact.sa_flags .
+> > +
+> > +Prior to Linux 5.x, unrecognized flag bits were preserved in
+> > +.I oldact.sa_flags
+> > +so this protocol on its own would not be sufficient to allow a
+> > +userspace program to test for flag bit support if it needs to be
+> > +compatible with kernel versions older than 5.x. Therefore, the
+> > +.B SA_UNSUPPORTED
+> > +flag bit was defined, which the kernel will always consider to be
+> > +unknown. A userspace program that sets this flag bit in
+> > +.I act.sa_flags
+> > +and finds that it has been cleared in
+> > +.I oldact.sa_flags
+> > +in a subsequent call to
+> > +.BR sigaction ()
+> > +may trust that any other unknown flag bits have been cleared.
+>
+> Is this a bit too much rationale?  I don't think we have to justify the
+> choice of design here -- describing the design and hinting at the reason
+> for it seems enough.
+>
+> If you go with my suggestions for the SA_UNSUPPORTED section, then we
+> can probably thin out some duplicate details here.
+
+Okay, I removed most of this.
+
+> > +
+> > +A reasonably modern program may trust that the flags
+>
+> What does "reasonably modern" mean?
+
+By this I meant a program that may assume that it is running on Linux
+2.6 or above. I will drop the "reasonably modern" part and say "in
+general, programs may assume support".
+
+> > +.BR SA_NOCLDSTOP ,
+> > +.BR SA_NOCLDWAIT ,
+> > +.BR SA_SIGINFO ,
+> > +.BR SA_ONSTACK ,
+> > +.BR SA_RESTART ,
+> > +.BR SA_NODEFER ,
+> > +.B SA_RESETHAND
+> > +and, if defined by the architecture,
+> > +.B SA_RESTORER
+> > +are supported by the kernel, without relying on the flag bit support
+> > +detection protocol, since these flags have all been supported
+> > +since Linux 2.6.
+>
+> I think it's best just to leave these unspecified, as today.  Software
+> seems to get on just fine without SA_UNSUPPORTED for these.
+
+It's probably not useful to document this from the perspective of "you
+don't need to probe for these", but I think we should say something
+about these flags, since the new documentation may otherwise mislead
+developers into thinking that they might want to probe for the old
+flags (either because they don't think the flags are that old or just
+out of a desire to follow best practices) which would give them the
+wrong answer on old kernels, which they may never notice if the kernel
+on their machine is new enough. I've reworded to document from the
+perspective of "you can't reliably probe for these", and only then say
+that you don't normally need to probe for them.
+
+> Also, can we have a code example here?  The description may leave people
+> scratching their heads a bit, so I think a basic implementation would
+> help.
+
+That seems like a good idea. I've added one.
+
+Peter
