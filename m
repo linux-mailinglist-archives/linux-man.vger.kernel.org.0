@@ -2,51 +2,51 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BA4BA2B7D8F
-	for <lists+linux-man@lfdr.de>; Wed, 18 Nov 2020 13:24:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0AD1F2B7DCD
+	for <lists+linux-man@lfdr.de>; Wed, 18 Nov 2020 13:49:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726740AbgKRMYC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 18 Nov 2020 07:24:02 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47880 "EHLO
+        id S1726211AbgKRMru (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 18 Nov 2020 07:47:50 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51588 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726714AbgKRMYC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 18 Nov 2020 07:24:02 -0500
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AABDAC0613D4
-        for <linux-man@vger.kernel.org>; Wed, 18 Nov 2020 04:24:01 -0800 (PST)
-Received: by mail-wm1-x341.google.com with SMTP id a186so36046wme.1
-        for <linux-man@vger.kernel.org>; Wed, 18 Nov 2020 04:24:01 -0800 (PST)
+        with ESMTP id S1726136AbgKRMrt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 18 Nov 2020 07:47:49 -0500
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7B282C0613D4
+        for <linux-man@vger.kernel.org>; Wed, 18 Nov 2020 04:47:49 -0800 (PST)
+Received: by mail-wm1-x32b.google.com with SMTP id a3so2596544wmb.5
+        for <linux-man@vger.kernel.org>; Wed, 18 Nov 2020 04:47:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=eH1kt7QmkLnJ+1gVLchyYFH2BVtbc/A3eloZT87gaCI=;
-        b=GvPXD8NGouF6owp1AeWztWLQavK7ODaTuoxeTopIqqkTX3ZGpFUkyvIrdo9EJTZ1qA
-         JjlI8jCvp09T+Qv9yu+M58coZS29f9HAFntD16HVN5NTibqGdg9NtdxnyvYC5sR+z0oH
-         lyiUkdzEXLwYP2aJBcPhyJmVgVsC5BPb2A3y0AyPkAdubSt352AJHcajz6tUTquQj6oS
-         voxYNppDzd51ruafnomCM+0/LguyszMnvMkMg4PBlcUVhbq8/ZEtEj1nEPeujEZH67Up
-         bw17aHLi63jRVuG1z6qfnWFn9sCgdEg1yI+a30dcYgiV7BiNgzM/pE/st2mA3rXiGAzp
-         3TmA==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=cvItP325Uj6oVAZd6HnFTuky8NzPUuiHkuTasFPfgFQ=;
+        b=Q8EGyVduCFKJxAFWk4bvgKxKCa3fK7S19GzFreyP1v2Tcm4nyKAaAG7XwJjVTq68ro
+         TP0wWGOYMHBMXG2zO3ZFXyZcfRaISQX9h195VZvf9oEUURK55wFODAeBDRNP1JB778Nl
+         6RXZWGBFn/282QSA+YFoMEfWsSk8OS41bGuJd9RHjNlEdxPKRG1EQZ5GdQ8R9oLvyP0+
+         vI8hCt+cufUpmOiEiKJtvAxnduBt4Ig7fVdrFapTAouYO9tc3SpzeET9YbnGrxg+uxZM
+         c71D8YIXEf0+rkZ4A7MF+eA7dur/hq1yUx2WHCaZNB03eHNPyi2NxOIT/piYmZXiZOie
+         9BnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=eH1kt7QmkLnJ+1gVLchyYFH2BVtbc/A3eloZT87gaCI=;
-        b=d5bHE0PL5pRVu7m2HjNY1V9iOoH6R+VevVCMKBnKEzZqCt2TV47q/d2qxrSL0vtPkU
-         6/Dlqa968uVdCaUY9NBWSI9qffy9nhSlKC6tgLf543JFeneiaC4BwDjkexP2AWF/qvBY
-         FdzqvTJ3eNPqvZaCiDDPVZ32iEtdmPC5Igy9mXSJG53bIGUX0TbUcw0VbYogrzCUZ+LO
-         oevaVyBpGVDK/8nKU6SPMV5eY5gOtbalHbvJmJRqeicC4NY0VNENWraonXKGrTUJWzfP
-         RuG6F52JSe14sJNxMngzjLgCDeRV1fuR5Y8wHBDZHPI79w+hI5nEUrcSUNEXzBnkh6Of
-         P/bw==
-X-Gm-Message-State: AOAM532wqpTmZra2jH+hSMPOOKKGtjx8fSCVdS3j0HpndsWwQKuvQG/i
-        mfQ71LqHt6T78kdYXL2qKPQ=
-X-Google-Smtp-Source: ABdhPJyS338cpHeFMHeImNjmScBLz7nQ+QItbQOB69mg5i/DIkh1mNp9k+idYkBo5EGbylbHM8WNZA==
-X-Received: by 2002:a1c:103:: with SMTP id 3mr4058683wmb.81.1605702240404;
-        Wed, 18 Nov 2020 04:24:00 -0800 (PST)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=cvItP325Uj6oVAZd6HnFTuky8NzPUuiHkuTasFPfgFQ=;
+        b=hmK7ztzhXunRiZsSyCCIZL3Z9a7f++FKQxdkSeX21jDdegTUZlmLK1J3ksKFBAVIIj
+         3juTgI9unEOaAOfmPrIps4vcMC0EY/Vmg1BE/51cqatKjUjgE3CBqezxdaExFq+0SDt3
+         CyZBPa2JdYETH8JdL7DvYDGw43vJTvE3sHN38VMXKUa1zwlSO+kw+bCqzNl+mI7Ov4rb
+         u8coez0TIGvp33MchbIIQpUUXwIrEBJJcAYnfsuWDGRjQn8TRcvWYuMQ9QVqCWjLVKSv
+         bpNC7Xswt5z1pLIueI/pQWBQz2c1FPpiImWPhHVDbjYWrxiYet5lUPUvxQnvCgwzevFG
+         t3mQ==
+X-Gm-Message-State: AOAM533vqN9lQ7+6dedmPcZmk6yNqswVp3dGl3aJJIeFceJ/t/F5bQx8
+        V8PEWNAP/h+h9MD/jSJurFz1vK2idBCTtA==
+X-Google-Smtp-Source: ABdhPJy+RkETdC3Rs6nr6Ab2TNgHzZ6A634P3/Xbq3TPIZxr4kqR4Q54loGzU5MjcAxpzOn7FtcQpQ==
+X-Received: by 2002:a1c:4456:: with SMTP id r83mr4473721wma.91.1605703668216;
+        Wed, 18 Nov 2020 04:47:48 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id e3sm16696861wro.90.2020.11.18.04.23.59
+        by smtp.gmail.com with ESMTPSA id f18sm19156159wru.42.2020.11.18.04.47.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2020 04:23:59 -0800 (PST)
+        Wed, 18 Nov 2020 04:47:47 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Namhyung Kim <namhyung@gmail.com>, linux-man@vger.kernel.org,
@@ -63,10 +63,12 @@ Cc:     Namhyung Kim <namhyung@gmail.com>, linux-man@vger.kernel.org,
         Kan Liang <kan.liang@linux.intel.com>,
         Andi Kleen <ak@linux.intel.com>,
         Vince Weaver <vincent.weaver@maine.edu>
-Subject: [PATCH] perf_event_open.2: Update man page with recent kernel changes
-Date:   Wed, 18 Nov 2020 13:22:38 +0100
-Message-Id: <20201118122238.67356-1-alx.manpages@gmail.com>
+Subject: [PATCH v2] perf_event_open.2: Update man page with recent kernel changes
+Date:   Wed, 18 Nov 2020 13:47:36 +0100
+Message-Id: <20201118124735.67714-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20201118122238.67356-1-alx.manpages@gmail.com>
+References: <20201118122238.67356-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -94,21 +96,10 @@ Cc: Kan Liang <kan.liang@linux.intel.com>
 Cc: Andi Kleen <ak@linux.intel.com>
 Cc: Vince Weaver <vincent.weaver@maine.edu>
 
-Acked-by:      Alejandro Colomar <alx.manpages@gmail.com>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
 
-Hi Michael,
-
-I applied this patch yesterday.
-Please, apply it to your tree.
-
-lore:
-https://lore.kernel.org/linux-man/eea51ae5-d7d1-7dbc-04c1-8ae72b2c0754@gmail.com/T/#t
-
-Thanks,
-
-Alex
+I removed "Acked-by:".
 
  man2/perf_event_open.2 | 280 ++++++++++++++++++++++++++++++++++++++++-
  1 file changed, 278 insertions(+), 2 deletions(-)
