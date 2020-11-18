@@ -2,463 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7E4E92B87F1
-	for <lists+linux-man@lfdr.de>; Wed, 18 Nov 2020 23:50:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 126BE2B8806
+	for <lists+linux-man@lfdr.de>; Thu, 19 Nov 2020 00:02:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725823AbgKRWt5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 18 Nov 2020 17:49:57 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60366 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725710AbgKRWt4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 18 Nov 2020 17:49:56 -0500
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6CBD7C0613D4
-        for <linux-man@vger.kernel.org>; Wed, 18 Nov 2020 14:49:56 -0800 (PST)
-Received: by mail-wr1-x444.google.com with SMTP id 23so4115935wrc.8
-        for <linux-man@vger.kernel.org>; Wed, 18 Nov 2020 14:49:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=0EFnhn0++c9o2Kxm3E/sDt7p1ByTPqfhXfe37i+8UHc=;
-        b=gKYZJH5CEDZjXGUUIX9g3yxFtWcoHxO4oGMkECWdhiE9p6vLKZRzsGto6zv+zyABai
-         vwy26P4vwMWZx2HJzXvqGntCvo8eIdUUk1bWtu73rO1EchY7eB3I3tS+1VVYQxhnkorY
-         v+S3eiMVjWMznVudgTUufweus3Ko65K+wqsbN9mv18v3N7Y4P2ll9nz/n5SOYosSdDw8
-         CJS7VdH66SRd+x1C67xU5ydEVOyGMmxWD4b5M5r2SyoZMPl0moYR25+ZBi9WOX3PqtkK
-         pkyWnCpnp2QWULResIS/Nsrm+K6Bxqu3UMjrfetIqSnG1K27CDrBnjlzueFcpWTlh3U7
-         cCdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=0EFnhn0++c9o2Kxm3E/sDt7p1ByTPqfhXfe37i+8UHc=;
-        b=EWC/tZ+Xzw7ufNONaPxgqBHp5VNcrba5Jbng0e/3rpIAyR/VEs/zeEO/cCAPXhlPCu
-         AWN+yNUV4zcN3F6ZJhbM/RRUrJtnKM81v0CiLkQUb1TibrD1ebQ2eUnUtZc+ktrB9yFT
-         4X7MYvsGUlrgHc/lCa0+desqjb5vPytaOTjemuQJAAh54ps4e2TrDGsplZ9XiooYGrJ5
-         wTWgY+3ojv4INaPBjTAXHiXvTTIVS7E2iRLq/WXDuGhcsocOVdCz40WU7FoWAHTKZ0Jc
-         7Qdu7CjzdmLctI6SQNKoCIrSghH46JQcjz34XiqxEooTX7EI2ACpTlkjZ/7HQwYmpuBa
-         PAxg==
-X-Gm-Message-State: AOAM531PMJ+C92IX18OVi4DwKAnEUSHVL2hOSQWk18XnNRP7/hqv+vnd
-        qFh6K63YDKdg7caZrdh7d34iaT8A08BkRg==
-X-Google-Smtp-Source: ABdhPJweH1EiHU4LFr4TSCrNl24C+MdHWLPXWmv3X9FKSoGWZsQUwb1ZyWW1BUTbFwx4cNky0nMllQ==
-X-Received: by 2002:adf:f085:: with SMTP id n5mr6925749wro.293.1605739795070;
-        Wed, 18 Nov 2020 14:49:55 -0800 (PST)
-Received: from ?IPv6:2001:a61:24b3:de01:7310:e730:497d:ea6a? ([2001:a61:24b3:de01:7310:e730:497d:ea6a])
-        by smtp.gmail.com with ESMTPSA id q16sm35407513wrn.13.2020.11.18.14.49.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2020 14:49:53 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, Namhyung Kim <namhyung@gmail.com>,
-        linux-man@vger.kernel.org,
-        Arnaldo Carvalho de Melo <acme@kernel.org>,
-        Jiri Olsa <jolsa@redhat.com>, Ingo Molnar <mingo@kernel.org>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        Stephane Eranian <eranian@google.com>,
-        Ian Rogers <irogers@google.com>,
-        Adrian Hunter <adrian.hunter@intel.com>,
-        Song Liu <songliubraving@fb.com>,
-        Kan Liang <kan.liang@linux.intel.com>,
-        Andi Kleen <ak@linux.intel.com>,
-        Vince Weaver <vincent.weaver@maine.edu>
-Subject: Re: [PATCH v2] perf_event_open.2: Update man page with recent kernel
- changes
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20201118122238.67356-1-alx.manpages@gmail.com>
- <20201118124735.67714-1-alx.manpages@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <9e77d7df-f183-2e05-1440-a5f192b2017f@gmail.com>
-Date:   Wed, 18 Nov 2020 23:49:52 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+        id S1726510AbgKRXCE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 18 Nov 2020 18:02:04 -0500
+Received: from gargamel.turcom.com.tr ([193.254.252.9]:43253 "EHLO
+        etrn.turcom.com.tr" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1726086AbgKRXCD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 18 Nov 2020 18:02:03 -0500
+X-Greylist: delayed 5682 seconds by postgrey-1.27 at vger.kernel.org; Wed, 18 Nov 2020 18:02:01 EST
+Received: from mail.stargazete.com (mail.stargazete.com [88.255.77.166])
+        by etrn.turcom.com.tr (Postfix) with ESMTPS id 4AF6E11E6F0;
+        Thu, 19 Nov 2020 00:03:41 +0300 (+03)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.stargazete.com (Postfix) with ESMTP id 331049261D5B;
+        Wed, 18 Nov 2020 21:03:41 +0000 (UTC)
+Received: from mail.stargazete.com ([127.0.0.1])
+        by localhost (mail.stargazete.com [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id NzJ_addh2QC0; Wed, 18 Nov 2020 21:03:41 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.stargazete.com (Postfix) with ESMTP id 4E83D9260767;
+        Wed, 18 Nov 2020 20:56:09 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.stargazete.com 4E83D9260767
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stargazete.com;
+        s=BE41E402-1210-11EB-A9CA-1AF0DF4E1435; t=1605732969;
+        bh=eS6YGRou0utqjQd2YaXZkaFeXSioe/GKdvIucbq5rMI=;
+        h=MIME-Version:To:From:Date:Message-Id;
+        b=KfcnCwR92uZA51tWDp+qWCqew99Fn/c9gc+XUVQ7SaArAbbN6zr8un6iC5e+NB0ZI
+         YHeUhYTl97ii7QMnAlsOD7f2WvZK93ElOvOUIngo7ewQiyL0Ls5J1l4JI5lTLWpoSB
+         TCT+Y/7NroQe2RVT3pGn6cXBMzRa1/xC0HQbvFC3w1ReisWyOY/41uMErA2bDrKI3A
+         U4k6+j8gArA9LtuKA9DrWhabV76WJnnHsxj6hIs1nNM8kXxehY8/+aoyf1rjcj94Cn
+         M42nUXPzFTLvWaFRDeE0NMuIVpd68XYH92VXUpfjD0uqeaUkk50UQzrA4mle7ny9xN
+         HHL0CQB/ZnFUg==
+X-Virus-Scanned: amavisd-new at stargazete.com
+Received: from mail.stargazete.com ([127.0.0.1])
+        by localhost (mail.stargazete.com [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id JYwQ189XfvXC; Wed, 18 Nov 2020 20:56:09 +0000 (UTC)
+Received: from [172.20.10.4] (unknown [154.230.136.106])
+        by mail.stargazete.com (Postfix) with ESMTPSA id 91910924892F;
+        Wed, 18 Nov 2020 20:49:01 +0000 (UTC)
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
-In-Reply-To: <20201118124735.67714-1-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: Loan
+To:     Recipients <rtosun@stargazete.com>
+From:   rtosun@stargazete.com
+Date:   Wed, 18 Nov 2020 12:48:55 -0800
+Reply-To: samuelbrandon110@gmail.com
+Message-Id: <20201118204901.91910924892F@mail.stargazete.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Alex,
 
-On 11/18/20 1:47 PM, Alejandro Colomar wrote:
-> From: Namhyung Kim <namhyung@gmail.com>
-> 
-> Signed-off-by: Namhyung Kim <namhyung@gmail.com>
-> [alx: ffix + tfix]
-> Cowritten-by:  Alejandro Colomar <alx.manpages@gmail.com>
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> 
-> Cc: Arnaldo Carvalho de Melo <acme@kernel.org>
-> Cc: Jiri Olsa <jolsa@redhat.com>
-> Cc: Ingo Molnar <mingo@kernel.org>
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>
-> Cc: Stephane Eranian <eranian@google.com>
-> Cc: Ian Rogers <irogers@google.com>
-> Cc: Adrian Hunter <adrian.hunter@intel.com>
-> Cc: Song Liu <songliubraving@fb.com>
-> Cc: Kan Liang <kan.liang@linux.intel.com>
-> Cc: Andi Kleen <ak@linux.intel.com>
-> Cc: Vince Weaver <vincent.weaver@maine.edu>
-> 
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-
-Thanks. I've merged this. I did some follow-up fixes in
-commit 5ae2634dbac81baf.
-
-Thanks,
-
-Michael
-
-> ---
-> 
-> I removed "Acked-by:".
-> 
->  man2/perf_event_open.2 | 280 ++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 278 insertions(+), 2 deletions(-)
-> 
-> diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
-> index e7b0aa132..62731bbac 100644
-> --- a/man2/perf_event_open.2
-> +++ b/man2/perf_event_open.2
-> @@ -247,8 +247,17 @@ struct perf_event_attr {
->                                     due to exec */
->            use_clockid    :  1,  /* use clockid for time fields */
->            context_switch :  1,  /* context switch data */
-> +          write_backward :  1,  /* Write ring buffer from end
-> +                                   to beginning */
-> +          namespaces     :  1,  /* include namespaces data */
-> +          ksymbol        :  1,  /* include ksymbol events */
-> +          bpf_event      :  1,  /* include bpf events */
-> +          aux_output     :  1,  /* generate AUX records
-> +                                   instead of events */
-> +          cgroup         :  1,  /* include cgroup events */
-> +          text_poke      :  1,  /* include text poke events */
->  
-> -          __reserved_1   : 37;
-> +          __reserved_1   : 30;
->  
->      union {
->          __u32 wakeup_events;    /* wakeup every n events */
-> @@ -867,6 +876,20 @@ is set higher than zero then the register
->  values returned are those captured by
->  hardware at the time of the sampled
->  instruction's retirement.
-> +.TP
-> +.BR PERF_SAMPLE_PHYS_ADDR " (since Linux 4.13)"
-> +.\" commit fc7ce9c74c3ad232b084d80148654f926d01ece7
-> +Records physical address of data like in
-> +.B PERF_SAMPLE_ADDR .
-> +.TP
-> +.BR PERF_SAMPLE_CGROUP " (since Linux 5.7)"
-> +.\" commit 96aaab686505c449e24d76e76507290dcc30e008
-> +Records (perf_event) cgroup id of the process.
-> +This corresponds to the
-> +.I id
-> +field in the
-> +.B PERF_RECORD_CGROUP
-> +event.
->  .RE
->  .TP
->  .I read_format
-> @@ -1202,6 +1225,49 @@ information even with strict
->  .I perf_event_paranoid
->  settings.
->  .TP
-> +.IR write_backward " (since Linux 4.6)"
-> +.\" commit 9ecda41acb971ebd07c8fb35faf24005c0baea12
-> +This makes the ring buffer is written from end to beginning.
-> +This is to support reading from overwritable ring buffer.
-> +.TP
-> +.IR namespaces " (since Linux 4.11)"
-> +.\" commit e422267322cd319e2695a535e47c5b1feeac45eb
-> +This enables the generation of
-> +.B PERF_RECORD_NAMESPACES
-> +records when a task is entering to a new namespace.
-> +Each namespace has a combination of device and inode numbers.
-> +.TP
-> +.IR ksymbol " (since Linux 5.0)"
-> +.\" commit 76193a94522f1d4edf2447a536f3f796ce56343b
-> +This enables the generation of
-> +.B PERF_RECORD_KSYMBOL
-> +records when a new kernel symbols are registered or unregistered.
-> +This is analyzing dynamic kernel functions like eBPF.
-> +.TP
-> +.IR bpf_event " (since Linux 5.0)"
-> +.\" commit 6ee52e2a3fe4ea35520720736e6791df1fb67106
-> +This enables the generation of
-> +.B PERF_RECORD_BPF_EVENT
-> +records when a eBPF program is loaded or unloaded.
-> +.TP
-> +.IR auxevent " (since Linux 5.4)"
-> +.\" commit ab43762ef010967e4ccd53627f70a2eecbeafefb
-> +This allows normal (non-AUX) events to generate data for AUX events
-> +if the hardware supports it.
-> +.TP
-> +.IR cgroup " (since Linux 5.7)"
-> +.\" commit 96aaab686505c449e24d76e76507290dcc30e008
-> +This enables the generation of
-> +.B PERF_RECORD_CGROUP
-> +records when a new cgroup is created (and activated).
-> +.TP
-> +.IR text_poke " (since Linux 5.8)"
-> +.\" commit e17d43b93e544f5016c0251d2074c15568d5d963
-> +This enables the generation of
-> +.B PERF_RECORD_TEXT_POKE
-> +records when there's a changes to the kernel text
-> +(i.e. self-modifying code).
-> +.TP
->  .IR wakeup_events ", " wakeup_watermark
->  This union sets how many samples
->  .RI ( wakeup_events )
-> @@ -2131,7 +2197,7 @@ struct {
->      u64    nr;          /* if PERF_SAMPLE_CALLCHAIN */
->      u64    ips[nr];     /* if PERF_SAMPLE_CALLCHAIN */
->      u32    size;        /* if PERF_SAMPLE_RAW */
-> -    char  data[size];   /* if PERF_SAMPLE_RAW */
-> +    char   data[size];  /* if PERF_SAMPLE_RAW */
->      u64    bnr;         /* if PERF_SAMPLE_BRANCH_STACK */
->      struct perf_branch_entry lbr[bnr];
->                          /* if PERF_SAMPLE_BRANCH_STACK */
-> @@ -2148,6 +2214,8 @@ struct {
->      u64    abi;         /* if PERF_SAMPLE_REGS_INTR */
->      u64    regs[weight(mask)];
->                          /* if PERF_SAMPLE_REGS_INTR */
-> +    u64    phys_addr;   /* if PERF_SAMPLE_PHYS_ADDR */
-> +    u64    cgroup;      /* if PERF_SAMPLE_CGROUP */
->  };
->  .EE
->  .in
-> @@ -2570,6 +2638,18 @@ attr field.
->  The number of values is the number of bits set in the
->  .I sample_regs_intr
->  bit mask.
-> +.TP
-> +.I phys_addr
-> +If the
-> +.B PERF_SAMPLE_PHYS_ADDR
-> +flag is set, then 64-bit physical address is recorded.
-> +.TP
-> +.I cgroup
-> +If the
-> +.B PERF_SAMPLE_CGROUP
-> +flag is set, then 64-bit cgroup id (for the perf_event subsystem) is recorded.
-> +To get the pathname of the cgroup, the id should match to one in a
-> +.B PERF_RECORD_CGROUP .
->  .RE
->  .TP
->  .B PERF_RECORD_MMAP2
-> @@ -2776,6 +2856,202 @@ or next (if switching out) process on the CPU.
->  The thread ID of the previous (if switching in)
->  or next (if switching out) thread on the CPU.
->  .RE
-> +.TP
-> +.BR PERF_RECORD_NAMESPACES " (since Linux 4.11)"
-> +.\" commit e422267322cd319e2695a535e47c5b1feeac45eb
-> +This record includes various namespace information of a process.
-> +.IP
-> +.in +4n
-> +.EX
-> +struct {
-> +    struct perf_event_header header;
-> +    u32 pid;
-> +    u32 tid;
-> +    u64 nr_namespaces;
-> +    struct { u64 dev, inode } [nr_namespaces];
-> +    struct sample_id sample_id;
-> +};
-> +.EE
-> +.in
-> +.RS
-> +.TP
-> +.I pid
-> +is the process ID
-> +.TP
-> +.I tid
-> +is the thread ID
-> +.TP
-> +.I nr_namespace
-> +is the number of namespaces in this record
-> +.RE
-> +.IP
-> +Each namespace has
-> +.I dev
-> +and
-> +.I inode
-> +fields and is recorded in the
-> +fixed position like below:
-> +.RS
-> +.TP
-> +.BR NET_NS_INDEX = 0
-> +Network namespace
-> +.TP
-> +.BR UTS_NS_INDEX = 1
-> +UTS namespace
-> +.TP
-> +.BR IPC_NS_INDEX = 2
-> +IPC namespace
-> +.TP
-> +.BR PID_NS_INDEX = 3
-> +PID namespace
-> +.TP
-> +.BR USER_NS_INDEX = 4
-> +User namespace
-> +.TP
-> +.BR MNT_NS_INDEX = 5
-> +Mount namespace
-> +.TP
-> +.BR CGROUP_NS_INDEX = 6
-> +Cgroup namespace
-> +.RE
-> +.TP
-> +.BR PERF_RECORD_KSYMBOL " (since Linux 5.0)"
-> +.\" commit 76193a94522f1d4edf2447a536f3f796ce56343b
-> +This record indicates kernel symbol register/unregister events.
-> +.IP
-> +.in +4n
-> +.EX
-> +struct {
-> +    struct perf_event_header header;
-> +    u64 addr;
-> +    u32 len;
-> +    u16 ksym_type;
-> +    u16 flags;
-> +    char name[];
-> +    struct sample_id sample_id;
-> +};
-> +.EE
-> +.in
-> +.RS
-> +.TP
-> +.I addr
-> +is the address of the kernel symbol
-> +.TP
-> +.I len
-> +is the length of the kernel symbol
-> +.TP
-> +.I ksym_type
-> +is the type of the kernel symbol.
-> +Currently following types are available:
-> +.RS
-> +.TP
-> +.B PERF_RECORD_KSYMBOL_TYPE_BPF
-> +The kernel symbols is a BPF function.
-> +.RE
-> +.TP
-> +.I flags
-> +If the
-> +.B PERF_RECORD_KSYMBOL_FLAGS_UNREGISTER
-> +is set, then this event is for unregistering the kernel symbol.
-> +.RE
-> +.TP
-> +.BR PERF_RECORD_BPF_EVENT " (since Linux 5.0)"
-> +.\" commit 6ee52e2a3fe4ea35520720736e6791df1fb67106
-> +This record indicates BPF program is loaded or unloaded.
-> +.IP
-> +.in +4n
-> +.EX
-> +struct {
-> +    struct perf_event_header header;
-> +    u16 type;
-> +    u16 flags;
-> +    u32 id;
-> +    u8 tag[BPF_TAG_SIZE];
-> +    struct sample_id sample_id;
-> +};
-> +.EE
-> +.in
-> +.RS
-> +.TP
-> +.I type
-> +is one of the following values:
-> +.RS
-> +.TP
-> +.B PERF_BPF_EVENT_PROG_LOAD
-> +A BPF program is loaded
-> +.TP
-> +.B PERF_BPF_EVENT_PROG_UNLOAD
-> +A BPF program is unloaded
-> +.RE
-> +.TP
-> +.I id
-> +is the id of the BPF program.
-> +.TP
-> +.I tag
-> +is the tag of the BPF program.
-> +Currently,
-> +.B BPF_TAG_SIZE
-> +is defined as 8.
-> +.RE
-> +.TP
-> +.BR PERF_RECORD_CGROUP " (since Linux 5.7)"
-> +.\" commit 96aaab686505c449e24d76e76507290dcc30e008
-> +This record indicates a new cgroup is created and activated.
-> +.IP
-> +.in +4n
-> +.EX
-> +struct {
-> +    struct perf_event_header header;
-> +    u64 id;
-> +    char path[];
-> +    struct sample_id sample_id;
-> +};
-> +.EE
-> +.in
-> +.RS
-> +.TP
-> +.I id
-> +is the cgroup identifier.
-> +This can be also retreived by
-> +.BR name_to_handle_at (2)
-> +on the cgroup path (as a file handle).
-> +.TP
-> +.I path
-> +is the path of the cgroup from the root.
-> +.RE
-> +.TP
-> +.BR PERF_RECORD_TEXT_POKE " (since Linux 5.8)"
-> +.\" commit e17d43b93e544f5016c0251d2074c15568d5d963
-> +This record indicates a change in the kernel text.
-> +This includes addition and removal of the text
-> +and the corresponding length is zero in this case.
-> +.IP
-> +.in +4n
-> +.EX
-> +struct {
-> +    struct perf_event_header header;
-> +    u64 addr;
-> +    u16 old_len;
-> +    u16 new_len;
-> +    u8 bytes[];
-> +    struct sample_id sample_id;
-> +};
-> +.EE
-> +.in
-> +.RS
-> +.TP
-> +.I addr
-> +is the address of the change
-> +.TP
-> +.I old_len
-> +is the old length
-> +.TP
-> +.I new_len
-> +is the new length
-> +.TP
-> +.I bytes
-> +contains old bytes immediately followed by new bytes.
-> +.RE
->  .RE
->  .SS Overflow handling
->  Events can be set to notify when a threshold is crossed,
-> 
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+ARE YOU IN NEED OF LOAN @3% INTEREST RATE FOR BUSINESS AND PRIVATE
+PURPOSES? IF YES:
+FILL AND RETURN
+Name: =3D=3D=3D
+Amount needed: =3D=3D=3D
+Duration: =3D=3D
+country =3D=3D=3D
+Purpose: =3D=3D=3D
+Mobile number
+ Dear Sir/Madam
