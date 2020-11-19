@@ -2,111 +2,87 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3DDD22B96C3
-	for <lists+linux-man@lfdr.de>; Thu, 19 Nov 2020 16:53:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3DF6E2B989F
+	for <lists+linux-man@lfdr.de>; Thu, 19 Nov 2020 17:55:31 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728872AbgKSPpw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 19 Nov 2020 10:45:52 -0500
-Received: from mail.kernel.org ([198.145.29.99]:41850 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1727431AbgKSPpv (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 19 Nov 2020 10:45:51 -0500
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-        (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id 4970F246AD;
-        Thu, 19 Nov 2020 15:45:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1605800750;
-        bh=pJn4IPtBzcC0PoTvJz5inMhFnGIlxkSlgptmvq4eeFs=;
-        h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-        b=GvH8o+ewl+PMp+xXrkpa+YGKJn8LFJrCsIP/yhaax1nbBfYyaUSLq+MhVFpdBnGWg
-         oZnVVV7d1ya4DmlJixZpxzd6ydd+WsCTdma5F850PPEmdRPT2MP15FZv1RORDhC0Nb
-         8csYitO2bkFXz6DyZRhs5AaKucx7JOAUfw1Bl+vU=
-Received: by mail-oi1-f175.google.com with SMTP id k26so6810844oiw.0;
-        Thu, 19 Nov 2020 07:45:50 -0800 (PST)
-X-Gm-Message-State: AOAM532Oh2yArcOJ2BmiKWjGKJgCV+xG6edPwHAB6E4HNCc8H9h0FVU/
-        hhBJfxBCdzFMb+9lp9ZZP5ma/iwtp/KofqdjC0Q=
-X-Google-Smtp-Source: ABdhPJz307GfHISOKSn+FrcyivBqEXL3i2fl7zuiWat1rV8weM6cnPBmgCqgC2mwI9OPhajO8TpWqd0wV4t5ATXSwqo=
-X-Received: by 2002:aca:3c54:: with SMTP id j81mr3305353oia.11.1605800749476;
- Thu, 19 Nov 2020 07:45:49 -0800 (PST)
+        id S1729169AbgKSQvM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 19 Nov 2020 11:51:12 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57680 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728666AbgKSQvM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 19 Nov 2020 11:51:12 -0500
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2D247C0613CF
+        for <linux-man@vger.kernel.org>; Thu, 19 Nov 2020 08:51:12 -0800 (PST)
+Received: by mail-wm1-x331.google.com with SMTP id a186so5044768wme.1
+        for <linux-man@vger.kernel.org>; Thu, 19 Nov 2020 08:51:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=to:cc:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=l1bIPtgYL1KK1//DLkcvfqM4YIraCyusMCuhP5lJeHo=;
+        b=Daio9pRJJAgIdau2aoZnjaD24Hy8pNmXcbWFmLuO2ZaR/zV1Ngs7tq8k7dA7SRpyIT
+         L3LuY7UDTglJJrdaGdVctFWSqz+DrzGse7TW/TkTykmqfxJmVXr42/2lHRwNUzQHF4jl
+         jk9NsxLw0NQufA2kf7IR/YdBtfQrGV0H+DeHqH+hzCr4PkC1TDGWFUqKiLpXdh0O7OFj
+         Jxotj5moB6jlS27ud/HsyXGG4yGwILKriKGXJfVoeeg/Y3/9+hollu/TP2bTS2wHazzK
+         a789A7sIynkLH98/91ta01a99JzPgAoZpaKjKybWitoirD1kyWe1yVNRGNJgkyfXOuyc
+         q0BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=l1bIPtgYL1KK1//DLkcvfqM4YIraCyusMCuhP5lJeHo=;
+        b=TmR24+1+bFgg2e5WFD5M+ZjzGph6hq0iK6xidgFtzFga30Jx5JlwH9JvyOH910kptr
+         iVKBHiDY32S9vnADce4kRPFRhYByWSIj8lILPTb49oX8aAN2sQxCiaeeqrAWBa9MghcI
+         OpVq0zSV80AHZN+sV0OKSzmqqxkvIF1YtZnsbb/FpNbA0vhm18gTgkT+JIl8lLGYeOuh
+         N/BFNxEnkK+w39R8yTMAiS+bbUkAXnRHjpYtVgh2PPQItS1soatmzvyl3zssSX8o5xHT
+         WSObaR09RTgV+2RETg08RgV15aHzzDjPiYp5viLHQ3EEpfQnQHRxA/xCukRo/NiO1dAG
+         PQyA==
+X-Gm-Message-State: AOAM532FPrQMuLLI8miNtrDv8POklOP0Jys9pVTnrZqRAervgplDIHId
+        ZKZ7fSBWv75XF8jY8MaOZ0SoRwO/hsUmCg==
+X-Google-Smtp-Source: ABdhPJzyDbJ75VUCn0AQhk18T9+6nv1aaLz1xQaJSb6kqG8vIvO11aKz0B5WtYqviNU15lEDUUIQsw==
+X-Received: by 2002:a1c:ddc4:: with SMTP id u187mr5740590wmg.55.1605804669525;
+        Thu, 19 Nov 2020 08:51:09 -0800 (PST)
+Received: from [192.168.1.143] ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id l3sm763487wmf.0.2020.11.19.08.51.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 19 Nov 2020 08:51:09 -0800 (PST)
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Subject: Unneeded double quotes
+Message-ID: <df4fb157-b71a-4aec-d554-5ed91d71fd39@gmail.com>
+Date:   Thu, 19 Nov 2020 17:51:08 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-References: <20201118144617.986860-1-willemdebruijn.kernel@gmail.com>
- <20201118144617.986860-2-willemdebruijn.kernel@gmail.com> <20201118150041.GF29991@casper.infradead.org>
- <CA+FuTSdxNBvNMy341EHeiKOWZ19H++aw-tfr6Fx1mFmbg-z4zQ@mail.gmail.com>
- <CAK8P3a0t02o77+8QNZwXF2k1pY3Xrm5bydv8Vx1TW060P7BKqA@mail.gmail.com>
- <893e8ed21e544d048bff7933013332a0@AcuMS.aculab.com> <CAF=yD-+arBFuZCU3UDx0XKmUGaEz8P1EaDLPK0YFCz82MdwBcg@mail.gmail.com>
- <20201119143131.GG29991@casper.infradead.org>
-In-Reply-To: <20201119143131.GG29991@casper.infradead.org>
-From:   Arnd Bergmann <arnd@kernel.org>
-Date:   Thu, 19 Nov 2020 16:45:33 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a1SwQ=L_qA1BmeAt=Xc-Q9Mv4V+J5LFLB5R6rMDST8UiA@mail.gmail.com>
-Message-ID: <CAK8P3a1SwQ=L_qA1BmeAt=Xc-Q9Mv4V+J5LFLB5R6rMDST8UiA@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] epoll: add nsec timeout support with epoll_pwait2
-To:     Matthew Wilcox <willy@infradead.org>
-Cc:     Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-        David Laight <David.Laight@aculab.com>,
-        Linux FS-devel Mailing List <linux-fsdevel@vger.kernel.org>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Soheil Hassas Yeganeh <soheil.kdev@gmail.com>,
-        Arnd Bergmann <arnd@arndb.de>, Shuo Chen <shuochen@google.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Willem de Bruijn <willemb@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Nov 19, 2020 at 3:31 PM Matthew Wilcox <willy@infradead.org> wrote:
->
-> On Thu, Nov 19, 2020 at 09:19:35AM -0500, Willem de Bruijn wrote:
-> > But for epoll, this is inefficient: in ep_set_mstimeout it calls
-> > ktime_get_ts64 to convert timeout to an offset from current time, only
-> > to pass it to select_estimate_accuracy to then perform another
-> > ktime_get_ts64 and subtract this to get back to (approx.) the original
-> > timeout.
+Hi Michael,
 
-Right, it would be good to avoid the second ktime_get_ts64(), as reading
-the clocksource itself can be expensive.
+I don't know for sure the intention,
+but I found the following
+(https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man5/proc.5#n729):
 
-> > How about a separate patch that adds epoll_estimate_accuracy with
-> > the same rules (wrt rt_task, current->timer_slack, nice and upper bound)
-> > but taking an s64 timeout.
-> >
-> > One variation, since it is approximate, I suppose we could even replace
-> > division by a right shift?
+[
+.IP
+For example, an epoll file descriptor will have a symbolic link
+whose content is the string
+.IR "anon_inode:[eventpoll]" .
+]
 
-The right shift would work indeed, but it's also a bit ugly unless
-__estimate_accuracy() is changed to always use the same shift.
+Those '"' are useless,
+but I wanted to make sure that you didn't want to output quotes,
+in which case you would need to use \(dq.
 
-I see that on 32-bit ARM, select_estimate_accuracy() calls
-the external __aeabi_idiv() function to do the 32-bit division, so
-changing it to a shift would speed up select as well.
+However, most probably they can be removed,
+so I'll remove them as part of a patch I'll send you next.
 
-Changing select_estimate_accuracy() to take the relative timeout
-as an argument to avoid the extra ktime_get_ts64() should
-have a larger impact.
+Thanks,
 
-> > After that, using s64 everywhere is indeed much simpler. And with that
-> > I will revise the new epoll_pwait2 interface to take a long long
-> > instead of struct timespec.
->
-> I think the userspace interface should take a struct timespec
-> for consistency with ppoll and pselect.  And epoll should use
-> poll_select_set_timeout() to convert the relative timeout to an absolute
-> endtime.  Make epoll more consistent with select/poll, not less ...
-
-I don't see a problem with an s64 timeout if that makes the interface
-simpler by avoiding differences between the 32-bit and 64-bit ABIs.
-
-More importantly, I think it should differ from poll/select by calculating
-and writing back the remaining timeout.
-
-I don't know what the latest view on absolute timeouts at the syscall
-ABI is, it would probably simplify the implementation, but make it
-less consistent with the others. Futex uses absolute timeouts, but
-is itself inconsistent about that.
-
-     Arnd
+Alex
