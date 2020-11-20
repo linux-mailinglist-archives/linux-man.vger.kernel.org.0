@@ -2,97 +2,148 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 11FFD2BADC2
-	for <lists+linux-man@lfdr.de>; Fri, 20 Nov 2020 16:22:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BBD422BAF80
+	for <lists+linux-man@lfdr.de>; Fri, 20 Nov 2020 17:03:04 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728988AbgKTPJo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 20 Nov 2020 10:09:44 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38446 "EHLO
+        id S1729995AbgKTQBl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 20 Nov 2020 11:01:41 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46572 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728987AbgKTPJo (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 20 Nov 2020 10:09:44 -0500
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com [IPv6:2607:f8b0:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 30708C061A04
-        for <linux-man@vger.kernel.org>; Fri, 20 Nov 2020 07:09:44 -0800 (PST)
-Received: by mail-pf1-x444.google.com with SMTP id w6so8137877pfu.1
-        for <linux-man@vger.kernel.org>; Fri, 20 Nov 2020 07:09:44 -0800 (PST)
+        with ESMTP id S1729022AbgKTQBk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 20 Nov 2020 11:01:40 -0500
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1B1F8C0613CF;
+        Fri, 20 Nov 2020 08:01:40 -0800 (PST)
+Received: by mail-ed1-x544.google.com with SMTP id cf17so6472870edb.2;
+        Fri, 20 Nov 2020 08:01:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=KqowolITW/rsexH02+gE0+tHh0g86yjbyEgLijkgjfY=;
-        b=ZX8i90SmTZxdTfxsKithoGtP615XcBGjqJxTv7Lj1zeRG1DyPG9QNFxNz8bK8E3r+n
-         CTN7HLF7L9XEyCPnuPPtqqnZV16vDDOa9fjgqrDZVJNnLEdNS9rF61fiEVwJwI4YHdga
-         0oOmMcmfCuaCobYiJ7TRrnUCuss1sXNaggQeHh8uw7ZLmIcTCFOz58HGmrOHId1leBFu
-         rkANJEITeYaIFM7e9Bg3f+cPxxF5kUKGmfm4GxlYkUbdJ8WMo+d0Kxn0vpKtYhj90zn8
-         +uTR1kJC9ILLEW0//IY5CjB6gUfxSjS7AMD8oRWSIdHxUjlIH527SQo30UkmG/AlIXWa
-         Wx2g==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=N5ufS8YhBlGkaOE2GFHQrgFXS65tQKW7VRXvHkB/tBM=;
+        b=cqeaWCZSqr4Ubfz70k/UuGdUeCrnTjNc5knHtoLsI2PduXPzqXSaDWxHPnj0fp6Tr1
+         AQFhTuEz/TrEJ4C+tj3lwbiT7P2P6dnV7VqEsowVfdW0YPaPuwOINvYxYllQdkhKToFl
+         1YTngHBnOMn3dbsMjAqtJA0aBoDpTa7gAh5ykxAebmXAFfUD4R2nK6M0fI3vrUGfQlDV
+         UXkN+14b69ZctJJT0xIG5I3abWxxELryPNOWhj87WxasbMnHs4CxGytcHufue6avRlEd
+         PZ9FkUWo685FGjfaNpVFL4tRzwc84I1SeSWc4pVuVoI4qHUF3UDaHvM3CnvbIHji9ei+
+         eEvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=KqowolITW/rsexH02+gE0+tHh0g86yjbyEgLijkgjfY=;
-        b=t2k1BUBqDUeaEZz8smOV+p6xEUolAjhFqUUkUx+e8eOf1RhekI6mIs9s3Tdri5grU9
-         /TlDiqgqT8mFAZNnkhMWxXBloC2q4ALEluUC/Z3caoUJzD9zw0oz1kLYM0zDgqXjN5US
-         tULy2XbPh+lZh077xe/tIyiI+vM8FrszDH6PlhUvvDrKfKYo7UyKQiujf6/e8lP1aYPj
-         2o9jmXcAmDLg5UwG4T+dV4ywXfCYwWSS3zy9N+czZuy91InsC988HZY/Hv/lr8vwtyB3
-         xboVqpiK0Mj25iSQFQKtAf2+aICZsBSNs1VYQO/BYT8shb54aWBh5HARcRQTm1KQpZiA
-         uCjQ==
-X-Gm-Message-State: AOAM533ThxTeyFBPqNp6ee3gYA5CibRNo8pZbhZu0dSfbfAbI238cDUk
-        0szfasdwBSJT+H7V8fizZTZieQkRtanJhWH/pp4=
-X-Google-Smtp-Source: ABdhPJxHdreQJUe939kNNHcNmTkK5zPpgFJcUkUUYoiUCBei2O6ztATp+slufQUQlOn4pWIqJS/JoiLIQI86vIKamuI=
-X-Received: by 2002:a17:90b:2342:: with SMTP id ms2mr10903623pjb.136.1605884983691;
- Fri, 20 Nov 2020 07:09:43 -0800 (PST)
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=N5ufS8YhBlGkaOE2GFHQrgFXS65tQKW7VRXvHkB/tBM=;
+        b=PTdNMhvEQPK1vZm1xpi7MK2qav3oCD+LGXwNg8EcqY4N22iLSVDCVvxxhTxliSN0U0
+         BfIf9q1RYQiqUelzA6Q5+CDkTgWYUDLEnvuO8YYtVwWSMbQSplY2NAL4wfWv5HBtRWzw
+         rHbOgWqIeUXg8le6zGwXr4qAq6uDtrd1RDNZ9k0JUvL4pQsYO3GZREkspVyCg1+1ridV
+         tYY7LKk0yhVb0drdSGECpkmMX3uRc3TecKMAOHYyt2+70EEjeUpcIlmS7brpBRAFv3Ty
+         mlo4VCWTnocRDMcr0wi6m95kolO6nnnFeE0tOAS7+u4ynQkM6KnGquehfWZiQW05302v
+         nRUQ==
+X-Gm-Message-State: AOAM5310wlJhq0HFARaY/VrxpdLOGiac3QVjpVMN6cVszJyqS7a310Ad
+        CRUTF/mm2LMs0oWsc6xewpzaGmt1c3MK6be+FRk=
+X-Google-Smtp-Source: ABdhPJxmQl0Kw6ku/319ebrT/w5tjrPQRtZ46FVMoAgQMAl8AqSNmU8jP0XPBU93BkmncsDOamurV6T8a/7Oc56OGH0=
+X-Received: by 2002:aa7:c713:: with SMTP id i19mr35584705edq.296.1605888098848;
+ Fri, 20 Nov 2020 08:01:38 -0800 (PST)
 MIME-Version: 1.0
-Received: by 2002:a17:90a:550f:0:0:0:0 with HTTP; Fri, 20 Nov 2020 07:09:42
- -0800 (PST)
-Reply-To: cs_services94@outlook.com
-From:   "Mr. Bernard Lauwers (Management Board Of Director)" 
-        <fredrickhelen2@gmail.com>
-Date:   Fri, 20 Nov 2020 15:09:42 +0000
-Message-ID: <CAA2SC506Au9n4A9KDnT-cgarGdyXm-+PGsDxmyeUOm_fJMOWxA@mail.gmail.com>
-Subject: YOUR FUNDS.
-To:     undisclosed-recipients:;
+References: <20201118144617.986860-1-willemdebruijn.kernel@gmail.com>
+ <20201118144617.986860-2-willemdebruijn.kernel@gmail.com> <20201118150041.GF29991@casper.infradead.org>
+ <CA+FuTSdxNBvNMy341EHeiKOWZ19H++aw-tfr6Fx1mFmbg-z4zQ@mail.gmail.com>
+ <CAK8P3a0t02o77+8QNZwXF2k1pY3Xrm5bydv8Vx1TW060P7BKqA@mail.gmail.com>
+ <893e8ed21e544d048bff7933013332a0@AcuMS.aculab.com> <CAF=yD-+arBFuZCU3UDx0XKmUGaEz8P1EaDLPK0YFCz82MdwBcg@mail.gmail.com>
+ <20201119143131.GG29991@casper.infradead.org> <CAK8P3a1SwQ=L_qA1BmeAt=Xc-Q9Mv4V+J5LFLB5R6rMDST8UiA@mail.gmail.com>
+ <CAF=yD-Kd-6f9wAYLD=dP1pk4qncWim424Fu6Hgj=ZrnUtEPORA@mail.gmail.com> <CAK8P3a21JRFUJrz1+TYWcVL8s4uSfeSFyoMkGsqUPbV+F=r_yw@mail.gmail.com>
+In-Reply-To: <CAK8P3a21JRFUJrz1+TYWcVL8s4uSfeSFyoMkGsqUPbV+F=r_yw@mail.gmail.com>
+From:   Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Date:   Fri, 20 Nov 2020 11:01:01 -0500
+Message-ID: <CAF=yD-Lzu9j6T4ubRjawF-EKOC3pkQTkpigg=PugWwybY-1ZyQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] epoll: add nsec timeout support with epoll_pwait2
+To:     Arnd Bergmann <arnd@kernel.org>
+Cc:     Matthew Wilcox <willy@infradead.org>,
+        David Laight <David.Laight@aculab.com>,
+        Linux FS-devel Mailing List <linux-fsdevel@vger.kernel.org>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        Al Viro <viro@zeniv.linux.org.uk>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Soheil Hassas Yeganeh <soheil.kdev@gmail.com>,
+        Arnd Bergmann <arnd@arndb.de>, Shuo Chen <shuochen@google.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        Willem de Bruijn <willemb@google.com>
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
--- 
-WORLD BANK PLC
-1225 Connecticut Ave NW,
-Washington, DC 20036, USA
+On Fri, Nov 20, 2020 at 3:13 AM Arnd Bergmann <arnd@kernel.org> wrote:
+>
+> On Thu, Nov 19, 2020 at 9:13 PM Willem de Bruijn
+> <willemdebruijn.kernel@gmail.com> wrote:
+> > On Thu, Nov 19, 2020 at 10:45 AM Arnd Bergmann <arnd@kernel.org> wrote:
+> > > On Thu, Nov 19, 2020 at 3:31 PM Matthew Wilcox <willy@infradead.org> wrote:
+> > > The right shift would work indeed, but it's also a bit ugly unless
+> > > __estimate_accuracy() is changed to always use the same shift.
+> > >
+> > > I see that on 32-bit ARM, select_estimate_accuracy() calls
+> > > the external __aeabi_idiv() function to do the 32-bit division, so
+> > > changing it to a shift would speed up select as well.
+> > >
+> > > Changing select_estimate_accuracy() to take the relative timeout
+> > > as an argument to avoid the extra ktime_get_ts64() should
+> > > have a larger impact.
+> >
+> > It could be done by having poll_select_set_timeout take an extra u64*
+> > slack, call select_estimate_accuracy before adding in the current time
+> > and then pass the slack down to do_select and do_sys_poll, also
+> > through core_sys_select and compat_core_sys_select.
+> >
+> > It could be a patch independent from this new syscall. Since it changes
+> > poll_select_set_timeout it clearly has a conflict with the planned next
+> > revision of this. I can include it in the next patchset to decide whether
+> > it's worth it.
+>
+> Yes, that sounds good, not sure how much rework this would require.
+>
+> It would be easier to do if we first merged the native and compat
+> native versions of select/pselect/ppoll by moving the
+> in_compat_syscall() check into combined get_sigset()
+> and get_fd_set() helpers. I would assume you have enough
+> on your plate already and don't want to add that to it.
 
-Attention,
+Thanks for the suggestion.
 
-I am worried over your silence in regards to this pending funds. I hereby
-advised you to comply with us to finalized and actualized this payment to
-you.
+I do have an initial patchset. As expected, it does involve quite a
+bit of code churn to pass slack through the callers. I'll take a look
+at your suggestion to simplify it.
 
-YOU ARE ORDERED TO STOP ANY TRANSACTION. Therefore, bringing to your better
-understanding of the new developments as your file payment has been
-forwarded to this World Bank to pay you as the Approved Bank in charge of
-your funds, this is to avoid any further delay in releasing your funds as
-agreed with the United Nations after the recent meeting held in Washington,
-DC 20036, USA.
+As is, the patchset is not ready to send to the list for possible
+merge. In the meantime, I did push the patchset to github at
+https://github.com/wdebruij/linux/commits/epoll-nstimeo-1 . I can send
+a version marked RFC to the list if that's easier.
 
-Therefore, you are advised to reconfirm your details as stated below to
-enable effect your payment within 72 hours as guaranteed from our previous
-meeting
+I made the slack specific changes in two separate patches, one to
+fs/select.c and one to fs/eventpoll.c, and placed these at the end of
+the patchset. So we could first finish the syscall and then send this
+as a separate patchset if it proves complex enough.
 
-Full Name,
-Contact Address,
-Cell Phone
+Btw, the other change, to convert epoll implementation to timespec64
+before adding the syscall, equally adds some code churn compared to
+patch v3. But perhaps the end state is cleaner and more consistent.
 
-As for the processing of your payment within 72hrs. Confirm as well your
-payment options
+> > > I don't see a problem with an s64 timeout if that makes the interface
+> > > simpler by avoiding differences between the 32-bit and 64-bit ABIs.
+> > >
+> > > More importantly, I think it should differ from poll/select by calculating
+> > > and writing back the remaining timeout.
+> > >
+> > > I don't know what the latest view on absolute timeouts at the syscall
+> > > ABI is, it would probably simplify the implementation, but make it
+> > > less consistent with the others. Futex uses absolute timeouts, but
+> > > is itself inconsistent about that.
+> >
+> > If the implementation internally uses poll_select_set_timeout and
+> > passes around timespec64 *, it won't matter much in terms of
+> > performance or implementation. Then there seems to be no downside to
+> > following the consistency argument.
+>
+> Ok. So to clarify, you would stay with relative __kernel_timespec
+> pointers and not copy back the remaining time, correct?
 
-1.ATM
-2.SWIFT WIRE TRANSFER (Banking details required)
-3.Bank Draft.
-
-I await hearing from you to enable us complete the process and release of
-your funds.
-
-Regards,
-Mr. Bernard Lauwers
-(Acting Managing Director and WBG Chief Financial Officer)
+That's my understanding, and the current implementation.
