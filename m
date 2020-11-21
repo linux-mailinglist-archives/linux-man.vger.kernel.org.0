@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7279E2BC11B
-	for <lists+linux-man@lfdr.de>; Sat, 21 Nov 2020 18:34:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 35B982BC11E
+	for <lists+linux-man@lfdr.de>; Sat, 21 Nov 2020 18:39:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726660AbgKUReo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 21 Nov 2020 12:34:44 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56612 "EHLO
+        id S1726281AbgKURjh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 21 Nov 2020 12:39:37 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57356 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726640AbgKUReo (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 21 Nov 2020 12:34:44 -0500
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2C1EAC0613CF;
-        Sat, 21 Nov 2020 09:34:44 -0800 (PST)
-Received: by mail-wm1-x341.google.com with SMTP id w24so13381832wmi.0;
-        Sat, 21 Nov 2020 09:34:44 -0800 (PST)
+        with ESMTP id S1726305AbgKURjh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 21 Nov 2020 12:39:37 -0500
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A4913C0613CF
+        for <linux-man@vger.kernel.org>; Sat, 21 Nov 2020 09:39:36 -0800 (PST)
+Received: by mail-wm1-x344.google.com with SMTP id a186so11162215wme.1
+        for <linux-man@vger.kernel.org>; Sat, 21 Nov 2020 09:39:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=flwT+iURKLpYtLG5AlpA8Euuebh0s1kBcUIZ+rA7YaQ=;
-        b=eA5wM3W1GGMzK+9Hh3e8lW8rH8c5LSX2Tt8HemDN8YWSxcq6vF4g9Ad5UfGzbjJaBC
-         OcaudtmGn27vpZ0MjBVpcOJ2MBC0b1AV2Jg9cDSzjVLg8fS0FXsAEcySmJNuxxhsKjI0
-         BSSre8tlbDAaJqfveBjsq+IKR0+VS9gcqc5Vi9SAgAE6YR6lakhi/hUsSNLLooEmDNdc
-         MZx7vmSKJydm2sO8Nxk4u40FLfFs/czaSWCl0O3vxOvdLNFDHHJA1MDTXXxtjrM3fHiQ
-         QexIrKsXlmJ2rvgMbLUAWFQ1AtCfVFPNzirk2IoSr4bi3KuYw+DebDedHCSGVoJ0KJiL
-         FRnw==
+        bh=flUyRx2GhEKQqIT6P1BSFIyX7Xqjuyc7v4Xmf6EJxWw=;
+        b=tHzWwUV+vV4NlLuukv3Te0oNS35uHWF6QcUWsXwDej/4gGLLxh+jORsngo+atbEi3J
+         Njsw5rKp9IPgYxvgO+0yOLcVH0QmQq04GFuOgskhzrnwBAVqlZOBkcrRPw8TzNiIb2f5
+         dpKAQWJvm8ygVQQKEiv0Iz8Aw65+lTroJ6cCsQ1jukDG3AMP08DGR6zxQdcMg7YiI6r2
+         Eyk6yU+FhtfqIN34nWU15jVO8IH403vbA3FT+FU0VgXhiD1pax91NJC/w+pD7B8rTv8k
+         HXaPW6MZ4B6pbPxaFPYv3faX6PyOjwLNDV8iUDXV3oLuP8DtAopHMF11PM3idX5giGK8
+         eFlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=flwT+iURKLpYtLG5AlpA8Euuebh0s1kBcUIZ+rA7YaQ=;
-        b=nSa8K+a+MvKdEbcQNlcjdpNQYFmUD565thZppbB4xjIVbIGOL4+tH0PH1cZDTlKiiW
-         T+AielINYr5Jqjdu4ya7lbZyFa1O1jHUlP8TFJnxyIENRWOayAeKBjBAbsVw6GGaurVf
-         Z8McaK9H6V6xa1YY9XyzDl9QZzbVQOttG3ENrIrJZEMULnlnRHC4OoNV3qNtaCeR9czt
-         RuDp9SYn1wuQu+dIi0vCF/vs5uA+gGFmZeDke6PRQDVaMYk2UPzdIsgUIoApVnDD33CA
-         uURbznMsArq9NkDHLL6xVsVqi45/C8UBe1GIAqxfPmju7jmBreR3z68jrhy2UfzcBYdb
-         6qfg==
-X-Gm-Message-State: AOAM533FSo8FCMh/321fz8XP+PS+Z1y3TbJFS05RL5uHIHfKyseAuFL+
-        4letOLVFil15FjmdnHR99NI=
-X-Google-Smtp-Source: ABdhPJxsSvF4HlyGXI+JDzIX9uLXNQ8Jp+1PsAmfm100yu02DW1vmpYiONqx5O9L00/4Fm3jF8pfvQ==
-X-Received: by 2002:a1c:6043:: with SMTP id u64mr15137362wmb.166.1605980082827;
-        Sat, 21 Nov 2020 09:34:42 -0800 (PST)
+        bh=flUyRx2GhEKQqIT6P1BSFIyX7Xqjuyc7v4Xmf6EJxWw=;
+        b=n1bNg7wUC81CIeAaztHtuijHWUYXAuC9vCurkitnyR3RTZazWrr3+nANgkwUDcQyFv
+         SPdo0aHZOtMD0+m2piUEbKQxWTYvPx/Rv5qcWimNDlxAozDV9h2nr7B2XFTeZq6GgHB1
+         FOlchiMDpc+t7hGt9cVt10K7wm6WHPeG7FB/KznJXpQ/Ee9tSj+Lr6zVTmu9COGyBAz/
+         NM5qas5jpTpjGucl1CiweDzJGNStypnufbbtmVpqlzpTheyn9Y2S7RPm931PMgBRgPR/
+         UkDfh008TyEp8SyMAeD3Oh2iS01Ll+o1YpLgRKsoiwuT0M9Aq4DDBclDx4x2MHkof+K7
+         N5Ng==
+X-Gm-Message-State: AOAM530MA3Qwwb7chLGWlJRzxa+ejVuLQxZQT/BDO78IbH7UGhSoICQ/
+        sKSl5M2NuoZe+UtyaFWTNv8=
+X-Google-Smtp-Source: ABdhPJwuMnRpZ29d0Wd2GHdlRufqSWr+EXGmyQvBj/ZmJ3m6tOgeshIAgaa9ERWrGfnCx1wdWotmyQ==
+X-Received: by 2002:a1c:e455:: with SMTP id b82mr15795841wmh.117.1605980375083;
+        Sat, 21 Nov 2020 09:39:35 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id w17sm9345125wru.82.2020.11.21.09.34.41
+        by smtp.gmail.com with ESMTPSA id d3sm9282887wre.91.2020.11.21.09.39.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2020 09:34:42 -0800 (PST)
+        Sat, 21 Nov 2020 09:39:34 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] lseek.2: SYNOPSIS: Use correct types
-Date:   Sat, 21 Nov 2020 18:30:56 +0100
-Message-Id: <20201121173054.12172-1-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org
+Subject: [PATCH] utmp.5: Oxford comma
+Date:   Sat, 21 Nov 2020 18:39:04 +0100
+Message-Id: <20201121173903.12429-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -61,40 +61,42 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The Linux kernel uses 'unsigned int' instead of 'int'
-for 'fd' and 'whence'.
-As glibc provides no wrapper, use the same types the kernel uses.
+Found using:
+$ grep -rn '\\f., [^ ]*\\f. and' man?
 
-src/linux$ grep -rn "SYSCALL_DEFINE.*lseek"
-fs/read_write.c:322:SYSCALL_DEFINE3(lseek, unsigned int, fd, off_t, offset, unsigned int, whence)
-fs/read_write.c:328:COMPAT_SYSCALL_DEFINE3(lseek, unsigned int, fd, compat_off_t, offset, unsigned int, whence)
-fs/read_write.c:336:SYSCALL_DEFINE5(llseek, unsigned int, fd, unsigned long, offset_high,
-arch/mips/kernel/linux32.c:65:SYSCALL_DEFINE5(32_llseek, unsigned int, fd, unsigned int, offset_high,
-
-src/linux$ sed -n 322,325p fs/read_write.c
-SYSCALL_DEFINE3(lseek, unsigned int, fd, off_t, offset, unsigned int, whence)
-{
-	return ksys_lseek(fd, offset, whence);
-}
+I also updated the markup in that paragraph: \f -> .
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/lseek.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man5/utmp.5 | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/man2/lseek.2 b/man2/lseek.2
-index e35e410a6..2ff878ffa 100644
---- a/man2/lseek.2
-+++ b/man2/lseek.2
-@@ -51,7 +51,7 @@ lseek \- reposition read/write file offset
- .br
- .B #include <unistd.h>
+diff --git a/man5/utmp.5 b/man5/utmp.5
+index 3b8340858..3b8afc199 100644
+--- a/man5/utmp.5
++++ b/man5/utmp.5
+@@ -176,9 +176,18 @@ records may be located by
  .PP
--.BI "off_t lseek(int " fd ", off_t " offset ", int " whence );
-+.BI "off_t lseek(unsigned int " fd ", off_t " offset ", unsigned int " whence );
- .SH DESCRIPTION
- .BR lseek ()
- repositions the file offset of the open file description
+ When
+ .BR init (1)
+-finds that a process has exited, it locates its utmp
+-entry by \fIut_pid\fP, sets \fIut_type\fP to \fBDEAD_PROCESS\fP, and
+-clears \fIut_user\fP, \fIut_host\fP and \fIut_time\fP with null bytes.
++finds that a process has exited, it locates its utmp entry by
++.IR ut_pid ,
++sets
++.I ut_type
++to
++.BR DEAD_PROCESS ,
++and clears
++.IR ut_user ,
++.IR ut_host ,
++and
++.I ut_time
++with null bytes.
+ .PP
+ .BR xterm (1)
+ and other terminal emulators directly create a
 -- 
 2.29.2
 
