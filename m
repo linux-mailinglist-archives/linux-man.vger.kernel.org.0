@@ -2,112 +2,117 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3C2742BBE33
-	for <lists+linux-man@lfdr.de>; Sat, 21 Nov 2020 10:28:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 61B042BBFFC
+	for <lists+linux-man@lfdr.de>; Sat, 21 Nov 2020 15:44:26 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727082AbgKUJ15 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 21 Nov 2020 04:27:57 -0500
-Received: from mail.kernel.org ([198.145.29.99]:43814 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726709AbgKUJ14 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 21 Nov 2020 04:27:56 -0500
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-        (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id 81A5F22269;
-        Sat, 21 Nov 2020 09:27:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1605950875;
-        bh=uUE+BwhJZQbnAt5h9J7aJjQ56rhNF6AJaSotMShsjjw=;
-        h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-        b=ON94Agc/s57Gqw3EUmZlgsso7EUmKsH7ty9efQnjbxpm/7Uvzx8Glg8536rUjh1RK
-         ctShKcEsxsK4H6T/fE/adSdr+yC6M9lmTEKL7pXTbEnuYoGTQKPe0THVuHJvy2zgnS
-         G+H1bWuB7l9jYDVl4nxJezbY8tV7fbujYf7ER+DU=
-Received: by mail-ot1-f42.google.com with SMTP id 92so8125097otd.5;
-        Sat, 21 Nov 2020 01:27:55 -0800 (PST)
-X-Gm-Message-State: AOAM531zzI8pNQYHrpX2C9CJWsjj6atrN8XTGrwhv0CxKPD2oz+GBagw
-        fAL6q9UDUc5e8uqoEuUxHkXuBOaqdji5PE/2CUk=
-X-Google-Smtp-Source: ABdhPJw8tZEWlczyttYsnJQ6uLhwZuA22h1QJBv7lMqVso6n63xbWEtnhxTHnmW/htaNLmzBLlOTQkGDkhJBZcl9sFg=
-X-Received: by 2002:a9d:6317:: with SMTP id q23mr7263123otk.251.1605950874850;
- Sat, 21 Nov 2020 01:27:54 -0800 (PST)
+        id S1727922AbgKUOoF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 21 Nov 2020 09:44:05 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58736 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727892AbgKUOoF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 21 Nov 2020 09:44:05 -0500
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com [IPv6:2607:f8b0:4864:20::741])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 29D90C0613CF;
+        Sat, 21 Nov 2020 06:44:05 -0800 (PST)
+Received: by mail-qk1-x741.google.com with SMTP id m2so876722qka.3;
+        Sat, 21 Nov 2020 06:44:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=b1YsIwwUIN4rYNJz4bNr3pgQUADYxpKbFfwui8E1kVk=;
+        b=LF3CR/lH4Pkt6bqErxou/dv4op9wa9S8xbgYEw9tFFeZdj8ETu5DjCeWOTaXEmC1/b
+         KWJxJNTqBX/wE/wqQd1hAPLOJoK3pVxovMeqg51ClH/uLp6+IEY8bz6dE8TcpzcKsv//
+         fNEeLKXjNP/XotaxfAui87UMpr6nUHrsa2MgIBjvzfNDjL4YoT01zrg+kx8LpOFC240F
+         vKC9XXImD6VPD4/st+tmk4ePCK4lQQdcyRfzf3qcxoful5M+k9F9tDtS58U3QiRK6j9g
+         ng+f6uogrtjxOLkT5lo4Yynb3j8+WE/rRZTfhxoXkkaVkDpxKZaJxY+S5WT0dnxnueAh
+         MMAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=b1YsIwwUIN4rYNJz4bNr3pgQUADYxpKbFfwui8E1kVk=;
+        b=ZyCzNLtOvc53Wkc0HuXyYDp8K4CfyviGFHLS0RkZ5UEQRwhc+iaxTKTCFMxTtGg/7w
+         aSLNO/Dhwf2UdhLlSjRqfu19MRCiJDwWUxjVkZWfd9minuX88BHqfPZuAlSye2fxL2qu
+         Qic9C8UcsfDToLLngvcOoekSDadsGnc6k0PkH7qVx6t5i8q3Fy6ZkPBvn8aVyHTLSLsA
+         T2psNewdbLF0TuKC5qaQDBFKUvYOCnZZJ7lIPFYE6DkJIHQ0MKi7fz19NmXfq9622y8p
+         2OUYaA8471E4QH6H9qNIqn8HerHmwYEPMqgB/leblHZYcVockP8w9IzpiEudJlvmMOXj
+         USPQ==
+X-Gm-Message-State: AOAM531H/8Y3WpTftdSgPuvHLLzpXKnjCdg91yNLzNGQ4XTaD0lO9rW3
+        mrCOJog+7/7YBXJad3Xzmm+1jRUXr8E=
+X-Google-Smtp-Source: ABdhPJxxK+sVIb9gXaO6vIpinvm4SWyrCKjaFjMTLxuNiHPTirtw1msOuhdVY0ctV9ShJT7hyz0qRg==
+X-Received: by 2002:a37:9a94:: with SMTP id c142mr695606qke.480.1605969843846;
+        Sat, 21 Nov 2020 06:44:03 -0800 (PST)
+Received: from willemb.nyc.corp.google.com ([2620:0:1003:312:f693:9fff:fef4:3e8a])
+        by smtp.gmail.com with ESMTPSA id q15sm4055137qki.13.2020.11.21.06.44.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2020 06:44:03 -0800 (PST)
+From:   Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To:     linux-fsdevel@vger.kernel.org
+Cc:     linux-kernel@vger.kernel.org, viro@zeniv.linux.org.uk,
+        akpm@linux-foundation.org, soheil.kdev@gmail.com,
+        willy@infradead.org, arnd@arndb.de, shuochen@google.com,
+        linux-man@vger.kernel.org, Willem de Bruijn <willemb@google.com>
+Subject: [PATCH v4 0/4] add epoll_pwait2 syscall
+Date:   Sat, 21 Nov 2020 09:43:56 -0500
+Message-Id: <20201121144401.3727659-1-willemdebruijn.kernel@gmail.com>
+X-Mailer: git-send-email 2.29.2.454.gaff20da3a2-goog
 MIME-Version: 1.0
-References: <20201118144617.986860-1-willemdebruijn.kernel@gmail.com>
- <20201118144617.986860-2-willemdebruijn.kernel@gmail.com> <20201118150041.GF29991@casper.infradead.org>
- <CA+FuTSdxNBvNMy341EHeiKOWZ19H++aw-tfr6Fx1mFmbg-z4zQ@mail.gmail.com>
- <CAK8P3a0t02o77+8QNZwXF2k1pY3Xrm5bydv8Vx1TW060P7BKqA@mail.gmail.com>
- <893e8ed21e544d048bff7933013332a0@AcuMS.aculab.com> <CAF=yD-+arBFuZCU3UDx0XKmUGaEz8P1EaDLPK0YFCz82MdwBcg@mail.gmail.com>
- <20201119143131.GG29991@casper.infradead.org> <CAK8P3a1SwQ=L_qA1BmeAt=Xc-Q9Mv4V+J5LFLB5R6rMDST8UiA@mail.gmail.com>
- <CAF=yD-Kd-6f9wAYLD=dP1pk4qncWim424Fu6Hgj=ZrnUtEPORA@mail.gmail.com>
- <CAK8P3a21JRFUJrz1+TYWcVL8s4uSfeSFyoMkGsqUPbV+F=r_yw@mail.gmail.com>
- <CAF=yD-Lzu9j6T4ubRjawF-EKOC3pkQTkpigg=PugWwybY-1ZyQ@mail.gmail.com>
- <CAK8P3a1cJf7+b5HCmFiLq+FdM+D+37rHYaftRgRYbhTyjwR6wg@mail.gmail.com> <CAF=yD-LdtCCY=Mg9CruZHdjBXV6VmEPydzwfcE2BHUC8z7Xgng@mail.gmail.com>
-In-Reply-To: <CAF=yD-LdtCCY=Mg9CruZHdjBXV6VmEPydzwfcE2BHUC8z7Xgng@mail.gmail.com>
-From:   Arnd Bergmann <arnd@kernel.org>
-Date:   Sat, 21 Nov 2020 10:27:38 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a2WifcGmmFzSLC4-0SKsv0RT231P6TVKpWm=j927ykmQg@mail.gmail.com>
-Message-ID: <CAK8P3a2WifcGmmFzSLC4-0SKsv0RT231P6TVKpWm=j927ykmQg@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] epoll: add nsec timeout support with epoll_pwait2
-To:     Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc:     Matthew Wilcox <willy@infradead.org>,
-        David Laight <David.Laight@aculab.com>,
-        Linux FS-devel Mailing List <linux-fsdevel@vger.kernel.org>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Soheil Hassas Yeganeh <soheil.kdev@gmail.com>,
-        Arnd Bergmann <arnd@arndb.de>, Shuo Chen <shuochen@google.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Willem de Bruijn <willemb@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Nov 20, 2020 at 11:28 PM Willem de Bruijn
-<willemdebruijn.kernel@gmail.com> wrote:
-> On Fri, Nov 20, 2020 at 2:23 PM Arnd Bergmann <arnd@kernel.org> wrote:
-> > On Fri, Nov 20, 2020 at 5:01 PM Willem de Bruijn <willemdebruijn.kernel@gmail.com> wrote:
->
-> I think it'll be better to split the patchsets:
->
-> epoll: convert internal api to timespec64
-> epoll: add syscall epoll_pwait2
-> epoll: wire up syscall epoll_pwait2
-> selftests/filesystems: expand epoll with epoll_pwait2
->
-> and
->
-> select: compute slack based on relative time
-> epoll: compute slack based on relative time
->
-> and judge the slack conversion on its own merit.
+From: Willem de Bruijn <willemb@google.com>
 
-Yes, makes sense.
+Enable nanosecond timeouts for epoll.
 
-> I also would rather not tie this up with the compat deduplication.
-> Happy to take a stab at that though. On that note, when combining
-> functions like
->
->   int core_sys_select(int n, fd_set __user *inp, fd_set __user *outp,
->                            fd_set __user *exp, struct timespec64 *end_time,
->                            u64 slack)
->
-> and
->
->   static int compat_core_sys_select(int n, compat_ulong_t __user *inp,
->         compat_ulong_t __user *outp, compat_ulong_t __user *exp,
->         struct timespec64 *end_time, u64 slack)
->
-> by branching on in_compat_syscall() inside get_fd_set/set_fd_set and
-> deprecating their compat_.. counterparts, what would the argument
-> pointers look like? Or is that not the approach you have in mind?
+Analogous to pselect and ppoll, introduce an epoll_wait syscall
+variant that takes a struct timespec instead of int timeout.
 
-In this case, the top-level entry points becomes unified, and you get
-the prototype from core_sys_select() with the native arguments.
+See patch 2 for more details.
 
-I would imagine this can be done like the way I proposed
-for get_bitmap() in sys_migrate_pages:
+patch 1: pre patch cleanup: convert internal epoll to timespec64
+patch 2: add syscall
+patch 3: wire up syscall
+patch 4: selftest
 
-https://lore.kernel.org/lkml/20201102123151.2860165-4-arnd@kernel.org/
+Applies cleanly to next-20201120
+No update to man-pages since v3, see commit
+https://lore.kernel.org/patchwork/patch/1341103/
 
-        Arnd
+Willem de Bruijn (4):
+  epoll: convert internal api to timespec64
+  epoll: add syscall epoll_pwait2
+  epoll: wire up syscall epoll_pwait2
+  selftests/filesystems: expand epoll with epoll_pwait2
+
+ arch/alpha/kernel/syscalls/syscall.tbl        |   1 +
+ arch/arm/tools/syscall.tbl                    |   1 +
+ arch/arm64/include/asm/unistd.h               |   2 +-
+ arch/arm64/include/asm/unistd32.h             |   2 +
+ arch/ia64/kernel/syscalls/syscall.tbl         |   1 +
+ arch/m68k/kernel/syscalls/syscall.tbl         |   1 +
+ arch/microblaze/kernel/syscalls/syscall.tbl   |   1 +
+ arch/mips/kernel/syscalls/syscall_n32.tbl     |   1 +
+ arch/mips/kernel/syscalls/syscall_n64.tbl     |   1 +
+ arch/mips/kernel/syscalls/syscall_o32.tbl     |   1 +
+ arch/parisc/kernel/syscalls/syscall.tbl       |   1 +
+ arch/powerpc/kernel/syscalls/syscall.tbl      |   1 +
+ arch/s390/kernel/syscalls/syscall.tbl         |   1 +
+ arch/sh/kernel/syscalls/syscall.tbl           |   1 +
+ arch/sparc/kernel/syscalls/syscall.tbl        |   1 +
+ arch/x86/entry/syscalls/syscall_32.tbl        |   1 +
+ arch/x86/entry/syscalls/syscall_64.tbl        |   1 +
+ arch/xtensa/kernel/syscalls/syscall.tbl       |   1 +
+ fs/eventpoll.c                                | 130 ++++++++++++++----
+ include/linux/compat.h                        |   6 +
+ include/linux/syscalls.h                      |   5 +
+ include/uapi/asm-generic/unistd.h             |   4 +-
+ kernel/sys_ni.c                               |   2 +
+ .../filesystems/epoll/epoll_wakeup_test.c     |  72 ++++++++++
+ 24 files changed, 210 insertions(+), 29 deletions(-)
+
+-- 
+2.29.2.454.gaff20da3a2-goog
+
