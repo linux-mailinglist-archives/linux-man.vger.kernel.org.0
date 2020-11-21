@@ -2,101 +2,119 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 35B982BC11E
-	for <lists+linux-man@lfdr.de>; Sat, 21 Nov 2020 18:39:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id F018F2BC12B
+	for <lists+linux-man@lfdr.de>; Sat, 21 Nov 2020 18:46:28 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726281AbgKURjh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 21 Nov 2020 12:39:37 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57356 "EHLO
+        id S1727976AbgKURpy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 21 Nov 2020 12:45:54 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58314 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726305AbgKURjh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 21 Nov 2020 12:39:37 -0500
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A4913C0613CF
-        for <linux-man@vger.kernel.org>; Sat, 21 Nov 2020 09:39:36 -0800 (PST)
-Received: by mail-wm1-x344.google.com with SMTP id a186so11162215wme.1
-        for <linux-man@vger.kernel.org>; Sat, 21 Nov 2020 09:39:36 -0800 (PST)
+        with ESMTP id S1726305AbgKURpx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 21 Nov 2020 12:45:53 -0500
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 783ABC0613CF;
+        Sat, 21 Nov 2020 09:45:53 -0800 (PST)
+Received: by mail-wr1-x442.google.com with SMTP id d12so14109158wrr.13;
+        Sat, 21 Nov 2020 09:45:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=flUyRx2GhEKQqIT6P1BSFIyX7Xqjuyc7v4Xmf6EJxWw=;
-        b=tHzWwUV+vV4NlLuukv3Te0oNS35uHWF6QcUWsXwDej/4gGLLxh+jORsngo+atbEi3J
-         Njsw5rKp9IPgYxvgO+0yOLcVH0QmQq04GFuOgskhzrnwBAVqlZOBkcrRPw8TzNiIb2f5
-         dpKAQWJvm8ygVQQKEiv0Iz8Aw65+lTroJ6cCsQ1jukDG3AMP08DGR6zxQdcMg7YiI6r2
-         Eyk6yU+FhtfqIN34nWU15jVO8IH403vbA3FT+FU0VgXhiD1pax91NJC/w+pD7B8rTv8k
-         HXaPW6MZ4B6pbPxaFPYv3faX6PyOjwLNDV8iUDXV3oLuP8DtAopHMF11PM3idX5giGK8
-         eFlQ==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=CmLzE4UtMwXnfnKb5jOVMuAz+yy9QBReO6ZHCKfQ55I=;
+        b=Qd4Xx/EPAOlqOCKpFWNXhlixrBcK12nOahenM2/Ucy99hWa2rwXMJvuoz8uD5KjLGB
+         cme+8I9isjfXMDBbp3qOr1bJ/OyX3XBbGdJVyGfscIAJ42gCyexuy93CN38KKPkEnJ/v
+         w2vivZSSMPxUtN9ucaNO6BzvxmTA5nYdanXG8vlfqmF71Ye3El0GIklfkdIGjsGZQ52n
+         jFyAE05DJvRGnOvLTfZO5qzTzc3PHz+PM/SXLe0OxRqRl4LNfwItthhuBUMg15oonL1N
+         cYVPLbU39lNQzWa0uTx9ZnSOPsxdqNQrJC5qjRFsTTOBq6W5MxAVkK2IFkXJygWtv+Gf
+         diNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=flUyRx2GhEKQqIT6P1BSFIyX7Xqjuyc7v4Xmf6EJxWw=;
-        b=n1bNg7wUC81CIeAaztHtuijHWUYXAuC9vCurkitnyR3RTZazWrr3+nANgkwUDcQyFv
-         SPdo0aHZOtMD0+m2piUEbKQxWTYvPx/Rv5qcWimNDlxAozDV9h2nr7B2XFTeZq6GgHB1
-         FOlchiMDpc+t7hGt9cVt10K7wm6WHPeG7FB/KznJXpQ/Ee9tSj+Lr6zVTmu9COGyBAz/
-         NM5qas5jpTpjGucl1CiweDzJGNStypnufbbtmVpqlzpTheyn9Y2S7RPm931PMgBRgPR/
-         UkDfh008TyEp8SyMAeD3Oh2iS01Ll+o1YpLgRKsoiwuT0M9Aq4DDBclDx4x2MHkof+K7
-         N5Ng==
-X-Gm-Message-State: AOAM530MA3Qwwb7chLGWlJRzxa+ejVuLQxZQT/BDO78IbH7UGhSoICQ/
-        sKSl5M2NuoZe+UtyaFWTNv8=
-X-Google-Smtp-Source: ABdhPJwuMnRpZ29d0Wd2GHdlRufqSWr+EXGmyQvBj/ZmJ3m6tOgeshIAgaa9ERWrGfnCx1wdWotmyQ==
-X-Received: by 2002:a1c:e455:: with SMTP id b82mr15795841wmh.117.1605980375083;
-        Sat, 21 Nov 2020 09:39:35 -0800 (PST)
-Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id d3sm9282887wre.91.2020.11.21.09.39.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2020 09:39:34 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
+        bh=CmLzE4UtMwXnfnKb5jOVMuAz+yy9QBReO6ZHCKfQ55I=;
+        b=PBqM+zzBg9J48J5eV9Nf/cuGiZU8vwMzjx1QYAHn5ZeUvYXUY3PtZXmmwX07OjVbAD
+         uJizpP/5QCyFMFv40vo2jTwkUcVY2D5b6Wj8mGeKypzxH315FwE71FuDYLSXNmY6t4sZ
+         YwV1/VOhda+Djs7clj2hG33oqkRMKc5hnx/rbwd8NdagItT4PpEeMYzjPFyKLRMRt4Ef
+         8BHkYHSkLlONKW38v5+u1UtELwiiCxtkVjufg309i7YEoPRh4arU3rDd9eEceewDetoQ
+         yJG2MAymzYm3/mmguX4cK+t57r2PdlCk4ajfG1pVxHzKfmZWwxOhU/PfEccCHyisdl7A
+         LZhw==
+X-Gm-Message-State: AOAM531+DLbw0Tqkji3Jdax5ewFFPhtGkRauV6wuzPBBY0Ur62qi8vfU
+        cJvlXFD+GWsV+u3uFHqCvAT48MD3qld80w==
+X-Google-Smtp-Source: ABdhPJxHDqFDtMWLXbEGAz83X92mje739HE9WlnMeN1iWBJfLuj1Z4NLGUa2JRprj3vhsB/2l7PQig==
+X-Received: by 2002:a5d:4e0a:: with SMTP id p10mr23382784wrt.358.1605980752025;
+        Sat, 21 Nov 2020 09:45:52 -0800 (PST)
+Received: from [192.168.1.143] ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id b14sm9176533wrs.46.2020.11.21.09.45.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 21 Nov 2020 09:45:51 -0800 (PST)
+Subject: Re: [PATCH] lseek.2: SYNOPSIS: Use correct types
 To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH] utmp.5: Oxford comma
-Date:   Sat, 21 Nov 2020 18:39:04 +0100
-Message-Id: <20201121173903.12429-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.29.2
+Cc:     linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20201121173054.12172-1-alx.manpages@gmail.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <5e3a4489-48dd-b33c-9733-4967cdb8a310@gmail.com>
+Date:   Sat, 21 Nov 2020 18:45:50 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201121173054.12172-1-alx.manpages@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Found using:
-$ grep -rn '\\f., [^ ]*\\f. and' man?
+Hi Michael,
 
-I also updated the markup in that paragraph: \f -> .
+I'm a bit lost in all the *lseek* pages.
+You had a good read some months ago, so you may know it better.
+I don't know which of those functions come from the kernel,
+and which come from glibc (if any).
+In the kernel I only found the lseek, llseek, and 32_llseek
+(as you can see in the patch).
+So if any other prototype needs to be updated, please do so.
+Especially, have a look at lseek64(3),
+which I suspect needs the same changes I propose in that patch.
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man5/utmp.5 | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+Thanks,
 
-diff --git a/man5/utmp.5 b/man5/utmp.5
-index 3b8340858..3b8afc199 100644
---- a/man5/utmp.5
-+++ b/man5/utmp.5
-@@ -176,9 +176,18 @@ records may be located by
- .PP
- When
- .BR init (1)
--finds that a process has exited, it locates its utmp
--entry by \fIut_pid\fP, sets \fIut_type\fP to \fBDEAD_PROCESS\fP, and
--clears \fIut_user\fP, \fIut_host\fP and \fIut_time\fP with null bytes.
-+finds that a process has exited, it locates its utmp entry by
-+.IR ut_pid ,
-+sets
-+.I ut_type
-+to
-+.BR DEAD_PROCESS ,
-+and clears
-+.IR ut_user ,
-+.IR ut_host ,
-+and
-+.I ut_time
-+with null bytes.
- .PP
- .BR xterm (1)
- and other terminal emulators directly create a
--- 
-2.29.2
+Alex
 
+On 11/21/20 6:30 PM, Alejandro Colomar wrote:
+> The Linux kernel uses 'unsigned int' instead of 'int'
+> for 'fd' and 'whence'.
+> As glibc provides no wrapper, use the same types the kernel uses.
+> 
+> src/linux$ grep -rn "SYSCALL_DEFINE.*lseek"
+> fs/read_write.c:322:SYSCALL_DEFINE3(lseek, unsigned int, fd, off_t, offset, unsigned int, whence)
+> fs/read_write.c:328:COMPAT_SYSCALL_DEFINE3(lseek, unsigned int, fd, compat_off_t, offset, unsigned int, whence)
+> fs/read_write.c:336:SYSCALL_DEFINE5(llseek, unsigned int, fd, unsigned long, offset_high,
+> arch/mips/kernel/linux32.c:65:SYSCALL_DEFINE5(32_llseek, unsigned int, fd, unsigned int, offset_high,
+> 
+> src/linux$ sed -n 322,325p fs/read_write.c
+> SYSCALL_DEFINE3(lseek, unsigned int, fd, off_t, offset, unsigned int, whence)
+> {
+> 	return ksys_lseek(fd, offset, whence);
+> }
+> 
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
+>  man2/lseek.2 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/man2/lseek.2 b/man2/lseek.2
+> index e35e410a6..2ff878ffa 100644
+> --- a/man2/lseek.2
+> +++ b/man2/lseek.2
+> @@ -51,7 +51,7 @@ lseek \- reposition read/write file offset
+>  .br
+>  .B #include <unistd.h>
+>  .PP
+> -.BI "off_t lseek(int " fd ", off_t " offset ", int " whence );
+> +.BI "off_t lseek(unsigned int " fd ", off_t " offset ", unsigned int " whence );
+>  .SH DESCRIPTION
+>  .BR lseek ()
+>  repositions the file offset of the open file description
+> 
