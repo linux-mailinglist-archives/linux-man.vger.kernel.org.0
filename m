@@ -2,68 +2,117 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 15B4E2BC9C1
-	for <lists+linux-man@lfdr.de>; Sun, 22 Nov 2020 22:50:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2A1AB2BFC2F
+	for <lists+linux-man@lfdr.de>; Sun, 22 Nov 2020 23:33:42 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726603AbgKVVty (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 22 Nov 2020 16:49:54 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33736 "EHLO
+        id S1726502AbgKVWcp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 22 Nov 2020 17:32:45 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40324 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726339AbgKVVtx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Nov 2020 16:49:53 -0500
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 779CAC0613CF;
-        Sun, 22 Nov 2020 13:49:53 -0800 (PST)
-Received: by mail-ej1-x642.google.com with SMTP id z5so511377ejp.4;
-        Sun, 22 Nov 2020 13:49:53 -0800 (PST)
+        with ESMTP id S1726489AbgKVWco (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Nov 2020 17:32:44 -0500
+Received: from mail-oi1-x241.google.com (mail-oi1-x241.google.com [IPv6:2607:f8b0:4864:20::241])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B93F1C0613CF;
+        Sun, 22 Nov 2020 14:32:44 -0800 (PST)
+Received: by mail-oi1-x241.google.com with SMTP id c80so17644806oib.2;
+        Sun, 22 Nov 2020 14:32:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=message-id:sender:from:mime-version:content-transfer-encoding
-         :content-description:subject:to:date:reply-to;
-        bh=holMzMixu6L4mPkY4KLX0AXrH3B7KLU6Q1+gVZ1hbDo=;
-        b=HUVppRKEYpjb1QykG+X5NdYV6Fpf8wj/CiyW8Xv//H4RpXKYJT58nGmZS5ZATdeR0y
-         Jx4bs84wN9vGIE+p48OmeQ+zf26QKIWK7ATcVSXTjhoOJyywHcg/bFQghqG9Rg2WGEIE
-         PA/41/PLmUdS7CJW8W2gEf1jHTZAHc2a2MDqHJWmUaglSaVNScPmAKhvmqY6x352QcYw
-         jsl+3BukezyHfu/wxsCnpT22S09rKRmjfitvHnonb3zaWt605JWvqfEgYj6xcQ8dlPKK
-         siJU6uXJh6vnQKWHdfohk3uH0yO1LobYIn5yRvjzPj6mnI7n8WKf7QXUgCtOM0syEFIR
-         5JYQ==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=xz3AjGP9Tg1tyJ2aOnoC1uR/QewegNTFrIVqLnCw6+Q=;
+        b=V+XoCaj0JS9lqwpClskQX7XEqiJpcnUhg3raB41mKRAIOH0j7s1JqmuMVnzINkw+Y9
+         6U1gXIcD+CJ59ICIZpbSgo5+t88xtZ89aCzC5ANQ2Nf4HeNBrMJvaiLVaAdKjx4taqGL
+         cwgvqFMkvJPPoDnQG0ymiTXYEjbkzkLTVOkXQ4fEuBIdTNmx9L9b0ZT8wwnTeA4JdELO
+         vdbA51hu1oTjrXDAIJzcnPz7GVd5lZAjzbqAwM9BjT3m+O13Ih/qaPCjupt+m9WmCAXB
+         mUsd8nLuWilrZQm2sDZPua79J4up14WsW8K7aa+mVHVOzdlJpvMTItPvxifvstJaeJ8D
+         ofhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:sender:from:mime-version
-         :content-transfer-encoding:content-description:subject:to:date
-         :reply-to;
-        bh=holMzMixu6L4mPkY4KLX0AXrH3B7KLU6Q1+gVZ1hbDo=;
-        b=JkoDWA61CJLkGCg0oesw1j+5tT4cPXmTxl0jfWtIGYyu7IR7UqiuSefnCKgKtVgEEP
-         cHDNF48GebuQO011GRZO7jEo3SNPFm5e8fh3WOqSceIvKeGkZfaVcNjmtHxgdUDQwtwm
-         oE3SXDyUaN2lbqBzhc5fyujDjzvHb1HP9O1+Tc+h28ayzpkHCmiDNglzXTd3x45gOYBm
-         7Gva9dR77mhwshJHx9JmYu65/ez0BPuGirK5qoC0snAViexraeXq4RvWlmYie8fBwKIM
-         8ZrVMuVyGcfxrZlELJlBihsSq1EwZWfr6wij9VQS9L3hwZQLuP7hz7lTJrQOoYcZrX1U
-         zQcw==
-X-Gm-Message-State: AOAM532vVE75FbhBNbqFLexaOn/dXymv7f3Yc5heBjRRw49Cu6H0xTHR
-        83PhNPt5QTCDUDPTSdTmVQE=
-X-Google-Smtp-Source: ABdhPJxbeTkmCWFnOtpHvb3HT1s77EpmVgwzd4A+d7175Wqv5/JJnk2eV9JrAD+skGvn23s7XVOy/A==
-X-Received: by 2002:a17:906:c20f:: with SMTP id d15mr41004663ejz.341.1606081792277;
-        Sun, 22 Nov 2020 13:49:52 -0800 (PST)
-Received: from [192.168.43.48] ([197.210.35.67])
-        by smtp.gmail.com with ESMTPSA id e17sm4016232edc.45.2020.11.22.13.49.47
-        (version=TLS1 cipher=AES128-SHA bits=128/128);
-        Sun, 22 Nov 2020 13:49:51 -0800 (PST)
-Message-ID: <5fbadcff.1c69fb81.8dfc7.11c7@mx.google.com>
-Sender: Baniko Diallo <banidiallo23@gmail.com>
-From:   Adelina Zeuki <adelinazeuki@gmail.com>
-X-Google-Original-From: "Adelina Zeuki" <  adelinazeuki@gmail.comm >
-Content-Type: text/plain; charset="iso-8859-1"
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=xz3AjGP9Tg1tyJ2aOnoC1uR/QewegNTFrIVqLnCw6+Q=;
+        b=okfnGOtGbC7wMzI6j1Jq29YRwUjF5Jm0W5OiHMLNjTBuYX6cvlziDLLuHPJKDL+Nqm
+         N5MjWELmdVnUz4FBDQfKh4UWDlMU2loZw5m3Kr1YORtjcHYUQLuYFaYLQo2YBYo8CGPs
+         uG8N/S2sCZhY7a6VKGIm+BeFNEr8Z4p43vhyUy6CZoK9s5EQQ3SjNbbpn8QPzmFu9SLs
+         3/cr3SdwgYdObevEg+GslsLAJlUuwXXiqI9anurzfwDPaTePsZHKgd3yVSEAAp/7RdIm
+         2VhbpGXafmxrgpQ+9QEj09qemOKIRQPE89vHHjgSKHsTm0obnh4b3HaG3t+kQJhMczpF
+         XtRw==
+X-Gm-Message-State: AOAM533Zbfb0QmnE9WgBDtK3MeJD/Q+z1ATuzAsjxsImbe3T+yLw5X89
+        F35JqAL+F8A9FHXqYBSFAfgxPiwoLq84iOa0FqnzKhTiP14=
+X-Google-Smtp-Source: ABdhPJwc0YCoO8vpqFyniYpcRUJUUJMZa2O3jH5OoxaN0/W+5NG3GKJFXVMd/J5npOqMIihgCv1CgFKUicCnWjoAx7w=
+X-Received: by 2002:a05:6808:91a:: with SMTP id w26mr13508860oih.159.1606084364053;
+ Sun, 22 Nov 2020 14:32:44 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
-Subject: Hello !!
-To:     Recipients <adelinazeuki@gmail.comm>
-Date:   Sun, 22 Nov 2020 21:49:41 +0000
-Reply-To: adelinazeuki@gmail.com
+References: <20201121173054.12172-1-alx.manpages@gmail.com>
+In-Reply-To: <20201121173054.12172-1-alx.manpages@gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Sun, 22 Nov 2020 23:32:32 +0100
+Message-ID: <CAKgNAkj5RN00d8EJF4vM1S0KPsmX6kB+pd4=HqVBwH3cQqnoSQ@mail.gmail.com>
+Subject: Re: [PATCH] lseek.2: SYNOPSIS: Use correct types
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
+        Florian Weimer <fw@deneb.enyo.de>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi dear,
+[Adding libc-alpha@ here, so someone might correct me if I make a misstep]
 
-Can i talk with you ?
+Hello Alex,
+
+On Sat, 21 Nov 2020 at 18:34, Alejandro Colomar <alx.manpages@gmail.com> wrote:
+>
+> The Linux kernel uses 'unsigned int' instead of 'int'
+> for 'fd' and 'whence'.
+> As glibc provides no wrapper, use the same types the kernel uses.
+
+I see Florian already replied, but just to add a detail or two...
+
+In general, the manual pages explicitly note the APIs that have no
+glibc wrapper. (If not, that's a bug in the page, but I don't expect
+there are many such bugs.)
+
+Looking in <unistd.h>, we have:
+
+[[
+#ifndef __USE_FILE_OFFSET64
+extern __off_t lseek (int __fd, __off_t __offset, int __whence) __THROW;
+#else
+# ifdef __REDIRECT_NTH
+extern __off64_t __REDIRECT_NTH (lseek,
+                                 (int __fd, __off64_t __offset, int __whence),
+                                 lseek64);
+# else
+#  define lseek lseek64
+# endif
+#endif
+#ifdef __USE_LARGEFILE64
+extern __off64_t lseek64 (int __fd, __off64_t __offset, int __whence)
+     __THROW;
+#endif
+]]
+
+It looks to me like there's a prototype hiding in there. (And yes, I
+don't find it so funny to decode the macro logic either.)
+
+Thanks,
+
+Michael
+
+PS By the way, be aware that the code of many wrapper functions is
+autogenerated from "syscalls.list" files in the glibc source, for
+example, sysdeps/unix/sysv/linux/syscalls.list. This isn't the case
+for lseek(), though, as far as I can see; I think the wrapper function
+is defined in sysdeps/unix/sysv/linux/lseek.c.
+
+
+
+--
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
