@@ -2,117 +2,56 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2A1AB2BFC2F
-	for <lists+linux-man@lfdr.de>; Sun, 22 Nov 2020 23:33:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 527692BFC90
+	for <lists+linux-man@lfdr.de>; Sun, 22 Nov 2020 23:48:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726502AbgKVWcp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 22 Nov 2020 17:32:45 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40324 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726489AbgKVWco (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Nov 2020 17:32:44 -0500
-Received: from mail-oi1-x241.google.com (mail-oi1-x241.google.com [IPv6:2607:f8b0:4864:20::241])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B93F1C0613CF;
-        Sun, 22 Nov 2020 14:32:44 -0800 (PST)
-Received: by mail-oi1-x241.google.com with SMTP id c80so17644806oib.2;
-        Sun, 22 Nov 2020 14:32:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=xz3AjGP9Tg1tyJ2aOnoC1uR/QewegNTFrIVqLnCw6+Q=;
-        b=V+XoCaj0JS9lqwpClskQX7XEqiJpcnUhg3raB41mKRAIOH0j7s1JqmuMVnzINkw+Y9
-         6U1gXIcD+CJ59ICIZpbSgo5+t88xtZ89aCzC5ANQ2Nf4HeNBrMJvaiLVaAdKjx4taqGL
-         cwgvqFMkvJPPoDnQG0ymiTXYEjbkzkLTVOkXQ4fEuBIdTNmx9L9b0ZT8wwnTeA4JdELO
-         vdbA51hu1oTjrXDAIJzcnPz7GVd5lZAjzbqAwM9BjT3m+O13Ih/qaPCjupt+m9WmCAXB
-         mUsd8nLuWilrZQm2sDZPua79J4up14WsW8K7aa+mVHVOzdlJpvMTItPvxifvstJaeJ8D
-         ofhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=xz3AjGP9Tg1tyJ2aOnoC1uR/QewegNTFrIVqLnCw6+Q=;
-        b=okfnGOtGbC7wMzI6j1Jq29YRwUjF5Jm0W5OiHMLNjTBuYX6cvlziDLLuHPJKDL+Nqm
-         N5MjWELmdVnUz4FBDQfKh4UWDlMU2loZw5m3Kr1YORtjcHYUQLuYFaYLQo2YBYo8CGPs
-         uG8N/S2sCZhY7a6VKGIm+BeFNEr8Z4p43vhyUy6CZoK9s5EQQ3SjNbbpn8QPzmFu9SLs
-         3/cr3SdwgYdObevEg+GslsLAJlUuwXXiqI9anurzfwDPaTePsZHKgd3yVSEAAp/7RdIm
-         2VhbpGXafmxrgpQ+9QEj09qemOKIRQPE89vHHjgSKHsTm0obnh4b3HaG3t+kQJhMczpF
-         XtRw==
-X-Gm-Message-State: AOAM533Zbfb0QmnE9WgBDtK3MeJD/Q+z1ATuzAsjxsImbe3T+yLw5X89
-        F35JqAL+F8A9FHXqYBSFAfgxPiwoLq84iOa0FqnzKhTiP14=
-X-Google-Smtp-Source: ABdhPJwc0YCoO8vpqFyniYpcRUJUUJMZa2O3jH5OoxaN0/W+5NG3GKJFXVMd/J5npOqMIihgCv1CgFKUicCnWjoAx7w=
-X-Received: by 2002:a05:6808:91a:: with SMTP id w26mr13508860oih.159.1606084364053;
- Sun, 22 Nov 2020 14:32:44 -0800 (PST)
+        id S1726810AbgKVWsF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 22 Nov 2020 17:48:05 -0500
+Received: from buexe.b-5.de ([185.37.144.146]:52300 "EHLO buexe.b-5.de"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726698AbgKVWsF (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sun, 22 Nov 2020 17:48:05 -0500
+X-Greylist: delayed 641 seconds by postgrey-1.27 at vger.kernel.org; Sun, 22 Nov 2020 17:48:04 EST
+Received: from kirmayer.de (aftr-62-216-203-174.dynamic.mnet-online.de [62.216.203.174])
+        (authenticated bits=128)
+        by buexe.b-5.de (8.15.2/8.15.2/b-5/buexe-3.6.3) with ESMTPSA id 0AMMbC06016549
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Sun, 22 Nov 2020 23:37:16 +0100
+Date:   Sun, 22 Nov 2020 23:37:07 +0100
+From:   Sebastian Kirmayer <man-pages@kirmayer.eu>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: [patch] getnameinfo.3: Fix _POSIX_C_SOURCE value for getaddrinfo()
+Message-ID: <20201122223707.GA7261@kirmayer.de>
 MIME-Version: 1.0
-References: <20201121173054.12172-1-alx.manpages@gmail.com>
-In-Reply-To: <20201121173054.12172-1-alx.manpages@gmail.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Sun, 22 Nov 2020 23:32:32 +0100
-Message-ID: <CAKgNAkj5RN00d8EJF4vM1S0KPsmX6kB+pd4=HqVBwH3cQqnoSQ@mail.gmail.com>
-Subject: Re: [PATCH] lseek.2: SYNOPSIS: Use correct types
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
-        Florian Weimer <fw@deneb.enyo.de>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-[Adding libc-alpha@ here, so someone might correct me if I make a misstep]
+The minimum value of _POSIX_C_SOURCE for getnameinfo() was mistyped as 201112L
+(not a real POSIX version), it should be 200112L. This is the same typo that
+was fixed for getaddrinfo.3 in commit 94db8ae1824ada8561c3dbbbed88a8a9175c4886
 
-Hello Alex,
+According to the current documentation, this file should not compile, but
+it does:
 
-On Sat, 21 Nov 2020 at 18:34, Alejandro Colomar <alx.manpages@gmail.com> wrote:
->
-> The Linux kernel uses 'unsigned int' instead of 'int'
-> for 'fd' and 'whence'.
-> As glibc provides no wrapper, use the same types the kernel uses.
+    #define _POSIX_C_SOURCE 200112L
+    #include <netdb.h>
+    int (*mygetnameinfo)() = getnameinfo;
 
-I see Florian already replied, but just to add a detail or two...
+(If _POSIX_C_SOURCE is changed to 200111L, the program does no longer compile.)
 
-In general, the manual pages explicitly note the APIs that have no
-glibc wrapper. (If not, that's a bug in the page, but I don't expect
-there are many such bugs.)
+man3/getnameinfo.3:
 
-Looking in <unistd.h>, we have:
+@@ -27,7 +27,7 @@ Feature Test Macro Requirements for glibc (see
+ .RE
+ .PP
+ .BR getnameinfo ():
+-    Since glibc 2.22: _POSIX_C_SOURCE >= 201112L
++    Since glibc 2.22: _POSIX_C_SOURCE >= 200112L
+     Glibc 2.21 and earlier: _POSIX_C_SOURCE
+ .ad b
+ .SH DESCRIPTION
 
-[[
-#ifndef __USE_FILE_OFFSET64
-extern __off_t lseek (int __fd, __off_t __offset, int __whence) __THROW;
-#else
-# ifdef __REDIRECT_NTH
-extern __off64_t __REDIRECT_NTH (lseek,
-                                 (int __fd, __off64_t __offset, int __whence),
-                                 lseek64);
-# else
-#  define lseek lseek64
-# endif
-#endif
-#ifdef __USE_LARGEFILE64
-extern __off64_t lseek64 (int __fd, __off64_t __offset, int __whence)
-     __THROW;
-#endif
-]]
-
-It looks to me like there's a prototype hiding in there. (And yes, I
-don't find it so funny to decode the macro logic either.)
-
-Thanks,
-
-Michael
-
-PS By the way, be aware that the code of many wrapper functions is
-autogenerated from "syscalls.list" files in the glibc source, for
-example, sysdeps/unix/sysv/linux/syscalls.list. This isn't the case
-for lseek(), though, as far as I can see; I think the wrapper function
-is defined in sysdeps/unix/sysv/linux/lseek.c.
-
-
-
---
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
