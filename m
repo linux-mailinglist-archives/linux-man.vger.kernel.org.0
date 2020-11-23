@@ -2,154 +2,108 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E352E2C1806
-	for <lists+linux-man@lfdr.de>; Mon, 23 Nov 2020 22:59:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0A68C2C1815
+	for <lists+linux-man@lfdr.de>; Mon, 23 Nov 2020 23:06:02 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731569AbgKWVxU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 23 Nov 2020 16:53:20 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58524 "EHLO
+        id S1732077AbgKWV73 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 23 Nov 2020 16:59:29 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59462 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729616AbgKWVxU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Nov 2020 16:53:20 -0500
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com [IPv6:2a00:1450:4864:20::542])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C77CCC0613CF;
-        Mon, 23 Nov 2020 13:53:18 -0800 (PST)
-Received: by mail-ed1-x542.google.com with SMTP id y4so18701748edy.5;
-        Mon, 23 Nov 2020 13:53:18 -0800 (PST)
+        with ESMTP id S1729058AbgKWV72 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Nov 2020 16:59:28 -0500
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 65829C0613CF;
+        Mon, 23 Nov 2020 13:59:28 -0800 (PST)
+Received: by mail-wr1-x444.google.com with SMTP id t4so7365145wrr.12;
+        Mon, 23 Nov 2020 13:59:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=NZgwr/hSHKf1dUy/hIq1rV2ctvPw0NQJVdiR348tduw=;
-        b=tA1Po2MGoH0ZQmHroZFwj2YEzlwJ44DAeAlOrI0aPsswlr7YL6eWn3Rngc5+xCKahS
-         WWv6cwM7j+ELPeohrSPa3aTj/2Im8WqOHFCcMuYEEwg1JbOyQ6Moh5585QkJUgTEiBm1
-         yK2I/dGhqaE6WhtxcLwYpjAbMWYPohVIEN23v2Jr+4HFLDbD6eyymCStz1o/YPMQVwh+
-         hnG+HJUAfaKc1U9GOJSXVEcnkUKLhcjjUqDZe/s9LAq+0AP2JPQdRmY+2MwSyregxGo9
-         ti+QFNw6tlN5zkXIk5r431D2eN9L5SQD+bTFgXgCiH5DRdreRzxahoET8BBg+MRMErrx
-         VKNQ==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Y5Z9D18Lkdw2Ol19/dXuIh0/n8vjMe9yN4YqNultdEQ=;
+        b=sL+hL0ZOrPe1QTjTwZtRk7hXHi4eagKWi/JxL94QeIluAmPXBQVHblRDacfOqryRRD
+         omwyZOEBKSKQS+hcKjdpv34aGh3B0Yu5OE4JFTXREXElEiIABAQCHar6qlO58iJ3fP+Z
+         Fn3gf7n9Ypz7kDSUCptPlxNPsks33Xi9oKTA6pEvHzpmeKp+UHDyTVh9mTxkbaL9Xy2c
+         QEajt6TVosacoFBbo6vGf2ZQ6EnC04cLQ6UckURqq76R7Nu1DLPUkNRaScSlFPbxwJel
+         S1KrgUw3FsCpufpsrVguYVHAyCTmMrs1rjkzjeHb6ypKXmvy38mhUhZx+5LRfXFXgYYV
+         r6lA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=NZgwr/hSHKf1dUy/hIq1rV2ctvPw0NQJVdiR348tduw=;
-        b=Yo3p4VnZ13ruSTx6k+a/AWB7QGD9dVsuIQKQTinyZVmrSgD6SLtqQq/q7elJ4Iz1TV
-         wlqZ68a2yDInNOpOlEeX/p1bMA/MbGKZE7nru/PKHi360hDbVV1Yn0MRBaAk3ZGMVtaS
-         boj4EddfcTPLVFR9keiuYQehmtq+CjSPsYXpFA/43rU9Wg9E4EjdcZqBTaiUAQYV8NOq
-         mr6nBO9HBMx1mJukpu+0ZpvtyeqUfv011+1QlOf/TNLSNQVzpnDod9qgFwEAyfhJ2d9m
-         MnaJNjkL8EVo4v9rmxRaLBS/JdBxmePfNNAV3bgtMQPBtIgkG38zZP9LaGUTP33YKxj6
-         9cSw==
-X-Gm-Message-State: AOAM531M+woVwaJTh40eV7VEq4nUtMwJ4dTxI0MdcvB++PHfKx4MJMMv
-        vFmms/pWRvSKIyDubbt7sno=
-X-Google-Smtp-Source: ABdhPJwmdwEGaGmSBdf9S4E2eoBqT1d8HHoq3GZzUK03iCZd8s4CO4t094VB9XzwoLPWLreXnQ0Leg==
-X-Received: by 2002:a50:eb0a:: with SMTP id y10mr1268284edp.342.1606168397429;
-        Mon, 23 Nov 2020 13:53:17 -0800 (PST)
-Received: from ?IPv6:2001:a61:24b3:de01:7310:e730:497d:ea6a? ([2001:a61:24b3:de01:7310:e730:497d:ea6a])
-        by smtp.gmail.com with ESMTPSA id i2sm1860330ejs.17.2020.11.23.13.53.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Nov 2020 13:53:16 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
-Subject: Re: [PATCH] restart_syscall.2: SYNOPSIS: Fix restart_syscall() return
- type
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20201123203445.5491-1-alx.manpages@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <65879f70-7a24-6f7a-36ec-4aac46430ed7@gmail.com>
-Date:   Mon, 23 Nov 2020 22:53:13 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+        bh=Y5Z9D18Lkdw2Ol19/dXuIh0/n8vjMe9yN4YqNultdEQ=;
+        b=eEfXTfknYm//lGieQzvO3cARanU/RJ3Y15CMnEwHlb0MhSv08ePB6JiJJ09EsHqI0l
+         hMRLf1GxkCkSVA/hsWP6xrACqrbBRRIxQAjjj58Wnezo0gx168XoeBpeZX1z54lb/yZr
+         1WdN9HfGh2Ye4ocvQ79UaYNWxzSeynpJ6e0kM732XnkMXFKxScnrdmbHbFMeveYsekAY
+         ymaZyf1/CwucHF/ku9La/RRpfPlybeSpFhgYCRzFhG0Iamn9YxbXhvvi2XZ4LB1u9s4r
+         GouvkuScnlM9OdjdGHmL3GIxL5wJIZ/fuk8J228kPpkjUTfnwZkQXDnWC8YKwlS+Pwq/
+         jdGw==
+X-Gm-Message-State: AOAM531ppOxN7bBjFV9tlsKV30EAw31k7WX+hnJGODU2aUTWQJUFw9Ao
+        FcfjAIFSpON4azFi01FA13A=
+X-Google-Smtp-Source: ABdhPJz5kSg0NawLjjRQLOzhn1nPFaKA+a5mpQG2/y1Ykqq+XblUAk/MfyDwKHd1a8UFsf+oqovVtw==
+X-Received: by 2002:a5d:570d:: with SMTP id a13mr1743749wrv.193.1606168767112;
+        Mon, 23 Nov 2020 13:59:27 -0800 (PST)
+Received: from localhost.localdomain ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id t20sm1391451wmi.3.2020.11.23.13.59.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2020 13:59:26 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, linux-kernel@vger.kernel.org,
+        libc-alpha@sourceware.org
+Subject: [PATCH] set_tid_address.2: SYNOPSIS: Fix set_tid_address() return type
+Date:   Mon, 23 Nov 2020 22:59:12 +0100
+Message-Id: <20201123215911.7576-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-In-Reply-To: <20201123203445.5491-1-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+The Linux kernel uses 'pid_t' instead of 'long' for the return type.
+As glibc provides no wrapper, use the same types the kernel uses.
 
-On 11/23/20 9:34 PM, Alejandro Colomar wrote:
-> The Linux kernel uses 'long' instead of 'int' for the return type.
-> As glibc provides no wrapper, use the same types the kernel uses.
-> 
-> $ grep -rn 'SYSCALL_DEFINE.*(restart_syscall'
-> kernel/signal.c:2891:SYSCALL_DEFINE0(restart_syscall)
-> 
-> $ sed -n 2891,2895p kernel/signal.c
-> SYSCALL_DEFINE0(restart_syscall)
-> {
-> 	struct restart_block *restart = &current->restart_block;
-> 	return restart->fn(restart);
-> }
-> 
-> $ grep -rn 'struct restart_block {'
-> include/linux/restart_block.h:25:struct restart_block {
-> 
-> $ sed -n 25,56p include/linux/restart_block.h
-> struct restart_block {
-> 	long (*fn)(struct restart_block *);
-> 	union {
-> 		/* For futex_wait and futex_wait_requeue_pi */
-> 		struct {
-> 			u32 __user *uaddr;
-> 			u32 val;
-> 			u32 flags;
-> 			u32 bitset;
-> 			u64 time;
-> 			u32 __user *uaddr2;
-> 		} futex;
-> 		/* For nanosleep */
-> 		struct {
-> 			clockid_t clockid;
-> 			enum timespec_type type;
-> 			union {
-> 				struct __kernel_timespec __user *rmtp;
-> 				struct old_timespec32 __user *compat_rmtp;
-> 			};
-> 			u64 expires;
-> 		} nanosleep;
-> 		/* For poll */
-> 		struct {
-> 			struct pollfd __user *ufds;
-> 			int nfds;
-> 			int has_timeout;
-> 			unsigned long tv_sec;
-> 			unsigned long tv_nsec;
-> 		} poll;
-> 	};
-> };
-> 
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+$ sed -n 34,36p man-pages/man2/set_tid_address.2
+.PP
+.IR Note :
+There is no glibc wrapper for this system call; see NOTES.
 
-Thanks! Patch applied.
+$ grep -rn 'SYSCALL_DEFINE.*set_tid_address' linux/
+linux/kernel/fork.c:1632:
+SYSCALL_DEFINE1(set_tid_address, int __user *, tidptr)
 
-Cheers,
+$ sed -n 1632,1638p linux/kernel/fork.c
+SYSCALL_DEFINE1(set_tid_address, int __user *, tidptr)
+{
+	current->clear_child_tid = tidptr;
 
-Michael
+	return task_pid_vnr(current);
+}
 
-> ---
->  man2/restart_syscall.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man2/restart_syscall.2 b/man2/restart_syscall.2
-> index e7d96bd4d..21cc2df1d 100644
-> --- a/man2/restart_syscall.2
-> +++ b/man2/restart_syscall.2
-> @@ -34,7 +34,7 @@
->  .SH NAME
->  restart_syscall \- restart a system call after interruption by a stop signal
->  .SH SYNOPSIS
-> -.B int restart_syscall(void);
-> +.B long restart_syscall(void);
->  .PP
->  .IR Note :
->  There is no glibc wrapper for this system call; see NOTES.
-> 
+$ grep -rn 'task_pid_vnr(struct' linux/
+linux/include/linux/sched.h:1374:
+static inline pid_t task_pid_vnr(struct task_struct *tsk)
 
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+ man2/set_tid_address.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/man2/set_tid_address.2 b/man2/set_tid_address.2
+index 380efcdd8..b18b8efef 100644
+--- a/man2/set_tid_address.2
++++ b/man2/set_tid_address.2
+@@ -29,7 +29,7 @@ set_tid_address \- set pointer to thread ID
+ .nf
+ .B #include <linux/unistd.h>
+ .PP
+-.BI "long set_tid_address(int *" tidptr );
++.BI "pid_t set_tid_address(int *" tidptr );
+ .fi
+ .PP
+ .IR Note :
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.29.2
+
