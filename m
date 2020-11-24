@@ -2,172 +2,87 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CC6392C2555
-	for <lists+linux-man@lfdr.de>; Tue, 24 Nov 2020 13:07:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 294C52C2B1D
+	for <lists+linux-man@lfdr.de>; Tue, 24 Nov 2020 16:22:01 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732479AbgKXMHW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 24 Nov 2020 07:07:22 -0500
-Received: from mail.kernel.org ([198.145.29.99]:47858 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1729172AbgKXMHW (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 24 Nov 2020 07:07:22 -0500
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-        (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id E65882083E;
-        Tue, 24 Nov 2020 12:07:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1606219641;
-        bh=rx8W+sC4G+tM3j+KvfVJeDHAi7n5iz4DUaSf+4YMG0E=;
-        h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-        b=cRZrmG9JK1S4GuqvmQ1WSh/UGHPZMfb+MiTwGgeah95ugW08GPN7A8GFjSPe+ys4h
-         PZEErrpd1b/F0kztnopn3hViNX9INXaABPOgzab3C1bXOIa6OeEXx0m3d8wXX10xRp
-         em6SIOzF7bDSMrQKIxrT5dHuKO21TsXC8qo93hzM=
-Received: by mail-lf1-f54.google.com with SMTP id t6so12393046lfl.13;
-        Tue, 24 Nov 2020 04:07:20 -0800 (PST)
-X-Gm-Message-State: AOAM531Dm10CyIR0fbufVUDdzv27E9Ld2El6l99cXq3gn9BjEmb0DL3H
-        F8y2JJQnz9qRdU5JWpzqpknz784/r52KVOKrSow=
-X-Google-Smtp-Source: ABdhPJzxn1FfqOIoyLPB8Smgg5MbIytX2ON8eMphwMNwPK+pk4fbdiRUIFIa7LQf9zLcv1Ip5om4doDzvsC4N0mTaSs=
-X-Received: by 2002:a19:fc0f:: with SMTP id a15mr1551270lfi.248.1606219639088;
- Tue, 24 Nov 2020 04:07:19 -0800 (PST)
-MIME-Version: 1.0
-References: <014e670b-2a11-3deb-4e7e-bfe9defd8597@gmail.com> <c669c780-f6e8-bd2a-e6ec-0a5960b7d7d8@gmail.com>
-In-Reply-To: <c669c780-f6e8-bd2a-e6ec-0a5960b7d7d8@gmail.com>
-From:   Guo Ren <guoren@kernel.org>
-Date:   Tue, 24 Nov 2020 20:07:07 +0800
-X-Gmail-Original-Message-ID: <CAJF2gTQPai9k6XqqStbvk0waF+tmMQm9PMMZe3T8m6ioAjdTFA@mail.gmail.com>
-Message-ID: <CAJF2gTQPai9k6XqqStbvk0waF+tmMQm9PMMZe3T8m6ioAjdTFA@mail.gmail.com>
-Subject: Re: set_thread_area.2: csky architecture undocumented
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        linux-csky@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>
-Content-Type: text/plain; charset="UTF-8"
+        id S2387697AbgKXPVV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 24 Nov 2020 10:21:21 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51218 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728352AbgKXPVU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 24 Nov 2020 10:21:20 -0500
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7E97DC0613D6
+        for <linux-man@vger.kernel.org>; Tue, 24 Nov 2020 07:21:20 -0800 (PST)
+Received: by mail-wr1-x442.google.com with SMTP id e7so5174259wrv.6
+        for <linux-man@vger.kernel.org>; Tue, 24 Nov 2020 07:21:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id;
+        bh=6PUeU/ecvYQM3htZWzD4R485553ZneBuoaes83PWDHc=;
+        b=cBp4FSiIaOBaPBDY2IL8xY2dyyd+KRzRcgC7LHN/KSvQEfWLP/gsHJgC3DwZKVVmZG
+         52WmruY0neyrYjFxEcDyQzr9anSqFCRD9pnmhU/nGeQGhjkFRi9DsixdJhOre4vAMrdf
+         NyNg0k3Cvg7dLG8DPGvJN0wcgrIBPPo0dv7odBT2/bkEZrs506TyRArcA48oBj/Rv/09
+         8yhQ3hUB4DODfhy5fD74ooaZWXNizr8Bts5iiL+CwZwYPf69SQbBkuoXcQMv1xkh7jC9
+         qp481rUgj26mWetGS1ka7cMiS+5veOLOcqPuLwZxTAUVdPfWSLdn8P3zKyJsF9c7uchJ
+         VQJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=6PUeU/ecvYQM3htZWzD4R485553ZneBuoaes83PWDHc=;
+        b=A1ygqTZYjzI2swc/kJ9/uBNdPTNFwH8SgRkuS/3repbn/rFM1ofjrdDC+4BCuAr/6B
+         6amzhHtIg0CQdHw6bhdOAz83V82kM7ciugd1APdvqsIiA5ZxxmxY7jxmjMYSqjAYLi51
+         ezCwI5xafVPFsj2GzQNdIVNpcSvFFUd/RCK3mzhFnqGmG27OEoz0pK0uGd980jUjnv6u
+         6Iz2Iks0D6DpwmdP7gw+JSSMboU2Ea19Y72/qINA3R0LVAsOqolQlrtGosvj11BKuH6t
+         HlUoURXuUzc44J0PEepP9gchOm8+lxTcvzTijiMY1hjpuiGMDv5uGK0BV6/0vZ0WjDcI
+         /WJg==
+X-Gm-Message-State: AOAM531o9PexGamahFzjeQ3wqdiuz4HZ+cX7BxA6jTene/ctMVmat8Ew
+        OYex1MkkCqaff48kP+xR2rH7PVGq0i4=
+X-Google-Smtp-Source: ABdhPJwJvArjt1Ns7yNaY1bZhPBAvOXmH5fVJn3dqCVuQHAg0FAagqoCveqIG8BlpnAweNeea8A+Kw==
+X-Received: by 2002:a5d:654c:: with SMTP id z12mr5745394wrv.46.1606231279223;
+        Tue, 24 Nov 2020 07:21:19 -0800 (PST)
+Received: from localhost.localdomain ([141.226.183.73])
+        by smtp.gmail.com with ESMTPSA id n126sm5956299wmn.21.2020.11.24.07.21.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2020 07:21:18 -0800 (PST)
+From:   Amir Goldstein <amir73il@gmail.com>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     Jan Kara <jack@suse.cz>,
+        Matthew Bobrowski <mbobrowski@mbobrowski.org>,
+        linux-man@vger.kernel.org
+Subject: [PATCH] fanotify.7: fix outdated description
+Date:   Tue, 24 Nov 2020 17:21:09 +0200
+Message-Id: <20201124152109.30027-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Thx Michael & Alejandro,
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+---
+ man7/fanotify.7 | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-Yes, the man page has no csky's.
+diff --git a/man7/fanotify.7 b/man7/fanotify.7
+index c4f5397e4..5804a1f30 100644
+--- a/man7/fanotify.7
++++ b/man7/fanotify.7
+@@ -29,11 +29,12 @@ fanotify \- monitoring filesystem events
+ The fanotify API provides notification and interception of
+ filesystem events.
+ Use cases include virus scanning and hierarchical storage management.
+-Currently, only a limited set of events is supported.
+-In particular, there is no support for create, delete, and move events.
++In the original fanotify API, only a limited set of events was supported.
++In particular, there was no support for create, delete, and move events.
++The support for those events was added in Linux 5.1.
+ (See
+ .BR inotify (7)
+-for details of an API that does notify those events.)
++for details of an API that did notify those events pre Linux 5.1.)
+ .PP
+ Additional capabilities compared to the
+ .BR inotify (7)
+-- 
+2.17.1
 
-C-SKY have abiv1 and abiv2
-For abiv1: There is no register for tls saving, We use trap 3 to got
-tls and use set_thread_area to init ti->tp_value.
-For abiv2: The r31 is the tls register. We could directly read r31 to
-got r31 and use set_thread_area to init reg->tls value.
-
-In glibc:
-# ifdef __CSKYABIV2__
-/* Define r31 as thread pointer register.  */
-#  define READ_THREAD_POINTER() \
-        mov r0, r31;
-# else
-#  define READ_THREAD_POINTER() \
-        trap 3;
-# endif
-
-/* Code to initially initialize the thread pointer.  This might need
-   special attention since 'errno' is not yet available and if the
-   operation can cause a failure 'errno' must not be touched.  */
-# define TLS_INIT_TP(tcbp) \
-  ({ INTERNAL_SYSCALL_DECL (err);                                       \
-     long result_var;                                                   \
-     result_var = INTERNAL_SYSCALL (set_thread_area, err, 1,            \
-                    (char *) (tcbp) + TLS_TCB_OFFSET);                  \
-     INTERNAL_SYSCALL_ERROR_P (result_var, err)                         \
-       ? "unknown error" : NULL; })
-
-In kernel:
-SYSCALL_DEFINE1(set_thread_area, unsigned long, addr)
-{
-        struct thread_info *ti = task_thread_info(current);
-        struct pt_regs *reg = current_pt_regs();
-
-        reg->tls = addr;
-        ti->tp_value = addr;
-
-        return 0;
-}
-
-Any comments are welcome :)
-
-
-On Tue, Nov 24, 2020 at 5:51 PM Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
->
-> Hi Alex,
->
-> On 11/23/20 10:31 PM, Alejandro Colomar (man-pages) wrote:
-> > Hi Michael,
-> >
-> > SYNOPSIS
-> >        #include <linux/unistd.h>
-> >
-> >        #if defined __i386__ || defined __x86_64__
-> >        # include <asm/ldt.h>
-> >
-> >        int get_thread_area(struct user_desc *u_info);
-> >        int set_thread_area(struct user_desc *u_info);
-> >
-> >        #elif defined __m68k__
-> >
-> >        int get_thread_area(void);
-> >        int set_thread_area(unsigned long tp);
-> >
-> >        #elif defined __mips__
-> >
-> >        int set_thread_area(unsigned long addr);
-> >
-> >        #endif
-> >
-> >        Note: There are no glibc wrappers for these system  calls;  see
-> >        NOTES.
-> >
-> >
-> > $ grep -rn 'SYSCALL_DEFINE.*et_thread_area'
-> > arch/csky/kernel/syscall.c:6:
-> > SYSCALL_DEFINE1(set_thread_area, unsigned long, addr)
-> > arch/mips/kernel/syscall.c:86:
-> > SYSCALL_DEFINE1(set_thread_area, unsigned long, addr)
-> > arch/x86/kernel/tls.c:191:
-> > SYSCALL_DEFINE1(set_thread_area, struct user_desc __user *, u_info)
-> > arch/x86/kernel/tls.c:243:
-> > SYSCALL_DEFINE1(get_thread_area, struct user_desc __user *, u_info)
-> > arch/x86/um/tls_32.c:277:
-> > SYSCALL_DEFINE1(set_thread_area, struct user_desc __user *, user_desc)
-> > arch/x86/um/tls_32.c:325:
-> > SYSCALL_DEFINE1(get_thread_area, struct user_desc __user *, user_desc)
-> >
-> >
-> > See kernel commit 4859bfca11c7d63d55175bcd85a75d6cee4b7184
-> >
-> >
-> > I'd change
-> > -      #elif defined __mips__
-> > +      #elif defined(__mips__ || __csky__)
-> >
-> > and then change the rest of the text to add csky when appropriate.
-> > Am I correct?
->
-> AFAICT, you are correct. I think the reason that csky is missing is
-> that the architecture was added after this manual pages was added.
->
-> Thanks,
->
-> Michael
->
->
-> --
-> Michael Kerrisk
-> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-> Linux/UNIX System Programming Training: http://man7.org/training/
-
-
-
---
-Best Regards
- Guo Ren
-
-ML: https://lore.kernel.org/linux-csky/
