@@ -2,86 +2,86 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4863F2C4871
-	for <lists+linux-man@lfdr.de>; Wed, 25 Nov 2020 20:34:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 52A202C4939
+	for <lists+linux-man@lfdr.de>; Wed, 25 Nov 2020 21:45:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728673AbgKYTcv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 25 Nov 2020 14:32:51 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([216.205.24.124]:48624 "EHLO
-        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725776AbgKYTcv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Nov 2020 14:32:51 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1606332770;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=2OmJMqccrYipc5YlyjAqjjjE2k4YgF45uxCd/ALBWJw=;
-        b=bT0M/uyqT+JKPaprAt71aewN7cPZWUQbXRDc3Yr9oqkMjj+pALtkKvieaB9PzAssFCzh9b
-        Ua2XopKTDTWBmU9X+oB2tBb+ufAVGWxn/Uav6fkYutK9WJ+FH+c2yL+NnhwAMf7qptFttE
-        0qXCnj8BSsocqc2i14acCURc5K/kHuw=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-521-gbp_SDrxMeiC9AYr7l2ygw-1; Wed, 25 Nov 2020 14:32:48 -0500
-X-MC-Unique: gbp_SDrxMeiC9AYr7l2ygw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E7BD956C60;
-        Wed, 25 Nov 2020 19:32:46 +0000 (UTC)
-Received: from liberator.sandeen.net (ovpn04.gateway.prod.ext.phx2.redhat.com [10.5.9.4])
-        by smtp.corp.redhat.com (Postfix) with ESMTP id 02C455D6AC;
-        Wed, 25 Nov 2020 19:32:45 +0000 (UTC)
-Subject: Re: UAPI value collision: STATX_ATTR_MOUNT_ROOT vs STATX_ATTR_DAX
-To:     David Howells <dhowells@redhat.com>, torvalds@linux-foundation.org,
-        Miklos Szeredi <mszeredi@redhat.com>,
-        Ira Weiny <ira.weiny@intel.com>
-Cc:     linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <1927370.1606323014@warthog.procyon.org.uk>
-From:   Eric Sandeen <sandeen@redhat.com>
-Message-ID: <fdf89cef-1350-e387-4d59-e6951255dbf0@redhat.com>
-Date:   Wed, 25 Nov 2020 13:32:45 -0600
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.0
+        id S1730318AbgKYUok (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 25 Nov 2020 15:44:40 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42188 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1730315AbgKYUok (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Nov 2020 15:44:40 -0500
+Received: from mail-vk1-xa2a.google.com (mail-vk1-xa2a.google.com [IPv6:2607:f8b0:4864:20::a2a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4189DC0617A7
+        for <linux-man@vger.kernel.org>; Wed, 25 Nov 2020 12:44:30 -0800 (PST)
+Received: by mail-vk1-xa2a.google.com with SMTP id e5so4046vkd.4
+        for <linux-man@vger.kernel.org>; Wed, 25 Nov 2020 12:44:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=szeredi.hu; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=ul7l8NTuGyp3MPqaSRmckdYGCH2RD65M+GA28ibecYo=;
+        b=bZp8t3mlmVlKUf+27Fr2mLeI6FfPLIu/o9LyNnM9kV27HgQX2QIk0++Eo1+hicCLMY
+         qFS5UAN7drXTl/G5iUESSLM4fHF6JTHfeydKM52AHPFxbO++BHrXv8X61O7uaL0Lzf5q
+         JvuUbfyl8EuDOd305QPGWj6rS0sNtxI1Oow90=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=ul7l8NTuGyp3MPqaSRmckdYGCH2RD65M+GA28ibecYo=;
+        b=aA87dGoU0Yr0B2LerIXxMyN7bbQ9i0Bj/hWvNhMAmJZ4dnahmTU7i8kSnOwMIrp+uu
+         jnJdf88drws/pobwym+5yltQr10K/fjV95Vul7YZJX+0csM2I4i4W8XLUOa6QDHdslP1
+         BFMcr2rrB9K4kEi7T3XybBH13dFpFCwKCYXdSRYNMPQMbikILYQTVmyG2L/GiCgojfbb
+         Uag0x/cMFzrFAmJCzRLBn01M3Kzqe1/tPr+QxWHjcayCy366L3U/W4YUN9JLlyqIn5PM
+         EJ5Kdd9oIE//sfZDO/LaQkYp+9bbpbl5jVYhmexyz2VfsBW6e6znKCEBq565DhGT/l73
+         bosA==
+X-Gm-Message-State: AOAM533mZDjfQGO2qdHpdBWrA6vQ4GMi051nVSJYYjl72y/5wBfKb4bK
+        qyf/sQyd4qOdabTkOsnxWv/oZDyWUBsU7kuRyclL6A==
+X-Google-Smtp-Source: ABdhPJyTsN2QPlJo3E7rh6Rj2Y9Fl1tgPcRvuT2xqkIEM5W16CZEJ4PykDdQOQJ6DbBdB9V7zbYpyHdFD+O7GIdeWnc=
+X-Received: by 2002:a1f:e7c2:: with SMTP id e185mr3732205vkh.23.1606337069449;
+ Wed, 25 Nov 2020 12:44:29 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <1927370.1606323014@warthog.procyon.org.uk>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+References: <1927370.1606323014@warthog.procyon.org.uk> <fdf89cef-1350-e387-4d59-e6951255dbf0@redhat.com>
+In-Reply-To: <fdf89cef-1350-e387-4d59-e6951255dbf0@redhat.com>
+From:   Miklos Szeredi <miklos@szeredi.hu>
+Date:   Wed, 25 Nov 2020 21:44:18 +0100
+Message-ID: <CAJfpegtL=T1mc6TDZdM1PaTUwv9Z8UyR8p171TK0d-0VS_E1hQ@mail.gmail.com>
+Subject: Re: UAPI value collision: STATX_ATTR_MOUNT_ROOT vs STATX_ATTR_DAX
+To:     Eric Sandeen <sandeen@redhat.com>
+Cc:     David Howells <dhowells@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Miklos Szeredi <mszeredi@redhat.com>,
+        Ira Weiny <ira.weiny@intel.com>, linux-fsdevel@vger.kernel.org,
+        linux-man <linux-man@vger.kernel.org>,
+        linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 11/25/20 10:50 AM, David Howells wrote:
-> Hi Linus, Miklos, Ira,
-> 
-> It seems that two patches that got merged in the 5.8 merge window collided and
-> no one noticed until now:
-> 
-> 80340fe3605c0 (Miklos Szeredi     2020-05-14 184) #define STATX_ATTR_MOUNT_ROOT		0x00002000 /* Root of a mount */
-> ...
-> 712b2698e4c02 (Ira Weiny          2020-04-30 186) #define STATX_ATTR_DAX			0x00002000 /* [I] File is DAX */
-> 
-> The question is, what do we do about it?  Renumber one or both of the
-> constants?
-> 
-> David
+> Related to this, nothing sets STATX_ATTR_DAX into statx->attributes_mask,
+> anywhere in the kernel.
+>
+> The flag is set into statx->attributes in vfs_getattr_nosec(), but that
+> does not know whether the particular filesystem under query supports dax
+> or not.
+>
+> This is related to my other email about exactly what attributes_mask
+> means, so should STATX_ATTR_DAX be set in statx->attributes_mask only
+> in the filesystems that support dax?
+>
+> (And should that be done only if CONFIG_DAX is turned on, etc?)
 
-Related to this, nothing sets STATX_ATTR_DAX into statx->attributes_mask,
-anywhere in the kernel.
+I think the mask/flag combinations should mean:
 
-The flag is set into statx->attributes in vfs_getattr_nosec(), but that
-does not know whether the particular filesystem under query supports dax
-or not.
+mask:off, flag:off -> value unknown
+mask:off, flag:on -> N/A
+mask:on, flag:off -> value is off
+mask:on, flag:on -> value is on
 
-This is related to my other email about exactly what attributes_mask
-means, so should STATX_ATTR_DAX be set in statx->attributes_mask only
-in the filesystems that support dax?
+So mask should be off iff STATX_ATTR_DAX will not be set even if DAX
+is enabled on a particular inode (such as on an old kernel not
+supporting STATX_ATTR_DAX).
 
-(And should that be done only if CONFIG_DAX is turned on, etc?)
-
--Eric
-
+Thanks,
+Miklos
