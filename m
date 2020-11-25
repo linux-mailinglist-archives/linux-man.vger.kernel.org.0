@@ -2,68 +2,88 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 21D512C4785
-	for <lists+linux-man@lfdr.de>; Wed, 25 Nov 2020 19:26:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 28FFA2C4842
+	for <lists+linux-man@lfdr.de>; Wed, 25 Nov 2020 20:28:29 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729153AbgKYSZq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 25 Nov 2020 13:25:46 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48560 "EHLO
+        id S1728056AbgKYT1E (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 25 Nov 2020 14:27:04 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58334 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726039AbgKYSZq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Nov 2020 13:25:46 -0500
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EBA07C0613D4;
-        Wed, 25 Nov 2020 10:25:45 -0800 (PST)
-Received: by mail-wr1-x429.google.com with SMTP id l1so2843986wrb.9;
-        Wed, 25 Nov 2020 10:25:45 -0800 (PST)
+        with ESMTP id S1726985AbgKYT1D (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Nov 2020 14:27:03 -0500
+Received: from mail-ua1-x930.google.com (mail-ua1-x930.google.com [IPv6:2607:f8b0:4864:20::930])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B388FC0617A7
+        for <linux-man@vger.kernel.org>; Wed, 25 Nov 2020 11:27:03 -0800 (PST)
+Received: by mail-ua1-x930.google.com with SMTP id 103so1061033uai.9
+        for <linux-man@vger.kernel.org>; Wed, 25 Nov 2020 11:27:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=message-id:from:mime-version:content-transfer-encoding
-         :content-description:subject:to:date:reply-to;
-        bh=MT4M9SX2NqdNuOObXhIV8Gtkw+yoDX+gRyJnh+feBwM=;
-        b=fsU+H22Qbk4piwmxvHtCQshzp9ftLjPVlsm96s6NDxpkZm3ezQMQxpdAr8/i6hCq9x
-         0RhcQs2qpE/pTJALiAEy48jlGmpYi11B3YKbX3xwBMi/NGi/5WN3GgKgqQvL3PfC53Af
-         EdrULzIyZoyKwXnQsRNIk1A7Yh1/dS8yVEoXGYxwq4OLegFH2TFypkarS+X5zANvYEeZ
-         Cma+xE0O0iH+FnOspV5kysmZH4ZoELI8UnAO0fy78d0ekiX+kXBiYxbmrWMLBlsfbdqa
-         LjYiFNIMIQvwnOFOrpGcmrY7gcbsJidTpdU5oGMDduHdkVa6TZmYFl8aH238QAksKxQ3
-         j5LA==
+        d=szeredi.hu; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=qbHWiqal0hTnnP0+s/LzA+vytzA77Sj1yZGY5laK5Mo=;
+        b=bPok7N0lQn8HawChGhsoakYuwCJGVv+1qvsPy3DCBQinvN9qAKU6rmDN2+UTxrdqpS
+         7R08fQSZZT1oEwe16U/Rzis1FttPkr5y6H0xH1uC5YpiC3EjKKhYDMCL+WqYQIU+/vVb
+         oxBMRoPt5NBNwOZXcirj0UkHLdmnZZu8RpCNU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:from:mime-version
-         :content-transfer-encoding:content-description:subject:to:date
-         :reply-to;
-        bh=MT4M9SX2NqdNuOObXhIV8Gtkw+yoDX+gRyJnh+feBwM=;
-        b=bv97sxivLDDBOnBqrCtyMDwIJ1pU2CCg8fJZ7vxvma6arfwHFAx5UxrTzXqkWb0ScW
-         unNqXzYGNyOodQQEnL9abgjVIGXAHL6t52waghxZDcW5NT7+RqJvbXfBvmPLUudi8yZx
-         W72XnlluzND+5Nm78SUOvoewt4jtxp0egjcX+U4r96W6icrSUyggVp9Lfemk2H9pRkoq
-         H1wdtolcE449pQuK592uKa35Ztxjg47KWNRIFFZaxA51RnivQQNFfv/tgUn7aGtM8Vvh
-         s4Vt8ocg06kWin7+QhQzqnksydJ9vup9ulUlaPMWvnMzyuqFPHJ2kWNvbWnsrSSiskGj
-         sSsg==
-X-Gm-Message-State: AOAM533xPGJZZ2Uj/akd5o0SeglJbCh2IXohm7EcxMhsrEKNGBDHmpt4
-        FFn49Dp5tnHNzetOcMMWAfCL/UiTXSqGUg==
-X-Google-Smtp-Source: ABdhPJy2Q8JrbHKhLTJPzqKz/k747lKpulrWL7bSXgVxkpdiYqAyVwR3s1bxlqesa1dKH1x47kA5/g==
-X-Received: by 2002:adf:a3c1:: with SMTP id m1mr5665918wrb.28.1606328744620;
-        Wed, 25 Nov 2020 10:25:44 -0800 (PST)
-Received: from [192.168.1.152] ([102.64.149.89])
-        by smtp.gmail.com with ESMTPSA id x13sm5329634wmj.48.2020.11.25.10.25.39
-        (version=TLS1 cipher=AES128-SHA bits=128/128);
-        Wed, 25 Nov 2020 10:25:44 -0800 (PST)
-Message-ID: <5fbea1a8.1c69fb81.8c60.ba17@mx.google.com>
-From:   "Dailborh R." <risonnah.001@gmail.com>
-X-Google-Original-From: Dailborh R.
-Content-Type: text/plain; charset="iso-8859-1"
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=qbHWiqal0hTnnP0+s/LzA+vytzA77Sj1yZGY5laK5Mo=;
+        b=c4KtLomi+L4/YKZeIaNSYJoahErakwU/HmBOCBqRQh1UxUvQaT12mliQUZ58v/rXOV
+         Laej0cTnd67ABWjozDzJ/0H0n3ABEghV8dNqkBVB88OASTbpv7l6QbcIonnbNvjfB/89
+         dcYkBdSAotF4t8TGprFLwKfCdzNNmek1cMGCnQGnsiqcRtQ+QfkYmGfMn0UCfmbQW/NX
+         bzZLLNgj8lnlALs/OMi5t0luCvW3Db7zThDYaFDTmud+DX4+4zxo7vhRL1rUOs5SZHCZ
+         66+s3vgFzoWtbeeCXeRI1AQh+bDtD9QYSGpAECLbPLpodIVeCvAlWMe/Ai3DdG/9JtfO
+         09Yg==
+X-Gm-Message-State: AOAM533B/Sp+KEHiOYpyq7ZUfC736EjOt1IaVWd9KDX24K7beqBQksPV
+        hJGr3UX1fKkzP7382+0IflBBwmc2rCMfb0z1CjeLlA==
+X-Google-Smtp-Source: ABdhPJx9J1bIU6bHhGpNGQ4brFDMFFNfIyzdlnirgZrJOSCe9LO5Ysc+DA2CqJNjVLb6FJg1vAaP7fPFEEcGQ0yoxVM=
+X-Received: by 2002:ab0:35c8:: with SMTP id x8mr3968146uat.72.1606332422949;
+ Wed, 25 Nov 2020 11:27:02 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
-Subject: Please reply to me
-To:     Recipients <Dailborh@vger.kernel.org>
-Date:   Wed, 25 Nov 2020 18:25:29 +0000
-Reply-To: dailrrob.83@gmail.com
+References: <1927370.1606323014@warthog.procyon.org.uk>
+In-Reply-To: <1927370.1606323014@warthog.procyon.org.uk>
+From:   Miklos Szeredi <miklos@szeredi.hu>
+Date:   Wed, 25 Nov 2020 20:26:52 +0100
+Message-ID: <CAJfpegvc5FjU-X1DxNtPjJLgEp_gT228kqk2Va31nk7GjZbPBQ@mail.gmail.com>
+Subject: Re: UAPI value collision: STATX_ATTR_MOUNT_ROOT vs STATX_ATTR_DAX
+To:     David Howells <dhowells@redhat.com>
+Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
+        Miklos Szeredi <mszeredi@redhat.com>,
+        Ira Weiny <ira.weiny@intel.com>, sandeen@redhat.com,
+        linux-fsdevel@vger.kernel.org,
+        linux-man <linux-man@vger.kernel.org>,
+        linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-I'm Dailborh R. from US. I picked interest in you and I would like to know
-more about you and establish relationship with you. i will wait for
-your response. thank you.
+On Wed, Nov 25, 2020 at 5:57 PM David Howells <dhowells@redhat.com> wrote:
+>
+> Hi Linus, Miklos, Ira,
+>
+> It seems that two patches that got merged in the 5.8 merge window collided and
+> no one noticed until now:
+>
+> 80340fe3605c0 (Miklos Szeredi     2020-05-14 184) #define STATX_ATTR_MOUNT_ROOT         0x00002000 /* Root of a mount */
+> ...
+> 712b2698e4c02 (Ira Weiny          2020-04-30 186) #define STATX_ATTR_DAX                        0x00002000 /* [I] File is DAX */
+>
+> The question is, what do we do about it?  Renumber one or both of the
+> constants?
 
+<uapi/linux/stat.h>:
+ * Note that the flags marked [I] correspond to generic FS_IOC_FLAGS
+ * semantically.  Where possible, the numerical value is picked to correspond
+ * also.
+
+<uapi/linux/fs.h>:
+#define FS_DAX_FL 0x02000000 /* Inode is DAX */
+
+The DAX one can be the same value as FS_DAX_FL, the placement (after
+STATX_ATTR_VERITY, instead of before) seems to confirm this intention.
+
+Not that I care too much, the important thing is to have distinct values.
+Thanks,
+Miklos
