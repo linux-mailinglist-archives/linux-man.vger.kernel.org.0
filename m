@@ -2,69 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 892DA2C4139
-	for <lists+linux-man@lfdr.de>; Wed, 25 Nov 2020 14:37:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id EA7692C45EC
+	for <lists+linux-man@lfdr.de>; Wed, 25 Nov 2020 17:51:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728404AbgKYNg6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 25 Nov 2020 08:36:58 -0500
-Received: from mail.strova.dk ([83.169.38.5]:49324 "EHLO mail.strova.dk"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1727626AbgKYNg5 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 25 Nov 2020 08:36:57 -0500
-X-Greylist: delayed 563 seconds by postgrey-1.27 at vger.kernel.org; Wed, 25 Nov 2020 08:36:57 EST
-Received: from alcyone.localdomain (unknown [94.127.55.122])
-        by mail.strova.dk (Postfix) with ESMTPSA id 3AA856640B;
-        Wed, 25 Nov 2020 14:27:33 +0100 (CET)
-Date:   Wed, 25 Nov 2020 14:27:32 +0100
-From:   Mathias Rav <m@git.strova.dk>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, Mathias Rav <mathias@scalgo.com>,
-        Mathias Rav <m@git.strova.dk>
-Subject: [patch] link.2: ERRORS: add ENOENT when target is deleted
-Message-ID: <20201125142732.22c47097@alcyone.localdomain>
-X-Mailer: Claws Mail 3.17.6 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+        id S1732173AbgKYQuZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 25 Nov 2020 11:50:25 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([63.128.21.124]:28530 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1732067AbgKYQuZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Nov 2020 11:50:25 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1606323024;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding;
+        bh=XZc3CPeOm1ZOxeaYmzK65nkw+8TNuZ7nhsmtRqGrSEo=;
+        b=BRElEXymKbRO2sMs3V+UaNmbZPB/LcrmnCRyVVan3PrlMT+7YG7lU0AAf51UuFDhP5z0fQ
+        1pAo291Ik1kaFFXmetzkRFQYqGSfZqDQYxenFeFVslLzHSNfdYSKsH+XcnhpgkJO5KtgLX
+        7qPlOLr4EytkzQy+gA9+oed55YJRla8=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-596-bEjfIDKOOqarG3JXigFZCQ-1; Wed, 25 Nov 2020 11:50:20 -0500
+X-MC-Unique: bEjfIDKOOqarG3JXigFZCQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 76FDD185E48A;
+        Wed, 25 Nov 2020 16:50:19 +0000 (UTC)
+Received: from warthog.procyon.org.uk (ovpn-112-111.rdu2.redhat.com [10.10.112.111])
+        by smtp.corp.redhat.com (Postfix) with ESMTP id D604510021B3;
+        Wed, 25 Nov 2020 16:50:14 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+        Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+        Kingdom.
+        Registered in England and Wales under Company Registration No. 3798903
+From:   David Howells <dhowells@redhat.com>
+To:     torvalds@linux-foundation.org,
+        Miklos Szeredi <mszeredi@redhat.com>,
+        Ira Weiny <ira.weiny@intel.com>
+cc:     dhowells@redhat.com, sandeen@redhat.com,
+        linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: UAPI value collision: STATX_ATTR_MOUNT_ROOT vs STATX_ATTR_DAX
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <1927369.1606323014.1@warthog.procyon.org.uk>
+Content-Transfer-Encoding: quoted-printable
+Date:   Wed, 25 Nov 2020 16:50:14 +0000
+Message-ID: <1927370.1606323014@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Linux kernel commit aae8a97d3ec30788790d1720b71d76fd8eb44b73
-(part of kernel release v2.6.39) added a check to disallow creating a
-hardlink to an unlinked file.
+Hi Linus, Miklos, Ira,
 
-Signed-off-by: Mathias Rav <m@git.strova.dk>
----
-The manual page already describes the trick of using AT_SYMLINK_FOLLOW
-as an alternative to AT_EMPTY_PATH, and for AT_EMPTY_PATH the manual
-page already notes that it "will generally not work if the file has a
-link count of zero". However, the precise error (ENOENT) is not mentioned,
-and the error case isn't mentioned in the ERRORS section at all.
+It seems that two patches that got merged in the 5.8 merge window collided=
+ and
+no one noticed until now:
 
-This makes it easy to overlook the fact that the AT_SYMLINK_FOLLOW
-trick on /proc/self/fd/NN won't work on deleted files, as evidenced by
-the follow message (which turns up when googling "linkat deleted ENOENT"):
-https://groups.google.com/g/linux.kernel/c/zZO4lqqwp64
+80340fe3605c0 (Miklos Szeredi     2020-05-14 184) #define STATX_ATTR_MOUNT=
+_ROOT		0x00002000 /* Root of a mount */
+...
+712b2698e4c02 (Ira Weiny          2020-04-30 186) #define STATX_ATTR_DAX		=
+	0x00002000 /* [I] File is DAX */
 
- man2/link.2 | 4 ++++
- 1 file changed, 4 insertions(+)
+The question is, what do we do about it?  Renumber one or both of the
+constants?
 
-diff --git a/man2/link.2 b/man2/link.2
-index 1e7b2efd8..202119c6e 100644
---- a/man2/link.2
-+++ b/man2/link.2
-@@ -318,6 +318,10 @@ open(path, O_TMPFILE | O_EXCL, mode);
- .IP
- See
- .BR open (2).
-+.B ENOENT
-+An attempt was made to link to a
-+.I /proc/self/fd/NN
-+file corresponding to a file that has been deleted.
- .TP
- .B ENOENT
- .I oldpath
--- 
-2.27.0
+David
 
