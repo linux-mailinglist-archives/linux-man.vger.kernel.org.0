@@ -2,75 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C04402C3F58
-	for <lists+linux-man@lfdr.de>; Wed, 25 Nov 2020 12:53:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 892DA2C4139
+	for <lists+linux-man@lfdr.de>; Wed, 25 Nov 2020 14:37:13 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727019AbgKYLxF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 25 Nov 2020 06:53:05 -0500
-Received: from mx2.suse.de ([195.135.220.15]:58950 "EHLO mx2.suse.de"
+        id S1728404AbgKYNg6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 25 Nov 2020 08:36:58 -0500
+Received: from mail.strova.dk ([83.169.38.5]:49324 "EHLO mail.strova.dk"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726242AbgKYLxF (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 25 Nov 2020 06:53:05 -0500
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-        by mx2.suse.de (Postfix) with ESMTP id 16B39AC41;
-        Wed, 25 Nov 2020 11:53:04 +0000 (UTC)
-Received: by quack2.suse.cz (Postfix, from userid 1000)
-        id AD5661E130F; Wed, 25 Nov 2020 12:53:03 +0100 (CET)
-Date:   Wed, 25 Nov 2020 12:53:03 +0100
-From:   Jan Kara <jack@suse.cz>
-To:     Amir Goldstein <amir73il@gmail.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, Jan Kara <jack@suse.cz>,
-        Matthew Bobrowski <mbobrowski@mbobrowski.org>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH] fanotify.7: fix outdated description
-Message-ID: <20201125115303.GD16944@quack2.suse.cz>
-References: <20201124152109.30027-1-amir73il@gmail.com>
+        id S1727626AbgKYNg5 (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 25 Nov 2020 08:36:57 -0500
+X-Greylist: delayed 563 seconds by postgrey-1.27 at vger.kernel.org; Wed, 25 Nov 2020 08:36:57 EST
+Received: from alcyone.localdomain (unknown [94.127.55.122])
+        by mail.strova.dk (Postfix) with ESMTPSA id 3AA856640B;
+        Wed, 25 Nov 2020 14:27:33 +0100 (CET)
+Date:   Wed, 25 Nov 2020 14:27:32 +0100
+From:   Mathias Rav <m@git.strova.dk>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, Mathias Rav <mathias@scalgo.com>,
+        Mathias Rav <m@git.strova.dk>
+Subject: [patch] link.2: ERRORS: add ENOENT when target is deleted
+Message-ID: <20201125142732.22c47097@alcyone.localdomain>
+X-Mailer: Claws Mail 3.17.6 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201124152109.30027-1-amir73il@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue 24-11-20 17:21:09, Amir Goldstein wrote:
-> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Linux kernel commit aae8a97d3ec30788790d1720b71d76fd8eb44b73
+(part of kernel release v2.6.39) added a check to disallow creating a
+hardlink to an unlinked file.
 
-Looks good to me. You can add:
+Signed-off-by: Mathias Rav <m@git.strova.dk>
+---
+The manual page already describes the trick of using AT_SYMLINK_FOLLOW
+as an alternative to AT_EMPTY_PATH, and for AT_EMPTY_PATH the manual
+page already notes that it "will generally not work if the file has a
+link count of zero". However, the precise error (ENOENT) is not mentioned,
+and the error case isn't mentioned in the ERRORS section at all.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+This makes it easy to overlook the fact that the AT_SYMLINK_FOLLOW
+trick on /proc/self/fd/NN won't work on deleted files, as evidenced by
+the follow message (which turns up when googling "linkat deleted ENOENT"):
+https://groups.google.com/g/linux.kernel/c/zZO4lqqwp64
 
-								Honza
+ man2/link.2 | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-> ---
->  man7/fanotify.7 | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/man7/fanotify.7 b/man7/fanotify.7
-> index c4f5397e4..5804a1f30 100644
-> --- a/man7/fanotify.7
-> +++ b/man7/fanotify.7
-> @@ -29,11 +29,12 @@ fanotify \- monitoring filesystem events
->  The fanotify API provides notification and interception of
->  filesystem events.
->  Use cases include virus scanning and hierarchical storage management.
-> -Currently, only a limited set of events is supported.
-> -In particular, there is no support for create, delete, and move events.
-> +In the original fanotify API, only a limited set of events was supported.
-> +In particular, there was no support for create, delete, and move events.
-> +The support for those events was added in Linux 5.1.
->  (See
->  .BR inotify (7)
-> -for details of an API that does notify those events.)
-> +for details of an API that did notify those events pre Linux 5.1.)
->  .PP
->  Additional capabilities compared to the
->  .BR inotify (7)
-> -- 
-> 2.17.1
-> 
+diff --git a/man2/link.2 b/man2/link.2
+index 1e7b2efd8..202119c6e 100644
+--- a/man2/link.2
++++ b/man2/link.2
+@@ -318,6 +318,10 @@ open(path, O_TMPFILE | O_EXCL, mode);
+ .IP
+ See
+ .BR open (2).
++.B ENOENT
++An attempt was made to link to a
++.I /proc/self/fd/NN
++file corresponding to a file that has been deleted.
+ .TP
+ .B ENOENT
+ .I oldpath
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.27.0
+
