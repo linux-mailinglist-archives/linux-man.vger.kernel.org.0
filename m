@@ -2,86 +2,156 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BF5FF2C554F
-	for <lists+linux-man@lfdr.de>; Thu, 26 Nov 2020 14:29:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 86E6B2C5602
+	for <lists+linux-man@lfdr.de>; Thu, 26 Nov 2020 14:42:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2389975AbgKZN3O (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 26 Nov 2020 08:29:14 -0500
-Received: from mx2.suse.de ([195.135.220.15]:44808 "EHLO mx2.suse.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S2389807AbgKZN3O (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 26 Nov 2020 08:29:14 -0500
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-        by mx2.suse.de (Postfix) with ESMTP id 0D9A4AC6A;
-        Thu, 26 Nov 2020 13:29:13 +0000 (UTC)
-Received: by quack2.suse.cz (Postfix, from userid 1000)
-        id A49DB1E10D0; Thu, 26 Nov 2020 14:29:12 +0100 (CET)
-Date:   Thu, 26 Nov 2020 14:29:12 +0100
-From:   Jan Kara <jack@suse.cz>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Amir Goldstein <amir73il@gmail.com>, Jan Kara <jack@suse.cz>,
-        Matthew Bobrowski <mbobrowski@mbobrowski.org>,
-        linux-man@vger.kernel.org, Steve Grubb <sgrubb@redhat.com>
-Subject: Re: [PATCH] fanotify.7: fix outdated description
-Message-ID: <20201126132912.GE422@quack2.suse.cz>
-References: <20201124152109.30027-1-amir73il@gmail.com>
- <d698116e-4f7f-1b50-538f-7f5d83c9e697@gmail.com>
+        id S2390022AbgKZNkt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 26 Nov 2020 08:40:49 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58500 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2389684AbgKZNkt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Nov 2020 08:40:49 -0500
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 256F5C0613D4
+        for <linux-man@vger.kernel.org>; Thu, 26 Nov 2020 05:40:49 -0800 (PST)
+Received: by mail-wm1-x32e.google.com with SMTP id p22so2188437wmg.3
+        for <linux-man@vger.kernel.org>; Thu, 26 Nov 2020 05:40:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:from:to:cc:references:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=UqcHogpbgRFrnI1avOSwgoZ+7WRgqOtuLzymkr6s/1g=;
+        b=bpN3m9k7jk2RDbSsz26gjH9s3cpqJVK0a7OZgHHPcKPuU8AlHuFkYD0NR9IlJHh8uM
+         Fp0KOAYyqVbRpSv4dwMo6CgzPWRsXqg6POjV9iL8NuHAgofKn3bc8UmNidgudt/IE/Bc
+         lgyBfojEQgOy/SlWr6K1eGT6NfiazuP6XkuK59LpLQLG8LndgpkXjvVweuf8Pg7D+3/p
+         heDYl2pNwAGxf77qy8wpNdc/wS43S3QPxrbMgiESzFn1/C4nQcFPHTlnz1rrzTFBh4p1
+         psfIw3xRKM6eWY/CzIUNuKmvYhi4e5h5MGGuI/jiV597W/Tc7ItopYnYgoUgFnNLeA8O
+         kymQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=UqcHogpbgRFrnI1avOSwgoZ+7WRgqOtuLzymkr6s/1g=;
+        b=DvUNnE21le4INz5qKPxNMoy6BQMMTKaaU/0OrMIxMdzO3HDAr0CaOKz0z+/B1m5Bmv
+         ubfZtReiFAORvhI0ZSHwngx1faJ7TAiJZpXl/7HUDuSG3KjVOrPIAP2t451w5MaaFCf+
+         7OvB5TVHc9nyeBsEDaA8NcQK+kFZ5jMilO1/7jGP/9CLPZaQj/wlFkRSpMsJPRwV4A00
+         aDjsROMJTM6qLYYm9pPArOV52y9czE+dwCvHcZCH7BJ6/sJ5f3Qv4FxchzwDn4ttTGxx
+         iwweadrRwu1qqLE4RGu4QLQ7F/I0O17xNL/0m+ExIQSpxlkGAQDGWaw5Dk0nuNzP33ua
+         a06g==
+X-Gm-Message-State: AOAM531sz+536MLIKRiie6Q8ubGeVUtZL81HLMWZXNGsT/KKbagsZMw0
+        ZqaCcsUA4O2KIe0Yz+/s+crmW4LG2F0ZIg==
+X-Google-Smtp-Source: ABdhPJwR0nyx4Hq01REZGCXacOpycn8jvJ6r3lkanqgJvcZQ51VEIPBSuJtuLuZAqtJ6dn2C0FyE7Q==
+X-Received: by 2002:a7b:c3ce:: with SMTP id t14mr3457438wmj.170.1606398047715;
+        Thu, 26 Nov 2020 05:40:47 -0800 (PST)
+Received: from [192.168.1.143] ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id u203sm8211353wme.32.2020.11.26.05.40.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Nov 2020 05:40:47 -0800 (PST)
+Subject: Re: pivot_root - wrong check on mount(2)
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com, Davide Giorgio <davide@giorgiodavide.it>
+Cc:     linux-man <linux-man@vger.kernel.org>
+References: <dafbcfa6-666e-d596-6481-f35802dc56f1@giorgiodavide.it>
+ <CAKgNAkhqn+NRbrmnaTpjMuj96eC6M94vxm8X4w9-F=_cqZi8gg@mail.gmail.com>
+ <fd7fea8a-b6ea-353d-522b-493782929237@gmail.com>
+Message-ID: <31d0af05-d559-8784-02f7-e60a6ecf1be9@gmail.com>
+Date:   Thu, 26 Nov 2020 14:40:46 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d698116e-4f7f-1b50-538f-7f5d83c9e697@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <fd7fea8a-b6ea-353d-522b-493782929237@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu 26-11-20 10:48:09, Michael Kerrisk (man-pages) wrote:
-> On 11/24/20 4:21 PM, Amir Goldstein wrote:
-> > Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-> > ---
-> >  man7/fanotify.7 | 7 ++++---
-> >  1 file changed, 4 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/man7/fanotify.7 b/man7/fanotify.7
-> > index c4f5397e4..5804a1f30 100644
-> > --- a/man7/fanotify.7
-> > +++ b/man7/fanotify.7
-> > @@ -29,11 +29,12 @@ fanotify \- monitoring filesystem events
-> >  The fanotify API provides notification and interception of
-> >  filesystem events.
-> >  Use cases include virus scanning and hierarchical storage management.
-> > -Currently, only a limited set of events is supported.
-> > -In particular, there is no support for create, delete, and move events.
-> > +In the original fanotify API, only a limited set of events was supported.
-> > +In particular, there was no support for create, delete, and move events.
-> > +The support for those events was added in Linux 5.1.
-> >  (See
-> >  .BR inotify (7)
-> > -for details of an API that does notify those events.)
-> > +for details of an API that did notify those events pre Linux 5.1.)
-> >  .PP
-> >  Additional capabilities compared to the
-> >  .BR inotify (7)
-> 
-> Thanks, Amir. Applied, with Jan's Reviewed-by.
-> 
-> By the way, I see that there's still no documentation for
-> FAN_AUDIT/FAN_ENABLE_AUDIT, added in:
-> 
->     commit de8cd83e91bc3ee212b3e6ec6e4283af9e4ab269
->     Author: Steve Grubb <sgrubb@redhat.com>
->     Date:   Mon Oct 2 20:21:39 2017 -0400
-> 
->         audit: Record fanotify access control decisions
-> 
-> 
-> Can anyone help with that?
+Hi Michel,
 
-Thanks for a notification. If Steve doesn't beat me to it, I'll write the
-doc likely next week.
+Even more generic:
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Most--if not all--functions can be catalogued as one of the following:
+
+   __________________________
+   Success      |       Error
+   --------------------------
+A)  0	        |   non-zero
+B)  0           |   negative  (the intersection of A and C)
+C)  non-negative|   negative
+D)  non-zero    |       NULL
+D)  true        |      false
+
+For error checking, I'd use:
+
+A) (ret != 0)  [or simply (ret)]
+B) (ret < 0)
+C) (ret < 0)
+D) (ret == NULL)  [or simply (!ret)]
+E) (!ret)
+
+This way you avoid any magic numbers such as '-1' for the error code,
+and it's more difficult to introduce bugs.
+Also, CPUs usually compare faster against zero, AFAIK.
+
+
+Cheers,
+
+Alex
+
+On 11/26/20 1:28 PM, Alejandro Colomar (mailing lists; readonly) wrote:
+> 
+> 
+> On 11/26/20 10:31 AM, Michael Kerrisk (man-pages) wrote:
+>> Hello Davide,
+>>
+>> On Thu, 26 Nov 2020 at 01:01, Davide Giorgio <davide@giorgiodavide.it> wrote:
+>>>
+>>> Good morning,
+>>>
+>>> reading the pivot_root man page
+>>> (https://man7.org/linux/man-pages/man2/pivot_root.2.html)
+>>> there seems to be an error in the example source program
+>>> "pivot_root_demo.c".
+>>> In particular, there is a wrong check on the return value of mount(2).
+>>> https://man7.org/linux/man-pages/man2/mount.2.html#RETURN_VALUE
+>>>
+>>> The error is in this line
+>>> if (mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL) == 1)
+>>>
+>>> that should be
+>>> if (mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL) == -1)
+>>>
+>>>
+>>> Thank you for your work, kind regards
+>>
+>> Thanks! Fixed!
+> 
+> Hi Michael,
+> 
+> What about fixing this from a different approach:
+> 
+> instead of comparing against -1
+> for functions that either return either 0 or -1,
+> we can include those functions in the greater family of
+> functions that return either 0 or non-zero (error code).
+> I propose comparing against 0:
+> 
+> - if (mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL) == 1)
+> + if (mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL) != 0)
+> 
+> I consider this to be safer, simpler,
+> and although negligible, also faster.
+> 
+> What are your thoughts?
+> 
+> Thanks,
+> 
+> Alex
+> 
+>>
+>> Cheers,
+>>
+>> Michael
+>>
