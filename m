@@ -2,178 +2,149 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DB4332C4BC0
-	for <lists+linux-man@lfdr.de>; Thu, 26 Nov 2020 01:02:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A4CB62C4D91
+	for <lists+linux-man@lfdr.de>; Thu, 26 Nov 2020 04:00:28 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725776AbgKZAB4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 25 Nov 2020 19:01:56 -0500
-Received: from relay07.th.seeweb.it ([5.144.164.168]:52565 "EHLO
-        relay07.th.seeweb.it" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728283AbgKZABz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Nov 2020 19:01:55 -0500
-X-Greylist: delayed 1890 seconds by postgrey-1.27 at vger.kernel.org; Wed, 25 Nov 2020 19:01:55 EST
-Received: from [192.168.1.7] (net-47-53-183-87.cust.vodafonedsl.it [47.53.183.87])
-        (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-        (No client certificate requested)
-        by m-r2.th.seeweb.it (Postfix) with ESMTPSA id 94F37404D3;
-        Thu, 26 Nov 2020 01:01:53 +0100 (CET)
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-From:   Davide Giorgio <davide@giorgiodavide.it>
-Subject: pivot_root - wrong check on mount(2)
-Autocrypt: addr=davide@giorgiodavide.it; keydata=
- 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
-Message-ID: <dafbcfa6-666e-d596-6481-f35802dc56f1@giorgiodavide.it>
-Date:   Thu, 26 Nov 2020 01:01:47 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="efO0jb3EQEPft86L5yDhFemfQEzIDoj1H"
+        id S1731002AbgKZDAJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 25 Nov 2020 22:00:09 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44122 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1730724AbgKZDAJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Nov 2020 22:00:09 -0500
+Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com [IPv6:2607:f8b0:4864:20::532])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4AC59C061A4F
+        for <linux-man@vger.kernel.org>; Wed, 25 Nov 2020 19:00:09 -0800 (PST)
+Received: by mail-pg1-x532.google.com with SMTP id t37so473905pga.7
+        for <linux-man@vger.kernel.org>; Wed, 25 Nov 2020 19:00:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dilger-ca.20150623.gappssmtp.com; s=20150623;
+        h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
+         :references;
+        bh=CLUvaNFj/PurXHTr5z9vmApyltiJfzFSkjwCQHk27Nk=;
+        b=WHW8I2y0MPHzhrMDKHi79uizkexoDaIscCw1GWtxg7GTjVco8QFv3EJtcnKsebd3Vz
+         EKfUZgtAH8UOGHk8/86XYCYQLqpF0+3NcJca/LK9g/1bYfgFbXaamLdpaBNMBL4Rht0j
+         E05riYul8IlXDN3iEuYXFiKfXqr6g/S5PSgsRImYuqcJXnsq/YfYinh+6iZCACjGkPXz
+         ms/gwQDPmF6pmWFboQQob42miT54K+sHWF9lWleReUxQ8rXgv2siOV3G/gPJPOk0QBbB
+         46Yez1jGTTVE3PydB9kZt0z5wqwVtTYHgf+o3QW70X9bJYqLY3n7MFzWo8Ynn8Qd1ZjV
+         keCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:message-id:mime-version:subject:date
+         :in-reply-to:cc:to:references;
+        bh=CLUvaNFj/PurXHTr5z9vmApyltiJfzFSkjwCQHk27Nk=;
+        b=CRxNOLkJzNd+sW0JD0VQ3SCs5spTk936CC/fh+WHlctn9ExGOtNHO09tEKTMhxZquZ
+         AFYOd/S4ygmZCMrp5MIE6pMqa7U3bwhdMHKg3ec5SuM4o/aVd0NKsZMXhKAPqF1J7JJL
+         zTt8aDaXvx+qFV3Y6cAazDhIuHs/1hSOhbN5SI6VQ/JAmJIMuIYxnPygh15O1YPDAlRM
+         RniYKvXnAyaUX6WVpxQ4aFOy7eo4LxfuR4a8CR5IqE+K5ZWIFBUBqy1WYL1hm8VQp8DP
+         eR2a1kowCE77gze+mwijcdyMM262UUnAJVmnh8baGwkybuHmHwBk5U336Eg1ScGCcuM5
+         lzng==
+X-Gm-Message-State: AOAM530gQlyS13P809CtZZ1jOOCtbb+hyYcdfGHBYGNc7GmdnQ8/QdRu
+        uJHtPVALUchyhgevWVGhEq5Ksg==
+X-Google-Smtp-Source: ABdhPJybuFh0mFrl+Q6q7Hcb+Lq2vTCBVYmwBarsqkSwBM8BiikLz5hnIx8RR8kJy571/RZADrLhoQ==
+X-Received: by 2002:a17:90a:6588:: with SMTP id k8mr1056676pjj.197.1606359608591;
+        Wed, 25 Nov 2020 19:00:08 -0800 (PST)
+Received: from [192.168.10.160] (S01061cabc081bf83.cg.shawcable.net. [70.77.221.9])
+        by smtp.gmail.com with ESMTPSA id s145sm3105674pfs.187.2020.11.25.19.00.06
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 25 Nov 2020 19:00:07 -0800 (PST)
+From:   Andreas Dilger <adilger@dilger.ca>
+Message-Id: <13D075AD-D08F-44DA-B01C-9CDF239D4358@dilger.ca>
+Content-Type: multipart/signed;
+ boundary="Apple-Mail=_5232A0BF-221A-45DB-A681-BE4E94ED05F0";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: UAPI value collision: STATX_ATTR_MOUNT_ROOT vs STATX_ATTR_DAX
+Date:   Wed, 25 Nov 2020 20:00:02 -0700
+In-Reply-To: <CAJfpegvc5FjU-X1DxNtPjJLgEp_gT228kqk2Va31nk7GjZbPBQ@mail.gmail.com>
+Cc:     David Howells <dhowells@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Miklos Szeredi <mszeredi@redhat.com>,
+        Ira Weiny <ira.weiny@intel.com>,
+        Eric Sandeen <sandeen@redhat.com>,
+        linux-fsdevel@vger.kernel.org,
+        linux-man <linux-man@vger.kernel.org>,
+        linux-kernel@vger.kernel.org
+To:     Miklos Szeredi <miklos@szeredi.hu>
+References: <1927370.1606323014@warthog.procyon.org.uk>
+ <CAJfpegvc5FjU-X1DxNtPjJLgEp_gT228kqk2Va31nk7GjZbPBQ@mail.gmail.com>
+X-Mailer: Apple Mail (2.3273)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---efO0jb3EQEPft86L5yDhFemfQEzIDoj1H
-Content-Type: multipart/mixed; boundary="U4H3YQTTJidCkunTlQ2ujvCHrs8ct6uZU"
 
---U4H3YQTTJidCkunTlQ2ujvCHrs8ct6uZU
-Content-Type: multipart/mixed;
- boundary="------------97EB8FEAFD1CC33560244846"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------97EB8FEAFD1CC33560244846
-Content-Type: text/plain; charset=utf-8
+--Apple-Mail=_5232A0BF-221A-45DB-A681-BE4E94ED05F0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
 
-Good morning,
+On Nov 25, 2020, at 12:26 PM, Miklos Szeredi <miklos@szeredi.hu> wrote:
+>=20
+> On Wed, Nov 25, 2020 at 5:57 PM David Howells <dhowells@redhat.com> =
+wrote:
+>>=20
+>> Hi Linus, Miklos, Ira,
+>>=20
+>> It seems that two patches that got merged in the 5.8 merge window =
+collided and
+>> no one noticed until now:
+>>=20
+>> 80340fe3605c0 (Miklos Szeredi     2020-05-14 184) #define =
+STATX_ATTR_MOUNT_ROOT         0x00002000 /* Root of a mount */
+>> ...
+>> 712b2698e4c02 (Ira Weiny          2020-04-30 186) #define =
+STATX_ATTR_DAX                        0x00002000 /* [I] File is DAX */
+>>=20
+>> The question is, what do we do about it?  Renumber one or both of the
+>> constants?
+>=20
+> <uapi/linux/stat.h>:
+> * Note that the flags marked [I] correspond to generic FS_IOC_FLAGS
+> * semantically.  Where possible, the numerical value is picked to =
+correspond
+> * also.
+>=20
+> <uapi/linux/fs.h>:
+> #define FS_DAX_FL 0x02000000 /* Inode is DAX */
+>=20
+> The DAX one can be the same value as FS_DAX_FL, the placement (after
+> STATX_ATTR_VERITY, instead of before) seems to confirm this intention.
 
-reading the pivot_root man page
-(https://man7.org/linux/man-pages/man2/pivot_root.2.html)
-there seems to be an error in the example source program
-"pivot_root_demo.c".
-In particular, there is a wrong check on the return value of mount(2).
-https://man7.org/linux/man-pages/man2/mount.2.html#RETURN_VALUE
+Yes, this looks like a bug in the STATX_ATTR_DAX value.  It should be =
+the same
+as FS_DAX_FL, like all of the other STATX_ATTR_* [I] values are.
 
-The error is in this line
-if (mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL) =3D=3D 1)
-
-that should be
-if (mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL) =3D=3D -1)
+Cheers, Andreas
 
 
-Thank you for your work, kind regards
---=C2=A0
-Davide Antonino Giorgio
-http://giorgiodavide.it
 
---------------97EB8FEAFD1CC33560244846
-Content-Type: application/pgp-keys;
- name="0x4BAA68CE23187566.asc"
-Content-Transfer-Encoding: quoted-printable
+
+
+
+--Apple-Mail=_5232A0BF-221A-45DB-A681-BE4E94ED05F0
+Content-Transfer-Encoding: 7bit
 Content-Disposition: attachment;
- filename="0x4BAA68CE23187566.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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3D
-=3Df5NG
------END PGP PUBLIC KEY BLOCK-----
-
---------------97EB8FEAFD1CC33560244846--
-
---U4H3YQTTJidCkunTlQ2ujvCHrs8ct6uZU--
-
---efO0jb3EQEPft86L5yDhFemfQEzIDoj1H
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP
 
 -----BEGIN PGP SIGNATURE-----
+Comment: GPGTools - http://gpgtools.org
 
-iQGzBAEBCAAdFiEEUe9wS7uVW+1WrMYGS6poziMYdWYFAl++8GsACgkQS6poziMY
-dWbDyQv9FWXwUhhFUrXtqwvqyLw8ntx70N6Wrn3yMEncDEJ4oL32kjzRFR4gvECG
-7Jw83netJMg43UMYtSlq6Jfd5YWR8P3Kg/eM6hwlBYEc6RlHndI+jzgrK/qiDn+z
-p3fYUdQ3clGak2sfIr74A6LxUHXiiqP1ES5x9cZ7xorP9s8ZilhEUI9bTpsHyyLZ
-OaTXMpfmyhwecZHOH5617/2ip8YWGCWdOuGNiHFLsQgl7iHHwQnsxMnUGhFBQbtZ
-qDi8w0rj/3B8duyd01hAXBG0pwSrI7V3ausXYTZJOkoGgewSASXPU8EbslAXOTE8
-IIAZfjJM7VCe6SAGYJHJZ6Ib6Sx5h3eQf/jofbusOcmKNEa3Q1lNZysSqMaXu/L4
-NmpMfYWsbL8fYJC43yHIgakctXi/WPF1pDXiKwdLumGr372hdaWBfAz2MFRnMra7
-+OaB6eJRxF88/ohBNHXEoGtaPmsuWccMDu1Uxv2Dz492exEyCyOIXpWERLjKwBea
-d24S+sfN
-=KVor
+iQIzBAEBCAAdFiEEDb73u6ZejP5ZMprvcqXauRfMH+AFAl+/GjIACgkQcqXauRfM
+H+A16RAArYXwTjbh6UN5DHPHFjmKbi40h9BMIlxtwkeVKXptVB1oe4FsbhtpnYrm
+5mQuxaCPBs70A8ZcSN7tMv5ldseeoThIGoCq84VqFC17lQHd6KzEZw+b2kc85wtc
+PCOVgT/xabaHVvRr4ZXYN8m+tdka+FSbBjS3S7pwPKM2Xam9Ov6Mv4YZ4E0Knsnd
+DvltX8X3cZ5cK+EXzRKcddbpgh6eUJgBxcIrk3RXD4q35OLNI6PIvP6kD/xBizti
+NUgpAWoJspTP95XurKHERCPMhwwmEDEEa5naBJpQvhKDkqzxAIbYSnGDORYXy+sF
+FW+GP3Z/EFgd994P0ZRaDNuuSBLdMzRCJtOCjE+bIpZLNhci5niGBjUdS+b6gA5N
+q2bNt8UJC+AgTlz0PVMFPlSKG33w65rnrBsGQnmY8l4YufmnD2z7nZglmwZVGVx8
+RqLJYzYMYQwgFN9peQ4YEjo/NVTi1tiiKBq2eJ3cQ92lPrcxnYKNNgjyGGqWd5SX
+RXv8bmRn+iDsvYL0MH7N9Y/TKA5y2Y4MU4q9wKxwQfLzZEaSAWmVcw1A18+zIuPr
+if9rkcxqH5/ZMmgAmzDJXZ89PakYfYW4hc21AcUJV4Hy1eF9ohi3Hv+B1l/d5z1S
+hvHWuu/C5Kyq8/crZgE0ZT6d9f5bdHLaNLvKflXJ/feliySLb74=
+=HE3n
 -----END PGP SIGNATURE-----
 
---efO0jb3EQEPft86L5yDhFemfQEzIDoj1H--
+--Apple-Mail=_5232A0BF-221A-45DB-A681-BE4E94ED05F0--
