@@ -2,167 +2,144 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 16EDC2C5C10
-	for <lists+linux-man@lfdr.de>; Thu, 26 Nov 2020 19:33:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1A1C02C60DC
+	for <lists+linux-man@lfdr.de>; Fri, 27 Nov 2020 09:30:52 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2404774AbgKZSdA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 26 Nov 2020 13:33:00 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47422 "EHLO
+        id S1726985AbgK0Ias (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 27 Nov 2020 03:30:48 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34276 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2404602AbgKZSc7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 26 Nov 2020 13:32:59 -0500
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 88CE5C0613D4;
-        Thu, 26 Nov 2020 10:32:59 -0800 (PST)
-Received: by mail-wr1-x443.google.com with SMTP id u12so3172912wrt.0;
-        Thu, 26 Nov 2020 10:32:59 -0800 (PST)
+        with ESMTP id S1727486AbgK0Iar (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 27 Nov 2020 03:30:47 -0500
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B77B4C0613D1
+        for <linux-man@vger.kernel.org>; Fri, 27 Nov 2020 00:30:45 -0800 (PST)
+Received: by mail-wm1-x329.google.com with SMTP id z5so234029wmf.1
+        for <linux-man@vger.kernel.org>; Fri, 27 Nov 2020 00:30:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=7cZCiALn4GJqHzNqDKlifV68xUBXU8LxQqalNm8a74Q=;
-        b=GaczG3HNqZ5n6imR2eAlF9HW8yxsnUUc4KNKKgFHYushZohgKdUMbYzG3IzkRYvhJ8
-         rr92EfUET+0POqZKZ2E9yikelklaLLRtXEQckbv1dTcIboRABEtupsZ1wLaT9jVQa4WA
-         d9oep7nYCfyMZbKexG5ySmLyWFT9UsBORWtH3Y6M1+I+QJB9GGZSmqMY9PGA3iRr/cO5
-         Rw5SEIr+QWk78VsWgglwMJnfToWh1EQPXF1OsY+HL/24vr32wWpzY+LJTtJ+ti51t8G+
-         azcG4EOm163eKAe9ARk9gPglnog3fHJ/GvGjaKpXtqvQKfjfz0XuRrPo/l8QX+56xn7p
-         rsHQ==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=jb1HDUtb7riow+A5qSJafyLZ+0uXmiWWDOYCglGGHn8=;
+        b=K9UAAFMtkBW7//j+mR0tCgI/3+W49Pw3xo8Jj7/wEmypkpNYN/QT7h9C3UC5DKVp88
+         Bo2LIpQ80SnCwIDUssfbSCI/ak1qriYLCUzwZisGk02Aw5SJFUSX+tYxOIEEqYFU8luZ
+         Jcqv5V9DOMNOaL8Emjfl2BiiaZD9ClqyhQZgST96ZQEQ6Xc08WmOzd+GJ8h9q9RllJeP
+         iop2Qzpd2KlyiJ3q/ZiphE2f7L7LdpnIitKIVF3qVSkkHU4HTLZq2K3fjeJpSnUnxRpq
+         mEPdl7XzPhnyvD94GqtMuzTCRniw0rDza+uSquFF3zyTxFVc0KNOxi0g69BkD4/e410Q
+         ggJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=7cZCiALn4GJqHzNqDKlifV68xUBXU8LxQqalNm8a74Q=;
-        b=IAphICTweWJ4EUMvN/A3JPeLDGQuRVNHSRqQJAFsmjwJX+NKUIroio/0z5gPp5NNyR
-         SgapkR78gQpUG0pokDIjhJGTeLYTRGJKPl6k0TrRz0MPzEqB/yzsbAwkomWHyeVkjBHz
-         LiyjzJpeLbk/QlyX8pdmj8uLlPViVsD0RcPleCjNC+auvgL+Ct/OGeZ8Xsj3U9YpgTxr
-         5onRTau0eD3ypxWZVz5ek8IlKozatZs2tHJi9wo08zmeWd/H74HxZ1tRbeFkSUcehPCp
-         muUNGSyDBb8SdnSTAHqNhSckcV2yQwiqwnrN7cz2O0BhAQwbqB0sM4IMNnraUoa046CU
-         VJaA==
-X-Gm-Message-State: AOAM533RMmatceYZrlZ2hIg5pyZUMxL6/p6xOz7nprpr8sSm5waiCM4b
-        Te75vEt7vtD3Tct+IxMO/gs=
-X-Google-Smtp-Source: ABdhPJzm+O2pvi81h4AJb1UcuzEc7HRpbSvdlPI31Yx3lsMR1p3jMvfHRgf1pRqabIHTBHwUwwan3w==
-X-Received: by 2002:a5d:4f92:: with SMTP id d18mr5574341wru.118.1606415578364;
-        Thu, 26 Nov 2020 10:32:58 -0800 (PST)
-Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id 90sm10523810wra.95.2020.11.26.10.32.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2020 10:32:57 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] spu_create.2: Clarify that one of the prototypes is the current one
-Date:   Thu, 26 Nov 2020 19:32:12 +0100
-Message-Id: <20201126183211.21857-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.29.2
+        bh=jb1HDUtb7riow+A5qSJafyLZ+0uXmiWWDOYCglGGHn8=;
+        b=egtiKUpjy0cjmKQfjX0770L+Xe9cQJCynp733CVltHwl3KJ6seGQ4PaMAObLwUMZbd
+         EEzqec3PFhCbacrRIJ47cp6g64mNJkwUoQ3xVUgO5VFljoMq6OCSAz4+AXbC1g+7DkLB
+         0CqTk6cRjMo5WH63Co83/EYxfUpNZutbq64XXesdc3WL39Z3GTVqGRodTmHBdpmZY9NF
+         MfcorSIpcB99DomlFgqZh/DGgmhkYEprrKWGoUdd8+n23W/9hqaN+skwM1dB0Ji39ETn
+         SSGditPx5mqGPYJpxbX9tBYgkTedpXkhl/jVqLiiLGx5o76VKln0kzF3hwXb8mit+w8D
+         hkLQ==
+X-Gm-Message-State: AOAM533QtdHS5gRnWqak3qSf95QT0HjT9SsYfI0rt/LPsDhY5vJc/YD8
+        ktlL94e4mWl8QTDisAi6kBeGG5uQsBSm0Q==
+X-Google-Smtp-Source: ABdhPJxX+qvIfl0Bf7YxfwPUsrdgXGk3VrYS/TrxE0C/ThE+f/yKeLr5H4MCDVhKlteC5pbrd2/xug==
+X-Received: by 2002:a05:600c:211:: with SMTP id 17mr7649901wmi.84.1606465844076;
+        Fri, 27 Nov 2020 00:30:44 -0800 (PST)
+Received: from ?IPv6:2001:a61:24b3:de01:7310:e730:497d:ea6a? ([2001:a61:24b3:de01:7310:e730:497d:ea6a])
+        by smtp.gmail.com with ESMTPSA id c2sm14048845wrf.68.2020.11.27.00.30.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 27 Nov 2020 00:30:43 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
+Subject: Re: pivot_root - wrong check on mount(2)
+To:     "Alejandro Colomar (mailing lists, readonly)" 
+        <alx.mailinglists@gmail.com>,
+        Davide Giorgio <davide@giorgiodavide.it>
+References: <dafbcfa6-666e-d596-6481-f35802dc56f1@giorgiodavide.it>
+ <CAKgNAkhqn+NRbrmnaTpjMuj96eC6M94vxm8X4w9-F=_cqZi8gg@mail.gmail.com>
+ <fd7fea8a-b6ea-353d-522b-493782929237@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <b5ecab54-f558-079a-9a4b-b2d6b500d54c@gmail.com>
+Date:   Fri, 27 Nov 2020 09:30:40 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <fd7fea8a-b6ea-353d-522b-493782929237@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The current Linux kernel only provides a definition of 'spu_create()'.
-It has 4 parameters, the last being 'int neighbor_fd'.
+Hi Alex,
 
-Before Linux 2.6.23, there was an older prototype,
-which didn't have this last parameter.
+On 11/26/20 1:28 PM, Alejandro Colomar (mailing lists; readonly) wrote:
+> 
+> 
+> On 11/26/20 10:31 AM, Michael Kerrisk (man-pages) wrote:
+>> Hello Davide,
+>>
+>> On Thu, 26 Nov 2020 at 01:01, Davide Giorgio <davide@giorgiodavide.it> wrote:
+>>>
+>>> Good morning,
+>>>
+>>> reading the pivot_root man page
+>>> (https://man7.org/linux/man-pages/man2/pivot_root.2.html)
+>>> there seems to be an error in the example source program
+>>> "pivot_root_demo.c".
+>>> In particular, there is a wrong check on the return value of mount(2).
+>>> https://man7.org/linux/man-pages/man2/mount.2.html#RETURN_VALUE
+>>>
+>>> The error is in this line
+>>> if (mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL) == 1)
+>>>
+>>> that should be
+>>> if (mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL) == -1)
+>>>
+>>>
+>>> Thank you for your work, kind regards
+>>
+>> Thanks! Fixed!
+> 
+> Hi Michael,
+> 
+> What about fixing this from a different approach:
+> 
+> instead of comparing against -1
+> for functions that either return either 0 or -1,
+> we can include those functions in the greater family of
+> functions that return either 0 or non-zero (error code).
+> I propose comparing against 0:
+> 
+> - if (mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL) == 1)
+> + if (mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL) != 0)
+> 
+> I consider this to be safer, simpler,
+> and although negligible, also faster.
+> 
+> What are your thoughts?
 
-Move that old prototype to VERSIONS,
-and keep the current one in SYNOPSIS.
+History and the standards say -1. (Okay, mount(2) is not in 
+POSIX, but the statement is true for syscalls generally.) So, I
+prefer to use -1 (and always do so in my own code.)
 
-......
+The check "ret != 0" does not work for system calls that 
+return  a nonnegative value on success (e.g., open()).
 
-$ grep -rn "SYSCALL_DEFINE.(spu_create"
-arch/powerpc/platforms/cell/spu_syscalls.c:56:
-SYSCALL_DEFINE4(spu_create, const char __user *, name, unsigned int, flags,
+The check "ret < 0" does not work for system calls that
+can legitimately return a value less than zero on success.
+(getpriority() is the most notable example, but there
+are one or two other cases also.)
 
-$ sed -n 56,/^}/p arch/powerpc/platforms/cell/spu_syscalls.c
-SYSCALL_DEFINE4(spu_create, const char __user *, name, unsigned int, flags,
-	umode_t, mode, int, neighbor_fd)
-{
-	long ret;
-	struct spufs_calls *calls;
+The check "ret == -1" is clear, and--in a standards
+sense--precise. Though one must still be careful, since, 
+for example, getpriority() can return -1 on success.
+(See the manual page for info on how to fdeal with this.)
 
-	calls = spufs_calls_get();
-	if (!calls)
-		return -ENOSYS;
+Thanks,
 
-	if (flags & SPU_CREATE_AFFINITY_SPU) {
-		struct fd neighbor = fdget(neighbor_fd);
-		ret = -EBADF;
-		if (neighbor.file) {
-			ret = calls->create_thread(name, flags, mode, neighbor.file);
-			fdput(neighbor);
-		}
-	} else
-		ret = calls->create_thread(name, flags, mode, NULL);
+Michael
 
-	spufs_calls_put(calls);
-	return ret;
-}
-
-$ git blame arch/powerpc/platforms/cell/spu_syscalls.c -L 56,/\)/
-1bc94226d5c64 (Al Viro 2011-07-26 16:50:23 -0400 56)
-SYSCALL_DEFINE4(spu_create, const char __user *, name, unsigned int, flags,
-1bc94226d5c64 (Al Viro 2011-07-26 16:50:23 -0400 57)
-   umode_t, mode, int, neighbor_fd)
-
-$ git checkout 1bc94226d5c64~1
-$ git blame arch/powerpc/platforms/cell/spu_syscalls.c -L /spu_create/,/\)/
-67207b9664a8d (Arnd Bergmann 2005-11-15 15:53:48 -0500 68)
-asmlinkage long sys_spu_create(const char __user *name,
-8e68e2f248332 (Arnd Bergmann 2007-07-20 21:39:47 +0200 69)
-             unsigned int flags, mode_t mode, int neighbor_fd)
-
-$ git checkout 8e68e2f248332~1
-$ git blame arch/powerpc/platforms/cell/spu_syscalls.c -L /spu_create/,/\)/
-67207b9664a8d (Arnd Bergmann 2005-11-15 15:53:48 -0500 36)
-asmlinkage long sys_spu_create(const char __user *name,
-67207b9664a8d (Arnd Bergmann 2005-11-15 15:53:48 -0500 37)
-             unsigned int flags, mode_t mode)
-
-$ git describe --contains 8e68e2f248332
-v2.6.23-rc1~195^2~7
-
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man2/spu_create.2 | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
-
-diff --git a/man2/spu_create.2 b/man2/spu_create.2
-index 4e6f5d730..3eeafee56 100644
---- a/man2/spu_create.2
-+++ b/man2/spu_create.2
-@@ -30,9 +30,8 @@ spu_create \- create a new spu context
- .B #include <sys/types.h>
- .B #include <sys/spu.h>
- .PP
--.BI "int spu_create(const char *" pathname ", int " flags ", mode_t " mode ");"
--.BI "int spu_create(const char *" pathname ", int " flags ", mode_t " mode ","
--.BI "               int " neighbor_fd ");"
-+.BI "int spu_create(const char *" pathname ", int " flags ", mode_t " mode ,
-+.BI "               int " neighbor_fd );
- .fi
- .PP
- .IR Note :
-@@ -247,6 +246,17 @@ By convention, it gets mounted in
- The
- .BR spu_create ()
- system call was added to Linux in kernel 2.6.16.
-+.PP
-+.\" commit 8e68e2f248332a9c3fd4f08258f488c209bd3e0c
-+Before Linux 2.6.23, the prototype for
-+.BR spu_create ()
-+was:
-+.PP
-+.in +4n
-+.EX
-+.BI "int spu_create(const char *" pathname ", int " flags ", mode_t " mode );
-+.EE
-+.in
- .SH CONFORMING TO
- This call is Linux-specific and implemented only on the PowerPC
- architecture.
 -- 
-2.29.2
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
