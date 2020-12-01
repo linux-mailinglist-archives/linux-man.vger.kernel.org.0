@@ -2,66 +2,78 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C399A2CAF2F
-	for <lists+linux-man@lfdr.de>; Tue,  1 Dec 2020 22:54:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E46CF2CAF33
+	for <lists+linux-man@lfdr.de>; Tue,  1 Dec 2020 22:57:13 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729351AbgLAVyQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 1 Dec 2020 16:54:16 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58816 "EHLO
+        id S1726412AbgLAV46 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 1 Dec 2020 16:56:58 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59222 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726412AbgLAVyP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 1 Dec 2020 16:54:15 -0500
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6E38CC0613CF
-        for <linux-man@vger.kernel.org>; Tue,  1 Dec 2020 13:53:35 -0800 (PST)
-Received: by mail-ed1-x543.google.com with SMTP id ck29so5731290edb.8
-        for <linux-man@vger.kernel.org>; Tue, 01 Dec 2020 13:53:35 -0800 (PST)
+        with ESMTP id S1726410AbgLAV44 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 1 Dec 2020 16:56:56 -0500
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2467FC0613CF;
+        Tue,  1 Dec 2020 13:56:16 -0800 (PST)
+Received: by mail-ej1-x643.google.com with SMTP id bo9so7517146ejb.13;
+        Tue, 01 Dec 2020 13:56:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=pfp5u74Js/gnCDGM3G7hNAObVf1zB1M5O6Y6cVTFl78=;
-        b=aEHrqjFZFJLs00LLsC+hnF4m3DblS81Tv5vV88ip0WPJit1KTXj8oUSSnnankI3gVH
-         Bndty0RC8OdqfrVObD4YYuWzDlwDIH61z6CV1TzREzWQkMfLYIoLXyNAN3nWqwbqG7yc
-         Xxpr6GvQnJg1Tyyt037t7fWXlIDJPil+jd3nFCkGYtko1Nh9+fzq0KsY7lhiNPYtRJ+9
-         5VTmCSX9+CkWMlcOTG+myUlGIyMYWFsRGafzGpb+c2e6zxXJhRyshzT3XH3+aMIUm5AD
-         MiYXCONU1hLHVWJdeSgo8tmfxyfhrXO14FF8HtWa07uTZEEWiRpztn4VHa+O778reLyU
-         RtOA==
+        bh=TNnSqF/Fgsu1DQVw32weknFsudeLTkbDdXCXF6duIjg=;
+        b=WUyjwP0N8x13LpAJ80dRQGOSLcBTimpb6+GC9S1Lea4ou8RMgJ0QSRM0vRD9iHj1Pi
+         Kj9Ic4ge77zi17ujW0Q5PtjRvbL9vdk+9W76uYaKzVpx8CtAXtY8GQ/upvQc1Inj03sH
+         FEcsX1sFwFdHUOI5SP2ca329ACt4NGV1+nyh7ozCe5+vJLwWBFd8p3BSLmEmJFD+z+kJ
+         Efyp10R9En4ECUnJsMUwF2KFhhzV06eDd3RqATmb1nI9LHl3s+L6jNK3aqb5t4SPNfVA
+         7mRpmZMG1Fl7oAg8HtklgUkAr8xA2GqhyMCobWDRcx4ymIJGdvVayJDH/UcFTb0UUSTo
+         DODw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=pfp5u74Js/gnCDGM3G7hNAObVf1zB1M5O6Y6cVTFl78=;
-        b=X3DXOBkVTrPuRBkvnDM8Nufp+sa8QQTPtd/2UmebRs2vDlVEDKhDQQ7GHGc8L95AFi
-         7lrpc3nezYhoDA5BBJNX06S7bl3pIjh3xIAToa8EX8vfI4VxuYd9ynj81baX1NG7hi1f
-         ws79wHJiuejZuEjT+fVhstxNRrmshES+tqtg1MJp87eNMMqVnMT0prRYFnTJ7w0npKs8
-         mloK6hUIXngepPC4XY1f+UOXhzbJjTaRTjwicb/DaWwP7JnbbIWPwZgoH6+qMNYVGtD+
-         wqSDwjrDJyvkKR/L2PlNu9i09YaPalPSGFg110p3m6wBmWaEGSp1D+JFjNzaPzkACjzN
-         pvYg==
-X-Gm-Message-State: AOAM532Q5XJ23MB3VvgvaJ8ce3wCHBvWiRcsY2oXmmZfpm6uL79V1jxz
-        XeMnsDGm7dNQV+QCicLCmNEGy2G1xbWPQw==
-X-Google-Smtp-Source: ABdhPJyXIfMhN1rH/LyMtP5yZlw84arLwkPZci0uYuC48wqACR45R2iVha4K52QWpOSWpM3OaTCuZg==
-X-Received: by 2002:a05:6402:31a5:: with SMTP id dj5mr5184143edb.110.1606859614192;
-        Tue, 01 Dec 2020 13:53:34 -0800 (PST)
+        bh=TNnSqF/Fgsu1DQVw32weknFsudeLTkbDdXCXF6duIjg=;
+        b=oLzTBxVojVBicp7JvphebpbComd/DAZRPjzgW39hz0pEKetVd1r9JdP6FvybgPA+yJ
+         /Mbvh55/Zc+yj1wcYmnG6AnnUtAngtNUeQvwxlJ+n95/BKztvGPsiUG403IAW2fSCjuG
+         TBVLOixTB5BwRA6fp2rnSucPTSWL2wIPKGzNSxYP0Tdla86xH8k1XtmIXU0KCkzefnpt
+         ZrKIKg8tiIkFh+Ww+yFdv7RffO9sGmAye0c2t1FyIcPEajbXzMDkq7DDWkYTO39fHrdg
+         LlR5xh6ih1jKz06qb6h998GgSGqISXmQTUnbkXT62Q2S4sBYrbwCV8UZnRZ8LlYLe18V
+         Y7EQ==
+X-Gm-Message-State: AOAM5301tNIdpkPMMt+LPXAOgD+lcO2iJ1OJsEh4yPaqVKYg1XYHG7Fd
+        rSbsLgn3eYzr17gpM1lwxRLx4/Z6Y+DJ/Q==
+X-Google-Smtp-Source: ABdhPJzy50Df1rha71bsRACYAHo7n7GTztz5ioMnv+AuuWOkLyme1ispZa3ChJXbHGwizZTbREmNpw==
+X-Received: by 2002:a17:906:259a:: with SMTP id m26mr4967204ejb.399.1606859774329;
+        Tue, 01 Dec 2020 13:56:14 -0800 (PST)
 Received: from ?IPv6:2001:a61:3aad:c501:15d9:d9fb:bc21:cb92? ([2001:a61:3aad:c501:15d9:d9fb:bc21:cb92])
-        by smtp.gmail.com with ESMTPSA id n15sm439997eje.112.2020.12.01.13.53.33
+        by smtp.gmail.com with ESMTPSA id b7sm460989ejz.4.2020.12.01.13.56.12
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Dec 2020 13:53:33 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, Arusekk <arek_koz@o2.pl>,
-        linux-man@vger.kernel.org, Eugene Syromyatnikov <evgsyr@gmail.com>
-Subject: Re: [PATCH] keyctl.2: tfix
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-References: <20201201144024.7556-1-alx.manpages@gmail.com>
- <7f2fab76-b144-0b1a-6568-4d2d9959c47f@gmail.com>
- <39d20193-ff0a-0362-2b44-77f7c2da4978@gmail.com>
+        Tue, 01 Dec 2020 13:56:13 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-fsdevel@vger.kernel.org,
+        linux-btrfs@vger.kernel.org, Al Viro <viro@zeniv.linux.org.uk>,
+        Christoph Hellwig <hch@infradead.org>,
+        Dave Chinner <david@fromorbit.com>,
+        Jann Horn <jannh@google.com>,
+        Amir Goldstein <amir73il@gmail.com>,
+        Aleksa Sarai <cyphar@cyphar.com>, linux-api@vger.kernel.org,
+        kernel-team@fb.com, linux-man <linux-man@vger.kernel.org>
+Subject: Re: [PATCH man-pages v6] Document encoded I/O
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        Omar Sandoval <osandov@osandov.com>
+References: <cover.1605723568.git.osandov@fb.com>
+ <ec1588a618bd313e5a7c05a7f4954cc2b76ddac3.1605724767.git.osandov@osandov.com>
+ <4d1430aa-a374-7565-4009-7ec5139bf311@gmail.com>
+ <fb4a4270-eb7a-06d5-e703-9ee470b61f8b@gmail.com>
+ <05e1f13c-5776-961b-edc4-0d09d02b7829@gmail.com>
+ <dcb0679d-3ac5-dd95-5473-3c66ae4132b6@gmail.com>
+ <559edb86-4223-71e9-9ebf-c917ae71a13d@gmail.com>
+ <2aca4914-d247-28d1-22e0-102ea5ff826e@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <ae5cc46c-490f-0779-d881-2aae85f4a959@gmail.com>
-Date:   Tue, 1 Dec 2020 22:53:32 +0100
+Message-ID: <7e2e061d-fd4b-1243-6b91-cc3168146bba@gmail.com>
+Date:   Tue, 1 Dec 2020 22:56:12 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <39d20193-ff0a-0362-2b44-77f7c2da4978@gmail.com>
+In-Reply-To: <2aca4914-d247-28d1-22e0-102ea5ff826e@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -71,41 +83,54 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Alex,
 
-On 12/1/20 10:33 PM, Alejandro Colomar (man-pages) wrote:
+On 12/1/20 10:35 PM, Alejandro Colomar (man-pages) wrote:
 > Hi Michael,
 > 
-> On 12/1/20 8:48 PM, Michael Kerrisk (man-pages) wrote:
->> Hi Alex,
->>
->> On 12/1/20 3:40 PM, Alejandro Colomar wrote:
->>> From: Arusekk <arek_koz@o2.pl>
+> On 12/1/20 9:20 PM, Michael Kerrisk (man-pages) wrote:
+>>>>>>> +.SS Security
+>>>>>>> +Encoded I/O creates the potential for some security issues:
+>>>>>>> +.IP * 3
+>>>>>>> +Encoded writes allow writing arbitrary data which the kernel will decode on
+>>>>>>> +a subsequent read. Decompression algorithms are complex and may have bugs
+>>>>>>> +which can be exploited by maliciously crafted data.
+>>>>>>> +.IP *
+>>>>>>> +Encoded reads may return data which is not logically present in the file
+>>>>>>> +(see the discussion of
+>>>>>>> +.I len
+>>>>>>> +vs.
+>>>>>>
+>>>>>> Please, s/vs./vs/
+>>>>>> See the reasons below:
+>>>>>>
+>>>>>> Michael (mtk),
+>>>>>>
+>>>>>> Here the renderer outputs a double space
+>>>>>> (as for separating two sentences).
+>>>>>>
+>>>>>> Are you okay with that?
 >>>
->>> Fixes: fa76da808eff
+>>> Yes, that should probably be avoided. I'm not sure what the
+>>> correct way is to prevent that in groff though. I mean, one
+>>> could write
 >>>
->>> Signed-off-by: Arusekk <arek_koz@o2.pl>
->>> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+>>> .RI "vs.\ " unencoded_len
+>>>
+>>> but I think that simply creates a nonbreaking space,
+>>> which is not exactly what is desired.
 >>
->> Arusekk sent this patch twice. I applied the first version in my local tree,
->> but this version of the patch has a better commit message, so I dropped the 
->> old patch and applied this version instead.
+>> Ahh -- found it. From https://groff.ffii.org/groff/groff-1.21.pdf,
+>> we can write:
+>>
+>> vs.\&
+>>
+>> to prevent the double space.
 > 
-> Are you sure?
-> I only see one patch from him.
+> Nice to see it's possible.
+> However, I would argue for simplicity,
+> and use a simple 'vs',
+> which is already in use.
 
-I see now that the other patch was sent to me off-list...
-
-> If you're seeing it on lore,
-> you're probably seeing it repeated because it
-> shows similar emails on the same thread even if unrelated
-> (which I agree, causes some unnecessary confusion).
-> 
-> The only patch I see from Arusekk is:
-> Message-Id: <20201201112245.11764-1-arek_koz@o2.pl>
-> which has this same commit msg, but without the signature, which I added.
-> 
-> BTW, thanks for reviewing the other thread!
-
-Sorry that I missed reviewing it earlier....
+Indeed better. Thanks for noticing that.
 
 Thanks,
 
