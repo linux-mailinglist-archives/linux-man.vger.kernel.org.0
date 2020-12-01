@@ -2,109 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 63B272CACB1
-	for <lists+linux-man@lfdr.de>; Tue,  1 Dec 2020 20:49:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 109662CACFA
+	for <lists+linux-man@lfdr.de>; Tue,  1 Dec 2020 21:05:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2392417AbgLATtA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 1 Dec 2020 14:49:00 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39356 "EHLO
+        id S1730551AbgLAUF4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 1 Dec 2020 15:05:56 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41976 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388946AbgLATtA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 1 Dec 2020 14:49:00 -0500
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E4677C0617A7
-        for <linux-man@vger.kernel.org>; Tue,  1 Dec 2020 11:48:19 -0800 (PST)
-Received: by mail-ej1-x643.google.com with SMTP id f23so6778026ejk.2
-        for <linux-man@vger.kernel.org>; Tue, 01 Dec 2020 11:48:19 -0800 (PST)
+        with ESMTP id S1727684AbgLAUF4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 1 Dec 2020 15:05:56 -0500
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com [IPv6:2a00:1450:4864:20::242])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E79D7C0613CF
+        for <linux-man@vger.kernel.org>; Tue,  1 Dec 2020 12:05:15 -0800 (PST)
+Received: by mail-lj1-x242.google.com with SMTP id z1so5165129ljn.4
+        for <linux-man@vger.kernel.org>; Tue, 01 Dec 2020 12:05:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=fgauHfJR39n6yN37R6g/0HnCm0OEfUgXk7C3beXRcEE=;
-        b=AUziJv/n5elb75uRyvzLht6s4UXNn5cN4O804Npkr+1NfmFZigoSYyqpOhOh6vn5Kg
-         dFwvXevMS9xfcDc4fxImXYH8cA2OVjSuSgHFu0gMFRkvikDIEAuHwf+fDP8LwCuZ++dV
-         1WorKkvID3O00oIuS4QNWknkzromLHVwNnN0p0VAQ9Sk6ky+PmRn5aGjDm5np/wCnJsq
-         VOBvPLqkgHpybP3wh5G2Iucqyhwli702TIi4F/WPVyp4UJvN0nck17KY+CybWEXi6tCa
-         mWbRjLZTNHTtpkkbXm42u23gBdmXlAwaDXsl5x33o2JZoRj9VsTD+62/avhqb+wO/Yip
-         S1kw==
+        d=linux-foundation.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=HEphcGQwY2jeNYDME47hDdQV9bR2WcuThTyY8CTMagA=;
+        b=f+XordXx1HtHQauAu4wnySGZ7GOsfsrQOPdsZpcQHvfL87zHN51ik0PwYfToHQidR0
+         PlZ/E4mqzBriHmbzSkQser0B1m99iGnRC3rEB7nXytmUcWTvmQp/DGH5GienWzwN/RKd
+         ej/bdilwW2TBGDr+jCbzKtRZ0888o0ynwCvig=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=fgauHfJR39n6yN37R6g/0HnCm0OEfUgXk7C3beXRcEE=;
-        b=C7xzIjheBXakjbMK9ERN9Pus0A0ocRArxEREn6uoPifZEPcsE3RJ8zd3OPf/QpwKeZ
-         yr+1ONpW3LaC9dOlViLZ8bYTBPRA2Abc2Scv5Mv6SACalqdhWAx2U74IeogxVxhWg5Ik
-         WRjmD/m6LKN8nSby2uMdBr+ggeud55OY1gJFIvp4E+yPiCapFM4jCAu5MNlyeXHss5cH
-         Fke4FRL1apfIy+UIkadKSKvW5qMoZk5mEMDxpU0SR/4ws8UvJ8SxN6+8HMdTgx6VB2ud
-         60o/PK4Vz0jCoScdKbJF9POMSNMgq53UNn/6pi+F+UOZSZa7pcNoBpckLBhL5xUT0bOr
-         +MiQ==
-X-Gm-Message-State: AOAM533wLnRcPaCXFpj6tj0D0kZkLpyShlQkE1JT46s1+nBhi8MQQF64
-        HFv0okQaVeRcbIvR46oSSJg=
-X-Google-Smtp-Source: ABdhPJztfxzSGdFNf1KbVr8+RqeFvw3bECDfgg/Uw3lqwjWQWJEooVK5kRhkXYouLnxQpBTP6Ghq7w==
-X-Received: by 2002:a17:906:2a4b:: with SMTP id k11mr4504001eje.467.1606852098667;
-        Tue, 01 Dec 2020 11:48:18 -0800 (PST)
-Received: from ?IPv6:2001:a61:3aad:c501:15d9:d9fb:bc21:cb92? ([2001:a61:3aad:c501:15d9:d9fb:bc21:cb92])
-        by smtp.gmail.com with ESMTPSA id b9sm339861ejb.0.2020.12.01.11.48.17
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=HEphcGQwY2jeNYDME47hDdQV9bR2WcuThTyY8CTMagA=;
+        b=IEPKUZz4eH7CoC/CGNgHdHcHjuYdK8KMfvw1V4euwQj6p6iYwZuz2LiI/slYpS742g
+         IwB3mS6hpItwEhYD6wUNFIaUhKnRne/YRZpAWOoTaOOut6egbsxHttGbbroRr+v5dh43
+         FzEABFLUARMoJSqiUwoxSmQMyYSHKB5ndwQiPw44YAhDNUQFb90CmZBtQkUPsZwpg1Aa
+         dtmjCLFgi9E60uXuFhYykHGJ2uxYNwfacd5C5c4C3D8qEndss/MVuJ077T/DZbfJyTlg
+         7x3RlNdTrpCmB6xHhitSB/6dPquW9Tlb5vxSfG1yq7uvirXI/AK8Nro8l5x4GBzJTtRg
+         mj+Q==
+X-Gm-Message-State: AOAM533gLiXQEFpkfupICFYrETCW7+vdN514w50hcqMvFiKrTOVjH+Un
+        jpOoxeB7LtBXyw8Ix6LAT1jSBu2kn9YL0g==
+X-Google-Smtp-Source: ABdhPJy4v0OatfbGYoq/JvPuj9vctvK11+o7FQVXU5h5M66/1Wp2pdWzfAt4G2Y7JwBQQEyVuzpmwQ==
+X-Received: by 2002:a2e:3c12:: with SMTP id j18mr2166157lja.192.1606853114058;
+        Tue, 01 Dec 2020 12:05:14 -0800 (PST)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com. [209.85.167.50])
+        by smtp.gmail.com with ESMTPSA id d19sm70441lfi.64.2020.12.01.12.05.13
+        for <linux-man@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Dec 2020 11:48:17 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, Arusekk <arek_koz@o2.pl>,
-        linux-man@vger.kernel.org, Eugene Syromyatnikov <evgsyr@gmail.com>
-Subject: Re: [PATCH] keyctl.2: tfix
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20201201144024.7556-1-alx.manpages@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <7f2fab76-b144-0b1a-6568-4d2d9959c47f@gmail.com>
-Date:   Tue, 1 Dec 2020 20:48:15 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+        Tue, 01 Dec 2020 12:05:13 -0800 (PST)
+Received: by mail-lf1-f50.google.com with SMTP id l11so6982630lfg.0
+        for <linux-man@vger.kernel.org>; Tue, 01 Dec 2020 12:05:13 -0800 (PST)
+X-Received: by 2002:a19:5003:: with SMTP id e3mr1997442lfb.148.1606853112635;
+ Tue, 01 Dec 2020 12:05:12 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20201201144024.7556-1-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <e388f379-cd11-a5d2-db82-aa1aa518a582@redhat.com> <05a0f4fd-7f62-8fbc-378d-886ccd5b3f11@redhat.com>
+In-Reply-To: <05a0f4fd-7f62-8fbc-378d-886ccd5b3f11@redhat.com>
+From:   Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Tue, 1 Dec 2020 12:04:56 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wgOu9vgUfOSsjO3hHHxGDn4BKhitC_8XCfgmGKiiSm_ag@mail.gmail.com>
+Message-ID: <CAHk-=wgOu9vgUfOSsjO3hHHxGDn4BKhitC_8XCfgmGKiiSm_ag@mail.gmail.com>
+Subject: Re: [PATCH 2/2] statx: move STATX_ATTR_DAX attribute handling to filesystems
+To:     Eric Sandeen <sandeen@redhat.com>
+Cc:     Miklos Szeredi <mszeredi@redhat.com>,
+        Ira Weiny <ira.weiny@intel.com>,
+        David Howells <dhowells@redhat.com>,
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+        xfs <linux-xfs@vger.kernel.org>,
+        Ext4 Developers List <linux-ext4@vger.kernel.org>,
+        Xiaoli Feng <xifeng@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+On Tue, Dec 1, 2020 at 8:59 AM Eric Sandeen <sandeen@redhat.com> wrote:
+>
+> It's a bit odd to set STATX_ATTR_DAX into the statx attributes in the VFS;
+> while the VFS can detect the current DAX state, it is the filesystem which
+> actually sets S_DAX on the inode, and the filesystem is the place that
+> knows whether DAX is something that the "filesystem actually supports" [1]
+> so that the statx attributes_mask can be properly set.
+>
+> So, move STATX_ATTR_DAX attribute setting to the individual dax-capable
+> filesystems, and update the attributes_mask there as well.
 
-On 12/1/20 3:40 PM, Alejandro Colomar wrote:
-> From: Arusekk <arek_koz@o2.pl>
-> 
-> Fixes: fa76da808eff
-> 
-> Signed-off-by: Arusekk <arek_koz@o2.pl>
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+I'm not really understanding the logic behind this.
 
-Arusekk sent this patch twice. I applied the first version in my local tree,
-but this version of the patch has a better commit message, so I dropped the 
-old patch and applied this version instead.
+The whole IS_DAX(inode) thing exists in various places outside the
+low-level filesystem, why shouldn't stat() do this?
 
-Thanks,
+If IS_DAX() is incorrect, then we have much bigger problems than some
+stat results. We have core functions like generic_file_read_iter() etc
+all making actual behavioral judgements on IS_DAX().
 
-Michael
-> ---
->  man2/keyctl.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man2/keyctl.2 b/man2/keyctl.2
-> index 8930fb78b..4fa54bc14 100644
-> --- a/man2/keyctl.2
-> +++ b/man2/keyctl.2
-> @@ -33,7 +33,7 @@ keyctl \- manipulate the kernel's key management facility
->  .B #include <sys/types.h>
->  .B #include <keyutils.h>
->  .PP
-> -.BI "long keyctl(int " operation ", ...)"
-> +.BI "long keyctl(int " operation ", ...);"
->  
->  .B "/* For direct call via syscall(2): */"
->  .B #include <asm/unistd.h>
-> 
+And if IS_DAX() is correct, then why shouldn't this just be done in
+generic code? Why move it to every individual filesystem?
 
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+               Linus
