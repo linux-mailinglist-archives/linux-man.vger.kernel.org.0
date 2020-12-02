@@ -2,132 +2,105 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 908BB2CC173
-	for <lists+linux-man@lfdr.de>; Wed,  2 Dec 2020 16:58:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CB5C42CC18F
+	for <lists+linux-man@lfdr.de>; Wed,  2 Dec 2020 17:04:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727394AbgLBP6H (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 2 Dec 2020 10:58:07 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56306 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726935AbgLBP6G (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 2 Dec 2020 10:58:06 -0500
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 86000C0613CF
-        for <linux-man@vger.kernel.org>; Wed,  2 Dec 2020 07:57:26 -0800 (PST)
-Received: by mail-wr1-x443.google.com with SMTP id k14so4566989wrn.1
-        for <linux-man@vger.kernel.org>; Wed, 02 Dec 2020 07:57:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=xq78wbcP/vHYMVZzLGjq6kmFEU0xSy3qLk58Jzvdflk=;
-        b=cngXJ0L1gN2tWmGbd9Xk6eI57SuOsO4UoTYCqLYax4aB38mMRFb8mobbnu2/pPy5DB
-         laWAn7wqyhdOdTHp0yPGHtsEFaJ/29bLGlvrJKier9UWPXA4QCCvmOpOzBeUG4xoSkKc
-         fy0vH0n+iIRuIlq01/P18cv52VyDbQydrz7w42ZYg1UJM2G4MxNgjwm9YA+gRFItdYTq
-         pwCkg2DK23+XXKzk0H344LQcx34iri9SnXADoJXMVTouw714LMSS+6MuYCHuAaGAje6U
-         jHl3akkTrllQ0TW0r9JtmKQNDaqOQ/j62RxBo0yBT1NCSkzMYdHAzSsumVRP9M5JUmzK
-         +rhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=xq78wbcP/vHYMVZzLGjq6kmFEU0xSy3qLk58Jzvdflk=;
-        b=sfIa7eEScW/47CA8bz79jin5X1eNayt7GeLBJ6uBfDpniNzoWPjrY0de/KwD3Ub/o/
-         ZEwFpt/p4ye/u/1OYY5N5eJv/RlL62kMrYIwr0KlaqbyrlRhVk8hBYsASiD9j/9604rK
-         GHqlojsVooZEw9KNxx0ZPpNe3cNXkq1SbN2G/YgVECcHhSjkrwFMSe7oMr06vW2RyVlp
-         uAEt2HkmuBILbODABDjUTzcP4S3BLkHubv35t6OT5qzuMYk9bRZaH3ftQYIajo4D5qFs
-         qr6hOK7MAMRrn9F9kArVeT61hbhduhijQeyfS08H922qWaIhy8gC66P3BZER/dKUGQj8
-         10UQ==
-X-Gm-Message-State: AOAM530Txyj+RGSAzGdDNVGSsSz+pQbzaitDfEa5CBa3mYFfG6Z41Fqo
-        25O1Ze8ghcKYM8BKMzbk135I3HVjgnTmzQ==
-X-Google-Smtp-Source: ABdhPJyuE8BMI1gptKd2gUSHWgmj/9IcMF3cPgVoAaUca/nxEDahFKYoPuIcCz+B8ScKPH+hWGEHYA==
-X-Received: by 2002:adf:b64f:: with SMTP id i15mr4351788wre.125.1606924645050;
-        Wed, 02 Dec 2020 07:57:25 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id c5sm2741770wrb.64.2020.12.02.07.57.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Dec 2020 07:57:24 -0800 (PST)
-Subject: Re: [PATCH] fanotify: Document FAN_AUDIT flag
-To:     Jan Kara <jack@suse.cz>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Amir Goldstein <amir73il@gmail.com>,
-        Steve Grubb <sgrubb@redhat.com>, linux-man@vger.kernel.org
-References: <20201202154354.30778-1-jack@suse.cz>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <d7a6ab1f-c852-700f-c88b-93baef1ca148@gmail.com>
-Date:   Wed, 2 Dec 2020 16:57:23 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+        id S1730628AbgLBQBe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 2 Dec 2020 11:01:34 -0500
+Received: from mga17.intel.com ([192.55.52.151]:42669 "EHLO mga17.intel.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726178AbgLBQBe (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 2 Dec 2020 11:01:34 -0500
+IronPort-SDR: vTQ49dhM8QBd0+4nYadcCOvoTfZw705rWHm0qw0rm50FiH9wI14DM2hvQCAkSRTZDARA2k3ter
+ hLH5oIOwMlSQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9823"; a="152864217"
+X-IronPort-AV: E=Sophos;i="5.78,387,1599548400"; 
+   d="scan'208";a="152864217"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Dec 2020 08:00:50 -0800
+IronPort-SDR: z1IqvhDZPFYY4z4SR+s5gX3XaQ3NMgT9GM0Mla2pqeN/yCqk8tUFbBLI/da0PDe15bIDT0ioBg
+ KB4Vk+2ypybA==
+X-IronPort-AV: E=Sophos;i="5.78,387,1599548400"; 
+   d="scan'208";a="539744114"
+Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
+  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Dec 2020 08:00:50 -0800
+Date:   Wed, 2 Dec 2020 08:00:49 -0800
+From:   Ira Weiny <ira.weiny@intel.com>
+To:     Eric Sandeen <sandeen@redhat.com>
+Cc:     torvalds@linux-foundation.org,
+        Miklos Szeredi <mszeredi@redhat.com>,
+        David Howells <dhowells@redhat.com>,
+        linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org,
+        linux-kernel@vger.kernel.org, xfs <linux-xfs@vger.kernel.org>,
+        linux-ext4@vger.kernel.org, Xiaoli Feng <xifeng@redhat.com>
+Subject: Re: [PATCH V2] uapi: fix statx attribute value overlap for DAX &
+ MOUNT_ROOT
+Message-ID: <20201202160049.GD1447340@iweiny-DESK2.sc.intel.com>
+References: <3e28d2c7-fbe5-298a-13ba-dcd8fd504666@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20201202154354.30778-1-jack@suse.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3e28d2c7-fbe5-298a-13ba-dcd8fd504666@redhat.com>
+User-Agent: Mutt/1.11.1 (2018-12-01)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Jan,
-
-Please break lines at significant points,
-instead of just when it wraps at the right margin;
-as I did in this little paragraph.
-
-See man-pages(7)::STYLE GUIDE::Use semantic newlines
-
-Thanks,
-
-Alex
-
-On 12/2/20 4:43 PM, Jan Kara wrote:
-> Document FAN_AUDIT and related FAN_ENABLE_AUDIT flags.
+On Tue, Dec 01, 2020 at 05:21:40PM -0600, Eric Sandeen wrote:
+> [*] Note: This needs to be merged as soon as possible as it's introducing an incompatible UAPI change...
 > 
-> Signed-off-by: Jan Kara <jack@suse.cz>
+> STATX_ATTR_MOUNT_ROOT and STATX_ATTR_DAX got merged with the same value,
+> so one of them needs fixing. Move STATX_ATTR_DAX.
+> 
+> While we're in here, clarify the value-matching scheme for some of the
+> attributes, and explain why the value for DAX does not match.
+> 
+> Fixes: 80340fe3605c ("statx: add mount_root")
+> Fixes: 712b2698e4c0 ("fs/stat: Define DAX statx attribute")
+> Reported-by: David Howells <dhowells@redhat.com>
+> Signed-off-by: Eric Sandeen <sandeen@redhat.com>
+> Reviewed-by: David Howells <dhowells@redhat.com>
+
+Reviewed-by: Ira Weiny <ira.weiny@intel.com>
+
 > ---
->  man2/fanotify_init.2 | 7 +++++++
->  man7/fanotify.7      | 9 ++++++++-
->  2 files changed, 15 insertions(+), 1 deletion(-)
+> V2: Change flag value per Darrick Wong
+>     Tweak comment per Darrick Wong
+>     Add Fixes: tags & reported-by & RVB per dhowells
 > 
-> OK, here's my attempt to document the FAN_AUDIT flag. It would be nice if
-> Steve glanced over it from the audit side to check things are sane.
+>  include/uapi/linux/stat.h | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
 > 
-> diff --git a/man2/fanotify_init.2 b/man2/fanotify_init.2
-> index ca03b11dc98a..6becc7a680db 100644
-> --- a/man2/fanotify_init.2
-> +++ b/man2/fanotify_init.2
-> @@ -155,6 +155,13 @@ supplied to
->  (see
->  .BR fanotify (7)).
->  .TP
-> +.BR FAN_ENABLE_AUDIT " (since Linux 4.15)"
-> +.\" commit de8cd83e91bc3ee212b3e6ec6e4283af9e4ab269
-> +Enable generation of audit log records about access mediation performed by
-> +permission events. The permission event response has to be marked with
-> +.B FAN_AUDIT
-> +flag for audit log record to be generated.
-> +.TP
->  .BR FAN_REPORT_FID " (since Linux 5.1)"
->  .\" commit a8b13aa20afb69161b5123b4f1acc7ea0a03d360
->  This value allows the receipt of events which contain additional information
-> diff --git a/man7/fanotify.7 b/man7/fanotify.7
-> index 5804a1f30d6c..b5f096304cf4 100644
-> --- a/man7/fanotify.7
-> +++ b/man7/fanotify.7
-> @@ -588,7 +588,14 @@ to deny the file operation.
->  .PP
->  If access is denied, the requesting application call will receive an
->  .BR EPERM
-> -error.
-> +error. Additionally, if the notification group has been created with
-> +.B FAN_ENABLE_AUDIT
-> +flag,
-> +.B FAN_AUDIT
-> +flag can be set in the
-> +.I response
-> +field. In that case audit subsystem will log information about the access
-> +decision to the audit logs.
->  .\"
->  .SS Closing the fanotify file descriptor
->  When all file descriptors referring to the fanotify notification group are
+> diff --git a/include/uapi/linux/stat.h b/include/uapi/linux/stat.h
+> index 82cc58fe9368..1500a0f58041 100644
+> --- a/include/uapi/linux/stat.h
+> +++ b/include/uapi/linux/stat.h
+> @@ -171,9 +171,12 @@ struct statx {
+>   * be of use to ordinary userspace programs such as GUIs or ls rather than
+>   * specialised tools.
+>   *
+> - * Note that the flags marked [I] correspond to generic FS_IOC_FLAGS
+> + * Note that the flags marked [I] correspond to the FS_IOC_SETFLAGS flags
+>   * semantically.  Where possible, the numerical value is picked to correspond
+> - * also.
+> + * also.  Note that the DAX attribute indicates that the file is in the CPU
+> + * direct access state.  It does not correspond to the per-inode flag that
+> + * some filesystems support.
+> + *
+>   */
+>  #define STATX_ATTR_COMPRESSED		0x00000004 /* [I] File is compressed by the fs */
+>  #define STATX_ATTR_IMMUTABLE		0x00000010 /* [I] File is marked immutable */
+> @@ -183,7 +186,7 @@ struct statx {
+>  #define STATX_ATTR_AUTOMOUNT		0x00001000 /* Dir: Automount trigger */
+>  #define STATX_ATTR_MOUNT_ROOT		0x00002000 /* Root of a mount */
+>  #define STATX_ATTR_VERITY		0x00100000 /* [I] Verity protected file */
+> -#define STATX_ATTR_DAX			0x00002000 /* [I] File is DAX */
+> +#define STATX_ATTR_DAX			0x00200000 /* File is currently in DAX state */
+>  
+>  
+>  #endif /* _UAPI_LINUX_STAT_H */
+> -- 
+> 2.17.0
 > 
