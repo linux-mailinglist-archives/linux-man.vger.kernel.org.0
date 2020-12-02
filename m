@@ -2,85 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7E96D2CBAB1
-	for <lists+linux-man@lfdr.de>; Wed,  2 Dec 2020 11:42:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B387A2CBBEB
+	for <lists+linux-man@lfdr.de>; Wed,  2 Dec 2020 12:51:30 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729459AbgLBKhy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 2 Dec 2020 05:37:54 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35020 "EHLO
+        id S1726851AbgLBLvE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 2 Dec 2020 06:51:04 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46262 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728490AbgLBKhx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 2 Dec 2020 05:37:53 -0500
-Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com [IPv6:2607:f8b0:4864:20::c35])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 56816C0613CF;
-        Wed,  2 Dec 2020 02:37:13 -0800 (PST)
-Received: by mail-oo1-xc35.google.com with SMTP id i13so237797oou.11;
-        Wed, 02 Dec 2020 02:37:13 -0800 (PST)
+        with ESMTP id S1726745AbgLBLvD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 2 Dec 2020 06:51:03 -0500
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 62D77C0613D4;
+        Wed,  2 Dec 2020 03:50:23 -0800 (PST)
+Received: by mail-wm1-x32e.google.com with SMTP id d3so6396375wmb.4;
+        Wed, 02 Dec 2020 03:50:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=80Pvp9Zxps08IFd7tq8NCifbxJsmpf/0K1RsjhhfAKk=;
-        b=MXoX2H2sb3H2OxVJTphG7HMdGOnnadbDWtWITVXVhuwPZu8KpjUE7cMLHZG5AQIh6R
-         oUHVRoU3NqMvcbIuolj+NTOa6vaunXJ7HpXqCsdrCkwHkhA3HyeNCfQQvKnLHD6jYRe3
-         jxOJ76D7QlRRbqKV7G7YZQO967jJZjEM9Qn0EGSY4cqbpTbyzfvrezyd/jHi1hzobM5X
-         WSCHs7bQwudyHEoKIhbDaFDyrvD8546uNHNeInpzSRf3Mj19rWGsjHy2aqz3c+6A2HGE
-         m3mnjrj7wVkim16wuihD2El+AmW0nofLr90p++BIoMDzg6XHz3DE6gSfaMNKSeIdPVhL
-         6cGg==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=y4Aye9zVLmJ1nkdtQ5WBJCm4Oev6LKZzWWD9fuOLBJE=;
+        b=X5/vgBbBbFAb1hFms4KXzSjbC2yTVR1xDBzUUT/NuZD0CdoHVX8WrztYWJbMHIU7CZ
+         gX1Y0MVSuFPtvCuyalm6UzNyP7eXJg9bLWjVcDV1J2K25rjgj176ntZStGf56gEEsaq2
+         maz23tDhj7AXDCMTzwQAg4N8M0UAj6KDu297LrDXOl4eiFjDGX1dF/4e8Hk05kjH/FOi
+         ihAXRmPaAY29wfnbGssmD/jy7QB8W0vaZqezIblE8k4sldwcMxOBvPPp/qVDWkNVljOS
+         IbE9zb6zXNjcuFCYNqFsAjHGcVC/0HEle+A2FhRZEadACYICYP1uijEmIBmpf1PrFnOY
+         3How==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=80Pvp9Zxps08IFd7tq8NCifbxJsmpf/0K1RsjhhfAKk=;
-        b=Y54MKWDVs04DruphQjVDXBkCL2LZrhn9pco6FbHqy3yC727Dt1qp7WVz/oc3h5ROh+
-         2BpyL/BNyVIn1rIVz4d76tV4JZs2Ew6+0clye04LGlOouxy0urhRmsgb+c5CvYqPkR1g
-         tRi3LRgBxdMFH5onSr1QqOJXXOBtWtt2Eh6YeiC8LbomS/Njy4RZuJm648MoUhCC8Sx0
-         JHdKm10wndolY651axvgWYpz7m9VsZhOUEQ9OrB01ox+azZy7B1/v76wCv8qcMuUJ3WJ
-         E/oq/d6+oDNOec/XTrNH1ncwmhTr1dEM9beETKvz6awKCopYTIYY7BqvLiTU3F7IS2ye
-         Poug==
-X-Gm-Message-State: AOAM530CJUDM+gF383Vm67gl+oX8jAs/ZrA5Hk7KFbhqwEdFZyi495MC
-        Xe/kJQNmd8hCWupJj4//5gUxPCduekQVFjshDyA=
-X-Google-Smtp-Source: ABdhPJwVUhIRRCsr0rk936DwsTZOHTFeGyuXX6CV4OoCvWYwAmdT+hVgy2aMNSHJrcDqHZdjnwy9WxQxW89NCwINPy8=
-X-Received: by 2002:a4a:e972:: with SMTP id i18mr1107202ooe.17.1606905432608;
- Wed, 02 Dec 2020 02:37:12 -0800 (PST)
-MIME-Version: 1.0
-References: <20201202071543.74866-1-jarkko@kernel.org>
-In-Reply-To: <20201202071543.74866-1-jarkko@kernel.org>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Wed, 2 Dec 2020 11:37:01 +0100
-Message-ID: <CAKgNAkhROLJMmfAUiDCQhW0LCck08sF8jnYVJhSircxA059wXg@mail.gmail.com>
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=y4Aye9zVLmJ1nkdtQ5WBJCm4Oev6LKZzWWD9fuOLBJE=;
+        b=bUmHt2RS9GwxXjh5Vjr9tjNT+IjUcrFgdB1PcXFBAiml5JV3dLnTMiboDlwTzyrxur
+         HdRpPoQfRoabHdV5C4djXSoTV7lZafzJzn5/EpWS6zuQiojn74WfWKHO8L6wI5rclp3o
+         SRKTfTGFwpP0OxGmkvZnAcmm7S0c5jwGm5Hw6XrygBTxHuVVJ4iPtxpSWeQMc7AhHlWu
+         x2iIBfvjz327OlOhVi0CAnxVspMZQ73+Ax8ZRbnTN080QSwpzqTEAf7J2Ef3MY0t0rYe
+         B2k6bPIV5l8jkwWhNCjTy9UFY5OMnjToA9cjL0YkPl8XfRa7xErmxBNCVguT5BKz7GNH
+         i5fQ==
+X-Gm-Message-State: AOAM53374ZXMRBctU4pRcxkVIsNp2+OvI1pSvwU6fouG/wlfBW1aIU/6
+        4GOJ4cmGZhKqUbN2V/LiVFs=
+X-Google-Smtp-Source: ABdhPJy9Qzx+Q9RL5iRSctcQEKl0Qz0ShxOeWbA2Fd0Hy42T/RKfHEcdsc6qiOPrfe51q2MCEZxufA==
+X-Received: by 2002:a05:600c:219a:: with SMTP id e26mr2785843wme.168.1606909821932;
+        Wed, 02 Dec 2020 03:50:21 -0800 (PST)
+Received: from [192.168.1.143] ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id t184sm1704568wmt.13.2020.12.02.03.50.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Dec 2020 03:50:21 -0800 (PST)
 Subject: Re: [PATCH] sgx.7: New page with overview of Software Guard
  eXtensions (SGX)
-To:     Jarkko Sakkinen <jarkko@kernel.org>
-Cc:     linux-man <linux-man@vger.kernel.org>, linux-sgx@vger.kernel.org,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+To:     Jarkko Sakkinen <jarkko@kernel.org>, mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, linux-sgx@vger.kernel.org,
+        dave.hansen@linux.intel.com, x86@kernel.org
+References: <20201202071543.74866-1-jarkko@kernel.org>
+From:   "Alejandro Colomar (mailing lists; readonly)" 
+        <alx.mailinglists@gmail.com>
+Message-ID: <f6eb74cf-0cb6-0549-9ed3-3e3b2af23ad1@gmail.com>
+Date:   Wed, 2 Dec 2020 12:50:20 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
+MIME-Version: 1.0
+In-Reply-To: <20201202071543.74866-1-jarkko@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Jarkko,
 
-Thanks for the page. I'll have some more comments later, most likely.
-But to begin with, are there any other manual pages that should be
-listed in a SEE ALSO section for this manual page, and are there any
-pages in man-pages that you think should refer to this page in their
-SEE ALSO sections?
+Thanks for the page.
 
-Cheers,
+Adding to Michael's comment,
+here are a few things to fix (see below).
 
-Michael
+Michael, there's also a question for you (grep mtk).
 
-On Wed, 2 Dec 2020 at 08:16, Jarkko Sakkinen <jarkko@kernel.org> wrote:
->
+Thanks,
+
+Alex
+
+On 12/2/20 8:15 AM, Jarkko Sakkinen wrote:
 > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 > ---
 >  man7/sgx.7 | 198 +++++++++++++++++++++++++++++++++++++++++++++++++++++
 >  1 file changed, 198 insertions(+)
 >  create mode 100644 man7/sgx.7
->
+> 
 > diff --git a/man7/sgx.7 b/man7/sgx.7
 > new file mode 100644
 > index 000000000..429c9b64d
@@ -119,11 +127,45 @@ On Wed, 2 Dec 2020 at 08:16, Jarkko Sakkinen <jarkko@kernel.org> wrote:
 > +Intel Software Guard eXtensions (SGX) allow user space applications to
 > +set aside private memory regions of code and data.
 > +These memory regions are called as enclaves.
+
+wfix:
+
+These memory regions are called enclaves.
+
 > +.PP
 > +SGX must be enabled by the BIOS.
 > +If SGX appears to be unsupported on a system having the hardware
+
+1)
+s/having the hardware/having hardware/
+
+2)
+Please, use semantic newlines.
+
+To understand 'semantic newlines',
+please have a look at
+man-pages(7)::STYLE GUIDE::Use semantic newlines
+
+Basically, split lines at the most natural separation point,
+instead of just when the line gets over the margin.
+
 > +support, ensure that SGX is enabled in the BIOS.
 > +If a BIOS presents a choice between \[lq]Enabled\[rq] and \[lq]Software
+
+s/\\[lq]/\\(dq/g
+s/\\[rq]/\\(dq/g
+
+Basically, we use \(dq for any double quotes, and we don't care about
+left or right.
+
+Michael (mtk):
+
+I was searching to see if it was documented in man-pages(7),
+but I didn't find it.
+Should we add something under man-pages(7)::STYLE GUIDE::Generating
+optimal glyphs?
+
+
 > +Enabled\[rq] modes for SGX, choose \[lq]Enabled\[rq].
 > +.PP
 > +An enclave can be only entered at a fixed set of entry points.
@@ -141,12 +183,35 @@ On Wed, 2 Dec 2020 at 08:16, Jarkko Sakkinen <jarkko@kernel.org> wrote:
 > +.PP
 > +SGX is available only if the kernel was configured and built with the
 > +\f[B]CONFIG_X86_SGX\f[R] option.
+
+Replace by:
+
+[
+.B CONFIG_X86_SGX
+option.
+]
+
 > +The hardware support for SGX can be observed from
 > +\f[I]/proc/cpuinfo\f[R] with the \[lq]flags\[rq] field containing
 > +\[lq]sgx\[rq].
+
+[
+.I /proc/cpuinfo
+with the \(dqflags\(dq field containing \(dqsgx\(dq.
+]
+
 > +.SS Enclave management
 > +.PP
 > +Enclave\[cq]s life-cycle starts by opening \f[I]/dev/sgx_enclave\f[R],
+
+For single quotes (or apostrophe), please use '\(aq':
+
+[
+Enclave\(aqs life ...
+]
+
+See man-pages(7)::STYLE GUIDE::Generating optimal glyphs
+
 > +and ends once all the references to the opened file have been closed.
 > +After opening the enclave, its contents must be populated with the ioctl
 > +interface provided by \f[I]<asm/sgx.h>\f[R].
@@ -285,12 +350,4 @@ On Wed, 2 Dec 2020 at 08:16, Jarkko Sakkinen <jarkko@kernel.org> wrote:
 > +is also architecturally reclaimable, but not yet implemented.
 > +The end result is that the vast majority of enclave pages are currently
 > +reclaimable.
-> --
-> 2.27.0
->
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+> 
