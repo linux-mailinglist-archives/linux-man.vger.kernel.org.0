@@ -2,87 +2,105 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 17DE72CC20F
-	for <lists+linux-man@lfdr.de>; Wed,  2 Dec 2020 17:21:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 504522CC214
+	for <lists+linux-man@lfdr.de>; Wed,  2 Dec 2020 17:21:30 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730726AbgLBQTl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 2 Dec 2020 11:19:41 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59644 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730713AbgLBQTf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 2 Dec 2020 11:19:35 -0500
-Received: from mail-vk1-xa44.google.com (mail-vk1-xa44.google.com [IPv6:2607:f8b0:4864:20::a44])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C114BC0617A6
-        for <linux-man@vger.kernel.org>; Wed,  2 Dec 2020 08:18:55 -0800 (PST)
-Received: by mail-vk1-xa44.google.com with SMTP id i62so520094vkb.7
-        for <linux-man@vger.kernel.org>; Wed, 02 Dec 2020 08:18:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=K37eg33TEYHBPIc9hdERySXaT7ddLk31VnYDOJlDBsg=;
-        b=Qh43GnRo7YfF7QXgCietAKT8+vkZPBqYJF1+My0HDqIs9rZIo8YSN5dPnKbhJt35/O
-         Bk92brV0mfpexLTOm4P1D2e/jzzHq0aEycI6SbiBHQ4W9TdRZzRMWRILKTnT50xTSA2i
-         iPs17ztWvUY6GyDcrTIIhpbuNNzPUr9ojKwfs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=K37eg33TEYHBPIc9hdERySXaT7ddLk31VnYDOJlDBsg=;
-        b=eJOY3oW1EaO9ANcgByh6c1siIUaynT+LiC2VB8JnDS/Yzb82ss+kiBWtGczkGg/vNN
-         HOS0zAuyspMwSeZ0O0trW3q/uKPYK9VUgn+BUcAAB13JUHYH06PnLbyx7xIfYB9RZk4F
-         bIvodqLXrZCjuExFfyGCVUco+m45XHg746WYFIsDXBVJOX1WFivE8+y9rYFdjFOrWF6b
-         lcwlL7BJhhA3ZLxVVoWS59aziDiND+o8uLVYmIEhui8znmlRJw6bLXu35iPmfxEcUoFn
-         XD7hdUeSRi71YqpmNLzIiQPY7iR7wjvH8xf6gX8SoOU1UKSQ9mQpE7bv43Y+Qs2mx5cw
-         VRWA==
-X-Gm-Message-State: AOAM533ueqevrPTbauRbGrrJW+I6zqgATx7n5Ml1GOPnIFDHgYXuRU0m
-        wHxik7pN2CJYCK2lZynlFM1B02f1eU0il236/NGBQQ==
-X-Google-Smtp-Source: ABdhPJyTxGZ9z1k1i/Ix1wYvY05DOpOo2yBinjoa08BbT+ejSo+v8144fC3Nldom8dhjeZdLqBssK9ANee91fT78mH4=
-X-Received: by 2002:a1f:e7c2:: with SMTP id e185mr2204229vkh.23.1606925934724;
- Wed, 02 Dec 2020 08:18:54 -0800 (PST)
+        id S1728079AbgLBQUl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 2 Dec 2020 11:20:41 -0500
+Received: from mx2.suse.de ([195.135.220.15]:60754 "EHLO mx2.suse.de"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1730733AbgLBQUl (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 2 Dec 2020 11:20:41 -0500
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+        by mx2.suse.de (Postfix) with ESMTP id 12115AB63;
+        Wed,  2 Dec 2020 16:20:00 +0000 (UTC)
+Received: by quack2.suse.cz (Postfix, from userid 1000)
+        id CA0C91E1318; Wed,  2 Dec 2020 17:19:59 +0100 (CET)
+Date:   Wed, 2 Dec 2020 17:19:59 +0100
+From:   Jan Kara <jack@suse.cz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     Jan Kara <jack@suse.cz>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        Amir Goldstein <amir73il@gmail.com>,
+        Steve Grubb <sgrubb@redhat.com>, linux-man@vger.kernel.org
+Subject: Re: [PATCH] fanotify: Document FAN_AUDIT flag
+Message-ID: <20201202161959.GB3534@quack2.suse.cz>
+References: <20201202154354.30778-1-jack@suse.cz>
+ <d7a6ab1f-c852-700f-c88b-93baef1ca148@gmail.com>
 MIME-Version: 1.0
-References: <3e28d2c7-fbe5-298a-13ba-dcd8fd504666@redhat.com> <20201202160049.GD1447340@iweiny-DESK2.sc.intel.com>
-In-Reply-To: <20201202160049.GD1447340@iweiny-DESK2.sc.intel.com>
-From:   Miklos Szeredi <miklos@szeredi.hu>
-Date:   Wed, 2 Dec 2020 17:18:43 +0100
-Message-ID: <CAJfpegt6w4h28VLctpaH46r2pkbcUNJ4pUhwUqZ-zbrOrXPEEQ@mail.gmail.com>
-Subject: Re: [PATCH V2] uapi: fix statx attribute value overlap for DAX & MOUNT_ROOT
-To:     Ira Weiny <ira.weiny@intel.com>
-Cc:     Eric Sandeen <sandeen@redhat.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Miklos Szeredi <mszeredi@redhat.com>,
-        David Howells <dhowells@redhat.com>,
-        linux-fsdevel@vger.kernel.org,
-        linux-man <linux-man@vger.kernel.org>,
-        linux-kernel@vger.kernel.org, xfs <linux-xfs@vger.kernel.org>,
-        linux-ext4@vger.kernel.org, Xiaoli Feng <xifeng@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d7a6ab1f-c852-700f-c88b-93baef1ca148@gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Dec 2, 2020 at 5:03 PM Ira Weiny <ira.weiny@intel.com> wrote:
->
-> On Tue, Dec 01, 2020 at 05:21:40PM -0600, Eric Sandeen wrote:
-> > [*] Note: This needs to be merged as soon as possible as it's introducing an incompatible UAPI change...
-> >
-> > STATX_ATTR_MOUNT_ROOT and STATX_ATTR_DAX got merged with the same value,
-> > so one of them needs fixing. Move STATX_ATTR_DAX.
-> >
-> > While we're in here, clarify the value-matching scheme for some of the
-> > attributes, and explain why the value for DAX does not match.
-> >
-> > Fixes: 80340fe3605c ("statx: add mount_root")
-> > Fixes: 712b2698e4c0 ("fs/stat: Define DAX statx attribute")
-> > Reported-by: David Howells <dhowells@redhat.com>
-> > Signed-off-by: Eric Sandeen <sandeen@redhat.com>
-> > Reviewed-by: David Howells <dhowells@redhat.com>
->
-> Reviewed-by: Ira Weiny <ira.weiny@intel.com>
+Hi!
 
-Stable cc also?
+On Wed 02-12-20 16:57:23, Alejandro Colomar (man-pages) wrote:
+> Please break lines at significant points,
+> instead of just when it wraps at the right margin;
+> as I did in this little paragraph.
+> 
+> See man-pages(7)::STYLE GUIDE::Use semantic newlines
 
-Cc: <stable@vger.kernel.org> # 5.8
+OK, I'll do that for the submission of the next patch version.
 
-Thanks,
-Miklos
+								Honza
+
+> On 12/2/20 4:43 PM, Jan Kara wrote:
+> > Document FAN_AUDIT and related FAN_ENABLE_AUDIT flags.
+> > 
+> > Signed-off-by: Jan Kara <jack@suse.cz>
+> > ---
+> >  man2/fanotify_init.2 | 7 +++++++
+> >  man7/fanotify.7      | 9 ++++++++-
+> >  2 files changed, 15 insertions(+), 1 deletion(-)
+> > 
+> > OK, here's my attempt to document the FAN_AUDIT flag. It would be nice if
+> > Steve glanced over it from the audit side to check things are sane.
+> > 
+> > diff --git a/man2/fanotify_init.2 b/man2/fanotify_init.2
+> > index ca03b11dc98a..6becc7a680db 100644
+> > --- a/man2/fanotify_init.2
+> > +++ b/man2/fanotify_init.2
+> > @@ -155,6 +155,13 @@ supplied to
+> >  (see
+> >  .BR fanotify (7)).
+> >  .TP
+> > +.BR FAN_ENABLE_AUDIT " (since Linux 4.15)"
+> > +.\" commit de8cd83e91bc3ee212b3e6ec6e4283af9e4ab269
+> > +Enable generation of audit log records about access mediation performed by
+> > +permission events. The permission event response has to be marked with
+> > +.B FAN_AUDIT
+> > +flag for audit log record to be generated.
+> > +.TP
+> >  .BR FAN_REPORT_FID " (since Linux 5.1)"
+> >  .\" commit a8b13aa20afb69161b5123b4f1acc7ea0a03d360
+> >  This value allows the receipt of events which contain additional information
+> > diff --git a/man7/fanotify.7 b/man7/fanotify.7
+> > index 5804a1f30d6c..b5f096304cf4 100644
+> > --- a/man7/fanotify.7
+> > +++ b/man7/fanotify.7
+> > @@ -588,7 +588,14 @@ to deny the file operation.
+> >  .PP
+> >  If access is denied, the requesting application call will receive an
+> >  .BR EPERM
+> > -error.
+> > +error. Additionally, if the notification group has been created with
+> > +.B FAN_ENABLE_AUDIT
+> > +flag,
+> > +.B FAN_AUDIT
+> > +flag can be set in the
+> > +.I response
+> > +field. In that case audit subsystem will log information about the access
+> > +decision to the audit logs.
+> >  .\"
+> >  .SS Closing the fanotify file descriptor
+> >  When all file descriptors referring to the fanotify notification group are
+> > 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
