@@ -2,109 +2,81 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D355C2CB0C0
-	for <lists+linux-man@lfdr.de>; Wed,  2 Dec 2020 00:23:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 211C52CB159
+	for <lists+linux-man@lfdr.de>; Wed,  2 Dec 2020 01:13:24 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726885AbgLAXXR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 1 Dec 2020 18:23:17 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([63.128.21.124]:23526 "EHLO
-        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1727005AbgLAXXQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 1 Dec 2020 18:23:16 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1606864910;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding;
-        bh=/VrWq4ROZEETaUG6m+Wv8n9gH98JhhhsUtPF4KnUL34=;
-        b=eG25tZWRhGxVXkrzThJdMI12a1viespQwXz+v8I+5I7jOlC4+w+4R/dG9Hvk0pGgy0GXMD
-        lkU0Py7GOh4SNluYhbzqwvozqL8y4cTHCkjMw1goWfva3oM9PRB1ObkTmxwqpGNUUWrEAI
-        DjdDJ8funR7U/TJI67BcjDxPIDt13Vk=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-26-T4dzLGELMqmpzahP1zvfXw-1; Tue, 01 Dec 2020 18:21:46 -0500
-X-MC-Unique: T4dzLGELMqmpzahP1zvfXw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        id S1726734AbgLBAMH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 1 Dec 2020 19:12:07 -0500
+Received: from sandeen.net ([63.231.237.45]:35898 "EHLO sandeen.net"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726011AbgLBAMG (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 1 Dec 2020 19:12:06 -0500
+Received: from liberator.sandeen.net (liberator.sandeen.net [10.0.0.146])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
         (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 49DF01076027;
-        Tue,  1 Dec 2020 23:21:45 +0000 (UTC)
-Received: from liberator.sandeen.net (ovpn04.gateway.prod.ext.phx2.redhat.com [10.5.9.4])
-        by smtp.corp.redhat.com (Postfix) with ESMTP id 4189010013C1;
-        Tue,  1 Dec 2020 23:21:41 +0000 (UTC)
-From:   Eric Sandeen <sandeen@redhat.com>
-Subject: [PATCH V2] uapi: fix statx attribute value overlap for DAX &
- MOUNT_ROOT
-To:     torvalds@linux-foundation.org,
+        by sandeen.net (Postfix) with ESMTPSA id 2799D146284;
+        Tue,  1 Dec 2020 18:11:09 -0600 (CST)
+To:     Linus Torvalds <torvalds@linux-foundation.org>,
+        David Howells <dhowells@redhat.com>
+Cc:     Eric Sandeen <sandeen@redhat.com>,
         Miklos Szeredi <mszeredi@redhat.com>,
         Ira Weiny <ira.weiny@intel.com>,
-        David Howells <dhowells@redhat.com>
-Cc:     linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org,
-        linux-kernel@vger.kernel.org, xfs <linux-xfs@vger.kernel.org>,
-        linux-ext4@vger.kernel.org, Xiaoli Feng <xifeng@redhat.com>,
-        Eric Sandeen <sandeen@redhat.com>
-Message-ID: <3e28d2c7-fbe5-298a-13ba-dcd8fd504666@redhat.com>
-Date:   Tue, 1 Dec 2020 17:21:40 -0600
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+        xfs <linux-xfs@vger.kernel.org>,
+        Ext4 Developers List <linux-ext4@vger.kernel.org>,
+        Xiaoli Feng <xifeng@redhat.com>
+References: <e388f379-cd11-a5d2-db82-aa1aa518a582@redhat.com>
+ <05a0f4fd-7f62-8fbc-378d-886ccd5b3f11@redhat.com>
+ <CAHk-=wgOu9vgUfOSsjO3hHHxGDn4BKhitC_8XCfgmGKiiSm_ag@mail.gmail.com>
+ <300456.1606856642@warthog.procyon.org.uk>
+ <CAHk-=wgB_e1anR0b4B5p3qxR9nq1-xrRponA6Q6WbGTOSFNmPw@mail.gmail.com>
+From:   Eric Sandeen <sandeen@sandeen.net>
+Subject: Re: [PATCH 2/2] statx: move STATX_ATTR_DAX attribute handling to
+ filesystems
+Message-ID: <421cb25d-ca52-0a08-e535-5f650dda8d93@sandeen.net>
+Date:   Tue, 1 Dec 2020 18:11:24 -0600
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.5.0
 MIME-Version: 1.0
+In-Reply-To: <CAHk-=wgB_e1anR0b4B5p3qxR9nq1-xrRponA6Q6WbGTOSFNmPw@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-[*] Note: This needs to be merged as soon as possible as it's introducing an incompatible UAPI change...
+On 12/1/20 4:09 PM, Linus Torvalds wrote:
+> So basically, the thing that argues against this patch is that it
+> seems to just duplicate things inside filesystems, when the VFS layter
+> already has the information.
+> 
+> Now, if the VFS information was possibly stale or wrong, that woudl be
+> one thing. But then we'd have other and bigger  problems elsewhere as
+> far as I can tell.
+> 
+> IOW - make generic what can be made generic, and try to avoid having
+> filesystems do their own thing.
+> 
+> [ Replace "filesystems" by "architectures" or whatever else, this is
+> obviously not a filesystem-specific rule in general. ]
+> 
+> And don't get me wrong - I don't _hate_ the patch, and I don't care
+> _that_ deeply, but it just doesn't seem to make any sense to me. My
+> initial query was really about "what am I missing - can you please
+> flesh out the commit message because I don't understand what's wrong".
 
-STATX_ATTR_MOUNT_ROOT and STATX_ATTR_DAX got merged with the same value,
-so one of them needs fixing. Move STATX_ATTR_DAX.
+Backing way up, my motivation was: Only the filesystem can appropriately
+set the statx->attributes_mask, so it has to be done there. Since that
+has to be done in the filesystem, set the actual attribute flag adjacent
+to it, as is done for ~every other flag.
 
-While we're in here, clarify the value-matching scheme for some of the
-attributes, and explain why the value for DAX does not match.
+*shrug*
 
-Fixes: 80340fe3605c ("statx: add mount_root")
-Fixes: 712b2698e4c0 ("fs/stat: Define DAX statx attribute")
-Reported-by: David Howells <dhowells@redhat.com>
-Signed-off-by: Eric Sandeen <sandeen@redhat.com>
-Reviewed-by: David Howells <dhowells@redhat.com>
----
-V2: Change flag value per Darrick Wong
-    Tweak comment per Darrick Wong
-    Add Fixes: tags & reported-by & RVB per dhowells
+In any case I resent the flag value clash fix on a separate thread as
+V2, hopefully that one is straightforward enough to go in.
 
- include/uapi/linux/stat.h | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/include/uapi/linux/stat.h b/include/uapi/linux/stat.h
-index 82cc58fe9368..1500a0f58041 100644
---- a/include/uapi/linux/stat.h
-+++ b/include/uapi/linux/stat.h
-@@ -171,9 +171,12 @@ struct statx {
-  * be of use to ordinary userspace programs such as GUIs or ls rather than
-  * specialised tools.
-  *
-- * Note that the flags marked [I] correspond to generic FS_IOC_FLAGS
-+ * Note that the flags marked [I] correspond to the FS_IOC_SETFLAGS flags
-  * semantically.  Where possible, the numerical value is picked to correspond
-- * also.
-+ * also.  Note that the DAX attribute indicates that the file is in the CPU
-+ * direct access state.  It does not correspond to the per-inode flag that
-+ * some filesystems support.
-+ *
-  */
- #define STATX_ATTR_COMPRESSED		0x00000004 /* [I] File is compressed by the fs */
- #define STATX_ATTR_IMMUTABLE		0x00000010 /* [I] File is marked immutable */
-@@ -183,7 +186,7 @@ struct statx {
- #define STATX_ATTR_AUTOMOUNT		0x00001000 /* Dir: Automount trigger */
- #define STATX_ATTR_MOUNT_ROOT		0x00002000 /* Root of a mount */
- #define STATX_ATTR_VERITY		0x00100000 /* [I] Verity protected file */
--#define STATX_ATTR_DAX			0x00002000 /* [I] File is DAX */
-+#define STATX_ATTR_DAX			0x00200000 /* File is currently in DAX state */
- 
- 
- #endif /* _UAPI_LINUX_STAT_H */
--- 
-2.17.0
-
+Thanks,
+-Eric
