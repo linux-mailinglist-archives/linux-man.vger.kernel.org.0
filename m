@@ -2,105 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 504522CC214
-	for <lists+linux-man@lfdr.de>; Wed,  2 Dec 2020 17:21:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3589E2CC22D
+	for <lists+linux-man@lfdr.de>; Wed,  2 Dec 2020 17:27:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728079AbgLBQUl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 2 Dec 2020 11:20:41 -0500
-Received: from mx2.suse.de ([195.135.220.15]:60754 "EHLO mx2.suse.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1730733AbgLBQUl (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 2 Dec 2020 11:20:41 -0500
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-        by mx2.suse.de (Postfix) with ESMTP id 12115AB63;
-        Wed,  2 Dec 2020 16:20:00 +0000 (UTC)
-Received: by quack2.suse.cz (Postfix, from userid 1000)
-        id CA0C91E1318; Wed,  2 Dec 2020 17:19:59 +0100 (CET)
-Date:   Wed, 2 Dec 2020 17:19:59 +0100
-From:   Jan Kara <jack@suse.cz>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     Jan Kara <jack@suse.cz>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Amir Goldstein <amir73il@gmail.com>,
-        Steve Grubb <sgrubb@redhat.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH] fanotify: Document FAN_AUDIT flag
-Message-ID: <20201202161959.GB3534@quack2.suse.cz>
-References: <20201202154354.30778-1-jack@suse.cz>
- <d7a6ab1f-c852-700f-c88b-93baef1ca148@gmail.com>
+        id S1728182AbgLBQZ2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 2 Dec 2020 11:25:28 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([216.205.24.124]:23330 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1728082AbgLBQZ2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 2 Dec 2020 11:25:28 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1606926242;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=/KvFOz7MMzTDoHF0bJjNyv+MeqNtUt9D2w2PnLZk360=;
+        b=Z/SymytwvLnd0KnCMoQAezx/ITzFjKo6QenBB8pu4DPgW+MohbEBhg6LgkQqeC1Tm6zU5c
+        6UAgiXdwAbt2SvB4CLncw1jNEMsPZSsgLIPxeGZfmGYLroYXcpelqCsTkDF/nAo8iNtaEN
+        iZlyK0TMEx+fcnWRmoRK9S4k+tOKQ2o=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-139-9wNKgQKzOJy9g31KKd79iw-1; Wed, 02 Dec 2020 11:24:00 -0500
+X-MC-Unique: 9wNKgQKzOJy9g31KKd79iw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EAA4F100E421;
+        Wed,  2 Dec 2020 16:23:58 +0000 (UTC)
+Received: from warthog.procyon.org.uk (ovpn-112-159.rdu2.redhat.com [10.10.112.159])
+        by smtp.corp.redhat.com (Postfix) with ESMTP id 94C285D9C6;
+        Wed,  2 Dec 2020 16:23:53 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+        Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+        Kingdom.
+        Registered in England and Wales under Company Registration No. 3798903
+From:   David Howells <dhowells@redhat.com>
+In-Reply-To: <CAJfpegt6w4h28VLctpaH46r2pkbcUNJ4pUhwUqZ-zbrOrXPEEQ@mail.gmail.com>
+References: <CAJfpegt6w4h28VLctpaH46r2pkbcUNJ4pUhwUqZ-zbrOrXPEEQ@mail.gmail.com> <3e28d2c7-fbe5-298a-13ba-dcd8fd504666@redhat.com> <20201202160049.GD1447340@iweiny-DESK2.sc.intel.com>
+To:     Miklos Szeredi <miklos@szeredi.hu>
+Cc:     dhowells@redhat.com, Ira Weiny <ira.weiny@intel.com>,
+        Eric Sandeen <sandeen@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Miklos Szeredi <mszeredi@redhat.com>,
+        linux-fsdevel@vger.kernel.org,
+        linux-man <linux-man@vger.kernel.org>,
+        linux-kernel@vger.kernel.org, xfs <linux-xfs@vger.kernel.org>,
+        linux-ext4@vger.kernel.org, Xiaoli Feng <xifeng@redhat.com>
+Subject: Re: [PATCH V2] uapi: fix statx attribute value overlap for DAX & MOUNT_ROOT
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d7a6ab1f-c852-700f-c88b-93baef1ca148@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <641396.1606926232.1@warthog.procyon.org.uk>
+Date:   Wed, 02 Dec 2020 16:23:52 +0000
+Message-ID: <641397.1606926232@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi!
+Miklos Szeredi <miklos@szeredi.hu> wrote:
 
-On Wed 02-12-20 16:57:23, Alejandro Colomar (man-pages) wrote:
-> Please break lines at significant points,
-> instead of just when it wraps at the right margin;
-> as I did in this little paragraph.
+> Stable cc also?
 > 
-> See man-pages(7)::STYLE GUIDE::Use semantic newlines
+> Cc: <stable@vger.kernel.org> # 5.8
 
-OK, I'll do that for the submission of the next patch version.
+That seems to be unnecessary, provided there's a Fixes: tag.
 
-								Honza
+David
 
-> On 12/2/20 4:43 PM, Jan Kara wrote:
-> > Document FAN_AUDIT and related FAN_ENABLE_AUDIT flags.
-> > 
-> > Signed-off-by: Jan Kara <jack@suse.cz>
-> > ---
-> >  man2/fanotify_init.2 | 7 +++++++
-> >  man7/fanotify.7      | 9 ++++++++-
-> >  2 files changed, 15 insertions(+), 1 deletion(-)
-> > 
-> > OK, here's my attempt to document the FAN_AUDIT flag. It would be nice if
-> > Steve glanced over it from the audit side to check things are sane.
-> > 
-> > diff --git a/man2/fanotify_init.2 b/man2/fanotify_init.2
-> > index ca03b11dc98a..6becc7a680db 100644
-> > --- a/man2/fanotify_init.2
-> > +++ b/man2/fanotify_init.2
-> > @@ -155,6 +155,13 @@ supplied to
-> >  (see
-> >  .BR fanotify (7)).
-> >  .TP
-> > +.BR FAN_ENABLE_AUDIT " (since Linux 4.15)"
-> > +.\" commit de8cd83e91bc3ee212b3e6ec6e4283af9e4ab269
-> > +Enable generation of audit log records about access mediation performed by
-> > +permission events. The permission event response has to be marked with
-> > +.B FAN_AUDIT
-> > +flag for audit log record to be generated.
-> > +.TP
-> >  .BR FAN_REPORT_FID " (since Linux 5.1)"
-> >  .\" commit a8b13aa20afb69161b5123b4f1acc7ea0a03d360
-> >  This value allows the receipt of events which contain additional information
-> > diff --git a/man7/fanotify.7 b/man7/fanotify.7
-> > index 5804a1f30d6c..b5f096304cf4 100644
-> > --- a/man7/fanotify.7
-> > +++ b/man7/fanotify.7
-> > @@ -588,7 +588,14 @@ to deny the file operation.
-> >  .PP
-> >  If access is denied, the requesting application call will receive an
-> >  .BR EPERM
-> > -error.
-> > +error. Additionally, if the notification group has been created with
-> > +.B FAN_ENABLE_AUDIT
-> > +flag,
-> > +.B FAN_AUDIT
-> > +flag can be set in the
-> > +.I response
-> > +field. In that case audit subsystem will log information about the access
-> > +decision to the audit logs.
-> >  .\"
-> >  .SS Closing the fanotify file descriptor
-> >  When all file descriptors referring to the fanotify notification group are
-> > 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
