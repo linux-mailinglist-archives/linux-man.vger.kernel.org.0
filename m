@@ -2,90 +2,91 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A023A2CEA90
-	for <lists+linux-man@lfdr.de>; Fri,  4 Dec 2020 10:14:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6BF792CF173
+	for <lists+linux-man@lfdr.de>; Fri,  4 Dec 2020 17:03:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728962AbgLDJNx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 4 Dec 2020 04:13:53 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([63.128.21.124]:35056 "EHLO
-        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726471AbgLDJNx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Dec 2020 04:13:53 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1607073147;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=9rmy64shG48vY56a62sQLH7H13tnnYDJYVfd0nj8TO4=;
-        b=K1u+J51q2Nvbjb4ZMS8uGkuLH2KK+wWcHyf/VvnFn1aiVQEMOwznfGmQytuDv3S59b7PzT
-        Ck1iHe0LFE+qjz81EZi81NtNfCLA9bRAyCeQxRB0xuPXBl4Djy5IgncGfe8w+GAqnqBW7+
-        2tR+4pC0qBbhaAiOvtAPnu7GHacGP1o=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-94-W_DEzsLuMjGIU-7xaIXd5w-1; Fri, 04 Dec 2020 04:12:22 -0500
-X-MC-Unique: W_DEzsLuMjGIU-7xaIXd5w-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 01D2C107ACE4;
-        Fri,  4 Dec 2020 09:12:22 +0000 (UTC)
-Received: from oldenburg2.str.redhat.com (ovpn-112-44.ams2.redhat.com [10.36.112.44])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id 33F5510016F4;
-        Fri,  4 Dec 2020 09:12:18 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     Carlos O'Donell <carlos@redhat.com>
-Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
-Subject: Re: [PATCH v2] ld.so.8: Update "Hardware capabilities" section for
- glibc 2.31.
-References: <57abae5e-2394-0542-9e21-10c0bb837078@redhat.com>
-        <87pnaoe70h.fsf@oldenburg2.str.redhat.com>
-        <14751c26-4c4d-24c1-df12-429931b61780@redhat.com>
-        <87r1uy3sgb.fsf@oldenburg2.str.redhat.com>
-        <CAKgNAkjB3-LvJaTQ5cHyc-cduD6Yr0_dBrSmN_bih+YOzuBCww@mail.gmail.com>
-        <84511dbb-2c38-b928-3155-1027a6078a96@redhat.com>
-Date:   Fri, 04 Dec 2020 10:12:16 +0100
-In-Reply-To: <84511dbb-2c38-b928-3155-1027a6078a96@redhat.com> (Carlos
-        O'Donell's message of "Thu, 11 Jun 2020 16:53:09 -0400")
-Message-ID: <87ft4mue8f.fsf@oldenburg2.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
+        id S1730596AbgLDQDb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Dec 2020 11:03:31 -0500
+Received: from outgoing-auth-1.mit.edu ([18.9.28.11]:52354 "EHLO
+        outgoing.mit.edu" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1729625AbgLDQDa (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Dec 2020 11:03:30 -0500
+Received: from callcc.thunk.org (pool-72-74-133-215.bstnma.fios.verizon.net [72.74.133.215])
+        (authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+        by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 0B4G2R8k023074
+        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Fri, 4 Dec 2020 11:02:27 -0500
+Received: by callcc.thunk.org (Postfix, from userid 15806)
+        id 19219420136; Fri,  4 Dec 2020 11:02:27 -0500 (EST)
+Date:   Fri, 4 Dec 2020 11:02:27 -0500
+From:   "Theodore Y. Ts'o" <tytso@mit.edu>
+To:     Amir Goldstein <amir73il@gmail.com>
+Cc:     Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Dave Chinner <david@fromorbit.com>,
+        Miklos Szeredi <miklos@szeredi.hu>,
+        David Howells <dhowells@redhat.com>,
+        Ira Weiny <ira.weiny@intel.com>,
+        Eric Sandeen <sandeen@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Miklos Szeredi <mszeredi@redhat.com>,
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        xfs <linux-xfs@vger.kernel.org>,
+        Ext4 <linux-ext4@vger.kernel.org>,
+        Xiaoli Feng <xifeng@redhat.com>,
+        Sasha Levin <sashal@kernel.org>, Jan Kara <jack@suse.cz>
+Subject: Re: [PATCH V2] uapi: fix statx attribute value overlap for DAX &
+ MOUNT_ROOT
+Message-ID: <20201204160227.GA577125@mit.edu>
+References: <3e28d2c7-fbe5-298a-13ba-dcd8fd504666@redhat.com>
+ <20201202160049.GD1447340@iweiny-DESK2.sc.intel.com>
+ <CAJfpegt6w4h28VLctpaH46r2pkbcUNJ4pUhwUqZ-zbrOrXPEEQ@mail.gmail.com>
+ <641397.1606926232@warthog.procyon.org.uk>
+ <CAJfpegsQxi+_ttNshHu5MP+uLn3px9+nZRoTLTxh9-xwU8s1yg@mail.gmail.com>
+ <X8flmVAwl0158872@kroah.com>
+ <20201202204045.GM2842436@dread.disaster.area>
+ <X8gBUc0fkdh6KK01@kroah.com>
+ <CAOQ4uxhNvTxEo_-wkHy-KO8Jhz0Amh-g2Nz+PzN_8OODWJPz7w@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAOQ4uxhNvTxEo_-wkHy-KO8Jhz0Amh-g2Nz+PzN_8OODWJPz7w@mail.gmail.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Carlos O'Donell:
+On Thu, Dec 03, 2020 at 08:18:23AM +0200, Amir Goldstein wrote:
+> Here is a recent example, where during patch review, I requested NOT to include
+> any stable backport triggers [1]:
+> "...We should consider sending this to stable, but maybe let's merge
+> first and let it
+>  run in master for a while before because it is not a clear and
+> immediate danger..."
+>
+> As a developer and as a reviewer, I wish (as Dave implied) that I had a way to
+> communicate to AUTOSEL that auto backport of this patch has more risk than
+> the risk of not backporting.
 
-> On 6/10/20 2:00 AM, Michael Kerrisk (man-pages) wrote:
->> Hi Carlos,
->> 
->> What's the status of this patch?
->
-> I'm currently rewriting the language of the section to split apart the
-> AT_PLATFORM and AT_HWCAP parts.
->
-> They each behave differently. AT_PLATFORM is a non-nested singular platform
-> directory that is searched with no fallback, and that needs to clarified
-> and called out. While AT_HWCAP is drastically different in behaviour.
->
-> When done we'll have two lists, and two explanations for the search paths
-> and their orders.
->
-> I'm doing this as part of the upstream review of this infrasturcture
-> because we're going to change the behaviour in an upcoming release. With
-> the changes in place we'll have a good place to say "... and now it's different."
->
-> In summary: Still working on it. Expect v3.
+My suggestion is that we could put something in the MAINTAINERS file
+which indicates what the preferred delay time should be for (a)
+patches explicitly cc'ed to stable, and (b) preferred time should be
+for patches which are AUTOSEL'ed for stable for that subsystem.  That
+time might be either in days/weeks, or "after N -rc releases", "after
+the next full release", or, "never" (which would be a way for a
+subsystem to opt out of the AUTOSEL process).
 
-Carlos, what's the status here?  I need to write an update for
-glibc-hwcaps, and this likely conflicts with your edits (at least
-semantically).
+It should also be possible specify the delay in the trailer, e.g.:
 
-Thanks,
-Florian
--- 
-Red Hat GmbH, https://de.redhat.com/ , Registered seat: Grasbrunn,
-Commercial register: Amtsgericht Muenchen, HRB 153243,
-Managing Directors: Charles Cachera, Brian Klemm, Laurie Krebs, Michael O'Neill
+Stable-Defer: <delayspec>
+Auto-Stable-Defer: <delayspec>
 
+The advantage of specifying the delay relative to when they show up in
+Linus's tree helps deal with the case where the submaintainer might
+not be sure when their patches will get pushed to Linus by the
+maintainer.
+
+Cheers,
+
+						- Ted
