@@ -2,79 +2,90 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CDF8B2CE56E
-	for <lists+linux-man@lfdr.de>; Fri,  4 Dec 2020 02:57:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A023A2CEA90
+	for <lists+linux-man@lfdr.de>; Fri,  4 Dec 2020 10:14:27 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726037AbgLDBzt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 3 Dec 2020 20:55:49 -0500
-Received: from mail.kernel.org ([198.145.29.99]:57940 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1725885AbgLDBzt (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 3 Dec 2020 20:55:49 -0500
-Date:   Fri, 4 Dec 2020 03:55:03 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1607046908;
-        bh=1EBAEgi/GdqMHwgkXccqcj/tzFjO4VDB3yBUOdqh4GA=;
-        h=From:To:Cc:Subject:References:In-Reply-To:From;
-        b=RekxbN+XyNXoMrFnx3fd9QHKhP2rcofkFcFwckWWIAIBqVVpoqGh7M+uuA/lwjTpO
-         G0ouTfgqL2EW5br5+A9hByk7ZkE6edKGSRiZm1FOTUzAEAstCyb9hvAyW3wTX4rCed
-         4KgQEI7PxnDvA6YnpH96cotwKURSkgtz2TH3nfLVsq5hCVMeeFEZSuOq7MNOC43B3x
-         k4NAgnUjwfiQobuDez3bu5l0+056C0fQK/fhun0uqxh4f80zNWe6zSmibUh8U5SoGt
-         uh0HcH9QmREQ1DYqUvEQdu2AlzO3o9MctktYbnzwaeENXnJ7glUA0NE1EqaFnQ4Uxv
-         hlFBw4XoDNghQ==
-From:   Jarkko Sakkinen <jarkko@kernel.org>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>, linux-sgx@vger.kernel.org,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sgx.7: New page with overview of Software Guard
- eXtensions (SGX)
-Message-ID: <20201204015503.GA146985@kernel.org>
-References: <20201202071543.74866-1-jarkko@kernel.org>
- <CAKgNAkhROLJMmfAUiDCQhW0LCck08sF8jnYVJhSircxA059wXg@mail.gmail.com>
- <20201202171742.GA91954@kernel.org>
+        id S1728962AbgLDJNx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Dec 2020 04:13:53 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([63.128.21.124]:35056 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1726471AbgLDJNx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Dec 2020 04:13:53 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1607073147;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=9rmy64shG48vY56a62sQLH7H13tnnYDJYVfd0nj8TO4=;
+        b=K1u+J51q2Nvbjb4ZMS8uGkuLH2KK+wWcHyf/VvnFn1aiVQEMOwznfGmQytuDv3S59b7PzT
+        Ck1iHe0LFE+qjz81EZi81NtNfCLA9bRAyCeQxRB0xuPXBl4Djy5IgncGfe8w+GAqnqBW7+
+        2tR+4pC0qBbhaAiOvtAPnu7GHacGP1o=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-94-W_DEzsLuMjGIU-7xaIXd5w-1; Fri, 04 Dec 2020 04:12:22 -0500
+X-MC-Unique: W_DEzsLuMjGIU-7xaIXd5w-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 01D2C107ACE4;
+        Fri,  4 Dec 2020 09:12:22 +0000 (UTC)
+Received: from oldenburg2.str.redhat.com (ovpn-112-44.ams2.redhat.com [10.36.112.44])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 33F5510016F4;
+        Fri,  4 Dec 2020 09:12:18 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
+To:     Carlos O'Donell <carlos@redhat.com>
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
+Subject: Re: [PATCH v2] ld.so.8: Update "Hardware capabilities" section for
+ glibc 2.31.
+References: <57abae5e-2394-0542-9e21-10c0bb837078@redhat.com>
+        <87pnaoe70h.fsf@oldenburg2.str.redhat.com>
+        <14751c26-4c4d-24c1-df12-429931b61780@redhat.com>
+        <87r1uy3sgb.fsf@oldenburg2.str.redhat.com>
+        <CAKgNAkjB3-LvJaTQ5cHyc-cduD6Yr0_dBrSmN_bih+YOzuBCww@mail.gmail.com>
+        <84511dbb-2c38-b928-3155-1027a6078a96@redhat.com>
+Date:   Fri, 04 Dec 2020 10:12:16 +0100
+In-Reply-To: <84511dbb-2c38-b928-3155-1027a6078a96@redhat.com> (Carlos
+        O'Donell's message of "Thu, 11 Jun 2020 16:53:09 -0400")
+Message-ID: <87ft4mue8f.fsf@oldenburg2.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201202171742.GA91954@kernel.org>
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Dec 02, 2020 at 07:17:42PM +0200, Jarkko Sakkinen wrote:
-> On Wed, Dec 02, 2020 at 11:37:01AM +0100, Michael Kerrisk (man-pages) wrote:
-> > Hi Jarkko,
-> > 
-> > Thanks for the page. I'll have some more comments later, most likely.
-> > But to begin with, are there any other manual pages that should be
-> > listed in a SEE ALSO section for this manual page, and are there any
-> > pages in man-pages that you think should refer to this page in their
-> > SEE ALSO sections?
-> 
-> Thanks for quick response.
-> 
-> SGX does not declare any syscalls but it does have an ioctl API and
-> a vDSO.
-> 
-> I think one thing that the man page is missing is SIGSEGV handling.
-> When user space directly invokes ENCLU[EENTER], then the exceptions
-> inside are recognized through SIGSEV. This should be probably added,
-> and then "SEE ALSO" should point out to sigaction().
+* Carlos O'Donell:
 
-Obviously I need to have references to mmap() and mprotect() too.
+> On 6/10/20 2:00 AM, Michael Kerrisk (man-pages) wrote:
+>> Hi Carlos,
+>> 
+>> What's the status of this patch?
+>
+> I'm currently rewriting the language of the section to split apart the
+> AT_PLATFORM and AT_HWCAP parts.
+>
+> They each behave differently. AT_PLATFORM is a non-nested singular platform
+> directory that is searched with no fallback, and that needs to clarified
+> and called out. While AT_HWCAP is drastically different in behaviour.
+>
+> When done we'll have two lists, and two explanations for the search paths
+> and their orders.
+>
+> I'm doing this as part of the upstream review of this infrasturcture
+> because we're going to change the behaviour in an upcoming release. With
+> the changes in place we'll have a good place to say "... and now it's different."
+>
+> In summary: Still working on it. Expect v3.
 
-Ignoring everything else related to this feature and simplify the
-concept, in SGX you build an enclave yet to be mapped memory, then
-mmap() it and possibly mprotect() it. When you build an enclave, you
-assign permissions to each page, and there's an invariant in the kernel
-implementation that mmap/mprotect() permissions are not allowed to
-surpass the intended permissions. The implementation is multi-process
-by nature, i.e. one process can build an enclave and other process can
-just map it (e.g. getting fd through fork or SCM_RIGHTS).
+Carlos, what's the status here?  I need to write an update for
+glibc-hwcaps, and this likely conflicts with your edits (at least
+semantically).
 
-Hmm... that would be a good paragraph for my man page (with editing of
-course) before any other details, when describing enclave construction
-:-)
+Thanks,
+Florian
+-- 
+Red Hat GmbH, https://de.redhat.com/ , Registered seat: Grasbrunn,
+Commercial register: Amtsgericht Muenchen, HRB 153243,
+Managing Directors: Charles Cachera, Brian Klemm, Laurie Krebs, Michael O'Neill
 
-/Jarkko
