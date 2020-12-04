@@ -2,90 +2,79 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 121792CDD0F
-	for <lists+linux-man@lfdr.de>; Thu,  3 Dec 2020 19:06:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CDF8B2CE56E
+	for <lists+linux-man@lfdr.de>; Fri,  4 Dec 2020 02:57:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731264AbgLCSF1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 3 Dec 2020 13:05:27 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45462 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729102AbgLCSF0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 3 Dec 2020 13:05:26 -0500
-Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com [IPv6:2a00:1450:4864:20::143])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 28D30C061A4F
-        for <linux-man@vger.kernel.org>; Thu,  3 Dec 2020 10:04:46 -0800 (PST)
-Received: by mail-lf1-x143.google.com with SMTP id u18so4025429lfd.9
-        for <linux-man@vger.kernel.org>; Thu, 03 Dec 2020 10:04:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=hyvfbSevo8Se/4y3iGk+lQg5JO2pXQRwoWZK6AVmSCc=;
-        b=Gjv1aL6P6xJwooMOiOVXI2rySRClbrUY3HGVe50LjDG6cXh38kZ+sHSB/0xeLOSW+9
-         KzfnPdBnHXwJGIJd7YUlF/R7CYA7zxSe6UAPykXdN+th0PqF3iMNmSPkggw3h7OtjYFq
-         jXrwfcED6y2TT4DMjNHYAYn4nz6N4tLwE3MVw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=hyvfbSevo8Se/4y3iGk+lQg5JO2pXQRwoWZK6AVmSCc=;
-        b=ZXlgzPayE2RGa33xGJVRUixr8f+r1T6Afc8npuCmepP6pbzeYZeZiOT7vMmec/rN2T
-         UJvKTBcNdgJkQQ/ZZJL1u/NADCHxaZmodVShLY/KcLsvs74EtOAYYfx1V71lDuSVldnD
-         ke+ZORzYmMkwQd1vbRHHNC0QP2LbGlop1YoeGvQb/ozDZcPIRihijbsIY0crZvH0StXd
-         JZUmL5UUkjVuJHimZPEa679p2hnKMgfejecTWH5cZmXwigc/uw1FEuvmvTaHKZ7WKZxu
-         /opU16z0pT/PDgHMGxJIV4pJJU50us80XSDCyAMJupsjFfAdLncb6qxy0hpm/YQtH6j0
-         qN9g==
-X-Gm-Message-State: AOAM533UuBXh5NyICLqIUn6k0WZGZ0J+35j/6fmNSZEhAYAzhKibcnqs
-        MWO/XX87jW8Rxwl/I6FJaaCQarv7KgGJ1w==
-X-Google-Smtp-Source: ABdhPJy09PWaQZ1VmKerYAWAZTvmAeWI2WEBBezFBsh1fsfMj58pgwh8vXez6bbG+qOCi5cN7sASMg==
-X-Received: by 2002:a19:2407:: with SMTP id k7mr1794942lfk.533.1607018684327;
-        Thu, 03 Dec 2020 10:04:44 -0800 (PST)
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com. [209.85.208.174])
-        by smtp.gmail.com with ESMTPSA id c4sm753997lfh.94.2020.12.03.10.04.42
-        for <linux-man@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Dec 2020 10:04:43 -0800 (PST)
-Received: by mail-lj1-f174.google.com with SMTP id y10so3540225ljc.7
-        for <linux-man@vger.kernel.org>; Thu, 03 Dec 2020 10:04:42 -0800 (PST)
-X-Received: by 2002:a2e:9d83:: with SMTP id c3mr1626934ljj.314.1607018682473;
- Thu, 03 Dec 2020 10:04:42 -0800 (PST)
+        id S1726037AbgLDBzt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 3 Dec 2020 20:55:49 -0500
+Received: from mail.kernel.org ([198.145.29.99]:57940 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1725885AbgLDBzt (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Thu, 3 Dec 2020 20:55:49 -0500
+Date:   Fri, 4 Dec 2020 03:55:03 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1607046908;
+        bh=1EBAEgi/GdqMHwgkXccqcj/tzFjO4VDB3yBUOdqh4GA=;
+        h=From:To:Cc:Subject:References:In-Reply-To:From;
+        b=RekxbN+XyNXoMrFnx3fd9QHKhP2rcofkFcFwckWWIAIBqVVpoqGh7M+uuA/lwjTpO
+         G0ouTfgqL2EW5br5+A9hByk7ZkE6edKGSRiZm1FOTUzAEAstCyb9hvAyW3wTX4rCed
+         4KgQEI7PxnDvA6YnpH96cotwKURSkgtz2TH3nfLVsq5hCVMeeFEZSuOq7MNOC43B3x
+         k4NAgnUjwfiQobuDez3bu5l0+056C0fQK/fhun0uqxh4f80zNWe6zSmibUh8U5SoGt
+         uh0HcH9QmREQ1DYqUvEQdu2AlzO3o9MctktYbnzwaeENXnJ7glUA0NE1EqaFnQ4Uxv
+         hlFBw4XoDNghQ==
+From:   Jarkko Sakkinen <jarkko@kernel.org>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>, linux-sgx@vger.kernel.org,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sgx.7: New page with overview of Software Guard
+ eXtensions (SGX)
+Message-ID: <20201204015503.GA146985@kernel.org>
+References: <20201202071543.74866-1-jarkko@kernel.org>
+ <CAKgNAkhROLJMmfAUiDCQhW0LCck08sF8jnYVJhSircxA059wXg@mail.gmail.com>
+ <20201202171742.GA91954@kernel.org>
 MIME-Version: 1.0
-References: <e388f379-cd11-a5d2-db82-aa1aa518a582@redhat.com>
- <7027520f-7c79-087e-1d00-743bdefa1a1e@redhat.com> <20201202021633.GA1455219@iweiny-DESK2.sc.intel.com>
- <CAHk-=wjiU5Fq7aG0-H6QN1ZsK-U3Hw1K310N2z_eCPPDTKeysA@mail.gmail.com> <20201203024504.GA1563847@iweiny-DESK2.sc.intel.com>
-In-Reply-To: <20201203024504.GA1563847@iweiny-DESK2.sc.intel.com>
-From:   Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Thu, 3 Dec 2020 10:04:26 -0800
-X-Gmail-Original-Message-ID: <CAHk-=whWC==8VNeVG=_DwT+RT9x1uiseUDH0X9sYKMetrh6c3w@mail.gmail.com>
-Message-ID: <CAHk-=whWC==8VNeVG=_DwT+RT9x1uiseUDH0X9sYKMetrh6c3w@mail.gmail.com>
-Subject: Re: [PATCH 1/2] uapi: fix statx attribute value overlap for DAX & MOUNT_ROOT
-To:     Ira Weiny <ira.weiny@intel.com>
-Cc:     Eric Sandeen <sandeen@redhat.com>,
-        Miklos Szeredi <mszeredi@redhat.com>,
-        David Howells <dhowells@redhat.com>,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-        xfs <linux-xfs@vger.kernel.org>,
-        Ext4 Developers List <linux-ext4@vger.kernel.org>,
-        Xiaoli Feng <xifeng@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201202171742.GA91954@kernel.org>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Dec 2, 2020 at 6:45 PM Ira Weiny <ira.weiny@intel.com> wrote:
-> >
-> > What would the typical failure cases be in practice?
->
-> The failure will be a user not seeing their file operating in DAX mode when
-> they expect it to.
->
-> I discussed this with Dan Williams today.  He and I agreed the flag is new
-> enough that we don't think users have any released code to the API just yet.
-> So I think we will be ok.
+On Wed, Dec 02, 2020 at 07:17:42PM +0200, Jarkko Sakkinen wrote:
+> On Wed, Dec 02, 2020 at 11:37:01AM +0100, Michael Kerrisk (man-pages) wrote:
+> > Hi Jarkko,
+> > 
+> > Thanks for the page. I'll have some more comments later, most likely.
+> > But to begin with, are there any other manual pages that should be
+> > listed in a SEE ALSO section for this manual page, and are there any
+> > pages in man-pages that you think should refer to this page in their
+> > SEE ALSO sections?
+> 
+> Thanks for quick response.
+> 
+> SGX does not declare any syscalls but it does have an ioctl API and
+> a vDSO.
+> 
+> I think one thing that the man page is missing is SIGSEGV handling.
+> When user space directly invokes ENCLU[EENTER], then the exceptions
+> inside are recognized through SIGSEV. This should be probably added,
+> and then "SEE ALSO" should point out to sigaction().
 
-Ok, thanks for verification. I've applied it locally in my tree, it
-will be pushed out later today with other work..
+Obviously I need to have references to mmap() and mprotect() too.
 
-           Linus
+Ignoring everything else related to this feature and simplify the
+concept, in SGX you build an enclave yet to be mapped memory, then
+mmap() it and possibly mprotect() it. When you build an enclave, you
+assign permissions to each page, and there's an invariant in the kernel
+implementation that mmap/mprotect() permissions are not allowed to
+surpass the intended permissions. The implementation is multi-process
+by nature, i.e. one process can build an enclave and other process can
+just map it (e.g. getting fd through fork or SCM_RIGHTS).
+
+Hmm... that would be a good paragraph for my man page (with editing of
+course) before any other details, when describing enclave construction
+:-)
+
+/Jarkko
