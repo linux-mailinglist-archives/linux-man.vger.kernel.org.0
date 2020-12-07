@@ -2,86 +2,81 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A7EC72CFAF7
-	for <lists+linux-man@lfdr.de>; Sat,  5 Dec 2020 11:18:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 16AD12D15B6
+	for <lists+linux-man@lfdr.de>; Mon,  7 Dec 2020 17:14:21 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728986AbgLEKOh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 5 Dec 2020 05:14:37 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49882 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726923AbgLEKNS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Dec 2020 05:13:18 -0500
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com [IPv6:2607:f8b0:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 412D4C061A4F;
-        Sat,  5 Dec 2020 02:12:32 -0800 (PST)
-Received: by mail-ot1-x32f.google.com with SMTP id x13so281045oto.8;
-        Sat, 05 Dec 2020 02:12:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to:cc;
-        bh=sU9Zy/VwoaDpyMvEvpQON/h2yR97yY+OQyznHQnhddw=;
-        b=OSM5SOe8VeusaFdAfhH9vHHHAXLjbGydMB0AX5QJKGlPc9VTKeNGFOUHxrWdw9wE8E
-         7gRC4zAVj4WVLvX1KmhcjCw6j3ctSiXSzvVfMlgcLPpTlVG1WaRu4nRckWapE+a5TaTT
-         FOBUCmHjyUYpKGSoxAj/MoHsBzmmxPNAekiUe3fE35sSTfykswCpM3ff6WaAf+3zgrJ5
-         kapaEBr0rZSXYDbvZrAmctZBHuci/sYZUXDbLQW89a3MbpNe9Ex0/Elb5wcnQTHE0wwU
-         2SqOlho6kfVC1a86H1K1f21J8gW05+5ps5H7Np68NZSv3cNGf50+Az4fFyqK7WYh3qHI
-         3nyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=sU9Zy/VwoaDpyMvEvpQON/h2yR97yY+OQyznHQnhddw=;
-        b=qcBCUARAK7Hw+j1/1wfTrI/AAeAJMCac3If9i2cc16lhwq7ApCiOLCFuRt8iV9j3RD
-         IwqorGOjAOKCpqUhLCARCJxbFlHHP8FXXzSRzejWzYLWF3ufm3sghnRshoHxLlMiOhFE
-         fuYZrGtH/o+wYs+Fy9zaLuKBOMFcPWo4BCod0rnhTXFnpVQvpjnlIK/qA6Qk1aQlUHD6
-         1hQ8o57mORGRZloIX2C0oDHBQRjp/PJzGvfrB3cPd0gfkGyA/XdSVWXadjIirALkAY0q
-         rZxw1rjJivin/WfCzAHcnDPdAazGcUAHsw4edOr6wR6nGQAHjPchH0NHMuA4Fz7Qplqp
-         /98w==
-X-Gm-Message-State: AOAM532e5CFfKxBHO1/DDKTQUFp3d7Z6no63/lxLYnkWdUmEG67Jpq6p
-        cqyN8ozAQLmiUtqIPWRVGNg9sCG0LnRdUAImh6YZ3HhUhgYAXA==
-X-Google-Smtp-Source: ABdhPJyH2KiZB8uftlA1xQcbQeNz7nzZvbTEr7jitfgp9pwr4Xa0CMKsYLyGq7Ujj/WGx4LqT+dkgxtmm43+LzDgvOo=
-X-Received: by 2002:a9d:590c:: with SMTP id t12mr6563298oth.308.1607163151114;
- Sat, 05 Dec 2020 02:12:31 -0800 (PST)
-MIME-Version: 1.0
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Sat, 5 Dec 2020 11:12:20 +0100
-Message-ID: <CAKgNAkiNEBAKb9QG+CMtKW224htLNVnvdiyum2APD1uVD4tWuA@mail.gmail.com>
-Subject: Linux man-pages maintainership adjustments
-To:     linux-man <linux-man@vger.kernel.org>
-Cc:     "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
-        base-system@gentoo.org, Tobias Quathamer <toddy@debian.org>,
-        Petr Gajdos <pgajdos@suse.cz>, ro@suse.de,
-        jchaloup <jchaloup@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+        id S1726000AbgLGQLu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 7 Dec 2020 11:11:50 -0500
+Received: from wout3-smtp.messagingengine.com ([64.147.123.19]:56587 "EHLO
+        wout3-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1725994AbgLGQLu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Dec 2020 11:11:50 -0500
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+        by mailout.west.internal (Postfix) with ESMTP id 7CA5DE1B;
+        Mon,  7 Dec 2020 11:11:04 -0500 (EST)
+Received: from imap36 ([10.202.2.86])
+  by compute7.internal (MEProxy); Mon, 07 Dec 2020 11:11:04 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dimebar.com; h=
+        mime-version:message-id:date:from:to:cc:subject:content-type; s=
+        fm1; bh=rWIMeoTpewZD4+Ibt6EX23pb3vvdLASq+mTy8CfLaS8=; b=UIRqWK0X
+        kCkgtdxXfx6f6d99YUQumkvEeuIxwjMueHnC6pf4x/5ooYxb+zmJ+oQGKarYe5mC
+        12ztBYvKvdK/vk3TPSno89vg7Hmo1yb+5asm9ps8pdLfcYm+qxfp9XQklzgq8P5M
+        +djXQD4lgwRGV/OHS5LhTTKr7dsbcIZKZfMidgi2M9Urw0eVR4MzW0gphgH53eZW
+        7jQ+0L0Ci1XlE651Ets2Fb0eNam8D0p7Li7+kJP52iaKPPlxhruAEMWQ67lWjwV4
+        QIVnG40XVs74+LCWUd7PGRMM3SEiw1XvszQbgSU4gU1+9T65ie2tql2GsDJEh0nl
+        kDqc2R9Gouiy0g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:content-type:date:from:message-id
+        :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
+        :x-me-sender:x-sasl-enc; s=fm1; bh=rWIMeoTpewZD4+Ibt6EX23pb3vvdL
+        ASq+mTy8CfLaS8=; b=fsaqaQ7rNQaD8NVxzFpqY7euA10YE4KdB42IaLx034m8F
+        E+Mye7XFmr+l5994LwDdlyxRAucF00TidF/+KijU5f4sgHB9W0evVdB9YlcFLSwd
+        3DxdvrD1XKo/rRu3hFByK9l6gsahuEkeM2GeW01jhGObtzJIuTMOsIul7eI6oiPT
+        WzRDfodeXbYFvgsxz1AVscYNibKX/fTo8a2Aoc3SlC/60PvSEQUoJr0uuwrYaFxK
+        YBN6vz7cXSlqni4SKOVrZqzV5WlpDe4WwWN7PLeK1aLbRbkYxgYtQO3HQwnovuxn
+        FgULZCJUY37fE8u77bJVHaPxwZZXE7S7tP9Lkm6iQ==
+X-ME-Sender: <xms:F1TOX4Rd9gExXZQPtsxFubHRTFohGITAdSuzBjSCKJyBgWHCPwMsog>
+    <xme:F1TOX1yFkCMaj5WdfDHQXDHpGHyUhsSUt0G74M7lx2msRR1pRtm9BQTDVzb-iWX4I
+    cWsszZghRSciSyH>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrudejgedgkeegucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucenucfjughrpefofgggkfffhffvufgtsehttdertd
+    erredtnecuhfhrohhmpedfrfhhihhlihhpucftohiflhgrnhgushdfuceolhhinhhugidq
+    khgvrhhnvghlseguihhmvggsrghrrdgtohhmqeenucggtffrrghtthgvrhhnpeffheeiue
+    duvefhleeuvdffledvgeegjeehjeejheegfefhffetgfehleetfeejgeenucffohhmrghi
+    nhepsghoohhtlhhinhdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmh
+    epmhgrihhlfhhrohhmpehlihhnuhigqdhkvghrnhgvlhesughimhgvsggrrhdrtghomh
+X-ME-Proxy: <xmx:F1TOX13Iiazg4DFTlOdYxfccZqCrmrEwPB5ZdQE8WcWwPNWj4tRi_Q>
+    <xmx:F1TOX8BJTeGdGP00O4QE41uHMxyK9l-t3KfYW5G1Lz9pnUccBG3Wrw>
+    <xmx:F1TOXxirbhdCU17owP5qHA_Dyx4e193UtbgYwW2hnii4hVPke9mvXQ>
+    <xmx:GFTOX7eHhTLS2PRDtn9Ujrj1hBEuKRKVqyFPmZUH2WkqdDVXvpjVjA>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+        id C29231880078; Mon,  7 Dec 2020 11:11:03 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.3.0-622-g4a97c0b-fm-20201115.001-g4a97c0b3
+Mime-Version: 1.0
+Message-Id: <e2eacb90-222f-455f-97e2-8784360d7f5f@www.fastmail.com>
+Date:   Mon, 07 Dec 2020 16:10:38 +0000
+From:   "Philip Rowlands" <linux-kernel@dimebar.com>
+To:     "Michael Kerrisk" <mtk.manpages@gmail.com>,
+        "Alejandro Colomar" <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: Missing value for tcp_syncookies sysctl
+Content-Type: text/plain
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Gidday,
+Under man7/tcp.7 please mention the "2" value for tcp_syncookies, which is no longer a boolean, default "1".
 
-Anyone following linux-man@ in the last few months will
-have noticed that Alejandro (Alex) Colomar has become
-rather active in the project. Alex has kindly volunteered
-to take up some of the work of maintaining the project.
-In practice, that means he will be reviewing and merging
-some of the patches that land on linux-man@ and I'll be
-taking those changes from him to then push to
-git.kernel.org.
+First mentioned in kernel 3.12
+https://elixir.bootlin.com/linux/v3.12/source/Documentation/networking/ip-sysctl.txt#L443
 
-After 16 years as maintainer, I'm very happy that Alex
-has come along to help out. And to be clear, I'm not
-planning to step away from the project any time soon,
-but maybe one day I will return to being just a
-contributor and no longer the maintainer.
+The kernel documentation is rather ungrammatical, so suggest instead:
 
-Cheers,
+> Set to 2 to send syncookies unconditionally, which can be useful for network testing (since Linux 3.12).
 
-Michael
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+
+Thanks,
+Phil
