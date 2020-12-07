@@ -2,81 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 16AD12D15B6
-	for <lists+linux-man@lfdr.de>; Mon,  7 Dec 2020 17:14:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E53952D165A
+	for <lists+linux-man@lfdr.de>; Mon,  7 Dec 2020 17:37:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726000AbgLGQLu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 7 Dec 2020 11:11:50 -0500
-Received: from wout3-smtp.messagingengine.com ([64.147.123.19]:56587 "EHLO
-        wout3-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725994AbgLGQLu (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Dec 2020 11:11:50 -0500
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
-        by mailout.west.internal (Postfix) with ESMTP id 7CA5DE1B;
-        Mon,  7 Dec 2020 11:11:04 -0500 (EST)
-Received: from imap36 ([10.202.2.86])
-  by compute7.internal (MEProxy); Mon, 07 Dec 2020 11:11:04 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dimebar.com; h=
-        mime-version:message-id:date:from:to:cc:subject:content-type; s=
-        fm1; bh=rWIMeoTpewZD4+Ibt6EX23pb3vvdLASq+mTy8CfLaS8=; b=UIRqWK0X
-        kCkgtdxXfx6f6d99YUQumkvEeuIxwjMueHnC6pf4x/5ooYxb+zmJ+oQGKarYe5mC
-        12ztBYvKvdK/vk3TPSno89vg7Hmo1yb+5asm9ps8pdLfcYm+qxfp9XQklzgq8P5M
-        +djXQD4lgwRGV/OHS5LhTTKr7dsbcIZKZfMidgi2M9Urw0eVR4MzW0gphgH53eZW
-        7jQ+0L0Ci1XlE651Ets2Fb0eNam8D0p7Li7+kJP52iaKPPlxhruAEMWQ67lWjwV4
-        QIVnG40XVs74+LCWUd7PGRMM3SEiw1XvszQbgSU4gU1+9T65ie2tql2GsDJEh0nl
-        kDqc2R9Gouiy0g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-        messagingengine.com; h=cc:content-type:date:from:message-id
-        :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
-        :x-me-sender:x-sasl-enc; s=fm1; bh=rWIMeoTpewZD4+Ibt6EX23pb3vvdL
-        ASq+mTy8CfLaS8=; b=fsaqaQ7rNQaD8NVxzFpqY7euA10YE4KdB42IaLx034m8F
-        E+Mye7XFmr+l5994LwDdlyxRAucF00TidF/+KijU5f4sgHB9W0evVdB9YlcFLSwd
-        3DxdvrD1XKo/rRu3hFByK9l6gsahuEkeM2GeW01jhGObtzJIuTMOsIul7eI6oiPT
-        WzRDfodeXbYFvgsxz1AVscYNibKX/fTo8a2Aoc3SlC/60PvSEQUoJr0uuwrYaFxK
-        YBN6vz7cXSlqni4SKOVrZqzV5WlpDe4WwWN7PLeK1aLbRbkYxgYtQO3HQwnovuxn
-        FgULZCJUY37fE8u77bJVHaPxwZZXE7S7tP9Lkm6iQ==
-X-ME-Sender: <xms:F1TOX4Rd9gExXZQPtsxFubHRTFohGITAdSuzBjSCKJyBgWHCPwMsog>
-    <xme:F1TOX1yFkCMaj5WdfDHQXDHpGHyUhsSUt0G74M7lx2msRR1pRtm9BQTDVzb-iWX4I
-    cWsszZghRSciSyH>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrudejgedgkeegucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucenucfjughrpefofgggkfffhffvufgtsehttdertd
-    erredtnecuhfhrohhmpedfrfhhihhlihhpucftohiflhgrnhgushdfuceolhhinhhugidq
-    khgvrhhnvghlseguihhmvggsrghrrdgtohhmqeenucggtffrrghtthgvrhhnpeffheeiue
-    duvefhleeuvdffledvgeegjeehjeejheegfefhffetgfehleetfeejgeenucffohhmrghi
-    nhepsghoohhtlhhinhdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmh
-    epmhgrihhlfhhrohhmpehlihhnuhigqdhkvghrnhgvlhesughimhgvsggrrhdrtghomh
-X-ME-Proxy: <xmx:F1TOX13Iiazg4DFTlOdYxfccZqCrmrEwPB5ZdQE8WcWwPNWj4tRi_Q>
-    <xmx:F1TOX8BJTeGdGP00O4QE41uHMxyK9l-t3KfYW5G1Lz9pnUccBG3Wrw>
-    <xmx:F1TOXxirbhdCU17owP5qHA_Dyx4e193UtbgYwW2hnii4hVPke9mvXQ>
-    <xmx:GFTOX7eHhTLS2PRDtn9Ujrj1hBEuKRKVqyFPmZUH2WkqdDVXvpjVjA>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
-        id C29231880078; Mon,  7 Dec 2020 11:11:03 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.3.0-622-g4a97c0b-fm-20201115.001-g4a97c0b3
-Mime-Version: 1.0
-Message-Id: <e2eacb90-222f-455f-97e2-8784360d7f5f@www.fastmail.com>
-Date:   Mon, 07 Dec 2020 16:10:38 +0000
-From:   "Philip Rowlands" <linux-kernel@dimebar.com>
-To:     "Michael Kerrisk" <mtk.manpages@gmail.com>,
-        "Alejandro Colomar" <alx.manpages@gmail.com>
+        id S1727915AbgLGQfN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 7 Dec 2020 11:35:13 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59730 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727754AbgLGQfN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Dec 2020 11:35:13 -0500
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F1441C061794
+        for <linux-man@vger.kernel.org>; Mon,  7 Dec 2020 08:34:26 -0800 (PST)
+Received: by mail-wr1-x434.google.com with SMTP id z7so13391801wrn.3
+        for <linux-man@vger.kernel.org>; Mon, 07 Dec 2020 08:34:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=1mvVi+gytWP6lRerptLlAS7iOhyJsjZzYhFUYKXXwwo=;
+        b=YXdSn9hTnYdXcCl8DTRvfW3K3Kc+iLp4hxNdACLy/m2Vh40TWbfT+1/ywrelaHdSNU
+         +ESXAWc9RbogeqbWlvryE3kMUenPis9kyZ3ETnnCL6xPOo8hgbweuKQH0B0ouMkDGCOY
+         WVqT3klUIiRG8hRpIciCflOI+XI0qZHr4B/1vox4BnL5GdYYhc+5fnC06gnSjLi7Hz/N
+         C8H+yJfp4tX9JwSAnt9bUtFoalQw4qvm/yNnKYTHnzMOQ/U95nYJBhysjgXO9enw2RdT
+         X7XRKO73rJgTgGGGxSZHfFo+fwGZiXYTsf0XKSsUp7huPh8k7rUudl2eZJbDJuR6agmL
+         bJBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=1mvVi+gytWP6lRerptLlAS7iOhyJsjZzYhFUYKXXwwo=;
+        b=Qt7EBJY0LkWgCrWJDBPWdUhkWUOjGUZ8lce1wOjEcbEqVuuj4JY+OPgoOsO5Tz27Zi
+         UQQMRb0+JlNvsH4PHipDTuN5Wa0jNEAS6azjMdDFOBcRY1oNoeAFy2jSX4MuHYy/M1Rw
+         LrzDPEHJzBxlV3nlyHntTr69hYIauVswmEqwNk2AtQRBKy25To9Je4u0YmXmP98lAEkB
+         IljEmURdW3P7YrveC5D1wXOleYqROFUS7iiLsikzjVpExfLrQwj+c7KYjtXmLWccgei0
+         YxtiDUcEf/v/2+VLL686eoxzWuZJ/CfAg23AQDjnwAQVdScaQMg9R/1qHG81939BB3DK
+         +9uA==
+X-Gm-Message-State: AOAM5328pSkRRy2B3J7XTi0VD5dtL+ty3/9VSSYm5kFQ5PXJBlCybUDG
+        0SNeO2rLqqiGI7RSQYDFI6tPxAmn6GvC7Q==
+X-Google-Smtp-Source: ABdhPJx95FvaJpFHQi+N++G7HsvF6zumeiBVDoytuev1SUSSaVQDAsZSly49sEOg8WLH6D9M9Yg2nQ==
+X-Received: by 2002:a5d:6286:: with SMTP id k6mr20694129wru.309.1607358865501;
+        Mon, 07 Dec 2020 08:34:25 -0800 (PST)
+Received: from [192.168.1.143] ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id m8sm15071336wmc.27.2020.12.07.08.34.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Dec 2020 08:34:24 -0800 (PST)
+Subject: Re: Missing value for tcp_syncookies sysctl
+To:     Philip Rowlands <linux-kernel@dimebar.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: Missing value for tcp_syncookies sysctl
-Content-Type: text/plain
+References: <e2eacb90-222f-455f-97e2-8784360d7f5f@www.fastmail.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <d02554ae-4cb7-dce8-deac-e68e4bd0ea67@gmail.com>
+Date:   Mon, 7 Dec 2020 17:34:23 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
+MIME-Version: 1.0
+In-Reply-To: <e2eacb90-222f-455f-97e2-8784360d7f5f@www.fastmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Under man7/tcp.7 please mention the "2" value for tcp_syncookies, which is no longer a boolean, default "1".
+Hi Philip,
 
-First mentioned in kernel 3.12
-https://elixir.bootlin.com/linux/v3.12/source/Documentation/networking/ip-sysctl.txt#L443
+On 12/7/20 5:10 PM, Philip Rowlands wrote:
+> Under man7/tcp.7 please mention the "2" value for tcp_syncookies, which is no longer a boolean, default "1".
+> 
+> First mentioned in kernel 3.12
+> https://elixir.bootlin.com/linux/v3.12/source/Documentation/networking/ip-sysctl.txt#L443
+> 
+> The kernel documentation is rather ungrammatical, so suggest instead:
+> 
+>> Set to 2 to send syncookies unconditionally, which can be useful for network testing (since Linux 3.12).
+> 
+> 
+> 
+> Thanks,
+> Phil
+> 
 
-The kernel documentation is rather ungrammatical, so suggest instead:
+Thanks for the report, and for the links and suggestion!
 
-> Set to 2 to send syncookies unconditionally, which can be useful for network testing (since Linux 3.12).
+I'll update that.
 
+Cheers,
 
+Alex
 
-Thanks,
-Phil
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; http://www.kernel.org/doc/man-pages/
