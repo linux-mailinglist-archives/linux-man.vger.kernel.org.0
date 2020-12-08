@@ -2,57 +2,176 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9F1D92D273F
-	for <lists+linux-man@lfdr.de>; Tue,  8 Dec 2020 10:15:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B01E82D3645
+	for <lists+linux-man@lfdr.de>; Tue,  8 Dec 2020 23:30:24 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725927AbgLHJPa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 8 Dec 2020 04:15:30 -0500
-Received: from mail.planhousebiz.com ([217.61.15.185]:33034 "EHLO
-        server1.mail.planhousebiz.com" rhost-flags-OK-OK-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725874AbgLHJP3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 8 Dec 2020 04:15:29 -0500
-X-Greylist: delayed 506 seconds by postgrey-1.27 at vger.kernel.org; Tue, 08 Dec 2020 04:15:29 EST
-Received: by server1.mail.planhousebiz.com (Postfix, from userid 1001)
-        id 919FD86979; Tue,  8 Dec 2020 09:06:05 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=planhousebiz.com;
-        s=mail; t=1607418377;
-        bh=KcTLAaBZFyXcuWORfd+SWML68Lg2YFEJhVMRcrpbANk=;
-        h=Date:From:To:Subject:From;
-        b=Ar2RvNiHMmntIDMXDx3PiUySMFGQvVNhAcCccYKiiZqfzo9t01tzFkM2uoiALaTHa
-         mJsF21WuNy6X9RkRu0Juw6dmuEpPreK3wR3oaeoWTQknUV8B9/jhuM/Fhv8IEBt16Y
-         CoB3VNdqgVGVTTUkiAQmGSUchBhG6sB+xAf0laYo+4Kv6FGp/fkC1kP0M7JB5x2a38
-         PGREPuImi9gMJ+799LYoT5/ZAvZB2AUV+bYCinYdcCg6RQ3Irkv7zahTcga8C9epHT
-         +6DLIGAupM2/RgCE/28yPcjRlRayhS/7fGo8NEoqY5Cqq0smptnCyEWazm+uCX/p7N
-         TPaaWp7h0Hdng==
-Received: by mail.planhousebiz.com for <linux-man@vger.kernel.org>; Tue,  8 Dec 2020 09:05:53 GMT
-Message-ID: <20201208074500-0.1.f.1ir4.0.kl1gh9cjq4@planhousebiz.com>
-Date:   Tue,  8 Dec 2020 09:05:53 GMT
-From:   "Juanito Gil" <juanito.gil@planhousebiz.com>
-To:     <linux-man@vger.kernel.org>
-Subject: =?UTF-8?Q?Control_del_veh=C3=ADculo?=
-X-Mailer: mail.planhousebiz.com
+        id S1730734AbgLHW2y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 8 Dec 2020 17:28:54 -0500
+Received: from 5.mo2.mail-out.ovh.net ([87.98.181.248]:48172 "EHLO
+        5.mo2.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1730547AbgLHW2y (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 8 Dec 2020 17:28:54 -0500
+X-Greylist: delayed 1801 seconds by postgrey-1.27 at vger.kernel.org; Tue, 08 Dec 2020 17:28:52 EST
+Received: from player691.ha.ovh.net (unknown [10.108.42.176])
+        by mo2.mail-out.ovh.net (Postfix) with ESMTP id 177FE1F17B3
+        for <linux-man@vger.kernel.org>; Tue,  8 Dec 2020 22:51:48 +0100 (CET)
+Received: from sk2.org (82-65-25-201.subs.proxad.net [82.65.25.201])
+        (Authenticated sender: steve@sk2.org)
+        by player691.ha.ovh.net (Postfix) with ESMTPSA id E733B190DB0A8;
+        Tue,  8 Dec 2020 21:51:42 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass (GARM-105G006f6ee3649-1f08-4f40-bb1f-df51397b003c,
+                    F7F8495E9FE719388847EB9DDB8A3A77E3CADC2E) smtp.auth=steve@sk2.org
+X-OVh-ClientIp: 82.65.25.201
+From:   Stephen Kitt <steve@sk2.org>
+To:     linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     Christian Brauner <christian.brauner@ubuntu.com>,
+        linux-kernel@vger.kernel.org, Stephen Kitt <steve@sk2.org>
+Subject: [patch] close_range.2: new page documenting close_range(2)
+Date:   Tue,  8 Dec 2020 22:51:33 +0100
+Message-Id: <20201208215133.30575-1-steve@sk2.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 17686761638867717394
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedujedrudejiedgudehiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvffufffkofgggfestdekredtredttdenucfhrhhomhepufhtvghphhgvnhcumfhithhtuceoshhtvghvvgesshhkvddrohhrgheqnecuggftrfgrthhtvghrnhepteegudfgleekieekteeggeetveefueefteeugfduieeitdfhhedtfeefkedvfeefnecukfhppedtrddtrddtrddtpdekvddrieehrddvhedrvddtudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehplhgrhigvrheiledurdhhrgdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepshhtvghvvgesshhkvddrohhrghdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Buenos d=C3=ADas:
-=20
+This documents close_range(2) based on information in
+278a5fbaed89dacd04e9d052f4594ffd0e0585de and
+60997c3d45d9a67daf01c56d805ae4fec37e0bd8.
 
-Represento a una empresa que ofrece las mejores soluciones telem=C3=A1tic=
-as de su clase.
+Signed-off-by: Stephen Kitt <steve@sk2.org>
+---
+ man2/close_range.2 | 112 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 112 insertions(+)
+ create mode 100644 man2/close_range.2
 
-Un sistema de seguimiento de veh=C3=ADculos sin igual con una funcionalid=
-ad ampliamente desarrollada que satisface pr=C3=A1cticamente todas las ne=
-cesidades existentes en el =C3=A1mbito de la gesti=C3=B3n de flotas.
+diff --git a/man2/close_range.2 b/man2/close_range.2
+new file mode 100644
+index 000000000..62167d9b0
+--- /dev/null
++++ b/man2/close_range.2
+@@ -0,0 +1,112 @@
++.\" Copyright (c) 2020 Stephen Kitt <steve@sk2.org>
++.\"
++.\" %%%LICENSE_START(VERBATIM)
++.\" Permission is granted to make and distribute verbatim copies of this
++.\" manual provided the copyright notice and this permission notice are
++.\" preserved on all copies.
++.\"
++.\" Permission is granted to copy and distribute modified versions of this
++.\" manual under the conditions for verbatim copying, provided that the
++.\" entire resulting derived work is distributed under the terms of a
++.\" permission notice identical to this one.
++.\"
++.\" Since the Linux kernel and libraries are constantly changing, this
++.\" manual page may be incorrect or out-of-date.  The author(s) assume no
++.\" responsibility for errors or omissions, or for damages resulting from
++.\" the use of the information contained herein.  The author(s) may not
++.\" have taken the same level of care in the production of this manual,
++.\" which is licensed free of charge, as they might when working
++.\" professionally.
++.\"
++.\" Formatted or processed versions of this manual, if unaccompanied by
++.\" the source, must acknowledge the copyright and authors of this work.
++.\" %%%LICENSE_END
++.\"
++.TH CLOSE_RANGE 2 2020-12-08 "Linux" "Linux Programmer's Manual"
++.SH NAME
++close_range \- close all file descriptors in a given range
++.SH SYNOPSIS
++.nf
++.B #include <linux/close_range.h>
++.PP
++.BI "int close_range(int " first ", int " last ", unsigned int " flags );
++.fi
++.SH DESCRIPTION
++The
++.BR close_range ()
++system call closes all open file descriptors from
++.I first
++to
++.IR last
++(included).
++.PP
++Errors closing a given file descriptor are currently ignored.
++.PP
++.I flags
++can be set to
++.B CLOSE_RANGE_UNSHARE
++to unshare the range of file descriptors from any other processes,
++.I instead
++of closing them.
++.SH RETURN VALUE
++On success,
++.BR close_range ()
++return 0.
++On error, \-1 is returned and
++.I errno
++is set to indicate the cause of the error.
++.SH ERRORS
++.TP
++.B EINVAL
++.I flags
++is not valid, or
++.I first
++is greater than
++.IR last .
++.TP
++.B EMFILE
++The per-process limit on the number of open file descriptors has been reached
++(see the description of
++.BR RLIMIT_NOFILE
++in
++.BR getrlimit (2)).
++.TP
++.B ENOMEM
++Insufficient kernel memory was available.
++.SH VERSIONS
++.BR close_range ()
++first appeared in Linux 5.9.
++.SH CONFORMING TO
++.BR close_range ()
++is available on Linux and FreeBSD.
++.SH NOTES
++Currently, there is no glibc wrapper for this system call; call it using
++.BR syscall (2).
++.SH USE CASES
++.\" 278a5fbaed89dacd04e9d052f4594ffd0e0585de
++.\" 60997c3d45d9a67daf01c56d805ae4fec37e0bd8
++.SS Closing file descriptors before exec
++File descriptors can be closed safely using
++.PP
++.in +4n
++.EX
++/* we don't want anything past stderr here */
++close_range(3, ~0U, CLOSE_RANGE_UNSHARE);
++execve(....);
++.EE
++.in
++.PP
++.SS Closing all open file descriptors
++This is commonly implemented (on Linux) by listing open file
++descriptors in
++.B /proc/self/fd/
++and calling
++.BR close (2)
++on each one.
++.BR close_range ()
++can take care of this without requiring
++.B /proc
++and with a single system call, which provides significant performance
++benefits.
++.SH SEE ALSO
++.BR close (2)
 
-Por otra parte, el per=C3=ADodo de prueba gratuito de tres meses le permi=
-te explorar completamente las posibilidades sin ning=C3=BAn riesgo.
+base-commit: b5dae3959625f5ff378e9edf9139057d1c06bb55
+-- 
+2.20.1
 
-=C2=BFEst=C3=A1 interesado en ser m=C3=A1s eficiente a la hora de gestion=
-ar autom=C3=B3viles u otros veh=C3=ADculos de empresa?
-
-Saludos,
-Juanito Gil
