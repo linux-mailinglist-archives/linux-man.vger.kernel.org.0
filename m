@@ -2,155 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 690BF2D4067
-	for <lists+linux-man@lfdr.de>; Wed,  9 Dec 2020 11:58:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 01BE72D4890
+	for <lists+linux-man@lfdr.de>; Wed,  9 Dec 2020 19:06:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730151AbgLIK5I (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 9 Dec 2020 05:57:08 -0500
-Received: from youngberry.canonical.com ([91.189.89.112]:49664 "EHLO
-        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726885AbgLIK5I (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 9 Dec 2020 05:57:08 -0500
-Received: from ip5f5af0a0.dynamic.kabel-deutschland.de ([95.90.240.160] helo=wittgenstein)
-        by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
-        (Exim 4.86_2)
-        (envelope-from <christian.brauner@ubuntu.com>)
-        id 1kmx8t-0003m9-Mr; Wed, 09 Dec 2020 10:56:19 +0000
-Date:   Wed, 9 Dec 2020 11:56:18 +0100
-From:   Christian Brauner <christian.brauner@ubuntu.com>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     Stephen Kitt <steve@sk2.org>, linux-man@vger.kernel.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-kernel@vger.kernel.org
-Subject: Re: [patch] close_range.2: new page documenting close_range(2)
-Message-ID: <20201209105618.okw5lgcdikg5bvae@wittgenstein>
-References: <20201208215133.30575-1-steve@sk2.org>
- <20201209095817.7ksihhftmnd3c3hi@wittgenstein>
- <5f69d42d-c36d-b98a-3d00-7a5e7f489a07@gmail.com>
+        id S1732438AbgLISFk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 9 Dec 2020 13:05:40 -0500
+Received: from mout.gmx.net ([212.227.17.21]:33119 "EHLO mout.gmx.net"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1728358AbgLISFk (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 9 Dec 2020 13:05:40 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+        s=badeba3b8450; t=1607537048;
+        bh=gAB//P7l3FadR5mtl3tX4JI0oVYTxGxOuEd2DECdEgs=;
+        h=X-UI-Sender-Class:To:From:Subject:Date;
+        b=LoThn2GO7h6fKeeXPAB6g0IEk1TUbNX8PbxXOUVjnCUlEKIF6W1UHOVf2F3Kg/spT
+         2eniP/Y8lSvX9tBVdHJRh388UYXjweKoUncVym8nOj++TafQ9p6y5v07IFoxDv/wyG
+         TVqp6A9VlB3zXrqgiL+PQGtv7Y74fusnZ145M2m4=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.123.83] ([62.143.246.89]) by mail.gmx.com (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MXXuB-1kdXK4402Z-00YzqC; Wed, 09
+ Dec 2020 19:04:08 +0100
+To:     linux-man@vger.kernel.org,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+From:   Heinrich Schuchardt <xypron.glpk@gmx.de>
+Subject: cacheflush.2
+Message-ID: <794cf0d1-d528-4b5a-3ce0-b1b5f588dc6d@gmx.de>
+Date:   Wed, 9 Dec 2020 19:04:02 +0100
+User-Agent: Mozilla/5.0 (X11; Linux aarch64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <5f69d42d-c36d-b98a-3d00-7a5e7f489a07@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:IHsq2VUe4GZ6evNuDZHkfpwFHZY1HNUY/AFcH5VD0ofj0UDQ3Im
+ HQ+fc0UCtuPtx4MVtARde+dBms97VkCzWR7mGPmQ6sIK3SkAVovNHWYK4RK8jpeV+5O6FVJ
+ f7hNcs9w9ClpxEwLo2k1NepBxr6RUc4cOxRz/9x+ZcWOyvw/xG4MKo6PDxhQS23pBllOX+9
+ sNID/nePTZTe77BRHW4Ow==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:Yt0PPHD6YXE=:sDFSvYfy+uZYhpAMwwFtQa
+ L/FgRCgoSVO9iHpUp2rdzUlY6TKqiuX6e/WSa8FaP15+JoIumpzAGJegomjQGUVkV8geOSw1N
+ c5skgCqrPbC6m699DS41zxmwPWuEJynbj2juDnLynBf4olR9g86whDprDWp2lQZOw6MyTPlvA
+ Sg1hMr9dLLKWBcxceyLaYgX9+TIssHAeE1TwRSI8LYhySOOuc8GO40i4flpgSsM/X+BGSJ4Yz
+ cD5HzPQaj7HVFkje7QHsGJsjrv28QmaX/hDflGq1b/QV762G1c5Memq9gk3qrVbHXJzz3oAI7
+ lzkIucXalPwG6XEuaiN32A0jHVKX1r5r3w06yB7SncZ4TzPy/roZrCIcLuNK69YWinagg3Mov
+ SJw8twk8w/sT08rPrvZfbiGut7Zd3Nt1WonHi22qFb4f9E0wSpaEOWipoHz+2Df8RJeyByM2W
+ ok0DV+usCxjb2QW5Gs1auZdVJxvXe+2noW1Kv2xkk0WUEXePS5cJGCVS2Vey5Z59dR6A2cjs8
+ x1w4A8oW7RQETgWWhgizRTR+exsZgsH4hLtxGqminjqs9BjG+QjWPFGctnPeEfiGhkRlraP5v
+ 8bAkcb8sVjHl74F7Ta6ENzukzw8AJwelQgxpNb3uKQ/79fVH3QWJdV2LF5zBoCJpLerDyN+uH
+ 4tZ9K6B0FAZzwtcpfgfJKN9xHy8Xdz1JtUZyS2UnNhJ9G2bEDAVN6FVhi2Kp+YT/6H7EG37q+
+ OS96y3u682ja7WoscMs/c32OijenOt2SxvbLNHAjNe9czsZXyiklMNWTxVMbk19a8N87UC+sj
+ LeFNVvA7956hLawyoiIwDdMLE1zqiPZWebtY1DCPhMcFqN6p2coJc1eLS3sDixWwvX6LvoRmx
+ 8xlEkk/iTMSjl7hIn7lw==
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Dec 09, 2020 at 11:44:22AM +0100, Alejandro Colomar (man-pages) wrote:
-> Hey Christian,
-> 
-> I have a question for you below.
-> 
-> Thanks,
+Hello Michael,
 
-Hey Alex,
+function cacheflush() does not exist on many architectures.
 
-Sure!
+It would have saved me a lot of time if the man-page had referenced GCC's
 
-> 
-> Alex
-> 
-> On 12/9/20 10:58 AM, Christian Brauner wrote:
-> > On Tue, Dec 08, 2020 at 10:51:33PM +0100, Stephen Kitt wrote:
-> >> This documents close_range(2) based on information in
-> >> 278a5fbaed89dacd04e9d052f4594ffd0e0585de and
-> >> 60997c3d45d9a67daf01c56d805ae4fec37e0bd8.
-> >>
-> >> Signed-off-by: Stephen Kitt <steve@sk2.org>
-> >> ---
-> > 
-> > Hey Stephen,
-> > 
-> > Thanks for working on this that's an early Christmas present as it gets
-> > an item off my todo list!
-> > 
-> >>  man2/close_range.2 | 112 +++++++++++++++++++++++++++++++++++++++++++++
-> >>  1 file changed, 112 insertions(+)
-> >>  create mode 100644 man2/close_range.2
-> >>
-> >> diff --git a/man2/close_range.2 b/man2/close_range.2
-> >> new file mode 100644
-> >> index 000000000..62167d9b0
-> >> --- /dev/null
-> >> +++ b/man2/close_range.2
-> >> @@ -0,0 +1,112 @@
-> >> +.\" Copyright (c) 2020 Stephen Kitt <steve@sk2.org>
-> >> +.\"
-> >> +.\" %%%LICENSE_START(VERBATIM)
-> >> +.\" Permission is granted to make and distribute verbatim copies of this
-> >> +.\" manual provided the copyright notice and this permission notice are
-> >> +.\" preserved on all copies.
-> >> +.\"
-> >> +.\" Permission is granted to copy and distribute modified versions of this
-> >> +.\" manual under the conditions for verbatim copying, provided that the
-> >> +.\" entire resulting derived work is distributed under the terms of a
-> >> +.\" permission notice identical to this one.
-> >> +.\"
-> >> +.\" Since the Linux kernel and libraries are constantly changing, this
-> >> +.\" manual page may be incorrect or out-of-date.  The author(s) assume no
-> >> +.\" responsibility for errors or omissions, or for damages resulting from
-> >> +.\" the use of the information contained herein.  The author(s) may not
-> >> +.\" have taken the same level of care in the production of this manual,
-> >> +.\" which is licensed free of charge, as they might when working
-> >> +.\" professionally.
-> >> +.\"
-> >> +.\" Formatted or processed versions of this manual, if unaccompanied by
-> >> +.\" the source, must acknowledge the copyright and authors of this work.
-> >> +.\" %%%LICENSE_END
-> >> +.\"
-> >> +.TH CLOSE_RANGE 2 2020-12-08 "Linux" "Linux Programmer's Manual"
-> >> +.SH NAME
-> >> +close_range \- close all file descriptors in a given range
-> >> +.SH SYNOPSIS
-> >> +.nf
-> >> +.B #include <linux/close_range.h>
-> >> +.PP
-> >> +.BI "int close_range(int " first ", int " last ", unsigned int " flags );
-> > 
-> > Note, the kernel prototype uses unsigned int as the type for file
-> > descriptor arguments. As does the close() syscall itself. Only glibc
-> > wrappers expose file descriptor types (at least in close variants) as
-> > int.
-> > Since this is a manpage about the syscall not the wrapper it might make
-> > sense to note the correct types.
-> > 
-> >> +.fi
-> >> +.SH DESCRIPTION
-> >> +The
-> >> +.BR close_range ()
-> >> +system call closes all open file descriptors from
-> >> +.I first
-> >> +to
-> >> +.IR last
-> >> +(included).
-> >> +.PP
-> >> +Errors closing a given file descriptor are currently ignored.
-> >> +.PP
-> >> +.I flags
-> >> +can be set to
-> >> +.B CLOSE_RANGE_UNSHARE
-> >> +to unshare the range of file descriptors from any other processes,
-> >> +.I instead
-> >> +of closing them.
-> > 
-> > As Michael has noted, this needs to be reworded. A few things to note:
-> > - CLOSE_RANGE_UNSHARE will ensure that the calling process will have a
-> >   private file descriptor table. This ensures that other threads opening
-> >   files cannot inject new file descriptors into the caller's file
-> >   descriptor table to e.g. make the caller inherit unwanted file
-> >   descriptors.
-> > - CLOSE_RANGE_UNSHARE is conceptually equivalent to:
-> >   unshare(CLONE_FILES);
-> >   close_range(3, ~0U);
-> 
-> AFAICS after reading the code, if the unsharing fails,
-> it will not close any file descriptors (please correct me if I'm wrong).
-> 
-> Just wanted to be sure that it was the intended behavior with you,
-> and if so, it would be good to document it in the page.
+void __builtin___clear_cache(void *begin, void *end)
 
-Yes, this is intended because if the unshare fails we haven't yet
-actually started closing anything so we're before the point of no
-return where we ignore failures. So we can let userspace decide whether
-they want to retry without CLOSE_RANGE_UNSHARE.
+Maybe you can add it to NOTES.
 
-Christian
+Best regards
+
+heirnich
