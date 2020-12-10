@@ -2,107 +2,147 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B61E72D68CB
-	for <lists+linux-man@lfdr.de>; Thu, 10 Dec 2020 21:36:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 56B662D693B
+	for <lists+linux-man@lfdr.de>; Thu, 10 Dec 2020 21:58:26 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2404059AbgLJUfM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 10 Dec 2020 15:35:12 -0500
-Received: from mail.kernel.org ([198.145.29.99]:47508 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S2403909AbgLJUfH (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 10 Dec 2020 15:35:07 -0500
-X-Gm-Message-State: AOAM531kqwgANVbjqEQV4jBDlNTgYLbXPAVVDoh9JPE1+7kMuLgMsQMc
-        06rYqcMNju8zu+h22KXD/y3tmWY1Xwzq+oQCA9s=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1607632463;
-        bh=eVhP+nGJSyyuJtycuRa7KQjrvFDk9SwKB7cTbFP8C2o=;
-        h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-        b=BGBAMlYObNSAVIbg/ZGIvpraQ6np5066jsdhv66NF0TnuVkn9LGirvYJH0LPzG6cK
-         84zDS1En/cnnnkwimJF9FDDf/4l7m/MbkFiXG/4owKyXMo2UmNsGSGnpYIxu1fh1xd
-         i1Bc9kaTK3FI73jBs6Ry/NHPWjgz+U2hwB89WsW5nUXcf2bjWMrbcpdRT3GneUqxFW
-         3yUxzzURVFNt+E0Aq1Hu17h2e58qjWDwwT3wBvJItHiGTmuL77hpQ0V2zLNB63XLnd
-         31kbq6YHVh7qrTp5QCoBJb49WIN7chGjg0mspUzQJOd2IUnMXdKmoy8XDYZQIufrJY
-         fSchh3yjlwmyA==
-X-Google-Smtp-Source: ABdhPJx2RFX6+pqOpUSVZLrAgTNcxwEcD//sMWg69zU/v4eGdU1WfMj1mkowHbxCc5IjQ11TKLfgk4D9mM/ZAV4i+1M=
-X-Received: by 2002:a9d:7a4b:: with SMTP id z11mr7289670otm.305.1607632462654;
- Thu, 10 Dec 2020 12:34:22 -0800 (PST)
+        id S2390934AbgLJU5g (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 10 Dec 2020 15:57:36 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36482 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2390901AbgLJU5e (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 10 Dec 2020 15:57:34 -0500
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7B192C0613CF
+        for <linux-man@vger.kernel.org>; Thu, 10 Dec 2020 12:56:54 -0800 (PST)
+Received: by mail-wm1-x341.google.com with SMTP id g185so6684707wmf.3
+        for <linux-man@vger.kernel.org>; Thu, 10 Dec 2020 12:56:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=kT/g8HRCnL5Hcq97K4CA0vcNL050gJlyMSFp28J+PdE=;
+        b=XVwBGejBoXaZ09hd0riXjxi+TaI4O7WmQ9emkMedCq0fOyEntjr1/3PuSbyvkLFAO0
+         eUIfTTZSEKCh8lYF40dud8bVHGRquKh37IKK+7BqgTrEy0uHn6Ia9Jd8582qfJt9bzOD
+         Ubxn4kD7QXh+BQUNH/GoZKCMs7MSKiRuHBHqCzoEv3cJE3KErYwDgHjgJN67iths9M0Z
+         QsWyKlL68GVtBVajtarZVnOecxTrwSXOgdpM7U0v2kxWNHCJTMZ4+WDreX2SJMdLXzK+
+         qfWwBgc1KkzKQNbLYBXiVYiJo9/z4v1Oj5BqQKEeg3mxnC73MWv/z+TXGzB1fp4gZeL3
+         ndGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=kT/g8HRCnL5Hcq97K4CA0vcNL050gJlyMSFp28J+PdE=;
+        b=sXmv/WEreImHALi20355nmEVf4OuaZp1NTemm+M4ANoKmMEdMJojq9a3WtlaX+Bf2X
+         IL2yUgzaQVGjVdamttomth0wY0sEHWX/DEyHjvKsZtFU/v/YKqrZReyIRo+5n04fD73W
+         oCaN35uj5gMbAgp4nznZgu1KQLZiDOYw0Wpb7t9tBr+zu1iJ19/nBzbWe0cRApJ/heJS
+         epJpxZLbBlxc8nsfiIacgXj31o1Ifda0hd5aCLuXN82Jf4nJ/Im74KrH74HaJanLnOgK
+         emzMC3lNWsN0JQfQSgZ3fA1GX9FoX2jSGsyNB9f/QNsGgRXLtbICDaFbB6+Tluz/3PYT
+         EqeA==
+X-Gm-Message-State: AOAM530DDcWevPgS1PYH3SpcYaF2rE+W/XLJGZ0hiPoQN3O1HR4B+aI0
+        XIKdnp98ezTHA7Repe63+aE=
+X-Google-Smtp-Source: ABdhPJzESSVyImlFswbIx3qwCAkpldbtYWxXzBrfaxSOPL5TswVLgUe68PR8gXJfuzcqa0otni3k7A==
+X-Received: by 2002:a1c:2783:: with SMTP id n125mr6056548wmn.74.1607633813269;
+        Thu, 10 Dec 2020 12:56:53 -0800 (PST)
+Received: from [192.168.1.143] ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id j15sm11125030wrr.85.2020.12.10.12.56.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Dec 2020 12:56:52 -0800 (PST)
+Subject: RFC v2: Re: cacheflush.2
+To:     Heinrich Schuchardt <xypron.glpk@gmx.de>,
+        Dave Martin <Dave.Martin@arm.com>
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org, gcc@gcc.gnu.org,
+        cfe-users@lists.llvm.org
+References: <794cf0d1-d528-4b5a-3ce0-b1b5f588dc6d@gmx.de>
+ <ca265930-00d7-44f5-b2dd-535a5cf0310a@gmail.com>
+ <20201210181726.GT6882@arm.com> <747d56e0-c102-ab40-add4-530a48a43a4d@gmx.de>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <f1f335e3-2459-3cfd-11c0-b105e7a5b734@gmail.com>
+Date:   Thu, 10 Dec 2020 21:56:51 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.1
 MIME-Version: 1.0
-References: <20201118144617.986860-1-willemdebruijn.kernel@gmail.com>
- <20201118144617.986860-2-willemdebruijn.kernel@gmail.com> <20201118150041.GF29991@casper.infradead.org>
- <CA+FuTSdxNBvNMy341EHeiKOWZ19H++aw-tfr6Fx1mFmbg-z4zQ@mail.gmail.com>
- <CAK8P3a0t02o77+8QNZwXF2k1pY3Xrm5bydv8Vx1TW060P7BKqA@mail.gmail.com>
- <893e8ed21e544d048bff7933013332a0@AcuMS.aculab.com> <CAF=yD-+arBFuZCU3UDx0XKmUGaEz8P1EaDLPK0YFCz82MdwBcg@mail.gmail.com>
- <20201119143131.GG29991@casper.infradead.org> <CAK8P3a1SwQ=L_qA1BmeAt=Xc-Q9Mv4V+J5LFLB5R6rMDST8UiA@mail.gmail.com>
- <CAF=yD-Kd-6f9wAYLD=dP1pk4qncWim424Fu6Hgj=ZrnUtEPORA@mail.gmail.com>
- <CAK8P3a21JRFUJrz1+TYWcVL8s4uSfeSFyoMkGsqUPbV+F=r_yw@mail.gmail.com>
- <CAF=yD-Lzu9j6T4ubRjawF-EKOC3pkQTkpigg=PugWwybY-1ZyQ@mail.gmail.com>
- <CAK8P3a1cJf7+b5HCmFiLq+FdM+D+37rHYaftRgRYbhTyjwR6wg@mail.gmail.com>
- <CAF=yD-LdtCCY=Mg9CruZHdjBXV6VmEPydzwfcE2BHUC8z7Xgng@mail.gmail.com>
- <CAK8P3a2WifcGmmFzSLC4-0SKsv0RT231P6TVKpWm=j927ykmQg@mail.gmail.com> <CA+FuTSdPir68M9PwhuCkd_Saz-Wi3xa_rNuwvbNmpAkMjOqhuA@mail.gmail.com>
-In-Reply-To: <CA+FuTSdPir68M9PwhuCkd_Saz-Wi3xa_rNuwvbNmpAkMjOqhuA@mail.gmail.com>
-From:   Arnd Bergmann <arnd@kernel.org>
-Date:   Thu, 10 Dec 2020 21:34:06 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a2Z=X68aU27qQ_0vK6c_oj9CVbThuGscjqKXRCYKfFpgg@mail.gmail.com>
-Message-ID: <CAK8P3a2Z=X68aU27qQ_0vK6c_oj9CVbThuGscjqKXRCYKfFpgg@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] epoll: add nsec timeout support with epoll_pwait2
-To:     Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc:     Matthew Wilcox <willy@infradead.org>,
-        David Laight <David.Laight@aculab.com>,
-        Linux FS-devel Mailing List <linux-fsdevel@vger.kernel.org>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Soheil Hassas Yeganeh <soheil.kdev@gmail.com>,
-        Arnd Bergmann <arnd@arndb.de>, Shuo Chen <shuochen@google.com>,
-        linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <747d56e0-c102-ab40-add4-530a48a43a4d@gmx.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Dec 10, 2020 at 6:33 PM Willem de Bruijn
-<willemdebruijn.kernel@gmail.com> wrote:
-> On Sat, Nov 21, 2020 at 4:27 AM Arnd Bergmann <arnd@kernel.org> wrote:
-> > On Fri, Nov 20, 2020 at 11:28 PM Willem de Bruijn <willemdebruijn.kerne=
-l@gmail.com> wrote:
-> > I would imagine this can be done like the way I proposed
-> > for get_bitmap() in sys_migrate_pages:
-> >
-> > https://lore.kernel.org/lkml/20201102123151.2860165-4-arnd@kernel.org/
->
-> Coming back to this. Current patchset includes new select and poll
-> selftests to verify the changes. I need to send a small kselftest
-> patch for that first.
->
-> Assuming there's no time pressure, I will finish up and send the main
-> changes after the merge window, for the next release then.
->
-> Current state against linux-next at
-> https://github.com/wdebruij/linux-next-mirror/tree/select-compat-1
+Hi all,
 
-Ok, sounds good to me. I've had a (very brief) look and have one
-suggestion: instead of open-coding the compat vs native mode
-in multiple places like
+v2:
 
-if (!in_compat_syscall())
-    =EF=BF=BC return copy_from_user(fdset, ufdset, FDS_BYTES(nr)) ? -EFAULT=
- : 0;
-else
-    =EF=BF=BC return compat_get_bitmap(fdset, ufdset, nr);
+[
+NOTES
+       Unless  you  need  the finer grained control that this system
+       call provides, you probably want  to  use  the  GCC  built-in
+       function  __builtin___clear_cache(),  which  provides  a more
+       portable interface:
 
-maybe move this into a separate function and call that where needed.
+           void __builtin___clear_cache(void *begin, void *end);
+]
 
-I've done this for the get_bitmap() function in my series at
+If you like it, I'll send the patch.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/arnd/playground.git/commit/=
-?h=3Dcompat-alloc-user-space-7&id=3Db1b23ebb12b635654a2060df49455167a142c5d=
-2
+BTW, I'll also have a look and document the different prototypes for
+cacheflush(2).
 
-The definition is slightly differrent for cpumask, nodemask and fd_set,
-so we'd need to try out the best way to structure the code to end
-up with the most readable version, but it should be possible when
-there are only three callers (and duplicating the function would
-be the end of the world either)
+Thanks,
 
-        Arnd
+Alex
+
+On 12/10/20 8:20 PM, Heinrich Schuchardt wrote:
+> On 12/10/20 7:17 PM, Dave Martin wrote:
+>> On Wed, Dec 09, 2020 at 07:34:09PM +0100, Alejandro Colomar
+>> (man-pages) wrote:
+>>> Hi Heinrich & Michael,
+>>>
+>>> What about the following?:
+>>>
+>>> [
+>>> NOTES
+>>>         GCC provides a similar function, which may be useful on  archi‐
+>>>         tectures that lack this system call:
+>>>
+>>>             void __builtin___clear_cache(void *begin, void *end);
+>>> ]
+>>>
+>>> Cheers,
+>>>
+>>> Alex
+>>
+>> Maybe we should discourage people from calling the cacheflush syscall?
+>>
+>> I think that people shouldn't be using the syscall unless they really
+>> need the finer grained control it provides, and are prepared to take a
+>> hit to portability.
+>>
+>> (On arches where userspace is allowed to do cache flushing directly,
+>> __builtin___clear_cache() should transparently do the right thing, with
+>> no syscall overhead -- if not, that's probably a bug in the toolchain or
+>> compiler support library.)
+> 
+> What the compiler builtin does depends on the architecture (e.g. nothing
+> for x86, cacheflush() for MIPS, a private syscall (0xf0002) on ARM,
+> assembly code on ARM64, ...) and on the the operating system (Linux,
+> BSD, OS X). For portable code the builtin is really the best choice.
+> 
+> Best regards
+> 
+> Heinrich
+> 
+>>
+>> [...]
+>>
+>> Cheers
+>> ---Dave
+>>
+> 
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es
