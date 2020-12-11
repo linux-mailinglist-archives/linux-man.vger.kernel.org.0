@@ -2,141 +2,303 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B81362D812A
-	for <lists+linux-man@lfdr.de>; Fri, 11 Dec 2020 22:32:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 440582D82F4
+	for <lists+linux-man@lfdr.de>; Sat, 12 Dec 2020 00:56:09 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2391081AbgLKVcA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Dec 2020 16:32:00 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53248 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2391974AbgLKVbg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Dec 2020 16:31:36 -0500
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 790A7C0613CF
-        for <linux-man@vger.kernel.org>; Fri, 11 Dec 2020 13:30:56 -0800 (PST)
-Received: by mail-ej1-x644.google.com with SMTP id jx16so14274169ejb.10
-        for <linux-man@vger.kernel.org>; Fri, 11 Dec 2020 13:30:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=d5WYMzQ+xrHwnfqdS/YSQ2IybSpzKmnwZ78zpcH7Faw=;
-        b=SiNfRzqakRW2bdaK702YelsowO71VnH2dwP8y8E38EpHWbmwFQiVD6TpUUpAqUclV+
-         zWITkCBDz5Vf1fWwJIz1DijpeUB2/l9H+JjkKzhJNuwS4x4KLl7rUQkdtDEuj6UmWTBK
-         R7TUC1apyDDhEZFw0hW8vyoVVPm+IN96HHtRp3TJtz5C3lyvCqkjwzfn5aEaTK3iNkSK
-         S8/yrJ3VaPry7dJIIrsuPuXbvVbAsbBpCRanfuXptsbGuax3yb4kseaYoOCJi8mNLLB/
-         EPX+aDkxiLHf7XeVrWLDT8NIxc6WS87eWWp93wAgwOsUfkdBEmyO4IXz3o29cX/CDODf
-         0XnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=d5WYMzQ+xrHwnfqdS/YSQ2IybSpzKmnwZ78zpcH7Faw=;
-        b=frxDdTAScPg+T6OkP9+cdmRF242lgeA+FRCM4Xm/Wn3nAVPq5gkapLQ+VheP0/PKhm
-         JcSChus0AE9nkLzAWlXYCcptnFhm83CuYJROHxypOe5rJE6GnUqHl8OQpw3DjU1y/hzp
-         3ONcEp5QPnmLiFWPfHdubicbx+m+GTgoccyNDZwXBdHfYDDV/z93p+Mewk99I9/93751
-         KBjnsanmVMtLiMsLzl+M7Ow33YktqHRcOMsay0ceLFSWVMgfvFanU16qhm4hnWCc4RiA
-         BSqN7SZHJA+L9BlGG2lEY0S/bGL2YLxyQn0RUHqw1BzslCQO+hV6I6v4YlSoaGuNcarV
-         vhjg==
-X-Gm-Message-State: AOAM532xTflte8/SwPX0x1OnLEwluH0rbCq9TLbQ0ImGBXbgLK1tHkhX
-        QhJjYDx49ZLFYeT5OhjQ2NE=
-X-Google-Smtp-Source: ABdhPJxnKSOxMu441dQaL8u9BF1WjlyN5lAGO3vbTmLTpnVuUxiF1/F5bD0hgPrXe7R20uNqcfL8Bg==
-X-Received: by 2002:a17:906:a2d0:: with SMTP id by16mr12454329ejb.207.1607722255181;
-        Fri, 11 Dec 2020 13:30:55 -0800 (PST)
-Received: from ?IPv6:2001:a61:2534:8201:1503:5ce5:5a20:9c25? ([2001:a61:2534:8201:1503:5ce5:5a20:9c25])
-        by smtp.gmail.com with ESMTPSA id lc18sm7655239ejb.77.2020.12.11.13.30.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Dec 2020 13:30:54 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Philip Rowlands <linux-kernel@dimebar.com>,
-        Eric Dumazet <eric.dumazet@gmail.com>,
-        Hannes Frederic Sowa <hannes@stressinduktion.org>,
-        "David S . Miller" <davem@davemloft.net>
-Subject: Re: [PATCH v2] tcp.7: tcp_syncookies: It is now an integer [0, 2]
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <086c4c44-0443-9e13-0087-fb8c2adcb80e@gmail.com>
- <20201211184709.38128-1-alx.manpages@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <08cb7ac1-2f92-b2b7-4885-8e97326c0c93@gmail.com>
-Date:   Fri, 11 Dec 2020 22:30:53 +0100
+        id S2394498AbgLKXyf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Dec 2020 18:54:35 -0500
+Received: from mout.gmx.net ([212.227.17.20]:35649 "EHLO mout.gmx.net"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1728288AbgLKXye (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 11 Dec 2020 18:54:34 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+        s=badeba3b8450; t=1607730741;
+        bh=YjpScPSitxhXrQ3d5WO7n4bnSfCv8HzesxFO/dspCQ0=;
+        h=X-UI-Sender-Class:Subject:To:Cc:References:From:Date:In-Reply-To;
+        b=WmDES5BxB6dtzI0sk9tNGEoGn5fJrCNq8zuyT3gm1OnfcbY80WiYFsP5Gc2AXKWfS
+         ArnVmg+Tv0czK8KtUUr2TgmEzfS/wJt9NQ17od+cb4556Owl3bJ7Aux02BquSZF7Rt
+         /JROx9SX4MgRcx2HKGZ4gPH15yMSHf8YWe6DtPec=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.123.51] ([62.143.246.89]) by mail.gmx.com (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1M8ygY-1kivzO3wLm-006AOa; Sat, 12
+ Dec 2020 00:52:21 +0100
+Subject: Re: [RFC] cacheflush.2: Document different prototypes for different
+ architectures
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>
+Cc:     Dave Martin <Dave.Martin@arm.com>,
+        Vineet Gupta <vgupta@synopsys.com>,
+        linux-snps-arc@lists.infradead.org, Guo Ren <guoren@kernel.org>,
+        linux-csky@vger.kernel.org,
+        Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+        linux-mips@vger.kernel.org, Nick Hu <nickhu@andestech.com>,
+        Greentime Hu <green.hu@gmail.com>,
+        Vincent Chen <deanbo422@gmail.com>, libc-alpha@sourceware.org
+References: <c284e55d-98e9-ae53-b6ca-f331b73841c7@gmail.com>
+From:   Heinrich Schuchardt <xypron.glpk@gmx.de>
+Message-ID: <20a8ebd5-ce04-1404-6113-02910cb21982@gmx.de>
+Date:   Sat, 12 Dec 2020 00:52:18 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+ Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <20201211184709.38128-1-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <c284e55d-98e9-ae53-b6ca-f331b73841c7@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:cwJLMvkrA8183TXhb+dAHxC64WyD7Ip4Gfxu1TYhvWFbKVbIRHJ
+ pgW/OQBCMmMjmzmWz2IkF7ZxnrF2yDARk7coJf8VgrS4EQQOQ1ayynSi9cxC4IWaDyxTM07
+ 110v4LQi6bn85wluChQlGE5UCwR3johmWES0ADlTr+Xf/Pf9laJAuWpYDjV3TsgHh76T/4j
+ z4PytjEeMWjtm0jjF8vRg==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:q40XcGM0CuQ=:J8Fpt5B8U7V+dR17PvBHT1
+ /e6QvUR6qWAK/4zw3P2x2bZ1wC9GTshgCBr+i2fPDe6NHMDHwkaTtTGYo4Ik3Cj1L5VZtDX9V
+ CgnE2WH4H7EirtSRg9nLSE3EF8YCTJ5IjWhyUYz8E8bnZdMW71B17ER+EHCSGLLBEEtVZAG0A
+ LxIJEKK92aounWRSqBDIrRM0zv/4uvGRHoIg15WU4fkhS4pgjQk26bvMxoNoXTRBUTadsd4Mv
+ epYAqXXyCJypnHVigO7c57fnKN3hqalLnZZ0Z8ZcSA43JV9MvpNLswb2DGQUcTssEpDSO6mWW
+ uenBk/xSlTasXtLUuxd2XMnAx59PTDwKUf2jLr4ZeI8iEPJtWRjjL9fUIy+Ik7IlfiBb92Yry
+ ESYtOoPp6fjUnaEBYKo24LEIUYbgYLH8HEUF6X6FFqe+XV/qQY+SnN0ByzWbnKJjCIHV0vRgI
+ 0TdIueiHrqcHcbmtuLdGfjMGJxYUx6f1GVYihAz3PhMFfRsLM791yAYM/o2I5UxqsZ65g10Zq
+ Nl/MvDg2P2LuHD3uqWxeqXZGsNTnBHjTTrrgQzNyuKGfW4086xjaoZ4lkT7WGZ1C9z8zFel72
+ raxUoQh88G62A9DWR5OgZnWEWuAwIYp0FonPuMHkGJdmiX4XF8U1tm5Fm4NkzXWxUR/7TCvsT
+ g0LSNlMWfGgxBywK0nWxjB7zWt7A4boNp4p5Upu81RDagHVZ8K2j180cjyFt+Qsrx78Gwlt3O
+ JgPJMH8LcfJ04mqhM8iBZec9cSmvqChT2NXxF2YJ+Plh0hOEdxXJ876NrtpYsOWePhnWAtYvg
+ x2+UblH8e52ji2mdl+h+eMMnOlD2Vy+yafVb/EWIZGCkm/HfFSrVC0qxgc57dSBjrxRHUGgWh
+ g+gM3BOU4V+QIxmo3tKA==
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+On 12/11/20 10:09 PM, Alejandro Colomar (man-pages) wrote:
+> Hi Michael,
+>
+> Continuing with the changes in this thread:
+> https://lore.kernel.org/linux-man/747d56e0-c102-ab40-add4-530a48a43a4d@g=
+mx.de/T/#t
+>
+> I researched the architectures that have this syscall.  I found some
+> that clearly provide the syscall, and some that seem to have something,
+> but I didn't find a definition in the kernel (i.e., ARM, MicroBlaze
+> (glibc only)?)
 
-On 12/11/20 7:47 PM, Alejandro Colomar wrote:
-> Since Linux kernel 3.12, tcp_syncookies can have the value 2,
-> which sends out cookies unconditionally.
+arch/arm/include/uapi/asm/unistd.h:35:
+#define __ARM_NR_cacheflush               (__ARM_NR_BASE+2)
 
-Thanks. Patch applied.
+arch/arm64/include/asm/unistd.h:37:
+#define __ARM_NR_compat_cacheflush   (__ARM_NR_COMPAT_BASE + 2)
 
-Cheers,
+These syscalls are marked as private. So you should not use them from
+user space.
 
-Michael
+The compilers seem not to care about these syscalls being private:
 
-> Related kernel commits:
-> 5ad37d5deee1ff7150a2d0602370101de158ad86
-> d8513df2598e5142f8a5c4724f28411936e1dfc7
-> 
-> Reported-by: Philip Rowlands <linux-kernel@dimebar.com>
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> Cc: Eric Dumazet <eric.dumazet@gmail.com>
-> Cc: Hannes Frederic Sowa <hannes@stressinduktion.org>
-> Cc: David S. Miller <davem@davemloft.net>
-> ---
->  man7/tcp.7 | 15 +++++++++++++--
->  1 file changed, 13 insertions(+), 2 deletions(-)
-> 
-> diff --git a/man7/tcp.7 b/man7/tcp.7
-> index d983a8f9a..cce8dd910 100644
-> --- a/man7/tcp.7
-> +++ b/man7/tcp.7
-> @@ -830,12 +830,11 @@ The maximum number of times a SYN/ACK segment
->  for a passive TCP connection will be retransmitted.
->  This number should not be higher than 255.
->  .TP
-> -.IR tcp_syncookies " (Boolean; since Linux 2.2)"
-> +.IR tcp_syncookies " (integer; default: 1; since Linux 2.2)"
->  .\" Since 2.1.43
->  Enable TCP syncookies.
->  The kernel must be compiled with
->  .BR CONFIG_SYN_COOKIES .
-> -Send out syncookies when the syn backlog queue of a socket overflows.
->  The syncookies feature attempts to protect a
->  socket from a SYN flood attack.
->  This should be used as a last resort, if at all.
-> @@ -849,6 +848,18 @@ For recommended alternatives see
->  .IR tcp_synack_retries ,
->  and
->  .IR tcp_abort_on_overflow .
-> +Set to one of the following values:
-> +.RS
-> +.IP 0 3
-> +Disable TCP syncookies.
-> +.IP 1
-> +Send out syncookies when the syn backlog queue of a socket overflows.
-> +.IP 2
-> +(since Linux 3.12)
-> +.\" commit 5ad37d5deee1ff7150a2d0602370101de158ad86
-> +Send out syncookies unconditionally.
-> +This can be useful for network testing.
-> +.RE
->  .TP
->  .IR tcp_timestamps " (integer; default: 1; since Linux 2.2)"
->  .\" Since 2.1.36
-> 
+https://github.com/gcc-mirror/gcc/blob/master/libgcc/config/arm/lib1funcs.=
+S#L1512
+https://github.com/llvm-mirror/compiler-rt/blob/master/lib/builtins/clear_=
+cache.c
 
+Best regards
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Heinrich
+
+>
+> Research:
+>
+> $ grep -rn cacheflush glibc/
+> glibc/sysdeps/unix/sysv/linux/m68k/m680x0/libc.abilist:324:GLIBC_2.0
+> cacheflush F
+> glibc/sysdeps/unix/sysv/linux/m68k/Versions:13:    cacheflush;
+> glibc/sysdeps/unix/sysv/linux/m68k/arch-syscall.h:17:#define
+> __NR_cacheflush 123
+> glibc/sysdeps/unix/sysv/linux/m68k/syscalls.list:18:cacheflush	EXTRA
+> cacheflush	i:iiii	__cacheflush	cacheflush
+> glibc/sysdeps/unix/sysv/linux/m68k/coldfire/libc.abilist:744:GLIBC_2.4
+> cacheflush F
+> glibc/sysdeps/unix/sysv/linux/arc/Versions:10:    cacheflush;
+> glibc/sysdeps/unix/sysv/linux/arc/sys/cachectl.h:1:/* cacheflush - flush
+> contents of instruction and/or data cache.
+> glibc/sysdeps/unix/sysv/linux/arc/sys/cachectl.h:30:extern int
+> cacheflush (void *__addr, int __nbytes, int __op) __THROW;
+> glibc/sysdeps/unix/sysv/linux/arc/arch-syscall.h:13:#define
+> __NR_cacheflush 244
+> glibc/sysdeps/unix/sysv/linux/arc/syscalls.list:3:cacheflush	-
+> cacheflush	i:pii	_flush_cache	cacheflush
+> glibc/sysdeps/unix/sysv/linux/arc/Makefile:10:# MIPS/Tile-style
+> cacheflush routine
+> glibc/sysdeps/unix/sysv/linux/arc/Makefile:12:sysdep_routines +=3D cache=
+flush
+> glibc/sysdeps/unix/sysv/linux/arc/libc.abilist:574:GLIBC_2.32 cacheflush=
+ F
+> glibc/sysdeps/unix/sysv/linux/csky/Versions:3:    cacheflush;
+> glibc/sysdeps/unix/sysv/linux/csky/sys/cachectl.h:30:extern int
+> cacheflush (void *__addr, const int __nbytes,
+> glibc/sysdeps/unix/sysv/linux/csky/arch-syscall.h:10:#define
+> __NR_cacheflush 245
+> glibc/sysdeps/unix/sysv/linux/csky/syscalls.list:2:cacheflush	-
+> cacheflush	i:pii	_flush_cache	cacheflush
+> glibc/sysdeps/unix/sysv/linux/csky/Makefile:2:sysdep_routines +=3D cache=
+flush
+> glibc/sysdeps/unix/sysv/linux/csky/libc.abilist:594:GLIBC_2.29 cacheflus=
+h F
+> glibc/sysdeps/unix/sysv/linux/mips/mips32/fpu/libc.abilist:322:GLIBC_2.0
+> cacheflush F
+> glibc/sysdeps/unix/sysv/linux/mips/mips32/arch-syscall.h:19:#define
+> __NR_cacheflush 4147
+> glibc/sysdeps/unix/sysv/linux/mips/mips32/nofpu/libc.abilist:322:GLIBC_2=
+.0
+> cacheflush F
+> glibc/sysdeps/unix/sysv/linux/mips/Versions:19:    cachectl; cacheflush;
+> glibc/sysdeps/unix/sysv/linux/mips/sys/cachectl.h:35:extern int
+> cacheflush (void *__addr, const int __nbytes, const int __op) __THROW;
+> glibc/sysdeps/unix/sysv/linux/mips/mips64/n64/arch-syscall.h:16:#define
+> __NR_cacheflush 5197
+> glibc/sysdeps/unix/sysv/linux/mips/mips64/n64/libc.abilist:320:GLIBC_2.0
+> cacheflush F
+> glibc/sysdeps/unix/sysv/linux/mips/mips64/n32/arch-syscall.h:16:#define
+> __NR_cacheflush 6197
+> glibc/sysdeps/unix/sysv/linux/mips/mips64/n32/libc.abilist:322:GLIBC_2.0
+> cacheflush F
+> glibc/sysdeps/unix/sysv/linux/mips/syscalls.list:8:cacheflush	-
+> cacheflush	i:pii	_flush_cache	cacheflush
+> glibc/sysdeps/unix/sysv/linux/mips/Makefile:6:sysdep_routines +=3D
+> cachectl cacheflush sysmips _test_and_set
+> glibc/sysdeps/unix/sysv/linux/sh/arch-syscall.h:16:#define
+> __NR_cacheflush 123
+> glibc/sysdeps/unix/sysv/linux/nios2/Versions:4:    cacheflush;
+> glibc/sysdeps/unix/sysv/linux/nios2/sys/cachectl.h:1:/* cacheflush -
+> flush contents of instruction and/or data cache.
+> glibc/sysdeps/unix/sysv/linux/nios2/sys/cachectl.h:27:extern int
+> cacheflush (void *__addr, const int __nbytes, const int __op) __THROW;
+> glibc/sysdeps/unix/sysv/linux/nios2/arch-syscall.h:10:#define
+> __NR_cacheflush 244
+> glibc/sysdeps/unix/sysv/linux/nios2/cacheflush.c:1:/* cacheflush system
+> call for Nios II Linux.
+> glibc/sysdeps/unix/sysv/linux/nios2/cacheflush.c:27:  return
+> INLINE_SYSCALL (cacheflush, 3, addr, nbytes, op);
+> glibc/sysdeps/unix/sysv/linux/nios2/cacheflush.c:29:weak_alias
+> (_flush_cache, cacheflush)
+> glibc/sysdeps/unix/sysv/linux/nios2/Makefile:6:# MIPS-style cacheflush
+> routine
+> glibc/sysdeps/unix/sysv/linux/nios2/Makefile:8:sysdep_routines +=3D cach=
+eflush
+> glibc/sysdeps/unix/sysv/linux/nios2/libc.abilist:663:GLIBC_2.21 cacheflu=
+sh F
+> glibc/sysdeps/unix/sysv/linux/arm/dl-machine.h:23:
+> INTERNAL_SYSCALL_CALL (cacheflush, (BEG), (END), 0)
+> glibc/sysdeps/unix/sysv/linux/arm/arch-syscall.h:17:#define
+> __NR_cacheflush 983042
+> glibc/sysdeps/unix/sysv/linux/arm/fixup-asm-unistd.h:19:#ifndef
+> __NR_cacheflush
+> glibc/sysdeps/unix/sysv/linux/arm/fixup-asm-unistd.h:20:# define
+> __NR_cacheflush __ARM_NR_cacheflush
+> glibc/sysdeps/unix/sysv/linux/microblaze/syscalls.list:3:cacheflush
+> EXTRA	cacheflush	i:iiii	__cacheflush	cacheflush
+> glibc/sysdeps/unix/sysv/linux/syscall-names.list:60:cacheflush
+> glibc/benchtests/strcoll-inputs/filelist#en_US.UTF-8:1417:cacheflush.c
+> glibc/benchtests/strcoll-inputs/filelist#en_US.UTF-8:1744:cacheflush.c
+> glibc/ChangeLog.old/ChangeLog.7:7489:	* sysdeps/mach/mips/cacheflush.c:
+> Likewise.
+> glibc/ChangeLog.old/ChangeLog.7:9422:	*
+> sysdeps/unix/sysv/linux/m68k/syscalls.list: Add cacheflush.
+> glibc/ChangeLog.old/ChangeLog.4:205:	* sysdeps/mach/mips/cacheflush.c:
+> New file.
+> glibc/ChangeLog.old/ChangeLog.18:40858:	*
+> sysdeps/unix/sysv/linux/nios2/cacheflush.c: New file.
+> glibc/ChangeLog.old/ChangeLog.ports-tile:700:	*
+> sysdeps/unix/sysv/linux/tile/cacheflush.c: New file.
+> grep: glibc/.git/index: binary file matches
+>
+> $ grep -rn -e 'sys_cacheflush' -e 'SYSCALL_DEFINE.(cacheflush,' linux/ |
+> grep -v -e '/arc/' -e '/csky/' -e '/mips/' -e '/nios2/'
+> tools/testing/selftests/futex/functional/usr/include/linux/capability.h:=
+251:/*
+> Allow flushing all cache on m68k (sys_cacheflush) */
+> include/uapi/linux/capability.h:253:/* Allow flushing all cache on m68k
+> (sys_cacheflush) */
+> arch/m68k/kernel/sys_m68k.c:376:/* sys_cacheflush -- flush (part of) the
+> processor cache.  */
+> arch/m68k/kernel/sys_m68k.c:378:sys_cacheflush (unsigned long addr, int
+> scope, int cache, unsigned long len)
+> arch/m68k/kernel/sys_m68k.c:531:/* sys_cacheflush -- flush (part of) the
+> processor cache.  */
+> arch/m68k/kernel/sys_m68k.c:533:sys_cacheflush (unsigned long addr, int
+> scope, int cache, unsigned long len)
+> arch/m68k/kernel/syscalls/syscall.tbl:133:123	common	cacheflush
+> sys_cacheflush
+> arch/sh/kernel/sys_sh.c:57:/* sys_cacheflush -- flush (part of) the
+> processor cache.  */
+> arch/sh/kernel/sys_sh.c:58:asmlinkage int sys_cacheflush(unsigned long
+> addr, unsigned long len, int op)
+> arch/sh/kernel/syscalls/syscall.tbl:133:123	common	cacheflush
+> sys_cacheflush
+> arch/arm/include/asm/cacheflush.h:263: * This is used for the ARM
+> private sys_cacheflush system call.
+> arch/nds32/include/uapi/asm/unistd.h:15:__SYSCALL(__NR_cacheflush,
+> sys_cacheflush)
+> arch/nds32/include/asm/syscalls.h:7:asmlinkage long
+> sys_cacheflush(unsigned long addr, unsigned long len, unsigned int op);
+> arch/nds32/kernel/sys_nds32.c:29:SYSCALL_DEFINE3(cacheflush, unsigned
+> int, start, unsigned int, end, int, cache)
+>
+> Rendered page (NOTES only):
+>
+> [
+> NOTES
+>     Architecture-specific variants
+>         Glibc  provides a wrapper for this system call, with the pro=E2=
+=80=90
+>         totype shown in SYNOPSIS, for  the  following  architectures:
+>         ARC, CSKY, MIPS, and NIOS2. // lowercase?
+>
+>         On  some other architectures, Linux provides this system call
+>         with different arguments:
+>
+>         M68K:
+>
+>             int cacheflush(unsigned long addr, int scope, int cache,
+>                            unsigned long len);
+>
+>         SH:
+>
+>             int cacheflush(unsigned long addr, unsigned long len, int op=
+);
+>
+>         NDS32:
+>
+>             int cacheflush(unsigned int start, unsigned int end, int cac=
+he);
+>
+>         // ARM??
+>
+>     GCC alternative
+>         Unless you need the finer grained control  that  this  system
+>         call  provides,  you  probably  want  to use the GCC built-in
+>         function __builtin___clear_cache(), which provides a portable
+>         interface  across  platforms  supported by GCC and compatible
+>         compilers:
+>
+>             void __builtin___clear_cache(void *begin, void *end);
+>
+>         On platforms that don't require  instruction  cache  flushes,
+>         __builtin___clear_cache() has no effect.
+>
+>         Note:  On  some  GCC-compatible compilers, such as clang, the
+>         prototype for this function uses char * instead of void * for
+>         the parameters.
+>
+> ]
+>
+> 'GCC alternative' is the name I gave to the NOTES from the other thread,
+> which aren't yet merged (I'll send the patches after the weekend, probab=
+ly).
+>
+> Subsections based on:
+> fadvise64(2)
+>
+> Can you review this?
+>
+> Thanks,
+>
+> Alex
+>
+
