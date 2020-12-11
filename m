@@ -2,77 +2,79 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5F32B2D80E2
-	for <lists+linux-man@lfdr.de>; Fri, 11 Dec 2020 22:17:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 989812D811B
+	for <lists+linux-man@lfdr.de>; Fri, 11 Dec 2020 22:29:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2390767AbgLKVP2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Dec 2020 16:15:28 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50742 "EHLO
+        id S2392983AbgLKV1o (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Dec 2020 16:27:44 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52558 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2390624AbgLKVPQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Dec 2020 16:15:16 -0500
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 474F0C0613D6
-        for <linux-man@vger.kernel.org>; Fri, 11 Dec 2020 13:14:35 -0800 (PST)
-Received: by mail-wm1-x331.google.com with SMTP id k10so8654166wmi.3
-        for <linux-man@vger.kernel.org>; Fri, 11 Dec 2020 13:14:35 -0800 (PST)
+        with ESMTP id S2392109AbgLKV1H (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Dec 2020 16:27:07 -0500
+Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com [IPv6:2607:f8b0:4864:20::c34])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 568C0C0613CF
+        for <linux-man@vger.kernel.org>; Fri, 11 Dec 2020 13:26:27 -0800 (PST)
+Received: by mail-oo1-xc34.google.com with SMTP id t63so2493896ooa.1
+        for <linux-man@vger.kernel.org>; Fri, 11 Dec 2020 13:26:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=to:cc:from:subject:message-id:date:user-agent:mime-version
-         :content-language:content-transfer-encoding;
-        bh=RjlXhm4ex+WBIUQLUgx50DZXMZXUnEeiQArxOlhEh8w=;
-        b=Ryjtq/GIsbIPTogQBbWr+pFq0X9pb816UpESr8c5m0ICfgANrAMFgIU2OAqM+zhYtK
-         HKwiDUANoAQFr7BM5yPKtPq4U1lfWrSnsMvInm8aULhI7vv0AiMFLBwJ2bBedB4Q1fyW
-         02kFOO73jQysMiSvwMK6mntLte44BYHX3UOtoGuyoiX9sXV4KuQMlHBBtmnX9vDiCalU
-         rgjgekZ6Cff6vVLnyNImZZjsytwfdbZjS5JkVf9SGr+coX9Jffsq/yH/dMVksDGOVXlG
-         sgR0CqmwZe2KEP9h6cbzDswmfjGMK9qYyxzSVEN4n5OpvQ1oL9SYsUAKOLE928VFqvkC
-         XtBw==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=nf6NdkowbfPPTCBKFll87LM7Malz8TuMl6rf7YWJA0o=;
+        b=fWfWbcZWyNb/7n4RNUrwuUNbE2Eirav/0AzmTprBfXnE7Gljf+VCV2juk1hxB8b6Q0
+         5tWmLR+UfUAXsrcffAKPyKRvrvCmnagxkSzV57h6zabYzSgPvfjISqGBmuxL5cdlyrx1
+         /Oksi4MA20ewSvH/mqi7sP2vaRvwuiJNci2CwkLbTECm/TvYt7S0UobtBXZVdWhhwXDf
+         659jxvNbxWYIhBPx5K+LZ228ToP9f9VyBkTUD2YIYbBfngOdA5wJS+qtP5SUdfIdN6P5
+         EPHrtGj4i+RSwnwT9qoHoJKm4T9BhcUgVbrgxI7z28T94oAY88RtvIvwX5R3gULZZyCU
+         LQgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=RjlXhm4ex+WBIUQLUgx50DZXMZXUnEeiQArxOlhEh8w=;
-        b=VhoEp7DlI47v23zvzY4r8jTR2Hyzm1M9A5Wx1u9WS89pBiiALPeLZQe5qmJCrC4raE
-         FPUsoYlqcwYMYf16S0neAWDgXbnzp/W6/GhQ3YcYbwlAwRYwJpDRet6+zH7JGSpO690R
-         U1OElSE1Igh4S67OvhcubZqFGbS/oFpSrBrZRSZLB8DrbQgw+Yk0vDVBSdtFabSXeJjw
-         5bKF752K+1WtzjfSC7Bp/118EdD9IxbsdNZ2BEvqXh6uAI8AzFfBbPkDUeCCtQagPfzT
-         wmUMbZExIbxmjm/W8fn1QNwdXASIbCnP1NGLYsGc6pd78n8J7uNVwZVZFVFp01DUC7if
-         zxqg==
-X-Gm-Message-State: AOAM5339I9tzeOnFUoPK/3msGUYujoYEaS1OcTsgtXVNUJc/ITqBlLVE
-        B3PnUThOxQkptxifUlaWQe0Ib5Jo1FQ=
-X-Google-Smtp-Source: ABdhPJxDlky+SuTk1QWenJWJ1kmzsEP28hLvod09ISzY7P67r7g/IQrcjTztf0jHHnPwOAzlF8umZQ==
-X-Received: by 2002:a1c:5447:: with SMTP id p7mr15489223wmi.116.1607721274064;
-        Fri, 11 Dec 2020 13:14:34 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id t62sm11131881wmb.29.2020.12.11.13.14.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Dec 2020 13:14:33 -0800 (PST)
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Subject: Right margin for code (SYNOPSIS, EXAMPLES, ...)
-Message-ID: <1f731252-395b-e8bd-ed5d-cc3b3eeea948@gmail.com>
-Date:   Fri, 11 Dec 2020 22:14:32 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=nf6NdkowbfPPTCBKFll87LM7Malz8TuMl6rf7YWJA0o=;
+        b=rIXiJiI8j0Fg7cUoksWwTCYvP7UsCfNEbJIOViNfHJXLIlrp18sg6w7+f/zCvCfYKs
+         nfJEdv6d3O8OXWOYWmxdVYROW2dcxUiw7r8GP9+RDcfcFOyVIVovjGSFCgY3P4HtngPi
+         XWdEOn81q2D5oswUl1WCF+WaezLpbZhIo5PfxkwZkzid29TU1uMC7OVK+QaI97LpSN8e
+         ANFHHk7vWCxnAJDMfjTLjtMA+HJrHoKms2EBW/3F9e8Qc+KNtU1UBkfJzqN9ur7r0cmh
+         3rA17jjiGp66mkgDmrlRMB7Z2yPT+uAE3JNSRD4M1VQBZWnBO3vBPirFdcukDCce6mNS
+         EuFQ==
+X-Gm-Message-State: AOAM530jnjxMcwTWf8ZinMvNcYEiEnTZljAiT0uiHGIMGF+MSt8ArAew
+        QLPEk3TpUa+ipzSiAIZUHFsQzhNiHJIRaoMCUTbt3vAw5tI=
+X-Google-Smtp-Source: ABdhPJz+Y+WPUhIwepSN6nXvLta43d/57rCnpmHCyV6drFPavGL5z+A00ATcHpunvWfQJ58iUAzgU27fYLZEs09bqWE=
+X-Received: by 2002:a4a:4ccb:: with SMTP id a194mr11682016oob.14.1607721986415;
+ Fri, 11 Dec 2020 13:26:26 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <1f731252-395b-e8bd-ed5d-cc3b3eeea948@gmail.com>
+In-Reply-To: <1f731252-395b-e8bd-ed5d-cc3b3eeea948@gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Fri, 11 Dec 2020 22:26:15 +0100
+Message-ID: <CAKgNAkisA-6-GhYugwFLWp4pZLqHSU7T8unpTt5mibcMzApz4w@mail.gmail.com>
+Subject: Re: Right margin for code (SYNOPSIS, EXAMPLES, ...)
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Hi Alex,
 
-For code, for example function prototypes in SYNOPSIS, do you have a
-preferred right margin? 80? 72?
+On Fri, 11 Dec 2020 at 22:14, Alejandro Colomar (man-pages)
+<alx.manpages@gmail.com> wrote:
+>
+> Hi Michael,
+>
+> For code, for example function prototypes in SYNOPSIS, do you have a
+> preferred right margin? 80? 72?
+
+If I understand your question, 80. But what prompts you to ask?
 
 Thanks,
 
-Alex
+Michael
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
