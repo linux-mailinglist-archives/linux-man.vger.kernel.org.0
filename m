@@ -2,113 +2,111 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4F3192DB388
-	for <lists+linux-man@lfdr.de>; Tue, 15 Dec 2020 19:19:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D1EB22DB3C9
+	for <lists+linux-man@lfdr.de>; Tue, 15 Dec 2020 19:34:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731497AbgLOSTN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 15 Dec 2020 13:19:13 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49628 "EHLO
+        id S1729389AbgLOScC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 15 Dec 2020 13:32:02 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51620 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731480AbgLOSTH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 15 Dec 2020 13:19:07 -0500
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 57197C06179C
-        for <linux-man@vger.kernel.org>; Tue, 15 Dec 2020 10:18:26 -0800 (PST)
-Received: by mail-wm1-x341.google.com with SMTP id q75so127645wme.2
-        for <linux-man@vger.kernel.org>; Tue, 15 Dec 2020 10:18:26 -0800 (PST)
+        with ESMTP id S1731270AbgLOSbz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 15 Dec 2020 13:31:55 -0500
+Received: from mail-il1-x131.google.com (mail-il1-x131.google.com [IPv6:2607:f8b0:4864:20::131])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E84BFC06179C;
+        Tue, 15 Dec 2020 10:31:14 -0800 (PST)
+Received: by mail-il1-x131.google.com with SMTP id c18so20126551iln.10;
+        Tue, 15 Dec 2020 10:31:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=tpCYidJaEB3ubav5MTRVin1i7dPmHWzbTRKiE2z6O5U=;
-        b=RqiDOf1AI7XVNL9wjfbvdfuEv9luSxi/M6dimODSrUZ1Jcq+q2LUJnKpRSsdIxPwSd
-         SZPHNKhRr5VT5WPo1C8wD5unAXaqy4qKyZaIY5stqa7aoREt+y1txkm30fd6YpZdkHSi
-         cyJwj5wQP9IUCgnaVNnnz+AYkdv1Rn3yGkrwOc16+EA9cLxaDNeXFfrOMm3/sGHgxrDL
-         ziJ/SSRq0HcKV5q92fzyPF4ARwn1wbsemTN9cl7ZHA49eqleByZ0ZJnUvViWzO+pGouu
-         OQeMoJaWVqihXVf4VPkHifWU/W4zmSCUsSZrv6u1lwrdC27z3AfVPn7OYEolE7YL/uSj
-         wPdw==
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=80RJxbQMOWLHkkl6CJsCFQ4rANpuWFNmSrNeM4HB1fw=;
+        b=bUtBr5cevI/l5LV/ZBfKYF58sEpIKiCy5T/1v1WcpEEMew3TURVj8wyftPOGgvYC6F
+         5mZ19VPq3sKyJ53SLCOK/qB4Iaz+4n7C+X4dMte61gPa7cBJlZTW9Jrk+tBDsCwqvtGF
+         de/5Siy9GXFZ8HU4iR1AdMK2lqPz1PnUmeEB8REl/15gEs4TavqfPYyGV2o0SYqRERVl
+         p3WCC0Bxp8deuomUmGq4bYQlDjgCqKcRWSdHEyEPlmdZif23PGhWLrByKj2DkWJLZfrR
+         T2owm6rfMPAmSrbLN+PdcREDRYMC/9TM6gXqrUyV8cTrCaGNppK/5HNx2sWZbE2YETen
+         tAfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=tpCYidJaEB3ubav5MTRVin1i7dPmHWzbTRKiE2z6O5U=;
-        b=maoXLlCC6TrwuwbzebFf9HE2FiijAO96LGrX0DcMZlk+ntv9WuO6IonrtEn7zNiyWX
-         ORz0zgdKgSBoi7JgMIk8rIkyhCrbjw2jkUTTYEKB8jaC/Rqalz+fpOp3P22Ttpq+Ut3z
-         OkRs7XUrG7FhHAJM2WB2kz9Sipu2e7GhrkEFxt7fPltm6JEYAp6B/c9N3/oaTr7rWM7u
-         AOio1iBUQLqxqYND/+hnVLxOzQ/DK/0JKNQTazoe1ecbFxnHA9u6g/IhxZOSkZaTc2CS
-         UFTLcB8N4csz6AGUVTRB4I7iuEh6etXBKCqKF0FQv+H5Mp2XgHxGigwyAlroLt/17qLd
-         RPyQ==
-X-Gm-Message-State: AOAM531o4+XfdMlHz76C0Kjy7WBL1efL79njIFEVC7SbSDyK5omwO5Yp
-        pYG46nQDvQqEZ0sWSC+ByOg=
-X-Google-Smtp-Source: ABdhPJwBGV5QiV7ZD/8yFNDEcQAM84xciyLoIG4Fmh0uzBiIeJsx6gmv953Ha38sB5BYLWlYqrp3zg==
-X-Received: by 2002:a05:600c:2903:: with SMTP id i3mr134229wmd.41.1608056305131;
-        Tue, 15 Dec 2020 10:18:25 -0800 (PST)
-Received: from debian.vlc ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id t188sm38450492wmf.9.2020.12.15.10.18.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Dec 2020 10:18:24 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Baruch Siach <baruch@tkos.co.il>, linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Subject: [PATCH] packet.7: Update references to kernel documentation
-Date:   Tue, 15 Dec 2020 19:17:34 +0100
-Message-Id: <20201215181732.22155-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.29.2
+        h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=80RJxbQMOWLHkkl6CJsCFQ4rANpuWFNmSrNeM4HB1fw=;
+        b=AZ01SJhD0v080Dp/Jk5Vvh5zKB+/M1f+fidirpLzkutkeTP7cJqiSRs+/jibrSc2be
+         lRcWQYRiM3BjyXdyHSDfGgPGB4Y1shjuowLmICAWZXFE2Gd6Z3tCTrkLuq57GSFgOS3y
+         ug8UNljGRO7tO0P9wDM4MqfGC3h1NSaCmyCmSNzZvVoZke3DbPeweX2QABRee40S1s11
+         /2iz6TX2HwrrtHjiZ4uwib0CN9k+ejHoZSh9r+ywuBogNzng6Vq2yNhZCqN940yTvJIF
+         mPEdVkXkCgkM1ZAKZnzxOruQZz/JUXQ/1InGFQmi0M+gjZ2uq4abOfROnMUX1cPV2br1
+         04KQ==
+X-Gm-Message-State: AOAM5333uujsh7835/2mkDAvYkvkHICRsZboqthZsxmkyIAI9UL1C78e
+        OpgxB0Y5kkrtkYfGUFZRdynHmEmBVCMeUA==
+X-Google-Smtp-Source: ABdhPJxrofK2XBG/kg3g0F9pgVWJr3e/4K4JeQr7liyPb6XpNRd6E5COwXCToYHGlFjjxWuOaFUD/Q==
+X-Received: by 2002:a05:6e02:10c2:: with SMTP id s2mr42658951ilj.290.1608057074053;
+        Tue, 15 Dec 2020 10:31:14 -0800 (PST)
+Received: from [192.168.1.124] (d53-64-28-168.nap.wideopenwest.com. [64.53.168.28])
+        by smtp.gmail.com with ESMTPSA id l16sm11317094ioj.52.2020.12.15.10.31.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Dec 2020 10:31:13 -0800 (PST)
+Sender: Ted Estes <check.switch.26@gmail.com>
+Subject: Re: [Bug 210655] ptrace.2: documentation is incorrect about access
+ checking threads in same thread group
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        Pavel Emelyanov <xemul@openvz.org>,
+        Oleg Nesterov <oleg@tv-sign.ru>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Kees Cook <keescook@chromium.org>, Jann Horn <jann@thejh.net>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        linux-kernel <linux-kernel@vger.kernel.org>
+References: <feef4f9a-4ed8-8a2e-d330-88e7f516faae@gmail.com>
+From:   Ted Estes <ted@softwarecrafters.com>
+Message-ID: <b416e106-c11d-1471-de3d-fb9d5b1b6747@softwarecrafters.com>
+Date:   Tue, 15 Dec 2020 12:31:11 -0600
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.1
 MIME-Version: 1.0
+In-Reply-To: <feef4f9a-4ed8-8a2e-d330-88e7f516faae@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Baruch Siach <baruch@tkos.co.il>
+Per my research on the topic, the error is in the manual page.  The 
+behavior of ptrace(2) was intentionally changed to prohibit attaching to 
+a thread in the same group.  Apparently, there were a number of 
+ill-behaved edge cases.
 
-Files moved from .txt to .rst.
+I found this email thread on the subject: 
+https://lkml.org/lkml/2006/8/31/241
 
-Also, drop / prefix from kernel source tree references.
+Thank you.
+--Ted Estes
 
-Signed-off-by: Baruch Siach <baruch@tkos.co.il>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man7/packet.7 | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/man7/packet.7 b/man7/packet.7
-index ac1c60905..856c59e6b 100644
---- a/man7/packet.7
-+++ b/man7/packet.7
-@@ -405,7 +405,7 @@ equal to
- .IP
- Packet sockets implement multiple variants of the packet ring.
- The implementation details are described in
--.IR Documentation/networking/packet_mmap.txt
-+.IR Documentation/networking/packet_mmap.rst
- in the Linux kernel source tree.
- .TP
- .BR PACKET_STATISTICS
-@@ -431,7 +431,7 @@ By default, this is a software generated timestamp generated when the
- packet is copied into the ring.
- This integer option selects the type of timestamp.
- Besides the default, it support the two hardware formats described in
--.IR Documentation/networking/timestamping.txt
-+.IR Documentation/networking/timestamping.rst
- in the Linux kernel source tree.
- .TP
- .BR PACKET_TX_RING " (since Linux 2.6.31)"
-@@ -648,9 +648,9 @@ The
- include file for physical-layer protocols.
- .PP
- The Linux kernel source tree.
--.IR /Documentation/networking/filter.txt
-+.IR Documentation/networking/filter.rst
- describes how to apply Berkeley Packet Filters to packet sockets.
--.IR /tools/testing/selftests/net/psock_tpacket.c
-+.IR tools/testing/selftests/net/psock_tpacket.c
- contains example source code for all available versions of
- .BR PACKET_RX_RING
- and
-
-base-commit: 27482d700b5d2d062f994bee2c79aac7a5d9d17c
--- 
-2.29.2
+On 12/15/2020 11:01 AM, Alejandro Colomar (man-pages) wrote:
+> Hi,
+>
+> There's a bug report: https://bugzilla.kernel.org/show_bug.cgi?id=210655
+>
+> [[
+> Under "Ptrace access mode checking", the documentation states:
+>    "1. If the calling thread and the target thread are in the same thread
+> group, access is always allowed."
+>
+> This is incorrect. A thread may never attach to another in the same group.
+>
+> Reference, ptrace_attach()
+> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/kernel/ptrace.c?h=v5.9.14#n380
+> ]]
+>
+> I just wanted to make sure that it is a bug in the manual page, and not
+> in the implementation.
+>
+>
+> Thanks,
+>
+> Alex
+>
 
