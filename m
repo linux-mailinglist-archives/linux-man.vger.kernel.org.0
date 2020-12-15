@@ -2,100 +2,126 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0E7892DAA09
-	for <lists+linux-man@lfdr.de>; Tue, 15 Dec 2020 10:25:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1C0C92DAE03
+	for <lists+linux-man@lfdr.de>; Tue, 15 Dec 2020 14:32:36 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727536AbgLOJZQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 15 Dec 2020 04:25:16 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51704 "EHLO
+        id S1727093AbgLONbY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 15 Dec 2020 08:31:24 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33326 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726749AbgLOJZM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 15 Dec 2020 04:25:12 -0500
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0C49AC06179C
-        for <linux-man@vger.kernel.org>; Tue, 15 Dec 2020 01:24:26 -0800 (PST)
-Received: by mail-ej1-x644.google.com with SMTP id lt17so26651958ejb.3
-        for <linux-man@vger.kernel.org>; Tue, 15 Dec 2020 01:24:25 -0800 (PST)
+        with ESMTP id S1726771AbgLONbX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 15 Dec 2020 08:31:23 -0500
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 82C6BC0617B0;
+        Tue, 15 Dec 2020 05:30:43 -0800 (PST)
+Received: by mail-wm1-x344.google.com with SMTP id 3so18496924wmg.4;
+        Tue, 15 Dec 2020 05:30:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=4Hu9q15O2SIOVCfKIdpXbfZskDOcHOKY8olGzm/ogB4=;
-        b=U8Z+YSq6w1unYHdKlb+m91hcwl5AuMHoYHJl5F5y/DT2l8wJ0olUO0eEeUDOu8c+hC
-         ZxgnnDhxlw5Gl23x74UbRVK2cLa5DvkGnWLubkuoZQbDt/eMMuuCYVinhTsKnXM7Zz9S
-         RTGi3kyRPpC22i7iGYh2bO4HTZDiZI17KiOVkWzm6pnA4B29lRuy67Zpz8cUbf+Uogs+
-         u6hy5f/8bm9CcLxhrRo4r0OnDrTV7lWB23eoGIZ6i/oB1WrExJtAIuXTesUSqXZVCbg1
-         qW2GSu2+TabvUv3sNkAJeR0wzeEPAwIWArqZzKAMo7Icj8WNb+W3kwvRzHN2KJrbmzmO
-         PXiw==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=hViOtnvGY+4JO9VZW4NA9Ghhzl7JHbPghEwPrt1jtVA=;
+        b=Ef1XRfiw3/YMjfpkmB3NKEy4+KAYGtJ/+5Yxui3w2yjbH1Gt/dX4iseHBTlgLJjd20
+         gYS0onONCVD/HrfoC8e3fMUi6Z3LdJJdGCF4B/Um+kw/DHUDYbWXyXSDS/rrg2YsjBJa
+         qQmJZczHi1Xvg3Ef38xPYQqTMMxHx2unXWexJ8r4hl0VxMxzT5AaZRrfg/UGWaAbZoqA
+         LAp4H6IeS3k6Fghi+mhE06nCPQTbDMpk000kVfv3o5tDuAhUvx/d5hWKWIlxW3V4Qdlz
+         HKZRcpnWLTbEJs3t6OGooiaszoWYFiAuibNR+52c0riuvNqU1tI0DuSKE9CpOLEBU+rE
+         JHXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=4Hu9q15O2SIOVCfKIdpXbfZskDOcHOKY8olGzm/ogB4=;
-        b=r4NmMvFFvhFAGwcioqxlIUdyuFJx5gRwo3kuEXtYJ4Iw6jYwmCjzkfzDqpeRYRVZ2p
-         dCtMhPNXK8Mw61LxMthI+C2b1P7HARjd3NPbiMl9K3cCdvMOODNI9DNmakiJn9Q4ZCtf
-         CaMQF3A6XTrnn1Bqpf8NoFut6Yk0PiQ1eavHg0gGY/cYqwK6OT6oyIu1bN7XArP1TfIR
-         c8CFOumoBxFOJHevExAErEEx5yhFGQ8Vmh/aOY7AEnqa8CSCYayKHboUe0FpW85uknr0
-         RkD84qqaeKkAKlrkL1sUcS6hTuqPg0gBUilXhWX40+cx0hu39inEY5Hf5UXfhNnHWZjm
-         eIcg==
-X-Gm-Message-State: AOAM532yjs6gyoDR2sbGY/JbOtdRu0CWIMA5AVFJX/I0insUDqmXSP6c
-        cAvHVF4EQ2d111SPxOXPrXWMvpaGA6Vq5w==
-X-Google-Smtp-Source: ABdhPJwsZKLW1p55z1qElBgQSRsL7UlXjq7Ic6LvG4jV/lyz0cJg7f4ULi+0diXxQV21mGEu7PlcAA==
-X-Received: by 2002:a17:906:3712:: with SMTP id d18mr26925928ejc.178.1608024264571;
-        Tue, 15 Dec 2020 01:24:24 -0800 (PST)
-Received: from ?IPv6:2001:a61:2534:8201:1503:5ce5:5a20:9c25? ([2001:a61:2534:8201:1503:5ce5:5a20:9c25])
-        by smtp.gmail.com with ESMTPSA id ho12sm890469ejc.45.2020.12.15.01.24.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Dec 2020 01:24:24 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] strtol.3: tfix
-To:     "John A. Leuenhagen" <john@zlima12.com>
-References: <20201215030359.bwevjq5ovqnncuan@Lima-1.maple.zlima12.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <fc7be6d5-2ec1-c15e-96e9-f7b67472ff27@gmail.com>
-Date:   Tue, 15 Dec 2020 10:24:22 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=hViOtnvGY+4JO9VZW4NA9Ghhzl7JHbPghEwPrt1jtVA=;
+        b=uA/HtLxgnTZeuv4umBn2dFD/QQ87ic/08KMZqwQ6AK8vj2znlkkmovL97a2mia1h6+
+         ioPGwYenin0DC2bUwh63cX+KxZIkK55KwjEipxLAHdSbhilnEYAAN8/J3JttqxXJsf4m
+         nQsLRirBa/BvTZ4eK0lXInR75c19gzvzgJQKNjwQyQ6cvWS7X5AVameE+hjfj5JaXg/r
+         xjtdeNaNjknsVIxU7MuSP3rQHT0bx8pFyoFJ3oF8rohQFtqI6mJHNcRMt444zZntU7kn
+         7sclWVuuzAP1048jxES9kYtvoULmIwlhQ57tNviWqbhxKeZUsLvNj/4Pw+7Lu46+q+Jr
+         XVCw==
+X-Gm-Message-State: AOAM533sQ2Sg6R6nzRc3ZlgOIccuNXD4uPqxMNUNqgxnFGWNb0swSu33
+        10EBGi+fSYTofgFSkeSRIb8=
+X-Google-Smtp-Source: ABdhPJxu0j/rXyBcT8i0pqy+eH/ROTi4+4c71h3L9WrE4dLOb7tZam/y9JAqsyWuoSkrUgKVrypPgQ==
+X-Received: by 2002:a1c:40c:: with SMTP id 12mr32319066wme.40.1608039042332;
+        Tue, 15 Dec 2020 05:30:42 -0800 (PST)
+Received: from debian.vlc ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id z8sm36888479wmg.17.2020.12.15.05.30.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Dec 2020 05:30:41 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        Dave Martin <Dave.Martin@arm.com>,
+        Heinrich Schuchardt <xypron.glpk@gmx.de>,
+        linux-man@vger.kernel.org, Martin Sebor <msebor@redhat.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Vineet Gupta <vgupta@synopsys.com>,
+        linux-snps-arc@lists.infradead.org, Guo Ren <guoren@kernel.org>,
+        linux-csky@vger.kernel.org,
+        Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+        linux-mips@vger.kernel.org, Nick Hu <nickhu@andestech.com>,
+        Greentime Hu <green.hu@gmail.com>,
+        Vincent Chen <deanbo422@gmail.com>, gcc-patches@gcc.gnu.org,
+        cfe-users@lists.llvm.org, cfe-dev@lists.llvm.org
+Subject: [PATCH v6] cacheflush.2: Document __builtin___clear_cache() as a more portable alternative
+Date:   Tue, 15 Dec 2020 14:30:20 +0100
+Message-Id: <20201215133019.14411-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.29.2
+In-Reply-To: <e2424619-2a5a-a44a-2dc0-a16310725250@gmail.com>
+References: <e2424619-2a5a-a44a-2dc0-a16310725250@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20201215030359.bwevjq5ovqnncuan@Lima-1.maple.zlima12.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 12/15/20 4:03 AM, John A. Leuenhagen wrote:
-> Signed-off-by: John A. Leuenhagen <john@zlima12.com>
+Reported-by: Heinrich Schuchardt <xypron.glpk@gmx.de>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+Cc: Martin Sebor <msebor@redhat.com>
+Cc: Dave Martin <Dave.Martin@arm.com>
+---
 
-Thanks, John. Patch applied.
+v6:
+- GCC has always exposed 'void *', as Martin Sebor noted.
+  It's Clang (and maybe others) that (following GCC's docs)
+  exposed 'char *'.
 
-Cheers,
+ man2/cacheflush.2 | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-Michael
-
-> ---
->  man3/strtol.3 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man3/strtol.3 b/man3/strtol.3
-> index 549138726..26b62664a 100644
-> --- a/man3/strtol.3
-> +++ b/man3/strtol.3
-> @@ -198,7 +198,7 @@ and then determine if an error occurred by checking whether
->  has a nonzero value after the call.
->  .PP
->  According to POSIX.1,
-> -in locales other than the "C" and "POSIX",
-> +in locales other than "C" and "POSIX",
->  these functions may accept other,
->  implementation-defined numeric strings.
->  .PP
-> 
-
-
+diff --git a/man2/cacheflush.2 b/man2/cacheflush.2
+index aba625721..7a2eed506 100644
+--- a/man2/cacheflush.2
++++ b/man2/cacheflush.2
+@@ -86,6 +86,30 @@ On Linux, this call first appeared on the MIPS architecture,
+ but nowadays, Linux provides a
+ .BR cacheflush ()
+ system call on some other architectures, but with different arguments.
++.SH NOTES
++Unless you need the finer grained control that this system call provides,
++you probably want to use the GCC built-in function
++.BR __builtin___clear_cache (),
++which provides a portable interface
++across platforms supported by GCC and compatible compilers:
++.PP
++.in +4n
++.EX
++.BI "void __builtin___clear_cache(void *" begin ", void *" end );
++.EE
++.in
++.PP
++On platforms that don't require instruction cache flushes,
++.BR __builtin___clear_cache ()
++has no effect.
++.PP
++.IR Note :
++On some GCC-compatible compilers,
++the prototype for this built-in function uses
++.I char *
++instead of
++.I void *
++for the parameters.
+ .SH BUGS
+ Linux kernels older than version 2.6.11 ignore the
+ .I addr
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.29.2
+
