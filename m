@@ -2,126 +2,98 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1C0C92DAE03
-	for <lists+linux-man@lfdr.de>; Tue, 15 Dec 2020 14:32:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B5D492DB21B
+	for <lists+linux-man@lfdr.de>; Tue, 15 Dec 2020 18:03:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727093AbgLONbY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 15 Dec 2020 08:31:24 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33326 "EHLO
+        id S1725901AbgLORCP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 15 Dec 2020 12:02:15 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37756 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726771AbgLONbX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 15 Dec 2020 08:31:23 -0500
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 82C6BC0617B0;
-        Tue, 15 Dec 2020 05:30:43 -0800 (PST)
-Received: by mail-wm1-x344.google.com with SMTP id 3so18496924wmg.4;
-        Tue, 15 Dec 2020 05:30:43 -0800 (PST)
+        with ESMTP id S1728853AbgLORCJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 15 Dec 2020 12:02:09 -0500
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 851CAC06179C;
+        Tue, 15 Dec 2020 09:01:28 -0800 (PST)
+Received: by mail-wr1-x42a.google.com with SMTP id w5so16844424wrm.11;
+        Tue, 15 Dec 2020 09:01:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=hViOtnvGY+4JO9VZW4NA9Ghhzl7JHbPghEwPrt1jtVA=;
-        b=Ef1XRfiw3/YMjfpkmB3NKEy4+KAYGtJ/+5Yxui3w2yjbH1Gt/dX4iseHBTlgLJjd20
-         gYS0onONCVD/HrfoC8e3fMUi6Z3LdJJdGCF4B/Um+kw/DHUDYbWXyXSDS/rrg2YsjBJa
-         qQmJZczHi1Xvg3Ef38xPYQqTMMxHx2unXWexJ8r4hl0VxMxzT5AaZRrfg/UGWaAbZoqA
-         LAp4H6IeS3k6Fghi+mhE06nCPQTbDMpk000kVfv3o5tDuAhUvx/d5hWKWIlxW3V4Qdlz
-         HKZRcpnWLTbEJs3t6OGooiaszoWYFiAuibNR+52c0riuvNqU1tI0DuSKE9CpOLEBU+rE
-         JHXQ==
+        h=to:cc:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=6+fxsHFgSx+IM6xhU+y8t26uFC5ICSSzXCYby0B3h5U=;
+        b=DANblccvTpgbuSB+n3503apV1OSElbtkF7PmQZbw4z/geCtzhjkYIgjVR9SDwpbXi6
+         oj/QzPEkW7bTs5vHkUXxJZNBoIkhf2HvYndEAg9fBIm+YGxTyPCJh8PzQPEcdSlKEoK1
+         jqPZUzvvP74R8smUSSrfjNsCaDxvU+AUM0rgQmr8VdjSqBJRzCllfaWEMo83UjBWe3N+
+         +QwLuzZPddXGj1++7JLQtbI6v0PcvdmwMiDwGY4T6m1car366LswPy1wSpNkZkNLA4FJ
+         LQlpeN+siQuJ2Aqh7gb7pEavX5Yq+juf/HkK3iuU8kqApwoJIVMmAxDbCO1jRCmsboTM
+         jCQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=hViOtnvGY+4JO9VZW4NA9Ghhzl7JHbPghEwPrt1jtVA=;
-        b=uA/HtLxgnTZeuv4umBn2dFD/QQ87ic/08KMZqwQ6AK8vj2znlkkmovL97a2mia1h6+
-         ioPGwYenin0DC2bUwh63cX+KxZIkK55KwjEipxLAHdSbhilnEYAAN8/J3JttqxXJsf4m
-         nQsLRirBa/BvTZ4eK0lXInR75c19gzvzgJQKNjwQyQ6cvWS7X5AVameE+hjfj5JaXg/r
-         xjtdeNaNjknsVIxU7MuSP3rQHT0bx8pFyoFJ3oF8rohQFtqI6mJHNcRMt444zZntU7kn
-         7sclWVuuzAP1048jxES9kYtvoULmIwlhQ57tNviWqbhxKeZUsLvNj/4Pw+7Lu46+q+Jr
-         XVCw==
-X-Gm-Message-State: AOAM533sQ2Sg6R6nzRc3ZlgOIccuNXD4uPqxMNUNqgxnFGWNb0swSu33
-        10EBGi+fSYTofgFSkeSRIb8=
-X-Google-Smtp-Source: ABdhPJxu0j/rXyBcT8i0pqy+eH/ROTi4+4c71h3L9WrE4dLOb7tZam/y9JAqsyWuoSkrUgKVrypPgQ==
-X-Received: by 2002:a1c:40c:: with SMTP id 12mr32319066wme.40.1608039042332;
-        Tue, 15 Dec 2020 05:30:42 -0800 (PST)
-Received: from debian.vlc ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id z8sm36888479wmg.17.2020.12.15.05.30.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Dec 2020 05:30:41 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        Dave Martin <Dave.Martin@arm.com>,
-        Heinrich Schuchardt <xypron.glpk@gmx.de>,
-        linux-man@vger.kernel.org, Martin Sebor <msebor@redhat.com>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Vineet Gupta <vgupta@synopsys.com>,
-        linux-snps-arc@lists.infradead.org, Guo Ren <guoren@kernel.org>,
-        linux-csky@vger.kernel.org,
-        Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-        linux-mips@vger.kernel.org, Nick Hu <nickhu@andestech.com>,
-        Greentime Hu <green.hu@gmail.com>,
-        Vincent Chen <deanbo422@gmail.com>, gcc-patches@gcc.gnu.org,
-        cfe-users@lists.llvm.org, cfe-dev@lists.llvm.org
-Subject: [PATCH v6] cacheflush.2: Document __builtin___clear_cache() as a more portable alternative
-Date:   Tue, 15 Dec 2020 14:30:20 +0100
-Message-Id: <20201215133019.14411-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <e2424619-2a5a-a44a-2dc0-a16310725250@gmail.com>
-References: <e2424619-2a5a-a44a-2dc0-a16310725250@gmail.com>
+        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=6+fxsHFgSx+IM6xhU+y8t26uFC5ICSSzXCYby0B3h5U=;
+        b=Z8cq95rMb33zVZafjwd7awOhHNav1ZiR3a1/wh7G4EhlbDTZZ05rll5CWWblNAGWnH
+         tAO07oXE+sFkeyJJ+q24QVVJR1CnqcnWI+sqKL/qY+fU9em0GJV+zH+sABHs+7u+VmtP
+         RnZSXza8gsc+VkEmbPv9ssImEpoKDSJQfs9yNPKiIIvmFKJdqCbRTjJLIngfSOaGUz8i
+         MZYlljHPNaObkPOCASx3CwekuBgaGnC/oNkU3ezjPcVgpWmxnVpU6MekPTqXhqMkx4xp
+         I6ovM9KOS5FIpYFl1B1teo8uJ7f+PamDzMM8Sjjdq97M1t23tAdSuvgNrTYPK9PMJvvr
+         +rXg==
+X-Gm-Message-State: AOAM531xt95ejDYF1zZK5vvtX7hmw5E+VCeF6Mh4WaYom4kuwBBObGiO
+        YFUhF/GFQUuqFglQjOox8f/Irng5F8Y=
+X-Google-Smtp-Source: ABdhPJwSCMAC6PbaCbodENPxp4L/4NBjf80I92gDUGteecddCx45uZ8gkxeGP+ojRCjoYZ2gK4FL7A==
+X-Received: by 2002:adf:9e4c:: with SMTP id v12mr3620110wre.22.1608051687263;
+        Tue, 15 Dec 2020 09:01:27 -0800 (PST)
+Received: from [192.168.1.143] ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id z2sm38489203wml.23.2020.12.15.09.01.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Dec 2020 09:01:26 -0800 (PST)
+To:     Pavel Emelyanov <xemul@openvz.org>,
+        Oleg Nesterov <oleg@tv-sign.ru>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Kees Cook <keescook@chromium.org>, Jann Horn <jann@thejh.net>
+Cc:     Ted Estes <ted@softwarecrafters.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        linux-kernel <linux-kernel@vger.kernel.org>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Subject: [Bug 210655] ptrace.2: documentation is incorrect about access
+ checking threads in same thread group
+Message-ID: <feef4f9a-4ed8-8a2e-d330-88e7f516faae@gmail.com>
+Date:   Tue, 15 Dec 2020 18:01:25 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Reported-by: Heinrich Schuchardt <xypron.glpk@gmx.de>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-Cc: Martin Sebor <msebor@redhat.com>
-Cc: Dave Martin <Dave.Martin@arm.com>
----
+Hi,
 
-v6:
-- GCC has always exposed 'void *', as Martin Sebor noted.
-  It's Clang (and maybe others) that (following GCC's docs)
-  exposed 'char *'.
+There's a bug report: https://bugzilla.kernel.org/show_bug.cgi?id=210655
 
- man2/cacheflush.2 | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+[[
+Under "Ptrace access mode checking", the documentation states:
+  "1. If the calling thread and the target thread are in the same thread
+group, access is always allowed."
 
-diff --git a/man2/cacheflush.2 b/man2/cacheflush.2
-index aba625721..7a2eed506 100644
---- a/man2/cacheflush.2
-+++ b/man2/cacheflush.2
-@@ -86,6 +86,30 @@ On Linux, this call first appeared on the MIPS architecture,
- but nowadays, Linux provides a
- .BR cacheflush ()
- system call on some other architectures, but with different arguments.
-+.SH NOTES
-+Unless you need the finer grained control that this system call provides,
-+you probably want to use the GCC built-in function
-+.BR __builtin___clear_cache (),
-+which provides a portable interface
-+across platforms supported by GCC and compatible compilers:
-+.PP
-+.in +4n
-+.EX
-+.BI "void __builtin___clear_cache(void *" begin ", void *" end );
-+.EE
-+.in
-+.PP
-+On platforms that don't require instruction cache flushes,
-+.BR __builtin___clear_cache ()
-+has no effect.
-+.PP
-+.IR Note :
-+On some GCC-compatible compilers,
-+the prototype for this built-in function uses
-+.I char *
-+instead of
-+.I void *
-+for the parameters.
- .SH BUGS
- Linux kernels older than version 2.6.11 ignore the
- .I addr
+This is incorrect. A thread may never attach to another in the same group.
+
+Reference, ptrace_attach()
+https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/kernel/ptrace.c?h=v5.9.14#n380
+]]
+
+I just wanted to make sure that it is a bug in the manual page, and not
+in the implementation.
+
+
+Thanks,
+
+Alex
+
 -- 
-2.29.2
-
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es
