@@ -2,137 +2,140 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DA97B2DD58A
-	for <lists+linux-man@lfdr.de>; Thu, 17 Dec 2020 17:56:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C0DA12DD699
+	for <lists+linux-man@lfdr.de>; Thu, 17 Dec 2020 18:53:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728161AbgLQQ4p (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 17 Dec 2020 11:56:45 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59092 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728055AbgLQQ4o (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Dec 2020 11:56:44 -0500
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 96757C061794
-        for <linux-man@vger.kernel.org>; Thu, 17 Dec 2020 08:56:03 -0800 (PST)
-Received: by mail-wm1-x336.google.com with SMTP id a6so6145401wmc.2
-        for <linux-man@vger.kernel.org>; Thu, 17 Dec 2020 08:56:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=E+vWKpyWDDgJ4PFLnHfDaH+0Ty0pAIBCHmpWjPCHYmU=;
-        b=KTmWcTB7H5TXvPKuNWAyUdojhCYsqDNQ+J9v7knTT38yPx0BN+nMCT2ERezfOKOLU2
-         9hrGWWQ9PXEh61Yz3P4K++xmSFwQ0dPT5wmPvaTnLtnbiKfxE04kBb8WqhNnLlVkj1AU
-         QcYD4LmvKJ0f9+cPkbtd7BHbZELdQh1ZoMEdRuyJz/nAURhDa+Vg5TtFwEqrfR71UVc5
-         LZ/rLKXxxhv7emCBsyZ5+hVOkIVKmXwqYE/YhRaVgmpgAKi5Xvc1QFwc4/itS8vcYp6j
-         CHz/iVuwfX4/hWChInQ/fN/SJFLyLmfPCHf5ZV1Ge5eAhYQeNclr7BMhN/KN0z5Q7xKe
-         YmWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=E+vWKpyWDDgJ4PFLnHfDaH+0Ty0pAIBCHmpWjPCHYmU=;
-        b=AV2I1UGq//rZa48hTWb3SnTD08ygmOWMfmEaSeW/xo1vclmMs3sQxxW0WGGyCEBXr1
-         Jej4y+CGGIzXf+9rG6Q77YrFJap1l2kZAK5YDGlC0RpM2CQE1rdED94aDhOyaW/aR8wC
-         6Xj99dJb7OcjtgtYoucsvTiTfKKIw7qp+eptE1/IVjqulIVaXudL4ORGhExesqOejFfw
-         FO5em/VR8qw3u8p8olqyzwBgFxahTK5pHRBB9D3WeTqINatzoNnYQGPPOCWorT6nwwRN
-         0pvBn5MhnO32knIbscQeygKqvTrhSsx0GM1xyWPdXusHRxNZcucnY9zlsz9CX9v4fltf
-         kIVA==
-X-Gm-Message-State: AOAM531lwTMbu8Qh7im3+QAEdBGiWgkH8mok+wozTdeUgKMAcKEv7b44
-        S02EksPxkzAvQhaU3RkV3l4dSVvm+Hg=
-X-Google-Smtp-Source: ABdhPJyDl+UI0xFhEFiiTp8SDTb6enXnAiOF4V+h9bE1VeqSZlg9PIe21q0nz0/X4ylUjgGbLKm7cQ==
-X-Received: by 2002:a1c:3b02:: with SMTP id i2mr195717wma.141.1608224162294;
-        Thu, 17 Dec 2020 08:56:02 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id s6sm10418276wro.79.2020.12.17.08.56.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Dec 2020 08:56:01 -0800 (PST)
-Subject: Re: [PATCH 2/2] filesystems.5: note ncpfs removal from kernel
-To:     =?UTF-8?Q?Ahelenia_Ziemia=c5=84ska?= 
-        <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-References: <4443342faae85cfa74bae6efa1a12ff40efe18c0.1608218767.git.nabijaczleweli@nabijaczleweli.xyz>
- <365585882722e9c64478aab1b558923e3153b671.1608218767.git.nabijaczleweli@nabijaczleweli.xyz>
- <71269cb4-db6e-2908-5c42-2747eb930a53@gmail.com>
- <20201217164028.rphpncqtdavr27uy@tarta.nabijaczleweli.xyz>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <09db431f-0fac-f1d3-be94-ee2cc3b0921b@gmail.com>
-Date:   Thu, 17 Dec 2020 17:56:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+        id S1727388AbgLQRxH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 17 Dec 2020 12:53:07 -0500
+Received: from [139.28.40.42] ([139.28.40.42]:50024 "EHLO
+        tarta.nabijaczleweli.xyz" rhost-flags-FAIL-FAIL-OK-OK)
+        by vger.kernel.org with ESMTP id S1726291AbgLQRxH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Dec 2020 12:53:07 -0500
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 4179F3601E2;
+        Thu, 17 Dec 2020 18:52:35 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=nabijaczleweli.xyz;
+        s=202006; t=1608227555;
+        bh=WbPqxZ2MDsuc9q50DVzYyws65JAWEZt0Ct8yv1NLhv8=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=B2AJEDvh0NdUqm0L7JAk4Z/AFQzEiDIlDuvdi/XqAkpjbm1Zmrg8S6TaxIjeZ79Oy
+         91tVldtck9x3hbENLEg/LeVgrv7ZhuqMTBiGSCfN2Kk0F6xWdVgmad2eLiltRc5+DO
+         fFkCDuTki+oDFi/OjfS8XcqwctEbtM9Yw27Maonhq7YZg7fxcx6NsofEPSjncs4Ae0
+         iqFW/0PBD476JwowKKbEBKMGsnxM4G90R8KqDv/hibnvVX6pHIPYdLc08cuVwVc9G5
+         SlkIOLLARiHMNplv+rVQeluCstRtQKqZVtHW5VWMSpxl/WwpVBQZReI9pG0h51pi26
+         +ypjmCEXLAXlA==
+Date:   Thu, 17 Dec 2020 18:52:34 +0100
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: [PATCH] filesystems.5: rephrase NTFS description to avoid
+ awkward (and wrong) possessive of MS Windows
+Message-ID: <20201217175234.gxngpbu2mhll2fdz@tarta.nabijaczleweli.xyz>
+References: <7b8f5a9ada6202a3f9882e06a0a3ca9c193c9000.1608218767.git.nabijaczleweli@nabijaczleweli.xyz>
+ <9374ff73-4562-c5c1-29e9-c347730f49a0@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20201217164028.rphpncqtdavr27uy@tarta.nabijaczleweli.xyz>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="c4n4ijvdbegl2hyf"
+Content-Disposition: inline
+In-Reply-To: <9374ff73-4562-c5c1-29e9-c347730f49a0@gmail.com>
+User-Agent: NeoMutt/20201127
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Ahelenia,
 
-Please, could you append that into the first paragraph?
-I feel 3 paragraphs is too much for a fs that has been already removed.
+--c4n4ijvdbegl2hyf
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-[
-       ncpfs     is  a network filesystem that supports the NCP
-                 protocol, used by Novell NetWare.  It was removed
-                 from the kernel in 4.17.
+On Thu, Dec 17, 2020 at 05:17:51PM +0100, Alejandro Colomar (man-pages) wro=
+te:
+> I don't know much about MS,
+> but AFAIK, it was MS who designed FAT32.
+>=20
+> I'll quote Wikipedia, although it may be incorrect:
+These are good points, though the miss some of the depth of this issue.
 
-                 To use ncpfs, you need special programs, which can
-                 be found at ⟨ftp://linux01.gwdg.de/pub/ncpfs⟩.
-]
+The main point I was driving at with this patch was to fix
+"Microsoft Window's FAT filesystems" (i.e. FAT filesystems which belong
+ to Microsoft Window, which is decidedly wrong).
 
-Something like this.  This way, the "removed" notice is also closer to
-the name.
+FAT32 first shipped with MS-DOS 7.1, as part of Windows 95 OSR2,
+but it's a (relatively) simple logical extension of the previous FATx
+filesystems (16 and 12 as we know and love them today,
+ I don't think the PC ever saw 8), hence the "VFAT" driver name =E2=80=92
+calling FAT-anything a Windows filesystem would be a flat-out lie,
+calling it a Microsoft filesystem would be, uh, facetious.
 
-Thanks,
+NTFS (as part of Windows NT), on the other hand, is wholly different
+WRT the scope and feature-set (it does borrow some layouting from FAT,
+ but reading NTFS as FAT doesn't get you very far, or much).
 
-Alex
+The replacing bit is also questionable, especially in a.d. 2020:
+while it is true that you cannot install NT on FAT (after a certain
+ point? my memory ain't what it used to be), and must therefore
+replace your existing FAT partitions with NTFS during upgrades;
+Windows NT 4.0, the last product to be NT-branded came out in 1996,
+i.e. you could not install Windows on FAT (and, therefore,
+ upgrade it to NTFS, replacing it) during my entire lifetime.
 
-P.S.: Sorry for not spotting this before :/
+Indeed, in $(date +%Y) we live in a post-NTFS world =E2=80=92 putting NTFS =
+in
+the same class as FAT beyond "is a filesystem" is a joke, but in my
+haste and pursuit of a small diff I didn't consider the above.
+Please see below for updated scissor-patch.
 
-On 12/17/20 5:40 PM, Ahelenia Ziemiańska wrote:
-> On Thu, Dec 17, 2020 at 05:23:06PM +0100, Alejandro Colomar (man-pages) wrote:
->> Could you remove the '-rc4' part from the version?
->> So that we show the first stable version where it was removed.
-> Sure thing, see updated scissor-patch below:
-> 
-> -- >8 --
-> Subject: [PATCH 2/2] filesystems.5: note ncpfs removal from kernel
-> 
-> Relevant Linux commits:
->  * moved to staging in 1bb8155080c652c4853e6228f8f0d262b3049699
->    (describe: v4.15-rc1-129-g1bb8155080c6) in Nov 2017,
->    described as "broken" and "obsolete"
->  * purged in bd32895c750bcd2b511bf93917bf7ae723e3d0b6
->    (describe: v4.17-rc3-1010-gbd32895c750b) in Jun 2018,
->    "since no one has complained or even noticed it was gone"
-> 
-> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
-> ---
->  man5/filesystems.5 | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/man5/filesystems.5 b/man5/filesystems.5
-> index 6ec2de9f0..1eda05b22 100644
-> --- a/man5/filesystems.5
-> +++ b/man5/filesystems.5
-> @@ -160,6 +160,10 @@ To use
->  you need special programs, which can be found at
->  .UR ftp://ftp.gwdg.de\:/pub\:/linux\:/misc\:/ncpfs
->  .UE .
-> +.IP
-> +The
-> +.B ncpfs
-> +filesystem was removed from the kernel in 4.17.
->  .TP
->  .B nfs
->  is the network filesystem used to access disks located on remote computers.
-> 
+Best,
+Ahelenia
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es
+-- >8 --
+Subject: [PATCH] filesystems.5: reword ntfs description, remove FAT
+ comparison
+
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man5/filesystems.5 | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/man5/filesystems.5 b/man5/filesystems.5
+index 301c8fb83..3727d7a7a 100644
+--- a/man5/filesystems.5
++++ b/man5/filesystems.5
+@@ -169,9 +169,8 @@ filesystem was removed from the kernel in 4.17.
+ is the network filesystem used to access disks located on remote computers.
+ .TP
+ .B ntfs
+-replaces Microsoft Window's FAT filesystems (VFAT, FAT32).
+-It has reliability, performance, and space-utilization enhancements
+-plus features like ACLs, journaling, encryption, and so on.
++is the filesystem native to Microsoft Windows NT,
++supporting features like ACLs, journaling, encryption, and so on.
+ .TP
+ .B proc
+ is a pseudo filesystem which is used as an interface to kernel data
+--=20
+2.20.1
+
+--c4n4ijvdbegl2hyf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAl/bmuEACgkQvP0LAY0m
+WPF6QA//Z8pc+pcv+FTJB/rpgYjpkibJsugIcPhJcAr/SeOeax4RQ9tL7PEMedQ+
+J8ZM1h354jVO9Tt/K0KcSS8eWY2tgnAOxVVuyA9/XsvWBNHR4OFEZQmotaZmJkRD
+97ObzraIZnSZsVxAQ466B6m+tDfjFqU6xF8Gd8yo6jf/9DwW0hzfskuAg+Nfp2Mw
+cR0Uh3Qq5U4DuA3a5YFmB4OZpLkDNLGYCnknusc1AgshDpZyvFvUlt6qJuS8dHUX
+fSjNtC+L2dYQ720DjNYJbtMWOOpMY1snTjuWDL/2THI8+QcQOlIxtqxMHg/XqtDC
+6glAURpFvYx1jQnO9YqWGM2LoLyM5iPQr8nuqQMNJDEK4ZTDiIRYr36EqCsMZiJQ
+wtahpK3NMDDpAfp1GgCQc0LUmXi1LruCuSfEa5Ja9KbtfYthTb6y24t2uesxBEyC
+NTQSHPYDs9wf30Y8oALVK6AXcrLTG/IWCjaB1bAUCX+kddGSuH2KrO7nxJT7FAFc
+ya9cbH8uEKn84P9dv+MVYjUULfFSUyea4oFAzighmYmQaB7tmb2fl/MZbvZ2QJH9
+E7PaKeJEMFfuxcpdAbjJsCKlhuZ9ErDRyBVu3XyqIgyNBe2buAghe0sxpOx9kueG
+PuJPHksG0BAurGC5efCwR9pUsUsqgIaKoV7UFifl5B3IqbXefi4=
+=H3EK
+-----END PGP SIGNATURE-----
+
+--c4n4ijvdbegl2hyf--
