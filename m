@@ -2,104 +2,113 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5870E2DD53C
-	for <lists+linux-man@lfdr.de>; Thu, 17 Dec 2020 17:31:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 639762DD55A
+	for <lists+linux-man@lfdr.de>; Thu, 17 Dec 2020 17:41:05 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729021AbgLQQ2y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 17 Dec 2020 11:28:54 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54820 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728158AbgLQQ2x (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Dec 2020 11:28:53 -0500
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4E318C061282
-        for <linux-man@vger.kernel.org>; Thu, 17 Dec 2020 08:28:13 -0800 (PST)
-Received: by mail-wr1-x429.google.com with SMTP id d26so13963360wrb.12
-        for <linux-man@vger.kernel.org>; Thu, 17 Dec 2020 08:28:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=LbEsGQuLuCOtICXxZSnWQ7HsEiDjvbFZVUxPG1dJTaU=;
-        b=lP1jjYT6nxo8rtnP5Exhmj23kXMjWU33HgTQ3dSMn3v3eVSoOidPAwGz1maDc2z8sQ
-         DfvA0Dqgn5/HSq/jw4mg03nO3CNMnl7VQD287xrDtMVipYGDDr2KUvEMOjXN5TdbWwSM
-         +YLt3YYNbRi1WaaGtNcgoY8Ng7vZCu8msUTqKOproP2bMrPQozOoSn6awZwS4SiWEYEG
-         NVIU2e0eqSyiTFkZ0meuWLriZRzRfulSXq8gloqr55PAW0n1/KrGZSX1AvHmllGgIedk
-         GCKfBjt40yIHzXtF9xJ70v2Bcps5YJd0g+SHURbnsEI6Xi74WixlrvAV4NTBDBpDrcFh
-         5K8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=LbEsGQuLuCOtICXxZSnWQ7HsEiDjvbFZVUxPG1dJTaU=;
-        b=dVoZXc/73daT9RIVAkmZ9QOqZH2B+FfFQYQ1uWFI6Wp9G+ljmAXC7r8KW8Sdgg1anT
-         7W+4A36MBH9yxPc3xTs/6LigXe/1176sXB374YYcRp4aPU8bOUWn7JLzHuxSkwew0OhJ
-         Q2YnkmGDpH5uTcx/BIVOSuF+F8BtpDXtHriiU8WQuqvLqFUk36hkU8x8UmtlV9Nv0FG2
-         pbXIt+VRkn38rWU3Gg9WTM7MJHxDK5W2kzGjSgaJp5QMuClAA6lNcmgE35BQdPuNFDuv
-         2K6HPNAW1vukiNqYVfNWKSYbxOoO2feKUJm3aDnpj84sPXq8cLeDYvK1b+/My8UyYYwW
-         dAwA==
-X-Gm-Message-State: AOAM5321S4+no8aLT3TwTsvJiVDAQqYyemQDbsNfo+B54VPW3EPzPFjd
-        F6yi7c7KtRlfrLMN/4QTJ46BtpkLcoA=
-X-Google-Smtp-Source: ABdhPJxx4KKINM1+v1SuhoAhpntf7J/4DlGk4lEZOSTxlTtrMS+eX4Rl2QoQYUZXDbtnSvMtq7Pozw==
-X-Received: by 2002:adf:f605:: with SMTP id t5mr43862310wrp.39.1608222492119;
-        Thu, 17 Dec 2020 08:28:12 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id z64sm8550291wme.10.2020.12.17.08.28.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Dec 2020 08:28:11 -0800 (PST)
-Subject: Re: [PATCH 1/2] filesystems.5: fix link to userspace tooling for
- ncpfs
-To:     =?UTF-8?Q?Ahelenia_Ziemia=c5=84ska?= 
-        <nabijaczleweli@nabijaczleweli.xyz>, linux-man@vger.kernel.org
+        id S1727388AbgLQQlB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 17 Dec 2020 11:41:01 -0500
+Received: from [139.28.40.42] ([139.28.40.42]:49278 "EHLO
+        tarta.nabijaczleweli.xyz" rhost-flags-FAIL-FAIL-OK-OK)
+        by vger.kernel.org with ESMTP id S1727160AbgLQQlB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Dec 2020 11:41:01 -0500
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id C49D53601E2;
+        Thu, 17 Dec 2020 17:40:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=nabijaczleweli.xyz;
+        s=202006; t=1608223229;
+        bh=jkfJG+6ttr33gF4zDHXFUuL/W7rLecjbt8FiwCxjoQc=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=ECx13lEmFdRZobUfxE+Cqv/HkLL+AizyAi+gSp9Talo/xSrCfq6CNP5Zy859eY6PJ
+         k1Mix7TQ3J8B3gbBhCi9O+qXHIwbAZ20V18alJmvV6fXgBwmIBBa7PfhBhqkUXxkEv
+         TRRYcGtnvHp8VP5SeOY9HB+IS6/B8iFW3V7zFwWXRRQ5W2lzutgwA+wl5wkRQPN5u5
+         MGBI8f2tkV40tdLpN6jrwWqKgLsKX112krgZtFpHNf6VyBAQAL+F3mJan+80IcaBDu
+         vtgfEnU7wYQ3dtCzoc12wsQqEj7LCqP4MC6HOSVryYtSDDs66y8B6FOn6qBcIMjcU1
+         lMx75XTUHerYA==
+Date:   Thu, 17 Dec 2020 17:40:28 +0100
+From:   Ahelenia =?utf-8?Q?Ziemia=C5=84ska?= 
+        <nabijaczleweli@nabijaczleweli.xyz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
 Cc:     Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: [PATCH 2/2] filesystems.5: note ncpfs removal from kernel
+Message-ID: <20201217164028.rphpncqtdavr27uy@tarta.nabijaczleweli.xyz>
 References: <4443342faae85cfa74bae6efa1a12ff40efe18c0.1608218767.git.nabijaczleweli@nabijaczleweli.xyz>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <f4c1d9df-cee3-dbd6-0b41-6da0cded316a@gmail.com>
-Date:   Thu, 17 Dec 2020 17:28:10 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+ <365585882722e9c64478aab1b558923e3153b671.1608218767.git.nabijaczleweli@nabijaczleweli.xyz>
+ <71269cb4-db6e-2908-5c42-2747eb930a53@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <4443342faae85cfa74bae6efa1a12ff40efe18c0.1608218767.git.nabijaczleweli@nabijaczleweli.xyz>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="c2z2fwkbulgc7sxr"
+Content-Disposition: inline
+In-Reply-To: <71269cb4-db6e-2908-5c42-2747eb930a53@gmail.com>
+User-Agent: NeoMutt/20201127
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
-On 12/17/20 4:27 PM, Ahelenia Ziemiańska wrote:
-> Corresponds to Linux commit 1b83df308f69a5a3cc59be03bd7fb23e4bcebd8e
-> 
-> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
+--c2z2fwkbulgc7sxr
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Ahelenia, patch applied.
+On Thu, Dec 17, 2020 at 05:23:06PM +0100, Alejandro Colomar (man-pages) wro=
+te:
+> Could you remove the '-rc4' part from the version?
+> So that we show the first stable version where it was removed.
+Sure thing, see updated scissor-patch below:
 
-Thanks,
+-- >8 --
+Subject: [PATCH 2/2] filesystems.5: note ncpfs removal from kernel
 
-Alex
+Relevant Linux commits:
+ * moved to staging in 1bb8155080c652c4853e6228f8f0d262b3049699
+   (describe: v4.15-rc1-129-g1bb8155080c6) in Nov 2017,
+   described as "broken" and "obsolete"
+ * purged in bd32895c750bcd2b511bf93917bf7ae723e3d0b6
+   (describe: v4.17-rc3-1010-gbd32895c750b) in Jun 2018,
+   "since no one has complained or even noticed it was gone"
 
-> ---
->  man5/filesystems.5 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man5/filesystems.5 b/man5/filesystems.5
-> index b44dba184..6ec2de9f0 100644
-> --- a/man5/filesystems.5
-> +++ b/man5/filesystems.5
-> @@ -158,7 +158,7 @@ Novell NetWare.
->  To use
->  .BR ncpfs ,
->  you need special programs, which can be found at
-> -.UR ftp://linux01.gwdg.de\:/pub\:/ncpfs
-> +.UR ftp://ftp.gwdg.de\:/pub\:/linux\:/misc\:/ncpfs
->  .UE .
->  .TP
->  .B nfs
-> 
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man5/filesystems.5 | 4 ++++
+ 1 file changed, 4 insertions(+)
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es
+diff --git a/man5/filesystems.5 b/man5/filesystems.5
+index 6ec2de9f0..1eda05b22 100644
+--- a/man5/filesystems.5
++++ b/man5/filesystems.5
+@@ -160,6 +160,10 @@ To use
+ you need special programs, which can be found at
+ .UR ftp://ftp.gwdg.de\:/pub\:/linux\:/misc\:/ncpfs
+ .UE .
++.IP
++The
++.B ncpfs
++filesystem was removed from the kernel in 4.17.
+ .TP
+ .B nfs
+ is the network filesystem used to access disks located on remote computers.
+--=20
+2.20.1
+
+--c2z2fwkbulgc7sxr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAl/bifwACgkQvP0LAY0m
+WPHOfhAAiLLS+XeeKLQCaKzTgjegwm65hSXsBf9PkcD64hLIe0RwCKFU+MUuwS8D
+9e5tmEcd9c8UQExucnvmy96zHSPoPbCu/78U0+3HhC5hYWNwPam60JvlUsvgEmiv
+0HvRByBBEYuEupNcNEY4+ILUyKd0bY/nwIPkjFFCo0LB5lwJMMLSI6B62bK7kL3Z
+JmujPyyhAvN/zyvd0e0KQEm4/XrBe40QvXK5sk/el5ioz1lR3n3sPINixKFOKonG
+QLOacczMkiVcKEepikWs4lIGr1rHRSs/ZjRX8Ioqk0hZhuA0gRK4/bk3rfz+Pa5H
+griwC19QQDVxoanangH8bNLEGZL14fHUBhzZl5s79GCRc7+HncYO07MIWa4Mi39t
+xC106rLuqqyNvjuwb2B1LbLXamjuzZnfb13lbVVWhRCv70HkXEUiZ4ITw/gO/pr6
+FhQHSt096Wj3WW8nXc4l9fA/H/7qRqm97b9y+gzCvlBDXIV8ZF5m6tx+D9LJl6VS
+jUoJLSS9Nt1iTDDQ/1vAu5hyvfhHYnK0OU3+UeBQ/R94FHg/IgxyYYESQa790mM0
+/SmluxpNQP4Doi3cIxAxL6qqUFd1TPkIRp2DiFnwabuxi+s79iO0z82r5nIQQSjW
+IscL9aq6ehwOXjpuG4hvLh/DE9VdmvYq168ihq9OGmWBSMPBiAM=
+=x1Yk
+-----END PGP SIGNATURE-----
+
+--c2z2fwkbulgc7sxr--
