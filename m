@@ -2,140 +2,128 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C0DA12DD699
-	for <lists+linux-man@lfdr.de>; Thu, 17 Dec 2020 18:53:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 051612DD6B2
+	for <lists+linux-man@lfdr.de>; Thu, 17 Dec 2020 19:01:06 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727388AbgLQRxH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 17 Dec 2020 12:53:07 -0500
-Received: from [139.28.40.42] ([139.28.40.42]:50024 "EHLO
+        id S1728186AbgLQR7u (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 17 Dec 2020 12:59:50 -0500
+Received: from [139.28.40.42] ([139.28.40.42]:50084 "EHLO
         tarta.nabijaczleweli.xyz" rhost-flags-FAIL-FAIL-OK-OK)
-        by vger.kernel.org with ESMTP id S1726291AbgLQRxH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Dec 2020 12:53:07 -0500
+        by vger.kernel.org with ESMTP id S1727543AbgLQR7u (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Dec 2020 12:59:50 -0500
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 4179F3601E2;
-        Thu, 17 Dec 2020 18:52:35 +0100 (CET)
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id ED37A3601E2;
+        Thu, 17 Dec 2020 18:59:17 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=nabijaczleweli.xyz;
-        s=202006; t=1608227555;
-        bh=WbPqxZ2MDsuc9q50DVzYyws65JAWEZt0Ct8yv1NLhv8=;
+        s=202006; t=1608227958;
+        bh=V+TLlkegsFzG1etTS/ZAiAzmFt/fVIC7mnuKGZs4gdA=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=B2AJEDvh0NdUqm0L7JAk4Z/AFQzEiDIlDuvdi/XqAkpjbm1Zmrg8S6TaxIjeZ79Oy
-         91tVldtck9x3hbENLEg/LeVgrv7ZhuqMTBiGSCfN2Kk0F6xWdVgmad2eLiltRc5+DO
-         fFkCDuTki+oDFi/OjfS8XcqwctEbtM9Yw27Maonhq7YZg7fxcx6NsofEPSjncs4Ae0
-         iqFW/0PBD476JwowKKbEBKMGsnxM4G90R8KqDv/hibnvVX6pHIPYdLc08cuVwVc9G5
-         SlkIOLLARiHMNplv+rVQeluCstRtQKqZVtHW5VWMSpxl/WwpVBQZReI9pG0h51pi26
-         +ypjmCEXLAXlA==
-Date:   Thu, 17 Dec 2020 18:52:34 +0100
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+        b=APPJjgp8+E3Y+P4MpDPVvFIvBpIkBjcoyDR+kmX6FMaaO4AbxqIrMJzEimSTElQYS
+         bt4p/t0+E49hn7IGgAikQ8a0ZOQ89Nx4PmfufDx/w/q4/ncn9tSaoZPjWw0RTsT/Vx
+         dqJFOb8hhzMahFuUHCebe45FrB07AY5sAOJS60EeoZ+PL5Y1qPnTdAJCtSSqQCvYLl
+         ZCv8YEcz+M433lgr9wlGYEqpM5b79o92ycJj/SgUatruXN0BAKvMSUr2JUJC3Hv9yY
+         FMYwsrpWxTKkO7P/Y1ihsZJbEehTknM0iw48Aa+02qJwroPQLkhRMMSnRzdSZeUwbF
+         Cc5lPcOX5YhPA==
+Date:   Thu, 17 Dec 2020 18:59:16 +0100
+From:   Ahelenia =?utf-8?Q?Ziemia=C5=84ska?= 
+        <nabijaczleweli@nabijaczleweli.xyz>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
 Cc:     Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: Re: [PATCH] filesystems.5: rephrase NTFS description to avoid
- awkward (and wrong) possessive of MS Windows
-Message-ID: <20201217175234.gxngpbu2mhll2fdz@tarta.nabijaczleweli.xyz>
-References: <7b8f5a9ada6202a3f9882e06a0a3ca9c193c9000.1608218767.git.nabijaczleweli@nabijaczleweli.xyz>
- <9374ff73-4562-c5c1-29e9-c347730f49a0@gmail.com>
+Subject: Re: [PATCH 2/2] filesystems.5: note ncpfs removal from kernel
+Message-ID: <20201217175916.vx7fox46aqpzkcde@tarta.nabijaczleweli.xyz>
+References: <4443342faae85cfa74bae6efa1a12ff40efe18c0.1608218767.git.nabijaczleweli@nabijaczleweli.xyz>
+ <365585882722e9c64478aab1b558923e3153b671.1608218767.git.nabijaczleweli@nabijaczleweli.xyz>
+ <71269cb4-db6e-2908-5c42-2747eb930a53@gmail.com>
+ <20201217164028.rphpncqtdavr27uy@tarta.nabijaczleweli.xyz>
+ <09db431f-0fac-f1d3-be94-ee2cc3b0921b@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="c4n4ijvdbegl2hyf"
+        protocol="application/pgp-signature"; boundary="qysla4ritnwyv3rk"
 Content-Disposition: inline
-In-Reply-To: <9374ff73-4562-c5c1-29e9-c347730f49a0@gmail.com>
+In-Reply-To: <09db431f-0fac-f1d3-be94-ee2cc3b0921b@gmail.com>
 User-Agent: NeoMutt/20201127
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---c4n4ijvdbegl2hyf
+--qysla4ritnwyv3rk
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Dec 17, 2020 at 05:17:51PM +0100, Alejandro Colomar (man-pages) wro=
+On Thu, Dec 17, 2020 at 05:56:00PM +0100, Alejandro Colomar (man-pages) wro=
 te:
-> I don't know much about MS,
-> but AFAIK, it was MS who designed FAT32.
+> Hi Ahelenia,
 >=20
-> I'll quote Wikipedia, although it may be incorrect:
-These are good points, though the miss some of the depth of this issue.
+> Please, could you append that into the first paragraph?
+Sure, see updated scissor-patch below.
 
-The main point I was driving at with this patch was to fix
-"Microsoft Window's FAT filesystems" (i.e. FAT filesystems which belong
- to Microsoft Window, which is decidedly wrong).
-
-FAT32 first shipped with MS-DOS 7.1, as part of Windows 95 OSR2,
-but it's a (relatively) simple logical extension of the previous FATx
-filesystems (16 and 12 as we know and love them today,
- I don't think the PC ever saw 8), hence the "VFAT" driver name =E2=80=92
-calling FAT-anything a Windows filesystem would be a flat-out lie,
-calling it a Microsoft filesystem would be, uh, facetious.
-
-NTFS (as part of Windows NT), on the other hand, is wholly different
-WRT the scope and feature-set (it does borrow some layouting from FAT,
- but reading NTFS as FAT doesn't get you very far, or much).
-
-The replacing bit is also questionable, especially in a.d. 2020:
-while it is true that you cannot install NT on FAT (after a certain
- point? my memory ain't what it used to be), and must therefore
-replace your existing FAT partitions with NTFS during upgrades;
-Windows NT 4.0, the last product to be NT-branded came out in 1996,
-i.e. you could not install Windows on FAT (and, therefore,
- upgrade it to NTFS, replacing it) during my entire lifetime.
-
-Indeed, in $(date +%Y) we live in a post-NTFS world =E2=80=92 putting NTFS =
-in
-the same class as FAT beyond "is a filesystem" is a joke, but in my
-haste and pursuit of a small diff I didn't consider the above.
-Please see below for updated scissor-patch.
-
-Best,
-Ahelenia
+I also broke the line above on the comma, because the alternative would
+be either
+  is a network filesystem that supports the NCP protocol, used by
+  Novell NetWare. It was removed from the kernel in 4.17.
+which sucks for reasons I assume obvious, or
+  is a network filesystem that supports the NCP protocol, used by
+  Novell NetWare.
+  It was removed from the kernel in 4.17.
+which is three lines anyway.
 
 -- >8 --
-Subject: [PATCH] filesystems.5: reword ntfs description, remove FAT
- comparison
+Subject: [PATCH 2/2] filesystems.5: note ncpfs removal from kernel
+
+Relevant Linux commits:
+ * moved to staging in 1bb8155080c652c4853e6228f8f0d262b3049699
+   (describe: v4.15-rc1-129-g1bb8155080c6) in Nov 2017,
+   described as "broken" and "obsolete"
+ * purged in bd32895c750bcd2b511bf93917bf7ae723e3d0b6
+   (describe: v4.17-rc3-1010-gbd32895c750b) in Jun 2018,
+   "since no one has complained or even noticed it was gone"
 
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
- man5/filesystems.5 | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ man5/filesystems.5 | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/man5/filesystems.5 b/man5/filesystems.5
-index 301c8fb83..3727d7a7a 100644
+index 6ec2de9f0..71be05230 100644
 --- a/man5/filesystems.5
 +++ b/man5/filesystems.5
-@@ -169,9 +169,8 @@ filesystem was removed from the kernel in 4.17.
- is the network filesystem used to access disks located on remote computers.
+@@ -152,8 +152,9 @@ filenames can be no longer than 8 characters, followed =
+by an
+ optional period and 3 character extension.
  .TP
- .B ntfs
--replaces Microsoft Window's FAT filesystems (VFAT, FAT32).
--It has reliability, performance, and space-utilization enhancements
--plus features like ACLs, journaling, encryption, and so on.
-+is the filesystem native to Microsoft Windows NT,
-+supporting features like ACLs, journaling, encryption, and so on.
- .TP
- .B proc
- is a pseudo filesystem which is used as an interface to kernel data
+ .B ncpfs
+-is a network filesystem that supports the NCP protocol, used by
+-Novell NetWare.
++is a network filesystem that supports the NCP protocol,
++used by Novell NetWare.
++It was was removed from the kernel in 4.17.
+ .IP
+ To use
+ .BR ncpfs ,
 --=20
 2.20.1
 
---c4n4ijvdbegl2hyf
+--qysla4ritnwyv3rk
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAl/bmuEACgkQvP0LAY0m
-WPF6QA//Z8pc+pcv+FTJB/rpgYjpkibJsugIcPhJcAr/SeOeax4RQ9tL7PEMedQ+
-J8ZM1h354jVO9Tt/K0KcSS8eWY2tgnAOxVVuyA9/XsvWBNHR4OFEZQmotaZmJkRD
-97ObzraIZnSZsVxAQ466B6m+tDfjFqU6xF8Gd8yo6jf/9DwW0hzfskuAg+Nfp2Mw
-cR0Uh3Qq5U4DuA3a5YFmB4OZpLkDNLGYCnknusc1AgshDpZyvFvUlt6qJuS8dHUX
-fSjNtC+L2dYQ720DjNYJbtMWOOpMY1snTjuWDL/2THI8+QcQOlIxtqxMHg/XqtDC
-6glAURpFvYx1jQnO9YqWGM2LoLyM5iPQr8nuqQMNJDEK4ZTDiIRYr36EqCsMZiJQ
-wtahpK3NMDDpAfp1GgCQc0LUmXi1LruCuSfEa5Ja9KbtfYthTb6y24t2uesxBEyC
-NTQSHPYDs9wf30Y8oALVK6AXcrLTG/IWCjaB1bAUCX+kddGSuH2KrO7nxJT7FAFc
-ya9cbH8uEKn84P9dv+MVYjUULfFSUyea4oFAzighmYmQaB7tmb2fl/MZbvZ2QJH9
-E7PaKeJEMFfuxcpdAbjJsCKlhuZ9ErDRyBVu3XyqIgyNBe2buAghe0sxpOx9kueG
-PuJPHksG0BAurGC5efCwR9pUsUsqgIaKoV7UFifl5B3IqbXefi4=
-=H3EK
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAl/bnHQACgkQvP0LAY0m
+WPGr0RAAksfa3DFEFZ+1gQsWBvlKd4jexyJELKDplpEXWJhxC54u1RqbVV79evsC
+gMg0toAU83lJISvLioo1OGtVr3xzOoeVQiW+rQIgSmIqnP82j+0s0MzjiQKAKJJR
+01InmSR4eE51eEAKrVffLXR0c3+X5XcSB5U0SHX43Ly8V/HMvHPzxSPEz7D1E/Hy
+Ws9n9qAYI0F0Md5cMXuqTOB7qwNKrbcqol92VfENV+FoVKWCtjiqYGUbMto5j+hd
+mDFkf4E/HWc2fuay1fXzxqM9QzBel1/SWxYtVSalc381/+eB6sGC8+nMU06wnoAj
+yhL4dnRaZ2RwwnlzAgm1j+YmbgAQsoVVfAVN++ma13iNoX/iZpmWw6C8WvpKrRa5
+zplOq6PCF0lAijLrsztDATEL6cvZ5aTgmaIFYxCgqAw5a7txByO+TpiEv9TreHo7
+3HgIqC3/Eqi59uG/9EzCiKQ2jG9IeJrwsLffoc4J4tySU2e9tZ9Py7A+2Xdb3SZT
+aLAZo8NGD40/XD+fRK/AFWQW3SE3WZuyVTh8QR2SZtWTVRWP23DHw0qSwqt4zp+0
+Si00xCaI0lF4toJTDe6J+iVP8uwGF2lhJS3VxXeGulOlBpAULbnTeXZ+pVkW7ElD
+cbuod0EjurgW4MEpPSSkOy/1MaF/tA6gXDTiHvAOiDp733Kwec8=
+=UbR9
 -----END PGP SIGNATURE-----
 
---c4n4ijvdbegl2hyf--
+--qysla4ritnwyv3rk--
