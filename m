@@ -2,62 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0F0D82DE697
-	for <lists+linux-man@lfdr.de>; Fri, 18 Dec 2020 16:32:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7E6CE2DE69B
+	for <lists+linux-man@lfdr.de>; Fri, 18 Dec 2020 16:32:09 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726321AbgLRPbn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 18 Dec 2020 10:31:43 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41312 "EHLO
+        id S1727090AbgLRPbo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 18 Dec 2020 10:31:44 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41316 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726299AbgLRPbn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Dec 2020 10:31:43 -0500
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 33CD2C0617B0
-        for <linux-man@vger.kernel.org>; Fri, 18 Dec 2020 07:31:03 -0800 (PST)
-Received: by mail-wr1-x431.google.com with SMTP id m5so2576228wrx.9
-        for <linux-man@vger.kernel.org>; Fri, 18 Dec 2020 07:31:03 -0800 (PST)
+        with ESMTP id S1726299AbgLRPbo (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Dec 2020 10:31:44 -0500
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2409BC06138C
+        for <linux-man@vger.kernel.org>; Fri, 18 Dec 2020 07:31:04 -0800 (PST)
+Received: by mail-wr1-x432.google.com with SMTP id d13so2566601wrc.13
+        for <linux-man@vger.kernel.org>; Fri, 18 Dec 2020 07:31:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=lydOTeBWmhC6RNazMCEHf+vsXtvuHm3R1kNQnzKlS+Q=;
-        b=QZ/OpfYaqlv6bRDaMEcJgZSBDXE118WExvReWBGSEeeAIFUzbus1MYagl7qS//0jYO
-         tMZTDDoipU0z3jImQi0m7cTrLnuUzHMmxGJGIzmK2A0ZUjMo7KRStYNfnWIQgtGFHxcA
-         A/zV41dgWVBp4gWY6lvR4QF9AUAxLmjohVTqP1Du3Qx7oRzc/3mCy1+ZUUwgJBxOAQ7B
-         AqKZPPlfqDvrJj1myzw1GTyIwSb+R7OcjpInttWv5JJjjXSl7VoLZl9o73X9R1waiDVB
-         Ci1YXxs0abvELv2OCD4UuEDg5+0bflR+jXX9tC5B3f7QMt0/MT9+TnirteyvLcMqE+lM
-         g4NA==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=HghF5Shos5dlQB8R61iCWNjD/NblQZePZ+m5Set1z1g=;
+        b=qUowklfaMBBFREH7ayut8dE3mmXfT2yW70q6pex0FepH/reVGzzSAcYyBgK71LxK9E
+         5fOawzeQNqGVOC98pI1XY6eu8q92tHgMag8nWjkUR2hDsPnvQM2PX1OJdIlmBF6by3YJ
+         Rk68IP1jVQofZVyLu3WnYxKnMXSDp5e2ilTaMd6bC2QRvr23lgXnoM5R71OFC3BtcCmV
+         clD4DuAiiOVuxahAwodS/IIEvSOC/r/KkIR3EATRFnwlDwSlulplaXpDXQ5IDSv17yMY
+         EmVTqNldjxclnzA1NwCUqlzKrirtSDC8MqrOAUa0ozpVa/HO0wjnI/crokGLcpR/5TaD
+         6BOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=lydOTeBWmhC6RNazMCEHf+vsXtvuHm3R1kNQnzKlS+Q=;
-        b=LId85Ke/UXPMHbejvjN8to7cqgZcjRUsOoU8UTGMdCZ2na1zVP8tCqbeE8gb6Q05/M
-         R+LCoSj1yzG/BYqNgD/uPYO8INmvq6ayZaSUmd1mJgj4aUswfhP/9DWfgxIqTia259bw
-         V27Iz2xGvQbA5VNf7ojA/C6IMrrNNSS4ECeDOKSvwJ3m9/K4lrDoWslry5ry1LWb+8dU
-         Cr1hKuEOKStswXesVPE4zL7ZKLBV0F/9L9uUQTK3hCD4OwprKYkSc9nLj/UkbZYpjImR
-         7qUFLKwqTDNuA+/npVs+JYwpVO1hdZ3N1o3J50IcoLgNWUBeTQyCKvvcXJnUm1HNtw9w
-         dx/A==
-X-Gm-Message-State: AOAM532AWTPuds3++gop5m3fvSuk7h0Kxk3PVvEu+i22LoplvdJ9OuCn
-        GJoHMZJpysKwksnMBnfDX2U=
-X-Google-Smtp-Source: ABdhPJzKiG8CXQrwwFEZCLsJiKu/bbiIhBfMBCSPlu95RD4wjrq3CLoV9N/atTMRx33T8OYZtzkCMQ==
-X-Received: by 2002:adf:dd92:: with SMTP id x18mr5086275wrl.311.1608305462014;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=HghF5Shos5dlQB8R61iCWNjD/NblQZePZ+m5Set1z1g=;
+        b=QV8hpT8h+NxjtU1CRtIA1MtHE+QxGCcUoXCXoJnpM9W4ZHrrstcUcQchtLCBJFCInk
+         8RUBrv8SWR/av20qpVKHXUIHLIkKSxYU3QM476cvGAs55zmG0/n3yYiS2ebND8EmsG1Q
+         afF/AAyb0wLYknvjVtflcEEZfopdgL5DwEGqYFIz1QTpNFuayTsxj167D/6RWbiyExMz
+         wRr1TvC6D8yrnc8dr04MUG545u+7AUKjck3YxfFWUCvz3QLVrcdwhTCRAEkpfz2EUEnU
+         2svdZgNalXZD4+gFJzVII+RehesIQ3o8hXNfdhmftrAbP5R65+v0FHnBVvHekuIP/hNl
+         3XZg==
+X-Gm-Message-State: AOAM53028GTF3WTvUOCpouO5Dw03OB97YnJ034hQK0CKhi2/kW2xO2V8
+        zqkrFFR4qgjSHSjx639L6crJ8T9ZQvM=
+X-Google-Smtp-Source: ABdhPJzPHnScZvbL8nrstkPR+Lq6B0m1zEKo8qva87qzzBpBRLiHngyG+7eZyfxK8PTKNTOhVBekNg==
+X-Received: by 2002:adf:e512:: with SMTP id j18mr5161590wrm.52.1608305462954;
         Fri, 18 Dec 2020 07:31:02 -0800 (PST)
 Received: from debian.vlc ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id j10sm13730492wmj.7.2020.12.18.07.31.00
+        by smtp.gmail.com with ESMTPSA id j10sm13730492wmj.7.2020.12.18.07.31.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Dec 2020 07:31:01 -0800 (PST)
+        Fri, 18 Dec 2020 07:31:02 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org,
+Cc:     =?UTF-8?q?Ahelenia=20Ziemia=C5=84ska?= 
+        <nabijaczleweli@nabijaczleweli.xyz>, linux-man@vger.kernel.org,
         Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
         Stephen Hemminger <stephen@networkplumber.org>,
-        "David S . Miller" <davem@davemloft.net>
-Subject: [PATCH 0/3] filesystems.5: Update & wfix
-Date:   Fri, 18 Dec 2020 16:30:34 +0100
-Message-Id: <20201218153036.25244-1-alx.manpages@gmail.com>
+        "David S . Miller" <davem@davemloft.net>,
+        Alejandro Colomar <alx.manpages@gmail.com>
+Subject: [PATCH 1/3] filesystems.5: fix link to user space tooling for ncpfs
+Date:   Fri, 18 Dec 2020 16:30:35 +0100
+Message-Id: <20201218153036.25244-2-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20201218153036.25244-1-alx.manpages@gmail.com>
+References: <20201218153036.25244-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -65,26 +68,29 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+From: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
 
-Please merge these patches.
+Corresponds to Linux commit 1b83df308f69a5a3cc59be03bd7fb23e4bcebd8e
 
-Thanks,
+Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+ man5/filesystems.5 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Alex
-
-Ahelenia Ziemiańska (2):
-  filesystems.5: fix link to user space tooling for ncpfs
-  filesystems.5: note ncpfs removal from kernel
-
-наб (1):
-  filesystems.5: wfix: ntfs: remove FAT comparison
-
- man5/filesystems.5 | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-
-base-commit: 300ef55cf2eebc7b123fba48a40bb05a14e261e2
+diff --git a/man5/filesystems.5 b/man5/filesystems.5
+index b44dba184..6ec2de9f0 100644
+--- a/man5/filesystems.5
++++ b/man5/filesystems.5
+@@ -158,7 +158,7 @@ Novell NetWare.
+ To use
+ .BR ncpfs ,
+ you need special programs, which can be found at
+-.UR ftp://linux01.gwdg.de\:/pub\:/ncpfs
++.UR ftp://ftp.gwdg.de\:/pub\:/linux\:/misc\:/ncpfs
+ .UE .
+ .TP
+ .B nfs
 -- 
 2.29.2
 
