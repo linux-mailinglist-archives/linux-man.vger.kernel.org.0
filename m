@@ -2,122 +2,234 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E86372DE699
-	for <lists+linux-man@lfdr.de>; Fri, 18 Dec 2020 16:32:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6C74E2DE7A4
+	for <lists+linux-man@lfdr.de>; Fri, 18 Dec 2020 17:52:30 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727944AbgLRPbr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 18 Dec 2020 10:31:47 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41324 "EHLO
+        id S1728191AbgLRQwa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 18 Dec 2020 11:52:30 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53752 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726299AbgLRPbq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Dec 2020 10:31:46 -0500
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 27C67C061285
-        for <linux-man@vger.kernel.org>; Fri, 18 Dec 2020 07:31:06 -0800 (PST)
-Received: by mail-wm1-x334.google.com with SMTP id e25so2981258wme.0
-        for <linux-man@vger.kernel.org>; Fri, 18 Dec 2020 07:31:06 -0800 (PST)
+        with ESMTP id S1726708AbgLRQw3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 18 Dec 2020 11:52:29 -0500
+Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com [IPv6:2607:f8b0:4864:20::82f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 408C7C0617A7
+        for <linux-man@vger.kernel.org>; Fri, 18 Dec 2020 08:51:49 -0800 (PST)
+Received: by mail-qt1-x82f.google.com with SMTP id z20so1721414qtq.3
+        for <linux-man@vger.kernel.org>; Fri, 18 Dec 2020 08:51:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=Nk25CUPu7X1Gdk0asZ0e9NZe5SkQkGUrRJ1azsdJvI0=;
-        b=FLInaUZ/CFR9WTHTCc2YV/U+0kGwgyv0dOC/M3hdyTos0AYCxoy+Z8QToJ6PJdN+/0
-         OLTcZnw73BLOe4Xyr8fGSLIYEPgjFXInqtkzmWhBINXcLEFb+cJeEWUjhZ7O1K/rIiFU
-         X2sQjZBEMz5W3IkzHHogd48Gnb8zp57qANAvJqzmNFr6NrpbKbkc916GYneofotqjGWO
-         YMVhRDvn0zaFGwsJfBnQtjL8zjcxCcTmVIQ0iCwLT6nvzY373+J8j35Fh9/ZD3B3PuQu
-         tbW/rrs5YjfsrsYfFlv2CMyHlzyzEmNtF14FvhvZj0Yay3kb+HcxtkqMxkAmRMwZ6S91
-         j3nw==
+        h=subject:to:references:from:message-id:date:user-agent:mime-version
+         :in-reply-to:content-language:content-transfer-encoding;
+        bh=M/v2NXda5CSjCngEc1Ve4y4ZWZ+aCDxisDlvzvgSq1o=;
+        b=jqKrfOMg8gAFXHE7Jxm36tabqGn1zLLxgej7XMMgXkHR0jBFJGo2tjodY0vGL2SVtq
+         baWTTbJANUlm/W7TdTKUkCIAsWcWq5KUzkLxXkfwbQ7YAvaTan6PKlte21QPqRTlBgdz
+         AgQBTIszhuY+MfW7kE4qoqYUSiVOqI5/Es8Al0IVGWyH7/YGE5KTuN5VUGvWoQE5M/4H
+         EgFVloLKc7ah0m5Jde8MWEbj/kcrQWhiLWIW+MUwKytD0mSsL5/w5L+AlG9HuMVzlaEr
+         1I2WG67RXwLcxZawaQ4glqkT1a42LLBmpfT/cV8J1uQU5pL0joDBbI4IVWjA1rOGXgMm
+         dDqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=Nk25CUPu7X1Gdk0asZ0e9NZe5SkQkGUrRJ1azsdJvI0=;
-        b=o/UUydmp50pnIaCLBOUjOdkxfs6nRU7sS0KMG3p2h3aPfQsRoirpsxF7mNBKzEDoJ3
-         mWP/5gnoT04O+7fBHdrOsGJ9Ijxuj0nc/1bbbF05Lv9hJmpZTHA+WHomt1Q9li9NESQX
-         hNJ//YYkiuqktdAjZ6nfuk+3v72NfKhJAlN2BRQkPDZnBUcH8jw8Gofymq3c42SUGnnL
-         M5mKCBBM1ajtHpN7L9fWJ7ZSS+0zLnY1XnHadVnjJ9yVZkFXFUBKFiAeVfJWjo9mYkVg
-         0cMmes24dcz/Tzz1p83vkVkT5B9UepbgQvCUHi9zucZ7twQIZfOKvL4M2meo+3gxuEZQ
-         dFpw==
-X-Gm-Message-State: AOAM532eaEtXMnTwNNUovEi2EwsvBARfMlRcLafq7AzLzdllv6MuVDsq
-        yM+EUuQv3AcQLR2w+ZLWTUE=
-X-Google-Smtp-Source: ABdhPJyjEBPkBGjCJq5NifxYQSynNARwvl22iHm1bQEWocTkdnEsWQ/k5/wLgZzVaM6N79+4OpsJKA==
-X-Received: by 2002:a7b:ce0f:: with SMTP id m15mr4736614wmc.56.1608305464898;
-        Fri, 18 Dec 2020 07:31:04 -0800 (PST)
-Received: from debian.vlc ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id j10sm13730492wmj.7.2020.12.18.07.31.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Dec 2020 07:31:04 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     =?UTF-8?q?=D0=BD=D0=B0=D0=B1?= <nabijaczleweli@nabijaczleweli.xyz>,
-        linux-man@vger.kernel.org,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Stephen Hemminger <stephen@networkplumber.org>,
-        "David S . Miller" <davem@davemloft.net>,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Subject: [PATCH 3/3] filesystems.5: wfix: ntfs: remove FAT comparison
-Date:   Fri, 18 Dec 2020 16:30:37 +0100
-Message-Id: <20201218153036.25244-4-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201218153036.25244-1-alx.manpages@gmail.com>
-References: <20201218153036.25244-1-alx.manpages@gmail.com>
+        h=x-gm-message-state:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=M/v2NXda5CSjCngEc1Ve4y4ZWZ+aCDxisDlvzvgSq1o=;
+        b=anccA0YmV7lNnONwJcJxIMwlcLAOSwq6WA93x7YPutraPJxU4IKgzzs9NOd6hK8EpE
+         O13PqtYnUkNZP/zuJv6fcdOGMTpzcd9rRBllKtHLDkOMxLdwj6QT3LkN+RPQ6Is1yD+x
+         PcY6jiTBrXwasdrBq9YmduSgL+Wd8xsegoNfKhWtjyzcpxhi0HnZh878/T3i9ACxNmJQ
+         37V4EFxHZQ2f21OxwuoRu4mLLPKObpU48u4RJHAiY0adnXJGiKy7DhT+45sdIgyQ4TIy
+         Fu1NqGnDCXLC9WmbQA+24/v/EQkMgCaNJv75/x9nCBX9fVT/ez8ZIaHKSN/AWhnha68G
+         MSfg==
+X-Gm-Message-State: AOAM530hba1BGVJl9FZvw99dYFAsCalYkT4Es2QbWMId0iaGd/znqcOM
+        GVG5pqP9iLfgElna+2u5eEln5wkHyKo=
+X-Google-Smtp-Source: ABdhPJwbQZg/BqjBy2kTInxj9ABa4Pvbl7vcw4yK3mt7suCJGau6XGpzPwtE0sEkgzFmkxSi6aLlLg==
+X-Received: by 2002:ac8:6b95:: with SMTP id z21mr4727020qts.353.1608310308100;
+        Fri, 18 Dec 2020 08:51:48 -0800 (PST)
+Received: from [192.168.0.41] (174-16-97-231.hlrn.qwest.net. [174.16.97.231])
+        by smtp.gmail.com with ESMTPSA id 17sm5346282qtb.17.2020.12.18.08.51.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Dec 2020 08:51:47 -0800 (PST)
+Subject: Re: Ping: cacheflush.2
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        Heinrich Schuchardt <xypron.glpk@gmx.de>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        gcc@gcc.gnu.org, Dave Martin <Dave.Martin@arm.com>,
+        cfe-users@lists.llvm.org, linux-man@vger.kernel.org
+References: <794cf0d1-d528-4b5a-3ce0-b1b5f588dc6d@gmx.de>
+ <ca265930-00d7-44f5-b2dd-535a5cf0310a@gmail.com>
+ <5257a883-29f0-6eaa-5708-d1f47356a57a@gmx.de>
+ <90152ea6-f2eb-b08f-7269-f8266ffb15d1@gmail.com>
+ <b18b7e3d-d6a2-dba6-adad-713a171044c0@gmail.com>
+ <52a37c46-3488-957c-fc50-6caca177cb3c@gmail.com>
+ <64bd5678-4c25-668d-39b2-31c825253d1b@gmail.com>
+ <6ed5bc42-1d18-e963-fecc-cc9b1bfb2a2c@gmail.com>
+From:   Martin Sebor <msebor@gmail.com>
+Message-ID: <b392d6ae-387f-6aff-5bb8-084ba7e74893@gmail.com>
+Date:   Fri, 18 Dec 2020 09:51:45 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <6ed5bc42-1d18-e963-fecc-cc9b1bfb2a2c@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: наб <nabijaczleweli@nabijaczleweli.xyz>
+On 12/18/20 3:42 AM, Alejandro Colomar (man-pages) wrote:
+> Hi Martin,
+> 
+> I sent you an email, but I received a "delivery failure".
+> If you're reading this from a list, could you answer, please?
+> 
+> Thanks,
+> 
+> Alex
+> 
+> On 12/14/20 11:34 PM, Alejandro Colomar (man-pages) wrote:
+>> Hello Martin,
+>>
+>> Thanks for the correction!
+>> Then the prototypes that changes from 'char *' to 'void *' in r269082
+>> were not exposed to the user, right?
+>> I guess then those are just internal implementation where GCC did use
+>> 'char *'.
 
-The main point I was driving at with this patch was to fix
-"Microsoft Window's FAT filesystems" (i.e. FAT filesystems which belong
- to Microsoft Window, which is decidedly wrong).
+__builtin___clear_cache was added to GCC in r126535 (the __builtin_
+prefix is added by the macro):
 
-FAT32 first shipped with MS-DOS 7.1, as part of Windows 95 OSR2,
-but it's a (relatively) simple logical extension of the previous FATx
-filesystems (16 and 12 as we know and love them today,
- I don't think the PC ever saw 8), hence the "VFAT" driver name ‒
-calling FAT-anything a Windows filesystem would be a flat-out lie,
-calling it a Microsoft filesystem would be, uh, facetious.
++DEF_EXT_LIB_BUILTIN    (BUILT_IN_CLEAR_CACHE, "__clear_cache", 
+BT_FN_VOID_PTR_PTR, ATTR_NOTHROW_LIST)
 
-NTFS (as part of Windows NT), on the other hand, is wholly different
-WRT the scope and feature-set (it does borrow some layouting from FAT,
- but reading NTFS as FAT doesn't get you very far, or much).
+The BT_FN_VOID_PTR_PTR macro describes its signature as returning
+void and taking two void pointer arguments.  AFAIK, this has never
+changed.  Contrary to that, the manual entry for the built-in added
+in the same revision documented it as taking two char*.  That was
+corrected to void* in r269082 to match.
 
-The replacing bit is also questionable, especially in a.d. 2020:
-while it is true that you cannot install NT on FAT (after a certain
- point? my memory ain't what it used to be), and must therefore
-replace your existing FAT partitions with NTFS during upgrades;
-Windows NT 4.0, the last product to be NT-branded came out in 1996,
-i.e. you could not install Windows on FAT (and, therefore,
- upgrade it to NTFS, replacing it) during my entire lifetime.
+There's a GCC internal declaration of __clear_cache (apparently
+provided in libgcc for VxWorks).  It was added in r264479 and
+it also used char*.  This was also changed to void* in r269082
+to match the built-in.  Looks like this __clear_cache has just
+been removed from libgcc in GCC 11:
+https://gcc.gnu.org/pipermail/gcc-cvs/2020-December/338478.html
 
-Indeed, in $(date +%Y) we live in a post-NTFS world ‒ putting NTFS in
-the same class as FAT beyond "is a filesystem" is a joke.
+>>
+>> Where is the actual prototype exposed to the user declared?
 
-Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man5/filesystems.5 | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+Built-in functions are declared implicitly by GCC.  They have no
+explicit declarations like user-defined functions.  The implicit
+internal "declarations" are specified in the GCC internal file
+gcc/builtins.def, where they are hidden behind layers of macros.
+For example, on the GCC 10 branch, the declaration for
+__builtin___clear_cache is here:
 
-diff --git a/man5/filesystems.5 b/man5/filesystems.5
-index 71be05230..7f2e02096 100644
---- a/man5/filesystems.5
-+++ b/man5/filesystems.5
-@@ -166,9 +166,8 @@ you need special programs, which can be found at
- is the network filesystem used to access disks located on remote computers.
- .TP
- .B ntfs
--replaces Microsoft Window's FAT filesystems (VFAT, FAT32).
--It has reliability, performance, and space-utilization enhancements
--plus features like ACLs, journaling, encryption, and so on.
-+is the filesystem native to Microsoft Windows NT,
-+supporting features like ACLs, journaling, encryption, and so on.
- .TP
- .B proc
- is a pseudo filesystem which is used as an interface to kernel data
--- 
-2.29.2
+https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/builtins.def;h=fa8b0641ab13b36f983c591a7020f6b432e5fb3d;hb=refs/heads/releases/gcc-10#l837
+
+Martin
+
+>>
+>> Thanks,
+>>
+>> Alex
+>>
+>> P.S.: Michael, wait for a patch revision (v6).
+>>
+>> On 12/14/20 10:13 PM, Martin Sebor wrote:
+>>> On 12/11/20 11:14 AM, Alejandro Colomar (man-pages) via Gcc wrote:
+>>>> It looks like GCC recently moved from 'char *' to 'void *'.
+>>>> This SO question[1] (4 years ago) quotes the GCC docs
+>>>> and they had 'char *'.
+>>>
+>>> __builtin___clear_cache in GCC has always been declared to take
+>>> void*.  The signature in the manual was recently corrected to match
+>>> the implementation, i.e., from char* to void*, in r269082.
+>>>
+>>> Martin
+>>>
+>>>> Maybe Clang hasn't noticed the change.
+>>>> I'll report a bug.
+>>>>
+>>>> [1]: https://stackoverflow.com/q/35741814/6872717
+>>>>
+>>>> On 12/9/20 8:15 PM, Alejandro Colomar (man-pages) wrote:
+>>>>> Hi Heinrich,
+>>>>>
+>>>>> It looks like a bug (or at least an undocumented divergence from GCC) in
+>>>>> Clang/LLVM.  Or I couldn't find the documentation for it.
+>>>>>
+>>>>> Clang uses 'char *':
+>>>>> https://github.com/llvm/llvm-project/blob/7faf62a80bfc3a9dfe34133681fcc31f8e8d658b/clang/include/clang/Basic/Builtins.def#L583
+>>>>>
+>>>>>
+>>>>> GCC uses 'void *':
+>>>>> https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html
+>>>>>
+>>>>> I CCd Clang and GCC lists; maybe they know about that divergence.
+>>>>>
+>>>>> Cheers,
+>>>>>
+>>>>> Alex
+>>>>>
+>>>>> On 12/9/20 7:48 PM, Heinrich Schuchardt wrote:
+>>>>>> On 12/9/20 7:34 PM, Alejandro Colomar (man-pages) wrote:
+>>>>>>> Hi Heinrich & Michael,
+>>>>>>>
+>>>>>>> What about the following?:
+>>>>>>>
+>>>>>>> [
+>>>>>>> NOTES
+>>>>>>>           GCC provides a similar function, which may be useful on
+>>>>>>> archi‐
+>>>>>>>           tectures that lack this system call:
+>>>>>>>
+>>>>>>>               void __builtin___clear_cache(void *begin, void *end);
+>>>>>>> ]
+>>>>>>
+>>>>>> I just checked building with Clang/LLVM. There the arguments are of
+>>>>>> type
+>>>>>> (char *). See the following error output:
+>>>>>>
+>>>>>> +arch/sandbox/cpu/cache.c:19:26: error: passing 'uint8_t *' (aka
+>>>>>> 'unsigned char *') to parameter of type 'char *' converts between
+>>>>>> pointers to integer types with different sign [-Werror,-Wpointer-sign]
+>>>>>> +        __builtin___clear_cache(state->ram_buf,
+>>>>>> +                                ^~~~~~~~~~~~~~
+>>>>>> +arch/sandbox/cpu/cache.c:20:12: error: passing 'uint8_t *' (aka
+>>>>>> 'unsigned char *') to parameter of type 'char *' converts between
+>>>>>> pointers to integer types with different sign [-Werror,-Wpointer-sign]
+>>>>>> +                                state->ram_buf + state->ram_size);
+>>>>>> +                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>>>>>
+>>>>>> Best regards
+>>>>>>
+>>>>>> Heinrich
+>>>>>>
+>>>>>>>
+>>>>>>> Cheers,
+>>>>>>>
+>>>>>>> Alex
+>>>>>>>
+>>>>>>> On 12/9/20 7:04 PM, Heinrich Schuchardt wrote:
+>>>>>>>> Hello Michael,
+>>>>>>>>
+>>>>>>>> function cacheflush() does not exist on many architectures.
+>>>>>>>>
+>>>>>>>> It would have saved me a lot of time if the man-page had referenced
+>>>>>>>> GCC's
+>>>>>>>>
+>>>>>>>> void __builtin___clear_cache(void *begin, void *end)
+>>>>>>>>
+>>>>>>>> Maybe you can add it to NOTES.
+>>>>>>>>
+>>>>>>>> Best regards
+>>>>>>>>
+>>>>>>>> heirnich
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
+> 
 
