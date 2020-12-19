@@ -2,511 +2,252 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 59E0A2DEFF0
-	for <lists+linux-man@lfdr.de>; Sat, 19 Dec 2020 15:01:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C22002DEFF3
+	for <lists+linux-man@lfdr.de>; Sat, 19 Dec 2020 15:05:23 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726490AbgLSOAp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 19 Dec 2020 09:00:45 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49844 "EHLO
+        id S1726484AbgLSOFH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 19 Dec 2020 09:05:07 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50506 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726479AbgLSOAp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 19 Dec 2020 09:00:45 -0500
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 895C1C0617B0;
-        Sat, 19 Dec 2020 06:00:04 -0800 (PST)
-Received: by mail-wr1-x435.google.com with SMTP id t30so6070144wrb.0;
-        Sat, 19 Dec 2020 06:00:04 -0800 (PST)
+        with ESMTP id S1726479AbgLSOFG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 19 Dec 2020 09:05:06 -0500
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 81FC8C0617B0
+        for <linux-man@vger.kernel.org>; Sat, 19 Dec 2020 06:04:26 -0800 (PST)
+Received: by mail-wr1-x434.google.com with SMTP id t30so6077977wrb.0
+        for <linux-man@vger.kernel.org>; Sat, 19 Dec 2020 06:04:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=subject:to:references:cc:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=P4VoXGgJLqEepGnv5u5hpoEd6diZLpxK7eZVErYOubg=;
-        b=gBLYs2OHH8grf7FBRH89qaOnUzbuPKYlrBQG/UsZhdMhJ1gc13JCpFwN/rbSCn4U6x
-         fF/Kesff+32fhw91Tzd+201TlBvq7yUEejG5Jv3vEENQXwyxMNaqI5y8XlQE54SxWqL6
-         wsiV2thjDEBU0tEY4YxJCDcnQi3LgCFKbLDKb+Ph2KoAUhMEO8/xjzgDbtJsOYkUB2uE
-         y18le5lsvM8hl2R83OwXCznADZ1HiHJa2y/PeL25BhJzO8yAS/0BtXQe7cytSMe0KOv2
-         XDI/8eNS6Xpvhy5W2jMTuLN/AdTcwRVhVEsq7lLYGSkcFR77KVdcYBUU6tLc5o+Xxl5m
-         ovRg==
+        bh=QKhQfxKR1/k5Vkjj/hR3jkZZkxoJtEMOFVhLtaTOQDE=;
+        b=Ew5dwR4afJTSLX7skndt1NLWMIlUyeF6d9QmvpLPH9Ir3xQTn53MP+wvFGPIrOH+CD
+         wU0EUKkNGZJKJw3vbQIY9CcrNbtzC+yfiSp+AdjqnIYWN1SJ1OKnjWNHsd9jx3M/UOpN
+         NDOP9fweXUp0Ymu7nQr4CWllFVFQMYw3OZgw71LwqHiHGctK2+WlZhbA+nI5/cQk47fw
+         7pF6Rej8LmTF1ZNuz8GvbVPBtpIB7feaW+E07GPlQqyvx9Zzr93wJj7QOM34Ofb44Fqj
+         IApWIMKy+ElZuxmaRgX6iC1HCUwFyl0f2RjZw+qZIJl58dNgHfNyQLnFsuKe7PztlyEm
+         if5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:subject:to:references:cc:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=P4VoXGgJLqEepGnv5u5hpoEd6diZLpxK7eZVErYOubg=;
-        b=JWid/vqPJt8ELAyRINA+vtF4EWhD8Ygffbs7GOw5kDpDu2HETuu74CgvSUJHLZkAD8
-         t0Q37kb98Ay7dpqyKXzvtyyLijbvp5dvMd9fNOeszKhY22CyleUPWi5DH15seA1zt7dO
-         DHwJjngEnWSgkFCUqZ5N+hJASDya1a6dBwhl0yY+YlT7ty8HpoaJZ/0acD0o0DRTtXa1
-         t6uVvpW20bhYQH2yp4DeV+5XAiK5vZ4IAziHIOktRL8nH1io+ePXSbXVEznFnfYHMpbg
-         Cwu7tT/+wGZZ6vM4+e6nndfUbiKlfY6OWJDOhTuUrFIMtFKaVDK7yO3Knf6cA2el7FEO
-         HPrw==
-X-Gm-Message-State: AOAM533jlNh7mQYvJahxYnF7RKxSN0TscENSyi/mq+kWnUFwuCUdQjI9
-        R6FXeH9R5TCKogCcwd6MDpe+YiJ6gX0=
-X-Google-Smtp-Source: ABdhPJwml8OcCPISb/u3BfiA6zGvWsi57gQKxlWh/VYg/LGp0/AYeVWaYm39rYY85f8A96/dUoYN6g==
-X-Received: by 2002:adf:f989:: with SMTP id f9mr9412412wrr.299.1608386403119;
-        Sat, 19 Dec 2020 06:00:03 -0800 (PST)
+        bh=QKhQfxKR1/k5Vkjj/hR3jkZZkxoJtEMOFVhLtaTOQDE=;
+        b=fcHiWz0qUYJzH6y7VMIOH8vmn6CTuA1vayEfYydZZ50byUE/LAk8merfYjL9S5zibT
+         jDQ3szaK6ozgWFVSRRTvU/ZMo+1dYxjg0OADMCk3R+BWMfGlEtFaDZ7EH57gnj8IEYty
+         IT9iu/dnFx9LBkQsP8FFggRCOj1IP+f5WjU3+CgB9mZa2XBLc3njrRX92JxN4YQqEyfb
+         vQBQZt4COWM91SUNWqt7X/XERlMIoVj7X5KhPK/Vl3f/zo0HbBHX02APbGAnhRRZveua
+         4VulrHzy2RPhm33oijNgn6BrqcQoXDUHi3syacgoCcBr3fuDsh34FcYbnHSoDTNrqnkl
+         WMCw==
+X-Gm-Message-State: AOAM530SSv5OxGfKDbKCJSIYwwJTFf3rG+U3xhxf3XelX/XadiMWUG4k
+        9uTmi6VnkyrMFGrC2siaMJNdZwDSGgk=
+X-Google-Smtp-Source: ABdhPJzxaRU1KRc9MnRYyQBfH8PILfa321HyopHnjsifKYOBclWCQZ9o3Uhq16cYJ9M141HkMDRwUQ==
+X-Received: by 2002:adf:e512:: with SMTP id j18mr9634708wrm.52.1608386663722;
+        Sat, 19 Dec 2020 06:04:23 -0800 (PST)
 Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id x7sm15028790wmi.11.2020.12.19.06.00.01
+        by smtp.gmail.com with ESMTPSA id g192sm15542994wme.48.2020.12.19.06.04.22
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Dec 2020 06:00:02 -0800 (PST)
-Subject: Re: [PATCH v3] close_range.2: new page documenting close_range(2)
-To:     Stephen Kitt <steve@sk2.org>, linux-man@vger.kernel.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     Christian Brauner <christian.brauner@ubuntu.com>,
-        Giuseppe Scrivano <gscrivan@redhat.com>,
-        linux-kernel@vger.kernel.org
-References: <20201218165815.6963-1-steve@sk2.org>
+        Sat, 19 Dec 2020 06:04:23 -0800 (PST)
+Subject: Re: Ping: cacheflush.2
+To:     Martin Sebor <msebor@gmail.com>
+References: <794cf0d1-d528-4b5a-3ce0-b1b5f588dc6d@gmx.de>
+ <ca265930-00d7-44f5-b2dd-535a5cf0310a@gmail.com>
+ <5257a883-29f0-6eaa-5708-d1f47356a57a@gmx.de>
+ <90152ea6-f2eb-b08f-7269-f8266ffb15d1@gmail.com>
+ <b18b7e3d-d6a2-dba6-adad-713a171044c0@gmail.com>
+ <52a37c46-3488-957c-fc50-6caca177cb3c@gmail.com>
+ <64bd5678-4c25-668d-39b2-31c825253d1b@gmail.com>
+ <6ed5bc42-1d18-e963-fecc-cc9b1bfb2a2c@gmail.com>
+ <b392d6ae-387f-6aff-5bb8-084ba7e74893@gmail.com>
+Cc:     Heinrich Schuchardt <xypron.glpk@gmx.de>, gcc@gcc.gnu.org,
+        cfe-users@lists.llvm.org,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org, Dave Martin <Dave.Martin@arm.com>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <e2ece8dc-9379-0e56-bbfa-ffc5f6b5ca2c@gmail.com>
-Date:   Sat, 19 Dec 2020 15:00:00 +0100
+Message-ID: <68174956-2f57-0c7d-c54c-768e31f8fb62@gmail.com>
+Date:   Sat, 19 Dec 2020 15:04:22 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <20201218165815.6963-1-steve@sk2.org>
+In-Reply-To: <b392d6ae-387f-6aff-5bb8-084ba7e74893@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Stephen,
+Hi Martin,
 
-Please see some comments below.
-It's looking good ;)
+Thanks!  It's good to learn some GCC internal details :)
 
-Thanks,
+Cheers,
 
 Alex
 
-On 12/18/20 5:58 PM, Stephen Kitt wrote:
-> This documents close_range(2) based on information in
-> 278a5fbaed89dacd04e9d052f4594ffd0e0585de,
-> 60997c3d45d9a67daf01c56d805ae4fec37e0bd8, and
-> 582f1fb6b721facf04848d2ca57f34468da1813e.
+On 12/18/20 5:51 PM, Martin Sebor wrote:
+> On 12/18/20 3:42 AM, Alejandro Colomar (man-pages) wrote:
+>> Hi Martin,
+>>
+>> I sent you an email, but I received a "delivery failure".
+>> If you're reading this from a list, could you answer, please?
+>>
+>> Thanks,
+>>
+>> Alex
+>>
+>> On 12/14/20 11:34 PM, Alejandro Colomar (man-pages) wrote:
+>>> Hello Martin,
+>>>
+>>> Thanks for the correction!
+>>> Then the prototypes that changes from 'char *' to 'void *' in r269082
+>>> were not exposed to the user, right?
+>>> I guess then those are just internal implementation where GCC did use
+>>> 'char *'.
 > 
-> Signed-off-by: Stephen Kitt <steve@sk2.org>
-> ---
-> V3: fix synopsis overflow
->     copy notes from membarrier.2 re the lack of wrapper
->     semantic newlines
->     drop non-standard "USE CASES" section heading
->     add code example
+> __builtin___clear_cache was added to GCC in r126535 (the __builtin_
+> prefix is added by the macro):
 > 
-> V2: unsigned int to match the kernel declarations
->     groff and grammar tweaks
->     CLOSE_RANGE_UNSHARE unshares *and* closes
->     Explain that EMFILE and ENOMEM can occur with C_R_U
->     "Conforming to" phrasing
->     Detailed explanation of CLOSE_RANGE_UNSHARE
->     Reading /proc isn't common
+> +DEF_EXT_LIB_BUILTIN    (BUILT_IN_CLEAR_CACHE, "__clear_cache",
+> BT_FN_VOID_PTR_PTR, ATTR_NOTHROW_LIST)
 > 
->  man2/close_range.2 | 266 +++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 266 insertions(+)
->  create mode 100644 man2/close_range.2
+> The BT_FN_VOID_PTR_PTR macro describes its signature as returning
+> void and taking two void pointer arguments.  AFAIK, this has never
+> changed.  Contrary to that, the manual entry for the built-in added
+> in the same revision documented it as taking two char*.  That was
+> corrected to void* in r269082 to match.
 > 
-> diff --git a/man2/close_range.2 b/man2/close_range.2
-> new file mode 100644
-> index 000000000..f8f2053ac
-> --- /dev/null
-> +++ b/man2/close_range.2
-> @@ -0,0 +1,266 @@
-> +.\" Copyright (c) 2020 Stephen Kitt <steve@sk2.org>
-> +.\"
-> +.\" %%%LICENSE_START(VERBATIM)
-> +.\" Permission is granted to make and distribute verbatim copies of this
-> +.\" manual provided the copyright notice and this permission notice are
-> +.\" preserved on all copies.
-> +.\"
-> +.\" Permission is granted to copy and distribute modified versions of this
-> +.\" manual under the conditions for verbatim copying, provided that the
-> +.\" entire resulting derived work is distributed under the terms of a
-> +.\" permission notice identical to this one.
-> +.\"
-> +.\" Since the Linux kernel and libraries are constantly changing, this
-> +.\" manual page may be incorrect or out-of-date.  The author(s) assume no
-> +.\" responsibility for errors or omissions, or for damages resulting from
-> +.\" the use of the information contained herein.  The author(s) may not
-> +.\" have taken the same level of care in the production of this manual,
-> +.\" which is licensed free of charge, as they might when working
-> +.\" professionally.
-> +.\"
-> +.\" Formatted or processed versions of this manual, if unaccompanied by
-> +.\" the source, must acknowledge the copyright and authors of this work.
-> +.\" %%%LICENSE_END
-> +.\"
-> +.TH CLOSE_RANGE 2 2020-12-08 "Linux" "Linux Programmer's Manual"
-> +.SH NAME
-> +close_range \- close all file descriptors in a given range
-> +.SH SYNOPSIS
-> +.nf
-> +.B #include <linux/close_range.h>
-> +.PP
-> +.BI "int close_range(unsigned int " first ", unsigned int " last ,
-> +.BI "                unsigned int " flags );
-> +.fi
-> +.PP
-> +.IR Note :
-> +There is no glibc wrapper for this system call; see NOTES.
-> +.SH DESCRIPTION
-> +The
-> +.BR close_range ()
-> +system call closes all open file descriptors from
-> +.I first
-> +to
-> +.I last
-> +(included).
-> +.PP
-> +Errors closing a given file descriptor are currently ignored.
-> +.PP
-> +.I flags
-> +can be 0 or set to one or both of the following:
-> +.TP
-> +.B CLOSE_RANGE_UNSHARE
-> +unshares the range of file descriptors from any other processes,
-> +before closing them,
-> +avoiding races with other threads sharing the file descriptor table.
-> +.TP
-> +.BR CLOSE_RANGE_CLOEXEC " (since Linux 5.10)"
-
-|sort
-
-I prefer alphabetic order rather than adding new items at the bottom.
-When lists grow, it becomes difficult to find what you're looking for.
-
-CLOEXEC should go before UNSHARE.
-
-> +sets the close-on-exec bit instead of immediately closing the file
-> +descriptors.
-
-[
-sets the close-on-exec bit instead of
-immediately closing the file descriptors.
-]
-
-> +.SH RETURN VALUE
-> +On success,
-> +.BR close_range ()
-> +returns 0.
-> +On error, \-1 is returned and
-> +.I errno
-> +is set to indicate the cause of the error.
-> +.SH ERRORS
-> +.TP
-> +.B EINVAL
-> +.I flags
-> +is not valid, or
-> +.I first
-> +is greater than
-> +.IR last .
-> +.PP
-> +The following can occur with
-> +.B CLOSE_RANGE_UNSHARE
-> +(when constructing the new descriptor table):
-> +.TP
-> +.B EMFILE
-> +The per-process limit on the number of open file descriptors has been reached
-> +(see the description of
-> +.B RLIMIT_NOFILE
-> +in
-> +.BR getrlimit (2)).
-> +.TP
-> +.B ENOMEM
-> +Insufficient kernel memory was available.
-> +.SH VERSIONS
-> +.BR close_range ()
-> +first appeared in Linux 5.9.
-> +.SH CONFORMING TO
-> +.BR close_range ()
-> +is a nonstandard function that is also present on FreeBSD.
-> +.SH NOTES
-> +Glibc does not provide a wrapper for this system call; call it using
-> +.BR syscall (2).
-> +.\" 278a5fbaed89dacd04e9d052f4594ffd0e0585de
-> +.SS Closing all open file descriptors
-
-The comment with the commit would be better inside the section it refers
-to, so:
-
-[
-.SS Closing all open file descriptors
-.\" 278a5fbaed89dacd04e9d052f4594ffd0e0585de
-]
-
-> +To avoid blindly closing file descriptors in the range of possible
-> +file descriptors,
-
-[
-To avoid blindly closing file descriptors
-in the range of possible file descriptors,
-]
-
-> +this is sometimes implemented (on Linux) by listing open file
-> +descriptors in
-
-[
-this is sometimes implemented (on Linux)
-by listing open file descriptors in
-]
-
-> +.I /proc/self/fd/
-> +and calling
-> +.BR close (2)
-> +on each one.
-> +.BR close_range ()
-> +can take care of this without requiring
-> +.I /proc
-> +and with a single system call,
-
-s/with/within/
-
-> +which provides significant performance benefits.
-> +.\" 60997c3d45d9a67daf01c56d805ae4fec37e0bd8
-> +.SS Closing file descriptors before exec
-
-[
-.SS Closing file descriptors before exec
-.\" 60997c3d45d9a67daf01c56d805ae4fec37e0bd8
-]
-
-> +File descriptors can be closed safely using
-> +.PP
-> +.in +4n
-> +.EX
-> +/* we don't want anything past stderr here */
-> +close_range(3, ~0U, CLOSE_RANGE_UNSHARE);
-> +execve(....);> +.EE
-> +.in
-> +.PP
-> +.B CLOSE_RANGE_UNSHARE
-> +is conceptually equivalent to
-> +.PP
-> +.in +4n
-> +.EX
-> +unshare(CLONE_FILES);
-> +close_range(first, last, 0);
-> +.EE
-> +.in
-> +.PP
-> +but can be more efficient:
-> +if the unshared range extends past the current maximum number of file
-> +descriptors allocated in the caller's file descriptor table
-
-[
-if the unshared range extends past
-the current maximum number of file descriptors allocated
-in the caller's file descriptor table
-]
-
-> +(the common case when
-> +.I last
-> +is
-> +.BR ~0U ),
-
-Literal values are not (usually) formatted.
-
-[
-.I last
-is ~0U),
-]
-
-> +the kernel will unshare a new file descriptor table for the caller up
-> +to
-
-[
-the kernel will unshare a new file descriptor table for the caller up to
-]
-
-> +.IR first .
-> +This avoids subsequent close calls entirely;
-> +the whole operation is complete once the table is unshared.
-> +.\" 582f1fb6b721facf04848d2ca57f34468da1813e
-> +.SS Closing files on \fBexec\fP
-
-[
-.SS Closing files on \fBexec\fP
-.\" 582f1fb6b721facf04848d2ca57f34468da1813e
-]
-
-> +This is particularly useful in cases where multiple
-> +.RB pre- exec
-> +setup steps risk conflicting with each other.
-> +For example, setting up a
-> +.BR seccomp (2)
-> +profile can conflict with a
-> +.B close_range
-
-.BR close_range ()
-
-> +call:
-> +if the file descriptors are closed before the seccomp profile is set
-
-.BR seccomp (2)
-
-> +up,
-
-Please, split at a different point.
-
-> +the profile setup can't use them control their closure;
-
-I don't understand what you wanted to say.  them?
-
-> +if the file descriptors are closed afterwards,
-> +the seccomp profile can't block the
-> +.B close_range
-
-.BR close_range ()
-
-> +call or any fallbacks.
-> +Using
-> +.B CLOSE_RANGE_CLOEXEC
-> +avoids this:
-> +the descriptors can be marked before the seccomp profile is set up,
-
-.BR seccomp (2)
-
-> +and the profile can control access to
-> +.B close_range
-
-.BR close_range ()
-
-> +without affecting the calling process.
-> +.SH EXAMPLES
-> +The following program is designed to be execed by the second program
-> +below.
-> +It lists its open file descriptors:
-> +.PP
-> +.in +4n
-> +.EX
-> +/* listopen.c */
-> +
-> +#include <stdio.h>
-> +#include <sys/stat.h>
-> +
-> +int
-> +main(int argc, char *argv[])
-> +{
-> +    int i;
-
-We use C99 declarations for loop indices.
-
-> +    struct stat buf;
-> +
-> +    for (i = 0; i < 100; i++) {
-
-    for (int i = 0; i < 100; i++) {
-
-> +        if (!fstat(i, &buf))
-> +            printf("FD %d is open.\n", i);
-
-s/\\/\\e/
-
-see: d1a719857b7eb68f5e5c1c965089038dee683240
-
-I sometimes forget to fix those after copying the program to the page.
-My solution is to copy the rendered text from the man page to a file
-and then compile, and those errors become obvious ;)
-
-> +    }
-> +
-> +    exit(EXIT_SUCCESS);
-> +)
-> +.EE
-> +.in
-> +.PP
-> +This program executes the command given on its command-line after
-> +opening the files listed after the command,
-> +and then using
-
-s/using/uses/
-
-> +.B close_range
-
-.BR close_range ()
-
-> +to close them:
-> +.PP
-> +.in +4n
-> +.EX
-> +/* close_range.c */
-> +
-> +#include <fcntl.h>
-> +#include <linux/close_range.h>
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +#include <sys/stat.h>
-> +#include <sys/syscall.h>
-> +#include <sys/types.h>
-> +#include <unistd.h>
-> +
-> +int
-> +main(int argc, char *argv[])
-> +{
-> +    char *newargv[] = { NULL };
-> +    char *newenviron[] = { NULL };
-> +    int i;
-
-dd
-
-> +
-> +    if (argc < 3) {
-> +        fprintf(stderr, "Usage: %s <command-to-run> <files-to-open>\n", argv[0]);
-
-s/\\/\\e/
-
-> +        exit(EXIT_FAILURE);
-> +    }
-> +
-> +    for (i = 2; i < argc; i++) {
-
-    for (int i = 2; i < argc; i++) {
-
-> +        if (open(argv[i], O_RDONLY) == -1) {
-> +            perror(argv[i]);
-> +            exit(EXIT_FAILURE);
-> +        }
-> +    }
-> +
-> +    if (syscall(__NR_close_range, 3, ~0U, CLOSE_RANGE_UNSHARE) == -1) {
-> +        perror("close_range");
-> +        exit(EXIT_FAILURE);
-> +    }
-> +
-> +    execve(argv[1], newargv, newenviron);
-> +    perror("execve");
-> +    exit(EXIT_FAILURE);
-> +}
-> +.EE
-> +.in
-> +.PP
-> +We can use the second program to exec the first as follows:
-> +.PP
-> +.in +4n
-> +.EX
-> +.RB "$" " make listopen close_range"
-> +.RB "$" " ./close_range ./listopen /dev/null /dev/zero"
-> +FD 0 is open.
-> +FD 1 is open.
-> +FD 2 is open.
-> +.EE
-> +.in
-> +.PP
-> +Removing the call to
-> +.B close_range
-
-.BR close_range ()
-
-> +will show different output, with the file descriptors for the named
-> +files still open.
-
-[
-will show different output,
-with the file descriptors for the named files still open.
-]
-
-> +.SH SEE ALSO
-> +.BR close (2)
+> There's a GCC internal declaration of __clear_cache (apparently
+> provided in libgcc for VxWorks).  It was added in r264479 and
+> it also used char*.  This was also changed to void* in r269082
+> to match the built-in.  Looks like this __clear_cache has just
+> been removed from libgcc in GCC 11:
+> https://gcc.gnu.org/pipermail/gcc-cvs/2020-December/338478.html
 > 
-> base-commit: b5dae3959625f5ff378e9edf9139057d1c06bb55
+>>>
+>>> Where is the actual prototype exposed to the user declared?
+> 
+> Built-in functions are declared implicitly by GCC.  They have no
+> explicit declarations like user-defined functions.  The implicit
+> internal "declarations" are specified in the GCC internal file
+> gcc/builtins.def, where they are hidden behind layers of macros.
+> For example, on the GCC 10 branch, the declaration for
+> __builtin___clear_cache is here:
+> 
+> https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/builtins.def;h=fa8b0641ab13b36f983c591a7020f6b432e5fb3d;hb=refs/heads/releases/gcc-10#l837
+> 
+> 
+> Martin
+> 
+>>>
+>>> Thanks,
+>>>
+>>> Alex
+>>>
+>>> P.S.: Michael, wait for a patch revision (v6).
+>>>
+>>> On 12/14/20 10:13 PM, Martin Sebor wrote:
+>>>> On 12/11/20 11:14 AM, Alejandro Colomar (man-pages) via Gcc wrote:
+>>>>> It looks like GCC recently moved from 'char *' to 'void *'.
+>>>>> This SO question[1] (4 years ago) quotes the GCC docs
+>>>>> and they had 'char *'.
+>>>>
+>>>> __builtin___clear_cache in GCC has always been declared to take
+>>>> void*.  The signature in the manual was recently corrected to match
+>>>> the implementation, i.e., from char* to void*, in r269082.
+>>>>
+>>>> Martin
+>>>>
+>>>>> Maybe Clang hasn't noticed the change.
+>>>>> I'll report a bug.
+>>>>>
+>>>>> [1]: https://stackoverflow.com/q/35741814/6872717
+>>>>>
+>>>>> On 12/9/20 8:15 PM, Alejandro Colomar (man-pages) wrote:
+>>>>>> Hi Heinrich,
+>>>>>>
+>>>>>> It looks like a bug (or at least an undocumented divergence from
+>>>>>> GCC) in
+>>>>>> Clang/LLVM.  Or I couldn't find the documentation for it.
+>>>>>>
+>>>>>> Clang uses 'char *':
+>>>>>> https://github.com/llvm/llvm-project/blob/7faf62a80bfc3a9dfe34133681fcc31f8e8d658b/clang/include/clang/Basic/Builtins.def#L583
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>> GCC uses 'void *':
+>>>>>> https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html
+>>>>>>
+>>>>>> I CCd Clang and GCC lists; maybe they know about that divergence.
+>>>>>>
+>>>>>> Cheers,
+>>>>>>
+>>>>>> Alex
+>>>>>>
+>>>>>> On 12/9/20 7:48 PM, Heinrich Schuchardt wrote:
+>>>>>>> On 12/9/20 7:34 PM, Alejandro Colomar (man-pages) wrote:
+>>>>>>>> Hi Heinrich & Michael,
+>>>>>>>>
+>>>>>>>> What about the following?:
+>>>>>>>>
+>>>>>>>> [
+>>>>>>>> NOTES
+>>>>>>>>           GCC provides a similar function, which may be useful on
+>>>>>>>> archi‐
+>>>>>>>>           tectures that lack this system call:
+>>>>>>>>
+>>>>>>>>               void __builtin___clear_cache(void *begin, void *end);
+>>>>>>>> ]
+>>>>>>>
+>>>>>>> I just checked building with Clang/LLVM. There the arguments are of
+>>>>>>> type
+>>>>>>> (char *). See the following error output:
+>>>>>>>
+>>>>>>> +arch/sandbox/cpu/cache.c:19:26: error: passing 'uint8_t *' (aka
+>>>>>>> 'unsigned char *') to parameter of type 'char *' converts between
+>>>>>>> pointers to integer types with different sign
+>>>>>>> [-Werror,-Wpointer-sign]
+>>>>>>> +        __builtin___clear_cache(state->ram_buf,
+>>>>>>> +                                ^~~~~~~~~~~~~~
+>>>>>>> +arch/sandbox/cpu/cache.c:20:12: error: passing 'uint8_t *' (aka
+>>>>>>> 'unsigned char *') to parameter of type 'char *' converts between
+>>>>>>> pointers to integer types with different sign
+>>>>>>> [-Werror,-Wpointer-sign]
+>>>>>>> +                                state->ram_buf + state->ram_size);
+>>>>>>> +                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>>>>>>
+>>>>>>> Best regards
+>>>>>>>
+>>>>>>> Heinrich
+>>>>>>>
+>>>>>>>>
+>>>>>>>> Cheers,
+>>>>>>>>
+>>>>>>>> Alex
+>>>>>>>>
+>>>>>>>> On 12/9/20 7:04 PM, Heinrich Schuchardt wrote:
+>>>>>>>>> Hello Michael,
+>>>>>>>>>
+>>>>>>>>> function cacheflush() does not exist on many architectures.
+>>>>>>>>>
+>>>>>>>>> It would have saved me a lot of time if the man-page had
+>>>>>>>>> referenced
+>>>>>>>>> GCC's
+>>>>>>>>>
+>>>>>>>>> void __builtin___clear_cache(void *begin, void *end)
+>>>>>>>>>
+>>>>>>>>> Maybe you can add it to NOTES.
+>>>>>>>>>
+>>>>>>>>> Best regards
+>>>>>>>>>
+>>>>>>>>> heirnich
+>>>>>>>>
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
 > 
 
 -- 
