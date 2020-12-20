@@ -2,323 +2,137 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E2F8D2DF01C
-	for <lists+linux-man@lfdr.de>; Sat, 19 Dec 2020 16:03:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4D3032DF488
+	for <lists+linux-man@lfdr.de>; Sun, 20 Dec 2020 09:58:14 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726680AbgLSPCm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 19 Dec 2020 10:02:42 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59282 "EHLO
+        id S1727377AbgLTI56 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 20 Dec 2020 03:57:58 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53780 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726660AbgLSPCm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 19 Dec 2020 10:02:42 -0500
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A4950C0617B0
-        for <linux-man@vger.kernel.org>; Sat, 19 Dec 2020 07:02:01 -0800 (PST)
-Received: by mail-wr1-x429.google.com with SMTP id t30so6182737wrb.0
-        for <linux-man@vger.kernel.org>; Sat, 19 Dec 2020 07:02:01 -0800 (PST)
+        with ESMTP id S1727372AbgLTI56 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Dec 2020 03:57:58 -0500
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com [IPv6:2607:f8b0:4864:20::633])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9D205C0613CF
+        for <linux-man@vger.kernel.org>; Sun, 20 Dec 2020 00:57:10 -0800 (PST)
+Received: by mail-pl1-x633.google.com with SMTP id s2so3988838plr.9
+        for <linux-man@vger.kernel.org>; Sun, 20 Dec 2020 00:57:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=R0MnwtacTxDxZTHoE6Pm6GGS3okDvPp4VTJdoMtQDR0=;
-        b=FoHy1nb42t3o+KTVaCUrYKgeWYnDyOIg4LXXC5al/BZDaThQjFf5tDKbS6Iq5HuO3b
-         q8Ck9QbVrAbWDYE0Wm4s7IT/JOGuz/3R5VrTbPAkAwvYBm0GEZCa1sPSq05sAv5Xbs2Q
-         lWXBkQ0HVy1nhlcQS3LiU6BfyazDsh4PnwbFJqD4Ifj0fwqYfjPDJgB9l1apozVr4oZq
-         f+FGkyTl0mYQTk+oDOZw8XJaniOCvV+v6Q6N/yTpTXUVu95QiItx7ztSbOgYsIzWN3hn
-         TK7kT3va5b6dELfVQrbmoiSgjRhamneIVR4pOAAJ6+p7knWlIendDpieg/F5U18++pc+
-         Ovzg==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=hi407cXBexUZgWAKZvmXRgieQLCZR/sMrRzrhhW1KU4=;
+        b=MLOL1LPqX5ffR6XzYFKhTV7kMEobqR+JvYwHHSi+kt/K0geJfnIPzAAhoWgGXMRrW/
+         m8NLThZ+lnN5XgorDloRSkPEfUUllgA6tyHRmdWQds6JJxT+aE33KVEqBD9WuyK4J88t
+         KrtDVsopm0QM9Dcb4p+nS/lAqpX9pYDGYT+l+rR2vvXHF7llpZ9qUByLKI3P+22C5Yqb
+         BuEywsy2BxFxRThLJJZ+khcuCYMMqRrnmB/+IHCF9TLA1kPQPq0poJSCqTEL+erYLInO
+         h2yF0PuyLOQ0uMgQrFydJ4QhzYBhSYO2v+1iN4DKENcPbp3VjPq7SchrZMxFAgx+zKLT
+         oIMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=R0MnwtacTxDxZTHoE6Pm6GGS3okDvPp4VTJdoMtQDR0=;
-        b=NmMQoXlXXs1fbUUHnOK4HhQ0eyljVakWID6BPLEbnXY/jiTE41vPRjEmHvkGo36sgP
-         T4JzalZhazyVRDa+6VKPhVL3CSUgi/1HqRGikfOxFA6C1zOsgWyE6D808LQNspktiEWj
-         ptn3uhrvKbUJhsV7eB1owcAKgckV1IHnUvZ4baFFBgVsdzLBzub8vRwQMIwSDvgB0FsB
-         T7GgBwpI1EblKlpq0eXY8Mt0EgitSjQp6yYpLp8OfAQ8Nrx/Ew0jFxVG56H/5ifCvQlU
-         gdIOxcz4oAgLVclJuCt5ZiAHbB2hlT+m3BllZNKIcMPN5jXraOvCH2M7zeYPBSWjrKII
-         DYNw==
-X-Gm-Message-State: AOAM532SxxE+70Smqtgq2TfI23ojQVgZLBobBjHAjOL9XSorSo3S82VR
-        VnoqePOP4diTJeYBh2vC8o6VLM7LELU=
-X-Google-Smtp-Source: ABdhPJyk+HNOX8fpcx8V4rT76hqIgIIhRuAU3C0GCCmIIz98Tb4QWBaQSUh0auNioxTsa9zYRhxh+Q==
-X-Received: by 2002:adf:a34d:: with SMTP id d13mr9894822wrb.194.1608390119639;
-        Sat, 19 Dec 2020 07:01:59 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id u9sm10825316wmb.32.2020.12.19.07.01.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Dec 2020 07:01:59 -0800 (PST)
-Subject: Re: [PATCH] prctl.2: Document Syscall User Dispatch
-To:     Gabriel Krisman Bertazi <krisman@collabora.com>,
-        mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-References: <20201219041009.3143592-1-krisman@collabora.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <30db3ba3-34de-369d-4310-2818a5499a6d@gmail.com>
-Date:   Sat, 19 Dec 2020 16:01:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=hi407cXBexUZgWAKZvmXRgieQLCZR/sMrRzrhhW1KU4=;
+        b=shpkKQ51YjAeUPqPDnl3lmigAE2ODp2Egbfm8EHCOgSdKZU9PVSY8TULlCzpLWKCLz
+         0cadCnVug9eqynjh9ApuQy2lp0kEMQBICiHnp4bBBd3LyK7BJopF1ZNaglsW6ZOpvnQi
+         SrQ8gzjSvCZwiD9DGSr+2mMHWu4nLVKqelMnNbHgOlOxnMUBltd38PIjWKXHYiKos2mp
+         SzVSKS6svpN+xjWxFd/AZwVH8/KDwWJh0ncO6gKCF2Du5V2m7So0RsXIf8Q38Cmez1It
+         juxsFb1nLGD4htgg/nVThIbfDwPFVo9P3CKoGVChMYr2iKKKdKNgUvlVrj3GLSL3Zj3v
+         CKPg==
+X-Gm-Message-State: AOAM5316R1dtT2vsKlW/Vz+3/M+beawng1JK9mfyNPVvx69Ii4qtl1xm
+        C05WrtM/figanlm8UAn5Pd/1AfJuJCc=
+X-Google-Smtp-Source: ABdhPJwNhYQ4OyXdLZNLFXZIUPLbEbeH6vPC2441RPdVXfDrE4duic3rcSpG1vyfKRLwvO2/2zzplw==
+X-Received: by 2002:a17:90b:4b0a:: with SMTP id lx10mr12236436pjb.205.1608454630055;
+        Sun, 20 Dec 2020 00:57:10 -0800 (PST)
+Received: from localhost.localdomain ([1.144.138.211])
+        by smtp.gmail.com with ESMTPSA id b2sm12913695pff.79.2020.12.20.00.57.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Dec 2020 00:57:09 -0800 (PST)
+Date:   Sun, 20 Dec 2020 19:57:04 +1100
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
+Subject: Re: Right margin for code (SYNOPSIS, EXAMPLES, ...)
+Message-ID: <20201220085701.5wjihnjalt5bgk4b@localhost.localdomain>
+References: <1f731252-395b-e8bd-ed5d-cc3b3eeea948@gmail.com>
+ <CAKgNAkisA-6-GhYugwFLWp4pZLqHSU7T8unpTt5mibcMzApz4w@mail.gmail.com>
+ <8d84a00d-cd4d-86b5-9ed0-9357324a824d@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20201219041009.3143592-1-krisman@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="wqme3oxcgk4nx47n"
+Content-Disposition: inline
+In-Reply-To: <8d84a00d-cd4d-86b5-9ed0-9357324a824d@gmail.com>
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Gabriel,
 
-Thanks for the page!
-Please see some comments below.
+--wqme3oxcgk4nx47n
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks,
+Hi Alex,
 
-Alex
+At 2020-12-12T19:01:30+0100, Alejandro Colomar (man-pages) wrote:
+> On 12/11/20 10:26 PM, Michael Kerrisk (man-pages) wrote:
+> > Hi Alex,
+> >=20
+> > On Fri, 11 Dec 2020 at 22:14, Alejandro Colomar (man-pages)
+> > <alx.manpages@gmail.com> wrote:
+> >>
+> >> Hi Michael,
+> >>
+> >> For code, for example function prototypes in SYNOPSIS, do you have a
+> >> preferred right margin? 80? 72?
+> >=20
+> > If I understand your question, 80. But what prompts you to ask?
 
-On 12/19/20 5:10 AM, Gabriel Krisman Bertazi wrote:
-> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
-> ---
->  man2/prctl.2 | 93 ++++++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 93 insertions(+)
-> 
-> diff --git a/man2/prctl.2 b/man2/prctl.2
-> index f25f05fdb593..2e82c73c10c2 100644
-> --- a/man2/prctl.2
-> +++ b/man2/prctl.2
-> @@ -1533,6 +1533,70 @@ For more information, see the kernel source file
->  (or
->  .I Documentation/arm64/sve.txt
->  before Linux 5.3).
-> +.TP
-> +.\"commit 1446e1df9eb183fdf81c3f0715402f1d7595d4cb
-> +.BR PR_SET_SYSCALL_USER_DISPATCH " (Since Linux 5.11, x86 only)"
+I researched the question of right margin/line length for a change I
+made to groff earlier this year, and my findings were that you should
+format man pages for 78 columns; this will probably work practically
+everywhere.  Things other than tbl(1) tables will work okay at widths
+even narrow than this.
 
-s/Since/since
+Why 78 and not 80?  I couldn't find an authoritative answer, but my
+guess is that 80 was viewed as too risky for terminals that would
+misbehave with respect to wrapping or scrolling when a write was done to
+the last cell on the line or screen.  That gets us down to 79, and
+perhaps a preference for even numbers over odd ones explains 78.
 
-rationale:
-$ grep -r '(Since Linux' man? |wc -l
-48
-$ grep -r '(since Linux' man? |wc -l
-1286
+Quoting my own research:
 
-> +.IP
-> +Configure the Syscall User Dispatch mechanism for the calling thread, to
+"...man-db man(1) has supported the LL register for eighteen years, and
+Brouwer/Lucifredi man(1) for fifteen.  Heirloom Doctools's man macros
+set the line length to 78n on nroff devices unconditionally.  mandoc(1)
+similarly also always formats for 78 columns on terminals.  groff's
+mdoc(7) macros grew support for LL in parallel with man(7) in 2002 and
+never added the \n[.l] introspection at all."[1]
 
-See:
+Regards,
+Branden
 
-$ man 7 man-pages |sed -n '/Use semantic newlines/,/^$/p'
-   Use semantic newlines
-       In the source of a manual page, new sentences should be started
-       on  new  lines,  and  long sentences should split into lines at
-       clause breaks (commas, semicolons, colons, and  so  on).   This
-       convention,  sometimes  known  as "semantic newlines", makes it
-       easier to see the effect of patches, which often operate at the
-       level of individual sentences or sentence clauses.
+[1] https://git.savannah.gnu.org/cgit/groff.git/commit/?id=3D7770e10fa4d5b9=
+03b6923f466154c806c44de35a
 
+--wqme3oxcgk4nx47n
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> +selective intercept system calls and dispatch them back to userspace
+-----BEGIN PGP SIGNATURE-----
 
-s/userspace/user space/
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl/fEdQACgkQ0Z6cfXEm
+bc70EhAApyzrhlHKfC6jlUPwmLlFwnaiIipQfPxc/UGtILnkmThs6z71WBGnCVe+
+0C+ZRtzR2nHJUTfu+lzvCujLoGV3kdtweeeAtt9kbafjyPWPjdMser4tUeJ7wxZq
+aofw+O6bQEwkTEYt1YWecimAXyo9fdGrd8wejBHylx9Qa/X/DMO8Hq8glNmXSAED
+nSQlLbQ8z3cu1tKU0nxy1UF84tulxNbXVeu0/SUDM7bAT03HMoV6vEry/DzADpVM
+LT15FcLeEx+KcYuGwv/4zNm8K/Z1IYDgnunbKTjSdkU0cIb7I+NVHQXvu6FU8EtP
+Ddt5C+811TXSRQnAY8lQmXtRikxOn3/QTLpA6Zlx5xSoqnrESgCD71UhHJZhYpXm
+qiScX8BAh8Jt2JlAV96I+vHHFrdzIRtauHJ9ter1d2kU0uPUZO/c/TMmy+Ox0FnS
+FAQmf5r54PID/mDbaYNmN0gzIICOsb6yBxYxdPu9bgo2u2kw2Kr5NsxLKLw70uvR
+40KL2DAdlV3TOVpNy7jbgmwvzhnXKBo9XrREyzP3S9WkOzSHrfz6jXoymHPJFLyO
+ROcYP/6WyWS73ZH+tNmm6Vznhb7ywnFDcGBC+pHHBCdaI+MoKGTRTxI9IozyQfhw
+0A86gpFxH6KwYBWxsgdU9+vJs8uJsDoiE1RIDXU79z7w1YMqqFM=
+=Uxdm
+-----END PGP SIGNATURE-----
 
-Rationale:
-$ man 7 man-pages |sed -n '/Preferred/,/user space/p'
-   Preferred terms
-       The following table lists some preferred terms to use in man
-pages, mainly to ensure consistency across pages.
-
-       Term                 Avoid using                     Notes
-
-────────────────────────────────────────────────────────────────────────────────────────────────────
-
-       bit mask             bitmask
-       built-in             builtin
-       Epoch                epoch                           For the UNIX
-Epoch (00:00:00, 1 Jan 1970 UTC)
-       filename             file name
-       filesystem           file system
-       hostname             host name
-       inode                i-node
-       lowercase            lower case, lower-case
-       nonzero              non-zero
-       pathname             path name
-       pseudoterminal       pseudo-terminal
-       privileged port      reserved port, system port
-       real-time            realtime, real time
-       run time             runtime
-       saved set-group-ID   saved group ID, saved set-GID
-       saved set-user-ID    saved user ID, saved set-UID
-       set-group-ID         set-GID, setgid
-       set-user-ID          set-UID, setuid
-       superuser            super user, super-user
-       superblock           super block, super-block
-       timestamp            time stamp
-       timezone             time zone
-       uppercase            upper case, upper-case
-       usable               useable
-       user space           userspace
-
-> +through
-> +.IR SIGSYS .
-> +.IP
-> +The current Syscall User Dispatch mode is selected via
-> +.IR "arg2",
-
-.IR arg2 ,
-
-> +which can either be set to
-> +.B PR_SYS_DISPATCH_ON
-> +to enable the feature, or to
-> +.B PR_SYS_DISPATCH_OFF
-> +to turn it off.
-> +.IP
-> +With
-> +.IR "arg2"
-
-.I arg2
-
-> +set to
-> +.BR PR_SYS_DISPATCH_ON ,
-> +.IR "arg3"
-
-.I arg3
-
-> +and
-> +.I "arg4"
-
-tr -d '"'
-
-> +respectively identify the
-> +.I offset
-> +and
-> +.I length
-> +of a memory region in the process map from where system calls are always
-
-See semantic newlines above.
-
-> +allowed to be executed, regardless of the switch variable.
-> +.I "arg5"
-
-tr -d '"'
-
-> +points to a char-sized variable that is a fast switch to enable/disable> +the mechanism without invoking the kernel.
-> +.I "arg5"
-
-tr -d '"'
-
-> +can be set to either
-> +.BR PR_SYS_DISPATCH_ON
-
-s/.BR/.B/
-
-> +to enable the mechanism or to
-> +.BR PR_SYS_DISPATCH_OFF
-
-s/.BR/.B
-
-> +to temporarily disable it.  Any other value will fail the application> +with a
-
-See semantic newlines above.
-
-> +.IR SIGSYS .
-> +.IP
-> +When a system call is intercepted, a
-> +.I SIGSYS
-> +is raised with
-> +.I si_code
-> +set to
-> +.B SYS_USER_DISPATCH.
-
-.BR SYS_USER_DISPATCH .
-
-> +.IP
-> +When
-> +.I "arg2"
-
-tr -d '"'
-
-> +is set to
-> +.BR PR_SYS_DISPATCH_OFF ,
-> +the remaining arguments must be set to
-> +.BR 0 .
-
-Literals are not (usually) formatted.
-
-[
-the remaining arguments must be set to 0.
-]
-
-> +.IP
-> +The setting is not preserved across
-> +.BR fork (2),
-> +.BR clone (2)
-> +or
-> +.BR execve (2) .
-
-s/(2) ./(2)./
-
-> +.IP
-> +For more information, see the kernel source file
-> +.IR Documentation/admin-guide/syscall-user-dispatch.rst
-
-s/.IR/.I/
-
-Could you add
-
->  .\" prctl PR_SET_TAGGED_ADDR_CTRL
->  .\" commit 63f0c60379650d82250f22e4cf4137ef3dc4f43d
->  .TP
-> @@ -2000,6 +2064,14 @@ and
->  .I arg3
->  is an invalid address.
->  .TP
-> +.B EFAULT
-> +.I option
-> +is
-> +.BR PR_SET_SYSCALL_USER_DISPATCH
-
-s/.BR/.B/
-
-> +and
-> +.I arg5
-> +has an invalid address.
-> +.TP
->  .B EINVAL
->  The value of
->  .I option
-> @@ -2229,6 +2301,27 @@ is
->  and SVE is not available on this platform.
->  .TP
->  .B EINVAL
-> +.I option is
-> +.B PR_SET_SYSCALL_USER_DISPATCH
-> +and one of the following is true:
-> +.RS
-> +.IP * 3
-> +.I arg2
-> +is
-> +.B PR_SYS_DISPATCH_OFF
-> +and remaining arguments are not
-> +.BR 0.
-
-and remaining arguments are not 0.
-
-> +.IP * 3
-> +.I arg2
-> +is
-> +.B PR_SYS_DISPATCH_ON
-> +and the memory region provided is invalid.> +.IP * 3
-> +.I arg2
-> +is invalid.
-> +.RE
-> +.TP
-> +.B EINVAL
->  .I option
->  is
->  .BR PR_SET_TAGGED_ADDR_CTRL
-> 
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+--wqme3oxcgk4nx47n--
