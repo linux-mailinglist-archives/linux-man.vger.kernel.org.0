@@ -2,71 +2,75 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0E50F2DF5E7
-	for <lists+linux-man@lfdr.de>; Sun, 20 Dec 2020 16:38:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 02DB02DF894
+	for <lists+linux-man@lfdr.de>; Mon, 21 Dec 2020 06:16:20 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727671AbgLTPhP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 20 Dec 2020 10:37:15 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58232 "EHLO
+        id S1728045AbgLUFQK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 21 Dec 2020 00:16:10 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42118 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727645AbgLTPhP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Dec 2020 10:37:15 -0500
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 20FBFC0617B0;
-        Sun, 20 Dec 2020 07:36:21 -0800 (PST)
-Received: by mail-wr1-x430.google.com with SMTP id r3so8212486wrt.2;
-        Sun, 20 Dec 2020 07:36:21 -0800 (PST)
+        with ESMTP id S1725849AbgLUFQJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 21 Dec 2020 00:16:09 -0500
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8E533C0613D3;
+        Sun, 20 Dec 2020 21:15:29 -0800 (PST)
+Received: by mail-wm1-x332.google.com with SMTP id x22so8715108wmc.5;
+        Sun, 20 Dec 2020 21:15:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=GIxWxKRMw7SGkXKjHPxOnFiDqc9PfOlR1jMdml5CQBA=;
-        b=CahlGOxs8PABDe3GI4PYpEjkHztw0ECNbKvQdGhykotf12SXD5PebrToXvYWEdpx1Y
-         CHzD09G3+yTlH2FIQNuveJ4g59up9frZMEdma4QJbyVxBMptE8fIaeIEFBePoMSUnb/o
-         DDbpnCZh/dERTZF22EWy7MCnpLr3+N4BwRQWJalwA2Zw0NwZOcdqwz2Rue4FNX91iKKM
-         u5R7pnnFBb6/HAPGv8+WNj3KmQXlEOMmvmZFmqj1NI/XWJAgYkNUfacQg6mUVIKOVJBC
-         vjAGMocHnFe60lbD3f8JFMI1U9j4LrBQFxbl7fB6nI3j+Id3NsxHZLihq8ZIm6SgtXgZ
-         7fGA==
+        bh=TPubNB4+o76pxV2jUsQ6FWuL944gZMCTKS2ZqkAshzg=;
+        b=RoHWJA1AJ6mNViQl3u4462wV12SBTvCbZ32NzEy47tEk/PNyZm1QyISrphfNTSZMIF
+         bs/j0XuXlETtcogZUEBTWXpHuCsAM0ZCReFahn+sQi8DXrqkMilVyh9m96Ol4bzmqMVs
+         vhSiCc0Ypwr6kz/xxI0kKrqlZx5XRUqvg9HYLdzfIRntWV5RTSPlQR3I45Dk9Sum5mxt
+         ZrQcCQ+eAYX+IlWb09PUIC6WtL+r0nvuRXUHZ8bDCX09HmTaWYVG1dC3Sv54+IJ2bDRk
+         1tvSZW1qw4Y4+dw2/zYGupCh4Ld5PmkKbFXulXDJj0y6fE3m9NihWxw420iT80xgOPYj
+         u/FQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=GIxWxKRMw7SGkXKjHPxOnFiDqc9PfOlR1jMdml5CQBA=;
-        b=c5+/UNUoQYXQElyndoLMGVEJLUnYeZ+rhTnB9FNG2FmcFzRZ8jZHjUvSE8N09tz8kx
-         RTSy9phKxBfUGNtZ2dK/r63r2xDC9mYlUfD8owk2nkpZGwN2DylJ6LMMxEM7YtQ5rH/R
-         q0d4XzC4mAWhQDfOfaJxEuyG29cL7B7fOaMu6AMVMCFDxx19tyFesH4kmvSRKNDOKSta
-         uNolMA3Nh0+Tu/bEKCF5jmgAES482vKXXODZ2YEJYK0FReIyxxTB412HlXFRRCar5+c5
-         qU4xcs1h/J22teQFW/FlseLwi2S73gILThBAaPfor7pN9Rp0RcxuOSyusTMZ7VBlOFpM
-         5t8w==
-X-Gm-Message-State: AOAM530eV+ZOmSJroPdRRFSqblu/fSuXItQHepMjTlOTzS/GvbA7csBR
-        lkR19B4SWjmYM/JKfpGkmvo=
-X-Google-Smtp-Source: ABdhPJxBdONObhh0opceXMVxKG0VzqzR4kUa2LRuF8cC1ictBN1LgRYp5x07gs9VLSIGJsDdlkdJcg==
-X-Received: by 2002:adf:e74a:: with SMTP id c10mr14333321wrn.122.1608478579945;
-        Sun, 20 Dec 2020 07:36:19 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id k10sm21616433wrq.38.2020.12.20.07.36.18
+        bh=TPubNB4+o76pxV2jUsQ6FWuL944gZMCTKS2ZqkAshzg=;
+        b=i8SzjEz+igZraBY4OusQzMHuPoxwuiVfvf4rK3ID8NfIEs2cCzYYGfOUxsUuwrH7z2
+         2JfHTb9qwgTcrAbghkh16dLseTi0Il/yXEkdlkq/Bw45bjAQm+Y45yrBRzij0/8LDF/k
+         +fwPJtxzaZYOWkoKS5dCpOqyTzlA06DH5hOPxa+DB5REoL8GpMkHL48hzW4iOV9n41e7
+         1Xti+N7ZtGfCJ9ksNP4Li4XYktXGZ9/YsOXgwI1fKSPDxu00o18VZAozZk4plYYDADCy
+         q/DZRu6W20c0Az4pdVTeSGIZ/N7T39VW+31B9t/viVgkPBcIfq4Jpjw40rGuvInmmNWe
+         CnKg==
+X-Gm-Message-State: AOAM533j7DejIX18Du1YV2I9KLzq+zGrG584akqmFA//0cdGXex5YeLI
+        ktI0B4ZaE3ODKoyFFhgHU58hUuWurweKUQ==
+X-Google-Smtp-Source: ABdhPJyFZ1y1fQoUFEQgChpe5AV9GnxIBBOW/0NVsMBb8a2iZBbXpetzu/KkPLQanNekpScVM9jCHQ==
+X-Received: by 2002:a7b:ce14:: with SMTP id m20mr13509768wmc.149.1608497330655;
+        Sun, 20 Dec 2020 12:48:50 -0800 (PST)
+Received: from ?IPv6:2001:a61:2467:2f01:faca:3d43:5e40:30d1? ([2001:a61:2467:2f01:faca:3d43:5e40:30d1])
+        by smtp.gmail.com with ESMTPSA id z8sm20051199wmg.17.2020.12.20.12.48.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 20 Dec 2020 07:36:19 -0800 (PST)
-Subject: Ping: [PATCH] cacheflush.2: Document Architecture-specific variants
-To:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-Cc:     Vineet Gupta <vgupta@synopsys.com>,
-        linux-snps-arc@lists.infradead.org,
-        Heinrich Schuchardt <xypron.glpk@gmx.de>,
-        Guo Ren <guoren@kernel.org>, linux-csky@vger.kernel.org,
+        Sun, 20 Dec 2020 12:48:49 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, Vineet Gupta <vgupta@synopsys.com>,
+        linux-snps-arc@lists.infradead.org, Guo Ren <guoren@kernel.org>,
+        linux-csky@vger.kernel.org,
         Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
         linux-mips@vger.kernel.org, Nick Hu <nickhu@andestech.com>,
         Greentime Hu <green.hu@gmail.com>,
-        Vincent Chen <deanbo422@gmail.com>, libc-alpha@sourceware.org,
-        Dave Martin <Dave.Martin@arm.com>
-References: <20201214143852.16565-1-alx.manpages@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <a0f3e871-4ad4-408c-f3ca-d5ba4344e307@gmail.com>
-Date:   Sun, 20 Dec 2020 16:36:18 +0100
+        Vincent Chen <deanbo422@gmail.com>, gcc-patches@gcc.gnu.org,
+        cfe-users@lists.llvm.org, cfe-dev@lists.llvm.org
+Subject: Re: [PATCH v6] cacheflush.2: Document __builtin___clear_cache() as a
+ more portable alternative
+To:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Dave Martin <Dave.Martin@arm.com>,
+        Heinrich Schuchardt <xypron.glpk@gmx.de>,
+        linux-man@vger.kernel.org, Martin Sebor <msebor@redhat.com>
+References: <e2424619-2a5a-a44a-2dc0-a16310725250@gmail.com>
+ <20201215133019.14411-1-alx.manpages@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <924d4de5-5191-26fc-a040-2501d4c74f10@gmail.com>
+Date:   Sun, 20 Dec 2020 21:48:46 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <20201214143852.16565-1-alx.manpages@gmail.com>
+In-Reply-To: <20201215133019.14411-1-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -74,88 +78,66 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Ping
-
-On 12/14/20 3:38 PM, Alejandro Colomar wrote:
+On 12/15/20 2:30 PM, Alejandro Colomar wrote:
+> Reported-by: Heinrich Schuchardt <xypron.glpk@gmx.de>
 > Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> Cc: Martin Sebor <msebor@redhat.com>
+> Cc: Dave Martin <Dave.Martin@arm.com>
 > ---
 > 
-> Hi Michael,
-> 
-> Please apply this patch after
-> '[PATCH v5] cacheflush.2: Document __builtin___clear_cache() as a more
->  portable alternative'.
-> 
-> Thanks,
-> 
-> Alex
-> 
->  man2/cacheflush.2 | 42 ++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 42 insertions(+)
+> v6:
+> - GCC has always exposed 'void *', as Martin Sebor noted.
+>   It's Clang (and maybe others) that (following GCC's docs)
+>   exposed 'char *'.
+
+Thanks, Alex. Patch applied.
+
+Cheers,
+
+Michael
+
+>  man2/cacheflush.2 | 24 ++++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
 > 
 > diff --git a/man2/cacheflush.2 b/man2/cacheflush.2
-> index fc35f1a0b..0761b429a 100644
+> index aba625721..7a2eed506 100644
 > --- a/man2/cacheflush.2
 > +++ b/man2/cacheflush.2
-> @@ -31,6 +31,10 @@ cacheflush \- flush contents of instruction and/or data cache
->  .PP
->  .BI "int cacheflush(char *" addr ", int "nbytes ", int "cache );
->  .fi
-> +.PP
-> +.IR Note :
-> +On some architectures,
-> +there is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
->  .BR cacheflush ()
->  flushes the contents of the indicated cache(s) for the
-> @@ -87,6 +91,44 @@ but nowadays, Linux provides a
+> @@ -86,6 +86,30 @@ On Linux, this call first appeared on the MIPS architecture,
+>  but nowadays, Linux provides a
 >  .BR cacheflush ()
 >  system call on some other architectures, but with different arguments.
->  .SH NOTES
-> +.SS Architecture-specific variants
-> +Glibc provides a wrapper for this system call,
-> +with the prototype shown in SYNOPSIS,
-> +for the following architectures:
-> +ARC, CSKY, MIPS, and NIOS2.
-> +.PP
-> +On some other architectures,
-> +Linux provides this system call, with different arguments:
-> +.TP
-> +M68K:
+> +.SH NOTES
+> +Unless you need the finer grained control that this system call provides,
+> +you probably want to use the GCC built-in function
+> +.BR __builtin___clear_cache (),
+> +which provides a portable interface
+> +across platforms supported by GCC and compatible compilers:
 > +.PP
 > +.in +4n
 > +.EX
-> +.BI "int cacheflush(unsigned long " addr ", int " scope ", int " cache ,
-> +.BI "               unsigned long " len );
-> +.EE
-> +.in
-> +.TP
-> +SH:
-> +.PP
-> +.in +4n
-> +.EX
-> +.BI "int cacheflush(unsigned long " addr ", unsigned long " len ", int " op );
-> +.EE
-> +.in
-> +.TP
-> +NDS32:
-> +.PP
-> +.in +4n
-> +.EX
-> +.BI "int cacheflush(unsigned int " start ", unsigned int " end ", int " cache );
+> +.BI "void __builtin___clear_cache(void *" begin ", void *" end );
 > +.EE
 > +.in
 > +.PP
-> +On the above architectures,
-> +glibc does not provide a wrapper for this system call; call it using
-> +.BR syscall (2).
-> +.SS GCC alternative
->  Unless you need the finer grained control that this system call provides,
->  you probably want to use the GCC built-in function
->  .BR __builtin___clear_cache (),
+> +On platforms that don't require instruction cache flushes,
+> +.BR __builtin___clear_cache ()
+> +has no effect.
+> +.PP
+> +.IR Note :
+> +On some GCC-compatible compilers,
+> +the prototype for this built-in function uses
+> +.I char *
+> +instead of
+> +.I void *
+> +for the parameters.
+>  .SH BUGS
+>  Linux kernels older than version 2.6.11 ignore the
+>  .I addr
 > 
 
+
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
