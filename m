@@ -2,128 +2,114 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3B3152DF57B
-	for <lists+linux-man@lfdr.de>; Sun, 20 Dec 2020 14:20:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 45F0F2DF5B4
+	for <lists+linux-man@lfdr.de>; Sun, 20 Dec 2020 15:44:42 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726784AbgLTNT4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 20 Dec 2020 08:19:56 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37226 "EHLO
+        id S1727251AbgLTOo0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 20 Dec 2020 09:44:26 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50100 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726629AbgLTNTz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Dec 2020 08:19:55 -0500
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 44CC2C0613CF
-        for <linux-man@vger.kernel.org>; Sun, 20 Dec 2020 05:19:15 -0800 (PST)
-Received: by mail-wm1-x32d.google.com with SMTP id v14so7205537wml.1
-        for <linux-man@vger.kernel.org>; Sun, 20 Dec 2020 05:19:15 -0800 (PST)
+        with ESMTP id S1726970AbgLTOo0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Dec 2020 09:44:26 -0500
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D923FC0613CF
+        for <linux-man@vger.kernel.org>; Sun, 20 Dec 2020 06:43:43 -0800 (PST)
+Received: by mail-wr1-x431.google.com with SMTP id d26so8079054wrb.12
+        for <linux-man@vger.kernel.org>; Sun, 20 Dec 2020 06:43:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=HNhdO5g08tAHZXlBYaS9oZBA0sJyaHt9wZoas//UsLw=;
-        b=YLTiEXkoz9Pmh7E3Hzeg2rTjSEfm4rMbKdhh0RX1MTqmq+Jt+Rc/Edb/qdFlXf+8jM
-         3j9UCFb1HcXSdUkM7TSvdMoMMdfNROqHV+OMRG/o5pi6eZzz0Y/IAg2qUKnhmSGk+arm
-         pYcV4Vku0h3IF4p3qETKCrmrDUrdO8akBQ4b28mRWWe2mkzpLdn8lOhntq8lPMHOoKRS
-         JKwf91rI3erhKnDfQEj4jbrGakTBa8CHhjRbCSVhv24HGUDNyHgHeHd67CgS5+MXzDAL
-         u+XS4avnBLzOcICZ+tj67CU1SBSzXXDR2+YokdboDz2l4f1tkoSPfZTvZTD4AgUZrSEQ
-         GBYg==
+        bh=cA6xfm6OGZ3F65PlGM+JNVg0Mu8+QmgpLROcW3ivhiY=;
+        b=pZgouI8SDfnYq3Eb1TyGIGMgU3uu6mTpK44bPotSjL8nLzccvdVV+RyBDC8UOlCyJ6
+         k0/tpiC05Ab1bc+/Ryn3Z4YQXFw4qfYJhGb86O1J7p1h2YwPlqJShaWKdvgDw+bk9III
+         HcQBTm0zYU2zRVdQfK1PfetrYfevzZAzp2iHHK5Ez31jBiEN1qMnfVQelDSR5Nd9csLH
+         NI8VPaXrdpom7FmgXqdJ2A1u++hqsRbITPzArJjnMx8N703fuUj6guuiWeC/HFQ+Dv1P
+         JHlWk14v+LgR6/5lIRIzG2864Urm5xmVupQLbmb0ecz+2FQlMdzKjxlZNgZSxUyI8TRp
+         FAIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=HNhdO5g08tAHZXlBYaS9oZBA0sJyaHt9wZoas//UsLw=;
-        b=pQVILQ80ULo9ow7+vYwwgZQaz+UHr7MC1rFVx/RaTYtsQFwp1fwVTVo/LMWyw414TB
-         W1vlWsjlKFAkMh7Wf/btM3ZBPQaBdO5fpEt4yCiyzEXXCnvjTtbJNTWoIcRszBAsGE2O
-         Ms7bfnLs/y/d4u0rEXXTG8Tsd/8v/a6tPrx0jjzK8BZOXCWUSwB5SwJyRdR7Be4Pqf2B
-         7cCYPBYsa2EScztypv5/hnKDTLYjeIY3iKPJim0PHM6km6pqZMQJCKQ6oIS71L1k9Czv
-         2nszg6mZUIq9dU78czkVjs1hD0YmJsj/rzJVuSZcxGQV3WD0uh+kUKEJCp3vjX3DhlBM
-         gAIA==
-X-Gm-Message-State: AOAM533sa8M0cPFXEno5q7uHvCurR2cWhV3arzcMiZjIgQnGgdC9Wm2U
-        qA8CpJh26IuTuYcMo7VFNccV9e4hyy8=
-X-Google-Smtp-Source: ABdhPJwDnT32Vd0+gM9dAhGi8C1lf0ZWSDQWUS8t1t1AlqKPYJrmfQu5kka61heCZ2ruD87f0JyNLQ==
-X-Received: by 2002:a05:600c:2057:: with SMTP id p23mr11893910wmg.109.1608470353928;
-        Sun, 20 Dec 2020 05:19:13 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id l8sm25343826wrb.73.2020.12.20.05.19.12
+        bh=cA6xfm6OGZ3F65PlGM+JNVg0Mu8+QmgpLROcW3ivhiY=;
+        b=ebhq2bxA7ZCEj/MMHL0l2DfoalofbysCNwWEHo8+9cNZ1HoB5uM+JrTLTnFg5jvVTs
+         SCzdoiRbuMk4Wuhft+lreie/kDrWyyFVb/ThADn+eZRzCrYkW5FUm1IXlCtabXSIJxYV
+         JVdTJqYt1USKHIpfH/wE/8gA9f6CUKdpnVuHlYcIQD5Z2i8xd/5+dtdOkLwDQb1UNPVC
+         yd207DzEDxoULRd9UmRcsBFYygyyHbuvMTpitzT1BJK7v4iONbfCwj72zRehnyUejxpy
+         dU8x5CA73TJG6JzXQx8sfGOrMtco7erc5Ypv+fgVf+0pUoG1V7jsFxjgFO/bZ9mvu/gu
+         rRMg==
+X-Gm-Message-State: AOAM530CRBd+m6abc8qzGR3B3WjRGDkA+yqmw7UcoGkgwvDKZEdkY205
+        maw+1a+tRp0t3e+L7i6JREp5Yw0kAnKYPg==
+X-Google-Smtp-Source: ABdhPJyAoDrNOH6+v+Ur8mOvkHuEPhNoJQyULvRDkpHvR4t0agzpJ8PWQwDQroZO0bNpa7CtZAp61A==
+X-Received: by 2002:adf:decb:: with SMTP id i11mr14181953wrn.26.1608475422183;
+        Sun, 20 Dec 2020 06:43:42 -0800 (PST)
+Received: from ?IPv6:2001:a61:2467:2f01:faca:3d43:5e40:30d1? ([2001:a61:2467:2f01:faca:3d43:5e40:30d1])
+        by smtp.gmail.com with ESMTPSA id h13sm22418036wrm.28.2020.12.20.06.43.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 20 Dec 2020 05:19:13 -0800 (PST)
-Subject: Re: Right margin for code (SYNOPSIS, EXAMPLES, ...)
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
-References: <1f731252-395b-e8bd-ed5d-cc3b3eeea948@gmail.com>
- <CAKgNAkisA-6-GhYugwFLWp4pZLqHSU7T8unpTt5mibcMzApz4w@mail.gmail.com>
- <8d84a00d-cd4d-86b5-9ed0-9357324a824d@gmail.com>
- <20201220085701.5wjihnjalt5bgk4b@localhost.localdomain>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <56d5cd0a-b0ac-b9eb-a528-3d031584cc33@gmail.com>
-Date:   Sun, 20 Dec 2020 14:19:12 +0100
+        Sun, 20 Dec 2020 06:43:40 -0800 (PST)
+Cc:     mtk.manpages@gmail.com,
+        =?UTF-8?Q?Ahelenia_Ziemia=c5=84ska?= 
+        <nabijaczleweli@nabijaczleweli.xyz>, linux-man@vger.kernel.org,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Stephen Hemminger <stephen@networkplumber.org>,
+        "David S . Miller" <davem@davemloft.net>
+Subject: Re: [PATCH 1/3] filesystems.5: fix link to user space tooling for
+ ncpfs
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+References: <20201218153036.25244-1-alx.manpages@gmail.com>
+ <20201218153036.25244-2-alx.manpages@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <7e1eca57-f597-c482-6382-28fec58df598@gmail.com>
+Date:   Sun, 20 Dec 2020 15:43:37 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <20201220085701.5wjihnjalt5bgk4b@localhost.localdomain>
-Content-Type: text/plain; charset=windows-1252
+In-Reply-To: <20201218153036.25244-2-alx.manpages@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Branden,
+Hello Alex and Ahelenia,
 
-Thanks :)
+On 12/18/20 4:30 PM, Alejandro Colomar wrote:
+> From: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
+> 
+> Corresponds to Linux commit 1b83df308f69a5a3cc59be03bd7fb23e4bcebd8e
+> 
+> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 
-I'll use 78 from now on, then.
+Patch applied.
 
-Cheers,
+Thanks,
 
-Alex
+Michael
 
-On 12/20/20 9:57 AM, G. Branden Robinson wrote:
-> Hi Alex,
+> ---
+>  man5/filesystems.5 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> At 2020-12-12T19:01:30+0100, Alejandro Colomar (man-pages) wrote:
->> On 12/11/20 10:26 PM, Michael Kerrisk (man-pages) wrote:
->>> Hi Alex,
->>>
->>> On Fri, 11 Dec 2020 at 22:14, Alejandro Colomar (man-pages)
->>> <alx.manpages@gmail.com> wrote:
->>>>
->>>> Hi Michael,
->>>>
->>>> For code, for example function prototypes in SYNOPSIS, do you have a
->>>> preferred right margin? 80? 72?
->>>
->>> If I understand your question, 80. But what prompts you to ask?
+> diff --git a/man5/filesystems.5 b/man5/filesystems.5
+> index b44dba184..6ec2de9f0 100644
+> --- a/man5/filesystems.5
+> +++ b/man5/filesystems.5
+> @@ -158,7 +158,7 @@ Novell NetWare.
+>  To use
+>  .BR ncpfs ,
+>  you need special programs, which can be found at
+> -.UR ftp://linux01.gwdg.de\:/pub\:/ncpfs
+> +.UR ftp://ftp.gwdg.de\:/pub\:/linux\:/misc\:/ncpfs
+>  .UE .
+>  .TP
+>  .B nfs
 > 
-> I researched the question of right margin/line length for a change I
-> made to groff earlier this year, and my findings were that you should
-> format man pages for 78 columns; this will probably work practically
-> everywhere.  Things other than tbl(1) tables will work okay at widths
-> even narrow than this.
-> 
-> Why 78 and not 80?  I couldn't find an authoritative answer, but my
-> guess is that 80 was viewed as too risky for terminals that would
-> misbehave with respect to wrapping or scrolling when a write was done to
-> the last cell on the line or screen.  That gets us down to 79, and
-> perhaps a preference for even numbers over odd ones explains 78.
-> 
-> Quoting my own research:
-> 
-> "...man-db man(1) has supported the LL register for eighteen years, and
-> Brouwer/Lucifredi man(1) for fifteen.  Heirloom Doctools's man macros
-> set the line length to 78n on nroff devices unconditionally.  mandoc(1)
-> similarly also always formats for 78 columns on terminals.  groff's
-> mdoc(7) macros grew support for LL in parallel with man(7) in 2002 and
-> never added the \n[.l] introspection at all."[1]
-> 
-> Regards,
-> Branden
-> 
-> [1] https://git.savannah.gnu.org/cgit/groff.git/commit/?id=7770e10fa4d5b903b6923f466154c806c44de35a
-> 
+
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
