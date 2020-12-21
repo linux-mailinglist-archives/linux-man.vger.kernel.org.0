@@ -2,122 +2,119 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DA7D42E010F
-	for <lists+linux-man@lfdr.de>; Mon, 21 Dec 2020 20:35:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0D2C82E0137
+	for <lists+linux-man@lfdr.de>; Mon, 21 Dec 2020 20:46:27 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725865AbgLUTdt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 21 Dec 2020 14:33:49 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34630 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725807AbgLUTdt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 21 Dec 2020 14:33:49 -0500
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8E428C0613D6;
-        Mon, 21 Dec 2020 11:33:08 -0800 (PST)
-Received: by mail-wr1-x431.google.com with SMTP id a12so12264979wrv.8;
-        Mon, 21 Dec 2020 11:33:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=H/z8zMeT4cBZ14P1v2RM6IB2IKdsLvXJBzG8BIyhwPY=;
-        b=sEjdKJksGvjeIyln0e1VSqUK7VKUWfi63w0cgEsmLGuLThRhQFa3okcHZrxubADj5r
-         tWrCjI1bVDNPX01TGyH01BKFcvMhO/nisbLkXe82T3BZq3zA27vPPVxBISb9V9AswW2l
-         JLgrigJVMGxjdzQ6u764Ma0KtcyZIEH5WmWh8LnKu2s8GsA2fW89kMFNKSXaVaQk5SUD
-         h8ipEudch++JOw56c+F/raG2BDWnsae1hjEnjLGn4DP81iqebxKLL9HXpcOLG9EYjjZ6
-         OlSxTtkA4OSLRHu+qlJ2cdvZEtJKNGfMiRkgilwZ1wzKKTKlsViwhTvXNAlEjzoMLfwC
-         7a/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=H/z8zMeT4cBZ14P1v2RM6IB2IKdsLvXJBzG8BIyhwPY=;
-        b=ouNTz6Pjrx8oM2dLbTM2JVpNHEYBnLYPw4NR2QPUq1ipVmcp2gD+qF9BSLnipZX6sG
-         eMRvBOAqsjD7N8maI1aJurRQZrwIyjl+VnlotVE4hPtMju9jcyUQMfgyMSHHgQ+ebTkP
-         1OfArqvGbsAQkWYeiqsQSEVb1+Bepv5+GShppW3z/i8euoyndhhyHPpWPP7jnUAFaJU2
-         gBj7nxJrAJKoh/5pHGTYNOpJPaNt538LVLVvH2d1AzQ5x4V2hMmGNJDmPDxJMAVT099x
-         Cp9DuQbnXY78be5y4Bfsx2wT4oPnTtic9zu8CSBpFLOac1rUypTgROf90pcmQENOywhi
-         dL0Q==
-X-Gm-Message-State: AOAM531ouZeJ524ft3owURIXuw8ORf8vyXyYyVUo/7DCL16b+pONs6WS
-        keAb+Mvsy5eNuZCg58sFjbnXmWfUIfc=
-X-Google-Smtp-Source: ABdhPJyzy4c0sHB8vuSS3x0pf+C9mZhwAqOX6bICkWD7w7WQVigeK1wi72x1wOgFJuSulZxL2y6GeQ==
-X-Received: by 2002:a5d:404b:: with SMTP id w11mr20793163wrp.14.1608579187356;
-        Mon, 21 Dec 2020 11:33:07 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id o7sm28330084wrw.62.2020.12.21.11.33.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Dec 2020 11:33:06 -0800 (PST)
-Subject: Re: [PATCH v3] close_range.2: new page documenting close_range(2)
-To:     Stephen Kitt <steve@sk2.org>
+        id S1725783AbgLUTqL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 21 Dec 2020 14:46:11 -0500
+Received: from 17.mo5.mail-out.ovh.net ([46.105.56.132]:50037 "EHLO
+        17.mo5.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725791AbgLUTqL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 21 Dec 2020 14:46:11 -0500
+Received: from player693.ha.ovh.net (unknown [10.108.35.158])
+        by mo5.mail-out.ovh.net (Postfix) with ESMTP id 1EF982A4ECB
+        for <linux-man@vger.kernel.org>; Mon, 21 Dec 2020 20:45:28 +0100 (CET)
+Received: from sk2.org (82-65-25-201.subs.proxad.net [82.65.25.201])
+        (Authenticated sender: steve@sk2.org)
+        by player693.ha.ovh.net (Postfix) with ESMTPSA id 76A7D195CF0E0;
+        Mon, 21 Dec 2020 19:45:19 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass (GARM-103G005223a1dda-d929-49f3-b5d3-60eaaa581547,
+                    A98814B0FADA3C5872731A5F91035151D8D30146) smtp.auth=steve@sk2.org
+X-OVh-ClientIp: 82.65.25.201
+Date:   Mon, 21 Dec 2020 20:45:11 +0100
+From:   Stephen Kitt <steve@sk2.org>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org,
         Michael Kerrisk <mtk.manpages@gmail.com>,
         Christian Brauner <christian.brauner@ubuntu.com>,
         Giuseppe Scrivano <gscrivan@redhat.com>,
         linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] close_range.2: new page documenting close_range(2)
+Message-ID: <20201221204511.4cd0d048@heffalump.sk2.org>
+In-Reply-To: <cd13ed9f-4156-d76d-c485-9d67ea610ce2@gmail.com>
 References: <20201218165815.6963-1-steve@sk2.org>
- <e2ece8dc-9379-0e56-bbfa-ffc5f6b5ca2c@gmail.com>
- <20201221202425.168fdaaf@heffalump.sk2.org>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <cd13ed9f-4156-d76d-c485-9d67ea610ce2@gmail.com>
-Date:   Mon, 21 Dec 2020 20:33:06 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+        <e2ece8dc-9379-0e56-bbfa-ffc5f6b5ca2c@gmail.com>
+        <20201221202425.168fdaaf@heffalump.sk2.org>
+        <cd13ed9f-4156-d76d-c485-9d67ea610ce2@gmail.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <20201221202425.168fdaaf@heffalump.sk2.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ boundary="Sig_/NWOsOn5iMR5MoTHrN04y/nb"; protocol="application/pgp-signature"
+X-Ovh-Tracer-Id: 18110944426671492566
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedujedrvddtvddgudefvdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvuffkjghfofggtgesghdtreerredtjeenucfhrhhomhepufhtvghphhgvnhcumfhithhtuceoshhtvghvvgesshhkvddrohhrgheqnecuggftrfgrthhtvghrnhepveelvdeufedvieevffdtueegkeevteehffdtffetleehjeekjeejudffieduteeknecukfhppedtrddtrddtrddtpdekvddrieehrddvhedrvddtudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehplhgrhigvrheileefrdhhrgdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepshhtvghvvgesshhkvddrohhrghdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Stephen,
+--Sig_/NWOsOn5iMR5MoTHrN04y/nb
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On 12/21/20 8:24 PM, Stephen Kitt wrote:
-> Hi Alex,
->
-> On Sat, 19 Dec 2020 15:00:00 +0100, "Alejandro Colomar (man-pages)"
-> <alx.manpages@gmail.com> wrote:
->> On 12/18/20 5:58 PM, Stephen Kitt wrote:
-> [...]
->>> +This program executes the command given on its command-line after
->>> +opening the files listed after the command,
->>> +and then using
->>
->> s/using/uses/
->
-> It’s the same form as “opening”: “after opening ... and then using”. The
-> overall sequence is “open”, “close_range”, “execve”.
->
-> Regards,
->
-> Stephen
->
+Hi Alex,
 
+On Mon, 21 Dec 2020 20:33:06 +0100, "Alejandro Colomar (man-pages)"
+<alx.manpages@gmail.com> wrote:
+> On 12/21/20 8:24 PM, Stephen Kitt wrote:
+> > On Sat, 19 Dec 2020 15:00:00 +0100, "Alejandro Colomar (man-pages)"
+> > <alx.manpages@gmail.com> wrote: =20
+> >> On 12/18/20 5:58 PM, Stephen Kitt wrote: =20
+> > [...] =20
+> >>> +This program executes the command given on its command-line after
+> >>> +opening the files listed after the command,
+> >>> +and then using =20
+> >>
+> >> s/using/uses/ =20
+> >
+> > It=E2=80=99s the same form as =E2=80=9Copening=E2=80=9D: =E2=80=9Cafter=
+ opening ... and then using=E2=80=9D. The
+> > overall sequence is =E2=80=9Copen=E2=80=9D, =E2=80=9Cclose_range=E2=80=
+=9D, =E2=80=9Cexecve=E2=80=9D.
+>=20
+> Ahhh.  Then I think the comma is misleading.
+> What about the following?:
+>=20
+>=20
+> On 12/18/20 5:58 PM, Stephen Kitt wrote:
+> > +.PP
+> > +This program executes the command given on its command-line after
+> > +opening the files listed after the command,
+> > +and then using
+> > +.B close_range
+> > +to close them: =20
+>=20
+> This program executes the command given on its command line,
+> after opening the files listed after the command
+> and then using *close_range()* to close them:
 
-Ahhh.  Then I think the comma is misleading.
-What about the following?:
+Yes, that works better.
 
+I=E2=80=99ll follow up with a v5 with just that change.
 
-On 12/18/20 5:58 PM, Stephen Kitt wrote:
-> +.PP
-> +This program executes the command given on its command-line after
-> +opening the files listed after the command,
-> +and then using
-> +.B close_range
-> +to close them:
+Regards,
 
-This program executes the command given on its command line,
-after opening the files listed after the command
-and then using *close_range()* to close them:
+Stephen
 
+--Sig_/NWOsOn5iMR5MoTHrN04y/nb
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
-Thanks,
+-----BEGIN PGP SIGNATURE-----
 
-Alex
+iQIzBAEBCgAdFiEEnPVX/hPLkMoq7x0ggNMC9Yhtg5wFAl/g+0cACgkQgNMC9Yht
+g5xziA//b6tnl8dOkwb8GUfEvU//fKtPyiHDiCrsZowo4KZbzTLZIxAu9uikLDIQ
+pBeBfAwPfQ4IMrEIV82dvtYfA/Jvs9/oKWYNpXgjl4UC1R0S1nV0VVzapIaCY4E0
+PO3PrhAE/FJIwBBqi6X0kye92CXV9AUVTuCG0SbBaQLd/YmSatJ6n6CYaNJTHvEc
+7+sIy4B6g+V4WCqgEoyW3FkBPuaBtIdqGR32yZ6OEJWQV4Ul8AhlGn65l57EuxLw
+R+SBOmLvao2MBVSpAncpeHa3MHeD7OeOeY8ftgmMZ4YuFA6yFuOrIjKni77zp1+i
+M1fC+eYDiFgyNEBU7yBx3Xbcny3pTi0veAkq1M/gfeLUoUH59Rib5m85sgy2kKwF
+ebBU/8FMe9uL42hFwDzt2T8Y6If/JjPp858exCnD0RDttLeQnb3jLfpCmXlgehN8
+8ErIBmdha/mq6D8zIKyqC7MFHTyT+bLnBhRNW3TW4naJmmOd+R0Wu64jVrZHljHk
+rJbHE0FIRftD2CY5Lfh5FtyxbwzTUwn0ajNtKqvEbQF4q9V52gBtVsnKL3bi5heH
+J9gdpeVPCC+93+h5LwBmTRGHY6BSxp77+0pnubyb67BBbqJzw7KY+75GZIb/uI52
+kHF8eEouXJYb4dxTb2TO5zdD+kqkos0LfvXq6BLfrYUxp1AzxUI=
+=4klm
+-----END PGP SIGNATURE-----
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+--Sig_/NWOsOn5iMR5MoTHrN04y/nb--
