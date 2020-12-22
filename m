@@ -2,71 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0B4842E0E80
-	for <lists+linux-man@lfdr.de>; Tue, 22 Dec 2020 19:58:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 099D22E0EC9
+	for <lists+linux-man@lfdr.de>; Tue, 22 Dec 2020 20:19:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726131AbgLVS5w (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 22 Dec 2020 13:57:52 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52792 "EHLO
+        id S1725850AbgLVTSY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 22 Dec 2020 14:18:24 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55934 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726039AbgLVS5w (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 22 Dec 2020 13:57:52 -0500
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 78E4BC0613D3
-        for <linux-man@vger.kernel.org>; Tue, 22 Dec 2020 10:57:11 -0800 (PST)
-Received: by mail-wm1-x332.google.com with SMTP id x22so2678572wmc.5
-        for <linux-man@vger.kernel.org>; Tue, 22 Dec 2020 10:57:11 -0800 (PST)
+        with ESMTP id S1725807AbgLVTSY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 22 Dec 2020 14:18:24 -0500
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B8455C0613D3
+        for <linux-man@vger.kernel.org>; Tue, 22 Dec 2020 11:17:43 -0800 (PST)
+Received: by mail-wr1-x42b.google.com with SMTP id 91so15571432wrj.7
+        for <linux-man@vger.kernel.org>; Tue, 22 Dec 2020 11:17:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ImIOdCGSl+O3P6LA+QngX7PakkX4Outjc6kflF28Wu0=;
-        b=F7GTXI/1wFwro3avPfECEMHw1pWyQLCwZvrjOpv0mecZSY8pmvx1dK/c7IjLlpbjs0
-         QmdmbBtFflM1foSZ605raAXUeU5PBtQ1uhnCqW2dEzqJANQgVUHnW7hs4u3PfTqsYPtr
-         Wmm7b3RIYVh5i+TeYqQTSOoP16Rh/PLH+GefgNiLYVRGz4jmlPJa2kc+Dkd8V9TEuCFd
-         hkAWXBrWwpQ4mLB9o9pwdvAOu0WRvjzR3EKAnrCNJkmdMCA0NU2WdPDPE4sGRMRukcsm
-         8r8ASa9enFresE3kypqZThWJJIlCXmcucbXzGgE+ubS33oK1RcB/Isc2CxfPDsLVaghw
-         xi4g==
+        bh=jGuUdPMCvqeTIHJCelSrnwMJi+VsV8Gg2Z5z6xhbIAY=;
+        b=BzwAVl2YKceqmhSMjPHC4FzDlwHihbD04w5FCTOF9T0Hj82LAPe+/XDukJTqPI5xVY
+         qh1JDTMmnMYdO4g0VL4NUKt/STDPp5bRA9q0q1Kab6EZbjkOo1wgyYE1kxaGu9stIkB4
+         APbZL0z5gSbpag8lLtgX7fe6ZaQMGsB7MjKzRUtjm2H5zsI1UyyQ0OdBD+3r7IcKlZab
+         +pcuU3xu9SFojKrh16tx+y8dxEXaHJKF/8G4daMKf+Brn6V52BrtXsAuJEKgAL34FleI
+         WCq/48Mu7GIoYhcD3tLehUdNGcYVSWKvYfm6Eif+pKb+AFe2P6Nz6eXDfmPVX6Tj4pxF
+         RpkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=ImIOdCGSl+O3P6LA+QngX7PakkX4Outjc6kflF28Wu0=;
-        b=buvM1gv5aW4SUD4IWdxWUkKMWbPaI53vQ4tzCJplZ4awzjIdPKlVO1dQaVd9yZ5KX5
-         AuZwMuvMpR3h7ciBCcK9nCQ8so6BDvor8kIG2fAieHLKQHzzjB/2qyFC2WrtCE6bB0sR
-         6RzFL/oe3247ZvTuVnZaRC0k56gCqUTCK5W6Ta6BmJI9ed2ll/QZOM0vEJzvwYV3wfIV
-         E5xMuSGqwiiImRRCNTY8DFNgiHhGe8QPfYr7uhutTjEs5x9FohhH0mHM4LYO1dmn4q+7
-         Zv89K9XpoZvmY3ABBM02326TQ+CvrwzNNQDuBU3k+Fd4qPYj0NCmorzRA/sXJrRMUHFA
-         bQHw==
-X-Gm-Message-State: AOAM531KFomu8owrc59sz1n+bwnGeKzbPO7kEeP5rz9/0yIeX2GqhqX4
-        c3puE6ZNLB9u7T00PBBb2x3EVuq+GfdFgw==
-X-Google-Smtp-Source: ABdhPJyZLxUsmTI0s4Q+1zH4WzLC4DH4Q3We49hm3lDB3qMNxx02VvJ4FnUEO08A/yqyzOgd7oKz7Q==
-X-Received: by 2002:a1c:186:: with SMTP id 128mr23199374wmb.176.1608663429649;
-        Tue, 22 Dec 2020 10:57:09 -0800 (PST)
+        bh=jGuUdPMCvqeTIHJCelSrnwMJi+VsV8Gg2Z5z6xhbIAY=;
+        b=Hlyw+S2Igv1CSbrC03LEDZPXM0hs/Uq3JMDcSk64Ke6kTJvRXbEAqxY2lfaP+P5jSw
+         yuKxje23ZWl/iJed9/RckOK1hyjbvuoF5RiSY6kiwyUcdDihZgwEPsjCGujMm7fpA5gu
+         TOZea/vRdfhK42OLqAZx0iNEuxMpSrARF7PK6HhBaJrZZDGYOqqnGAuOQO17d22GYUiq
+         S5YnQDkzfHkyQTceuLrf4tTbxFc+Uv+gC0TMoRsa4OeeTHlqHnZEEuzLIaiqDZXhvyOD
+         MZwvOOSnsGnnRQKomB0cInf0Emf9uRbOYqPk3Xw8i91sCDaj5IHSZYO2UgGCzv2qxWGc
+         0XWA==
+X-Gm-Message-State: AOAM532EBCuKl3SwTKJfVU7KzjsMs+QDacZxXq41iOjdfDJvkkhpRbzE
+        HcieDA3IJJL02zLcZg0iYWVTjniaDlcyBw==
+X-Google-Smtp-Source: ABdhPJyQEOxa4d3zBmyj08bZDi3owXqf68WXCIjkNlm3F5ROxS81LS34CD1MbqddpBd2/xjet6npYg==
+X-Received: by 2002:a5d:6b11:: with SMTP id v17mr25651843wrw.362.1608664662205;
+        Tue, 22 Dec 2020 11:17:42 -0800 (PST)
 Received: from ?IPv6:2001:a61:2467:2f01:faca:3d43:5e40:30d1? ([2001:a61:2467:2f01:faca:3d43:5e40:30d1])
-        by smtp.gmail.com with ESMTPSA id s6sm35560275wro.79.2020.12.22.10.57.08
+        by smtp.gmail.com with ESMTPSA id e17sm31581896wrw.84.2020.12.22.11.17.41
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Dec 2020 10:57:08 -0800 (PST)
+        Tue, 22 Dec 2020 11:17:41 -0800 (PST)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] _exit.2, accept.2, access.2, bpf.2, chmod.2, chown.2,
- dup.2 getgroups.2, keyctl.2, mkdir.2, mknod.2, mprotect.2, pipe.2 poll.2,
- readlink.2, reboot.2, rename.2, set_thread_area.2, stat.2 symlink.2,
- unlink.2, abs.3, crypt.3, encrypt.3, err.3, fpurge.3 gethostbyname.3,
- getmntent.3, getspnam.3, getutent.3 inet_net_pton.3, mempcpy.3, mkfifo.3,
- open_memstream.3, openpty.3 perror.3, posix_memalign.3, printf.3, rpc.3,
- scandir.3, scanf.3 strchr.3, towupper.3, unlocked_stdio.3, cgroups.7,
- symlink.7 time_namespaces.7: ffix: '1,/^\.EX/s/^$/.PP/'
- '/^\.EE/,/^\.EX/s/^$/.PP/'
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20201222100424.107183-1-alx.manpages@gmail.com>
+Subject: Re: [PATCH v3] prctl.2: Document Syscall User Dispatch
+To:     Gabriel Krisman Bertazi <krisman@collabora.com>,
+        alx.manpages@gmail.com
+References: <20201221200622.3507690-1-krisman@collabora.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <cd713426-17de-6606-9cf3-9fea123cc947@gmail.com>
-Date:   Tue, 22 Dec 2020 19:57:08 +0100
+Message-ID: <9a2fa87e-2fc3-a8ad-0be6-6ddcfcdea8fa@gmail.com>
+Date:   Tue, 22 Dec 2020 20:17:40 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <20201222100424.107183-1-alx.manpages@gmail.com>
+In-Reply-To: <20201221200622.3507690-1-krisman@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -74,715 +67,180 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
-
-On 12/22/20 11:04 AM, Alejandro Colomar wrote:
-> I fixed some of them manually.
+On 12/21/20 9:06 PM, Gabriel Krisman Bertazi wrote:
+> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
 > 
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 > ---
+> Changes since v2:
+> (suggested by Alejandro Colomar)
+>   - selective -> selectively
+>   - Add missing oxford comma.
 > 
-> Hi Michael,
+> Changes since v1:
+> (suggested by Alejandro Colomar)
+>   - Use semantic lines
+>   - Fix usage of .{B|I}R and .{B|I}
+>   - Don't format literals
+>   - Fix preferred spelling of userspace
+>   - Fix case of word
+> ---
+>  man2/prctl.2 | 100 +++++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 100 insertions(+)
 > 
-> There are a few cases that I didn't add,
-> because I don't know what you would do.
-> Those are cases inside lists.
-> You can run the command below
-> and will see a few remaining cases:
-> 
-> sed -i -e '1,/^\.EX/s/^$/.PP/' -e '/^\.EE/,/^\.EX/s/^$/.PP/' man?/*
+> diff --git a/man2/prctl.2 b/man2/prctl.2
+> index f25f05fdb593..8105c2a0c9de 100644
+> --- a/man2/prctl.2
+> +++ b/man2/prctl.2
+> @@ -1533,6 +1533,78 @@ For more information, see the kernel source file
+>  (or
+>  .I Documentation/arm64/sve.txt
+>  before Linux 5.3).
+> +.TP
+> +.\" prctl PR_SET_SYSCALL_USER_DISPATCH
+> +.\" commit 1446e1df9eb183fdf81c3f0715402f1d7595d4
+> +.BR PR_SET_SYSCALL_USER_DISPATCH " (since Linux 5.11, x86 only)"
+> +.IP
+> +Configure the Syscall User Dispatch mechanism
+> +for the calling thread,
+> +to selectively intercept system calls
+> +and dispatch them back to user space through
+> +.IR SIGSYS .
 
-Please rewrite the subject line :-).
+s/IR/BR/
 
-For stuff like this, where it's a global edit,
-you can just write "Various pages: ..."
+I think a bit more explanation would help here. Could you add a
+few sentences to explain what "dispatch back to user space through
+SIGSYS" means?
 
-Next, the part after the ":" should be an English-language
-phrase saying what is being fixed. And the body of the mail
-elaborate on that phrase.
+> +.IP
+> +The current Syscall User Dispatch mode is selected via
+> +.IR arg2 ,
+> +which can either be set to
+> +.B PR_SYS_DISPATCH_ON
+> +to enable the feature,
+> +or to
+> +.B PR_SYS_DISPATCH_OFF
+> +to turn it off.
 
-Including the "sed" magic in the commit message is fine,
-but let's have some English fitsrst :-).
+By the way, why is there no PR_*G*ET_SYSCALL_USER_DISPATCH?
+
+> +.IP
+> +With
+> +.I arg2
+> +set to
+> +.BR PR_SYS_DISPATCH_ON ,
+> +.I arg3
+> +and
+> +.I arg4
+> +respectively identify the
+> +.I offset
+> +and
+> +.I length
+> +of a memory region in the process map
+> +from where system calls are always allowed to be executed,
+> +regardless of the switch variable.
+
+Can there be more than one of these regions?
+The text should be explicit about this, I think.
+
+> +.I arg5
+> +points to a char-sized variable
+> +that is a fast switch to enable/disable the mechanism
+> +without invoking the kernel.
+> +The variable pointed by
+> +.I arg5
+> +can either be set to
+> +.B PR_SYS_DISPATCH_ON
+> +to enable the mechanism
+> +or to
+> +.B PR_SYS_DISPATCH_OFF
+> +to temporarily disable it.
+> +Any other value will fail the application
+> +with a
+> +.IR SIGSYS .
+
+How/when does that failure occur? At the time of the 
+prctl() call, I presume? What if the caller later sets 
+the variable pointed to by arg5 to another value?
+
+> +.IP
+> +When a system call is intercepted,
+> +.I SIGSYS
+> +is raised with
+> +.I si_code
+> +set to
+> +.BR SYS_USER_DISPATCH .
+> +.IP
+> +When
+> +.I arg2
+> +is set to
+> +.BR PR_SYS_DISPATCH_OFF ,
+> +the remaining arguments must be set to 0.
+> +.IP
+> +The setting is not preserved across
+> +.BR fork (2),
+> +.BR clone (2),
+> +or
+> +.BR execve (2).
+> +.IP
+> +For more information,
+> +see the kernel source file
+> +.IR Documentation/admin-guide/syscall-user-dispatch.rst
+>  .\" prctl PR_SET_TAGGED_ADDR_CTRL
+>  .\" commit 63f0c60379650d82250f22e4cf4137ef3dc4f43d
+>  .TP
+> @@ -2000,6 +2072,14 @@ and
+>  .I arg3
+>  is an invalid address.
+>  .TP
+> +.B EFAULT
+> +.I option
+> +is
+> +.B PR_SET_SYSCALL_USER_DISPATCH
+> +and
+> +.I arg5
+> +has an invalid address.
+> +.TP
+>  .B EINVAL
+>  The value of
+>  .I option
+> @@ -2229,6 +2309,26 @@ is
+>  and SVE is not available on this platform.
+>  .TP
+>  .B EINVAL
+> +.I option is
+> +.B PR_SET_SYSCALL_USER_DISPATCH
+> +and one of the following is true:
+> +.RS
+> +.IP * 3
+> +.I arg2
+> +is
+> +.B PR_SYS_DISPATCH_OFF
+> +and remaining arguments are not 0;
+
+s/and/and the/
+
+> +.IP * 3
+> +.I arg2
+> +is
+> +.B PR_SYS_DISPATCH_ON
+> +and the memory region provided is invalid;
+
+Please define "invalid"
+
+> +.IP * 3
+> +.I arg2
+> +is invalid.
+> +.RE
+> +.TP
+> +.B EINVAL
+>  .I option
+>  is
+>  .BR PR_SET_TAGGED_ADDR_CTRL
 
 Thanks,
 
 Michael
-
-> 
-> Thanks,
-> 
-> Alex
-> 
->  man2/_exit.2           | 2 +-
->  man2/accept.2          | 2 +-
->  man2/access.2          | 4 ++--
->  man2/bpf.2             | 2 +-
->  man2/chmod.2           | 2 +-
->  man2/chown.2           | 2 +-
->  man2/dup.2             | 2 +-
->  man2/getgroups.2       | 2 +-
->  man2/keyctl.2          | 2 +-
->  man2/mkdir.2           | 2 +-
->  man2/mknod.2           | 2 +-
->  man2/mprotect.2        | 2 +-
->  man2/pipe.2            | 2 +-
->  man2/poll.2            | 2 +-
->  man2/readlink.2        | 2 +-
->  man2/reboot.2          | 2 +-
->  man2/rename.2          | 2 +-
->  man2/set_thread_area.2 | 2 +-
->  man2/stat.2            | 2 +-
->  man2/symlink.2         | 2 +-
->  man2/unlink.2          | 2 +-
->  man3/abs.3             | 2 +-
->  man3/crypt.3           | 2 +-
->  man3/encrypt.3         | 4 ++--
->  man3/err.3             | 2 +-
->  man3/fpurge.3          | 2 +-
->  man3/gethostbyname.3   | 2 +-
->  man3/getmntent.3       | 2 +-
->  man3/getspnam.3        | 2 +-
->  man3/getutent.3        | 2 +-
->  man3/inet_net_pton.3   | 2 +-
->  man3/mempcpy.3         | 2 +-
->  man3/mkfifo.3          | 2 +-
->  man3/open_memstream.3  | 2 +-
->  man3/openpty.3         | 2 +-
->  man3/perror.3          | 2 +-
->  man3/posix_memalign.3  | 2 +-
->  man3/printf.3          | 2 +-
->  man3/rpc.3             | 2 +-
->  man3/scandir.3         | 2 +-
->  man3/scanf.3           | 2 +-
->  man3/strchr.3          | 2 +-
->  man3/towupper.3        | 1 -
->  man3/unlocked_stdio.3  | 2 +-
->  man7/cgroups.7         | 1 -
->  man7/symlink.7         | 3 +--
->  man7/time_namespaces.7 | 1 -
->  47 files changed, 46 insertions(+), 50 deletions(-)
-> 
-> diff --git a/man2/_exit.2 b/man2/_exit.2
-> index 469c3475c..f62a0f544 100644
-> --- a/man2/_exit.2
-> +++ b/man2/_exit.2
-> @@ -33,7 +33,7 @@ _exit, _Exit \- terminate the calling process
->  .B #include <unistd.h>
->  .PP
->  .BI "void _exit(int " status );
-> -
-> +.PP
->  .B #include <stdlib.h>
->  .PP
->  .BI "void _Exit(int " status );
-> diff --git a/man2/accept.2 b/man2/accept.2
-> index f4407d932..bc24f5c81 100644
-> --- a/man2/accept.2
-> +++ b/man2/accept.2
-> @@ -47,7 +47,7 @@ accept, accept4 \- accept a connection on a socket
->  .B #include <sys/socket.h>
->  .PP
->  .BI "int accept(int " sockfd ", struct sockaddr *" addr ", socklen_t *" addrlen );
-> -
-> +.PP
->  .BR "#define _GNU_SOURCE" "             /* See feature_test_macros(7) */"
->  .B #include <sys/socket.h>
->  .PP
-> diff --git a/man2/access.2 b/man2/access.2
-> index 70ae113dd..a74128a8b 100644
-> --- a/man2/access.2
-> +++ b/man2/access.2
-> @@ -48,14 +48,14 @@ access, faccessat, faccessat2 \- check user's permissions for a file
->  .B #include <unistd.h>
->  .PP
->  .BI "int access(const char *" pathname ", int " mode );
-> -
-> +.PP
->  .BR "#include <fcntl.h>           " "/* Definition of AT_* constants */"
->  .B #include <unistd.h>
->  .PP
->  .BI "int faccessat(int " dirfd ", const char *" pathname ", int " \
->  mode ", int " flags );
->                  /* But see C library/kernel differences, below */
-> -
-> +.PP
->  .BI "int faccessat2(int " dirfd ", const char *" pathname ", int " \
->  mode ", int " flags );
->  .fi
-> diff --git a/man2/bpf.2 b/man2/bpf.2
-> index 86f3c3a40..d8ce40943 100644
-> --- a/man2/bpf.2
-> +++ b/man2/bpf.2
-> @@ -29,7 +29,7 @@ bpf \- perform a command on an extended BPF map or program
->  .SH SYNOPSIS
->  .nf
->  .B #include <linux/bpf.h>
-> -
-> +.PP
->  .BI "int bpf(int " cmd ", union bpf_attr *" attr ", unsigned int " size );
->  .fi
->  .SH DESCRIPTION
-> diff --git a/man2/chmod.2 b/man2/chmod.2
-> index b5e985a2d..1a0e43ed3 100644
-> --- a/man2/chmod.2
-> +++ b/man2/chmod.2
-> @@ -38,7 +38,7 @@ chmod, fchmod, fchmodat \- change permissions of a file
->  .PP
->  .BI "int chmod(const char *" pathname ", mode_t " mode );
->  .BI "int fchmod(int " fd ", mode_t " mode );
-> -
-> +.PP
->  .BR "#include <fcntl.h>" "           /* Definition of AT_* constants */"
->  .B #include <sys/stat.h>
->  .PP
-> diff --git a/man2/chown.2 b/man2/chown.2
-> index c5958dd75..c93169524 100644
-> --- a/man2/chown.2
-> +++ b/man2/chown.2
-> @@ -45,7 +45,7 @@ chown, fchown, lchown, fchownat \- change ownership of a file
->  .BI "int chown(const char *" pathname ", uid_t " owner ", gid_t " group );
->  .BI "int fchown(int " fd ", uid_t " owner ", gid_t " group );
->  .BI "int lchown(const char *" pathname ", uid_t " owner ", gid_t " group );
-> -
-> +.PP
->  .BR "#include <fcntl.h>           " "/* Definition of AT_* constants */"
->  .B #include <unistd.h>
->  .PP
-> diff --git a/man2/dup.2 b/man2/dup.2
-> index 614e0d174..a54ea04ed 100644
-> --- a/man2/dup.2
-> +++ b/man2/dup.2
-> @@ -43,7 +43,7 @@ dup, dup2, dup3 \- duplicate a file descriptor
->  .PP
->  .BI "int dup(int " oldfd );
->  .BI "int dup2(int " oldfd ", int " newfd );
-> -
-> +.PP
->  .BR "#define _GNU_SOURCE" "             /* See feature_test_macros(7) */"
->  .BR "#include <fcntl.h>" "              /* Obtain O_* constant definitions */"
->  .B #include <unistd.h>
-> diff --git a/man2/getgroups.2 b/man2/getgroups.2
-> index 7b5fed87b..bae901f28 100644
-> --- a/man2/getgroups.2
-> +++ b/man2/getgroups.2
-> @@ -38,7 +38,7 @@ getgroups, setgroups \- get/set list of supplementary group IDs
->  .B #include <unistd.h>
->  .PP
->  .BI "int getgroups(int " size ", gid_t " list []);
-> -
-> +.PP
->  .B #include <grp.h>
->  .PP
->  .BI "int setgroups(size_t " size ", const gid_t *" list );
-> diff --git a/man2/keyctl.2 b/man2/keyctl.2
-> index 4fa54bc14..daf889797 100644
-> --- a/man2/keyctl.2
-> +++ b/man2/keyctl.2
-> @@ -34,7 +34,7 @@ keyctl \- manipulate the kernel's key management facility
->  .B #include <keyutils.h>
->  .PP
->  .BI "long keyctl(int " operation ", ...);"
-> -
-> +.PP
->  .B "/* For direct call via syscall(2): */"
->  .B #include <asm/unistd.h>
->  .B #include <linux/keyctl.h>
-> diff --git a/man2/mkdir.2 b/man2/mkdir.2
-> index 97dd7442f..10cf34001 100644
-> --- a/man2/mkdir.2
-> +++ b/man2/mkdir.2
-> @@ -18,7 +18,7 @@ mkdir, mkdirat \- create a directory
->  .\" .B #include <unistd.h>
->  .PP
->  .BI "int mkdir(const char *" pathname ", mode_t " mode );
-> -
-> +.PP
->  .BR "#include <fcntl.h>           " "/* Definition of AT_* constants */"
->  .B #include <sys/stat.h>
->  .PP
-> diff --git a/man2/mknod.2 b/man2/mknod.2
-> index daf449342..af4ac4f53 100644
-> --- a/man2/mknod.2
-> +++ b/man2/mknod.2
-> @@ -23,7 +23,7 @@ mknod, mknodat \- create a special or ordinary file
->  .B #include <unistd.h>
->  .PP
->  .BI "int mknod(const char *" pathname ", mode_t " mode ", dev_t " dev );
-> -
-> +.PP
->  .BR "#include <fcntl.h>           " "/* Definition of AT_* constants */"
->  .B #include <sys/stat.h>
->  .PP
-> diff --git a/man2/mprotect.2 b/man2/mprotect.2
-> index 9cfedccbb..bd23d2fc0 100644
-> --- a/man2/mprotect.2
-> +++ b/man2/mprotect.2
-> @@ -38,7 +38,7 @@ mprotect, pkey_mprotect \- set protection on a region of memory
->  .B #include <sys/mman.h>
->  .PP
->  .BI "int mprotect(void *" addr ", size_t " len ", int " prot );
-> -
-> +.PP
->  .BR "#define _GNU_SOURCE" "             /* See feature_test_macros(7) */"
->  .B #include <sys/mman.h>
->  .PP
-> diff --git a/man2/pipe.2 b/man2/pipe.2
-> index 117f8950c..ef282300e 100644
-> --- a/man2/pipe.2
-> +++ b/man2/pipe.2
-> @@ -48,7 +48,7 @@ pipe, pipe2 \- create pipe
->  .PP
->  /* On all other architectures */
->  .BI "int pipe(int " pipefd "[2]);"
-> -
-> +.PP
->  .BR "#define _GNU_SOURCE" "             /* See feature_test_macros(7) */"
->  .BR "#include <fcntl.h>" "              /* Obtain O_* constant definitions */"
->  .B #include <unistd.h>
-> diff --git a/man2/poll.2 b/man2/poll.2
-> index 17533b22b..b91418aaa 100644
-> --- a/man2/poll.2
-> +++ b/man2/poll.2
-> @@ -35,7 +35,7 @@ poll, ppoll \- wait for some event on a file descriptor
->  .B #include <poll.h>
->  .PP
->  .BI "int poll(struct pollfd *" fds ", nfds_t " nfds ", int " timeout );
-> -
-> +.PP
->  .BR "#define _GNU_SOURCE" "         /* See feature_test_macros(7) */"
->  .B #include <signal.h>
->  .B #include <poll.h>
-> diff --git a/man2/readlink.2 b/man2/readlink.2
-> index 24c101737..6a1767caa 100644
-> --- a/man2/readlink.2
-> +++ b/man2/readlink.2
-> @@ -50,7 +50,7 @@ readlink, readlinkat \- read value of a symbolic link
->  .PP
->  .BI "ssize_t readlink(const char *" pathname ", char *" buf \
->  ", size_t " bufsiz );
-> -
-> +.PP
->  .BR "#include <fcntl.h>           " "/* Definition of AT_* constants */"
->  .B #include <unistd.h>
->  .PP
-> diff --git a/man2/reboot.2 b/man2/reboot.2
-> index b192cb625..c3d9dee1b 100644
-> --- a/man2/reboot.2
-> +++ b/man2/reboot.2
-> @@ -37,7 +37,7 @@ reboot \- reboot or enable/disable Ctrl-Alt-Del
->  .B #include <linux/reboot.h>
->  .PP
->  .BI "int reboot(int " magic ", int " magic2 ", int " cmd ", void *" arg );
-> -
-> +.PP
->  /* Under glibc and most alternative libc's (including uclibc, dietlibc,
->     musl and a few others), some of the constants involved have gotten
->     symbolic names RB_*, and the library call is a 1-argument
-> diff --git a/man2/rename.2 b/man2/rename.2
-> index a475af616..cda50269d 100644
-> --- a/man2/rename.2
-> +++ b/man2/rename.2
-> @@ -38,7 +38,7 @@ rename, renameat, renameat2 \- change the name or location of a file
->  .B #include <stdio.h>
->  .PP
->  .BI "int rename(const char *" oldpath ", const char *" newpath );
-> -
-> +.PP
->  .BR "#include <fcntl.h>           " "/* Definition of AT_* constants */"
->  .B #include <stdio.h>
->  .PP
-> diff --git a/man2/set_thread_area.2 b/man2/set_thread_area.2
-> index 2e6116532..01cfdc0d9 100644
-> --- a/man2/set_thread_area.2
-> +++ b/man2/set_thread_area.2
-> @@ -12,7 +12,7 @@ get_thread_area, set_thread_area \- manipulate thread-local storage information
->  .SH SYNOPSIS
->  .nf
->  .B #include <linux/unistd.h>
-> -
-> +.PP
->  .B #if defined __i386__ || defined __x86_64__
->  .B # include <asm/ldt.h>
->  .PP
-> diff --git a/man2/stat.2 b/man2/stat.2
-> index 6b52e9cd0..f4bef98ab 100644
-> --- a/man2/stat.2
-> +++ b/man2/stat.2
-> @@ -48,7 +48,7 @@ stat, fstat, lstat, fstatat \- get file status
->  .BI "int stat(const char *" pathname ", struct stat *" statbuf );
->  .BI "int fstat(int " fd ", struct stat *" statbuf );
->  .BI "int lstat(const char *" pathname ", struct stat *" statbuf );
-> -
-> +.PP
->  .BR "#include <fcntl.h>           " "/* Definition of AT_* constants */"
->  .B #include <sys/stat.h>
->  .PP
-> diff --git a/man2/symlink.2 b/man2/symlink.2
-> index 0c229f98d..ca71ddf42 100644
-> --- a/man2/symlink.2
-> +++ b/man2/symlink.2
-> @@ -38,7 +38,7 @@ symlink, symlinkat \- make a new name for a file
->  .B #include <unistd.h>
->  .PP
->  .BI "int symlink(const char *" target ", const char *" linkpath );
-> -
-> +.PP
->  .BR "#include <fcntl.h>           " "/* Definition of AT_* constants */"
->  .B #include <unistd.h>
->  .PP
-> diff --git a/man2/unlink.2 b/man2/unlink.2
-> index b42153db6..7b148801e 100644
-> --- a/man2/unlink.2
-> +++ b/man2/unlink.2
-> @@ -38,7 +38,7 @@ unlink, unlinkat \- delete a name and possibly the file it refers to
->  .B #include <unistd.h>
->  .PP
->  .BI "int unlink(const char *" pathname );
-> -
-> +.PP
->  .BR "#include <fcntl.h>           " "/* Definition of AT_* constants */"
->  .B #include <unistd.h>
->  .PP
-> diff --git a/man3/abs.3 b/man3/abs.3
-> index eb25650d7..d1b36461d 100644
-> --- a/man3/abs.3
-> +++ b/man3/abs.3
-> @@ -41,7 +41,7 @@ abs, labs, llabs, imaxabs \- compute the absolute value of an integer
->  .BI "int abs(int " j );
->  .BI "long labs(long " j );
->  .BI "long long llabs(long long " j );
-> -
-> +.PP
->  .B #include <inttypes.h>
->  .PP
->  .BI "intmax_t imaxabs(intmax_t " j );
-> diff --git a/man3/crypt.3 b/man3/crypt.3
-> index a24d8ffc2..9bcf718a4 100644
-> --- a/man3/crypt.3
-> +++ b/man3/crypt.3
-> @@ -42,7 +42,7 @@ crypt, crypt_r \- password and data encryption
->  .B #include <unistd.h>
->  .PP
->  .BI "char *crypt(const char *" key ", const char *" salt );
-> -
-> +.PP
->  .BR "#define _GNU_SOURCE" "         /* See feature_test_macros(7) */"
->  .B #include <crypt.h>
->  .PP
-> diff --git a/man3/encrypt.3 b/man3/encrypt.3
-> index b30560777..63912ca9b 100644
-> --- a/man3/encrypt.3
-> +++ b/man3/encrypt.3
-> @@ -36,12 +36,12 @@ encrypt, setkey, encrypt_r, setkey_r \- encrypt 64-bit messages
->  .B #include <unistd.h>
->  .PP
->  .BI "void encrypt(char " block "[64], int " edflag );
-> -
-> +.PP
->  .BR "#define _XOPEN_SOURCE" "       /* See feature_test_macros(7) */"
->  .B #include <stdlib.h>
->  .PP
->  .BI "void setkey(const char *" key );
-> -
-> +.PP
->  .BR "#define _GNU_SOURCE" "         /* See feature_test_macros(7) */"
->  .B "#include <crypt.h>"
->  .PP
-> diff --git a/man3/err.3 b/man3/err.3
-> index 39965b780..7a5056a1e 100644
-> --- a/man3/err.3
-> +++ b/man3/err.3
-> @@ -50,7 +50,7 @@ err, verr, errx, verrx, warn, vwarn, warnx, vwarnx \- formatted error messages
->  .BI "void warn(const char *" fmt ", ...);"
->  .PP
->  .BI "void warnx(const char *" fmt ", ...);"
-> -
-> +.PP
->  .B #include <stdarg.h>
->  .PP
->  .BI "void verr(int " eval ", const char *" fmt ", va_list " args );
-> diff --git a/man3/fpurge.3 b/man3/fpurge.3
-> index ef7abf097..308f77a75 100644
-> --- a/man3/fpurge.3
-> +++ b/man3/fpurge.3
-> @@ -31,7 +31,7 @@ fpurge, __fpurge \- purge a stream
->  .B #include <stdio.h>
->  .PP
->  .BI "int fpurge(FILE *" stream );
-> -
-> +.PP
->  /* supported */
->  .B #include <stdio.h>
->  .B #include <stdio_ext.h>
-> diff --git a/man3/gethostbyname.3 b/man3/gethostbyname.3
-> index d54e72d2b..c0e7a51a0 100644
-> --- a/man3/gethostbyname.3
-> +++ b/man3/gethostbyname.3
-> @@ -49,7 +49,7 @@ gethostent_r \- get network host entry
->  .B extern int h_errno;
->  .PP
->  .BI "struct hostent *gethostbyname(const char *" name );
-> -
-> +.PP
->  .BR "#include <sys/socket.h>" "       /* for AF_INET */"
->  .BI "struct hostent *gethostbyaddr(const void *" addr ,
->  .BI "                              socklen_t " len ", int " type );
-> diff --git a/man3/getmntent.3 b/man3/getmntent.3
-> index 1be98e639..ca7c96924 100644
-> --- a/man3/getmntent.3
-> +++ b/man3/getmntent.3
-> @@ -47,7 +47,7 @@ getmntent_r \- get filesystem descriptor file entry
->  .BI "int endmntent(FILE *" streamp );
->  .PP
->  .BI "char *hasmntopt(const struct mntent *" mnt ", const char *" opt );
-> -
-> +.PP
->  /* GNU extension */
->  .B #include <mntent.h>
->  .PP
-> diff --git a/man3/getspnam.3 b/man3/getspnam.3
-> index f75730e53..b7e39f085 100644
-> --- a/man3/getspnam.3
-> +++ b/man3/getspnam.3
-> @@ -32,7 +32,7 @@ lckpwdf, ulckpwdf \- get shadow password file entry
->  .B int lckpwdf(void);
->  .PP
->  .B int ulckpwdf(void);
-> -
-> +.PP
->  /* GNU extension */
->  .B #include <shadow.h>
->  .PP
-> diff --git a/man3/getutent.3 b/man3/getutent.3
-> index ca61291f4..074f7e0d5 100644
-> --- a/man3/getutent.3
-> +++ b/man3/getutent.3
-> @@ -273,7 +273,7 @@ Glibc adds reentrant versions
->  .PP
->  .nf
->  .B #include <utmp.h>
-> -
-> +.PP
->  .BI "int getutent_r(struct utmp *" ubuf ", struct utmp **" ubufp );
->  .BI "int getutid_r(struct utmp *" ut ,
->  .BI "              struct utmp *" ubuf ", struct utmp **" ubufp );
-> diff --git a/man3/inet_net_pton.3 b/man3/inet_net_pton.3
-> index c5c71f9b8..0eca2e149 100644
-> --- a/man3/inet_net_pton.3
-> +++ b/man3/inet_net_pton.3
-> @@ -31,7 +31,7 @@ inet_net_pton, inet_net_ntop \- Internet network number conversion
->  .PP
->  .BI "int inet_net_pton(int " af ", const char *" pres ,
->  .BI "                  void *" netp ", size_t " nsize );
-> -
-> +.PP
->  .BI "char *inet_net_ntop(int " af ", const void *" netp ", int " bits ,
->  .BI "                    char *" pres ", size_t " psize );
->  .fi
-> diff --git a/man3/mempcpy.3 b/man3/mempcpy.3
-> index 53558147f..fcf1d9759 100644
-> --- a/man3/mempcpy.3
-> +++ b/man3/mempcpy.3
-> @@ -16,7 +16,7 @@ mempcpy, wmempcpy  \- copy memory area
->  .B #include <string.h>
->  .PP
->  .BI "void *mempcpy(void *" dest ", const void *" src ", size_t " n );
-> -
-> +.PP
->  .BR "#define _GNU_SOURCE" "         /* See feature_test_macros(7) */"
->  .B #include <wchar.h>
->  .PP
-> diff --git a/man3/mkfifo.3 b/man3/mkfifo.3
-> index c64e80db8..d3a0bdbd8 100644
-> --- a/man3/mkfifo.3
-> +++ b/man3/mkfifo.3
-> @@ -34,7 +34,7 @@ mkfifo, mkfifoat \- make a FIFO special file (a named pipe)
->  .B #include <sys/stat.h>
->  .PP
->  .BI "int mkfifo(const char *" pathname ", mode_t " mode );
-> -
-> +.PP
->  .BR "#include <fcntl.h>           " "/* Definition of AT_* constants */"
->  .B #include <sys/stat.h>
->  .PP
-> diff --git a/man3/open_memstream.3 b/man3/open_memstream.3
-> index 07892c688..c3af2f5a7 100644
-> --- a/man3/open_memstream.3
-> +++ b/man3/open_memstream.3
-> @@ -14,7 +14,7 @@ open_memstream, open_wmemstream \-  open a dynamic memory buffer stream
->  .B #include <stdio.h>
->  .PP
->  .BI "FILE *open_memstream(char **" ptr ", size_t *" sizeloc );
-> -
-> +.PP
->  .B #include <wchar.h>
->  .PP
->  .BI "FILE *open_wmemstream(wchar_t **" ptr ", size_t *" sizeloc );
-> diff --git a/man3/openpty.3 b/man3/openpty.3
-> index 9d3dcc236..ff37d50a9 100644
-> --- a/man3/openpty.3
-> +++ b/man3/openpty.3
-> @@ -45,7 +45,7 @@ openpty, login_tty, forkpty \- terminal utility functions
->  .BI "pid_t forkpty(int *" amaster ", char *" name ,
->  .BI "              const struct termios *" termp ,
->  .BI "              const struct winsize *" winp );
-> -
-> +.PP
->  .B #include <utmp.h>
->  .PP
->  .BI "int login_tty(int " fd );
-> diff --git a/man3/perror.3 b/man3/perror.3
-> index 276b8addb..05e274635 100644
-> --- a/man3/perror.3
-> +++ b/man3/perror.3
-> @@ -35,7 +35,7 @@ perror \- print a system error message
->  .B #include <stdio.h>
->  .PP
->  .BI "void perror(const char *" s );
-> -
-> +.PP
->  .B #include <errno.h>
->  .PP
->  .BI "const char * const " sys_errlist [];
-> diff --git a/man3/posix_memalign.3 b/man3/posix_memalign.3
-> index 4249963d7..458a9cf71 100644
-> --- a/man3/posix_memalign.3
-> +++ b/man3/posix_memalign.3
-> @@ -36,7 +36,7 @@ posix_memalign, aligned_alloc, memalign, valloc, pvalloc \- allocate aligned mem
->  .BI "int posix_memalign(void **" memptr ", size_t " alignment ", size_t " size );
->  .BI "void *aligned_alloc(size_t " alignment ", size_t " size );
->  .BI "void *valloc(size_t " size );
-> -
-> +.PP
->  .B #include <malloc.h>
->  .PP
->  .BI "void *memalign(size_t " alignment ", size_t " size );
-> diff --git a/man3/printf.3 b/man3/printf.3
-> index 7dc563c0e..946a591a5 100644
-> --- a/man3/printf.3
-> +++ b/man3/printf.3
-> @@ -44,7 +44,7 @@ vsprintf, vsnprintf \- formatted output conversion
->  .BI "int dprintf(int " fd ", const char *" format ", ...);"
->  .BI "int sprintf(char *" str ", const char *" format ", ...);"
->  .BI "int snprintf(char *" str ", size_t " size ", const char *" format ", ...);"
-> -
-> +.PP
->  .B #include <stdarg.h>
->  .PP
->  .BI "int vprintf(const char *" format ", va_list " ap );
-> diff --git a/man3/rpc.3 b/man3/rpc.3
-> index 724de99bb..5845a25e8 100644
-> --- a/man3/rpc.3
-> +++ b/man3/rpc.3
-> @@ -26,7 +26,7 @@ Finally, the procedure call returns to the client.
->  .PP
->  To take use of these routines, include the header file
->  .IR "<rpc/rpc.h>" .
-> -
-> +.PP
->  The prototypes below make use of the following types:
->  .PP
->  .RS 4
-> diff --git a/man3/scandir.3 b/man3/scandir.3
-> index 292825340..5faf32b53 100644
-> --- a/man3/scandir.3
-> +++ b/man3/scandir.3
-> @@ -76,7 +76,7 @@ a directory for matching entries
->  .BI "int alphasort(const struct dirent **" a ", const struct dirent **" b );
->  .PP
->  .BI "int versionsort(const struct dirent **" a ", const struct dirent **" b );
-> -
-> +.PP
->  .BR "#include <fcntl.h>" "          /* Definition of AT_* constants */"
->  .B #include <dirent.h>
->  .PP
-> diff --git a/man3/scanf.3 b/man3/scanf.3
-> index 409813c4c..2a2001417 100644
-> --- a/man3/scanf.3
-> +++ b/man3/scanf.3
-> @@ -59,7 +59,7 @@ scanf, fscanf, sscanf, vscanf, vsscanf, vfscanf \- input format conversion
->  .BI "int scanf(const char *" format ", ...);"
->  .BI "int fscanf(FILE *" stream ", const char *" format ", ...);"
->  .BI "int sscanf(const char *" str ", const char *" format ", ...);"
-> -
-> +.PP
->  .B #include <stdarg.h>
->  .PP
->  .BI "int vscanf(const char *" format ", va_list " ap );
-> diff --git a/man3/strchr.3 b/man3/strchr.3
-> index 59fa00283..15c09f543 100644
-> --- a/man3/strchr.3
-> +++ b/man3/strchr.3
-> @@ -40,7 +40,7 @@ strchr, strrchr, strchrnul \- locate character in string
->  .BI "char *strchr(const char *" s ", int " c );
->  .PP
->  .BI "char *strrchr(const char *" s ", int " c );
-> -
-> +.PP
->  .BR "#define _GNU_SOURCE" "         /* See feature_test_macros(7) */"
->  .B #include <string.h>
->  .PP
-> diff --git a/man3/towupper.3 b/man3/towupper.3
-> index f8a07c9c4..6b5052bc0 100644
-> --- a/man3/towupper.3
-> +++ b/man3/towupper.3
-> @@ -1,4 +1,3 @@
-> -
->  .\" and Copyright (C) 2014 Michael Kerrisk <mtk.manpages@gmail.com>
->  .\"
->  .\" %%%LICENSE_START(GPLv2+_DOC_ONEPARA)
-> diff --git a/man3/unlocked_stdio.3 b/man3/unlocked_stdio.3
-> index 01021d52d..8ceaf4c72 100644
-> --- a/man3/unlocked_stdio.3
-> +++ b/man3/unlocked_stdio.3
-> @@ -49,7 +49,7 @@ putchar_unlocked \- nonlocking stdio functions
->  .PP
->  .BI "char *fgets_unlocked(char *" s ", int " n ", FILE *" stream );
->  .BI "int fputs_unlocked(const char *" s ", FILE *" stream );
-> -
-> +.PP
->  .B #include <wchar.h>
->  .PP
->  .BI "wint_t getwc_unlocked(FILE *" stream );
-> diff --git a/man7/cgroups.7 b/man7/cgroups.7
-> index 31be771dc..0d525d91f 100644
-> --- a/man7/cgroups.7
-> +++ b/man7/cgroups.7
-> @@ -568,7 +568,6 @@ Since Linux 5.0, the
->  kernel boot option (described below) can be used to disable cgroup v1
->  named hierarchies, by specifying
->  .IR cgroup_no_v1=named .
-> -
->  .\"
->  .SH CGROUPS VERSION 2
->  In cgroups v2,
-> diff --git a/man7/symlink.7 b/man7/symlink.7
-> index 55ee2d9a3..a2a34204b 100644
-> --- a/man7/symlink.7
-> +++ b/man7/symlink.7
-> @@ -127,8 +127,7 @@ user categories), and can't be changed.
->  However, magic links do not follow this rule.
->  They can have a non-0777 mode,
->  though this mode is not currently used in any permission checks.
-> -
-> -.\"
-> +.\" .PP
->  .\" The
->  .\" 4.4BSD
->  .\" system differs from historical
-> diff --git a/man7/time_namespaces.7 b/man7/time_namespaces.7
-> index 86acc6759..3291ba006 100644
-> --- a/man7/time_namespaces.7
-> +++ b/man7/time_namespaces.7
-> @@ -326,7 +326,6 @@ and
->  .I /proc/[pid]/ns/time_for_children
->  symbolic links, we see that the shell is a member of the initial time
->  namespace, but its children are created in the new namespace.
-> -
->  .PP
->  .in +4n
->  .EX
-> 
 
 
 -- 
