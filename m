@@ -2,65 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4054D2E20FC
-	for <lists+linux-man@lfdr.de>; Wed, 23 Dec 2020 20:42:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 628B12E2100
+	for <lists+linux-man@lfdr.de>; Wed, 23 Dec 2020 20:44:56 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728563AbgLWTlK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 23 Dec 2020 14:41:10 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54412 "EHLO
+        id S1728706AbgLWTm7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 23 Dec 2020 14:42:59 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54690 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726384AbgLWTlJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 23 Dec 2020 14:41:09 -0500
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 88565C061794
-        for <linux-man@vger.kernel.org>; Wed, 23 Dec 2020 11:40:29 -0800 (PST)
-Received: by mail-wm1-x32b.google.com with SMTP id g185so393614wmf.3
-        for <linux-man@vger.kernel.org>; Wed, 23 Dec 2020 11:40:29 -0800 (PST)
+        with ESMTP id S1727671AbgLWTm7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 23 Dec 2020 14:42:59 -0500
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 03B2BC061794
+        for <linux-man@vger.kernel.org>; Wed, 23 Dec 2020 11:42:19 -0800 (PST)
+Received: by mail-wr1-x429.google.com with SMTP id y17so253552wrr.10
+        for <linux-man@vger.kernel.org>; Wed, 23 Dec 2020 11:42:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=PILCvyXSy3uVY/+lZxiddV/k2VKwTlF6Lhck34h1mIQ=;
-        b=R9rUuwuy9vYozgkfAkvKv+h9u9pRc8XY0AYQZKdHCQbFwICNqWGZl+y7QUABUbn0Fe
-         yPLd9JAbWop6kIdrNXh3gJgVtbMGuIsVqVkNnursj8w+acNDGrdCCk1oXogY8Pjal9Lh
-         V18/8w3EBcofrGqgOoJ2PXIgy0CVhvysj/8gLc/5AI9YJhy5THhFX9TMRJSZfTcWCDDf
-         OqFuqNt6A+R/N7SAGXUMQ4316dafhDsUTNA+pNqgul5RvgKF2vlPGn9EugACMKTlgBmS
-         6qvCksQQ8ryRI6kLne+B5GkoRjghZqE7SlslId4jeVSwzwb+YDrWh4XVDjKOVKZUnR/Q
-         SyfA==
+        bh=zaJPAv35p7tYyH3AJ2+r5aC10kVF5ebf5TE8wHA/JX8=;
+        b=c2YIgPbdGtzZE4wBjKxWvkJJigjaDlcXNf+Bm3E5mIdaLD6MnPTVHpBVkt5zNgF0/T
+         uEfYyDaGPrqW466VVMATUwjdXxNzSa5xEBceXXfYRF6WBy8e3VETfVl2+4C66mWSp5gT
+         jNAuWqJSZIp/a0/liVm34mFDPMvZM280DxmPQCOxNfmCtRXMVHB4T9YIDGaOO+l4s3Wh
+         qu3wXGcznUrH2DK6NzSvH2fX7FWFv2F7shAPJ6tlHo9RkpHykuIbOFSQJuRCpeT4Dgn8
+         D8smDCKLwH45cfq+8jqEJW2ClBJAct/S231cs/cKEToq6KnJUlRc/n668PBWh0TycJum
+         v/rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=PILCvyXSy3uVY/+lZxiddV/k2VKwTlF6Lhck34h1mIQ=;
-        b=MtUUvw275y/0VypgJ9bBCDwP2JGsc63kI2z85Ndl+bGHcSyvRBw0a4T2TCHKs2hyFS
-         7/5q5w0dRScatRO83PM3MVtsFwB7+0000DeRUHcYOTyOqJltY3PZIfHTFOCHXOomwQnn
-         Yiujdj/fC/ovLNVJfYdg//Ruv1+l6mrqrQWgO8uCD3wY0fwkIPLlSxmSavXTPbf4u6tx
-         4HeaQtdtqxliPF+bTHHZ08uOLsR/golIdjpFX+2EZVFbspTs8Bwjq0vcbb4pWDWsoeX5
-         vl0Lg1Wi/NW/gys0faBTOfKpDM8wC+52LF1XtKCoFWIqbY3jefVY9uIR+vZPrFrmbTlA
-         lc0g==
-X-Gm-Message-State: AOAM531KlC0Yb7nldx1ksZw8m4XSMp+d4XXLVen4Ll/usu5NIa6QvPMu
-        b2cDGcz2UDCPlGiU6G9tJdfWO9ZAZNE=
-X-Google-Smtp-Source: ABdhPJy5yEZZP0Vb1FX/K90+B3kKJj2RGMgD/mfOMX13HxJkM5PGjN4m/yPBMjtoHxZH0wy3tTEmCA==
-X-Received: by 2002:a1c:bc88:: with SMTP id m130mr1193907wmf.82.1608752428381;
-        Wed, 23 Dec 2020 11:40:28 -0800 (PST)
+        bh=zaJPAv35p7tYyH3AJ2+r5aC10kVF5ebf5TE8wHA/JX8=;
+        b=YejenY6Dtvypr/lZgjZXralPei2GFj8YG2t7Pn69FQAMoqWnnNHCSB27KU/bmIDJGp
+         DwgH+KgfhbYuupVvF9wgShTYotzr+N4UcIuDpm40IkZunW9goquFRh9C2wQKvHgq1PiE
+         UawGt+4aoVYTKitRZwz+05gvzolxoq3RcSE9XWBFPJPQK4NrDME3e3ypO7IbAPXg6zCF
+         hekUy852nhJpuLu/JhlZejf+Qq9vgPulgjgN22/s3OO1sYkjlL3lC2WSIIwudsy9iumQ
+         DoL+M8wghxVXKFPPkvc/YM48cIIBxKcEkKPlf54dDskgLWSyrp/LExeF6+9oqRGQaelb
+         1coQ==
+X-Gm-Message-State: AOAM533x8ZODQYcWQjBDyUVSP08DArKTqnTAqYpUbOcS8Ps7k9f8By+u
+        FUZvyLpqPKrBsgsA0bQCDv9A4h9Hb/Y=
+X-Google-Smtp-Source: ABdhPJziq+x3PH2urIZ05vLZyV77O+R3hsjKcpNZAholIrUcBqAP5A51oV1pUWKzENnSlPh6i/9wUw==
+X-Received: by 2002:adf:fdcb:: with SMTP id i11mr31308487wrs.349.1608752537789;
+        Wed, 23 Dec 2020 11:42:17 -0800 (PST)
 Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id j2sm3104855wrh.78.2020.12.23.11.40.27
+        by smtp.gmail.com with ESMTPSA id j10sm984404wmj.7.2020.12.23.11.42.17
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Dec 2020 11:40:27 -0800 (PST)
-Subject: Re: [PATCH 3/4] ftime.3: tfix
+        Wed, 23 Dec 2020 11:42:17 -0800 (PST)
+Subject: Re: [PATCH 1/4] signal.7: tfix
 To:     Jakub Wilk <jwilk@jwilk.net>,
         Michael Kerrisk <mtk.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
 References: <20201223193033.1012-1-jwilk@jwilk.net>
- <20201223193033.1012-3-jwilk@jwilk.net>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <8dd53e5b-2ec9-f97e-d40c-0b1bc72e93fa@gmail.com>
-Date:   Wed, 23 Dec 2020 20:40:27 +0100
+Message-ID: <16ce14af-9593-9ada-a745-d70e6ff81b1d@gmail.com>
+Date:   Wed, 23 Dec 2020 20:42:16 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <20201223193033.1012-3-jwilk@jwilk.net>
+In-Reply-To: <20201223193033.1012-1-jwilk@jwilk.net>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -68,34 +67,32 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Jakub,
-
 On 12/23/20 8:30 PM, Jakub Wilk wrote:
 > Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
 
-Patch applied :)
+Jakub, patch applied.
 
 Thanks,
 
 Alex
 
 > ---
->  man3/ftime.3 | 2 +-
+>  man7/signal.7 | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/man3/ftime.3 b/man3/ftime.3
-> index fa28daccd..658ed300c 100644
-> --- a/man3/ftime.3
-> +++ b/man3/ftime.3
-> @@ -80,7 +80,7 @@ function and the
->  .I <sys/timeb.h>
->  header have been removed.
->  To support old binaries,
-> -glibc contines to provide a compatibility symbol for
-> +glibc continues to provide a compatibility symbol for
->  applications linked against glibc 2.32 and earlier.
->  .SH ATTRIBUTES
->  For an explanation of the terms used in this section, see
+> diff --git a/man7/signal.7 b/man7/signal.7
+> index e5b9e00ca..1b48356b8 100644
+> --- a/man7/signal.7
+> +++ b/man7/signal.7
+> @@ -357,7 +357,7 @@ From the kernel's point of view,
+>  execution of the signal handler code is exactly the same as the execution
+>  of any other user-space code.
+>  That is to say, the kernel does not record any special state information
+> -indicating that the thread is currently excuting inside a signal handler.
+> +indicating that the thread is currently executing inside a signal handler.
+>  All necessary state information is maintained in user-space registers
+>  and the user-space stack.
+>  The depth to which nested signal handlers may be invoked is thus
 > 
 
 -- 
