@@ -2,59 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E03512E20AE
-	for <lists+linux-man@lfdr.de>; Wed, 23 Dec 2020 20:06:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 20C952E20D1
+	for <lists+linux-man@lfdr.de>; Wed, 23 Dec 2020 20:20:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727505AbgLWTE2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 23 Dec 2020 14:04:28 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48796 "EHLO
+        id S1728638AbgLWTSt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 23 Dec 2020 14:18:49 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51020 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727225AbgLWTE2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 23 Dec 2020 14:04:28 -0500
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8DB0FC061794
-        for <linux-man@vger.kernel.org>; Wed, 23 Dec 2020 11:03:47 -0800 (PST)
-Received: by mail-wr1-x42b.google.com with SMTP id m5so172758wrx.9
-        for <linux-man@vger.kernel.org>; Wed, 23 Dec 2020 11:03:47 -0800 (PST)
+        with ESMTP id S1728147AbgLWTSs (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 23 Dec 2020 14:18:48 -0500
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 23C9CC0617A6
+        for <linux-man@vger.kernel.org>; Wed, 23 Dec 2020 11:18:08 -0800 (PST)
+Received: by mail-wr1-x429.google.com with SMTP id w5so194962wrm.11
+        for <linux-man@vger.kernel.org>; Wed, 23 Dec 2020 11:18:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=z7THc6kL5S94HDJbsevKEWcDxZLIfnQC1334rilYhZw=;
-        b=ooGQajG3FgW4BVxBWaVuNVOu3ZcZUSrQr4DmfN69bXZTratzGx9TQvJQEsEtfMQ/+F
-         vMnLF050q0EL/yURX0r/fBtsfoFsmgL/01uRMy2Vtm8gpSigY6I2Pr/gxSnKtkADnNHI
-         T/sQT+u/DkpsElvi46KMG5+pQyuLD3H68qu0tvFAsRu+uJhs5KKA+Gz1wbWoekdY6Eey
-         B9GGyErXBaP/nm2RR+numC6HD71Nh3LEqAk8yY5bcJ5F/jlqxebEu3ffq8Kjrs0s1d+s
-         sqlfIjnoUY2BRF1xfjABmSzzH6FoPZErP/GG9aIVGufzjFJa/6HSZdLYW1DSkxxrl2GH
-         +CTQ==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=MVZxOVPmrwGk/W1+lCFrwO9SCCO49gqP3V/umze8Bw0=;
+        b=IdESVgUoahSt8J+17PekAqNQQDfHW9YNRE0E0Cu/iuSc8yKrWe3APVC3dwmlL6kaq8
+         wG+nqXAyV20zHHykE6Z3zmmqheNNmk3RT8bryC/ytYA8o5qBtKzWkAMjWl7bSulY1rEO
+         b8jPhgYIToDzXko34by7lXRKhfZV954kVJ+UPy9SnzLMIUtVakkEav4fZKSYoBsdAP5p
+         tIBoSrwKKsGVnDe78kWta2xjMn6T0qHpEwnFypiWDP9Dt6Sx+B7FDXv2kFSRdUCVjWJK
+         WAipgFw48tESrPV0aFBJb8OzcULzv692/vP5VlQd/e1xePNOhGjWmXs+HLe0XUC/qBDo
+         03Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=z7THc6kL5S94HDJbsevKEWcDxZLIfnQC1334rilYhZw=;
-        b=Sf+GQCwTB6MO4NF7F5r3gDOlnk4d/s0041iygFXl9f9NzJgX3D+XhkRRBS7/gk1RLV
-         axM3tRbvdqOqVJZmdA82gWpzn6odbxUYQPfVXF8GOBjiYJ2l/p7ZA851l8YeO7b0z39s
-         q5vFO9SMHLG9KpY5s5K9Ze0pnuox88LCpVJ0exL41fetZnjHkvnakDuTD9edKnM+yyRu
-         wKuy3ehk5l+oaCuckgil76Lb7QHoTsqEx1mL9chhVPGK2jcOSYwAPkzfoEQdzm14pmgh
-         mtoUsW/l1UM/a9WPn1+pUzgsjdbJaisEw9rGTX3KN+gpQeYfUFTuwfi9cB3PyBEbGv0s
-         aO7g==
-X-Gm-Message-State: AOAM530ER0NfCBpB2fwCn4e4/sgOL5sEY3/E918b/yOHoGYtVgvOIoGV
-        g8E7mZHf0vk3j2gHu9yM7m+Mwkr45i0=
-X-Google-Smtp-Source: ABdhPJwAc8SGxriFiPzrKXoKT/+3UsQpsGQ0/bGXuBLqwomhqN6qMgOeU7svqp6KRcE5SKVxGdLc2Q==
-X-Received: by 2002:a5d:650f:: with SMTP id x15mr30783090wru.332.1608750224631;
-        Wed, 23 Dec 2020 11:03:44 -0800 (PST)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=MVZxOVPmrwGk/W1+lCFrwO9SCCO49gqP3V/umze8Bw0=;
+        b=HiUO7xNK23cC+xGspBIxODk2t/t8k3EKK8eOLTQsRTJtv7YYpmZgxKYFqb3eH2WRr6
+         vRpCOJ1QqIhydsiBXYtO7mHw409MERb2mHxQ0ZXOoj1YLGHS8toyDZLD2Ff9X2bWykMg
+         CmJVJXy5tS908it+Chj6HFSltc2WZOSBbInltS3vnvftWRF9d4CpJbxbWRAoyfH5Ii5E
+         OzgYEu1bfyi9yVl9gdUMlwV2v3eN3TKCH9NUF2UHEhve7Kp+e3cRPLhrrt1vRGJU7nOW
+         ClFKbiFkVGyjlRRz6M1dHTQQSQtqET14Cn9zyCDabxpT4z0domThAecKi3P3qqf1AGj1
+         9YGw==
+X-Gm-Message-State: AOAM530NnottzK9fD0D8fFc6Vr2enQbpKpNv0ZSmn6nDacA+tMxB1ND4
+        r+gzL0YZkf8rnuzLJiiWrmHTq6Ud3TA=
+X-Google-Smtp-Source: ABdhPJxcd+8FGrjm3NxPMfNgGPBFQsa0zlKBtWPUJU1p0GGatkTkSN2lSlh7BsSBH+ByRrnCTBVnqw==
+X-Received: by 2002:a5d:4ece:: with SMTP id s14mr30392257wrv.427.1608751086242;
+        Wed, 23 Dec 2020 11:18:06 -0800 (PST)
 Received: from debian.vlc ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id y68sm892028wmc.0.2020.12.23.11.03.43
+        by smtp.gmail.com with ESMTPSA id p9sm864717wmm.17.2020.12.23.11.18.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Dec 2020 11:03:44 -0800 (PST)
+        Wed, 23 Dec 2020 11:18:05 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH] Various pages: tfix
-Date:   Wed, 23 Dec 2020 20:02:03 +0100
-Message-Id: <20201223190202.12758-1-alx.manpages@gmail.com>
+Subject: [PATCH v2] Various pages: tfix
+Date:   Wed, 23 Dec 2020 20:17:06 +0100
+Message-Id: <20201223191705.13141-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20201223190202.12758-1-alx.manpages@gmail.com>
+References: <20201223190202.12758-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -68,6 +70,16 @@ $ sed -i '/[^.]\. \*\//s%\. \*/% */%' man?/*
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
+
+Hey Michael,
+
+I just added a few manual edits to locale.7 after sed.
+
+Cheers,
+
+Alex
+
+
  man2/bpf.2                   |  4 ++--
  man2/clone.2                 |  4 ++--
  man2/dup.2                   |  2 +-
@@ -104,9 +116,9 @@ Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
  man5/utmp.5                  |  2 +-
  man7/fanotify.7              |  8 ++++----
  man7/inotify.7               | 10 +++++-----
- man7/locale.7                |  6 +++---
+ man7/locale.7                | 14 +++++++-------
  man7/user_namespaces.7       | 12 ++++++------
- 38 files changed, 77 insertions(+), 77 deletions(-)
+ 38 files changed, 81 insertions(+), 81 deletions(-)
 
 diff --git a/man2/bpf.2 b/man2/bpf.2
 index d8ce40943..348d968de 100644
@@ -815,7 +827,7 @@ index e86bdee67..0549f28e6 100644
          if (len <= 0)
              break;
 diff --git a/man7/locale.7 b/man7/locale.7
-index 125961337..6eaca1b0e 100644
+index 125961337..bd3787845 100644
 --- a/man7/locale.7
 +++ b/man7/locale.7
 @@ -276,14 +276,14 @@ struct lconv {
@@ -835,11 +847,19 @@ index 125961337..6eaca1b0e 100644
      char *currency_symbol;   /* Local currency symbol */
      char *mon_decimal_point; /* Radix character */
      char *mon_thousands_sep; /* Like \fIthousands_sep\fP above */
-@@ -307,7 +307,7 @@ struct lconv {
-        1 The sign string precedes the quantity and currency_symbol.
-        2 The sign string succeeds the quantity and currency_symbol.
-        3 The sign string immediately precedes the currency_symbol.
+@@ -303,11 +303,11 @@ struct lconv {
+                                 currency_symbol from a negative
+                                 value */
+     /* Positive and negative sign positions:
+-       0 Parentheses surround the quantity and currency_symbol.
+-       1 The sign string precedes the quantity and currency_symbol.
+-       2 The sign string succeeds the quantity and currency_symbol.
+-       3 The sign string immediately precedes the currency_symbol.
 -       4 The sign string immediately succeeds the currency_symbol. */
++       0 Parentheses surround the quantity and currency_symbol
++       1 The sign string precedes the quantity and currency_symbol
++       2 The sign string succeeds the quantity and currency_symbol
++       3 The sign string immediately precedes the currency_symbol
 +       4 The sign string immediately succeeds the currency_symbol */
      char  p_sign_posn;
      char  n_sign_posn;
