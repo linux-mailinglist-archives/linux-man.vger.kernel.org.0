@@ -2,376 +2,278 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 553E32E22F5
-	for <lists+linux-man@lfdr.de>; Thu, 24 Dec 2020 01:24:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id DBBD62E259F
+	for <lists+linux-man@lfdr.de>; Thu, 24 Dec 2020 10:19:48 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727850AbgLXAVz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 23 Dec 2020 19:21:55 -0500
-Received: from 10.mo4.mail-out.ovh.net ([188.165.33.109]:46330 "EHLO
-        10.mo4.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727754AbgLXAVz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 23 Dec 2020 19:21:55 -0500
-X-Greylist: delayed 16800 seconds by postgrey-1.27 at vger.kernel.org; Wed, 23 Dec 2020 19:21:52 EST
-Received: from player729.ha.ovh.net (unknown [10.108.35.215])
-        by mo4.mail-out.ovh.net (Postfix) with ESMTP id 02FA825D62F
-        for <linux-man@vger.kernel.org>; Wed, 23 Dec 2020 20:33:42 +0100 (CET)
-Received: from sk2.org (82-65-25-201.subs.proxad.net [82.65.25.201])
-        (Authenticated sender: steve@sk2.org)
-        by player729.ha.ovh.net (Postfix) with ESMTPSA id D14D01998742E;
-        Wed, 23 Dec 2020 19:33:35 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass (GARM-100R003c40b052f-6eb0-4cb6-9757-ec6aa81b0749,
-                    B22B5ECD272A742FD8B69EBC4CA2EEA784988800) smtp.auth=steve@sk2.org
-X-OVh-ClientIp: 82.65.25.201
-Date:   Wed, 23 Dec 2020 20:33:29 +0100
-From:   Stephen Kitt <steve@sk2.org>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        Christian Brauner <christian.brauner@ubuntu.com>,
-        Giuseppe Scrivano <gscrivan@redhat.com>,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] close_range.2: new page documenting close_range(2)
-Message-ID: <20201223203329.71a94a3b@heffalump.sk2.org>
-In-Reply-To: <174e60ee-aaad-ed16-186e-d199014dfc0c@gmail.com>
-References: <20201221194656.22111-1-steve@sk2.org>
-        <174e60ee-aaad-ed16-186e-d199014dfc0c@gmail.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+        id S1726186AbgLXJTk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 24 Dec 2020 04:19:40 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38288 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726159AbgLXJTk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Dec 2020 04:19:40 -0500
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 90EB0C061794
+        for <linux-man@vger.kernel.org>; Thu, 24 Dec 2020 01:18:59 -0800 (PST)
+Received: by mail-wr1-x42f.google.com with SMTP id i9so1612727wrc.4
+        for <linux-man@vger.kernel.org>; Thu, 24 Dec 2020 01:18:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=UkMKcTVa6rqk8AIxM2qe3Px2yMNAi3Jj6L0RjFqTBMw=;
+        b=eP+OAatyf+QYhDYglbWWiu3Hn1S73rBAVSUrGzAt6JhLPI8OZwKf1jv/2S3j3Wh4RS
+         rfOWbkr4q+u+6FjGZnPkA2dHKT6kPDH6wheB1Phfhe6oDUfSYQYQvVcjNKcHHZiwIfMz
+         +9bA4HuqgOwOgFxNIy+oNgY2zJXVAbo0aagXe3x4qQ4FBz6awJb8U9tK5ncVnsdfiKkO
+         LwVtjsRngsbbkFbr0mNKO6zmOqtgsfCmEx93dhVXU02ItFmrGqJFJ9U3NK9o09x5HynG
+         uzsggHN4qLo7b0ZtES4j5l1llDJzegrMN89p0e2aT1K1Mef8CHZmUeV+T3pRYWJZz4c9
+         rJmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=UkMKcTVa6rqk8AIxM2qe3Px2yMNAi3Jj6L0RjFqTBMw=;
+        b=Gox9lD7yFVgh0RiWCuuxX8pZKczpl36C8IH3jAtNGcefb/JaUhy7vYmTWp1zszvAc5
+         xTP1IecXUkpgeTHOUwy6V+YMNBmYFtSli1SA1u5EMNwYoo6dwrMS+jRqcNnDbdC2Cobp
+         LXXSRMH0J1FtYwrC2JF7CW7EAG8YhbP2BcHk0hfhfZ6eHwIyyOXHzdahqJIZc0CAlIjw
+         JcenFZmaNyS3N4kb/cyx3TnVvRNXKtclG4Mh8wt1uIST1L9fYdvFYuLNgHuGRZanJOsF
+         MG8mL75QMXa2VWhnQX/eHzNBQtTE9YNLK6mxIwxAFpCbBCLT7Qnoe2aiLmkjNNf03kvy
+         D9Eg==
+X-Gm-Message-State: AOAM5330gpWMvjK/5p/9UCQ/ZcraJXoolX/dJVuyyWfhXEHrLijBbDWV
+        t4mG7spKdm5+cscPZSQPwGu7NDfe2f0=
+X-Google-Smtp-Source: ABdhPJzPuysaDrHbBX+FdMkKayF2qmKpjfoldlgOosf1S1JDbdm3Wc73qpVZVK8hzu3aHGOhlY5x8g==
+X-Received: by 2002:a5d:6502:: with SMTP id x2mr33746517wru.254.1608801537743;
+        Thu, 24 Dec 2020 01:18:57 -0800 (PST)
+Received: from ?IPv6:2001:a61:2467:2f01:faca:3d43:5e40:30d1? ([2001:a61:2467:2f01:faca:3d43:5e40:30d1])
+        by smtp.gmail.com with ESMTPSA id n11sm21225245wra.9.2020.12.24.01.18.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Dec 2020 01:18:56 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH v5] prctl.2: Document Syscall User Dispatch
+To:     Gabriel Krisman Bertazi <krisman@collabora.com>,
+        alx.manpages@gmail.com
+References: <20201223182911.4066380-1-krisman@collabora.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <85b23b60-a92c-a5a8-1cc5-24bdfb8b3530@gmail.com>
+Date:   Thu, 24 Dec 2020 10:18:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- boundary="Sig_/uWTqlZog+MHZlqiB/OPHkoj"; protocol="application/pgp-signature"
-X-Ovh-Tracer-Id: 11211148323014331773
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedujedrvddtjedguddvjecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvuffkjghfofggtgesghdtreerredtjeenucfhrhhomhepufhtvghphhgvnhcumfhithhtuceoshhtvghvvgesshhkvddrohhrgheqnecuggftrfgrthhtvghrnhepveelvdeufedvieevffdtueegkeevteehffdtffetleehjeekjeejudffieduteeknecukfhppedtrddtrddtrddtpdekvddrieehrddvhedrvddtudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehplhgrhigvrhejvdelrdhhrgdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepshhtvghvvgesshhkvddrohhrghdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
+In-Reply-To: <20201223182911.4066380-1-krisman@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
---Sig_/uWTqlZog+MHZlqiB/OPHkoj
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Hello Gabriel,
 
-Hi Michael,
+Thanks for the revisions!
 
-On Tue, 22 Dec 2020 21:36:28 +0100, "Michael Kerrisk (man-pages)"
-<mtk.manpages@gmail.com> wrote:
-> On 12/21/20 8:46 PM, Stephen Kitt wrote:
-[...]
-> > +Errors closing a given file descriptor are currently ignored.
-> > +.PP
-> > +.I flags
-> > +can be 0 or set to one or both of the following: =20
->=20
-> Better, I think:
-> "flags is a bit mask containing 0 or more of the following:"
+On 12/23/20 7:29 PM, Gabriel Krisman Bertazi wrote:
+> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
+> 
+> ---
+> Changes since v4:
+> (suggested by Michael Kerrisk)
+>   - Modify explanation of what dispatch to user space means.
+>   - Drop references to emulation.
+>   - Document suggestion about placing libc in allowed-region.
+>   - Comment about avoiding syscall cost.
+> Changes since v3:
+> (suggested by Michael Kerrisk)
+>   - Explain what dispatch to user space means.
+>   - Document the fact that the memory region is a single consecutive
+>   range.
+>   - Explain failure if *arg5 is set to a bad value.
+>   - fix english typo.
+>   - Define what 'invalid memory region' means.
+> 
+> Changes since v2:
+> (suggested by Alejandro Colomar)
+>   - selective -> selectively
+>   - Add missing oxford comma.
+> 
+> Changes since v1:
+> (suggested by Alejandro Colomar)
+>   - Use semantic lines
+>   - Fix usage of .{B|I}R and .{B|I}
+>   - Don't format literals
+>   - Fix preferred spelling of userspace
+>   - Fix case of word
+> ---
+>  man2/prctl.2 | 116 +++++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 116 insertions(+)
+> 
+> diff --git a/man2/prctl.2 b/man2/prctl.2
+> index f25f05fdb593..0d26fdcb5e3d 100644
+> --- a/man2/prctl.2
+> +++ b/man2/prctl.2
+> @@ -1533,6 +1533,92 @@ For more information, see the kernel source file
+>  (or
+>  .I Documentation/arm64/sve.txt
+>  before Linux 5.3).
+> +.TP
+> +.\" prctl PR_SET_SYSCALL_USER_DISPATCH
+> +.\" commit 1446e1df9eb183fdf81c3f0715402f1d7595d4
+> +.BR PR_SET_SYSCALL_USER_DISPATCH " (since Linux 5.11, x86 only)"
+> +.IP
+> +Configure the Syscall User Dispatch mechanism
+> +for the calling thread.
+> +This mechanism allows an application
+> +to selectively intercept system calls
+> +so that they can be handled within the application itself.
+> +Interception takes the form of a thread-directed
+> +.B SIGSYS
+> +signal that is delivered to the thread
+> +when it makes a system call.
+> +If intercepted,
+> +the system call is not executed by the kernel.
+> +.IP
+> +The current Syscall User Dispatch mode is selected via
+> +.IR arg2 ,
+> +which can either be set to
+> +.B PR_SYS_DISPATCH_ON
+> +to enable the feature,
+> +or to
+> +.B PR_SYS_DISPATCH_OFF
+> +to turn it off.
+> +.IP
+> +When
+> +.I arg2
+> +is set to
+> +.BR PR_SYS_DISPATCH_ON ,
+> +.I arg3
+> +and
+> +.I arg4
+> +respectively identify the
+> +.I offset
+> +and
+> +.I length
+> +of a single contiguous memory region in the process map
+> +from where system calls are always allowed to be executed,
+> +regardless of the switch variable
+> +(Typically, this area would include the area of memory
+> +containing the C library).
 
-Indeed, thanks!
+s/)./.)/
 
-> > +.TP
-> > +.BR CLOSE_RANGE_CLOEXEC " (since Linux 5.10)" =20
->=20
-> s/5.10/5.11/ ?
+> +.I arg5
+> +points to a char-sized variable
+> +that is a fast switch to enable/disable the mechanism
+> +without the overhead of doing a system call.
+> +The variable pointed by
 
-Oops, yes, 5.11.
+s/pointed/pointed to/
 
-> > +sets the close-on-exec bit instead of =20
->=20
-> s/close-on-exec bit/file descriptor's close-on-exec flag/
+> +.I arg5
+> +can either be set to
+> +.B PR_SYS_DISPATCH_ON
+> +to enable the mechanism
+> +or to
+> +.B PR_SYS_DISPATCH_OFF
+> +to temporarily disable it.
+> +The value pointed by
+> +.B arg5
+> +is checked by the kernel
+> +on every system call entry,
+> +and any unexpected value will raise
+> +an uncatchable
+> +.B SIGSYS
+> +at that time,
+> +killing the application.
+> +.PI
+> +When a system call is intercepted,
+> +.B SIGSYS
+> +is raised with
+> +.I si_code
+> +set to
+> +.BR SYS_USER_DISPATCH .
 
-Noted.
+Shouldn't we mention here also: si_call_addr, si_arch, and si_syscall?
 
-> > +immediately closing the file descriptors.
-> > +.TP
-> > +.B CLOSE_RANGE_UNSHARE
-> > +unshares the range of file descriptors from any other processes,
-> > +before closing them,
-> > +avoiding races with other threads sharing the file descriptor table.
-> > +.SH RETURN VALUE
-> > +On success,
-> > +.BR close_range ()
-> > +returns 0.
-> > +On error, \-1 is returned and
-> > +.I errno
-> > +is set to indicate the cause of the error.
-> > +.SH ERRORS
-> > +.TP
-> > +.B EINVAL
-> > +.I flags
-> > +is not valid, or
-> > +.I first
-> > +is greater than
-> > +.IR last .
-> > +.PP
-> > +The following can occur with
-> > +.B CLOSE_RANGE_UNSHARE
-> > +(when constructing the new descriptor table):
-> > +.TP
-> > +.B EMFILE
-> > +The per-process limit on the number of open file descriptors has been
-> > reached +(see the description of
-> > +.B RLIMIT_NOFILE
-> > +in
-> > +.BR getrlimit (2)).
-> > +.TP
-> > +.B ENOMEM
-> > +Insufficient kernel memory was available.
-> > +.SH VERSIONS
-> > +.BR close_range ()
-> > +first appeared in Linux 5.9.
-> > +.SH CONFORMING TO
-> > +.BR close_range ()
-> > +is a nonstandard function that is also present on FreeBSD.
-> > +.SH NOTES
-> > +Glibc does not provide a wrapper for this system call; call it using
-> > +.BR syscall (2).
-> > +.SS Closing all open file descriptors
-> > +.\" 278a5fbaed89dacd04e9d052f4594ffd0e0585de
-> > +To avoid blindly closing file descriptors
-> > +in the range of possible file descriptors,
-> > +this is sometimes implemented (on Linux)
-> > +by listing open file descriptors in
-> > +.I /proc/self/fd/
-> > +and calling
-> > +.BR close (2)
-> > +on each one.
-> > +.BR close_range ()
-> > +can take care of this without requiring
-> > +.I /proc
-> > +and within a single system call,
-> > +which provides significant performance benefits.
-> > +.SS Closing file descriptors before exec
-> > +.\" 60997c3d45d9a67daf01c56d805ae4fec37e0bd8
-> > +File descriptors can be closed safely using
-> > +.PP
-> > +.in +4n
-> > +.EX
-> > +/* we don't want anything past stderr here */
-> > +close_range(3, ~0U, CLOSE_RANGE_UNSHARE);
-> > +execve(....);
-> > +.EE
-> > +.in
-> > +.PP
-> > +.B CLOSE_RANGE_UNSHARE
-> > +is conceptually equivalent to
-> > +.PP
-> > +.in +4n
-> > +.EX
-> > +unshare(CLONE_FILES);
-> > +close_range(first, last, 0);
-> > +.EE
-> > +.in
-> > +.PP
-> > +but can be more efficient:
-> > +if the unshared range extends past
-> > +the current maximum number of file descriptors allocated
-> > +in the caller's file descriptor table
-> > +(the common case when
-> > +.I last
-> > +is ~0U),
-> > +the kernel will unshare a new file descriptor table for the caller up =
-to
-> > +.IR first .
-> > +This avoids subsequent close calls entirely; =20
->=20
-> s/close/.BR close (2)/
+So, by this point, there still seems to be info lacking.
+When the SIGSYS handler returns, what happens? In the emulation
+use-case, what will the return value of the system call look like?
+Can that return value be defined from the SISGSYS handler, and
+if so, how? I couldn't really see any answers in
+Documentation/admin-guide/syscall-user-dispatch.rst
+and I think there should be at least some of this info in the manual
+page.
 
-Noted.
+Cheers,
 
-> > +the whole operation is complete once the table is unshared.
-> > +.SS Closing files on \fBexec\fP
-> > +.\" 582f1fb6b721facf04848d2ca57f34468da1813e
-> > +This is particularly useful in cases where multiple
-> > +.RB pre- exec
-> > +setup steps risk conflicting with each other.
-> > +For example, setting up a
-> > +.BR seccomp (2)
-> > +profile can conflict with a
-> > +.BR close_range ()
-> > +call:
-> > +if the file descriptors are closed before the
-> > +.BR seccomp (2)
-> > +profile is set up,
-> > +the profile setup can't use them itself,
-> > +or control their closure;
-> > +if the file descriptors are closed afterwards,
-> > +the seccomp profile can't block the
-> > +.BR close_range ()
-> > +call or any fallbacks.
-> > +Using
-> > +.B CLOSE_RANGE_CLOEXEC
-> > +avoids this:
-> > +the descriptors can be marked before the
-> > +.BR seccomp (2)
-> > +profile is set up,
-> > +and the profile can control access to
-> > +.BR close_range ()
-> > +without affecting the calling process.
-> > +.SH EXAMPLES
-> > +The following program is designed to be execed by the second program
-> > +below. =20
->=20
-> I have some specific comments below, but a more general comment
-> to start with: why use two programs here? It seems to add complexity
-> without demonstrating anything that couldn't also be demonstrated
-> with a simpler single program, or have I missed something?
+Michael
 
-I based the example on the test code in the kernel and the examples from
-execve(2), since close_range(2) is mostly useful in preparation for an
-execve(2) call.
 
-> > +It lists its open file descriptors:
-> > +.PP
-> > +.in +4n
-> > +.EX
-> > +/* listopen.c */
-> > +
-> > +#include <stdio.h>
-> > +#include <sys/stat.h>
-> > +
-> > +int
-> > +main(int argc, char *argv[])
-> > +{
-> > +    struct stat buf;
-> > +
-> > +    for (int i =3D 0; i < 100; i++) {
-> > +        if (!fstat(i, &buf)) =20
->=20
-> I kind of prefer "fstat(...) =3D=3D 0"
+> +.IP
+> +When
+> +.I arg2
+> +is set to
+> +.BR PR_SYS_DISPATCH_OFF ,
+> +the remaining arguments must be set to 0.
+> +.IP
+> +The setting is not preserved across
+> +.BR fork (2),
+> +.BR clone (2),
+> +or
+> +.BR execve (2).
+> +.IP
+> +For more information,
+> +see the kernel source file
+> +.IR Documentation/admin-guide/syscall-user-dispatch.rst
+>  .\" prctl PR_SET_TAGGED_ADDR_CTRL
+>  .\" commit 63f0c60379650d82250f22e4cf4137ef3dc4f43d
+>  .TP
+> @@ -2000,6 +2086,14 @@ and
+>  .I arg3
+>  is an invalid address.
+>  .TP
+> +.B EFAULT
+> +.I option
+> +is
+> +.B PR_SET_SYSCALL_USER_DISPATCH
+> +and
+> +.I arg5
+> +has an invalid address.
+> +.TP
+>  .B EINVAL
+>  The value of
+>  .I option
+> @@ -2231,6 +2325,28 @@ and SVE is not available on this platform.
+>  .B EINVAL
+>  .I option
+>  is
+> +.B PR_SET_SYSCALL_USER_DISPATCH
+> +and one of the following is true:
+> +.RS
+> +.IP * 3
+> +.I arg2
+> +is
+> +.B PR_SYS_DISPATCH_OFF
+> +and the remaining arguments are not 0;
+> +.IP * 3
+> +.I arg2
+> +is
+> +.B PR_SYS_DISPATCH_ON
+> +and the memory range specified is outside the
+> +address space of the process.
+> +.IP * 3
+> +.I arg2
+> +is invalid.
+> +.RE
+> +.TP
+> +.B EINVAL
+> +.I option
+> +is
+>  .BR PR_SET_TAGGED_ADDR_CTRL
+>  and the arguments are invalid or unsupported.
+>  See the description of
+> 
 
-Ah yes, that makes sense.
 
-> > +            printf("FD %d is open.\en", i);
-> > +    }
-> > +
-> > +    exit(EXIT_SUCCESS);
-> > +)
-> > +.EE
-> > +.in
-> > +.PP
-> > +This program executes the command given on its command-line,
-> > +after opening the files listed after the command
-> > +and then using
-> > +.BR close_range ()
-> > +to close them:
-> > +.PP
-> > +.in +4n
-> > +.EX
-> > +/* close_range.c */
-> > +
-> > +#include <fcntl.h>
-> > +#include <linux/close_range.h>
-> > +#include <stdio.h>
-> > +#include <stdlib.h>
-> > +#include <sys/stat.h>
-> > +#include <sys/syscall.h>
-> > +#include <sys/types.h>
-> > +#include <unistd.h>
-> > +
-> > +int
-> > +main(int argc, char *argv[])
-> > +{
-> > +    char *newargv[] =3D { NULL };
-> > +    char *newenviron[] =3D { NULL };
-> > +
-> > +    if (argc < 3) {
-> > +        fprintf(stderr, "Usage: %s <command-to-run> <files-to-open>\en=
-",
-> > argv[0]); =20
->=20
-> Line too long. Please break it up so that it renders well on
-> an 80-column terminal.
->=20
-> Or, alternatively:=20
->=20
->         fprintf(stderr, "Usage: %s <command> <file>...\en", argv[0]);
-
-Noted.
-
-> > +        exit(EXIT_FAILURE);
-> > +    }
-> > +
-> > +    for (int i =3D 2; i < argc; i++) {
-> > +        if (open(argv[i], O_RDONLY) =3D=3D -1) {
-> > +            perror(argv[i]);
-> > +            exit(EXIT_FAILURE);
-> > +        }
-> > +    }
-> > +
-> > +    if (syscall(__NR_close_range, 3, ~0U, CLOSE_RANGE_UNSHARE) =3D=3D =
--1) { =20
->=20
-> Line too long.
->=20
-> Alternatively, what about s/CLOSE_RANGE_UNSHARE/0/? Or it
-> considered best practice to always use CLOSE_RANGE_UNSHARE?
-
-In this particular context it=E2=80=99s not required, but I would argue tha=
-t it=E2=80=99s
-better to use _UNSHARE in general =E2=80=94 it avoids the risk of forgettin=
-g to add
-it in long-lived code which ends up using threads at some point...
-
-> > +        perror("close_range");
-> > +        exit(EXIT_FAILURE);
-> > +    }
-> > +
-> > +    execve(argv[1], newargv, newenviron);
-> > +    perror("execve");
-> > +    exit(EXIT_FAILURE);
-> > +}
-> > +.EE
-> > +.in
-> > +.PP
-> > +We can use the second program to exec the first as follows:
-> > +.PP
-> > +.in +4n
-> > +.EX
-> > +.RB "$" " make listopen close_range" =20
->=20
-> Perhaps we don't really need the preceding line?
-
-I was following the examples in execve(2) which show how to build the
-programs.
-
-> > +.RB "$" " ./close_range ./listopen /dev/null /dev/zero"
-> > +FD 0 is open.
-> > +FD 1 is open.
-> > +FD 2 is open.
-> > +.EE
-> > +.in
-> > +.PP
-> > +Removing the call to
-> > +.BR close_range ()
-> > +will show different output,
-> > +with the file descriptors for the named files still open.
-> > +.SH SEE ALSO
-> > +.BR close (2)
-> >=20
-> > base-commit: b5dae3959625f5ff378e9edf9139057d1c06bb55 =20
-
-Thanks,
-
-Stephen
-
---Sig_/uWTqlZog+MHZlqiB/OPHkoj
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEnPVX/hPLkMoq7x0ggNMC9Yhtg5wFAl/jm4kACgkQgNMC9Yht
-g5xpNg/9HEV0DjwPTqJj4icH3TlxVTL3Qln1esFW71ArKi/+I3weQZbLiNhVkX1P
-APSnf1WnU8s5LCDMVCGLzQaSXaJGNa7XdI+/251geNhWuC0E79HirW7SKv0kd0fO
-BYFEGNSVJsdbiE7x8RELva+xUsIh+VO5wePXumL1sAlpc6G0JydqZkR7m88M8+9X
-Uls3U9PGilUIPc1n28+LCAi9TyU/b+UEcwtXY97FeJXdnAGLUSaNkLmAheywZERn
-1Ho/jP7J8PPliBSc+0h9urgH1DgkHZXZBUwxWpm1mqKto7Kf4lD3laqy26L43qdl
-juIj9GdRymLns+HG5tjtPoL1rNmW3oy6BBHXV34aDFbeDvdyZZ3kGi1DHuddwj/j
-MFycT5EZm8FFj7DL5MDkS0ARodzrbpuxAHozLBgCV4BixJ5jSTUGHumIJv4fLlnU
-zj/DkXn/hOzpbrsLMQdFq3CY3E5pT9SgC9cM99yItEfaLWg8At1Hf5ONyBaDnj+3
-a8QilYeJ7qHwDd6IzxzQQhEXcj17WqK79rrMqAOc7z4m6lcCVRojnwd24At5plbo
-EZMBbzMJJ0XuLBaeKpGPSTprnJFMjE2u48VLtm2AhwKoy19v+J49W/f6N4loVqlC
-c6v9QqSeAUDwZlJL2pXk28rjYaIBEXlAe7h+MB6Up+De5arDH/c=
-=cvcg
------END PGP SIGNATURE-----
-
---Sig_/uWTqlZog+MHZlqiB/OPHkoj--
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
