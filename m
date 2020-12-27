@@ -2,119 +2,118 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A96C92E2945
-	for <lists+linux-man@lfdr.de>; Fri, 25 Dec 2020 00:39:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2BEDA2E30FC
+	for <lists+linux-man@lfdr.de>; Sun, 27 Dec 2020 12:55:51 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728945AbgLXXiq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 24 Dec 2020 18:38:46 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56854 "EHLO
+        id S1726066AbgL0Lzf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 27 Dec 2020 06:55:35 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43678 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728930AbgLXXiq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Dec 2020 18:38:46 -0500
-Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com [IPv6:2607:f8b0:4864:20::1031])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 717E8C061573
-        for <linux-man@vger.kernel.org>; Thu, 24 Dec 2020 15:38:06 -0800 (PST)
-Received: by mail-pj1-x1031.google.com with SMTP id b5so1848064pjl.0
-        for <linux-man@vger.kernel.org>; Thu, 24 Dec 2020 15:38:06 -0800 (PST)
+        with ESMTP id S1726039AbgL0Lze (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 27 Dec 2020 06:55:34 -0500
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com [IPv6:2607:f8b0:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E01B0C061794
+        for <linux-man@vger.kernel.org>; Sun, 27 Dec 2020 03:54:53 -0800 (PST)
+Received: by mail-ot1-x32e.google.com with SMTP id r9so6960577otk.11
+        for <linux-man@vger.kernel.org>; Sun, 27 Dec 2020 03:54:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=x8rX+gyAqNB3/KxmpQrXTf2rAZ/K4R8br2uje5lO7Q8=;
-        b=vH3od8FQNvjeAZe2Kg9oZqkwxzFAuOpzJ8MIv/XBvmpCWyBkmIOBwDdLXk89rSO9hO
-         B02gpc7orU665PLvjshlQqdMYNG+NLyo1Moj5EAcw62LzM5CAHsGbVcaQEyEyVdmV4B/
-         dmmc1cOgeig8sFP5a54NVODDL8Z/OrRLV5A/P9k22bsAWI+K+hD2qXyJT38uRDcGiGFK
-         Wr0frw9zCGW/grnH4J+SKRfMrAyGNjpxw1LXogNgdJror1o6pynT+zrdTgr3KImkQtPU
-         i4+Q6X7WZ8tWNkpKXGZVlyCZTzEdOxVEsawiCALrhjErKw8y+/xOYaNOb6YMq7DQIPjd
-         o15w==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=hK4lc7fwNOyaEEds/tLY6eDBE1AU0DYYYsnnEsmUAe8=;
+        b=sepelYnKwuBBZvS0SpSrDdAbCZTHZ+geFGvjYlvQGwZvuqy4Y0PdPDRsatJpRHCWGp
+         SWmsraOOXFWj981G/tvwc4805j6VlpRnAaXynmWctOpWw2Wrxby6HgNCAlyLJqyHEEWV
+         ju83jDFmBvIKTiFsqXAFrd/lGPw+4M6I6bVDih+pZ4luu4t4QTPvRDPdm1dLLtDKPcSO
+         Bd24kWFnbBMVxNYCxYVpCI94THE9hOz/f0iWxzax7I4WMz0w6ksJSukhZ+Fv1FMargTT
+         lSmqHdnaBCAnzinLLtLG31rlFFan+rEtW+S7AlYe/3l8u6M8nszj+Lo4oLV2XVgHnTTp
+         b+Xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=x8rX+gyAqNB3/KxmpQrXTf2rAZ/K4R8br2uje5lO7Q8=;
-        b=nSvak5BkZiUHlU+1TIb0oqTcdelXOZy5g1G9VwcGRZgknA3uDuqgNDeroVY4LgCvNa
-         0GGPFEv20cvPVwa4YNJCWajl1B4MWleGjc+EvxHzSHDKNtyV5e6IaT8Li0GUd8w9gD2i
-         vj8Pt0RNkhitYVjhgvaoAt9UOKBRWBAeSJi542VGJX8qLBGzD9s8git2wg78C4q9kdW8
-         3bPFxHRafc4jColLBU6FrGUUDHjX0WTJFfu+hps6XVGBaMgkERYytFSdiY5ivbFxRQS4
-         cjLvxMeBFkeLZrZuoI3mvkqmscF3uOYE9se4l0LrLUUlOf4VeAHhJCnZbDlAi/gszZ92
-         y88Q==
-X-Gm-Message-State: AOAM5301y2C+0pnxE/Q4Z0UGq2hGUIo311u6EyEgzQRqT/sps3DnvXYZ
-        OgBWAInD+v3L8gkygKjdzgXJWeGogE4=
-X-Google-Smtp-Source: ABdhPJyFKnHRJIBFM0ZFNPqdZcxEm4V9RCwNffR1c3vuTszB9YUfAMMxov6ur4RkDo9b4GIW4bxBLw==
-X-Received: by 2002:a17:90a:d502:: with SMTP id t2mr6071305pju.131.1608853086088;
-        Thu, 24 Dec 2020 15:38:06 -0800 (PST)
-Received: from localhost.localdomain ([1.129.159.43])
-        by smtp.gmail.com with ESMTPSA id g6sm3819263pjj.48.2020.12.24.15.38.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Dec 2020 15:38:05 -0800 (PST)
-Date:   Fri, 25 Dec 2020 10:38:01 +1100
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] Various pages: tfix
-Message-ID: <20201224233759.kvrdgyhtxivl2m43@localhost.localdomain>
-References: <20201223190202.12758-1-alx.manpages@gmail.com>
- <20201223191705.13141-1-alx.manpages@gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=hK4lc7fwNOyaEEds/tLY6eDBE1AU0DYYYsnnEsmUAe8=;
+        b=mAGcAKuxpZ5InunEykWiY6MI5UPZCy71YrEdAE9DyCQ08v8DFT94n4oCimeusU/yDL
+         /C7utmV77miDqKRBmtMCR5s4qJaeBJi3Vpq9dNb2DGxXhLR1boo+LUY2+8yhpjklngs1
+         G7q4jKOx8x0HofV9YHOQPpBCol2yshf8lHucl72yoIca7IvhEKuxPL+K16fTLi4AS2jw
+         RNFhw7nR+DRzgtN2bVLl1ExNKu6MJpNtLYxRceIeqgr8LFVy/zixvWBTtbpkyrH8LrIX
+         QNqdDVtDxRXC+R22jOFMvsp++Sld7DflNmpvRWh6wMbEhkWZi8R4QDerjJE+TtFpa3aL
+         h1fg==
+X-Gm-Message-State: AOAM532x56luAY5CCqjLs5gb7d8gJ3Bboqc8uxvm2vjCTv1JksWzAQW3
+        koCpRIz9bkOFrYm+R8qJwyfvJZ00JfDgT8aVgpM=
+X-Google-Smtp-Source: ABdhPJzo7AF+498AolS1jp0Vn6LsvwHP9t+Dus6XVsESzEnknUI0qFvf5YDGKzNiaiIEJruetX4QMzdEI9BpdQ8Tb1o=
+X-Received: by 2002:a05:6830:22eb:: with SMTP id t11mr31816855otc.114.1609070092520;
+ Sun, 27 Dec 2020 03:54:52 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="m7x3baujiygucgue"
-Content-Disposition: inline
-In-Reply-To: <20201223191705.13141-1-alx.manpages@gmail.com>
-User-Agent: NeoMutt/20180716
+References: <20201223190202.12758-1-alx.manpages@gmail.com>
+In-Reply-To: <20201223190202.12758-1-alx.manpages@gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Sun, 27 Dec 2020 12:54:40 +0100
+Message-ID: <CAKgNAkhSoriQZdagMHMz5QJF59LbmQLddvNCWOGJhDHc5jXxdg@mail.gmail.com>
+Subject: Re: [PATCH] Various pages: tfix
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Alex,
 
---m7x3baujiygucgue
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-At 2020-12-23T20:17:06+0100, Alejandro Colomar wrote:
+On Wed, 23 Dec 2020 at 20:03, Alejandro Colomar <alx.manpages@gmail.com> wrote:
+>
 > Remove "." at the end of sentence fragments/short single sentences
 > in comments.  See: c2e81ff9641a7743b1f47cbf4fcf899c391df77f.
->=20
+>
 > $ sed -i '/[^.]\. \*\//s%\. \*/% */%' man?/*
->=20
+>
 > Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 
-I'd like to cast my feeble vote against this proposed change; from
-reading the diff, it seems mostly to remove punctuation from the ends of
-things that _are_ complete sentences, and not fragments.  Some of these
-(like readlink(2) @ 338) are part of multi-sentence comments, and having
-sentence-ending punctuation in all but the last sentence of such things
-looks inconsistent to me.
+There is probably still a bit of inconsistency in the pages, But, your
+change removes some periods what really should be present.
 
-In general I think complete sentences should be used in code comments,
-and normative English grammar used for those sentences, with a deviation
-for short noun phrases documenting variable declarations--although often
-one is better advised to take the advice of Kernighan/Pike and others,
-and use a communicative variable name in such cases.
+For example:
 
-Two cents from a Tiny Tim on Christmas Day.  ;-)
+> --- a/man2/clone.2
+> +++ b/man2/clone.2
+> @@ -1843,7 +1843,7 @@ childFunc(void *arg)
+>
+>      /* Keep the namespace open for a while, by sleeping.
+>         This allows some experimentation\-\-for example, another
+> -       process might join the namespace. */
+> +       process might join the namespace */
+>
+>      sleep(200);
+>
+> @@ -1887,7 +1887,7 @@ main(int argc, char *argv[])
+>      sleep(1);           /* Give child time to change its hostname */
+>
+>      /* Display hostname in parent\(aqs UTS namespace. This will be
+> -       different from hostname in child\(aqs UTS namespace. */
+> +       different from hostname in child\(aqs UTS namespace */
 
-Happy holidays!
+Here are a couple of cases where the comment contains two sentences,
+but the change removes the period from the second sentence. That's
+definitely not right.
 
---Branden
+My general philosophy is complete sentences in comments should be
+terminated by periods. In sentence fragments, especially for tag
+comments (i.e., comment on same line as the code), I'm inclined to
+omit the period. And there are doubtless inconsistencies in existing
+pages (and grey areas). Commit c2e81ff964 was intended to clean up
+some of the most obvious cases.
 
---m7x3baujiygucgue
-Content-Type: application/pgp-signature; name="signature.asc"
+I've made a few more commits now to bring more consistency. (I think
+Branden's suggestion that complete sentences should generally always
+be punctuated is true.) And I've added some notes to man-pages(7). See
+commits f18f9c409...46b20ca1b
 
------BEGIN PGP SIGNATURE-----
+Thanks,
 
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAl/lJk0ACgkQ0Z6cfXEm
-bc7+Nw/+OFjiVV+4P85Xun1R1FVSTF0sAxZ7G0mpt1wp1Z4dJm4pWzipkKZAU6xN
-hAMyNLHPzyK7bVYyQbsiYWK6pV/TkFrGG6GZvBnROsXENWdiZ9fZsr0Q3B5d0mfL
-mxxX/JUIh/xaugecPgmAFgM93c3sguhYV2ZAsRncK1DhbdZ7L2IHXKOhZu3zmhMZ
-K+hSJbnLChXbGDKzDyZOjf1bUWn1yq8b7Lv4BEipbl7B7tI/wqanEqsbUb5RDr2+
-bAidBy/dqwB7QJKlf8G6mJfinYArxEF92xUVNMbeZlNVdCnvtYqMOJyEi6LAUCbh
-GLgh+De2OXrf1cXE2k7IVxPDz2BEe0C23UecdEJpI08cg3HmVuGCLzQ504whJWKZ
-tFY+ZaJMIVJA9SFVg0ZK7yBUz4FGahOonpgMW4yAka+NQHUUknwm4jCEZKitezTs
-iIcF5hH9o6XP7jmnHPNJQkDWWXJTGax3syS5vKZidkU5CJJYirAPeS49M2Weu4Pl
-GItb5juVSlDBKOKrPdK8nJ47tniO7n9oJtgBGY4JGMcQpR9eEcuc/DxXQaZ21zY7
-q21U4n0Gm0wP3GEtcznYIXRRa5YujD/Smda3SY/TlfsCRqUtdx6/ED2Z8kDGv6Nn
-2o0TGkNfjc5Qk8CGL/hlbtY6wlufT7p6S8k1o/p9AaNqABSUiWk=
-=mjCe
------END PGP SIGNATURE-----
+Michael
 
---m7x3baujiygucgue--
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
