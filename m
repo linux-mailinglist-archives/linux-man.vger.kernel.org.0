@@ -2,64 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 72D5D2E3572
-	for <lists+linux-man@lfdr.de>; Mon, 28 Dec 2020 10:26:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E340D2E3584
+	for <lists+linux-man@lfdr.de>; Mon, 28 Dec 2020 10:31:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726596AbgL1J0b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 28 Dec 2020 04:26:31 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42930 "EHLO
+        id S1726612AbgL1Jbq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 28 Dec 2020 04:31:46 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43740 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726509AbgL1J0b (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Dec 2020 04:26:31 -0500
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B8C62C061794
-        for <linux-man@vger.kernel.org>; Mon, 28 Dec 2020 01:25:50 -0800 (PST)
-Received: by mail-wm1-x330.google.com with SMTP id r4so9309615wmh.5
-        for <linux-man@vger.kernel.org>; Mon, 28 Dec 2020 01:25:50 -0800 (PST)
+        with ESMTP id S1726509AbgL1Jbq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Dec 2020 04:31:46 -0500
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E45DCC061794
+        for <linux-man@vger.kernel.org>; Mon, 28 Dec 2020 01:31:05 -0800 (PST)
+Received: by mail-wr1-x432.google.com with SMTP id r3so10801151wrt.2
+        for <linux-man@vger.kernel.org>; Mon, 28 Dec 2020 01:31:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=subject:from:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=k0/0ERfL9nFy7NDH2vE7uYR3R8ON5MUZc031WQfP0P8=;
-        b=rCRGX059tYI1SXyq35EwShTot+wfsBuGri2b7vngy89YEE1HlsLBuqJR38vE/H4EeR
-         pacbQjmDHBSK7mOR20oCLvK/nzobroJVG0en8gxlBKE2Atx9PqbOJ6wlwuuMfGsOP5iU
-         kWDynwp/qnyta31jYPiDyMk1IwuFH9u1DO2jLhPVE6d0RVqfx8lxBMqO4flTh/jO4Eoa
-         04SvCfr2gzIV69U6c7odgQMjigM9X2Rf/3lIq3KaroYnKoTR7gj/kSro1EI62DetrMud
-         /XhFXPvv6B/+SJ80wHO+z83B4Twlm7FPNeiQC1Qo/vpx5NMqEEuPvR2F77PO4npPmgZ5
-         +yqQ==
+        bh=pQXm7oUhR0TyKKGE0b0wg7poQTrWpTIv/x8rdkuZbYY=;
+        b=HX1mic4bN/pxz21tX08kttKZKpouiE3d8qojN+UZU/KCY/ZtmeMg+C4bM/Rp85oyNe
+         p2D63sqcpzoEwFqHDCWnuSSpPCwfymCaEGbiwTC4+xShWNqVpP9xtbvx6ZG2Kzg3fFl5
+         NH5QEQV9AZPa+3RbW6xEVH4l7hNsT+6nCDK00DTPT9IL5WldvPl08ApRTkVCOBozuvFK
+         SDli0661t8Dhm1xvEeexteOnGlPrn9z6eZKudgBofWRm6hcK/pqzqA0oxrzdJafnfdlj
+         faoLgmUcLt7TmdWYZRBIkYLBpUG4QqL+OALtv2PzWA5aiyyzqYiOzU7l9ZhYg6e0y7PK
+         HgHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=k0/0ERfL9nFy7NDH2vE7uYR3R8ON5MUZc031WQfP0P8=;
-        b=VrmJKwzx4kzFL/oBCTbeWYRkXmYn6tUhmDYggSFcr8Bf2VR7qv42Ct1idoiVa5ECsQ
-         5pCKWvpyqj+XJF5BHZe1OafBomQdA2R4FrUJDYshG5381r2Y8XzE2InsXzoGTycTxhAA
-         WKve2ZaOxS2COuqsGPad/9LirWt+3WmqeVKqUfVQSRMU7YBVvLCpL7mecHYhnMuZl5uv
-         sgzjsa/7idCMO/JaoQTSrAh/a3pb/vLYDMJ5cmVA+1h1AvLE1Vu1SuTr8YIwRPCg3g5m
-         XdsHiA+OtiBwAncau/aZpvhmaYPtlC/rFTyV9x4YSb9KG1+NaFShNDxRow6sNzgM/Ayz
-         8r7Q==
-X-Gm-Message-State: AOAM530SLojGJcK3XoeV2xGv2p3jxlcVGblLErp293fCh3JZVRBgMqOM
-        V4VD8phY2OsVi35eRp658tt7DieiDvs=
-X-Google-Smtp-Source: ABdhPJzRrOq0/FyMikVwmqCCEBN2MmEL44+8G+6Z5HTFtUVcoDZMzfWVDMxY3/Sm7RKVB3XRTlZIjw==
-X-Received: by 2002:a1c:741a:: with SMTP id p26mr20321953wmc.47.1609147549317;
-        Mon, 28 Dec 2020 01:25:49 -0800 (PST)
+        bh=pQXm7oUhR0TyKKGE0b0wg7poQTrWpTIv/x8rdkuZbYY=;
+        b=kMZXs/7J7XOoR7Jk+Hcq2SozoXjaQxw5IKsxQIkuG8CtqnHjy9HRnCWUtRqQMku5wU
+         kS7OgySuTbAPDt++NsSmUU6tQc1+ydrO2MCJ0oTt6IvCvBlVt/3LmAPLuIOn0fboLdL4
+         +sV4Hfdf8WyjhzvOjlOj+MSrhOuqFEdzdu20i4J1BE5k6InYJkkQhZ9Ig/Kyg9TuoaAS
+         oVVc6/+UPfhhuX8WqsAFzMfGFEpgZA+yA9ZSuS4MvRVnyN0/dbEotOhJgdQDOKTHXdSe
+         T0jfdap8wbmn6g6trQMEsnzlAV/k5vELklYdzInKZST8g3G4ZwXsAhPMuj16L6mvreZx
+         jtag==
+X-Gm-Message-State: AOAM531YAIVT0MKwIz58uEriabkgzQUjk9Pti7ijNoOUPEzuUvav1G9a
+        Dpv+UGDCqDQNZhzUd10jqAyLrYUfDFI=
+X-Google-Smtp-Source: ABdhPJzyhtk1MoNeECVWmSdfzjBOQuepBXO0dMg6/CRDzxe59/NcCEBQmDpNz7M/NCZR/FIUwkbRLw==
+X-Received: by 2002:a5d:6a4c:: with SMTP id t12mr43724237wrw.249.1609147864708;
+        Mon, 28 Dec 2020 01:31:04 -0800 (PST)
 Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id z15sm57126794wrv.67.2020.12.28.01.25.48
+        by smtp.gmail.com with ESMTPSA id c16sm34272004wrx.51.2020.12.28.01.31.03
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Dec 2020 01:25:48 -0800 (PST)
-Subject: Re: memcpy.2: missing restrict keyword
-To:     Heinrich Schuchardt <xypron.glpk@gmx.de>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-References: <5a8997be-479b-d813-ce7a-558a8e6633e9@gmx.de>
+        Mon, 28 Dec 2020 01:31:04 -0800 (PST)
+Subject: Re: [PATCH] Various pages: tfix
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <105b8883-d6a8-b3c3-3aff-ee1d6e88980a@gmail.com>
-Date:   Mon, 28 Dec 2020 10:25:48 +0100
+To:     mtk.manpages@gmail.com
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+References: <20201223190202.12758-1-alx.manpages@gmail.com>
+ <CAKgNAkhSoriQZdagMHMz5QJF59LbmQLddvNCWOGJhDHc5jXxdg@mail.gmail.com>
+ <45faf85c-165d-c6a9-9287-6b9601bc96ee@gmail.com>
+Message-ID: <d7588c43-48f8-3d1e-91e7-0862479964b5@gmail.com>
+Date:   Mon, 28 Dec 2020 10:31:03 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <5a8997be-479b-d813-ce7a-558a8e6633e9@gmx.de>
+In-Reply-To: <45faf85c-165d-c6a9-9287-6b9601bc96ee@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -67,38 +69,85 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Heinrich,
+Although, well, now I think we could consider /* Send the signal. */ to
+be a full sentence, so... I'll let it be :)
 
-I agree.  That's on my todo list.
-
-I'm first fixing the prototypes for syscalls, which have significant
-deviations, then I'll have a look at glibc wrappers, and then I'll fix
-glibc library calls.
-
-Thanks,
+Cheers,
 
 Alex
 
-On 12/27/20 9:01 PM, Heinrich Schuchardt wrote:
-> Hello Michael,
+On 12/28/20 10:20 AM, Alejandro Colomar (man-pages) wrote:
+> Hi Michael and Branden!
 > 
-> Since C99 the memcpy is defined as
+> I agree with having periods in full sentences in comments.
 > 
-> void *memcpy(void* restrict dst, const void* restrict src, size_t n);
+> I've been looking at the 3 commits, and I'm seeing some inconsistencies.
+>  I'll have a look at it, and maybe send you a patch (v2).  See for
+> example the changes in pidfd_send_signal.2:
 > 
-> Shouldn't the restrict keyword be shown in the prototype on the man-page?
+> -    /* Send the signal */
+> +    /* Send the signal. */
 > 
-> Other concerned functions include:
+> Thanks,
 > 
-> memccpy(), strcat(), strncat, strcpy(), strncpy(), strxfrm(), strtok(),
-> strtok_r(), printf()-family, fcvt_r(), strtoimax()-family,
-> getmntent_r(), ...
+> Alex
 > 
-> Just grep for restrict in the standard includes.
+> On 12/27/20 12:54 PM, Michael Kerrisk (man-pages) wrote:
+>> Hi Alex,
+>>
+>> On Wed, 23 Dec 2020 at 20:03, Alejandro Colomar <alx.manpages@gmail.com> wrote:
+>>>
+>>> Remove "." at the end of sentence fragments/short single sentences
+>>> in comments.  See: c2e81ff9641a7743b1f47cbf4fcf899c391df77f.
+>>>
+>>> $ sed -i '/[^.]\. \*\//s%\. \*/% */%' man?/*
+>>>
+>>> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+>>
+>> There is probably still a bit of inconsistency in the pages, But, your
+>> change removes some periods what really should be present.
+>>
+>> For example:
+>>
+>>> --- a/man2/clone.2
+>>> +++ b/man2/clone.2
+>>> @@ -1843,7 +1843,7 @@ childFunc(void *arg)
+>>>
+>>>      /* Keep the namespace open for a while, by sleeping.
+>>>         This allows some experimentation\-\-for example, another
+>>> -       process might join the namespace. */
+>>> +       process might join the namespace */
+>>>
+>>>      sleep(200);
+>>>
+>>> @@ -1887,7 +1887,7 @@ main(int argc, char *argv[])
+>>>      sleep(1);           /* Give child time to change its hostname */
+>>>
+>>>      /* Display hostname in parent\(aqs UTS namespace. This will be
+>>> -       different from hostname in child\(aqs UTS namespace. */
+>>> +       different from hostname in child\(aqs UTS namespace */
+>>
+>> Here are a couple of cases where the comment contains two sentences,
+>> but the change removes the period from the second sentence. That's
+>> definitely not right.
+>>
+>> My general philosophy is complete sentences in comments should be
+>> terminated by periods. In sentence fragments, especially for tag
+>> comments (i.e., comment on same line as the code), I'm inclined to
+>> omit the period. And there are doubtless inconsistencies in existing
+>> pages (and grey areas). Commit c2e81ff964 was intended to clean up
+>> some of the most obvious cases.
+>>
+>> I've made a few more commits now to bring more consistency. (I think
+>> Branden's suggestion that complete sentences should generally always
+>> be punctuated is true.) And I've added some notes to man-pages(7). See
+>> commits f18f9c409...46b20ca1b
+>>
+>> Thanks,
+>>
+>> Michael
+>>
 > 
-> Best regards
-> 
-> Heinrich
 
 -- 
 Alejandro Colomar
