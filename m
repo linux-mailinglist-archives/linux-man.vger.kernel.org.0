@@ -2,77 +2,144 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 84ECD2E32A8
-	for <lists+linux-man@lfdr.de>; Sun, 27 Dec 2020 21:03:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 86C952E3566
+	for <lists+linux-man@lfdr.de>; Mon, 28 Dec 2020 10:20:54 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726131AbgL0UCz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 27 Dec 2020 15:02:55 -0500
-Received: from mout.gmx.net ([212.227.15.15]:33935 "EHLO mout.gmx.net"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726067AbgL0UCz (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sun, 27 Dec 2020 15:02:55 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
-        s=badeba3b8450; t=1609099283;
-        bh=SYgcpMVjtEA5/vJySrT3cI/EP2pRgMNpcDkwKG06+uM=;
-        h=X-UI-Sender-Class:To:Cc:From:Subject:Date;
-        b=W8Rtuj2AS3Ycavkridb9NdeRQ89249lS7g5kGmeEpy5+gehScrqrikvPg79GDhJFC
-         FYJjLBkTYUm6ED/yCePZ1nulOZHbNeErP0cUt4pVpBKIiCabNgLUQmUu1bXeWuDC6R
-         TqEOkenUXkgNa7icRaGOSISHtJz3yxp6rpuLpE6M=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [192.168.123.51] ([62.143.246.89]) by mail.gmx.com (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1N7i8O-1jykUK3c5y-014oZr; Sun, 27
- Dec 2020 21:01:22 +0100
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-From:   Heinrich Schuchardt <xypron.glpk@gmx.de>
-Subject: memcpy.2: missing restrict keyword
-Message-ID: <5a8997be-479b-d813-ce7a-558a8e6633e9@gmx.de>
-Date:   Sun, 27 Dec 2020 21:01:22 +0100
+        id S1726631AbgL1JUr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 28 Dec 2020 04:20:47 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42058 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726555AbgL1JUr (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Dec 2020 04:20:47 -0500
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 300D5C061794
+        for <linux-man@vger.kernel.org>; Mon, 28 Dec 2020 01:20:07 -0800 (PST)
+Received: by mail-wr1-x433.google.com with SMTP id w5so10730453wrm.11
+        for <linux-man@vger.kernel.org>; Mon, 28 Dec 2020 01:20:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=slHR5/BFkHK92gT/E2pJ6ptRpx8wBMObKImIYRhvB3g=;
+        b=I/IdTlYywjPe0OQYCiLD9TGtT40vCBdwkXhgKtrsA7jvV3FSEO2UsNmlQr86QJt0uE
+         CRiK1RQCuqaRTjj4YOHlIGdaD83mxz9Tu0zf7T3BFhYXJTxn/IpJIdHBn7vD0rgvsKyL
+         ug8X++sW7+KKxHHT6bvpxNBwowAq+RDYrzrG57V2dZNMg9GC9wHRWvrHXtMrYpwagV0Y
+         jIksvTS3/NddUQZANVltiI1lIhcGV5P2twUsvZ5fcMmEAAw7nXyiJckX0IyW0ElxIDUF
+         x9F/2wjKvkbBUpXEM3yKZtH1DvVqdaf0obFgm13k15WTcna5f63xABA6OT+ZUmY2koWR
+         n1RQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=slHR5/BFkHK92gT/E2pJ6ptRpx8wBMObKImIYRhvB3g=;
+        b=XK5rIL7Rwthqz30008SjnEiAzHeqJhonY8wJTyVbcyE3stKwG6CVULvlPyM9VJSBle
+         BChx8fF/zhZ/TLwS7tskGOGIxlNWE0O0+068FRtrQFz94KSyoylASdBM0OnUSEq+cAJq
+         VqWYfyRIkhItnoGU+I6Wms+VTRg+rF9Bfpd3pWr518YDngKkS0wiiqOXqJJPHA7rj6ah
+         XnEC5X48QSFSkXard6RcbO9oNi3ZmbgC5tDdqD9AT6gzHieRaN6w4jmeJUhQD2PfDM5P
+         nUuXqWEQxZl4yuiVV5GSuOsXJtaqysdpT3Uyh4CyGK84MkKx5LhzqTePc97W+r43yLWG
+         eZ2w==
+X-Gm-Message-State: AOAM530EoTNdzfbxEq2dWlg7Zv2WlgRmJrl62/pcxMmNYHqYeO0Hhf+J
+        Bm++FD+WF5HcpVpGF0H0ZOR5q9IeljQ=
+X-Google-Smtp-Source: ABdhPJy5rCd3/lQlzH3ESXqYwNSvU58pORf0unn3FSrn+STWsjfEKz4m9m9a1xMNSAtLOMletxPGYA==
+X-Received: by 2002:adf:bc92:: with SMTP id g18mr48916907wrh.160.1609147205759;
+        Mon, 28 Dec 2020 01:20:05 -0800 (PST)
+Received: from [192.168.1.143] ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id b7sm48598552wru.33.2020.12.28.01.20.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Dec 2020 01:20:05 -0800 (PST)
+Subject: Re: [PATCH] Various pages: tfix
+To:     mtk.manpages@gmail.com
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+References: <20201223190202.12758-1-alx.manpages@gmail.com>
+ <CAKgNAkhSoriQZdagMHMz5QJF59LbmQLddvNCWOGJhDHc5jXxdg@mail.gmail.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <45faf85c-165d-c6a9-9287-6b9601bc96ee@gmail.com>
+Date:   Mon, 28 Dec 2020 10:20:04 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <CAKgNAkhSoriQZdagMHMz5QJF59LbmQLddvNCWOGJhDHc5jXxdg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:BBMplZd880J6vA+xXFrgT5KcUcOLWBUPrTMmBhJTlRYxNnvRf0+
- bON3uavEJQIsV+cjREggCMU1qyrD3mcVt9SYiJC687PPBDyByD0y30OC3OzJKsHS1wJYM7n
- clXey+/pWL2CE5aWZVl2SpN6TqmMwSdObSQdoEAFG2GNENh7p4PaSNePxMEh8INaHg+CcNC
- /adSf+TznrWviQUZq2eDQ==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:VS/IbKEb//s=:SumNH5l2c4U5ZGualtgLX6
- NxsmUtz3GZT0dzCe02S9KVP7iLXCaoBV5HewXARL7B4kZvbj63zdH0Q/6y4gMWpnkXmSU5gmH
- yCvp3hSrpdXdvRZ0Vot2xqKyFnz1qvb1TWZ5PbU3fePtqSSV3vKHNRTaeCgbcOJ/eD35PO4jQ
- BdWTXyzJK0fgm+0zMAImYiKADpRAQAU5z8njGjA1SoQWQjCeZpk7hYWkp+I7JUddk48CVdOSv
- JS+ktGUg/ONk3o0n4L+NapW1OYkWH5b6u6imMQrffM9MdcpV8B+ixO0tG8ye7Je3c6U5IjuKj
- 80FaanKvyjGww73aN8mppWi702NhXTt4EdbGzmoWTfh81BMR6ECNObxubpEMmqtCXFD4d09yB
- PaIzFsV5lH6mdnydJdSq2QNPgikGFSl/Y1V+4Yfkyou7DuxZsoCvVuvLAN1VuNPQt+ECY0tVC
- m/GsGII8dKw0Sy8pC8+2uT6Aw3fR/Sug6AIYPgRBfOsvrDM3F/5JBzyuIL1AkPiSw08Nyf2DO
- pNcHGUt3qWGZyE7RpyhfFVZaRs16ApbZE0ZINieqPz0w5F0kOqXry2/lFSc1yGbu4k42tkPeV
- lvZOHeETQXqm45ctxI1h4FQOWxC8LIsWZ2hMOsUfeYL7uMzlbmEw+eWkUSzPUNbUZarofvY1h
- 8t8ZYEfA76/eEF2X+W9Z5NckVud8NAT9XQ53LdxiHetwCxRclN7jKwTtgYFwPpPt7upt06PJA
- zjPSLPe+vWlgZQ7jlYQKRucM2d4OgvI8pLLWx3YiIoOzvvXT4ey61v+AmIjsACG3hvbNtwrw0
- upwdSjBg/1CE/s8sb46hTegGIWb8myTudGYc0KbQF5LVkE9xE1bu5YMnr9FiGjZBzi+xRIO9L
- fJr4Orhn7257HOuBwU9g==
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Michael,
+Hi Michael and Branden!
 
-Since C99 the memcpy is defined as
+I agree with having periods in full sentences in comments.
 
-void *memcpy(void* restrict dst, const void* restrict src, size_t n);
+I've been looking at the 3 commits, and I'm seeing some inconsistencies.
+ I'll have a look at it, and maybe send you a patch (v2).  See for
+example the changes in pidfd_send_signal.2:
 
-Shouldn't the restrict keyword be shown in the prototype on the man-page?
+-    /* Send the signal */
++    /* Send the signal. */
 
-Other concerned functions include:
+Thanks,
 
-memccpy(), strcat(), strncat, strcpy(), strncpy(), strxfrm(), strtok(),
-strtok_r(), printf()-family, fcvt_r(), strtoimax()-family,
-getmntent_r(), ...
+Alex
 
-Just grep for restrict in the standard includes.
+On 12/27/20 12:54 PM, Michael Kerrisk (man-pages) wrote:
+> Hi Alex,
+> 
+> On Wed, 23 Dec 2020 at 20:03, Alejandro Colomar <alx.manpages@gmail.com> wrote:
+>>
+>> Remove "." at the end of sentence fragments/short single sentences
+>> in comments.  See: c2e81ff9641a7743b1f47cbf4fcf899c391df77f.
+>>
+>> $ sed -i '/[^.]\. \*\//s%\. \*/% */%' man?/*
+>>
+>> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> 
+> There is probably still a bit of inconsistency in the pages, But, your
+> change removes some periods what really should be present.
+> 
+> For example:
+> 
+>> --- a/man2/clone.2
+>> +++ b/man2/clone.2
+>> @@ -1843,7 +1843,7 @@ childFunc(void *arg)
+>>
+>>      /* Keep the namespace open for a while, by sleeping.
+>>         This allows some experimentation\-\-for example, another
+>> -       process might join the namespace. */
+>> +       process might join the namespace */
+>>
+>>      sleep(200);
+>>
+>> @@ -1887,7 +1887,7 @@ main(int argc, char *argv[])
+>>      sleep(1);           /* Give child time to change its hostname */
+>>
+>>      /* Display hostname in parent\(aqs UTS namespace. This will be
+>> -       different from hostname in child\(aqs UTS namespace. */
+>> +       different from hostname in child\(aqs UTS namespace */
+> 
+> Here are a couple of cases where the comment contains two sentences,
+> but the change removes the period from the second sentence. That's
+> definitely not right.
+> 
+> My general philosophy is complete sentences in comments should be
+> terminated by periods. In sentence fragments, especially for tag
+> comments (i.e., comment on same line as the code), I'm inclined to
+> omit the period. And there are doubtless inconsistencies in existing
+> pages (and grey areas). Commit c2e81ff964 was intended to clean up
+> some of the most obvious cases.
+> 
+> I've made a few more commits now to bring more consistency. (I think
+> Branden's suggestion that complete sentences should generally always
+> be punctuated is true.) And I've added some notes to man-pages(7). See
+> commits f18f9c409...46b20ca1b
+> 
+> Thanks,
+> 
+> Michael
+> 
 
-Best regards
-
-Heinrich
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
