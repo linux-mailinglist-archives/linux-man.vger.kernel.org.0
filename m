@@ -2,145 +2,103 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B203D2E6FD8
-	for <lists+linux-man@lfdr.de>; Tue, 29 Dec 2020 12:13:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D5F732E7143
+	for <lists+linux-man@lfdr.de>; Tue, 29 Dec 2020 15:04:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725980AbgL2LNF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 29 Dec 2020 06:13:05 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56382 "EHLO
+        id S1726302AbgL2ODu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 29 Dec 2020 09:03:50 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54340 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725866AbgL2LNE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Dec 2020 06:13:04 -0500
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 92C34C0613D6
-        for <linux-man@vger.kernel.org>; Tue, 29 Dec 2020 03:12:24 -0800 (PST)
-Received: by mail-wr1-x42d.google.com with SMTP id i9so14338172wrc.4
-        for <linux-man@vger.kernel.org>; Tue, 29 Dec 2020 03:12:24 -0800 (PST)
+        with ESMTP id S1726196AbgL2ODu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Dec 2020 09:03:50 -0500
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F1ED5C0613D6
+        for <linux-man@vger.kernel.org>; Tue, 29 Dec 2020 06:03:09 -0800 (PST)
+Received: by mail-wm1-x333.google.com with SMTP id 190so2668365wmz.0
+        for <linux-man@vger.kernel.org>; Tue, 29 Dec 2020 06:03:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=iqyU6KcvReDnkIVoUXvwC1HWpn2JO5Ds3+TP334LUkY=;
-        b=awMncukCuHaTN71ewMoTIaboGE/yLl6VxD2kvcaKYtElGKFPs5hxT3HyaD4Y2xFEBg
-         tzWr1fGqg9y3v8fn017/HyrwIRlwpOT6ybcvvSghC9bRkFJpwqKVTHIUyAfSq5lFwjjQ
-         GsiZZU6h2WNOc37Sar/a8yT6lGA+bizFocLDiBU5i/wXucq/i6LYnlvW8goWviunZ+u4
-         +/0BiHlKevHxs8O2viSfUGPiLvPnMEq1MC6VMhH2XYSRfeScI3jxTZoIVlFL0zoBu0+o
-         K2JicNT7iuIfo7lwdxzXIctOyx+xFCkss8YenI+0cQwhngY5dvisi4AmtyfHTZ/GLGt3
-         01Dg==
+        h=to:cc:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=xTmohy9KPp8s3RZwH9xmPPCOgFWLcJGEGp0hwMB2J7U=;
+        b=rTA/K12iPndwWNijb1OrRlhaTtoEzVEcK2TydbyKvoM3vFtLexnV6KECui0e42CwAi
+         kEJN+o1qdRixRDoJMEQwJzFNYRTbsKveeJB7c3KcOvUkj5wn+67k88J/XJOPmLzlCq9E
+         fOKMCxUBOQE0eYLvowa9UuQbayNSd3fLPVbPvxriuw4noy0m/67ncnMWj48PKvnq3/O0
+         LegnUVLkzOGMhKo17fWIDPBxl1s5Gs1nKLoHbSspDZ8/F18AqVDLCi3hb0ns8TPNFEJf
+         loYXK9gqhRcCi5V2/x3xcSufzguUxYH8KGoR5zmijrlVFpDLmW/OjBA6autokVgYrIXI
+         BYSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=iqyU6KcvReDnkIVoUXvwC1HWpn2JO5Ds3+TP334LUkY=;
-        b=XLsowDYx+81rChVqRbxYlz4MkjLkJR7AvGsy5TkvXNfXFdDH6sYaqch+VW7ZDv2tad
-         RmyR1yGN0RX4jNxqp9L7uRS6wrNqB/mkXo2l9/jEZrD10zbYcWK2UPd5th0jqpAnHplc
-         Yo/L2GhDxcZtznWwqQHMGQdFe85sYN2bUJJMmZq07QDsGp9vfhtNJqojU6p55Gcjy+uE
-         2vA7mDZxPh8gDbZYY4+iZtD3/bJn+vqzp4AI9AFhjiib9VtuQ3aEEr6KCe0MVs4YVSD3
-         LpzmQpCVtb03TFBLmJXrc4yUw0XRjoC+L6OvHwvTE4hQsgjP5WAa3Hm7Bd21t/36z2fB
-         zixQ==
-X-Gm-Message-State: AOAM530JY8FHI7fDr4NQkLKp4cw6ndIcUVYGfVQTD/W+rWpoO7hLyioG
-        LvCxSJi2GaDk2iHafT+GmQM=
-X-Google-Smtp-Source: ABdhPJzuVhyz1W0BYBkVC1CS81vfs0/SnfuTPKUknQv1hLzAzWbh0r9I3u/eS90Vlh3UtFZlTVQorg==
-X-Received: by 2002:adf:e44f:: with SMTP id t15mr48626124wrm.74.1609240343401;
-        Tue, 29 Dec 2020 03:12:23 -0800 (PST)
+        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=xTmohy9KPp8s3RZwH9xmPPCOgFWLcJGEGp0hwMB2J7U=;
+        b=VfCINRPACszpLGtxlCe6GX0vsloQCue99ESkKjOE5Webuxg8/awJIHuCH7B0FX8JQ/
+         Yq9P9OSsaHACRWkvqFibtGrzOCMjLNiLL7V78YIb7vHtlg9c2RbmjHis4DBIQ9M2yDpJ
+         iVBD/6bKBh8Djv4YexOZ97Nn+Ho+h8shr/6HOxPuknx6v0u4+feVb78IxHYCS75AFPiY
+         GH+uBrpdTA3ODd92zSWDIHkh+4DQ9nX5ucmXjauTfwVPnPLnw6IAHdADnyIFglUsa8fF
+         gFNNBhvX+3M3R6JrRaYP2bCj+jZ4ijebTltmorSs6JdcXlT3wxlr1nL8Sv0SoYHinNpW
+         gx3w==
+X-Gm-Message-State: AOAM532u2VsWgcmOUpfTIYO3FL6j4EcA9EEhRrCa5iDToxdo8ugu3R5A
+        IffD/rtaRO7lroHjEF3zgKJ5Qy9lnQs=
+X-Google-Smtp-Source: ABdhPJwKouhilwxdqRPowwNyTSlLtWCNdEfm8E+SAEIxAj4b6eRUJkj7wZ7b6N+Av6/ky7LD9JK9Ng==
+X-Received: by 2002:a1c:9a4d:: with SMTP id c74mr3748582wme.5.1609250588621;
+        Tue, 29 Dec 2020 06:03:08 -0800 (PST)
 Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id s20sm2793255wmj.46.2020.12.29.03.12.22
+        by smtp.gmail.com with ESMTPSA id 125sm3456622wmc.27.2020.12.29.06.03.07
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Dec 2020 03:12:22 -0800 (PST)
-Subject: Re: [PATCH] semctl.2: Correct SEM_STAT_ANY description
-To:     Manfred Spraul <manfred@colorfullife.com>,
-        Yang Xu <xuyang2018.jy@cn.fujitsu.com>, mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, Joe Lawrence <joe.lawrence@redhat.com>,
-        Robert Kettler <robert.kettler@outlook.com>,
-        "Eric W. Biederman" <ebiederm@xmission.com>,
-        Kees Cook <keescook@chromium.org>,
-        Michal Hocko <mhocko@kernel.org>,
-        Davidlohr Bueso <dbueso@suse.de>
-References: <1608616543-21436-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <746deff0-e919-173b-25f6-34fc465a7ba0@gmail.com>
- <e7b0eb9e-b1d2-ed46-f7ac-66f22ef3faf1@colorfullife.com>
-From:   "Alejandro Colomar (mailing lists; readonly)" 
-        <alx.mailinglists@gmail.com>
-Message-ID: <c971b894-6619-f43b-a7c2-e244d4d92081@gmail.com>
-Date:   Tue, 29 Dec 2020 12:12:21 +0100
+        Tue, 29 Dec 2020 06:03:08 -0800 (PST)
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Subject: off64_t, loff_t
+Message-ID: <a09d053d-256e-c031-e4dd-ff4d552468bd@gmail.com>
+Date:   Tue, 29 Dec 2020 15:03:07 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <e7b0eb9e-b1d2-ed46-f7ac-66f22ef3faf1@colorfullife.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 12/29/20 11:38 AM, Manfred Spraul wrote:
-> Hi,
-> 
-> 
-> On 12/22/20 12:55 PM, Alejandro Colomar (mailing lists; readonly) wrote:
->> Hi Yang,
->>
->> It looks good to me.
->> I'll add a few people that might want to comment.
-> 
-> The code returns a semid_ds structure, and if I take strace as reference
-> implementation, then user space expects a semid_ds as well.
-> https://github.com/strace/strace/commit/8f0870a780bfd8cd9a91c3b7ad05baccda10bc84
-> 
-> 
-> In addition, the current page is self-inconsistent: seminfo doesn't
-> contain sem_perm.
-> 
-> The pages for msgctl and shmctl are correct, i.e. no further obvious
-> inconsistencies.
-> 
-> Thus: The man page for semctl is incorrect, the page needs to be updated.
-> 
-> Acked-by: manfred@colorfullife.com
-> 
->> Thanks,
->>
->> Alex
->>
->> On 12/22/20 6:55 AM, Yang Xu wrote:
->>> Since kernel commit a280d6dc77eb ("ipc/sem: introduce
->>> semctl(SEM_STAT_ANY)"),
->>> it only skips read access check when using SEM_STAT_ANY command. And
->>> it should
->>> use the semid_ds struct instead of seminfo struct. Fix this.
->>>
->>> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Hi Michael,
 
-Hi Yang Xu and Manfred,
+This is related to:
+https://lore.kernel.org/linux-man/CAKgNAkhuL9JRG_YhVG6Y-yjobDVAGjrUSdcQ4kV-4MABjZiwRQ@mail.gmail.com/
 
-Thanks for the ping and for the acked-by!
 
-Patch applied.
+copy_file_range(2) says it uses 'loff_t':
+
+$ man 2 copy_file_range \
+> |sed -n '/SYNOPSIS/,/DESCRIPTION/{/copy_file_range/,/^$/p}';
+       ssize_t copy_file_range(int fd_in, loff_t *off_in,
+                               int fd_out, loff_t *off_out,
+                               size_t len, unsigned int flags);
+
+But glibc uses 'off64_t' AFAICS:
+
+$ syscall='copy_file_range';
+$ pattern="^[^ ]*ssize_t ${syscall}[ ]*(";
+$ find glibc/ -name '*.h' \
+> |xargs sed -n -e "/${pattern}/p" -e "/${pattern}/,/^$/p" \
+> |sed -n -e "/${pattern}/,/;/p" -e '/^$/p' \
+> |uniq;
+ssize_t copy_file_range (int __infd, __off64_t *__pinoff,
+			 int __outfd, __off64_t *__poutoff,
+			 size_t __length, unsigned int __flags);
+
+
+What would you do about it?
+`sed -i 's/loff_t/off64_t/' man2/copy_file_range.2`?
 
 Thanks,
 
 Alex
 
->>> ---
->>>   man2/semctl.2 | 4 ++--
->>>   1 file changed, 2 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/man2/semctl.2 b/man2/semctl.2
->>> index dd3fb077b..a7462c5cc 100644
->>> --- a/man2/semctl.2
->>> +++ b/man2/semctl.2
->>> @@ -297,8 +297,8 @@ all semaphore sets on the system.
->>>   .TP
->>>   .BR SEM_STAT_ANY " (Linux-specific, since Linux 4.17)"
->>>   Return a
->>> -.I seminfo
->>> -structure containing the same information as for
->>> +.I semid_ds
->>> +structure as for
->>>   .BR SEM_STAT .
->>>   However,
->>>   .I sem_perm.mode
->>>
-> 
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
