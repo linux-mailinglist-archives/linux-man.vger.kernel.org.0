@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 946102E73F2
-	for <lists+linux-man@lfdr.de>; Tue, 29 Dec 2020 21:39:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B51222E73F3
+	for <lists+linux-man@lfdr.de>; Tue, 29 Dec 2020 21:39:25 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726138AbgL2UjJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S1726156AbgL2UjJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Tue, 29 Dec 2020 15:39:09 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58600 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58606 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726111AbgL2UjI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Dec 2020 15:39:08 -0500
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 41B25C0613D6
-        for <linux-man@vger.kernel.org>; Tue, 29 Dec 2020 12:38:28 -0800 (PST)
-Received: by mail-wr1-x434.google.com with SMTP id c5so15685401wrp.6
+        with ESMTP id S1726111AbgL2UjJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Dec 2020 15:39:09 -0500
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1165DC061793
+        for <linux-man@vger.kernel.org>; Tue, 29 Dec 2020 12:38:29 -0800 (PST)
+Received: by mail-wr1-x42b.google.com with SMTP id q18so15739939wrn.1
         for <linux-man@vger.kernel.org>; Tue, 29 Dec 2020 12:38:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=Q2qH/el22rXGM23ZMx+ROOrsUC1TpRLy7ujs84MjuHY=;
-        b=fS1IBThUbPHXPm7vFUH5G9G8OpK+mv+akV1Y+AH4h4ZMVvWiYkXXxlA4MkZXqYoFQ9
-         gsnpcpX2YOROcZrWWIG0gz9/PIS9temZN5XcbLQwWpaVsLs1pr1fbw8XQugfQYpnTqJK
-         mAcJdAal6OFbSw9A1wpA7njeyePwohZQEK4mVizUdFDjzDqB9YeIl4rzQXH/hTtZAXXF
-         AYou0mFsUFyWAEY724qA4Sv7A/+mt9hpowSgeNvbjeQ4DN7QNiuZpsWyrvuJCzOJRuYG
-         kPveFMk/4wqBSfSAaM4oxfcYiTg4/UKIYssRvO/e1Db29Ep2qLwEI/QbzjnQfQLu71bM
-         NgtA==
+        bh=NKqYHFYo6lN0Ac7awxFK09iEudIJ72yAFCIVnC29tuU=;
+        b=Nxxl2qyqmtUorbIZ1jGJAn2uIgY38a4pEJRmwzYpE4ffctULOTPNjrCcSaQb+3F7el
+         padyYZ6XYhHIbekKql0f3R0w6u0RCTeOSK2JMhv/dWevlzhmFUPX1bLBNb74Mqb5jmMG
+         4Allk5hMsCxdQOIff/705ugVWEtG35DT2CbQqIApVo+gAd8X8rs+qmOw5qAX8jYmRuIP
+         nbooDmWnXM7KcOualGgk0JKS1FPZvrPPx/NqammM9f4z59FO2LdC+T+/zIf6EIVPaoat
+         GUzFop8b7AMmtMq2cYuJPqJ1tl6nIN0bckunlDzztAowMuUzwEik/TAG5fMO0vQaQ6Kk
+         +EBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Q2qH/el22rXGM23ZMx+ROOrsUC1TpRLy7ujs84MjuHY=;
-        b=QByhbk2KPV6jlccBQjf1QqcYJvP/0nHIhusMgs3V9fCyxRRLVg9BPxe1KLg8XatKDd
-         PqviEnE4bEGG4RmLnn953meywKg1qzM9Ns9NMUpgcQg/Rkz8nzwnizQbE1fvqNi6ssV1
-         fi3r4bkCWo1TZVxQ3L9jsgFrrxZA4hPtcs4c0GiNlx3FhLWARFnmr82RwwOclhifFF0j
-         O9NLJGOs6BOzlA/qxMoNKNfYvBYYFwhGNsXX31VTcKIxZ11cP0rGRZ80Mz0EjNnzxHmq
-         T0MdbWnrvFVOFA2laF8adEEnip6BDLk+w3BYFx0mEtESKRoW9jNc4tbY5pxUgQGK1Jqk
-         d8mw==
-X-Gm-Message-State: AOAM5313AfVW5PfZULUMjqgJX982j5xZj64pt2VSN90fxOrSwQBwLZ1G
-        iSEaW5WIxCam0QUC1p9hGIA=
-X-Google-Smtp-Source: ABdhPJwDGh0QEUb6IId6Qpa0AdZLPjgkGl454oI+jfaFcA3M62ouqOih6YBzHy+90CRPnbz5WjMO5Q==
-X-Received: by 2002:adf:dcc5:: with SMTP id x5mr56798952wrm.167.1609274307071;
+        bh=NKqYHFYo6lN0Ac7awxFK09iEudIJ72yAFCIVnC29tuU=;
+        b=JhtK/F8thUWVGwc+63tUwXJmjb25Y+D4OOnVNJHA75mLplfd88i4MsglTFureqT6rH
+         E5BwLRTDcfKHftcEH/byUhVp9zuNjhP+Q4+ORYndgk5WjKgHyHofQ1Hh0QZ0xH4Y0sJn
+         YAwukEGPDtvIg79w/IBt4wxjLIOCnQf8x7gAdJMHjdWpOjgSIrUfvBtdvJTXviEqGB8p
+         geXPJ6Aq3gSk5rB6aYijjdNIjGern94MIBNzdJgo8vuRnc/uI3rsIB1JFYjTcPB08cNh
+         TwcFcLnz2r1YugRGnIzomJr+COPNFbrBkDAbp/iiHPWRNNa9Bdlp6HbmCAp/Ch082W7L
+         Avlw==
+X-Gm-Message-State: AOAM531JnM4pR59SgVKHVV0Jog4We0LEn97S9SGFrlo+Cg/e1q9Qkak3
+        1zZz2N2ihDh3WeAXgq3zt84=
+X-Google-Smtp-Source: ABdhPJxEcnWpAQ8N/WDxGqUFf/6pH8kHLTW8oWt1yqlsICMBe4T21yc5gL3J4+ampW2YkQ7R8EwPyw==
+X-Received: by 2002:a5d:68c9:: with SMTP id p9mr56981246wrw.139.1609274307829;
         Tue, 29 Dec 2020 12:38:27 -0800 (PST)
 Received: from debian.vlc ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id l8sm4783226wmf.35.2020.12.29.12.38.26
+        by smtp.gmail.com with ESMTPSA id l8sm4783226wmf.35.2020.12.29.12.38.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Dec 2020 12:38:26 -0800 (PST)
+        Tue, 29 Dec 2020 12:38:27 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Jakub Wilk <jwilk@jwilk.net>, linux-man@vger.kernel.org,
         Alejandro Colomar <alx.manpages@gmail.com>
-Subject: [PATCH v2 1/4] signal.7: tfix
-Date:   Tue, 29 Dec 2020 21:37:45 +0100
-Message-Id: <20201229203747.3199-2-alx.manpages@gmail.com>
+Subject: [PATCH v2 2/4] cgroups.7: tfix
+Date:   Tue, 29 Dec 2020 21:37:46 +0100
+Message-Id: <20201229203747.3199-3-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201228094211.4917-4-alx.manpages@gmail.com>
 References: <20201228094211.4917-4-alx.manpages@gmail.com>
@@ -68,22 +68,22 @@ From: Jakub Wilk <jwilk@jwilk.net>
 Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man7/signal.7 | 2 +-
+ man7/cgroups.7 | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man7/signal.7 b/man7/signal.7
-index e5b9e00ca..1b48356b8 100644
---- a/man7/signal.7
-+++ b/man7/signal.7
-@@ -357,7 +357,7 @@ From the kernel's point of view,
- execution of the signal handler code is exactly the same as the execution
- of any other user-space code.
- That is to say, the kernel does not record any special state information
--indicating that the thread is currently excuting inside a signal handler.
-+indicating that the thread is currently executing inside a signal handler.
- All necessary state information is maintained in user-space registers
- and the user-space stack.
- The depth to which nested signal handlers may be invoked is thus
+diff --git a/man7/cgroups.7 b/man7/cgroups.7
+index 0d525d91f..f6e7a8d8f 100644
+--- a/man7/cgroups.7
++++ b/man7/cgroups.7
+@@ -1123,7 +1123,7 @@ mount \-t cgroup2 \-o remount,nsdelegate \e
+ .EE
+ .in
+ .\"
+-.\" ALternatively, we could boot the kernel with the options:
++.\" Alternatively, we could boot the kernel with the options:
+ .\"
+ .\"    cgroup_no_v1=all systemd.legacy_systemd_cgroup_controller
+ .\"
 -- 
 2.29.2
 
