@@ -2,369 +2,347 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 633972E7178
-	for <lists+linux-man@lfdr.de>; Tue, 29 Dec 2020 15:44:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 06E372E717E
+	for <lists+linux-man@lfdr.de>; Tue, 29 Dec 2020 15:50:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726138AbgL2OoI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 29 Dec 2020 09:44:08 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60524 "EHLO
+        id S1726277AbgL2Ou3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 29 Dec 2020 09:50:29 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33278 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726014AbgL2OoH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Dec 2020 09:44:07 -0500
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 30F4CC061796
-        for <linux-man@vger.kernel.org>; Tue, 29 Dec 2020 06:43:27 -0800 (PST)
-Received: by mail-wr1-x433.google.com with SMTP id t30so14878396wrb.0
-        for <linux-man@vger.kernel.org>; Tue, 29 Dec 2020 06:43:27 -0800 (PST)
+        with ESMTP id S1726203AbgL2Ou2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Dec 2020 09:50:28 -0500
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 78756C0613D6
+        for <linux-man@vger.kernel.org>; Tue, 29 Dec 2020 06:49:48 -0800 (PST)
+Received: by mail-wr1-x42a.google.com with SMTP id r3so14875533wrt.2
+        for <linux-man@vger.kernel.org>; Tue, 29 Dec 2020 06:49:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=ln+iVA30hhKNoj8HQLh/VSGsWAWbqBi26B5ckHEMY+M=;
-        b=KS2isf3tGaS88TJd6wZvBWtU+kvWHnmilZ7ZLIjqxmWScLw0iLFSY8um3jkDYavqy3
-         SoRG9CymMXqUKjCcf2qJ9P10LgmRaY10BleTG8EKjYNCW5x/Adw/3y8J9+nqIeWY5ppF
-         jin2rUgfDCMWjxLPKhUkgiXbgpm5Ln7RpS+74fCHyctZLn9O1LE63pIn/1JmcoSklK7F
-         OzTUCp27FI8BYwvH/sW3a5Z5c6VQxxJm4S4sh99DspIzxUmb6V8NbX6lqoEVYL3nrKZK
-         pn4tL1HdN3LUsohjr5+SEaVsxWLswpDL+0mG6F+5yuX7Ffd3rmUkdTe0sGQK2K40oV5f
-         1B9w==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=AZZ4/pbMg3hVm25w0ecJlxoiJ3C8eyYfud1tRE9MohQ=;
+        b=mQi383nq0wgIEMov1MO6A54IdZjI2MppcWU8qjjkfcHU25N2eCafQHQDfSX5WWy814
+         WgPUJfpdHMREx23bRrBdlsGjhBxu4G2BMRrkR0YN0J4Qq0PAPTUnRm2YX66xSUBIZrjb
+         Kbf1IfORSmQRTqVA4Hl+gxgX1NZ4dhTmmDNmSqa42shvjhANlVW9iH1mhifuD5W7dtlw
+         /JU6bICUkUMg7U0u/q5Z8R+3oIdxmr6C/syLpzfln/tkhm6PWF0xZAg8UxOQstLBO04c
+         DjrTjC41JlMfYsI/osho+rkLzdqf/ZoHHauDWKWetD6iRBOYK+ybecatr7jnhE/nAPwX
+         54jA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=ln+iVA30hhKNoj8HQLh/VSGsWAWbqBi26B5ckHEMY+M=;
-        b=DSqGoduTe8UKoLLdzezKi2VfHJ7Q8UScYZ/Z6F8KjWrIxm3DhN+YA5jw2KqtzhOTRt
-         bflt8eNQ2z08VPDx/Q1JV0JSSDmi6oHorEtTFPaem63HfbgtFfWJHeLdfnoeFhiHGu13
-         XbX4h7spOu2urVEsd5OfNUAYe0kChuuwYq9TjV9Oe1mkURatfCGZjncEjyXe4wZDhXq+
-         PLzIL8b0+b3LTAEfCvUaO313WpuxtGHtW1dFmD/dFZO7HNyO8gfkhnFGvCBT8uVdEjYz
-         amh+R9QkmHpVlyaz8E33xIqI1m88AqPfEOt1BXKUvecYQRyran8Exr5XUV0clKv/u1/M
-         G8oA==
-X-Gm-Message-State: AOAM533Lu5bxambdM4/o4Y4MCdUnb3PVAY7cW+i2A01tZeQ/mQ4rZ4QT
-        UuCVTmC/M+xp1y12yyzLsyGKhg0lCP0=
-X-Google-Smtp-Source: ABdhPJweZZg20JoWbI9erlT9akUfkOhSaeduQK3o3KdnR5p9A3JUQTzgRJTV70vbPmTPKf3BW5aZTQ==
-X-Received: by 2002:adf:a543:: with SMTP id j3mr34827627wrb.175.1609253005869;
-        Tue, 29 Dec 2020 06:43:25 -0800 (PST)
-Received: from debian.vlc ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id k10sm57992109wrq.38.2020.12.29.06.43.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Dec 2020 06:43:25 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=AZZ4/pbMg3hVm25w0ecJlxoiJ3C8eyYfud1tRE9MohQ=;
+        b=fgFd8f6uK+16Va+gSpFm4nHwgKeI2ctekzwivnKwjo7EDxqVz5UyFRGoAKysqr21AP
+         YavwTaT/BqIbShQYK448fAA1Hj10o1J0yHru/2h62vFev+JBsv891Y7qG17FkGzpBK5E
+         aGIDesWhNBYz2DE9wIUnoOCxcHSUtKUuos+jwzL5u8kXGW7MQKtfDs97JFqFAn3Ytjgz
+         0dXhfRqvuaVYFtvQLF7YTD89e5eeqJYndHcY9VJIRZfDDWLlBQwS5FMgdglIXDZgHQfL
+         Qm7InCXvivSE3l1cww3nKY8AfRwJN6EqKSUEHcPp24vy7bxl41w+rTBqgnLDq4reWfBI
+         9IYA==
+X-Gm-Message-State: AOAM530TAGUYdPUOc125tYVGvdCwLtiTnFAnRwOnMs04RCUojCfxn4yp
+        DFvJRBRR/+vNNvLLinLX3iXQoBh0954=
+X-Google-Smtp-Source: ABdhPJy/I5UunzZHTtKhtRufCTGjH7FSFCTb0kgDvMvtYM5nQaiVx7RDe5QIQq/o3H8NjsW4gRQyCQ==
+X-Received: by 2002:a5d:4f0e:: with SMTP id c14mr56104106wru.84.1609253387016;
+        Tue, 29 Dec 2020 06:49:47 -0800 (PST)
+Received: from [192.168.1.143] ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id j59sm64098319wrj.13.2020.12.29.06.49.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Dec 2020 06:49:46 -0800 (PST)
+Subject: Re: [PATCH 1/2] Various pages: Normalize SYNOPSIS notes about
+ non-existing glibc wrappers
 To:     mtk.manpages@gmail.com
 Cc:     Ganimedes Colomar <gacoan.linux@gmail.com>,
-        linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Subject: [PATCH 2/2] Various pages: Normalize NOTES about non-existing glibc wrappers
-Date:   Tue, 29 Dec 2020 15:39:03 +0100
-Message-Id: <20201229143859.17473-3-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201229143859.17473-1-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org
 References: <20201229143859.17473-1-alx.manpages@gmail.com>
+ <20201229143859.17473-2-alx.manpages@gmail.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <61d6d946-9c1f-ed80-8844-4a51441ff15a@gmail.com>
+Date:   Tue, 29 Dec 2020 15:49:45 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201229143859.17473-2-alx.manpages@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Ganimedes Colomar <gacoan.linux@gmail.com>
+Hi Michael,
 
-See previous commit.
+a few comments below.
 
-This commit normalizes texts under sections other than SYNOPSIS
-(most of them in NOTES).
+Cheers,
 
-Signed-off-by: Ganimedes Colomar <gacoan.linux@gmail.com>
-Cowritten-by: Alejandro Colomar <alx.manpages@gmail.com>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man2/add_key.2              | 2 +-
- man2/arch_prctl.2           | 6 ++----
- man2/getdents.2             | 8 ++++----
- man2/io_cancel.2            | 2 +-
- man2/io_destroy.2           | 2 +-
- man2/io_getevents.2         | 2 +-
- man2/io_setup.2             | 2 +-
- man2/io_submit.2            | 2 +-
- man2/kexec_load.2           | 3 +--
- man2/keyctl.2               | 2 +-
- man2/pidfd_getfd.2          | 2 +-
- man2/pidfd_open.2           | 2 +-
- man2/pidfd_send_signal.2    | 2 +-
- man2/request_key.2          | 2 +-
- man2/s390_guarded_storage.2 | 3 +--
- man2/s390_pci_mmio_write.2  | 3 +--
- man2/s390_runtime_instr.2   | 3 +--
- man2/s390_sthyi.2           | 3 +--
- man2/sysctl.2               | 3 +--
- 19 files changed, 23 insertions(+), 31 deletions(-)
+Alex
 
-diff --git a/man2/add_key.2 b/man2/add_key.2
-index 7c20de777..0d136e4aa 100644
---- a/man2/add_key.2
-+++ b/man2/add_key.2
-@@ -216,7 +216,7 @@ This system call first appeared in Linux 2.6.10.
- .SH CONFORMING TO
- This system call is a nonstandard Linux extension.
- .SH NOTES
--No wrapper for this system call is provided in glibc.
-+Glibc does not provide a wrapper for this system call.
- A wrapper is provided in the
- .IR libkeyutils
- package.
-diff --git a/man2/arch_prctl.2 b/man2/arch_prctl.2
-index e8a6da391..f9a9dc39d 100644
---- a/man2/arch_prctl.2
-+++ b/man2/arch_prctl.2
-@@ -177,10 +177,8 @@ and
- in the same thread is dangerous, as they may overwrite each other's
- TLS entries.
- .PP
--As of version 2.7, glibc provides no prototype for
--.BR arch_prctl ().
--You have to declare it yourself for now.
--This may be fixed in future glibc versions.
-+Glibc does not provide a wrapper for this system call; call it using
-+.BR syscall (2).
- .PP
- .I FS
- may be already used by the threading library.
-diff --git a/man2/getdents.2 b/man2/getdents.2
-index 8fe6f90fc..2a0576ffd 100644
---- a/man2/getdents.2
-+++ b/man2/getdents.2
-@@ -211,13 +211,13 @@ SVr4.
- Library support for
- .BR getdents64 ()
- was added in glibc 2.30;
--there is no glibc wrapper for
--.BR getdents ().
--Calling
-+Glibc does not provide a wrapper for
-+.BR getdents ();
-+call
- .BR getdents ()
- (or
- .BR getdents64 ()
--on earlier glibc versions) requires the use of
-+on earlier glibc versions) using
- .BR syscall (2).
- In that case you will need to define the
- .I linux_dirent
-diff --git a/man2/io_cancel.2 b/man2/io_cancel.2
-index 1bea257ec..8bcd9c195 100644
---- a/man2/io_cancel.2
-+++ b/man2/io_cancel.2
-@@ -68,7 +68,7 @@ The asynchronous I/O system calls first appeared in Linux 2.5.
- is Linux-specific and should not be used
- in programs that are intended to be portable.
- .SH NOTES
--Glibc does not provide a wrapper function for this system call.
-+Glibc does not provide a wrapper for this system call.
- You could invoke it using
- .BR syscall (2).
- But instead, you probably want to use the
-diff --git a/man2/io_destroy.2 b/man2/io_destroy.2
-index dc9633f5a..89defd867 100644
---- a/man2/io_destroy.2
-+++ b/man2/io_destroy.2
-@@ -57,7 +57,7 @@ The asynchronous I/O system calls first appeared in Linux 2.5.
- is Linux-specific and should not be used in programs
- that are intended to be portable.
- .SH NOTES
--Glibc does not provide a wrapper function for this system call.
-+Glibc does not provide a wrapper for this system call.
- You could invoke it using
- .BR syscall (2).
- But instead, you probably want to use the
-diff --git a/man2/io_getevents.2 b/man2/io_getevents.2
-index c9a608e06..0f7c17dbf 100644
---- a/man2/io_getevents.2
-+++ b/man2/io_getevents.2
-@@ -94,7 +94,7 @@ The asynchronous I/O system calls first appeared in Linux 2.5.
- is Linux-specific and should not be used in
- programs that are intended to be portable.
- .SH NOTES
--Glibc does not provide a wrapper function for this system call.
-+Glibc does not provide a wrapper for this system call.
- You could invoke it using
- .BR syscall (2).
- But instead, you probably want to use the
-diff --git a/man2/io_setup.2 b/man2/io_setup.2
-index 5168ee445..e08d19bb8 100644
---- a/man2/io_setup.2
-+++ b/man2/io_setup.2
-@@ -72,7 +72,7 @@ The asynchronous I/O system calls first appeared in Linux 2.5.
- is Linux-specific and should not be used in programs
- that are intended to be portable.
- .SH NOTES
--Glibc does not provide a wrapper function for this system call.
-+Glibc does not provide a wrapper for this system call.
- You could invoke it using
- .BR syscall (2).
- But instead, you probably want to use the
-diff --git a/man2/io_submit.2 b/man2/io_submit.2
-index bcbcf43b9..6cdd018a5 100644
---- a/man2/io_submit.2
-+++ b/man2/io_submit.2
-@@ -247,7 +247,7 @@ The asynchronous I/O system calls first appeared in Linux 2.5.
- is Linux-specific and should not be used in
- programs that are intended to be portable.
- .SH NOTES
--Glibc does not provide a wrapper function for this system call.
-+Glibc does not provide a wrapper for this system call.
- You could invoke it using
- .BR syscall (2).
- But instead, you probably want to use the
-diff --git a/man2/kexec_load.2 b/man2/kexec_load.2
-index a7114545a..4951eb5c3 100644
---- a/man2/kexec_load.2
-+++ b/man2/kexec_load.2
-@@ -335,8 +335,7 @@ system call first appeared in Linux 3.17.
- .SH CONFORMING TO
- These system calls are Linux-specific.
- .SH NOTES
--Currently, there is no glibc support for these system calls.
--Call them using
-+Glibc does not provide a wrapper for this system call; call it using
- .BR syscall (2).
- .SH SEE ALSO
- .BR reboot (2),
-diff --git a/man2/keyctl.2 b/man2/keyctl.2
-index f37cae8df..9311100cf 100644
---- a/man2/keyctl.2
-+++ b/man2/keyctl.2
-@@ -1953,7 +1953,7 @@ This system call first appeared in Linux 2.6.10.
- .SH CONFORMING TO
- This system call is a nonstandard Linux extension.
- .SH NOTES
--No wrapper for this system call is provided in glibc.
-+Glibc does not provide a wrapper for this system call.
- A wrapper is provided in the
- .IR libkeyutils
- library.
-diff --git a/man2/pidfd_getfd.2 b/man2/pidfd_getfd.2
-index 9312b6f92..1a1319aae 100644
---- a/man2/pidfd_getfd.2
-+++ b/man2/pidfd_getfd.2
-@@ -121,7 +121,7 @@ first appeared in Linux 5.6.
- .BR pidfd_getfd ()
- is Linux specific.
- .SH NOTES
--Currently, there is no glibc wrapper for this system call; call it using
-+Glibc does not provide a wrapper for this system call; call it using
- .BR syscall (2).
- .PP
- For a description of PID file descriptors, see
-diff --git a/man2/pidfd_open.2 b/man2/pidfd_open.2
-index 1b0c5e0d4..b6a321562 100644
---- a/man2/pidfd_open.2
-+++ b/man2/pidfd_open.2
-@@ -91,7 +91,7 @@ first appeared in Linux 5.3.
- .BR pidfd_open ()
- is Linux specific.
- .SH NOTES
--Currently, there is no glibc wrapper for this system call; call it using
-+Glibc does not provide a wrapper for this system call; call it using
- .BR syscall (2).
- .PP
- The following code sequence can be used to obtain a file descriptor
-diff --git a/man2/pidfd_send_signal.2 b/man2/pidfd_send_signal.2
-index ffbfd1796..7b1dc782d 100644
---- a/man2/pidfd_send_signal.2
-+++ b/man2/pidfd_send_signal.2
-@@ -135,7 +135,7 @@ first appeared in Linux 5.1.
- .BR pidfd_send_signal ()
- is Linux specific.
- .SH NOTES
--Currently, there is no glibc wrapper for this system call; call it using
-+Glibc does not provide a wrapper for this system call; call it using
- .BR syscall (2).
- .\"
- .SS PID file descriptors
-diff --git a/man2/request_key.2 b/man2/request_key.2
-index 6b041d0c4..997c221b7 100644
---- a/man2/request_key.2
-+++ b/man2/request_key.2
-@@ -439,7 +439,7 @@ in Linux 2.6.13.
- .SH CONFORMING TO
- This system call is a nonstandard Linux extension.
- .SH NOTES
--No wrapper for this system call is provided in glibc.
-+Glibc does not provide a wrapper for this system call.
- A wrapper is provided in the
- .IR libkeyutils
- package.
-diff --git a/man2/s390_guarded_storage.2 b/man2/s390_guarded_storage.2
-index c3ab3bc85..c20230786 100644
---- a/man2/s390_guarded_storage.2
-+++ b/man2/s390_guarded_storage.2
-@@ -144,9 +144,8 @@ This Linux-specific system call is available only on the s390 architecture.
- .PP
- The guarded storage facility is available beginning with System z14.
- .SH NOTES
--Glibc does not provide a wrapper for this system call, use
-+Glibc does not provide a wrapper for this system call; call it using
- .BR syscall (2)
--to call it.
- .PP
- The description of the guarded storage facility along with related
- instructions and Guarded Storage Control Block and
-diff --git a/man2/s390_pci_mmio_write.2 b/man2/s390_pci_mmio_write.2
-index 2ccd630ab..5897c967e 100644
---- a/man2/s390_pci_mmio_write.2
-+++ b/man2/s390_pci_mmio_write.2
-@@ -103,8 +103,7 @@ These system calls are available since Linux 3.19.
- This Linux-specific system call is available only on the s390 architecture.
- The required PCI support is available beginning with System z EC12.
- .SH NOTES
--Glibc does not provide a wrapper for this system call, use
-+Glibc does not provide wrappers for these system calls; call them using
- .BR syscall (2)
--to call it.
- .SH SEE ALSO
- .BR syscall (2)
-diff --git a/man2/s390_runtime_instr.2 b/man2/s390_runtime_instr.2
-index 0f4a704de..71e391fe9 100644
---- a/man2/s390_runtime_instr.2
-+++ b/man2/s390_runtime_instr.2
-@@ -97,9 +97,8 @@ This Linux-specific system call is available only on the s390 architecture.
- The run-time instrumentation facility is available
- beginning with System z EC12.
- .SH NOTES
--Glibc does not provide a wrapper for this system call, use
-+Glibc does not provide a wrapper for this system call; call it using
- .BR syscall (2)
--to call it.
- .PP
- The
- .I asm/runtime_instr.h
-diff --git a/man2/s390_sthyi.2 b/man2/s390_sthyi.2
-index 70871286b..91fc622bc 100644
---- a/man2/s390_sthyi.2
-+++ b/man2/s390_sthyi.2
-@@ -126,9 +126,8 @@ This system call is available since Linux 4.15.
- .SH CONFORMING TO
- This Linux-specific system call is available only on the s390 architecture.
- .SH NOTES
--Glibc does not provide a wrapper for this system call, use
-+Glibc does not provide a wrapper for this system call; call it using
- .BR syscall (2)
--to call it.
- .PP
- For details of the STHYI instruction, see
- .UR https://www.ibm.com\:/support\:/knowledgecenter\:/SSB27U_6.3.0\:/com.ibm.zvm.v630.hcpb4\:/hcpb4sth.htm
-diff --git a/man2/sysctl.2 b/man2/sysctl.2
-index 72f0af6f3..0ed68df00 100644
---- a/man2/sysctl.2
-+++ b/man2/sysctl.2
-@@ -120,8 +120,7 @@ Note that on older kernels where this system call still exists,
- it is available only if the kernel was configured with the
- .B CONFIG_SYSCTL_SYSCALL
- option.
--Furthermore,
--glibc does not provide a wrapper for this system call,
-+Furthermore, glibc does not provide a wrapper for this system call,
- necessitating the use of
- .BR syscall (2).
- .SH BUGS
+On 12/29/20 3:39 PM, Alejandro Colomar wrote:
+> From: Ganimedes Colomar <gacoan.linux@gmail.com>
+> 
+> To easily distinguish documentation about glibc wrappers from
+> documentation about kernel syscalls, let's have a normalized
+> 'Note' in the SYNOPSIS, and a further explanation in the page body
+> (NOTES in most of them), as already happened in many (but not all)
+> of the manual pages for syscalls without a wrapper.  Furthermore,
+> let's normalize the messages, following membarrier.2 (because it's
+> already quite extended), so that it's easy to use grep to find
+> those pages.
+> 
+> To find these pages, we used:
+> $ grep -rn wrapper man? | sort -V
+> and
+> $ grep -rni support.*glibc | sort -V
+> 
+> delete_module.2, init_module.2:  glibc 2.23 is no longer
+>   maintained, so we changed the notes about wrappers, to say that
+>   there are no glibc wrappers for these system calls; see NOTES.
+> 
+> We didn't fix some of the obsolete syscalls (create_module(2)),
+> but if you prefer, we can fix those too.
+
+That shouldn't be in the commit msg, but in the email :)
+
+> 
+> 
+> Signed-off-by: Ganimedes Colomar <gacoan.linux@gmail.com>
+> Cowritten-by: Alejandro Colomar <alx.manpages@gmail.com>
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
+> 
+> Hi Michael,
+> 
+> Some comment:
+> 
+>   syslog.2: Isn't the comment in SYNOPSIS wrong?
+> 	There _is_ a wrapper, which is documented just below that line.
+> 	It just has a different name.
+
+Normally, syscalls that do have a wrapper but with a different name,
+there's no note saying that there is no wrapper (see eventfd(2)).
+
+Your thoughts?
+
+> 
+> Cheers,
+> 
+> Alex
+> 
+>  man2/add_key.2              | 3 ++-
+>  man2/arch_prctl.2           | 3 +++
+>  man2/clone.2                | 2 +-
+>  man2/delete_module.2        | 2 +-
+>  man2/init_module.2          | 6 +-----
+>  man2/keyctl.2               | 3 ++-
+>  man2/pidfd_getfd.2          | 3 +++
+>  man2/pidfd_open.2           | 3 +++
+>  man2/pidfd_send_signal.2    | 2 ++
+>  man2/request_key.2          | 3 ++-
+>  man2/s390_guarded_storage.2 | 3 +++
+>  man2/s390_pci_mmio_write.2  | 3 +++
+>  man2/s390_runtime_instr.2   | 3 +++
+>  man2/s390_sthyi.2           | 3 +++
+>  14 files changed, 32 insertions(+), 10 deletions(-)
+> 
+> diff --git a/man2/add_key.2 b/man2/add_key.2
+> index 1476b7d85..7c20de777 100644
+> --- a/man2/add_key.2
+> +++ b/man2/add_key.2
+> @@ -22,7 +22,8 @@ add_key \- add a key to the kernel's key management facility
+>  .BI "                     key_serial_t " keyring ");"
+>  .fi
+>  .PP
+> -No glibc wrapper is provided for this system call; see NOTES.
+> +.IR Note :
+> +There is no glibc wrapper for this system call; see NOTES.
+>  .SH DESCRIPTION
+>  .BR add_key ()
+>  creates or updates a key of the given
+> diff --git a/man2/arch_prctl.2 b/man2/arch_prctl.2
+> index 97d5a2fe5..e8a6da391 100644
+> --- a/man2/arch_prctl.2
+> +++ b/man2/arch_prctl.2
+> @@ -33,6 +33,9 @@ arch_prctl \- set architecture-specific thread state
+>  .BI "int arch_prctl(int " code ", unsigned long " addr );
+>  .BI "int arch_prctl(int " code ", unsigned long *" addr );
+>  .fi
+> +.PP
+> +.IR Note :
+> +There is no glibc wrapper for this system call; see NOTES.
+>  .SH DESCRIPTION
+>  .BR arch_prctl ()
+>  sets architecture-specific process or thread state.
+> diff --git a/man2/clone.2 b/man2/clone.2
+> index 0114668ea..0d6565b5d 100644
+> --- a/man2/clone.2
+> +++ b/man2/clone.2
+> @@ -60,7 +60,7 @@ clone, __clone2, clone3 \- create a child process
+>  .fi
+>  .PP
+>  .IR Note :
+> -There is not yet a glibc wrapper for
+> +There is no glibc wrapper for
+>  .BR clone3 ();
+>  see NOTES.
+>  .SH DESCRIPTION
+> diff --git a/man2/delete_module.2 b/man2/delete_module.2
+> index daa15faa2..e63545d51 100644
+> --- a/man2/delete_module.2
+> +++ b/man2/delete_module.2
+> @@ -31,7 +31,7 @@ delete_module \- unload a kernel module
+>  .fi
+>  .PP
+>  .IR Note :
+> -No declaration of this system call is provided in glibc headers; see NOTES.
+> +There is no glibc wrapper for this system call; see NOTES.
+>  .SH DESCRIPTION
+>  The
+>  .BR delete_module ()
+> diff --git a/man2/init_module.2 b/man2/init_module.2
+> index c2675db97..00cf4e948 100644
+> --- a/man2/init_module.2
+> +++ b/man2/init_module.2
+> @@ -37,11 +37,7 @@ init_module, finit_module \- load a kernel module
+>  .fi
+>  .PP
+>  .IR Note :
+> -glibc provides no header file declaration of
+> -.BR init_module ()
+> -and no wrapper function for
+> -.BR finit_module ();
+> -see NOTES.
+> +There are no glibc wrappers for these system calls; see NOTES.
+>  .SH DESCRIPTION
+>  .BR init_module ()
+>  loads an ELF image into kernel space,
+> diff --git a/man2/keyctl.2 b/man2/keyctl.2
+> index 6bf07972d..f37cae8df 100644
+> --- a/man2/keyctl.2
+> +++ b/man2/keyctl.2
+> @@ -45,7 +45,8 @@ keyctl \- manipulate the kernel's key management facility
+>  .BI "             __kernel_ulong_t " arg5 );
+>  .fi
+>  .PP
+> -No glibc wrapper is provided for this system call; see NOTES.
+> +.IR Note :
+> +There is no glibc wrapper for this system call; see NOTES.
+>  .SH DESCRIPTION
+>  .BR keyctl ()
+>  allows user-space programs to perform key manipulation.
+> diff --git a/man2/pidfd_getfd.2 b/man2/pidfd_getfd.2
+> index 1a69c8238..9312b6f92 100644
+> --- a/man2/pidfd_getfd.2
+> +++ b/man2/pidfd_getfd.2
+> @@ -29,6 +29,9 @@ pidfd_getfd \- obtain a duplicate of another process's file descriptor
+>  .nf
+>  .BI "int pidfd_getfd(int " pidfd ", int " targetfd ", unsigned int " flags );
+>  .fi
+> +.PP
+> +.IR Note :
+> +There is no glibc wrapper for this system call; see NOTES.
+>  .SH DESCRIPTION
+>  The
+>  .BR pidfd_getfd ()
+> diff --git a/man2/pidfd_open.2 b/man2/pidfd_open.2
+> index 5b99460e1..1b0c5e0d4 100644
+> --- a/man2/pidfd_open.2
+> +++ b/man2/pidfd_open.2
+> @@ -31,6 +31,9 @@ pidfd_open \- obtain a file descriptor that refers to a process
+>  .PP
+>  .BI "int pidfd_open(pid_t " pid ", unsigned int " flags );
+>  .fi
+> +.PP
+> +.IR Note :
+> +There is no glibc wrapper for this system call; see NOTES.
+>  .SH DESCRIPTION
+>  The
+>  .BR pidfd_open ()
+> diff --git a/man2/pidfd_send_signal.2 b/man2/pidfd_send_signal.2
+> index 6670cf357..ffbfd1796 100644
+> --- a/man2/pidfd_send_signal.2
+> +++ b/man2/pidfd_send_signal.2
+> @@ -32,6 +32,8 @@ pidfd_send_signal \- send a signal to a process specified by a file descriptor
+>  .BI "int pidfd_send_signal(int " pidfd ", int " sig ", siginfo_t *" info ,
+>  .BI "                      unsigned int " flags );
+>  .fi
+> +.IR Note :
+> +There is no glibc wrapper for this system call; see NOTES.
+>  .SH DESCRIPTION
+>  The
+>  .BR pidfd_send_signal ()
+> diff --git a/man2/request_key.2 b/man2/request_key.2
+> index 86f76e43d..6b041d0c4 100644
+> --- a/man2/request_key.2
+> +++ b/man2/request_key.2
+> @@ -22,7 +22,8 @@ request_key \- request a key from the kernel's key management facility
+>  .BI "                         key_serial_t " dest_keyring ");"
+>  .fi
+>  .PP
+> -No glibc wrapper is provided for this system call; see NOTES.
+> +.IR Note :
+> +There is no glibc wrapper for this system call; see NOTES.
+>  .SH DESCRIPTION
+>  .BR request_key ()
+>  attempts to find a key of the given
+> diff --git a/man2/s390_guarded_storage.2 b/man2/s390_guarded_storage.2
+> index b3aef858f..c3ab3bc85 100644
+> --- a/man2/s390_guarded_storage.2
+> +++ b/man2/s390_guarded_storage.2
+> @@ -31,6 +31,9 @@ s390_guarded_storage \- operations with z/Architecture guarded storage facility
+>  .PP
+>  .BI "int s390_guarded_storage(int " command ", struct gs_cb *" gs_cb ");"
+>  .fi
+> +.PP
+> +.IR Note :
+> +There is no glibc wrapper for this system call; see NOTES.
+>  .SH DESCRIPTION
+>  The
+>  .BR s390_guarded_storage ()
+> diff --git a/man2/s390_pci_mmio_write.2 b/man2/s390_pci_mmio_write.2
+> index 802142987..2ccd630ab 100644
+> --- a/man2/s390_pci_mmio_write.2
+> +++ b/man2/s390_pci_mmio_write.2
+> @@ -35,6 +35,9 @@ MMIO memory page
+>  .BI "int s390_pci_mmio_read(unsigned long " mmio_addr ","
+>  .BI "                        void *" user_buffer ", size_t " length ");"
+>  .fi
+> +.PP
+> +.IR Note :
+> +There are no glibc wrappers for these system calls; see NOTES.
+>  .SH DESCRIPTION
+>  The
+>  .BR s390_pci_mmio_write ()
+> diff --git a/man2/s390_runtime_instr.2 b/man2/s390_runtime_instr.2
+> index 558e9c99d..0f4a704de 100644
+> --- a/man2/s390_runtime_instr.2
+> +++ b/man2/s390_runtime_instr.2
+> @@ -31,6 +31,9 @@ s390_runtime_instr \- enable/disable s390 CPU run-time instrumentation
+>  .PP
+>  .BI "int s390_runtime_instr(int " command ", int " signum ");"
+>  .fi
+> +.PP
+> +.IR Note :
+> +There is no glibc wrapper for this system call; see NOTES.
+>  .SH DESCRIPTION
+>  The
+>  .BR s390_runtime_instr ()
+> diff --git a/man2/s390_sthyi.2 b/man2/s390_sthyi.2
+> index 2ff06051a..70871286b 100644
+> --- a/man2/s390_sthyi.2
+> +++ b/man2/s390_sthyi.2
+> @@ -32,6 +32,9 @@ s390_sthyi \- emulate STHYI instruction
+>  .BI "int s390_sthyi(unsigned long " function_code ", void *" resp_buffer ","
+>  .BI "               uint64_t *" return_code ", unsigned long " flags ");"
+>  .fi
+> +.PP
+> +.IR Note :
+> +There is no glibc wrapper for this system call; see NOTES.
+>  .SH DESCRIPTION
+>  The
+>  .BR s390_sthyi ()
+> 
+
 -- 
-2.29.2
-
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
