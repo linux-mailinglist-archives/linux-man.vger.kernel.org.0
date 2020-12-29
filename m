@@ -2,123 +2,100 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5D8B62E6BC3
-	for <lists+linux-man@lfdr.de>; Tue, 29 Dec 2020 00:14:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BA61D2E6E10
+	for <lists+linux-man@lfdr.de>; Tue, 29 Dec 2020 06:10:04 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730676AbgL1Wzw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 28 Dec 2020 17:55:52 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39718 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729491AbgL1VJa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Dec 2020 16:09:30 -0500
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 781C6C0613D6
-        for <linux-man@vger.kernel.org>; Mon, 28 Dec 2020 13:08:49 -0800 (PST)
-Received: from localhost (unknown [IPv6:2804:431:c7f5:e396:88cd:ceb6:57aa:eaba])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        (Authenticated sender: krisman)
-        by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 09A541F4430B;
-        Mon, 28 Dec 2020 21:08:46 +0000 (GMT)
-From:   Gabriel Krisman Bertazi <krisman@collabora.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: [PATCH v5] prctl.2: Document Syscall User Dispatch
-Organization: Collabora
-References: <20201223182911.4066380-1-krisman@collabora.com>
-        <85b23b60-a92c-a5a8-1cc5-24bdfb8b3530@gmail.com>
-        <c73ca93d-b723-adc1-0603-4c7f9ecc458e@gmail.com>
-        <CAKgNAkgUabNogtQGzGGo4K8CN1wTL-nH=gjuFNGfXM+ysQ+CQQ@mail.gmail.com>
-        <869fca51-770f-ed44-4196-e99189832e69@gmail.com>
-        <CAKgNAkiGg0=TF4TCKvSFxmBnC2FwwvySxFte8Lnz+ny2T692pA@mail.gmail.com>
-Date:   Mon, 28 Dec 2020 18:08:42 -0300
-In-Reply-To: <CAKgNAkiGg0=TF4TCKvSFxmBnC2FwwvySxFte8Lnz+ny2T692pA@mail.gmail.com>
-        (Michael Kerrisk's message of "Mon, 28 Dec 2020 21:53:36 +0100")
-Message-ID: <877dp1y6xx.fsf@collabora.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
+        id S1726190AbgL2FJ7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 29 Dec 2020 00:09:59 -0500
+Received: from mail.cn.fujitsu.com ([183.91.158.132]:33200 "EHLO
+        heian.cn.fujitsu.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1726189AbgL2FJ7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Dec 2020 00:09:59 -0500
+X-IronPort-AV: E=Sophos;i="5.78,457,1599494400"; 
+   d="scan'208";a="103044803"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+  by heian.cn.fujitsu.com with ESMTP; 29 Dec 2020 13:09:11 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+        by cn.fujitsu.com (Postfix) with ESMTP id 4831548990D2;
+        Tue, 29 Dec 2020 13:09:08 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Tue, 29 Dec 2020 13:09:03 +0800
+Message-ID: <5FEAB9F9.7060307@cn.fujitsu.com>
+Date:   Tue, 29 Dec 2020 13:09:13 +0800
+From:   Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN; rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-Content-Type: text/plain
+To:     "Alejandro Colomar (mailing lists; readonly)" 
+        <alx.mailinglists@gmail.com>
+CC:     <mtk.manpages@gmail.com>, Davidlohr Bueso <dbueso@suse.de>,
+        <linux-man@vger.kernel.org>,
+        Joe Lawrence <joe.lawrence@redhat.com>,
+        Robert Kettler <robert.kettler@outlook.com>,
+        "Eric W. Biederman" <ebiederm@xmission.com>,
+        Kees Cook <keescook@chromium.org>,
+        Manfred Spraul <manfred@colorfullife.com>,
+        Michal Hocko <mhocko@kernel.org>
+Subject: Re: [PATCH] semctl.2: Correct SEM_STAT_ANY description
+References: <1608616543-21436-1-git-send-email-xuyang2018.jy@cn.fujitsu.com> <746deff0-e919-173b-25f6-34fc465a7ba0@gmail.com>
+In-Reply-To: <746deff0-e919-173b-25f6-34fc465a7ba0@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 4831548990D2.ABC87
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-"Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> writes:
+Hi Alex
+I think it is a smple fix. So ping!
 
-> On Mon, 28 Dec 2020 at 21:41, Alejandro Colomar (man-pages)
-> <alx.manpages@gmail.com> wrote:
->>
->>
->>
->> On 12/28/20 9:06 PM, Michael Kerrisk (man-pages) wrote:
->> > Hi Alex,
->> >
->> > On Mon, 28 Dec 2020 at 19:24, Alejandro Colomar (man-pages)
->> > <alx.manpages@gmail.com> wrote:
->> >>
->> >> Hi Michael & Gabriel,
->> >>
->> >> I disagree on a comment; see below.
->> >>
->> >> On 12/24/20 10:18 AM, Michael Kerrisk (man-pages) wrote:
->> >>> Hello Gabriel,
->> >>>
->> >>> Thanks for the revisions!
->> >>>
->> >> [...]
->> >>>> +.IP
->> >>>> +When
->> >>>> +.I arg2
->> >>>> +is set to
->> >>>> +.BR PR_SYS_DISPATCH_ON ,
->> >>>> +.I arg3
->> >>>> +and
->> >>>> +.I arg4
->> >>>> +respectively identify the
->> >>>> +.I offset
->> >>>> +and
->> >>>> +.I length
->> >>>> +of a single contiguous memory region in the process map
->> >>>> +from where system calls are always allowed to be executed,
->> >>>> +regardless of the switch variable
->> >>>> +(Typically, this area would include the area of memory
->> >>>> +containing the C library).
->> >>>
->> >>> s/)./.)/
->> >>
->> >> That point is ending the full sentence starting at 'When',
->> >
->> > I see it the other. The piece in parentheses is a free-standing idea
->> > that should be (parenthetical) sentence on its own.
->> >
->> > But, if that was not the case, your points below would hold.
->>
->> Hi Michael,
->>
->> I see; but there still isn't any separator between '... switch
->> variable', and 'arg5 points to ...'.
->>
->> Would you then do?:
->>
->> [
->> +regardless of the switch variable_._
->> ]
->>
->> Or what?
+Best Regards
+Yang Xu
+> Hi Yang,
 >
-> Oh yes. I missed that. That period also needs to be added!
+> It looks good to me.
+> I'll add a few people that might want to comment.
+>
+> Thanks,
+>
+> Alex
+>
+> On 12/22/20 6:55 AM, Yang Xu wrote:
+>> Since kernel commit a280d6dc77eb ("ipc/sem: introduce semctl(SEM_STAT_ANY)"),
+>> it only skips read access check when using SEM_STAT_ANY command. And it should
+>> use the semid_ds struct instead of seminfo struct. Fix this.
+>>
+>> Signed-off-by: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
+>> ---
+>>   man2/semctl.2 | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/man2/semctl.2 b/man2/semctl.2
+>> index dd3fb077b..a7462c5cc 100644
+>> --- a/man2/semctl.2
+>> +++ b/man2/semctl.2
+>> @@ -297,8 +297,8 @@ all semaphore sets on the system.
+>>   .TP
+>>   .BR SEM_STAT_ANY " (Linux-specific, since Linux 4.17)"
+>>   Return a
+>> -.I seminfo
+>> -structure containing the same information as for
+>> +.I semid_ds
+>> +structure as for
+>>   .BR SEM_STAT .
+>>   However,
+>>   .I sem_perm.mode
+>>
+>
+>
+> .
 >
 
-Which one?
 
-> +regardless of the switch variable_._
 
-or
-
-> I see; but there still isn't any separator between '... switch
-> variable', and 'arg5 points to ...'.
-
-which would be .). 
-
--- 
-Gabriel Krisman Bertazi
