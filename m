@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 92CFE2E7776
-	for <lists+linux-man@lfdr.de>; Wed, 30 Dec 2020 10:38:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9B3312E777F
+	for <lists+linux-man@lfdr.de>; Wed, 30 Dec 2020 10:40:35 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726277AbgL3JiI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 30 Dec 2020 04:38:08 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36824 "EHLO
+        id S1726491AbgL3Jjk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 30 Dec 2020 04:39:40 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37062 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725853AbgL3JiI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Dec 2020 04:38:08 -0500
-Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com [IPv6:2607:f8b0:4864:20::c29])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C5514C061799
-        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 01:37:27 -0800 (PST)
-Received: by mail-oo1-xc29.google.com with SMTP id o5so3578701oop.12
-        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 01:37:27 -0800 (PST)
+        with ESMTP id S1726214AbgL3Jjk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Dec 2020 04:39:40 -0500
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com [IPv6:2607:f8b0:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1E034C061799
+        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 01:39:00 -0800 (PST)
+Received: by mail-ot1-x32c.google.com with SMTP id n42so14931110ota.12
+        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 01:39:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
          :subject:to:cc;
-        bh=xOGzbzA734HbXkWwzGRIpFzatFWA3RYw/K4TVREbK7E=;
-        b=egsJ01BSdhSAEukjKnR6GUXhGvIahDShwd9QNY+Krt3C4WL5hqdIZ4G92UHMSUbq9R
-         Mc0J8FO7+iBGQQNfeAI3jQa9V73F6fWXpldLJlOUpLfslkAdVWtYg37j6LYSU67w07zc
-         hPUPOTnw24IYF6DDW+n049HMtYOz1lKiq+rPvquIa/SthCto8vJsj0j44k7v84ttEHAc
-         yIFWZr6GqVRGPAuEDExoV+SccrntBpRE7D47Cs1SI3aR3uJCqyClK+4dJRmL1qiHwUO2
-         o3WeAkDTNehOdoqKaEXKDnWt7NbcM8wlZlDlRtana2esPZc7fME8dv+MapwXHeufzBn5
-         uIXg==
+        bh=HemLgkhqvhQ4sPfitVTBVT3TVAIWSRN0bvh1ElMzhAw=;
+        b=mibaMDhqaw1N8xdoP+CI2GIAP1lFJMJ1z/tB/Ol08fHDhIWFdRe8edRDlO/5CbR0eG
+         SU3qZ7pdgcRkgJ7gTE1TkxsYPF8ev+CCY6U4nR1CNokXq3lEOuADQKDKFWWboS+PvKyp
+         ht0U+rzKo0VPVM3vEiM0FRfgmYtWE5KFo5X/Ef7MhBsIExSPqZ85wbJoMIBG45RvmKvt
+         8cXEMB/Z2XQTZgYoH3w9twhrn59djoeoLEkd8HhC/qaSdHW5bgllLjXZGC3opYU+cgn6
+         j2VwHRNMpYa1DXtD3HagHuONqtmY8tFWqjxcohnjc7/f51lRA7dmyw1OHb2dVnmGamTR
+         w+4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
          :from:date:message-id:subject:to:cc;
-        bh=xOGzbzA734HbXkWwzGRIpFzatFWA3RYw/K4TVREbK7E=;
-        b=Rh8xq0xodvLR1xKvJLgA6DbX6YySOMjUnwcXkfpSkC0fyORlASiqjUQNK9zxwY926L
-         ZT0oAp2GVpp7ayltCEExSM046Wkw0dCNlkUTqcj4G4P6KUnJjyNrvRkhOsgNEZzq5/d/
-         2oRMDqQdYOPeQIedawyg+U/WNs28C5kDwKjKslAqALwwbckzJC6vKx3X8LUl57ImmcZ/
-         xAXsewus00MaEo+x0KCm+2tbLMM6tBGt9HqnTTuF5eN1ZqTEq4vADtXVsF14Z2zY1ZcS
-         MDCf5a99+eGlF3s6+ggYpjGck2YcG+NVtehl7wDxSwSz5zveWG/IBj02ov0QEG36ASz3
-         0PEw==
-X-Gm-Message-State: AOAM530KWRU9CeGdmfJdwJH7XqjRFazkGORp4jXEL5BKBzE0ah44/bU7
-        m12oxWVSsa7ggy4QiEFUA0DWtl62Wjm3YajrQ9RrkCsG
-X-Google-Smtp-Source: ABdhPJyyY0PAk2CEpKaV3/5ST6Zpw45Zk51VJrhbAIqNBP9R/j62pi9VtfMNkmjHn7sEW5ZYt1P5I7gv4FZ/WVpA21Q=
-X-Received: by 2002:a4a:e89e:: with SMTP id g30mr35621725ooe.17.1609321047117;
- Wed, 30 Dec 2020 01:37:27 -0800 (PST)
+        bh=HemLgkhqvhQ4sPfitVTBVT3TVAIWSRN0bvh1ElMzhAw=;
+        b=fsdEd5OUh3s5fKdtvxG2owuAy43bve0AtXblFbtzqG//fFVFtzzjK36h3xdP7VlwVL
+         jJPPlD7wOySHp3FeE982QnEdQnmd2R39L5LhYIbdoFLD7R8KXo9iNpZeqQ3E2Tc+O+ia
+         J9uUDNt5aY1AzWlA3ShW6C7WiTfKH8cSrmxhObp/gTsK58GQb/kyFZUlqQBkWR62z28q
+         u4R8QPERHiepQa/S6doegbP2J7SAQuvcbJOavDHlk6g1nywy0H53X1oI1DnpKIFqV3Qa
+         +dGJ7u0y3EdKueoBxIOsVdTmORRkZWQbGz5MrJjzdy4C0l9vJ1BMgjE5ETT/0K9ZuZwX
+         f0lg==
+X-Gm-Message-State: AOAM530QYXF6laHVRrKeExGOeEsqFxvwiRIhF3sgAwhtBaRSBFPb/qyb
+        njcEkj1GjzDa3RFS+F97G6FPgC8o4VLb9Cgbcbw=
+X-Google-Smtp-Source: ABdhPJwd5TbZ9BBZSBI/HSjad9sBNnwwq2m5a49L9z7IfbIBdzGLK/96e0cvmVvwRWZejLZstHhv92iZxYiGY3u+s3I=
+X-Received: by 2002:a9d:7490:: with SMTP id t16mr38570392otk.323.1609321139580;
+ Wed, 30 Dec 2020 01:38:59 -0800 (PST)
 MIME-Version: 1.0
 References: <20201229143859.17473-1-alx.manpages@gmail.com>
- <20201229143859.17473-2-alx.manpages@gmail.com> <CAKgNAkigqvTQ6Ph-ZBphuUtX+ei0R0ioqaom6-sgYjH-GZ7bnA@mail.gmail.com>
- <308ab75c-fece-c4ed-fd34-feef9898ae38@gmail.com>
-In-Reply-To: <308ab75c-fece-c4ed-fd34-feef9898ae38@gmail.com>
+ <20201229143859.17473-3-alx.manpages@gmail.com> <CAKgNAkgiZiycjW3r=-LTzV0g1CyboYokqcgQbe9hYRT6MWjUTg@mail.gmail.com>
+ <842d4263-0fd5-ea70-bac0-1f4abd405c20@gmail.com>
+In-Reply-To: <842d4263-0fd5-ea70-bac0-1f4abd405c20@gmail.com>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Wed, 30 Dec 2020 10:37:15 +0100
-Message-ID: <CAKgNAkg4a8PwUPOixx2fKTsJJva8a1FYL9i7r5gDL4v9p=yC8Q@mail.gmail.com>
-Subject: Re: [PATCH 1/2] Various pages: Normalize SYNOPSIS notes about
- non-existing glibc wrappers
+Date:   Wed, 30 Dec 2020 10:38:48 +0100
+Message-ID: <CAKgNAkgfoTbzRP4T5c4AwPN8KVH5cAGakZDeyHO4g9EMX+CKow@mail.gmail.com>
+Subject: Re: [PATCH 2/2] Various pages: Normalize NOTES about non-existing
+ glibc wrappers
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     Ganimedes Colomar <gacoan.linux@gmail.com>,
         linux-man <linux-man@vger.kernel.org>
@@ -64,91 +64,53 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Alex,
 
-On Tue, 29 Dec 2020 at 21:51, Alejandro Colomar (man-pages)
+On Tue, 29 Dec 2020 at 21:53, Alejandro Colomar (man-pages)
 <alx.manpages@gmail.com> wrote:
 >
-> Hello Michael,
+> Hi Michael,
 >
-> A question below.
+> Please, see a comment below.
 >
-> Cheers,
+> Thanks,
 >
 > Alex
 >
-> On 12/29/20 9:27 PM, Michael Kerrisk (man-pages) wrote:
-> > Hi Alex, Ganimedes.
+> On 12/29/20 9:32 PM, Michael Kerrisk (man-pages) wrote:
+> > Hi Alex, Ganimedes,
 > >
-> > In the subject line : s/non-existing/nonexistent/
+> > Again, in the subject line, s/
+> >
+> > non-existing/nonexistent/
+> >
+> > [...]
+> >
+> >> --- a/man2/getdents.2
+> >> +++ b/man2/getdents.2
+> >> @@ -211,13 +211,13 @@ SVr4.
+> >>  Library support for
+> >>  .BR getdents64 ()
+> >>  was added in glibc 2.30;
+> >> -there is no glibc wrapper for
+> >> -.BR getdents ().
+> >> -Calling
+> >> +Glibc does not provide a wrapper for
+> >> +.BR getdents ();
+> >> +call
+> >
+> > s/call/calling/
 >
-> Ok, I'll resend in a few minutes.
+> See below
 >
 > >
-> > On Tue, 29 Dec 2020 at 15:43, Alejandro Colomar <alx.manpages@gmail.com> wrote:
-> >>
-> >> From: Ganimedes Colomar <gacoan.linux@gmail.com>
-> >>
-> >> To easily distinguish documentation about glibc wrappers from
-> >> documentation about kernel syscalls, let's have a normalized
-> >> 'Note' in the SYNOPSIS, and a further explanation in the page body
-> >> (NOTES in most of them), as already happened in many (but not all)
-> >> of the manual pages for syscalls without a wrapper.  Furthermore,
-> >> let's normalize the messages, following membarrier.2 (because it's
-> >> already quite extended), so that it's easy to use grep to find
-> >> those pages.
-> >>
-> >> To find these pages, we used:
-> >> $ grep -rn wrapper man? | sort -V
-> >> and
-> >> $ grep -rni support.*glibc | sort -V
-> >>
-> >> delete_module.2, init_module.2:  glibc 2.23 is no longer
-> >>   maintained, so we changed the notes about wrappers, to say that
-> >>   there are no glibc wrappers for these system calls; see NOTES.
-> >
-> > That seems fine.
-> >
-> >> We didn't fix some of the obsolete syscalls (create_module(2)),
-> >> but if you prefer, we can fix those too.
-> >
-> > I think it's okay to leave it.
-> >
-> > The remainder of the patch looks good. The only reason that I'm not
-> > applying ir yet (and fixing the subject line myself) is that I wonder
-> > if the command I mentioned in response to the 0/2 mail might help you
-> > find other pages to include in the patch. Let me know.
-> >
-> > Thanks,
-> >
-> > Michael
-> >
-> >
-> >
-> >>
-> >>
-> >> Signed-off-by: Ganimedes Colomar <gacoan.linux@gmail.com>
-> >> Cowritten-by: Alejandro Colomar <alx.manpages@gmail.com>
-> >> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> >> ---
-> >>
-> >> Hi Michael,
-> >>
-> >> Some comment:
-> >>
-> >>   syslog.2: Isn't the comment in SYNOPSIS wrong?
-> >>         There _is_ a wrapper, which is documented just below that line.
-> >>         It just has a different name.
+> >>  .BR getdents ()
+> >>  (or
+> >>  .BR getdents64 ()
+> >> -on earlier glibc versions) requires the use of
+> >> +on earlier glibc versions) using
 >
-> What about that?
->
-> $ man 2 syslog | sed -n /^SYNOPSIS/,/^DESCRIPTION/p |sed \$d
-> SYNOPSIS
->        int syslog(int type, char *bufp, int len);
->                        /* No wrapper provided in glibc */
-> <<<<< I think we should remove the above comment,
-> <<<<< or put it consistently everywhere else.
-> <<<<< What would you do?
+> The new version is 'Call XXX using syscall(2).'.
 
-Yep, remove the comment.
+I need more context here please. What do you mean with "The new version"?
 
 Thanks,
 
