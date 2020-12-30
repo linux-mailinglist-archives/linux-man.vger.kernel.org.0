@@ -2,133 +2,118 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EEA652E740B
-	for <lists+linux-man@lfdr.de>; Tue, 29 Dec 2020 21:54:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 075DF2E759D
+	for <lists+linux-man@lfdr.de>; Wed, 30 Dec 2020 03:04:23 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726240AbgL2Uya (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 29 Dec 2020 15:54:30 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60952 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726256AbgL2Uy3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Dec 2020 15:54:29 -0500
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 777F4C0613D6
-        for <linux-man@vger.kernel.org>; Tue, 29 Dec 2020 12:53:49 -0800 (PST)
-Received: by mail-wm1-x336.google.com with SMTP id 3so3142882wmg.4
-        for <linux-man@vger.kernel.org>; Tue, 29 Dec 2020 12:53:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=7TY2gLw7SqJCabbOLPrL89KxAT3f3EL+4SHuUKuELRQ=;
-        b=ft2CrQrGPTmaZvqeUMTu7ho1+5XbXGEbaC+chLfzAV7aGcP9tL6ofdnNhg9/oGLDwy
-         IbaaXKVgnEBpD9VgCuaAZhzGQSkHCB3wwd3QKJSAoPZK0cJIIEhyWCaTQkLhNel1resE
-         y2w3AhcDn2/HXC9K7tny7tgsB51ifN7YgQx1Oipsn12NIlSAZV3KD7KVNNV7x2RzgC19
-         3OjS18i85pckSrnsUBrdb+A1Arwx4YyhkI2Ir2VAeWCEPyx11RaCudTtt0SQZ+CQj9rx
-         azps2svV/gJKButlj1n4DX4IegIeKtBJoRkk4RxQ0KQHP2FyZBBywkXHKg2vqnBZdCkc
-         6wvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=7TY2gLw7SqJCabbOLPrL89KxAT3f3EL+4SHuUKuELRQ=;
-        b=nJc8bQ7lCy4/o8mvuJmUHEAa8/3J6qeeOpI0DjOyeu/xDbpzuRoizCsdi47hPTrt3C
-         pFId1H/8XUvZqNn/VWya9SYnp1LOO+1PPY5zdeTg3RNPQ8s99Hv74amOwgFUZE6tc6Pm
-         tunEm5qfrMfY7MloefLnRRi1MEJVGFZcMqYVHLzSDD7HXP3UGMXYV6ahSMgTcD7LXMEi
-         HWHaGaaceeVkbfJ3wN/+JXmvSBoF4JYP7uNEf1tXCxBisW3M4ZXRbCplqUV3fMpwqerZ
-         ++6i6lh/0AHIrnqOx3Dt8ZdBxNMoSSiVOVm1kfu82iZnvYPreDJZl5hefy9HyX/gZFVs
-         6/LA==
-X-Gm-Message-State: AOAM531g5IpCap8TktbBWwGS7bzap5QGVVJ5xxwetObQMlq7BCu1kyeI
-        D1myMZUzHhE4cWsfMCRyacsS7pVNrHo=
-X-Google-Smtp-Source: ABdhPJyczbhezuX7qwIO0uS7FeKGz+/v2l7VrRfuvluPP8Dgb6j9vdl8rTTcR4cwQuhvsKtZnCCAdw==
-X-Received: by 2002:a1c:4489:: with SMTP id r131mr5007515wma.24.1609275228311;
-        Tue, 29 Dec 2020 12:53:48 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id p8sm60249008wru.50.2020.12.29.12.53.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Dec 2020 12:53:47 -0800 (PST)
-Subject: Re: [PATCH 2/2] Various pages: Normalize NOTES about non-existing
- glibc wrappers
-To:     mtk.manpages@gmail.com
-Cc:     Ganimedes Colomar <gacoan.linux@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-References: <20201229143859.17473-1-alx.manpages@gmail.com>
- <20201229143859.17473-3-alx.manpages@gmail.com>
- <CAKgNAkgiZiycjW3r=-LTzV0g1CyboYokqcgQbe9hYRT6MWjUTg@mail.gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <842d4263-0fd5-ea70-bac0-1f4abd405c20@gmail.com>
-Date:   Tue, 29 Dec 2020 21:53:47 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+        id S1726300AbgL3CEH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 29 Dec 2020 21:04:07 -0500
+Received: from mail.cn.fujitsu.com ([183.91.158.132]:53406 "EHLO
+        heian.cn.fujitsu.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1726276AbgL3CEH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Dec 2020 21:04:07 -0500
+X-IronPort-AV: E=Sophos;i="5.78,459,1599494400"; 
+   d="scan'208";a="103068063"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+  by heian.cn.fujitsu.com with ESMTP; 30 Dec 2020 10:03:16 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+        by cn.fujitsu.com (Postfix) with ESMTP id 3482F4CE6018;
+        Wed, 30 Dec 2020 10:03:16 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 30 Dec 2020 10:03:15 +0800
+Message-ID: <5FEBDFF3.7020606@cn.fujitsu.com>
+Date:   Wed, 30 Dec 2020 10:03:31 +0800
+From:   Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN; rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-In-Reply-To: <CAKgNAkgiZiycjW3r=-LTzV0g1CyboYokqcgQbe9hYRT6MWjUTg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+To:     Manfred Spraul <manfred@colorfullife.com>
+CC:     "Alejandro Colomar (mailing lists, readonly)" 
+        <alx.mailinglists@gmail.com>, <mtk.manpages@gmail.com>,
+        Davidlohr Bueso <dbueso@suse.de>, <linux-man@vger.kernel.org>,
+        Joe Lawrence <joe.lawrence@redhat.com>,
+        Robert Kettler <robert.kettler@outlook.com>,
+        "Eric W. Biederman" <ebiederm@xmission.com>,
+        Kees Cook <keescook@chromium.org>,
+        Michal Hocko <mhocko@kernel.org>
+Subject: Re: [PATCH] semctl.2: Correct SEM_STAT_ANY description
+References: <1608616543-21436-1-git-send-email-xuyang2018.jy@cn.fujitsu.com> <746deff0-e919-173b-25f6-34fc465a7ba0@gmail.com> <e7b0eb9e-b1d2-ed46-f7ac-66f22ef3faf1@colorfullife.com>
+In-Reply-To: <e7b0eb9e-b1d2-ed46-f7ac-66f22ef3faf1@colorfullife.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 3482F4CE6018.AEAC4
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Hi Manfred
+> Hi,
+>
+>
+> On 12/22/20 12:55 PM, Alejandro Colomar (mailing lists; readonly) wrote:
+>> Hi Yang,
+>>
+>> It looks good to me.
+>> I'll add a few people that might want to comment.
+>
+> The code returns a semid_ds structure, and if I take strace as reference
+> implementation, then user space expects a semid_ds as well.
+> https://github.com/strace/strace/commit/8f0870a780bfd8cd9a91c3b7ad05baccda10bc84
+>
+>
+> In addition, the current page is self-inconsistent: seminfo doesn't
+> contain sem_perm.
+semctl manpage doesn't say seminfo contain sem_perm. Or, I miss something?
+>
+> The pages for msgctl and shmctl are correct, i.e. no further obvious
+> inconsistencies.
+>
+> Thus: The man page for semctl is incorrect, the page needs to be updated.
+>
+> Acked-by: manfred@colorfullife.com
+>
+>> Thanks,
+>>
+>> Alex
+>>
+>> On 12/22/20 6:55 AM, Yang Xu wrote:
+>>> Since kernel commit a280d6dc77eb ("ipc/sem: introduce
+>>> semctl(SEM_STAT_ANY)"),
+>>> it only skips read access check when using SEM_STAT_ANY command. And
+>>> it should
+>>> use the semid_ds struct instead of seminfo struct. Fix this.
+>>>
+>>> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+>>> ---
+>>> man2/semctl.2 | 4 ++--
+>>> 1 file changed, 2 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/man2/semctl.2 b/man2/semctl.2
+>>> index dd3fb077b..a7462c5cc 100644
+>>> --- a/man2/semctl.2
+>>> +++ b/man2/semctl.2
+>>> @@ -297,8 +297,8 @@ all semaphore sets on the system.
+>>> .TP
+>>> .BR SEM_STAT_ANY " (Linux-specific, since Linux 4.17)"
+>>> Return a
+>>> -.I seminfo
+>>> -structure containing the same information as for
+>>> +.I semid_ds
+>>> +structure as for
+>>> .BR SEM_STAT .
+>>> However,
+>>> .I sem_perm.mode
+>>>
+>
+>
+>
+> .
+>
 
-Please, see a comment below.
 
-Thanks,
 
-Alex
-
-On 12/29/20 9:32 PM, Michael Kerrisk (man-pages) wrote:
-> Hi Alex, Ganimedes,
-> 
-> Again, in the subject line, s/
-> 
-> non-existing/nonexistent/
-> 
-> [...]
-> 
->> --- a/man2/getdents.2
->> +++ b/man2/getdents.2
->> @@ -211,13 +211,13 @@ SVr4.
->>  Library support for
->>  .BR getdents64 ()
->>  was added in glibc 2.30;
->> -there is no glibc wrapper for
->> -.BR getdents ().
->> -Calling
->> +Glibc does not provide a wrapper for
->> +.BR getdents ();
->> +call
-> 
-> s/call/calling/
-
-See below
-
-> 
->>  .BR getdents ()
->>  (or
->>  .BR getdents64 ()
->> -on earlier glibc versions) requires the use of
->> +on earlier glibc versions) using
-
-The new version is 'Call XXX using syscall(2).'.
-
->>  .BR syscall (2).
->>  In that case you will need to define the
->>  .I linux_dirent
-> 
-> [...]
-> 
-> Again, the only reason I'm not making these patches and making the
-> minor fixes is in case you find some other pages that might be added
-> to the patch. Let me know.
-> 
-> Thanks,
-> 
-> Michael
-> 
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
