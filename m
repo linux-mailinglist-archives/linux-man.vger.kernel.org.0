@@ -2,65 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 36FB12E7D25
-	for <lists+linux-man@lfdr.de>; Thu, 31 Dec 2020 00:21:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id DA3EF2E7D27
+	for <lists+linux-man@lfdr.de>; Thu, 31 Dec 2020 00:23:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726290AbgL3XVJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 30 Dec 2020 18:21:09 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50164 "EHLO
+        id S1726363AbgL3XXX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 30 Dec 2020 18:23:23 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50504 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726277AbgL3XVJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Dec 2020 18:21:09 -0500
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8F7A4C061573
-        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 15:20:28 -0800 (PST)
-Received: by mail-wm1-x334.google.com with SMTP id e25so6034860wme.0
-        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 15:20:28 -0800 (PST)
+        with ESMTP id S1726352AbgL3XXW (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Dec 2020 18:23:22 -0500
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 62521C061575
+        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 15:22:42 -0800 (PST)
+Received: by mail-wm1-x32b.google.com with SMTP id c133so6142173wme.4
+        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 15:22:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=PZDf5OeZmC0TResQ0vU4cpEOeXeYZdBC6t+TsUTs7cw=;
-        b=MbIzp2lfv3Tmbsftnx3r9Ow0CVe/XsPPulrO3xbn4KzuNKHZU+1G6cQpWoiGnskt3U
-         DDirNSF6X+Dbtil9x9IuFVTd99xnHAYmxweJSQBEL7v6aITAHDZb+MHOkHVOU7deNRhB
-         RPvU4eQpq+HaxunqHD0hKt3tzNCiyhiM6uwnr3uxXLcOEjq8oUOHU10DJ+cToGQk0lZN
-         +PuidiJ6zkvLu389K4BNeCcm8V93WOA5gW+GfWATkPV67S9FmeSWZei6YhnWbgu0ng8h
-         lwgo5iFOZUzlcTpbSM5Jn2rPB0Jm6PCUnPbmbFBlQpwvj+QGiy/PMM1M5mnX7Lqi7svK
-         ZfFw==
+        bh=O7W15NDqOL5vA+8cerLvLZZu7XSwEu/gI8MmgJoWMkY=;
+        b=QKSHsA1wR/w1sME7JKSqjZ0CiaU1p2I3lQx1Hoqgyucz31swfcywjqWoaFYVjVFVvp
+         YVsMiXUPzMpOe0JTAOJgDoMBwtiN7GfuPQVAwDsoIi0iyn/jZicOtyk9HQIqOP9atTft
+         sAmoNwX2ZjWDpICtMYQZ8YKqvGE7IpDggngi62RoWlE10J404pyaqZcIm4WGcfEdvy36
+         T0pbnXsFsBB/sjQ2RQyLwv0EeZ43P0v24gJu3Ggs91+m+AhV8+90TSfn933F5oJ97WdS
+         7LI0M6t5FQ8JQ3jlCy3JFwboFyfmTmtbeDcs3FzhNdbskrTd4PMJFeXpad/0rhUOtrDP
+         qhPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=PZDf5OeZmC0TResQ0vU4cpEOeXeYZdBC6t+TsUTs7cw=;
-        b=BvYCiYVwpsjWqC/Cwz2e/94VFJ8baSXRr+2z3Jr+85QRH8wxClCZqHniqPHoMm1zRd
-         iiZx+ioa0V+yVNw5yqMml+Nj5SCnVvKGZzgIDwaz+1AogkQfmVvzcgmsSq+U9kTm5vL9
-         WgUvMBSeSSlAw0etyu8lSWYeDPEsm148o90MnEShu2ifb62QkIUwRkCznGm6Twu5hDxp
-         ENFQHsUGJ0CMnOlw8XkEcX4Ua6yrXYFR1uGaC+WbrDMWgARbhSrD+9oTlnMoBW4uJiTv
-         dPWzqGET7eWGWBs6/6ztAm1dxsq4Q227DHAcSUbVx3SUSjDsLFlBsoX3Rt/nPO8l1P0K
-         k0qQ==
-X-Gm-Message-State: AOAM530DXhzgGCuV7n5ajjqahH2iWqITlf3gy5YvLkDEpfxIVgipFWU2
-        UyiBXeKxYmWAutdQPGaqQnRQF8TD55U=
-X-Google-Smtp-Source: ABdhPJySMLUfucifnluon1ZUotteDa3+FPD3dCBupGrsOIsZYFapDbY2mURBgSQIJ2QZVeuNUjn28A==
-X-Received: by 2002:a1c:151:: with SMTP id 78mr9557982wmb.24.1609370427219;
-        Wed, 30 Dec 2020 15:20:27 -0800 (PST)
+        bh=O7W15NDqOL5vA+8cerLvLZZu7XSwEu/gI8MmgJoWMkY=;
+        b=PWJZKIuqo7tM4zSRJgv0kUftCbi3C2OOxUes2ZRIjJ0M2c4vkByknfsbQDEj6EzAKz
+         RwRu0r40d5Ju3t7hDFJtxyRLjmNlyrkKRfM02AIw31oH75aqnEgtKBCOJHqmUZ+4JCAZ
+         U/jRKSGnjXWQno3TXnRsZVKQ909iNTChWessY6fQRdD+ZifQyyJc5hWnMehOOWFCe1FM
+         hd6dLOumoq09/FYS7q9KEtHiesbFsmNhAa2DnR/AZTvIppPCPMApGwzK8QRMDH9uNJf9
+         K+o4XvYE7MpZwtuLJLyVm1nPxQGQ095eR9iT7ZuOW6tgVXnOpjI9LjMhzVOGjPBuQdGx
+         H2Sg==
+X-Gm-Message-State: AOAM530Kx69ufValFt3yP9/LXZEb2+6G2gr75/gXg0TVpARrMojL48kX
+        edoFsDaY7F/0uOb7x9SzvNY=
+X-Google-Smtp-Source: ABdhPJxGXBo/1OcdHtPmAPoQUQAXpGtg5QT/WV8yfOcTLbKnmnIRCLc1H2LYtl43zhJI7nR1nNPc5w==
+X-Received: by 2002:a1c:7909:: with SMTP id l9mr9475624wme.120.1609370561237;
+        Wed, 30 Dec 2020 15:22:41 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.49.0])
-        by smtp.gmail.com with ESMTPSA id f9sm74021621wrw.81.2020.12.30.15.20.26
+        by smtp.gmail.com with ESMTPSA id d191sm8685342wmd.24.2020.12.30.15.22.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Dec 2020 15:20:26 -0800 (PST)
-Subject: Re: [PATCH] copy_file_range.2: SYNOPSIS: Fix prototype parameter
- types
+        Wed, 30 Dec 2020 15:22:40 -0800 (PST)
+Subject: Re: [PATCH] get_phys_pages.3: glibc gets the info from sysinfo(2)
+ since 2.23
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <20201230214147.874671-5-alx.manpages@gmail.com>
- <2b1cbbc7-a1f3-dbef-1d23-d96409e4490c@gmail.com>
+Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
+References: <20201230214147.874671-7-alx.manpages@gmail.com>
+ <ff303eb6-ffd0-8567-1a72-72fd86671f0e@gmail.com>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <a27fb355-f3be-036a-459a-1769e72e3a70@gmail.com>
-Date:   Thu, 31 Dec 2020 00:20:25 +0100
+Message-ID: <e87f1058-ef2c-e0eb-8d12-a63c20aef2e5@gmail.com>
+Date:   Thu, 31 Dec 2020 00:22:40 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <2b1cbbc7-a1f3-dbef-1d23-d96409e4490c@gmail.com>
+In-Reply-To: <ff303eb6-ffd0-8567-1a72-72fd86671f0e@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -70,66 +70,72 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 
 
-On 12/30/20 11:43 PM, Michael Kerrisk (man-pages) wrote:
-> Hi Alex,
+On 12/30/20 11:40 PM, Michael Kerrisk (man-pages) wrote:
+> Hi Alewx,
 > 
 > On 12/30/20 10:41 PM, Alejandro Colomar wrote:
->> Glibc uses 'off64_t' instead of 'loff_t'.
+>> See glibc's commit: 0ce657c576bf1b24
+>> https://sourceware.org/git/?p=glibc.git;a=commitdiff;h=0ce657c576bf1b24
+>>
+>> Reported-by: Jakub Wilk <jwilk@jwilk.net>
+>> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+>> ---
+>>  man3/get_phys_pages.3 | 13 +++++++++----
+>>  1 file changed, 9 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/man3/get_phys_pages.3 b/man3/get_phys_pages.3
+>> index 35f83fedb..a8a1ce3f4 100644
+>> --- a/man3/get_phys_pages.3
+>> +++ b/man3/get_phys_pages.3
+>> @@ -55,15 +55,20 @@ The system could not provide the required information
+>>  (possibly because the
+>>  .I /proc
+>>  filesystem was not mounted).
+>> -.SH CONFORMING TO
+>> -These functions are GNU extensions.
+>> -.SH NOTES
+>> -These functions obtain the required information by scanning the
+>> +.SH VERSIONS
+>> +Before glibc 2.23,
+>> +these functions obtained the required information by scanning the
+>>  .I MemTotal
+>>  and
+>>  .I MemFree
+>>  fields of
+>>  .IR /proc/meminfo .
 > 
-> Okay.
+> Thanks for the patch. But I think it would be better to put 
+> all the info into NOTES, rather than splitting some out into
+> VERSIONS.
 > 
->> This patch doesn't change the types in the code example,
->> because it uses the Linux syscall, and not the glibc wrapper.
+>> +.SH CONFORMING TO
+>> +These functions are GNU extensions.
 > 
-> I think the example probably also needs fixing then. There's
-> no longer a need for syscall(2) in this example, I think.
+> And it's good to add this, but let's make it a separate patch.
 
 Hi Michael,
 
-I thought the same, but glibc 2.26 is still supported,
-and lacks the wrapper.
-Would you change it already?
+I didn't add that.
+This is one of those times when git provides unreadable diffs.
+Please have a closer look at the diff,
+and also at the rendered output.
 
 Thanks,
 
 Alex
 
 > 
+>> +.SH NOTES
+>> +Since glibc 2.23,
+>> +these functions obtain the required information by calling
+>> +.BR sysinfo (2).
+>>  .PP
+>>  The following
+>>  .BR sysconf (3)
+> 
+> 
 > Thanks,
 > 
 > Michael
-> 
->> ......
->>
->> $ syscall='copy_file_range';
->> $ ret='ssize_t';
->> $ find glibc/ -type f -name '*.h' \
->>   |xargs pcregrep -Mn "(?s)^[\w\s]*${ret}\s*${syscall}\s*\(.*?;";
->> glibc/posix/unistd.h:1121:
->> ssize_t copy_file_range (int __infd, __off64_t *__pinoff,
->> 			 int __outfd, __off64_t *__poutoff,
->> 			 size_t __length, unsigned int __flags);
->>
->> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
->> ---
->>  man2/copy_file_range.2 | 4 ++--
->>  1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/man2/copy_file_range.2 b/man2/copy_file_range.2
->> index 1692aa44a..6f4708c4b 100644
->> --- a/man2/copy_file_range.2
->> +++ b/man2/copy_file_range.2
->> @@ -30,8 +30,8 @@ copy_file_range \- Copy a range of data from one file to another
->>  .B #define _GNU_SOURCE
->>  .B #include <unistd.h>
->>  .PP
->> -.BI "ssize_t copy_file_range(int " fd_in ", loff_t *" off_in ,
->> -.BI "                        int " fd_out ", loff_t *" off_out ,
->> +.BI "ssize_t copy_file_range(int " fd_in ", off64_t *" off_in ,
->> +.BI "                        int " fd_out ", off64_t *" off_out ,
->>  .BI "                        size_t " len ", unsigned int " flags );
->>  .fi
->>  .SH DESCRIPTION
->>
 > 
 > 
