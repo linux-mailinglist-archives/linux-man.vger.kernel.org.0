@@ -2,66 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E96C92E7C1D
-	for <lists+linux-man@lfdr.de>; Wed, 30 Dec 2020 20:21:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id EE8322E7C32
+	for <lists+linux-man@lfdr.de>; Wed, 30 Dec 2020 20:52:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726640AbgL3TVV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 30 Dec 2020 14:21:21 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41588 "EHLO
+        id S1726214AbgL3Tvl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 30 Dec 2020 14:51:41 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46286 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726529AbgL3TVV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Dec 2020 14:21:21 -0500
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com [IPv6:2a00:1450:4864:20::629])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A7E1FC061573
-        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 11:20:40 -0800 (PST)
-Received: by mail-ej1-x629.google.com with SMTP id x16so23069223ejj.7
-        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 11:20:40 -0800 (PST)
+        with ESMTP id S1726197AbgL3Tvl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Dec 2020 14:51:41 -0500
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 94127C061573;
+        Wed, 30 Dec 2020 11:51:00 -0800 (PST)
+Received: by mail-ej1-x62b.google.com with SMTP id jx16so23090566ejb.10;
+        Wed, 30 Dec 2020 11:51:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=nYAxiFhXULKH1eWZ8jPbCudrsoSSPIflXfo3mvgrMoY=;
-        b=hxrMXIr3JCvmtyXATIs4CdQw6Lg7BG0pSmzgjc+Q+BG+hRyEec8VvY4Eaywp2/XXF2
-         WnAMgU0kATyJsGx7zwDuL7LiSNB+v+Yfp9mTsSa8Jhv5ruRMWAQzxbLvw5OlPLKXy5FE
-         0y5NgkGdyyTaahl3D91RmCue2ElQzjG01fy6NFIxHw0F8Q9Ebcb8B4GOpdmJysKAYyn8
-         /900r4Khkjm3NSVLzBKAtrfznCU6JNYEoqTOBsz+laWp2xJT/rcZ0Ktv3YP8M/w+3fwg
-         Pg7BEBynfQHK1j67ZSxj9YJhKoZKQyHtx+HiKp26rIjiG6DYlM5gAgYSyDP0ouSvReG2
-         vsUA==
+        bh=mKxK7c/i9edMW2MkDUdzuhwXiBdPDjRFgTh0pB6nplY=;
+        b=DICzUnxEGmUqq5BUt3Dn44W4zx+bNXZavMLQF1Tq/SwYxm8vpgW2Bzdu09KIVr4ldl
+         Q8d8DjKePACY1ZvuxOi1hKCuLtfydLn0sYIBbY56ICd2voAvlQLLhLX2wxpwA+mWR3HD
+         K2VvtlLeFYEeRMhGQsDeXWHazJPZf+j5CT3tazh74VjnsBOHfyzjYvTCkPwNo2c4NcGJ
+         /TWWGa3emUfJ5wgXvbFn0vXjO00dU2pcW8LzdVAVKD3hblLYR9krdFAUj7ibRMrZBT2B
+         EfJd4pqwmz3OZ+qO44YlXoXR2GJmUtnZ45lnmYbM5sMPL3BUQkbPub0iI4QBJCm/cb/+
+         BEnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=nYAxiFhXULKH1eWZ8jPbCudrsoSSPIflXfo3mvgrMoY=;
-        b=PC1lvcI3+WVl7lA6jnv4ueQjGkttasonZ7cbCICwcA98HrhCe+/oTRSjUCxjkpgsZN
-         lbiq1Qx1iyP2FFfAwjIq7s8zL+e8YKS1lXF1OYQFuMZY2xPdGQKaUtTnwyxJRcsjcCyl
-         bOftU0vfZy4FDOywywoqcEKHBYXYp8Epg1l5zFK3dvuQ+C5zO5QhPYbHUhKH6a+YGIl4
-         IigIkV/mmR5VSTlaB3eMM2di4THAxpBG+TvUbAdMc1eQf+SdgRli4C3OUVHLrTWrJVHS
-         lSEvzr159lWJi/0ME6fM1iaAQlSiJafEczFXDMXjRxYQGp2LQtNd/lUZlXfW7WfEvLI7
-         IECQ==
-X-Gm-Message-State: AOAM53033Lq93LC7Hba+OYWBRx0kIklIWGVe52FUmcoBV1krI+T4VZp7
-        JDuffuVrvy3UE0mMWCW6cNsIHNnqOVE=
-X-Google-Smtp-Source: ABdhPJytXXQbl9fPe64eOJvPzEkVBTyid2yg04RiRxOhw1PBvI0xBy0uAeKEn6q+rebKyKPjx1K4rg==
-X-Received: by 2002:a17:907:1010:: with SMTP id ox16mr51120797ejb.439.1609356038924;
-        Wed, 30 Dec 2020 11:20:38 -0800 (PST)
+        bh=mKxK7c/i9edMW2MkDUdzuhwXiBdPDjRFgTh0pB6nplY=;
+        b=jXJhUPKgLqSAaFoPrunTtR9V2IFAYQXq7kRybWe03pm/amZOG5mBAD2z/WBBrvDLrT
+         825IAgxjPXJkYiC6ZUD7lXZ/Tp1OYXu4rLTrl31+/QBhP1bgfbHm9z6SzaOI/qS+SEy7
+         UXFpZvZToISQK5x48xSb98m1/ZSPDs3v7jpxOraDrwzTV7iINjFNfs9K3EgN/Iv/b/EZ
+         UILCci1Jj+mfMc7E06pY7gQaum3s+XmCwXHpySiXjflpyIDHplWn7qJYru0OVo4WdIDa
+         iTxXUWpyTudiH9/jVNTDRu+zq4qDzn91vFu61VRR049yScY8ZNwnNJEQMbMI11GSF+Wo
+         PUVA==
+X-Gm-Message-State: AOAM533IeX+mUWuCAIeyPPyOFkyzuHIFKblxBjUykAI/sX5++ED6oCrf
+        cbhTKfgKEmYNNtkDepIyif/yB3my7jk=
+X-Google-Smtp-Source: ABdhPJxgjnpv3aZLEziOblUKIaU/V5SyHkNTA12+kYzv1Sn1T7pb2q9kvFnEIb0LGqqvP/vIEshVLQ==
+X-Received: by 2002:a17:906:8617:: with SMTP id o23mr50669718ejx.274.1609357858877;
+        Wed, 30 Dec 2020 11:50:58 -0800 (PST)
 Received: from ?IPv6:2001:a61:2467:2f01:faca:3d43:5e40:30d1? ([2001:a61:2467:2f01:faca:3d43:5e40:30d1])
-        by smtp.gmail.com with ESMTPSA id z24sm38689517edr.9.2020.12.30.11.20.36
+        by smtp.gmail.com with ESMTPSA id v18sm38390214edx.30.2020.12.30.11.50.57
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Dec 2020 11:20:37 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, Ganimedes Colomar <gacoan.linux@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] Various pages: Normalize SYNOPSIS notes about
- nonexistent glibc wrappers
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <91ef6bdb-76db-ffdd-7d43-51d7abeb9beb@gmail.com>
- <20201230152025.300622-2-alx.manpages@gmail.com>
+        Wed, 30 Dec 2020 11:50:57 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, alx.manpages@gmail.com,
+        linux-man@vger.kernel.org, kernel@collabora.com,
+        Linux API <linux-api@vger.kernel.org>
+Subject: Re: [PATCH v6] prctl.2: Document Syscall User Dispatch
+To:     Gabriel Krisman Bertazi <krisman@collabora.com>
+References: <20201228173832.347794-1-krisman@collabora.com>
+ <5da9a8bc-e034-1ab4-3f87-328108c1b27d@gmail.com>
+ <87wnwz5jae.fsf@collabora.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <c5b86c10-1cd7-8b4f-9c56-61c6da6cf7b2@gmail.com>
-Date:   Wed, 30 Dec 2020 20:20:34 +0100
+Message-ID: <c9ebe73d-b75e-b3a6-a435-577bfd4a92e1@gmail.com>
+Date:   Wed, 30 Dec 2020 20:50:57 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <20201230152025.300622-2-alx.manpages@gmail.com>
+In-Reply-To: <87wnwz5jae.fsf@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,282 +70,292 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Alex and Ganimedes,
+[CC += linux-api]
 
-On 12/30/20 4:20 PM, Alejandro Colomar wrote:
-> From: Ganimedes Colomar <gacoan.linux@gmail.com>
-> 
-> To easily distinguish documentation about glibc wrappers from
-> documentation about kernel syscalls, let's have a normalized
-> 'Note' in the SYNOPSIS, and a further explanation in the page body
-> (NOTES in most of them), as already happened in many (but not all)
-> of the manual pages for syscalls without a wrapper.  Furthermore,
-> let's normalize the messages, following membarrier.2 (because it's
-> already quite extended), so that it's easy to use grep to find
-> those pages.
-> 
-> To find these pages, we used:
-> $ grep -rn wrapper man? | sort -V
-> and
-> $ grep -rni support.*glibc | sort -V
-> 
-> delete_module.2, init_module.2:  glibc 2.23 is no longer
->   maintained, so we changed the notes about wrappers, to say that
->   there are no glibc wrappers for these system calls; see NOTES.
-> 
-> We didn't fix some obsolete pages such as create_module.2.
+Hi Gabriel,
 
-Thanks! Patch applied. As noted already, it's great to get
-consistent language into the manual pages.
+On 12/30/20 5:51 PM, Gabriel Krisman Bertazi wrote:
+> "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> writes:
+> 
+>> Hello Gabriel
+>>
+>> This is looking much better. Thank you! I have a few more
+>> comments still.
+>>
+>> On 12/28/20 6:38 PM, Gabriel Krisman Bertazi wrote:
+>>> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
+>>>
+>>> ---
+>>> Changes since v5:
+>>> (suggested by Michael Kerrisk)
+>>>   - Change () punctuation
+>>>   - fix grammar
+>>>   - Add information about interception, return and return value
+>>>
+>>> Changes since v4:
+>>> (suggested by Michael Kerrisk)
+>>>   - Modify explanation of what dispatch to user space means.
+>>>   - Drop references to emulation.
+>>>   - Document suggestion about placing libc in allowed-region.
+>>>   - Comment about avoiding syscall cost.
+>>> Changes since v3:
+>>> (suggested by Michael Kerrisk)
+>>>   - Explain what dispatch to user space means.
+>>>   - Document the fact that the memory region is a single consecutive
+>>>   range.
+>>>   - Explain failure if *arg5 is set to a bad value.
+>>>   - fix english typo.
+>>>   - Define what 'invalid memory region' means.
+>>>
+>>> Changes since v2:
+>>> (suggested by Alejandro Colomar)
+>>>   - selective -> selectively
+>>>   - Add missing oxford comma.
+>>>
+>>> Changes since v1:
+>>> (suggested by Alejandro Colomar)
+>>>   - Use semantic lines
+>>>   - Fix usage of .{B|I}R and .{B|I}
+>>>   - Don't format literals
+>>>   - Fix preferred spelling of userspace
+>>>   - Fix case of word
+>>> ---
+>>>  man2/prctl.2 | 159 +++++++++++++++++++++++++++++++++++++++++++++++++++
+>>>  1 file changed, 159 insertions(+)
+>>>
+>>> diff --git a/man2/prctl.2 b/man2/prctl.2
+>>> index f25f05fdb593..0a0abfb78055 100644
+>>> --- a/man2/prctl.2
+>>> +++ b/man2/prctl.2
+>>> @@ -1533,6 +1533,135 @@ For more information, see the kernel source file
+>>>  (or
+>>>  .I Documentation/arm64/sve.txt
+>>>  before Linux 5.3).
+>>> +.TP
+>>> +.\" prctl PR_SET_SYSCALL_USER_DISPATCH
+>>> +.\" commit 1446e1df9eb183fdf81c3f0715402f1d7595d4
+>>> +.BR PR_SET_SYSCALL_USER_DISPATCH " (since Linux 5.11, x86 only)"
+>>> +.IP
+>>> +Configure the Syscall User Dispatch mechanism
+>>> +for the calling thread.
+>>> +This mechanism allows an application
+>>> +to selectively intercept system calls
+>>> +so that they can be handled within the application itself.
+>>> +Interception takes the form of a thread-directed
+>>> +.B SIGSYS
+>>> +signal that is delivered to the thread
+>>> +when it makes a system call.
+>>> +If intercepted,
+>>> +the system call is not executed by the kernel.
+>>> +.IP
+>>> +The current Syscall User Dispatch mode is selected via
+>>> +.IR arg2 ,
+>>> +which can either be set to
+>>> +.B PR_SYS_DISPATCH_ON
+>>> +to enable the feature,
+>>> +or to
+>>> +.B PR_SYS_DISPATCH_OFF
+>>> +to turn it off.
+>>
+>> So, I realize now that I'm slightly confused.
+>>
+>> The value of arg2 can be either PR_SYS_DISPATCH_ON or
+>> PR_SYS_DISPATCH_OFF. The value of the selector pointed to by
+>> arg5 can likewise be R_SYS_DISPATCH_ON or PR_SYS_DISPATCH_OFF.
+>> What is the relationship between these two attributes? For example,
+>> what does it mean if arg2 isP R_SYS_DISPATCH_ON and, at the time of
+>> the prctl() call, the selector has the value PR_SYS_DISPATCH_OFF?
+> 
+> Hi Michael,
+> 
+> arg2 turns SUD on and off, thread-wide.  arg5 is what is used to filter
+> syscalls when SUD is on.  Based on the value of arg5, syscalls will be
+> intercepted, iff SUD is enabled for that thread.
 
-Cheers,
+Okay -- I suspected as much, but I wanted to confirm.
+
+So, I want to say that in API design terms this feels wrong. You 
+are using the same name(s) to mean two different things:
+1. Define/clear SUD/the non-SUD memory region
+2. Enable/disable SUD filtering in the SUD memory region (i.e., the 
+part of the virtual address space outside the region defined in 1).
+
+My terms here may not be the best, but I guess the distinction that
+I make is clear.
+
+My point is that these are different things, and I think they 
+really should have different names (though of course the numbers
+could stay the same). Otherwise, people fall into the confusion
+that I ran into. Given that this feature is not yet released, and
+that the numbers don't need to change, I'd like to suggest that
+the names should change before 5.11 is released
+
+For arg2, maybe:
+    PR_SYS_DISPATCH_SET_REGION / PR_SYS_DISPATCH_CLEAR_REGION
+or
+    PR_SYS_DISPATCH_SET / PR_SYS_DISPATCH_CLEAR
+or
+    PR_SYS_DISPATCH_ON / PR_SYS_DISPATCH_OFF
+
+For the selector (pointed to by arg5), maybe stay with what you
+have:
+
+    PR_SYS_DISPATCH_ON / PR_SYS_DISPATCH_OFF
+
+or (maybe better, and would also fit well with keeping
+arg2 as PR_SYS_DISPATCH_ON / PR_SYS_DISPATCH_OFF):
+
+    PR_SYS_DISPATCH_FILTER_ON / PR_SYS_DISPATCH_FILTER_OFF
+
+Do you see what I mean? We live with APIs for a long time, and I
+think it serves us to make them as clear as possible.
+
+Thanks,
 
 Michael
 
-> Signed-off-by: Ganimedes Colomar <gacoan.linux@gmail.com>
-> Cowritten-by: Alejandro Colomar <alx.manpages@gmail.com>
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> ---
->  man2/add_key.2              | 3 ++-
->  man2/arch_prctl.2           | 3 +++
->  man2/clone.2                | 2 +-
->  man2/delete_module.2        | 2 +-
->  man2/init_module.2          | 6 +-----
->  man2/keyctl.2               | 3 ++-
->  man2/pidfd_getfd.2          | 3 +++
->  man2/pidfd_open.2           | 3 +++
->  man2/pidfd_send_signal.2    | 2 ++
->  man2/request_key.2          | 3 ++-
->  man2/s390_guarded_storage.2 | 3 +++
->  man2/s390_pci_mmio_write.2  | 3 +++
->  man2/s390_runtime_instr.2   | 3 +++
->  man2/s390_sthyi.2           | 3 +++
->  man2/seccomp.2              | 3 +++
->  man2/syslog.2               | 1 -
->  16 files changed, 35 insertions(+), 11 deletions(-)
+
+
 > 
-> diff --git a/man2/add_key.2 b/man2/add_key.2
-> index 1476b7d85..7c20de777 100644
-> --- a/man2/add_key.2
-> +++ b/man2/add_key.2
-> @@ -22,7 +22,8 @@ add_key \- add a key to the kernel's key management facility
->  .BI "                     key_serial_t " keyring ");"
->  .fi
->  .PP
-> -No glibc wrapper is provided for this system call; see NOTES.
-> +.IR Note :
-> +There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
->  .BR add_key ()
->  creates or updates a key of the given
-> diff --git a/man2/arch_prctl.2 b/man2/arch_prctl.2
-> index 97d5a2fe5..e8a6da391 100644
-> --- a/man2/arch_prctl.2
-> +++ b/man2/arch_prctl.2
-> @@ -33,6 +33,9 @@ arch_prctl \- set architecture-specific thread state
->  .BI "int arch_prctl(int " code ", unsigned long " addr );
->  .BI "int arch_prctl(int " code ", unsigned long *" addr );
->  .fi
-> +.PP
-> +.IR Note :
-> +There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
->  .BR arch_prctl ()
->  sets architecture-specific process or thread state.
-> diff --git a/man2/clone.2 b/man2/clone.2
-> index 0114668ea..0d6565b5d 100644
-> --- a/man2/clone.2
-> +++ b/man2/clone.2
-> @@ -60,7 +60,7 @@ clone, __clone2, clone3 \- create a child process
->  .fi
->  .PP
->  .IR Note :
-> -There is not yet a glibc wrapper for
-> +There is no glibc wrapper for
->  .BR clone3 ();
->  see NOTES.
->  .SH DESCRIPTION
-> diff --git a/man2/delete_module.2 b/man2/delete_module.2
-> index daa15faa2..e63545d51 100644
-> --- a/man2/delete_module.2
-> +++ b/man2/delete_module.2
-> @@ -31,7 +31,7 @@ delete_module \- unload a kernel module
->  .fi
->  .PP
->  .IR Note :
-> -No declaration of this system call is provided in glibc headers; see NOTES.
-> +There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
->  The
->  .BR delete_module ()
-> diff --git a/man2/init_module.2 b/man2/init_module.2
-> index c2675db97..00cf4e948 100644
-> --- a/man2/init_module.2
-> +++ b/man2/init_module.2
-> @@ -37,11 +37,7 @@ init_module, finit_module \- load a kernel module
->  .fi
->  .PP
->  .IR Note :
-> -glibc provides no header file declaration of
-> -.BR init_module ()
-> -and no wrapper function for
-> -.BR finit_module ();
-> -see NOTES.
-> +There are no glibc wrappers for these system calls; see NOTES.
->  .SH DESCRIPTION
->  .BR init_module ()
->  loads an ELF image into kernel space,
-> diff --git a/man2/keyctl.2 b/man2/keyctl.2
-> index 6bf07972d..f37cae8df 100644
-> --- a/man2/keyctl.2
-> +++ b/man2/keyctl.2
-> @@ -45,7 +45,8 @@ keyctl \- manipulate the kernel's key management facility
->  .BI "             __kernel_ulong_t " arg5 );
->  .fi
->  .PP
-> -No glibc wrapper is provided for this system call; see NOTES.
-> +.IR Note :
-> +There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
->  .BR keyctl ()
->  allows user-space programs to perform key manipulation.
-> diff --git a/man2/pidfd_getfd.2 b/man2/pidfd_getfd.2
-> index 1a69c8238..9312b6f92 100644
-> --- a/man2/pidfd_getfd.2
-> +++ b/man2/pidfd_getfd.2
-> @@ -29,6 +29,9 @@ pidfd_getfd \- obtain a duplicate of another process's file descriptor
->  .nf
->  .BI "int pidfd_getfd(int " pidfd ", int " targetfd ", unsigned int " flags );
->  .fi
-> +.PP
-> +.IR Note :
-> +There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
->  The
->  .BR pidfd_getfd ()
-> diff --git a/man2/pidfd_open.2 b/man2/pidfd_open.2
-> index 5b99460e1..1b0c5e0d4 100644
-> --- a/man2/pidfd_open.2
-> +++ b/man2/pidfd_open.2
-> @@ -31,6 +31,9 @@ pidfd_open \- obtain a file descriptor that refers to a process
->  .PP
->  .BI "int pidfd_open(pid_t " pid ", unsigned int " flags );
->  .fi
-> +.PP
-> +.IR Note :
-> +There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
->  The
->  .BR pidfd_open ()
-> diff --git a/man2/pidfd_send_signal.2 b/man2/pidfd_send_signal.2
-> index 6670cf357..ffbfd1796 100644
-> --- a/man2/pidfd_send_signal.2
-> +++ b/man2/pidfd_send_signal.2
-> @@ -32,6 +32,8 @@ pidfd_send_signal \- send a signal to a process specified by a file descriptor
->  .BI "int pidfd_send_signal(int " pidfd ", int " sig ", siginfo_t *" info ,
->  .BI "                      unsigned int " flags );
->  .fi
-> +.IR Note :
-> +There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
->  The
->  .BR pidfd_send_signal ()
-> diff --git a/man2/request_key.2 b/man2/request_key.2
-> index 86f76e43d..6b041d0c4 100644
-> --- a/man2/request_key.2
-> +++ b/man2/request_key.2
-> @@ -22,7 +22,8 @@ request_key \- request a key from the kernel's key management facility
->  .BI "                         key_serial_t " dest_keyring ");"
->  .fi
->  .PP
-> -No glibc wrapper is provided for this system call; see NOTES.
-> +.IR Note :
-> +There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
->  .BR request_key ()
->  attempts to find a key of the given
-> diff --git a/man2/s390_guarded_storage.2 b/man2/s390_guarded_storage.2
-> index b3aef858f..c3ab3bc85 100644
-> --- a/man2/s390_guarded_storage.2
-> +++ b/man2/s390_guarded_storage.2
-> @@ -31,6 +31,9 @@ s390_guarded_storage \- operations with z/Architecture guarded storage facility
->  .PP
->  .BI "int s390_guarded_storage(int " command ", struct gs_cb *" gs_cb ");"
->  .fi
-> +.PP
-> +.IR Note :
-> +There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
->  The
->  .BR s390_guarded_storage ()
-> diff --git a/man2/s390_pci_mmio_write.2 b/man2/s390_pci_mmio_write.2
-> index 802142987..2ccd630ab 100644
-> --- a/man2/s390_pci_mmio_write.2
-> +++ b/man2/s390_pci_mmio_write.2
-> @@ -35,6 +35,9 @@ MMIO memory page
->  .BI "int s390_pci_mmio_read(unsigned long " mmio_addr ","
->  .BI "                        void *" user_buffer ", size_t " length ");"
->  .fi
-> +.PP
-> +.IR Note :
-> +There are no glibc wrappers for these system calls; see NOTES.
->  .SH DESCRIPTION
->  The
->  .BR s390_pci_mmio_write ()
-> diff --git a/man2/s390_runtime_instr.2 b/man2/s390_runtime_instr.2
-> index 558e9c99d..0f4a704de 100644
-> --- a/man2/s390_runtime_instr.2
-> +++ b/man2/s390_runtime_instr.2
-> @@ -31,6 +31,9 @@ s390_runtime_instr \- enable/disable s390 CPU run-time instrumentation
->  .PP
->  .BI "int s390_runtime_instr(int " command ", int " signum ");"
->  .fi
-> +.PP
-> +.IR Note :
-> +There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
->  The
->  .BR s390_runtime_instr ()
-> diff --git a/man2/s390_sthyi.2 b/man2/s390_sthyi.2
-> index 2ff06051a..70871286b 100644
-> --- a/man2/s390_sthyi.2
-> +++ b/man2/s390_sthyi.2
-> @@ -32,6 +32,9 @@ s390_sthyi \- emulate STHYI instruction
->  .BI "int s390_sthyi(unsigned long " function_code ", void *" resp_buffer ","
->  .BI "               uint64_t *" return_code ", unsigned long " flags ");"
->  .fi
-> +.PP
-> +.IR Note :
-> +There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
->  The
->  .BR s390_sthyi ()
-> diff --git a/man2/seccomp.2 b/man2/seccomp.2
-> index 6ac890a2f..4600c51d6 100644
-> --- a/man2/seccomp.2
-> +++ b/man2/seccomp.2
-> @@ -41,6 +41,9 @@ seccomp \- operate on Secure Computing state of the process
->  .BI "int seccomp(unsigned int " operation ", unsigned int " flags \
->  ", void *" args );
->  .fi
-> +.PP
-> +.IR Note :
-> +There is no glibc wrapper for this system call; see NOTES.
->  .SH DESCRIPTION
->  The
->  .BR seccomp ()
-> diff --git a/man2/syslog.2 b/man2/syslog.2
-> index c6d6dcc94..133ba2121 100644
-> --- a/man2/syslog.2
-> +++ b/man2/syslog.2
-> @@ -36,7 +36,6 @@ set console_loglevel
->  .SH SYNOPSIS
->  .nf
->  .BI "int syslog(int " type ", char *" bufp ", int " len );
-> -.B  "                /* No wrapper provided in glibc */"
->  .PP
->  /* The glibc interface */
->  .B "#include <sys/klog.h>"
+> arg5 is checked only upon syscall entry, so it doesn't have any effect
+> on the prctl itself, SUD was off at that time.
+> 
+> I'm not sure how to add this information to the man page, but I will try
+> to clarify it further.
+> 
+>>> +.IP
+>>> +When
+>>> +.I arg2
+>>> +is set to
+>>> +.BR PR_SYS_DISPATCH_ON ,
+>>> +.I arg3
+>>> +and
+>>> +.I arg4
+>>> +respectively identify the
+>>> +.I offset
+>>> +and
+>>> +.I length
+>>> +of a single contiguous memory region in the process map
+>>
+>> Better: s/map/address space/ ?
+>>
+>>> +from where system calls are always allowed to be executed,
+>>> +regardless of the switch variable
+>>
+>> s/variable/variable./
+>>
+>>> +(Typically, this area would include the area of memory
+>>> +containing the C library.)
+>>
+>> I think just to ease readability (smaller paragraphs), insert
+>> .IP
+>> here.
+>>
+>>> +.I arg5
+>>> +points to a char-sized variable
+>>> +that is a fast switch to enable/disable the mechanism
+>>> +without the overhead of doing a system call.
+>>> +The variable pointed by
+>>> +.I arg5
+>>> +can either be set to
+>>> +.B PR_SYS_DISPATCH_ON
+>>> +to enable the mechanism
+>>> +or to
+>>> +.B PR_SYS_DISPATCH_OFF
+>>> +to temporarily disable it.
+>>> +This value is checked by the kernel
+>>> +on every system call entry,
+>>> +and any unexpected value will raise
+>>> +an uncatchable
+>>> +.B SIGSYS
+>>> +at that time,
+>>> +killing the application.
+>>> +.IP
+>>> +When a system call is intercepted,
+>>> +the kernel sends a thread-directed
+>>> +.B SIGSYS
+>>> +signal to the triggering thread.
+>>> +Various fields will be set in the
+>>> +.I siginfo_t
+>>> +structure (see
+>>> +.BR sigaction (2))
+>>> +associated with the signal:
+>>> +.RS
+>>> +.IP * 3
+>>> +.I si_signo
+>>> +will contain
+>>> +.BR SIGSYS .
+>>> +.IP *
+>>> +.IR si_call_addr
+>>> +will show the address of the system call instruction.
+>>> +.IP *
+>>> +.IR si_syscall
+>>> +and
+>>> +.IR si_arch
+>>> +will indicate which system call was attempted.
+>>> +.IP *
+>>> +.I si_code
+>>> +will contain
+>>> +.BR SYS_USER_DISPATCH .
+>>> +.IP *
+>>> +.I si_errno
+>>> +will be set to 0.
+>>> +.RE
+>>> +.IP
+>>> +The program counter will be as though the system call happened
+>>> +(i.e., the program counter will not point to the system call instruction).
+>>> +.IP
+>>> +When the signal handler returns to the kernel,
+>>> +the system call completes immediately
+>>> +and returns to the calling thread,
+>>> +without actually being executed.
+>>> +If necessary
+>>> +(i.e., when emulating the system call on user space.),
+>>> +the signal handler should set the system call return value
+>>> +to a sane value,
+>>> +by modifying the register context stored in the
+>>> +.I ucontext
+>>> +argument of the signal handler.
+>>
+>> Just for my own education, do you have any example code somewhere
+>> that demonstrates setting the syscall return value?
+> 
+> I though I had this exemplified in the kselftests, but I just saw that
+> is not the case.  Something to fix there...
+> 
+> In the following signal handler code (untested, adapted from an old test
+> case of mine), SUD is used as a poor-man strace (x86 specific):
+> 
+> static void handle_sigsys(int sig, siginfo_t *info, void *ucontext)
+> {
+> 	struct ucontext_t *ctx = ucontext;
+> 	mcontext_t *mctx = &ctx->uc_mcontext;
+> 	char buf[1024];
+> 	unsigned long long r;
+>        	int len;
+> 
+>         *arg5 = PR_SYS_DISPATCH_OFF;
+> 
+> 	len = snprintf(buf, 1024, "sys_%d(%d,%d,%d,%d,%d,%d)\n",
+> 		       mctx->gregs[REG_RAX], mctx->gregs[REG_RDI],
+> 		       mctx->gregs[REG_RSI], mctx->gregs[REG_RDX],
+> 		       mctx->gregs[REG_R10], mctx->gregs[REG_R8],
+> 		       mctx->gregs[REG_R9]);
+> 
+> 	write(2, buf, len);
+> 
+> 	r = syscall(mctx->gregs[REG_RAX], mctx->gregs[REG_RDI],
+> 		    mctx->gregs[REG_RSI], mctx->gregs[REG_RDX],
+> 		    mctx->gregs[REG_R10], mctx->gregs[REG_R8],
+> 		    mctx->gregs[REG_R9]);
+> 
+> 	/* Set the return value. */
+> 	mctx->gregs[REG_RAX] = r;
+> 
+>         *arg5 = PR_SYS_DISPATCH_ON;
+> 
+>         /* Assumes the return trampoline is in the allowed region */
+> }
 > 
 
 
