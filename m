@@ -2,65 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DA3EF2E7D27
-	for <lists+linux-man@lfdr.de>; Thu, 31 Dec 2020 00:23:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B04342E7D2A
+	for <lists+linux-man@lfdr.de>; Thu, 31 Dec 2020 00:25:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726363AbgL3XXX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 30 Dec 2020 18:23:23 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50504 "EHLO
+        id S1726333AbgL3XYz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 30 Dec 2020 18:24:55 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50740 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726352AbgL3XXW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Dec 2020 18:23:22 -0500
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 62521C061575
-        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 15:22:42 -0800 (PST)
-Received: by mail-wm1-x32b.google.com with SMTP id c133so6142173wme.4
-        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 15:22:42 -0800 (PST)
+        with ESMTP id S1726302AbgL3XYz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Dec 2020 18:24:55 -0500
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4021BC061573
+        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 15:24:15 -0800 (PST)
+Received: by mail-wr1-x42a.google.com with SMTP id q18so18838864wrn.1
+        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 15:24:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=O7W15NDqOL5vA+8cerLvLZZu7XSwEu/gI8MmgJoWMkY=;
-        b=QKSHsA1wR/w1sME7JKSqjZ0CiaU1p2I3lQx1Hoqgyucz31swfcywjqWoaFYVjVFVvp
-         YVsMiXUPzMpOe0JTAOJgDoMBwtiN7GfuPQVAwDsoIi0iyn/jZicOtyk9HQIqOP9atTft
-         sAmoNwX2ZjWDpICtMYQZ8YKqvGE7IpDggngi62RoWlE10J404pyaqZcIm4WGcfEdvy36
-         T0pbnXsFsBB/sjQ2RQyLwv0EeZ43P0v24gJu3Ggs91+m+AhV8+90TSfn933F5oJ97WdS
-         7LI0M6t5FQ8JQ3jlCy3JFwboFyfmTmtbeDcs3FzhNdbskrTd4PMJFeXpad/0rhUOtrDP
-         qhPA==
+        bh=gPKLQ6fBMNxEsNWWM20HD7JaRSbtz+1LOI8DAH4BJKg=;
+        b=upmuKl6apNU1DbqQB+D31wMfQIdjzgKBWYfNWFvOkAEXVWt1dV7aN1dsNpaaGtf70h
+         VDkZYyBnJpEEM71gOgDVZY3CNZsddcAuVu0RgfQVO5mnK0YpPQjUHZmKrJyqNlpenZaG
+         XzWlrPRKT2ak/CMZk/nzYwkHI2m18PBPEnjEMb1BNiko1x6rrwtGxpRzp/zl2756gnX4
+         FYgmZl1q8u32dSffwQrrlhmCCQClJXv4UvttkhHsWcSbaC6Qf6Sq0yUT4y9Bvaw1xylc
+         kX1yRmLnsJv/QVG4hqtKGIJUBFasLbqi5eSI+bxWpqXDg9XW1qiakuPmjI3Q9v/8eFET
+         jKDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=O7W15NDqOL5vA+8cerLvLZZu7XSwEu/gI8MmgJoWMkY=;
-        b=PWJZKIuqo7tM4zSRJgv0kUftCbi3C2OOxUes2ZRIjJ0M2c4vkByknfsbQDEj6EzAKz
-         RwRu0r40d5Ju3t7hDFJtxyRLjmNlyrkKRfM02AIw31oH75aqnEgtKBCOJHqmUZ+4JCAZ
-         U/jRKSGnjXWQno3TXnRsZVKQ909iNTChWessY6fQRdD+ZifQyyJc5hWnMehOOWFCe1FM
-         hd6dLOumoq09/FYS7q9KEtHiesbFsmNhAa2DnR/AZTvIppPCPMApGwzK8QRMDH9uNJf9
-         K+o4XvYE7MpZwtuLJLyVm1nPxQGQ095eR9iT7ZuOW6tgVXnOpjI9LjMhzVOGjPBuQdGx
-         H2Sg==
-X-Gm-Message-State: AOAM530Kx69ufValFt3yP9/LXZEb2+6G2gr75/gXg0TVpARrMojL48kX
-        edoFsDaY7F/0uOb7x9SzvNY=
-X-Google-Smtp-Source: ABdhPJxGXBo/1OcdHtPmAPoQUQAXpGtg5QT/WV8yfOcTLbKnmnIRCLc1H2LYtl43zhJI7nR1nNPc5w==
-X-Received: by 2002:a1c:7909:: with SMTP id l9mr9475624wme.120.1609370561237;
-        Wed, 30 Dec 2020 15:22:41 -0800 (PST)
+        bh=gPKLQ6fBMNxEsNWWM20HD7JaRSbtz+1LOI8DAH4BJKg=;
+        b=da2NXL8QKtYxTz7lRaBLQExROVcKYxpfI/wLR3FWvs7miI2pCJfVvKSd3ycMQC0F/f
+         dPYeZz0M/u2FPglqwfB4GxzgJPscUfasayHLQEHxoErxJS8OyGJ2/SNaTlWs7RDpVfml
+         l+dA+ld0/BFzFEKIZ285S731aUtRNs/572MA1hAuShjJlxg/HRdYA33HpKan/j+TT/Oy
+         dZ+KO4Wx3jlcR3yWQRSo3kt6bK6sdOP/SWDHHRFg0Uc+Zlo1NvvHET1G3/jUPcd+jjgr
+         jZk9IQW10MVUA94PlI6bIntSk19dU+r9gmmw1a21yuRKDD9P26XP949oL/mdymK9ze5v
+         NbfQ==
+X-Gm-Message-State: AOAM5322V5tfWBHNk2CkZkEMZxawy7Ih9xIM3t6iSyt7RKFuVmbJ8pO9
+        2juEVmbE5UqjpMt6He2E9SdGKANEsic=
+X-Google-Smtp-Source: ABdhPJzyNrkxMnzFoRYFUS1tExU7TrfTNW1zvAslijD5+8+bj9THdgGyif0AS297xkO+WVLRzo6z9A==
+X-Received: by 2002:a5d:674b:: with SMTP id l11mr64488491wrw.247.1609370653997;
+        Wed, 30 Dec 2020 15:24:13 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.49.0])
-        by smtp.gmail.com with ESMTPSA id d191sm8685342wmd.24.2020.12.30.15.22.40
+        by smtp.gmail.com with ESMTPSA id t188sm8534940wmf.9.2020.12.30.15.24.13
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Dec 2020 15:22:40 -0800 (PST)
-Subject: Re: [PATCH] get_phys_pages.3: glibc gets the info from sysinfo(2)
- since 2.23
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
-References: <20201230214147.874671-7-alx.manpages@gmail.com>
- <ff303eb6-ffd0-8567-1a72-72fd86671f0e@gmail.com>
+        Wed, 30 Dec 2020 15:24:13 -0800 (PST)
+Subject: Re: [PATCH] Various pages: Consistently use 'unsigned int'
+To:     mtk.manpages@gmail.com
+Cc:     linux-man <linux-man@vger.kernel.org>
+References: <20201230214147.874671-2-alx.manpages@gmail.com>
+ <CAKgNAkhFQ1R5-z5ERE1kzS=wiALK220UfLYONRh+zp34E0EFwQ@mail.gmail.com>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <e87f1058-ef2c-e0eb-8d12-a63c20aef2e5@gmail.com>
-Date:   Thu, 31 Dec 2020 00:22:40 +0100
+Message-ID: <3e83212e-cab0-1746-b0a2-e9115ba9ef44@gmail.com>
+Date:   Thu, 31 Dec 2020 00:24:12 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <ff303eb6-ffd0-8567-1a72-72fd86671f0e@gmail.com>
+In-Reply-To: <CAKgNAkhFQ1R5-z5ERE1kzS=wiALK220UfLYONRh+zp34E0EFwQ@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -70,72 +69,167 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 
 
-On 12/30/20 11:40 PM, Michael Kerrisk (man-pages) wrote:
-> Hi Alewx,
+On 12/30/20 11:34 PM, Michael Kerrisk (man-pages) wrote:
+> Hi Alex,
 > 
-> On 12/30/20 10:41 PM, Alejandro Colomar wrote:
->> See glibc's commit: 0ce657c576bf1b24
->> https://sourceware.org/git/?p=glibc.git;a=commitdiff;h=0ce657c576bf1b24
+> On Wed, 30 Dec 2020 at 22:42, Alejandro Colomar <alx.manpages@gmail.com> wrote:
 >>
->> Reported-by: Jakub Wilk <jwilk@jwilk.net>
->> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
->> ---
->>  man3/get_phys_pages.3 | 13 +++++++++----
->>  1 file changed, 9 insertions(+), 4 deletions(-)
->>
->> diff --git a/man3/get_phys_pages.3 b/man3/get_phys_pages.3
->> index 35f83fedb..a8a1ce3f4 100644
->> --- a/man3/get_phys_pages.3
->> +++ b/man3/get_phys_pages.3
->> @@ -55,15 +55,20 @@ The system could not provide the required information
->>  (possibly because the
->>  .I /proc
->>  filesystem was not mounted).
->> -.SH CONFORMING TO
->> -These functions are GNU extensions.
->> -.SH NOTES
->> -These functions obtain the required information by scanning the
->> +.SH VERSIONS
->> +Before glibc 2.23,
->> +these functions obtained the required information by scanning the
->>  .I MemTotal
->>  and
->>  .I MemFree
->>  fields of
->>  .IR /proc/meminfo .
+>> $ find man? -type f \
+>>   |xargs sed -i \
+>>         -e 's/unsigned \*/unsigned int */g'
+>>         -e 's/unsigned "/unsigned int "/g';
 > 
-> Thanks for the patch. But I think it would be better to put 
-> all the info into NOTES, rather than splitting some out into
-> VERSIONS.
+> The patch is fine in my opinion, but the commit message needs work.
+> Something like:
 > 
->> +.SH CONFORMING TO
->> +These functions are GNU extensions.
+> 1. Most pages use 'unsigned int'; make them all do so.
+> 2. Explicit 'unsigned int' is clearer than 'unsigned'.
 > 
-> And it's good to add this, but let's make it a separate patch.
 
-Hi Michael,
+Agree.
+I wasn't convinced by my commit msg,
+but didn't come up with a good one (:
+I'll fix it tomorrow.
 
-I didn't add that.
-This is one of those times when git provides unreadable diffs.
-Please have a closer look at the diff,
-and also at the rendered output.
-
-Thanks,
+Cheers,
 
 Alex
 
-> 
->> +.SH NOTES
->> +Since glibc 2.23,
->> +these functions obtain the required information by calling
->> +.BR sysinfo (2).
->>  .PP
->>  The following
->>  .BR sysconf (3)
-> 
-> 
 > Thanks,
 > 
 > Michael
+> 
+>>
+>> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+>> ---
+>>  man2/getcpu.2     | 4 ++--
+>>  man2/io_setup.2   | 2 +-
+>>  man2/mbind.2      | 2 +-
+>>  man3/cfree.3      | 2 +-
+>>  man3/des_crypt.3  | 8 ++++----
+>>  man3/getrpcport.3 | 2 +-
+>>  man3/random.3     | 4 ++--
+>>  man3/xdr.3        | 2 +-
+>>  8 files changed, 13 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/man2/getcpu.2 b/man2/getcpu.2
+>> index fc36b43b5..46e4d53ff 100644
+>> --- a/man2/getcpu.2
+>> +++ b/man2/getcpu.2
+>> @@ -16,8 +16,8 @@ getcpu \- determine CPU and NUMA node on which the calling thread is running
+>>  .nf
+>>  .B #include <linux/getcpu.h>
+>>  .PP
+>> -.BI "int getcpu(unsigned *" cpu ", unsigned *" node \
+>> -", struct getcpu_cache *" tcache );
+>> +.BI "int getcpu(unsigned int *" cpu ", unsigned int *" node ,
+>> +.BI "           struct getcpu_cache *" tcache );
+>>  .fi
+>>  .SH DESCRIPTION
+>>  The
+>> diff --git a/man2/io_setup.2 b/man2/io_setup.2
+>> index e08d19bb8..bd52a5311 100644
+>> --- a/man2/io_setup.2
+>> +++ b/man2/io_setup.2
+>> @@ -11,7 +11,7 @@ io_setup \- create an asynchronous I/O context
+>>  .nf
+>>  .BR "#include <linux/aio_abi.h>" "          /* Defines needed types */"
+>>  .PP
+>> -.BI "long io_setup(unsigned " nr_events ", aio_context_t *" ctx_idp );
+>> +.BI "long io_setup(unsigned int " nr_events ", aio_context_t *" ctx_idp );
+>>  .fi
+>>  .PP
+>>  .IR Note :
+>> diff --git a/man2/mbind.2 b/man2/mbind.2
+>> index bf66dfc6c..d98969e7f 100644
+>> --- a/man2/mbind.2
+>> +++ b/man2/mbind.2
+>> @@ -41,7 +41,7 @@ mbind \- set memory policy for a memory range
+>>  .PP
+>>  .BI "long mbind(void *" addr ", unsigned long " len  ", int " mode ,
+>>  .BI "           const unsigned long *" nodemask  ", unsigned long " maxnode ,
+>> -.BI "           unsigned " flags );
+>> +.BI "           unsigned int " flags );
+>>  .PP
+>>  Link with \fI\-lnuma\fP.
+>>  .fi
+>> diff --git a/man3/cfree.3 b/man3/cfree.3
+>> index 2a09527a7..74223db71 100644
+>> --- a/man3/cfree.3
+>> +++ b/man3/cfree.3
+>> @@ -36,7 +36,7 @@ cfree \- free allocated memory
+>>  .BI "void cfree(void *" ptr );
+>>  .PP
+>>  /* In SCO OpenServer */
+>> -.BI "void cfree(char *" ptr ", unsigned " num ", unsigned " size );
+>> +.BI "void cfree(char *" ptr ", unsigned int " num ", unsigned int " size );
+>>  .PP
+>>  /* In Solaris watchmalloc.so.1 */
+>>  .BI "void cfree(void *" ptr ", size_t " nelem ", size_t " elsize );
+>> diff --git a/man3/des_crypt.3 b/man3/des_crypt.3
+>> index 7f34c1585..66fe78337 100644
+>> --- a/man3/des_crypt.3
+>> +++ b/man3/des_crypt.3
+>> @@ -21,11 +21,11 @@ DES encryption
+>>  .\" .B #include <des_crypt.h>
+>>  .B #include <rpc/des_crypt.h>
+>>  .PP
+>> -.BI "int ecb_crypt(char *" key ", char *" data ", unsigned " datalen ,
+>> -.BI "              unsigned " mode );
+>> +.BI "int ecb_crypt(char *" key ", char *" data ", unsigned int " datalen ,
+>> +.BI "              unsigned int " mode );
+>>  .PP
+>> -.BI "int cbc_crypt(char *" key ", char *" data ", unsigned " datalen ,
+>> -.BI "              unsigned " mode ", char *" ivec );
+>> +.BI "int cbc_crypt(char *" key ", char *" data ", unsigned int " datalen ,
+>> +.BI "              unsigned int " mode ", char *" ivec );
+>>  .PP
+>>  .BI "void des_setparity(char *" key );
+>>  .PP
+>> diff --git a/man3/getrpcport.3 b/man3/getrpcport.3
+>> index 2eba5d30a..d5753d39b 100644
+>> --- a/man3/getrpcport.3
+>> +++ b/man3/getrpcport.3
+>> @@ -13,7 +13,7 @@ getrpcport \- get RPC port number
+>>  .B "#include <rpc/rpc.h>"
+>>  .PP
+>>  .BI "int getrpcport(const char *" host ", unsigned long " prognum ,
+>> -.BI "               unsigned long " versnum ", unsigned " proto );
+>> +.BI "               unsigned long " versnum ", unsigned int " proto );
+>>  .fi
+>>  .SH DESCRIPTION
+>>  .BR getrpcport ()
+>> diff --git a/man3/random.3 b/man3/random.3
+>> index 33d15316b..9ea6fce3f 100644
+>> --- a/man3/random.3
+>> +++ b/man3/random.3
+>> @@ -39,9 +39,9 @@ random, srandom, initstate, setstate \- random number generator
+>>  .PP
+>>  .B long random(void);
+>>  .PP
+>> -.BI "void srandom(unsigned " seed );
+>> +.BI "void srandom(unsigned int " seed );
+>>  .PP
+>> -.BI "char *initstate(unsigned " seed ", char *" state ", size_t " n );
+>> +.BI "char *initstate(unsigned int " seed ", char *" state ", size_t " n );
+>>  .PP
+>>  .BI "char *setstate(char *" state );
+>>  .fi
+>> diff --git a/man3/xdr.3 b/man3/xdr.3
+>> index 713827567..978a50660 100644
+>> --- a/man3/xdr.3
+>> +++ b/man3/xdr.3
+>> @@ -433,7 +433,7 @@ C characters and their external representations.
+>>  This routine returns one if it succeeds, zero otherwise.
+>>  .PP
+>>  .nf
+>> -.BI "bool_t xdr_u_int(XDR *" xdrs ", unsigned *" up );
+>> +.BI "bool_t xdr_u_int(XDR *" xdrs ", unsigned int *" up );
+>>  .fi
+>>  .IP
+>>  A filter primitive that translates between C
+>> --
+>> 2.29.2
+>>
 > 
 > 
