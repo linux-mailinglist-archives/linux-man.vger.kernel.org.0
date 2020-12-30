@@ -2,119 +2,262 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9B3312E777F
-	for <lists+linux-man@lfdr.de>; Wed, 30 Dec 2020 10:40:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 695022E77BF
+	for <lists+linux-man@lfdr.de>; Wed, 30 Dec 2020 11:25:06 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726491AbgL3Jjk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 30 Dec 2020 04:39:40 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37062 "EHLO
+        id S1726333AbgL3KYu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 30 Dec 2020 05:24:50 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44000 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726214AbgL3Jjk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Dec 2020 04:39:40 -0500
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com [IPv6:2607:f8b0:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1E034C061799
-        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 01:39:00 -0800 (PST)
-Received: by mail-ot1-x32c.google.com with SMTP id n42so14931110ota.12
-        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 01:39:00 -0800 (PST)
+        with ESMTP id S1726328AbgL3KYu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Dec 2020 05:24:50 -0500
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com [IPv6:2a00:1450:4864:20::629])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E430AC061799
+        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 02:24:09 -0800 (PST)
+Received: by mail-ej1-x629.google.com with SMTP id 6so21344439ejz.5
+        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 02:24:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=HemLgkhqvhQ4sPfitVTBVT3TVAIWSRN0bvh1ElMzhAw=;
-        b=mibaMDhqaw1N8xdoP+CI2GIAP1lFJMJ1z/tB/Ol08fHDhIWFdRe8edRDlO/5CbR0eG
-         SU3qZ7pdgcRkgJ7gTE1TkxsYPF8ev+CCY6U4nR1CNokXq3lEOuADQKDKFWWboS+PvKyp
-         ht0U+rzKo0VPVM3vEiM0FRfgmYtWE5KFo5X/Ef7MhBsIExSPqZ85wbJoMIBG45RvmKvt
-         8cXEMB/Z2XQTZgYoH3w9twhrn59djoeoLEkd8HhC/qaSdHW5bgllLjXZGC3opYU+cgn6
-         j2VwHRNMpYa1DXtD3HagHuONqtmY8tFWqjxcohnjc7/f51lRA7dmyw1OHb2dVnmGamTR
-         w+4g==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=zFtYS5vhI6OjrK3RiNyXuHVCZ9az6fOLywyktMEMn8k=;
+        b=EquxMPH7NermL6DBV6Dg8UbKpAc7n9Gb8TOVOJSzk8qfRvEpLkST7FNhY6byC1yNQS
+         OT4iuid6dDBvdq4JcH8ymwBbLb0LKuK/Hq6iHBWqnHqYjskdp1pZC/ts3mzAkgEj8CBW
+         mytHKPaX65IUt/UfljYpHmJ6Isigdwsq0wS1Oeo/YvsClfHyTGReH99lxvHDhQWtw9Hu
+         eA5izr8dF8S/+6QsdJBpYLvHrcqvPNIrO6bSF2DZNkP/I+AUBJBWSslXUbh70suZKDGp
+         dmGuw/OmLVcf11ALsRNdkVa/QnPXT25DUKJ3bbRLfxMNMxLL3NAFgSrgpySP13dKqwHD
+         9vkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=HemLgkhqvhQ4sPfitVTBVT3TVAIWSRN0bvh1ElMzhAw=;
-        b=fsdEd5OUh3s5fKdtvxG2owuAy43bve0AtXblFbtzqG//fFVFtzzjK36h3xdP7VlwVL
-         jJPPlD7wOySHp3FeE982QnEdQnmd2R39L5LhYIbdoFLD7R8KXo9iNpZeqQ3E2Tc+O+ia
-         J9uUDNt5aY1AzWlA3ShW6C7WiTfKH8cSrmxhObp/gTsK58GQb/kyFZUlqQBkWR62z28q
-         u4R8QPERHiepQa/S6doegbP2J7SAQuvcbJOavDHlk6g1nywy0H53X1oI1DnpKIFqV3Qa
-         +dGJ7u0y3EdKueoBxIOsVdTmORRkZWQbGz5MrJjzdy4C0l9vJ1BMgjE5ETT/0K9ZuZwX
-         f0lg==
-X-Gm-Message-State: AOAM530QYXF6laHVRrKeExGOeEsqFxvwiRIhF3sgAwhtBaRSBFPb/qyb
-        njcEkj1GjzDa3RFS+F97G6FPgC8o4VLb9Cgbcbw=
-X-Google-Smtp-Source: ABdhPJwd5TbZ9BBZSBI/HSjad9sBNnwwq2m5a49L9z7IfbIBdzGLK/96e0cvmVvwRWZejLZstHhv92iZxYiGY3u+s3I=
-X-Received: by 2002:a9d:7490:: with SMTP id t16mr38570392otk.323.1609321139580;
- Wed, 30 Dec 2020 01:38:59 -0800 (PST)
-MIME-Version: 1.0
-References: <20201229143859.17473-1-alx.manpages@gmail.com>
- <20201229143859.17473-3-alx.manpages@gmail.com> <CAKgNAkgiZiycjW3r=-LTzV0g1CyboYokqcgQbe9hYRT6MWjUTg@mail.gmail.com>
- <842d4263-0fd5-ea70-bac0-1f4abd405c20@gmail.com>
-In-Reply-To: <842d4263-0fd5-ea70-bac0-1f4abd405c20@gmail.com>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=zFtYS5vhI6OjrK3RiNyXuHVCZ9az6fOLywyktMEMn8k=;
+        b=aDHsO6speiUqcrSklUs0pu3dcRh8bAYGxcQtx9kgIecgztW+R1leKsvPdKmWF48NzH
+         XbncPwyiVfgz1S94FHd94v5+KgqWQA3zSgcEG2h1s7n6tisHNbZZNH8DJF5cgbhyMSYN
+         wEruZIxtNaXsmAYG2pRbqeBqVgHWKaa7EWDOBJwDfro1iysHP2CB8zbkKkROebg2Aa0E
+         SUQ4R3ZEqb68VGPLd9Zm3jlM1LoPxOxNPDLMlhQ6pdQMf1qePe5Y700lCIk3lPfR/FEy
+         kzGSJiIvupxeUi2fuXc/lhlMb+/wOJOvPG98dcp7WrffzpvsFiZL1+HP97Zm08Pkxb28
+         hF7Q==
+X-Gm-Message-State: AOAM531ATgOGwr/Srxjo7HbqB4z71k/XcGG6TkMuG84Z8UdMQuM01d8P
+        bAYdvJcQ8RWsymKyBiF0+4t4GjKF1So=
+X-Google-Smtp-Source: ABdhPJy6DslP3PX5Gu87G7gymccizJ4nwzjdrrKlWucyD8DN7czS4J0/kciqxAyNz95MM9OcUOMoWQ==
+X-Received: by 2002:a17:907:3e17:: with SMTP id hp23mr48090976ejc.545.1609323846914;
+        Wed, 30 Dec 2020 02:24:06 -0800 (PST)
+Received: from ?IPv6:2001:a61:2467:2f01:faca:3d43:5e40:30d1? ([2001:a61:2467:2f01:faca:3d43:5e40:30d1])
+        by smtp.gmail.com with ESMTPSA id g10sm37974875edu.97.2020.12.30.02.24.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Dec 2020 02:24:05 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        kernel@collabora.com
+Subject: Re: [PATCH v6] prctl.2: Document Syscall User Dispatch
+To:     Gabriel Krisman Bertazi <krisman@collabora.com>,
+        alx.manpages@gmail.com
+References: <20201228173832.347794-1-krisman@collabora.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Wed, 30 Dec 2020 10:38:48 +0100
-Message-ID: <CAKgNAkgfoTbzRP4T5c4AwPN8KVH5cAGakZDeyHO4g9EMX+CKow@mail.gmail.com>
-Subject: Re: [PATCH 2/2] Various pages: Normalize NOTES about non-existing
- glibc wrappers
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     Ganimedes Colomar <gacoan.linux@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <5da9a8bc-e034-1ab4-3f87-328108c1b27d@gmail.com>
+Date:   Wed, 30 Dec 2020 11:24:04 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
+MIME-Version: 1.0
+In-Reply-To: <20201228173832.347794-1-krisman@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+Hello Gabriel
 
-On Tue, 29 Dec 2020 at 21:53, Alejandro Colomar (man-pages)
-<alx.manpages@gmail.com> wrote:
->
-> Hi Michael,
->
-> Please, see a comment below.
->
-> Thanks,
->
-> Alex
->
-> On 12/29/20 9:32 PM, Michael Kerrisk (man-pages) wrote:
-> > Hi Alex, Ganimedes,
-> >
-> > Again, in the subject line, s/
-> >
-> > non-existing/nonexistent/
-> >
-> > [...]
-> >
-> >> --- a/man2/getdents.2
-> >> +++ b/man2/getdents.2
-> >> @@ -211,13 +211,13 @@ SVr4.
-> >>  Library support for
-> >>  .BR getdents64 ()
-> >>  was added in glibc 2.30;
-> >> -there is no glibc wrapper for
-> >> -.BR getdents ().
-> >> -Calling
-> >> +Glibc does not provide a wrapper for
-> >> +.BR getdents ();
-> >> +call
-> >
-> > s/call/calling/
->
-> See below
->
-> >
-> >>  .BR getdents ()
-> >>  (or
-> >>  .BR getdents64 ()
-> >> -on earlier glibc versions) requires the use of
-> >> +on earlier glibc versions) using
->
-> The new version is 'Call XXX using syscall(2).'.
+This is looking much better. Thank you! I have a few more
+comments still.
 
-I need more context here please. What do you mean with "The new version"?
+On 12/28/20 6:38 PM, Gabriel Krisman Bertazi wrote:
+> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
+> 
+> ---
+> Changes since v5:
+> (suggested by Michael Kerrisk)
+>   - Change () punctuation
+>   - fix grammar
+>   - Add information about interception, return and return value
+> 
+> Changes since v4:
+> (suggested by Michael Kerrisk)
+>   - Modify explanation of what dispatch to user space means.
+>   - Drop references to emulation.
+>   - Document suggestion about placing libc in allowed-region.
+>   - Comment about avoiding syscall cost.
+> Changes since v3:
+> (suggested by Michael Kerrisk)
+>   - Explain what dispatch to user space means.
+>   - Document the fact that the memory region is a single consecutive
+>   range.
+>   - Explain failure if *arg5 is set to a bad value.
+>   - fix english typo.
+>   - Define what 'invalid memory region' means.
+> 
+> Changes since v2:
+> (suggested by Alejandro Colomar)
+>   - selective -> selectively
+>   - Add missing oxford comma.
+> 
+> Changes since v1:
+> (suggested by Alejandro Colomar)
+>   - Use semantic lines
+>   - Fix usage of .{B|I}R and .{B|I}
+>   - Don't format literals
+>   - Fix preferred spelling of userspace
+>   - Fix case of word
+> ---
+>  man2/prctl.2 | 159 +++++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 159 insertions(+)
+> 
+> diff --git a/man2/prctl.2 b/man2/prctl.2
+> index f25f05fdb593..0a0abfb78055 100644
+> --- a/man2/prctl.2
+> +++ b/man2/prctl.2
+> @@ -1533,6 +1533,135 @@ For more information, see the kernel source file
+>  (or
+>  .I Documentation/arm64/sve.txt
+>  before Linux 5.3).
+> +.TP
+> +.\" prctl PR_SET_SYSCALL_USER_DISPATCH
+> +.\" commit 1446e1df9eb183fdf81c3f0715402f1d7595d4
+> +.BR PR_SET_SYSCALL_USER_DISPATCH " (since Linux 5.11, x86 only)"
+> +.IP
+> +Configure the Syscall User Dispatch mechanism
+> +for the calling thread.
+> +This mechanism allows an application
+> +to selectively intercept system calls
+> +so that they can be handled within the application itself.
+> +Interception takes the form of a thread-directed
+> +.B SIGSYS
+> +signal that is delivered to the thread
+> +when it makes a system call.
+> +If intercepted,
+> +the system call is not executed by the kernel.
+> +.IP
+> +The current Syscall User Dispatch mode is selected via
+> +.IR arg2 ,
+> +which can either be set to
+> +.B PR_SYS_DISPATCH_ON
+> +to enable the feature,
+> +or to
+> +.B PR_SYS_DISPATCH_OFF
+> +to turn it off.
+
+So, I realize now that I'm slightly confused.
+
+The value of arg2 can be either PR_SYS_DISPATCH_ON or
+PR_SYS_DISPATCH_OFF. The value of the selector pointed to by
+arg5 can likewise be R_SYS_DISPATCH_ON or PR_SYS_DISPATCH_OFF.
+What is the relationship between these two attributes? For example,
+what does it mean if arg2 isP R_SYS_DISPATCH_ON and, at the time of
+the prctl() call, the selector has the value PR_SYS_DISPATCH_OFF?
+
+> +.IP
+> +When
+> +.I arg2
+> +is set to
+> +.BR PR_SYS_DISPATCH_ON ,
+> +.I arg3
+> +and
+> +.I arg4
+> +respectively identify the
+> +.I offset
+> +and
+> +.I length
+> +of a single contiguous memory region in the process map
+
+Better: s/map/address space/ ?
+
+> +from where system calls are always allowed to be executed,
+> +regardless of the switch variable
+
+s/variable/variable./
+
+> +(Typically, this area would include the area of memory
+> +containing the C library.)
+
+I think just to ease readability (smaller paragraphs), insert
+.IP
+here.
+
+> +.I arg5
+> +points to a char-sized variable
+> +that is a fast switch to enable/disable the mechanism
+> +without the overhead of doing a system call.
+> +The variable pointed by
+> +.I arg5
+> +can either be set to
+> +.B PR_SYS_DISPATCH_ON
+> +to enable the mechanism
+> +or to
+> +.B PR_SYS_DISPATCH_OFF
+> +to temporarily disable it.
+> +This value is checked by the kernel
+> +on every system call entry,
+> +and any unexpected value will raise
+> +an uncatchable
+> +.B SIGSYS
+> +at that time,
+> +killing the application.
+> +.IP
+> +When a system call is intercepted,
+> +the kernel sends a thread-directed
+> +.B SIGSYS
+> +signal to the triggering thread.
+> +Various fields will be set in the
+> +.I siginfo_t
+> +structure (see
+> +.BR sigaction (2))
+> +associated with the signal:
+> +.RS
+> +.IP * 3
+> +.I si_signo
+> +will contain
+> +.BR SIGSYS .
+> +.IP *
+> +.IR si_call_addr
+> +will show the address of the system call instruction.
+> +.IP *
+> +.IR si_syscall
+> +and
+> +.IR si_arch
+> +will indicate which system call was attempted.
+> +.IP *
+> +.I si_code
+> +will contain
+> +.BR SYS_USER_DISPATCH .
+> +.IP *
+> +.I si_errno
+> +will be set to 0.
+> +.RE
+> +.IP
+> +The program counter will be as though the system call happened
+> +(i.e., the program counter will not point to the system call instruction).
+> +.IP
+> +When the signal handler returns to the kernel,
+> +the system call completes immediately
+> +and returns to the calling thread,
+> +without actually being executed.
+> +If necessary
+> +(i.e., when emulating the system call on user space.),
+> +the signal handler should set the system call return value
+> +to a sane value,
+> +by modifying the register context stored in the
+> +.I ucontext
+> +argument of the signal handler.
+
+Just for my own education, do you have any example code somewhere
+that demonstrates setting the syscall return value?
 
 Thanks,
 
 Michael
+
 
 
 -- 
