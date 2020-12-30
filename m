@@ -2,132 +2,131 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EDFAC2E79B9
-	for <lists+linux-man@lfdr.de>; Wed, 30 Dec 2020 14:36:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 237B72E79D8
+	for <lists+linux-man@lfdr.de>; Wed, 30 Dec 2020 14:57:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726412AbgL3NgY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 30 Dec 2020 08:36:24 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45182 "EHLO
+        id S1726689AbgL3N5b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 30 Dec 2020 08:57:31 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48464 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726539AbgL3NgY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Dec 2020 08:36:24 -0500
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com [IPv6:2a00:1450:4864:20::62a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BB5E8C06179C
-        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 05:35:24 -0800 (PST)
-Received: by mail-ej1-x62a.google.com with SMTP id ga15so21926597ejb.4
-        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 05:35:24 -0800 (PST)
+        with ESMTP id S1726547AbgL3N5b (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Dec 2020 08:57:31 -0500
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com [IPv6:2a00:1450:4864:20::52b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0C7A9C061799
+        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 05:56:51 -0800 (PST)
+Received: by mail-ed1-x52b.google.com with SMTP id b73so15444270edf.13
+        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 05:56:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=hhVDFcTiAsOUWOg0Qp3Sas26/ERM11GbtAzcPnz3rHo=;
-        b=UMpcCWBri4a94enC2jzC8X9bLXLnPPc8Th243dzLDXu8ahgnc/iD/ztCTbVr1xnWtW
-         DLz4IerCyemHf6C6usiCBunVnINnRVU/NmY/DsLu1NbF/jEz7MpguJuTIXOPVfV3iJOF
-         m5buAparA3V3SuvGlrEROcMgNGGTUh0VW+Mh51MmFkNub54lTm4jLIMoJcveeevtks4a
-         i7PxalqtWsCf2ntuw9pjMMbjCuxd6rAL3D1TWnIJqTR50YD1iZ3x11xPWjihhj/OFVQv
-         oxW2fm0zQ8kwB7+gx0McywPh3pNDP+L33Kc0a9UvnpVRluFgIwCKlgCPoZG2jvuhoVXW
-         J/ww==
+        bh=R8tq2yJ2zyPeOMR53rw+Ay6/eBTIBZbFhCUrbnvml3s=;
+        b=RyR3WUi7PxtVd7iDLdCZ0dZCLJi6DLNnLc626jrOPnOgFArFPJjqB1/VRWkC0NqD8A
+         z3gfUZcqPe/Vos4HDxRuk8pYHhastczW765BsIG/AlRqArQEpb+SdVYFkcS4PkTJEq6N
+         H7/vJ2XgsycC/VzYdXn2FNw/t6MJLDGBJf71AgmS2Z9qbfmAcxFSp9KJsu4gF0bSqOJV
+         hkmawjyLFBMEfydxfpns15HSNfG2R8HexQX8O06yOWAdn0QF6Thl8L2XBv+WbR3U2Oya
+         YtfdFqNcj0fapJBlaPkf53KzBHDi2WThHANk+TdL5fsZGxBJIhsZWQBDcQ4vkKXUAy3P
+         yaTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=hhVDFcTiAsOUWOg0Qp3Sas26/ERM11GbtAzcPnz3rHo=;
-        b=ldB7CAgRLyKkV6LDHYEhnPCOgdICHW43/CcAJCusikO/7IVO/GDTSIDTQ6x0+fuy1W
-         iELkUYVj3gSLBtqIFI64V9/42otjfbs07MYG3y9dnLXTVas2q/0m0Yknu3Ih2YChZBJZ
-         fMa5w28lk0NT1cmjoAPklna93w076nv9Ma2wOq+xIbHdsZ843OiHgqbMVrcTseWryxBr
-         FY+2E0f2g8bVQZdmiR5GNgSAKAY6Ebu3DZR2V0+05xlrKyCfVVUb+nV7EDZNlOJyG7Jf
-         f6HmA3E8b1oJ+q5CpAcq8mZXsOJ+8TAW24Pk4Fol7u2/6WrOy3qWmxWGGDAcvdFZRZam
-         KWYA==
-X-Gm-Message-State: AOAM531V21GWOrLg4cjOJdI6HB2fF+hnIlc1hhxxXvUAEdadX3PHbTn0
-        JkbcHKmbTRrVds8VVvL1nCE=
-X-Google-Smtp-Source: ABdhPJy5n7h1Fqc/8UQ6D2CY6FOuOvNkRxZoWtYemwnoyx/iuRY3x8GzByHL9AUCkXbo03NtsZN4Wg==
-X-Received: by 2002:a17:906:b306:: with SMTP id n6mr48887694ejz.473.1609335323521;
-        Wed, 30 Dec 2020 05:35:23 -0800 (PST)
+        bh=R8tq2yJ2zyPeOMR53rw+Ay6/eBTIBZbFhCUrbnvml3s=;
+        b=JlH8C2hVx8HbfKD/aDmzywH8lrSZPidAmZdadPVOVYzE4rGUEg/ksfKldXbJeXl0Rn
+         e5AywSHjj50gxrggGzH678ApP72iqv4wMIPbO4BbwrdcTTYrCYCzg1Ht3bZGVOmgDxtO
+         vDTMyPT3GH6+oVELX1YV9e12S14swKCaQix77t17EvG0rPzywRC0Y9NqkxsLBtc8QLAn
+         tZDx9CnZvuJK4cvxeetCvcBbB1BOMBcSUwkH7ZeHrGyIaKkF/hpbbDbtj7r9QrDzhgkw
+         /nKssty18NMtCwAdR+jjiz7mVCCv99I2EtAi1J5u5n0m6f0TG8vFTB1RlN8hrQ+7s6vI
+         esZA==
+X-Gm-Message-State: AOAM533oMatZOyuM+Qg91lVvi3Z5pK+iG7Qo49nN5IEyRo6Nzbjneri+
+        y1kB48XcrxXb7KeIhQaXk14=
+X-Google-Smtp-Source: ABdhPJza3sp+mBbK5UiNpTmvbQSCyWwXo5uXHG7zDJizoLHNHmjskJSiIr+uBX7MbCGblYHNjQ6bbA==
+X-Received: by 2002:a05:6402:41:: with SMTP id f1mr39175029edu.286.1609336609798;
+        Wed, 30 Dec 2020 05:56:49 -0800 (PST)
 Received: from ?IPv6:2001:a61:2467:2f01:faca:3d43:5e40:30d1? ([2001:a61:2467:2f01:faca:3d43:5e40:30d1])
-        by smtp.gmail.com with ESMTPSA id h15sm38224071edz.95.2020.12.30.05.35.22
+        by smtp.gmail.com with ESMTPSA id d4sm39434336edq.36.2020.12.30.05.56.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Dec 2020 05:35:22 -0800 (PST)
-Cc:     mtk.manpages@gmail.com,
-        "Alejandro Colomar (mailing lists, readonly)" 
-        <alx.mailinglists@gmail.com>, Davidlohr Bueso <dbueso@suse.de>,
-        linux-man@vger.kernel.org, Joe Lawrence <joe.lawrence@redhat.com>,
-        Robert Kettler <robert.kettler@outlook.com>,
-        "Eric W. Biederman" <ebiederm@xmission.com>,
-        Kees Cook <keescook@chromium.org>,
-        Michal Hocko <mhocko@kernel.org>
-Subject: Re: [PATCH] semctl.2: Correct SEM_STAT_ANY description
-To:     Manfred Spraul <manfred@colorfullife.com>,
-        Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-References: <1608616543-21436-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <746deff0-e919-173b-25f6-34fc465a7ba0@gmail.com>
- <e7b0eb9e-b1d2-ed46-f7ac-66f22ef3faf1@colorfullife.com>
- <5FEBDFF3.7020606@cn.fujitsu.com>
- <265f82a2-42e7-45a4-1f80-8d24d66fceda@colorfullife.com>
+        Wed, 30 Dec 2020 05:56:48 -0800 (PST)
+Cc:     mtk.manpages@gmail.com
+Subject: Re: readlink
+To:     Jonny Grant <jg@jguk.org>, linux-man <linux-man@vger.kernel.org>
+References: <79e09e31-c33e-3fbf-158b-30344e7aae68@jguk.org>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <516a60fc-bb97-1b36-1830-fb5191617ed5@gmail.com>
-Date:   Wed, 30 Dec 2020 14:35:21 +0100
+Message-ID: <63d3bfdc-93dd-6f3e-8ed4-7036b01f9751@gmail.com>
+Date:   Wed, 30 Dec 2020 14:56:47 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <265f82a2-42e7-45a4-1f80-8d24d66fceda@colorfullife.com>
+In-Reply-To: <79e09e31-c33e-3fbf-158b-30344e7aae68@jguk.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Manfred,
+Hello Jonny,
 
-On 12/30/20 12:20 PM, Manfred Spraul wrote:
-> On 12/30/20 3:03 AM, Yang Xu wrote:
->> Hi Manfred
->>> Hi,
->>>
->>>
->>> On 12/22/20 12:55 PM, Alejandro Colomar (mailing lists; readonly) wrote:
->>>> Hi Yang,
->>>>
->>>> It looks good to me.
->>>> I'll add a few people that might want to comment.
->>>
->>> The code returns a semid_ds structure, and if I take strace as reference
->>> implementation, then user space expects a semid_ds as well.
->>> https://github.com/strace/strace/commit/8f0870a780bfd8cd9a91c3b7ad05baccda10bc84 
->>>
->>>
->>>
->>> In addition, the current page is self-inconsistent: seminfo doesn't
->>> contain sem_perm.
->> semctl manpage doesn't say seminfo contain sem_perm. Or, I miss something?
+On 12/24/20 6:52 PM, Jonny Grant wrote:
+> Seasons greetings Michael,
 > 
-> The current man page says that SEM_STAT_ANY returns a seminfo structure, 
-> without checking sem_perm.
+> May I ask, could readlink be updated to use the same wording for null
+> termination like on sprintf, scanf etc?
 > 
-> This is self-inconsistent: struct seminfo contains global 
-> (per-namespace) information, sem_perm.mode is a per-array information.
+> https://man7.org/linux/man-pages/man2/readlink.2.html
 > 
-> I.e.: It is clear that the man page needs to be updated, and not the code.
+> It says:
+>  "readlink() does not append a null byte to buf"
+> 
+> Perhaps it should say:
+>  "readlink() does not append a terminating null byte to buf ('\0')"
+> 
+> In addition, is it worth adding a BUGS section to remind that there
+> is no terminating null byte?
+> 
+> "readlink() assumes the caller understands that no terminating null
+> byte ('\0') will be written in the provided buf. If the caller didn't
+> memset the buffer to ('\0') or allocate an extra byte for the
+> terminating null byte, there is a risk the caller could overrun the
+> end of the buffer, or use uninitialised values in the buf."
 
-After reading this thread, I'm not quite clear. Do you mean some 
-additional change is required after Xang Yu's patch?
+> 
+> Finally, perhaps also the EXAMPLES program could be updated to clarify this:
+> 
+> "/* print only nbytes of buf, as it doesn't contain a terminating null byte ('\0') */
+> printf("'%s' points to '%.*s'\n", argv[1], (int) nbytes, buf);
+> "
+
+I think that having (1) the existing statement at the start of the 
+DESCRIPTION, (2) adding a comment to the code, and (3) adding a BUGS
+section all to cover the same point seems a little excessive.
+I've gone for 2 out of 3.
 
 Thanks,
 
 Michael
 
->> $rpm -qf /usr/share/man/man2/semctl.2.gz
->> $ man-pages-5.07-3.fc33.noarch
->>        SEM_STAT_ANY (Linux-specific, since Linux 4.17)
->>               Return a seminfo structure containing the same 
->> information as for SEM_STAT.  However, sem_perm.mode is not checked 
->> for read access for semid meaning
->>               that any user can employ this operation (just as any 
->> user may read /proc/sysvipc/sem to obtain the same information).
->>
->>
-> 
+--- a/man2/readlink.2
++++ b/man2/readlink.2
+@@ -93,7 +93,7 @@ in the buffer
+ which has size
+ .IR bufsiz .
+ .BR readlink ()
+-does not append a null byte to
++does not append a terminating null byte to
+ .IR buf .
+ It will (silently) truncate the contents (to a length of
+ .I bufsiz
+@@ -332,6 +332,8 @@ main(int argc, char *argv[])
+         exit(EXIT_FAILURE);
+     }
+ 
++    /* Print only \(aqnbytes\(aq of \(aqbuf\(aq, as it doesn't contain a terminating
++       null byte (\(aq\e0\(aq). */
+     printf("\(aq%s\(aq points to \(aq%.*s\(aq\en", argv[1], (int) nbytes, buf);
+ 
+     /* If the return value was equal to the buffer size, then the
 
 
 -- 
