@@ -2,66 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8972D2E7ED4
-	for <lists+linux-man@lfdr.de>; Thu, 31 Dec 2020 09:59:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9E04C2E7F34
+	for <lists+linux-man@lfdr.de>; Thu, 31 Dec 2020 11:07:54 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726329AbgLaI72 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 31 Dec 2020 03:59:28 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53818 "EHLO
+        id S1726317AbgLaKHi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 31 Dec 2020 05:07:38 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35986 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726323AbgLaI72 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 31 Dec 2020 03:59:28 -0500
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1723EC061573
-        for <linux-man@vger.kernel.org>; Thu, 31 Dec 2020 00:58:46 -0800 (PST)
-Received: by mail-wm1-x333.google.com with SMTP id e25so6772353wme.0
-        for <linux-man@vger.kernel.org>; Thu, 31 Dec 2020 00:58:45 -0800 (PST)
+        with ESMTP id S1726302AbgLaKHi (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 31 Dec 2020 05:07:38 -0500
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CA133C061573
+        for <linux-man@vger.kernel.org>; Thu, 31 Dec 2020 02:06:57 -0800 (PST)
+Received: by mail-wr1-x42e.google.com with SMTP id d13so19664767wrc.13
+        for <linux-man@vger.kernel.org>; Thu, 31 Dec 2020 02:06:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=pfakwcPuAlY+FacE22J8AWpBqQRbk06+n4Mm5UZawQk=;
-        b=raR2TokH574/Pb6uL8KCG+GtF9N7dksHPNFcHHSprjITHO+oHGUHCY4lo8hK6rweDm
-         aiWPW8iWpIek2IeYKprxOXMFgFs+ZBBzWSghcLqqKLUUbfM51x2Q6zmK8HkDBVcDLiXf
-         fxB8SicozDHH1xDJYdURXdAmNJwvfkQ76H8gKf8y0XgzBRn4AMvCjJq3Qc9R4WTNcpSS
-         zwHd1H5QHg2lOUP/WGv+LFe8dWTgMPVrcHjFgM9DzArAA0CBDaa4Di1KvICwICP+acdI
-         b81pdTc70/+cgfwlB27qh0FNz+ZzDzwKZOjo38nR9GxH5+p0pnzAcOLhAETV0MDz/OCJ
-         v7Rw==
+        bh=MNZeXTBIUyhOvKomHptv45QgY4fkrFGDhiNMaTxwtuw=;
+        b=ez7MtS6zcSx6Wra8KaaG5Ntkw0KpCqoC9NJF+sd85a89DwMlK5EL5l+piEkUP8DpvP
+         T8ysqT7UKFl/C6j7WLVJ2nKxavsgwV3xtwo9YWsM9P4JhY15hd1xgpIewNsWBqVl+jtn
+         dyXto/578ghIfzLQf8RHSp1Xozykj3983xDJBi08ZDJvqZP8Z7FKjLouP8HqPyyzSVVU
+         eFbdRm8QmDFqDM9SymfGZtGh7xeexwh/8PqTdSKYrPen0ePQcr4JgIPdGcADDzaCGyNG
+         PEhNizLVMHhA10sLk18DkQ2Gf6SMgXz1twDS9A11VM4PkoFWi0XaIDmcBzhDSuIWc/vt
+         Cj7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=pfakwcPuAlY+FacE22J8AWpBqQRbk06+n4Mm5UZawQk=;
-        b=D5NBMN9lvwRWbWaQJB0LZyypYdAv9mqJ8YGi5ZmoF7z2WEGZgMlu4KNMYxDPvw92+7
-         nzzeMmjOYstCvY74jv74MCfq+jY7ErE0tgy45FpSCKdQzoFjbYL6J3my6KHln9/79/Ud
-         QJ/EGICaOk/RzqRpCg3M+bf0mEjOo3wSqVkHRwGBhBTehuOZuFzm/0fpEP5nn/4tIPvA
-         r3EBtaws37jU4/ohAgOhSbdoLGPu7ZZ5TffQ4pc3SDH0mflm8QBAzm43RG+VvtRU6KWO
-         svs69gibd19xOz+eVJeAtCf6QJo1zJJX0IO+pLSx3rPLdqcADWXf4YGIZmhEtjh1+mBV
-         WQrw==
-X-Gm-Message-State: AOAM533M4IpPrkJHtNjPedd4SMd3QqL3ZxMUDJvxV+70GXj/nlt1QhfI
-        Zv/ZrZId3iJOA8nh1gw0N9P/lTjWccY=
-X-Google-Smtp-Source: ABdhPJw7T9oxDXjJpE1g4Y8EJkOeJ84mUtWp/kHGXwUMOZcqwoZ59nRPzeJnFeMTHS9bcRmvAbd5+w==
-X-Received: by 2002:a1c:7716:: with SMTP id t22mr10816332wmi.126.1609405124104;
-        Thu, 31 Dec 2020 00:58:44 -0800 (PST)
+        bh=MNZeXTBIUyhOvKomHptv45QgY4fkrFGDhiNMaTxwtuw=;
+        b=f/CWRh0//qZHmQPTdZvgPtP6hOhjNOv6KRArc3bpjXciu+Eoeyuxmp5Xfq+QrS6LHF
+         hsDJE1nYXWBqo2fo7FGcd8Qu1vIk0Qu8a3tKbQx8/V7rAWCW9ctZ9DMCFLDmJ9UunyEg
+         s6wzy9Tw31iOhysRFHtVnCzamT55OP6scuVd/suwiRCErGvGgIBpi8lUrHEgy+nsXDWX
+         go8Hc/I0E98ugwoPtVLS6EwKe2EuYexIOuHZIHhwVsxen+5q09yNoYPJ+DE39OlnlIZD
+         C8qnoKynGbSIUzjjttIpyS80Y+ohCiMfhC2H4pLVUKK/vE27fFSBn8gtl40DyXFelKeJ
+         0vUw==
+X-Gm-Message-State: AOAM531UCwOUVq2n6ngoKCYxP7Iunn6TCD+IKUjw0O/OPF7jlrQxXjCi
+        m6xMjHlN606W0UfQP1dUx8kaua4+Rwk=
+X-Google-Smtp-Source: ABdhPJxVQQSyR8PdWUMOjb4y4/0Wxvb+N4BDsvowoIZE7EUMg4mubqfYc9gv2NEe5Y0AxfLS5mA4IA==
+X-Received: by 2002:adf:d218:: with SMTP id j24mr28661164wrh.361.1609409214939;
+        Thu, 31 Dec 2020 02:06:54 -0800 (PST)
 Received: from ?IPv6:2001:a61:2467:2f01:faca:3d43:5e40:30d1? ([2001:a61:2467:2f01:faca:3d43:5e40:30d1])
-        by smtp.gmail.com with ESMTPSA id b7sm64323416wrv.47.2020.12.31.00.58.42
+        by smtp.gmail.com with ESMTPSA id w13sm67440635wrt.52.2020.12.31.02.06.53
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 31 Dec 2020 00:58:43 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] copy_file_range.2: SYNOPSIS: Fix prototype parameter
- types
+        Thu, 31 Dec 2020 02:06:53 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
+Subject: Re: [PATCH] execveat.2: srcfix
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-References: <20201230214147.874671-5-alx.manpages@gmail.com>
- <2b1cbbc7-a1f3-dbef-1d23-d96409e4490c@gmail.com>
- <a27fb355-f3be-036a-459a-1769e72e3a70@gmail.com>
+References: <20201230214147.874671-1-alx.manpages@gmail.com>
+ <CAKgNAkjf8gS5Av2pzYqt_JHjjnCw-FrjqQicjhr20+MzgsK3Xg@mail.gmail.com>
+ <bdda57ff-acdd-9109-5720-ba0db8138d41@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <f54456d9-882a-b98a-f8fd-7f790ae2b39b@gmail.com>
-Date:   Thu, 31 Dec 2020 09:58:40 +0100
+Message-ID: <993e801d-4126-4e11-5a06-4b92879a7eb7@gmail.com>
+Date:   Thu, 31 Dec 2020 11:06:53 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <a27fb355-f3be-036a-459a-1769e72e3a70@gmail.com>
+In-Reply-To: <bdda57ff-acdd-9109-5720-ba0db8138d41@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,36 +68,109 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+Hi ALex,
 
-On 12/31/20 12:20 AM, Alejandro Colomar (man-pages) wrote:
+On 12/31/20 12:28 AM, Alejandro Colomar (man-pages) wrote:
 > 
 > 
-> On 12/30/20 11:43 PM, Michael Kerrisk (man-pages) wrote:
+> On 12/30/20 11:27 PM, Michael Kerrisk (man-pages) wrote:
 >> Hi Alex,
 >>
->> On 12/30/20 10:41 PM, Alejandro Colomar wrote:
->>> Glibc uses 'off64_t' instead of 'loff_t'.
+>> On Wed, 30 Dec 2020 at 22:41, Alejandro Colomar <alx.manpages@gmail.com> wrote:
+>>>
+>>> Use .nf/.fi in the SYNOPSIS.
 >>
->> Okay.
->>
->>> This patch doesn't change the types in the code example,
->>> because it uses the Linux syscall, and not the glibc wrapper.
->>
->> I think the example probably also needs fixing then. There's
->> no longer a need for syscall(2) in this example, I think.
+>> I'm not against the patch. But why this particular page?
 > 
-> Hi Michael,
+> Hello Michael,
 > 
-> I thought the same, but glibc 2.26 is still supported,
-> and lacks the wrapper.
-> Would you change it already?
+> I fixed this while adding the notes about missing headers in that page,
+> but I felt that it was better as a separate patch.
+> And the other patch I didn't send it in the last moment as I found a
+> missing line :p
 
-Yes.
+Ahhh -- that explains a lot :-).
+
+> 
+> Would you prefer a global fix about .nf/.fi or just fix as we go?
+
+So, I think by now there's a lot of inconsistency in the layout
+in SYNOPSIS, and before making a global change, there should be
+some design decisions.
+
+There are things to consider:
+* .nf/.fi should probably be used around the all functions
+  signatures.
+* There should be no .br between function signatures.
+* .PP should be used where appropriate to get white space
+  separation between function signatures.
+
+The worst mess though is probably the Feature Test Macro (FTM)
+requirements. Even though nearly all of this information was
+added by me, and I tried to be consistent, this was complicated
+by the fact that (a) the info was added over several years and
+(b) the details are surprisingly complicated sometimes, mainly
+because of changes to FTM requirements across glibc versions
+and that several functions might be documented in the same page
+(e.g., see chmod(2), setpgid(2)). So, there is some inconsistency
+(perhaps worse in the actual page source, than in the rendered
+output). Also, the material in the FTM text is heavily oriented
+around the assumption of an 80-column display.
+
+I'm not sure how much effort it is worth putting into fixing 
+this, but before any global edit, there probably needs to be
+quite a bit of discussion.
+
+All of that said, I've just made a bunch of commits to tidy
+up some of the more obviously messy pieces.
 
 Thanks,
 
 Michael
+
+>>> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+>>> ---
+>>>
+>>>  man2/execveat.2 | 11 ++++++-----
+>>>  1 file changed, 6 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/man2/execveat.2 b/man2/execveat.2
+>>> index 7c31d8f17..c5cd843f9 100644
+>>> --- a/man2/execveat.2
+>>> +++ b/man2/execveat.2
+>>> @@ -27,13 +27,13 @@
+>>>  .SH NAME
+>>>  execveat \- execute program relative to a directory file descriptor
+>>>  .SH SYNOPSIS
+>>> +.nf
+>>>  .B #include <unistd.h>
+>>>  .PP
+>>> -.BI "int execveat(int " dirfd ", const char *" pathname ","
+>>> -.br
+>>> -.BI "             char *const " argv "[], char *const " envp "[],"
+>>> -.br
+>>> +.BI "int execveat(int " dirfd ", const char *" pathname ,
+>>> +.BI "             char *const " argv "[], char *const " envp [],
+>>>  .BI "             int " flags );
+>>> +.fi
+>>>  .SH DESCRIPTION
+>>>  .\" commit 51f39a1f0cea1cacf8c787f652f26dfee9611874
+>>>  The
+>>> @@ -224,7 +224,8 @@ where scripts recursively employ
+>>>  .\" For an example, see Michael Kerrisk's 2015-01-10 reply in this LKML
+>>>  .\" thread (http://thread.gmane.org/gmane.linux.kernel/1836105/focus=20229):
+>>>  .\"
+>>> -.\"     Subject: [PATCHv10 man-pages 5/5] execveat.2: initial man page.\"                        for execveat(2
+>>> +.\"     Subject: [PATCHv10 man-pages 5/5] execveat.2: initial man page
+>>> +.\"                        for execveat(2)
+>>>  .\"     Date: Mon, 24 Nov 2014 11:53:59 +0000
+>>>  .SH SEE ALSO
+>>>  .BR execve (2),
+>>> --
+>>> 2.29.2
+>>>
+>>
+>>
 
 
 -- 
