@@ -2,155 +2,1026 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5C4522E8039
-	for <lists+linux-man@lfdr.de>; Thu, 31 Dec 2020 14:37:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2C53D2E80EA
+	for <lists+linux-man@lfdr.de>; Thu, 31 Dec 2020 16:28:32 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726080AbgLaNgo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 31 Dec 2020 08:36:44 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39736 "EHLO
+        id S1727371AbgLaP1V (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 31 Dec 2020 10:27:21 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56690 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726071AbgLaNgo (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 31 Dec 2020 08:36:44 -0500
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8106CC061573
-        for <linux-man@vger.kernel.org>; Thu, 31 Dec 2020 05:36:03 -0800 (PST)
-Received: by mail-wm1-x32c.google.com with SMTP id a6so7340166wmc.2
-        for <linux-man@vger.kernel.org>; Thu, 31 Dec 2020 05:36:03 -0800 (PST)
+        with ESMTP id S1726935AbgLaP1R (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 31 Dec 2020 10:27:17 -0500
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 79FB4C061573
+        for <linux-man@vger.kernel.org>; Thu, 31 Dec 2020 07:26:36 -0800 (PST)
+Received: by mail-wr1-x436.google.com with SMTP id d13so20304522wrc.13
+        for <linux-man@vger.kernel.org>; Thu, 31 Dec 2020 07:26:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=eZjEipxMeZnR8En+teSVEbrh8bU7qVScU/4ELS55/LQ=;
-        b=MdiUmbmCnGPRPggtxn2vmBNlKhs4z0vX7WcFgupqynnf4ClcdhfIa9jSbCx/iPwN+u
-         4ojxahz2FHjPaYtQ5Ji82Aq8wdxzQizvlPEEs8jkijPZts50jTqsYutJnR7hBaYGWOnY
-         Nf4VZWBAdi5+u40FvsrT/KxHw6/b7DKBul5eQhyVHuyMcC+KBp9w6dVLUpsxfnYprUwN
-         1qrEBe6U5eL4v3/D1mZHd20PcSZSRdu2v4PiZESSpJx0kTbQMW2xR02MxSEjFUrWLU5K
-         lvTZ754lALQxadYF6kR3eNbmXlyGSTyW0qUAuzStXdVrZ2R7OIlrccH8yTAIDl/pw5W5
-         E/2A==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=yYUwTAlkWGSs9Ps7Bjr1BIcRrkNJ7Cu594bTi7xKX08=;
+        b=BdyGVri6aXMiLtTKNRnLryrl2n3OoZaywzcYW4QHcItC12hrzwfADnkAM1R/4AfzAY
+         o5YYcCXWf/+yCTy61mlTOITbcy8rX4qizqvZ6wxsbVte3sie+6mOugK3XoAST/Vl/EIS
+         /QPSw2gxqv+Ov6RJGf8NKr12yyTuVMze72KReAchmh8FYrwWGGoVA4VAn+PoHTFFtGtY
+         QsxiY+vUD1jW5isXu4X1oOsFDMCTxsBsHOcUe+35ixiHAXzwiOnASW62aW3u/nqdcz9J
+         0MIKNpnBMTqbSobjP4ngs+rv/fDKcXcZJE99te7fPcpd8TfUhDit6W+yJ4NGOsjGK+3S
+         5SKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=eZjEipxMeZnR8En+teSVEbrh8bU7qVScU/4ELS55/LQ=;
-        b=eMyQWFR6E2mP/hQHVJkp1Z+V38lyaQjtMiEtH/HMYFvaxRo364Pqe0I+4Ncfm2O5+C
-         4fic/GFkNu926rVCOL3SvMev018QDXlpRSYfaIOd4Z+7JE/1eLhvl2TQqQUD6XIwUaVm
-         U1cetKKEKyTEyeylGGSWFpuY+ZugyVdIQEQN1CfHYdLZtqPWh8s8vJHV4c+Utw8soPT8
-         G4nY3vLID3B4eNIyK+v9CEwUQ3XyF5Tw7PTGyZ+lQ1597vYrmwQL1OiHV75A3XM9X35J
-         WT9WrYEZAIGja30q4lUn1qWIipj9MdyqQWpim6gEOeGKEJ8HXb4erSZSeZ9NESEzuul9
-         eDxg==
-X-Gm-Message-State: AOAM530ZwK5qyVUrb2x0Ry2/USFH4zWdjHRZtaZQ/nYuqyRweDb2Z5tD
-        HrUT9D7kGhcfiVH1JEKM7vgX2B7My8w=
-X-Google-Smtp-Source: ABdhPJw3M72cMaf/BJV9NFA31+NHnc9wi6jJebBleRQiWgaZQSrJ7Rt/k1U/Y8Ot/SX5e2ATUKtq2Q==
-X-Received: by 2002:a7b:ce0f:: with SMTP id m15mr11763080wmc.56.1609421762185;
-        Thu, 31 Dec 2020 05:36:02 -0800 (PST)
-Received: from localhost.localdomain ([170.253.49.0])
-        by smtp.googlemail.com with ESMTPSA id u26sm12533233wmm.24.2020.12.31.05.36.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 31 Dec 2020 05:36:01 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH v2] copy_file_range.2: Document glibc wrapper instead of kernel syscall
-Date:   Thu, 31 Dec 2020 14:24:08 +0100
-Message-Id: <20201231132407.160590-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <f54456d9-882a-b98a-f8fd-7f790ae2b39b@gmail.com>
-References: <f54456d9-882a-b98a-f8fd-7f790ae2b39b@gmail.com>
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=yYUwTAlkWGSs9Ps7Bjr1BIcRrkNJ7Cu594bTi7xKX08=;
+        b=EJSO09JKGTO1CNU9M4pVbshdx64EJzmHPTs5wxkF6WTBOx3JacdCWPfqYa7ClB/m7s
+         9kICtSXJiWdx4WQZS0hcvzvPc2jHp/gHYM6d+FR4MdAvGLcx9O+NjAeMOwNoTS/L3EH+
+         e6W4JnsDMzi2P0lkjwmLgA08AbnnTjHqRLByoQG/HwC+wAiFvzcXtRpSeieYI4HhPrLX
+         VnqC1pSSahBhIWzrbCTE8Vj+jLfliQOak5qTzpTuOAVw7lUclBYpnWrsrZ78/pJUYxR+
+         rYoCQyIUr8N9DdePSHZTHQdG97FdoidnxnuBtMDaH2/uTyZVMbeSubrbfeQDNmhVQidp
+         HKgQ==
+X-Gm-Message-State: AOAM533oHMvhVT5ormREc1BN6muVWzGYoRSBICA8/hVYYrBZ1QpKRi3T
+        nFR3IyAJRUD24rf3WEm8mj9QAsGuo/M=
+X-Google-Smtp-Source: ABdhPJz0HAVy8qkgziIJKerBqvUk2JbDPF8fva11I07rlE9tA7q5Puqbv3EcYfCU1KjgYJpkr4a5iQ==
+X-Received: by 2002:adf:ee4a:: with SMTP id w10mr63712698wro.81.1609428394201;
+        Thu, 31 Dec 2020 07:26:34 -0800 (PST)
+Received: from ?IPv6:2001:a61:3a48:1:4d0e:f8bb:c4c2:932? ([2001:a61:3a48:1:4d0e:f8bb:c4c2:932])
+        by smtp.gmail.com with ESMTPSA id z2sm13419250wml.23.2020.12.31.07.26.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 31 Dec 2020 07:26:33 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
+Subject: Re: [PATCH] execveat.2: srcfix
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+References: <20201230214147.874671-1-alx.manpages@gmail.com>
+ <CAKgNAkjf8gS5Av2pzYqt_JHjjnCw-FrjqQicjhr20+MzgsK3Xg@mail.gmail.com>
+ <bdda57ff-acdd-9109-5720-ba0db8138d41@gmail.com>
+ <993e801d-4126-4e11-5a06-4b92879a7eb7@gmail.com>
+ <2f321c87-7e12-2c41-6cd6-ac55024caf0a@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <6c9c593c-1e89-ce75-c1d0-41e61c98bad7@gmail.com>
+Date:   Thu, 31 Dec 2020 16:26:32 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <2f321c87-7e12-2c41-6cd6-ac55024caf0a@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Glibc uses 'off64_t' instead of 'loff_t'.
+Hi Alex,
 
-......
+On 12/31/20 1:28 PM, Alejandro Colomar (man-pages) wrote:
+> Hi Michael,
+> 
+> Another design question about SYNOPSIS:
+> 
+> When to leave a blank between prototypes?
+> 
+> capget.2 has it.
+> printf.3 doesn't.
 
-Glibc prototype:
+As you see, there is inconsistency. However, I would be 
+cautious about an automated global edit.
 
-$ syscall='copy_file_range';
-$ ret='ssize_t';
-$ find glibc/ -type f -name '*.h' \
-  |xargs pcregrep -Mn "(?s)^[\w\s]*${ret}\s*${syscall}\s*\(.*?;";
-glibc/posix/unistd.h:1121:
-ssize_t copy_file_range (int __infd, __off64_t *__pinoff,
-			 int __outfd, __off64_t *__poutoff,
-			 size_t __length, unsigned int __flags);
+> I prefer to be compact, especially when prototypes fit in one line.
 
-......
+Agreed.
 
-Testing example:
+> Some exceptions are the queue.3 derivatives,
+> which become unreadable if compacted.
 
-$ man ./man2/copy_file_range.2 \
-  |sed -n '/^EXAMPLES/,/^SEE ALSO/p' \
-  |head -n -1 \
-  |tail -n +2 \
-  >copy_file_range.c
-$ gcc -Wall -Wextra -Werror -pedantic
-copy_file_range.c -o copy_file_range
-$ ./copy_file_range 
-Usage: ./copy_file_range <source> <destination>
-$ tee a >/dev/null
-asdf
-$ tee b >/dev/null
-qwerty
-zxcvbn
-$ ./copy_file_range a b
-$ cat a
-asdf
-$ cat b
-asdf
+Also agreed. But, here are some other examples where
+I think blank lines help.
+
+===
+
+   man2/open.2
+       #include <sys/types.h>
+       #include <sys/stat.h>
+       #include <fcntl.h>
+
+       int open(const char *pathname, int flags);
+       int open(const char *pathname, int flags, mode_t mode);
+
+       int creat(const char *pathname, mode_t mode);
+
+       int openat(int dirfd, const char *pathname, int flags);
+       int openat(int dirfd, const char *pathname, int flags, mode_t mode);
+
+       /* Documented separately, in openat2(2): */
+       int openat2(int dirfd, const char *pathname,
+                   const struct open_how *how, size_t size);
+
+Many function signatures, and the blank lines/groupings define a logical
+split of related signatured.
+
+===
+
+Customarily, a blank line separates #include from a following 
+function signature (and from a preceding signature, if there is
+one).
+
+===
+
+Examples of what I consider "right":
+
+man2/_exit.2
+       #include <unistd.h>
+
+       void _exit(int status);
+
+       #include <stdlib.h>
+
+       void _Exit(int status);
+
+man2/accept.2
+       #include <sys/types.h>          /* See NOTES */
+       #include <sys/socket.h>
+
+       int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+
+       #define _GNU_SOURCE             /* See feature_test_macros(7) */
+       #include <sys/socket.h>
+
+       int accept4(int sockfd, struct sockaddr *addr,
+                   socklen_t *addrlen, int flags);
+
+man2/getrlimit.2
+       #include <sys/time.h>
+       #include <sys/resource.h>
+
+       int getrlimit(int resource, struct rlimit *rlim);
+       int setrlimit(int resource, const struct rlimit *rlim);
+
+       int prlimit(pid_t pid, int resource, const struct rlimit *new_limit,
+                   struct rlimit *old_limit);
+
+===
+
+What do you think about the work-in-progess patch below? The following
+may be useful for review:
+
+for p in $(git grep -l 'SYN' man[3-8]); do 
+    echo "===================== $p"; man -l $p  2> /dev/null  | 
+        sed -n '/^SYNOP/,/DESCR/p' | sed '/Feat/,$d';
+done | less
+
+Cheers,
+
+Michael
 
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man2/copy_file_range.2 | 18 +++---------------
- 1 file changed, 3 insertions(+), 15 deletions(-)
-
-diff --git a/man2/copy_file_range.2 b/man2/copy_file_range.2
-index 1692aa44a..611a39b80 100644
---- a/man2/copy_file_range.2
-+++ b/man2/copy_file_range.2
-@@ -30,8 +30,8 @@ copy_file_range \- Copy a range of data from one file to another
- .B #define _GNU_SOURCE
- .B #include <unistd.h>
+diff --git a/man2/init_module.2 b/man2/init_module.2
+index 00cf4e948..51e00ca65 100644
+--- a/man2/init_module.2
++++ b/man2/init_module.2
+@@ -31,7 +31,6 @@ init_module, finit_module \- load a kernel module
+ .nf
+ .BI "int init_module(void *" module_image ", unsigned long " len ,
+ .BI "                const char *" param_values );
+-.PP
+ .BI "int finit_module(int " fd ", const char *" param_values ,
+ .BI "                 int " flags );
+ .fi
+diff --git a/man2/readv.2 b/man2/readv.2
+index fcc27632e..2783fd736 100644
+--- a/man2/readv.2
++++ b/man2/readv.2
+@@ -37,18 +37,15 @@ readv, writev, preadv, pwritev, preadv2, pwritev2 \- read or write data into mul
+ .B #include <sys/uio.h>
  .PP
--.BI "ssize_t copy_file_range(int " fd_in ", loff_t *" off_in ,
--.BI "                        int " fd_out ", loff_t *" off_out ,
-+.BI "ssize_t copy_file_range(int " fd_in ", off64_t *" off_in ,
-+.BI "                        int " fd_out ", off64_t *" off_out ,
- .BI "                        size_t " len ", unsigned int " flags );
+ .BI "ssize_t readv(int " fd ", const struct iovec *" iov ", int " iovcnt );
+-.PP
+ .BI "ssize_t writev(int " fd ", const struct iovec *" iov ", int " iovcnt );
+ .PP
+ .BI "ssize_t preadv(int " fd ", const struct iovec *" iov ", int " iovcnt ,
+ .BI "               off_t " offset );
+-.PP
+ .BI "ssize_t pwritev(int " fd ", const struct iovec *" iov ", int " iovcnt ,
+ .BI "                off_t " offset );
+ .PP
+ .BI "ssize_t preadv2(int " fd ", const struct iovec *" iov ", int " iovcnt ,
+ .BI "                off_t " offset ", int " flags );
+-.PP
+ .BI "ssize_t pwritev2(int " fd ", const struct iovec *" iov ", int " iovcnt ,
+ .BI "                 off_t " offset ", int " flags );
+ .fi
+diff --git a/man2/rename.2 b/man2/rename.2
+index dd230df59..a577e35e5 100644
+--- a/man2/rename.2
++++ b/man2/rename.2
+@@ -44,7 +44,6 @@ rename, renameat, renameat2 \- change the name or location of a file
+ .PP
+ .BI "int renameat(int " olddirfd ", const char *" oldpath ,
+ .BI "             int " newdirfd ", const char *" newpath );
+-.PP
+ .BI "int renameat2(int " olddirfd ", const char *" oldpath ,
+ .BI "              int " newdirfd ", const char *" newpath \
+ ", unsigned int " flags );
+diff --git a/man2/sched_get_priority_max.2 b/man2/sched_get_priority_max.2
+index a22fc5969..0f9fa258d 100644
+--- a/man2/sched_get_priority_max.2
++++ b/man2/sched_get_priority_max.2
+@@ -30,11 +30,12 @@
+ .SH NAME
+ sched_get_priority_max, sched_get_priority_min  \- get static priority range
+ .SH SYNOPSIS
++.nf
+ .B #include <sched.h>
+ .PP
+ .BI "int sched_get_priority_max(int " policy );
+-.PP
+ .BI "int sched_get_priority_min(int " policy );
++.fi
+ .SH DESCRIPTION
+ .BR sched_get_priority_max ()
+ returns the maximum priority value that can be used with the
+diff --git a/man2/sched_setaffinity.2 b/man2/sched_setaffinity.2
+index 4abb720fd..61bb7bb38 100644
+--- a/man2/sched_setaffinity.2
++++ b/man2/sched_setaffinity.2
+@@ -42,7 +42,6 @@ set and get a thread's CPU affinity mask
+ .PP
+ .BI "int sched_setaffinity(pid_t " pid ", size_t " cpusetsize ,
+ .BI "                      const cpu_set_t *" mask );
+-.PP
+ .BI "int sched_getaffinity(pid_t " pid ", size_t " cpusetsize ,
+ .BI "                      cpu_set_t *" mask );
+ .fi
+diff --git a/man2/sched_setattr.2 b/man2/sched_setattr.2
+index b741c2223..3d255f622 100644
+--- a/man2/sched_setattr.2
++++ b/man2/sched_setattr.2
+@@ -33,7 +33,6 @@ set and get scheduling policy and attributes
+ .PP
+ .BI "int sched_setattr(pid_t " pid ", struct sched_attr *" attr ,
+ .BI "                  unsigned int " flags );
+-.PP
+ .BI "int sched_getattr(pid_t " pid ", struct sched_attr *" attr ,
+ .BI "                  unsigned int " size ", unsigned int " flags );
+ .fi
+diff --git a/man2/sched_setparam.2 b/man2/sched_setparam.2
+index ffa785129..1bca5b48f 100644
+--- a/man2/sched_setparam.2
++++ b/man2/sched_setparam.2
+@@ -35,7 +35,6 @@ sched_setparam, sched_getparam \- set and get scheduling parameters
+ .B #include <sched.h>
+ .PP
+ .BI "int sched_setparam(pid_t " pid ", const struct sched_param *" param );
+-.PP
+ .BI "int sched_getparam(pid_t " pid ", struct sched_param *" param );
+ .PP
+ \fBstruct sched_param {
+diff --git a/man2/sched_setscheduler.2 b/man2/sched_setscheduler.2
+index fde20825f..07bcf733d 100644
+--- a/man2/sched_setscheduler.2
++++ b/man2/sched_setscheduler.2
+@@ -33,7 +33,6 @@ set and get scheduling policy/parameters
+ .PP
+ .BI "int sched_setscheduler(pid_t " pid ", int " policy ,
+ .BI "                       const struct sched_param *" param );
+-.PP
+ .BI "int sched_getscheduler(pid_t " pid );
  .fi
  .SH DESCRIPTION
-@@ -233,26 +233,14 @@ or server-side-copy (in the case of NFS).
- #include <stdio.h>
- #include <stdlib.h>
- #include <sys/stat.h>
--#include <sys/syscall.h>
- #include <unistd.h>
- 
--/* On versions of glibc before 2.27, we must invoke copy_file_range()
--   using syscall(2) */
--
--static loff_t
--copy_file_range(int fd_in, loff_t *off_in, int fd_out,
--                loff_t *off_out, size_t len, unsigned int flags)
--{
--    return syscall(__NR_copy_file_range, fd_in, off_in, fd_out,
--                   off_out, len, flags);
--}
--
- int
- main(int argc, char **argv)
- {
-     int fd_in, fd_out;
-     struct stat stat;
--    loff_t len, ret;
-+    off64_t len, ret;
- 
-     if (argc != 3) {
-         fprintf(stderr, "Usage: %s <source> <destination>\en", argv[0]);
--- 
-2.29.2
+diff --git a/man2/sysfs.2 b/man2/sysfs.2
+index de6d02a11..a037d1c9d 100644
+--- a/man2/sysfs.2
++++ b/man2/sysfs.2
+@@ -28,11 +28,11 @@
+ .SH NAME
+ sysfs \- get filesystem type information
+ .SH SYNOPSIS
++.nf
+ .BI "int sysfs(int " option ", const char *" fsname );
+-.PP
+ .BI "int sysfs(int " option ", unsigned int " fs_index ", char *" buf );
+-.PP
+ .BI "int sysfs(int " option );
++.fi
+ .SH DESCRIPTION
+ .BR "Note" :
+ if you are looking for information about the
+diff --git a/man2/umount.2 b/man2/umount.2
+index 3e6e10785..7942df49a 100644
+--- a/man2/umount.2
++++ b/man2/umount.2
+@@ -35,7 +35,6 @@ umount, umount2 \- unmount filesystem
+ .B "#include <sys/mount.h>"
+ .PP
+ .BI "int umount(const char *" target );
+-.PP
+ .BI "int umount2(const char *" target ", int " flags );
+ .fi
+ .SH DESCRIPTION
+diff --git a/man2/wait4.2 b/man2/wait4.2
+index f858d9eb3..c2b0a3497 100644
+--- a/man2/wait4.2
++++ b/man2/wait4.2
+@@ -40,9 +40,7 @@ wait3, wait4 \- wait for process to change state, BSD style
+ .B #include <sys/resource.h>
+ .B #include <sys/wait.h>
+ .PP
+-.BI "pid_t wait3(int *" "wstatus" ", int " options ,
+-.BI "            struct rusage *" rusage );
+-.PP
++.BI "pid_t wait3(int *" "wstatus" ", int " options ", struct rusage *" rusage );
+ .BI "pid_t wait4(pid_t " pid ", int *" wstatus ", int " options ,
+ .BI "            struct rusage *" rusage );
+ .fi
+diff --git a/man3/__ppc_get_timebase.3 b/man3/__ppc_get_timebase.3
+index c229117b8..dc96b3875 100644
+--- a/man3/__ppc_get_timebase.3
++++ b/man3/__ppc_get_timebase.3
+@@ -28,11 +28,12 @@ Manual"
+ __ppc_get_timebase, __ppc_get_timebase_freq \- get the current value
+  of the Time Base Register on Power architecture and its frequency.
+ .SH SYNOPSIS
++.nf
+ .B #include <sys/platform/ppc.h>
+ .PP
+ .BI "uint64_t __ppc_get_timebase(void)"
+-.PP
+ .BI "uint64_t __ppc_get_timebase_freq(void);"
++.fi
+ .SH DESCRIPTION
+ .BR __ppc_get_timebase ()
+ reads the current value of the Time Base Register and returns its
+diff --git a/man3/basename.3 b/man3/basename.3
+index 74a2fb5b2..0dc0d6c2b 100644
+--- a/man3/basename.3
++++ b/man3/basename.3
+@@ -32,7 +32,6 @@ basename, dirname \- parse pathname components
+ .B #include <libgen.h>
+ .PP
+ .BI "char *dirname(char *" path );
+-.PP
+ .BI "char *basename(char *" path );
+ .fi
+ .SH DESCRIPTION
+diff --git a/man3/dladdr.3 b/man3/dladdr.3
+index 8d476470a..15a61e6e1 100644
+--- a/man3/dladdr.3
++++ b/man3/dladdr.3
+@@ -32,7 +32,6 @@ dladdr, dladdr1 \- translate address to symbolic information
+ .B #include <dlfcn.h>
+ .PP
+ .BI "int dladdr(void *" addr ", Dl_info *" info );
+-.PP
+ .BI "int dladdr1(void *" addr ", Dl_info *" info ", void **" \
+         extra_info ", int " flags );
+ .PP
+diff --git a/man3/dlopen.3 b/man3/dlopen.3
+index a64dcbcc2..22b50c420 100644
+--- a/man3/dlopen.3
++++ b/man3/dlopen.3
+@@ -37,10 +37,10 @@
+ dlclose, dlopen, dlmopen \-
+ open and close a shared object
+ .SH SYNOPSIS
++.nf
+ .B #include <dlfcn.h>
+ .PP
+ .BI "void *dlopen(const char *" filename ", int " flags );
+-.PP
+ .BI "int dlclose(void *" handle );
+ .PP
+ .B #define _GNU_SOURCE
+@@ -48,6 +48,7 @@ open and close a shared object
+ .B #include <dlfcn.h>
+ .PP
+ .BI "void *dlmopen(Lmid_t " lmid ", const char *" filename ", int " flags );
++.fi
+ .PP
+ Link with \fI\-ldl\fP.
+ .SH DESCRIPTION
+diff --git a/man3/ecvt.3 b/man3/ecvt.3
+index fadddf8d8..9b2d2055d 100644
+--- a/man3/ecvt.3
++++ b/man3/ecvt.3
+@@ -33,13 +33,12 @@
+ .SH NAME
+ ecvt, fcvt \- convert a floating-point number to a string
+ .SH SYNOPSIS
++.nf
+ .B #include <stdlib.h>
+ .PP
+-.BI "char *ecvt(double " number ", int " ndigits ", int *" decpt ,
+-.BI "int *" sign );
+-.PP
+-.BI "char *fcvt(double " number ", int " ndigits ", int *" decpt ,
+-.BI "int *" sign );
++.BI "char *ecvt(double " number ", int " ndigits ", int *" decpt ", int *" sign );
++.BI "char *fcvt(double " number ", int " ndigits ", int *" decpt ", int *" sign );
++.fi
+ .PP
+ .RS -4
+ Feature Test Macro Requirements for glibc (see
+diff --git a/man3/ecvt_r.3 b/man3/ecvt_r.3
+index 55c97e0bc..7ad8d6513 100644
+--- a/man3/ecvt_r.3
++++ b/man3/ecvt_r.3
+@@ -36,13 +36,11 @@ ecvt_r, fcvt_r, qecvt_r, qfcvt_r \- convert a floating-point number to a string
+ .PP
+ .BI "int ecvt_r(double " number ", int " ndigits ", int *" decpt ,
+ .BI "           int *" sign ", char *" buf ", size_t " len );
+-.PP
+ .BI "int fcvt_r(double " number ", int " ndigits ", int *" decpt ,
+ .BI "           int *" sign ", char *" buf ", size_t " len );
+ .PP
+ .BI "int qecvt_r(long double " number ", int " ndigits ", int *" decpt ,
+ .BI "           int *" sign ", char *" buf ", size_t " len );
+-.PP
+ .BI "int qfcvt_r(long double " number ", int " ndigits ", int *" decpt ,
+ .BI "           int *" sign ", char *" buf ", size_t " len );
+ .fi
+diff --git a/man3/err.3 b/man3/err.3
+index 7a5056a1e..cf21dabfb 100644
+--- a/man3/err.3
++++ b/man3/err.3
+@@ -44,21 +44,17 @@ err, verr, errx, verrx, warn, vwarn, warnx, vwarnx \- formatted error messages
+ .B #include <err.h>
+ .PP
+ .BI "void err(int " eval ", const char *" fmt ", ...);"
+-.PP
+ .BI "void errx(int " eval ", const char *" fmt ", ...);"
+ .PP
+ .BI "void warn(const char *" fmt ", ...);"
+-.PP
+ .BI "void warnx(const char *" fmt ", ...);"
+ .PP
+ .B #include <stdarg.h>
+ .PP
+ .BI "void verr(int " eval ", const char *" fmt ", va_list " args );
+-.PP
+ .BI "void verrx(int " eval ", const char *" fmt ", va_list " args );
+ .PP
+ .BI "void vwarn(const char *" fmt ", va_list " args );
+-.PP
+ .BI "void vwarnx(const char *" fmt ", va_list " args );
+ .fi
+ .SH DESCRIPTION
+diff --git a/man3/ferror.3 b/man3/ferror.3
+index c67498c7e..5c59fc97d 100644
+--- a/man3/ferror.3
++++ b/man3/ferror.3
+@@ -45,15 +45,14 @@
+ .SH NAME
+ clearerr, feof, ferror, fileno \- check and reset stream status
+ .SH SYNOPSIS
++.nf
+ .B #include <stdio.h>
+ .PP
+ .BI "void clearerr(FILE *" stream );
+-.PP
+ .BI "int feof(FILE *" stream );
+-.PP
+ .BI "int ferror(FILE *" stream );
+-.PP
+ .BI "int fileno(FILE *" stream );
++.fi
+ .PP
+ .RS -4
+ Feature Test Macro Requirements for glibc (see
+diff --git a/man3/ffs.3 b/man3/ffs.3
+index 3304ad477..5c4162ec8 100644
+--- a/man3/ffs.3
++++ b/man3/ffs.3
+@@ -42,7 +42,6 @@ ffs, ffsl, ffsll \- find first bit set in a word
+ .B #include <string.h>
+ .PP
+ .BI "int ffsl(long " i );
+-.PP
+ .BI "int ffsll(long long " i );
+ .fi
+ .PP
+diff --git a/man3/fopen.3 b/man3/fopen.3
+index 5dea20d0a..bbb4fbc39 100644
+--- a/man3/fopen.3
++++ b/man3/fopen.3
+@@ -49,9 +49,7 @@ fopen, fdopen, freopen \- stream open functions
+ .B #include <stdio.h>
+ .PP
+ .BI "FILE *fopen(const char *" pathname ", const char *" mode );
+-.PP
+ .BI "FILE *fdopen(int " fd ", const char *" mode );
+-.PP
+ .BI "FILE *freopen(const char *" pathname ", const char *" mode ", FILE *" stream );
+ .fi
+ .PP
+diff --git a/man3/fpclassify.3 b/man3/fpclassify.3
+index 749f0ee32..83ebb75e6 100644
+--- a/man3/fpclassify.3
++++ b/man3/fpclassify.3
+@@ -16,13 +16,9 @@ classification macros
+ .B #include <math.h>
+ .PP
+ .BI "int fpclassify(" x );
+-.PP
+ .BI "int isfinite(" x );
+-.PP
+ .BI "int isnormal(" x );
+-.PP
+ .BI "int isnan(" x );
+-.PP
+ .BI "int isinf(" x );
+ .fi
+ .PP
+diff --git a/man3/fread.3 b/man3/fread.3
+index 8e71e620e..41aa817e9 100644
+--- a/man3/fread.3
++++ b/man3/fread.3
+@@ -52,7 +52,6 @@ fread, fwrite \- binary stream input/output
+ .PP
+ .BI "size_t fread(void *" ptr ", size_t " size ", size_t " nmemb \
+ ", FILE *" stream );
+-.PP
+ .BI "size_t fwrite(const void *" ptr ", size_t " size ", size_t " nmemb ,
+ .BI "              FILE *" stream );
+ .fi
+diff --git a/man3/fseek.3 b/man3/fseek.3
+index f040563fb..d51f7050f 100644
+--- a/man3/fseek.3
++++ b/man3/fseek.3
+@@ -46,13 +46,11 @@ fgetpos, fseek, fsetpos, ftell, rewind \- reposition a stream
+ .B #include <stdio.h>
+ .PP
+ .BI "int fseek(FILE *" stream ", long " offset ", int " whence );
+-.PP
+ .BI "long ftell(FILE *" stream );
+ .PP
+ .BI "void rewind(FILE *" stream );
+ .PP
+ .BI "int fgetpos(FILE *" stream ", fpos_t *" pos );
+-.PP
+ .BI "int fsetpos(FILE *" stream ", const fpos_t *" pos );
+ .SH DESCRIPTION
+ The
+diff --git a/man3/getcwd.3 b/man3/getcwd.3
+index 9936b3b4f..c27c36aba 100644
+--- a/man3/getcwd.3
++++ b/man3/getcwd.3
+@@ -37,9 +37,7 @@ getcwd, getwd, get_current_dir_name \- get current working directory
+ .B #include <unistd.h>
+ .PP
+ .BI "char *getcwd(char *" buf ", size_t " size );
+-.PP
+ .BI "char *getwd(char *" buf );
+-.PP
+ .B "char *get_current_dir_name(void);"
+ .fi
+ .PP
+diff --git a/man3/getenv.3 b/man3/getenv.3
+index 873196aa0..665278bdf 100644
+--- a/man3/getenv.3
++++ b/man3/getenv.3
+@@ -38,7 +38,6 @@ getenv, secure_getenv \- get an environment variable
+ .B #include <stdlib.h>
+ .PP
+ .BI "char *getenv(const char *" name );
+-.PP
+ .BI "char *secure_getenv(const char *" name );
+ .fi
+ .PP
+diff --git a/man3/gethostbyname.3 b/man3/gethostbyname.3
+index 5d074a924..365f95e82 100644
+--- a/man3/gethostbyname.3
++++ b/man3/gethostbyname.3
+@@ -55,11 +55,9 @@ gethostent_r \- get network host entry
+ .BI "                              socklen_t " len ", int " type );
+ .PP
+ .BI "void sethostent(int " stayopen );
+-.PP
+ .B void endhostent(void);
+ .PP
+ .BI "void herror(const char *" s );
+-.PP
+ .BI "const char *hstrerror(int " err );
+ .PP
+ /* System V/POSIX extension */
+@@ -75,11 +73,9 @@ gethostent_r \- get network host entry
+ .BI "int gethostbyaddr_r(const void *" addr ", socklen_t " len ", int " type ,
+ .BI "        struct hostent *" ret ", char *" buf ", size_t " buflen ,
+ .BI "        struct hostent **" result ", int *" h_errnop );
+-.PP
+ .BI "int gethostbyname_r(const char *" name ,
+ .BI "        struct hostent *" ret ", char *" buf ", size_t " buflen ,
+ .BI "        struct hostent **" result ", int *" h_errnop );
+-.PP
+ .BI "int gethostbyname2_r(const char *" name ", int " af,
+ .BI "        struct hostent *" ret ", char *" buf ", size_t " buflen ,
+ .BI "        struct hostent **" result ", int *" h_errnop );
+diff --git a/man3/getifaddrs.3 b/man3/getifaddrs.3
+index 7e235896c..7290139cd 100644
+--- a/man3/getifaddrs.3
++++ b/man3/getifaddrs.3
+@@ -42,7 +42,6 @@ getifaddrs, freeifaddrs \- get interface addresses
+ .B #include <ifaddrs.h>
+ .PP
+ .BI "int getifaddrs(struct ifaddrs **" "ifap" );
+-.PP
+ .BI "void freeifaddrs(struct ifaddrs *" "ifa" );
+ .fi
+ .SH DESCRIPTION
+diff --git a/man3/getipnodebyname.3 b/man3/getipnodebyname.3
+index aa0f70a9c..12d3c2c86 100644
+--- a/man3/getipnodebyname.3
++++ b/man3/getipnodebyname.3
+@@ -35,10 +35,8 @@ hostnames and addresses
+ .PP
+ .BI "struct hostent *getipnodebyname(const char *" name ", int " af ,
+ .BI "                                int " flags ", int *" error_num );
+-.PP
+ .BI "struct hostent *getipnodebyaddr(const void *" addr ", size_t " len ,
+ .BI "                                int " af ", int *" "error_num" );
+-.PP
+ .BI "void freehostent(struct hostent *" "ip" );
+ .fi
+ .SH DESCRIPTION
+diff --git a/man3/getnetent.3 b/man3/getnetent.3
+index dffe95907..11c25c0db 100644
+--- a/man3/getnetent.3
++++ b/man3/getnetent.3
+@@ -38,11 +38,9 @@ get network entry
+ .B struct netent *getnetent(void);
+ .PP
+ .BI "struct netent *getnetbyname(const char *" name );
+-.PP
+ .BI "struct netent *getnetbyaddr(uint32_t " net ", int " type );
+ .PP
+ .BI "void setnetent(int " stayopen );
+-.PP
+ .B void endnetent(void);
+ .fi
+ .SH DESCRIPTION
+diff --git a/man3/getnetent_r.3 b/man3/getnetent_r.3
+index 934089d59..dbbd2763e 100644
+--- a/man3/getnetent_r.3
++++ b/man3/getnetent_r.3
+@@ -34,12 +34,10 @@ network entry (reentrant)
+ .BI "int getnetent_r(struct netent *" result_buf ", char *" buf ,
+ .BI "                size_t " buflen ", struct netent **" result ,
+ .BI "                int *" h_errnop );
+-.PP
+ .BI "int getnetbyname_r(const char *" name ,
+ .BI "                struct netent *" result_buf ", char *" buf ,
+ .BI "                size_t " buflen ", struct netent **" result ,
+ .BI "                int *" h_errnop );
+-.PP
+ .BI "int getnetbyaddr_r(uint32_t " net ", int " type ,
+ .BI "                struct netent *" result_buf ", char *" buf ,
+ .BI "                size_t " buflen ", struct netent **" result ,
+diff --git a/man3/getopt.3 b/man3/getopt.3
+index 16f442ad8..e25c4219a 100644
+--- a/man3/getopt.3
++++ b/man3/getopt.3
+@@ -58,7 +58,6 @@ optarg, optind, opterr, optopt \- Parse command-line options
+ .BI "int getopt_long(int " argc ", char * const " argv[] ,
+ .BI "           const char *" optstring ,
+ .BI "           const struct option *" longopts ", int *" longindex );
+-.PP
+ .BI "int getopt_long_only(int " argc ", char * const " argv[] ,
+ .BI "           const char *" optstring ,
+ .BI "           const struct option *" longopts ", int *" longindex );
+diff --git a/man3/getprotoent.3 b/man3/getprotoent.3
+index ee8c26cb3..c2ee5a235 100644
+--- a/man3/getprotoent.3
++++ b/man3/getprotoent.3
+@@ -38,11 +38,9 @@ endprotoent \- get protocol entry
+ .B struct protoent *getprotoent(void);
+ .PP
+ .BI "struct protoent *getprotobyname(const char *" name );
+-.PP
+ .BI "struct protoent *getprotobynumber(int " proto );
+ .PP
+ .BI "void setprotoent(int " stayopen );
+-.PP
+ .B void endprotoent(void);
+ .fi
+ .SH DESCRIPTION
+diff --git a/man3/getprotoent_r.3 b/man3/getprotoent_r.3
+index c98764a4e..5ff17e637 100644
+--- a/man3/getprotoent_r.3
++++ b/man3/getprotoent_r.3
+@@ -33,11 +33,9 @@ protocol entry (reentrant)
+ .PP
+ .BI "int getprotoent_r(struct protoent *" result_buf ", char *" buf ,
+ .BI "                size_t " buflen ", struct protoent **" result );
+-.PP
+ .BI "int getprotobyname_r(const char *" name ,
+ .BI "                struct protoent *" result_buf ", char *" buf ,
+ .BI "                size_t " buflen ", struct protoent **" result );
+-.PP
+ .BI "int getprotobynumber_r(int " proto ,
+ .BI "                struct protoent *" result_buf ", char *" buf ,
+ .BI "                size_t " buflen ", struct protoent **" result );
+diff --git a/man3/getpwent.3 b/man3/getpwent.3
+index 72fd5c62e..8164fcebc 100644
+--- a/man3/getpwent.3
++++ b/man3/getpwent.3
+@@ -39,9 +39,7 @@ getpwent, setpwent, endpwent \- get password file entry
+ .B #include <pwd.h>
+ .PP
+ .B struct passwd *getpwent(void);
+-.PP
+ .B void setpwent(void);
+-.PP
+ .B void endpwent(void);
+ .fi
+ .PP
+diff --git a/man3/getpwent_r.3 b/man3/getpwent_r.3
+index 261552dec..81426776a 100644
+--- a/man3/getpwent_r.3
++++ b/man3/getpwent_r.3
+@@ -30,7 +30,6 @@ getpwent_r, fgetpwent_r \- get passwd file entry reentrantly
+ .PP
+ .BI "int getpwent_r(struct passwd *" pwbuf ", char *" buf ,
+ .BI "               size_t " buflen ", struct passwd **" pwbufp );
+-.PP
+ .BI "int fgetpwent_r(FILE *" stream ", struct passwd *" pwbuf ", char *" buf ,
+ .BI "                size_t " buflen ", struct passwd **" pwbufp );
+ .fi
+diff --git a/man3/getpwnam.3 b/man3/getpwnam.3
+index 50810e6a9..5e41fdf08 100644
+--- a/man3/getpwnam.3
++++ b/man3/getpwnam.3
+@@ -43,12 +43,10 @@ getpwnam, getpwnam_r, getpwuid, getpwuid_r \- get password file entry
+ .B #include <pwd.h>
+ .PP
+ .BI "struct passwd *getpwnam(const char *" name );
+-.PP
+ .BI "struct passwd *getpwuid(uid_t " uid );
+ .PP
+ .BI "int getpwnam_r(const char *" name ", struct passwd *" pwd ,
+ .BI "               char *" buf ", size_t " buflen ", struct passwd **" result );
+-.PP
+ .BI "int getpwuid_r(uid_t " uid ", struct passwd *" pwd ,
+ .BI "               char *" buf ", size_t " buflen ", struct passwd **" result );
+ .fi
+diff --git a/man3/getrpcent.3 b/man3/getrpcent.3
+index e6b44e7c7..46b2bddd4 100644
+--- a/man3/getrpcent.3
++++ b/man3/getrpcent.3
+@@ -16,11 +16,9 @@ RPC entry
+ .BI "struct rpcent *getrpcent(void);"
+ .PP
+ .BI "struct rpcent *getrpcbyname(const char *" name );
+-.PP
+ .BI "struct rpcent *getrpcbynumber(int " number );
+ .PP
+ .BI "void setrpcent(int " stayopen );
+-.PP
+ .BI "void endrpcent(void);"
+ .fi
+ .SH DESCRIPTION
+diff --git a/man3/getrpcent_r.3 b/man3/getrpcent_r.3
+index acefea479..d097b1338 100644
+--- a/man3/getrpcent_r.3
++++ b/man3/getrpcent_r.3
+@@ -33,11 +33,9 @@ RPC entry (reentrant)
+ .PP
+ .BI "int getrpcent_r(struct rpcent *" result_buf ", char *" buf ,
+ .BI "                size_t " buflen ", struct rpcent **" result );
+-.PP
+ .BI "int getrpcbyname_r(const char *" name ,
+ .BI "                struct rpcent *" result_buf ", char *" buf ,
+ .BI "                size_t " buflen ", struct rpcent **" result );
+-.PP
+ .BI "int getrpcbynumber_r(int " number ,
+ .BI "                struct rpcent *" result_buf ", char *" buf ,
+ .BI "                size_t " buflen ", struct rpcent **" result );
+diff --git a/man3/getservent.3 b/man3/getservent.3
+index 8bfade77e..702d7c38f 100644
+--- a/man3/getservent.3
++++ b/man3/getservent.3
+@@ -42,11 +42,9 @@ get service entry
+ .B struct servent *getservent(void);
+ .PP
+ .BI "struct servent *getservbyname(const char *" name ", const char *" proto );
+-.PP
+ .BI "struct servent *getservbyport(int " port ", const char *" proto );
+ .PP
+ .BI "void setservent(int " stayopen );
+-.PP
+ .B void endservent(void);
+ .fi
+ .SH DESCRIPTION
+diff --git a/man3/getservent_r.3 b/man3/getservent_r.3
+index f0c84e6a2..8e0b50814 100644
+--- a/man3/getservent_r.3
++++ b/man3/getservent_r.3
+@@ -33,11 +33,9 @@ service entry (reentrant)
+ .PP
+ .BI "int getservent_r(struct servent *" result_buf ", char *" buf ,
+ .BI "                size_t " buflen ", struct servent **" result );
+-.PP
+ .BI "int getservbyname_r(const char *" name ", const char *" proto ,
+ .BI "                struct servent *" result_buf ", char *" buf ,
+ .BI "                size_t " buflen ", struct servent **" result );
+-.PP
+ .BI "int getservbyport_r(int " port ", const char *" proto ,
+ .BI "                struct servent *" result_buf ", char *" buf ,
+ .BI "                size_t " buflen ", struct servent **" result );
+diff --git a/man3/getttyent.3 b/man3/getttyent.3
+index a6c6e56ba..bec623b5c 100644
+--- a/man3/getttyent.3
++++ b/man3/getttyent.3
+@@ -11,11 +11,9 @@ getttyent, getttynam, setttyent, endttyent \- get ttys file entry
+ .B "#include <ttyent.h>"
+ .PP
+ .B "struct ttyent *getttyent(void);"
+-.PP
+ .BI "struct ttyent *getttynam(const char *" name );
+ .PP
+ .B "int setttyent(void);"
+-.PP
+ .B "int endttyent(void);"
+ .SH DESCRIPTION
+ These functions provide an interface to the file
+diff --git a/man3/getusershell.3 b/man3/getusershell.3
+index ebdfac1d6..b790cb1e6 100644
+--- a/man3/getusershell.3
++++ b/man3/getusershell.3
+@@ -35,9 +35,7 @@ getusershell, setusershell, endusershell \- get permitted user shells
+ .B #include <unistd.h>
+ .PP
+ .B char *getusershell(void);
+-.PP
+ .B void setusershell(void);
+-.PP
+ .B void endusershell(void);
+ .fi
+ .PP
+diff --git a/man3/getw.3 b/man3/getw.3
+index 00c5a79c6..2b5baec7b 100644
+--- a/man3/getw.3
++++ b/man3/getw.3
+@@ -30,7 +30,6 @@ getw, putw \- input and output of words (ints)
+ .B #include <stdio.h>
+ .PP
+ .BI "int getw(FILE *" stream );
+-.PP
+ .BI "int putw(int " w ", FILE *" stream );
+ .fi
+ .PP
+diff --git a/man3/index.3 b/man3/index.3
+index 703278615..ec1037743 100644
+--- a/man3/index.3
++++ b/man3/index.3
+@@ -36,7 +36,6 @@ index, rindex \- locate character in string
+ .B #include <strings.h>
+ .PP
+ .BI "char *index(const char *" s ", int " c );
+-.PP
+ .BI "char *rindex(const char *" s ", int " c );
+ .fi
+ .SH DESCRIPTION
+diff --git a/man3/inet_net_pton.3 b/man3/inet_net_pton.3
+index 9dbdeecb9..60d7bae36 100644
+--- a/man3/inet_net_pton.3
++++ b/man3/inet_net_pton.3
+@@ -31,7 +31,6 @@ inet_net_pton, inet_net_ntop \- Internet network number conversion
+ .PP
+ .BI "int inet_net_pton(int " af ", const char *" pres ,
+ .BI "                  void *" netp ", size_t " nsize );
+-.PP
+ .BI "char *inet_net_ntop(int " af ", const void *" netp ", int " bits ,
+ .BI "                    char *" pres ", size_t " psize );
+ .fi
+diff --git a/man3/lsearch.3 b/man3/lsearch.3
+index b4fdb6208..526dc5aa1 100644
+--- a/man3/lsearch.3
++++ b/man3/lsearch.3
+@@ -32,7 +32,6 @@ lfind, lsearch \- linear search of an array
+ .PP
+ .BI "void *lfind(const void *" key ", const void *" base ", size_t *" nmemb ,
+ .BI "         size_t " size ", int(*" compar ")(const void *, const void *));"
+-.PP
+ .BI "void *lsearch(const void *" key ", void *" base ", size_t *" nmemb ,
+ .BI "         size_t " size ", int(*" compar ")(const void *, const void *));"
+ .fi
+diff --git a/man3/nl_langinfo.3 b/man3/nl_langinfo.3
+index 8f8b96b15..6b22ab4ec 100644
+--- a/man3/nl_langinfo.3
++++ b/man3/nl_langinfo.3
+@@ -23,7 +23,6 @@ nl_langinfo, nl_langinfo_l \- query language and locale information
+ .B #include <langinfo.h>
+ .PP
+ .BI "char *nl_langinfo(nl_item " item );
+-.PP
+ .BI "char *nl_langinfo_l(nl_item " item ", locale_t " locale );
+ .fi
+ .PP
+diff --git a/man3/ntp_gettime.3 b/man3/ntp_gettime.3
+index 15a2a3c7c..c7f2976ce 100644
+--- a/man3/ntp_gettime.3
++++ b/man3/ntp_gettime.3
+@@ -30,7 +30,6 @@ ntp_gettime, ntp_gettimex  \- get time parameters (NTP daemon interface)
+ .B #include <sys/timex.h>
+ .PP
+ .BI "int ntp_gettime(struct ntptimeval *" ntv );
+-.PP
+ .BI "int ntp_gettimex(struct ntptimeval *" ntv );
+ .fi
+ .SH DESCRIPTION
+diff --git a/man3/openpty.3 b/man3/openpty.3
+index ff37d50a9..1732b7e2a 100644
+--- a/man3/openpty.3
++++ b/man3/openpty.3
+@@ -41,7 +41,6 @@ openpty, login_tty, forkpty \- terminal utility functions
+ .BI "int openpty(int *" amaster ", int *" aslave ", char *" name ,
+ .BI "            const struct termios *" termp ,
+ .BI "            const struct winsize *" winp );
+-.PP
+ .BI "pid_t forkpty(int *" amaster ", char *" name ,
+ .BI "              const struct termios *" termp ,
+ .BI "              const struct winsize *" winp );
+diff --git a/man3/popen.3 b/man3/popen.3
+index b02226359..5e666c110 100644
+--- a/man3/popen.3
++++ b/man3/popen.3
+@@ -45,7 +45,6 @@ popen, pclose \- pipe stream to or from a process
+ .B #include <stdio.h>
+ .PP
+ .BI "FILE *popen(const char *" command ", const char *" type );
+-.PP
+ .BI "int pclose(FILE *" stream );
+ .fi
+ .PP
+diff --git a/man3/posix_spawn.3 b/man3/posix_spawn.3
+index 34ad094ea..2c464e87b 100644
+--- a/man3/posix_spawn.3
++++ b/man3/posix_spawn.3
+@@ -39,7 +39,6 @@ posix_spawn, posix_spawnp \- spawn a process
+ .BI "                const posix_spawn_file_actions_t *" file_actions ,
+ .BI "                const posix_spawnattr_t *" attrp ,
+ .BI "                char *const " argv[] ", char *const " envp[] );
+-.PP
+ .BI "int posix_spawnp(pid_t *" pid ", const char *" file ,
+ .BI "                 const posix_spawn_file_actions_t *" file_actions ,
+ .BI "                 const posix_spawnattr_t *" attrp ,
+diff --git a/man3/qecvt.3 b/man3/qecvt.3
+index 0d4b8af3b..ad78c5485 100644
+--- a/man3/qecvt.3
++++ b/man3/qecvt.3
+@@ -29,15 +29,13 @@
+ .SH NAME
+ qecvt, qfcvt, qgcvt \- convert a floating-point number to a string
+ .SH SYNOPSIS
++.nf
+ .B #include <stdlib.h>
+ .PP
+-.BI "char *qecvt(long double " number ", int " ndigits ", int *" decpt ,
+-.BI "int *" sign );
+-.PP
+-.BI "char *qfcvt(long double " number ", int " ndigits ", int *" decpt ,
+-.BI "int *" sign );
+-.PP
++.BI "char *qecvt(long double " number ", int " ndigits ", int *" decpt ", int *" sign );
++.BI "char *qfcvt(long double " number ", int " ndigits ", int *" decpt ",i int *" sign );
+ .BI "char *qgcvt(long double " number ", int " ndigit ", char *" buf );
++.fi
+ .PP
+ .RS -4
+ Feature Test Macro Requirements for glibc (see
+diff --git a/man3/qsort.3 b/man3/qsort.3
+index b0d9c43ef..048356c30 100644
+--- a/man3/qsort.3
++++ b/man3/qsort.3
+@@ -43,7 +43,6 @@ qsort, qsort_r \- sort an array
+ .PP
+ .BI "void qsort(void *" base ", size_t " nmemb ", size_t " size ,
+ .BI "           int (*" compar ")(const void *, const void *));"
+-.PP
+ .BI "void qsort_r(void *" base ", size_t " nmemb ", size_t " size ,
+ .BI "           int (*" compar ")(const void *, const void *, void *),"
+ .BI "           void *" arg ");"
+diff --git a/man3/rcmd.3 b/man3/rcmd.3
+index d80c10324..c1fb9fbf4 100644
+--- a/man3/rcmd.3
++++ b/man3/rcmd.3
+@@ -56,7 +56,6 @@ stream to a remote command
+ .PP
+ .BI "int iruserok(uint32_t " raddr ", int " superuser ,
+ .BI "             const char *" ruser ", const char *" luser );
+-.PP
+ .BI "int ruserok(const char *" rhost ", int " superuser ,
+ .BI "            const char *" ruser ", const char *" luser );
+ .PP
+@@ -69,7 +68,6 @@ stream to a remote command
+ .BI "int iruserok_af(const void *" raddr ", int " superuser ,
+ .BI "                const char *" ruser ", const char *" luser \
+ ", sa_family_t " af );
+-.PP
+ .BI "int ruserok_af(const char *" rhost ", int " superuser ,
+ .BI "               const char *" ruser ", const char *" luser \
+ ", sa_family_t " af );
 
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
