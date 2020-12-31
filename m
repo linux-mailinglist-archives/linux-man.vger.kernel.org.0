@@ -2,64 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 02D162E7D2F
-	for <lists+linux-man@lfdr.de>; Thu, 31 Dec 2020 00:29:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0AE732E7EB0
+	for <lists+linux-man@lfdr.de>; Thu, 31 Dec 2020 09:22:06 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726388AbgL3X2w (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 30 Dec 2020 18:28:52 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51362 "EHLO
+        id S1726130AbgLaIVu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 31 Dec 2020 03:21:50 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48082 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726292AbgL3X2v (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 30 Dec 2020 18:28:51 -0500
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 57E30C061573
-        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 15:28:11 -0800 (PST)
-Received: by mail-wr1-x434.google.com with SMTP id t16so18811192wra.3
-        for <linux-man@vger.kernel.org>; Wed, 30 Dec 2020 15:28:11 -0800 (PST)
+        with ESMTP id S1726037AbgLaIVt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 31 Dec 2020 03:21:49 -0500
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7802BC061575
+        for <linux-man@vger.kernel.org>; Thu, 31 Dec 2020 00:21:09 -0800 (PST)
+Received: by mail-wm1-x32d.google.com with SMTP id 3so6692832wmg.4
+        for <linux-man@vger.kernel.org>; Thu, 31 Dec 2020 00:21:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=YyI+lu3tnACppHoN35T+DXT5afBLUmXYcXabtWWp8go=;
-        b=Nx4k87aFd5UJfFs5ZWfNKUGtS2mK/y1BYvNgfMq2WjTrw5JeSEJzDDCC/l8dBn0GAp
-         YFAtoB4RfJA9NZaNeqjg0HYF6kx2h5/1dQtVC13yjatCqirDjQ4C7w7vUzWUQ+aERd0k
-         NeNcr4PiSB36MxRndRhD85+YK74QMK5BdZeEY62045O3Z0fLL0otdU/zr49CVR1qOFDL
-         SakhHCv+Hxg31sHD1ckc+eb7ARSidptyhptEfy1mzVtuBwWT7top1S2InWUxMOwH+axV
-         NLG3WO7Ny+tr10Iiy1+WM5jjY8h66Tu4k0x7+NVaXn7Q/TkwAGxBcu5CDE5Q3qlM1HJo
-         NTyQ==
+        bh=pifMuWtiorWI8J6xH6pXwKph/WG4lL80rFsVd5BZARs=;
+        b=s/nOt8NZmDq4AIpvUjGmFmR8Bj7Tnt3DH5Nev9t8BDsFhk2Clt/mifv1oygxuf7zAt
+         +PROJS59wV/azKxp3JSmH55fr68mC5x9AqrqnEC/OFDI8ZmUyfaDC+9Pi98cbSbXLEtE
+         9AY1CKCsgRBiHWZDyvx5IypUgkhokv5fvs6rUHZCmxiNb+2y7+Z9aDPZng7iXZxEWazF
+         wZSCgbmwqW2hrQdU1wG0bGzl4VgGmECBvw6QtbnFKtkzBUoJWAKhBkXVUZhdqki2s3/u
+         MBIS3q5N/FOFEmOoRM6gMTjFYBl1oK//5dFy8UDG5mtNiltEiS2BvG9I6QvmigJCq4Vn
+         1TIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=YyI+lu3tnACppHoN35T+DXT5afBLUmXYcXabtWWp8go=;
-        b=bZ9dR/wZrfNNRqH3hqQ/JDyWfH3rfr7q4vBFthennlwX2uREt6SZiqyZeKao5XlCCC
-         WAbG+WpiqqFNCejgo7fr7QSZi7oUs5D3nhvKB7iSfVYB0HPXHFj9qGy5mjdyStnqLWoi
-         Dl6O08ARCJl/s1DbRZp8/A6tcX0zbW/3mhRUMm3iMJfppt2+L0XruP/2UWo7cLnzuzZK
-         1LkX1MKkMiMhXVDb484nfQneLOsoSCVtvKz2Qf7p91PyPChkP8tF0jiA6VppQ7fp5Nzl
-         LEWql6HJwS1TExW4/UuhIidylkjc4ArUivrj5lDBNA8drl4b/0WZRfcvDcxQgUhZlqnN
-         7VBw==
-X-Gm-Message-State: AOAM533hJTb4HXwCf0loBia/A9Zu/pZDIG1XEXgQ6Mu9e0anOxddEWFl
-        6LTNthpjXP2zi0/jH8tDbAnIORklylo=
-X-Google-Smtp-Source: ABdhPJw7AUxhIGR1DHM9bavvG0mFxAYmxA+7RJcBFj7x1IbvJpBCtHoKR4esLw0EQLL+2x+JXVGY0Q==
-X-Received: by 2002:adf:d085:: with SMTP id y5mr63722845wrh.41.1609370890069;
-        Wed, 30 Dec 2020 15:28:10 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.49.0])
-        by smtp.gmail.com with ESMTPSA id l8sm9381485wmf.35.2020.12.30.15.28.09
+        bh=pifMuWtiorWI8J6xH6pXwKph/WG4lL80rFsVd5BZARs=;
+        b=qQcsuLIVlL/z+XIwcd4/4oyBudJT6NQEPNIj7OnzKUxlmakHwGPwhHVwfqvBAd/8ne
+         gE7qZSWods1dM+oT8d4c77Q4o222PaemKXkRVitRlkZALIWVvJ1IKXDnuEAqUkRz1PeO
+         u4/YWKIJ4o0BPn8ZPOjNcjwc4BMebZ20KDsoQ1F8dnhRVooIr6Wcnpt257FFAFNoKW6i
+         txzOetdC3f1d9jcWkzgmtVP3GlAqstd+p9yx+h/FiF2yMN8t/ABuDP93MQ+XIltbn1R7
+         x1a2I2GFdupGII6Alr9B35Hz3E3IovRn/v/kIShUEBOSoBr6umWkT7Ge1JAsjouW1GRh
+         lT4A==
+X-Gm-Message-State: AOAM530uoxSiNC82tlHbQs9MM9/sFqXbiMtYZCmths2+dhLHvzg0M09w
+        nlaLdDVk+wF9pXHfpi4MFho=
+X-Google-Smtp-Source: ABdhPJwPxGdrLa24dmp9AT36nKWVQo03rhC6aUHADNADJ0xhWITVKpUwWiU2xnfUGk8+LCMrDoVTIw==
+X-Received: by 2002:a1c:4489:: with SMTP id r131mr11070946wma.24.1609402868263;
+        Thu, 31 Dec 2020 00:21:08 -0800 (PST)
+Received: from ?IPv6:2001:a61:2467:2f01:faca:3d43:5e40:30d1? ([2001:a61:2467:2f01:faca:3d43:5e40:30d1])
+        by smtp.gmail.com with ESMTPSA id x66sm11348311wmg.26.2020.12.31.00.21.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Dec 2020 15:28:09 -0800 (PST)
-Subject: Re: [PATCH] execveat.2: srcfix
-To:     mtk.manpages@gmail.com
-Cc:     linux-man <linux-man@vger.kernel.org>
-References: <20201230214147.874671-1-alx.manpages@gmail.com>
- <CAKgNAkjf8gS5Av2pzYqt_JHjjnCw-FrjqQicjhr20+MzgsK3Xg@mail.gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <bdda57ff-acdd-9109-5720-ba0db8138d41@gmail.com>
-Date:   Thu, 31 Dec 2020 00:28:08 +0100
+        Thu, 31 Dec 2020 00:21:07 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Jakub Wilk <jwilk@jwilk.net>
+Subject: Re: [PATCH] get_phys_pages.3: glibc gets the info from sysinfo(2)
+ since 2.23
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+References: <20201230214147.874671-7-alx.manpages@gmail.com>
+ <ff303eb6-ffd0-8567-1a72-72fd86671f0e@gmail.com>
+ <e87f1058-ef2c-e0eb-8d12-a63c20aef2e5@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <2c506d32-6d11-e834-3d56-226ade68ca38@gmail.com>
+Date:   Thu, 31 Dec 2020 09:21:04 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <CAKgNAkjf8gS5Av2pzYqt_JHjjnCw-FrjqQicjhr20+MzgsK3Xg@mail.gmail.com>
+In-Reply-To: <e87f1058-ef2c-e0eb-8d12-a63c20aef2e5@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -67,76 +70,77 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-
-
-On 12/30/20 11:27 PM, Michael Kerrisk (man-pages) wrote:
-> Hi Alex,
+On 12/31/20 12:22 AM, Alejandro Colomar (man-pages) wrote:
 > 
-> On Wed, 30 Dec 2020 at 22:41, Alejandro Colomar <alx.manpages@gmail.com> wrote:
+> 
+> On 12/30/20 11:40 PM, Michael Kerrisk (man-pages) wrote:
+>> Hi Alewx,
 >>
->> Use .nf/.fi in the SYNOPSIS.
-> 
-> I'm not against the patch. But why this particular page?
-
-Hello Michael,
-
-I fixed this while adding the notes about missing headers in that page,
-but I felt that it was better as a separate patch.
-And the other patch I didn't send it in the last moment as I found a
-missing line :p
-
-Would you prefer a global fix about .nf/.fi or just fix as we go?
-
-Cheers,
-
-Alex
-
-> 
-> Thanks,
-> 
-> Michael
-> 
+>> On 12/30/20 10:41 PM, Alejandro Colomar wrote:
+>>> See glibc's commit: 0ce657c576bf1b24
+>>> https://sourceware.org/git/?p=glibc.git;a=commitdiff;h=0ce657c576bf1b24
+>>>
+>>> Reported-by: Jakub Wilk <jwilk@jwilk.net>
+>>> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+>>> ---
+>>>  man3/get_phys_pages.3 | 13 +++++++++----
+>>>  1 file changed, 9 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/man3/get_phys_pages.3 b/man3/get_phys_pages.3
+>>> index 35f83fedb..a8a1ce3f4 100644
+>>> --- a/man3/get_phys_pages.3
+>>> +++ b/man3/get_phys_pages.3
+>>> @@ -55,15 +55,20 @@ The system could not provide the required information
+>>>  (possibly because the
+>>>  .I /proc
+>>>  filesystem was not mounted).
+>>> -.SH CONFORMING TO
+>>> -These functions are GNU extensions.
+>>> -.SH NOTES
+>>> -These functions obtain the required information by scanning the
+>>> +.SH VERSIONS
+>>> +Before glibc 2.23,
+>>> +these functions obtained the required information by scanning the
+>>>  .I MemTotal
+>>>  and
+>>>  .I MemFree
+>>>  fields of
+>>>  .IR /proc/meminfo .
 >>
->> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
->> ---
+>> Thanks for the patch. But I think it would be better to put 
+>> all the info into NOTES, rather than splitting some out into
+>> VERSIONS.
 >>
->>  man2/execveat.2 | 11 ++++++-----
->>  1 file changed, 6 insertions(+), 5 deletions(-)
+>>> +.SH CONFORMING TO
+>>> +These functions are GNU extensions.
 >>
->> diff --git a/man2/execveat.2 b/man2/execveat.2
->> index 7c31d8f17..c5cd843f9 100644
->> --- a/man2/execveat.2
->> +++ b/man2/execveat.2
->> @@ -27,13 +27,13 @@
->>  .SH NAME
->>  execveat \- execute program relative to a directory file descriptor
->>  .SH SYNOPSIS
->> +.nf
->>  .B #include <unistd.h>
->>  .PP
->> -.BI "int execveat(int " dirfd ", const char *" pathname ","
->> -.br
->> -.BI "             char *const " argv "[], char *const " envp "[],"
->> -.br
->> +.BI "int execveat(int " dirfd ", const char *" pathname ,
->> +.BI "             char *const " argv "[], char *const " envp [],
->>  .BI "             int " flags );
->> +.fi
->>  .SH DESCRIPTION
->>  .\" commit 51f39a1f0cea1cacf8c787f652f26dfee9611874
->>  The
->> @@ -224,7 +224,8 @@ where scripts recursively employ
->>  .\" For an example, see Michael Kerrisk's 2015-01-10 reply in this LKML
->>  .\" thread (http://thread.gmane.org/gmane.linux.kernel/1836105/focus=20229):
->>  .\"
->> -.\"     Subject: [PATCHv10 man-pages 5/5] execveat.2: initial man page.\"                        for execveat(2
->> +.\"     Subject: [PATCHv10 man-pages 5/5] execveat.2: initial man page
->> +.\"                        for execveat(2)
->>  .\"     Date: Mon, 24 Nov 2014 11:53:59 +0000
->>  .SH SEE ALSO
->>  .BR execve (2),
->> --
->> 2.29.2
->>
+>> And it's good to add this, but let's make it a separate patch.
 > 
+> Hi Michael,
 > 
+> I didn't add that.
+> This is one of those times when git provides unreadable diffs.
+> Please have a closer look at the diff,
+> and also at the rendered output.
+
+Yes, I see now.
+
+Still, it would be best to put this piece into NOTES:
+
+[[
+Before glibc 2.23,
+these functions obtained the required information by scanning the
+.I MemTotal
+Before glibc 2.23,
+these functions obtained the required information by scanning the
+.I MemTotal
+]]
+
+Thanks,
+
+Michael
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
