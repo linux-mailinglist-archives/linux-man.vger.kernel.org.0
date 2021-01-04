@@ -2,147 +2,134 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1A2D32E9D19
-	for <lists+linux-man@lfdr.de>; Mon,  4 Jan 2021 19:33:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B6FCC2E9D8C
+	for <lists+linux-man@lfdr.de>; Mon,  4 Jan 2021 19:56:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727566AbhADScw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 4 Jan 2021 13:32:52 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41220 "EHLO
+        id S1727434AbhADS4b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 4 Jan 2021 13:56:31 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44870 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727281AbhADScw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 4 Jan 2021 13:32:52 -0500
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 91936C061574
-        for <linux-man@vger.kernel.org>; Mon,  4 Jan 2021 10:32:11 -0800 (PST)
-Received: by mail-wm1-x331.google.com with SMTP id 190so173805wmz.0
-        for <linux-man@vger.kernel.org>; Mon, 04 Jan 2021 10:32:11 -0800 (PST)
+        with ESMTP id S1727098AbhADS4b (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 4 Jan 2021 13:56:31 -0500
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F20BEC061574
+        for <linux-man@vger.kernel.org>; Mon,  4 Jan 2021 10:55:50 -0800 (PST)
+Received: by mail-wr1-x42c.google.com with SMTP id d26so33169372wrb.12
+        for <linux-man@vger.kernel.org>; Mon, 04 Jan 2021 10:55:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=wRLfSUeD5pLpI1767oGj7qqX6B7pL7AFq4QKf/6qmAc=;
-        b=rTCqWNqYD9D0/slxB4GOsM4afMRdCYMrIVnmdfr/z/e5j3eNewBZLUlsIXRBDMlMoS
-         mdL86AENsxR5DpCyIu4wGeO8QfuC/OOg5iMmGarD0HKZHV2x//wxM2kZik5Q2NQXRi/d
-         cPcesRaKI+0gfqVexZ2Qb1of+PdXbGOSYMnjvEoCmbAauZXeQBx/D18Ak34Kln6IqCqZ
-         gJYwEZZXSH8NDbp75Gmc7wMqk7qn8t75YNiA3XX7+d4uelTCdFR0C2AT9Tf9UeCc240x
-         DX/Pn6tDrazpn49c9cXNdOlNksBjViBcTL3HUcub07tuhAHGgT3eofXLNcUw7RzxlaTP
-         eJMg==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=vof1ROaEF2NWoGYhk9XEQpiIQ1okpI5JIqydWlTBgak=;
+        b=G1ApmiCWlH/89U7IjcMIQKheh3oxycuh5asoVzX/kJY6NjsXkaXgzYT5YL0elnLhFL
+         53PvcbVxh5f9a1kFkC4BctP0K4w68rpVH0C9PtXjbhnMH5PTvja0VbyDpUZKHfSOevCg
+         xm652DdVNkSTBIRemZKuToX1MHcQXlexA1MUbQ7wHq+hAeIigIdaFr4vkt9g8ZP8B+0T
+         a5xMcg08cDzx5QeIl2g7MLP/hKHt9z4LfLQLQhihtYn/qp2FJc7+65odUlRfYcJLky3A
+         jxiGgrJ8AjVLfh76SOJaLx0CZlvPUmVyY9dOj9VhWWTatFAmKDlngXBs4KHDpzWo/RJP
+         tzPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=wRLfSUeD5pLpI1767oGj7qqX6B7pL7AFq4QKf/6qmAc=;
-        b=AbgF4dk4ei1Gb+2fkVH5UFoA+WziyFvVD4baBBIX+RzImsF/H0OwkEp5PJrH/+HyAH
-         5uoUBekd6TplL8K8Bg7DZ6WGXhUKxZW/XrzHIHb/+XejXES7qjg4rp55Yfqf+CVu1z1g
-         NuZmnc1F9cum0jFHp+b+INv8tSzJ3wW7VKdT/idlgftZUwUBfGd9RJwhohM+Vup4Kja/
-         BhSJTZqPXBdVj5MY33kJi2IKTmp02z7yB0jF4BO1zGDD03Xqp5KXJVKaEG3VMsbj40vY
-         14I4YwIPOxW0uDXFZWaAgcH4roA5W/KqsQOobhnEiC3/vUKgKPf2Cb3IB4jhOK14tJ0Q
-         VzFw==
-X-Gm-Message-State: AOAM530IvbGK9NWH9f5cgbjeKstF0GmnFdka+ixh3I5lVHzS3YTKmPwS
-        LK6YC2BZ5oo7siWKo8Qt4SEOfoFoXnw=
-X-Google-Smtp-Source: ABdhPJyQXMVC29FlTaYaB0aZV18AID1WPC6AIf6muLGhXau3q7jP4s7e3vek/M25g5U/loTaYqpgAw==
-X-Received: by 2002:a7b:cb54:: with SMTP id v20mr191442wmj.148.1609785130407;
-        Mon, 04 Jan 2021 10:32:10 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with UTF8SMTPSA id b83sm240743wmd.48.2021.01.04.10.32.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 04 Jan 2021 10:32:09 -0800 (PST)
-Subject: Re: [PATCH] system.3: Document bug and workaround when the command
- name starts with a hypen
+        bh=vof1ROaEF2NWoGYhk9XEQpiIQ1okpI5JIqydWlTBgak=;
+        b=cLqvekwZWy3FOdV7gl509PDcHn7QoOszH3vjxhe+qianBPXMGOSrJJDkxJGjqkWK14
+         bhbkyB4PUU5IaKFMHzUirlZwbK96Xf9Xzqd4/PbbYFnFemM0pjlCkf5pPjQw+28Id8iG
+         Jgkc3NgdnX1BsmsOTVDYTfAw4iBQBaodXmCdBSp4mRDWsfmqqaiTraQ0KvVw3ZNCmMz3
+         7GUj42AjCxSJ7rkaoC+uUsEAWzuVygI+rhEkC+ae47b5st86mmWyqwRaGD0uUo4SKAG7
+         jauMPajs2gKw0mEXfTi5tIdAZ5lkgjxtGW7fkG0r4Ng/a4PR1Q6IuVKmZ0WoXfZhjbcj
+         fuhg==
+X-Gm-Message-State: AOAM530n9GJjyTfpCHFb/vT5ZRhFtYeB5e1eecO0njFWphm3sSeBakVD
+        Prr83nYzKFyqHNMJzpS18d0jVJLploM=
+X-Google-Smtp-Source: ABdhPJzUouddFfkueEzVxOneDIg3eL8UVRQ6gYA9JBGuntveJqZ4gOOK+ETsbh3ENg7ayT9Xte+SVA==
+X-Received: by 2002:adf:e452:: with SMTP id t18mr78098700wrm.177.1609786549756;
+        Mon, 04 Jan 2021 10:55:49 -0800 (PST)
+Received: from debian.vlc ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id m8sm308895wmc.27.2021.01.04.10.55.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 04 Jan 2021 10:55:49 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
-Cc:     libc-alpha@sourceware.org, linux-man@vger.kernel.org,
-        Ciprian Dorin Craciun <ciprian.craciun@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>
-References: <CA+Tk8fykJjf=KzYjW7YMonnZ1qAdQJhqKDRrX0FNGyAYjSnkqg@mail.gmail.com>
- <20210104180420.74092-1-alx.manpages@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <5c64d9f9-5bef-ba6a-ac7c-b119ce61d731@gmail.com>
-Date:   Mon, 4 Jan 2021 19:32:08 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:84.0) Gecko/20100101
- Thunderbird/84.0
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: [PATCH] futex.2, syscalls.2, vmsplice.2, bpf-helpers.7: Write consistently 'user space' instead of 'userspace'
+Date:   Mon,  4 Jan 2021 19:55:20 +0100
+Message-Id: <20210104185519.78139-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-In-Reply-To: <20210104180420.74092-1-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+ man2/futex.2       | 4 ++--
+ man2/syscalls.2    | 2 +-
+ man2/vmsplice.2    | 2 +-
+ man7/bpf-helpers.7 | 2 +-
+ 4 files changed, 5 insertions(+), 5 deletions(-)
 
-See a few corrections below.
-
-Cheers,
-
-Alex
-
-On 1/4/21 7:04 PM, Alejandro Colomar wrote:
-> man-pages bug: 211029
->  https://bugzilla.kernel.org/show_bug.cgi?id=211029
-> 
-> Reported-by: Ciprian Dorin Craciun <ciprian.craciun@gmail.com>
-> Cc: Florian Weimer <fweimer@redhat.com>
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> ---
->  man3/system.3 | 34 ++++++++++++++++++++++++++++++++++
->  1 file changed, 34 insertions(+)
-> 
-> diff --git a/man3/system.3 b/man3/system.3
-> index aef40417a..0310d9a04 100644
-> --- a/man3/system.3
-> +++ b/man3/system.3
-> @@ -250,6 +250,40 @@ are not executed.
->  Such risks are especially grave when using
->  .BR system ()
->  from a privileged program.
-> +.SH BUGS
-> +./" [BUG 211029](https://bugzilla.kernel.org/show_bug.cgi?id=211029)
-> +./" [Glibc bug](https://sourceware.org/bugzilla/show_bug.cgi?id=27143)
-> +./" [POSIX bug](https://www.austingroupbugs.net/view.php?id=1440)
-> +If the command name starts with a hyphen,
-> +.BR sh (1)
-> +interprets the command name as an option,
-> +and the behavior is undefined
-> +(See the
-> +.B \-c
-> +option in
-
-option to
-
-> +.BR sh (1).).
-> +To work around this problem,
-> +prepend the command with a space as below:
-> +.PP
-> +.RS 4
-> +.EX
-> +/* system_hyphen.c */
-> +
-> +#include <stdlib.h>
-> +
-> +int
-> +main(void)
-> +{
-> +    system(" -echo Hello world!");
-
-\-echo
-
-> +    exit(EXIT_SUCCESS);
-> +}
-> +.PP
-> +.RB "$" " sudo ln \-s \-T /usr/bin/echo /usr/bin/\-echo;"
-> +.RB "$" " cc \-o system_hyphen system_hyphen.c;"
-> +.RB "$" " ./system_hyphen;"
-> +Hello world!
-> +.EE
-> +.RE
->  .SH SEE ALSO
->  .BR sh (1),
->  .BR execve (2),
-> 
-
+diff --git a/man2/futex.2 b/man2/futex.2
+index 49ea6ef3b..04df4896f 100644
+--- a/man2/futex.2
++++ b/man2/futex.2
+@@ -1018,7 +1018,7 @@ user space atomically by setting the futex value to 0.
+ .\"     retry:
+ .\"
+ .\"     	/*
+-.\"     	 * Owner might have unlocked in userspace before we
++.\"     	 * Owner might have unlocked in user space before we
+ .\"     	 * were able to set the waiter bit.
+ .\"              */
+ .\"             if (atomic_acquire(futex) == SUCCESS) {
+@@ -1147,7 +1147,7 @@ but the kernel can fix this up and acquire the futex.
+ .\"	in user space would fail, so kernel has to clean up.)
+ .\" Darren Hart (Oct 2015):
+ .\"     The trylock in the kernel has more state, so it can independently
+-.\"     verify the  flags that userspace must trust implicitly.
++.\"     verify the flags that user space must trust implicitly.
+ .IP
+ The
+ .IR uaddr2 ,
+diff --git a/man2/syscalls.2 b/man2/syscalls.2
+index e8cb489b1..99db98fea 100644
+--- a/man2/syscalls.2
++++ b/man2/syscalls.2
+@@ -224,7 +224,7 @@ T}
+ .\" \fBcmpxchg\fP(2)	2.6.12	T{
+ .\" ARM, syscall constant never was
+ .\" .br
+-.\" exposed to userspace, in-kernel
++.\" exposed to user space, in-kernel
+ .\" .br
+ .\" definition had \fB__ARM_NR\fP prefix,
+ .\" .br
+diff --git a/man2/vmsplice.2 b/man2/vmsplice.2
+index 17834607b..649fe0ca7 100644
+--- a/man2/vmsplice.2
++++ b/man2/vmsplice.2
+@@ -181,7 +181,7 @@ this limit is 1024.
+ .\" commit 6a14b90bb6bc7cd83e2a444bf457a2ea645cbfe7
+ .BR vmsplice ()
+ really supports true splicing only from user memory to a pipe.
+-In the opposite direction, it actually just copies the data to userspace.
++In the opposite direction, it actually just copies the data to user space.
+ But this makes the interface nice and symmetric and enables people to build on
+ .BR vmsplice ()
+ with room for future improvement in performance.
+diff --git a/man7/bpf-helpers.7 b/man7/bpf-helpers.7
+index f3b9bbc72..5ddbe79ba 100644
+--- a/man7/bpf-helpers.7
++++ b/man7/bpf-helpers.7
+@@ -3020,7 +3020,7 @@ void bpf_sys_open(struct pt_regs *ctx)
+                                           ctx\->di);
+ 
+         // Consume buf, for example push it to
+-        // userspace via bpf_perf_event_output(); we
++        // user space via bpf_perf_event_output(); we
+         // can use res (the string length) as event
+         // size, after checking its boundaries.
+ }
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.29.2
+
