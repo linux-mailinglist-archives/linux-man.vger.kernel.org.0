@@ -2,112 +2,98 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B73A72E8CF9
-	for <lists+linux-man@lfdr.de>; Sun,  3 Jan 2021 16:45:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0432B2E9463
+	for <lists+linux-man@lfdr.de>; Mon,  4 Jan 2021 12:56:31 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726248AbhACPpB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 3 Jan 2021 10:45:01 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([63.128.21.124]:41464 "EHLO
-        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1725840AbhACPpA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 3 Jan 2021 10:45:00 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1609688614;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=Uzb6Ose5CVWtCLqLD28JeDnKOalYPQMRTZZFzytaCzo=;
-        b=EkMrz0dgHIRx6y8q4JPLA3hs6iHCjFKMIteEdsIPTxCqy4qiV7ZfK1d4tEOrg2PyQ9a2T/
-        p3eTA9mHuSieFDBR+zviQcjkXAlDTfw0r1rFhT/8VDh+b/JGdUhpfbSvIvp41NNK5X9drm
-        sKKAkjrf8Qw26UIa5Ul7bMCohXwbahE=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-408-PX7LCnyrMvuPCruNQsGEcQ-1; Sun, 03 Jan 2021 10:43:32 -0500
-X-MC-Unique: PX7LCnyrMvuPCruNQsGEcQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 88723801AC0;
-        Sun,  3 Jan 2021 15:43:31 +0000 (UTC)
-Received: from x2.localnet (ovpn-113-86.rdu2.redhat.com [10.10.113.86])
-        by smtp.corp.redhat.com (Postfix) with ESMTP id A1A6860D01;
-        Sun,  3 Jan 2021 15:43:30 +0000 (UTC)
-From:   Steve Grubb <sgrubb@redhat.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Jan Kara <jack@suse.cz>
-Cc:     Amir Goldstein <amir73il@gmail.com>, linux-man@vger.kernel.org,
-        Jan Kara <jack@suse.cz>
-Subject: Re: [PATCH] fanotify: Document FAN_AUDIT flag
-Date:   Sun, 03 Jan 2021 10:43:28 -0500
-Message-ID: <4619055.31r3eYUQgx@x2>
-Organization: Red Hat
-In-Reply-To: <20201202154354.30778-1-jack@suse.cz>
-References: <20201202154354.30778-1-jack@suse.cz>
+        id S1726278AbhADL4a (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 4 Jan 2021 06:56:30 -0500
+Received: from mx2.suse.de ([195.135.220.15]:46354 "EHLO mx2.suse.de"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726236AbhADL4a (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 4 Jan 2021 06:56:30 -0500
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+        by mx2.suse.de (Postfix) with ESMTP id BAA14AEAE;
+        Mon,  4 Jan 2021 11:55:48 +0000 (UTC)
+Received: by quack2.suse.cz (Postfix, from userid 1000)
+        id 21F591E07F9; Mon,  4 Jan 2021 12:55:48 +0100 (CET)
+Date:   Mon, 4 Jan 2021 12:55:48 +0100
+From:   Jan Kara <jack@suse.cz>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Jan Kara <jack@suse.cz>, Amir Goldstein <amir73il@gmail.com>,
+        Matthew Bobrowski <mbobrowski@mbobrowski.org>,
+        linux-man@vger.kernel.org, Steve Grubb <sgrubb@redhat.com>
+Subject: Re: [PATCH] fanotify.7: fix outdated description
+Message-ID: <20210104115548.GC4018@quack2.suse.cz>
+References: <20201124152109.30027-1-amir73il@gmail.com>
+ <d698116e-4f7f-1b50-538f-7f5d83c9e697@gmail.com>
+ <20201126132912.GE422@quack2.suse.cz>
+ <32752c59-fd33-447d-a212-c255b6f32c0f@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <32752c59-fd33-447d-a212-c255b6f32c0f@gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wednesday, December 2, 2020 10:43:54 AM EST Jan Kara wrote:
-> Document FAN_AUDIT and related FAN_ENABLE_AUDIT flags.
+On Wed 30-12-20 15:17:29, Michael Kerrisk (man-pages) wrote:
+> On 11/26/20 2:29 PM, Jan Kara wrote:
+> > On Thu 26-11-20 10:48:09, Michael Kerrisk (man-pages) wrote:
+> >> On 11/24/20 4:21 PM, Amir Goldstein wrote:
+> >>> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+> >>> ---
+> >>>  man7/fanotify.7 | 7 ++++---
+> >>>  1 file changed, 4 insertions(+), 3 deletions(-)
+> >>>
+> >>> diff --git a/man7/fanotify.7 b/man7/fanotify.7
+> >>> index c4f5397e4..5804a1f30 100644
+> >>> --- a/man7/fanotify.7
+> >>> +++ b/man7/fanotify.7
+> >>> @@ -29,11 +29,12 @@ fanotify \- monitoring filesystem events
+> >>>  The fanotify API provides notification and interception of
+> >>>  filesystem events.
+> >>>  Use cases include virus scanning and hierarchical storage management.
+> >>> -Currently, only a limited set of events is supported.
+> >>> -In particular, there is no support for create, delete, and move events.
+> >>> +In the original fanotify API, only a limited set of events was supported.
+> >>> +In particular, there was no support for create, delete, and move events.
+> >>> +The support for those events was added in Linux 5.1.
+> >>>  (See
+> >>>  .BR inotify (7)
+> >>> -for details of an API that does notify those events.)
+> >>> +for details of an API that did notify those events pre Linux 5.1.)
+> >>>  .PP
+> >>>  Additional capabilities compared to the
+> >>>  .BR inotify (7)
+> >>
+> >> Thanks, Amir. Applied, with Jan's Reviewed-by.
+> >>
+> >> By the way, I see that there's still no documentation for
+> >> FAN_AUDIT/FAN_ENABLE_AUDIT, added in:
+> >>
+> >>     commit de8cd83e91bc3ee212b3e6ec6e4283af9e4ab269
+> >>     Author: Steve Grubb <sgrubb@redhat.com>
+> >>     Date:   Mon Oct 2 20:21:39 2017 -0400
+> >>
+> >>         audit: Record fanotify access control decisions
+> >>
+> >>
+> >> Can anyone help with that?
+> > 
+> > Thanks for a notification. If Steve doesn't beat me to it, I'll write the
+> > doc likely next week.
 > 
-> Signed-off-by: Jan Kara <jack@suse.cz>
+> Ping!
 
-Looks good. Sorry about the delay.
+I've already sent it and Steve has acked it [1]. So the ball is on your
+side ;).
 
-Acked-by: Steve Grubb <sgrubb@redhat.com>
+								Honza
 
-> ---
->  man2/fanotify_init.2 | 7 +++++++
->  man7/fanotify.7      | 9 ++++++++-
->  2 files changed, 15 insertions(+), 1 deletion(-)
-> 
-> OK, here's my attempt to document the FAN_AUDIT flag. It would be nice if
-> Steve glanced over it from the audit side to check things are sane.
-> 
-> diff --git a/man2/fanotify_init.2 b/man2/fanotify_init.2
-> index ca03b11dc98a..6becc7a680db 100644
-> --- a/man2/fanotify_init.2
-> +++ b/man2/fanotify_init.2
-> @@ -155,6 +155,13 @@ supplied to
->  (see
->  .BR fanotify (7)).
->  .TP
-> +.BR FAN_ENABLE_AUDIT " (since Linux 4.15)"
-> +.\" commit de8cd83e91bc3ee212b3e6ec6e4283af9e4ab269
-> +Enable generation of audit log records about access mediation performed by
-> +permission events. The permission event response has to be marked with
-> +.B FAN_AUDIT
-> +flag for audit log record to be generated.
-> +.TP
->  .BR FAN_REPORT_FID " (since Linux 5.1)"
->  .\" commit a8b13aa20afb69161b5123b4f1acc7ea0a03d360
->  This value allows the receipt of events which contain additional
-> information diff --git a/man7/fanotify.7 b/man7/fanotify.7
-> index 5804a1f30d6c..b5f096304cf4 100644
-> --- a/man7/fanotify.7
-> +++ b/man7/fanotify.7
-> @@ -588,7 +588,14 @@ to deny the file operation.
->  .PP
->  If access is denied, the requesting application call will receive an
->  .BR EPERM
-> -error.
-> +error. Additionally, if the notification group has been created with
-> +.B FAN_ENABLE_AUDIT
-> +flag,
-> +.B FAN_AUDIT
-> +flag can be set in the
-> +.I response
-> +field. In that case audit subsystem will log information about the access
-> +decision to the audit logs.
->  .\"
->  .SS Closing the fanotify file descriptor
->  When all file descriptors referring to the fanotify notification group are
+[1] https://lore.kernel.org/linux-man/4619055.31r3eYUQgx@x2
 
-
-
-
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
