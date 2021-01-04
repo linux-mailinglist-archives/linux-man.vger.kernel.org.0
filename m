@@ -2,73 +2,125 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5E9472E9946
-	for <lists+linux-man@lfdr.de>; Mon,  4 Jan 2021 16:56:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id DC1FF2E9CB8
+	for <lists+linux-man@lfdr.de>; Mon,  4 Jan 2021 19:07:00 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727780AbhADPzu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 4 Jan 2021 10:55:50 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45062 "EHLO
+        id S1726497AbhADSGg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 4 Jan 2021 13:06:36 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37184 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727784AbhADPzu (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 4 Jan 2021 10:55:50 -0500
-Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com [IPv6:2607:f8b0:4864:20::82e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B1CDFC061793
-        for <linux-man@vger.kernel.org>; Mon,  4 Jan 2021 07:55:09 -0800 (PST)
-Received: by mail-qt1-x82e.google.com with SMTP id u21so18710060qtw.11
-        for <linux-man@vger.kernel.org>; Mon, 04 Jan 2021 07:55:09 -0800 (PST)
+        with ESMTP id S1726452AbhADSGg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 4 Jan 2021 13:06:36 -0500
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C7AABC061574
+        for <linux-man@vger.kernel.org>; Mon,  4 Jan 2021 10:05:55 -0800 (PST)
+Received: by mail-wm1-x336.google.com with SMTP id e25so116883wme.0
+        for <linux-man@vger.kernel.org>; Mon, 04 Jan 2021 10:05:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=eKCFwWB6PobMZGpgaat4DjzOh2CGfbIJwhoduKdyEN0=;
-        b=ouN6B5goNDKUXpq/9i1dWxxt+20hHFE6y4dYE1+YoIj5pe/E6XvIxaj6BcJ9le1cBw
-         510pd1QNgPWA89u1Iz+ufTXF/pJVLwhBspNZUZqURIC1wrB0RaQ2CYbYtJQEetmK5Iom
-         IMcW4AB0CYSrGBzydNwbEPfuBhn7rcZ0vQ6sVcoYoFSQQTTx5tK1dkvuKTKnlugnSSej
-         KyuXHkeDJT8XGp8BVIaD7KP4b9yz0ZKI2bW5VHCQFUdJojsE0gHZIfVkzTnpNfm/cMun
-         hWxS+Q9p8mGyBB0mGl8FTVLdOSFp6nYOh1dQ9q2EDe7PIBmRxajbXo+x6nvhA3JNerMf
-         OpOA==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=5rKDud63D/LlAcCaYHwUDZhnvMnVq2qTO5WjsGNouGA=;
+        b=WwdAMG/Pm1gOyNjU8dr+/TBzBkSaKIM1XNnn74nGHbhkd8e6a9hjMPg4X3iGJRYVzz
+         /Omf7TE47vK2h6BxFJ9xvbi24AvFzpH0jRZLA13Lam4Uu2erXfPCVlPB4/W7/MwRtIGX
+         8a49m3CBTU4p4+3fUpQGQlOU6JCsdgMPMH9lp2xu2keNNowTiXWRjsKXn/2XG0YVQFxL
+         oX7v4a8/VwkdUr50tdeiy22yZz8YNIXfoaHkszyuiQ4f0xxIhHg/WksJY8CAfW+hqIhi
+         2mkOVrQo2H6xmwCh658xdWTwnJD2ZFRpVl9hBEPhJ0TSQVFZFuA0VHe08XIPJt5xyR/b
+         M1eA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=eKCFwWB6PobMZGpgaat4DjzOh2CGfbIJwhoduKdyEN0=;
-        b=PubqUPzd6ZCxKMMo2ugpW+siAq7Mf5HDE+jZ1yDaG0EQu79wCwzVRHMFl/lNfVnfPo
-         5oOxxLR72us/8n7NC4mSuls/AHH6OZuqM1H91mxZQMCh504OpJzjNAuZN0VR8T00Cvw4
-         M2C/OVo9Zc4v8xUHoR1R7yb+UUiClAqCAP8aV5Qm4tNZKNzwb8x0H9yt6H1oly7XL+UP
-         B/hcWKTNQSoR9ocU4c1pGAP38iv6JpQtLyz+IchydVwmi+Npk2wLQn+MEh+SCW+wzS0K
-         Eix1EKr7XizIWw4iBP2kQP8ZWVrJuLeHcFeYm/xm6u0yCHUubU04MMx1VnYrKYA8meBc
-         G+7Q==
-X-Gm-Message-State: AOAM533JmDhKHLwH4Xb2aVIEXXgWrudV7lIelOgOCwxnkkUB3k8ERb8s
-        j9ciOxZpekBhj0p/X6CA5fjb4WnhvIfsrUmePL4P5xnB7dJHxg==
-X-Google-Smtp-Source: ABdhPJxWygtLOnP4tZxdzY0NMTS63oHoxobRBHyDeubJnbHwfa5zO/WadfwWeSVH1NVhyygMt7vniQs5UOIY6UM9XF8=
-X-Received: by 2002:ac8:6703:: with SMTP id e3mr71937777qtp.344.1609775708964;
- Mon, 04 Jan 2021 07:55:08 -0800 (PST)
-MIME-Version: 1.0
-References: <20210104151333.70955-1-alx.manpages@gmail.com>
-In-Reply-To: <20210104151333.70955-1-alx.manpages@gmail.com>
-From:   Ciprian Dorin Craciun <ciprian.craciun@gmail.com>
-Date:   Mon, 4 Jan 2021 17:54:32 +0200
-Message-ID: <CA+Tk8fykJjf=KzYjW7YMonnZ1qAdQJhqKDRrX0FNGyAYjSnkqg@mail.gmail.com>
-Subject: Re: [RFC] system.3: Document bug when the command name starts with a hypen
-To:     linux-man@vger.kernel.org
-Cc:     mtk.manpages@gmail.com, Alejandro Colomar <alx.manpages@gmail.com>,
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=5rKDud63D/LlAcCaYHwUDZhnvMnVq2qTO5WjsGNouGA=;
+        b=jn0H7+8UuxwYEfnKbAM3T189MYDCIHMaYMdBdX796NbUYn3kfjPMmxuDGsy43qtDkt
+         DgUXsIBNAw88dCO6rqShDLvJBp6FlT78o8/abfKEK0O8ckCGyXhj3YNhGFhidFWj22x5
+         nmvCp/By1AgHcoB6Q3oNtvCPgQ5WrU/NquoncQ76hG8fGHIbbmVn7CG2uZsNHJChqpt9
+         rl4JMfD5COHIuOo11R/r20KsgM/nXsEZwpCHvBh8bwRyitP+TGKQ4Zxr/UdIEbbtfjGM
+         My7oZV13HpkHMVJ3HRYUfuiem4sYRH7XquzKLkiMK3mXcLK2B4r/H1GB8Loed1GrGwup
+         KyPQ==
+X-Gm-Message-State: AOAM533dKJQmLM38Y5kV1wOtOTulXt60hwnY4gEp7SxMpreNnxPNTacE
+        gwPMU87WziLyzaVTEr0pBtc=
+X-Google-Smtp-Source: ABdhPJy6lzCLUcXloijpyrUVrlR4VkFV1tl4/z8dF9rNL9JtGzAk0CtmBH75H1qyleDCEe4ckUs18g==
+X-Received: by 2002:a1c:6506:: with SMTP id z6mr79058wmb.55.1609783554631;
+        Mon, 04 Jan 2021 10:05:54 -0800 (PST)
+Received: from debian.vlc ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id h29sm103578929wrc.68.2021.01.04.10.05.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 04 Jan 2021 10:05:54 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     libc-alpha@sourceware.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org,
+        Ciprian Dorin Craciun <ciprian.craciun@gmail.com>,
         Florian Weimer <fweimer@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+Subject: [PATCH] system.3: Document bug and workaround when the command name starts with a hypen
+Date:   Mon,  4 Jan 2021 19:04:21 +0100
+Message-Id: <20210104180420.74092-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.29.2
+In-Reply-To: <CA+Tk8fykJjf=KzYjW7YMonnZ1qAdQJhqKDRrX0FNGyAYjSnkqg@mail.gmail.com>
+References: <CA+Tk8fykJjf=KzYjW7YMonnZ1qAdQJhqKDRrX0FNGyAYjSnkqg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Jan 4, 2021 at 5:18 PM Alejandro Colomar <alx.manpages@gmail.com> wrote:
-> If you report a bug to the Austin Group,
-> please CC linux-man@vger.kernel.org,
-> so that we can add the URL and update the BUGS section
-> if it is ever fixed.
+man-pages bug: 211029
+ https://bugzilla.kernel.org/show_bug.cgi?id=211029
 
+Reported-by: Ciprian Dorin Craciun <ciprian.craciun@gmail.com>
+Cc: Florian Weimer <fweimer@redhat.com>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+ man3/system.3 | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-As notified on the glibc and man-pages issue tracker (sorry for the
-duplicate notifications), the POSIX issue has been opened at:
+diff --git a/man3/system.3 b/man3/system.3
+index aef40417a..0310d9a04 100644
+--- a/man3/system.3
++++ b/man3/system.3
+@@ -250,6 +250,40 @@ are not executed.
+ Such risks are especially grave when using
+ .BR system ()
+ from a privileged program.
++.SH BUGS
++./" [BUG 211029](https://bugzilla.kernel.org/show_bug.cgi?id=211029)
++./" [Glibc bug](https://sourceware.org/bugzilla/show_bug.cgi?id=27143)
++./" [POSIX bug](https://www.austingroupbugs.net/view.php?id=1440)
++If the command name starts with a hyphen,
++.BR sh (1)
++interprets the command name as an option,
++and the behavior is undefined
++(See the
++.B \-c
++option in
++.BR sh (1).).
++To work around this problem,
++prepend the command with a space as below:
++.PP
++.RS 4
++.EX
++/* system_hyphen.c */
++
++#include <stdlib.h>
++
++int
++main(void)
++{
++    system(" -echo Hello world!");
++    exit(EXIT_SUCCESS);
++}
++.PP
++.RB "$" " sudo ln \-s \-T /usr/bin/echo /usr/bin/\-echo;"
++.RB "$" " cc \-o system_hyphen system_hyphen.c;"
++.RB "$" " ./system_hyphen;"
++Hello world!
++.EE
++.RE
+ .SH SEE ALSO
+ .BR sh (1),
+ .BR execve (2),
+-- 
+2.29.2
 
-  https://www.austingroupbugs.net/view.php?id=1440
-
-Thanks,
-Ciprian.
