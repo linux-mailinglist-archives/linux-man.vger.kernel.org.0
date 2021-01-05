@@ -2,64 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5D43F2EAD19
-	for <lists+linux-man@lfdr.de>; Tue,  5 Jan 2021 15:10:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0CDFB2EB517
+	for <lists+linux-man@lfdr.de>; Tue,  5 Jan 2021 22:57:53 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730648AbhAEOGH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 5 Jan 2021 09:06:07 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53068 "EHLO
+        id S1729175AbhAEV5g (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 5 Jan 2021 16:57:36 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42418 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729032AbhAEOGG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 5 Jan 2021 09:06:06 -0500
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 34D63C061793
-        for <linux-man@vger.kernel.org>; Tue,  5 Jan 2021 06:05:26 -0800 (PST)
-Received: by mail-wm1-x329.google.com with SMTP id 3so3164866wmg.4
-        for <linux-man@vger.kernel.org>; Tue, 05 Jan 2021 06:05:26 -0800 (PST)
+        with ESMTP id S1725828AbhAEV5g (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 5 Jan 2021 16:57:36 -0500
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A603FC061574
+        for <linux-man@vger.kernel.org>; Tue,  5 Jan 2021 13:56:55 -0800 (PST)
+Received: by mail-wm1-x32d.google.com with SMTP id n16so2122792wmc.0
+        for <linux-man@vger.kernel.org>; Tue, 05 Jan 2021 13:56:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=xVUs5F4tLrJw5mbOJXfYqBetyr1h6a09O10iwisPsT4=;
-        b=HsZ2aa/uNFgi73QtYoP9IC2anv6FT44jBn6x+lerilusUG/1MMgOw8gXXkhzpTGQV+
-         cXaEZUUL+hhU9ZAIn4KjgD9QIU+w2HUeeXFqvQuLAi5fA+HuSDXIjPAz3H6acOFGPBzR
-         aQ9w6Iqk4ahfBXXm2JqdxAipVjJX5Up6PO1PmZV3zQEcA7SrMe3oY9+/JUSGgixKkWeD
-         DAtJUe1e+AApVC8gCwd5eU6mH52Yfg3p5TNV4znDp3Sa9Hl4TWvzyLXZ2IKFlQAZVJbj
-         Gvcq4V/1C2yCpGmbbYbosJrrVlE3uCfTTnEopyOYj3O9ikTAXRKX4JMXs7UJvFUtjnXa
-         kEdg==
+        h=to:cc:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=PZ+9JaBHO7m89g0EJliXtxbmAqYpx0EIgtY8BtT/YHI=;
+        b=soS3JNMIe3PtGRsagcZQMQaC9nMEzxWO4FXUDULfF7nL3wFnWIb35fvLSRJFpzz+yT
+         cl4xcXf9qRiJRpgupdQ/dTaNvKLHjUGM4LkCyi9o/M6JQKNIg02JmYfUL0hdBbm2A5mq
+         TYh/RhrD2JOoAT0k5+d2y6uKHWjGEZu2JUj4Ajf0Kgp74i4K7TPL6efG3I0QloESC072
+         Va1t6whmZZDVZjEuUv0hn3mZk3ePUtvNhVokuWlkRNInGxXI1SbK2YW+NWGGYkXQfuMb
+         3HSAVJOaUQA1rA+xEpBi5fwFaQEOK3/ig2V2HIwrBi8hCSDqTUEVnT+qN8NfNxxtPpIl
+         MZZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=xVUs5F4tLrJw5mbOJXfYqBetyr1h6a09O10iwisPsT4=;
-        b=eSNNKAHtyG5DUaeCCOqWYujpw9SjIwYE7HXKueqtBmwU2Sw/Oi57MGdsc18C3sQMpV
-         7T9M022WZ12C3JH4iWG0fyqKRm0S5p+IrmR8oBHrn2jwemzPh50ibbgFNXeWMmA1dD1t
-         3lR51vIBQqfWf0TdvkagQIXxyxmsyAbPc7GwgFFFobs1EFjsLaeDWtam0I63Dr0tOpRl
-         9Zg95+KqtNAX4VhKucw4x/8it3KnFBQHFQT0M0a0bygyM93z8qdey5MTcVgp9ZZ2Lm9A
-         lXYG8XlFZBymO5SJP5J2acSOjvKuKQCtxDFsIB4E6Y9FUlvomiPtLghi4j8lvIeYOSnI
-         rGWQ==
-X-Gm-Message-State: AOAM5323JMO68K2x2KIddwVZS6Fsq39UEMdqTANCpZSYkc8K/uKJVyJQ
-        /SMCZgGOXVFy/q/jvQm86hJLOp7PZq4=
-X-Google-Smtp-Source: ABdhPJyoSJcAzjvzzvlpqoBnYAIUiSuVrxHw9qC+jZGoCoTLvwUt+zbhIOrF1SOCMA4wrRKeorL64A==
-X-Received: by 2002:a1c:3b02:: with SMTP id i2mr3608260wma.141.1609855525049;
-        Tue, 05 Jan 2021 06:05:25 -0800 (PST)
+        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=PZ+9JaBHO7m89g0EJliXtxbmAqYpx0EIgtY8BtT/YHI=;
+        b=CJAj+jmKK2nfFuq10VKCc4zlSj+wgFUANXxPQ7xLbQ7G5d9xpuTQtEwzCov5l70igM
+         MXwkJcfptap6EuxJTvtxRycP4Dnev+LvlBle9VE6vkg08Lw/ZaN5Htyx53dE+tsl0Ylw
+         /PhaXvf6zNEa9yyyZrpv/Nfx6ULAJv8AZWvujE5labIQzJpB2mLuKTQKZjRgn2CmbGBC
+         klfadsa0AFVAlJYA6Xd6w3R+VtlAhXwM/c9HyvLrbOvPW6mGAYnib046Kt9f5d0jSxAZ
+         7s9dBhhGXTXQGPlZids4HJwsp+twV8Gx9P1zRNGEu2c7dRrNPpQkgLmYaDWSrkOeS03N
+         twuA==
+X-Gm-Message-State: AOAM532bXh0EECwe852tZV/v1s5xzbileWrdFe7jglJ2fyOQQhPGV/9G
+        bxkbaV0yQT+wDS6F2Ni6gTOw3u/5BPk=
+X-Google-Smtp-Source: ABdhPJz/CupWz1iEX1013bq3NpKQvgdNoI4FyFXNXdjCypSMaFlXmgfovLmWjDr7yTeJCHNgFCwPpw==
+X-Received: by 2002:a1c:6208:: with SMTP id w8mr989478wmb.96.1609883814392;
+        Tue, 05 Jan 2021 13:56:54 -0800 (PST)
 Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with UTF8SMTPSA id w21sm4066941wmi.45.2021.01.05.06.05.24
+        by smtp.gmail.com with UTF8SMTPSA id o23sm535130wro.57.2021.01.05.13.56.53
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 05 Jan 2021 06:05:24 -0800 (PST)
-Subject: Re: pdfman
+        Tue, 05 Jan 2021 13:56:53 -0800 (PST)
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <20210104224515.140403-1-alx.manpages@gmail.com>
- <ae31daa2-a44b-2e79-1a70-a95428b7e231@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <90210646-9bc6-fce0-5c3b-a440a0a0bf8f@gmail.com>
-Date:   Tue, 5 Jan 2021 15:05:23 +0100
+Subject: Escaping whitespace
+Message-ID: <307e6584-f163-4768-ffe9-b6b4f439e4a0@gmail.com>
+Date:   Tue, 5 Jan 2021 22:56:53 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:84.0) Gecko/20100101
  Thunderbird/84.0
 MIME-Version: 1.0
-In-Reply-To: <ae31daa2-a44b-2e79-1a70-a95428b7e231@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -67,20 +63,53 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hey Michael,
+Hi Michael,
 
-On 1/5/21 1:00 PM, Michael Kerrisk (man-pages) wrote:
-> function pdfman {
->     man -Tps -l $1 > /tmp/$(basename $1).$$.ps
->     ps2pdf /tmp/$(basename $1).$$.ps $1.pdf
->     evince $1.pdf
-> }
+While having a look at your latest commits,
+I saw that there's a bit of inconsistency in escaping whitespace
+(existing previous to the commit):
 
-Would you mind adding that to a script in scripts/?
+Sometimes it's [!\ (], and sometimes it's [! (].
 
-Thanks!
+Regards,
 
 Alex
+
+P.S.: I have queue.3 derivatives almost ready.
+
+......
+
++++ b/man2/setpgid.2
+@@ -88,8 +88,8 @@ Feature Test Macro Requirements for glibc (see
+ .nf
+     [These are available only before glibc 2.19]
+     _BSD_SOURCE &&
+-        !\ (_POSIX_SOURCE || _POSIX_C_SOURCE || _XOPEN_SOURCE ||
+-            _GNU_SOURCE || _SVID_SOURCE)
++        !\ (_POSIX_SOURCE || _POSIX_C_SOURCE || _XOPEN_SOURCE
++            || _GNU_SOURCE || _SVID_SOURCE)
+ .fi
+ .SH DESCRIPTION
+ All of these interfaces are available on Linux,
+diff --git a/man2/wait4.2 b/man2/wait4.2
+index faa63b30a..f45de09d1 100644
+--- a/man2/wait4.2
++++ b/man2/wait4.2
+@@ -53,9 +53,9 @@ Feature Test Macro Requirements for glibc (see
+ .BR wait3 ():
+ .nf
+     Since glibc 2.26:
+-        _DEFAULT_SOURCE ||
+-        (_XOPEN_SOURCE\ >=\ 500 &&
+-            ! (_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600))
++        _DEFAULT_SOURCE
++            || (_XOPEN_SOURCE\ >=\ 500 &&
++                ! (_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600))
+     From glibc 2.19 to 2.25:
+         _DEFAULT_SOURCE || _XOPEN_SOURCE\ >=\ 500
+     Glibc 2.19 and earlier:
+
+
 
 -- 
 Alejandro Colomar
