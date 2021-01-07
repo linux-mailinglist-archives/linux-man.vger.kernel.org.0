@@ -2,127 +2,140 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 60DF92ED05D
-	for <lists+linux-man@lfdr.de>; Thu,  7 Jan 2021 14:06:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E47132ED42B
+	for <lists+linux-man@lfdr.de>; Thu,  7 Jan 2021 17:21:20 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727453AbhAGNGY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 7 Jan 2021 08:06:24 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43470 "EHLO
+        id S1728110AbhAGQVE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 7 Jan 2021 11:21:04 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45402 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727327AbhAGNGY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 7 Jan 2021 08:06:24 -0500
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com [IPv6:2a00:1450:4864:20::62c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DAF94C0612F4
-        for <linux-man@vger.kernel.org>; Thu,  7 Jan 2021 05:05:43 -0800 (PST)
-Received: by mail-ej1-x62c.google.com with SMTP id ga15so9613748ejb.4
-        for <linux-man@vger.kernel.org>; Thu, 07 Jan 2021 05:05:43 -0800 (PST)
+        with ESMTP id S1726427AbhAGQVE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 7 Jan 2021 11:21:04 -0500
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7B405C0612F4
+        for <linux-man@vger.kernel.org>; Thu,  7 Jan 2021 08:20:23 -0800 (PST)
+Received: by mail-wr1-x434.google.com with SMTP id r7so6199772wrc.5
+        for <linux-man@vger.kernel.org>; Thu, 07 Jan 2021 08:20:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=yffjiNx3c85ZdrAME2zp4NaZQHCvYzm4gqA4ytztSmw=;
-        b=DzPVb21rD2Pz1vTf25nIxTAqkhEUgtrkgmlqmUVHlCvefLmrmfV3P+P7R94lsfQqTa
-         uLtEKIO0iJjIpXRhnogCNtUJsD09gbFqooP1I7jlbl1oiXk3xVXBg5TPwlfo25OmK4B0
-         aW7gsvtSpp0AS1lBf3pw7UGrPy2tBasDOiJI03QadrcXjwVJq2Mf88L1hX+THre2nSJ5
-         yID0Rb/g/XZFObckziosqQdl4NvbfHe43pTVuJmjI5eMRIPYPZP9kF5BfINx0z6WXQb4
-         JIHXocxvd7Gf/zMtSsmu62wCdCsOQ51+qlUr0DTO7+r/oOmX9oWKmf/TM0SvVkm7v50J
-         5CWA==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=o/d8B4mfKCU8JaJ407Bd7k+m0AYT0O7XW0a8s/Y9FrY=;
+        b=MObFYe++aF/d7r1BjKmY5FGk4173O9yJg1DV2ki+pbqWPMxCAB9g6Qn+rPGU0tGb6W
+         P//dYtEnGfw/F62HXf/ogeHVoM4h3bzRnwkmiBEt6+04ywaDA4kFkveOtOwn6OhhB+cm
+         Uk1GZf1OA6ZJy+pQ0KpJOCNi2sc5FE1LFf30hc3ZIjUbrgKsZrWN5hkVYORAzPE+25ih
+         UMYkhL0cMOLdgrsVWOhRG2pGv1LXG6w48SSWnlohff1M8XvNdOK0W7NfzSk+7Ny+0Req
+         ov9EZqQY5K3ug6Jh0FOwiT/Sg3RM8gAad2ygPMkzFCQST6hCFOJw0InxpojMmsB5F41z
+         RYvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=yffjiNx3c85ZdrAME2zp4NaZQHCvYzm4gqA4ytztSmw=;
-        b=nDhIFUgTcKgFWtR6ng4h0frJrjt+aJtmUo52cdhSVnKbkm09Xzf6ajOH2HYcG1FTRO
-         reh0XT2mA9R1YVWpqCX/Lb9vv8s/AXOoR6KAv/9N01paPgPX/tZYQRDN+AF821YqgB8Y
-         0VqCim1JFPntovA7p+IUeIzSQu41i7RETGHun+LgPU7ngOplGw9np1cEnZ2XWF71xqZs
-         UeLr39OGCkcF/a7jUQ6EjR7XunHKmNLze/WIfp+OnuQ/OUqVqd53lEziVHo3AES8WSLn
-         guEc08c64gtlgc/mqyn7xYenaNfqV+dFSK0L+vYHQkOUUxvuQDNnWqSHiMvjKUXm55DW
-         +rSQ==
-X-Gm-Message-State: AOAM533wqni4TENEN8VsTPxhkb76U50k0iV5NGMzaATSf3IGnlmFS6il
-        /DERSGciq+qRmIR8GIPkGy7qfmNHiNg=
-X-Google-Smtp-Source: ABdhPJxaxYPYymvsJJFHJBKJ4c5mcgmlsdG2zKwHj2Pe4rrQRLE72ZTHjuB3s5XZ3d91SP3hwPBYaw==
-X-Received: by 2002:a17:906:94d4:: with SMTP id d20mr6190874ejy.475.1610024742670;
-        Thu, 07 Jan 2021 05:05:42 -0800 (PST)
-Received: from ?IPv6:2001:a61:244d:fe01:9fb1:d962:461a:45e8? ([2001:a61:244d:fe01:9fb1:d962:461a:45e8])
-        by smtp.gmail.com with ESMTPSA id p12sm2398464ejc.116.2021.01.07.05.05.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 07 Jan 2021 05:05:41 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, Yang Xu <xuyang2018.jy@cn.fujitsu.com>,
-        linux-man@vger.kernel.org,
-        Manfred Spraul <manfred@colorfullife.com>
-Subject: Re: [PATCH] semctl.2: Correct SEM_STAT_ANY description
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20201229110309.7774-1-alx.manpages@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <2aa8a09b-b61f-6294-26e5-1cafb3941489@gmail.com>
-Date:   Thu, 7 Jan 2021 14:05:38 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+        bh=o/d8B4mfKCU8JaJ407Bd7k+m0AYT0O7XW0a8s/Y9FrY=;
+        b=J1zHQ6rqMzC4ssH7x5WhmIzMhJus9tLHsLeDK57lZ0qPPLHkwBYLzZeTwxH6/SqUo+
+         UV7/dLnShrUQgm5aQz+0q7JtFlAfROY6tygEOX3/hN4XehdeHAnZeRsgw9yU9/K0ymgG
+         TiAPBQMXp0mFapb/w09LIIqEHTaeN1LiEdNNXPiLDLGyzkSi6VXMrosOzR+2V6kGQT/I
+         JOIshFnR/SyBrY3wsjydmft5MyNCVIp3HMsPZD2kkpuXpUFGkm1R1aySZKUzDqdeH/SB
+         zt6N56VAJv7dDizimntnNhZph/UF83/uvrtIoNcXIHj4UxaH7lz/jQyGX7+5SbPOAA7M
+         v2lQ==
+X-Gm-Message-State: AOAM532M8lPJfInQIF1gHmtcVcasnWeRsAHjO40abBgsXDWh2uZn2l2/
+        zDOJALvb+HCNXqGoKKi9luBNxPgN6BE=
+X-Google-Smtp-Source: ABdhPJz4eWemFJEDJGgpvHZmdcMIMg6frdis9Y5FZv/H2DHAVNjuWrZAn2KKBiGICZD9J9JQK+cpkQ==
+X-Received: by 2002:a5d:4d86:: with SMTP id b6mr9704241wru.152.1610036422163;
+        Thu, 07 Jan 2021 08:20:22 -0800 (PST)
+Received: from debian.vlc ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id s205sm8324859wmf.46.2021.01.07.08.20.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 07 Jan 2021 08:20:21 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: [PATCH] msr.4, veth.4, packet.7, sched.7, unicode.7: Remove redundant .PP
+Date:   Thu,  7 Jan 2021 17:19:24 +0100
+Message-Id: <20210107161923.3871-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-In-Reply-To: <20201229110309.7774-1-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex, hi Xang,
+.PP and .IP are redundant just before .SH or .SS.
+Remove them.
 
-On 12/29/20 12:03 PM, Alejandro Colomar wrote:
-> From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-> 
-> Since kernel commit a280d6dc77eb
-> ("ipc/sem: introduce semctl(SEM_STAT_ANY)"),
-> it only skips read access check when using SEM_STAT_ANY command.
-> And it should use the semid_ds struct instead of seminfo struct.
-> Fix this.
-> 
-> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-> Acked-by: Manfred Spraul <manfred@colorfullife.com>
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+$ find man? -type f \
+  |xargs sed -i '/^\.[IP]P$/{N;s/.*\n\(\.S[HS]\)/\1/}';
 
-Patch applied. My apologies for the delay.
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+ man4/msr.4     | 1 -
+ man4/veth.4    | 1 -
+ man7/packet.7  | 1 -
+ man7/sched.7   | 1 -
+ man7/unicode.7 | 1 -
+ 5 files changed, 5 deletions(-)
 
-Thanks,
-
-Michael
-
-> ---
-> 
-> Hi Michael,
-> 
-> Here's a recent patch from Yang Xu.
-> 
-> Cheers,
-> 
-> Alex
-> 
->  man2/semctl.2 | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/man2/semctl.2 b/man2/semctl.2
-> index ed5e79efd..e562d0bc4 100644
-> --- a/man2/semctl.2
-> +++ b/man2/semctl.2
-> @@ -297,8 +297,8 @@ all semaphore sets on the system.
->  .TP
->  .BR SEM_STAT_ANY " (Linux-specific, since Linux 4.17)"
->  Return a
-> -.I seminfo
-> -structure containing the same information as for
-> +.I semid_ds
-> +structure as for
->  .BR SEM_STAT .
->  However,
->  .I sem_perm.mode
-> 
-> base-commit: c55f66855eccfcd92b35fe7b13a326121f2ee0fd
-> 
-
-
+diff --git a/man4/msr.4 b/man4/msr.4
+index 9feb78a4b..38e4e8e18 100644
+--- a/man4/msr.4
++++ b/man4/msr.4
+@@ -56,7 +56,6 @@ to load it explicitly before use:
+ $ modprobe msr
+ .EE
+ .in
+-.PP
+ .SH SEE ALSO
+ Intel Corporation Intel 64 and IA-32 Architectures
+ Software Developer's Manual Volume 3B Appendix B,
+diff --git a/man4/veth.4 b/man4/veth.4
+index b73976099..2e41a33d7 100644
+--- a/man4/veth.4
++++ b/man4/veth.4
+@@ -98,7 +98,6 @@ NIC statistics:
+ 16: ve_B@ve_A: <BROADCAST,MULTICAST,M-DOWN> mtu 1500 qdisc ...
+ .EE
+ .in
+-.PP
+ .SH "SEE ALSO"
+ .BR clone (2),
+ .BR network_namespaces (7),
+diff --git a/man7/packet.7 b/man7/packet.7
+index 45c1bc75c..05a34dbeb 100644
+--- a/man7/packet.7
++++ b/man7/packet.7
+@@ -550,7 +550,6 @@ In addition, other errors may be generated by the low-level driver.
+ is a new feature in Linux 2.2.
+ Earlier Linux versions supported only
+ .BR SOCK_PACKET .
+-.PP
+ .SH NOTES
+ For portable programs it is suggested to use
+ .B AF_PACKET
+diff --git a/man7/sched.7 b/man7/sched.7
+index 6285b3179..f554fc289 100644
+--- a/man7/sched.7
++++ b/man7/sched.7
+@@ -686,7 +686,6 @@ that is, no CPU time is set aside for non-real-time processes
+ The default value in this file is 950,000 (0.95 seconds),
+ meaning that 5% of the CPU time is reserved for processes that
+ don't run under a real-time or deadline scheduling policy.
+-.PP
+ .SS Response time
+ A blocked high priority thread waiting for I/O has a certain
+ response time before it is scheduled again.
+diff --git a/man7/unicode.7 b/man7/unicode.7
+index d8dbf4be1..871740972 100644
+--- a/man7/unicode.7
++++ b/man7/unicode.7
+@@ -190,7 +190,6 @@ and
+ .BR wcwidth (3)
+ tells, how many positions (0\(en2) the cursor is advanced by the
+ output of a character.
+-.PP
+ .SS Private Use Areas (PUA)
+ In the Basic Multilingual Plane,
+ the range 0xe000 to 0xf8ff will never be assigned to any characters by
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.29.2
+
