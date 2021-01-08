@@ -2,95 +2,166 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DB0C42EF118
-	for <lists+linux-man@lfdr.de>; Fri,  8 Jan 2021 12:11:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 147402EF11C
+	for <lists+linux-man@lfdr.de>; Fri,  8 Jan 2021 12:14:54 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726011AbhAHLLZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 8 Jan 2021 06:11:25 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52294 "EHLO
+        id S1726215AbhAHLOx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 8 Jan 2021 06:14:53 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52816 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725806AbhAHLLZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 8 Jan 2021 06:11:25 -0500
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DED2BC0612F4
-        for <linux-man@vger.kernel.org>; Fri,  8 Jan 2021 03:10:44 -0800 (PST)
-Received: by mail-wm1-x32b.google.com with SMTP id c124so7456246wma.5
-        for <linux-man@vger.kernel.org>; Fri, 08 Jan 2021 03:10:44 -0800 (PST)
+        with ESMTP id S1725806AbhAHLOx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 8 Jan 2021 06:14:53 -0500
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EDB04C0612F4
+        for <linux-man@vger.kernel.org>; Fri,  8 Jan 2021 03:14:12 -0800 (PST)
+Received: by mail-wr1-x433.google.com with SMTP id t16so8637633wra.3
+        for <linux-man@vger.kernel.org>; Fri, 08 Jan 2021 03:14:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=kn6xBQs9XGcwfsysUWT5xspbjGU4Zc0L+bL6HPsVO44=;
-        b=Fpy8R4Crg61CSSk/uwYhvNwHN0pqtr2AHbnRBFLDU5KnvEVCpeUJq8r5IRVG90BTB5
-         E2Ht5x0CaCk2/ZFHxcU5aX/KpiaAjOcehU/4LZ5DjesTXFSZDtuBQXRGbwTjfe5Gnm1H
-         rO86m/8G8LGVh3vpzWsYgiqdHap/uApmlx4KwX4I56P5zXgiOxCuFz6V8xm3deEwVkJC
-         fbP8DrY+JuZ1JJzyCggmmTIc2hXWfL+RB2Y0xWdQ6r3gOaOW3XMDx+q0eq8KPNW4p+Wb
-         1U2crADTKe3MDSDrE8VePnTn6/gRc7HhvWcbobFliWmP/ypltQCVZyYl/xCP6va0HaVT
-         hjKg==
+        bh=gke7z/ekJJV/M23wC+jOPEo2AOKjiA8uBxil9lsIewo=;
+        b=HeJPWudWHf7ZlDaR+EreQOqA4c9wITxNA7cI0Q90ilS5tHPJAaLp5lPTOR8AlkryCZ
+         nVNgteBuSeRF/jUR0MJzfQMMZn6uKkKyOl4JiuLfoWoG8VGnCsViWCWDN8/275kDiime
+         kpTQ2aJdyDyyqJay8dVqrYSYA1EhIcF4q9T2jZjmS3mF3gUrLbOmTtD/QGi5ZgyQCdAt
+         w67gKq/JkxUrzYPMjGnLWXxZaGqPhQ986H08vmzF3qvh0ZE8Nze3qXZ0pKhU9BRSDYBQ
+         6sjgeYpHnzrn0k2qaNOL6NSXYwjUOkpGRiUPn2+05mVPG9/navWfMOye+Wqcr/lL8L09
+         Kdjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=kn6xBQs9XGcwfsysUWT5xspbjGU4Zc0L+bL6HPsVO44=;
-        b=jCpv8cuap6kuMZZdZ3FFc/cfMUJVNZi4tP7l3HFR8TXDXCSJGwuJNe8+zkgchomzAW
-         FM0ChlJrPw8fSlxQ8TZKOzabuO9TyTa1t1+CFvfMaOQ8EovL3sFNy2vMN0LI8vms7RTK
-         6vridsfRrx0Mlu3GUPj1hhVromjdOEdl1P5+51dUcw+Bk0BFtkVg+ocYFBFv5BjekXgx
-         +DNdzyMnOHqeARV+XpjABb+Cs/0BU3JUMp1MRKkmOw97B/4//ysYVkofXLYMHKaE0OZm
-         5dDXZjDC1gqSRw0g6XYbXslEO8MI0Jg4Jby78bspW6DMg7woZl//C6iOYQh7wtGsU1an
-         GWqQ==
-X-Gm-Message-State: AOAM533qehl40n7vVEQOaojhdZtAGoO1CE/AtYn0uXGMOxO3MVMPFBtH
-        rXOoNwc5YtQoOaqLPpRs+ORYVh8ppvc=
-X-Google-Smtp-Source: ABdhPJwG5uosoWbDbvt3aYvUpjs6Vqb9b7j8HLKod7rdiV1K5Ctvpsb0zuYQhwGjT7K5QY1pcBGqig==
-X-Received: by 2002:a05:600c:4154:: with SMTP id h20mr2564303wmm.72.1610104243669;
-        Fri, 08 Jan 2021 03:10:43 -0800 (PST)
+        bh=gke7z/ekJJV/M23wC+jOPEo2AOKjiA8uBxil9lsIewo=;
+        b=UPzTUAPuH30ajSo2D0Ljplj0TyFtNdGvwO64Uby+udDbw18SXYHri29KhW7CQVvfQf
+         NEh1nmpAoWw2dHXJasWu8GAcsvYOgTwlEGyZ6f+TsnlufLvU2IbRZZiVi8KhGDi6qKP4
+         1xJiowEsplAIbPhv29LdhFoaB4Qr6bS1BzOFl+CoHEoors/QcDE89x/q1EETZse7wTFG
+         b3FuMme+niX+kMtNSQx/L+aY01kQNXrsf/D+N2c+UrGm8wcs6/gpcKEC0WY2GRKVlJMB
+         scVmA+VYaF9CNAbu2HX+6E8jmDJU7+eM37zQ91Eec7wOh4K1gcKDzAC725IbOz0pv/uE
+         VI0g==
+X-Gm-Message-State: AOAM530cuPANHZeWhocwAIJMq7UsmG7juDRXXcpmctDjxD1/w5knlKDT
+        lAmXXxOHZFYSjdsQawHNUCgkqJtYpTA=
+X-Google-Smtp-Source: ABdhPJxK7Ts8xc+woweAK11oagae6o1vuaaGQeGJX+NQ1vo4CT5fmZxxIbPudqDzx9gSP9weKfNuVw==
+X-Received: by 2002:adf:b194:: with SMTP id q20mr3148996wra.199.1610104451633;
+        Fri, 08 Jan 2021 03:14:11 -0800 (PST)
 Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with UTF8SMTPSA id i7sm12600771wrv.12.2021.01.08.03.10.43
+        by smtp.gmail.com with UTF8SMTPSA id 94sm13398016wrq.22.2021.01.08.03.14.11
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 08 Jan 2021 03:10:43 -0800 (PST)
-Subject: Re: URIs mark-up
+        Fri, 08 Jan 2021 03:14:11 -0800 (PST)
+Subject: Re: Further inconsistencies in FTM
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 Cc:     linux-man <linux-man@vger.kernel.org>
-References: <eae90a7e-c2c9-8555-4137-a5ff3f31329c@gmail.com>
- <5974d5d4-7fa7-4c0f-d36c-69a0c5ebedb4@gmail.com>
+References: <87f6ca4b-7f4c-20ed-cb94-3f4f88fc5077@gmail.com>
+ <b65f22fe-d30d-c4d3-77e5-29ca7f67d88f@gmail.com>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <47d7e64c-16a2-e935-de14-0c320510e382@gmail.com>
-Date:   Fri, 8 Jan 2021 12:10:42 +0100
+Message-ID: <cc86ec78-65bd-202f-2704-e551c0442fb9@gmail.com>
+Date:   Fri, 8 Jan 2021 12:14:10 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:84.0) Gecko/20100101
  Thunderbird/84.0
 MIME-Version: 1.0
-In-Reply-To: <5974d5d4-7fa7-4c0f-d36c-69a0c5ebedb4@gmail.com>
+In-Reply-To: <b65f22fe-d30d-c4d3-77e5-29ca7f67d88f@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Michael,
 
-I meant the (fake) URLs around line 102.
-And yes, I meant surrounded by .UR/.UE, which they're not.
-But maybe it's exactly because they're fake?
+On 1/8/21 11:50 AM, Michael Kerrisk (man-pages) wrote:
+> Hi Alex,
+> 
+> On 1/7/21 6:04 PM, Alejandro Colomar (man-pages) wrote:
+>> Hi Michael,
+>>
+>> [[
+>> SYNOPSIS
+>>        #include <stdlib.h>
+>>
+>>        int clearenv(void);
+>>
+>>    Feature   Test   Macro   Requirements  for  glibc  (see  fea‐
+>>    ture_test_macros(7)):
+>>
+>>        clearenv():
+>>            /* Glibc since 2.19: */ _DEFAULT_SOURCE
+>>                || /* Glibc <= 2.19: */ _SVID_SOURCE || _BSD_SOURCE
+>>
+>> ]]
+>>
+>> [[
+>> SYNOPSIS
+>>        #include <time.h>
+>>
+>>        int dysize(int year);
+>>
+>>    Feature   Test   Macro   Requirements  for  glibc  (see  fea‐
+>>    ture_test_macros(7)):
+>>
+>>        dysize():
+>>            Since glibc 2.19:
+>>                _DEFAULT_SOURCE
+>>            Glibc 2.19 and earlier:
+>>                _BSD_SOURCE || _SVID_SOURCE
+>>
+>> ]]
+>>
+>> Which one do you prefer?
+> 
+> Probably the latter, since it is a little easier to read.
+> 
+> The former form has crept in as a result of my attempts
+> to keep the FTM info somewhat compact. See, for example:
+> 
+>        chroot():
+>            Since glibc 2.2.2:
+>                _XOPEN_SOURCE && ! (_POSIX_C_SOURCE >= 200112L)
+>                    || /* Since glibc 2.20: */ _DEFAULT_SOURCE
+>                    || /* Glibc <= 2.19: */ _BSD_SOURCE
+>            Before glibc 2.2.2:
+>                none
+> 
+> 
+>        waitid():
+>            Since glibc 2.26:
+>                _XOPEN_SOURCE >= 500 || _POSIX_C_SOURCE >= 200809L
+>            Glibc 2.25 and earlier:
+>                _XOPEN_SOURCE
+>                    || /* Since glibc 2.12: */ _POSIX_C_SOURCE >= 200809L
+>                    || /* Glibc <= 2.19: */ _BSD_SOURCE
+> 
+> The latter could be rewritten (I hope I got the expansion right) 
+> as:
+>        waitid():
+>            Since glibc 2.26:
+>                _XOPEN_SOURCE >= 500 || _POSIX_C_SOURCE >= 200809L
+>            Glibc 2.20 to 2.25
+>                _XOPEN_SOURCE ||  _POSIX_C_SOURCE >= 200809L
+>            Glibc 2.12 to 2.19
+>                _XOPEN_SOURCE ||  _POSIX_C_SOURCE >= 200809L
+>                    || _BSD_SOURCE
+>            Glibc 2.11 and earlier:
+>                _XOPEN_SOURCE || _BSD_SOURCE
+> 
+>  
+> That's more verbose, but perhaps also easier to read, now that
+> I look at it.
+> 
+> I'm not sure whether you are thinking of doing some global edit,
+> but if you are, perhaps we need to discuss this more.
+
+Well, I'm not thinking of a global edit right now (we've had enough of
+those for now I think :), but more as something to think for the future.
+So yes, a discussion about if we prefer to have a single way of
+expressing FTM or if there are times when the other way is better would
+be good.
+Your thoughts?
 
 Thanks,
 
 Alex
 
-On 1/8/21 12:00 PM, Michael Kerrisk (man-pages) wrote:
-> Hi Alex,
-> 
-> On 1/7/21 6:50 PM, Alejandro Colomar (man-pages) wrote:
->> Hi Michael,
->>
->> See hostname.7:102.
->> There are URLs and they're not marked up in any way.
->> I guess there are a lot more like those around the pages.
->> Should they?
-> 
-> I'm not sure what you mean by "not marked up". That 
-> URI is wrapped in a .UR/.UE pair, and I think all of 
-> the others in other pages are too(?).
 > 
 > Thanks,
 > 
