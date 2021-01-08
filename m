@@ -2,51 +2,51 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0AB0B2EF3D7
-	for <lists+linux-man@lfdr.de>; Fri,  8 Jan 2021 15:22:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5702E2EF3DB
+	for <lists+linux-man@lfdr.de>; Fri,  8 Jan 2021 15:24:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726662AbhAHOVn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 8 Jan 2021 09:21:43 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53512 "EHLO
+        id S1726386AbhAHOXt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 8 Jan 2021 09:23:49 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53832 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725901AbhAHOVm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 8 Jan 2021 09:21:42 -0500
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4F964C0612F5
-        for <linux-man@vger.kernel.org>; Fri,  8 Jan 2021 06:21:02 -0800 (PST)
-Received: by mail-wr1-x430.google.com with SMTP id 91so9183682wrj.7
-        for <linux-man@vger.kernel.org>; Fri, 08 Jan 2021 06:21:02 -0800 (PST)
+        with ESMTP id S1725942AbhAHOXs (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 8 Jan 2021 09:23:48 -0500
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 74FF4C0612F4
+        for <linux-man@vger.kernel.org>; Fri,  8 Jan 2021 06:23:08 -0800 (PST)
+Received: by mail-wr1-x42d.google.com with SMTP id r7so9174901wrc.5
+        for <linux-man@vger.kernel.org>; Fri, 08 Jan 2021 06:23:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=1KIcH26IT0UxX2ouZ7Y5aBsyHaDwdyeFAmJyvWjpw04=;
-        b=h6fNSsftFswZ5U/ZwmErk8GDOvL7UqrHRqYQROZzor27tRaSWBtYiEQ72uAgpyrmdp
-         ffSZKN/eiyrKHAAQrckXuOpm3Lj7G+yQyD9uZuPKHsfvxP69KpVPEavjCgtR6UicYVjz
-         WTUlJ44ULd9smPIQai2+nmjd70Zt10DOhSMuuAvFejUmNxPJM5hXeQmn2BiiJnb4rvq9
-         cpY81TPnl+CLaHiLX4/PX7tdHz6TSAqDtFX+e9IfQM5BYAfnfYwGSbCWdPFSSRm16gQf
-         X1PvWy53WiMiZEZGWH0paMlL3t3mlL9FWtf+SaOFoECvFJu3prlozRe9SvbbnjJ+xZtc
-         cJDw==
+        bh=WHYae1ZIOoUD+fH72usBuocdaizTJexo9mR+ov/wFxw=;
+        b=eNryYAnn7BTnuC0uYUWMR9HH7dYq9npg67XutaEf7vMRTYA4jRrRsbwT3xEM1H5edq
+         sO94LI0MULM+HOI9W6BxzpDWb3FSs2krkwEgUJK/OddgatDMClIgatih5/uTOJMtwKqV
+         DPuVUc9CxzhXIQtHQvZwaOzGvcspPI+KHB4AyQKLtE8GYj+DFTgrKKk7me39v/xYFUFd
+         fTbJZ0u4Ud7e5dRMCkmvOC7UwsqN8OtU5JMXDAjOPRI7SciNrq0jSvikfs81YteJlgon
+         5m6Bc0Ziv4Ca4HAlcGYLrTK7pZfb9qbq6pi1iDsz7fH70bIqIY9x05VYI3jlX546W+Nu
+         xkAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=1KIcH26IT0UxX2ouZ7Y5aBsyHaDwdyeFAmJyvWjpw04=;
-        b=KdrnELP3hIBh9SaHz3U0xGOsQ8oBvCVYJTN2M6uqs3yxASFEOmqUxuVB4X6UmOiM8l
-         QVXW1krICSDLXtN+XrNllJk4Hpr56k24WUDdye5vRNl+msosDQQvM4BaKGgxi9Z9DxPD
-         fd/0k9Y1Jjc6xBV9TDbwejQzWzOiKFU1lFJbP6rhmPJf5TtRuZESb8xMTKG+RqkrIiB+
-         OFuA4j5ipki9UMYxTacGjGKh9M62gzY9EGUh+D11y4SZN7s4khBMVtCKUd4Wuo+XfmjN
-         M2EavYZZihbhaxEQ/2tIfC9dyqVQeY7MUQj8NXsbbFdQlmfuGjLAcj4SiFU6ZlDstmVk
-         QvCQ==
-X-Gm-Message-State: AOAM530kZ8s0hQnFGQv5qeb/2ydJawbOrAy2rMiEG4VHpkb8KFo0gpoF
-        6oT/qIou8zQYxTO/e9xgYME=
-X-Google-Smtp-Source: ABdhPJzSa0p8UQ37nxdwWidu2v353KeSgvdap8nY9lo4dOVZusfaoM7TmoLxHgx8h3vEHxVGTbN4/A==
-X-Received: by 2002:a05:6000:c9:: with SMTP id q9mr3788114wrx.259.1610115659756;
-        Fri, 08 Jan 2021 06:20:59 -0800 (PST)
+        bh=WHYae1ZIOoUD+fH72usBuocdaizTJexo9mR+ov/wFxw=;
+        b=C3eZcKl9kQJA0NrFvs5N438WNXgyQCYhoL5th3J56ePOtdcazXP6OR3tBmxGkPNxPB
+         HpQiaYuhg7bLY/IhrQyngG33MpiQ1iNhRQj7OUVCWl+pgATKTaVEKu+GmBtanX5bnxO3
+         51S87gsR+L6XJCfj9E7QUmIqQ1vzXd8qcmgMMxdcTK0/MuvZpLOKtH3YQ4saQ2C/eG2z
+         TI+JvDSQWuqh8IQkQNJqX/b2Knp5rcUtcY0RZI/r1mauh9+NwOxwpYp/tT93ibFdscYD
+         u3KRpDa7/AhZfnWhr19mLUy0gcqomJRZ906kdSPXPjUUKHaS4YAuCKE/nctot6ktqBjF
+         RgKg==
+X-Gm-Message-State: AOAM5307ROtyxnepOpI5WGZW1THE0Kmrugw3pOcYrzUAiGEDdKCqkQia
+        UnjGZTfb2T1eANCzWjbsJMI=
+X-Google-Smtp-Source: ABdhPJzz0BuPrzM+eGkVHaoCL85Ne4asXixJesSRlIhD2qdfSa3CXGt2MOksZrSzuDSJLfFWYrrbXA==
+X-Received: by 2002:a5d:5227:: with SMTP id i7mr4072427wra.68.1610115787279;
+        Fri, 08 Jan 2021 06:23:07 -0800 (PST)
 Received: from debian.vlc ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id r13sm13881945wrs.6.2021.01.08.06.20.58
+        by smtp.gmail.com with ESMTPSA id s63sm13863522wms.18.2021.01.08.06.23.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 08 Jan 2021 06:20:59 -0800 (PST)
+        Fri, 08 Jan 2021 06:23:06 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     libc-alpha@sourceware.org,
@@ -54,9 +54,9 @@ Cc:     libc-alpha@sourceware.org,
         linux-man@vger.kernel.org,
         Ciprian Dorin Craciun <ciprian.craciun@gmail.com>,
         Florian Weimer <fweimer@redhat.com>
-Subject: [PATCH v3] system.3: Document bug and workaround when the command name starts with a hypen
-Date:   Fri,  8 Jan 2021 15:20:52 +0100
-Message-Id: <20210108142051.61875-1-alx.manpages@gmail.com>
+Subject: [PATCH v4] system.3: Document bug and workaround when the command name starts with a hypen
+Date:   Fri,  8 Jan 2021 15:22:11 +0100
+Message-Id: <20210108142209.61938-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210104180420.74092-1-alx.manpages@gmail.com>
 References: <20210104180420.74092-1-alx.manpages@gmail.com>
@@ -76,6 +76,7 @@ Complete workaround
 
 $ sudo ln -s -T /usr/bin/echo /usr/bin/-echo;
 $ cc -o system_hyphen -x c - ;
+#include <stdlib.h>
 
 int
 main(void)
@@ -92,14 +93,7 @@ Cc: Florian Weimer <fweimer@redhat.com>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
 
-Hi Michael,
-
-I forgot to remove some escapings in the commit message in v2.
-I hope it arrives in time :)
-
-Cheers,
-
-Alex
+D'oh!
 
  man3/system.3 | 20 ++++++++++++++++++++
  1 file changed, 20 insertions(+)
