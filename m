@@ -2,178 +2,172 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2A7AC2EF2F4
-	for <lists+linux-man@lfdr.de>; Fri,  8 Jan 2021 14:22:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CEE9B2EF2F7
+	for <lists+linux-man@lfdr.de>; Fri,  8 Jan 2021 14:24:33 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726535AbhAHNWj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 8 Jan 2021 08:22:39 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44442 "EHLO
+        id S1725791AbhAHNYd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 8 Jan 2021 08:24:33 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44728 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726508AbhAHNWj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 8 Jan 2021 08:22:39 -0500
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 15079C0612F4
-        for <linux-man@vger.kernel.org>; Fri,  8 Jan 2021 05:21:58 -0800 (PST)
-Received: by mail-wr1-x431.google.com with SMTP id c5so8975211wrp.6
-        for <linux-man@vger.kernel.org>; Fri, 08 Jan 2021 05:21:58 -0800 (PST)
+        with ESMTP id S1726508AbhAHNYc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 8 Jan 2021 08:24:32 -0500
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9C306C0612F4
+        for <linux-man@vger.kernel.org>; Fri,  8 Jan 2021 05:23:51 -0800 (PST)
+Received: by mail-wr1-x430.google.com with SMTP id m5so8980232wrx.9
+        for <linux-man@vger.kernel.org>; Fri, 08 Jan 2021 05:23:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=QQMUBqyllewq/2T0qxIt5bO7/FBpNg94kl0/1FnB1Mo=;
-        b=QSrJYXu1ygOoBq5AKKR+q2Uqtue1Kgmzm9azcv4bAypiioJ7htdtAQ1ClssEM92AQ6
-         l/k94GRCWN2ASbwk3aSzNbKGmXj8971joB7aLW9jwBAlrldnnzIkbKEbPB3pTEnkzU47
-         WPVJ3mxVwnfX6XeFi3xMBShsTsYvek1ErMC6yblSlI2MeLqBP3Wp49EYyCjzxhRphAaF
-         ZVhzjp8S3XAFmdtNi2ZX5yi94Z5WcRuGg4RlkTmbwUupuiDd99MA6ppjwwaDkdlU4dUc
-         YSpMOuIbrXmSm5HrdVADU79xVjNF8mqh+2R5wCgVtTmh8V3Ybu+dGScm9oPisfsD1WBf
-         XHDQ==
+        bh=KK2k4EkMKoEVQmdVu7pm+QOPbnMVmAuc9Jg4q8JL14A=;
+        b=c7CZjqzI+f41CvGeYh1oEUadL6EKB9psKbI6qDHKeMh2/yxCP6UDxZkrPOxVzRFZNu
+         sWfnNv/uXq/SitCVuqMWG32x2F4Okvp+tmf+LxpYVoZ0jNTFUQE+rwdc4b24qvL4F8P+
+         C+nPDwmPFeAlfI421I4JHUjs1WoipVtoczlOhi0O0rHwHKNNG0rWz3UzlLLIRJ4yNP26
+         O1QXzcjelgJKTWbpUy+f2mN/UOaMSFcPsTC63uxdZiKcSmSXvxqZTYpfgPG3ASmqpYFj
+         gC+akPq62xQxAhIaXQzD7D0U22L/KR67/PwXsXsN3NZqaFGP/2Y6Lj7ioDbgFiuFtLSm
+         qM5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=QQMUBqyllewq/2T0qxIt5bO7/FBpNg94kl0/1FnB1Mo=;
-        b=FD7lX7C9XBwyt/mMeJAlwC6VY1mxpbkuM967lCrq9N8xUZVq/9cyWfAHeSuhi3t/WM
-         Cs4Flgy6tRd6OzToP+qRdaUG06sPhnZ+YgRmtrcUsGEb0OkzRbDvvwl7PokuggHztxYf
-         QVB0RXwlwOyE/+I7b407l6TdiIA26vpfgAbNqLVuoFP5L7OC0QNfsIi3TFQjuov5cMHo
-         /8vlXEFYBAc8ZTBhxYTLz0vc+RbwzyVjsFSLf2ZYZ19dvQ1D/bN/5/EmKCi4z2k1Ou4d
-         sCmg54M4kKWag4+EpBu0O55xn7A/bRPzUpPKW+HO6GsjdWFH+7OIH52Ty9ZUE1i8UVfh
-         7bRw==
-X-Gm-Message-State: AOAM532nccVWZEAnOus6t7xBovjsQKh9Jv1mjxw7uep7xVBpdQ74KJbm
-        sTniD2kl4tCc90zoZZuP2qA=
-X-Google-Smtp-Source: ABdhPJzcVCzMUCwhvTevD4AcrrXPwRJKnNofdTlNtnR4gxurtw3ECnEB7xCqXqqv9VGYOycA6LPfNg==
-X-Received: by 2002:adf:f58f:: with SMTP id f15mr3671725wro.388.1610112116781;
-        Fri, 08 Jan 2021 05:21:56 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with UTF8SMTPSA id f9sm15430794wrw.81.2021.01.08.05.21.56
+        bh=KK2k4EkMKoEVQmdVu7pm+QOPbnMVmAuc9Jg4q8JL14A=;
+        b=j5HtTTKQEFTVcCbyNfIofnnTCZCsBAhX4ujECWpEaIRhswIrkzUPyphrAq1IuSdFLP
+         Q7TLBWIQ4SqhLsCCfLYNtP7HnhyHR0S4PnAM1mZ89hjFMCymXkUcf1pg+2pgJwogREcX
+         b63fOh468ISOiuC38Ml7yoCfDMXE3QiCLpCienjzAIOe7J5hMQKQBfRjfsMJ6+zj9oi0
+         LEF0ggyk6G+K6DsV8axQais+6+vLRnfhN17j7B5F4Bu9iWQ0aLtPJez3v5LPSmmxbEt6
+         /FPA0bbUVDeNGuosubebap8Zp0tP6RJ7XSEgUce6fdgN0sXS7+Um3gkeRsv7fZ8yU2Id
+         4oTA==
+X-Gm-Message-State: AOAM530pi0TPyGdrItAUWxyxEv7ryUhrL3GpFv+p3glExoda3w9JJdRz
+        HR/6qIZ5nKLdQ2YX/TI8Zg4uxJ3m/EY=
+X-Google-Smtp-Source: ABdhPJz+8+t+yv21EUjCFXeQe9wPjfKphp2U7DErZs2pH9aBZ1JuOQjpzPwQUgW8tVtzmsQcsD8m1A==
+X-Received: by 2002:a5d:6a4f:: with SMTP id t15mr3847669wrw.62.1610112229970;
+        Fri, 08 Jan 2021 05:23:49 -0800 (PST)
+Received: from ?IPv6:2001:a61:244d:fe01:9fb1:d962:461a:45e8? ([2001:a61:244d:fe01:9fb1:d962:461a:45e8])
+        by smtp.gmail.com with ESMTPSA id a13sm13235191wrt.96.2021.01.08.05.23.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 08 Jan 2021 05:21:56 -0800 (PST)
-Subject: Re: setlocale.3: Wording issues
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        Bruno Haible <bruno@clisp.org>
-References: <e198d995-5a85-bda1-1a82-57260b9d4efe@gmail.com>
- <25b829b8-ad0e-06f0-c97a-31277f71f1ef@gmail.com>
- <ed25f72d-e88e-e2c5-66de-3cf70c0cdfc5@gmail.com>
- <c82aef04-b42c-dcc7-0c40-3bf46d88f471@gmail.com>
- <51d1c9c9-5d86-264b-e86c-7cccd9401f7b@gmail.com>
- <879e52c6-e4f7-e5ea-5766-4893d01038db@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <0e50d381-73aa-970e-43b7-42519fcd8540@gmail.com>
-Date:   Fri, 8 Jan 2021 14:21:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:84.0) Gecko/20100101
- Thunderbird/84.0
+        Fri, 08 Jan 2021 05:23:49 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] netlink.7, tcp.7: tfix: s/acknowledgment/acknowledgement
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+References: <20210107165518.36629-1-alx.manpages@gmail.com>
+ <ffe209ee-809c-10ea-c077-12669ff0f5ab@gmail.com>
+ <59156288-13c4-ca10-ade3-5b83cd7c0902@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <39255c4b-3d54-cae5-14ec-6122cfef8072@gmail.com>
+Date:   Fri, 8 Jan 2021 14:23:48 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <879e52c6-e4f7-e5ea-5766-4893d01038db@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <59156288-13c4-ca10-ade3-5b83cd7c0902@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Hello Alex,
 
-On 1/8/21 2:17 PM, Michael Kerrisk (man-pages) wrote:
-> [CC += Bruno]
+On 1/8/21 12:36 PM, Alejandro Colomar (man-pages) wrote:
 > 
-> Hi Alex,
-> 
-> On 1/8/21 2:05 PM, Alejandro Colomar (man-pages) wrote:
->> Hi Michael,
+> On 1/8/21 11:29 AM, Michael Kerrisk (man-pages) wrote:
+>> Hi Alex,
 >>
->> On 1/8/21 1:45 PM, Michael Kerrisk (man-pages) wrote:
->>> On 1/8/21 12:41 PM, Alejandro Colomar (man-pages) wrote:
->>>> Hi Michael,
->>>>
->>>> On 1/8/21 10:26 AM, Michael Kerrisk (man-pages) wrote:
->>>>> Hi Alex,
->>>>>
->>>>> On 1/7/21 7:32 PM, Alejandro Colomar (man-pages) wrote:
->>>>>> Hi Michael,
->>>>>>
->>>>>> I don't understand what this paragraph means, I think it needs some wfix.
->>>>>>
->>>>>> Around setlocale.3:179:
->>>>>> [
->>>>>>        On  startup  of  the main program, the portable "C" locale is
->>>>>>        selected as default.  A program may be made portable  to  all
->>>>>>        locales by calling:
->>>>>>
->>>>>>            setlocale(LC_ALL, "");
->>>>>>
->>>>>>        after  program  initialization,  by using the values returned
->>>>>>        from a localeconv(3) call for  locale-dependent  information,
->>>>>>        by  using the multibyte and wide character functions for text
->>>>>>        processing if MB_CUR_MAX > 1, and by  using  strcoll(3),  wc‐
->>>>>>        scoll(3) or strxfrm(3), wcsxfrm(3) to compare strings.
->>>>>>
->>>>>> <<<Especially these last 2 lines
->>>>>>
->>>>>> ]
->>>>>
->>>>> I see what you mean. I had to read that a few times to parse it.
->>>>> It looks like the text was added in 1999. I think the following
->>>>> clarifies and preserves the meaning:
->>>>>
->>>>> [[
->>>>>        On startup of the main program, the portable "C" locale is select‐
->>>>>        ed  as  default.  A program may be made portable to all locales by
->>>>>        calling:
->>>>>
->>>>>            setlocale(LC_ALL, "");
->>>>>
->>>>>        after program initialization, and then:
->>>>>
->>>>>        (a) using the values returned from a localeconv(3)  call  for  lo‐
->>>>>            cale-dependent information;
->>>>>
->>>>>        (c) using the multibyte and wide character functions for text pro‐
->>>>>            cessing if MB_CUR_MAX > 1; and
->>>>>
->>>>>        (c) using strcoll(3), wcscoll(3) or strxfrm(3), wcsxfrm(3) to com‐
->>>>>            pare strings.
->>>>> ]]
->>>>>
->>>>> What do you think?
->>>>
->>>> Much better.
->>>>
->>>> But I still don't get why [A, B or  C, D].  What does it mean?
->>>
->>> I don't read it that way. I see it as: [A and (B and/or C and/or D].
->>> Do you see what I mean?
+>> On 1/7/21 5:55 PM, Alejandro Colomar wrote:
+>>> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 >>
->> About the three lines (a) (b) (c) as a whole, yes, I understand that part.
->> About [strcoll(3), wcscoll(3) or strxfrm(3), wcsxfrm(3)], nope, I still
->> can't understand the punctuation there.
->> So I can't parse the inner contents of (c).
+>> Take a look at
+>>
+>> https://books.google.com/ngrams/graph?content=acknowledgment%2Cacknowledgement&year_start=1800&year_end=2000&corpus=5&smoothing=3
+>>
+>> and compare American English vs British English using the drop-down.
+>>
+>> When I inherited man-pages in 2004, it was a hodge-podge mix of 
+>> American vs British spelling. My native spelling is the latter,
+>> but I value consistency and felt that things needed to be
+>> standardized on one or other, and in computing, American is the
+>> norm so that is what I settled on.hodge-podge
+>>
+>> I'm largely at piece with American spelling these days (it 
+>> is the spelling I use in most of my writing), but I guess
+>> the one point that still bothers me are the American spellings
+>> "acknowledgment" and "judgment". They just feel wrong.
 > 
-> Ah sorry. Now I see what you mean. I'm not sure of this, but I suspect
-> that it's supposed to mean:
+> Yup
 > 
->     Use [strcoll(3)+strxfrm(3)] for non-wide-char strings and 
->     [wcscoll(3)+wcsxfrm(3)] for wide char strings.
+>>
+>> However, I now learned from the Ngrams that even in British
+>> English, the spelling without "e" was historically the norm.
+>> So it seems that it is British English that has changed, 
+>> not American English!
+>>
+>> I was about to say that I must decline this patch. And then
+>> I thought I'd take a look at the POSIX standard. It seems
+>> to largely follow American spelling (e.g., "color", "canceled",
+>> "recognize", "analog").[1] But, it uses "acknowledgement"!
+>> (There are even a couple of instances of "judgement" in 
+>> the standard.) It seems like others like to have the
+>> extra "e' in those words...
+>>
+>> So, I'm not sure what to do with this patch. 
 > 
-> Maybe Bruno can help.
+> Hey Michael,
+> 
+> D'oh, I thought it was a typo! :-)
+> 
+> American English surprises me.
+> 
+> Yes I prefer American English, but I've also learn_ed_ British at
+> school, (and learnt American through the internet), so I have a weird
+> hodge-podge in my head too :p
+> 
+> I guess many people though it was a typo from the data you put.  Also see:
+> 
+> $ grep -r acknowledgement \
+>   |wc -l;
+> grep: man7/.hostname.7.swp: binary file matches
+> 69
+> $ grep -r acknowledgment \
+>   |wc -l;
+> 23
 
-Yes, that was my first thought (after a few trials), but I preferred to
-check with you :)
+Okay -- this gets weirder and weirder. Look more closely
+at what the grep found. Those instances of 'acknowledgement'
+are almost all in the page comments containing BSD licenses!
 
-I don't know how to express it.
-Maybe [A and B, or C and D]?
+I thought to myself, that's strange: because BSD is from 
+California... Maybe some enthusiastic person did a
+global edit in the distant past to change this to British
+spelling in the Linux manual pages. But, it doesn't seem that
+way. I grepped a few thousand header files that I've assembled
+over the years from various OSes, and in the BSD licenses,
+the vast majority use 'acknowledgement'. A few use
+'acknowledgment', but I suspect that those were changed
+after importing from other places.
 
-Thanks,
+It seems that the underground spelling resistance was strong
+at Berkeley.
 
-Alex
+> Nevertheless, I prefer American too, so I'd invert the patch.
+> What about s/acknowledgement/acknowledgment/?
+So, I still don't know what to do. I never much liked
+the "American" "*dgment", but:
 
-> 
-> Thanks,
-> 
-> Michael
-> 
+(1) That seems to have been the historical form that 
+    British English moved away from.
+
+(2) A couple of "American" groups (BSD, POSIX) use
+    the "British" spelling.
+
+Cheers,
+
+Michael
+
+PS I want to join the spelling resistance :-)
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
