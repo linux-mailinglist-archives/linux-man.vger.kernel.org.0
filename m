@@ -2,174 +2,101 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 147402EF11C
-	for <lists+linux-man@lfdr.de>; Fri,  8 Jan 2021 12:14:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0E9C82EF143
+	for <lists+linux-man@lfdr.de>; Fri,  8 Jan 2021 12:30:37 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726215AbhAHLOx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 8 Jan 2021 06:14:53 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52816 "EHLO
+        id S1725793AbhAHLaN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 8 Jan 2021 06:30:13 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55188 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725806AbhAHLOx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 8 Jan 2021 06:14:53 -0500
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EDB04C0612F4
-        for <linux-man@vger.kernel.org>; Fri,  8 Jan 2021 03:14:12 -0800 (PST)
-Received: by mail-wr1-x433.google.com with SMTP id t16so8637633wra.3
-        for <linux-man@vger.kernel.org>; Fri, 08 Jan 2021 03:14:12 -0800 (PST)
+        with ESMTP id S1725791AbhAHLaN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 8 Jan 2021 06:30:13 -0500
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com [IPv6:2607:f8b0:4864:20::233])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D817CC0612F4
+        for <linux-man@vger.kernel.org>; Fri,  8 Jan 2021 03:29:32 -0800 (PST)
+Received: by mail-oi1-x233.google.com with SMTP id d203so11044757oia.0
+        for <linux-man@vger.kernel.org>; Fri, 08 Jan 2021 03:29:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=gke7z/ekJJV/M23wC+jOPEo2AOKjiA8uBxil9lsIewo=;
-        b=HeJPWudWHf7ZlDaR+EreQOqA4c9wITxNA7cI0Q90ilS5tHPJAaLp5lPTOR8AlkryCZ
-         nVNgteBuSeRF/jUR0MJzfQMMZn6uKkKyOl4JiuLfoWoG8VGnCsViWCWDN8/275kDiime
-         kpTQ2aJdyDyyqJay8dVqrYSYA1EhIcF4q9T2jZjmS3mF3gUrLbOmTtD/QGi5ZgyQCdAt
-         w67gKq/JkxUrzYPMjGnLWXxZaGqPhQ986H08vmzF3qvh0ZE8Nze3qXZ0pKhU9BRSDYBQ
-         6sjgeYpHnzrn0k2qaNOL6NSXYwjUOkpGRiUPn2+05mVPG9/navWfMOye+Wqcr/lL8L09
-         Kdjw==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=PrfzBi6ajaTN9s5nJg7dq2RTdPbpcvXl0beo0Bqq3K4=;
+        b=W9RqxZfvMJCsTvzz0cBnj9g1zq7OGe5HpAJgdDwjfOfGxvfT75coYUcveD6EgwqH7U
+         ZX9tl6cQOfjrOY8l0TfZDZn2r+KRUWl+WP7dTasm/08Z0AP24sdXtM0Ylzgw8C+O8gsA
+         i+B8CMe0lH2hNNJY2uHM3/7KyWCrveRR5aMss5v7W60079CU5e+T9lm7Xjb0gmL//Aas
+         1QFOjRaBp66p8xmE+3KwUgc4j71qL5xOUTPsCLbyoSJjg0A9xhake6NWqD9URAgR/ApC
+         +VSuXdDshDah8ByJmK+cVXkTQa+LcLQA9esFjUQ4aqy3Ouuzdt+kpJ/1W96OK+C8SgPT
+         hjyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=gke7z/ekJJV/M23wC+jOPEo2AOKjiA8uBxil9lsIewo=;
-        b=UPzTUAPuH30ajSo2D0Ljplj0TyFtNdGvwO64Uby+udDbw18SXYHri29KhW7CQVvfQf
-         NEh1nmpAoWw2dHXJasWu8GAcsvYOgTwlEGyZ6f+TsnlufLvU2IbRZZiVi8KhGDi6qKP4
-         1xJiowEsplAIbPhv29LdhFoaB4Qr6bS1BzOFl+CoHEoors/QcDE89x/q1EETZse7wTFG
-         b3FuMme+niX+kMtNSQx/L+aY01kQNXrsf/D+N2c+UrGm8wcs6/gpcKEC0WY2GRKVlJMB
-         scVmA+VYaF9CNAbu2HX+6E8jmDJU7+eM37zQ91Eec7wOh4K1gcKDzAC725IbOz0pv/uE
-         VI0g==
-X-Gm-Message-State: AOAM530cuPANHZeWhocwAIJMq7UsmG7juDRXXcpmctDjxD1/w5knlKDT
-        lAmXXxOHZFYSjdsQawHNUCgkqJtYpTA=
-X-Google-Smtp-Source: ABdhPJxK7Ts8xc+woweAK11oagae6o1vuaaGQeGJX+NQ1vo4CT5fmZxxIbPudqDzx9gSP9weKfNuVw==
-X-Received: by 2002:adf:b194:: with SMTP id q20mr3148996wra.199.1610104451633;
-        Fri, 08 Jan 2021 03:14:11 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with UTF8SMTPSA id 94sm13398016wrq.22.2021.01.08.03.14.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 08 Jan 2021 03:14:11 -0800 (PST)
-Subject: Re: Further inconsistencies in FTM
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-References: <87f6ca4b-7f4c-20ed-cb94-3f4f88fc5077@gmail.com>
- <b65f22fe-d30d-c4d3-77e5-29ca7f67d88f@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <cc86ec78-65bd-202f-2704-e551c0442fb9@gmail.com>
-Date:   Fri, 8 Jan 2021 12:14:10 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:84.0) Gecko/20100101
- Thunderbird/84.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=PrfzBi6ajaTN9s5nJg7dq2RTdPbpcvXl0beo0Bqq3K4=;
+        b=W1SlJ36r7FCjLFtd/j1mFbyb2NUWPlBZhzET79sa63NFZfauZ43uwEWbWwE1CoXSMk
+         7HLSrWp4Z+/WmWhTfxaaOHAIFayE2kHOZk4QoD9DKM7wCBFfROCKFzPRpPTsb1EiXo+D
+         tRL5mb8A0BkOeJ/D4yh+7fbHhaRbohuE2oHEQZMe5vkL3D7oGip7WP7STOzCIJcZ5rC3
+         ocUb+GX9swViud/fCssXEhHp8LoEN6q/Q9b0XtZti8qaRb/ouIUAibZcKQ6eKZor67SU
+         qTLvF9vaQ27mUR4touWWQfY+tfvhyyQgG1lNNN4Y61LOWZmQTidtWKqsU5SDRsdqlLYa
+         jLxw==
+X-Gm-Message-State: AOAM532iElLF87J5G/OgMANfPJ3QE3862/C1PQp5jpIQtq0wNJM0JLRD
+        yT/VUXu0PpnuFzKpluD2Zkuy6zXxsLC6IWqvJUk=
+X-Google-Smtp-Source: ABdhPJzIhnZucpqtMYjbjTcxLXw/BU1XIra9Eh+qxD/sB2d5DfMl5DlBhvzAuaGgPI0FikWtqLLVSX84jM5H2JOoXpI=
+X-Received: by 2002:a05:6808:91a:: with SMTP id w26mr1955126oih.159.1610105372293;
+ Fri, 08 Jan 2021 03:29:32 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <b65f22fe-d30d-c4d3-77e5-29ca7f67d88f@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <307e6584-f163-4768-ffe9-b6b4f439e4a0@gmail.com>
+ <5058547d-c021-0aa9-4698-667c4917a12b@gmail.com> <d5e5fc9f-d283-1457-167b-d2716648656d@gmail.com>
+In-Reply-To: <d5e5fc9f-d283-1457-167b-d2716648656d@gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Fri, 8 Jan 2021 12:29:21 +0100
+Message-ID: <CAKgNAkjntXg1yzsp3mwoH4coocUiAh_6UFHoA_2hXcaLimWn-A@mail.gmail.com>
+Subject: Re: Escaping whitespace
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Hi Alex,
 
-On 1/8/21 11:50 AM, Michael Kerrisk (man-pages) wrote:
-> Hi Alex,
-> 
-> On 1/7/21 6:04 PM, Alejandro Colomar (man-pages) wrote:
->> Hi Michael,
->>
->> [[
->> SYNOPSIS
->>        #include <stdlib.h>
->>
->>        int clearenv(void);
->>
->>    Feature   Test   Macro   Requirements  for  glibc  (see  fea‐
->>    ture_test_macros(7)):
->>
->>        clearenv():
->>            /* Glibc since 2.19: */ _DEFAULT_SOURCE
->>                || /* Glibc <= 2.19: */ _SVID_SOURCE || _BSD_SOURCE
->>
->> ]]
->>
->> [[
->> SYNOPSIS
->>        #include <time.h>
->>
->>        int dysize(int year);
->>
->>    Feature   Test   Macro   Requirements  for  glibc  (see  fea‐
->>    ture_test_macros(7)):
->>
->>        dysize():
->>            Since glibc 2.19:
->>                _DEFAULT_SOURCE
->>            Glibc 2.19 and earlier:
->>                _BSD_SOURCE || _SVID_SOURCE
->>
->> ]]
->>
->> Which one do you prefer?
-> 
-> Probably the latter, since it is a little easier to read.
-> 
-> The former form has crept in as a result of my attempts
-> to keep the FTM info somewhat compact. See, for example:
-> 
->        chroot():
->            Since glibc 2.2.2:
->                _XOPEN_SOURCE && ! (_POSIX_C_SOURCE >= 200112L)
->                    || /* Since glibc 2.20: */ _DEFAULT_SOURCE
->                    || /* Glibc <= 2.19: */ _BSD_SOURCE
->            Before glibc 2.2.2:
->                none
-> 
-> 
->        waitid():
->            Since glibc 2.26:
->                _XOPEN_SOURCE >= 500 || _POSIX_C_SOURCE >= 200809L
->            Glibc 2.25 and earlier:
->                _XOPEN_SOURCE
->                    || /* Since glibc 2.12: */ _POSIX_C_SOURCE >= 200809L
->                    || /* Glibc <= 2.19: */ _BSD_SOURCE
-> 
-> The latter could be rewritten (I hope I got the expansion right) 
-> as:
->        waitid():
->            Since glibc 2.26:
->                _XOPEN_SOURCE >= 500 || _POSIX_C_SOURCE >= 200809L
->            Glibc 2.20 to 2.25
->                _XOPEN_SOURCE ||  _POSIX_C_SOURCE >= 200809L
->            Glibc 2.12 to 2.19
->                _XOPEN_SOURCE ||  _POSIX_C_SOURCE >= 200809L
->                    || _BSD_SOURCE
->            Glibc 2.11 and earlier:
->                _XOPEN_SOURCE || _BSD_SOURCE
-> 
->  
-> That's more verbose, but perhaps also easier to read, now that
-> I look at it.
-> 
-> I'm not sure whether you are thinking of doing some global edit,
-> but if you are, perhaps we need to discuss this more.
+On Thu, 7 Jan 2021 at 18:11, Alejandro Colomar (man-pages)
+<alx.manpages@gmail.com> wrote:
+>
+> Hi Michael,
+>
+> On 1/6/21 1:51 PM, Michael Kerrisk (man-pages) wrote:
+> > Hi Alex,
+> >
+> > On 1/5/21 10:56 PM, Alejandro Colomar (man-pages) wrote:
+> >> Hi Michael,
+> >>
+> >> While having a look at your latest commits,
+> >> I saw that there's a bit of inconsistency in escaping whitespace
+> >> (existing previous to the commit):
+> >>
+> >> Sometimes it's [!\ (], and sometimes it's [! (].
+> >
+> > Thanks for prodding me about this.
+> >
+> > Yes, it's inconsistent. And given the use of .nf/.fi
+> > around the text blocks, escaping the spaces serves no
+> > purpose. So I made a more radical fix; see commit
+> > 5c10d2c5e299011e34adb568737acfc8920fc27c
+>
+> Nice!
+>
+> After your following commit (422d5327a88fa89394100bafad69b21e50b26399),
+> I found that there are many such cases.  Just [[grep -rnI '\\ ' man?]]
+> and you'll see.  Some of them are valid, but a lot of them aren't.
 
-Well, I'm not thinking of a global edit right now (we've had enough of
-those for now I think :), but more as something to think for the future.
-So yes, a discussion about if we prefer to have a single way of
-expressing FTM or if there are times when the other way is better would
-be good.
-Your thoughts?
+Can you point me at some examples?
 
 Thanks,
 
-Alex
-
-> 
-> Thanks,
-> 
-> Michael
-> 
-> 
-
+Michael
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
