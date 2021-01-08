@@ -2,165 +2,137 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 39EA22EF2A0
-	for <lists+linux-man@lfdr.de>; Fri,  8 Jan 2021 13:45:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1E5822EF2A1
+	for <lists+linux-man@lfdr.de>; Fri,  8 Jan 2021 13:46:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726482AbhAHMpC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 8 Jan 2021 07:45:02 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38658 "EHLO
+        id S1725942AbhAHMqh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 8 Jan 2021 07:46:37 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38898 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726338AbhAHMpC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 8 Jan 2021 07:45:02 -0500
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7FD29C0612F4
-        for <linux-man@vger.kernel.org>; Fri,  8 Jan 2021 04:44:21 -0800 (PST)
-Received: by mail-wr1-x433.google.com with SMTP id a12so8854231wrv.8
-        for <linux-man@vger.kernel.org>; Fri, 08 Jan 2021 04:44:21 -0800 (PST)
+        with ESMTP id S1725817AbhAHMqh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 8 Jan 2021 07:46:37 -0500
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8C0DAC0612F4
+        for <linux-man@vger.kernel.org>; Fri,  8 Jan 2021 04:45:56 -0800 (PST)
+Received: by mail-wr1-x435.google.com with SMTP id y17so8865452wrr.10
+        for <linux-man@vger.kernel.org>; Fri, 08 Jan 2021 04:45:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=6O0iAHmZDAeFiv1M1UFFmCQrrRajAtxwchdqgkEwleE=;
-        b=AYy72USVz3xg4sVwftaJUxVz4DmcJcUmDLjKp03SQ1b0DOuvfrX6Pzx560BqVW0KAp
-         qIisNVr6abaoaOmOMEuKw62wNpr0GnVXHy/L5P8+KJrFxmTXGFH7SEMyyvnFGCHbeM2E
-         gOa80yHUemt8dEIg4TYx1G8MxEgRBv/pIYaFop8WSKgfX6InRHWCWvqcR/m11AuNTpnp
-         ctwq8wmEHm4Om+7xdPLiaKHkQ789XsAuNTXQCh42zJhdiVaeDrYu0JVSb2M/NhvKQnOB
-         r3Gfq5E4Z0nszmDzr0ET+C+NdLQrBPQQ6T7ffximG0qoTq4iNYkBPh0jcRXf8VafhU7Z
-         sX5A==
+        bh=UVeRmk7nxnW2U4jBeOR+9UlJMpGjz7Jp+3ySDMvhHUk=;
+        b=pAxNedp0+LfwoHirejgrCoAmdXMnPwey8nIfly3SqRZQopV/JZ8mYQnaxKZ5GR23gm
+         QftKp5iy6j0CAW+cZRddti6WJLAIvDdskYeJBkB2Gb1tCA6RgptU/1Nktgny6ZPFLn6L
+         bLrAJOUSGbKLDqczGKkGozcuBCVBuKj0nEcjbxow95VoOK9GOxHgzlobuS2NR0plld3N
+         RYvZjSmDzYK9MMZiSTYljPac//4yKN94ift2CseI0gXjyThFK8dhaYRNRIB+mkfnIa6G
+         W3bIT1BakIvKSVfMwCBHUy1Qy02VOkQWoeLaEIO9a4d4Oky2bkp1+iBBnn4LG2S2SCCk
+         XpWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=6O0iAHmZDAeFiv1M1UFFmCQrrRajAtxwchdqgkEwleE=;
-        b=SjFR2bG4ask7byosX85tkOeNye4oK94+nDKk0y3cK/JQ4YOoI/3BeQxNJ6cHcM0REB
-         ZPOe8s8TlWg51cEI2nHOgGRCi1OhHrJ804S7aqL27KeMrB2mSqR8fL8T9LGfqgTWjVZ7
-         Ye6WA5Kjo167OVY3Sy/m5NYsGJJ/e3ql4mytEFbnlmCx10CpwOQHuC1+eaH1MhnNi5UL
-         VZv4+JBH8fOVUjnX+fZ8SLJTq5oJAAhC34ynzesQZCpKoj++atUx7jSXp91K6nfb1Okk
-         Dsof00ValcHgkgLGMr0I36RlR0pWW9QzCtou2jvF1W/efL34NmCoocZa4f/bEGvlupZ3
-         HXlQ==
-X-Gm-Message-State: AOAM530DxnKBeUn8HJ+JhiA2j5q9m/MylUjSGFbqAY/lBnMa0pXbd/Mc
-        Bbf0sodWypUn5ixnUtbzMJ3F6YNxP6c=
-X-Google-Smtp-Source: ABdhPJzRsXz9IkxiaNFSFKeAY6TMkar07xa7Zxsc/Fu6Tf2bqrVbDg+MjThgDv08IlaU1ywddvLJXA==
-X-Received: by 2002:adf:c145:: with SMTP id w5mr3571553wre.400.1610109859972;
-        Fri, 08 Jan 2021 04:44:19 -0800 (PST)
+        bh=UVeRmk7nxnW2U4jBeOR+9UlJMpGjz7Jp+3ySDMvhHUk=;
+        b=MHdp2xvVw7dkboGK1UbxbN5Y7+hDvYHaGjIt2PdtaVpui8EMbJRaeQp4vcZvcAIzj7
+         rOCAu56NtDtTfBeV42KeNoURcQ5RtDgZt2e4Chjxah0YR4shES/dEn6cpVfHKFVdmywL
+         OG3P/Ungv6x4BJv+bUxACW/9uDa5dHNE5gf7bjZlSW/l6rBA+NoEqaa22kCQ1UK8wInj
+         B+5CAexIU9vnB4GGuxNoPGPgI2XBZgC2lpDXR3719DBOs5ka/BodlNBjonNefn03f6e5
+         7JZ/91nSzYpyFcemyJYwgKLuPlGitpeVMY6mvNiPzrhj9l77hOROaDXVyDXDqHRvVPUg
+         QMeg==
+X-Gm-Message-State: AOAM5338S+Fh8rBbXGucUBsbSN7NUJltvnp2RC3bRtfysWv2Ti1IT9JO
+        4I+q5ALgyxfmSUTuNKuIEk7aigavLHE=
+X-Google-Smtp-Source: ABdhPJydy/DmBb0kBTBBpnPEN58mZ2YKATtrNX/joRpTGZX+CFGHtc9EdZ7kKlw3Kn70BRHk3UxKSg==
+X-Received: by 2002:a5d:684b:: with SMTP id o11mr3498345wrw.157.1610109955030;
+        Fri, 08 Jan 2021 04:45:55 -0800 (PST)
 Received: from ?IPv6:2001:a61:244d:fe01:9fb1:d962:461a:45e8? ([2001:a61:244d:fe01:9fb1:d962:461a:45e8])
-        by smtp.gmail.com with ESMTPSA id h9sm12173957wme.11.2021.01.08.04.44.18
+        by smtp.gmail.com with ESMTPSA id p8sm13559663wru.50.2021.01.08.04.45.53
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 08 Jan 2021 04:44:19 -0800 (PST)
+        Fri, 08 Jan 2021 04:45:54 -0800 (PST)
 Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
-Subject: Re: Escaping whitespace
+Subject: Re: setlocale.3: Wording issues
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-References: <307e6584-f163-4768-ffe9-b6b4f439e4a0@gmail.com>
- <5058547d-c021-0aa9-4698-667c4917a12b@gmail.com>
- <d5e5fc9f-d283-1457-167b-d2716648656d@gmail.com>
- <CAKgNAkjntXg1yzsp3mwoH4coocUiAh_6UFHoA_2hXcaLimWn-A@mail.gmail.com>
- <9718bbf2-9cb2-7a92-d7fa-94eb6b2eb3c6@gmail.com>
+References: <e198d995-5a85-bda1-1a82-57260b9d4efe@gmail.com>
+ <25b829b8-ad0e-06f0-c97a-31277f71f1ef@gmail.com>
+ <ed25f72d-e88e-e2c5-66de-3cf70c0cdfc5@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <f601d952-414a-92be-51f7-069e6ba0fd5a@gmail.com>
-Date:   Fri, 8 Jan 2021 13:44:18 +0100
+Message-ID: <c82aef04-b42c-dcc7-0c40-3bf46d88f471@gmail.com>
+Date:   Fri, 8 Jan 2021 13:45:53 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <9718bbf2-9cb2-7a92-d7fa-94eb6b2eb3c6@gmail.com>
+In-Reply-To: <ed25f72d-e88e-e2c5-66de-3cf70c0cdfc5@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 1/8/21 12:49 PM, Alejandro Colomar (man-pages) wrote:
+On 1/8/21 12:41 PM, Alejandro Colomar (man-pages) wrote:
+> Hi Michael,
 > 
-> 
-> On 1/8/21 12:29 PM, Michael Kerrisk (man-pages) wrote:
+> On 1/8/21 10:26 AM, Michael Kerrisk (man-pages) wrote:
 >> Hi Alex,
 >>
->> On Thu, 7 Jan 2021 at 18:11, Alejandro Colomar (man-pages)
->> <alx.manpages@gmail.com> wrote:
->>>
+>> On 1/7/21 7:32 PM, Alejandro Colomar (man-pages) wrote:
 >>> Hi Michael,
 >>>
->>> On 1/6/21 1:51 PM, Michael Kerrisk (man-pages) wrote:
->>>> Hi Alex,
->>>>
->>>> On 1/5/21 10:56 PM, Alejandro Colomar (man-pages) wrote:
->>>>> Hi Michael,
->>>>>
->>>>> While having a look at your latest commits,
->>>>> I saw that there's a bit of inconsistency in escaping whitespace
->>>>> (existing previous to the commit):
->>>>>
->>>>> Sometimes it's [!\ (], and sometimes it's [! (].
->>>>
->>>> Thanks for prodding me about this.
->>>>
->>>> Yes, it's inconsistent. And given the use of .nf/.fi
->>>> around the text blocks, escaping the spaces serves no
->>>> purpose. So I made a more radical fix; see commit
->>>> 5c10d2c5e299011e34adb568737acfc8920fc27c
+>>> I don't understand what this paragraph means, I think it needs some wfix.
 >>>
->>> Nice!
+>>> Around setlocale.3:179:
+>>> [
+>>>        On  startup  of  the main program, the portable "C" locale is
+>>>        selected as default.  A program may be made portable  to  all
+>>>        locales by calling:
 >>>
->>> After your following commit (422d5327a88fa89394100bafad69b21e50b26399),
->>> I found that there are many such cases.  Just [[grep -rnI '\\ ' man?]]
->>> and you'll see.  Some of them are valid, but a lot of them aren't.
+>>>            setlocale(LC_ALL, "");
+>>>
+>>>        after  program  initialization,  by using the values returned
+>>>        from a localeconv(3) call for  locale-dependent  information,
+>>>        by  using the multibyte and wide character functions for text
+>>>        processing if MB_CUR_MAX > 1, and by  using  strcoll(3),  wc‐
+>>>        scoll(3) or strxfrm(3), wcsxfrm(3) to compare strings.
+>>>
+>>> <<<Especially these last 2 lines
+>>>
+>>> ]
 >>
->> Can you point me at some examples?
+>> I see what you mean. I had to read that a few times to parse it.
+>> It looks like the text was added in 1999. I think the following
+>> clarifies and preserves the meaning:
+>>
+>> [[
+>>        On startup of the main program, the portable "C" locale is select‐
+>>        ed  as  default.  A program may be made portable to all locales by
+>>        calling:
+>>
+>>            setlocale(LC_ALL, "");
+>>
+>>        after program initialization, and then:
+>>
+>>        (a) using the values returned from a localeconv(3)  call  for  lo‐
+>>            cale-dependent information;
+>>
+>>        (c) using the multibyte and wide character functions for text pro‐
+>>            cessing if MB_CUR_MAX > 1; and
+>>
+>>        (c) using strcoll(3), wcscoll(3) or strxfrm(3), wcsxfrm(3) to com‐
+>>            pare strings.
+>> ]]
+>>
+>> What do you think?
 > 
-> A sample:
+> Much better.
 > 
-> man3/envz_add.3:61:.RI ( *envz ,\  *envz_len )
-> << this should be two lines
-> man3/xdr.3:184:.IR "long\ *" .
-> << unnecessary
-> man3/scandir.3:277:.IR "const void\ *" .
-> << unnecessary and self-inconsistent
-> man5/proc.5:1350:.RI ( "readelf\ \-l" ).
-> << unnecessary
-> man7/symlink.7:424:.I "rm\ \-r slink directory"
-> << unnecessary and self-inconsistent
-> man7/feature_test_macros.7:492:.IR "cc\ \-std=c99" ).
-> << unnecessary
-> man8/ld.so.8:313:.IR "readelf\ \-n"
-> << unnecessary
-> 
-> Maybe I'm missing something?
+> But I still don't get why [A, B or  C, D].  What does it mean?
 
-So, the point here is that suppose a line break falls badly and we end up with
+I don't read it that way. I see it as: [A and (B and/or C and/or D].
+Do you see what I mean?
 
-...................... const void
-* ...............................
-
-or
-
-......................... readelf
--n ..............................
-
-or
-.............................. cc
--std=c99 ........................
-
-or
-
-.............................. 16
-MB ..............................
-
-The general problem here is that a small piece of a unit (usually at
-the end) is broken onto a new line, making  things a bit more
-difficult to read. That sort of thing is ugly, I think. That's
-why there is the "\\ ".
-
-Maybe there are a few redundant cases. And maybe there are a few
-borderline cases. For example, maybe in envz_add.3, "\\ " is
-not strictly necessary (though I'm inclined to keep it).
-
-There may still be a few misplaced "\\ " escapes (I just fixed a few),
-but many of these really are needed, I think.
-
-Cheers,
+Thanks,
 
 Michael
+
 
 -- 
 Michael Kerrisk
