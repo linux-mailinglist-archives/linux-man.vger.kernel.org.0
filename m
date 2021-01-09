@@ -2,156 +2,419 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B06902F03C7
-	for <lists+linux-man@lfdr.de>; Sat,  9 Jan 2021 22:21:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BF70E2F03E2
+	for <lists+linux-man@lfdr.de>; Sat,  9 Jan 2021 22:46:30 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726006AbhAIVVT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 9 Jan 2021 16:21:19 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48460 "EHLO
+        id S1726005AbhAIVq3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 9 Jan 2021 16:46:29 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53828 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726001AbhAIVVT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 9 Jan 2021 16:21:19 -0500
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C1D43C061786
-        for <linux-man@vger.kernel.org>; Sat,  9 Jan 2021 13:20:38 -0800 (PST)
-Received: by mail-wr1-x435.google.com with SMTP id i9so12378681wrc.4
-        for <linux-man@vger.kernel.org>; Sat, 09 Jan 2021 13:20:38 -0800 (PST)
+        with ESMTP id S1726001AbhAIVq3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 9 Jan 2021 16:46:29 -0500
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BFE0CC06179F
+        for <linux-man@vger.kernel.org>; Sat,  9 Jan 2021 13:45:48 -0800 (PST)
+Received: by mail-wr1-x430.google.com with SMTP id t16so12414924wra.3
+        for <linux-man@vger.kernel.org>; Sat, 09 Jan 2021 13:45:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=bZakKUDtRWm6LkM+h+KfofoStOa9aIDbIKtxnSeAxhU=;
-        b=j33+oCbAbMNCVaHaX3VyFeVgHnig8oGi32H9sEKEJy4KhiFWTkBt7GGsshz/v1wKIL
-         FXE8EL8erO0luiSmNhu7Dii5C7n2Va8kqmlGm8kWh6U4jcJdU+pGG26OhDSx5HNQf7YQ
-         i6kPjQYWZRAoyqWkHNESd7b9nB8d4WNfIp22MwBeYMXfzL2PmehKMbk4zLewsulXtudn
-         4q+Z/SnjPN81AKBLZlmzMjLGxTnqbOa4P/o/utGEvBMa0SXyJVxxgJqMC0MoRFHzr4hO
-         nHpagwc+i5eBHeH3UcUbSsQPY3rNimDVGLgVhGcNhZiwKIrd5r9mAuoUj1AC1PybpGMT
-         juXA==
+        bh=eaURlL4J8XTSOsVZgxwmz3gCV8OkbDzFmUgaZt/s4qo=;
+        b=mcSXR2eVDxnHu2Fddjfr1rYirh5q/dYdkC3NAYZ99OrJeW6l4CBz1EYoubpKFkmS63
+         XFj+GfZ5fpjsMKjeD0kNaXs9bBJgb8QBrZN/bJZnt8TQvaGaTDZGHPEHQnaeZtVm+JPL
+         xixQ21Q26KIPpUvF/1iC40dPDBEeQUrbUJSLxw1CejGKZsTvC+ZxJs6AmtDh4tbQIr24
+         7mrPDBfLTKEo9r9tdYEbwy7EpvCQpddd0oxgUT9pGlILcN/BRYo4HZVAc7q7kwqtq/5e
+         pXvDzKimzjMmxE7lwyUHMZJ/dbCWYCWhrbW9PkcBMYvIP0XrcOvrf+qeA45QIwnSv1WK
+         GO3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=bZakKUDtRWm6LkM+h+KfofoStOa9aIDbIKtxnSeAxhU=;
-        b=Vm2VyiSObep1Os4VZ0EloReqi5+7N17COG3HxvfEreNmISenu6mTtrkXMOdZ/QynCI
-         026G88jN/A7n6XIPivCSKFkYOJZKzHzvzpEG0TbTca/TLu8xzJcp1g1SmQHVt6uD9zhF
-         MzyB3U4llaK5skYgeViZ6ghupHQmEAEg6E+Webz01Qha/qoWMLVaF+WRbwDejtFMjHdX
-         JiXg78yB5K24x0eVr/ef9Gx3wRotCgm8WwwFRBhfZUAA6EtrNK5RGXQOBTMtgnWNLx/N
-         RHMPHpkot7lKDOI1fN9y5yGjtgd6NcYl8wIjtLZ8lH2IoNVc6m4dejAqJk9WPAmwxw+o
-         Hu+A==
-X-Gm-Message-State: AOAM532ga7sXPTBwM7Teo6Z4YitaZrQWNMz40h5lNO42p9QpqdjVLN5G
-        FXMIckdbQEl1rWv4IHu8hNA=
-X-Google-Smtp-Source: ABdhPJz8wy1QEkpThCmhhJz/nFdriGrnjne4CZ80JNHBaApVeYttFwktDU80J2zTMlit0SfxNBujCQ==
-X-Received: by 2002:adf:9546:: with SMTP id 64mr9626451wrs.343.1610227237549;
-        Sat, 09 Jan 2021 13:20:37 -0800 (PST)
+        bh=eaURlL4J8XTSOsVZgxwmz3gCV8OkbDzFmUgaZt/s4qo=;
+        b=mz+PMDphgOTk7pxiyO8VgrR2WTFhhJ+J+Oe0nAriuTOeoP7AbrdeWyCBTCo0biKAD1
+         SvnYC6nHKmNy95cJkFaMYeszaAdG3YN0UoHIv3aJju2LQjNdS7nYPvC9f07mAvK94Hm+
+         jp7pPIG8PgwXOc4XSnwCgJ/V9wHh4Ctkztredj3boZRR13ldu5DUYVLCQUwDOikBGjJr
+         f4RQe48ncF9L/rQwSHR1cSqKAa7ovDxGBo3GohNDqSPi1PtNylDir8DgJR36ybYfaWKw
+         5sRaE3fu5sAUoazPUjHiGGQhoCPQvTlqvFqIU8I5hq6AdR4WGNL0zbcJENgKYztNlZJE
+         2a2Q==
+X-Gm-Message-State: AOAM533y0jbDFrjvYutIWr9GNlBe/i3zrQ52OErs5IxqlapPXAXzoOGr
+        i5afcqnw1ehx6BXHsuuZ7BE=
+X-Google-Smtp-Source: ABdhPJz3FccFkWdGjRM5nlpjkIQ+14TDeTbZ9Np0ZfXXKXOjReznbJCeGOtX3wO5aSJG4DLJjSAU4w==
+X-Received: by 2002:a5d:6a05:: with SMTP id m5mr9491725wru.96.1610228747412;
+        Sat, 09 Jan 2021 13:45:47 -0800 (PST)
 Received: from debian.vlc ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id n3sm17922761wrw.61.2021.01.09.13.20.36
+        by smtp.gmail.com with ESMTPSA id t188sm16354766wmf.9.2021.01.09.13.45.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 09 Jan 2021 13:20:37 -0800 (PST)
+        Sat, 09 Jan 2021 13:45:46 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com,
-        Johannes Pfister <johannes.pfister@josttech.ch>
+To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, bugzilla-daemon@bugzilla.kernel.org,
-        libc-alpha@sourceware.org
-Subject: [PATCH, BUG 211039] malloc.3: Document that realloc(p, 0) is specific to glibc and nonportable
-Date:   Sat,  9 Jan 2021 22:15:06 +0100
-Message-Id: <20210109211505.76000-1-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org
+Subject: [PATCH] Various pages: srcfix: Remove redundant .PP
+Date:   Sat,  9 Jan 2021 22:45:02 +0100
+Message-Id: <20210109214501.76960-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-A more detailed notice is on realloc(3p).
+.PP are redundant just after .SH or .SS.
+Remove them.
 
-......
+$ find man? -type f \
+  |xargs sed -i '/^\.S[HS]/{n;/\.PP/d}';
 
-$ man 3p realloc \
-  |sed -n \
-     -e '/APPLICATION USAGE/,/^$/p' \
-     -e '/FUTURE DIRECTIONS/,/^$/p';
-APPLICATION USAGE
-       The description of realloc() has been modified from  pre‐
-       vious  versions  of  this  standard  to  align  with  the
-       ISO/IEC 9899:1999 standard. Previous versions  explicitly
-       permitted  a  call  to  realloc(p,  0)  to free the space
-       pointed to by p and return a null pointer. While this be‐
-       havior  could be interpreted as permitted by this version
-       of the standard, the C language committee have  indicated
-       that   this  interpretation  is  incorrect.  Applications
-       should assume that if realloc() returns a  null  pointer,
-       the  space pointed to by p has not been freed. Since this
-       could lead to double-frees, implementations  should  also
-       set errno if a null pointer actually indicates a failure,
-       and applications should only free the space if errno  was
-       changed.
+Plus a couple manual edits.
 
-FUTURE DIRECTIONS
-       This  standard  defers  to the ISO C standard. While that
-       standard currently has language that might  permit  real‐
-       loc(p, 0), where p is not a null pointer, to free p while
-       still returning a null pointer, the committee responsible
-       for  that standard is considering clarifying the language
-       to explicitly prohibit that alternative.
-
-Bug: 211039 <https://bugzilla.kernel.org/show_bug.cgi?id=211039>
-Reported-by: Johannes Pfister <johannes.pfister@josttech.ch>
-Cc: libc-alpha@sourceware.org
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
+ man3/stailq.3          | 2 +-
+ man3/tailq.3           | 2 +-
+ man4/lirc.4            | 9 ---------
+ man4/st.4              | 3 ---
+ man5/utmp.5            | 2 --
+ man7/boot.7            | 2 --
+ man7/credentials.7     | 1 -
+ man7/futex.7           | 4 ----
+ man7/mailaddr.7        | 3 ---
+ man7/sigevent.7        | 1 -
+ man7/time_namespaces.7 | 2 --
+ man7/uri.7             | 5 -----
+ 12 files changed, 2 insertions(+), 34 deletions(-)
 
-Hi Johannes, Michael,
-
-Thanks for the report, Johannes!
-Please review that your name is correct (I guessed it from the email).
-
-Michael, please review the wording.
-
-Thanks,
-
-Alex
-
- man3/malloc.3 | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/man3/malloc.3 b/man3/malloc.3
-index d8b4da62f..467e2438a 100644
---- a/man3/malloc.3
-+++ b/man3/malloc.3
-@@ -149,7 +149,8 @@ is equal to zero,
- and
- .I ptr
- is not NULL, then the call is equivalent to
--.IR free(ptr) .
-+.I free(ptr)
-+(this behavior is nonportable; see NOTES).
- Unless
- .I ptr
- is NULL, it must have been returned by an earlier call to
-@@ -375,6 +376,21 @@ The
- implementation is tunable via environment variables; see
- .BR mallopt (3)
- for details.
-+.SS Nonportable behavior
-+The behavior of
-+.BR realloc ()
-+when
-+.I size
-+is equal to zero,
-+and
-+.I ptr
-+is not NULL,
-+is glibc specific;
-+other implementations may return NULL, and set
-+.IR errno .
-+Portable POSIX programs should avoid it.
-+See
-+.BR realloc (3p).
- .SH SEE ALSO
- .\" http://g.oswego.edu/dl/html/malloc.html
- .\" A Memory Allocator - by Doug Lea
+diff --git a/man3/stailq.3 b/man3/stailq.3
+index e68cd25b2..8514b3998 100644
+--- a/man3/stailq.3
++++ b/man3/stailq.3
+@@ -256,13 +256,13 @@ macro.
+ .\" .BR STAILQ_REMOVE (),
+ .\" this macro does not traverse the entire tail queue.
+ .SS Other features
+-.PP
+ .BR STAILQ_CONCAT ()
+ concatenates the tail queue headed by
+ .I head2
+ onto the end of the one headed by
+ .I head1
+ removing all entries from the former.
++.\" .PP
+ .\" .BR STAILQ_SWAP ()
+ .\" swaps the contents of
+ .\" .I head1
+diff --git a/man3/tailq.3 b/man3/tailq.3
+index 00fef1ce4..75ab7e1cf 100644
+--- a/man3/tailq.3
++++ b/man3/tailq.3
+@@ -306,12 +306,12 @@ removes the element
+ .I elm
+ from the queue.
+ .SS Other features
+-.\" .PP
+ .\" .BR TAILQ_SWAP ()
+ .\" swaps the contents of
+ .\" .I head1
+ .\" and
+ .\" .IR head2 .
++.\" .PP
+ .BR TAILQ_CONCAT ()
+ concatenates the queue headed by
+ .I head2
+diff --git a/man4/lirc.4 b/man4/lirc.4
+index 999cdc571..8bc8a95cf 100644
+--- a/man4/lirc.4
++++ b/man4/lirc.4
+@@ -25,7 +25,6 @@
+ .SH NAME
+ lirc \- lirc devices
+ .SH DESCRIPTION
+-.PP
+ The
+ .I /dev/lirc*
+ character devices provide a low-level
+@@ -65,7 +64,6 @@ receiving and sending is supported, and in which modes, amongst other
+ features.
+ .\"
+ .SS Reading input with the LIRC_MODE_MODE2 mode
+-.PP
+ In the \fBLIRC_MODE_MODE2 mode\fR, the data returned by
+ .BR read (2)
+ provides 32-bit values representing a space or a pulse duration.
+@@ -90,7 +88,6 @@ The package reflects a timeout; see the
+ ioctl.
+ .\"
+ .SS Reading input with the LIRC_MODE_SCANCODE mode
+-.PP
+ In the \fBLIRC_MODE_SCANCODE\fR
+ mode, the data returned by
+ .BR read (2)
+@@ -100,7 +97,6 @@ is stored in \fIrc_proto\fR.
+ This field has one the values of the \fIenum rc_proto\fR.
+ .\"
+ .SS Writing output with the LIRC_MODE_PULSE mode
+-.PP
+ The data written to the character device using
+ .BR write (2)
+ is a pulse/space sequence of integer values.
+@@ -116,7 +112,6 @@ If more data is provided than the hardware can send, the
+ call fails with the error
+ .BR EINVAL .
+ .SS Writing output with the LIRC_MODE_SCANCODE mode
+-.PP
+ The data written to the character devices must be a single struct
+ \fIlirc_scancode\fR.
+ The \fIscancode\fR and \fIrc_proto\fR fields must
+@@ -127,7 +122,6 @@ The protocol or scancode is invalid, or the
+ .B lirc
+ device cannot transmit.
+ .SH IOCTL COMMANDS
+-.PP
+ The LIRC device's ioctl definition is bound by the ioctl function
+ definition of
+ .IR "struct file_operations" ,
+@@ -153,7 +147,6 @@ referred to below as
+ .IR val .
+ .\"
+ .SS Always Supported Commands
+-.PP
+ \fI/dev/lirc*\fR devices always support the following commands:
+ .TP 4
+ .BR LIRC_GET_FEATURES " (\fIvoid\fP)"
+@@ -166,7 +159,6 @@ it is safe to assume it is not a
+ device.
+ .\"
+ .SS Optional Commands
+-.PP
+ Some
+ .B lirc
+ devices support the commands listed below.
+@@ -363,7 +355,6 @@ Trying to disable a wide band receiver while carrier reports are active
+ will do nothing.
+ .\"
+ .SH FEATURES
+-.PP
+ the
+ .BR LIRC_GET_FEATURES
+ ioctl returns a bit mask describing features of the driver.
+diff --git a/man4/st.4 b/man4/st.4
+index 1d1f0fab8..e300eb45c 100644
+--- a/man4/st.4
++++ b/man4/st.4
+@@ -238,7 +238,6 @@ driver.
+ The definitions below are from
+ .IR /usr/include/linux/mtio.h :
+ .SS MTIOCTOP \(em perform a tape operation
+-.PP
+ This request takes an argument of type
+ .IR "(struct mtop\ *)" .
+ Not all drives support all operations.
+@@ -686,7 +685,6 @@ the cleaning request.
+ If the pattern is nonzero, the pattern must match
+ the masked sense data byte.
+ .SS MTIOCGET \(em get status
+-.PP
+ This request takes an argument of type
+ .IR "(struct mtget\ *)" .
+ .PP
+@@ -815,7 +813,6 @@ This value is set to \-1 when the block number is unknown (e.g., after
+ or
+ .BR MTSEEK ).
+ .SS MTIOCPOS \(em get tape position
+-.PP
+ This request takes an argument of type
+ .I "(struct mtpos\ *)"
+ and reports the drive's notion of the current tape block number,
+diff --git a/man5/utmp.5 b/man5/utmp.5
+index c77c34488..24b0cba7f 100644
+--- a/man5/utmp.5
++++ b/man5/utmp.5
+@@ -237,7 +237,6 @@ removed, record-keeping is turned off.
+ .br
+ .I /var/log/wtmp
+ .SH CONFORMING TO
+-.PP
+ POSIX.1 does not specify a
+ .I utmp
+ structure, but rather one named
+@@ -289,7 +288,6 @@ Linux uses the BSD conventions for line contents, as documented above.
+ .\" informative messages such as \fB"new time"\fP in the line field.
+ System V has no \fIut_host\fP or \fIut_addr_v6\fP fields.
+ .SH NOTES
+-.PP
+ Unlike various other
+ systems, where utmp logging can be disabled by removing the file, utmp
+ must always exist on Linux.
+diff --git a/man7/boot.7 b/man7/boot.7
+index cb861932c..25d7b6a7c 100644
+--- a/man7/boot.7
++++ b/man7/boot.7
+@@ -16,7 +16,6 @@
+ .SH NAME
+ boot \- System bootup process based on UNIX System V Release 4
+ .SH DESCRIPTION
+-.PP
+ The \fBbootup process\fR (or "\fBboot sequence\fR") varies in details
+ among systems, but can be roughly divided into phases controlled by
+ the following components:
+@@ -215,7 +214,6 @@ A boot script in \fI/etc/init.d\fR reads and includes its configuration
+ file (that is, it "\fBsources\fR" its configuration file) and then uses
+ the variable values.
+ .SH FILES
+-.PP
+ .IR /etc/init.d/ ,
+ .IR /etc/rc[S0\-6].d/ ,
+ .I /etc/sysconfig/
+diff --git a/man7/credentials.7 b/man7/credentials.7
+index 2d966a15c..f2acf4cfc 100644
+--- a/man7/credentials.7
++++ b/man7/credentials.7
+@@ -284,7 +284,6 @@ that the process may create (see
+ .BR inotify (7)).
+ .\"
+ .SS Modifying process user and group IDs
+-.PP
+ Subject to rules described in the relevant manual pages,
+ a process can use the following APIs to modify its user and group IDs:
+ .TP
+diff --git a/man7/futex.7 b/man7/futex.7
+index f59725b61..155c49440 100644
+--- a/man7/futex.7
++++ b/man7/futex.7
+@@ -16,7 +16,6 @@ futex \- fast user-space locking
+ .B #include <linux/futex.h>
+ .fi
+ .SH DESCRIPTION
+-.PP
+ The Linux kernel provides futexes ("Fast user-space mutexes")
+ as a building block for fast user-space
+ locking and semaphores.
+@@ -49,7 +48,6 @@ Processes can share this integer using
+ via shared memory segments, or because they share memory space,
+ in which case the application is commonly called multithreaded.
+ .SS Semantics
+-.PP
+ Any futex operation starts in user space,
+ but it may be necessary to communicate with the kernel using the
+ .BR futex (2)
+@@ -90,12 +88,10 @@ for
+ more details.
+ The same holds for asynchronous futex waiting.
+ .SH VERSIONS
+-.PP
+ Initial futex support was merged in Linux 2.5.7
+ but with different semantics from those described above.
+ Current semantics are available from Linux 2.5.40 onward.
+ .SH NOTES
+-.PP
+ To reiterate, bare futexes are not intended as an easy-to-use
+ abstraction for end users.
+ Implementors are expected to be assembly literate and to have read
+diff --git a/man7/mailaddr.7 b/man7/mailaddr.7
+index 25502e35d..94eeb6eb0 100644
+--- a/man7/mailaddr.7
++++ b/man7/mailaddr.7
+@@ -77,7 +77,6 @@ The name may have to be quoted using "", for example, if it contains ".":
+ .PP
+ 	"John Q. Doe" <john.doe@monet.example.com>
+ .SS Abbreviation
+-.PP
+ Some mail systems let users abbreviate the domain name.
+ For instance,
+ users at example.com may get away with "john.doe@monet" to
+@@ -85,7 +84,6 @@ send mail to John Doe.
+ .I "This behavior is deprecated."
+ Sometimes it works, but you should not depend on it.
+ .SS Route-addrs
+-.PP
+ In the past, sometimes one had to route a message through
+ several hosts to get it to its final destination.
+ Addresses which show these relays are termed "route-addrs".
+@@ -102,7 +100,6 @@ They occur sometimes in old mail archives.
+ It is generally possible to ignore all but the "user@hostc"
+ part of the address to determine the actual address.
+ .SS Postmaster
+-.PP
+ Every site is required to have a user or user alias designated
+ "postmaster" to which problems with the mail system may be
+ addressed.
+diff --git a/man7/sigevent.7 b/man7/sigevent.7
+index f95c1da71..87736be65 100644
+--- a/man7/sigevent.7
++++ b/man7/sigevent.7
+@@ -52,7 +52,6 @@ struct sigevent {
+ };
+ .fi
+ .SH DESCRIPTION
+-.PP
+ The
+ .I sigevent
+ structure is used by various APIs
+diff --git a/man7/time_namespaces.7 b/man7/time_namespaces.7
+index 3291ba006..d4f3a9d5f 100644
+--- a/man7/time_namespaces.7
++++ b/man7/time_namespaces.7
+@@ -185,7 +185,6 @@ the contents of the
+ .I timens_offsets
+ file are inherited from the time namespace of the creating process.
+ .SH NOTES
+-.PP
+ Use of time namespaces requires a kernel that is configured with the
+ .B CONFIG_TIME_NS
+ option.
+@@ -211,7 +210,6 @@ The motivation for adding time namespaces was to allow
+ the monotonic and boot-time clocks to maintain consistent values
+ during container migration and checkpoint/restore.
+ .SH EXAMPLES
+-.PP
+ The following shell session demonstrates the operation of time namespaces.
+ We begin by displaying the inode number of the time namespace
+ of a shell in the initial time namespace:
+diff --git a/man7/uri.7 b/man7/uri.7
+index 97c4f9cb7..facd435cc 100644
+--- a/man7/uri.7
++++ b/man7/uri.7
+@@ -69,7 +69,6 @@ absolute_path = "/"  path_segments
+ relative_path = relative_segment [ absolute_path ]
+ .fi
+ .SH DESCRIPTION
+-.PP
+ A Uniform Resource Identifier (URI) is a short string of characters
+ identifying an abstract or physical resource (for example, a web page).
+ A Uniform Resource Locator (URL) is a URI
+@@ -487,7 +486,6 @@ URNs are to be supported by the urn: scheme, with a hierarchical name space
+ URNs are not widely implemented.
+ Not all tools support all schemes.
+ .SS Character encoding
+-.PP
+ URIs use a limited number of characters so that they can be
+ typed in and used in a variety of situations.
+ .PP
+@@ -582,7 +580,6 @@ permitted, and can be used only when there is no defined base
+ Don't use abbreviated URIs as hypertext links inside a document;
+ use the standard format as described here.
+ .SH CONFORMING TO
+-.PP
+ .UR http://www.ietf.org\:/rfc\:/rfc2396.txt
+ (IETF RFC\ 2396)
+ .UE ,
+@@ -628,7 +625,6 @@ will converge to common URI formats, and a future
+ version of this man page will describe the converged result.
+ Efforts to aid this convergence are encouraged.
+ .SS Security
+-.PP
+ A URI does not in itself pose a security threat.
+ There is no general guarantee that a URL, which at one time
+ located a given resource, will continue to do so.
+@@ -671,7 +667,6 @@ In particular, the use of a password within
+ the "userinfo" component of a URI is strongly recommended against except
+ in those rare cases where the "password" parameter is intended to be public.
+ .SH BUGS
+-.PP
+ Documentation may be placed in a variety of locations, so there
+ currently isn't a good URI scheme for general online documentation
+ in arbitrary formats.
 -- 
 2.30.0
 
