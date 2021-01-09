@@ -2,86 +2,74 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 96E092EF5B2
-	for <lists+linux-man@lfdr.de>; Fri,  8 Jan 2021 17:28:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id DBCAD2EFDE5
+	for <lists+linux-man@lfdr.de>; Sat,  9 Jan 2021 06:20:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728069AbhAHQ0m (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 8 Jan 2021 11:26:42 -0500
-Received: from mo4-p00-ob.smtp.rzone.de ([85.215.255.23]:27274 "EHLO
-        mo4-p00-ob.smtp.rzone.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728033AbhAHQ0m (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 8 Jan 2021 11:26:42 -0500
-X-Greylist: delayed 726 seconds by postgrey-1.27 at vger.kernel.org; Fri, 08 Jan 2021 11:26:41 EST
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1610122970;
-        s=strato-dkim-0002; d=clisp.org;
-        h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:From:
-        Subject:Sender;
-        bh=h7gLHRGcdf+fX1r0WHL6+zGokW9wSi/stcwyuDZuNTI=;
-        b=rxRlnMDzK9QUhBbAkyZUUVb735z3fe9NIGFgfFfa89ha0VUb9342IWBuO/Z2WEO8Id
-        3Xff9RhYWzNZpcjLtxz1QlWuMYteyVZLjln5a3ZJJQd+avfurSw8pHI1ArVrL2IqKumA
-        O2U3MtR8VM7lwnE//X/IEh8r+DfjdntUVgg1PnIEaOilc0Ig+lYHaRBTerl54Ee5pxMT
-        VLN++2kBV1+TR9yNC3ERutaMrIzqzN4b7NS2xeTPn2tWcX7XUX57CFuZuNRUrukX05FY
-        IKQBwtG0dntsasmYasBN7zSlDzzrSzQH82hSLDLdU5w4sP2e4U+Dxdj6rmTbFRB7lFQj
-        Asug==
-X-RZG-AUTH: ":Ln4Re0+Ic/6oZXR1YgKryK8brlshOcZlIWs+iCP5vnk6shH+AHjwLuWOHqfyyvs="
-X-RZG-CLASS-ID: mo00
-Received: from bruno.haible.de
-        by smtp.strato.de (RZmta 47.12.1 DYNA|AUTH)
-        with ESMTPSA id u0aa20x08GAiCLr
-        (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-        (Client did not present a certificate);
-        Fri, 8 Jan 2021 17:10:44 +0100 (CET)
-From:   Bruno Haible <bruno@clisp.org>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: setlocale.3: Wording issues
-Date:   Fri, 08 Jan 2021 17:10:43 +0100
-Message-ID: <1666349.hQisT8tt6K@omega>
-User-Agent: KMail/5.1.3 (Linux/4.4.0-197-generic; KDE/5.18.0; x86_64; ; )
-In-Reply-To: <0e50d381-73aa-970e-43b7-42519fcd8540@gmail.com>
-References: <e198d995-5a85-bda1-1a82-57260b9d4efe@gmail.com> <879e52c6-e4f7-e5ea-5766-4893d01038db@gmail.com> <0e50d381-73aa-970e-43b7-42519fcd8540@gmail.com>
+        id S1725847AbhAIFUa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 9 Jan 2021 00:20:30 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41374 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725826AbhAIFU3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 9 Jan 2021 00:20:29 -0500
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com [IPv6:2607:f8b0:4864:20::233])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 891F4C061573
+        for <linux-man@vger.kernel.org>; Fri,  8 Jan 2021 21:19:49 -0800 (PST)
+Received: by mail-oi1-x233.google.com with SMTP id q205so13900276oig.13
+        for <linux-man@vger.kernel.org>; Fri, 08 Jan 2021 21:19:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
+        bh=LNneK+TyY7ylOpNsZ9FLyU/39kLCmDOwY1IpuNcVcio=;
+        b=Ko5UosrNY3pmsEaC+z5pwCJqFw+Dl5CMNDWBB/dTZeYa12MXiha1gHpIiJydPy8hmE
+         XjkL3aR2XgVDhMCCvoH5d+IhiUhPNYJJf2oab/HRO6Cpdi3povy/fYjt24SJAWZw6fCm
+         olcr/7GLTYbGTWpINks/p3FJUZZMBCXtaDeQsejNnNaL28AAzowNhwfctVcF+SIm2l9y
+         yOd34EuZYTPpfQRPhtEoKRGc/s+c1OuP1NnlEFfDfRssQzVBcCRBWyZubZ8djnS6HRsa
+         0sl9QiB/gAA3J9lclfEMJmxhQOoPqd0gHKNaYF2T5Rq2QCVp7aU+jqv7uWwRN72L7ioR
+         qb6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+         :content-disposition;
+        bh=LNneK+TyY7ylOpNsZ9FLyU/39kLCmDOwY1IpuNcVcio=;
+        b=T0epDfSPLAuYoVN4RdynSwODhoiF5wevqXRC+yk4NwCBL3IBCv/3ddsBqF80YMRu8S
+         Vf4j0RT3+y3cWLIGmHQCf6ORKzoA0V3ssqYtRJ1yCB2sseulE24PCvAgZ27gjEkAJXDD
+         tMO2CA4+cvqs7684eBHkKmtFD7oz1L5tyDCa2ZJVvchodTwPwt5oLf5l7OUwjLvggE4p
+         M7+NHt8ViuRLDuHmW5478u76C2E13tC+GUaBjTzoBmz1rqdAnPCjvcZiP+JZDTx/gIT6
+         b5C0S9WA9XR6J2n1pVGJ0hBkXgePTCWur5Zks6UfmBhaI2i+7pJAHghAL93V8B1/pEg/
+         rHRw==
+X-Gm-Message-State: AOAM5303fUrpoMv2OZk1Opz/Hpbp/06Sp/y63j7pU2mYM2vPR32zZ/k2
+        B/pnDUgEfI4bwocF0rfH6UA=
+X-Google-Smtp-Source: ABdhPJzajAjVb0MBAZ0U9pqaOUu6nrvBS9TOR/ipxwwoB+ZM/PIqdZkroZUeZZd0T5bnfFiGTJ99JA==
+X-Received: by 2002:aca:ec13:: with SMTP id k19mr4442882oih.97.1610169588920;
+        Fri, 08 Jan 2021 21:19:48 -0800 (PST)
+Received: from localhost.localdomain (99-6-134-177.lightspeed.snmtca.sbcglobal.net. [99.6.134.177])
+        by smtp.gmail.com with ESMTPSA id y35sm2231356otb.5.2021.01.08.21.19.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 08 Jan 2021 21:19:48 -0800 (PST)
+Date:   Fri, 8 Jan 2021 21:19:46 -0800
+From:   Enke Chen <enkechen2020@gmail.com>
+To:     Eric Dumazet <edumazet@google.com>
+Cc:     linux-man@vger.kernel.org, enkechen2020@gmail.com
+Subject: Documentation revision for TCP_USER_TIMEOUT in man7/tcp7
+Message-ID: <20210109051946.GA4015@localhost.localdomain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Alejandro Colomar (man-pages) wrote:
-> >>>>>        (a) using the values returned from a localeconv(3)  call  fo=
-r  lo=E2=80=90
-> >>>>>            cale-dependent information;
-> >>>>>
-> >>>>>        (c) using the multibyte and wide character functions for tex=
-t pro=E2=80=90
-> >>>>>            cessing if MB_CUR_MAX > 1; and
-> >>>>>
-> >>>>>        (c) using strcoll(3), wcscoll(3) or strxfrm(3), wcsxfrm(3) t=
-o com=E2=80=90
-> >>>>>            pare strings.
-
-If you feel it's better to separate the functions for strings from the func=
-tions
-for wide strings, I would write it like this:
-
-        * using the values returned from a localeconv(3)  call  for  lo=E2=
-=80=90
-          cale-dependent information;
-
-        * using the multibyte and wide character functions for text pro=E2=
-=80=90
-          cessing if MB_CUR_MAX > 1;
-
-        * using strcoll(3) or strxfrm(3) to compare strings; and
-
-        * using wcscoll(3) or wcsxfrm(3) to compare wide-character strings.
-
-Regarding the type of enumeration, I generally use
-  - (1), (2), (3), ... when the order matters, e.g. to describe steps that
-    need to be done one after the other,
-  - (a), (b), (c), ... for alternatives ("or"),
-  - simple *, *, *, ... for other enumerations.
-
-Bruno
-
+diff --git a/man7/tcp.7 b/man7/tcp.7
+index 6c91f058b..2ce831c90 100644
+--- a/man7/tcp.7
++++ b/man7/tcp.7
+@@ -1161,7 +1161,8 @@ This option takes an
+ as an argument.
+ When the value is greater than 0,
+ it specifies the maximum amount of time in milliseconds that transmitted
+-data may remain unacknowledged before TCP will forcibly close the
++data may remain unacknowledged, or bufferred data may remain untransmitted
++(due to zero window size) before TCP will forcibly close the
+ corresponding connection and return
+ .B ETIMEDOUT
+ to the application.
