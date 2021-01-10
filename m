@@ -2,170 +2,153 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 861982F03FF
-	for <lists+linux-man@lfdr.de>; Sat,  9 Jan 2021 23:10:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C2BCF2F0527
+	for <lists+linux-man@lfdr.de>; Sun, 10 Jan 2021 05:41:31 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726198AbhAIWKI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 9 Jan 2021 17:10:08 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58878 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726196AbhAIWKI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 9 Jan 2021 17:10:08 -0500
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 07EEDC061786
-        for <linux-man@vger.kernel.org>; Sat,  9 Jan 2021 14:09:28 -0800 (PST)
-Received: by mail-wm1-x329.google.com with SMTP id c124so10552742wma.5
-        for <linux-man@vger.kernel.org>; Sat, 09 Jan 2021 14:09:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=LZbSlmYU/qbIiOM5ABflD6IpVAsf1b3jDI2JgadmgV8=;
-        b=hJZrh3c5hvY6ySsgtHvnoHKy3XggsxjOnPERabplRmGyisRDlxEn2vG/tPapZqaz5L
-         GbF2X8R3RaJXQfiXT/nZ1TUNaIBJpMZz2N7LYIbVHQiapJGa3fEaAIGAs3Vec6KNk6NK
-         raIuaOVdkXMPS71suMjmNzBDx4Yzfr73kofRkPCuDwIkqIrGbpeJN74j+coN7F7cWTch
-         y9DQxC4Ai+M+hjMIi05n1vAl32vR0SoPvAF08tZ2p0tCg6FDWFb4Z88BYFDcBAhktrBU
-         rR05A3/sw2sCp7qgOif6h64KV9GEYMEy2z3y14kiDF+sMitEsC4IJIugSVYfxAAYbhbF
-         Hd5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=LZbSlmYU/qbIiOM5ABflD6IpVAsf1b3jDI2JgadmgV8=;
-        b=EF3P/UMzU/vP31xY1aR1ddHFbCE68k3f/7fXu1rcJBv0qwiJpBAOexiJwI6OoIF+du
-         X/aLcFdfxpz9f841sUSBa7dNX5FyEHtoXknfG/C59Rwwgk+HNfOHI739kEhnUWmCoKEt
-         k6hWxXM+/6fb/oBUxSojnnNuc+NqDbGA5gnuchO+Hex6/LnPT2dPkgOwWUeofFhfzLNA
-         t9JSDff399/L51LX46CW6W2IwFjMeSgfN4Zl644we8T0YY+FgrROfDD5NMd0jOB8usYl
-         jwa2qGxC1CwTDdxBaNtJX4cyLP4pFFn4LqLtuaZZPMP6woydqjKFD39Jf1IJ90Qcx9iH
-         tVjw==
-X-Gm-Message-State: AOAM532mWkCVU0Zs3v60CsbSCD6FhlnYc8bSveXfsWprX3pNDSqV1dh7
-        Rz1UsSGyCHgH8ZVVycdKVpkK7V1q0CI=
-X-Google-Smtp-Source: ABdhPJx2grMSjR1H8IWBSjeM5KCUQPLy2jWlpEfi0TjVSuQFDAebHlu4dJSYCG7u8QRRhXRtVKHAbw==
-X-Received: by 2002:a7b:cc16:: with SMTP id f22mr8339087wmh.131.1610230166710;
-        Sat, 09 Jan 2021 14:09:26 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with UTF8SMTPSA id b7sm17869321wrv.47.2021.01.09.14.09.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 09 Jan 2021 14:09:26 -0800 (PST)
-Subject: Re: [PATCH] posix.py: ffix: Correctly format URIs
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        linux-man@vger.kernel.org,
-        "G . Branden Robinson" <g.branden.robinson@gmail.com>
-References: <20210109195840.74472-1-colomar.6.4.3@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <206c9ab7-81d1-7d9b-7236-f87a019d7425@gmail.com>
-Date:   Sat, 9 Jan 2021 23:09:25 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:84.0) Gecko/20100101
- Thunderbird/84.0
+        id S1726293AbhAJElP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 9 Jan 2021 23:41:15 -0500
+Received: from mo4-p00-ob.smtp.rzone.de ([85.215.255.22]:14064 "EHLO
+        mo4-p00-ob.smtp.rzone.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726283AbhAJElP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 9 Jan 2021 23:41:15 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1610253440;
+        s=strato-dkim-0002; d=clisp.org;
+        h=Message-ID:Date:Subject:To:From:From:Subject:Sender;
+        bh=l3Ye9GD1vrBIlpOEYVm4Q3ONlrODOIKv9tPB9Rw73fs=;
+        b=IQ1K8VaI8vgWpFTKned50MNe21uWM41upoBk+3WVzYlOVUNPPYToWrY8VZAlWWEAV8
+        /0JpWDqwGaW2w9w+G1pckzmGnN4QmMwqu23/LoCd/Eb7v5FWMPTaSxnRgj4jlOtIEsLX
+        LxQx6IEa88+PZSRDD9xQY2D3VKOtUktUtw49V4vPVF+b89xkq4wrCZeWTwfLzhthKqXp
+        RkJJb5UXZaVytUuIeFSAkUl4e27mt1otdgSl23jo9My42dsXRqwyvdfYoVF3bmmzDaJ7
+        ZAgz+I8JVJYaEz8qknTE6zqI7ja+RlWM2dOKEqIkxSEEOHaSrzzZqavKgQTpm0hSNgch
+        OdfA==
+X-RZG-AUTH: ":Ln4Re0+Ic/6oZXR1YgKryK8brlshOcZlIWs+iCP5vnk6shH+AHjwLuWOHqfyyvs="
+X-RZG-CLASS-ID: mo00
+Received: from bruno.haible.de
+        by smtp.strato.de (RZmta 47.12.1 DYNA|AUTH)
+        with ESMTPSA id u0aa20x0A4bJEsf
+        (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+        (Client did not present a certificate);
+        Sun, 10 Jan 2021 05:37:19 +0100 (CET)
+From:   Bruno Haible <bruno@clisp.org>
+To:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: [patch] chmod.2, lchmod.3: Document lchmod()
+Date:   Sun, 10 Jan 2021 05:37:13 +0100
+Message-ID: <39277473.ZaUlkdM7pu@omega>
+User-Agent: KMail/5.1.3 (Linux/4.4.0-197-generic; KDE/5.18.0; x86_64; ; )
 MIME-Version: 1.0
-In-Reply-To: <20210109195840.74472-1-colomar.6.4.3@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="nextPart10527532.VNQRr6LPnD"
+Content-Transfer-Encoding: 7Bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is a multi-part message in MIME format.
+
+--nextPart10527532.VNQRr6LPnD
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+
+Hi,
+
+lchmod (= the effect of fchmod with flag AT_SYMLINK_NOFOLLOW)
+is implemented since glibc 2.32, see
+https://sourceware.org/bugzilla/show_bug.cgi?id=14578
+https://sourceware.org/git/?p=glibc.git;a=commitdiff;h=752dd17443e55a4535cb9e6baa4e550ede383540
+
+Here is a patch to update the man pages accordingly.
 
 
-On 1/9/21 8:58 PM, Alejandro Colomar wrote:
-> $ man 7 uri 2>/dev/null \
->   |sed -n '/Writing a URI/,/^$/p';
->    Writing a URI
->        When  written, URIs should be placed inside double quotes
->        (e.g., "http://www.kernel.org"), enclosed in angle brack‐
->        ets  (e.g.,  <http://lwn.net>),  or  placed  on a line by
->        themselves.  A warning for those who  use  double-quotes:
->        never  move  extraneous  punctuation  (such as the period
->        ending a sentence or the comma in a list) inside  a  URI,
->        since  this  will  change the value of the URI.  Instead,
->        use angle brackets instead, or switch to a quoting system
->        that  never  includes extraneous characters inside quota‐
->        tion marks.  This latter  system,  called  the  'new'  or
->        'logical'  quoting  system by "Hart's Rules" and the "Ox‐
->        ford Dictionary for Writers and  Editors",  is  preferred
->        practice  in Great Britain and hackers worldwide (see the
->        Jargon  File's   section   on   Hacker   Writing   Style,
->        ⟨http://www.fwi.uva.nl/~mes/jargon/h/HackerWritingStyle.html⟩,
->        for more information).   Older
->        documents  suggested inserting the prefix "URL:" just be‐
->        fore the URI, but this form has never caught on.
-> 
-> Enclose URIs in <>.  It is especially important in this case, as
-> the URIs are followed by '.'.
-> From "" or <>, I prefer <>, as they are less used in other
-> contexts, so they are more easily read as URIs.
-> 
-> This also fixes the extraneous space that was used to separate
-> the URIs from the final period.
-> In some cases, the period ended in a line of its own.
-> 
-> Also enclose them in [.UR/.UE].
-> 
-> Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
 
+--nextPart10527532.VNQRr6LPnD
+Content-Disposition: attachment; filename="0001-chmod.2-lchmod.3-Document-lchmod.patch"
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/x-patch; charset="UTF-8"; name="0001-chmod.2-lchmod.3-Document-lchmod.patch"
 
-Hi Michael,
+From 22cbd89a89bc26a518537739d677a5736727738f Mon Sep 17 00:00:00 2001
+From: Bruno Haible <bruno@clisp.org>
+Date: Sun, 10 Jan 2021 05:20:30 +0100
+Subject: [PATCH] chmod.2, lchmod.3: Document lchmod().
 
-I forgot to setup the email.
-Please fix it.
+---
+ man2/chmod.2  | 25 +++++++++++++++++++++----
+ man3/lchmod.3 |  1 +
+ 2 files changed, 22 insertions(+), 4 deletions(-)
+ create mode 100644 man3/lchmod.3
 
-Thanks,
-
-Alex
-
-> ---
-> 
-> Hello Michael,
-> 
-> This patch is for man-pages-posix.git.
-> I found that the link in uri(7) is broken,
-> but I found that same document here:
-> http://www.catb.org/jargon/html/writing-style.html
-> I'll patch uri.7 to fix that link.
-> 
-> That was a very interesting read.
-> I got why you tend to use "xxxx (xxxx.)" and not "xxxx (xxxx).",
-> the latter being _much_ more common in Spanish (and other languages)
-> (actually, I've never read the former in Spanish).
-> 
-> Regards,
-> 
-> Alex
-> 
->  posix.py | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/posix.py b/posix.py
-> index 55e401a..27f6207 100755
-> --- a/posix.py
-> +++ b/posix.py
-> @@ -337,14 +337,16 @@ for file in sys.argv[2:]:
->        "Electrical and Electronics Engineers, Inc and The Open Group.\n"
->        "In the event of any discrepancy between this version and the original IEEE and\n"
->        "The Open Group Standard, the original IEEE and The Open Group Standard\n"
-> -      "is the referee document. The original Standard can be obtained online at\n"
-> -      "http://www.opengroup.org/unix/online.html .\n"
-> +      "is the referee document.  The original Standard can be obtained online at\n"
-> +      ".UR <http://www.opengroup.org/unix/online.html>\n"
-> +      ".UE .\n"
->        ".PP\n"
->        "Any typographical or formatting errors that appear\n"
->        "in this page are most likely\n"
->        "to have been introduced during the conversion of the source files to\n"
-> -      "man page format. To report such errors, see\n"
-> -      "https://www.kernel.org/doc/man-pages/reporting_bugs.html .\n"
-> +      "man page format.  To report such errors, see\n"
-> +      ".UR <https://www.kernel.org/doc/man-pages/reporting_bugs.html>\n"
-> +      ".UE .\n"
->        )
->  
->      text = "".join(lines)
-> 
-
+diff --git a/man2/chmod.2 b/man2/chmod.2
+index a54aec7..897dd87 100644
+--- a/man2/chmod.2
++++ b/man2/chmod.2
+@@ -29,15 +29,16 @@
+ .\"   <michael@cantor.informatik.rwth-aachen.de>: NFS details
+ .\" Modified 2004-06-23 by Michael Kerrisk <mtk.manpages@gmail.com>
+ .\"
+-.TH CHMOD 2 2017-09-15 "Linux" "Linux Programmer's Manual"
++.TH CHMOD 2 2021-01-10 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+-chmod, fchmod, fchmodat \- change permissions of a file
++chmod, fchmod, lchmod, fchmodat \- change permissions of a file
+ .SH SYNOPSIS
+ .nf
+ .B #include <sys/stat.h>
+ .PP
+ .BI "int chmod(const char *" pathname ", mode_t " mode );
+ .BI "int fchmod(int " fd ", mode_t " mode );
++.BI "int lchmod(const char *" pathname ", mode_t " mode );
+ .PP
+ .BR "#include <fcntl.h>" "           /* Definition of AT_* constants */"
+ .B #include <sys/stat.h>
+@@ -68,6 +69,12 @@ Feature Test Macro Requirements for glibc (see
+ .\"        || (_XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED)
+ .fi
+ .PP
++.BR lchmod ():
++.nf
++    Since glibc 2.32:
++        _DEFAULT_SOURCE
++.fi
++.PP
+ .BR fchmodat ():
+ .nf
+     Since glibc 2.10:
+@@ -93,6 +100,11 @@ which is dereferenced if it is a symbolic link.
+ .BR fchmod ()
+ changes the mode of the file referred to by the open file descriptor
+ .IR fd .
++.IP *
++.BR lchmod ()
++is like
++.BR chmod (),
++but does not dereference symbolic links.
+ .PP
+ The new file mode is specified in
+ .IR mode ,
+@@ -220,8 +232,13 @@ can either be 0, or include the following flag:
+ If
+ .I pathname
+ is a symbolic link, do not dereference it:
+-instead operate on the link itself.
+-This flag is not currently implemented.
++instead operate on the link itself, like
++.BR lchmod ().
++(By default,
++.BR fchmodat ()
++dereferences symbolic links, like
++.BR chmod ().)
++This flag is implemented since glibc 2.32.
+ .PP
+ See
+ .BR openat (2)
+diff --git a/man3/lchmod.3 b/man3/lchmod.3
+new file mode 100644
+index 0000000..92647d2
+--- /dev/null
++++ b/man3/lchmod.3
+@@ -0,0 +1 @@
++.so man2/chmod.2
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.7.4
+
+
+--nextPart10527532.VNQRr6LPnD--
+
