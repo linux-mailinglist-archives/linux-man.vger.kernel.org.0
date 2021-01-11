@@ -2,209 +2,308 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9A9052F0996
-	for <lists+linux-man@lfdr.de>; Sun, 10 Jan 2021 20:58:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C8A162F0D94
+	for <lists+linux-man@lfdr.de>; Mon, 11 Jan 2021 09:03:30 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726655AbhAJT6d (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 10 Jan 2021 14:58:33 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54604 "EHLO
+        id S1727722AbhAKIDO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 11 Jan 2021 03:03:14 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39274 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726618AbhAJT6d (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 10 Jan 2021 14:58:33 -0500
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EA530C061786;
-        Sun, 10 Jan 2021 11:57:52 -0800 (PST)
-Received: by mail-wr1-x432.google.com with SMTP id d26so14261027wrb.12;
-        Sun, 10 Jan 2021 11:57:52 -0800 (PST)
+        with ESMTP id S1727721AbhAKIDO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 11 Jan 2021 03:03:14 -0500
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C6E04C061794
+        for <linux-man@vger.kernel.org>; Mon, 11 Jan 2021 00:02:33 -0800 (PST)
+Received: by mail-wr1-x436.google.com with SMTP id m5so15332796wrx.9
+        for <linux-man@vger.kernel.org>; Mon, 11 Jan 2021 00:02:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:references:cc:from:message-id:date:user-agent
+        h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=fMHd+rFMIZGIdOUS2XaVVtZCKMLmT1TrsxLocIOEBNo=;
-        b=NrZyGFtScewJhDlkLgEEAt5y7OiCki9AGmuDZ0DcGRjIY6Bu8b/QBVt8g2X7GsAgSC
-         ZgyhyhU5ondohWihqHSWbj6aIc9eYMrgzcCdaOQ/+k+YoSa4WKxO2PBlxa+OfheBFnDu
-         WdF1B1lk8PpqsNOgxAQy5ALwWBYygy+5xJm/IIuJjZQt6MM486UD3DIgpnHd1ctqjtMc
-         x2GIrtcKe9cbhYg+zLZpgkQ2vl4Rfwx/TH0X3mPv/w43WkNNiRrl58l02MRskxT527Bk
-         ecQlKqdY7kd5+5twd3Mcpl5KyEZ7k1/S653OANMO+tE8pvZzT/pXf/AqUj60vJmtvyeP
-         37OQ==
+        bh=QGGdNG8wMsTr5+QfPP6Ji5KIEbu6kzTzfNt/XWrmza4=;
+        b=SYvA5lyHKEUBCtgyEL2+VtAopyoqj8dtkjsufuXgW3/FmdvejveJhd/HBnvcFeqcoS
+         o0jSlmBz+/lPoV5wTfSSg5Gbgs1scWQMWcjwNJ/wd+tnLSDR2x2dRUAnPfDGLeA2ec32
+         NUA01IMDF/Dnl6ZijWbxn4UAm2r/0IttF/6VnZPME4Kwpr1o5DyHa8VPruABKczCEDnQ
+         Lvn7aEwtwes32kNyxlvvG+t+Lnlrufrydf4bwUNdcliiaI9ZgbX6zORIXvm0hAV5Yk6o
+         eF8arT+FjPnOrGE3rfrfIuF6zUjVPMYx4S2202A8Co5JSEnca0pg2rj/WWGRNZbiiKaJ
+         fTdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:cc:from:message-id:date
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=fMHd+rFMIZGIdOUS2XaVVtZCKMLmT1TrsxLocIOEBNo=;
-        b=halimBGG5bw4SCQxUPdBe+xbG45fIPl6GnKnBzwP4NR2AFBpcN7x+p9wT5prO5r/fW
-         T0IgbsK2HCRAMQlmlL8sxpUieQr+5XAj36h5U4u6El9u3CJWqHKfGs/40OFQhqnc2hRR
-         zR8+/x6hKSjU5ZYPAZQ7xIz8FyynQ7h+aOOLzwM2Hk7bC4E97o2s/kwTt9kUgrfC8nci
-         yfqbeQfui7JyBjsWScqEVGAXYTirlP3UkcVlsI1NM6N8zuDaKjqq7HsxqUBwdA0Bo5X+
-         02QBuO3yYo2a/1Xuk1L2mx5Z6AxgyVDDdYr2VO0/eEsOfAinp7HQ/p41JsWev+U+7iKI
-         mE/Q==
-X-Gm-Message-State: AOAM533P3ceignAYacPCKPoEuJFNwiWKKSaqJ5THVV0xxDMcC5zAh9LS
-        ULDFhohWoS/yLitUZ7iOMtP4zfs5jd0=
-X-Google-Smtp-Source: ABdhPJwQ62LMKc4SuXQG05f8om2MHtI5/YbAoV70LNKJ8s7ukrNTpbRFGwgF3QwfyM4EaxpkV/cxxA==
-X-Received: by 2002:a05:6000:10c4:: with SMTP id b4mr13454440wrx.170.1610308671692;
-        Sun, 10 Jan 2021 11:57:51 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with UTF8SMTPSA id v20sm22813757wra.19.2021.01.10.11.57.50
+        bh=QGGdNG8wMsTr5+QfPP6Ji5KIEbu6kzTzfNt/XWrmza4=;
+        b=iDwqR+89kJf+pZupFqK3UEnXD4Bfjv7UgA83qd5Htexpo/3wgT2d6eSdzKOSssjqmi
+         qFjS3IRSJ9fzJvp48M8I8AU7ZVLlCNnZwb3EOCNM9duUgDBbdEVrK9Pi9wepnF6ZkxYL
+         rM7PWmHAxP4UK+jrhcfbUsdL1fUXZDEagVgGYTNWAbNQnZPQYzaX2QQL8MljnYj1OHzT
+         1mH9fXSS5HB7s9s5UylXUlxUvgnvBnTXmDDhipzexgGdFihyuRNt2dLynFWy/jCZc0gc
+         IMedLVi9y5k7Ra5o12aGruIBtZltfhtBdJyniVrs2QWPtNtKP0aXy9TTy82MXBkzTNgy
+         McTw==
+X-Gm-Message-State: AOAM532ZmNpb1QFvU4uDDnfs+QeNv1W6TN9nnG36v7G+Lkm6h6AaYOMI
+        fzsksc65/0Amq0YkOOVBAXs=
+X-Google-Smtp-Source: ABdhPJxSypV+xj7dbO+3zU3IjK0WEMGPzTiVheEdlv2cGunEF0l62y3oh40qDMvfxhSro+jHkx7Pnw==
+X-Received: by 2002:adf:bb0e:: with SMTP id r14mr15302544wrg.159.1610352152480;
+        Mon, 11 Jan 2021 00:02:32 -0800 (PST)
+Received: from ?IPv6:2001:a61:244d:fe01:9fb1:d962:461a:45e8? ([2001:a61:244d:fe01:9fb1:d962:461a:45e8])
+        by smtp.gmail.com with ESMTPSA id c4sm26346430wrw.72.2021.01.11.00.02.30
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 10 Jan 2021 11:57:51 -0800 (PST)
-Subject: Re: [PATCH v2] netdevice.7: Update documentation for SIOCGIFADDR
- SIOCSIFADDR SIOCDIFADDR
-To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-References: <20210102140254.16714-1-pali@kernel.org>
- <20210102183952.4155-1-pali@kernel.org>
- <20210110163824.awdrmf3etndlyuls@pali>
-Cc:     linux-man@vger.kernel.org, netdev@vger.kernel.org
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <16eaf3ce-3e76-5e34-5909-be065502abca@gmail.com>
-Date:   Sun, 10 Jan 2021 20:57:50 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:84.0) Gecko/20100101
- Thunderbird/84.0
+        Mon, 11 Jan 2021 00:02:31 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        "Dmitry V. Levin" <ldv@altlinux.org>
+Subject: Re: [patch] chmod.2, lchmod.3: Document lchmod()
+To:     Bruno Haible <bruno@clisp.org>
+References: <39277473.ZaUlkdM7pu@omega> <20210110074159.GA20991@altlinux.org>
+ <1945428.G7aTUhjore@omega>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <8ceb8a90-1a8a-b5b7-8bec-3de15a4a0523@gmail.com>
+Date:   Mon, 11 Jan 2021 09:02:27 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <20210110163824.awdrmf3etndlyuls@pali>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <1945428.G7aTUhjore@omega>
+Content-Type: text/plain; charset=windows-1252
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-[ CC += netdev ]
-
-On 1/10/21 5:38 PM, Pali Rohár wrote:
-> On Saturday 02 January 2021 19:39:52 Pali Rohár wrote:
->> Also add description for struct in6_ifreq which is used for IPv6 addresses.
+On 1/10/21 11:05 AM, Bruno Haible wrote:
+> Dmitry V. Levin wrote:
+>>> Here is a patch to update the man pages accordingly.
 >>
->> SIOCSIFADDR and SIOCDIFADDR can be used to add or delete IPv6 address and
->> pppd is using these ioctls for a long time. Surprisingly SIOCDIFADDR cannot
->> be used for deleting IPv4 address but only for IPv6 addresses.
->>
->> Signed-off-by: Pali Rohár <pali@kernel.org>
->> ---
->>  man7/netdevice.7 | 50 +++++++++++++++++++++++++++++++++++++++++-------
->>  1 file changed, 43 insertions(+), 7 deletions(-)
+>> Please note the important limitation of that implementation:
+>> it doesn't work when /proc is not mounted, see
+>> https://sourceware.org/bugzilla/show_bug.cgi?id=26401
 > 
-> Hello! Is something else needed for this patch?
+> Thanks for the pointer. Revised patch attached.
 
-Hello Pali,
+Hi Bruno,
 
-Sorry, I forgot to comment a few more formatting/wording issues: see
-below.  Apart from that, I'd prefer Michael to review this one.
+Thank you for the patch.
+
+But, I have a question: is lchown() actually usable? That is,
+are there any kinds of links whose mode can be changed? I
+can't seem to use it with normal symlinks, or for that matter, 
+magic links:
+
+[[
+$ cat t_lchmod.c 
+/*#* t_lchmod.c
+
+   Copyright Michael Kerrisk,  Jan 2021
+*/
+#define _DEFAULT_SOURCE
+#include <sys/stat.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+
+typedef enum { FALSE, TRUE } Boolean;
+int
+main(int argc, char *argv[])
+{
+    if (argc < 2) {
+	fprintf(stderr, "Usage: %s <file> <mode>\n", argv[0]);
+	exit(EXIT_FAILURE);
+    }
+
+    int mode = strtoul(argv[2], NULL, 0);
+    if (lchmod(argv[1], mode) == -1) {
+        perror("lchmod");
+	exit(EXIT_FAILURE);
+    }
+
+    exit(EXIT_SUCCESS);
+}
+
+$ touch a 
+$ ln -s a b
+$ ./t_lchmod b 700
+lchmod: Operation not supported
+$ ./t_lchmod /proc/self/fd/0 700
+lchmod: Operation not supported
+]]
+
 
 Thanks,
 
-Alex
+Michael
 
-> 
->> diff --git a/man7/netdevice.7 b/man7/netdevice.7
->> index 488e83d9a..12f94bfd7 100644
->> --- a/man7/netdevice.7
->> +++ b/man7/netdevice.7
->> @@ -55,9 +55,26 @@ struct ifreq {
->>  .EE
->>  .in
->>  .PP
->> +AF_INET6 is an exception.
+=====
 
-[
-.B AF_INET6
-is an exception.
-]
 
-Sorry, this was my mistake on the previous review,
-as I mixed expected output with actual code, and confused you.
+>From 56ce64325fa9a9184b820eac908ecc5d53a5154b Mon Sep 17 00:00:00 2001
+From: Bruno Haible <bruno@clisp.org>
+Date: Sun, 10 Jan 2021 05:20:30 +0100
+Subject: [PATCH] chmod.2, lchmod.3: Document lchmod().
 
->> +It passes an
->> +.I in6_ifreq
->> +structure:
->> +.PP
->> +.in +4n
->> +.EX
->> +struct in6_ifreq {
->> +    struct in6_addr     ifr6_addr;
->> +    u32                 ifr6_prefixlen;
->> +    int                 ifr6_ifindex; /* Interface index */
->> +};
->> +.EE
->> +.in
->> +.PP
->>  Normally, the user specifies which device to affect by setting
->>  .I ifr_name
->> -to the name of the interface.
->> +to the name of the interface or
->> +.I ifr6_ifindex
->> +to the index of the interface.
->>  All other members of the structure may
->>  share memory.
->>  .SS Ioctls
->> @@ -142,13 +159,32 @@ IFF_ISATAP:Interface is RFC4214 ISATAP interface.
->>  .PP
->>  Setting the extended (private) interface flags is a privileged operation.
->>  .TP
->> -.BR SIOCGIFADDR ", " SIOCSIFADDR
->> -Get or set the address of the device using
->> -.IR ifr_addr .
->> -Setting the interface address is a privileged operation.
->> -For compatibility, only
->> +.BR SIOCGIFADDR ", " SIOCSIFADDR ", " SIOCDIFADDR
->> +Get, set or delete the address of the device using
+---
+ man2/chmod.2  | 70 ++++++++++++++++++++++++++++++++++++++++++++++++++++++-----
+ man3/lchmod.3 |  1 +
+ 2 files changed, 65 insertions(+), 6 deletions(-)
+ create mode 100644 man3/lchmod.3
 
-[Get, set, or delete ...]
-
-Note the extra comma (Oxford comma).
-
->> +.IR ifr_addr ,
->> +or
->> +.I ifr6_addr
->> +with
->> +.IR ifr6_prefixlen .
->> +Setting or deleting the interface address is a privileged operation.
->> +For compatibility,
->> +.B SIOCGIFADDR
->> +returns only
->>  .B AF_INET
->> -addresses are accepted or returned.
->> +addresses,
->> +.B SIOCSIFADDR
->> +accepts
->> +.B AF_INET
->> +and
->> +.B AF_INET6
->> +addresses and
-
-[addresses, and]
-
-Rationale: clearly separate SIOCS* text from SIOCD* text.
-
->> +.B SIOCDIFADDR
->> +deletes only
->> +.B AF_INET6
->> +addresses.
->> +.B AF_INET
->> +address can be deleted by setting zero address via
-
-Suggestion:
-
-[
-A
-.B XXX
-address ... by setting it to zero via
-]
-
-Although I don't know exactly how all this works,
-so it's only a suggestion, but that needs some wording fix.
-
->> +.BR SIOCSIFADDR .
->>  .TP
->>  .BR SIOCGIFDSTADDR ", " SIOCSIFDSTADDR
->>  Get or set the destination address of a point-to-point device using
->> -- 
->> 2.20.1
->>
-
+diff --git a/man2/chmod.2 b/man2/chmod.2
+index a54aec7..f1709ef 100644
+--- a/man2/chmod.2
++++ b/man2/chmod.2
+@@ -29,15 +29,16 @@
+ .\"   <michael@cantor.informatik.rwth-aachen.de>: NFS details
+ .\" Modified 2004-06-23 by Michael Kerrisk <mtk.manpages@gmail.com>
+ .\"
+-.TH CHMOD 2 2017-09-15 "Linux" "Linux Programmer's Manual"
++.TH CHMOD 2 2021-01-10 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+-chmod, fchmod, fchmodat \- change permissions of a file
++chmod, fchmod, lchmod, fchmodat \- change permissions of a file
+ .SH SYNOPSIS
+ .nf
+ .B #include <sys/stat.h>
+ .PP
+ .BI "int chmod(const char *" pathname ", mode_t " mode );
+ .BI "int fchmod(int " fd ", mode_t " mode );
++.BI "int lchmod(const char *" pathname ", mode_t " mode );
+ .PP
+ .BR "#include <fcntl.h>" "           /* Definition of AT_* constants */"
+ .B #include <sys/stat.h>
+@@ -68,6 +69,12 @@ Feature Test Macro Requirements for glibc (see
+ .\"        || (_XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED)
+ .fi
+ .PP
++.BR lchmod ():
++.nf
++    Since glibc 2.32:
++        _DEFAULT_SOURCE
++.fi
++.PP
+ .BR fchmodat ():
+ .nf
+     Since glibc 2.10:
+@@ -80,10 +87,12 @@ The
+ .BR chmod ()
+ and
+ .BR fchmod ()
+-system calls change a files mode bits.
++system calls and the
++.BR lchmod ()
++function change a file's mode bits.
+ (The file mode consists of the file permission bits plus the set-user-ID,
+ set-group-ID, and sticky bits.)
+-These system calls differ only in how the file is specified:
++These functions differ only in how the file is specified:
+ .IP * 2
+ .BR chmod ()
+ changes the mode of the file specified whose pathname is given in
+@@ -93,6 +102,11 @@ which is dereferenced if it is a symbolic link.
+ .BR fchmod ()
+ changes the mode of the file referred to by the open file descriptor
+ .IR fd .
++.IP *
++.BR lchmod ()
++is like
++.BR chmod (),
++but does not dereference symbolic links.
+ .PP
+ The new file mode is specified in
+ .IR mode ,
+@@ -220,8 +234,13 @@ can either be 0, or include the following flag:
+ If
+ .I pathname
+ is a symbolic link, do not dereference it:
+-instead operate on the link itself.
+-This flag is not currently implemented.
++instead operate on the link itself, like
++.BR lchmod ().
++(By default,
++.BR fchmodat ()
++dereferences symbolic links, like
++.BR chmod ().)
++This flag is implemented since glibc 2.32.
+ .PP
+ See
+ .BR openat (2)
+@@ -304,6 +323,17 @@ See above.
+ The same errors that occur for
+ .BR chmod ()
+ can also occur for
++.BR lchmod ().
++The following additional errors can occur for
++.BR lchmod ():
++.TP
++.B EOPNOTSUPP
++.B /proc
++is not mounted.
++.PP
++The same errors that occur for
++.BR chmod ()
++can also occur for
+ .BR fchmodat ().
+ The following additional errors can occur for
+ .BR fchmodat ():
+@@ -323,14 +353,31 @@ is relative and
+ is a file descriptor referring to a file other than a directory.
+ .TP
+ .B ENOTSUP
++(Before glibc 2.32.)
+ .I flags
+ specified
+ .BR AT_SYMLINK_NOFOLLOW ,
+ which is not supported.
++.TP
++.B EOPNOTSUPP
++(Since glibc 2.32.)
++.I flags
++specified
++.BR AT_SYMLINK_NOFOLLOW ,
++and
++.B /proc
++is not mounted.
+ .SH VERSIONS
+ .BR fchmodat ()
+ was added to Linux in kernel 2.6.16;
+ library support was added to glibc in version 2.4.
++.PP
++.BR lchmod ()
++and the handling of
++.B AT_SYMLINK_NOFOLLOW
++in
++.BR fchmodat ()
++were added in glibc version 2.32.
+ .SH CONFORMING TO
+ .BR chmod (),
+ .BR fchmod ():
+@@ -362,6 +409,17 @@ glibc constructs a pathname based on the symbolic link in
+ that corresponds to the
+ .IR dirfd
+ argument.
++.SH BUGS
++.BR lchmod ()
++and
++.BR fchmodat ()
++with
++.B AT_SYMLINK_NOFOLLOW
++flag fail with error
++.B EOPNOTSUPP
++when the
++.B /proc
++file system is not mounted.
+ .SH SEE ALSO
+ .BR chmod (1),
+ .BR chown (2),
+diff --git a/man3/lchmod.3 b/man3/lchmod.3
+new file mode 100644
+index 0000000..92647d2
+--- /dev/null
++++ b/man3/lchmod.3
+@@ -0,0 +1 @@
++.so man2/chmod.2
+-- 
+2.7.4
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
+yo
