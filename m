@@ -2,79 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9EF142F2EEB
-	for <lists+linux-man@lfdr.de>; Tue, 12 Jan 2021 13:22:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B164A2F2F2E
+	for <lists+linux-man@lfdr.de>; Tue, 12 Jan 2021 13:36:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729821AbhALMVc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 12 Jan 2021 07:21:32 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37448 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727687AbhALMV3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 12 Jan 2021 07:21:29 -0500
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E1534C061575
-        for <linux-man@vger.kernel.org>; Tue, 12 Jan 2021 04:20:48 -0800 (PST)
-Received: by mail-wm1-x32a.google.com with SMTP id g10so188005wmh.2
-        for <linux-man@vger.kernel.org>; Tue, 12 Jan 2021 04:20:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=marketingstrend.com; s=google;
-        h=mime-version:from:reply-to:to:subject:content-transfer-encoding
-         :date:message-id;
-        bh=9NV6nqppQ+hm+uhdwh/TaJGX3eAy6b2AeEnKyySUoj8=;
-        b=H40865Rt7FkFa0yWOle0a74jT+xrS4n8aS5o0KqF81iIDkkXiaZce7aprM5lEMwBDY
-         BcOrZcUqAqxDlQSVUN+8FzgFmPoFHz/0yjFgBIAS9u+Im2SswEWkdNslXgWbmYSfy5Ta
-         sKYtL33ELzq1DFJf7haFFliguipf3w73FAM1gzDnShNvjEo3BqVhg17nD7edvmolQ7JS
-         AITciS6YU2PR/ust9myxgGQe6XC901lVD+xX6DsGboPA6AdYmVKVqERqqu9MbUJyRSkw
-         TQ1sDBxoXBN92lVAMvMo7jtJYb+NIxGerfnV0ma3XR9rFgs4LWZxSlmRk/WUCwDO+OaS
-         Z/bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:reply-to:to:subject
-         :content-transfer-encoding:date:message-id;
-        bh=9NV6nqppQ+hm+uhdwh/TaJGX3eAy6b2AeEnKyySUoj8=;
-        b=GbnD4vBhq2dOPUmXiRMzP6ICydFf4TReOHoIOmQHSJBIiEM5+AIbtRTYZ0msuVzv/7
-         pN95UPdlk0QdYdHjyKalWBTP2vTVTz7b/0AmEDhw2vWqQoV4T0hp/EASiPVONwCjikZO
-         9PecKaf5M4hZ0YdCcmbqYQsxMw6l8qUB3DCFJRSqpjHlR6ksemDvzZ/WfePvIsFil2/L
-         SSmIKY2eJCp3+9bu3I/06q8zEywyNDd6IGzKb7uOaUhyRsLKXL6ZbmAdYHl72x24I1cw
-         vIG0ZA1U3kwcX26uhc3jBY2ZcdfuXt0t7nbkjM1LUsdJvx+XrYidl6LqT3bfjecDrZc8
-         AAgA==
-X-Gm-Message-State: AOAM532+M0mZzP4E9i3fIW+gO8iIq3ci7/IvOsbafkm2eudMprYv8WjO
-        xwjw2TNLPtu0ZLicreYE7pvtbo7X9r9dIg==
-X-Google-Smtp-Source: ABdhPJzXB6pes4hVpLPOBUMOdMPRyHETXTdwWgzrSWyR3e2X2cbAsETWkj3qdjM1LvHVl0+t4agZrQ==
-X-Received: by 2002:a1c:b788:: with SMTP id h130mr3313317wmf.94.1610454047469;
-        Tue, 12 Jan 2021 04:20:47 -0800 (PST)
-Received: from 39.45.237.138 (WGPON-37200-174.wateen.net. [110.37.200.174])
-        by smtp.gmail.com with ESMTPSA id r13sm4507425wrt.10.2021.01.12.04.20.46
-        for <linux-man@vger.kernel.org>
-        (version=TLS1 cipher=AES128-SHA bits=128/128);
-        Tue, 12 Jan 2021 04:20:47 -0800 (PST)
+        id S1727030AbhALMfR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 12 Jan 2021 07:35:17 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([216.205.24.124]:43368 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1726405AbhALMfQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 12 Jan 2021 07:35:16 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1610454830;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=WHlM+T4WurqYpUdDKiZ8LkMAd+Vm+HmVpW3FZP0eNx0=;
+        b=Qaw29JoNzY5fli7cdmYjriw5XmIRpxuxKBZsmviFZbyvCWymsDD0V0c46wJD2EeVSist/7
+        W9ovdFuPrU5415F1wC/rAhfnrOk3sHd//qi04r9elSryfuOYWmoFU+ZUVo7qh8/+kJ7KZ4
+        R8IT6cxb8fYNqfBol382dKHr8Mr4JGM=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-391-W086FQGlOdO002X_Jqy7FA-1; Tue, 12 Jan 2021 07:33:48 -0500
+X-MC-Unique: W086FQGlOdO002X_Jqy7FA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 99715107ACF7;
+        Tue, 12 Jan 2021 12:33:46 +0000 (UTC)
+Received: from oldenburg2.str.redhat.com (ovpn-114-67.ams2.redhat.com [10.36.114.67])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 4F1B95C1B4;
+        Tue, 12 Jan 2021 12:33:45 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
+To:     Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc:     linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        mtk.manpages@gmail.com, Willem de Bruijn <willemb@google.com>
+Subject: Re: [PATCH manpages] epoll_wait.2: add epoll_pwait2
+References: <20210112004820.4013953-1-willemdebruijn.kernel@gmail.com>
+Date:   Tue, 12 Jan 2021 13:33:43 +0100
+In-Reply-To: <20210112004820.4013953-1-willemdebruijn.kernel@gmail.com>
+        (Willem de Bruijn's message of "Mon, 11 Jan 2021 19:48:20 -0500")
+Message-ID: <87turmibbs.fsf@oldenburg2.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
 MIME-Version: 1.0
-From:   "Jacob Grose" <jacob@marketingstrend.com>
-Reply-To: jacob@marketingstrend.com
-To:     linux-man@vger.kernel.org
-Subject: Paid Guest Posting
 Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Smart_Send_3_1_6
-Date:   Tue, 12 Jan 2021 17:20:43 +0500
-Message-ID: <9596385326896300378017@DESKTOP-DDQDT6R>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi,
+* Willem de Bruijn:
 
-I hope you're enjoying good health.
+> From: Willem de Bruijn <willemb@google.com>
+>
+> Expand the epoll_wait page with epoll_pwait2, an epoll_wait variant
+> that takes a struct timespec to enable nanosecond resolution timeout.
+>
+>     int epoll_pwait2(int fd, struct epoll_event *events,
+>                      int maxevents,
+>                      const struct timespec *timeout,
+>                      const sigset_t *sigset);
 
-We're professional Blogger Outreach and content marketing agency. We provid=
-e long term relationships with our clients.
+Does it really use struct timespec?  With 32-bit times on most 32-bit
+targets?
 
-We provide articles and non-promotional content to blogger relevant to thei=
-r website niche.
+Thanks,
+Florian
+-- 
+Red Hat GmbH, https://de.redhat.com/ , Registered seat: Grasbrunn,
+Commercial register: Amtsgericht Muenchen, HRB 153243,
+Managing Directors: Charles Cachera, Brian Klemm, Laurie Krebs, Michael O'Neill
 
-You can help us by placing an article with a do-follow link on your site. I=
-f you're interested, then tell me the price to publish my article.
-
-We make payments through PayPal or Payoneer (Totally Your Choice).
-
-We=92ll be happy to hear from you soon.
