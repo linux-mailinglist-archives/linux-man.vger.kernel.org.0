@@ -2,176 +2,160 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AB36A2F2065
-	for <lists+linux-man@lfdr.de>; Mon, 11 Jan 2021 21:10:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3F69A2F251D
+	for <lists+linux-man@lfdr.de>; Tue, 12 Jan 2021 02:18:24 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2390581AbhAKUHe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 11 Jan 2021 15:07:34 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54118 "EHLO
+        id S2387667AbhALAtG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 11 Jan 2021 19:49:06 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58296 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2390143AbhAKUHe (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 11 Jan 2021 15:07:34 -0500
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com [IPv6:2a00:1450:4864:20::533])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F19A9C061795;
-        Mon, 11 Jan 2021 12:06:53 -0800 (PST)
-Received: by mail-ed1-x533.google.com with SMTP id dk8so1113781edb.1;
-        Mon, 11 Jan 2021 12:06:53 -0800 (PST)
+        with ESMTP id S1729804AbhALAtF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 11 Jan 2021 19:49:05 -0500
+Received: from mail-il1-x133.google.com (mail-il1-x133.google.com [IPv6:2607:f8b0:4864:20::133])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EDD86C061575;
+        Mon, 11 Jan 2021 16:48:24 -0800 (PST)
+Received: by mail-il1-x133.google.com with SMTP id w17so1234884ilj.8;
+        Mon, 11 Jan 2021 16:48:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=Vua/4FAuzJKcybmU96dmSVXE6bAQ11vfonwPty39STU=;
-        b=jn/iS6wcEHjTuKOIG5EgLsXBQT5yi8UITaREcgDFXa1OyA9PpNg21X0CURa1dZbccI
-         kLm5aLJ/C0ouFXWl2PrVviBsFA2LcdVNtK4/KlZeAL6uNreI1ZqznNthWpzF1kMC5wvE
-         5jvDHnNzKshVcPoQ2uXvYt3efl+eHkLJBrCr+km7SFOLC0Ku9SqxqvjJvOZdxFHlPsu7
-         F+PPmfJytzn+dEFmwShYtxrQuSxt7iHZ4xNi9LXgfOz9O6Okqv+I1hlDVIiW13Cw0VAn
-         TokAs3MmOmZfkqtPZhp/SpTQuXW6lJbeRa5qP0DNu97Z0OxvYiiw+xAIaHdoFDeeWcvt
-         0ogA==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=87y6pk/menMH/KPEOfCyPdYq2rtpbnqpuEjMgDXF1QI=;
+        b=d2ZR+ah0lewdO3lArQUp72eK1tMEOIiMAm7UxKdCWAAO2m78i+Hggj5Gkxu9VHSWuY
+         4SJ5Od3ODKOYqhsJtpo9PNfQ/Oe8kE1fOg33U/wLH2bCP6HSLzm/+pXjA3m01klQV9GG
+         I2ajZVjnHSoPBAgUG1bKEIYlO/EAIIqANVY0dHkBx7dt6PXMfebW8Oh+T6kdnJvkqc39
+         +353zbC8JBm9xzNWGm4hKe9TNgErwtqtnB3po4RmEa+UZqE5at44ZrxuTCLLPD7PMaUh
+         8bT184WKqxdtPonHTKreF2DpNULaoULHVVBm2uKcDr6T032TtRefJ6EVtsjjoDM3Ve21
+         VqUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=Vua/4FAuzJKcybmU96dmSVXE6bAQ11vfonwPty39STU=;
-        b=TUx7GsanfaRifau7DSsftuhWlYGByg7IRc1IIixjEm18EHVjwGE3lG2Dv0N9B3iHw2
-         gdTYwSE357UApjaDlRxSVHayifPWu2xZzKqlOrFn+YnnHT0eVceZsjO3dE2j6lLWeCUi
-         rJGmIZDsv9IpdT9z3jz52RR5TMY/gZ72YL1X+rb1BhNk3nUoHsh/gZSO2G1s3zqSKla+
-         T9fO2Nqmb5ZdOfgch710hLZryzwCTaJF1UmPB9uqyHPSvtgvEhk0qFE+OJCrva80xJKr
-         ot2TfLeqBzRJOeyY1TZd6Mdk9dgiUuisaanNAmReP2p3iqo5hzKbrYMKwHIDh5hZMfv6
-         i1Vg==
-X-Gm-Message-State: AOAM532uSMiJFTLdHw/tfjP9NX/k6yTjpl49MyZ21EhwIsZA+ZDDXtcc
-        9s5K8uV8fqZZ7wz0m5KM3Sbcq/0hnXn77WecD2Q=
-X-Google-Smtp-Source: ABdhPJw2JE0XKzdLSRtyimoueQT49YkniTFElT5qp82XIKYeiHDg+pZyGZERgKh4rOTg8hcgpGSHlVp3ZDd0HMD1u+Q=
-X-Received: by 2002:a05:6402:350:: with SMTP id r16mr752578edw.176.1610395612650;
- Mon, 11 Jan 2021 12:06:52 -0800 (PST)
-MIME-Version: 1.0
-References: <20201118144617.986860-1-willemdebruijn.kernel@gmail.com>
- <20201118144617.986860-2-willemdebruijn.kernel@gmail.com> <20201118150041.GF29991@casper.infradead.org>
- <CA+FuTSdxNBvNMy341EHeiKOWZ19H++aw-tfr6Fx1mFmbg-z4zQ@mail.gmail.com>
- <CAK8P3a0t02o77+8QNZwXF2k1pY3Xrm5bydv8Vx1TW060P7BKqA@mail.gmail.com>
- <893e8ed21e544d048bff7933013332a0@AcuMS.aculab.com> <CAF=yD-+arBFuZCU3UDx0XKmUGaEz8P1EaDLPK0YFCz82MdwBcg@mail.gmail.com>
- <20201119143131.GG29991@casper.infradead.org> <CAK8P3a1SwQ=L_qA1BmeAt=Xc-Q9Mv4V+J5LFLB5R6rMDST8UiA@mail.gmail.com>
- <CAF=yD-Kd-6f9wAYLD=dP1pk4qncWim424Fu6Hgj=ZrnUtEPORA@mail.gmail.com>
- <CAK8P3a21JRFUJrz1+TYWcVL8s4uSfeSFyoMkGsqUPbV+F=r_yw@mail.gmail.com>
- <CAF=yD-Lzu9j6T4ubRjawF-EKOC3pkQTkpigg=PugWwybY-1ZyQ@mail.gmail.com>
- <CAK8P3a1cJf7+b5HCmFiLq+FdM+D+37rHYaftRgRYbhTyjwR6wg@mail.gmail.com>
- <CAF=yD-LdtCCY=Mg9CruZHdjBXV6VmEPydzwfcE2BHUC8z7Xgng@mail.gmail.com>
- <CAK8P3a2WifcGmmFzSLC4-0SKsv0RT231P6TVKpWm=j927ykmQg@mail.gmail.com>
- <CA+FuTSdPir68M9PwhuCkd_Saz-Wi3xa_rNuwvbNmpAkMjOqhuA@mail.gmail.com>
- <CAK8P3a2Z=X68aU27qQ_0vK6c_oj9CVbThuGscjqKXRCYKfFpgg@mail.gmail.com> <CAF=yD-LAzjyNRy0vqToWqx5LxeQMYY3fVzV0vr0X7Q70ZAR-AQ@mail.gmail.com>
-In-Reply-To: <CAF=yD-LAzjyNRy0vqToWqx5LxeQMYY3fVzV0vr0X7Q70ZAR-AQ@mail.gmail.com>
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=87y6pk/menMH/KPEOfCyPdYq2rtpbnqpuEjMgDXF1QI=;
+        b=qxH7aQVUjOChH56FM7xfV6DEL0m/IsQJw6anC8QshkKgOKT67pcu5GiAQlPpglvKvN
+         3wL0R6GdlM5JkgU7+gLQx4GBZP5rSgkF+MOr4puiZLEKrdr1rT4GqAQccQR91Xsd8qx0
+         gIE7fJeKfXqWVoj3PAbuqVqARGfaXQfAwLAhSrTWyoNyXEH2d5YR0ub6Uiq0xXxJohvq
+         qvIX4hvmVJKEcWkBLRMg7VLiDBqs88bllxIJObOdC5yqOuMJWwMuTQH7FHYiu+UNd9b+
+         ICzAT/AgBcpQ6pvsu2EAwynyNyFMUwny+WNyBVwhJkyxRNnidGryu8qK5HCaHAWmUgF2
+         MNNA==
+X-Gm-Message-State: AOAM531j0R5z700uel/jTa6t+Bn8o3Odxsdncwx+Xr1WPqnNSVGKHo9n
+        Zl3pfDgP/+7XVn3BVhquVEN6iu6CiDI=
+X-Google-Smtp-Source: ABdhPJznMLzvolCJYLLP6OLaW1fMMluc2yHSyCy1vXVRrH6F18g+9N108vdijG+sjHPw8MFUJRNVhw==
+X-Received: by 2002:a92:d40a:: with SMTP id q10mr1675115ilm.20.1610412504003;
+        Mon, 11 Jan 2021 16:48:24 -0800 (PST)
+Received: from willemb.nyc.corp.google.com ([2620:0:1003:312:f693:9fff:fef4:3e8a])
+        by smtp.gmail.com with ESMTPSA id s12sm1118762ilp.66.2021.01.11.16.48.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 11 Jan 2021 16:48:23 -0800 (PST)
 From:   Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Date:   Mon, 11 Jan 2021 15:06:15 -0500
-Message-ID: <CAF=yD-JskHu0oBBTaRT_v7MZNEdgtYN3BmiexqjAgJV1hBKkEw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] epoll: add nsec timeout support with epoll_pwait2
-To:     Arnd Bergmann <arnd@kernel.org>
-Cc:     Matthew Wilcox <willy@infradead.org>,
-        David Laight <David.Laight@aculab.com>,
-        Linux FS-devel Mailing List <linux-fsdevel@vger.kernel.org>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Soheil Hassas Yeganeh <soheil.kdev@gmail.com>,
-        Arnd Bergmann <arnd@arndb.de>, Shuo Chen <shuochen@google.com>,
-        linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+To:     linux-man@vger.kernel.org
+Cc:     linux-fsdevel@vger.kernel.org, mtk.manpages@gmail.com,
+        Willem de Bruijn <willemb@google.com>
+Subject: [PATCH manpages] epoll_wait.2: add epoll_pwait2
+Date:   Mon, 11 Jan 2021 19:48:20 -0500
+Message-Id: <20210112004820.4013953-1-willemdebruijn.kernel@gmail.com>
+X-Mailer: git-send-email 2.30.0.284.gd98b1dd5eaa7-goog
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Dec 10, 2020 at 5:59 PM Willem de Bruijn
-<willemdebruijn.kernel@gmail.com> wrote:
->
-> On Thu, Dec 10, 2020 at 3:34 PM Arnd Bergmann <arnd@kernel.org> wrote:
-> >
-> > On Thu, Dec 10, 2020 at 6:33 PM Willem de Bruijn
-> > <willemdebruijn.kernel@gmail.com> wrote:
-> > > On Sat, Nov 21, 2020 at 4:27 AM Arnd Bergmann <arnd@kernel.org> wrote=
-:
-> > > > On Fri, Nov 20, 2020 at 11:28 PM Willem de Bruijn <willemdebruijn.k=
-ernel@gmail.com> wrote:
-> > > > I would imagine this can be done like the way I proposed
-> > > > for get_bitmap() in sys_migrate_pages:
-> > > >
-> > > > https://lore.kernel.org/lkml/20201102123151.2860165-4-arnd@kernel.o=
-rg/
-> > >
-> > > Coming back to this. Current patchset includes new select and poll
-> > > selftests to verify the changes. I need to send a small kselftest
-> > > patch for that first.
-> > >
-> > > Assuming there's no time pressure, I will finish up and send the main
-> > > changes after the merge window, for the next release then.
-> > >
-> > > Current state against linux-next at
-> > > https://github.com/wdebruij/linux-next-mirror/tree/select-compat-1
-> >
-> > Ok, sounds good to me. I've had a (very brief) look and have one
-> > suggestion: instead of open-coding the compat vs native mode
-> > in multiple places like
-> >
-> > if (!in_compat_syscall())
-> >     =EF=BF=BC return copy_from_user(fdset, ufdset, FDS_BYTES(nr)) ? -EF=
-AULT : 0;
-> > else
-> >     =EF=BF=BC return compat_get_bitmap(fdset, ufdset, nr);
-> >
-> > maybe move this into a separate function and call that where needed.
-> >
-> > I've done this for the get_bitmap() function in my series at
-> >
-> > https://git.kernel.org/pub/scm/linux/kernel/git/arnd/playground.git/com=
-mit/?h=3Dcompat-alloc-user-space-7&id=3Db1b23ebb12b635654a2060df49455167a14=
-2c5d2
-> >
-> > The definition is slightly differrent for cpumask, nodemask and fd_set,
-> > so we'd need to try out the best way to structure the code to end
-> > up with the most readable version, but it should be possible when
-> > there are only three callers (and duplicating the function would
-> > be the end of the world either)
->
-> For fd_set there is only a single caller for each direction. Do you
-> prefer helpers even so?
->
-> For sigmask, with three callers, something along the lines of this?
->
->   @@ -1138,10 +1135,7 @@ static int do_ppoll(struct pollfd __user
-> *ufds, unsigned int nfds,
->                           return -EINVAL;
->           }
->
->   -       if (!in_compat_syscall())
->   -               ret =3D set_user_sigmask(sigmask, sigsetsize);
->   -       else
->   -               ret =3D set_compat_user_sigmask(sigmask, sigsetsize);
->   +       ret =3D set_maybe_compat_user_sigmask(sigmask, sigsetsize);
->           if (ret)
->                   return ret;
->
->   --- a/include/linux/compat.h
->   +++ b/include/linux/compat.h
->   @@ -942,6 +942,17 @@ static inline bool in_compat_syscall(void) {
-> return false; }
->
->   +static inline int set_maybe_compat_user_sigmask(const void __user *sig=
-mask,
->   +                                               size_t sigsetsize)
->   +{
->   +#if defined CONFIG_COMPAT
->   +       if (unlikely(in_compat_syscall()))
->   +               return set_compat_user_sigmask(sigmask, sigsetsize);
->   +#endif
->   +
->   +       return set_user_sigmask(sigmask, sigsetsize);
->   +}
+From: Willem de Bruijn <willemb@google.com>
 
-set_user_sigmask is the only open-coded variant that is used more than once=
-.
+Expand the epoll_wait page with epoll_pwait2, an epoll_wait variant
+that takes a struct timespec to enable nanosecond resolution timeout.
 
-Because it is used in both select.c and eventpoll.c, a helper would
-have to live in compat.h. This then needs a new dependency on
-sched_signal.h.
+    int epoll_pwait2(int fd, struct epoll_event *events,
+                     int maxevents,
+                     const struct timespec *timeout,
+                     const sigset_t *sigset);
 
-So given that this is a simple branch, it might just make logic more
-complex, instead of less. I can add this change in a separate patch on
-top of the original three, to judge whether it is worthwhile.
+Signed-off-by: Willem de Bruijn <willemb@google.com>
+
+---
+
+This is the same as an RFC sent earlier.
+
+epoll_pwait2 is now merged in 5.11-rc1.
+
+I'm not sure whether to send for manpages inclusion before 5.11
+reaches stable ABI, or after. Erring on the side of caution. It
+could still be reverted before then, of course.
+---
+ man2/epoll_wait.2 | 31 +++++++++++++++++++++++++++++--
+ 1 file changed, 29 insertions(+), 2 deletions(-)
+
+diff --git a/man2/epoll_wait.2 b/man2/epoll_wait.2
+index 36001e02bde3..21d63503a87f 100644
+--- a/man2/epoll_wait.2
++++ b/man2/epoll_wait.2
+@@ -22,7 +22,7 @@
+ .\"
+ .TH EPOLL_WAIT 2 2020-04-11 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+-epoll_wait, epoll_pwait \- wait for an I/O event on an epoll file descriptor
++epoll_wait, epoll_pwait, epoll_pwait2 \- wait for an I/O event on an epoll file descriptor
+ .SH SYNOPSIS
+ .nf
+ .B #include <sys/epoll.h>
+@@ -32,6 +32,9 @@ epoll_wait, epoll_pwait \- wait for an I/O event on an epoll file descriptor
+ .BI "int epoll_pwait(int " epfd ", struct epoll_event *" events ,
+ .BI "               int " maxevents ", int " timeout ,
+ .BI "               const sigset_t *" sigmask );
++.BI "int epoll_pwait2(int " epfd ", struct epoll_event *" events ,
++.BI "                int " maxevents ", const struct timespec *" timeout ,
++.BI "                const sigset_t *" sigmask );
+ .fi
+ .SH DESCRIPTION
+ The
+@@ -170,6 +173,25 @@ argument may be specified as NULL, in which case
+ .BR epoll_pwait ()
+ is equivalent to
+ .BR epoll_wait ().
++.SS epoll_pwait2 ()
++The
++.BR epoll_pwait2 ()
++system call is equivalent to
++.BR epoll_pwait ()
++except for the
++.I timeout
++argument. It takes an argument of type
++.I timespec
++to be able to specify nanosecond resolution timeout. This argument functions
++the same as in
++.BR pselect (2)
++and
++.BR ppoll (2).
++If
++.I timeout
++is NULL, then
++.BR epoll_pwait2 ()
++can block indefinitely.
+ .SH RETURN VALUE
+ On success,
+ .BR epoll_wait ()
+@@ -217,6 +239,9 @@ Library support is provided in glibc starting with version 2.3.2.
+ .BR epoll_pwait ()
+ was added to Linux in kernel 2.6.19.
+ Library support is provided in glibc starting with version 2.6.
++.PP
++.BR epoll_pwait2 ()
++was added to Linux in kernel 5.11.
+ .SH CONFORMING TO
+ .BR epoll_wait ()
+ and
+@@ -269,7 +294,9 @@ this means that timeouts greater than 35.79 minutes are treated as infinity.
+ .SS C library/kernel differences
+ The raw
+ .BR epoll_pwait ()
+-system call has a sixth argument,
++and
++.BR epoll_pwait2 ()
++system calls have a sixth argument,
+ .IR "size_t sigsetsize" ,
+ which specifies the size in bytes of the
+ .IR sigmask
+-- 
+2.30.0.284.gd98b1dd5eaa7-goog
+
