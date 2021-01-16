@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1C4272F8DFD
-	for <lists+linux-man@lfdr.de>; Sat, 16 Jan 2021 18:16:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2DDD42F8DDB
+	for <lists+linux-man@lfdr.de>; Sat, 16 Jan 2021 18:12:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728162AbhAPRKV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 16 Jan 2021 12:10:21 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39092 "EHLO
+        id S1728388AbhAPRLC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 16 Jan 2021 12:11:02 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39128 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728151AbhAPRKT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 16 Jan 2021 12:10:19 -0500
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CE32CC061384
-        for <linux-man@vger.kernel.org>; Sat, 16 Jan 2021 06:59:50 -0800 (PST)
-Received: by mail-wr1-x430.google.com with SMTP id y17so12150587wrr.10
-        for <linux-man@vger.kernel.org>; Sat, 16 Jan 2021 06:59:50 -0800 (PST)
+        with ESMTP id S1728520AbhAPRLA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 16 Jan 2021 12:11:00 -0500
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 08164C061387
+        for <linux-man@vger.kernel.org>; Sat, 16 Jan 2021 07:03:05 -0800 (PST)
+Received: by mail-wr1-x42e.google.com with SMTP id q18so12184291wrn.1
+        for <linux-man@vger.kernel.org>; Sat, 16 Jan 2021 07:03:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=gZJPUC2BG+TOT9o2aEVsA+qGMnWjxfBaPQzPbkEro94=;
-        b=LUwKhAAiEfvrAduMkuXdTN80R8PZFXdJ49toTlSkp10hvYHOfx46xUC9GIXLde0Ib9
-         pDunGSc6ZX9G4gSR8rhERqLa09Fj+UsQlVlJxJ1x98lN37UMA8w1Xp6R6fNRRpDTcmSr
-         Pbegn3se0NbAmGa5tfrWcAFOUGFb5y074TkhxN2+Yo1Py/ukUWdfqVYSfi+i6hOLB6+G
-         2uZOuz8E0+RYvjHPFJOOKLQ/YmOfWcPoEQFnyEiPzjajzeoIFZlm0SS1ARVXdKMBoz7U
-         NqtrXFS0xIGMHyFX4gvNkPFeSIRq6T/p7HcvY955bKfkqXSsZYC3JO2Qx+eKANlxWf38
-         c4GQ==
+        bh=9pK1K0mTX/4PU4AmD7w1MBMfuHiYZkCm/C+TDnhN1M4=;
+        b=hVpwNZnftJOYaN4DupOrA7UmWUgaah0cnRHCZkPH2lmijColcrW/GtPwFAEQagk3ej
+         ltMPLZDU30CxwV2iPgajhmn8gwjbhqGH992208woKukR5q5YaaVW5J4ksO5q3kJn0Ona
+         zy+UHqnyF5PajdnHHHrvAuTpZrYIzzzfQE1YoVQ60ovQbq+RUw7ku+VTiDtEMjgHYaWR
+         lMfdmyVIo0cKD94SW5o8PjNgULHBw3gkOgbojnhPNEIEOLoQkejr0hJ94mFu2NbTLSwQ
+         Sz/QdWiFTpHM0iYBgkb33ru0RdTkVniwfzQgwFmrBMxyne1++K5U2lkecgn0ckee4xzQ
+         0bJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=gZJPUC2BG+TOT9o2aEVsA+qGMnWjxfBaPQzPbkEro94=;
-        b=oCcrG3dkvhymllRRfUp271hfd+ZFBXGZUOPq+LtgMeOu6op1+DWwfy4xV2qJOKOB11
-         rOYm7aVH+2QLZUJbOWPO4HQCDYeHyR6NESImEIUHjuB8U6uFTQHwpwCaCqyykYYI88gM
-         BkejHx7NsnnEQjkESSEY1o7mNxcX58aTyiMyNiiwzAsj0wKGZRfPE5WDHaCEjEzfWoDK
-         GMm1XJKcgIaooeW7NqWu5JYLmqjl4foTUFr3E+Q8ag0zNYHjCJZzePLfl6U1BpoOdzaH
-         245GwzoVd6LeZWSk3RRnRY/0dwLS0mKDuTNzoH77SqzJ8hO1zb6UROhcp/9h53Ewwq60
-         T/GQ==
-X-Gm-Message-State: AOAM531WBlJLpr1oTUMTMsaVJe5WQTaEy5jTijCAMcWs4XnjsTtdB0JK
-        Uyb6AiwFo5ma7Ks3b4xqRt4=
-X-Google-Smtp-Source: ABdhPJw7KAZjohdErqxIzYb5Y6fZxoHiz7xBb7isjSsaTKQMzBnYPuS2pZQ5A3JqOj8YJEe3BE3G6Q==
-X-Received: by 2002:a5d:6206:: with SMTP id y6mr18738998wru.413.1610809189604;
-        Sat, 16 Jan 2021 06:59:49 -0800 (PST)
+        bh=9pK1K0mTX/4PU4AmD7w1MBMfuHiYZkCm/C+TDnhN1M4=;
+        b=LOHnSQfJATsC68ffVqWh/910U0VRIvfGm5hHPlJ8fc7hiGSVCVLtIRqxYaHTOUjSEX
+         DxIz/7njgTCfWphOa7H3eQP6HCiHn2UojlYWhiJ0ioIEEabfcV6kpNqXICn1TKc9KHOj
+         hiCAb8J8HKJYaF5f7YaAhat772GB36IlDhJ1cPIC8tHzFwDUDAFh3c3p5T4QXOWZzq3C
+         atReABhzPhn8IvNQgUJlWMgtqp/S+0BX8nAQW41TfydZJrCD9UHI9HZ/38CfaTDCtL+Y
+         2kg7sulLQHiZJrJ0H5b8hIS/maxgPYtdZMyv2Lf7h1I10O//rENvYPjb6imjgKpsfUST
+         pBkA==
+X-Gm-Message-State: AOAM5334NfOEk3pcKPBjrkaXkip8PkJ5+13LE+3FB0BZoy3BRjVHfAPL
+        PRbkaUbuxyiRNxnjdX07e+T9ci1m9kI=
+X-Google-Smtp-Source: ABdhPJzyPD8Z6/BqKZ12fVD2R5MdIXGoQPtKDm8CliyrAnRgzoREktLhVP737+FKPLufS0yKaQJrow==
+X-Received: by 2002:adf:e452:: with SMTP id t18mr17562939wrm.177.1610809383833;
+        Sat, 16 Jan 2021 07:03:03 -0800 (PST)
 Received: from debian.vlc ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id w4sm15876237wmc.13.2021.01.16.06.59.48
+        by smtp.gmail.com with ESMTPSA id z184sm11393113wmg.7.2021.01.16.07.03.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 16 Jan 2021 06:59:49 -0800 (PST)
+        Sat, 16 Jan 2021 07:03:03 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH] execveat.2: Normalize notes about missing wrappers
-Date:   Sat, 16 Jan 2021 15:58:59 +0100
-Message-Id: <20210116145858.7754-1-alx.manpages@gmail.com>
+Cc:     Alyssa Ross <hi@alyssa.is>, linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>
+Subject: [PATCH] ulimit.3: tfix
+Date:   Sat, 16 Jan 2021 16:01:04 +0100
+Message-Id: <20210116150103.7846-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -61,58 +61,32 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-It's been a long time sine kernel 3.19.
-There's still no glibc wrapper.
+From: Alyssa Ross <hi@alyssa.is>
 
-......
+The parentheses here make it look like a function rather than a
+command.
 
-$ grep -rn 'execveat *(' glibc/
-$
+This was a typo introduced by a script-assisted global edit.
 
+Signed-off-by: Alyssa Ross <hi@alyssa.is>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/execveat.2 | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ man3/ulimit.3 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man2/execveat.2 b/man2/execveat.2
-index ef3606d8b..02d9c7331 100644
---- a/man2/execveat.2
-+++ b/man2/execveat.2
-@@ -30,10 +30,13 @@ execveat \- execute program relative to a directory file descriptor
- .nf
- .B #include <unistd.h>
+diff --git a/man3/ulimit.3 b/man3/ulimit.3
+index b6d0b3250..be70e4f8c 100644
+--- a/man3/ulimit.3
++++ b/man3/ulimit.3
+@@ -42,7 +42,7 @@ and
+ .BR sysconf (3)
+ instead.
+ For the shell command
+-.BR ulimit (),
++.BR ulimit ,
+ see
+ .BR bash (1).
  .PP
--.BI "int execveat(int " dirfd ", const char *" pathname ","
--.BI "             char *const " argv "[], char *const " envp "[],"
-+.BI "int execveat(int " dirfd ", const char *" pathname ,
-+.BI "             char *const " argv "[], char *const " envp [],
- .BI "             int " flags );
- .fi
-+.PP
-+.IR Note :
-+There is no glibc wrapper for this system call; see NOTES.
- .SH DESCRIPTION
- .\" commit 51f39a1f0cea1cacf8c787f652f26dfee9611874
- The
-@@ -160,8 +163,6 @@ is a file descriptor referring to a file other than a directory.
- .SH VERSIONS
- .BR execveat ()
- was added to Linux in kernel 3.19.
--GNU C library support is pending.
--.\" FIXME . check for glibc support in a future release
- .SH CONFORMING TO
- The
- .BR execveat ()
-@@ -207,6 +208,9 @@ the natural idiom when using
- is to set the close-on-exec flag on
- .IR dirfd .
- (But see BUGS.)
-+.PP
-+Glibc does not provide a wrapper for this system call; call it using
-+.BR syscall (2).
- .SH BUGS
- The
- .B ENOENT
 -- 
 2.30.0
 
