@@ -2,151 +2,119 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EDB4D2F8FBC
-	for <lists+linux-man@lfdr.de>; Sat, 16 Jan 2021 23:37:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6BB0D2F93D9
+	for <lists+linux-man@lfdr.de>; Sun, 17 Jan 2021 17:11:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727520AbhAPWhK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 16 Jan 2021 17:37:10 -0500
-Received: from mail.kernel.org ([198.145.29.99]:40332 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726788AbhAPWhJ (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 16 Jan 2021 17:37:09 -0500
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 30B6E22CB3;
-        Sat, 16 Jan 2021 22:36:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1610836588;
-        bh=1h7kZMBw07HDEg7th2P25gJkUsAQF62WqugVkdDF87c=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=pYRF2iQIr2f7HsdFzf0bhCr9CxAnW5rSCoczQlfC1wC5PUsdJ5qO/vqYQzxf7ZUZY
-         k0dKi0MkJRmGEukQ7PwOggCnzAORGV+4r2KiQJjwQwHmpc6Ux0ZHf3nkYVWy/Ueqwf
-         f+n3pzBrv2B+0jSODKvNiuf/5FkVdimKHXTDLoRuH9zxtutiS3sQCWpCN8i9C6tDOl
-         lN7KLe/4y0gN8uVIlkVG5fX8tVv/kiyeI9BY2EjYoepw7wuYuny96DsVZzh0DeENid
-         no/NyMafbm+zh4EYBAMMlaXGWHxBYAzoTUzDRtYflXhP/c4usmBJgDRMwZykI6YuEs
-         jf0KHp6qqprMg==
-Received: by pali.im (Postfix)
-        id 19AF977B; Sat, 16 Jan 2021 23:36:26 +0100 (CET)
-From:   =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
-To:     linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        netdev@vger.kernel.org
-Subject: [PATCH v3] netdevice.7: Update documentation for SIOCGIFADDR SIOCSIFADDR SIOCDIFADDR
-Date:   Sat, 16 Jan 2021 23:36:10 +0100
-Message-Id: <20210116223610.14230-1-pali@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210102140254.16714-1-pali@kernel.org>
-References: <20210102140254.16714-1-pali@kernel.org>
+        id S1729437AbhAQQJD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 17 Jan 2021 11:09:03 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49514 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729419AbhAQQIw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 17 Jan 2021 11:08:52 -0500
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 71C35C061574
+        for <linux-man@vger.kernel.org>; Sun, 17 Jan 2021 08:08:12 -0800 (PST)
+Received: by mail-wr1-x435.google.com with SMTP id a9so10685496wrt.5
+        for <linux-man@vger.kernel.org>; Sun, 17 Jan 2021 08:08:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:references:cc:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=8JvkaM/9fWfCBGC6P67bxfttQ1DbGAt6KzqhdBZZKrI=;
+        b=LlcQpsJ04q38csMiu6SFHm4voQIN+uKQQ3R1VYkjMXF9omOHlGPBf5UREkzM9wJVip
+         4P79RiOGth42KHPi3BQWw6d/gPO7S47BuILHQX2zzovNEepSblZrxn7YEzNdZj10ytu3
+         0voyuAgwHFOND+neONkSAyrIOfCROD6Uj6dbylRBqGHMcnRbCfkIo9ELeq2YHZ+JPvHY
+         e0qoUN9qMN6RvokRYplsrPFqSCuak1qevodbuzNO3JAcmtHeYJCLtjfZvN8Jg4VyX5Cb
+         dHgqaFPa8GTX99q8GR3LyfGWHN4hnY4DbZQgveURmqTfzUxCdW3lTEmYh0rrkqrVdNfN
+         DhJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:references:cc:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=8JvkaM/9fWfCBGC6P67bxfttQ1DbGAt6KzqhdBZZKrI=;
+        b=uJbtK71RQCuD5TSswFKoMY5IloTrETvAAKclNJ+Obo8/Bx84CpEWFBzzsI/4YrYzxD
+         4vJYzZ6xQ7GxipazU5tLtcDmdjK+oJ7Mx3itDU7ukaL4OPX7DOMYDkiQJ4qRoTnOGHhV
+         PCdUeCr4CmpnXTdtxf6SZdiMSmHhYt/Ruj85Hnz0AZ+qTR3ina7oZGdDn+DOAKFuwG6T
+         4i7TJfAivtwDu1ikPqa5HRpnkk5oRYQBhVAPgAlJDmT0yUzrM5ceDcknkie8s1iWGxG2
+         dV9EugfHjzM44eAQm9nuIRvaS8h9mhR+HwAWXIF9ZfOu5LMnFphvxdziChNigKqix6BR
+         WC6A==
+X-Gm-Message-State: AOAM533T3cIsNR4ruNUQ2lGoFdJ80Wi4X10Kq7r8qn7/2UK/CLOQwQum
+        1NNWL6EJsfS92Y9a5mMuKlqXoCqIO08=
+X-Google-Smtp-Source: ABdhPJyCVFkMOGrXAClCqPJJjVmH0aiFFZ+q/GT6J1KkG28aYnRJ+Q3bcB6m+tWRRRmoa57FrJcL0w==
+X-Received: by 2002:adf:f845:: with SMTP id d5mr21867982wrq.182.1610899691297;
+        Sun, 17 Jan 2021 08:08:11 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.49.0])
+        by smtp.gmail.com with ESMTPSA id a6sm4765695wmj.27.2021.01.17.08.08.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 17 Jan 2021 08:08:10 -0800 (PST)
+Subject: Re: [PATCH] sock_diag.7: Fix recvmsg() usage in the example
+To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+References: <20210116184554.30730-1-pali@kernel.org>
+Cc:     linux-man@vger.kernel.org
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <ef7ce97c-2d9c-adb9-b40e-322f3107ff50@gmail.com>
+Date:   Sun, 17 Jan 2021 17:08:09 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20210116184554.30730-1-pali@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Unlike SIOCGIFADDR and SIOCSIFADDR which are supported by many protocol
-families, SIOCDIFADDR is supported by AF_INET6 and AF_APPLETALK only.
 
-Unlike other protocols, AF_INET6 uses struct in6_ifreq.
 
-Signed-off-by: Pali Rohár <pali@kernel.org>
----
- man7/netdevice.7 | 64 +++++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 55 insertions(+), 9 deletions(-)
+On 1/16/21 7:45 PM, Pali Rohár wrote:
+> The msg_name field for recvmsg() call points to a caller-allocated buffer
+> nladdr that is used to return the source address of the (netlink) socket.
+> 
+> As recvmsg() does not read this buffer and fills it for a caller, do not
+> initialize it and instead check its value in the example.
+> 
+> Signed-off-by: Pali Rohár <pali@kernel.org>
 
-diff --git a/man7/netdevice.7 b/man7/netdevice.7
-index 15930807c..bdc2d1922 100644
---- a/man7/netdevice.7
-+++ b/man7/netdevice.7
-@@ -56,9 +56,27 @@ struct ifreq {
- .EE
- .in
- .PP
-+.B AF_INET6
-+is an exception.
-+It passes an
-+.I in6_ifreq
-+structure:
-+.PP
-+.in +4n
-+.EX
-+struct in6_ifreq {
-+    struct in6_addr     ifr6_addr;
-+    u32                 ifr6_prefixlen;
-+    int                 ifr6_ifindex; /* Interface index */
-+};
-+.EE
-+.in
-+.PP
- Normally, the user specifies which device to affect by setting
- .I ifr_name
--to the name of the interface.
-+to the name of the interface or
-+.I ifr6_ifindex
-+to the index of the interface.
- All other members of the structure may
- share memory.
- .SS Ioctls
-@@ -143,13 +161,33 @@ IFF_ISATAP:Interface is RFC4214 ISATAP interface.
- .PP
- Setting the extended (private) interface flags is a privileged operation.
- .TP
--.BR SIOCGIFADDR ", " SIOCSIFADDR
--Get or set the address of the device using
--.IR ifr_addr .
--Setting the interface address is a privileged operation.
--For compatibility, only
-+.BR SIOCGIFADDR ", " SIOCSIFADDR ", " SIOCDIFADDR
-+Get, set, or delete the address of the device using
-+.IR ifr_addr ,
-+or
-+.I ifr6_addr
-+with
-+.IR ifr6_prefixlen .
-+Setting or deleting the interface address is a privileged operation.
-+For compatibility,
-+.B SIOCGIFADDR
-+returns only
- .B AF_INET
--addresses are accepted or returned.
-+addresses,
-+.B SIOCSIFADDR
-+accepts
-+.B AF_INET
-+and
-+.B AF_INET6
-+addresses, and
-+.B SIOCDIFADDR
-+deletes only
-+.B AF_INET6
-+addresses.
-+A
-+.B AF_INET
-+address can be deleted by setting it to zero via
-+.BR SIOCSIFADDR .
- .TP
- .BR SIOCGIFDSTADDR ", " SIOCSIFDSTADDR
- Get or set the destination address of a point-to-point device using
-@@ -351,10 +389,18 @@ The names of interfaces with no addresses or that don't have the
- flag set can be found via
- .IR /proc/net/dev .
- .PP
--Local IPv6 IP addresses can be found via
--.I /proc/net
-+.B AF_INET6
-+IPv6 addresses can be read from
-+.I /proc/net/if_inet6
-+file or via
-+.BR rtnetlink (7).
-+Adding a new or deleting an existing IPv6 address can be done via
-+.BR SIOCSIFADDR " / " SIOCDIFADDR
- or via
- .BR rtnetlink (7).
-+Retrieving or changing destination IPv6 addresses of a point-to-point
-+interface is possible only via
-+.BR rtnetlink (7).
- .SH BUGS
- glibc 2.1 is missing the
- .I ifr_newname
--- 
-2.20.1
+Hi Pali,
 
+Patch applied.
+
+Thanks,
+
+Alex
+
+> ---
+>  man7/sock_diag.7 | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/man7/sock_diag.7 b/man7/sock_diag.7
+> index 91ccf3ac5..191e6ac49 100644
+> --- a/man7/sock_diag.7
+> +++ b/man7/sock_diag.7
+> @@ -753,9 +753,7 @@ static int
+>  receive_responses(int fd)
+>  {
+>      long buf[8192 / sizeof(long)];
+> -    struct sockaddr_nl nladdr = {
+> -        .nl_family = AF_NETLINK
+> -    };
+> +    struct sockaddr_nl nladdr;
+>      struct iovec iov = {
+>          .iov_base = buf,
+>          .iov_len = sizeof(buf)
+> @@ -782,6 +780,11 @@ receive_responses(int fd)
+>          if (ret == 0)
+>              return 0;
+>  
+> +        if (nladdr.nl_family != AF_NETLINK) {
+> +            fputs("!AF_NETLINK\en", stderr);
+> +            return \-1;
+> +        }
+> +
+>          const struct nlmsghdr *h = (struct nlmsghdr *) buf;
+>  
+>          if (!NLMSG_OK(h, ret)) {
+> 
