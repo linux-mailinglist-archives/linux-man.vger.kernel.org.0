@@ -2,219 +2,153 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E0A482FA4D9
-	for <lists+linux-man@lfdr.de>; Mon, 18 Jan 2021 16:35:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C72AD2FA4E4
+	for <lists+linux-man@lfdr.de>; Mon, 18 Jan 2021 16:37:27 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2404561AbhARPeu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 18 Jan 2021 10:34:50 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39706 "EHLO
+        id S2390816AbhARPhJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 18 Jan 2021 10:37:09 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40116 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2405799AbhARPe0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Jan 2021 10:34:26 -0500
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AC73BC061574
-        for <linux-man@vger.kernel.org>; Mon, 18 Jan 2021 07:33:44 -0800 (PST)
-Received: by mail-wr1-x434.google.com with SMTP id 7so9622745wrz.0
-        for <linux-man@vger.kernel.org>; Mon, 18 Jan 2021 07:33:44 -0800 (PST)
+        with ESMTP id S2406038AbhARPgR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Jan 2021 10:36:17 -0500
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com [IPv6:2a00:1450:4864:20::52f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B5583C061573
+        for <linux-man@vger.kernel.org>; Mon, 18 Jan 2021 07:35:36 -0800 (PST)
+Received: by mail-ed1-x52f.google.com with SMTP id dj23so15470335edb.13
+        for <linux-man@vger.kernel.org>; Mon, 18 Jan 2021 07:35:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:from:to:cc:references:message-id:date:user-agent
+        h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=YS37yyTgSKp0i5Kq+nv1poGhsFwSKUYIitEjRLVRWB8=;
-        b=PSSFuxTDWqlKYKbGRzzpH+ZCMy+3RcTDekdTnpV/K9n8Pm2HpN2YiEgzsXgztnQgjV
-         8Qo6gwihRQoHUSsJdfOVjRXVIosuoIkyiJRxsR9N5dPWiDJQsvHPcFv7G/StEInhnqAL
-         J+aV9R9yM5yWLVZD7Omegnk6mc6a/51gUCx9LWb882JQIjRxWbaHsnYxPZl1W1B2qRwE
-         ORqJZSpmto81vIvLgxcDRCSvVr/iBf231LwT2NJ96jFUMp5T8G22aH4ngq64D49Bvd1S
-         N2wIOcTQi++1Uo2yqchTOC+rnIMTtD6g6ytNGdiSecZOVfFtwin3z6XH4oj+x7Jx/vX6
-         iHSQ==
+        bh=PtGa5QymPLcil4t8nxYP6XeK5YGbA+Hx9YZhTuRz0aE=;
+        b=tJu1B81aFoats88PfwMWSXf2JQDsMmz8EWqlWAcCesE8AAUlWSthb+C93UwMbVLBIG
+         FmUA4gvP3B/Ky2vi1Yrs2tdxloUfKus58kaE4tqHXFziuShhz4Sg8lS9n4cOurEQRcz0
+         G3kA+w2aD6IG3OrOltVljR05glzaXMVtZ+RQuXY6flb44wZmYuVdIg8TBHivjh0aYBpu
+         8PrmV9H0a88C+LmCPfmsXTIMDlUPdXowmv5eWnOf8P/nQpxkzkaUV1rGX9u+ZyM7OXsJ
+         pbWjUzknGJP37lqKrSzdIumnFRij4lgPXaC3XFIkSLCQPLpEtUoj0buIrWKCwv8Fka9W
+         ZTKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=YS37yyTgSKp0i5Kq+nv1poGhsFwSKUYIitEjRLVRWB8=;
-        b=gOYuel2EZ3lCwdsMqIoKqmEoM66QGWgle4Lffzce1WpxVSkekUTiOW/Ka4TWeEK3az
-         PFiM9+7KymZjXtnELQTen6Q/VYjif/yc3/yUJtOu75XCwyNxf3XG6oADu+5cX4p6POyc
-         3IFMTHVkvtzXLKIt/9LeoLzIl6AoxD5MeUCa+9Gn8lu8OATDLGlJVCOFHUWIyRSgDK/a
-         hMcRlsV9yM8nGx8MUjB11clpAMZJ9WFebhHWozy8cs+vESksha15bopggYheM7o2eYJg
-         qaxbC/OTGj5sPef7pzNWST3rjtx7l/cntYDl0HfXFo8Ua23lb2UnnvfoelbUnEN4IMaP
-         P/Pg==
-X-Gm-Message-State: AOAM531JcisXPjMVJk64LPZKt/06UvE2UC/t1gXHQt+ZXewKKmOboevh
-        xOicbZ0n6M/82Quz7cMyMXTPpVHkw3g=
-X-Google-Smtp-Source: ABdhPJxI/jSxWUAKbrDF+R18eYL3pbB8D8Q3It8yL0LnL1XrBq10EATmANtZihyfxsKLm9DYwR33/Q==
-X-Received: by 2002:a5d:4a06:: with SMTP id m6mr20341wrq.189.1610984023538;
-        Mon, 18 Jan 2021 07:33:43 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with UTF8SMTPSA id f7sm14897878wmg.43.2021.01.18.07.33.42
+        bh=PtGa5QymPLcil4t8nxYP6XeK5YGbA+Hx9YZhTuRz0aE=;
+        b=IyPSzxcyqxpUr0huin80t9SYI9OkN7UCJFpwMfQftUKj+3JVcnzcHnuImVARaX+r9H
+         AvbbTcLD6/SQr1I778Z/0KlofyfLriAHUZxcDYLzHEfVgny+NLm9WH7+VlJjjmvRrJF9
+         dydZ96X1E3QQa8Vq2frxuN2vok1QhgG1TuLz4Obw44IwsNDGmGNVvv9okAqGq5v9bu9d
+         RvceZE/e8KBH13dJ9l/EylBDJQa17x+pQW2Vz6VSdGTuOkpH4hGsOPD7m/DfuO/3y9+h
+         UI9ySscn7ssHsM16EpPEFrs2iCz6iHeoICdWF0pN9gA8Xxpcu9FFWl1FpxlHddWFVO0a
+         wpiA==
+X-Gm-Message-State: AOAM530nxPVyu1FIuDYFgjp0jNK5iJ6p/rpbNjudT5yL3YTywK2ta+qU
+        4MveQPiZdhJNeXWMFz9O5ntb2HPs5bo=
+X-Google-Smtp-Source: ABdhPJx6X1wtQgIjUHXVRwtJjQMYrYyyDhRJVFhq3SRxI6mY/Z1QNWqOdsywoBjuyFxtyeW+SCtb8w==
+X-Received: by 2002:a05:6402:206c:: with SMTP id bd12mr65151edb.10.1610984135476;
+        Mon, 18 Jan 2021 07:35:35 -0800 (PST)
+Received: from ?IPv6:2001:a61:244d:fe01:9fb1:d962:461a:45e8? ([2001:a61:244d:fe01:9fb1:d962:461a:45e8])
+        by smtp.gmail.com with ESMTPSA id u17sm10936842edr.0.2021.01.18.07.35.34
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 18 Jan 2021 07:33:43 -0800 (PST)
-Subject: Ping: [PATCH] netlink.7, tcp.7: tfix:
- s/acknowledgment/acknowledgement
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <20210107165518.36629-1-alx.manpages@gmail.com>
- <ffe209ee-809c-10ea-c077-12669ff0f5ab@gmail.com>
- <59156288-13c4-ca10-ade3-5b83cd7c0902@gmail.com>
- <39255c4b-3d54-cae5-14ec-6122cfef8072@gmail.com>
- <6280e52d-17bd-ea1e-49ac-a23f9e86f51c@gmail.com>
-Message-ID: <ac8e9ea5-a7ad-d293-7a85-d8403159203d@gmail.com>
-Date:   Mon, 18 Jan 2021 16:33:42 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:84.0) Gecko/20100101
- Thunderbird/84.0
+        Mon, 18 Jan 2021 07:35:34 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, libc-alpha@sourceware.org,
+        linux-man@vger.kernel.org,
+        Ciprian Dorin Craciun <ciprian.craciun@gmail.com>,
+        Florian Weimer <fweimer@redhat.com>
+Subject: Re: [PATCH v4] system.3: Document bug and workaround when the command
+ name starts with a hypen
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+References: <20210104180420.74092-1-alx.manpages@gmail.com>
+ <20210108142209.61938-1-alx.manpages@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <069938d8-63c9-6194-8549-eb2deb3f71c3@gmail.com>
+Date:   Mon, 18 Jan 2021 16:35:33 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <6280e52d-17bd-ea1e-49ac-a23f9e86f51c@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20210108142209.61938-1-alx.manpages@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Hi Alex,
 
-Ping!
+On 1/8/21 3:22 PM, Alejandro Colomar wrote:
+> man-pages bug: 211029
+>  https://bugzilla.kernel.org/show_bug.cgi?id=211029
+> 
+> Complete workaround
+> (it was too long for the page, but it may be useful here):
+> 
+> ......
+> 
+> $ sudo ln -s -T /usr/bin/echo /usr/bin/-echo;
+> $ cc -o system_hyphen -x c - ;
+> #include <stdlib.h>
+> 
+> int
+> main(void)
+> {
+>     system(" -echo Hello world!");
+>     exit(EXIT_SUCCESS);
+> }
+> 
+> $ ./system_hyphen;
+> Hello world!
+> 
+> Reported-by: Ciprian Dorin Craciun <ciprian.craciun@gmail.com>
+> Cc: Florian Weimer <fweimer@redhat.com>
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 
-And now I noticed, while searching for this email:
-Debian uses "acknowledgement" too :p
+Thanks for the ping. Patch applied, but see man-pages(7)
+and my small fix-up in the next commit.
 
-[
-From: "Debian Bug Tracking System" <owner@bugs.debian.org>
-To: Alejandro Colomar <alx.manpages@gmail.com>
-Subject: Bug#978945: Acknowledgement (thunderbird: Message subwindow tilts
- (resizes in a loop))
-]
+Cheers,
 
-Kind regards,
+Michael
 
-Alex
-
-On 1/8/21 2:34 PM, Alejandro Colomar (man-pages) wrote:
-> On 1/8/21 2:23 PM, Michael Kerrisk (man-pages) wrote:
->> Hello Alex,
->>
->> On 1/8/21 12:36 PM, Alejandro Colomar (man-pages) wrote:
->>>
->>> On 1/8/21 11:29 AM, Michael Kerrisk (man-pages) wrote:
->>>> Hi Alex,
->>>>
->>>> On 1/7/21 5:55 PM, Alejandro Colomar wrote:
->>>>> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
->>>>
->>>> Take a look at
->>>>
->>>> https://books.google.com/ngrams/graph?content=acknowledgment%2Cacknowledgement&year_start=1800&year_end=2000&corpus=5&smoothing=3
->>>>
->>>> and compare American English vs British English using the drop-down.
->>>>
->>>> When I inherited man-pages in 2004, it was a hodge-podge mix of 
->>>> American vs British spelling. My native spelling is the latter,
->>>> but I value consistency and felt that things needed to be
->>>> standardized on one or other, and in computing, American is the
->>>> norm so that is what I settled on.hodge-podge
->>>>
->>>> I'm largely at piece with American spelling these days (it 
->>>> is the spelling I use in most of my writing), but I guess
->>>> the one point that still bothers me are the American spellings
->>>> "acknowledgment" and "judgment". They just feel wrong.
->>>
->>> Yup
->>>
->>>>
->>>> However, I now learned from the Ngrams that even in British
->>>> English, the spelling without "e" was historically the norm.
->>>> So it seems that it is British English that has changed, 
->>>> not American English!
->>>>
->>>> I was about to say that I must decline this patch. And then
->>>> I thought I'd take a look at the POSIX standard. It seems
->>>> to largely follow American spelling (e.g., "color", "canceled",
->>>> "recognize", "analog").[1] But, it uses "acknowledgement"!
->>>> (There are even a couple of instances of "judgement" in 
->>>> the standard.) It seems like others like to have the
->>>> extra "e' in those words...
->>>>
->>>> So, I'm not sure what to do with this patch. 
->>>
->>> Hey Michael,
->>>
->>> D'oh, I thought it was a typo! :-)
->>>
->>> American English surprises me.
->>>
->>> Yes I prefer American English, but I've also learn_ed_ British at
->>> school, (and learnt American through the internet), so I have a weird
->>> hodge-podge in my head too :p
->>>
->>> I guess many people though it was a typo from the data you put.  Also see:
->>>
->>> $ grep -r acknowledgement \
->>>   |wc -l;
->>> grep: man7/.hostname.7.swp: binary file matches
->>> 69
->>> $ grep -r acknowledgment \
->>>   |wc -l;
->>> 23
->>
->> Okay -- this gets weirder and weirder. Look more closely
->> at what the grep found. Those instances of 'acknowledgement'
->> are almost all in the page comments containing BSD licenses!
->>
->> I thought to myself, that's strange: because BSD is from 
->> California... Maybe some enthusiastic person did a
->> global edit in the distant past to change this to British
->> spelling in the Linux manual pages. But, it doesn't seem that
->> way. I grepped a few thousand header files that I've assembled
->> over the years from various OSes, and in the BSD licenses,
->> the vast majority use 'acknowledgement'. A few use
->> 'acknowledgment', but I suspect that those were changed
->> after importing from other places.
->>
->> It seems that the underground spelling resistance was strong
->> at Berkeley.
->>
->>> Nevertheless, I prefer American too, so I'd invert the patch.
->>> What about s/acknowledgement/acknowledgment/?
->> So, I still don't know what to do. I never much liked
->> the "American" "*dgment", but:
->>
->> (1) That seems to have been the historical form that 
->>     British English moved away from.
->>
->> (2) A couple of "American" groups (BSD, POSIX) use
->>     the "British" spelling.
->>
->> Cheers,
->>
->> Michael
->>
->> PS I want to join the spelling resistance :-)
+> ---
 > 
-> Hello Michael,
+> D'oh!
 > 
-> That made me think about it again, and well, a language isn't what books
-> say, but what people actually use.  That's something I learnt from the
-> Catalan language, which some institutions constantly try to normalize
-> differently than common usage, and it's weird, very very weird.
+>  man3/system.3 | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
 > 
-> So, if most people use *dgement, I'd say the word is correctly spelled
-> *dgement.
-> 
-> But we need a common spelling, because I was searching in vim for the
-> word, and it was very weird because I knew the word was there, but it
-> didn't show it to me.  I had to manually move to the line to see that it
-> was written differently, on the same page! :/
-> 
-> So I hereby insist on my initial patch :-}
-> 
-> Cheers,
-> 
-> Alex
-> 
+> diff --git a/man3/system.3 b/man3/system.3
+> index 753d46f7d..ead35ab30 100644
+> --- a/man3/system.3
+> +++ b/man3/system.3
+> @@ -255,6 +255,26 @@ are not executed.
+>  Such risks are especially grave when using
+>  .BR system ()
+>  from a privileged program.
+> +.SH BUGS
+> +.\" [BUG 211029](https://bugzilla.kernel.org/show_bug.cgi?id=211029)
+> +.\" [Glibc bug](https://sourceware.org/bugzilla/show_bug.cgi?id=27143)
+> +.\" [POSIX bug](https://www.austingroupbugs.net/view.php?id=1440)
+> +If the command name starts with a hyphen,
+> +.BR sh (1)
+> +interprets the command name as an option,
+> +and the behavior is undefined.
+> +(See the
+> +.B \-c
+> +option to
+> +.BR sh (1).)
+> +To work around this problem,
+> +prepend the command with a space as in the following call:
+> +.PP
+> +.RS 4
+> +.EX
+> +    system(" \-unfortunate\-command\-name");
+> +.EE
+> +.RE
+>  .SH SEE ALSO
+>  .BR sh (1),
+>  .BR execve (2),
 > 
 
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
