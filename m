@@ -2,70 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 953642FA4EE
-	for <lists+linux-man@lfdr.de>; Mon, 18 Jan 2021 16:39:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 41D272FA507
+	for <lists+linux-man@lfdr.de>; Mon, 18 Jan 2021 16:44:47 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2393297AbhARPiW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 18 Jan 2021 10:38:22 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40540 "EHLO
+        id S2392507AbhARPnf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 18 Jan 2021 10:43:35 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41254 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2393229AbhARPiP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Jan 2021 10:38:15 -0500
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com [IPv6:2a00:1450:4864:20::52c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6A3C7C061573
-        for <linux-man@vger.kernel.org>; Mon, 18 Jan 2021 07:37:35 -0800 (PST)
-Received: by mail-ed1-x52c.google.com with SMTP id d22so7048325edy.1
-        for <linux-man@vger.kernel.org>; Mon, 18 Jan 2021 07:37:35 -0800 (PST)
+        with ESMTP id S2393517AbhARPll (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Jan 2021 10:41:41 -0500
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com [IPv6:2a00:1450:4864:20::630])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AB63FC061574
+        for <linux-man@vger.kernel.org>; Mon, 18 Jan 2021 07:40:55 -0800 (PST)
+Received: by mail-ej1-x630.google.com with SMTP id gx5so5052527ejb.7
+        for <linux-man@vger.kernel.org>; Mon, 18 Jan 2021 07:40:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=N5gegHkXtsVO7Z6l7mG0YN89h4wGs2tQVUF6zxGR1gE=;
-        b=UmCme3jHBeuJGjgXptWLgQ8vo6hp5OGXkQKaMu8rWhXjDFB1UBP48EFG2bzn0Ex5zh
-         V/FltM1m52SVfzlBuTC8rg4B8OWPF90lFeu58/2oUYD2koPSPseW3GxsnH88jLD2zf9Q
-         w254599ZUS9lbMpIYu1kSsdyXXYFSPcVuFPElZbqTd9xhF/3p+WoZhQBV39ekLFXjfX3
-         oA7Jo7xCFPSH9jkw1ErGRuyvynQ2bUJMwmf214CaQ8C/E+vvhwc5p+7lFe0wINWzf493
-         hKSfKoCHP7kuqL04dvQ4EtDkN5BLsiDAo66Mwk99qFCp9HJNCUg/AWIoivx770sQjyP7
-         lacQ==
+        bh=HX2x1U2RQw2z0Eesw6fqFsc4v456t26ggnrkRonTOqY=;
+        b=rjeAQq7Ie6h1q8eg2yeW6O+VevTayI2IP+oKdW98HcBBiSJHCIBfOrO9eyOpsibpyZ
+         IzRqNmNYHGCOeBn4MT2gZQCTywmq9+Y7UR/VDsMQq/qTHLljsR/hxP9RCvf4a13I7sW8
+         z1GJZwZuoya7rMlRd1lAbSAZ8qX1SFEH7/v5BNfYp4o+GiT/06RyNemkrfpfs2WDC928
+         3zL2eeFn9aByLy47jFeDGFtI1Z2y17o5SF3jcJMqU5opMyMLpsNWOMNRVMl3fNLmBkYl
+         H9ncKQ+Vxxf9xfTLON/1apM1qMkfRlu+xaD3ZgabjKQnlfUbJyxU3ZyOLvvBhLBvw1mN
+         VXJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=N5gegHkXtsVO7Z6l7mG0YN89h4wGs2tQVUF6zxGR1gE=;
-        b=rVH/FkR99pGLs+0Cq4V5oLNaObeSqZ+tb5d5RYORFBdi5tllfqMW+/WVOr+91gqpvW
-         LeIcdjaio5C/dzqyyfj7xprpExlB6dlDAhABvwzN0pWRXiu2L0rEa2t2+Y5VqNmy2Nae
-         IjSqVka2LVnBAiQCcEgoF7d80aKkIgTxMI+W9TU6gq4rZnBpAF8tPdXKM1wdGMFB0/g4
-         armrvkDnyDthUfn690hQXrT+zuic+068mnzLQ4f6QNJMnEOD5rHS1NqNP2ZOUH6q3fi/
-         jtmPoBbBAnL17LyiSCcN5W3B6zqs1Ho7HVe18HpMJa/MzRBbOl4BqFkI2ZZjsUSUlz+C
-         x9hw==
-X-Gm-Message-State: AOAM531NkYlS7kSCiRY7+jmStDXxEeJo0R+skUDuhyPLXbt0h2Seo4kz
-        cv5/+QiqAvptj8ZfGndWpRk=
-X-Google-Smtp-Source: ABdhPJyA67kA+MlmySUKdxLAxM7F0qMIvaRdrG3SEw2M8Hep8YROuijFTw6BeHUwOtivOYeQ85POPw==
-X-Received: by 2002:a50:8b61:: with SMTP id l88mr50847edl.250.1610984254223;
-        Mon, 18 Jan 2021 07:37:34 -0800 (PST)
+        bh=HX2x1U2RQw2z0Eesw6fqFsc4v456t26ggnrkRonTOqY=;
+        b=ok7wQ/TSwKMkjFKqTfgIVkuRRos+LW4f44DW4EYD9B0j2CqXOxhwoyucs+mP5nHEa/
+         Qeiy+C/WHzXBsdCLbmjVOWxzGj6FLMZGi92m+ZRs6k9BnBTyBUDXZjbA9zB91hI+ydN1
+         slVx4MLhSNRNt4OP0OxHfNiZNCdIVW4u/BCHqmnNTUUhsrRB4IOf6cELzLlvr25WoWoB
+         7hyPLns4Fkkq5+pq71zMAbaWZS3V/PZa8uLQRkqTHbhg28oHVGo3ayBKYxIXHTz4oiOb
+         vKL+Ko//dZ+AVNmEOMYxRZ70UbmqWKtGHZJTG5IvjTNsG7q4rPLfVsNKWRL6kPAPDyWY
+         xKBQ==
+X-Gm-Message-State: AOAM530cp5JdAlVHxv/h0HhiHzpovYWczJLVez68LfJ4AmVV9sKAfrn7
+        uC0eNOPhY0qZWpiFJYDuCpG5FIXW+X8=
+X-Google-Smtp-Source: ABdhPJxDFS2hbQNDp+6qF7sWKgXLs7oKCG1756wO0wLBPklby07g/4bJ+Rruh30jGRiANidIMF+2Dw==
+X-Received: by 2002:a17:906:4694:: with SMTP id a20mr169940ejr.201.1610984453978;
+        Mon, 18 Jan 2021 07:40:53 -0800 (PST)
 Received: from ?IPv6:2001:a61:244d:fe01:9fb1:d962:461a:45e8? ([2001:a61:244d:fe01:9fb1:d962:461a:45e8])
-        by smtp.gmail.com with ESMTPSA id c24sm8541697edt.74.2021.01.18.07.37.33
+        by smtp.gmail.com with ESMTPSA id s19sm11185300edx.7.2021.01.18.07.40.52
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 18 Jan 2021 07:37:33 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, libc-alpha@sourceware.org,
-        linux-man@vger.kernel.org,
-        Ciprian Dorin Craciun <ciprian.craciun@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>
-Subject: Re: Ping: [PATCH v4] system.3: Document bug and workaround when the
- command name starts with a hypen
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-References: <20210104180420.74092-1-alx.manpages@gmail.com>
- <20210108142209.61938-1-alx.manpages@gmail.com>
- <a89dea2b-5b26-040a-2f12-3e096756f118@gmail.com>
- <e6ee2473-9096-0d6e-b793-c90e03bc6dfc@gmail.com>
+        Mon, 18 Jan 2021 07:40:53 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] pipe.7: tfix
+To:     alx.manpages@gmail.com, Jakub Wilk <jwilk@jwilk.net>
+References: <20210118091717.7042-1-jwilk@jwilk.net>
+ <3bfc7e28-9663-40d0-a4b2-5ce9cefca01b@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <99aa567a-67d5-d7c1-ddf3-de4141f3c1ff@gmail.com>
-Date:   Mon, 18 Jan 2021 16:37:32 +0100
+Message-ID: <345ab74a-c8fa-b5ea-89b6-73b7001e4fb7@gmail.com>
+Date:   Mon, 18 Jan 2021 16:40:52 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <e6ee2473-9096-0d6e-b793-c90e03bc6dfc@gmail.com>
+In-Reply-To: <3bfc7e28-9663-40d0-a4b2-5ce9cefca01b@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -73,99 +67,122 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 1/18/21 4:28 PM, Alejandro Colomar (man-pages) wrote:
-> Hi Michael,
-> 
-> Ping!
-> 
-> And now I noticed a typo in the subject:
-> s/hypen/hyphen/
+Hi Alex (and Jakub)
 
-D'oh! I missed that.
+On 1/18/21 4:19 PM, Alejandro Colomar (mailing lists; readonly) wrote:
+> On 1/18/21 10:17 AM, Jakub Wilk wrote:
+>> Escape hyphens.
+> 
+> Hi Jakub,
+> 
+> Would you mind adding not only 'what',
+> but also (and especially) 'why' is does it?
+> I mean, 20 years from now we might wonder why we escaped hyphens.
+>
+> Adding for example the following to the commit message might help:
+> 
+> [
+> $ man 7 man-pages 2>/dev/null \
+>   |sed -n '/Generating optimal glyphs/,/\\-/p';
+>    Generating optimal glyphs
+>        Where a real minus character is required (e.g., for numbers
+>        such as -1, for man page cross references such as utf-8(7),
+>        or when writing options that have a leading dash,  such  as
+>        in ls -l), use the following form in the man page source:
+> 
+>            \-
+> ]
+> 
+> I'm also wondering... are there any other places where this patch would
+> also be needed?
 
-In cases like these, where there's already two amendments to the patch,
-perhaps better is a new complete patch, rather than a ping :-).
+Well, it is documented in our man-pages(7). I think just an
+"As per man-pages(7), ..." would suffice. But even without
+it, I would not worry too much.
+
+I think it's great when you add stuff like this little script in 
+your commit messages, but I don't want to impose that burden on
+others.
 
 Thanks,
 
 Michael
 
 
-> On 1/8/21 3:28 PM, Alejandro Colomar (man-pages) wrote:
+
+>> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+>> ---
+>>  man7/pipe.7 | 18 +++++++++---------
+>>  1 file changed, 9 insertions(+), 9 deletions(-)
 >>
+>> diff --git a/man7/pipe.7 b/man7/pipe.7
+>> index 21c8fa79b..c3210320c 100644
+>> --- a/man7/pipe.7
+>> +++ b/man7/pipe.7
+>> @@ -163,7 +163,7 @@ but is provided on many implementations.
+>>  .SS /proc files
+>>  On Linux, the following files control how much memory can be used for pipes:
+>>  .TP
+>> -.IR /proc/sys/fs/pipe-max-pages " (only in Linux 2.6.34)"
+>> +.IR /proc/sys/fs/pipe\-max\-pages " (only in Linux 2.6.34)"
+>>  .\" commit b492e95be0ae672922f4734acf3f5d35c30be948
+>>  An upper limit, in pages, on the capacity that an unprivileged user
+>>  (one without the
+>> @@ -175,9 +175,9 @@ The default value for this limit is 16 times the default pipe capacity
+>>  (see above); the lower limit is two pages.
+>>  .IP
+>>  This interface was removed in Linux 2.6.35, in favor of
+>> -.IR /proc/sys/fs/pipe-max-size .
+>> +.IR /proc/sys/fs/pipe\-max\-size .
+>>  .TP
+>> -.IR /proc/sys/fs/pipe-max-size " (since Linux 2.6.35)"
+>> +.IR /proc/sys/fs/pipe\-max\-size " (since Linux 2.6.35)"
+>>  .\" commit ff9da691c0498ff81fdd014e7a0731dab2337dac
+>>  The maximum size (in bytes) of individual pipes that can be set
+>>  .\" This limit is not checked on pipe creation, where the capacity is
+>> @@ -202,7 +202,7 @@ Since Linux 4.9,
+>>  the value on this file also acts as a ceiling on the default capacity
+>>  of a new pipe or newly opened FIFO.
+>>  .TP
+>> -.IR /proc/sys/fs/pipe-user-pages-hard " (since Linux 4.5)"
+>> +.IR /proc/sys/fs/pipe\-user\-pages\-hard " (since Linux 4.5)"
+>>  .\" commit 759c01142a5d0f364a462346168a56de28a80f52
+>>  The hard limit on the total size (in pages) of all pipes created or set by
+>>  a single unprivileged user (i.e., one with neither the
+>> @@ -220,7 +220,7 @@ no hard limit is applied.
+>>  .\" The default was chosen to avoid breaking existing applications that
+>>  .\" make intensive use of pipes (e.g., for splicing).
+>>  .TP
+>> -.IR /proc/sys/fs/pipe-user-pages-soft " (since Linux 4.5)"
+>> +.IR /proc/sys/fs/pipe\-user\-pages\-soft " (since Linux 4.5)"
+>>  .\" commit 759c01142a5d0f364a462346168a56de28a80f52
+>>  The soft limit on the total size (in pages) of all pipes created or set by
+>>  a single unprivileged user (i.e., one with neither the
+>> @@ -238,9 +238,9 @@ The default value for this file is 16384,
+>>  which permits creating up to 1024 pipes with the default capacity.
+>>  .PP
+>>  Before Linux 4.9, some bugs affected the handling of the
+>> -.IR pipe-user-pages-soft
+>> +.IR pipe\-user\-pages\-soft
+>>  and
+>> -.IR pipe-user-pages-hard
+>> +.IR pipe\-user\-pages\-hard
+>>  limits; see BUGS.
+>>  .\"
+>>  .SS PIPE_BUF
+>> @@ -342,9 +342,9 @@ Portable applications should avoid reliance on
+>>  bidirectional pipe semantics.
+>>  .SS BUGS
+>>  Before Linux 4.9, some bugs affected the handling of the
+>> -.IR pipe-user-pages-soft
+>> +.IR pipe\-user\-pages\-soft
+>>  and
+>> -.IR pipe-user-pages-hard
+>> +.IR pipe\-user\-pages\-hard
+>>  limits when using the
+>>  .BR fcntl (2)
+>>  .BR F_SETPIPE_SZ
 >>
->> On 1/8/21 3:22 PM, Alejandro Colomar wrote:
->>> man-pages bug: 211029
->>>  https://bugzilla.kernel.org/show_bug.cgi?id=211029
->>>
->>> Complete workaround
->>
->> Maybe a bit more readable:
->> Complete workaround example
->>
->>
->>> (it was too long for the page, but it may be useful here):
->>>
->>> ......
->>>
->>> $ sudo ln -s -T /usr/bin/echo /usr/bin/-echo;
->>> $ cc -o system_hyphen -x c - ;
->>> #include <stdlib.h>
->>>
->>> int
->>> main(void)
->>> {
->>>     system(" -echo Hello world!");
->>>     exit(EXIT_SUCCESS);
->>> }
->>>
->>> $ ./system_hyphen;
->>> Hello world!
->>>
->>> Reported-by: Ciprian Dorin Craciun <ciprian.craciun@gmail.com>
->>> Cc: Florian Weimer <fweimer@redhat.com>
->>> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
->>> ---
->>>
->>> D'oh!
->>>
->>>  man3/system.3 | 20 ++++++++++++++++++++
->>>  1 file changed, 20 insertions(+)
->>>
->>> diff --git a/man3/system.3 b/man3/system.3
->>> index 753d46f7d..ead35ab30 100644
->>> --- a/man3/system.3
->>> +++ b/man3/system.3
->>> @@ -255,6 +255,26 @@ are not executed.
->>>  Such risks are especially grave when using
->>>  .BR system ()
->>>  from a privileged program.
->>> +.SH BUGS
->>> +.\" [BUG 211029](https://bugzilla.kernel.org/show_bug.cgi?id=211029)
->>> +.\" [Glibc bug](https://sourceware.org/bugzilla/show_bug.cgi?id=27143)
->>> +.\" [POSIX bug](https://www.austingroupbugs.net/view.php?id=1440)
->>> +If the command name starts with a hyphen,
->>> +.BR sh (1)
->>> +interprets the command name as an option,
->>> +and the behavior is undefined.
->>> +(See the
->>> +.B \-c
->>> +option to
->>> +.BR sh (1).)
->>> +To work around this problem,
->>> +prepend the command with a space as in the following call:
->>> +.PP
->>> +.RS 4
->>> +.EX
->>> +    system(" \-unfortunate\-command\-name");
->>> +.EE
->>> +.RE
->>>  .SH SEE ALSO
->>>  .BR sh (1),
->>>  .BR execve (2),
->>>
->>
-> 
 > 
 
 
