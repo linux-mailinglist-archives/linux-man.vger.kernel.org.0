@@ -2,101 +2,79 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2BEEF2FA683
-	for <lists+linux-man@lfdr.de>; Mon, 18 Jan 2021 17:43:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id AE5002FAC55
+	for <lists+linux-man@lfdr.de>; Mon, 18 Jan 2021 22:14:41 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2393540AbhARQls (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 18 Jan 2021 11:41:48 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37444 "EHLO
+        id S2388466AbhARVNj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 18 Jan 2021 16:13:39 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56378 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2393355AbhARPYB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Jan 2021 10:24:01 -0500
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AB84DC0613D3
-        for <linux-man@vger.kernel.org>; Mon, 18 Jan 2021 07:23:09 -0800 (PST)
-Received: by mail-wr1-x429.google.com with SMTP id d13so16794300wrc.13
-        for <linux-man@vger.kernel.org>; Mon, 18 Jan 2021 07:23:09 -0800 (PST)
+        with ESMTP id S2394531AbhARVNC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Jan 2021 16:13:02 -0500
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com [IPv6:2a00:1450:4864:20::235])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 39E3DC061573
+        for <linux-man@vger.kernel.org>; Mon, 18 Jan 2021 13:12:22 -0800 (PST)
+Received: by mail-lj1-x235.google.com with SMTP id u11so19618792ljo.13
+        for <linux-man@vger.kernel.org>; Mon, 18 Jan 2021 13:12:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=PA887Qx11rZx1t92/CTUHWn3XMQUy6KtbER5yEBCSrE=;
-        b=JgYOTduuYOrwca1attd8TiIZkG0mCsrDGygdrka+bBkOspK2pMyiCWf1+jt4xvDilx
-         oQLHYvdqNle4RuNe8ITlENhDA60bgHLADJCPQ1Ge2E9+xcE1UgMJuoH4lJ64bkSjEuxy
-         6K4b63beB4eR9qqZ3mg6mW1rDjk1gIQLUcGY+icRm8ZOkZS/ryVy3QT5LKrmj+MPVl/Y
-         sGjEkbMbZ0O6uTE1g86ftdqegSmmxhnmSW4YTnH8+I5AZSdQLCAnusTPaU0QqZETWhJP
-         NsVbj8DSzz9fHxLtH7Jr7BEHsW1H7qpS85YlTMpVLaSUAEO6ky9XCPLOtj2NsNAznsho
-         Y1vQ==
+        h=mime-version:from:date:message-id:subject:to:cc
+         :content-transfer-encoding;
+        bh=lH38FCuJLa1RujVqQaf3XAD0tbGmwUfemgnBKBv0//0=;
+        b=mEF9pOJQm9HbPbvGipC8frh7mOD6dT3iAgdF1EKJRP3SyHWYpx9Mm/0JEVLutuh9ia
+         Nl7xyrOXTpRynqJ9r8IxAB3U9kzzEhy5azRwtmKOPUlBvhWVVixaVBpCwxKxD9092Zdd
+         e9McN/8sixOtKU//UepVTTEZSZuIZlYb0B5xHkg8Nb6iLEmfVIWNXTtT9PkGwGrfYnhe
+         WV8yjYJDnbT4q53GBIH6GIwuRoV1JS0VTCpP01TfA556R+MZLXdlnHRQZWDdPAB3ssPm
+         K0YzF8V5mjz7bBVhwPZd5fcrOrenEdK2rCcuTTMQmfPVoPY93TjcdOPBAMo6iXTwO82P
+         3GPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc
          :content-transfer-encoding;
-        bh=PA887Qx11rZx1t92/CTUHWn3XMQUy6KtbER5yEBCSrE=;
-        b=s2K2NAGrWFliMLO6z4quZLOk8ze4KhLV0bBAvXsaMcKxMHE87DVMsfjRMZ55TrNWH+
-         F2Yo780EVS3Y5NIQC4jn5iqglOy+jjen3oghkJBDZJJSkf54JT1xYNhCv9OTYfUXMuVK
-         kSU+BIot1rjr7UOAThgBI6FpQHlfPNkMUULFXoS63Ts7vzhhqGy7ube0oXaq7128Yrv+
-         vNXmnZRnX4qBDVVoHaQlXW7i713jlC0xvg541RPGCHGY2vMig2mG0KmOerxEINTcoyMh
-         rG1dncQV/xincqHdgfvbCJDur16VA+YIySPDGbMMKtFDM8sQN9jK4QnCRTexpZOK5nbQ
-         9fsQ==
-X-Gm-Message-State: AOAM5306/AV1oBWsEo0kMdEIVUUdT45XzeTrdy9lbq2jbIXkyh3NP1uo
-        E4dIoGoW6HEubZA9dM92ciGIRZbHabE=
-X-Google-Smtp-Source: ABdhPJzVE4olXK3s3tfjTG+rSrptklXJBo783g/8VO143lpMxSGizabOb/v76klJvU1LtIMV41SDFw==
-X-Received: by 2002:adf:e44f:: with SMTP id t15mr33096wrm.74.1610983388545;
-        Mon, 18 Jan 2021 07:23:08 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with UTF8SMTPSA id g187sm22420888wmf.1.2021.01.18.07.23.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 18 Jan 2021 07:23:08 -0800 (PST)
-Subject: Re: [PATCH] MAINTAINER_NOTES: tfix
-To:     Jakub Wilk <jwilk@jwilk.net>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <20210118091250.6766-1-jwilk@jwilk.net>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <69b4226f-e29f-46ad-9ae0-4408d027d4a7@gmail.com>
-Date:   Mon, 18 Jan 2021 16:23:07 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:84.0) Gecko/20100101
- Thunderbird/84.0
+        bh=lH38FCuJLa1RujVqQaf3XAD0tbGmwUfemgnBKBv0//0=;
+        b=Kub8JrCaMs1o2fG2eF5fHP3jfFWCjcEZTKOmreVq/Hpeck49zxNoJ9H4kuztqRGEZp
+         EqEP2vcIcfj3NRrw//S7rX7uUlD/CweEVxq9mq6u7wuD/fJIBsgp6vVMxYcrpSWQLdGV
+         IUDtfl6MSJXKF5K8yKZtS2Qu/3mSDC4I3Sa/cR55yD08DE9YQWAJJpKDEDLC/y4a4fCA
+         +JOnYJMdxo4IGdDiwWjvEgUFUi7dK5q/5LFafezuf9VbU7McPuNF/LwnHFir90loZBRF
+         YUZtWfHyzMH+UXARLkeuJEhNRJFrW54+ryAUEbz9e+nBHp/6SDI4JailixSJgNO4njDN
+         5DYQ==
+X-Gm-Message-State: AOAM532U1uBxvQ7TkazjHGwfanTPuU+Ou8PhZesD1XARH1KDmIVUrR9E
+        XWch9aBIkemV/IUcX+V/BSx+ba9NdWx046iclJSYE6nMUoHEqOVeYJAvOw==
+X-Google-Smtp-Source: ABdhPJzywuZGSiSwKoGPq8F2Cx6CGEWPUtxN9O2w57gqRin0xbBGioJlSM2ZEa+on12i/v4ux4UCU99Jd09K+RkVBdc=
+X-Received: by 2002:a2e:3a17:: with SMTP id h23mr551635lja.435.1611004340511;
+ Mon, 18 Jan 2021 13:12:20 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20210118091250.6766-1-jwilk@jwilk.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+From:   =?UTF-8?Q?Johannes_Wellh=C3=B6fer?= <johannes.wellhofer@gmail.com>
+Date:   Mon, 18 Jan 2021 22:12:09 +0100
+Message-ID: <CADCwPKhAHqn-R8wpp-7=skOB8O6mRqOvP46oTUUmA6QX0R=4bw@mail.gmail.com>
+Subject: [patch] clone.2: tfix
+To:     linux-man@vger.kernel.org
+Cc:     alx.manpages@gmail.com, mtk.manpages@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 1/18/21 10:12 AM, Jakub Wilk wrote:
-> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+For the alternate signal stack to be cleared, CLONE_VM should and
+CLONE_VFORK should not be specified.
 
-Hello Jakub,
+Signed-off-by: Johannes Wellh=C3=B6fer <johannes.wellhofer@gmail.com>
+---
+ man2/clone.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Patch applied.
-
-Thanks,
-
-Alex
-
-> ---
->  MAINTAINER_NOTES | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/MAINTAINER_NOTES b/MAINTAINER_NOTES
-> index 056d02774..82830df66 100644
-> --- a/MAINTAINER_NOTES
-> +++ b/MAINTAINER_NOTES
-> @@ -8,5 +8,5 @@ tzfile(5), zdump(8), and zic(8) come from the tz project
->  (https://www.iana.org/time-zones).
->  
->  bpf-helpers(7) is autogenerated from the kernel sources using scripts.
-> -See man-pagfes commit 53666f6c30451cde022f65d35a8d448f5a7132ba dir
-> +See man-pages commit 53666f6c30451cde022f65d35a8d448f5a7132ba for
->  details.
-> 
-
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+diff --git a/man2/clone.2 b/man2/clone.2
+index fecec90c8..11eb6c622 100644
+--- a/man2/clone.2
++++ b/man2/clone.2
+@@ -1187,7 +1187,7 @@ processes do not affect the other, as with
+ If the
+ .BR CLONE_VM
+ flag is specified and the
+-.BR CLONE_VM
++.BR CLONE_VFORK
+ flag is not specified,
+ then any alternate signal stack that was established by
+ .BR sigaltstack (2)
+--
