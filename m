@@ -2,68 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A7F452FA4BD
-	for <lists+linux-man@lfdr.de>; Mon, 18 Jan 2021 16:32:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E0A482FA4D9
+	for <lists+linux-man@lfdr.de>; Mon, 18 Jan 2021 16:35:01 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2405899AbhARPaC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 18 Jan 2021 10:30:02 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38608 "EHLO
+        id S2404561AbhARPeu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 18 Jan 2021 10:34:50 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39706 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2405880AbhARP3U (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Jan 2021 10:29:20 -0500
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F1DDEC061575
-        for <linux-man@vger.kernel.org>; Mon, 18 Jan 2021 07:28:39 -0800 (PST)
-Received: by mail-wm1-x32a.google.com with SMTP id c124so13943331wma.5
-        for <linux-man@vger.kernel.org>; Mon, 18 Jan 2021 07:28:39 -0800 (PST)
+        with ESMTP id S2405799AbhARPe0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Jan 2021 10:34:26 -0500
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AC73BC061574
+        for <linux-man@vger.kernel.org>; Mon, 18 Jan 2021 07:33:44 -0800 (PST)
+Received: by mail-wr1-x434.google.com with SMTP id 7so9622745wrz.0
+        for <linux-man@vger.kernel.org>; Mon, 18 Jan 2021 07:33:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:from:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=/lPIGTsGOt6kc9GsiC4RbFGxANFdo0ydKQrcYzEtXRI=;
-        b=eLnVkxFFgq7eTprY5JDe9eRJijyUgyH4VpbnbtK4AjaidJi2azq+UbQAHFgRFiMrf+
-         hyaHWqYtyskuN9SLmPNqWSqcNJ16e5WtrbazxjjT0YQ/WVd9AIiPBbkU94U03xP54XGK
-         PHsPdCavgb+wBuT2szuL7sCjX0m6jQJa1XNnidXEyDIaWsNa7p7WJVAYeu/LZtQY7xve
-         6Y7vBx5AcQbVWPMkFizSOkGE98E6TBDRDrfbERvhUWZoaT+gvbffElUFeG0K4W2Fv3qk
-         3jxCKiJl1d2mKPJvxAoQw8z7ci6H4PRxFMyhYXZGH0mOZjK1ogHHgKPkTl4ySSyARDNh
-         p8ow==
+        bh=YS37yyTgSKp0i5Kq+nv1poGhsFwSKUYIitEjRLVRWB8=;
+        b=PSSFuxTDWqlKYKbGRzzpH+ZCMy+3RcTDekdTnpV/K9n8Pm2HpN2YiEgzsXgztnQgjV
+         8Qo6gwihRQoHUSsJdfOVjRXVIosuoIkyiJRxsR9N5dPWiDJQsvHPcFv7G/StEInhnqAL
+         J+aV9R9yM5yWLVZD7Omegnk6mc6a/51gUCx9LWb882JQIjRxWbaHsnYxPZl1W1B2qRwE
+         ORqJZSpmto81vIvLgxcDRCSvVr/iBf231LwT2NJ96jFUMp5T8G22aH4ngq64D49Bvd1S
+         N2wIOcTQi++1Uo2yqchTOC+rnIMTtD6g6ytNGdiSecZOVfFtwin3z6XH4oj+x7Jx/vX6
+         iHSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:from:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=/lPIGTsGOt6kc9GsiC4RbFGxANFdo0ydKQrcYzEtXRI=;
-        b=njiNNlWWZ9IWOjyImCDI+BvVKEK+wii7geNS2+BeTwEPYK9a6lpKEY6/kbkFJOxKF/
-         pUOBcB1dwFPw2fVG92IiIwCsNDvybXFqbVkc6Wo1pidPmKlRRWUd64NGng7Hu7CpBqeM
-         U4yOKzki9UjBsu2DvsSRej51AK8PAL2YXPDUMrvb8iVETAd4PoDLYhfkRC9EM8boiVKu
-         fKJxdHzqP7yTksK0eckeHR6Sc08vU2yuCW/2W2twj6l0pUWdLm0tXqS2cEcAnG8qXVMV
-         1b7UY4aF9xQNG6mCAk2HUXKr9pF6X2V7XgJqdyH0k1S4ooR1tRfQIpOR1ysK/1Ls2gEI
-         soWg==
-X-Gm-Message-State: AOAM5307EVRKn8SHCnBhEoyCgtcEGLgDV37xPDGSpUFmNuAY9QH+Hyf7
-        BeLJq34jDE8YTAaG9Ms/96Q=
-X-Google-Smtp-Source: ABdhPJzVtXWlj/tydloYlOcDSILsM6hCjXGE80/6nP9+3COB4e0b/jT5nmp4xVwN0vGYhr/aezWAcA==
-X-Received: by 2002:a1c:7dc4:: with SMTP id y187mr21866355wmc.42.1610983718748;
-        Mon, 18 Jan 2021 07:28:38 -0800 (PST)
+        bh=YS37yyTgSKp0i5Kq+nv1poGhsFwSKUYIitEjRLVRWB8=;
+        b=gOYuel2EZ3lCwdsMqIoKqmEoM66QGWgle4Lffzce1WpxVSkekUTiOW/Ka4TWeEK3az
+         PFiM9+7KymZjXtnELQTen6Q/VYjif/yc3/yUJtOu75XCwyNxf3XG6oADu+5cX4p6POyc
+         3IFMTHVkvtzXLKIt/9LeoLzIl6AoxD5MeUCa+9Gn8lu8OATDLGlJVCOFHUWIyRSgDK/a
+         hMcRlsV9yM8nGx8MUjB11clpAMZJ9WFebhHWozy8cs+vESksha15bopggYheM7o2eYJg
+         qaxbC/OTGj5sPef7pzNWST3rjtx7l/cntYDl0HfXFo8Ua23lb2UnnvfoelbUnEN4IMaP
+         P/Pg==
+X-Gm-Message-State: AOAM531JcisXPjMVJk64LPZKt/06UvE2UC/t1gXHQt+ZXewKKmOboevh
+        xOicbZ0n6M/82Quz7cMyMXTPpVHkw3g=
+X-Google-Smtp-Source: ABdhPJxI/jSxWUAKbrDF+R18eYL3pbB8D8Q3It8yL0LnL1XrBq10EATmANtZihyfxsKLm9DYwR33/Q==
+X-Received: by 2002:a5d:4a06:: with SMTP id m6mr20341wrq.189.1610984023538;
+        Mon, 18 Jan 2021 07:33:43 -0800 (PST)
 Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with UTF8SMTPSA id o20sm17146466wmm.24.2021.01.18.07.28.37
+        by smtp.gmail.com with UTF8SMTPSA id f7sm14897878wmg.43.2021.01.18.07.33.42
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 18 Jan 2021 07:28:38 -0800 (PST)
-Subject: Ping: [PATCH v4] system.3: Document bug and workaround when the
- command name starts with a hypen
+        Mon, 18 Jan 2021 07:33:43 -0800 (PST)
+Subject: Ping: [PATCH] netlink.7, tcp.7: tfix:
+ s/acknowledgment/acknowledgement
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     libc-alpha@sourceware.org, linux-man@vger.kernel.org,
-        Ciprian Dorin Craciun <ciprian.craciun@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>
-References: <20210104180420.74092-1-alx.manpages@gmail.com>
- <20210108142209.61938-1-alx.manpages@gmail.com>
- <a89dea2b-5b26-040a-2f12-3e096756f118@gmail.com>
-Message-ID: <e6ee2473-9096-0d6e-b793-c90e03bc6dfc@gmail.com>
-Date:   Mon, 18 Jan 2021 16:28:37 +0100
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+References: <20210107165518.36629-1-alx.manpages@gmail.com>
+ <ffe209ee-809c-10ea-c077-12669ff0f5ab@gmail.com>
+ <59156288-13c4-ca10-ade3-5b83cd7c0902@gmail.com>
+ <39255c4b-3d54-cae5-14ec-6122cfef8072@gmail.com>
+ <6280e52d-17bd-ea1e-49ac-a23f9e86f51c@gmail.com>
+Message-ID: <ac8e9ea5-a7ad-d293-7a85-d8403159203d@gmail.com>
+Date:   Mon, 18 Jan 2021 16:33:42 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:84.0) Gecko/20100101
  Thunderbird/84.0
 MIME-Version: 1.0
-In-Reply-To: <a89dea2b-5b26-040a-2f12-3e096756f118@gmail.com>
+In-Reply-To: <6280e52d-17bd-ea1e-49ac-a23f9e86f51c@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -75,86 +75,142 @@ Hi Michael,
 
 Ping!
 
-And now I noticed a typo in the subject:
-s/hypen/hyphen/
+And now I noticed, while searching for this email:
+Debian uses "acknowledgement" too :p
 
-Thanks,
+[
+From: "Debian Bug Tracking System" <owner@bugs.debian.org>
+To: Alejandro Colomar <alx.manpages@gmail.com>
+Subject: Bug#978945: Acknowledgement (thunderbird: Message subwindow tilts
+ (resizes in a loop))
+]
+
+Kind regards,
 
 Alex
 
-On 1/8/21 3:28 PM, Alejandro Colomar (man-pages) wrote:
+On 1/8/21 2:34 PM, Alejandro Colomar (man-pages) wrote:
+> On 1/8/21 2:23 PM, Michael Kerrisk (man-pages) wrote:
+>> Hello Alex,
+>>
+>> On 1/8/21 12:36 PM, Alejandro Colomar (man-pages) wrote:
+>>>
+>>> On 1/8/21 11:29 AM, Michael Kerrisk (man-pages) wrote:
+>>>> Hi Alex,
+>>>>
+>>>> On 1/7/21 5:55 PM, Alejandro Colomar wrote:
+>>>>> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+>>>>
+>>>> Take a look at
+>>>>
+>>>> https://books.google.com/ngrams/graph?content=acknowledgment%2Cacknowledgement&year_start=1800&year_end=2000&corpus=5&smoothing=3
+>>>>
+>>>> and compare American English vs British English using the drop-down.
+>>>>
+>>>> When I inherited man-pages in 2004, it was a hodge-podge mix of 
+>>>> American vs British spelling. My native spelling is the latter,
+>>>> but I value consistency and felt that things needed to be
+>>>> standardized on one or other, and in computing, American is the
+>>>> norm so that is what I settled on.hodge-podge
+>>>>
+>>>> I'm largely at piece with American spelling these days (it 
+>>>> is the spelling I use in most of my writing), but I guess
+>>>> the one point that still bothers me are the American spellings
+>>>> "acknowledgment" and "judgment". They just feel wrong.
+>>>
+>>> Yup
+>>>
+>>>>
+>>>> However, I now learned from the Ngrams that even in British
+>>>> English, the spelling without "e" was historically the norm.
+>>>> So it seems that it is British English that has changed, 
+>>>> not American English!
+>>>>
+>>>> I was about to say that I must decline this patch. And then
+>>>> I thought I'd take a look at the POSIX standard. It seems
+>>>> to largely follow American spelling (e.g., "color", "canceled",
+>>>> "recognize", "analog").[1] But, it uses "acknowledgement"!
+>>>> (There are even a couple of instances of "judgement" in 
+>>>> the standard.) It seems like others like to have the
+>>>> extra "e' in those words...
+>>>>
+>>>> So, I'm not sure what to do with this patch. 
+>>>
+>>> Hey Michael,
+>>>
+>>> D'oh, I thought it was a typo! :-)
+>>>
+>>> American English surprises me.
+>>>
+>>> Yes I prefer American English, but I've also learn_ed_ British at
+>>> school, (and learnt American through the internet), so I have a weird
+>>> hodge-podge in my head too :p
+>>>
+>>> I guess many people though it was a typo from the data you put.  Also see:
+>>>
+>>> $ grep -r acknowledgement \
+>>>   |wc -l;
+>>> grep: man7/.hostname.7.swp: binary file matches
+>>> 69
+>>> $ grep -r acknowledgment \
+>>>   |wc -l;
+>>> 23
+>>
+>> Okay -- this gets weirder and weirder. Look more closely
+>> at what the grep found. Those instances of 'acknowledgement'
+>> are almost all in the page comments containing BSD licenses!
+>>
+>> I thought to myself, that's strange: because BSD is from 
+>> California... Maybe some enthusiastic person did a
+>> global edit in the distant past to change this to British
+>> spelling in the Linux manual pages. But, it doesn't seem that
+>> way. I grepped a few thousand header files that I've assembled
+>> over the years from various OSes, and in the BSD licenses,
+>> the vast majority use 'acknowledgement'. A few use
+>> 'acknowledgment', but I suspect that those were changed
+>> after importing from other places.
+>>
+>> It seems that the underground spelling resistance was strong
+>> at Berkeley.
+>>
+>>> Nevertheless, I prefer American too, so I'd invert the patch.
+>>> What about s/acknowledgement/acknowledgment/?
+>> So, I still don't know what to do. I never much liked
+>> the "American" "*dgment", but:
+>>
+>> (1) That seems to have been the historical form that 
+>>     British English moved away from.
+>>
+>> (2) A couple of "American" groups (BSD, POSIX) use
+>>     the "British" spelling.
+>>
+>> Cheers,
+>>
+>> Michael
+>>
+>> PS I want to join the spelling resistance :-)
 > 
+> Hello Michael,
 > 
-> On 1/8/21 3:22 PM, Alejandro Colomar wrote:
->> man-pages bug: 211029
->>  https://bugzilla.kernel.org/show_bug.cgi?id=211029
->>
->> Complete workaround
+> That made me think about it again, and well, a language isn't what books
+> say, but what people actually use.  That's something I learnt from the
+> Catalan language, which some institutions constantly try to normalize
+> differently than common usage, and it's weird, very very weird.
 > 
-> Maybe a bit more readable:
-> Complete workaround example
+> So, if most people use *dgement, I'd say the word is correctly spelled
+> *dgement.
 > 
+> But we need a common spelling, because I was searching in vim for the
+> word, and it was very weird because I knew the word was there, but it
+> didn't show it to me.  I had to manually move to the line to see that it
+> was written differently, on the same page! :/
 > 
->> (it was too long for the page, but it may be useful here):
->>
->> ......
->>
->> $ sudo ln -s -T /usr/bin/echo /usr/bin/-echo;
->> $ cc -o system_hyphen -x c - ;
->> #include <stdlib.h>
->>
->> int
->> main(void)
->> {
->>     system(" -echo Hello world!");
->>     exit(EXIT_SUCCESS);
->> }
->>
->> $ ./system_hyphen;
->> Hello world!
->>
->> Reported-by: Ciprian Dorin Craciun <ciprian.craciun@gmail.com>
->> Cc: Florian Weimer <fweimer@redhat.com>
->> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
->> ---
->>
->> D'oh!
->>
->>  man3/system.3 | 20 ++++++++++++++++++++
->>  1 file changed, 20 insertions(+)
->>
->> diff --git a/man3/system.3 b/man3/system.3
->> index 753d46f7d..ead35ab30 100644
->> --- a/man3/system.3
->> +++ b/man3/system.3
->> @@ -255,6 +255,26 @@ are not executed.
->>  Such risks are especially grave when using
->>  .BR system ()
->>  from a privileged program.
->> +.SH BUGS
->> +.\" [BUG 211029](https://bugzilla.kernel.org/show_bug.cgi?id=211029)
->> +.\" [Glibc bug](https://sourceware.org/bugzilla/show_bug.cgi?id=27143)
->> +.\" [POSIX bug](https://www.austingroupbugs.net/view.php?id=1440)
->> +If the command name starts with a hyphen,
->> +.BR sh (1)
->> +interprets the command name as an option,
->> +and the behavior is undefined.
->> +(See the
->> +.B \-c
->> +option to
->> +.BR sh (1).)
->> +To work around this problem,
->> +prepend the command with a space as in the following call:
->> +.PP
->> +.RS 4
->> +.EX
->> +    system(" \-unfortunate\-command\-name");
->> +.EE
->> +.RE
->>  .SH SEE ALSO
->>  .BR sh (1),
->>  .BR execve (2),
->>
+> So I hereby insist on my initial patch :-}
+> 
+> Cheers,
+> 
+> Alex
+> 
 > 
 
 
