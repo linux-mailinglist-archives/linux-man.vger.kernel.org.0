@@ -2,105 +2,98 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 45A832FB3AD
-	for <lists+linux-man@lfdr.de>; Tue, 19 Jan 2021 09:05:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id F06122FB9AE
+	for <lists+linux-man@lfdr.de>; Tue, 19 Jan 2021 15:37:33 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730806AbhASIDr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 19 Jan 2021 03:03:47 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54396 "EHLO
+        id S1731253AbhASOhM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 19 Jan 2021 09:37:12 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44668 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728706AbhASIDh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Jan 2021 03:03:37 -0500
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F1FDBC061573
-        for <linux-man@vger.kernel.org>; Tue, 19 Jan 2021 00:02:56 -0800 (PST)
-Received: by mail-wr1-x435.google.com with SMTP id m4so18721968wrx.9
-        for <linux-man@vger.kernel.org>; Tue, 19 Jan 2021 00:02:56 -0800 (PST)
+        with ESMTP id S2387487AbhASJ3n (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Jan 2021 04:29:43 -0500
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5FC61C061575
+        for <linux-man@vger.kernel.org>; Tue, 19 Jan 2021 01:28:52 -0800 (PST)
+Received: by mail-wm1-x329.google.com with SMTP id c124so15812375wma.5
+        for <linux-man@vger.kernel.org>; Tue, 19 Jan 2021 01:28:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=blG5aUEp4NZahWQif12hFWeyx6UFX3Ev3Vb4nMu/rjc=;
-        b=uW6PNIJnaJ5CNUMuJgIFXmQ6y99X5XDAXz4hVPdiHmjYOpoZijKLEVhjltNmn7MnfC
-         7GIVgCNvuIz2ydCCSrFCWqNURZ82ehQ71Z5BNbi7DMsWtcRFb+3GsTxOz6xAwCsnUNBK
-         zN+u9fGGiTFktHwtJy9vcaQd6S7cfzFyxtBqomiKvalHwV8PVg6Hnr9fDOvWuzl+X0vj
-         ClbkCiMgFvxvjMCCHqBa3BaUSsaMG9JJohou0Wbe9k2Hu6Y/YALKa+7piHdldT0lrZH6
-         rpiiimwcW129yzPLTw8QPp1sRzTbzQYMbMERik/sUEE3d8xo8mhCD5ad+Q7YzdDaDhzt
-         MQGg==
+        bh=GH7P1ZFlVQNah6Rvydktr7X2jxlYCFhtT98DhVlgA2I=;
+        b=EOe9NBl1A65mb+GqP4CXYdUOQVsLyQC4pVt5pADw5b3tE01mEAx4rhD5iml+oxIeEy
+         ieje/LJ23w+KM1P82nhOGNLGMXOuoFJkl2NkG7eSOhVPgXg0ximJky0wHhka5jy9IEGk
+         79pD2bC+vqqwN6szgQgwsh5QERYUUpobx93/vkIUbl727meJuRnhwOE5Af81er/JJfKS
+         0fdf2kpJgwTCsjB4fuME3dcts0dEP0pKaOIcT+JPjduASG1/SiZEc54JlLU1aed+edrs
+         j+ocC5dlc6YTA9xwvMdAowxnZEkiauuI7ANkElf+bnhsLOBdQc0T5+TknUoVguQEKj1S
+         rwSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=blG5aUEp4NZahWQif12hFWeyx6UFX3Ev3Vb4nMu/rjc=;
-        b=cPlfUne35UOXzuMHYGB3E3w0f5361kol3vBRHjfCvxIoLPZWFUdTHhFBQ4tkQcYRIB
-         dc3IRdbfzxz6PItP1UJu9FvzxcWuRTwcew9AA5BehtbybRRsDCwFN6ywkTTe1YDfbijy
-         JbtJraWtePF77O5YVwjkm1JFOw6vzVZfhTHdniy6l1VZKJe6D3ob8eiH0zNhRQ9sPTD2
-         v/Ikj0lvBSS12v85XAynoOIC4RHpDpynq5cTThDn9TLJ1oDwVU15NvJoFPOWH7dtMjxC
-         Pf2wwXnZy+I+yii/npP0M0wzfkIZMA82fgpVx+AiowNtsC6ZoLVt1vbN4gtDhTshhkq6
-         u+wA==
-X-Gm-Message-State: AOAM530r5oHOPSKxl9xJmbTmJmP4HdKtgKd4UasmDOyOBJDdw5hniCsO
-        fnBgnnXGzSi21tBiDXxdaYdUcm0xiTA=
-X-Google-Smtp-Source: ABdhPJza0uIoF50TITcCQA1s7ca9VKeIi1rvo9dBfZu1vQ+q/nSz2v1SatocGJRvmxPqeFcEGoiDDg==
-X-Received: by 2002:a05:6000:5:: with SMTP id h5mr3004212wrx.153.1611043375545;
-        Tue, 19 Jan 2021 00:02:55 -0800 (PST)
+        bh=GH7P1ZFlVQNah6Rvydktr7X2jxlYCFhtT98DhVlgA2I=;
+        b=EEKDuEmAeIU1slw/JKuamXfQLUQDwC79w7dBhScAPAMY1FT18JvPnTpzRYQsKf+DzL
+         JK/zEnNZjxMGPdm603QtVOrFuq8H4nH4oisy/DhElgrD/x3UjPLXJofbb45DohpmOQWv
+         K2p6+ND9VIGBL/FihQVtHRWSjULUA8XzB/6oSqX2uOKDxWKT+8xZ9ae28ngAffhrcKbc
+         13FQ8q+U2cECKuvIXgiM0BUQorZ/hLbk04miXs3bqpMfGsJtizG25zczdBROT75FHz8V
+         gzIuBLierOPxwZBGJkLLRF5IY8ZCDSLjJPgenYvIXzOfGvZ8RwVBeLp9x6i29GSUjLbA
+         JoKw==
+X-Gm-Message-State: AOAM531gSCziro5/pLf07BYkGW47C9/wf8hI3vRJXviPs+QvbgSIiokX
+        aCEBp/H2aJmVJF6kdZX5+k8vl7ynoxU=
+X-Google-Smtp-Source: ABdhPJzQ/GA6fKTf5BpLP8bSIZxgJ5Ni0augSRkvr/MLFIaHcet1JsqQhKD2+5YykZswyo+6G+ZHww==
+X-Received: by 2002:a1c:a145:: with SMTP id k66mr3093042wme.11.1611048530378;
+        Tue, 19 Jan 2021 01:28:50 -0800 (PST)
 Received: from ?IPv6:2001:a61:244d:fe01:9fb1:d962:461a:45e8? ([2001:a61:244d:fe01:9fb1:d962:461a:45e8])
-        by smtp.gmail.com with ESMTPSA id z184sm3277852wmg.7.2021.01.19.00.02.54
+        by smtp.gmail.com with ESMTPSA id y11sm3563739wmi.0.2021.01.19.01.28.49
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 19 Jan 2021 00:02:54 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, alx.manpages@gmail.com
-Subject: Re: [patch] clone.2: tfix
-To:     =?UTF-8?Q?Johannes_Wellh=c3=b6fer?= <johannes.wellhofer@gmail.com>,
-        linux-man@vger.kernel.org
-References: <CADCwPKhAHqn-R8wpp-7=skOB8O6mRqOvP46oTUUmA6QX0R=4bw@mail.gmail.com>
+        Tue, 19 Jan 2021 01:28:49 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Ping: [PATCH] netlink.7, tcp.7: tfix:
+ s/acknowledgment/acknowledgement
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+References: <20210107165518.36629-1-alx.manpages@gmail.com>
+ <ffe209ee-809c-10ea-c077-12669ff0f5ab@gmail.com>
+ <59156288-13c4-ca10-ade3-5b83cd7c0902@gmail.com>
+ <39255c4b-3d54-cae5-14ec-6122cfef8072@gmail.com>
+ <6280e52d-17bd-ea1e-49ac-a23f9e86f51c@gmail.com>
+ <ac8e9ea5-a7ad-d293-7a85-d8403159203d@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <e832e844-143b-208f-3940-1eebb52daf19@gmail.com>
-Date:   Tue, 19 Jan 2021 09:02:51 +0100
+Message-ID: <92879716-eb6c-8567-553e-ab0cf7ee9994@gmail.com>
+Date:   Tue, 19 Jan 2021 10:28:46 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <CADCwPKhAHqn-R8wpp-7=skOB8O6mRqOvP46oTUUmA6QX0R=4bw@mail.gmail.com>
+In-Reply-To: <ac8e9ea5-a7ad-d293-7a85-d8403159203d@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Johannes,
-
-On 1/18/21 10:12 PM, Johannes Wellhöfer wrote:
-> For the alternate signal stack to be cleared, CLONE_VM should and
-> CLONE_VFORK should not be specified.
+On 1/18/21 4:33 PM, Alejandro Colomar (man-pages) wrote:
+> Hi Michael,
 > 
-> Signed-off-by: Johannes Wellhöfer <johannes.wellhofer@gmail.com>
+> Ping!
+> 
+> And now I noticed, while searching for this email:
+> Debian uses "acknowledgement" too :p
+> 
+> [
+> From: "Debian Bug Tracking System" <owner@bugs.debian.org>
+> To: Alejandro Colomar <alx.manpages@gmail.com>
+> Subject: Bug#978945: Acknowledgement (thunderbird: Message subwindow tilts
+>  (resizes in a loop))
+> ]
+Hi Alex,
 
-Thanks! Patch applied.
+Thanks for the ping. I applied the patch, and added a note to
+man-pages(7).
 
 Cheers,
 
 Michael
-
-> ---
->  man2/clone.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man2/clone.2 b/man2/clone.2
-> index fecec90c8..11eb6c622 100644
-> --- a/man2/clone.2
-> +++ b/man2/clone.2
-> @@ -1187,7 +1187,7 @@ processes do not affect the other, as with
->  If the
->  .BR CLONE_VM
->  flag is specified and the
-> -.BR CLONE_VM
-> +.BR CLONE_VFORK
->  flag is not specified,
->  then any alternate signal stack that was established by
->  .BR sigaltstack (2)
-> --
-> 
-
 
 -- 
 Michael Kerrisk
