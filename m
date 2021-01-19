@@ -2,207 +2,81 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 066A72FC0CA
-	for <lists+linux-man@lfdr.de>; Tue, 19 Jan 2021 21:21:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 04D7F2FC147
+	for <lists+linux-man@lfdr.de>; Tue, 19 Jan 2021 21:41:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729717AbhASUTZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 19 Jan 2021 15:19:25 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43608 "EHLO
+        id S1729365AbhASUiY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 19 Jan 2021 15:38:24 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47490 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729057AbhASUTN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Jan 2021 15:19:13 -0500
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C9E34C061574;
-        Tue, 19 Jan 2021 12:18:32 -0800 (PST)
-Received: by mail-wr1-x42b.google.com with SMTP id c5so20967461wrp.6;
-        Tue, 19 Jan 2021 12:18:32 -0800 (PST)
+        with ESMTP id S1730475AbhASUhN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Jan 2021 15:37:13 -0500
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 52128C061575
+        for <linux-man@vger.kernel.org>; Tue, 19 Jan 2021 12:36:33 -0800 (PST)
+Received: by mail-wm1-x331.google.com with SMTP id v184so937382wma.1
+        for <linux-man@vger.kernel.org>; Tue, 19 Jan 2021 12:36:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:references:from:message-id:date:user-agent:mime-version
-         :in-reply-to:content-language:content-transfer-encoding;
-        bh=PuaOfjM3Soqw0S93kb4MHx+At8RYMhQbRkwn0keMLhM=;
-        b=CkJVb1VTvrvu8QfRzZMUDNPEJIX+Izr3GsEkfjrtjRc/F4QKux/IN3TpWx+OcV27St
-         3gJTecgMo0tj5NhRsWaPZGLiiT6bIdL9VqSF32JfRn/l4aDpeyV7l+gGytM0Oy5ANVbp
-         u0f15wL8enBORo3DF/evOAxeICAQH24tAR21cxM+0NbbWFPfcKYpiCzTl1tT9QlZ+jl4
-         x4tNSi0nGmdBwcjDhDA3LDb7to7HERvgn0V4BtVKdteStDk/fBz5MqsH/GXbYFI1IDFN
-         dR5S5t6csjdQBO+eguWypJt4Qiekf2SbmvDtPXrmcV+2/qDeVN7BVaBZ/vZoevovz81q
-         IZPg==
+        h=to:cc:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=qVxnrepdw/dm+UkEnlaL76wxsE/gtr6lkkbqK78eemE=;
+        b=gzxQQnBRCLUv1n+9/nwz4B+/Q7VJ5coDaiMhVvhsiy+eUU3brxEEx+ZY3aEabFoHYg
+         MJiW3ssn7Vh9L3BL+jEP4G2Q3g3HuEUQRecw14k4iEmpJbtnyut+zod1HTylB3I22gwE
+         xOi8KVa2Au6kXPmkS3KBR+/BZiwvFWh2hPok9IXPnYno36hlypL3zeSOqpkdemd2SgGo
+         YO+ie6odN7b5kfiudelksg2aKL4tfCeWUd8b7vu9ltyt13gGeqxQwMWYhfewZjXeipFK
+         PluObUOPESfEZ40HWn7ZT6qGuoC5/Q/Kq1W2FnaJCR8QVHedH1aUfUaFB0Iur08OWlH7
+         5FGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=PuaOfjM3Soqw0S93kb4MHx+At8RYMhQbRkwn0keMLhM=;
-        b=D0q9jfNe/sMh3nX7SfG37GK8jd7mwHbDF/57ubPDIhXw3Dn1hhfbnXZ/y1hautYCKR
-         R4to/biVkzMhchi85yb5+sEdsmTSNfISW6zq+twkKITH5O3uo+XzNY/8hZJnwlw5wAWd
-         2OGTqYx6ggPtjheD4xr5lg1wUZyIPN+MJMilYoFw2Zo8aWsN/R1FR4IG5oM6u8Ktqfbh
-         nKwgmjBBooAVSLkEEKTzOtY8Avz3vNr/pwpGqi/mxNCOc2bhRYqQRXxI4ATxOTSDCHnI
-         gJb5iW5Uo6PmyFP86872BEYs9TlSyLWBLXTdTO+yXUY1gs56Fp3WCk9wX0CASZHJwXmV
-         nY6w==
-X-Gm-Message-State: AOAM532ddk6YyM3+nw3g+6cqbbznniDGdOJJvs6TQmGUFv+nkqA2aiZZ
-        NnGskBqcoQ7LqXacTvnDo9r5qdsv064=
-X-Google-Smtp-Source: ABdhPJxGsJsp7R8+Hq+mcb3bu/MNS4Cafux9mcICdUliG5BaJiG8cHN3QtWW4kXG1JTBTDdm8d7zng==
-X-Received: by 2002:a5d:61c4:: with SMTP id q4mr5970744wrv.304.1611087511519;
-        Tue, 19 Jan 2021 12:18:31 -0800 (PST)
+        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=qVxnrepdw/dm+UkEnlaL76wxsE/gtr6lkkbqK78eemE=;
+        b=E70Hte1E/7C89ZiI/eImQzv3X9GqCOpEF2vWDfdjeBH0ABhAlk32WUGSkRQ1kFdFsH
+         +9ev+rmQVr1aQiGX904t8fmMNqfllT284HZNnyuq9wqakDR78I3hNAY8JXfWeHPwUzLu
+         5ZeSuSfqiau36RjeqPu4R6HMjvQCZyTedPlfLSNoFVhdLItjvc2Hhs+ICoAgBP/bA3V2
+         DgzRg2wm8Mp/csMLW7fJtT1lBP4IaJ6UBlapfB6M4bx13WNW4g4J5yOOmC3jDIqtlv7e
+         63fxIfMhSF3pEX+2p1l+NzIUK6WCettDcv4w795EpwQ84oDd0VOMLlXaM0TxLG4BQ3DC
+         aPog==
+X-Gm-Message-State: AOAM533VDowM+ui2WaFKayjIBJvWyXrovtzbkqkxR+NZi2Y922UPzq6K
+        +SbvnHFDi9DIFmEFA4eXth8=
+X-Google-Smtp-Source: ABdhPJwQrrjuekaJTNl0RF/TzN/Sx694JcfvV9Kts0VnCaGKxbYA47sIKLCgGSGcw4E/VQASnmbXkQ==
+X-Received: by 2002:a1c:2155:: with SMTP id h82mr1217300wmh.132.1611088592170;
+        Tue, 19 Jan 2021 12:36:32 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.49.0])
-        by smtp.gmail.com with ESMTPSA id a25sm5886559wmb.25.2021.01.19.12.18.30
+        by smtp.gmail.com with ESMTPSA id z15sm38587339wrv.67.2021.01.19.12.36.31
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 19 Jan 2021 12:18:31 -0800 (PST)
-Subject: Re: [PATCH v3] netdevice.7: Update documentation for SIOCGIFADDR
- SIOCSIFADDR SIOCDIFADDR
-To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>,
-        linux-man@vger.kernel.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        netdev@vger.kernel.org
-References: <20210102140254.16714-1-pali@kernel.org>
- <20210116223610.14230-1-pali@kernel.org>
+        Tue, 19 Jan 2021 12:36:31 -0800 (PST)
+To:     bugzilla-daemon@bugzilla.kernel.org
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        "Dr. Tobias Quathamer" <toddy@debian.org>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <fc4a94d4-2eac-1b24-cc90-162045eae107@gmail.com>
-Date:   Tue, 19 Jan 2021 21:18:29 +0100
+Subject: Re: [Bug 196513] environ.7: Document the valid values of pathnames
+ for SHELL, PAGER and EDITOR/VISUAL
+Message-ID: <fcda6ff1-1eeb-ac37-81f4-cc2caa4c12b9@gmail.com>
+Date:   Tue, 19 Jan 2021 21:36:30 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <20210116223610.14230-1-pali@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Pali,
+Hello Vincent,
 
-I was a patch for environ.7 while I found some pattern.
-Please see below a minor fix.
+I applied your patch (3 years later...).
+I added a Signed-off-by field on your behalf,
+and will forward it to Michael now.
 
-Thanks,
+Thanks for the report and the patch,
 
 Alex
 
-On 1/16/21 11:36 PM, Pali Rohár wrote:
-> Unlike SIOCGIFADDR and SIOCSIFADDR which are supported by many protocol
-> families, SIOCDIFADDR is supported by AF_INET6 and AF_APPLETALK only.
-> 
-> Unlike other protocols, AF_INET6 uses struct in6_ifreq.
-> 
-> Signed-off-by: Pali Rohár <pali@kernel.org>
-> ---
->  man7/netdevice.7 | 64 +++++++++++++++++++++++++++++++++++++++++-------
->  1 file changed, 55 insertions(+), 9 deletions(-)
-> 
-> diff --git a/man7/netdevice.7 b/man7/netdevice.7
-> index 15930807c..bdc2d1922 100644
-> --- a/man7/netdevice.7
-> +++ b/man7/netdevice.7
-> @@ -56,9 +56,27 @@ struct ifreq {
->  .EE
->  .in
->  .PP
-> +.B AF_INET6
-> +is an exception.
-> +It passes an
-> +.I in6_ifreq
-> +structure:
-> +.PP
-> +.in +4n
-> +.EX
-> +struct in6_ifreq {
-> +    struct in6_addr     ifr6_addr;
-> +    u32                 ifr6_prefixlen;
-> +    int                 ifr6_ifindex; /* Interface index */
-> +};
-> +.EE
-> +.in
-> +.PP
->  Normally, the user specifies which device to affect by setting
->  .I ifr_name
-> -to the name of the interface.
-> +to the name of the interface or
-> +.I ifr6_ifindex
-> +to the index of the interface.
->  All other members of the structure may
->  share memory.
->  .SS Ioctls
-> @@ -143,13 +161,33 @@ IFF_ISATAP:Interface is RFC4214 ISATAP interface.
->  .PP
->  Setting the extended (private) interface flags is a privileged operation.
->  .TP
-> -.BR SIOCGIFADDR ", " SIOCSIFADDR
-> -Get or set the address of the device using
-> -.IR ifr_addr .
-> -Setting the interface address is a privileged operation.
-> -For compatibility, only
-> +.BR SIOCGIFADDR ", " SIOCSIFADDR ", " SIOCDIFADDR
-> +Get, set, or delete the address of the device using
-> +.IR ifr_addr ,
-> +or
-> +.I ifr6_addr
-> +with
-> +.IR ifr6_prefixlen .
-> +Setting or deleting the interface address is a privileged operation.
-> +For compatibility,
-> +.B SIOCGIFADDR
-> +returns only
->  .B AF_INET
-> -addresses are accepted or returned.
-> +addresses,
-> +.B SIOCSIFADDR
-> +accepts
-> +.B AF_INET
-> +and
-> +.B AF_INET6
-> +addresses, and
-> +.B SIOCDIFADDR
-> +deletes only
-> +.B AF_INET6
-> +addresses.
-> +A
-> +.B AF_INET
-> +address can be deleted by setting it to zero via
-> +.BR SIOCSIFADDR .
->  .TP
->  .BR SIOCGIFDSTADDR ", " SIOCSIFDSTADDR
->  Get or set the destination address of a point-to-point device using
-> @@ -351,10 +389,18 @@ The names of interfaces with no addresses or that don't have the
->  flag set can be found via
->  .IR /proc/net/dev .
->  .PP
-> -Local IPv6 IP addresses can be found via
-> -.I /proc/net
-> +.B AF_INET6
-> +IPv6 addresses can be read from
-> +.I /proc/net/if_inet6
-> +file or via
-> +.BR rtnetlink (7).
-> +Adding a new or deleting an existing IPv6 address can be done via
-> +.BR SIOCSIFADDR " / " SIOCDIFADDR
-
-I found a few pages with the pattern [.BR X / Y],
-but none like [.BR X " / " Y].
-
-$ grep -rn '\.BR [a-zA-Z]* / [a-zA-Z]*' man?
-man1/getent.1:365:.BR ahosts / getaddrinfo (3)
-man2/sigaction.2:526:.BR SIGIO / SIGPOLL
-man2/sigaction.2:638:.BR SIGIO / SIGPOLL
-man2/sigaction.2:814:.BR SIGIO / SIGPOLL
-man3/sysconf.3:181:.BR PAGESIZE / _SC_PAGESIZE .
-man7/signal.7:539:.BR SIGINFO / SIGPWR
-man7/pipe.7:114:.BR SIGPIPE / EPIPE
-man7/environ.7:127:.BR EDITOR / VISUAL
-$ grep -rn '\.BR [a-zA-Z]* " / " [a-zA-Z]*' man?
-$
-
-Please fix this for the next revision.
-However, don't send a new one only for this.
-I'd wait to see if someone reviews it or helps in any way ;)
-
-
->  or via
->  .BR rtnetlink (7).
-> +Retrieving or changing destination IPv6 addresses of a point-to-point
-> +interface is possible only via
-> +.BR rtnetlink (7).
->  .SH BUGS
->  glibc 2.1 is missing the
->  .I ifr_newname
-> 
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
