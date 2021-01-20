@@ -2,112 +2,207 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DDC462FC20F
-	for <lists+linux-man@lfdr.de>; Tue, 19 Jan 2021 22:17:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B3ADD2FCCF3
+	for <lists+linux-man@lfdr.de>; Wed, 20 Jan 2021 09:47:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726000AbhASVPC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 19 Jan 2021 16:15:02 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55528 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728645AbhASVOT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Jan 2021 16:14:19 -0500
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4FDE9C061573
-        for <linux-man@vger.kernel.org>; Tue, 19 Jan 2021 13:13:39 -0800 (PST)
-Received: by mail-wr1-x429.google.com with SMTP id d26so21097737wrb.12
-        for <linux-man@vger.kernel.org>; Tue, 19 Jan 2021 13:13:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=BY7xwSN4ssWgzzC6vjtSs+vZHHzAm1h9eoQpuOa40Ys=;
-        b=STvk5yzwD6qqYCxQ5x0xYdha7Y5k7DZZscOzE1MdddtgPvL412xDgCGQAwIty9u8mX
-         StrgIwUSZDJN2BQYv3BiiApX4UmLqZ+tNZoBy7YBcy6IBuzfz62Mc+phfVCvGMutk1hr
-         HZ6j+VqAQn1CXJUJPS3dIeyndM89nmlCPgeBD3LHbouKJO3k8nPSitCunGWW1VaRViZ0
-         7qKI4AIiJFpkXQb5IrqY3qBduyAdix1qGUJBcvxvIAiauMazIB199nz/H613VKNMh5Kd
-         HtnSqbuSlYIF5j+FbSpFu1NyuXDpb2nCNj346LYvbRmRd3WO8YrsH0cYWBi14aFqHQNB
-         F9Ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=BY7xwSN4ssWgzzC6vjtSs+vZHHzAm1h9eoQpuOa40Ys=;
-        b=JjTQnsTqolyQTSGoADZ1h83+BXiOfFa6o19UM28uJOjHT2hRODk/+qq5MT+pTpDTqD
-         JQ2aS0Aw2kBtvETvJfwVavGwAtShj+6ZpSvg4c4dYCo4JhTELYaQoNm0LE36S5+PiEfx
-         HW2y99rXkU8JtyD3tQPojJxSKt6eBZbqsCTDVsLYLjlubap9yAHtPWvUCLEbH4pDoMrd
-         ghPCkbWXotQPaKff4PH30WerMnphW+ZDpWg5Vqlq3q+mP3kKf6MGLsHFcLZj1LRzAyAx
-         lWL6Hx0+zebGHlyIPNy25UgFKzEaA8AC36kZaH0XxLQEgyhqCFnUyO5tskaOfg4paGaJ
-         FyCw==
-X-Gm-Message-State: AOAM53170nYiAL01pNbqxnVwQkfFqMdh4gAUn0h5SD35rDdpOpJxDbyE
-        jXWAHT5jrzPdy8AxAwPhZjs=
-X-Google-Smtp-Source: ABdhPJxSXzFMl3q5Y8vijhS/NFFv5wGXn5vfGZbMmFSly/0H0S0EaWSGvkADQ1QvAUP/gRYtbRGUFA==
-X-Received: by 2002:a5d:6282:: with SMTP id k2mr5413974wru.159.1611090818169;
-        Tue, 19 Jan 2021 13:13:38 -0800 (PST)
-Received: from localhost.localdomain ([170.253.49.0])
-        by smtp.googlemail.com with ESMTPSA id x11sm24160wmi.4.2021.01.19.13.13.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 19 Jan 2021 13:13:37 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH] circleq.3: Fix CIRCLEQ_LOOP_*() return type
-Date:   Tue, 19 Jan 2021 22:12:27 +0100
-Message-Id: <20210119211226.440430-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.30.0
+        id S1731227AbhATIq6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 20 Jan 2021 03:46:58 -0500
+Received: from mx01-sz.bfs.de ([194.94.69.67]:12381 "EHLO mx01-sz.bfs.de"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1731173AbhATIqA (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 20 Jan 2021 03:46:00 -0500
+X-Greylist: delayed 636 seconds by postgrey-1.27 at vger.kernel.org; Wed, 20 Jan 2021 03:45:58 EST
+Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
+        by mx01-sz.bfs.de (Postfix) with ESMTPS id DDAAE2055C;
+        Wed, 20 Jan 2021 09:34:35 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
+        t=1611131675;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=rRJEOwfuQ4E+w70G87jhH4iARyzr4u3f3qCXeqqRCas=;
+        b=X2TytkrtTfVMsHJYSEnMYa1Vje2sN0czviR05Gn0HuzsGjeHshFHoxRajGiV7wiuP2v+95
+        uX0Gw/Do/3MczLeyNE4sIP1ihS3PLL2JjAp16HHSclRL+KFYqreR5p7gd5b2mS8o1YpV1t
+        dHquJ7dtKGdkOeegHjLfn0D6uYNJdW52juAVSpAM8m5xWSH4e3N8rq1+NGz74UOXeXoiin
+        FzAscX1IjCUDeXqUdUW+6nIBIi2GS1BD7qarlKsJttm0fpe5yDJUwVNqxT8n/yKNXmdJoc
+        2mJx6jz5Waqwx2s87DwAu+R4me3O1ySx9HpsDNOcVXq14mjmBVxLVE2He/xDyA==
+Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
+ (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2106.2; Wed, 20 Jan
+ 2021 09:34:35 +0100
+Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
+ SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%13]) with mapi id
+ 15.01.2106.002; Wed, 20 Jan 2021 09:34:35 +0100
+From:   Walter Harms <wharms@bfs.de>
+To:     Alejandro Colomar <alx.manpages@gmail.com>,
+        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
+CC:     "roucaries.bastien@gmail.com" <roucaries.bastien@gmail.com>,
+        =?iso-8859-1?Q?Bastien_Roucari=E8s?= <rouca@debian.org>,
+        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "Dr . Tobias Quathamer" <toddy@debian.org>,
+        Vincent Lefevre <vincent@vinc17.net>
+Subject: AW: [PATCH] environ.7: Document the valid values of pathnames for
+ SHELL, PAGER and EDITOR/VISUAL
+Thread-Topic: [PATCH] environ.7: Document the valid values of pathnames for
+ SHELL, PAGER and EDITOR/VISUAL
+Thread-Index: AQHW7qSNAlxlvOqlfEqDaxus6sLFU6owLTIT
+Date:   Wed, 20 Jan 2021 08:34:35 +0000
+Message-ID: <168066dbe8dd448dbe120abab8b8aa7c@bfs.de>
+References: <20210119204459.401313-1-alx.manpages@gmail.com>
+In-Reply-To: <20210119204459.401313-1-alx.manpages@gmail.com>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.137.16.40]
+x-tm-as-product-ver: SMEX-14.0.0.3080-8.6.1012-25754.007
+x-tm-as-result: No-10--10.961500-5.000000
+x-tmase-matchedrid: 7RlxjwaqaMJwCp+Q9KpjpxvgzEPRJaDEWw/S0HB7eoMTiSW9r3PknMru
+        gDwhJXcQhjRR0FGC8SFXo+50WYSM+I81yJsU3bpPiVJZi91I9JixT02+VRUpqWlDtkS9/ZRfazw
+        bF220ijpxyRa8KazJblSJFz3iwkFqiR2f2cUDT3RSxYp8x/dFp3316REeU5CR78BlMFOIM5n2xQ
+        sQEOrKwmzInwDQzcyxuO+QuGz9r7Zj3cEXcFAPHopHR9xEGhE1Msovp/h9OdEINpIFnbd6msc/+
+        8UeRzDJO7feylS4tuTN8DUDk28g9d3aQrftNh+sB/XUnmGGOOoftukM6FmmNmKuDy0kKGx06n1G
+        l4gVhHh4xS6ty9cuyuTPp2ifBOJBOQj4c5re/dOdVNZaI2n6/wVyeo9hM9SHaKyfWaPPzZ+49Eb
+        irBnBPiQqHGGuCBCouF42qwhgjRssaaYlMvaOHPRUId35VCIe4kXtI5H3kJUiJScSUXv7vRhBvW
+        gZlX+8585VzGMOFzA9wJeM2pSaRSAHAopEd76vC2MZtaBgeAkMjfT2MeWuGr3gbeBsJLW0p8y99
+        Znj3d9HtZoFSiK9bA==
+x-tm-as-user-approved-sender: No
+x-tm-as-user-blocked-sender: No
+x-tmase-result: 10--10.961500-5.000000
+x-tmase-version: SMEX-14.0.0.3080-8.6.1012-25754.007
+x-tm-snts-smtp: E56261ACED53F1FDCF07DBF2D14E4B82EC759317BF27051FE139D224CAE3F6312000:9
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Spam-Level: *
+Authentication-Results: mx01-sz.bfs.de;
+        none
+X-Spam-Status: No, score=1.43
+X-Spamd-Result: default: False [1.43 / 7.00];
+         ARC_NA(0.00)[];
+         TO_DN_EQ_ADDR_SOME(0.00)[];
+         HAS_XOIP(0.00)[];
+         FROM_HAS_DN(0.00)[];
+         TO_DN_SOME(0.00)[];
+         FREEMAIL_ENVRCPT(0.00)[gmail.com];
+         TO_MATCH_ENVRCPT_ALL(0.00)[];
+         TAGGED_RCPT(0.00)[];
+         MIME_GOOD(-0.10)[text/plain];
+         MID_RHS_MATCH_FROM(0.00)[];
+         DKIM_SIGNED(0.00)[bfs.de:s=dkim201901];
+         BAYES_HAM(-0.07)[62.44%];
+         RCPT_COUNT_SEVEN(0.00)[7];
+         NEURAL_HAM(-0.00)[-1.000];
+         FREEMAIL_TO(0.00)[gmail.com];
+         RCVD_NO_TLS_LAST(0.10)[];
+         FROM_EQ_ENVFROM(0.00)[];
+         MIME_TRACE(0.00)[0:+];
+         FREEMAIL_CC(0.00)[gmail.com,debian.org,vger.kernel.org,vinc17.net];
+         RCVD_COUNT_TWO(0.00)[2];
+         SUSPICIOUS_RECIPS(1.50)[]
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+FYI:
+i took a dive into busybox to see what is expected for SHELL there.
+According to the code the value is used like the path in
+struct passwd.  In the end the value was executed via execv.
+
+I have to admit that i always use a absolute value and was curious.
+
+jm2c,
+ wh
+________________________________________
+Von: Alejandro Colomar <alx.manpages@gmail.com>
+Gesendet: Dienstag, 19. Januar 2021 21:45:00
+An: mtk.manpages@gmail.com
+Cc: roucaries.bastien@gmail.com; Bastien Roucari=E8s; linux-man@vger.kernel=
+.org; Dr . Tobias Quathamer; Vincent Lefevre; Alejandro Colomar
+Betreff: [PATCH] environ.7: Document the valid values of pathnames for SHEL=
+L, PAGER and EDITOR/VISUAL
+
+From: Bastien Roucari=E8s <rouca@debian.org>
+
+The environ(7) man page says:
+
+       SHELL  The pathname of the user's login shell.
+
+       PAGER  The user's preferred utility to display text files.
+
+       EDITOR/VISUAL
+              The user's preferred utility to edit text files.
+
+but doesn't say whether the pathnames must be absolute or they can
+be resolved using $PATH, or whether they can have options.
+
+Note that at least for SHELL, this is not specified by POSIX.
+This issue was raised in the Austin Group mailing-list, and the answer
+is that "what constitutes a valid value for a platform
+should be documented" [1].
+
+Since OpenSSH assumes that $SHELL is an absolute pathname (when set),
+it is supposed that the documentation should be:
+
+       SHELL  The absolute pathname of the user's login shell.
+
+For PAGER, POSIX says: "Any string acceptable as a command_string
+operand to the sh -c command shall be valid."
+
+For EDITOR, it does not need to be an absolute pathname since POSIX
+gives the example:
+
+  EDITOR=3Dvi fc
+
+and since it is specified as "the name of a utility", It assumes that
+arguments (options) must not be provided. Page 3013 about "more", it
+is said: "If the last pathname component in EDITOR is either vi or ex,
+[...]", thus again, it is assumed to be a pathname.
+
+For VISUAL, POSIX says: "Determine a pathname of a utility to invoke
+when the visual command [...]", thus it is also a pathname. It is not
+clear whether the pathname must be absolute, but for consistency with
+EDITOR, it will be resolved using $PATH.
+
+[1] https://www.mail-archive.com/austin-group-l@opengroup.org/msg01399.html
+
+Reported-by: Vincent Lefevre <vincent@vinc17.net>
+Signed-off-by: Bastien Roucaries <rouca@debian.org>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/circleq.3 | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+ man7/environ.7 | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/man3/circleq.3 b/man3/circleq.3
-index 6b6b9aa14..f21bbf903 100644
---- a/man3/circleq.3
-+++ b/man3/circleq.3
-@@ -75,9 +75,9 @@ CIRCLEQ_REMOVE
- .BI "struct TYPE *CIRCLEQ_LAST(CIRCLEQ_HEAD *" head );
- .BI "struct TYPE *CIRCLEQ_PREV(struct TYPE *" elm ", CIRCLEQ_ENTRY " NAME );
- .BI "struct TYPE *CIRCLEQ_NEXT(struct TYPE *" elm ", CIRCLEQ_ENTRY " NAME );
--.BI "void CIRCLEQ_LOOP_PREV(CIRCLEQ_HEAD *" head ,
-+.BI "struct TYPE *CIRCLEQ_LOOP_PREV(CIRCLEQ_HEAD *" head ,
- .BI "                           struct TYPE *" elm ", CIRCLEQ_ENTRY " NAME );
--.BI "void CIRCLEQ_LOOP_NEXT(CIRCLEQ_HEAD *" head ,
-+.BI "struct TYPE *CIRCLEQ_LOOP_NEXT(CIRCLEQ_HEAD *" head ,
- .BI "                           struct TYPE *" elm ", CIRCLEQ_ENTRY " NAME );
- .PP
- .BI "CIRCLEQ_FOREACH(struct TYPE *" var ", CIRCLEQ_HEAD *" head ,
-@@ -238,13 +238,23 @@ and zero if the queue contains at least one entry.
- .PP
- .BR CIRCLEQ_FIRST (),
- .BR CIRCLEQ_LAST (),
--.BR CIRCLEQ_PREV (),
-+.BR CIRCLEQ_LOOP_PREV (),
- and
--.BR CIRCLEQ_NEXT ()
-+.BR CIRCLEQ_LOOP_NEXT ()
- return a pointer to the first, last, previous, or next
- .I TYPE
- structure, respectively.
- .PP
-+.BR CIRCLEQ_PREV (),
-+and
-+.BR CIRCLEQ_NEXT ()
-+are similar to their
-+.BR CIRCLEQ_LOOP_* ()
-+counterparts,
-+except that if the argument is the first or last element, respectively,
-+they return
-+.IR &head .
-+.PP
- .BR CIRCLEQ_HEAD_INITIALIZER ()
- returns an initializer that can be assigned to the queue
- .IR head .
--- 
+diff --git a/man7/environ.7 b/man7/environ.7
+index 7d2bc5a86..b30f9a38e 100644
+--- a/man7/environ.7
++++ b/man7/environ.7
+@@ -113,16 +113,22 @@ The current working directory.
+ Set by some shells.
+ .TP
+ .B SHELL
+-The pathname of the user's login shell.
++The absolute pathname of the user's login shell.
+ .TP
+ .B TERM
+ The terminal type for which output is to be prepared.
+ .TP
+ .B PAGER
+ The user's preferred utility to display text files.
++Any string acceptable as a command_string operand to the
++.I sh -c
++command shall be valid.
+ .TP
+ .BR EDITOR / VISUAL
+ The user's preferred utility to edit text files.
++Any string acceptable as a command_string operand to the
++.I sh -c
++command shall be valid.
+ .\" .TP
+ .\" .B BROWSER
+ .\" The user's preferred utility to browse URLs. Sequence of colon-separat=
+ed
+--
 2.30.0
 
