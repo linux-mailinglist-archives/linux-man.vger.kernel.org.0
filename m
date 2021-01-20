@@ -2,145 +2,122 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 882872FCD10
-	for <lists+linux-man@lfdr.de>; Wed, 20 Jan 2021 10:03:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 69DD52FD0AB
+	for <lists+linux-man@lfdr.de>; Wed, 20 Jan 2021 13:59:42 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729214AbhATJAL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 20 Jan 2021 04:00:11 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38638 "EHLO
+        id S1728913AbhATMs3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 20 Jan 2021 07:48:29 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43202 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727143AbhATI7w (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 20 Jan 2021 03:59:52 -0500
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6A079C061757
-        for <linux-man@vger.kernel.org>; Wed, 20 Jan 2021 00:50:59 -0800 (PST)
-Received: by mail-wr1-x430.google.com with SMTP id a1so947134wrq.6
-        for <linux-man@vger.kernel.org>; Wed, 20 Jan 2021 00:50:59 -0800 (PST)
+        with ESMTP id S1729214AbhATLcv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 20 Jan 2021 06:32:51 -0500
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EC777C061575
+        for <linux-man@vger.kernel.org>; Wed, 20 Jan 2021 03:32:10 -0800 (PST)
+Received: by mail-wm1-x32c.google.com with SMTP id y187so2528009wmd.3
+        for <linux-man@vger.kernel.org>; Wed, 20 Jan 2021 03:32:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=xC9WeKeoax5DWLj28MWI/hv9RqCVFqTymI5urzoFJEk=;
-        b=YWauVGhhx911IwnXjOJ1GNjQ0lFIPKOMxNy79mZxNhFRXncuurdxvRhX5B+fbApovW
-         +ghtKMffcGHR6W1synDdeFlysorIgmWMoU40CuaKLwtJAzLpTHvu/0fhMjx3Xmk8QJdH
-         mGCV59bVbmNBN9dM51mhtaiIgYp6LVbjmvnow19L3WIFDwUGsAQ+viO64ydWlSL8A6tg
-         hnu6tu/n+rsKYttK3JlHN/LoUIAjp1QU6IJ1l5mkIavx5tW4dWCIgm/QLVF7kw5C9pGS
-         591ZsFHvc9mcS3tGs0gggBS6Dw9Xd3ZCKuccDVxXN0v2yircxaAlG2Oj/lxKinQciO+J
-         eiGw==
+        bh=DMoKrjmMPCdVDh9kXWZi0duZlHbpiPyjX+TaPSP3Azg=;
+        b=r/eXiKYk8MaRiU2rF1dfiWQsaUqZF0uQuKwJO9dzj3JAz2yrJNBmdoK2j1ViHul3uO
+         i0arL2gRbUPBre2dPM04O5LzMDwLOpuvn4S9qJbeQtP0faglxd9eJtI0IBEMsWW6kf4g
+         vyd7XD7juhI7DqotqbTyOmmLDod0m+lsyVYL5fbJ3SgLVw1m1Jama13SBWMyzaL7W/mP
+         EMFh4JdjSR9h0vFbeL9EVFVgNg0DCkUJ7Rw2TsSqPHG8hGUseGr2oQU3KlPB38lvkBlt
+         QsB0qsXDRnb+e8N2kSHS/14kKhxi4w9rBvDO4emtkNZnUDxbVrRUz4NQNpDQP4vJehaL
+         hdgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=xC9WeKeoax5DWLj28MWI/hv9RqCVFqTymI5urzoFJEk=;
-        b=uI5SJ8h2lX6VYjrXKCjmB9+ulGUQrXaKQv1T5JpUqo2mwllYvG5480O7xpGL7S9slm
-         lfUBlHAyaxMOeYM58qOgGWE7G8sxjl5Nw7RLd9O2jVkRTFRIbrtj+T1/9jeQhmdW0PnX
-         seOpst90gDrHj9DJ+jP0+zbC54Ll+YaEe0Yuq1VQGjeXL+1HzwvNYjpYd4oNYLBUHmLq
-         o3b9mUi55Hf9btpAvQWOpLX44ONzK0/KYg5mN5lWCMjZW92Kdqf6zZ1ZgwOvnVSP1JMI
-         /abl5dzj/UcT8NS7WafkWzQ50zo5IVLh6y7xnXGr7BYKQgW+hCxD6D9xW4nsQ9ngtb8C
-         nLVw==
-X-Gm-Message-State: AOAM530drqCjKWusDNo9wQpCgq9Z5bsyubOFCYbAAHDJ/YPEivoCfZNi
-        mO5ljjtVx+uCplRvbg+et2g92f7ZuLQ=
-X-Google-Smtp-Source: ABdhPJwUhG900ijchXWzExQ7uVaHm8iy2bZSEhS1VLJIZn3CIcgrkK2wCOlMItUl3pWVAbCX+3KmmA==
-X-Received: by 2002:a5d:4d06:: with SMTP id z6mr8475246wrt.70.1611132657963;
-        Wed, 20 Jan 2021 00:50:57 -0800 (PST)
+        bh=DMoKrjmMPCdVDh9kXWZi0duZlHbpiPyjX+TaPSP3Azg=;
+        b=DLjy60YKsdGY4UFAaqswF6TGEj1rnXh96dNrIJgK40WCTszdGGmB11E5zV1zIzTLN+
+         Bz9U/R0q3DpC/u03UGfTr8Tjsd+0Ycn3234XwQEcmCaRMXZm81VFb/mG541SJKykA87Q
+         SzZgTd/WV++7VbI7Xdb9leE//HVs3Kjubr6/0ASwLH3JkeiMGvhUisXx8VPs4gEIdCit
+         pcn9fO4aS9E9S30CNDtNnMsG2IWcm7Ixc5ELf8tqJ9jVZUST+uoQYW8CXo8VQof4Q1cT
+         s7tSOejWn3FEo7Gc2T3NQp0f/i+UqM/3RG6Ty0TFgnmjiXxHEIzVMCcjhuOezNbodTMk
+         3Mow==
+X-Gm-Message-State: AOAM530i/4DU1Y3BiW0uX+w5ntd+t40jfi2rZq4h45boDHwWgoL1640D
+        vERlHno15a7lp7Ffqq1rHf2YBXufq+U=
+X-Google-Smtp-Source: ABdhPJyGRPM1RTHoO3XZhMyCFXU7cpLMn7JHekQYX8MzPws2L4o8iQumZke4dlVb4JAXHBwVLRQo7w==
+X-Received: by 2002:a05:600c:2105:: with SMTP id u5mr3828416wml.129.1611142329314;
+        Wed, 20 Jan 2021 03:32:09 -0800 (PST)
 Received: from ?IPv6:2a02:2455:e0:e000:3005:efab:c884:ced0? ([2a02:2455:e0:e000:3005:efab:c884:ced0])
-        by smtp.gmail.com with ESMTPSA id h5sm2833677wrp.56.2021.01.20.00.50.56
+        by smtp.gmail.com with ESMTPSA id z8sm3253911wmi.44.2021.01.20.03.32.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 20 Jan 2021 00:50:57 -0800 (PST)
-Cc:     mtk.manpages@gmail.com,
-        "G . Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] posix.py: ffix: Correctly format URIs
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <af78792f-9758-e3e6-9c65-c2f93f0fcfdd@gmail.com>
- <20210110145745.4360-1-alx.manpages@gmail.com>
+        Wed, 20 Jan 2021 03:32:08 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, Eric Dumazet <edumazet@google.com>,
+        linux-man <linux-man@vger.kernel.org>
+Subject: Re: Documentation revision for TCP_USER_TIMEOUT in man7/tcp7
+To:     Enke Chen <enkechen2020@gmail.com>
+References: <20210109051946.GA4015@localhost.localdomain>
+ <CAKgNAkiNyPyUWrEZEW_uvi9LJ41YEwRzQ+qkehDRWMcFOeZAGw@mail.gmail.com>
+ <20210114192738.GA6021@localhost.localdomain>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <7e480760-48c9-af90-5e2e-81e51d45834c@gmail.com>
-Date:   Wed, 20 Jan 2021 09:50:56 +0100
+Message-ID: <217712f3-a44d-acf1-c8c6-9e349318c987@gmail.com>
+Date:   Wed, 20 Jan 2021 12:32:03 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <20210110145745.4360-1-alx.manpages@gmail.com>
+In-Reply-To: <20210114192738.GA6021@localhost.localdomain>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+On 1/14/21 8:27 PM, Enke Chen wrote:
+> Hello Michael:
+> 
+> It is the latter, better documentation of longstanding behavior.
+> 
+> There is a bug, however, that broke the functionality two years ago.
+> The bug is being fixed.
 
-On 1/10/21 3:57 PM, Alejandro Colomar wrote:
-> $ man 7 uri 2>/dev/null \
->   |sed -n '/Writing a URI/,/^$/p';
->    Writing a URI
->        When  written, URIs should be placed inside double quotes
->        (e.g., "http://www.kernel.org"), enclosed in angle brack‐
->        ets  (e.g.,  <http://lwn.net>),  or  placed  on a line by
->        themselves.  A warning for those who  use  double-quotes:
->        never  move  extraneous  punctuation  (such as the period
->        ending a sentence or the comma in a list) inside  a  URI,
->        since  this  will  change the value of the URI.  Instead,
->        use angle brackets instead, or switch to a quoting system
->        that  never  includes extraneous characters inside quota‐
->        tion marks.  This latter  system,  called  the  'new'  or
->        'logical'  quoting  system by "Hart's Rules" and the "Ox‐
->        ford Dictionary for Writers and  Editors",  is  preferred
->        practice  in Great Britain and hackers worldwide (see the
->        Jargon  File's   section   on   Hacker   Writing   Style,
->        ⟨http://www.fwi.uva.nl/~mes/jargon/h
->        /HackerWritingStyle.html⟩, for more information).   Older
->        documents  suggested inserting the prefix "URL:" just be‐
->        fore the URI, but this form has never caught on.
-> 
-> Enclose URIs in .UR/.UE,
-> which encloses the URIs in between <> (or similar characters).
-> It is especially important in this case,
-> as the URIs are followed by '.'.
-> 
-> This also fixes the extraneous space that was used to
-> separate the URIs from the final period.
-> In some cases, the period ended in a line of its own.
-> 
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-
-Thanks. Patch applied.
+Thanks for the info, Enke. I've applied the patch.
 
 Cheers,
 
 Michael
 
-> ---
->  posix.py | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/posix.py b/posix.py
-> index 55e401a..60271cc 100755
-> --- a/posix.py
-> +++ b/posix.py
-> @@ -337,14 +337,16 @@ for file in sys.argv[2:]:
->        "Electrical and Electronics Engineers, Inc and The Open Group.\n"
->        "In the event of any discrepancy between this version and the original IEEE and\n"
->        "The Open Group Standard, the original IEEE and The Open Group Standard\n"
-> -      "is the referee document. The original Standard can be obtained online at\n"
-> -      "http://www.opengroup.org/unix/online.html .\n"
-> +      "is the referee document.  The original Standard can be obtained online at\n"
-> +      ".UR http://www.opengroup.org/unix/online.html\n"
-> +      ".UE .\n"
->        ".PP\n"
->        "Any typographical or formatting errors that appear\n"
->        "in this page are most likely\n"
->        "to have been introduced during the conversion of the source files to\n"
-> -      "man page format. To report such errors, see\n"
-> -      "https://www.kernel.org/doc/man-pages/reporting_bugs.html .\n"
-> +      "man page format.  To report such errors, see\n"
-> +      ".UR https://www.kernel.org/doc/man-pages/reporting_bugs.html\n"
-> +      ".UE .\n"
->        )
->  
->      text = "".join(lines)
-> 
+> On Thu, Jan 14, 2021 at 01:08:26PM +0100, Michael Kerrisk (man-pages) wrote:
+>> Hello Enke (and Eric),
+>>
+>> Thank you for the patch. Is this a change in behavior, or a better
+>> documentation of longstanding behavior?
+>>
+>> Eric, do you have an Ack/Review for this patch?
+>>
+>> Thanks,
+>>
+>> Michael
+>>
+>> On Sat, 9 Jan 2021 at 06:21, Enke Chen <enkechen2020@gmail.com> wrote:
+>>>
+>>> diff --git a/man7/tcp.7 b/man7/tcp.7
+>>> index 6c91f058b..2ce831c90 100644
+>>> --- a/man7/tcp.7
+>>> +++ b/man7/tcp.7
+>>> @@ -1161,7 +1161,8 @@ This option takes an
+>>>  as an argument.
+>>>  When the value is greater than 0,
+>>>  it specifies the maximum amount of time in milliseconds that transmitted
+>>> -data may remain unacknowledged before TCP will forcibly close the
+>>> +data may remain unacknowledged, or bufferred data may remain untransmitted
+>>> +(due to zero window size) before TCP will forcibly close the
+>>>  corresponding connection and return
+>>>  .B ETIMEDOUT
+>>>  to the application.
+>>
+>>
+>>
+>> -- 
+>> Michael Kerrisk
+>> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+>> Linux/UNIX System Programming Training: http://man7.org/training/
 
 
 -- 
