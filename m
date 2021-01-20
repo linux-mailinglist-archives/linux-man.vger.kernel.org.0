@@ -2,207 +2,148 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B3ADD2FCCF3
-	for <lists+linux-man@lfdr.de>; Wed, 20 Jan 2021 09:47:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5D0412FCD03
+	for <lists+linux-man@lfdr.de>; Wed, 20 Jan 2021 09:58:00 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731227AbhATIq6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 20 Jan 2021 03:46:58 -0500
-Received: from mx01-sz.bfs.de ([194.94.69.67]:12381 "EHLO mx01-sz.bfs.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1731173AbhATIqA (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 20 Jan 2021 03:46:00 -0500
-X-Greylist: delayed 636 seconds by postgrey-1.27 at vger.kernel.org; Wed, 20 Jan 2021 03:45:58 EST
-Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
-        by mx01-sz.bfs.de (Postfix) with ESMTPS id DDAAE2055C;
-        Wed, 20 Jan 2021 09:34:35 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
-        t=1611131675;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=rRJEOwfuQ4E+w70G87jhH4iARyzr4u3f3qCXeqqRCas=;
-        b=X2TytkrtTfVMsHJYSEnMYa1Vje2sN0czviR05Gn0HuzsGjeHshFHoxRajGiV7wiuP2v+95
-        uX0Gw/Do/3MczLeyNE4sIP1ihS3PLL2JjAp16HHSclRL+KFYqreR5p7gd5b2mS8o1YpV1t
-        dHquJ7dtKGdkOeegHjLfn0D6uYNJdW52juAVSpAM8m5xWSH4e3N8rq1+NGz74UOXeXoiin
-        FzAscX1IjCUDeXqUdUW+6nIBIi2GS1BD7qarlKsJttm0fpe5yDJUwVNqxT8n/yKNXmdJoc
-        2mJx6jz5Waqwx2s87DwAu+R4me3O1ySx9HpsDNOcVXq14mjmBVxLVE2He/xDyA==
-Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
- (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2106.2; Wed, 20 Jan
- 2021 09:34:35 +0100
-Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
- SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%13]) with mapi id
- 15.01.2106.002; Wed, 20 Jan 2021 09:34:35 +0100
-From:   Walter Harms <wharms@bfs.de>
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
-CC:     "roucaries.bastien@gmail.com" <roucaries.bastien@gmail.com>,
-        =?iso-8859-1?Q?Bastien_Roucari=E8s?= <rouca@debian.org>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "Dr . Tobias Quathamer" <toddy@debian.org>,
-        Vincent Lefevre <vincent@vinc17.net>
-Subject: AW: [PATCH] environ.7: Document the valid values of pathnames for
- SHELL, PAGER and EDITOR/VISUAL
-Thread-Topic: [PATCH] environ.7: Document the valid values of pathnames for
- SHELL, PAGER and EDITOR/VISUAL
-Thread-Index: AQHW7qSNAlxlvOqlfEqDaxus6sLFU6owLTIT
-Date:   Wed, 20 Jan 2021 08:34:35 +0000
-Message-ID: <168066dbe8dd448dbe120abab8b8aa7c@bfs.de>
-References: <20210119204459.401313-1-alx.manpages@gmail.com>
-In-Reply-To: <20210119204459.401313-1-alx.manpages@gmail.com>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.137.16.40]
-x-tm-as-product-ver: SMEX-14.0.0.3080-8.6.1012-25754.007
-x-tm-as-result: No-10--10.961500-5.000000
-x-tmase-matchedrid: 7RlxjwaqaMJwCp+Q9KpjpxvgzEPRJaDEWw/S0HB7eoMTiSW9r3PknMru
-        gDwhJXcQhjRR0FGC8SFXo+50WYSM+I81yJsU3bpPiVJZi91I9JixT02+VRUpqWlDtkS9/ZRfazw
-        bF220ijpxyRa8KazJblSJFz3iwkFqiR2f2cUDT3RSxYp8x/dFp3316REeU5CR78BlMFOIM5n2xQ
-        sQEOrKwmzInwDQzcyxuO+QuGz9r7Zj3cEXcFAPHopHR9xEGhE1Msovp/h9OdEINpIFnbd6msc/+
-        8UeRzDJO7feylS4tuTN8DUDk28g9d3aQrftNh+sB/XUnmGGOOoftukM6FmmNmKuDy0kKGx06n1G
-        l4gVhHh4xS6ty9cuyuTPp2ifBOJBOQj4c5re/dOdVNZaI2n6/wVyeo9hM9SHaKyfWaPPzZ+49Eb
-        irBnBPiQqHGGuCBCouF42qwhgjRssaaYlMvaOHPRUId35VCIe4kXtI5H3kJUiJScSUXv7vRhBvW
-        gZlX+8585VzGMOFzA9wJeM2pSaRSAHAopEd76vC2MZtaBgeAkMjfT2MeWuGr3gbeBsJLW0p8y99
-        Znj3d9HtZoFSiK9bA==
-x-tm-as-user-approved-sender: No
-x-tm-as-user-blocked-sender: No
-x-tmase-result: 10--10.961500-5.000000
-x-tmase-version: SMEX-14.0.0.3080-8.6.1012-25754.007
-x-tm-snts-smtp: E56261ACED53F1FDCF07DBF2D14E4B82EC759317BF27051FE139D224CAE3F6312000:9
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+        id S1729110AbhATI4N (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 20 Jan 2021 03:56:13 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37750 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729225AbhATIzq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 20 Jan 2021 03:55:46 -0500
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 86F0AC061786
+        for <linux-man@vger.kernel.org>; Wed, 20 Jan 2021 00:55:05 -0800 (PST)
+Received: by mail-wr1-x436.google.com with SMTP id g10so3885917wrx.1
+        for <linux-man@vger.kernel.org>; Wed, 20 Jan 2021 00:55:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=xC9WeKeoax5DWLj28MWI/hv9RqCVFqTymI5urzoFJEk=;
+        b=tAB8eOwLSXK5qVY+VkBEcKHfkpirKzMUe1srCc6Bkkft4/acbtn5iJ/WSwjH/b6XkR
+         2dd5LmRLxgphI8GAWTrMniXNFMSOV/ScjGiWyNq3NNG6ammYkfrq09DZ0NBRauLX4du0
+         7dP7KCfDJVwbMlg3A91OwGLgwfGhMAphoCap7IeQ5TUq6fiPCkaa0Izo/8LK5YlRN1zX
+         nhNWL/nUWZiXms8Qk9Iigw/t281e09/DVCZ2/hyhBK1SdW1LTSYmoldJJnfveGFIPntm
+         N1tkf3WmYl326EzBW/E75bOKcxuNcBMYcklxlcakte4oaQrCo0XWxeBxuWWyx27wAbfB
+         F7Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=xC9WeKeoax5DWLj28MWI/hv9RqCVFqTymI5urzoFJEk=;
+        b=FsUsllKSrKg1/teBvdXGAt5UP2ULJK/3lOBRwlLZ6AIF9rD9HS2GO6ban1Kx+tfyh/
+         /wFsBqZltTXZ7N+1HM8kLd93cP/SPFB7tXhs/hGDW71zlQRFhX6/IWtgNWO/Gfmp2axL
+         5r8tjue0PGAc3E/NCh+EjiVqL3qd4QwWFIGxqbc7m5Y/o31XhfXypljJSmdLrzJYp2/7
+         5///YDiVGM45aNm+qzyznRq4Qhao57haWX946/AJGGRpphPOhMRi5OubrC+WYY0EDC7V
+         3CJt8WcWWTgPdWZ1EEiGd5l/UUirPr/9Dje18Yh+VZyHoo9cEjKovhQzS3Rnb53J4clT
+         2gHQ==
+X-Gm-Message-State: AOAM530y/FvL1HXHAi0Lo1mXsO/LruDxaJWctpVBRNXPESf+3MLMnDkz
+        YclbML7mfRwMpTkC1RDYEoCIQcAuEmg=
+X-Google-Smtp-Source: ABdhPJymiPf5a3Iwb4/HJ9Ui9jWe69PlmaCDiu6zrgOD+UVuLjDncfL/95fTwc3CM9EACahwYLAaIw==
+X-Received: by 2002:adf:fad0:: with SMTP id a16mr8465073wrs.390.1611132904028;
+        Wed, 20 Jan 2021 00:55:04 -0800 (PST)
+Received: from ?IPv6:2a02:2455:e0:e000:3005:efab:c884:ced0? ([2a02:2455:e0:e000:3005:efab:c884:ced0])
+        by smtp.gmail.com with ESMTPSA id a25sm2467396wmb.25.2021.01.20.00.55.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 20 Jan 2021 00:55:03 -0800 (PST)
+Cc:     mtk.manpages@gmail.com,
+        "G . Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] posix.py: ffix: Correctly format URIs
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+References: <af78792f-9758-e3e6-9c65-c2f93f0fcfdd@gmail.com>
+ <20210110145745.4360-1-alx.manpages@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <94fd301c-7c42-f968-e6c9-04081f5982ae@gmail.com>
+Date:   Wed, 20 Jan 2021 09:55:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-X-Spam-Level: *
-Authentication-Results: mx01-sz.bfs.de;
-        none
-X-Spam-Status: No, score=1.43
-X-Spamd-Result: default: False [1.43 / 7.00];
-         ARC_NA(0.00)[];
-         TO_DN_EQ_ADDR_SOME(0.00)[];
-         HAS_XOIP(0.00)[];
-         FROM_HAS_DN(0.00)[];
-         TO_DN_SOME(0.00)[];
-         FREEMAIL_ENVRCPT(0.00)[gmail.com];
-         TO_MATCH_ENVRCPT_ALL(0.00)[];
-         TAGGED_RCPT(0.00)[];
-         MIME_GOOD(-0.10)[text/plain];
-         MID_RHS_MATCH_FROM(0.00)[];
-         DKIM_SIGNED(0.00)[bfs.de:s=dkim201901];
-         BAYES_HAM(-0.07)[62.44%];
-         RCPT_COUNT_SEVEN(0.00)[7];
-         NEURAL_HAM(-0.00)[-1.000];
-         FREEMAIL_TO(0.00)[gmail.com];
-         RCVD_NO_TLS_LAST(0.10)[];
-         FROM_EQ_ENVFROM(0.00)[];
-         MIME_TRACE(0.00)[0:+];
-         FREEMAIL_CC(0.00)[gmail.com,debian.org,vger.kernel.org,vinc17.net];
-         RCVD_COUNT_TWO(0.00)[2];
-         SUSPICIOUS_RECIPS(1.50)[]
+In-Reply-To: <20210110145745.4360-1-alx.manpages@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-FYI:
-i took a dive into busybox to see what is expected for SHELL there.
-According to the code the value is used like the path in
-struct passwd.  In the end the value was executed via execv.
+Hi Alex,
 
-I have to admit that i always use a absolute value and was curious.
+On 1/10/21 3:57 PM, Alejandro Colomar wrote:
+> $ man 7 uri 2>/dev/null \
+>   |sed -n '/Writing a URI/,/^$/p';
+>    Writing a URI
+>        When  written, URIs should be placed inside double quotes
+>        (e.g., "http://www.kernel.org"), enclosed in angle brack‐
+>        ets  (e.g.,  <http://lwn.net>),  or  placed  on a line by
+>        themselves.  A warning for those who  use  double-quotes:
+>        never  move  extraneous  punctuation  (such as the period
+>        ending a sentence or the comma in a list) inside  a  URI,
+>        since  this  will  change the value of the URI.  Instead,
+>        use angle brackets instead, or switch to a quoting system
+>        that  never  includes extraneous characters inside quota‐
+>        tion marks.  This latter  system,  called  the  'new'  or
+>        'logical'  quoting  system by "Hart's Rules" and the "Ox‐
+>        ford Dictionary for Writers and  Editors",  is  preferred
+>        practice  in Great Britain and hackers worldwide (see the
+>        Jargon  File's   section   on   Hacker   Writing   Style,
+>        ⟨http://www.fwi.uva.nl/~mes/jargon/h
+>        /HackerWritingStyle.html⟩, for more information).   Older
+>        documents  suggested inserting the prefix "URL:" just be‐
+>        fore the URI, but this form has never caught on.
+> 
+> Enclose URIs in .UR/.UE,
+> which encloses the URIs in between <> (or similar characters).
+> It is especially important in this case,
+> as the URIs are followed by '.'.
+> 
+> This also fixes the extraneous space that was used to
+> separate the URIs from the final period.
+> In some cases, the period ended in a line of its own.
+> 
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 
-jm2c,
- wh
-________________________________________
-Von: Alejandro Colomar <alx.manpages@gmail.com>
-Gesendet: Dienstag, 19. Januar 2021 21:45:00
-An: mtk.manpages@gmail.com
-Cc: roucaries.bastien@gmail.com; Bastien Roucari=E8s; linux-man@vger.kernel=
-.org; Dr . Tobias Quathamer; Vincent Lefevre; Alejandro Colomar
-Betreff: [PATCH] environ.7: Document the valid values of pathnames for SHEL=
-L, PAGER and EDITOR/VISUAL
+Thanks. Patch applied.
 
-From: Bastien Roucari=E8s <rouca@debian.org>
+Cheers,
 
-The environ(7) man page says:
+Michael
 
-       SHELL  The pathname of the user's login shell.
+> ---
+>  posix.py | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/posix.py b/posix.py
+> index 55e401a..60271cc 100755
+> --- a/posix.py
+> +++ b/posix.py
+> @@ -337,14 +337,16 @@ for file in sys.argv[2:]:
+>        "Electrical and Electronics Engineers, Inc and The Open Group.\n"
+>        "In the event of any discrepancy between this version and the original IEEE and\n"
+>        "The Open Group Standard, the original IEEE and The Open Group Standard\n"
+> -      "is the referee document. The original Standard can be obtained online at\n"
+> -      "http://www.opengroup.org/unix/online.html .\n"
+> +      "is the referee document.  The original Standard can be obtained online at\n"
+> +      ".UR http://www.opengroup.org/unix/online.html\n"
+> +      ".UE .\n"
+>        ".PP\n"
+>        "Any typographical or formatting errors that appear\n"
+>        "in this page are most likely\n"
+>        "to have been introduced during the conversion of the source files to\n"
+> -      "man page format. To report such errors, see\n"
+> -      "https://www.kernel.org/doc/man-pages/reporting_bugs.html .\n"
+> +      "man page format.  To report such errors, see\n"
+> +      ".UR https://www.kernel.org/doc/man-pages/reporting_bugs.html\n"
+> +      ".UE .\n"
+>        )
+>  
+>      text = "".join(lines)
+> 
 
-       PAGER  The user's preferred utility to display text files.
 
-       EDITOR/VISUAL
-              The user's preferred utility to edit text files.
-
-but doesn't say whether the pathnames must be absolute or they can
-be resolved using $PATH, or whether they can have options.
-
-Note that at least for SHELL, this is not specified by POSIX.
-This issue was raised in the Austin Group mailing-list, and the answer
-is that "what constitutes a valid value for a platform
-should be documented" [1].
-
-Since OpenSSH assumes that $SHELL is an absolute pathname (when set),
-it is supposed that the documentation should be:
-
-       SHELL  The absolute pathname of the user's login shell.
-
-For PAGER, POSIX says: "Any string acceptable as a command_string
-operand to the sh -c command shall be valid."
-
-For EDITOR, it does not need to be an absolute pathname since POSIX
-gives the example:
-
-  EDITOR=3Dvi fc
-
-and since it is specified as "the name of a utility", It assumes that
-arguments (options) must not be provided. Page 3013 about "more", it
-is said: "If the last pathname component in EDITOR is either vi or ex,
-[...]", thus again, it is assumed to be a pathname.
-
-For VISUAL, POSIX says: "Determine a pathname of a utility to invoke
-when the visual command [...]", thus it is also a pathname. It is not
-clear whether the pathname must be absolute, but for consistency with
-EDITOR, it will be resolved using $PATH.
-
-[1] https://www.mail-archive.com/austin-group-l@opengroup.org/msg01399.html
-
-Reported-by: Vincent Lefevre <vincent@vinc17.net>
-Signed-off-by: Bastien Roucaries <rouca@debian.org>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man7/environ.7 | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/man7/environ.7 b/man7/environ.7
-index 7d2bc5a86..b30f9a38e 100644
---- a/man7/environ.7
-+++ b/man7/environ.7
-@@ -113,16 +113,22 @@ The current working directory.
- Set by some shells.
- .TP
- .B SHELL
--The pathname of the user's login shell.
-+The absolute pathname of the user's login shell.
- .TP
- .B TERM
- The terminal type for which output is to be prepared.
- .TP
- .B PAGER
- The user's preferred utility to display text files.
-+Any string acceptable as a command_string operand to the
-+.I sh -c
-+command shall be valid.
- .TP
- .BR EDITOR / VISUAL
- The user's preferred utility to edit text files.
-+Any string acceptable as a command_string operand to the
-+.I sh -c
-+command shall be valid.
- .\" .TP
- .\" .B BROWSER
- .\" The user's preferred utility to browse URLs. Sequence of colon-separat=
-ed
---
-2.30.0
-
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
