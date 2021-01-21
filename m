@@ -2,353 +2,350 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 33AEB2FE9B2
-	for <lists+linux-man@lfdr.de>; Thu, 21 Jan 2021 13:14:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 365C82FECF5
+	for <lists+linux-man@lfdr.de>; Thu, 21 Jan 2021 15:36:48 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729177AbhAUMLz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 21 Jan 2021 07:11:55 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36156 "EHLO
+        id S1728126AbhAUOeC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 21 Jan 2021 09:34:02 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53484 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729929AbhAULEX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 21 Jan 2021 06:04:23 -0500
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com [IPv6:2a00:1450:4864:20::62f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CD37DC061757
-        for <linux-man@vger.kernel.org>; Thu, 21 Jan 2021 03:03:23 -0800 (PST)
-Received: by mail-ej1-x62f.google.com with SMTP id g12so1984202ejf.8
-        for <linux-man@vger.kernel.org>; Thu, 21 Jan 2021 03:03:23 -0800 (PST)
+        with ESMTP id S1731163AbhAUOdx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 21 Jan 2021 09:33:53 -0500
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com [IPv6:2a00:1450:4864:20::62a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1FB9BC061756;
+        Thu, 21 Jan 2021 06:33:12 -0800 (PST)
+Received: by mail-ej1-x62a.google.com with SMTP id by1so2930982ejc.0;
+        Thu, 21 Jan 2021 06:33:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ojv1J3m8QJRySt3li1CHv5qsoj16fqRa1PTjn+d5p44=;
-        b=f+hyWYXZD32HOi2c2U7yixk27F/0B2/JCA7bkXejXmMH3wdWFByUgAGKv7vN4ebrox
-         e6rLZd0wLkVrmx+1OWFdbcQG31HyuIUwtaZm9rnJDAMGoEHrUuWkMZ2+lubn1Fd6/9WK
-         VZlGZVt2zRAno4nb/jXua6hepoa9yOBRdzpIRrmlZd27l3ngWOFqHQe/T9i8slccwOcw
-         2sdtjAt7SI9DPiHw/66iMOYBkJDKeRlGM7IkYgdUNuI2XOFTmtYKPx7Ox+8GqpE8Grs/
-         2Mg4l2OEv9GY27I8ou71R++zpLwmJGJh4mOOqLPm1TaZpnq5QLOFzfvZ91UBbyti0o9R
-         gmJg==
+        bh=QsNjptOAVVYO9KiOg4/fiGX/bp8DDMERuPTaOc1PYl4=;
+        b=ow8xPMdwgtn9FONEslThnqFudP2qrgDXV6Eq0QdubgrDm3UIGl6bsC6S1WlpjpF1Gk
+         lXg0cWSIxDldfZVV2tgqRTVqfnGUyLotoHmfJJvkxFbSlEbVsKy3fTrZi7yMUUv0iQE7
+         M9IHj8+Eh2x242mWt/5oK1twXYu/yiXy1M/JEtdrRGoj3B1PrTBT8LYhozfnqi+4G1ay
+         bsKWv7G29WBE8365frNQTQnHmsQ6R6vg8jlOdFwtHs3djJQTZEW5AymVeNxH08IeT9TY
+         iE9UDuw83c5tejEbSNYAynQh8QhzLOFGioJnB8TwJoRlLGKHW7gpHBErWp2N3ZvrFrEW
+         DK4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=ojv1J3m8QJRySt3li1CHv5qsoj16fqRa1PTjn+d5p44=;
-        b=DHKBWFOU9zUkXBKztcw2+QjnfaFq8qS0PbTI+jBcpQKNeslx8cRLYxmISYlFOFdKW7
-         K66QJ5WFVvvejllBWbWhB90PKEgFX+TGxuiwnWh/vstV1lEj+n6Aqwf5liNfNSu+SaFu
-         3DtOOdTmQ1MG+pEsl1rj+da73qI6ZvbVUQgqgAyq4f6EjoeNSl33WCUiYxbeVPAC0vdF
-         euxulSGDf1EMlV4II+tQQN4WDBzBX1Z3FlDNVfJbj87b4v+tf9p/sASwP4h2TyiBhriA
-         TzZwpwqaD1qmQjfys2uBNypb75TypzarzSIm71xGe7amUMtpBbjP2nkiFTUIy0EGf3Vg
-         VGLw==
-X-Gm-Message-State: AOAM532CMQRHPf8XWQoy9BPzvIkdAaNOjMiLvNg3BT2Ae1hLNfdeZtKI
-        kXUMYqjJcOQUEXmFfwF0P2lTabjVZdo=
-X-Google-Smtp-Source: ABdhPJyZBK30P9HjBtpyxxIakU+tVal2dCsHzSNwugzbYZZI9cUphz1nnlYT4va4ubsgZ7v6+OKXBg==
-X-Received: by 2002:a17:907:3343:: with SMTP id yr3mr9145459ejb.73.1611227002392;
-        Thu, 21 Jan 2021 03:03:22 -0800 (PST)
+        bh=QsNjptOAVVYO9KiOg4/fiGX/bp8DDMERuPTaOc1PYl4=;
+        b=uGJSZU4XbkwBXDSjm8u3/fKrJNDDcc0o7mJBcgnv94Lq/59+xvfbBa6alLa8Nmulhk
+         vLkdc4hjQtZa73e9ngf8O18Kb9ELjQJNolzUOPqApYwKVnazzyn0UCAIfHiszBVoRJK4
+         vus+Ley/VsVAnoRexpEDyZ9ugkmIRuD+EwBky4+jZhQZX6GWpc+1wJTHOoPhIHkAJaq1
+         /JWWucDosSSZoRKtjSx+w+JmwPS+jYqWLUbnPIP5qErGFlSj68n9LGJniJhkrbAdqpoj
+         2+NgB+cg1aF+uWMyTp/s/pgfVanaAWlzYyt54mOCCCzPmAN94/dRVilgcBe//dPmNfOH
+         j4FA==
+X-Gm-Message-State: AOAM533vdVIKUDPEIMSLAWDym9wwlJLw378oCC8/koWSOKrg0uMtSk/7
+        MK6XmXaIFjD3h+3emBMDxhsSDrjiDh8=
+X-Google-Smtp-Source: ABdhPJzuVH6lGiFyFcIa5H+I+Wjivb4opQd1CZJdxVouqjFKgPsSm3gAUukqaKwhFDdQQCo5GgcMmw==
+X-Received: by 2002:a17:906:1712:: with SMTP id c18mr9724470eje.417.1611239590729;
+        Thu, 21 Jan 2021 06:33:10 -0800 (PST)
 Received: from ?IPv6:2a02:2455:e0:e000:3005:efab:c884:ced0? ([2a02:2455:e0:e000:3005:efab:c884:ced0])
-        by smtp.gmail.com with ESMTPSA id w11sm2648347edj.8.2021.01.21.03.03.21
+        by smtp.gmail.com with ESMTPSA id x17sm2774395edd.76.2021.01.21.06.33.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 21 Jan 2021 03:03:21 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>,
-        groff@gnu.org
-Subject: Re: Escaping hyphens ("real" minus signs in groff)
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-References: <CAKgNAkihGY5W178QYHcRvs0f0E4HMQdWir9KOJsEzVF=1wi-sQ@mail.gmail.com>
- <20210121061158.5ul7226fgbrmodbt@localhost.localdomain>
+        Thu, 21 Jan 2021 06:33:07 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        linux-sgx@vger.kernel.org, dave.hansen@linux.intel.com
+Subject: Re: [PATCH v2] sgx.7: New page with overview of Software Guard
+ eXtensions (SGX)
+To:     Jarkko Sakkinen <jarkko@kernel.org>
+References: <20201222004108.49159-1-jarkko@kernel.org>
+ <16f13aee-a966-ecd4-6f08-d9d7b0e869f3@gmail.com>
+ <YAli9syKOwVTYeh6@kernel.org>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <a1af3f5c-f3e9-4bf3-cad5-389571c45d27@gmail.com>
-Date:   Thu, 21 Jan 2021 12:03:13 +0100
+Message-ID: <cb04f65c-7598-e5c0-6aa9-421b8e37c8db@gmail.com>
+Date:   Thu, 21 Jan 2021 15:33:05 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <20210121061158.5ul7226fgbrmodbt@localhost.localdomain>
-Content-Type: text/plain; charset=windows-1252
+In-Reply-To: <YAli9syKOwVTYeh6@kernel.org>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Branden,
+Hi Jarko,
 
-On 1/21/21 7:12 AM, G. Branden Robinson wrote:
-> [looping in groff@ because I'm characterizing an unresolved argument and
-> people may want to dispute my claims]
-> 
-> Hi Michael!
-> 
-> At 2021-01-20T22:03:12+0100, Michael Kerrisk (man-pages) wrote:
->> Hi Branden,
+On 1/21/21 12:18 PM, Jarkko Sakkinen wrote:
+> On Tue, Dec 22, 2020 at 07:53:24PM +0100, Michael Kerrisk (man-pages) wrote:
+>> Hi Jarkko
 >>
->> I wonder if I might ask for your input...
+>> Thanks for revising the patch. I have many comments.
+>> I must admit that I'm struggling to understand much here,
+>> and so I'll probably have more comments on a future draft.
+>> Could you please revise in the light of my comments
+>> below (and hopefully the revisions will help me better
+>> understand the topic when I look at the next draft).
+> 
+> I'm truly sorry of this incredibly long latency.
+
+No problem. I appreciate your detailed notes below.
+
+> I put the man page as my top priority up until it is good enough to be
+> merged.
+> 
+>> On 12/22/20 1:41 AM, Jarkko Sakkinen wrote:
+>>> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+>>> ---
+>>> v2:
+>>> * Fixed the semantic newlines convention and various style errors etc.
+>>>   that were reported by Alenjandro and Michael.
+
+s/Alenjandro/Alejandro/  :-)
+
+>>> * SGX was merged to v5.11.
 >>
->> For some time now, man-pages(7) has the text (mostly put there by me):
+>> I think we better have a VERSIONS section in the page noting that this
+>> feature is supported since Linux 5.11.
+> 
+> I added:
+> 
+> .SH VERSIONS
+> The SGX feature was added in Linux 5.11.
+> 
+> I also changed the copyright year to 2021.
+> 
+>>> Link: https://lore.kernel.org/linux-sgx/f6eb74cf-0cb6-0549-9ed3-3e3b2af23ad1@gmail.com/
+>>> Link: https://lore.kernel.org/linux-sgx/f6eb74cf-0cb6-0549-9ed3-3e3b2af23ad1@gmail.com/
+>>>  man7/sgx.7 | 218 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+>>>  1 file changed, 218 insertions(+)
+>>>  create mode 100644 man7/sgx.7
+>>>
+>>> diff --git a/man7/sgx.7 b/man7/sgx.7
+>>> new file mode 100644
+>>> index 000000000..5e8d3d959
+>>> --- /dev/null
+>>> +++ b/man7/sgx.7
+>>> @@ -0,0 +1,218 @@
+
+[...]
+
+>>> +Each of them can hold a single hardware thread at a time.
 >>
->>    Generating optimal glyphs
->>        Where a real minus character is required (e.g., for  numbers  such
->>        as  -1,  for  man  page cross references such as utf-8(7), or when
->>        writing options that have a leading dash, such as in  ls -l),  use
->>        the following form in the man page source:
+>> "them" is unclear. Do you mean "Each of the entry points" 
+>> or "Each enclave"?
+> 
+> TCS pages are a bit like locks. You reserve one and its held up until
+> you leave the enclave address apce. It also tells you where to start
+> execution.
+> 
+> I wrote a wrote a new paragraph that introduces ENCLU and tries
+> to explain this in length in the v3 of this patch.
+
+Okay.
+
+>>> +While the enclave is loaded from a regular binary file,
+>>> +only the threads inside the enclave can access its memory.
+>>> +.PP
+>>> +Although carved out of normal DRAM,
+>>> +enclave memory is marked in the system memory map as reserved and is not
+>>> +managed by the Linux memory manager.
+>>> +There may be several regions spread across the system.
 >>
->>            \-
+>> I presume you mean "There may be several enclave regions"? I think it
+>> would be clearer to say that.
+> 
+> Not sure.
+> 
+> So the thing is that there is reserved memory, consider it as a bit like
+> VRAM. This memory can be oversubscribed. Then when you create an enclave
+> you consume these pages. When running out of them, the kernel swaps pages
+> from enclaves across the system currently based on a trivial FIFO policy.
+> So these regions define kind of the memory pool for all enclaves running in
+> the system.
+
+SO, is there some suitable change for the manual page text?
+
+>>> +Each contiguous region is called an Enclave Page Cache (EPC) section.
+>>> +EPC sections are enumerated via CPUID instruction.
 >>
->>        This guideline applies also to code examples.
+>> BY "CPUID instruction" do you mean the interface described in the
+>> cpuid(4) manual page? If yes, I think you better include a reference 
+>> to that page.
+> 
+> Kernel uses a set of CPUID leaves to enumerate the available EPC.  The base
+> leaf SGX specific functions is EAX=0x12, and enumeration leaves for EPC
+> start from ECX=2 and onwards.
+> 
+> This CPUID is documented in the pages 313-14 of the Intel SDM:
+> 
+> https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-2a-2b-2c-and-2d-instruction-set-reference-a-z.html
+> 
+> And its usage is implemented in sgx_page_cache_init() internal function:
+> 
+> https://elixir.bootlin.com/linux/v5.11-rc4/source/arch/x86/kernel/cpu/sgx/main.c#L664
+> 
+> I'll just remove that sentence. I don't think it's relevant here.
+>
+Okay.
+
+>>> +These regions are encrypted when they leave the Last Level Cacche (LLC).
 >>
->> (You even helped with this text a little, adding the piece about
->> manual page cross-references.)
+>> Maybe better: s/These regions/EPC regions/ ?
 >>
->> I'm having some doubts about this text. The doubts were triggered
->> after I noticed that many code snippets (inside .EX/.EE blocks) don't
->> follow this recommendation. I was about to apply a large patch that
->> fixed that when I began to wonder: is it even necessary?
+>> s/Cacche/Cache/
 > 
-> Short answer: yes, I would do that.
+> I changed this to
+> 
+> "The pages belonging to the EPC sections are encrypted when they leave the
+> Last Level Cache (LLC)."
 
-I appreciate your long answer *very* much. But, I'm glad you started 
-with the short answer :-). I have made the change.
+Okay.
 
-> Long answer
-> ===========
-> 
-> There are people who would argue (I've heard mostly from BSD people)
-> that man pages should "DWIM", and always render a "-" as an ASCII 45
-> hyphen-minus regardless of context, and while we're at it, it should
-> stop having non-ASCII glyph mappings for `, ', ^, and ~ as well.  I
-> resist this, as it's contrary to troff's semantics for these characters
-> since the early 1970s.
-> 
-> My most recent contretemps with people about this can be found starting
-> here:
-> 	https://lists.gnu.org/archive/html/groff/2020-10/msg00158.html
-> 
-> The former groff maintainer and lead developer, Werner Lemberg, agrees
-> with me on this point, but some people whose *roff horizons seem to
-> extend only as far as man pages are passionately opposed.
-> 
-> The issue was not resolved on the groff mailing list and may not ever
-> be; the instant discussion got derailed by several peoples' fascination
-> with the Sun Gallant Demi font.  :-/
-> 
-> I share all this because it is a contentious issue and I cannot pretend
-> to represent my view as a universal consensus.  It is, however, I think,
-> the opinion shared by people with a fair knowledge of *roff systems and
-> who perceive the man(7) macro language as an application of a
-> typesetting system and not an isolated domain-specific language for man
-> pages.
-> 
-> I got fatigued of the fight before I could share my findings about
-> historical Unix manuals going back to Version 2.  I get the feeling
-> people don't really care; they'll happily wield the club of historical
-> continuity when it works in their favor, and discard it as irrelevant
-> when it doesn't.  But I can't say _I've_ never been guilty of that
-> inconsistency...
+[...]
 
-Thanks for the background.
-
->> Some thoughts/questions:
+>>> +.SS Enclave management
+>>> +.PP
+>>> +An enclave's life-cycle starts by opening
+>>> +.I /dev/sgx_enclave.
 >>
->> * I believe that when rendering to a terminal, the use of "\-" is
->> equivalent to just "-"; they both render as a real minus sign (ASCISS
->> 055). Right?
+>> Remove the "." at the end of the preceding line.
 > 
-> It depends on the capabilities of the terminal, and specifically whether
-> it supports any hyphen, dash, or minus glyphs apart from ASCII 055.
-> None of ASCII or the ISO 8859 encodings did, and Windows-1252, which
-> does, is not a popular terminal encoding among Unix/Linux users.
+> Fixed.
 > 
-> But Unicode also does, and Unicode _is_ popular.  If you write a "raw"
-> roff document and render it to a UTF-8 terminal, you will be able to see
-> a difference.
+>>> +and ends once all the references to the opened file have been closed.
+>>
+>> I presume here that you mean to say that the lifecycle ends
+>> when all duplicate file descriptors that refer to the open
+>> file description (i.e., 'struct file') have been closed, right?
+>> If that's correct, please modify the text. If it's not correct,
+>> then I don't understand the text, and so some other fix is
+>> probably needed.
+> 
+> I changed this to:
+> 
+> "and ends when all the file descriptors referring to the opened file
+> have been closed."
 
-Thanks for that info on Unicode/UTF-8 terminals...
+Okay.
 
-> 
-> Example:
-> 
-> $ printf "UTF-8 \\-1\n" | groff -Tutf8 | cat -s
+[...]
 
-GOt it.
+>> You suddenly use the term "ENCLS" here with no previous introduction or
+>> definition.
+> 
+> It's a mnemonic for x86 opcode. Not exactly sure how to improve.
 
-> Back when people started using UTF-8 terminals, confusion of - and \- in
-> man pages was even more rampant than it is today, and groff added
-> directives to the man(7) implementation[1] to deliberately degrade
-> glyphs to ASCII.
-> 
-> .\" For UTF-8, map some characters conservatively for the sake
-> .\" of easy cut and paste.
-> .
-> .if '\*[.T]'utf8' \{\
-> .  rchar \- - ' `
-> .
-> .  char \- \N'45'
-> .  char  - \N'45'
-> .  char  ' \N'39'
-> .  char  ` \N'96'
-> .\}
-> 
-> It was intended as a stopgap measure, but thanks to development on groff
-> slowing down and its maintainer retiring from the role, it's remained
-> the case for about a decade, and some people now regard the stopgap as
-> an eternal truth that must be preserved, lest all writers of
-> documentation defect to Markdown or something.
-> 
-> The above probably should have been placed in the man.local file
-> instead[2][3], to encourage system administrators to make transitions
-> away from the stopgap as their sites or distributions deemed suitable.
-> I have proposed this very thing for the next groff release, 1.23.0, but
-> even that met with stiff resistance from the BSD camp.  They want cement
-> poured over the code snippet above.
-> 
->> * When rendering to PDF, then "\-" and "-" certainly produce different
->> results: the former produces a long dash, while the other produces a
->> rather short dash.
-> 
-> Yes.  Specifically, the issue depends on whether a _font_ distinguishes
-> a hyphen from a minus sign.  (To a typographer, there's _no such thing_
-> as a "hyphen-minus", the ISO name for ASCII 055--or at least there
-> wasn't until computer character encodings forced compromises onto the
-> world.) But matters are made muddy by the fact that terminal emulators
-> impose another layer between the typesetter (*roff) and the fonts used
-> to draw glyphs.  groff's solution is to use the encoding of the locale
-> as a proxy for font coverage, which works well only if the font has
-> coverage for all the glyphs of interest to a document.  Over time this
-> has become increasingly true for fonts widely used in terminal emulators
-> and glyphs commonly encountered in practical documents like man
-> pages.[4]
-> 
->> Certainly, when writing say "-1" in running text (i.e., not in a
->> .EX/.EE code example), one should use "\-1", since without the "\",
->> the dash in front of the "1" is rather anaemically small when rendered
->> in PDF.
-> 
-> Yes.
-> 
->> The same is true when writing options strings such as "ls -l". We
->> should use "ls \-l" to avoid an anaemic hyphen in PDF.
-> 
-> Yes.
-> 
->> When writing man-pages xrefs (e.g., utf-8), the use of "\-" produces a
->> dash that is almost too long for my taste, but is preferable to the
->> result from using "-", where the rendered dash is too small.
-> 
-> I share your discomfort with the length of the dash in man page xrefs,
-> and also your assessment that it's the lesser evil.
-> 
-> Another issue to consider is that as PDF rendering technology has
-> improved on Linux, it has become possible to copy and paste from PDF
-> documents into a terminal window.  In my opinion we should make this
-> work as well as we can.  Expert Linux users may not ever do this,
-> wondering why anyone would ever try; new Linux users will quite
-> reasonably expect to be able to do it.
+I think then it would be helpful to write something like "the x86
+ENCLS opcode [or instruction]". That would help the less knowledgeable
+reader orient themselves bit.
 
-Agreed.
-
->> Inside code blocks (.EX/.EE) is there any reason to use "\-" rather
->> than just "-"? Long ago I think I convinced myself that "\-" should be
->> used, but now I am not at all sure that it's necessary. Maybe I forgot
->> something, and you might remind me why "\-" is needed (and I will make
->> sure to add the reason to man-pages(7)).
+>>> +managing enclave memory,
+>>> +and the ioctl interface provides a wrapper for it.
+>>> +.PP
+>>
+>> [I find the next paragraph very hard to understand. So I'm going
+>> to ask lots of silly questions...]
 > 
-> Yes; the main reason is so that copy-and-paste from code examples in
-> your man pages will work if people _don't_ use the degraded character
-> translations in man.local, which are marked as optional.
-
-Got it.
-
-> And I mean copy-and-paste not just from PDF but from a terminal window.
-
-Yes, but I have a question: "\-1" renders in PDF as a long dash 
-followed by a "1". This looks okay in PDF, but if I copy and paste
-into a terminal, I don't get an ASCII 45. Seems seems to contradict
-what you are saying about cut-and-paste above. What am I missing?
-
-> .EX and .EE, originating in the Version 9 Research Unix man macros, are
-> "semantic" but they don't _do_ very much.  They don't change
-> character-to-glyph mappings; they change the font family (on typesetter
-> devices like PDF, not terminals) and turn off filling.
+> Thank you, I appreciate these questions. This is somewhat complicated
+> topic, and when you've upstreamed a patch set literally for years, you
+> become blind for many things.
 > 
->> Are there any other things I've missed with respect to "\-" vs "="?
+>>> +Enclave construction starts by calling
+>>> +.B SGX_IOC_ENCLAVE_CREATE,
+>>> +which takes in the initial version of SGX Enclave Control Structure
+>>
+>> What do you mean by "takes in"?
 > 
-> Probably, but nothing I can think of right now.  <laugh>  It's a vexing
-> issue.
+> It's the 'src' field in struct sgx_enclave_create:
 > 
-> To get back to the question you originally posed, I think the change you
-> suggested (to consistently use \- in .EX/.EE regions) is sound, and will
-> not frustrate correct rendering even on systems that flatten the
-> distinction between the minus (\-) and hyphen (-) characters.
+> https://elixir.bootlin.com/linux/v5.11-rc4/source/arch/x86/include/uapi/asm/sgx.h
 > 
-> Please follow up with any further questions and I will do my best to
-> answer them.
+> This address is given to ENCLS[ECREATE], which copies to an EPC
+> page. It's the root of the enclave, not visible in the actual
+> address space of the enclave. It contains data such as the base
+> address and size of the enclave addree space.
+> 
+> I changed "takes in" to "copies".
 
-I don't really have any other questions, but I have tried to distill 
-the  above into some text in man-pages(7) to remind myself for the
-future:
+Okay.
 
-[[
-.PP
-The use of real minus signs serves the following purposes:
-.IP * 3
-To provide better renderings on various targets other than
-ASCII terminals,
-notably in PDF and on Unicode/UTF\-8-capable terminals.
-.IP *
-To generate glyphs that when copied from rendered pages will
-produce real minus signs when pasted into a terminal.
-]]
+>>> +(SECS).
+>>> +SGX Enclave Control Structure (SECS) contains the description of the
+>>
+>> s/SGX Enclave Control Structure (SECS)/The SECS/
+>>
+>> This all made weird because the current terminology includes
+>> "Structure" in the name.
+> 
+> I agree. It's also asymmetrical to TCS. Either TCS should be
+> STCS or SECS should be ECS. I'm just using the naming convetions
+> from the Intel software developement manual.
 
-Seem okay?
+I see :-/.
 
-> [1] tmac/an-old.tmac
-> [2] Debian does this in its /etc/groff/man.local:
+>> And yes, "the SECS" reads weirdly. What I'd really like to say
+>> is "the SECS structure" or (even better) "the SEC structure".
+>> Is either of those acceptable? (This would imply global changes 
+>> in the following text.)
 > 
-> [...]
->   .if n \{\
-> [...]
->   .  \" Debian: Strictly, "-" is a hyphen while "\-" is a minus sign, and the
->   .  \" former may not always be rendered in the form expected for things like
->   .  \" command-line options.  Uncomment this if you want to make sure that
->   .  \" manual pages you're writing are clear of this problem.
->   .\" uncommented by Branden, 2019-06-16 --GBR
->   .   if '\*[.T]'utf8' \
->   .     char - \[hy]
->   .
->   .  \" Debian: "\-" is more commonly used for option dashes than for minus
->   .  \" signs in manual pages, so map it to plain "-" for HTML/XHTML output
->   .  \" rather than letting it be rendered as "&minus;".
->   .  ie '\*[.T]'html' \
->   .    char \- \N'45'
->   .  el \{\
->   .    if '\*[.T]'xhtml' \
->   .      char \- \N'45'
->   .  \}
->   .\}
-> 
-> As you can see, I uncommented my local copy so that I could see if the
-> wrong glyphs were being used in man pages.  A large part of my work on
-> groff upstream has been on making the man pages better examples for
-> other man page writers to follow.
-> 
-> [3] As can be seen from the groff mailing list thread, Ingo Schwarze of
-> OpenBSD rejects the notion of man.local as a file suitable for site
-> administrators to customize.  I don't know enough about OpenBSD to
-> rationalize this view.
-> 
-> [4] To check the coverage of your terminal emulator's font, try the
-> command "man groff_char".  It contains a specimen of every defined groff
-> "special character" and in my opinion is a reasonable test of practical
-> glyph coverage[5].  For man pages, it's probably overpowered, even, but
-> man pages are merely the leading application of *roff, not the only one.
+> I'd still stick to the terminology that is common to what is used
+> in the SDM and also in all the documentation, academic paper etc.
+> Essentially, all the literature on SGX uses the same terminology.
+> Drifting from that would be IMHO even more confusing.
 
-Thanks for that pointer.
+Okay -- I'll see what I think of this when I review V3.
 
-> [5] I've largely rewritten the page for groff 1.23.0 (forthcoming)
-> because I was unhappy with what I perceived as its lack of clarity.  A
-> recent snapshot at the man-pages Web site[6] is a useful preview, but
-> (unless you use something like lynx or w3m) it won't tell you anything
-> about the glyph coverage of your _terminal_'s font.  In any event, the
-> glyph repertoire has not changed from groff 1.22.4.
+
+>>> +enclave.
+>>> +The ioctl calls ENCLS[ECREATE] function,
+>>
+>> What is "ENCLS[ECREATE] function"? This needs some explanation.
 > 
-> [6] https://man7.org/linux/man-pages/man7/groff_char.7.html
+> We have ENCLS, which x86 opcode, and you EAX id's of various functions that
+> is contains. One of them is ECREATE.
+> 
+> I rephased it as:
+> 
+> "The ioctl calls the ECREATE subfunction of ENCLS,"
+
+Maybe s/ENCLS/the ENCLS opcode/?
+
+[...]
+
+>> But what is this "ENCLU[EGETKEY] function"? Where does it come from?
+>> And what is ENCLU?  I think some more detail is needed here.
+> 
+> I refined this a lot for v3. I hope it makes a bit more sense. I introduce
+> ENCLU early on in the when I talk about TCS in the new version of the
+> patch.
+
+Okay.
+
+[...]
+
+>>> +.PP
+>>> +The vDSO function calling convention uses the standard RDI, RSI, RDX,
+>>> +RCX, R8 and R9 registers.
+>>> +This makes it possible to declare the vDSO as a C prototype,
+>>> +but other than that there is no specific support for SystemV ABI.
+>>
+>> What do you mean by "SystemV ABI"?
+> 
+> I'm referring to the calling convention of x86-64 psABI.
+> 
+> I rephrased this as:
+> 
+> "but other than that there is no specific support for the x86-64
+> calling convention,"
+
+Okay.
+
+>> Thanks,
+>>
+>> Michael
+> 
+> Thank you!
+
+You're welcome. I doubt that I will truly understand this stuff 
+by the time we're done, but I hope to help you beat the page into
+better shape :-).
 
 Thanks,
 
