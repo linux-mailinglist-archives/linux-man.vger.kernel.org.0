@@ -2,127 +2,195 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C166130056F
-	for <lists+linux-man@lfdr.de>; Fri, 22 Jan 2021 15:31:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4EC30300613
+	for <lists+linux-man@lfdr.de>; Fri, 22 Jan 2021 15:52:56 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728698AbhAVOaZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 22 Jan 2021 09:30:25 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52068 "EHLO
+        id S1728952AbhAVOwO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 22 Jan 2021 09:52:14 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56846 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728780AbhAVO3t (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jan 2021 09:29:49 -0500
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com [IPv6:2607:f8b0:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CA009C06174A
-        for <linux-man@vger.kernel.org>; Fri, 22 Jan 2021 06:29:08 -0800 (PST)
-Received: by mail-ot1-x331.google.com with SMTP id 63so5223147oty.0
-        for <linux-man@vger.kernel.org>; Fri, 22 Jan 2021 06:29:08 -0800 (PST)
+        with ESMTP id S1728893AbhAVOwC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jan 2021 09:52:02 -0500
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com [IPv6:2607:f8b0:4864:20::1033])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 861E9C061786
+        for <linux-man@vger.kernel.org>; Fri, 22 Jan 2021 06:51:22 -0800 (PST)
+Received: by mail-pj1-x1033.google.com with SMTP id m5so3840427pjv.5
+        for <linux-man@vger.kernel.org>; Fri, 22 Jan 2021 06:51:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=9U7Fi45ADMNgZtMHPAUIRtZpI0y82cpYjJ6yWREiRv0=;
-        b=Bk4/JeDnvj70yqedTzCtDUzvIFzFXNgVyjLTkgahgBsCL1WIpz6GqADSlSYlHF3axt
-         mfnd6ZOpEhQ7+Sk2F7iNV3KZDdnfUiRcG2yY11yrLaI2Pac45/23b6l+FUE0snjfd4y9
-         NHQ8SInfswXWJ9hwuW6j6JErDF7Dh+z8WSrkKPmTA1mQlO24NLsMApEcW6UJW23DVdeL
-         wZDiwbWv5FWCjvv9P39MOIMayf9BYdutkzQrdA0kohZt7resvHv4rpRJ9NKfnG/+6ixE
-         6YFW7ZQeyEzFscmA80mjfFFaAVE9hFoODcoCuEqUP4PYQWg1fXmj4wFVFQd/+M8oH+9M
-         YmNw==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=0y95TSCM+RlHTMsY6Vb5h1N930msK1uHtEDSHFZrDZ0=;
+        b=CvuzGE7pbEkW7edNYIGprUwySbQcxDYH3ERNufc6E8vNDMtos3Yio7XpbCooWP/GIV
+         rol4pv6izqvsM5AuDVN3XmMaSbc25U91oimhutBRXZeTayhV0rtUwcBGa8C5MIHj4Tta
+         PhY+Ys2KUwNA5N6EaxzhCPXpznYeonL7ZD+5OVsLS33DyKPOIEqeB4PkLYrFtRoG6mr+
+         +LlIsTNcZYX4oVn055Z4vk3xaLmHckbEmVKi/7DbRViP9AiLT8bYqWN1KBdoIi/+XPM2
+         pLd8AV/JbDQ/om6MdY9N09mGuY12PTJHnjKknBzm2jca2sLjOph8BqfDBbSe7xQU4iPW
+         hASA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=9U7Fi45ADMNgZtMHPAUIRtZpI0y82cpYjJ6yWREiRv0=;
-        b=ONh60mib1iOVJUBqIAsSkq6I9ynD3UwRcIAgsglDLl98YRqmwRCLluayB3EM91ZovL
-         rTwyzeeiM8BOORXszvds+AP0AaBs+PKugf1t6lrMO6Fo47Kf8x37fYcbYQLIC44Pp3qA
-         Ek/Jhr7ultJ77V/8V5sTU1LUwaOpOYGUE92/V8fGVuHp1OobuHWSSl5K88jk5LpKAVTV
-         FRlbcL5Tu2p3czDdWMW4eUtG5eFPLtaSgndYEalhyBnLLyVNNdtc0GQ6m3CKSW12zHYK
-         YJ9j6ogJZLATM68W1d2F1J/qsV/2GDLek5cSWR7937iEncVGCV1ZhO1yPC930GIKYlsF
-         y9EA==
-X-Gm-Message-State: AOAM531lOADa2Iy4QXX+AsfVV2Ocu5bEwu1T47+5GDjlKxBJQoHD9vvi
-        x6bLdwhA92CyJfq3pok0iglpn7uYDZCjCiS6nJQ=
-X-Google-Smtp-Source: ABdhPJxShPV5pAkOqrt31BlUwePg3PA+UaVRWAbOqhfUSlC9HwLT3ebUnIZOW3jjG3XIFlEBc6lbV1NGrHDBXoTxCr4=
-X-Received: by 2002:a9d:5e0f:: with SMTP id d15mr3479043oti.308.1611325748274;
- Fri, 22 Jan 2021 06:29:08 -0800 (PST)
-MIME-Version: 1.0
-References: <dd390b94-1733-eca1-4a59-d16988881f9e@gmail.com>
-In-Reply-To: <dd390b94-1733-eca1-4a59-d16988881f9e@gmail.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Fri, 22 Jan 2021 15:28:57 +0100
-Message-ID: <CAKgNAkgKCEvFPpECWq6=ih1aoZQfrYSO1c=Ke17Tf+RhtASJpw@mail.gmail.com>
-Subject: Re: Correctly formatting URIs: slash
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=0y95TSCM+RlHTMsY6Vb5h1N930msK1uHtEDSHFZrDZ0=;
+        b=GPnJPkHoORZtUVlkOfll3sKP9Gz9oZKPHxot8WBLQBAch5s/FrJkbW++v3VqtoQERw
+         Dj+lYQYWcgw3ZGsU5sx1MZ7764w1Ztqgn0/bJeEKb3dBSQ1cLGPFJ7bxXT2r4m27+EbO
+         1Tmd42oa6TS2YkjLDnXggUvopNfhIIUIfZUDMV2k6dUe3Gv1kWBi2lodTOM/WYseHpi+
+         4GYHDPPp2AKQOw7DJkKHziPu2rdgzEo6tEGOREQsoXVeW00xZE6LHD6drYvNzSAyMmAp
+         OdVzj2T2vYRYrLhIiE8Q42dMWnLhI5MPv5AnmGLz34XOCGsFHmr5XJKkOqDFUPJwMS95
+         lxAw==
+X-Gm-Message-State: AOAM530zkLDWGh0a8wASQOL+zuX6HmShO37BbXxwQ0o9kPRLdnXhpb1J
+        5jbYl7ETl6HOyNBIcQjIIwKxyAfX0CI=
+X-Google-Smtp-Source: ABdhPJydiDE0urHrBPjxy6oms1ECUpw28gIMznaDlh+CfmNl/4PIkf5JwZvC2rnz6SEGR6vBn2TLGQ==
+X-Received: by 2002:a17:90b:100f:: with SMTP id gm15mr5990911pjb.47.1611327082076;
+        Fri, 22 Jan 2021 06:51:22 -0800 (PST)
+Received: from localhost.localdomain ([1.144.186.68])
+        by smtp.gmail.com with ESMTPSA id md7sm9653637pjb.52.2021.01.22.06.51.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 Jan 2021 06:51:21 -0800 (PST)
+Date:   Sat, 23 Jan 2021 01:51:16 +1100
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Jakub Wilk <jwilk@jwilk.net>,
-        linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Cc:     Jakub Wilk <jwilk@jwilk.net>, linux-man@vger.kernel.org,
+        mtk.manpages@gmail.com
+Subject: Re: [PATCH] posix.py: ffix: Correctly format URIs
+Message-ID: <20210122145114.hc3vsw2gc4sjwkpt@localhost.localdomain>
+References: <a1d2172c-3880-ac79-7df7-0f5fb0bc65af@gmail.com>
+ <20210110065023.olvhi2gqjbmv7243@localhost.localdomain>
+ <af78792f-9758-e3e6-9c65-c2f93f0fcfdd@gmail.com>
+ <20210112205115.g3nuoodpn7xxpx5u@jwilk.net>
+ <bdbf6dee-e74f-e2e3-8c44-4ce63d396aa1@gmail.com>
+ <20210121201426.b6wfycjdegxce7fw@jwilk.net>
+ <20210122032300.zsqf6uuznfbu6tij@localhost.localdomain>
+ <20210122093556.nwo4qe5vcnbinu7z@jwilk.net>
+ <20210122100718.ab3wkbyf2hv533rz@localhost.localdomain>
+ <948982ef-a747-099a-78d5-096610ec0f57@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="m2agqnt6ihvxm2gu"
+Content-Disposition: inline
+In-Reply-To: <948982ef-a747-099a-78d5-096610ec0f57@gmail.com>
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+
+--m2agqnt6ihvxm2gu
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
 Hi Alex,
 
-On Fri, 22 Jan 2021 at 14:00, Alejandro Colomar (man-pages)
-<alx.manpages@gmail.com> wrote:
->
-> Hi all,
->
-> Why do some pages use \:/ for the slash in the path part of a URL, but
-> some others don't, and just use /?
->
-> Moreover, why do the former use \:/ only for the path, but not for the
-> protocol?
->
-> $ grep -n '^\.UR' man7/uri.7;
-> 173:.UR http://www.w3.org\:/CGI
-> 243:.UR http://www.ietf.org\:/rfc\:/rfc1036.txt
-> 383:.UR http://www.ietf.org\:/rfc\:/rfc2255.txt
-> 396:.UR http://www.ietf.org\:/rfc\:/rfc2253.txt
-> 414:.UR http://www.ietf.org\:/rfc\:/rfc2254.txt
-> 456:.UR http://www.ietf.org\:/rfc\:/rfc1625.txt
-> 555:.UR
-> http://www.fwi.uva.nl\:/\(times\:/jargon\:/h\:/HackerWritingStyle.html
-> 583:.UR http://www.ietf.org\:/rfc\:/rfc2396.txt
-> 586:.UR http://www.w3.org\:/TR\:/REC\-html40
-> 707:.UR http://www.ietf.org\:/rfc\:/rfc2255.txt
-> $
->
-> $ grep -Inr '^\.UR' man? \
->   |grep -c '\\:/';
-> 56
-> $
->
-> $ grep -Inr '^\.UR' man? \
->   |grep -c -v '\\:/';
-> 41
-> $
->
-> $ grep -Inr '^\.UR' man? \
->   |grep '\\:/' \
->   |head -n1;
-> man2/futex.2:1910:.UR
-> http://kernel.org\:/doc\:/ols\:/2002\:/ols2002\-pages\-479\-495.pdf
-> $
->
-> $ grep -Inr '^\.UR' man? \
->   |grep -v '\\:/' \
->   |head -n1;
-> man1/memusage.1:206:.UR http://www.gnu.org/software/libc/bugs.html
-> $
->
-> What is the correct form?
+At 2021-01-22T11:50:02+0100, Alejandro Colomar (man-pages) wrote:
+> On 1/22/21 11:07 AM, G. Branden Robinson wrote:
+> > I don't think I've ever seen URLs bracketed =ABlike this=BB.
+> >=20
+> > On the other hand, because \[Fo] and \[Fc] are in the ISO 8859
+> > character sets, aren't they much more likely to be supported by the
+> > Linux console driver?
+>=20
+> For that same reason we could conclude that <> (less than, greater
+> than) have even better support :)
+>=20
+> I'd use either u2039/A, or plain <>.
 
-The "\:" is a clue to groff that it can do a line break here if
-necessary; i.e., it is a recommendation that is a better point to
-break than, say, in the middle of a word in the URL. Useful especially
-for long URLs.
+The less and greater than signs are already used to bracket URLs using
+the .UR and .UE requests on non-UTF-8 devices and non-groff formatters.
 
-Cheers,
+If funny characters (or the Unicode replacement character) are rendering
+around the URLs in your terminal window, then there are a few
+possibilities.
 
-Michael
+1.  Something is misconfigured; try a stock groff installation in an
+    xterm.
+2.  The font you're using in your terminal emulator lacks adequate glyph
+    coverage; a look at groff_char(7) may help determine this.
+3.  Your terminal emulator inadequately supports some aspect of UTF-8.
 
+/usr/share/groff/1.22.4/tmac/an-ext.tmac:
+    43  .\" groff has glyph entities for angle brackets.
+    44  .ie \n(.g \{\
+    45  .  ds la \(la\"
+    46  .  ds ra \(ra\"
+    47  .\}
+    48  .el \{\
+    49  .  ds la <\"
+    50  .  ds ra >\"
+    51  .  \" groff's man macros control hyphenation with this register.
+    52  .  nr HY 1
+    53  .\}
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+The above chunk of the groff man(7) extension macros has not been
+changed in 14 years, and no changes to the above string definitions are
+planned.  (Nor do I anticipate changes to the value of the HY register,
+since it's present for non-groff formatters, but it's a completely
+separate issue.)
+
+$ grep -B 1 -Ew '(la|ra)' /usr/share/groff/1.22.4/font/dev{ascii,latin1}/*
+
+/usr/share/groff/1.22.4/font/devascii/B-<       24      0       0074
+/usr/share/groff/1.22.4/font/devascii/B:la      "
+--
+/usr/share/groff/1.22.4/font/devascii/B->       24      0       0076
+/usr/share/groff/1.22.4/font/devascii/B:ra      "
+--
+/usr/share/groff/1.22.4/font/devascii/BI-<      24      0       0074
+/usr/share/groff/1.22.4/font/devascii/BI:la     "
+--
+/usr/share/groff/1.22.4/font/devascii/BI->      24      0       0076
+/usr/share/groff/1.22.4/font/devascii/BI:ra     "
+--
+/usr/share/groff/1.22.4/font/devascii/I-<       24      0       0074
+/usr/share/groff/1.22.4/font/devascii/I:la      "
+--
+/usr/share/groff/1.22.4/font/devascii/I->       24      0       0076
+/usr/share/groff/1.22.4/font/devascii/I:ra      "
+--
+/usr/share/groff/1.22.4/font/devascii/R-<       24      0       0074
+/usr/share/groff/1.22.4/font/devascii/R:la      "
+--
+/usr/share/groff/1.22.4/font/devascii/R->       24      0       0076
+/usr/share/groff/1.22.4/font/devascii/R:ra      "
+--
+/usr/share/groff/1.22.4/font/devlatin1/B-<      24      0       0074
+/usr/share/groff/1.22.4/font/devlatin1/B:la     "
+--
+[...and so on...]
+
+The \(la and \(ra special character escapes map to < and > respectively
+for non-UTF-8 terminal devices in groff.
+
+So, as it happens, do \(fo and \(fc.
+
+Here's a simple reproducer you can feed to "nroff -man" or "groff -Tutf8
+-man".
+
+	.TH foo 1
+	.UR bar
+	.UE
+
+Regards,
+Branden
+
+--m2agqnt6ihvxm2gu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmAK5loACgkQ0Z6cfXEm
+bc6tug//fpKxnEaGkPbxcfmBCHTbZjWPxv9kM3ktR5r5ztjsdCiNxvEr4Rfjsgid
+i1QMRkmlMOBojPV4zh3TlgLe+/AzvEo9O7WudfGl2sKBpiWEKEu+YSsdm+puRZYH
+rZqBLV7bnqhrLTq/x0gnCmzV0Se+Aei57y0PXmCvCvebOofYPL2YzfXX25F+svg0
++9BUfjna005vp/6Oz5s8Z7JlbPk83hp/AT2GQyEpWYrmjZNzSiFKFf2fzUPqYKvF
+N7Q8GrlaYRHkrK1StUB2OpUdkYLEQUE9iWis6fujGVv+ItdWQUO8Eqhidb/CIASs
+WBwE8VvLNnNDt3TfNXthVYs/cMgMZeb3HcrdU0GTScV7Fxrar+FYJzY3SR3K/SF6
+ZsUD52TS+JzkRAb5YY7MBCMeJn+lc8l9eOC0Mi0tbcHrd4bCafjmrqKsF43mn2I+
+kX1+lVd0cgUp2awm2+sQnxcmMe0qmVLBm8Ogj+CA5Vui8pViNvGJnZC9dncpqZt0
+Ir02rK33Rrm7fkIL8YuAgkAQyS1oPkiNQUX/ot+OGHynbIFOcXeow8DEFu5AFAfT
+b5nu48KjNxQMSVhTnoRZy5WjCJ6J+F9dc3mExxLxzyzTacMJlBgbPGdMYveEdxVG
+pB6xM9jg67dYW/NCu2kamztsRDdi8iD4RVhwKhVMrtCFMa6cbNk=
+=FDEY
+-----END PGP SIGNATURE-----
+
+--m2agqnt6ihvxm2gu--
