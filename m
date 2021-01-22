@@ -2,195 +2,141 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4EC30300613
-	for <lists+linux-man@lfdr.de>; Fri, 22 Jan 2021 15:52:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 243D63006CF
+	for <lists+linux-man@lfdr.de>; Fri, 22 Jan 2021 16:13:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728952AbhAVOwO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 22 Jan 2021 09:52:14 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56846 "EHLO
+        id S1728861AbhAVPNE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 22 Jan 2021 10:13:04 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33176 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728893AbhAVOwC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jan 2021 09:52:02 -0500
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com [IPv6:2607:f8b0:4864:20::1033])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 861E9C061786
-        for <linux-man@vger.kernel.org>; Fri, 22 Jan 2021 06:51:22 -0800 (PST)
-Received: by mail-pj1-x1033.google.com with SMTP id m5so3840427pjv.5
-        for <linux-man@vger.kernel.org>; Fri, 22 Jan 2021 06:51:22 -0800 (PST)
+        with ESMTP id S1729088AbhAVPM5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jan 2021 10:12:57 -0500
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com [IPv6:2607:f8b0:4864:20::62e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 00253C061786
+        for <linux-man@vger.kernel.org>; Fri, 22 Jan 2021 07:12:11 -0800 (PST)
+Received: by mail-pl1-x62e.google.com with SMTP id r4so3309028pls.11
+        for <linux-man@vger.kernel.org>; Fri, 22 Jan 2021 07:12:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=0y95TSCM+RlHTMsY6Vb5h1N930msK1uHtEDSHFZrDZ0=;
-        b=CvuzGE7pbEkW7edNYIGprUwySbQcxDYH3ERNufc6E8vNDMtos3Yio7XpbCooWP/GIV
-         rol4pv6izqvsM5AuDVN3XmMaSbc25U91oimhutBRXZeTayhV0rtUwcBGa8C5MIHj4Tta
-         PhY+Ys2KUwNA5N6EaxzhCPXpznYeonL7ZD+5OVsLS33DyKPOIEqeB4PkLYrFtRoG6mr+
-         +LlIsTNcZYX4oVn055Z4vk3xaLmHckbEmVKi/7DbRViP9AiLT8bYqWN1KBdoIi/+XPM2
-         pLd8AV/JbDQ/om6MdY9N09mGuY12PTJHnjKknBzm2jca2sLjOph8BqfDBbSe7xQU4iPW
-         hASA==
+        bh=SjDTD8uRWLXbB2VryuX2TeDgc0qRxZq/quLNEBHhcMY=;
+        b=il8k99P6wnEMdrbLvueRrv8CbPr0p6AXnVg5orECioq6jppBt1KQKI0dKjJW8/KM8S
+         zXkJ3Ky3v74o08jQ5cy02tgCHjIPitS/hXLfyT6iAmVIIGSPaYrBPs+78CIGt1Y29/i+
+         CjQ1p4ELpf/abbiziMdUHaMwBSqKm0ynKNt+STxhJumYDSU/yxKIxx07GUTBgWomk/QI
+         pqlTkmE18yvNTcUSMwRhOch2vPj1ZtL1xFKeeRvrR0EMB3fBpyGaqkwR6Ro7tszybj9D
+         xn6sCEMQgFT9txgZvw1NjX+eOgVocDvLtV0ZV6fzLK0++4IzhpgbTsmXPzSN7HikAZV1
+         fl8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=0y95TSCM+RlHTMsY6Vb5h1N930msK1uHtEDSHFZrDZ0=;
-        b=GPnJPkHoORZtUVlkOfll3sKP9Gz9oZKPHxot8WBLQBAch5s/FrJkbW++v3VqtoQERw
-         Dj+lYQYWcgw3ZGsU5sx1MZ7764w1Ztqgn0/bJeEKb3dBSQ1cLGPFJ7bxXT2r4m27+EbO
-         1Tmd42oa6TS2YkjLDnXggUvopNfhIIUIfZUDMV2k6dUe3Gv1kWBi2lodTOM/WYseHpi+
-         4GYHDPPp2AKQOw7DJkKHziPu2rdgzEo6tEGOREQsoXVeW00xZE6LHD6drYvNzSAyMmAp
-         OdVzj2T2vYRYrLhIiE8Q42dMWnLhI5MPv5AnmGLz34XOCGsFHmr5XJKkOqDFUPJwMS95
-         lxAw==
-X-Gm-Message-State: AOAM530zkLDWGh0a8wASQOL+zuX6HmShO37BbXxwQ0o9kPRLdnXhpb1J
-        5jbYl7ETl6HOyNBIcQjIIwKxyAfX0CI=
-X-Google-Smtp-Source: ABdhPJydiDE0urHrBPjxy6oms1ECUpw28gIMznaDlh+CfmNl/4PIkf5JwZvC2rnz6SEGR6vBn2TLGQ==
-X-Received: by 2002:a17:90b:100f:: with SMTP id gm15mr5990911pjb.47.1611327082076;
-        Fri, 22 Jan 2021 06:51:22 -0800 (PST)
-Received: from localhost.localdomain ([1.144.186.68])
-        by smtp.gmail.com with ESMTPSA id md7sm9653637pjb.52.2021.01.22.06.51.19
+        bh=SjDTD8uRWLXbB2VryuX2TeDgc0qRxZq/quLNEBHhcMY=;
+        b=U/ji9XFA6GAhiibp4eQWDBMxc7XIYyvbG6oPtrh+9TInYHWUPzLCwunuILXGEUCHpA
+         VcwZ3Id0dSdXHLEY36UvJUVfMxQTQGBrpjoEErfhdnZVgtYhItHL2l/+Pwp/WMsr+XC8
+         H68LIEQZ1duQwm4nMocZgLhDTkbpaxsqbC1shlBySL6jPCVBIjkSNhwni7EqGzA8Rcg1
+         +l2Gi9kfWm1bkrHSfzmSohuznNDc2/+KzWW56eOoFKFQOmNaBVd8G2VKMH7OI5sontyI
+         j5NXT3RdiC98WfnIhSGYVEOxBgb2C8k+U7SGKFMQh1uge2OMfKwnfptbjkx+hznW8SDk
+         FJfA==
+X-Gm-Message-State: AOAM533vxlZdbZNyhmMuVdQ4xEm2G4Z5wjeXIPHT/lESj6jj27Tsa0U9
+        FVYY/rGIzWesB0ezbLIiBIU=
+X-Google-Smtp-Source: ABdhPJysfESHMPtrqvVDvaP+I9Y78cAinBjBiZQpyne6MNWvHlfba2uZTKpxMWVCSmTNE/u0IWnANA==
+X-Received: by 2002:a17:90a:520e:: with SMTP id v14mr5946443pjh.233.1611328331529;
+        Fri, 22 Jan 2021 07:12:11 -0800 (PST)
+Received: from localhost.localdomain ([1.144.183.221])
+        by smtp.gmail.com with ESMTPSA id m4sm9011658pfa.53.2021.01.22.07.12.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 Jan 2021 06:51:21 -0800 (PST)
-Date:   Sat, 23 Jan 2021 01:51:16 +1100
+        Fri, 22 Jan 2021 07:12:10 -0800 (PST)
+Date:   Sat, 23 Jan 2021 02:12:06 +1100
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     Jakub Wilk <jwilk@jwilk.net>, linux-man@vger.kernel.org,
-        mtk.manpages@gmail.com
-Subject: Re: [PATCH] posix.py: ffix: Correctly format URIs
-Message-ID: <20210122145114.hc3vsw2gc4sjwkpt@localhost.localdomain>
-References: <a1d2172c-3880-ac79-7df7-0f5fb0bc65af@gmail.com>
- <20210110065023.olvhi2gqjbmv7243@localhost.localdomain>
- <af78792f-9758-e3e6-9c65-c2f93f0fcfdd@gmail.com>
- <20210112205115.g3nuoodpn7xxpx5u@jwilk.net>
- <bdbf6dee-e74f-e2e3-8c44-4ce63d396aa1@gmail.com>
- <20210121201426.b6wfycjdegxce7fw@jwilk.net>
- <20210122032300.zsqf6uuznfbu6tij@localhost.localdomain>
- <20210122093556.nwo4qe5vcnbinu7z@jwilk.net>
- <20210122100718.ab3wkbyf2hv533rz@localhost.localdomain>
- <948982ef-a747-099a-78d5-096610ec0f57@gmail.com>
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        Jakub Wilk <jwilk@jwilk.net>,
+        linux-man <linux-man@vger.kernel.org>
+Subject: Re: Correctly formatting URIs: slash
+Message-ID: <20210122151204.tf7ygq324cf4zwjq@localhost.localdomain>
+References: <dd390b94-1733-eca1-4a59-d16988881f9e@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="m2agqnt6ihvxm2gu"
+        protocol="application/pgp-signature"; boundary="f2ehixqlbsux7d2w"
 Content-Disposition: inline
-In-Reply-To: <948982ef-a747-099a-78d5-096610ec0f57@gmail.com>
+In-Reply-To: <dd390b94-1733-eca1-4a59-d16988881f9e@gmail.com>
 User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---m2agqnt6ihvxm2gu
-Content-Type: text/plain; charset=iso-8859-1
+--f2ehixqlbsux7d2w
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-Hi Alex,
+Hi Alex!
 
-At 2021-01-22T11:50:02+0100, Alejandro Colomar (man-pages) wrote:
-> On 1/22/21 11:07 AM, G. Branden Robinson wrote:
-> > I don't think I've ever seen URLs bracketed =ABlike this=BB.
-> >=20
-> > On the other hand, because \[Fo] and \[Fc] are in the ISO 8859
-> > character sets, aren't they much more likely to be supported by the
-> > Linux console driver?
->=20
-> For that same reason we could conclude that <> (less than, greater
-> than) have even better support :)
->=20
-> I'd use either u2039/A, or plain <>.
+At 2021-01-22T14:00:33+0100, Alejandro Colomar (man-pages) wrote:
+> Why do some pages use \:/ for the slash in the path part of a URL, but
+> some others don't, and just use /?
 
-The less and greater than signs are already used to bracket URLs using
-the .UR and .UE requests on non-UTF-8 devices and non-groff formatters.
+Laziness or ignorance of how URLs get typeset and what the \: escape is
+for.
 
-If funny characters (or the Unicode replacement character) are rendering
-around the URLs in your terminal window, then there are a few
-possibilities.
+URLs are typeset with hyphenation disabled.  That means that the line
+preceding a URL can
+be broken early in a very ugly way, somewhat like this sentence.
 
-1.  Something is misconfigured; try a stock groff installation in an
-    xterm.
-2.  The font you're using in your terminal emulator lacks adequate glyph
-    coverage; a look at groff_char(7) may help determine this.
-3.  Your terminal emulator inadequately supports some aspect of UTF-8.
+Slashes in URLs turn out to be pretty good places to break a line if it
+must be.  If you wanted a hyphen to appear at the break point, you'd use
+the "hyphenation character", an escape that goes way back to 1970s AT&T
+troff: \%.  However, as with URLs,sometimes you want a hyphenless break
+point, and that's what groff's \: is.  Heirloom Doctools troff supports
+\: as well.  mandoc 1.14.1 does not (it refuses to break URLs at all, at
+least for man(7) documents; I didn't check its mdoc(7) support).
 
-/usr/share/groff/1.22.4/tmac/an-ext.tmac:
-    43  .\" groff has glyph entities for angle brackets.
-    44  .ie \n(.g \{\
-    45  .  ds la \(la\"
-    46  .  ds ra \(ra\"
-    47  .\}
-    48  .el \{\
-    49  .  ds la <\"
-    50  .  ds ra >\"
-    51  .  \" groff's man macros control hyphenation with this register.
-    52  .  nr HY 1
-    53  .\}
+> Moreover, why do the former use \:/ only for the path, but not for the
+> protocol?
 
-The above chunk of the groff man(7) extension macros has not been
-changed in 14 years, and no changes to the above string definitions are
-planned.  (Nor do I anticipate changes to the value of the HY register,
-since it's present for non-groff formatters, but it's a completely
-separate issue.)
+I think it is because people feel like postponing a break by 7 more
+characters to get the first part after the schema adjacent to it is not
+too high a price to pay.
 
-$ grep -B 1 -Ew '(la|ra)' /usr/share/groff/1.22.4/font/dev{ascii,latin1}/*
+There's no deep reason why you couldn't do:
 
-/usr/share/groff/1.22.4/font/devascii/B-<       24      0       0074
-/usr/share/groff/1.22.4/font/devascii/B:la      "
---
-/usr/share/groff/1.22.4/font/devascii/B->       24      0       0076
-/usr/share/groff/1.22.4/font/devascii/B:ra      "
---
-/usr/share/groff/1.22.4/font/devascii/BI-<      24      0       0074
-/usr/share/groff/1.22.4/font/devascii/BI:la     "
---
-/usr/share/groff/1.22.4/font/devascii/BI->      24      0       0076
-/usr/share/groff/1.22.4/font/devascii/BI:ra     "
---
-/usr/share/groff/1.22.4/font/devascii/I-<       24      0       0074
-/usr/share/groff/1.22.4/font/devascii/I:la      "
---
-/usr/share/groff/1.22.4/font/devascii/I->       24      0       0076
-/usr/share/groff/1.22.4/font/devascii/I:ra      "
---
-/usr/share/groff/1.22.4/font/devascii/R-<       24      0       0074
-/usr/share/groff/1.22.4/font/devascii/R:la      "
---
-/usr/share/groff/1.22.4/font/devascii/R->       24      0       0076
-/usr/share/groff/1.22.4/font/devascii/R:ra      "
---
-/usr/share/groff/1.22.4/font/devlatin1/B-<      24      0       0074
-/usr/share/groff/1.22.4/font/devlatin1/B:la     "
---
-[...and so on...]
+.UR http\:://www\:.w3\:.org\:/CGI
+Common Gateway Interface
+.UE
 
-The \(la and \(ra special character escapes map to < and > respectively
-for non-UTF-8 terminal devices in groff.
+for instance.
 
-So, as it happens, do \(fo and \(fc.
-
-Here's a simple reproducer you can feed to "nroff -man" or "groff -Tutf8
--man".
-
-	.TH foo 1
-	.UR bar
-	.UE
+House style for the groff man pages is to place hyphenless break points
+_before_ periods and _after_ slashes in pathnames and URLs.  The former
+point is one I'd recommend firmly to others, because it helps keep the
+reader from confusing a line-broken pathname or URL as ending a
+sentence (prematurely).  The latter convention is more arbitrary; plenty
+of perfectly valid URLs (and pathnames) exist with or without trailing
+slashes, so one can't infer the end of such an object from the presence
+or absence of a slash at the end of a line of text.
 
 Regards,
 Branden
 
---m2agqnt6ihvxm2gu
+--f2ehixqlbsux7d2w
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmAK5loACgkQ0Z6cfXEm
-bc6tug//fpKxnEaGkPbxcfmBCHTbZjWPxv9kM3ktR5r5ztjsdCiNxvEr4Rfjsgid
-i1QMRkmlMOBojPV4zh3TlgLe+/AzvEo9O7WudfGl2sKBpiWEKEu+YSsdm+puRZYH
-rZqBLV7bnqhrLTq/x0gnCmzV0Se+Aei57y0PXmCvCvebOofYPL2YzfXX25F+svg0
-+9BUfjna005vp/6Oz5s8Z7JlbPk83hp/AT2GQyEpWYrmjZNzSiFKFf2fzUPqYKvF
-N7Q8GrlaYRHkrK1StUB2OpUdkYLEQUE9iWis6fujGVv+ItdWQUO8Eqhidb/CIASs
-WBwE8VvLNnNDt3TfNXthVYs/cMgMZeb3HcrdU0GTScV7Fxrar+FYJzY3SR3K/SF6
-ZsUD52TS+JzkRAb5YY7MBCMeJn+lc8l9eOC0Mi0tbcHrd4bCafjmrqKsF43mn2I+
-kX1+lVd0cgUp2awm2+sQnxcmMe0qmVLBm8Ogj+CA5Vui8pViNvGJnZC9dncpqZt0
-Ir02rK33Rrm7fkIL8YuAgkAQyS1oPkiNQUX/ot+OGHynbIFOcXeow8DEFu5AFAfT
-b5nu48KjNxQMSVhTnoRZy5WjCJ6J+F9dc3mExxLxzyzTacMJlBgbPGdMYveEdxVG
-pB6xM9jg67dYW/NCu2kamztsRDdi8iD4RVhwKhVMrtCFMa6cbNk=
-=FDEY
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmAK6zgACgkQ0Z6cfXEm
+bc5ACw/+O+d+MSXqY/88X+yUsTRyYKj0sDbFfF1QpP+B/mqMr9NTO1iv07P71DAM
+La9Dd6i06Q7k1zQqiGBX+pbODoWXr/K/SCEh4+LCJjE+3E5y5OGRVuLJZ6xgxiHK
+Mbu/I7kvfMrtkk9BwXr1gyxua0rJlcJSaKdfxkrW7+/kz/9T2AwaEEPCHdIhKNDR
+a4jRJVz0NqlkdssuA3H4mmwfAG4zNWb7IvU1yLU2sUIv6YeYruMgR97evMHgYB50
+0jddK6Ql+59UJSRsnKDRpzgajpqVxRyb0nXCk1gUpyQl07V+JjODKLbGcAtSfRsO
+iih376JGpM/cOGY8iWFaSxkKp4pamVrB482ZQZLnSDb8w+07Rw4ZseXaXZba2NFA
+wdtsEVfylHdK7/aUZxlYx4pUxt7B4Mfc6N6HkF1TGK+VWoRcZ1K1fNSWjpUX1jpb
+iwhTzqTKM05y9XcXla1GNTPMZNiyADzbehV4Y4z55sp4sVxaufT6JT39zm6iGc5T
+7+9dJwIJY+cPG0MmcRnfUjrd1Kr4f4BSyk0wry14iEJxJtujkqxiurXUFstuHeEb
+LzJQ+MJTp28woV9/eQcpwwqXivGQC9Dl55/ecFvH+mlFTOvAuLSWjnYTfYJtbt4k
+wpcjQ85TprTqv1OSsgowqVqpO3mbA+3pp1w9qS0gNvJvf2ssSrk=
+=jO2a
 -----END PGP SIGNATURE-----
 
---m2agqnt6ihvxm2gu--
+--f2ehixqlbsux7d2w--
