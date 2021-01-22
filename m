@@ -2,184 +2,188 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 71DEC2FFAFF
-	for <lists+linux-man@lfdr.de>; Fri, 22 Jan 2021 04:24:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 357C52FFB72
+	for <lists+linux-man@lfdr.de>; Fri, 22 Jan 2021 04:57:13 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726030AbhAVDX7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 21 Jan 2021 22:23:59 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50124 "EHLO
+        id S1726166AbhAVD4q (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 21 Jan 2021 22:56:46 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57214 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725984AbhAVDXt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 21 Jan 2021 22:23:49 -0500
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com [IPv6:2607:f8b0:4864:20::102b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A8107C0613D6
-        for <linux-man@vger.kernel.org>; Thu, 21 Jan 2021 19:23:07 -0800 (PST)
-Received: by mail-pj1-x102b.google.com with SMTP id j12so2902889pjy.5
-        for <linux-man@vger.kernel.org>; Thu, 21 Jan 2021 19:23:07 -0800 (PST)
+        with ESMTP id S1726558AbhAVD4p (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 21 Jan 2021 22:56:45 -0500
+Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com [IPv6:2607:f8b0:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 02776C06174A
+        for <linux-man@vger.kernel.org>; Thu, 21 Jan 2021 19:56:05 -0800 (PST)
+Received: by mail-pf1-x436.google.com with SMTP id u67so2850006pfb.3
+        for <linux-man@vger.kernel.org>; Thu, 21 Jan 2021 19:56:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=Oclp1lqeInLXE/FrKUQR77mNJZc0eObiy+5NTGJXQAk=;
-        b=L5WRHB22W3YX3rB334tsqZFwh1VGIUeftZ6Ik9jvJYQm0NasnnlFe1/Er8IoY/wVPZ
-         yLVABMUWbWkhokFEcVyCFAPmNHUHB0nkgTBDG+qYe68opnoY9DTXHk9dzM9ALtrv1gj1
-         D6KzNT04yUR9ZixE3rNS6AQgOS3UvYnmJ/dfYzQcJ3FVoaKrvNyYvtpKX9G5d4vZ7DMu
-         ChAOgWJxMVKBgL7/gV3XEqLfXAbvH/bumhYhYwz2Pse2jauwFy6n8xD0AuyrtwoylgEm
-         Hj+lTi8kOFqHoHFN8LYFHELlHhajvgSMPyYX/jfXeNePUCszBqVx6EKQZL4dFdMw6sFf
-         CtZg==
+        bh=bXmmSxVsSndZKIz7UiccilknEJUaHPOY/HZbNWab8fU=;
+        b=ezzGsnx3tm22nfLvMP5Aym8bjy8+Ez6/iWUQH+9Wp0feXsQbdPVcBTqvclJacAJ6IS
+         ck4723jw1iV/4DEhL4lzwe5XS6TUgQDlEHSb7+aDPd4JKV4FX/VnQsFXIa8VlebAUCw5
+         dwvo47wKXKwmFnccAFb3F4yAdzPqJbN5OP1rUMM1lk5QJ6c1AC+tFZXZooRfZ+FAPYiC
+         T5lHIzE/NR9M5WeFHQULpr0xWLq3TTmlCWCUkJ36jUcNydBFgD99ioA/QxmbWxoVj4gG
+         Do7P/UZPGTSCT4P+7c+Fw6gdak3AXB4f2MO4Tbw+XMwuXPNdQj5m2k9uEGhhwSAJEFwI
+         M+6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=Oclp1lqeInLXE/FrKUQR77mNJZc0eObiy+5NTGJXQAk=;
-        b=dYlHT16V/GfonuLnQZs9JyNoLqL1cI1Zyw9/XVXYCuMpMA3PSt0PWtOefYySxczwaZ
-         1bhoul9U/FJF+UgYdLew6eyOG+2q0TYGbtJN+MJY3FbRExmNsEcFb+rV4cyX9lWWwTlh
-         qBgdxHt/5QL2pRs+ZHp0zAfxao1TgB9Pw/h1cDjKDZIwhXnL5W6vXnfCl3EV7/DKCVu1
-         qMk4nF+/mh4b48M88tdq/YwLPwAbrITWjir6Sbdnp02ox6aYGcuqf6RYC4q7+5jbW8iF
-         xUflOZJAyVs4qd68Y7+30Ccd2gWkGpxfsOx0/PX/fwKGNCIIvf5QE8yHMKcbvn8RWVcC
-         CHlg==
-X-Gm-Message-State: AOAM5319uGokxt3t5x5mFOHtw/5R+0m3XTphjrcBniih7ldPAHHz4/0w
-        IZnE1Q2ONGgUDa8nnOeDNK4=
-X-Google-Smtp-Source: ABdhPJzqbQt9l/api4k/l/mWOVZFqpJvUGBQP7/1reFdHqxp1BFSnUz1ANN6PoI6rvKHnOukUPXOHA==
-X-Received: by 2002:a17:90a:9915:: with SMTP id b21mr2874511pjp.101.1611285787256;
-        Thu, 21 Jan 2021 19:23:07 -0800 (PST)
-Received: from localhost.localdomain ([1.144.183.211])
-        by smtp.gmail.com with ESMTPSA id a31sm6773640pgb.93.2021.01.21.19.23.04
+        bh=bXmmSxVsSndZKIz7UiccilknEJUaHPOY/HZbNWab8fU=;
+        b=qHq0o2Z8AkFkmWgXADjXLROimXLd7ho/GJ2yxaMm4rDn3BVAbV//agNu+jav/bvzoH
+         ZZVX7V1PG3G60r46WzeMDdwc68pwA+BeLJiAXq5Z8NLRED5Y5hs0uM/4VTr2coftU9Lk
+         jw0pFt9EaveiW07/8z/apCwcYa5KBapneiniAFsEpYGmWoFL8Ty95KuQeM/PHzBFCpyy
+         pb7dvGWGIx0xyuI8e8/aT0CilUbJWZqphpiFNqK/q8BFHtudyJkseCrgcjOg3vO05R5w
+         GWF4d+cVRj5Fs5P0tIqDB8YbQNYEz8IT9rhrRSr0kWVxv8MB0BYbzc03dGzIf9BCwnIx
+         v6jg==
+X-Gm-Message-State: AOAM5331L1qNj/qkUWCOcJDMql36Ga5RW+KzrxoWQmBaGDbrkdzwsPEe
+        s58KP5bFLnFBhiROC2vw9C8=
+X-Google-Smtp-Source: ABdhPJyUtuYAoMciK6RLrSRLj5bIB+IAmx5fJuUEzdO+wzrNjCXBnHweDk+FJCCqYRpL+IJ/X7bNmg==
+X-Received: by 2002:a05:6a00:158c:b029:1bd:ea8:6d6d with SMTP id u12-20020a056a00158cb02901bd0ea86d6dmr2756593pfk.16.1611287764593;
+        Thu, 21 Jan 2021 19:56:04 -0800 (PST)
+Received: from localhost.localdomain ([1.144.182.204])
+        by smtp.gmail.com with ESMTPSA id k31sm3307250pgi.5.2021.01.21.19.56.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 Jan 2021 19:23:06 -0800 (PST)
-Date:   Fri, 22 Jan 2021 14:23:02 +1100
+        Thu, 21 Jan 2021 19:56:04 -0800 (PST)
+Date:   Fri, 22 Jan 2021 14:56:00 +1100
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH] posix.py: ffix: Correctly format URIs
-Message-ID: <20210122032300.zsqf6uuznfbu6tij@localhost.localdomain>
-References: <20210109195840.74472-1-colomar.6.4.3@gmail.com>
- <a1d2172c-3880-ac79-7df7-0f5fb0bc65af@gmail.com>
- <20210110065023.olvhi2gqjbmv7243@localhost.localdomain>
- <af78792f-9758-e3e6-9c65-c2f93f0fcfdd@gmail.com>
- <20210112205115.g3nuoodpn7xxpx5u@jwilk.net>
- <bdbf6dee-e74f-e2e3-8c44-4ce63d396aa1@gmail.com>
- <20210121201426.b6wfycjdegxce7fw@jwilk.net>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>, groff@gnu.org
+Subject: Re: Escaping hyphens ("real" minus signs in groff)
+Message-ID: <20210122035558.ny2u3ddel2mltrve@localhost.localdomain>
+References: <CAKgNAkihGY5W178QYHcRvs0f0E4HMQdWir9KOJsEzVF=1wi-sQ@mail.gmail.com>
+ <20210121061158.5ul7226fgbrmodbt@localhost.localdomain>
+ <a1af3f5c-f3e9-4bf3-cad5-389571c45d27@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="sebaegpqwx4q25tk"
+        protocol="application/pgp-signature"; boundary="ue5cilyz5dm4hzad"
 Content-Disposition: inline
-In-Reply-To: <20210121201426.b6wfycjdegxce7fw@jwilk.net>
+In-Reply-To: <a1af3f5c-f3e9-4bf3-cad5-389571c45d27@gmail.com>
 User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---sebaegpqwx4q25tk
+--ue5cilyz5dm4hzad
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-At 2021-01-21T21:14:26+0100, Jakub Wilk wrote:
-> > After seeing Branden's answer to Michael (Escaping hyphens), I've
-> > seen groff_char(7), and I found that my tty correctly supports
-> > U+2039 and U+203A.  I clearly see the symbols I would expect:
-> > something quite similar to plain <>, but a bit more obtuse.
-> >=20
-> > In the XFCE terminal, I also see something quite expected: a
-> > slightly smaller version of <>.
-> >=20
-> > But both show me very different characters for .UR/.UE.  tty
-> > displays a diamond, and XFCE term displays (a weird version of)
-> > round parentheses.
-> >=20
-> > So... does it mean there's a bug in .UR/.UE?
+Hi Michael!
+
+At 2021-01-21T12:03:13+0100, Michael Kerrisk (man-pages) wrote:
+> I appreciate your long answer *very* much. But, I'm glad you started
+> with the short answer :-).
+
+Cool!  But beware, from such pressures is the practice of top-replying
+born...  ;-)
+
+> > Another issue to consider is that as PDF rendering technology has
+> > improved on Linux, it has become possible to copy and paste from PDF
+> > documents into a terminal window.  In my opinion we should make this
+> > work as well as we can.  Expert Linux users may not ever do this,
+> > wondering why anyone would ever try; new Linux users will quite
+> > reasonably expect to be able to do it.
+[...]
+> > And I mean copy-and-paste not just from PDF but from a terminal
+> > window.
 >=20
-> Or a bug in Branden. ;-)
->=20
-> Contrary to what he wrote, and what I parroted, .UR/.UE use U+27E8 and
-> U+27E9 as delimiters.
+> Yes, but I have a question: "\-1" renders in PDF as a long dash=20
+> followed by a "1". This looks okay in PDF, but if I copy and paste
+> into a terminal, I don't get an ASCII 45. Seems seems to contradict
+> what you are saying about cut-and-paste above. What am I missing?
 
-Mea culpa.  I don't know where I got U+2039 and U+203A.  It wasn't from
-checking groff_char(7), which correctly documents the special character
-escapes.  (Which softens the blow--I'd rather be wrong on a mailing list
-thread than in a man page.)
+The gap between aspiration and implementation.  I don't think the
+"copy-and-paste from PDF to terminal window" matter is completely sorted
+out yet.
 
-U+2039 and U+203A are "single {left,right}-pointing angle quotation
-mark" per Unicode.  Their groff special character escapes are \[fo] and
-\[fc], respectively.  (I don't know the mnemonic that inspired the
-"f" in the name.)
+I'm a strident prescriptionist about preserving the distinction between
+"-" and "\-" in roff documents, notably including man pages in part
+because it affords us more room to design around this problem.
 
-U+27E8 and U+27E9 are "mathematical {left,right} angle bracket" per
-Unicode.  Their groff special character escapes are \[la] and \[ra],
-respectively.  I _assume_, without having interviewed Werner Lemberg or
-Eric Raymond on the subject, that angle brackets were chosen for .UR/.UE
-(and .MT/.ME) in continuity with existing practice elsewhere.
+ASCII and ISO 8859 unified the hyphen and minus characters.  AT&T troff
+and all of its descendants distinguished them.  Unicode also
+distinguishes them.  But Unix has a habit of calling ASCII 055 (45
+decimal) a "dash", and moreover, to much software, only the numerical
+value of the code point is important.
 
-If your terminals' font coverage refuses to support U+27E[89]
-reasonably, you can remap the characters.  This is good fodder for
-man.local[1], recently discussed here in another thread.
+It's quite possible that for man(7) documents rendering to PDF, we
+should perform the following mapping (in the man macros).
 
-=2Eif '\*[.T]'utf8' \{\
-=2E  char \[la] \[Fo]
-=2E  char \[ra] \[Fc]
+=2Eif '\*[.T]'pdf' \
+=2E  char \- \N'45'
+
+This didn't come up in my argument with (mostly?) BSD people because (1)
+the immediate issue that raised concern had to do with the grave accent
+and apostrophe instead and (2) everybody in that camp who spoke up on
+the matter said they seldom, if ever, render man pages to PostScript or
+PDF.  By that token, the above 2-liner may not be a controversial matter
+to the people I was arguing with.  :)
+
+Consider what would happen to the appearance of PDF-rendered man pages
+if we encouraged all \- escaped hyphens to be rewritten as plain hyphens
+in the source first, and did the following to mandate uniformity.
+
+=2Eif '\*[.T]'pdf' \{\
+=2E  char \- \N'45'
+=2E  char - \N'45'
 =2E\}
 
-=2E..or you can just put < and > in place of \[Fo] and \[Fc] if you
-prefer.
+=2E..just as is currently done for the 'utf8' output driver, whose second
+line I want kill off.
 
-(The conditional checks the output driver being used for rendering.  It
-keeps the glyphs from being remapped for PostScript of PDF output, for
-instance.)
+I feel that responsible stewardship of the groff man macro
+implementation means considering the needs of diverse audiences.
 
-It may happen that you want to alter the character mappings only for
-some terminal types, perhaps because some terminal emulator uses fonts
-with a meager glyph repertoire.  Here's an example of how to do a string
-comparison against an environment variable.
+> I don't really have any other questions, but I have tried to distill=20
+> the  above into some text in man-pages(7) to remind myself for the
+> future:
+>=20
+> [[
+> .PP
+> The use of real minus signs serves the following purposes:
+> .IP * 3
+> To provide better renderings on various targets other than
+> ASCII terminals,
+> notably in PDF and on Unicode/UTF\-8-capable terminals.
+> .IP *
+> To generate glyphs that when copied from rendered pages will
+> produce real minus signs when pasted into a terminal.
+> ]]
+>=20
+> Seem okay?
 
-=2Eif '\*[.T]'utf8'
-=2E  if '\V[TERM]'linux' \{\
-=2E    char \[la] \[Fo]
-=2E    char \[ra] \[Fc]
-=2E\}
-
-In any event, if any font designed for use with terminal emulators
-claims Unicode coverage and lacks glyphs for any of the special
-character escapes in groff_char(7), I would regard that as a bug in the
-font that should be reported to its maintainers.  The list of groff
-special escapes has been stable for several years and is not expected to
-change[2]; if I recall correctly, the previous groff maintainer Werner
-Lemberg felt it should be frozen.
+What a "real minus sign" is is a fraught issue[1], but if for the
+purposes of man-pages(7) it means the ASCII/ISO hyphen-minus, then yes,
+I think it's good enough.
 
 Regards,
 Branden
 
-[1] available at /etc/groff/man.local on Debian-based systems
-[2] This does not mean that macro packages cannot extend the list, and
-    in fact there is a pending contribution from Dorai Sitaram called
-    rfc1345.tmac which adds all the digraphs from Vim (which are in turn
-    based on RFC 1345) to the repertoire, and should be a nice
-    convenience for users familiar with those.  I plan to merge it prior
-    to the release of groff 1.23.0.  Authors of man pages intended for
-    broad portability, however, should not source this macro file.  It
-    remains to be seen what other implementations like Heirloom Doctools
-    troff and mandoc do about it.
+[1] especially in light of the \[mi] special character escape and the
+    existence of U+2212 :-/
 
---sebaegpqwx4q25tk
+--ue5cilyz5dm4hzad
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmAKRQsACgkQ0Z6cfXEm
-bc5vAQ/+MxxTPFb1Hcw5K+RAaGi2W0YSLwwE+YyVr8gIiKConewf0dE3D1Jf2CT/
-l33NbTEvIO6co3afeJViTDWLA+ScYt4ATIX6Z9aw8eXfVYAp5LsRxXGzo8V4nlGD
-3sZi3QEcF1My2Ekx1U4qvocure+xMlKbUDjJcK0vtQFBYdTu1kVhOxgnVzAwAX9W
-dfmwdEwKZni6W8/EGSTLOeZ8oOUdsrVXZAkuw0JTyZPOfs3kKLWdgxbVkVF5/AA4
-OLcQiKO0FALRf0km9h2wL1wMGj2BzySix3rxhLOgdkbYTj1/Ov+Wyd0piy3M4myZ
-XVkvxe4MyKbG3/RFDCIQPzfD91MrvKjS7KMXgHrIiSL25CaqtXLRzqSDuCfyZoja
-cQgTnm+kX15HfQ4CICeh15I+oWUEOAb/wbporAZNjoZOBXtpn6yeettoDJ6lYv5g
-a57BXLsONGWpkXv9SqJX1upqVBRWSJYgdOMMdYT1B3TKCTSga2dPvbtmYq468v63
-KbAWfGdtIYW5B9cEA9no5j7Kszj8OGZ012o0aoHf+kZNN9AlbSwj4r6xXiosIqVb
-pQc23ZDCpIpM1KENyCYVebUeAuAQQOyZwxEAw+I46VUbJzbDzeBvbUPVvunreLrI
-uVumfaWwTSkUmzHcvZLpppE2+33t6ZT0pbGthsc/NsLkc/FTmoA=
-=VGN1
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmAKTLwACgkQ0Z6cfXEm
+bc6Gaw//ctJbLkEEISWgETWzPs3uJJiDdYEK36UBjUnavQNkcMCKwYTGJEkq4w5i
+kP4SqlhohWwvLZ3Nq0laLwsvVH8pEounJ/mXPDnDTVWmx0pXDhWkEBEXSayUNdzq
+HXr2/NmEGDdiGVdQJnFWwAYCwEPcfrqnZbgT8TVSqMAusGQpuldlxuDz/OPQ8jGZ
+9MjVoMKsKq8m4/An4w80/0nz/L2asjKYtFAQqXecJgLsh8dB407n2QAqwhJ/w9qC
+oadN/X9+nOOi+GqTYJze3fxH0hff1gN54xUtjYq7SytPJiD/BrIO6G301tT89HDT
+hC0z0e1Le5Bj2dC+hr3oM/NgyS/0/AkyCAQ+u9r663PvT9iyFqEP9i8nhMa6pwKz
+sQytYL+XuOibln8Ut1bWEm+2bJL+uQT9SKBtLOBjOZ3i46jVOPldugmrDO+r3puK
+/YKFjGIFJlaMOdHZKtfnvfraetxeP2ijgePcBhGq1WDaZHveoXOqvIneQ9G0XwKJ
+Yrtf7GmfWc6djNDzGY4vQjXQQhL82MqNEHbB+3un4TsBdOsEOdRX54Bwr8TYh6N6
+OkXfg+SINx0XJ2sYI6LUc/LmuYHTk6ygdQ3k6TpAM7aDMbz5lgWSqf+Gc7QDsj/B
+J1pEsuN/oG6ZxzcJ44kOJHOUx11c3X+nqhT9Qe5jLCS6dXarMfI=
+=sTqK
 -----END PGP SIGNATURE-----
 
---sebaegpqwx4q25tk--
+--ue5cilyz5dm4hzad--
