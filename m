@@ -2,141 +2,215 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 243D63006CF
-	for <lists+linux-man@lfdr.de>; Fri, 22 Jan 2021 16:13:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 719333006E0
+	for <lists+linux-man@lfdr.de>; Fri, 22 Jan 2021 16:15:36 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728861AbhAVPNE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 22 Jan 2021 10:13:04 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33176 "EHLO
+        id S1729042AbhAVPOi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 22 Jan 2021 10:14:38 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33422 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729088AbhAVPM5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jan 2021 10:12:57 -0500
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com [IPv6:2607:f8b0:4864:20::62e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 00253C061786
-        for <linux-man@vger.kernel.org>; Fri, 22 Jan 2021 07:12:11 -0800 (PST)
-Received: by mail-pl1-x62e.google.com with SMTP id r4so3309028pls.11
-        for <linux-man@vger.kernel.org>; Fri, 22 Jan 2021 07:12:11 -0800 (PST)
+        with ESMTP id S1729168AbhAVPOA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jan 2021 10:14:00 -0500
+Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com [IPv6:2607:f8b0:4864:20::c36])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 889A1C06174A
+        for <linux-man@vger.kernel.org>; Fri, 22 Jan 2021 07:13:20 -0800 (PST)
+Received: by mail-oo1-xc36.google.com with SMTP id q3so1473720oog.4
+        for <linux-man@vger.kernel.org>; Fri, 22 Jan 2021 07:13:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=SjDTD8uRWLXbB2VryuX2TeDgc0qRxZq/quLNEBHhcMY=;
-        b=il8k99P6wnEMdrbLvueRrv8CbPr0p6AXnVg5orECioq6jppBt1KQKI0dKjJW8/KM8S
-         zXkJ3Ky3v74o08jQ5cy02tgCHjIPitS/hXLfyT6iAmVIIGSPaYrBPs+78CIGt1Y29/i+
-         CjQ1p4ELpf/abbiziMdUHaMwBSqKm0ynKNt+STxhJumYDSU/yxKIxx07GUTBgWomk/QI
-         pqlTkmE18yvNTcUSMwRhOch2vPj1ZtL1xFKeeRvrR0EMB3fBpyGaqkwR6Ro7tszybj9D
-         xn6sCEMQgFT9txgZvw1NjX+eOgVocDvLtV0ZV6fzLK0++4IzhpgbTsmXPzSN7HikAZV1
-         fl8A==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc:content-transfer-encoding;
+        bh=ggO2cxfITELbCcuqaV4MLO74wCVOqbzOd1aasxiLY6k=;
+        b=ays973hyVjo2ipvypSgoI+Cl+Jp+bqRh6yqjMDGMm67WvpWD+ToftyVzvCalUVqxNj
+         BgoJecTOwZemROT3l8Sweas7eAd7gIjHttHrdp1FXT3108ZhgDyrqoyWiYBmBVwgQGlz
+         AgPzWSn6R346b14UVv4rydbEs4i7DU84yosfZJhhlibWn8c5fWqdq2sEJ0cCm96OqDzj
+         PZ82tiMPKhaElkEPVj9hei4gf8onY8tjw06uELqXlHT4Xr3yvVCzpgr9vtkrp8afXjwd
+         F388fCu+OcRXTmU7LjJuuAPcjv11PUCn1VKgzqITp5iHFFMHFri3ldDGjeW1DIWmVb51
+         NTvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=SjDTD8uRWLXbB2VryuX2TeDgc0qRxZq/quLNEBHhcMY=;
-        b=U/ji9XFA6GAhiibp4eQWDBMxc7XIYyvbG6oPtrh+9TInYHWUPzLCwunuILXGEUCHpA
-         VcwZ3Id0dSdXHLEY36UvJUVfMxQTQGBrpjoEErfhdnZVgtYhItHL2l/+Pwp/WMsr+XC8
-         H68LIEQZ1duQwm4nMocZgLhDTkbpaxsqbC1shlBySL6jPCVBIjkSNhwni7EqGzA8Rcg1
-         +l2Gi9kfWm1bkrHSfzmSohuznNDc2/+KzWW56eOoFKFQOmNaBVd8G2VKMH7OI5sontyI
-         j5NXT3RdiC98WfnIhSGYVEOxBgb2C8k+U7SGKFMQh1uge2OMfKwnfptbjkx+hznW8SDk
-         FJfA==
-X-Gm-Message-State: AOAM533vxlZdbZNyhmMuVdQ4xEm2G4Z5wjeXIPHT/lESj6jj27Tsa0U9
-        FVYY/rGIzWesB0ezbLIiBIU=
-X-Google-Smtp-Source: ABdhPJysfESHMPtrqvVDvaP+I9Y78cAinBjBiZQpyne6MNWvHlfba2uZTKpxMWVCSmTNE/u0IWnANA==
-X-Received: by 2002:a17:90a:520e:: with SMTP id v14mr5946443pjh.233.1611328331529;
-        Fri, 22 Jan 2021 07:12:11 -0800 (PST)
-Received: from localhost.localdomain ([1.144.183.221])
-        by smtp.gmail.com with ESMTPSA id m4sm9011658pfa.53.2021.01.22.07.12.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 Jan 2021 07:12:10 -0800 (PST)
-Date:   Sat, 23 Jan 2021 02:12:06 +1100
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Jakub Wilk <jwilk@jwilk.net>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: Correctly formatting URIs: slash
-Message-ID: <20210122151204.tf7ygq324cf4zwjq@localhost.localdomain>
-References: <dd390b94-1733-eca1-4a59-d16988881f9e@gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc:content-transfer-encoding;
+        bh=ggO2cxfITELbCcuqaV4MLO74wCVOqbzOd1aasxiLY6k=;
+        b=SmFiq8ovA2FB+Eruxqw2lxtT4lEwpWdbXd696z7Zz9840DW6K18D89UvmP5BAH1Jtn
+         OUv1iKbdfB5ys2838rTyLfUh7doYxvZGpaiw7kGwtGyr2FJMVcZXj9e6snBmiKLcQ85R
+         Opn7Igu0Iv37diiWWr3cN3bw01RdEu+ejQvsbLTaPVIYe6lm55jEMy1Tt6JgMGuzpCRj
+         rKqd4rOr3sRI7GglXKWxP93WpcOndeoCSxjg8a97e1HMqUSh7SdKEgSbuyPlDzuDTHMl
+         QKVX+WrXodS1kSBEiSbmmC0vjyZDJF+IFzsE2twOsX7aXbJKoLJA1ARLfxeKfITFaaQp
+         tz3g==
+X-Gm-Message-State: AOAM530x5sFjNb+o0DWLFN+W0NZge1fxidRzTvdb+oSkJ8QXa05KSTG3
+        AOPdBx6gaS5fEKAUMGMa8ktvwrzkyNk+N7HHTcIkCy1T
+X-Google-Smtp-Source: ABdhPJwykp/2gi6JtlXemcprE+Vy1fZP9dM+Fw51PiQinuCBkmHXvZgfh2caIUIfwrFC7PFFj+NHAPNNeu21QdQ4WN4=
+X-Received: by 2002:a4a:d384:: with SMTP id i4mr1018749oos.14.1611328398913;
+ Fri, 22 Jan 2021 07:13:18 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="f2ehixqlbsux7d2w"
-Content-Disposition: inline
-In-Reply-To: <dd390b94-1733-eca1-4a59-d16988881f9e@gmail.com>
-User-Agent: NeoMutt/20180716
+References: <20210109195840.74472-1-colomar.6.4.3@gmail.com> <b5c59c50-3d98-8835-0c26-90fa6bfaf08b@gmail.com>
+In-Reply-To: <b5c59c50-3d98-8835-0c26-90fa6bfaf08b@gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Fri, 22 Jan 2021 16:13:07 +0100
+Message-ID: <CAKgNAkhHLw2gwrnquOq8nbFSoydkSyoWivgeHrh2CH4QY3PdDg@mail.gmail.com>
+Subject: Re: Ping: [PATCH] posix.py: ffix: Correctly format URIs
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     Alejandro Colomar <colomar.6.4.3@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        "G . Branden Robinson" <g.branden.robinson@gmail.com>,
+        Jakub Wilk <jwilk@jwilk.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Alex,
 
---f2ehixqlbsux7d2w
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Fri, 22 Jan 2021 at 13:37, Alejandro Colomar (man-pages)
+<alx.manpages@gmail.com> wrote:
+>
+> On 1/9/21 8:58 PM, Alejandro Colomar wrote:
+> > $ man 7 uri 2>/dev/null \
+> >   |sed -n '/Writing a URI/,/^$/p';
+> >    Writing a URI
+> >        When  written, URIs should be placed inside double quotes
+> >        (e.g., "http://www.kernel.org"), enclosed in angle brack=E2=80=
+=90
+> >        ets  (e.g.,  <http://lwn.net>),  or  placed  on a line by
+> >        themselves.  A warning for those who  use  double-quotes:
+> >        never  move  extraneous  punctuation  (such as the period
+> >        ending a sentence or the comma in a list) inside  a  URI,
+> >        since  this  will  change the value of the URI.  Instead,
+> >        use angle brackets instead, or switch to a quoting system
+> >        that  never  includes extraneous characters inside quota=E2=80=
+=90
+> >        tion marks.  This latter  system,  called  the  'new'  or
+> >        'logical'  quoting  system by "Hart's Rules" and the "Ox=E2=80=
+=90
+> >        ford Dictionary for Writers and  Editors",  is  preferred
+> >        practice  in Great Britain and hackers worldwide (see the
+> >        Jargon  File's   section   on   Hacker   Writing   Style,
+> >        =E2=9F=A8http://www.fwi.uva.nl/~mes/jargon/h/HackerWritingStyle.=
+html=E2=9F=A9,
+> >        for more information).   Older
+> >        documents  suggested inserting the prefix "URL:" just be=E2=80=
+=90
+> >        fore the URI, but this form has never caught on.
+> >
+> > Enclose URIs in <>.  It is especially important in this case, as
+> > the URIs are followed by '.'.
+> > From "" or <>, I prefer <>, as they are less used in other
+> > contexts, so they are more easily read as URIs.
+> >
+> > This also fixes the extraneous space that was used to separate
+> > the URIs from the final period.
+> > In some cases, the period ended in a line of its own.
+> >
+> > Also enclose them in [.UR/.UE].
+> >
+> > Signed-off-by: Alejandro Colomar <colomar.6.4.3@gmail.com>
+> > ---
+> >
+> > Hello Michael,
+> >
+> > This patch is for man-pages-posix.git.
+> > I found that the link in uri(7) is broken,
+> > but I found that same document here:
+> > http://www.catb.org/jargon/html/writing-style.html
+> > I'll patch uri.7 to fix that link.
+> >
+> > That was a very interesting read.
+> > I got why you tend to use "xxxx (xxxx.)" and not "xxxx (xxxx).",
 
-Hi Alex!
+Sorry... I don't understand what you are referring to in the previous line.
 
-At 2021-01-22T14:00:33+0100, Alejandro Colomar (man-pages) wrote:
-> Why do some pages use \:/ for the slash in the path part of a URL, but
-> some others don't, and just use /?
+> > the latter being _much_ more common in Spanish (and other languages)
+> > (actually, I've never read the former in Spanish).
+>
+> Hey Michael,
+>
+> Ping!
+>
+> I'm still very interested in knowing your thoughts about the Hacker
+> Writing Style from the Jargon File, and more specifically about the
+> so-called `new' or `logical' quoting method[1].  Especially you being
+> both a hacker and a writer :-).
+>
+> [1]: http://www.catb.org/jargon/html/writing-style.html
 
-Laziness or ignorance of how URLs get typeset and what the \: escape is
-for.
+So, I regard the Jargon File and HWS as no real authority on anything,
+and I'm not even sure we should refer to them in a manual page. Much
+of the writing there is rather polemical. But, that said...
 
-URLs are typeset with hyphenation disabled.  That means that the line
-preceding a URL can
-be broken early in a very ugly way, somewhat like this sentence.
+> I'll quote the most important part here so you don't need to follow the
+> link (but I recommend it, though):
+>
+> [[
+> Hackers tend to use quotes as balanced delimiters like parentheses, much
+> to the dismay of American editors. Thus, if =E2=80=9CJim is going=E2=80=
+=9D is a phrase,
+> and so are =E2=80=9CBill runs=E2=80=9D and =E2=80=9CSpock groks=E2=80=9D,=
+ then hackers generally prefer
+> to write: =E2=80=9CJim is going=E2=80=9D, =E2=80=9CBill runs=E2=80=9D, an=
+d =E2=80=9CSpock groks=E2=80=9D. This is
+> incorrect according to standard American usage (which would put the
+> continuation commas and the final period inside the string quotes);
+> however, it is counter-intuitive to hackers to mutilate literal strings
+> with characters that don't belong in them. Given the sorts of examples
+> that can come up in discussions of programming, American-style quoting
+> can even be grossly misleading. When communicating command lines or
+> small pieces of code, extra characters can be a real pain in the neck.
+>
+> Consider, for example, a sentence in a vi tutorial that looks like this:
+>
+>     Then delete a line from the file by typing =E2=80=9Cdd=E2=80=9D.
+>
+> Standard usage would make this
+>
+>     Then delete a line from the file by typing =E2=80=9Cdd.=E2=80=9D
+>
+> but that would be very bad =E2=80=94 because the reader would be prone to=
+ type
+> the string d-d-dot, and it happens that in vi(1), dot repeats the last
+> command accepted. The net result would be to delete two lines!
+>
+> The Jargon File follows hackish usage throughout.
+>
+> Interestingly, a similar style is now preferred practice in Great
+> Britain, though the older style (which became established for
+> typographical reasons having to do with the aesthetics of comma and
+> quotes in typeset text) is still accepted there. Hart's Rules and the
+> Oxford Dictionary for Writers and Editors call the hacker-like style
+> =E2=80=98new=E2=80=99 or =E2=80=98logical=E2=80=99 quoting. This returns =
+British English to the style
+> many other languages (including Spanish, French, Italian, Catalan, and
+> German) have been using all along.
+> ]]
 
-Slashes in URLs turn out to be pretty good places to break a line if it
-must be.  If you wanted a hyphen to appear at the break point, you'd use
-the "hyphenation character", an escape that goes way back to 1970s AT&T
-troff: \%.  However, as with URLs,sometimes you want a hyphenless break
-point, and that's what groff's \: is.  Heirloom Doctools troff supports
-\: as well.  mandoc 1.14.1 does not (it refuses to break URLs at all, at
-least for man(7) documents; I didn't check its mdoc(7) support).
+Like many programmers, I find the Logical Style, ahhh, logical. And in
+a fixed-width font, the visual argument for putting periods and commas
+inside the quotes (the American style) doesn't apply. The
+counterargument is that in most every other aspect, man-pages follows
+American conventions.
 
-> Moreover, why do the former use \:/ only for the path, but not for the
-> protocol?
+I imagine that in man-pages there's a mix of both styles, since I'm
+not sure if I've ever taken care about this.
 
-I think it is because people feel like postponing a break by 7 more
-characters to get the first part after the schema adjacent to it is not
-too high a price to pay.
+So, what to do... Given that man-pages are primarily rendered to
+fix-width displays, and the confusion that can sometimes occur in a
+technical context if following the American style, I would not oppose
+switching everything British/Logical style.
 
-There's no deep reason why you couldn't do:
+Maybe others have opinions to offer.
 
-.UR http\:://www\:.w3\:.org\:/CGI
-Common Gateway Interface
-.UE
+> BTW, I should remind myself to fix the link in uri.7.
 
-for instance.
+I'd be inclined to remove the URL. Mention of the Logical Style in
+Hart's rules and the British style is good enough, I think.
 
-House style for the groff man pages is to place hyphenless break points
-_before_ periods and _after_ slashes in pathnames and URLs.  The former
-point is one I'd recommend firmly to others, because it helps keep the
-reader from confusing a line-broken pathname or URL as ending a
-sentence (prematurely).  The latter convention is more arbitrary; plenty
-of perfectly valid URLs (and pathnames) exist with or without trailing
-slashes, so one can't infer the end of such an object from the presence
-or absence of a slash at the end of a line of text.
+Thanks,
 
-Regards,
-Branden
+Michael
 
---f2ehixqlbsux7d2w
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmAK6zgACgkQ0Z6cfXEm
-bc5ACw/+O+d+MSXqY/88X+yUsTRyYKj0sDbFfF1QpP+B/mqMr9NTO1iv07P71DAM
-La9Dd6i06Q7k1zQqiGBX+pbODoWXr/K/SCEh4+LCJjE+3E5y5OGRVuLJZ6xgxiHK
-Mbu/I7kvfMrtkk9BwXr1gyxua0rJlcJSaKdfxkrW7+/kz/9T2AwaEEPCHdIhKNDR
-a4jRJVz0NqlkdssuA3H4mmwfAG4zNWb7IvU1yLU2sUIv6YeYruMgR97evMHgYB50
-0jddK6Ql+59UJSRsnKDRpzgajpqVxRyb0nXCk1gUpyQl07V+JjODKLbGcAtSfRsO
-iih376JGpM/cOGY8iWFaSxkKp4pamVrB482ZQZLnSDb8w+07Rw4ZseXaXZba2NFA
-wdtsEVfylHdK7/aUZxlYx4pUxt7B4Mfc6N6HkF1TGK+VWoRcZ1K1fNSWjpUX1jpb
-iwhTzqTKM05y9XcXla1GNTPMZNiyADzbehV4Y4z55sp4sVxaufT6JT39zm6iGc5T
-7+9dJwIJY+cPG0MmcRnfUjrd1Kr4f4BSyk0wry14iEJxJtujkqxiurXUFstuHeEb
-LzJQ+MJTp28woV9/eQcpwwqXivGQC9Dl55/ecFvH+mlFTOvAuLSWjnYTfYJtbt4k
-wpcjQ85TprTqv1OSsgowqVqpO3mbA+3pp1w9qS0gNvJvf2ssSrk=
-=jO2a
------END PGP SIGNATURE-----
-
---f2ehixqlbsux7d2w--
+--=20
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
