@@ -2,83 +2,113 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id ADE3130176B
-	for <lists+linux-man@lfdr.de>; Sat, 23 Jan 2021 18:55:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 61F7C30186F
+	for <lists+linux-man@lfdr.de>; Sat, 23 Jan 2021 21:54:14 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725932AbhAWRys (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 23 Jan 2021 12:54:48 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38128 "EHLO
+        id S1726316AbhAWUxs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 23 Jan 2021 15:53:48 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48256 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725910AbhAWRyr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 23 Jan 2021 12:54:47 -0500
-Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com [IPv6:2607:f8b0:4864:20::d2e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 18A02C06174A
-        for <linux-man@vger.kernel.org>; Sat, 23 Jan 2021 09:54:07 -0800 (PST)
-Received: by mail-io1-xd2e.google.com with SMTP id n2so18062721iom.7
-        for <linux-man@vger.kernel.org>; Sat, 23 Jan 2021 09:54:07 -0800 (PST)
+        with ESMTP id S1725932AbhAWUxr (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 23 Jan 2021 15:53:47 -0500
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5F972C0613D6
+        for <linux-man@vger.kernel.org>; Sat, 23 Jan 2021 12:53:05 -0800 (PST)
+Received: by mail-wr1-x42f.google.com with SMTP id b5so8431807wrr.10
+        for <linux-man@vger.kernel.org>; Sat, 23 Jan 2021 12:53:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=3FEyZXVhyGJFarPEaNEqZSOR8r8zx1sFLnlfk4Uo5zk=;
-        b=lCDugPURWmXrcxxLvd5JF8zFYZdaEgJPhf5tN40IXEsZTxwQHk/3ayFJpGVFGupOYX
-         6YnGv/mrg/pbDyzKolJR7IuBCi1/iQsf1vZqjjQK6SmkEMI+lq+JLhiUOsXDB5X6EuE7
-         5P5w22pTWDcBaqol/BIprog276pHuFbD1jcT2fbzSjjubnP6BXHkb76B5Dh9RUPL3jRV
-         lXaSwPjDHzFfcCwOwZ/4Kmqcl77PdW7/XEcrhHULygrdS6PBO4bU4YvlLXV+3BA02uHe
-         PuMGF6fDUZWnPQtjYwNkrw2rBmkg3mgiKYrUaSvw/pjeurwKItCF1yky1t8W2A0gUmMS
-         ogmQ==
+        h=subject:to:references:cc:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=yApHrbLNSS6ozFMN4lND7a4f9o3JYMpN2oMPHhI/PtQ=;
+        b=Uy6G1vj3pRjIvCglyDDo2hif2QcR03QMnHgjDNfekiaT0nkXGjh57HCYdraGsyMQQr
+         +CbxxZALA69THkHrXhakjQs5P5kchliTOJK+iPB/aTtZ2Bj0Vl/y8ExgzI5ZJDDEJbO+
+         5ywK0woGlsoobNfiELhD2gIJcQ+4nBDw4nOveg19pR/5viacgB8U8qISpS1yFgJcrdjl
+         Un1k/GpramAIhCW+N4+n1krp5Bxm0q4Ros9UGk+e6+NEeFOFaMmMmiwwMeYjkPa+Bl3/
+         d3Kjhmuij87VONtD2+bgE2irIq8XRaiQS5gXhAF4zLg85TA7RydvsjZUJfnwR1tNbbWK
+         HxAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=3FEyZXVhyGJFarPEaNEqZSOR8r8zx1sFLnlfk4Uo5zk=;
-        b=nveRIEifKIiYQ5o+AsZliywEk7vh9jQpdoRPR3nfvSJRVK9+xHl55h84GKwotN3KA2
-         N4cFqebmYR/PuuF3XLdOgIOkaVz60m3VxqcxQotGTOloxPAeqXapnrbSux5CQ0I0Twbx
-         KGGAXDzA9/NTLvjcO7p1M6BMwFFM52Hjz9HbVcEcTV8a8GbCfBVwCxlAJGwqALtCzTvG
-         z/W7otiSo4AMslfMa/679BUerlLzYPebPp7JKj/ycv6sTk5T8Z0MR3F+In+zUx3U6n/A
-         yMEBCPBl2x1JhPSmm8aLlLX/2QnJvg6b6JHQrTz09vq8ptYKS3O8Rg6+xY/0DKhnFEgv
-         wfnQ==
-X-Gm-Message-State: AOAM533F9qD6OTiLu0QkWLm2ANnTwuta0SYkn85efcZdgV8ODxymTIe/
-        9tb+InkIb3Gi9Su9PAWL+NUqRec8qBCb8cAoEXvMZ60tbzI=
-X-Google-Smtp-Source: ABdhPJzCOq2f5IQXakIo6NWcNWNo+RPtq9mtsQ21MP0BYM1ivzIzNVWOVZTZUjF57AQXENhP5COH3Gg2gfecE+TfFxI=
-X-Received: by 2002:a05:6638:d8a:: with SMTP id l10mr7812162jaj.2.1611424446106;
- Sat, 23 Jan 2021 09:54:06 -0800 (PST)
+        h=x-gm-message-state:subject:to:references:cc:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=yApHrbLNSS6ozFMN4lND7a4f9o3JYMpN2oMPHhI/PtQ=;
+        b=UIhZ9agGTh7UxlT/wvAsD1tho7Kd9mkNFhWKgckv11G8R6ogFLl74MFrvHcWN82m+I
+         uPMCwskSlb47Le+0uQmPbj8/S449GE924hqoTHx+AhCuJ/cNhOFZrhWVRUiGpF1V+m+B
+         hcuVk7yHydtXRs+z6g53M4iTlckoax5qVGtRcpgifskg2HZkretodT5Ob+3euZPlq8Rq
+         XerPzE3aXSZDhvgUx6yQizWIlaaF9C3vnkz090lxC3gWW9bf4qRB402GsoWjrV8iTGdE
+         f169Kru/paeKS9Tcq4rrbic/wyQ+NxxrhSy3lInHAoY6xhgdnKUjVqoxFUjqRhtnhyWm
+         pj0g==
+X-Gm-Message-State: AOAM531/fIoTSxgC0+vpnfisHTpdx4oTe8Ktil99QYnWUaf3pu1xH2ah
+        v2ttlRxoKv4NTDQAGQ1eLJiKTb4znXE=
+X-Google-Smtp-Source: ABdhPJyDJoWCTtryySEcAnQGkh0PN0i+3RhR95PzvhOLMZd3UB3jg9ulOBJe2eKsSvtwBeBa0b6ZJA==
+X-Received: by 2002:a5d:4242:: with SMTP id s2mr170886wrr.187.1611435184072;
+        Sat, 23 Jan 2021 12:53:04 -0800 (PST)
+Received: from [192.168.1.143] ([170.253.51.130])
+        by smtp.gmail.com with UTF8SMTPSA id p15sm16953830wrt.15.2021.01.23.12.53.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 23 Jan 2021 12:53:03 -0800 (PST)
+Subject: Re: How to deal with colliding filenames?
+To:     Peng Yu <pengyu.ut@gmail.com>
+References: <CABrM6wk4Fy5d7EiqgdZEDGw8Cz31n47MLDUV7=eantZu1Apb4w@mail.gmail.com>
+Cc:     linux-man@vger.kernel.org
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <d4c126d6-42b4-4a7a-3834-e9ae0c94adb2@gmail.com>
+Date:   Sat, 23 Jan 2021 21:53:02 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:84.0) Gecko/20100101
+ Thunderbird/84.0
 MIME-Version: 1.0
-Received: by 2002:a6b:c88b:0:0:0:0:0 with HTTP; Sat, 23 Jan 2021 09:54:05
- -0800 (PST)
-From:   Peng Yu <pengyu.ut@gmail.com>
-Date:   Sat, 23 Jan 2021 11:54:05 -0600
-Message-ID: <CABrM6wk4Fy5d7EiqgdZEDGw8Cz31n47MLDUV7=eantZu1Apb4w@mail.gmail.com>
-Subject: How to deal with colliding filenames?
-To:     linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CABrM6wk4Fy5d7EiqgdZEDGw8Cz31n47MLDUV7=eantZu1Apb4w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi,
+On 1/23/21 6:54 PM, Peng Yu wrote:
+> Hi,
+> 
+> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git
+> https://git.kernel.org/pub/scm/docs/man-pages/man-pages-posix.git
+> 
+> When I tried to clone the above repos on Mac OS X, I got the following
+> errors. The default disk on Mac OS X is not case sensitive. How to
+> deal with such a problem? Thanks.
+> 
+> warning: the following paths have collided (e.g. case-sensitive paths
+> on a case-insensitive filesystem) and only one from the same
+> colliding group is in the working tree:
+> 
+>   'man2/_Exit.2'
+>   'man2/_exit.2'
+>   'man3/NAN.3'
+>   'man3/nan.3'
+> 
+> warning: the following paths have collided (e.g. case-sensitive paths
+> on a case-insensitive filesystem) and only one from the same
+> colliding group is in the working tree:
+> 
+>   'man-pages-posix-2003/man3p/_Exit.3p'
+>   'man-pages-posix-2003/man3p/_exit.3p'
+> 
 
-https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git
-https://git.kernel.org/pub/scm/docs/man-pages/man-pages-posix.git
+Hi Peng Yu,
 
-When I tried to clone the above repos on Mac OS X, I got the following
-errors. The default disk on Mac OS X is not case sensitive. How to
-deal with such a problem? Thanks.
+I understand your frustration.  I had the same problem when I tried to
+work on the man-pages from a Windows laptop (using the WSL2).  My
+solution was the easy way out: wipe Windows and install Linux.  If
+that's not a possibility, I'd try installing drivers for a filesystem
+that is case sensitive, and have a separate partition with that
+filesystem.  I don't know, but I guess it's possible, and easy.  For
+more help, I'd ask on <https://unix.stackexchange.com/>.  BTW, I didn't
+know OSX used a case insensitive filesystem.
 
-warning: the following paths have collided (e.g. case-sensitive paths
-on a case-insensitive filesystem) and only one from the same
-colliding group is in the working tree:
+Regards,
 
-  'man2/_Exit.2'
-  'man2/_exit.2'
-  'man3/NAN.3'
-  'man3/nan.3'
-
-warning: the following paths have collided (e.g. case-sensitive paths
-on a case-insensitive filesystem) and only one from the same
-colliding group is in the working tree:
-
-  'man-pages-posix-2003/man3p/_Exit.3p'
-  'man-pages-posix-2003/man3p/_exit.3p'
+Alex
 
 -- 
-Regards,
-Peng
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
