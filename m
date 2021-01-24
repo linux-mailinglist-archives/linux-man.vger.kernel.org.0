@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 06BE9301D1C
-	for <lists+linux-man@lfdr.de>; Sun, 24 Jan 2021 16:15:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A4D79301D17
+	for <lists+linux-man@lfdr.de>; Sun, 24 Jan 2021 16:15:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725831AbhAXPPg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 24 Jan 2021 10:15:36 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56552 "EHLO
+        id S1726065AbhAXPPJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 24 Jan 2021 10:15:09 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56584 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726608AbhAXPMl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 24 Jan 2021 10:12:41 -0500
+        with ESMTP id S1726530AbhAXPMr (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 24 Jan 2021 10:12:47 -0500
 Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DF7FAC061786
-        for <linux-man@vger.kernel.org>; Sun, 24 Jan 2021 07:11:56 -0800 (PST)
-Received: by mail-wr1-x430.google.com with SMTP id 6so9758832wri.3
-        for <linux-man@vger.kernel.org>; Sun, 24 Jan 2021 07:11:56 -0800 (PST)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 460E0C06174A
+        for <linux-man@vger.kernel.org>; Sun, 24 Jan 2021 07:12:07 -0800 (PST)
+Received: by mail-wr1-x430.google.com with SMTP id p15so3104369wrq.8
+        for <linux-man@vger.kernel.org>; Sun, 24 Jan 2021 07:12:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=KxSM/MIbBwoexLrMx67wT8rFAwS0w9ulJ+QqFsfElLg=;
-        b=aj9elenESYu9TeOgABVGPXmuyKWtXLARMnscUw7NGWKlQCNBObwXYwJTATitWdsuKt
-         wf2ENzMLFmjup4Q/Bm9j5iB3hOkvDOQshDrZpx2m/J8vb9TsKzsDsXQxd5MrTfkeaMsd
-         n55pVaGNcqDz4k/55aoIZsgliC4+jb3nISWF8UCzmdlUWDKdrbmkUL9TbDZ3OqMIfxwv
-         FfZO3B16SaKTG6HtFSlO/A8UzqZdTDeqk9ruESQjo5K2WVbXSY0Sdc9Px/Sy3GaYsn6v
-         OlG4LMjMlXOmaiEZav15TnwPU1qaV2Ymx3r7qxhtidnbl+Nj//86pG6hcD9uJ8LemnWM
-         Vbrg==
+        bh=wo271IPG/KksBuGahN9ZswHwFduqLEGkWvA4JDqucLU=;
+        b=AfPvLWim9qI+BWpoCYRoQuBq0Q/q1jilGpTKO54FYzJ4OXOwLSzVOthe75x8dIFpPb
+         cf55GxIj7skz/0FaaG4IbgUcXWERe+U2IS/er7OQnLpvVn6WMJbJ2iJGqS682IpuOVIA
+         mQnrqM13GplLZuzEDHyHGjt1MNElYkttJ44bLO1sZvJuKCFLn7TLA2MACiUH+4iamSxd
+         QngLj+KjZXDA+3/lGKknKq3g4lHqi7KzVzco/LtyaI6RpmuExR8gdwSE19sPRlGtME/A
+         YYzKRTCmLmBQuN7fxCwiv5EK85xgLB7lvrTqBkMS3q2isqqblw6YAGwjtl+yK5xu9PEP
+         uZWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=KxSM/MIbBwoexLrMx67wT8rFAwS0w9ulJ+QqFsfElLg=;
-        b=n7qNoRepafmNYzdH0JK0gPBCLkBiOijHweK+f2m2jLlaj+XjIlvFFyOvr258YbaGdb
-         3UnCV/f995ndtg6F+Lb5j4qbWbL8QSinWRgscxHKnEvNM7YEtea/oGj2nplK7XowYuId
-         zfOPB6/Frkrv+/iy4gAHSACRoavraIg/7hBoD0rcnUqzckfat+bFe1MlqDlEiiEHCjTq
-         Xt1yDul4SI6uoeAhjFdUSBDU9PGmx0rSvk5Q4BtqOGWBvF3TZG56nOnMo7I3RXs5pMtJ
-         UXU9ct13QNVK2Em1MVFTPJLgpCYboBd95t5Gd3RCbZ6cs8SX8pjwFnBILUpd6Y60wNgk
-         TnCg==
-X-Gm-Message-State: AOAM530LnHXu6ESe5+21OIPQgRAxnTbCrrUNN/tStLm2ZJw8l2rYv2x1
-        eiIQDQ9kImhUjqyetybGIJg=
-X-Google-Smtp-Source: ABdhPJyyVOC2G5eSYhbhuwT6aNIdd2E8LylzRk41m9L8pCssmiNTkVZ/K0MmZ8pFBnJKTZHakFjm4g==
-X-Received: by 2002:adf:eb4e:: with SMTP id u14mr1658351wrn.99.1611501115713;
-        Sun, 24 Jan 2021 07:11:55 -0800 (PST)
+        bh=wo271IPG/KksBuGahN9ZswHwFduqLEGkWvA4JDqucLU=;
+        b=PV2Mv8d6OfFROX83V3GX6In9GKh1QAG0sxIJtPrb6vcDbsSdpx7YQ4SWuG+mMIGI6g
+         h4xCp0Him1Tbo7TskK/5m7dXjR8p/cRNSyGPfUZc/k7y0C5ogNR4z6qp3XUb12rcud+a
+         ut7mCdmoelpTCyZguX+YDqHN1loNx6QNEGEDHHdWtGgrGtMh44DiD5rKzVwLAevuM00R
+         FkUnMgqSDdYWywgpCXIdMSfPRwf4z1IPIjbxXIhCShGf9etyEZSZZf09rMkdWR0pDGZE
+         J4FDta4IidwF5Ga/MTOGhZqwRQsHLDZf3WjDMPW7WL5Hxbda+JnEhQBMO15QTYO5rhCB
+         D0Qg==
+X-Gm-Message-State: AOAM533MaT1OkJzvrlOy5/ch3bwkA3Fv15v50Cxd2Cjojrk3HOKP8dnJ
+        nnpZwA6LPfq8tDwqGUOq9qY=
+X-Google-Smtp-Source: ABdhPJwE/VaVjMwMiNc4Cte35tGsDMqpjgYwzhGsBLXJkuFypgKXqtS0WnTDwCV53qQh+4SsR8ZRIA==
+X-Received: by 2002:a5d:4a09:: with SMTP id m9mr4726930wrq.122.1611501126134;
+        Sun, 24 Jan 2021 07:12:06 -0800 (PST)
 Received: from debian.vlc ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id j2sm18480099wrh.78.2021.01.24.07.11.54
+        by smtp.gmail.com with ESMTPSA id j2sm18480099wrh.78.2021.01.24.07.12.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 24 Jan 2021 07:11:55 -0800 (PST)
+        Sun, 24 Jan 2021 07:12:05 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>,
         Alejandro Colomar <alx.manpages@gmail.com>
-Subject: [PATCH] MAINTAINER_NOTES: tfix
-Date:   Sun, 24 Jan 2021 16:10:41 +0100
-Message-Id: <20210124151035.70536-7-alx.manpages@gmail.com>
+Subject: [PATCH] semget.2, shm_open.3: tfix
+Date:   Sun, 24 Jan 2021 16:10:43 +0100
+Message-Id: <20210124151035.70536-8-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -66,20 +66,36 @@ From: Jakub Wilk <jwilk@jwilk.net>
 Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- MAINTAINER_NOTES | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man2/semget.2   | 2 +-
+ man3/shm_open.3 | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/MAINTAINER_NOTES b/MAINTAINER_NOTES
-index 056d02774..82830df66 100644
---- a/MAINTAINER_NOTES
-+++ b/MAINTAINER_NOTES
-@@ -8,5 +8,5 @@ tzfile(5), zdump(8), and zic(8) come from the tz project
- (https://www.iana.org/time-zones).
- 
- bpf-helpers(7) is autogenerated from the kernel sources using scripts.
--See man-pagfes commit 53666f6c30451cde022f65d35a8d448f5a7132ba dir
-+See man-pages commit 53666f6c30451cde022f65d35a8d448f5a7132ba for
- details.
+diff --git a/man2/semget.2 b/man2/semget.2
+index 9276a1820..17bad6ca9 100644
+--- a/man2/semget.2
++++ b/man2/semget.2
+@@ -155,7 +155,7 @@ If the semaphore set already exists, the permissions are
+ verified.
+ .\" and a check is made to see if it is marked for destruction.
+ .SH RETURN VALUE
+-On sucess,
++On success,
+ .BR semget ()
+ returns the semaphore set identifier (a nonnegative integer).
+ On failure, \-1 is returned, and
+diff --git a/man3/shm_open.3 b/man3/shm_open.3
+index c7d051067..6bc8078f0 100644
+--- a/man3/shm_open.3
++++ b/man3/shm_open.3
+@@ -170,7 +170,7 @@ was specified, in which case a new, distinct object is created).
+ On success,
+ .BR shm_open ()
+ returns a file descriptor (a nonnegative integer).
+-On sucess,
++On success,
+ .BR shm_unlink ()
+ returns 0.
+ On failure, both functions return \-1 and set
 -- 
 2.30.0
 
