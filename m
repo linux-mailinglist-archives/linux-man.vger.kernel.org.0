@@ -2,108 +2,84 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 25EA5301D10
-	for <lists+linux-man@lfdr.de>; Sun, 24 Jan 2021 16:13:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 06BE9301D1C
+	for <lists+linux-man@lfdr.de>; Sun, 24 Jan 2021 16:15:49 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726298AbhAXPN1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 24 Jan 2021 10:13:27 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56506 "EHLO
+        id S1725831AbhAXPPg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 24 Jan 2021 10:15:36 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56552 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726302AbhAXPM2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 24 Jan 2021 10:12:28 -0500
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C9B9BC0613ED
-        for <linux-man@vger.kernel.org>; Sun, 24 Jan 2021 07:11:47 -0800 (PST)
-Received: by mail-wr1-x42e.google.com with SMTP id g10so9770790wrx.1
-        for <linux-man@vger.kernel.org>; Sun, 24 Jan 2021 07:11:47 -0800 (PST)
+        with ESMTP id S1726608AbhAXPMl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 24 Jan 2021 10:12:41 -0500
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DF7FAC061786
+        for <linux-man@vger.kernel.org>; Sun, 24 Jan 2021 07:11:56 -0800 (PST)
+Received: by mail-wr1-x430.google.com with SMTP id 6so9758832wri.3
+        for <linux-man@vger.kernel.org>; Sun, 24 Jan 2021 07:11:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=2dH/AnIKGD78Wvb6nm+25r2o7zcq5zifnjOd4aJrWHE=;
-        b=YqrDGUDZ3rZ+FcKB4zeOdI1c3beQPed6Y+1jvRl45tH+tTIuSDRm3PuPv4wI7I04B7
-         FY0XFvp5djmJlIXLs+sj36fmDzQHpn4KfrWC7HSS4IJGwWHTIYz1Y+aTV0b3SHClmqer
-         6UjLIqLTprQRpdoXWFfjE2uWeb8FHBkeyTj6emm3v8KVLFgGT+fEdVEOhMT+GuphfkkU
-         Pj0+P3L36LHjTphLvoDRhdL1yobJMaNlidx7St+JIkVpOrWraVX11HvPj4V7B2gdy+J5
-         7irtEEIr6LoHWXfyz9cjS9TNfu2iDqbaQ3wZWJco07xxhxPvkDRH0NY6gJCGxrb27crr
-         a5zg==
+        bh=KxSM/MIbBwoexLrMx67wT8rFAwS0w9ulJ+QqFsfElLg=;
+        b=aj9elenESYu9TeOgABVGPXmuyKWtXLARMnscUw7NGWKlQCNBObwXYwJTATitWdsuKt
+         wf2ENzMLFmjup4Q/Bm9j5iB3hOkvDOQshDrZpx2m/J8vb9TsKzsDsXQxd5MrTfkeaMsd
+         n55pVaGNcqDz4k/55aoIZsgliC4+jb3nISWF8UCzmdlUWDKdrbmkUL9TbDZ3OqMIfxwv
+         FfZO3B16SaKTG6HtFSlO/A8UzqZdTDeqk9ruESQjo5K2WVbXSY0Sdc9Px/Sy3GaYsn6v
+         OlG4LMjMlXOmaiEZav15TnwPU1qaV2Ymx3r7qxhtidnbl+Nj//86pG6hcD9uJ8LemnWM
+         Vbrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=2dH/AnIKGD78Wvb6nm+25r2o7zcq5zifnjOd4aJrWHE=;
-        b=Q7UyCVQm6O5FvZze3og5IhoSeApGJwuzTv6iY6+gYiiZ4fSGxU6r8ac+B2sbaCvW4O
-         woTIEJKFjua40SbLU/WDhnDSUaHNkTGHqQzyABNACxOuZRG25IaD7+19C1XtHtoWrKEr
-         PYKk4BnCyLpSAcXcQsfgFeoywB6vqZlPm/hoiJySP5Dd59GOQ2/0erti5pW9899catIx
-         6KZtjPecn6enl1SrW3f7ZrycERu5oXX3tz2/G7RhQin3+IUH3euCz6ER5gFoP/D7iaKp
-         Fi8LIDlLaer1o1HX6Z2DyI7WH/WaC+upg4/vwQ7W3ZifBpEFL23VwsoA9bDAobU42kOF
-         z+ig==
-X-Gm-Message-State: AOAM530XWKnhiXkTyP8DPKH6x6C6KkuikalqkzXTnuwX/eog9mE+GEYI
-        1eUBxXZCpKA5hAAtvViLGJk=
-X-Google-Smtp-Source: ABdhPJxoxSNre+i6iQQB1sHDLkfWMOx7j/h8WQNH3IERQmFSohdC5J6Ea774OR6JhAB0DX7t4q0qDw==
-X-Received: by 2002:a5d:5051:: with SMTP id h17mr1000765wrt.164.1611501106619;
-        Sun, 24 Jan 2021 07:11:46 -0800 (PST)
+        bh=KxSM/MIbBwoexLrMx67wT8rFAwS0w9ulJ+QqFsfElLg=;
+        b=n7qNoRepafmNYzdH0JK0gPBCLkBiOijHweK+f2m2jLlaj+XjIlvFFyOvr258YbaGdb
+         3UnCV/f995ndtg6F+Lb5j4qbWbL8QSinWRgscxHKnEvNM7YEtea/oGj2nplK7XowYuId
+         zfOPB6/Frkrv+/iy4gAHSACRoavraIg/7hBoD0rcnUqzckfat+bFe1MlqDlEiiEHCjTq
+         Xt1yDul4SI6uoeAhjFdUSBDU9PGmx0rSvk5Q4BtqOGWBvF3TZG56nOnMo7I3RXs5pMtJ
+         UXU9ct13QNVK2Em1MVFTPJLgpCYboBd95t5Gd3RCbZ6cs8SX8pjwFnBILUpd6Y60wNgk
+         TnCg==
+X-Gm-Message-State: AOAM530LnHXu6ESe5+21OIPQgRAxnTbCrrUNN/tStLm2ZJw8l2rYv2x1
+        eiIQDQ9kImhUjqyetybGIJg=
+X-Google-Smtp-Source: ABdhPJyyVOC2G5eSYhbhuwT6aNIdd2E8LylzRk41m9L8pCssmiNTkVZ/K0MmZ8pFBnJKTZHakFjm4g==
+X-Received: by 2002:adf:eb4e:: with SMTP id u14mr1658351wrn.99.1611501115713;
+        Sun, 24 Jan 2021 07:11:55 -0800 (PST)
 Received: from debian.vlc ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id j2sm18480099wrh.78.2021.01.24.07.11.45
+        by smtp.gmail.com with ESMTPSA id j2sm18480099wrh.78.2021.01.24.07.11.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 24 Jan 2021 07:11:46 -0800 (PST)
+        Sun, 24 Jan 2021 07:11:55 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org,
-        =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>,
         Alejandro Colomar <alx.manpages@gmail.com>
-Subject: [PATCH] sock_diag.7: Fix recvmsg() usage in the example
-Date:   Sun, 24 Jan 2021 16:10:39 +0100
-Message-Id: <20210124151035.70536-6-alx.manpages@gmail.com>
+Subject: [PATCH] MAINTAINER_NOTES: tfix
+Date:   Sun, 24 Jan 2021 16:10:41 +0100
+Message-Id: <20210124151035.70536-7-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Pali Rohár <pali@kernel.org>
+From: Jakub Wilk <jwilk@jwilk.net>
 
-The msg_name field for recvmsg() call points to a caller-allocated buffer
-nladdr that is used to return the source address of the (netlink) socket.
-
-As recvmsg() does not read this buffer and fills it for a caller, do not
-initialize it and instead check its value in the example.
-
-Signed-off-by: Pali Rohár <pali@kernel.org>
+Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man7/sock_diag.7 | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ MAINTAINER_NOTES | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man7/sock_diag.7 b/man7/sock_diag.7
-index b732b2571..569106dd6 100644
---- a/man7/sock_diag.7
-+++ b/man7/sock_diag.7
-@@ -753,9 +753,7 @@ static int
- receive_responses(int fd)
- {
-     long buf[8192 / sizeof(long)];
--    struct sockaddr_nl nladdr = {
--        .nl_family = AF_NETLINK
--    };
-+    struct sockaddr_nl nladdr;
-     struct iovec iov = {
-         .iov_base = buf,
-         .iov_len = sizeof(buf)
-@@ -782,6 +780,11 @@ receive_responses(int fd)
-         if (ret == 0)
-             return 0;
+diff --git a/MAINTAINER_NOTES b/MAINTAINER_NOTES
+index 056d02774..82830df66 100644
+--- a/MAINTAINER_NOTES
++++ b/MAINTAINER_NOTES
+@@ -8,5 +8,5 @@ tzfile(5), zdump(8), and zic(8) come from the tz project
+ (https://www.iana.org/time-zones).
  
-+        if (nladdr.nl_family != AF_NETLINK) {
-+            fputs("!AF_NETLINK\en", stderr);
-+            return \-1;
-+        }
-+
-         const struct nlmsghdr *h = (struct nlmsghdr *) buf;
- 
-         if (!NLMSG_OK(h, ret)) {
+ bpf-helpers(7) is autogenerated from the kernel sources using scripts.
+-See man-pagfes commit 53666f6c30451cde022f65d35a8d448f5a7132ba dir
++See man-pages commit 53666f6c30451cde022f65d35a8d448f5a7132ba for
+ details.
 -- 
 2.30.0
 
