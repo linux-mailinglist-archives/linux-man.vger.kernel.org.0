@@ -2,64 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A3DF73034C8
-	for <lists+linux-man@lfdr.de>; Tue, 26 Jan 2021 06:28:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1EE803034C9
+	for <lists+linux-man@lfdr.de>; Tue, 26 Jan 2021 06:28:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730882AbhAZF1b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 26 Jan 2021 00:27:31 -0500
-Received: from smtpout1.mo804.mail-out.ovh.net ([79.137.123.220]:47423 "EHLO
-        smtpout1.mo804.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1726438AbhAYJX3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 25 Jan 2021 04:23:29 -0500
-Received: from mxplan6.mail.ovh.net (unknown [10.108.1.125])
-        by mo804.mail-out.ovh.net (Postfix) with ESMTPS id 2CAFE85AD699;
-        Mon, 25 Jan 2021 10:21:40 +0100 (CET)
-Received: from jwilk.net (37.59.142.104) by DAG4EX2.mxp6.local (172.16.2.32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2044.4; Mon, 25 Jan
- 2021 10:21:36 +0100
-Authentication-Results: garm.ovh; auth=pass (GARM-104R005665ab5a4-7aac-498a-b37a-4bfe45cd235f,
-                    0D706BE754B68603FDA3D51A3D44F01D62F54E1F) smtp.auth=jwilk@jwilk.net
-X-OVh-ClientIp: 5.172.255.171
-Date:   Mon, 25 Jan 2021 10:21:33 +0100
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Rolf Eike Beer <eb@emlix.com>
-CC:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        <linux-man@vger.kernel.org>
-Subject: Re: contradictional sentence in clone(2) man page
-Message-ID: <20210125092132.cae6sdat3wupkijh@jwilk.net>
-References: <4530567.a0Z4EEqLWd@devpool47>
+        id S1732814AbhAZF1o (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 26 Jan 2021 00:27:44 -0500
+Received: from mx2.suse.de ([195.135.220.15]:48444 "EHLO mx2.suse.de"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1728757AbhAYNVT (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 25 Jan 2021 08:21:19 -0500
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+        t=1611580783; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+         mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=hvyCg1tArEMURZiCaw0o7rfIdGticTsjrcjPx+/JdNc=;
+        b=A4Vm72+PELLClS/Iy715Uik0vACGATsRtA2iQMVkLUk7pB1NNEp+sD+oPc2YAwpCTCYFWo
+        S6cgCM5W61YrqU3UsTpXfJsNEmMTLpZ92x7E+4u1Hve30Vlh8wUkj93JfsZaBNc0InUmqa
+        E/9B6Y8rEAQXzzf6L5pfNetYN4lnJf8=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+        by mx2.suse.de (Postfix) with ESMTP id D4325AAC6;
+        Mon, 25 Jan 2021 13:19:42 +0000 (UTC)
+Date:   Mon, 25 Jan 2021 14:19:35 +0100
+From:   Michal Hocko <mhocko@suse.com>
+To:     Suren Baghdasaryan <surenb@google.com>
+Cc:     linux-man@vger.kernel.org, akpm@linux-foundation.org,
+        jannh@google.com, keescook@chromium.org, jeffv@google.com,
+        minchan@kernel.org, shakeelb@google.com, rientjes@google.com,
+        edgararriaga@google.com, timmurray@google.com, linux-mm@kvack.org,
+        selinux@vger.kernel.org, linux-security-module@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kernel-team@android.com
+Subject: Re: [PATCH 1/1] process_madvise.2: Add process_madvise man page
+Message-ID: <20210125131935.GI827@dhcp22.suse.cz>
+References: <20210120202337.1481402-1-surenb@google.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <4530567.a0Z4EEqLWd@devpool47>
-User-Agent: NeoMutt/20180716
-X-Originating-IP: [37.59.142.104]
-X-ClientProxiedBy: DAG9EX1.mxp6.local (172.16.2.81) To DAG4EX2.mxp6.local
- (172.16.2.32)
-X-Ovh-Tracer-GUID: ab323501-3b8e-4f88-baca-f2267576b7c8
-X-Ovh-Tracer-Id: 10206001182538127328
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduledrvdefgddtudcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvuffkfhggtggujggfihesthdtredttdervdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhepueejkeevhffhfedufeeuleefieekjeefgefhjeegjeejfefgveelvdeiteefheetnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddruddtgeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
+In-Reply-To: <20210120202337.1481402-1-surenb@google.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
->
-* Rolf Eike Beer <eb@emlix.com>, 2021-01-25, 09:33:
->In the discussion of CLONE_VM I find this sentence:
->
->>If the CLONE_VM flag is specified and the CLONE_VM flag is not 
->>specified, then any alternate signal stack that was established by 
->>sigaltstack(2) is cleared in the child process.
->
->Which simply doesn't make sense. I guess one of them should have been 
->the name of another flag.
+On Wed 20-01-21 12:23:37, Suren Baghdasaryan wrote:
+[...]
+>     MADV_COLD (since Linux 5.4.1)
+>         Deactivate a given range of pages by moving them from active to
+>         inactive LRU list. This is done to accelerate the reclaim of these
+>         pages. The advice might be ignored for some pages in the range when it
+>         is not applicable.
 
-Yup, already fixed in git:
-https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=2a1b1111ca1a75e3
+I do not think we want to talk about active/inactive LRU lists here.
+Wouldn't it be sufficient to say
+Deactive a given range of pages which will make them a more probable
+reclaim target should there be a memory pressure. This is a
+non-destructive operation.
 
+Other than that, looks good to me from the content POV.
+
+Thanks!
 -- 
-Jakub Wilk
+Michal Hocko
+SUSE Labs
