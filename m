@@ -2,106 +2,89 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8C7963034CA
-	for <lists+linux-man@lfdr.de>; Tue, 26 Jan 2021 06:28:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 78A1630497E
+	for <lists+linux-man@lfdr.de>; Tue, 26 Jan 2021 21:06:32 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730551AbhAZF1s (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 26 Jan 2021 00:27:48 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53994 "EHLO
+        id S1726438AbhAZF1e (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 26 Jan 2021 00:27:34 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35440 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731920AbhAZCDc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 25 Jan 2021 21:03:32 -0500
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E416CC0613D6
-        for <linux-man@vger.kernel.org>; Mon, 25 Jan 2021 16:14:12 -0800 (PST)
-Received: by mail-wm1-x32b.google.com with SMTP id m187so995324wme.2
-        for <linux-man@vger.kernel.org>; Mon, 25 Jan 2021 16:14:12 -0800 (PST)
+        with ESMTP id S1726537AbhAYJZY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 25 Jan 2021 04:25:24 -0500
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com [IPv6:2607:f8b0:4864:20::230])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E62ACC0611C0
+        for <linux-man@vger.kernel.org>; Mon, 25 Jan 2021 01:09:29 -0800 (PST)
+Received: by mail-oi1-x230.google.com with SMTP id m13so6077947oig.8
+        for <linux-man@vger.kernel.org>; Mon, 25 Jan 2021 01:09:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=Vz7Wx3SXxaN+HsWZGzhnHFVDxGZAroM2JwH4bW0nEhM=;
-        b=WulKks/yUSJwwUol1tm6wB9TJkukXvTYKvdB2ceQgXomgHQMSU12Q0ukxoGukdPNr8
-         HGAjlTfWtd5HvJzNWyfyy0crd2HH+/syiXerMgHWpnjKX2vL/MjmxngjAkb9Ff2XGB5O
-         2/Kvk7D9kj7xdMH5EBWmOi+BQjBDhtTEW1Gfpa+yh52P9hNpbK7Lr+NmN28rhnuHGel+
-         dO62MQLsOV4fBk09tq1r4tc2zrJUdUMA+jCyQbkJYdTVuaGSVsKAM9Ytr4Ozzu8qwh3t
-         JdPEfNF7P53HhUk4Nx0zB6G5G3rIGu1xvUCi6Vt61QOVMpU8sH7py/rv4XF0bp+yCvWD
-         rXZg==
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=t+c/OBPR2ylxL5CvI0QaKByUDecbEnh7BkhN1/yC3tQ=;
+        b=ab0GNyMvYy926H/GAb8UEJxDBeUqTjmN1m6yOKiLu/LqJ+H4QUUjaznW3fOv5JFe4U
+         79B3AxG7tUr/6zv8RVFU7lCbYn7Wh/+jtPOeVHe62tQXjgG3fCMN67Mj2G2wNzdjY9uN
+         mCaMkH+BQGisI9UirMvqOl4unOk+DKw9bBHre4A47s2EyQ6zq9H3BsMsgF+I92m1jsll
+         q/z0TRtu3u0f0INg0UoJO4NhRDnvPv06nRfr5SzgAfaWrrg5VhSOfJBlLudS1RP2W0Fv
+         V7GCiO5x/bZzvKdaXWwGz4j/qnPDRYmol+x3aMhmc9K4LLXBimbCCB/8/8F6EvNpp6zk
+         NQOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=Vz7Wx3SXxaN+HsWZGzhnHFVDxGZAroM2JwH4bW0nEhM=;
-        b=MQC96Ia5GbHF28w03OFEg1tl2FsxppI4Wp2mSoIRj/39r3VgzWPuMMbn5JCCgFl8pP
-         nf8metdEh+yRTXYDomE3RMPDimz/UkbKrSj5vpAV9xq0GAa45m2sk1FdfhtOFUNArOw+
-         /1uaCaWGZbYfKO0bXnmAObFjF6qwzWCdTNNwQxZPa2d2q7OKBs28IHW8n9SIzrC9BTBA
-         3DEu4dWxc2pAAfcE4HUfNnv3rDIS/u6AL++sCHyyt7x2npOsFG8E6E6UuNV9m+hNglBE
-         ikHeUDDhC0OReqnvLgLnAGS9VqRCHUlk/Gi3Twh0VlMSWONhj9xX/R6p9CMt3+wmgR0r
-         W87Q==
-X-Gm-Message-State: AOAM53120KjFGFtLcGz29NcrThE7Lwa+m6aegyeuKeERyLwi5EaiX4n4
-        WCzc1619MYOqSbSN08XBje06wRIew/i0qRAetTyjXQ==
-X-Google-Smtp-Source: ABdhPJytUOFxylJO9GQfWCZxkgmC08Bcn5+HCLBHOxR+Vvj6poU2sA/tL72vkNkKpaNCAmBDljbV4s4UOoZM8sJO7UI=
-X-Received: by 2002:a1c:7906:: with SMTP id l6mr2247505wme.22.1611620051415;
- Mon, 25 Jan 2021 16:14:11 -0800 (PST)
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=t+c/OBPR2ylxL5CvI0QaKByUDecbEnh7BkhN1/yC3tQ=;
+        b=GgTSRj3WRFKGosg6qQ6UWuLrIjDCWVXPCOATHDj7mS6cOU10ZOBdMLXFPY1HsUm2ll
+         52R5leX0S47hD4UgWZo6aDmOYczJhG/YdydnoVm1437Jr9oL3taXb+P+JEdGkThN++kp
+         Dl6Eta5uhFISwYBjPIV2VGPwAKOkK517EoVGrVtI454Es+ErtzdxZ8hSpzIA6oSl1gFn
+         znmNSANn0c1gFwekDbEd8vbml5z+SVHZ6OZky23gmzY6nSDDqQ3QK950NJX6M2pazWPb
+         k5QYW8JpShQKLCT5BONblH0lmUeGfbVZySBOUr0qmsTRxTvnoq5ur/KtFSZVVVadDLKR
+         c9Cw==
+X-Gm-Message-State: AOAM531qVidy+FBiEyMnyE4VNkm2yyOeT+xmpctjATUh9oat6P2ljXdW
+        e+sUQS2YHr2Qpz+rqFem3vXWzotDTrAbTOvykgs=
+X-Google-Smtp-Source: ABdhPJwdCcnZJITYvKC1YD4jSeWLZNFAmSi7Mw605V69xBbgTXFrEo6cMj7Ky77lcDWjkgOqBhTC4yWUEIypozgmCqk=
+X-Received: by 2002:aca:fd81:: with SMTP id b123mr1723599oii.159.1611565769278;
+ Mon, 25 Jan 2021 01:09:29 -0800 (PST)
 MIME-Version: 1.0
-References: <20210120202337.1481402-1-surenb@google.com> <20210125131935.GI827@dhcp22.suse.cz>
-In-Reply-To: <20210125131935.GI827@dhcp22.suse.cz>
-From:   Suren Baghdasaryan <surenb@google.com>
-Date:   Mon, 25 Jan 2021 16:14:00 -0800
-Message-ID: <CAJuCfpGu_x4vxXejTUfD4Mjun=qJOsdoRs42gQhiv30EnED=nA@mail.gmail.com>
-Subject: Re: [PATCH 1/1] process_madvise.2: Add process_madvise man page
-To:     Michal Hocko <mhocko@suse.com>
-Cc:     linux-man@vger.kernel.org,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Jann Horn <jannh@google.com>,
-        Kees Cook <keescook@chromium.org>,
-        Jeffrey Vander Stoep <jeffv@google.com>,
-        Minchan Kim <minchan@kernel.org>,
-        Shakeel Butt <shakeelb@google.com>,
-        David Rientjes <rientjes@google.com>,
-        =?UTF-8?Q?Edgar_Arriaga_Garc=C3=ADa?= <edgararriaga@google.com>,
-        Tim Murray <timmurray@google.com>,
-        linux-mm <linux-mm@kvack.org>,
-        SElinux list <selinux@vger.kernel.org>,
-        linux-security-module <linux-security-module@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        LKML <linux-kernel@vger.kernel.org>,
-        kernel-team <kernel-team@android.com>
+References: <4530567.a0Z4EEqLWd@devpool47>
+In-Reply-To: <4530567.a0Z4EEqLWd@devpool47>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 25 Jan 2021 10:09:18 +0100
+Message-ID: <CAKgNAkiLEEoL1=+jGJMpR=y2O4j8R95SQQkVnXdCF7TTrseSng@mail.gmail.com>
+Subject: Re: contradictional sentence in clone(2) man page
+To:     Rolf Eike Beer <eb@emlix.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Jan 25, 2021 at 5:19 AM 'Michal Hocko' via kernel-team
-<kernel-team@android.com> wrote:
->
-> On Wed 20-01-21 12:23:37, Suren Baghdasaryan wrote:
-> [...]
-> >     MADV_COLD (since Linux 5.4.1)
-> >         Deactivate a given range of pages by moving them from active to
-> >         inactive LRU list. This is done to accelerate the reclaim of these
-> >         pages. The advice might be ignored for some pages in the range when it
-> >         is not applicable.
->
-> I do not think we want to talk about active/inactive LRU lists here.
-> Wouldn't it be sufficient to say
-> Deactive a given range of pages which will make them a more probable
-> reclaim target should there be a memory pressure. This is a
-> non-destructive operation.
+Hi Rolf,
 
-That sounds better. Will update in the next version.
+On Mon, 25 Jan 2021 at 09:33, Rolf Eike Beer <eb@emlix.com> wrote:
+>
+> In the discussion of CLONE_VM I find this sentence:
+>
+> > If the CLONE_VM flag is specified and the CLONE_VM flag is
+> > not specified, then any alternate signal stack that was
+> > established by sigaltstack(2) is cleared in the child
+> > process.
+>
+> Which simply doesn't make sense. I guess one of them should have been the name
+> of another flag.
 
->
-> Other than that, looks good to me from the content POV.
->
-> Thanks!
+Thanks for taking the time to report this. You are right. And by
+chance this was reported and fixed just a few days ago:
 
-Thanks for the review Michal!
+https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=2a1b1111ca1a75e369afc6aaeb04f17acfcfdb41
 
-> --
-> Michal Hocko
-> SUSE Labs
->
-> --
-> To unsubscribe from this group and stop receiving emails from it, send an email to kernel-team+unsubscribe@android.com.
->
+Cheers,
+
+Michael
+
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
