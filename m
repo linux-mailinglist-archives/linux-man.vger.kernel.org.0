@@ -2,129 +2,56 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7CF35305846
-	for <lists+linux-man@lfdr.de>; Wed, 27 Jan 2021 11:25:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 68FEC3062D3
+	for <lists+linux-man@lfdr.de>; Wed, 27 Jan 2021 18:59:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S314251AbhAZXCQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 26 Jan 2021 18:02:16 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60888 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2390134AbhAZRvC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 26 Jan 2021 12:51:02 -0500
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com [IPv6:2a00:1450:4864:20::52e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 75731C06174A
-        for <linux-man@vger.kernel.org>; Tue, 26 Jan 2021 09:50:21 -0800 (PST)
-Received: by mail-ed1-x52e.google.com with SMTP id z22so6113687edb.9
-        for <linux-man@vger.kernel.org>; Tue, 26 Jan 2021 09:50:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=YDZ9xoM4vkjgG3VDn83cus2ZyU7tS/ImHr1EbR40OHE=;
-        b=iC68VBpaq64YNVQ0gyie62K2q0gqKG2wunAeMFJligWQ54mFY6PLhbrOxMmB1Snsrn
-         0iShrefSXyHlxlN+8Q01JLqZUHgUdC4dPm083RP/P3G/HjqXJvx5QaNoLA+/CSe5uglG
-         oCWZXKNRQA8x+9nVwamn+mDCLqUFyKlzOV+3EpXHa8AaC5IVSJx910YSC18RZPWc81FJ
-         ltKjl4opEIguMtRBiMwBDki887zMS5XWqqiJz+57O7hld88oTYnoGPI1DqSPOACvYHV6
-         26MiLHaOJpXDLenM4lVZhCqcgeWByzzXB8oi3MdeA4rODu556+k1D2I+NKeM2iME7D/w
-         wH+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=YDZ9xoM4vkjgG3VDn83cus2ZyU7tS/ImHr1EbR40OHE=;
-        b=j8GW2RQhnXJ4hVsMtBWsyE82EECnO7gp7A0NvnhMN+vktstGCprNg75dAM8G5typOy
-         lQUXKoJjGyfwxtD2Qnb4nTfjedA5YQ0Y7deWr/bI0+tAtww15zKECu3lbcK1py09Blfe
-         8wP0zO0ajag9QUoOytlz5wRPsdbRdEMMV9oE8Rg1Zw4T9d9aZWuaYJcaN+scA8wbw18O
-         N9pQ60H6YBjAEUsgHqJRkCH+KAaQ1VvrHTExXSRYB90HvnmpsPYfqAq7dkbbObhs6Ibv
-         jB3wSnieZdnCyYOWzkRvYalOya8eO57kDb1hhuT+mYS3PeNxKdI4ZsnGMJSyhTA6gnJ8
-         7f5A==
-X-Gm-Message-State: AOAM530yrQeuAeHKw7spvHb6/F7FRxeEb5xkgS6FwQ83BQcCJmffFupA
-        bhmuqtJWrOT7bsmGJGMOXm7d8mtuF1AhKeKQXpQpYcivHdY=
-X-Google-Smtp-Source: ABdhPJx3Yv1kBkYCpT7b1VeYY0tK4Gs4XrFwiszGuqBHo9jL/4XtOW+Fht+NXcjZCRLEkjSwZDjZJ0Ui6hVhT9ALTl8=
-X-Received: by 2002:aa7:d4c8:: with SMTP id t8mr5784370edr.199.1611683419835;
- Tue, 26 Jan 2021 09:50:19 -0800 (PST)
+        id S1344255AbhA0R54 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 27 Jan 2021 12:57:56 -0500
+Received: from smtpout1.mo529.mail-out.ovh.net ([178.32.125.2]:48835 "EHLO
+        smtpout1.mo529.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1344070AbhA0R5v (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 27 Jan 2021 12:57:51 -0500
+Received: from mxplan6.mail.ovh.net (unknown [10.109.143.118])
+        by mo529.mail-out.ovh.net (Postfix) with ESMTPS id CD0F47FCE0B4
+        for <linux-man@vger.kernel.org>; Wed, 27 Jan 2021 18:57:07 +0100 (CET)
+Received: from jwilk.net (37.59.142.95) by DAG4EX2.mxp6.local (172.16.2.32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Wed, 27 Jan
+ 2021 18:57:06 +0100
+Authentication-Results: garm.ovh; auth=pass (GARM-95G00125bc4ec5-6ab6-4e90-8fbb-3d3a36d751ce,
+                    3343377E69AD0563E0360AF3DE59BABC43A7F749) smtp.auth=jwilk@jwilk.net
+X-OVh-ClientIp: 5.172.255.238
+Date:   Wed, 27 Jan 2021 18:57:03 +0100
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     <linux-man@vger.kernel.org>
+Subject: tcp.7: tcp_retries2 description outdated?
+Message-ID: <20210127175703.hdqwnj36oefoqhzf@jwilk.net>
 MIME-Version: 1.0
-References: <20210126014450.1901335-1-lokeshgidra@google.com>
-In-Reply-To: <20210126014450.1901335-1-lokeshgidra@google.com>
-From:   Lokesh Gidra <lokeshgidra@google.com>
-Date:   Tue, 26 Jan 2021 09:50:08 -0800
-Message-ID: <CA+EESO5MafN2aa8+BC_KP+BfRNqw9ySpQJwymuuZd4BBxPn4fA@mail.gmail.com>
-Subject: Re: [PATCH v1] userfaultfd.2: Add UFFD_USER_MODE_ONLY flag
-To:     linux-man@vger.kernel.org
-Cc:     Daniel Colascione <dancol@dancol.org>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        Kalesh Singh <kaleshsingh@google.com>,
-        Calin Juravle <calin@google.com>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Jeffrey Vander Stoep <jeffv@google.com>,
-        "Cc: Android Kernel" <kernel-team@android.com>,
-        Peter Xu <peterx@redhat.com>,
-        Andrea Arcangeli <aarcange@redhat.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        "open list:MEMORY MANAGEMENT" <linux-mm@kvack.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="us-ascii"; format=flowed
+Content-Disposition: inline
+User-Agent: NeoMutt/20180716
+X-Originating-IP: [37.59.142.95]
+X-ClientProxiedBy: DAG4EX2.mxp6.local (172.16.2.32) To DAG4EX2.mxp6.local
+ (172.16.2.32)
+X-Ovh-Tracer-GUID: 7402adfb-6d43-4355-9d49-5659b64a564e
+X-Ovh-Tracer-Id: 12210103014909990679
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduledrvdekgddutdehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpeffhffvuffkgggtuggfihesthdtredttdervdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhepveehgedvvdduveefjeehuedvvdeigfeivedtgeehgfduvdefudehleektdeukeejnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddrleehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepmhigphhlrghniedrmhgrihhlrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehjfihilhhksehjfihilhhkrdhnvghtpdhrtghpthhtoheplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Jan 25, 2021 at 5:44 PM Lokesh Gidra <lokeshgidra@google.com> wrote:
->
-> Add description of UFFD_USER_MODE_ONLY flag to userfaultfd(2) manual
-> page, which is required after [1]. Also updated the description of
-> unprivileged_userfaultfd file in proc(5) as per [2].
->
-> [1] https://lore.kernel.org/linux-mm/20201215031349.NXimL388W%25akpm@linux-foundation.org/
-> [2] https://lore.kernel.org/linux-mm/20201215031354.gUsHJUpKo%25akpm@linux-foundation.org/
->
-> Signed-off-by: Lokesh Gidra <lokeshgidra@google.com>
-> ---
->  man2/userfaultfd.2 |  5 +++++
->  man5/proc.5        | 12 ++++++++++++
->  2 files changed, 17 insertions(+)
->
-> diff --git a/man2/userfaultfd.2 b/man2/userfaultfd.2
-> index e7dc9f813..792a49d52 100644
-> --- a/man2/userfaultfd.2
-> +++ b/man2/userfaultfd.2
-> @@ -72,6 +72,11 @@ See the description of the
->  .BR O_NONBLOCK
->  flag in
->  .BR open (2).
-> +.TP
-> +.BR UFFD_USER_MODE_ONLY " (Since Linux 5.11)"
-> +Allow handling of user-mode page-faults only. See the description of the
-> +unprivileged_userfaultfd file in
-> +.BR proc (5).
->  .PP
->  When the last file descriptor referring to a userfaultfd object is closed,
->  all memory ranges that were registered with the object are unregistered
-> diff --git a/man5/proc.5 b/man5/proc.5
-> index f16a29d6e..cb2350c0c 100644
-> --- a/man5/proc.5
-> +++ b/man5/proc.5
-> @@ -5905,6 +5905,18 @@ If this file has the value 0, then only processes that have the
->  capability may employ
->  .BR userfaultfd (2).
->  The default value in this file is 1.
-> +.IP
-> +Starting with Linux 5.11,
-> +.BR userfaultfd (2)
-> +can be used by all processes, however, if this file has the value 0, then
-> +.BR UFFD_USER_MODE_ONLY
-> +flag must be passed to it, which restricts page-fault handling to only
-> +user-mode faults. This restriction is not applicable for processes with
-> +.B CAP_SYS_PTRACE
-> +capability, or if this file has the value 1. Furthermore, the default
-> +value in this file is changed to 0. For further details see the
-> +Linux kernel source file
-> +.I Documentation/admin\-guide/sysctl/vm.rst.
->  .TP
->  .IR /proc/sysrq\-trigger " (since Linux 2.4.21)"
->  Writing a character to this file triggers the same SysRq function as
-> --
+The description of tcp_retries2 in tcp.7 reads:
 
-Adding the right linux-mm mailing list. Mistakenly used
-linux-mm@kvack.kernel.org earlier.
+>The default value is 15, which corresponds to a duration of 
+>approximately between 13 to 30 minutes, depending on the retransmission 
+>timeout.
 
-> 2.30.0.280.ga3ce27912f-goog
->
+I'm not a networking expert, but I think this description is outdated.
+See these kernel commits:
+https://git.kernel.org/linus/6fa12c85031485df
+https://git.kernel.org/linus/5d7892298a819743
+
+-- 
+Jakub Wilk
