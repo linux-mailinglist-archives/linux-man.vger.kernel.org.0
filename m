@@ -2,115 +2,100 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E7A6A307405
-	for <lists+linux-man@lfdr.de>; Thu, 28 Jan 2021 11:47:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C6372307534
+	for <lists+linux-man@lfdr.de>; Thu, 28 Jan 2021 12:52:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229596AbhA1KrM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 28 Jan 2021 05:47:12 -0500
-Received: from mx01-muc.bfs.de ([193.174.230.67]:58512 "EHLO mx01-muc.bfs.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S231359AbhA1KrK (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 28 Jan 2021 05:47:10 -0500
-Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
-        by mx01-muc.bfs.de (Postfix) with ESMTPS id 5A46B20199;
-        Thu, 28 Jan 2021 11:46:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
-        t=1611830778;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=fgWtKIi7UC9hbaHJpu7iv+2juGysAKLxv3yLp0SspP4=;
-        b=UKZolz2mfZ9JwwzSyju4BVvCSNVmZBMVsTnieWzUcP2Zd2eAu7ij5TL+ISKuxqO+F54xnk
-        wRx7tfgcedf5q8WPDto2ODn49fdkztnxLVOVn/d+RjUcQ3qLwPRG9frHiTYZhBe0OCUuiD
-        DV5ZdFkvuhlDwqAEfiSSHF4v73lD+/+7i29wPwmKMP3h3UJXeiaoCPKVvE7TcHIM23X3Lc
-        ukf2YVisDvMMFwnerZBn2YsL+sUB0YnP68oQZdVDH9z8W3atzMUezljpZ/CoG9zx0HF6Bv
-        KiorITG02Q9kTcdXxrBSdmU1/csKZCmx4lr0Pv8NYPsDJBk8KmZM4t7YAvjOLQ==
-Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
- (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2176.2; Thu, 28 Jan
- 2021 11:46:17 +0100
-Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
- SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%13]) with mapi id
- 15.01.2176.002; Thu, 28 Jan 2021 11:46:17 +0100
-From:   Walter Harms <wharms@bfs.de>
-To:     Jakub Wilk <jwilk@jwilk.net>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-Subject: AW: tcp.7: tcp_retries2 description outdated?
-Thread-Topic: tcp.7: tcp_retries2 description outdated?
-Thread-Index: AQHW9NZFmR2mZHQvd0ynp9K55/HB3Ko82zCU
-Date:   Thu, 28 Jan 2021 10:46:17 +0000
-Message-ID: <d84f39690bf547e19baa48165c0288bb@bfs.de>
-References: <20210127175703.hdqwnj36oefoqhzf@jwilk.net>
-In-Reply-To: <20210127175703.hdqwnj36oefoqhzf@jwilk.net>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.137.16.40]
-x-tm-as-product-ver: SMEX-14.0.0.3080-8.6.1012-25754.007
-x-tm-as-result: No-10-0.281500-5.000000
-x-tmase-matchedrid: v0Uhv4cnyYV02v7MbVCNbRvgzEPRJaDEWw/S0HB7eoMTiSW9r3PknDyj
-        o+AkzeHqobZq/w1NZJeqaVINmvzjNhrOW8erG8uux5sgyUhLCNvpVMb1xnESMjTPJxSCQcmMeGa
-        nbc2gJXqFrhsxj6P8RI4S3q7uV6Oh7igYWrzLr2P/9txSp4wMsfiH64jt3FfENMxGS7Dxq6WS1U
-        tCxWBi/+fOVcxjDhcwdYd/loivyRcLbigRnpKlKZvjAepGmdoOmEgHuhxDv8cJXtQ15WM38GGo2
-        XhGSGMxxXowZoIbbnVBYxrJJ0Js4/VZoLmzXZKF+wGybE4W1opltZBz6sNV8FNaBeORl5NqNZ7+
-        sXnntd8p1H9Ti1Gv8NhK+eyiNpAIEKVQRS3U5Qjj5cAllduzaw==
-x-tm-as-user-approved-sender: No
-x-tm-as-user-blocked-sender: No
-x-tmase-result: 10-0.281500-5.000000
-x-tmase-version: SMEX-14.0.0.3080-8.6.1012-25754.007
-x-tm-snts-smtp: DA7925855AA33260A29221E52FCC5CCD8B09F75E252026501F3333C3554CA5F92000:9
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+        id S229831AbhA1Lvg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 28 Jan 2021 06:51:36 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37300 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229683AbhA1Lvf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 28 Jan 2021 06:51:35 -0500
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D7CACC061574
+        for <linux-man@vger.kernel.org>; Thu, 28 Jan 2021 03:50:54 -0800 (PST)
+Received: by mail-wr1-x430.google.com with SMTP id l12so5099414wry.2
+        for <linux-man@vger.kernel.org>; Thu, 28 Jan 2021 03:50:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=KISPIkILODva/eXCjcfmSY7k5V/g4sT8VfQXVjsV8f8=;
+        b=MLt8saZLvwaEWNjZev5eHv7cCBI0Gh4oyeoObN3jcKzGimD0xW/u+Kr9mTLuQD6gS8
+         pow/Cnse6B8YKy9LiUZQeS1qZGzpP/LPqJny2AehjqG0mPsGtfKalHS8xZKc00TnUx5Q
+         J7Ns1Xh82mRX/T+OEhsmNMlJQcHRpG4fOL0fJEYQfVvt1sxTntijPwZpsZOa+/PId+EW
+         Ivr69idR8kaHPO4swDbOrRTeN/Hfq2R9x6YL7hGsHLhGnwvcKj8g/YKhjDkXCpyBCqNR
+         OPE5w+JwqMeOznFPO3Hmy+0UC2++Q5gWwqQg31FHLpCbeGaQePoAHKolbMA0nQYMazdx
+         +4Vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=KISPIkILODva/eXCjcfmSY7k5V/g4sT8VfQXVjsV8f8=;
+        b=j9pdN4hTfLsRlKV2sNiE4keJEVbF6uW1ob50zIYdk8oC5c+beyMLdaO3cBiCXE2FBg
+         bYGSS2t59e8Zn3HLRHKhIDOPZZ8bah6nhlns1mV1aJvpej/Nf8QjZJi87ih8GbMyClHd
+         8Q0hjRqH/9EUh1BifAh0KlvRskAAeOJknBKepwME1Oy/8E1P2VP4UUaHgqiZzd+a1ozQ
+         yGDOOBpc54sTssa3DqFXv86CBOyI5+iBxXRrbnZB89VQvWm4tfvlmY73fXXYYgn2doIY
+         hveGizIkOcWvAeh9cZcEFJVljF9BiNFHcR9a/1qAy4uWzLTy42eORpWwpGf8UbXFzTLH
+         lGMA==
+X-Gm-Message-State: AOAM531BgYa0ADAWOj3J4Xb+I0Rgho9aQGH2IXEwQ448z05NRFI8LTSe
+        ki8Jp7yIzu6wnZ2QUb4r38A8UF1r96I=
+X-Google-Smtp-Source: ABdhPJy0poAUoP3NwXJUVbgTzFC5fQuSDSxtGjbTu94dhx0ENOyHaRjwxEZIe5mwwVpnOY1EgdD+vA==
+X-Received: by 2002:adf:dfc3:: with SMTP id q3mr11961508wrn.223.1611834653389;
+        Thu, 28 Jan 2021 03:50:53 -0800 (PST)
+Received: from ?IPv6:2a02:2455:e0:e000:3005:efab:c884:ced0? ([2a02:2455:e0:e000:3005:efab:c884:ced0])
+        by smtp.gmail.com with ESMTPSA id z1sm6710218wru.70.2021.01.28.03.50.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 28 Jan 2021 03:50:52 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] man-pages.7: tfix
+To:     Jakub Wilk <jwilk@jwilk.net>
+References: <20210125211723.7363-1-jwilk@jwilk.net>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <488fafd5-c413-0690-b1f6-b3cca1afaef4@gmail.com>
+Date:   Thu, 28 Jan 2021 12:50:51 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-X-Spamd-Result: default: False [-1.63 / 7.00];
-         ARC_NA(0.00)[];
-         TO_DN_EQ_ADDR_SOME(0.00)[];
-         HAS_XOIP(0.00)[];
-         FROM_HAS_DN(0.00)[];
-         TO_DN_SOME(0.00)[];
-         TO_MATCH_ENVRCPT_ALL(0.00)[];
-         MIME_GOOD(-0.10)[text/plain];
-         DKIM_SIGNED(0.00)[bfs.de:s=dkim201901];
-         RCPT_COUNT_TWO(0.00)[2];
-         NEURAL_HAM(-0.00)[-1.000];
-         RCVD_NO_TLS_LAST(0.10)[];
-         FROM_EQ_ENVFROM(0.00)[];
-         MIME_TRACE(0.00)[0:+];
-         SUBJECT_ENDS_QUESTION(1.00)[];
-         RCVD_COUNT_TWO(0.00)[2];
-         MID_RHS_MATCH_FROM(0.00)[];
-         BAYES_HAM(-2.63)[98.36%]
-Authentication-Results: mx01-muc.bfs.de;
-        none
-X-Spam-Status: No, score=-1.63
+In-Reply-To: <20210125211723.7363-1-jwilk@jwilk.net>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-good point,
-did you see this also ?
-https://pracucci.com/linux-tcp-rto-min-max-and-tcp-retries2.html
+On 1/25/21 10:17 PM, Jakub Wilk wrote:
+> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
 
-re,
- wh
-________________________________________
-Von: Jakub Wilk <jwilk@jwilk.net>
-Gesendet: Mittwoch, 27. Januar 2021 18:57:03
-An: linux-man@vger.kernel.org
-Betreff: tcp.7: tcp_retries2 description outdated?
+Thanks, Jakub. Patch applied.
 
-The description of tcp_retries2 in tcp.7 reads:
+Cheers,
 
->The default value is 15, which corresponds to a duration of
->approximately between 13 to 30 minutes, depending on the retransmission
->timeout.
+Michael
 
-I'm not a networking expert, but I think this description is outdated.
-See these kernel commits:
-https://git.kernel.org/linus/6fa12c85031485df
-https://git.kernel.org/linus/5d7892298a819743
+> ---
+>  man7/man-pages.7 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/man7/man-pages.7 b/man7/man-pages.7
+> index 14bbea54c..7658ef33b 100644
+> --- a/man7/man-pages.7
+> +++ b/man7/man-pages.7
+> @@ -563,7 +563,7 @@ is set is
+>  is set to indicate the error"
+>  or similar.
+>  .\" Before man-pages 5.11, many different wordings were used, which
+> -.\" was confusing, and potentialy made scripted edits more difficult.
+> +.\" was confusing, and potentially made scripted edits more difficult.
+>  This wording is consistent with the wording used in both POSIX.1 and FreeBSD.
+>  .SS ATTRIBUTES
+>  .\" See man-pages commit c466875ecd64ed3d3cd3e578406851b7dfb397bf
+> 
 
---
-Jakub Wilk
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
