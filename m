@@ -2,244 +2,109 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6A8C9307FC2
-	for <lists+linux-man@lfdr.de>; Thu, 28 Jan 2021 21:39:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id EE572307FE0
+	for <lists+linux-man@lfdr.de>; Thu, 28 Jan 2021 21:52:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231130AbhA1Uip (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 28 Jan 2021 15:38:45 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37612 "EHLO
+        id S229658AbhA1UvI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 28 Jan 2021 15:51:08 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40282 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229819AbhA1Uin (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 28 Jan 2021 15:38:43 -0500
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 28176C061573
-        for <linux-man@vger.kernel.org>; Thu, 28 Jan 2021 12:38:02 -0800 (PST)
-Received: by mail-wr1-x42c.google.com with SMTP id a1so6770481wrq.6
-        for <linux-man@vger.kernel.org>; Thu, 28 Jan 2021 12:38:02 -0800 (PST)
+        with ESMTP id S229595AbhA1UvH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 28 Jan 2021 15:51:07 -0500
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5B8AAC061573;
+        Thu, 28 Jan 2021 12:50:27 -0800 (PST)
+Received: by mail-wm1-x32f.google.com with SMTP id 190so5342351wmz.0;
+        Thu, 28 Jan 2021 12:50:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=1UVTyfisZAnJyUTGj4E05jEDNc8Dha7tB5MVBOZTxgI=;
-        b=ThxQPnFlQS2JusYTiQxFRP3+0zCf67Lx1mZmUowPWQxOSXDGBf95O4lG5NKH0KvxFB
-         Njg81kGWKAhCSjVrUAT5rwS36+YsMq93vtkglgZDRf9+97oM5WB/yHVObYB6bh878ytQ
-         LI3TljWwYHbhh9xVUucfC3iUGmatqLJI0PvLxitJOoIwtWHV+iIU5A0Opi8hXMTNpipK
-         M7sCdDcKFeXICxGPa4UxsZSjQdeWH/cT3hFXNuP/KbYlwsFrLc3vbKX9ByhKaeRH8idL
-         5ExA6IFOiCNtWzF1wU8tB6vVMTG/rTOHlXqIlVkwIx8rD36WcPaduWxDPtr6Kmt5APXY
-         WcVg==
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=3On79yt/ogpOXZmRquUWRYpKWHvhXFj1EOlDrRJaacA=;
+        b=EKkldwFsnT54HxqRIn5pmq7P+Z9ErTIPYpfjgGLZws9ENBzlFH48eqRX2S6YfGzJDW
+         +oqKq9E4k04t/wZ9Nzj287mtjKqKo3qbAPdau5r+K2+o8Sv9ppYlWFBPXU1FAUj1MNpF
+         NV4YE8kReYSejwqnTTglI4Pj4Iu0uPgBdlIdEf/cWqZsZs/PDNtkhNvIWnMHPWaBproK
+         BLKxHh99AwE7OFoB/tW5vbXfYMSeYOYPHhFreyCM/KeU+A3j3s/O4MebmXBBygjZT+Op
+         nrSXLDRJ4lY5fxaJBfZCjgkCAVTK2kW5R6CKcxi5hBoGwOo6Mdw775tgEd655O/NGyOU
+         WkIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=1UVTyfisZAnJyUTGj4E05jEDNc8Dha7tB5MVBOZTxgI=;
-        b=RMLFdSldBcK3nM5/Nz1KMBGxcje+o9/xY3///DT2klB3u3SSuMsbjabRwcfWPOzhQh
-         qqPOzZwled3eu1SYCFY/eUHxjuE8fvQoSA1kMcQYiO7HUSuy4gLVkjmb5iLyfpfSQTd2
-         npmSga74C887qKi1bA80RVAW7zzu+HOej/kUnWPqsAdNJpQEJ23zkJy0Juev2rE+LCzc
-         0ecVTlm6iPlA83WRcWW6CVoea51DGp4UOlONx1+6XVxb1V/3O55PIRNyvE0NyBBZW3qU
-         eKn54ATE50m2V/eRd5osHyfAuGoYQw6Z6H9FC6Xt/UoqvrIbA3FitX1VcRqfr8g0lzN0
-         mD8g==
-X-Gm-Message-State: AOAM532W1QolYTJ/0j+H+uJs8ZHlIAWnMp9kpUjt6A0eNhW3TBK3x4KB
-        r5IybrUIVClxCNbyZvEeuXqHG4HAyVwax1Ioj1zLlJZRPa3w3YdH
-X-Google-Smtp-Source: ABdhPJx+4T/pO4+VmwEvjZVx1CDiwbKYgrpPlUmq9ilFyshra0xthpiM/f5kvNBGGgKzNC8NOCSNdGRi87R0LyUm7L8=
-X-Received: by 2002:a5d:6884:: with SMTP id h4mr999072wru.106.1611866280568;
- Thu, 28 Jan 2021 12:38:00 -0800 (PST)
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=3On79yt/ogpOXZmRquUWRYpKWHvhXFj1EOlDrRJaacA=;
+        b=ozWWaZMtBa5mtli4nruvTSxDkBrPiRqFrbGK9VNv1C1rrLt4mUzWMxkXxGqIOxmFgO
+         lAAJsh8xatwGxEf4XObJklsL/eSqtNgSUWyYWRYlY5mrrm5ixOV+VGfV+F7WlXaeqzvm
+         J+QdQzRTpEmpAmLgHShIuUCsuwBGsSE5EgZjrty2slHlnRF+kC+fOVdj087CHgG55uKm
+         3L0/6cJucM0jflBU1OzpjmXk3Lbkmwxez0kyxakJWFEIsmCfmhGp3oHaNNb5ZchP3TB/
+         JRrbQqSfThO3SsHKHbnVPIDHrtABd9EqsxRpB4kUyT62+dbQ5pTLjjegBayKDUys5UWm
+         EUgg==
+X-Gm-Message-State: AOAM532evKR5ppOcUgaC7sdDtuuUQq7WznlSnyG4NOT7AjM/vcLYJEx4
+        RIpJV3l1SK0TC5Zx/lzWdIIeB9ksmK0=
+X-Google-Smtp-Source: ABdhPJzUvupS7lIYlOlVMFhIRc+8rrw2AhPsangPLc9V1N3Lf5ojVdX18q9FjEwOBDAMKz8XRU8pug==
+X-Received: by 2002:a1c:21c6:: with SMTP id h189mr858347wmh.173.1611867025854;
+        Thu, 28 Jan 2021 12:50:25 -0800 (PST)
+Received: from ?IPv6:2a02:2455:e0:e000:3005:efab:c884:ced0? ([2a02:2455:e0:e000:3005:efab:c884:ced0])
+        by smtp.gmail.com with ESMTPSA id z15sm7962448wrs.25.2021.01.28.12.50.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 28 Jan 2021 12:50:25 -0800 (PST)
+Cc:     mtk.manpages@gmail.com,
+        Christian Brauner <christian.brauner@ubuntu.com>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6] close_range.2: new page documenting close_range(2)
+To:     Stephen Kitt <steve@sk2.org>, linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>
+References: <20210123161154.29332-1-steve@sk2.org>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <e761f00d-751f-f782-9af1-c5f868d52df0@gmail.com>
+Date:   Thu, 28 Jan 2021 21:50:23 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-References: <20210120202337.1481402-1-surenb@google.com> <CAKgNAkgsQWL3QAyF6CQU=yifzA1tfp_E5kBBNKuAq_+sB4Amyw@mail.gmail.com>
- <CAJuCfpEfMgA6z5S5gmHwJB_3KWwmKKp434GeHheUGF3yC7r01w@mail.gmail.com> <6cd84701-fb65-7aa0-38db-b69fe5748754@gmail.com>
-In-Reply-To: <6cd84701-fb65-7aa0-38db-b69fe5748754@gmail.com>
-From:   Suren Baghdasaryan <surenb@google.com>
-Date:   Thu, 28 Jan 2021 12:37:49 -0800
-Message-ID: <CAJuCfpGsi_973t=c0TXCQE4JPSN+APJW-insxFuRUwbWh4Pk-Q@mail.gmail.com>
-Subject: Re: [PATCH 1/1] process_madvise.2: Add process_madvise man page
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Jann Horn <jannh@google.com>,
-        Kees Cook <keescook@chromium.org>,
-        Jeffrey Vander Stoep <jeffv@google.com>,
-        Minchan Kim <minchan@kernel.org>,
-        Michal Hocko <mhocko@suse.com>,
-        Shakeel Butt <shakeelb@google.com>,
-        David Rientjes <rientjes@google.com>,
-        =?UTF-8?Q?Edgar_Arriaga_Garc=C3=ADa?= <edgararriaga@google.com>,
-        Tim Murray <timmurray@google.com>,
-        Linux-MM <linux-mm@kvack.org>,
-        SElinux list <selinux@vger.kernel.org>,
-        linux-security-module <linux-security-module@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        Android Kernel Team <kernel-team@android.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20210123161154.29332-1-steve@sk2.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Jan 28, 2021 at 12:31 PM Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
->
-> Hello Suren,
->
-> On 1/28/21 7:40 PM, Suren Baghdasaryan wrote:
-> > On Thu, Jan 28, 2021 at 4:24 AM Michael Kerrisk (man-pages)
-> > <mtk.manpages@gmail.com> wrote:
-> >>
-> >> Hello Suren,
-> >>
-> >> Thank you for writing this page! Some comments below.
-> >
-> > Thanks for the review!
-> > Couple questions below and I'll respin the new version once they are clarified.
->
-> Okay. See below.
->
-> >> On Wed, 20 Jan 2021 at 21:36, Suren Baghdasaryan <surenb@google.com> wrote:
-> >>>
->
-> [...]
->
-> Thanks for all the acks. That let's me know that you saw what I said.
->
-> >>> RETURN VALUE
-> >>>     On success, process_madvise() returns the number of bytes advised. This
-> >>>     return value may be less than the total number of requested bytes, if an
-> >>>     error occurred. The caller should check return value to determine whether
-> >>>     a partial advice occurred.
-> >>
-> >> So there are three return values possible,
-> >
-> > Ok, I think I see your point. How about this instead:
->
-> Well, I'm glad you saw it, because I forgot to finish it. But yes,
-> you understood what I forgot to say.
->
-> > RETURN VALUE
-> >      On success, process_madvise() returns the number of bytes advised. This
-> >      return value may be less than the total number of requested bytes, if an
-> >      error occurred after some iovec elements were already processed. The caller
-> >      should check the return value to determine whether a partial
-> > advice occurred.
-> >
-> >     On error, -1 is returned and errno is set appropriately.
->
-> We recently standardized some wording here:
-> s/appropriately/to indicate the error/.
+Hello Stephen, (and CHristian, please!)
 
-ack
 
->
->
-> >>> +.PP
-> >>> +The pointer
-> >>> +.I iovec
-> >>> +points to an array of iovec structures, defined in
-> >>
-> >> "iovec" should be formatted as
-> >>
-> >> .I iovec
-> >
-> > I think it is formatted that way above. What am I missing?
->
-> But also in "an array of iovec structures"...
+Thanks for your patch revision. I've merged it, and have
+done some light editing, but I still have a question:
 
-ack
+On 1/23/21 5:11 PM, Stephen Kitt wrote:
 
->
-> > BTW, where should I be using .I vs .IR? I was looking for an answer
-> > but could not find it.
->
-> .B / .I == bold/italic this line
-> .BR / .IR == alternate bold/italic with normal (Roman) font.
->
-> So:
-> .I iovec
-> .I iovec ,       # so that comma is not italic
-> .BR process_madvise ()
-> etc.
+[...]
 
-Aha! Got it now. It's clear after your example. Thanks!
+> +.SH ERRORS
 
->
-> [...]
->
-> >>> +.I iovec
-> >>> +if one of its elements points to an invalid memory
-> >>> +region in the remote process. No further elements will be
-> >>> +processed beyond that point.
-> >>> +.PP
-> >>> +Permission to provide a hint to external process is governed by a
-> >>> +ptrace access mode
-> >>> +.B PTRACE_MODE_READ_REALCREDS
-> >>> +check; see
-> >>> +.BR ptrace (2)
-> >>> +and
-> >>> +.B CAP_SYS_ADMIN
-> >>> +capability that caller should have in order to affect performance
-> >>> +of an external process.
-> >>
-> >> The preceding sentence is garbled. Missing words?
-> >
-> > Maybe I worded it incorrectly. What I need to say here is that the
-> > caller should have both PTRACE_MODE_READ_REALCREDS credentials and
-> > CAP_SYS_ADMIN capability. The first part I shamelessly copy/pasted
-> > from https://man7.org/linux/man-pages/man2/process_vm_readv.2.html and
-> > tried adding the second one to it, obviously unsuccessfully. Any
-> > advice on how to fix that?
->
-> I think you already got pretty close. How about:
->
-> [[
-> Permission to provide a hint to another process is governed by a
-> ptrace access mode
-> .B PTRACE_MODE_READ_REALCREDS
-> check (see
-> BR ptrace (2));
-> in addition, the caller must have the
-> .B CAP_SYS_ADMIN
-> capability.
-> ]]
+> +.TP
+> +.B EMFILE
+> +The per-process limit on the number of open file descriptors has been reached
+> +(see the description of
+> +.B RLIMIT_NOFILE
+> +in
+> +.BR getrlimit (2)).
 
-Perfect! I'll use that.
+I think there was already a question about this error, but
+I still have a doubt.
 
->
-> [...]
->
-> >>> +.TP
-> >>> +.B ESRCH
-> >>> +No process with ID
-> >>> +.I pidfd
-> >>> +exists.
-> >>
-> >> Should this maybe be:
-> >> [[
-> >> The target process does not exist (i.e., it has terminated and
-> >> been waited on).
-> >> ]]
-> >>
-> >> See pidfd_send_signal(2).
-> >
-> > I "borrowed" mine from
-> > https://man7.org/linux/man-pages/man2/process_vm_readv.2.html but
-> > either one sounds good to me. Maybe for pidfd_send_signal the wording
-> > about termination is more important. Anyway, it's up to you. Just let
-> > me know which one to use.
->
-> I think the pidfd_send_signal(2) wording fits better.
+A glance at the code tells me that indeed EMFILE can occur.
+But how can the reason be because the limit on the number
+of open file descriptors has been reached? I mean: no new
+FDs are being opened, so how can we go over the limit. I think
+the cause of this error is something else, but what is it?
 
-ack, will use pidfd_send_signal(2) version.
+Thanks,
 
->
-> [...]
->
-> Thanks,
->
-> Michael
+Michael
 
-I'll include your and Michal's suggestions and will post the next
-version later today or tomorrow morning.
-Thanks for the guidance!
 
->
-> --
-> Michael Kerrisk
-> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-> Linux/UNIX System Programming Training: http://man7.org/training/
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
