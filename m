@@ -2,64 +2,78 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0DA1130CEFA
-	for <lists+linux-man@lfdr.de>; Tue,  2 Feb 2021 23:36:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1889930A5AE
+	for <lists+linux-man@lfdr.de>; Mon,  1 Feb 2021 11:44:00 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235781AbhBBWe1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 2 Feb 2021 17:34:27 -0500
-Received: from [20.39.40.203] ([20.39.40.203]:61037 "EHLO optinix.in"
-        rhost-flags-FAIL-FAIL-OK-OK) by vger.kernel.org with ESMTP
-        id S230091AbhBBWeU (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 2 Feb 2021 17:34:20 -0500
-dkim-signature: v=1; a=rsa-sha256; d=digitalsol.in; s=dkim;
-        c=relaxed/relaxed; q=dns/txt; h=From:Reply-To:Subject:Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-        bh=wK2neTcOXNiSQ+RBxrnFed+mRrGUU/ndLGEgvo8IMCc=;
-        b=Z/qoYR5e93G/1E5Uh8tLreepyziGYShILI7fcXozE97A3DqZKBadv9kcBZBcmHZnqAUcLkt0g+COxgI6WqJ5gdfKqksQSW540KJaAE4DNiZ+EZYtErJhsiZnZCgjfp9yI8W2dpgN2EsH5zUvgVY6Bl2MWU8ziaGqy1DCXSk4DXXi+2CTtkJX9uQrf2ohPvP7bhav6zr4dJxTQjQYoopWjV3h9j7RqQq/UIXqX3VBjVDZARoXQTZUB0KN0A
-        F7X8DeijiSCFEdYkkdQwasjHi3K0B6KloKBXegK0TgQ39PHt5t2MVnmtmeZadY0DbdImfujjk25mqjLTG700JJRoTl9A==
-Received: from User (Unknown [52.231.31.5])
-        by optinix.in with ESMTP
-        ; Sat, 30 Jan 2021 02:14:15 +0000
-Message-ID: <B0CC978E-0149-4652-A2D0-17DE1F49BCC1@optinix.in>
-Reply-To: <ms.reem@yandex.com>
-From:   "Ms. Reem" <support@digitalsol.in>
-Subject: Re:read
-Date:   Sat, 30 Jan 2021 02:14:13 -0000
+        id S233320AbhBAKnb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 1 Feb 2021 05:43:31 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36436 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S233305AbhBAKnL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 1 Feb 2021 05:43:11 -0500
+Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com [IPv6:2607:f8b0:4864:20::333])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 19222C061573
+        for <linux-man@vger.kernel.org>; Mon,  1 Feb 2021 02:42:21 -0800 (PST)
+Received: by mail-ot1-x333.google.com with SMTP id d1so15749831otl.13
+        for <linux-man@vger.kernel.org>; Mon, 01 Feb 2021 02:42:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudflare.com; s=google;
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=NnYu/LjYgo3tbUkKrHPPkYXO/EOq9JvFLZ3Mqt4aqfs=;
+        b=I1kTNCZzOwusb3AULUJuFMOI/Ay4/WfPohNHkn+CIayzKqW2VL64ajPRelWe+uvymi
+         s8AubipHrrN6Yvuxx0STpYkaUfUdRUBFtNYHBF5iN+ymbdCvNz6mN05a5orc9Cue3ARB
+         JT71tKxQXQflview0KWuI5kxhdOWVvj8duDR8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=NnYu/LjYgo3tbUkKrHPPkYXO/EOq9JvFLZ3Mqt4aqfs=;
+        b=p6aN7n54eJsIRslICS9/fzmhDaNMEC4Qu8njs5cnkkxkyUbeegthDpIOpPWkk2lg3J
+         6j6uS5Et/fa4N8tftU2u5pCr/3dUP82PNd9SwygrZP4+J2KCumTFZKOi3YZ44Xgi/ucs
+         wHESB1oxhUC76kX6hirk+He/m0+Y9gDfaJxEmy8Kj9gaJ2i6MG/yfa29NzKE2ioEjHyj
+         gJWY6CZ8pyoBB2IzNmUao38IaCDZTPmUxjPftIw8CHPFvIp+7h2x+hJWRaB6sQ8GObhh
+         qeGG8sx7njSYgXU7DWbiWlPHF3bSzXeKAqKZi/uNu8Pf6z9oQzHW3+KuPZEBVOdI08ZS
+         nvdQ==
+X-Gm-Message-State: AOAM532ItrB2pZiBGXd1LZAii6cPnaPWyhRZJ8OmbEOHjMjwPREWYENj
+        RFDuNxYZn017rWVKehLUQjBTEdr1KYjH6f6n3Xr+cv6IbUx3Ourt2EQ=
+X-Google-Smtp-Source: ABdhPJwbsu5J9hmujZG/d33M5+z4VR7TyFnHqQBHFFG6InJdyvV32RONyMloRQw3VfE+lD/Sk/sLYqJPouhs3X9j/6Y=
+X-Received: by 2002:a9d:1421:: with SMTP id h30mr11627494oth.45.1612176138896;
+ Mon, 01 Feb 2021 02:42:18 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain;
-        charset="Windows-1251"
-Content-Transfer-Encoding: 7bit
-X-Priority: 3
-X-MSMail-Priority: Normal
-X-Mailer: Microsoft Outlook Express 6.00.2600.0000
-X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
-To:     unlisted-recipients:; (no To-header on input)
+From:   Dmitry Vorobev <dvorobev@cloudflare.com>
+Date:   Mon, 1 Feb 2021 10:42:08 +0000
+Message-ID: <CAB6khqWO_meFaNn+cTtaKBDg8Zus-o6HD49Bo3KChk-5GkdFng@mail.gmail.com>
+Subject: [patch] malloc_trim.3: Remove mentioning of free call
+To:     linux-man@vger.kernel.org
+Cc:     alx.manpages@gmail.com, mtk.manpages@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello,
+'malloc_trim' was and is never called from the 'free' function. see
+related bug in glibc tracker:
+https://sourceware.org/bugzilla/show_bug.cgi?id=2531. or '__int_free'
+function. Only the top part of the heap is trimmed after some calls to
+'free', which is different from 'malloc_trim' which also releases
+memory in between chunks from all the arenas/heaps.
 
-My name is Ms. Reem Ebrahim Al-Hashimi, I am the "Minister of state
-and Petroleum" also "Minister of State for International Cooperation"
-in UAE. I write to you on behalf of my other "three (3) colleagues"
-who has approved me to solicit for your "partnership in claiming of
-{us$47=Million}" from a Financial Home in Cambodia on their behalf and
-for our "Mutual Benefits".
-
-The Fund {us$47=Million} is our share from the (over-invoiced) Oil/Gas
-deal with Cambodian/Vietnam Government within 2013/2014, however, we
-don't want our government to know about the fund. If this proposal
-interests you, let me know, by sending me an email and I will send to
-you detailed information on how this business would be successfully
-transacted. Be informed that nobody knows about the secret of this
-fund except us, and we know how to carry out the entire transaction.
-So I am compelled to ask, that you will stand on our behalf and
-receive this fund into any account that is solely controlled by you.
-
-We will compensate you with 15% of the total amount involved as
-gratification for being our partner in this transaction. Reply to:
-ms.reem@yandex.com
-
-Regards,
-Ms. Reem.
-
+diff --git a/man3/malloc_trim.3 b/man3/malloc_trim.3
+index 3c4cf5e8b..84e73fd70 100644
+--- a/man3/malloc_trim.3
++++ b/man3/malloc_trim.3
+@@ -80,15 +80,6 @@ T} Thread safety MT-Safe
+ .SH CONFORMING TO
+ This function is a GNU extension.
+ .SH NOTES
+-This function is automatically called by
+-.BR free (3)
+-in certain circumstances; see the discussion of
+-.B M_TOP_PAD
+-and
+-.B M_TRIM_THRESHOLD
+-in
+-.BR mallopt (3).
+-.PP
+ Only the main heap (using
+ .BR sbrk (2))
+ honors the
