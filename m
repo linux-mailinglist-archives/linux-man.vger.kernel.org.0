@@ -2,78 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EE4BB30CFFA
-	for <lists+linux-man@lfdr.de>; Wed,  3 Feb 2021 00:51:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5457430DB43
+	for <lists+linux-man@lfdr.de>; Wed,  3 Feb 2021 14:30:07 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229949AbhBBXvF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 2 Feb 2021 18:51:05 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35874 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229910AbhBBXvE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Feb 2021 18:51:04 -0500
-X-Greylist: delayed 417 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 02 Feb 2021 15:50:23 PST
-Received: from outpost.hi.is (outpost.hi.is [IPv6:2a00:c88:4000:1650::165:166])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E872DC061573
-        for <linux-man@vger.kernel.org>; Tue,  2 Feb 2021 15:50:23 -0800 (PST)
-Received: from inpost.hi.is (inpost.hi.is [IPv6:2a00:c88:4000:1650::165:62])
-        by outpost.hi.is (8.14.7/8.14.7) with ESMTP id 112NhRca014845
-        (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-        for <linux-man@vger.kernel.org>; Tue, 2 Feb 2021 23:43:27 GMT
-DKIM-Filter: OpenDKIM Filter v2.11.0 outpost.hi.is 112NhRca014845
-Received: from hekla.rhi.hi.is (hekla.rhi.hi.is [IPv6:2a00:c88:4000:1650::165:2])
-        by inpost.hi.is (8.14.7/8.14.7) with ESMTP id 112NhKbe020280
-        (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-        Tue, 2 Feb 2021 23:43:20 GMT
-DKIM-Filter: OpenDKIM Filter v2.11.0 inpost.hi.is 112NhKbe020280
-Received: from hekla.rhi.hi.is (localhost [127.0.0.1])
-        by hekla.rhi.hi.is (8.14.4/8.14.4) with ESMTP id 112NhKuf029797;
-        Tue, 2 Feb 2021 23:43:20 GMT
-Received: (from bjarniig@localhost)
-        by hekla.rhi.hi.is (8.14.4/8.14.4/Submit) id 112NhJPM029796;
-        Tue, 2 Feb 2021 23:43:19 GMT
-Date:   Tue, 2 Feb 2021 23:43:19 +0000
-From:   Bjarni Ingi Gislason <bjarniig@rhi.hi.is>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH] man-pages.7: Formatting suggestion revisions
-Message-ID: <20210202234319.GA29621@rhi.hi.is>
-References: <20210128205734.nhvua6ameelaomaw@localhost.localdomain>
- <2c95eb35-3e8a-a745-3242-fc8c8947660c@gmail.com>
+        id S231909AbhBCN2H (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 3 Feb 2021 08:28:07 -0500
+Received: from 198-20-226-115.unifiedlayer.com ([198.20.226.115]:51174 "EHLO
+        198-20-226-115.unifiedlayer.com" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S231886AbhBCN2C (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Feb 2021 08:28:02 -0500
+X-Greylist: delayed 21682 seconds by postgrey-1.27 at vger.kernel.org; Wed, 03 Feb 2021 08:27:03 EST
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+        d=carnivalassure.com.bd; s=default; h=Content-Transfer-Encoding:Content-Type:
+        Message-ID:Reply-To:Subject:To:From:Date:MIME-Version:Sender:Cc:Content-ID:
+        Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+        :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+        List-Subscribe:List-Post:List-Owner:List-Archive;
+        bh=miRpAdBSO5eDo01VDX+EK9bqGCmqMjXHS3kO16T6iWw=; b=oR9DBi73zWrpNptVGG8joD1q3D
+        a2vFVnixMQAUcmehD6fgJOQ9JP9N27NiM2NuC8HmaSTuyc4tIbd8kMLlSjPNy8b19j5i4Yecn4k41
+        d2L53GGQ3KAYNm9cTjTcF00G/e0wgveF66KZo4CFoHY+VyQWZpnDvHs7YXjdM1k0LGC10SnlZJnOf
+        hyfuxn41TeLbFp37bqri+jK8o3wb0VHiGKRxBfijUx18MCanoqvAna1IaS7ccBxFfbvZdTXygBXlc
+        j3LFBSU0eQazmqTdBY+jvtCMEdlAV/WbBykAUBZA45AnMWlIO1A8LzPVfVBXCEwNqNeODasQNIR6+
+        B0GfR5SA==;
+Received: from [127.0.0.1] (port=46664 helo=dot.dotlines.com.sg)
+        by dot.dotlines.com.sg with esmtpa (Exim 4.93)
+        (envelope-from <noreply@carnivalassure.com.bd>)
+        id 1l7CVp-0005bM-9S; Wed, 03 Feb 2021 01:23:41 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2c95eb35-3e8a-a745-3242-fc8c8947660c@gmail.com>
-Sender: bjarniig@hi.is
-User-Agent: Mutt/1.5.20 (2009-12-10)
+Date:   Wed, 03 Feb 2021 01:23:40 -0600
+From:   Francois Pinault <noreply@carnivalassure.com.bd>
+To:     undisclosed-recipients:;
+Subject: Hello/Hallo
+Organization: Donation
+Reply-To: francoispinault1936@outlook.com
+Mail-Reply-To: francoispinault1936@outlook.com
+Message-ID: <02cc13f2661d3cb7582fa6695be089c9@carnivalassure.com.bd>
+X-Sender: noreply@carnivalassure.com.bd
+User-Agent: Roundcube Webmail/1.3.15
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - dot.dotlines.com.sg
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - carnivalassure.com.bd
+X-Get-Message-Sender-Via: dot.dotlines.com.sg: authenticated_id: noreply@carnivalassure.com.bd
+X-Authenticated-Sender: dot.dotlines.com.sg: noreply@carnivalassure.com.bd
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Feb 02, 2021 at 02:14:33PM +0100, Michael Kerrisk (man-pages) wrote:
-> Hello Branden,
-> 
-> {I've also seen you reply to this mail.]
-> I think I'm okay with everything you say in this patch/mail, but I have one concern
-> On 1/28/21 9:57 PM, G. Branden Robinson wrote:
-> > 
-> > The problem with .na before a table, which is the more popular approach,
-> > and which you probably already discovered given that you're recommending
-> > ".ad l" instead, is that people who have found a way to force adjustment
-> > off already will be angry with man pages taking your advice because
-> > "full" adjustment (to both margins) will spring to life after the table.
-> > 
 
-  This is caused by a bug in groff,
-see bug #59795
-(the original had the subject:
-[PATCH] troff/env.cpp: fix wrong restoration of link adjustment after 
- '.na' and '.ad'
-)
-in "savannah.gnu.org/bugs/index.php?59795"
-
-  "link adjustment" should be "left adjustment" (.ad l).
 
 -- 
-Bjarni I. Gislason
+Hallo, ich bin Herr Francois Pinault, ich habe Ihnen gespendet. Sie 
+können mein Profil auf Wikipedia, Google oder Forbes überprüfen.
+
+Für Ihren Spendenanspruch und weitere Informationen kontaktieren Sie 
+mich umgehend unter francoispinault1936@outlook.com
+
+Mit freundlichen Grüßen,
+Herr Francois Pinault
