@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7014730F1F1
+	by mail.lfdr.de (Postfix) with ESMTP id DFA9A30F1F2
 	for <lists+linux-man@lfdr.de>; Thu,  4 Feb 2021 12:22:26 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235754AbhBDLTG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 4 Feb 2021 06:19:06 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41406 "EHLO
+        id S235560AbhBDLUe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 4 Feb 2021 06:20:34 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41864 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235607AbhBDLSW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 4 Feb 2021 06:18:22 -0500
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 017AFC0613D6
-        for <linux-man@vger.kernel.org>; Thu,  4 Feb 2021 03:17:42 -0800 (PST)
-Received: by mail-wm1-x333.google.com with SMTP id c127so2639109wmf.5
-        for <linux-man@vger.kernel.org>; Thu, 04 Feb 2021 03:17:41 -0800 (PST)
+        with ESMTP id S235551AbhBDLUc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 4 Feb 2021 06:20:32 -0500
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 75B2DC0613D6;
+        Thu,  4 Feb 2021 03:19:52 -0800 (PST)
+Received: by mail-wm1-x334.google.com with SMTP id y187so2658262wmd.3;
+        Thu, 04 Feb 2021 03:19:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=m2Nh4wy6H4f7XsK8R15suGd+a8wv1BZ+LKt/hFuPwjc=;
-        b=MI7EHQL/mU8lsr1aDAoWVP+709PzxVY7a4+UBhHFIQuCr/y29ibs3uFvsF3vKFZZQY
-         FODvJy9Y5LjGtwt/nvV6UkePsw4wFUhpUEyJHtnj5LFicL9H+GQR1+9w3O1+CVUjqRY9
-         8vbYQHbdgNm8IY8SYdWu7fOqbUM7nw/kHk65jQQ+o+X0GKXPY0y7tSd1B+6zY71U13ct
-         R3X295NT/wqPYnv6yZ0c+CQKqnemwP6C/9mJMfzJJ3Zty27M8SQUvyefhWSdhqD4+TKE
-         W2cq84NYN9xAtJGjb0TdkI32J0QlvPoCqJQTy4J0ifV0+CBygN9GBHDca+AkQsQ3kLmK
-         Ee2A==
+        bh=+NQNsmgLjymyzoU3Zkfr8Kgi3bLWvqv+FhgdKhN/wd8=;
+        b=Z4wbM/ZesE9e2jKkCM9CV63YrTCrSmXNRukY0KlRSHHUJM/MUBKgHelpTdSaRZz6A9
+         jic7/GxbnfRJcCvA2e+SvwIi00u/JIVSY7oMkK6NFDMqT0FqQcK4K3SZgz4M8U0JEauB
+         poBo/8lflLlKztlSr6qZ7JHhuc5ciY7Ajhah9dpmq69/NL4JcGppgYGHoE/ZECBR+Uk0
+         k3p3tNDXvTyByr2CmzIoUQtRkmqKNoKBeQ9OGreHRbCls3rY8VibZ9mT2v6QJWcmwXSy
+         LLbL0pTMs805ue4O9FrZmbjZ4SeTpi0jt4W3yy9QDnE5JrBtUzcP+I/SILff9XjGO09q
+         kutA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=m2Nh4wy6H4f7XsK8R15suGd+a8wv1BZ+LKt/hFuPwjc=;
-        b=KNsNQmoORVVozG18YhcACni9rNeJpBpGs/5zdz5XaDY2aZiYbqPtiacxpgERfnNPX3
-         wgzZDGhlIXLBahardqpW1BlIJ5Iitb/qaIGaYVtOObC2dMNUt32v6QmjdGXxBdSLo7Sk
-         FI3n6HLdK42rjBfMxHA0mh+qlbL4+KYZDKuL7DBcu2RjkmImQCVDX7h3izB/0B81a4FP
-         ez2dvCecC4DD4VhHnjMZSUB8OUqht2OZekWDA4wnOwqgsg2fguWMsbwGADAEcCm/plpE
-         eu5A1mngWsw9yU/+5JVskN5G1kEorf6jKvYWoj3P1MzXSzTjHtm5vajFp7tSDHINA4f1
-         Z2sg==
-X-Gm-Message-State: AOAM5331QUJas/mSR+ae66mvmf4k7gZvBaoqGbC9Y6F36bRHOLaHUwsa
-        +NaJN5ePJLKonbBrMSh7J/I=
-X-Google-Smtp-Source: ABdhPJxvC6vwm9vTfIVqQ13zCRDqzMTIp7XCzkLyR+kTfNJEs1jhiXJIh8g0L0AZDLVkGdUFcS/4wA==
-X-Received: by 2002:a1c:b1c3:: with SMTP id a186mr7075117wmf.8.1612437460809;
-        Thu, 04 Feb 2021 03:17:40 -0800 (PST)
+        bh=+NQNsmgLjymyzoU3Zkfr8Kgi3bLWvqv+FhgdKhN/wd8=;
+        b=mRw8mhCRAHDIZxixuZgEB1PKejYND3WiLNWCw8IuH1OLNUAsKM0IMbBgFAY8+t9eaa
+         FBJLqO3vOXVLG7H/6zQjS1g1w0imrDLizhoFZ2h0V6w5jksPzutvsjswl+KBK7lf3Cg2
+         EyO297Qnqa+5+AgmaHtrF8GM4ODEP45WwOBvpPSQOCCm3OT+hgRTGUgci/hIWHRISFA5
+         oBqqIT9jrkzcBrre+w5pFe9gzXadka05AsMUnPpBZiIwnhq0Lp4NAaADEUPSlAEGyNkM
+         QCygM+RintZRDtHe4TjmADWUwlIc9hod/harxuB2GvihSNifR0LU5VB818xLamqaBqnS
+         MSsg==
+X-Gm-Message-State: AOAM533Va3vMjLDlEzhEZmlGvFcf+d4a/NwqNf0bC5K/aG+KL3dsvXn0
+        QjqYIjAQAAW+ftrhRs4e+xoRk1CODrw=
+X-Google-Smtp-Source: ABdhPJwM8QDtmlNOiM1gYBoPd1mLD70xtd52ge1IkHclh0vALb4mHAcenM/Tq4VZQ12Qu9IDfgjoAw==
+X-Received: by 2002:a05:600c:4f8b:: with SMTP id n11mr6940730wmq.160.1612437591270;
+        Thu, 04 Feb 2021 03:19:51 -0800 (PST)
 Received: from debian.vlc ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id i6sm6999712wrs.71.2021.02.04.03.17.40
+        by smtp.gmail.com with ESMTPSA id c62sm5849770wmd.43.2021.02.04.03.19.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 Feb 2021 03:17:40 -0800 (PST)
+        Thu, 04 Feb 2021 03:19:50 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH] mlock.2: mlock2(): Fix prototype parameter types
-Date:   Thu,  4 Feb 2021 12:17:33 +0100
-Message-Id: <20210204111732.194599-1-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] mmap2.2: Fix prototype parameter types
+Date:   Thu,  4 Feb 2021 12:19:26 +0100
+Message-Id: <20210204111925.194705-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -61,12 +61,83 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-.../glibc$ grep_syscall_wrapper mlock2
-sysdeps/unix/sysv/linux/bits/mman-shared.h:55:
-int mlock2 (const void *__addr, size_t __length, unsigned int __flags) __THROW;
-.../glibc$
+There are many slightly different prototypes for this syscall,
+but none of them is like the documented one.
+Of all the different prototypes,
+let's document the asm-generic one.
 
-function grep_syscall_wrapper()
+......
+
+.../linux$ grep_syscall mmap2
+arch/csky/kernel/syscall.c:17:
+SYSCALL_DEFINE6(mmap2,
+	unsigned long, addr,
+	unsigned long, len,
+	unsigned long, prot,
+	unsigned long, flags,
+	unsigned long, fd,
+	off_t, offset)
+arch/microblaze/kernel/sys_microblaze.c:46:
+SYSCALL_DEFINE6(mmap2, unsigned long, addr, unsigned long, len,
+		unsigned long, prot, unsigned long, flags, unsigned long, fd,
+		unsigned long, pgoff)
+arch/nds32/kernel/sys_nds32.c:12:
+SYSCALL_DEFINE6(mmap2, unsigned long, addr, unsigned long, len,
+	       unsigned long, prot, unsigned long, flags,
+	       unsigned long, fd, unsigned long, pgoff)
+arch/powerpc/kernel/syscalls.c:60:
+SYSCALL_DEFINE6(mmap2, unsigned long, addr, size_t, len,
+		unsigned long, prot, unsigned long, flags,
+		unsigned long, fd, unsigned long, pgoff)
+arch/riscv/kernel/sys_riscv.c:37:
+SYSCALL_DEFINE6(mmap2, unsigned long, addr, unsigned long, len,
+	unsigned long, prot, unsigned long, flags,
+	unsigned long, fd, off_t, offset)
+arch/s390/kernel/sys_s390.c:49:
+SYSCALL_DEFINE1(mmap2, struct s390_mmap_arg_struct __user *, arg)
+arch/sparc/kernel/sys_sparc_32.c:101:
+SYSCALL_DEFINE6(mmap2, unsigned long, addr, unsigned long, len,
+	unsigned long, prot, unsigned long, flags, unsigned long, fd,
+	unsigned long, pgoff)
+arch/ia64/include/asm/unistd.h:30:
+asmlinkage unsigned long sys_mmap2(
+				unsigned long addr, unsigned long len,
+				int prot, int flags,
+				int fd, long pgoff);
+arch/ia64/kernel/sys_ia64.c:139:
+asmlinkage unsigned long
+sys_mmap2 (unsigned long addr, unsigned long len, int prot, int flags, int fd, long pgoff)
+arch/m68k/kernel/sys_m68k.c:40:
+asmlinkage long sys_mmap2(unsigned long addr, unsigned long len,
+	unsigned long prot, unsigned long flags,
+	unsigned long fd, unsigned long pgoff)
+arch/parisc/kernel/sys_parisc.c:275:
+asmlinkage unsigned long sys_mmap2(unsigned long addr, unsigned long len,
+	unsigned long prot, unsigned long flags, unsigned long fd,
+	unsigned long pgoff)
+arch/powerpc/include/asm/syscalls.h:15:
+asmlinkage long sys_mmap2(unsigned long addr, size_t len,
+		unsigned long prot, unsigned long flags,
+		unsigned long fd, unsigned long pgoff);
+arch/sh/include/asm/syscalls.h:8:
+asmlinkage long sys_mmap2(unsigned long addr, unsigned long len,
+			  unsigned long prot, unsigned long flags,
+			  unsigned long fd, unsigned long pgoff);
+arch/sh/kernel/sys_sh.c:41:
+asmlinkage long sys_mmap2(unsigned long addr, unsigned long len,
+	unsigned long prot, unsigned long flags,
+	unsigned long fd, unsigned long pgoff)
+arch/sparc/kernel/systbls.h:23:
+asmlinkage long sys_mmap2(unsigned long addr, unsigned long len,
+			  unsigned long prot, unsigned long flags,
+			  unsigned long fd, unsigned long pgoff);
+include/asm-generic/syscalls.h:14:
+asmlinkage long sys_mmap2(unsigned long addr, unsigned long len,
+			unsigned long prot, unsigned long flags,
+			unsigned long fd, unsigned long pgoff);
+.../linux$
+
+function grep_syscall()
 {
 	if ! [ -v 1 ]; then
 		>&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
@@ -74,31 +145,39 @@ function grep_syscall_wrapper()
 	fi
 
 	find * -type f \
-	|grep '\.h$' \
+	|grep '\.c$' \
 	|sort -V \
-	|xargs pcregrep -Mn \
-	  "(?s)^[^\s#][\w\s]+\s+\**${1}\s*\([\w\s()[\]*,]*?(...)?\)[\w\s()]*;" \
+	|xargs pcregrep -Mn "(?s)^\w*SYSCALL_DEFINE.\(${1},.*?\)" \
+	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
+
+	find * -type f \
+	|grep '\.[ch]$' \
+	|sort -V \
+	|xargs pcregrep -Mn "(?s)^asmlinkage\s+[\w\s]+\**sys_${1}\s*\(.*?\)" \
 	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
 }
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/mlock.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man2/mmap2.2 | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/man2/mlock.2 b/man2/mlock.2
-index 2822df7cf..f48d632c4 100644
---- a/man2/mlock.2
-+++ b/man2/mlock.2
-@@ -31,7 +31,7 @@ mlock, mlock2, munlock, mlockall, munlockall \- lock and unlock memory
+diff --git a/man2/mmap2.2 b/man2/mmap2.2
+index 349ee45e5..f9f9e91cb 100644
+--- a/man2/mmap2.2
++++ b/man2/mmap2.2
+@@ -33,8 +33,9 @@ mmap2 \- map files or devices into memory
+ .nf
  .B #include <sys/mman.h>
  .PP
- .BI "int mlock(const void *" addr ", size_t " len );
--.BI "int mlock2(const void *" addr ", size_t " len ", int " flags );
-+.BI "int mlock2(const void *" addr ", size_t " len ", unsigned int " flags );
- .BI "int munlock(const void *" addr ", size_t " len );
- .PP
- .BI "int mlockall(int " flags );
+-.BI "void *mmap2(void *" addr ", size_t " length ", int " prot ,
+-.BI "             int " flags ", int " fd ", off_t " pgoffset );
++.BI "void *mmap2(unsigned long " addr ", unsigned long " length ,
++.BI "            unsigned long " prot ", unsigned long " flags ,
++.BI "            unsigned long " fd ", unsigned long " pgoffset );
+ .fi
+ .SH DESCRIPTION
+ This is probably not the system call that you are interested in; instead, see
 -- 
 2.30.0
 
