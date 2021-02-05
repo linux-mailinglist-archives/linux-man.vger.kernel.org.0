@@ -2,67 +2,84 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4470031033D
-	for <lists+linux-man@lfdr.de>; Fri,  5 Feb 2021 04:11:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 08FE0310740
+	for <lists+linux-man@lfdr.de>; Fri,  5 Feb 2021 09:59:00 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230070AbhBEDJb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 4 Feb 2021 22:09:31 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48538 "EHLO
+        id S229716AbhBEI6n (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 5 Feb 2021 03:58:43 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38456 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229742AbhBEDJ0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 4 Feb 2021 22:09:26 -0500
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2BCB8C061794;
-        Thu,  4 Feb 2021 19:08:36 -0800 (PST)
-Received: by mail-wr1-x431.google.com with SMTP id m13so5939408wro.12;
-        Thu, 04 Feb 2021 19:08:36 -0800 (PST)
+        with ESMTP id S229692AbhBEI6l (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 5 Feb 2021 03:58:41 -0500
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com [IPv6:2607:f8b0:4864:20::22e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B5589C0613D6
+        for <linux-man@vger.kernel.org>; Fri,  5 Feb 2021 00:58:01 -0800 (PST)
+Received: by mail-oi1-x22e.google.com with SMTP id k142so6732121oib.7
+        for <linux-man@vger.kernel.org>; Fri, 05 Feb 2021 00:58:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=message-id:sender:from:mime-version:content-transfer-encoding
-         :content-description:subject:to:date:reply-to;
-        bh=hqf55dXwvcYwwL4sAkoYuOM6RPu6wxeec88n5sMRYiY=;
-        b=fhPHySbut4dTAWvmnaTXTJM+XUEQ8MW2l8njFAAthh188LYbdzoPC8kI7eWPY/CxiS
-         jsMvnipBXfgyxdX/NSpMo/EW66E+55qlp7OM493EMYVvkq7b3CyzJBwevr8vY6w3zBQG
-         mM6s5ndcQV3U8sMPnieGuwTn5CET3I/BhAHhxZAmpT9+/guwWCYf4o6wMt6FVaC1/Mz+
-         /KT/eiEWNDQjqbKuqil3YCUvKHrBZBPNwmWtUcMAIqzf5K7ZFEv+LCpqZY0dzxf279nm
-         mYOfMs5c8QvmKEFEE6q7gA2zSHyIhwXqoh+U8bHlA/w+eJWdZbzbyx3GZZukk2oIVY+4
-         yjdA==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=C7nGXiuyWZpA6/jXSCahuEbpc9mR37jhFw4owsZCL+E=;
+        b=DlOTQ3eoYPD+LO89TXu2uifFQj5TxDAlHm5PdFAM+9F3rsHS242o5XxzWC8oc2vgFU
+         NPXiHsQ3StzYl0JtvYtKI6OUpWbvz50UP3eEuuoRu75NrVh7cWYe5aJEzjQiiEXhMyEU
+         HKCsstifIGGYEZzLBgKzySXKKcN4PjZBZJgP1uudxNQN405FXWoXjFtNGjYlJDOfTZNB
+         rNH5LVOJtzmcrnr54sngRAYP8OSD9CNeu6Uu7mevcf8nLQsMZs7ff1Gof0PodHCUwxR5
+         3hwDj5/qsYxT+xe/0ZyXH4m5LB1WoQxuuKCodDMEExWR6M/sd7t9J2Q/U8F7Ongdu7Va
+         8OkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:sender:from:mime-version
-         :content-transfer-encoding:content-description:subject:to:date
-         :reply-to;
-        bh=hqf55dXwvcYwwL4sAkoYuOM6RPu6wxeec88n5sMRYiY=;
-        b=PMn5+7DeVG2YJOUDhVnv8M4TS2JYa13vsHSRYwNLtQMFNzJv+MxbvoHaw/V/51Kjlg
-         HQ7Coq/PvOqP0vGmpL5koiC8WJdg527e5FL+ST46QDhCT7ebWAXKcw6BCrUYCpxymZBb
-         Mo8hrWV1D+igd75MgSXQ1ICeOHNSHtol1QXbCw6M6b4DLl/P0iE6XiBu34dgo7Tpjoqn
-         GtzXH1inTMnmvlugY4I+99RqDSm2r4WwHdV2BMfgvYPlmKqTcj9mVqWfwboXSmz2nhXM
-         vdPd9SRaVk5aufnq9DxGJyrHr2MSFgzM92N+DqmCbkwoShqwTI21/stIW1CGN/gUVx+8
-         /90Q==
-X-Gm-Message-State: AOAM533kCSoyAk56AW4A3YPIqoAgF38mggiXQN8PeuoV1O+50PW1bnor
-        Aoo7dykE6B8S/il4JrwpokzN8WjUjwHzuA==
-X-Google-Smtp-Source: ABdhPJwVSDyzwcKSIGphbs26ptRVznnc9HY+sJTAWfILOOdiRayxAO7YreNbxMj83QPwrMluTti4tg==
-X-Received: by 2002:a5d:5502:: with SMTP id b2mr2426293wrv.245.1612494514742;
-        Thu, 04 Feb 2021 19:08:34 -0800 (PST)
-Received: from [192.168.1.6] ([154.124.28.35])
-        by smtp.gmail.com with ESMTPSA id n9sm10836813wrq.41.2021.02.04.19.08.31
-        (version=TLS1 cipher=AES128-SHA bits=128/128);
-        Thu, 04 Feb 2021 19:08:34 -0800 (PST)
-Message-ID: <601cb6b2.1c69fb81.5ea54.2eab@mx.google.com>
-Sender: Skylar Anderson <barr.markimmbayie@gmail.com>
-From:   calantha camara <sgt.andersonskylar0@gmail.com>
-X-Google-Original-From: calantha camara
-Content-Type: text/plain; charset="iso-8859-1"
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=C7nGXiuyWZpA6/jXSCahuEbpc9mR37jhFw4owsZCL+E=;
+        b=ngh1oJkS0XV9PX2cRbGEQ5Y9Jieu+43HRGKTzUFtCLKR1sQ4J28oM0R5hlQdFk1+fQ
+         cH22JWm38TOL+RseaGZhE48eZI4SWIoKB/HXKXdkUqht0oV4vKM/716voCoANivvBkde
+         S/e/6ZytdtAw4fzT8vKQ76EN5Y9qf2tJq1n+s14ZT8Dqj6hA5X/dZoxFMuzWEuN8fwOO
+         RgIAlX3QFyaUfc8FSKb1eNnv3aoWFSp3nImXlyQWu3YeFK10gM2+hJZvOh3TOV7syFAP
+         p9qLCVgJBuoNrSLa7xNwn8xlXhvKWpIqUz3iDnZCaj6MPiPPgWPrlQnDzlDSaJGBnMo8
+         GvMw==
+X-Gm-Message-State: AOAM533TJw+Tv8zdrKkYPPw9KvWul8QQDfXbkOKEZ8EhYV0FG3UrAcuF
+        6yBr8nqZammzE5BlbxXVIh2AdJLWQSAnziaiglE=
+X-Google-Smtp-Source: ABdhPJzDZRg6lmcv2kSoOTFuzbctlnHXAq/pLAxzZKkjZkRp47VU3Mr1j8s4cJYyGhdhfHlKripV9dbQV54zaR8IRlM=
+X-Received: by 2002:aca:4f4d:: with SMTP id d74mr2390447oib.159.1612515481103;
+ Fri, 05 Feb 2021 00:58:01 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
-Subject: hi dear
-To:     Recipients <calantha@vger.kernel.org>
-Date:   Fri, 05 Feb 2021 03:08:28 +0000
-Reply-To: calanthac20@gmail.com
-X-Mailer: cdcaafe51be8cdb99a1c85906066cad3d0e60e273541515a58395093a7c4e1f0eefb01d7fc4e6278706e9fb8c4dad093c3263345202970888b6b4d817f9e998c032e7d59
+References: <6336a172-6bc5-bad8-21a4-0309a83728e7@gmail.com>
+In-Reply-To: <6336a172-6bc5-bad8-21a4-0309a83728e7@gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Fri, 5 Feb 2021 09:57:49 +0100
+Message-ID: <CAKgNAkg=Eqd5QDkdWhecSq-0=Q8tnRm3yR_=5gsoDuxXQbpMYw@mail.gmail.com>
+Subject: Re: outb.2: What to do with prototypes?
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-do you speak Eglish
+Hello Alex,
+
+On Thu, 4 Feb 2021 at 13:59, Alejandro Colomar (man-pages)
+<alx.manpages@gmail.com> wrote:
+>
+> Hi Michael,
+>
+> What would you do with the prototypes in outb.2?
+> They are different in glibc and the kernel.
+> However, since these are functions to be called mostly withing the
+> kernel, the kernel prototype is more important.  Would you use the glibc
+> one in SYNOPSIS, and then a C library / kernel differences with the
+> kernel prototypes?
+
+Are the glibc APIs wrappers for the kernel interpreters?
+
+Thanks,
+
+Michael
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
