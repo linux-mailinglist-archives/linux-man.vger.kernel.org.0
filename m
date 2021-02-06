@@ -2,58 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9F306311C76
-	for <lists+linux-man@lfdr.de>; Sat,  6 Feb 2021 10:55:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BD8C0311C7C
+	for <lists+linux-man@lfdr.de>; Sat,  6 Feb 2021 10:57:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229514AbhBFJzQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 6 Feb 2021 04:55:16 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47094 "EHLO
+        id S229548AbhBFJ5P (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 6 Feb 2021 04:57:15 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47536 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229529AbhBFJzJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 6 Feb 2021 04:55:09 -0500
-Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com [IPv6:2607:f8b0:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2D305C06174A
-        for <linux-man@vger.kernel.org>; Sat,  6 Feb 2021 01:54:28 -0800 (PST)
-Received: by mail-ot1-x329.google.com with SMTP id d7so7174024otq.6
-        for <linux-man@vger.kernel.org>; Sat, 06 Feb 2021 01:54:28 -0800 (PST)
+        with ESMTP id S229541AbhBFJ5N (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 6 Feb 2021 04:57:13 -0500
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com [IPv6:2607:f8b0:4864:20::235])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BBC54C06174A
+        for <linux-man@vger.kernel.org>; Sat,  6 Feb 2021 01:56:33 -0800 (PST)
+Received: by mail-oi1-x235.google.com with SMTP id u66so8363653oig.9
+        for <linux-man@vger.kernel.org>; Sat, 06 Feb 2021 01:56:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
          :subject:to:cc;
-        bh=nsQ9I/OLmgiH/tlcQaTWPFz7wkdeNlPhCt8uRd+1X74=;
-        b=XOqQtOS4oxvfNo8al6sdRn+CY4wumo0P/UVBYqFxJa5By3cftmWdMg2/lsLlBtqcDU
-         2mDmv3NsIC8PfDyJt9+z9y9+HEsDSKZUhWktBrhS4Id8uZ6Wy/dFnHEz5LOD4TsmfFfz
-         8tIeZ2jtk3h8EskW4aFEQmZRqAjOvwyJJBtzdurJotOefWsI0fFk/pB534UU8Lgsif9q
-         CjHFVmgqV7yHTBZ3VelVJ7eT6LKBZIl9MfE5/p0AOV39glCNdQB/AAIh7AjxKRM+MRMN
-         2aSKIu9VbHoUnGvRk8odJAeXIYmbWEbwoyaoUXcwcXQMTXS42L6zS6wo53JQis17gem1
-         aasQ==
+        bh=iAXSh8LJGY4GWkLzkUNJuuKgExsK7u6d5znt2tneXgk=;
+        b=T8Pt+O4WFfEuywG1kn5c6j0R929TO8d9erxXXrSjC/NOBZ8q4I8Sd8Gnma6xIUX2zs
+         KCyWX9MEIl7gydRbCBOFdD8Echq0zfRsFIE5hySZnOKoAQnl0GN+XSbdUPaMi8xJF+8z
+         6y2CODN95v1iVeP+k6vpSOPLC6jf2OXIsR0NKa/f8qi9S3YRhEuICfTyJ54gS4tnu1+2
+         W9Tx/Hp9JHqrkh+G2z2HcFe4ZthTbBL6/djLBs1IsIqOs7/FOde088pDuCM221UiPe0g
+         sebEjBs2qP1S2k3LFZZp6s49sn2ubASPqoUEfO7PBx7X52PBUXg5JpbtOLnL7PlNhjzA
+         9Rgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
          :from:date:message-id:subject:to:cc;
-        bh=nsQ9I/OLmgiH/tlcQaTWPFz7wkdeNlPhCt8uRd+1X74=;
-        b=q13T6UDQvdWEAB6bxlb+YPqBSX/TQfMY5vd2oaqWWuCupidI8Cs/pV6cPe1kRN5iG2
-         JAADcUlNu1BpuQIDo1j3PWaAx0m58qyKBHUYlf+FXPNRTiAtOJ0Ze1UwX+nHe+hplxT8
-         Jjymx0/xBYAb19I7722BbnfY0b+mEWwMoVmt8XDpP1c55XlLpp/H+NarCZwyoQamm3Yx
-         jE3SwqEnhAZTQBkHCZaOGDCPg2eVfTZA2miJOjylUaHLAw9iBkgH8swFB2Kq2ly3HC6w
-         +zyuyV+S5fVqJz2yBDPSWX3p8jLwx9Cuo20q97xEu+LFEyy/PIgrCnqrCBtK/24oJ/tx
-         Nt3w==
-X-Gm-Message-State: AOAM532fEC3XFF14NMR4/DjRKgR/lyV/ZuQ2IsefCp8luAj33gxPZMJz
-        Uy1QIkK3Lg8K9WCTzEVAk211nnY3fs1aD0T42us=
-X-Google-Smtp-Source: ABdhPJyvCOdT78ZLYXzA8xhcsEQu5oKm7r3nfJQxirUi+YQAc94JrX7dpk3lxbbRboQPBSRlapY5nF2PhYTPfrdKiMA=
-X-Received: by 2002:a9d:32f4:: with SMTP id u107mr243034otb.308.1612605267582;
- Sat, 06 Feb 2021 01:54:27 -0800 (PST)
+        bh=iAXSh8LJGY4GWkLzkUNJuuKgExsK7u6d5znt2tneXgk=;
+        b=j7NkYQeQu/vr5zjNHjRBbWJHKeGB5pkT02uQIpYhijrmJJbvalC4v99TUjiLnJc2uU
+         putHibG4Ml/hNPmWWEmef1noarOLtlqXDKuPdG0GMgNtnJ5SLmsQndIYSkSwhKA8I/0x
+         pdqqWR+KfOpWFDDmPFX4CZRxw+0X+Mnx2R/on2kX1xw0JMUcMmIKhp29GUVzP60eDZTt
+         ihEctFUL/qFwXBcq44lh6bjbpmED1DjQ9eH97F3axKp3aSZ9B7z24UnZmihc4TUXJA6z
+         SEpeSP7rQeMP+e0jRhz6nO00ttZV1zD5Kb43yLUmmGyXdWqAiPn08tprwaVeL+Nyhdqf
+         AmOg==
+X-Gm-Message-State: AOAM532zk5gEVnGofFYw2uNdu0cF837C84WK54yTAz0DojkPpaH0tIow
+        mjNHisY9JM6sKMr6yfJustOIcSPdYCw76aOZGnn2CAkU
+X-Google-Smtp-Source: ABdhPJyghfTHMe+n+Iqub16iXE8nnhP/SynXx6x/9B1fqbQvJwUtYtxmkHQymM5972QAgpvQWao6X3HCZOmbcIt2Ln0=
+X-Received: by 2002:aca:48c6:: with SMTP id v189mr5619988oia.177.1612605393109;
+ Sat, 06 Feb 2021 01:56:33 -0800 (PST)
 MIME-Version: 1.0
-References: <20210203184517.153948-1-alx.manpages@gmail.com>
-In-Reply-To: <20210203184517.153948-1-alx.manpages@gmail.com>
+References: <20210203182528.150479-1-alx.manpages@gmail.com>
+In-Reply-To: <20210203182528.150479-1-alx.manpages@gmail.com>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Sat, 6 Feb 2021 10:54:16 +0100
-Message-ID: <CAKgNAkgW=1GE4qcmWsTvfpj2y_N8Bp_ePKtV4VyE8t_b9Ro85w@mail.gmail.com>
-Subject: Re: [PATCH] execveat.2: Fix prototype
+Date:   Sat, 6 Feb 2021 10:56:22 +0100
+Message-ID: <CAKgNAkj6Kz=DGjrrX-NHKWRYjLZXED7TZyHFtTYpf0gAPmHSeg@mail.gmail.com>
+Subject: Re: [PATCH] epoll_wait.2: Glibc doesn't provide epoll_pwait2() yet
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     linux-man <linux-man@vger.kernel.org>,
-        David Drysdale <drysdale@google.com>
+        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
+        Willem de Bruijn <willemb@google.com>,
+        Florian Weimer <fweimer@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -61,80 +63,46 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Alex,
 
-Can we please begin every commit message with some English sentences :-).
-
-I'm a little hesitant about the proposed change. execve() has a
-similar prototype in the kernel, but the glibc wrapper is just:
-
-extern int execve (const char *__path, char *const __argv[],
-                   char *const __envp[]) ;
-
-I expect that one day when execveat() is added to glibc, it will be
-the same. What do you think?
-
-Thanks,
-
-Michael
-
-On Wed, 3 Feb 2021 at 19:46, Alejandro Colomar <alx.manpages@gmail.com> wrote:
->
-> .../linux$ grep_syscall execveat
-> fs/exec.c:2062:
-> SYSCALL_DEFINE5(execveat,
->                 int, fd, const char __user *, filename,
->                 const char __user *const __user *, argv,
->                 const char __user *const __user *, envp,
->                 int, flags)
-> fs/exec.c:2083:
-> COMPAT_SYSCALL_DEFINE5(execveat, int, fd,
->                        const char __user *, filename,
->                        const compat_uptr_t __user *, argv,
->                        const compat_uptr_t __user *, envp,
->                        int,  flags)
-> include/linux/syscalls.h:980:
-> asmlinkage long sys_execveat(int dfd, const char __user *filename,
->                         const char __user *const __user *argv,
->                         const char __user *const __user *envp, int flags);
-> .../linux$
->
-> function grep_syscall()
-> {
->         if ! [ -v 1 ]; then
->                 >&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
->                 return ${EX_USAGE};
->         fi
->
->         find * -type f \
->         |grep '\.c$' \
->         |sort -V \
->         |xargs pcregrep -Mn "(?s)^\w*SYSCALL_DEFINE.\(${1},.*?\)" \
->         |sed -E 's/^[^:]+:[0-9]+:/&\n/';
->
->         find * -type f \
->         |grep '\.h$' \
->         |sort -V \
->         |xargs pcregrep -Mn "(?s)^asmlinkage \w+ \**sys_${1}\(.*?\)" \
->         |sed -E 's/^[^:]+:[0-9]+:/&\n/';
-> }
+On Wed, 3 Feb 2021 at 19:28, Alejandro Colomar <alx.manpages@gmail.com> wrote:
 >
 > Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 > ---
->  man2/execveat.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/man2/execveat.2 b/man2/execveat.2
-> index 02d9c7331..d1ce4bee1 100644
-> --- a/man2/execveat.2
-> +++ b/man2/execveat.2
-> @@ -31,7 +31,7 @@ execveat \- execute program relative to a directory file descriptor
->  .B #include <unistd.h>
->  .PP
->  .BI "int execveat(int " dirfd ", const char *" pathname ,
-> -.BI "             char *const " argv "[], char *const " envp [],
-> +.BI "             const char *const " argv "[], const char *const " envp [],
->  .BI "             int " flags );
+> Hi all,
+>
+> As far as I can tell, glibc doesn't yet provide the wrapper function for
+> epoll_pwait2(), does it?
+
+Not yet, AFAICT.
+
+> So let's add a reminder to check if glibc provides the wrapper in the future.
+
+Perhaps we could do one better. Raise a glibc bug requesting support,
+and add the URL of that bug in the FIXME :-).
+
+Cheers,
+
+Michael
+
+> Cheers,
+>
+> Alex
+>
+>  man2/epoll_wait.2 | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/man2/epoll_wait.2 b/man2/epoll_wait.2
+> index f0e432478..e338f8830 100644
+> --- a/man2/epoll_wait.2
+> +++ b/man2/epoll_wait.2
+> @@ -35,6 +35,8 @@ epoll_wait, epoll_pwait, epoll_pwait2 \- wait for an I/O event on an epoll file
+>  .BI "int epoll_pwait2(int " epfd ", struct epoll_event *" events ,
+>  .BI "               int " maxevents ", const struct timespec *" timeout ,
+>  .BI "               const sigset_t *" sigmask );
+> +.\" FIXME: Check if glibc has added a wrapper for epoll_pwait2().
 >  .fi
->  .PP
+>  .SH DESCRIPTION
+>  The
 > --
 > 2.30.0
 >
