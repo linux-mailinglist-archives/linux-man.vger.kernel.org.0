@@ -2,96 +2,143 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2DBD3311C6D
-	for <lists+linux-man@lfdr.de>; Sat,  6 Feb 2021 10:50:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9F306311C76
+	for <lists+linux-man@lfdr.de>; Sat,  6 Feb 2021 10:55:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229586AbhBFJui (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 6 Feb 2021 04:50:38 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46116 "EHLO
+        id S229514AbhBFJzQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 6 Feb 2021 04:55:16 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47094 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229507AbhBFJuf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 6 Feb 2021 04:50:35 -0500
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com [IPv6:2607:f8b0:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 59900C06174A
-        for <linux-man@vger.kernel.org>; Sat,  6 Feb 2021 01:49:55 -0800 (PST)
-Received: by mail-ot1-x32e.google.com with SMTP id k25so7325314otb.4
-        for <linux-man@vger.kernel.org>; Sat, 06 Feb 2021 01:49:55 -0800 (PST)
+        with ESMTP id S229529AbhBFJzJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 6 Feb 2021 04:55:09 -0500
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com [IPv6:2607:f8b0:4864:20::329])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2D305C06174A
+        for <linux-man@vger.kernel.org>; Sat,  6 Feb 2021 01:54:28 -0800 (PST)
+Received: by mail-ot1-x329.google.com with SMTP id d7so7174024otq.6
+        for <linux-man@vger.kernel.org>; Sat, 06 Feb 2021 01:54:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
          :subject:to:cc;
-        bh=TKY4Jkme+o5OjY7yrzdpWPaGUBhXdIE8w7YMLhzs+e8=;
-        b=cIsBdWLlj4sJWZR5Y03a3CODb7cvofuOd8KU0TBqB/kKoHx23sCjm0bmGsigBdhhQj
-         UJgOvhQxIXXIwjNG4G6rxRry0GXCx01Ki6zKAKxGASB5SxBkj8oK/MGHIhHmcVtegTcC
-         USuAYlpz7nJZOyf9JtH/BQNnE2F4oRLUdVKeRpth2RtKS8QLAFWGTjUvWi3mq5OhKUTw
-         SLVuSBl/fl0TGkB4lBf4SXcsszTmvMRysYULnVmfMvkcjSraaYsxERn5ze+LKYefDqge
-         OCIcCQOoLNqi87TC4g4EbYNy4Wj/aff3k/eBsj0z2acTuG+L7zrVuaGZQsz4ZXB5XyIV
-         x81g==
+        bh=nsQ9I/OLmgiH/tlcQaTWPFz7wkdeNlPhCt8uRd+1X74=;
+        b=XOqQtOS4oxvfNo8al6sdRn+CY4wumo0P/UVBYqFxJa5By3cftmWdMg2/lsLlBtqcDU
+         2mDmv3NsIC8PfDyJt9+z9y9+HEsDSKZUhWktBrhS4Id8uZ6Wy/dFnHEz5LOD4TsmfFfz
+         8tIeZ2jtk3h8EskW4aFEQmZRqAjOvwyJJBtzdurJotOefWsI0fFk/pB534UU8Lgsif9q
+         CjHFVmgqV7yHTBZ3VelVJ7eT6LKBZIl9MfE5/p0AOV39glCNdQB/AAIh7AjxKRM+MRMN
+         2aSKIu9VbHoUnGvRk8odJAeXIYmbWEbwoyaoUXcwcXQMTXS42L6zS6wo53JQis17gem1
+         aasQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
          :from:date:message-id:subject:to:cc;
-        bh=TKY4Jkme+o5OjY7yrzdpWPaGUBhXdIE8w7YMLhzs+e8=;
-        b=Dy3hlndVlE6sDNpA6inxn3UXEZP6HeTX0KwYCUILqWM50QiHa4hqRRCeA/1ZuA0CGi
-         d0q8oBIZJn4pj0jGHDxRTUTillZea9bICc1yeyEPKxgqaSR2z8fDHKXzfP4uP0BOQvjI
-         jh7PxydjE1gbnzBfcGR/oKQLzJarF783GdD9GYIT+I8yFWxy6pvfYwd83rBqQ+ywlwpt
-         yOgqA1m8esQaPmT9HLwjhCbVDElm9iELCHMqMqeXPhXdJiScqTf5KRC5weqAslY03/W3
-         IF8bsAuBiOgNIOx0SFCPZ/CaPRv7SrbclSGmPtVpfNZuPnzyRYHQFKEUgKAX7UKuFkH7
-         v1vQ==
-X-Gm-Message-State: AOAM531lCv2iHdolv1CN44i9Omjt0IJAayOpjpp24WRcZOPjHt5gSR+K
-        TmRDWJbfe6nEADvPCFCOwgPQ6exXJLRkKRQ7Ncg=
-X-Google-Smtp-Source: ABdhPJwBYinfWjn5xVHoMAl4RBo2v2OsM/OjFEN1PCY9xd8sDqw0qJJTYEqLMhQUykcyyBqUPj+2k+tWtyGviOTEG00=
-X-Received: by 2002:a05:6830:148a:: with SMTP id s10mr6335294otq.323.1612604994613;
- Sat, 06 Feb 2021 01:49:54 -0800 (PST)
+        bh=nsQ9I/OLmgiH/tlcQaTWPFz7wkdeNlPhCt8uRd+1X74=;
+        b=q13T6UDQvdWEAB6bxlb+YPqBSX/TQfMY5vd2oaqWWuCupidI8Cs/pV6cPe1kRN5iG2
+         JAADcUlNu1BpuQIDo1j3PWaAx0m58qyKBHUYlf+FXPNRTiAtOJ0Ze1UwX+nHe+hplxT8
+         Jjymx0/xBYAb19I7722BbnfY0b+mEWwMoVmt8XDpP1c55XlLpp/H+NarCZwyoQamm3Yx
+         jE3SwqEnhAZTQBkHCZaOGDCPg2eVfTZA2miJOjylUaHLAw9iBkgH8swFB2Kq2ly3HC6w
+         +zyuyV+S5fVqJz2yBDPSWX3p8jLwx9Cuo20q97xEu+LFEyy/PIgrCnqrCBtK/24oJ/tx
+         Nt3w==
+X-Gm-Message-State: AOAM532fEC3XFF14NMR4/DjRKgR/lyV/ZuQ2IsefCp8luAj33gxPZMJz
+        Uy1QIkK3Lg8K9WCTzEVAk211nnY3fs1aD0T42us=
+X-Google-Smtp-Source: ABdhPJyvCOdT78ZLYXzA8xhcsEQu5oKm7r3nfJQxirUi+YQAc94JrX7dpk3lxbbRboQPBSRlapY5nF2PhYTPfrdKiMA=
+X-Received: by 2002:a9d:32f4:: with SMTP id u107mr243034otb.308.1612605267582;
+ Sat, 06 Feb 2021 01:54:27 -0800 (PST)
 MIME-Version: 1.0
-References: <2ea085f2674543b1a1fb41702bc959c7@bfs.de>
-In-Reply-To: <2ea085f2674543b1a1fb41702bc959c7@bfs.de>
+References: <20210203184517.153948-1-alx.manpages@gmail.com>
+In-Reply-To: <20210203184517.153948-1-alx.manpages@gmail.com>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Sat, 6 Feb 2021 10:49:43 +0100
-Message-ID: <CAKgNAkh-y9TOWVy9ot25ig_XR4u4VSRz3=qEUezYKc0u0PVyug@mail.gmail.com>
-Subject: Re: rfc: free and errno
-To:     Walter Harms <wharms@bfs.de>
-Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
+Date:   Sat, 6 Feb 2021 10:54:16 +0100
+Message-ID: <CAKgNAkgW=1GE4qcmWsTvfpj2y_N8Bp_ePKtV4VyE8t_b9Ro85w@mail.gmail.com>
+Subject: Re: [PATCH] execveat.2: Fix prototype
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        David Drysdale <drysdale@google.com>
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Walter,
+Hi Alex,
 
-Thanks for raising this.
+Can we please begin every commit message with some English sentences :-).
 
-On Mon, 1 Feb 2021 at 12:19, Walter Harms <wharms@bfs.de> wrote:
->
-> Hi List
->
-> free() is generaly assumed not to modify errno.
->
-> Lately there was a bugfix posting on the busybox mailing list, because:
->
-> "musl libc's mallocing free() may modify errno if kernel does not support
-> MADV_FREE which causes echo to echo with error when it shouldn't."
+I'm a little hesitant about the proposed change. execve() has a
+similar prototype in the kernel, but the glibc wrapper is just:
 
-URL please.
+extern int execve (const char *__path, char *const __argv[],
+                   char *const __envp[]) ;
 
-> In future  it seems that POSIX with require free() not to change errno.
-
-The statement you make in the preceding sentence is useful
-information, but you could save other people a lot of time searching
-if you provided a reference:
-
-https://www.austingroupbugs.net/view.php?id=385#c713
-
-> after much soul searching i have still no idea if that should be documented in
-> the free(3) man page. Any comments ?
-
-Probably it should be documented. Did you have a suggestion for the text?
+I expect that one day when execveat() is added to glibc, it will be
+the same. What do you think?
 
 Thanks,
 
 Michael
+
+On Wed, 3 Feb 2021 at 19:46, Alejandro Colomar <alx.manpages@gmail.com> wrote:
+>
+> .../linux$ grep_syscall execveat
+> fs/exec.c:2062:
+> SYSCALL_DEFINE5(execveat,
+>                 int, fd, const char __user *, filename,
+>                 const char __user *const __user *, argv,
+>                 const char __user *const __user *, envp,
+>                 int, flags)
+> fs/exec.c:2083:
+> COMPAT_SYSCALL_DEFINE5(execveat, int, fd,
+>                        const char __user *, filename,
+>                        const compat_uptr_t __user *, argv,
+>                        const compat_uptr_t __user *, envp,
+>                        int,  flags)
+> include/linux/syscalls.h:980:
+> asmlinkage long sys_execveat(int dfd, const char __user *filename,
+>                         const char __user *const __user *argv,
+>                         const char __user *const __user *envp, int flags);
+> .../linux$
+>
+> function grep_syscall()
+> {
+>         if ! [ -v 1 ]; then
+>                 >&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
+>                 return ${EX_USAGE};
+>         fi
+>
+>         find * -type f \
+>         |grep '\.c$' \
+>         |sort -V \
+>         |xargs pcregrep -Mn "(?s)^\w*SYSCALL_DEFINE.\(${1},.*?\)" \
+>         |sed -E 's/^[^:]+:[0-9]+:/&\n/';
+>
+>         find * -type f \
+>         |grep '\.h$' \
+>         |sort -V \
+>         |xargs pcregrep -Mn "(?s)^asmlinkage \w+ \**sys_${1}\(.*?\)" \
+>         |sed -E 's/^[^:]+:[0-9]+:/&\n/';
+> }
+>
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
+>  man2/execveat.2 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/man2/execveat.2 b/man2/execveat.2
+> index 02d9c7331..d1ce4bee1 100644
+> --- a/man2/execveat.2
+> +++ b/man2/execveat.2
+> @@ -31,7 +31,7 @@ execveat \- execute program relative to a directory file descriptor
+>  .B #include <unistd.h>
+>  .PP
+>  .BI "int execveat(int " dirfd ", const char *" pathname ,
+> -.BI "             char *const " argv "[], char *const " envp [],
+> +.BI "             const char *const " argv "[], const char *const " envp [],
+>  .BI "             int " flags );
+>  .fi
+>  .PP
+> --
+> 2.30.0
+>
+
 
 -- 
 Michael Kerrisk
