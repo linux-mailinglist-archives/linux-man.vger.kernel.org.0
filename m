@@ -2,64 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 780F1311FFD
+	by mail.lfdr.de (Postfix) with ESMTP id E8638311FFE
 	for <lists+linux-man@lfdr.de>; Sat,  6 Feb 2021 21:40:37 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229506AbhBFUkQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 6 Feb 2021 15:40:16 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44054 "EHLO
+        id S229541AbhBFUkX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 6 Feb 2021 15:40:23 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44098 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229590AbhBFUkK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 6 Feb 2021 15:40:10 -0500
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 48D6AC06174A
-        for <linux-man@vger.kernel.org>; Sat,  6 Feb 2021 12:39:30 -0800 (PST)
-Received: by mail-wr1-x42c.google.com with SMTP id v15so12223464wrx.4
-        for <linux-man@vger.kernel.org>; Sat, 06 Feb 2021 12:39:30 -0800 (PST)
+        with ESMTP id S229522AbhBFUkW (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 6 Feb 2021 15:40:22 -0500
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com [IPv6:2a00:1450:4864:20::52d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 75D1BC061756
+        for <linux-man@vger.kernel.org>; Sat,  6 Feb 2021 12:39:42 -0800 (PST)
+Received: by mail-ed1-x52d.google.com with SMTP id y18so13543647edw.13
+        for <linux-man@vger.kernel.org>; Sat, 06 Feb 2021 12:39:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=yT+ygsaF7/6hbu5UzzelLwC/ylRQ6xX3gt9TZWtQ5DU=;
-        b=jpVf4Go6ldaenoQU6gi0XxMUVemgLxBtPJwPtiskJ1XC4UU68NvrbFEkAPOdPYDMrT
-         4BSUCfTRYiAhLRV3PtCWsGz3m8yBlEgWg4cNSGK3Uq1PP3wAZay39ufn9QSvJ4jZRYp6
-         QFksqG29Uxb/vONmcZCXDc0a3mMIWozVA0XAOjYhZ46wvEnG1SIV7TAXhqYBM/HaZjnD
-         +isws8bVI+tIIcZwI9Ef1qE0iVZq/P9TDbSRDhmK+ivFVBQhMVBaMnqR5kh1tETJy0XV
-         5RsEbig+uqb1B69AqrgylfqA/tlrsSLNXJFtR1iIBfojtDCR9TU/augAG/pOClLkOgoR
-         bStg==
+        bh=6AwHFpNHnZtpLdW0iG6hZCtJSUlRvaSr0mJxkQLslCA=;
+        b=NJQ9jqNNHS2zB7p2Gpaf7Li04NAiBW/s76h3IZuInEwtG6RfsEPFvafF0dooMRIhVc
+         IVaCxKXnF2oojeZoQ3F9yYMqYdEvDiZVCkylaGz+U6KoiixWtyMSLFUBOpjpRqsl36ri
+         CqrLhh76jTs9ha5EHFMEF2lHZjWj7HUSG+RFPLeugWwhAnY68eYWkAYze0CNEOSJFl+g
+         gkRuv1agNOJvWlTarEETXkRF7ELC5V9U66a/qwXhfPfzW5zNEA0fnYwaJkHA2ffiV1ct
+         RM9c5YRQlIc/8xtTY2Fw9iXJHy6oyo7ejvPYvBvIpRaq8lqG1xMYi5LRIQUT0sCRq9dY
+         x4sA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=yT+ygsaF7/6hbu5UzzelLwC/ylRQ6xX3gt9TZWtQ5DU=;
-        b=UWRC0WOs62chgjyb1npjw+De+ZA7FOQ1uN69BZaMU1FG7a4UMuAuTnHFoyR7o99Wa0
-         2FqteesPwJuA1ot8ErHUhGHs+XsC087qBnYuu3tELcf17ZXsGrYVdB1mgmf8syz2nC0g
-         DqzZEFTHO5awpBsTebM+My5nN28vcb8IVVRsCQ4PCV0FX2SmYb/LaiOaDBP2RptH+R/D
-         d+Bn2obszd01un4m3GKrHa6M79PZJtHeNyePf+gTluBwzyxjCIel4D05elj1aQdTG/+v
-         JO4oM35l+VTo8T9wiHHvxVYVcD6RUCFNqsUdeWmixHtYTVUDLtZGpji++NAH1K52Jrfq
-         42bg==
-X-Gm-Message-State: AOAM532Ern3N5HzNKyEmS2bigaoC4vgkTJBbR4S9kr7gSjGZw/wdhNfP
-        ohjHpLjUzniXgQ3tqtlICBAga2xpnTM=
-X-Google-Smtp-Source: ABdhPJwc13DfMbEAIHoUYv+ENiQ82WqGWu5gMuEIqQQ6XH1Jy2yqTAMywqxw53KR0dBcFFcmWh+1Nw==
-X-Received: by 2002:adf:f9d0:: with SMTP id w16mr11780273wrr.137.1612643969065;
-        Sat, 06 Feb 2021 12:39:29 -0800 (PST)
+        bh=6AwHFpNHnZtpLdW0iG6hZCtJSUlRvaSr0mJxkQLslCA=;
+        b=rLk8Ih6MUZeWp+IJ5F+3DXLJiQeDPzv4kHYVxj51ZUzbF47coobJfLLff4L861bAFn
+         HH2Tvt5hBJ2SyxuCCGOSoXT0QM63bgAW4dcWavz0cAqp5TOYcPoUaxqE94GFUGloawvt
+         ud1j2Nt/oDZ0WERc1q1W4Xyu7y4XRdc606wUZSCh4S72PR9yE2Iw3l9gR3URapHy+NqK
+         jSyzOaIw/0Td6hiyO1awdC7mXvaYr0T/kK2L4rXC65tHbm+QOOO+I7V7oFrOvm/CzvTE
+         G6Qs0YMl7r5FkRndQvhpGbQT9sVon6EbTFcen/BMBDp3dvPWH8W3qle5b7sn5M+S9o48
+         SfrQ==
+X-Gm-Message-State: AOAM531wZ5YSVfSe03ihkdMhqnSyiUFcTvVw1GGD4789F+SWz8tSpZws
+        dBOFfWWzyu9kHfN4rCEzOoI=
+X-Google-Smtp-Source: ABdhPJwu5QRT74h9aqz7w41MDkL24ybjYpTiD3Ur07EvD0607SFd/8bBzKxuyZUKXa+vM+66o4DkLA==
+X-Received: by 2002:aa7:c58f:: with SMTP id g15mr2664875edq.383.1612643981294;
+        Sat, 06 Feb 2021 12:39:41 -0800 (PST)
 Received: from ?IPv6:2001:a61:2542:b001:294f:8948:78a8:d929? ([2001:a61:2542:b001:294f:8948:78a8:d929])
-        by smtp.gmail.com with ESMTPSA id s6sm12315854wmh.2.2021.02.06.12.39.27
+        by smtp.gmail.com with ESMTPSA id c18sm5920730edu.20.2021.02.06.12.39.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 06 Feb 2021 12:39:28 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        libc-alpha@sourceware.org
-Subject: Re: [PATCH] gettimeofday.2: Use restrict in prototypes
+        Sat, 06 Feb 2021 12:39:40 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, Florian Weimer <fweimer@redhat.com>,
+        libc-alpha@sourceware.org, linux-man <linux-man@vger.kernel.org>,
+        Willem de Bruijn <willemb@google.com>
+Subject: Re: [PATCH v2] epoll_wait.2: Glibc doesn't provide epoll_pwait2() yet
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20210203215206.170532-1-alx.manpages@gmail.com>
+References: <CAKgNAkj6Kz=DGjrrX-NHKWRYjLZXED7TZyHFtTYpf0gAPmHSeg@mail.gmail.com>
+ <20210206114303.4657-1-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <e8cfc3e4-0b84-7292-7b06-a3a0f93923ba@gmail.com>
-Date:   Sat, 6 Feb 2021 21:39:27 +0100
+Message-ID: <0a0f61a7-31ed-875d-0077-54a853fed98b@gmail.com>
+Date:   Sat, 6 Feb 2021 21:39:39 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <20210203215206.170532-1-alx.manpages@gmail.com>
+In-Reply-To: <20210206114303.4657-1-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,76 +71,46 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Alex,
 
-On 2/3/21 10:52 PM, Alejandro Colomar wrote:
-> POSIX specifies that the parameters of gettimeofday() shall be
-> 'restrict'.  Glibc uses 'restrict' too.
-> Let's use it here too.
+On 2/6/21 12:43 PM, Alejandro Colomar wrote:
+> I filed a bug against glibc
+> requesting the wrapper for the new syscall.
+> 
+> Glibc bug: <https://sourceware.org/bugzilla/show_bug.cgi?id=27359>
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
+> 
+> Hi Michael,
+> 
+> Yes, filing a bug is one better :-).
 
-Thanks. Patch applied.
+Thanks * 2. Patch applied.
 
 Cheers,
 
 Michael
 
 > 
-> ......
-> 
-> .../glibc$ grep_syscall_wrapper gettimeofday
-> time/sys/time.h:66:
-> extern int gettimeofday (struct timeval *__restrict __tv,
-> 			 void *__restrict __tz) __THROW __nonnull ((1));
-> .../glibc$
-> 
-> function grep_syscall_wrapper()
-> {
-> 	if ! [ -v 1 ]; then
-> 		>&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
-> 		return ${EX_USAGE};
-> 	fi
-> 
-> 	find * -type f \
-> 	|grep '\.h$' \
-> 	|sort -V \
-> 	|xargs pcregrep -Mn \
-> 	  "(?s)^[^\s#][\w\s]+\s+\**${1}\s*\([\w\s()[\]*,]*?(...)?\)[\w\s()]*;" \
-> 	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
-> }
-> 
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> ---
-> 
-> Hi Michael,
-> 
-> Actually, both POSIX and Glibc specify the 2nd parameter of gettimeofday()
-> to be 'void *restrict' and not 'struct timezone *restrict'.
-> However, I didn't fix that for now.
-> You may want to have a look at that.
-> 
 > Cheers,
 > 
 > Alex
 > 
->  man2/gettimeofday.2 | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
+>  man2/epoll_wait.2 | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> diff --git a/man2/gettimeofday.2 b/man2/gettimeofday.2
-> index 085b86ad0..7e2726ed9 100644
-> --- a/man2/gettimeofday.2
-> +++ b/man2/gettimeofday.2
-> @@ -44,9 +44,10 @@ gettimeofday, settimeofday \- get / set time
->  .nf
->  .B #include <sys/time.h>
->  .PP
-> -.BI "int gettimeofday(struct timeval *" tv ", struct timezone *" tz );
-> -.BI "int settimeofday(const struct timeval *" tv \
-> -", const struct timezone *" tz );
-> +.BI "int gettimeofday(struct timeval *restrict " tv ,
-> +.BI "                 struct timezone *restrict " tz );
-> +.BI "int settimeofday(const struct timeval *" tv ,
-> +.BI "                 const struct timezone *" tz );
+> diff --git a/man2/epoll_wait.2 b/man2/epoll_wait.2
+> index f0e432478..f941023c2 100644
+> --- a/man2/epoll_wait.2
+> +++ b/man2/epoll_wait.2
+> @@ -35,6 +35,9 @@ epoll_wait, epoll_pwait, epoll_pwait2 \- wait for an I/O event on an epoll file
+>  .BI "int epoll_pwait2(int " epfd ", struct epoll_event *" events ,
+>  .BI "               int " maxevents ", const struct timespec *" timeout ,
+>  .BI "               const sigset_t *" sigmask );
+> +.\" FIXME: Check if glibc has added a wrapper for epoll_pwait2(),
+> +.\"        and if so, check the prototype.
+> +.\"        https://sourceware.org/bugzilla/show_bug.cgi?id=27359
 >  .fi
->  .PP
->  .RS -4
+>  .SH DESCRIPTION
+>  The
 > 
 
 
