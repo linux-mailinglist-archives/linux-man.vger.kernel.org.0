@@ -2,64 +2,98 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id ABB7B3111CE
-	for <lists+linux-man@lfdr.de>; Fri,  5 Feb 2021 21:06:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2DBD3311C6D
+	for <lists+linux-man@lfdr.de>; Sat,  6 Feb 2021 10:50:51 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233205AbhBESRd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 5 Feb 2021 13:17:33 -0500
-Received: from [20.39.40.203] ([20.39.40.203]:55697 "EHLO optinix.in"
-        rhost-flags-FAIL-FAIL-OK-OK) by vger.kernel.org with ESMTP
-        id S233183AbhBEPTk (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 5 Feb 2021 10:19:40 -0500
-dkim-signature: v=1; a=rsa-sha256; d=digitalsol.in; s=dkim;
-        c=relaxed/relaxed; q=dns/txt; h=From:Reply-To:Subject:Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-        bh=wK2neTcOXNiSQ+RBxrnFed+mRrGUU/ndLGEgvo8IMCc=;
-        b=JFt3cjfr2gf0oZFNAIkKMxcz4dJD/YGkc0fGvOoSd3DydZ6om7JzTU837vBFVq1NIPU0D2QA5BLHZXE1+7cBmkJlbZjYCUFmJkkaBVbP88e4KHnDVRcctmBLIZ1pL5VerRqjcciKkL4DSuyXFJlGk3Z0CRoskvUoLBM7ZhpxLeqIU2BKsbHQXJZ1h2qHQhaHiD+VrGx+bGKjZzbhmRvwLDQIByq6jRcjht5MzYCcxpzOzp/k+Dev9dQj7B
-        WId68CyP4XonlI4wIMRo1xiGfUtKZ+P3cZo2ejPWBjr+ynq3dK3OxibTTEKfmOc5W1zmJFMAPQ+ZKxsa3M4d1PiYxHmg==
-Received: from User (Unknown [52.231.31.5])
-        by optinix.in with ESMTP
-        ; Mon, 1 Feb 2021 08:50:14 +0000
-Message-ID: <D474448D-A325-42CC-A881-8334C6C84BA7@optinix.in>
-Reply-To: <ms.reem@yandex.com>
-From:   "Ms. Reem" <support@digitalsol.in>
-Subject: Re:read
-Date:   Mon, 1 Feb 2021 08:50:13 -0000
+        id S229586AbhBFJui (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 6 Feb 2021 04:50:38 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46116 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229507AbhBFJuf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 6 Feb 2021 04:50:35 -0500
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com [IPv6:2607:f8b0:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 59900C06174A
+        for <linux-man@vger.kernel.org>; Sat,  6 Feb 2021 01:49:55 -0800 (PST)
+Received: by mail-ot1-x32e.google.com with SMTP id k25so7325314otb.4
+        for <linux-man@vger.kernel.org>; Sat, 06 Feb 2021 01:49:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=TKY4Jkme+o5OjY7yrzdpWPaGUBhXdIE8w7YMLhzs+e8=;
+        b=cIsBdWLlj4sJWZR5Y03a3CODb7cvofuOd8KU0TBqB/kKoHx23sCjm0bmGsigBdhhQj
+         UJgOvhQxIXXIwjNG4G6rxRry0GXCx01Ki6zKAKxGASB5SxBkj8oK/MGHIhHmcVtegTcC
+         USuAYlpz7nJZOyf9JtH/BQNnE2F4oRLUdVKeRpth2RtKS8QLAFWGTjUvWi3mq5OhKUTw
+         SLVuSBl/fl0TGkB4lBf4SXcsszTmvMRysYULnVmfMvkcjSraaYsxERn5ze+LKYefDqge
+         OCIcCQOoLNqi87TC4g4EbYNy4Wj/aff3k/eBsj0z2acTuG+L7zrVuaGZQsz4ZXB5XyIV
+         x81g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=TKY4Jkme+o5OjY7yrzdpWPaGUBhXdIE8w7YMLhzs+e8=;
+        b=Dy3hlndVlE6sDNpA6inxn3UXEZP6HeTX0KwYCUILqWM50QiHa4hqRRCeA/1ZuA0CGi
+         d0q8oBIZJn4pj0jGHDxRTUTillZea9bICc1yeyEPKxgqaSR2z8fDHKXzfP4uP0BOQvjI
+         jh7PxydjE1gbnzBfcGR/oKQLzJarF783GdD9GYIT+I8yFWxy6pvfYwd83rBqQ+ywlwpt
+         yOgqA1m8esQaPmT9HLwjhCbVDElm9iELCHMqMqeXPhXdJiScqTf5KRC5weqAslY03/W3
+         IF8bsAuBiOgNIOx0SFCPZ/CaPRv7SrbclSGmPtVpfNZuPnzyRYHQFKEUgKAX7UKuFkH7
+         v1vQ==
+X-Gm-Message-State: AOAM531lCv2iHdolv1CN44i9Omjt0IJAayOpjpp24WRcZOPjHt5gSR+K
+        TmRDWJbfe6nEADvPCFCOwgPQ6exXJLRkKRQ7Ncg=
+X-Google-Smtp-Source: ABdhPJwBYinfWjn5xVHoMAl4RBo2v2OsM/OjFEN1PCY9xd8sDqw0qJJTYEqLMhQUykcyyBqUPj+2k+tWtyGviOTEG00=
+X-Received: by 2002:a05:6830:148a:: with SMTP id s10mr6335294otq.323.1612604994613;
+ Sat, 06 Feb 2021 01:49:54 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain;
-        charset="Windows-1251"
-Content-Transfer-Encoding: 7bit
-X-Priority: 3
-X-MSMail-Priority: Normal
-X-Mailer: Microsoft Outlook Express 6.00.2600.0000
-X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
-To:     unlisted-recipients:; (no To-header on input)
+References: <2ea085f2674543b1a1fb41702bc959c7@bfs.de>
+In-Reply-To: <2ea085f2674543b1a1fb41702bc959c7@bfs.de>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Sat, 6 Feb 2021 10:49:43 +0100
+Message-ID: <CAKgNAkh-y9TOWVy9ot25ig_XR4u4VSRz3=qEUezYKc0u0PVyug@mail.gmail.com>
+Subject: Re: rfc: free and errno
+To:     Walter Harms <wharms@bfs.de>
+Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello,
+Hello Walter,
 
-My name is Ms. Reem Ebrahim Al-Hashimi, I am the "Minister of state
-and Petroleum" also "Minister of State for International Cooperation"
-in UAE. I write to you on behalf of my other "three (3) colleagues"
-who has approved me to solicit for your "partnership in claiming of
-{us$47=Million}" from a Financial Home in Cambodia on their behalf and
-for our "Mutual Benefits".
+Thanks for raising this.
 
-The Fund {us$47=Million} is our share from the (over-invoiced) Oil/Gas
-deal with Cambodian/Vietnam Government within 2013/2014, however, we
-don't want our government to know about the fund. If this proposal
-interests you, let me know, by sending me an email and I will send to
-you detailed information on how this business would be successfully
-transacted. Be informed that nobody knows about the secret of this
-fund except us, and we know how to carry out the entire transaction.
-So I am compelled to ask, that you will stand on our behalf and
-receive this fund into any account that is solely controlled by you.
+On Mon, 1 Feb 2021 at 12:19, Walter Harms <wharms@bfs.de> wrote:
+>
+> Hi List
+>
+> free() is generaly assumed not to modify errno.
+>
+> Lately there was a bugfix posting on the busybox mailing list, because:
+>
+> "musl libc's mallocing free() may modify errno if kernel does not support
+> MADV_FREE which causes echo to echo with error when it shouldn't."
 
-We will compensate you with 15% of the total amount involved as
-gratification for being our partner in this transaction. Reply to:
-ms.reem@yandex.com
+URL please.
 
-Regards,
-Ms. Reem.
+> In future  it seems that POSIX with require free() not to change errno.
 
+The statement you make in the preceding sentence is useful
+information, but you could save other people a lot of time searching
+if you provided a reference:
+
+https://www.austingroupbugs.net/view.php?id=385#c713
+
+> after much soul searching i have still no idea if that should be documented in
+> the free(3) man page. Any comments ?
+
+Probably it should be documented. Did you have a suggestion for the text?
+
+Thanks,
+
+Michael
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
