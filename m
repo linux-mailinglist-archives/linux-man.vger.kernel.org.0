@@ -2,128 +2,111 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CFC2231244F
-	for <lists+linux-man@lfdr.de>; Sun,  7 Feb 2021 13:39:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BE3B331245B
+	for <lists+linux-man@lfdr.de>; Sun,  7 Feb 2021 13:48:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229608AbhBGMix (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 7 Feb 2021 07:38:53 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50128 "EHLO
+        id S229609AbhBGMr4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 7 Feb 2021 07:47:56 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52046 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229510AbhBGMiw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 7 Feb 2021 07:38:52 -0500
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 244C9C06174A;
-        Sun,  7 Feb 2021 04:38:12 -0800 (PST)
-Received: by mail-wr1-x435.google.com with SMTP id a1so13778492wrq.6;
-        Sun, 07 Feb 2021 04:38:12 -0800 (PST)
+        with ESMTP id S229608AbhBGMrz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 7 Feb 2021 07:47:55 -0500
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 19C57C061756
+        for <linux-man@vger.kernel.org>; Sun,  7 Feb 2021 04:47:15 -0800 (PST)
+Received: by mail-wr1-x42e.google.com with SMTP id m13so13738448wro.12
+        for <linux-man@vger.kernel.org>; Sun, 07 Feb 2021 04:47:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=C26+q7ZBz/jgdIg8nwaovUn/U2ZT8m0YTPBwzXn+4ko=;
-        b=XWKYzz2oKpwBUyf23wwHnSosWHXFATZFKAe6nq+sCLPk/JTtSdjvUjzmchxAb9zUPT
-         +e8FhatC8b1739dA53l9s+sTI6jcapflIlhVYyGNvf/X5P55a3gXYj1MjnbgOFWr9+GW
-         l5bCUAN8KsmDOkPMMxjySU4Mn/i7Krlre/rnz/Mn8sf5PdIqTsT500ve7zvnx0gcH89U
-         1rk+Sq7CJENO/SZ9n9+zdsNa9W/NShb+BffpxzlOWs1OzYwyXmA4PT6BIsFVacG11SXJ
-         onICq0jfO67kXvc5e4dNd2DYFuFsPHmvS6OPDQiJbAp0r3EuevGeGKOOkyHhBSkQiK43
-         GleQ==
+        bh=b57W89tA9xzaH0VgMiRuBgV5u6SIKfPkrvfSv++KQuA=;
+        b=Ht5T1jfs57uhsI54dVnGJtevvhIp4x4LCZXSkCYsreLlANju4rd5hN4qEkmGyGunEv
+         cfULX5ABLye5T7QmgroR/hld4ojrYyacxVbweAEyBuGmZ9ZW1hCPYvZAQvOL9KB8ZxuK
+         o7mNiiUVxixADXRxzr2/M4GAIPv1GXZnyr2H++GEaO35wvM15HKhCaxLeVzTAuRBt6Gd
+         FJGcHKKw7bbMDiFH+EPUstYKrp6aUXFot0Nm9DSZ6p9ZlHxNLXf0jCZ1ODHS5lqoSah0
+         62+foZKUlfu+KSpts3e+CnuWxlguSqTDpISWWne3sjSdb2t7KlsJ7MFdgyeam2NHylba
+         jKTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=C26+q7ZBz/jgdIg8nwaovUn/U2ZT8m0YTPBwzXn+4ko=;
-        b=Rm+3fIIVzh4hdLfqLLZXT0iZJnyfaUaQT5+Qn0o0aDhvxo1jicfPhyJA82YpQ3qupy
-         +pXMSoVyWD2VsE/C7l6RQlQ1HnV7C31FaK/tSvKZpuH6ukYCIykE6OGlTDGKOVHBgjsC
-         Ql1IfzQ+/GS06fYHdgbYa0RsEyUNw7IXCkHntTFUg/IS7HFRDHPK0AeDbwqjKQp0dB4/
-         5XGoD6exHS69QOb9vP8UJ/NVI0J3xpN89y9xLfttbsN3oU+RJxYU5IHLhxfFVIZP40Ts
-         nvP9q6f25JFSkbdTX3MFuSGZx1xyNJumpxdq/1sNfPF20nrVXqmmXd33lciUNhK13KqK
-         vYTg==
-X-Gm-Message-State: AOAM531wdhz1Aovh+UvoicR6NmYamobpc3bsh0x7P1qqFhYEyVeoTKAs
-        dWmLHuC2jSahuV81Y0E/8VL6ZgiH2og=
-X-Google-Smtp-Source: ABdhPJzHRgmxHHKqsSsMr8UyxTHP1zbQ5CdwcpasRW2sgnstLtJZgQWd0cBj7bQ4Yd8L2H65soXroA==
-X-Received: by 2002:a5d:53c3:: with SMTP id a3mr14466405wrw.43.1612701490901;
-        Sun, 07 Feb 2021 04:38:10 -0800 (PST)
+        bh=b57W89tA9xzaH0VgMiRuBgV5u6SIKfPkrvfSv++KQuA=;
+        b=rJdazn7YbgKbIQQQrJ5Z/NlLJ96ykKCE/v3KbQ6O5UoAJ8tSkH3DAXWNTMTY7W0CDH
+         aUqK0dTdFT9qOm5ugFnzOEnnKhSJFX+LgA3N7MAcB2r2TZlM9Y/f+0aOCsFINMgc1yo1
+         EA6P5qywhzLlnZ3vvfkzKMLcNiJAL8t37u7bngLjd5oHYSplEHVc2hiRCcqrD0mMdkpZ
+         d3KtmvLQkts38dlfBR2egkh0A/yzRv16iYk7nh7GzbemBV5zvPhtzB9z5Do9CLUIKoei
+         HroFWWLj8EZULep9Ir7QfdSRagGlT0o8AM8BIGE3M4wEH0bCXWvdSJQtCil4ugUPgEvM
+         A4UA==
+X-Gm-Message-State: AOAM532Qv4RJynSefw7PIY9EF+jIRn4xXdAqWLHuqPVKssAwTzr/zRXv
+        9oKua3xMVy0PZ5CB6QIzIjFUcdqNqAg=
+X-Google-Smtp-Source: ABdhPJwAWWOSWsCwB9BWUvliAxXkJjg5uTNVGwYp3Ium5aQkZO00bKRQnM4tZ27khbvIXnbwCnysuw==
+X-Received: by 2002:adf:dcd2:: with SMTP id x18mr2138673wrm.355.1612702033817;
+        Sun, 07 Feb 2021 04:47:13 -0800 (PST)
 Received: from localhost.localdomain ([170.253.49.0])
-        by smtp.googlemail.com with ESMTPSA id r13sm16844657wmh.9.2021.02.07.04.38.09
+        by smtp.googlemail.com with ESMTPSA id s4sm20767195wrt.85.2021.02.07.04.47.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Feb 2021 04:38:10 -0800 (PST)
+        Sun, 07 Feb 2021 04:47:13 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] ipc.2: Fix prototype parameter types
-Date:   Sun,  7 Feb 2021 13:36:55 +0100
-Message-Id: <20210207123654.187829-1-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org
+Subject: [PATCH v2] mlock.2: mlock2(): Fix prototype parameter types
+Date:   Sun,  7 Feb 2021 13:46:12 +0100
+Message-Id: <20210207124611.201122-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.0
-In-Reply-To: <20210204093051.184049-1-alx.manpages@gmail.com>
-References: <20210204093051.184049-1-alx.manpages@gmail.com>
+In-Reply-To: <20210204111732.194599-1-alx.manpages@gmail.com>
+References: <20210204111732.194599-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The types for some of the parameters are incorrect
-(different than the kernel).  Fix them.
-Below are shown the types that the kernel uses.
+The documented prototype for mlock2() was a mix of the
+glibc wrapper prototype and the kernel syscall prototype.
+Let's document the glibc wrapper prototype, which is shown below.
 
 ......
 
-.../linux$ grep_syscall ipc
-ipc/syscall.c:110:
-SYSCALL_DEFINE6(ipc, unsigned int, call, int, first, unsigned long, second,
-		unsigned long, third, void __user *, ptr, long, fifth)
-ipc/syscall.c:205:
-COMPAT_SYSCALL_DEFINE6(ipc, u32, call, int, first, int, second,
-	u32, third, compat_uptr_t, ptr, u32, fifth)
-include/linux/compat.h:874:
-asmlinkage long compat_sys_ipc(u32, int, int, u32, compat_uptr_t, u32);
-include/linux/syscalls.h:1221:
-asmlinkage long sys_ipc(unsigned int call, int first, unsigned long second,
-		unsigned long third, void __user *ptr, long fifth);
-.../linux$
+.../glibc$ grep_glibc_prototype mlock2
+sysdeps/unix/sysv/linux/bits/mman-shared.h:55:
+int mlock2 (const void *__addr, size_t __length, unsigned int __flags) __THROW;
+.../glibc$
 
-function grep_syscall()
+function grep_glibc_prototype()
 {
 	if ! [ -v 1 ]; then
-		>&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
+		>&2 echo "Usage: ${FUNCNAME[0]} <func>";
 		return ${EX_USAGE};
 	fi
 
 	find * -type f \
-	|grep '\.c$' \
+	|grep '\.h$' \
 	|sort -V \
-	|xargs pcregrep -Mn "(?s)^\w*SYSCALL_DEFINE.\(${1},.*?\)" \
-	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
-
-	find * -type f \
-	|grep '\.[ch]$' \
-	|sort -V \
-	|xargs pcregrep -Mn "(?s)^asmlinkage\s+[\w\s]+\**sys_${1}\s*\(.*?\)" \
+	|xargs pcregrep -Mn \
+	  "(?s)^[^\s#][\w\s]+\s+\**${1}\s*\([\w\s()[\]*,]*?(...)?\)[\w\s()]*;" \
 	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
 }
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/ipc.2 | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ man2/mlock.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man2/ipc.2 b/man2/ipc.2
-index 6589ffae6..a36e895a2 100644
---- a/man2/ipc.2
-+++ b/man2/ipc.2
-@@ -27,9 +27,8 @@
- ipc \- System V IPC system calls
- .SH SYNOPSIS
- .nf
--.BI "int ipc(unsigned int " call ", int " first ", int " second \
--", int " third ,
--.BI "        void *" ptr ", long " fifth );
-+.BI "int ipc(unsigned int " call ", int " first ", unsigned long " second ,
-+.BI "        unsigned long " third ", void *" ptr ", long " fifth );
- .fi
+diff --git a/man2/mlock.2 b/man2/mlock.2
+index 2822df7cf..f48d632c4 100644
+--- a/man2/mlock.2
++++ b/man2/mlock.2
+@@ -31,7 +31,7 @@ mlock, mlock2, munlock, mlockall, munlockall \- lock and unlock memory
+ .B #include <sys/mman.h>
  .PP
- .IR Note :
+ .BI "int mlock(const void *" addr ", size_t " len );
+-.BI "int mlock2(const void *" addr ", size_t " len ", int " flags );
++.BI "int mlock2(const void *" addr ", size_t " len ", unsigned int " flags );
+ .BI "int munlock(const void *" addr ", size_t " len );
+ .PP
+ .BI "int mlockall(int " flags );
 -- 
 2.30.0
 
