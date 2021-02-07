@@ -2,98 +2,85 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AE4D1312417
-	for <lists+linux-man@lfdr.de>; Sun,  7 Feb 2021 12:51:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CFC2231244F
+	for <lists+linux-man@lfdr.de>; Sun,  7 Feb 2021 13:39:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230058AbhBGLuo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 7 Feb 2021 06:50:44 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39900 "EHLO
+        id S229608AbhBGMix (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 7 Feb 2021 07:38:53 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50128 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229587AbhBGLui (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 7 Feb 2021 06:50:38 -0500
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EA75BC06174A
-        for <linux-man@vger.kernel.org>; Sun,  7 Feb 2021 03:49:57 -0800 (PST)
-Received: by mail-wr1-x432.google.com with SMTP id m13so13595441wro.12
-        for <linux-man@vger.kernel.org>; Sun, 07 Feb 2021 03:49:57 -0800 (PST)
+        with ESMTP id S229510AbhBGMiw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 7 Feb 2021 07:38:52 -0500
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 244C9C06174A;
+        Sun,  7 Feb 2021 04:38:12 -0800 (PST)
+Received: by mail-wr1-x435.google.com with SMTP id a1so13778492wrq.6;
+        Sun, 07 Feb 2021 04:38:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=oDitlDcrgh45gwUFJcvFTRAvrbjtBrsS0NglI+HJRSc=;
-        b=JrVwQZpdcyvExH8cT3pGBgA2F6ccEJ3eWNZz7BzqaTmHcQk9BXDPf45FzB3IWp9aox
-         OHzRY/BMx6vGWr9TuI5S0VRzF+5gENndo3P7cTLOadlipn4mmnWpalu7Iz6gZHGwPk/U
-         4Ew0yeQ6URImXhonEovFE21ob8pJ/CdEwsxwHCdGfDDCBTCBsnamgVkzDsdNby1itoa2
-         Ie6x5Jx75oPl83lMkDpAAsTzczsmyavZOLSxVIPmBugK2wTczBSDAXsdIEp1tu8smp2+
-         8fgeXG1jLv/2TX7nKkd5Hs5VPJp7bVZaRuG5KPBFzbu8lhQhVaC+u8atUhCy15frJra0
-         Vpew==
+        bh=C26+q7ZBz/jgdIg8nwaovUn/U2ZT8m0YTPBwzXn+4ko=;
+        b=XWKYzz2oKpwBUyf23wwHnSosWHXFATZFKAe6nq+sCLPk/JTtSdjvUjzmchxAb9zUPT
+         +e8FhatC8b1739dA53l9s+sTI6jcapflIlhVYyGNvf/X5P55a3gXYj1MjnbgOFWr9+GW
+         l5bCUAN8KsmDOkPMMxjySU4Mn/i7Krlre/rnz/Mn8sf5PdIqTsT500ve7zvnx0gcH89U
+         1rk+Sq7CJENO/SZ9n9+zdsNa9W/NShb+BffpxzlOWs1OzYwyXmA4PT6BIsFVacG11SXJ
+         onICq0jfO67kXvc5e4dNd2DYFuFsPHmvS6OPDQiJbAp0r3EuevGeGKOOkyHhBSkQiK43
+         GleQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=oDitlDcrgh45gwUFJcvFTRAvrbjtBrsS0NglI+HJRSc=;
-        b=CECO7UuPf3VynEBZuDS0z5kBgh9X5Y2486I2dkrMT4Dss/rfLr0+rexyjt+DKF2hb6
-         p9fBsYCW7ugeaATzt7sYX9GgJacSFkFctNiHvnGVjDsq6D9Cv+Y9jlFgmO6v3dbCdCqz
-         zwpJZKwCIoTNswjMqGR3mTGung+aqoRcA7VnzPamTYauXj9Cyb7p9tpOw73M0oo2r0fu
-         fpvd7KrKJRfiyYV23oRwLv+ywNIKf4KEfz47vo7W/G0rmm0RKgGWqF16PZaKfOwcyO22
-         UP6z83tTq6VdgP8RNUUCYtA2iHBIkZk01qMm7ZDJHUHmWPcmd/H0hx33pytDj8PM8tLt
-         +6Dw==
-X-Gm-Message-State: AOAM530p4kZb44FIlAnv3u4yGqvsimknRXiaioPKVrZIMdBvSxhMpLRR
-        W2x9t7zX9x7ftqlLrBCE+lI=
-X-Google-Smtp-Source: ABdhPJwPtVeLLW4RZbFg0WlK3pCaIATnf/gF1atZwICXRJrhEWFGC5or6ncwAIZWX2CBkDWUAB+FRg==
-X-Received: by 2002:adf:ab11:: with SMTP id q17mr2647933wrc.192.1612698596691;
-        Sun, 07 Feb 2021 03:49:56 -0800 (PST)
+        bh=C26+q7ZBz/jgdIg8nwaovUn/U2ZT8m0YTPBwzXn+4ko=;
+        b=Rm+3fIIVzh4hdLfqLLZXT0iZJnyfaUaQT5+Qn0o0aDhvxo1jicfPhyJA82YpQ3qupy
+         +pXMSoVyWD2VsE/C7l6RQlQ1HnV7C31FaK/tSvKZpuH6ukYCIykE6OGlTDGKOVHBgjsC
+         Ql1IfzQ+/GS06fYHdgbYa0RsEyUNw7IXCkHntTFUg/IS7HFRDHPK0AeDbwqjKQp0dB4/
+         5XGoD6exHS69QOb9vP8UJ/NVI0J3xpN89y9xLfttbsN3oU+RJxYU5IHLhxfFVIZP40Ts
+         nvP9q6f25JFSkbdTX3MFuSGZx1xyNJumpxdq/1sNfPF20nrVXqmmXd33lciUNhK13KqK
+         vYTg==
+X-Gm-Message-State: AOAM531wdhz1Aovh+UvoicR6NmYamobpc3bsh0x7P1qqFhYEyVeoTKAs
+        dWmLHuC2jSahuV81Y0E/8VL6ZgiH2og=
+X-Google-Smtp-Source: ABdhPJzHRgmxHHKqsSsMr8UyxTHP1zbQ5CdwcpasRW2sgnstLtJZgQWd0cBj7bQ4Yd8L2H65soXroA==
+X-Received: by 2002:a5d:53c3:: with SMTP id a3mr14466405wrw.43.1612701490901;
+        Sun, 07 Feb 2021 04:38:10 -0800 (PST)
 Received: from localhost.localdomain ([170.253.49.0])
-        by smtp.googlemail.com with ESMTPSA id z18sm22123081wro.91.2021.02.07.03.49.55
+        by smtp.googlemail.com with ESMTPSA id r13sm16844657wmh.9.2021.02.07.04.38.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Feb 2021 03:49:56 -0800 (PST)
+        Sun, 07 Feb 2021 04:38:10 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, David Drysdale <drysdale@google.com>
-Subject: [PATCH v2] execveat.2: Fix prototype
-Date:   Sun,  7 Feb 2021 12:43:25 +0100
-Message-Id: <20210207114324.106586-1-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] ipc.2: Fix prototype parameter types
+Date:   Sun,  7 Feb 2021 13:36:55 +0100
+Message-Id: <20210207123654.187829-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.0
-In-Reply-To: <CAKgNAkgW=1GE4qcmWsTvfpj2y_N8Bp_ePKtV4VyE8t_b9Ro85w@mail.gmail.com>
-References: <CAKgNAkgW=1GE4qcmWsTvfpj2y_N8Bp_ePKtV4VyE8t_b9Ro85w@mail.gmail.com>
+In-Reply-To: <20210204093051.184049-1-alx.manpages@gmail.com>
+References: <20210204093051.184049-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-It's been 6 years since execveat(2) was added to the kernel,
-and there's still no glibc wrapper.  Let's document the kernel
-syscall prototype.
-
-I reported a bug against glibc requesting a wrapper;
-when glibc adds the wrapper, this commit should probably be
-reverted.
+The types for some of the parameters are incorrect
+(different than the kernel).  Fix them.
+Below are shown the types that the kernel uses.
 
 ......
 
-.../linux$ grep_syscall execveat
-fs/exec.c:2062:
-SYSCALL_DEFINE5(execveat,
-		int, fd, const char __user *, filename,
-		const char __user *const __user *, argv,
-		const char __user *const __user *, envp,
-		int, flags)
-fs/exec.c:2083:
-COMPAT_SYSCALL_DEFINE5(execveat, int, fd,
-		       const char __user *, filename,
-		       const compat_uptr_t __user *, argv,
-		       const compat_uptr_t __user *, envp,
-		       int,  flags)
-include/linux/compat.h:815:
-asmlinkage long compat_sys_execveat(int dfd, const char __user *filename,
-		     const compat_uptr_t __user *argv,
-		     const compat_uptr_t __user *envp, int flags);
-include/linux/syscalls.h:980:
-asmlinkage long sys_execveat(int dfd, const char __user *filename,
-			const char __user *const __user *argv,
-			const char __user *const __user *envp, int flags);
+.../linux$ grep_syscall ipc
+ipc/syscall.c:110:
+SYSCALL_DEFINE6(ipc, unsigned int, call, int, first, unsigned long, second,
+		unsigned long, third, void __user *, ptr, long, fifth)
+ipc/syscall.c:205:
+COMPAT_SYSCALL_DEFINE6(ipc, u32, call, int, first, int, second,
+	u32, third, compat_uptr_t, ptr, u32, fifth)
+include/linux/compat.h:874:
+asmlinkage long compat_sys_ipc(u32, int, int, u32, compat_uptr_t, u32);
+include/linux/syscalls.h:1221:
+asmlinkage long sys_ipc(unsigned int call, int first, unsigned long second,
+		unsigned long third, void __user *ptr, long fifth);
 .../linux$
 
 function grep_syscall()
@@ -116,25 +103,27 @@ function grep_syscall()
 	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
 }
 
-Glibc bug: <https://sourceware.org/bugzilla/show_bug.cgi?id=27364>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/execveat.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man2/ipc.2 | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/man2/execveat.2 b/man2/execveat.2
-index 02d9c7331..d1ce4bee1 100644
---- a/man2/execveat.2
-+++ b/man2/execveat.2
-@@ -31,7 +31,7 @@ execveat \- execute program relative to a directory file descriptor
- .B #include <unistd.h>
- .PP
- .BI "int execveat(int " dirfd ", const char *" pathname ,
--.BI "             char *const " argv "[], char *const " envp [],
-+.BI "             const char *const " argv "[], const char *const " envp [],
- .BI "             int " flags );
+diff --git a/man2/ipc.2 b/man2/ipc.2
+index 6589ffae6..a36e895a2 100644
+--- a/man2/ipc.2
++++ b/man2/ipc.2
+@@ -27,9 +27,8 @@
+ ipc \- System V IPC system calls
+ .SH SYNOPSIS
+ .nf
+-.BI "int ipc(unsigned int " call ", int " first ", int " second \
+-", int " third ,
+-.BI "        void *" ptr ", long " fifth );
++.BI "int ipc(unsigned int " call ", int " first ", unsigned long " second ,
++.BI "        unsigned long " third ", void *" ptr ", long " fifth );
  .fi
  .PP
+ .IR Note :
 -- 
 2.30.0
 
