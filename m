@@ -2,263 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C97A2312870
-	for <lists+linux-man@lfdr.de>; Mon,  8 Feb 2021 00:49:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D79C6312BDB
+	for <lists+linux-man@lfdr.de>; Mon,  8 Feb 2021 09:35:03 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229537AbhBGXsr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 7 Feb 2021 18:48:47 -0500
-Received: from bhuna.collabora.co.uk ([46.235.227.227]:59186 "EHLO
-        bhuna.collabora.co.uk" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229522AbhBGXsr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 7 Feb 2021 18:48:47 -0500
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-        (Authenticated sender: krisman)
-        with ESMTPSA id C3E0A1F44EA3
-From:   Gabriel Krisman Bertazi <krisman@collabora.com>
-To:     alx.manpages@gmail.com, mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, kernel@collabora.com,
-        Gabriel Krisman Bertazi <krisman@collabora.com>
-Subject: [PATCH v8] prctl.2: Document Syscall User Dispatch
-Date:   Sun,  7 Feb 2021 18:47:57 -0500
-Message-Id: <20210207234757.3364096-1-krisman@collabora.com>
-X-Mailer: git-send-email 2.30.0
+        id S230202AbhBHIak (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 8 Feb 2021 03:30:40 -0500
+Received: from smtp-18d.idc2.mandic.com.br ([177.70.124.135]:21031 "EHLO
+        smtp-18.idc2.mandic.com.br" rhost-flags-OK-OK-OK-FAIL)
+        by vger.kernel.org with ESMTP id S229564AbhBHIaK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 8 Feb 2021 03:30:10 -0500
+Received: by smtp-18.smtp.mandic.prv (Postfix, from userid 491)
+        id 5BC52607E9FB; Mon,  8 Feb 2021 05:29:22 -0300 (-03)
+Received: from smtp-18.idc2.mandic.com.br (ifsmtp2 [192.168.1.38])
+        by smtp-18.smtp.mandic.prv (Postfix) with ESMTPS id C1044607AAA4;
+        Mon,  8 Feb 2021 05:29:16 -0300 (-03)
+Received: from User (unknown [52.235.38.23])
+        by smtp-18.smtp.mandic.prv (Postfix) with ESMTPA id 78375465E268;
+        Mon,  8 Feb 2021 05:26:42 -0300 (-03)
+Reply-To: <ms.reem@yandex.com>
+From:   "Ms. Reem" <stefy@macrometrica.com.br>
+Subject: Re:reply
+Date:   Mon, 8 Feb 2021 08:29:15 -0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+        charset="Windows-1251"
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2600.0000
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
+X-Mandic-Auth: DYB6x5JcyVot9snxiAasWC73cfc93V+pC3vUrorm87+eXbqAUeEHL0ZNPgpM50IYQeUbiYx0PkMIK2oavHcOOA==
+X-Mandic-Sender: stefy@macrometrica.com.br
+Message-Id: <20210208082916.C1044607AAA4@smtp-18.smtp.mandic.prv>
+To:     unlisted-recipients:; (no To-header on input)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
+Hello,
 
----
-Changes since v7:
-(suggested by Michael Kerrisk)
-  - Update values accepted by the selector variable to reflect
-  upstream API change.
+My name is Ms. Reem Ebrahim Al-Hashimi, I am the "Minister of state
+and Petroleum" also "Minister of State for International Cooperation"
+in UAE. I write to you on behalf of my other "three (3) colleagues"
+who has approved me to solicit for your "partnership in claiming of
+{us$47=Million}" from a Financial Home in Cambodia on their behalf and
+for our "Mutual Benefits".
 
-Changes since v6:
-(suggested by Michael Kerrisk)
-  - process map -> process address space
-  - add period before parenthesis.
-  - Clarify difference between enable/disable SUD and allow/block
-  syscalls.
+The Fund {us$47=Million} is our share from the (over-invoiced) Oil/Gas
+deal with Cambodian/Vietnam Government within 2013/2014, however, we
+don't want our government to know about the fund. If this proposal
+interests you, let me know, by sending me an email and I will send to
+you detailed information on how this business would be successfully
+transacted. Be informed that nobody knows about the secret of this
+fund except us, and we know how to carry out the entire transaction.
+So I am compelled to ask, that you will stand on our behalf and
+receive this fund into any account that is solely controlled by you.
 
-Changes since v5:
-(suggested by Michael Kerrisk)
-  - Change () punctuation
-  - fix grammar
-  - Add information about interception, return and return value
+We will compensate you with 15% of the total amount involved as
+gratification for being our partner in this transaction. Reply to:
+ms.reem@yandex.com
 
-Changes since v4:
-(suggested by Michael Kerrisk)
-  - Modify explanation of what dispatch to user space means.
-  - Drop references to emulation.
-  - Document suggestion about placing libc in allowed-region.
-  - Comment about avoiding syscall cost.
-Changes since v3:
-(suggested by Michael Kerrisk)
-  - Explain what dispatch to user space means.
-  - Document the fact that the memory region is a single consecutive
-  range.
-  - Explain failure if *arg5 is set to a bad value.
-  - fix english typo.
-  - Define what 'invalid memory region' means.
-
-Changes since v2:
-(suggested by Alejandro Colomar)
-  - selective -> selectively
-  - Add missing oxford comma.
-
-Changes since v1:
-(suggested by Alejandro Colomar)
-  - Use semantic lines
-  - Fix usage of .{B|I}R and .{B|I}
-  - Don't format literals
-  - Fix preferred spelling of userspace
-  - Fix case of word
----
- man2/prctl.2 | 154 +++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 154 insertions(+)
-
-diff --git a/man2/prctl.2 b/man2/prctl.2
-index f25f05fdb593..e6df23898838 100644
---- a/man2/prctl.2
-+++ b/man2/prctl.2
-@@ -1533,6 +1533,130 @@ For more information, see the kernel source file
- (or
- .I Documentation/arm64/sve.txt
- before Linux 5.3).
-+.TP
-+.\" prctl PR_SET_SYSCALL_USER_DISPATCH
-+.\" commit 1446e1df9eb183fdf81c3f0715402f1d7595d4
-+.BR PR_SET_SYSCALL_USER_DISPATCH " (since Linux 5.11, x86 only)"
-+.IP
-+Configure the Syscall User Dispatch mechanism
-+for the calling thread.
-+This mechanism allows an application
-+to selectively intercept system calls
-+so that they can be handled within the application itself.
-+Interception takes the form of a thread-directed
-+.B SIGSYS
-+signal that is delivered to the thread
-+when it makes a system call.
-+If intercepted,
-+the system call is not executed by the kernel.
-+.IP
-+To enable this mechanism,
-+.I arg2
-+should be set to
-+.BR PR_SYS_DISPATCH_ON .
-+Once enabled, further system calls will be selectively intercepted,
-+depending on a control variable provided by user space.
-+In this case,
-+.I arg3
-+and
-+.I arg4
-+respectively identify the
-+.I offset
-+and
-+.I length
-+of a single contiguous memory region in the process address space
-+from where system calls are always allowed to be executed,
-+regardless of the control variable.
-+(Typically, this area would include the area of memory
-+containing the C library.)
-+.IP
-+.I arg5
-+points to a char-sized variable
-+that is a fast switch to allow/block system call execution
-+without the overhead of doing another system call
-+to re-configure Syscall User Dispatch.
-+This control variable can either be set to
-+.B SYSCALL_DISPATCH_FILTER_BLOCK
-+to block system calls from executing
-+or to
-+.B SYSCALL_DISPATCH_FILTER_ALLOW
-+to temporarily allow them to be executed.
-+This value is checked by the kernel
-+on every system call entry,
-+and any unexpected value will raise
-+an uncatchable
-+.B SIGSYS
-+at that time,
-+killing the application.
-+.IP
-+When a system call is intercepted,
-+the kernel sends a thread-directed
-+.B SIGSYS
-+signal to the triggering thread.
-+Various fields will be set in the
-+.I siginfo_t
-+structure (see
-+.BR sigaction (2))
-+associated with the signal:
-+.RS
-+.IP * 3
-+.I si_signo
-+will contain
-+.BR SIGSYS .
-+.IP *
-+.IR si_call_addr
-+will show the address of the system call instruction.
-+.IP *
-+.IR si_syscall
-+and
-+.IR si_arch
-+will indicate which system call was attempted.
-+.IP *
-+.I si_code
-+will contain
-+.BR SYS_USER_DISPATCH .
-+.IP *
-+.I si_errno
-+will be set to 0.
-+.RE
-+.IP
-+The program counter will be as though the system call happened
-+(i.e., the program counter will not point to the system call instruction).
-+.IP
-+When the signal handler returns to the kernel,
-+the system call completes immediately
-+and returns to the calling thread,
-+without actually being executed.
-+If necessary
-+(i.e., when emulating the system call on user space.),
-+the signal handler should set the system call return value
-+to a sane value,
-+by modifying the register context stored in the
-+.I ucontext
-+argument of the signal handler.
-+See
-+.BR sigaction (2),
-+.BR sigreturn (2),
-+and
-+.BR getcontext (3)
-+for more information.
-+.IP
-+If
-+.I arg2
-+is set to
-+.BR PR_SYS_DISPATCH_OFF ,
-+Syscall User Dispatch is disabled for that thread.
-+the remaining arguments must be set to 0.
-+.IP
-+The setting is not preserved across
-+.BR fork (2),
-+.BR clone (2),
-+or
-+.BR execve (2).
-+.IP
-+For more information,
-+see the kernel source file
-+.IR Documentation/admin-guide/syscall-user-dispatch.rst
- .\" prctl PR_SET_TAGGED_ADDR_CTRL
- .\" commit 63f0c60379650d82250f22e4cf4137ef3dc4f43d
- .TP
-@@ -2000,6 +2124,14 @@ and
- .I arg3
- is an invalid address.
- .TP
-+.B EFAULT
-+.I option
-+is
-+.B PR_SET_SYSCALL_USER_DISPATCH
-+and
-+.I arg5
-+has an invalid address.
-+.TP
- .B EINVAL
- The value of
- .I option
-@@ -2231,6 +2363,28 @@ and SVE is not available on this platform.
- .B EINVAL
- .I option
- is
-+.B PR_SET_SYSCALL_USER_DISPATCH
-+and one of the following is true:
-+.RS
-+.IP * 3
-+.I arg2
-+is
-+.B PR_SYS_DISPATCH_OFF
-+and the remaining arguments are not 0;
-+.IP * 3
-+.I arg2
-+is
-+.B PR_SYS_DISPATCH_ON
-+and the memory range specified is outside the
-+address space of the process.
-+.IP * 3
-+.I arg2
-+is invalid.
-+.RE
-+.TP
-+.B EINVAL
-+.I option
-+is
- .BR PR_SET_TAGGED_ADDR_CTRL
- and the arguments are invalid or unsupported.
- See the description of
--- 
-2.30.0
-
+Regards,
+Ms. Reem.
