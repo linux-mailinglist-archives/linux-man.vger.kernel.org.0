@@ -2,207 +2,126 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4F0933158D1
-	for <lists+linux-man@lfdr.de>; Tue,  9 Feb 2021 22:43:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3BDBE3158D3
+	for <lists+linux-man@lfdr.de>; Tue,  9 Feb 2021 22:43:19 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233745AbhBIVmb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 9 Feb 2021 16:42:31 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40502 "EHLO
+        id S233817AbhBIVmo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 9 Feb 2021 16:42:44 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41272 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234201AbhBIU47 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 9 Feb 2021 15:56:59 -0500
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 92A33C06178A
-        for <linux-man@vger.kernel.org>; Tue,  9 Feb 2021 11:00:09 -0800 (PST)
-Received: by mail-wr1-x432.google.com with SMTP id z6so23288361wrq.10
-        for <linux-man@vger.kernel.org>; Tue, 09 Feb 2021 11:00:09 -0800 (PST)
+        with ESMTP id S234309AbhBIVAd (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 9 Feb 2021 16:00:33 -0500
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 04B57C06178A
+        for <linux-man@vger.kernel.org>; Tue,  9 Feb 2021 12:59:53 -0800 (PST)
+Received: by mail-ej1-x62b.google.com with SMTP id sa23so34213886ejb.0
+        for <linux-man@vger.kernel.org>; Tue, 09 Feb 2021 12:59:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=EP2YyWUd5mOOtev236ffTMpejUwqED+c7BLAsERggX4=;
-        b=RFBYHQpZk6DhhudhMc6MjgIiS93hQp/cR2FumRiw8XMqznLQEdqbJEb6fr6gjEE59F
-         HM07gWYFImeZsBNd35I8O+JvFLSwYQtNaNiQSsvCNMAH5ZIewaBTSYLldAVvqie2tqWF
-         673AcB2F+ZexwgMTwDleIIkFkw0vyGpYF4foqHX/YCYqet790dZDi1hovRP3OQVUWdxm
-         g3Ad5hWkpX54EqIJ9WmZl0wCD5hhggGUPI4ZGjFwFpawJEZUoO5Vx7QfXhfr0KlTuaHE
-         6ZCqtCTm3G7JW0eDyuXRc6Bm6By2Cq9D8ghTBWe/mNZyFhHooiFMWUzFRXReZ44mz/C+
-         hJ6Q==
+        bh=KU5nLgaqE5A32Bs5bIet9Vpf4FIrh9geuqy2ye62pVA=;
+        b=XrJgCaZOXgOa81Oe/PmxsVO3+l8D8MkC6sHXfMlB79iQoq2mQxjX9U6pwEpeXZifVe
+         pbnwKkCSs3iOStTIdKxpqZfygMb9Z5ckqkZANaygmYExIFGpL7O1HQoyoQuofwbkzc0K
+         2Qyli169sd3Rd+PHauB0aWQYIFInv/HD4hz15Btvu4e34IYV4HZmOrdkwQTtxRQKoo3h
+         2+8IHo1D1bf8BzCQqGtV01C8aqvvyqYD/ptPXQVRICrHPbG0AucIUK082tPCsL3TAVHS
+         EeMpB1wMcE6Jn+yEVMHEp/MWYQIBNCURN06sF9SeiC2A7I3JPvWa5mrKSc2z0unDGvBu
+         iF9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=EP2YyWUd5mOOtev236ffTMpejUwqED+c7BLAsERggX4=;
-        b=mCYnn4nWA2KW/K/xFk8cHycAK1O5FkS9lXPlxGArfHP5eI+tvnA0tVcZX39TBAhsXq
-         iOuxw3cWvdchBetw7FdDWECrdFpfrOAJB6mVrVhOFOoes4MeQZgayaRBIctiObzwfNbW
-         gtIarXvZEQps4KKNJ/TdmZYhyuRa4ieMKOh62u/Ra3x7B2X+3we6kLpImGZn6wMv/suy
-         dM7pb8xHdQxi2VlhLyB8Im+fXLNsXHKPcfx9t/YUn8FNQnITLXxu82j7bWaj+ut65Y2m
-         /zrWx0c0g6FnjETz0tB/lfUPnlYoEH1Q340Pvz29jRe5zTmT78f4rgri8I16Ilv6u010
-         5yBQ==
-X-Gm-Message-State: AOAM531DFbAdgIk/9XKdxg4y9tZfAunmZCPEy03ZmqZLOb26Y6Is91VS
-        wCradldBpGt/7FGHT98MkMNKFKtfQVpYJQ==
-X-Google-Smtp-Source: ABdhPJxx51dSwdO6hIwR5PoVKposHlVNwFOvOTZ+jxWLg2oZUcfCgvCBGwBOzVpSCeX3IUlKFJs1kA==
-X-Received: by 2002:a5d:6712:: with SMTP id o18mr26659724wru.375.1612897208036;
-        Tue, 09 Feb 2021 11:00:08 -0800 (PST)
+        bh=KU5nLgaqE5A32Bs5bIet9Vpf4FIrh9geuqy2ye62pVA=;
+        b=MT3m9gll1dg4MFgy8FzxnYf6pEq/IFWcEoumR4CSvNu4UsiWU15PKMIDAyMZkfnYzm
+         QYOOy+t8Dkr9TvTrplG0IMz3+2ZevcPUiamIR/FVL96wbnQkelH6n+wKxtk3I1jwTkJK
+         wWeq9sEXH/wkLZ248RHKwVDSz06B9H/74wpDt0oeuVYNRVhcFcYiuEQTRVTcHS33Wfzd
+         rNS4hzkBxwemXhKYA3KFMjwa2MgorpU31eIfVna0s6M3SBisjdFK3t6pLX4yIiQLDbUc
+         t0XDXHfitP2gOIPrtV2HiOfu5MOWi4+u8agpJpCOjV4rVFRMLUGNyw5M39psQI3ORkqS
+         KJwg==
+X-Gm-Message-State: AOAM533txVwLder8vkRNPz1wM01pIMk0tKR2o8NLHUwSzYMI/2IGVeF3
+        bbOD2khBJTXbTHrqztrxN4XhYFQPgMfzcA==
+X-Google-Smtp-Source: ABdhPJzwzTKKbIwzKpQc2mPVQ7Zyg2v+mUaLojqCEnv/a5GCtSsnyH7tFnEeXkkn4qi+bto/0KRZ1Q==
+X-Received: by 2002:a17:906:cb83:: with SMTP id mf3mr15581918ejb.155.1612904391492;
+        Tue, 09 Feb 2021 12:59:51 -0800 (PST)
 Received: from ?IPv6:2001:a61:24ca:4d01:a815:d0d9:f754:e0ef? ([2001:a61:24ca:4d01:a815:d0d9:f754:e0ef])
-        by smtp.gmail.com with ESMTPSA id v11sm22777422wrr.3.2021.02.09.11.00.06
+        by smtp.gmail.com with ESMTPSA id ze12sm6898821ejb.18.2021.02.09.12.59.50
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 09 Feb 2021 11:00:07 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] mmap2.2: Fix prototype parameter types
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20210204111925.194705-1-alx.manpages@gmail.com>
- <20210207125746.217846-1-alx.manpages@gmail.com>
+        Tue, 09 Feb 2021 12:59:50 -0800 (PST)
+Cc:     mtk.manpages@gmail.com,
+        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH 2/2] netdevice.7: Minor fixes to Pali's patch
+To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>
+References: <20210128152430.314458-1-alx.manpages@gmail.com>
+ <20210128152430.314458-2-alx.manpages@gmail.com>
+ <2263f2ae-6984-bc6d-d14a-285078aacbe3@gmail.com>
+ <8ba042b9-c292-c76f-d553-cfb06bd74884@gmail.com>
+ <2483bb46-5d32-1f2c-fceb-70d30f81b810@gmail.com>
+ <20210209193751.kgcrd43yymzowotv@pali>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <5b8f9483-522e-f08a-8b90-0049cf603a89@gmail.com>
-Date:   Tue, 9 Feb 2021 20:00:06 +0100
+Message-ID: <d57ad48c-0899-7a54-dabf-cc7e687cca73@gmail.com>
+Date:   Tue, 9 Feb 2021 21:59:49 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <20210207125746.217846-1-alx.manpages@gmail.com>
+In-Reply-To: <20210209193751.kgcrd43yymzowotv@pali>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
-
-On 2/7/21 1:57 PM, Alejandro Colomar wrote:
-> There are many slightly different prototypes for this syscall,
-> but none of them is like the documented one.
-> Of all the different prototypes,
-> let's document the asm-generic one.
+On 2/9/21 8:37 PM, Pali Rohár wrote:
+> On Tuesday 09 February 2021 20:29:45 Michael Kerrisk (man-pages) wrote:
+>> Hi Alex,
+>>
+>> On 2/7/21 12:18 PM, Alejandro Colomar (man-pages) wrote:
+>>> Hi Michael,
+>>>
+>>> On 1/28/21 9:16 PM, Michael Kerrisk (man-pages) wrote:
+>>
+>> [...]
+>>
+>>>>>  .BR rtnetlink (7).
+>>>>>  Adding a new or deleting an existing IPv6 address can be done via
+>>>>> -.BR SIOCSIFADDR " / " SIOCDIFADDR
+>>>>> +.BR SIOCSIFADDR / SIOCDIFADDR
+>>>
+>>> I noticed you didn't apply this part.  Did you forget it, or do you
+>>> prefer it as is?
+>>>
+>>> Rationale:
+>>>
+>>> https://lore.kernel.org/linux-man/fc4a94d4-2eac-1b24-cc90-162045eae107@gmail.com/
+>>
+>> I'm not sure, but overall I did not/do like the sentence structure.
+>> I applied the patch below.
+>>
+>> Cheers,
+>>
+>> Michael
+>>
+>> --- a/man7/netdevice.7
+>> +++ b/man7/netdevice.7
+>> @@ -394,8 +394,11 @@ IPv6 addresses can be read from
+>>  .I /proc/net/if_inet6
+>>  or via
+>>  .BR rtnetlink (7).
+>> -Adding a new or deleting an existing IPv6 address can be done via
+>> -.BR SIOCSIFADDR " / " SIOCDIFADDR
+>> +Adding a new IPv6 address and deleting an existing IPv6 address
+>> +can be done via
+>> +.B SIOCSIFADDRi
 > 
-> This manual page was actually using a prototype similar to
-> mmap(2), 
+> Hello Michael! There is an extra 'i'.
 
-(Mea culpa...)
-
-> but there's no glibc wrapper function called mmap2(2),
-> as the wrapper for this syscall is mmap(2).  Therefore, the
-> documented prototype should be the kernel one.
-
-Thanks! Patch applied.
+Thanks, Pali! Fixed.
 
 Cheers,
 
 Michael
-
-> ......
-> 
-> .../linux$ grep_syscall mmap2
-> arch/csky/kernel/syscall.c:17:
-> SYSCALL_DEFINE6(mmap2,
-> 	unsigned long, addr,
-> 	unsigned long, len,
-> 	unsigned long, prot,
-> 	unsigned long, flags,
-> 	unsigned long, fd,
-> 	off_t, offset)
-> arch/microblaze/kernel/sys_microblaze.c:46:
-> SYSCALL_DEFINE6(mmap2, unsigned long, addr, unsigned long, len,
-> 		unsigned long, prot, unsigned long, flags, unsigned long, fd,
-> 		unsigned long, pgoff)
-> arch/nds32/kernel/sys_nds32.c:12:
-> SYSCALL_DEFINE6(mmap2, unsigned long, addr, unsigned long, len,
-> 	       unsigned long, prot, unsigned long, flags,
-> 	       unsigned long, fd, unsigned long, pgoff)
-> arch/powerpc/kernel/syscalls.c:60:
-> SYSCALL_DEFINE6(mmap2, unsigned long, addr, size_t, len,
-> 		unsigned long, prot, unsigned long, flags,
-> 		unsigned long, fd, unsigned long, pgoff)
-> arch/riscv/kernel/sys_riscv.c:37:
-> SYSCALL_DEFINE6(mmap2, unsigned long, addr, unsigned long, len,
-> 	unsigned long, prot, unsigned long, flags,
-> 	unsigned long, fd, off_t, offset)
-> arch/s390/kernel/sys_s390.c:49:
-> SYSCALL_DEFINE1(mmap2, struct s390_mmap_arg_struct __user *, arg)
-> arch/sparc/kernel/sys_sparc_32.c:101:
-> SYSCALL_DEFINE6(mmap2, unsigned long, addr, unsigned long, len,
-> 	unsigned long, prot, unsigned long, flags, unsigned long, fd,
-> 	unsigned long, pgoff)
-> arch/ia64/include/asm/unistd.h:30:
-> asmlinkage unsigned long sys_mmap2(
-> 				unsigned long addr, unsigned long len,
-> 				int prot, int flags,
-> 				int fd, long pgoff);
-> arch/ia64/kernel/sys_ia64.c:139:
-> asmlinkage unsigned long
-> sys_mmap2 (unsigned long addr, unsigned long len, int prot, int flags, int fd, long pgoff)
-> arch/m68k/kernel/sys_m68k.c:40:
-> asmlinkage long sys_mmap2(unsigned long addr, unsigned long len,
-> 	unsigned long prot, unsigned long flags,
-> 	unsigned long fd, unsigned long pgoff)
-> arch/parisc/kernel/sys_parisc.c:275:
-> asmlinkage unsigned long sys_mmap2(unsigned long addr, unsigned long len,
-> 	unsigned long prot, unsigned long flags, unsigned long fd,
-> 	unsigned long pgoff)
-> arch/powerpc/include/asm/syscalls.h:15:
-> asmlinkage long sys_mmap2(unsigned long addr, size_t len,
-> 		unsigned long prot, unsigned long flags,
-> 		unsigned long fd, unsigned long pgoff);
-> arch/sh/include/asm/syscalls.h:8:
-> asmlinkage long sys_mmap2(unsigned long addr, unsigned long len,
-> 			  unsigned long prot, unsigned long flags,
-> 			  unsigned long fd, unsigned long pgoff);
-> arch/sh/kernel/sys_sh.c:41:
-> asmlinkage long sys_mmap2(unsigned long addr, unsigned long len,
-> 	unsigned long prot, unsigned long flags,
-> 	unsigned long fd, unsigned long pgoff)
-> arch/sparc/kernel/systbls.h:23:
-> asmlinkage long sys_mmap2(unsigned long addr, unsigned long len,
-> 			  unsigned long prot, unsigned long flags,
-> 			  unsigned long fd, unsigned long pgoff);
-> include/asm-generic/syscalls.h:14:
-> asmlinkage long sys_mmap2(unsigned long addr, unsigned long len,
-> 			unsigned long prot, unsigned long flags,
-> 			unsigned long fd, unsigned long pgoff);
-> .../linux$
-> 
-> function grep_syscall()
-> {
-> 	if ! [ -v 1 ]; then
-> 		>&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
-> 		return ${EX_USAGE};
-> 	fi
-> 
-> 	find * -type f \
-> 	|grep '\.c$' \
-> 	|sort -V \
-> 	|xargs pcregrep -Mn "(?s)^\w*SYSCALL_DEFINE.\(${1},.*?\)" \
-> 	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
-> 
-> 	find * -type f \
-> 	|grep '\.[ch]$' \
-> 	|sort -V \
-> 	|xargs pcregrep -Mn "(?s)^asmlinkage\s+[\w\s]+\**sys_${1}\s*\(.*?\)" \
-> 	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
-> }
-> 
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> ---
->  man2/mmap2.2 | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/man2/mmap2.2 b/man2/mmap2.2
-> index 349ee45e5..f9f9e91cb 100644
-> --- a/man2/mmap2.2
-> +++ b/man2/mmap2.2
-> @@ -33,8 +33,9 @@ mmap2 \- map files or devices into memory
->  .nf
->  .B #include <sys/mman.h>
->  .PP
-> -.BI "void *mmap2(void *" addr ", size_t " length ", int " prot ,
-> -.BI "             int " flags ", int " fd ", off_t " pgoffset );
-> +.BI "void *mmap2(unsigned long " addr ", unsigned long " length ,
-> +.BI "            unsigned long " prot ", unsigned long " flags ,
-> +.BI "            unsigned long " fd ", unsigned long " pgoffset );
->  .fi
->  .SH DESCRIPTION
->  This is probably not the system call that you are interested in; instead, see
-> 
 
 
 -- 
