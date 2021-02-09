@@ -2,64 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 097BA31566E
-	for <lists+linux-man@lfdr.de>; Tue,  9 Feb 2021 20:02:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2A795315721
+	for <lists+linux-man@lfdr.de>; Tue,  9 Feb 2021 20:49:02 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233296AbhBIS7B (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 9 Feb 2021 13:59:01 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41634 "EHLO
+        id S233582AbhBITrC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 9 Feb 2021 14:47:02 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52490 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233449AbhBISv6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 9 Feb 2021 13:51:58 -0500
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com [IPv6:2a00:1450:4864:20::52b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 37D19C06178B
-        for <linux-man@vger.kernel.org>; Tue,  9 Feb 2021 10:25:19 -0800 (PST)
-Received: by mail-ed1-x52b.google.com with SMTP id s3so25105516edi.7
-        for <linux-man@vger.kernel.org>; Tue, 09 Feb 2021 10:25:19 -0800 (PST)
+        with ESMTP id S233562AbhBITmY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 9 Feb 2021 14:42:24 -0500
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com [IPv6:2a00:1450:4864:20::52a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6E2CBC061A29
+        for <linux-man@vger.kernel.org>; Tue,  9 Feb 2021 11:29:50 -0800 (PST)
+Received: by mail-ed1-x52a.google.com with SMTP id g10so25420902eds.2
+        for <linux-man@vger.kernel.org>; Tue, 09 Feb 2021 11:29:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Glvj18agL9tA2l3j/7kwqc9hNexNdK9z0IiCh1AFgdw=;
-        b=Q8zMredSaQ8hgVSAEZoMbsiqpNR+Vp+1fEuN8+6vr0QNrkngd2YUOScnnGtEzr68Ys
-         Ui6XevcTDS6BKDsFyTPGSrtikKJK2TvMFSP7FpVOu8olCKqPIVbOiuxrHVLpzhniIO7R
-         no+4LSSgL5bh2LTSmMyeSeO57O61OeFBLFCuYSNW+veQ8kk0He44FkhIN7UU76iTF2De
-         5k9ex2EkcqWLO3BDr+JUXW4wHYb4bf5ez0O5YJplF5GcrUNP3d+lvW9B26oy/RBeP37D
-         ZRF9JwZAEKsmPPkJg8YrSGoJHxrxid1uxg2JEPIyYntPg54JHMwqcKpnawipmoaHUeuh
-         2fiA==
+        bh=RqqxZY5pxXsWcNt+rmvcBdNqizpun2RZKtqolF/M+mA=;
+        b=ZhkvMqLEEClNZU3k0LmuX610aTjuDvTu37Z+jnmH1EbbQEMZfyrRnzc7Aza1xZHaT5
+         K0OhI1BekfCyJBkZEapr/LcRNXOMU3Q8r8a6ey/qO6YYIF6k/U9dqfSCNYlJf373UmSC
+         2Yr5afbzUUoMDTwBEROeYHRFnxaAHnW4kvIcbLBIX+sMk4G/LvMxEHGSMVbsUYYQuhH2
+         Od0VacuNQo6oiyJWACo9wbcLqsV+C6aJUT69kFM627JQwpJq8uvzwOxU7Z86EdLRvjvw
+         WbnfvF3cNrj1VWbNJfUts4s1P0gsfEnTMI3wlcrvGeryidvPxllaoZF0Xh5j9n/KodvL
+         s9bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=Glvj18agL9tA2l3j/7kwqc9hNexNdK9z0IiCh1AFgdw=;
-        b=Q5IgLzZakVYqwuqQVux6LbVLvarVyDfngpic+nKEAoCkYa0x4wDo4OTOCqWIPJyyzG
-         G0K3iGJiHu7sAj3qnj8hD1IIgb3PzEqVJVtHIwVodspfTUv+CJK4lLU2n/F10HDvzSkO
-         jw2je6fbUyk81+1mONwP+4pQY9cjsOHmXDZTCyAO62G5UdN5lYAKtVwB5flvOZHlOfnp
-         YLFMgVcsZwCbPvzNK1hqoPmIcDkBBpwfsXe4I/n98Lw6SzMpVTYmp6jfHmRaMLo0YJIx
-         3Od90P8LONKIcIcKH4AwCAPmASOG/3/daw3FtDIpsAulqmxBYpFthIq/oxYXIKmnf+xt
-         xErQ==
-X-Gm-Message-State: AOAM5309rGrHQ8i0fKCqEJ+8MJrgumR4L7P2WwQIAAssAUD0kVlhtniN
-        sinnCFEIAo+SGodDQkKciEzuWP/Pd8hCPg==
-X-Google-Smtp-Source: ABdhPJzrRn6DPjUAyUFksfzpJ5n/bILMbG2DwTva5MqOClbwHYMfbWkGLpO08AhxXKU61ZKSv+AR0g==
-X-Received: by 2002:a05:6402:4316:: with SMTP id m22mr24237491edc.64.1612895117774;
-        Tue, 09 Feb 2021 10:25:17 -0800 (PST)
+        bh=RqqxZY5pxXsWcNt+rmvcBdNqizpun2RZKtqolF/M+mA=;
+        b=FiH9rkFjJqMFsure2GwZECoeE/eL2KWSKkljGYVR0VAlUdZZ9wHMV/qf/4NCeVrWe9
+         kZD0XV4zjGC6X2YCB8NF1p8Y0jEno+NHgcc9TSoTlGiKTddx9v1PJL5Nxd7/nnXm7Axa
+         TACJBalfyYUED5dCBWxclKlB7xAZAOsAWnyepPeX9VXwcZWfrgODtTMQVqW0eG5ZwZKp
+         suXcLUYDwAhBBc8JP6xgHt7nMy6Ev6sz2yb3wmUwAtWfoRvUojgZROnMt+oxk50af3gs
+         xmf6mIPN//sqBOOusswI3eStg3Xc1HybAbFzF6+7Br2YfBmxJ0bBaoAjNfWDKQSqsok/
+         jA3g==
+X-Gm-Message-State: AOAM533xPiAjbkKIW/3GxxV6t8zrQ9fIrVKo4NPOYQ9T7gklFRmgtQ8x
+        3Fe+C/J5EKFpR4zUuTNH6OPfofgLkbFKEg==
+X-Google-Smtp-Source: ABdhPJyPq8vaLgwIJIieBDWR9w9aMTgB/lpGsN6PMcZ/QgpY4PjcC8vJPaLAEXLiMPVxseWRuZ/6yw==
+X-Received: by 2002:a05:6402:5206:: with SMTP id s6mr24372172edd.92.1612898988977;
+        Tue, 09 Feb 2021 11:29:48 -0800 (PST)
 Received: from ?IPv6:2001:a61:24ca:4d01:a815:d0d9:f754:e0ef? ([2001:a61:24ca:4d01:a815:d0d9:f754:e0ef])
-        by smtp.gmail.com with ESMTPSA id kv24sm10673088ejc.117.2021.02.09.10.25.16
+        by smtp.gmail.com with ESMTPSA id c16sm8380317ejm.86.2021.02.09.11.29.47
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 09 Feb 2021 10:25:17 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
-Subject: Re: ptrace.2: Simplify signature? s/enum \w*/int/
+        Tue, 09 Feb 2021 11:29:48 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, pali@kernel.org, linux-man@vger.kernel.org
+Subject: Re: [PATCH 2/2] netdevice.7: Minor fixes to Pali's patch
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-References: <e7685576-db7b-f53d-26b9-64ee6621aea1@gmail.com>
- <bba760a2-b291-d676-2949-90b47f13d4f9@gmail.com>
+References: <20210128152430.314458-1-alx.manpages@gmail.com>
+ <20210128152430.314458-2-alx.manpages@gmail.com>
+ <2263f2ae-6984-bc6d-d14a-285078aacbe3@gmail.com>
+ <8ba042b9-c292-c76f-d553-cfb06bd74884@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <eb01e43f-6ab4-c4c9-62b5-a705aab906ae@gmail.com>
-Date:   Tue, 9 Feb 2021 19:25:14 +0100
+Message-ID: <2483bb46-5d32-1f2c-fceb-70d30f81b810@gmail.com>
+Date:   Tue, 9 Feb 2021 20:29:45 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <bba760a2-b291-d676-2949-90b47f13d4f9@gmail.com>
+In-Reply-To: <8ba042b9-c292-c76f-d553-cfb06bd74884@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,32 +71,48 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Alex,
 
-On 2/8/21 11:36 PM, Alejandro Colomar (man-pages) wrote:
-> [CC += linux-man@]
+On 2/7/21 12:18 PM, Alejandro Colomar (man-pages) wrote:
+> Hi Michael,
 > 
-> I forgot the list.
+> On 1/28/21 9:16 PM, Michael Kerrisk (man-pages) wrote:
+
+[...]
+
+>>>  .BR rtnetlink (7).
+>>>  Adding a new or deleting an existing IPv6 address can be done via
+>>> -.BR SIOCSIFADDR " / " SIOCDIFADDR
+>>> +.BR SIOCSIFADDR / SIOCDIFADDR
 > 
-> On 2/8/21 11:34 PM, Alejandro Colomar (man-pages) wrote:
->> Hi Michael,
->>
->> I think we should simplify the prototype of ptrace(2) from using 'enum
->> __ptrace_request' to 'int'.  It is an implementation detail that should
->> be transparent to the user.  Other pages where glibc uses an 'enum' are
->> documented to use 'int' (I don't remember the names of those, but
->> remember having seen them a few days ago.  Otherwise, we might have to
->> document 'enum' elsewhere, which I don't think adds any value.  What do
->> you think about it?
+> I noticed you didn't apply this part.  Did you forget it, or do you
+> prefer it as is?
+> 
+> Rationale:
+> 
+> https://lore.kernel.org/linux-man/fc4a94d4-2eac-1b24-cc90-162045eae107@gmail.com/
 
-I'm somewhat conservative on this point. It's been documented
-this way forever, so I'm inclined to pause before changing it.
-I feel like we lack information. I'd like to know about some of
-the other cases where enums in glibc are documented instead as int.
-But, on the other hand, maybe this is not the highest priority,
-so it may not be worth too much effort to discover those examples.
+I'm not sure, but overall I did not/do like the sentence structure.
+I applied the patch below.
 
-Thanks,
+Cheers,
 
 Michael
+
+--- a/man7/netdevice.7
++++ b/man7/netdevice.7
+@@ -394,8 +394,11 @@ IPv6 addresses can be read from
+ .I /proc/net/if_inet6
+ or via
+ .BR rtnetlink (7).
+-Adding a new or deleting an existing IPv6 address can be done via
+-.BR SIOCSIFADDR " / " SIOCDIFADDR
++Adding a new IPv6 address and deleting an existing IPv6 address
++can be done via
++.B SIOCSIFADDRi
++and
++.B SIOCDIFADDR
+ or via
+ .BR rtnetlink (7).
+ Retrieving or changing destination IPv6 addresses of a point-to-point
 
 
 
