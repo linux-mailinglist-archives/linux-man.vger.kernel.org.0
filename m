@@ -2,106 +2,116 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9B632316B73
-	for <lists+linux-man@lfdr.de>; Wed, 10 Feb 2021 17:40:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A95D1316D11
+	for <lists+linux-man@lfdr.de>; Wed, 10 Feb 2021 18:44:19 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232490AbhBJQjj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 10 Feb 2021 11:39:39 -0500
-Received: from mailbackend.panix.com ([166.84.1.89]:17372 "EHLO
-        mailbackend.panix.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232596AbhBJQhm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 10 Feb 2021 11:37:42 -0500
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-        by mailbackend.panix.com (Postfix) with ESMTPSA id 4DbQQ96QZjzZ87
-        for <linux-man@vger.kernel.org>; Wed, 10 Feb 2021 11:36:49 -0500 (EST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=panix.com; s=panix;
-        t=1612975009; bh=UxVCLMdoUqv4rYBe5w3zWvKDRZ1jOcZaGqysV2PHlTA=;
-        h=References:In-Reply-To:From:Date:Subject:To:Cc;
-        b=QntaG3/Hq7t4D/x1GeVauN/isdL7Pb2T026A83EUMG/AST1hHiSZQoblgIWi9KlJO
-         XFlaa22npNbMFCNbou9gRHmkcOe9no8kV7xCW46bpgg6w69i3ypJESBoFABdJwWoe0
-         CLsR1UNmilmE8KVI5HDffiZlbsSimrKbA9QQ0ojI=
-Received: by mail-ej1-f43.google.com with SMTP id hs11so5359724ejc.1
-        for <linux-man@vger.kernel.org>; Wed, 10 Feb 2021 08:36:49 -0800 (PST)
-X-Gm-Message-State: AOAM530uUI9QIi1DiyEhPc3nhh7IjUI2VNQRYh1xNv4WOLNK0fWF2H77
-        +PkTrKmHzw/TRClYduqVJA+9kbU3RTWFP7GmeIU=
-X-Google-Smtp-Source: ABdhPJxG7ziVpCrtuZf5BpN2xgV4p9QR6C72OCxny0iRWhPbj60YzT8M0FhalhDawhlgAZgGNKHJ30GBS6T6K6axbRg=
-X-Received: by 2002:a17:906:6095:: with SMTP id t21mr3754574ejj.384.1612975008883;
- Wed, 10 Feb 2021 08:36:48 -0800 (PST)
+        id S232192AbhBJRoK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 10 Feb 2021 12:44:10 -0500
+Received: from out1-smtp.messagingengine.com ([66.111.4.25]:49839 "EHLO
+        out1-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S232891AbhBJRns (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 10 Feb 2021 12:43:48 -0500
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+        by mailout.nyi.internal (Postfix) with ESMTP id BC9285C01AA;
+        Wed, 10 Feb 2021 12:42:58 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute3.internal (MEProxy); Wed, 10 Feb 2021 12:42:58 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alyssa.is; h=
+        from:to:cc:subject:date:message-id:mime-version
+        :content-transfer-encoding; s=fm2; bh=E5Ozh9/1om322txAOTr/CT0KcM
+        pbQJhqLN+HcoHUVro=; b=h8PXhuSFmooWREb4op02wSDTv9nEXzBCRJVFoXQaqs
+        HnJa8/RBnBCppEBE7M9WrsW/GSQwP3O6ZiDk3r9ieKNKVRCBQlEJ5FNwHTvH67e8
+        a5ZHK3ztDU8o1GMZq7aR++Zltyw8XkXSQjigz701iEJXv4y+vMytd5Q/mJggiS6J
+        kYRVYJzG+upthHXqS9O6XVdxeGYbtg52p91naYKfs3sl3G5sLkr/JhrHqfjESezu
+        s8ObKi2shkm+l91sksbPc2avEVPClymlYwtw/colRHQwOaYy3lQvlphLA6BV+nF9
+        tQrwd09SFa4u5DWHkpGtQRI31JDMv9wOBd8H2S7UQ9yw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:content-transfer-encoding:date:from
+        :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+        :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=E5Ozh9/1om322txAO
+        Tr/CT0KcMpbQJhqLN+HcoHUVro=; b=aepQaniTYZyuLJ++WiJSyZKnoT1bs9XLP
+        2y70iA9TikAtyMln+K5YwcR3bycN4iSlztal+05kzS17gUVttVqqlnMvHehqgO7Z
+        xtS2aGV2Y7kS1B2TdaXMLO9r5FUm46D9g0tXOXcoXxh5Y6dPlMc4LpwYsy4pT8BS
+        GpQ3MeBhp799XPjYFFc0HW5Y0x7Zg8xdhcMaoqMLzwLXrVHLxD6haZu+DWH2B4BB
+        ySVbZtoz5oQIJ0T1UH9gaOS88UMQxaG1/nMurTSM7N26eBCU606aFb7HUxJHOgkG
+        NRIBhYb+2feQTRGlHqW64XZ/75UH1TA8kUYJV/+I/FirMTa8TXeSw==
+X-ME-Sender: <xms:IhskYAQQB-J4kdKcgO-iqSMwP0SvMFVJz6MhsumEtOtAKJuIJolw3Q>
+    <xme:IhskYNyFCxmc0905A8c2vrINMgqJh3ses7QgXV3dcOxatuMB4n05Y9l73-GBCEYLG
+    1fnAnTRyBRJ3hINog>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrheejgddutddvucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+    dttdenucfhrhhomheptehlhihsshgrucftohhsshcuoehhihesrghlhihsshgrrdhisheq
+    necuggftrfgrthhtvghrnhephedvfffghfetieejgfetfedtgffhvdehueehvdejudfgge
+    fgleejgfelfeevgfefnecukfhppeekgedrudekuddrvdeguddrudefnecuvehluhhsthgv
+    rhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepqhihlhhishhssegvvhgvrd
+    hqhihlihhsshdrnhgvth
+X-ME-Proxy: <xmx:IhskYN3-Wyrt_cLwpUjW0UNp-z1ErLW888fl8VXR3EJHK76suVuwAw>
+    <xmx:IhskYEB-xY5pT6CAIq8aKNxCllZfeldE4alPev3xcQJHTOrtpcR2Ng>
+    <xmx:IhskYJgFyFjN863-0ZN7oCidRReq6IiLZ5ayBDK5ang1muLEUBnAqw>
+    <xmx:IhskYJI6Zdp-xlF3av_EVAr-yoY6kMEkH4yIH4eK9q12QVSi0yYDHg>
+Received: from eve.qyliss.net (p54b5f10d.dip0.t-ipconnect.de [84.181.241.13])
+        by mail.messagingengine.com (Postfix) with ESMTPA id 3FD0B24005B;
+        Wed, 10 Feb 2021 12:42:58 -0500 (EST)
+Received: by eve.qyliss.net (Postfix, from userid 1000)
+        id C7D4CECC; Wed, 10 Feb 2021 17:42:55 +0000 (UTC)
+From:   Alyssa Ross <hi@alyssa.is>
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Alyssa Ross <hi@alyssa.is>
+Subject: [PATCH] open.2, rename.2: refer to tmpfs rather than shmem
+Date:   Wed, 10 Feb 2021 17:42:45 +0000
+Message-Id: <20210210174245.17027-1-hi@alyssa.is>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-References: <f03cd3b3-8a47-3ec1-2d17-2760545c7b62@gmail.com>
- <17824adc-1b73-cae4-781a-6ad8893c3c66@gmail.com> <864a2689-0c9a-40c9-3732-d99bc44fed4d@gmail.com>
- <CAKCAbMgpXzH3nFyyn3fO3rjwNsG1ZBEkK89ce6r1JLPQL9oKZA@mail.gmail.com>
- <57071c04-e340-96d1-f21c-8e6f9691b351@gmail.com> <CAKCAbMitSQLQZX2T0z5TSBV+DBMONiEL5dmitqjQnjjmAtLraA@mail.gmail.com>
- <23e5f038-19e0-f326-0f6b-81e3c7953293@gmail.com>
-In-Reply-To: <23e5f038-19e0-f326-0f6b-81e3c7953293@gmail.com>
-From:   Zack Weinberg <zackw@panix.com>
-Date:   Wed, 10 Feb 2021 11:36:37 -0500
-X-Gmail-Original-Message-ID: <CAKCAbMikiKcGVHFrFrfWx-6ap5t4O7YYHYEf9kw8Zp93HOZiUQ@mail.gmail.com>
-Message-ID: <CAKCAbMikiKcGVHFrFrfWx-6ap5t4O7YYHYEf9kw8Zp93HOZiUQ@mail.gmail.com>
-Subject: Re: queue.7, stailq.3, (simpleq.3): Document SIMPLEQ as an alias of STAILQ
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Feb 10, 2021 at 11:24 AM Alejandro Colomar (man-pages)
-<alx.manpages@gmail.com> wrote:
-> On 2/10/21 5:05 PM, Zack Weinberg wrote:
-> > On Wed, Feb 10, 2021 at 10:53 AM Alejandro Colomar (man-pages)
-> > <alx.manpages@gmail.com> wrote:
-> >> On 2/10/21 4:38 PM, Zack Weinberg wrote:
-> >>>
-> >>> I don't know about anyone else on the glibc team, but I personally
-> >>> consider the entirety of <sys/queue.h> to be provided only for some
-> >>> degree of backward compatibility with old applications that were
-> >>> ported from BSD; new code should not use it.  I'd *like* to formally
-> >>> deprecate it, but I expect that would cause too much breakage to be
-> >>> viable.  Anyway, I hope you can understand why I'm not interested in
-> >>> messing with its contents at all.
-> >>>
-> >>> (Can we add a statement to the effect that new code should not use
-> >>> <sys/queue.h> to all of the related manpages, please?)
-> >>
-> >> Would you mind explaining your reasons for the deprecation?  Performance?
-> >
-> > No, portability and reliability.   The contents of <sys/queue.h> are
-> > not consistent among the various operating systems that offer it, and
-> > some versions have outright bugs.
->
-> About portability, I guess you are referring to the fact that some
-> systems don't provide some of the newest macros?  Such as OpenBSD not
-> providing SIMPLEQ_LAST()?
->
-> But for those that offer macros of the same family (with the same name),
-> I guess they all offer the same interface, don't they?
+Skimming open(2), I was surprised not to see tmpfs mentioned as a
+filesystem supported by O_TMPFILE.
 
-I don't remember specific details anymore -- the troubles I had with
-it were going on ten years ago now -- but based on experience
-tinkering with user space applications and libraries that tried to use
-queue.h, missing macros were unpredictable and varied, and macros with
-the same name did *not* reliably provide the same interfaces.
+If I'm understanding correctly (I'm very possibly not!), tmpfs is a
+filesystem built on shmem, so I think it's more correct (and probably
+much more widely understandable) to refer to tmpfs here.
+---
+ man2/open.2   | 2 +-
+ man2/rename.2 | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-> About bugs, I don't know which, but considering that the BSDs use these
-> macros, I guess they'll fix whatever new bugs they find.
+diff --git a/man2/open.2 b/man2/open.2
+index b30dc1532..03fff1b65 100644
+--- a/man2/open.2
++++ b/man2/open.2
+@@ -885,7 +885,7 @@ as described above).
+ requires support by the underlying filesystem;
+ only a subset of Linux filesystems provide that support.
+ In the initial implementation, support was provided in
+-the ext2, ext3, ext4, UDF, Minix, and shmem filesystems.
++the ext2, ext3, ext4, UDF, Minix, and tmpfs filesystems.
+ .\" To check for support, grep for "tmpfile" in kernel sources
+ Support for other filesystems has subsequently been added as follows:
+ XFS (Linux 3.15);
+diff --git a/man2/rename.2 b/man2/rename.2
+index 527bafacf..cb36405fe 100644
+--- a/man2/rename.2
++++ b/man2/rename.2
+@@ -208,11 +208,11 @@ Support for various filesystems was added as follows:
+ ext4 (Linux 3.15);
+ .\" ext4: commit 0a7c3937a1f23f8cb5fc77ae01661e9968a51d0c
+ .IP *
+-btrfs, shmem, and cifs (Linux 3.17);
++btrfs, tmpfs, and cifs (Linux 3.17);
+ .IP *
+ xfs (Linux 4.0);
+ .\" btrfs: commit 80ace85c915d0f41016f82917218997b72431258
+-.\" shmem: commit 3b69ff51d087d265aa4af3a532fc4f20bf33e718
++.\" tmpfs: commit 3b69ff51d087d265aa4af3a532fc4f20bf33e718
+ .\" cifs: commit 7c33d5972ce382bcc506d16235f1e9b7d22cbef8
+ .\"
+ .\" gfs2 in 4.2?
+-- 
+2.30.0
 
-The trouble here is that the BSDs' unified source tree means that they
-can and do address problems by changing all *their* users to avoid the
-bug, rather than fixing the bug in the header.  (This may sound
-ridiculous but I've seen it happen dozens of times and not just with
-sys/queue.h.)  glibc doesn't have that luxury -- but that means code
-developed on Linux becomes unportable by virtue of not having to avoid
-bugs that are present on the BSDs.
-
-> If you need to have a high performance linked list, yes, probably it
-> pays off writing your own.  But for a prototype or some code that isn't
-> critical, having a libc interface that already provides (somewhat
-> standard) linked lists is great, IMHO.
-
-Again, it's about correctness, not performance.  I just don't *trust*
-sys/queue.h.
-
-zw
