@@ -2,63 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2DFFA317262
-	for <lists+linux-man@lfdr.de>; Wed, 10 Feb 2021 22:31:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 77DE0317264
+	for <lists+linux-man@lfdr.de>; Wed, 10 Feb 2021 22:32:34 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232231AbhBJVb1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 10 Feb 2021 16:31:27 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47664 "EHLO
+        id S233391AbhBJVcB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 10 Feb 2021 16:32:01 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47880 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232024AbhBJVav (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 10 Feb 2021 16:30:51 -0500
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com [IPv6:2a00:1450:4864:20::629])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8841DC06174A
-        for <linux-man@vger.kernel.org>; Wed, 10 Feb 2021 13:30:06 -0800 (PST)
-Received: by mail-ej1-x629.google.com with SMTP id bl23so6747311ejb.5
-        for <linux-man@vger.kernel.org>; Wed, 10 Feb 2021 13:30:06 -0800 (PST)
+        with ESMTP id S233417AbhBJVbq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 10 Feb 2021 16:31:46 -0500
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com [IPv6:2a00:1450:4864:20::531])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6DEAAC061756
+        for <linux-man@vger.kernel.org>; Wed, 10 Feb 2021 13:31:06 -0800 (PST)
+Received: by mail-ed1-x531.google.com with SMTP id y8so4749293ede.6
+        for <linux-man@vger.kernel.org>; Wed, 10 Feb 2021 13:31:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=3E8d4iR8HrA2s6l/++iu4/+A8Fe/JE8PIStX3jHl7TI=;
-        b=IJFfBQkbsLvLreku591t6BQ2gB7RzH0yVGUvLY6P10xCR0pK7wJvXk8XkeXgF/F80s
-         IRsEAKqp8IV7qBTw2yI1hJCTIzJ9QY9pLcsgLs8zMZo5QonnmL6mw0HGybEIf15VZN3v
-         P2j9Caad/+emRK+pY5PmJvQHQWRv4Ii+ujtQYwZ0QU5Y6GTxDTzwhjKZH4tEzf/3icoS
-         mszv0dXwJ/mKNq2Teta58bOfT4lLcA0pZqa9VUA/hXUOBn94j9FJv8GA3oc6YHjmoe7e
-         GXgapFTM37mQqPIh2ryVLpnKNKMH59ihZwO/xE/BG7Z5pnqlcsOA9i6B/eBA/6Pu6RzQ
-         eZmg==
+        bh=Xv+pmgFmpryAUxwjiiWAT2phin7+ICj1qd/+wr0PiRg=;
+        b=kZho35chOaOjfBr/aGvPrIMPf8CtVPRj0mgFkpTFkevvlA3w6XqJLRctLk3aoB2g1I
+         NPXlHLIuJBoJ2GJ5YpTEbeG4bQgaVqQgTpWTiPgCJ+u6iQsLslZ0V8CYImrDIcum9zlW
+         wVNI9EmBSmO4+5unVe4DnmMdIUUIICAtRvidxRktz/4TteVCYjYi+IZGw/wlaXPOKzBL
+         T9jN6ThB3uzLbIB0g42Ijn7aujtkCl7EJ2gASx02/PRvfW4ekqs5AN7ixf/uCDsfedKh
+         sIS7UtDyDAV++2d9Zdg+A4oSiYU0YCjaI60PU83/IlxCnMwLwMM0k8E5VP5PLAj56Az+
+         Fb/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=3E8d4iR8HrA2s6l/++iu4/+A8Fe/JE8PIStX3jHl7TI=;
-        b=erD3tQpRNF62e6GbJJ4by7nrIz17wPI7lUxUvL51/mZhS6MyX0QSoVj3ZwExOUpzNp
-         4eFuWbn5p/k6SW6bC0Rx8koc8O+2a9EE6YWpbIfRlzQ+Ha4exHrONEddD8qQzxV3nXhO
-         TBrEoTqVA3r9oOfzaGy8u9KzY+UZ67Iqk8gJMz339Q9y/YU2rCNef7gWJM7liWclO6yt
-         xwtEZg+p5gHtOVlHFxuYDRMRQ8q75gJFOO5qPgRtIyHrin8tC8x5kn5JnEobgbdbF1x7
-         oQO9KgEtoT5BNgxwWaBTKk3uHEjjJ32MQWqB3y+Qz8q5dmYL/O8gQWWs8bz5bII3j47q
-         aG4A==
-X-Gm-Message-State: AOAM533QVsxNS+wb6BQNDgC4OfkUOhw28soaXFJx//TGC2uKHsEET/hs
-        KuPsBelUId3ktIilrhJ7K/KDSV2qxK5VIg==
-X-Google-Smtp-Source: ABdhPJzEllMuuoc7c3JTFRMnjxkdfZRbhcCo2eU6Gp5tC6qIwfltfcnWlK2wvYcx6XdqCKFKrDa2IQ==
-X-Received: by 2002:a17:906:5e59:: with SMTP id b25mr4991977eju.536.1612992605038;
-        Wed, 10 Feb 2021 13:30:05 -0800 (PST)
+        bh=Xv+pmgFmpryAUxwjiiWAT2phin7+ICj1qd/+wr0PiRg=;
+        b=B8TJMVlKw/ZEFnh0+XP/ISH0Or7mPO8BnLsOY3B3OPmrXDasPaamjVTWAFm5IzlYbP
+         icHvdbtTuHvH6BEw+ELFY6ff9FVEA++P2wxfeMoMOP7ZdJaiNh7XPz4iIWvOJpu/NIDa
+         +YHXdTm4gGzRkVLlrlmalaP/jv+Jz1deU891w2U+oAqOn28le2ItMnmrYuYO4UoV5x+t
+         6miWJSAYtRk3YaLEiS+G89HaAnOTX9CnZkSlf3K3vLDCUNZyZk3qsW3NSPFo8z2/sS7d
+         ds/XPikh7cbG8X2U0JvGkSa+VQLAUX6FqLM4edrIQtMAA8dvKuH56TDPuSJx7pzYYF+f
+         yjBA==
+X-Gm-Message-State: AOAM532DGYAxu/8I4/NjDvBHsxQg2D70z/JSe2fEizDx7FunE3N+x0TC
+        0lBgXGC5kZACFRkjm6EQ5ORwoiiyd9nGAg==
+X-Google-Smtp-Source: ABdhPJwaLVDJy8J3T5QLTPyyRxRRVWWFgY0P9Z4K/nNnbRDKTFiEyF17k4gGIVD6dPKKQ/6aZ72E4Q==
+X-Received: by 2002:aa7:c9c9:: with SMTP id i9mr5084258edt.160.1612992664964;
+        Wed, 10 Feb 2021 13:31:04 -0800 (PST)
 Received: from ?IPv6:2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b? ([2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b])
-        by smtp.gmail.com with ESMTPSA id k6sm2186987ejb.84.2021.02.10.13.30.04
+        by smtp.gmail.com with ESMTPSA id kb25sm2242222ejc.19.2021.02.10.13.31.04
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 10 Feb 2021 13:30:04 -0800 (PST)
+        Wed, 10 Feb 2021 13:31:04 -0800 (PST)
 Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
-Subject: Re: queue.7, stailq.3, (simpleq.3): Document SIMPLEQ
+Subject: Re: ptrace.2: Simplify signature? s/enum \w*/int/
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-References: <f03cd3b3-8a47-3ec1-2d17-2760545c7b62@gmail.com>
+References: <e7685576-db7b-f53d-26b9-64ee6621aea1@gmail.com>
+ <bba760a2-b291-d676-2949-90b47f13d4f9@gmail.com>
+ <eb01e43f-6ab4-c4c9-62b5-a705aab906ae@gmail.com>
+ <e5de8f47-b8cc-ee52-4702-5bdf7193f0d8@gmail.com>
+ <e49ab35b-a131-1adf-4b5c-5285e662d26c@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <126f8047-ffa0-340f-1cf2-458f02c3150e@gmail.com>
-Date:   Wed, 10 Feb 2021 22:30:03 +0100
+Message-ID: <1ac680f8-e61b-440a-4c51-b34842d229c3@gmail.com>
+Date:   Wed, 10 Feb 2021 22:31:03 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <f03cd3b3-8a47-3ec1-2d17-2760545c7b62@gmail.com>
+In-Reply-To: <e49ab35b-a131-1adf-4b5c-5285e662d26c@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -68,57 +72,30 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Alex,
 
-On 2/10/21 4:06 PM, Alejandro Colomar (man-pages) wrote:
-> Hi Michael,
+On 2/10/21 11:18 AM, Alejandro Colomar (man-pages) wrote:
+> On 2/9/21 11:34 PM, Alejandro Colomar (man-pages) wrote:
+> [...]
+>>
+>> Here are the glibc results (grepping though the kernel is taking much
+>> longer, but I guess the command will have ended by tomorrow morning, and
+>> I'll send you a follow-up.
 > 
-> When I refactored queue.3, I found out that there was no documentation
-> for SIMPLEQ.  I didn't do anything about it because I've never used it
-> and didn't understand what it was, and more importantly why.
+> There aren't syscalls using enum (as expected).
 > 
-> Now I found out that it only exists because of historical reasons [1],
-> but it is identical to STAILQ (minus a missing SIMPLEQ equivalent for
-> STAILQ_CONCAT()).  So I'd add links simpleq.3, SIMPLEQ_*.3 -> STAILQ.3,
-> and add a paragraph to queue.7 and another one to stailq.3.
-> 
-> What do you think about the following?
+> .../linux/linux$ func_list ../man-pages/man2 \
+>                  |while read -r f; do
+>                          grep_syscall $f;
+>                  done \
+>                  |grep enum;
+> .../linux/linux$
 
-I think the proposed patch is okay. Do you want to send me
-a final version?
 
-> 
-> Also I don't know if we should encourage one of them.  STAILQ seems to
-> be more complete.  What would you do about it?
-
-Not knowing, I would say: let's say nothing for now.
+Okay -- I defer to your judgement. You send me a patch, 
+and I'll apply it.
 
 Thanks,
 
 Michael
-
-
-> [1]: <https://gitlab.freedesktop.org/libbsd/libbsd/-/issues/5>
-> 
-> ---
-> 
-> $ git diff
-> diff --git a/man7/queue.7 b/man7/queue.7
-> index f92887a36..c3facafd0 100644
-> --- a/man7/queue.7
-> +++ b/man7/queue.7
-> @@ -138,6 +138,15 @@ Not in POSIX.1, POSIX.1-2001, or POSIX.1-2008.
->  Present on the BSDs.
->  .I <sys/queue.h>
->  macros first appeared in 4.4BSD.
-> +.SH NOTES
-> +Some BSDs provide SIMPLEQ instead of STAILQ.
-> +The interfaces are identical, but for historical reasons
-> +they were named differently on different BSDs.
-> +STAILQ originated on FreeBSD, and SIMPLEQ originated on NetBSD.
-> +For compatibility, glibc provides both sets of macros.
->  .SH SEE ALSO
->  .BR circleq (3),
->  .BR insque (3),
-> 
 
 
 -- 
