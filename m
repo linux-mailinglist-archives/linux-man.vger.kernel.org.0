@@ -2,115 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E888F31918A
-	for <lists+linux-man@lfdr.de>; Thu, 11 Feb 2021 18:51:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id EB34F319C06
+	for <lists+linux-man@lfdr.de>; Fri, 12 Feb 2021 10:44:15 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232644AbhBKRu7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 11 Feb 2021 12:50:59 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54522 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230185AbhBKRsl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 11 Feb 2021 12:48:41 -0500
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5BE8CC061788
-        for <linux-man@vger.kernel.org>; Thu, 11 Feb 2021 09:48:01 -0800 (PST)
-Received: by mail-wm1-x329.google.com with SMTP id w4so6308611wmi.4
-        for <linux-man@vger.kernel.org>; Thu, 11 Feb 2021 09:48:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=ntQj5neldySuCoMH3DC+4aKJhKbtolRn7XINQx84I/g=;
-        b=iVQusosqXJIX+N4upKIYHaG/P5SgZ7BQN7qCWznHEeRiKW5aGR/COKlLZYw03x2hao
-         rZ8anVH6bLXfi5R+EFxtMH3U/H0jTt5dMGxbmVoNOxCgTvsfPasADQcM50MaAc0ZmM47
-         XNE5GgdS+yelgMygUg33EtqsUSnxNsuuKjRutLY5cTjc/BIuu1x9sq47hAW+3xQGv3tj
-         hSAV9atBZoi649EL1xCzJznBtXccYdIOOquGSrpK6ONKy9K4goYNuBIaO8UygRQIES5S
-         dRLQViBhK9U94sHkfqTEBPYtTmqMD2J06KQ0sdpWKQMKkgqpCcIu7JMoaEcIaodj13Ti
-         zoww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=ntQj5neldySuCoMH3DC+4aKJhKbtolRn7XINQx84I/g=;
-        b=pg2elbNx4zwwQgtmhoe/cXx+ZPRt8XpuPRuQ4VocinQLhOHEDMzckqRje64e1sY3gZ
-         EMoWULf3OQYCe+R2qPdO0QvRbT3pIPzxRAHAAY5tC8mh6ijJUAtK1xFCWPgv7uIiMCpQ
-         JXIeY9nXzVY2aXnB3tqcBQVmco/oPyyHKtujokhh5ffIQXgaXUQ2vSQxKl1Ntym68bXC
-         brDrtIa5pAL67qyCPBAC2l6SMq+aLhus/OtCOMQCW846vRw/rb6ehBEGLRwFFpi/bBUr
-         hyVN1y4uQ0Q+rf1xNmgXf6NraYCuL7IAdP3d+LCud9M6v43PKmWi5dYxPP8QDy+S9ezQ
-         OzNQ==
-X-Gm-Message-State: AOAM532WYK+198JNzNe454ba9xhhZu7VP5aNWs3RXgyrpj7gCWYuog3k
-        bBVVLz6syoNw6kJ3Qi/fUhg=
-X-Google-Smtp-Source: ABdhPJzu25mEciS8Fnc677DOIv7MouN4u5v7hB6UO7w3kueccPJfmw02+8UpI9Uyx8mfjanZX07mYA==
-X-Received: by 2002:a1c:c6:: with SMTP id 189mr6269313wma.128.1613065680175;
-        Thu, 11 Feb 2021 09:48:00 -0800 (PST)
-Received: from debian.vlc ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id o14sm5223113wri.48.2021.02.11.09.47.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Feb 2021 09:47:59 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH] process_madvise.2: SYNOPSIS: Fix prototype parameter type
-Date:   Thu, 11 Feb 2021 18:44:57 +0100
-Message-Id: <20210211174454.48112-3-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.30.0
+        id S229905AbhBLJmM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 12 Feb 2021 04:42:12 -0500
+Received: from smtpout1.mo529.mail-out.ovh.net ([178.32.125.2]:39373 "EHLO
+        smtpout1.mo529.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S230039AbhBLJmK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 12 Feb 2021 04:42:10 -0500
+Received: from mxplan6.mail.ovh.net (unknown [10.109.143.25])
+        by mo529.mail-out.ovh.net (Postfix) with ESMTPS id C735F85C18D8;
+        Fri, 12 Feb 2021 10:41:24 +0100 (CET)
+Received: from jwilk.net (37.59.142.105) by DAG4EX2.mxp6.local (172.16.2.32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Fri, 12 Feb
+ 2021 10:41:23 +0100
+Authentication-Results: garm.ovh; auth=pass (GARM-105G006c5dd3365-6896-47d8-9eec-ae585c37f2a4,
+                    FCF76256F68EFDEA70E8387DD74B31D76C8F81A9) smtp.auth=jwilk@jwilk.net
+X-OVh-ClientIp: 5.172.255.251
+Date:   Fri, 12 Feb 2021 10:41:02 +0100
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+CC:     <xenoantares@gmx.net>, <linux-man@vger.kernel.org>,
+        Walter Harms <wharms@bfs.de>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: expm1(3p): Mathematical error in given example
+Message-ID: <20210212094102.ehxzmqvz2chvzgj5@jwilk.net>
+References: <1169008777.20210211105918@gmx.net>
+ <2c78f3a8-170a-d7dd-929e-e950d5920dd9@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"; format=flowed
+Content-Disposition: inline
+In-Reply-To: <2c78f3a8-170a-d7dd-929e-e950d5920dd9@gmail.com>
+User-Agent: NeoMutt/20180716
+X-Originating-IP: [37.59.142.105]
+X-ClientProxiedBy: DAG4EX1.mxp6.local (172.16.2.31) To DAG4EX2.mxp6.local
+ (172.16.2.32)
+X-Ovh-Tracer-GUID: 60f58432-6dec-48b3-b3f0-3649b937286d
+X-Ovh-Tracer-Id: 5567575042737362851
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduledriedugddtjecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvuffkfhggtggujggfihesthdtredttdervdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhephfefvdefheevhfekledtjeegleetfedvfedvuddvfefgudeuiedtieetvddthefgnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrddutdehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepmhigphhlrghniedrmhgrihhlrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehjfihilhhksehjfihilhhkrdhnvghtpdhrtghpthhtohepmhhtkhdrmhgrnhhprghgvghssehgmhgrihhlrdgtohhm
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The type of vlen is 'size_t', and not 'unsigned int'.  Fix it.
+* Alejandro Colomar <alx.manpages@gmail.com>, 2021-02-11, 16:49:
+>>In the APPLICATION USAGE section of expm1(3p)[1] the given example is wrong:
+>>
+>>===8<=== Snip =========================================
+>>
+>>[..] calculations of ((1+x)n-1)/x, namely:
+>>
+>>           expm1(n * log1p(x))/x
+>>
+>>======== Snap ====================================>8===
+>>
+>>Actually, both expressions are not equal, rather
+>>
+>> expm1(n * log1p(x))/x = ((1+x)**n - 1)/x
+>>
+>>(with a fictional ** as power infix-operator) would be.
+[...]
+>We don't maintain the source of the POSIX manual pages.  You could file 
+>a bug to the Austin Group.
 
-......
+As Walter noted in another mail, the POSIX sources are correct.
 
-$ grep_syscall process_madvise
-mm/madvise.c:1161:
-SYSCALL_DEFINE5(process_madvise, int, pidfd, const struct iovec __user *, vec,
-		size_t, vlen, int, behavior, unsigned int, flags)
-include/linux/syscalls.h:887:
-asmlinkage long sys_process_madvise(int pidfd, const struct iovec __user *vec,
-			size_t vlen, int behavior, unsigned int flags);
+This is a problem with conversion to the man page format, which should 
+be reported here, not to the Austin Group.
 
-function grep_syscall()
-{
-	if ! [ -v 1 ]; then
-		>&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
-		return ${EX_USAGE};
-	fi
-
-	find * -type f \
-	|grep '\.c$' \
-	|sort -V \
-	|xargs pcregrep -Mn "(?s)^\w*SYSCALL_DEFINE.\(${1},.*?\)" \
-	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
-
-	find * -type f \
-	|grep '\.[ch]$' \
-	|sort -V \
-	|xargs pcregrep -Mn "(?s)^asmlinkage\s+[\w\s]+\**sys_${1}\s*\(.*?\)" \
-	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
-}
-
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man2/process_madvise.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/man2/process_madvise.2 b/man2/process_madvise.2
-index 9dc90ced1..b00ceb6fc 100644
---- a/man2/process_madvise.2
-+++ b/man2/process_madvise.2
-@@ -33,7 +33,7 @@ process_madvise \- give advice about use of memory to a process
- .B #include <sys/uio.h>
- .PP
- .BI "ssize_t process_madvise(int " pidfd ", const struct iovec *" iovec ,
--.BI "                        unsigned long " vlen ", int " advice ,
-+.BI "                        size_t " vlen ", int " advice ,
- .BI "                        unsigned int " flags ");"
- .fi
- .PP
 -- 
-2.30.0
-
+Jakub Wilk
