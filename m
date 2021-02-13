@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2E74431ACA6
-	for <lists+linux-man@lfdr.de>; Sat, 13 Feb 2021 16:40:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id EB5F031ACAE
+	for <lists+linux-man@lfdr.de>; Sat, 13 Feb 2021 16:47:28 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229574AbhBMPkO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 13 Feb 2021 10:40:14 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49508 "EHLO
+        id S229714AbhBMPrO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 13 Feb 2021 10:47:14 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50996 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229531AbhBMPkN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 13 Feb 2021 10:40:13 -0500
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com [IPv6:2a00:1450:4864:20::632])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6DFCAC061574
-        for <linux-man@vger.kernel.org>; Sat, 13 Feb 2021 07:39:31 -0800 (PST)
-Received: by mail-ej1-x632.google.com with SMTP id w1so4286151ejf.11
-        for <linux-man@vger.kernel.org>; Sat, 13 Feb 2021 07:39:31 -0800 (PST)
+        with ESMTP id S229531AbhBMPrN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 13 Feb 2021 10:47:13 -0500
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com [IPv6:2a00:1450:4864:20::631])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CA9A7C061574
+        for <linux-man@vger.kernel.org>; Sat, 13 Feb 2021 07:46:31 -0800 (PST)
+Received: by mail-ej1-x631.google.com with SMTP id lg21so4408364ejb.3
+        for <linux-man@vger.kernel.org>; Sat, 13 Feb 2021 07:46:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=pO5SCEC2WMVKzv2bvLBddp+6SP4MdZPvuvOWPeAqQ9E=;
-        b=ddPWjb4qi65b2mNdE4X1QNSb9GB7i4o6hsfGZi+iv0zIF5yG5hXvTYF0Pf3hyGd3zh
-         E8P4wbQRXT/wchG2t788mKdclP2j1dngDq4CUhbMH7pOIV9bRJe8xIp054JiZHmKy+uD
-         T0i0qf6VTt6DkQdlV62Qp4aKDtbXDLtWBOVR0P6Q8chVlJ2nf4QqT0eF8TgGKwX2zXgY
-         o60wmlyCS2R5LKn4G2NwgsjA0gS0Jp4HB42R5NFpEJge8nG/hDaz4TeUIzj0PFbiJQTm
-         0+2opAZqxd+khLtkxL+Rn+hgSu2BvC8ER/33Dxqg9a3SV+ShFqxdmh4F3Lkujjc1Vv/u
-         EZaw==
+        bh=QoKr2ujEcT0JimHR/LDC9bx9yqPqMue9VybC3gyFtmI=;
+        b=jGQ8rhc46z5n6/xtib2F8lq2+aSMoXN0J50xwa6JNJBCKrAvhFYByNZYI4TGKLIKcR
+         LoJVKx57Utjd57hQMSvadGFUqR+mOUhBJffKqVWLaUZW8DdLJmjt6R/bfzv0STnHKe2r
+         YKaLXhG0CHjC61tpuj/LB5TXZU4gcntOn2ym2q/rvqhUK1bGJgCOJzcUNERClc6lwV0v
+         O2xRHmdekgO36a4TE1DWjwu6FSqvadliDflK3rT/xo0FRUUDRq8OyOuEQXAVyln/2pHQ
+         yVKXch2HkKx7JCgQUDMq4NUaW7nvGtsh7XUNMtarDJM7rH4rSuB/ShdibtrvvhWXO+RQ
+         3paQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=pO5SCEC2WMVKzv2bvLBddp+6SP4MdZPvuvOWPeAqQ9E=;
-        b=nBHS67oVoA6eb8S3WIHcCAFYDz/w3wMc90ry5UbgfYJwd4HIy5p4Nx+QdVZwZTVico
-         SkQZUUIcgSinjmdxcsrV5n78/l5cq5xyDD43SaobIkRx7N6+IcZZq+8B9ajtsEfdkVvM
-         +OOCXWiDKkqrdIdOa0kaF2pqa3D2cLJUAlGGJWHBx6C6R53USy+nJi7f2Zb64rMPL5sZ
-         ZnGAioksMZSg89YgQZZePy7qReSbVqMbhwLdW1QChcV1hpuhu9SHK4DSp8E6XevYYH/l
-         nItekl1FBM7giyhyBGkHPAZ5RqKw1408WlRdu415Xolla1/M+m8jFwSakJVNLk3yWNmH
-         G/kA==
-X-Gm-Message-State: AOAM532sJvsNU3TbViT5nvKoUyjkHH0nIgv6wb5lVhynq6OxohKX2XpB
-        Qo1HO3YucT8nTVgss5Alqv9B5vYGC5Q7Pg==
-X-Google-Smtp-Source: ABdhPJz+mWzqQ+1btNKfTDla8QHTzQF8PBDzprFqeOK1FSQNSfxvTpIlpbEGquFIwnhr7OZqLG291A==
-X-Received: by 2002:a17:906:f1d0:: with SMTP id gx16mr246965ejb.383.1613230769848;
-        Sat, 13 Feb 2021 07:39:29 -0800 (PST)
+        bh=QoKr2ujEcT0JimHR/LDC9bx9yqPqMue9VybC3gyFtmI=;
+        b=sj67es4ZI3pgwXmv7ZwLWEbO9VIGkWtBTGc8UdaF3TntkXUFanPIqf1+sIbvI3USrP
+         cAtKA0IlXxK6n+4PkF8kAu1q3VGl/Ra3BPLD0SNPqZo7J+73Dc/XLJGsxFDvVklUGSu8
+         Ho0Lmph/ogVeK6uakWsesTlLsl9gVltmPQpn+EJKEi+pZHcktOiAvSHqBE2AKkNcqK94
+         rx+YUvJr1rztGH6hAyZ8bqb/DNEa99Gf9JJWJRgfyJWmdrv8dj9tBz+h+URRCeP/0vxA
+         F7EK71O5WO5X2fAEGs/wNa/vEP1Jga3suFskNJjmlPzkxTPpgbC08dN2Td5GkUEsfEpD
+         NEAA==
+X-Gm-Message-State: AOAM533iZU9WHFrfEaTYFM4hkTld2C9PPZRVxi/9N6l4xnkiEVI4r/85
+        O2xOuWoYv/CwOb7y7WWu7eO8xy8nrxRQAQ==
+X-Google-Smtp-Source: ABdhPJxH4NeSlZaD25KG7DF+N0AUmJ3KeDYQOCPFHsv3Jume+VgooXOyFYdUtXpsoJGruDXJ7THgNA==
+X-Received: by 2002:a17:906:4ed6:: with SMTP id i22mr2720896ejv.84.1613231190325;
+        Sat, 13 Feb 2021 07:46:30 -0800 (PST)
 Received: from [192.168.178.63] (dynamic-095-118-040-212.95.118.pool.telefonica.de. [95.118.40.212])
-        by smtp.gmail.com with ESMTPSA id q14sm7299431edw.52.2021.02.13.07.39.28
+        by smtp.gmail.com with ESMTPSA id r16sm7832916ejc.112.2021.02.13.07.46.29
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 13 Feb 2021 07:39:29 -0800 (PST)
+        Sat, 13 Feb 2021 07:46:29 -0800 (PST)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] move_pages.2: Add notes about missing glibc wrappers
+Subject: Re: [PATCH] process_madvise.2: Add note about missing glibc wrapper
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20210211174454.48112-1-alx.manpages@gmail.com>
+References: <20210211174454.48112-2-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <e5f601ac-1dc2-4806-1686-fcaab7fdaf1b@gmail.com>
-Date:   Sat, 13 Feb 2021 16:39:26 +0100
+Message-ID: <03db241c-5b1a-94df-5dc0-9ae574183ebf@gmail.com>
+Date:   Sat, 13 Feb 2021 16:46:27 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <20210211174454.48112-1-alx.manpages@gmail.com>
+In-Reply-To: <20210211174454.48112-2-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,40 +69,44 @@ X-Mailing-List: linux-man@vger.kernel.org
 Hi Alex,
 
 On 2/11/21 6:44 PM, Alejandro Colomar wrote:
+> Glibc bug: <https://sourceware.org/bugzilla/show_bug.cgi?id=27380>
 > Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 
-Thanks Patch applied.
+Thanks. Patch applied.
 
 Cheers,
 
 Michael
 
 > ---
->  man2/move_pages.2 | 4 ++++
->  1 file changed, 4 insertions(+)
+>  man2/process_madvise.2 | 6 ++++++
+>  1 file changed, 6 insertions(+)
 > 
-> diff --git a/man2/move_pages.2 b/man2/move_pages.2
-> index 6ed3fd682..28fa9adac 100644
-> --- a/man2/move_pages.2
-> +++ b/man2/move_pages.2
-> @@ -29,6 +29,9 @@ move_pages \- move individual pages of a process to another node
+> diff --git a/man2/process_madvise.2 b/man2/process_madvise.2
+> index d33c32f63..9dc90ced1 100644
+> --- a/man2/process_madvise.2
+> +++ b/man2/process_madvise.2
+> @@ -36,6 +36,10 @@ process_madvise \- give advice about use of memory to a process
+>  .BI "                        unsigned long " vlen ", int " advice ,
+>  .BI "                        unsigned int " flags ");"
 >  .fi
->  .PP
->  Link with \fI\-lnuma\fP.
 > +.PP
 > +.IR Note :
 > +There is no glibc wrapper for this system call; see NOTES.
+> +.\" FIXME: See <https://sourceware.org/bugzilla/show_bug.cgi?id=27380>
 >  .SH DESCRIPTION
->  .BR move_pages ()
->  moves the specified
-> @@ -218,6 +221,7 @@ first appeared on Linux in version 2.6.18.
->  .SH CONFORMING TO
->  This system call is Linux-specific.
->  .SH NOTES
-> +Glibc does not provide a wrapper for this system call.
->  For information on library support, see
->  .BR numa (7).
->  .PP
+>  The
+>  .BR process_madvise()
+> @@ -218,6 +222,9 @@ Support for this system call is optional,
+>  depending on the setting of the
+>  .B CONFIG_ADVISE_SYSCALLS
+>  configuration option.
+> +.SH NOTES
+> +Glibc does not provide a wrapper for this system call; call it using
+> +.BR syscall (2).
+>  .SH SEE ALSO
+>  .BR madvise (2),
+>  .BR pidfd_open (2),
 > 
 
 
