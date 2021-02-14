@@ -2,89 +2,120 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8618A31AEE1
-	for <lists+linux-man@lfdr.de>; Sun, 14 Feb 2021 05:31:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A263531AFAA
+	for <lists+linux-man@lfdr.de>; Sun, 14 Feb 2021 08:56:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229615AbhBNEbm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 13 Feb 2021 23:31:42 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43872 "EHLO
+        id S229563AbhBNH4j (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 14 Feb 2021 02:56:39 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58994 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229575AbhBNEbk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 13 Feb 2021 23:31:40 -0500
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com [IPv6:2607:f8b0:4864:20::62f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A9C80C061574
-        for <linux-man@vger.kernel.org>; Sat, 13 Feb 2021 20:31:00 -0800 (PST)
-Received: by mail-pl1-x62f.google.com with SMTP id s15so1895528plr.9
-        for <linux-man@vger.kernel.org>; Sat, 13 Feb 2021 20:31:00 -0800 (PST)
+        with ESMTP id S229827AbhBNH4J (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 14 Feb 2021 02:56:09 -0500
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 50274C06178C
+        for <linux-man@vger.kernel.org>; Sat, 13 Feb 2021 23:55:29 -0800 (PST)
+Received: by mail-wm1-x330.google.com with SMTP id w4so3488047wmi.4
+        for <linux-man@vger.kernel.org>; Sat, 13 Feb 2021 23:55:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dabbelt-com.20150623.gappssmtp.com; s=20150623;
-        h=subject:date:message-id:mime-version:content-transfer-encoding:cc
-         :from:to;
-        bh=LdJshrT4Y8QM/Gg6F4cMw6FvOY+boqE9l2chLOTpTdg=;
-        b=Rtoa/d+l1JCLU+YPM+34L0FdyRtGgUdTfIkgy5Vh/Eu1eVi29K/hVcbPtznO9HxpuE
-         +KQwoQRuquq4pmXQRuJlCRUnQlSrAdlh9G80f9xnwhzAYG+qqkywSx3gq7U/U/1wtXiA
-         q143l136w411JplHcYs+L43KaDIKgMCfU33vG94tGf2bS1OqEiuWHtzCW6OSoSiAfPXe
-         0gqly6H16p/dl7muMViXc5I3hoLZ5d29LpQ4lFG8DIVvklA4qdhHfP1Gtiv20fjQvCRW
-         nEJsQ1QQoImSha6bB2b2bxCQ1+MTUKSntzI2uD11aYfjhBYxjp0Ht591Cxga0fWY+QMO
-         1isw==
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=sy2/647/LCD8ZhmZ3cv1TijS2iv3zE2xq/W+asVTX2c=;
+        b=kNOS4SYsY/ISW8DOqzXs9oHJ0S6Cfzwk5Mz1S9lIUu24f/DyHBwKEsK557lyleXAQg
+         IbBNxFpixo8Hx+p92L9xtXtkHQTY+ylj1MJ1n0TvXmdOLo0AwqBuuWRJSXn7QxcwnWxP
+         DSPzsDh3qnCPxDzuvEGihfUUU99MNAEpv6Q/5uzeeS8h5i7RXv7KZrkuXZ8Fme9N01S3
+         nDoO7m8i/bPmIWe7M+ny2OI+WiQU25DErNK4B+fuDYLlsLNLn9rT1EoGj026RYQHZV4B
+         OiKqjxUn5U4BOfYasQxabJQ+uZuakuVYXGmNWJoKc/D1aSth4+OY8UTNtVJIWUWWwjNV
+         bMhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:date:message-id:mime-version
-         :content-transfer-encoding:cc:from:to;
-        bh=LdJshrT4Y8QM/Gg6F4cMw6FvOY+boqE9l2chLOTpTdg=;
-        b=tk394a0RxO2A6OiPKsEjQcwaL67KW21BwQw7Dl7IpHhqUZV7qBoIVWbKyhgeIJF3ol
-         2yJnvdcKO8kkdBuzHDiy0mRfensIaLco/zn7mdO+ZR3B606fQ/SwkzmPDGy8t/yLfHia
-         OCThVCZZ3CoDUzi7u7qNKVmcIzKZ81qUHHYAPqqRI27/deRA/k/qDowuC7dofw9DBEBN
-         lIxg90TYHsWDLdjKLxsNiFfiIAo4726L3DIeG9RRx289jTzR/M1R+wNpPJSg+pa3CnVi
-         If7uMFioQVXQftCuURxXKi1ueFejXgYxC8tRsX7ISslhERux3/CA1R5AkpQ7uRhYf9VG
-         7Bvw==
-X-Gm-Message-State: AOAM532zSXlOTjAOyJVbVqd80ACsOe9tHc5UTJUM2la5T949hB2Bz3Et
-        vwROGQBRhoDkVzhFNOyyA62Dj8t0x6xFQtTh
-X-Google-Smtp-Source: ABdhPJx2Sc96tt+MyGKt2KyHg3FZFetexaxKZAmWSppiXsoVXYI7XdMpJ+RyjJCQia3YXQ0Cg5CA/w==
-X-Received: by 2002:a17:90b:1b4a:: with SMTP id nv10mr9668744pjb.169.1613277059472;
-        Sat, 13 Feb 2021 20:30:59 -0800 (PST)
-Received: from localhost (76-210-143-223.lightspeed.sntcca.sbcglobal.net. [76.210.143.223])
-        by smtp.gmail.com with ESMTPSA id v1sm13977151pga.63.2021.02.13.20.30.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 13 Feb 2021 20:30:58 -0800 (PST)
-Subject: [PATCH] execve.2: Correctly the versions of Linux that don't have ARG_MAX argv/envp size
-Date:   Sat, 13 Feb 2021 20:29:09 -0800
-Message-Id: <20210214042909.18146-1-palmer@dabbelt.com>
-X-Mailer: git-send-email 2.20.1
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=sy2/647/LCD8ZhmZ3cv1TijS2iv3zE2xq/W+asVTX2c=;
+        b=Eow1Ur7npAVPNeGCpGLXBOCtl7sskM7z1EL6VL+TsYJ9VSXjN/Fr/j99dJX4vKMIji
+         E+mFznd//cdTS8tuVu2y0eJcNWSK3QyEmSwRFyio0ZZWuVz3+pY237ojNtsXL6TkaXqR
+         /PbHP7pzy1/KIrZrerO7yp7/f7HTVrSk2SBSafZJjqk2Hnx0EY42Hp/YJIx1wAxz8fe9
+         1dt5CkMZw1UfLlsFN0kLnRoRYOxdSUc8yh9O4k9yk5lrQTsciFOtLj8FkcOvsOawDkG6
+         G7HqL/YT2dCwWdcTpDvoNl9J4tS63LbtS8WL/ns4lyOCL0Qfd36Vw+xv9BIeGocngd26
+         MAfw==
+X-Gm-Message-State: AOAM530DklSPW5d1xc+kupIc6P/dNNyZXy8k731NOOuxRHEopHNuDI2/
+        Rp5vgzZfU4z5uOaBgZIP4rQ=
+X-Google-Smtp-Source: ABdhPJzKiWJ4WyNcZLjAkMHuBo5N6Zc2kzPpiagcHVt2a8s9N/1Jg4tVnU+tx8TN5tFksBr0Es3e5Q==
+X-Received: by 2002:a1c:8096:: with SMTP id b144mr9546377wmd.169.1613289328081;
+        Sat, 13 Feb 2021 23:55:28 -0800 (PST)
+Received: from ?IPv6:2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b? ([2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b])
+        by smtp.gmail.com with ESMTPSA id 11sm18738827wmo.46.2021.02.13.23.55.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 13 Feb 2021 23:55:27 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Heinrich Schuchardt <xypron.glpk@gmx.de>
+Subject: Re: [PATCH 00/14] man2: SYNOPSIS: Use 'restrict' in prototypes
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+References: <20210213231024.440020-1-alx.manpages@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <e553ad4d-73f9-5554-9f1c-92453a885ee0@gmail.com>
+Date:   Sun, 14 Feb 2021 08:55:24 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc:     linux-man@vger.kernel.org,
-        Palmer Dabbelt <palmerdabbelt@google.com>
-From:   Palmer Dabbelt <palmer@dabbelt.com>
-To:     alx.manpages@gmail.com, mtk.manpages@gmail.com
+In-Reply-To: <20210213231024.440020-1-alx.manpages@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Palmer Dabbelt <palmerdabbelt@google.com>
+Hi Alex,
 
-I just happened upon this inconsistent text while reading `man 2 execve`.  The
-code in question landed in 2.6.23 as b6a2fea39318 ("mm: variable length
-argument support").
+On 2/14/21 12:10 AM, Alejandro Colomar wrote:
+> Hi Michael
+> 
+> This patch set fixes man2 to add 'restrict' to the functions that use it.
 
-Signed-off-by: Palmer Dabbelt <palmerdabbelt@google.com>
----
- man2/execve.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Nice work! I've applied all of these patches.
 
-diff --git a/man2/execve.2 b/man2/execve.2
-index eb3d37e32..639e3b4b9 100644
---- a/man2/execve.2
-+++ b/man2/execve.2
-@@ -431,7 +431,7 @@ so that, even when
- .BR RLIMIT_STACK
- is set very low,
- applications are guaranteed to have at least as much argument and
--environment space as was provided by Linux 2.6.23 and earlier.
-+environment space as was provided by Linux 2.6.22 and earlier.
- (This guarantee was not provided in Linux 2.6.23 and 2.6.24.)
- Additionally, the limit per string is 32 pages (the kernel constant
- .BR MAX_ARG_STRLEN ),
+Cheers,
+
+Michael
+
+> ---
+> Alejandro Colomar (14):
+>   accept.2: SYNOPSIS: Use 'restrict' in prototypes
+>   getpeername.2: SYNOPSIS: Use 'restrict' in prototypes
+>   getsockopt.2: SYNOPSIS: Use 'restrict' in prototypes
+>   readlink.2: SYNOPSIS: Use 'restrict' in prototypes
+>   recv.2: SYNOPSIS: Use 'restrict' in prototypes
+>   select.2: SYNOPSIS: Use 'restrict' in prototypes
+>   sigaction.2: SYNOPSIS: Use 'restrict' in prototypes
+>   sigaltstack.2: SYNOPSIS: Use 'restrict' in prototypes
+>   sigprocmask.2: SYNOPSIS: Use 'restrict' in prototypes
+>   sigwaitinfo.2: SYNOPSIS: Use 'restrict' in prototypes
+>   statx.2: SYNOPSIS: Use 'restrict' in prototypes
+>   stat.2: SYNOPSIS: Use 'restrict' in prototypes
+>   timer_create.2: SYNOPSIS: Use 'restrict' in prototypes
+>   timer_settime.2: SYNOPSIS: Use 'restrict' in prototypes
+> 
+>  man2/accept.2        |  7 ++++---
+>  man2/getpeername.2   |  4 ++--
+>  man2/getsockopt.2    |  2 +-
+>  man2/readlink.2      |  8 ++++----
+>  man2/recv.2          |  6 ++++--
+>  man2/select.2        | 12 +++++++-----
+>  man2/sigaction.2     |  4 ++--
+>  man2/sigaltstack.2   |  3 ++-
+>  man2/sigprocmask.2   |  3 ++-
+>  man2/sigwaitinfo.2   |  8 +++++---
+>  man2/stat.2          | 11 ++++++-----
+>  man2/statx.2         |  4 ++--
+>  man2/timer_create.2  |  4 ++--
+>  man2/timer_settime.2 |  4 ++--
+>  14 files changed, 45 insertions(+), 35 deletions(-)
+> 
+
+
 -- 
-2.20.1
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
