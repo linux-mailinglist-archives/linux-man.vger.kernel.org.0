@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E212E31C2B6
-	for <lists+linux-man@lfdr.de>; Mon, 15 Feb 2021 20:58:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 74BED31C2B8
+	for <lists+linux-man@lfdr.de>; Mon, 15 Feb 2021 20:58:52 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230494AbhBOT53 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 15 Feb 2021 14:57:29 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39320 "EHLO
+        id S229764AbhBOT6H (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 15 Feb 2021 14:58:07 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39384 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229866AbhBOT5Z (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 15 Feb 2021 14:57:25 -0500
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3B353C061756
-        for <linux-man@vger.kernel.org>; Mon, 15 Feb 2021 11:56:45 -0800 (PST)
-Received: by mail-wm1-x32b.google.com with SMTP id a132so705474wmc.0
-        for <linux-man@vger.kernel.org>; Mon, 15 Feb 2021 11:56:45 -0800 (PST)
+        with ESMTP id S230510AbhBOT5m (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 15 Feb 2021 14:57:42 -0500
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7B21BC061574
+        for <linux-man@vger.kernel.org>; Mon, 15 Feb 2021 11:57:02 -0800 (PST)
+Received: by mail-wm1-x331.google.com with SMTP id a132so705831wmc.0
+        for <linux-man@vger.kernel.org>; Mon, 15 Feb 2021 11:57:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ishdDQbkUUaR0170sUK7MCrIuorPx7Ky+5bEzGz4g0c=;
-        b=hSnU11pbq+aJ/o8yIWE27mdXUoTjLBroG1aflRJUZTZU/tqYnGvkGsfMJ6d+gWRMp8
-         XmezqJ2nCofNqDJCdH8v1dLCXmC+HkJ2tSfW+qkDzR4bO93bMvutZfjMrZd7Q+bUorVi
-         PbyinHXRGeXcTh7L0LN7wKGte0GdnzU5eCQbwT25wkX8kdHRzYTtALgdQ719hMQWJeZ4
-         K6iGRiu6eTiC1fjAGT+q1leBo0xEVRG04SljZTaGYGF6xe7Mcb6rPud9+Qpj8EexmzDD
-         F2rV/25ltoQq8t6TTA3Vi8G1cc2BneJJX8Gj/6hvuxS1VfH5dHaaTgF99Es0DgL+c9to
-         vzyg==
+        bh=Yl0Nk5QOYKdQsggQLM4wyfjr8cMFavCoCxX7DmUPfHw=;
+        b=YTZo42TmdJpjZ/jnuFjyHecN7Tgz0oC94EuBmL7ohhgEoP0FX8QkDptOPaWzIfRy/R
+         MjM5GbezGBMCw7/Q5Qurt28QyiX+vrntySqF9XyRKo1+11mgVG6lNSxK4FedoBlzyzU6
+         1Kwqp2uqpmr/NAgOB6rTtmMmoIGSkuogKqRmLYkQQ9PDUqkjGVjPe5vbnxrlFD1nEJfu
+         BCYhui8lsJ9gGS3JhzUtW8AaWBEI9Lrin0kIn0WPpHDSoxo55XEPGC4iXF9e63Ha5dgZ
+         z93GfJ1rCOK/bqNPvZoq5LAO3HHpNLxxqim7xubiDW2j5m3Oi49MFKp4OxsjKd3herNp
+         0zjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=ishdDQbkUUaR0170sUK7MCrIuorPx7Ky+5bEzGz4g0c=;
-        b=GWZW39RcUI2QrD7hGu5yS/NoFpOxsgYispFd/1/Q7J93MddVkgXUvdu96jlkTuAS6B
-         NPcZwBPEZihwCnnnLYHWqQScGKf3rPB8miiDQMTyA6lUwFobzflGQUc6XdmDZWVQA1ER
-         YTfImsRr8wRDIIhd+b7ZTnDdUhUnlQotTgmhNtQCTcZZ3h8pWI59t/ud2MqD09Q37cw2
-         jH70a1A1psBwahfDgpWivHy5ONOe5p1FLDEYlHp/BYJFsgEfezkUUyoTa3MmwiDQWRQ+
-         6zReRJoiixyXMA+VBBy/OCW5yaDnYfCydcBr9oob7ZQkiIz0Hc5DQMGpcVcAw5av4RwU
-         BkKQ==
-X-Gm-Message-State: AOAM533qNfsUC+CQVXMSaniCrqTn95JlljHYkrksJksPntl8MQRje7MQ
-        Qb3zPN6MW0EnHXdenbbOZZj6L1vNXkNagA==
-X-Google-Smtp-Source: ABdhPJwbhVFy8rhNm0gQshce2TEz0fxd6RdBRKPXnxwaIzKj8XZGFvPrZ+dQ4oEX9k7AqKWxambNog==
-X-Received: by 2002:a05:600c:4a23:: with SMTP id c35mr380146wmp.172.1613419003823;
-        Mon, 15 Feb 2021 11:56:43 -0800 (PST)
+        bh=Yl0Nk5QOYKdQsggQLM4wyfjr8cMFavCoCxX7DmUPfHw=;
+        b=DbzhaJk2mrK1cueB9wFeEJfUminVk/ZuYf1q1UIfOadCoWOtux2tY+xVzexuHZKXcF
+         wWvMyORsafoxvXrtkDFwVxlgpD99MakBzZZdK4jspSmXZQYrGuzEIwcJC0aFdVKWEwmp
+         nlacP+d3ezqjFRCW9zrqxC+BJIl753IukSnoHs5To0V8ltWnGgqy4CI3esn2I+rwM+YE
+         Iry0GKioi7yXsTqYf1pmY9ML75CdMMGN2lNvOsEbmd6i5QmHqbsDtOrD5DfOBOzhKfRb
+         bqLkPq8SKfGGbNInUXcxUZPqdTsrWevUq8B8fmx1M0h0xc1XnTn+kx07pvgctue/HJHV
+         J3hg==
+X-Gm-Message-State: AOAM530EyYJlNDU7LaziQOsFEc075TBQ/HHfAe/9IE0bf6js5Ehuy2om
+        bLOJl9jyxd/TpSqIqAStSKG0BoFCAhjfow==
+X-Google-Smtp-Source: ABdhPJzU4VY57xNLA2xO4cVfCx7kdVYA8aLvfM25zTMx1x9EpDoPW2qI1vqlg34q+amI08+63DZlrQ==
+X-Received: by 2002:a05:600c:414a:: with SMTP id h10mr400519wmm.144.1613419021080;
+        Mon, 15 Feb 2021 11:57:01 -0800 (PST)
 Received: from ?IPv6:2001:a61:3a2d:1d01:e14:1e8b:dca4:7d73? ([2001:a61:3a2d:1d01:e14:1e8b:dca4:7d73])
-        by smtp.gmail.com with ESMTPSA id t2sm25458174wru.53.2021.02.15.11.56.43
+        by smtp.gmail.com with ESMTPSA id b75sm483599wmd.10.2021.02.15.11.57.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 15 Feb 2021 11:56:43 -0800 (PST)
+        Mon, 15 Feb 2021 11:57:00 -0800 (PST)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] sched_setattr.2: Add note about missing glibc wrappers
+Subject: Re: [PATCH] s390_pci_mmio_write.2: SYNOPSIS: Add 'const' qualifier
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20210215131522.450666-2-alx.manpages@gmail.com>
+References: <20210215131522.450666-1-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <354e4c8d-1ea6-e5b2-6bad-f2ac55f0050a@gmail.com>
-Date:   Mon, 15 Feb 2021 20:56:42 +0100
+Message-ID: <a28dcfb7-cf46-b7c4-1d51-359b4309e6b4@gmail.com>
+Date:   Mon, 15 Feb 2021 20:57:00 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <20210215131522.450666-2-alx.manpages@gmail.com>
+In-Reply-To: <20210215131522.450666-1-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,11 +69,16 @@ X-Mailing-List: linux-man@vger.kernel.org
 Hi Alex,
 
 On 2/15/21 2:15 PM, Alejandro Colomar wrote:
+> s390_pci_mmio_write() uses 'const void *' instead of 'void *'.
+> Fix it.
+> 
 > ......
 > 
-> .../glibc$ grep_glibc_prototype sched_setattr
-> .../glibc$ grep_glibc_prototype sched_getattr
-> .../glibc$
+> .../linux$ grep_syscall s390_pci_mmio_write
+> arch/s390/pci/pci_mmio.c:119:
+> SYSCALL_DEFINE3(s390_pci_mmio_write, unsigned long, mmio_addr,
+> 		const void __user *, user_buffer, size_t, length)
+> .../linux$
 > 
 > Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 
@@ -83,34 +88,30 @@ Cheers,
 
 Michael
 
+
 > ---
->  man2/sched_setattr.2 | 6 ++++++
->  1 file changed, 6 insertions(+)
+>  man2/s390_pci_mmio_write.2 | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 > 
-> diff --git a/man2/sched_setattr.2 b/man2/sched_setattr.2
-> index ecbdbffc4..c79b74a49 100644
-> --- a/man2/sched_setattr.2
-> +++ b/man2/sched_setattr.2
-> @@ -37,6 +37,9 @@ set and get scheduling policy and attributes
->  .BI "                  unsigned int " size ", unsigned int " flags );
+> diff --git a/man2/s390_pci_mmio_write.2 b/man2/s390_pci_mmio_write.2
+> index a9088c25f..9bee6a21f 100644
+> --- a/man2/s390_pci_mmio_write.2
+> +++ b/man2/s390_pci_mmio_write.2
+> @@ -30,10 +30,10 @@ MMIO memory page
+>  .nf
+>  .B #include <asm/unistd.h>
+>  .PP
+> -.BI "int s390_pci_mmio_write(unsigned long " mmio_addr ","
+> -.BI "                        void *" user_buffer ", size_t " length ");"
+> -.BI "int s390_pci_mmio_read(unsigned long " mmio_addr ","
+> -.BI "                        void *" user_buffer ", size_t " length ");"
+> +.BI "int s390_pci_mmio_write(unsigned long " mmio_addr ,
+> +.BI "                       const void *" user_buffer ", size_t " length );
+> +.BI "int s390_pci_mmio_read(unsigned long " mmio_addr ,
+> +.BI "                       void *" user_buffer ", size_t " length );
 >  .fi
->  .\" FIXME . Add feature test macro requirements
-> +.PP
-> +.IR Note :
-> +There are no glibc wrappers for these system calls; see NOTES.
->  .SH DESCRIPTION
->  .SS sched_setattr()
->  The
-> @@ -388,6 +391,9 @@ These system calls first appeared in Linux 3.14.
->  .SH CONFORMING TO
->  These system calls are nonstandard Linux extensions.
->  .SH NOTES
-> +Glibc does not provide wrappers for these system calls; call them using
-> +.BR syscall (2).
-> +.PP
->  .BR sched_setattr ()
->  provides a superset of the functionality of
->  .BR sched_setscheduler (2),
+>  .PP
+>  .IR Note :
 > 
 
 
