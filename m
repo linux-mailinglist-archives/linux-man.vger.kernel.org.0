@@ -2,1502 +2,269 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6E1FC31C373
-	for <lists+linux-man@lfdr.de>; Mon, 15 Feb 2021 22:13:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3DF3631C389
+	for <lists+linux-man@lfdr.de>; Mon, 15 Feb 2021 22:27:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229652AbhBOVMQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 15 Feb 2021 16:12:16 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55432 "EHLO
+        id S229702AbhBOV1X (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 15 Feb 2021 16:27:23 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58728 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229872AbhBOVMP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 15 Feb 2021 16:12:15 -0500
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3BF04C061574
-        for <linux-man@vger.kernel.org>; Mon, 15 Feb 2021 13:11:34 -0800 (PST)
-Received: by mail-wr1-x433.google.com with SMTP id v7so10619647wrr.12
-        for <linux-man@vger.kernel.org>; Mon, 15 Feb 2021 13:11:34 -0800 (PST)
+        with ESMTP id S229682AbhBOV1W (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 15 Feb 2021 16:27:22 -0500
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com [IPv6:2607:f8b0:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 09A4AC061574
+        for <linux-man@vger.kernel.org>; Mon, 15 Feb 2021 13:26:42 -0800 (PST)
+Received: by mail-pf1-x431.google.com with SMTP id k13so4876874pfh.13
+        for <linux-man@vger.kernel.org>; Mon, 15 Feb 2021 13:26:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=to:cc:from:subject:message-id:date:user-agent:mime-version
-         :content-language:content-transfer-encoding;
-        bh=mCHU0pXqUNg0dM9eE9NcA0N3koNapYFAye9V3tNaaio=;
-        b=EtSkwANpaui9utmXgz0VEAx/ZRX9mrb9noPA2DQk97zWTDnAVKdnIb7kvmSggcclQy
-         HdsOvik1NwNBAos5k1xEakvLRA/8mz+elz3WtzbSu7rVH9swO+LXqIcMn/UVgpjzOi8G
-         hvat5lWMt3OLN4xuHFsGBq10GPzF057o8uxZRCMCA0eaweXDvulV1Jh9IKZDc1NzHAZC
-         z7W/ymQtPYwLxm66KLlBgHpfutXnDDcSQ+7VQcK1SibP6oGbLFpHZ2CB+najTyD6/ZSo
-         XNn6y3UHFKwj0ebkLx+qQeaCaGkJLTu8v5jOlGNdNlnORn5OeYRsk+wpr8yq1ZHxwo4f
-         1/9g==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=Xdzqk3bGRiNEFNKtJAtk+Z9UXB3XeVPVh8764B0Wd7M=;
+        b=a86Ny8RJvzsVvCudqJHw/TlPLWIc1ihSo6XnyCFhQaX4J0VkLfjHphl6NedK8yN1vy
+         76Ek9xR3B3egsFtjTEYHTU20yFqCQHRtrSRifW/N0MjVeI5M+jcXS0tR6SL+N9F1IdBI
+         Hc3nQ8WIIPY2T1uZAADtjumo14UJCHpdURWHv02+vWJS+GACMn0QRhwwTuBTTpSxTmYt
+         isZ+tVG+H1BZGu72LiD9PrYWSirINR/7YPFTs6kD32B16b8QXWKwoTdY0yXDebh7UxiT
+         doANFyb9z6nS8AYfn3V8LiNP3WG9BqjsxHhk0rZf+yH0SnLnxvEZKcNg1ULYa+/9TvsP
+         VtUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=mCHU0pXqUNg0dM9eE9NcA0N3koNapYFAye9V3tNaaio=;
-        b=kAQqIyvIaLmdqiqxnzPNP70V6SSfndxILpbU3PFgzByVR+X+knS3urM/WCdIM7GqI6
-         OCTu+De97nRcdTKmjbThZj77awNLl7pSMeIjgJVKJrqMRloC79aQjmvxc/HspAzJbV79
-         DR1YKFFj+D41Uvy0jNxFf8YIwo0u9k5/ZR+tSbf+XHZGqsvLYp+tLfINv8I4r4lbieCt
-         I5v3qsVJTSopb0Qo9Kl0rxj2SCm5fYC47m2TflClsRNF7cnKJGNX+nGchxHywa5p/ghQ
-         gaWl5LjXKxE2QhCK1cYPmiGHjxaMSdPhsFsqRnlfgBZseeaYgBGYdL5edKX0UjZMxzeN
-         eTuQ==
-X-Gm-Message-State: AOAM531u9U83TzR3Afn//+TwMT5Tx0+txm0G02L4RLWvA+kfqjhCCGyT
-        CsO+/LLBWGStLErGbsFTGU3n/E7BcHU=
-X-Google-Smtp-Source: ABdhPJww8nvIOfZEf3u+InVlkcYtYKKcTJ6BZB6iC60PGowFLo/Xw9piDxsCbR1mS6A6C3ycRNVw9Q==
-X-Received: by 2002:a5d:6602:: with SMTP id n2mr19952543wru.150.1613423492649;
-        Mon, 15 Feb 2021 13:11:32 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with UTF8SMTPSA id v11sm25853307wrr.3.2021.02.15.13.11.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 15 Feb 2021 13:11:31 -0800 (PST)
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=Xdzqk3bGRiNEFNKtJAtk+Z9UXB3XeVPVh8764B0Wd7M=;
+        b=jm62YBgV/UuThZoDQpELZfq5Q2Fq+XO7PW91sh7Yq5fMGeRuB84zCuwV7izYu/E/5r
+         ljeKj4OC6I4HAtiCkgjQHR20tNz3jsDU6TIg2dtcBsc2ObUQIDU0raJoiURTzrYGwqGE
+         0iWeYGqY7rcA0uGKdrsBTN4d5/9LAzi2mfrGkd9PYr/ldslrNWPf98kBriPz5glMgR1C
+         QNO8NgxPo1tE3rK1XwZi9dSRc5rk7sYCyL3n/cE47dwptZ9XWVdvRjx/HP40wZ1t+/FO
+         tKQiHbwrxEuAaLvdJ3Y2uMMPgLfqFFa2bjP9H84Y6hPyWaE1Bty6staPz1cciHw8DihQ
+         9BNg==
+X-Gm-Message-State: AOAM533njWtj8t3xM6urjyvpcVvWoplo6Qqhux41LNeMajAsIe9d84s7
+        /drojgMkFW00rmcsQa+rxeo=
+X-Google-Smtp-Source: ABdhPJyp2FHZVwZ4UxuP9BRwyzSL+XEloWlMi4cbEcP6KTjqIlb5N1ZzLIQPZUmxRk9wUI+JabXtgA==
+X-Received: by 2002:aa7:9397:0:b029:1e1:abd5:7757 with SMTP id t23-20020aa793970000b02901e1abd57757mr16826782pfe.43.1613424401509;
+        Mon, 15 Feb 2021 13:26:41 -0800 (PST)
+Received: from localhost.localdomain ([1.129.238.76])
+        by smtp.gmail.com with ESMTPSA id v9sm378206pjd.30.2021.02.15.13.26.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Feb 2021 13:26:41 -0800 (PST)
+Date:   Tue, 16 Feb 2021 08:26:34 +1100
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Subject: make html: Errors
-Message-ID: <62633911-34b5-e5da-1fa1-aaaf3e19ba1e@gmail.com>
-Date:   Mon, 15 Feb 2021 22:11:30 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:84.0) Gecko/20100101
- Thunderbird/84.0
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH] man-pages.7: Formatting suggestion revisions
+Message-ID: <20210215212631.trmheqbjtukrylfx@localhost.localdomain>
+References: <20210128205734.nhvua6ameelaomaw@localhost.localdomain>
+ <2c95eb35-3e8a-a745-3242-fc8c8947660c@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="ka47obtf3jmuphrm"
+Content-Disposition: inline
+In-Reply-To: <2c95eb35-3e8a-a745-3242-fc8c8947660c@gmail.com>
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
 
-I tried to render HTML pages with the Makefile.
-I had some errors, even though the operation succeed (I have the
-resulting HTML files, and the contents look good in the browser.
-Has it happened to you before?  Do you know how to solve it?
-I copied here the full error messages, in case it is useful.
+--ka47obtf3jmuphrm
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I guess this is what you use for generating the online pages, isn't it?
+Hi Michael!
 
-Thanks,
+At 2021-02-02T14:14:33+0100, Michael Kerrisk (man-pages) wrote:
+> Hello Branden,
+>=20
+> {I've also seen you reply to this mail.]
 
-Alex
+Cool.  Sorry for the delay in replying; I was hopeful that we'd get
+groff 1.23.0, or at least a release candidate, into Debian bullseye but
+that is looking less likely.  Ah well.
 
-.../man-pages$ mkdir .html
-.../man-pages$ make HTDIR=.html/ html
-man2html: unable to open or read file man2/mprotect.2
-man2html: unable to open or read file man2/fstatat.2
-man2html: unable to open or read file man2/getgid.2
-man2html: unable to open or read file man2/setpgid.2
-man2html: unable to open or read file man2/listxattr.2
-man2html: unable to open or read file man2/sigsuspend.2
-man2html: unable to open or read file man2/getrlimit.2
-man2html: unable to open or read file man2/setpgid.2
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man2/removexattr.2
-man2html: unable to open or read file man2/wait.2
-man2html: unable to open or read file man2/accept.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/clone.2
-man2html: unable to open or read file man2/select.2
-man2html: unable to open or read file man2/removexattr.2
-man2html: unable to open or read file man2/getrlimit.2
-man2html: unable to open or read file man2/getxattr.2
-man2html: unable to open or read file man2/getsockopt.2
-man2html: unable to open or read file man2/readv.2
-man2html: unable to open or read file man2/sched_get_priority_max.2
-man2html: unable to open or read file man2/geteuid.2
-man2html: unable to open or read file man2/setpgid.2
-man2html: unable to open or read file man2/chown.2
-man2html: unable to open or read file man2/stat.2
-man2html: unable to open or read file man2/posix_fadvise.2
-man2html: unable to open or read file man2/sysctl.2
-man2html: unable to open or read file man3/mq_notify.3
-man2html: unable to open or read file man2/select.2
-man2html: unable to open or read file man2/clock_getres.2
-man2html: unable to open or read file man2/ftruncate.2
-man2html: unable to open or read file man2/getgroups.2
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man2/sync.2
-man2html: unable to open or read file man2/statfs.2
-man2html: unable to open or read file man2/mlock.2
-man2html: unable to open or read file man2/sync_file_range.2
-man2html: unable to open or read file man2/uname.2
-man2html: unable to open or read file man2/setregid.2
-man2html: unable to open or read file man2/set_thread_area.2
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man2/sigreturn.2
-man2html: unable to open or read file man2/readlink.2
-man2html: unable to open or read file man2/dup.2
-man2html: unable to open or read file man2/posix_fadvise.2
-man2html: unable to open or read file man2/adjtimex.2
-man2html: unable to open or read file man2/_exit.2
-man2html: unable to open or read file man2/ioctl_ficlonerange.2
-man2html: unable to open or read file man2/sched_setattr.2
-man2html: unable to open or read file man2/shmop.2
-man2html: unable to open or read file man2/swapon.2
-man2html: unable to open or read file man2/fstatfs.2
-man2html: unable to open or read file man2/truncate.2
-man2html: unable to open or read file man2/readv.2
-man2html: unable to open or read file man2/mlock.2
-man2html: unable to open or read file man2/ioprio_set.2
-man2html: unable to open or read file man3/mq_unlink.3
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/stat.2
-man2html: unable to open or read file man2/pciconfig_read.2
-man2html: unable to open or read file man2/mknod.2
-man2html: unable to open or read file man2/link.2
-man2html: unable to open or read file man2/timerfd_create.2
-man2html: unable to open or read file man2/sched_setaffinity.2
-man2html: unable to open or read file man2/getdents.2
-man2html: unable to open or read file man2/rename.2
-man2html: unable to open or read file man2/sgetmask.2
-man2html: unable to open or read file man2/setuid.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/chdir.2
-man2html: unable to open or read file man2/pread.2
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man2/dup.2
-man2html: unable to open or read file man2/fsync.2
-man2html: unable to open or read file man2/open.2
-man2html: unable to open or read file man2/symlink.2
-man2html: unable to open or read file man2/recv.2
-man2html: unable to open or read file man2/lchown.2
-man2html: unable to open or read file man2/umount.2
-man2html: unable to open or read file man2/epoll_wait.2
-man2html: unable to open or read file man2/rename.2
-man2html: unable to open or read file man2/getgroups.2
-man2html: unable to open or read file man2/sync_file_range.2
-man2html: unable to open or read file man2/setxattr.2
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man2/chown.2
-man2html: unable to open or read file man2/uname.2
-man2html: unable to open or read file man2/chown.2
-man2html: unable to open or read file man2/mmap.2
-man2html: unable to open or read file man2/fcntl.2
-man2html: unable to open or read file man2/mlock.2
-man2html: unable to open or read file man2/pread.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/sigwaitinfo.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/sched_setscheduler.2
-man2html: unable to open or read file man2/setfsuid.2
-man2html: unable to open or read file man2/recv.2
-man2html: unable to open or read file man2/chmod.2
-man2html: unable to open or read file man2/_exit.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/getitimer.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/getrlimit.2
-man2html: unable to open or read file man2/getresuid.2
-man2html: unable to open or read file man2/getgid.2
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man2/vm86.2
-man2html: unable to open or read file man2/setresuid.2
-man2html: unable to open or read file man2/fstat.2
-man2html: unable to open or read file man2/statfs.2
-man2html: unable to open or read file man2/eventfd.2
-man2html: unable to open or read file man2/stat.2
-man2html: unable to open or read file man2/posix_fadvise.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man2/setresgid.2
-man2html: unable to open or read file man2/clone.2
-man2html: unable to open or read file man2/mkdir.2
-man2html: unable to open or read file man2/stat.2
-man2html: unable to open or read file man2/clock_getres.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/setreuid.2
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man2/chown.2
-man2html: unable to open or read file man2/inotify_init.2
-man2html: unable to open or read file man2/unlink.2
-man2html: unable to open or read file man2/init_module.2
-man2html: unable to open or read file man2/posix_fadvise.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/stat.2
-man2html: unable to open or read file man2/truncate.2
-man2html: unable to open or read file man2/wait.2
-man2html: unable to open or read file man2/signalfd.2
-man2html: unable to open or read file man2/clone.2
-man2html: unable to open or read file man2/readv.2
-man2html: unable to open or read file man2/getdomainname.2
-man2html: unable to open or read file man2/getxattr.2
-man2html: unable to open or read file man2/getresuid.2
-man2html: unable to open or read file man2/msgop.2
-man2html: unable to open or read file man2/setgid.2
-man2html: unable to open or read file man2/sched_setparam.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/setreuid.2
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/chmod.2
-man2html: unable to open or read file man2/s390_pci_mmio_write.2
-man2html: unable to open or read file man2/poll.2
-man2html: unable to open or read file man2/sigaction.2
-man2html: unable to open or read file man2/llseek.2
-man2html: unable to open or read file man2/listxattr.2
-man2html: unable to open or read file man2/stat.2
-man2html: unable to open or read file man2/sigpending.2
-man2html: unable to open or read file man2/pciconfig_read.2
-man2html: unable to open or read file man2/open_by_handle_at.2
-man2html: unable to open or read file man2/getuid.2
-man2html: unable to open or read file man2/process_vm_readv.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/sigprocmask.2
-man2html: unable to open or read file man2/epoll_wait.2
-man2html: unable to open or read file man2/setgroups.2
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man2/utime.2
-man2html: unable to open or read file man2/seteuid.2
-man2html: unable to open or read file man2/setxattr.2
-man2html: unable to open or read file man2/access.2
-man2html: unable to open or read file man2/access.2
-man2html: unable to open or read file man2/stat.2
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man2/shmop.2
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man3/getcwd.3
-man2html: unable to open or read file man2/alloc_hugepages.2
-man2html: unable to open or read file man2/brk.2
-man2html: unable to open or read file man3/mq_timedsend.3
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man2/lstat.2
-man2html: unable to open or read file man2/getresgid.2
-man2html: unable to open or read file man2/fstatat.2
-man2html: unable to open or read file man2/get_robust_list.2
-man2html: unable to open or read file man2/gettimeofday.2
-man2html: unable to open or read file man2/msgop.2
-man2html: unable to open or read file man2/readv.2
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man2/capget.2
-man2html: unable to open or read file man2/pipe.2
-man2html: unable to open or read file man2/send.2
-man2html: unable to open or read file man2/select.2
-man2html: unable to open or read file man2/open.2
-man2html: unable to open or read file man3/mq_timedreceive.3
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/mlock.2
-man2html: unable to open or read file man2/pkey_alloc.2
-man2html: unable to open or read file man2/sendfile.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/setfsgid.2
-man2html: unable to open or read file man2/readv.2
-man2html: unable to open or read file man2/getpriority.2
-man2html: unable to open or read file man2/gethostname.2
-man2html: unable to open or read file man2/timerfd_create.2
-man2html: unable to open or read file man2/wait4.2
-man2html: unable to open or read file man2/getrlimit.2
-man2html: unable to open or read file man2/pwrite.2
-man2html: unable to open or read file man2/send.2
-man2html: unable to open or read file man2/kexec_load.2
-man2html: unable to open or read file man2/getuid.2
-man2html: unable to open or read file man2/epoll_create.2
-man2html: unable to open or read file man2/getegid.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/unimplemented.2
-man2html: unable to open or read file man2/sigtimedwait.2
-man2html: unable to open or read file man2/getpid.2
-man2html: unable to open or read file man2/outb.2
-man2html: unable to open or read file man3/mq_open.3
-man2html: unable to open or read file man2/tkill.2
-man2html: unable to open or read file man2/semop.2
-man2html: unable to open or read file man2/fchown.2
-man2html: unable to open or read file man2/timer_settime.2
-man2html: unable to open or read file man2/setresuid.2
-man2html: unable to open or read file man2/rt_sigqueueinfo.2
-man2html: unable to open or read file man3/gethostbyname.3
-man2html: unable to open or read file man3/setnetgrent.3
-man2html: unable to open or read file man3/list.3
-man2html: unable to open or read file man3/gethostbyname.3
-man2html: unable to open or read file man3/pthread_attr_setaffinity_np.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/getgrent.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/tzset.3
-man2html: unable to open or read file man3/cosh.3
-man2html: unable to open or read file man3/strtok.3
-man2html: unable to open or read file man3/getnetent.3
-man2html: unable to open or read file man3/cproj.3
-man2html: unable to open or read file man3/pthread_spin_lock.3
-man2html: unable to open or read file man3/stailq.3
-man2html: unable to open or read file man3/resolver.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/getutent.3
-man2html: unable to open or read file man3/printf.3
-man2html: unable to open or read file man3/posix_memalign.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/conj.3
-man2html: unable to open or read file man3/stailq.3
-man2html: unable to open or read file man3/getspnam.3
-man2html: unable to open or read file man3/end.3
-man2html: unable to open or read file man3/ecvt_r.3
-man2html: unable to open or read file man3/printf.3
-man2html: unable to open or read file man3/INFINITY.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/tsearch.3
-man2html: unable to open or read file man3/pow.3
-man2html: unable to open or read file man2/adjtimex.2
-man2html: unable to open or read file man3/malloc.3
-man2html: unable to open or read file man3/fenv.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/csinh.3
-man2html: unable to open or read file man3/timeradd.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/exec.3
-man2html: unable to open or read file man3/fenv.3
-man2html: unable to open or read file man3/clog10.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/inet.3
-man2html: unable to open or read file man3/scanf.3
-man2html: unable to open or read file man3/stailq.3
-man2html: unable to open or read file man3/fenv.3
-man2html: unable to open or read file man3/ccosh.3
-man2html: unable to open or read file man3/getfsent.3
-man2html: unable to open or read file man3/printf.3
-man2html: unable to open or read file man3/pthread_cleanup_push_defer_np.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/key_setsecret.3
-man2html: unable to open or read file man3/acos.3
-man2html: unable to open or read file man3/hypot.3
-man2html: unable to open or read file man3/hypot.3
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/ldexp.3
-man2html: unable to open or read file man3/termios.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/sigvec.3
-man2html: unable to open or read file man3/if_nametoindex.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/exp10.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/erf.3
-man2html: unable to open or read file man3/ldexp.3
-man2html: unable to open or read file man3/exp.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/strfromd.3
-man2html: unable to open or read file man3/frexp.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/getutent.3
-man2html: unable to open or read file man3/sqrt.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/termios.3
-man2html: unable to open or read file man3/resolver.3
-man2html: unable to open or read file man3/stdio_ext.3
-man2html: unable to open or read file man3/stailq.3
-man2html: unable to open or read file man3/sqrt.3
-man2html: unable to open or read file man3/expm1.3
-man2html: unable to open or read file man3/getnetent.3
-man2html: unable to open or read file man3/ether_aton.3
-man2html: unable to open or read file man3/fpclassify.3
-man2html: unable to open or read file man3/towupper.3
-man2html: unable to open or read file man3/updwtmp.3
-man2html: unable to open or read file man3/endian.3
-man2html: unable to open or read file man3/fmax.3
-man2html: unable to open or read file man3/openpty.3
-man2html: unable to open or read file man3/drand48_r.3
-man2html: unable to open or read file man3/getmntent.3
-man2html: unable to open or read file man3/setenv.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/backtrace.3
-man2html: unable to open or read file man3/pthread_attr_setdetachstate.3
-man2html: unable to open or read file man3/ctime.3
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/scanf.3
-man2html: unable to open or read file man3/list.3
-man2html: unable to open or read file man3/pthread_setcancelstate.3
-man2html: unable to open or read file man3/getifaddrs.3
-man2html: unable to open or read file man3/gethostbyname.3
-man2html: unable to open or read file man3/getusershell.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/fseek.3
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/acos.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/ttyname.3
-man2html: unable to open or read file man3/stdio_ext.3
-man2html: unable to open or read file man3/remainder.3
-man2html: unable to open or read file man3/mkstemp.3
-man2html: unable to open or read file man3/pthread_setaffinity_np.3
-man2html: unable to open or read file man3/fma.3
-man2html: unable to open or read file man3/cmsg.3
-man2html: unable to open or read file man3/remainder.3
-man2html: unable to open or read file man3/openpty.3
-man2html: unable to open or read file man3/encrypt.3
-man2html: unable to open or read file man3/makedev.3
-man2html: unable to open or read file man3/exec.3
-man2html: unable to open or read file man3/gethostbyname.3
-man2html: unable to open or read file man3/cexp.3
-man2html: unable to open or read file man3/lround.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/strerror.3
-man2html: unable to open or read file man3/dladdr.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/getrpcent_r.3
-man2html: unable to open or read file man3/xcrypt.3
-man2html: unable to open or read file man3/program_invocation_name.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/strerror.3
-man2html: unable to open or read file man3/tzset.3
-man2html: unable to open or read file man3/list.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/malloc_hook.3
-man2html: unable to open or read file man3/sem_wait.3
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/isgreater.3
-man2html: unable to open or read file man3/getspnam.3
-man2html: unable to open or read file man3/dbopen.3
-man2html: unable to open or read file man3/log1p.3
-man2html: unable to open or read file man3/getlogin.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/getfsent.3
-man2html: unable to open or read file man3/getutent.3
-man2html: unable to open or read file man3/lsearch.3
-man2html: unable to open or read file man3/puts.3
-man2html: unable to open or read file man3/asprintf.3
-man2html: unable to open or read file man3/err.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/endian.3
-man2html: unable to open or read file man3/envz_add.3
-man2html: unable to open or read file man3/getutent.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/timeradd.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/getgrnam.3
-man2html: unable to open or read file man3/csin.3
-man2html: unable to open or read file man3/getspnam.3
-man2html: unable to open or read file man3/remquo.3
-man2html: unable to open or read file man3/stailq.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/key_setsecret.3
-man2html: unable to open or read file man3/strtod.3
-man2html: unable to open or read file man3/getprotoent.3
-man2html: unable to open or read file man3/shm_open.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/slist.3
-man2html: unable to open or read file man3/stdarg.3
-man2html: unable to open or read file man3/pthread_mutexattr_setrobust.3
-man2html: unable to open or read file man3/getlogin.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/getutent.3
-man2html: unable to open or read file man3/lround.3
-man2html: unable to open or read file man3/updwtmp.3
-man2html: unable to open or read file man3/getutent.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/timegm.3
-man2html: unable to open or read file man3/getopt.3
-man2html: unable to open or read file man3/cmsg.3
-man2html: unable to open or read file man3/fgetwc.3
-man2html: unable to open or read file man3/sem_wait.3
-man2html: unable to open or read file man3/div.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/popen.3
-man2html: unable to open or read file man3/getspnam.3
-man2html: unable to open or read file man3/isgreater.3
-man2html: unable to open or read file man3/nextup.3
-man2html: unable to open or read file man3/ether_aton.3
-man2html: unable to open or read file man3/stailq.3
-man2html: unable to open or read file man3/getpwent_r.3
-man2html: unable to open or read file man3/__ppc_yield.3
-man2html: unable to open or read file man3/endian.3
-man2html: unable to open or read file man3/tanh.3
-man2html: unable to open or read file man3/__ppc_set_ppr_med.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/sigvec.3
-man2html: unable to open or read file man3/rint.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/getipnodebyname.3
-man2html: unable to open or read file man3/random.3
-man2html: unable to open or read file man3/resolver.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/getgrnam.3
-man2html: unable to open or read file man3/__ppc_get_timebase.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/flockfile.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/envz_add.3
-man2html: unable to open or read file man3/getutent.3
-man2html: unable to open or read file man3/sigsetops.3
-man2html: unable to open or read file man3/getrpcent.3
-man2html: unable to open or read file man3/setnetgrent.3
-man2html: unable to open or read file man3/getprotoent_r.3
-man2html: unable to open or read file man3/stailq.3
-man2html: unable to open or read file man3/strtoul.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/getpwnam.3
-man2html: unable to open or read file man3/mq_receive.3
-man2html: unable to open or read file man3/scalbln.3
-man2html: unable to open or read file man3/termios.3
-man2html: unable to open or read file man3/getttyent.3
-man2html: unable to open or read file man3/makedev.3
-man2html: unable to open or read file man3/resolver.3
-man2html: unable to open or read file man3/fputwc.3
-man2html: unable to open or read file man3/rcmd.3
-man2html: unable to open or read file man3/j0.3
-man2html: unable to open or read file man3/fpclassify.3
-man2html: unable to open or read file man3/sinh.3
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/encrypt.3
-man2html: unable to open or read file man3/drand48.3
-man2html: unable to open or read file man3/getprotoent.3
-man2html: unable to open or read file man3/tcgetpgrp.3
-man2html: unable to open or read file man3/scalbln.3
-man2html: unable to open or read file man3/cabs.3
-man2html: unable to open or read file man3/ether_aton.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/log.3
-man2html: unable to open or read file man3/carg.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/casin.3
-man2html: unable to open or read file man3/slist.3
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/resolver.3
-man2html: unable to open or read file man3/memchr.3
-man2html: unable to open or read file man3/nextup.3
-man2html: unable to open or read file man3/ctan.3
-man2html: unable to open or read file man3/stdio_ext.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/inet.3
-man2html: unable to open or read file man3/cbrt.3
-man2html: unable to open or read file man3/strfmon.3
-man2html: unable to open or read file man3/error.3
-man2html: unable to open or read file man3/stdarg.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/key_setsecret.3
-man2html: unable to open or read file man3/endian.3
-man2html: unable to open or read file man3/nl_langinfo.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/index.3
-man2html: unable to open or read file man3/resolver.3
-man2html: unable to open or read file man3/fenv.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/getpwnam.3
-man2html: unable to open or read file man3/rint.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/getspnam.3
-man2html: unable to open or read file man3/wprintf.3
-man2html: unable to open or read file man3/ferror.3
-man2html: unable to open or read file man3/ctime.3
-man2html: unable to open or read file man3/nextup.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/pthread_setname_np.3
-man2html: unable to open or read file man3/getaddrinfo_a.3
-man2html: unable to open or read file man3/end.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/fenv.3
-man2html: unable to open or read file man3/abs.3
-man2html: unable to open or read file man3/tsearch.3
-man2html: unable to open or read file man3/nextup.3
-man2html: unable to open or read file man3/sigsetops.3
-man2html: unable to open or read file man3/get_phys_pages.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/envz_add.3
-man2html: unable to open or read file man3/random_r.3
-man2html: unable to open or read file man3/getttyent.3
-man2html: unable to open or read file man3/getopt.3
-man2html: unable to open or read file man3/getfsent.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/getaddrinfo.3
-man2html: unable to open or read file man3/ctan.3
-man2html: unable to open or read file man3/backtrace.3
-man2html: unable to open or read file man3/remquo.3
-man2html: unable to open or read file man3/strdup.3
-man2html: unable to open or read file man3/getspnam.3
-man2html: unable to open or read file man3/ccos.3
-man2html: unable to open or read file man3/wordexp.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/envz_add.3
-man2html: unable to open or read file man3/exp2.3
-man2html: unable to open or read file man3/drand48.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/posix_spawn.3
-man2html: unable to open or read file man3/ccos.3
-man2html: unable to open or read file man3/bswap.3
-man2html: unable to open or read file man3/tmpnam.3
-man2html: unable to open or read file man3/malloc.3
-man2html: unable to open or read file man3/resolver.3
-man2html: unable to open or read file man3/ctime.3
-man2html: unable to open or read file man3/random.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/getservent.3
-man2html: unable to open or read file man2/mmap.2
-man2html: unable to open or read file man3/byteorder.3
-man2html: unable to open or read file man3/resolver.3
-man2html: unable to open or read file man3/stdin.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/strspn.3
-man2html: unable to open or read file man3/sincos.3
-man2html: unable to open or read file man3/err.3
-man2html: unable to open or read file man3/log1p.3
-man2html: unable to open or read file man3/malloc_hook.3
-man2html: unable to open or read file man3/cos.3
-man2html: unable to open or read file man3/inet.3
-man2html: unable to open or read file man3/fenv.3
-man2html: unable to open or read file man3/printf.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/fseek.3
-man2html: unable to open or read file man3/sigsetops.3
-man2html: unable to open or read file man3/getrpcent.3
-man2html: unable to open or read file man3/cos.3
-man2html: unable to open or read file man3/log2.3
-man2html: unable to open or read file man3/atan.3
-man2html: unable to open or read file man3/tsearch.3
-man2html: unable to open or read file man3/exp2.3
-man2html: unable to open or read file man3/dprintf.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/stdio_ext.3
-man2html: unable to open or read file man3/strfromd.3
-man2html: unable to open or read file man3/floor.3
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/strdup.3
-man2html: unable to open or read file man3/err.3
-man2html: unable to open or read file man3/strchr.3
-man2html: unable to open or read file man3/sigsetops.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/stailq.3
-man2html: unable to open or read file man3/dlopen.3
-man2html: unable to open or read file man3/nextafter.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/stailq.3
-man2html: unable to open or read file man3/pow10.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/acosh.3
-man2html: unable to open or read file man3/getusershell.3
-man2html: unable to open or read file man3/toupper.3
-man2html: unable to open or read file man3/ctime.3
-man2html: unable to open or read file man3/stdarg.3
-man2html: unable to open or read file man3/drand48.3
-man2html: unable to open or read file man3/error.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/abs.3
-man2html: unable to open or read file man3/des_crypt.3
-man2html: unable to open or read file man3/div.3
-man2html: unable to open or read file man3/strstr.3
-man2html: unable to open or read file man3/getprotoent.3
-man2html: unable to open or read file man3/remainder.3
-man2html: unable to open or read file man3/ctime.3
-man2html: unable to open or read file man3/getrpcent.3
-man2html: unable to open or read file man3/getutent.3
-man2html: unable to open or read file man2/sigaltstack.2
-man2html: unable to open or read file man3/getrpcent.3
-man2html: unable to open or read file man3/csin.3
-man2html: unable to open or read file man3/atan.3
-man2html: unable to open or read file man3/strtod.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/getspnam.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/stdio_ext.3
-man2html: unable to open or read file man3/significand.3
-man2html: unable to open or read file man3/tan.3
-man2html: unable to open or read file man3/getpwent.3
-man2html: unable to open or read file man3/fenv.3
-man2html: unable to open or read file man3/clog2.3
-man2html: unable to open or read file man3/basename.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/getmntent.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/finite.3
-man2html: unable to open or read file man3/clog10.3
-man2html: unable to open or read file man3/cacos.3
-man2html: unable to open or read file man3/gethostbyname.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/y0.3
-man2html: unable to open or read file man3/csqrt.3
-man2html: unable to open or read file man3/lrint.3
-man2html: unable to open or read file man3/rcmd.3
-man2html: unable to open or read file man3/error.3
-man2html: unable to open or read file man3/setaliasent.3
-man2html: unable to open or read file man3/__ppc_set_ppr_med.3
-man2html: unable to open or read file man3/INFINITY.3
-man2html: unable to open or read file man3/getaddrinfo_a.3
-man2html: unable to open or read file man3/pow10.3
-man2html: unable to open or read file man3/newlocale.3
-man2html: unable to open or read file man2/syslog.2
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/trunc.3
-man2html: unable to open or read file man3/malloc_hook.3
-man2html: unable to open or read file man3/ptsname.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/cexp.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/toupper.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/lgamma.3
-man2html: unable to open or read file man3/sigvec.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/argz_add.3
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/pthread_setconcurrency.3
-man2html: unable to open or read file man3/getttyent.3
-man2html: unable to open or read file man3/list.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/getservent_r.3
-man2html: unable to open or read file man3/endian.3
-man2html: unable to open or read file man3/gethostbyname.3
-man2html: unable to open or read file man3/cimag.3
-man2html: unable to open or read file man3/atoi.3
-man2html: unable to open or read file man3/scandir.3
-man2html: unable to open or read file man3/y0.3
-man2html: unable to open or read file man3/malloc.3
-man2html: unable to open or read file man3/significand.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/cmsg.3
-man2html: unable to open or read file man3/tzset.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/a64l.3
-man2html: unable to open or read file man3/pthread_setschedparam.3
-man2html: unable to open or read file man3/slist.3
-man2html: unable to open or read file man3/getdate.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/strtol.3
-man2html: unable to open or read file man3/rcmd.3
-man2html: unable to open or read file man3/scandir.3
-man2html: unable to open or read file man3/scalbln.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/getpwent.3
-man2html: unable to open or read file man3/futimes.3
-man2html: unable to open or read file man3/malloc.3
-man2html: unable to open or read file man3/fopen.3
-man2html: unable to open or read file man3/pthread_attr_setscope.3
-man2html: unable to open or read file man3/getutent.3
-man2html: unable to open or read file man3/stdin.3
-man2html: unable to open or read file man3/fenv.3
-man2html: unable to open or read file man3/drand48.3
-man2html: unable to open or read file man3/slist.3
-man2html: unable to open or read file man3/lrint.3
-man2html: unable to open or read file man3/termios.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/getcontext.3
-man2html: unable to open or read file man3/getline.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/fseek.3
-man2html: unable to open or read file man3/random.3
-man2html: unable to open or read file man3/wprintf.3
-man2html: unable to open or read file man3/envz_add.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/fenv.3
-man2html: unable to open or read file man3/y0.3
-man2html: unable to open or read file man3/cacosh.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/random_r.3
-man2html: unable to open or read file man3/cmsg.3
-man2html: unable to open or read file man3/gethostbyname.3
-man2html: unable to open or read file man3/makedev.3
-man2html: unable to open or read file man3/dlsym.3
-man2html: unable to open or read file man3/stdarg.3
-man2html: unable to open or read file man3/error.3
-man2html: unable to open or read file man3/getnetent.3
-man2html: unable to open or read file man3/strcmp.3
-man2html: unable to open or read file man3/pthread_getattr_default_np.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/lround.3
-man2html: unable to open or read file man3/lgamma.3
-man2html: unable to open or read file man3/fenv.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/cpow.3
-man2html: unable to open or read file man3/drand48.3
-man2html: unable to open or read file man3/scalbln.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/cimag.3
-man2html: unable to open or read file man3/getspnam.3
-man2html: unable to open or read file man3/ferror.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/termios.3
-man2html: unable to open or read file man3/slist.3
-man2html: unable to open or read file man3/strcasecmp.3
-man2html: unable to open or read file man3/getgrent.3
-man2html: unable to open or read file man3/makedev.3
-man2html: unable to open or read file man3/mq_getattr.3
-man2html: unable to open or read file man3/lgamma.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/pthread_attr_setinheritsched.3
-man2html: unable to open or read file man3/fpclassify.3
-man2html: unable to open or read file man3/casinh.3
-man2html: unable to open or read file man3/cmsg.3
-man2html: unable to open or read file man3/des_crypt.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/rand.3
-man2html: unable to open or read file man3/gsignal.3
-man2html: unable to open or read file man3/argz_add.3
-man2html: unable to open or read file man3/setjmp.3
-man2html: unable to open or read file man3/re_comp.3
-man2html: unable to open or read file man3/posix_memalign.3
-man2html: unable to open or read file man3/fgetc.3
-man2html: unable to open or read file man3/resolver.3
-man2html: unable to open or read file man3/clog.3
-man2html: unable to open or read file man3/mcheck.3
-man2html: unable to open or read file man3/ffs.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/setjmp.3
-man2html: unable to open or read file man3/exec.3
-man2html: unable to open or read file man3/qecvt.3
-man2html: unable to open or read file man3/div.3
-man2html: unable to open or read file man3/strtoimax.3
-man2html: unable to open or read file man3/stdio_ext.3
-man2html: unable to open or read file man3/cmsg.3
-man2html: unable to open or read file man3/remainder.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/drand48_r.3
-man2html: unable to open or read file man3/exp10.3
-man2html: unable to open or read file man3/strerror.3
-man2html: unable to open or read file man3/getopt.3
-man2html: unable to open or read file man3/setbuf.3
-man2html: unable to open or read file man3/nextafter.3
-man2html: unable to open or read file man3/towlower.3
-man2html: unable to open or read file man3/qecvt.3
-man2html: unable to open or read file man3/gethostbyname.3
-man2html: unable to open or read file man3/getservent.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/timeradd.3
-man2html: unable to open or read file man3/log.3
-man2html: unable to open or read file man3/nan.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/getnetent_r.3
-man2html: unable to open or read file man3/syslog.3
-man2html: unable to open or read file man3/syslog.3
-man2html: unable to open or read file man3/sigset.3
-man2html: unable to open or read file man3/slist.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/strdup.3
-man2html: unable to open or read file man3/bzero.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/j0.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/slist.3
-man2html: unable to open or read file man3/getprotoent.3
-man2html: unable to open or read file man3/ilogb.3
-man2html: unable to open or read file man3/clog.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man2/getrusage.2
-man2html: unable to open or read file man3/getservent.3
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/termios.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/malloc_hook.3
-man2html: unable to open or read file man3/getfsent.3
-man2html: unable to open or read file man3/lrint.3
-man2html: unable to open or read file man3/byteorder.3
-man2html: unable to open or read file man3/cacosh.3
-man2html: unable to open or read file man3/INFINITY.3
-man2html: unable to open or read file man3/isgreater.3
-man2html: unable to open or read file man3/sincos.3
-man2html: unable to open or read file man3/posix_memalign.3
-man2html: unable to open or read file man3/ftw.3
-man2html: unable to open or read file man3/xcrypt.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/drand48_r.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/endian.3
-man2html: unable to open or read file man3/catan.3
-man2html: unable to open or read file man3/fts.3
-man2html: unable to open or read file man3/exec.3
-man2html: unable to open or read file man3/pthread_mutexattr_getpshared.3
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/drand48.3
-man2html: unable to open or read file man3/getprotoent_r.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/gethostid.3
-man2html: unable to open or read file man3/wprintf.3
-man2html: unable to open or read file man3/cexp2.3
-man2html: unable to open or read file man3/round.3
-man2html: unable to open or read file man3/malloc_hook.3
-man2html: unable to open or read file man3/catopen.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/regex.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/mkfifo.3
-man2html: unable to open or read file man3/pthread_attr_init.3
-man2html: unable to open or read file man3/lrint.3
-man2html: unable to open or read file man3/fseek.3
-man2html: unable to open or read file man3/endian.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/strcat.3
-man2html: unable to open or read file man3/inet.3
-man2html: unable to open or read file man3/getspnam.3
-man2html: unable to open or read file man3/fmin.3
-man2html: unable to open or read file man3/cacos.3
-man2html: unable to open or read file man3/fgetc.3
-man2html: unable to open or read file man3/pow.3
-man2html: unable to open or read file man3/fopen.3
-man2html: unable to open or read file man3/ntp_gettime.3
-man2html: unable to open or read file man3/byteorder.3
-man2html: unable to open or read file man3/fdim.3
-man2html: unable to open or read file man3/setaliasent.3
-man2html: unable to open or read file man3/mkstemp.3
-man2html: unable to open or read file man3/pthread_attr_setschedparam.3
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/puts.3
-man2html: unable to open or read file man3/exec.3
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/lgamma.3
-man2html: unable to open or read file man3/err.3
-man2html: unable to open or read file man3/setbuf.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/logb.3
-man2html: unable to open or read file man3/gethostbyname.3
-man2html: unable to open or read file man3/resolver.3
-man2html: unable to open or read file man3/gethostbyname.3
-man2html: unable to open or read file man2/select.2
-man2html: unable to open or read file man3/getopt.3
-man2html: unable to open or read file man3/pthread_mutexattr_setrobust.3
-man2html: unable to open or read file man3/ceil.3
-man2html: unable to open or read file man3/erf.3
-man2html: unable to open or read file man2/eventfd.2
-man2html: unable to open or read file man3/atoi.3
-man2html: unable to open or read file man3/mkstemp.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/hsearch.3
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/tgamma.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/getgrent_r.3
-man2html: unable to open or read file man3/getenv.3
-man2html: unable to open or read file man3/regex.3
-man2html: unable to open or read file man3/getgrnam.3
-man2html: unable to open or read file man3/setnetgrent.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/asinh.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/psignal.3
-man2html: unable to open or read file man3/scanf.3
-man2html: unable to open or read file man3/ccosh.3
-man2html: unable to open or read file man3/catanh.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/strchr.3
-man2html: unable to open or read file man3/list.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/pthread_attr_setstacksize.3
-man2html: unable to open or read file man3/scanf.3
-man2html: unable to open or read file man3/exec.3
-man2html: unable to open or read file man3/argz_add.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/argz_add.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/euidaccess.3
-man2html: unable to open or read file man3/erfc.3
-man2html: unable to open or read file man3/mcheck.3
-man2html: unable to open or read file man3/hsearch.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/tanh.3
-man2html: unable to open or read file man3/acosh.3
-man2html: unable to open or read file man3/des_crypt.3
-man2html: unable to open or read file man3/key_setsecret.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/cproj.3
-man2html: unable to open or read file man3/tan.3
-man2html: unable to open or read file man3/inet.3
-man2html: unable to open or read file man3/getcwd.3
-man2html: unable to open or read file man3/ctanh.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/scalb.3
-man2html: unable to open or read file man3/envz_add.3
-man2html: unable to open or read file man3/drand48.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/INFINITY.3
-man2html: unable to open or read file man3/wcstoimax.3
-man2html: unable to open or read file man3/j0.3
-man2html: unable to open or read file man3/lgamma.3
-man2html: unable to open or read file man3/des_crypt.3
-man2html: unable to open or read file man3/remainder.3
-man2html: unable to open or read file man3/if_nameindex.3
-man2html: unable to open or read file man3/pthread_attr_setschedpolicy.3
-man2html: unable to open or read file man3/mallinfo.3
-man2html: unable to open or read file man3/setbuf.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/pthread_cleanup_push.3
-man2html: unable to open or read file man3/copysign.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/casinh.3
-man2html: unable to open or read file man3/sigsetops.3
-man2html: unable to open or read file man3/scandir.3
-man2html: unable to open or read file man3/y0.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/resolver.3
-man2html: unable to open or read file man3/pthread_attr_setstackaddr.3
-man2html: unable to open or read file man3/getspnam.3
-man2html: unable to open or read file man3/cpow.3
-man2html: unable to open or read file man3/ctanh.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/sigsetops.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/strsignal.3
-man2html: unable to open or read file man3/modf.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/printf.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/makedev.3
-man2html: unable to open or read file man3/creal.3
-man2html: unable to open or read file man3/finite.3
-man2html: unable to open or read file man3/fmax.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/statvfs.3
-man2html: unable to open or read file man3/__ppc_yield.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/posix_memalign.3
-man2html: unable to open or read file man3/strsignal.3
-man2html: unable to open or read file man3/mtrace.3
-man2html: unable to open or read file man3/pthread_spin_init.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/list.3
-man2html: unable to open or read file man3/termios.3
-man2html: unable to open or read file man3/floor.3
-man2html: unable to open or read file man3/j0.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/termios.3
-man2html: unable to open or read file man3/getutent.3
-man2html: unable to open or read file man3/getaddrinfo.3
-man2html: unable to open or read file man3/resolver.3
-man2html: unable to open or read file man3/mempcpy.3
-man2html: unable to open or read file man3/fread.3
-man2html: unable to open or read file man3/inet_net_pton.3
-man2html: unable to open or read file man3/log10.3
-man2html: unable to open or read file man3/gamma.3
-man2html: unable to open or read file man3/strcpy.3
-man2html: unable to open or read file man3/perror.3
-man2html: unable to open or read file man3/ctime.3
-man2html: unable to open or read file man3/lround.3
-man2html: unable to open or read file man3/timeradd.3
-man2html: unable to open or read file man3/getmntent.3
-man2html: unable to open or read file man3/fmod.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/ether_aton.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/fgetc.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/catanh.3
-man2html: unable to open or read file man3/frexp.3
-man2html: unable to open or read file man3/pthread_spin_lock.3
-man2html: unable to open or read file man3/isgreater.3
-man2html: unable to open or read file man3/byteorder.3
-man2html: unable to open or read file man3/cabs.3
-man2html: unable to open or read file man3/slist.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/getrpcent_r.3
-man2html: unable to open or read file man3/tgamma.3
-man2html: unable to open or read file man3/gethostbyname.3
-man2html: unable to open or read file man7/queue.7
-man2html: unable to open or read file man3/csqrt.3
-man2html: unable to open or read file man3/pthread_rwlockattr_setkind_np.3
-man2html: unable to open or read file man3/ecvt_r.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/exp.3
-man2html: unable to open or read file man3/hsearch.3
-man2html: unable to open or read file man3/getutent.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/fts.3
-man2html: unable to open or read file man3/fenv.3
-man2html: unable to open or read file man3/cosh.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/gethostbyname.3
-man2html: unable to open or read file man3/gnu_get_libc_version.3
-man2html: unable to open or read file man3/getopt.3
-man2html: unable to open or read file man3/endian.3
-man2html: unable to open or read file man3/stdio_ext.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man2/getrlimit.2
-man2html: unable to open or read file man3/fenv.3
-man2html: unable to open or read file man3/stailq.3
-man2html: unable to open or read file man3/rint.3
-man2html: unable to open or read file man3/getaddrinfo_a.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/nextafter.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/syslog.3
-man2html: unable to open or read file man3/rcmd.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/getutent.3
-man2html: unable to open or read file man3/y0.3
-man2html: unable to open or read file man3/argz_add.3
-man2html: unable to open or read file man3/y0.3
-man2html: unable to open or read file man3/trunc.3
-man2html: unable to open or read file man3/getnetent.3
-man2html: unable to open or read file man3/stailq.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/atanh.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/stailq.3
-man2html: unable to open or read file man3/fseeko.3
-man2html: unable to open or read file man3/pthread_attr_setstack.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/perror.3
-man2html: unable to open or read file man3/getutent.3
-man2html: unable to open or read file man3/flockfile.3
-man2html: unable to open or read file man3/rand.3
-man2html: unable to open or read file man3/inet.3
-man2html: unable to open or read file man3/getw.3
-man2html: unable to open or read file man3/argz_add.3
-man2html: unable to open or read file man3/getmntent.3
-man2html: unable to open or read file man3/getdate.3
-man2html: unable to open or read file man3/__ppc_set_ppr_med.3
-man2html: unable to open or read file man3/dlopen.3
-man2html: unable to open or read file man3/xcrypt.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/expm1.3
-man2html: unable to open or read file man3/toupper.3
-man2html: unable to open or read file man3/fts.3
-man2html: unable to open or read file man3/strtol.3
-man2html: unable to open or read file man3/printf.3
-man2html: unable to open or read file man3/rcmd.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/puts.3
-man2html: unable to open or read file man3/cexp2.3
-man2html: unable to open or read file man3/ctime.3
-man2html: unable to open or read file man3/endian.3
-man2html: unable to open or read file man3/strsignal.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/strtoul.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/pthread_attr_setsigmask_np.3
-man2html: unable to open or read file man3/argz_add.3
-man2html: unable to open or read file man3/finite.3
-man2html: unable to open or read file man3/clog2.3
-man2html: unable to open or read file man3/getservent_r.3
-man2html: unable to open or read file man2/select.2
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/hsearch.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/encrypt.3
-man2html: unable to open or read file man2/utimensat.2
-man2html: unable to open or read file man3/slist.3
-man2html: unable to open or read file man3/rint.3
-man2html: unable to open or read file man3/getipnodebyname.3
-man2html: unable to open or read file man3/fabs.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/lgamma.3
-man2html: unable to open or read file man3/argz_add.3
-man2html: unable to open or read file man3/ecvt.3
-man2html: unable to open or read file man3/asin.3
-man2html: unable to open or read file man2/select.2
-man2html: unable to open or read file man3/abs.3
-man2html: unable to open or read file man3/ceil.3
-man2html: unable to open or read file man3/y0.3
-man2html: unable to open or read file man3/fenv.3
-man2html: unable to open or read file man3/mcheck.3
-man2html: unable to open or read file man3/opendir.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/atanh.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/qsort.3
-man2html: unable to open or read file man3/drand48_r.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/random_r.3
-man2html: unable to open or read file man3/argz_add.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/endian.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/stailq.3
-man2html: unable to open or read file man3/bswap.3
-man2html: unable to open or read file man3/getutmp.3
-man2html: unable to open or read file man3/list.3
-man2html: unable to open or read file man3/argz_add.3
-man2html: unable to open or read file man3/malloc_get_state.3
-man2html: unable to open or read file man3/atan2.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/pthread_mutex_consistent.3
-man2html: unable to open or read file man3/hsearch.3
-man2html: unable to open or read file man3/drand48_r.3
-man2html: unable to open or read file man3/scalb.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/j0.3
-man2html: unable to open or read file man3/getopt.3
-man2html: unable to open or read file man3/catan.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/inet_addr.3
-man2html: unable to open or read file man3/drand48_r.3
-man2html: unable to open or read file man3/wprintf.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/j0.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/sin.3
-man2html: unable to open or read file man3/sinh.3
-man2html: unable to open or read file man3/setaliasent.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/finite.3
-man2html: unable to open or read file man3/fdim.3
-man2html: unable to open or read file man3/bswap.3
-man2html: unable to open or read file man3/pthread_tryjoin_np.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/sigsetops.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/termios.3
-man2html: unable to open or read file man3/drand48_r.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/stailq.3
-man2html: unable to open or read file man3/stdio_ext.3
-man2html: unable to open or read file man3/sigset.3
-man2html: unable to open or read file man3/copysign.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/carg.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/crypt.3
-man2html: unable to open or read file man3/fpclassify.3
-man2html: unable to open or read file man3/getutent.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/argz_add.3
-man2html: unable to open or read file man3/argz_add.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/gamma.3
-man2html: unable to open or read file man3/setnetgrent.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/j0.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/fenv.3
-man2html: unable to open or read file man3/endian.3
-man2html: unable to open or read file man3/finite.3
-man2html: unable to open or read file man3/rexec.3
-man2html: unable to open or read file man3/log2.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/fpathconf.3
-man2html: unable to open or read file man3/termios.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/erfc.3
-man2html: unable to open or read file man3/ffs.3
-man2html: unable to open or read file man3/termios.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/asin.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/strerror.3
-man2html: unable to open or read file man3/stdio_ext.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/lrint.3
-man2html: unable to open or read file man3/nextup.3
-man2html: unable to open or read file man3/tailq.3
-man2html: unable to open or read file man3/regex.3
-man2html: unable to open or read file man3/fmod.3
-man2html: unable to open or read file man3/setaliasent.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/getcwd.3
-man2html: unable to open or read file man3/pthread_attr_setguardsize.3
-man2html: unable to open or read file man3/regex.3
-man2html: unable to open or read file man3/fts.3
-man2html: unable to open or read file man3/rcmd.3
-man2html: unable to open or read file man3/resolver.3
-man2html: unable to open or read file man3/atan2.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/nextafter.3
-man2html: unable to open or read file man3/list.3
-man2html: unable to open or read file man3/sigsetops.3
-man2html: unable to open or read file man3/open_memstream.3
-man2html: unable to open or read file man3/puts.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/rint.3
-man2html: unable to open or read file man3/endian.3
-man2html: unable to open or read file man3/fts.3
-man2html: unable to open or read file man3/ether_aton.3
-man2html: unable to open or read file man3/logb.3
-man2html: unable to open or read file man3/getservent.3
-man2html: unable to open or read file man3/sin.3
-man2html: unable to open or read file man3/getspnam.3
-man2html: unable to open or read file man3/termios.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/resolver.3
-man2html: unable to open or read file man3/setjmp.3
-man2html: unable to open or read file man3/getutent.3
-man2html: unable to open or read file man3/makecontext.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/nan.3
-man2html: unable to open or read file man3/printf.3
-man2html: unable to open or read file man3/printf.3
-man2html: unable to open or read file man3/ilogb.3
-man2html: unable to open or read file man3/resolver.3
-man2html: unable to open or read file man3/slist.3
-man2html: unable to open or read file man3/j0.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/drand48_r.3
-man2html: unable to open or read file man3/slist.3
-man2html: unable to open or read file man3/getutent.3
-man2html: unable to open or read file man3/atoi.3
-man2html: unable to open or read file man3/rcmd.3
-man2html: unable to open or read file man3/err.3
-man2html: unable to open or read file man3/fabs.3
-man2html: unable to open or read file man3/pthread_mutexattr_setrobust.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/slist.3
-man2html: unable to open or read file man3/modf.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/login.3
-man2html: unable to open or read file man3/wprintf.3
-man2html: unable to open or read file man3/fgetc.3
-man2html: unable to open or read file man3/malloc_hook.3
-man2html: unable to open or read file man2/eventfd.2
-man2html: unable to open or read file man3/cbrt.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/asinh.3
-man2html: unable to open or read file man3/err.3
-man2html: unable to open or read file man3/sigvec.3
-man2html: unable to open or read file man3/scalbln.3
-man2html: unable to open or read file man3/fma.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/ecvt_r.3
-man2html: unable to open or read file man3/fmin.3
-man2html: unable to open or read file man3/casin.3
-man2html: unable to open or read file man3/conj.3
-man2html: unable to open or read file man3/getspnam.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/drand48.3
-man2html: unable to open or read file man3/getnetent_r.3
-man2html: unable to open or read file man3/list.3
-man2html: unable to open or read file man3/isgreater.3
-man2html: unable to open or read file man3/ether_aton.3
-man2html: unable to open or read file man3/glob.3
-man2html: unable to open or read file man3/round.3
-man2html: unable to open or read file man3/get_nprocs_conf.3
-man2html: unable to open or read file man3/__ppc_set_ppr_med.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/getpwnam.3
-man2html: unable to open or read file man3/lround.3
-man2html: unable to open or read file man3/circleq.3
-man2html: unable to open or read file man3/nextafter.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/log10.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man3/getmntent.3
-man2html: unable to open or read file man3/scanf.3
-man2html: unable to open or read file man3/pthread_mutexattr_init.3
-man2html: unable to open or read file man3/finite.3
-man2html: unable to open or read file man3/insque.3
-man2html: unable to open or read file man3/list.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man3/list.3
-man2html: unable to open or read file man3/creal.3
-man2html: unable to open or read file man3/tsearch.3
-man2html: unable to open or read file man3/isalpha.3
-man2html: unable to open or read file man3/mq_send.3
-man2html: unable to open or read file man3/tsearch.3
-man2html: unable to open or read file man2/select.2
-man2html: unable to open or read file man3/csinh.3
-man2html: unable to open or read file man3/xdr.3
-man2html: unable to open or read file man3/fpurge.3
-man2html: unable to open or read file man3/ctime.3
-man2html: unable to open or read file man3/y0.3
-man2html: unable to open or read file man3/rpc.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/sigset.3
-man2html: unable to open or read file man3/list.3
-man2html: unable to open or read file man3/memchr.3
-man2html: unable to open or read file man3/err.3
-man2html: unable to open or read file man3/CPU_SET.3
-man2html: unable to open or read file man3/unlocked_stdio.3
-man2html: unable to open or read file man7/system_data_types.7
-man2html: unable to open or read file man3/setaliasent.3
-man2html: unable to open or read file man4/mem.4
-man2html: unable to open or read file man4/random.4
-man2html: unable to open or read file man2/ioctl_console.2
-man2html: unable to open or read file man4/vcs.4
-man2html: unable to open or read file man2/ioctl_tty.2
-man2html: unable to open or read file man4/mem.4
-man2html: unable to open or read file man4/loop.4
-man2html: unable to open or read file man4/null.4
-man2html: unable to open or read file man4/pts.4
-man2html: unable to open or read file man5/utmp.5
-man2html: unable to open or read file man5/proc.5
-man2html: unable to open or read file man5/resolv.conf.5
-man2html: unable to open or read file man5/filesystems.5
-man2html: unable to open or read file man5/utmp.5
-man2html: Unknown operator .
-man2html: Unknown operator .
-man2html: Unknown operator .
-man2html: Unknown operator .
-man2html: Unknown operator .
-man2html: Unknown operator .
-man2html: Unknown operator .
-man2html: Unknown operator .
-man2html: Unknown operator .
-man2html: unable to open or read file man7/iso_8859-6.7
-man2html: unable to open or read file man7/iso_8859-10.7
-man2html: unable to open or read file man7/iso_8859-13.7
-man2html: unable to open or read file man7/iso_8859-10.7
-man2html: unable to open or read file man7/iso_8859-1.7
-man2html: unable to open or read file man7/iso_8859-16.7
-man2html: unable to open or read file man7/iso_8859-11.7
-man2html: unable to open or read file man7/iso_8859-15.7
-man2html: unable to open or read file man7/iso_8859-3.7
-man2html: unable to open or read file man7/iso_8859-8.7
-man2html: unable to open or read file man7/uri.7
-man2html: unable to open or read file man7/iso_8859-1.7
-man2html: unable to open or read file man7/iso_8859-6.7
-man2html: unable to open or read file man7/iso_8859-16.7
-man2html: unable to open or read file man7/iso_8859-14.7
-man2html: unable to open or read file man7/iso_8859-13.7
-man2html: unable to open or read file man7/iso_8859-13.7
-man2html: unable to open or read file man7/iso_8859-7.7
-man2html: unable to open or read file man7/iso_8859-10.7
-man2html: unable to open or read file man7/iso_8859-11.7
-man2html: unable to open or read file man7/iso_8859-2.7
-man2html: unable to open or read file man7/iso_8859-15.7
-man2html: unable to open or read file man7/iso_8859-5.7
-man2html: unable to open or read file man7/iso_8859-8.7
-man2html: unable to open or read file man7/iso_8859-11.7
-man2html: unable to open or read file man7/uri.7
-man2html: unable to open or read file man7/iso_8859-4.7
-man2html: unable to open or read file man7/iso_8859-16.7
-man2html: unable to open or read file man7/iso_8859-2.7
-man2html: unable to open or read file man7/iso_8859-4.7
-man2html: unable to open or read file man7/iso_8859-14.7
-man2html: unable to open or read file man7/sysvipc.7
-man2html: unable to open or read file man7/utf-8.7
-man2html: unable to open or read file man7/iso_8859-4.7
-man2html: unable to open or read file man7/iso_8859-9.7
-man2html: unable to open or read file man7/iso_8859-7.7
-man2html: unable to open or read file man7/iso_8859-15.7
-man2html: unable to open or read file man7/iso_8859-14.7
-man2html: unable to open or read file man7/iso_8859-5.7
-man2html: unable to open or read file man7/libc.7
-man2html: unable to open or read file man7/operator.7
-man2html: unable to open or read file man7/iso_8859-1.7
-man2html: unable to open or read file man7/iso_8859-3.7
-man2html: unable to open or read file man7/iso_8859-3.7
-man2html: unable to open or read file man7/iso_8859-9.7
-man2html: unable to open or read file man7/iso_8859-2.7
-man2html: unable to open or read file man7/iso_8859-9.7
-man2html: unable to open or read file man8/ld.so.8
-man2html: unable to open or read file man8/ld.so.8
-.../man-pages$ find .html/ -type f |wc -l
-2463
+> I think I'm okay with everything you say in this patch/mail, but I
+> have one concern
+[my own stuff snipped]
+> So, I understand much better now. I guess my one concern is that
+> sometimes there are tables with a lot of T{ / T} blocks.
 
+Yes.  Since you last wrote I encountered and dealt with just such a
+page, groff_ms(7), and I think it reveals how poorly understood (and
+likely, to date, how poorly documented) tbl(1) text blocks really are.
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+I was able to kill off nearly every instance of T{/T} in the groff_ms(7)
+page[1] because it simply wasn't necessary in most cases[2].
+
+There may be more esoteric uses, but from what I've seen in man pages,
+you need tbl text blocks in exactly one scenario: when you require a
+line break in a table cell.  You might not care exactly where it
+happens (use the .br request if you do), but you know you're going to
+need it.
+
+Therefore, if you know your table row is going to fit in the available
+space without breaking (78 columns in nroff mode for the Linux man pages
+project), you don't need to mess with text blocks.  You already know
+this, but for the benefit of the wider audience, a good first resort
+before reaching for text blocks is, if possible, to have one table
+column which is expected to be the widest, and give its column
+specification the "x" modifier.  This GNU tbl extension tells tbl to
+expand the table width to the full available line length and give all
+the slack space to the designated column.
+
+Here's a real-world example.
+
+=2ELP
+=2ETS
+cb    s  s  s
+cb   cb cb cb
+lfCR lx  l  lfCR.
+Margin settings
+Parameter       Definition      Effective       Default
+_
+\[rs]n[PO]      Page offset (left margin)       next page       1i
+\[rs]n[LL]      Line length     next paragraph  6i
+\[rs]n[LT]      Header/footer length    next paragraph  6i
+\[rs]n[HM]      Top (header) margin     next page       1i
+\[rs]n[FM]      Bottom (footer) margin  next page       1i
+_
+=2ETE
+
+In the above, the "Definition" column will expand to fill all available
+space on the line.  (If you're cutting and pasting, you'll need to
+sed 's/  \+/\\t/g' the rows of table data.)
+
+Admittedly, this strategy will fail if you want your document's layout
+to be _completely_ independent of the line length.  On the bright side,
+you will get warnings when rendering your document if the table grows
+too wide to fit the line length of the output device.
+
+In practice, I think the authors of most practical documents have a
+minimum line length they are prepared to support.
+
+> What you are saying is that I'd need to add .na and/or .nh in each
+> such block. That's kind of burdensome. (In practice, maybe it is not
+> as bad as I think, since a quick grep suggests that there are less 50
+> such pages.)
+
+I hope the above observation brings that count down some.  If it were
+me, I'd probably sed-automate the conversion away from text blocks[3],
+render all the altered pages, and let the pages themselves tell me when
+the lines overran.
+
+Here's an example of such a change, to clone(2), just as a specimen.
+
+diff --git a/man2/clone.2 b/man2/clone.2
+index 11eb6c622..f4af93549 100644
+--- a/man2/clone.2
++++ b/man2/clone.2
+@@ -257,9 +257,7 @@ l l l
+ li li l.
+ clone()	clone3()	Notes
+ 	\fIcl_args\fP field
+-flags & \(ti0xff	flags	T{
+-For most flags; details below
+-T}
++flags & \(ti0xff	flags	For most flags; details below
+ parent_tid	pidfd	See CLONE_PIDFD
+ child_tid	child_tid	See CLONE_CHILD_SETTID
+ parent_tid	parent_tid	See CLONE_PARENT_SETTID
+
+> What would be nice is a way of saying in the table preamble
+> that a particular column should not be hyphenated or should be
+> left adjusted. Is there a way to do that? I'm aware of the tbl(1)
+> 'm' modifier:
+>=20
+>        m,M    This  is  a  GNU tbl extension.  Either of these specifiers
+>               may be followed by a macro name (either one or two  charac=
+=E2=80=90
+>               ters  long),  or  long  name  in parentheses.  A one-letter
+>               macro name must be separated by one  or  more  blanks  from
+>               whatever  follows.   The  macro which name can be specified
+>               here must be defined before  creating  the  table.   It  is
+>               called just before the table's cell text is output.  As im=
+=E2=80=90
+>               plemented currently, this macro is only called if block in=
+=E2=80=90
+>               put  is  used,  that  is,  text between =E2=80=98T{=E2=80=
+=99 and =E2=80=98T}=E2=80=99.  The
+>               macro should contain only simple troff requests  to  change
+>               the  text  block formatting, like text adjustment, hyphena=
+=E2=80=90
+>               tion, size, or font.  The macro is called after other  cell
+>               modifications  like  b,  f or v are output.  Thus the macro
+>               can overwrite other modification specifiers.
+>=20
+> But that seems to be usable for only one macro. In other words,
+> doing something like
+>=20
+> lmnhmna
+>=20
+> to disable hyphenation and adjustment in the T{ / T} blocks in a
+> particular column of a table doesn't work. More precisely, if
+> there's a series of 'm' requests attached to a column in the
+> table preamble, it looks like only the last one is honored.
+
+You're right.  It had never occurred to me to give the "m" modifier the
+name of a _request_ for the "macro" before, but doing so is perfectly
+consistent with *roff design principles since Ossanna first wrote nroff.
+
+To answer your question, I'm not aware of a way, no--and what's worse,
+not only is "m" yet another GNU extension[4], but one remedy you suggest
+requires the definition of a page-private macro, which makes life
+difficult for maintainers of non-roff man page interpreters.
+
+The other remedy, extending the "m" modifier to build a queue of macros
+(or requests) to call when processing a text block in the corresponding
+column is an interesting idea.  It'll probably be up to me to implement
+it if it proves necessary.
+
+As a minor point, since "m" is a GNU extension already, I think if you
+used this approach, it would be more readable to use the GNU tbl
+long-name syntax for the macro name.  So instead of:
+
+lmnhmna
+
+you could:
+
+lm(nh)m(na)
+
+=2E..but again, at present, _multiple_ "m" modifier specifications will
+not work; only the last one will be honored.
+
+Regards,
+Branden
+
+[1] https://git.savannah.gnu.org/cgit/groff.git/commit/?id=3Dcd5e94235339ed=
+aa0af44f2c3b0bcf1dee1f841f
+[2] I killed off 11; 2 remain.  Even those two may not be necessary, but
+    revising that part of the page was outside the scope of the work I
+    was doing at the time.
+[3] Since this would, I think, involve using the hold space, it could be
+    a fun exercise.
+[4] As noted earlier in the thread, while "x" is a GNU extension, the
+    Heirloom Doctools troff developers considered it appealing enough to
+    document support for it, even if in the Heirloom tbl version that I
+    use for testing, that support doesn't work.
+
+--ka47obtf3jmuphrm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmAq5wAACgkQ0Z6cfXEm
+bc4cxA/9GPT49EOFaLyF86WRtiiNHWS8ap9TN4UTi1qjykDTHGiUPCFwMvqvO85z
+05dvhEyrbCCKQt49wSjtOCRsCftu7IV7HYrOBJiriF/jF1rPTaTaQ+86qmcxVT6c
+8gkKQ7YecQQWglIrt5GHeMK/qvu3yxpUZGDLjWkinlaHCz+7bB/ojSvv4Lo6DauV
+jaHe7OcgVxdz9Py80E6/n4c4azEO7ca8irq819hNcLm++kjzHutYuiv2rc2ddx+J
+gs1fihnNJT1PUOwLujn2IHqZFClq3XfuUYo7WKRhruVMImVWgVqgbOLlhvYJp7rE
+lkJUpz04/QFs22SFRPqMxp92REH1f9FIRf+qUpNZIHGaR13CLoVWv6nvzRCnAwv9
+s5hMVd0lkETMxp7zxawQPShTRhcg3UHq6f2gZkjKMSb/KN2CtVbvMVRpfBt1CZFB
+Qs4FV+Zn61vgeIuiElWc403Diuuu9UDCTOZ4swopkb5Hn2eheE9yEx9KeCt2+1/A
+Gs9ZwzinQITp10vMj1eUIwWlowMFYecZmbyVSdYiYuqu4Jj21wU3gTglbzTLOLkw
+IbSNlKbUVLSAgSSAw30RJPkLPPrkDfpZDf+85P8884xnuYnMGvOrRnO/Usd4YwIb
+fc/r8jFVA4OIB5aQDT9gjJ7NQrbje8Fr77cHPYvvzrc4Vmi/sMo=
+=9/Wy
+-----END PGP SIGNATURE-----
+
+--ka47obtf3jmuphrm--
