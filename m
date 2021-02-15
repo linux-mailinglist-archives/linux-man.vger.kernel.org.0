@@ -2,63 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6552E31C2AD
-	for <lists+linux-man@lfdr.de>; Mon, 15 Feb 2021 20:56:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id F26FD31C2B4
+	for <lists+linux-man@lfdr.de>; Mon, 15 Feb 2021 20:58:49 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229961AbhBOT4b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 15 Feb 2021 14:56:31 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39106 "EHLO
+        id S230457AbhBOT5C (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 15 Feb 2021 14:57:02 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39222 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229802AbhBOT40 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 15 Feb 2021 14:56:26 -0500
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D4142C061756
-        for <linux-man@vger.kernel.org>; Mon, 15 Feb 2021 11:55:45 -0800 (PST)
-Received: by mail-wr1-x435.google.com with SMTP id b3so10392595wrj.5
-        for <linux-man@vger.kernel.org>; Mon, 15 Feb 2021 11:55:45 -0800 (PST)
+        with ESMTP id S230216AbhBOT46 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 15 Feb 2021 14:56:58 -0500
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8D6C2C0613D6
+        for <linux-man@vger.kernel.org>; Mon, 15 Feb 2021 11:56:17 -0800 (PST)
+Received: by mail-wm1-x333.google.com with SMTP id a16so4768200wmm.0
+        for <linux-man@vger.kernel.org>; Mon, 15 Feb 2021 11:56:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=fAMdVakNuVIhUK91V6wrxlWkRVzGo4mfcu6AIeqe5Uo=;
-        b=G9RxraPefuD3DQg0p1D2sePOGvQm8o4ahrx6FKwAYIJPDCX9NiK3wBpfnlvvxOsogQ
-         4bnRcMXnXxbAAE7yXfcpWpoOryNQjejrczq3dWIdq+lAAGXrG45XTos+nBYNI3ySpCMM
-         nwFLayX59JOU6oqaEvyn2pFyxdR2AmHAOf9D+K+XYRm/J/MTdoXgOWs+/OFMrjU/SVsx
-         FPNJ9+XJMW0mwzPcTTHB0C8TfNaOgUYnL93gYtmsnJMBkMxZUkFLJSm8dr+1zpavaurn
-         26WYqGSHzgRNcsMhRJHK6zcQVg50Fp2mw9dG0nUlF0cjIFuGxAHuDQ6s4roVlN2u7HX9
-         8AGw==
+        bh=HaIUBkwntMtOmtkthfO3JHVjHKXSsQC3gydIV4P2tHM=;
+        b=qmLYPf2BdP2DjbihQzP/9owMKln5/qN16Ifd5XKZekDnmZMtICXuSeRHTV6jkJSzJj
+         c/PQot4hrwpQaOXBwIkmMPzJQg2PbgL11WcW89YX3FOLauCgUy7djp41BGzPtFByvBtU
+         D6xQalMMCSwxru9WYoumqUYbLRyHAScZ0YdBZTKXzkd+XEf41nd4FDJEKssmfySgpPOI
+         g+ndO1TIxMa7zoBMeJqxmRq4aR46+h2PE5MQtCz6M5rIN2oPqXH8U4WaqSOw8czibf+d
+         lqca6RqJ6HctB47qfukEQ8BxlAxacGhatLiuPs8YT0dE1pkK2DZp6jL4LwtwO6Ve3zq3
+         N02Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=fAMdVakNuVIhUK91V6wrxlWkRVzGo4mfcu6AIeqe5Uo=;
-        b=cUQQtnnpJTiiRxDORwhT9QGj7kikavmbVkzO/qXy50W8ghG/U0KHUowuF6TsKLZkQi
-         AagvE4A1YlG1me2v/soJ4fEC5sPH3NtoLj2A2joRKtSpOa02c4mjHTwoJc0bEo1QA/a6
-         fBoYBM1kaSVAW17SsRoYKuYCjND3yA2UY+Qwvt/JSMfHd1HyqNV5z7OEqfSf3dQGA7We
-         L1DIcei+aahPc8xKVa4q+VPKNF7wRfKpmtyP9oCLwdlUKFGAmocQZZEVd3Lk2XCLI/E3
-         FnuhftcIOAPkFGxrFTOS/y29IJWHW9rBpjvi2cEBRM9ORATJ8WZ5GUSvL3SnoH8d98ls
-         6b9g==
-X-Gm-Message-State: AOAM530f32LBCiNqELPwIOSTw3miMx5Nh+U5KMtzfHjgC6HnGgNLoFAs
-        BmKS0QJ2gu4yfxlCRpW9Znq5QSTjqhr8Iw==
-X-Google-Smtp-Source: ABdhPJzj8y7wWEBpDhp0dZsKxIk10pQliENDltUeJzGqXYsEaC7v4PtDvQlpz6ZG/2RVSrHg0MtDRA==
-X-Received: by 2002:adf:de01:: with SMTP id b1mr11215382wrm.369.1613418944324;
-        Mon, 15 Feb 2021 11:55:44 -0800 (PST)
+        bh=HaIUBkwntMtOmtkthfO3JHVjHKXSsQC3gydIV4P2tHM=;
+        b=EBYho5sf7rG4Hbf/OZwr+l7Q4Sc7NdlcEzzJbpXfKACDgfhOoe6+FAhK9fkjFSHw5m
+         QCezu+K6KOrn50ck5qiCHcAD1dVUPpfciIyUI7gdvD7Xxib5qKdSF/xV0Rdv4k0Hrm1p
+         qEV9aiL+GATewLldqirgiSiQi6Gn54izP0fHJWpXR/nr5JfHNB2CdiUL6PrsIllxCRv8
+         YRJJcZ7U4Vh6IwALI3fFfSyH4q85PqFJ84+9Wa0sdq67r+PfXj7aFhcqtmHSYiLZT3nH
+         DyOHD3TL1CHw3YFnDce3bUA/cJUBl2HWkKnK7wap5myrARAf2TYAuKIT3qIRnIZwwWJi
+         bm2A==
+X-Gm-Message-State: AOAM531zbNIIAmm8q+rhhEwy2IXd8GBf+cWjdjxLUZlPdIi2VSiOTwXA
+        f2fOXAxW8de+9B2fSxxqQi+5EEk/uC4SrQ==
+X-Google-Smtp-Source: ABdhPJwYfqeJcrorGtJNFDj1Z01B3KEamq9f5vtT/ptrufgAm3kdVFNmMXItacmuse5cPw2lXLzD0w==
+X-Received: by 2002:a05:600c:4642:: with SMTP id n2mr393109wmo.49.1613418976090;
+        Mon, 15 Feb 2021 11:56:16 -0800 (PST)
 Received: from ?IPv6:2001:a61:3a2d:1d01:e14:1e8b:dca4:7d73? ([2001:a61:3a2d:1d01:e14:1e8b:dca4:7d73])
-        by smtp.gmail.com with ESMTPSA id y6sm447108wma.10.2021.02.15.11.55.43
+        by smtp.gmail.com with ESMTPSA id a9sm22256561wrn.60.2021.02.15.11.56.15
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 15 Feb 2021 11:55:43 -0800 (PST)
+        Mon, 15 Feb 2021 11:56:15 -0800 (PST)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] setfsgid.2: tfix
+Subject: Re: [PATCH] socketcall.2: Add note about missing glibc wrapper
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20210215131522.450666-4-alx.manpages@gmail.com>
+References: <20210215131522.450666-3-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <e2560966-a299-f8f7-b008-7a73ffaf679f@gmail.com>
-Date:   Mon, 15 Feb 2021 20:55:43 +0100
+Message-ID: <8d9fa5cf-b2e8-1588-5ac0-d871decb1690@gmail.com>
+Date:   Mon, 15 Feb 2021 20:56:15 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <20210215131522.450666-4-alx.manpages@gmail.com>
+In-Reply-To: <20210215131522.450666-3-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,41 +69,47 @@ X-Mailing-List: linux-man@vger.kernel.org
 Hi Alex,
 
 On 2/15/21 2:15 PM, Alejandro Colomar wrote:
-> The type of fsgid is git_t, and not uid_t.  Fix it.
-
-Cute. That mistake has been present for about 25 years!
-
-Patch applied.
-
-Thanks,
-
-Michael
-
 > ......
 > 
-> .../glibc$ grep_glibc_prototype setfsgid
-> sysdeps/unix/sysv/linux/sys/fsuid.h:31:
-> extern int setfsgid (__gid_t __gid) __THROW;
+> .../glibc$ grep_glibc_prototype socketcall
 > .../glibc$
 > 
 > Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+
+Thanks! Patch applied.
+
+Cheers,
+
+Michael
+
 > ---
->  man2/setfsgid.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  man2/socketcall.2 | 6 ++++++
+>  1 file changed, 6 insertions(+)
 > 
-> diff --git a/man2/setfsgid.2 b/man2/setfsgid.2
-> index e2d4d09f3..3fd22f3a5 100644
-> --- a/man2/setfsgid.2
-> +++ b/man2/setfsgid.2
-> @@ -36,7 +36,7 @@ setfsgid \- set group identity used for filesystem checks
->  .nf
->  .B #include <sys/fsuid.h>
+> diff --git a/man2/socketcall.2 b/man2/socketcall.2
+> index a3012d4c7..d1803d906 100644
+> --- a/man2/socketcall.2
+> +++ b/man2/socketcall.2
+> @@ -31,6 +31,9 @@ socketcall \- socket system calls
 >  .PP
-> -.BI "int setfsgid(uid_t " fsgid );
-> +.BI "int setfsgid(gid_t " fsgid );
+>  .BI "int socketcall(int " call ", unsigned long *" args );
 >  .fi
+> +.PP
+> +.IR Note :
+> +There is no glibc wrapper for this system call; see NOTES.
 >  .SH DESCRIPTION
->  On Linux, a process has both a filesystem group ID and an effective group ID.
+>  .BR socketcall ()
+>  is a common kernel entry point for the socket system calls.
+> @@ -153,6 +156,9 @@ T}
+>  This call is specific to Linux, and should not be used in programs
+>  intended to be portable.
+>  .SH NOTES
+> +Glibc does not provide a wrapper for this system call; call it using
+> +.BR syscall (2).
+> +.PP
+>  On a some architectures\(emfor example, x86-64 and ARM\(emthere is no
+>  .BR socketcall ()
+>  system call; instead
 > 
 
 
