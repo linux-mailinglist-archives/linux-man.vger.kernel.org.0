@@ -2,301 +2,271 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AC4F431C307
-	for <lists+linux-man@lfdr.de>; Mon, 15 Feb 2021 21:33:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6629231C311
+	for <lists+linux-man@lfdr.de>; Mon, 15 Feb 2021 21:35:29 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229608AbhBOUcp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 15 Feb 2021 15:32:45 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46866 "EHLO
+        id S229469AbhBOUet (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 15 Feb 2021 15:34:49 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47318 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229796AbhBOUcl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 15 Feb 2021 15:32:41 -0500
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D0880C061756
-        for <linux-man@vger.kernel.org>; Mon, 15 Feb 2021 12:32:00 -0800 (PST)
-Received: by mail-wr1-x429.google.com with SMTP id v15so10531526wrx.4
-        for <linux-man@vger.kernel.org>; Mon, 15 Feb 2021 12:32:00 -0800 (PST)
+        with ESMTP id S229617AbhBOUeq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 15 Feb 2021 15:34:46 -0500
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 50224C061574
+        for <linux-man@vger.kernel.org>; Mon, 15 Feb 2021 12:34:06 -0800 (PST)
+Received: by mail-wm1-x32e.google.com with SMTP id h67so5679749wmh.1
+        for <linux-man@vger.kernel.org>; Mon, 15 Feb 2021 12:34:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=z1DzNld3xDeT0xMdu2koXPwqzhRDPbzb1j6g/o3wVYo=;
-        b=ISrsuyDbcUxQa8sRsONBwOGAeNj9xqvLBD7bHE6rvf2gfj5Aje0etCuHobnKKz38w1
-         oAKTs+BefkfxS0DBhZyVMcTshWY2m17rxtdy5/6poN0O1KI88oknYaxzI4U+OqvEMF9p
-         8i2YUGCDD50GpIAKoKwDwlI2lxcZkfK5YmTeXRLPmuyEMTcwltDJnxN7c4w5n4lirbrx
-         dTrrJGYTfPNIg1znfVxpFzmNHczUAkOmiFmGUzQdZYy9KyG2D57MqhnhQaFJ+AsnZgnN
-         SCdDic5W+wkQE7fUFlWfYXY0pAao0f4XYYSxn2iYudcS50zCaDo7VHdy1fc6bS08o/gi
-         sP6g==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=MZFbfiTxg+Q9QitBTGRI0g2UFYfk+G/9Htal8URD9pQ=;
+        b=fc1gLfuYsIPIghr7KJU9yDxxwUCVxCJW1imKRnXliwdLkI3gExhUSD4TVSkNLp1ApF
+         m2zecLlzToZj6M7TgGDTrDzBPDqI2GVMDrD/o4kDZDIPRRI7ODhYslTzD8ybnVe9Ld8B
+         hotxw50ZHoWtAJK2/bG1n4aOa9i//E8bbFsaTa9RTwUC1ok4IV1riqn0ZsRegdFMZ+Q5
+         gggAJJKw0tHXBPxahoNFzVhHAKrqwcp9dw9NKULZGQojXj5a8QRvFp0I6a3Uw/XlFFfb
+         o8Dp0YqWS+sSWJlMLbTpLoN/L9sNU8oTOrW4XP8nYx5EkU/bSmbLbq2Ga8u9X7tsg1CV
+         Yr8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=z1DzNld3xDeT0xMdu2koXPwqzhRDPbzb1j6g/o3wVYo=;
-        b=PL34TevJVGIpWf9wCfL0LuJIM/Xs43M3UU57PggD1YlEJVrJluxxHKWeKwLgi0jArB
-         X648xxQ8H73gGw9NaiJkPGcXbKPZbFCJIuJxgudRFeEEYCw/oIiMQBRbc9AFX8ZlP7a8
-         O+2Rgvr5TE53GvqNnpY6f5My/Nv6rwagpSZGHAZDzH7LS0i05KFbxEH1Hfj45Uq8KeEl
-         NoGovHpvzBXWmyT0aEoOHbK4THABKZEFnGdsvnekKUJkO4t7QD9k1wJ/hICqJG47I1Oz
-         ri5gA4eyM0LmucEda5KN3QAKYNflI3FsoKGrGu55qp14p5Pf79VDy67MaLQzzwhNdZ4w
-         ed/w==
-X-Gm-Message-State: AOAM530qBSjugxiEJhGRWIdf6veVh7bZFevZG9MlWQXotfHTqWj1vIvx
-        YDkJ3qUCiLg9rLuaH7fkRFk=
-X-Google-Smtp-Source: ABdhPJzzBPTusItjoVG/nAHSc3k+fPLHOz7+egBEZhkYM9Xs7osI8uSVAEKCpKPh9iMyjDaLUdTBGw==
-X-Received: by 2002:adf:d1cb:: with SMTP id b11mr20720601wrd.118.1613421119548;
-        Mon, 15 Feb 2021 12:31:59 -0800 (PST)
-Received: from ?IPv6:2001:a61:3a2d:1d01:e14:1e8b:dca4:7d73? ([2001:a61:3a2d:1d01:e14:1e8b:dca4:7d73])
-        by smtp.gmail.com with ESMTPSA id r12sm466092wmg.44.2021.02.15.12.31.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 15 Feb 2021 12:31:59 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        libc-alpha@sourceware.org
-Subject: Re: [PATCH v3] simpleq.3, stailq.3, queue.7, SIMPLEQ_*.3: Document
- SIMPLEQ_*() as an alias to STAILQ_*() macros
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20210215161243.517608-1-alx.manpages@gmail.com>
- <20210215163236.518482-1-alx.manpages@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <ecba4a9f-d246-e8f3-d22d-9fd184b87bf3@gmail.com>
-Date:   Mon, 15 Feb 2021 21:31:56 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=MZFbfiTxg+Q9QitBTGRI0g2UFYfk+G/9Htal8URD9pQ=;
+        b=Ub7OjfKGm8niwCvsXkZBx/gScOOk40CY/aOnFKDtMH1S21gdtD8TjV7n0xARhFIbMv
+         VaJ98bSyLTJ6NWCxEbtY4cTpPCtnZMWe/fDzD+JBZDQ3I50MDef7n3v9DorQAcisoUri
+         g7n4B9i1+L44p13lw/O4J4xMoYO9kubQK0+R0cJUcF3qom8IptabtxQIDFBp+5OOe/N/
+         rzvUzbQPgGavu416lEyeJuZCJJ/dzWmsS5pY1vJ3bxDPL1IAyALU/vebNU4Q73d2UOdm
+         c2Z9DJlQIUoW/5Hzu7MpHqGbMXJjaiy3f+2TUM9o3QJCTuVxLJPU8BADfcSBUuOsX6IY
+         2LaQ==
+X-Gm-Message-State: AOAM531XjF6xactqY3BuMfp39VeaXXkFTJyITGRIj+9n6wdGZfoS2he2
+        DBMtPjnmbUlxRV1znxmQTkl+5UlInTY=
+X-Google-Smtp-Source: ABdhPJyEyk7YhIJ7z3pZadyRnCF04heUW1/QMOVfmVCoBNqpP3sjy6gpNK5qKSYwPXU9vSenWp9s1g==
+X-Received: by 2002:a05:600c:2d44:: with SMTP id a4mr480202wmg.95.1613421245042;
+        Mon, 15 Feb 2021 12:34:05 -0800 (PST)
+Received: from debian.vlc ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id g15sm25403065wrx.1.2021.02.15.12.34.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Feb 2021 12:34:04 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: [PATCH v3] scripts/bash_aliases: Add useful functions
+Date:   Mon, 15 Feb 2021 21:32:50 +0100
+Message-Id: <20210215203249.580748-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.30.0
+In-Reply-To: <20210215131522.450666-11-alx.manpages@gmail.com>
+References: <20210215131522.450666-11-alx.manpages@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20210215163236.518482-1-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+That file should be sourced (.) from 'bashrc' (or 'bash_aliases').
 
-On 2/15/21 5:32 PM, Alejandro Colomar wrote:
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> ---
-> 
-> v2: Add link: simpleq.3 -> stailq.3 (for symmetry)
+It contains functions that are useful for the maintenance of this
+project.
 
-Thanks. Patch applied.
+- grep_syscall()
+- grep_syscall_def()
+- man_section()
+- man_lsfunc()
+- pdfman()
+- grep_glibc_prototype()
 
-Cheers,
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
 
-Michael
+v2:
+	- Reword license to adequate it for many functions instead
+	  of a single program.
+	- Add a trailing ';' for consistency.
+v3:
+	- Resend to avoid confusion:  I forgot to use [PATCH v2]!
 
-> 
-> v3: Resend (typo in email)
-> 
-> ---
->  man3/SIMPLEQ_EMPTY.3            |  1 +
->  man3/SIMPLEQ_ENTRY.3            |  1 +
->  man3/SIMPLEQ_FIRST.3            |  1 +
->  man3/SIMPLEQ_FOREACH.3          |  1 +
->  man3/SIMPLEQ_HEAD.3             |  1 +
->  man3/SIMPLEQ_HEAD_INITIALIZER.3 |  1 +
->  man3/SIMPLEQ_INIT.3             |  1 +
->  man3/SIMPLEQ_INSERT_AFTER.3     |  1 +
->  man3/SIMPLEQ_INSERT_HEAD.3      |  1 +
->  man3/SIMPLEQ_INSERT_TAIL.3      |  1 +
->  man3/SIMPLEQ_NEXT.3             |  1 +
->  man3/SIMPLEQ_REMOVE.3           |  1 +
->  man3/SIMPLEQ_REMOVE_HEAD.3      |  1 +
->  man3/simpleq.3                  |  1 +
->  man3/stailq.3                   | 31 +++++++++++++++++++++++++++++++
->  man7/queue.7                    |  9 +++++++++
->  16 files changed, 54 insertions(+)
->  create mode 100644 man3/SIMPLEQ_EMPTY.3
->  create mode 100644 man3/SIMPLEQ_ENTRY.3
->  create mode 100644 man3/SIMPLEQ_FIRST.3
->  create mode 100644 man3/SIMPLEQ_FOREACH.3
->  create mode 100644 man3/SIMPLEQ_HEAD.3
->  create mode 100644 man3/SIMPLEQ_HEAD_INITIALIZER.3
->  create mode 100644 man3/SIMPLEQ_INIT.3
->  create mode 100644 man3/SIMPLEQ_INSERT_AFTER.3
->  create mode 100644 man3/SIMPLEQ_INSERT_HEAD.3
->  create mode 100644 man3/SIMPLEQ_INSERT_TAIL.3
->  create mode 100644 man3/SIMPLEQ_NEXT.3
->  create mode 100644 man3/SIMPLEQ_REMOVE.3
->  create mode 100644 man3/SIMPLEQ_REMOVE_HEAD.3
->  create mode 100644 man3/simpleq.3
-> 
-> diff --git a/man3/SIMPLEQ_EMPTY.3 b/man3/SIMPLEQ_EMPTY.3
-> new file mode 100644
-> index 000000000..fbb71f02c
-> --- /dev/null
-> +++ b/man3/SIMPLEQ_EMPTY.3
-> @@ -0,0 +1 @@
-> +.so man3/stailq.3
-> diff --git a/man3/SIMPLEQ_ENTRY.3 b/man3/SIMPLEQ_ENTRY.3
-> new file mode 100644
-> index 000000000..fbb71f02c
-> --- /dev/null
-> +++ b/man3/SIMPLEQ_ENTRY.3
-> @@ -0,0 +1 @@
-> +.so man3/stailq.3
-> diff --git a/man3/SIMPLEQ_FIRST.3 b/man3/SIMPLEQ_FIRST.3
-> new file mode 100644
-> index 000000000..fbb71f02c
-> --- /dev/null
-> +++ b/man3/SIMPLEQ_FIRST.3
-> @@ -0,0 +1 @@
-> +.so man3/stailq.3
-> diff --git a/man3/SIMPLEQ_FOREACH.3 b/man3/SIMPLEQ_FOREACH.3
-> new file mode 100644
-> index 000000000..fbb71f02c
-> --- /dev/null
-> +++ b/man3/SIMPLEQ_FOREACH.3
-> @@ -0,0 +1 @@
-> +.so man3/stailq.3
-> diff --git a/man3/SIMPLEQ_HEAD.3 b/man3/SIMPLEQ_HEAD.3
-> new file mode 100644
-> index 000000000..fbb71f02c
-> --- /dev/null
-> +++ b/man3/SIMPLEQ_HEAD.3
-> @@ -0,0 +1 @@
-> +.so man3/stailq.3
-> diff --git a/man3/SIMPLEQ_HEAD_INITIALIZER.3 b/man3/SIMPLEQ_HEAD_INITIALIZER.3
-> new file mode 100644
-> index 000000000..fbb71f02c
-> --- /dev/null
-> +++ b/man3/SIMPLEQ_HEAD_INITIALIZER.3
-> @@ -0,0 +1 @@
-> +.so man3/stailq.3
-> diff --git a/man3/SIMPLEQ_INIT.3 b/man3/SIMPLEQ_INIT.3
-> new file mode 100644
-> index 000000000..fbb71f02c
-> --- /dev/null
-> +++ b/man3/SIMPLEQ_INIT.3
-> @@ -0,0 +1 @@
-> +.so man3/stailq.3
-> diff --git a/man3/SIMPLEQ_INSERT_AFTER.3 b/man3/SIMPLEQ_INSERT_AFTER.3
-> new file mode 100644
-> index 000000000..fbb71f02c
-> --- /dev/null
-> +++ b/man3/SIMPLEQ_INSERT_AFTER.3
-> @@ -0,0 +1 @@
-> +.so man3/stailq.3
-> diff --git a/man3/SIMPLEQ_INSERT_HEAD.3 b/man3/SIMPLEQ_INSERT_HEAD.3
-> new file mode 100644
-> index 000000000..fbb71f02c
-> --- /dev/null
-> +++ b/man3/SIMPLEQ_INSERT_HEAD.3
-> @@ -0,0 +1 @@
-> +.so man3/stailq.3
-> diff --git a/man3/SIMPLEQ_INSERT_TAIL.3 b/man3/SIMPLEQ_INSERT_TAIL.3
-> new file mode 100644
-> index 000000000..fbb71f02c
-> --- /dev/null
-> +++ b/man3/SIMPLEQ_INSERT_TAIL.3
-> @@ -0,0 +1 @@
-> +.so man3/stailq.3
-> diff --git a/man3/SIMPLEQ_NEXT.3 b/man3/SIMPLEQ_NEXT.3
-> new file mode 100644
-> index 000000000..fbb71f02c
-> --- /dev/null
-> +++ b/man3/SIMPLEQ_NEXT.3
-> @@ -0,0 +1 @@
-> +.so man3/stailq.3
-> diff --git a/man3/SIMPLEQ_REMOVE.3 b/man3/SIMPLEQ_REMOVE.3
-> new file mode 100644
-> index 000000000..fbb71f02c
-> --- /dev/null
-> +++ b/man3/SIMPLEQ_REMOVE.3
-> @@ -0,0 +1 @@
-> +.so man3/stailq.3
-> diff --git a/man3/SIMPLEQ_REMOVE_HEAD.3 b/man3/SIMPLEQ_REMOVE_HEAD.3
-> new file mode 100644
-> index 000000000..fbb71f02c
-> --- /dev/null
-> +++ b/man3/SIMPLEQ_REMOVE_HEAD.3
-> @@ -0,0 +1 @@
-> +.so man3/stailq.3
-> diff --git a/man3/simpleq.3 b/man3/simpleq.3
-> new file mode 100644
-> index 000000000..fbb71f02c
-> --- /dev/null
-> +++ b/man3/simpleq.3
-> @@ -0,0 +1 @@
-> +.so man3/stailq.3
-> diff --git a/man3/stailq.3 b/man3/stailq.3
-> index b43f9c60b..22582eeae 100644
-> --- a/man3/stailq.3
-> +++ b/man3/stailq.3
-> @@ -31,6 +31,26 @@
->  .\"
->  .TH STAILQ 3 2020-10-21 "GNU" "Linux Programmer's Manual"
->  .SH NAME
-> +.\"SIMPLEQ_CONCAT,
-> +SIMPLEQ_EMPTY,
-> +SIMPLEQ_ENTRY,
-> +SIMPLEQ_FIRST,
-> +SIMPLEQ_FOREACH,
-> +.\"SIMPLEQ_FOREACH_FROM,
-> +.\"SIMPLEQ_FOREACH_FROM_SAFE,
-> +.\"SIMPLEQ_FOREACH_SAFE,
-> +SIMPLEQ_HEAD,
-> +SIMPLEQ_HEAD_INITIALIZER,
-> +SIMPLEQ_INIT,
-> +SIMPLEQ_INSERT_AFTER,
-> +SIMPLEQ_INSERT_HEAD,
-> +SIMPLEQ_INSERT_TAIL,
-> +.\"SIMPLEQ_LAST,
-> +SIMPLEQ_NEXT,
-> +SIMPLEQ_REMOVE,
-> +.\"SIMPLEQ_REMOVE_AFTER,
-> +SIMPLEQ_REMOVE_HEAD,
-> +.\"SIMPLEQ_SWAP,
->  STAILQ_CONCAT,
->  STAILQ_EMPTY,
->  STAILQ_ENTRY,
-> @@ -96,6 +116,8 @@ STAILQ_REMOVE_HEAD,
->  .\" .BI "void STAILQ_SWAP(STAILQ_HEAD *" head1 ", STAILQ_HEAD *" head2 ,
->  .\" .BI "                          STAILQ_ENTRY " NAME );
->  .fi
-> +.IR Note :
-> +Identical macros prefixed with SIMPLEQ instead of STAILQ exist; see NOTES.
->  .SH DESCRIPTION
->  These macros define and operate on singly linked tail queues.
->  .PP
-> @@ -299,6 +321,15 @@ fixes this limitation by allowing
->  .I var
->  to safely be removed from the list and freed from within the loop
->  without interfering with the traversal.
-> +.SH NOTES
-> +Some BSDs provide SIMPLEQ instead of STAILQ.
-> +They are identical, but for historical reasons
-> +they were named differently on different BSDs.
-> +STAILQ originated on FreeBSD, and SIMPLEQ originated on NetBSD.
-> +For compatibility reasons, some systems provide both sets of macros.
-> +Glibc provides both STAILQ and SIMPLEQ,
-> +which are identical except for a missing SIMPLEQ equivalent to
-> +.BR STAILQ_CONCAT ().
->  .SH EXAMPLES
->  .EX
->  #include <stddef.h>
-> diff --git a/man7/queue.7 b/man7/queue.7
-> index f92887a36..c3facafd0 100644
-> --- a/man7/queue.7
-> +++ b/man7/queue.7
-> @@ -138,6 +138,15 @@ Not in POSIX.1, POSIX.1-2001, or POSIX.1-2008.
->  Present on the BSDs.
->  .I <sys/queue.h>
->  macros first appeared in 4.4BSD.
-> +.SH NOTES
-> +Some BSDs provide SIMPLEQ instead of STAILQ.
-> +They are identical, but for historical reasons
-> +they were named differently on different BSDs.
-> +STAILQ originated on FreeBSD, and SIMPLEQ originated on NetBSD.
-> +For compatibility reasons, some systems provide both sets of macros.
-> +Glibc provides both STAILQ and SIMPLEQ,
-> +which are identical except for a missing SIMPLEQ equivalent to
-> +.BR STAILQ_CONCAT ().
->  .SH SEE ALSO
->  .BR circleq (3),
->  .BR insque (3),
-> 
+---
+ scripts/bash_aliases | 171 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 171 insertions(+)
+ create mode 100644 scripts/bash_aliases
 
-
+diff --git a/scripts/bash_aliases b/scripts/bash_aliases
+new file mode 100644
+index 000000000..7bdadac43
+--- /dev/null
++++ b/scripts/bash_aliases
+@@ -0,0 +1,171 @@
++# SPDX-License-Identifier: GPL-2.0-only
++########################################################################
++#
++# (C) Copyright 2021, Alejandro Colomar
++# These functions are free software; you can redistribute them and/or
++# modify them under the terms of the GNU General Public License
++# as published by the Free Software Foundation; version 2.
++#
++# These functions are distributed in the hope that they will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU General Public License for more details
++# (http://www.gnu.org/licenses/gpl-2.0.html).
++#
++########################################################################
++
++########################################################################
++#	Exit status
++
++EX_OK=0;
++EX_USAGE=64;
++
++########################################################################
++#	Linux kernel
++
++#  grep_syscall()  finds the prototype of a syscall in the kernel sources,
++# printing the filename, line number, and the prototype.
++# It should be run from the root of the linux kernel source tree.
++# Usage example:  .../linux$ grep_syscall openat2;
++
++function grep_syscall()
++{
++	if ! [ -v 1 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
++		return ${EX_USAGE};
++	fi
++
++	find * -type f \
++	|grep '\.c$' \
++	|sort -V \
++	|xargs pcregrep -Mn "(?s)^\w*SYSCALL_DEFINE.\(${1},.*?\)" \
++	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
++
++	find * -type f \
++	|grep '\.[ch]$' \
++	|sort -V \
++	|xargs pcregrep -Mn "(?s)^asmlinkage\s+[\w\s]+\**sys_${1}\s*\(.*?\)" \
++	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
++}
++
++#  grep_syscall_def()  finds the definition of a syscall in the kernel sources,
++# printing the filename, line number, and the function definition.
++# It should be run from the root of the linux kernel source tree.
++# Usage example:  .../linux$ grep_syscall_def openat2;
++
++function grep_syscall_def()
++{
++	if ! [ -v 1 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
++		return ${EX_USAGE};
++	fi
++
++	find * -type f \
++	|grep '\.c$' \
++	|sort -V \
++	|xargs pcregrep -Mn "(?s)^\w*SYSCALL_DEFINE.\(${1},.*?^}" \
++	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
++}
++
++########################################################################
++#	Linux man-pages
++
++#  man_section()  prints a specific manual page section (DESCRIPTION, SYNOPSIS,
++# ...) of all manual pages in a directory (or in a single manual page file).
++# Usage example:  .../man-pages$ man_section man2 SYNOPSIS;
++
++function man_section()
++{
++	if ! [ -v 2 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <dir> <section>";
++		return ${EX_USAGE};
++	fi
++
++	find "${1}" -type f \
++	|xargs grep -l "\.SH ${2}" \
++	|sort -V \
++	|while read -r manpage; do
++		<${manpage} \
++		sed -n \
++			-e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
++			-e "/^\.SH ${2}/p" \
++			-e "/^\.SH ${2}/,/^\.SH/{/^\.SH/!p}" \
++		|man -P cat -l - 2>/dev/null;
++	done;
++}
++
++#  man_lsfunc()  prints the name of all C functions declared in the SYNOPSIS
++# of all manual pages in a directory (or in a single manual page file).
++# Each name is printed in a separate line
++# Usage example:  .../man-pages$ man_lsfunc man2;
++
++function man_lsfunc()
++{
++	if ! [ -v 1 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <dir>";
++		return ${EX_USAGE};
++	fi
++
++	find "${1}" -type f \
++	|xargs grep -l "\.SH SYNOPSIS" \
++	|sort -V \
++	|while read -r manpage; do
++		<${manpage} \
++		sed -n \
++			-e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
++			-e "/^\.SH SYNOPSIS/p" \
++			-e "/^\.SH SYNOPSIS/,/^\.SH/{/^\.SH/!p}" \
++		|sed \
++			-e '/Feature/,$d' \
++			-e '/{/,/}/d' \
++		|man -P cat -l - 2>/dev/null;
++	done \
++	|sed -n "/^SYNOPSIS/,/^\w/p" \
++	|grep '^       \w' \
++	|grep -v ':' \
++	|sed 's/^[^(]* \**\(\w*\)(.*/\1/' \
++	|grep '^\w' \
++	|uniq;
++}
++
++#  pdfman()  reanders a manual page in PDF
++# Usage example:  .../man-pages$ pdfman man2/membarrier.2;
++
++function pdfman()
++{
++	if ! [ -v 1 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <man-page.n>";
++		return ${EX_USAGE};
++	fi;
++
++	local tmp="$(mktemp -t "${1##*/}.XXXXXX")";
++
++	<${1} \
++	man -Tps -l - \
++	|ps2pdf - - \
++	>${tmp};
++	xdg-open ${tmp};
++}
++
++########################################################################
++#	Glibc
++
++#  grep_glibc_prototype()  finds a function prototype in the glibc sources,
++# printing the filename, line number, and the prototype.
++# It should be run from the root of the glibc source tree.
++# Usage example:  .../glibc$ grep_glibc_prototype printf;
++
++function grep_glibc_prototype()
++{
++	if ! [ -v 1 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <func>";
++		return ${EX_USAGE};
++	fi
++
++	find * -type f \
++	|grep '\.h$' \
++	|sort -V \
++	|xargs pcregrep -Mn \
++	  "(?s)^[^\s#][\w\s]+\s+\**${1}\s*\([\w\s()[\]*,]*?(...)?\)[\w\s()]*;" \
++	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
++}
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.30.0
+
