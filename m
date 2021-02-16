@@ -2,79 +2,242 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B555731CE93
-	for <lists+linux-man@lfdr.de>; Tue, 16 Feb 2021 18:02:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8EB0D31CF76
+	for <lists+linux-man@lfdr.de>; Tue, 16 Feb 2021 18:46:42 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229787AbhBPRCZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 16 Feb 2021 12:02:25 -0500
-Received: from out2-smtp.messagingengine.com ([66.111.4.26]:51735 "EHLO
-        out2-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S229784AbhBPRCZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 16 Feb 2021 12:02:25 -0500
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
-        by mailout.nyi.internal (Postfix) with ESMTP id 93A785C00A5;
-        Tue, 16 Feb 2021 12:01:19 -0500 (EST)
-Received: from imap35 ([10.202.2.85])
-  by compute7.internal (MEProxy); Tue, 16 Feb 2021 12:01:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aliddell.com; h=
-        mime-version:message-id:date:from:to:cc:subject:content-type; s=
-        fm2; bh=jR+mQEYjxNrZOEcLe83Km3VtZcjJ01OD4J4arnwJHRE=; b=s//LtiKl
-        3mZ4DCG9yUwf0ei1wZN19A6F2HAMV1GNdpEIgraizoYYQWf9pgRdzyIqJJg/v7Wu
-        pBVHFdnxtWXnQ2BDYGE7rtZiQYC+622Tv9Pt4J4JoOlOYGRaviq4xvTXdu1WRurK
-        nLD/5ZYa0K6ciZRgTc5soMVKvK9y/zmf1RsjUxqLsOuSfKnQKVtxG4yYmRKQmlsl
-        vKqvLTdKAUABR/bQewYiKigg0lec+FWdVkd8I35iQcxGpG8BYgzsujXFYRK1jIEz
-        yGZFU9fdt3kbC4F10s77f4DdKavypRdlp22UFDZMWBI09C+DJvQPGNvp9muM3bnn
-        EL6K+sfT4/Yq1g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-        messagingengine.com; h=cc:content-type:date:from:message-id
-        :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
-        :x-me-sender:x-sasl-enc; s=fm2; bh=jR+mQEYjxNrZOEcLe83Km3VtZcjJ0
-        1OD4J4arnwJHRE=; b=NCqYR9jIbOh8zyS5NQPX4aZnAVkcklgiFS939UpYpHTkG
-        +0LXOFuhd7HsSQ9Nn+pGMaZcmzvK9kXKsOngXhIbfqhWST3TFJek9f08WZtIeT/3
-        znZDh5XzAu2W2eWkP3xtq5TnTdyYEQqwjQ2/gvnvpsfn6hkdWcMqQpbo8HXLXD/L
-        zYPMnX7vfF7bOEqLbnAmJ9YLoysAhk8P/DmrWzQOTvXB/T+7b21NUHaiWmzAI9vQ
-        /nR3T5FNDDyqbg8qps3XDdg9NOG7NIUtQijg0F0OhGiTFfTSAKyptjujZ8oLRqX2
-        MoNHgpEWTGA7hj83edkljQrHisEL/eOcnhrHBLvlg==
-X-ME-Sender: <xms:X_orYORUZ-EAWLe8LudXhHF_DvaCz_xBfnY36yycUSFJy1DoV08oxg>
-    <xme:X_orYDwZahEncJJ3ACVzJM9ZHhHVKuoOg_wiNKfhsC_KCu15-8ny0gpqVqjZBkAnS
-    Brnbb5dIcRxWK6lTw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrjedtgdelhecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecunecujfgurhepofgfggfkfffhvffutgesthdtredtre
-    ertdenucfhrhhomhepfdetuggrmhcunfhiugguvghllhdfuceomhhlodhkvghrnhgvlhdr
-    ohhrghesrghlihguuggvlhhlrdgtohhmqeenucggtffrrghtthgvrhhnpedtgeevhfehie
-    ehfeekkeektedvuefgtedtffekuddvvdelveevudekvdejieevleenucevlhhushhtvghr
-    ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmlhdokhgvrhhnvghlrdhorh
-    hgsegrlhhiugguvghllhdrtghomh
-X-ME-Proxy: <xmx:X_orYL3-iP9wEL4EpQEFuANJHtgYUa8CFiLGSGzB7wljwn6pvqdOtA>
-    <xmx:X_orYKCwUeN5kKTJgsg6kkDd4svC0DSRhjNwM7b3zCHtTOCKxyizOQ>
-    <xmx:X_orYHi4O_4KBMCy7HxXpwl47Nc-_QkIiwycZfoutx-PPHu3dptMEA>
-    <xmx:X_orYHJWfmMOOCPJANgjC0XmRI20lfunA31LjDzQGIeexnZQ7EqteA>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
-        id 349E815A005F; Tue, 16 Feb 2021 12:01:19 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.5.0-alpha0-141-gf094924a34-fm-20210210.001-gf094924a
-Mime-Version: 1.0
-Message-Id: <6bbb488b-bee2-4ddb-873b-983973984c70@www.fastmail.com>
-Date:   Tue, 16 Feb 2021 17:00:57 +0000
-From:   "Adam Liddell" <ml+kernel.org@aliddell.com>
-To:     mtk.manpages@gmail.com, alx.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Subject: arp(7) description of gc_stale_time
-Content-Type: text/plain
+        id S231344AbhBPRpj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 16 Feb 2021 12:45:39 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37140 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231217AbhBPRp2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 16 Feb 2021 12:45:28 -0500
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 94B66C0613D6
+        for <linux-man@vger.kernel.org>; Tue, 16 Feb 2021 09:44:26 -0800 (PST)
+Received: by mail-wr1-x430.google.com with SMTP id v15so14207551wrx.4
+        for <linux-man@vger.kernel.org>; Tue, 16 Feb 2021 09:44:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=SG1PJqmUONPMltLHj/NtbdnqP3QjXhIMpbTG2ubKayU=;
+        b=gJMg/HYjzxEkTtYwbl77f/5BHHhcOZMC+zF37X8B/qKaJjS1EDDbB5E9DQoW43x9Ek
+         76E252nanT1F78TvtOW336XdQ5XI2pgkFLuk8lV+8PGCPWvURVZ3vJclriyK4uwRFMuu
+         xGfUjWRAT6bcrntxVeoXoOGx7MwnEXdAtpUU8ZO3L7o9N0UG9lCq4KjQ3HjAgCWQTSqh
+         YN5i1/QKN0WwriXEcU452g8V07c3Z2gHHT9F0sAU9nYWOKC2FS6rNeX02IvXgCzbVWrr
+         gpKWN5c2DYV9aBbrvqsHZss6UZMTz1bFiM1aDIiH1mOpVXo0SQte+allBrV+Wk/LWmiP
+         42VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=SG1PJqmUONPMltLHj/NtbdnqP3QjXhIMpbTG2ubKayU=;
+        b=FHQ+U7xAAsa2jUxAY/K14L9T00iS/pOCFOq+mo2Ywkji9AQSA4GT6KEcsObL2SvqAB
+         Xlwf7J3EsHF+5UXOd/UV6j2nElUYIItGVX79fJxpPozwYqZrNUo/3BFjW98Mpl+yyYuu
+         NsyslJalCl5pP2VnquB36coRqIR6wnyzssh0/7BrRC6wYwaI4ZX3T/sOvrDnRX5wfou6
+         rJgm332rAVWhTADjOXW9+8snD5RMxXuRx6CtA9tTgexXWdhNjAzsN1yvfd2ule23uo0B
+         +B//YhiYEIBMgWwYFGuHMyjjexwvZ9graLqPvT37aL1IeBXUyIqkj+g8S+W2kqHRiytb
+         MpBQ==
+X-Gm-Message-State: AOAM530ZfSvXvMiCfuFShztJCLkbseF31uoWojaeHC1PSfAqGUc+2xIg
+        3SO0y/FiHYdd2iTZJNoxkAbgi3pIr2v+ztAIklgiEA==
+X-Google-Smtp-Source: ABdhPJzWe51dgFo8YdFDbYkdUYcmO1d7+1mZzYOUd19gMk/Ayscx0kbxSccgEjton406EyAShOmFNYX5kVOyIBhDYao=
+X-Received: by 2002:a5d:610a:: with SMTP id v10mr19205290wrt.334.1613497465050;
+ Tue, 16 Feb 2021 09:44:25 -0800 (PST)
+MIME-Version: 1.0
+References: <20210202053046.1653012-1-surenb@google.com> <079db245-a08c-0dbd-01d4-8065f533652e@gmail.com>
+ <CAJuCfpGotx_04Stn5Nw6Au+TVG9LuAJ=CB_s7uxjMLOLerw-GA@mail.gmail.com> <2d303517-cdcd-9ec8-e57d-3d065edb573c@gmail.com>
+In-Reply-To: <2d303517-cdcd-9ec8-e57d-3d065edb573c@gmail.com>
+From:   Suren Baghdasaryan <surenb@google.com>
+Date:   Tue, 16 Feb 2021 09:44:13 -0800
+Message-ID: <CAJuCfpFC0B=jXFEuPYYBZAjgx1B6S8vG-i7_0iBc_RHeWynyzw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/1] process_madvise.2: Add process_madvise man page
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Jann Horn <jannh@google.com>,
+        Kees Cook <keescook@chromium.org>,
+        Jeffrey Vander Stoep <jeffv@google.com>,
+        Minchan Kim <minchan@kernel.org>,
+        Michal Hocko <mhocko@suse.com>,
+        Shakeel Butt <shakeelb@google.com>,
+        David Rientjes <rientjes@google.com>,
+        =?UTF-8?Q?Edgar_Arriaga_Garc=C3=ADa?= <edgararriaga@google.com>,
+        Tim Murray <timmurray@google.com>,
+        linux-mm <linux-mm@kvack.org>,
+        SElinux list <selinux@vger.kernel.org>,
+        linux-security-module <linux-security-module@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        LKML <linux-kernel@vger.kernel.org>,
+        kernel-team <kernel-team@android.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi,
+Hi Michael,
 
-The arp(7) page's description of gc_stale_time doesn't quite describe the behaviour correctly, at least as I understand it.
+On Sat, Feb 13, 2021 at 2:04 PM Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+>
+> Hello Suren,
+>
+> On 2/2/21 11:12 PM, Suren Baghdasaryan wrote:
+> > Hi Michael,
+> >
+> > On Tue, Feb 2, 2021 at 2:45 AM Michael Kerrisk (man-pages)
+> > <mtk.manpages@gmail.com> wrote:
+> >>
+> >> Hello Suren (and Minchan and Michal)
+> >>
+> >> Thank you for the revisions!
+> >>
+> >> I've applied this patch, and done a few light edits.
+> >
+> > Thanks!
+> >
+> >>
+> >> However, I have a questions about undocumented pieces in *madvise(2)*,
+> >> as well as one other question. See below.
+> >>
+> >> On 2/2/21 6:30 AM, Suren Baghdasaryan wrote:
+> >>> Initial version of process_madvise(2) manual page. Initial text was
+> >>> extracted from [1], amended after fix [2] and more details added using
+> >>> man pages of madvise(2) and process_vm_read(2) as examples. It also
+> >>> includes the changes to required permission proposed in [3].
+> >>>
+> >>> [1] https://lore.kernel.org/patchwork/patch/1297933/
+> >>> [2] https://lkml.org/lkml/2020/12/8/1282
+> >>> [3] https://patchwork.kernel.org/project/selinux/patch/20210111170622.2613577-1-surenb@google.com/#23888311
+> >>>
+> >>> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> >>> Reviewed-by: Michal Hocko <mhocko@suse.com>
+> >>> ---
+> >>> changes in v2:
+> >>> - Changed description of MADV_COLD per Michal Hocko's suggestion
+> >>> - Applied fixes suggested by Michael Kerrisk
+> >>> changes in v3:
+> >>> - Added Michal's Reviewed-by
+> >>> - Applied additional fixes suggested by Michael Kerrisk
+> >>>
+> >>> NAME
+> >>>     process_madvise - give advice about use of memory to a process
+> >>>
+> >>> SYNOPSIS
+> >>>     #include <sys/uio.h>
+> >>>
+> >>>     ssize_t process_madvise(int pidfd,
+> >>>                            const struct iovec *iovec,
+> >>>                            unsigned long vlen,
+> >>>                            int advice,
+> >>>                            unsigned int flags);
+> >>>
+> >>> DESCRIPTION
+> >>>     The process_madvise() system call is used to give advice or directions
+> >>>     to the kernel about the address ranges of another process or the calling
+> >>>     process. It provides the advice to the address ranges described by iovec
+> >>>     and vlen. The goal of such advice is to improve system or application
+> >>>     performance.
+> >>>
+> >>>     The pidfd argument is a PID file descriptor (see pidfd_open(2)) that
+> >>>     specifies the process to which the advice is to be applied.
+> >>>
+> >>>     The pointer iovec points to an array of iovec structures, defined in
+> >>>     <sys/uio.h> as:
+> >>>
+> >>>     struct iovec {
+> >>>         void  *iov_base;    /* Starting address */
+> >>>         size_t iov_len;     /* Number of bytes to transfer */
+> >>>     };
+> >>>
+> >>>     The iovec structure describes address ranges beginning at iov_base address
+> >>>     and with the size of iov_len bytes.
+> >>>
+> >>>     The vlen represents the number of elements in the iovec structure.
+> >>>
+> >>>     The advice argument is one of the values listed below.
+> >>>
+> >>>   Linux-specific advice values
+> >>>     The following Linux-specific advice values have no counterparts in the
+> >>>     POSIX-specified posix_madvise(3), and may or may not have counterparts
+> >>>     in the madvise(2) interface available on other implementations.
+> >>>
+> >>>     MADV_COLD (since Linux 5.4.1)
+> >>
+> >> I just noticed these version numbers now, and thought: they can't be
+> >> right (because the system call appeared only in v5.11). So I removed
+> >> them. But, of course in another sense the version numbers are (nearly)
+> >> right, since these advice values were added for madvise(2) in Linux 5.4.
+> >> However, they are not documented in the madvise(2) manual page. Is it
+> >> correct to assume that MADV_COLD and MADV_PAGEOUT have exactly the same
+> >> meaning in madvise(2) (but just for the calling process, of course)?
+> >
+> > Correct. They should be added in the madvise(2) man page as well IMHO.
+>
+> So, I decided to move the description of MADV_COLD and MADV_PAGEOUT
+> to madvise(2) and refer to that page from the process_madvise(2)
+> page. This avoids repeating the same information in two places.
 
-The current description suggests this is the time interval at which a loop will look for stale entries. However, this field is the threshold for marking an entry dead for removal, based on when it was last used (see net/core/neighbour.c lines 935-942) and whether the table is over gc_thresh1. How often this check is done appears to be determined by base_reachable_time (/2) and the third option gc_interval is not involved in this process as far as I can tell, despite its name.
+Sounds good.
 
-Perhaps a draft alternate description could be something along the lines of:
+>
+> >>>         Deactive a given range of pages which will make them a more probable
+> >>
+> >> I changed: s/Deactive/Deactivate/
+> >
+> > thanks!
+> >
+> >>
+> >>>         reclaim target should there be a memory pressure. This is a
+> >>>         nondestructive operation. The advice might be ignored for some pages
+> >>>         in the range when it is not applicable.
+> >>>
+> >>>     MADV_PAGEOUT (since Linux 5.4.1)
+> >>>         Reclaim a given range of pages. This is done to free up memory occupied
+> >>>         by these pages. If a page is anonymous it will be swapped out. If a
+> >>>         page is file-backed and dirty it will be written back to the backing
+> >>>         storage. The advice might be ignored for some pages in the range when
+> >>>         it is not applicable.
+> >>
+> >> [...]
+> >>
+> >>>     The hint might be applied to a part of iovec if one of its elements points
+> >>>     to an invalid memory region in the remote process. No further elements will
+> >>>     be processed beyond that point.
+> >>
+> >> Is the above scenario the one that leads to the partial advice case described in
+> >> RETURN VALUE? If yes, perhaps I should add some words to make that clearer.
+> >
+> > Correct. This describes the case when partial advice happens.
+>
+> Thanks. I added a few words to clarify this.
 
-Determines the threshold for removing a cache entry after it was last used and when the cache is larger than gc_thresh1. Defaults to 60 seconds.
+Any link where I can see the final version?
+
+>
+>
+> >> You can see the light edits that I made in
+> >> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=e3ce016472a1b3ec5dffdeb23c98b9fef618a97b
+> >> and following that I restructured DESCRIPTION a little in
+> >> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3aac0708a9acee5283e091461de6a8410bc921a6
+> >
+> > The edits LGTM.
+>
+> Thanks for checking them.
+>
+> Cheers,
+>
+> Michael
+>
 
 Thanks,
-Adam
+Suren.
+
+>
+> --
+> Michael Kerrisk
+> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+> Linux/UNIX System Programming Training: http://man7.org/training/
+>
+> --
+> To unsubscribe from this group and stop receiving emails from it, send an email to kernel-team+unsubscribe@android.com.
+>
