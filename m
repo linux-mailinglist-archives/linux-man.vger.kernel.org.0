@@ -2,250 +2,157 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 65B3231EBA9
-	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 16:45:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7C8EA31EBAB
+	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 16:45:09 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232573AbhBRPl5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 18 Feb 2021 10:41:57 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40100 "EHLO
+        id S232575AbhBRPmE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 18 Feb 2021 10:42:04 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55814 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232916AbhBROCT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 09:02:19 -0500
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9BDC3C061756;
-        Thu, 18 Feb 2021 06:01:33 -0800 (PST)
-Received: by mail-wm1-x32e.google.com with SMTP id o24so4021622wmh.5;
-        Thu, 18 Feb 2021 06:01:33 -0800 (PST)
+        with ESMTP id S231387AbhBRPPv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 10:15:51 -0500
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 037FBC061574;
+        Thu, 18 Feb 2021 07:15:07 -0800 (PST)
+Received: by mail-wm1-x32a.google.com with SMTP id x4so4278382wmi.3;
+        Thu, 18 Feb 2021 07:15:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=n1Boz45aoz9goTvo1QAfgh0ZmavNNRL27w2E8Km4ilM=;
-        b=Ol0MfNa4s2MD5QwvqGnXKo9SuSklwirOZnb+YKpy2yuLdIyi240QNlM7Rl0EuovLk+
-         ko5sGodn+dUsmgXkrkjOTGK5VZ0CFBZjYJmON6hOJ1P0UVUhx3dvjN7dFb1Zpxf5T3s+
-         zdqLxJjO8YrwvKUnlh9zzfxZ1+bH4OZWKhpP/sUjSvyAk08YCOCv4XuoXwoHSVZqJei6
-         /w86sKpucP9m1IOfP5LDbsUFqoCjDVISVUgROznXsPlHDgKgjLQXdD3UZHZMlkxT6qJr
-         JVoUOIb8TOJo+P/qmy9mVbNrA3tgmNaWSLYmhNeQceAPf9A3LIa6DDT7QlCCagzEHDkk
-         SjpA==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=4oZWeumg03d8Z1y5Lnt1KGkf0PD/+G44xxBEli+me8o=;
+        b=vW8TmiLiGX4AAFg/14PsYui7gubBWEMlEkNvBVNmyfwt0+DdrCN6C98O7iPgaxvNKJ
+         fltwCxn0bXoofh7LLDh81dLzYDEyJYpu6RIscxwmcEv5nJnpXKf4mPJ9x0guRRZPGbik
+         dqsTQ6Sda/IVEUZJXPKgOqKlxtQblJWDFaUCMGgCj8oszmAgvQGEiLt+BcgXQR+Y4E1S
+         hZcuSGC3YehlehZr/JtVr8E5dy44XS/T9jDXqxkO2cIVJDpzYC26TNeXyIdxGHBNbYCa
+         MRHA0IoYAogZc3bYDBlL+r5I5qhILBOGTYF7GfIHslHg/hNCFYO9/tRtGeHLqX0yJXWa
+         Z1vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=n1Boz45aoz9goTvo1QAfgh0ZmavNNRL27w2E8Km4ilM=;
-        b=kdbGMX0Q4CMz05fdbOWDtq3LHIUIpvPYKVXdGMpKN8I/QOxcTNE6cEYeXiYrgVUgjp
-         DAzshR1MjnFKRzH68szQOCbwSKxbCxLZj3gcYoRLrNlnczr2xVuh4RvN63U/n0YD+wnH
-         UaCXWPfaAWxX5doGz/r5Amqr+OLFaYUyXqGW9pUhGZlexBqzfXtC8om//tAqmziwq7xS
-         UfR35XDbC3JREybV/L1s9O1PNRJZfU8Ab0WF+6aN/PG6eakWrHgfS4+DH0d6rWsc6uaZ
-         Z6ugHxXQWL3V6XDW1R7CVe/E6lVKS1gf9SU88gndLDa/BkUFE6GBEywOrg7EJO+i8mVn
-         dl7Q==
-X-Gm-Message-State: AOAM5300XZNPpGtWf/HoP+KdS5f55UwByNWklQbPbDmpDy65sTXpwR2P
-        9gf+up4TKWY83f9l9KqdYna6kyT0H23NgQ==
-X-Google-Smtp-Source: ABdhPJxGZ6GBxKEAIZJgD2hgsO+WFxdleUd+rS77A52O/fNl36D26OgaxLUX2P3Vfnp4bhoTScRQ9Q==
-X-Received: by 2002:a7b:c747:: with SMTP id w7mr3738812wmk.140.1613656890324;
-        Thu, 18 Feb 2021 06:01:30 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id g1sm7942273wmh.9.2021.02.18.06.01.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 18 Feb 2021 06:01:29 -0800 (PST)
-Subject: Re: [RFC] execve.2: SYNOPSIS: Document both glibc wrapper and kernel
- sycalls
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, linux-kernel@vger.kernel.org,
-        libc-alpha@sourceware.org, Florian Weimer <fweimer@redhat.com>
-References: <20210214133907.157320-1-alx.manpages@gmail.com>
- <1c7043ad-b834-5270-56fc-404d82d5a0a0@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <938df2c0-04b5-f6a4-79c3-b8fe09973828@gmail.com>
-Date:   Thu, 18 Feb 2021 15:01:28 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=4oZWeumg03d8Z1y5Lnt1KGkf0PD/+G44xxBEli+me8o=;
+        b=OMA+2PFlWu3N+yKwH7nTSyFtJgzvJEZNqJCdFayafd9GLVIME132QQSZoVsMRi94d+
+         Byvf1SY/jig7OVqJraqHDhMWFJya0Seh1YOlyaS4C3y0Q5SkxLTvHInHJtNFfc4+Oghg
+         sLxfPhRmCDPelzJBZmOrPQ6us4gsG3RSR+QYMkUIu4B76cTcBWTu5vllkM4PKyC0QBjs
+         DVpr55v7sIik9SAKA9UNCcFpcQwPvQ4Ded6khRJlOmWTsq8FPvBqKIMPtxiZGoyuiX6B
+         YfmINwhO87sqTRvX1uY1aXvyMcDBZmYqp+CsewPx4xQskXFjrbLrrLUrBTeCJcuR1qlW
+         Lnbg==
+X-Gm-Message-State: AOAM531A+unhTCsSxnOkd14KD6nrnjo0vuMifm7ibcJsEQmvPII0f189
+        1IyNPM/9cjt+y695+cCNU6UJkx4lt984sw==
+X-Google-Smtp-Source: ABdhPJwtIJqjqzAGT9hXk10R/Qa398m5v2JYPqfHkS4B5i+SEsUvq1nXBulTGEu+ecSq189+DIW5sw==
+X-Received: by 2002:a05:600c:3516:: with SMTP id h22mr4076388wmq.35.1613661305650;
+        Thu, 18 Feb 2021 07:15:05 -0800 (PST)
+Received: from localhost.localdomain ([170.253.51.130])
+        by smtp.googlemail.com with ESMTPSA id k128sm3363760wmf.42.2021.02.18.07.15.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 18 Feb 2021 07:15:05 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
+        Florian Weimer <fweimer@redhat.com>,
+        linux-kernel@vger.kernel.org
+Subject: [RFC v2] execve.2: SYNOPSIS: Document both glibc wrapper and kernel sycalls
+Date:   Thu, 18 Feb 2021 16:13:42 +0100
+Message-Id: <20210218151341.51095-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.30.1.721.g45526154a5
+In-Reply-To: <938df2c0-04b5-f6a4-79c3-b8fe09973828@gmail.com>
+References: <938df2c0-04b5-f6a4-79c3-b8fe09973828@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <1c7043ad-b834-5270-56fc-404d82d5a0a0@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Micahel,
+Until now, the manual pages have (usually) documented only either
+the glibc (or another library) wrapper for a syscall, or the
+kernel syscall (this only when there's not a wrapper).
 
-On 2/18/21 1:27 PM, Michael Kerrisk (man-pages) wrote:
-> Hi Alex,
-> 
-> On 2/14/21 2:39 PM, Alejandro Colomar wrote:
->> Until now, the manual pages have (usually) documented only either
->> the glibc (or another library) wrapper for a syscall, or the raw
->> syscall (this only when there's not a wrapper).
->>
->> Let's document both prototypes, which many times are slightly
->> different.  This will solve a problem where documenting glibc
->> wrappers implied shadowing the documentation for the raw syscall.
->>
->> It will also be much clearer for the reader where the syscall
->> comes from (kernel? glibc? other?), by adding an explicit comment
->> at the beginning of the prototypes.  This removes the need of
->> scrolling down to NOTES to see that info.
->>
->> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
->> ---
->>
->> Hi all,
->>
->> This is a prototype for doing some important changes to the SYNOPSIS
->> of the man-pages.
->>
->> The commit message above explains the idea quite well.  A few details
->> that couldn't be shown on this commit are:
->>
->> For cases where the wrapper is provided by a library other than glibc,
->> I'd simply change the comment.  For example, for move_pages(2),
->> it would say /* libnuma wrapper function: */.
->>
->> I think this would make the samll notes warning that there's no glibc
->> wrapper function deprecated (but we could keep them for some time and
->> decide that later).
->>
->> While changing this, I'd also make sure that the headers are correct,
->> and clearly differentiate which headers are needed for the raw syscall
->> and for the wrapper function.
->>
->> This change will probably take more than one release of the man-pages
->> to complete.
->>
->> Any thoughts?
-> 
-> My first impression is that I'm not keen on this. We'll add extra
-> text to all Section 2 pages, and in many (most?) cases the info
-> will be redundant (i.e., the wrapper and the syscall() notation
-> will express the same info). In other cases, I suspect the info
-> will be largely irrelevant to the user. To take an example: to
-> whom will the difference that you document below for execve()
-> matter, how will it matter, and does it matter enough that we
-> headline the info in the pages? I'd want cogent answers to
-> those questions before considering a wide-ranging change.
+Let's document both prototypes, which many times are slightly
+different.  This will solve a problem where documenting glibc
+wrappers implied shadowing the documentation for the raw syscall.
 
-It will matter to:
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+ man2/execve.2     | 15 +++++++++++++--
+ man2/membarrier.2 | 14 +++++---------
+ 2 files changed, 18 insertions(+), 11 deletions(-)
 
-1) Users of old systems where the glibc wrapper is not yet present.
-
-3) Users of some unicorn Linux distributions that use a C library 
-different than glibc and may not have wrappers for some syscalls that 
-glibc provides.
-
-2) Library (libc) developers.
-
-Those won't have the glibc wrapper available for them, and will have to 
-use syscall(2).  The kernel syscall info would be highly valuable for 
-them.  However, the sum of them is probably not a big number of people.
-
-
-> 
-> There are indeed cases where the wrapper API differs in
-> significant ways from the syscall API (and these differences
-> are usually captured in the " C library/kernel differences"
-> subsections, such as for pselect()/pselect6() in select(2)).
-> But I imagine that that is the case in only a smallish
-> minority of the pages.
-> 
-> And indeed there are a very few syscalls that have wrappers
-> provided in another library. But it's a very small percentage
-> I think, and best documented case by case in specific pages.
-> The default presumption is that the wrapper is in the C library.
-
-Agree.
-
-> 
-> There are other cases where I think it may be worthwhile
-> considering the syscall() notation:
-> 
-> 1. Where the system call has no wrapper. In that case, we might
->     use the syscall() notation in the SYNOPISIS as both
->     (a) a clear indication that there is no wrapper and
->     (b) instructions to the reader about how to call the
->     system call using syscall().
-
-Yes.
-
-> 
-> 2. In cases where there is a "significant" difference between
->     the wrapper and the system call. In this case, we might
->     also place the syscall() notation in the SYNOPSIS, or
->     (perhaps more likely) in the NOTES
-
-Yes.
-
-I think it would be equally good to have the kernel syscall prototype in 
-"C library/kernel ABI differences" in those cases where there is a glibc 
-wrapper (even if it's quite different).  It would be even better, as it 
-would clearly mark the syscall(2) method as a second-class method, that 
-should be avoided if possible.  And also wouldn't add lines to the SYNOPSIS.
-
-However, we should probably have that subsection for all syscalls, 
-including those where the prototype is very similar to the glibc one, to 
-support those who need to use the kernel syscall, and provide them with 
-the exact types that the kernel expects.(except for those unsupported by 
-libraries, of course, which would have the syscall(SYS_xxx) prototype in 
-the SYNOPSIS).
-
-I'll prepare a new RFC with this, with 2 pages:  one with wrapper and 
-one without wrapper.
-
-Thanks,
-
-Alex
-
-
-See also:
-<https://lwn.net/Articles/534682/>
-<https://www.kernel.org/doc/man-pages/todo.html#migrate_to_kernel_source>
-
-
-> 
-> Thanks,
-> 
-> Michael
-> 
->>
->> Thanks,
->>
->> Alex
->>
->> ---
->>   man2/execve.2 | 12 ++++++++++--
->>   1 file changed, 10 insertions(+), 2 deletions(-)
->>
->> diff --git a/man2/execve.2 b/man2/execve.2
->> index 639e3b4b9..87ff022ce 100644
->> --- a/man2/execve.2
->> +++ b/man2/execve.2
->> @@ -39,10 +39,18 @@
->>   execve \- execute program
->>   .SH SYNOPSIS
->>   .nf
->> +/* Glibc wrapper function: */
->>   .B #include <unistd.h>
->>   .PP
->> -.BI "int execve(const char *" pathname ", char *const " argv [],
->> -.BI "           char *const " envp []);
->> +.BI "int execve(const char *" pathname ",
->> +.BI "           char *const " argv "[], char *const " envp []);
->> +.PP
->> + /* Raw system call: */
->> +.B #include <sys/syscall.h>
->> +.B #include <unistd.h>
->> +.PP
->> +.BI "int syscall(SYS_execve, const char *" pathname ,
->> +.BI "           const char *const " argv "[], const char *const " envp []);
->>   .fi
->>   .SH DESCRIPTION
->>   .BR execve ()
->>
-> 
-> 
-
+diff --git a/man2/execve.2 b/man2/execve.2
+index 027a0efd2..318c71c85 100644
+--- a/man2/execve.2
++++ b/man2/execve.2
+@@ -41,8 +41,8 @@ execve \- execute program
+ .nf
+ .B #include <unistd.h>
+ .PP
+-.BI "int execve(const char *" pathname ", char *const " argv [],
+-.BI "           char *const " envp []);
++.BI "int execve(const char *" pathname ",
++.BI "           char *const " argv "[], char *const " envp []);
+ .fi
+ .SH DESCRIPTION
+ .BR execve ()
+@@ -772,6 +772,17 @@ Thus, this argument list was not directly usable in a further
+ .BR exec ()
+ call.
+ Since UNIX\ V7, both are NULL.
++.SS C library/kernel differences
++.RS 4
++.nf
++/* Kernel system call: */
++.BR "#include <sys/syscall.h>" "        /* For " SYS_* " constants */"
++.B #include <unistd.h>
++.PP
++.BI "int syscall(SYS_execve, const char *" pathname ,
++.BI "            const char *const " argv "[], const char *const " envp []);
++.fi
++.RE
+ .\"
+ .\" .SH BUGS
+ .\" Some Linux versions have failed to check permissions on ELF
+diff --git a/man2/membarrier.2 b/man2/membarrier.2
+index 173195484..25d6add77 100644
+--- a/man2/membarrier.2
++++ b/man2/membarrier.2
+@@ -28,13 +28,12 @@ membarrier \- issue memory barriers on a set of threads
+ .SH SYNOPSIS
+ .nf
+ .PP
+-.B #include <linux/membarrier.h>
++.BR "#include <linux/membarrier.h>" "   /* For " MEMBARRIER_* " constants */"
++.BR "#include <sys/syscall.h>" "        /* For " SYS_* " constants */"
++.B #include <unistd.h>
+ .PP
+-.BI "int membarrier(int " cmd ", unsigned int " flags ", int " cpu_id );
++.BI "int syscall(SYS_membarrier, int " cmd ", unsigned int " flags ", int " cpu_id );
+ .fi
+-.PP
+-.IR Note :
+-There is no glibc wrapper for this system call; see NOTES.
+ .SH DESCRIPTION
+ The
+ .BR membarrier ()
+@@ -295,7 +294,7 @@ was:
+ .PP
+ .in +4n
+ .EX
+-.BI "int membarrier(int " cmd ", int " flags );
++.BI "int syscall(SYS_membarrier, int " cmd ", int " flags );
+ .EE
+ .in
+ .SH CONFORMING TO
+@@ -322,9 +321,6 @@ Examples where
+ .BR membarrier ()
+ can be useful include implementations
+ of Read-Copy-Update libraries and garbage collectors.
+-.PP
+-Glibc does not provide a wrapper for this system call; call it using
+-.BR syscall (2).
+ .SH EXAMPLES
+ Assuming a multithreaded application where "fast_path()" is executed
+ very frequently, and where "slow_path()" is executed infrequently, the
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.30.1.721.g45526154a5
+
