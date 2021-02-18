@@ -2,222 +2,274 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 429B031EF9A
+	by mail.lfdr.de (Postfix) with ESMTP id B397C31EF9B
 	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 20:20:20 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230194AbhBRTTw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 18 Feb 2021 14:19:52 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39278 "EHLO
+        id S231637AbhBRTTy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 18 Feb 2021 14:19:54 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45542 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231637AbhBRSVZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 13:21:25 -0500
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1B6E1C061788
-        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 10:20:44 -0800 (PST)
-Received: by mail-wr1-x434.google.com with SMTP id v14so4019551wro.7
-        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 10:20:44 -0800 (PST)
+        with ESMTP id S232984AbhBRSuT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 13:50:19 -0500
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EBFC8C061788
+        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 10:49:37 -0800 (PST)
+Received: by mail-wm1-x331.google.com with SMTP id a132so4709678wmc.0
+        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 10:49:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=A6JvujsO2Df0YCGBHxHBzGTn/K+aJ9sF4URnvS2DhpE=;
-        b=PdfBdSipNfU5cOPT5ougmEeo1+CgHeQo5k4LU11qUA75lMd1w6OVTj8jJ35bSIgRjS
-         EMd5rFVvXZiggdJW8H+Wl8zQtqf+9sRr+g1Vf8b7CpIMTW8d1cehZKK4q8vcDen9wlEI
-         bqdwgI3tBZ9gFMBkPkLMtJ5nGzKss0j+GGyaOuXBZiaoD3iLWdFC28cHR/0gamPSICv/
-         d3AYYIWpahamNxP+PDQVxHmZRkbDK2Qu3eMPrmHz4qNPQ6Re0FzknP3g8IHuxNkUbgF8
-         uA+tgiA8NeNwQVMQ98t6CBAuh2ri7ALC9Un3EZ609BRhXPPN2b45p48itrnlUsRt1z41
-         AG4Q==
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=eWC1LhhTiX1RF+cXmpiYE7XBXv6GD7FmwovEReZNehw=;
+        b=kDcRHoXpQ9eX0ybVxhJrCNG29WLK/JVX5Fi5JtroWn5B5Uc2A7jQnKUjTPj161JWty
+         MnGfBSloKJV27KZw6qBtCPTJGUsRfcgagsQKmRglgPv/armS2nf+Fdy6MZ4u6lJ9XrqF
+         KGyWX+hOixCMyViJ+hshOm9Ywnv83yqjczCjvwj75cJyO/uO8mK8Pon229/dodBeIr9x
+         fRPgbb7smoNbrn2G8VqOC9vYOMNhQXAnEkuiphz8oxUnVA1yGYzfKvLvIx/f+IwAp2sX
+         7GK9pcEItdqin8mWA6VKUt1WGsNJCSjm6cPo+DSbpd7Oxfj0m30eEwZgCDCpqVXBgzGe
+         GIGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=A6JvujsO2Df0YCGBHxHBzGTn/K+aJ9sF4URnvS2DhpE=;
-        b=LkN3snEz00KjZ86GTObLerTGwKBeep+qV4m12WrlugjALQxvviY4wKBQBctzY7cKvO
-         kgUWw9OsXd0QwcZPnv31/DeCKUOKi3bPXUD4L86uaFbCcqRNloiQdIzwRVrWVGC1yLud
-         msPdkLxuISgK64hls7UKLzUHKgMWK8DZ85MF0/sYPShEhUdTnQNR/xJDZAFA4wa+uj8w
-         paCdZTekpEHDiDU6KXKqnVQd7BDoDv9L5RS5zQ6zgKj7CntG0KfoHILjTYLhVClN+qpe
-         OfQayoQP+VdAqDnpQwGxIkXVa402EQf6U5i+xf8ne9D5YUn702TFva1rUhwurkKGabTb
-         eb4Q==
-X-Gm-Message-State: AOAM530jyy5e9rKPb3pBnaXepR/FS/1NOJ7vJgLNxGJSXtg5fblG3WR8
-        Nfurw0b/Sl8hEMPhxBLB+EcDhvP8P2ZsruCyLEp5Ag==
-X-Google-Smtp-Source: ABdhPJwUro94gO/qGz4eRbhu+BIbq6W4NJ6UwoC0fGKFP2tvyoO+3SM/RLEPxTtE0knIsRq3pcxCN07LlInrrW6ZteU=
-X-Received: by 2002:a5d:610a:: with SMTP id v10mr5622545wrt.334.1613672442415;
- Thu, 18 Feb 2021 10:20:42 -0800 (PST)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=eWC1LhhTiX1RF+cXmpiYE7XBXv6GD7FmwovEReZNehw=;
+        b=A6SOEqXD2QTv/Dx/LBN9UFxQbAkqAzWFyRUemdRZE54n9dOog+XHExk9YGarFKlKHF
+         Fc2X+g8/b9Ru8rHfLTb8QJq4NlRQv2pFKLDgzXgf3i8AJW0tW6xcn13UE70ZxxHMxwMI
+         HTeYNspHmhgv1oQ2eBhGSsXorOQLJLWzCQJKQE1/U3hQk66gGUe0O4NTzxM4l1yhsWhg
+         Gzy8rC9Pb16V8vaI8VDTw3/QdEim/y1gdlVtSH91ig5we4ShviE+85DKKtJ8+0sIWCRD
+         ARCVT+6msjE/IulXupzNE0rFg7Bcfo2uX86h/+f+uYT/lITYsQukhDyGUCQHizDq/ZPN
+         oupw==
+X-Gm-Message-State: AOAM53265e0Ady53mUbtCLuDygDGlrIqF48mtv2za0F04Vmq4edDeyZh
+        ybzRbfewrPRivxXoe6kNGWk=
+X-Google-Smtp-Source: ABdhPJwGPLWkfxvOuJw1ejQnFnHdEwmF4two0pnYuFi34IMxmbOHJf0zJi8XppfEA/sQmoJfAUbsSA==
+X-Received: by 2002:a1c:f708:: with SMTP id v8mr4672078wmh.25.1613674176600;
+        Thu, 18 Feb 2021 10:49:36 -0800 (PST)
+Received: from localhost.localdomain ([170.253.51.130])
+        by smtp.googlemail.com with ESMTPSA id l4sm10082828wrt.42.2021.02.18.10.49.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 18 Feb 2021 10:49:36 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, Walter Harms <wharms@bfs.de>
+Subject: [PATCH v4] scripts/bash_aliases: Add useful functions
+Date:   Thu, 18 Feb 2021 19:47:35 +0100
+Message-Id: <20210218184735.54457-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.30.1.721.g45526154a5
+In-Reply-To: <20210215131522.450666-11-alx.manpages@gmail.com>
+References: <20210215131522.450666-11-alx.manpages@gmail.com>
 MIME-Version: 1.0
-References: <20210202053046.1653012-1-surenb@google.com> <079db245-a08c-0dbd-01d4-8065f533652e@gmail.com>
- <CAJuCfpGotx_04Stn5Nw6Au+TVG9LuAJ=CB_s7uxjMLOLerw-GA@mail.gmail.com>
- <2d303517-cdcd-9ec8-e57d-3d065edb573c@gmail.com> <CAJuCfpFC0B=jXFEuPYYBZAjgx1B6S8vG-i7_0iBc_RHeWynyzw@mail.gmail.com>
- <7fb20d93-92d0-14b3-f7f9-8b9af4ebb584@gmail.com>
-In-Reply-To: <7fb20d93-92d0-14b3-f7f9-8b9af4ebb584@gmail.com>
-From:   Suren Baghdasaryan <surenb@google.com>
-Date:   Thu, 18 Feb 2021 10:20:30 -0800
-Message-ID: <CAJuCfpGpeccwOueJFdZo-XUdr856Gk1sMUFvZN003HEvNgTTQw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/1] process_madvise.2: Add process_madvise man page
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Jann Horn <jannh@google.com>,
-        Kees Cook <keescook@chromium.org>,
-        Jeffrey Vander Stoep <jeffv@google.com>,
-        Minchan Kim <minchan@kernel.org>,
-        Michal Hocko <mhocko@suse.com>,
-        Shakeel Butt <shakeelb@google.com>,
-        David Rientjes <rientjes@google.com>,
-        =?UTF-8?Q?Edgar_Arriaga_Garc=C3=ADa?= <edgararriaga@google.com>,
-        Tim Murray <timmurray@google.com>,
-        linux-mm <linux-mm@kvack.org>,
-        SElinux list <selinux@vger.kernel.org>,
-        linux-security-module <linux-security-module@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        LKML <linux-kernel@vger.kernel.org>,
-        kernel-team <kernel-team@android.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Feb 17, 2021 at 11:55 PM Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
->
-> Hello Suren,
->
-> >> Thanks. I added a few words to clarify this.>
-> > Any link where I can see the final version?
->
-> Sure:
-> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man2/pro=
-cess_madvise.2
->
-> Also rendered below.
+That file should be sourced (.) from 'bashrc' (or 'bash_aliases').
 
-Looks great. Thanks for improving it, Michael!
+It contains functions that are useful for the maintenance of this
+project.
 
->
-> Thanks,
->
-> Michael
->
-> NAME
->        process_madvise - give advice about use of memory to a process
->
-> SYNOPSIS
->        #include <sys/uio.h>
->
->        ssize_t process_madvise(int pidfd, const struct iovec *iovec,
->                                size_t vlen, int advice,
->                                unsigned int flags);
->
->        Note: There is no glibc wrapper for this system call; see NOTES.
->
-> DESCRIPTION
->        The process_madvise() system call is used to give advice or direc=
-=E2=80=90
->        tions to the kernel about the address ranges of another process or
->        of  the  calling  process.  It provides the advice for the address
->        ranges described by iovec and vlen.  The goal of such advice is to
->        improve system or application performance.
->
->        The  pidfd  argument  is a PID file descriptor (see pidfd_open(2))
->        that specifies the process to which the advice is to be applied.
->
->        The pointer iovec points to an array of iovec structures,  defined
->        in <sys/uio.h> as:
->
->            struct iovec {
->                void  *iov_base;    /* Starting address */
->                size_t iov_len;     /* Length of region */
->            };
->
->        The iovec structure describes address ranges beginning at iov_base
->        address and with the size of iov_len bytes.
->
->        The vlen specifies the number of elements in the iovec  structure.
->        This value must be less than or equal to IOV_MAX (defined in <lim=
-=E2=80=90
->        its.h> or accessible via the call sysconf(_SC_IOV_MAX)).
->
->        The advice argument is one of the following values:
->
->        MADV_COLD
->               See madvise(2).
->
->        MADV_PAGEOUT
->               See madvise(2).
->
->        The flags argument is reserved for future use; currently, this ar=
-=E2=80=90
->        gument must be specified as 0.
->
->        The  vlen  and iovec arguments are checked before applying any ad=
-=E2=80=90
->        vice.  If vlen is too big, or iovec is invalid, then an error will
->        be returned immediately and no advice will be applied.
->
->        The  advice might be applied to only a part of iovec if one of its
->        elements points to an invalid memory region in the remote process.
->        No further elements will be processed beyond that point.  (See the
->        discussion regarding partial advice in RETURN VALUE.)
->
->        Permission to apply advice to another process  is  governed  by  a
->        ptrace   access   mode   PTRACE_MODE_READ_REALCREDS   check   (see
->        ptrace(2)); in addition, because of the  performance  implications
->        of applying the advice, the caller must have the CAP_SYS_ADMIN ca=
-=E2=80=90
->        pability.
->
-> RETURN VALUE
->        On success, process_madvise() returns the number of bytes advised.
->        This  return  value may be less than the total number of requested
->        bytes, if an error occurred after some iovec elements were already
->        processed.   The caller should check the return value to determine
->        whether a partial advice occurred.
->
->        On error, -1 is returned and errno is set to indicate the error.
->
-> ERRORS
->        EBADF  pidfd is not a valid PID file descriptor.
->
->        EFAULT The memory described by iovec is outside the accessible ad=
-=E2=80=90
->               dress space of the process referred to by pidfd.
->
->        EINVAL flags is not 0.
->
->        EINVAL The  sum of the iov_len values of iovec overflows a ssize_t
->               value.
->
->        EINVAL vlen is too large.
->
->        ENOMEM Could not allocate memory for internal copies of the  iovec
->               structures.
->
->        EPERM  The  caller  does not have permission to access the address
->               space of the process pidfd.
->
->        ESRCH  The target process does not exist (i.e., it has  terminated
->               and been waited on).
->
-> VERSIONS
->        This  system  call first appeared in Linux 5.10.  Support for this
->        system call is optional, depending on  the  setting  of  the  CON=
-=E2=80=90
->        FIG_ADVISE_SYSCALLS configuration option.
->
-> CONFORMING TO
->        The process_madvise() system call is Linux-specific.
->
-> NOTES
->        Glibc does not provide a wrapper for this system call; call it us=
-=E2=80=90
->        ing syscall(2).
->
-> SEE ALSO
->        madvise(2),          pidfd_open(2),           process_vm_readv(2),
->        process_vm_write(2)
->
->
-> --
-> Michael Kerrisk
-> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-> Linux/UNIX System Programming Training: http://man7.org/training/
+- grep_syscall()
+- grep_syscall_def()
+- man_section()
+- man_lsfunc()
+- pdfman()
+- grep_glibc_prototype()
+
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+
+
+v2:
+	- Reword license to adequate it for many functions instead
+	  of a single program.
+	- Add a trailing ';' for consistency.
+v3:
+	- Resend to avoid confusion:  I forgot to use [PATCH v2]!
+v4:
+	- Fix some corner cases where a function invocation was printed
+
+---
+ scripts/bash_aliases | 171 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 171 insertions(+)
+ create mode 100644 scripts/bash_aliases
+
+diff --git a/scripts/bash_aliases b/scripts/bash_aliases
+new file mode 100644
+index 000000000..8697371f6
+--- /dev/null
++++ b/scripts/bash_aliases
+@@ -0,0 +1,171 @@
++# SPDX-License-Identifier: GPL-2.0-only
++########################################################################
++#
++# (C) Copyright 2021, Alejandro Colomar
++# These functions are free software; you can redistribute them and/or
++# modify them under the terms of the GNU General Public License
++# as published by the Free Software Foundation; version 2.
++#
++# These functions are distributed in the hope that they will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU General Public License for more details
++# (http://www.gnu.org/licenses/gpl-2.0.html).
++#
++########################################################################
++
++########################################################################
++#	Exit status
++
++EX_OK=0;
++EX_USAGE=64;
++
++########################################################################
++#	Linux kernel
++
++#  grep_syscall()  finds the prototype of a syscall in the kernel sources,
++# printing the filename, line number, and the prototype.
++# It should be run from the root of the linux kernel source tree.
++# Usage example:  .../linux$ grep_syscall openat2;
++
++function grep_syscall()
++{
++	if ! [ -v 1 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
++		return ${EX_USAGE};
++	fi
++
++	find * -type f \
++	|grep '\.c$' \
++	|sort -V \
++	|xargs pcregrep -Mn "(?s)^\w*SYSCALL_DEFINE.\(${1},.*?\)" \
++	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
++
++	find * -type f \
++	|grep '\.[ch]$' \
++	|sort -V \
++	|xargs pcregrep -Mn "(?s)^asmlinkage\s+[\w\s]+\**sys_${1}\s*\(.*?\)" \
++	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
++}
++
++#  grep_syscall_def()  finds the definition of a syscall in the kernel sources,
++# printing the filename, line number, and the function definition.
++# It should be run from the root of the linux kernel source tree.
++# Usage example:  .../linux$ grep_syscall_def openat2;
++
++function grep_syscall_def()
++{
++	if ! [ -v 1 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
++		return ${EX_USAGE};
++	fi
++
++	find * -type f \
++	|grep '\.c$' \
++	|sort -V \
++	|xargs pcregrep -Mn "(?s)^\w*SYSCALL_DEFINE.\(${1},.*?^}" \
++	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
++}
++
++########################################################################
++#	Linux man-pages
++
++#  man_section()  prints a specific manual page section (DESCRIPTION, SYNOPSIS,
++# ...) of all manual pages in a directory (or in a single manual page file).
++# Usage example:  .../man-pages$ man_section man2 SYNOPSIS;
++
++function man_section()
++{
++	if ! [ -v 2 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <dir> <section>";
++		return ${EX_USAGE};
++	fi
++
++	find "${1}" -type f \
++	|xargs grep -l "\.SH ${2}" \
++	|sort -V \
++	|while read -r manpage; do
++		<${manpage} \
++		sed -n \
++			-e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
++			-e "/^\.SH ${2}/p" \
++			-e "/^\.SH ${2}/,/^\.SH/{/^\.SH/!p}" \
++		|man -P cat -l - 2>/dev/null;
++	done;
++}
++
++#  man_lsfunc()  prints the name of all C functions declared in the SYNOPSIS
++# of all manual pages in a directory (or in a single manual page file).
++# Each name is printed in a separate line
++# Usage example:  .../man-pages$ man_lsfunc man2;
++
++function man_lsfunc()
++{
++	if ! [ -v 1 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <dir>";
++		return ${EX_USAGE};
++	fi
++
++	find "${1}" -type f \
++	|xargs grep -l "\.SH SYNOPSIS" \
++	|sort -V \
++	|while read -r manpage; do
++		<${manpage} \
++		sed -n \
++			-e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
++			-e "/^\.SH SYNOPSIS/p" \
++			-e "/^\.SH SYNOPSIS/,/^\.SH/{/^\.SH/!p}" \
++		|sed \
++			-e '/Feature/,$d' \
++			-e '/{/,/}/d' \
++		|man -P cat -l - 2>/dev/null;
++	done \
++	|sed -n "/^SYNOPSIS/,/^\w/p" \
++	|grep '^       \w' \
++	|grep -v ':' \
++	|sed 's/^[^(]* \**\(\w*\)(.*/\1/' \
++	|grep '^\w' \
++	|uniq;
++}
++
++#  pdfman()  reanders a manual page in PDF
++# Usage example:  .../man-pages$ pdfman man2/membarrier.2;
++
++function pdfman()
++{
++	if ! [ -v 1 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <man-page.n>";
++		return ${EX_USAGE};
++	fi;
++
++	local tmp="$(mktemp -t "${1##*/}.XXXXXX")";
++
++	<${1} \
++	man -Tps -l - \
++	|ps2pdf - - \
++	>${tmp};
++	xdg-open ${tmp};
++}
++
++########################################################################
++#	Glibc
++
++#  grep_glibc_prototype()  finds a function prototype in the glibc sources,
++# printing the filename, line number, and the prototype.
++# It should be run from the root of the glibc source tree.
++# Usage example:  .../glibc$ grep_glibc_prototype printf;
++
++function grep_glibc_prototype()
++{
++	if ! [ -v 1 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <func>";
++		return ${EX_USAGE};
++	fi
++
++	find * -type f \
++	|grep '\.h$' \
++	|sort -V \
++	|xargs pcregrep -Mn \
++	  "(?s)^[^\s#][\w\s]+\s+\**${1}\s*\([\w\s()[\]*,]+?(...)?\)[\w\s()]*;" \
++	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
++}
+-- 
+2.30.1.721.g45526154a5
+
