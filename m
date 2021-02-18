@@ -2,104 +2,195 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5B25E31E96C
-	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 13:01:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7D43C31EBA8
+	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 16:41:54 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229656AbhBRL5k (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 18 Feb 2021 06:57:40 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([216.205.24.124]:46429 "EHLO
-        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S231614AbhBRLjZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 06:39:25 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1613648221;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=36Nxu7fh3KcvHdksE5HDqIJ3wvrGYUMQwh0wbPL/3hQ=;
-        b=Ntj5q//aNzk8/wEfcfaX18aPAKhw5alGvt8GLHYt1odruEcI3QtLTS+DYEEcwO1xyI9C+C
-        S4w0foBzj0bVPaQNvVGrceOYyckAnqsBOJE3XIabMhcW5YX/aaeGtkhTMnN/b0h1CY5hO7
-        TdDPtp34xGTaUZVlzYvH7Zq4XoMqefc=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-346-lNaUCJL5O9yfGuDITW96MA-1; Thu, 18 Feb 2021 06:33:12 -0500
-X-MC-Unique: lNaUCJL5O9yfGuDITW96MA-1
-Received: by mail-ej1-f70.google.com with SMTP id 7so556982ejh.10
-        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 03:33:12 -0800 (PST)
+        id S231386AbhBRPlV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 18 Feb 2021 10:41:21 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48376 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S232853AbhBRM2y (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 07:28:54 -0500
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 82764C06178C;
+        Thu, 18 Feb 2021 04:27:10 -0800 (PST)
+Received: by mail-wm1-x331.google.com with SMTP id x16so3349711wmk.3;
+        Thu, 18 Feb 2021 04:27:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=T8PybQxwyiUCCBYU7DV0jC9PmrYax3BtCf+BxA7Qu30=;
+        b=W5bqN02eblymj1giyVeNptKMyOx7CpT0zcq2FZRUFVKCBKPXemkpS4qTLd+U9cidEV
+         4IDwJjguXeBxmorEAyf1tI7aZ130lKzQg/KaIn8579xM9q3icvw5sMtUNljiza+fT/AR
+         SduzN7jdJLldtnQ4xU60+taCn/PJtDZWEmwrkmKKt0kucxFI0sI9rqXRVMuBddShNFnq
+         A9bjzQQ9GWEvWkjSAC+Sf4CiaoUNwC6ciesnShLEcjZaD0Igv2WPbNpiuXOZ49HwcGn6
+         jCSmeu3eMwaiowCSWs+vSiQji1PLU9ZbLDSpcIi7HvZoZyG5kF8W63j8OecH33u8g/2k
+         mbjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:in-reply-to:references:date
-         :message-id:mime-version:content-transfer-encoding;
-        bh=36Nxu7fh3KcvHdksE5HDqIJ3wvrGYUMQwh0wbPL/3hQ=;
-        b=cErSnzfKh9CnRp/tRjaCSQJkUFJpgQfhji0nRA0P7URD8Hym1+5i0ehSE/uXnWyY+V
-         meKQ6B/ua9qiM1bkFCzpI5eZMfLtE8vXaSAXyYiooy1ThY+ebeOTqh42CWIrlneF/p6r
-         IMNoofTOTM2JFjJYqV1dUp6aSdVcY7/qvdE9iIg4YuWjM/EInA7IZVbvTEXUlhLLdrZZ
-         77NjT32LZyHDCFEt2iLWJb99pwtw3uXa6gjYEFeUGIOVa77X4FH2O4YYBra0e3JBQuJi
-         fJGFz1uNBVrCTA2ZaeemGhCMscy36PZ5KbPy/8eRhuFba4gLfNH+y1szGqgV/3M4Z9ag
-         Or2Q==
-X-Gm-Message-State: AOAM530S+NyGlJc2sWICCu+uqdkmgdlSxciNX2A/dMd8Pv3JlaJPmxih
-        Xgd59lTUmRsgfGbvxQGcqgZKHgpHEnAjU/YdsDkiqufJOe+MgNB3fPxVADUB5cSo/6NYWlWP4yP
-        Or6haEkQtgJiUyq8RZmYM
-X-Received: by 2002:a17:906:4c90:: with SMTP id q16mr3650789eju.49.1613647991258;
-        Thu, 18 Feb 2021 03:33:11 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwncoh1x9SnZ4fpM1Vv1Dk74fJ6NcnMvbuj6niroKBejeYqbgEzKQVsxkuh9Jeo8iBmL8Bskg==
-X-Received: by 2002:a17:906:4c90:: with SMTP id q16mr3650770eju.49.1613647991115;
-        Thu, 18 Feb 2021 03:33:11 -0800 (PST)
-Received: from alrua-x1.borgediget.toke.dk ([45.145.92.2])
-        by smtp.gmail.com with ESMTPSA id p20sm701475ejo.19.2021.02.18.03.33.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Feb 2021 03:33:10 -0800 (PST)
-Received: by alrua-x1.borgediget.toke.dk (Postfix, from userid 1000)
-        id 619B31805FA; Thu, 18 Feb 2021 12:33:09 +0100 (CET)
-From:   Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>
-To:     Joe Stringer <joe@cilium.io>
-Cc:     bpf@vger.kernel.org, Joe Stringer <joe@cilium.io>,
-        linux-man@vger.kernel.org, Networking <netdev@vger.kernel.org>,
-        mtk.manpages@gmail.com, ast@kernel.org, brianvv@google.com,
-        Daniel Borkmann <daniel@iogearbox.net>, daniel@zonque.org,
-        john.fastabend@gmail.com, ppenkov@google.com,
-        Quentin Monnet <quentin@isovalent.com>, sean@mess.org,
-        yhs@fb.com
-Subject: Re: [PATCH bpf-next 00/17] Improve BPF syscall command documentation
-In-Reply-To: <CADa=RywykZt_kMVcCJk8N0vm2sJHW2_mKTr9Z8m2rTsnqvinqA@mail.gmail.com>
-References: <20210217010821.1810741-1-joe@wand.net.nz>
- <87r1len6hi.fsf@toke.dk>
- <CADa=RywykZt_kMVcCJk8N0vm2sJHW2_mKTr9Z8m2rTsnqvinqA@mail.gmail.com>
-X-Clacks-Overhead: GNU Terry Pratchett
-Date:   Thu, 18 Feb 2021 12:33:09 +0100
-Message-ID: <87mtw1life.fsf@toke.dk>
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=T8PybQxwyiUCCBYU7DV0jC9PmrYax3BtCf+BxA7Qu30=;
+        b=WvAVq/CnVuPDJYpLb9kU8kSZ/laoYLOTpqIx6vhGZfrYDyeawLyDbQYvwwq+z/1GMT
+         1l6J2mOYm5CTl14aWBMIuB5UW8TK2YHlEo9jK/tXzWpElCcDceHEEJ56ab5Ho87ZfasC
+         W06vUHvjoTRK59wvXUxu2Dw1der40/XVooavuAqcsbnfFhNpOBjMdKEvrPIQ2qEYk85e
+         fCoj583xJOUXDNMR0bsB/1GiZIrU0WT0DdKtWrJr9Pv9t5SnR3lF+ZqEBtyxze7Q/yWX
+         Vf1EkvykywpM7Cw845rAMYVoudN2DrHvcCLnsuUhHgZnC5q2ib9PeGtJ+nJpc4k/sI5V
+         1Eow==
+X-Gm-Message-State: AOAM533gQaM/342mORFpLIaDBZvhC+DsR3MaualjdUZl9bSLB5x/QA2c
+        voHaOJbeiONqrSpHRSPn+BE=
+X-Google-Smtp-Source: ABdhPJw/SFw7HpRuwxlq2cELF1JoqQj+imDON14cDkNG2NF1BZQNsXuLb7b4NPsd+9ou9Jj5CNyeaA==
+X-Received: by 2002:a1c:41d6:: with SMTP id o205mr3284592wma.80.1613651229196;
+        Thu, 18 Feb 2021 04:27:09 -0800 (PST)
+Received: from ?IPv6:2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b? ([2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b])
+        by smtp.gmail.com with ESMTPSA id l22sm2054417wrb.4.2021.02.18.04.27.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 18 Feb 2021 04:27:08 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        linux-kernel@vger.kernel.org, libc-alpha@sourceware.org,
+        Florian Weimer <fweimer@redhat.com>
+Subject: Re: [RFC] execve.2: SYNOPSIS: Document both glibc wrapper and kernel
+ sycalls
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+References: <20210214133907.157320-1-alx.manpages@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <1c7043ad-b834-5270-56fc-404d82d5a0a0@gmail.com>
+Date:   Thu, 18 Feb 2021 13:27:07 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
+In-Reply-To: <20210214133907.157320-1-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Joe Stringer <joe@cilium.io> writes:
+Hi Alex,
 
-> On Wed, Feb 17, 2021 at 5:55 AM Toke H=C3=B8iland-J=C3=B8rgensen <toke@re=
-dhat.com> wrote:
->>
->> Joe Stringer <joe@wand.net.nz> writes:
->> > Given the relative success of the process around bpf-helpers(7) to
->> > encourage developers to document their user-facing changes, in this
->> > patch series I explore applying this technique to bpf(2) as well.
->> > Unfortunately, even with bpf(2) being so out-of-date, there is still a
->> > lot of content to convert over. In particular, I've identified at least
->> > the following aspects of the bpf syscall which could individually be
->> > generated from separate documentation in the header:
->> > * BPF syscall commands
->> > * BPF map types
->> > * BPF program types
->> > * BPF attachment points
->>
->> Does this also include program subtypes (AKA expected_attach_type?)
->
-> I seem to have left my lawyerly "including, but not limited to..."
-> language at home today ;-) . Of course, I can add that to the list.
+On 2/14/21 2:39 PM, Alejandro Colomar wrote:
+> Until now, the manual pages have (usually) documented only either
+> the glibc (or another library) wrapper for a syscall, or the raw
+> syscall (this only when there's not a wrapper).
+> 
+> Let's document both prototypes, which many times are slightly
+> different.  This will solve a problem where documenting glibc
+> wrappers implied shadowing the documentation for the raw syscall.
+> 
+> It will also be much clearer for the reader where the syscall
+> comes from (kernel? glibc? other?), by adding an explicit comment
+> at the beginning of the prototypes.  This removes the need of
+> scrolling down to NOTES to see that info.
+> 
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
+> 
+> Hi all,
+> 
+> This is a prototype for doing some important changes to the SYNOPSIS
+> of the man-pages.
+> 
+> The commit message above explains the idea quite well.  A few details
+> that couldn't be shown on this commit are:
+> 
+> For cases where the wrapper is provided by a library other than glibc,
+> I'd simply change the comment.  For example, for move_pages(2),
+> it would say /* libnuma wrapper function: */.
+> 
+> I think this would make the samll notes warning that there's no glibc
+> wrapper function deprecated (but we could keep them for some time and
+> decide that later).
+> 
+> While changing this, I'd also make sure that the headers are correct,
+> and clearly differentiate which headers are needed for the raw syscall
+> and for the wrapper function.
+> 
+> This change will probably take more than one release of the man-pages
+> to complete.
+> 
+> Any thoughts?
 
-Great, thanks! :)
+My first impression is that I'm not keen on this. We'll add extra
+text to all Section 2 pages, and in many (most?) cases the info
+will be redundant (i.e., the wrapper and the syscall() notation
+will express the same info). In other cases, I suspect the info
+will be largely irrelevant to the user. To take an example: to 
+whom will the difference that you document below for execve()
+matter, how will it matter, and does it matter enough that we
+headline the info in the pages? I'd want cogent answers to
+those questions before considering a wide-ranging change.
 
--Toke
+There are indeed cases where the wrapper API differs in
+significant ways from the syscall API (and these differences
+are usually captured in the " C library/kernel differences"
+subsections, such as for pselect()/pselect6() in select(2)).
+But I imagine that that is the case in only a smallish
+minority of the pages.
 
+And indeed there are a very few syscalls that have wrappers
+provided in another library. But it's a very small percentage
+I think, and best documented case by case in specific pages.
+The default presumption is that the wrapper is in the C library.
+
+There are other cases where I think it may be worthwhile
+considering the syscall() notation:
+
+1. Where the system call has no wrapper. In that case, we might
+   use the syscall() notation in the SYNOPISIS as both
+   (a) a clear indication that there is no wrapper and
+   (b) instructions to the reader about how to call the
+   system call using syscall().
+
+2. In cases where there is a "significant" difference between
+   the wrapper and the system call. In this case, we might
+   also place the syscall() notation in the SYNOPSIS, or
+   (perhaps more likely) in the NOTES
+
+Thanks,
+
+Michael
+
+> 
+> Thanks,
+> 
+> Alex
+> 
+> ---
+>  man2/execve.2 | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/man2/execve.2 b/man2/execve.2
+> index 639e3b4b9..87ff022ce 100644
+> --- a/man2/execve.2
+> +++ b/man2/execve.2
+> @@ -39,10 +39,18 @@
+>  execve \- execute program
+>  .SH SYNOPSIS
+>  .nf
+> +/* Glibc wrapper function: */
+>  .B #include <unistd.h>
+>  .PP
+> -.BI "int execve(const char *" pathname ", char *const " argv [],
+> -.BI "           char *const " envp []);
+> +.BI "int execve(const char *" pathname ",
+> +.BI "           char *const " argv "[], char *const " envp []);
+> +.PP
+> + /* Raw system call: */
+> +.B #include <sys/syscall.h>
+> +.B #include <unistd.h>
+> +.PP
+> +.BI "int syscall(SYS_execve, const char *" pathname ,
+> +.BI "           const char *const " argv "[], const char *const " envp []);
+>  .fi
+>  .SH DESCRIPTION
+>  .BR execve ()
+> 
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
