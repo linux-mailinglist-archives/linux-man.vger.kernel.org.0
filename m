@@ -2,157 +2,222 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7C8EA31EBAB
-	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 16:45:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 429B031EF9A
+	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 20:20:20 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232575AbhBRPmE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 18 Feb 2021 10:42:04 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55814 "EHLO
+        id S230194AbhBRTTw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 18 Feb 2021 14:19:52 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39278 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231387AbhBRPPv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 10:15:51 -0500
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 037FBC061574;
-        Thu, 18 Feb 2021 07:15:07 -0800 (PST)
-Received: by mail-wm1-x32a.google.com with SMTP id x4so4278382wmi.3;
-        Thu, 18 Feb 2021 07:15:06 -0800 (PST)
+        with ESMTP id S231637AbhBRSVZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 13:21:25 -0500
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1B6E1C061788
+        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 10:20:44 -0800 (PST)
+Received: by mail-wr1-x434.google.com with SMTP id v14so4019551wro.7
+        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 10:20:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=4oZWeumg03d8Z1y5Lnt1KGkf0PD/+G44xxBEli+me8o=;
-        b=vW8TmiLiGX4AAFg/14PsYui7gubBWEMlEkNvBVNmyfwt0+DdrCN6C98O7iPgaxvNKJ
-         fltwCxn0bXoofh7LLDh81dLzYDEyJYpu6RIscxwmcEv5nJnpXKf4mPJ9x0guRRZPGbik
-         dqsTQ6Sda/IVEUZJXPKgOqKlxtQblJWDFaUCMGgCj8oszmAgvQGEiLt+BcgXQR+Y4E1S
-         hZcuSGC3YehlehZr/JtVr8E5dy44XS/T9jDXqxkO2cIVJDpzYC26TNeXyIdxGHBNbYCa
-         MRHA0IoYAogZc3bYDBlL+r5I5qhILBOGTYF7GfIHslHg/hNCFYO9/tRtGeHLqX0yJXWa
-         Z1vg==
+        d=google.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=A6JvujsO2Df0YCGBHxHBzGTn/K+aJ9sF4URnvS2DhpE=;
+        b=PdfBdSipNfU5cOPT5ougmEeo1+CgHeQo5k4LU11qUA75lMd1w6OVTj8jJ35bSIgRjS
+         EMd5rFVvXZiggdJW8H+Wl8zQtqf+9sRr+g1Vf8b7CpIMTW8d1cehZKK4q8vcDen9wlEI
+         bqdwgI3tBZ9gFMBkPkLMtJ5nGzKss0j+GGyaOuXBZiaoD3iLWdFC28cHR/0gamPSICv/
+         d3AYYIWpahamNxP+PDQVxHmZRkbDK2Qu3eMPrmHz4qNPQ6Re0FzknP3g8IHuxNkUbgF8
+         uA+tgiA8NeNwQVMQ98t6CBAuh2ri7ALC9Un3EZ609BRhXPPN2b45p48itrnlUsRt1z41
+         AG4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=4oZWeumg03d8Z1y5Lnt1KGkf0PD/+G44xxBEli+me8o=;
-        b=OMA+2PFlWu3N+yKwH7nTSyFtJgzvJEZNqJCdFayafd9GLVIME132QQSZoVsMRi94d+
-         Byvf1SY/jig7OVqJraqHDhMWFJya0Seh1YOlyaS4C3y0Q5SkxLTvHInHJtNFfc4+Oghg
-         sLxfPhRmCDPelzJBZmOrPQ6us4gsG3RSR+QYMkUIu4B76cTcBWTu5vllkM4PKyC0QBjs
-         DVpr55v7sIik9SAKA9UNCcFpcQwPvQ4Ded6khRJlOmWTsq8FPvBqKIMPtxiZGoyuiX6B
-         YfmINwhO87sqTRvX1uY1aXvyMcDBZmYqp+CsewPx4xQskXFjrbLrrLUrBTeCJcuR1qlW
-         Lnbg==
-X-Gm-Message-State: AOAM531A+unhTCsSxnOkd14KD6nrnjo0vuMifm7ibcJsEQmvPII0f189
-        1IyNPM/9cjt+y695+cCNU6UJkx4lt984sw==
-X-Google-Smtp-Source: ABdhPJwtIJqjqzAGT9hXk10R/Qa398m5v2JYPqfHkS4B5i+SEsUvq1nXBulTGEu+ecSq189+DIW5sw==
-X-Received: by 2002:a05:600c:3516:: with SMTP id h22mr4076388wmq.35.1613661305650;
-        Thu, 18 Feb 2021 07:15:05 -0800 (PST)
-Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id k128sm3363760wmf.42.2021.02.18.07.15.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Feb 2021 07:15:05 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-        Florian Weimer <fweimer@redhat.com>,
-        linux-kernel@vger.kernel.org
-Subject: [RFC v2] execve.2: SYNOPSIS: Document both glibc wrapper and kernel sycalls
-Date:   Thu, 18 Feb 2021 16:13:42 +0100
-Message-Id: <20210218151341.51095-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.30.1.721.g45526154a5
-In-Reply-To: <938df2c0-04b5-f6a4-79c3-b8fe09973828@gmail.com>
-References: <938df2c0-04b5-f6a4-79c3-b8fe09973828@gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=A6JvujsO2Df0YCGBHxHBzGTn/K+aJ9sF4URnvS2DhpE=;
+        b=LkN3snEz00KjZ86GTObLerTGwKBeep+qV4m12WrlugjALQxvviY4wKBQBctzY7cKvO
+         kgUWw9OsXd0QwcZPnv31/DeCKUOKi3bPXUD4L86uaFbCcqRNloiQdIzwRVrWVGC1yLud
+         msPdkLxuISgK64hls7UKLzUHKgMWK8DZ85MF0/sYPShEhUdTnQNR/xJDZAFA4wa+uj8w
+         paCdZTekpEHDiDU6KXKqnVQd7BDoDv9L5RS5zQ6zgKj7CntG0KfoHILjTYLhVClN+qpe
+         OfQayoQP+VdAqDnpQwGxIkXVa402EQf6U5i+xf8ne9D5YUn702TFva1rUhwurkKGabTb
+         eb4Q==
+X-Gm-Message-State: AOAM530jyy5e9rKPb3pBnaXepR/FS/1NOJ7vJgLNxGJSXtg5fblG3WR8
+        Nfurw0b/Sl8hEMPhxBLB+EcDhvP8P2ZsruCyLEp5Ag==
+X-Google-Smtp-Source: ABdhPJwUro94gO/qGz4eRbhu+BIbq6W4NJ6UwoC0fGKFP2tvyoO+3SM/RLEPxTtE0knIsRq3pcxCN07LlInrrW6ZteU=
+X-Received: by 2002:a5d:610a:: with SMTP id v10mr5622545wrt.334.1613672442415;
+ Thu, 18 Feb 2021 10:20:42 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20210202053046.1653012-1-surenb@google.com> <079db245-a08c-0dbd-01d4-8065f533652e@gmail.com>
+ <CAJuCfpGotx_04Stn5Nw6Au+TVG9LuAJ=CB_s7uxjMLOLerw-GA@mail.gmail.com>
+ <2d303517-cdcd-9ec8-e57d-3d065edb573c@gmail.com> <CAJuCfpFC0B=jXFEuPYYBZAjgx1B6S8vG-i7_0iBc_RHeWynyzw@mail.gmail.com>
+ <7fb20d93-92d0-14b3-f7f9-8b9af4ebb584@gmail.com>
+In-Reply-To: <7fb20d93-92d0-14b3-f7f9-8b9af4ebb584@gmail.com>
+From:   Suren Baghdasaryan <surenb@google.com>
+Date:   Thu, 18 Feb 2021 10:20:30 -0800
+Message-ID: <CAJuCfpGpeccwOueJFdZo-XUdr856Gk1sMUFvZN003HEvNgTTQw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/1] process_madvise.2: Add process_madvise man page
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Jann Horn <jannh@google.com>,
+        Kees Cook <keescook@chromium.org>,
+        Jeffrey Vander Stoep <jeffv@google.com>,
+        Minchan Kim <minchan@kernel.org>,
+        Michal Hocko <mhocko@suse.com>,
+        Shakeel Butt <shakeelb@google.com>,
+        David Rientjes <rientjes@google.com>,
+        =?UTF-8?Q?Edgar_Arriaga_Garc=C3=ADa?= <edgararriaga@google.com>,
+        Tim Murray <timmurray@google.com>,
+        linux-mm <linux-mm@kvack.org>,
+        SElinux list <selinux@vger.kernel.org>,
+        linux-security-module <linux-security-module@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        LKML <linux-kernel@vger.kernel.org>,
+        kernel-team <kernel-team@android.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Until now, the manual pages have (usually) documented only either
-the glibc (or another library) wrapper for a syscall, or the
-kernel syscall (this only when there's not a wrapper).
+On Wed, Feb 17, 2021 at 11:55 PM Michael Kerrisk (man-pages)
+<mtk.manpages@gmail.com> wrote:
+>
+> Hello Suren,
+>
+> >> Thanks. I added a few words to clarify this.>
+> > Any link where I can see the final version?
+>
+> Sure:
+> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man2/pro=
+cess_madvise.2
+>
+> Also rendered below.
 
-Let's document both prototypes, which many times are slightly
-different.  This will solve a problem where documenting glibc
-wrappers implied shadowing the documentation for the raw syscall.
+Looks great. Thanks for improving it, Michael!
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man2/execve.2     | 15 +++++++++++++--
- man2/membarrier.2 | 14 +++++---------
- 2 files changed, 18 insertions(+), 11 deletions(-)
-
-diff --git a/man2/execve.2 b/man2/execve.2
-index 027a0efd2..318c71c85 100644
---- a/man2/execve.2
-+++ b/man2/execve.2
-@@ -41,8 +41,8 @@ execve \- execute program
- .nf
- .B #include <unistd.h>
- .PP
--.BI "int execve(const char *" pathname ", char *const " argv [],
--.BI "           char *const " envp []);
-+.BI "int execve(const char *" pathname ",
-+.BI "           char *const " argv "[], char *const " envp []);
- .fi
- .SH DESCRIPTION
- .BR execve ()
-@@ -772,6 +772,17 @@ Thus, this argument list was not directly usable in a further
- .BR exec ()
- call.
- Since UNIX\ V7, both are NULL.
-+.SS C library/kernel differences
-+.RS 4
-+.nf
-+/* Kernel system call: */
-+.BR "#include <sys/syscall.h>" "        /* For " SYS_* " constants */"
-+.B #include <unistd.h>
-+.PP
-+.BI "int syscall(SYS_execve, const char *" pathname ,
-+.BI "            const char *const " argv "[], const char *const " envp []);
-+.fi
-+.RE
- .\"
- .\" .SH BUGS
- .\" Some Linux versions have failed to check permissions on ELF
-diff --git a/man2/membarrier.2 b/man2/membarrier.2
-index 173195484..25d6add77 100644
---- a/man2/membarrier.2
-+++ b/man2/membarrier.2
-@@ -28,13 +28,12 @@ membarrier \- issue memory barriers on a set of threads
- .SH SYNOPSIS
- .nf
- .PP
--.B #include <linux/membarrier.h>
-+.BR "#include <linux/membarrier.h>" "   /* For " MEMBARRIER_* " constants */"
-+.BR "#include <sys/syscall.h>" "        /* For " SYS_* " constants */"
-+.B #include <unistd.h>
- .PP
--.BI "int membarrier(int " cmd ", unsigned int " flags ", int " cpu_id );
-+.BI "int syscall(SYS_membarrier, int " cmd ", unsigned int " flags ", int " cpu_id );
- .fi
--.PP
--.IR Note :
--There is no glibc wrapper for this system call; see NOTES.
- .SH DESCRIPTION
- The
- .BR membarrier ()
-@@ -295,7 +294,7 @@ was:
- .PP
- .in +4n
- .EX
--.BI "int membarrier(int " cmd ", int " flags );
-+.BI "int syscall(SYS_membarrier, int " cmd ", int " flags );
- .EE
- .in
- .SH CONFORMING TO
-@@ -322,9 +321,6 @@ Examples where
- .BR membarrier ()
- can be useful include implementations
- of Read-Copy-Update libraries and garbage collectors.
--.PP
--Glibc does not provide a wrapper for this system call; call it using
--.BR syscall (2).
- .SH EXAMPLES
- Assuming a multithreaded application where "fast_path()" is executed
- very frequently, and where "slow_path()" is executed infrequently, the
--- 
-2.30.1.721.g45526154a5
-
+>
+> Thanks,
+>
+> Michael
+>
+> NAME
+>        process_madvise - give advice about use of memory to a process
+>
+> SYNOPSIS
+>        #include <sys/uio.h>
+>
+>        ssize_t process_madvise(int pidfd, const struct iovec *iovec,
+>                                size_t vlen, int advice,
+>                                unsigned int flags);
+>
+>        Note: There is no glibc wrapper for this system call; see NOTES.
+>
+> DESCRIPTION
+>        The process_madvise() system call is used to give advice or direc=
+=E2=80=90
+>        tions to the kernel about the address ranges of another process or
+>        of  the  calling  process.  It provides the advice for the address
+>        ranges described by iovec and vlen.  The goal of such advice is to
+>        improve system or application performance.
+>
+>        The  pidfd  argument  is a PID file descriptor (see pidfd_open(2))
+>        that specifies the process to which the advice is to be applied.
+>
+>        The pointer iovec points to an array of iovec structures,  defined
+>        in <sys/uio.h> as:
+>
+>            struct iovec {
+>                void  *iov_base;    /* Starting address */
+>                size_t iov_len;     /* Length of region */
+>            };
+>
+>        The iovec structure describes address ranges beginning at iov_base
+>        address and with the size of iov_len bytes.
+>
+>        The vlen specifies the number of elements in the iovec  structure.
+>        This value must be less than or equal to IOV_MAX (defined in <lim=
+=E2=80=90
+>        its.h> or accessible via the call sysconf(_SC_IOV_MAX)).
+>
+>        The advice argument is one of the following values:
+>
+>        MADV_COLD
+>               See madvise(2).
+>
+>        MADV_PAGEOUT
+>               See madvise(2).
+>
+>        The flags argument is reserved for future use; currently, this ar=
+=E2=80=90
+>        gument must be specified as 0.
+>
+>        The  vlen  and iovec arguments are checked before applying any ad=
+=E2=80=90
+>        vice.  If vlen is too big, or iovec is invalid, then an error will
+>        be returned immediately and no advice will be applied.
+>
+>        The  advice might be applied to only a part of iovec if one of its
+>        elements points to an invalid memory region in the remote process.
+>        No further elements will be processed beyond that point.  (See the
+>        discussion regarding partial advice in RETURN VALUE.)
+>
+>        Permission to apply advice to another process  is  governed  by  a
+>        ptrace   access   mode   PTRACE_MODE_READ_REALCREDS   check   (see
+>        ptrace(2)); in addition, because of the  performance  implications
+>        of applying the advice, the caller must have the CAP_SYS_ADMIN ca=
+=E2=80=90
+>        pability.
+>
+> RETURN VALUE
+>        On success, process_madvise() returns the number of bytes advised.
+>        This  return  value may be less than the total number of requested
+>        bytes, if an error occurred after some iovec elements were already
+>        processed.   The caller should check the return value to determine
+>        whether a partial advice occurred.
+>
+>        On error, -1 is returned and errno is set to indicate the error.
+>
+> ERRORS
+>        EBADF  pidfd is not a valid PID file descriptor.
+>
+>        EFAULT The memory described by iovec is outside the accessible ad=
+=E2=80=90
+>               dress space of the process referred to by pidfd.
+>
+>        EINVAL flags is not 0.
+>
+>        EINVAL The  sum of the iov_len values of iovec overflows a ssize_t
+>               value.
+>
+>        EINVAL vlen is too large.
+>
+>        ENOMEM Could not allocate memory for internal copies of the  iovec
+>               structures.
+>
+>        EPERM  The  caller  does not have permission to access the address
+>               space of the process pidfd.
+>
+>        ESRCH  The target process does not exist (i.e., it has  terminated
+>               and been waited on).
+>
+> VERSIONS
+>        This  system  call first appeared in Linux 5.10.  Support for this
+>        system call is optional, depending on  the  setting  of  the  CON=
+=E2=80=90
+>        FIG_ADVISE_SYSCALLS configuration option.
+>
+> CONFORMING TO
+>        The process_madvise() system call is Linux-specific.
+>
+> NOTES
+>        Glibc does not provide a wrapper for this system call; call it us=
+=E2=80=90
+>        ing syscall(2).
+>
+> SEE ALSO
+>        madvise(2),          pidfd_open(2),           process_vm_readv(2),
+>        process_vm_write(2)
+>
+>
+> --
+> Michael Kerrisk
+> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+> Linux/UNIX System Programming Training: http://man7.org/training/
