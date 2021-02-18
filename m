@@ -2,160 +2,216 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6C13031E520
-	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 05:23:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A0F5B31E72A
+	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 09:00:13 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230205AbhBREXd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 17 Feb 2021 23:23:33 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57726 "EHLO
+        id S230212AbhBRH6M (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 18 Feb 2021 02:58:12 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46616 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230142AbhBREXb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 17 Feb 2021 23:23:31 -0500
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com [IPv6:2607:f8b0:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E5AEC061574
-        for <linux-man@vger.kernel.org>; Wed, 17 Feb 2021 20:22:51 -0800 (PST)
-Received: by mail-ot1-x32a.google.com with SMTP id s6so781129otk.4
-        for <linux-man@vger.kernel.org>; Wed, 17 Feb 2021 20:22:51 -0800 (PST)
+        with ESMTP id S230321AbhBRH4R (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 02:56:17 -0500
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 20656C061574;
+        Wed, 17 Feb 2021 23:55:37 -0800 (PST)
+Received: by mail-wm1-x32f.google.com with SMTP id m1so2109288wml.2;
+        Wed, 17 Feb 2021 23:55:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cilium-io.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=U8oY3+hBS7HKyq1cNaFZMy0hOHTWoFPax0mpOWicnEg=;
-        b=sVa5znoA+n13GOYmUbAL0Merg4RRzMzSXBlV0Iel4bRWHFTkjYz+rK+bnUHUV8MqAL
-         hYKO/CSpKG5JFKd9VHIXtcfobS/i6tGzgqedtrjG1tHq9sSAM/sV5hns2rf2ZAtwIQWj
-         B6FBlxY0VNR4+uxxlZyGbFKaRVzIExLLWpbndogLJAlJ3w2Xg6FCt+ofchZ+yfs6FbYi
-         WFbnRylUi/kyxDPAAE2fScW4fn0lBf3v+KeY/EyhA09PX5Ixhc3IiEj2BxdYQUB7gMJR
-         w04RaDZsuf11PsCQdC2CkUMvomnaf7jCS7waXhrYHBICkJJwZ4x39XZ8zAy1SQs+15NU
-         jBpA==
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=8VuOr5IRYyD3SOn+5chtalvwQdWPMiTxF9JpEV7axuU=;
+        b=DiTZz/4gmJZPeTC5pv54B/6ep6c4fIy5ngNCoDUIRkkmLho2VvinhJ1mkzcRljbaKw
+         4CJD0yTXHFFSnmhiyBYE4ydfNjhRNJHQ7mYNnqhSS4DeCt4/9PaUd6u48IsL5Qz6nf6p
+         oMrgW9xB+Beq4LiN/xmy0zmV9bThfFonj9oyYnhz1l3I6zmyitlpj6ICdRhN45uMJceG
+         ZvyAVZh9LRLDdbBcH3Bxtk0I3pVm76joUGkkd+A/fglhVxxMtSX5FgisfOVSdQEfXn3Z
+         KOySjv69SsVPdtmtkvy1STkomL3q3xgkqmu9JXTlujoSfZLAH7l9BUcwEH7mjpWdIHVS
+         LN5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=U8oY3+hBS7HKyq1cNaFZMy0hOHTWoFPax0mpOWicnEg=;
-        b=Yryr38CnqhYEB+d01fI4sPDAPf9CvWyu8Jmg1IfIKUxVlOCIWSsJF2mgclSmX0dIw2
-         2StoxBbxlQQ0LULKmPVN3keaMHNT11BHs8g23zG0SjJVbH/GZ+T0AyHRad5easjXWq+j
-         HdDIf0DtHdUs8t2bNHk3JdtDN0cdy+etPo6Q7ZoBDKimvwt9WmSjqm15U/h4yiY8H/2X
-         hX7qp3n0bB1giRVFLzolo+cbVsLr6RKVK9R7MQPn+QW7h5G5E5zwIfREWWVmCm0NUuFt
-         d+wuBQO/zt7F2jaYJbuQX4oMwzqiOjdwkCemNPc83uNLCWpxw7r8u4VC99KuUmNvDUXl
-         eBKw==
-X-Gm-Message-State: AOAM531km5XvKXgVKehHWLFfa3iZS0LvTzglfPiI+i3TJNltcVEmrIwI
-        uCYgde3KzdBbphhJsNiL/0J99bYrzILVoLs+kERdiA==
-X-Google-Smtp-Source: ABdhPJzgAr61Ally+5+Wz2l53uNAG1MM31KgN8aAurrCxAimEPIZlJwMf5uxDIKMe+sdOZ6BZcUiFhZd5dN0ErOVb8Q=
-X-Received: by 2002:a9d:480f:: with SMTP id c15mr1696507otf.55.1613622171042;
- Wed, 17 Feb 2021 20:22:51 -0800 (PST)
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=8VuOr5IRYyD3SOn+5chtalvwQdWPMiTxF9JpEV7axuU=;
+        b=UarYHgzkbK38jENeWSluZ3kIAxrrobOl+LDH24zCUg3bVhAqrUnFIduMI0AExeik2j
+         46b8X0nXkC+RBFpbGIlf0YJaI1yu9EcJzVWpLlSo1S0qzTeDWmqk7T9ljgCJSmnGjPMe
+         CzoIVVoB8rkbqx0oi4IOgHbA62VIhIDDq/RKNjOtb1LucO1Q3OaNPuK3+wiUdSwZ3jd4
+         R0+HIzsQnZgXdW2rXwcuMJQJ1OWn9ytHSvjgbHU8H2dPMIc1cV5bmlElAoVzoSP2ZE1V
+         PEoQxOy9HT9wolB2g4eX2rgQLvHGFm6XBboCEE3n7gzNMfCZP0Yl4M8EyCGIROPAID9y
+         OrDA==
+X-Gm-Message-State: AOAM533VdgLyAZINtcNTJJcIougqIGnWf/Gbiesh9zOxObpsqZKgHJt6
+        /Xa0XC+Z6Unt6dDDYXK1epY=
+X-Google-Smtp-Source: ABdhPJzB2TIsvhv0bBBak6Op7cXkJ1RH2wz0nb5/aO3RSIANbztDN+kcjVRGxzqpkXPSK0o0IJh9YA==
+X-Received: by 2002:a7b:c2a9:: with SMTP id c9mr2443813wmk.116.1613634935639;
+        Wed, 17 Feb 2021 23:55:35 -0800 (PST)
+Received: from ?IPv6:2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b? ([2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b])
+        by smtp.gmail.com with ESMTPSA id t9sm7401393wrw.76.2021.02.17.23.55.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 17 Feb 2021 23:55:35 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Jann Horn <jannh@google.com>,
+        Kees Cook <keescook@chromium.org>,
+        Jeffrey Vander Stoep <jeffv@google.com>,
+        Minchan Kim <minchan@kernel.org>,
+        Michal Hocko <mhocko@suse.com>,
+        Shakeel Butt <shakeelb@google.com>,
+        David Rientjes <rientjes@google.com>,
+        =?UTF-8?Q?Edgar_Arriaga_Garc=c3=ada?= <edgararriaga@google.com>,
+        Tim Murray <timmurray@google.com>,
+        linux-mm <linux-mm@kvack.org>,
+        SElinux list <selinux@vger.kernel.org>,
+        linux-security-module <linux-security-module@vger.kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        LKML <linux-kernel@vger.kernel.org>,
+        kernel-team <kernel-team@android.com>
+Subject: Re: [PATCH v3 1/1] process_madvise.2: Add process_madvise man page
+To:     Suren Baghdasaryan <surenb@google.com>
+References: <20210202053046.1653012-1-surenb@google.com>
+ <079db245-a08c-0dbd-01d4-8065f533652e@gmail.com>
+ <CAJuCfpGotx_04Stn5Nw6Au+TVG9LuAJ=CB_s7uxjMLOLerw-GA@mail.gmail.com>
+ <2d303517-cdcd-9ec8-e57d-3d065edb573c@gmail.com>
+ <CAJuCfpFC0B=jXFEuPYYBZAjgx1B6S8vG-i7_0iBc_RHeWynyzw@mail.gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <7fb20d93-92d0-14b3-f7f9-8b9af4ebb584@gmail.com>
+Date:   Thu, 18 Feb 2021 08:55:31 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-References: <20210217010821.1810741-1-joe@wand.net.nz> <871rdewqf2.fsf@meer.lwn.net>
-In-Reply-To: <871rdewqf2.fsf@meer.lwn.net>
-From:   Joe Stringer <joe@cilium.io>
-Date:   Wed, 17 Feb 2021 20:22:33 -0800
-Message-ID: <CADa=RyzDXeJeW7jAVce0zfGX2zN5ZcAv5nwYsX7EtAz=bgZYkg@mail.gmail.com>
-Subject: Re: [PATCH bpf-next 00/17] Improve BPF syscall command documentation
-To:     Jonathan Corbet <corbet@lwn.net>
-Cc:     bpf@vger.kernel.org, Joe Stringer <joe@cilium.io>,
-        linux-man@vger.kernel.org, Networking <netdev@vger.kernel.org>,
-        mtk.manpages@gmail.com, ast@kernel.org, brianvv@google.com,
-        Daniel Borkmann <daniel@iogearbox.net>, daniel@zonque.org,
-        john.fastabend@gmail.com, ppenkov@google.com,
-        Quentin Monnet <quentin@isovalent.com>, sean@mess.org,
-        yhs@fb.com, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CAJuCfpFC0B=jXFEuPYYBZAjgx1B6S8vG-i7_0iBc_RHeWynyzw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Feb 17, 2021 at 9:32 AM Jonathan Corbet <corbet@lwn.net> wrote:
->
-> [CC += linux-doc]
->
-> Joe Stringer <joe@wand.net.nz> writes:
->
-> > From: Joe Stringer <joe@cilium.io>
-> >
-> > The state of bpf(2) manual pages today is not exactly ideal. For the
-> > most part, it was written several years ago and has not kept up with the
-> > pace of development in the kernel tree. For instance, out of a total of
-> > ~35 commands to the BPF syscall available today, when I pull the
-> > kernel-man-pages tree today I find just 6 documented commands: The very
-> > basics of map interaction and program load.
-> >
-> > In contrast, looking at bpf-helpers(7), I am able today to run one
-> > command[0] to fetch API documentation of the very latest eBPF helpers
-> > that have been added to the kernel. This documentation is up to date
-> > because kernel maintainers enforce documenting the APIs as part of
-> > the feature submission process. As far as I can tell, we rely on manual
-> > synchronization from the kernel tree to the kernel-man-pages tree to
-> > distribute these more widely, so all locations may not be completely up
-> > to date. That said, the documentation does in fact exist in the first
-> > place which is a major initial hurdle to overcome.
-> >
-> > Given the relative success of the process around bpf-helpers(7) to
-> > encourage developers to document their user-facing changes, in this
-> > patch series I explore applying this technique to bpf(2) as well.
->
-> So I am totally in favor of improving the BPF docs, this is great work.
->
-> That said, I am a bit less thrilled about creating a new, parallel
-> documentation-build system in the kernel.  I don't think that BPF is so
-> special that it needs to do its own thing here.
->
-> If you started that way, you'd get the whole existing build system for
-> free.  You would also have started down a path that could, some bright
-> shining day, lead to this kind of documentation for *all* of our system
-> calls.  That would be a huge improvement in how we do things.
->
-> The troff output would still need implementation, but we'd like to have
-> that anyway.  We used to create man pages for internal kernel APIs; that
-> was lost in the sphinx transition and hasn't been a priority since
-> people haven't been screaming, but it could still be nice to have it
-> back.
->
-> So...could I ask you to have a look at doing this within the kernel's
-> docs system instead of in addition to it?  Even if it means digging into
-> scripts/kernel-doc, which isn't all that high on my list of Fun Things
-> To Do either?  I'm willing to try to help, and maybe we can get some
-> other assistance too - I'm ever the optimist.
+Hello Suren,
 
-Hey Jon, thanks for the feedback. Absolutely, what you say makes
-sense. The intent here wasn't to come up with something new. Based on
-your prompt from this email (and a quick look at your KR '19
-presentation), I'm hearing a few observations:
-* Storing the documentation in the code next to the things that
-contributors edit is a reasonable approach to documentation of this
-kind.
-* This series currently proposes adding some new Makefile
-infrastructure. However, good use of the "kernel-doc" sphinx directive
-+ "DOC: " incantations in the header should be able to achieve the
-same without adding such dedicated build system logic to the tree.
-* The changes in patch 16 here extended Documentation/bpf/index.rst,
-but to assist in improving the overall kernel documentation
-organisation / hierarchy, you would prefer to instead introduce a
-dedicated Documentation/userspace-api/bpf/ directory where the bpf
-uAPI portions can be documented.
+>> Thanks. I added a few words to clarify this.>
+> Any link where I can see the final version?
 
-From the above, there's a couple of clear actionable items I can look
-into for a series v2 which should tidy things up.
+Sure:
+https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man2/process_madvise.2
 
-In addition to this, today the bpf helpers documentation is built
-through the bpftool build process as well as the runtime bpf
-selftests, mostly as a way to ensure that the API documentation
-conforms to a particular style, which then assists with the generation
-of ReStructured Text and troff output. I can probably simplify the
-make infrastructure involved in triggering the bpf docs build for bpf
-subsystem developers and maintainers. I think there's likely still
-interest from bpf folks to keep that particular dependency in the
-selftests like today and even extend it to include this new
-Documentation, so that we don't either introduce text that fails
-against the parser or in some other way break the parser. Whether that
-validation is done by scripts/kernel-doc or scripts/bpf_helpers_doc.py
-doesn't make a big difference to me, other than I have zero experience
-with Perl. My first impressions are that the bpf_helpers_doc.py is
-providing stricter formatting requirements than what "DOC: " +
-kernel-doc would provide, so my baseline inclination would be to keep
-those patches to enhance that script and use that for the validation
-side (help developers with stronger linting feedback), then use
-kernel-doc for the actual html docs generation side, which would help
-to satisfy your concern around duplication of the documentation build
-systems.
+Also rendered below.
 
-Cheers,
-Joe
+Thanks,
+
+Michael
+
+NAME
+       process_madvise - give advice about use of memory to a process
+
+SYNOPSIS
+       #include <sys/uio.h>
+
+       ssize_t process_madvise(int pidfd, const struct iovec *iovec,
+                               size_t vlen, int advice,
+                               unsigned int flags);
+
+       Note: There is no glibc wrapper for this system call; see NOTES.
+
+DESCRIPTION
+       The process_madvise() system call is used to give advice or direc‐
+       tions to the kernel about the address ranges of another process or
+       of  the  calling  process.  It provides the advice for the address
+       ranges described by iovec and vlen.  The goal of such advice is to
+       improve system or application performance.
+
+       The  pidfd  argument  is a PID file descriptor (see pidfd_open(2))
+       that specifies the process to which the advice is to be applied.
+
+       The pointer iovec points to an array of iovec structures,  defined
+       in <sys/uio.h> as:
+
+           struct iovec {
+               void  *iov_base;    /* Starting address */
+               size_t iov_len;     /* Length of region */
+           };
+
+       The iovec structure describes address ranges beginning at iov_base
+       address and with the size of iov_len bytes.
+
+       The vlen specifies the number of elements in the iovec  structure.
+       This value must be less than or equal to IOV_MAX (defined in <lim‐
+       its.h> or accessible via the call sysconf(_SC_IOV_MAX)).
+
+       The advice argument is one of the following values:
+
+       MADV_COLD
+              See madvise(2).
+
+       MADV_PAGEOUT
+              See madvise(2).
+
+       The flags argument is reserved for future use; currently, this ar‐
+       gument must be specified as 0.
+
+       The  vlen  and iovec arguments are checked before applying any ad‐
+       vice.  If vlen is too big, or iovec is invalid, then an error will
+       be returned immediately and no advice will be applied.
+
+       The  advice might be applied to only a part of iovec if one of its
+       elements points to an invalid memory region in the remote process.
+       No further elements will be processed beyond that point.  (See the
+       discussion regarding partial advice in RETURN VALUE.)
+
+       Permission to apply advice to another process  is  governed  by  a
+       ptrace   access   mode   PTRACE_MODE_READ_REALCREDS   check   (see
+       ptrace(2)); in addition, because of the  performance  implications
+       of applying the advice, the caller must have the CAP_SYS_ADMIN ca‐
+       pability.
+
+RETURN VALUE
+       On success, process_madvise() returns the number of bytes advised.
+       This  return  value may be less than the total number of requested
+       bytes, if an error occurred after some iovec elements were already
+       processed.   The caller should check the return value to determine
+       whether a partial advice occurred.
+
+       On error, -1 is returned and errno is set to indicate the error.
+
+ERRORS
+       EBADF  pidfd is not a valid PID file descriptor.
+
+       EFAULT The memory described by iovec is outside the accessible ad‐
+              dress space of the process referred to by pidfd.
+
+       EINVAL flags is not 0.
+
+       EINVAL The  sum of the iov_len values of iovec overflows a ssize_t
+              value.
+
+       EINVAL vlen is too large.
+
+       ENOMEM Could not allocate memory for internal copies of the  iovec
+              structures.
+
+       EPERM  The  caller  does not have permission to access the address
+              space of the process pidfd.
+
+       ESRCH  The target process does not exist (i.e., it has  terminated
+              and been waited on).
+
+VERSIONS
+       This  system  call first appeared in Linux 5.10.  Support for this
+       system call is optional, depending on  the  setting  of  the  CON‐
+       FIG_ADVISE_SYSCALLS configuration option.
+
+CONFORMING TO
+       The process_madvise() system call is Linux-specific.
+
+NOTES
+       Glibc does not provide a wrapper for this system call; call it us‐
+       ing syscall(2).
+
+SEE ALSO
+       madvise(2),          pidfd_open(2),           process_vm_readv(2),
+       process_vm_write(2)
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
