@@ -2,135 +2,82 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CC06B31F1D3
-	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 22:54:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 947AA31F1DE
+	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 22:56:14 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229763AbhBRVyU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 18 Feb 2021 16:54:20 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56844 "EHLO
+        id S229681AbhBRVz4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 18 Feb 2021 16:55:56 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57208 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229652AbhBRVyQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 16:54:16 -0500
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com [IPv6:2a00:1450:4864:20::529])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B5282C061574
-        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 13:53:35 -0800 (PST)
-Received: by mail-ed1-x529.google.com with SMTP id l12so6241139edt.3
-        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 13:53:35 -0800 (PST)
+        with ESMTP id S229652AbhBRVz4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 16:55:56 -0500
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DF9E1C061786
+        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 13:55:15 -0800 (PST)
+Received: by mail-wm1-x332.google.com with SMTP id v62so5217824wmg.4
+        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 13:55:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cilium-io.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=lJX+ZMsQFOWh/ba1+WgKu7gSDHan7w+sAnp5mRPqmFs=;
-        b=qxyeTiuy22RCnVh8B19E2C3WJe4/GAfIMEcFal09Vr1R8jkF0fcS7iuRfE12SLBhJS
-         1kM3pIULy7nR1fcTOyrXbdtaOn+gEd2dtEW2ViCVHBFv14wYkMyE5gOB5h3L2fJhJiZX
-         +UyDApjyx3GIoxWko3xfy1wK9IJ0nr2fyYYZy1Uwaf6X9AS5D0UTFiO6TRICdNvj6G1q
-         PCg0lQl2soAgeX1Ill+R846955emmLqOHz1HSDytr+Hkn2YxhVwRhzwvUxRLKum89ZPf
-         Y/aZOqp6E6n8O5BF8sy9qli56bHWzdQ1VullT3oV8XKmlEssf77LSatV3EjTji5sjZpe
-         lErw==
+        d=gmail.com; s=20161025;
+        h=to:cc:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=ELO2BZ7GDsDLFalGqv1f76S6BmN0FS5fwUz4Fl5oATY=;
+        b=fdKrZy6LPycpftwXPd337DMUGw+uw4XFS0At5qwVabTaahSvQD2ZR1aTbWtTer5Mnn
+         nyyeCpmPRzZCt7HZh28a4Q+7ArkKUmEwpdEg+6q9yhFZkFO5D+mBoHnt47uheh49IPuS
+         B7A09YcH456PeX/hZ9aume94zK1bpqQsjrt1Q8+p0rHNe/D1CyVuWvTxsof6MX7NkhG+
+         FIvV/pDIk2iSsi3x1PbR7CpZo4XHxGr3JIs0uu6Catv2rXU/eyk6W2bfvEwQb537grJ0
+         lPSfChHNmFom7Gejs0AOhfjgd7DziysiJft7T0EU2NCguaz52ZXH0DWUg8Mm9JcoHBL1
+         43GQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=lJX+ZMsQFOWh/ba1+WgKu7gSDHan7w+sAnp5mRPqmFs=;
-        b=TxBOk2bjFxBHPfoUu5FZLPJ8W46iAVmZ6j+jBQ4lXkHoQUcAHRZVsgvglrJ0YMCixY
-         quzRWvnc9iPNniRjjed77j+QVFrk20vU6J0jEXRvhAp+9G32N7OasyW4YYiblw36/8dC
-         sbJJreLgbtYRnJ6MsmkmadR7xrSWYLnrU9TLNwgOBR/+nLxnKrz7bGDiVT2cGWC1SFGb
-         NeWkrilpTf4w2+EMkD2b2HxEokmRQeozP4VLkSYtUciGRchXi8r6nThrTqc15M31m4cu
-         1Dpwt523dX0sQOULRd62QUmwuepAH81wwpHVh3bqEqym0t5QAlHDAfwfn3YkAba2VOKo
-         /F+Q==
-X-Gm-Message-State: AOAM533xYlsxuB/ku0UQG/jQp6ptsOfBIIIRFp78i/gG3CzlwhM24Dif
-        PW7HF0dnnWYgArmlEah3Os1NUbg/R7fgbAD9TJjbLA==
-X-Google-Smtp-Source: ABdhPJx6esC1ykZG4JP73jw6Pk1PfFUrMY6GFvDJ8ibNbSS+w6Ax6Wqo4wCqt4+6thT9SEHL4Y5IFA==
-X-Received: by 2002:a05:6402:34c1:: with SMTP id w1mr6149934edc.147.1613685214256;
-        Thu, 18 Feb 2021 13:53:34 -0800 (PST)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com. [209.85.128.54])
-        by smtp.gmail.com with ESMTPSA id da12sm877418edb.52.2021.02.18.13.53.33
+        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=ELO2BZ7GDsDLFalGqv1f76S6BmN0FS5fwUz4Fl5oATY=;
+        b=mjXX6QbWXWriBlv6aY4vzsTV19iRKVUcl3jSSLYB1yW4hDaUCo60CFcB8Cqna6HD8N
+         sfVHE45lt8unb2pO+W+t/551NdJ/xrv8tetgBcc+oO9RnXu2eihLZ81NYgMfTZSVgaNG
+         Mr/mZPWiEQ6jXMXsuOQspJTmPMSWUdHM3sFTAv5sptNwOpKi+66Wvf/ioOz95MrLvRr7
+         VDt8oIshQ/DHBGtn4XP3ZVeBOla0AwPYW1CLIAO8iHsZwTr2SREn3ZrJh33YcgCqrL1/
+         V0E2t4hsu/MVOb1XByoME2MvJuPJpU7sQd6FlOMO0RqMPYAhm5s8LhGc/KPPlmsZPvCJ
+         w2VQ==
+X-Gm-Message-State: AOAM532+WX6RHk011oRAHF5I0wLwXL8QJHrn24YbcBpR69edHxKt2BFT
+        uqXjjlIcAFMyHpiFvOIj+gw=
+X-Google-Smtp-Source: ABdhPJw19u/wjpY5miC+VRkePrFyxgmqSFeION6RifOKyCbVp26euz3fswvK05VlrVSUyLgxNBP7yA==
+X-Received: by 2002:a1c:7d53:: with SMTP id y80mr5386467wmc.187.1613685314608;
+        Thu, 18 Feb 2021 13:55:14 -0800 (PST)
+Received: from [192.168.1.143] ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id q21sm11837539wmj.18.2021.02.18.13.55.13
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 18 Feb 2021 13:53:33 -0800 (PST)
-Received: by mail-wm1-f54.google.com with SMTP id x4so5220421wmi.3;
-        Thu, 18 Feb 2021 13:53:33 -0800 (PST)
-X-Received: by 2002:a1c:e90d:: with SMTP id q13mr5313193wmc.136.1613685213123;
- Thu, 18 Feb 2021 13:53:33 -0800 (PST)
+        Thu, 18 Feb 2021 13:55:14 -0800 (PST)
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Subject: error.3: What happens if status = 0
+Message-ID: <089a65d2-3dec-b9c1-8c8d-dddcd28f756b@gmail.com>
+Date:   Thu, 18 Feb 2021 22:55:13 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-References: <20210217010821.1810741-1-joe@wand.net.nz> <871rdewqf2.fsf@meer.lwn.net>
- <CADa=RyzDXeJeW7jAVce0zfGX2zN5ZcAv5nwYsX7EtAz=bgZYkg@mail.gmail.com> <878s7lrxcc.fsf@meer.lwn.net>
-In-Reply-To: <878s7lrxcc.fsf@meer.lwn.net>
-From:   Joe Stringer <joe@cilium.io>
-Date:   Thu, 18 Feb 2021 13:53:21 -0800
-X-Gmail-Original-Message-ID: <CAOftzPjMCpkvbTddgv_BFCLsN33m=LENMzxa-VA_18sbnch=+g@mail.gmail.com>
-Message-ID: <CAOftzPjMCpkvbTddgv_BFCLsN33m=LENMzxa-VA_18sbnch=+g@mail.gmail.com>
-Subject: Re: [PATCH bpf-next 00/17] Improve BPF syscall command documentation
-To:     Jonathan Corbet <corbet@lwn.net>
-Cc:     bpf <bpf@vger.kernel.org>, linux-man@vger.kernel.org,
-        Networking <netdev@vger.kernel.org>, mtk.manpages@gmail.com,
-        Alexei Starovoitov <ast@kernel.org>,
-        Brian Vazquez <brianvv@google.com>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Daniel Mack <daniel@zonque.org>,
-        john fastabend <john.fastabend@gmail.com>,
-        Petar Penkov <ppenkov@google.com>,
-        Quentin Monnet <quentin@isovalent.com>,
-        Sean Young <sean@mess.org>, Yonghong Song <yhs@fb.com>,
-        linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Feb 18, 2021 at 11:49 AM Jonathan Corbet <corbet@lwn.net> wrote:
->
-> Joe Stringer <joe@cilium.io> writes:
-> > * The changes in patch 16 here extended Documentation/bpf/index.rst,
-> > but to assist in improving the overall kernel documentation
-> > organisation / hierarchy, you would prefer to instead introduce a
-> > dedicated Documentation/userspace-api/bpf/ directory where the bpf
-> > uAPI portions can be documented.
->
-> An objective I've been working on for some years is reorienting the
-> documentation with a focus on who the readers are.  We've tended to
-> organize it by subsystem, requiring people to wade through a lot of
-> stuff that isn't useful to them.  So yes, my preference would be to
-> document the kernel's user-space API in the relevant manual.
->
-> That said, I do tend to get pushback here at times, and the BPF API is
-> arguably a bit different that much of the rest.  So while the above
-> preference exists and is reasonably strong, the higher priority is to
-> get good, current documentation in *somewhere* so that it's available to
-> users.  I don't want to make life too difficult for people working
-> toward that goal, even if I would paint it a different color.
+Hi Michael,
 
-Sure, I'm all for it. Unless I hear alternative feedback I'll roll it
-under Documentation/userspace-api/bpf in the next revision.
+I think it's not quite clear what happens when status = 0; for 
+error[_at_line](3) from the text of the manual page.  From the glibc 
+documentation[1], it seems that error(0, ...) is similar to warn(...), 
+isn't it?
 
-> > In addition to this, today the bpf helpers documentation is built
-> > through the bpftool build process as well as the runtime bpf
-> > selftests, mostly as a way to ensure that the API documentation
-> > conforms to a particular style, which then assists with the generation
-> > of ReStructured Text and troff output. I can probably simplify the
-> > make infrastructure involved in triggering the bpf docs build for bpf
-> > subsystem developers and maintainers. I think there's likely still
-> > interest from bpf folks to keep that particular dependency in the
-> > selftests like today and even extend it to include this new
-> > Documentation, so that we don't either introduce text that fails
-> > against the parser or in some other way break the parser. Whether that
-> > validation is done by scripts/kernel-doc or scripts/bpf_helpers_doc.py
-> > doesn't make a big difference to me, other than I have zero experience
-> > with Perl. My first impressions are that the bpf_helpers_doc.py is
-> > providing stricter formatting requirements than what "DOC: " +
-> > kernel-doc would provide, so my baseline inclination would be to keep
-> > those patches to enhance that script and use that for the validation
-> > side (help developers with stronger linting feedback), then use
-> > kernel-doc for the actual html docs generation side, which would help
-> > to satisfy your concern around duplication of the documentation build
-> > systems.
->
-> This doesn't sound entirely unreasonable.  I wonder if the BPF helper
-> could be built into an sphinx extension to make it easy to pull that
-> information into the docs build.  The advantage there is that it can be
-> done in Python :)
+Thanks,
 
-Probably doable, it's already written in python. One thing at a time
-though... :)
+Alex
 
-Cheers,
-Joe
+[1]: 
+<https://www.gnu.org/software/libc/manual/html_node/Error-Messages.html#Error-Messages>
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
