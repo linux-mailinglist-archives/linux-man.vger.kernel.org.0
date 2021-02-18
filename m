@@ -2,82 +2,112 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 947AA31F1DE
-	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 22:56:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 14ADA31F266
+	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 23:37:49 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229681AbhBRVz4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 18 Feb 2021 16:55:56 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57208 "EHLO
+        id S229763AbhBRWhM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 18 Feb 2021 17:37:12 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37838 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229652AbhBRVz4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 16:55:56 -0500
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DF9E1C061786
-        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 13:55:15 -0800 (PST)
-Received: by mail-wm1-x332.google.com with SMTP id v62so5217824wmg.4
-        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 13:55:15 -0800 (PST)
+        with ESMTP id S229691AbhBRWhL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 17:37:11 -0500
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EC3F7C061574
+        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 14:36:30 -0800 (PST)
+Received: by mail-wm1-x329.google.com with SMTP id l17so5073666wmq.2
+        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 14:36:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=to:cc:from:subject:message-id:date:user-agent:mime-version
-         :content-language:content-transfer-encoding;
-        bh=ELO2BZ7GDsDLFalGqv1f76S6BmN0FS5fwUz4Fl5oATY=;
-        b=fdKrZy6LPycpftwXPd337DMUGw+uw4XFS0At5qwVabTaahSvQD2ZR1aTbWtTer5Mnn
-         nyyeCpmPRzZCt7HZh28a4Q+7ArkKUmEwpdEg+6q9yhFZkFO5D+mBoHnt47uheh49IPuS
-         B7A09YcH456PeX/hZ9aume94zK1bpqQsjrt1Q8+p0rHNe/D1CyVuWvTxsof6MX7NkhG+
-         FIvV/pDIk2iSsi3x1PbR7CpZo4XHxGr3JIs0uu6Catv2rXU/eyk6W2bfvEwQb537grJ0
-         lPSfChHNmFom7Gejs0AOhfjgd7DziysiJft7T0EU2NCguaz52ZXH0DWUg8Mm9JcoHBL1
-         43GQ==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=04VDBeMAtOld+t85/rJpxg5AK1SqoygduLFrYM5uhPg=;
+        b=l9wiPa26iGWZQf+UdehEVg/GxT2G6NYWEjF6fmhoKNvgbZZtK2yZK/k/S0JaQMikMk
+         z3hKwOM3sgPiWQqfw5W4kHXAHfehTViXb+bdFgmc165l4UvId+Im/Pitns2Fd9eszqz4
+         +/phZ8X5NxNsKYmQQzhVOT7PvJ2xhpbaH11UxbZZKtxh02GMKbr/PJv9X+elXdeArdIw
+         3hE4z8/om8DDM2GUe3vTa2px+3blcFGHAjrFmiZYuJz3xyxxqKqk01gW7IBfmWckQ/Eo
+         4G36sOtxH9PwWPcbHowUdMBlgYsiuqN2k35GJVEXxnil5Yw2DGEyJ2aS9Uh65gZG5J3V
+         LinA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=ELO2BZ7GDsDLFalGqv1f76S6BmN0FS5fwUz4Fl5oATY=;
-        b=mjXX6QbWXWriBlv6aY4vzsTV19iRKVUcl3jSSLYB1yW4hDaUCo60CFcB8Cqna6HD8N
-         sfVHE45lt8unb2pO+W+t/551NdJ/xrv8tetgBcc+oO9RnXu2eihLZ81NYgMfTZSVgaNG
-         Mr/mZPWiEQ6jXMXsuOQspJTmPMSWUdHM3sFTAv5sptNwOpKi+66Wvf/ioOz95MrLvRr7
-         VDt8oIshQ/DHBGtn4XP3ZVeBOla0AwPYW1CLIAO8iHsZwTr2SREn3ZrJh33YcgCqrL1/
-         V0E2t4hsu/MVOb1XByoME2MvJuPJpU7sQd6FlOMO0RqMPYAhm5s8LhGc/KPPlmsZPvCJ
-         w2VQ==
-X-Gm-Message-State: AOAM532+WX6RHk011oRAHF5I0wLwXL8QJHrn24YbcBpR69edHxKt2BFT
-        uqXjjlIcAFMyHpiFvOIj+gw=
-X-Google-Smtp-Source: ABdhPJw19u/wjpY5miC+VRkePrFyxgmqSFeION6RifOKyCbVp26euz3fswvK05VlrVSUyLgxNBP7yA==
-X-Received: by 2002:a1c:7d53:: with SMTP id y80mr5386467wmc.187.1613685314608;
-        Thu, 18 Feb 2021 13:55:14 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id q21sm11837539wmj.18.2021.02.18.13.55.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 18 Feb 2021 13:55:14 -0800 (PST)
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Subject: error.3: What happens if status = 0
-Message-ID: <089a65d2-3dec-b9c1-8c8d-dddcd28f756b@gmail.com>
-Date:   Thu, 18 Feb 2021 22:55:13 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=04VDBeMAtOld+t85/rJpxg5AK1SqoygduLFrYM5uhPg=;
+        b=afZiX19czq7jRRYmU+LJOdP/pDyOOsvFmnd5RgD9nJ6wbERNTsXH3XTI4HWbM4EbAl
+         onO4f/IhfkKajMjr3V+eY0QRRqMT0uTY5DlXYILuDX6T3C9KU0E8e5mQK4Cgj8x3zBHv
+         xyldY8y0GLhlDHKBLALJpbMWdkym1Unhmo2enZM3yl18/u/38NR0OTnaFRcHWLmaPsP1
+         zJkAT7yhBvCMPagogDuch5L1TJ5r2JDE21krB1TSDiBLm5PjKvGSWFftlokC6R9zAC0l
+         kMjqhPCJpZ0DhD70FKQufreAqIMALaXw2vRO0L5laxcv0SV9RD+AZBjpJbFsBaXYZ2gy
+         +nUw==
+X-Gm-Message-State: AOAM531V5McQnOu22HgC6p8SMJQ3NKYWT94DVkpU00Y+CIrWX7MwVTAj
+        EYduLAdzryLB5lBQbXRQWkXg9wZjg+O2Vg==
+X-Google-Smtp-Source: ABdhPJzr7XPxiVvmMNgYdSTuVa/DTUaeXsGuyASM1oHCbaH/LcOtLZKJea3sdGsktnayxDaf85eneg==
+X-Received: by 2002:a1c:e903:: with SMTP id q3mr5441997wmc.100.1613687789746;
+        Thu, 18 Feb 2021 14:36:29 -0800 (PST)
+Received: from localhost.localdomain ([170.253.51.130])
+        by smtp.googlemail.com with ESMTPSA id t198sm9975412wmt.7.2021.02.18.14.36.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 18 Feb 2021 14:36:29 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
+        Ulrich Drepper <drepper@redhat.com>
+Subject: [PATCH] aio_suspend.3: SYNOPSIS: Use 'restrict' in prototypes
+Date:   Thu, 18 Feb 2021 23:33:57 +0100
+Message-Id: <20210218223356.320470-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.30.1.721.g45526154a5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+POSIX does NOT specify aio_suspend() to use 'restrict'.
+However, glibc uses 'restrict'.
+Users might be surprised by this!  Let's use it here too!
 
-I think it's not quite clear what happens when status = 0; for 
-error[_at_line](3) from the text of the manual page.  From the glibc 
-documentation[1], it seems that error(0, ...) is similar to warn(...), 
-isn't it?
+......
+
+.../glibc$ grep_glibc_prototype aio_suspend
+rt/aio.h:167:
+extern int aio_suspend (const struct aiocb *const __list[], int __nent,
+			const struct timespec *__restrict __timeout)
+  __nonnull ((1));
+.../glibc$
+
+Cc: libc-alpha@sourceware.org
+Cc: Ulrich Drepper <drepper@redhat.com>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+
+Hello Michael,
+
+I sent this patch separately because it's a bit different,
+and would like someone from glibc to check it.
+I CCd Ulrich, who added 'restrict' to the function in glibc.
 
 Thanks,
 
 Alex
 
-[1]: 
-<https://www.gnu.org/software/libc/manual/html_node/Error-Messages.html#Error-Messages>
+---
+ man3/aio_suspend.3 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/man3/aio_suspend.3 b/man3/aio_suspend.3
+index 76a05f48e..dcae51e1c 100644
+--- a/man3/aio_suspend.3
++++ b/man3/aio_suspend.3
+@@ -31,7 +31,8 @@ aio_suspend \- wait for asynchronous I/O operation or timeout
+ .B "#include <aio.h>"
+ .PP
+ .BI "int aio_suspend(const struct aiocb * const " aiocb_list [],
+-.BI "                int " nitems ", const struct timespec *" timeout );
++.BI "                int " nitems \
++", const struct timespec *restrict " timeout );
+ .PP
+ Link with \fI\-lrt\fP.
+ .fi
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.30.1.721.g45526154a5
+
