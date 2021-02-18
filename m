@@ -2,92 +2,135 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 51F5C31F1B0
-	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 22:26:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CC06B31F1D3
+	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 22:54:36 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229946AbhBRV0Y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 18 Feb 2021 16:26:24 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50876 "EHLO
+        id S229763AbhBRVyU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 18 Feb 2021 16:54:20 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56844 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229954AbhBRV0U (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 16:26:20 -0500
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 94DEBC06178B
-        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 13:25:02 -0800 (PST)
-Received: by mail-wr1-x433.google.com with SMTP id v1so4518339wrd.6
-        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 13:25:02 -0800 (PST)
+        with ESMTP id S229652AbhBRVyQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 16:54:16 -0500
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com [IPv6:2a00:1450:4864:20::529])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B5282C061574
+        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 13:53:35 -0800 (PST)
+Received: by mail-ed1-x529.google.com with SMTP id l12so6241139edt.3
+        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 13:53:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=zHlbUyw1Y9Rv/V24gqLlUxIa7TGXvo+OPF00LD1mCSk=;
-        b=DfaXfYe0AJofZFg4zLVTyKkMcROlRu+wdXoWkTvrTAHdROBQvlRPgrkoMpcQsGf50D
-         tlTy5fNTkuNJlfxEO9Wh6QHp0jRzvawaINwX31MluLbg6ufuYNWCmIg1+iiuFfsdj/0e
-         EOSfIT+TJBuvIXy8DAB0tIYNE3gUDrr/hkVP9rPXUransablXOyoEaMaWVqUQH+ARsup
-         UmD+pXYC9YqfBihbbq4LHyiLmz3lmyQ0qGfkub7dyg6oTLGmVxB27bdqO8lbYDGGFeat
-         AC/dIgcO5q3AtlV3HOCImSDPdMW7sQLMClQwX2cK0d6a4II8IzBWUXMwNT9nTfSo4C2J
-         /7mA==
+        d=cilium-io.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=lJX+ZMsQFOWh/ba1+WgKu7gSDHan7w+sAnp5mRPqmFs=;
+        b=qxyeTiuy22RCnVh8B19E2C3WJe4/GAfIMEcFal09Vr1R8jkF0fcS7iuRfE12SLBhJS
+         1kM3pIULy7nR1fcTOyrXbdtaOn+gEd2dtEW2ViCVHBFv14wYkMyE5gOB5h3L2fJhJiZX
+         +UyDApjyx3GIoxWko3xfy1wK9IJ0nr2fyYYZy1Uwaf6X9AS5D0UTFiO6TRICdNvj6G1q
+         PCg0lQl2soAgeX1Ill+R846955emmLqOHz1HSDytr+Hkn2YxhVwRhzwvUxRLKum89ZPf
+         Y/aZOqp6E6n8O5BF8sy9qli56bHWzdQ1VullT3oV8XKmlEssf77LSatV3EjTji5sjZpe
+         lErw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=zHlbUyw1Y9Rv/V24gqLlUxIa7TGXvo+OPF00LD1mCSk=;
-        b=scIsnPUdQtsjeHmpg13hbbsX+84Yl0lrh4CZx63iNG+DypVFeoDdUpjcBzROc5UyGA
-         kDYPVQWREMZZXjmYkjOqKZ4ri61Trf77Q6HsZ5w40tozKv73bUpEv3cbIquQo2v052lZ
-         jltsaKye+I7bglkfOa/kQWGSMVMB7IUS3wS0cqLBViKBy6s9t34HzhlZYxPRb6ZOmr/X
-         fTd9JLS2k5AwAjOP/vHpbNQbxn+6VXpdOCYORrV2ASTHcOras99lpbUoEpIyI3gMXnHt
-         P73VNtfklwmTk1bkizMTEaU/FpXe/TQ9NR+xZOKrO9ylTANisLlZlH7YDTSpUuA6Y4kO
-         K3Tw==
-X-Gm-Message-State: AOAM533jmxulVZoxN2NZqP4EP10xEGKqw1sT77mww4HMtnUtFEn8441u
-        rJ1XpD2IKidPVlVqpQGVelw=
-X-Google-Smtp-Source: ABdhPJwMhF/qf+z5n6tprOE3eEg9W09/+Dr9WA5Zjy0WMjFTosPB0fiKwlSsxQXSJFo3K4wmtosZAw==
-X-Received: by 2002:adf:f2c1:: with SMTP id d1mr6166298wrp.345.1613683501318;
-        Thu, 18 Feb 2021 13:25:01 -0800 (PST)
-Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id s11sm7870940wme.22.2021.02.18.13.25.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Feb 2021 13:25:01 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 6/6] setjmp.3: SYNOPSIS: Use 'noreturn' in prototypes
-Date:   Thu, 18 Feb 2021 22:23:59 +0100
-Message-Id: <20210218212358.246072-7-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.30.1.721.g45526154a5
-In-Reply-To: <20210218212358.246072-1-alx.manpages@gmail.com>
-References: <20210218212358.246072-1-alx.manpages@gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=lJX+ZMsQFOWh/ba1+WgKu7gSDHan7w+sAnp5mRPqmFs=;
+        b=TxBOk2bjFxBHPfoUu5FZLPJ8W46iAVmZ6j+jBQ4lXkHoQUcAHRZVsgvglrJ0YMCixY
+         quzRWvnc9iPNniRjjed77j+QVFrk20vU6J0jEXRvhAp+9G32N7OasyW4YYiblw36/8dC
+         sbJJreLgbtYRnJ6MsmkmadR7xrSWYLnrU9TLNwgOBR/+nLxnKrz7bGDiVT2cGWC1SFGb
+         NeWkrilpTf4w2+EMkD2b2HxEokmRQeozP4VLkSYtUciGRchXi8r6nThrTqc15M31m4cu
+         1Dpwt523dX0sQOULRd62QUmwuepAH81wwpHVh3bqEqym0t5QAlHDAfwfn3YkAba2VOKo
+         /F+Q==
+X-Gm-Message-State: AOAM533xYlsxuB/ku0UQG/jQp6ptsOfBIIIRFp78i/gG3CzlwhM24Dif
+        PW7HF0dnnWYgArmlEah3Os1NUbg/R7fgbAD9TJjbLA==
+X-Google-Smtp-Source: ABdhPJx6esC1ykZG4JP73jw6Pk1PfFUrMY6GFvDJ8ibNbSS+w6Ax6Wqo4wCqt4+6thT9SEHL4Y5IFA==
+X-Received: by 2002:a05:6402:34c1:: with SMTP id w1mr6149934edc.147.1613685214256;
+        Thu, 18 Feb 2021 13:53:34 -0800 (PST)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com. [209.85.128.54])
+        by smtp.gmail.com with ESMTPSA id da12sm877418edb.52.2021.02.18.13.53.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 18 Feb 2021 13:53:33 -0800 (PST)
+Received: by mail-wm1-f54.google.com with SMTP id x4so5220421wmi.3;
+        Thu, 18 Feb 2021 13:53:33 -0800 (PST)
+X-Received: by 2002:a1c:e90d:: with SMTP id q13mr5313193wmc.136.1613685213123;
+ Thu, 18 Feb 2021 13:53:33 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20210217010821.1810741-1-joe@wand.net.nz> <871rdewqf2.fsf@meer.lwn.net>
+ <CADa=RyzDXeJeW7jAVce0zfGX2zN5ZcAv5nwYsX7EtAz=bgZYkg@mail.gmail.com> <878s7lrxcc.fsf@meer.lwn.net>
+In-Reply-To: <878s7lrxcc.fsf@meer.lwn.net>
+From:   Joe Stringer <joe@cilium.io>
+Date:   Thu, 18 Feb 2021 13:53:21 -0800
+X-Gmail-Original-Message-ID: <CAOftzPjMCpkvbTddgv_BFCLsN33m=LENMzxa-VA_18sbnch=+g@mail.gmail.com>
+Message-ID: <CAOftzPjMCpkvbTddgv_BFCLsN33m=LENMzxa-VA_18sbnch=+g@mail.gmail.com>
+Subject: Re: [PATCH bpf-next 00/17] Improve BPF syscall command documentation
+To:     Jonathan Corbet <corbet@lwn.net>
+Cc:     bpf <bpf@vger.kernel.org>, linux-man@vger.kernel.org,
+        Networking <netdev@vger.kernel.org>, mtk.manpages@gmail.com,
+        Alexei Starovoitov <ast@kernel.org>,
+        Brian Vazquez <brianvv@google.com>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Daniel Mack <daniel@zonque.org>,
+        john fastabend <john.fastabend@gmail.com>,
+        Petar Penkov <ppenkov@google.com>,
+        Quentin Monnet <quentin@isovalent.com>,
+        Sean Young <sean@mess.org>, Yonghong Song <yhs@fb.com>,
+        linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-POSIX specifies that [sig]longjmp() shall not return,
-transferring control back to the caller of [sig]setjmp().
-Glibc uses __attribute__((__noreturn__)) for [sig]longjmp().
-Let's use standard C11 'noreturn' in the manual page.
+On Thu, Feb 18, 2021 at 11:49 AM Jonathan Corbet <corbet@lwn.net> wrote:
+>
+> Joe Stringer <joe@cilium.io> writes:
+> > * The changes in patch 16 here extended Documentation/bpf/index.rst,
+> > but to assist in improving the overall kernel documentation
+> > organisation / hierarchy, you would prefer to instead introduce a
+> > dedicated Documentation/userspace-api/bpf/ directory where the bpf
+> > uAPI portions can be documented.
+>
+> An objective I've been working on for some years is reorienting the
+> documentation with a focus on who the readers are.  We've tended to
+> organize it by subsystem, requiring people to wade through a lot of
+> stuff that isn't useful to them.  So yes, my preference would be to
+> document the kernel's user-space API in the relevant manual.
+>
+> That said, I do tend to get pushback here at times, and the BPF API is
+> arguably a bit different that much of the rest.  So while the above
+> preference exists and is reasonably strong, the higher priority is to
+> get good, current documentation in *somewhere* so that it's available to
+> users.  I don't want to make life too difficult for people working
+> toward that goal, even if I would paint it a different color.
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man3/setjmp.3 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Sure, I'm all for it. Unless I hear alternative feedback I'll roll it
+under Documentation/userspace-api/bpf in the next revision.
 
-diff --git a/man3/setjmp.3 b/man3/setjmp.3
-index 7c52f4bea..d9b011b46 100644
---- a/man3/setjmp.3
-+++ b/man3/setjmp.3
-@@ -31,8 +31,8 @@ setjmp, sigsetjmp, longjmp, siglongjmp  \- performing a nonlocal goto
- .BI "int setjmp(jmp_buf " env );
- .BI "int sigsetjmp(sigjmp_buf " env ", int " savesigs );
- .PP
--.BI "void longjmp(jmp_buf " env ", int " val );
--.BI "void siglongjmp(sigjmp_buf " env ", int " val );
-+.BI "noreturn void longjmp(jmp_buf " env ", int " val );
-+.BI "noreturn void siglongjmp(sigjmp_buf " env ", int " val );
- .fi
- .PP
- .RS -4
--- 
-2.30.1.721.g45526154a5
+> > In addition to this, today the bpf helpers documentation is built
+> > through the bpftool build process as well as the runtime bpf
+> > selftests, mostly as a way to ensure that the API documentation
+> > conforms to a particular style, which then assists with the generation
+> > of ReStructured Text and troff output. I can probably simplify the
+> > make infrastructure involved in triggering the bpf docs build for bpf
+> > subsystem developers and maintainers. I think there's likely still
+> > interest from bpf folks to keep that particular dependency in the
+> > selftests like today and even extend it to include this new
+> > Documentation, so that we don't either introduce text that fails
+> > against the parser or in some other way break the parser. Whether that
+> > validation is done by scripts/kernel-doc or scripts/bpf_helpers_doc.py
+> > doesn't make a big difference to me, other than I have zero experience
+> > with Perl. My first impressions are that the bpf_helpers_doc.py is
+> > providing stricter formatting requirements than what "DOC: " +
+> > kernel-doc would provide, so my baseline inclination would be to keep
+> > those patches to enhance that script and use that for the validation
+> > side (help developers with stronger linting feedback), then use
+> > kernel-doc for the actual html docs generation side, which would help
+> > to satisfy your concern around duplication of the documentation build
+> > systems.
+>
+> This doesn't sound entirely unreasonable.  I wonder if the BPF helper
+> could be built into an sphinx extension to make it easy to pull that
+> information into the docs build.  The advantage there is that it can be
+> done in Python :)
 
+Probably doable, it's already written in python. One thing at a time
+though... :)
+
+Cheers,
+Joe
