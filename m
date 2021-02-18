@@ -2,109 +2,104 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8145931E739
-	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 09:04:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5B25E31E96C
+	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 13:01:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230368AbhBRIBC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 18 Feb 2021 03:01:02 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47088 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231216AbhBRH6b (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 02:58:31 -0500
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2FC1DC061574
-        for <linux-man@vger.kernel.org>; Wed, 17 Feb 2021 23:57:50 -0800 (PST)
-Received: by mail-wm1-x330.google.com with SMTP id i7so2239153wmb.0
-        for <linux-man@vger.kernel.org>; Wed, 17 Feb 2021 23:57:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=i8ThkJdeSKmpDWcmfUgk6Mc4RQnBYkmAhr+2t8l6Oh0=;
-        b=lynopRs3X8VURwgYE3+dn5o0vk05F7RbFg7mJ2/+V/h/178fE3P7o6L8xjy0LggTxx
-         4Z1RENaWJ2KnDfVLYHRbx3flLvQ1kxlx/TyLApb77eH7R+XwvibXgON1SyJsYKCVLTrv
-         8FJb851CkOW+renfe4CSgBXlIOFoxK36tyWSqrbYh79Y7t7GSTmkcsArJX2Z0+P1W2EO
-         xtjw5TFw87V7Art2JpE4a6ZbdCedhnmQxsBPFj7UGe3zZ3C34h0j2JYXd3gtkmCDG6DV
-         fbvqOH9H4MtgNBQWU7GZ+731f6TQiLzw922J0E8I+8SqfF6bVx1rPygIOztLSEN6wTaR
-         w/Aw==
+        id S229656AbhBRL5k (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 18 Feb 2021 06:57:40 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([216.205.24.124]:46429 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S231614AbhBRLjZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 06:39:25 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1613648221;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=36Nxu7fh3KcvHdksE5HDqIJ3wvrGYUMQwh0wbPL/3hQ=;
+        b=Ntj5q//aNzk8/wEfcfaX18aPAKhw5alGvt8GLHYt1odruEcI3QtLTS+DYEEcwO1xyI9C+C
+        S4w0foBzj0bVPaQNvVGrceOYyckAnqsBOJE3XIabMhcW5YX/aaeGtkhTMnN/b0h1CY5hO7
+        TdDPtp34xGTaUZVlzYvH7Zq4XoMqefc=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-346-lNaUCJL5O9yfGuDITW96MA-1; Thu, 18 Feb 2021 06:33:12 -0500
+X-MC-Unique: lNaUCJL5O9yfGuDITW96MA-1
+Received: by mail-ej1-f70.google.com with SMTP id 7so556982ejh.10
+        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 03:33:12 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=i8ThkJdeSKmpDWcmfUgk6Mc4RQnBYkmAhr+2t8l6Oh0=;
-        b=tIeu09NneGErYP6MLi951mB6RKZdAwNfzUTIyNACtHy1u/ishvCDlBtuZ6M1iXZa5D
-         m1vcKK3qarr68K4gcThIUMSp9Bfh2viknl0t8QZAwcQZIh1BFqoS4trK5GCQcjvrbWii
-         DbI9Rf/jNIiucaw9ziq6+gHgK6xFeSBnWNvnssbkO86rIQfhMaDjAtm98Y3CO6MUTsMr
-         wlc/QnPR+pNgUApPUnNJ7+3VdbB15A0SpbpPEpYlSSyPMJkzxaarLG7Bm/3oCce9rLD1
-         ZKTish3xrt4C5DLtGYMCABhU3mUvYK4OHkufiqU3vwyyR9/QaDzHDOdkk6suRUyGqTJZ
-         H8SA==
-X-Gm-Message-State: AOAM531LASeyBbqkVYJiANkN6+aZlUYCIwGrIdM4Vqmh1l39w5n3g8x4
-        DCNUW997nglqU9N3ROcp7lQ=
-X-Google-Smtp-Source: ABdhPJxoz3f+jFoWOp3BG9YBOU2nbT5XgJ7JaRZ9q8eQyA8hfgoAav7EnsB67jvI4pF5fV9HVcSAYg==
-X-Received: by 2002:a05:600c:354f:: with SMTP id i15mr2503288wmq.28.1613635068964;
-        Wed, 17 Feb 2021 23:57:48 -0800 (PST)
-Received: from ?IPv6:2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b? ([2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b])
-        by smtp.gmail.com with ESMTPSA id w13sm6524208wrt.49.2021.02.17.23.57.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Feb 2021 23:57:48 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        libc-alpha@sourceware.org
-Subject: Re: [PATCH v2] strerror.3: VERSIONS: Document that strerrorname_np()
- and strerrordesc_np() functions first appeared on glibc 2.32
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20210217095231.27727-1-alx.manpages@gmail.com>
- <20210217122310.107318-1-alx.manpages@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <4af8b445-2d65-fbd2-7e15-eda8fd8bd0cc@gmail.com>
-Date:   Thu, 18 Feb 2021 08:57:47 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+        h=x-gm-message-state:from:to:cc:subject:in-reply-to:references:date
+         :message-id:mime-version:content-transfer-encoding;
+        bh=36Nxu7fh3KcvHdksE5HDqIJ3wvrGYUMQwh0wbPL/3hQ=;
+        b=cErSnzfKh9CnRp/tRjaCSQJkUFJpgQfhji0nRA0P7URD8Hym1+5i0ehSE/uXnWyY+V
+         meKQ6B/ua9qiM1bkFCzpI5eZMfLtE8vXaSAXyYiooy1ThY+ebeOTqh42CWIrlneF/p6r
+         IMNoofTOTM2JFjJYqV1dUp6aSdVcY7/qvdE9iIg4YuWjM/EInA7IZVbvTEXUlhLLdrZZ
+         77NjT32LZyHDCFEt2iLWJb99pwtw3uXa6gjYEFeUGIOVa77X4FH2O4YYBra0e3JBQuJi
+         fJGFz1uNBVrCTA2ZaeemGhCMscy36PZ5KbPy/8eRhuFba4gLfNH+y1szGqgV/3M4Z9ag
+         Or2Q==
+X-Gm-Message-State: AOAM530S+NyGlJc2sWICCu+uqdkmgdlSxciNX2A/dMd8Pv3JlaJPmxih
+        Xgd59lTUmRsgfGbvxQGcqgZKHgpHEnAjU/YdsDkiqufJOe+MgNB3fPxVADUB5cSo/6NYWlWP4yP
+        Or6haEkQtgJiUyq8RZmYM
+X-Received: by 2002:a17:906:4c90:: with SMTP id q16mr3650789eju.49.1613647991258;
+        Thu, 18 Feb 2021 03:33:11 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwncoh1x9SnZ4fpM1Vv1Dk74fJ6NcnMvbuj6niroKBejeYqbgEzKQVsxkuh9Jeo8iBmL8Bskg==
+X-Received: by 2002:a17:906:4c90:: with SMTP id q16mr3650770eju.49.1613647991115;
+        Thu, 18 Feb 2021 03:33:11 -0800 (PST)
+Received: from alrua-x1.borgediget.toke.dk ([45.145.92.2])
+        by smtp.gmail.com with ESMTPSA id p20sm701475ejo.19.2021.02.18.03.33.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 18 Feb 2021 03:33:10 -0800 (PST)
+Received: by alrua-x1.borgediget.toke.dk (Postfix, from userid 1000)
+        id 619B31805FA; Thu, 18 Feb 2021 12:33:09 +0100 (CET)
+From:   Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>
+To:     Joe Stringer <joe@cilium.io>
+Cc:     bpf@vger.kernel.org, Joe Stringer <joe@cilium.io>,
+        linux-man@vger.kernel.org, Networking <netdev@vger.kernel.org>,
+        mtk.manpages@gmail.com, ast@kernel.org, brianvv@google.com,
+        Daniel Borkmann <daniel@iogearbox.net>, daniel@zonque.org,
+        john.fastabend@gmail.com, ppenkov@google.com,
+        Quentin Monnet <quentin@isovalent.com>, sean@mess.org,
+        yhs@fb.com
+Subject: Re: [PATCH bpf-next 00/17] Improve BPF syscall command documentation
+In-Reply-To: <CADa=RywykZt_kMVcCJk8N0vm2sJHW2_mKTr9Z8m2rTsnqvinqA@mail.gmail.com>
+References: <20210217010821.1810741-1-joe@wand.net.nz>
+ <87r1len6hi.fsf@toke.dk>
+ <CADa=RywykZt_kMVcCJk8N0vm2sJHW2_mKTr9Z8m2rTsnqvinqA@mail.gmail.com>
+X-Clacks-Overhead: GNU Terry Pratchett
+Date:   Thu, 18 Feb 2021 12:33:09 +0100
+Message-ID: <87mtw1life.fsf@toke.dk>
 MIME-Version: 1.0
-In-Reply-To: <20210217122310.107318-1-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+Joe Stringer <joe@cilium.io> writes:
 
-On 2/17/21 1:23 PM, Alejandro Colomar wrote:
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> On Wed, Feb 17, 2021 at 5:55 AM Toke H=C3=B8iland-J=C3=B8rgensen <toke@re=
+dhat.com> wrote:
+>>
+>> Joe Stringer <joe@wand.net.nz> writes:
+>> > Given the relative success of the process around bpf-helpers(7) to
+>> > encourage developers to document their user-facing changes, in this
+>> > patch series I explore applying this technique to bpf(2) as well.
+>> > Unfortunately, even with bpf(2) being so out-of-date, there is still a
+>> > lot of content to convert over. In particular, I've identified at least
+>> > the following aspects of the bpf syscall which could individually be
+>> > generated from separate documentation in the header:
+>> > * BPF syscall commands
+>> > * BPF map types
+>> > * BPF program types
+>> > * BPF attachment points
+>>
+>> Does this also include program subtypes (AKA expected_attach_type?)
+>
+> I seem to have left my lawyerly "including, but not limited to..."
+> language at home today ;-) . Of course, I can add that to the list.
 
-Thanks. Patch applied.
+Great, thanks! :)
 
-Cheers,
+-Toke
 
-Michael
-
-> ---
->  man3/strerror.3 | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/man3/strerror.3 b/man3/strerror.3
-> index 5dfe76f69..e1724a102 100644
-> --- a/man3/strerror.3
-> +++ b/man3/strerror.3
-> @@ -235,6 +235,12 @@ Insufficient storage was supplied to contain the error description string.
->  The
->  .BR strerror_l ()
->  function first appeared in glibc 2.6.
-> +.PP
-> +The
-> +.BR strerrorname_np ()
-> +and
-> +.BR strerrordesc_np ()
-> +functions first appeared in glibc 2.32.
->  .SH ATTRIBUTES
->  For an explanation of the terms used in this section, see
->  .BR attributes (7).
-> 
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
