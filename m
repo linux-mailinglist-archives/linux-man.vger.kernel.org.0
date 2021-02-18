@@ -2,105 +2,160 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4E9A431E50F
-	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 05:12:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6C13031E520
+	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 05:23:50 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230412AbhBRELO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 17 Feb 2021 23:11:14 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54856 "EHLO
+        id S230205AbhBREXd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 17 Feb 2021 23:23:33 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57726 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230257AbhBREJ6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 17 Feb 2021 23:09:58 -0500
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com [IPv6:2607:f8b0:4864:20::235])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EF6EFC061756
-        for <linux-man@vger.kernel.org>; Wed, 17 Feb 2021 20:09:17 -0800 (PST)
-Received: by mail-oi1-x235.google.com with SMTP id k204so608755oih.3
-        for <linux-man@vger.kernel.org>; Wed, 17 Feb 2021 20:09:17 -0800 (PST)
+        with ESMTP id S230142AbhBREXb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 17 Feb 2021 23:23:31 -0500
+Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com [IPv6:2607:f8b0:4864:20::32a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E5AEC061574
+        for <linux-man@vger.kernel.org>; Wed, 17 Feb 2021 20:22:51 -0800 (PST)
+Received: by mail-ot1-x32a.google.com with SMTP id s6so781129otk.4
+        for <linux-man@vger.kernel.org>; Wed, 17 Feb 2021 20:22:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cilium-io.20150623.gappssmtp.com; s=20150623;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=BE7D43L1C8FmY3GUkvOp/RVzWGFmYIOVW7BNnqnqfBk=;
-        b=m1Oji3lRrqnSnEzDP6zpSWmuCy2LK0CpPeHPD9FBnYdA2lTAQLtvsaQFPNX1fAaxm8
-         QwFgufQyCT/SfsnMm0YweZGgrkq/JAqO6FrQUzNwnvKeSTYBpcf4l9/u+DSLK6TtAKtV
-         qAv+txFxw5BWlkok9yMV6wpgsM81VCmCNJcng75p4LWMnOMz/6gTgAWQpylOeusWmrep
-         bsmMeDLD2QASIWQu9K3LD2OlXSHaUBJhwLqFuzfAViD1T7v/hk88LfyvaFKz3z7oongF
-         V991YKh/9Ob1NigTynPlGTD6UThmdTU6r0Gmc2J4YJLqS2o7S2nva2sHZgiVIL96cCD+
-         EicA==
+         :cc;
+        bh=U8oY3+hBS7HKyq1cNaFZMy0hOHTWoFPax0mpOWicnEg=;
+        b=sVa5znoA+n13GOYmUbAL0Merg4RRzMzSXBlV0Iel4bRWHFTkjYz+rK+bnUHUV8MqAL
+         hYKO/CSpKG5JFKd9VHIXtcfobS/i6tGzgqedtrjG1tHq9sSAM/sV5hns2rf2ZAtwIQWj
+         B6FBlxY0VNR4+uxxlZyGbFKaRVzIExLLWpbndogLJAlJ3w2Xg6FCt+ofchZ+yfs6FbYi
+         WFbnRylUi/kyxDPAAE2fScW4fn0lBf3v+KeY/EyhA09PX5Ixhc3IiEj2BxdYQUB7gMJR
+         w04RaDZsuf11PsCQdC2CkUMvomnaf7jCS7waXhrYHBICkJJwZ4x39XZ8zAy1SQs+15NU
+         jBpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=BE7D43L1C8FmY3GUkvOp/RVzWGFmYIOVW7BNnqnqfBk=;
-        b=cabkCde8NToG9uZrDDQ+4h4bkhBFsFTyd9IJcvcCI+xyhCsojf0IFva0gDadVeh6vQ
-         yB27iyYIyTPV3EfKZ67oO/oB/YwerjEOe2rKOOCfNYHAR4zqDQa3QTwvwpy4XD3zZwkh
-         2kfnsSjeAHFdkE+2+kOCM0HCmTjFxX8Bi1aX3a8zlCxiEPX4lUETS8r3E1t/GyPXdeW4
-         YHkloOXfvqKLf9toB/lEWnNgo3+N/xHN8O0IsgpJzqdlPQFUebTjcnjamYP9zN+iqtbZ
-         Wv44bPaLmb+ZyF0O2FP99oRiX9eNKGZMVULaZmvtREKpZ6AVaaPSSjgyofYZM7NwSw00
-         nKnQ==
-X-Gm-Message-State: AOAM532HGWWBiAbwEVtKc3ypwhgkgO6/aJWIpBfMA7tzhuanbBk9VrdL
-        Zr8fKOPi4fRxOfrWpcZtqFGlHHMa9S04N+quOxINLA==
-X-Google-Smtp-Source: ABdhPJyXYKMWcvAaXLekFUsOwKBZm38d4KDdm4TbxlI4KLuydvVZqeHZS9pboxYRzyFtMu047x1WIDZ9criObMAOEkw=
-X-Received: by 2002:aca:1015:: with SMTP id 21mr1392597oiq.83.1613621357310;
- Wed, 17 Feb 2021 20:09:17 -0800 (PST)
+         :message-id:subject:to:cc;
+        bh=U8oY3+hBS7HKyq1cNaFZMy0hOHTWoFPax0mpOWicnEg=;
+        b=Yryr38CnqhYEB+d01fI4sPDAPf9CvWyu8Jmg1IfIKUxVlOCIWSsJF2mgclSmX0dIw2
+         2StoxBbxlQQ0LULKmPVN3keaMHNT11BHs8g23zG0SjJVbH/GZ+T0AyHRad5easjXWq+j
+         HdDIf0DtHdUs8t2bNHk3JdtDN0cdy+etPo6Q7ZoBDKimvwt9WmSjqm15U/h4yiY8H/2X
+         hX7qp3n0bB1giRVFLzolo+cbVsLr6RKVK9R7MQPn+QW7h5G5E5zwIfREWWVmCm0NUuFt
+         d+wuBQO/zt7F2jaYJbuQX4oMwzqiOjdwkCemNPc83uNLCWpxw7r8u4VC99KuUmNvDUXl
+         eBKw==
+X-Gm-Message-State: AOAM531km5XvKXgVKehHWLFfa3iZS0LvTzglfPiI+i3TJNltcVEmrIwI
+        uCYgde3KzdBbphhJsNiL/0J99bYrzILVoLs+kERdiA==
+X-Google-Smtp-Source: ABdhPJzgAr61Ally+5+Wz2l53uNAG1MM31KgN8aAurrCxAimEPIZlJwMf5uxDIKMe+sdOZ6BZcUiFhZd5dN0ErOVb8Q=
+X-Received: by 2002:a9d:480f:: with SMTP id c15mr1696507otf.55.1613622171042;
+ Wed, 17 Feb 2021 20:22:51 -0800 (PST)
 MIME-Version: 1.0
-References: <20210217010821.1810741-1-joe@wand.net.nz> <87r1len6hi.fsf@toke.dk>
-In-Reply-To: <87r1len6hi.fsf@toke.dk>
+References: <20210217010821.1810741-1-joe@wand.net.nz> <871rdewqf2.fsf@meer.lwn.net>
+In-Reply-To: <871rdewqf2.fsf@meer.lwn.net>
 From:   Joe Stringer <joe@cilium.io>
-Date:   Wed, 17 Feb 2021 20:08:59 -0800
-Message-ID: <CADa=RywykZt_kMVcCJk8N0vm2sJHW2_mKTr9Z8m2rTsnqvinqA@mail.gmail.com>
+Date:   Wed, 17 Feb 2021 20:22:33 -0800
+Message-ID: <CADa=RyzDXeJeW7jAVce0zfGX2zN5ZcAv5nwYsX7EtAz=bgZYkg@mail.gmail.com>
 Subject: Re: [PATCH bpf-next 00/17] Improve BPF syscall command documentation
-To:     =?UTF-8?B?VG9rZSBIw7hpbGFuZC1Kw7hyZ2Vuc2Vu?= <toke@redhat.com>
+To:     Jonathan Corbet <corbet@lwn.net>
 Cc:     bpf@vger.kernel.org, Joe Stringer <joe@cilium.io>,
         linux-man@vger.kernel.org, Networking <netdev@vger.kernel.org>,
         mtk.manpages@gmail.com, ast@kernel.org, brianvv@google.com,
         Daniel Borkmann <daniel@iogearbox.net>, daniel@zonque.org,
         john.fastabend@gmail.com, ppenkov@google.com,
         Quentin Monnet <quentin@isovalent.com>, sean@mess.org,
-        yhs@fb.com
+        yhs@fb.com, linux-doc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Feb 17, 2021 at 5:55 AM Toke H=C3=B8iland-J=C3=B8rgensen <toke@redh=
-at.com> wrote:
+On Wed, Feb 17, 2021 at 9:32 AM Jonathan Corbet <corbet@lwn.net> wrote:
+>
+> [CC += linux-doc]
 >
 > Joe Stringer <joe@wand.net.nz> writes:
+>
+> > From: Joe Stringer <joe@cilium.io>
+> >
+> > The state of bpf(2) manual pages today is not exactly ideal. For the
+> > most part, it was written several years ago and has not kept up with the
+> > pace of development in the kernel tree. For instance, out of a total of
+> > ~35 commands to the BPF syscall available today, when I pull the
+> > kernel-man-pages tree today I find just 6 documented commands: The very
+> > basics of map interaction and program load.
+> >
+> > In contrast, looking at bpf-helpers(7), I am able today to run one
+> > command[0] to fetch API documentation of the very latest eBPF helpers
+> > that have been added to the kernel. This documentation is up to date
+> > because kernel maintainers enforce documenting the APIs as part of
+> > the feature submission process. As far as I can tell, we rely on manual
+> > synchronization from the kernel tree to the kernel-man-pages tree to
+> > distribute these more widely, so all locations may not be completely up
+> > to date. That said, the documentation does in fact exist in the first
+> > place which is a major initial hurdle to overcome.
+> >
 > > Given the relative success of the process around bpf-helpers(7) to
 > > encourage developers to document their user-facing changes, in this
 > > patch series I explore applying this technique to bpf(2) as well.
-> > Unfortunately, even with bpf(2) being so out-of-date, there is still a
-> > lot of content to convert over. In particular, I've identified at least
-> > the following aspects of the bpf syscall which could individually be
-> > generated from separate documentation in the header:
-> > * BPF syscall commands
-> > * BPF map types
-> > * BPF program types
-> > * BPF attachment points
 >
-> Does this also include program subtypes (AKA expected_attach_type?)
+> So I am totally in favor of improving the BPF docs, this is great work.
+>
+> That said, I am a bit less thrilled about creating a new, parallel
+> documentation-build system in the kernel.  I don't think that BPF is so
+> special that it needs to do its own thing here.
+>
+> If you started that way, you'd get the whole existing build system for
+> free.  You would also have started down a path that could, some bright
+> shining day, lead to this kind of documentation for *all* of our system
+> calls.  That would be a huge improvement in how we do things.
+>
+> The troff output would still need implementation, but we'd like to have
+> that anyway.  We used to create man pages for internal kernel APIs; that
+> was lost in the sphinx transition and hasn't been a priority since
+> people haven't been screaming, but it could still be nice to have it
+> back.
+>
+> So...could I ask you to have a look at doing this within the kernel's
+> docs system instead of in addition to it?  Even if it means digging into
+> scripts/kernel-doc, which isn't all that high on my list of Fun Things
+> To Do either?  I'm willing to try to help, and maybe we can get some
+> other assistance too - I'm ever the optimist.
 
-I seem to have left my lawyerly "including, but not limited to..."
-language at home today ;-) . Of course, I can add that to the list.
+Hey Jon, thanks for the feedback. Absolutely, what you say makes
+sense. The intent here wasn't to come up with something new. Based on
+your prompt from this email (and a quick look at your KR '19
+presentation), I'm hearing a few observations:
+* Storing the documentation in the code next to the things that
+contributors edit is a reasonable approach to documentation of this
+kind.
+* This series currently proposes adding some new Makefile
+infrastructure. However, good use of the "kernel-doc" sphinx directive
++ "DOC: " incantations in the header should be able to achieve the
+same without adding such dedicated build system logic to the tree.
+* The changes in patch 16 here extended Documentation/bpf/index.rst,
+but to assist in improving the overall kernel documentation
+organisation / hierarchy, you would prefer to instead introduce a
+dedicated Documentation/userspace-api/bpf/ directory where the bpf
+uAPI portions can be documented.
 
-> > At this point I'd like to put this out for comments. In my mind, the
-> > ideal eventuation of this work would be to extend kernel UAPI headers
-> > such that each of the categories I had listed above (commands, maps,
-> > progs, hooks) have dedicated documentation in the kernel tree, and that
-> > developers must update the comments in the headers to document the APIs
-> > prior to patch acceptance, and that we could auto-generate the latest
-> > version of the bpf(2) manual pages based on a few static description
-> > sections combined with the dynamically-generated output from the header=
-.
->
-> I like the approach, and I don't think it's too onerous to require
-> updates to the documentation everywhere like we (as you note) already do
-> for helpers.
->
-> So with that, please feel free to add my enthusiastic:
->
-> Acked-by: Toke H=C3=B8iland-J=C3=B8rgensen <toke@redhat.com>
+From the above, there's a couple of clear actionable items I can look
+into for a series v2 which should tidy things up.
 
-Thanks Toke.
+In addition to this, today the bpf helpers documentation is built
+through the bpftool build process as well as the runtime bpf
+selftests, mostly as a way to ensure that the API documentation
+conforms to a particular style, which then assists with the generation
+of ReStructured Text and troff output. I can probably simplify the
+make infrastructure involved in triggering the bpf docs build for bpf
+subsystem developers and maintainers. I think there's likely still
+interest from bpf folks to keep that particular dependency in the
+selftests like today and even extend it to include this new
+Documentation, so that we don't either introduce text that fails
+against the parser or in some other way break the parser. Whether that
+validation is done by scripts/kernel-doc or scripts/bpf_helpers_doc.py
+doesn't make a big difference to me, other than I have zero experience
+with Perl. My first impressions are that the bpf_helpers_doc.py is
+providing stricter formatting requirements than what "DOC: " +
+kernel-doc would provide, so my baseline inclination would be to keep
+those patches to enhance that script and use that for the validation
+side (help developers with stronger linting feedback), then use
+kernel-doc for the actual html docs generation side, which would help
+to satisfy your concern around duplication of the documentation build
+systems.
+
+Cheers,
+Joe
