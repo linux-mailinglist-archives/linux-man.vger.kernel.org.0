@@ -2,274 +2,126 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B397C31EF9B
-	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 20:20:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9B99831F059
+	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 20:51:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231637AbhBRTTy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 18 Feb 2021 14:19:54 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45542 "EHLO
+        id S232031AbhBRTqf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 18 Feb 2021 14:46:35 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53500 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232984AbhBRSuT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 13:50:19 -0500
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EBFC8C061788
-        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 10:49:37 -0800 (PST)
-Received: by mail-wm1-x331.google.com with SMTP id a132so4709678wmc.0
-        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 10:49:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=eWC1LhhTiX1RF+cXmpiYE7XBXv6GD7FmwovEReZNehw=;
-        b=kDcRHoXpQ9eX0ybVxhJrCNG29WLK/JVX5Fi5JtroWn5B5Uc2A7jQnKUjTPj161JWty
-         MnGfBSloKJV27KZw6qBtCPTJGUsRfcgagsQKmRglgPv/armS2nf+Fdy6MZ4u6lJ9XrqF
-         KGyWX+hOixCMyViJ+hshOm9Ywnv83yqjczCjvwj75cJyO/uO8mK8Pon229/dodBeIr9x
-         fRPgbb7smoNbrn2G8VqOC9vYOMNhQXAnEkuiphz8oxUnVA1yGYzfKvLvIx/f+IwAp2sX
-         7GK9pcEItdqin8mWA6VKUt1WGsNJCSjm6cPo+DSbpd7Oxfj0m30eEwZgCDCpqVXBgzGe
-         GIGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=eWC1LhhTiX1RF+cXmpiYE7XBXv6GD7FmwovEReZNehw=;
-        b=A6SOEqXD2QTv/Dx/LBN9UFxQbAkqAzWFyRUemdRZE54n9dOog+XHExk9YGarFKlKHF
-         Fc2X+g8/b9Ru8rHfLTb8QJq4NlRQv2pFKLDgzXgf3i8AJW0tW6xcn13UE70ZxxHMxwMI
-         HTeYNspHmhgv1oQ2eBhGSsXorOQLJLWzCQJKQE1/U3hQk66gGUe0O4NTzxM4l1yhsWhg
-         Gzy8rC9Pb16V8vaI8VDTw3/QdEim/y1gdlVtSH91ig5we4ShviE+85DKKtJ8+0sIWCRD
-         ARCVT+6msjE/IulXupzNE0rFg7Bcfo2uX86h/+f+uYT/lITYsQukhDyGUCQHizDq/ZPN
-         oupw==
-X-Gm-Message-State: AOAM53265e0Ady53mUbtCLuDygDGlrIqF48mtv2za0F04Vmq4edDeyZh
-        ybzRbfewrPRivxXoe6kNGWk=
-X-Google-Smtp-Source: ABdhPJwGPLWkfxvOuJw1ejQnFnHdEwmF4two0pnYuFi34IMxmbOHJf0zJi8XppfEA/sQmoJfAUbsSA==
-X-Received: by 2002:a1c:f708:: with SMTP id v8mr4672078wmh.25.1613674176600;
-        Thu, 18 Feb 2021 10:49:36 -0800 (PST)
-Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id l4sm10082828wrt.42.2021.02.18.10.49.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Feb 2021 10:49:36 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, Walter Harms <wharms@bfs.de>
-Subject: [PATCH v4] scripts/bash_aliases: Add useful functions
-Date:   Thu, 18 Feb 2021 19:47:35 +0100
-Message-Id: <20210218184735.54457-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.30.1.721.g45526154a5
-In-Reply-To: <20210215131522.450666-11-alx.manpages@gmail.com>
-References: <20210215131522.450666-11-alx.manpages@gmail.com>
+        with ESMTP id S232069AbhBRT1Y (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 14:27:24 -0500
+Received: from ms.lwn.net (ms.lwn.net [IPv6:2600:3c01:e000:3a1::42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5B892C06178A;
+        Thu, 18 Feb 2021 11:26:44 -0800 (PST)
+Received: from localhost (unknown [IPv6:2601:281:8300:104d::5f6])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by ms.lwn.net (Postfix) with ESMTPSA id C7A3A2C4;
+        Thu, 18 Feb 2021 19:26:43 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net C7A3A2C4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+        t=1613676403; bh=2mg9x0IxkWoM6pMebWd2P3H7sA/TWYSV68lPpE/xunc=;
+        h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+        b=eaEgMBY9s3KoP8DX/OVi7atfBqQoPSBl04gc7/zs+qaw+X56ua9hn5Vxw3dXNbUtU
+         qX4cpO5qoaPTllica8Rrolf2AisllRAReo4a2r7P2uVeDDhFwaPHalLkvfP8LoZALk
+         itTXfZKQ9c5T0URRT4CD0f42vaxq6arHU6fGF5LiqGHoffZF7zw71BmuHkaaoeKuCC
+         iVJC+QGrIu7C2sW10ehDXVCf9AQfOAXKyiRKBFaa2y8eA4MrYegR5pshZVYFdr9C08
+         fr6elj3vZVjN8WHqXxBMKjUI6odHlx52UJ79mZKli1qMYilEZIEwWCujNFY8F1ZUCR
+         w6bI3/VpRRMUA==
+From:   Jonathan Corbet <corbet@lwn.net>
+To:     Joe Stringer <joe@cilium.io>
+Cc:     bpf@vger.kernel.org, Joe Stringer <joe@cilium.io>,
+        linux-man@vger.kernel.org, Networking <netdev@vger.kernel.org>,
+        mtk.manpages@gmail.com, ast@kernel.org, brianvv@google.com,
+        Daniel Borkmann <daniel@iogearbox.net>, daniel@zonque.org,
+        john.fastabend@gmail.com, ppenkov@google.com,
+        Quentin Monnet <quentin@isovalent.com>, sean@mess.org,
+        yhs@fb.com, linux-doc@vger.kernel.org
+Subject: Re: [PATCH bpf-next 00/17] Improve BPF syscall command documentation
+In-Reply-To: <CADa=RyzDXeJeW7jAVce0zfGX2zN5ZcAv5nwYsX7EtAz=bgZYkg@mail.gmail.com>
+References: <20210217010821.1810741-1-joe@wand.net.nz>
+ <871rdewqf2.fsf@meer.lwn.net>
+ <CADa=RyzDXeJeW7jAVce0zfGX2zN5ZcAv5nwYsX7EtAz=bgZYkg@mail.gmail.com>
+Date:   Thu, 18 Feb 2021 12:26:43 -0700
+Message-ID: <878s7lrxcc.fsf@meer.lwn.net>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-That file should be sourced (.) from 'bashrc' (or 'bash_aliases').
+Joe Stringer <joe@cilium.io> writes:
 
-It contains functions that are useful for the maintenance of this
-project.
+> Hey Jon, thanks for the feedback. Absolutely, what you say makes
+> sense. The intent here wasn't to come up with something new. Based on
+> your prompt from this email (and a quick look at your KR '19
+> presentation), I'm hearing a few observations:
+> * Storing the documentation in the code next to the things that
+> contributors edit is a reasonable approach to documentation of this
+> kind.
 
-- grep_syscall()
-- grep_syscall_def()
-- man_section()
-- man_lsfunc()
-- pdfman()
-- grep_glibc_prototype()
+Yes.  At least, it's what we do for a lot of our other documentation in
+the kernel.  The assumption is that it will encourage developers to keep
+the docs current; in my experience that's somewhat optimistic, but
+optimism is good...:)
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
+> * This series currently proposes adding some new Makefile
+> infrastructure. However, good use of the "kernel-doc" sphinx directive
+> + "DOC: " incantations in the header should be able to achieve the
+> same without adding such dedicated build system logic to the tree.
 
+If it can, I would certainly prefer to see it used - or extended, if
+need be, to meet your needs.
 
-v2:
-	- Reword license to adequate it for many functions instead
-	  of a single program.
-	- Add a trailing ';' for consistency.
-v3:
-	- Resend to avoid confusion:  I forgot to use [PATCH v2]!
-v4:
-	- Fix some corner cases where a function invocation was printed
+> * The changes in patch 16 here extended Documentation/bpf/index.rst,
+> but to assist in improving the overall kernel documentation
+> organisation / hierarchy, you would prefer to instead introduce a
+> dedicated Documentation/userspace-api/bpf/ directory where the bpf
+> uAPI portions can be documented.
 
----
- scripts/bash_aliases | 171 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 171 insertions(+)
- create mode 100644 scripts/bash_aliases
+An objective I've been working on for some years is reorienting the
+documentation with a focus on who the readers are.  We've tended to
+organize it by subsystem, requiring people to wade through a lot of
+stuff that isn't useful to them.  So yes, my preference would be to
+document the kernel's user-space API in the relevant manual.
 
-diff --git a/scripts/bash_aliases b/scripts/bash_aliases
-new file mode 100644
-index 000000000..8697371f6
---- /dev/null
-+++ b/scripts/bash_aliases
-@@ -0,0 +1,171 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+########################################################################
-+#
-+# (C) Copyright 2021, Alejandro Colomar
-+# These functions are free software; you can redistribute them and/or
-+# modify them under the terms of the GNU General Public License
-+# as published by the Free Software Foundation; version 2.
-+#
-+# These functions are distributed in the hope that they will be useful,
-+# but WITHOUT ANY WARRANTY; without even the implied warranty of
-+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+# GNU General Public License for more details
-+# (http://www.gnu.org/licenses/gpl-2.0.html).
-+#
-+########################################################################
-+
-+########################################################################
-+#	Exit status
-+
-+EX_OK=0;
-+EX_USAGE=64;
-+
-+########################################################################
-+#	Linux kernel
-+
-+#  grep_syscall()  finds the prototype of a syscall in the kernel sources,
-+# printing the filename, line number, and the prototype.
-+# It should be run from the root of the linux kernel source tree.
-+# Usage example:  .../linux$ grep_syscall openat2;
-+
-+function grep_syscall()
-+{
-+	if ! [ -v 1 ]; then
-+		>&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
-+		return ${EX_USAGE};
-+	fi
-+
-+	find * -type f \
-+	|grep '\.c$' \
-+	|sort -V \
-+	|xargs pcregrep -Mn "(?s)^\w*SYSCALL_DEFINE.\(${1},.*?\)" \
-+	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
-+
-+	find * -type f \
-+	|grep '\.[ch]$' \
-+	|sort -V \
-+	|xargs pcregrep -Mn "(?s)^asmlinkage\s+[\w\s]+\**sys_${1}\s*\(.*?\)" \
-+	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
-+}
-+
-+#  grep_syscall_def()  finds the definition of a syscall in the kernel sources,
-+# printing the filename, line number, and the function definition.
-+# It should be run from the root of the linux kernel source tree.
-+# Usage example:  .../linux$ grep_syscall_def openat2;
-+
-+function grep_syscall_def()
-+{
-+	if ! [ -v 1 ]; then
-+		>&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
-+		return ${EX_USAGE};
-+	fi
-+
-+	find * -type f \
-+	|grep '\.c$' \
-+	|sort -V \
-+	|xargs pcregrep -Mn "(?s)^\w*SYSCALL_DEFINE.\(${1},.*?^}" \
-+	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
-+}
-+
-+########################################################################
-+#	Linux man-pages
-+
-+#  man_section()  prints a specific manual page section (DESCRIPTION, SYNOPSIS,
-+# ...) of all manual pages in a directory (or in a single manual page file).
-+# Usage example:  .../man-pages$ man_section man2 SYNOPSIS;
-+
-+function man_section()
-+{
-+	if ! [ -v 2 ]; then
-+		>&2 echo "Usage: ${FUNCNAME[0]} <dir> <section>";
-+		return ${EX_USAGE};
-+	fi
-+
-+	find "${1}" -type f \
-+	|xargs grep -l "\.SH ${2}" \
-+	|sort -V \
-+	|while read -r manpage; do
-+		<${manpage} \
-+		sed -n \
-+			-e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
-+			-e "/^\.SH ${2}/p" \
-+			-e "/^\.SH ${2}/,/^\.SH/{/^\.SH/!p}" \
-+		|man -P cat -l - 2>/dev/null;
-+	done;
-+}
-+
-+#  man_lsfunc()  prints the name of all C functions declared in the SYNOPSIS
-+# of all manual pages in a directory (or in a single manual page file).
-+# Each name is printed in a separate line
-+# Usage example:  .../man-pages$ man_lsfunc man2;
-+
-+function man_lsfunc()
-+{
-+	if ! [ -v 1 ]; then
-+		>&2 echo "Usage: ${FUNCNAME[0]} <dir>";
-+		return ${EX_USAGE};
-+	fi
-+
-+	find "${1}" -type f \
-+	|xargs grep -l "\.SH SYNOPSIS" \
-+	|sort -V \
-+	|while read -r manpage; do
-+		<${manpage} \
-+		sed -n \
-+			-e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
-+			-e "/^\.SH SYNOPSIS/p" \
-+			-e "/^\.SH SYNOPSIS/,/^\.SH/{/^\.SH/!p}" \
-+		|sed \
-+			-e '/Feature/,$d' \
-+			-e '/{/,/}/d' \
-+		|man -P cat -l - 2>/dev/null;
-+	done \
-+	|sed -n "/^SYNOPSIS/,/^\w/p" \
-+	|grep '^       \w' \
-+	|grep -v ':' \
-+	|sed 's/^[^(]* \**\(\w*\)(.*/\1/' \
-+	|grep '^\w' \
-+	|uniq;
-+}
-+
-+#  pdfman()  reanders a manual page in PDF
-+# Usage example:  .../man-pages$ pdfman man2/membarrier.2;
-+
-+function pdfman()
-+{
-+	if ! [ -v 1 ]; then
-+		>&2 echo "Usage: ${FUNCNAME[0]} <man-page.n>";
-+		return ${EX_USAGE};
-+	fi;
-+
-+	local tmp="$(mktemp -t "${1##*/}.XXXXXX")";
-+
-+	<${1} \
-+	man -Tps -l - \
-+	|ps2pdf - - \
-+	>${tmp};
-+	xdg-open ${tmp};
-+}
-+
-+########################################################################
-+#	Glibc
-+
-+#  grep_glibc_prototype()  finds a function prototype in the glibc sources,
-+# printing the filename, line number, and the prototype.
-+# It should be run from the root of the glibc source tree.
-+# Usage example:  .../glibc$ grep_glibc_prototype printf;
-+
-+function grep_glibc_prototype()
-+{
-+	if ! [ -v 1 ]; then
-+		>&2 echo "Usage: ${FUNCNAME[0]} <func>";
-+		return ${EX_USAGE};
-+	fi
-+
-+	find * -type f \
-+	|grep '\.h$' \
-+	|sort -V \
-+	|xargs pcregrep -Mn \
-+	  "(?s)^[^\s#][\w\s]+\s+\**${1}\s*\([\w\s()[\]*,]+?(...)?\)[\w\s()]*;" \
-+	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
-+}
--- 
-2.30.1.721.g45526154a5
+That said, I do tend to get pushback here at times, and the BPF API is
+arguably a bit different that much of the rest.  So while the above
+preference exists and is reasonably strong, the higher priority is to
+get good, current documentation in *somewhere* so that it's available to
+users.  I don't want to make life too difficult for people working
+toward that goal, even if I would paint it a different color.
 
+> In addition to this, today the bpf helpers documentation is built
+> through the bpftool build process as well as the runtime bpf
+> selftests, mostly as a way to ensure that the API documentation
+> conforms to a particular style, which then assists with the generation
+> of ReStructured Text and troff output. I can probably simplify the
+> make infrastructure involved in triggering the bpf docs build for bpf
+> subsystem developers and maintainers. I think there's likely still
+> interest from bpf folks to keep that particular dependency in the
+> selftests like today and even extend it to include this new
+> Documentation, so that we don't either introduce text that fails
+> against the parser or in some other way break the parser. Whether that
+> validation is done by scripts/kernel-doc or scripts/bpf_helpers_doc.py
+> doesn't make a big difference to me, other than I have zero experience
+> with Perl. My first impressions are that the bpf_helpers_doc.py is
+> providing stricter formatting requirements than what "DOC: " +
+> kernel-doc would provide, so my baseline inclination would be to keep
+> those patches to enhance that script and use that for the validation
+> side (help developers with stronger linting feedback), then use
+> kernel-doc for the actual html docs generation side, which would help
+> to satisfy your concern around duplication of the documentation build
+> systems.
+
+This doesn't sound entirely unreasonable.  I wonder if the BPF helper
+could be built into an sphinx extension to make it easy to pull that
+information into the docs build.  The advantage there is that it can be
+done in Python :)
+
+Looking forward to the next set.
+
+Thanks,
+
+jon
