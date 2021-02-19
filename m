@@ -2,112 +2,136 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 14ADA31F266
-	for <lists+linux-man@lfdr.de>; Thu, 18 Feb 2021 23:37:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C826531F655
+	for <lists+linux-man@lfdr.de>; Fri, 19 Feb 2021 10:13:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229763AbhBRWhM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 18 Feb 2021 17:37:12 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37838 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229691AbhBRWhL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Feb 2021 17:37:11 -0500
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EC3F7C061574
-        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 14:36:30 -0800 (PST)
-Received: by mail-wm1-x329.google.com with SMTP id l17so5073666wmq.2
-        for <linux-man@vger.kernel.org>; Thu, 18 Feb 2021 14:36:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=04VDBeMAtOld+t85/rJpxg5AK1SqoygduLFrYM5uhPg=;
-        b=l9wiPa26iGWZQf+UdehEVg/GxT2G6NYWEjF6fmhoKNvgbZZtK2yZK/k/S0JaQMikMk
-         z3hKwOM3sgPiWQqfw5W4kHXAHfehTViXb+bdFgmc165l4UvId+Im/Pitns2Fd9eszqz4
-         +/phZ8X5NxNsKYmQQzhVOT7PvJ2xhpbaH11UxbZZKtxh02GMKbr/PJv9X+elXdeArdIw
-         3hE4z8/om8DDM2GUe3vTa2px+3blcFGHAjrFmiZYuJz3xyxxqKqk01gW7IBfmWckQ/Eo
-         4G36sOtxH9PwWPcbHowUdMBlgYsiuqN2k35GJVEXxnil5Yw2DGEyJ2aS9Uh65gZG5J3V
-         LinA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=04VDBeMAtOld+t85/rJpxg5AK1SqoygduLFrYM5uhPg=;
-        b=afZiX19czq7jRRYmU+LJOdP/pDyOOsvFmnd5RgD9nJ6wbERNTsXH3XTI4HWbM4EbAl
-         onO4f/IhfkKajMjr3V+eY0QRRqMT0uTY5DlXYILuDX6T3C9KU0E8e5mQK4Cgj8x3zBHv
-         xyldY8y0GLhlDHKBLALJpbMWdkym1Unhmo2enZM3yl18/u/38NR0OTnaFRcHWLmaPsP1
-         zJkAT7yhBvCMPagogDuch5L1TJ5r2JDE21krB1TSDiBLm5PjKvGSWFftlokC6R9zAC0l
-         kMjqhPCJpZ0DhD70FKQufreAqIMALaXw2vRO0L5laxcv0SV9RD+AZBjpJbFsBaXYZ2gy
-         +nUw==
-X-Gm-Message-State: AOAM531V5McQnOu22HgC6p8SMJQ3NKYWT94DVkpU00Y+CIrWX7MwVTAj
-        EYduLAdzryLB5lBQbXRQWkXg9wZjg+O2Vg==
-X-Google-Smtp-Source: ABdhPJzr7XPxiVvmMNgYdSTuVa/DTUaeXsGuyASM1oHCbaH/LcOtLZKJea3sdGsktnayxDaf85eneg==
-X-Received: by 2002:a1c:e903:: with SMTP id q3mr5441997wmc.100.1613687789746;
-        Thu, 18 Feb 2021 14:36:29 -0800 (PST)
-Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id t198sm9975412wmt.7.2021.02.18.14.36.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Feb 2021 14:36:29 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-        Ulrich Drepper <drepper@redhat.com>
-Subject: [PATCH] aio_suspend.3: SYNOPSIS: Use 'restrict' in prototypes
-Date:   Thu, 18 Feb 2021 23:33:57 +0100
-Message-Id: <20210218223356.320470-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.30.1.721.g45526154a5
+        id S229979AbhBSJMU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 19 Feb 2021 04:12:20 -0500
+Received: from mx01-sz.bfs.de ([194.94.69.67]:51468 "EHLO mx01-sz.bfs.de"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S230175AbhBSJKE (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 19 Feb 2021 04:10:04 -0500
+Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
+        by mx01-sz.bfs.de (Postfix) with ESMTPS id D88A420454;
+        Fri, 19 Feb 2021 10:09:14 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
+        t=1613725754;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=gD9clq1RhIHcTl1+npqVI8YoTtXGxKcuHj2UuJKk82s=;
+        b=Ms7trEuHtcTULJJBeLct33j68UTMWlP7YFw883bFscsexM60zhOhYjWwGtoSgiPsHszTC5
+        vb2wQdy9kEfW5bRUUTjrt1DQZ0BOAChFBe+LGeNCvMUqZ25sFGsTVW4fUayGVw5Wybt6U6
+        2Nw7ns8/rS4RCPYXEPqAiQBK9glbOnIjsU4lKQl73GClQ5yNFOO6gEXhuonGqjWoY+jQg5
+        vjumG6tKFf4Of1aRX589arly/cgi/x3sscyBJOwbnW7nDfhuhLtcqncTzc8HGpeHy0XgWo
+        AMrp4k5OI7p1nQlqVFJEKYvJ7PwwT/9KPQpnVWuL1W10AvZnPjV1kIpiP91SiQ==
+Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
+ (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2176.2; Fri, 19 Feb
+ 2021 10:09:13 +0100
+Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
+ SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%13]) with mapi id
+ 15.01.2176.002; Fri, 19 Feb 2021 10:09:13 +0100
+From:   Walter Harms <wharms@bfs.de>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>
+Subject: AW: error.3: What happens if status = 0
+Thread-Topic: error.3: What happens if status = 0
+Thread-Index: AQHXBkELbYLgDrLV1UOn8hCzaDwOoKpfLIJf
+Date:   Fri, 19 Feb 2021 09:09:13 +0000
+Message-ID: <9c7d3296e4894ec3b118f0f130c51415@bfs.de>
+References: <089a65d2-3dec-b9c1-8c8d-dddcd28f756b@gmail.com>
+In-Reply-To: <089a65d2-3dec-b9c1-8c8d-dddcd28f756b@gmail.com>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.137.16.40]
+x-tm-as-product-ver: SMEX-14.0.0.3080-8.6.1012-25982.006
+x-tm-as-result: No-10--2.521500-5.000000
+x-tmase-matchedrid: RlE/Xlx8wK/RubRCcrbc5grcxrzwsv5u3dCmvEa6IiHgYNP0+4v1nmlF
+        7OhYLlctfSwuXrI4PUnA1tegkciQsLqUgEs+NGTpqhcdnP91eXEgT/sXtGXrf2OMyb1Ixq8VdCx
+        f9jqOU4kvfxnNWrygoh25G5lqIJ1lc+LFVihfXGO6iJsmkdGsWQZyESFXAljfB0L0/Ut7x1B6UF
+        EXTHP4r9bgXPMuaDFx1GSB9fBBdJHsZfRzVSVqXJN65fjGjYMQJVMDC8M9UM+S7LGb+QFg+aPFj
+        JEFr+olSXhbxZVQ5H+OhzOa6g8KrV3agBHfYkRwuBooW0SRvcXlaR33E3KaXFHQG0CNSoqv4UV1
+        6LVWLriUOipL7gD9FaUKgkJTIAoMcCdUq9EJ6JnT5LZzCQFMQCis9jscQpKczRtC/fI/GzL62iq
+        v7ym1n2PqXSKGf39K1Zv3zS/4qbM=
+x-tm-as-user-approved-sender: No
+x-tm-as-user-blocked-sender: No
+x-tmase-result: 10--2.521500-5.000000
+x-tmase-version: SMEX-14.0.0.3080-8.6.1012-25982.006
+x-tm-snts-smtp: 849669DB9FD14FF360E2CE4200F583E1BF6478AA8376E5DBC7BC96AE2AA7F1062000:9
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=0.30
+X-Spamd-Result: default: False [0.30 / 7.00];
+         ARC_NA(0.00)[];
+         TO_DN_EQ_ADDR_SOME(0.00)[];
+         HAS_XOIP(0.00)[];
+         FROM_HAS_DN(0.00)[];
+         RCPT_COUNT_THREE(0.00)[4];
+         FREEMAIL_ENVRCPT(0.00)[gmail.com];
+         TO_MATCH_ENVRCPT_ALL(0.00)[];
+         TAGGED_RCPT(0.00)[];
+         MIME_GOOD(-0.10)[text/plain];
+         TO_DN_SOME(0.00)[];
+         BAYES_HAM(-1.20)[89.14%];
+         DKIM_SIGNED(0.00)[bfs.de:s=dkim201901];
+         NEURAL_HAM(-0.00)[-1.000];
+         FREEMAIL_TO(0.00)[gmail.com];
+         RCVD_NO_TLS_LAST(0.10)[];
+         FROM_EQ_ENVFROM(0.00)[];
+         MIME_TRACE(0.00)[0:+];
+         RCVD_COUNT_TWO(0.00)[2];
+         MID_RHS_MATCH_FROM(0.00)[];
+         SUSPICIOUS_RECIPS(1.50)[]
+Authentication-Results: mx01-sz.bfs.de;
+        none
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-POSIX does NOT specify aio_suspend() to use 'restrict'.
-However, glibc uses 'restrict'.
-Users might be surprised by this!  Let's use it here too!
+Hi,
+yes, error(0,...) is a bit like warn(), it returns to the programm.
 
-......
+That supports what my man page says:
 
-.../glibc$ grep_glibc_prototype aio_suspend
-rt/aio.h:167:
-extern int aio_suspend (const struct aiocb *const __list[], int __nent,
-			const struct timespec *__restrict __timeout)
-  __nonnull ((1));
-.../glibc$
+" If  status has a nonzero value, then error() calls exit(3) to terminate
+       the program using the given value as the exit status."
 
-Cc: libc-alpha@sourceware.org
-Cc: Ulrich Drepper <drepper@redhat.com>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
+may be you want an add on like:
 
-Hello Michael,
+"Otherwise error() returns."
 
-I sent this patch separately because it's a bit different,
-and would like someone from glibc to check it.
-I CCd Ulrich, who added 'restrict' to the function in glibc.
+re,
+ wh
+________________________________________
+Von: Alejandro Colomar (man-pages) <alx.manpages@gmail.com>
+Gesendet: Donnerstag, 18. Februar 2021 22:55:13
+An: Michael Kerrisk (man-pages)
+Cc: linux-man@vger.kernel.org; libc-alpha@sourceware.org
+Betreff: error.3: What happens if status =3D 0
+
+Hi Michael,
+
+I think it's not quite clear what happens when status =3D 0; for
+error[_at_line](3) from the text of the manual page.  From the glibc
+documentation[1], it seems that error(0, ...) is similar to warn(...),
+isn't it?
 
 Thanks,
 
 Alex
 
----
- man3/aio_suspend.3 | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+[1]:
+<https://www.gnu.org/software/libc/manual/html_node/Error-Messages.html#Err=
+or-Messages>
 
-diff --git a/man3/aio_suspend.3 b/man3/aio_suspend.3
-index 76a05f48e..dcae51e1c 100644
---- a/man3/aio_suspend.3
-+++ b/man3/aio_suspend.3
-@@ -31,7 +31,8 @@ aio_suspend \- wait for asynchronous I/O operation or timeout
- .B "#include <aio.h>"
- .PP
- .BI "int aio_suspend(const struct aiocb * const " aiocb_list [],
--.BI "                int " nitems ", const struct timespec *" timeout );
-+.BI "                int " nitems \
-+", const struct timespec *restrict " timeout );
- .PP
- Link with \fI\-lrt\fP.
- .fi
--- 
-2.30.1.721.g45526154a5
-
+--
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
