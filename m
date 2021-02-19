@@ -2,120 +2,283 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 800B431F9A7
-	for <lists+linux-man@lfdr.de>; Fri, 19 Feb 2021 14:07:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 02ABD31FA6E
+	for <lists+linux-man@lfdr.de>; Fri, 19 Feb 2021 15:16:23 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229868AbhBSNGk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 19 Feb 2021 08:06:40 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53704 "EHLO
+        id S230113AbhBSOQK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 19 Feb 2021 09:16:10 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40286 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229804AbhBSNGj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Feb 2021 08:06:39 -0500
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CF56FC061574
-        for <linux-man@vger.kernel.org>; Fri, 19 Feb 2021 05:05:58 -0800 (PST)
-Received: by mail-wm1-x332.google.com with SMTP id v62so7577476wmg.4
-        for <linux-man@vger.kernel.org>; Fri, 19 Feb 2021 05:05:58 -0800 (PST)
+        with ESMTP id S230014AbhBSOQK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Feb 2021 09:16:10 -0500
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9C58FC061574
+        for <linux-man@vger.kernel.org>; Fri, 19 Feb 2021 06:15:29 -0800 (PST)
+Received: by mail-wr1-x436.google.com with SMTP id v1so8722612wrd.6
+        for <linux-man@vger.kernel.org>; Fri, 19 Feb 2021 06:15:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=yKTMi6lrnDx8GoFcbU9t+A71vuFtFXVSxM5TfNCBl94=;
-        b=DRb83w3n1NuJu3dXs+SbO0i9ryX13eTo+LWygWQj+AgrN1/eA12XkRWjahMYWUUWZO
-         NCae5XbGRWSzlY/1HGd0Q8kboSVGeqJTuEsodwddPaKXcvHL+X1T0bjJ4mJOilvb3G1s
-         dK4BYDYj4zAnXDeVT3h08X3+wPArjeBbI3mLGv5AoGWE5cdMUZzcOjJKHEmvucJZEX/u
-         VLyroyeR4jpFDQKVYqPQNFIbHiAi6KApYG9AInJdOXJyN+KOggw+5KLEjJaJJSeh7YhC
-         kQ/gF+1F30UGg2rSaX7jgIExaPPCsdz+GXFL+H5MBOeAf45U4zInc3Sj14CEMhflsRfY
-         50mg==
+        bh=UZ8nkpaXTVr9uG0ftxc/l3srnmK3kc+aCWPlOUwVQQM=;
+        b=hv6osWp1J1VqPvAf3EOLeCYqpVKOGRuRvTcK6P58iv5i6/jost4dLpDSHejrOOdzT+
+         h7vr8QuKFQ3wAP75gQJMF2jQ3qAanL7rxSX0hUq5L+9Gk67CO46gMt0fvG9fveI7HB0N
+         E/ImnKMuEkVxq5ZJ2hda/mEAFfm8vb9SMyqKhnAXLEO3zm5/0ST7AkPCahcAOlPnqosH
+         0YzaJGfoCKrjWqlq6s42l9FTJpmeJZnjrspE/B+F1JICj08uO8K2+NBrIhL6KzmzJNPM
+         SK6DxnS9nIABqnDC6OrMMJ0rOzD3XlTaPYAshxuPIsxfpdS366mM8CIbC/hzk3OABrcx
+         9RtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=yKTMi6lrnDx8GoFcbU9t+A71vuFtFXVSxM5TfNCBl94=;
-        b=cX8zBqh2umE5F2g7kF7V/V9uMTGaMgJYCR4oP5iqQ6riC0hWezh9dsrRfS4Gqbf3kN
-         xhQaebm8kA+2EncLjhfsPR0dxpApSOWCm6wzuH64tPAfD0g4UCSY+taurtNDJkZoYnjL
-         wiG6sGWE6d3Dx9x0bwSJbIpAi146FWINhu1WrRmnMt14s97DtywD/0Q9zt4HjArj5kqm
-         vUbJxeI2tQ87nX3WM4qfxq4etrsm9FRBMhvERckTT1rpRBVdXLm9hdyuYLErXNWOovXk
-         SkdPjaHKwQ7f356KWeFauKU/ctlklInpohFwQUchqBuqKS/UweAb1j1HkULWbKwciQKh
-         hekw==
-X-Gm-Message-State: AOAM5327Af1K9sgu7eFF7KtkbLVQo4NIobmi8MkvdA4lG2OT8sW8G9k8
-        LiKLWM2+57118wAOzMl+vZs=
-X-Google-Smtp-Source: ABdhPJz+3tWS+CQaf+IjI0+zVa2Ln9CP4xvEKxq7AwCLvCZScPsOkMVouDGDMKmcH0WFsW7qVaf+pQ==
-X-Received: by 2002:a1c:c3d5:: with SMTP id t204mr2463316wmf.114.1613739956319;
-        Fri, 19 Feb 2021 05:05:56 -0800 (PST)
+        bh=UZ8nkpaXTVr9uG0ftxc/l3srnmK3kc+aCWPlOUwVQQM=;
+        b=YT2VIimv5VdXHEFyc5TjPK/n9lscWt0tYzQnIIxxRGMy7qcY55c3S2daqCHPiSMz2n
+         js7goKV1yAGYQlPHAwBiwPvxzyuuAZmN1JCxzuyGfXDzUnGElXx83QGvSeRCzbabd0sr
+         G1wv9XS2KwO6UxaS6qelgUsyqGeH143BAfDWSxrH0Pr0Rx6qgwEc9rS/Qnq/NhS6lY8M
+         aIhRLfkNzqTi/tZBInm1R+w4v7VYU2lgaMp/QYBTX/z6x5xMMmVojSNHCBzCVZTUBfqt
+         qGh/DuNChxbT12uTnXmKWliU1eBPgip4QPjPMgzMJfzcCS+FuBtoo/1jiqp+TtgbeGfh
+         PxaA==
+X-Gm-Message-State: AOAM532q1QznZS+wqAq0B5UD2hzxIZE4Q/z98CLVp8MLFpJoUISK1jbK
+        7cdDpL0Dsd40SFDVa5YjW/DRZkAAMANLEw==
+X-Google-Smtp-Source: ABdhPJyY0uOssBmrJApPfV8040g8y173+Yxqv4w67L2+B8Gz5R+n1B8J4j+13q0dhz2aY8cwnfa7tQ==
+X-Received: by 2002:a5d:474c:: with SMTP id o12mr7689114wrs.161.1613744128339;
+        Fri, 19 Feb 2021 06:15:28 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id w13sm12197829wrt.49.2021.02.19.05.05.55
+        by smtp.googlemail.com with ESMTPSA id q140sm15124429wme.0.2021.02.19.06.15.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Feb 2021 05:05:55 -0800 (PST)
+        Fri, 19 Feb 2021 06:15:27 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-        Ulrich Drepper <drepper@redhat.com>
-Subject: [PATCH v2] aio_suspend.3: SYNOPSIS: Use 'restrict' in prototypes
-Date:   Fri, 19 Feb 2021 14:03:27 +0100
-Message-Id: <20210219130326.12772-1-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org, Walter Harms <wharms@bfs.de>
+Subject: [PATCH v7] scripts/bash_aliases: Add useful functions
+Date:   Fri, 19 Feb 2021 15:13:46 +0100
+Message-Id: <20210219141345.79829-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.1.721.g45526154a5
-In-Reply-To: <1950eeca-5627-93de-6fe9-22ebf189b37a@gmail.com>
-References: <1950eeca-5627-93de-6fe9-22ebf189b37a@gmail.com>
+In-Reply-To: <20210215131522.450666-11-alx.manpages@gmail.com>
+References: <20210215131522.450666-11-alx.manpages@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-POSIX does NOT specify aio_suspend() to use 'restrict'.
-However, glibc uses 'restrict'.
-Users might be surprised by this!  Let's use it here too!
+That file should be sourced (.) from 'bashrc' (or 'bash_aliases').
 
-......
+It contains functions that are useful for the maintenance of this
+project.
 
-.../glibc$ grep_glibc_prototype aio_suspend
-rt/aio.h:167:
-extern int aio_suspend (const struct aiocb *const __list[], int __nent,
-			const struct timespec *__restrict __timeout)
-  __nonnull ((1));
-.../glibc$
+- grep_syscall()
+- grep_syscall_def()
+- man_section()
+- man_lsfunc()
+- pdfman()
+- grep_glibc_prototype()
 
-Cc: libc-alpha@sourceware.org
-Cc: Ulrich Drepper <drepper@redhat.com>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
 
 v2:
-	- wsfix + srcfix: Avoid breaking the line in the prototype
-	- Note the difference between POSIX and glibc in CONFORMING TO.
+	- Reword license to adequate it for many functions instead
+	  of a single program.
+	- Add a trailing ';' for consistency.
+v3:
+	- Resend to avoid confusion:  I forgot to use [PATCH v2]!
+v4:
+	- grep_glibc_prototype(): Fix some corner cases where
+	  a function invocation was printed.
+v5:
+	- grep_glibc_prototype(): Fix some corner cases where
+	  a function prototype with many attributes wasn't printed.
+v6:
+	- man_lsfunc(): Allow listing more than one dir.
+	  Example: $ man_lsfunc man[23];
+v7:
+	- grep_glibc_prototype(): Fix some corner cases where
+	  a function invocation was printed.
 
 ---
- man3/aio_suspend.3 | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ scripts/bash_aliases | 171 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 171 insertions(+)
+ create mode 100644 scripts/bash_aliases
 
-diff --git a/man3/aio_suspend.3 b/man3/aio_suspend.3
-index 76a05f48e..e0355a449 100644
---- a/man3/aio_suspend.3
-+++ b/man3/aio_suspend.3
-@@ -30,8 +30,8 @@ aio_suspend \- wait for asynchronous I/O operation or timeout
- .PP
- .B "#include <aio.h>"
- .PP
--.BI "int aio_suspend(const struct aiocb * const " aiocb_list [],
--.BI "                int " nitems ", const struct timespec *" timeout );
-+.BI "int aio_suspend(const struct aiocb *const " aiocb_list "[], int " nitems ,
-+.BI "                const struct timespec *restrict " timeout );
- .PP
- Link with \fI\-lrt\fP.
- .fi
-@@ -122,6 +122,10 @@ T}	Thread safety	MT-Safe
- .sp 1
- .SH CONFORMING TO
- POSIX.1-2001, POSIX.1-2008.
-+.PP
-+POSIX doesn't specify the parameters to be
-+.IR restrict ;
-+that is specific to glibc.
- .SH NOTES
- One can achieve polling by using a non-NULL
- .I timeout
+diff --git a/scripts/bash_aliases b/scripts/bash_aliases
+new file mode 100644
+index 000000000..f718f603d
+--- /dev/null
++++ b/scripts/bash_aliases
+@@ -0,0 +1,171 @@
++# SPDX-License-Identifier: GPL-2.0-only
++########################################################################
++#
++# (C) Copyright 2021, Alejandro Colomar
++# These functions are free software; you can redistribute them and/or
++# modify them under the terms of the GNU General Public License
++# as published by the Free Software Foundation; version 2.
++#
++# These functions are distributed in the hope that they will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU General Public License for more details
++# (http://www.gnu.org/licenses/gpl-2.0.html).
++#
++########################################################################
++
++########################################################################
++#	Exit status
++
++EX_OK=0;
++EX_USAGE=64;
++
++########################################################################
++#	Linux kernel
++
++#  grep_syscall()  finds the prototype of a syscall in the kernel sources,
++# printing the filename, line number, and the prototype.
++# It should be run from the root of the linux kernel source tree.
++# Usage example:  .../linux$ grep_syscall openat2;
++
++function grep_syscall()
++{
++	if ! [ -v 1 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
++		return ${EX_USAGE};
++	fi
++
++	find * -type f \
++	|grep '\.c$' \
++	|sort -V \
++	|xargs pcregrep -Mn "(?s)^\w*SYSCALL_DEFINE.\(${1},.*?\)" \
++	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
++
++	find * -type f \
++	|grep '\.[ch]$' \
++	|sort -V \
++	|xargs pcregrep -Mn "(?s)^asmlinkage\s+[\w\s]+\**sys_${1}\s*\(.*?\)" \
++	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
++}
++
++#  grep_syscall_def()  finds the definition of a syscall in the kernel sources,
++# printing the filename, line number, and the function definition.
++# It should be run from the root of the linux kernel source tree.
++# Usage example:  .../linux$ grep_syscall_def openat2;
++
++function grep_syscall_def()
++{
++	if ! [ -v 1 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
++		return ${EX_USAGE};
++	fi
++
++	find * -type f \
++	|grep '\.c$' \
++	|sort -V \
++	|xargs pcregrep -Mn "(?s)^\w*SYSCALL_DEFINE.\(${1},.*?^}" \
++	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
++}
++
++########################################################################
++#	Linux man-pages
++
++#  man_section()  prints a specific manual page section (DESCRIPTION, SYNOPSIS,
++# ...) of all manual pages in a directory (or in a single manual page file).
++# Usage example:  .../man-pages$ man_section man2 SYNOPSIS;
++
++function man_section()
++{
++	if ! [ -v 2 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <dir> <section>";
++		return ${EX_USAGE};
++	fi
++
++	find "${1}" -type f \
++	|xargs grep -l "\.SH ${2}" \
++	|sort -V \
++	|while read -r manpage; do
++		<${manpage} \
++		sed -n \
++			-e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
++			-e "/^\.SH ${2}/p" \
++			-e "/^\.SH ${2}/,/^\.SH/{/^\.SH/!p}" \
++		|man -P cat -l - 2>/dev/null;
++	done;
++}
++
++#  man_lsfunc()  prints the name of all C functions declared in the SYNOPSIS
++# of all manual pages in a directory (or in a single manual page file).
++# Each name is printed in a separate line
++# Usage example:  .../man-pages$ man_lsfunc man2;
++
++function man_lsfunc()
++{
++	if ! [ -v 1 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <dir>";
++		return ${EX_USAGE};
++	fi
++
++	find "${@}" -type f \
++	|xargs grep -l "\.SH SYNOPSIS" \
++	|sort -V \
++	|while read -r manpage; do
++		<${manpage} \
++		sed -n \
++			-e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
++			-e "/^\.SH SYNOPSIS/p" \
++			-e "/^\.SH SYNOPSIS/,/^\.SH/{/^\.SH/!p}" \
++		|sed \
++			-e '/Feature/,$d' \
++			-e '/{/,/}/d' \
++		|man -P cat -l - 2>/dev/null;
++	done \
++	|sed -n "/^SYNOPSIS/,/^\w/p" \
++	|grep '^       \w' \
++	|grep -v ':' \
++	|sed 's/^[^(]* \**\(\w*\)(.*/\1/' \
++	|grep '^\w' \
++	|uniq;
++}
++
++#  pdfman()  reanders a manual page in PDF
++# Usage example:  .../man-pages$ pdfman man2/membarrier.2;
++
++function pdfman()
++{
++	if ! [ -v 1 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <man-page.n>";
++		return ${EX_USAGE};
++	fi;
++
++	local tmp="$(mktemp -t "${1##*/}.XXXXXX")";
++
++	<${1} \
++	man -Tps -l - \
++	|ps2pdf - - \
++	>${tmp};
++	xdg-open ${tmp};
++}
++
++########################################################################
++#	Glibc
++
++#  grep_glibc_prototype()  finds a function prototype in the glibc sources,
++# printing the filename, line number, and the prototype.
++# It should be run from the root of the glibc source tree.
++# Usage example:  .../glibc$ grep_glibc_prototype printf;
++
++function grep_glibc_prototype()
++{
++	if ! [ -v 1 ]; then
++		>&2 echo "Usage: ${FUNCNAME[0]} <func>";
++		return ${EX_USAGE};
++	fi
++
++	find * -type f \
++	|grep '\.h$' \
++	|sort -V \
++	|xargs pcregrep -Mn \
++	  "(?s)^[\w[][\w\s]+\s+\**${1}\s*\([\w\s()[\]*,]+?(...)?\)[\w\s(),]*;" \
++	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
++}
 -- 
 2.30.1.721.g45526154a5
 
