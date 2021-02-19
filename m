@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 02ABD31FA6E
-	for <lists+linux-man@lfdr.de>; Fri, 19 Feb 2021 15:16:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 059B531FA90
+	for <lists+linux-man@lfdr.de>; Fri, 19 Feb 2021 15:28:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230113AbhBSOQK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 19 Feb 2021 09:16:10 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40286 "EHLO
+        id S230309AbhBSO1B (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 19 Feb 2021 09:27:01 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42564 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230014AbhBSOQK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Feb 2021 09:16:10 -0500
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9C58FC061574
-        for <linux-man@vger.kernel.org>; Fri, 19 Feb 2021 06:15:29 -0800 (PST)
-Received: by mail-wr1-x436.google.com with SMTP id v1so8722612wrd.6
-        for <linux-man@vger.kernel.org>; Fri, 19 Feb 2021 06:15:29 -0800 (PST)
+        with ESMTP id S229947AbhBSO0v (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Feb 2021 09:26:51 -0500
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5DB97C061756
+        for <linux-man@vger.kernel.org>; Fri, 19 Feb 2021 06:26:11 -0800 (PST)
+Received: by mail-wm1-x32a.google.com with SMTP id x16so7220742wmk.3
+        for <linux-man@vger.kernel.org>; Fri, 19 Feb 2021 06:26:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=UZ8nkpaXTVr9uG0ftxc/l3srnmK3kc+aCWPlOUwVQQM=;
-        b=hv6osWp1J1VqPvAf3EOLeCYqpVKOGRuRvTcK6P58iv5i6/jost4dLpDSHejrOOdzT+
-         h7vr8QuKFQ3wAP75gQJMF2jQ3qAanL7rxSX0hUq5L+9Gk67CO46gMt0fvG9fveI7HB0N
-         E/ImnKMuEkVxq5ZJ2hda/mEAFfm8vb9SMyqKhnAXLEO3zm5/0ST7AkPCahcAOlPnqosH
-         0YzaJGfoCKrjWqlq6s42l9FTJpmeJZnjrspE/B+F1JICj08uO8K2+NBrIhL6KzmzJNPM
-         SK6DxnS9nIABqnDC6OrMMJ0rOzD3XlTaPYAshxuPIsxfpdS366mM8CIbC/hzk3OABrcx
-         9RtA==
+        bh=3RjacCe3pte72Y1kCUyACF4fp6WuoSgc4nTZmqdpcVg=;
+        b=M93Hn/A89ZRSMaXibqygjPTK1WX5KjLskqELzYVw9Ud8vLKMFcFnuNjHdUXH6xjSx9
+         IgDbHfk1chT0zf70LMfH0mEBRe5OSJTYWGegzO/OgRwi6WNWHlScgk48HlplAh1J+Z77
+         L/5xkQDwqrXt7dMu4pA/DrJJpy7A1dwArmPVQbG06USwJvah4GOU5twc0T1sP7ESqqYw
+         nez0NmNtC11qv+hQFhsiLzpQ+iaoqiHPCwTNV1qbGyPwunEwOLmikcqJy+g6hbRRyirm
+         F5ZDqWKcJwcWyG54wpRYb6c2pvEUNsdJixLzKldwHuLlXaqpYEl2BLSUvqR3gXEAulDi
+         Ctqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=UZ8nkpaXTVr9uG0ftxc/l3srnmK3kc+aCWPlOUwVQQM=;
-        b=YT2VIimv5VdXHEFyc5TjPK/n9lscWt0tYzQnIIxxRGMy7qcY55c3S2daqCHPiSMz2n
-         js7goKV1yAGYQlPHAwBiwPvxzyuuAZmN1JCxzuyGfXDzUnGElXx83QGvSeRCzbabd0sr
-         G1wv9XS2KwO6UxaS6qelgUsyqGeH143BAfDWSxrH0Pr0Rx6qgwEc9rS/Qnq/NhS6lY8M
-         aIhRLfkNzqTi/tZBInm1R+w4v7VYU2lgaMp/QYBTX/z6x5xMMmVojSNHCBzCVZTUBfqt
-         qGh/DuNChxbT12uTnXmKWliU1eBPgip4QPjPMgzMJfzcCS+FuBtoo/1jiqp+TtgbeGfh
-         PxaA==
-X-Gm-Message-State: AOAM532q1QznZS+wqAq0B5UD2hzxIZE4Q/z98CLVp8MLFpJoUISK1jbK
-        7cdDpL0Dsd40SFDVa5YjW/DRZkAAMANLEw==
-X-Google-Smtp-Source: ABdhPJyY0uOssBmrJApPfV8040g8y173+Yxqv4w67L2+B8Gz5R+n1B8J4j+13q0dhz2aY8cwnfa7tQ==
-X-Received: by 2002:a5d:474c:: with SMTP id o12mr7689114wrs.161.1613744128339;
-        Fri, 19 Feb 2021 06:15:28 -0800 (PST)
+        bh=3RjacCe3pte72Y1kCUyACF4fp6WuoSgc4nTZmqdpcVg=;
+        b=mOXcg0noMybfyF77CfFj+RD4i4zXy/Ll4Bu6OFeUEj7A+aWp8vkXxa7w1EgPIN9cK4
+         RhtRIZAyx04qhfVwTGeguyYV9wxZqVjbFFgGLzzYrK3B5A4lqx0NOKXf9fWiuYlf2vh6
+         WcsmdNtE/R9MuJu43Y2j9gtSDY1G4tV3+Z9O2dZaTyjNeWoYkqgwO1C/gYUdJA11ESmo
+         /txCND3ahqLgfz6DgNGNesBqbaDWTJRJPYSZeoFDaoJEN/mDdePj+kXx0MR5ahbyZEEV
+         070bGkSDj156JbUaGCqzior8ycWh/wemX9jz3NQ958QWdXi9HyIVYubNEwkaWwA50hW0
+         8IUQ==
+X-Gm-Message-State: AOAM53267zG932++fkhw5YgAXKNiDN5XPk4Akc8wBI7/HJRH6BMAS1cR
+        tJTmWiCd1LfanrLHHullz8A=
+X-Google-Smtp-Source: ABdhPJxEw80IJD9XfElCXD4oqNHGDvRBfc5+33ga/iuhmL05bkWwnoT7S6iLSGH5qo+q6vIkedBvFQ==
+X-Received: by 2002:a1c:b0c2:: with SMTP id z185mr8322302wme.67.1613744770105;
+        Fri, 19 Feb 2021 06:26:10 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id q140sm15124429wme.0.2021.02.19.06.15.26
+        by smtp.googlemail.com with ESMTPSA id w13sm12462047wrt.49.2021.02.19.06.26.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Feb 2021 06:15:27 -0800 (PST)
+        Fri, 19 Feb 2021 06:26:09 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, Walter Harms <wharms@bfs.de>
-Subject: [PATCH v7] scripts/bash_aliases: Add useful functions
-Date:   Fri, 19 Feb 2021 15:13:46 +0100
-Message-Id: <20210219141345.79829-1-alx.manpages@gmail.com>
+Subject: [PATCH v8] scripts/bash_aliases: Add useful functions
+Date:   Fri, 19 Feb 2021 15:22:49 +0100
+Message-Id: <20210219142248.108603-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.1.721.g45526154a5
 In-Reply-To: <20210215131522.450666-11-alx.manpages@gmail.com>
 References: <20210215131522.450666-11-alx.manpages@gmail.com>
@@ -78,6 +78,7 @@ project.
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
 
+
 v2:
 	- Reword license to adequate it for many functions instead
 	  of a single program.
@@ -96,6 +97,12 @@ v6:
 v7:
 	- grep_glibc_prototype(): Fix some corner cases where
 	  a function invocation was printed.
+v8:
+	- grep_glibc_prototype():
+		- Print attributes before the prototype too.
+		  (AFAICS, there are none; but just in case...)
+		- Accept C2x attributes (glibc doesn't use them yet,
+		  but it doesn't hurt to accept them).
 
 ---
  scripts/bash_aliases | 171 +++++++++++++++++++++++++++++++++++++++++++
@@ -104,7 +111,7 @@ v7:
 
 diff --git a/scripts/bash_aliases b/scripts/bash_aliases
 new file mode 100644
-index 000000000..f718f603d
+index 000000000..d66766ee6
 --- /dev/null
 +++ b/scripts/bash_aliases
 @@ -0,0 +1,171 @@
@@ -276,7 +283,7 @@ index 000000000..f718f603d
 +	|grep '\.h$' \
 +	|sort -V \
 +	|xargs pcregrep -Mn \
-+	  "(?s)^[\w[][\w\s]+\s+\**${1}\s*\([\w\s()[\]*,]+?(...)?\)[\w\s(),]*;" \
++	  "(?s)^[\w[][\w\s(),[\]]+\s+\**${1}\s*\([\w\s()[\]*,]+?(...)?\)[\w\s(),[\]]*;" \
 +	|sed -E 's/^[^:]+:[0-9]+:/&\n/';
 +}
 -- 
