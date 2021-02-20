@@ -2,92 +2,117 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CE3983205E5
-	for <lists+linux-man@lfdr.de>; Sat, 20 Feb 2021 16:25:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7DF123206D9
+	for <lists+linux-man@lfdr.de>; Sat, 20 Feb 2021 20:18:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229766AbhBTPZB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 20 Feb 2021 10:25:01 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51028 "EHLO
+        id S229826AbhBTTSA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 20 Feb 2021 14:18:00 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44114 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229734AbhBTPY7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Feb 2021 10:24:59 -0500
-Received: from mail-il1-x136.google.com (mail-il1-x136.google.com [IPv6:2607:f8b0:4864:20::136])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6F8C1C061574
-        for <linux-man@vger.kernel.org>; Sat, 20 Feb 2021 07:24:18 -0800 (PST)
-Received: by mail-il1-x136.google.com with SMTP id a16so7098518ilq.5
-        for <linux-man@vger.kernel.org>; Sat, 20 Feb 2021 07:24:18 -0800 (PST)
+        with ESMTP id S229809AbhBTTR7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Feb 2021 14:17:59 -0500
+Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com [IPv6:2607:f8b0:4864:20::535])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E0BECC061574
+        for <linux-man@vger.kernel.org>; Sat, 20 Feb 2021 11:17:18 -0800 (PST)
+Received: by mail-pg1-x535.google.com with SMTP id t26so7552854pgv.3
+        for <linux-man@vger.kernel.org>; Sat, 20 Feb 2021 11:17:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=7MjJ1NMHOSVUoBVTRIrkezZEoSPQrQfVEzSk5W1w4QQ=;
-        b=VIsrixeCK++LZe6T5/WHziWK3F5SdVPXzeUDSEFQ5l/r7/O0z2w/Oc2zo89ouY3y91
-         iqWeRnPe47xxm7tQI/cDSS15SZfQoZwFqhT4BsNcUHMD2WE7M5Ol5MN+zvu5NKBfJE59
-         hp+h8mF/h7/tZYBOJF5f9OsiLJ+YNJ1NcSLDX+pjkfPPhUEIKM/KkzvOr74XkaP13lAo
-         YzmMxGB0QgBC/BN3AzUXZ32ky2lkbYuLm2AQfd5a/q8nl0ZAzKOwdFvmXCmJGZGTGCGb
-         MU0Z23ptqQnxT/GLfZ1yCHEzJVxHeuKjfbM0j7VlcZcAoK3AyVxDlQelG+U4MvPSWqpy
-         45Cg==
+        d=kernel-dk.20150623.gappssmtp.com; s=20150623;
+        h=to:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=qNGJZvXd6vF08WCRDqK2Jja7bAdePk+dKWeEebmmJ8E=;
+        b=HadZihy/XQQmcBwX6SBcixH0feL7UcSHjAyR2v3ArV0BN3KUtOYPXpSJGvIL59vRqF
+         ZJjozv1KGU75//x+CwWGCZhc4j9vl6XKHfhAQUAhZsWu3gsVhySrJAs3znJUZz3tptH3
+         DfI059m8Jptf+oJ/WLfx5XXqAKA+6neDevhVRxCB93RxkUYRAkji30Ig9HBVkRTHpXuE
+         iiUw3SIsLDEpQsomthuNTRT7U6WFb+FvnhD77epWsPxGch5xXwGzTgA/0OcPj6Zecp3V
+         hLL3OTH179Am55uYQ3xEQCSvykRsEjXsCqFSBSbYUMnuWQ9rw14LNyo6qrZB2vZ+gQdu
+         nIpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=7MjJ1NMHOSVUoBVTRIrkezZEoSPQrQfVEzSk5W1w4QQ=;
-        b=cQJyt+oVG1T6oI77Eh/NjuU9trQHmUD07OQqKXVgjmRVTT0uoLcHS5wUKJC1vMOKWa
-         kGc6Cl/aqZffuLg10vZOg3gHBnFZugQG2y9+1B4ABqztB1VkoLijaX5EflqJnwmSv8kx
-         w+cypIgpvUd11oYynLGzwAEACcWbUm33VVAZvyAJFiFeTwuytxp7H8/J/zoGpJIo2H1V
-         0l0dNNmewo4O77zlcz2YZzL8RTMeU6+bHyzBLh0ckqXxUdOojy34jjwA5ooJPPlWFHBq
-         bWDu78wsRXxuUfZbCT+cVZBF2mdr84Zoo0xEu60c25rP3/1blzn5y6pMg0Yt6dRT7WQ+
-         oCDA==
-X-Gm-Message-State: AOAM530fehE7Vpqw8v4N86AOwpoWPeJT+iHSNvkFoEOQb1Cs+vKyCJsQ
-        JJsNnCniQLtFsYAcDpFFXdCbjAlkacimg8b6WAQMqmfl7yE=
-X-Google-Smtp-Source: ABdhPJxapBmVitv7kipa/S+xfVrAgz2jymTcCqUQEiD2KHeRmEHTbTbxGJbzfbImfzWUQpone4kM1pX3myREmPEgYBo=
-X-Received: by 2002:a05:6e02:2142:: with SMTP id d2mr8257218ilv.249.1613834657613;
- Sat, 20 Feb 2021 07:24:17 -0800 (PST)
+        h=x-gm-message-state:to:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=qNGJZvXd6vF08WCRDqK2Jja7bAdePk+dKWeEebmmJ8E=;
+        b=Jav/mRMwcFt/ybSiqlUet/0RTF/tMFE/JekzIDiXTa+25Xf/FZtRSIBt8sw2mDWFEV
+         iIkK0oKuqFV8jUn7dVyL78y/Q9a/I/y/xYAJ/mmE5uU+F406DbYYslRTXP83Uf455bDK
+         i3OO9TVp+S37Qid4KHY2uvz15eTLNT7rm91mYk/neKGgIwRNioM2b1UBoNxRXilS0xvN
+         Hx9aEQ3ZcaTY7ZXu3+zEH5dwamk4lodlQ2w4nFbzh1NfhiewZzgdDLj9tC1XSpW106ly
+         Vu4eMoTnorLIWWhg7Ys3eySGHbB2VfNUUcV4Fn0DNysl9b3Ff4sVHgxpdsnBCLgI3xRY
+         787w==
+X-Gm-Message-State: AOAM530aAgVcQojj0JERnYngT19+3mABaL3cV4T1RDga9i7ZrWkXdcU+
+        vR7lqEEFOLuPh8fTf7rzphruGsqaAvyS8A==
+X-Google-Smtp-Source: ABdhPJz80bhhX6lp86esY9sX6iP3V2SecMJBy6kfguq+0QQ6+2UGXkm697J5FmfGy/jRCIr28+hKng==
+X-Received: by 2002:a62:3503:0:b029:1aa:6f15:b9fe with SMTP id c3-20020a6235030000b02901aa6f15b9femr14962860pfa.65.1613848638275;
+        Sat, 20 Feb 2021 11:17:18 -0800 (PST)
+Received: from [192.168.1.134] ([66.219.217.173])
+        by smtp.gmail.com with ESMTPSA id g62sm13704867pgc.32.2021.02.20.11.17.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 20 Feb 2021 11:17:17 -0800 (PST)
+To:     linux-man <linux-man@vger.kernel.org>,
+        Michael Kerrisk-manpages <mtk.manpages@gmail.com>
+From:   Jens Axboe <axboe@kernel.dk>
+Subject: [PATCH v2] man2/openat2.2: add RESOLVE_CACHED
+Message-ID: <358adcb0-0270-c0aa-b3cc-967cb133fed8@kernel.dk>
+Date:   Sat, 20 Feb 2021 12:17:16 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-From:   Philipp Schuster <phip1611@gmail.com>
-Date:   Sat, 20 Feb 2021 16:24:02 +0100
-Message-ID: <CAKmF0pOMR9OMd4=ikHu31QGCVOWu10vvH4OzzgbUtPGGdbW05Q@mail.gmail.com>
-Subject: Misleading documentation in Netlink(7) man page / doesn't match with Kernel
-To:     linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-To whom it may concern,
-I'd like to inform you about a bug in the Netlink(7) man page [0].
+RESOLVE_CACHED allows an application to attempt a cache-only open
+of a file. If this isn't possible, the request will fail with
+-1/EAGAIN and the caller should retry without RESOLVE_CACHED set.
+This will generally happen from a different context, where a slower
+open operation can be performed.
 
-It describes struct nlmsgerr the following way:
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 
-struct nlmsgerr {
-       int error;        /* Negative errno or 0 for acknowledgements */
-       struct nlmsghdr msg;  /* Message header that caused the error */
-};
+---
 
-but according to Kernel code [1] [2] [3] it actually should be:
+Sending a v2 of this one, as the kernel side patches are queued up
+for 5.12 inclusion.
 
-struct nlmsgerr {
-       int error;        /* Negative errno or 0 for acknowledgements */
-       struct nlmsghdr msg;  /* Message header that caused the error */
-       /*
-        * followed by the message contents unless NETLINK_CAP_ACK was set
-        * or the ACK indicates success (error == 0)
-        * message length is aligned with NLMSG_ALIGN()
-        */
-       /*
-        * followed by TLVs defined in enum nlmsgerr_attrs
-        * if NETLINK_EXT_ACK was set
-        */
-};
+diff --git a/man2/openat2.2 b/man2/openat2.2
+index 3bda20620574..37e70c43de6d 100644
+--- a/man2/openat2.2
++++ b/man2/openat2.2
+@@ -385,6 +385,17 @@ This may occur if, for example,
+ a system pathname that is used by an application is modified
+ (e.g., in a new distribution release)
+ so that a pathname component (now) contains a bind mount.
++.TP
++.B RESOLVE_CACHED
++Make the open operation fail unless all path components are already present
++in the kernels lookup cache.
++If any kind of revalidation or I/O is needed to satisfy the lookup,
++.BR openat2 ()
++fails with the error
++.B EAGAIN.
++This is useful in providing a fast path open that can be performed without
++resorting to thread offload, or other mechanisms that an application might
++use to offload slower operations.
+ .RE
+ .IP
+ If any bits other than those listed above are set in
+@@ -421,6 +432,14 @@ The caller may choose to retry the
+ .BR openat2 ()
+ call.
+ .TP
++.B EAGAIN
++.BR RESOLVE_CACHED
++was set, and the open operation cannot be performed cached.
++The caller should retry without
++.B RESOLVE_CACHED
++set in
++.I how.resolve
++.TP
+ .B EINVAL
+ An unknown flag or invalid value was specified in
+ .IR how .
+-- 
+Jens Axboe
 
-This discrepancy led to errors implementing at least a Rust library which
-made wrong assumptions about the returned value.
-
-
-[0] https://man7.org/linux/man-pages/man7/netlink.7.html
-[1] https://elixir.bootlin.com/linux/v5.11/source/include/uapi/linux/netlink.h#L112
-[2] https://elixir.bootlin.com/linux/v5.11/source/net/netlink/af_netlink.c#L2416
-[3] https://elixir.bootlin.com/linux/v5.11/source/net/netlink/af_netlink.c#L2440
-
-
-Kind regards
---
-Philipp Schuster
