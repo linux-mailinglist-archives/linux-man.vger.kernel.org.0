@@ -2,117 +2,116 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7DF123206D9
-	for <lists+linux-man@lfdr.de>; Sat, 20 Feb 2021 20:18:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3439B320704
+	for <lists+linux-man@lfdr.de>; Sat, 20 Feb 2021 21:08:48 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229826AbhBTTSA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 20 Feb 2021 14:18:00 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44114 "EHLO
+        id S229804AbhBTUIc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 20 Feb 2021 15:08:32 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54830 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229809AbhBTTR7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Feb 2021 14:17:59 -0500
-Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com [IPv6:2607:f8b0:4864:20::535])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E0BECC061574
-        for <linux-man@vger.kernel.org>; Sat, 20 Feb 2021 11:17:18 -0800 (PST)
-Received: by mail-pg1-x535.google.com with SMTP id t26so7552854pgv.3
-        for <linux-man@vger.kernel.org>; Sat, 20 Feb 2021 11:17:18 -0800 (PST)
+        with ESMTP id S229803AbhBTUIb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Feb 2021 15:08:31 -0500
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com [IPv6:2607:f8b0:4864:20::330])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 60B8AC061574
+        for <linux-man@vger.kernel.org>; Sat, 20 Feb 2021 12:07:50 -0800 (PST)
+Received: by mail-ot1-x330.google.com with SMTP id l23so8412277otn.10
+        for <linux-man@vger.kernel.org>; Sat, 20 Feb 2021 12:07:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20150623.gappssmtp.com; s=20150623;
-        h=to:from:subject:message-id:date:user-agent:mime-version
-         :content-language:content-transfer-encoding;
-        bh=qNGJZvXd6vF08WCRDqK2Jja7bAdePk+dKWeEebmmJ8E=;
-        b=HadZihy/XQQmcBwX6SBcixH0feL7UcSHjAyR2v3ArV0BN3KUtOYPXpSJGvIL59vRqF
-         ZJjozv1KGU75//x+CwWGCZhc4j9vl6XKHfhAQUAhZsWu3gsVhySrJAs3znJUZz3tptH3
-         DfI059m8Jptf+oJ/WLfx5XXqAKA+6neDevhVRxCB93RxkUYRAkji30Ig9HBVkRTHpXuE
-         iiUw3SIsLDEpQsomthuNTRT7U6WFb+FvnhD77epWsPxGch5xXwGzTgA/0OcPj6Zecp3V
-         hLL3OTH179Am55uYQ3xEQCSvykRsEjXsCqFSBSbYUMnuWQ9rw14LNyo6qrZB2vZ+gQdu
-         nIpQ==
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=HybTeXQb7op7+U9gJUOB/JVz2Lgv0mX3WEpdxXbwsOw=;
+        b=SL3I4pK6xr6v1twrxDzOi9a5IMveLfzOHPHO+h/6/08+xZOroc9MAXo36L1K9AII0N
+         bbBBhFkI/lDS09F1UQhrLIe9LaWaFa3uFcPA23sI7BOBgStaIpWMwvYcYX/Q1KH7GxEG
+         rauaONP6vhH0yTdUvqGhSRQeb5/0dvzJe2PTXUe92PHrf+vritBoVkhC7ChhEmsJqSSZ
+         l6YnR2EjJLi9cJ5ZQItKSRx3rquIx7cypB+xtuCugEUKZ4yBWOsoEIDZFaZ3yDX/ACMy
+         0w03/J1Y0ZXtHAYouZK76glPp8+hxVLhO+K9/GollmqA2gAqRPW5PCWIIrfiPT27xoEL
+         R6JQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:from:subject:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=qNGJZvXd6vF08WCRDqK2Jja7bAdePk+dKWeEebmmJ8E=;
-        b=Jav/mRMwcFt/ybSiqlUet/0RTF/tMFE/JekzIDiXTa+25Xf/FZtRSIBt8sw2mDWFEV
-         iIkK0oKuqFV8jUn7dVyL78y/Q9a/I/y/xYAJ/mmE5uU+F406DbYYslRTXP83Uf455bDK
-         i3OO9TVp+S37Qid4KHY2uvz15eTLNT7rm91mYk/neKGgIwRNioM2b1UBoNxRXilS0xvN
-         Hx9aEQ3ZcaTY7ZXu3+zEH5dwamk4lodlQ2w4nFbzh1NfhiewZzgdDLj9tC1XSpW106ly
-         Vu4eMoTnorLIWWhg7Ys3eySGHbB2VfNUUcV4Fn0DNysl9b3Ff4sVHgxpdsnBCLgI3xRY
-         787w==
-X-Gm-Message-State: AOAM530aAgVcQojj0JERnYngT19+3mABaL3cV4T1RDga9i7ZrWkXdcU+
-        vR7lqEEFOLuPh8fTf7rzphruGsqaAvyS8A==
-X-Google-Smtp-Source: ABdhPJz80bhhX6lp86esY9sX6iP3V2SecMJBy6kfguq+0QQ6+2UGXkm697J5FmfGy/jRCIr28+hKng==
-X-Received: by 2002:a62:3503:0:b029:1aa:6f15:b9fe with SMTP id c3-20020a6235030000b02901aa6f15b9femr14962860pfa.65.1613848638275;
-        Sat, 20 Feb 2021 11:17:18 -0800 (PST)
-Received: from [192.168.1.134] ([66.219.217.173])
-        by smtp.gmail.com with ESMTPSA id g62sm13704867pgc.32.2021.02.20.11.17.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 20 Feb 2021 11:17:17 -0800 (PST)
-To:     linux-man <linux-man@vger.kernel.org>,
-        Michael Kerrisk-manpages <mtk.manpages@gmail.com>
-From:   Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH v2] man2/openat2.2: add RESOLVE_CACHED
-Message-ID: <358adcb0-0270-c0aa-b3cc-967cb133fed8@kernel.dk>
-Date:   Sat, 20 Feb 2021 12:17:16 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=HybTeXQb7op7+U9gJUOB/JVz2Lgv0mX3WEpdxXbwsOw=;
+        b=ojIRZEVagouLDGuvwiUhL3e08Y4vCDUjJfHdQ9xiwoNxPLOeoPEIufExpArDxV5cV/
+         1s4VsLOjftASm2Tg9ZdU+e59z5r4vCvE2J2baTklJ04SHTlhSHsogvyMI6/VCxjzPQrt
+         AiFRO3AdkPHX6w4wLXOCEdrk6GpVff8w8b+ZKFhaQp6JnF3nnmknhnpq4GQRRWuniDd/
+         GIjsiAez1IbMRQCB3f6UOyfC3AvX11B95jEtTfYWH/lH0NdyODvlXpVdI3VKnsTPTFyL
+         UcMJdq83LyMzatEoCGBlyMG1RfYwKZAVOEZsZeOBrv4RXeAyEWl37RK4USe+6u9L+9lo
+         vxhQ==
+X-Gm-Message-State: AOAM530S3HtLHRBuHSM7REUC6+dSYVO1/WnHtRhqMaidNIQs4MftNS24
+        NnU2Hd2b0xw7uXSAKimyY/BCSDoNVIIxCBeuzvc=
+X-Google-Smtp-Source: ABdhPJw7c71cflCH9Aap90yxWbEyhnz2VqJU2AYEimEbdH/XFr6W4CeuYONmBtSyIiqDbRQMw4gtAGpyMHvGdAtM3QM=
+X-Received: by 2002:a9d:dc6:: with SMTP id 64mr12292909ots.114.1613851668705;
+ Sat, 20 Feb 2021 12:07:48 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <CAKmF0pOMR9OMd4=ikHu31QGCVOWu10vvH4OzzgbUtPGGdbW05Q@mail.gmail.com>
+In-Reply-To: <CAKmF0pOMR9OMd4=ikHu31QGCVOWu10vvH4OzzgbUtPGGdbW05Q@mail.gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Sat, 20 Feb 2021 21:07:37 +0100
+Message-ID: <CAKgNAkgHu8jMNfqcXjxvwSDP73fzA_2iYTRgucRn=UA1t=QHrg@mail.gmail.com>
+Subject: Re: Misleading documentation in Netlink(7) man page / doesn't match
+ with Kernel
+To:     Philipp Schuster <phip1611@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-RESOLVE_CACHED allows an application to attempt a cache-only open
-of a file. If this isn't possible, the request will fail with
--1/EAGAIN and the caller should retry without RESOLVE_CACHED set.
-This will generally happen from a different context, where a slower
-open operation can be performed.
+Hi Philipp,
 
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+On Sat, 20 Feb 2021 at 16:25, Philipp Schuster <phip1611@gmail.com> wrote:
+>
+> To whom it may concern,
+> I'd like to inform you about a bug in the Netlink(7) man page [0].
+>
+> It describes struct nlmsgerr the following way:
+>
+> struct nlmsgerr {
+>        int error;        /* Negative errno or 0 for acknowledgements */
+>        struct nlmsghdr msg;  /* Message header that caused the error */
+> };
+>
+> but according to Kernel code [1] [2] [3] it actually should be:
+>
+> struct nlmsgerr {
+>        int error;        /* Negative errno or 0 for acknowledgements */
+>        struct nlmsghdr msg;  /* Message header that caused the error */
+>        /*
+>         * followed by the message contents unless NETLINK_CAP_ACK was set
+>         * or the ACK indicates success (error == 0)
+>         * message length is aligned with NLMSG_ALIGN()
+>         */
+>        /*
+>         * followed by TLVs defined in enum nlmsgerr_attrs
+>         * if NETLINK_EXT_ACK was set
+>         */
+> };
+>
+> This discrepancy led to errors implementing at least a Rust library which
+> made wrong assumptions about the returned value.
 
----
+I'm a little unclear. Do you mean that the manual page should include
+the additional comments?
 
-Sending a v2 of this one, as the kernel side patches are queued up
-for 5.12 inclusion.
+Thanks,
 
-diff --git a/man2/openat2.2 b/man2/openat2.2
-index 3bda20620574..37e70c43de6d 100644
---- a/man2/openat2.2
-+++ b/man2/openat2.2
-@@ -385,6 +385,17 @@ This may occur if, for example,
- a system pathname that is used by an application is modified
- (e.g., in a new distribution release)
- so that a pathname component (now) contains a bind mount.
-+.TP
-+.B RESOLVE_CACHED
-+Make the open operation fail unless all path components are already present
-+in the kernels lookup cache.
-+If any kind of revalidation or I/O is needed to satisfy the lookup,
-+.BR openat2 ()
-+fails with the error
-+.B EAGAIN.
-+This is useful in providing a fast path open that can be performed without
-+resorting to thread offload, or other mechanisms that an application might
-+use to offload slower operations.
- .RE
- .IP
- If any bits other than those listed above are set in
-@@ -421,6 +432,14 @@ The caller may choose to retry the
- .BR openat2 ()
- call.
- .TP
-+.B EAGAIN
-+.BR RESOLVE_CACHED
-+was set, and the open operation cannot be performed cached.
-+The caller should retry without
-+.B RESOLVE_CACHED
-+set in
-+.I how.resolve
-+.TP
- .B EINVAL
- An unknown flag or invalid value was specified in
- .IR how .
+Michael
+
+> [0] https://man7.org/linux/man-pages/man7/netlink.7.html
+> [1] https://elixir.bootlin.com/linux/v5.11/source/include/uapi/linux/netlink.h#L112
+> [2] https://elixir.bootlin.com/linux/v5.11/source/net/netlink/af_netlink.c#L2416
+> [3] https://elixir.bootlin.com/linux/v5.11/source/net/netlink/af_netlink.c#L2440
+>
+>
+> Kind regards
+> --
+> Philipp Schuster
+
+
+
 -- 
-Jens Axboe
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
