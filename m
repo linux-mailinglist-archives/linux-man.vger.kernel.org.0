@@ -2,116 +2,87 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3439B320704
-	for <lists+linux-man@lfdr.de>; Sat, 20 Feb 2021 21:08:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9E501320706
+	for <lists+linux-man@lfdr.de>; Sat, 20 Feb 2021 21:13:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229804AbhBTUIc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 20 Feb 2021 15:08:32 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54830 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229803AbhBTUIb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Feb 2021 15:08:31 -0500
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com [IPv6:2607:f8b0:4864:20::330])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 60B8AC061574
-        for <linux-man@vger.kernel.org>; Sat, 20 Feb 2021 12:07:50 -0800 (PST)
-Received: by mail-ot1-x330.google.com with SMTP id l23so8412277otn.10
-        for <linux-man@vger.kernel.org>; Sat, 20 Feb 2021 12:07:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=HybTeXQb7op7+U9gJUOB/JVz2Lgv0mX3WEpdxXbwsOw=;
-        b=SL3I4pK6xr6v1twrxDzOi9a5IMveLfzOHPHO+h/6/08+xZOroc9MAXo36L1K9AII0N
-         bbBBhFkI/lDS09F1UQhrLIe9LaWaFa3uFcPA23sI7BOBgStaIpWMwvYcYX/Q1KH7GxEG
-         rauaONP6vhH0yTdUvqGhSRQeb5/0dvzJe2PTXUe92PHrf+vritBoVkhC7ChhEmsJqSSZ
-         l6YnR2EjJLi9cJ5ZQItKSRx3rquIx7cypB+xtuCugEUKZ4yBWOsoEIDZFaZ3yDX/ACMy
-         0w03/J1Y0ZXtHAYouZK76glPp8+hxVLhO+K9/GollmqA2gAqRPW5PCWIIrfiPT27xoEL
-         R6JQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=HybTeXQb7op7+U9gJUOB/JVz2Lgv0mX3WEpdxXbwsOw=;
-        b=ojIRZEVagouLDGuvwiUhL3e08Y4vCDUjJfHdQ9xiwoNxPLOeoPEIufExpArDxV5cV/
-         1s4VsLOjftASm2Tg9ZdU+e59z5r4vCvE2J2baTklJ04SHTlhSHsogvyMI6/VCxjzPQrt
-         AiFRO3AdkPHX6w4wLXOCEdrk6GpVff8w8b+ZKFhaQp6JnF3nnmknhnpq4GQRRWuniDd/
-         GIjsiAez1IbMRQCB3f6UOyfC3AvX11B95jEtTfYWH/lH0NdyODvlXpVdI3VKnsTPTFyL
-         UcMJdq83LyMzatEoCGBlyMG1RfYwKZAVOEZsZeOBrv4RXeAyEWl37RK4USe+6u9L+9lo
-         vxhQ==
-X-Gm-Message-State: AOAM530S3HtLHRBuHSM7REUC6+dSYVO1/WnHtRhqMaidNIQs4MftNS24
-        NnU2Hd2b0xw7uXSAKimyY/BCSDoNVIIxCBeuzvc=
-X-Google-Smtp-Source: ABdhPJw7c71cflCH9Aap90yxWbEyhnz2VqJU2AYEimEbdH/XFr6W4CeuYONmBtSyIiqDbRQMw4gtAGpyMHvGdAtM3QM=
-X-Received: by 2002:a9d:dc6:: with SMTP id 64mr12292909ots.114.1613851668705;
- Sat, 20 Feb 2021 12:07:48 -0800 (PST)
+        id S229809AbhBTUN3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 20 Feb 2021 15:13:29 -0500
+Received: from out4-smtp.messagingengine.com ([66.111.4.28]:46007 "EHLO
+        out4-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S229808AbhBTUN3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Feb 2021 15:13:29 -0500
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+        by mailout.nyi.internal (Postfix) with ESMTP id 3E4F85C0081;
+        Sat, 20 Feb 2021 15:12:43 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute4.internal (MEProxy); Sat, 20 Feb 2021 15:12:43 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=edef.eu; h=from
+        :to:cc:subject:date:message-id:mime-version
+        :content-transfer-encoding; s=fm2; bh=wq7SiLIou1nG93Yd9yqstc+qQt
+        iy0eIWvhgCyCJ7Pdw=; b=xnAE6qko0CAWcEc5KOYTTlq77LsHMSSiA3ow4zn49i
+        M1VDTaOP6B5YqXeZGM3Wf4bGcAL0wP1U1X5DE9Utk5R5n4M4wQ4wgdL8pXLhqJLs
+        dPmLhuq/8pYkXyEToY0bWKvD0taTWbW0r65plJxCtp1+NmKhDWw1kLXacueoGLfx
+        LTgfurxu7lXZvqrHDJS9Mjx7A0I/gYrdW+VYwVpmsZ5HmLure0VuLUCvq/jlcw83
+        oClFM/+oQfoJaigfqGIEdMEa3PgxnnUOH4ywV0tw6MBoWSrYXqSioxYliyy68l9k
+        82ZhsdPgIu+FHtXusS1NeTXGq6iUyCXU6ZHpmOL51OoA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:content-transfer-encoding:date:from
+        :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+        :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=wq7SiLIou1nG93Yd9
+        yqstc+qQtiy0eIWvhgCyCJ7Pdw=; b=lhLFuGV5zj7wzLm3OZAyl3YCRKousyuxg
+        2tf76krNDYLmK2B1y5RfCsiIcb1T446YyCKhv+3I2ksJdXlOftG2oIxxUBOwTmmt
+        gOhHgaJYsvHnUzkW8BLAqEHFQHgWUWSvv7k3cWnaVfM4xhLwwe9L5DfkaAvk9sTd
+        MxLlkcCzv5YAgs13cizBcgKHGZx12UtwwpOGsynJF8HvrbQd0jmT7nzI/adrOS8p
+        5b2vnlQYnVrnzWBJBpOiZ9D6yIgCGxw52noUEZ60IwG5960R9B7pvLxPVbLpwIIs
+        3mUSxqBPtgLESbZkEzntAPgTkptE2hpcO+N8Kpi3zkIz7UdXIIaNQ==
+X-ME-Sender: <xms:O20xYPWvX87KBkCp2ohejgk0d7FIosGzMdfHdLHYMzY42e61YqH5RA>
+    <xme:O20xYHklpsrwhyL0Iw3GBTHGvHCqsfRGMOhV9ZwmfKIAeTt9HlytMwRVmnjDP6RSO
+    G61Q4m89HAvoROVFA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrjeekgdduvdelucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+    dttdenucfhrhhomhepvgguvghfuceovgguvghfsegvuggvfhdrvghuqeenucggtffrrght
+    thgvrhhnpeffteetheefleejveelffefheeiuddtgffhfeejlefhvefhueejuddvgeejfe
+    ehudenucfkphepudelhedrvddtuddrvddtiedrudejfeenucevlhhushhtvghrufhiiigv
+    pedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegvuggvfhesvgguvghfrdgvuh
+X-ME-Proxy: <xmx:O20xYLYCVf9SNFSm37jDbCsEcNqOX_RzggOcL5pjXfdmIc__0lqPAw>
+    <xmx:O20xYKUXTbAaPfiW4qy7qByzV6whmmPZ1fwsp95XmWm1jo7buLPVng>
+    <xmx:O20xYJkTcXJA9Asjd-1KzK4swWLOrvO-DPnwgyC_U9t6dX0aqR7DaQ>
+    <xmx:O20xYIuAP009AYZ273ftLATgofduh4uRzHIg2xhsZPAkEqhqf5Mccw>
+Received: from localhost (uhura.edef.eu [195.201.206.173])
+        by mail.messagingengine.com (Postfix) with ESMTPA id C4DAC240057;
+        Sat, 20 Feb 2021 15:12:42 -0500 (EST)
+From:   edef <edef@edef.eu>
+To:     linux-man@vger.kernel.org
+Cc:     mtk.manpages@gmail.com, edef <edef@edef.eu>
+Subject: [PATCH] futex.2: tfix
+Date:   Sat, 20 Feb 2021 20:12:23 +0000
+Message-Id: <20210220201221.67968-1-edef@edef.eu>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-References: <CAKmF0pOMR9OMd4=ikHu31QGCVOWu10vvH4OzzgbUtPGGdbW05Q@mail.gmail.com>
-In-Reply-To: <CAKmF0pOMR9OMd4=ikHu31QGCVOWu10vvH4OzzgbUtPGGdbW05Q@mail.gmail.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Sat, 20 Feb 2021 21:07:37 +0100
-Message-ID: <CAKgNAkgHu8jMNfqcXjxvwSDP73fzA_2iYTRgucRn=UA1t=QHrg@mail.gmail.com>
-Subject: Re: Misleading documentation in Netlink(7) man page / doesn't match
- with Kernel
-To:     Philipp Schuster <phip1611@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Philipp,
+Signed-off-by: edef <edef@edef.eu>
+---
+ man2/futex.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Sat, 20 Feb 2021 at 16:25, Philipp Schuster <phip1611@gmail.com> wrote:
->
-> To whom it may concern,
-> I'd like to inform you about a bug in the Netlink(7) man page [0].
->
-> It describes struct nlmsgerr the following way:
->
-> struct nlmsgerr {
->        int error;        /* Negative errno or 0 for acknowledgements */
->        struct nlmsghdr msg;  /* Message header that caused the error */
-> };
->
-> but according to Kernel code [1] [2] [3] it actually should be:
->
-> struct nlmsgerr {
->        int error;        /* Negative errno or 0 for acknowledgements */
->        struct nlmsghdr msg;  /* Message header that caused the error */
->        /*
->         * followed by the message contents unless NETLINK_CAP_ACK was set
->         * or the ACK indicates success (error == 0)
->         * message length is aligned with NLMSG_ALIGN()
->         */
->        /*
->         * followed by TLVs defined in enum nlmsgerr_attrs
->         * if NETLINK_EXT_ACK was set
->         */
-> };
->
-> This discrepancy led to errors implementing at least a Rust library which
-> made wrong assumptions about the returned value.
-
-I'm a little unclear. Do you mean that the manual page should include
-the additional comments?
-
-Thanks,
-
-Michael
-
-> [0] https://man7.org/linux/man-pages/man7/netlink.7.html
-> [1] https://elixir.bootlin.com/linux/v5.11/source/include/uapi/linux/netlink.h#L112
-> [2] https://elixir.bootlin.com/linux/v5.11/source/net/netlink/af_netlink.c#L2416
-> [3] https://elixir.bootlin.com/linux/v5.11/source/net/netlink/af_netlink.c#L2440
->
->
-> Kind regards
-> --
-> Philipp Schuster
-
-
-
+diff --git a/man2/futex.2 b/man2/futex.2
+index 60b3e08dd..e698178d2 100644
+--- a/man2/futex.2
++++ b/man2/futex.2
+@@ -1573,7 +1573,7 @@ and the kernel state;
+ that is, the kernel detected a waiter which waits via
+ .BR FUTEX_WAIT
+ or
+-.BR FUTEX_WAIT_BITESET
++.BR FUTEX_WAIT_BITSET
+ on
+ .IR uaddr .
+ .TP
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.30.0
+
