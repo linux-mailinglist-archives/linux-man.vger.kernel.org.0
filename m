@@ -2,63 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 76060320949
-	for <lists+linux-man@lfdr.de>; Sun, 21 Feb 2021 10:04:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2DD88320A73
+	for <lists+linux-man@lfdr.de>; Sun, 21 Feb 2021 14:12:07 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229634AbhBUJEw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 21 Feb 2021 04:04:52 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49936 "EHLO
+        id S229866AbhBUNLv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 21 Feb 2021 08:11:51 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46014 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229502AbhBUJEw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 21 Feb 2021 04:04:52 -0500
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AC792C061574
-        for <linux-man@vger.kernel.org>; Sun, 21 Feb 2021 01:04:11 -0800 (PST)
-Received: by mail-wm1-x32b.google.com with SMTP id a207so11627106wmd.1
-        for <linux-man@vger.kernel.org>; Sun, 21 Feb 2021 01:04:11 -0800 (PST)
+        with ESMTP id S229844AbhBUNLu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 21 Feb 2021 08:11:50 -0500
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com [IPv6:2607:f8b0:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 25B4FC061574
+        for <linux-man@vger.kernel.org>; Sun, 21 Feb 2021 05:11:08 -0800 (PST)
+Received: by mail-pf1-x431.google.com with SMTP id k13so4879971pfh.13
+        for <linux-man@vger.kernel.org>; Sun, 21 Feb 2021 05:11:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=4CJam0NzqNjeANX7JPTGlX75T9u6g+W+ZrowVxshGDU=;
-        b=OldnOB1KO6WGGUMvEVRBl376lf+jOyMP0XgiAtGIWtolzDy52GhFsbcKsFMqjH46wT
-         +8eP6TD2vhiOtmLnbO42qHIvydbkKsHv3m56V9OTV53/sPU+esAF3PneHrVHf9DzTQlQ
-         7mOPFF5JyF/3MtCIlTX6MMsh97rqFnNB+Ztr6zE6+GRc4qFgIvzENLiza8PL7xtuqY4q
-         hPLNX87qLsBPKpKpcWZjzuilfyguArRfkVEgdm6HJhCt2uvOao2LoS4K1YI/QeSGXFd3
-         1KY9L9lzBQuMcyFXELIts3pIKdfJZevKuAtKHh/r1cCuqkagduW4ZDz+oS1Tt4Q+lRCx
-         kUqA==
+        d=kernel-dk.20150623.gappssmtp.com; s=20150623;
+        h=subject:to:references:from:message-id:date:user-agent:mime-version
+         :in-reply-to:content-language:content-transfer-encoding;
+        bh=et1k1fDGJmHkmztxfZse1CgKsJQpfMWTNzwwaHEOs/s=;
+        b=BqCuaZbEhOSwd6Ao49JXuisd0k+h+6zF835SsDYVPK7Sbsx7ElJgyKckwCPKfwrKPI
+         0flA9hp4uxXpRPo91NAZf6ymJUW4OjwORipXKL9UG04USjp2kmo7A1C8R2A5PJyVc1mB
+         Po6KPRduvOWuAmUnMCtqLNXhkAhAaDQNc+g+o8tXCWJxyRc66y26hY42bx2+cECgbRcK
+         fTHCvX+affVjYkB15iaqz1YuDygOOslff3Gs7XY9JSHnBP4L1ffZbCI8cPmhWd455mSb
+         NE2LNZjfZmG/6B3ICuwcHZHTCJEZAsbycaKNkVCAN76LpPiy0pJZ9akImXoBuab4Sgy4
+         uvnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+        h=x-gm-message-state:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=4CJam0NzqNjeANX7JPTGlX75T9u6g+W+ZrowVxshGDU=;
-        b=XDnji0JDfz6v1EM/XaYGJo7z9hmRGZckZ2P1tpyHVujfDdsSD0LEC7PYMTR41gxuvw
-         pqmnWgmmlg8jLJ0gMUJzz5zjON9j+y0IraiG2tmP7/XFA0MSNndmF9BMV+y63U85818m
-         BJetwiwvdSScWjgVTx/RXDdZKummqgevYUBKfiM5yCYFBo6IXKT3yEpvqfZH3W6ngLyo
-         yI2Jj0094+srrTG3dhPLmBwupi8F8GCdKnAJzSXgaOAecpw/LiZI8tjrw5S/5LukEfX+
-         0oRGaFGa6/e3jloRThq3zhDnT8ZSD4ZqMrq9yN/50bkNrNapxbeLj66qvx03Kxs23Ubk
-         u5SQ==
-X-Gm-Message-State: AOAM5309JWctLV42DfaUOrp30c9hZRWb9TzB6XER++aq2pniFi6j7hh7
-        8swThMseOLcBN5sHpmMjDbM=
-X-Google-Smtp-Source: ABdhPJwLq4BD1w4Prej4Gf9XEOVHLuM5tjyM2lzaVBukiB925Oo7TgqKU+dBBvuOedMKqCGBcmT9Qw==
-X-Received: by 2002:a7b:c397:: with SMTP id s23mr15184979wmj.10.1613898250301;
-        Sun, 21 Feb 2021 01:04:10 -0800 (PST)
-Received: from ?IPv6:2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b? ([2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b])
-        by smtp.gmail.com with ESMTPSA id m17sm19875836wmq.5.2021.02.21.01.04.09
+        bh=et1k1fDGJmHkmztxfZse1CgKsJQpfMWTNzwwaHEOs/s=;
+        b=I5eVMSzQ/ovbPpRvTwBNMmGmprrrLSICrV0/XEbJgdYe7QRrV0mbCB4Q1G6q2z2Kue
+         wnKDBzUZz2BF/Nqr/ZaQp8J0GrtC00cEkd6onuNjTEeBCb3TRE4pDcLaR1zASgAfV9Dy
+         CigH6srPlhi9Zj+CtcxV7v4BAJXZCgr1yetsKI1qTWoxiSFx9dZAWnBFucxqbU1rL5LW
+         KOWL9+uzbH3NILxcLRh4uMI3jAN2l3+o3ZTe7Ahk8tPtkiGpFio4zGOPzZ8/1lgVlKUG
+         RVxFqhaZ2zJFtpWorFJSoSX0Fbmvv7f9yQli0FRseIL+VuKK/wI9S0DK5Cs/8i8E+vui
+         cINA==
+X-Gm-Message-State: AOAM5321LyiZ/VGdFjScwTgFfHFAQl72wIXXmT/+QB+xzLRz6q63f9Fb
+        9yJuzFr28E0A24zVTsoOhx8Cr9inGZqvtA==
+X-Google-Smtp-Source: ABdhPJzLD98QQCAjdkB9n/mdcdQ07vRqMzat9jwRBZvAOkfpNTyS0Q6k5RWuKKBTgY3JSM63vmkiNA==
+X-Received: by 2002:aa7:8110:0:b029:1d6:241b:d83e with SMTP id b16-20020aa781100000b02901d6241bd83emr17992658pfi.23.1613913067182;
+        Sun, 21 Feb 2021 05:11:07 -0800 (PST)
+Received: from [192.168.1.134] ([66.219.217.173])
+        by smtp.gmail.com with ESMTPSA id s184sm16246395pfc.106.2021.02.21.05.11.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 21 Feb 2021 01:04:09 -0800 (PST)
-Cc:     mtk.manpages@gmail.com
+        Sun, 21 Feb 2021 05:11:06 -0800 (PST)
 Subject: Re: [PATCH v2] man2/openat2.2: add RESOLVE_CACHED
-To:     Jens Axboe <axboe@kernel.dk>, linux-man <linux-man@vger.kernel.org>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>
 References: <358adcb0-0270-c0aa-b3cc-967cb133fed8@kernel.dk>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <176b27df-d7e1-7023-b999-fe24aa344585@gmail.com>
-Date:   Sun, 21 Feb 2021 10:04:07 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+ <176b27df-d7e1-7023-b999-fe24aa344585@gmail.com>
+From:   Jens Axboe <axboe@kernel.dk>
+Message-ID: <07866154-0875-5ce2-bcd9-0b052f9d767d@kernel.dk>
+Date:   Sun, 21 Feb 2021 06:11:07 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <358adcb0-0270-c0aa-b3cc-967cb133fed8@kernel.dk>
+In-Reply-To: <176b27df-d7e1-7023-b999-fe24aa344585@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -66,86 +67,13 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Jens
-
-Thanks for the revised patch. Just some minor comments below.
-
-On 2/20/21 8:17 PM, Jens Axboe wrote:
-> RESOLVE_CACHED allows an application to attempt a cache-only open
-> of a file. If this isn't possible, the request will fail with
-> -1/EAGAIN and the caller should retry without RESOLVE_CACHED set.
-> This will generally happen from a different context, where a slower
-> open operation can be performed.
+On 2/21/21 2:04 AM, Michael Kerrisk (man-pages) wrote:
+> Hello Jens
 > 
-> Signed-off-by: Jens Axboe <axboe@kernel.dk>
-> 
-> ---
-> 
-> Sending a v2 of this one, as the kernel side patches are queued up
-> for 5.12 inclusion.
-> 
-> diff --git a/man2/openat2.2 b/man2/openat2.2
-> index 3bda20620574..37e70c43de6d 100644
-> --- a/man2/openat2.2
-> +++ b/man2/openat2.2
-> @@ -385,6 +385,17 @@ This may occur if, for example,
->  a system pathname that is used by an application is modified
->  (e.g., in a new distribution release)
->  so that a pathname component (now) contains a bind mount.
-> +.TP
-> +.B RESOLVE_CACHED
-> +Make the open operation fail unless all path components are already present
-> +in the kernels lookup cache.
+> Thanks for the revised patch. Just some minor comments below.
 
-s/kernels/kernel's/
-
-> +If any kind of revalidation or I/O is needed to satisfy the lookup,
-> +.BR openat2 ()
-> +fails with the error
-> +.B EAGAIN.
-
-.BR EAGAIN .
-
-> +This is useful in providing a fast path open that can be performed without
-
-s/fast path open/fast-path open/
-
-> +resorting to thread offload, or other mechanisms that an application might
-> +use to offload slower operations.
->  .RE
->  .IP
->  If any bits other than those listed above are set in
-> @@ -421,6 +432,14 @@ The caller may choose to retry the
->  .BR openat2 ()
->  call.
->  .TP
-> +.B EAGAIN
-> +.BR RESOLVE_CACHED
-> +was set, and the open operation cannot be performed cached.
-
-Maybe:
-s/cached
- /using only cached information/
-?
-
-> +The caller should retry without
-> +.B RESOLVE_CACHED
-> +set in
-> +.I how.resolve
-
-.IR how.resolve .
-
-> +.TP
->  .B EINVAL
->  An unknown flag or invalid value was specified in
->  .IR how .
-
-Thanks,
-
-Michael
-
+Thanks, all look good to me. I'll send out v3.
 
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Jens Axboe
+
