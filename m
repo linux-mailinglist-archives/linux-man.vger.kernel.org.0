@@ -2,154 +2,175 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B01AC3219D6
-	for <lists+linux-man@lfdr.de>; Mon, 22 Feb 2021 15:12:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 47EC6321A92
+	for <lists+linux-man@lfdr.de>; Mon, 22 Feb 2021 15:54:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231560AbhBVOK2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 22 Feb 2021 09:10:28 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54622 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231969AbhBVOKH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Feb 2021 09:10:07 -0500
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6FDBEC061786
-        for <linux-man@vger.kernel.org>; Mon, 22 Feb 2021 06:09:26 -0800 (PST)
-Received: by mail-wm1-x32a.google.com with SMTP id f137so529993wmf.3
-        for <linux-man@vger.kernel.org>; Mon, 22 Feb 2021 06:09:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=Kt3nZDDEnOdSKR5hm0npa0Gv4OkBt3Z85eOxvZUFzCQ=;
-        b=KEzezGt8XVT9goU+6C3dFRKrwSf556MXK+i4OvRumZ1aAbW9ZZ/9ROe72k1+xV0Tsq
-         BBbTMHaQWDYhTyHglstZHGM21L9Q8HdunbA8BKBAzCIVWfethluQYuEy8YzS8ihcIPx6
-         QbOZ3izLJpYGdY1m03pxxS97tgpn0EGeikytBPlWCnbXj84UC2+P2Q6d9nc2ylE7c5PV
-         MoiNEr8wVlqwiOuawUv98nT+LdOtonSylyIpSrYjUcpcxH/xy41agLvu3wRr+VdBtvC1
-         +tf1kce0SICzLIjljK1r2PLkdtpFWLvPv5VnOhlnQXODpcgox4LPOvGOaQcNVeKI6iGt
-         laPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=Kt3nZDDEnOdSKR5hm0npa0Gv4OkBt3Z85eOxvZUFzCQ=;
-        b=JESg7/FZATM9nK7BeIGw6tEwRxrhf9gbcj82IRDh6lti6YRiC4gGHuCZxLvis96seJ
-         0m1kgmQ0Ony+4pc1u2QfswZM9r+qQptb42J7Kha9S2xt/0mWhE4Y4HKCrOsOS+K7PhX/
-         0sz/jh+W2gdB/k9jpDrJwUyrL5DGMTq+2Sc+1U0GdT5JifBvaoqVDDYpF2Qy+KlxaO4S
-         UCf3fwKmKTln1nNA/gAL5l3pkCZ8aswC8+wWDKivdQ+JW9o/7HZMTI8kc4aoXO+Ab0Jf
-         AikAxxUBkGfW6kXvzT7+F7Yl3sH0WmuHBzcwUM9GDuVkzjWf8Pe8aC8da2wOjOmLXgif
-         8Pbg==
-X-Gm-Message-State: AOAM530LgtZKB2sqdQGNYN4DfSZZ9qM/468T+MMdodutDqxwCXFE55b/
-        A25nPDJr0pYWYWH4cmX5cLS7ojk4E0YLzg==
-X-Google-Smtp-Source: ABdhPJx3cRa5hiuRKqapQPZV4OwIui1jNGYmPGWBk3ZiHPPRnkW8QPdtuZJP0RVajAXW6RsvOHJ9YA==
-X-Received: by 2002:a1c:7fc6:: with SMTP id a189mr8639261wmd.169.1614002965207;
-        Mon, 22 Feb 2021 06:09:25 -0800 (PST)
-Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id v9sm2554529wrt.76.2021.02.22.06.09.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Feb 2021 06:09:24 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH] scripts/bash_aliases, scripts/modified_pages.sh: Move scripts/modified_pages.sh to a function man_gitstaged()
-Date:   Mon, 22 Feb 2021 15:03:45 +0100
-Message-Id: <20210222140344.3862-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.30.1.721.g45526154a5
+        id S230019AbhBVOxy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 22 Feb 2021 09:53:54 -0500
+Received: from mail.efficios.com ([167.114.26.124]:59372 "EHLO
+        mail.efficios.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229991AbhBVOxx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Feb 2021 09:53:53 -0500
+Received: from localhost (localhost [127.0.0.1])
+        by mail.efficios.com (Postfix) with ESMTP id 4A0BA31D9F3;
+        Mon, 22 Feb 2021 09:53:11 -0500 (EST)
+Received: from mail.efficios.com ([127.0.0.1])
+        by localhost (mail03.efficios.com [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id qWipWIQqlJGq; Mon, 22 Feb 2021 09:53:10 -0500 (EST)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.efficios.com (Postfix) with ESMTP id C927D31D9F2;
+        Mon, 22 Feb 2021 09:53:10 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.efficios.com C927D31D9F2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+        s=default; t=1614005590;
+        bh=wPjmYfhFF1uIglVBdUJXreooF4Fi1lQtXzkwUbCrG68=;
+        h=Date:From:To:Message-ID:MIME-Version;
+        b=TkEWQHhiXL9QWtwt0pn64j7Yc1PO3yj9qp84fsGFxQuup6CjxaUrOOXOebDnzxggL
+         xHooRqhGKvyu2gutiFPj1fsFoCGhjyRZjqXT1YXDb6YItHNI2ZKqSJUP6aEb4QRYC/
+         uzGyxhk/KNmveJXzW3wq00UGB7BG0X+g5LvNTV3D/yZ+sF1qB/GCJwWnQdCw66vx1O
+         B84Zo3+K2J5n4euRJW4bo7fDCnQp3i9pZB6X2QFbCS7Zbi2LtXRIF4rE3Nb4q+nnSZ
+         o5HWVqSzuo0QjbQAVgwbfVVcahZ04KheLraqj1gms2X9be/ikCLa1vzc+BSW3nO1L6
+         BbwGIlq1BZSpA==
+X-Virus-Scanned: amavisd-new at efficios.com
+Received: from mail.efficios.com ([127.0.0.1])
+        by localhost (mail03.efficios.com [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id UsrCmF-bCwQv; Mon, 22 Feb 2021 09:53:10 -0500 (EST)
+Received: from mail03.efficios.com (mail03.efficios.com [167.114.26.124])
+        by mail.efficios.com (Postfix) with ESMTP id B08D131DA4D;
+        Mon, 22 Feb 2021 09:53:10 -0500 (EST)
+Date:   Mon, 22 Feb 2021 09:53:10 -0500 (EST)
+From:   Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To:     "Dmitry V. Levin" <ldv@altlinux.org>
+Cc:     Piotr Figiel <figiel@google.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Peter Zijlstra <peterz@infradead.org>,
+        paulmck <paulmck@kernel.org>, Boqun Feng <boqun.feng@gmail.com>,
+        Oleg Nesterov <oleg@redhat.com>,
+        Alexey Dobriyan <adobriyan@gmail.com>,
+        Andrei Vagin <avagin@gmail.com>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        Peter Oskolkov <posk@google.com>,
+        Kamil Yurtsever <kyurtsever@google.com>,
+        Chris Kennelly <ckennelly@google.com>,
+        Paul Turner <pjt@google.com>, emmir@google.com,
+        linux-man <linux-man@vger.kernel.org>,
+        linux-api <linux-api@vger.kernel.org>
+Message-ID: <1510231959.29418.1614005590596.JavaMail.zimbra@efficios.com>
+In-Reply-To: <20210222115726.GA30843@altlinux.org>
+References: <20210222100443.4155938-1-figiel@google.com> <20210222115726.GA30843@altlinux.org>
+Subject: Re: [PATCH] ptrace: add PTRACE_GET_RSEQ_CONFIGURATION request
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [167.114.26.124]
+X-Mailer: Zimbra 8.8.15_GA_3996 (ZimbraWebClient - FF85 (Linux)/8.8.15_GA_3996)
+Thread-Topic: ptrace: add PTRACE_GET_RSEQ_CONFIGURATION request
+Thread-Index: JeKlBcoleYbfr2zysFNBRALUsSBZ4Q==
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This allows calling the function from anywhere in the git tree,
-without having to calculate the relative route to the script.
-It also makes more sense for this piece of code to be a function
-than a script.
+----- On Feb 22, 2021, at 6:57 AM, Dmitry V. Levin ldv@altlinux.org wrote:
 
-Minor changes: replace <"> by <'>.
+> On Mon, Feb 22, 2021 at 11:04:43AM +0100, Piotr Figiel wrote:
+> [...]
+>> --- a/include/uapi/linux/ptrace.h
+>> +++ b/include/uapi/linux/ptrace.h
+>> @@ -102,6 +102,14 @@ struct ptrace_syscall_info {
+>>  =09};
+>>  };
+>> =20
+>> +#define PTRACE_GET_RSEQ_CONFIGURATION=090x420f
+>> +
+>> +struct ptrace_rseq_configuration {
+>> +=09__u64 rseq_abi_pointer;
+>> +=09__u32 signature;
+>> +=09__u32 pad;
+>> +};
+>> +
+>>  /*
+>>   * These values are stored in task->ptrace_message
+>>   * by tracehook_report_syscall_* to describe the current syscall-stop.
+>> diff --git a/kernel/ptrace.c b/kernel/ptrace.c
+>> index 61db50f7ca86..a936af66cf6f 100644
+>> --- a/kernel/ptrace.c
+>> +++ b/kernel/ptrace.c
+>> @@ -31,6 +31,7 @@
+>>  #include <linux/cn_proc.h>
+>>  #include <linux/compat.h>
+>>  #include <linux/sched/signal.h>
+>> +#include <linux/minmax.h>
+>> =20
+>>  #include <asm/syscall.h>=09/* for syscall_get_* */
+>> =20
+>> @@ -779,6 +780,22 @@ static int ptrace_peek_siginfo(struct task_struct *=
+child,
+>>  =09return ret;
+>>  }
+>> =20
+>> +#ifdef CONFIG_RSEQ
+>> +static long ptrace_get_rseq_configuration(struct task_struct *task,
+>> +=09=09=09=09=09  unsigned long size, void __user *data)
+>> +{
+>> +=09struct ptrace_rseq_configuration conf =3D {
+>> +=09=09.rseq_abi_pointer =3D (u64)(uintptr_t)task->rseq,
+>> +=09=09.signature =3D task->rseq_sig,
+>> +=09};
+>> +
+>> +=09size =3D min_t(unsigned long, size, sizeof(conf));
+>> +=09if (copy_to_user(data, &conf, size))
+>> +=09=09return -EFAULT;
+>> +=09return size;
+>> +}
+>> +#endif
+>=20
+> From API perspective I suggest for such interfaces to return the amount o=
+f
+> data that could have been written if there was enough room specified, e.g=
+.
+> in this case it's sizeof(conf) instead of size.
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- scripts/bash_aliases      | 17 ++++++++++++++++-
- scripts/modified_pages.sh | 34 ----------------------------------
- 2 files changed, 16 insertions(+), 35 deletions(-)
- delete mode 100755 scripts/modified_pages.sh
+Looking at the ptrace(2) man page:
 
-diff --git a/scripts/bash_aliases b/scripts/bash_aliases
-index c0c8bc33e..127ed5d08 100644
---- a/scripts/bash_aliases
-+++ b/scripts/bash_aliases
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- ########################################################################
- #
--# (C) Copyright 2021, Alejandro Colomar
-+# (C) Copyright 2020, 2021, Alejandro Colomar
- # These functions are free software; you can redistribute them and/or
- # modify them under the terms of the GNU General Public License
- # as published by the Free Software Foundation; version 2.
-@@ -147,6 +147,21 @@ function pdfman()
- 	xdg-open ${tmp};
- }
- 
-+#  man_gitstaged  prints a list of all files with changes staged for commit
-+# (basename only if the files are within <man?/>), separated by ", ".
-+# Usage example:  .../man-pages$ git commit -m "$(man_gitstaged): msg";
-+
-+function man_gitstaged()
-+{
-+	git status							\
-+	|sed '/Changes not staged for commit:/q'			\
-+	|grep -E '^\s*(modified|deleted|new file):'			\
-+	|sed 's/^.*:\s*/, /'						\
-+	|sed 's%man[1-9]/%%'						\
-+	|tr -d '\n'							\
-+	|sed 's/^, //'
-+}
-+
- ########################################################################
- #	Glibc
- 
-diff --git a/scripts/modified_pages.sh b/scripts/modified_pages.sh
-deleted file mode 100755
-index f6c4a6cea..000000000
---- a/scripts/modified_pages.sh
-+++ /dev/null
-@@ -1,34 +0,0 @@
--#!/bin/bash
--
--## SPDX-License-Identifier: GPL-2.0-only
--########################################################################
--##
--## (C) Copyright 2020, Alejandro Colomar
--## This program is free software; you can redistribute it and/or
--## modify it under the terms of the GNU General Public License
--## as published by the Free Software Foundation; version 2.
--##
--## This program is distributed in the hope that it will be useful,
--## but WITHOUT ANY WARRANTY; without even the implied warranty of
--## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
--## GNU General Public License for more details
--## (http://www.gnu.org/licenses/gpl-2.0.html).
--##
--########################################################################
--##
--## The output of this script is a
--## list of all files with changes staged for commit
--## (basename only if the files are within "man?/"),
--## separated by ", ".
--## Usage:
--## git commit -m "$(./scripts/modified_pages.sh): Short message here"
--##
--
--
--git status							\
--|sed "/Changes not staged for commit:/q"			\
--|grep -E "^\s*(modified|deleted|new file):"			\
--|sed "s/^.*:\s*/, /"						\
--|sed "s%man[1-9]/%%"						\
--|tr -d '\n'							\
--|sed "s/^, //"
--- 
-2.30.1.721.g45526154a5
+RETURN VALUE
+       On success, the PTRACE_PEEK* requests return the  requested  data  (=
+but
+       see NOTES), the PTRACE_SECCOMP_GET_FILTER request returns the number=
+ of
+       instructions in the BPF program, and other requests return zero.
 
+       On error, all requests return  -1,  and  errno  is  set  appropriate=
+ly.
+       Since  the  value  returned by a successful PTRACE_PEEK* request may=
+ be
+       -1, the caller must clear errno before the call, and then check it  =
+af=E2=80=90
+       terward to determine whether or not an error occurred.
+
+It looks like the usual behavior for ptrace requests would be to return 0 w=
+hen everything
+is OK. Unless there a strong motivation for doing different for this new re=
+quest, I
+would be tempted to use the same expected behavior than other requests on s=
+uccess:
+return 0.
+
+Unless there is a strong motivation for returning either size or sizeof(con=
+f) ? If we
+return sizeof(conf) to user-space, it means it should check it and deal wit=
+h the
+size mismatch. Is that size ever expected to change ?
+
+Thanks,
+
+Mathieu
+
+>=20
+>=20
+> --
+> ldv
+
+--=20
+Mathieu Desnoyers
+EfficiOS Inc.
+http://www.efficios.com
