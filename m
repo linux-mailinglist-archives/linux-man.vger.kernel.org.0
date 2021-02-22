@@ -2,104 +2,107 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0A245321B8A
-	for <lists+linux-man@lfdr.de>; Mon, 22 Feb 2021 16:35:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B109E321CDE
+	for <lists+linux-man@lfdr.de>; Mon, 22 Feb 2021 17:26:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230308AbhBVPfL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 22 Feb 2021 10:35:11 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44580 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230470AbhBVPe7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Feb 2021 10:34:59 -0500
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E68FC061574
-        for <linux-man@vger.kernel.org>; Mon, 22 Feb 2021 07:34:15 -0800 (PST)
-Received: by mail-wr1-x42f.google.com with SMTP id v15so19549570wrx.4
-        for <linux-man@vger.kernel.org>; Mon, 22 Feb 2021 07:34:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=zKWs3FCpa3i5Fh3xPSMMiB29O9fTVWlsEEx4fiVFMKY=;
-        b=uN1j7SokoQwqsqiGTAGApygQFfHl4cMLhsKCr6TxX7lh6BVAL+HsGpXEgq5EJBaMvl
-         uHX96wxprbojby6o6PLan2526zOmhajsW4i5Ou56+8pnFqfT5vNDaMTIAzQM/bWw/o/y
-         CpUxTFUMABqWjcALy0c1kCV/TqC/CbKNKvitl43Tn0NYFbJCU2L5pxkXrzhEVOvX2tC8
-         HCKhhw4GXWSM17sUPvVLkoK1z/fIJT7+7OOPbNViUTJgLYmdBACkQlRjgiEFyEf4y9sp
-         64NJ90maicN6x0ERzOh/iXQyEc8AEeGRB42adRWVSq4T7bta0Xuw/5hwGplgS/xlMbGq
-         97BA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=zKWs3FCpa3i5Fh3xPSMMiB29O9fTVWlsEEx4fiVFMKY=;
-        b=PCaTNBsV/bhWpgkgAALmMqA17le0xlXTXIPbtl0UL10SWqLItppj7MYS4hXXj2/ZzM
-         9xuNO5hUrcGPaujN633ILKpxBgx0JFBSNrwcJq8a2+vZmZWD/2huuisONZztwJSE7Szp
-         bpOTYAKeBN0zbHk5zStANFmRuvLWAHtCwuqiBrptHFRl2SBlg3yqfVDyCuSJFusOcpOX
-         r8SET7EaBTdJaDa1D3+DX6GBU67QfHBdWEzd93Hrd7/23dcUd0mD/FRZ9mn3nNUCIXQC
-         Q7NNTLZXYgAc19ywrJcmTjQdYNF5AEM0+7c9vnekneP0CYk2PxHI+XPz7hCJdRV5z0KY
-         aT0Q==
-X-Gm-Message-State: AOAM530tKnqctDd6iS60+WwyqOV9j85Lyas7VN2IRot6rRSIX/1Kclkr
-        5E96g17qVbw1JiPjP6149c63bx4czw3UWg==
-X-Google-Smtp-Source: ABdhPJwDiwa28Pv+LLeHocWiJ/0Rqv9Ah1hXqehZm2G/4vzmtE6uZKDeHxEYFgX4suWCTvBzJNju+Q==
-X-Received: by 2002:a5d:5687:: with SMTP id f7mr14858015wrv.56.1614008054292;
-        Mon, 22 Feb 2021 07:34:14 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id l4sm28947966wrt.42.2021.02.22.07.34.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 22 Feb 2021 07:34:13 -0800 (PST)
-Subject: Re: [PATCH] scripts/bash_aliases, scripts/modified_pages.sh: Move
- scripts/modified_pages.sh to a function man_gitstaged()
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-References: <20210222140344.3862-1-alx.manpages@gmail.com>
- <20210222145802.w3oljdtz7vie2v4y@jwilk.net>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <075a52b6-88ce-a49e-6f19-1ddc91caee0e@gmail.com>
-Date:   Mon, 22 Feb 2021 16:34:12 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+        id S231415AbhBVQ0D (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 22 Feb 2021 11:26:03 -0500
+Received: from vmicros1.altlinux.org ([194.107.17.57]:50954 "EHLO
+        vmicros1.altlinux.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230282AbhBVQZx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Feb 2021 11:25:53 -0500
+Received: from mua.local.altlinux.org (mua.local.altlinux.org [192.168.1.14])
+        by vmicros1.altlinux.org (Postfix) with ESMTP id 967FB72C8B3;
+        Mon, 22 Feb 2021 19:25:05 +0300 (MSK)
+Received: by mua.local.altlinux.org (Postfix, from userid 508)
+        id 86F107CC89C; Mon, 22 Feb 2021 19:25:05 +0300 (MSK)
+Date:   Mon, 22 Feb 2021 19:25:05 +0300
+From:   "Dmitry V. Levin" <ldv@altlinux.org>
+To:     Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc:     Piotr Figiel <figiel@google.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Peter Zijlstra <peterz@infradead.org>,
+        paulmck <paulmck@kernel.org>, Boqun Feng <boqun.feng@gmail.com>,
+        Oleg Nesterov <oleg@redhat.com>,
+        Alexey Dobriyan <adobriyan@gmail.com>,
+        Andrei Vagin <avagin@gmail.com>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        Peter Oskolkov <posk@google.com>,
+        Kamil Yurtsever <kyurtsever@google.com>,
+        Chris Kennelly <ckennelly@google.com>,
+        Paul Turner <pjt@google.com>, emmir@google.com,
+        linux-man <linux-man@vger.kernel.org>,
+        linux-api <linux-api@vger.kernel.org>
+Subject: Re: [PATCH] ptrace: add PTRACE_GET_RSEQ_CONFIGURATION request
+Message-ID: <20210222162505.GB1325@altlinux.org>
+References: <20210222100443.4155938-1-figiel@google.com>
+ <20210222115726.GA30843@altlinux.org>
+ <1510231959.29418.1614005590596.JavaMail.zimbra@efficios.com>
 MIME-Version: 1.0
-In-Reply-To: <20210222145802.w3oljdtz7vie2v4y@jwilk.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <1510231959.29418.1614005590596.JavaMail.zimbra@efficios.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hey Jakub,
-
-On 2/22/21 3:58 PM, Jakub Wilk wrote:
-> * Alejandro Colomar <alx.manpages@gmail.com>, 2021-02-22, 15:03:
->> +    git status                            \
->> +    |sed '/Changes not staged for commit:/q'            \
->> +    |grep -E '^\s*(modified|deleted|new file):'            \
+On Mon, Feb 22, 2021 at 09:53:10AM -0500, Mathieu Desnoyers wrote:
+> ----- On Feb 22, 2021, at 6:57 AM, Dmitry V. Levin ldv@altlinux.org wrote:
+> > On Mon, Feb 22, 2021 at 11:04:43AM +0100, Piotr Figiel wrote:
+[...]
+> >> +#ifdef CONFIG_RSEQ
+> >> +static long ptrace_get_rseq_configuration(struct task_struct *task,
+> >> +					  unsigned long size, void __user *data)
+> >> +{
+> >> +	struct ptrace_rseq_configuration conf = {
+> >> +		.rseq_abi_pointer = (u64)(uintptr_t)task->rseq,
+> >> +		.signature = task->rseq_sig,
+> >> +	};
+> >> +
+> >> +	size = min_t(unsigned long, size, sizeof(conf));
+> >> +	if (copy_to_user(data, &conf, size))
+> >> +		return -EFAULT;
+> >> +	return size;
+> >> +}
+> >> +#endif
+> > 
+> > From API perspective I suggest for such interfaces to return the amount of
+> > data that could have been written if there was enough room specified, e.g.
+> > in this case it's sizeof(conf) instead of size.
 > 
-> "git status" (without further options) is not suitable for scripting: 
-> "The default, long format, is designed to be human readable, verbose and 
-> descriptive. Its contents and format are subject to change at any time." >
-> You could use "git status --porcelain" instead, which has stable and 
-> (supposedly) easy to parse format. Or, better, you could use "git diff 
-> --staged --name-only".
+> Looking at the ptrace(2) man page:
 > 
+> RETURN VALUE
+>        On success, the PTRACE_PEEK* requests return the  requested  data  (but
+>        see NOTES), the PTRACE_SECCOMP_GET_FILTER request returns the number of
+>        instructions in the BPF program, and other requests return zero.
 
-I know I shouldn't script around 'git status'; actually I found out that 
-yesterday.  When I read that, I tried to script around 'git status 
---porcelain', but it's more complex (at least to me, at first glance), 
-and I gave up.
+PTRACE_GET_SYSCALL_INFO returns "the number of bytes available to be
+written by the kernel".
 
-However, 'git diff --staged --name-only' is exactly what I need!  I'll 
-prepare a patch with that in a few minutes.
+It's written in the "DESCRIPTION" section, needs to be mirrored
+to "RETURN VALUE" section, thanks for reporting the inconsistency.
 
-Michael, so that git can follow the code movement relatively easily, 
-I'll write that patch on top of this one, so you can already apply this one.
+>        On error, all requests return  -1,  and  errno  is  set  appropriately.
+>        Since  the  value  returned by a successful PTRACE_PEEK* request may be
+>        -1, the caller must clear errno before the call, and then check it  af‐
+>        terward to determine whether or not an error occurred.
+> 
+> It looks like the usual behavior for ptrace requests would be to return 0 when everything
+> is OK. Unless there a strong motivation for doing different for this new request, I
+> would be tempted to use the same expected behavior than other requests on success:
+> return 0.
+> 
+> Unless there is a strong motivation for returning either size or sizeof(conf) ? If we
+> return sizeof(conf) to user-space, it means it should check it and deal with the
+> size mismatch. Is that size ever expected to change ?
 
-Thanks a lot!!
+When adding new interfaces, it's generally a good idea to allow for
+future extensions.
+If some day in the future the structure is extended, the return value
+would be the way to tell userspace what's actually supported by the kernel.
 
-Alex
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+ldv
