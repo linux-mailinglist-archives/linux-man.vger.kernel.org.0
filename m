@@ -2,60 +2,80 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2F85E3229F9
-	for <lists+linux-man@lfdr.de>; Tue, 23 Feb 2021 13:01:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id EE56C322E89
+	for <lists+linux-man@lfdr.de>; Tue, 23 Feb 2021 17:16:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232712AbhBWL46 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 23 Feb 2021 06:56:58 -0500
-Received: from mail.jvpinto.com ([65.49.11.60]:54491 "EHLO mail.JVPinto.com"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S232501AbhBWLyb (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 23 Feb 2021 06:54:31 -0500
-Received: from RW-EXC1.JVPinto.com (2002:ac20:10d::ac20:10d) by
- RW-EXC1.JVPinto.com (2002:ac20:10d::ac20:10d) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Tue, 23 Feb 2021 03:52:35 -0800
-Received: from User (52.231.198.195) by RW-EXC1.JVPinto.com (172.32.1.13) with
- Microsoft SMTP Server id 15.0.1497.2 via Frontend Transport; Tue, 23 Feb 2021
- 03:52:20 -0800
-Reply-To: <ms.reem@yandex.com>
-From:   "Ms. Reem" <johnpinto@jvpinto.com>
-Subject: Hello okay
-Date:   Tue, 23 Feb 2021 11:52:34 +0000
+        id S233500AbhBWQQY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 23 Feb 2021 11:16:24 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([63.128.21.124]:50151 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S233491AbhBWQQU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 23 Feb 2021 11:16:20 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1614096892;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=KeWt/IdGTJbN0yFn1dINL5p2N/1MlBP7qkRn7zeQuR0=;
+        b=MJQK13uTV5qZCVdmzZXz6qvW/0aus0B70VwZHnDZZgyBulOh5FWY+OC01eM9DSbMFfHemT
+        XarLX2jcLDfdPeITVBI5igVX5kZNtDX1a6EMX6rBLcJ5wKolcIos7QN3A2hcl4hCz5tKHV
+        urQiXl/udGuA8ck2t4h9oiOojobSbQw=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-442-YAmqfG1jNpG7T0OnNp1QDw-1; Tue, 23 Feb 2021 11:14:49 -0500
+X-MC-Unique: YAmqfG1jNpG7T0OnNp1QDw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3326791271;
+        Tue, 23 Feb 2021 16:14:32 +0000 (UTC)
+Received: from oldenburg.str.redhat.com (ovpn-113-131.ams2.redhat.com [10.36.113.131])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 16EBD722CE;
+        Tue, 23 Feb 2021 16:14:24 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
+To:     Piotr Figiel <figiel@google.com>
+Cc:     Andrew Morton <akpm@linux-foundation.org>,
+        mathieu.desnoyers@efficios.com, peterz@infradead.org,
+        paulmck@kernel.org, boqun.feng@gmail.com, oleg@redhat.com,
+        Alexey Dobriyan <adobriyan@gmail.com>,
+        Andrei Vagin <avagin@gmail.com>, linux-kernel@vger.kernel.org,
+        posk@google.com, kyurtsever@google.com, ckennelly@google.com,
+        pjt@google.com, emmir@google.com, linux-man@vger.kernel.org,
+        linux-api@vger.kernel.org
+Subject: Re: [PATCH] ptrace: add PTRACE_GET_RSEQ_CONFIGURATION request
+References: <20210222100443.4155938-1-figiel@google.com>
+Date:   Tue, 23 Feb 2021 17:15:08 +0100
+In-Reply-To: <20210222100443.4155938-1-figiel@google.com> (Piotr Figiel's
+        message of "Mon, 22 Feb 2021 11:04:43 +0100")
+Message-ID: <878s7ewyk3.fsf@oldenburg.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="Windows-1251"
-Content-Transfer-Encoding: 7bit
-X-Priority: 3
-X-MSMail-Priority: Normal
-X-Mailer: Microsoft Outlook Express 6.00.2600.0000
-X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
-Message-ID: <933f089f49b04946b97b7d0f2a305064@RW-EXC1.JVPinto.com>
-To:     Undisclosed recipients:;
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello,
+* Piotr Figiel:
 
-My name is Ms. Reem Ebrahim Al-Hashimi, I am the "Minister of state
-and Petroleum" also "Minister of State for International Cooperation"
-in UAE. I write to you on behalf of my other "three (3) colleagues"
-who has approved me to solicit for your "partnership in claiming of
-{us$47=Million}" from a Financial Home in Cambodia on their behalf and
-for our "Mutual Benefits".
+> diff --git a/include/uapi/linux/ptrace.h b/include/uapi/linux/ptrace.h
+> index 83ee45fa634b..d54cf6b6ce7c 100644
+> --- a/include/uapi/linux/ptrace.h
+> +++ b/include/uapi/linux/ptrace.h
+> @@ -102,6 +102,14 @@ struct ptrace_syscall_info {
+>  	};
+>  };
+>  
+> +#define PTRACE_GET_RSEQ_CONFIGURATION	0x420f
+> +
+> +struct ptrace_rseq_configuration {
+> +	__u64 rseq_abi_pointer;
+> +	__u32 signature;
+> +	__u32 pad;
+> +};
 
-The Fund {us$47=Million} is our share from the (over-invoiced) Oil/Gas
-deal with Cambodian/Vietnam Government within 2013/2014, however, we
-don't want our government to know about the fund. If this proposal
-interests you, let me know, by sending me an email and I will send to
-you detailed information on how this business would be successfully
-transacted. Be informed that nobody knows about the secret of this
-fund except us, and we know how to carry out the entire transaction.
-So I am compelled to ask, that you will stand on our behalf and
-receive this fund into any account that is solely controlled by you.
+The flags and the structure size appear to be missing here.
 
-We will compensate you with 15% of the total amount involved as
-gratification for being our partner in this transaction. Reply to:
-ms.reem@yandex.com
+Thanks,
+Florian
 
-Regards,
-Ms. Reem.
