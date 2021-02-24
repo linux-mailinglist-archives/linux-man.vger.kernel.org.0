@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B9F2E324135
-	for <lists+linux-man@lfdr.de>; Wed, 24 Feb 2021 17:05:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 58715324132
+	for <lists+linux-man@lfdr.de>; Wed, 24 Feb 2021 17:05:33 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235915AbhBXPoN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 24 Feb 2021 10:44:13 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60382 "EHLO
+        id S235885AbhBXPoG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 24 Feb 2021 10:44:06 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59300 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S238368AbhBXOvU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Feb 2021 09:51:20 -0500
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 13C9FC061A27
+        with ESMTP id S238305AbhBXOu6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Feb 2021 09:50:58 -0500
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CCD80C061A28
         for <linux-man@vger.kernel.org>; Wed, 24 Feb 2021 06:44:07 -0800 (PST)
-Received: by mail-wr1-x42e.google.com with SMTP id t15so2110553wrx.13
+Received: by mail-wm1-x334.google.com with SMTP id k66so2063037wmf.1
         for <linux-man@vger.kernel.org>; Wed, 24 Feb 2021 06:44:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=12WQi5UTdmyb542H7yJ6iDxlQVns1qvnW7L2OCXdcVU=;
-        b=JmHA4jy7dKf9BzBjxjWQsf/N0WWAqWh+HETtgOEUf6kFDu93WD2w9Fw9mQ/btKZz9O
-         Q5X4bsTxxPUf080u1gKzGN/bhkZQX9LUsl8RmFaRCOYKzSeL0t3PLhd4A/4f4c5rjR0o
-         CEHJO0ADgn8IEMyswjqlpg65eRpyU1DvstwZfKOMJfjZJ7KD37yphCAtTolB03XCtCUa
-         mw5ttbe3IapHyRgCwxxQYjAmGH5Utq6OtQPQtZwQPuWMkNUh2bbTxcBQeLiTW27/Jk5N
-         lnGHcIzC4kl+tHzcZiVAATHFHYHqH9GTIPbC3ZtsCGBOeAJKlQ5oqmwHryGs0kAtiP46
-         X+NA==
+        bh=WxNakyr8yawXQJ3Lc/21Qfan9W/PfgzSr9d4cc3UdAw=;
+        b=jti79LMhTP1X7E4ejN+jnI/+HlkXUeYphYL2TMF42JnhJnX2xrI0PvYJeqjliDjRgF
+         4Zgu2vSXLUge7tvxdkijiymBbDTrCF+6mIJzgM+5dsSzsb1YE1lBoYJi0ZnQ1ty2F+gU
+         sSFt9oqFp+EaTOpNhWSTSuOmUmnBR7DkZWx6n1oX2anRT//Kn1B54LRiYnmL141Cl6pk
+         0u/9FRUUyDbwd7wNa7FGZs3bpFIx1Yr3PXGfiTBPVkHPuR8CxkDIrL7NouAckntdlvSI
+         YVKalSzrGUStWftSdCXDKY/fFDSdQyeEJXLW/lvUa176SA6f2+4/ADohdfOoY1tiNUj+
+         8G0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=12WQi5UTdmyb542H7yJ6iDxlQVns1qvnW7L2OCXdcVU=;
-        b=OxDQhVQyPlrmp3Hi9yX7Cu6KZseRrTu3l+0VkhuZQiiJusAhfHhcNqFgbHDgkN7D76
-         46xN27nEzcRrS8Pz3+ylCUc1TJCrBnLIrRnvF3e06OpRajcoZPU8d5TAayj0oGF9F1D6
-         50xSNZhyH9Xc6RLVfXevcY2VK3qENQK4W38JwRV+RG0tYuUHm8F9ZGfBeYolVIIdSAEw
-         X5WxiIdbLVJgh1e1nGXhj/BlmCNp6pS3zLkuCcyqarWuGVQF4q4o2HfGdrWZhxXGH/PF
-         O9ekfiOllGhpf2egdcKk+9P51NEyxwrBnYJF7fwUDmjyXYtebk+2KOuPqHH2Ifw+l4YD
-         3uzw==
-X-Gm-Message-State: AOAM530KlpxT0zJdoaftT9/TPyrguEihZ0rG1Bx22IUYgdycHcO3zT+9
-        p+z+HR2sds0rNhI0RrLdAwE=
-X-Google-Smtp-Source: ABdhPJxhVYVjmxYvu14DktjXyvQY8IRQQxnpZY0gvRTs/9OwAiopsttk7ShUi5rqplyouzT34l/J5Q==
-X-Received: by 2002:adf:9226:: with SMTP id 35mr32368551wrj.408.1614177845922;
-        Wed, 24 Feb 2021 06:44:05 -0800 (PST)
+        bh=WxNakyr8yawXQJ3Lc/21Qfan9W/PfgzSr9d4cc3UdAw=;
+        b=AHS0OBkQ0hLpH1PlpZqFYKPb0HyinkUv7LPi0pRV8WQEvMN7iqwW5nb+sCWbUeZeDk
+         p10OGVqQVGaSSMuN9Y3iodXumd4Pq+qx0kLvJNCMlHVw53GSpG2gqznEyfpBtfrDpuVh
+         DqJu4f9jl5/zyMkolPdkjPtTRE2xHOYDXST1xGQ/55zOazNA8Cnj7kUahJpfSl51UVdq
+         LGj/lfL8avSDs7p19kjZpJtkzdN9CjETSMvNE3O2Pw0jvo9SNYz5Gj/JaApyD52Y2wH4
+         +wcOBCmwpqmOF4I7i7soBc8RgU+ChGYUntZl74gRXoATha34IQ9tD3eYlKqQn/BCwcxT
+         N2aA==
+X-Gm-Message-State: AOAM531QwTn2P00dexlDNT2fUmwb8cp2NmJRZpPKvQDBQt1FaoMBaFG5
+        OsjppuhFtwyy3ZKD5DkoNnA=
+X-Google-Smtp-Source: ABdhPJwKhhjdX2bGc53E8QvyKie3Buk678IR2Cm7kZ43CZKUG8j/gHyEPQdtw+uNGQ1+Wu9hud2Qeg==
+X-Received: by 2002:a7b:ce14:: with SMTP id m20mr4202793wmc.12.1614177846683;
+        Wed, 24 Feb 2021 06:44:06 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
         by smtp.googlemail.com with ESMTPSA id a5sm3990676wrs.35.2021.02.24.06.44.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Feb 2021 06:44:05 -0800 (PST)
+        Wed, 24 Feb 2021 06:44:06 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 14/20] fgetc.3: SYNOPSIS: Use 'restrict' in prototypes
-Date:   Wed, 24 Feb 2021 15:43:05 +0100
-Message-Id: <20210224144310.140649-15-alx.manpages@gmail.com>
+Subject: [PATCH 15/20] fgetws.3: SYNOPSIS: Use 'restrict' in prototypes
+Date:   Wed, 24 Feb 2021 15:43:06 +0100
+Message-Id: <20210224144310.140649-16-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.1.721.g45526154a5
 In-Reply-To: <20210224144310.140649-1-alx.manpages@gmail.com>
 References: <20210224144310.140649-1-alx.manpages@gmail.com>
@@ -63,32 +63,33 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Both POSIX and glibc use 'restrict' in fgets().
+Both POSIX and glibc use 'restrict' for fgetws().
 Let's use it here too.
 
 glibc:
-libio/stdio.h:568:
-char *fgets (char *restrict s, int n, FILE *restrict stream)
-     wur attr_access ((write_only__, 1, 2));
+wcsmbs/wchar.h:758:
+wchar_t *fgetws (wchar_t *restrict ws, int n,
+                        FILE *restrict stream);
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/fgetc.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man3/fgetws.3 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/man3/fgetc.3 b/man3/fgetc.3
-index 5e0ded168..1aa419935 100644
---- a/man3/fgetc.3
-+++ b/man3/fgetc.3
-@@ -35,7 +35,7 @@ fgetc, fgets, getc, getchar, ungetc \- input of characters and strings
- .BI "int getc(FILE *" stream );
- .B "int getchar(void);"
+diff --git a/man3/fgetws.3 b/man3/fgetws.3
+index 4ce0fe79b..652507937 100644
+--- a/man3/fgetws.3
++++ b/man3/fgetws.3
+@@ -22,7 +22,8 @@ fgetws \- read a wide-character string from a FILE stream
+ .nf
+ .B #include <wchar.h>
  .PP
--.BI "char *fgets(char *" "s" ", int " "size" ", FILE *" "stream" );
-+.BI "char *fgets(char *restrict " s ", int " size ", FILE *restrict " stream );
- .PP
- .BI "int ungetc(int " c ", FILE *" stream );
+-.BI "wchar_t *fgetws(wchar_t *" ws ", int " n ", FILE *" stream );
++.BI "wchar_t *fgetws(wchar_t *restrict " ws ", int " n \
++", FILE *restrict " stream );
  .fi
+ .SH DESCRIPTION
+ The
 -- 
 2.30.1.721.g45526154a5
 
