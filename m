@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C9C2C324125
-	for <lists+linux-man@lfdr.de>; Wed, 24 Feb 2021 17:05:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 472EE324126
+	for <lists+linux-man@lfdr.de>; Wed, 24 Feb 2021 17:05:22 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235612AbhBXPmu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 24 Feb 2021 10:42:50 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59310 "EHLO
+        id S235645AbhBXPnD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 24 Feb 2021 10:43:03 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59318 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237224AbhBXOs5 (ORCPT
+        with ESMTP id S237231AbhBXOs5 (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Wed, 24 Feb 2021 09:48:57 -0500
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1EE15C061222
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E6784C061223
         for <linux-man@vger.kernel.org>; Wed, 24 Feb 2021 06:43:58 -0800 (PST)
-Received: by mail-wr1-x435.google.com with SMTP id u14so2145310wri.3
+Received: by mail-wr1-x429.google.com with SMTP id u14so2145360wri.3
         for <linux-man@vger.kernel.org>; Wed, 24 Feb 2021 06:43:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=nP/woCBr8mCN56szOZ4HeeptmFchB1r923AKGMpG9DE=;
-        b=rVC+Tr4pyS9/apeMSNwhbjCq9pBp523cDndPuIl6AeyeTvJV9pudMYAvPfbJgBa/UN
-         GhUxnK6t7d0JORzYaboXHVQytLO9Ebox/ECQkRSYn0LCRUCff/XPYzIVklgP9xLczUch
-         dmMueUFA3kh/mRmMsQNG0zW4Hk2j5IkvZWoJbkdZwTl6xPLMbs/b0mQVP+x7z52MBdSg
-         D1cSTj/pPCTb4YuSE+rUnOCzXwcNJA3sLCRHZ7NUbjqjQals2TA5oZBPEGPQ8NnvWeFO
-         X11WCJTUqFg551aL28k3qzN9Q2uNj7DwHniqsIBeuZQZFa/UPPKeuP+aiuPAMUaqtGO2
-         uXpg==
+        bh=cgE3GFmD9K2WYKFDGE6uva72GrKGw/51CiEJGLxmGN4=;
+        b=Qt94wC25b4RvFkANvyMRkrzCJ41HMmaWK6uWfk/Q/O976Fve4e/J/sg8xkj3mq+5w0
+         X6q3kI7jU8eu77mjODF1uWyO36aCtnBucjGyrGnAhZFB1mIfFZTKemWB0wQbf2ZIAcZI
+         uthZ1r2eZfUfOjR4p9ejPGw+609B+D1RSQS9BE7P4iBUct7GGsOz1sI3UrN0qbW0gUDs
+         lO46Lx/mKhdDv3XYjPKP8SAX6jQ2Pl+r9JN4fgtvlB61FWwq/HVV+WrGOGBatPq1QxhA
+         r8h+veKcfdeIlRFuboLviGGICF1VGypY0Yf+mDpYfxB1yfWt0EnBXgAXWGHmCXxiaGTG
+         OGPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=nP/woCBr8mCN56szOZ4HeeptmFchB1r923AKGMpG9DE=;
-        b=D8jqip8EvnvsHy3IGFpduqZ5rxSNJlFdp3xeifImjl9MKTHU5Z0JPwpEcAhCuP2ozD
-         4Pk/EdNSazO7bHgTYPxHrCzDTDAMrI6uRjGwrVXg33eWSREYwK0whC9V4sLxl5HAwgRu
-         Ev4x5ODsDHGOPiWx5+Q5oiv3zv3lBluKfoFSgBiTXzH4Hib5V/aPJ9rQTIIQQbJi9wcG
-         fYu085OiyvK6RC+NO+j7IXYFW4uHPaQsAyCm5eOGUbQyJXIwyvSU31MzVkfU/3xdfsmU
-         J8kp41Q9BmLpqYLZqnaugJJHDcaM0xyiQmTyb3ClvXsyolAkmPCfRFUvj07dJOPfCuQF
-         rVzg==
-X-Gm-Message-State: AOAM532CRAv2UQxlZjaL8WeSQYkgvIrPMLTqyC9jq9ZkvX2wlywgNs4K
-        JHniW+DgC6Fc2u3U9jlwFwE=
-X-Google-Smtp-Source: ABdhPJybld4HZjz8wMn9xWejA9K3CJQS52WWXtNs0v1AUIVDSkribHjbA3MR0LOhecqG2wgwU5visQ==
-X-Received: by 2002:a5d:4905:: with SMTP id x5mr8233117wrq.201.1614177836970;
-        Wed, 24 Feb 2021 06:43:56 -0800 (PST)
+        bh=cgE3GFmD9K2WYKFDGE6uva72GrKGw/51CiEJGLxmGN4=;
+        b=OiRGN9uutS/MFCKePNWRM0QyUe0JxrY7EAz1faP8j65GlhgisYj7jgWoYkdYNOzFKx
+         BuWmKAaT+e6KORUCUC9+5QD+EeAl7zuIynEq0l9h5ewIcohu6N90pWA/MHf1xLg4KN2z
+         5YEsoQKrTLHUY/aSQn/w93z9IUKsQ0TPDMB2dAg7CLeQhxyxx3fon3ikLs4jD95055kd
+         Ua3Vxd2/eTextViz4selGKQ9w2woNz/dYf+Ri75ZbWrpsglg0cLP7S2ZNayNVh0gIcGe
+         XKOssAfSluvEnS710yrEbCCYEQtPFquKQcSWw0eIBgYFfAeQIyfAflsvlGAkxIstbMDk
+         rAlQ==
+X-Gm-Message-State: AOAM531B4HQ0Vc/cu7VrVXfknbYfesCcLcqKHe6vcn5GMujA+K6ypgux
+        3f5jiEMd1oZDzfR6SJHUdDc=
+X-Google-Smtp-Source: ABdhPJwr7uDw4EIB6bX4VBYTHsX1p5qG6uL2CCV8Htd12+lwPPl4gGr/K3g/5aVQ96qrVZOOxrj4kA==
+X-Received: by 2002:adf:f905:: with SMTP id b5mr31097161wrr.129.1614177837702;
+        Wed, 24 Feb 2021 06:43:57 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id a5sm3990676wrs.35.2021.02.24.06.43.56
+        by smtp.googlemail.com with ESMTPSA id a5sm3990676wrs.35.2021.02.24.06.43.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Feb 2021 06:43:56 -0800 (PST)
+        Wed, 24 Feb 2021 06:43:57 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 02/20] asprintf.3: SYNOPSIS: Use 'restrict' in prototypes
-Date:   Wed, 24 Feb 2021 15:42:53 +0100
-Message-Id: <20210224144310.140649-3-alx.manpages@gmail.com>
+Subject: [PATCH 03/20] memccpy.3: SYNOPSIS: Use 'restrict' in prototypes
+Date:   Wed, 24 Feb 2021 15:42:54 +0100
+Message-Id: <20210224144310.140649-4-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.1.721.g45526154a5
 In-Reply-To: <20210224144310.140649-1-alx.manpages@gmail.com>
 References: <20210224144310.140649-1-alx.manpages@gmail.com>
@@ -63,44 +63,38 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Glibc uses 'restrict' for [v]asprintf().
+POSIX specifies that the parameters of memccpy()
+shall be 'restrict'.  Glibc uses 'restrict' too.
 Let's use it here too.
 
 ......
 
-.../glibc$ grep_glibc_prototype asprintf
-libio/stdio.h:372:
-extern int asprintf (char **__restrict __ptr,
-		     const char *__restrict __fmt, ...)
-     __THROWNL __attribute__ ((__format__ (__printf__, 2, 3))) __wur;
-.../glibc$ grep_glibc_prototype vasprintf
-libio/stdio.h:366:
-extern int vasprintf (char **__restrict __ptr, const char *__restrict __f,
-		      __gnuc_va_list __arg)
-     __THROWNL __attribute__ ((__format__ (__printf__, 2, 0))) __wur;
+.../glibc$ grep_glibc_prototype memccpy
+string/string.h:54:
+extern void *memccpy (void *__restrict __dest, const void *__restrict __src,
+		      int __c, size_t __n)
+    __THROW __nonnull ((1, 2)) __attr_access ((__write_only__, 1, 4));
 .../glibc$
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/asprintf.3 | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ man3/memccpy.3 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/man3/asprintf.3 b/man3/asprintf.3
-index b682a7793..d09c2437e 100644
---- a/man3/asprintf.3
-+++ b/man3/asprintf.3
-@@ -32,8 +32,9 @@ asprintf, vasprintf \- print to allocated string
- .BR "#define _GNU_SOURCE" "         /* See feature_test_macros(7) */"
- .B #include <stdio.h>
+diff --git a/man3/memccpy.3 b/man3/memccpy.3
+index bea746f7f..ed28503c0 100644
+--- a/man3/memccpy.3
++++ b/man3/memccpy.3
+@@ -34,7 +34,8 @@ memccpy \- copy memory area
+ .nf
+ .B #include <string.h>
  .PP
--.BI "int asprintf(char **" strp ", const char *" fmt ", ...);"
--.BI "int vasprintf(char **" strp ", const char *" fmt ", va_list " ap );
-+.BI "int asprintf(char **restrict " strp ", const char *restrict " fmt ", ...);"
-+.BI "int vasprintf(char **restrict " strp ", const char *restrict " fmt ,
-+.BI "              va_list " ap );
+-.BI "void *memccpy(void *" dest ", const void *" src ", int " c ", size_t " n );
++.BI "void *memccpy(void *restrict " dest ", const void *restrict " src ,
++.BI "              int " c ", size_t " n );
  .fi
  .SH DESCRIPTION
- The functions
+ The
 -- 
 2.30.1.721.g45526154a5
 
