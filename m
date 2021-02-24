@@ -2,100 +2,161 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C40BA32411A
-	for <lists+linux-man@lfdr.de>; Wed, 24 Feb 2021 17:05:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 667FB324122
+	for <lists+linux-man@lfdr.de>; Wed, 24 Feb 2021 17:05:20 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235115AbhBXPlM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 24 Feb 2021 10:41:12 -0500
-Received: from mx2.suse.de ([195.135.220.15]:33460 "EHLO mx2.suse.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S236564AbhBXOW6 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 24 Feb 2021 09:22:58 -0500
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-        by mx2.suse.de (Postfix) with ESMTP id 99E5BADCD;
-        Wed, 24 Feb 2021 14:22:04 +0000 (UTC)
-Received: from localhost (brahms [local])
-        by brahms (OpenSMTPD) with ESMTPA id 1f03fb81;
-        Wed, 24 Feb 2021 14:23:09 +0000 (UTC)
-From:   Luis Henriques <lhenriques@suse.de>
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Amir Goldstein <amir73il@gmail.com>,
-        Jeff Layton <jlayton@kernel.org>,
-        Steve French <sfrench@samba.org>,
-        Miklos Szeredi <miklos@szeredi.hu>,
-        Trond Myklebust <trond.myklebust@hammerspace.com>,
-        Anna Schumaker <anna.schumaker@netapp.com>,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        "Darrick J. Wong" <darrick.wong@oracle.com>,
-        Dave Chinner <dchinner@redhat.com>,
-        Greg KH <gregkh@linuxfoundation.org>,
-        Nicolas Boichat <drinkcat@chromium.org>,
-        Ian Lance Taylor <iant@google.com>,
-        Luis Lozano <llozano@chromium.org>,
-        Andreas Dilger <adilger@dilger.ca>,
-        Olga Kornievskaia <aglo@umich.edu>,
-        Christoph Hellwig <hch@infradead.org>
-Cc:     ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
-        linux-fsdevel@vger.kernel.org, linux-nfs@vger.kernel.org,
-        linux-man@vger.kernel.org, Luis Henriques <lhenriques@suse.de>
-Subject: [PATCH] copy_file_range.2: Kernel v5.12 updates
-Date:   Wed, 24 Feb 2021 14:23:07 +0000
-Message-Id: <20210224142307.7284-1-lhenriques@suse.de>
-In-Reply-To: <20210222102456.6692-1-lhenriques@suse.de>
-References: <20210222102456.6692-1-lhenriques@suse.de>
+        id S231815AbhBXPm2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 24 Feb 2021 10:42:28 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59312 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S237229AbhBXOs5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Feb 2021 09:48:57 -0500
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B3EC8C06121F
+        for <linux-man@vger.kernel.org>; Wed, 24 Feb 2021 06:43:56 -0800 (PST)
+Received: by mail-wr1-x433.google.com with SMTP id w11so2119193wrr.10
+        for <linux-man@vger.kernel.org>; Wed, 24 Feb 2021 06:43:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=YPIw+Ti+MmL7QJ49iCQL8RczSYBIls/uYGzpmyhKgCU=;
+        b=qOlklqtPe9cxWpry3KDC+zMK0lVd+Ph+nOdN8xVTt+h0O7YCbDCcwo37Yb728k2Qb7
+         8FFlA2LtZCB5GK6qLw3NmytccBasrjUbocGge7aqM1sSJYsAqg7wgHGQpLg0YNq68bx+
+         QN1mfk47S6LvGNpgRBJSDpJLDTK5tHBC+lIuOCuE6inXCvYvZv4AJ7Jl0Tam2JtyQS6d
+         RumcUb24CAkQ/v5Qw+0wnWk7DU0ZsT6d/z1VQs4SZXplfdXEXbnUIfMny2XsumluAd09
+         95/9pNHQywa7bOrDd6boHNIHdPQby4g22Y+PRZa6W/uByj5uaQx0d8oSdN6DA4S5xA2v
+         hsQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=YPIw+Ti+MmL7QJ49iCQL8RczSYBIls/uYGzpmyhKgCU=;
+        b=WAVpL023UVOj1MwRLJcZw+rjo9W4fzZWH1aUxOJS9URcMgRdUIny9yVV82ovs6s/a3
+         /pJrAcPtjSXbVc4+AeT80J6oLtkhtm9FibSlL8oV/lWi4ORJ38cNqsimoLD7nSzVyDvQ
+         PscEI/ezh0yiNfKnAWDLapG+zDkqCKHOHVZ3a2WivCWF39J01ak+8YuGox1t5I1MTpyr
+         gZ7lUYA3ASGZxLHy5eFcDgtxSF+hVKwz+rF3w897ac1JxyJxTh7HMe4A2TFLo2Tw3G+/
+         Nij1fj1nUQ1AX4w2VgrX6BBGicmirtc5hel6CGtrYCX2qqGyYJebcHwoZtdKWeMuOu5L
+         7rpw==
+X-Gm-Message-State: AOAM530NGVic1Jf9veR9EZEXyZ5ZKiNb2aIwZTcv9pf8xz2taFhG21pm
+        EKvs/RIcL9gRt9qDAQHWdZo=
+X-Google-Smtp-Source: ABdhPJwkPHrxh2mXaCG3ZG6XKdQJZqCCohKUF7jZUP7fTBHhSg6GhM3B3ZBtfAOB4pUV6sWkYGbKpg==
+X-Received: by 2002:adf:9226:: with SMTP id 35mr32367891wrj.408.1614177835549;
+        Wed, 24 Feb 2021 06:43:55 -0800 (PST)
+Received: from localhost.localdomain ([170.253.51.130])
+        by smtp.googlemail.com with ESMTPSA id a5sm3990676wrs.35.2021.02.24.06.43.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 24 Feb 2021 06:43:54 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, Heinrich Schuchardt <xypron.glpk@gmx.de>
+Subject: [PATCH 00/20] man3: SYNOPSIS: Use 'restrict' in prototypes (batch 1)
+Date:   Wed, 24 Feb 2021 15:42:51 +0100
+Message-Id: <20210224144310.140649-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.30.1.721.g45526154a5
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Update man-page with recent changes to this syscall.
+Hi Michael,
 
-Signed-off-by: Luis Henriques <lhenriques@suse.de>
+This are the first pages of man3 with 'restrict'.
+I'm sending you these already, becuase otherwise I'd accumulate
+too many patches in the end.
+
+I have fixed from the first page until ftw.3.
+
+Spin off:
+	I found different terms for parameters that refer to a same thing
+	in different functions (usually a '[const] char *'):
+	 - filename
+	 - file
+	 - path
+	 - pathname
+	 - Maybe others; I don't know
+
+	For 'FILE *' we have more or less the same,
+	although this one is much more standard (>90% use 'stream'):
+	 - stream
+	 - streamp
+	 - s
+	 - fp
+	 - file
+	 - filehandle
+	 - A few others in specific cases
+
+	What would you do about it?
+
+Thanks,
+
+Alex
+
 ---
-Hi!
 
-Here's a suggestion for fixing the manpage for copy_file_range().  Note that
-I've assumed the fix will hit 5.12.
+I'll copy here the commands again to find them easily next time.
 
- man2/copy_file_range.2 | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+For reading the man_pages SYNOPSIS:
 
-diff --git a/man2/copy_file_range.2 b/man2/copy_file_range.2
-index 611a39b8026b..b0fd85e2631e 100644
---- a/man2/copy_file_range.2
-+++ b/man2/copy_file_range.2
-@@ -169,6 +169,9 @@ Out of memory.
- .B ENOSPC
- There is not enough space on the target filesystem to complete the copy.
- .TP
-+.B EOPNOTSUPP
-+The filesystem does not support this operation.
-+.TP
- .B EOVERFLOW
- The requested source or destination range is too large to represent in the
- specified data types.
-@@ -187,7 +190,7 @@ refers to an active swap file.
- .B EXDEV
- The files referred to by
- .IR fd_in " and " fd_out
--are not on the same mounted filesystem (pre Linux 5.3).
-+are not on the same mounted filesystem (pre Linux 5.3 and post Linux 5.12).
- .SH VERSIONS
- The
- .BR copy_file_range ()
-@@ -202,6 +205,11 @@ Applications should target the behaviour and requirements of 5.3 kernels.
- .PP
- First support for cross-filesystem copies was introduced in Linux 5.3.
- Older kernels will return -EXDEV when cross-filesystem copies are attempted.
-+.PP
-+After Linux 5.12, support for copies between different filesystems was dropped.
-+However, individual filesystems may still provide
-+.BR copy_file_range ()
-+implementations that allow copies across different devices.
- .SH CONFORMING TO
- The
- .BR copy_file_range ()
+.../linux/man-pages$ man_section man2 SYNOPSIS |less;
+
+For reading the glibc prototypes:
+
+.../gnu/glibc$ man_lsfunc ../../linux/man-pages/man2 \
+  |while read -r syscall; do
+          echo "=============================  ${syscall}";
+          grep_glibc_prototype ${syscall};
+  done \
+  |sed -e 's/\bextern //' -e 's/\b_*//g' \
+  |less;
+
+---
+Alejandro Colomar (20):
+  argz_add.3: SYNOPSIS: Use 'restrict' in prototypes
+  asprintf.3: SYNOPSIS: Use 'restrict' in prototypes
+  memccpy.3: SYNOPSIS: Use 'restrict' in prototypes
+  memcpy.3: SYNOPSIS: Use 'restrict' in prototypes
+  crypt.3: SYNOPSIS: Use 'restrict' in prototypes
+  ctime.3: SYNOPSIS: Use 'restrict' in prototypes
+  ctime.3: SYNOPSIS: Use 'restrict' in prototypes
+  dlinfo.3: SYNOPSIS: Use 'restrict' in prototypes
+  dlsym.3: SYNOPSIS: Use 'restrict' in prototypes; add missing 'const'
+    too
+  drand48_r.3: SYNOPSIS: Use 'restrict' in prototypes
+  ecvt_r.3: SYNOPSIS: Use 'restrict' in prototypes
+  ecvt.3: SYNOPSIS: Use 'restrict' in prototypes
+  envz_add.3: SYNOPSIS: Use 'restrict' in prototypes
+  fgetc.3: SYNOPSIS: Use 'restrict' in prototypes
+  fgetws.3: SYNOPSIS: Use 'restrict' in prototypes
+  fopencookie.3: SYNOPSIS: Use 'restrict' in prototypes
+  fopen.3: SYNOPSIS: Use 'restrict' in prototypes
+  fputws.3: SYNOPSIS: Use 'restrict' in prototypes
+  fread.3: SYNOPSIS: Use 'restrict' in prototypes
+  fseek.3: SYNOPSIS: Use 'restrict' in prototypes
+
+ man3/argz_add.3    | 41 +++++++++++++++++++++++------------------
+ man3/asprintf.3    |  5 +++--
+ man3/crypt.3       |  2 +-
+ man3/ctime.3       | 16 ++++++++++++----
+ man3/dlinfo.3      |  3 ++-
+ man3/dlsym.3       |  5 +++--
+ man3/drand48_r.3   | 22 ++++++++++++++--------
+ man3/ecvt.3        |  6 ++++--
+ man3/ecvt_r.3      | 18 ++++++++++--------
+ man3/envz_add.3    | 25 +++++++++++++------------
+ man3/fgetc.3       |  2 +-
+ man3/fgetws.3      |  3 ++-
+ man3/fopen.3       |  7 +++++--
+ man3/fopencookie.3 |  2 +-
+ man3/fputws.3      |  2 +-
+ man3/fread.3       |  9 +++++----
+ man3/fseek.3       |  2 +-
+ man3/memccpy.3     |  3 ++-
+ man3/memcpy.3      |  3 ++-
+ 19 files changed, 105 insertions(+), 71 deletions(-)
+
+-- 
+2.30.1.721.g45526154a5
+
