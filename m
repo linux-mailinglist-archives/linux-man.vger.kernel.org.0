@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0C76632412E
-	for <lists+linux-man@lfdr.de>; Wed, 24 Feb 2021 17:05:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8AA3A32412D
+	for <lists+linux-man@lfdr.de>; Wed, 24 Feb 2021 17:05:25 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235824AbhBXPno (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 24 Feb 2021 10:43:44 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59938 "EHLO
+        id S235807AbhBXPni (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 24 Feb 2021 10:43:38 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59940 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237418AbhBXOtW (ORCPT
+        with ESMTP id S237424AbhBXOtW (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Wed, 24 Feb 2021 09:49:22 -0500
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 84770C0611C2
-        for <linux-man@vger.kernel.org>; Wed, 24 Feb 2021 06:44:03 -0800 (PST)
-Received: by mail-wm1-x333.google.com with SMTP id j187so2014701wmj.1
-        for <linux-man@vger.kernel.org>; Wed, 24 Feb 2021 06:44:03 -0800 (PST)
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 345B1C0611C3
+        for <linux-man@vger.kernel.org>; Wed, 24 Feb 2021 06:44:04 -0800 (PST)
+Received: by mail-wr1-x432.google.com with SMTP id t15so2110386wrx.13
+        for <linux-man@vger.kernel.org>; Wed, 24 Feb 2021 06:44:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=HsEqrkLM9lULsy3fWm7WmO4ilkVxN0FvQlcTybVSn8s=;
-        b=SlDejaGW0aVsU5n0vsQjypMRws4NqzirJUUBu9HSVtvkqXUh1GYeFHzQYFaWqEP/rA
-         UxchDWyKQg0FYE8UcDAf3N1yeEzqcCcC7wRpSumFYtPiAzaDyZJxwOTKYHDnXPwtF3tc
-         Uovb1HqE3b88Jf1he16esQ61r/+Akew0ty/Ty7G+aWKUfDOAVsSHCWz/YP2k8ALgSVdc
-         PhlUn1Vq5hCtmRiec6FjvPkXEExJlGAFTxoQuQ90ewxNHA6Iu0hM1wotPPThnZGsRwLy
-         i41K1dfQCPTna5+AAJV5GJDU3xK1PsnJSeTwfVkbIxqFlIxCkjLFOzGeLedBlCVSiEqk
-         P5Hg==
+        bh=VW3zVZshSFpBJG60uGM463FIgci7SpiCEdYBqYjCLWQ=;
+        b=VxvD7IbyognHdDI+DzmaBzNo7evpB4fNaspzel3ZTl14n4hmjwxb2qhzcwRsagHOI+
+         uz24Ugg6ZpXcfrkdUYZofgBvmJRv0BRvBQDRVxPllzWfaj7yK++kclRQ9wO4fSvo7NQ1
+         LSKJ7wPcK5sxVVebqbDZvqnsJw+OtO0qcphLnutlmzyOIqL0BIl2moRtiZe2fKEWL+ir
+         pe2OI+vh2gKQ9Jns/8xb8WuStEI5h+Cl3OZMdP/OP2osNiOrqlWF5gytTQuCcl92qG+j
+         6MvHXw6jtqOqYwoepbO37XQh1F1mv7h4O5Kist+k76rzGajWzrrrUmWeip8NuOFIh2c3
+         PuEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=HsEqrkLM9lULsy3fWm7WmO4ilkVxN0FvQlcTybVSn8s=;
-        b=OI5DqxquMLYslIhXvwnIylefT3P/UpIzEuX67RGikVLw+D5Jtxtsu5gnhqTt9TMQw5
-         NjVKpdFqytkJKUzcllNLU84yPl0hC9eIpEgRqrzyqgHtS2JPe1HLLw8YaScO/CBRQHZj
-         kHYrQsWIA4wiIITPwen7PcRqkatFU4RBlLwFuvicoc+Yo97wJjndvJaMGxPBLM8e9aew
-         1SHqDCMlVU7vUEULvRHcfscoepqdjVBUsuq6+HjoUvNkA68CHV7QUz7EfzVnvmaZ16Rp
-         +EYVkS2D9Y8VhiYSx8cv7TGhDOn0agWlDpDIJ51Vkh/SgiiGeK6p3kNIp3ZclNpK656Q
-         WF5w==
-X-Gm-Message-State: AOAM531anNdf1GQUvpgT2AR7pVHz+BzEMIKdnu2pZXkN7J391Nbt+90X
-        9/PP8rRdugqaxTp9z1UOYEklj8+IpZV3Bw==
-X-Google-Smtp-Source: ABdhPJz8FmvpbGuSmgpMd+2zGxfzpm39LIlCiGeQboGVaFuoM2TnrGbWWeIK1LRNhBq2OnZgLexQ+w==
-X-Received: by 2002:a7b:c922:: with SMTP id h2mr4116070wml.44.1614177842294;
-        Wed, 24 Feb 2021 06:44:02 -0800 (PST)
+        bh=VW3zVZshSFpBJG60uGM463FIgci7SpiCEdYBqYjCLWQ=;
+        b=RqA0V0sVO91LdEEEJ7i2K5kIOCoL/H2BcKg+Ct2PsuWFdy8nYl0lwWJTbExuog7ze1
+         s2UyCeoiEsNy+K/gLZQ9cXHJG3HSlAah8PqCZTa0REjHfyY08mhPqUbTY9T6T4uxhepT
+         kEVbnjWiD3cixV9ocgwZJnXPivmSL4DwHejuuv7ENNh6RPGBCdIEiSsW2hHy71zzdCAa
+         RIcyb4bST8NmekUK5Q6v8mWPzaJkoiUfapDZrP6A6ltfzDDOSi4XtLLMLzrlllWmHeWQ
+         le4hl9ECJqCA4a4Okdt5c8QSp7aO/trGSpX8hXpKiQZ/DNppRoVZyiv6fMu6jrAlDCSj
+         vCCg==
+X-Gm-Message-State: AOAM530A6pnk8/z7CA8XGWQ18rxTuFkSO8/w/wf135tqfu1EFq1QkEO3
+        PGLWV0sPWLFQsUgyzzSn1uI=
+X-Google-Smtp-Source: ABdhPJzXmaAgWO9LjM0lVt6nhhnThRIZOWGMwaMQWkmKo0fWq1Ic8J5DOls3aQJxrfYzjqK6f6sCHQ==
+X-Received: by 2002:a5d:658b:: with SMTP id q11mr29538185wru.132.1614177843051;
+        Wed, 24 Feb 2021 06:44:03 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id a5sm3990676wrs.35.2021.02.24.06.44.01
+        by smtp.googlemail.com with ESMTPSA id a5sm3990676wrs.35.2021.02.24.06.44.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 24 Feb 2021 06:44:02 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 09/20] dlsym.3: SYNOPSIS: Use 'restrict' in prototypes; add missing 'const' too
-Date:   Wed, 24 Feb 2021 15:43:00 +0100
-Message-Id: <20210224144310.140649-10-alx.manpages@gmail.com>
+Subject: [PATCH 10/20] drand48_r.3: SYNOPSIS: Use 'restrict' in prototypes
+Date:   Wed, 24 Feb 2021 15:43:01 +0100
+Message-Id: <20210224144310.140649-11-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.1.721.g45526154a5
 In-Reply-To: <20210224144310.140649-1-alx.manpages@gmail.com>
 References: <20210224144310.140649-1-alx.manpages@gmail.com>
@@ -63,54 +63,100 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-POSIX specifies that the parameters of dlsym()
-shall be 'restrict'.  Glibc uses 'restrict' too.
+Glibc uses 'restrict' for some of the functions in this page:
+
+=============================  drand48_r
+stdlib/stdlib.h:501:
+int drand48_r (struct drand48_data *restrict buffer,
+                      double *restrict result) THROW nonnull ((1, 2));
+=============================  erand48_r
+stdlib/stdlib.h:503:
+int erand48_r (unsigned short int xsubi[3],
+                      struct drand48_data *restrict buffer,
+                      double *restrict result) THROW nonnull ((1, 2));
+=============================  lrand48_r
+stdlib/stdlib.h:508:
+int lrand48_r (struct drand48_data *restrict buffer,
+                      long int *restrict result)
+     THROW nonnull ((1, 2));
+=============================  nrand48_r
+stdlib/stdlib.h:511:
+int nrand48_r (unsigned short int xsubi[3],
+                      struct drand48_data *restrict buffer,
+                      long int *restrict result)
+     THROW nonnull ((1, 2));
+=============================  mrand48_r
+stdlib/stdlib.h:517:
+int mrand48_r (struct drand48_data *restrict buffer,
+                      long int *restrict result)
+     THROW nonnull ((1, 2));
+=============================  jrand48_r
+stdlib/stdlib.h:520:
+int jrand48_r (unsigned short int xsubi[3],
+                      struct drand48_data *restrict buffer,
+                      long int *restrict result)
+     THROW nonnull ((1, 2));
+=============================  srand48_r
+stdlib/stdlib.h:526:
+int srand48_r (long int seedval, struct drand48_data *buffer)
+     THROW nonnull ((2));
+=============================  seed48_r
+stdlib/stdlib.h:529:
+int seed48_r (unsigned short int seed16v[3],
+                     struct drand48_data *buffer) THROW nonnull ((1, 2));
+=============================  lcong48_r
+stdlib/stdlib.h:532:
+int lcong48_r (unsigned short int param[7],
+                      struct drand48_data *buffer)
+     THROW nonnull ((1, 2));
+
 Let's use it here too.
-
-The glibc specific dlvsym() also uses 'restrict'.
-Its 2nd and 3rd parameters are 'const' too.
-
-Fix the prototypes to add these qualifiers.
-
-......
-
-.../glibc$ grep_glibc_prototype dlsym
-dlfcn/dlfcn.h:64:
-extern void *dlsym (void *__restrict __handle,
-		    const char *__restrict __name) __THROW __nonnull ((2));
-.../glibc$ grep_glibc_prototype dlvsym
-dlfcn/dlfcn.h:73:
-extern void *dlvsym (void *__restrict __handle,
-		     const char *__restrict __name,
-		     const char *__restrict __version)
-     __THROW __nonnull ((2, 3));
-.../glibc$
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/dlsym.3 | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ man3/drand48_r.3 | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/man3/dlsym.3 b/man3/dlsym.3
-index ed3804963..d6a73fb5b 100644
---- a/man3/dlsym.3
-+++ b/man3/dlsym.3
-@@ -29,12 +29,13 @@ dlsym, dlvsym \- obtain address of a symbol in a shared object or executable
+diff --git a/man3/drand48_r.3 b/man3/drand48_r.3
+index b2209c5b8..9203498f4 100644
+--- a/man3/drand48_r.3
++++ b/man3/drand48_r.3
+@@ -33,21 +33,27 @@ srand48_r, seed48_r, lcong48_r
  .nf
- .B #include <dlfcn.h>
+ .B #include <stdlib.h>
  .PP
--.BI "void *dlsym(void *" handle ", const char *" symbol );
-+.BI "void *dlsym(void *restrict " handle ", const char *restrict " symbol );
+-.BI "int drand48_r(struct drand48_data *" buffer ", double *" result );
++.BI "int drand48_r(struct drand48_data *restrict " buffer ,
++.BI "              double *restrict " result );
+ .BI "int erand48_r(unsigned short " xsubi [3] ","
+-.BI "              struct drand48_data *"buffer ", double *" result ");"
++.BI "              struct drand48_data *restrict "buffer ,
++.BI "              double *restrict " result ");"
  .PP
- .B #define _GNU_SOURCE
- .B #include <dlfcn.h>
+-.BI "int lrand48_r(struct drand48_data *" buffer ", long *" result );
++.BI "int lrand48_r(struct drand48_data *restrict " buffer ,
++.BI "              long *restrict " result );
+ .BI "int nrand48_r(unsigned short " xsubi[3] ","
+-.BI "              struct drand48_data *"buffer ", long *" result ");"
++.BI "              struct drand48_data *restrict "buffer ,
++.BI "              long *restrict " result ");"
  .PP
--.BI "void *dlvsym(void *" handle ", char *" symbol ", char *" version );
-+.BI "void *dlvsym(void *restrict " handle ", const char *restrict " symbol ,
-+.BI "             const char *restrict " version );
+-.BI "int mrand48_r(struct drand48_data *" buffer ",long *" result ");"
++.BI "int mrand48_r(struct drand48_data *restrict " buffer ,
++.BI "              long *restrict " result ");"
+ .BI "int jrand48_r(unsigned short " xsubi[3] ","
+-.BI "              struct drand48_data *" buffer ", long *" result ");"
++.BI "              struct drand48_data *restrict " buffer ,
++.BI "              long *restrict " result ");"
  .PP
- Link with \fI\-ldl\fP.
+ .BI "int srand48_r(long int " seedval ", struct drand48_data *" buffer ");"
+-.BI "int seed48_r(unsigned short " seed16v[3] ", struct drand48_data *" buffer ");"
+-.BI "int lcong48_r(unsigned short " param[7] ", struct drand48_data *" buffer ");"
++.BI "int seed48_r(unsigned short " seed16v[3] ", struct drand48_data *" buffer );
++.BI "int lcong48_r(unsigned short " param[7] ", struct drand48_data *" buffer );
  .fi
+ .PP
+ .RS -4
 -- 
 2.30.1.721.g45526154a5
 
