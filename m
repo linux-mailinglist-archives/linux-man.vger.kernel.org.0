@@ -2,59 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9AB3532412B
-	for <lists+linux-man@lfdr.de>; Wed, 24 Feb 2021 17:05:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 194E932412C
+	for <lists+linux-man@lfdr.de>; Wed, 24 Feb 2021 17:05:25 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235748AbhBXPnZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 24 Feb 2021 10:43:25 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59934 "EHLO
+        id S235781AbhBXPnf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 24 Feb 2021 10:43:35 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59936 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237411AbhBXOtW (ORCPT
+        with ESMTP id S237413AbhBXOtW (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Wed, 24 Feb 2021 09:49:22 -0500
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1B522C0611C0
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BD3E8C0611C1
         for <linux-man@vger.kernel.org>; Wed, 24 Feb 2021 06:44:02 -0800 (PST)
-Received: by mail-wm1-x335.google.com with SMTP id w7so2004444wmb.5
+Received: by mail-wr1-x436.google.com with SMTP id c7so2130850wru.8
         for <linux-man@vger.kernel.org>; Wed, 24 Feb 2021 06:44:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=TKb5SxYeSQZIL/cLkRICHkolXAAl+45MgBm7VlSyIC8=;
-        b=FvCwYxxH/MDzAFLXrG3eaq/m9RG2acaKgE9n8Ud86YLl/K5pirPpG1Ug5t0g+9vBFC
-         jj1lRMeWhR3EIaVpqK6ixTGrzjbdNi0aBW3ghBoxlwzg2Ms/UFX5SBWprpG3wJaFfyn3
-         QsdYZ642hWgfu5QdHeyGQfRHCeFeg0dNipFg4/AKYbkYzJpXaeHlLfUAlYdqOCXe0cX8
-         Vr4jDwBMwoAM/C8aNfzunQmAWLekENvsGx6Bf6QdFdtPIdljvK+1d4MekPDVBTkpYubX
-         qfXwQ+gi9nQ+Giq6VDvNSHhJh6QM4Srvn+T3CMdb5HQVsLTHq3fpIhl2frtzUIl+EdPY
-         Qj9A==
+        bh=nxcmPcwQNRFgJWnS6gdvMXWN/PssKBRPaTxnX9sSgec=;
+        b=BULOXpke7fUMOM1fIjnPjvqDhZ6XDfVQVX0/qNRauoxycoNXfDpLp89Kt5nsvDaksc
+         4qAMDQCyC2TPipv4NX/xsATAaYx6ULivgYIFTgt3GwwIPsdNxQSQMcdUrG2VJKqUN6Ku
+         0LwsOslhk6g12lchFIgeC7Gpxg/Pk7oHeT3NscyfYxY5Lr2eKfdOnPIXyH7tGKvFHYSm
+         /sXYxXmuAd3/2jH10jaNg/gBTX3Jx81BtFTDyPQgmd3y+wTvrdRXB5P0FYntEPovvq7i
+         TguQ5ah9csBbIie2NYsHXEIEC8Ot8ABhVCbmFkPkls1fSASm7JSEfiF3Rhm0WN2GlgSx
+         qs4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=TKb5SxYeSQZIL/cLkRICHkolXAAl+45MgBm7VlSyIC8=;
-        b=ulKcvNYmVrsasdcLHVbgMfsLealqdxcGb9EEUU7Xdx9gg6jp7mwpcEx6FLta+sXbU8
-         PXClpxvXIYs3nAPYjdPACowk6tEwffcaPhzAYxNBtkDL7TnwE5OnWR1HJ28agMfn8bj2
-         HdtOGRRlC9OHeaGZBdrIlSkfkSAYXh30Fp2vU1pwZWmrNGkHigD0th1k+z3IPN3UINna
-         WpOKcwahv5WxfrfEdMIst6Rk6hIKlBUlGcd2Kl1pVnT504wWqWPsfTwBfvImPxbFZbrO
-         fqiUwtQG+x2EIoYPfaJOfdTrdezGRQRgnDElJFI5LzH483nJs7or89U86On/jUbbcwX2
-         Mvlg==
-X-Gm-Message-State: AOAM532uEoFuvVYHv55Z8aG1IG2HotYMGFkSX8/H3Ai7QXCJT000tGqI
-        le4H28b1Y32wM9yL61jrNWE=
-X-Google-Smtp-Source: ABdhPJxkOkJ+EwNcb0UEZbItCQ7f2qkd86LTQFehnftinWZeRFfscxgzmukLpJfeR38umvHVv7/+3A==
-X-Received: by 2002:a1c:7501:: with SMTP id o1mr3942531wmc.105.1614177840853;
-        Wed, 24 Feb 2021 06:44:00 -0800 (PST)
+        bh=nxcmPcwQNRFgJWnS6gdvMXWN/PssKBRPaTxnX9sSgec=;
+        b=oocIZXe64y5BAwvW/j5biviDqAchUtH/C1FZ7D2rwGMy6fsM11r1cTOoOpUBruvjIz
+         3op9BKTl0fzMDYBJak0GcyRXe6eha+J41ILYU/ibhQxMkwrtr4upoaQSp0wo1QI315+x
+         h/mv/u6wwJ7Y4do0lbTg+JSNrNYTef+31E+WM2ZqV2FHR/EZLDrD1LWTSBJqMSm+2epq
+         SxqBL+E0xHyk9gDgHHKGm+8h34LIb/1l6XHsu6F25tYpSD4iW6vgZzbl16FrogmMZP2q
+         BZ5aAxkyXK0L539CTkSUzKGXfxQGK6VTSTTiwybY/QppkPdCQme3sWSR6qqd3l/bq0Gg
+         L58A==
+X-Gm-Message-State: AOAM531/z9M1z06DtrhROYjmuAK5T9MtE9muaBYRoozAKCX2CSxL4MtM
+        peWhZiReaj1WIfbwP/8iIAuP3TdQsIbwBA==
+X-Google-Smtp-Source: ABdhPJzLA+XSTEmwx3q0ANjzxkeYz6UczqjMtb6ouWCmWK040fqysBuAxO9bbjZur73SmAay4tz0OQ==
+X-Received: by 2002:a5d:6b89:: with SMTP id n9mr31907553wrx.74.1614177841626;
+        Wed, 24 Feb 2021 06:44:01 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
         by smtp.googlemail.com with ESMTPSA id a5sm3990676wrs.35.2021.02.24.06.44.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Feb 2021 06:44:00 -0800 (PST)
+        Wed, 24 Feb 2021 06:44:01 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-        Ulrich Drepper <drepper@redhat.com>
-Subject: [PATCH 07/20] ctime.3: SYNOPSIS: Use 'restrict' in prototypes
-Date:   Wed, 24 Feb 2021 15:42:58 +0100
-Message-Id: <20210224144310.140649-8-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org
+Subject: [PATCH 08/20] dlinfo.3: SYNOPSIS: Use 'restrict' in prototypes
+Date:   Wed, 24 Feb 2021 15:42:59 +0100
+Message-Id: <20210224144310.140649-9-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.1.721.g45526154a5
 In-Reply-To: <20210224144310.140649-1-alx.manpages@gmail.com>
 References: <20210224144310.140649-1-alx.manpages@gmail.com>
@@ -64,55 +63,37 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-POSIX does NOT specify ctime_r() to use 'restrict'.
-However, glibc uses 'restrict'.
-Users might be surprised by this!  Let's use it here too!
+Glibc uses 'restrict' for dlinfo().
+Let's use it here too.
 
 ......
 
-.../glibc$ grep_glibc_prototype ctime_r
-timezone/private.h:504:
-char *ctime_r(time_t const *, char *);
-timezone/private.h:712:
-char *ctime_r(time_t const *, char *);
-time/time.h:153:
-extern char *ctime_r (const time_t *__restrict __timer,
-		      char *__restrict __buf) __THROW;
+.../glibc$ grep_glibc_prototype dlinfo
+dlfcn/dlfcn.h:123:
+extern int dlinfo (void *__restrict __handle,
+		   int __request, void *__restrict __arg)
+     __THROW __nonnull ((1, 3));
 .../glibc$
 
-Cc: <libc-alpha@sourceware.org>
-Cc: Ulrich Drepper <drepper@redhat.com>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/ctime.3 | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ man3/dlinfo.3 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/man3/ctime.3 b/man3/ctime.3
-index cd0ccc98d..7e4baa390 100644
---- a/man3/ctime.3
-+++ b/man3/ctime.3
-@@ -44,7 +44,7 @@ localtime_r \- transform date and time to broken-down time or ASCII
- .BI "char *asctime_r(const struct tm *restrict " tm ", char *restrict " buf );
+diff --git a/man3/dlinfo.3 b/man3/dlinfo.3
+index 194f106ad..b75242f13 100644
+--- a/man3/dlinfo.3
++++ b/man3/dlinfo.3
+@@ -31,7 +31,8 @@ dlinfo \- obtain information about a dynamically loaded object
+ .B #include <link.h>
+ .B #include <dlfcn.h>
  .PP
- .BI "char *ctime(const time_t *" timep );
--.BI "char *ctime_r(const time_t *" timep ", char *" buf );
-+.BI "char *ctime_r(const time_t *restrict " timep ", char *restrict " buf );
+-.BR "int dlinfo(void *" handle ", int " request ", void *" info );
++.BR "int dlinfo(void *restrict " handle ", int " request \
++", void *restrict " info );
  .PP
- .BI "struct tm *gmtime(const time_t *" timep );
- .BI "struct tm *gmtime_r(const time_t *restrict " timep ,
-@@ -381,6 +381,12 @@ as obsolete,
- recommending the use of
- .BR strftime (3)
- instead.
-+.PP
-+POSIX doesn't specify the parameters of
-+.BR ctime_r ()
-+to be
-+.IR restrict ;
-+that is specific to glibc.
- .SH NOTES
- The four functions
- .BR asctime (),
+ Link with \fI\-ldl\fP.
+ .fi
 -- 
 2.30.1.721.g45526154a5
 
