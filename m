@@ -2,205 +2,140 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3BBB7325273
-	for <lists+linux-man@lfdr.de>; Thu, 25 Feb 2021 16:30:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0BA5432560D
+	for <lists+linux-man@lfdr.de>; Thu, 25 Feb 2021 20:05:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231604AbhBYP3t (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 25 Feb 2021 10:29:49 -0500
-Received: from mx01-sz.bfs.de ([194.94.69.67]:23362 "EHLO mx02-sz.bfs.de"
-        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
-        id S230201AbhBYP3r (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 25 Feb 2021 10:29:47 -0500
-Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
-        by mx02-sz.bfs.de (Postfix) with ESMTPS id 82615206FA;
-        Thu, 25 Feb 2021 16:29:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
-        t=1614266943;
+        id S233498AbhBYTFT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 25 Feb 2021 14:05:19 -0500
+Received: from de-smtp-delivery-102.mimecast.com ([194.104.109.102]:59189 "EHLO
+        de-smtp-delivery-102.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S233276AbhBYTFN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 25 Feb 2021 14:05:13 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+        t=1614279842;
         h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:mime-version:mime-version:content-type:content-type:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
          content-transfer-encoding:content-transfer-encoding:
          in-reply-to:in-reply-to:references:references;
-        bh=D7sXH0z8wpTq7cfT3mLHhN2YwuaLoKAJzZAKm49NNoU=;
-        b=WbrpxthH7kTeIkqwxWP5yNqLfMIv1aeur1sJiCqNtSXIrESYclAcTMBbgCruCmKX5rPZPl
-        sobvw0hfYfoam+gXd8Hzwf7uKaiUhJtnlXTtOumlncmbCV9Q6J8ZtbHMMQ3GDbLWR9zmG/
-        u/P8Zz5251sImOQza0nIchWoNcswveLMTadrAUYmZ7E/w+7VtbPJsxkyfzMc56ezWl9Djc
-        Ib6DXi0tk2dBzfRJX3dlafbhh/ntAuZKMfq55qnSjPBk7UOjXsUvMN3o1ltM8bgJE6Q05v
-        3CW+mxdukl6qIMEvo5LjzSaDLokMzVV4gs6nex4WrV2MjPRQ18aPVjPBviCUgQ==
-Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
- (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2176.2; Thu, 25 Feb
- 2021 16:29:03 +0100
-Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
- SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%13]) with mapi id
- 15.01.2176.002; Thu, 25 Feb 2021 16:29:03 +0100
-From:   Walter Harms <wharms@bfs.de>
-To:     Luis Henriques <lhenriques@suse.de>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-Subject: AW: [PATCH] copy_file_range.2: Kernel v5.12 updates
-Thread-Topic: [PATCH] copy_file_range.2: Kernel v5.12 updates
-Thread-Index: AQHXCsczw6KResjd80Wjm6X/xfQdWKpnaOSAgAEwogCAAGWOSQ==
-Date:   Thu, 25 Feb 2021 15:29:02 +0000
-Message-ID: <1420fad0d18843b29c8c97919ebcb421@bfs.de>
-References: <20210222102456.6692-1-lhenriques@suse.de>
- <20210224142307.7284-1-lhenriques@suse.de>
- <CAOQ4uxi3-+tOgHV_GUnWtJoQXbV5ZS9qDZsLsd9sJxX5Aftyew@mail.gmail.com>,<YDd6EMpvZhHq6ncM@suse.de>
-In-Reply-To: <YDd6EMpvZhHq6ncM@suse.de>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.137.16.40]
-x-tm-as-product-ver: SMEX-14.0.0.3080-8.6.1012-25994.007
-x-tm-as-result: No-10--16.765700-5.000000
-x-tmase-matchedrid: B12LqqUZIQy2stVKK887Os4EZv+VPcNBPknazlXMVpVYC5LPd7BvbbLs
-        vs6J0rHdvElQ/PTL7K7bewiaSAo2kSspnk1mqucYBBmRlS94ZtvYnkbIjaD5nHT+0L2FmGNMJoK
-        OQUqn/54IYiyUbJCX+aYXUIHBeNB5Z/Amxtjcg+l+J3gtIe0gAzKEtjy6tQe+O3tmMk8BUiIhlG
-        9iTcYtaqNIXC+Evb2DVBBxq+3rCoHi7Mcd7z9bLQGdJZ3Knh6hljgw/8s6b3cHZBaLwEXlKIPcX
-        uILVCbavs75gcY5ey50w+1gsvAUe4Ik7jJ4Czwia87CDXaKRVJIwovbX4T40KlTFDGZMPhC/tIZ
-        nklOUkjnYp9PN+ItKMoQphqKvRThLHyAB4UBD4H0hv/rD7WVZG4lczE4XkmwBCzD0Dc8iUvXU5/
-        rvsc4K8J++jdSAUUkCfD0mnVSbfEoikPnYXaki6o2fOuRT7aaas1wAJHsfyIcwojTLz1sEjLk8G
-        2qhCWTDzcc9hL6UiC1QhEk8s7S2K3U5Al7iV4jvbqrzSdPiqplu8AJBkPNMLSoPvJ6PVxVs1KtE
-        R6ri6bziAPnRWnvqeDIjV+NRQx7NiAclaSJhbsCOhpLDQSMVX0tCKdnhB581B0Hk1Q1KyLUZxEA
-        lFPo846HM5rqDwqtMmFjdO0gyfZI96ifmjHzHPAqrlMj43gwp9pDjFuXzeMiZjaVtG6fyQ==
-x-tm-as-user-approved-sender: No
-x-tm-as-user-blocked-sender: No
-x-tmase-result: 10--16.765700-5.000000
-x-tmase-version: SMEX-14.0.0.3080-8.6.1012-25994.007
-x-tm-snts-smtp: E1066F379AD83D4F34CC165AF9FAADEEDF18CCF648C02AAB984053A4D97F23822000:9
-Content-Type: text/plain; charset="iso-8859-1"
+        bh=khND3q2P5JO6gJQuB9Q33C51QrN9ywxGjcZy7pMumik=;
+        b=UeKzz1Sy6ZEAJQErc9+ubz9137D0/Z6cLSEaWrM7hsn9V7YI10Javta3UB++aaP55tj0JV
+        EPK66WSO8zFmBv+HigGUJ9Uw1azTRt4AJTIn8YJt6/VFmhoeoPWJue+x6DeHM11M4MRsqP
+        RrkMUR1DD9BdImgsXlH2G/jZnVuIg74=
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2107.outbound.protection.outlook.com [104.47.17.107])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-1-1ankPBAvNBCLdJyO8jhGgQ-1; Thu, 25 Feb 2021 20:04:01 +0100
+X-MC-Unique: 1ankPBAvNBCLdJyO8jhGgQ-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Jl4Z7LrjFSSvjo912jNmB2Eh9UEw1BeKevGXOv5IyRPBhphB+pLOaEdVcQgJLxBbBgn74gmop6AQwsbPdcI88koNmJQny5rAvJh84Sy/sTRLSw8fsRRkOGQHP0E9UgkJixnYhxSX/uDXRflM/LlT5A1JYixb5VRE8QmUaRV7N0uhTA60het1a2lJhbt32q67sEMdTyaIMBen2LKoxsAKodm7AItdiMNBE1DTLVj++4/oJI2G2/5MY6WMKV6U9gSCAwOJFER4gVuZrPHVrIs7L35S+aipiP6kINp2vILdPNAjq0p15meaFNIMlouAih6MzfLjBWIkq7m0mw1TfWlwQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=khND3q2P5JO6gJQuB9Q33C51QrN9ywxGjcZy7pMumik=;
+ b=mFoYex//683Tu/fPwXgmPbEB4vLccov9W/ql1tcIIaO20FlyYFByFdsNGU2KLE3M/tb/uidkDE28dDIBja+62ZDq19pyMzypLmVWmXt/K581OtMVJsqIiYKesYXRPIVSL3SUSIcaJfLI2EdQfkzkNaRw26Aiai6s/BdMoCSLGsxKCrqumKdg9N3o+tmS+NSJ2UvTnbUXmADj/DBMQMi+cUCQ9napqQlgtquSEnoZIsoWEEFI9LIsyXeAZr8L2XC3D4hAenBsdm335WV2q/kL25kSYS7lJcPemj8c55TkFCzAQMiVFRNsiLstBUzIHp+m+UwT9DhHxyl8st7PiWBliw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: redhat.com; dkim=none (message not signed)
+ header.d=none;redhat.com; dmarc=none action=none header.from=suse.com;
+Received: from VI1PR0402MB3359.eurprd04.prod.outlook.com (2603:10a6:803:3::28)
+ by VI1PR04MB4591.eurprd04.prod.outlook.com (2603:10a6:803:6e::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.29; Thu, 25 Feb
+ 2021 19:03:59 +0000
+Received: from VI1PR0402MB3359.eurprd04.prod.outlook.com
+ ([fe80::9c1d:89de:a08e:ccc9]) by VI1PR0402MB3359.eurprd04.prod.outlook.com
+ ([fe80::9c1d:89de:a08e:ccc9%4]) with mapi id 15.20.3868.032; Thu, 25 Feb 2021
+ 19:03:59 +0000
+From:   =?utf-8?Q?Aur=C3=A9lien?= Aptel <aaptel@suse.com>
+To:     David Howells <dhowells@redhat.com>, mtk.manpages@gmail.com,
+        viro@zeniv.linux.org.uk
+Cc:     dhowells@redhat.com, linux-fsdevel@vger.kernel.org,
+        linux-man@vger.kernel.org, linux-api@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/5] Add manpage for open_tree(2)
+In-Reply-To: <159827188271.306468.16962617119460123110.stgit@warthog.procyon.org.uk>
+References: <159827188271.306468.16962617119460123110.stgit@warthog.procyon.org.uk>
+Date:   Thu, 25 Feb 2021 20:03:56 +0100
+Message-ID: <87h7m0ynoj.fsf@suse.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [2003:fa:70b:4a14:ba29:b88d:f57e:aede]
+X-ClientProxiedBy: ZR0P278CA0137.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:40::16) To VI1PR0402MB3359.eurprd04.prod.outlook.com
+ (2603:10a6:803:3::28)
 MIME-Version: 1.0
-X-Spamd-Result: default: False [-0.95 / 7.00];
-         ARC_NA(0.00)[];
-         TO_DN_EQ_ADDR_SOME(0.00)[];
-         HAS_XOIP(0.00)[];
-         FROM_HAS_DN(0.00)[];
-         TO_DN_SOME(0.00)[];
-         TO_MATCH_ENVRCPT_ALL(0.00)[];
-         MIME_GOOD(-0.10)[text/plain];
-         DKIM_SIGNED(0.00)[bfs.de:s=dkim201901];
-         RCPT_COUNT_TWO(0.00)[2];
-         NEURAL_HAM(-0.00)[-1.000];
-         RCVD_NO_TLS_LAST(0.10)[];
-         FROM_EQ_ENVFROM(0.00)[];
-         MIME_TRACE(0.00)[0:+];
-         RCVD_COUNT_TWO(0.00)[2];
-         MID_RHS_MATCH_FROM(0.00)[];
-         BAYES_HAM(-0.95)[86.63%]
-X-Spam-Status: No, score=-0.95
-Authentication-Results: mx02-sz.bfs.de;
-        none
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost (2003:fa:70b:4a14:ba29:b88d:f57e:aede) by ZR0P278CA0137.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:40::16) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19 via Frontend Transport; Thu, 25 Feb 2021 19:03:59 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: de897b0b-9df5-4ad2-6424-08d8d9c01bae
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4591:
+X-Microsoft-Antispam-PRVS: <VI1PR04MB459174FB6C45DAEA2CC1BFF8A89E9@VI1PR04MB4591.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tlK391oRAcDYRKcrzf8yGRBWe4q17sOvuNMGJ9glEH4uHUgG/8r0z8WkF53EOOMDtQmagsmTKbT44fJC2s8lBZAuiS87t25/w1qdy5qI6x4OPWjTCjvu+fz7trcDEycfa6gmbV5PMGyFEu02PLXgRTMMxIawl9IU78JOBTBwXhge0Z9HXPyv8mTz85UvaneV3u93bYgnY8KUJhhcLdrupXsg0iec/SgUePRVuVrLaLu/txY2tZFMqsW6n+GkRBncg5m5OFqBrzxGtjDdjEP5EYdJxLjURMgsGPIFciU3GjQNA+3/QFmBIwnbYtgp2QMYgZblPMtJ55M2LsDXTsPx2gJYkhSzsBqFJh/0eFYVSKFVQAqmaTNg8zRqc4QzQKhhQU+0k1Jzm8GHZ+QsNTLNYcDrDQkimQv23tQ3rCQaJIPRY0DW/hA78WMF0Y7U2uHR1jZPOWEPSQ0+l1p2ibRPSIixOiZywSIxRSpG7Jrhw8AwMYwEPEUKTVJqwSBCyLegkAoNAyxXxHr0Cj2eQuYawQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR0402MB3359.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(376002)(346002)(39860400002)(366004)(396003)(66946007)(2906002)(4744005)(66476007)(478600001)(52116002)(66556008)(6496006)(6666004)(36756003)(5660300002)(8676002)(2616005)(4326008)(16526019)(186003)(6486002)(316002)(8936002)(86362001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RmJWZlVqWXB3cjhEdG5ObXhwVmtrMHpmQzhkQnRvNXExbmNKRG10QVIwQ0pv?=
+ =?utf-8?B?dVdxaVZZY3hMS0pBRXk4N1V6WWhKaEpPc2ZWREU5bXVzbTZmME5xbStyYita?=
+ =?utf-8?B?Smlud09wdld0L0kzbG82SnZxWFh3aVBBMUowY3pkQzAyY0prUTZSU0RUWUho?=
+ =?utf-8?B?MjhQL21MNWhobVNyeFlocVYyN2lBZGR5OUk2Y2VQbG85WjVRbzNEOXppSWdm?=
+ =?utf-8?B?eHQ0Z2lodFVWSWhkemgweG53K2lYQW5pc2F0WVgzZWtVb3FJT0F3NEdKWC9t?=
+ =?utf-8?B?UHNlanp5N0RST1YvUGNRUzQ4dnd4SlZVdS95bWpzRTYvdkJIcmM0NHQ0WVpI?=
+ =?utf-8?B?RUtiKzlqSGUxTUJyV1U3Qnk1M3pmazZUTGMzWUdRVlgwRitmZjl2ZEx1aktJ?=
+ =?utf-8?B?MjJwOVhlbUpSWGI2bGtDcUQ2bjdHN0dJSDBnekhoWVdnQVhlckMvVHNnTXE1?=
+ =?utf-8?B?dWZLY3YxM0I0cHB3WDZHcnovakRmN2Urd0V1U3p4eFJseUtGMjJIMG8vVXVJ?=
+ =?utf-8?B?YitubXhQWks4VUtrSXZHZklaQnRwSTZ0L0E5NDN5VjVwbEkxaVFpYUdJS3hJ?=
+ =?utf-8?B?OVpVeEdUNXNMMXYwU0ZiZCtVVlpaMGE4SUxxbk4yOENOdHJiQzJZekMwcUQ0?=
+ =?utf-8?B?QTNWSmNkN0xJSGhqTURvcXNYbDBmLytCcXNjU2x4K0dTVTBGWUZrVUNBd3J5?=
+ =?utf-8?B?YVJFckI5V1dBT3FrQWdEZk56aFFTVE1Fb0ZrWXB0d3VtQ3FPQmJnYTNIaGFR?=
+ =?utf-8?B?czk5MkVNbFNJUVREWmMzTHhHMVk2Wk0rTW9UVTlQSThsMmZuUUYxdEZQdjdS?=
+ =?utf-8?B?ek5zRk9KaDkrZVFrTGNPcWU4Zmd0eVFzaWlpMWVvTXpHVXhFV1JVT2dhT0Ja?=
+ =?utf-8?B?ZldKZEtZdGExT3czenRMOHFvbi84Q1BKZ1FVb3oxWHptcXg3SjJKRXBOK3RH?=
+ =?utf-8?B?VEtXVVhyN2hxWTV0cFV1Z1lPQTVXN2YzeE80dzJmUG4xZmhTdzY2dVRvYlFs?=
+ =?utf-8?B?MHQ0V2pET0YyYy8yU0w1bC9RVURQQzZPSlZNU3N2Tit1RXFnendDbW0zQjR6?=
+ =?utf-8?B?U1hhcXFkVm43MWhZNE9KeTExV0lNUjNUZXAvNmM5bHByaGkvQk8zQW9VNmhn?=
+ =?utf-8?B?dm56TWVWNFNiTXltbkpZQjhqc1hhZDRWUFlQMmNxdFlab3hneExYeng4K21K?=
+ =?utf-8?B?QXdobXBnTVNPd0ttcm1LQTZMRnpHUURCQmlBdURSUnJqc0dyQmN1czhEaTFm?=
+ =?utf-8?B?V2VaWXlBUnorejkvdjhaTHRDWGNOOG1aL01aWU1meko1QmNxLy9kUnFRMUhQ?=
+ =?utf-8?B?OXZ2THFydEFqOGJ6ZlJlNlFwNUM1YUFndTl3QXJRVWN6b2FaNlk2c2V3UW85?=
+ =?utf-8?B?eGxGWDlJQTRjQ1NHVW1aWkIwUTdBNDNWR05BZUExYzd6d2hTQWN5WVZKa1RQ?=
+ =?utf-8?B?ajEzY2JQY2JidkRveGlhUHlnMEIwTk0vUExaQjV0dXBnNUVOZ2RYSERtdXRq?=
+ =?utf-8?B?RXRkZm1tdzBUY2IwOWIzTXVMWldQdVdqL2UxeEFZM0o4Y1V3dWhHZy9UMU52?=
+ =?utf-8?B?anBHY05wVUhoTEdFUVVBU28zUXRDQlJkRjlyUnFTRys4aFpOZzMwU2pEbmxT?=
+ =?utf-8?B?anM3ZnpKOERxWlpweHh2d2ZMNEVqTzczL3V3anFFWnE3bE56c0FwSXFMcWln?=
+ =?utf-8?B?TkYrZ0YxSVlpMFhjdmZpeklyOVhrYnFwVzdLVUFkQjRISklSNi9pelBIMlRQ?=
+ =?utf-8?B?M0dieW1tTllKUzlNY0x1aHR3RUpra1NGM1lyKytJQUlmandWSlpCRXZrVzZ4?=
+ =?utf-8?B?Y0Y2VjJqVVMxTHZ4ZTczR0xPSDJrWmZUQWFQTzhvMWsyZWVjNkFGT1RlNncy?=
+ =?utf-8?Q?wjCSqV6DqfTBp?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: de897b0b-9df5-4ad2-6424-08d8d9c01bae
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR0402MB3359.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2021 19:03:59.5156
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oxZcN63T+Cl0iZK9iAyEWtjQZzNiJ+VHOZ4KOwivgokI+dexr9pGl69khb0FYhk+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4591
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-I would not mention crossfile support in 5.3.
-It is more confusing than helping.
 
-If the support works after 5.12 just say it. Nobody will write
-a programm an claim "works for 5.3 and >5.12 ".
+I was looking at this to possibly give it a go in mount.cifs (cifs-utils).
 
-re,
- wh
-
-________________________________________
-Von: Luis Henriques <lhenriques@suse.de>
-Gesendet: Donnerstag, 25. Februar 2021 11:21:04
-An: Amir Goldstein
-Cc: Alejandro Colomar; Michael Kerrisk; Jeff Layton; Steve French; Miklos S=
-zeredi; Trond Myklebust; Anna Schumaker; Alexander Viro; Darrick J. Wong; D=
-ave Chinner; Greg KH; Nicolas Boichat; Ian Lance Taylor; Luis Lozano; Andre=
-as Dilger; Olga Kornievskaia; Christoph Hellwig; ceph-devel; linux-kernel; =
-CIFS; samba-technical; linux-fsdevel; Linux NFS Mailing List; linux-man
-Betreff: Re: [PATCH] copy_file_range.2: Kernel v5.12 updates
-
-On Wed, Feb 24, 2021 at 06:10:45PM +0200, Amir Goldstein wrote:
-> On Wed, Feb 24, 2021 at 4:22 PM Luis Henriques <lhenriques@suse.de> wrote=
-:
-> >
-> > Update man-page with recent changes to this syscall.
-> >
-> > Signed-off-by: Luis Henriques <lhenriques@suse.de>
-> > ---
-> > Hi!
-> >
-> > Here's a suggestion for fixing the manpage for copy_file_range().  Note=
- that
-> > I've assumed the fix will hit 5.12.
-> >
-> >  man2/copy_file_range.2 | 10 +++++++++-
-> >  1 file changed, 9 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/man2/copy_file_range.2 b/man2/copy_file_range.2
-> > index 611a39b8026b..b0fd85e2631e 100644
-> > --- a/man2/copy_file_range.2
-> > +++ b/man2/copy_file_range.2
-> > @@ -169,6 +169,9 @@ Out of memory.
-> >  .B ENOSPC
-> >  There is not enough space on the target filesystem to complete the cop=
-y.
-> >  .TP
-> > +.B EOPNOTSUPP
-> > +The filesystem does not support this operation.
-> > +.TP
-> >  .B EOVERFLOW
-> >  The requested source or destination range is too large to represent in=
- the
-> >  specified data types.
-> > @@ -187,7 +190,7 @@ refers to an active swap file.
-> >  .B EXDEV
-> >  The files referred to by
-> >  .IR fd_in " and " fd_out
-> > -are not on the same mounted filesystem (pre Linux 5.3).
-> > +are not on the same mounted filesystem (pre Linux 5.3 and post Linux 5=
-.12).
->
-> I think you need to drop the (Linux range) altogether.
-> What's missing here is the NFS cross server copy use case.
-> Maybe:
->
-> ...are not on the same mounted filesystem and the source and target files=
-ystems
-> do not support cross-filesystem copy.
->
-> You may refer the reader to VERSIONS section where it will say which
-> filesystems support cross-fs copy as of kernel version XXX (i.e. cifs and=
- nfs).
->
-> >  .SH VERSIONS
-> >  The
-> >  .BR copy_file_range ()
-> > @@ -202,6 +205,11 @@ Applications should target the behaviour and requi=
-rements of 5.3 kernels.
-> >  .PP
-> >  First support for cross-filesystem copies was introduced in Linux 5.3.
-> >  Older kernels will return -EXDEV when cross-filesystem copies are atte=
-mpted.
-> > +.PP
-> > +After Linux 5.12, support for copies between different filesystems was=
- dropped.
-> > +However, individual filesystems may still provide
-> > +.BR copy_file_range ()
-> > +implementations that allow copies across different devices.
->
-> Again, this is not likely to stay uptodate for very long.
-> The stable kernels are expected to apply your patch (because it fixes
-> a regression)
-> so this should be phrased differently.
-> If it were me, I would provide all the details of the situation to
-> Michael and ask him
-> to write the best description for this section.
-
-Thanks Amir.
-
-Yeah, it's tricky.  Support was added and then dropped.   Since stable
-kernels will be picking this patch,  maybe the best thing to do is to no
-mention the generic cross-filesystem support at all...?  Or simply say
-that 5.3 temporarily supported it but that support was later dropped.
-
-Michael (or Alejandro), would you be OK handling this yourself as Amir
-suggested?
+Sorry if this has been debated before but is there an interest in
+converting those man page to RST? We already switched in cifs-utils.
+Iterating on patchsets is quite daunting in roff.
 
 Cheers,
---
-Lu=EDs
+--=20
+Aur=C3=A9lien Aptel / SUSE Labs Samba Team
+GPG: 1839 CB5F 9F5B FB9B AA97  8C99 03C8 A49B 521B D5D3
+SUSE Software Solutions Germany GmbH, Maxfeldstr. 5, 90409 N=C3=BCrnberg, D=
+E
+GF: Felix Imend=C3=B6rffer, Mary Higgins, Sri Rasiah HRB 247165 (AG M=C3=BC=
+nchen)
+
