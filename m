@@ -2,140 +2,122 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0BA5432560D
-	for <lists+linux-man@lfdr.de>; Thu, 25 Feb 2021 20:05:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id AEBE132611B
+	for <lists+linux-man@lfdr.de>; Fri, 26 Feb 2021 11:16:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233498AbhBYTFT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 25 Feb 2021 14:05:19 -0500
-Received: from de-smtp-delivery-102.mimecast.com ([194.104.109.102]:59189 "EHLO
-        de-smtp-delivery-102.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S233276AbhBYTFN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 25 Feb 2021 14:05:13 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-        t=1614279842;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=khND3q2P5JO6gJQuB9Q33C51QrN9ywxGjcZy7pMumik=;
-        b=UeKzz1Sy6ZEAJQErc9+ubz9137D0/Z6cLSEaWrM7hsn9V7YI10Javta3UB++aaP55tj0JV
-        EPK66WSO8zFmBv+HigGUJ9Uw1azTRt4AJTIn8YJt6/VFmhoeoPWJue+x6DeHM11M4MRsqP
-        RrkMUR1DD9BdImgsXlH2G/jZnVuIg74=
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2107.outbound.protection.outlook.com [104.47.17.107])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-1-1ankPBAvNBCLdJyO8jhGgQ-1; Thu, 25 Feb 2021 20:04:01 +0100
-X-MC-Unique: 1ankPBAvNBCLdJyO8jhGgQ-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Jl4Z7LrjFSSvjo912jNmB2Eh9UEw1BeKevGXOv5IyRPBhphB+pLOaEdVcQgJLxBbBgn74gmop6AQwsbPdcI88koNmJQny5rAvJh84Sy/sTRLSw8fsRRkOGQHP0E9UgkJixnYhxSX/uDXRflM/LlT5A1JYixb5VRE8QmUaRV7N0uhTA60het1a2lJhbt32q67sEMdTyaIMBen2LKoxsAKodm7AItdiMNBE1DTLVj++4/oJI2G2/5MY6WMKV6U9gSCAwOJFER4gVuZrPHVrIs7L35S+aipiP6kINp2vILdPNAjq0p15meaFNIMlouAih6MzfLjBWIkq7m0mw1TfWlwQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=khND3q2P5JO6gJQuB9Q33C51QrN9ywxGjcZy7pMumik=;
- b=mFoYex//683Tu/fPwXgmPbEB4vLccov9W/ql1tcIIaO20FlyYFByFdsNGU2KLE3M/tb/uidkDE28dDIBja+62ZDq19pyMzypLmVWmXt/K581OtMVJsqIiYKesYXRPIVSL3SUSIcaJfLI2EdQfkzkNaRw26Aiai6s/BdMoCSLGsxKCrqumKdg9N3o+tmS+NSJ2UvTnbUXmADj/DBMQMi+cUCQ9napqQlgtquSEnoZIsoWEEFI9LIsyXeAZr8L2XC3D4hAenBsdm335WV2q/kL25kSYS7lJcPemj8c55TkFCzAQMiVFRNsiLstBUzIHp+m+UwT9DhHxyl8st7PiWBliw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: redhat.com; dkim=none (message not signed)
- header.d=none;redhat.com; dmarc=none action=none header.from=suse.com;
-Received: from VI1PR0402MB3359.eurprd04.prod.outlook.com (2603:10a6:803:3::28)
- by VI1PR04MB4591.eurprd04.prod.outlook.com (2603:10a6:803:6e::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.29; Thu, 25 Feb
- 2021 19:03:59 +0000
-Received: from VI1PR0402MB3359.eurprd04.prod.outlook.com
- ([fe80::9c1d:89de:a08e:ccc9]) by VI1PR0402MB3359.eurprd04.prod.outlook.com
- ([fe80::9c1d:89de:a08e:ccc9%4]) with mapi id 15.20.3868.032; Thu, 25 Feb 2021
- 19:03:59 +0000
-From:   =?utf-8?Q?Aur=C3=A9lien?= Aptel <aaptel@suse.com>
-To:     David Howells <dhowells@redhat.com>, mtk.manpages@gmail.com,
-        viro@zeniv.linux.org.uk
-Cc:     dhowells@redhat.com, linux-fsdevel@vger.kernel.org,
-        linux-man@vger.kernel.org, linux-api@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/5] Add manpage for open_tree(2)
-In-Reply-To: <159827188271.306468.16962617119460123110.stgit@warthog.procyon.org.uk>
-References: <159827188271.306468.16962617119460123110.stgit@warthog.procyon.org.uk>
-Date:   Thu, 25 Feb 2021 20:03:56 +0100
-Message-ID: <87h7m0ynoj.fsf@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [2003:fa:70b:4a14:ba29:b88d:f57e:aede]
-X-ClientProxiedBy: ZR0P278CA0137.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:40::16) To VI1PR0402MB3359.eurprd04.prod.outlook.com
- (2603:10a6:803:3::28)
+        id S230164AbhBZKPa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 26 Feb 2021 05:15:30 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53140 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231272AbhBZKN7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 26 Feb 2021 05:13:59 -0500
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 41A68C06174A;
+        Fri, 26 Feb 2021 02:13:19 -0800 (PST)
+Received: by mail-wm1-x335.google.com with SMTP id o10so749575wmc.1;
+        Fri, 26 Feb 2021 02:13:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=UcwXbjPspvdQ4b6hP2yUf/RnFbzT9dnV8toQVcT9t0Q=;
+        b=W/Z3NYQvkwE7RJz0m8fThZtcPXZa52gGx5QJa1TIfz7B1mvKdmTy7955/+wL9msJN/
+         U1qAMheJC4I/zW3KnQ7gaLaQhEw3Kcm/VA0SO1OjuyX6jsUE4g03vSfkty0u6jvT+w0o
+         0YxboNCAWX2b/ws6rvL0bkQSA6RQ0cKU7wx81r8vJMRZGav0LhWse6BUS+jmju/k62tx
+         Ssvmn6mh+FPePI1qiiQ6EnJTLXa/Pw4oDiD/ZuwepvNAVjTgwwAqSG3rf9Y+lOe6+RjH
+         ewGEosyyc751yQfq+/5p018C0U2kOUpZUerF3ds6fXNGnbSnh5AM8rSaAOPHkFxivLrp
+         oDIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=UcwXbjPspvdQ4b6hP2yUf/RnFbzT9dnV8toQVcT9t0Q=;
+        b=Uxr6m2VZv/WpsfeIcL6CPhsYmqJL//ZFd21rsbVaYrTsSmfJC8weFPWwmoavssBLcZ
+         9TYIkOqPvea8IXbb5qCWS6OtV+kINxbjopUzgxAg9bmvVQdGl53H7GNqC1t8McH9CRCM
+         0U0ukm5R6I4k1+6vHBwQ2gjNDgtKFwCeHf9k7DJD5B3HZWtuDq2dh4NTYAK0qx87GbuB
+         X1CCayrMlxKh1YlPQkduo/rDyBPuW8PpkuY25YP+cEuq12vwOdtLAUDE8k7gl1GHOvYp
+         cnLsUx5p3rQDmgTuI4NuDQl/AgJZMG+OKP4a/QkaMv19ieMwpr/oA3fYyk0PR8rOg4EE
+         FBPQ==
+X-Gm-Message-State: AOAM533Pol4bnyePSiZl5x3F1QUp+K4T9P928fihhJmMHm9NnWC0bTZJ
+        rxMSQTNbyWbW439ubNsczJ2hwhz5vCgEJw==
+X-Google-Smtp-Source: ABdhPJz+kl3sKdVAUjZUW1w6qXbEODQ2vpK+v7Ynjy6o1JFRa9VgJCMlLmgI9oC0gBY/DWPSryH7NA==
+X-Received: by 2002:a1c:721a:: with SMTP id n26mr2088010wmc.181.1614334397997;
+        Fri, 26 Feb 2021 02:13:17 -0800 (PST)
+Received: from [192.168.1.143] ([170.253.51.130])
+        by smtp.gmail.com with ESMTPSA id v9sm12426835wrt.76.2021.02.26.02.13.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 26 Feb 2021 02:13:17 -0800 (PST)
+Subject: Re: [PATCH] copy_file_range.2: Kernel v5.12 updates
+To:     Luis Henriques <lhenriques@suse.de>,
+        Amir Goldstein <amir73il@gmail.com>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        Jeff Layton <jlayton@kernel.org>,
+        Steve French <sfrench@samba.org>,
+        Miklos Szeredi <miklos@szeredi.hu>,
+        Trond Myklebust <trond.myklebust@hammerspace.com>,
+        Anna Schumaker <anna.schumaker@netapp.com>,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        "Darrick J. Wong" <darrick.wong@oracle.com>,
+        Dave Chinner <dchinner@redhat.com>,
+        Greg KH <gregkh@linuxfoundation.org>,
+        Nicolas Boichat <drinkcat@chromium.org>,
+        Ian Lance Taylor <iant@google.com>,
+        Luis Lozano <llozano@chromium.org>,
+        Andreas Dilger <adilger@dilger.ca>,
+        Olga Kornievskaia <aglo@umich.edu>,
+        Christoph Hellwig <hch@infradead.org>,
+        ceph-devel <ceph-devel@vger.kernel.org>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        CIFS <linux-cifs@vger.kernel.org>,
+        samba-technical <samba-technical@lists.samba.org>,
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        Linux NFS Mailing List <linux-nfs@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>
+References: <20210222102456.6692-1-lhenriques@suse.de>
+ <20210224142307.7284-1-lhenriques@suse.de>
+ <CAOQ4uxi3-+tOgHV_GUnWtJoQXbV5ZS9qDZsLsd9sJxX5Aftyew@mail.gmail.com>
+ <YDd6EMpvZhHq6ncM@suse.de>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <fd5d0d24-35e3-6097-31a9-029475308f15@gmail.com>
+Date:   Fri, 26 Feb 2021 11:13:15 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost (2003:fa:70b:4a14:ba29:b88d:f57e:aede) by ZR0P278CA0137.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:40::16) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19 via Frontend Transport; Thu, 25 Feb 2021 19:03:59 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: de897b0b-9df5-4ad2-6424-08d8d9c01bae
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4591:
-X-Microsoft-Antispam-PRVS: <VI1PR04MB459174FB6C45DAEA2CC1BFF8A89E9@VI1PR04MB4591.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tlK391oRAcDYRKcrzf8yGRBWe4q17sOvuNMGJ9glEH4uHUgG/8r0z8WkF53EOOMDtQmagsmTKbT44fJC2s8lBZAuiS87t25/w1qdy5qI6x4OPWjTCjvu+fz7trcDEycfa6gmbV5PMGyFEu02PLXgRTMMxIawl9IU78JOBTBwXhge0Z9HXPyv8mTz85UvaneV3u93bYgnY8KUJhhcLdrupXsg0iec/SgUePRVuVrLaLu/txY2tZFMqsW6n+GkRBncg5m5OFqBrzxGtjDdjEP5EYdJxLjURMgsGPIFciU3GjQNA+3/QFmBIwnbYtgp2QMYgZblPMtJ55M2LsDXTsPx2gJYkhSzsBqFJh/0eFYVSKFVQAqmaTNg8zRqc4QzQKhhQU+0k1Jzm8GHZ+QsNTLNYcDrDQkimQv23tQ3rCQaJIPRY0DW/hA78WMF0Y7U2uHR1jZPOWEPSQ0+l1p2ibRPSIixOiZywSIxRSpG7Jrhw8AwMYwEPEUKTVJqwSBCyLegkAoNAyxXxHr0Cj2eQuYawQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR0402MB3359.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(376002)(346002)(39860400002)(366004)(396003)(66946007)(2906002)(4744005)(66476007)(478600001)(52116002)(66556008)(6496006)(6666004)(36756003)(5660300002)(8676002)(2616005)(4326008)(16526019)(186003)(6486002)(316002)(8936002)(86362001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RmJWZlVqWXB3cjhEdG5ObXhwVmtrMHpmQzhkQnRvNXExbmNKRG10QVIwQ0pv?=
- =?utf-8?B?dVdxaVZZY3hMS0pBRXk4N1V6WWhKaEpPc2ZWREU5bXVzbTZmME5xbStyYita?=
- =?utf-8?B?Smlud09wdld0L0kzbG82SnZxWFh3aVBBMUowY3pkQzAyY0prUTZSU0RUWUho?=
- =?utf-8?B?MjhQL21MNWhobVNyeFlocVYyN2lBZGR5OUk2Y2VQbG85WjVRbzNEOXppSWdm?=
- =?utf-8?B?eHQ0Z2lodFVWSWhkemgweG53K2lYQW5pc2F0WVgzZWtVb3FJT0F3NEdKWC9t?=
- =?utf-8?B?UHNlanp5N0RST1YvUGNRUzQ4dnd4SlZVdS95bWpzRTYvdkJIcmM0NHQ0WVpI?=
- =?utf-8?B?RUtiKzlqSGUxTUJyV1U3Qnk1M3pmazZUTGMzWUdRVlgwRitmZjl2ZEx1aktJ?=
- =?utf-8?B?MjJwOVhlbUpSWGI2bGtDcUQ2bjdHN0dJSDBnekhoWVdnQVhlckMvVHNnTXE1?=
- =?utf-8?B?dWZLY3YxM0I0cHB3WDZHcnovakRmN2Urd0V1U3p4eFJseUtGMjJIMG8vVXVJ?=
- =?utf-8?B?YitubXhQWks4VUtrSXZHZklaQnRwSTZ0L0E5NDN5VjVwbEkxaVFpYUdJS3hJ?=
- =?utf-8?B?OVpVeEdUNXNMMXYwU0ZiZCtVVlpaMGE4SUxxbk4yOENOdHJiQzJZekMwcUQ0?=
- =?utf-8?B?QTNWSmNkN0xJSGhqTURvcXNYbDBmLytCcXNjU2x4K0dTVTBGWUZrVUNBd3J5?=
- =?utf-8?B?YVJFckI5V1dBT3FrQWdEZk56aFFTVE1Fb0ZrWXB0d3VtQ3FPQmJnYTNIaGFR?=
- =?utf-8?B?czk5MkVNbFNJUVREWmMzTHhHMVk2Wk0rTW9UVTlQSThsMmZuUUYxdEZQdjdS?=
- =?utf-8?B?ek5zRk9KaDkrZVFrTGNPcWU4Zmd0eVFzaWlpMWVvTXpHVXhFV1JVT2dhT0Ja?=
- =?utf-8?B?ZldKZEtZdGExT3czenRMOHFvbi84Q1BKZ1FVb3oxWHptcXg3SjJKRXBOK3RH?=
- =?utf-8?B?VEtXVVhyN2hxWTV0cFV1Z1lPQTVXN2YzeE80dzJmUG4xZmhTdzY2dVRvYlFs?=
- =?utf-8?B?MHQ0V2pET0YyYy8yU0w1bC9RVURQQzZPSlZNU3N2Tit1RXFnendDbW0zQjR6?=
- =?utf-8?B?U1hhcXFkVm43MWhZNE9KeTExV0lNUjNUZXAvNmM5bHByaGkvQk8zQW9VNmhn?=
- =?utf-8?B?dm56TWVWNFNiTXltbkpZQjhqc1hhZDRWUFlQMmNxdFlab3hneExYeng4K21K?=
- =?utf-8?B?QXdobXBnTVNPd0ttcm1LQTZMRnpHUURCQmlBdURSUnJqc0dyQmN1czhEaTFm?=
- =?utf-8?B?V2VaWXlBUnorejkvdjhaTHRDWGNOOG1aL01aWU1meko1QmNxLy9kUnFRMUhQ?=
- =?utf-8?B?OXZ2THFydEFqOGJ6ZlJlNlFwNUM1YUFndTl3QXJRVWN6b2FaNlk2c2V3UW85?=
- =?utf-8?B?eGxGWDlJQTRjQ1NHVW1aWkIwUTdBNDNWR05BZUExYzd6d2hTQWN5WVZKa1RQ?=
- =?utf-8?B?ajEzY2JQY2JidkRveGlhUHlnMEIwTk0vUExaQjV0dXBnNUVOZ2RYSERtdXRq?=
- =?utf-8?B?RXRkZm1tdzBUY2IwOWIzTXVMWldQdVdqL2UxeEFZM0o4Y1V3dWhHZy9UMU52?=
- =?utf-8?B?anBHY05wVUhoTEdFUVVBU28zUXRDQlJkRjlyUnFTRys4aFpOZzMwU2pEbmxT?=
- =?utf-8?B?anM3ZnpKOERxWlpweHh2d2ZMNEVqTzczL3V3anFFWnE3bE56c0FwSXFMcWln?=
- =?utf-8?B?TkYrZ0YxSVlpMFhjdmZpeklyOVhrYnFwVzdLVUFkQjRISklSNi9pelBIMlRQ?=
- =?utf-8?B?M0dieW1tTllKUzlNY0x1aHR3RUpra1NGM1lyKytJQUlmandWSlpCRXZrVzZ4?=
- =?utf-8?B?Y0Y2VjJqVVMxTHZ4ZTczR0xPSDJrWmZUQWFQTzhvMWsyZWVjNkFGT1RlNncy?=
- =?utf-8?Q?wjCSqV6DqfTBp?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de897b0b-9df5-4ad2-6424-08d8d9c01bae
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR0402MB3359.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2021 19:03:59.5156
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oxZcN63T+Cl0iZK9iAyEWtjQZzNiJ+VHOZ4KOwivgokI+dexr9pGl69khb0FYhk+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4591
+In-Reply-To: <YDd6EMpvZhHq6ncM@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hello Luis,
 
-I was looking at this to possibly give it a go in mount.cifs (cifs-utils).
+On 2/25/21 11:21 AM, Luis Henriques wrote:
+> On Wed, Feb 24, 2021 at 06:10:45PM +0200, Amir Goldstein wrote:
+>> If it were me, I would provide all the details of the situation to
+>> Michael and ask him
+>> to write the best description for this section.
+> 
+> Thanks Amir.
+> 
+> Yeah, it's tricky.  Support was added and then dropped.   Since stable
+> kernels will be picking this patch,  maybe the best thing to do is to no
+> mention the generic cross-filesystem support at all...?  Or simply say
+> that 5.3 temporarily supported it but that support was later dropped.
+> 
+> Michael (or Alejandro), would you be OK handling this yourself as Amir
+> suggested?
 
-Sorry if this has been debated before but is there an interest in
-converting those man page to RST? We already switched in cifs-utils.
-Iterating on patchsets is quite daunting in roff.
+Could you please provide a more detailed history of what is to be 
+documented?
 
-Cheers,
---=20
-Aur=C3=A9lien Aptel / SUSE Labs Samba Team
-GPG: 1839 CB5F 9F5B FB9B AA97  8C99 03C8 A49B 521B D5D3
-SUSE Software Solutions Germany GmbH, Maxfeldstr. 5, 90409 N=C3=BCrnberg, D=
-E
-GF: Felix Imend=C3=B6rffer, Mary Higgins, Sri Rasiah HRB 247165 (AG M=C3=BC=
-nchen)
+Thanks,
 
+Alex
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
