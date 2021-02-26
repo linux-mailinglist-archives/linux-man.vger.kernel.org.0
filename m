@@ -2,102 +2,183 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B7A2632622D
-	for <lists+linux-man@lfdr.de>; Fri, 26 Feb 2021 12:53:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D37CF326390
+	for <lists+linux-man@lfdr.de>; Fri, 26 Feb 2021 14:53:31 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230018AbhBZLxf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 26 Feb 2021 06:53:35 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46290 "EHLO
+        id S229885AbhBZNwz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 26 Feb 2021 08:52:55 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43746 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229996AbhBZLxd (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 26 Feb 2021 06:53:33 -0500
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 61C7EC061786;
-        Fri, 26 Feb 2021 03:52:53 -0800 (PST)
-Received: by mail-wm1-x32e.google.com with SMTP id w7so7201213wmb.5;
-        Fri, 26 Feb 2021 03:52:53 -0800 (PST)
+        with ESMTP id S229845AbhBZNwy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 26 Feb 2021 08:52:54 -0500
+Received: from mail-lf1-x149.google.com (mail-lf1-x149.google.com [IPv6:2a00:1450:4864:20::149])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0AA68C06174A
+        for <linux-man@vger.kernel.org>; Fri, 26 Feb 2021 05:52:14 -0800 (PST)
+Received: by mail-lf1-x149.google.com with SMTP id p12so3265758lfu.7
+        for <linux-man@vger.kernel.org>; Fri, 26 Feb 2021 05:52:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:from:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=NuBVfX255qpiXY+NtMUSxqbUxAFE9mom/YBJSTCC9hE=;
-        b=LnpJP5aU2oEr0vdBo6tihdbXydtoCRpxVK0C4gAai13hHeEw7kfL7oqvttIX+vFzSM
-         Gi/kCW32/uCVf+s2oNWXrceBs997dRjIxfZBGrVpuOAPh6/UvaIRDXStv5435hYS2Y8o
-         dRbZ0+6OBsFtnUTKfjPZzANAnzS3yMiKKWqIHKPS12+UEbp8i7+Wi7DAilYnVKuza4eb
-         O/GFzl3vk/Fqnd2aKCiOBCE6IiOn8dxOq2Ax4vfej/XLSuQaFwGbWcZBUEI6fvF3A//v
-         fM8jyGFLWrHnp9PjwjomqRobXsj2yGK88lzAFv4XiqiSiQnlcwBavxDItQ0EqU+8qlZt
-         K6hQ==
+        d=google.com; s=20161025;
+        h=sender:date:message-id:mime-version:subject:from:to:cc;
+        bh=9qgVEn+iuJg8wdtukO05ayWCkn1AJaTpvSfAyCSllIk=;
+        b=HtSsy1yf3vmcRFkPL7M3Kn0r6XVJJodJsLUVEPppb/TJZP4o9vifrZIRCZd/P+s4Fi
+         2Os1gHsaabEjSIWgHjw0mQtef0dxqQ4gHCuVHmHqmgnOE4NrXf9hYWpjc8WhHYV1WJhE
+         I1YrLUI/W9MSroszS76dMxsd3CfCILt0aeo4+6Wd3bCWI4K1pyk+e/HQK1NHfyCenr4v
+         uR5mhagXWnCYYtxKzq3XK6Z1R3SQ9oPNy6KsYCuVefQUjLQZbbgh0L4DaFV79+YjOHfX
+         dhxVkeAZF2QCOvhXn3nZ3vH2H4JTS5JBEZQ0W3BEjNmOtw124YHs7enW1JWgv3lP9JLX
+         tyQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=NuBVfX255qpiXY+NtMUSxqbUxAFE9mom/YBJSTCC9hE=;
-        b=sHpb4aF1YcEcWyq8Xsnn4+N7L/lJ+vJrellWlBoTa693Ct2TJLppEa38FSdfYCvcwD
-         iiph7lzT05ndvi7zj6Qss2ADbVg731s4+Mk5pd2PJ637t/MBBBM60PH+aJUhh2R7EmR3
-         nVMXtto7St/Naio1qolsYz6tgxtiHiNj10miG9k69k5U0oSj6GElIKC3O3RUZBt2Fbhi
-         X2MXt1zP0hiEITbHexD85ZQ7fGFOQmDn/IRddCDMR57H/9Mt50cxHRxl/Inw7SjUdlID
-         jjsk7qgcQgheXgTwcXAyjsKBTGKdJfOiD3kQxCiIZOO7l+WLOhYar5b9LbH4vRgvQbUQ
-         CgQA==
-X-Gm-Message-State: AOAM533f4mTpdV9JTNPythy4CYzJi/Q1M0PVNcTVwJMKzegOJEBPS1RX
-        Wwwnlko+xla1YPjy+X1GdTqKabbs1jVgRw==
-X-Google-Smtp-Source: ABdhPJx8qHuzpGfQk0t2uqF8fDSJvNKOspYW5KLD0cfOCnzoSUDJE6HJ2UKPQwH+eex/WeIUry5+sQ==
-X-Received: by 2002:a05:600c:2291:: with SMTP id 17mr2568678wmf.169.1614340372239;
-        Fri, 26 Feb 2021 03:52:52 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id s2sm13214774wrt.33.2021.02.26.03.52.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 26 Feb 2021 03:52:51 -0800 (PST)
-Subject: Re: [RFC v2] execve.2: SYNOPSIS: Document both glibc wrapper and
- kernel sycalls
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-        Florian Weimer <fweimer@redhat.com>,
-        linux-kernel@vger.kernel.org
-References: <938df2c0-04b5-f6a4-79c3-b8fe09973828@gmail.com>
- <20210218151341.51095-1-alx.manpages@gmail.com>
- <db155b69-e58c-32c2-6fc7-89b8329fbf2c@gmail.com>
- <ca34c574-72f1-f174-1de4-e2c1b7600640@gmail.com>
-Message-ID: <50102170-ead4-fa2e-2855-26f06543f95d@gmail.com>
-Date:   Fri, 26 Feb 2021 12:52:50 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <ca34c574-72f1-f174-1de4-e2c1b7600640@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+        h=x-gm-message-state:sender:date:message-id:mime-version:subject:from
+         :to:cc;
+        bh=9qgVEn+iuJg8wdtukO05ayWCkn1AJaTpvSfAyCSllIk=;
+        b=bI6/tlkCDY+uC0gl12OrKAYiL7r1sux0OuXMvXLCK1mODcd7iGXFOcArSOlPrObf76
+         N8Wg+VvnXlvo1vkYILA/25O964MmdB3sMTrQeBgnS177Epj8M57v14cXLjvAl9gRm0B2
+         eBvIsdTaCBepY7V4CAuF4JXo2sa7Kk3gAR0X470w0w+zl2QO53YnBPWwrvkGBkFF/hnk
+         D7zLwr9a4sCnCgXVoxFuxH1jY/OHnRLscyJwkC/4gws88G8N4bgaTlOrpE3wIReOtqQB
+         JCNj+oiwcgf7T/8gy1tfRa+Luhr78LvCjxpLrgpqZuMOlQP0IJUn7c3ryz1bEgsh3Dpf
+         eraQ==
+X-Gm-Message-State: AOAM5311YxRURtXNlQK8LE/kSXqrqPymhT8LPVDoDPlgYVRZBtenXd4r
+        FrgpX5V2FNtHHjgagdWT/oPDsFciX1U=
+X-Google-Smtp-Source: ABdhPJz3/+OqvGIFhb4PV/A+NiHi7yd7YOibJoENoi1KJMKVh6pVYhIN9S3OkVzQzYE25rcrBd/A8QHOzrs=
+Sender: "figiel via sendgmr" <figiel@odra.waw.corp.google.com>
+X-Received: from odra.waw.corp.google.com ([2a00:79e0:2:11:8026:754f:d3fb:e1d8])
+ (user=figiel job=sendgmr) by 2002:a2e:589:: with SMTP id 131mr1764653ljf.336.1614347532062;
+ Fri, 26 Feb 2021 05:52:12 -0800 (PST)
+Date:   Fri, 26 Feb 2021 14:51:56 +0100
+Message-Id: <20210226135156.1081606-1-figiel@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.30.1.766.gb4fecdf3b7-goog
+Subject: [PATCH v2] ptrace: add PTRACE_GET_RSEQ_CONFIGURATION request
+From:   Piotr Figiel <figiel@google.com>
+To:     Andrew Morton <akpm@linux-foundation.org>,
+        mathieu.desnoyers@efficios.com, peterz@infradead.org,
+        paulmck@kernel.org, boqun.feng@gmail.com, oleg@redhat.com,
+        ldv@altlinux.org, fweimer@redhat.com
+Cc:     Alexey Dobriyan <adobriyan@gmail.com>,
+        Andrei Vagin <avagin@gmail.com>, linux-kernel@vger.kernel.org,
+        posk@google.com, kyurtsever@google.com, ckennelly@google.com,
+        pjt@google.com, emmir@google.com, linux-man@vger.kernel.org,
+        linux-api@vger.kernel.org, Piotr Figiel <figiel@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+For userspace checkpoint and restore (C/R) a way of getting process state
+containing RSEQ configuration is needed.
 
+There are two ways this information is going to be used:
+ - to re-enable RSEQ for threads which had it enabled before C/R
+ - to detect if a thread was in a critical section during C/R
 
-Okay, after a few days of thinking, I'm not sure about what to do in 
-some cases.
+Since C/R preserves TLS memory and addresses RSEQ ABI will be restored
+using the address registered before C/R.
 
-But I think we agree to use syscall(SYS_ ...) for syscalls with no 
-wrapper (such as membarrier(2)).
+Detection whether the thread is in a critical section during C/R is needed
+to enforce behavior of RSEQ abort during C/R. Attaching with ptrace()
+before registers are dumped itself doesn't cause RSEQ abort.
+Restoring the instruction pointer within the critical section is
+problematic because rseq_cs may get cleared before the control is passed
+to the migrated application code leading to RSEQ invariants not being
+preserved. C/R code will use RSEQ ABI address to find the abort handler
+to which the instruction pointer needs to be set.
 
-Is that right?
+To achieve above goals expose the RSEQ ABI address and the signature value
+with the new ptrace request PTRACE_GET_RSEQ_CONFIGURATION.
 
-I think it may be better to separate this into 2 sets of changes.
+This new ptrace request can also be used by debuggers so they are aware
+of stops within restartable sequences in progress.
 
-1)  Document syscalls without wrappers as syscall(SYS_ ...).
-     We could already start with this.
-     (Actually, after I finish fixing the prototypes in man3.)
-     This change will be fast, because there aren't many of these.
+Signed-off-by: Piotr Figiel <figiel@google.com>
+Reviewed-by: Michal Miroslaw <emmir@google.com>
 
-2)  Do the rest, I don't know yet how.  We'll see.
+---
+v2:
+Applied review comments:
+ - changed return value from the ptrace request to the size of the
+   configuration structure
+ - expanded configuration structure with the flags field and
+   the rseq abi structure size
 
+v1:
+ https://lore.kernel.org/lkml/20210222100443.4155938-1-figiel@google.com/
 
-Thanks,
+---
+ include/uapi/linux/ptrace.h | 10 ++++++++++
+ kernel/ptrace.c             | 25 +++++++++++++++++++++++++
+ 2 files changed, 35 insertions(+)
 
-Alex
-
+diff --git a/include/uapi/linux/ptrace.h b/include/uapi/linux/ptrace.h
+index 83ee45fa634b..3747bf816f9a 100644
+--- a/include/uapi/linux/ptrace.h
++++ b/include/uapi/linux/ptrace.h
+@@ -102,6 +102,16 @@ struct ptrace_syscall_info {
+ 	};
+ };
+ 
++#define PTRACE_GET_RSEQ_CONFIGURATION	0x420f
++
++struct ptrace_rseq_configuration {
++	__u64 rseq_abi_pointer;
++	__u32 rseq_abi_size;
++	__u32 signature;
++	__u32 flags;
++	__u32 pad;
++};
++
+ /*
+  * These values are stored in task->ptrace_message
+  * by tracehook_report_syscall_* to describe the current syscall-stop.
+diff --git a/kernel/ptrace.c b/kernel/ptrace.c
+index 61db50f7ca86..76f09456ec4b 100644
+--- a/kernel/ptrace.c
++++ b/kernel/ptrace.c
+@@ -31,6 +31,7 @@
+ #include <linux/cn_proc.h>
+ #include <linux/compat.h>
+ #include <linux/sched/signal.h>
++#include <linux/minmax.h>
+ 
+ #include <asm/syscall.h>	/* for syscall_get_* */
+ 
+@@ -779,6 +780,24 @@ static int ptrace_peek_siginfo(struct task_struct *child,
+ 	return ret;
+ }
+ 
++#ifdef CONFIG_RSEQ
++static long ptrace_get_rseq_configuration(struct task_struct *task,
++					  unsigned long size, void __user *data)
++{
++	struct ptrace_rseq_configuration conf = {
++		.rseq_abi_pointer = (u64)(uintptr_t)task->rseq,
++		.rseq_abi_size = sizeof(*task->rseq),
++		.signature = task->rseq_sig,
++		.flags = 0,
++	};
++
++	size = min_t(unsigned long, size, sizeof(conf));
++	if (copy_to_user(data, &conf, size))
++		return -EFAULT;
++	return sizeof(conf);
++}
++#endif
++
+ #ifdef PTRACE_SINGLESTEP
+ #define is_singlestep(request)		((request) == PTRACE_SINGLESTEP)
+ #else
+@@ -1222,6 +1241,12 @@ int ptrace_request(struct task_struct *child, long request,
+ 		ret = seccomp_get_metadata(child, addr, datavp);
+ 		break;
+ 
++#ifdef CONFIG_RSEQ
++	case PTRACE_GET_RSEQ_CONFIGURATION:
++		ret = ptrace_get_rseq_configuration(child, addr, datavp);
++		break;
++#endif
++
+ 	default:
+ 		break;
+ 	}
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.30.1.766.gb4fecdf3b7-goog
+
