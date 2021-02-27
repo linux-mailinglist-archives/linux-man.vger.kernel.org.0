@@ -2,216 +2,302 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8BBAD326D53
-	for <lists+linux-man@lfdr.de>; Sat, 27 Feb 2021 15:01:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 08806326D7C
+	for <lists+linux-man@lfdr.de>; Sat, 27 Feb 2021 16:10:40 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230128AbhB0OAK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 27 Feb 2021 09:00:10 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41494 "EHLO
+        id S230010AbhB0PKX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 27 Feb 2021 10:10:23 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56344 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230001AbhB0OAJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 27 Feb 2021 09:00:09 -0500
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3FB68C061756;
-        Sat, 27 Feb 2021 05:59:29 -0800 (PST)
-Received: by mail-wm1-x331.google.com with SMTP id u11so3991085wmq.5;
-        Sat, 27 Feb 2021 05:59:29 -0800 (PST)
+        with ESMTP id S229953AbhB0PKU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 27 Feb 2021 10:10:20 -0500
+Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com [IPv6:2607:f8b0:4864:20::52f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A5EE1C06174A
+        for <linux-man@vger.kernel.org>; Sat, 27 Feb 2021 07:09:40 -0800 (PST)
+Received: by mail-pg1-x52f.google.com with SMTP id t25so8130289pga.2
+        for <linux-man@vger.kernel.org>; Sat, 27 Feb 2021 07:09:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=tvAI4IdeCO4sgAZNtE9xDAeulh8mRYshdjpgF2TPJtQ=;
-        b=b3FMrX8YKqdozH2POjKQ+nxkWJquvm5hRtl3h1dXTQJoPlINIRcY6gEeQWkGu4UwTf
-         3JgyqYgejIWxklabYKU1NL1rsXaPWtA6qB/9OGWxoUuCGMQ2ga9eyaUTow9ROHIPX6s1
-         gO9PUHl5oM30m63BL+b5iWtgPAIPSCgup+sieUe8U/PEJwCIIObPyKuTCxjx36guplVJ
-         AcUt8MXyc60m7K1uFQA25F63QMDHrzDrQ9gYprwbfkoBBmZj0FNxFxS6F29Zn5UzOl11
-         ILjHw9/94z7IjKjZEQAI5zaeCmA8kq6AcBom8vo5MsdIQSg/h7eYKD4z2Wt/jmJEahdQ
-         Yv0g==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=P3oS4lAYML3Dzzv/k2CeIkLEU4XE9MilzrzZ+U3KAco=;
+        b=oX5OzbefE2PuyBpthK4YE/xp5LwTXeFaBj0XCiWkkN00AKk5aj5CtUeCgtujZ6k9vv
+         TmbUJsQA7z4gp455BHTSpba9anaiKrS/e64s7ztMkvfGZpywJY3UvoI8oKPIiU1MGpUg
+         1vo7Nva+oknZYY8JGL/Kt2IOD9PLZuV09j0iaA36wCjsrvxgfY3uljB6toLK1lmBWGDf
+         4qNC7lwYzKFe5n6pGbOhHYWt8keRBEdrVnctu1s10n+wV0hbkz3I8teNLasCDrbGRFr7
+         9vChlhZvP8eZ0A3gLABOJj41xUy8MRoAsPgOf2OtJhQ5XsQn4Gnl2EPJ5Qzu2L6BfPty
+         piQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=tvAI4IdeCO4sgAZNtE9xDAeulh8mRYshdjpgF2TPJtQ=;
-        b=e6COPEbP0AD+vm1rh50eRl/LIhmz48No6XhS5JgWoOp3hxcOHVAkZDNe752dCCG6QA
-         XUnu45K6xgrpch+EKUTk34wprterSmerkUhxq5RTDDKFdKzXPzJhEDz7qwJVHS5RRn1o
-         4f/QrsC6dfcNIzOBaR3hnVMvuLLAJE/0KUhIsITCf7OOi9ykK8acrX/2Z/0Mw64K5JvU
-         geQDf0pvMMqFGlS1oTsgrlTuqyvzjLXHvGMjzxZR+PAqthFoledR5NX+AYHvooqu/UsT
-         ANQ6czEvrm718NmDq6lO3Y2mpg8zYplQfarhwCxTnC39lhILL16+TaCLYfofVLO2Svc+
-         NzWw==
-X-Gm-Message-State: AOAM5319eAKKY6JwHco5G7omM37djwLWc+y6drjXt1X5EBYgap0PIopM
-        +CCOsPvhkIMgRbiG5VWj6s8=
-X-Google-Smtp-Source: ABdhPJwYoK9qHMRToQ8OSAFFvjw3ofxdQdQc+A0olkG2RZQTSwYLePQCK0BRbAbiYqgeGFJSaZF0fA==
-X-Received: by 2002:a05:600c:350c:: with SMTP id h12mr7336570wmq.39.1614434367999;
-        Sat, 27 Feb 2021 05:59:27 -0800 (PST)
-Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id f22sm3871680wmc.33.2021.02.27.05.59.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 27 Feb 2021 05:59:27 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     Amir Goldstein <amir73il@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org, Luis Henriques <lhenriques@suse.de>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Greg KH <gregkh@linuxfoundation.org>,
-        Anna Schumaker <anna.schumaker@netapp.com>,
-        Jeff Layton <jlayton@kernel.org>,
-        Steve French <sfrench@samba.org>,
-        Miklos Szeredi <miklos@szeredi.hu>,
-        Trond Myklebust <trond.myklebust@hammerspace.com>,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        "Darrick J. Wong" <darrick.wong@oracle.com>,
-        Dave Chinner <dchinner@redhat.com>,
-        Nicolas Boichat <drinkcat@chromium.org>,
-        Ian Lance Taylor <iant@google.com>,
-        Luis Lozano <llozano@chromium.org>,
-        Andreas Dilger <adilger@dilger.ca>,
-        Olga Kornievskaia <aglo@umich.edu>,
-        Christoph Hellwig <hch@infradead.org>,
-        ceph-devel <ceph-devel@vger.kernel.org>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        CIFS <linux-cifs@vger.kernel.org>,
-        samba-technical <samba-technical@lists.samba.org>,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        Linux NFS Mailing List <linux-nfs@vger.kernel.org>,
-        Walter Harms <wharms@bfs.de>
-Subject: [RFC v2] copy_file_range.2: Update cross-filesystem support for 5.12
-Date:   Sat, 27 Feb 2021 14:49:23 +0100
-Message-Id: <20210227134922.5706-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.30.1.721.g45526154a5
-In-Reply-To: <ffd92bb4-8f72-cbec-045f-a2ad7869ab3b@gmail.com>
-References: <ffd92bb4-8f72-cbec-045f-a2ad7869ab3b@gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=P3oS4lAYML3Dzzv/k2CeIkLEU4XE9MilzrzZ+U3KAco=;
+        b=KToxsLY94+7mFPMWeCvAVeS1VyZ1Fo1Yr1qyTmYRV/nHJ7D2sEbcbI3cRYWhG9fRZ1
+         amIvQ5X2fvFJWUDco/+7zfefV3fYzpmyo0yvb8RTqa+jP69wWEs5VipVGue0eifo70cb
+         LUq5eSG5w9GmLYGt782/uloN8MHd0+mverxSHB2wfm132G5TpfW3HQY+x2/t0JjTvwCp
+         KfyzKQ3vqa0XatmpYVAvyGY35tv4I6QKAuDX/eQY+G/QCJ6c2I03j2EEdFbb4+hnzl6o
+         vbFVH4LTcuuYELYyu/YAIThA7RQiLXODxRc7ez+OMgVOaLRcye0xhov9DY6M7qk6b4rD
+         M8SA==
+X-Gm-Message-State: AOAM530iCGWF8R3gKfMd9ouoAQqscREVy7Ej6sF0c7fK41/6Xd4hl/5G
+        8UWnLezl5zxtmQNeUQLGt8tPWqCgwV45M+7fADc=
+X-Google-Smtp-Source: ABdhPJzbkqpA2UQ/sEmM8tSWrSdI3HlPALzb0hL/3SPYe0bfx7oigXebpKP71HUVeN1j1luhYIwTEtoryjTwsp//bLI=
+X-Received: by 2002:a62:68c1:0:b029:1ee:5dfa:860b with SMTP id
+ d184-20020a6268c10000b02901ee5dfa860bmr2272490pfc.35.1614438580011; Sat, 27
+ Feb 2021 07:09:40 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20210215131522.450666-11-alx.manpages@gmail.com> <20210219143221.108935-1-alx.manpages@gmail.com>
+In-Reply-To: <20210219143221.108935-1-alx.manpages@gmail.com>
+From:   Stefan Puiu <stefan.puiu@gmail.com>
+Date:   Sat, 27 Feb 2021 17:09:28 +0200
+Message-ID: <CACKs7VAD69B2+rRPkXLwy0YtVOswvbqJjvvMNQ_rdQoBjF-sow@mail.gmail.com>
+Subject: Re: [PATCH v9] scripts/bash_aliases: Add useful functions
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        lnx-man <linux-man@vger.kernel.org>, Walter Harms <wharms@bfs.de>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Linux 5.12 fixes a regression.
+Hi Alejandro,
 
-Cross-filesystem copies (introduced in 5.3) were buggy.
+Sorry for jumping in this discussion so late, but I was wondering
+about one thing (see below).
 
-Move the statements documenting cross-fs to BUGS.
-Kernels 5.3..5.11 should be patched soon.
+On Fri, Feb 19, 2021 at 4:38 PM Alejandro Colomar
+<alx.manpages@gmail.com> wrote:
+>
+> That file should be sourced (.) from 'bashrc' (or 'bash_aliases').
+>
+> It contains functions that are useful for the maintenance of this
+> project.
+>
+> - grep_syscall()
+> - grep_syscall_def()
+> - man_section()
+> - man_lsfunc()
+> - pdfman()
+> - grep_glibc_prototype()
+>
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
+>
+> v2:
+>         - Reword license to adequate it for many functions instead
+>           of a single program.
+>         - Add a trailing ';' for consistency.
+> v3:
+>         - Resend to avoid confusion:  I forgot to use [PATCH v2]!
+> v4:
+>         - grep_glibc_prototype(): Fix some corner cases where
+>           a function invocation was printed.
+> v5:
+>         - grep_glibc_prototype(): Fix some corner cases where
+>           a function prototype with many attributes wasn't printed.
+> v6:
+>         - man_lsfunc(): Allow listing more than one dir.
+>           Example: $ man_lsfunc man[23];
+> v7:
+>         - grep_glibc_prototype(): Fix some corner cases where
+>           a function invocation was printed.
+> v8:
+>         - grep_glibc_prototype():
+>                 - Print attributes before the prototype too.
+>                   (AFAICS, there are none; but just in case...)
+>                 - Accept C2x attributes (glibc doesn't use them yet,
+>                   but it doesn't hurt to accept them).
+> v9:
+>         - grep_glibc_prototype(): Accept namespaced C2x attributes,
+>           such as [[gnu::nonnull]].
+>
+> ---
+>  scripts/bash_aliases | 171 +++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 171 insertions(+)
+>  create mode 100644 scripts/bash_aliases
+>
+> diff --git a/scripts/bash_aliases b/scripts/bash_aliases
+> new file mode 100644
+> index 000000000..5e4b424af
+> --- /dev/null
+> +++ b/scripts/bash_aliases
+> @@ -0,0 +1,171 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +########################################################################
+> +#
+> +# (C) Copyright 2021, Alejandro Colomar
+> +# These functions are free software; you can redistribute them and/or
+> +# modify them under the terms of the GNU General Public License
+> +# as published by the Free Software Foundation; version 2.
+> +#
+> +# These functions are distributed in the hope that they will be useful,
+> +# but WITHOUT ANY WARRANTY; without even the implied warranty of
+> +# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> +# GNU General Public License for more details
+> +# (http://www.gnu.org/licenses/gpl-2.0.html).
+> +#
+> +########################################################################
+> +
+> +########################################################################
+> +#      Exit status
+> +
+> +EX_OK=0;
+> +EX_USAGE=64;
+> +
+> +########################################################################
+> +#      Linux kernel
+> +
+> +#  grep_syscall()  finds the prototype of a syscall in the kernel sources,
+> +# printing the filename, line number, and the prototype.
+> +# It should be run from the root of the linux kernel source tree.
+> +# Usage example:  .../linux$ grep_syscall openat2;
+> +
+> +function grep_syscall()
+> +{
+> +       if ! [ -v 1 ]; then
+> +               >&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
+> +               return ${EX_USAGE};
+> +       fi
+> +
+> +       find * -type f \
+> +       |grep '\.c$' \
+> +       |sort -V \
+> +       |xargs pcregrep -Mn "(?s)^\w*SYSCALL_DEFINE.\(${1},.*?\)" \
+> +       |sed -E 's/^[^:]+:[0-9]+:/&\n/';
+> +
+> +       find * -type f \
+> +       |grep '\.[ch]$' \
 
-State version information for some errors related to this.
+Any reason not to use "find . -type f -name '*.[ch]'" when you need to
+restrict the files you're looking at? I would expect that to be
+faster. Also, not sure what you are trying to do with 'sort -V' - why
+not feed the results directly to pcregrep?
 
-Reported-by: Luis Henriques <lhenriques@suse.de>
-Reported-by: Amir Goldstein <amir73il@gmail.com>
-Related: <https://lwn.net/Articles/846403/>
-Cc: Greg KH <gregkh@linuxfoundation.org>
-Cc: Michael Kerrisk <mtk.manpages@gmail.com>
-Cc: Anna Schumaker <anna.schumaker@netapp.com>
-Cc: Jeff Layton <jlayton@kernel.org>
-Cc: Steve French <sfrench@samba.org>
-Cc: Miklos Szeredi <miklos@szeredi.hu>
-Cc: Trond Myklebust <trond.myklebust@hammerspace.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>
-Cc: "Darrick J. Wong" <darrick.wong@oracle.com>
-Cc: Dave Chinner <dchinner@redhat.com>
-Cc: Nicolas Boichat <drinkcat@chromium.org>
-Cc: Ian Lance Taylor <iant@google.com>
-Cc: Luis Lozano <llozano@chromium.org>
-Cc: Andreas Dilger <adilger@dilger.ca>
-Cc: Olga Kornievskaia <aglo@umich.edu>
-Cc: Christoph Hellwig <hch@infradead.org>
-Cc: ceph-devel <ceph-devel@vger.kernel.org>
-Cc: linux-kernel <linux-kernel@vger.kernel.org>
-Cc: CIFS <linux-cifs@vger.kernel.org>
-Cc: samba-technical <samba-technical@lists.samba.org>
-Cc: linux-fsdevel <linux-fsdevel@vger.kernel.org>
-Cc: Linux NFS Mailing List <linux-nfs@vger.kernel.org>
-Cc: Walter Harms <wharms@bfs.de>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
-
-Hi all,
-
-Please check that this is correct.
-I wrote it as I understood copy_file_range() from the LWN article,
-and the conversation on this thread,
-but maybe someone with more experience on this syscall find bugs in my patch.
-
-When kernels 5.3..5.11 fix this, some info could be compacted a bit more,
-and maybe the BUGS section could be removed.
-
-Also, I'd like to know which filesystems support cross-fs, and since when.
-
-Amir, you said that it was only cifs and nfs (since when? 5.3? 5.12?).
-
-Also, I'm a bit surprised that <5.3 could fail with EOPNOTSUPP
-and it wasn't documented.  Is that for sure, Amir?
-
-Thanks,
-
-Alex
-
----
- man2/copy_file_range.2 | 29 ++++++++++++++++++++---------
- 1 file changed, 20 insertions(+), 9 deletions(-)
-
-diff --git a/man2/copy_file_range.2 b/man2/copy_file_range.2
-index 611a39b80..93f54889d 100644
---- a/man2/copy_file_range.2
-+++ b/man2/copy_file_range.2
-@@ -169,6 +169,9 @@ Out of memory.
- .B ENOSPC
- There is not enough space on the target filesystem to complete the copy.
- .TP
-+.BR EOPNOTSUPP " (before Linux 5.3; or since Linux 5.12)"
-+The filesystem does not support this operation.
-+.TP
- .B EOVERFLOW
- The requested source or destination range is too large to represent in the
- specified data types.
-@@ -184,10 +187,17 @@ or
- .I fd_out
- refers to an active swap file.
- .TP
--.B EXDEV
-+.BR EXDEV " (before Linux 5.3)"
- The files referred to by
- .IR fd_in " and " fd_out
--are not on the same mounted filesystem (pre Linux 5.3).
-+are not on the same filesystem.
-+.TP
-+.BR EXDEV " (or since Linux 5.12)"
-+The files referred to by
-+.IR fd_in " and " fd_out
-+are not on the same filesystem,
-+and the source and target filesystems are not of the same type,
-+or do not support cross-filesystem copy.
- .SH VERSIONS
- The
- .BR copy_file_range ()
-@@ -195,13 +205,10 @@ system call first appeared in Linux 4.5, but glibc 2.27 provides a user-space
- emulation when it is not available.
- .\" https://sourceware.org/git/?p=glibc.git;a=commit;f=posix/unistd.h;h=bad7a0c81f501fbbcc79af9eaa4b8254441c4a1f
- .PP
--A major rework of the kernel implementation occurred in 5.3.
--Areas of the API that weren't clearly defined were clarified and the API bounds
--are much more strictly checked than on earlier kernels.
--Applications should target the behaviour and requirements of 5.3 kernels.
--.PP
--First support for cross-filesystem copies was introduced in Linux 5.3.
--Older kernels will return -EXDEV when cross-filesystem copies are attempted.
-+Since 5.12,
-+cross-filesystem copies can be achieved
-+when both filesystems are of the same type,
-+and that filesystem implements support for it.
- .SH CONFORMING TO
- The
- .BR copy_file_range ()
-@@ -226,6 +233,10 @@ gives filesystems an opportunity to implement "copy acceleration" techniques,
- such as the use of reflinks (i.e., two or more inodes that share
- pointers to the same copy-on-write disk blocks)
- or server-side-copy (in the case of NFS).
-+.SH BUGS
-+In Linux kernels 5.3 to 5.11, cross-filesystem copies were supported.
-+However, on some virtual filesystems, the call failed to copy,
-+eventhough it may have reported success.
- .SH EXAMPLES
- .EX
- #define _GNU_SOURCE
--- 
-2.30.1.721.g45526154a5
-
+> +       |sort -V \
+> +       |xargs pcregrep -Mn "(?s)^asmlinkage\s+[\w\s]+\**sys_${1}\s*\(.*?\)" \
+> +       |sed -E 's/^[^:]+:[0-9]+:/&\n/';
+> +}
+> +
+> +#  grep_syscall_def()  finds the definition of a syscall in the kernel sources,
+> +# printing the filename, line number, and the function definition.
+> +# It should be run from the root of the linux kernel source tree.
+> +# Usage example:  .../linux$ grep_syscall_def openat2;
+> +
+> +function grep_syscall_def()
+> +{
+> +       if ! [ -v 1 ]; then
+> +               >&2 echo "Usage: ${FUNCNAME[0]} <syscall>";
+> +               return ${EX_USAGE};
+> +       fi
+> +
+> +       find * -type f \
+> +       |grep '\.c$' \
+> +       |sort -V \
+> +       |xargs pcregrep -Mn "(?s)^\w*SYSCALL_DEFINE.\(${1},.*?^}" \
+> +       |sed -E 's/^[^:]+:[0-9]+:/&\n/';
+> +}
+> +
+> +########################################################################
+> +#      Linux man-pages
+> +
+> +#  man_section()  prints a specific manual page section (DESCRIPTION, SYNOPSIS,
+> +# ...) of all manual pages in a directory (or in a single manual page file).
+> +# Usage example:  .../man-pages$ man_section man2 SYNOPSIS;
+> +
+> +function man_section()
+> +{
+> +       if ! [ -v 2 ]; then
+> +               >&2 echo "Usage: ${FUNCNAME[0]} <dir> <section>";
+> +               return ${EX_USAGE};
+> +       fi
+> +
+> +       find "${1}" -type f \
+> +       |xargs grep -l "\.SH ${2}" \
+> +       |sort -V \
+> +       |while read -r manpage; do
+> +               <${manpage} \
+> +               sed -n \
+> +                       -e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
+> +                       -e "/^\.SH ${2}/p" \
+> +                       -e "/^\.SH ${2}/,/^\.SH/{/^\.SH/!p}" \
+> +               |man -P cat -l - 2>/dev/null;
+> +       done;
+> +}
+> +
+> +#  man_lsfunc()  prints the name of all C functions declared in the SYNOPSIS
+> +# of all manual pages in a directory (or in a single manual page file).
+> +# Each name is printed in a separate line
+> +# Usage example:  .../man-pages$ man_lsfunc man2;
+> +
+> +function man_lsfunc()
+> +{
+> +       if ! [ -v 1 ]; then
+> +               >&2 echo "Usage: ${FUNCNAME[0]} <dir>";
+> +               return ${EX_USAGE};
+> +       fi
+> +
+> +       find "${@}" -type f \
+> +       |xargs grep -l "\.SH SYNOPSIS" \
+> +       |sort -V \
+> +       |while read -r manpage; do
+> +               <${manpage} \
+> +               sed -n \
+> +                       -e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
+> +                       -e "/^\.SH SYNOPSIS/p" \
+> +                       -e "/^\.SH SYNOPSIS/,/^\.SH/{/^\.SH/!p}" \
+> +               |sed \
+> +                       -e '/Feature/,$d' \
+> +                       -e '/{/,/}/d' \
+> +               |man -P cat -l - 2>/dev/null;
+> +       done \
+> +       |sed -n "/^SYNOPSIS/,/^\w/p" \
+> +       |grep '^       \w' \
+> +       |grep -v ':' \
+> +       |sed 's/^[^(]* \**\(\w*\)(.*/\1/' \
+> +       |grep '^\w' \
+> +       |uniq;
+> +}
+> +
+> +#  pdfman()  reanders a manual page in PDF
+> +# Usage example:  .../man-pages$ pdfman man2/membarrier.2;
+> +
+> +function pdfman()
+> +{
+> +       if ! [ -v 1 ]; then
+> +               >&2 echo "Usage: ${FUNCNAME[0]} <man-page.n>";
+> +               return ${EX_USAGE};
+> +       fi;
+> +
+> +       local tmp="$(mktemp -t "${1##*/}.XXXXXX")";
+> +
+> +       <${1} \
+> +       man -Tps -l - \
+> +       |ps2pdf - - \
+> +       >${tmp};
+> +       xdg-open ${tmp};
+> +}
+> +
+> +########################################################################
+> +#      Glibc
+> +
+> +#  grep_glibc_prototype()  finds a function prototype in the glibc sources,
+> +# printing the filename, line number, and the prototype.
+> +# It should be run from the root of the glibc source tree.
+> +# Usage example:  .../glibc$ grep_glibc_prototype printf;
+> +
+> +function grep_glibc_prototype()
+> +{
+> +       if ! [ -v 1 ]; then
+> +               >&2 echo "Usage: ${FUNCNAME[0]} <func>";
+> +               return ${EX_USAGE};
+> +       fi
+> +
+> +       find * -type f \
+> +       |grep '\.h$' \
+> +       |sort -V \
+> +       |xargs pcregrep -Mn \
+> +         "(?s)^[\w[][\w\s(,)[:\]]+\s+\**${1}\s*\([\w\s(,)[\]*]+?(...)?\)[\w\s(,)[:\]]*;" \
+> +       |sed -E 's/^[^:]+:[0-9]+:/&\n/';
+> +}
+> --
+> 2.30.1.721.g45526154a5
+>
