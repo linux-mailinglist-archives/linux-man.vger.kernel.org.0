@@ -2,58 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CA11C326FD5
+	by mail.lfdr.de (Postfix) with ESMTP id 9061A326FD4
 	for <lists+linux-man@lfdr.de>; Sun, 28 Feb 2021 01:52:05 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230213AbhB1Av1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 27 Feb 2021 19:51:27 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38554 "EHLO
+        id S230206AbhB1AvI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 27 Feb 2021 19:51:08 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38386 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230209AbhB1AvW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 27 Feb 2021 19:51:22 -0500
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2CCA9C06121E
+        with ESMTP id S230209AbhB1Au6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 27 Feb 2021 19:50:58 -0500
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ED039C06121F
         for <linux-man@vger.kernel.org>; Sat, 27 Feb 2021 16:49:29 -0800 (PST)
-Received: by mail-wm1-x334.google.com with SMTP id i9so10031135wml.0
+Received: by mail-wr1-x42b.google.com with SMTP id d11so12272146wrj.7
         for <linux-man@vger.kernel.org>; Sat, 27 Feb 2021 16:49:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=rmmzZxLGW7vf7rTslg7OcZB3XnE5Jj8qb7jk19tyUJ8=;
-        b=qNOQc9aXfpZc5NGz4ahQem3L1mcpvAsTSjvMy6zjO4cIf8d6T+JyAO2Q6YS1s0o+Yi
-         62dCzHywvfmftWJIRMco8pKGbHlSTk0Vu3OYB//lNXud698t5kI9u2Sk13Srdi5Gj6gr
-         Hjxdj/FDCP8bsP30EWG9D77s2ls04GQ9qRnFTPMWRmoTyu+CyZ738pudoZ5GDza141AK
-         o+Vn9s/IAlMPFtzTDCyCcKa+a+g8LsvRQXLSNZDzzVZdIcNLQeR4DbDCscAmkQ4YqIyh
-         jT450AH35RtTkDfNuXAxDSCq6K09wfExcCFFAoqIwRT501BjELCurtwo2/GuEZQ3oUZl
-         at6A==
+        bh=BMxdehCmku6ijTj16fwA/aEDmJ126DBDMiAp0/Y6PQg=;
+        b=Aa1Cz6ZFhXMQmjGhJcy7Mvm70H/K74R2b5KXLmQVmzR/HHPTRPYdgWtH6dPtjLeW9x
+         wspL+hv+AW3n2tPL9ouI8dN7wb/1/DJ4KsFzPJL7owA8rJKU+heinllgJbUHwepVGf4r
+         PVuRiE7YvDouWs2HSWGaQJYTTkOLelTpYuW/Wvo+4RdUfQUxB95pb1zju09H4JXrSEKF
+         z2QtAlftz0iXGs0dW196um3CTIevpMa38uYIbdfgCicinP/hYWdcqxAFN2i66Nesu6pp
+         rWIUO7EP13pqDvF3hmx6d7PeDzw7on4Pg0tM26ugnZv2kitEk8dhiHXvGCx/0q4rpEu3
+         mxCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=rmmzZxLGW7vf7rTslg7OcZB3XnE5Jj8qb7jk19tyUJ8=;
-        b=emQ/LKBLAP8CoiJrOsRv2pN7yINkJvZpCdC8QFof2RqoQfhUyAtyQ8UooXCFTsGkZB
-         YOz9Sfmj2MEy++uCVG6daUCwljSzT9+N88++MJZxuK7Mqz+X482DzPXEQzRUoMa2ONID
-         vnZPN1E8PVOBZJx15NhYEHuDHJ6aekw9nmf0NJhAgPnyQGwfgsIuE6K4X1Ke3Q6QWAU6
-         E4Anu+FUbaXNQytj1Ab07tqhzgpko9jjjCAsNh6xRVVjG/G91Y8UqxDUsI0xCqF+K1+4
-         e9b74p0xbMW0E1+E9WOLtXJofegkmoVbdnh5/hQ4H1O6PfrEJfeO9U1GX7I9yigjHev+
-         78fw==
-X-Gm-Message-State: AOAM530+zkzq/5/7jsxEgt6T1ny6EikCt9FkM5F1khE7R9nBGl0V64j8
-        HJv5EDKvZ6drToLBlPY9e9c=
-X-Google-Smtp-Source: ABdhPJy8xi03xqBSVfAJ6JWo/16cVS4/F/M3wtzObKIH17DArCTcFfz3QSLcJcAGblQ/Js/XMl9xjA==
-X-Received: by 2002:a1c:1bc7:: with SMTP id b190mr9298025wmb.115.1614473368005;
+        bh=BMxdehCmku6ijTj16fwA/aEDmJ126DBDMiAp0/Y6PQg=;
+        b=Xsnu7MGYS0Ie0UvW/PPeqRfrBKvXqdSGN8HLgH31zfG6J429PwsVgKdZBUtWegH0tv
+         PIaKt5IirzAS9Em6EBZ9lRlHoBEVry4eJ7zAT0A9ekURIm8k6ZFc2vlm7IMEzo19V8p4
+         HjAGsh2gbKskm7Fuk6tr44FquHPcO3QAqpQ0KDkwnGhJ+EYKNlIfFXtOQk/RU85w4Nd3
+         xBVAI2RNud3BJkxxnfzJ6QTyGM1kVKxVhO9KNpcIpszCHrutTFdLKK18yq5Uoz2ziiBP
+         teVYWgPWZvmzvmm8hA2kHZCkPf4CyXi0ArwPXHWcINUZJ1XqwuyrDd8q3eAf4mHhXYYX
+         qZbQ==
+X-Gm-Message-State: AOAM5317tuC+7g4GZ/PBr69Bcb41iC54xGx/u22yXZ2nMjCWZs7CZITc
+        xw+fkc9xolDc8vh9I50EexY=
+X-Google-Smtp-Source: ABdhPJwZM+XR9/q9dFbozynDRTv0CDmDskYn4KM4PrhxBtNGhV+f2F0MGTFLAjG+YEy5jz3mcKw3pw==
+X-Received: by 2002:a5d:53c8:: with SMTP id a8mr9714209wrw.323.1614473368730;
         Sat, 27 Feb 2021 16:49:28 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id o14sm18212145wri.48.2021.02.27.16.49.27
+        by smtp.googlemail.com with ESMTPSA id o14sm18212145wri.48.2021.02.27.16.49.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 27 Feb 2021 16:49:27 -0800 (PST)
+        Sat, 27 Feb 2021 16:49:28 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 13/14] getpwent_r.3: SYNOPSIS: Use 'restrict' in prototypes
-Date:   Sun, 28 Feb 2021 01:48:17 +0100
-Message-Id: <20210228004817.122463-14-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
+        Ulrich Drepper <drepper@redhat.com>
+Subject: [PATCH 14/14] getpwnam.3: SYNOPSIS: Use 'restrict' in prototypes
+Date:   Sun, 28 Feb 2021 01:48:18 +0100
+Message-Id: <20210228004817.122463-15-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.1.721.g45526154a5
 In-Reply-To: <20210228004817.122463-1-alx.manpages@gmail.com>
 References: <20210228004817.122463-1-alx.manpages@gmail.com>
@@ -63,48 +64,52 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-glibc uses 'restrict' in getpwent_r(), fgetpwent_r().
+POSIX does NOT specify these functions to use 'restrict'.
+However, glibc uses 'restrict' in getpwnam_r(), getpwuid_r().
 Let's use it here too.
 
-.../glibc$ grep_glibc_prototype getpwent_r
-pwd/pwd.h:139:
-extern int getpwent_r (struct passwd *__restrict __resultbuf,
+.../glibc$ grep_glibc_prototype getpwnam_r
+pwd/pwd.h:151:
+extern int getpwnam_r (const char *__restrict __name,
+		       struct passwd *__restrict __resultbuf,
 		       char *__restrict __buffer, size_t __buflen,
 		       struct passwd **__restrict __result)
-		       __nonnull ((1, 2, 4));
-.../glibc$ grep_glibc_prototype fgetpwent_r
-pwd/pwd.h:166:
-extern int fgetpwent_r (FILE *__restrict __stream,
-			struct passwd *__restrict __resultbuf,
-			char *__restrict __buffer, size_t __buflen,
-			struct passwd **__restrict __result)
-			__nonnull ((1, 2, 3, 5));
+		       __nonnull ((1, 2, 3, 5));
+.../glibc$ grep_glibc_prototype getpwuid_r
+pwd/pwd.h:145:
+extern int getpwuid_r (__uid_t __uid,
+		       struct passwd *__restrict __resultbuf,
+		       char *__restrict __buffer, size_t __buflen,
+		       struct passwd **__restrict __result)
+		       __nonnull ((2, 3, 5));
 .../glibc$
 
+Cc: glibc <libc-alpha@sourceware.org>
+Cc: Ulrich Drepper <drepper@redhat.com>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/getpwent_r.3 | 11 +++++++----
+ man3/getpwnam.3 | 11 +++++++----
  1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/man3/getpwent_r.3 b/man3/getpwent_r.3
-index 3414b31a8..b2c7e420a 100644
---- a/man3/getpwent_r.3
-+++ b/man3/getpwent_r.3
-@@ -28,10 +28,13 @@ getpwent_r, fgetpwent_r \- get passwd file entry reentrantly
- .nf
- .B #include <pwd.h>
+diff --git a/man3/getpwnam.3 b/man3/getpwnam.3
+index 45fde871d..1eed77c45 100644
+--- a/man3/getpwnam.3
++++ b/man3/getpwnam.3
+@@ -45,10 +45,13 @@ getpwnam, getpwnam_r, getpwuid, getpwuid_r \- get password file entry
+ .BI "struct passwd *getpwnam(const char *" name );
+ .BI "struct passwd *getpwuid(uid_t " uid );
  .PP
--.BI "int getpwent_r(struct passwd *" pwbuf ", char *" buf ,
--.BI "               size_t " buflen ", struct passwd **" pwbufp );
--.BI "int fgetpwent_r(FILE *" stream ", struct passwd *" pwbuf ", char *" buf ,
--.BI "                size_t " buflen ", struct passwd **" pwbufp );
-+.BI "int getpwent_r(struct passwd *restrict " pwbuf ,
+-.BI "int getpwnam_r(const char *" name ", struct passwd *" pwd ,
+-.BI "               char *" buf ", size_t " buflen ", struct passwd **" result );
+-.BI "int getpwuid_r(uid_t " uid ", struct passwd *" pwd ,
+-.BI "               char *" buf ", size_t " buflen ", struct passwd **" result );
++.BI "int getpwnam_r(const char *restrict " name \
++", struct passwd *restrict " pwd ,
 +.BI "               char *restrict " buf ", size_t " buflen ,
-+.BI "               struct passwd **restrict " pwbufp );
-+.BI "int fgetpwent_r(FILE *restrict " stream \
-+", struct passwd *restrict " pwbuf ,
++.BI "               struct passwd **restrict " result );
++.BI "int getpwuid_r(uid_t " uid ", struct passwd *restrict " pwd ,
 +.BI "               char *restrict " buf ", size_t " buflen ,
-+.BI "               struct passwd **restrict " pwbufp );
++.BI "               struct passwd **restrict " result );
  .fi
  .PP
  .RS -4
