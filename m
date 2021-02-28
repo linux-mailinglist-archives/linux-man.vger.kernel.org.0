@@ -2,77 +2,149 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 44459326F93
-	for <lists+linux-man@lfdr.de>; Sun, 28 Feb 2021 00:21:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D4D8A326FC4
+	for <lists+linux-man@lfdr.de>; Sun, 28 Feb 2021 01:50:20 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230040AbhB0XUu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 27 Feb 2021 18:20:50 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47588 "EHLO
+        id S230155AbhB1AuB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 27 Feb 2021 19:50:01 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38228 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230008AbhB0XUt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 27 Feb 2021 18:20:49 -0500
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4D32AC06174A
-        for <linux-man@vger.kernel.org>; Sat, 27 Feb 2021 15:20:09 -0800 (PST)
-Received: by mail-wm1-x32e.google.com with SMTP id e23so153443wmh.3
-        for <linux-man@vger.kernel.org>; Sat, 27 Feb 2021 15:20:09 -0800 (PST)
+        with ESMTP id S230060AbhB1AuA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 27 Feb 2021 19:50:00 -0500
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3B30BC06174A
+        for <linux-man@vger.kernel.org>; Sat, 27 Feb 2021 16:49:20 -0800 (PST)
+Received: by mail-wr1-x433.google.com with SMTP id 7so12291272wrz.0
+        for <linux-man@vger.kernel.org>; Sat, 27 Feb 2021 16:49:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=to:cc:from:subject:message-id:date:user-agent:mime-version
-         :content-language:content-transfer-encoding;
-        bh=UhMQA5P+f86Bv68kZDJ99Y7IzDN5v8I/SKRPL1vxG90=;
-        b=jSqy6tkysa2bfRcHHXMwF16zaKPyhb/Aq50FhXo7to0rpOiW7e4O8K/uL2ga80xrfG
-         qnq2LG0TQqjkoXNYNr+XwSAOJ+zBhhBQIO3wR/qQIKK3hTCkphvcc9w3n75Io2tCj9DL
-         vX6OY8+fUrhloARKv1t5OXw4mKPq4ywYzgALOBlJZazmRJGaKioRhb0i7PLcoT5x1N7a
-         /u1Hv18WVhxQvk1vi6IktWpx4nIO7k59o6P1iXlMZIewMCQGXByyfa3CdxQDnOL0PAuu
-         DHyYY8zgkOZM/GVDdBLrX28o13CZKEJxIrUTDTHnozEILUXkC0Zhlwp5PGOs4/yRmgVQ
-         1otg==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=WqcYx/s1vAHztnCVbnt9y1PGCOuanq4tuyyTN3W9zCw=;
+        b=U/NPPw8/PZmdpH7oaJQe96jXbfWbLeMZPLh2UNcC9v/l+4GNueEx2HeG9LwQ0tjV3F
+         g43KLT3PpaDFwpUY0VzCLek3RQ1iu++Jx6uB4M322iB1V6sC+kBFps6Ld5XNz2JzFjzq
+         lDdyXSgSspC2jxyGpPlRmFYWp5ff8c/V6sQI36m6ISxt8sFK68xKv4QBGse2qZUqZaR0
+         v5cgZE0+tkT8tjPKbA4r6p+Lat5F9vXHZyMksv3iWoV64C1SPjD7jwt3Nvr1ql1RH5Tf
+         T5HE3oieW25rpAaDmuV+suxSMdWP7IMat1gxdBLn9vElud3AhvSvU6KIf4xPnUmQHqf3
+         YyWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=UhMQA5P+f86Bv68kZDJ99Y7IzDN5v8I/SKRPL1vxG90=;
-        b=TVqT36KfzAWyndjKxRL187zQRVCR2RugQy6UwNcKaQEcz+SkgBUUP0v6iOQPY4QHxb
-         Wr2b9bjVav6BW89/T30iI3ax8edBia4x1CDQSR9NCTZGTGC+X4SCuhIK4wrWrIvlcU65
-         4zCf3CodTj0tiJbh/L3TuFyMIe1LbVw4eAhHG5yQaEzJkxZFRByMwxCr6NNUuviPavTb
-         vPTyFvfoUPeM7hEv0PGxqamMwMuoxovE3IE/f9lDluh0xtdl96yPuIvM13PIzcRq0Qg1
-         TnyX+0l40fl8srQNe+gjwznH4CWgVIQ/anOzfWTvxQ28vKHd2iYXb7DwVKjN3+IRAUL+
-         Q7kA==
-X-Gm-Message-State: AOAM5314M1JsdVEQVf1sr+9odmbmmVH3C9yA4OoGqpmlUbyif9c+5BcS
-        73PbyrnE2YQHzRTcDdPZNORdBM9Me5CPpQ==
-X-Google-Smtp-Source: ABdhPJycuqb08A4/Xgjd7wi9Kxx97mQ7A9NCG2ZhasqGOh5Pk/Zy7RJhke1Ri1dgqeXnIZGFMUZJSg==
-X-Received: by 2002:a7b:cb5a:: with SMTP id v26mr9002666wmj.162.1614468007966;
-        Sat, 27 Feb 2021 15:20:07 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id n6sm1066152wmd.27.2021.02.27.15.20.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 27 Feb 2021 15:20:07 -0800 (PST)
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Subject: gethostbyname.3: Use internally consistent continuation indents in
- SYNOPSIS
-Message-ID: <2e87f61b-ad14-e349-1332-58c0a6755d02@gmail.com>
-Date:   Sun, 28 Feb 2021 00:20:06 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=WqcYx/s1vAHztnCVbnt9y1PGCOuanq4tuyyTN3W9zCw=;
+        b=gUm1qZPmxstOcVn/endz/man6o53lLpEQYciu+qvnh+RZ9CwBZwrAR7KEcRGtgkLRf
+         +0R5RIBMPKYTG5NLAhpH7231uh2lcYvWAJSxpvU/OWDC5ugitJr7vgX5dhjYf+BUusKc
+         VhlPDruWkXoa9ZL5594kJ60SmWpz5fxSfNlHwVYGSt2AgKyPAgigAF8o6kbZihK6dqAr
+         /szE6m9Xcl8a4KcRlhtIvgnZBPCu5KolPx8/PLm/0zfY3eSqRPhEHPXxl7OIQiWgFcuZ
+         uamLF8flCcZq60THE5PDpCc0bIQuVBSBIsUKQPutOTLWQylJJo0EjcHN3mzk7mMo7t3b
+         FVAA==
+X-Gm-Message-State: AOAM530DW7mxCIbz8z7uK7nPpQg/Efm3PxY6FB5TxeHn3su6BnS4Ue/Y
+        95tkvXXKlPmIVI5aEibmV3KmRQQVdrMKUQ==
+X-Google-Smtp-Source: ABdhPJwRicqO2J5YcpOGyEyNYcxh1Qj4ZuikgRKTzMXwLW4obH4bRhXl1GdTyqloPLLQBhBspvl33g==
+X-Received: by 2002:adf:c14a:: with SMTP id w10mr9840699wre.282.1614473358761;
+        Sat, 27 Feb 2021 16:49:18 -0800 (PST)
+Received: from localhost.localdomain ([170.253.51.130])
+        by smtp.googlemail.com with ESMTPSA id o14sm18212145wri.48.2021.02.27.16.49.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 27 Feb 2021 16:49:18 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
+        Heinrich Schuchardt <xypron.glpk@gmx.de>
+Subject: [PATCH 00/14] man3: SYNOPSIS: Use 'restrict' in prototypes (batch 2)
+Date:   Sun, 28 Feb 2021 01:48:04 +0100
+Message-Id: <20210228004817.122463-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.30.1.721.g45526154a5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Hey Michael,
 
-Did you leave gethostbyaddr(3) untouched on purpose?  I guess not :)
+This is the second batch of pages in man3 that use 'restrict'.
 
-Cheers,
+I have already checked until getrpcport.3.
 
-Alex
+---
+
+A few functions to automate the commit messages:
+
+For functions that are restrict in POSIX and glibc:
+
+function gitcommit_rp()
+{
+	local commafuncs="$(echo $@ |sed -e 's/\> \</(), /g' -e 's/$/()/')";
+	local msg="\
+$(man_gitstaged): SYNOPSIS: Use 'restrict' in prototypes
+
+Both POSIX and glibc use 'restrict' in ${commafuncs}.
+Let's use it here too.
+
+$(echo "$@" \
+  |xargs -n1 bash -c \
+    'echo ".../glibc$ grep_glibc_prototype $@"; \
+     echo "$(cd ~/src/gnu/glibc && grep_glibc_prototype $@)"' _)
+.../glibc$";
+
+	git commit -sm "$msg";
+}
+
+For functions that are restrict in glibc:
+
+function gitcommit_rg()
+{
+	local commafuncs="$(echo $@ |sed -e 's/\> \</(), /g' -e 's/$/()/')";
+	local msg="\
+$(man_gitstaged): SYNOPSIS: Use 'restrict' in prototypes
+
+glibc uses 'restrict' in ${commafuncs}.
+Let's use it here too.
+
+$(echo "$@" \
+  |xargs -n1 bash -c \
+    'echo ".../glibc$ grep_glibc_prototype $@"; \
+     echo "$(cd ~/src/gnu/glibc && grep_glibc_prototype $@)"' _)
+.../glibc$";
+
+	git commit -sm "$msg";
+}
+
+---
+Alejandro Colomar (14):
+  getaddrinfo.3: SYNOPSIS: Use 'restrict' in prototypes
+  getaddrinfo_a.3: SYNOPSIS: Use 'restrict' in prototypes
+  getdate.3: SYNOPSIS: Use 'restrict' in prototypes
+  getdirentries.3: SYNOPSIS: Use 'restrict' in prototypes
+  getgrent_r.3: SYNOPSIS: Use 'restrict' in prototypes
+  getgrnam.3: SYNOPSIS: Use 'restrict' in prototypes
+  gethostbyname.3: SYNOPSIS: Use 'restrict' in prototypes
+  getline.3: SYNOPSIS: Use 'restrict' in prototypes
+  getmntent.3: SYNOPSIS: Use 'restrict' in prototypes
+  getnameinfo.3: SYNOPSIS: Use 'restrict' in prototypes
+  getnetent_r.3: SYNOPSIS: Use 'restrict' in prototypes
+  getprotoent_r.3: SYNOPSIS: Use 'restrict' in prototypes
+  getpwent_r.3: SYNOPSIS: Use 'restrict' in prototypes
+  getpwnam.3: SYNOPSIS: Use 'restrict' in prototypes
+
+ man3/getaddrinfo.3   | 11 ++++++-----
+ man3/getaddrinfo_a.3 | 12 ++++++------
+ man3/getdate.3       |  2 +-
+ man3/getdirentries.3 |  4 ++--
+ man3/getgrent_r.3    | 10 ++++++----
+ man3/getgrnam.3      | 11 +++++++----
+ man3/gethostbyname.3 | 31 ++++++++++++++++++++-----------
+ man3/getline.3       |  7 ++++---
+ man3/getmntent.3     |  8 +++++---
+ man3/getnameinfo.3   |  8 +++++---
+ man3/getnetent_r.3   | 23 +++++++++++++----------
+ man3/getprotoent_r.3 | 17 ++++++++++-------
+ man3/getpwent_r.3    | 11 +++++++----
+ man3/getpwnam.3      | 11 +++++++----
+ 14 files changed, 99 insertions(+), 67 deletions(-)
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.30.1.721.g45526154a5
+
