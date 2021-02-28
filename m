@@ -2,59 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 60E5E326FCB
-	for <lists+linux-man@lfdr.de>; Sun, 28 Feb 2021 01:51:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 50014326FCD
+	for <lists+linux-man@lfdr.de>; Sun, 28 Feb 2021 01:51:02 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230211AbhB1Auo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 27 Feb 2021 19:50:44 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38400 "EHLO
+        id S230140AbhB1Aur (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 27 Feb 2021 19:50:47 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38408 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230195AbhB1Aun (ORCPT
+        with ESMTP id S230198AbhB1Aun (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sat, 27 Feb 2021 19:50:43 -0500
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 23F74C061797
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C16F4C0617A7
         for <linux-man@vger.kernel.org>; Sat, 27 Feb 2021 16:49:24 -0800 (PST)
-Received: by mail-wm1-x336.google.com with SMTP id u187so8419519wmg.4
+Received: by mail-wm1-x331.google.com with SMTP id o16so11021056wmh.0
         for <linux-man@vger.kernel.org>; Sat, 27 Feb 2021 16:49:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=nu1lpkLq1w+drqYeUxnDPTZgPybkNxTQJgIqZDjRX/8=;
-        b=DfdxiiR0nOxIzSqju/6/BwCTQQ8iygfARx/Dd5xiMaU5lPqi7oEbsheACpduNsgmCd
-         pfAPob1BHWlwREAypheXU+Os5KGvRl/o93jdlmgDVoFgztSx8++h4ISByfQgPGOj+mPK
-         PagXauWJgGQF85hvoCj9dmWW1tbBt29fuffIyi1/7tVD9RmAK8Rxgk8lPj89PYzU/5+/
-         vdgsXoEoZ3NrmDVg+3xaRUpITUu9C26A04Wxn9BF70cp3JTFBwsWbJz5U3WJJ86QgAyB
-         7XTKFpco2UbNNiwVEiCOEH5d+z7uCcaxVzUNW1Fp0uPXJEt0H0B22IOu2yJqCO6B57NZ
-         o9Mw==
+        bh=ZWwgOH9Mt5PpY1WI7cU0vV/G3pkvURDQOWhyCWFr+78=;
+        b=QTImEa0xHVu5tUzkfCYRdlfT/jN6aVLbUhBZnNDgF7bPQ8y/UtVuAULTpnfdiQU4CT
+         WK4Vd8wRrL0QMQDsEKB1B/pPqsqlclXuJ71yfq1sVHq7808Y+F6EtEz0MPEm6POv9LGw
+         2iGqCZmXvv2s6PV9nrnIZqo6QQo5ElC/qMdbPIcgm5YF3bN6kkOzIV+gJB1r55DbhbzG
+         mK6WA6YtMRsDM5TtmBdfziulK1W27fEeQsvjg9peYWs5br51cXpyB3b9NzgOeOPv4jTd
+         72BEiWhm3VYSI52aJ/F5iiqWI5DegJH60Bq7rDJgHKvAmK4I8iuDpyE0p6rlOmBI/+Pf
+         bxPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=nu1lpkLq1w+drqYeUxnDPTZgPybkNxTQJgIqZDjRX/8=;
-        b=OeP7swszsheQ66elQHXmts7iWyTyuSKYSazSit1yLd0u+rjznEwqIOjd7AVEgTnVZx
-         Ad4uhq4HOysch+ro1eXMq59BrZad/QY9qCuLwXP3ZNRDRMQ7/Z3oQ7A3GKkDDOiqJT+W
-         n2zepF67if6IJuUh22qgGDNSzGAMMKN1WHuPg5Yq6aDUm7l6IjOLIO1xeWBez58Z1U8F
-         BxG3ozdJ/+km8c0S9UjtFr6/4xmIjkU+LlAfl9IoiQjA1tx3SKFoo2cqRkMax8K+tcps
-         w4GacEq9dlLIIuFchai1XrrOyyjETxfU6VRuXEIhtMH/nhYXTxF8nsFAQCrMuR68uZr5
-         3GUQ==
-X-Gm-Message-State: AOAM532Fd0X6ohd0oOWLwkib/YlYi66NeHeYS/NA07QuzFXTXBfwCeV1
-        IsLgj1NCWCkg8DbFP52qmLs90oJKIfaExg==
-X-Google-Smtp-Source: ABdhPJzxEOYHN2MG9/GIsBHK7NbPNuLOWZGc69ksnsDsaAqP2uQMHkODmclOdUHQl5g84mvXwh8W9w==
-X-Received: by 2002:a1c:9d51:: with SMTP id g78mr9443545wme.5.1614473362932;
-        Sat, 27 Feb 2021 16:49:22 -0800 (PST)
+        bh=ZWwgOH9Mt5PpY1WI7cU0vV/G3pkvURDQOWhyCWFr+78=;
+        b=Bd0pVs5l4U57FhX87vVkYTZii+W7KbGVRnr6F+9s3x7jU3vrPzXCV2k/iTryOPtlyj
+         CvTnT7HS/km945YGelGzEBwX3FfOtqSUvLS7noG8p/CtUooAZOP/CeiFiFvx5uQayMDV
+         JoYE8PvVjb62VqPFz7NzE9uNoKpuftFvfP9hZjbM95iIPA4ZTwdduN7uYyIIS+q5R9Ag
+         pEBKmiBh6/pDEuTU7qkbS7rOaP6Z2nor3lkQ/tjZfqWizh0jn6KTzCUpFReM2F7GtN31
+         pPQcyVaqGTnD3FHqyFi4qfb64aLXUblHt9F6o6S0X6/AVMD44nVGOOc46b19EaN3hn7N
+         scog==
+X-Gm-Message-State: AOAM533dl6+JGac+Z8RcW80C7QRwASAVa9LSHHJBfKQRsqzQa0nnaHMD
+        yljyAuzAvuyWekATGXKZLQk=
+X-Google-Smtp-Source: ABdhPJyuo+R7XBb1cdSXVBGcfh/ZA5cPXDSlfvxKOgNeHumOeKpaqSsVzyFBP0Llgunn5S9vEx1nTw==
+X-Received: by 2002:a7b:cd04:: with SMTP id f4mr9159003wmj.81.1614473363599;
+        Sat, 27 Feb 2021 16:49:23 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id o14sm18212145wri.48.2021.02.27.16.49.22
+        by smtp.googlemail.com with ESMTPSA id o14sm18212145wri.48.2021.02.27.16.49.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 27 Feb 2021 16:49:22 -0800 (PST)
+        Sat, 27 Feb 2021 16:49:23 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-        Ulrich Drepper <drepper@redhat.com>
-Subject: [PATCH 06/14] getgrnam.3: SYNOPSIS: Use 'restrict' in prototypes
-Date:   Sun, 28 Feb 2021 01:48:10 +0100
-Message-Id: <20210228004817.122463-7-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org
+Subject: [PATCH 07/14] gethostbyname.3: SYNOPSIS: Use 'restrict' in prototypes
+Date:   Sun, 28 Feb 2021 01:48:11 +0100
+Message-Id: <20210228004817.122463-8-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.1.721.g45526154a5
 In-Reply-To: <20210228004817.122463-1-alx.manpages@gmail.com>
 References: <20210228004817.122463-1-alx.manpages@gmail.com>
@@ -64,49 +63,85 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-POSIX does NOT specify these functions to use 'restrict'.
-However, glibc uses 'restrict' in getgrnam_r(), getgrgid_r().
-Users might be surprised by this!  Let's use it here too!
+glibc uses 'restrict' in gethostent_r(), gethostbyaddr_r(),
+gethostbyname_r(), gethostbyname2_r().
+Let's use it here too.
 
-.../glibc$ grep_glibc_prototype getgrnam_r
-grp/grp.h:148:
-extern int getgrnam_r (const char *__restrict __name,
-		       struct group *__restrict __resultbuf,
-		       char *__restrict __buffer, size_t __buflen,
-		       struct group **__restrict __result);
-.../glibc$ grep_glibc_prototype getgrgid_r
-grp/grp.h:140:
-extern int getgrgid_r (__gid_t __gid, struct group *__restrict __resultbuf,
-		       char *__restrict __buffer, size_t __buflen,
-		       struct group **__restrict __result);
+.../glibc$ grep_glibc_prototype gethostent_r
+resolv/netdb.h:165:
+extern int gethostent_r (struct hostent *__restrict __result_buf,
+			 char *__restrict __buf, size_t __buflen,
+			 struct hostent **__restrict __result,
+			 int *__restrict __h_errnop);
+.../glibc$ grep_glibc_prototype gethostbyaddr_r
+resolv/netdb.h:170:
+extern int gethostbyaddr_r (const void *__restrict __addr, __socklen_t __len,
+			    int __type,
+			    struct hostent *__restrict __result_buf,
+			    char *__restrict __buf, size_t __buflen,
+			    struct hostent **__restrict __result,
+			    int *__restrict __h_errnop);
+.../glibc$ grep_glibc_prototype gethostbyname_r
+resolv/netdb.h:177:
+extern int gethostbyname_r (const char *__restrict __name,
+			    struct hostent *__restrict __result_buf,
+			    char *__restrict __buf, size_t __buflen,
+			    struct hostent **__restrict __result,
+			    int *__restrict __h_errnop);
+.../glibc$ grep_glibc_prototype gethostbyname2_r
+resolv/netdb.h:183:
+extern int gethostbyname2_r (const char *__restrict __name, int __af,
+			     struct hostent *__restrict __result_buf,
+			     char *__restrict __buf, size_t __buflen,
+			     struct hostent **__restrict __result,
+			     int *__restrict __h_errnop);
 .../glibc$
 
-Cc: glibc <libc-alpha@sourceware.org>
-Cc: Ulrich Drepper <drepper@redhat.com>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/getgrnam.3 | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ man3/gethostbyname.3 | 31 ++++++++++++++++++++-----------
+ 1 file changed, 20 insertions(+), 11 deletions(-)
 
-diff --git a/man3/getgrnam.3 b/man3/getgrnam.3
-index 87f61c260..1b13208ba 100644
---- a/man3/getgrnam.3
-+++ b/man3/getgrnam.3
-@@ -41,10 +41,13 @@ getgrnam, getgrnam_r, getgrgid, getgrgid_r \- get group file entry
- .BI "struct group *getgrnam(const char *" name );
- .BI "struct group *getgrgid(gid_t " gid );
+diff --git a/man3/gethostbyname.3 b/man3/gethostbyname.3
+index ac1758ca0..d2c456072 100644
+--- a/man3/gethostbyname.3
++++ b/man3/gethostbyname.3
+@@ -65,18 +65,27 @@ gethostent_r \- get network host entry
+ /* GNU extensions */
+ .BI "struct hostent *gethostbyname2(const char *" name ", int " af );
  .PP
--.BI "int getgrnam_r(const char *" name ", struct group *" grp ,
--.BI "          char *" buf ", size_t " buflen ", struct group **" result );
--.BI "int getgrgid_r(gid_t " gid ", struct group *" grp ,
--.BI "          char *" buf ", size_t " buflen ", struct group **" result );
-+.BI "int getgrnam_r(const char *restrict " name \
-+", struct group *restrict " grp ,
-+.BI "               char *restrict " buf ", size_t " buflen ,
-+.BI "               struct group **restrict " result );
-+.BI "int getgrgid_r(gid_t " gid ", struct group *restrict " grp ,
-+.BI "               char *restrict " buf ", size_t " buflen ,
-+.BI "               struct group **restrict " result );
+-.BI "int gethostent_r(struct hostent *" ret ", char *" buf ", size_t " buflen ,
+-.BI "                 struct hostent **" result ", int *" h_errnop );
++.BI "int gethostent_r(struct hostent *restrict " ret ,
++.BI "                 char *restrict " buf ", size_t " buflen ,
++.BI "                 struct hostent **restrict " result ,
++.BI "                 int *restrict " h_errnop );
+ .PP
+-.BI "int gethostbyaddr_r(const void *" addr ", socklen_t " len ", int " type ,
+-.BI "                 struct hostent *" ret ", char *" buf ", size_t " buflen ,
+-.BI "                 struct hostent **" result ", int *" h_errnop );
+-.BI "int gethostbyname_r(const char *" name ,
+-.BI "                 struct hostent *" ret ", char *" buf ", size_t " buflen ,
+-.BI "                 struct hostent **" result ", int *" h_errnop );
+-.BI "int gethostbyname2_r(const char *" name ", int " af,
+-.BI "                 struct hostent *" ret ", char *" buf ", size_t " buflen ,
+-.BI "                 struct hostent **" result ", int *" h_errnop );
++.BI "int gethostbyaddr_r(const void *restrict " addr ", socklen_t " len \
++", int " type ,
++.BI "                 struct hostent *restrict " ret ,
++.BI "                 char *restrict " buf ", size_t " buflen ,
++.BI "                 struct hostent **restrict " result ,
++.BI "                 int *restrict " h_errnop );
++.BI "int gethostbyname_r(const char *restrict " name ,
++.BI "                 struct hostent *restrict " ret ,
++.BI "                 char *restrict " buf ", size_t " buflen ,
++.BI "                 struct hostent **restrict " result ,
++.BI "                 int *restrict " h_errnop );
++.BI "int gethostbyname2_r(const char *restrict " name ", int " af,
++.BI "                 struct hostent *restrict " ret ,
++.BI "                 char *restrict " buf ", size_t " buflen ,
++.BI "                 struct hostent **restrict " result ,
++.BI "                 int *restrict " h_errnop );
  .fi
  .PP
  .RS -4
