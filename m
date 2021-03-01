@@ -2,40 +2,51 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CAA02327E25
-	for <lists+linux-man@lfdr.de>; Mon,  1 Mar 2021 13:20:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 45F85327F8B
+	for <lists+linux-man@lfdr.de>; Mon,  1 Mar 2021 14:34:27 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234134AbhCAMSt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 1 Mar 2021 07:18:49 -0500
-Received: from youngberry.canonical.com ([91.189.89.112]:41447 "EHLO
+        id S235741AbhCANcZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 1 Mar 2021 08:32:25 -0500
+Received: from youngberry.canonical.com ([91.189.89.112]:43353 "EHLO
         youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234075AbhCAMSj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 1 Mar 2021 07:18:39 -0500
+        with ESMTP id S235496AbhCANcF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 1 Mar 2021 08:32:05 -0500
 Received: from ip5f5af0a0.dynamic.kabel-deutschland.de ([95.90.240.160] helo=wittgenstein)
         by youngberry.canonical.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
         (Exim 4.86_2)
         (envelope-from <christian.brauner@ubuntu.com>)
-        id 1lGhUj-0004Zl-Lo
-        for linux-man@vger.kernel.org; Mon, 01 Mar 2021 12:17:49 +0000
-Received: from wittgenstein.fritz.box (ip5f5af0a0.dynamic.kabel-deutschland.de. [95.90.240.160])
-        by smtp.gmail.com with ESMTPSA id i17sm14811709ejo.25.2021.03.01.01.35.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 01 Mar 2021 01:35:11 -0800 (PST)
+        id 1lGido-0000m3-SO
+        for linux-man@vger.kernel.org; Mon, 01 Mar 2021 13:31:17 +0000
+Date:   Mon, 1 Mar 2021 14:31:16 +0100
 From:   Christian Brauner <christian.brauner@ubuntu.com>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        Christoph Hellwig <hch@infradead.org>,
-        Christian Brauner <christian.brauner@ubuntu.com>
-Subject: [PATCH] mount_setattr.2: New manual page documenting the mount_setattr() system call
-Date:   Mon,  1 Mar 2021 10:34:59 +0100
-Message-Id: <20210301093459.1876707-1-christian.brauner@ubuntu.com>
-X-Mailer: git-send-email 2.30.1
+To:     linux-man@vger.kernel.org
+Subject: [christian.brauner@ubuntu.com: [PATCH] mount_setattr.2: New manual
+ page documenting the mount_setattr() system call]
+Message-ID: <20210301133116.37adl2ndcxb7ydtg@wittgenstein>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
+
+Sorry, I somehow forgot to put linux-man into Cc/To.
+Here's the lore link to reply to:
+
+https://lore.kernel.org/r/20210301093459.1876707-1-christian.brauner@ubuntu.com
+
+----- Forwarded message from Christian Brauner <christian.brauner@ubuntu.com> -----
+
+Date: Mon,  1 Mar 2021 10:34:59 +0100
+From: Christian Brauner <christian.brauner@ubuntu.com>
+To: Michael Kerrisk <mtk.manpages@gmail.com>, Alejandro Colomar
+ <alx.manpages@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, Christoph
+ Hellwig <hch@infradead.org>, Christian Brauner
+ <christian.brauner@ubuntu.com>
+Subject: [PATCH] mount_setattr.2: New manual page documenting the
+ mount_setattr() system call
+Message-Id: <20210301093459.1876707-1-christian.brauner@ubuntu.com>
 
 Signed-off-by: Christian Brauner <christian.brauner@ubuntu.com>
 ---
@@ -1125,3 +1136,5 @@ base-commit: 64b8654d8bcac58cae635690f624e2b332736425
 -- 
 2.30.1
 
+
+----- End forwarded message -----
