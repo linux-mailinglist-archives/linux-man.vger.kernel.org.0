@@ -2,60 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D8E3732B53B
-	for <lists+linux-man@lfdr.de>; Wed,  3 Mar 2021 07:31:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 34C1032B53F
+	for <lists+linux-man@lfdr.de>; Wed,  3 Mar 2021 07:31:09 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1355168AbhCCGZz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 3 Mar 2021 01:25:55 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51234 "EHLO
+        id S1355178AbhCCG0K (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 3 Mar 2021 01:26:10 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51326 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1344095AbhCBRlc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Mar 2021 12:41:32 -0500
-Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com [IPv6:2607:f8b0:4864:20::52e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 26600C0698D1
-        for <linux-man@vger.kernel.org>; Tue,  2 Mar 2021 09:20:49 -0800 (PST)
-Received: by mail-pg1-x52e.google.com with SMTP id e6so14261024pgk.5
-        for <linux-man@vger.kernel.org>; Tue, 02 Mar 2021 09:20:49 -0800 (PST)
+        with ESMTP id S1344214AbhCBRlq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Mar 2021 12:41:46 -0500
+Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com [IPv6:2607:f8b0:4864:20::52f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 46C3BC0698D5
+        for <linux-man@vger.kernel.org>; Tue,  2 Mar 2021 09:20:50 -0800 (PST)
+Received: by mail-pg1-x52f.google.com with SMTP id o38so14247093pgm.9
+        for <linux-man@vger.kernel.org>; Tue, 02 Mar 2021 09:20:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cilium-io.20150623.gappssmtp.com; s=20150623;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=sdfyObE0E1JspOvROEYz/USdJ0MsLAvmGmtxjKiuziw=;
-        b=hX1Bi349HGCRg4XxhEuiHPv8IhO8nCMLe1NF8WCH6A8WDN//ph/h8lvaH5r2lczDV1
-         wrB0kZ8auZwVQ++e7AnrEtrDanbuws/DC5Namddhl3/vNLA8kGdngV51GGXhpZV1xade
-         TZHIOt6Agm3XH6WZL1D2jgzJRHFQgj6lzRyCmk+k7+FRzXF2j1SyAnxREGC2vfgVjdwt
-         /o6FcUOFQigEC9sLMr9LX8X3mUyiIJM0BhlCghAY1B24xST7eaMJ1m84cV3lH3les6Rf
-         iaiokLMplzD2gO1jSgVAxEPR7CMzIv0B7+wYO2hZpo1g9G62jJjOdh0engpN8omOwBZu
-         yS3A==
+        bh=m3P34ZfaEcKP5uSP2XHxCLx/BufSt6qtkFAu5J+XEKw=;
+        b=b7qqfY67saC70WwhUWdvFwLduwR5bjWQdVPqvMMQYOrNZsxV+HyNS9i4m6UrLQJnZl
+         cosTd+ZEy7e3dJGM+OmHRmRnl9ZqgSrqAdHJq4yFZ5uN+1E5wNYHjEuPfPz4llqnh+qZ
+         zFd4zhIj8JBjyciMDjYZLZ6egWzxG7GHVT7PXrRPf80rKzU4BjXc/+00vx1gGF8X9wZr
+         XkpyhdSl+ojyoYM/ciS9OeFobiAsssbunCb80qBhoqweCNxUi4euAzQd0vC+BdmQpXD1
+         ac1UmBPtGkx2p5d4wbobyX4AeFGBYDlxib9vFXJNMqNCHRbEtyQWnYHj0V0wN2FHqd+C
+         sjqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=sdfyObE0E1JspOvROEYz/USdJ0MsLAvmGmtxjKiuziw=;
-        b=li8MQEsUpKMxp8wRq1L/76+TgRHjOGLB3U+bRZq7CRpjB3qQ/nTyRyIVA1hjzSeLiZ
-         cFy46+pa68+sJWOdLunILzz7U7wS22TpTyBkpvTwUjGI/fVBKuzCqaKFKfty0y3jKMCJ
-         uHJVD/Nw2+9LaDHCpt34HFpT0I/3x07MPBpBGs7aA21bDRYwFw8Bt3jrFQwmVFfqi3xA
-         GAHHEdI4gZ+vLaUt+Mh/N0jHsM4C1pEZJnBwMApeSNZyDttFbwru141GTmNaeokTz6fH
-         npaW6/wpd8GXMNh1bQfhPW9TPC1WdHH5cVlzwSOoAPUTQp507d1cM9MtSlj4U+1jQW25
-         4Bjw==
-X-Gm-Message-State: AOAM530edDoh0B+YsW7NfAztqMWraAvV3LD/o2ONff+J5InHkn53HKlP
-        syTJfVL54ZKg982AGB9E+xgtKw==
-X-Google-Smtp-Source: ABdhPJxu2ccLPZxQduQGZaDo7/+I565sDXZiuNJfYVTL+2FXqWypan6o8vAXbJYeQe0VhYMkd+Z72Q==
-X-Received: by 2002:a62:6304:0:b029:1c0:d62d:d213 with SMTP id x4-20020a6263040000b02901c0d62dd213mr4045441pfb.79.1614705648725;
-        Tue, 02 Mar 2021 09:20:48 -0800 (PST)
+        bh=m3P34ZfaEcKP5uSP2XHxCLx/BufSt6qtkFAu5J+XEKw=;
+        b=AK2DvtC/eMBvz+gJaTazi1NKhDuhnu/zgS8pcwWdzJOBJEW3NluYSluTfmsSfKsZX5
+         9N8lNsUEfAeGrHfSP+b46HE0fgxxashnD/otLvVJJfrYNxAXT23lOpAZT5E8bmX4Rs39
+         5lnjEGYuCi0V5F53Q6Ujr1V7DAeiyGlBHKiqnE9Ev5+U9kFv90+3ordpS1GD+jy15rI8
+         1IjWOLdqIoW9Oqw0aH1KnVZj8ICMGnKEgwGInO/A3cUKleou9LnAkak8y1e5LNv61F1A
+         AjbZ5JyiwLJvGr0Vf1JQknkvcy67zD24M8tgs31R7zJjGCZjKdCCd61dR8XuyEZh+7+C
+         NDpw==
+X-Gm-Message-State: AOAM531Dn2yDFrdmGFs3oYrfEmvpSfAcehm4XMKdVqt30s87nDmlz1Ro
+        oQNmjwHWSgh77N/682eV0UgvWg==
+X-Google-Smtp-Source: ABdhPJznxMzff9wTxkL7798tBHvE1eRQ1e22bBhq0XiAPiSvYqzLyKWUt0lHw97Q3g3+PIX8vymIQA==
+X-Received: by 2002:a63:1906:: with SMTP id z6mr19365033pgl.292.1614705649881;
+        Tue, 02 Mar 2021 09:20:49 -0800 (PST)
 Received: from localhost.localdomain (c-73-93-5-123.hsd1.ca.comcast.net. [73.93.5.123])
-        by smtp.gmail.com with ESMTPSA id b15sm20073923pgg.85.2021.03.02.09.20.47
+        by smtp.gmail.com with ESMTPSA id b15sm20073923pgg.85.2021.03.02.09.20.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Mar 2021 09:20:48 -0800 (PST)
+        Tue, 02 Mar 2021 09:20:49 -0800 (PST)
 From:   Joe Stringer <joe@cilium.io>
 To:     bpf@vger.kernel.org
 Cc:     daniel@iogearbox.net, ast@kernel.org, linux-doc@vger.kernel.org,
         linux-man@vger.kernel.org,
         =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
         Quentin Monnet <quentin@isovalent.com>
-Subject: [PATCHv2 bpf-next 13/15] selftests/bpf: Test syscall command parsing
-Date:   Tue,  2 Mar 2021 09:19:45 -0800
-Message-Id: <20210302171947.2268128-14-joe@cilium.io>
+Subject: [PATCHv2 bpf-next 14/15] docs/bpf: Add bpf() syscall command reference
+Date:   Tue,  2 Mar 2021 09:19:46 -0800
+Message-Id: <20210302171947.2268128-15-joe@cilium.io>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210302171947.2268128-1-joe@cilium.io>
 References: <20210302171947.2268128-1-joe@cilium.io>
@@ -66,78 +66,128 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Add building of the bpf(2) syscall commands documentation as part of the
-docs building step in the build. This allows us to pick up on potential
-parse errors from the docs generator script as part of selftests.
-
-The generated manual pages here are not intended for distribution, they
-are just a fragment that can be integrated into the other static text of
-bpf(2) to form the full manual page.
+Generate the syscall command reference from the UAPI header file and
+include it in the main bpf docs page.
 
 Acked-by: Toke Høiland-Jørgensen <toke@redhat.com>
 Reviewed-by: Quentin Monnet <quentin@isovalent.com>
 Signed-off-by: Joe Stringer <joe@cilium.io>
 ---
- tools/testing/selftests/bpf/.gitignore    |  1 +
- tools/testing/selftests/bpf/Makefile.docs | 14 ++++++++++++--
- 2 files changed, 13 insertions(+), 2 deletions(-)
+CC: linux-doc@vger.kernel.org
+---
+ Documentation/bpf/index.rst                  |  9 +++++---
+ Documentation/userspace-api/ebpf/index.rst   | 17 ++++++++++++++
+ Documentation/userspace-api/ebpf/syscall.rst | 24 ++++++++++++++++++++
+ Documentation/userspace-api/index.rst        |  1 +
+ MAINTAINERS                                  |  1 +
+ 5 files changed, 49 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/userspace-api/ebpf/index.rst
+ create mode 100644 Documentation/userspace-api/ebpf/syscall.rst
 
-diff --git a/tools/testing/selftests/bpf/.gitignore b/tools/testing/selftests/bpf/.gitignore
-index a0d5ec3cfc24..4866f6a21901 100644
---- a/tools/testing/selftests/bpf/.gitignore
-+++ b/tools/testing/selftests/bpf/.gitignore
-@@ -1,5 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
- bpf-helpers*
-+bpf-syscall*
- test_verifier
- test_maps
- test_lru_map
-diff --git a/tools/testing/selftests/bpf/Makefile.docs b/tools/testing/selftests/bpf/Makefile.docs
-index f39ad19317c8..ccf260021e83 100644
---- a/tools/testing/selftests/bpf/Makefile.docs
-+++ b/tools/testing/selftests/bpf/Makefile.docs
-@@ -15,18 +15,27 @@ endif
+diff --git a/Documentation/bpf/index.rst b/Documentation/bpf/index.rst
+index 4f2874b729c3..a702f67dd45f 100644
+--- a/Documentation/bpf/index.rst
++++ b/Documentation/bpf/index.rst
+@@ -12,9 +12,6 @@ BPF instruction-set.
+ The Cilium project also maintains a `BPF and XDP Reference Guide`_
+ that goes into great technical depth about the BPF Architecture.
  
- prefix ?= /usr/local
- mandir ?= $(prefix)/man
-+man2dir = $(mandir)/man2
- man7dir = $(mandir)/man7
+-The primary info for the bpf syscall is available in the `man-pages`_
+-for `bpf(2)`_.
+-
+ BPF Type Format (BTF)
+ =====================
  
-+SYSCALL_RST = bpf-syscall.rst
-+MAN2_RST = $(SYSCALL_RST)
+@@ -35,6 +32,12 @@ Two sets of Questions and Answers (Q&A) are maintained.
+    bpf_design_QA
+    bpf_devel_QA
+ 
++Syscall API
++===========
 +
- HELPERS_RST = bpf-helpers.rst
- MAN7_RST = $(HELPERS_RST)
++The primary info for the bpf syscall is available in the `man-pages`_
++for `bpf(2)`_. For more information about the userspace API, see
++Documentation/userspace-api/ebpf/index.rst.
  
-+_DOC_MAN2 = $(patsubst %.rst,%.2,$(MAN2_RST))
-+DOC_MAN2 = $(addprefix $(OUTPUT),$(_DOC_MAN2))
+ Helper functions
+ ================
+diff --git a/Documentation/userspace-api/ebpf/index.rst b/Documentation/userspace-api/ebpf/index.rst
+new file mode 100644
+index 000000000000..473dfba78116
+--- /dev/null
++++ b/Documentation/userspace-api/ebpf/index.rst
+@@ -0,0 +1,17 @@
++.. SPDX-License-Identifier: GPL-2.0
 +
- _DOC_MAN7 = $(patsubst %.rst,%.7,$(MAN7_RST))
- DOC_MAN7 = $(addprefix $(OUTPUT),$(_DOC_MAN7))
- 
--DOCTARGETS := helpers
-+DOCTARGETS := helpers syscall
- 
- docs: $(DOCTARGETS)
-+syscall: man2
- helpers: man7
-+man2: $(DOC_MAN2)
- man7: $(DOC_MAN7)
- 
- RST2MAN_DEP := $(shell command -v rst2man 2>/dev/null)
-@@ -64,9 +73,10 @@ endef
- 
- # Create the make targets to generate manual pages by name and section
- $(eval $(call DOCS_RULES,helpers,7))
-+$(eval $(call DOCS_RULES,syscall,2))
- 
- docs-clean: $(foreach doctarget,$(DOCTARGETS), docs-clean-$(doctarget))
- docs-install: $(foreach doctarget,$(DOCTARGETS), docs-install-$(doctarget))
- docs-uninstall: $(foreach doctarget,$(DOCTARGETS), docs-uninstall-$(doctarget))
- 
--.PHONY: docs docs-clean docs-install docs-uninstall man7
-+.PHONY: docs docs-clean docs-install docs-uninstall man2 man7
++eBPF Userspace API
++==================
++
++eBPF is a kernel mechanism to provide a sandboxed runtime environment in the
++Linux kernel for runtime extension and instrumentation without changing kernel
++source code or loading kernel modules. eBPF programs can be attached to various
++kernel subsystems, including networking, tracing and Linux security modules
++(LSM).
++
++For internal kernel documentation on eBPF, see Documentation/bpf/index.rst.
++
++.. toctree::
++   :maxdepth: 1
++
++   syscall
+diff --git a/Documentation/userspace-api/ebpf/syscall.rst b/Documentation/userspace-api/ebpf/syscall.rst
+new file mode 100644
+index 000000000000..ea9918084221
+--- /dev/null
++++ b/Documentation/userspace-api/ebpf/syscall.rst
+@@ -0,0 +1,24 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++eBPF Syscall
++------------
++
++:Authors: - Alexei Starovoitov <ast@kernel.org>
++          - Joe Stringer <joe@wand.net.nz>
++          - Michael Kerrisk <mtk.manpages@gmail.com>
++
++The primary info for the bpf syscall is available in the `man-pages`_
++for `bpf(2)`_.
++
++bpf() subcommand reference
++~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++.. kernel-doc:: include/uapi/linux/bpf.h
++   :doc: eBPF Syscall Preamble
++
++.. kernel-doc:: include/uapi/linux/bpf.h
++   :doc: eBPF Syscall Commands
++
++.. Links:
++.. _man-pages: https://www.kernel.org/doc/man-pages/
++.. _bpf(2): https://man7.org/linux/man-pages/man2/bpf.2.html
+diff --git a/Documentation/userspace-api/index.rst b/Documentation/userspace-api/index.rst
+index d29b020e5622..1e2438b7afa0 100644
+--- a/Documentation/userspace-api/index.rst
++++ b/Documentation/userspace-api/index.rst
+@@ -21,6 +21,7 @@ place where this information is gathered.
+    unshare
+    spec_ctrl
+    accelerators/ocxl
++   ebpf/index
+    ioctl/index
+    iommu
+    media/index
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8d56c7044067..4446d1455354 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3209,6 +3209,7 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git
+ F:	Documentation/bpf/
+ F:	Documentation/networking/filter.rst
++F:	Documentation/userspace-api/ebpf/
+ F:	arch/*/net/*
+ F:	include/linux/bpf*
+ F:	include/linux/filter.h
 -- 
 2.27.0
 
