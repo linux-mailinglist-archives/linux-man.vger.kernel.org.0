@@ -2,159 +2,190 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B692332B530
-	for <lists+linux-man@lfdr.de>; Wed,  3 Mar 2021 07:30:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 61E0B32B533
+	for <lists+linux-man@lfdr.de>; Wed,  3 Mar 2021 07:30:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236130AbhCCGXr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 3 Mar 2021 01:23:47 -0500
-Received: from de-smtp-delivery-102.mimecast.com ([194.104.109.102]:46156 "EHLO
-        de-smtp-delivery-102.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1448970AbhCBPx0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Mar 2021 10:53:26 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-        t=1614700320;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding;
-        bh=kUZjVnsi8Dl5WkKKATrMY3ju10QZjCQvQ2azn7UrYKI=;
-        b=Ibw+kCFKla0B8rTBnHu0WGlbUlyflBhF6V0oYGVIyvlROp24QYCGEFDTresm17mLQ+6Gd9
-        FJBWVSdW/037nfChd+Q5DJzlc/3Hyzvm9eHpMz0Prt5JJQbVL/3HRZO4fKBNz/5IF6873R
-        NR8osEU8W3OarxDwdIrgEzkbLrrDsgU=
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01lp2056.outbound.protection.outlook.com [104.47.1.56]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-40-u2cQ5GqlNYSOc0e9C6YSaQ-1; Tue, 02 Mar 2021 16:48:48 +0100
-X-MC-Unique: u2cQ5GqlNYSOc0e9C6YSaQ-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gi2P0RhcBw+mjUvi4RHb3Bl7XnkWA3YLSAze59pY/KyJv8ldE9WrfK6oCUmpVz8LP/YkD3Jmz4GwiCWXPy4fFIE7+bSFfkEY96Ibs5PcirMqVSW5xD49cKDeIV/cxudmsUdgpzydxSgtRse/3eZWGBCApR3KRfVZtUPF5jenmnUsV6uk5v5zgKF3b06c2Astm2xmPwwk81Q9nVrI1KjL6kdp2zIs+iNBhUrfJWxDJcOjr+N/jjkQfQMyOw85FLElf0IKmZNtqybNeY9K4WXhVcWOJl2equ3xFIsSE/HRsl6aKmgbN53NNHznzRyXv5cyZz05KMXmQYtk/eEN+HBVgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ughVXVVY+M8Uyu/njLCniBzIDoWqbgxHRkRylp9mdZw=;
- b=iN2H2U+NjSF7ycC9ZU/P2dPDaKB0XCfLr1+Yd/QooR5pqnlf3teaGGCGppB5oIpjbNie2sp7q0kDtLT/CEQKJ5XhwpTJCnEG2rzbjrn+cgyqlFS93GBpoornrso5JhRMZsQVJqsol08GEFtcWBiPVfBvrtFMytvG/7ChXq3fXDFeGb1kg8emii7abHcDBiRMFC2HymMH6niO10ZVmxZGKzEJPgb+lIq7EyJ91tdLViG8JGKFvPakclp0QEBiwpL3O7cs34ahwTFkO6CGmdZOoBiUV76Mxt2wifjsF7phNx2s+gAPM0DbP2ARTssGgnF2lhUyUj9O2MQS6CWWL57Cpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=none action=none header.from=suse.com;
-Received: from VI1PR0402MB3359.eurprd04.prod.outlook.com (2603:10a6:803:3::28)
- by VI1PR04MB5055.eurprd04.prod.outlook.com (2603:10a6:803:53::29) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.20; Tue, 2 Mar
- 2021 15:48:47 +0000
-Received: from VI1PR0402MB3359.eurprd04.prod.outlook.com
- ([fe80::9c1d:89de:a08e:ccc9]) by VI1PR0402MB3359.eurprd04.prod.outlook.com
- ([fe80::9c1d:89de:a08e:ccc9%4]) with mapi id 15.20.3890.028; Tue, 2 Mar 2021
- 15:48:46 +0000
-From:   =?UTF-8?q?Aur=C3=A9lien=20Aptel?= <aaptel@suse.com>
-To:     linux-cifs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-man@vger.kernel.org, mtk.manpages@gmail.com
-CC:     smfrench@gmail.com, Aurelien Aptel <aaptel@suse.com>
-Subject: [man-pages][PATCH v1] flock.2: add CIFS details
-Date:   Tue,  2 Mar 2021 16:48:31 +0100
-Message-ID: <20210302154831.17000-1-aaptel@suse.com>
-X-Mailer: git-send-email 2.30.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain
-X-Originating-IP: [2003:fa:70b:4a07:1423:4545:e408:5580]
-X-ClientProxiedBy: ZR0P278CA0033.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:1c::20) To VI1PR0402MB3359.eurprd04.prod.outlook.com
- (2603:10a6:803:3::28)
+        id S1346975AbhCCGYN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 3 Mar 2021 01:24:13 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50116 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1349450AbhCBRga (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Mar 2021 12:36:30 -0500
+Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com [IPv6:2607:f8b0:4864:20::530])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EF8D1C0611BE
+        for <linux-man@vger.kernel.org>; Tue,  2 Mar 2021 09:20:32 -0800 (PST)
+Received: by mail-pg1-x530.google.com with SMTP id a4so14240367pgc.11
+        for <linux-man@vger.kernel.org>; Tue, 02 Mar 2021 09:20:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cilium-io.20150623.gappssmtp.com; s=20150623;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=ZSepNuTpShhqXcTO9o/+6YyXUqnmTGJsJycIq3qFJpo=;
+        b=iCWZupQqVkBwoPxoHcF5zAleItLX18zgYEvsPvPz1QBKeW4ggt81c3gfm62l9KBLYv
+         0ZQ5/4+e7WEVeILAU1QoVQSgSF9NuPuCV/IuzL04ylKWdGrGw+isusB09Py22T/03PCg
+         c3zTrTe6IClZMKWveUal+fOHVZ39cGEYQo7Jf+UYTg4D5IV7/L2JRK+sgAx11Di3SnG8
+         kPsPQAClb108dIOkpMeBlAW++rr+4zNrMD2UKsZmFOR9CLQKh4iJBQn/jKUjCYwpBMAp
+         8GN4iFygZb1OmR3+YI+ogrlz5On/VsVJ5aNi6wDpqJPfp6sBIUyB9bx1gPBDPCciVm/M
+         6mVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=ZSepNuTpShhqXcTO9o/+6YyXUqnmTGJsJycIq3qFJpo=;
+        b=HnADpLiPPCzVnMKLEblVSNe9UchoJJ4kZqQU10g4Mh6SNrGmyEVcieqQ1m8j+lNVWv
+         oZG7INQnr23T579Y2KrzrQQpLmyZVgMyM5Te+XRg4EmVoD1It+O6LalNwpkCdYMFpyuq
+         3+G+U1E1sty4GH9PMNPATOjw4dGX4cpKy7aPdhOWw4MAjlL8oj/4mM4+meFd/w3kZ5Yr
+         8u2JnQcBmASqExO6RMkI23qYU1KAY4TULE6H3Nj2iDXgUiQkORFdjOOBIQ4MiUEVpatu
+         qMd/jOflUjVYPH4mSrOjPTTY/MeQaQ/pQ0JOKI8CyFYHB7bm1oOPFy50ixPBHaCXrwJK
+         Y8JA==
+X-Gm-Message-State: AOAM532tEfNc4ipfoZ2m6hcDaiYl1aCzbI6an7Ji0j6vDtVifw6s8HcH
+        gxjsXTqz99yGPd0EKUOD9PUpNQ==
+X-Google-Smtp-Source: ABdhPJwuIMK+ewRiaw33ZRBdLAvPTiWCttJuE4Y7QHyuLgDmoaprwrhcPx4OJfWs7oWlUXT/bYylqQ==
+X-Received: by 2002:aa7:9a86:0:b029:1ee:70dd:c44e with SMTP id w6-20020aa79a860000b02901ee70ddc44emr4136871pfi.56.1614705632486;
+        Tue, 02 Mar 2021 09:20:32 -0800 (PST)
+Received: from localhost.localdomain (c-73-93-5-123.hsd1.ca.comcast.net. [73.93.5.123])
+        by smtp.gmail.com with ESMTPSA id b15sm20073923pgg.85.2021.03.02.09.20.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Mar 2021 09:20:32 -0800 (PST)
+From:   Joe Stringer <joe@cilium.io>
+To:     bpf@vger.kernel.org
+Cc:     linux-man@vger.kernel.org, linux-doc@vger.kernel.org,
+        mtk.manpages@gmail.com, ast@kernel.org, brianvv@google.com,
+        daniel@iogearbox.net, daniel@zonque.org, john.fastabend@gmail.com,
+        ppenkov@google.com, quentin@isovalent.com, sean@mess.org,
+        yhs@fb.com
+Subject: [PATCHv2 bpf-next 00/15] Improve BPF syscall command documentation
+Date:   Tue,  2 Mar 2021 09:19:32 -0800
+Message-Id: <20210302171947.2268128-1-joe@cilium.io>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost (2003:fa:70b:4a07:1423:4545:e408:5580) by ZR0P278CA0033.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:1c::20) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.24 via Frontend Transport; Tue, 2 Mar 2021 15:48:46 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 500a5b59-b4fc-49a5-92d0-08d8dd92aa68
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5055:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <VI1PR04MB505507EFCC96C298F97FE8C8A8999@VI1PR04MB5055.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wgncJweN730CubP4O8rMOdYwckmavL4A8hfPQzHnxtqAUIJaeqW+nKBj6F+xVCAzzVtm6n8g7B6zD/PVWxX6g4mwVLZtJv1cCdcfAJFEhepjfHKCVhy+LCnI240p0ETyq7oknx9abTUQVoOb4T38N1ifYoPObJafdO4mXUu0i3ps6XQC6dDkWjGaHsTUyQ/48VLNuQPG2YSgmvFX34lzUIKQsGD6/jQ2k5aHQShsZ/dU6Ee38cFaXXT0DRwnA7iZwkTrb7fRifP8pl7Bel4Lv6EWRoos6l0AoZzhFx9J0daktxc/AUdO/3QUliYGXNkZ9g7KEvzSbBLLYxepymPe4RyCWei+D8yF2H99nNK6nWWGsoUqd2IbALEqIAHq16tuQWI2tDGRht72eujCbg/lXWvsDxSrcF3xRCNPRRjYcM6TEN1JcKzmqsQVUJXo5c9hbGnAVTCfuGl3deW50AQo63q4KbstY71LZU9pLece9+Y1XiLg/gw8K7ylvzb+rfSiLYUmho/ffPHHYoCyp1FAjHDvutMDLQi6ZDvF0k1kJ89CXA14aR75Fw6T9HPVaHRfpRPOgY4lbQh36OXlPdsK8Ld9gePscX4fr2HRF8vR2Um/TZgBN30J4ZhpuyaUS9gpJp1XGioev9QQRr4uNTMcFoTWNwLsM/3xXtLrwThjFMleqK8RDovqQHb1Vyv9hCnIfoMD5neLHijSVFI5AkHeVtEZCQ38vSsR0W/4Qpk/8Q93kEZ8c0u3uxaxNTkQDr64FyBLk7R+rPFFeFMciOL0ZvbV23+uUMZcNy2U8ACJrFCP37d7nLh0R4zrYWVcrANjV2XG7LNIQAFhRGncxRpNIKhSx1hsea42A77oJoUI2kWsoI13OazzRqfjtHtrU2ww/96ReOz54H2C8RRBnvMFrw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:5;SRV:;IPV:NLI;SFV:SPM;H:VI1PR0402MB3359.eurprd04.prod.outlook.com;PTR:;CAT:OSPM;SFS:(376002)(136003)(396003)(39860400002)(366004)(346002)(8936002)(4326008)(107886003)(52116002)(8676002)(186003)(6496006)(16526019)(36756003)(66476007)(5660300002)(2906002)(66556008)(316002)(6666004)(2616005)(83380400001)(1076003)(66946007)(478600001)(86362001)(6486002)(23200700001);DIR:OUT;SFP:1501;
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?oSLs+YQJNYu6lZ6Pz1mN9BgmDdEz6jnTERQ6Q1fBngNgD7jGn0lFen9gh2De?=
- =?us-ascii?Q?jwzfNpNPWcg8Se2I9uYG6lh2SFvTfscNDlVZGIBSPfZ14LX8YLNNuCFlT3ke?=
- =?us-ascii?Q?NRyMM+tgo6rVE+PALPYxpu4SSyWjcggwkfl+Nl9haKr/5IccbHY4N8PthxLh?=
- =?us-ascii?Q?jLSss/BOtvnJjjki+Lq3Hbb9XqGgaLQ1x6IsUOa6LmEGjuBb41FvfsCaA7zx?=
- =?us-ascii?Q?qkR59hnMFQkBILknWxOssHLvqeMiS0Rb7aEUyYC5N+R0EXcQMkPj+hLC5hAd?=
- =?us-ascii?Q?VlhGLFKgjvvZqFRvl4/LMsNF4JeBozp7t3rKEmWKLSzn6coi84iNVIBJwOU1?=
- =?us-ascii?Q?eGIfBm7OFCAZC3UNJl4CGy3NKBT6oFtWg/TCkFmUt9Q9fb//KPO2Y1W2NGUd?=
- =?us-ascii?Q?Qg50Si1Zb04lv70/61I5FzkT4Vs3UT7DERuvLJJePWaWM0sFNwwt4bh2UW02?=
- =?us-ascii?Q?qeAl34PiKQCFFiwJBUw5RV7KVHECYyEA+tEqMUIHw8jaUchgXhAdj3ZeZCxB?=
- =?us-ascii?Q?RFC5sv7unAxT8J/RmE+zhx7eHDYIwa9Y/bqKqDLlbY42VIG7oU1n4BXmqv0d?=
- =?us-ascii?Q?DPKujvdfLVqnErHnCqHZ/LtCq01wBEIBkOd6u0E2F1OC4jXtwoZNsCeNIB6s?=
- =?us-ascii?Q?o33S15uhwiam24vKzA2VdwpsEF76HzQuNFJanQHP6YL3LcFpF3WLP0xL7Sgd?=
- =?us-ascii?Q?MjEyXG9a/8B3cLx44KhppUQ5bCFd3p74WvE+I8Z+RM7A7cRGoJKa2VyhY1O9?=
- =?us-ascii?Q?hswraAzKp2uQ46hvENzFiCepnUUyLy4THkhsJePrzT6779vGsXHGoN2PL8/C?=
- =?us-ascii?Q?ofzf5KHCQtkIpTrbfWoE0P/6gncXsbreLCCwRPgSgK/zqVEbAw4TBo1ptIML?=
- =?us-ascii?Q?qU80/wIbRdaL/JQg+TKhlsT4dusXb5vlYPwMmBrOIhkcrlUBELI0+rpjrdbF?=
- =?us-ascii?Q?XVljisJm2BHots8/FRxuO37dtMBHJZi/wW+iwLYNlO6WbPaUwdHFAVosLj6m?=
- =?us-ascii?Q?j2MMMHNGkBchL/9uBWS+q5CnVysMXi6pektQwNvsNFWkyVaq1c7uVMmIQwfC?=
- =?us-ascii?Q?Rv00uRIOYxPUtPEpbwVigIUFt1Ww9yQeF653P4EP+JeKtW+YCARQ5YEIo7gF?=
- =?us-ascii?Q?yKUqGwfd/eBi5eGyIokssVuM/2s7ewj0ypUVlgfWwbGxtH63HnrlIb5j4FPn?=
- =?us-ascii?Q?eood6DDjkblzLtVEoTMwJYK0BK7jBBs9qLQkn4M4kEVza/zx16xZEWUok+IC?=
- =?us-ascii?Q?Rag++dvIxOkEg4I1rSO4oFsJZz97CyMJZRKV744np2GqgU+IQpdp+E5Ws57B?=
- =?us-ascii?Q?ShBHbqJmyqHoTfpHnoVZkKQgwI+V/S/qN6jVXrq6RpyalOghpCLJsjaOGuiQ?=
- =?us-ascii?Q?vDQYTYVOl7qrnJIa6ChEd5yfmiR3?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 500a5b59-b4fc-49a5-92d0-08d8dd92aa68
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR0402MB3359.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2021 15:48:46.8807
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mHVxrBJargI9TCBJq+YKOSukmNiBv+4rZcpdHKle/Iz9LJk0ECyfuZg1u72WELxt
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5055
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Aurelien Aptel <aaptel@suse.com>
+The state of bpf(2) manual pages today is not exactly ideal. For the
+most part, it was written several years ago and has not kept up with the
+pace of development in the kernel tree. For instance, out of a total of
+~35 commands to the BPF syscall available today, when I pull the
+kernel-man-pages tree today I find just 6 documented commands: The very
+basics of map interaction and program load.
 
-Similarly to NFS, CIFS flock() locks behave differently than the
-standard. Document those differences.
+In contrast, looking at bpf-helpers(7), I am able today to run one
+command[0] to fetch API documentation of the very latest eBPF helpers
+that have been added to the kernel. This documentation is up to date
+because kernel maintainers enforce documenting the APIs as part of
+the feature submission process. As far as I can tell, we rely on manual
+synchronization from the kernel tree to the kernel-man-pages tree to
+distribute these more widely, so all locations may not be completely up
+to date. That said, the documentation does in fact exist in the first
+place which is a major initial hurdle to overcome.
 
-Signed-off-by: Aurelien Aptel <aaptel@suse.com>
+Given the relative success of the process around bpf-helpers(7) to
+encourage developers to document their user-facing changes, in this
+patch series I explore applying this technique to bpf(2) as well.
+Unfortunately, even with bpf(2) being so out-of-date, there is still a
+lot of content to convert over. In particular, the following aspects of
+the bpf syscall could also be individually be generated from separate
+documentation in the header:
+* BPF syscall commands
+* BPF map types
+* BPF program types
+* BPF program subtypes (aka expected_attach_type)
+* BPF attachment points
+
+Rather than tackle everything at once, I have focused in this series on
+the syscall commands, "enum bpf_cmd". This series is structured to first
+import what useful descriptions there are from the kernel-man-pages
+tree, then piece-by-piece document a few of the syscalls in more detail
+in cases where I could find useful documentation from the git tree or
+from a casual read of the code. Not all documentation is comprehensive
+at this point, but a basis is provided with examples that can be further
+enhanced with subsequent follow-up patches. Note, the series in its
+current state only includes documentation around the syscall commands
+themselves, so in the short term it doesn't allow us to automate bpf(2)
+generation; Only one section of the man page could be replaced. Though
+if there is appetite for this approach, this should be trivial to
+improve on, even if just by importing the remaining static text from the
+kernel-man-pages tree.
+
+Following that, the series enhances the python scripting around parsing
+the descriptions from the header files and generating dedicated
+ReStructured Text and troff output. Finally, to expose the new text and
+reduce the likelihood of having it get out of date or break the docs
+parser, it is added to the selftests and exposed through the kernel
+documentation web pages.
+
+The eventual goal of this effort would be to extend the kernel UAPI
+headers such that each of the categories I had listed above (commands,
+maps, progs, hooks) have dedicated documentation in the kernel tree, and
+that developers must update the comments in the headers to document the
+APIs prior to patch acceptance, and that we could auto-generate the
+latest version of the bpf(2) manual pages based on a few static
+description sections combined with the dynamically-generated output from
+the header.
+
+This patch series can also be found at the following location on GitHub:
+https://github.com/joestringer/linux/tree/submit/bpf-command-docs_v2
+
+Thanks also to Quentin Monnet for initial review.
+
+[0]: make -C tools/testing/selftests/bpf docs
+
 ---
- man2/flock.2 | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
 
-diff --git a/man2/flock.2 b/man2/flock.2
-index 61d4b5396..9271b8fef 100644
---- a/man2/flock.2
-+++ b/man2/flock.2
-@@ -239,6 +239,28 @@ see the discussion of the
- .I "local_lock"
- option in
- .BR nfs (5).
-+.SS CIFS details
-+CIFS mounts share similar limitations with NFS.
-+.PP
-+In Linux kernels up to 5.4,
-+.BR flock ()
-+locks files on the local system,
-+not over SMB. A locked file won't appear locked for other SMB clients
-+accessing the same share.
-+.PP
-+Since Linux 5.5,
-+.BR flock ()
-+are emulated with SMB byte-range locks on the
-+entire file. Similarly to NFS, this means that
-+.BR fcntl (2)
-+and
-+.BR flock ()
-+locks interact with one another over SMB. Another important
-+side-effect is that the locks are not advisory anymore: a write on a
-+locked file will always fail with
-+.BR EACCESS .
-+This difference originates from the design of locks in the SMB
-+protocol and cannot be worked around.
- .SH SEE ALSO
- .BR flock (1),
- .BR close (2),
---=20
-2.30.0
+v2:
+* Remove build infrastructure in favor of kernel-doc directives
+* Shift userspace-api docs under Documentation/userspace-api/ebpf
+* Fix scripts/bpf_doc.py syscall --header (throw unsupported error)
+* Improve .gitignore handling of newly autogenerated files
+
+---
+
+Joe Stringer (15):
+  bpf: Import syscall arg documentation
+  bpf: Add minimal bpf() command documentation
+  bpf: Document BPF_F_LOCK in syscall commands
+  bpf: Document BPF_PROG_PIN syscall command
+  bpf: Document BPF_PROG_ATTACH syscall command
+  bpf: Document BPF_PROG_TEST_RUN syscall command
+  bpf: Document BPF_PROG_QUERY syscall command
+  bpf: Document BPF_MAP_*_BATCH syscall commands
+  scripts/bpf: Abstract eBPF API target parameter
+  scripts/bpf: Add syscall commands printer
+  tools/bpf: Remove bpf-helpers from bpftool docs
+  selftests/bpf: Templatize man page generation
+  selftests/bpf: Test syscall command parsing
+  docs/bpf: Add bpf() syscall command reference
+  tools: Sync uapi bpf.h header with latest changes
+
+ Documentation/bpf/index.rst                   |   9 +-
+ Documentation/userspace-api/ebpf/index.rst    |  17 +
+ Documentation/userspace-api/ebpf/syscall.rst  |  24 +
+ Documentation/userspace-api/index.rst         |   1 +
+ MAINTAINERS                                   |   2 +
+ include/uapi/linux/bpf.h                      | 714 +++++++++++++++++-
+ scripts/{bpf_helpers_doc.py => bpf_doc.py}    | 191 ++++-
+ tools/bpf/Makefile.helpers                    |  60 --
+ tools/bpf/bpftool/.gitignore                  |   1 -
+ tools/bpf/bpftool/Documentation/Makefile      |  11 +-
+ tools/include/uapi/linux/bpf.h                | 714 +++++++++++++++++-
+ tools/lib/bpf/Makefile                        |   2 +-
+ tools/perf/MANIFEST                           |   2 +-
+ tools/testing/selftests/bpf/.gitignore        |   2 +
+ tools/testing/selftests/bpf/Makefile          |  20 +-
+ tools/testing/selftests/bpf/Makefile.docs     |  82 ++
+ .../selftests/bpf/test_bpftool_build.sh       |  21 -
+ tools/testing/selftests/bpf/test_doc_build.sh |  13 +
+ 18 files changed, 1746 insertions(+), 140 deletions(-)
+ create mode 100644 Documentation/userspace-api/ebpf/index.rst
+ create mode 100644 Documentation/userspace-api/ebpf/syscall.rst
+ rename scripts/{bpf_helpers_doc.py => bpf_doc.py} (82%)
+ delete mode 100644 tools/bpf/Makefile.helpers
+ create mode 100644 tools/testing/selftests/bpf/Makefile.docs
+ create mode 100755 tools/testing/selftests/bpf/test_doc_build.sh
+
+-- 
+2.27.0
 
