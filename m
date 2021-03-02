@@ -2,60 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5B43332B537
-	for <lists+linux-man@lfdr.de>; Wed,  3 Mar 2021 07:30:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D444632B534
+	for <lists+linux-man@lfdr.de>; Wed,  3 Mar 2021 07:30:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238908AbhCCGZN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 3 Mar 2021 01:25:13 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50130 "EHLO
+        id S238471AbhCCGYw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 3 Mar 2021 01:24:52 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50136 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1349771AbhCBRga (ORCPT
+        with ESMTP id S1349777AbhCBRga (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Tue, 2 Mar 2021 12:36:30 -0500
-Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com [IPv6:2607:f8b0:4864:20::535])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 82B06C061D7C
-        for <linux-man@vger.kernel.org>; Tue,  2 Mar 2021 09:20:40 -0800 (PST)
-Received: by mail-pg1-x535.google.com with SMTP id l2so14289922pgb.1
-        for <linux-man@vger.kernel.org>; Tue, 02 Mar 2021 09:20:40 -0800 (PST)
+Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com [IPv6:2607:f8b0:4864:20::52d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C0EC6C0698C0
+        for <linux-man@vger.kernel.org>; Tue,  2 Mar 2021 09:20:41 -0800 (PST)
+Received: by mail-pg1-x52d.google.com with SMTP id o38so14246781pgm.9
+        for <linux-man@vger.kernel.org>; Tue, 02 Mar 2021 09:20:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cilium-io.20150623.gappssmtp.com; s=20150623;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=LGedM16svrVRIDLBK09BZkJurYK/adPWABtIqUN11XE=;
-        b=nec8Qf4JnqZveYNQRUt7giQ1HrgeOLBYYbLnenTVr1+XsPqLZx9H4T93/uPCFY99dV
-         CvMWnXF0Q4e78JMkkeSHeqJPsj5AJYQG6dqcOu8prQgpDlsLk/2PM604XmGKLDS+H0Kv
-         1LcC65OfH1Xt23i3jXtcGsdn8W0QFiP2u3piZAWQJ1rbHA1AwtvtqcOPEwMYwRvWFu28
-         NEfIo+hOnGkj2ykivDKe08SuraOa0BgrsdkI3sdK3QYdQY2A9hUseVRfbfhhQpNKa6B2
-         vHmEDzrQeOpaVV6PbmnpglsgtP6l5G8hAhgjdfLkV/uH9UiOAGniC4sqPl7yvWPmVncu
-         HSKQ==
+        bh=z18YKbLroFUMGatWaH2sPxqJhja6Q90A29PeFQbc+yo=;
+        b=Pd1EI/TpC8ppXGX0DvPNxNKLO4LBZUb5iWVW39mf7VL+Yku8YghXxLi1ngPO+TsrbW
+         so6J/GGP32H8aiu44WZ1cWs5oVTZF7yfxNSFB0iPIBpeogJHoH+UCjHsgAmvV3dPZ6+/
+         WgZ6XVBb0OGFPrP9a0dTRg/QWoOahRBaAROtfFOIrdMeOCTvO9cGNG0GpqdnbyBLGJZ1
+         i7HSO8FEA//QEniDAOVW3NzwGurhiZtBzrlAEB16uU++MeTbT+PbVJlvcGyo2cbkx/UX
+         Ov7Qy3F+OZGQoBVEBL67GAoSJBQwCQpNKLlOQdCNiqfgQouCYWsApBI4s8rr8IkRmeqv
+         nNjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=LGedM16svrVRIDLBK09BZkJurYK/adPWABtIqUN11XE=;
-        b=kZxFJgEPWB7uKo1eETubG56oicyyp0fu2WdJvzOkv0IEGXmhnTos5ge+zmEnkIjF0D
-         ZNAID2ZWTB2j68qWSVSgSdJ0lTx7dfeiIPxzauppTIy+YJvyZoML9FGgrXjNuu1uWuRW
-         J9PapJHvSxbzl26WEaxqJKWNQfH6YizDdxJXHeTgHVcy5gcgE3CNm0+olXTVmJVIt3mN
-         dovaVQ1EaIQ71ouKs6haWoUraQee7YCxD1ITg07ezd/iCSUEBWhI6a80JfFml0i9oz6z
-         Wg97PNchDFRcaixGgZ5eD7soBp51cDK8XiVUcxaFwIotEzAJERpIOPNmxpn3j6IeNYZ1
-         cl3Q==
-X-Gm-Message-State: AOAM531RtZWgaLJlvp5YZtFnWUbnnh9cN2nNr5xkEKwuZSu++FUHrlA+
-        koMUT/0i3Kmi99y84NERZco8nw==
-X-Google-Smtp-Source: ABdhPJx/uvf1QBj7cHKKClRTL89yGb95dwPDCdF0a63SosyR+2cPWBJqf5GeKY0fbP9QjO6nOPhTjA==
-X-Received: by 2002:a05:6a00:22d6:b029:1cb:35ac:d8e0 with SMTP id f22-20020a056a0022d6b02901cb35acd8e0mr4023406pfj.17.1614705640111;
-        Tue, 02 Mar 2021 09:20:40 -0800 (PST)
+        bh=z18YKbLroFUMGatWaH2sPxqJhja6Q90A29PeFQbc+yo=;
+        b=BEnU3OB1x5F164FXmiHvNB0pD/Y2h8mO0jSqsqv0iBT8tLwZNXZMRRh1AXkDGYqymK
+         uN02MCG87b3+mjtnsSeUCUpgP/j/GPJ1CnKvbXmiWqMyoi3kMFGpI/LdhTnevO96q0vI
+         zmAIa0lAu1eL7A7WGwgpgmKp5JPhQPUL3DbqM+jHkNt68bKfAqD0MQYT1zFxAXe7eXzr
+         KJdIxiW/dqgjODw5yjCOkQE/KwSFWIqgsUz3VaOxmBHWNZQ1M8lBak6SmofLZkEVPnuS
+         tPHhWVrQSUYal784H8Q2qktnHcK8pqOOE2y2gnCIACjkUZ2CU/xjXK8Ior2QDCHsbVSU
+         8aKA==
+X-Gm-Message-State: AOAM531WuZWLl+rYjPuZzSdCxHPZ1oANw2fYLKhljFYo9u/A5QI93RZE
+        tyANNLpanHYklpw1hX0v8wjmwA==
+X-Google-Smtp-Source: ABdhPJxim7dzilHY/aBlpeWqGXwKtRtgJEUPj4lm/UAvJUStMTmJjPAbshFJ/EXYqAw/a1iQt999cw==
+X-Received: by 2002:a62:170a:0:b029:1ed:cc98:35aa with SMTP id 10-20020a62170a0000b02901edcc9835aamr4026123pfx.77.1614705641361;
+        Tue, 02 Mar 2021 09:20:41 -0800 (PST)
 Received: from localhost.localdomain (c-73-93-5-123.hsd1.ca.comcast.net. [73.93.5.123])
-        by smtp.gmail.com with ESMTPSA id b15sm20073923pgg.85.2021.03.02.09.20.38
+        by smtp.gmail.com with ESMTPSA id b15sm20073923pgg.85.2021.03.02.09.20.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Mar 2021 09:20:39 -0800 (PST)
+        Tue, 02 Mar 2021 09:20:40 -0800 (PST)
 From:   Joe Stringer <joe@cilium.io>
 To:     bpf@vger.kernel.org
 Cc:     daniel@iogearbox.net, ast@kernel.org, linux-doc@vger.kernel.org,
         linux-man@vger.kernel.org,
         =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
         Quentin Monnet <quentin@isovalent.com>
-Subject: [PATCHv2 bpf-next 06/15] bpf: Document BPF_PROG_TEST_RUN syscall command
-Date:   Tue,  2 Mar 2021 09:19:38 -0800
-Message-Id: <20210302171947.2268128-7-joe@cilium.io>
+Subject: [PATCHv2 bpf-next 07/15] bpf: Document BPF_PROG_QUERY syscall command
+Date:   Tue,  2 Mar 2021 09:19:39 -0800
+Message-Id: <20210302171947.2268128-8-joe@cilium.io>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210302171947.2268128-1-joe@cilium.io>
 References: <20210302171947.2268128-1-joe@cilium.io>
@@ -66,45 +66,68 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Based on a brief read of the corresponding source code.
+Commit 468e2f64d220 ("bpf: introduce BPF_PROG_QUERY command") originally
+introduced this, but there have been several additions since then.
+Unlike BPF_PROG_ATTACH, it appears that the sockmap progs are not able
+to be queried so far.
 
 Acked-by: Toke Høiland-Jørgensen <toke@redhat.com>
 Reviewed-by: Quentin Monnet <quentin@isovalent.com>
 Signed-off-by: Joe Stringer <joe@cilium.io>
 ---
- include/uapi/linux/bpf.h | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+CC: Alexei Starovoitov <ast@kernel.org>
+---
+ include/uapi/linux/bpf.h | 37 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
 diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
-index a8f2964ec885..a6cd6650e23d 100644
+index a6cd6650e23d..0cf92ef011f1 100644
 --- a/include/uapi/linux/bpf.h
 +++ b/include/uapi/linux/bpf.h
-@@ -306,14 +306,22 @@ union bpf_iter_link_info {
+@@ -389,6 +389,43 @@ union bpf_iter_link_info {
+  *		Obtain information about eBPF programs associated with the
+  *		specified *attach_type* hook.
   *
-  * BPF_PROG_TEST_RUN
-  *	Description
-- *		Run an eBPF program a number of times against a provided
-- *		program context and return the modified program context and
-- *		duration of the test run.
-+ *		Run the eBPF program associated with the *prog_fd* a *repeat*
-+ *		number of times against a provided program context *ctx_in* and
-+ *		data *data_in*, and return the modified program context
-+ *		*ctx_out*, *data_out* (for example, packet data), result of the
-+ *		execution *retval*, and *duration* of the test run.
-  *
++ *		The *target_fd* must be a valid file descriptor for a kernel
++ *		object which depends on the attach type of *attach_bpf_fd*:
++ *
++ *		**BPF_PROG_TYPE_CGROUP_DEVICE**,
++ *		**BPF_PROG_TYPE_CGROUP_SKB**,
++ *		**BPF_PROG_TYPE_CGROUP_SOCK**,
++ *		**BPF_PROG_TYPE_CGROUP_SOCK_ADDR**,
++ *		**BPF_PROG_TYPE_CGROUP_SOCKOPT**,
++ *		**BPF_PROG_TYPE_CGROUP_SYSCTL**,
++ *		**BPF_PROG_TYPE_SOCK_OPS**
++ *
++ *			Control Group v2 hierarchy with the eBPF controller
++ *			enabled. Requires the kernel to be compiled with
++ *			**CONFIG_CGROUP_BPF**.
++ *
++ *		**BPF_PROG_TYPE_FLOW_DISSECTOR**
++ *
++ *			Network namespace (eg /proc/self/ns/net).
++ *
++ *		**BPF_PROG_TYPE_LIRC_MODE2**
++ *
++ *			LIRC device path (eg /dev/lircN). Requires the kernel
++ *			to be compiled with **CONFIG_BPF_LIRC_MODE2**.
++ *
++ *		**BPF_PROG_QUERY** always fetches the number of programs
++ *		attached and the *attach_flags* which were used to attach those
++ *		programs. Additionally, if *prog_ids* is nonzero and the number
++ *		of attached programs is less than *prog_cnt*, populates
++ *		*prog_ids* with the eBPF program ids of the programs attached
++ *		at *target_fd*.
++ *
++ *		The following flags may alter the result:
++ *
++ *		**BPF_F_QUERY_EFFECTIVE**
++ *			Only return information regarding programs which are
++ *			currently effective at the specified *target_fd*.
++ *
   *	Return
   *		Returns zero on success. On error, -1 is returned and *errno*
   *		is set appropriately.
-  *
-+ *		**ENOSPC**
-+ *			Either *data_size_out* or *ctx_size_out* is too small.
-+ *		**ENOTSUPP**
-+ *			This command is not supported by the program type of
-+ *			the program referred to by *prog_fd*.
-+ *
-  * BPF_PROG_GET_NEXT_ID
-  *	Description
-  *		Fetch the next eBPF program currently loaded into the kernel.
 -- 
 2.27.0
 
