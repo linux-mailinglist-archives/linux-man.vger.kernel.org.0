@@ -2,170 +2,147 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id F1FDD32C772
-	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:10:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9C9F732C776
+	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:11:03 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1355596AbhCDAcA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 3 Mar 2021 19:32:00 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52266 "EHLO
+        id S244533AbhCDAcC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 3 Mar 2021 19:32:02 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44696 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1391158AbhCCW0P (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 17:26:15 -0500
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com [IPv6:2a00:1450:4864:20::62d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D8537C061756
-        for <linux-man@vger.kernel.org>; Wed,  3 Mar 2021 14:25:32 -0800 (PST)
-Received: by mail-ej1-x62d.google.com with SMTP id w1so45436541ejf.11
-        for <linux-man@vger.kernel.org>; Wed, 03 Mar 2021 14:25:32 -0800 (PST)
+        with ESMTP id S1353593AbhCDAFJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 19:05:09 -0500
+Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com [IPv6:2607:f8b0:4864:20::c30])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BB466C0617A9
+        for <linux-man@vger.kernel.org>; Wed,  3 Mar 2021 15:51:07 -0800 (PST)
+Received: by mail-oo1-xc30.google.com with SMTP id e17so6132201oow.4
+        for <linux-man@vger.kernel.org>; Wed, 03 Mar 2021 15:51:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Gvp3P0bkdpvSHLSuYYkVNLgGG/7qYyOKw//qYCl6dzs=;
-        b=YvHIvBYFDIV3/0vD7ayLWvCcSCjw0n5JEaPp0trdR5RXXjoDoMJo0lWE9z44Y4jYNR
-         qWsAkR+nILmgov1dc7rjtoAgWC4ZXVtrSj1Bp/0ybZOjny9Us0aVIk0EHDSCFF6tHRCW
-         6K/xWa+pu11fr1UEMO7fSTB0KgBRq5XANLWtFTVtqHvj13x3CI+gjtLe6dxvnmTVozQr
-         IxgjjgorqeW50lXVj7aaA1mYWYNEJIncy0WZjlakHZiiWHEm1Y3zRWsORlzceGi560Fj
-         8+A8+jcLm+AQXD8seyUyWn2sVhdqyO+82L0UgTknH1naCwgglZxq5cGycR9iAuwPHnTt
-         cYRA==
+        d=cilium-io.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=E/wr0fT0I7yiXwtdsqEsPqFrJ61emPLJgrDzqVvsCwc=;
+        b=Rk23ty4+bc5BV6kqWSsua/rctvyP75yV3bfEv2fvBR0l+li24kdj5a2bFVJnqUMAjv
+         SdnkUHdOrr7+ehIz1rD1YDtnJ4DhRqspOhwuLH37k+1iwjeYf0n/EDrTvbxcf9oJ48XA
+         /Dwcc7UsGU8X3vB5lE+BXnhL/wdTaeuaNS4jd63P+vcevgmU0QaEQSNqb9g/nvlZC1YM
+         zNHEnoZKoTN4XPvRTLXJp3tBo6tq4nyre7ooTDs3YMfKuLSa6TyhsXpRAiWcM38b67Dt
+         KzH75JKwvI5RroFYCH97HV/Ez4busEbTOUpAmWMQ33pQC5ZiAfrEE5/J+KoTT+ehSq0z
+         pD8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=Gvp3P0bkdpvSHLSuYYkVNLgGG/7qYyOKw//qYCl6dzs=;
-        b=YkkroGLyTNIQjaWufCyxf0FByKjj9/yMOOn2FsB9u1bxrO8mpJt7ftw0cA58SGfj16
-         cTiXisRA3CjTZ5TQ1jq4pWlKrxCMexG3VhmB029pkzwabwF5/ax/9MAiu/lppE3Vg47T
-         t7KZqfp5E+MQlbWOg4oQp2tZVk9KdlmdZNZYNVReCF57Dn4Z8o/NmGsaLRPVEJYKbiDx
-         sAgyPe0h4AwligYtX1M8gZMmL1f9TYqSCs0noj1g2rrpq6u4pzwG7KULwCQ9p8SjrtJO
-         Z3468xIO9lpobECV+ju/DgqzJeD6gXsfdY1KAd9kBz26IvdaMYR6JAUZWu7kwwvHpJcp
-         uLWA==
-X-Gm-Message-State: AOAM531C8GF3pqa+tHf3winw8UyexPwo24jGDfCDRrFp/zU/0SsR343N
-        dYwtmp4SaylBminqb1k8Q/s=
-X-Google-Smtp-Source: ABdhPJzut7X6rehd+u75KjrJW7zfEUVonqZz0kUuBkxGcB7NRLQCXCFUZAUI8UKacRC5yI3B7qP4Mw==
-X-Received: by 2002:a17:906:dfcc:: with SMTP id jt12mr865537ejc.31.1614810331568;
-        Wed, 03 Mar 2021 14:25:31 -0800 (PST)
-Received: from ?IPv6:2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b? ([2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b])
-        by smtp.gmail.com with ESMTPSA id d15sm8749615edx.62.2021.03.03.14.25.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 03 Mar 2021 14:25:30 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        libc-alpha@sourceware.org, Heinrich Schuchardt <xypron.glpk@gmx.de>
-Subject: Re: [PATCH 00/14] man3: SYNOPSIS: Use 'restrict' in prototypes (batch
- 2)
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20210228004817.122463-1-alx.manpages@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <0f98f70d-c060-c58c-a4aa-6fb5c0c2eaa3@gmail.com>
-Date:   Wed, 3 Mar 2021 23:25:30 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=E/wr0fT0I7yiXwtdsqEsPqFrJ61emPLJgrDzqVvsCwc=;
+        b=NXWlRx5SG6mt1I2zbSE/WMKI+qG8AiQ2phkFJBjEDl4pFoFGBgbPjH6wxUPLG/I6TQ
+         uxtv+JSXyywiJnrJHrypsNSKe+WO+hJ+YWSccsCPISJR1gUNJQHJQ70tQPPdlJxAVsOo
+         2xUfFFd/ci3JifJIv+bX+PuCMReR0mKqruQzrAovzWBPvOpkH7F4zSaV7iCU2VualL+T
+         C1pwtrzyHJqIvyK5uKBok7cyJ9mD7Fq9bBT6oyEnMlikBN9XF5nFqZNTaJirrdLblvq+
+         9TRcbEF64Q7g/uS54tSX0sjEBJdofsLoGnoOSJsE8wB2du0wLtvDONUM7GSAk3p108l3
+         qCMA==
+X-Gm-Message-State: AOAM530cBz/c9QfFHsLVzhhmEIvvEMnylEPaWGVJ2rvLKLb1hMY5GaVj
+        1bugsxwCE4rAB7QmWqbsIUe42vwGuQFk3M4Ixgz24w==
+X-Google-Smtp-Source: ABdhPJwVmc2156RMPrmhrO69/wE7ilvgnrBhCrPXsfMwzYNLZG0DtDXU3w4tN/jdvhorW978WFVzqxZ3ivV0zLv+Yaw=
+X-Received: by 2002:a4a:ac49:: with SMTP id q9mr1226251oon.73.1614815466599;
+ Wed, 03 Mar 2021 15:51:06 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20210228004817.122463-1-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20210302171947.2268128-1-joe@cilium.io> <20210302171947.2268128-14-joe@cilium.io>
+ <0c5a3a41-2df2-2d54-80d5-00a9951074fb@fb.com>
+In-Reply-To: <0c5a3a41-2df2-2d54-80d5-00a9951074fb@fb.com>
+From:   Joe Stringer <joe@cilium.io>
+Date:   Wed, 3 Mar 2021 15:50:56 -0800
+Message-ID: <CADa=Ryw+qV=bVYkGj+9WkS6T_pGCBc4cpg6KnkoQg1wRfwwXNQ@mail.gmail.com>
+Subject: Re: [PATCHv2 bpf-next 13/15] selftests/bpf: Test syscall command parsing
+To:     Yonghong Song <yhs@fb.com>
+Cc:     Joe Stringer <joe@cilium.io>, bpf <bpf@vger.kernel.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Alexei Starovoitov <ast@kernel.org>, linux-doc@vger.kernel.org,
+        linux-man@vger.kernel.org,
+        =?UTF-8?B?VG9rZSBIw7hpbGFuZC1Kw7hyZ2Vuc2Vu?= <toke@redhat.com>,
+        Quentin Monnet <quentin@isovalent.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+On Wed, Mar 3, 2021 at 2:23 PM Yonghong Song <yhs@fb.com> wrote:
+>
+>
+>
+> On 3/2/21 9:19 AM, Joe Stringer wrote:
+> > Add building of the bpf(2) syscall commands documentation as part of th=
+e
+> > docs building step in the build. This allows us to pick up on potential
+> > parse errors from the docs generator script as part of selftests.
+> >
+> > The generated manual pages here are not intended for distribution, they
+> > are just a fragment that can be integrated into the other static text o=
+f
+> > bpf(2) to form the full manual page.
+>
+> I tried and the generated bpf(2) man page looks like:
+>
+> BPF(2)
+>
+>                           BPF(2)
+>
+> NAME
+>         bpf - Perform a command on an extended BPF object
+>
+> COMMANDS
+>         BPF_MAP_CREATE
+>
+>                Description
+>                       Create  a map and return a file descriptor that
+> refers to the map. The close-on-exec file descriptor flag (see fcntl(2))
+> is automatically enabled for the
+>                       new file descriptor.
+>
+>                       Applying close(2) to the file descriptor returned
+> by BPF_MAP_CREATE will delete the map (but see NOTES).
+>
+>                Return A new file descriptor (a nonnegative integer), or
+> -1 if an error occurred (in which case, errno is set appropriately).
+>
+>         BPF_MAP_LOOKUP_ELEM
+> ...
+>         BPF_PROG_BIND_MAP
+>
+>                Description
+>                       Bind a map to the lifetime of an eBPF program.
+>
+>                       The map identified by map_fd is bound to the
+> program identified by prog_fd and only released when prog_fd is
+> released. This may be used  in  cases  where
+>                       metadata  should  be  associated  with  a  program
+>   which otherwise does not contain any references to the map (for
+> example, embedded in the eBPF program
+>                       instructions).
+>
+>                Return Returns zero on success. On error, -1 is returned
+> and errno is set appropriately.
+>
+>
+> Yes, this needs to be integrated into the real man page. But this is
+> already great so people can see latest bpf latest features without
+> going to the source code. Thanks!
 
-On 2/28/21 1:48 AM, Alejandro Colomar wrote:
-> Hey Michael,
-> 
-> This is the second batch of pages in man3 that use 'restrict'.
-> 
-> I have already checked until getrpcport.3.
+:party-parrot:
 
-Thanks for doing all of this work!
+Yeah I think the step around integrating into the real man page is an
+area that folks may have opinions on and I'm CC'ing Michael here in
+particular, but ultimately that manual is currently managed in the
+upstream manpages tree so nothing actionable from this series,
+absolute simplest is for someone (is that me?) to just package this
+hunk up and submit it to the upstream tree every once in a while.
+Slightly more elaborate would involve integrating the static text with
+this generated text somewhere (either kernel tree or manpages tree)
+and have someone run a cron job to generate & submit the changes.
+Could be another option, these are the obvious ones that come to mind.
 
-I've applied all of these patches.
-
-Cheers,
-
-Michael
-
-> 
-> ---
-> 
-> A few functions to automate the commit messages:
-> 
-> For functions that are restrict in POSIX and glibc:
-> 
-> function gitcommit_rp()
-> {
-> 	local commafuncs="$(echo $@ |sed -e 's/\> \</(), /g' -e 's/$/()/')";
-> 	local msg="\
-> $(man_gitstaged): SYNOPSIS: Use 'restrict' in prototypes
-> 
-> Both POSIX and glibc use 'restrict' in ${commafuncs}.
-> Let's use it here too.
-> 
-> $(echo "$@" \
->   |xargs -n1 bash -c \
->     'echo ".../glibc$ grep_glibc_prototype $@"; \
->      echo "$(cd ~/src/gnu/glibc && grep_glibc_prototype $@)"' _)
-> .../glibc$";
-> 
-> 	git commit -sm "$msg";
-> }
-> 
-> For functions that are restrict in glibc:
-> 
-> function gitcommit_rg()
-> {
-> 	local commafuncs="$(echo $@ |sed -e 's/\> \</(), /g' -e 's/$/()/')";
-> 	local msg="\
-> $(man_gitstaged): SYNOPSIS: Use 'restrict' in prototypes
-> 
-> glibc uses 'restrict' in ${commafuncs}.
-> Let's use it here too.
-> 
-> $(echo "$@" \
->   |xargs -n1 bash -c \
->     'echo ".../glibc$ grep_glibc_prototype $@"; \
->      echo "$(cd ~/src/gnu/glibc && grep_glibc_prototype $@)"' _)
-> .../glibc$";
-> 
-> 	git commit -sm "$msg";
-> }
-> 
-> ---
-> Alejandro Colomar (14):
->   getaddrinfo.3: SYNOPSIS: Use 'restrict' in prototypes
->   getaddrinfo_a.3: SYNOPSIS: Use 'restrict' in prototypes
->   getdate.3: SYNOPSIS: Use 'restrict' in prototypes
->   getdirentries.3: SYNOPSIS: Use 'restrict' in prototypes
->   getgrent_r.3: SYNOPSIS: Use 'restrict' in prototypes
->   getgrnam.3: SYNOPSIS: Use 'restrict' in prototypes
->   gethostbyname.3: SYNOPSIS: Use 'restrict' in prototypes
->   getline.3: SYNOPSIS: Use 'restrict' in prototypes
->   getmntent.3: SYNOPSIS: Use 'restrict' in prototypes
->   getnameinfo.3: SYNOPSIS: Use 'restrict' in prototypes
->   getnetent_r.3: SYNOPSIS: Use 'restrict' in prototypes
->   getprotoent_r.3: SYNOPSIS: Use 'restrict' in prototypes
->   getpwent_r.3: SYNOPSIS: Use 'restrict' in prototypes
->   getpwnam.3: SYNOPSIS: Use 'restrict' in prototypes
-> 
->  man3/getaddrinfo.3   | 11 ++++++-----
->  man3/getaddrinfo_a.3 | 12 ++++++------
->  man3/getdate.3       |  2 +-
->  man3/getdirentries.3 |  4 ++--
->  man3/getgrent_r.3    | 10 ++++++----
->  man3/getgrnam.3      | 11 +++++++----
->  man3/gethostbyname.3 | 31 ++++++++++++++++++++-----------
->  man3/getline.3       |  7 ++++---
->  man3/getmntent.3     |  8 +++++---
->  man3/getnameinfo.3   |  8 +++++---
->  man3/getnetent_r.3   | 23 +++++++++++++----------
->  man3/getprotoent_r.3 | 17 ++++++++++-------
->  man3/getpwent_r.3    | 11 +++++++----
->  man3/getpwnam.3      | 11 +++++++----
->  14 files changed, 99 insertions(+), 67 deletions(-)
-> 
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+> >
+> > Acked-by: Toke H=C3=B8iland-J=C3=B8rgensen <toke@redhat.com>
+> > Reviewed-by: Quentin Monnet <quentin@isovalent.com>
+> > Signed-off-by: Joe Stringer <joe@cilium.io>
+>
+> Acked-by: Yonghong Song <yhs@fb.com>
