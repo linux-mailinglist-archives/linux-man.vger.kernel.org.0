@@ -2,63 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1533D32C761
-	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:10:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 894EB32C766
+	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:10:51 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1348838AbhCDAbm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 3 Mar 2021 19:31:42 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37100 "EHLO
+        id S1355586AbhCDAbv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 3 Mar 2021 19:31:51 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47986 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1581467AbhCCVPb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 16:15:31 -0500
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com [IPv6:2a00:1450:4864:20::536])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 18D7EC061756
-        for <linux-man@vger.kernel.org>; Wed,  3 Mar 2021 13:14:41 -0800 (PST)
-Received: by mail-ed1-x536.google.com with SMTP id d13so26954557edp.4
-        for <linux-man@vger.kernel.org>; Wed, 03 Mar 2021 13:14:40 -0800 (PST)
+        with ESMTP id S234195AbhCCWH3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 17:07:29 -0500
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com [IPv6:2a00:1450:4864:20::62c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9AC6CC0613D7
+        for <linux-man@vger.kernel.org>; Wed,  3 Mar 2021 13:58:22 -0800 (PST)
+Received: by mail-ej1-x62c.google.com with SMTP id hs11so45290003ejc.1
+        for <linux-man@vger.kernel.org>; Wed, 03 Mar 2021 13:58:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Gsb7p3lHxwqEyzlYgTeRLW9CKPtXkL+ffDG3FJmCv4s=;
-        b=nef2M8xLh7j2rtP6nzL1oChcoNjmtoS/Kr/m0cx6azM2x1x5hBkAKTSvt80fzLo+fn
-         w9Jhwkq80awq4/5EdorhJRpdBGFl79wtedaRnGv+YURilHRP5aW3WwqU1O/+GTUO1UaA
-         mkx/3j/2fO16BF82Y+/yaRipYdNxH2+ygaI9hrhxochJbzAvPhcbZtvkVFrvsJswBNbO
-         D487TvUkl1yFqB9lWiy43o+9M8yoHkhof6DgU3HiWPJ4ETYWEj90nwl2wYeCWAn6IaY7
-         eZzM9MlhoaTmrXrz7sh6Vtm+o07gnqkztyHAYtuPy7lgZn+tELd8drr7+IAgpwbtsZNf
-         YErQ==
+        bh=4Ei2zEYBu9AS6+1MjcBTUaGzpP6ocQ0ju1iFAmeYQXM=;
+        b=RgDnRISvlZknvm1EC4mzlBzL1m+W1Jbko1sKc4Jwu5CtP0dIW/2kOnrv9oa0HGFfD0
+         l3KJokUFz0609uNShX86voxviXUJ9ygOzD0sCCv9i4AAjEr8OhrwRCDR5+wY2rv6CfH1
+         Sh/7uwxtMDrjh3n8q/4Mi+Ix3B969MQtw9KpcPpwPvUHI9vgCdJewaarPo2NHQqAwm7D
+         ZcoR2q7Wr8EwKGwKLi5riR7QDqvey4RoYzosJKfyE9YGjkd8K78s+zIThiUipW6oBMOc
+         OLDccUaJA4N4Vt2MBp/paIdcxJQOXSSucUzIqep21PwAasTbsWIIOyeV5iLhilB76pRJ
+         9ndQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=Gsb7p3lHxwqEyzlYgTeRLW9CKPtXkL+ffDG3FJmCv4s=;
-        b=B13iu295J+eEO5iEhAu6JSSn6oQaGUXSiq24PqoRtu3CZUsXoc2xlejVO3aSy9TbOx
-         7nSg1oCivR4NisOnWnUkabH1OyLUAUbdviF8cKotUqvk3f95Br4I/+4BQH3XoRKjg7wD
-         Q4898n+xR6AnQ+2BwhlqHk/je5H+bfJ23lRqbdzQXJKqogB+8eT/K+V3SjsiOISaisqN
-         Wbd2Tqe9pmISnvPvBcWwoN7akxwyiXZNt3gzLkJ6E3xoUaIPn/G9MwjG/SW/NyQM2nr0
-         0MKFEpCX279jwrnBflb+G/TNzeIK9iBvM5LAqVMca47QtL7jZoTAYUnKgLjIfPKQpDA8
-         Evcw==
-X-Gm-Message-State: AOAM532KuQICYMldEDWBYEg5USvOlfkycCl/2zNkXdTmx05GUIZgq8HD
-        Qa0MFlXApRd+VPktP1Y32nLOYmNS3H7t9g==
-X-Google-Smtp-Source: ABdhPJzpIaqWakDbR/9iz6Vgfh24f7xphWjt44j5Cf7VOl+VE5DsFCZaSNo8VU7Gxka7rjCxqg8Lrw==
-X-Received: by 2002:a05:6402:c88:: with SMTP id cm8mr1186460edb.62.1614806079476;
-        Wed, 03 Mar 2021 13:14:39 -0800 (PST)
+        bh=4Ei2zEYBu9AS6+1MjcBTUaGzpP6ocQ0ju1iFAmeYQXM=;
+        b=gC4r4LJ8tk4xB+ihiSRugKpT/87PlQEpNRjg+aJ6Ic467wcx5UUzWlE/3FJKtWogWU
+         Ec7LGOB54ltFU79AccmGrl0CL/Aj+E0gACsmn8Izj0sibFLrI13VEj0lcETtC8a3y4/e
+         tfXCBqnEbf9jbMCZ4sN6k5eokLIRuq+HvSr9pVh4fAcm6jq/NtMs98OCp2zlhxPHvUz8
+         3sCraJ2wqdPxwto1IxJF7MdVUXLb6sSxmesHAv2HclW7sWZy7Rdza8JOjO6YK289TkJp
+         z/+a8CTCHnCQjxjfnrz230RXAiEzU9w/BljdhhYF8utvrTU3zjKloddm/B50xeBuYRj/
+         p13A==
+X-Gm-Message-State: AOAM533miV0ZPWPlYbJw0GtgyKZaP/RM+OWKgdjN4Iu69e+TegLaRAGA
+        RLGPRQJpiX2xYm8PYbiKzAlnYGftrMjioQ==
+X-Google-Smtp-Source: ABdhPJxFZcxnRTTrld4iCW9+7B4X3pAYj9f7DgHUmvAVpzKAS2i2YkOIU6b9pEJUbYzvkWmBdYhBHw==
+X-Received: by 2002:a17:906:9152:: with SMTP id y18mr785750ejw.19.1614808701327;
+        Wed, 03 Mar 2021 13:58:21 -0800 (PST)
 Received: from ?IPv6:2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b? ([2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b])
-        by smtp.gmail.com with ESMTPSA id q16sm13389930ejd.15.2021.03.03.13.14.38
+        by smtp.gmail.com with ESMTPSA id gj13sm3680720ejb.118.2021.03.03.13.58.20
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 03 Mar 2021 13:14:38 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] ftw.3: SYNOPSIS: Remove duplicate header
+        Wed, 03 Mar 2021 13:58:20 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Walter Franzini <walter.franzini@gmail.com>
+Subject: Re: [PATCH] inode.7: tfix
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20210223235439.135579-1-alx.manpages@gmail.com>
+References: <20210227112217.1629-1-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <8fd64055-2650-669a-f270-4206cd738b1a@gmail.com>
-Date:   Wed, 3 Mar 2021 22:14:38 +0100
+Message-ID: <71cd2520-2bfc-256e-cc0a-6453a3e34d35@gmail.com>
+Date:   Wed, 3 Mar 2021 22:58:19 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <20210223235439.135579-1-alx.manpages@gmail.com>
+In-Reply-To: <20210227112217.1629-1-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -68,34 +69,37 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Alex,
 
-On 2/24/21 12:54 AM, Alejandro Colomar wrote:
-> Both functions have the same header.
-> There's no reason to separate the prototypes repeating the header.
-Agreed. Patch applied.
+On 2/27/21 12:22 PM, Alejandro Colomar wrote:
+> Epoch is 1970-01-01 00:00:00 +0000, UTC (see time(7)).
+> 
+> Reported-by: Walter Franzini <walter.franzini@gmail.com>
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
+>  man7/inode.7 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/man7/inode.7 b/man7/inode.7
+> index fe50a4596..d3b9fa1ff 100644
+> --- a/man7/inode.7
+> +++ b/man7/inode.7
+> @@ -207,7 +207,7 @@ It is changed by writing or by setting inode information
+>  .PP
+>  The timestamp fields report time measured with a zero point at the
+>  .IR Epoch ,
+> -1970-01-02 00:00:00 +0000, UTC (see
+> +1970-01-01 00:00:00 +0000, UTC (see
+
+Cute :-}
+
+Thanks, patch applied.
 
 Cheers,
 
 Michael
 
-
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> ---
->  man3/ftw.3 | 2 --
->  1 file changed, 2 deletions(-)
-> 
-> diff --git a/man3/ftw.3 b/man3/ftw.3
-> index 027750fd7..fa7678fa8 100644
-> --- a/man3/ftw.3
-> +++ b/man3/ftw.3
-> @@ -45,8 +45,6 @@ ftw, nftw \- file tree walk
->  .BI "                  int " typeflag ", struct FTW *" ftwbuf ),
->  .BI "        int " nopenfd ", int " flags );
+>  .BR time (7)).
 >  .PP
-> -.B #include <ftw.h>
-> -.PP
->  .BI "int ftw(const char *" dirpath ,
->  .BI "        int (*" fn ")(const char *" fpath ", const struct stat *" sb ,
->  .BI "                  int " typeflag ),
+>  Nanosecond timestamps are supported on XFS, JFS, Btrfs, and
 > 
 
 
