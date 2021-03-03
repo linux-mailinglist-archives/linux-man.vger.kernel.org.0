@@ -2,55 +2,55 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9C9F732C776
-	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:11:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7480732C774
+	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:11:02 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S244533AbhCDAcC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 3 Mar 2021 19:32:02 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44696 "EHLO
+        id S1355602AbhCDAcB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 3 Mar 2021 19:32:01 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44272 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1353593AbhCDAFJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 19:05:09 -0500
-Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com [IPv6:2607:f8b0:4864:20::c30])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BB466C0617A9
-        for <linux-man@vger.kernel.org>; Wed,  3 Mar 2021 15:51:07 -0800 (PST)
-Received: by mail-oo1-xc30.google.com with SMTP id e17so6132201oow.4
-        for <linux-man@vger.kernel.org>; Wed, 03 Mar 2021 15:51:07 -0800 (PST)
+        with ESMTP id S1353275AbhCDAEB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 19:04:01 -0500
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com [IPv6:2607:f8b0:4864:20::236])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A827CC0617AB
+        for <linux-man@vger.kernel.org>; Wed,  3 Mar 2021 15:53:35 -0800 (PST)
+Received: by mail-oi1-x236.google.com with SMTP id q203so5049113oih.5
+        for <linux-man@vger.kernel.org>; Wed, 03 Mar 2021 15:53:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cilium-io.20150623.gappssmtp.com; s=20150623;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc:content-transfer-encoding;
-        bh=E/wr0fT0I7yiXwtdsqEsPqFrJ61emPLJgrDzqVvsCwc=;
-        b=Rk23ty4+bc5BV6kqWSsua/rctvyP75yV3bfEv2fvBR0l+li24kdj5a2bFVJnqUMAjv
-         SdnkUHdOrr7+ehIz1rD1YDtnJ4DhRqspOhwuLH37k+1iwjeYf0n/EDrTvbxcf9oJ48XA
-         /Dwcc7UsGU8X3vB5lE+BXnhL/wdTaeuaNS4jd63P+vcevgmU0QaEQSNqb9g/nvlZC1YM
-         zNHEnoZKoTN4XPvRTLXJp3tBo6tq4nyre7ooTDs3YMfKuLSa6TyhsXpRAiWcM38b67Dt
-         KzH75JKwvI5RroFYCH97HV/Ez4busEbTOUpAmWMQ33pQC5ZiAfrEE5/J+KoTT+ehSq0z
-         pD8w==
+        bh=sJfUpwC5Q0AujFJkQ3bJRLWkfqFnVs4ZYKg21LJVuHE=;
+        b=BFIWZ0u0+EF/YC1mA2Nchh2NeUUfh8mRSTWelXDcFLQm2vG0MPevPcPuTWmYwx4XeL
+         1Xk+DQKrHnBz+sIjKI+ng4AK1/SgOuS6H+lXZPHBmnv0SNp8K6ZxJhG3ujg2ZeAJ2wwP
+         d7F0hjQDdtCyevlcdjFr21rzFqYI/oWOvVzQ/mcUuAwV3ELOANllu1vNL2cwfRMCILdX
+         1NKZHPNvRopqcWZD+RWrXQ9cw22ho6Mwsbg1ilG7UEz+4/MGONLMrpFxX+kz0LwJeJj2
+         kZ7gUkarr8Usb0SLVN6UGeUgC2zXh+t4KgzmJD02xc4AwN5+e/9xJfZOFU7VpPwhA/Sk
+         eJQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc:content-transfer-encoding;
-        bh=E/wr0fT0I7yiXwtdsqEsPqFrJ61emPLJgrDzqVvsCwc=;
-        b=NXWlRx5SG6mt1I2zbSE/WMKI+qG8AiQ2phkFJBjEDl4pFoFGBgbPjH6wxUPLG/I6TQ
-         uxtv+JSXyywiJnrJHrypsNSKe+WO+hJ+YWSccsCPISJR1gUNJQHJQ70tQPPdlJxAVsOo
-         2xUfFFd/ci3JifJIv+bX+PuCMReR0mKqruQzrAovzWBPvOpkH7F4zSaV7iCU2VualL+T
-         C1pwtrzyHJqIvyK5uKBok7cyJ9mD7Fq9bBT6oyEnMlikBN9XF5nFqZNTaJirrdLblvq+
-         9TRcbEF64Q7g/uS54tSX0sjEBJdofsLoGnoOSJsE8wB2du0wLtvDONUM7GSAk3p108l3
-         qCMA==
-X-Gm-Message-State: AOAM530cBz/c9QfFHsLVzhhmEIvvEMnylEPaWGVJ2rvLKLb1hMY5GaVj
-        1bugsxwCE4rAB7QmWqbsIUe42vwGuQFk3M4Ixgz24w==
-X-Google-Smtp-Source: ABdhPJwVmc2156RMPrmhrO69/wE7ilvgnrBhCrPXsfMwzYNLZG0DtDXU3w4tN/jdvhorW978WFVzqxZ3ivV0zLv+Yaw=
-X-Received: by 2002:a4a:ac49:: with SMTP id q9mr1226251oon.73.1614815466599;
- Wed, 03 Mar 2021 15:51:06 -0800 (PST)
+        bh=sJfUpwC5Q0AujFJkQ3bJRLWkfqFnVs4ZYKg21LJVuHE=;
+        b=LNoFRvfRDKdx5cJBEwbQgNRQbVgT9qUNYx9Dr2KAqHxPkCYkSrYmFiLqqC+/jCKNgg
+         JhsndUN7OmuKRwj9chIjCJGQPrUSJpJV7/VFh1sU/NMhakkWzfPL7CzFUMEkODaV8qsd
+         8TLCujZBZy1dlNM/IKrRmr/vkw99af5nsLDx6SBtZGelWHb2ED/U4+0iDb1I/b5OQpdl
+         IPZvuQqqZcPz7k9tVd+5t6ar7YlZE3RwGkGuZJ6XpTPP9n7ZaWleSHeIe6fQOkBgTSKC
+         KWN7OqJberytDmyZ9VW/NdGEQPPsL5xteYor1wzhH8DYJgi4COWtrRFdPfzRD4d/F7V6
+         8X/g==
+X-Gm-Message-State: AOAM533NDp4UyaFdKxEkPb7Do4PovUnl/oH5ZJd06yHdESYl9t0D6Gtu
+        IBw0l6HWGrRXzVqxgamejvlI6Jyd2umMtjF5dbfRnw==
+X-Google-Smtp-Source: ABdhPJxVhvbmRStq/JhsuTAFe5elO14d19je73tPaRLSxCTShXmLatgreMOoyRO4L0xaC9DGZmlwi8aJuYsRDzPNKKo=
+X-Received: by 2002:aca:f50d:: with SMTP id t13mr1041539oih.89.1614815615117;
+ Wed, 03 Mar 2021 15:53:35 -0800 (PST)
 MIME-Version: 1.0
-References: <20210302171947.2268128-1-joe@cilium.io> <20210302171947.2268128-14-joe@cilium.io>
- <0c5a3a41-2df2-2d54-80d5-00a9951074fb@fb.com>
-In-Reply-To: <0c5a3a41-2df2-2d54-80d5-00a9951074fb@fb.com>
+References: <20210302171947.2268128-1-joe@cilium.io> <20210302171947.2268128-7-joe@cilium.io>
+ <79954d84-ad75-8f91-118c-0ce2150a1c96@fb.com>
+In-Reply-To: <79954d84-ad75-8f91-118c-0ce2150a1c96@fb.com>
 From:   Joe Stringer <joe@cilium.io>
-Date:   Wed, 3 Mar 2021 15:50:56 -0800
-Message-ID: <CADa=Ryw+qV=bVYkGj+9WkS6T_pGCBc4cpg6KnkoQg1wRfwwXNQ@mail.gmail.com>
-Subject: Re: [PATCHv2 bpf-next 13/15] selftests/bpf: Test syscall command parsing
+Date:   Wed, 3 Mar 2021 15:53:24 -0800
+Message-ID: <CADa=RyzgsEsRpED34Bi141216de9ecbSUw7M+349wtDDKVy2dw@mail.gmail.com>
+Subject: Re: [PATCHv2 bpf-next 06/15] bpf: Document BPF_PROG_TEST_RUN syscall command
 To:     Yonghong Song <yhs@fb.com>
 Cc:     Joe Stringer <joe@cilium.io>, bpf <bpf@vger.kernel.org>,
         Daniel Borkmann <daniel@iogearbox.net>,
@@ -58,91 +58,59 @@ Cc:     Joe Stringer <joe@cilium.io>, bpf <bpf@vger.kernel.org>,
         linux-man@vger.kernel.org,
         =?UTF-8?B?VG9rZSBIw7hpbGFuZC1Kw7hyZ2Vuc2Vu?= <toke@redhat.com>,
         Quentin Monnet <quentin@isovalent.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
+        Lorenz Bauer <lmb@cloudflare.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Mar 3, 2021 at 2:23 PM Yonghong Song <yhs@fb.com> wrote:
+On Wed, Mar 3, 2021 at 12:29 PM Yonghong Song <yhs@fb.com> wrote:
 >
 >
 >
 > On 3/2/21 9:19 AM, Joe Stringer wrote:
-> > Add building of the bpf(2) syscall commands documentation as part of th=
-e
-> > docs building step in the build. This allows us to pick up on potential
-> > parse errors from the docs generator script as part of selftests.
-> >
-> > The generated manual pages here are not intended for distribution, they
-> > are just a fragment that can be integrated into the other static text o=
-f
-> > bpf(2) to form the full manual page.
->
-> I tried and the generated bpf(2) man page looks like:
->
-> BPF(2)
->
->                           BPF(2)
->
-> NAME
->         bpf - Perform a command on an extended BPF object
->
-> COMMANDS
->         BPF_MAP_CREATE
->
->                Description
->                       Create  a map and return a file descriptor that
-> refers to the map. The close-on-exec file descriptor flag (see fcntl(2))
-> is automatically enabled for the
->                       new file descriptor.
->
->                       Applying close(2) to the file descriptor returned
-> by BPF_MAP_CREATE will delete the map (but see NOTES).
->
->                Return A new file descriptor (a nonnegative integer), or
-> -1 if an error occurred (in which case, errno is set appropriately).
->
->         BPF_MAP_LOOKUP_ELEM
-> ...
->         BPF_PROG_BIND_MAP
->
->                Description
->                       Bind a map to the lifetime of an eBPF program.
->
->                       The map identified by map_fd is bound to the
-> program identified by prog_fd and only released when prog_fd is
-> released. This may be used  in  cases  where
->                       metadata  should  be  associated  with  a  program
->   which otherwise does not contain any references to the map (for
-> example, embedded in the eBPF program
->                       instructions).
->
->                Return Returns zero on success. On error, -1 is returned
-> and errno is set appropriately.
->
->
-> Yes, this needs to be integrated into the real man page. But this is
-> already great so people can see latest bpf latest features without
-> going to the source code. Thanks!
-
-:party-parrot:
-
-Yeah I think the step around integrating into the real man page is an
-area that folks may have opinions on and I'm CC'ing Michael here in
-particular, but ultimately that manual is currently managed in the
-upstream manpages tree so nothing actionable from this series,
-absolute simplest is for someone (is that me?) to just package this
-hunk up and submit it to the upstream tree every once in a while.
-Slightly more elaborate would involve integrating the static text with
-this generated text somewhere (either kernel tree or manpages tree)
-and have someone run a cron job to generate & submit the changes.
-Could be another option, these are the obvious ones that come to mind.
-
+> > Based on a brief read of the corresponding source code.
 > >
 > > Acked-by: Toke H=C3=B8iland-J=C3=B8rgensen <toke@redhat.com>
 > > Reviewed-by: Quentin Monnet <quentin@isovalent.com>
 > > Signed-off-by: Joe Stringer <joe@cilium.io>
 >
 > Acked-by: Yonghong Song <yhs@fb.com>
+>
+> > ---
+> >   include/uapi/linux/bpf.h | 14 +++++++++++---
+> >   1 file changed, 11 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
+> > index a8f2964ec885..a6cd6650e23d 100644
+> > --- a/include/uapi/linux/bpf.h
+> > +++ b/include/uapi/linux/bpf.h
+> > @@ -306,14 +306,22 @@ union bpf_iter_link_info {
+> >    *
+> >    * BPF_PROG_TEST_RUN
+> >    *  Description
+> > - *           Run an eBPF program a number of times against a provided
+> > - *           program context and return the modified program context a=
+nd
+> > - *           duration of the test run.
+> > + *           Run the eBPF program associated with the *prog_fd* a *rep=
+eat*
+> > + *           number of times against a provided program context *ctx_i=
+n* and
+> > + *           data *data_in*, and return the modified program context
+> > + *           *ctx_out*, *data_out* (for example, packet data), result =
+of the
+> > + *           execution *retval*, and *duration* of the test run.
+>
+> FYI, Lorenz's BPF_PROG_TEST_RUN support for sk_lookup program
+> requires data_in and data_out to be NULL. Not sure whether it is
+> worthwhile to specially mention here or not. The patch has not
+> been merged but close.
+>
+> https://lore.kernel.org/bpf/20210301101859.46045-1-lmb@cloudflare.com/
+
+Not sure how close either series is but I'm sure between Lorenz & I we
+can figure out how to fix this up. If I need to respin the series and
+Lorenz's one is in by then, I'll fix it up but it's not the end of the
+world to send an extra dedicated patch for this.
