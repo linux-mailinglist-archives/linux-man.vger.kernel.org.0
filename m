@@ -2,64 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AD66432C763
-	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:10:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id ECB2032C769
+	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:10:52 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1349450AbhCDAbp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 3 Mar 2021 19:31:45 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47202 "EHLO
+        id S1355588AbhCDAb5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 3 Mar 2021 19:31:57 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49966 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1390324AbhCCWCn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 17:02:43 -0500
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com [IPv6:2a00:1450:4864:20::632])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 612DFC0613DD
-        for <linux-man@vger.kernel.org>; Wed,  3 Mar 2021 14:02:02 -0800 (PST)
-Received: by mail-ej1-x632.google.com with SMTP id lr13so45268230ejb.8
-        for <linux-man@vger.kernel.org>; Wed, 03 Mar 2021 14:02:02 -0800 (PST)
+        with ESMTP id S1390740AbhCCWPl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 17:15:41 -0500
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com [IPv6:2a00:1450:4864:20::529])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 85773C061756
+        for <linux-man@vger.kernel.org>; Wed,  3 Mar 2021 14:15:01 -0800 (PST)
+Received: by mail-ed1-x529.google.com with SMTP id bd6so18931108edb.10
+        for <linux-man@vger.kernel.org>; Wed, 03 Mar 2021 14:15:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=prSuv3+r5+64a5jYVnh6CSiiexuCuBpvUnxlmd202VI=;
-        b=joaaeXBjfRYvtOToGEqQLmpgBn6zbcFEczKUWj4MnGJwK5nQbkil6+AvMu0s3lxich
-         af7QKM6hCDsj13uTE1nMOsiq8u9T0F+hl6OI9V7lxsFmStnOkux3n9r2az7v6kIr0SG9
-         6n4cDM3JLwZAxfJeibByS+4y6Fosa6lUQ+dwoCSxUGQ4HaQvlDuozS6zfTcaR+GAox8s
-         8oUut+ntPFcHZAXAVXv4YvQGEUAz/R24fzuRZ1jO+BnuWPGVctXpaZJB1qamLE3IBIWZ
-         EDySbqjTX7i6I+Mv/juZwLjsCsdvVcF4igEUeeTrWhAmQvK9z5GS2MWGr/XV5H+su8Jv
-         9OXQ==
+        bh=kD4Q8mT8W2cyJTfFlPw5AqTxwcaAkWK8nd1++f9HvK4=;
+        b=TyveJ8AIgSUZMz6pbeOVEHBXXiOxzpK+9XLXxTvtcESTbgsn29cz5SFBU5T90AUvvL
+         qSArTfxLcfGq1CWy9D3Rc/47jglzuF1BeOWkVsB381O9uHmvxkEA+e3EF+tz0apgApve
+         0xehMh1P3btbk98EMH1B/t6orTnbcwVxfgRO9lIpXFg6cEfdukaFsTXpnPcX8fuzNsQM
+         13QHAQdwqhgbpD6CAN2tYcufw14FmElYs7CdBFaiXV+/UO5n6yVmAAVQJYlLL6CB7r/A
+         uc190nXven8PCEMji0I7Q/ShJcduEWa1sSck7uHJUuuvx4KI3bwbDw9ovtPHeYpQ3nTF
+         +p0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=prSuv3+r5+64a5jYVnh6CSiiexuCuBpvUnxlmd202VI=;
-        b=jaLN+JBca1AQBLYNOKmmbgzYKTQSUnqHnh7xweH65jsuVQZCMVFpylvsPLGz4TVP5o
-         +aDVV7/5CTv8R1Xx3Wb1wrO+dh5kFSc16qNnPozbaD5qrPw9k9w1am4j4J+qLgj/zO3z
-         2EoBhkcQdxnNgBHQgciELBrTGhdAI8mudMuDB/si1JYYrwJ8XGz1qzbgLeZ2yYfpYH43
-         M+wD7lbSg56QwjgVr01/a0+QN5NOQtjrDjGhY0Y9bLoyVkJblak68RZdD8L7buQH2C+I
-         u9ltM4gH/p4phVxZy3z/RAcI8lWGNYvmScSKccvU6HQrbhQsb7b1myjiXS304eOejc6/
-         5ZvA==
-X-Gm-Message-State: AOAM5330+Xpc71MXreJtnpILIs4Do/OIggzQb1/SQJerW0C+fn0P2OoN
-        f70DIAFxQnFOLZow/sFNKqlh7BwqJEVWNw==
-X-Google-Smtp-Source: ABdhPJwZm6MmLMfr5MAvf9zcsLM+ISi4Pk7ga0xy/QwxgHa/AuyetFS94FEBtX1iGq32GYOYcuJi7w==
-X-Received: by 2002:a17:906:3a10:: with SMTP id z16mr743692eje.483.1614808914769;
-        Wed, 03 Mar 2021 14:01:54 -0800 (PST)
+        bh=kD4Q8mT8W2cyJTfFlPw5AqTxwcaAkWK8nd1++f9HvK4=;
+        b=qsruBGwOYCN47dMlsBvxog2ZAVcFc646XmmtUXxCTu+qqq93X5WNP37Cj41HitL7OS
+         Rw+ejlE5s6VCRwcHJITvVh+qVgERTS8SFlpLXvo7RulX47zfAy/JGlxQAJ9NJvfmjd/w
+         vO3R7bMg8qRYqZBfKM2AIa8xT7xOClsTZI2TBSqFFvk/zY6KPaQrSrxcvYpMR+0Kt9pQ
+         TNTlCQi30U0kUhmTNpy1Dhk9qoC5UPXYbwlHd+rW28RlLIm+CVxKkac06b8dXk0Sklcd
+         FKiYi+6k/GY/sFNDN2lMBSQoShl6JT8xiQYufVRPSZEGQ8ZGxW+mJWFI6gRB7/51IIL/
+         nBkw==
+X-Gm-Message-State: AOAM531W3CahWBMqyd2p7ynzTLtQ0ilA0Lpm+QNgnNcvslBdXyEyGq6K
+        I2Ieh7OEYw5LNCp3Q/zGtT0=
+X-Google-Smtp-Source: ABdhPJwfBGtGWtdilldLlNtw7+3u8IlJZi80kOMyECIdTpywUiqp87f0FNfIlatKyUjwyHH+NT/Qsg==
+X-Received: by 2002:a05:6402:2215:: with SMTP id cq21mr1270372edb.281.1614809700135;
+        Wed, 03 Mar 2021 14:15:00 -0800 (PST)
 Received: from ?IPv6:2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b? ([2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b])
-        by smtp.gmail.com with ESMTPSA id d15sm8726708edx.62.2021.03.03.14.01.54
+        by smtp.gmail.com with ESMTPSA id c20sm22265825eja.22.2021.03.03.14.14.59
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 03 Mar 2021 14:01:54 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
-Subject: Re: gethostbyname.3: Use internally consistent continuation indents
- in SYNOPSIS
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-References: <2e87f61b-ad14-e349-1332-58c0a6755d02@gmail.com>
+        Wed, 03 Mar 2021 14:14:59 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Heinrich Schuchardt <xypron.glpk@gmx.de>
+Subject: Re: [PATCH 00/20] man3: SYNOPSIS: Use 'restrict' in prototypes (batch
+ 1)
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+References: <20210224144310.140649-1-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <c8e62845-1f33-cd07-1159-f89d890efc25@gmail.com>
-Date:   Wed, 3 Mar 2021 23:01:51 +0100
+Message-ID: <fe535a38-d2da-b5a9-06b2-96adfa54d3de@gmail.com>
+Date:   Wed, 3 Mar 2021 23:14:58 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <2e87f61b-ad14-e349-1332-58c0a6755d02@gmail.com>
+In-Reply-To: <20210224144310.140649-1-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -67,24 +68,44 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+Hello Alex,
 
-On 2/28/21 12:20 AM, Alejandro Colomar (man-pages) wrote:
+On 2/24/21 3:42 PM, Alejandro Colomar wrote:
 > Hi Michael,
 > 
-> Did you leave gethostbyaddr(3) untouched on purpose?  I guess not :)
+> This are the first pages of man3 with 'restrict'.
+> I'm sending you these already, becuase otherwise I'd accumulate
+> too many patches in the end.
 
-I do not recall. But perhaps it was deliberate. Because, if
-the arg list of gethostbyaddr() is indented as the functions
-below, then it looks a bit weird. since the continued arg
-list is almost at the same indent as the function name.
-I'm going to call this a tasteful exception to the rule :-).
+Thanks. I have applied all of these.
 
-Cheers,
+> I have fixed from the first page until ftw.3.
+> 
+> Spin off:
+> 	I found different terms for parameters that refer to a same thing
+> 	in different functions (usually a '[const] char *'):
+> 	 - filename
+> 	 - file
+> 	 - path
+> 	 - pathname
+> 	 - Maybe others; I don't know
+> 
+> 	For 'FILE *' we have more or less the same,
+> 	although this one is much more standard (>90% use 'stream'):
+> 	 - stream
+> 	 - streamp
+> 	 - s
+> 	 - fp
+> 	 - file
+> 	 - filehandle
+> 	 - A few others in specific cases
+> 
+> 	What would you do about it?
+I think it would be best to start a new thread for this...
+
+Thanks,
 
 Michael
-
-
 
 -- 
 Michael Kerrisk
