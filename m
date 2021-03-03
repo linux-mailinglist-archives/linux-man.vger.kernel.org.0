@@ -2,71 +2,273 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 06F7532C71E
-	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:09:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 72B1C32C723
+	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:09:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S240014AbhCDAbE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 3 Mar 2021 19:31:04 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45298 "EHLO
+        id S240155AbhCDAbF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 3 Mar 2021 19:31:05 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47302 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S241168AbhCCR3q (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 12:29:46 -0500
-Received: from ms.lwn.net (ms.lwn.net [IPv6:2600:3c01:e000:3a1::42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 49A11C061756;
-        Wed,  3 Mar 2021 09:29:05 -0800 (PST)
-Received: from localhost (unknown [IPv6:2601:281:8300:104d::5f6])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by ms.lwn.net (Postfix) with ESMTPSA id B41E52CD;
-        Wed,  3 Mar 2021 17:25:16 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net B41E52CD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-        t=1614792316; bh=stUJ13VskkGN0mdPm02DMITNl2re2BbdECPeoNTlQuY=;
-        h=From:To:Cc:Subject:References:Date:In-Reply-To:From;
-        b=dGirZviqdmXr1dYOksWyVIUnGlTy7Q9EP66d1x2lzljJOX6QSDiyUXGFXsRSUz3gi
-         BYTJTXvzfM2h9KK6F35HbwnzkizIk2gW3FLoO/MExhy9m+5rbdR/4c5lkE3Dz5XRDN
-         M5p8aDonI1ykkZVI6usnCGOTdLDuf+kCOBt3scdSg9Pdy6HhIoA0XHVlPO1M7fpj6m
-         g/0RKoaFCO3y49b3kjiqDRnslxn/iUpnCgvyDVV/qVXyyD5rClGofGJIn30AQ8DSmB
-         WvLFkh2pRo2ejN0ANSBvvZffq6tFMRPjeRqYGica/yNRJjCKrO92F8n7+8s77ikZZ6
-         0BQkZgi2FHMVw==
-From:   Jonathan Corbet <corbet@lwn.net>
-To:     Joe Stringer <joe@cilium.io>
-Cc:     bpf@vger.kernel.org, linux-man@vger.kernel.org,
-        linux-doc@vger.kernel.org, mtk.manpages@gmail.com, ast@kernel.org,
-        brianvv@google.com, daniel@iogearbox.net, daniel@zonque.org,
-        john.fastabend@gmail.com, ppenkov@google.com,
-        quentin@isovalent.com, sean@mess.org, yhs@fb.com
-Subject: Re: [PATCHv2 bpf-next 00/15] Improve BPF syscall command documentation
-References: <20210302171947.2268128-1-joe@cilium.io>
-Date:   Wed, 03 Mar 2021 10:25:16 -0700
-In-Reply-To: <20210302171947.2268128-1-joe@cilium.io> (Joe Stringer's message
-        of "Tue, 2 Mar 2021 09:19:32 -0800")
-Message-ID: <87y2f4up37.fsf@meer.lwn.net>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.0.50 (gnu/linux)
+        with ESMTP id S237393AbhCCRkE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 12:40:04 -0500
+Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com [IPv6:2607:f8b0:4864:20::b2e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 18758C06175F
+        for <linux-man@vger.kernel.org>; Wed,  3 Mar 2021 09:38:22 -0800 (PST)
+Received: by mail-yb1-xb2e.google.com with SMTP id b10so25410418ybn.3
+        for <linux-man@vger.kernel.org>; Wed, 03 Mar 2021 09:38:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=E94ghEiYdC8EH5UxIUQJBfVG+aydEnxQhT3FP8Ug4+w=;
+        b=Fw/9WN0NDVVFU6bp73I3Sew+VTVSoO6ACYXbiZP0TUUs/QQ5FAhuxre4ehexTuD7Co
+         0gqguBJRmeKhLWH7odT4v8jHEtKD7hz8TfqsBNxQSO34vKg2Dsxfz+xohEa2lC/AQ8t5
+         sZbnSkDMhEdvBdwP2rxRNRPxqYK/SJ5NaGP1RBRr329qVvSMAN4d5H/4jtZ8GQekeIFD
+         3fgjWbOPPvqoJ8L1wwrTO7wUaAg90RMEoxe6V2g2t2BO6y9QUshCAKrKbmOJkDRm1QSD
+         8TyGc0iwzirP5p/xcxo9w4oEi0SjSmIEMFkcZM/rWJ5Quy1jMy5VfZvGIkkLvAQM/5ng
+         AfXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=E94ghEiYdC8EH5UxIUQJBfVG+aydEnxQhT3FP8Ug4+w=;
+        b=MbOoOBgnn69Do9Xf+IqwbAO84TbTYLr3cBtIdh6YsTzKphycuTYZVHkVrjkVEmq18a
+         jZzR4xlFhmjTeDVmVTRijqu8RyX9gLmZxFhzmHP3Y+77FSSUIf5OciumDZzd0dEEm8OA
+         aM8cQ9SYsf3dqMglT9yxndYjeKg8Xl0Rjnqu9mmG+hDZgsLYXIfeyV0bAhZfjbMjEdQX
+         PApulsh+HQyWIqppmwmbZacjn515PUgbX9r3m24Q+1fWoM+GaqrScJQqhhbX0xoZUdqY
+         xE+b2pSTNOdErpm/Az3XmWKjlxl+Y6QXqwhyI4yR6m5IHuOf66y+eFj6QnIKFmuutXx+
+         b3Ug==
+X-Gm-Message-State: AOAM533Ui2ZGsxbx0oS+YmkaL9a+MmZQXBYwRrk7dtra0938Fs054+hX
+        Zt/rsTj0X8md7pmGDpWQIg8rbx7VQUZoRpEB5RwB4w==
+X-Google-Smtp-Source: ABdhPJwZeoQ/R8OGAc03ZeVHm7p9gGYYwwkJAXpZuMUSnUpkyZ+th8R3HWU6up1EDdhtFBzug8GbGVEHKoM9dzTOtxE=
+X-Received: by 2002:a25:e010:: with SMTP id x16mr453793ybg.511.1614793101040;
+ Wed, 03 Mar 2021 09:38:21 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20210302171947.2268128-1-joe@cilium.io> <20210302171947.2268128-9-joe@cilium.io>
+In-Reply-To: <20210302171947.2268128-9-joe@cilium.io>
+From:   Brian Vazquez <brianvv@google.com>
+Date:   Wed, 3 Mar 2021 09:38:10 -0800
+Message-ID: <CAMzD94RE=p9C4FaOA1C6tiSUuqnPv3k8dj2Lb1DgnuJ_vvAX=w@mail.gmail.com>
+Subject: Re: [PATCHv2 bpf-next 08/15] bpf: Document BPF_MAP_*_BATCH syscall commands
+To:     Joe Stringer <joe@cilium.io>
+Cc:     bpf <bpf@vger.kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+        Alexei Starovoitov <ast@kernel.org>, linux-doc@vger.kernel.org,
+        linux-man@vger.kernel.org,
+        =?UTF-8?B?VG9rZSBIw7hpbGFuZC1Kw7hyZ2Vuc2Vu?= <toke@redhat.com>,
+        Quentin Monnet <quentin@isovalent.com>,
+        Yonghong Song <yhs@fb.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Joe Stringer <joe@cilium.io> writes:
+Hi Joe, thanks for documenting this.
 
-> Following that, the series enhances the python scripting around parsing
-> the descriptions from the header files and generating dedicated
-> ReStructured Text and troff output. Finally, to expose the new text and
-> reduce the likelihood of having it get out of date or break the docs
-> parser, it is added to the selftests and exposed through the kernel
-> documentation web pages.
+Your description of the functions usage looks good to me.
 
-You can leave me off CC, but I have eyes everywhere :)
+Acked-by: Brian Vazquez <brianvv@google.com>
 
-Anyway, I like this version much better, thanks for making the
-adjustments.  Feel free to stick an
 
-Acked-by: Jonathan Corbet <corbet@lwn.net>
 
-on it if you feel so inclined.
 
-Thanks,
-
-jon
+On Tue, Mar 2, 2021 at 9:20 AM Joe Stringer <joe@cilium.io> wrote:
+>
+> Based roughly on the following commits:
+> * Commit cb4d03ab499d ("bpf: Add generic support for lookup batch op")
+> * Commit 057996380a42 ("bpf: Add batch ops to all htab bpf map")
+> * Commit aa2e93b8e58e ("bpf: Add generic support for update and delete
+>   batch ops")
+>
+> Acked-by: Toke H=C3=B8iland-J=C3=B8rgensen <toke@redhat.com>
+> Reviewed-by: Quentin Monnet <quentin@isovalent.com>
+> Signed-off-by: Joe Stringer <joe@cilium.io>
+> ---
+> CC: Brian Vazquez <brianvv@google.com>
+> CC: Yonghong Song <yhs@fb.com>
+> ---
+>  include/uapi/linux/bpf.h | 114 +++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 111 insertions(+), 3 deletions(-)
+>
+> diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
+> index 0cf92ef011f1..c8b9d19fce22 100644
+> --- a/include/uapi/linux/bpf.h
+> +++ b/include/uapi/linux/bpf.h
+> @@ -553,13 +553,55 @@ union bpf_iter_link_info {
+>   *     Description
+>   *             Iterate and fetch multiple elements in a map.
+>   *
+> + *             Two opaque values are used to manage batch operations,
+> + *             *in_batch* and *out_batch*. Initially, *in_batch* must be=
+ set
+> + *             to NULL to begin the batched operation. After each subseq=
+uent
+> + *             **BPF_MAP_LOOKUP_BATCH**, the caller should pass the resu=
+ltant
+> + *             *out_batch* as the *in_batch* for the next operation to
+> + *             continue iteration from the current point.
+> + *
+> + *             The *keys* and *values* are output parameters which must =
+point
+> + *             to memory large enough to hold *count* items based on the=
+ key
+> + *             and value size of the map *map_fd*. The *keys* buffer mus=
+t be
+> + *             of *key_size* * *count*. The *values* buffer must be of
+> + *             *value_size* * *count*.
+> + *
+> + *             The *elem_flags* argument may be specified as one of the
+> + *             following:
+> + *
+> + *             **BPF_F_LOCK**
+> + *                     Look up the value of a spin-locked map without
+> + *                     returning the lock. This must be specified if the
+> + *                     elements contain a spinlock.
+> + *
+> + *             On success, *count* elements from the map are copied into=
+ the
+> + *             user buffer, with the keys copied into *keys* and the val=
+ues
+> + *             copied into the corresponding indices in *values*.
+> + *
+> + *             If an error is returned and *errno* is not **EFAULT**, *c=
+ount*
+> + *             is set to the number of successfully processed elements.
+> + *
+>   *     Return
+>   *             Returns zero on success. On error, -1 is returned and *er=
+rno*
+>   *             is set appropriately.
+>   *
+> + *             May set *errno* to **ENOSPC** to indicate that *keys* or
+> + *             *values* is too small to dump an entire bucket during
+> + *             iteration of a hash-based map type.
+> + *
+>   * BPF_MAP_LOOKUP_AND_DELETE_BATCH
+>   *     Description
+> - *             Iterate and delete multiple elements in a map.
+> + *             Iterate and delete all elements in a map.
+> + *
+> + *             This operation has the same behavior as
+> + *             **BPF_MAP_LOOKUP_BATCH** with two exceptions:
+> + *
+> + *             * Every element that is successfully returned is also del=
+eted
+> + *               from the map. This is at least *count* elements. Note t=
+hat
+> + *               *count* is both an input and an output parameter.
+> + *             * Upon returning with *errno* set to **EFAULT**, up to
+> + *               *count* elements may be deleted without returning the k=
+eys
+> + *               and values of the deleted elements.
+>   *
+>   *     Return
+>   *             Returns zero on success. On error, -1 is returned and *er=
+rno*
+> @@ -567,15 +609,81 @@ union bpf_iter_link_info {
+>   *
+>   * BPF_MAP_UPDATE_BATCH
+>   *     Description
+> - *             Iterate and update multiple elements in a map.
+> + *             Update multiple elements in a map by *key*.
+> + *
+> + *             The *keys* and *values* are input parameters which must p=
+oint
+> + *             to memory large enough to hold *count* items based on the=
+ key
+> + *             and value size of the map *map_fd*. The *keys* buffer mus=
+t be
+> + *             of *key_size* * *count*. The *values* buffer must be of
+> + *             *value_size* * *count*.
+> + *
+> + *             Each element specified in *keys* is sequentially updated =
+to the
+> + *             value in the corresponding index in *values*. The *in_bat=
+ch*
+> + *             and *out_batch* parameters are ignored and should be zero=
+ed.
+> + *
+> + *             The *elem_flags* argument should be specified as one of t=
+he
+> + *             following:
+> + *
+> + *             **BPF_ANY**
+> + *                     Create new elements or update a existing elements=
+.
+> + *             **BPF_NOEXIST**
+> + *                     Create new elements only if they do not exist.
+> + *             **BPF_EXIST**
+> + *                     Update existing elements.
+> + *             **BPF_F_LOCK**
+> + *                     Update spin_lock-ed map elements. This must be
+> + *                     specified if the map value contains a spinlock.
+> + *
+> + *             On success, *count* elements from the map are updated.
+> + *
+> + *             If an error is returned and *errno* is not **EFAULT**, *c=
+ount*
+> + *             is set to the number of successfully processed elements.
+>   *
+>   *     Return
+>   *             Returns zero on success. On error, -1 is returned and *er=
+rno*
+>   *             is set appropriately.
+>   *
+> + *             May set *errno* to **EINVAL**, **EPERM**, **ENOMEM**, or
+> + *             **E2BIG**. **E2BIG** indicates that the number of element=
+s in
+> + *             the map reached the *max_entries* limit specified at map
+> + *             creation time.
+> + *
+> + *             May set *errno* to one of the following error codes under
+> + *             specific circumstances:
+> + *
+> + *             **EEXIST**
+> + *                     If *flags* specifies **BPF_NOEXIST** and the elem=
+ent
+> + *                     with *key* already exists in the map.
+> + *             **ENOENT**
+> + *                     If *flags* specifies **BPF_EXIST** and the elemen=
+t with
+> + *                     *key* does not exist in the map.
+> + *
+>   * BPF_MAP_DELETE_BATCH
+>   *     Description
+> - *             Iterate and delete multiple elements in a map.
+> + *             Delete multiple elements in a map by *key*.
+> + *
+> + *             The *keys* parameter is an input parameter which must poi=
+nt
+> + *             to memory large enough to hold *count* items based on the=
+ key
+> + *             size of the map *map_fd*, that is, *key_size* * *count*.
+> + *
+> + *             Each element specified in *keys* is sequentially deleted.=
+ The
+> + *             *in_batch*, *out_batch*, and *values* parameters are igno=
+red
+> + *             and should be zeroed.
+> + *
+> + *             The *elem_flags* argument may be specified as one of the
+> + *             following:
+> + *
+> + *             **BPF_F_LOCK**
+> + *                     Look up the value of a spin-locked map without
+> + *                     returning the lock. This must be specified if the
+> + *                     elements contain a spinlock.
+> + *
+> + *             On success, *count* elements from the map are updated.
+> + *
+> + *             If an error is returned and *errno* is not **EFAULT**, *c=
+ount*
+> + *             is set to the number of successfully processed elements. =
+If
+> + *             *errno* is **EFAULT**, up to *count* elements may be been
+> + *             deleted.
+>   *
+>   *     Return
+>   *             Returns zero on success. On error, -1 is returned and *er=
+rno*
+> --
+> 2.27.0
+>
