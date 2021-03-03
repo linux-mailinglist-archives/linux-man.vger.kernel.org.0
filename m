@@ -2,125 +2,91 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6746B32C726
-	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:09:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CBF5832C729
+	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:10:00 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S244432AbhCDAbG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 3 Mar 2021 19:31:06 -0500
-Received: from p3plsmtpa11-03.prod.phx3.secureserver.net ([68.178.252.104]:35780
-        "EHLO p3plsmtpa11-03.prod.phx3.secureserver.net" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1378962AbhCCSNy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 13:13:54 -0500
-Received: from [192.168.0.116] ([71.184.94.153])
-        by :SMTPAUTH: with ESMTPSA
-        id HVvelXiCvKEOAHVvelgCok; Wed, 03 Mar 2021 11:08:58 -0700
-X-CMAE-Analysis: v=2.4 cv=erwacqlX c=1 sm=1 tr=0 ts=603fd0ba
- a=vbvdVb1zh1xTTaY8rfQfKQ==:117 a=vbvdVb1zh1xTTaY8rfQfKQ==:17
- a=IkcTkHD0fZMA:10 a=iox4zFpeAAAA:8 a=Dn3fJbBJWZ8bWwpP0-sA:9 a=QEXdDO2ut3YA:10
- a=WzC6qhA0u3u7Ye7llzcV:22
-X-SECURESERVER-ACCT: tom@talpey.com
-Subject: Re: [PATCH v2] flock.2: add CIFS details
-To:     =?UTF-8?Q?Aur=c3=a9lien_Aptel?= <aaptel@suse.com>,
-        linux-cifs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-man@vger.kernel.org, mtk.manpages@gmail.com
-Cc:     smfrench@gmail.com
-References: <8735xcxkv5.fsf@suse.com> <20210303163755.31127-1-aaptel@suse.com>
-From:   Tom Talpey <tom@talpey.com>
-Message-ID: <17fc432c-f485-0945-6d12-fa338ea0025f@talpey.com>
-Date:   Wed, 3 Mar 2021 13:08:58 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+        id S240492AbhCDAbH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 3 Mar 2021 19:31:07 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34478 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S234110AbhCCSvZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 13:51:25 -0500
+Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com [IPv6:2607:f8b0:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2E1F8C061760
+        for <linux-man@vger.kernel.org>; Wed,  3 Mar 2021 10:50:32 -0800 (PST)
+Received: by mail-ot1-x336.google.com with SMTP id h10so13941526otm.1
+        for <linux-man@vger.kernel.org>; Wed, 03 Mar 2021 10:50:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cilium-io.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=X3mUmIL/PsBLm5QWggy6CsHGsFcTyyKgwZM9IzC11zo=;
+        b=JQSA4Fi422v+BKJzP5iuKGerteg8JKiOI+8qwCe5ObNyn3J0aCSLzxPJ53/1gb7TGX
+         zF7h8f99ydK3O6+SBtRdIGqoIEWzcNR8YpIpO3YVLkKwcHu29X7I1uxRYJ9CQF7Xesj9
+         7zlw5ZBiaBDWJwdle1mOeAj07AuMBr9R7rdMOJ51GOkHKAu1K472YSKfX5UJcgy5UqOX
+         UAQ0kkfiEgHVSzbBvwIxWhYWXRa+Fl0RI4UVWZuAKm/Wz5t7VO9lfj8FTgcT3w6SEB+D
+         NH2xCRMOsRNk3Yc34quRm+4vlTicK7v22RY92GAs7s2q1t8C+X8YvaUdHB97nCKenGgW
+         ZTPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=X3mUmIL/PsBLm5QWggy6CsHGsFcTyyKgwZM9IzC11zo=;
+        b=a0C+uxG9rXtXc0fEk1sgj08IeobdlroxtXIMhiV0WTbn90exyq+W/vA7PYug9QFhlY
+         zzeyfdrc7UZlN8JCVwFmBkAXEhMRaDfKL/SRR5yO7ysbIcictVOtL39H4V/wP/FQi28S
+         pyiMg+/Vijwa9XQUNDqRad+HFq+6vr0sMr/KcTKR2XbIRhy+yg5Sx/dFBRZe5P9mdSBJ
+         3p7ozKZwdJMCFlbYrxdOAA+QDfdfl2ihEbm80ysGk3CHLDA7KtvGPxh3Cu5A/KZxZwN2
+         Btp084JgFWj3bjjT5sJePBwAVOoyk+4+VLl/zqa8Ca6xeNbj3H91SrLEjnEIdxzGrhkn
+         XWCg==
+X-Gm-Message-State: AOAM531oxbASdfRb/iGPOTUJCYwpiXYaAA3cWVFFNStrgzZoaPVwtT8c
+        I2C836UwCURB+FxA1jOhDyLu2TyOra7RE3dmHyUUyQ==
+X-Google-Smtp-Source: ABdhPJxun10gscljDGCet4kQO1vLQNdjPWhnmQNgBhsnw0bpzdE1zHrZCTPJQqxifcrfgLrBcVowWjbOH4ReQqoqshA=
+X-Received: by 2002:a05:6830:309c:: with SMTP id f28mr395806ots.204.1614797431439;
+ Wed, 03 Mar 2021 10:50:31 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20210303163755.31127-1-aaptel@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfCWhMEvjwmzD8Up+kCe11ZTwxATDUaYkCaSiMu66xtAOJDknoqjgYDolWUzD30AASEU3ysNJTqgye3KgMwSCjrYbnSojIBN3xh9sSY7M38WZP//0PUlc
- e8FRucMuxT+TXlO+yOfuCEu23fHOqGS2R4OjH5gcCUvLGWoE4cYmYqgAirQTj9yWA5HbR67TSI9xsnlKEB3D34fswAlSNIJ5hI5U69AFUtGRKovTyCril6Wa
- Y3UHM4UmPcAuYKW16EqYRUUjY4UJu0sHPWNjwI0jsmdNTBn8mXAmMxAc5HRuK/mdVxqu39PAentTwAsva67FCqT4vKXZCb9zuQ6dnDsKIv0m4Jj6SDbtvhoQ
- S5y4xRm4
+References: <20210302171947.2268128-1-joe@cilium.io> <87y2f4up37.fsf@meer.lwn.net>
+In-Reply-To: <87y2f4up37.fsf@meer.lwn.net>
+From:   Joe Stringer <joe@cilium.io>
+Date:   Wed, 3 Mar 2021 10:50:11 -0800
+Message-ID: <CADa=Rywd5WUbOVvgxO=AKULE8F_+_XYaSEhGffDyFhTdc0qsCQ@mail.gmail.com>
+Subject: Re: [PATCHv2 bpf-next 00/15] Improve BPF syscall command documentation
+To:     Jonathan Corbet <corbet@lwn.net>
+Cc:     Joe Stringer <joe@cilium.io>, bpf <bpf@vger.kernel.org>,
+        linux-man@vger.kernel.org, linux-doc@vger.kernel.org,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Brian Vazquez <brianvv@google.com>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Daniel Mack <daniel@zonque.org>,
+        john fastabend <john.fastabend@gmail.com>,
+        Petar Penkov <ppenkov@google.com>,
+        Quentin Monnet <quentin@isovalent.com>,
+        Sean Young <sean@mess.org>, Yonghong Song <yhs@fb.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Definitely better! Couple of suggestions:
+On Wed, Mar 3, 2021 at 9:25 AM Jonathan Corbet <corbet@lwn.net> wrote:
+>
+> Joe Stringer <joe@cilium.io> writes:
+>
+> > Following that, the series enhances the python scripting around parsing
+> > the descriptions from the header files and generating dedicated
+> > ReStructured Text and troff output. Finally, to expose the new text and
+> > reduce the likelihood of having it get out of date or break the docs
+> > parser, it is added to the selftests and exposed through the kernel
+> > documentation web pages.
+>
+> You can leave me off CC, but I have eyes everywhere :)
 
-On 3/3/2021 11:37 AM, Aurélien Aptel wrote:
-> From: Aurelien Aptel <aaptel@suse.com>
-> 
-> Similarly to NFS, CIFS flock() locks behave differently than the
-> standard. Document those differences.
-> 
-> Here is the rendered text:
-> 
-> CIFS details
->    In  Linux kernels up to 5.4, flock() is not propagated over SMB. A file
->    with such locks will not appear locked for other SMB clients.
-> 
->    Since Linux 5.5, flock() are emulated with SMB byte-range locks on  the
->    entire  file.  Similarly  to  NFS, this means that fcntl(2) and flock()
->    locks interact with one another over SMB. Another important side-effect
->    is  that  the  locks are not advisory anymore: a write on a locked file
->    will always fail with EACCESS.  This difference originates from the de-
->    sign of locks in the SMB protocol, which provides mandatory locking se-
->    mantics. The nobrl mount option can be used switch back to pre-5.5 ker-
->    nel behavior.
-> 
-> Signed-off-by: Aurelien Aptel <aaptel@suse.com>
-> ---
->   man2/flock.2 | 21 +++++++++++++++++++++
->   1 file changed, 21 insertions(+)
-> 
-> diff --git a/man2/flock.2 b/man2/flock.2
-> index 61d4b5396..7c4e7e8c9 100644
-> --- a/man2/flock.2
-> +++ b/man2/flock.2
-> @@ -239,6 +239,27 @@ see the discussion of the
->   .I "local_lock"
->   option in
->   .BR nfs (5).
-> +.SS CIFS details
-> +In Linux kernels up to 5.4,
-> +.BR flock ()
-> +is not propagated over SMB. A file with such locks will not appear
-> +locked for other SMB clients.
+I realized a few minutes after sending that I had missed adding you
+back on. Actually managed to send it from the right email account this
+time though :-)
 
-Other "remote" clients, right? It's not limited to SMB, if the server
-is also managing other protocols which might support flock'ing.
+> Anyway, I like this version much better, thanks for making the
+> adjustments.  Feel free to stick an
+>
+> Acked-by: Jonathan Corbet <corbet@lwn.net>
 
-> +.PP
-> +Since Linux 5.5,
-> +.BR flock ()
-> +are emulated with SMB byte-range locks on the
-> +entire file. Similarly to NFS, this means that
-> +.BR fcntl (2)
-> +and
-> +.BR flock ()
-> +locks interact with one another over SMB. Another important
-
-There's a subtlety here. If the server implements these SMB byte-range
-locks in certain ways, the locks may interact with other protocols too.
-So constraining the statement to "over SMB" may be incomplete.
-
-Wy not simply say "this means that fcntl() and flock() locks interact
-with one another", and preserve the generality?
-
-> +side-effect is that the locks are not advisory anymore: a write on a
-> +locked file will always fail with
-> +.BR EACCESS .
-> +This difference originates from the design of locks in the SMB
-> +protocol, which provides mandatory locking semantics. The
-> +.BR nobrl
-> +mount option can be used switch back to pre-5.5 kernel behavior.
-
-Wait, the page just said that pre-5.5 was local only. Wouldn't it
-be better to just say that "nobrl" turns off the entire behavior of
-forwarding locks to the server, like before? Or are there other
-side effects...
-
-Tom.
-
->   .SH SEE ALSO
->   .BR flock (1),
->   .BR close (2),
-> 
+Thanks Jon, appreciate it.
