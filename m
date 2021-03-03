@@ -2,64 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 894EB32C766
-	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:10:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id AD66432C763
+	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:10:48 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1355586AbhCDAbv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 3 Mar 2021 19:31:51 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47986 "EHLO
+        id S1349450AbhCDAbp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 3 Mar 2021 19:31:45 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47202 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234195AbhCCWH3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 17:07:29 -0500
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com [IPv6:2a00:1450:4864:20::62c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9AC6CC0613D7
-        for <linux-man@vger.kernel.org>; Wed,  3 Mar 2021 13:58:22 -0800 (PST)
-Received: by mail-ej1-x62c.google.com with SMTP id hs11so45290003ejc.1
-        for <linux-man@vger.kernel.org>; Wed, 03 Mar 2021 13:58:22 -0800 (PST)
+        with ESMTP id S1390324AbhCCWCn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 17:02:43 -0500
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com [IPv6:2a00:1450:4864:20::632])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 612DFC0613DD
+        for <linux-man@vger.kernel.org>; Wed,  3 Mar 2021 14:02:02 -0800 (PST)
+Received: by mail-ej1-x632.google.com with SMTP id lr13so45268230ejb.8
+        for <linux-man@vger.kernel.org>; Wed, 03 Mar 2021 14:02:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=4Ei2zEYBu9AS6+1MjcBTUaGzpP6ocQ0ju1iFAmeYQXM=;
-        b=RgDnRISvlZknvm1EC4mzlBzL1m+W1Jbko1sKc4Jwu5CtP0dIW/2kOnrv9oa0HGFfD0
-         l3KJokUFz0609uNShX86voxviXUJ9ygOzD0sCCv9i4AAjEr8OhrwRCDR5+wY2rv6CfH1
-         Sh/7uwxtMDrjh3n8q/4Mi+Ix3B969MQtw9KpcPpwPvUHI9vgCdJewaarPo2NHQqAwm7D
-         ZcoR2q7Wr8EwKGwKLi5riR7QDqvey4RoYzosJKfyE9YGjkd8K78s+zIThiUipW6oBMOc
-         OLDccUaJA4N4Vt2MBp/paIdcxJQOXSSucUzIqep21PwAasTbsWIIOyeV5iLhilB76pRJ
-         9ndQ==
+        bh=prSuv3+r5+64a5jYVnh6CSiiexuCuBpvUnxlmd202VI=;
+        b=joaaeXBjfRYvtOToGEqQLmpgBn6zbcFEczKUWj4MnGJwK5nQbkil6+AvMu0s3lxich
+         af7QKM6hCDsj13uTE1nMOsiq8u9T0F+hl6OI9V7lxsFmStnOkux3n9r2az7v6kIr0SG9
+         6n4cDM3JLwZAxfJeibByS+4y6Fosa6lUQ+dwoCSxUGQ4HaQvlDuozS6zfTcaR+GAox8s
+         8oUut+ntPFcHZAXAVXv4YvQGEUAz/R24fzuRZ1jO+BnuWPGVctXpaZJB1qamLE3IBIWZ
+         EDySbqjTX7i6I+Mv/juZwLjsCsdvVcF4igEUeeTrWhAmQvK9z5GS2MWGr/XV5H+su8Jv
+         9OXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=4Ei2zEYBu9AS6+1MjcBTUaGzpP6ocQ0ju1iFAmeYQXM=;
-        b=gC4r4LJ8tk4xB+ihiSRugKpT/87PlQEpNRjg+aJ6Ic467wcx5UUzWlE/3FJKtWogWU
-         Ec7LGOB54ltFU79AccmGrl0CL/Aj+E0gACsmn8Izj0sibFLrI13VEj0lcETtC8a3y4/e
-         tfXCBqnEbf9jbMCZ4sN6k5eokLIRuq+HvSr9pVh4fAcm6jq/NtMs98OCp2zlhxPHvUz8
-         3sCraJ2wqdPxwto1IxJF7MdVUXLb6sSxmesHAv2HclW7sWZy7Rdza8JOjO6YK289TkJp
-         z/+a8CTCHnCQjxjfnrz230RXAiEzU9w/BljdhhYF8utvrTU3zjKloddm/B50xeBuYRj/
-         p13A==
-X-Gm-Message-State: AOAM533miV0ZPWPlYbJw0GtgyKZaP/RM+OWKgdjN4Iu69e+TegLaRAGA
-        RLGPRQJpiX2xYm8PYbiKzAlnYGftrMjioQ==
-X-Google-Smtp-Source: ABdhPJxFZcxnRTTrld4iCW9+7B4X3pAYj9f7DgHUmvAVpzKAS2i2YkOIU6b9pEJUbYzvkWmBdYhBHw==
-X-Received: by 2002:a17:906:9152:: with SMTP id y18mr785750ejw.19.1614808701327;
-        Wed, 03 Mar 2021 13:58:21 -0800 (PST)
+        bh=prSuv3+r5+64a5jYVnh6CSiiexuCuBpvUnxlmd202VI=;
+        b=jaLN+JBca1AQBLYNOKmmbgzYKTQSUnqHnh7xweH65jsuVQZCMVFpylvsPLGz4TVP5o
+         +aDVV7/5CTv8R1Xx3Wb1wrO+dh5kFSc16qNnPozbaD5qrPw9k9w1am4j4J+qLgj/zO3z
+         2EoBhkcQdxnNgBHQgciELBrTGhdAI8mudMuDB/si1JYYrwJ8XGz1qzbgLeZ2yYfpYH43
+         M+wD7lbSg56QwjgVr01/a0+QN5NOQtjrDjGhY0Y9bLoyVkJblak68RZdD8L7buQH2C+I
+         u9ltM4gH/p4phVxZy3z/RAcI8lWGNYvmScSKccvU6HQrbhQsb7b1myjiXS304eOejc6/
+         5ZvA==
+X-Gm-Message-State: AOAM5330+Xpc71MXreJtnpILIs4Do/OIggzQb1/SQJerW0C+fn0P2OoN
+        f70DIAFxQnFOLZow/sFNKqlh7BwqJEVWNw==
+X-Google-Smtp-Source: ABdhPJwZm6MmLMfr5MAvf9zcsLM+ISi4Pk7ga0xy/QwxgHa/AuyetFS94FEBtX1iGq32GYOYcuJi7w==
+X-Received: by 2002:a17:906:3a10:: with SMTP id z16mr743692eje.483.1614808914769;
+        Wed, 03 Mar 2021 14:01:54 -0800 (PST)
 Received: from ?IPv6:2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b? ([2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b])
-        by smtp.gmail.com with ESMTPSA id gj13sm3680720ejb.118.2021.03.03.13.58.20
+        by smtp.gmail.com with ESMTPSA id d15sm8726708edx.62.2021.03.03.14.01.54
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 03 Mar 2021 13:58:20 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Walter Franzini <walter.franzini@gmail.com>
-Subject: Re: [PATCH] inode.7: tfix
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20210227112217.1629-1-alx.manpages@gmail.com>
+        Wed, 03 Mar 2021 14:01:54 -0800 (PST)
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
+Subject: Re: gethostbyname.3: Use internally consistent continuation indents
+ in SYNOPSIS
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+References: <2e87f61b-ad14-e349-1332-58c0a6755d02@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <71cd2520-2bfc-256e-cc0a-6453a3e34d35@gmail.com>
-Date:   Wed, 3 Mar 2021 22:58:19 +0100
+Message-ID: <c8e62845-1f33-cd07-1159-f89d890efc25@gmail.com>
+Date:   Wed, 3 Mar 2021 23:01:51 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <20210227112217.1629-1-alx.manpages@gmail.com>
+In-Reply-To: <2e87f61b-ad14-e349-1332-58c0a6755d02@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,38 +69,21 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Alex,
 
-On 2/27/21 12:22 PM, Alejandro Colomar wrote:
-> Epoch is 1970-01-01 00:00:00 +0000, UTC (see time(7)).
+On 2/28/21 12:20 AM, Alejandro Colomar (man-pages) wrote:
+> Hi Michael,
 > 
-> Reported-by: Walter Franzini <walter.franzini@gmail.com>
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> ---
->  man7/inode.7 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man7/inode.7 b/man7/inode.7
-> index fe50a4596..d3b9fa1ff 100644
-> --- a/man7/inode.7
-> +++ b/man7/inode.7
-> @@ -207,7 +207,7 @@ It is changed by writing or by setting inode information
->  .PP
->  The timestamp fields report time measured with a zero point at the
->  .IR Epoch ,
-> -1970-01-02 00:00:00 +0000, UTC (see
-> +1970-01-01 00:00:00 +0000, UTC (see
+> Did you leave gethostbyaddr(3) untouched on purpose?  I guess not :)
 
-Cute :-}
-
-Thanks, patch applied.
+I do not recall. But perhaps it was deliberate. Because, if
+the arg list of gethostbyaddr() is indented as the functions
+below, then it looks a bit weird. since the continued arg
+list is almost at the same indent as the function name.
+I'm going to call this a tasteful exception to the rule :-).
 
 Cheers,
 
 Michael
 
->  .BR time (7)).
->  .PP
->  Nanosecond timestamps are supported on XFS, JFS, Btrfs, and
-> 
 
 
 -- 
