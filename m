@@ -2,86 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 03F5532C71B
-	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:09:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 06F7532C71E
+	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:09:56 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1355575AbhCDAbD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 3 Mar 2021 19:31:03 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([216.205.24.124]:41936 "EHLO
-        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S236455AbhCCRMW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 12:12:22 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1614791435;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=72AvldDshkpAm4vjL1rTWERNo04lTYkEaJw4N5Ow1KY=;
-        b=DhYfQ/Jn1lNU0zT4p0CKC1+ojCX4AbSMXW7GL8JxTitbK4IZMZO3oad2RTt6uQ5aYp3aV7
-        56msmm5HnBtIAWfKrDQqeiksIfL/koeObivKSW51X+LsbOFNMphjPybRLbp21Zrl+92l6k
-        1Pgv/XtcgNaQMbVfMGKsI3r2mlJCfZk=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-391-Vzp06uWgMW-4lLCQSKAZmA-1; Wed, 03 Mar 2021 12:10:33 -0500
-X-MC-Unique: Vzp06uWgMW-4lLCQSKAZmA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        id S240014AbhCDAbE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 3 Mar 2021 19:31:04 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45298 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S241168AbhCCR3q (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 12:29:46 -0500
+Received: from ms.lwn.net (ms.lwn.net [IPv6:2600:3c01:e000:3a1::42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 49A11C061756;
+        Wed,  3 Mar 2021 09:29:05 -0800 (PST)
+Received: from localhost (unknown [IPv6:2601:281:8300:104d::5f6])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ACB2E100A61D;
-        Wed,  3 Mar 2021 17:10:29 +0000 (UTC)
-Received: from oldenburg.str.redhat.com (ovpn-112-51.ams2.redhat.com [10.36.112.51])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id 006F45C5DF;
-        Wed,  3 Mar 2021 17:10:21 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc:     Piotr Figiel <figiel@google.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Peter Zijlstra <peterz@infradead.org>,
-        paulmck <paulmck@kernel.org>, Boqun Feng <boqun.feng@gmail.com>,
-        Oleg Nesterov <oleg@redhat.com>,
-        "Dmitry V. Levin" <ldv@altlinux.org>,
-        Alexey Dobriyan <adobriyan@gmail.com>,
-        Andrei Vagin <avagin@gmail.com>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        Peter Oskolkov <posk@google.com>,
-        Kamil Yurtsever <kyurtsever@google.com>,
-        Chris Kennelly <ckennelly@google.com>,
-        Paul Turner <pjt@google.com>, emmir <emmir@google.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        linux-api <linux-api@vger.kernel.org>
-Subject: Re: [PATCH v2] ptrace: add PTRACE_GET_RSEQ_CONFIGURATION request
-References: <20210226135156.1081606-1-figiel@google.com>
-        <192824546.8190.1614353555831.JavaMail.zimbra@efficios.com>
-Date:   Wed, 03 Mar 2021 18:10:27 +0100
-In-Reply-To: <192824546.8190.1614353555831.JavaMail.zimbra@efficios.com>
-        (Mathieu Desnoyers's message of "Fri, 26 Feb 2021 10:32:35 -0500
-        (EST)")
-Message-ID: <87h7lsuprw.fsf@oldenburg.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
+        by ms.lwn.net (Postfix) with ESMTPSA id B41E52CD;
+        Wed,  3 Mar 2021 17:25:16 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net B41E52CD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+        t=1614792316; bh=stUJ13VskkGN0mdPm02DMITNl2re2BbdECPeoNTlQuY=;
+        h=From:To:Cc:Subject:References:Date:In-Reply-To:From;
+        b=dGirZviqdmXr1dYOksWyVIUnGlTy7Q9EP66d1x2lzljJOX6QSDiyUXGFXsRSUz3gi
+         BYTJTXvzfM2h9KK6F35HbwnzkizIk2gW3FLoO/MExhy9m+5rbdR/4c5lkE3Dz5XRDN
+         M5p8aDonI1ykkZVI6usnCGOTdLDuf+kCOBt3scdSg9Pdy6HhIoA0XHVlPO1M7fpj6m
+         g/0RKoaFCO3y49b3kjiqDRnslxn/iUpnCgvyDVV/qVXyyD5rClGofGJIn30AQ8DSmB
+         WvLFkh2pRo2ejN0ANSBvvZffq6tFMRPjeRqYGica/yNRJjCKrO92F8n7+8s77ikZZ6
+         0BQkZgi2FHMVw==
+From:   Jonathan Corbet <corbet@lwn.net>
+To:     Joe Stringer <joe@cilium.io>
+Cc:     bpf@vger.kernel.org, linux-man@vger.kernel.org,
+        linux-doc@vger.kernel.org, mtk.manpages@gmail.com, ast@kernel.org,
+        brianvv@google.com, daniel@iogearbox.net, daniel@zonque.org,
+        john.fastabend@gmail.com, ppenkov@google.com,
+        quentin@isovalent.com, sean@mess.org, yhs@fb.com
+Subject: Re: [PATCHv2 bpf-next 00/15] Improve BPF syscall command documentation
+References: <20210302171947.2268128-1-joe@cilium.io>
+Date:   Wed, 03 Mar 2021 10:25:16 -0700
+In-Reply-To: <20210302171947.2268128-1-joe@cilium.io> (Joe Stringer's message
+        of "Tue, 2 Mar 2021 09:19:32 -0800")
+Message-ID: <87y2f4up37.fsf@meer.lwn.net>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.0.50 (gnu/linux)
 MIME-Version: 1.0
 Content-Type: text/plain
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Mathieu Desnoyers:
+Joe Stringer <joe@cilium.io> writes:
 
-> This way, the configuration structure can be expanded in the future. The
-> rseq ABI structure is by definition fixed-size, so there is no point in
-> having its size here.
->
-> Florian, did I understand your request correctly, or am I missing your
-> point ?
+> Following that, the series enhances the python scripting around parsing
+> the descriptions from the header files and generating dedicated
+> ReStructured Text and troff output. Finally, to expose the new text and
+> reduce the likelihood of having it get out of date or break the docs
+> parser, it is added to the selftests and exposed through the kernel
+> documentation web pages.
 
-No, the idea was that if the kernel ever supports different rseq ABI
-sizes on registration (it could as there's a size argument to the rseq
-system call), that needs to be communicated to CRIU, so that it restores
-with the right size.
+You can leave me off CC, but I have eyes everywhere :)
 
-I haven't thought about whether it makes sense to make the ptrace
-argument struct extensible.
+Anyway, I like this version much better, thanks for making the
+adjustments.  Feel free to stick an
+
+Acked-by: Jonathan Corbet <corbet@lwn.net>
+
+on it if you feel so inclined.
 
 Thanks,
-Florian
 
+jon
