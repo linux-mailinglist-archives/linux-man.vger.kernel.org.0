@@ -2,91 +2,122 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CBF5832C729
-	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:10:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CFFD832C72C
+	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 02:10:03 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S240492AbhCDAbH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 3 Mar 2021 19:31:07 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34478 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234110AbhCCSvZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 13:51:25 -0500
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com [IPv6:2607:f8b0:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2E1F8C061760
-        for <linux-man@vger.kernel.org>; Wed,  3 Mar 2021 10:50:32 -0800 (PST)
-Received: by mail-ot1-x336.google.com with SMTP id h10so13941526otm.1
-        for <linux-man@vger.kernel.org>; Wed, 03 Mar 2021 10:50:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cilium-io.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=X3mUmIL/PsBLm5QWggy6CsHGsFcTyyKgwZM9IzC11zo=;
-        b=JQSA4Fi422v+BKJzP5iuKGerteg8JKiOI+8qwCe5ObNyn3J0aCSLzxPJ53/1gb7TGX
-         zF7h8f99ydK3O6+SBtRdIGqoIEWzcNR8YpIpO3YVLkKwcHu29X7I1uxRYJ9CQF7Xesj9
-         7zlw5ZBiaBDWJwdle1mOeAj07AuMBr9R7rdMOJ51GOkHKAu1K472YSKfX5UJcgy5UqOX
-         UAQ0kkfiEgHVSzbBvwIxWhYWXRa+Fl0RI4UVWZuAKm/Wz5t7VO9lfj8FTgcT3w6SEB+D
-         NH2xCRMOsRNk3Yc34quRm+4vlTicK7v22RY92GAs7s2q1t8C+X8YvaUdHB97nCKenGgW
-         ZTPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=X3mUmIL/PsBLm5QWggy6CsHGsFcTyyKgwZM9IzC11zo=;
-        b=a0C+uxG9rXtXc0fEk1sgj08IeobdlroxtXIMhiV0WTbn90exyq+W/vA7PYug9QFhlY
-         zzeyfdrc7UZlN8JCVwFmBkAXEhMRaDfKL/SRR5yO7ysbIcictVOtL39H4V/wP/FQi28S
-         pyiMg+/Vijwa9XQUNDqRad+HFq+6vr0sMr/KcTKR2XbIRhy+yg5Sx/dFBRZe5P9mdSBJ
-         3p7ozKZwdJMCFlbYrxdOAA+QDfdfl2ihEbm80ysGk3CHLDA7KtvGPxh3Cu5A/KZxZwN2
-         Btp084JgFWj3bjjT5sJePBwAVOoyk+4+VLl/zqa8Ca6xeNbj3H91SrLEjnEIdxzGrhkn
-         XWCg==
-X-Gm-Message-State: AOAM531oxbASdfRb/iGPOTUJCYwpiXYaAA3cWVFFNStrgzZoaPVwtT8c
-        I2C836UwCURB+FxA1jOhDyLu2TyOra7RE3dmHyUUyQ==
-X-Google-Smtp-Source: ABdhPJxun10gscljDGCet4kQO1vLQNdjPWhnmQNgBhsnw0bpzdE1zHrZCTPJQqxifcrfgLrBcVowWjbOH4ReQqoqshA=
-X-Received: by 2002:a05:6830:309c:: with SMTP id f28mr395806ots.204.1614797431439;
- Wed, 03 Mar 2021 10:50:31 -0800 (PST)
+        id S240467AbhCDAbM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 3 Mar 2021 19:31:12 -0500
+Received: from mail.efficios.com ([167.114.26.124]:38258 "EHLO
+        mail.efficios.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S244996AbhCCS63 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 13:58:29 -0500
+Received: from localhost (localhost [127.0.0.1])
+        by mail.efficios.com (Postfix) with ESMTP id D15D43220FC;
+        Wed,  3 Mar 2021 13:55:00 -0500 (EST)
+Received: from mail.efficios.com ([127.0.0.1])
+        by localhost (mail03.efficios.com [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id aAXDIHMqpOpt; Wed,  3 Mar 2021 13:55:00 -0500 (EST)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.efficios.com (Postfix) with ESMTP id 6A56B3220FB;
+        Wed,  3 Mar 2021 13:55:00 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.efficios.com 6A56B3220FB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+        s=default; t=1614797700;
+        bh=rCq90Cemnj8uIDnzvWa7FZTmINWyPkoJYeBmJ7lHhLM=;
+        h=Date:From:To:Message-ID:MIME-Version;
+        b=GTVjsfF3WiOHC2+vY+c6TYY9cvcQDkrU+9bfM2NO0e0kcGRUbJPZ0w9WB4tmtup/O
+         /LgQNvgx5blMss5mLTbGC9t8q4ylQ16nXq7t1NqOuSDMIkpVJNKhkDhZTLiytPfJSw
+         MRhu+8V5EYuKKUx76PvITOIXlmpXwlhmi0HxnUZD8Uwp3x4PFWgi0ciJxLXAWirSOL
+         ooJYN9AFHuC1x9a/aVWn5SAfeEHXL/ZH/hbwr8bZKq2wQu8X1Aepe5ZPVag69T3yK2
+         wNgkYVqjbqXR69ZZ5TlGr/Fhhts25RH9eLhlk55OZ1icgBvm/5YTBHk+GeFxjls+Ga
+         T+VjiPIxCa9pQ==
+X-Virus-Scanned: amavisd-new at efficios.com
+Received: from mail.efficios.com ([127.0.0.1])
+        by localhost (mail03.efficios.com [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id z7lHbMmAUfH0; Wed,  3 Mar 2021 13:55:00 -0500 (EST)
+Received: from mail03.efficios.com (mail03.efficios.com [167.114.26.124])
+        by mail.efficios.com (Postfix) with ESMTP id 562F43224B8;
+        Wed,  3 Mar 2021 13:55:00 -0500 (EST)
+Date:   Wed, 3 Mar 2021 13:55:00 -0500 (EST)
+From:   Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To:     Piotr Figiel <figiel@google.com>
+Cc:     Andrew Morton <akpm@linux-foundation.org>,
+        Peter Zijlstra <peterz@infradead.org>,
+        paulmck <paulmck@kernel.org>, Boqun Feng <boqun.feng@gmail.com>,
+        Oleg Nesterov <oleg@redhat.com>,
+        Alexey Dobriyan <adobriyan@gmail.com>,
+        Andrei Vagin <avagin@gmail.com>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        Peter Oskolkov <posk@google.com>,
+        Kamil Yurtsever <kyurtsever@google.com>,
+        Chris Kennelly <ckennelly@google.com>,
+        Paul Turner <pjt@google.com>, emmir <emmir@google.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        linux-api <linux-api@vger.kernel.org>
+Message-ID: <1698111952.9528.1614797700222.JavaMail.zimbra@efficios.com>
+In-Reply-To: <YDkBlYp76PGsgUZs@google.com>
+References: <20210222100443.4155938-1-figiel@google.com> <1521573573.29432.1614005597395.JavaMail.zimbra@efficios.com> <YDkBlYp76PGsgUZs@google.com>
+Subject: Re: [PATCH] ptrace: add PTRACE_GET_RSEQ_CONFIGURATION request
 MIME-Version: 1.0
-References: <20210302171947.2268128-1-joe@cilium.io> <87y2f4up37.fsf@meer.lwn.net>
-In-Reply-To: <87y2f4up37.fsf@meer.lwn.net>
-From:   Joe Stringer <joe@cilium.io>
-Date:   Wed, 3 Mar 2021 10:50:11 -0800
-Message-ID: <CADa=Rywd5WUbOVvgxO=AKULE8F_+_XYaSEhGffDyFhTdc0qsCQ@mail.gmail.com>
-Subject: Re: [PATCHv2 bpf-next 00/15] Improve BPF syscall command documentation
-To:     Jonathan Corbet <corbet@lwn.net>
-Cc:     Joe Stringer <joe@cilium.io>, bpf <bpf@vger.kernel.org>,
-        linux-man@vger.kernel.org, linux-doc@vger.kernel.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Brian Vazquez <brianvv@google.com>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Daniel Mack <daniel@zonque.org>,
-        john fastabend <john.fastabend@gmail.com>,
-        Petar Penkov <ppenkov@google.com>,
-        Quentin Monnet <quentin@isovalent.com>,
-        Sean Young <sean@mess.org>, Yonghong Song <yhs@fb.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [167.114.26.124]
+X-Mailer: Zimbra 8.8.15_GA_3996 (ZimbraWebClient - FF86 (Linux)/8.8.15_GA_4007)
+Thread-Topic: ptrace: add PTRACE_GET_RSEQ_CONFIGURATION request
+Thread-Index: cQoLUNh7wF6cm+pfSb0FxCqp8YWzpA==
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Mar 3, 2021 at 9:25 AM Jonathan Corbet <corbet@lwn.net> wrote:
->
-> Joe Stringer <joe@cilium.io> writes:
->
-> > Following that, the series enhances the python scripting around parsing
-> > the descriptions from the header files and generating dedicated
-> > ReStructured Text and troff output. Finally, to expose the new text and
-> > reduce the likelihood of having it get out of date or break the docs
-> > parser, it is added to the selftests and exposed through the kernel
-> > documentation web pages.
->
-> You can leave me off CC, but I have eyes everywhere :)
+----- On Feb 26, 2021, at 9:11 AM, Piotr Figiel figiel@google.com wrote:
 
-I realized a few minutes after sending that I had missed adding you
-back on. Actually managed to send it from the right email account this
-time though :-)
+> Hi,
+> 
+> On Mon, Feb 22, 2021 at 09:53:17AM -0500, Mathieu Desnoyers wrote:
+> 
+>> I notice that other structures defined in this UAPI header are not
+>> packed as well.  Should we add an attribute packed on new structures ?
+>> It seems like it is generally a safer course of action, even though
+>> each field is naturally aligned here (there is no padding/hole in the
+>> structure).
+> 
+> I considered this for quite a while. There are some gains for this
+> approach, i.e. it's safer towards the ISO C, as theoretically compiler
+> can generate arbitrary offsets as long as struct elements have correct
+> order in memory.
+> Also with packed attribute it would be harder to make it incorrect in
+> future modifications.
+> User code also could theoretically put the structure on any misaligned
+> address.
+> 
+> But the drawback is that all accesses to the structure contents are
+> inefficient and some compilers may generate large chunks of code
+> whenever the structure elements are accessed (I recall at least one ARM
+> compiler which generates series of single-byte accesses for those). For
+> kernel it doesn't matter much because the structure type is used in one
+> place, but it may be different for the application code.
+> 
+> The change would be also inconsistent with the rest of the file and IMO
+> the gains are only theoretical.
+> 
+> If there are more opinions on this or you have some argument I'm missing
+> please let me know I can send v3 with packed and explicit padding
+> removed. I think this is rather borderline trade off.
 
-> Anyway, I like this version much better, thanks for making the
-> adjustments.  Feel free to stick an
->
-> Acked-by: Jonathan Corbet <corbet@lwn.net>
+I personally don't have a strong opinion on this and completely agree with
+your analysis. Maybe for pre-existing system calls adding more non-packed
+structures might be kind-of OK if some were already exposed, even though
+it seems rather fragile wrt ISO C.
 
-Thanks Jon, appreciate it.
+Thanks,
+
+Mathieu
+
+> 
+> Best regards and thanks for looking at this,
+> Piotr.
+
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+http://www.efficios.com
