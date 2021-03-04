@@ -2,193 +2,144 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 14A6932CA4C
-	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 03:03:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 61BCF32CCEE
+	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 07:42:29 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231226AbhCDCCP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 3 Mar 2021 21:02:15 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([63.128.21.124]:25365 "EHLO
-        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S232025AbhCDCBY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 3 Mar 2021 21:01:24 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1614823198;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=DK7INWloX9H1AWnOZWZTogB23KAtqlPeswE1LI5JIvE=;
-        b=cHxSmiEz5cpSxXExH4dlfiU32UoqA7K0AAaAwzSpRupkeYRN7eGRLLZJXXTFlAUsW+lu5S
-        lCuEfQ5715SFnaVEd4a8P9QKi3D2LbcvRCMNXF+3w9cN4IF/vBTDMKws19CFr0pjHVrTII
-        K8IUZecbHGTjMvr8PZmOKXflrwdX7gI=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-182-DnHdhQTaP9qJ6vpAt8rwWg-1; Wed, 03 Mar 2021 20:59:57 -0500
-X-MC-Unique: DnHdhQTaP9qJ6vpAt8rwWg-1
-Received: by mail-qv1-f70.google.com with SMTP id d15so19194502qvn.16
-        for <linux-man@vger.kernel.org>; Wed, 03 Mar 2021 17:59:57 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=DK7INWloX9H1AWnOZWZTogB23KAtqlPeswE1LI5JIvE=;
-        b=ZpLAaE3aferHAFhPJ5FCXGsXsfybykW8aBWM87cWM+go53hyYp/SubQm3j+4QFlFZh
-         L7zS5s7SQR0o5a61O/3hpqyY1I23hGhBl2pupME1O7wnYp9KWZWriizU0i9OXhWqYLOC
-         DPLhqec+cPRnqnY9Ha867jid1l7rRfygbqHWW3GLkVoPstSaVRot49E5LwNp7MuYjDp9
-         KzedHZgZCUgUMTNcHjJU43wuQSYeYnJCY4iKaCAAHLVmzB7AVLTxBqEy9yN52xmN8YjZ
-         eAyFwoEiXqD95njSb5XqzxPEgvbKjW96mJvbd3QYGxNW556M1Ux7LAh0xHwGip3w9tg4
-         zhQA==
-X-Gm-Message-State: AOAM533OVL2NlAaDxbzqJ0BqbIsFMrGMQG3O45IWpPsGlCSVMxJnLVgd
-        00GNjaDsAanDf0gssy3rq/PiTkiCJnTcsaMaxI+p2iWSInkiQCNaLpSusYGsap2eMpZ4nn7CN5w
-        ZpqtNlt9tFz/5vZ21xb7hv3MSGgvuvXg727GRX4d4q72uHNsx/MS8YnaF2XF30sQ6/l35Gg==
-X-Received: by 2002:a0c:b617:: with SMTP id f23mr2163146qve.44.1614823196978;
-        Wed, 03 Mar 2021 17:59:56 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwxeZ5a1mqjFCVuCtrVoLgbBF/ndMtcWPREu37qyYMGQmwQz48Q/q8ajeD2blfbJQfQ0Oti+w==
-X-Received: by 2002:a0c:b617:: with SMTP id f23mr2163126qve.44.1614823196691;
-        Wed, 03 Mar 2021 17:59:56 -0800 (PST)
-Received: from xz-x1.redhat.com (bras-vprn-toroon474qw-lp130-25-174-95-95-253.dsl.bell.ca. [174.95.95.253])
-        by smtp.gmail.com with ESMTPSA id b7sm18610766qkj.115.2021.03.03.17.59.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Mar 2021 17:59:55 -0800 (PST)
-From:   Peter Xu <peterx@redhat.com>
-To:     linux-man@vger.kernel.org
-Cc:     Mike Rapoport <rppt@linux.vnet.ibm.com>,
+        id S235261AbhCDGj2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 4 Mar 2021 01:39:28 -0500
+Received: from mx0b-001b2d01.pphosted.com ([148.163.158.5]:28780 "EHLO
+        mx0b-001b2d01.pphosted.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S234419AbhCDGi7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 4 Mar 2021 01:38:59 -0500
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+        by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id 1246Ylkj071917;
+        Thu, 4 Mar 2021 01:38:17 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=date : from : to : cc :
+ subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=pp1; bh=gI10rkMjzBi2LcEOU4BEaVxWyh2eksl/IP2MG8DhAMU=;
+ b=AN01x6vs1Z3qLYxQPSiYbFI6OlDISP0Mtd0+1MpFJGmqssJQ9epUt5s8cxr+8zVjsjww
+ 8CtxG7mgkBALxzEXfIP0M+Rde68iCtx3mXlRdiVE7B+QrMkVktAIEiq6Ba5WLKwyxpS5
+ lFc4Fo9TTz7+0TeGYtGS56idNFw/hWFQmyJPrY3nvTS5nW1AhSgGmWcjY/41BTRht3Uy
+ 84QdGVkisUcwXdUDBnRTDOGQfNDZfKLu2pc/pqbOoIvLX6ElNbS+3c0whH0xigUfGudR
+ dTTOqPkLKwo0729SM26QgPFr69ODQ6tWT5jkLyJATTZt0TT0mOApRISnonmTaJE5t/xB sQ== 
+Received: from pps.reinject (localhost [127.0.0.1])
+        by mx0a-001b2d01.pphosted.com with ESMTP id 372rk4u04p-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Thu, 04 Mar 2021 01:38:17 -0500
+Received: from m0098417.ppops.net (m0098417.ppops.net [127.0.0.1])
+        by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 1246aKDF076485;
+        Thu, 4 Mar 2021 01:38:17 -0500
+Received: from ppma04fra.de.ibm.com (6a.4a.5195.ip4.static.sl-reverse.com [149.81.74.106])
+        by mx0a-001b2d01.pphosted.com with ESMTP id 372rk4u047-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Thu, 04 Mar 2021 01:38:17 -0500
+Received: from pps.filterd (ppma04fra.de.ibm.com [127.0.0.1])
+        by ppma04fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 1246Xq4J025167;
+        Thu, 4 Mar 2021 06:38:15 GMT
+Received: from b06cxnps4075.portsmouth.uk.ibm.com (d06relay12.portsmouth.uk.ibm.com [9.149.109.197])
+        by ppma04fra.de.ibm.com with ESMTP id 37150cs864-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Thu, 04 Mar 2021 06:38:15 +0000
+Received: from d06av24.portsmouth.uk.ibm.com (mk.ibm.com [9.149.105.60])
+        by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 1246cDE440173986
+        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Thu, 4 Mar 2021 06:38:13 GMT
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+        by IMSVA (Postfix) with ESMTP id 161F84203F;
+        Thu,  4 Mar 2021 06:38:13 +0000 (GMT)
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+        by IMSVA (Postfix) with ESMTP id D645442045;
+        Thu,  4 Mar 2021 06:38:11 +0000 (GMT)
+Received: from linux.ibm.com (unknown [9.145.23.212])
+        by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+        Thu,  4 Mar 2021 06:38:11 +0000 (GMT)
+Date:   Thu, 4 Mar 2021 08:38:09 +0200
+From:   Mike Rapoport <rppt@linux.ibm.com>
+To:     Peter Xu <peterx@redhat.com>
+Cc:     linux-man@vger.kernel.org, Mike Rapoport <rppt@linux.vnet.ibm.com>,
         Nadav Amit <nadav.amit@gmail.com>,
         linux-kernel@vger.kernel.org,
         Linux MM Mailing List <linux-mm@kvack.org>,
-        peterx@redhat.com, Axel Rasmussen <axelrasmussen@google.com>,
+        Axel Rasmussen <axelrasmussen@google.com>,
         Alejandro Colomar <alx.manpages@gmail.com>,
         Andrea Arcangeli <aarcange@redhat.com>,
         Andrew Morton <akpm@linux-foundation.org>,
         Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: [PATCH 4/4] ioctl_userfaultfd.2: Add write-protect mode docs
-Date:   Wed,  3 Mar 2021 20:59:47 -0500
-Message-Id: <20210304015947.517713-5-peterx@redhat.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210304015947.517713-1-peterx@redhat.com>
+Subject: Re: [PATCH 1/4] userfaultfd.2: Add UFFD_FEATURE_THREAD_ID docs
+Message-ID: <YECAUdnf1Xw5qKb8@linux.ibm.com>
 References: <20210304015947.517713-1-peterx@redhat.com>
+ <20210304015947.517713-2-peterx@redhat.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210304015947.517713-2-peterx@redhat.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369,18.0.761
+ definitions=2021-03-04_02:2021-03-03,2021-03-04 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ bulkscore=0 adultscore=0 malwarescore=0 clxscore=1011 suspectscore=0
+ lowpriorityscore=0 spamscore=0 mlxlogscore=999 impostorscore=0 mlxscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2103040027
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Userfaultfd write-protect mode is supported starting from Linux 5.7.
+On Wed, Mar 03, 2021 at 08:59:44PM -0500, Peter Xu wrote:
+> UFFD_FEATURE_THREAD_ID is supported since Linux 4.14.
+> 
+> Signed-off-by: Peter Xu <peterx@redhat.com>
+> ---
+>  man2/userfaultfd.2 | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/man2/userfaultfd.2 b/man2/userfaultfd.2
+> index e7dc9f813..2d14effc6 100644
+> --- a/man2/userfaultfd.2
+> +++ b/man2/userfaultfd.2
+> @@ -77,6 +77,12 @@ When the last file descriptor referring to a userfaultfd object is closed,
+>  all memory ranges that were registered with the object are unregistered
+>  and unread events are flushed.
+>  .\"
+> +.PP
+> +Since Linux 4.14, userfaultfd page fault message can selectively embed fault
 
-Signed-off-by: Peter Xu <peterx@redhat.com>
----
- man2/ioctl_userfaultfd.2 | 74 +++++++++++++++++++++++++++++++++++++---
- 1 file changed, 70 insertions(+), 4 deletions(-)
+                                                          Maybe faulting? ^
 
-diff --git a/man2/ioctl_userfaultfd.2 b/man2/ioctl_userfaultfd.2
-index 1965d1932..3feb888a8 100644
---- a/man2/ioctl_userfaultfd.2
-+++ b/man2/ioctl_userfaultfd.2
-@@ -208,10 +208,11 @@ signal will be sent to the faulting process.
- Applications using this
- feature will not require the use of a userfaultfd monitor for processing
- memory accesses to the regions registered with userfaultfd.
-+.TP
- .BR UFFD_FEATURE_THREAD_ID " (since Linux 4.14)"
- If this feature bit is set,
- .I uffd_msg.pagefault.feat.ptid
--Will be set
-+will be set to the faulted thread ID for each page fault message.
- .PP
- The returned
- .I ioctls
-@@ -233,6 +234,11 @@ operation is supported.
- The
- .B UFFDIO_UNREGISTER
- operation is supported.
-+.TP
-+.B 1 << _UFFDIO_WRITEPROTECT
-+The
-+.B UFFDIO_WRITEPROTECT
-+operation is supported.
- .PP
- This
- .BR ioctl (2)
-@@ -321,9 +327,6 @@ Track page faults on missing pages.
- .B UFFDIO_REGISTER_MODE_WP
- Track page faults on write-protected pages.
- .PP
--Currently, the only supported mode is
--.BR UFFDIO_REGISTER_MODE_MISSING .
--.PP
- If the operation is successful, the kernel modifies the
- .I ioctls
- bit-mask field to indicate which
-@@ -653,6 +656,69 @@ field of the
- structure was not a multiple of the system page size; or
- .I len
- was zero; or the specified range was otherwise invalid.
-+.SS UFFDIO_WRITEPROTECT
-+(Since Linux 5.7) Do write-protect or write-unprotect for an userfaultfd
-+registered memory range with mode
-+.BR UFFDIO_REGISTER_MODE_WP .
-+.PP
-+The
-+.I argp
-+argument is a pointer to a
-+.I uffdio_range
-+structure as shown below:
-+.PP
-+.in +4n
-+.EX
-+struct uffdio_writeprotect {
-+    struct uffdio_range range;  /* Range to change write permission */
-+    __u64 mode;                 /* Mode to change write permission */
-+};
-+.EE
-+.in
-+There're two modes that are supported in this structure:
-+.TP
-+.B UFFDIO_WRITEPROTECT_MODE_WP
-+When this mode bit is set, the ioctl will be a write-protect operation upon the
-+memory range specified by
-+.IR range .
-+Otherwise it'll be a write-unprotect operation upon the specified range.
-+.TP
-+.B UFFDIO_WRITEPROTECT_MODE_DONTWAKE
-+Do not wake up the thread that waits for page-fault resolution after the
-+operation.  This could only be specified if
-+.B UFFDIO_WRITEPROTECT_MODE_WP
-+is not specified (in a resolving stage, not protecting stage).
-+.PP
-+This
-+.BR ioctl (2)
-+operation returns 0 on success.
-+On error, \-1 is returned and
-+.I errno
-+is set to indicate the error.
-+Possible errors include:
-+.TP
-+.B EINVAL
-+The
-+.I start
-+or the
-+.I len
-+field of the
-+.I ufdio_range
-+structure was not a multiple of the system page size; or
-+.I len
-+was zero; or the specified range was otherwise invalid.
-+.TP
-+.B EAGAIN
-+The process was interrupted and need to retry.
-+.TP
-+.B ENOENT
-+The range specified in
-+.I range
-+is not valid.  E.g., the virtual address does not exist, or not registered with
-+userfaultfd write-protect mode.
-+.TP
-+.B EFAULT
-+Encountered a generic fault during processing.
- .SH RETURN VALUE
- See descriptions of the individual operations, above.
- .SH ERRORS
+> +thread ID information into the fault message.  One needs to enable this feature
+> +explicitly using the
+> +.BR UFFD_FEATURE_THREAD_ID
+> +feature bit when initializing the userfaultfd context, otherwise disabled.
+
+             "... otherwise thread ID reporting is disabled" ^
+
+>  .SS Usage
+>  The userfaultfd mechanism is designed to allow a thread in a multithreaded
+>  program to perform user-space paging for the other threads in the process.
+> @@ -229,6 +235,9 @@ struct uffd_msg {
+>          struct {
+>              __u64 flags;    /* Flags describing fault */
+>              __u64 address;  /* Faulting address */
+> +            union {
+> +                __u32 ptid; /* Thread ID of the fault */
+> +            } feat;
+>          } pagefault;
+> 
+>          struct {            /* Since Linux 4.11 */
+> @@ -358,6 +367,9 @@ otherwise it is a read fault.
+>  .\" UFFD_PAGEFAULT_FLAG_WP is not yet supported.
+>  .RE
+>  .TP
+> +.I pagefault.feat.pid
+> +The thread ID that triggered the page fault.
+> +.TP
+>  .I fork.ufd
+>  The file descriptor associated with the userfault object
+>  created for the child created by
+> -- 
+> 2.26.2
+> 
+
 -- 
-2.26.2
-
+Sincerely yours,
+Mike.
