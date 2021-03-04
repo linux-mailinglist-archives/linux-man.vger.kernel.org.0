@@ -2,114 +2,206 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5E40E32CF8D
-	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 10:23:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 11E4B32CFDF
+	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 10:42:15 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237444AbhCDJXK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 4 Mar 2021 04:23:10 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53168 "EHLO
+        id S237746AbhCDJlT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 4 Mar 2021 04:41:19 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57008 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237440AbhCDJXB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 4 Mar 2021 04:23:01 -0500
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 29164C061761;
-        Thu,  4 Mar 2021 01:22:21 -0800 (PST)
-Received: by mail-wr1-x436.google.com with SMTP id b18so20316216wrn.6;
-        Thu, 04 Mar 2021 01:22:21 -0800 (PST)
+        with ESMTP id S237792AbhCDJlA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 4 Mar 2021 04:41:00 -0500
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0431DC061574;
+        Thu,  4 Mar 2021 01:40:20 -0800 (PST)
+Received: by mail-wr1-x431.google.com with SMTP id b18so20376314wrn.6;
+        Thu, 04 Mar 2021 01:40:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=zy3rCEIJJQG4D6NTJu5yArmUIakSSBXTfjLBnVaRdVU=;
-        b=uoTbi83DK4j9/XXsxbyDakO+8oCrZY2fOPxV4jxI297fTy3LHxVScXr/Tt2Yv9CyzO
-         OA3MQD0hHs/YGgZxf/HUqLZFVthg7Bkes08Lg2sGCk20mDCwWezh24Wvb0wmUzjdQFpI
-         a+FyShe50aPsvQ88oFw9ISo8ubLWJfrzZJE9KlWq7w/Zei8v6nCoG0PohrxvYl7Rl0Ai
-         IVgii1kzmRcvg6wNAYbj5OuI1xvdnbVx5FBXP5/5ACVjWtxdoVx93fARwSwYUmXAf7Cz
-         DpnDN2HmJQwGoNMG6Y+U9eoijUIOnvz3kJRfXwD6i8VJvQUeyqF4Is4Djkp+YOZPNChB
-         wFxQ==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=O9B1qRNEkgiYM5e4Rnx0MUxTJfW3B+WFA4nF4a8IG1Q=;
+        b=kqVtZTrb2w1p+loQqs+tswteQ6Z300X2ogL0nfpDZwRrJloEuka6Qw3vbUznk9C/mP
+         vAc+7/i3tCgseKniKiFZ1FEGT5USitOdaHx8q+dlr9Gp0Botig2yuooK/Ga3uM5o7uSW
+         qpU9D7pKZrXxLKa8M9REIDyLjIJZ37+CRU8kz8lRGssHKNu7J2k1uG8GF4xO80RZDvhr
+         fbYoyaFU+22zZHyXCX88e/XZW0Y/TjXyh8wWm0ch3ylVn8cabBUR9rXuPQEzViDMDg7d
+         kQZB2RWb34DjYLTMuQCoJ/iHGnUvORj8TL3mM06a4mhPCETW0ncNxqQ5seEmMo4C2CGA
+         DTpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=zy3rCEIJJQG4D6NTJu5yArmUIakSSBXTfjLBnVaRdVU=;
-        b=uFK6VEt3QX1o7WGfrf+KPaEBJ7KJrTgSAKHumB/HsVVU4QKr1x2qp7i7Zqay9wTB9X
-         qWASuEinv1n42VCQtdCf5DWHyIEo1T0QIOV7QwjzN3GZVJlaD6iQJaeX0E8hdpGpF64b
-         eLwR17lK/GSlyFpfuFkbIb14f1Ru48tywgPBMjsti/PiGOeJh1ndbnYEj0IxFJGhHnVh
-         9ZVzwgTZvbqHZjMe24T12EgXeq2e0mkAc+sIpPOnb1vLJY0L/lmQNsidifzJ1jVbUygK
-         zwtHiZ8BNtaOa6u2IblhWWEoBVde2cfA0NzSztJRsU/8GojTqEUyASGWQpUWQIdkfJ+Y
-         R//Q==
-X-Gm-Message-State: AOAM532Um2mu6Zc9eHGX8PiwP5hF5/xNw8oN6hSezXi5VITZpwaSIDnR
-        1zqhpZSzAoxzxiFzl7HPq9LN+hlLWov+yg==
-X-Google-Smtp-Source: ABdhPJwx7gh+SFafQsixrLEy3kWyFdiEfxzd35REAZ85Mbu2PEdy34VFv94D1EL9pvWYRX2NfAa8Og==
-X-Received: by 2002:adf:80e7:: with SMTP id 94mr2954891wrl.5.1614849739999;
-        Thu, 04 Mar 2021 01:22:19 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id p10sm21724284wrw.33.2021.03.04.01.22.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 04 Mar 2021 01:22:19 -0800 (PST)
-Subject: Re: [PATCH 1/4] userfaultfd.2: Add UFFD_FEATURE_THREAD_ID docs
-To:     Peter Xu <peterx@redhat.com>
-Cc:     Mike Rapoport <rppt@linux.vnet.ibm.com>,
-        Nadav Amit <nadav.amit@gmail.com>,
-        linux-kernel@vger.kernel.org,
-        Linux MM Mailing List <linux-mm@kvack.org>,
-        Axel Rasmussen <axelrasmussen@google.com>,
-        Andrea Arcangeli <aarcange@redhat.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=O9B1qRNEkgiYM5e4Rnx0MUxTJfW3B+WFA4nF4a8IG1Q=;
+        b=T3HVI2d+hszN9lVlEVDupyluYALtUu7ihUfzjwD+x3XXHFn4gpBvpCW7u5Xp84FmyN
+         36QK0H2aP5ITOljw8/zpdzx/gGUTma5yOxdTUkl/yb/tG4j6FnC4H0HuB7zXjIzKdkSY
+         gNryaruLatfPTZF5XwL4ztx3UqcRVS3vAT/m77dZ3eIvCGFA46ZA5vfv6zDbcIb3A3q9
+         eSPN+KOtVKbZt3+AbOyGlqWc73NLd3UI8Yp765pVTnb/bvEzi8VEjwiaqCyddlpDzPKq
+         liv6tmoRtqYLTjPOAmiruSpKCCbc1Kot5nlS7M3Rmp75KjVJToz/teFANAJ3ygkFPeOz
+         6YxQ==
+X-Gm-Message-State: AOAM531Uo60oam7pmhGi/X9Qvyv8MslIihtOTu4yvPnsxy4oSg/XJqE4
+        eQtRq2FJb4GKwoMFGIeTinX9mhDhQKcz/Q==
+X-Google-Smtp-Source: ABdhPJy5rhRh3oIwq+uQ7c2BFcomsa5X6e0OMtaarr4aRCxsiyv3xNoF5kJaWXKyZ+4A1ooWqFB6Uw==
+X-Received: by 2002:adf:a219:: with SMTP id p25mr3049987wra.400.1614850818747;
+        Thu, 04 Mar 2021 01:40:18 -0800 (PST)
+Received: from localhost.localdomain ([170.253.51.130])
+        by smtp.googlemail.com with ESMTPSA id l2sm6127295wml.38.2021.03.04.01.40.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 04 Mar 2021 01:40:18 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     linux-man@vger.kernel.org, Amir Goldstein <amir73il@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-References: <20210304015947.517713-1-peterx@redhat.com>
- <20210304015947.517713-2-peterx@redhat.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <b0583d47-43ba-6077-9d93-074cd34993f3@gmail.com>
-Date:   Thu, 4 Mar 2021 10:22:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+        Luis Henriques <lhenriques@suse.de>,
+        Steve French <sfrench@samba.org>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Greg KH <gregkh@linuxfoundation.org>,
+        Anna Schumaker <anna.schumaker@netapp.com>,
+        Jeff Layton <jlayton@kernel.org>,
+        Miklos Szeredi <miklos@szeredi.hu>,
+        Trond Myklebust <trond.myklebust@hammerspace.com>,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        "Darrick J. Wong" <darrick.wong@oracle.com>,
+        Dave Chinner <dchinner@redhat.com>,
+        Nicolas Boichat <drinkcat@chromium.org>,
+        Ian Lance Taylor <iant@google.com>,
+        Luis Lozano <llozano@chromium.org>,
+        Andreas Dilger <adilger@dilger.ca>,
+        Olga Kornievskaia <aglo@umich.edu>,
+        Christoph Hellwig <hch@infradead.org>,
+        ceph-devel <ceph-devel@vger.kernel.org>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        CIFS <linux-cifs@vger.kernel.org>,
+        samba-technical <samba-technical@lists.samba.org>,
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        Linux NFS Mailing List <linux-nfs@vger.kernel.org>,
+        Walter Harms <wharms@bfs.de>
+Subject: [RFC v4] copy_file_range.2: Update cross-filesystem support for 5.12
+Date:   Thu,  4 Mar 2021 10:38:07 +0100
+Message-Id: <20210304093806.10589-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.30.1.721.g45526154a5
+In-Reply-To: <20210224142307.7284-1-lhenriques@suse.de>
+References: <20210224142307.7284-1-lhenriques@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <20210304015947.517713-2-peterx@redhat.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Peter,
+Linux 5.12 fixes a regression.
 
-On 3/4/21 2:59 AM, Peter Xu wrote:
-> UFFD_FEATURE_THREAD_ID is supported since Linux 4.14.
-> 
-> Signed-off-by: Peter Xu <peterx@redhat.com>
-> ---
->   man2/userfaultfd.2 | 12 ++++++++++++
->   1 file changed, 12 insertions(+)
-> 
-> diff --git a/man2/userfaultfd.2 b/man2/userfaultfd.2
-> index e7dc9f813..2d14effc6 100644
-> --- a/man2/userfaultfd.2
-> +++ b/man2/userfaultfd.2
-> @@ -77,6 +77,12 @@ When the last file descriptor referring to a userfaultfd object is closed,
->   all memory ranges that were registered with the object are unregistered
->   and unread events are flushed.
->   .\"
-> +.PP
-> +Since Linux 4.14, userfaultfd page fault message can selectively embed fault
-> +thread ID information into the fault message.  One needs to enable this feature
-> +explicitly using the
-> +.BR UFFD_FEATURE_THREAD_ID
+Cross-filesystem (introduced in 5.3) copies were buggy.
 
-This should use [.B] and not [.BR].
-.BR is for alternate Bold and Roman.
-.B is for bold.
+Move the statements documenting cross-fs to BUGS.
+Kernels 5.3..5.11 should be patched soon.
 
-(There are more appearances of this in the other patches.)
+State version information for some errors related to this.
 
-Thanks,
+Reported-by: Luis Henriques <lhenriques@suse.de>
+Reported-by: Amir Goldstein <amir73il@gmail.com>
+Related: <https://lwn.net/Articles/846403/>
+Cc: Greg KH <gregkh@linuxfoundation.org>
+Cc: Michael Kerrisk <mtk.manpages@gmail.com>
+Cc: Anna Schumaker <anna.schumaker@netapp.com>
+Cc: Jeff Layton <jlayton@kernel.org>
+Cc: Steve French <sfrench@samba.org>
+Cc: Miklos Szeredi <miklos@szeredi.hu>
+Cc: Trond Myklebust <trond.myklebust@hammerspace.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: "Darrick J. Wong" <darrick.wong@oracle.com>
+Cc: Dave Chinner <dchinner@redhat.com>
+Cc: Nicolas Boichat <drinkcat@chromium.org>
+Cc: Ian Lance Taylor <iant@google.com>
+Cc: Luis Lozano <llozano@chromium.org>
+Cc: Andreas Dilger <adilger@dilger.ca>
+Cc: Olga Kornievskaia <aglo@umich.edu>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: ceph-devel <ceph-devel@vger.kernel.org>
+Cc: linux-kernel <linux-kernel@vger.kernel.org>
+Cc: CIFS <linux-cifs@vger.kernel.org>
+Cc: samba-technical <samba-technical@lists.samba.org>
+Cc: linux-fsdevel <linux-fsdevel@vger.kernel.org>
+Cc: Linux NFS Mailing List <linux-nfs@vger.kernel.org>
+Cc: Walter Harms <wharms@bfs.de>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+
+v3:
+        - Don't remove some important text.
+        - Reword BUGS.
+v4:
+	- Reword.
+	- Link to BUGS.
+
+Thanks, Amir, for all the help and better wordings.
+
+Cheers,
 
 Alex
 
+---
+ man2/copy_file_range.2 | 27 +++++++++++++++++++++++----
+ 1 file changed, 23 insertions(+), 4 deletions(-)
+
+diff --git a/man2/copy_file_range.2 b/man2/copy_file_range.2
+index 611a39b80..f58bfea8f 100644
+--- a/man2/copy_file_range.2
++++ b/man2/copy_file_range.2
+@@ -169,6 +169,9 @@ Out of memory.
+ .B ENOSPC
+ There is not enough space on the target filesystem to complete the copy.
+ .TP
++.BR EOPNOTSUPP " (since Linux 5.12)"
++The filesystem does not support this operation.
++.TP
+ .B EOVERFLOW
+ The requested source or destination range is too large to represent in the
+ specified data types.
+@@ -184,10 +187,17 @@ or
+ .I fd_out
+ refers to an active swap file.
+ .TP
+-.B EXDEV
++.BR EXDEV " (before Linux 5.3)"
++The files referred to by
++.IR fd_in " and " fd_out
++are not on the same filesystem.
++.TP
++.BR EXDEV " (since Linux 5.12)"
+ The files referred to by
+ .IR fd_in " and " fd_out
+-are not on the same mounted filesystem (pre Linux 5.3).
++are not on the same filesystem,
++and the source and target filesystems are not of the same type,
++or do not support cross-filesystem copy.
+ .SH VERSIONS
+ The
+ .BR copy_file_range ()
+@@ -200,8 +210,11 @@ Areas of the API that weren't clearly defined were clarified and the API bounds
+ are much more strictly checked than on earlier kernels.
+ Applications should target the behaviour and requirements of 5.3 kernels.
+ .PP
+-First support for cross-filesystem copies was introduced in Linux 5.3.
+-Older kernels will return -EXDEV when cross-filesystem copies are attempted.
++Since Linux 5.12,
++cross-filesystem copies can be achieved
++when both filesystems are of the same type,
++and that filesystem implements support for it.
++See BUGS for behavior prior to 5.12.
+ .SH CONFORMING TO
+ The
+ .BR copy_file_range ()
+@@ -226,6 +239,12 @@ gives filesystems an opportunity to implement "copy acceleration" techniques,
+ such as the use of reflinks (i.e., two or more inodes that share
+ pointers to the same copy-on-write disk blocks)
+ or server-side-copy (in the case of NFS).
++.SH BUGS
++In Linux kernels 5.3 to 5.11,
++cross-filesystem copies were implemented by the kernel,
++if the operation was not supported by individual filesystems.
++However, on some virtual filesystems,
++the call failed to copy, while still reporting success.
+ .SH EXAMPLES
+ .EX
+ #define _GNU_SOURCE
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.30.1.721.g45526154a5
+
