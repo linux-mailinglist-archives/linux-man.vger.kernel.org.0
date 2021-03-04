@@ -2,118 +2,104 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id F40D532D963
-	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 19:26:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 845BC32DA90
+	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 20:49:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234440AbhCDSZQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 4 Mar 2021 13:25:16 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56906 "EHLO
+        id S231734AbhCDTtH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 4 Mar 2021 14:49:07 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47524 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234201AbhCDSYr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 4 Mar 2021 13:24:47 -0500
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EE906C061574;
-        Thu,  4 Mar 2021 10:24:06 -0800 (PST)
-Received: by mail-wr1-x42a.google.com with SMTP id j2so15879787wrx.9;
-        Thu, 04 Mar 2021 10:24:06 -0800 (PST)
+        with ESMTP id S231255AbhCDTsq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 4 Mar 2021 14:48:46 -0500
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D2A6EC061574
+        for <linux-man@vger.kernel.org>; Thu,  4 Mar 2021 11:48:05 -0800 (PST)
+Received: by mail-wm1-x32a.google.com with SMTP id k66so10849529wmf.1
+        for <linux-man@vger.kernel.org>; Thu, 04 Mar 2021 11:48:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=zOtCkSuP3/sSeDKbXtcuyFbcQjnAEtPQvMYWbEo0RWc=;
-        b=YfKywlVxA2OwkHFlyyqrfje5azAqfgnYnUxA9d2jP0QvhjMAlxLR3r6C/Elzp9q92h
-         qyNvO+EX+nMI++2Pa08tB3EF/iDL28VoGHPvvuo83KL7wz5rIqdO4IYtJ/E2EM8HjKns
-         RTj1wCLR3uGl9uaqG3daUJn2+peqIV5Gsj4O4DYbgjLbrNCM7vrdoRaYmAhEOi1gJ0Ul
-         OIkZ50/qDGctum/YlbqL4IeRhcdDcXO+Ll0CO1+kK09Rh7em/N+JV2ZBNcbz0Sa4hHfQ
-         Pasn8ntj+5g6E+Ahcl84DTVVDaAxmkqSZX5p/SxvajryIPc639gS0VB5UWev/7NlpPao
-         Zx3w==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=1hQkoDfbSIdVgOU/Sd2EwzsscbUsImiOzy+OECzLLBM=;
+        b=K7bd7Y1RL9tqAaTIPtfv4dx44l4VDARX2bj8Pkga8u8wuyMwR9rybwQiLP4BqY7X4A
+         +Kg/QTauYi+Bb2ryDfbU9HYVj49bjSUTK/FXTldyAVkeeGGwxbVpZCCWBx2bfGPOMsI/
+         cEFkCbShcZHAAUjIfy+/ypYZAYUIvuiSlN0Fg2SUQwKcUD8oFyk25t4dPvMaV923o08G
+         1IvH7uhUqkl/YtYS6jacZ+XDT0fkFIYYu5VkH6BeE/6v04O1Wyv6LmX0JUBkJ1+ceueW
+         P0CwUC/fk6Ant0O5118nKJjXpyxdhldWCHayRyblAWBE3jvvgn7wGgysQT8E48W8u+o8
+         5X/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=zOtCkSuP3/sSeDKbXtcuyFbcQjnAEtPQvMYWbEo0RWc=;
-        b=BueaABldXxSdpMgmg4C8ssYiArOin/qNCbEIwAdduBGxI92PaNKOJVV2PxNAjzabwT
-         NEWfpmBG9EVdWb2wB1x64TN6StxVGfBcbuwjYL2LgIdID/LPvgSEEw0CBzPCtYmmBV6+
-         kEFCS/l4DOWwLQ8ImuM6hnGQyVkJes0HThE7aJLVrApa54H7EReBtMF/2TSrOhC1Pz6T
-         DTydRewHDlKW0dphHl37kxyCyLmjEf4cLCBTLY4vqh71p/4QNWhjWIWaBImIwdBvUk4N
-         rih3M3It45uaIi56niyCOtKBDI7ak1x7tyVj0kFigjhxFugDa4doOFI8o1SCf1lj67S5
-         6zQw==
-X-Gm-Message-State: AOAM531llen+U9r2ZvBcXaMeOz/X+a9vXYauK3tGvRIRVMzmbr5MOCPt
-        FBGvUYZeLMyVgOs4bt4NW3Y=
-X-Google-Smtp-Source: ABdhPJw9IGXfIEwP2LVQ0WhlSyUoO96IZPZPEYenv21JjYYT4AGCNBo1c0TUm4fQXkse7RWu/AHxvQ==
-X-Received: by 2002:adf:a1ce:: with SMTP id v14mr5534243wrv.228.1614882244603;
-        Thu, 04 Mar 2021 10:24:04 -0800 (PST)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id w18sm143376wrr.7.2021.03.04.10.24.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 04 Mar 2021 10:24:04 -0800 (PST)
-Subject: Re: [RFC v4] copy_file_range.2: Update cross-filesystem support for
- 5.12
-To:     "Darrick J. Wong" <djwong@kernel.org>
-Cc:     linux-man@vger.kernel.org, Amir Goldstein <amir73il@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Luis Henriques <lhenriques@suse.de>,
-        Steve French <sfrench@samba.org>,
-        Greg KH <gregkh@linuxfoundation.org>,
-        Anna Schumaker <anna.schumaker@netapp.com>,
-        Jeff Layton <jlayton@kernel.org>,
-        Miklos Szeredi <miklos@szeredi.hu>,
-        Trond Myklebust <trond.myklebust@hammerspace.com>,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        "Darrick J. Wong" <darrick.wong@oracle.com>,
-        Dave Chinner <dchinner@redhat.com>,
-        Nicolas Boichat <drinkcat@chromium.org>,
-        Ian Lance Taylor <iant@google.com>,
-        Luis Lozano <llozano@chromium.org>,
-        Andreas Dilger <adilger@dilger.ca>,
-        Olga Kornievskaia <aglo@umich.edu>,
-        Christoph Hellwig <hch@infradead.org>,
-        ceph-devel <ceph-devel@vger.kernel.org>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        CIFS <linux-cifs@vger.kernel.org>,
-        samba-technical <samba-technical@lists.samba.org>,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        Linux NFS Mailing List <linux-nfs@vger.kernel.org>,
-        Walter Harms <wharms@bfs.de>
-References: <20210224142307.7284-1-lhenriques@suse.de>
- <20210304093806.10589-1-alx.manpages@gmail.com>
- <20210304171350.GC7267@magnolia>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <37df00f9-a88e-3f16-d0b4-3297248aee66@gmail.com>
-Date:   Thu, 4 Mar 2021 19:24:02 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+        bh=1hQkoDfbSIdVgOU/Sd2EwzsscbUsImiOzy+OECzLLBM=;
+        b=qCOXRXUL+8cy+cEvt/8OvA+OREz4VBnVaGx0aQY/NSkAUXJ7zYfaZ+k+i54nyq78W6
+         pUumSMXeCfGjM0joQbNeJY1/GHlV1IbYz2Je5z8ltTQshM+q3nBZEuMOi/mkshbzdG2m
+         w9IuWUoA3hyyKsEmeZS3UE5L23EKwqp5WhidVrO0fJrcibRv7CQ/OJKCmvaGRms26OTY
+         QnGuufPTbfglpTMfHsEbcDL2OvQaAvltJiYCOZWsIKA5KGaRsJAuI6Cohfuh5f9LpfNJ
+         HO6OQl23PjEdBPX7vXTGWQbuY5o1RVAIZ9KaYrK2Gc+JZtQF2CRK1B92lJNcDSWN6DRJ
+         5xsg==
+X-Gm-Message-State: AOAM532fUekvgJTe5o7WvnnNeQXAdnXlXWggenrvns45NAeFWvaHIVt8
+        2kfXuAUhZb/L+JQ8438XcMl9Cw2DoRSw/Q==
+X-Google-Smtp-Source: ABdhPJwvPmYaRCDgobJSGCvZhotznEQvDp0OTDBKOT1ZAeGQRWLF8vaYDNhdX264mN2ZWF2rGha0zw==
+X-Received: by 2002:a7b:cbcd:: with SMTP id n13mr5442836wmi.112.1614887284660;
+        Thu, 04 Mar 2021 11:48:04 -0800 (PST)
+Received: from localhost.localdomain ([170.253.51.130])
+        by smtp.googlemail.com with ESMTPSA id z188sm763787wme.32.2021.03.04.11.48.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 04 Mar 2021 11:48:04 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org
+Subject: [PATCH] makecontext.3: Fix function declarator with empty parentheses.
+Date:   Thu,  4 Mar 2021 20:45:35 +0100
+Message-Id: <20210304194534.130735-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.30.1.721.g45526154a5
 MIME-Version: 1.0
-In-Reply-To: <20210304171350.GC7267@magnolia>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Darrick,
+glibc uses 'void (*f)(void)' for makecontext()'s second parameter.
 
-On 3/4/21 6:13 PM, Darrick J. Wong wrote:
-> On Thu, Mar 04, 2021 at 10:38:07AM +0100, Alejandro Colomar wrote:
->> +However, on some virtual filesystems,
->> +the call failed to copy, while still reporting success.
-> 
-> ...success, or merely a short copy?
+C11 marked function declarators with empty parentheses as
+obsolescent:
 
-Okay.
 
-> 
-> (The rest looks reasonable (at least by c_f_r standards) to me.)
+>   6.11.6  Function declarators
+> 1 The use of function declarators with empty parentheses (not
+>   prototype-format parametertype declarators) is an obsolescent
+>   feature.
 
-I'm curious, what does "c_f_r standards" mean? :)
 
-Cheers,
+Let's use the correct syntax by explicitly using '(void)'.
 
-Alex
+.../glibc$ grep_glibc_prototype makecontext
+stdlib/ucontext.h:51:
+extern void makecontext (ucontext_t *__ucp, void (*__func) (void),
+			 int __argc, ...) __THROW;
+.../glibc$
 
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+ man3/makecontext.3 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/man3/makecontext.3 b/man3/makecontext.3
+index 83720dd2c..ac9afcf69 100644
+--- a/man3/makecontext.3
++++ b/man3/makecontext.3
+@@ -32,7 +32,8 @@ makecontext, swapcontext \- manipulate user context
+ .nf
+ .B #include <ucontext.h>
+ .PP
+-.BI "void makecontext(ucontext_t *" ucp ", void (*" func ")(), int " argc ", ...);"
++.BI "void makecontext(ucontext_t *" ucp ", void (*" func ")(void), int " argc \
++", ...);"
+ .BI "int swapcontext(ucontext_t *" oucp ", const ucontext_t *" ucp );
+ .fi
+ .SH DESCRIPTION
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.30.1.721.g45526154a5
+
