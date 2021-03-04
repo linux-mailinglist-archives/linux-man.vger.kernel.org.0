@@ -2,124 +2,113 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9F35932D722
-	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 16:53:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 227D332D732
+	for <lists+linux-man@lfdr.de>; Thu,  4 Mar 2021 16:56:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235111AbhCDPwU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 4 Mar 2021 10:52:20 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([216.205.24.124]:57526 "EHLO
+        id S235883AbhCDPzd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 4 Mar 2021 10:55:33 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([63.128.21.124]:25077 "EHLO
         us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S235676AbhCDPvu (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 4 Mar 2021 10:51:50 -0500
+        by vger.kernel.org with ESMTP id S236061AbhCDPzM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 4 Mar 2021 10:55:12 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1614873024;
+        s=mimecast20190719; t=1614873227;
         h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
          to:to:cc:cc:mime-version:mime-version:content-type:content-type:
          in-reply-to:in-reply-to:references:references;
-        bh=kQt2Y0bDQy5kebuxLoR8afLNrZ5ZNUK/gHrzh5pdHhA=;
-        b=MLDxIBFJCtqpn6uneNZFenPeDDQS5zDgH9GW+9nb1s99KpEcNYj8PmwT6uWuoskwozGu58
-        hKmbG1rHghKl+fJf38/P16mTcBJuRM2hmmOYFH+EZ94C2iF/jnaTsEa6LaH/5im71oeVBM
-        VpYMGsmLcsnCYGNxesBnCN8G7SU+1Yc=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-451-RaE5q3EvMp-ivjnyyLeaQA-1; Thu, 04 Mar 2021 10:50:22 -0500
-X-MC-Unique: RaE5q3EvMp-ivjnyyLeaQA-1
-Received: by mail-qt1-f198.google.com with SMTP id o7so19182031qtw.7
-        for <linux-man@vger.kernel.org>; Thu, 04 Mar 2021 07:50:22 -0800 (PST)
+        bh=AInNnjMguHDerAYue5jzJjfxuItC8i8L4zsZ48EhHbA=;
+        b=GRj2fCxZjdciHxuyBm45ew2x1atz8ZuakIXJP0g6stuI42pxkD/zMvTcbvQ1Ftv+75LwrX
+        hOs5VWb0RzeCXwbVE2lW8YdbAxhEKxorQUuKnxiUqnvLlg+aYII/n5cHL10EupAJRfG/BX
+        P1RE5CkTUfF38KrOaOhON0J/Gnud/38=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-570-weVAAuEENB2LE0OSaAPoMg-1; Thu, 04 Mar 2021 10:53:45 -0500
+X-MC-Unique: weVAAuEENB2LE0OSaAPoMg-1
+Received: by mail-qt1-f200.google.com with SMTP id p32so13093229qtd.14
+        for <linux-man@vger.kernel.org>; Thu, 04 Mar 2021 07:53:45 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to;
-        bh=kQt2Y0bDQy5kebuxLoR8afLNrZ5ZNUK/gHrzh5pdHhA=;
-        b=RqG0/TE+oYqzwsThyRQSf0oU0AB4MdwkS2w8rmu71GSJjTZNbjtjUXk3NT3YwWxJoD
-         IkEaQ6LgWoDEy5lhFCXNa78oNVYNaCZ/kHoMU4E/c7Nau8xhuNYMtNdz2jUZTzExMNH/
-         AyK02YfcBnU3hITx3WcifVjX5BkIDYOsoMyHDQav8vquxEGaWyyt5yGrwisFDzuS7y0e
-         Na2rgCAqwSFGogj/qxP/RiDzH7E2vTVfopPNErbxqYjY6X7UJPxQy2jjiMIUf2ilde4u
-         JJHJHxvfWWyjdo2EhqLxQ5q008Gjg2GGDhUls8i68uHcStveAAXjb1HMtufGompeerP8
-         5tuw==
-X-Gm-Message-State: AOAM530b4Ax270W1hyOcu6zDi54lhWIaga/6bsT0TCA/eCMJNRBPVgnZ
-        c0/h/X8OLh46/ixEdxf0V3AO4mho24Z6RHVyT7la/LQ06vkultYJtSTm6FVXgDEzl2MWFsLerlo
-        O+kKpLSs8SVvAX/eeHnkj
-X-Received: by 2002:a05:6214:18d2:: with SMTP id cy18mr4719974qvb.50.1614873022173;
-        Thu, 04 Mar 2021 07:50:22 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJx3l8J0s9E9vj9Tchr6GSaSM3eRe+MoXYdmMgBMHvxK4rTrHy2WwPSYwx+R0iUueuirWX2d4A==
-X-Received: by 2002:a05:6214:18d2:: with SMTP id cy18mr4719956qvb.50.1614873021927;
-        Thu, 04 Mar 2021 07:50:21 -0800 (PST)
+        bh=AInNnjMguHDerAYue5jzJjfxuItC8i8L4zsZ48EhHbA=;
+        b=AVPfaVEKlfltoVenan1NjVSsmu6gG0NLvU50gQXpjgCtpCfyHuYCihcFJakl1Na/ha
+         yfmCXVX+UsuRXU+BipWx2DfYaASlpB36QlqY5mwW6Ed/lglN5eC+5rURUpIppNewmb0j
+         3eZcA21t2SQQXRVbcjjQNFu+hEwi1q1D5B+2Hutr73eSELEerFdsttORVFRzILi52gdr
+         FyuO7TmnBM/2aEfHlQlm4xCRLcZ64GuTOonuCBcKgg0Cv30V+re+tz4M0eEnQhFzLnU7
+         a+e+6Go6n2+SCAbeVLUbi9/x/BfF1qxT/KEqOjhu6PJu6gZLb6ScpTlTbcOEKZalBTGN
+         NL5Q==
+X-Gm-Message-State: AOAM5303Q2x6zI9vmet+pIMkCbvmfPjgFXc+kYJAEBi96A3YVMrqhPZK
+        dHJxK/n7u+yaSPO5sxIq7OnI9NiLA8Fw7ZQ0ozIAEygU2oHdaj73yk7nCeHGAvawCDU+NA892Kq
+        kurBjStIbTiMz6RWVWLTH
+X-Received: by 2002:a0c:b7a1:: with SMTP id l33mr4442588qve.17.1614873225466;
+        Thu, 04 Mar 2021 07:53:45 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxj3betVE9M6Fb3f0nr2xiIAAJvEDxTdPk1N7+r3GfIZ84WE+jiOi4ZUO6tlsHyuUmJqEgpkQ==
+X-Received: by 2002:a0c:b7a1:: with SMTP id l33mr4442575qve.17.1614873225263;
+        Thu, 04 Mar 2021 07:53:45 -0800 (PST)
 Received: from xz-x1 (bras-vprn-toroon474qw-lp130-25-174-95-95-253.dsl.bell.ca. [174.95.95.253])
-        by smtp.gmail.com with ESMTPSA id c27sm3389693qko.71.2021.03.04.07.50.20
+        by smtp.gmail.com with ESMTPSA id v4sm17665062qtp.72.2021.03.04.07.53.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 Mar 2021 07:50:21 -0800 (PST)
-Date:   Thu, 4 Mar 2021 10:50:19 -0500
+        Thu, 04 Mar 2021 07:53:44 -0800 (PST)
+Date:   Thu, 4 Mar 2021 10:53:42 -0500
 From:   Peter Xu <peterx@redhat.com>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     Mike Rapoport <rppt@linux.vnet.ibm.com>,
+To:     Mike Rapoport <rppt@linux.ibm.com>
+Cc:     linux-man@vger.kernel.org, Mike Rapoport <rppt@linux.vnet.ibm.com>,
         Nadav Amit <nadav.amit@gmail.com>,
         linux-kernel@vger.kernel.org,
         Linux MM Mailing List <linux-mm@kvack.org>,
         Axel Rasmussen <axelrasmussen@google.com>,
+        Alejandro Colomar <alx.manpages@gmail.com>,
         Andrea Arcangeli <aarcange@redhat.com>,
         Andrew Morton <akpm@linux-foundation.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
+        Michael Kerrisk <mtk.manpages@gmail.com>
 Subject: Re: [PATCH 1/4] userfaultfd.2: Add UFFD_FEATURE_THREAD_ID docs
-Message-ID: <20210304155019.GX397383@xz-x1>
+Message-ID: <20210304155342.GY397383@xz-x1>
 References: <20210304015947.517713-1-peterx@redhat.com>
  <20210304015947.517713-2-peterx@redhat.com>
- <b0583d47-43ba-6077-9d93-074cd34993f3@gmail.com>
+ <YECAUdnf1Xw5qKb8@linux.ibm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <b0583d47-43ba-6077-9d93-074cd34993f3@gmail.com>
+In-Reply-To: <YECAUdnf1Xw5qKb8@linux.ibm.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Mar 04, 2021 at 10:22:18AM +0100, Alejandro Colomar (man-pages) wrote:
-> Hello Peter,
-
-Hi, Alex,
-
-> 
-> On 3/4/21 2:59 AM, Peter Xu wrote:
+On Thu, Mar 04, 2021 at 08:38:09AM +0200, Mike Rapoport wrote:
+> On Wed, Mar 03, 2021 at 08:59:44PM -0500, Peter Xu wrote:
 > > UFFD_FEATURE_THREAD_ID is supported since Linux 4.14.
 > > 
 > > Signed-off-by: Peter Xu <peterx@redhat.com>
 > > ---
-> >   man2/userfaultfd.2 | 12 ++++++++++++
-> >   1 file changed, 12 insertions(+)
+> >  man2/userfaultfd.2 | 12 ++++++++++++
+> >  1 file changed, 12 insertions(+)
 > > 
 > > diff --git a/man2/userfaultfd.2 b/man2/userfaultfd.2
 > > index e7dc9f813..2d14effc6 100644
 > > --- a/man2/userfaultfd.2
 > > +++ b/man2/userfaultfd.2
 > > @@ -77,6 +77,12 @@ When the last file descriptor referring to a userfaultfd object is closed,
-> >   all memory ranges that were registered with the object are unregistered
-> >   and unread events are flushed.
-> >   .\"
+> >  all memory ranges that were registered with the object are unregistered
+> >  and unread events are flushed.
+> >  .\"
 > > +.PP
 > > +Since Linux 4.14, userfaultfd page fault message can selectively embed fault
+> 
+>                                                           Maybe faulting? ^
+
+Ok.
+
+> 
 > > +thread ID information into the fault message.  One needs to enable this feature
 > > +explicitly using the
 > > +.BR UFFD_FEATURE_THREAD_ID
+> > +feature bit when initializing the userfaultfd context, otherwise disabled.
 > 
-> This should use [.B] and not [.BR].
-> .BR is for alternate Bold and Roman.
-> .B is for bold.
-> 
-> (There are more appearances of this in the other patches.)
+>              "... otherwise thread ID reporting is disabled" ^
 
-Yeah I got a bit confused when differenciating those two, since I also see
-similar usage, e.g.:
+I changed to "... By default, thread ID reporting is diabled."
 
-.BR O_CLOEXEC
-
-I'll fix all of them appeared in current patchset.  Let me know if you also
-want me to fix all the existing uses of ".BR" too where ".B" would suffice.
-Otherwise I won't touch them since I can't say they're wrong either (I think
-most of them should generate the same output with either ".BR" or ".B" if
-there's only one word?).
-
-Thanks,
+Thanks!
 
 -- 
 Peter Xu
