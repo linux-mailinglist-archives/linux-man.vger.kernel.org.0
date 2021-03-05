@@ -2,58 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4985D32F6DF
-	for <lists+linux-man@lfdr.de>; Sat,  6 Mar 2021 00:52:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 122F532F6DC
+	for <lists+linux-man@lfdr.de>; Sat,  6 Mar 2021 00:52:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229616AbhCEXvh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 5 Mar 2021 18:51:37 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42172 "EHLO
+        id S229813AbhCEXvi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 5 Mar 2021 18:51:38 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42180 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229759AbhCEXvR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 5 Mar 2021 18:51:17 -0500
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E3DDEC06175F
-        for <linux-man@vger.kernel.org>; Fri,  5 Mar 2021 15:51:16 -0800 (PST)
-Received: by mail-wr1-x42d.google.com with SMTP id u16so3921249wrt.1
-        for <linux-man@vger.kernel.org>; Fri, 05 Mar 2021 15:51:16 -0800 (PST)
+        with ESMTP id S229788AbhCEXvS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 5 Mar 2021 18:51:18 -0500
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E2D94C06175F
+        for <linux-man@vger.kernel.org>; Fri,  5 Mar 2021 15:51:17 -0800 (PST)
+Received: by mail-wr1-x42c.google.com with SMTP id b18so3922474wrn.6
+        for <linux-man@vger.kernel.org>; Fri, 05 Mar 2021 15:51:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=mSn3yoW/12Ru/TyYcPhA2gU0BhlZA9Vvk34Eo3ralpo=;
-        b=YF6YHD/BnIGfCq261bVOgDngiP4XJY/RLsTh7cNTJ2XSdYNjmWJ3x6Cp3gdUOIQdOL
-         SLfsiJrTuukogAL0JuOhS8ATu+PsfuQ/KPHMkEU5LjJwZc7xUl7tRCqgClSBH2cUqNKd
-         YxrNzmutCg8oNJBTyob52GC2Mo9650Do2Wy8RabmViqXqLRZE/2AaLhJuJgnAEeB1Lct
-         14YG8MT0eLAM+XkpXpw8m8VHTN3U5ZiDRw8R62xZrz3inXQ/JW3LVDKFLWU9Ldfr+395
-         axAr4oP5UK3zdT3TKy3i+U6mwz78YkeLKojdSVaMsr4OpTHx7mC2amApVQqWBu2QaQwH
-         s3TQ==
+        bh=MXjq2DN+YJn4kUCwgg0gYtbwvNKne04W2dMax4QblGk=;
+        b=WHPc0Evh+Yn+hJA4PSlSxk5/mGjj1a2ZGv21H+d3CFJ5cjxvYqEWSS0TaiK0O1OdvB
+         Q9u1oM3F1vgb4x7TJrnO+IXR33awdlWWGhBf8cuBbfeFYXeVgQq6rjGs+rP9oep9t0KD
+         EQtko6LQonV3AeL4ohHHNSG3WA3NRyEEp79gqwqZ/OfSUAcK/j2AAzgBFM+9UW7dQ5Xv
+         iMPQ/+5ugtxoEVZCr6x/EShFdCY/yuCemZScXtYreiRCwUaqwOyjKgyg/pAVe0niwzdN
+         QMOGvc1h1/r9dlYBD5F9NVj1gFEvvTN54c9Heokoxe+dMzvevxVvj6JolGkGt5vRqsPW
+         QWAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=mSn3yoW/12Ru/TyYcPhA2gU0BhlZA9Vvk34Eo3ralpo=;
-        b=fA+H1eXKkmi/6bwSy6TY8ib93EhsS976ijWZO3PrUhnLegy1Emt1aUs5BXYl2ZO3IH
-         SiwVgReZdTmxAfUDiHOoIx3RYDDzCDkluIFFeyFDgaZj1pPpaXSEUiTgOcWSgGx5+/Mc
-         8c006EEEsP/4RKjIwokwzSaA+zpdHTt4/N6IVEN0hB3sYDS+272X+Tsz0s3dbnuZhBgl
-         m5ZYV+sNshrc20hyVKMr8OyyLh6WPTA9LMTZ/s/pjY/gtD+XWEBxk6VsE5OSFvfRByyC
-         0KQ7Z203+z6wniGX2fRF4WuNvnBKJgDLEJJ3TucLOZm2PWdmkYJdb9l9+q7UdjZmiIjB
-         kj7A==
-X-Gm-Message-State: AOAM530nYzy5nd+vSZwPbVJ3aIML+XIpWR0VRkpUw4n7PYxfHZr7LS2K
-        TEekkgWUvGsBLLa3gYjFCzQ=
-X-Google-Smtp-Source: ABdhPJxz8dmAiGiXgh5BHG+FQX5lcOw5izdwL1BoaTyvNmc+ToArcYmn6P0Mq4mr30VFuK9tmwsQ+w==
-X-Received: by 2002:adf:e5c4:: with SMTP id a4mr11617321wrn.174.1614988275785;
-        Fri, 05 Mar 2021 15:51:15 -0800 (PST)
+        bh=MXjq2DN+YJn4kUCwgg0gYtbwvNKne04W2dMax4QblGk=;
+        b=dRi4rrJi6xyrrCCxSO3jyq1RkeLv4mkoh1VCRp7Tk7kksA6BnIMibWb0AJmhx4l+jl
+         tkuvN7euKMypT0FewjdBchI+FsBHrO9wEjpTBndPia1IQqGcxeG2J4aJtjdTK2rwcCgF
+         q5iiC2uZblxTdFDbrWziw5XAGNDIcjWsR0Nd7WWXcZXeSMGBSNgRKeny6vLLyNnHgBxh
+         8x5N+KvSzAb4NDdK8WKZR4pf6AJuCG+TUmo6izSIN3Mj5Ih+0r96H2vclML5qXG9rLh1
+         FATr99l+pCmBs2QjFK0X6RIsRniM6Qb+2tTVspp0ZeRg/1iUThgTrguvQmF2wbL+jM6s
+         gPZQ==
+X-Gm-Message-State: AOAM532zzhDVp4tXkcQK052pc4Nr7xazzji9vBSEVerT3wDvhd65TeH2
+        ay8wsumVVzYlt80yflbeSs8=
+X-Google-Smtp-Source: ABdhPJyt6sb/bWb/cwpPA6Y/SAoKVpA0vl4Fk06Z/SZkws8GXuuDyd2w6ctGnZn+oyNWqy83Cffm+Q==
+X-Received: by 2002:adf:f584:: with SMTP id f4mr11834386wro.311.1614988276573;
+        Fri, 05 Mar 2021 15:51:16 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
         by smtp.googlemail.com with ESMTPSA id f7sm7219835wrm.36.2021.03.05.15.51.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Mar 2021 15:51:15 -0800 (PST)
+        Fri, 05 Mar 2021 15:51:16 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 01/22] getservent_r.3: SYNOPSIS: Use 'restrict' in prototypes
-Date:   Sat,  6 Mar 2021 00:50:45 +0100
-Message-Id: <20210305235105.177359-2-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
+        Ulrich Drepper <drepper@redhat.com>
+Subject: [PATCH 02/22] getsubopt.3: SYNOPSIS: Use 'restrict' in prototypes
+Date:   Sat,  6 Mar 2021 00:50:46 +0100
+Message-Id: <20210305235105.177359-3-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.1.721.g45526154a5
 In-Reply-To: <20210305235105.177359-1-alx.manpages@gmail.com>
 References: <20210305235105.177359-1-alx.manpages@gmail.com>
@@ -63,66 +64,39 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-glibc uses 'restrict' in getservent_r(), getservbyname_r(),
-getservbyport_r().
-Let's use it here too.
+POSIX does NOT specify getsubopt() to use 'restrict'.
+However, glibc uses 'restrict'.
+Users might be surprised by this!  Let's use it here too!
 
-.../glibc$ grep_glibc_prototype getservent_r
-resolv/netdb.h:306:
-extern int getservent_r (struct servent *__restrict __result_buf,
-			 char *__restrict __buf, size_t __buflen,
-			 struct servent **__restrict __result);
-.../glibc$ grep_glibc_prototype getservbyname_r
-resolv/netdb.h:310:
-extern int getservbyname_r (const char *__restrict __name,
-			    const char *__restrict __proto,
-			    struct servent *__restrict __result_buf,
-			    char *__restrict __buf, size_t __buflen,
-			    struct servent **__restrict __result);
-.../glibc$ grep_glibc_prototype getservbyport_r
-resolv/netdb.h:316:
-extern int getservbyport_r (int __port, const char *__restrict __proto,
-			    struct servent *__restrict __result_buf,
-			    char *__restrict __buf, size_t __buflen,
-			    struct servent **__restrict __result);
+.../glibc$ grep_glibc_prototype getsubopt
+stdlib/stdlib.h:958:
+extern int getsubopt (char **__restrict __optionp,
+		      char *const *__restrict __tokens,
+		      char **__restrict __valuep)
+     __THROW __nonnull ((1, 2, 3)) __wur;
 .../glibc$
 
+Cc: glibc <libc-alpha@sourceware.org>
+Cc: Ulrich Drepper <drepper@redhat.com>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/getservent_r.3 | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ man3/getsubopt.3 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/man3/getservent_r.3 b/man3/getservent_r.3
-index ad7fd22e4..c73a93afc 100644
---- a/man3/getservent_r.3
-+++ b/man3/getservent_r.3
-@@ -31,14 +31,19 @@ service entry (reentrant)
+diff --git a/man3/getsubopt.3 b/man3/getsubopt.3
+index ed6a24ed6..9bceed075 100644
+--- a/man3/getsubopt.3
++++ b/man3/getsubopt.3
+@@ -29,8 +29,8 @@ getsubopt \- parse suboption arguments from a string
  .nf
- .B #include <netdb.h>
+ .B #include <stdlib.h>
  .PP
--.BI "int getservent_r(struct servent *" result_buf ", char *" buf ,
--.BI "                size_t " buflen ", struct servent **" result );
--.BI "int getservbyname_r(const char *" name ", const char *" proto ,
--.BI "                struct servent *" result_buf ", char *" buf ,
--.BI "                size_t " buflen ", struct servent **" result );
--.BI "int getservbyport_r(int " port ", const char *" proto ,
--.BI "                struct servent *" result_buf ", char *" buf ,
--.BI "                size_t " buflen ", struct servent **" result );
-+.BI "int getservent_r(struct servent *restrict " result_buf ,
-+.BI "                 char *restrict " buf ", size_t " buflen ,
-+.BI "                 struct servent **restrict " result );
-+.BI "int getservbyname_r(const char *restrict " name ,
-+.BI "                 const char *restrict " proto ,
-+.BI "                 struct servent *restrict " result_buf ,
-+.BI "                 char *restrict " buf ", size_t " buflen ,
-+.BI "                 struct servent **restrict " result );
-+.BI "int getservbyport_r(int " port ,
-+.BI "                 const char *restrict " proto ,
-+.BI "                 struct servent *restrict " result_buf ,
-+.BI "                 char *restrict " buf ", size_t " buflen ,
-+.BI "                 struct servent **restrict " result );
- .PP
+-.BI "int getsubopt(char **"optionp ", char * const *" tokens \
+-", char **" valuep );
++.BI "int getsubopt(char **restrict " optionp ", char *const *restrict " tokens ,
++.BI "              char **restrict " valuep );
  .fi
+ .PP
  .RS -4
 -- 
 2.30.1.721.g45526154a5
