@@ -2,88 +2,118 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 18D0832DFC8
-	for <lists+linux-man@lfdr.de>; Fri,  5 Mar 2021 03:51:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4A8AF32DFE1
+	for <lists+linux-man@lfdr.de>; Fri,  5 Mar 2021 04:04:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229494AbhCECvt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 4 Mar 2021 21:51:49 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54252 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229436AbhCECvt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 4 Mar 2021 21:51:49 -0500
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com [IPv6:2a00:1450:4864:20::12c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3FD03C061574;
-        Thu,  4 Mar 2021 18:51:49 -0800 (PST)
-Received: by mail-lf1-x12c.google.com with SMTP id 18so1099147lff.6;
-        Thu, 04 Mar 2021 18:51:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=OjnEJEa+vxW530VM5nSoy3SNP0gFstYX+DggD9FqR3o=;
-        b=kDfjOvunn4rJQXXIqSvt66SJ6pJpenxqRA9js78/6lY1te5GR6SPpZqdZeKMLLpcOc
-         oqv5Fgx94nU89+iQa8tUZx+kxiDqUze1cdHmzk10A1fkpTYMEzzo/o0FKh7YPgKtlbjJ
-         a/EB0KR3iY6mx5s2mZReTZTKQYw2164tbmisH3uIRhayUvHWQfbqdf7IQ8CDypEVainy
-         Xjdkc6WdpWsbxVkXgLWdwowPi29U0Ie2kUBcoeNJd/X5cnvIM4OMOIDDEJUFNsopDSlD
-         OvTNDpEv4KfxRqrYgsFNykNsFuRn1FgH1G9f5VVKlj04KWr1fihj0yPc9dnoSUOB9ibp
-         YfDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=OjnEJEa+vxW530VM5nSoy3SNP0gFstYX+DggD9FqR3o=;
-        b=B0TQfQlJQDX3dLLJcfkSfE0uuIe51JmJs/WrpUP5+9WSmiVC4Kglfr6NbeqBhOSbga
-         5s+j0r2o9PgyGobDUdJkyW70/I+CtIpk19XHIyJxJtEjCxgFuao0R9d7aIaSIOu/e0HM
-         19t3TCwaVf/Oasyx5BxKs2NhP5t/1RXbcaihHe0+whc79H8UROK7yiRjnu2cjkZL3/IR
-         RXyajqoRHi2wc4WgsfLTcRsBsxjUZVDDCZGyT4jZ31s5yjCTb/0IloUfLAlJ4K5Z/J0B
-         wMWEHOsr4vyLmy6vZ6Olq28fp9kfFPDgahUWibpkntyiYNIhAVAmxWoOEdPtLWn7BkqF
-         4VJA==
-X-Gm-Message-State: AOAM530acif8bVscC/Pp9p/VXhpHVQKeZ3iuz0iQiPTzZPYOtSu3paPW
-        L+j4M0G83ZBtovoyRZkVQbbTVw8kY1axvqxiXNc=
-X-Google-Smtp-Source: ABdhPJwN59ho3oOMO8l+pTawq54uy53wr2ypcPMOYjnAS0mF5vqsgRHCxVx+KY4dxOK+qHDWrlOR7g2wRv6VskGhD0I=
-X-Received: by 2002:a19:48d2:: with SMTP id v201mr3951154lfa.504.1614912707769;
- Thu, 04 Mar 2021 18:51:47 -0800 (PST)
+        id S229528AbhCEDEo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 4 Mar 2021 22:04:44 -0500
+Received: from correo.us.es ([193.147.175.20]:53936 "EHLO mail.us.es"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S229436AbhCEDEo (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Thu, 4 Mar 2021 22:04:44 -0500
+Received: from antivirus1-rhel7.int (unknown [192.168.2.11])
+        by mail.us.es (Postfix) with ESMTP id 11182DA84F
+        for <linux-man@vger.kernel.org>; Fri,  5 Mar 2021 04:04:40 +0100 (CET)
+Received: from antivirus1-rhel7.int (localhost [127.0.0.1])
+        by antivirus1-rhel7.int (Postfix) with ESMTP id 0026DDA78E
+        for <linux-man@vger.kernel.org>; Fri,  5 Mar 2021 04:04:39 +0100 (CET)
+Received: by antivirus1-rhel7.int (Postfix, from userid 99)
+        id E9611DA78A; Fri,  5 Mar 2021 04:04:39 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.4.1 (2015-04-28) on antivirus1-rhel7.int
+X-Spam-Level: 
+X-Spam-Status: No, score=-105.9 required=7.5 tests=ALL_TRUSTED,BAYES_50,
+        FORGED_MUA_MOZILLA,NICE_REPLY_A,SMTPAUTH_US2,USER_IN_WELCOMELIST,
+        USER_IN_WHITELIST autolearn=disabled version=3.4.1
+Received: from antivirus1-rhel7.int (localhost [127.0.0.1])
+        by antivirus1-rhel7.int (Postfix) with ESMTP id 9E437DA704;
+        Fri,  5 Mar 2021 04:04:37 +0100 (CET)
+Received: from 192.168.1.97 (192.168.1.97)
+ by antivirus1-rhel7.int (F-Secure/fsigk_smtp/550/antivirus1-rhel7.int);
+ Fri, 05 Mar 2021 04:04:37 +0100 (CET)
+X-Virus-Status: clean(F-Secure/fsigk_smtp/550/antivirus1-rhel7.int)
+Received: from us.es (unknown [90.77.255.23])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        (Authenticated sender: 1984lsi)
+        by entrada.int (Postfix) with ESMTPSA id 8006742DC6E2;
+        Fri,  5 Mar 2021 04:04:37 +0100 (CET)
+Date:   Fri, 5 Mar 2021 04:04:37 +0100
+X-SMTPAUTHUS: auth mail.us.es
+From:   Pablo Neira Ayuso <pablo@netfilter.org>
+To:     Alexander Aring <aahringo@redhat.com>
+Cc:     fw@strlen.de, netdev@vger.kernel.org, linux-man@vger.kernel.org,
+        teigland@redhat.com
+Subject: Re: [PATCH resend] netlink.7: note not reliable if NETLINK_NO_ENOBUFS
+Message-ID: <20210305030437.GA4268@salvia>
+References: <20210304205728.34477-1-aahringo@redhat.com>
 MIME-Version: 1.0
-References: <20210302171947.2268128-1-joe@cilium.io>
-In-Reply-To: <20210302171947.2268128-1-joe@cilium.io>
-From:   Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Date:   Thu, 4 Mar 2021 18:51:36 -0800
-Message-ID: <CAADnVQJzmymY6NDSwEp9NE6PNfoa8TGytoWqScSRQ3s5X+oDbw@mail.gmail.com>
-Subject: Re: [PATCHv2 bpf-next 00/15] Improve BPF syscall command documentation
-To:     Joe Stringer <joe@cilium.io>
-Cc:     bpf <bpf@vger.kernel.org>, linux-man <linux-man@vger.kernel.org>,
-        "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Brian Vazquez <brianvv@google.com>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Daniel Mack <daniel@zonque.org>,
-        John Fastabend <john.fastabend@gmail.com>,
-        Petar Penkov <ppenkov@google.com>,
-        Quentin Monnet <quentin@isovalent.com>,
-        Sean Young <sean@mess.org>, Yonghong Song <yhs@fb.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20210304205728.34477-1-aahringo@redhat.com>
+User-Agent: Mozilla/5.0
+X-Virus-Scanned: ClamAV using ClamSMTP
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Mar 2, 2021 at 9:20 AM Joe Stringer <joe@cilium.io> wrote:
->
-> Rather than tackle everything at once, I have focused in this series on
-> the syscall commands, "enum bpf_cmd".
-...
-> The eventual goal of this effort would be to extend the kernel UAPI
-> headers such that each of the categories I had listed above (commands,
-> maps, progs, hooks) have dedicated documentation in the kernel tree, and
-> that developers must update the comments in the headers to document the
-> APIs prior to patch acceptance, and that we could auto-generate the
-> latest version of the bpf(2) manual pages based on a few static
-> description sections combined with the dynamically-generated output from
-> the header.
-> v2:
-> * Remove build infrastructure in favor of kernel-doc directives
-> * Shift userspace-api docs under Documentation/userspace-api/ebpf
-> * Fix scripts/bpf_doc.py syscall --header (throw unsupported error)
-> * Improve .gitignore handling of newly autogenerated files
+Hi Alexander,
 
-Looks great. Applied. Thanks!
+On Thu, Mar 04, 2021 at 03:57:28PM -0500, Alexander Aring wrote:
+> This patch adds a note to the netlink manpage that if NETLINK_NO_ENOBUFS
+> is set there is no additional handling to make netlink reliable. It just
+> disables the error notification.
+
+A bit more background on this toggle.
+
+NETLINK_NO_ENOBUFS also disables netlink broadcast congestion control
+which kicks in when the socket buffer gets full. The existing
+congestion control algorithm keeps dropping netlink event messages
+until the queue is emptied. Note that it might take a while until your
+userspace process fully empties the socket queue that is congested
+(and during that time _your process is losing every netlink event_).
+
+The usual approach when your process hits ENOBUFS is to resync via
+NLM_F_DUMP unicast request. However, getting back to sync with the
+kernel subsystem might be expensive if the number of items that are
+exposed via netlink is huge.
+
+Note that some people select very large socket buffer queue for
+netlink sockets when they notice ENOBUFS. This might however makes
+things worse because, as I said, congestion control drops every
+netlink message until the queue is emptied. Selecting a large socket
+buffer might help to postpone the ENOBUFS error, but once your process
+hits ENOBUFS, then the netlink congestion control kicks in and you
+will make you lose a lot of event messages (until the queue is empty
+again!).
+
+So NETLINK_NO_ENOBUFS from userspace makes sense if:
+
+1) You are subscribed to a netlink broadcast group (so it does _not_
+   make sense for unicast netlink sockets).
+2) The kernel subsystem delivers the netlink messages you are
+   subscribed to from atomic context (e.g. network packet path, if
+   the netlink event is triggered by network packets, your process
+   might get spammed with a lot of netlink messages in little time,
+   depending on your network workload).
+3) Your process does not want to resync on lost netlink messages.
+   Your process assumes that events might get lost but it does not
+   case / it does not want to make any specific action in such case.
+4) You want to disable the netlink broadcast congestion control.
+
+To provide an example kernel subsystem, this toggle can be useful with
+the connection tracking system, when monitoring for new connection
+events in a soft real-time fashion.
+
+> The used word "avoid" receiving ENOBUFS errors can be interpreted
+> that netlink tries to do some additional queue handling to avoid
+> that such scenario occurs at all, e.g. like zerocopy which tries to
+> avoid memory copy. However disable is not the right word here as
+> well that in some cases ENOBUFS can be still received. This patch
+> makes clear that there will no additional handling to put netlink in
+> a more reliable mode.
+
+Right, the NETLINK_NO_ENOBUFS toggle alone itself is not making
+netlink more reliable for the broadcast scenario, it just changes the
+way it netlink broadcast deals with congestion: userspace process gets
+no reports on lost messages and netlink congestion control is
+disabled.
