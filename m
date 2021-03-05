@@ -2,118 +2,91 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4A8AF32DFE1
-	for <lists+linux-man@lfdr.de>; Fri,  5 Mar 2021 04:04:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8892932E62E
+	for <lists+linux-man@lfdr.de>; Fri,  5 Mar 2021 11:22:20 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229528AbhCEDEo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 4 Mar 2021 22:04:44 -0500
-Received: from correo.us.es ([193.147.175.20]:53936 "EHLO mail.us.es"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S229436AbhCEDEo (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 4 Mar 2021 22:04:44 -0500
-Received: from antivirus1-rhel7.int (unknown [192.168.2.11])
-        by mail.us.es (Postfix) with ESMTP id 11182DA84F
-        for <linux-man@vger.kernel.org>; Fri,  5 Mar 2021 04:04:40 +0100 (CET)
-Received: from antivirus1-rhel7.int (localhost [127.0.0.1])
-        by antivirus1-rhel7.int (Postfix) with ESMTP id 0026DDA78E
-        for <linux-man@vger.kernel.org>; Fri,  5 Mar 2021 04:04:39 +0100 (CET)
-Received: by antivirus1-rhel7.int (Postfix, from userid 99)
-        id E9611DA78A; Fri,  5 Mar 2021 04:04:39 +0100 (CET)
-X-Spam-Checker-Version: SpamAssassin 3.4.1 (2015-04-28) on antivirus1-rhel7.int
-X-Spam-Level: 
-X-Spam-Status: No, score=-105.9 required=7.5 tests=ALL_TRUSTED,BAYES_50,
-        FORGED_MUA_MOZILLA,NICE_REPLY_A,SMTPAUTH_US2,USER_IN_WELCOMELIST,
-        USER_IN_WHITELIST autolearn=disabled version=3.4.1
-Received: from antivirus1-rhel7.int (localhost [127.0.0.1])
-        by antivirus1-rhel7.int (Postfix) with ESMTP id 9E437DA704;
-        Fri,  5 Mar 2021 04:04:37 +0100 (CET)
-Received: from 192.168.1.97 (192.168.1.97)
- by antivirus1-rhel7.int (F-Secure/fsigk_smtp/550/antivirus1-rhel7.int);
- Fri, 05 Mar 2021 04:04:37 +0100 (CET)
-X-Virus-Status: clean(F-Secure/fsigk_smtp/550/antivirus1-rhel7.int)
-Received: from us.es (unknown [90.77.255.23])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        id S229599AbhCEKVn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 5 Mar 2021 05:21:43 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([63.128.21.124]:30953 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S229562AbhCEKVb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 5 Mar 2021 05:21:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1614939691;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=952QrasoasnB9IBFh93Ys2dlUfE/0TcMtbpqvseuSI4=;
+        b=Cxgfr5jfJ4IAnrkeDxXbduXZj33d7gKUU7Nei3zxLVJtHZxHi9wqlg0bpSPb6C1zlpWMiQ
+        SLAoy8ISDJ/BdZZlKLdJya6DlBRDblYBDtzqzLw79Oim0PbEkszImvtDIX6rE4ChodiSfO
+        c/qxbfIXUKIhLFXJcdy0Q97PeLU5ohQ=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-442-tSgCFiVwPUSpQnBmXUlBig-1; Fri, 05 Mar 2021 05:21:29 -0500
+X-MC-Unique: tSgCFiVwPUSpQnBmXUlBig-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
         (No client certificate requested)
-        (Authenticated sender: 1984lsi)
-        by entrada.int (Postfix) with ESMTPSA id 8006742DC6E2;
-        Fri,  5 Mar 2021 04:04:37 +0100 (CET)
-Date:   Fri, 5 Mar 2021 04:04:37 +0100
-X-SMTPAUTHUS: auth mail.us.es
-From:   Pablo Neira Ayuso <pablo@netfilter.org>
-To:     Alexander Aring <aahringo@redhat.com>
-Cc:     fw@strlen.de, netdev@vger.kernel.org, linux-man@vger.kernel.org,
-        teigland@redhat.com
-Subject: Re: [PATCH resend] netlink.7: note not reliable if NETLINK_NO_ENOBUFS
-Message-ID: <20210305030437.GA4268@salvia>
-References: <20210304205728.34477-1-aahringo@redhat.com>
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7603C108BD06;
+        Fri,  5 Mar 2021 10:21:28 +0000 (UTC)
+Received: from oldenburg.str.redhat.com (ovpn-113-208.ams2.redhat.com [10.36.113.208])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 067E262AF6;
+        Fri,  5 Mar 2021 10:21:26 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     Zack Weinberg <zackw@panix.com>, mtk.manpages@gmail.com,
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org
+Subject: Re: [PATCH] makecontext.3: Fix function declarator with empty
+ parentheses.
+References: <20210304194534.130735-1-alx.manpages@gmail.com>
+        <CAKCAbMg3G4EAeuUhN9EQTDnrTSD0sPoH0uH1=kkpfj9qYorPdg@mail.gmail.com>
+        <87v9a6hbgt.fsf@oldenburg.str.redhat.com>
+        <c5df9263-edb8-c50a-e691-a454d4ae833f@gmail.com>
+Date:   Fri, 05 Mar 2021 11:21:36 +0100
+In-Reply-To: <c5df9263-edb8-c50a-e691-a454d4ae833f@gmail.com> (Alejandro
+        Colomar's message of "Fri, 5 Mar 2021 02:13:52 +0100")
+Message-ID: <8735x9hpe7.fsf@oldenburg.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20210304205728.34477-1-aahringo@redhat.com>
-User-Agent: Mozilla/5.0
-X-Virus-Scanned: ClamAV using ClamSMTP
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alexander,
+* Alejandro Colomar:
 
-On Thu, Mar 04, 2021 at 03:57:28PM -0500, Alexander Aring wrote:
-> This patch adds a note to the netlink manpage that if NETLINK_NO_ENOBUFS
-> is set there is no additional handling to make netlink reliable. It just
-> disables the error notification.
+> I did actually mean 'void (*f)(void)'.  Glibc uses that for the
+> prototype (as you can see from my commit message (see above)), and as I
+> confirmed just now, it also uses that type for the definition of the
+> function:
+>
+> [
+> .../glibc$ grep -rn '^makecontext\s*('
+> stdlib/makecontext.c:22:makecontext (ucontext_t *ucp, void (*func)
+> (void), int argc, ...)
+> .../glibc$
+> ]
+>
+> However, I should have read the manual page (I must admit that I only
+> read the SYNOPSIS and EXAMPLES sections of the manual page and the glibc
+> source before writing the patch).  It's clear that the prototype that
+> was being used in the manual page was more correct (in the sense that it
+> more accurately represented the actual expected function pointer) than
+> the glibc prototype (eventhough the glibc prototype is more standards
+> conforming).
+>
+> So my patch is wrong.
+>
+> Florian, should I file a bug in glibc's bugzilla?
 
-A bit more background on this toggle.
+I don't know.  SUSv2 has (void *func) (), which would make this a glibc
+bug.  I'm not sure if I have easy access to POSIX.1 from 2001, which I
+believe still has this function.
 
-NETLINK_NO_ENOBUFS also disables netlink broadcast congestion control
-which kicks in when the socket buffer gets full. The existing
-congestion control algorithm keeps dropping netlink event messages
-until the queue is emptied. Note that it might take a while until your
-userspace process fully empties the socket queue that is congested
-(and during that time _your process is losing every netlink event_).
+I am not sure if all glibc implementations of makecontext can be used to
+call variadic functions.
 
-The usual approach when your process hits ENOBUFS is to resync via
-NLM_F_DUMP unicast request. However, getting back to sync with the
-kernel subsystem might be expensive if the number of items that are
-exposed via netlink is huge.
+Thanks,
+Florian
 
-Note that some people select very large socket buffer queue for
-netlink sockets when they notice ENOBUFS. This might however makes
-things worse because, as I said, congestion control drops every
-netlink message until the queue is emptied. Selecting a large socket
-buffer might help to postpone the ENOBUFS error, but once your process
-hits ENOBUFS, then the netlink congestion control kicks in and you
-will make you lose a lot of event messages (until the queue is empty
-again!).
-
-So NETLINK_NO_ENOBUFS from userspace makes sense if:
-
-1) You are subscribed to a netlink broadcast group (so it does _not_
-   make sense for unicast netlink sockets).
-2) The kernel subsystem delivers the netlink messages you are
-   subscribed to from atomic context (e.g. network packet path, if
-   the netlink event is triggered by network packets, your process
-   might get spammed with a lot of netlink messages in little time,
-   depending on your network workload).
-3) Your process does not want to resync on lost netlink messages.
-   Your process assumes that events might get lost but it does not
-   case / it does not want to make any specific action in such case.
-4) You want to disable the netlink broadcast congestion control.
-
-To provide an example kernel subsystem, this toggle can be useful with
-the connection tracking system, when monitoring for new connection
-events in a soft real-time fashion.
-
-> The used word "avoid" receiving ENOBUFS errors can be interpreted
-> that netlink tries to do some additional queue handling to avoid
-> that such scenario occurs at all, e.g. like zerocopy which tries to
-> avoid memory copy. However disable is not the right word here as
-> well that in some cases ENOBUFS can be still received. This patch
-> makes clear that there will no additional handling to put netlink in
-> a more reliable mode.
-
-Right, the NETLINK_NO_ENOBUFS toggle alone itself is not making
-netlink more reliable for the broadcast scenario, it just changes the
-way it netlink broadcast deals with congestion: userspace process gets
-no reports on lost messages and netlink congestion control is
-disabled.
