@@ -2,130 +2,128 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BADAC32F6DB
-	for <lists+linux-man@lfdr.de>; Sat,  6 Mar 2021 00:52:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4985D32F6DF
+	for <lists+linux-man@lfdr.de>; Sat,  6 Mar 2021 00:52:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229730AbhCEXvg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 5 Mar 2021 18:51:36 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42162 "EHLO
+        id S229616AbhCEXvh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 5 Mar 2021 18:51:37 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42172 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229768AbhCEXvP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 5 Mar 2021 18:51:15 -0500
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 645ABC06175F
-        for <linux-man@vger.kernel.org>; Fri,  5 Mar 2021 15:51:15 -0800 (PST)
-Received: by mail-wr1-x430.google.com with SMTP id 7so3947410wrz.0
-        for <linux-man@vger.kernel.org>; Fri, 05 Mar 2021 15:51:15 -0800 (PST)
+        with ESMTP id S229759AbhCEXvR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 5 Mar 2021 18:51:17 -0500
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E3DDEC06175F
+        for <linux-man@vger.kernel.org>; Fri,  5 Mar 2021 15:51:16 -0800 (PST)
+Received: by mail-wr1-x42d.google.com with SMTP id u16so3921249wrt.1
+        for <linux-man@vger.kernel.org>; Fri, 05 Mar 2021 15:51:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=KzSqTTh1AEi4UgtdPe6yOO/bHgAaiMTwJedd1yqDn4k=;
-        b=MthCrX28ocgCCDKw4K2RD9TFMsYR4jsnA9CL45kNdGm/sA3HdNk3mj4qPXMVhVf2LE
-         HZbA0nwJuhIBwElC7zpeVu1G9ydr9n1e0YnKQX+K4V9x13CD5aoAR+oio4+DXWqv0Q4q
-         eIKhKNYlFx3pAUYyUKI5TWVZPXV1GTm/VOuz9rWOL/Qys7MOjX+UzR/Vd90imK2Pm4go
-         lGJDbxVl9d6cZtIq81SQgWVa8oWmWa3mCQz/o6j3o4rMee7u3/haVx4mkDikcDVOlj5Q
-         kIrDW4lfTgLOOaGXQLRFRttfXHx/Sx+mB28bjU/zm8+O0jK2IvQfViV60EO31kS2gzEd
-         lqug==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=mSn3yoW/12Ru/TyYcPhA2gU0BhlZA9Vvk34Eo3ralpo=;
+        b=YF6YHD/BnIGfCq261bVOgDngiP4XJY/RLsTh7cNTJ2XSdYNjmWJ3x6Cp3gdUOIQdOL
+         SLfsiJrTuukogAL0JuOhS8ATu+PsfuQ/KPHMkEU5LjJwZc7xUl7tRCqgClSBH2cUqNKd
+         YxrNzmutCg8oNJBTyob52GC2Mo9650Do2Wy8RabmViqXqLRZE/2AaLhJuJgnAEeB1Lct
+         14YG8MT0eLAM+XkpXpw8m8VHTN3U5ZiDRw8R62xZrz3inXQ/JW3LVDKFLWU9Ldfr+395
+         axAr4oP5UK3zdT3TKy3i+U6mwz78YkeLKojdSVaMsr4OpTHx7mC2amApVQqWBu2QaQwH
+         s3TQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=KzSqTTh1AEi4UgtdPe6yOO/bHgAaiMTwJedd1yqDn4k=;
-        b=kl8nArL5qAxNRCzVVqAksqtDTyyN2sUznd4blN0wBOEPW6ghWmyKHNC0nVAkUVKu0J
-         H9hO2klQ7psN3oemPPocDhuaUtbSijevFwSytkeJxKr+OFSnnMdHmlxSZDmruqmYyli9
-         RoLKCqJFWPjTfufXQuItCwNyNfUJVrMHP6P18q6Fh/nasUQ1rNrbnl7dbdLpEfD4i9aN
-         Fh9xR04NkVBZYADPs84KxR6SsEJ5GeoN+VgVpxsmpLKNE2N/EAiKVD/TrNzk8gresRUO
-         PeqO5AaqvVBbxVevBRRCZ79n5Etjsa/qtu/y21xnUTXt9o4Nm3br6ke1SuppIAzfrxjz
-         nuQg==
-X-Gm-Message-State: AOAM532xU48E+ZNCEYiPbtoBW0E5i520DCZaa+GkUP2/V0BPxAEJocJ5
-        ZvFZWvvttsaFTP/ZZT+tzuI=
-X-Google-Smtp-Source: ABdhPJwFgD5e9G058wW1yA/eOFlWTucD5WkvZvFxnHlKXI7NjIFJiRgHAGQa4xTShxbisBNU1VepXw==
-X-Received: by 2002:a05:6000:147:: with SMTP id r7mr11843775wrx.25.1614988274192;
-        Fri, 05 Mar 2021 15:51:14 -0800 (PST)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=mSn3yoW/12Ru/TyYcPhA2gU0BhlZA9Vvk34Eo3ralpo=;
+        b=fA+H1eXKkmi/6bwSy6TY8ib93EhsS976ijWZO3PrUhnLegy1Emt1aUs5BXYl2ZO3IH
+         SiwVgReZdTmxAfUDiHOoIx3RYDDzCDkluIFFeyFDgaZj1pPpaXSEUiTgOcWSgGx5+/Mc
+         8c006EEEsP/4RKjIwokwzSaA+zpdHTt4/N6IVEN0hB3sYDS+272X+Tsz0s3dbnuZhBgl
+         m5ZYV+sNshrc20hyVKMr8OyyLh6WPTA9LMTZ/s/pjY/gtD+XWEBxk6VsE5OSFvfRByyC
+         0KQ7Z203+z6wniGX2fRF4WuNvnBKJgDLEJJ3TucLOZm2PWdmkYJdb9l9+q7UdjZmiIjB
+         kj7A==
+X-Gm-Message-State: AOAM530nYzy5nd+vSZwPbVJ3aIML+XIpWR0VRkpUw4n7PYxfHZr7LS2K
+        TEekkgWUvGsBLLa3gYjFCzQ=
+X-Google-Smtp-Source: ABdhPJxz8dmAiGiXgh5BHG+FQX5lcOw5izdwL1BoaTyvNmc+ToArcYmn6P0Mq4mr30VFuK9tmwsQ+w==
+X-Received: by 2002:adf:e5c4:: with SMTP id a4mr11617321wrn.174.1614988275785;
+        Fri, 05 Mar 2021 15:51:15 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id f7sm7219835wrm.36.2021.03.05.15.51.12
+        by smtp.googlemail.com with ESMTPSA id f7sm7219835wrm.36.2021.03.05.15.51.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Mar 2021 15:51:13 -0800 (PST)
+        Fri, 05 Mar 2021 15:51:15 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-        Heinrich Schuchardt <xypron.glpk@gmx.de>
-Subject: [PATCH 00/22] man3: SYNOPSIS: Use 'restrict' in prototypes (batch 3)
-Date:   Sat,  6 Mar 2021 00:50:44 +0100
-Message-Id: <20210305235105.177359-1-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org
+Subject: [PATCH 01/22] getservent_r.3: SYNOPSIS: Use 'restrict' in prototypes
+Date:   Sat,  6 Mar 2021 00:50:45 +0100
+Message-Id: <20210305235105.177359-2-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.1.721.g45526154a5
+In-Reply-To: <20210305235105.177359-1-alx.manpages@gmail.com>
+References: <20210305235105.177359-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+glibc uses 'restrict' in getservent_r(), getservbyname_r(),
+getservbyport_r().
+Let's use it here too.
 
-This fixes up to pthread_attr_setguardsize.3 to use 'restrict'.
-Please have a special look at printf.3, because of the ffix.
+.../glibc$ grep_glibc_prototype getservent_r
+resolv/netdb.h:306:
+extern int getservent_r (struct servent *__restrict __result_buf,
+			 char *__restrict __buf, size_t __buflen,
+			 struct servent **__restrict __result);
+.../glibc$ grep_glibc_prototype getservbyname_r
+resolv/netdb.h:310:
+extern int getservbyname_r (const char *__restrict __name,
+			    const char *__restrict __proto,
+			    struct servent *__restrict __result_buf,
+			    char *__restrict __buf, size_t __buflen,
+			    struct servent **__restrict __result);
+.../glibc$ grep_glibc_prototype getservbyport_r
+resolv/netdb.h:316:
+extern int getservbyport_r (int __port, const char *__restrict __proto,
+			    struct servent *__restrict __result_buf,
+			    char *__restrict __buf, size_t __buflen,
+			    struct servent **__restrict __result);
+.../glibc$
 
-Also, I included in this patchset one patch about 'volatile': malloc_hook.3.
-I introduced it by accident into this patch set,
-and I'm too lazy to remove it :P
-I have no other patches related to 'volatile' pending.
-If you think it's likely that there are more cases, please tell me,
-and I'll try to have a look (I'd have to create a list of
-man[23] variables for that, similar to man_lsfunc()).
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+ man3/getservent_r.3 | 21 +++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
 
-Cheers,
-
-Alex
-
-Alejandro Colomar (22):
-  getservent_r.3: SYNOPSIS: Use 'restrict' in prototypes
-  getsubopt.3: SYNOPSIS: Use 'restrict' in prototypes
-  glob.3: SYNOPSIS: Use 'restrict' in prototypes
-  iconv.3: SYNOPSIS: Use 'restrict' in prototypes
-  inet_ntop.3: SYNOPSIS: Use 'restrict' in prototypes
-  inet_pton.3: SYNOPSIS: Use 'restrict' in prototypes
-  lio_listio.3: SYNOPSIS: Use 'restrict' in prototypes
-  makecontext.3: SYNOPSIS: Use 'restrict' in prototypes
-  malloc_hook.3: SYNOPSIS: Use 'volatile' in prototypes
-  mbrlen.3: SYNOPSIS: Use 'restrict' in prototypes
-  mbrtowc.3: SYNOPSIS: Use 'restrict' in prototypes
-  mbsnrtowcs.3: SYNOPSIS: Use 'restrict' in prototypes
-  mbsrtowcs.3: SYNOPSIS: Use 'restrict' in prototypes
-  mbstowcs.3: SYNOPSIS: Use 'restrict' in prototypes
-  mbtowc.3: SYNOPSIS: Use 'restrict' in prototypes
-  mempcpy.3: SYNOPSIS: Use 'restrict' in prototypes
-  mq_getattr.3: SYNOPSIS: Use 'restrict' in prototypes
-  mq_receive.3: SYNOPSIS: Use 'restrict' in prototypes
-  posix_spawn.3: SYNOPSIS: Use 'restrict' in prototypes
-  posix_spawn.3: SYNOPSIS: Use 'restrict' in prototypes
-  printf.3: SYNOPSIS: Use 'restrict' in prototypes; ffix too
-  pthread_attr_setguardsize.3: SYNOPSIS: Use 'restrict' in prototypes
-
- man3/getservent_r.3              | 21 +++++++++++++--------
- man3/getsubopt.3                 |  4 ++--
- man3/glob.3                      |  4 ++--
- man3/iconv.3                     |  4 ++--
- man3/inet_ntop.3                 |  4 ++--
- man3/inet_pton.3                 |  3 ++-
- man3/lio_listio.3                |  4 ++--
- man3/makecontext.3               |  6 ++++--
- man3/malloc_hook.3               | 10 +++++-----
- man3/mbrlen.3                    |  3 ++-
- man3/mbrtowc.3                   |  5 +++--
- man3/mbsnrtowcs.3                |  5 +++--
- man3/mbsrtowcs.3                 |  4 ++--
- man3/mbstowcs.3                  |  3 ++-
- man3/mbtowc.3                    |  3 ++-
- man3/mempcpy.3                   |  7 +++++--
- man3/mq_getattr.3                |  4 ++--
- man3/mq_receive.3                |  6 +++---
- man3/posix_spawn.3               | 18 ++++++++++--------
- man3/printf.3                    | 29 ++++++++++++++++++-----------
- man3/pthread_attr_setguardsize.3 |  4 ++--
- 21 files changed, 88 insertions(+), 63 deletions(-)
-
+diff --git a/man3/getservent_r.3 b/man3/getservent_r.3
+index ad7fd22e4..c73a93afc 100644
+--- a/man3/getservent_r.3
++++ b/man3/getservent_r.3
+@@ -31,14 +31,19 @@ service entry (reentrant)
+ .nf
+ .B #include <netdb.h>
+ .PP
+-.BI "int getservent_r(struct servent *" result_buf ", char *" buf ,
+-.BI "                size_t " buflen ", struct servent **" result );
+-.BI "int getservbyname_r(const char *" name ", const char *" proto ,
+-.BI "                struct servent *" result_buf ", char *" buf ,
+-.BI "                size_t " buflen ", struct servent **" result );
+-.BI "int getservbyport_r(int " port ", const char *" proto ,
+-.BI "                struct servent *" result_buf ", char *" buf ,
+-.BI "                size_t " buflen ", struct servent **" result );
++.BI "int getservent_r(struct servent *restrict " result_buf ,
++.BI "                 char *restrict " buf ", size_t " buflen ,
++.BI "                 struct servent **restrict " result );
++.BI "int getservbyname_r(const char *restrict " name ,
++.BI "                 const char *restrict " proto ,
++.BI "                 struct servent *restrict " result_buf ,
++.BI "                 char *restrict " buf ", size_t " buflen ,
++.BI "                 struct servent **restrict " result );
++.BI "int getservbyport_r(int " port ,
++.BI "                 const char *restrict " proto ,
++.BI "                 struct servent *restrict " result_buf ,
++.BI "                 char *restrict " buf ", size_t " buflen ,
++.BI "                 struct servent **restrict " result );
+ .PP
+ .fi
+ .RS -4
 -- 
 2.30.1.721.g45526154a5
 
