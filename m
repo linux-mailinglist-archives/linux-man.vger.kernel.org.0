@@ -2,97 +2,148 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A074232EB94
-	for <lists+linux-man@lfdr.de>; Fri,  5 Mar 2021 13:49:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7CE6632F42E
+	for <lists+linux-man@lfdr.de>; Fri,  5 Mar 2021 20:43:59 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229646AbhCEMtN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 5 Mar 2021 07:49:13 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40934 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229759AbhCEMsn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 5 Mar 2021 07:48:43 -0500
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 53D94C061756
-        for <linux-man@vger.kernel.org>; Fri,  5 Mar 2021 04:48:43 -0800 (PST)
-Received: by mail-wm1-x332.google.com with SMTP id w7so1331203wmb.5
-        for <linux-man@vger.kernel.org>; Fri, 05 Mar 2021 04:48:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=MPAXZ+AnO8t2L2+XhAVGNXW/qMg5GNn+FfrqIVRlrcQ=;
-        b=QjBAj+94PXL5MeiRQEGciXG1zB+4pR2LrT1UV26jEdWFfev+GsOUrZZM6zaa5e6Sv9
-         twkQqLASd93EY22mJkYPbxEJkC7C5SnQsjsCKeCLupRgrGiUg6+YEbwrXHtKRVORCzpk
-         DD7u/WQXx7uiqleknA9wbsNBbz6xR5zEQImkjg9j376fGzauCUFx2vZSoDig27vLzacN
-         v5SE9bFXfY2Qzn/NknDyLhdpNSKdipEiWqhbCEZ5dN2DGu+dSj+CcBuOJj+QEnLKo5HL
-         umAuL8otHRbXHG49Yzdast2BqRHMre4eFyyxtRi4vq8FcWYvfC5uZjwL5qO7MuV46ekn
-         a3SQ==
+        id S229591AbhCETn0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 5 Mar 2021 14:43:26 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([63.128.21.124]:40433 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S230124AbhCETnU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 5 Mar 2021 14:43:20 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1614973400;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=n8fQZz5L6emVxfcwY5hjstGGD1YTSpKdseE34M/Cacg=;
+        b=hpERcpVdAwN191O3feWqcP+cH9p4aA2X9Mnyt09JWRNIpmtN41xUxcsFiiQFKOhyNLMZwF
+        5iyvkt9rPRLbJ+tD4ISMzDUDtlhGG22s/P6Um522bLPyBqj8a2LBAGmYw3xONipou5EZWr
+        Md09LlYD3RBgJ13knKXb/d0v+xvHds4=
+Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
+ [209.85.166.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-350--0WmiGDTM5-u7NT0tXDTcQ-1; Fri, 05 Mar 2021 14:43:17 -0500
+X-MC-Unique: -0WmiGDTM5-u7NT0tXDTcQ-1
+Received: by mail-il1-f200.google.com with SMTP id v20so2643374ile.6
+        for <linux-man@vger.kernel.org>; Fri, 05 Mar 2021 11:43:17 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=MPAXZ+AnO8t2L2+XhAVGNXW/qMg5GNn+FfrqIVRlrcQ=;
-        b=SYDAVSdkOYAf8tW0iXDr+IVCZM+KinCsCguip5+UkGJwj+r/ay1E7cVnJuG84Y+Ykb
-         HRZ2gUpYyKI08B917pv2sXs5z19w9bwL74a0LMmtGHUvhcAfpZj+gDGxB4rjz7KZmrJ/
-         voqbFiwNaPFReLJAF2e12Fx0cbKoOR85t06SBZLXfLqBD5DCOr74ap81x0V1lT51w9U1
-         /rzNmUvhv9PDnB/Emdh75q3f2EFqAmcZFVwH5Pp/Db+kn9MrUfF7jUhxXfmi5yhKrpEn
-         ueGvCpXG7oOBr84dU2zZHmHTm4ZBrb0lK0W7vD1PeU1xVQbd2hWaBXYMNuoMlEns8fXc
-         g0Kg==
-X-Gm-Message-State: AOAM532O0OYqMBnPqiUiJ/GtQ8LvOCSIN1IETGHLZL0N+wpDHxXBuVmi
-        Q7pR3gcRQ6pOvfpOxiMRHlE=
-X-Google-Smtp-Source: ABdhPJxwJkgVxCz8Pktam4FPY2RQ7EXHSyl/RCGJr8JBUcb8qIYVbZpB+bWl2X6+z2kQFv0GAuYE5g==
-X-Received: by 2002:a1c:bb0b:: with SMTP id l11mr8969548wmf.150.1614948522114;
-        Fri, 05 Mar 2021 04:48:42 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id 9sm2609400wmf.13.2021.03.05.04.48.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 05 Mar 2021 04:48:41 -0800 (PST)
-Subject: Re: [PATCH] makecontext.3: Fix function declarator with empty
- parentheses.
-To:     Florian Weimer <fweimer@redhat.com>
-Cc:     Zack Weinberg <zackw@panix.com>, mtk.manpages@gmail.com,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-        Andreas Schwab <schwab@linux-m68k.org>
-References: <20210304194534.130735-1-alx.manpages@gmail.com>
- <CAKCAbMg3G4EAeuUhN9EQTDnrTSD0sPoH0uH1=kkpfj9qYorPdg@mail.gmail.com>
- <87v9a6hbgt.fsf@oldenburg.str.redhat.com>
- <c5df9263-edb8-c50a-e691-a454d4ae833f@gmail.com>
- <8735x9hpe7.fsf@oldenburg.str.redhat.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <2b3d9f1d-287a-9747-0666-fb4d9331b494@gmail.com>
-Date:   Fri, 5 Mar 2021 13:48:40 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=n8fQZz5L6emVxfcwY5hjstGGD1YTSpKdseE34M/Cacg=;
+        b=KewtI+23i32ZKSdW1I38ytvhLPMrnWhdG5oiFs7TbvexOBlLN4fC4cUb6PpPsntP4m
+         mrc79IijOdec5hZ+UbNKze9wEtl/oelF7FcQYIe64mL0nybuuj8in6JAGshGJOx50IwQ
+         2o3nZqwI64boGQ+nc85ssQABCv+B6+45qYuC0JKh5X1sQKi42oMsuKBzjMcuIeUvwwib
+         I3yfEWp6+AljpzePc7xqPH3dwiGXW0AMRT8bfS3WabOgU3qMlfe5IXH0mcchK6ly+cAJ
+         N8vLJ04BVx4aYoN16FIhLIfzr1me9fjuh3jKzY7TH8crui81yHBViePP8uIbSWYRtUTr
+         nN8g==
+X-Gm-Message-State: AOAM5322fPSYifxcjxPcJqB8d4UPo1FbFiVtSJVjnBijmyAvgoaoezzP
+        WxdS9VYW9SIbaUIz2yQxbyUm4dVKJTFgth0cRdXcJiQ91DtbUuVyQcRPYOQT8n/Xo0dJXFL/sHa
+        FU5FTDjcxfXXUr2DJfrcA8wG6rwarWsKDkwjh
+X-Received: by 2002:a05:6602:2ac4:: with SMTP id m4mr9417471iov.41.1614973397020;
+        Fri, 05 Mar 2021 11:43:17 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzRti/6PN80lnfkcc8L4thNg4GE5y+1DARBphAugJp3n7Y4w00Ph3I9vsg0HYbQM1PMiEpnPudM0WtuukLuuHk=
+X-Received: by 2002:a05:6602:2ac4:: with SMTP id m4mr9417463iov.41.1614973396855;
+ Fri, 05 Mar 2021 11:43:16 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <8735x9hpe7.fsf@oldenburg.str.redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20210304205728.34477-1-aahringo@redhat.com> <20210305030437.GA4268@salvia>
+In-Reply-To: <20210305030437.GA4268@salvia>
+From:   Alexander Ahring Oder Aring <aahringo@redhat.com>
+Date:   Fri, 5 Mar 2021 14:43:05 -0500
+Message-ID: <CAK-6q+iBhzFVgm5NQaPCZhJ8tEvVVeTt2OAEGH4QkOfHqfYzaA@mail.gmail.com>
+Subject: Re: [PATCH resend] netlink.7: note not reliable if NETLINK_NO_ENOBUFS
+To:     Pablo Neira Ayuso <pablo@netfilter.org>
+Cc:     fw@strlen.de, netdev@vger.kernel.org, linux-man@vger.kernel.org,
+        David Teigland <teigland@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Florian,
+Hi Pablo,
 
-On 3/5/21 11:21 AM, Florian Weimer wrote:
-> * Alejandro Colomar:
->> Florian, should I file a bug in glibc's bugzilla?
-> 
-> I don't know.  SUSv2 has (void *func) (), which would make this a glibc
-> bug.  I'm not sure if I have easy access to POSIX.1 from 2001, which I
-> believe still has this function.
-> 
-> I am not sure if all glibc implementations of makecontext can be used to
-> call variadic functions.
+I appreciate your very detailed response. Thank you.
 
-I reported the bug: <https://sourceware.org/bugzilla/show_bug.cgi?id=27523>
+On Thu, Mar 4, 2021 at 10:04 PM Pablo Neira Ayuso <pablo@netfilter.org> wrote:
+>
+> Hi Alexander,
+>
+> On Thu, Mar 04, 2021 at 03:57:28PM -0500, Alexander Aring wrote:
+> > This patch adds a note to the netlink manpage that if NETLINK_NO_ENOBUFS
+> > is set there is no additional handling to make netlink reliable. It just
+> > disables the error notification.
+>
+> A bit more background on this toggle.
+>
+> NETLINK_NO_ENOBUFS also disables netlink broadcast congestion control
+> which kicks in when the socket buffer gets full. The existing
+> congestion control algorithm keeps dropping netlink event messages
+> until the queue is emptied. Note that it might take a while until your
+> userspace process fully empties the socket queue that is congested
+> (and during that time _your process is losing every netlink event_).
+>
+> The usual approach when your process hits ENOBUFS is to resync via
+> NLM_F_DUMP unicast request. However, getting back to sync with the
+> kernel subsystem might be expensive if the number of items that are
+> exposed via netlink is huge.
+>
+> Note that some people select very large socket buffer queue for
+> netlink sockets when they notice ENOBUFS. This might however makes
+> things worse because, as I said, congestion control drops every
+> netlink message until the queue is emptied. Selecting a large socket
+> buffer might help to postpone the ENOBUFS error, but once your process
+> hits ENOBUFS, then the netlink congestion control kicks in and you
+> will make you lose a lot of event messages (until the queue is empty
+> again!).
+>
+> So NETLINK_NO_ENOBUFS from userspace makes sense if:
+>
+> 1) You are subscribed to a netlink broadcast group (so it does _not_
+>    make sense for unicast netlink sockets).
+> 2) The kernel subsystem delivers the netlink messages you are
+>    subscribed to from atomic context (e.g. network packet path, if
+>    the netlink event is triggered by network packets, your process
+>    might get spammed with a lot of netlink messages in little time,
+>    depending on your network workload).
+> 3) Your process does not want to resync on lost netlink messages.
+>    Your process assumes that events might get lost but it does not
+>    case / it does not want to make any specific action in such case.
+> 4) You want to disable the netlink broadcast congestion control.
+>
+> To provide an example kernel subsystem, this toggle can be useful with
+> the connection tracking system, when monitoring for new connection
+> events in a soft real-time fashion.
+>
 
-Thanks,
+Can we just copy paste your above list and the connection tracking
+example into the netlink manpage? I think it's good to have a
+checklist like that to see if this option fits.
 
-Alex
+> > The used word "avoid" receiving ENOBUFS errors can be interpreted
+> > that netlink tries to do some additional queue handling to avoid
+> > that such scenario occurs at all, e.g. like zerocopy which tries to
+> > avoid memory copy. However disable is not the right word here as
+> > well that in some cases ENOBUFS can be still received. This patch
+> > makes clear that there will no additional handling to put netlink in
+> > a more reliable mode.
+>
+> Right, the NETLINK_NO_ENOBUFS toggle alone itself is not making
+> netlink more reliable for the broadcast scenario, it just changes the
+> way it netlink broadcast deals with congestion: userspace process gets
+> no reports on lost messages and netlink congestion control is
+> disabled.
+>
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+Just out of curiosity:
+
+If I understand correctly, the connection tracking netlink interface
+is an exception here because it has its own handling of dealing with
+congestion ("more reliable"?) so you need to disable the "default
+congestion control"?
+Does connection tracking always do it's own congestion algorithm, so
+it's recommended to turn NETLINK_NO_ENOBUFS on when using it?
+
+Thanks.
+
+- Alex
+
