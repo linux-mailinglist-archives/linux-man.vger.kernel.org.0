@@ -2,101 +2,98 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C1DD232F6F1
-	for <lists+linux-man@lfdr.de>; Sat,  6 Mar 2021 00:52:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2D5D632F720
+	for <lists+linux-man@lfdr.de>; Sat,  6 Mar 2021 01:11:06 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229965AbhCEXvm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 5 Mar 2021 18:51:42 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42278 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229976AbhCEXvf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 5 Mar 2021 18:51:35 -0500
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E9C1C06175F
-        for <linux-man@vger.kernel.org>; Fri,  5 Mar 2021 15:51:34 -0800 (PST)
-Received: by mail-wm1-x32a.google.com with SMTP id a25-20020a1cf0190000b029010b1cbe2dd0so243071wmb.2
-        for <linux-man@vger.kernel.org>; Fri, 05 Mar 2021 15:51:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=kNrbVVsaOoZV8hT/c+Lam8I1mma4ycksLM7kHGce/Ls=;
-        b=kVxU4O4WNn1gXEfiHeB9a2eN62xd2TP8/W9X+Hnzlx9f8SKW8O9u5jjf/+fC3Jm3WQ
-         7kLrs9Zp9IRKUyA3RxRoK1cwi4mKhlFB8EmLq+zhGSBEnGnORflZaegZD59BOQqiRYhC
-         7ZvdruzEZp/ESLSAfjavD6rKCJcDtwTgXDDOi9m8BY8XCqQ9uuD+vaeN1jtb0JtM9/8w
-         1jgXnXIfnSKGcSFTmd76PMsBqlfI7P3cLIQ/6SeuTjwWHHMhrWDn2lE+HAEe3IUIhVie
-         KXuxOCva5s5IjXIkCqXgNGPMdNUqOrDYw1n8aATHUz4RAMB7gIHPZ1w9XNJordqk1VgN
-         AjuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=kNrbVVsaOoZV8hT/c+Lam8I1mma4ycksLM7kHGce/Ls=;
-        b=pOL1BCg+j8efDpb2fPGq+Cz4laMRroJaE6m77vr1PNX419R8wh5mF9+EkUAuR7SYdh
-         JlMuVV/eMSLavcNsJlAkURgUgXRc9uM8ZqXEmxBJxf++NlBZV48aWRSZkvb4pqmamw1A
-         3/iQTaXWTc0XOSY0XsESHej9yqBTftFKUR1QupvUU2lqTJdxVMDZKmtgwHG+9Y9GBuhK
-         e7RfGSFgYy93kzxZT/VazDaxvENKOTvjWXs6EQeXj/cLZh19ITFHYRrmckaMUern4JdW
-         q561mL6sB5gnmMrflM/1aiUNU4loJ3eoOWF3bb1QBMXeyZ3J4ZkxJUlN6oeuzZ3Ux4GE
-         hSyQ==
-X-Gm-Message-State: AOAM530vvv4LNIOsvl0TqqbiTXpXKIx4htTTiaYDB3yOeNON1uuPTiiC
-        ZDnWlwC2+sjK1RucLQdDkeo=
-X-Google-Smtp-Source: ABdhPJzChU4Z8uFyGavZgi4wLI9KcqDtFhOLrPTT9kmBNbQsR5E6Nw7AEWgZIkVk9bipG1ia6nKBEw==
-X-Received: by 2002:a7b:cdf7:: with SMTP id p23mr11135807wmj.26.1614988293498;
-        Fri, 05 Mar 2021 15:51:33 -0800 (PST)
-Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id f7sm7219835wrm.36.2021.03.05.15.51.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Mar 2021 15:51:33 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 22/22] pthread_attr_setguardsize.3: SYNOPSIS: Use 'restrict' in prototypes
-Date:   Sat,  6 Mar 2021 00:51:06 +0100
-Message-Id: <20210305235105.177359-23-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.30.1.721.g45526154a5
-In-Reply-To: <20210305235105.177359-1-alx.manpages@gmail.com>
-References: <20210305235105.177359-1-alx.manpages@gmail.com>
+        id S229631AbhCFAKY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 5 Mar 2021 19:10:24 -0500
+Received: from correo.us.es ([193.147.175.20]:59954 "EHLO mail.us.es"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S229629AbhCFAKX (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 5 Mar 2021 19:10:23 -0500
+Received: from antivirus1-rhel7.int (unknown [192.168.2.11])
+        by mail.us.es (Postfix) with ESMTP id 24AC9117721
+        for <linux-man@vger.kernel.org>; Sat,  6 Mar 2021 01:10:18 +0100 (CET)
+Received: from antivirus1-rhel7.int (localhost [127.0.0.1])
+        by antivirus1-rhel7.int (Postfix) with ESMTP id 0DDABDA78B
+        for <linux-man@vger.kernel.org>; Sat,  6 Mar 2021 01:10:18 +0100 (CET)
+Received: by antivirus1-rhel7.int (Postfix, from userid 99)
+        id 02B11DA73D; Sat,  6 Mar 2021 01:10:18 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.4.1 (2015-04-28) on antivirus1-rhel7.int
+X-Spam-Level: 
+X-Spam-Status: No, score=-105.9 required=7.5 tests=ALL_TRUSTED,BAYES_50,
+        FORGED_MUA_MOZILLA,NICE_REPLY_A,SMTPAUTH_US2,URIBL_BLOCKED,
+        USER_IN_WELCOMELIST,USER_IN_WHITELIST autolearn=disabled version=3.4.1
+Received: from antivirus1-rhel7.int (localhost [127.0.0.1])
+        by antivirus1-rhel7.int (Postfix) with ESMTP id C8CD1DA722;
+        Sat,  6 Mar 2021 01:10:15 +0100 (CET)
+Received: from 192.168.1.97 (192.168.1.97)
+ by antivirus1-rhel7.int (F-Secure/fsigk_smtp/550/antivirus1-rhel7.int);
+ Sat, 06 Mar 2021 01:10:15 +0100 (CET)
+X-Virus-Status: clean(F-Secure/fsigk_smtp/550/antivirus1-rhel7.int)
+Received: from us.es (unknown [90.77.255.23])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        (Authenticated sender: 1984lsi)
+        by entrada.int (Postfix) with ESMTPSA id AC69E42DF561;
+        Sat,  6 Mar 2021 01:10:15 +0100 (CET)
+Date:   Sat, 6 Mar 2021 01:10:15 +0100
+X-SMTPAUTHUS: auth mail.us.es
+From:   Pablo Neira Ayuso <pablo@netfilter.org>
+To:     Florian Westphal <fw@strlen.de>
+Cc:     Alexander Ahring Oder Aring <aahringo@redhat.com>,
+        netdev@vger.kernel.org, linux-man@vger.kernel.org,
+        David Teigland <teigland@redhat.com>
+Subject: Re: [PATCH resend] netlink.7: note not reliable if NETLINK_NO_ENOBUFS
+Message-ID: <20210306001015.GA1638@salvia>
+References: <20210304205728.34477-1-aahringo@redhat.com>
+ <20210305030437.GA4268@salvia>
+ <CAK-6q+iBhzFVgm5NQaPCZhJ8tEvVVeTt2OAEGH4QkOfHqfYzaA@mail.gmail.com>
+ <20210305203657.GA9426@salvia>
+ <20210305232159.GB10808@breakpoint.cc>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20210305232159.GB10808@breakpoint.cc>
+User-Agent: Mozilla/5.0
+X-Virus-Scanned: ClamAV using ClamSMTP
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Both POSIX and glibc use 'restrict' in pthread_attr_getguardsize().
-Let's use it here too.
+On Sat, Mar 06, 2021 at 12:21:59AM +0100, Florian Westphal wrote:
+> Pablo Neira Ayuso <pablo@netfilter.org> wrote:
+> > > If I understand correctly, the connection tracking netlink interface
+> > > is an exception here because it has its own handling of dealing with
+> > > congestion ("more reliable"?) so you need to disable the "default
+> > > congestion control"?
+> > 
+> > In conntrack, you have to combine NETLINK_NO_ENOBUFS with
+> > NETLINK_BROADCAST_ERROR, then it's the kernel turns on the "more
+> > reliable" event delivery.
+> 
+> The "more reliable" event delivery guarantees that the kernel will
+> deliver at least the DESTROY notification (connection close).
+> 
+> If the userspace program is stuck, kernel has to hold on the expired
+> entries.  Eventually conntrack stops accepting new connections because
+> the table is full.
+> 
+> So this feature can't be recommended as a best-practice for conntrack
+> either.
 
-.../glibc$ grep_glibc_prototype pthread_attr_getguardsize
-sysdeps/htl/pthread.h:180:
-extern int pthread_attr_getguardsize (const pthread_attr_t *__restrict __attr,
-				      size_t *__restrict __guardsize)
-	__THROW __nonnull ((1, 2));
-sysdeps/nptl/pthread.h:283:
-extern int pthread_attr_getguardsize (const pthread_attr_t *__attr,
-				      size_t *__guardsize)
-     __THROW __nonnull ((1, 2));
-.../glibc$
+There are two use-cases for this:
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man3/pthread_attr_setguardsize.3 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+- If you run conntrackd and you really want to sure you backup firewall
+  does not get out of sync.
 
-diff --git a/man3/pthread_attr_setguardsize.3 b/man3/pthread_attr_setguardsize.3
-index 94d900ef5..ca225d1e5 100644
---- a/man3/pthread_attr_setguardsize.3
-+++ b/man3/pthread_attr_setguardsize.3
-@@ -33,8 +33,8 @@ attribute in thread attributes object
- .PP
- .BI "int pthread_attr_setguardsize(pthread_attr_t *" attr \
- ", size_t " guardsize );
--.BI "int pthread_attr_getguardsize(const pthread_attr_t *" attr ,
--.BI "                              size_t *" guardsize );
-+.BI "int pthread_attr_getguardsize(const pthread_attr_t *restrict " attr ,
-+.BI "                              size_t *restrict " guardsize );
- .PP
- Compile and link with \fI\-pthread\fP.
- .fi
--- 
-2.30.1.721.g45526154a5
+- If you run ulogd2 and you want to make sure your connection log is
+  complete (no events got lost).
 
+In both cases, this might comes at the cost of dropping packets if the
+table gets full. So it's placing the pressure on the conntrack side.
+With the right policy you could restrict the number of connection per
+second.
+
+I agree though that combination of NETLINK_NO_ENOBUFS and
+NETLINK_BROADCAST_ERROR only makes sense for very specific use-cases.
