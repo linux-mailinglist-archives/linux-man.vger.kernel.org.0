@@ -2,159 +2,141 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id ACBB8330014
-	for <lists+linux-man@lfdr.de>; Sun,  7 Mar 2021 11:21:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E9CDD330464
+	for <lists+linux-man@lfdr.de>; Sun,  7 Mar 2021 21:00:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231519AbhCGKUh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 7 Mar 2021 05:20:37 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33030 "EHLO
+        id S232772AbhCGUAM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 7 Mar 2021 15:00:12 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45004 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231357AbhCGKUf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 7 Mar 2021 05:20:35 -0500
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com [IPv6:2a00:1450:4864:20::62a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 96D35C06174A
-        for <linux-man@vger.kernel.org>; Sun,  7 Mar 2021 02:20:34 -0800 (PST)
-Received: by mail-ej1-x62a.google.com with SMTP id bm21so13962566ejb.4
-        for <linux-man@vger.kernel.org>; Sun, 07 Mar 2021 02:20:34 -0800 (PST)
+        with ESMTP id S232744AbhCGT7s (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 7 Mar 2021 14:59:48 -0500
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6FCA3C06174A
+        for <linux-man@vger.kernel.org>; Sun,  7 Mar 2021 11:59:48 -0800 (PST)
+Received: by mail-wm1-x32e.google.com with SMTP id l22so4818372wme.1
+        for <linux-man@vger.kernel.org>; Sun, 07 Mar 2021 11:59:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=NOo8U6op+2T9U3p7CZtg6Ss7KcuNHFpRUiG2SVk2n5g=;
-        b=kxJs2YVcOupAeCyVJf/+VjoRSriUUzutG95gydq4vbaltDk4sXDXwwYeGwPv/ADxeL
-         p5wIaSLDnMTti0YtwiQaDcPi6gmAnBVRVAJ3A6eITuZlK9bftAdItlXJLSuBD4UHznYt
-         u1EVRJX9emLNTkkfu+1OCp5RIsDqtK5A9GuclU6uQdzyDNAuA7mJziiwzW5PECSenjJE
-         BW/G52UIA+WA51bPVMZjH1xbMXjZt/mQWcDaeIt3fkU8ns0r51F4FOR/1sezMRywJCi1
-         /MD3p9452PnwFFobgiQLEY43O7uRTYLlUii75n9tO5es3EhA6M4tr2C+UrhZsYoIy5Pi
-         zHnw==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=bymLzqmS2qDcVYil8xkEGvWqh8xPofddTaMrE1grZWY=;
+        b=tAXGhX8C7wGERX9hImWHRxqu/7cCPFUM6O/ivkd8aFjyuFkNreQAz5RufL5WIFVZmU
+         U5aEwUcm3BVhPkuNO1PNiKfjnIt8JdeaqQGbRRYMON9AKmbuaOROO5S1l4ccsUG5gg9y
+         0HfFBKS4Q3Oa2CXSUV6yE4AjlLwPqO1Zh4FO7bDQbdtPSWCgstMaLH5JiuVZsly22kNj
+         yG6b3QEX3MWq5qvdDecHwd028gsW+xJXxD3KpUdCcoz9HqGi72/vr3rkuGt4grexhHTl
+         M91lbCaO78lAXddCu+xboM4+Y30JGT/cYvTNJF6oICS39dkRwvxrN56tF93BkkgU2H+g
+         m+AA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=NOo8U6op+2T9U3p7CZtg6Ss7KcuNHFpRUiG2SVk2n5g=;
-        b=bqobjqp19RbcMe9GMYL29yIv7WNPyE0Lq3FZrRZ8ZXeD8i+2Lpnts83UDXpqJJUFwh
-         qnlKONi4mfbIFUvTIdG8JzBPe8R3N22i4pULZcIv+HSDr7O7YqH9FKdcqsi2GqnXj3aM
-         r7yHBvJCjiDrcT0uEQml2ZFKfSxz3IJzBkddT+42wfn3mzrYtu53gWXIdgzqIzCFdQ1P
-         GNwiFf5YH3pPSunowBc+GFGeGeNTgyKJ/PdcjY1sABq38qvZI1m+KXxtQP4FytieaY5f
-         99088+UU80uoxUUYq2vD3/+RBnp/UXRdu2zGMGZmWuqU83JF3ILPkQq7RVDP+5S3/pU+
-         u7tQ==
-X-Gm-Message-State: AOAM531uT/m0Ub2Dz4XQg5NWG9g9zML3vx1EBye7RdiE1cXq1DSOvQpA
-        dEv/fwQfHiIylLhN9j8autk=
-X-Google-Smtp-Source: ABdhPJypzCWXlhipcFnciU19pqJgvgoyoDFTfTVyjwXDwwq6TOGRQ/2abx3/nvetD3SaCz/g+0NoAQ==
-X-Received: by 2002:a17:906:558:: with SMTP id k24mr10354350eja.387.1615112433308;
-        Sun, 07 Mar 2021 02:20:33 -0800 (PST)
-Received: from ?IPv6:2001:a61:3a2d:1d01:e14:1e8b:dca4:7d73? ([2001:a61:3a2d:1d01:e14:1e8b:dca4:7d73])
-        by smtp.gmail.com with ESMTPSA id mc2sm4619166ejb.115.2021.03.07.02.20.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 07 Mar 2021 02:20:32 -0800 (PST)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        libc-alpha@sourceware.org, Heinrich Schuchardt <xypron.glpk@gmx.de>
-Subject: Re: [PATCH 00/22] man3: SYNOPSIS: Use 'restrict' in prototypes (batch
- 3)
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20210305235105.177359-1-alx.manpages@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <77b66f47-aac0-7de2-9a20-d24e442cc6e3@gmail.com>
-Date:   Sun, 7 Mar 2021 11:20:29 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+        bh=bymLzqmS2qDcVYil8xkEGvWqh8xPofddTaMrE1grZWY=;
+        b=qzCczObLwOJsQey6K132APmcvdZE2qpqmg4XEZ2j38pJaBzhAMQ8QLLATSLOcVDA6F
+         tO9t15xd+2Z3L/VYFCec6gEsh1qh9M2CgfT65YtdrvT4Yen0uHC4OqIe+tMu9FWt1H20
+         ylr3o3RC+1XzO7go/702HkzEeALEb850f7aOijDbssGOy/iXQST6YZCsuuX/MF0IxlY4
+         vDvMG0AYDTt4VDc6UxKBevPPK9dY349mw+7iU8RFa9Z69NhJWwsE8EW3xAPcHfXHPNmD
+         7S94hY2q1/NrJzuE3yA0Uh0oMMUTAZKIv6TIG9DXIcLmPB5sDK0GRm2IjPkpY417TAR4
+         9+rQ==
+X-Gm-Message-State: AOAM530AgbRgK2huvD8M5TB6mT893SNfZCd7DIqeAybSxaI/gPnmaFFx
+        9d3As/szzDlGq5sn95kTyxhkI42nl2E=
+X-Google-Smtp-Source: ABdhPJwD4rrBh+AfPPdgfHbI+/wPnU6/f2HM6ZQDM0FVZGI0md5t9O8JMQ5P+wt2TA8Hs+rJb6ZLhw==
+X-Received: by 2002:a05:600c:409:: with SMTP id q9mr19257257wmb.105.1615147187085;
+        Sun, 07 Mar 2021 11:59:47 -0800 (PST)
+Received: from localhost.localdomain ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id k11sm15008200wmj.1.2021.03.07.11.59.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 07 Mar 2021 11:59:46 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, Stefan Puiu <stefan.puiu@gmail.com>,
+        Walter Harms <wharms@bfs.de>
+Subject: [PATCH] scripts/bash_aliases: Make man_lsfunc() more robust; Add sed_rm_ccomments().
+Date:   Sun,  7 Mar 2021 20:56:23 +0100
+Message-Id: <20210307195622.1140064-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.30.1
 MIME-Version: 1.0
-In-Reply-To: <20210305235105.177359-1-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+This patch makes man_lsfunc() search for the function prototypes,
+instead of relying on the current manual page formatting,
+which might change in the future, and break this function.
+It also simplifies the code, by reusing man_section().
 
-On 3/6/21 12:50 AM, Alejandro Colomar wrote:
-> Hi Michael,
-> 
-> This fixes up to pthread_attr_setguardsize.3 to use 'restrict'.
+As a side effect, this change fixed some corner cases, where this
+function failed to find a function, or listed a wrong function.
 
-Thanks!
+Create a new function sed_rm_ccomments(), which is needed by
+man_lsfunc(), and may also be useful in other cases.
 
-> Please have a special look at printf.3, because of the ffix.
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+ scripts/bash_aliases | 40 ++++++++++++++++++++++------------------
+ 1 file changed, 22 insertions(+), 18 deletions(-)
 
-It looks okay to me.
-
-> Also, I included in this patchset one patch about 'volatile': malloc_hook.3.
-> I introduced it by accident into this patch set,
-> and I'm too lazy to remove it :P
-
-Okay.
-
-> I have no other patches related to 'volatile' pending.
-> If you think it's likely that there are more cases, please tell me,
-> and I'll try to have a look (I'd have to create a list of
-> man[23] variables for that, similar to man_lsfunc()).
-
-I'm not aware of other 'volatile' cases.
-
-> 
-> Cheers,
-> 
-> Alex
-> 
-> Alejandro Colomar (22):
->   getservent_r.3: SYNOPSIS: Use 'restrict' in prototypes
->   getsubopt.3: SYNOPSIS: Use 'restrict' in prototypes
->   glob.3: SYNOPSIS: Use 'restrict' in prototypes
->   iconv.3: SYNOPSIS: Use 'restrict' in prototypes
->   inet_ntop.3: SYNOPSIS: Use 'restrict' in prototypes
->   inet_pton.3: SYNOPSIS: Use 'restrict' in prototypes
->   lio_listio.3: SYNOPSIS: Use 'restrict' in prototypes
->   makecontext.3: SYNOPSIS: Use 'restrict' in prototypes
->   malloc_hook.3: SYNOPSIS: Use 'volatile' in prototypes
->   mbrlen.3: SYNOPSIS: Use 'restrict' in prototypes
->   mbrtowc.3: SYNOPSIS: Use 'restrict' in prototypes
->   mbsnrtowcs.3: SYNOPSIS: Use 'restrict' in prototypes
->   mbsrtowcs.3: SYNOPSIS: Use 'restrict' in prototypes
->   mbstowcs.3: SYNOPSIS: Use 'restrict' in prototypes
->   mbtowc.3: SYNOPSIS: Use 'restrict' in prototypes
->   mempcpy.3: SYNOPSIS: Use 'restrict' in prototypes
->   mq_getattr.3: SYNOPSIS: Use 'restrict' in prototypes
->   mq_receive.3: SYNOPSIS: Use 'restrict' in prototypes
->   posix_spawn.3: SYNOPSIS: Use 'restrict' in prototypes
->   posix_spawn.3: SYNOPSIS: Use 'restrict' in prototypes
->   printf.3: SYNOPSIS: Use 'restrict' in prototypes; ffix too
->   pthread_attr_setguardsize.3: SYNOPSIS: Use 'restrict' in prototypes
-
-I've applied all of these.
-
-Thanks!
-
-Michael
-
->  man3/getservent_r.3              | 21 +++++++++++++--------
->  man3/getsubopt.3                 |  4 ++--
->  man3/glob.3                      |  4 ++--
->  man3/iconv.3                     |  4 ++--
->  man3/inet_ntop.3                 |  4 ++--
->  man3/inet_pton.3                 |  3 ++-
->  man3/lio_listio.3                |  4 ++--
->  man3/makecontext.3               |  6 ++++--
->  man3/malloc_hook.3               | 10 +++++-----
->  man3/mbrlen.3                    |  3 ++-
->  man3/mbrtowc.3                   |  5 +++--
->  man3/mbsnrtowcs.3                |  5 +++--
->  man3/mbsrtowcs.3                 |  4 ++--
->  man3/mbstowcs.3                  |  3 ++-
->  man3/mbtowc.3                    |  3 ++-
->  man3/mempcpy.3                   |  7 +++++--
->  man3/mq_getattr.3                |  4 ++--
->  man3/mq_receive.3                |  6 +++---
->  man3/posix_spawn.3               | 18 ++++++++++--------
->  man3/printf.3                    | 29 ++++++++++++++++++-----------
->  man3/pthread_attr_setguardsize.3 |  4 ++--
->  21 files changed, 88 insertions(+), 63 deletions(-)
-> 
-
-
+diff --git a/scripts/bash_aliases b/scripts/bash_aliases
+index d9b6047d1..12fb203e1 100644
+--- a/scripts/bash_aliases
++++ b/scripts/bash_aliases
+@@ -20,6 +20,21 @@
+ EX_OK=0;
+ EX_USAGE=64;
+ 
++########################################################################
++#	C
++
++#  sed_rm_ccomments()  removes C comments.
++# It can't handle multiple comments in a sinlge line correctly,
++# nor mixed or embedded //... and /*...*/ comments.
++# Use as a filter (see man_lsfunc() in this file).
++
++function sed_rm_ccomments()
++{
++	sed 's%/\*.*\*/%%' \
++	|sed -r '\%/\*%,\%\*/%{\%(\*/|/\*)%!d; s%/\*.*%%; s%.*\*/%%;}' \
++	|sed 's%//.*%%';
++}
++
+ ########################################################################
+ #	Linux kernel
+ 
+@@ -106,25 +121,14 @@ function man_lsfunc()
+ 		return ${EX_USAGE};
+ 	fi
+ 
+-	find "${@}" -type f \
+-	|xargs grep -l "\.SH SYNOPSIS" \
+-	|sort -V \
+-	|while read -r manpage; do
+-		<${manpage} \
+-		sed -n \
+-			-e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
+-			-e "/^\.SH SYNOPSIS/p" \
+-			-e "/^\.SH SYNOPSIS/,/^\.SH/{/^\.SH/!p}" \
+-		|sed \
+-			-e '/Feature/,$d' \
+-			-e '/{/,/}/d' \
+-		|man -P cat -l - 2>/dev/null;
++	for arg in "$@"; do
++		man_section "${arg}" "SYNOPSIS";
+ 	done \
+-	|sed -n "/^SYNOPSIS/,/^\w/p" \
+-	|grep '^       \w' \
+-	|grep -v ':' \
+-	|sed 's/^[^(]* \**\(\w*\)(.*/\1/' \
+-	|grep '^\w' \
++	|sed_rm_ccomments \
++	|pcregrep -Mn \
++	  "(?s)^ [\w ]+ \**\w+\([\w\s(,)[\]*]+?(...)?\s*\); *$" \
++	|grep '^[0-9]' \
++	|sed -r 's/^[^(]+ +\**(\w+)\(.*/\1/' \
+ 	|uniq;
+ }
+ 
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.30.1
+
