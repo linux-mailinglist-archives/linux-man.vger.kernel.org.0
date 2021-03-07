@@ -2,165 +2,150 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B429D330476
-	for <lists+linux-man@lfdr.de>; Sun,  7 Mar 2021 21:22:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2456A330485
+	for <lists+linux-man@lfdr.de>; Sun,  7 Mar 2021 21:29:07 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231934AbhCGUWD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 7 Mar 2021 15:22:03 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49652 "EHLO
+        id S232861AbhCGU20 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 7 Mar 2021 15:28:26 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50960 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232845AbhCGUVl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 7 Mar 2021 15:21:41 -0500
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0A8E2C06174A
-        for <linux-man@vger.kernel.org>; Sun,  7 Mar 2021 12:21:41 -0800 (PST)
-Received: by mail-wm1-x32e.google.com with SMTP id u187so4819963wmg.4
-        for <linux-man@vger.kernel.org>; Sun, 07 Mar 2021 12:21:40 -0800 (PST)
+        with ESMTP id S232858AbhCGU1v (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 7 Mar 2021 15:27:51 -0500
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E5F36C06174A
+        for <linux-man@vger.kernel.org>; Sun,  7 Mar 2021 12:27:50 -0800 (PST)
+Received: by mail-wm1-x334.google.com with SMTP id r10-20020a05600c35cab029010c946c95easo2515200wmq.4
+        for <linux-man@vger.kernel.org>; Sun, 07 Mar 2021 12:27:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Z5P7hhyv4SXUnGmmpcC/qpx+sJx43MpT3lwW+3uU9bU=;
-        b=ElUNf7fiT14gOqVZPObV4bom/9KpBw9/A33ejYC+sXDwI5CzI6jVYB620W6yRN+pO8
-         Ddhp1+yjZY9SkhAJON8Ii8B6jT0qt+wJvIjsFfOEQhYXyc2Ky/cf6X0//veun9B1vMSb
-         tnX6jGIsiM0fpxi40lvdLEkg83RunUGYjJ7fwN9hf+57L+E9k4Zahdxu/uTLeiDFP0G6
-         HKbjh2BTH+rM2D5XXf7NQhbzVPHD5J72GlXx88KARBzY/WOcgwc7WTjWhiU8npgoaLcR
-         vQ8Gtitv5FmPMj1ZZQHXJqejUtiQiQfjph4MshM91sKtgcbm5ihIqO3NbX67eDCGwRzg
-         3WFA==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=cccHNo49J/XaeQjPwbSlBj/4kh4QbBBnORfWWb2I8sY=;
+        b=C3ojgbb5JARkhZnbiEJrUtleGyhF6vf9gJ7SzNd8TC5vBCAjkjJXqGnK6Ter2dZb2i
+         5KUHK5JYakMb/LlaqBiMI/FmktUQRCbb6AvC8urmvHGXqkBfcUvkHgqDBjCSGtcA5mK0
+         mC8b//gKhz68IgZzkw9S9mLnknMu82dwedfU3p8L0TrQmKTVrrg0WfEkgeY3B6EJ4g2G
+         /FSJSohktY/NkmQQQ/+q55FNP878gkY89ZKxCE5I2Ln9Gs3SgK20i6KZBKd/IVFTcLK7
+         NZD9zyY1Dh7xvBj4dirLxBfzGaO7sf5RXJ7kSC2FoQ6nDEAjmC73T5A+So9L+EpXrLIQ
+         JcAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=Z5P7hhyv4SXUnGmmpcC/qpx+sJx43MpT3lwW+3uU9bU=;
-        b=oJ8IEt8lTG/k9kWqeQ4FH1J/K47ei4utNs8vi9DaBeTWJJi0Hukhj55wDZb9A7Qbwj
-         LJkEubMv7JItt70Y3m3gQUZl6PRtkptJuCZ/IWW3iIhxU/kOUQULmvX64BPFSzmDUe6W
-         u2MaGjQ2K/U3SfUamGloTrlxU03+qcwe2VsOVPzzhJEXEqO8E28wfSrzmQN+QBJnBLUB
-         DEuiayBfolFthx6d87wPiK9Hsr3r6+Z+W9mnP8Dvm2ApSbaSyQk5e/yLQTGcXW4PPIVN
-         Avd1pNz4HNpIyhfvarkjSZMgixiZ44NZOjgiqGEXumgPUb2eUhF9K9uTPc3+B/k8QHC2
-         lIGg==
-X-Gm-Message-State: AOAM532qaaOjj3JPunnVEoFZrAGYnHlquzGnJLzXEL8g5oIdPyXiDZBj
-        OiettFp4+QUiVh5PEXkstHk=
-X-Google-Smtp-Source: ABdhPJydnCNzM88J5rtgV4mACeYfxxdh4+l2TWWNvW9JO/R+EBhu3Ti3USFgP7TJGLvPugEkH6KfnA==
-X-Received: by 2002:a1c:c904:: with SMTP id f4mr19394622wmb.14.1615148499821;
-        Sun, 07 Mar 2021 12:21:39 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id h6sm10137549wmi.6.2021.03.07.12.21.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 07 Mar 2021 12:21:39 -0800 (PST)
-Subject: Re: [PATCH] scripts/bash_aliases: Make man_lsfunc() more robust; Add
- sed_rm_ccomments().
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=cccHNo49J/XaeQjPwbSlBj/4kh4QbBBnORfWWb2I8sY=;
+        b=tBquECtGe+Hi2fXrpMvcVhvuCuQb1U65oduU6CxAoa6UGsnYZ1oUwN5TAX9xlaOnR7
+         UaOHkzwE99+1oOkL/CewNBoIhiAxL+RhGr/Sn0C3rF8xfzZDTYBEkN5/xFOl6YmhCTzg
+         t9Wv6ML3cLJSF8S1xQsAvXxQkhjvR6kYeTsFUx2pG5Sobq4YvXC6Qxc1y9YubZXkQ68v
+         9AchJvuN0KrYiuNtdTCVcIGqnZ2bhk2ippuAXJSg+RY3yjMhbkOShdiW2RyG/GA3enej
+         SlkJkObaYVKO3vZTfUZX1PR9uDoGe3Xdo2JBCFpXjtFAx7Q29pmiOT2zf2W/jM9oDQhm
+         fozA==
+X-Gm-Message-State: AOAM532EYu7z+W73IJM73InvCclB0qOrPhp7F0dfEzPXQgXJOilZ2IwF
+        e+L04UjpwBqnGi35p4tOkpY=
+X-Google-Smtp-Source: ABdhPJyOS9c1SMDngAvUuDd/3ShV2uebgoauLfyxMsl1Zs1KB1sl3nI6FLtoFGih04kQ+JOKvH9kZQ==
+X-Received: by 2002:a05:600c:47d7:: with SMTP id l23mr19344593wmo.155.1615148869602;
+        Sun, 07 Mar 2021 12:27:49 -0800 (PST)
+Received: from localhost.localdomain ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id v2sm11664683wmj.1.2021.03.07.12.27.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 07 Mar 2021 12:27:49 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, Stefan Puiu <stefan.puiu@gmail.com>,
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, Stefan Puiu <stefan.puiu@gmail.com>,
         Walter Harms <wharms@bfs.de>
-References: <20210307195622.1140064-1-alx.manpages@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <b5796de8-fdaf-2315-8957-a04612f93b18@gmail.com>
-Date:   Sun, 7 Mar 2021 21:21:38 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
+Subject: [PATCH v2] scripts/bash_aliases: Make man_lsfunc() more robust; Add sed_rm_ccomments().
+Date:   Sun,  7 Mar 2021 21:26:35 +0100
+Message-Id: <20210307202634.1215744-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.30.1
 In-Reply-To: <20210307195622.1140064-1-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20210307195622.1140064-1-alx.manpages@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This patch makes man_lsfunc() search for the function prototypes,
+instead of relying on the current manual page formatting,
+which might change in the future, and break this function.
+
+It also simplifies the code, by reusing man_section().
+
+Create a new function sed_rm_ccomments(), which is needed by
+man_lsfunc(), and may also be useful in other cases.
+
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+
 Hi Michael,
 
-Please fix some minor things for me (see below).
+Never mind the previous email.  I fixed it and merged two lines that
+could be merged.
 
-Thanks,
+Regards,
 
 Alex
 
-On 3/7/21 8:56 PM, Alejandro Colomar wrote:
-> This patch makes man_lsfunc() search for the function prototypes,
-> instead of relying on the current manual page formatting,
-> which might change in the future, and break this function.
-> It also simplifies the code, by reusing man_section().
-> 
-> As a side effect, this change fixed some corner cases, where this
-> function failed to find a function, or listed a wrong function.
-> 
-> Create a new function sed_rm_ccomments(), which is needed by
-> man_lsfunc(), and may also be useful in other cases.
-> 
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> ---
->  scripts/bash_aliases | 40 ++++++++++++++++++++++------------------
->  1 file changed, 22 insertions(+), 18 deletions(-)
-> 
-> diff --git a/scripts/bash_aliases b/scripts/bash_aliases
-> index d9b6047d1..12fb203e1 100644
-> --- a/scripts/bash_aliases
-> +++ b/scripts/bash_aliases
-> @@ -20,6 +20,21 @@
->  EX_OK=0;
->  EX_USAGE=64;
->  
-> +########################################################################
-> +#	C
-> +
-> +#  sed_rm_ccomments()  removes C comments.
-> +# It can't handle multiple comments in a sinlge line correctly,
-> +# nor mixed or embedded //... and /*...*/ comments.
-> +# Use as a filter (see man_lsfunc() in this file).
-> +
-> +function sed_rm_ccomments()
-> +{
-> +	sed 's%/\*.*\*/%%' \
-> +	|sed -r '\%/\*%,\%\*/%{\%(\*/|/\*)%!d; s%/\*.*%%; s%.*\*/%%;}' \
-> +	|sed 's%//.*%%';
-> +}
-> +
->  ########################################################################
->  #	Linux kernel
->  
-> @@ -106,25 +121,14 @@ function man_lsfunc()
->  		return ${EX_USAGE};
->  	fi
->  
-> -	find "${@}" -type f \
-> -	|xargs grep -l "\.SH SYNOPSIS" \
-> -	|sort -V \
-> -	|while read -r manpage; do
-> -		<${manpage} \
-> -		sed -n \
-> -			-e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
-> -			-e "/^\.SH SYNOPSIS/p" \
-> -			-e "/^\.SH SYNOPSIS/,/^\.SH/{/^\.SH/!p}" \
-> -		|sed \
-> -			-e '/Feature/,$d' \
-> -			-e '/{/,/}/d' \
-> -		|man -P cat -l - 2>/dev/null;
-> +	for arg in "$@"; do
-> +		man_section "${arg}" "SYNOPSIS";
+ scripts/bash_aliases | 39 +++++++++++++++++++++------------------
+ 1 file changed, 21 insertions(+), 18 deletions(-)
 
-s/"SYNOPSIS"/'SYNOPSIS'/
-
->  	done \
-> -	|sed -n "/^SYNOPSIS/,/^\w/p" \
-> -	|grep '^       \w' \
-> -	|grep -v ':' \
-> -	|sed 's/^[^(]* \**\(\w*\)(.*/\1/' \
-> -	|grep '^\w' \
-> +	|sed_rm_ccomments \
-> +	|pcregrep -Mn \
-> +	  "(?s)^ [\w ]+ \**\w+\([\w\s(,)[\]*]+?(...)?\s*\); *$" \
-
-s/"/'/
-
-> +	|grep '^[0-9]' \
-> +	|sed -r 's/^[^(]+ +\**(\w+)\(.*/\1/' \
->  	|uniq;
->  }
->  
-> 
-
+diff --git a/scripts/bash_aliases b/scripts/bash_aliases
+index d9b6047d1..ba6544a97 100644
+--- a/scripts/bash_aliases
++++ b/scripts/bash_aliases
+@@ -20,6 +20,21 @@
+ EX_OK=0;
+ EX_USAGE=64;
+ 
++########################################################################
++#	C
++
++#  sed_rm_ccomments()  removes C comments.
++# It can't handle multiple comments in a sinlge line correctly,
++# nor mixed or embedded //... and /*...*/ comments.
++# Use as a filter (see man_lsfunc() in this file).
++
++function sed_rm_ccomments()
++{
++	sed 's%/\*.*\*/%%' \
++	|sed -r '\%/\*%,\%\*/%{\%(\*/|/\*)%!d; s%/\*.*%%; s%.*\*/%%;}' \
++	|sed 's%//.*%%';
++}
++
+ ########################################################################
+ #	Linux kernel
+ 
+@@ -106,25 +121,13 @@ function man_lsfunc()
+ 		return ${EX_USAGE};
+ 	fi
+ 
+-	find "${@}" -type f \
+-	|xargs grep -l "\.SH SYNOPSIS" \
+-	|sort -V \
+-	|while read -r manpage; do
+-		<${manpage} \
+-		sed -n \
+-			-e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
+-			-e "/^\.SH SYNOPSIS/p" \
+-			-e "/^\.SH SYNOPSIS/,/^\.SH/{/^\.SH/!p}" \
+-		|sed \
+-			-e '/Feature/,$d' \
+-			-e '/{/,/}/d' \
+-		|man -P cat -l - 2>/dev/null;
++	for arg in "$@"; do
++		man_section "${arg}" 'SYNOPSIS';
+ 	done \
+-	|sed -n "/^SYNOPSIS/,/^\w/p" \
+-	|grep '^       \w' \
+-	|grep -v ':' \
+-	|sed 's/^[^(]* \**\(\w*\)(.*/\1/' \
+-	|grep '^\w' \
++	|sed_rm_ccomments \
++	|pcregrep -Mn '(?s)^ [\w ]+ \**\w+\([\w\s(,)[\]*]+?(...)?\s*\); *$' \
++	|grep '^[0-9]' \
++	|sed -r 's/^[^(]+ +\**(\w+)\(.*/\1/' \
+ 	|uniq;
+ }
+ 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.30.1
+
