@@ -2,80 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C4717330B53
-	for <lists+linux-man@lfdr.de>; Mon,  8 Mar 2021 11:36:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id DB260330B66
+	for <lists+linux-man@lfdr.de>; Mon,  8 Mar 2021 11:40:42 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230125AbhCHKfy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 8 Mar 2021 05:35:54 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34172 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230490AbhCHKfj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 8 Mar 2021 05:35:39 -0500
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 668B1C06175F
-        for <linux-man@vger.kernel.org>; Mon,  8 Mar 2021 02:35:39 -0800 (PST)
-Received: by mail-wm1-x331.google.com with SMTP id u187so5725239wmg.4
-        for <linux-man@vger.kernel.org>; Mon, 08 Mar 2021 02:35:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=to:cc:from:subject:message-id:date:user-agent:mime-version
-         :content-language:content-transfer-encoding;
-        bh=fvmi0Bh7qltlbRodG2epbKLeIiO0ePt3Byi/7Eln5m8=;
-        b=lKDDzq6W1GH2G7KQ7CXwci8jTXotBcBUBlpUhcJQW+AArkjzoGupa+qyL6//wQ16Vp
-         1vldl6zFgjzFKopz/pIibau3adzCI3ChkY5JvT/OaWRhNjm/aqsgl4HkbquJVQNWSttr
-         gpy/SKvpT6hEQcLbT81jOfBO5c7RTwfl6lHzklWlbuMK07r9VS73s/KjsT2hsi/qoPah
-         XpTwGD9lEq5uHMr1fP8kC6gczF8yVbpPT4OKYPgUfGjhOR9YbZ7wI5HYTpx1W5wXdLoA
-         aZHQs8wE0j+goygmC0TA9FmEsjXJqjZCIOv/DcslNL94ns9PC7oBBmTOTrGZnUc5mf+J
-         DNAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=fvmi0Bh7qltlbRodG2epbKLeIiO0ePt3Byi/7Eln5m8=;
-        b=QFchBEXbrwbDcXNUY4SoChnjebI9HM/GS5G5RqARJQGP03rpT3mvGbYHT0dHM8eh0t
-         DRcYnULHASm40gQEKb0lugfz57gYjVZT6iBeQ7KtA4Or2O5Vs2tQ2MqYQu4mMf+t9xY1
-         GVSeLKkYQbWt9HxUJ0qojcQAi33+sp9JHwLK6Pv8Hx301uy4JqpeQi8WyBHc7DYbzk2z
-         Ar1InBJqbgy/+Kobk1sc/44J4KHeSYRwxzknoMwzZfs6e8QVTF000t7NXPfhKqVf+Hdd
-         MQBMJCA0SVSUN3cMYmPR0JdeeuyS+TH08b9/CZT3T2qxOyhoDLot5Y5dSKiOr9zPRBra
-         4ekA==
-X-Gm-Message-State: AOAM531LsycKgZfHEWOeyU3f5za48CIwtHFyXS5VMhz8GqUiLlfsp15i
-        Ppi3ZoFU4lOCmBmQ79MeeSE=
-X-Google-Smtp-Source: ABdhPJzZP4Nl5V2YbfpKkNo2dI7p2O8Kobj2LIxstivzROmF/XyzB8bJjQQuiVVICPOUhfqcl4yC+Q==
-X-Received: by 2002:a1c:7e16:: with SMTP id z22mr21324642wmc.74.1615199738129;
-        Mon, 08 Mar 2021 02:35:38 -0800 (PST)
-Received: from [10.8.0.206] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id k4sm22198166wrd.9.2021.03.08.02.35.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 08 Mar 2021 02:35:37 -0800 (PST)
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>
-Cc:     linux-man <linux-man@vger.kernel.org>, libc-alpha@sourceware.org
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Subject: pthread_cleanup_push_defer_np.3: missing functions in glibc
-Message-ID: <1ee301e5-d3a4-2e0e-3473-6b0eea304266@gmail.com>
-Date:   Mon, 8 Mar 2021 11:35:35 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+        id S230522AbhCHKkL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 8 Mar 2021 05:40:11 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([216.205.24.124]:20222 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S229754AbhCHKjv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 8 Mar 2021 05:39:51 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1615199990;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=1CIB9yigvUtrNvAbR6RGBhBBeX/JGcoxXPGu8/nP2tE=;
+        b=M8Xu/rTUzPrj8i0yjpLebD3NsCs6eUVHoZVINUVO5F+/W6EoFpmduz9BtJRlBOfEOEyb1u
+        WhYinlmZMyqqfbNeW0oC/Zhu9PYOBiv14SkzXw1TggGALewO4ZC1/LFjxvUooAd5KG20PF
+        Q7ZtRMQpyrOFiHqp5d66SBO96zA9oVU=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-1-phFXzTQlPTizXK6SkR9Zvg-1; Mon, 08 Mar 2021 05:39:48 -0500
+X-MC-Unique: phFXzTQlPTizXK6SkR9Zvg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3E94F100541A;
+        Mon,  8 Mar 2021 10:39:47 +0000 (UTC)
+Received: from oldenburg.str.redhat.com (ovpn-112-77.ams2.redhat.com [10.36.112.77])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 01C965F9C2;
+        Mon,  8 Mar 2021 10:39:45 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>, libc-alpha@sourceware.org
+Subject: Re: pthread_cleanup_push_defer_np.3: missing functions in glibc
+References: <1ee301e5-d3a4-2e0e-3473-6b0eea304266@gmail.com>
+Date:   Mon, 08 Mar 2021 11:39:50 +0100
+In-Reply-To: <1ee301e5-d3a4-2e0e-3473-6b0eea304266@gmail.com> (Alejandro
+        Colomar's message of "Mon, 8 Mar 2021 11:35:35 +0100")
+Message-ID: <87mtveexop.fsf@oldenburg.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael, Florian,
+* Alejandro Colomar:
 
-While adding 'restrict' to the prototypes, I found that the functions 
-defined in this page don't exist on glibc (or I couldn't find them).
-I tried removing _np, and still no luck, and 'git log --grep' didn't 
-help either.  Where these functions removed at some point?
+> While adding 'restrict' to the prototypes, I found that the functions
+> defined in this page don't exist on glibc (or I couldn't find them).
+> I tried removing _np, and still no luck, and 'git log --grep' didn't
+> help either.  Where these functions removed at some point?
+
+Yes, they are part of the legacy cancellation implementation that
+predates DWARF unwinding.
 
 Thanks,
+Florian
 
-Alex
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
