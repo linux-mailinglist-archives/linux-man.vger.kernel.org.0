@@ -2,93 +2,114 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B91CA330EED
-	for <lists+linux-man@lfdr.de>; Mon,  8 Mar 2021 14:13:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E16F6331016
+	for <lists+linux-man@lfdr.de>; Mon,  8 Mar 2021 14:55:32 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229674AbhCHNNO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 8 Mar 2021 08:13:14 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40116 "EHLO
+        id S229697AbhCHNzB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 8 Mar 2021 08:55:01 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49260 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229575AbhCHNNG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 8 Mar 2021 08:13:06 -0500
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4E32CC06174A
-        for <linux-man@vger.kernel.org>; Mon,  8 Mar 2021 05:13:05 -0800 (PST)
-Received: by mail-wr1-x42a.google.com with SMTP id f12so11390881wrx.8
-        for <linux-man@vger.kernel.org>; Mon, 08 Mar 2021 05:13:05 -0800 (PST)
+        with ESMTP id S230094AbhCHNyb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 8 Mar 2021 08:54:31 -0500
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 57990C061760
+        for <linux-man@vger.kernel.org>; Mon,  8 Mar 2021 05:54:06 -0800 (PST)
+Received: by mail-wm1-x332.google.com with SMTP id m20-20020a7bcb940000b029010cab7e5a9fso3848163wmi.3
+        for <linux-man@vger.kernel.org>; Mon, 08 Mar 2021 05:54:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=1m3WbR/DD/LtL0POuLNHWncdnvgM5k5WuZc1nE71AiM=;
-        b=hpyd3he3+/0A+2lEU65cCP4xODle7ooHnKDc6Jd2mZOtiVsGAoZDbaqbbn2fTTKUIW
-         UCZ38Qj1aStwHfkYt/sfFfhINXpZJKN9CX6Zt5D3bxsYnGjse9Yc9mS/Qkc8LyWYj1s5
-         7z96qeNhy4R+/KEdN9pz9dyW9eZor7SwVyPAgdHg17yO7w2+SsXeNPhIDMaUgJBUAH6Q
-         SW60L8lwalJF4Bt3gyA4MRciERe4yMyo0bFPfQZK2y+zeBo0iht+vl+tycdpUijo8Sd8
-         43+atrC83pekccNY/qrFmmqkRWBzZf1ReE1onCWu3rKf1ydUGzUa6pUrVi8FEMSpSpmy
-         /3PQ==
+        h=to:cc:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=KnaOej5eS6H338VRbBs+GYk7XtUhtOo+NCg8eqHdwHY=;
+        b=AcgM9kwimmAY4CYumaPspgucsQ7tp/ULyU+jwj1EzPbV8WGfLfoHFXULNuzEaAtiaI
+         IYpq65N9IbeKNBylQJM57UueekFy9T6tun7iRTGLfEvO6EBA5xcNQD7YM6FqtIty8tZU
+         HY/Q13vdi4fp4XnUFBGV25sd08NrSvlP6zpA9SEXKi41KQzzVA6UoW7ifdFvoxhA623+
+         XEOLeUki2hBkCvfjO+A3F/Bi8K9WkZXWD87FgMrv3XyZnjZivpeSE6wieJEEFG2xiEwX
+         UC/oEq801VBR2sSP0eIsGOWcV3sFOTO1kQX0gmCO0YHeELCEmQkk/G352tDX58AL9UYF
+         bwHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=1m3WbR/DD/LtL0POuLNHWncdnvgM5k5WuZc1nE71AiM=;
-        b=bLbNmjKJgRjObanF2u1fBolGLfOTcPVMlTDfgzE1KYBcUmOzYaPqzKZ45iecPzvMFZ
-         LuIOeK6dtTM4sy6h45OEca+puuP7H/HhbflwFXrI4q1532h5Zf1oywQnyALnnsO0BrE1
-         ieAT+p0AW84mz/gdMnuRkjbXfkMd7ET9KeQ1v3dy4lzAgdQdY0coZAiotewQlbQNBEqx
-         Ukh0ix5kTD1cqUcKEQAolVgYxmHxO0ES4O+ciK9KdnTUiAv9XKQFNrnRnwuk444H3oHj
-         YlJkWUE7cH6F4IcGHnCPyzixKoIHOzjcrZgIHiPWw9Q78WxxP9Daw0ywWBoQV4eQ4m/A
-         mdpQ==
-X-Gm-Message-State: AOAM532w+uNaDdcb1sj/EtauZP+WdKQZTb/zpKS4Mb/wi+4L93GYklkV
-        TgemqhbuETQ8zbwcweWf+ESycZMdxMg=
-X-Google-Smtp-Source: ABdhPJyFZdlLDQLLkPAE5VOF5p7ofXTZT9I43JS+HUbD2YA5+Qmy9qlTetNkN1E8jrd1fGegI/yHnA==
-X-Received: by 2002:adf:ecca:: with SMTP id s10mr22082830wro.324.1615209184111;
-        Mon, 08 Mar 2021 05:13:04 -0800 (PST)
+        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=KnaOej5eS6H338VRbBs+GYk7XtUhtOo+NCg8eqHdwHY=;
+        b=RLiayYZieTatDIaQUlegrj0NIE4p4bN2LUhXDhnzYPdl0tL9KuxcQIkvUAqJRmafq3
+         GbQ3/l1AStmdLeu2kIjqgOm5/B6Q60SeSSlALHYROFKimzx5JxLYPagHhGKFjXYqdPsM
+         zRr9kV7wLYNvqTFxVY7NO9Is1jURQCQrlLW6IBfaDLaJDvr7PMSO0XERolPpo2Y4E97Y
+         urtaUS59SKjmOdaBSQg2+Jxat1UrgCMoMMVyvEEi4zFQZJvoncyKx3D/CNHNEKVFOoRd
+         qXDBi9uVBJXSx2nNRwhthq5HPxBEtcu1+QCKbXXXSQTUetkLBydQvjto6h+7aQt2KIaF
+         vmwA==
+X-Gm-Message-State: AOAM533P66P9dFy/G/ykmunfUP9gBJH4si4FIZzjbQvQYbm2Myz8OlAZ
+        XRLimhjtYNcaaT60lZL5QeOwGxrT60Q=
+X-Google-Smtp-Source: ABdhPJwQlIYdbTBpN/M0gpfTxZIGZ1Sg/X1rJyH6GOZOxgI2iI20x9foiw80br3u84WZGYLMZNoBew==
+X-Received: by 2002:a7b:cc0c:: with SMTP id f12mr22385697wmh.137.1615211645130;
+        Mon, 08 Mar 2021 05:54:05 -0800 (PST)
 Received: from [10.8.0.206] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id n6sm19492102wrt.1.2021.03.08.05.13.02
+        by smtp.gmail.com with ESMTPSA id n23sm15369193wra.71.2021.03.08.05.54.03
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 08 Mar 2021 05:13:03 -0800 (PST)
-Subject: Re: pthread_cleanup_push_defer_np.3: missing functions in glibc
-To:     Andreas Schwab <schwab@linux-m68k.org>,
-        "Alejandro Colomar (man-pages) via Libc-alpha" 
-        <libc-alpha@sourceware.org>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>,
-        linux-man <linux-man@vger.kernel.org>
-References: <1ee301e5-d3a4-2e0e-3473-6b0eea304266@gmail.com>
- <87lfax52j3.fsf@igel.home>
+        Mon, 08 Mar 2021 05:54:04 -0800 (PST)
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <5d46fa5b-e4df-8eee-83c9-5585f06299ec@gmail.com>
-Date:   Mon, 8 Mar 2021 14:12:59 +0100
+Subject: Formatting very long function parameters
+Message-ID: <2e686e13-f846-573f-1468-5e652d571e89@gmail.com>
+Date:   Mon, 8 Mar 2021 14:54:01 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <87lfax52j3.fsf@igel.home>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 3/8/21 12:05 PM, Andreas Schwab wrote:
-> On Mär 08 2021, Alejandro Colomar (man-pages) via Libc-alpha wrote:
-> 
->> While adding 'restrict' to the prototypes, I found that the functions
->> defined in this page don't exist on glibc (or I couldn't find them).
-> 
-> sysdeps/nptl/pthread.h:#   define pthread_cleanup_push_defer_np(routine, arg) \
-> sysdeps/nptl/pthread.h:#   define pthread_cleanup_pop_restore_np(execute) \
-> sysdeps/nptl/pthread.h:#   define pthread_cleanup_push_defer_np(routine, arg) \
-> sysdeps/nptl/pthread.h:#   define pthread_cleanup_pop_restore_np(execute) \
-> sysdeps/nptl/pthread.h:#  define pthread_cleanup_push_defer_np(routine, arg) \
-> sysdeps/nptl/pthread.h:#  define pthread_cleanup_pop_restore_np(execute) \
-> 
-> Andreas.
-> 
+Hi Michael,
 
-D'oh!  I was writing *phtread* all the time (and I suspected that I was 
-writing a typo, and still didn't find it :p ).  Never mind.
+I have a problem with pthread_mutexattr_getpshared(3).
+After adding 'restrict', the first parameter alone would use 81 columns,
+so I came with 3 options:
+
+A)	Move the parameter to a new line,
+	leaving the open parenthesis at the end of a line.
+
+[
+        int pthread_mutexattr_getpshared(
+                                      const pthread_mutexattr_t 
+*restrict attr,
+                                      int *restrict pshared);
+        int pthread_mutexattr_setpshared(pthread_mutexattr_t *attr,
+                                      int pshared);
+]
+
+B)	Compact the pointer to use only 80 columns,
+	by deleting a cosmetic whitespace,
+	and exceptionally ignore the 78-column right margin.
+
+[
+        int pthread_mutexattr_getpshared(const 
+pthread_mutexattr_t*restrict attr,
+                                         int *restrict pshared);
+        int pthread_mutexattr_setpshared(pthread_mutexattr_t *attr,
+                                         int pshared);
+]
+
+C)	(What POSIX does) Break the 1st parameter at the pointer:
+
+[
+        int pthread_mutexattr_getpshared(const pthread_mutexattr_t
+                                         *restrict attr,
+                                         int *restrict pshared);
+        int pthread_mutexattr_setpshared(pthread_mutexattr_t *attr,
+                                         int pshared);
+]
+
+
+I did the 1st one, but I'm not sure about it.  Do you have any preference?
+
+This is only problematic when both the function name and the 1st 
+parameter are very long, which is rare, so it shouldn't appear in many 
+pages.  I don't expect to find another case.  Option B) might not be an 
+option if there are more like this (if those use >82 columns).
 
 Thanks,
 
