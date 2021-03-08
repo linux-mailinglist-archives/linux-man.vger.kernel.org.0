@@ -2,86 +2,80 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E5010330931
-	for <lists+linux-man@lfdr.de>; Mon,  8 Mar 2021 09:14:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C4717330B53
+	for <lists+linux-man@lfdr.de>; Mon,  8 Mar 2021 11:36:26 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230323AbhCHINb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 8 Mar 2021 03:13:31 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60028 "EHLO
+        id S230125AbhCHKfy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 8 Mar 2021 05:35:54 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34172 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230432AbhCHINH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 8 Mar 2021 03:13:07 -0500
-Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com [IPv6:2607:f8b0:4864:20::535])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1105BC06174A
-        for <linux-man@vger.kernel.org>; Mon,  8 Mar 2021 00:13:07 -0800 (PST)
-Received: by mail-pg1-x535.google.com with SMTP id o38so5926487pgm.9
-        for <linux-man@vger.kernel.org>; Mon, 08 Mar 2021 00:13:07 -0800 (PST)
+        with ESMTP id S230490AbhCHKfj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 8 Mar 2021 05:35:39 -0500
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 668B1C06175F
+        for <linux-man@vger.kernel.org>; Mon,  8 Mar 2021 02:35:39 -0800 (PST)
+Received: by mail-wm1-x331.google.com with SMTP id u187so5725239wmg.4
+        for <linux-man@vger.kernel.org>; Mon, 08 Mar 2021 02:35:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:subject:date:message-id:mime-version;
-        bh=D0+vHgIaQPuTeJcujt5tbtTWfRCONE1ZEanQevcfT5I=;
-        b=WoYU4AJmg790LnGi2QulfWjLgyNt8F2GRytb1e6g6El6KqT1P+rXLZNCmDuw9FO1Bf
-         E5Qua/8jmaXEoghLdj8ASONZR5578kTVbyaGZefm+I8KCikUCTzIdWP6gSSPBQz/Wpgz
-         XqK1qz1j7h1BwBJuJDzFDroGPw2BXT46d+JHdCOWIKfJgbjWVx1SQ1q/3geIRKcQrRLq
-         F8tbg4wM+gNoGMkDfvFTS1Hfx7uiwK3x0X2AkwhRg4s0pJyiPnjpiR2RwSwgta4AZRGX
-         ociOSljLYLNaS10/Z3JLZE+GqHfPKayKllJqKJpeQB5hoGZFraS0RUT1xnN1r7xPR9nb
-         OnFw==
+        h=to:cc:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=fvmi0Bh7qltlbRodG2epbKLeIiO0ePt3Byi/7Eln5m8=;
+        b=lKDDzq6W1GH2G7KQ7CXwci8jTXotBcBUBlpUhcJQW+AArkjzoGupa+qyL6//wQ16Vp
+         1vldl6zFgjzFKopz/pIibau3adzCI3ChkY5JvT/OaWRhNjm/aqsgl4HkbquJVQNWSttr
+         gpy/SKvpT6hEQcLbT81jOfBO5c7RTwfl6lHzklWlbuMK07r9VS73s/KjsT2hsi/qoPah
+         XpTwGD9lEq5uHMr1fP8kC6gczF8yVbpPT4OKYPgUfGjhOR9YbZ7wI5HYTpx1W5wXdLoA
+         aZHQs8wE0j+goygmC0TA9FmEsjXJqjZCIOv/DcslNL94ns9PC7oBBmTOTrGZnUc5mf+J
+         DNAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:date:message-id:mime-version;
-        bh=D0+vHgIaQPuTeJcujt5tbtTWfRCONE1ZEanQevcfT5I=;
-        b=PCzUb2OHIa5zpRpDZb2YvlLq00gg/BW4JVo2IqhpQEhun/6gNiyJbiKZI3D5TK/Xim
-         E/e4UJP9Vd2J3y9MPPr5/CrIGQ14jrKkCxX/oqbNQzMY6ujNPdSURW342E/Psm7bbV5m
-         hmmXnval+7+BYeh/asc4uXDdJpKZMSdwgC5AtaVXBWm/eDRCkFsv31Hxe01atSYIaXST
-         AhISMUwU6QP2qAlSJcBLA0SHuMKJyXSR8auMAKInfjXvzSCwNjUIzzNXAIbUbEgfZ9uw
-         Q0wRRXheHHy/G9ziG6htMpOerUQ0s7myaR06ApBwoLdF5WQtQVpoYU7n6cbqhnz/TsTo
-         x2lg==
-X-Gm-Message-State: AOAM532rbjRl/zf187ld/ygL9E0L77GgGU5sKVZ4snOf7H5oGd95n2Ah
-        82J9bh/oKRkB2M7ENrMw9sAZ1xvyWAE=
-X-Google-Smtp-Source: ABdhPJzhS1H6PBuIweUkaT5AOdV6bEhMEVuIce5PU440CrdxufSZdaFY0hLH6YXGQKHxCiY1gzZ1tw==
-X-Received: by 2002:a63:db57:: with SMTP id x23mr3465111pgi.432.1615191186485;
-        Mon, 08 Mar 2021 00:13:06 -0800 (PST)
-Received: from localhost ([43.230.64.83])
-        by smtp.gmail.com with ESMTPSA id 68sm9467388pfd.75.2021.03.08.00.13.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Mar 2021 00:13:06 -0800 (PST)
-From:   Utkarsh Singh <utkarsh190601@gmail.com>
-To:     linux-man@vger.kernel.org, alx.manpages@gmail.com,
-        mtk.manpages@gmail.com
-Subject: [patch] printf.3: Add overall structure of format string
-Date:   Mon, 08 Mar 2021 13:45:10 +0530
-Message-ID: <8735x66oz5.fsf@gmail.com>
+        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=fvmi0Bh7qltlbRodG2epbKLeIiO0ePt3Byi/7Eln5m8=;
+        b=QFchBEXbrwbDcXNUY4SoChnjebI9HM/GS5G5RqARJQGP03rpT3mvGbYHT0dHM8eh0t
+         DRcYnULHASm40gQEKb0lugfz57gYjVZT6iBeQ7KtA4Or2O5Vs2tQ2MqYQu4mMf+t9xY1
+         GVSeLKkYQbWt9HxUJ0qojcQAi33+sp9JHwLK6Pv8Hx301uy4JqpeQi8WyBHc7DYbzk2z
+         Ar1InBJqbgy/+Kobk1sc/44J4KHeSYRwxzknoMwzZfs6e8QVTF000t7NXPfhKqVf+Hdd
+         MQBMJCA0SVSUN3cMYmPR0JdeeuyS+TH08b9/CZT3T2qxOyhoDLot5Y5dSKiOr9zPRBra
+         4ekA==
+X-Gm-Message-State: AOAM531LsycKgZfHEWOeyU3f5za48CIwtHFyXS5VMhz8GqUiLlfsp15i
+        Ppi3ZoFU4lOCmBmQ79MeeSE=
+X-Google-Smtp-Source: ABdhPJzZP4Nl5V2YbfpKkNo2dI7p2O8Kobj2LIxstivzROmF/XyzB8bJjQQuiVVICPOUhfqcl4yC+Q==
+X-Received: by 2002:a1c:7e16:: with SMTP id z22mr21324642wmc.74.1615199738129;
+        Mon, 08 Mar 2021 02:35:38 -0800 (PST)
+Received: from [10.8.0.206] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id k4sm22198166wrd.9.2021.03.08.02.35.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 08 Mar 2021 02:35:37 -0800 (PST)
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        Florian Weimer <fweimer@redhat.com>
+Cc:     linux-man <linux-man@vger.kernel.org>, libc-alpha@sourceware.org
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Subject: pthread_cleanup_push_defer_np.3: missing functions in glibc
+Message-ID: <1ee301e5-d3a4-2e0e-3473-6b0eea304266@gmail.com>
+Date:   Mon, 8 Mar 2021 11:35:35 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi,
+Hi Michael, Florian,
 
-Thanks for creating and maintaining Linux man-pages project.
+While adding 'restrict' to the prototypes, I found that the functions 
+defined in this page don't exist on glibc (or I couldn't find them).
+I tried removing _np, and still no luck, and 'git log --grep' didn't 
+help either.  Where these functions removed at some point?
 
-Can we add a small syntax structure for format string in printf(3)
-manual.  I personally find if easier to remember and scan.  This has
-been taken from OpenBSD printf(3) manual.
+Thanks,
 
-diff --git a/man3/printf.3 b/man3/printf.3
-index fa6564426..69ff29316 100644
---- a/man3/printf.3
-+++ b/man3/printf.3
-@@ -193,6 +193,13 @@ an optional
- and an optional
- .IR "length modifier" .
- .PP
-+Overall syntax of format string is:
-+.PP
-+.in +4n
-+.EX
-+%[$][flags][width][.precision][length modifier]conversion
-+.EE
-+.PP
- The arguments must correspond properly (after type promotion) with the
- conversion specifier.
- By default, the arguments are used in the order
+Alex
+
 -- 
-Utkarsh Singh
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
