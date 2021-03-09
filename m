@@ -2,87 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 333683330A6
-	for <lists+linux-man@lfdr.de>; Tue,  9 Mar 2021 22:11:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B31A8333193
+	for <lists+linux-man@lfdr.de>; Tue,  9 Mar 2021 23:37:27 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231788AbhCIVKz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 9 Mar 2021 16:10:55 -0500
-Received: from 6.mo179.mail-out.ovh.net ([46.105.56.76]:47036 "EHLO
-        6.mo179.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231786AbhCIVKy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 9 Mar 2021 16:10:54 -0500
-X-Greylist: delayed 4191 seconds by postgrey-1.27 at vger.kernel.org; Tue, 09 Mar 2021 16:10:54 EST
-Received: from player687.ha.ovh.net (unknown [10.108.16.177])
-        by mo179.mail-out.ovh.net (Postfix) with ESMTP id B080D18F2FA
-        for <linux-man@vger.kernel.org>; Tue,  9 Mar 2021 20:53:31 +0100 (CET)
-Received: from sk2.org (82-65-25-201.subs.proxad.net [82.65.25.201])
-        (Authenticated sender: steve@sk2.org)
-        by player687.ha.ovh.net (Postfix) with ESMTPSA id 09AC21BD457DF;
-        Tue,  9 Mar 2021 19:53:25 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass (GARM-102R0046d5415d3-0d57-4864-8a30-2e000325c442,
-                    6C897E3FB1B5C819DA596C75FE68BD04123AC254) smtp.auth=steve@sk2.org
-X-OVh-ClientIp: 82.65.25.201
-Date:   Tue, 9 Mar 2021 20:53:09 +0100
-From:   Stephen Kitt <steve@sk2.org>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        Christian Brauner <christian.brauner@ubuntu.com>,
-        Giuseppe Scrivano <gscrivan@redhat.com>,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6] close_range.2: new page documenting close_range(2)
-Message-ID: <20210309205309.7e2568c9@heffalump.sk2.org>
-In-Reply-To: <e761f00d-751f-f782-9af1-c5f868d52df0@gmail.com>
-References: <20210123161154.29332-1-steve@sk2.org>
-        <e761f00d-751f-f782-9af1-c5f868d52df0@gmail.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+        id S231216AbhCIWgy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 9 Mar 2021 17:36:54 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51662 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230122AbhCIWgc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 9 Mar 2021 17:36:32 -0500
+Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com [IPv6:2607:f8b0:4864:20::d32])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2F8F5C06174A
+        for <linux-man@vger.kernel.org>; Tue,  9 Mar 2021 14:36:32 -0800 (PST)
+Received: by mail-io1-xd32.google.com with SMTP id u20so15745621iot.9
+        for <linux-man@vger.kernel.org>; Tue, 09 Mar 2021 14:36:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=sPte7TzFVbVNUXUToE41eHOjw9Cn8UEjPnwOvGvjc7g=;
+        b=GPhqhV1exiw1EhdMmKdLCExmWBwUoR2n3J5PSNwuomrftonlKFn2sngGeqfSCSBRtf
+         AsEAcVAAPe9UD3YN+Pqd9+MX/NUde18cYODWZ+mcK6SvA+bnhlBrXfkVHbBJnFFB+X4o
+         vgiG0pNLRWN0aZnwEFP1OJ//XIKegaHjWL+O9Gdi6jK48PZ7NNa7K31J/blL6xKDUPFH
+         o+ofSLSZsK4JCMbrED7rip5QUMpXCUVYdFWFuLSUN27kG5qpFJ93Qjo/epCzcWG1InOs
+         YQvkj3euTqMj0s7WDaIK4niTN/zX25YI5orDTjfiy1gPmlJ60+Qyd9oMpi4EgcFWcc12
+         6LJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=sPte7TzFVbVNUXUToE41eHOjw9Cn8UEjPnwOvGvjc7g=;
+        b=erPU3RK0otyqyhzo7pvW30k0IxKAgo7aZC58Ac8cRQQ/TEpjNmjuBF32b5LlVuty7i
+         wg8uTGafgE9lQEM03aBx2SXUI94rx+r5vmoLDVL1RddRVVBNl0MajYgJMgTwuU7r7RB4
+         hgwmH51O9oyUGVugfxLkzNW50/cVL7rIJaxJAU/rAPNBRvPuZ4L/MPaVuDC9C4y8+/bZ
+         FXN8feKrv9RAmGhxfheB1KGv75WRR2wUOZy97IB6547uj7WnRpCw0kLykLL/UNqx3lxZ
+         G1BeUqKZY6YIcbmKSMPT6g6YpMmQIUoIibxiJw0DfOpHMmADwQLNFRqoeZI0m2I1mjtD
+         biyw==
+X-Gm-Message-State: AOAM530mIviBnwWc2tQBUEyp+JsenAvogpeuu7Gp+06X9p05YozscPpv
+        abYDBEhzs7eI19EONdIcFz4BQysojm6Acb2+Npj5V/jXtuo=
+X-Google-Smtp-Source: ABdhPJx3pKG3nSDTMbrfw96f8Lfj9tkPG8C46332Ba9d5O7Mr6JwJOBzCtjiAieRalWeVLI+a6ZgY/4LBCl5uYO0/bo=
+X-Received: by 2002:a05:6602:2287:: with SMTP id d7mr306673iod.42.1615329391382;
+ Tue, 09 Mar 2021 14:36:31 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- boundary="Sig_/Vhdp.PoBByMUrbMRegE43SY"; protocol="application/pgp-signature"
-X-Ovh-Tracer-Id: 15148701775380172157
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduledrudduiedgudeftdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvuffkjghfofggtgesghdtreerredtjeenucfhrhhomhepufhtvghphhgvnhcumfhithhtuceoshhtvghvvgesshhkvddrohhrgheqnecuggftrfgrthhtvghrnhepveelvdeufedvieevffdtueegkeevteehffdtffetleehjeekjeejudffieduteeknecukfhppedtrddtrddtrddtpdekvddrieehrddvhedrvddtudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehplhgrhigvrheikeejrdhhrgdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepshhtvghvvgesshhkvddrohhrghdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
+References: <CAKmF0pOMR9OMd4=ikHu31QGCVOWu10vvH4OzzgbUtPGGdbW05Q@mail.gmail.com>
+ <CAKgNAkgHu8jMNfqcXjxvwSDP73fzA_2iYTRgucRn=UA1t=QHrg@mail.gmail.com>
+ <CAKmF0pMWfH1RzEtQCh6yjDVqhtw8QxwPardoGt9ouheUVm0fkQ@mail.gmail.com> <20210306154253.qedy3ly2uqoouniw@jwilk.net>
+In-Reply-To: <20210306154253.qedy3ly2uqoouniw@jwilk.net>
+From:   Philipp Schuster <phip1611@gmail.com>
+Date:   Tue, 9 Mar 2021 23:36:17 +0100
+Message-ID: <CAKmF0pP7PYwHEwi=7rA6qHZgUUyJ2XEz2ZpC0S4EY97fFsHvDQ@mail.gmail.com>
+Subject: Re: Misleading documentation in Netlink(7) man page / doesn't match
+ with Kernel
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     linux-man@vger.kernel.org, mtk.manpages@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
---Sig_/Vhdp.PoBByMUrbMRegE43SY
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+> s/appened/appended/ ?
 
-Hi Michael,
+I copy&pasted this from the original Linux comment which can be found here =
+[0]
+I was curious too and I looked it up. Because Google doesn't
+autocorrect it and this site [1]
+also references the word, I thought it might be uncommon but correct.
+I'm not sure.
 
-On Thu, 28 Jan 2021 21:50:23 +0100, "Michael Kerrisk (man-pages)"
-<mtk.manpages@gmail.com> wrote:
-> Thanks for your patch revision. I've merged it, and have
-> done some light editing, but I still have a question:
+[0] https://elixir.bootlin.com/linux/v5.11/source/net/netlink/af_netlink.c#=
+L2408
+[1] https://www.definitions.net/definition/appened
 
-Does this need anything more? I don=E2=80=99t see it in the man-pages repo.
 
-Regards,
 
-Stephen
+Am Sa., 6. M=C3=A4rz 2021 um 16:42 Uhr schrieb Jakub Wilk <jwilk@jwilk.net>=
+:
+>
+> * Philipp Schuster <phip1611@gmail.com>, 2021-02-20, 23:48:
+> >+message terminates a multipart message. Error messages get the
+> >+original request appened, unless the user requests to cap the
+>
+> s/appened/appended/ ?
+>
+> --
+> Jakub Wilk
 
---Sig_/Vhdp.PoBByMUrbMRegE43SY
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEnPVX/hPLkMoq7x0ggNMC9Yhtg5wFAmBH0iYACgkQgNMC9Yht
-g5xPYA//dDSz5pyQs570R6DJfwFaPgoNZHfelKAfPKflbh8nIkTuHoM96hbtPKj6
-OP9ZQWvX/lsaZxWGMCLOn68iBhzESQo8uWYtEQXAOltfs3XxAioqPeAP9jttHfUG
-vK4QYMwVNMNcmnFQdYbsVBP+/jT28iH1ODLgx+ZqiN3FC8HMiFbCwGJJYJKYaBTv
-NuJzsPqJr0RlEaC1EKSvP1PJUBs6cuL+jMp96BqVbHnYHeuynF5FS4OrDzzQhlBA
-nwbgNvonh+V+TGKiTd5iVzlO8hWIAWMxoGWIJnh05V+WqO+IgXqSRHQ5lWqhzabc
-vfm/a5n91QL7mvQQHGo6rV0aQ+DPGrCF2UbSrFf57K0OwVcDMEDmYCqk+qmop9c6
-lNctNDOYP8CQ9e1HSn8mjQHAuza94Df/kNTC4nFHuGS459voRztChOx3yewQKFSh
-gSR4ag5sNqt6j9cJO3KMMQguRZCy0n9nfKkRkNOgAc27q7zL3qWiRoj2ML/slhly
-K0s5bf2uUEUsRML7w/qTGIYm+cXyCo4ACO1pKoEzZe9LK7C2HYfdy9u240eNLNbA
-ZwBQrN1jzZJr5ZkBF9DaWDSnLRsPxx5EYRpVuPT/lETlVAdIB7P71748IYBtu9z4
-1K9OvHasH5pUj+4ex9pugZF1xMZMssfihmkKIlFqupIoP1WuCDA=
-=ADyF
------END PGP SIGNATURE-----
-
---Sig_/Vhdp.PoBByMUrbMRegE43SY--
+--
+Philipp Schuster
