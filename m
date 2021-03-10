@@ -2,133 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C5C7C3332D7
-	for <lists+linux-man@lfdr.de>; Wed, 10 Mar 2021 02:43:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E0B06333FC7
+	for <lists+linux-man@lfdr.de>; Wed, 10 Mar 2021 15:01:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231464AbhCJBmm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 9 Mar 2021 20:42:42 -0500
-Received: from mga11.intel.com ([192.55.52.93]:20603 "EHLO mga11.intel.com"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S229467AbhCJBmk (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 9 Mar 2021 20:42:40 -0500
-IronPort-SDR: 73BHovlxDb9Kt+zNGAQUO6tWPnlRFwgGDPDEzC5PdSHdpG1cXRHNxOKuUsoxvNiVHd2vgNiGWQ
- /tDTuNNLjqWA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9917"; a="185004310"
-X-IronPort-AV: E=Sophos;i="5.81,236,1610438400"; 
-   d="scan'208";a="185004310"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
-  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Mar 2021 17:42:38 -0800
-IronPort-SDR: tqkym2bmInsABOvl/EZ2feMAWIcDuuUohUD82qfdWXz95sCK+eIXnXSvkRECLKS9nnBQP0V3Qv
- e+LE69U/w+nQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,236,1610438400"; 
-   d="scan'208";a="599574529"
-Received: from yhuang-dev.sh.intel.com (HELO yhuang-dev) ([10.239.159.130])
-  by fmsmga006.fm.intel.com with ESMTP; 09 Mar 2021 17:42:31 -0800
-From:   "Huang, Ying" <ying.huang@intel.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        <linux-man@vger.kernel.org>, Mel Gorman <mgorman@suse.de>
-Subject: Re: [PATCH] man2/set_mempolicy.2: Add mode flag MPOL_F_NUMA_BALANCING
-References: <20210301024555.85484-1-ying.huang@intel.com>
-Date:   Wed, 10 Mar 2021 09:42:31 +0800
-In-Reply-To: <20210301024555.85484-1-ying.huang@intel.com> (Huang Ying's
-        message of "Mon, 1 Mar 2021 10:45:55 +0800")
-Message-ID: <878s6vyebc.fsf@yhuang-dev.intel.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
+        id S232333AbhCJOBF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 10 Mar 2021 09:01:05 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53954 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231857AbhCJOBA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 10 Mar 2021 09:01:00 -0500
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com [IPv6:2a00:1450:4864:20::632])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 67A0CC0613D7
+        for <linux-man@vger.kernel.org>; Wed, 10 Mar 2021 06:01:00 -0800 (PST)
+Received: by mail-ej1-x632.google.com with SMTP id dx17so38913084ejb.2
+        for <linux-man@vger.kernel.org>; Wed, 10 Mar 2021 06:01:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=5rh8dKjg0pKk0KNWl2xSO7nhxy+c296f7suB18dXI8U=;
+        b=URiq+ec3+BxcG1NDx3dMF3sCE/FNaQYIdgLFH+Ugvgm6YQyxL+u7SWKSSFp/RO4guK
+         kfOwaifi9xoV4igMGLN5ZDIljq44SsViGDV6Lh6xWTGrUHVNgtnytdMbJpmb/MWCPL/G
+         rYkYn81Wc/cbxjHQUBv6XnpXrGs7fHIklfeIYFiTztnwXHD3U2Z/RcePZMQ44b6EKDq1
+         F019lMoHqczecTXCbSJuIEx8rxLRMDaMmfTBRgQz4gftRZJK3ZzTi5dEPM6p043nCYNa
+         brKUx19YQ7cifm/BmPGLamwNKLcMK8v8QueCVXlE88WVgSHrzKvIJpAJFwNNIEzAGO5Y
+         S+Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=5rh8dKjg0pKk0KNWl2xSO7nhxy+c296f7suB18dXI8U=;
+        b=D1pZ7xD/OYLKKYNfW5SLJ0f5GzvxguRKeLZYa3plbUVkxriZHpRPOgxXtBIN4n5y6I
+         PLBFkEc7MBK3NdgXFiACw5oCf+LAoVCSX5aYVsf2iFxKtNtLrcUgY5G7sjhFJyjfP/G0
+         EAVu4lWKzqjnzOBST1VnZ6FqA2drx//Rccx3CNz704kekw1dxkZaOGOsQFDl4s3jXN+5
+         0JjMyNnUfwg6bn84S9AA5jsirwN7Qi3V/raJh0+jeoLjH+hTH0lWHGAh0mZpbGm2gt30
+         tjRHkpWe8YlRDDNPRHjBVUh7+07C/9lDaBuL7MsOB/LauVx6B2Pb/uvqetIWapvJ+LaL
+         tt4Q==
+X-Gm-Message-State: AOAM532FFPydgntq/bMXFYm4JO5PxRzprhpXrGZ7XFTI+03K2hcrsx5e
+        R6uVwG4jIurKUMMbaC+sqys01QQBNT+lFEsSL+E=
+X-Google-Smtp-Source: ABdhPJzdCl60z5tvz9t/ueyvD28Q6xqjKxCjtyFN1dzri/wBDU2lX4uVVzwAl8Icl7LFjxN/Mm2wCc1Xiy2XfINvsa4=
+X-Received: by 2002:a17:906:2551:: with SMTP id j17mr3749097ejb.441.1615384858773;
+ Wed, 10 Mar 2021 06:00:58 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ascii
+Received: by 2002:ab4:92c3:0:0:0:0:0 with HTTP; Wed, 10 Mar 2021 06:00:58
+ -0800 (PST)
+From:   JOHN UMAH <pastorjohnumnewaposchurch@gmail.com>
+Date:   Wed, 10 Mar 2021 14:00:58 +0000
+Message-ID: <CANw=0K4=AFv2ivmE+e06nTO1iaw83yG-FrN1SHOdnXyYO3o5pw@mail.gmail.com>
+Subject: Caleb Leo Foundation,
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Huang Ying <ying.huang@intel.com> writes:
+Caleb Leo Foundation
+1501 K St NWWashington DC 20005
+United States of America
+You've received $ 1,300,000 from the Calab Leo Foundation course
+Humanitarian aid / poverty reduction program.
+In the case of claims for this gift, please fill in the following form;
 
-> In Linux kernel 5.12, a new mode flag MPOL_F_NUMA_BALANCING is added
-> to set_mempolicy() to optimize the page placement among the NUMA nodes
-> with the NUMA balancing mechanism even if the memory of the
-> applications are bound with MPOL_BIND.  This patch update the man page
-> for the new mode flag.
->
-> Related kernel commits:
-> bda420b985054a3badafef23807c4b4fa38a3dff
-
-Hi, Colomar,
-
-Do you have time to take a look at this patch?  It has been reviewed in
-the following thread,
-
-https://lore.kernel.org/lkml/20210120061235.148637-3-ying.huang@intel.com/
-
-Now the corresponding kernel change has been merged by upstream kernel.
-Do you have further comments?
-
-Best Regards,
-Huang, Ying
-
-> Signed-off-by: "Huang, Ying" <ying.huang@intel.com>
-> Cc: "Alejandro Colomar" <alx.manpages@gmail.com>
-> Cc: "Michael Kerrisk" <mtk.manpages@gmail.com>
-> ---
->  man2/set_mempolicy.2 | 34 ++++++++++++++++++++++++++++------
->  1 file changed, 28 insertions(+), 6 deletions(-)
->
-> diff --git a/man2/set_mempolicy.2 b/man2/set_mempolicy.2
-> index 6e695fb13..cd543667f 100644
-> --- a/man2/set_mempolicy.2
-> +++ b/man2/set_mempolicy.2
-> @@ -98,6 +98,28 @@ The supported
->  .I "mode flags"
->  are:
->  .TP
-> +.BR MPOL_F_NUMA_BALANCING " (since Linux 5.12)"
-> +When
-> +.I mode
-> +is
-> +.BR MPOL_BIND ,
-> +enable the kernel NUMA balancing for the task if it is supported by
-> +the kernel.
-> +If the flag isn't supported by the kernel, or is used with
-> +.I mode
-> +other than
-> +.BR MPOL_BIND ,
-> +\-1 is returned and
-> +.I errno
-> +is set to
-> +.BR EINVAL .
-> +.TP
-> +.BR MPOL_F_RELATIVE_NODES " (since Linux 2.6.26)"
-> +A nonempty
-> +.I nodemask
-> +specifies node IDs that are relative to the set of
-> +node IDs allowed by the process's current cpuset.
-> +.TP
->  .BR MPOL_F_STATIC_NODES " (since Linux 2.6.26)"
->  A nonempty
->  .I nodemask
-> @@ -107,12 +129,6 @@ Linux will not remap the
->  when the process moves to a different cpuset context,
->  nor when the set of nodes allowed by the process's
->  current cpuset context changes.
-> -.TP
-> -.BR MPOL_F_RELATIVE_NODES " (since Linux 2.6.26)"
-> -A nonempty
-> -.I nodemask
-> -specifies node IDs that are relative to the set of
-> -node IDs allowed by the process's current cpuset.
->  .PP
->  .I nodemask
->  points to a bit mask of node IDs that contains up to
-> @@ -293,6 +309,12 @@ argument specified both
->  .B MPOL_F_STATIC_NODES
->  and
->  .BR MPOL_F_RELATIVE_NODES .
-> +Or, the
-> +.B MPOL_F_NUMA_BALANCING
-> +isn't supported by the kernel, or is used with
-> +.I mode
-> +other than
-> +.BR MPOL_BIND .
->  .TP
->  .B ENOMEM
->  Insufficient kernel memory was available.
+Full name:
+Telephone number:
+State:
+Country:
+kindly respond for more details.
+in God We Trust.
