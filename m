@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 730863346C4
-	for <lists+linux-man@lfdr.de>; Wed, 10 Mar 2021 19:33:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id AC4F73346C2
+	for <lists+linux-man@lfdr.de>; Wed, 10 Mar 2021 19:33:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229602AbhCJScf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S232387AbhCJScf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Wed, 10 Mar 2021 13:32:35 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56104 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56112 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232734AbhCJScI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 10 Mar 2021 13:32:08 -0500
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 91008C061760
-        for <linux-man@vger.kernel.org>; Wed, 10 Mar 2021 10:32:08 -0800 (PST)
-Received: by mail-wm1-x334.google.com with SMTP id t5-20020a1c77050000b029010e62cea9deso11339469wmi.0
-        for <linux-man@vger.kernel.org>; Wed, 10 Mar 2021 10:32:08 -0800 (PST)
+        with ESMTP id S232948AbhCJScJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 10 Mar 2021 13:32:09 -0500
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 52D4AC061760
+        for <linux-man@vger.kernel.org>; Wed, 10 Mar 2021 10:32:09 -0800 (PST)
+Received: by mail-wr1-x431.google.com with SMTP id u16so24429398wrt.1
+        for <linux-man@vger.kernel.org>; Wed, 10 Mar 2021 10:32:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=uolUfYcCUT91l2rELFMahsSmULprXhf9wlzi61GU2G8=;
-        b=vNByjmAPAzBs+Ha4lv1rc9QcqnrjIgElPQJ00RKRHc7IOIuVrL6AGi7wffzbCPHlCL
-         EHWbWZPxwinL5t9/OMaVZ8KhrWd2EkaTCVlqzHKO5VrDy/MCot5MqBqtzKQhPN03aLTQ
-         Fl1cVFHSunl9sNAvi1vIj+rvBaVECtYoWUZVPUKLuhdqZ5xzrxWCnhaCVSBpy6jEjGfW
-         QJB+8ggKShUVbaTZEfQde0NcOclG3Vf07nlEp2yr7NhjBCquxkQ6vZqkPo1qj8/qq4JU
-         jjz19R7sRDJrM1VPReumcQ8bf97QCPZ+jeXvuvkM0C6c9qK4pfDrmMB6xfqQusLjAvMn
-         8Gqg==
+        bh=MYO3X/yjg3wkBx4QD0PRVd2tX8XIpNPx7l46JwQWDSY=;
+        b=sWf4TMm5ane83TLnEghOcqFr5o9UeGsa8wVoqfidP0Lj6HHJw8KQbDdCbg5IUlR2Bo
+         xZ50nDjSu7aAtwVC0u2Db9MqJcij1nUDijAus9OISkn46ZOuJEKTCl7/yZqm0uIBq+q1
+         FhKNgcgSVWRhzPPAahbt/Y2BoUbxwsJu7XhJDplKThcgZxbEQIYv1OTxzpT3AkK3E9I1
+         BD81sdzca2dkdjG7PU8vxrExCFcZjQzS4tZ/Ezcx1VmpcdLIufvk3dnbsp45ElOXzEz/
+         KoE8XFS7FGAZ62cxfySlrGJtrnoMxlBydXabh/ZaOLbmIVLmPAlgbUDxPrTNUai75doH
+         njxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=uolUfYcCUT91l2rELFMahsSmULprXhf9wlzi61GU2G8=;
-        b=A30YTz9yVLvYFlnSS8686UqbbP1RFCUtrhRosmKTQiwbFFLwbGdVmvK4MQ6aHuNTy3
-         LnFwmwGxswm0wd3D/8tjalzB2YwmUxoV4tUw1669peVMn+mcokutwaqkh2ZEbviaiT3u
-         +OZTZZCr0q+tEqcNxqiVoshu0SjYpF/FNrXkq55vMVUKemBkLHk7aPCcoMv/ovKrJCUD
-         C+208AVGFpXERAKdwI4GzIiPGjNjlLwIaAsVGer/Kio00RgF3p2hhzTP4fJUVa3eprv8
-         pEie7ETfHunPPf+uyjF4XIVndKLfTUvUgSjmOwSFJjWKVwzVKW7d/m7k47mi+y25rCXs
-         Tutw==
-X-Gm-Message-State: AOAM533H1ZuHBowYDMoYFGjS1Cy1FFNBPOgX96naKjW1W6t+fCGz/+2r
-        vq3fjqf9CorrE417WnAje1I=
-X-Google-Smtp-Source: ABdhPJwXuLpskv01ZUXvVx59eEouDoJvOjUIRnwOqHuxBJ/tl2dM1W4itlWFlbo+/r1EJsqk1JxIdA==
-X-Received: by 2002:a7b:c119:: with SMTP id w25mr4544839wmi.127.1615401127343;
-        Wed, 10 Mar 2021 10:32:07 -0800 (PST)
+        bh=MYO3X/yjg3wkBx4QD0PRVd2tX8XIpNPx7l46JwQWDSY=;
+        b=gBhED8HeqM60BqUS6exaYDnvXyEXp1I2gcObvIgqfmjwLZB2TqX2xs8R5fc2H5Vcfv
+         IP248Ixa/8pND4k+FV8iVn3/Mo7rMKVzw5UhSwPDwUdBJtdwAB2WSntrOhI0iSSc7v8F
+         Hm7dGDS5ucxCnWZrso5twqFgpLE+k3AtQd9Csc5QJ16OvMK8zpQdFxdPErQmqVAofrTg
+         JL6vsTbo0ArCVpA74/r/C+uZopy3j4wc5XElinlvEX+KDLZ6uUuVSHRn1TEkRePX6QDq
+         pk63D8OAv1onrzs2HA41cYlQoIddhq3AHv//tiKOdIMH/lwpPinsDNTfkgz/ZyH1syiW
+         Q9Lw==
+X-Gm-Message-State: AOAM531nqGx4eXyxrDQb7LNZOaaDaGtcPMN4Z4EFR722JRQEVohXP65j
+        ZYVHF1qCG9UC7hRn3JwYb38=
+X-Google-Smtp-Source: ABdhPJz2reFKLc3m5cUFHhAswdT9TKX4RoB2rDx29NEdr1KkK0KUb0t3EKz047u2/O2znZrmB/8o1w==
+X-Received: by 2002:adf:b355:: with SMTP id k21mr4934029wrd.156.1615401128071;
+        Wed, 10 Mar 2021 10:32:08 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id k11sm325374wmj.1.2021.03.10.10.32.06
+        by smtp.googlemail.com with ESMTPSA id k11sm325374wmj.1.2021.03.10.10.32.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 10 Mar 2021 10:32:07 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 01/24] sem_getvalue.3: SYNOPSIS: Use 'restrict' in prototypes
-Date:   Wed, 10 Mar 2021 19:31:27 +0100
-Message-Id: <20210310183149.194717-2-alx.manpages@gmail.com>
+Subject: [PATCH 02/24] sem_wait.3: SYNOPSIS: Use 'restrict' in prototypes
+Date:   Wed, 10 Mar 2021 19:31:28 +0100
+Message-Id: <20210310183149.194717-3-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.1.721.g45526154a5
 In-Reply-To: <20210310183149.194717-1-alx.manpages@gmail.com>
 References: <20210310183149.194717-1-alx.manpages@gmail.com>
@@ -63,30 +63,32 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Both POSIX and glibc use 'restrict' in sem_getvalue().
+Both POSIX and glibc use 'restrict' in sem_timedwait().
 Let's use it here too.
 
-.../glibc$ grep_glibc_prototype sem_getvalue
-sysdeps/pthread/semaphore.h:81:
-extern int sem_getvalue (sem_t *__restrict __sem, int *__restrict __sval)
-  __THROW __nonnull ((1, 2));
+.../glibc$ grep_glibc_prototype sem_timedwait
+sysdeps/pthread/semaphore.h:62:
+extern int sem_timedwait (sem_t *__restrict __sem,
+			  const struct timespec *__restrict __abstime)
+  __nonnull ((1, 2));
 .../glibc$
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/sem_getvalue.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man3/sem_wait.3 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/man3/sem_getvalue.3 b/man3/sem_getvalue.3
-index ddfb1899a..084dc510d 100644
---- a/man3/sem_getvalue.3
-+++ b/man3/sem_getvalue.3
-@@ -29,7 +29,7 @@ sem_getvalue \- get the value of a semaphore
- .nf
- .B #include <semaphore.h>
+diff --git a/man3/sem_wait.3 b/man3/sem_wait.3
+index d57b6f6ce..da7ae72c2 100644
+--- a/man3/sem_wait.3
++++ b/man3/sem_wait.3
+@@ -31,7 +31,8 @@ sem_wait, sem_timedwait, sem_trywait \- lock a semaphore
  .PP
--.BI "int sem_getvalue(sem_t *" sem ", int *" sval );
-+.BI "int sem_getvalue(sem_t *restrict " sem ", int *restrict " sval );
+ .BI "int sem_wait(sem_t *" sem );
+ .BI "int sem_trywait(sem_t *" sem );
+-.BI "int sem_timedwait(sem_t *" sem ", const struct timespec *" abs_timeout );
++.BI "int sem_timedwait(sem_t *restrict " sem ,
++.BI "                  const struct timespec *restrict " abs_timeout );
  .fi
  .PP
  Link with \fI\-pthread\fP.
