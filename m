@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 92E193346CD
-	for <lists+linux-man@lfdr.de>; Wed, 10 Mar 2021 19:33:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0FB7E3346CE
+	for <lists+linux-man@lfdr.de>; Wed, 10 Mar 2021 19:33:13 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233201AbhCJSch (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S233135AbhCJSch (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Wed, 10 Mar 2021 13:32:37 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56150 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56152 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233182AbhCJScQ (ORCPT
+        with ESMTP id S233201AbhCJScQ (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Wed, 10 Mar 2021 13:32:16 -0500
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D5EA4C061760
-        for <linux-man@vger.kernel.org>; Wed, 10 Mar 2021 10:32:15 -0800 (PST)
-Received: by mail-wr1-x431.google.com with SMTP id f12so24450215wrx.8
-        for <linux-man@vger.kernel.org>; Wed, 10 Mar 2021 10:32:15 -0800 (PST)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 831B5C061760
+        for <linux-man@vger.kernel.org>; Wed, 10 Mar 2021 10:32:16 -0800 (PST)
+Received: by mail-wm1-x32e.google.com with SMTP id u5-20020a7bcb050000b029010e9316b9d5so8400439wmj.2
+        for <linux-man@vger.kernel.org>; Wed, 10 Mar 2021 10:32:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=GwmJUFdVmQpqJBDhv4YOalGN2rFIVkaI+KfkWvD0mH4=;
-        b=Y9IdxGAq8B6Ir4MqWUi66rY8mLgZzcQCo14cwQLei6u5rpiqEqdhnEjJvBtNRQ/OLg
-         djQehnt/U7SrTAivdhYfm+ORgKcMED5lcxMAk1+K/zYk3r3M6H6sjmysxl+qYujWyhQY
-         D/PXbAYOYlUQvJZV/ZZVoTJ66k0sNJhOGHyKUI+mtw1Z7MJdE2+InzC0v5LOf2jkAmZ/
-         Hr0ErAUcCLOmO37BzYDy9DVGKy+fg5gbZcwm1VldTa53TXWXy+IiVQaxpQgUdMgp1qP6
-         vMocdtYmhpwBbiHUVtzDPbcUOi6CoGEJUzRYgNm40q3xq/3QGTWa+TAsY2lNXT5L9Ovp
-         TWlg==
+        bh=HEdE9FOWc9j3Y4cTJGMR/JWcdWsgHEC/wWTIgs2wasE=;
+        b=YieteS+w88rdFKmAGMEMLeCctRChr0EbqU2TDO5+/6tSWOW/BUzkTYPdk1HIjI3J6r
+         v/MoOt1FXw+NGLDkKNzlQZiih4Q18GunaBgWahn9T2ga3dQb6/s8jVxoJA5MmyA5rSi3
+         4wzbzcWvuabh0BYnauYYTqb+loWsi+BW6/6ZdPjcuuRsm0/FWjO0rd5j+sUeHSaYdsMS
+         B5135MhhccAJ2NI3wcPRBge+TB+HYbh0DBFR8Z0ZMP+o1BKMPkSBc2RSCbdANbytdSIV
+         taYxPC2b5gsRjEqpXSzOCBB56LhbeqG9KAyF4N9jIegjnJCcrvEZbXARBgdyUKwXiBM5
+         nnvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=GwmJUFdVmQpqJBDhv4YOalGN2rFIVkaI+KfkWvD0mH4=;
-        b=oOsXP9B5iT9jWRY20VkKBdPuosR1vxQ+OxIW8k0p5K703i0wbDw0iqVWwKxGlplVpO
-         f79GVSJIQWzW3eixRgkqbzLlloDk2Vi384Rwidt/ydIC4/QFt30Pyp2YahiBzLGwnlHO
-         KNSrejtGxJLgedWzp7jyhpyo0sd+5kegJMZZUu6K01pXn7Hg0nsBMNtB+K8GPJjcUZqb
-         IBwL6sAQ76+c4enNtHVdKE4T/XmKdUq84iBj3UDCRbL4CQzw5sVL5p1aeRZoMQEYGj91
-         K/scQELw1Ef2Cs5N8htAOPSCgyOLNNKmZTRU3Al8JFK3901q5g1ov73o+4OcdYgKJV+8
-         9pnA==
-X-Gm-Message-State: AOAM531Nn26D06x9CnlK1TmZwgo69F7IeyHKfLgs1s3mwrh9MAPBv/M/
-        rJP7hdubXbRZcnxvt2Tuhjk=
-X-Google-Smtp-Source: ABdhPJy/4S7XL76Fk3f7Mpp3vg3EX5cmQtH7KXgzUAMIye2lNfNFVmf9YAOAARlgAwsoFxK91Lof5A==
-X-Received: by 2002:adf:ee8f:: with SMTP id b15mr4802359wro.314.1615401134611;
-        Wed, 10 Mar 2021 10:32:14 -0800 (PST)
+        bh=HEdE9FOWc9j3Y4cTJGMR/JWcdWsgHEC/wWTIgs2wasE=;
+        b=HyaLcP/2sCtUyrgfX+pVAXM+LzD8IXdnXPxLBmWX4y0J7zOu8KUowxdO8bHXKGJxjV
+         4w6Rreef8t8kYmQ3cgiTPRkJsq4eUVq2jAm9thkvS3HusjJvFGzSNYMm3nhryd+08/B3
+         Z/02uul3lHhVJH4qmhnQDJPdeh7dvVlj+VTA5Vgo24Dqp0jHM5OEbCu4qHQGqrR26Imm
+         dLTMeicdtztO0clQu7cafvygB1NcyrlN+Tj2x1zEToYuYUxJJYk0FMPwWuYAjB5N6dAn
+         +f2hBAUgDn+VY5UOzA7p2NZEolWNwzOjETbWbzYPjzHSHjYr+tfDvrpZ0QeqQfp4SL8Z
+         TbZQ==
+X-Gm-Message-State: AOAM533i79WScE4upKzOIewXqiHVfE+VBhWhqmjed4InIEvHWRxzKUkc
+        Gp/cdyQh5YcIla3OeDPES8pk+3pPGyTFcQ==
+X-Google-Smtp-Source: ABdhPJwm940RjcvLN8659kPWDDEVsB6xQ14r2MqMil/UJEb3RuZbXmKuDQLUG3a3qGSUcSCFzyUOIg==
+X-Received: by 2002:a05:600c:1405:: with SMTP id g5mr4576024wmi.140.1615401135402;
+        Wed, 10 Mar 2021 10:32:15 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id k11sm325374wmj.1.2021.03.10.10.32.13
+        by smtp.googlemail.com with ESMTPSA id k11sm325374wmj.1.2021.03.10.10.32.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Mar 2021 10:32:14 -0800 (PST)
+        Wed, 10 Mar 2021 10:32:15 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 10/24] stpncpy.3: SYNOPSIS: Use 'restrict' in prototypes
-Date:   Wed, 10 Mar 2021 19:31:36 +0100
-Message-Id: <20210310183149.194717-11-alx.manpages@gmail.com>
+Subject: [PATCH 11/24] strcat.3: SYNOPSIS: Use 'restrict' in prototypes
+Date:   Wed, 10 Mar 2021 19:31:37 +0100
+Message-Id: <20210310183149.194717-12-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.1.721.g45526154a5
 In-Reply-To: <20210310183149.194717-1-alx.manpages@gmail.com>
 References: <20210310183149.194717-1-alx.manpages@gmail.com>
@@ -63,35 +63,40 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Both POSIX and glibc use 'restrict' in stpncpy().
+Both POSIX and glibc use 'restrict' in strcat(), strncat().
 Let's use it here too.
 
-.../glibc$ grep_glibc_prototype stpncpy
-string/string.h:483:
-extern char *stpncpy (char *__restrict __dest,
-		      const char *__restrict __src, size_t __n)
+.../glibc$ grep_glibc_prototype strcat
+string/string.h:133:
+extern char *strcat (char *__restrict __dest, const char *__restrict __src)
      __THROW __nonnull ((1, 2));
+.../glibc$ grep_glibc_prototype strncat
+string/string.h:136:
+extern char *strncat (char *__restrict __dest, const char *__restrict __src,
+		      size_t __n) __THROW __nonnull ((1, 2));
 .../glibc$
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/stpncpy.3 | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ man3/strcat.3 | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/man3/stpncpy.3 b/man3/stpncpy.3
-index 3adc5f426..493d42378 100644
---- a/man3/stpncpy.3
-+++ b/man3/stpncpy.3
-@@ -18,7 +18,8 @@ stpncpy \- copy a fixed-size string, returning a pointer to its end
+diff --git a/man3/strcat.3 b/man3/strcat.3
+index d8e6716c4..821d57d74 100644
+--- a/man3/strcat.3
++++ b/man3/strcat.3
+@@ -36,8 +36,9 @@ strcat, strncat \- concatenate two strings
  .nf
  .B #include <string.h>
  .PP
--.BI "char *stpncpy(char *" dest ", const char *" src ", size_t " n );
-+.BI "char *stpncpy(char *restrict " dest ", const char *restrict " src \
+-.BI "char *strcat(char *" dest ", const char *" src );
+-.BI "char *strncat(char *" dest ", const char *" src ", size_t " n );
++.BI "char *strcat(char *restrict " dest ", const char *restrict " src );
++.BI "char *strncat(char *restrict " dest ", const char *restrict " src \
 +", size_t " n );
  .fi
- .PP
- .RS -4
+ .SH DESCRIPTION
+ The
 -- 
 2.30.1.721.g45526154a5
 
