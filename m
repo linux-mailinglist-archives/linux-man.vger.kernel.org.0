@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 851373346DA
+	by mail.lfdr.de (Postfix) with ESMTP id 146473346D9
 	for <lists+linux-man@lfdr.de>; Wed, 10 Mar 2021 19:33:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233250AbhCJSci (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 10 Mar 2021 13:32:38 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56196 "EHLO
+        id S233291AbhCJScj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 10 Mar 2021 13:32:39 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56198 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233291AbhCJScX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 10 Mar 2021 13:32:23 -0500
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2AC2DC061760
-        for <linux-man@vger.kernel.org>; Wed, 10 Mar 2021 10:32:23 -0800 (PST)
-Received: by mail-wm1-x32a.google.com with SMTP id w7so7727460wmb.5
+        with ESMTP id S233354AbhCJScY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 10 Mar 2021 13:32:24 -0500
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0B197C061760
+        for <linux-man@vger.kernel.org>; Wed, 10 Mar 2021 10:32:24 -0800 (PST)
+Received: by mail-wm1-x32c.google.com with SMTP id c76-20020a1c9a4f0000b029010c94499aedso11698773wme.0
         for <linux-man@vger.kernel.org>; Wed, 10 Mar 2021 10:32:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=v+opXIiWov/WZw07j+Hr+F2pJZt+UphMGIAIEODD3N8=;
-        b=P5IddB4t/5vcZ1jogAcSotrfC+zimzrJpgTchZCxWYdwqftLEag3tOy/smlhMm3D62
-         2UKaurNDd4MRkBlI86GJiZ5z5Oi/PSfwVIRPjt8TkLRl1PGxvufcCpmnetRELkSxH03z
-         p12OOLtQDGL3MAobny3lya2LgviIkzL8VURg+isv2Dq2Fe8VvFkdpKNLhzPw7Z/Xpu6n
-         +jn8tg/drS9yYruB6RU2r97mRyBKYhPAIUMnFPJOR8+PvWrMqTQqdaNThuIWHGHaefkM
-         EVch4Hde9HNNAmPFsFwBKvGhbdnLcJ/UhWSpD/MKXxHgcjdyYiEvfaFagTdwjPrCM9Ua
-         /5Xw==
+        bh=JYCOkSOGLwQwA9jccVOYx44poVBVY/7h2jsH9a+VRto=;
+        b=TDYGcV3GGoIwa0cfDb2w2++1jeq6arDp2FAG2AMvbBoZt4Ao79jMpkmAIGAgLaoMXP
+         9LE6zni4cFYlESzU0DJTgAYtdnYHzkC1vmUxOcinEd4e49FPcQCroi4xCCwJG75AM/sm
+         MTPkLCTS4DrTnUEngqSYZ1glhwsoiPYDoabG0xIIxooYplP1N2HVuTMjkqJwYiYgxoun
+         rh3FSdZyT5Ggt2EOe0JkaPzKq+YSDyZx+VFfQcvqU5FAl/oA60xkhUSCRO6Xg7vafcQ9
+         XD26rRYeCSjC0iirPoOcbo44Vp1Z6rTPKB1a6AaH2XMZp+bUQYtiowLn/2muUIsetR88
+         1cng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=v+opXIiWov/WZw07j+Hr+F2pJZt+UphMGIAIEODD3N8=;
-        b=dAn6A3sk6NzhM+NGClqDbVm3rEWrDhofz9zVFZLt7HsjYAtsYL1680b4Tar/BC8Rwq
-         Kc3AQcTQtZH49Pk7HTRgXFYhnOo11I3m8av0njYRoavG2+3yXsAQkLv17QEIP3Fx60LI
-         dGzhtbmn7/gPJB9pXvA58zi+1iexHw0irRLEaN6vUj/K4Qx/QRNM8XTO1Ile1AEN6poA
-         qVaKJqJYh7FfMCuws9ZHiuKwzfiI8YVgxNkwrcAcuHiGrJw9k7Je+/Ted8sQo069jrHc
-         tu/D7It7CFNZ1TSC4DKRp1YWvS8VEkRafqFqCqD51aEWGy/LDGbrPYtYkhJo7Mr+l+dz
-         CQOw==
-X-Gm-Message-State: AOAM5319nbDyktKsGqtB2rtj4+w5ciC14FbEIqvf+0H3fkT5+01AqNvq
-        3bXDyGIHz7grlnLHlLUUZng=
-X-Google-Smtp-Source: ABdhPJxlFaJGZkRqr2m+WTSzKSvtt0l/HLnNy/hIzEw8u4s4B3QmC1ojP7yU2G9YMGML5GVx/gCEgw==
-X-Received: by 2002:a05:600c:204f:: with SMTP id p15mr4639490wmg.165.1615401142019;
+        bh=JYCOkSOGLwQwA9jccVOYx44poVBVY/7h2jsH9a+VRto=;
+        b=B1ojy0RfeURvpYsVdtPtZtFftssiSelW6qVpZxqypDic8nlVLFo2RqoIt5rY4z9jHG
+         +BZivYeXj0rHhP6f5dOHn73w2SMgwR7pV4oIY802PbDhoJ0Jc+nqf6drp9QX3AklnmVd
+         oVtlkbYejPo0HUJs0NqLZYGzvAmFAVuPe38yO1485ibZTWQm6rl6EtjgQUwfctvENpuQ
+         mz5pDpR8EFCz7LnOhF9npfF7hz3O4VEsCCrtyiMokWZGNweCFhM1uhSGGETbTpt97ENu
+         AHPhnNlfFMcJPtb51QCPRoA5MBHKbQ1GgNnl3d4MNNl46T1KVprklLxoNVq2zKrkBiJI
+         hdXQ==
+X-Gm-Message-State: AOAM532dCuZeCg5BLVJe9yKXKu1kkcRS+94FdF5R9KnBBaeU/ixUN/cV
+        oC4JqvYGg+H74WsAE1CnZVwYg3U6lXH/Zw==
+X-Google-Smtp-Source: ABdhPJwdB3UOMO++7YcoqGzMe2hTp0pI4rvVttM3MFQeNo9K/PFCPhbQ2ziE6L4T7U63g+XMMwfekw==
+X-Received: by 2002:a05:600c:4292:: with SMTP id v18mr4604546wmc.23.1615401142847;
         Wed, 10 Mar 2021 10:32:22 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
-        by smtp.googlemail.com with ESMTPSA id k11sm325374wmj.1.2021.03.10.10.32.21
+        by smtp.googlemail.com with ESMTPSA id k11sm325374wmj.1.2021.03.10.10.32.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Mar 2021 10:32:21 -0800 (PST)
+        Wed, 10 Mar 2021 10:32:22 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 19/24] strtod.3: SYNOPSIS: Use 'restrict' in prototypes
-Date:   Wed, 10 Mar 2021 19:31:45 +0100
-Message-Id: <20210310183149.194717-20-alx.manpages@gmail.com>
+Subject: [PATCH 20/24] strtoimax.3: SYNOPSIS: Use 'restrict' in prototypes
+Date:   Wed, 10 Mar 2021 19:31:46 +0100
+Message-Id: <20210310183149.194717-21-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.1.721.g45526154a5
 In-Reply-To: <20210310183149.194717-1-alx.manpages@gmail.com>
 References: <20210310183149.194717-1-alx.manpages@gmail.com>
@@ -63,48 +63,41 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Both POSIX and glibc use 'restrict' in strtod(), strtof(), strtold().
+Both POSIX and glibc use 'restrict' in strtoimax(), strtoumax().
 Let's use it here too.
 
-.../glibc$ grep_glibc_prototype strtod
-stdlib/stdlib.h:117:
-extern double strtod (const char *__restrict __nptr,
-		      char **__restrict __endptr)
-     __THROW __nonnull ((1));
-.../glibc$ grep_glibc_prototype strtof
-stdlib/stdlib.h:123:
-extern float strtof (const char *__restrict __nptr,
-		     char **__restrict __endptr) __THROW __nonnull ((1));
-.../glibc$ grep_glibc_prototype strtold
-stdlib/stdlib.h:126:
-extern long double strtold (const char *__restrict __nptr,
-			    char **__restrict __endptr)
-     __THROW __nonnull ((1));
+.../glibc$ grep_glibc_prototype strtoimax
+stdlib/inttypes.h:297:
+extern intmax_t strtoimax (const char *__restrict __nptr,
+			   char **__restrict __endptr, int __base) __THROW;
+.../glibc$ grep_glibc_prototype strtoumax
+stdlib/inttypes.h:301:
+extern uintmax_t strtoumax (const char *__restrict __nptr,
+			    char ** __restrict __endptr, int __base) __THROW;
 .../glibc$
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/strtod.3 | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ man3/strtoimax.3 | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/man3/strtod.3 b/man3/strtod.3
-index e77bd59ec..24cb4ad13 100644
---- a/man3/strtod.3
-+++ b/man3/strtod.3
-@@ -49,9 +49,10 @@ strtod, strtof, strtold \- convert ASCII string to floating-point number
+diff --git a/man3/strtoimax.3 b/man3/strtoimax.3
+index 9acaa1244..6c14c6ac8 100644
+--- a/man3/strtoimax.3
++++ b/man3/strtoimax.3
+@@ -28,8 +28,10 @@ strtoimax, strtoumax \- convert string to integer
  .nf
- .B #include <stdlib.h>
+ .B #include <inttypes.h>
  .PP
--.BI "double strtod(const char *" nptr ", char **" endptr );
--.BI "float strtof(const char *" nptr ", char **" endptr );
--.BI "long double strtold(const char *" nptr ", char **" endptr );
-+.BI "double strtod(const char *restrict " nptr ", char **restrict " endptr );
-+.BI "float strtof(const char *restrict " nptr ", char **restrict " endptr );
-+.BI "long double strtold(const char *restrict " nptr \
-+", char **restrict " endptr );
+-.BI "intmax_t strtoimax(const char *" nptr ", char **" endptr ", int " base );
+-.BI "uintmax_t strtoumax(const char *" nptr ", char **" endptr ", int " base );
++.BI "intmax_t strtoimax(const char *restrict " nptr ", char **restrict " endptr ,
++.BI "                   int " base );
++.BI "uintmax_t strtoumax(const char *restrict " nptr ", char **restrict " endptr ,
++.BI "                   int " base );
  .fi
- .PP
- .RS -4
+ .SH DESCRIPTION
+ These functions are just like
 -- 
 2.30.1.721.g45526154a5
 
