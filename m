@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2C5B533804F
-	for <lists+linux-man@lfdr.de>; Thu, 11 Mar 2021 23:34:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 199D3338052
+	for <lists+linux-man@lfdr.de>; Thu, 11 Mar 2021 23:34:37 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229683AbhCKWeJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 11 Mar 2021 17:34:09 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51100 "EHLO
+        id S229688AbhCKWeN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 11 Mar 2021 17:34:13 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51104 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229553AbhCKWds (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 11 Mar 2021 17:33:48 -0500
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 417A2C061761
-        for <linux-man@vger.kernel.org>; Thu, 11 Mar 2021 14:33:48 -0800 (PST)
-Received: by mail-wr1-x436.google.com with SMTP id e9so677273wrw.10
+        with ESMTP id S229791AbhCKWdu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 11 Mar 2021 17:33:50 -0500
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 10ECFC061574
+        for <linux-man@vger.kernel.org>; Thu, 11 Mar 2021 14:33:49 -0800 (PST)
+Received: by mail-wr1-x435.google.com with SMTP id e18so680617wrt.6
         for <linux-man@vger.kernel.org>; Thu, 11 Mar 2021 14:33:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=ivvxGKsQzCjOKSoXZFDJem8ZCU6S5Stbfd/eUGUXMdE=;
-        b=bhrA2Fxbi/BjiqqW5hdQRt6EJNeX09VG8Bb3TBu873Di+nN94STXyxzH8z6hPf7T7n
-         tyKBn+eCdZpNtetSIhCI9TJYKS4gxFf4r2MK/mWPRFP7SRiTbyltW00I6C7UC7Ws4fbp
-         yA0UIjtlFEevYHo7WhdrGC4ahIiVbtP3JC2J4lZVmUG68e12HDAWw17nAc/w7HlUkwtb
-         LuDq+N4fOvF1SV3uD6KHTVQcgbNZsvulbZfA2iPs2VC0mUIRbJATfiCbRhfhOkaXuauO
-         tkxHl9n9RtRKRCsuuJrhHqfr5y5U34y+aSWA/nhTg1ZW2B9hmd1agoqq137WUftlWvaq
-         71KA==
+        bh=hIPXV5VCEPaPMLD+26mfqastCeKgnkS0cIJ9FjKHlxo=;
+        b=c4uZbiqobsD5AuRnHcewH52+XPSvEfqq9Xkl8v8Zbv0UBBA4kcajw2dPtxktyCGWyR
+         npnDPjwjocL+T0ltToh46UD3caxzB73sIN7wCQuN6Hexl89K3bGk7DKJPbtZbyDbaN3J
+         LuKSZq2ydoETh2l3G4T33wWdaTysn+BP5cO/epHLXIWDmEIRHyasJwPvSZmB8Qpgj+Vx
+         xwzibPos2Yo5eGj+bqj4q6pMhWb1RpNAqpJsGAeQWy//+5sI7MgzPbqWkf60wtoPtlsO
+         uczpM6jZVrzOnsw/JatM29eBH5HsHT/1n196Af0FBV8zuiuiNkXS1fOGyH0V3K2ztR2b
+         cuBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=ivvxGKsQzCjOKSoXZFDJem8ZCU6S5Stbfd/eUGUXMdE=;
-        b=ljOvyVRPNwDKGSB6qRLA1yFcUeu99Vc/ZjboL7UpiRAIOSTvz3K9ANJdw/DFLARyaE
-         IF98ngcoy3d17jNLgnB5UrOsV9kmLTy3ZWo5mRK0ejLlQ9PFNLtWDMb+16rMMsn7jGrC
-         vmN8VvuV6K483+5fUwU3xUoKVW+SHvTi6th9iMRl0rBUyKxE3RzkGE5/V5xn82dvjIQ5
-         8FktHmQQSbtWkOUIFqMK4KhbCq3DYVsBjgRZ1074mu3unz5BkYyQsS7t/0GsDnyiW9OY
-         pTjf7LbIg+8Dsbm07OQXfm3rskYdAZQMtYqAJSlfEGAd2enmYR0fISAwZhiHOaowlB+e
-         KESQ==
-X-Gm-Message-State: AOAM530ilY25wUn45Hr0aTd269XBStKPc9kC/ld2HfuUThTMhsbBoekS
-        jytiXACq941O/+OjaAMNAYs=
-X-Google-Smtp-Source: ABdhPJzuwORRtcNidwt8XlS5L7xvAzUDhW+GDn1MI1NIuA3WW16TDdVFSOY9y/6Z8EnwfeePqzisUg==
-X-Received: by 2002:adf:fecc:: with SMTP id q12mr10776059wrs.317.1615502027085;
+        bh=hIPXV5VCEPaPMLD+26mfqastCeKgnkS0cIJ9FjKHlxo=;
+        b=m8tb12WTYXpLrPdYoMeoKfdpDd4ADWnQc4xmKSlr2hB14Cr3T3/+ZISLlWSjZk8paY
+         hq6HD8+3rz7Z7JwolVTYCoS8nL5zaEJ8cmaOZS4MsGM59W8wdXTpF/mEG2tYyioROc4t
+         zOjBXxqE7ZXUjXoxwYl9SVmQ9eLJq1MND2r+kuK6M3b+ehO7hc7reuRHPGcyCo/f1KDq
+         wgP55A8vb23mGUweW9Lpcl1H3ZV+SeuqoZz5ObL7uIokqa0O/rBU23hI/jISkzrDH7eC
+         2OJsk40oDstpoW5G/ebJ9ZcNVRhn5ibMl32okdBT2cJgEfLxgZF2wDtS51FhsyTsW1yG
+         Bo7Q==
+X-Gm-Message-State: AOAM533rEQZdZ66q4eCEvVORM6TjR76yID5AoyFzLd3q6+7VfwLtfVKY
+        VVRQzyBmhyFUqPofsw8U9wj+C+qHz8I=
+X-Google-Smtp-Source: ABdhPJxPxFdmBzyWecT0qlrVzLjuxAjPQyGJhR2LlHzHxzvRDAYpdlxcN/nnVYVhsD0lGGjirkoDhA==
+X-Received: by 2002:adf:a302:: with SMTP id c2mr10894452wrb.212.1615502027818;
         Thu, 11 Mar 2021 14:33:47 -0800 (PST)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id v2sm22365771wmj.1.2021.03.11.14.33.46
+        by smtp.googlemail.com with ESMTPSA id v2sm22365771wmj.1.2021.03.11.14.33.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Mar 2021 14:33:46 -0800 (PST)
+        Thu, 11 Mar 2021 14:33:47 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 06/17] wcrtomb.3: SYNOPSIS: Use 'restrict' in prototypes
-Date:   Thu, 11 Mar 2021 23:33:19 +0100
-Message-Id: <20210311223330.722437-7-alx.manpages@gmail.com>
+Subject: [PATCH 07/17] wcscat.3: SYNOPSIS: Use 'restrict' in prototypes
+Date:   Thu, 11 Mar 2021 23:33:20 +0100
+Message-Id: <20210311223330.722437-8-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.1
 In-Reply-To: <20210311223330.722437-1-alx.manpages@gmail.com>
 References: <20210311223330.722437-1-alx.manpages@gmail.com>
@@ -63,34 +63,35 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Both POSIX and glibc use 'restrict' in wcrtomb().
+Both POSIX and glibc use 'restrict' in wcscat().
 Let's use it here too.
 
-.../glibc$ grep_glibc_prototype wcrtomb
-wcsmbs/wchar.h:301:
-extern size_t wcrtomb (char *__restrict __s, wchar_t __wc,
-		       mbstate_t *__restrict __ps) __THROW;
+.../glibc$ grep_glibc_prototype wcscat
+wcsmbs/wchar.h:97:
+extern wchar_t *wcscat (wchar_t *__restrict __dest,
+			const wchar_t *__restrict __src)
+     __THROW __nonnull ((1, 2));
 .../glibc$
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/wcrtomb.3 | 3 ++-
+ man3/wcscat.3 | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/man3/wcrtomb.3 b/man3/wcrtomb.3
-index c63daab8e..475486db1 100644
---- a/man3/wcrtomb.3
-+++ b/man3/wcrtomb.3
-@@ -20,7 +20,8 @@ wcrtomb \- convert a wide character to a multibyte sequence
+diff --git a/man3/wcscat.3 b/man3/wcscat.3
+index c756337f1..acfb8d43e 100644
+--- a/man3/wcscat.3
++++ b/man3/wcscat.3
+@@ -20,7 +20,8 @@ wcscat \- concatenate two wide-character strings
  .nf
  .B #include <wchar.h>
  .PP
--.BI "size_t wcrtomb(char *" s ", wchar_t " wc ", mbstate_t *" ps );
-+.BI "size_t wcrtomb(char *restrict " s ", wchar_t " wc \
-+", mbstate_t *restrict " ps );
+-.BI "wchar_t *wcscat(wchar_t *" dest ", const wchar_t *" src );
++.BI "wchar_t *wcscat(wchar_t *restrict " dest \
++", const wchar_t *restrict " src );
  .fi
  .SH DESCRIPTION
- The main case for this function is when
+ The
 -- 
 2.30.1
 
