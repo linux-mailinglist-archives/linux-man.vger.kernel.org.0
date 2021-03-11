@@ -2,71 +2,112 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 63DF0337F2D
-	for <lists+linux-man@lfdr.de>; Thu, 11 Mar 2021 21:42:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E35B4338049
+	for <lists+linux-man@lfdr.de>; Thu, 11 Mar 2021 23:34:34 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230504AbhCKUmG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 11 Mar 2021 15:42:06 -0500
-Received: from p3plsmtpa07-10.prod.phx3.secureserver.net ([173.201.192.239]:53456
-        "EHLO p3plsmtpa07-10.prod.phx3.secureserver.net" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S230076AbhCKUmD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 11 Mar 2021 15:42:03 -0500
-Received: from [192.168.0.116] ([71.184.94.153])
-        by :SMTPAUTH: with ESMTPSA
-        id KS89l97tNukyLKS8Alc8bu; Thu, 11 Mar 2021 13:42:02 -0700
-X-CMAE-Analysis: v=2.4 cv=Od9dsjfY c=1 sm=1 tr=0 ts=604a809a
- a=vbvdVb1zh1xTTaY8rfQfKQ==:117 a=vbvdVb1zh1xTTaY8rfQfKQ==:17
- a=IkcTkHD0fZMA:10 a=SEc3moZ4AAAA:8 a=aZQ1mOuCFQjnfliJl3YA:9 a=QEXdDO2ut3YA:10
- a=5oRCH6oROnRZc2VpWJZ3:22
-X-SECURESERVER-ACCT: tom@talpey.com
-Subject: Re: [PATCH v4] flock.2: add CIFS details
-To:     =?UTF-8?Q?Aur=c3=a9lien_Aptel?= <aaptel@suse.com>,
-        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     smfrench@gmail.com, linux-cifs@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org, mtk.manpages@gmail.com,
-        linux-man@vger.kernel.org
-References: <87v9a7w8q7.fsf@suse.com> <20210304095026.782-1-aaptel@suse.com>
- <45b64990-b879-02d3-28e5-b896af0502c4@gmail.com> <87sg52t2xj.fsf@suse.com>
- <139a3729-9460-7272-b1d7-c2feb5679ee9@talpey.com> <87eegltxzd.fsf@suse.com>
- <d602e3e4-721a-a1c5-3375-1c9899da4383@talpey.com> <878s6ttwhd.fsf@suse.com>
-From:   Tom Talpey <tom@talpey.com>
-Message-ID: <23052c07-8050-4eb8-d2de-506c60dbed7d@talpey.com>
-Date:   Thu, 11 Mar 2021 15:42:01 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+        id S230119AbhCKWeC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 11 Mar 2021 17:34:02 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51068 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229705AbhCKWdn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 11 Mar 2021 17:33:43 -0500
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5A3BCC061574
+        for <linux-man@vger.kernel.org>; Thu, 11 Mar 2021 14:33:43 -0800 (PST)
+Received: by mail-wm1-x32c.google.com with SMTP id b2-20020a7bc2420000b029010be1081172so14058382wmj.1
+        for <linux-man@vger.kernel.org>; Thu, 11 Mar 2021 14:33:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=ISRbWxt5BOTUQqJXLJZP/v0n7VQCKV4S+csQFoKWIVo=;
+        b=EifF47ta0InwNGt4rIhhD1fDtuT/E6IjQDv0AeX9pzaxPYxUjIaWP4TDeNq+spO4go
+         kAiP6RQDfLeTkix+e2p3KzNRQmOABDIdvApIuVBVjz9rkjjvrwfhczw7WTTJ+YHMMq33
+         MkJojJmkjvZHHHYEUIym0+nVBWdjONRGPxVrPIjuTixDtIi6ZsUvipgU8kYfpJljzc29
+         hPoz96TzU75NIl0hjJ6tDv7LVVHTq/R+VEubwKOGPnE8PkZNKn9+F4Ez42qW7DFAVBVn
+         cDzHJ8aNKV9/e4NN6OVDrB4Fop+lbm8I8lSN+yQHJypWRgP21PWOlTBU8BkTATOzREQm
+         8yww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=ISRbWxt5BOTUQqJXLJZP/v0n7VQCKV4S+csQFoKWIVo=;
+        b=UxzI8dm8t9L1q2kH1Ic62PPM/SHgLKcT39pNJcsjXW/4LIVnSU6EAhblLDhQxVMqoa
+         Mq7focQ/GVoCPVhI9/ieNJdRq0R26mefCSmLCJK+IGaPTh7Up/8Q5VFXlz7TrljNS/3o
+         obExC5DOG5ElJkNtjm4xLTUXMTNNzljCd5uzfZ9C9tDdoLHZTR3CY0REl5Oo9/su5Bsg
+         QY5NzY4IX8cGpEDhnsTqdZRT9aHJL+LGgbe7Wsq7Se+xDGYegkLfBioi4SO1N3GedMOf
+         NWl43rdiBFnu7zVcX9BfTIvakCQD/KXUe/B4dZLjnf4mluMP9jgKcYPvR0WvjK0H4Seh
+         4+Kw==
+X-Gm-Message-State: AOAM532cXzeXWfSH7FtlRDu7ijOgUczZUyir3nMkNSoLLEVtMCDTTLTs
+        dmZSc8h9MXUJLs8OgmtCW0GVB27vK8g=
+X-Google-Smtp-Source: ABdhPJwAMrvsBKq61eSefRlsMH+bW4zQY0n7JxzHnqUGfln7fcLC8K2shz0uo/l+qJF2DrFUceeHsg==
+X-Received: by 2002:a1c:21c3:: with SMTP id h186mr9915873wmh.32.1615502022072;
+        Thu, 11 Mar 2021 14:33:42 -0800 (PST)
+Received: from localhost.localdomain ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id v2sm22365771wmj.1.2021.03.11.14.33.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 11 Mar 2021 14:33:41 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
+        Heinrich Schuchardt <xypron.glpk@gmx.de>
+Subject: [PATCH 00/17] man3: SYNOPSIS: Use 'restrict' in prototypes
+Date:   Thu, 11 Mar 2021 23:33:13 +0100
+Message-Id: <20210311223330.722437-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.30.1
 MIME-Version: 1.0
-In-Reply-To: <878s6ttwhd.fsf@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfKLGkDz/bysPE+Ob4fUuqGAQgwcF2OCEY1rdpqcTU0S0y7xfhrjWqllfUxiS2lalcN9qQjmCdsvrldDN+18YKw/HovBW1MvFFQ/CnkQF1oE0ooFtKFo8
- irpkx+UcEi/YeJz/XrVTwDCcuyhL+ClbyZMbLfMrBbTVMH/4eVPlSmZsOI12gK1SaUNniABPTCS4ndv5jNv2Q6yHEeZdXYPpVNZ0FEm1C+doN6h3TQkRJQtF
- ERddTEK2PvaTTViKMFmaWqoGYZZEyuW6Iail5zwR0AsHCGuaHbKkILAKeDHtzafmQnwJerMNe/ln3+GlFmazRrYZnGtuo9UY+a5HPRf7X+GuosFZhAUciQpW
- 0DkNKOx/JYPf0HT9Kmzk7+q6DE4xRFXzlmwCdAwkU6ezXoBmc/s=
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 3/11/2021 12:45 PM, Aurélien Aptel wrote:
-> Tom Talpey <tom@talpey.com> writes:
->> and simply state (perhaps)
->>
->>    "Remote and mandatory locking semantics may vary with SMB protocol,
->>     mount options and server type. See mount.cifs(8) for additional
->>     information."
-> 
-> This would be the complete addition to the man page? I feel like we
+Hello Michael,
+This fixes the remaining pages. With this, all pages have been fixed to use
+'restrict'.
 
-Only replacing the last sentence, which I quoted earlier.
+Kind regards,
 
-> should at least say it is *likely* that:
-> - locks will be mandatory
-> - flock() is emulated via fnctl() and so they interact with each other
-> 
-> Which are the 2 aspects that really diverges from the expected behaviour
-> of flock() and likely to hit people in the wild. Mentionning this will
-> send people trying to debug their app in the right direction.
+Alex
 
-Ok, and agreed. SMB lock semantics are certainly important to describe.
+Alejandro Colomar (17):
+  scanf.3: SYNOPSIS: Use 'restrict' in prototypes; ffix too.
+  tsearch.3: SYNOPSIS: Use 'restrict' in prototypes
+  unlocked_stdio.3: SYNOPSIS: Use 'restrict' in prototypes
+  wcpcpy.3: SYNOPSIS: Use 'restrict' in prototypes
+  wcpncpy.3: SYNOPSIS: Use 'restrict' in prototypes
+  wcrtomb.3: SYNOPSIS: Use 'restrict' in prototypes
+  wcscat.3: SYNOPSIS: Use 'restrict' in prototypes
+  wcscpy.3: SYNOPSIS: Use 'restrict' in prototypes
+  wcsncat.3: SYNOPSIS: Use 'restrict' in prototypes
+  wcsncpy.3: SYNOPSIS: Use 'restrict' in prototypes
+  wcsnrtombs.3: SYNOPSIS: Use 'restrict' in prototypes
+  wcsrtombs.3: SYNOPSIS: Use 'restrict' in prototypes
+  wcstoimax.3: SYNOPSIS: Use 'restrict' in prototypes
+  wcstok.3: SYNOPSIS: Use 'restrict' in prototypes
+  wcstombs.3: SYNOPSIS: Use 'restrict' in prototypes
+  wmemcpy.3: SYNOPSIS: Use 'restrict' in prototypes
+  wordexp.3: SYNOPSIS: Use 'restrict' in prototypes
 
-Tom.
+ man3/scanf.3          | 16 ++++++++++------
+ man3/tsearch.3        |  4 ++--
+ man3/unlocked_stdio.3 | 20 ++++++++++++--------
+ man3/wcpcpy.3         |  3 ++-
+ man3/wcpncpy.3        |  4 +++-
+ man3/wcrtomb.3        |  3 ++-
+ man3/wcscat.3         |  3 ++-
+ man3/wcscpy.3         |  3 ++-
+ man3/wcsncat.3        |  4 +++-
+ man3/wcsncpy.3        |  4 +++-
+ man3/wcsnrtombs.3     |  5 +++--
+ man3/wcsrtombs.3      |  4 ++--
+ man3/wcstoimax.3      |  8 ++++----
+ man3/wcstok.3         |  5 +++--
+ man3/wcstombs.3       |  3 ++-
+ man3/wmemcpy.3        |  4 +++-
+ man3/wordexp.3        |  3 ++-
+ 17 files changed, 60 insertions(+), 36 deletions(-)
+
+-- 
+2.30.1
+
