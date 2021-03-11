@@ -2,85 +2,102 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id F3531337954
-	for <lists+linux-man@lfdr.de>; Thu, 11 Mar 2021 17:30:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7B2F9337A10
+	for <lists+linux-man@lfdr.de>; Thu, 11 Mar 2021 17:53:03 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233571AbhCKQ3d (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 11 Mar 2021 11:29:33 -0500
-Received: from p3plsmtpa07-02.prod.phx3.secureserver.net ([173.201.192.231]:60597
-        "EHLO p3plsmtpa07-02.prod.phx3.secureserver.net" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S234323AbhCKQ3T (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 11 Mar 2021 11:29:19 -0500
-Received: from [192.168.0.116] ([71.184.94.153])
-        by :SMTPAUTH: with ESMTPSA
-        id KO4Wlnvvvw7iwKO4WlDLts; Thu, 11 Mar 2021 09:22:01 -0700
-X-CMAE-Analysis: v=2.4 cv=LJqj/La9 c=1 sm=1 tr=0 ts=604a43a9
- a=vbvdVb1zh1xTTaY8rfQfKQ==:117 a=vbvdVb1zh1xTTaY8rfQfKQ==:17
- a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8 a=UxtMAKUnOHX9nP3ZsQcA:9 a=QEXdDO2ut3YA:10
-X-SECURESERVER-ACCT: tom@talpey.com
-Subject: Re: [PATCH v4] flock.2: add CIFS details
-To:     =?UTF-8?Q?Aur=c3=a9lien_Aptel?= <aaptel@suse.com>,
-        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     smfrench@gmail.com, linux-cifs@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org, mtk.manpages@gmail.com,
-        linux-man@vger.kernel.org
-References: <87v9a7w8q7.fsf@suse.com> <20210304095026.782-1-aaptel@suse.com>
- <45b64990-b879-02d3-28e5-b896af0502c4@gmail.com> <87sg52t2xj.fsf@suse.com>
-From:   Tom Talpey <tom@talpey.com>
-Message-ID: <139a3729-9460-7272-b1d7-c2feb5679ee9@talpey.com>
-Date:   Thu, 11 Mar 2021 11:21:59 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+        id S229553AbhCKQwb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 11 Mar 2021 11:52:31 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33858 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229735AbhCKQw0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 11 Mar 2021 11:52:26 -0500
+Received: from casper.infradead.org (casper.infradead.org [IPv6:2001:8b0:10b:1236::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 29F30C061574;
+        Thu, 11 Mar 2021 08:52:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+        d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+        References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+        Content-Transfer-Encoding:Content-ID:Content-Description;
+        bh=jojXJ42UMX7xPogeR/Mx0xX5P7m6PdT89qs91n08TWo=; b=QtzkLjJCe42eAwZ5cWDdaH3YGv
+        Z1LcAP8aoAk5vnC910BVd4LtywBRSTrl9hlFggmzXruMJCyyBoMTBIYvjQhgir0HgupnuL8PUNVXf
+        lHl3yD/h+0nPv8WLTpdJuaBELGVsYAil6MImW+dkHkfd/NXn0qs4epBtUPwIVFsH6nIvw+Q8mOp8m
+        gfBePz0ulbeUoJICMI2OqLbmdFSrN5bDqaAUBWN6zCQfdhnMEeDniH5/CtT//D9Y32QD2NLtfPQk7
+        yQSUs6aZLVZ6cUpwxZ+/O6T5MnqhwLBcXrppHBJXaGwJ8uTzHDVY7CCKnZzSooboClxHgAZJE1KzY
+        nbMMotLA==;
+Received: from j217100.upc-j.chello.nl ([24.132.217.100] helo=noisy.programming.kicks-ass.net)
+        by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
+        id 1lKOXK-007qGS-Fc; Thu, 11 Mar 2021 16:51:54 +0000
+Received: from hirez.programming.kicks-ass.net (hirez.programming.kicks-ass.net [192.168.1.225])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (Client did not present a certificate)
+        by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 59AE2301959;
+        Thu, 11 Mar 2021 17:51:45 +0100 (CET)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+        id 464BD2BF461C2; Thu, 11 Mar 2021 17:51:45 +0100 (CET)
+Date:   Thu, 11 Mar 2021 17:51:45 +0100
+From:   Peter Zijlstra <peterz@infradead.org>
+To:     Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc:     Piotr Figiel <figiel@google.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        paulmck <paulmck@kernel.org>, Boqun Feng <boqun.feng@gmail.com>,
+        Oleg Nesterov <oleg@redhat.com>,
+        "Dmitry V. Levin" <ldv@altlinux.org>,
+        Florian Weimer <fweimer@redhat.com>,
+        Alexey Dobriyan <adobriyan@gmail.com>,
+        Andrei Vagin <avagin@gmail.com>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        Peter Oskolkov <posk@google.com>,
+        Kamil Yurtsever <kyurtsever@google.com>,
+        Chris Kennelly <ckennelly@google.com>,
+        Paul Turner <pjt@google.com>, emmir <emmir@google.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        linux-api <linux-api@vger.kernel.org>
+Subject: Re: [PATCH v2] ptrace: add PTRACE_GET_RSEQ_CONFIGURATION request
+Message-ID: <YEpKoa9PgjffO7Q5@hirez.programming.kicks-ass.net>
+References: <20210226135156.1081606-1-figiel@google.com>
+ <1173189328.5477.1615474316906.JavaMail.zimbra@efficios.com>
 MIME-Version: 1.0
-In-Reply-To: <87sg52t2xj.fsf@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfCw6KXGwBnnLP3nf5yMK/JbbS5lnZCXOTKhzHPQ0oQg9HY7Qi8kH8kiddRsUcU0WmeGZEMFe9eAcERzBJf3ZdG1QCnAf+/Cx4BkBKP7OH8Kh1O9sYjYX
- ShFVSqGzUYHhgyv43zxSOiz+tD9CpVdn3rBWfj+/HeAP4fvRvntpnXYvvEC5o7t2hZd/mxcOXZqsJ0ARPqiWNVOZ2h5YLz1BPJDzb/ERHiYfI+s+Jsu0KPor
- 7jGPeJKgxPseyw21Rv62Wn4KFAJWAKiWlwmfGrBgWd+sj7eLiyo2DP5YTTw+7mVLNvImRfISJd1QmsC1h8LfxmIJkajGBTBPTvrpl38tlJmU+7Efae9uIVb4
- njk4EJP1V2LRYAF8G1rD8DfpAXgJF+eS3fOhRmZw93Qji0jGEt4=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1173189328.5477.1615474316906.JavaMail.zimbra@efficios.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 3/11/2021 5:11 AM, Aurélien Aptel wrote:
-> "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com> writes:
->> I agree with Tom.  It's much easier to read if you just say that 'nobrl'
->> torns off the non-locale behaviour, and acts as 5.4 and earlier kernels.
->>    Unless there's any subtlety that makes it different.  Is there any?
+On Thu, Mar 11, 2021 at 09:51:56AM -0500, Mathieu Desnoyers wrote:
 > 
-> nobrl also makes fnctl() locks local.
-> In 5.4 and earlier kernel, flock() is local but fnctl() isn't.
 > 
->> BTW, you should use "semantic newlines":
+> ----- On Feb 26, 2021, at 8:51 AM, Piotr Figiel figiel@google.com wrote:
 > 
-> Ok, I'll redo once we agree on the text.
+> > For userspace checkpoint and restore (C/R) a way of getting process state
+> > containing RSEQ configuration is needed.
+> > 
+> > There are two ways this information is going to be used:
+> > - to re-enable RSEQ for threads which had it enabled before C/R
+> > - to detect if a thread was in a critical section during C/R
+> > 
+> > Since C/R preserves TLS memory and addresses RSEQ ABI will be restored
+> > using the address registered before C/R.
+> > 
+> > Detection whether the thread is in a critical section during C/R is needed
+> > to enforce behavior of RSEQ abort during C/R. Attaching with ptrace()
+> > before registers are dumped itself doesn't cause RSEQ abort.
+> > Restoring the instruction pointer within the critical section is
+> > problematic because rseq_cs may get cleared before the control is passed
+> > to the migrated application code leading to RSEQ invariants not being
+> > preserved. C/R code will use RSEQ ABI address to find the abort handler
+> > to which the instruction pointer needs to be set.
+> > 
+> > To achieve above goals expose the RSEQ ABI address and the signature value
+> > with the new ptrace request PTRACE_GET_RSEQ_CONFIGURATION.
+> > 
+> > This new ptrace request can also be used by debuggers so they are aware
+> > of stops within restartable sequences in progress.
+> > 
+> > Signed-off-by: Piotr Figiel <figiel@google.com>
+> > Reviewed-by: Michal Miroslaw <emmir@google.com>
+> 
+> Reviewed-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-I wonder if it's best to leave the nobrl details to the mount.cifs
-manpage, and just make a reference from here.
-
-Another advantage of putting this in a cifs.ko-specific manpage
-is that it would be significantly easier to maintain. The details
-of a 5.4-to-5.5 transition are going to fade over time, and the
-APIs in fcntl(2)/flock(2) really aren't driving that.
-
-If not, it's going to be messy... Aurélien is this correct?
-
-cifs.ko flock()
-- local in <= 5.4
-- remote by default in >= 5.5
-- local if nobrl in >= 5.5
-
-cifs.ko fcntl()
-- remote by default in X.Y
-- local if nobrl in X.Y
-
-Not sure what the value(s) of X.Y actually might be.
-
-It seems odd that "nobrl" means "handle locking locally, and never
-send to server". I mean, there is always byte-range locking, right?
-
-Are there any other options or configurations that alter this?
-
-Tom.
+How do we route this? Do I stick this in tip/sched/core as being an rseq
+patch?
