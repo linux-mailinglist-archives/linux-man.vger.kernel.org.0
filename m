@@ -2,59 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 66AEA33A05E
-	for <lists+linux-man@lfdr.de>; Sat, 13 Mar 2021 20:27:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7822933A061
+	for <lists+linux-man@lfdr.de>; Sat, 13 Mar 2021 20:27:05 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234458AbhCMT0c (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S234472AbhCMT0c (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sat, 13 Mar 2021 14:26:32 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36168 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36172 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234395AbhCMT0B (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 13 Mar 2021 14:26:01 -0500
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 09F68C061574;
+        with ESMTP id S234397AbhCMT0C (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 13 Mar 2021 14:26:02 -0500
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CE0D5C061574;
         Sat, 13 Mar 2021 11:26:01 -0800 (PST)
-Received: by mail-wr1-x42b.google.com with SMTP id y16so6617151wrw.3;
-        Sat, 13 Mar 2021 11:26:00 -0800 (PST)
+Received: by mail-wm1-x334.google.com with SMTP id u5-20020a7bcb050000b029010e9316b9d5so14144833wmj.2;
+        Sat, 13 Mar 2021 11:26:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=WAJ8l7S3N7jAAUiOrOBAwKqf/KXf6VsnLcR6sFmm34Q=;
-        b=Lzc/pdUdNtyQnIkl7poe8jxu5OBMbq9ruGKWoMAs59ew+kQxI+1D3O4M2X2LH0ZPO7
-         jGY3ZIpoG4gOaqhLLdYAAe6YNmCNqmdDBJt9OfFfsWlsqvFChw9KpGKKmArpHcFkZhxq
-         lEa7CXVR3LZh7E37zE5L6BKuMXQlyaJh1dTw+ubClD1kFAh/FaGbljjJi7SskaHuH0Vr
-         nomDBUuryL/QFYqfNbkR7HcfzjepZp2VGObudTN4B+Z83ewieZbnniRPUC4IEQ4lcdtB
-         /2iB7t/U/8J1oR1xiagO0q5NmJ59lRQ2Vxz1lXFMS2IKJNLb7J8ArZLO7CZqXVFW6jPS
-         F4tA==
+        bh=hSTdDcjje/hceZMxpO7qDIzVpu8KWXMOYCef8SD5Sy4=;
+        b=iRU7DB8qHHfol0pRy/yTycv/ytdKuDKWYoke7HDhLf1b+CyhIIORjFzpmT7FKWuyjA
+         jLQqN/qAv3CxS4Ky7aFr08zDcM38GIm1Kngf2UezUgqztT4tM5IymKGGFSfcGPhePwnv
+         BliJO9c6rfTL0XLHAtyXTLT7lcT2Jl2mhX+mtXL8OE8PxMJp8SyKaKlYDNP3JG0wE1Kx
+         7AVkZl2niYVuEXYpill+hGssn+8ZGuH0K7O9yNRwSZy/at3kqIBBC+Y3e/VGSeTNzeXG
+         eDx+JBCBBdZJ9kwrQHlJbwOufXIGf0ZZ0FTlZPvSB7nXlL1Dcp+9MUOrrxdURqUq85yO
+         /8/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=WAJ8l7S3N7jAAUiOrOBAwKqf/KXf6VsnLcR6sFmm34Q=;
-        b=LxbTGKzpONie0l/vEoHzdjTsP4SbyGFEKmuWESMahsR6z3ZF3bpic35mPvv8s3rK9u
-         gLNwMf3aUBxTbJT8lRU9Yg3PP1wHE0h3Vdz8tGa/C4UUCG5KhgcIWl2cVQmUUhNEGDJ/
-         Iq2zZw3aCZxg6t9m2GSxebv5UGCTU065Uvx73PqpOPxqolUbQn2aLFTenZV5lawqPxsC
-         ld0pIKE5KLJr73ANwr0Dx2YnT9HI2MvHQD3e86pGOC0YME6+KSNiOG9rauYDJHjeBgBZ
-         zGkoAz7IgEJTip+vjQA3oQaHmV/ElYbyM5JO/Mm0o8NAG34439hLjmkA33XPtvuQqJCn
-         m1lA==
-X-Gm-Message-State: AOAM532KNc6RjIChaBsfXwxts5yIDtwUrtRmYoub26n4Xifw9uFDFcWK
-        ceo3FANp1xjT7h4y7zfIGLA=
-X-Google-Smtp-Source: ABdhPJzkRm+ZA4vhU5vZItwDPwVrxlDWOs0deZ/6NNDvo21ELaqzPaYQgbY9quF8RLkyPjJ3BZ7nhw==
-X-Received: by 2002:adf:cf11:: with SMTP id o17mr20102411wrj.391.1615663559850;
-        Sat, 13 Mar 2021 11:25:59 -0800 (PST)
+        bh=hSTdDcjje/hceZMxpO7qDIzVpu8KWXMOYCef8SD5Sy4=;
+        b=pOJV6aCwngv7PcuIoA7HCbnxFVsdCknfVv9W7oVhiEaehFM8zLZL4c8Ff7RnvgfggG
+         BqsUWUOQRRN1blxEDzevIUQ4nyildrl8lwEavJIgqzfZP+wKD6/fbPMCMqmhURn1Up8C
+         mjIn08czk8xMDoZKujUSz4nz83xADCz+9YcPTDn1Exrz83aPups2oNlGd5zJ3GQnL8lx
+         isZl/74QSzbE/6vCra3pUU1hFYXj6S/jAdMKMtaOi2jW8DRn4rUFFYjF1PBpveBk7MzC
+         f6k7qCWrD8ICW42vVt/rORIlX/B0OxZd/KjlqKuwemg4wrwW1AOdnkj/e/3x26YPXEtU
+         mKWQ==
+X-Gm-Message-State: AOAM532/YF3nWdAD3G6iSmpceNVAmj4ItaIFGKKTmsPAsKPOR3GqEpVR
+        IedAqfSnQ30UBwV5t8aMn1M=
+X-Google-Smtp-Source: ABdhPJwdRHI7UONCGKpzUUYdG5/c4LkiL+jfrlZ1Xo34nkDe10cswmF2DmJkFx8O2heFSuKKL01mzw==
+X-Received: by 2002:a05:600c:4f14:: with SMTP id l20mr18692607wmq.71.1615663560662;
+        Sat, 13 Mar 2021 11:26:00 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
         by smtp.googlemail.com with ESMTPSA id j136sm7670964wmj.35.2021.03.13.11.25.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 13 Mar 2021 11:25:59 -0800 (PST)
+        Sat, 13 Mar 2021 11:26:00 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org,
         linux-kernel@vger.kernel.org, Florian Weimer <fweimer@redhat.com>
-Subject: [RFC v3 13/17] getunwind.2: Use syscall(SYS_...); for system calls without a wrapper
-Date:   Sat, 13 Mar 2021 20:25:23 +0100
-Message-Id: <20210313192526.350200-14-alx.manpages@gmail.com>
+Subject: [RFC v3 14/17] get_robust_list.2: Use syscall(SYS_...); for system calls without a wrapper
+Date:   Sat, 13 Mar 2021 20:25:24 +0100
+Message-Id: <20210313192526.350200-15-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210214133907.157320-1-alx.manpages@gmail.com>
 References: <20210214133907.157320-1-alx.manpages@gmail.com>
@@ -64,46 +64,53 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Also remove unused includes.
+
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/getunwind.2 | 14 ++++----------
- 1 file changed, 4 insertions(+), 10 deletions(-)
+ man2/get_robust_list.2 | 20 ++++++++------------
+ 1 file changed, 8 insertions(+), 12 deletions(-)
 
-diff --git a/man2/getunwind.2 b/man2/getunwind.2
-index 9a58f43e4..3490a0617 100644
---- a/man2/getunwind.2
-+++ b/man2/getunwind.2
-@@ -29,16 +29,14 @@
- getunwind \- copy the unwind data to caller's buffer
+diff --git a/man2/get_robust_list.2 b/man2/get_robust_list.2
+index b1ae42dbd..9c8f14443 100644
+--- a/man2/get_robust_list.2
++++ b/man2/get_robust_list.2
+@@ -32,17 +32,16 @@
+ get_robust_list, set_robust_list \- get/set list of robust futexes
  .SH SYNOPSIS
  .nf
+-.B #include <linux/futex.h>
+-.B #include <sys/types.h>
 -.B #include <syscall.h>
- .B #include <linux/unwind.h>
-+.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
-+.B #inlcude <unistd.h>
++.BR "#include <linux/futex.h>" \
++"    /* Definition of " "struct robust_list_head" " */"
++.BR "#include <sys/syscall.h>" "    /* Definition of " SYS_* " constants */"
++.B #include <unistd.h>
  .PP
--.BI "long getunwind(void " *buf ", size_t " buf_size );
-+.BI "long syscall(SYS_getunwind, void " *buf ", size_t " buf_size );
+-.BI "long get_robust_list(int " pid ", struct robust_list_head **" head_ptr ,
+-.BI "                     size_t *" len_ptr );
+-.BI "long set_robust_list(struct robust_list_head *" head ", size_t " len );
++.BI "long syscall(SYS_get_robust_list, int " pid ,
++.BI "             struct robust_list_head **" head_ptr ", size_t *" len_ptr );
++.BI "long syscall(SYS_set_robust_list,"
++.BI "             struct robust_list_head *" head ", size_t " len );
  .fi
 -.PP
 -.IR Note :
--There is no glibc wrapper for this system call; see NOTES.
+-There are no glibc wrappers for these system calls; see NOTES.
  .SH DESCRIPTION
--.I Note: this function is obsolete.
-+.I Note: this system call is obsolete.
- .PP
- The
- IA-64-specific
-@@ -102,9 +100,5 @@ and is available only on the IA-64 architecture.
- This system call has been deprecated.
- The modern way to obtain the kernel's unwind data is via the
- .BR vdso (7).
--.PP
--Glibc does not provide a wrapper for this system call;
--in the unlikely event that you want to call it, use
+ These system calls deal with per-thread robust futex lists.
+ These lists are managed in user space:
+@@ -139,9 +138,6 @@ could be found.
+ These system calls were added in Linux 2.6.17.
+ .SH NOTES
+ These system calls are not needed by normal applications.
+-No support for them is provided in glibc.
+-In the unlikely event that you want to call them directly, use
 -.BR syscall (2).
- .SH SEE ALSO
- .BR getauxval (3)
+ .PP
+ A thread can have only one robust futex list;
+ therefore applications that wish
 -- 
 2.30.2
 
