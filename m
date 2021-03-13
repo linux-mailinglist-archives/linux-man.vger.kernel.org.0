@@ -2,59 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4F52633A059
+	by mail.lfdr.de (Postfix) with ESMTP id 04A4133A058
 	for <lists+linux-man@lfdr.de>; Sat, 13 Mar 2021 20:27:02 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234433AbhCMT0a (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S230412AbhCMT0a (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sat, 13 Mar 2021 14:26:30 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36138 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36144 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234345AbhCMTZ4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 13 Mar 2021 14:25:56 -0500
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1249EC061574;
+        with ESMTP id S234348AbhCMTZ5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 13 Mar 2021 14:25:57 -0500
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DFA6BC061574;
         Sat, 13 Mar 2021 11:25:56 -0800 (PST)
-Received: by mail-wm1-x32a.google.com with SMTP id g8so5746004wmd.4;
-        Sat, 13 Mar 2021 11:25:55 -0800 (PST)
+Received: by mail-wr1-x429.google.com with SMTP id e18so3594376wrt.6;
+        Sat, 13 Mar 2021 11:25:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=yQXEtfeyKUnkSglVrznV/SHCCMXJyKxnW8hgUwKGmHg=;
-        b=QkWox1cW8ob5y/CvxM7WzzFG/s4AfTfmOF7TBZ2k2XafbvzNjw0WufIwQfaYSWY07i
-         Aa38msogLr7uzQkXvVdW4OO/3WGLiWW/CzlRc8Gm1VCMXcJyVlOMLmr9N6Y8TuRnf6ql
-         mxERd5YN8iGz9spJBwezLI/ev0vrKPDM6EU8LJpNCxg/0FrLkkvoB9w3AVzmJk/M7OC/
-         Hcget2NAzTtW/5NSogm15diNmYabq0N6lo451DQd/SzbQr8kf44Y4asYGvNB3ZVLdg/S
-         HC5KvKaxbI0Fu/3JyG7BRkZrbcz9ZVzApFJiuj0zcgEqehez4EkFt7nlPFlxEnPx/GjD
-         p+lA==
+        bh=m2UYqInPbiVi0OaTJQ9o2S1q3+yvxRnv9zNjA6WqsG0=;
+        b=uy6ZrOFPH4Q7ALCnDzF0BmGYOBPgfmgQBg7qs9FM7VVW7+f/2bilxQSCtMWVBJohvX
+         Ch/bhpYq930LKPrtnOGrhx8KufnCudjif4MIFkPklhHAy6bhXqUWSPGwkeXrVl65Xi9M
+         pA0qREL0yvWC0owUBXGvGQ7/3sPmD2U3L5V0S5Z67KkcglhwaP3Pvo3hbgZxT1NmVYfZ
+         w+1TglKJ4wAMwL69Awnmx/QmYruBPAE5zrxQDyyBZmDQvaH1BlAZuTSrnMdDwOt7KIZq
+         SR/yPVZ8lAgLxKkaD3AwctXJ0WbYPAPkovFev0wiiv14BUD90mM2dNJ8qVlyzDSVeEzj
+         GCRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=yQXEtfeyKUnkSglVrznV/SHCCMXJyKxnW8hgUwKGmHg=;
-        b=ee6FBuybFBZt3BUiGlRyU0C6tSdwXFIJCTIzuE073Vp0VQYRW6ffHp8RuwwSgc+rQn
-         B0o0t/K5pn3811/GbgqR6rgvuLAl+Z0oA3LirdvNxBdgGUL76NPDm/CQxMBCQGJgJonW
-         aV7li19j8cRdIPc+g1/nafgmIhJyYIKxUCnJxu8CPBXU+/7EnA4bjG5qX9Ghb7xKYDI/
-         kzZyVBYNz4eGWAoiqeyFi4zRNIqnev7raFIt/0DSY4x2ghbCEaNGSdq8MEUuxVXVvu36
-         y3wSq9ruHVaYlDjaxRh12kEfq96/lMN8gaD6dQgcQrNByXJ6zOUttNBkhhXhXT/tlW99
-         Us2Q==
-X-Gm-Message-State: AOAM533eNpqpZuPSWPbjvXW1Mq8HSdrNomW0WW5HFTM9af8TGZKxwo7s
-        n7DrLKeT5zEuVwcpYBV4xCNjQXjc4Py97g==
-X-Google-Smtp-Source: ABdhPJzMA2rcRrGgKxTV5GfVy9NgQlIob38w90BYyCIiZfU+6RHUpQs/sOvXP6n0OAqSljiKymag+Q==
-X-Received: by 2002:a7b:c084:: with SMTP id r4mr18907694wmh.166.1615663554835;
-        Sat, 13 Mar 2021 11:25:54 -0800 (PST)
+        bh=m2UYqInPbiVi0OaTJQ9o2S1q3+yvxRnv9zNjA6WqsG0=;
+        b=owe1lJLHvUKbBq8ID3zCwBO2nbiQm1EOdXUs8ojWadqDOoe7u0GjkVvXMHrpcYeo5T
+         Xtoju9acc2hw5C3IaYJabqdLIJAOoVK5EZw5v+Vj5cZgBoCoL40OeuVWND3IAWVQ8LXk
+         ymyXDMOUiX3wP50T+xNBwFuktmO6ktRC0eCJhF7gU/eDm3nOqnaNs1Hhqy7DwmR8sEkS
+         NJVscbrmavHNCc4CF40lv52A9rV6b50YrpbGCJ55nR74Agf0WYlyV9DPMdOCksJAuZG/
+         KHpL/XI/IXMI/xW/k0VoZNMxUtrkARGFac19E315PcNri0ZQ0NFwhx6yfYG0mAcCV+t8
+         L3BQ==
+X-Gm-Message-State: AOAM532CjZgUqpfiA/livbwNNAD6jzUVSE4wcuswx6WNXpQ+7nlJvcr/
+        Ue3TAFkiscFoEtQq6TrhSOg=
+X-Google-Smtp-Source: ABdhPJz0V23KnA6yIiswti5QiH73acYI1QhV9tU6ijBdEO/5LImULsitAbd8x0W3FS7qq+7ZO6R9TQ==
+X-Received: by 2002:a5d:6404:: with SMTP id z4mr19052012wru.109.1615663555693;
+        Sat, 13 Mar 2021 11:25:55 -0800 (PST)
 Received: from localhost.localdomain ([170.253.51.130])
         by smtp.googlemail.com with ESMTPSA id j136sm7670964wmj.35.2021.03.13.11.25.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 13 Mar 2021 11:25:54 -0800 (PST)
+        Sat, 13 Mar 2021 11:25:55 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org,
         linux-kernel@vger.kernel.org, Florian Weimer <fweimer@redhat.com>
-Subject: [RFC v3 07/17] delete_module.2: wfix
-Date:   Sat, 13 Mar 2021 20:25:17 +0100
-Message-Id: <20210313192526.350200-8-alx.manpages@gmail.com>
+Subject: [RFC v3 08/17] epoll_wait.2: Use syscall(SYS_...); for system calls without a wrapper
+Date:   Sat, 13 Mar 2021 20:25:18 +0100
+Message-Id: <20210313192526.350200-9-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210214133907.157320-1-alx.manpages@gmail.com>
 References: <20210214133907.157320-1-alx.manpages@gmail.com>
@@ -64,26 +64,30 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Use the same wording as in delete_module(2) for this special case.
-
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/delete_module.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man2/epoll_wait.2 | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/man2/delete_module.2 b/man2/delete_module.2
-index cb78cf484..50921d7ba 100644
---- a/man2/delete_module.2
-+++ b/man2/delete_module.2
-@@ -31,7 +31,7 @@ delete_module \- unload a kernel module
- .fi
- .PP
- .IR Note :
--There is no glibc wrapper for this system call; see NOTES.
-+No declaration of this system call is provided in glibc headers; see NOTES.
- .SH DESCRIPTION
- The
- .BR delete_module ()
+diff --git a/man2/epoll_wait.2 b/man2/epoll_wait.2
+index af4180df0..0f3cfe1d5 100644
+--- a/man2/epoll_wait.2
++++ b/man2/epoll_wait.2
+@@ -32,7 +32,13 @@ epoll_wait, epoll_pwait, epoll_pwait2 \- wait for an I/O event on an epoll file
+ .BI "int epoll_pwait(int " epfd ", struct epoll_event *" events ,
+ .BI "               int " maxevents ", int " timeout ,
+ .BI "               const sigset_t *" sigmask );
+-.BI "int epoll_pwait2(int " epfd ", struct epoll_event *" events ,
++.PP
++.BR "#include <linux/eventpoll.h>" \
++" /* Definition of " "struct epoll_event" " */"
++.BR "#include <sys/syscall.h>" "     /* Definition of " SYS_* " constants */"
++.B #include <unistd.h>
++.PP
++.BI "int syscall(SYS_epoll_pwait2, int " epfd ", struct epoll_event *" events ,
+ .BI "               int " maxevents ", const struct timespec *" timeout ,
+ .BI "               const sigset_t *" sigmask );
+ .\" FIXME: Check if glibc has added a wrapper for epoll_pwait2(),
 -- 
 2.30.2
 
