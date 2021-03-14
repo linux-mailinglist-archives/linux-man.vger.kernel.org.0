@@ -2,126 +2,82 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6DD8433A84C
-	for <lists+linux-man@lfdr.de>; Sun, 14 Mar 2021 22:40:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6B89833A84D
+	for <lists+linux-man@lfdr.de>; Sun, 14 Mar 2021 22:41:15 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233906AbhCNVkI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 14 Mar 2021 17:40:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60518 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232431AbhCNVjm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 14 Mar 2021 17:39:42 -0400
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com [IPv6:2a00:1450:4864:20::532])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D8DFFC061574
-        for <linux-man@vger.kernel.org>; Sun, 14 Mar 2021 14:39:41 -0700 (PDT)
-Received: by mail-ed1-x532.google.com with SMTP id h13so15049974eds.5
-        for <linux-man@vger.kernel.org>; Sun, 14 Mar 2021 14:39:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=wDf60HXUHXZD9ZURfqXPwSeJsw2cL02yBFAZ/uz5/Ic=;
-        b=Z7GQ5xV3GD24+srJWCexYI8xJfvlAp+UIQ1nTlBkcME8TKQTE1DrUVjv2nMsgn6FPP
-         K0wF5Kt2TAQuvzSIE7vHvpPIm91GlbnB9+T9Q2usx3sKtzgDQuAAC8l+e6XIf/YLDgxE
-         JqXDp1K1F8ix3nAc6HtAEASnwgl7ILMOuldsiuKPaqxScp6/wGpEsorMutMh6j99RpaI
-         NH5mLNKMddVI1xsOWJ27LaFqOmkt12PkDSqUqZWxn6hCqtmey5x6NM49rcYOWlUlcFOt
-         4M5u5iifwzEsfFXRC5hRClRnuUMe93mHiYRe4B3iOzl/EfslmGc4++29DPvMf2T85qfB
-         rIuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=wDf60HXUHXZD9ZURfqXPwSeJsw2cL02yBFAZ/uz5/Ic=;
-        b=GYqbdJYKjlqTD4ZPnM/VxJm6gLL+77FB7/0GGugbPqhe/vNUP4+pWoT1xbmOy1sg2+
-         an74JBjjds00NhH5b/P30DsLIVXL4I1ouhjToAB8bvGkmV93xqxzs4Uxg/AujHNXJG4U
-         0QqcEcVOyMk1GqVHOCnWzlimNi5jeFlJgVv830k/7/c391+8KIZDGPnwjI8XqAdgpqpU
-         kCUZb3V4etokbNTaXQ6htsZj+EpMkoEkKkpZAIsZZ24UyRvJZoXcUJqXMNi1BgklIEAq
-         Ymgv+eIdgTzEsstYtToyCi6LNlnI3JyAQRu3FxF7cTxlSPmvx1Vz9X0pru06BBwAi67/
-         WWgg==
-X-Gm-Message-State: AOAM532nahSJCSf5SYvrpWdtfA7cZfIN+kU1jKvrE+qdU/WkiLCMOD68
-        x8jVgSXNH66/KrpeQVloZ/k3vVOot60=
-X-Google-Smtp-Source: ABdhPJwcAF80lwajMqJAcp8GqUZZd1E1zPFhq86AyetjemeIvljbGnuiSz+WKszA8j/vNcc3TfTlRA==
-X-Received: by 2002:a05:6402:31b7:: with SMTP id dj23mr26930917edb.245.1615757975261;
-        Sun, 14 Mar 2021 14:39:35 -0700 (PDT)
-Received: from ?IPv6:2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b? ([2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b])
-        by smtp.gmail.com with ESMTPSA id jv19sm6208872ejc.74.2021.03.14.14.39.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 14 Mar 2021 14:39:34 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
-Subject: Re: Formatting very long function parameters
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-References: <2e686e13-f846-573f-1468-5e652d571e89@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <c715d679-bb93-eb18-cc89-58af42c52692@gmail.com>
-Date:   Sun, 14 Mar 2021 22:39:33 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+        id S233966AbhCNVkk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 14 Mar 2021 17:40:40 -0400
+Received: from mailbackend.panix.com ([166.84.1.89]:21433 "EHLO
+        mailbackend.panix.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S234065AbhCNVkf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 14 Mar 2021 17:40:35 -0400
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+        by mailbackend.panix.com (Postfix) with ESMTPSA id 4DzCdt2pzKz1Dw1
+        for <linux-man@vger.kernel.org>; Sun, 14 Mar 2021 17:40:34 -0400 (EDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=panix.com; s=panix;
+        t=1615758034; bh=VH7OWqmKP1K+3Gqx0YjUL/k/ECc59WT1KiNLy3oiNRg=;
+        h=References:In-Reply-To:From:Date:Subject:To:Cc;
+        b=NJzjIDN0F3vVtDg0v7ezbhQMr6iKi94ePIOcKyHK+9/3DURXitMqsR684pj5A6B4K
+         +7B/K+ZdD84nSkMzeZMpNU1rL1OGJ29FgYtV+r5h45PIugfN8uz+3YnN1gU4QvmDrT
+         X85Ba6CZ96EiwHKjXh8tXJEDfjo+94/XgaOtvrqc=
+Received: by mail-ed1-f52.google.com with SMTP id x21so15044734eds.4
+        for <linux-man@vger.kernel.org>; Sun, 14 Mar 2021 14:40:34 -0700 (PDT)
+X-Gm-Message-State: AOAM533VrJrODyhWCobdjEfo7fGtShVGbzT+BeqhostqQGgEKbxF8oom
+        pbBV+UoC0DwUoNgAQ22+udXVVaeZizoEi9O8ODQ=
+X-Google-Smtp-Source: ABdhPJyGc99PnGPTK9D08Ib+nUgMWPyUJMeh+YBoKHTK4EEsjqJObW5KSbhC4+YbNmWIBfpxbRuRHBGcmwhS09dbUZE=
+X-Received: by 2002:aa7:db01:: with SMTP id t1mr26691060eds.77.1615758033090;
+ Sun, 14 Mar 2021 14:40:33 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <2e686e13-f846-573f-1468-5e652d571e89@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20210314160134.127878-1-alx.manpages@gmail.com>
+In-Reply-To: <20210314160134.127878-1-alx.manpages@gmail.com>
+From:   Zack Weinberg <zackw@panix.com>
+Date:   Sun, 14 Mar 2021 17:40:21 -0400
+X-Gmail-Original-Message-ID: <CAKCAbMiJO8gq7LoDi-iTvmqvDpwUXXnTs8ABHXvin-psyo3+QQ@mail.gmail.com>
+Message-ID: <CAKCAbMiJO8gq7LoDi-iTvmqvDpwUXXnTs8ABHXvin-psyo3+QQ@mail.gmail.com>
+Subject: Re: [PATCH] Various pages: Remove unused <sys/types.h>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        GNU C Library <libc-alpha@sourceware.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 3/8/21 2:54 PM, Alejandro Colomar (man-pages) wrote:
-> Hi Michael,
-> 
-> I have a problem with pthread_mutexattr_getpshared(3).
-> After adding 'restrict', the first parameter alone would use 81 columns,
-> so I came with 3 options:
-> 
-> A)	Move the parameter to a new line,
-> 	leaving the open parenthesis at the end of a line.
-> 
-> [
->         int pthread_mutexattr_getpshared(
->                                       const pthread_mutexattr_t 
-> *restrict attr,
->                                       int *restrict pshared);
->         int pthread_mutexattr_setpshared(pthread_mutexattr_t *attr,
->                                       int pshared);
-> ]
-> 
-> B)	Compact the pointer to use only 80 columns,
-> 	by deleting a cosmetic whitespace,
-> 	and exceptionally ignore the 78-column right margin.
-> 
-> [
->         int pthread_mutexattr_getpshared(const 
-> pthread_mutexattr_t*restrict attr,
->                                          int *restrict pshared);
->         int pthread_mutexattr_setpshared(pthread_mutexattr_t *attr,
->                                          int pshared);
-> ]
-> 
-> C)	(What POSIX does) Break the 1st parameter at the pointer:
-> 
-> [
->         int pthread_mutexattr_getpshared(const pthread_mutexattr_t
->                                          *restrict attr,
->                                          int *restrict pshared);
->         int pthread_mutexattr_setpshared(pthread_mutexattr_t *attr,
->                                          int pshared);
-> ]
-> 
-> 
-> I did the 1st one, but I'm not sure about it.  Do you have any preference?
+On Sun, Mar 14, 2021 at 12:04 PM Alejandro Colomar via Libc-alpha
+<libc-alpha@sourceware.org> wrote:
+>
+> The manual pages are already inconsistent in which headers need
+> to be included.  Right now, not all of the types used by a
+> function have their required header included in the SYNOPSIS.
+>
+> If we were to add the headers required by all of the types used by
+> functions, the SYNOPSIS would grow too much.  Not only it would
+> grow too much, but the information there would be less precise.
+>
+> Having system_data_types(7) document each type with all the
+> information about required includes is much more precise, and the
+> info is centralized so that it's much easier to maintain.
+>
+> So let's document only the include required for the function
+> prototype, and also the ones required for the macros needed to
+> call the function.
 
-I think (A) is more or less the way to go. But, so long as we
-can't line anything up below the "(" of any function declaration,
-I decided to tweak that a little so that the follow-on arguments
-are not so deeply indented (which looks a little strange, I find).
-Thus my commit 48ee34e75.
+I endorse this change.  For glibc, if the header file containing the
+function prototype doesn't also provide everything you need to call
+the function, it's a bug (except for a few cases where the relevant
+standards prevent us from doing this, e.g. a function that calls
+vprintf will need the macros in <stdarg.h>, but the C standard
+specifically forbids <stdio.h> to include <stdarg.h>).
 
-Cheers,
+> <sys/types.h> only defines types, not functions or constants, so
+> it doesn't belong to man[23] (function) pages at all.
+> I ignore if some old systems had headers that required you to
+> include <sys/types.h> *before* them (incomplete headers),
 
-Michael
+Such systems did exist in the past, but they are too old to worry
+about nowadays.  I don't think it's possible for them to be compliant
+with POSIX.1-1995, and the examples I know of personally (SunOS 4, for
+instance) were not even fully compliant with C89.
 
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+zw
