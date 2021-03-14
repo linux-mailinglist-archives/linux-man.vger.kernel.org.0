@@ -2,64 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1056F33A814
-	for <lists+linux-man@lfdr.de>; Sun, 14 Mar 2021 21:57:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B3B2333A848
+	for <lists+linux-man@lfdr.de>; Sun, 14 Mar 2021 22:39:34 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233389AbhCNU4y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 14 Mar 2021 16:56:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51374 "EHLO
+        id S231878AbhCNVjC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 14 Mar 2021 17:39:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60278 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229870AbhCNU4j (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 14 Mar 2021 16:56:39 -0400
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com [IPv6:2a00:1450:4864:20::533])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5D02FC061574
-        for <linux-man@vger.kernel.org>; Sun, 14 Mar 2021 13:56:37 -0700 (PDT)
-Received: by mail-ed1-x533.google.com with SMTP id w18so14997518edc.0
-        for <linux-man@vger.kernel.org>; Sun, 14 Mar 2021 13:56:37 -0700 (PDT)
+        with ESMTP id S231809AbhCNVie (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 14 Mar 2021 17:38:34 -0400
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com [IPv6:2a00:1450:4864:20::62f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EF4A8C061574
+        for <linux-man@vger.kernel.org>; Sun, 14 Mar 2021 14:38:33 -0700 (PDT)
+Received: by mail-ej1-x62f.google.com with SMTP id e19so63123825ejt.3
+        for <linux-man@vger.kernel.org>; Sun, 14 Mar 2021 14:38:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=EHxYQsfRAKc0odaUn1GaPfeVyWxE/t6Rf1jbD2BmKV4=;
-        b=O748c+wWAEdBsc6dBFQdKXan+3AOJk5Dr+vv14jD8ZGM9IMNW4Dr6BlxdoNy3ikT+u
-         QXGJHsSzgx744iyRKs/P2FKNJIcgqCSdHi3hz4uft82FLjDBPAnWZZc+KriSnfKrJD6Q
-         wJbbRybSb302HlPh0o+mj4TX+1TCtq/yc8NPhvwnJcqzmSuMIytafNc2b4qrnMFDCrAS
-         Kx0rHQHjEk2yoqxRBixSayzSWMA/3UYvcrQiWJxqvXTH9nt/TAgTZvapfNHUHNMRkugU
-         7tk3/mNw3CklikzjCUIyv6FQSmeBtya/PuxpFWLuj64/ZXKS6L88A/Uo2xJw/t072Tzx
-         iAMQ==
+        bh=6bqFop+WFz4CWTlAHnLd3UdyIiuVW/Q+heJy4zLriKE=;
+        b=mlx8fOXiGNz1Yz6KExbm4EJfAijYzuYqk4usLPNlzr++a6O9FN1c454uEYF3MbiKgW
+         oR9F1Ovt/schL/iotUQrrBa6LDiFSOXGNrEsIXrl/GKWfovI0zhZJlHD4tgvs6XLM/9Y
+         lGX4X+WLLDLO8jiNYDyEJjdN8v4Up0SUekzAUcqnC1E9fQNHBm1eF/JXxtj01vwoM6kP
+         FqSMDOFehrNreu5k2zrS/dGRI78Z9NCi536FyBWkaR6bPeXntmAjpnqBdzWpZ/ZKrPRI
+         QKZku5DSUHQIoWDw0i5qmmdrRS6onr5u9bDfq+aQ0oI1ValWeJ36OZUBPJ1e4tOd8uP5
+         tndg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=EHxYQsfRAKc0odaUn1GaPfeVyWxE/t6Rf1jbD2BmKV4=;
-        b=daI8TCmZCcUNseHnQxWfeWe2LTFWtt+M0SzqTTxp4VNC09V/jsRa8AcyWD2uqfoQUv
-         pTaJLsbJf8xagHYaL3BpbKqEZA2p/HFaWVJ5j3l9+LK1Dfh/khd92gh7ud+GhjPPgrpE
-         sHIA/gqBVJ1wG9l0y2softWX/tF/Kk3+xM5DvPRH93I/05pr0tnCgijpFX1DwY4pAOhQ
-         kF255exG0K5jcMFhaUGg9Q9aD1PjXmG26iR0JLpxHR908xqvQ2GcMnp0u/dsucYkogC2
-         jXAz49qtVpgLy2etgYQGF62hfG2riQcfvH4YegH+pvElNX72HgyDwNNJ8Acp9AZO9UUY
-         B3Rw==
-X-Gm-Message-State: AOAM531fVzM4hRFG6w9YyjvSlH66deX20e+2uznFfXSg+U83TrPhLJ5U
-        rFhug2sogfIg2BboqbQcWDGWOoesCZ8=
-X-Google-Smtp-Source: ABdhPJysGqwfEvWWISFV3XoL9t0V7IYkPMZp4oiLEVqRAn37tVkJhztHXLiHvGdUeqdclLBL06aqfQ==
-X-Received: by 2002:aa7:c6da:: with SMTP id b26mr26697065eds.254.1615755396117;
-        Sun, 14 Mar 2021 13:56:36 -0700 (PDT)
+        bh=6bqFop+WFz4CWTlAHnLd3UdyIiuVW/Q+heJy4zLriKE=;
+        b=D9zf5yOZKe3sTvnIuPFFmT5VE8VKx5Zc9qi0JHN7iG86/0d+gbNbDGU7pcMq6Ah8pZ
+         qs/5zm1Hj4PxurzAYPBV+1l8k20A+/C7Qd9dtwRe/XiElCsj8Lr9aL2FKS2nI4NQXHgk
+         DtTF8ggtvP72OBayL+4cS4xIduq6xP0iHpTw2TokAJldoMnkbe6ZGSCyb59Et+DyeOBX
+         YbqVSxierNFfJBdcDJ5f1B42tOMECGQVpJpidUEXxnpp8LgFoFzO3iSk8cQrVWmq+XQE
+         PG5RDc/CaIXVLW6y1RozcqczsOg5F4WoYC+GvR52r3xo4yogTfUUk9U1J/Un3ud5yODf
+         Gu6Q==
+X-Gm-Message-State: AOAM531F7f2OneWUmiYOownGPQsMnE4VL4HhyT1bX3/YTr/7sNFXmcBm
+        x8sGHbnRG++6BoGk9FZXSTw=
+X-Google-Smtp-Source: ABdhPJxdK/3bzFKyFsaX9CQolNtaM3L7p94xoYXDLqdMv1N2Fw20EvMBV72NI2N9gLtJ3Coyh46k8Q==
+X-Received: by 2002:a17:906:753:: with SMTP id z19mr20313356ejb.447.1615757912270;
+        Sun, 14 Mar 2021 14:38:32 -0700 (PDT)
 Received: from ?IPv6:2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b? ([2001:a61:3a2d:1d01:99ab:4f20:ed7f:402b])
-        by smtp.gmail.com with ESMTPSA id x21sm6657111eds.53.2021.03.14.13.56.35
+        by smtp.gmail.com with ESMTPSA id l10sm6950075edr.87.2021.03.14.14.38.31
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 14 Mar 2021 13:56:35 -0700 (PDT)
+        Sun, 14 Mar 2021 14:38:31 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         libc-alpha@sourceware.org, Heinrich Schuchardt <xypron.glpk@gmx.de>
-Subject: Re: [PATCH 00/17] man3: SYNOPSIS: Use 'restrict' in prototypes
+Subject: Re: [PATCH] wprintf.3: SYNOPSIS: Use 'restrict' in prototypes
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20210311223330.722437-1-alx.manpages@gmail.com>
+References: <20210313150651.163299-1-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <c35c3d0f-703d-533f-318b-01f812314633@gmail.com>
-Date:   Sun, 14 Mar 2021 21:56:32 +0100
+Message-ID: <712184d9-2d64-d7ed-dca5-e63562e57234@gmail.com>
+Date:   Sun, 14 Mar 2021 22:38:30 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <20210311223330.722437-1-alx.manpages@gmail.com>
+In-Reply-To: <20210313150651.163299-1-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,55 +69,65 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hello Alex,
 
+On 3/13/21 4:06 PM, Alejandro Colomar wrote:
+> POSIX uses 'restrict' in *wprintf() (see [v]fwprintf(3p)).
+> Let's use it here too.
 
-On 3/11/21 11:33 PM, Alejandro Colomar wrote:
-> Hello Michael,
-> This fixes the remaining pages. With this, all pages have been fixed to use
-> 'restrict'.
-
-Thank you!! Patches applied.
+Thanks! Patch applied.
 
 Cheers,
 
 Michael
 
-> Alejandro Colomar (17):
->   scanf.3: SYNOPSIS: Use 'restrict' in prototypes; ffix too.
->   tsearch.3: SYNOPSIS: Use 'restrict' in prototypes
->   unlocked_stdio.3: SYNOPSIS: Use 'restrict' in prototypes
->   wcpcpy.3: SYNOPSIS: Use 'restrict' in prototypes
->   wcpncpy.3: SYNOPSIS: Use 'restrict' in prototypes
->   wcrtomb.3: SYNOPSIS: Use 'restrict' in prototypes
->   wcscat.3: SYNOPSIS: Use 'restrict' in prototypes
->   wcscpy.3: SYNOPSIS: Use 'restrict' in prototypes
->   wcsncat.3: SYNOPSIS: Use 'restrict' in prototypes
->   wcsncpy.3: SYNOPSIS: Use 'restrict' in prototypes
->   wcsnrtombs.3: SYNOPSIS: Use 'restrict' in prototypes
->   wcsrtombs.3: SYNOPSIS: Use 'restrict' in prototypes
->   wcstoimax.3: SYNOPSIS: Use 'restrict' in prototypes
->   wcstok.3: SYNOPSIS: Use 'restrict' in prototypes
->   wcstombs.3: SYNOPSIS: Use 'restrict' in prototypes
->   wmemcpy.3: SYNOPSIS: Use 'restrict' in prototypes
->   wordexp.3: SYNOPSIS: Use 'restrict' in prototypes
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
 > 
->  man3/scanf.3          | 16 ++++++++++------
->  man3/tsearch.3        |  4 ++--
->  man3/unlocked_stdio.3 | 20 ++++++++++++--------
->  man3/wcpcpy.3         |  3 ++-
->  man3/wcpncpy.3        |  4 +++-
->  man3/wcrtomb.3        |  3 ++-
->  man3/wcscat.3         |  3 ++-
->  man3/wcscpy.3         |  3 ++-
->  man3/wcsncat.3        |  4 +++-
->  man3/wcsncpy.3        |  4 +++-
->  man3/wcsnrtombs.3     |  5 +++--
->  man3/wcsrtombs.3      |  4 ++--
->  man3/wcstoimax.3      |  8 ++++----
->  man3/wcstok.3         |  5 +++--
->  man3/wcstombs.3       |  3 ++-
->  man3/wmemcpy.3        |  4 +++-
->  man3/wordexp.3        |  3 ++-
->  17 files changed, 60 insertions(+), 36 deletions(-)
+> Hi Michael,
+> 
+> I found this last one, which I didn't find through the glibc sources
+> because they have a bit of a mess with *printf() functions.
+> I checked that POSIX requires 'restrict'.
+> 
+> At this point, I still have a few patches about prototypes (not restrict),
+> but I'll buffer them for now.
+> 
+> Cheers,
+> 
+> Alex
+> 
+>  man3/wprintf.3 | 18 ++++++++++--------
+>  1 file changed, 10 insertions(+), 8 deletions(-)
+> 
+> diff --git a/man3/wprintf.3 b/man3/wprintf.3
+> index 676fe1ed7..76acfbb34 100644
+> --- a/man3/wprintf.3
+> +++ b/man3/wprintf.3
+> @@ -22,15 +22,17 @@ wide-character output conversion
+>  .B #include <stdio.h>
+>  .B #include <wchar.h>
+>  .PP
+> -.BI "int wprintf(const wchar_t *" format ", ...);"
+> -.BI "int fwprintf(FILE *" stream ", const wchar_t *" format ", ...);"
+> -.BI "int swprintf(wchar_t *" wcs ", size_t " maxlen ,
+> -.BI "             const wchar_t *" format ", ...);"
+> +.BI "int wprintf(const wchar_t *restrict " format ", ...);"
+> +.BI "int fwprintf(FILE *restrict " stream ,
+> +.BI "             const wchar_t *restrict " format ", ...);"
+> +.BI "int swprintf(wchar_t *restrict " wcs ", size_t " maxlen ,
+> +.BI "             const wchar_t *restrict " format ", ...);"
+>  .PP
+> -.BI "int vwprintf(const wchar_t *" format ", va_list " args );
+> -.BI "int vfwprintf(FILE *" stream ", const wchar_t *" format ", va_list " args );
+> -.BI "int vswprintf(wchar_t *" wcs ", size_t " maxlen ,
+> -.BI "             const wchar_t *" format ", va_list " args );
+> +.BI "int vwprintf(const wchar_t *restrict " format ", va_list " args );
+> +.BI "int vfwprintf(FILE *restrict " stream ,
+> +.BI "             const wchar_t *restrict " format ", va_list " args );
+> +.BI "int vswprintf(wchar_t *restrict " wcs ", size_t " maxlen ,
+> +.BI "             const wchar_t *restrict " format ", va_list " args );
+>  .fi
+>  .PP
+>  .RS -4
 > 
 
 
