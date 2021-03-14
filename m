@@ -2,114 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0E1E433A866
-	for <lists+linux-man@lfdr.de>; Sun, 14 Mar 2021 23:01:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 33A9133A870
+	for <lists+linux-man@lfdr.de>; Sun, 14 Mar 2021 23:05:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229476AbhCNWA7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 14 Mar 2021 18:00:59 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36710 "EHLO
+        id S229488AbhCNWEp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 14 Mar 2021 18:04:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37606 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229459AbhCNWAa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 14 Mar 2021 18:00:30 -0400
+        with ESMTP id S229469AbhCNWEh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 14 Mar 2021 18:04:37 -0400
 Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com [IPv6:2607:f8b0:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 084E2C061574
-        for <linux-man@vger.kernel.org>; Sun, 14 Mar 2021 15:00:30 -0700 (PDT)
-Received: by mail-ot1-x32e.google.com with SMTP id 101-20020a9d04ee0000b02901b506659320so4203959otm.7
-        for <linux-man@vger.kernel.org>; Sun, 14 Mar 2021 15:00:30 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C3334C061574
+        for <linux-man@vger.kernel.org>; Sun, 14 Mar 2021 15:04:37 -0700 (PDT)
+Received: by mail-ot1-x32e.google.com with SMTP id t16so6195767ott.3
+        for <linux-man@vger.kernel.org>; Sun, 14 Mar 2021 15:04:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
          :subject:to:cc;
-        bh=8SrDohDkFh1RV5i0sSgUbdaZyZknU+rp2217Wcb8O7E=;
-        b=edC1opcOAwKCZVS2Q50S7DoXsk5sUeugVht25SBd1d0idtbuNtKhQ3EGJNHJDRM9eO
-         xAQYNusfOHQbZMAfL58Tw0HmLF61gPxiFufQ/7fr/Vagcsxr8awOwb32O/0Iwtbaie4o
-         AavLRXRizEZbs1GfKzWso5sAe2LABYxNqvLieu4K+KAg+cAlM+IqYHrENPNgNS8WTt+R
-         ZNYxU5+gOTnzQL8qs6r+UIEpc/B7M1ZOqgj0VSxx9t0Ej1C+jXKxrjILn5ZtObcJWmP3
-         IS0RvOneOhA3S6rJRHHThF9aJAsZSjni5UarwnCadP3DZJMDjfPqpuoBK9esZmjlVILI
-         Xf0A==
+        bh=j2rMhwvp0424cEY4fRGWRHncfhj7EaF3xJgDXl738U8=;
+        b=T1pKaLzBJB6D10Pg1f8wzNA/3aquzcCzvH3Ge+lEP7Z6GO46PhqamFXxcH/Ytep42L
+         tnKttx+O/q2IvoAP3ewPc6nBTgGmewmubbJR+7saIaTkN9pO3MBrHHDqxQGDM4FoK9H8
+         4ZJT15TFaj8hyRNceErRV0gfyjdhbRlskaKHRJYvr+Vi7PX3YPNFlHYxB025zcERBrSm
+         HHiKdKZ2G9K3d7Ox1odjCWXV6ZxYmJVO8VOFy5bdnh6BDgSBdg+3KSv6NlkJAVz/un3B
+         /Tp2eZiE/E7zi1KHvwOFUw6aQEKxdziiwgzbMlgGcjzlUkmXdG+WPQfU6Irl+Ll7Gymn
+         XqyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
          :from:date:message-id:subject:to:cc;
-        bh=8SrDohDkFh1RV5i0sSgUbdaZyZknU+rp2217Wcb8O7E=;
-        b=YjFSy6bW4emkCb3L7d8SxVLIuoUQjAHZxeVgGJTpyULGRad6kIxuYuJB1W3on85zNM
-         gKbH/kWQt6j/rBR8Mi5x/0WeYRKmVwxQYVisFzo3iJHvkDAjU+GhpGhxGGKyAkceSJJD
-         UAwmkFX59Gsg48QKq3zvOHEVQlqXD8zaNaztIK8mxoWcIcBa2h0deiO8lmupkQZra2J6
-         fj4Z2KuYuPhcSk1F8SkvmGPFHoUhbk1JHaogPb5QPFImsDfch5Rh3nSU9tVXjG1aSKys
-         vmnbPGVLSyRfO6pwsd+PW/4M00kJGcSYB4Br02uQqnvJgRCygdWB6UZI6Oe+tVxAWCX0
-         Vzxw==
-X-Gm-Message-State: AOAM533ud0L5hzRcw6lBkLj6kJrIEy1wgu9dZDNbvgB+K8Yk2ulYCUnq
-        8rzQ57C2Szdj+CVSggcl014Lwp5YLjSVWMzHy0E=
-X-Google-Smtp-Source: ABdhPJxEHC95b79/ksjG/LPMbT3ze+IPADZDw4yPRqU4Z15mYf9/zq13JCHgcP1UrvGd030XolLO5dR6wrpEdb5EfXU=
-X-Received: by 2002:a9d:7854:: with SMTP id c20mr12696413otm.114.1615759229456;
- Sun, 14 Mar 2021 15:00:29 -0700 (PDT)
+        bh=j2rMhwvp0424cEY4fRGWRHncfhj7EaF3xJgDXl738U8=;
+        b=FMHupAM9qBle1L5Uomtw5dZoqlAtN9dUXTGPaMOPI6SVJP+rN4JSpCqpMC63ieGVlY
+         vxRvgyKnEbltfaD7CtgQlrvdg2GJMaWb/UfJDgeMehndVT3xBFUMvP17deIXj7z4UUE7
+         BlQ/Ss2BHXM60FPwg9qldJTt0Ta6RLRCMxzjQKKsPzlOHG1aDTVRAEU53atu65mkuxXF
+         5sIul7Wwr8jUBWn6ZGxs56Cr/KjjD2Buymg3Hsp623Meol/NDM057rd5e04oss/jWqv1
+         KnRobuvsNy9sM91pfBw6zQSh5NejJYwF16OJ4MaYorogsBWh8Kkuks2Z2CV3dgLlhU3s
+         X1wQ==
+X-Gm-Message-State: AOAM530AN+W2IvLEBwGttaFUxaIVNK9Oxt9YDtMk2H45tgw34HRO04MI
+        gms+XIwJQ2Xx3pJ6EYxL8uQIGdmYbBg2NcX4eroccfhh
+X-Google-Smtp-Source: ABdhPJw2RlwkfK/Wt77ECUp3sMkBtDxcoiXrwdtBRKG0EfXy6ZktYbXBueIIkzcxRxkmD/ZUJRekTvR/Sq2adxejXIU=
+X-Received: by 2002:a9d:12a4:: with SMTP id g33mr11737441otg.308.1615759477284;
+ Sun, 14 Mar 2021 15:04:37 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210314160134.127878-1-alx.manpages@gmail.com> <CAKCAbMiJO8gq7LoDi-iTvmqvDpwUXXnTs8ABHXvin-psyo3+QQ@mail.gmail.com>
-In-Reply-To: <CAKCAbMiJO8gq7LoDi-iTvmqvDpwUXXnTs8ABHXvin-psyo3+QQ@mail.gmail.com>
+References: <87v9a0wews.fsf@gmail.com>
+In-Reply-To: <87v9a0wews.fsf@gmail.com>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Sun, 14 Mar 2021 23:00:18 +0100
-Message-ID: <CAKgNAkj7NjNMTKct3FGOZBLfZESLDo=1Le-da41LVa-PeQ9w0Q@mail.gmail.com>
-Subject: Re: [PATCH] Various pages: Remove unused <sys/types.h>
-To:     Zack Weinberg <zackw@panix.com>
+Date:   Sun, 14 Mar 2021 23:04:26 +0100
+Message-ID: <CAKgNAkh9XgUT+257TLtKBHsxuOHopqt76BL2xCz+JN2=u-xm=w@mail.gmail.com>
+Subject: Re: user_namespaces(7) should mention overlay as mountable since
+ Linux 5.11
+To:     Szunti <szunti@gmail.com>
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        GNU C Library <libc-alpha@sourceware.org>
+        linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Zack,
+Hi,
 
-On Sun, 14 Mar 2021 at 22:40, Zack Weinberg <zackw@panix.com> wrote:
+On Tue, 9 Mar 2021 at 16:00, Szunti <szunti@gmail.com> wrote:
 >
-> On Sun, Mar 14, 2021 at 12:04 PM Alejandro Colomar via Libc-alpha
-> <libc-alpha@sourceware.org> wrote:
-> >
-> > The manual pages are already inconsistent in which headers need
-> > to be included.  Right now, not all of the types used by a
-> > function have their required header included in the SYNOPSIS.
-> >
-> > If we were to add the headers required by all of the types used by
-> > functions, the SYNOPSIS would grow too much.  Not only it would
-> > grow too much, but the information there would be less precise.
-> >
-> > Having system_data_types(7) document each type with all the
-> > information about required includes is much more precise, and the
-> > info is centralized so that it's much easier to maintain.
-> >
-> > So let's document only the include required for the function
-> > prototype, and also the ones required for the macros needed to
-> > call the function.
+> user_namespaces lists in Capabilities section the filesystems that can
+> be mount:
 >
-> I endorse this change.
+>   Holding  CAP_SYS_ADMIN  within  the  user  namespace that owns a process's
+>   mount namespace allows that process to create bind mounts  and  mount  the
+>   following types of filesystems:
+>
+>       * /proc (since Linux 3.8)
+>       * /sys (since Linux 3.8)
+>       * devpts (since Linux 3.9)
+>       * tmpfs(5) (since Linux 3.9)
+>       * ramfs (since Linux 3.9)
+>       * mqueue (since Linux 3.9)
+>       * bpf (since Linux 4.4)
+>
+> IUUC this list should add
+>       * overlay (since Linux 5.11)
 
-I agree. Do you want to add an "Acked-by:"?
+Could you add some info about how you discovered/verified this please.
 
-Thanks,
+That helps us check the details.
+
+Cheers,
 
 Michael
-
-> For glibc, if the header file containing the
-> function prototype doesn't also provide everything you need to call
-> the function, it's a bug (except for a few cases where the relevant
-> standards prevent us from doing this, e.g. a function that calls
-> vprintf will need the macros in <stdarg.h>, but the C standard
-> specifically forbids <stdio.h> to include <stdarg.h>).
->
-> > <sys/types.h> only defines types, not functions or constants, so
-> > it doesn't belong to man[23] (function) pages at all.
-> > I ignore if some old systems had headers that required you to
-> > include <sys/types.h> *before* them (incomplete headers),
->
-> Such systems did exist in the past, but they are too old to worry
-> about nowadays.  I don't think it's possible for them to be compliant
-> with POSIX.1-1995, and the examples I know of personally (SunOS 4, for
-> instance) were not even fully compliant with C89.
-
-
-
 
 -- 
 Michael Kerrisk
