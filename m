@@ -2,157 +2,119 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0BA9A33D1F7
-	for <lists+linux-man@lfdr.de>; Tue, 16 Mar 2021 11:43:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1953933D9D1
+	for <lists+linux-man@lfdr.de>; Tue, 16 Mar 2021 17:51:36 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236757AbhCPKmp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 16 Mar 2021 06:42:45 -0400
-Received: from de-smtp-delivery-102.mimecast.com ([62.140.7.102]:32097 "EHLO
-        de-smtp-delivery-102.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S236742AbhCPKmM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 16 Mar 2021 06:42:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-        t=1615891330;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=xTs4NxE6qUYISSm7o5z2dEDGWNxlaK/+EKjRplmzXso=;
-        b=Yeu4N2RvJs9w+tgbq2k9T/ma7ajj3pVrHSi0+HKiVxfT51+RHF1EwIr2RMtDiXsRKbi+cC
-        CrnZ+IFw9OkJMPfopz19GI/V2fi+wJMmw2QSVOPt2FOJXlJm3KXAzPGEZJaCuSdWfSlb9y
-        0m8oSqfvm63kctDicDPmO3K7GLmH/pk=
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2104.outbound.protection.outlook.com [104.47.17.104])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-24-aFT1GEhkMWaOiOLm80naWg-1; Tue, 16 Mar 2021 11:42:09 +0100
-X-MC-Unique: aFT1GEhkMWaOiOLm80naWg-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RddkPyqz+sui+tawq5Pt2HenKePsOJeHWNng7gKpeDSTzuMZtKElj79YvDNLsv0qQ4mKyKxc7M5LKsIjKPzpYqce/weoD/aYQWYY8I3FNJm4cICFZl3Hq9jBp4g16h4FDIkyzEVYBCM+tufCeoPMvKLeSc1TQQS14JVtSWFf81O40KfX0TY3XhzHfo3QgRihL3joUew+EkoevPzDrSirGssao+REtAqM+UZVNgWdT1K9NWRdR8gjZGwfWXpQhlkfBE20B68Z+ChEbksz0jNQ2gUPXTOv99vIYrkuNB/bXJfLwbU7LsjgH8dfSI5tOSI8yzchJOzHpcZz7WYqdugzVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xTs4NxE6qUYISSm7o5z2dEDGWNxlaK/+EKjRplmzXso=;
- b=iBtWnyvId+uJzTVyGqKfKDaTM/t0P9jblL3bqKYs5ASTLzhHd0utFrSGco4RGl8paWXk3EN53O7JwhRwGY7EvGjOaoo7a/1YCbIStjT1f9eoyF/WHqREYnnoW/c8jhxXkPWlGP2MY+DmMJspTOHGunxPsJ5pTHNt74/Rixn+rrIda39UjIHrUqwvtXn+sO9ECVbBSCwJl5CUsVXkDmM1qtv27aLi6sbOzCWDtC0K+0eu+YarGraUuLastth2uv6yY4NtkWMSNlGLKH6Recu/osdxhjzNbC2NGs5O0SoJGDNTQ+VJGGX4orXJ3om0dKn7QsQO1KoM9JE7UmYpOPv2Eg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=suse.com;
-Received: from VI1PR0402MB3359.eurprd04.prod.outlook.com (2603:10a6:803:3::28)
- by VE1PR04MB7456.eurprd04.prod.outlook.com (2603:10a6:800:1ac::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.31; Tue, 16 Mar
- 2021 10:42:07 +0000
-Received: from VI1PR0402MB3359.eurprd04.prod.outlook.com
- ([fe80::3c87:7c9e:2597:4d94]) by VI1PR0402MB3359.eurprd04.prod.outlook.com
- ([fe80::3c87:7c9e:2597:4d94%5]) with mapi id 15.20.3933.032; Tue, 16 Mar 2021
- 10:42:06 +0000
-From:   =?utf-8?Q?Aur=C3=A9lien?= Aptel <aaptel@suse.com>
-To:     Pavel Shilovsky <piastryyy@gmail.com>
-Cc:     Tom Talpey <tom@talpey.com>,
-        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
-        Steve French <smfrench@gmail.com>,
-        linux-cifs <linux-cifs@vger.kernel.org>,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH v4] flock.2: add CIFS details
-In-Reply-To: <CAKywueREp5mib_4gmofwekrT=GhqoZo1kEmmUmNeqghG0EYYwQ@mail.gmail.com>
-References: <87v9a7w8q7.fsf@suse.com> <20210304095026.782-1-aaptel@suse.com>
- <45b64990-b879-02d3-28e5-b896af0502c4@gmail.com> <87sg52t2xj.fsf@suse.com>
- <139a3729-9460-7272-b1d7-c2feb5679ee9@talpey.com>
- <87eegltxzd.fsf@suse.com>
- <d602e3e4-721a-a1c5-3375-1c9899da4383@talpey.com>
- <878s6ttwhd.fsf@suse.com>
- <23052c07-8050-4eb8-d2de-506c60dbed7d@talpey.com>
- <871rcltiw9.fsf@suse.com>
- <CAKywueREp5mib_4gmofwekrT=GhqoZo1kEmmUmNeqghG0EYYwQ@mail.gmail.com>
-Date:   Tue, 16 Mar 2021 11:42:04 +0100
-Message-ID: <87pmzzs7lv.fsf@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [2003:fa:70b:4a35:a682:38bf:93be:d889]
-X-ClientProxiedBy: ZR0P278CA0055.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:21::6) To VI1PR0402MB3359.eurprd04.prod.outlook.com
- (2603:10a6:803:3::28)
+        id S232056AbhCPQvD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 16 Mar 2021 12:51:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54282 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S232193AbhCPQuu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 16 Mar 2021 12:50:50 -0400
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5AC74C06174A;
+        Tue, 16 Mar 2021 09:50:50 -0700 (PDT)
+Received: by mail-wr1-x42c.google.com with SMTP id d15so10834425wrv.5;
+        Tue, 16 Mar 2021 09:50:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=tw02aSmUfktQUztGp/fYjFJuvv7VDIifDhxKgPk1hm4=;
+        b=TmcmPnRyzmMb32Fpbcut6a5vxRtOoY9vODgqY/NAaySwxusdWl60TaV96SJKnsgSeA
+         WCMtMsIp0YnVUFNXu9X/DY8yKm8BpWQ4rYA2jWU3cyEyO67PXjTOK0BZUjMFNTy6Py1Z
+         OTkjW3Cqso3zb1m+xYL3sM1GY0wOfUgaq0o5T+lWdfeUiZYDaLtvKU7Nh5ewczOdTLiL
+         6Fo0wwsX4lO7A4z2+c85aJ3oEhAF/GDd77j/G1S9fC+oz7DATkMaK3P4kTIvDX+0qcqN
+         ISfgUGWzttyPAPrkG37Kx1gEzYPgLF3uL7sGjzQLRO/glY1avjQlcxE49X0q4Kk8FSJ9
+         v8AQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=tw02aSmUfktQUztGp/fYjFJuvv7VDIifDhxKgPk1hm4=;
+        b=qePOuEzTRlyjvd/BpaN1koibECzROu2j1emKlgtQPc/hcoJ7Qek7ctqmfstdDpj+UY
+         rgyvDXjkpxc4zfXc1MMaVMs+eOl6bmpcNlQFoRzJtJw3AWoHr0jInjdStjHEBEQHsDYD
+         UsQLYPBt5iYFkf2QctzKSKqjrZc3YtjUwvNjxTQZ98E+dTgisHGin4dDVhJnBvEt7PLO
+         o3KOFeyCcpF0sR6hdEwwXm7P9uBitgEte2iBV3tg4MypqVOfvsB0tb8kdKeubsDyU4/6
+         aGX5yUmToaMxwtoAj/Gqx7KLS2HJh6ww4saib+8MOH+P4HWmGrApz5Q4rNns//w0OZ8G
+         GANQ==
+X-Gm-Message-State: AOAM532kRmXDlxXmsdw1JeUWs2ooDj1Tw2SzZblrJ7mVo1EAEN2/es7D
+        vzYYt1/2zZPHLYNTStcwCTs=
+X-Google-Smtp-Source: ABdhPJwU7xBH/Yg3pLZcWZ6QfVdkrhYt3icWtF/J2XMVUede0zCueTzEq8ERyme24ygcGUFm39kt9A==
+X-Received: by 2002:adf:c641:: with SMTP id u1mr5943933wrg.332.1615913449219;
+        Tue, 16 Mar 2021 09:50:49 -0700 (PDT)
+Received: from [10.8.0.206] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id p10sm24014499wrw.33.2021.03.16.09.50.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 16 Mar 2021 09:50:48 -0700 (PDT)
+Subject: Re: AW: [RFC v3 04/17] arch_prctl.2: SYNOPSIS: Remove unused includes
+To:     Walter Harms <wharms@bfs.de>
+Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        Florian Weimer <fweimer@redhat.com>,
+        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
+References: <20210214133907.157320-1-alx.manpages@gmail.com>
+ <20210313192526.350200-5-alx.manpages@gmail.com>
+ <be6a5420c2de4cd5a772a878a173fd09@bfs.de>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <2c3f8638-4dad-566f-43c0-1579a6ae32ce@gmail.com>
+Date:   Tue, 16 Mar 2021 17:50:46 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost (2003:fa:70b:4a35:a682:38bf:93be:d889) by ZR0P278CA0055.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:21::6) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.32 via Frontend Transport; Tue, 16 Mar 2021 10:42:06 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2153cc3d-cb2d-4897-9970-08d8e86824dc
-X-MS-TrafficTypeDiagnostic: VE1PR04MB7456:
-X-Microsoft-Antispam-PRVS: <VE1PR04MB7456F779E96447E9ACC69813A86B9@VE1PR04MB7456.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tyNTQsPL8JyJF8PRv16ArQW69M2+L2H1/15NV/6SjyBxjBk0Me3q1oCSxbdVpnyz0TA9osNH4jOLi/hRIta6+6hbER/btymEASNP7CmBOJGsJ0ze2igzo7y5PyvROj9xcP6tiBcfQlNZ8jGNGDJuNaPedwfrpZJQsnSQf10puy5atYCBnD2gliCSpQzQJVav8CTLlPEJOEmHmPVRHKlMI5I3EzKvn7ICbHKQXX00P8d5ASQQ1aEXuXomimAc3uA/OIt9Y80fZC3zTpZjXrl3rvbQw80ZI9VhKqEIViNsDOh+NlMwmMxJGKNNx48jVBgG7QXxVHXxsbtuMz/fUaxjCxCSLqmJm1oYsAYWG+VIZeZwJmGEsmJCRVIQj3UQiTSawIo/1EeLGGM0ICj92Efs4BnQkOTTdzKi1OiDKfj2/EmgFpNoHOLROzT76nRSHan1ywx7eGLO26X6f9+Jpmd0Sc9eRn8TCgFMELnzpV7S/JIlS6er8D7q5yM8GGMkzs2ddbsPFq7nzmjG1WgCbsc3tyUjGGas+kaY8tvTW1dtqYrXRPaxB2U5LVh9BFxc3PrV
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR0402MB3359.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(396003)(366004)(136003)(346002)(39850400004)(186003)(2616005)(6916009)(66574015)(2906002)(5660300002)(478600001)(8936002)(66946007)(54906003)(16526019)(52116002)(36756003)(6486002)(6496006)(66556008)(316002)(8676002)(66476007)(4744005)(4326008)(83380400001)(86362001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?dS9YdzV2aVg0TFk5blNXTHAzR2Q4UUFqbEdvZkI2c21UdnYxd0E3ZUhxNlZV?=
- =?utf-8?B?eTFKR21HZ0U0N1EzKytqOUw4Q3lnNUR3OWN6YmdQRHBPS2V6UjdOZElFTSt1?=
- =?utf-8?B?ZDhiVDc4NkF6Zk9XY2dnMEFodkF3TkZDMVJxc2s5QzdFMld4Z1pKYXZFU0w3?=
- =?utf-8?B?aXlKM2RhQ3FMNEF4SjRSOXVvaGQwY1gweG9nN2kzbzBwOXFqSXBnbG40Q21O?=
- =?utf-8?B?MHpETTM4MzlMVU9RdUxFZnUwUmVweE0vOWdOb081QWRSYVBLc2ZpRkVPRU9n?=
- =?utf-8?B?MkR1NkJMRkF6WTNLck9JK09GZXhXN0hsZTcrVzRXQmsvTHFBZ1JUcURNVEly?=
- =?utf-8?B?aHptcE9iVVQxMXgxdjlPMGM1dFdTbGRJSS9veUg5YUJZOFFDVXVDaDNFd0xy?=
- =?utf-8?B?N2NPalZXbkFUVnI4cytJajNJUEIzQUhwc1BxaXFHeHZQQ0pMWEIwUUVvSi9M?=
- =?utf-8?B?NCtDR2hzWXhZdWdPNkFiUTJyczBPZnI0aUwxekE1VUJ5d095Z0dXRnhTcmk1?=
- =?utf-8?B?dVlwVXBjeWV1Z2FiZ3BOVEVJM3hTUDBPQmRCenZMbmIvTE9sb01lRFg5ZjQy?=
- =?utf-8?B?ZkVUdy92SUdZUGZkdWQxcUFGSWVQbS9ZWmFPRWVhS04xR1p5WWxUMGE1QjM1?=
- =?utf-8?B?UUtXU3dhNWZvRlNiNXZzTjZGZUpMTm1sbmxGd1JDUVh6bDgzWlZ5Q2NGWjJI?=
- =?utf-8?B?TWl2RjdlZE1admhDaE5zOWZ4UHdrWUhydm9YT1VNK3h4MGxPMVYrNjZpQkdo?=
- =?utf-8?B?bnYzTXU1emQrQ3JtSDBxRWk4Nk5pc2c2NDJTWGxPeGs1SXdFdVN3dWNMNmlz?=
- =?utf-8?B?N1ZTRFlZVWpXZ1FTNWNFMHk4ek5qVjFKbytZSEp0V2paVk9temU2MlBXOEkv?=
- =?utf-8?B?N2dISnBUV0tCSjFOQVNFVEc4T3JVeC9FTkZBODJ3MWpoZkpCWjZtZ3Nka21Y?=
- =?utf-8?B?OFVzN204cEFZdkRuc1lQVDI1dG5vSU94MkZqYzZGTVdWLzZiM3crY091UTdn?=
- =?utf-8?B?ejUvbTZxUHVMRTdIeXU5bjc2REE1NFhGYWNpNTZDM1FtZmNHZVhFNVRSa0tW?=
- =?utf-8?B?NUt3MjlzVENyN0wxbHJQZzdCRklBeE1GNkJWd1NVd1N4RkdqdkpSa1NvRTM3?=
- =?utf-8?B?T1hDQ3lmZDBhcHVIV3BZZ011SkRNWjAyWS9mYTh0NG91bGpldjhaRHJqV21n?=
- =?utf-8?B?RVRIVkpYM21MSXFDei9NYlVyYll4TENCeFpwMlJHQXpXNVFzN1V6OE5TT2hz?=
- =?utf-8?B?b1dvT09KVTJIZXdlMUViaU9hK0l4d3NRd1VUWjB2dmI5ZXhtVEFyR0E4U2tY?=
- =?utf-8?B?cFJTcW9sRHVXR1NtVnNZYTlOenZVZ1BReHVFYjlLMXZ3LytnMGdEOVIraWJj?=
- =?utf-8?B?dklOcm1wOUpVc2k1dmVmQTZZNUF1TytIbUtyVHNpODhIRVpBWTlhZFdIdC9n?=
- =?utf-8?B?WENDUlJ4ZWNYOGlwNlZsbVQ1T2R2WXFHVmR1b3pZUTIzQnhnSUszRWN6a3dO?=
- =?utf-8?B?R09PdWJmbkoxejhpMjBWVFVpR2dBb01ZTDlrNkM5Z2VTWnFyZ3ZncW9iWVp0?=
- =?utf-8?B?VEFNMnhycy9rNitBMjlvK01BM2ZMOFROMzZnT2d4T201bnFaTVJRcXhnWTZ5?=
- =?utf-8?B?Y1RqQWh3MnQ0bEh2TGpCZFRuNDhCNUFKRUVCajZlTTFOUkoydEZPcS92L3Ny?=
- =?utf-8?B?Tnk0dzQ0Ty9JZHdFMTg1WENNcGpxTzBJQndYb3hvQXJ4VVlJa0I3UnZRUk5Y?=
- =?utf-8?B?VmxqVk00bjZZbzR3SlFHT2txT0NtWXJxdEMrM3N4Q2hwdjVMUno5NjJrU3JT?=
- =?utf-8?B?bHNiMXpPQ29rZ3hkU2JqeEsweExmRURUSkoyekFLVGxJekRUTWZxMWpjZ2kr?=
- =?utf-8?Q?2NrTzTmT7q7lH?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2153cc3d-cb2d-4897-9970-08d8e86824dc
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR0402MB3359.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2021 10:42:06.7523
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: coXTKyYFklnOtuvFhwTRwGNPMLIZfSHsI1jpLx/Q1VLUAd1jMerJFwgZVQ76pPvL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7456
+In-Reply-To: <be6a5420c2de4cd5a772a878a173fd09@bfs.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Pavel Shilovsky <piastryyy@gmail.com> writes:
-> It is not only about writing to a locked file. It is also about any IO
-> against a locked file if such a file is locked through another file
-> handle. Right?
+Hi Walter,
 
-Yes that was implied, the write was a simple example to illustrate. I'll
-update to make it more generic:
+On 3/15/21 7:00 PM, Walter Harms wrote:
+> I have learned the other way around:
+> #include <sys/prctl.h>
+> Is a general system header to use that may include
+> the asm/prctrl.h what should never be included by
+> userspace programms.
+> 
 
-  Another important side-effect is that the locks are not advisory anymore:
-  any IO on a locked file will always fail with EACCES,
-  even when done from a separate file descriptor.
+Are you sure that <sys/prctl.h> includes <asm/prctl.h>?
 
-If you have comments please provide direct text suggestion to save time.
+user@debian:/usr/include$ grep -rn '\bARCH_'
+asm-generic/statfs.h:42:#ifndef ARCH_PACK_STATFS64
+asm-generic/statfs.h:43:#define ARCH_PACK_STATFS64
+asm-generic/statfs.h:59:} ARCH_PACK_STATFS64;
+asm-generic/statfs.h:65:#ifndef ARCH_PACK_COMPAT_STATFS64
+asm-generic/statfs.h:66:#define ARCH_PACK_COMPAT_STATFS64
+asm-generic/statfs.h:82:} ARCH_PACK_COMPAT_STATFS64;
+x86_64-linux-gnu/asm/statfs.h:10:#define ARCH_PACK_COMPAT_STATFS64 
+__attribute__((packed,aligned(4)))
+x86_64-linux-gnu/asm/prctl.h:5:#define ARCH_SET_GS		0x1001
+x86_64-linux-gnu/asm/prctl.h:6:#define ARCH_SET_FS		0x1002
+x86_64-linux-gnu/asm/prctl.h:7:#define ARCH_GET_FS		0x1003
+x86_64-linux-gnu/asm/prctl.h:8:#define ARCH_GET_GS		0x1004
+x86_64-linux-gnu/asm/prctl.h:10:#define ARCH_GET_CPUID		0x1011
+x86_64-linux-gnu/asm/prctl.h:11:#define ARCH_SET_CPUID		0x1012
+x86_64-linux-gnu/asm/prctl.h:13:#define ARCH_MAP_VDSO_X32	0x2001
+x86_64-linux-gnu/asm/prctl.h:14:#define ARCH_MAP_VDSO_32	0x2002
+x86_64-linux-gnu/asm/prctl.h:15:#define ARCH_MAP_VDSO_64	0x2003
+x86_64-linux-gnu/asm/auxvec.h:13:/* entries in ARCH_DLINFO: */
+user@debian:/usr/include$ grep -rn 'asm/prctl.h'
+user@debian:/usr/include$
 
-Cheers,
---=20
-Aur=C3=A9lien Aptel / SUSE Labs Samba Team
-GPG: 1839 CB5F 9F5B FB9B AA97  8C99 03C8 A49B 521B D5D3
-SUSE Software Solutions Germany GmbH, Maxfeldstr. 5, 90409 N=C3=BCrnberg, D=
-E
-GF: Felix Imend=C3=B6rffer, Mary Higgins, Sri Rasiah HRB 247165 (AG M=C3=BC=
-nchen)
+At least on my system, no header seems to be including <asm/prctl.h>.
 
+Thanks,
+
+Alex
+
+
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
