@@ -2,119 +2,117 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1953933D9D1
-	for <lists+linux-man@lfdr.de>; Tue, 16 Mar 2021 17:51:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7B70A33DB1A
+	for <lists+linux-man@lfdr.de>; Tue, 16 Mar 2021 18:40:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232056AbhCPQvD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 16 Mar 2021 12:51:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54282 "EHLO
+        id S231907AbhCPRkZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 16 Mar 2021 13:40:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36842 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232193AbhCPQuu (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 16 Mar 2021 12:50:50 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5AC74C06174A;
-        Tue, 16 Mar 2021 09:50:50 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id d15so10834425wrv.5;
-        Tue, 16 Mar 2021 09:50:50 -0700 (PDT)
+        with ESMTP id S231851AbhCPRkJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 16 Mar 2021 13:40:09 -0400
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com [IPv6:2a00:1450:4864:20::635])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BED47C06174A;
+        Tue, 16 Mar 2021 10:40:08 -0700 (PDT)
+Received: by mail-ej1-x635.google.com with SMTP id p7so62268343eju.6;
+        Tue, 16 Mar 2021 10:40:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=tw02aSmUfktQUztGp/fYjFJuvv7VDIifDhxKgPk1hm4=;
-        b=TmcmPnRyzmMb32Fpbcut6a5vxRtOoY9vODgqY/NAaySwxusdWl60TaV96SJKnsgSeA
-         WCMtMsIp0YnVUFNXu9X/DY8yKm8BpWQ4rYA2jWU3cyEyO67PXjTOK0BZUjMFNTy6Py1Z
-         OTkjW3Cqso3zb1m+xYL3sM1GY0wOfUgaq0o5T+lWdfeUiZYDaLtvKU7Nh5ewczOdTLiL
-         6Fo0wwsX4lO7A4z2+c85aJ3oEhAF/GDd77j/G1S9fC+oz7DATkMaK3P4kTIvDX+0qcqN
-         ISfgUGWzttyPAPrkG37Kx1gEzYPgLF3uL7sGjzQLRO/glY1avjQlcxE49X0q4Kk8FSJ9
-         v8AQ==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=i5kkHQ8E1HhgPS/MAR9lcva5tZR4bT7RdY4xuS+LLgA=;
+        b=WY5l3rsXRRLyx3+gegGnEUA4abaaHaV5DIPGHMIj9UEHqPj0QUFTIMoaWTO5VmWhzd
+         1Pb8NkJ5/wqvQ8n177F58yYUDCqH6xt/KcYXCVGFPw59HwQpAAdK7oOJmmhtzfcgL8Gs
+         7jpx9RSp7L7uJL9NgcrCS2c6JKG2LF9VxUI9rlh0SiQK2+nq0j8G3MCJfkcycNSYzsEW
+         AUzJmNetI9vbcIK14UCVeZUxlMDz1IB3Tg0NyeMJOqsZc1L8rqpQDxzN/xAPBmnGIrNV
+         JdBYkXalymKP7fI9PtSmcHwtaXS4wVAwWHqRojulgsSJhLAgV5Nt1U3BDgw4PYK0TBQf
+         TzbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=tw02aSmUfktQUztGp/fYjFJuvv7VDIifDhxKgPk1hm4=;
-        b=qePOuEzTRlyjvd/BpaN1koibECzROu2j1emKlgtQPc/hcoJ7Qek7ctqmfstdDpj+UY
-         rgyvDXjkpxc4zfXc1MMaVMs+eOl6bmpcNlQFoRzJtJw3AWoHr0jInjdStjHEBEQHsDYD
-         UsQLYPBt5iYFkf2QctzKSKqjrZc3YtjUwvNjxTQZ98E+dTgisHGin4dDVhJnBvEt7PLO
-         o3KOFeyCcpF0sR6hdEwwXm7P9uBitgEte2iBV3tg4MypqVOfvsB0tb8kdKeubsDyU4/6
-         aGX5yUmToaMxwtoAj/Gqx7KLS2HJh6ww4saib+8MOH+P4HWmGrApz5Q4rNns//w0OZ8G
-         GANQ==
-X-Gm-Message-State: AOAM532kRmXDlxXmsdw1JeUWs2ooDj1Tw2SzZblrJ7mVo1EAEN2/es7D
-        vzYYt1/2zZPHLYNTStcwCTs=
-X-Google-Smtp-Source: ABdhPJwU7xBH/Yg3pLZcWZ6QfVdkrhYt3icWtF/J2XMVUede0zCueTzEq8ERyme24ygcGUFm39kt9A==
-X-Received: by 2002:adf:c641:: with SMTP id u1mr5943933wrg.332.1615913449219;
-        Tue, 16 Mar 2021 09:50:49 -0700 (PDT)
-Received: from [10.8.0.206] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id p10sm24014499wrw.33.2021.03.16.09.50.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 16 Mar 2021 09:50:48 -0700 (PDT)
-Subject: Re: AW: [RFC v3 04/17] arch_prctl.2: SYNOPSIS: Remove unused includes
-To:     Walter Harms <wharms@bfs.de>
-Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        Florian Weimer <fweimer@redhat.com>,
-        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
-References: <20210214133907.157320-1-alx.manpages@gmail.com>
- <20210313192526.350200-5-alx.manpages@gmail.com>
- <be6a5420c2de4cd5a772a878a173fd09@bfs.de>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <2c3f8638-4dad-566f-43c0-1579a6ae32ce@gmail.com>
-Date:   Tue, 16 Mar 2021 17:50:46 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=i5kkHQ8E1HhgPS/MAR9lcva5tZR4bT7RdY4xuS+LLgA=;
+        b=YkCIEc4u4UPuNJfI6xBEzmVzknAFHcOlyltgpteWQ1+PuSTN2bpOdMZvHGm5fGb7G/
+         Y5auy2cWhEIPseN98ft64Kyfz+ijOf9KOS01bNmcchjKXFgvP6Vvn2VqHwlWwS11bxHG
+         vRcwH109MA+mgtmsT7xbhawBkXFofiqEF4X/4HhlIDqiwVe3YKvHtpWS8cC+VzKGelF9
+         RXA3SvD0/QOWh7k3nUe95hItk4wCd6MCCteN80w2zF5zq3iGN5Rq2cmM2WhzBYvut4Ed
+         b9b6iSm+sHWipUFFpdVMHHiHpNmg5F7uJSGXKgKCS5LSt9S3EQ2J7wtysrZonEMgcsqT
+         W/lg==
+X-Gm-Message-State: AOAM533NJ/U0mF/kFO0nLkeYE0HbQZ2zNYnOcOJvGiLGWBjv1S+2iiOV
+        KNvbbFrd9ug5eRtErf0YHhxtzVEasiUzOxI2MQ==
+X-Google-Smtp-Source: ABdhPJwvdZuSQbD7ZSg1tEitXgR4MqXVWi/4APt2EpFSbFXPcRxzvNBCMJiH1UXcx9oSt+IVAV1ORngTKevkSKesqL4=
+X-Received: by 2002:a17:906:7c48:: with SMTP id g8mr31326205ejp.138.1615916407556;
+ Tue, 16 Mar 2021 10:40:07 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <be6a5420c2de4cd5a772a878a173fd09@bfs.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <87v9a7w8q7.fsf@suse.com> <20210304095026.782-1-aaptel@suse.com>
+ <45b64990-b879-02d3-28e5-b896af0502c4@gmail.com> <87sg52t2xj.fsf@suse.com>
+ <139a3729-9460-7272-b1d7-c2feb5679ee9@talpey.com> <87eegltxzd.fsf@suse.com>
+ <d602e3e4-721a-a1c5-3375-1c9899da4383@talpey.com> <878s6ttwhd.fsf@suse.com>
+ <23052c07-8050-4eb8-d2de-506c60dbed7d@talpey.com> <871rcltiw9.fsf@suse.com>
+ <CAKywueREp5mib_4gmofwekrT=GhqoZo1kEmmUmNeqghG0EYYwQ@mail.gmail.com> <87pmzzs7lv.fsf@suse.com>
+In-Reply-To: <87pmzzs7lv.fsf@suse.com>
+From:   Pavel Shilovsky <piastryyy@gmail.com>
+Date:   Tue, 16 Mar 2021 10:39:56 -0700
+Message-ID: <CAKywueQPr2H69wvju=U8aKHQw_SA4hB76BObzZVZPppKJnk++A@mail.gmail.com>
+Subject: Re: [PATCH v4] flock.2: add CIFS details
+To:     =?UTF-8?Q?Aur=C3=A9lien_Aptel?= <aaptel@suse.com>
+Cc:     Tom Talpey <tom@talpey.com>,
+        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        Steve French <smfrench@gmail.com>,
+        linux-cifs <linux-cifs@vger.kernel.org>,
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Walter,
+Sure. Thanks!
 
-On 3/15/21 7:00 PM, Walter Harms wrote:
-> I have learned the other way around:
-> #include <sys/prctl.h>
-> Is a general system header to use that may include
-> the asm/prctrl.h what should never be included by
-> userspace programms.
-> 
+I would put more details from
+https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-lockf=
+ileex
+:
 
-Are you sure that <sys/prctl.h> includes <asm/prctl.h>?
+"""
+  Another important side-effect is that the locks are not advisory anymore:
+  any IO on an exclusively locked file will always fail with EACCES
+  when done from a separate file descriptor; write calls on
+  a file locked for shared access will fail with EACCES when done
+  from any file descriptor including the one used to lock the file.
+"""
 
-user@debian:/usr/include$ grep -rn '\bARCH_'
-asm-generic/statfs.h:42:#ifndef ARCH_PACK_STATFS64
-asm-generic/statfs.h:43:#define ARCH_PACK_STATFS64
-asm-generic/statfs.h:59:} ARCH_PACK_STATFS64;
-asm-generic/statfs.h:65:#ifndef ARCH_PACK_COMPAT_STATFS64
-asm-generic/statfs.h:66:#define ARCH_PACK_COMPAT_STATFS64
-asm-generic/statfs.h:82:} ARCH_PACK_COMPAT_STATFS64;
-x86_64-linux-gnu/asm/statfs.h:10:#define ARCH_PACK_COMPAT_STATFS64 
-__attribute__((packed,aligned(4)))
-x86_64-linux-gnu/asm/prctl.h:5:#define ARCH_SET_GS		0x1001
-x86_64-linux-gnu/asm/prctl.h:6:#define ARCH_SET_FS		0x1002
-x86_64-linux-gnu/asm/prctl.h:7:#define ARCH_GET_FS		0x1003
-x86_64-linux-gnu/asm/prctl.h:8:#define ARCH_GET_GS		0x1004
-x86_64-linux-gnu/asm/prctl.h:10:#define ARCH_GET_CPUID		0x1011
-x86_64-linux-gnu/asm/prctl.h:11:#define ARCH_SET_CPUID		0x1012
-x86_64-linux-gnu/asm/prctl.h:13:#define ARCH_MAP_VDSO_X32	0x2001
-x86_64-linux-gnu/asm/prctl.h:14:#define ARCH_MAP_VDSO_32	0x2002
-x86_64-linux-gnu/asm/prctl.h:15:#define ARCH_MAP_VDSO_64	0x2003
-x86_64-linux-gnu/asm/auxvec.h:13:/* entries in ARCH_DLINFO: */
-user@debian:/usr/include$ grep -rn 'asm/prctl.h'
-user@debian:/usr/include$
+Thoughts?
 
-At least on my system, no header seems to be including <asm/prctl.h>.
+--
+Best regards,
+Pavel Shilovsky
 
-Thanks,
-
-Alex
-
-
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+=D0=B2=D1=82, 16 =D0=BC=D0=B0=D1=80. 2021 =D0=B3. =D0=B2 03:42, Aur=C3=A9li=
+en Aptel <aaptel@suse.com>:
+>
+> Pavel Shilovsky <piastryyy@gmail.com> writes:
+> > It is not only about writing to a locked file. It is also about any IO
+> > against a locked file if such a file is locked through another file
+> > handle. Right?
+>
+> Yes that was implied, the write was a simple example to illustrate. I'll
+> update to make it more generic:
+>
+>   Another important side-effect is that the locks are not advisory anymor=
+e:
+>   any IO on a locked file will always fail with EACCES,
+>   even when done from a separate file descriptor.
+>
+> If you have comments please provide direct text suggestion to save time.
+>
+> Cheers,
+> --
+> Aur=C3=A9lien Aptel / SUSE Labs Samba Team
+> GPG: 1839 CB5F 9F5B FB9B AA97  8C99 03C8 A49B 521B D5D3
+> SUSE Software Solutions Germany GmbH, Maxfeldstr. 5, 90409 N=C3=BCrnberg,=
+ DE
+> GF: Felix Imend=C3=B6rffer, Mary Higgins, Sri Rasiah HRB 247165 (AG M=C3=
+=BCnchen)
+>
