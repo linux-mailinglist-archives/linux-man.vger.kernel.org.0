@@ -2,64 +2,91 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 76DC733F259
-	for <lists+linux-man@lfdr.de>; Wed, 17 Mar 2021 15:13:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 414943409A6
+	for <lists+linux-man@lfdr.de>; Thu, 18 Mar 2021 17:09:03 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230448AbhCQONG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 17 Mar 2021 10:13:06 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51456 "EHLO
+        id S231738AbhCRQIa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 18 Mar 2021 12:08:30 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47698 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231241AbhCQOMg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 17 Mar 2021 10:12:36 -0400
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 35FEEC06174A
-        for <linux-man@vger.kernel.org>; Wed, 17 Mar 2021 07:12:35 -0700 (PDT)
-Received: by mail-wr1-x433.google.com with SMTP id e9so1968981wrw.10
-        for <linux-man@vger.kernel.org>; Wed, 17 Mar 2021 07:12:35 -0700 (PDT)
+        with ESMTP id S231825AbhCRQIX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Mar 2021 12:08:23 -0400
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DE54AC06174A
+        for <linux-man@vger.kernel.org>; Thu, 18 Mar 2021 09:08:22 -0700 (PDT)
+Received: by mail-wm1-x336.google.com with SMTP id w203-20020a1c49d40000b029010c706d0642so7178831wma.0
+        for <linux-man@vger.kernel.org>; Thu, 18 Mar 2021 09:08:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flodin-me.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:from:date:message-id:subject:to:cc;
-        bh=7Yczj5kR5rDRS8F8+ZPw1vJeVO/RzxKMp+zgOhHE2LE=;
-        b=fQlWsEkVoCrdguFb8LfA7cwmxYqXh8y+Db0sDyIeb8zP3tlwGgz1Lr2qlgx85kg07L
-         zLGaaC4EMI5JNhbyqe91HMfNGitQWlgN7Q33/W9/Ch11oMOKvhUwHs+zmqzfdlYoe6/0
-         Y61kzftqVqAuh90p0YZMJacPPWobEohAPcOSsUYcdXRQKH1QPLdZjiyW1h0gmDU6HqVO
-         SuVMVX/aQfV5DFeV90hOx3amlvpbcvo/coCQwJwYUJn60Eqwilq7pnfkQ3NU7/W7Okj0
-         r9gArmT+2ZEGdB0e28Q1pvbxhXhlz/q7sTMe8BMpcGa+qZQKlVtEo6X5FsHBjgVTf9A+
-         TCzA==
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=AKP89d8RX3ufIasrBR2p130dygoSoZ6+iANbiW5E1JU=;
+        b=VYxlHeph/PQn3kCA+nduvDKCEqbJEhG/97O6A+i72CuuOQM4NH4T1a/fgkmYMrkyU4
+         1ONQE1sBRO50beahLQgaLG1xxPp9lUyfHs1jLKlRbAsjd6rxClKiQ3PzB8ku205hMytM
+         CMRl+ihWOkWduz2UKZNyAHiattz55vXTyssM8vE6Pcw8vCGDoh51RJihmP8JZzi6tInd
+         PEds7C7vzg9XP/bd+NketHlR+lZF2DchQnKI0YvT9PA5bICbfShjoKBtiyJRSZn0uj3V
+         Tv42mmdhrwik4Aq3+hdnyWT3bawQZt0mTMpTPse5XG93+QCWZxmA0AhNu6R+NKVj0Zrq
+         QzXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
-        bh=7Yczj5kR5rDRS8F8+ZPw1vJeVO/RzxKMp+zgOhHE2LE=;
-        b=AiMpg3dnBTVEQosz98VIM4YA0HMNuV/gCa6PKa4I4MBh2T/JWGMce85UcVv+o7BzWL
-         468NU+5KUtTQ7pCuJxIIUtWbmacLqW1H+/gapvT2OkW7+01ffx5w3TrW92/BWDT+SpBY
-         QC6gyxt6cJ7E29DCHJEd0c/TG08RD/yT33oCeYURTyGitvnZDVS7Gls7dJHDMbjmAubb
-         gn2axUiViClgl1PLqd+T9JcUw2QyD52RIjersIAKP98BDwjM11/P3784lv3f8f1ZcyMm
-         nwPEcGzTodkymrMg1F+1rtrcaxxzHNAbO85mz71AfqLcoiwW7USVYrrLGRqRjktiwqwZ
-         uCXA==
-X-Gm-Message-State: AOAM530ExuRcqLyqgkqhkvgTiX9/VGQd9u1jnc1stfkS+p975w8BASV1
-        Vxgw7EQO1mwu7hLkL+hbvwmza7ZKJLtnDyFipX6ShA==
-X-Google-Smtp-Source: ABdhPJxvXgxD5ezb93365l5/kcY8Fb4uA9JJgjWUt2elw0DIR4+73SYbaeVYR1m23QyyhnfO89wFZRFL3430DRcTpZ8=
-X-Received: by 2002:a5d:64ae:: with SMTP id m14mr4663114wrp.153.1615990354018;
- Wed, 17 Mar 2021 07:12:34 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=AKP89d8RX3ufIasrBR2p130dygoSoZ6+iANbiW5E1JU=;
+        b=F9Y13vTkKFk4h1yDCrbXHVaaq19DQcPWbPfmaWfHnKJFa/c30musSHSm+mEYMFcLJT
+         B/KKAEBPiLSKQwH4DCmhZjTEYjaKaMrCk5J94Umi4Rdo2G1dDgK2dyEU+QWdEGTcHrb8
+         aVtis2K4FrmFXUsIbebXyWXaAk1y4v/QQSPXPKgG3gGPCb+VBz1lbaigvf9Pk8yvW7Df
+         2lX3qiCcaMj7K1biL04ljW/+lcxoz4VQfQoeOj/g7lM8TxgzrFek9fhIiZ9nFvhDxuce
+         yohRGjaQWhVmpxhouTffWcapv/hySnnwF+WtHdgiDbsjA+pkc3WAeml2bO5YtT9RrOgl
+         7Wxw==
+X-Gm-Message-State: AOAM533Vx6Hmke0qyGkrZQVBytW8kUrGoXjh0sQ5H5LGAjaSLZpHdl+S
+        uBt7q44R+2aiWImc60wHQq8=
+X-Google-Smtp-Source: ABdhPJwoSAFwXd1fPFU23Bi4TqntCklVnvtbq3poi3rOvcVPhI0VR0xdA//WTXzBPWePz/T9ZymFcw==
+X-Received: by 2002:a1c:a7d3:: with SMTP id q202mr4298387wme.93.1616083701613;
+        Thu, 18 Mar 2021 09:08:21 -0700 (PDT)
+Received: from localhost.localdomain ([185.240.141.204])
+        by smtp.gmail.com with ESMTPSA id i4sm2510236wmq.12.2021.03.18.09.08.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 18 Mar 2021 09:08:21 -0700 (PDT)
+From:   Amir Goldstein <amir73il@gmail.com>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     Jan Kara <jack@suse.cz>,
+        Matthew Bobrowski <mbobrowski@mbobrowski.org>,
+        linux-man@vger.kernel.org
+Subject: [PATCH 0/2] fanotify man page updates for v5.13
+Date:   Thu, 18 Mar 2021 18:08:15 +0200
+Message-Id: <20210318160817.3586288-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From:   Erik Flodin <erik@flodin.me>
-Date:   Wed, 17 Mar 2021 15:12:23 +0100
-Message-ID: <CAAMKmof+Y+qrro7Ohd9FSw1bf+-tLMPzaTba-tVniAMY0zwTOQ@mail.gmail.com>
-Subject: netdevice.7 SIOCGIFFLAGS/SIOCSIFFLAGS
-To:     mtk.manpages@gmail.com, alx.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi,
+Hi Michael,
 
-The documentation for SIOCGIFFLAGS/SIOCSIFFLAGS in netdevice.7 lists
-IFF_LOWER_UP, IFF_DORMANT and IFF_ECHO, but those can't be set in
-ifr_flags as it is only a short and the flags start at 1<<16.
+Following are updated for changes queued for v5.13 [1]:
+- Unprivileged fanotify listener
+- Configurable limits
 
-See also https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=746e6ad23cd6fec2edce056e014a0eabeffa838c
+It is still pretty early in the development cycle, but I am posting
+them early for review.
 
 Thanks,
-// Erik
+Amir.
+
+[1] https://lore.kernel.org/linux-fsdevel/20210304112921.3996419-1-amir73il@gmail.com/
+
+Amir Goldstein (1):
+  fanotify_init.2, fanotify_mark.2, fanotify.7: Configurable limits
+
+Matthew Bobrowski (1):
+  fanotify_init.2, fanotify_mark.2: Document unprivileged listener
+
+ man2/fanotify_init.2 | 99 ++++++++++++++++++++++++++++++++++++--------
+ man2/fanotify_mark.2 | 14 ++++++-
+ man7/fanotify.7      | 35 +++++++++++++++-
+ 3 files changed, 127 insertions(+), 21 deletions(-)
+
+-- 
+2.25.1
+
