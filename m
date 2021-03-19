@@ -2,69 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E90AF342683
-	for <lists+linux-man@lfdr.de>; Fri, 19 Mar 2021 20:53:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0FBC43426FA
+	for <lists+linux-man@lfdr.de>; Fri, 19 Mar 2021 21:36:09 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230092AbhCSTxZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 19 Mar 2021 15:53:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40758 "EHLO
+        id S230206AbhCSUfg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 19 Mar 2021 16:35:36 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49768 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230090AbhCSTxP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Mar 2021 15:53:15 -0400
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 671C1C06175F
-        for <linux-man@vger.kernel.org>; Fri, 19 Mar 2021 12:53:15 -0700 (PDT)
-Received: by mail-wm1-x32c.google.com with SMTP id w203-20020a1c49d40000b029010c706d0642so8895412wma.0
-        for <linux-man@vger.kernel.org>; Fri, 19 Mar 2021 12:53:15 -0700 (PDT)
+        with ESMTP id S230273AbhCSUfF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Mar 2021 16:35:05 -0400
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7F2D8C06175F
+        for <linux-man@vger.kernel.org>; Fri, 19 Mar 2021 13:35:04 -0700 (PDT)
+Received: by mail-wm1-x32d.google.com with SMTP id w203-20020a1c49d40000b029010c706d0642so8936379wma.0
+        for <linux-man@vger.kernel.org>; Fri, 19 Mar 2021 13:35:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=iTPbxVz9T3cNawzc32AFoud9AzkQkZjvL1JBQVkJlZ4=;
-        b=A51QH0Ko5Pr7fkP48jaByx2RIb5Ys/lulNe2Ecuy1wBVqC3308yGkojCU/XyWLPL/5
-         GR3G8eDyRaJyNbAKaxOXuV1Nvh1J5qyQVIISJtMj4Xfzn7KfFOfRSChC6zNjW6+HjNFF
-         D/gKBHrZZJYlscrKFwEpOkZ6P4rEpUzNFMk4LD6rkiCafFHcGdkZTw3mqsDSIba46IqY
-         +b7vv0DlAQwr/uOeuu+AnKelrS0wjqpDaoak2LSJBbkPZY00DtJ0ZN6QPUe0vCpfmRX9
-         Iusb1hGB1FyBInvpFszW93RNeUMmW/aVcp3/ORnMJR+ckV7nrDI3ujgFi6R6J3aTmTFv
-         tW+g==
+        bh=xguUs7KhjI6HHnwjKnATX81dPZ2l9/KI4cGLompbbVA=;
+        b=qoYq+x6IOfBquu1GBCq6UycXh0fXbqm6zzPDyQ9qUkqlr6GxMi7QijZ+nrUm24axjg
+         SBD043G2QPYo0/UF9GWtddhjwKSoR3DK/pOsVN+o47RKhLjp94DZBE+gRuo/GcR5xz5V
+         PdSwwgXXu9Q0UjBKkIlozHgWMLq/JNDS3J4zAlm7BBLcuvfid5fkPkj4tTI1J1y4NUa3
+         z+7DQx/nr5h3wnOKPwDX4gSFS0VrPVh719ejm4Popq9yMw9QWBrPooXv8BvBwPOnUKtg
+         EfjxpPziqZWPopd9JgclRiIRp3MXyG7yI7wpobpdeuKRe7n2rMCFKVBpyK/vAKhaGiW2
+         ieig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=iTPbxVz9T3cNawzc32AFoud9AzkQkZjvL1JBQVkJlZ4=;
-        b=AJVYolFG36Y+B2RrW3wmT3/Hf7jIC99cacHyAVWaDgIeKaI+vAXV5fR5OpvS4w1hNO
-         zLJF/Ob7rnhHrvOwzy2Flzwo+WrOau/rgYboYEztliFh4xiaGs/ahLNUEOwrSwrJulEz
-         MbPrsu7696C0WR9/Hp4H5P3C68E2pzeFmuy0ovSEZoWipa3tws1/MYu1dramGvxQs+Jw
-         LiJ8dWz5FuuACwMNqUJPclAnko+iT//7IKXIqPWLiUpZsZn8smZqumTxC/bUoh7pbtp2
-         xj1+EQ/dX0RDsY9dxqD7/Ewrs8oMOriAspxHOkmxyKal9SJqhxlgMVDzho6K0Cv2lXvl
-         oUuQ==
-X-Gm-Message-State: AOAM533FX5UxwtvO75Sf2+FdQiFSYa7JDtBHbVFAyMyqSNzyRvIKZLH9
-        96q6ApPmn6FCLaS6umsVhaU=
-X-Google-Smtp-Source: ABdhPJx8wPch0X7X3nH7T4WMtnP9uxQBCz7f+d7ga3OVPgCRLTNS6G5GNX0lihHPdhKZPpjwizIUGA==
-X-Received: by 2002:a7b:c357:: with SMTP id l23mr5078082wmj.152.1616183594162;
-        Fri, 19 Mar 2021 12:53:14 -0700 (PDT)
+        bh=xguUs7KhjI6HHnwjKnATX81dPZ2l9/KI4cGLompbbVA=;
+        b=W69QIKpruVqAeUD6eN7fHjPiskdLeYj08/FpjXK4v67A590RgLurYpNSqHMT0NdTv0
+         /P2c/6oh2AX5jcV5j5S0KJJUTQmFwscaQQDEhmW1WTEhYt2g+W/rE3CdwXpBFqhKr/cc
+         C2qiPcSXSm3YqNGNQ+lsUHOZ7WpWkMQ4znUVFZE3/4FBf8Bz/PcAwgVs1quuCdmWZ9DC
+         /sL8t6XtdckhKbYM5rTbMpWnGmpNKtEwWuiF26wv4r3XLIxeERU9n1cgpAS2MatkRSOi
+         lBsKxI9DvoAFDdiZLtDbYMq+JaGUxFAJwkk5bdhrnYgI2UFoX6H2HizmT2IZmdxmeyn/
+         oBvg==
+X-Gm-Message-State: AOAM532EgjqyrldhFIvHJbH0qfGAxC4In5eL9x76nQaGgj5M563qYyo+
+        iD5zxUVMO1NutMHKgmTG0P0=
+X-Google-Smtp-Source: ABdhPJwsAfFk8zVoup3uZDKTQXM7HhJEcvXbeBe2wA4+zt9OMpKPxj3dUSC6VXgPt2aLt824WA26jA==
+X-Received: by 2002:a05:600c:4fcb:: with SMTP id o11mr5268714wmq.117.1616186103146;
+        Fri, 19 Mar 2021 13:35:03 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id q19sm9913222wrg.80.2021.03.19.12.53.13
+        by smtp.gmail.com with ESMTPSA id n6sm11357588wrw.63.2021.03.19.13.35.02
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 19 Mar 2021 12:53:13 -0700 (PDT)
-Subject: Re: netdevice.7 SIOCGIFFLAGS/SIOCSIFFLAGS
-To:     Erik Flodin <erik@flodin.me>, mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, Stefan Rompf <stefan@loplof.de>,
-        "David S. Miller" <davem@davemloft.net>,
-        Fredrik Arnerup <fredrik.arnerup@edgeware.tv>,
-        John Dykstra <john.dykstra1@gmail.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Oliver Hartkopp <oliver.hartkopp@volkswagen.de>,
-        Urs Thuermann <urs.thuermann@volkswagen.de>
-References: <CAAMKmof+Y+qrro7Ohd9FSw1bf+-tLMPzaTba-tVniAMY0zwTOQ@mail.gmail.com>
+        Fri, 19 Mar 2021 13:35:02 -0700 (PDT)
+Subject: Re: [PATCH] Various pages: Remove unused <sys/types.h>
+To:     Joseph Myers <joseph@codesourcery.com>,
+        Zack Weinberg <zackw@panix.com>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        GNU C Library <libc-alpha@sourceware.org>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+References: <20210314160134.127878-1-alx.manpages@gmail.com>
+ <CAKCAbMiJO8gq7LoDi-iTvmqvDpwUXXnTs8ABHXvin-psyo3+QQ@mail.gmail.com>
+ <alpine.DEB.2.22.394.2103151819440.20846@digraph.polyomino.org.uk>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <b0a534b3-9bdf-868e-1f28-8e32d31013a2@gmail.com>
-Date:   Fri, 19 Mar 2021 20:53:12 +0100
+Message-ID: <574cb3b0-bc99-2c19-2647-566916b9826a@gmail.com>
+Date:   Fri, 19 Mar 2021 21:35:01 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <CAAMKmof+Y+qrro7Ohd9FSw1bf+-tLMPzaTba-tVniAMY0zwTOQ@mail.gmail.com>
+In-Reply-To: <alpine.DEB.2.22.394.2103151819440.20846@digraph.polyomino.org.uk>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -72,67 +71,45 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-[CC += Fredrik, John, David S., Steven, Oliver, Urs]
+Hi Joseph,
 
-Hi,
-
-On 3/17/21 3:12 PM, Erik Flodin wrote:
-> Hi,
+On 3/15/21 7:25 PM, Joseph Myers wrote:
+> On Sun, 14 Mar 2021, Zack Weinberg wrote:
 > 
-> The documentation for SIOCGIFFLAGS/SIOCSIFFLAGS in netdevice.7 lists
-> IFF_LOWER_UP, IFF_DORMANT and IFF_ECHO, but those can't be set in
-> ifr_flags as it is only a short and the flags start at 1<<16.
+>> I endorse this change.  For glibc, if the header file containing the
+>> function prototype doesn't also provide everything you need to call
+>> the function, it's a bug (except for a few cases where the relevant
+>> standards prevent us from doing this, e.g. a function that calls
+>> vprintf will need the macros in <stdarg.h>, but the C standard
+>> specifically forbids <stdio.h> to include <stdarg.h>).
 > 
-> See also https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=746e6ad23cd6fec2edce056e014a0eabeffa838c
-> 
+> And in particular, where older POSIX doesn't require the types used in the 
+> function declarations to be defined by a header, but permits them to be 
+> defined by virtue of the general *_t reservation in POSIX (that's not in 
+> ISO C), it's appropriate to define those types whenever declaring 
+> functions that use them, rather than only for the newer POSIX versions 
+> that require those types to be defined alongside declaring the functions 
+> that use them.  (So we could simplify some of the conditionals in unistd.h 
+> and remove the "# define uid_t __uid_t" and similar hacks in 
+> conform/data/unistd.h-data, for example.)
 
-I don't know what's the history of that.
-I researched a bit, and while the struct member is indeed a 'short' [1],
-the flags were added to the kernel for some reason.
-I added a few people to the thread that may know better what to do.Let's
-see if they can comment.
 
-Links to relevant commits:
+If you plan to do that (simplify glibc), maybe the changes I'm doing
+right now may help you.  It'll take me a few months to complete, but I
+plan to further clean the includes in the SYNOPSIS of man[23], so that
+only the include that provides the prototype is listed, and if any other
+headers are needed, they'll have an explicit comment about why.
 
-<https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=746e6ad23cd6fec2edce056e014a0eabeffa838c>
-<https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b00055aacdb172c05067612278ba27265fcd05ce>
-<https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=cd05acfe65ed2cf2db683fa9a6adb8d35635263b>
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=6ecda4d14604d250d385346f4fe9de707f281759>
+After that is merged, you should be able to list all the SYNOPSIS of
+man[23] (check our <scripts/bash_aliases> for that) and see which
+specify more than one header (and therefore you'll be able to check if a
+standard requires it, or if it's a bug in glibc).  I'll CC you both when
+I push those changes.
 
-Thanks,
+Cheers,
 
 Alex
 
-[1]:
-
-.../linux$ sed -n '/struct ifreq {/,/};/p' include/uapi/linux/if.h
-struct ifreq {
-#define IFHWADDRLEN	6
-	union
-	{
-		char	ifrn_name[IFNAMSIZ];		/* if name, e.g. "en0" */
-	} ifr_ifrn;
-	
-	union {
-		struct	sockaddr ifru_addr;
-		struct	sockaddr ifru_dstaddr;
-		struct	sockaddr ifru_broadaddr;
-		struct	sockaddr ifru_netmask;
-		struct  sockaddr ifru_hwaddr;
-		short	ifru_flags;
-		int	ifru_ivalue;
-		int	ifru_mtu;
-		struct  ifmap ifru_map;
-		char	ifru_slave[IFNAMSIZ];	/* Just fits the size */
-		char	ifru_newname[IFNAMSIZ];
-		void __user *	ifru_data;
-		struct	if_settings ifru_settings;
-	} ifr_ifru;
-};
-.../linux$ grep 'define\sifr_flags' include/uapi/linux/if.h
-#define	ifr_flags	ifr_ifru.ifru_flags	/* flags		*/
-.../linux$
-	
 -- 
 Alejandro Colomar
 Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
