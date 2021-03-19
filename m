@@ -2,68 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0FBC43426FA
-	for <lists+linux-man@lfdr.de>; Fri, 19 Mar 2021 21:36:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id EEFD634274C
+	for <lists+linux-man@lfdr.de>; Fri, 19 Mar 2021 22:00:28 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230206AbhCSUfg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 19 Mar 2021 16:35:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49768 "EHLO
+        id S230379AbhCSU7z (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 19 Mar 2021 16:59:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55110 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230273AbhCSUfF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Mar 2021 16:35:05 -0400
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7F2D8C06175F
-        for <linux-man@vger.kernel.org>; Fri, 19 Mar 2021 13:35:04 -0700 (PDT)
-Received: by mail-wm1-x32d.google.com with SMTP id w203-20020a1c49d40000b029010c706d0642so8936379wma.0
-        for <linux-man@vger.kernel.org>; Fri, 19 Mar 2021 13:35:04 -0700 (PDT)
+        with ESMTP id S230304AbhCSU7x (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Mar 2021 16:59:53 -0400
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6DA8BC06175F
+        for <linux-man@vger.kernel.org>; Fri, 19 Mar 2021 13:59:52 -0700 (PDT)
+Received: by mail-wr1-x435.google.com with SMTP id x13so10417867wrs.9
+        for <linux-man@vger.kernel.org>; Fri, 19 Mar 2021 13:59:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=xguUs7KhjI6HHnwjKnATX81dPZ2l9/KI4cGLompbbVA=;
-        b=qoYq+x6IOfBquu1GBCq6UycXh0fXbqm6zzPDyQ9qUkqlr6GxMi7QijZ+nrUm24axjg
-         SBD043G2QPYo0/UF9GWtddhjwKSoR3DK/pOsVN+o47RKhLjp94DZBE+gRuo/GcR5xz5V
-         PdSwwgXXu9Q0UjBKkIlozHgWMLq/JNDS3J4zAlm7BBLcuvfid5fkPkj4tTI1J1y4NUa3
-         z+7DQx/nr5h3wnOKPwDX4gSFS0VrPVh719ejm4Popq9yMw9QWBrPooXv8BvBwPOnUKtg
-         EfjxpPziqZWPopd9JgclRiIRp3MXyG7yI7wpobpdeuKRe7n2rMCFKVBpyK/vAKhaGiW2
-         ieig==
+        bh=MlX6HR69Zf0+cWFVizGgA3h2XO3GfEFDa+Wk3l4uVh4=;
+        b=OSnmHfWrIz8SRpw3BYc0UuODRjyO/bCi4vogeS67tCR2f7MQsiUm/26G/+0nLgxr2k
+         j4IxOstaBTe0oerH4E1+SMbhu9FynRRuLJZGyOMaIOZ6HfxMWgyHKmlkeXbO57cKv0Gr
+         2hvBP4rlY7M2pcfkd7xb7F2GtvTDe1Yd/oTsl39OyY7mO0U2vn9KnlEmkKy4u40sSgOa
+         G5bdrQ+9hNjw7/zjGKnDbBhXmjDgzf8P7GQhsZl2oW4tod3B/LX/DHJ3Jfeot4jT1u+q
+         ZCxLDGSFLhB/nrXjsLK5NTnurq3MRReDixqCKvzVnwUBHfctJM3j7cz0U7KrrIc32r2Q
+         pQBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=xguUs7KhjI6HHnwjKnATX81dPZ2l9/KI4cGLompbbVA=;
-        b=W69QIKpruVqAeUD6eN7fHjPiskdLeYj08/FpjXK4v67A590RgLurYpNSqHMT0NdTv0
-         /P2c/6oh2AX5jcV5j5S0KJJUTQmFwscaQQDEhmW1WTEhYt2g+W/rE3CdwXpBFqhKr/cc
-         C2qiPcSXSm3YqNGNQ+lsUHOZ7WpWkMQ4znUVFZE3/4FBf8Bz/PcAwgVs1quuCdmWZ9DC
-         /sL8t6XtdckhKbYM5rTbMpWnGmpNKtEwWuiF26wv4r3XLIxeERU9n1cgpAS2MatkRSOi
-         lBsKxI9DvoAFDdiZLtDbYMq+JaGUxFAJwkk5bdhrnYgI2UFoX6H2HizmT2IZmdxmeyn/
-         oBvg==
-X-Gm-Message-State: AOAM532EgjqyrldhFIvHJbH0qfGAxC4In5eL9x76nQaGgj5M563qYyo+
-        iD5zxUVMO1NutMHKgmTG0P0=
-X-Google-Smtp-Source: ABdhPJwsAfFk8zVoup3uZDKTQXM7HhJEcvXbeBe2wA4+zt9OMpKPxj3dUSC6VXgPt2aLt824WA26jA==
-X-Received: by 2002:a05:600c:4fcb:: with SMTP id o11mr5268714wmq.117.1616186103146;
-        Fri, 19 Mar 2021 13:35:03 -0700 (PDT)
+        bh=MlX6HR69Zf0+cWFVizGgA3h2XO3GfEFDa+Wk3l4uVh4=;
+        b=pNpWmQsc3xwq/Yy11Vyrnv+Rj6zN0pgV1CLfKa+DbPLas60CP9J5630fjlDBcPe1Iw
+         5hvkSEUikQrs24OofGlpGTXlNPMkPe2OLdKObcrDAx99Q2p70JzZT0dZ71eUQAOybCdb
+         9CSUqMIPcI5JY/C3VQRV8eTKlwugYnHT2XLY703qXnIKHiPlwuNwxcns1jwg8gWVP/QN
+         u/P/I2Ra52f/t2RlRsRD4X7kZuXWuwJM7IePVPsuHKtRzddceer+6mj5jUAWQGPLIQAO
+         BhRPq2HJkDMwvvKeh6ZT0JBVGSzM52q1eCTH0cGWRYwyVOVG9TY15h7hr2M7AhEmjfOU
+         zoXg==
+X-Gm-Message-State: AOAM531dGn+w7sRm2cyCcGsn7CT/yiyU4atIo1CvQRzqryaHe7WFACxE
+        ENjeQNrY+GQxSBGi6uTlYFs=
+X-Google-Smtp-Source: ABdhPJyNhi6GxOF8KQZJ3OMVMWvNeaCwaqzb2+X+4Ae/3GCc3rTHrv2bhhx82zvQYDD7NONLEk9g/A==
+X-Received: by 2002:adf:fecc:: with SMTP id q12mr6284284wrs.317.1616187591203;
+        Fri, 19 Mar 2021 13:59:51 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id n6sm11357588wrw.63.2021.03.19.13.35.02
+        by smtp.gmail.com with ESMTPSA id f16sm9369203wrt.21.2021.03.19.13.59.50
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 19 Mar 2021 13:35:02 -0700 (PDT)
-Subject: Re: [PATCH] Various pages: Remove unused <sys/types.h>
-To:     Joseph Myers <joseph@codesourcery.com>,
-        Zack Weinberg <zackw@panix.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        GNU C Library <libc-alpha@sourceware.org>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-References: <20210314160134.127878-1-alx.manpages@gmail.com>
- <CAKCAbMiJO8gq7LoDi-iTvmqvDpwUXXnTs8ABHXvin-psyo3+QQ@mail.gmail.com>
- <alpine.DEB.2.22.394.2103151819440.20846@digraph.polyomino.org.uk>
+        Fri, 19 Mar 2021 13:59:50 -0700 (PDT)
+Subject: Re: [PATCH 00/24] man3: SYNOPSIS: Use 'restrict' in prototypes (batch
+ 5)
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org,
+        Heinrich Schuchardt <xypron.glpk@gmx.de>
+References: <20210310183149.194717-1-alx.manpages@gmail.com>
+ <c2920146-e8d2-ea8c-80fa-76c56e5ac6a9@gmail.com>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <574cb3b0-bc99-2c19-2647-566916b9826a@gmail.com>
-Date:   Fri, 19 Mar 2021 21:35:01 +0100
+Message-ID: <9ef3b4d9-403b-4e75-8170-3a700fb597e8@gmail.com>
+Date:   Fri, 19 Mar 2021 21:59:50 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.22.394.2103151819440.20846@digraph.polyomino.org.uk>
+In-Reply-To: <c2920146-e8d2-ea8c-80fa-76c56e5ac6a9@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -71,45 +69,70 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Joseph,
+Hi Michael,
 
-On 3/15/21 7:25 PM, Joseph Myers wrote:
-> On Sun, 14 Mar 2021, Zack Weinberg wrote:
+On 3/14/21 9:51 PM, Michael Kerrisk (man-pages) wrote:
+> Hello Alex,
 > 
->> I endorse this change.  For glibc, if the header file containing the
->> function prototype doesn't also provide everything you need to call
->> the function, it's a bug (except for a few cases where the relevant
->> standards prevent us from doing this, e.g. a function that calls
->> vprintf will need the macros in <stdarg.h>, but the C standard
->> specifically forbids <stdio.h> to include <stdarg.h>).
+> On 3/10/21 7:31 PM, Alejandro Colomar wrote:
+>> This fixes up til trunc.3 
 > 
-> And in particular, where older POSIX doesn't require the types used in the 
-> function declarations to be defined by a header, but permits them to be 
-> defined by virtue of the general *_t reservation in POSIX (that's not in 
-> ISO C), it's appropriate to define those types whenever declaring 
-> functions that use them, rather than only for the newer POSIX versions 
-> that require those types to be defined alongside declaring the functions 
-> that use them.  (So we could simplify some of the conditionals in unistd.h 
-> and remove the "# define uid_t __uid_t" and similar hacks in 
-> conform/data/unistd.h-data, for example.)
+> trunc.3? I'm a little confused, since the last patch is for swab.3.
 
+Ahh, I was also confused after your email.  Now I understand it.
+I checked more pages after swab.3, but they didn't require changes.  I
+wrote the last page I checked so that I wouldn't check them again in the
+next batch :)
 
-If you plan to do that (simplify glibc), maybe the changes I'm doing
-right now may help you.  It'll take me a few months to complete, but I
-plan to further clean the includes in the SYNOPSIS of man[23], so that
-only the include that provides the prototype is listed, and if any other
-headers are needed, they'll have an explicit comment about why.
+> 
+>> (I didn't send you scanf.3
+>> in this patch set because I did in my mom's computer and forgot to push).
+> 
+> :-).
 
-After that is merged, you should be able to list all the SYNOPSIS of
-man[23] (check our <scripts/bash_aliases> for that) and see which
-specify more than one header (and therefore you'll be able to check if a
-standard requires it, or if it's a bug in glibc).  I'll CC you both when
-I push those changes.
+Hehe
 
-Cheers,
+> 
+>> When you come back and merge all of the pending patches, I'll send/resend
+>> anything that's not in sync anyway.
+>> So don't worry about missing some of them.
+> 
+> I've applied all of the below patches.
+> 
+> Thanks once again for all of this work!
 
-Alex
+:-)
 
+> 
+> Cheers,
+> 
+> Michael
+> 
+>> Alejandro Colomar (24):
+>>   sem_getvalue.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   sem_wait.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   setaliasent.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   setbuf.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   setbuf.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   setnetgrent.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   sigwait.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   statvfs.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   stpcpy.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   stpncpy.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   strcat.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   strcpy.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   strfmon.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   strftime.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   string.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   string.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   strptime.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   strsep.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   strtod.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   strtoimax.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   strtok.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   strtol.3, strtoul.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   strxfrm.3: SYNOPSIS: Use 'restrict' in prototypes
+>>   swab.3: SYNOPSIS: Use 'restrict' in prototypes
 -- 
 Alejandro Colomar
 Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
