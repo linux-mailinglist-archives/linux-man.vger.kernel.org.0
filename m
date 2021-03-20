@@ -2,85 +2,92 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BAD0A34293A
-	for <lists+linux-man@lfdr.de>; Sat, 20 Mar 2021 01:01:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0332034296D
+	for <lists+linux-man@lfdr.de>; Sat, 20 Mar 2021 01:26:35 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229648AbhCTAAg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 19 Mar 2021 20:00:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37530 "EHLO
+        id S229618AbhCTA0C (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 19 Mar 2021 20:26:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43080 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229649AbhCTAAZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Mar 2021 20:00:25 -0400
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 06293C061760
-        for <linux-man@vger.kernel.org>; Fri, 19 Mar 2021 17:00:25 -0700 (PDT)
-Received: by mail-wr1-x42d.google.com with SMTP id k8so10727109wrc.3
-        for <linux-man@vger.kernel.org>; Fri, 19 Mar 2021 17:00:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=O43UEQEFxqfDKnzii37dNLl8vHNNznXZD2GWJNipKjQ=;
-        b=JL83OHUKtOpN10yQQxD8j4o8p130vVJOpilwTR941dUvjXqfBHBIztnXeU/icckEYa
-         jyFfYuBtYu+VZ5IDCNmUr+Mja6jTP3aR4i6TDaHEsjUTymQbQzlbgWdjsMnrrqflKqH2
-         hiFbniJvZRsFaumUg5SToT3GjP0dnGShF0JdthlqiMbdLDsSyl3TIx/xsZ8gEPUHMHVV
-         HjJDqbsU8y5zKGhoIQmYjuyYMaq4mrxQtuZUOIMVLhMCACsvHtXRdXs1nfINZesnXPeI
-         oea22GQiOkdy5I5kwWp0WUWkpNuvsjZUUuIa7N7HK0ysNkBVNiH3qKMD2vorA+AMRsq9
-         p6aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=O43UEQEFxqfDKnzii37dNLl8vHNNznXZD2GWJNipKjQ=;
-        b=omj5c8MV8AlmGTr0FmK1pGrO3JQdxUAKp0cKy/LM58ZVznI+jvBQJ5TJskfeK6+KhF
-         B284tFpsZVB4In4kpR8uLznm4KFpxp8arFAjOHuZMe9H1FM68ytwT6q38XyIa9phVb8q
-         GiRQKOE0dz/OYjerD6IREyEaKMmsa8Aqyn4ZV0oetQKc6dmoGySLP5qs7tEXtFlZMIP5
-         jg8Xcaqn4zguaw8Rzf2MjPahmeDLrsFQ9CbuE+ENqrtOwIhNkPf4nI/+iZygOuKYzXnE
-         7lFpYZGJLKBjAl1VuNu9vxH6VVizUVf+KaDPAqBFlGJU5Ss6fDOfiJu3GBkDxAc+Uz8G
-         2HOg==
-X-Gm-Message-State: AOAM531G83RuCSbeiQ9abkNzyTCXY3LrAuyUPEa9whXDkyftq1UFbbiA
-        3D3myL7Nm42GLIxj15HDh9U=
-X-Google-Smtp-Source: ABdhPJx1S/riKL5tU4A5LwFskccGrm3ArWwehc073d+BMhMFqQOzj/lUJQGgUc9DUbK7Fafw7k7hcg==
-X-Received: by 2002:a5d:54c4:: with SMTP id x4mr6822725wrv.329.1616198423828;
-        Fri, 19 Mar 2021 17:00:23 -0700 (PDT)
-Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id q207sm9327832wme.36.2021.03.19.17.00.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Mar 2021 17:00:23 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, Mark Kettenis <kettenis@openbsd.org>
-Subject: [PATCH] errno.3: ENODATA is an XSI STREAMS extension
-Date:   Sat, 20 Mar 2021 00:57:24 +0100
-Message-Id: <20210319235717.28264-7-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.30.1
+        with ESMTP id S229751AbhCTAZw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Mar 2021 20:25:52 -0400
+X-Greylist: delayed 311 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 19 Mar 2021 17:25:52 PDT
+Received: from frotz.zork.net (frotz.zork.net [IPv6:2600:3c00:e000:35f::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B6C6BC061760
+        for <linux-man@vger.kernel.org>; Fri, 19 Mar 2021 17:25:52 -0700 (PDT)
+Received: by frotz.zork.net (Postfix, from userid 1008)
+        id 1A0DE119A8; Sat, 20 Mar 2021 00:20:41 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 frotz.zork.net 1A0DE119A8
+Date:   Fri, 19 Mar 2021 17:20:41 -0700
+From:   Seth David Schoen <schoen@loyalty.org>
+To:     linux-man@vger.kernel.org
+Cc:     gnu@toad.com
+Subject: [PATCH 1/1] ip.7: Add "special and reserved addresses" section
+Message-ID: <20210320002041.GZ2289@frotz.zork.net>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.9.4 (2018-02-28)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Reported-by: Mark Kettenis <kettenis@openbsd.org>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+Add a more detailed description of the IP addresses that have
+a special meaning in Internet standards, and how these affect
+Linux.
+
+Signed-off-by: Seth David Schoen <schoen@loyalty.org>
+Suggested-by: John Gilmore <gnu@toad.com>
 ---
- man3/errno.3 | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ man7/ip.7 | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/man3/errno.3 b/man3/errno.3
-index fe9b7f715..48e3e63f3 100644
---- a/man3/errno.3
-+++ b/man3/errno.3
-@@ -403,7 +403,8 @@ No buffer space available (POSIX.1 (XSI STREAMS option)).
- .\" ENOCSI is defined but appears to be unused.
- .TP
- .B ENODATA
--No message is available on the STREAM head read queue (POSIX.1-2001).
-+No message is available on the STREAM head read queue
-+(POSIX.1-2001 (XSI STREAMS option).
- .TP
- .B ENODEV
- No such device (POSIX.1-2001).
+diff --git a/man7/ip.7 b/man7/ip.7
+index d9299eb9e..478cda269 100644
+--- a/man7/ip.7
++++ b/man7/ip.7
+@@ -39,7 +39,7 @@
+ .\"	    commit 76e21053b5bf33a07c76f99d27a74238310e3c71
+ .\"	    Author: Erich E. Hoover <ehoover@mines.edu>
+ .\"
+-.TH IP  7 2020-11-01 "Linux" "Linux Programmer's Manual"
++.TH IP  7 2021-03-10 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+ ip \- Linux IPv4 protocol implementation
+ .SH SYNOPSIS
+@@ -232,6 +232,7 @@ In particular, this means that you need to call
+ on the number that is assigned to a port.
+ All address/port manipulation
+ functions in the standard library work in network byte order.
++.SS Special and reserved addresses
+ .PP
+ There are several special addresses:
+ .B INADDR_LOOPBACK
+@@ -245,6 +246,25 @@ means any address for binding;
+ means any host and has the same effect on bind as
+ .B INADDR_ANY
+ for historical reasons.
++.PP
++Internet standards have also traditionally reserved various
++addresses for particular uses. The addresses
++in the ranges 0.0.0.0 through 0.255.255.255 and 240.0.0.0 through
++255.255.255.254 (0/8 and 240/4 in CIDR notation) are reserved globally
++(but Linux permits addresses within these ranges, other than 0.0.0.0,
++to be assigned to an interface and used like other unicast addresses).
++All addresses in 127.0.0.0 through 127.255.255.255
++("127/8") are treated as loopback addresses akin to the standardized
++local loopback address 127.0.0.1, while addresses in 224.0.0.0 through
++239.255.255.255 ("224/4") are dedicated to multicast use.
++.PP
++On any locally-attached IP subnet, the lowest-numbered address and
++highest-numbered address (e.g., the .0 and .255 addresses on a subnet
++with netmask 255.255.255.0) are both designated as broadcast addresses.
++These cannot usefully be assigned to an interface, and can only be
++addressed with a socket on which the
++.B SO_BROADCAST
++option has been explicitly enabled.
+ .SS Socket options
+ IP supports some protocol-specific socket options that can be set with
+ .BR setsockopt (2)
 -- 
-2.30.1
-
+2.25.1
