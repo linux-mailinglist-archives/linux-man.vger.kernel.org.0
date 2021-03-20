@@ -2,46 +2,101 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A544D342F61
-	for <lists+linux-man@lfdr.de>; Sat, 20 Mar 2021 20:50:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CD323342F6D
+	for <lists+linux-man@lfdr.de>; Sat, 20 Mar 2021 21:02:04 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229618AbhCTTuP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 20 Mar 2021 15:50:15 -0400
-Received: from albireo.enyo.de ([37.24.231.21]:46452 "EHLO albireo.enyo.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S229826AbhCTTuD (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 20 Mar 2021 15:50:03 -0400
-Received: from [172.17.203.2] (port=50453 helo=deneb.enyo.de)
-        by albireo.enyo.de ([172.17.140.2]) with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        id 1lNhbk-0007pO-1n; Sat, 20 Mar 2021 19:50:00 +0000
-Received: from fw by deneb.enyo.de with local (Exim 4.92)
-        (envelope-from <fw@deneb.enyo.de>)
-        id 1lNhbj-0003SH-W8; Sat, 20 Mar 2021 20:50:00 +0100
-From:   Florian Weimer <fw@deneb.enyo.de>
-To:     Seth David Schoen <schoen@loyalty.org>
-Cc:     linux-man@vger.kernel.org, gnu@toad.com
-Subject: Re: [PATCH 1/1] ip.7: Add "special and reserved addresses" section
-References: <20210320002041.GZ2289@frotz.zork.net>
-Date:   Sat, 20 Mar 2021 20:49:59 +0100
-In-Reply-To: <20210320002041.GZ2289@frotz.zork.net> (Seth David Schoen's
-        message of "Fri, 19 Mar 2021 17:20:41 -0700")
-Message-ID: <87ft0pzjtk.fsf@mid.deneb.enyo.de>
+        id S229815AbhCTUBa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 20 Mar 2021 16:01:30 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39528 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229766AbhCTUBY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Mar 2021 16:01:24 -0400
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A3111C061574
+        for <linux-man@vger.kernel.org>; Sat, 20 Mar 2021 13:01:23 -0700 (PDT)
+Received: by mail-wm1-x336.google.com with SMTP id k128so4852603wmk.4
+        for <linux-man@vger.kernel.org>; Sat, 20 Mar 2021 13:01:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=1I8EUdr7T1se9AnMzqx3wKrxguk2nbJ2dhPHZ/7rr28=;
+        b=d7uUZfqbqZu+pox5MrY1r8OrXJ2PFDbFh04sZe+B1C3Elhawjl7fTwN2Bfx2JP0tb6
+         ubP619pUCRI6LhlJnoohAQ01CwLi+XnK6HoFpADECGfgIXUA0579BZnHS3w7Uexk88MH
+         HHJpc19HAVpSvO54pedWPDYMSZqkR7G5Ev3KbYXASjfvjUTIQ2EqzM2vHUXmUU+vC6Xj
+         UHFUbuJgc39oDDzXj6WQZaqeHB1+tHDKIgzBYtbfuur2o0jGkZEghPwaNdFw5FTqS6XD
+         BhzvvL5G6OhZOUWaUUz/tJ42OXG5BpZt4st6ytBccPZ09wd336eDxBqIoV/rIljvcbZf
+         30+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=1I8EUdr7T1se9AnMzqx3wKrxguk2nbJ2dhPHZ/7rr28=;
+        b=Enc8KPfEgcWLeIhKRb90OHgicfia0TAqkpzQc/zqu8n3LNnrJm3gjua+I5qgQnkA+/
+         Z2P3qaU9tlf1p6E8fTEOeA3t/m23IEC4uGYfLEzZjNDcT7QsM+gM24RfidwYHKP2NWvj
+         5IIjNyqjh5+pDAuPu/D1rlt5VEsLCJCnU1ct5DoiZJIiDQLaINR1ZkELv096hUmNS0wk
+         HrvhoS4y9CtXgY334GkFv+mTIn9vwwv/ENfZ/RAn6fp9NA9k870VUzs+/0bBm/pwSxqF
+         oE4epzwX/7LKoyudw6Lv4NECpHeczmsY+AzB9yakNVYmzd8B+I7dxTr9CmuQzW2oYbsV
+         bvvA==
+X-Gm-Message-State: AOAM533g+TciuB/706fMo5z1ULf9iCF7UBd3RwLn8kCJyBTL9Z7JKG1l
+        2kleCl6Ec2rZjpdwBrTt8V8=
+X-Google-Smtp-Source: ABdhPJwpxZ9a7Ot3sopmoJtWLLNYmMc+2iy5dWc1b1qdHxHBRzp6PGdq9rWQ0DC98MrzJ82om/Bqfw==
+X-Received: by 2002:a7b:cb90:: with SMTP id m16mr8980727wmi.162.1616270482250;
+        Sat, 20 Mar 2021 13:01:22 -0700 (PDT)
+Received: from localhost.localdomain ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id h21sm11086242wmp.10.2021.03.20.13.01.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 20 Mar 2021 13:01:21 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, Mark Kettenis <kettenis@openbsd.org>,
+        Florian Weimer <fw@deneb.enyo.de>
+Subject: [PATCH v3] errno.3: Fix ENODATA text
+Date:   Sat, 20 Mar 2021 21:01:16 +0100
+Message-Id: <20210320200115.95489-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.31.0
+In-Reply-To: <87k0q1zk7a.fsf@mid.deneb.enyo.de>
+References: <87k0q1zk7a.fsf@mid.deneb.enyo.de>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Seth David Schoen:
+ENODATA is an XSI STREAMS extension (not base POSIX).
 
-> +On any locally-attached IP subnet, the lowest-numbered address and
-> +highest-numbered address (e.g., the .0 and .255 addresses on a subnet
-> +with netmask 255.255.255.0) are both designated as broadcast addresses.
-> +These cannot usefully be assigned to an interface, and can only be
-> +addressed with a socket on which the
-> +.B SO_BROADCAST
-> +option has been explicitly enabled.
+Linux reused the name for extended attributes.
+The current manual pages don't use ENODATA with its POSIX
+meaning, so use the xattr(7) specific text, and leave the POSIX
+meaning for a secondary paragraph.
 
-I think the broadcast address is actually settable to some degree, and
-/31 subnets do not have them.  I wouldn't be surprised if kernel
-behavior also depended on the network device.
+Reported-by: Mark Kettenis <kettenis@openbsd.org>
+Reported-by: Florian Weimer <fw@deneb.enyo.de>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+ man3/errno.3 | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/man3/errno.3 b/man3/errno.3
+index fe9b7f715..eeb885823 100644
+--- a/man3/errno.3
++++ b/man3/errno.3
+@@ -403,7 +403,13 @@ No buffer space available (POSIX.1 (XSI STREAMS option)).
+ .\" ENOCSI is defined but appears to be unused.
+ .TP
+ .B ENODATA
+-No message is available on the STREAM head read queue (POSIX.1-2001).
++The named attribute does not exist,
++or the process has no access to this attribute; see
++.BR xattr (7).
++.IP
++In POSIX.1-2001 (XSI STREAMS option),
++this error was described as
++"No message is available on the STREAM head read queue".
+ .TP
+ .B ENODEV
+ No such device (POSIX.1-2001).
+-- 
+2.30.1
+
