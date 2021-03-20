@@ -2,92 +2,89 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0332034296D
-	for <lists+linux-man@lfdr.de>; Sat, 20 Mar 2021 01:26:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id EDABC342C64
+	for <lists+linux-man@lfdr.de>; Sat, 20 Mar 2021 12:42:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229618AbhCTA0C (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 19 Mar 2021 20:26:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43080 "EHLO
+        id S229686AbhCTLlf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 20 Mar 2021 07:41:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45724 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229751AbhCTAZw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Mar 2021 20:25:52 -0400
-X-Greylist: delayed 311 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 19 Mar 2021 17:25:52 PDT
-Received: from frotz.zork.net (frotz.zork.net [IPv6:2600:3c00:e000:35f::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B6C6BC061760
-        for <linux-man@vger.kernel.org>; Fri, 19 Mar 2021 17:25:52 -0700 (PDT)
-Received: by frotz.zork.net (Postfix, from userid 1008)
-        id 1A0DE119A8; Sat, 20 Mar 2021 00:20:41 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 frotz.zork.net 1A0DE119A8
-Date:   Fri, 19 Mar 2021 17:20:41 -0700
-From:   Seth David Schoen <schoen@loyalty.org>
-To:     linux-man@vger.kernel.org
-Cc:     gnu@toad.com
-Subject: [PATCH 1/1] ip.7: Add "special and reserved addresses" section
-Message-ID: <20210320002041.GZ2289@frotz.zork.net>
+        with ESMTP id S229640AbhCTLlP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Mar 2021 07:41:15 -0400
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 30631C061762
+        for <linux-man@vger.kernel.org>; Sat, 20 Mar 2021 04:41:15 -0700 (PDT)
+Received: by mail-wr1-x42e.google.com with SMTP id o16so11762955wrn.0
+        for <linux-man@vger.kernel.org>; Sat, 20 Mar 2021 04:41:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=2EBzPsGGiOKeQie/8WrhRU3Sd6gdBZWJPbkMA8O9vAs=;
+        b=c76zd8BfaPi5R1P1hswAtMExGco7VnErRZOTDRpinI6tzCgU4opsIflbaOJQdFnZC9
+         sJhpqSMrLVOaOfgVSvui4NoZFafERSH5KtHz3ucSP1o52Ui0nBUsudWkGxRPG4wEFEuP
+         pi+vrWjwxYbUqGqLvEeVgTl9ykOf9vM72f74osLqen3V1VHKDkL1Pb/gK2Sqg7MBBFUG
+         9kduj2MevSlGZ1b1GjhACq7wqgf8VSFtkxeGVBNfZ+6jIfHGgoM9zAA2OkZOJG0qW1Fv
+         elvRRypX3TxNvZ7Ir88Q2uAgQ6xu3M+QKKryAVEJKHBw/rVRrSeHr3vDbWVXFbT5Ikoj
+         YNug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=2EBzPsGGiOKeQie/8WrhRU3Sd6gdBZWJPbkMA8O9vAs=;
+        b=QnafjQXTEW6Ic3Of+GwPhnz3fkJPll6YcxpfAYnF+wLmz8NrCfu8AZkFDA1quCFqrb
+         5+n+iF6WHpZ44P00sqq2Pd1vCncN7kOSaHVNSbn6E/mOv7skQk6a8dTTDgBSFHirUQkp
+         KLcMbV818tebJTcYnBGK2eOvkKYlCzdWsl/0u3hXi7JONG5+/XugY3YklDZfhoR3SY3o
+         mkaiPwUSw0dbJsyfPQni3t2N2UMk87V2ESExFUYRWSdODGV5qu9+kM6OdtIb8oMrpfYY
+         CwPk6/6c1BOpMCnj9BXxjet+1p9Plv+J021WerEqiHA0Gv19elT+8iC0cDPss6+tk4Ji
+         ffcA==
+X-Gm-Message-State: AOAM5321x342TRknfcNjLTgykI/LHrtBvC7sE20aC5Y5Q8wU9Rpm/GBE
+        OB8Fk2XJtR1L0+aPWPx/9po=
+X-Google-Smtp-Source: ABdhPJyL6Oq0xiqDA0O6yG8cShYs9duD2uhdfrGAoHE1rkZ69R9UaXdk8LLbIHWUpcfyxCCxCj8/+w==
+X-Received: by 2002:adf:f083:: with SMTP id n3mr8850109wro.134.1616240474006;
+        Sat, 20 Mar 2021 04:41:14 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id 13sm10024456wmw.5.2021.03.20.04.41.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 20 Mar 2021 04:41:13 -0700 (PDT)
+Subject: Re: [PATCH] errno.3: ENODATA is an XSI STREAMS extension
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org, Mark Kettenis <kettenis@openbsd.org>
+References: <20210319235717.28264-7-alx.manpages@gmail.com>
+ <20210320095818.qdhi4rtwy3r2bflf@jwilk.net>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <4db92b50-d9f9-f1b5-13dd-54a525e561df@gmail.com>
+Date:   Sat, 20 Mar 2021 12:41:12 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/1.9.4 (2018-02-28)
+In-Reply-To: <20210320095818.qdhi4rtwy3r2bflf@jwilk.net>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Add a more detailed description of the IP addresses that have
-a special meaning in Internet standards, and how these affect
-Linux.
 
-Signed-off-by: Seth David Schoen <schoen@loyalty.org>
-Suggested-by: John Gilmore <gnu@toad.com>
----
- man7/ip.7 | 22 +++++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/man7/ip.7 b/man7/ip.7
-index d9299eb9e..478cda269 100644
---- a/man7/ip.7
-+++ b/man7/ip.7
-@@ -39,7 +39,7 @@
- .\"	    commit 76e21053b5bf33a07c76f99d27a74238310e3c71
- .\"	    Author: Erich E. Hoover <ehoover@mines.edu>
- .\"
--.TH IP  7 2020-11-01 "Linux" "Linux Programmer's Manual"
-+.TH IP  7 2021-03-10 "Linux" "Linux Programmer's Manual"
- .SH NAME
- ip \- Linux IPv4 protocol implementation
- .SH SYNOPSIS
-@@ -232,6 +232,7 @@ In particular, this means that you need to call
- on the number that is assigned to a port.
- All address/port manipulation
- functions in the standard library work in network byte order.
-+.SS Special and reserved addresses
- .PP
- There are several special addresses:
- .B INADDR_LOOPBACK
-@@ -245,6 +246,25 @@ means any address for binding;
- means any host and has the same effect on bind as
- .B INADDR_ANY
- for historical reasons.
-+.PP
-+Internet standards have also traditionally reserved various
-+addresses for particular uses. The addresses
-+in the ranges 0.0.0.0 through 0.255.255.255 and 240.0.0.0 through
-+255.255.255.254 (0/8 and 240/4 in CIDR notation) are reserved globally
-+(but Linux permits addresses within these ranges, other than 0.0.0.0,
-+to be assigned to an interface and used like other unicast addresses).
-+All addresses in 127.0.0.0 through 127.255.255.255
-+("127/8") are treated as loopback addresses akin to the standardized
-+local loopback address 127.0.0.1, while addresses in 224.0.0.0 through
-+239.255.255.255 ("224/4") are dedicated to multicast use.
-+.PP
-+On any locally-attached IP subnet, the lowest-numbered address and
-+highest-numbered address (e.g., the .0 and .255 addresses on a subnet
-+with netmask 255.255.255.0) are both designated as broadcast addresses.
-+These cannot usefully be assigned to an interface, and can only be
-+addressed with a socket on which the
-+.B SO_BROADCAST
-+option has been explicitly enabled.
- .SS Socket options
- IP supports some protocol-specific socket options that can be set with
- .BR setsockopt (2)
+On 3/20/21 10:58 AM, Jakub Wilk wrote:
+> * Alejandro Colomar <alx.manpages@gmail.com>, 2021-03-20, 00:57:
+>> -No message is available on the STREAM head read queue (POSIX.1-2001).
+>> +No message is available on the STREAM head read queue
+>> +(POSIX.1-2001 (XSI STREAMS option).
+> 
+> The parentheses are unbalanced.
+
+D'oh!
+
+Thanks,
+
+Alex
+
 -- 
-2.25.1
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
