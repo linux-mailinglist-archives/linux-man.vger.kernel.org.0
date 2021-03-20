@@ -2,60 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0026C34304A
-	for <lists+linux-man@lfdr.de>; Sun, 21 Mar 2021 00:23:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E3FB334304C
+	for <lists+linux-man@lfdr.de>; Sun, 21 Mar 2021 00:23:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229618AbhCTXWH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 20 Mar 2021 19:22:07 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54060 "EHLO
+        id S229791AbhCTXWi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 20 Mar 2021 19:22:38 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54122 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229863AbhCTXWD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Mar 2021 19:22:03 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0682CC061574
-        for <linux-man@vger.kernel.org>; Sat, 20 Mar 2021 16:22:03 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id 61so12786723wrm.12
-        for <linux-man@vger.kernel.org>; Sat, 20 Mar 2021 16:22:02 -0700 (PDT)
+        with ESMTP id S229815AbhCTXWU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Mar 2021 19:22:20 -0400
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 072D6C061574
+        for <linux-man@vger.kernel.org>; Sat, 20 Mar 2021 16:22:20 -0700 (PDT)
+Received: by mail-wr1-x42b.google.com with SMTP id j18so12817542wra.2
+        for <linux-man@vger.kernel.org>; Sat, 20 Mar 2021 16:22:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=d6FPwd0DM2WShmGk8wx2+8TJ8sOWQ7uReyLnh3v51zY=;
-        b=ELWik9q3Wz6oC/nm6T9YwcMIWxMuWaUOziGQdHt7BrBlvtl9DE5mlRwxQoz44szvel
-         SO6eUOAahCLipKivptni9OR4IEb1zQYTo3rCIyt51LSkouseTa11XvawgFH5w8vD4BsA
-         Nd3f2Yiv3twaDzbNHJ3cDeq4j40osRgUYMVq8ImuUL9KJRXI15RaUslsmGJG69Qz5BG/
-         9JttShOYbSraOn4g2xKIfold+sUt6HF/hO40crZJGiK1HV/K/YllVnzIiELqCP+Azckp
-         s3Zc1LNJuNzckiY/TRrpICt+5avrG1aZt55FOPOojPUaXqj2LLwbMb6lEOsQozkJlD1y
-         yrfA==
+        bh=DEAj1pIKQd+aUBD5PsZy8fCs6ytAbIZutO+NJZgjCbc=;
+        b=hx5BuDW5nKIeh/GDHkr7XWuvw8BEXuJLz6AjotE8LZACed91qPG33tDtqoRbVMNZKJ
+         P9k3hP/jQNlyDP9IGzVEGAThX4hjDiv0Ngn9oZnGAcEUW5+Jg3jRzasI4R3sKRcvNFen
+         h8VvV4TSVJ0YT4UZcychsMPpuDOWvlz72CkPJv++SKPG+AmvV2W7VOcTkclWW3f52UQm
+         dgT2Gy0ludzpxcKDkFaChkI5BDDCsx30RDm4xPnVCoUEN+94VHsxaR31R2rhPbzChTbT
+         TiH5Jtx4y/4P2CvswUlFpzlUkhTtL/TQq7UKfWECMvCNwS8LthM0zRiALZVOc7JkXaPz
+         hwTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=d6FPwd0DM2WShmGk8wx2+8TJ8sOWQ7uReyLnh3v51zY=;
-        b=QAwPch7Zk8YA95wiNe2NX1ioQ0D2tAHvy4HTMEvRoz/VLXTBWLtn6isG89u0eo7qfi
-         MsaN4awe8eOIHjEeFLg8AA6vu4S3o1X1UYLnGB8ZzJhR9EbzmkbLUP5hk6X2zuLIxmW+
-         /bCTLm3q3AL0uPDN7qPo7KzWCmXR6bVzdWJNV7z7jf6uvtLm1HRaDWXHZOSihqDeQXTb
-         tk+641la+DCV6C095t8Hhz95seg2QhI/fIX5BBTOmkDLpNDHTUBflyWo72ux6SYnQXmO
-         9JrAwcpOTMpCFfrlvdWNYyACBtaDwYZtMAg4+CjzV8p4NR3rhzmHRtVNGWkMp/t/DSrb
-         zRSg==
-X-Gm-Message-State: AOAM53108E4uww8kpecjmBq17QHDXpljjX6y1I541kbDphgYSxZnrUsl
-        IByri3EDAQE2Mey/ZgQnfOc=
-X-Google-Smtp-Source: ABdhPJyKK+2ot9rAJrwDgBmq0WtkxM25JrWoV8RZ49Z5GHQ+Ru1ahtF9OX595D3vByZfHeT/igszNA==
-X-Received: by 2002:a05:6000:223:: with SMTP id l3mr9852217wrz.5.1616282521882;
-        Sat, 20 Mar 2021 16:22:01 -0700 (PDT)
+        bh=DEAj1pIKQd+aUBD5PsZy8fCs6ytAbIZutO+NJZgjCbc=;
+        b=IARjp+BA4NW44k6Twp3od9u5NnM+BBKomx583k4fMInlxOJDWSuw+UzB6/Hxq7xCyJ
+         NWq9ubUgYbnM6XdwRaSX4oIMMiCxIiG450H8kict/UcMJG69p9yQpJoQPd/eFcSA9Wcz
+         cRDeVASYGsJHmj/btW/Ll+HgeJ7uARpAKOis4J4UUWwX0f4iC4LWaOJka12sbgfrI3lz
+         jwS1ZUuF35tLjvsJd2dfX958JVql4wtenBxpASewpOSbcawoP4tjNFRL0mht+92OrGar
+         tPRoiAIRXDFHFK4lIxOXtb8BEXOCzcqD0xQR/ad6I1RBAZ4WfvR6G0jPsqcyQCAVd19k
+         UZCg==
+X-Gm-Message-State: AOAM5327hf1vef6ixAd948GHIY1rB+KKY6IiQQi5raZIN5L+T4Cj/6yQ
+        gUAEwkvviOF2ogGrThhhTi8=
+X-Google-Smtp-Source: ABdhPJxYPPrhjERIB6kOqjH85Qh+rspOFyhMiGAZQxSDWG7Llb4PwdPlzIZsLsNg10vfwZeXDSOQYg==
+X-Received: by 2002:adf:a1ce:: with SMTP id v14mr11338983wrv.228.1616282538832;
+        Sat, 20 Mar 2021 16:22:18 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id c2sm12189140wme.15.2021.03.20.16.22.01
+        by smtp.googlemail.com with ESMTPSA id c2sm12189140wme.15.2021.03.20.16.22.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 20 Mar 2021 16:22:01 -0700 (PDT)
+        Sat, 20 Mar 2021 16:22:18 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org,
-        Debian man-pages <manpages@packages.debian.org>,
-        "Dr. Tobias Quathamer" <toddy@debian.org>
-Subject: [PATCH v2 2/3] Makefile: Fix bug when running in parallel
-Date:   Sun, 21 Mar 2021 00:19:50 +0100
-Message-Id: <20210320231949.183276-2-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org
+Subject: [PATCH v2 3/3] .gitignore: Add file
+Date:   Sun, 21 Mar 2021 00:19:52 +0100
+Message-Id: <20210320231949.183276-3-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210320230659.182237-1-alx.manpages@gmail.com>
 References: <20210320230659.182237-1-alx.manpages@gmail.com>
@@ -65,37 +63,26 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Prerequisites can run in parallel.  This wouldn't make any sense
-when uninstalling and installing again.
-
-For that, use consecutive commands, which run one after the other
-even with multiple cores.
-
-Cc: Debian man-pages <manpages@packages.debian.org>
-Cc: "Dr. Tobias Quathamer" <toddy@debian.org>
+Ignore:
+    .html: directory for building html pages.
+    .patches: directory for storing patches before sending
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
 
 v2: No changes; resend
 
- Makefile | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ .gitignore | 2 ++
+ 1 file changed, 2 insertions(+)
+ create mode 100644 .gitignore
 
-diff --git a/Makefile b/Makefile
-index a7a4ca284..683dd12be 100644
---- a/Makefile
-+++ b/Makefile
-@@ -20,7 +20,9 @@ INSTALL_DATA = $(INSTALL) -m 644
- INSTALL_DIR = $(INSTALL) -m 755 -d
- 
- .PHONY: all
--all: remove install
-+all:
-+	$(MAKE) uninstall;
-+	$(MAKE) install;
- 
- # Use with
- #  make HTOPTS=whatever html
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 000000000..593d39213
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,2 @@
++.html
++.patches
 -- 
 2.31.0
 
