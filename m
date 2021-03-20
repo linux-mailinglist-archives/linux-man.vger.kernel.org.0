@@ -2,101 +2,103 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CD323342F6D
-	for <lists+linux-man@lfdr.de>; Sat, 20 Mar 2021 21:02:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C64B4342F9F
+	for <lists+linux-man@lfdr.de>; Sat, 20 Mar 2021 22:04:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229815AbhCTUBa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 20 Mar 2021 16:01:30 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39528 "EHLO
+        id S229840AbhCTVDl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 20 Mar 2021 17:03:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52696 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229766AbhCTUBY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Mar 2021 16:01:24 -0400
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A3111C061574
-        for <linux-man@vger.kernel.org>; Sat, 20 Mar 2021 13:01:23 -0700 (PDT)
-Received: by mail-wm1-x336.google.com with SMTP id k128so4852603wmk.4
-        for <linux-man@vger.kernel.org>; Sat, 20 Mar 2021 13:01:23 -0700 (PDT)
+        with ESMTP id S229618AbhCTVDS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Mar 2021 17:03:18 -0400
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 20DA7C061574
+        for <linux-man@vger.kernel.org>; Sat, 20 Mar 2021 14:03:17 -0700 (PDT)
+Received: by mail-wr1-x42f.google.com with SMTP id j7so12655822wrd.1
+        for <linux-man@vger.kernel.org>; Sat, 20 Mar 2021 14:03:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=1I8EUdr7T1se9AnMzqx3wKrxguk2nbJ2dhPHZ/7rr28=;
-        b=d7uUZfqbqZu+pox5MrY1r8OrXJ2PFDbFh04sZe+B1C3Elhawjl7fTwN2Bfx2JP0tb6
-         ubP619pUCRI6LhlJnoohAQ01CwLi+XnK6HoFpADECGfgIXUA0579BZnHS3w7Uexk88MH
-         HHJpc19HAVpSvO54pedWPDYMSZqkR7G5Ev3KbYXASjfvjUTIQ2EqzM2vHUXmUU+vC6Xj
-         UHFUbuJgc39oDDzXj6WQZaqeHB1+tHDKIgzBYtbfuur2o0jGkZEghPwaNdFw5FTqS6XD
-         BhzvvL5G6OhZOUWaUUz/tJ42OXG5BpZt4st6ytBccPZ09wd336eDxBqIoV/rIljvcbZf
-         30+g==
+        h=to:cc:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=hbucdIrToPbjd9AgYBm1t80FZ1a3m1bykkR/0/MoIlU=;
+        b=i87xkHZT8bhslCJswIehDuhSSQcf9cqIWbpNpCyYEo6r0I/H0uhJ2Tn4O0o/il75+O
+         8zKeJIYqB2btt9h+csBsbmR5ube7deHbsfG58M1WWmg7EtkSif7QcWZnhw7CxSZBftGr
+         zB+J1QCgYPDi/1kcsEOEqs9W94b86jDpm6RLM6cFVo2r/MoblCLw4xufxdypASgJ7ern
+         cm5cIlQaDCEc9OwY/2pDHJVCcEKETs48uYoPo93vQRR6y2Upb1B+er2phs2yrFrJo/gf
+         HDND6RffWfxG6lLQ+9pHNfjyEsMi+3AmsIapTylW0PWD2aZ8VC543WPIX8+EYs9rQ1e7
+         D1Ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=1I8EUdr7T1se9AnMzqx3wKrxguk2nbJ2dhPHZ/7rr28=;
-        b=Enc8KPfEgcWLeIhKRb90OHgicfia0TAqkpzQc/zqu8n3LNnrJm3gjua+I5qgQnkA+/
-         Z2P3qaU9tlf1p6E8fTEOeA3t/m23IEC4uGYfLEzZjNDcT7QsM+gM24RfidwYHKP2NWvj
-         5IIjNyqjh5+pDAuPu/D1rlt5VEsLCJCnU1ct5DoiZJIiDQLaINR1ZkELv096hUmNS0wk
-         HrvhoS4y9CtXgY334GkFv+mTIn9vwwv/ENfZ/RAn6fp9NA9k870VUzs+/0bBm/pwSxqF
-         oE4epzwX/7LKoyudw6Lv4NECpHeczmsY+AzB9yakNVYmzd8B+I7dxTr9CmuQzW2oYbsV
-         bvvA==
-X-Gm-Message-State: AOAM533g+TciuB/706fMo5z1ULf9iCF7UBd3RwLn8kCJyBTL9Z7JKG1l
-        2kleCl6Ec2rZjpdwBrTt8V8=
-X-Google-Smtp-Source: ABdhPJwpxZ9a7Ot3sopmoJtWLLNYmMc+2iy5dWc1b1qdHxHBRzp6PGdq9rWQ0DC98MrzJ82om/Bqfw==
-X-Received: by 2002:a7b:cb90:: with SMTP id m16mr8980727wmi.162.1616270482250;
-        Sat, 20 Mar 2021 13:01:22 -0700 (PDT)
-Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id h21sm11086242wmp.10.2021.03.20.13.01.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 20 Mar 2021 13:01:21 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, Mark Kettenis <kettenis@openbsd.org>,
-        Florian Weimer <fw@deneb.enyo.de>
-Subject: [PATCH v3] errno.3: Fix ENODATA text
-Date:   Sat, 20 Mar 2021 21:01:16 +0100
-Message-Id: <20210320200115.95489-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <87k0q1zk7a.fsf@mid.deneb.enyo.de>
-References: <87k0q1zk7a.fsf@mid.deneb.enyo.de>
+        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=hbucdIrToPbjd9AgYBm1t80FZ1a3m1bykkR/0/MoIlU=;
+        b=p63a6Ls6agsWYMYSKcyUiRYA6TBGe3D6aFBLsOr30RYJY3iz4WbMgepesLPfOQ8ssw
+         yoO5ir1yVpB7prnDDrVUo/9bc8lvn6GjhaiLn+ZfAhmhgYbRmDB0oIaKMK9fQUXv48S9
+         aAxpqrZlZbyQx/i0VHvsiK8hfH/QU4QBJz4+5WjNYjqydroGqujke76jV0xoQ4XYZCfS
+         Q9HXquUDz9nS+MiyZWtbDhY3N59PG23udp4Bitt2Pi7Qe2BLn4dF1Y8byQx+rBuB1Mit
+         T4B14lCB+zRulIal5EnF17iiVwFwp+rA/AmkQm/PokQaiosFuBO87jvAcxrjzalKj4ne
+         aUag==
+X-Gm-Message-State: AOAM5327dbOUYjX2WwOxRq7vXF4cfLLkkEhvjV0jUtCg0qX42GZmGRAh
+        WFxdqUFRB+WfWzu6BFKJKPdiaFeHkKQ=
+X-Google-Smtp-Source: ABdhPJzDWqaU4FDfJOsp08qAVVYlzSVvew+MlHbNohDRmmG04GXJ+KkDfLW7/BlB2glr/rB2QIGCow==
+X-Received: by 2002:adf:e4c7:: with SMTP id v7mr10808551wrm.245.1616274195682;
+        Sat, 20 Mar 2021 14:03:15 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id v9sm14730543wrn.86.2021.03.20.14.03.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 20 Mar 2021 14:03:15 -0700 (PDT)
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Subject: Makefile: Use standard variables and locations
+Message-ID: <b4cf925a-ac73-33bd-a6eb-514c69e82d51@gmail.com>
+Date:   Sat, 20 Mar 2021 22:03:14 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-ENODATA is an XSI STREAMS extension (not base POSIX).
+Hi Michael,
 
-Linux reused the name for extended attributes.
-The current manual pages don't use ENODATA with its POSIX
-meaning, so use the xattr(7) specific text, and leave the POSIX
-meaning for a secondary paragraph.
+There are a few points I think we should fix in the Makefile:
 
-Reported-by: Mark Kettenis <kettenis@openbsd.org>
-Reported-by: Florian Weimer <fw@deneb.enyo.de>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man3/errno.3 | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+- Use standard variables:
+	* mandir (instead of MANDIR)
+	* htmldir (instead of HTDIR)
+	(see
+<https://www.gnu.org/software/make/manual/html_node/Directory-Variables.html>)
 
-diff --git a/man3/errno.3 b/man3/errno.3
-index fe9b7f715..eeb885823 100644
---- a/man3/errno.3
-+++ b/man3/errno.3
-@@ -403,7 +403,13 @@ No buffer space available (POSIX.1 (XSI STREAMS option)).
- .\" ENOCSI is defined but appears to be unused.
- .TP
- .B ENODATA
--No message is available on the STREAM head read queue (POSIX.1-2001).
-+The named attribute does not exist,
-+or the process has no access to this attribute; see
-+.BR xattr (7).
-+.IP
-+In POSIX.1-2001 (XSI STREAMS option),
-+this error was described as
-+"No message is available on the STREAM head read queue".
- .TP
- .B ENODEV
- No such device (POSIX.1-2001).
+- Use standard targets:
+	* separate html into html and install-html
+	* installdirs (instead of having 'mkdir -p'/'install -d' embedded in
+targets)
+	(see
+<https://www.gnu.org/software/make/manual/html_node/Standard-Targets.html#Standard-Targets>)
+
+- '?=' is not needed, I think.  When a user defines a variable in the
+command line, that overwrites any definition in the Makefile.
+
+- Is '|| exit $$?' really needed?  AFAIK, make exits on error.  Maybe
+there's a corner case that make doesn't handle well and exit does,
+though.  I don't know.
+
+- Use $(INSTALL_DATA) instead of using install directly.
+
+- Specify SHELL = /bin/sh
+
+
+Any thoughts?
+
+Cheers,
+
+Alex
+
 -- 
-2.30.1
-
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
