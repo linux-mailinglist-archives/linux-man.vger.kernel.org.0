@@ -2,103 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C64B4342F9F
-	for <lists+linux-man@lfdr.de>; Sat, 20 Mar 2021 22:04:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2D62D343045
+	for <lists+linux-man@lfdr.de>; Sun, 21 Mar 2021 00:13:42 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229840AbhCTVDl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 20 Mar 2021 17:03:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52696 "EHLO
+        id S229766AbhCTXNK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 20 Mar 2021 19:13:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52160 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229618AbhCTVDS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Mar 2021 17:03:18 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 20DA7C061574
-        for <linux-man@vger.kernel.org>; Sat, 20 Mar 2021 14:03:17 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id j7so12655822wrd.1
-        for <linux-man@vger.kernel.org>; Sat, 20 Mar 2021 14:03:16 -0700 (PDT)
+        with ESMTP id S229772AbhCTXNI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Mar 2021 19:13:08 -0400
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 23BFFC061574
+        for <linux-man@vger.kernel.org>; Sat, 20 Mar 2021 16:13:08 -0700 (PDT)
+Received: by mail-wr1-x433.google.com with SMTP id x16so12793111wrn.4
+        for <linux-man@vger.kernel.org>; Sat, 20 Mar 2021 16:13:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=to:cc:from:subject:message-id:date:user-agent:mime-version
-         :content-language:content-transfer-encoding;
-        bh=hbucdIrToPbjd9AgYBm1t80FZ1a3m1bykkR/0/MoIlU=;
-        b=i87xkHZT8bhslCJswIehDuhSSQcf9cqIWbpNpCyYEo6r0I/H0uhJ2Tn4O0o/il75+O
-         8zKeJIYqB2btt9h+csBsbmR5ube7deHbsfG58M1WWmg7EtkSif7QcWZnhw7CxSZBftGr
-         zB+J1QCgYPDi/1kcsEOEqs9W94b86jDpm6RLM6cFVo2r/MoblCLw4xufxdypASgJ7ern
-         cm5cIlQaDCEc9OwY/2pDHJVCcEKETs48uYoPo93vQRR6y2Upb1B+er2phs2yrFrJo/gf
-         HDND6RffWfxG6lLQ+9pHNfjyEsMi+3AmsIapTylW0PWD2aZ8VC543WPIX8+EYs9rQ1e7
-         D1Ww==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=AcjJ/jBE21LNXJipplQazLBcpcek5kLJixed2gRRn8Q=;
+        b=NibJYn0ZLqAA2TA3b9eTADZYnItOYiocbHud4cDFCr7ybxSzSFrXJwgRpY1e4mmF2e
+         GGsgI+vDs4qP2j8qpTLP762BnEupg6OVKdgYIgV4RoGwewd2eT0z5z7GWg80CMnqynmc
+         laHAUCvGBw9LxVWnRmUb8msdBEtlwFCLm5Ts+6zUAkUy54LkibzAHEAp0jnqWUvXZGHy
+         1G2lTtChDgWmG2ZIfwx9gqYjxBM97n0jBOW0l703NJwebpp7ipoFZNjhguv9Z0vN3lx6
+         RQpgo4QpYhHibk1ovdYZKO4anxVojxT7LPL2HPFeEFvD5pKoOYjVRJeOky77S4JiPANh
+         Y+ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=hbucdIrToPbjd9AgYBm1t80FZ1a3m1bykkR/0/MoIlU=;
-        b=p63a6Ls6agsWYMYSKcyUiRYA6TBGe3D6aFBLsOr30RYJY3iz4WbMgepesLPfOQ8ssw
-         yoO5ir1yVpB7prnDDrVUo/9bc8lvn6GjhaiLn+ZfAhmhgYbRmDB0oIaKMK9fQUXv48S9
-         aAxpqrZlZbyQx/i0VHvsiK8hfH/QU4QBJz4+5WjNYjqydroGqujke76jV0xoQ4XYZCfS
-         Q9HXquUDz9nS+MiyZWtbDhY3N59PG23udp4Bitt2Pi7Qe2BLn4dF1Y8byQx+rBuB1Mit
-         T4B14lCB+zRulIal5EnF17iiVwFwp+rA/AmkQm/PokQaiosFuBO87jvAcxrjzalKj4ne
-         aUag==
-X-Gm-Message-State: AOAM5327dbOUYjX2WwOxRq7vXF4cfLLkkEhvjV0jUtCg0qX42GZmGRAh
-        WFxdqUFRB+WfWzu6BFKJKPdiaFeHkKQ=
-X-Google-Smtp-Source: ABdhPJzDWqaU4FDfJOsp08qAVVYlzSVvew+MlHbNohDRmmG04GXJ+KkDfLW7/BlB2glr/rB2QIGCow==
-X-Received: by 2002:adf:e4c7:: with SMTP id v7mr10808551wrm.245.1616274195682;
-        Sat, 20 Mar 2021 14:03:15 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id v9sm14730543wrn.86.2021.03.20.14.03.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 20 Mar 2021 14:03:15 -0700 (PDT)
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Subject: Makefile: Use standard variables and locations
-Message-ID: <b4cf925a-ac73-33bd-a6eb-514c69e82d51@gmail.com>
-Date:   Sat, 20 Mar 2021 22:03:14 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=AcjJ/jBE21LNXJipplQazLBcpcek5kLJixed2gRRn8Q=;
+        b=uAVQdRB1HI9RoBUB9t2hnSLuJUy9Ww9RakF9jvMpDAgvxzA0Agl4CLII/wJBo+X0SD
+         SAodhTODG0wa9U/9j6EPSRSMeccHvou6vVcO6zD8hU9OwasuGjb6p5pMJ2oXWg/Wg092
+         JCySWSdPUnNxhkKhjlI2nnR67hkjkxIHsnfp9CmLDAhQCoCWwZ9dDWcPvIR7/XGr5OLX
+         d/fqBmO22kRQ6aVekoVtEbGH73J6hxalLnyVdm5urTztJeMX4Ow48JGoMRTtNIUsskad
+         Y8hxiLxv+GinDnJKfB0Bfmy3YlWArN+Qrx3Do11w2vhqI0s63PI+sGo0qAvSjql1+tSh
+         mv9w==
+X-Gm-Message-State: AOAM533o6vaAgD6ZF1ukV1HLU+g/GRw/i6UH/trs1nFfUNhzFcimAJnC
+        6AnwnsK6605TwUsu5YrNcwL8nVCpoD4=
+X-Google-Smtp-Source: ABdhPJw++6qeR9OnkAH295xS/5b3kbaqPbVba7jK51dbm+NOQTdLepgkIyiTh/JIxxOL8iPcy6kcmg==
+X-Received: by 2002:a5d:4cc7:: with SMTP id c7mr11497219wrt.164.1616281987001;
+        Sat, 20 Mar 2021 16:13:07 -0700 (PDT)
+Received: from localhost.localdomain ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id 1sm22277989wmj.0.2021.03.20.16.13.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 20 Mar 2021 16:13:06 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org,
+        Debian man-pages <manpages@packages.debian.org>,
+        "Dr. Tobias Quathamer" <toddy@debian.org>
+Subject: [PATCH 2/3] Makefile: Fix bug when running in parallel
+Date:   Sun, 21 Mar 2021 00:07:00 +0100
+Message-Id: <20210320230659.182237-2-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.31.0
+In-Reply-To: <20210320230659.182237-1-alx.manpages@gmail.com>
+References: <20210320230659.182237-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Prerequisites can run in parallel.  This wouldn't make any sense
+when uninstalling and installing again.
 
-There are a few points I think we should fix in the Makefile:
+For that, use consecutive commands, which run one after the other
+even with multiple cores.
 
-- Use standard variables:
-	* mandir (instead of MANDIR)
-	* htmldir (instead of HTDIR)
-	(see
-<https://www.gnu.org/software/make/manual/html_node/Directory-Variables.html>)
+Cc: Debian man-pages <manpages@packages.debian.org>
+Cc: "Dr. Tobias Quathamer" <toddy@debian.org>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+ Makefile | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-- Use standard targets:
-	* separate html into html and install-html
-	* installdirs (instead of having 'mkdir -p'/'install -d' embedded in
-targets)
-	(see
-<https://www.gnu.org/software/make/manual/html_node/Standard-Targets.html#Standard-Targets>)
-
-- '?=' is not needed, I think.  When a user defines a variable in the
-command line, that overwrites any definition in the Makefile.
-
-- Is '|| exit $$?' really needed?  AFAIK, make exits on error.  Maybe
-there's a corner case that make doesn't handle well and exit does,
-though.  I don't know.
-
-- Use $(INSTALL_DATA) instead of using install directly.
-
-- Specify SHELL = /bin/sh
-
-
-Any thoughts?
-
-Cheers,
-
-Alex
-
+diff --git a/Makefile b/Makefile
+index a7a4ca284..683dd12be 100644
+--- a/Makefile
++++ b/Makefile
+@@ -20,7 +20,9 @@ INSTALL_DATA = $(INSTALL) -m 644
+ INSTALL_DIR = $(INSTALL) -m 755 -d
+ 
+ .PHONY: all
+-all: remove install
++all:
++	$(MAKE) uninstall;
++	$(MAKE) install;
+ 
+ # Use with
+ #  make HTOPTS=whatever html
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.31.0
+
