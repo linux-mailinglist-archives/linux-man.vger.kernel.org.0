@@ -2,117 +2,123 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 500B1343344
-	for <lists+linux-man@lfdr.de>; Sun, 21 Mar 2021 16:46:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7869C343C0F
+	for <lists+linux-man@lfdr.de>; Mon, 22 Mar 2021 09:49:36 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230114AbhCUPp6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 21 Mar 2021 11:45:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37140 "EHLO
+        id S229890AbhCVIs7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 22 Mar 2021 04:48:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60054 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229933AbhCUPpx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 21 Mar 2021 11:45:53 -0400
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7D492C061574
-        for <linux-man@vger.kernel.org>; Sun, 21 Mar 2021 08:45:53 -0700 (PDT)
-Received: by mail-wr1-x433.google.com with SMTP id x16so14100870wrn.4
-        for <linux-man@vger.kernel.org>; Sun, 21 Mar 2021 08:45:53 -0700 (PDT)
+        with ESMTP id S229879AbhCVIse (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Mar 2021 04:48:34 -0400
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0BE8BC061574
+        for <linux-man@vger.kernel.org>; Mon, 22 Mar 2021 01:48:34 -0700 (PDT)
+Received: by mail-wr1-x42e.google.com with SMTP id o16so15752663wrn.0
+        for <linux-man@vger.kernel.org>; Mon, 22 Mar 2021 01:48:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ECZXPgunWp2Jqt/fL2S9MIeG1OJsjKQdIqYIMnx8M6M=;
-        b=DAfvsUlll8kBIcaZ3TgcM4cmNa0WkAw1O6AXIqyvN80xOddV0bTLRx/8zz3E6IqFbh
-         8HmcAQx7+u3TMjkahcJN9otuzTBbNz4BDWlX8/4EwnLJvs3esVo1kNC5h6RJhI0TRhl+
-         lNweYvDckLOQxSvjUh1TAXRkVujaA4vYLmot9MxinZ1b8zwWGLf1Di+ZX2Vl1UmjkR7u
-         SJLgSoNBhzNYXaTWpJkhQ3jr1X2lIC9R74VIyQ/AEYQC+7oXqaFloC7EAVqCr6Zo3DsF
-         zVWUQkFq1yPbwxIaobGjQzM+IbeyVhomBMfFy6EVU/A4S0ruhZYJxbOQPqLIcSMfdKck
-         Bq2A==
+        h=from:to:cc:subject:date:message-id:organization:mime-version;
+        bh=Sx8uCU09ZY7LZaxp8SKavj6rBrF10PAYgPMkUrvL+/A=;
+        b=ISvEXHW5dSl9UH8+BGAFqvrBxRcLWYXh3/LlkB06bOK09hzXVIZTS/Gr4HNgp0ebdV
+         P7ADIX0GV+ojIrTDPOpatSF2prgjoj6CmBAjtjp1CKcfcKuFqtIRyhyJ1XC/hOsj9rrv
+         i+8Aq+SmA6hcKMyW1R5qE5IXHYi9iE3pbd74BqDg1YfeWiJH2rJpT4fAI46tBqdZxvz5
+         CiJalh6jUGta0LXo8chz5Ud/NgpqU2ZMwKhkAWqA662gbATfuxUjZnwdUL8zZgT8mt+A
+         2eXgMNz9HuMrGcsp6X1SDFF0kiRhObFt8tzzvOIsvbRaJ+Ib2Tc6Hbe4TW2yjgWc+yxU
+         4AIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=ECZXPgunWp2Jqt/fL2S9MIeG1OJsjKQdIqYIMnx8M6M=;
-        b=hXlJsbiwsM6odkiCWdJ5L5KKpfUCPZyiFAK5zGuvj1y0H6iOwMvPTIsCH8I1yINpG1
-         6+JLYAAQqq7lORpVSP/gCZua/3Z4b0+UCDldnQwqRJ2yGymn+32WoThcKUfn4x2vGBUb
-         b7HIvimWpx/WeGW9jbjB8g1/BEzuBpkedNOaSNXySEMNFlg310quT63VvIwmI6fkh70X
-         3eOrxHZPPfxdiT9QHspRp7QNgnRVtIMLoSCOQbiW0m7e30G1LN6Qkznnxum081NWaGRb
-         4rHi+9G+t0TIJMdwvIHU936FY77yPLF+LDhT1MCyJAjKzkHq7KwVvz7ofcSTqzZbY4r/
-         CDig==
-X-Gm-Message-State: AOAM531QiqGPMNbFSkOAWFAJVp0ptyAdYt8cl3cWwyWi8cMPwDATawSx
-        NUZiboNx3jDJez9DsdqYNtpGYiPUcgw=
-X-Google-Smtp-Source: ABdhPJy2wgJBhZmPp2QFUntRmmUtj8Er0iIijX0KfZNrMoHIc+7HEcxwytkL+GPICzqfI5pAlRYe4g==
-X-Received: by 2002:adf:d851:: with SMTP id k17mr14494606wrl.254.1616341552016;
-        Sun, 21 Mar 2021 08:45:52 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2553:a401:cfc6:2039:a9ec:21ff? ([2001:a61:2553:a401:cfc6:2039:a9ec:21ff])
-        by smtp.gmail.com with ESMTPSA id f7sm13383396wmq.11.2021.03.21.08.45.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 21 Mar 2021 08:45:51 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Szunti <szunti@gmail.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: user_namespaces(7) should mention overlay as mountable since
- Linux 5.11
-To:     "Dmitry V. Levin" <ldv@altlinux.org>
-References: <87v9a0wews.fsf@gmail.com>
- <CAKgNAkh9XgUT+257TLtKBHsxuOHopqt76BL2xCz+JN2=u-xm=w@mail.gmail.com>
- <20210314232009.GA2561@altlinux.org>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <e01b2c6b-06bf-fe41-d2f4-383797d3461c@gmail.com>
-Date:   Sun, 21 Mar 2021 16:45:50 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:organization
+         :mime-version;
+        bh=Sx8uCU09ZY7LZaxp8SKavj6rBrF10PAYgPMkUrvL+/A=;
+        b=VSFbrclHgyrD1p5FP7jlu91Ilv/KrD14L4erGK+wMqpOy3PzZCYv8Yw6FH8TTj8m08
+         vvXyA7FYS7Q+dvGPGCxhJUhOLboAxqj1J8rRfQLPvZixOhc8ZzzCS/z5BcAoMRXSxzLc
+         1O2/0uXrime73R/qJrtB8PsiJ7eHO+THRamZWrUulGlfwITs0JxJiTw2Espf0rRWZ9C5
+         WfSszckJul0jYCgAwe/gDfQEI2DAWh+pOCy2LnNUmC8WX583uq2T8XhpXmi9hinexA30
+         UILsnAXASdhjs/+F5ZHFAT7ekODNEhD2gIDIzTstQdAcPqP5BB+kugXTuuvWKKRrFycm
+         uqPg==
+X-Gm-Message-State: AOAM530JpbzMBUY7PNlDQOllWAnbl3rixcBybeoVgR+wvKrj6+PZxAY6
+        7zStPNTOqXjw2p0iRI0yGkg=
+X-Google-Smtp-Source: ABdhPJyCSAGjTNIUCbyNyACiOxa5qM7A2fHzOQ+fdGkf9UnRwptioQ1J00w4dfyutK/frzaAEToLgQ==
+X-Received: by 2002:a5d:5906:: with SMTP id v6mr17194634wrd.137.1616402912743;
+        Mon, 22 Mar 2021 01:48:32 -0700 (PDT)
+Received: from opensuse.localnet (ipbcc14380.dynamic.kabel-deutschland.de. [188.193.67.128])
+        by smtp.gmail.com with ESMTPSA id l9sm14887001wmq.2.2021.03.22.01.48.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 Mar 2021 01:48:31 -0700 (PDT)
+From:   =?utf-8?B?U3rFkXRzIMOBa29z?= <szotsaki@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     alx.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: /proc/<pid>/stat file documentation
+Date:   Mon, 22 Mar 2021 09:48:30 +0100
+Message-ID: <2836850.zfUPAMbaDK@opensuse>
+Organization: MorroHun Team
 MIME-Version: 1.0
-In-Reply-To: <20210314232009.GA2561@altlinux.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; boundary="nextPart4422994.DVKcslHcio"; micalg="pgp-sha256"; protocol="application/pgp-signature"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 3/15/21 12:20 AM, Dmitry V. Levin wrote:
-> Hi Michael,
-> 
-> On Sun, Mar 14, 2021 at 11:04:26PM +0100, Michael Kerrisk (man-pages) wrote:
->> On Tue, 9 Mar 2021 at 16:00, Szunti <szunti@gmail.com> wrote:
->>>
->>> user_namespaces lists in Capabilities section the filesystems that can
->>> be mount:
->>>
->>>   Holding  CAP_SYS_ADMIN  within  the  user  namespace that owns a process's
->>>   mount namespace allows that process to create bind mounts  and  mount  the
->>>   following types of filesystems:
->>>
->>>       * /proc (since Linux 3.8)
->>>       * /sys (since Linux 3.8)
->>>       * devpts (since Linux 3.9)
->>>       * tmpfs(5) (since Linux 3.9)
->>>       * ramfs (since Linux 3.9)
->>>       * mqueue (since Linux 3.9)
->>>       * bpf (since Linux 4.4)
->>>
->>> IUUC this list should add
->>>       * overlay (since Linux 5.11)
-> 
-> It should rather say overlayfs.
-> 
->> Could you add some info about how you discovered/verified this please.
->>
->> That helps us check the details.
-> 
-> What a coincidence, I just happen to have the relevant Linux kernel
-> merge commits cached:
-> 92dbc9dedccb9759c7f9f2f0ae6242396376988f aka v5.11-rc1~83
-> 4cb2c00c43b3fe88b32f29df4f76da1b92c33224 aka v5.11-rc7~28
+--nextPart4422994.DVKcslHcio
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: =?utf-8?B?U3rFkXRzIMOBa29z?= <szotsaki@gmail.com>
+To: mtk.manpages@gmail.com
+Cc: alx.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: /proc/<pid>/stat file documentation
+Date: Mon, 22 Mar 2021 09:48:01 +0100
+Message-ID: <2836850.zfUPAMbaDK@opensuse>
+Organization: MorroHun Team
 
-Thanks Dmitry nd Szunti. I've added overlayfs.
+Dear Michael,
 
-Cheers,
+I found a documentation deficiency on [1] in /proc/<pid>/stat file (Table=20
+1-4). May I ask you to indicate in this table that ESP and EIP have non-zer=
+o=20
+values only when the process is exiting or dumping core and the calling=20
+process has the permission for PTRACE_MODE_READ_FSCREDS | PTRACE_MODE_NOAUD=
+IT.=20
+=46or implementation reference see [2].
 
-Michael
+Please, also note that for many of the reported numbers in this table the=20
+aforementioned permissions are needed to be displayed correctly (as non-
+zeroes). They are start_code, end_code, start_stack, esp, eip, wchan,=20
+start_data, end_data, start_brk, arg_start, arg_end, env_start, env_end, an=
+d=20
+exit_code.
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+A small addition: I also observed that on [3] the "blog" points to 404.
+
+Thank you and all the best,
+
+=C3=81kos
+
+[1]: https://www.kernel.org/doc/html/latest/filesystems/proc.html
+[2]: https://github.com/torvalds/linux/blob/master/fs/proc/array.c#L481-L502
+[3]: https://www.kernel.org/doc/man-pages/maintaining.html
+--nextPart4422994.DVKcslHcio
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEIHnWdYg0ffXHT9oxRbyAIRvwdy8FAmBYWcEACgkQRbyAIRvw
+dy/73g/8CubQSwPEzONl03SgkXAKMKBPVLVKgMivXQZSsfZ/izezIrNE1imEZ8kh
+uI92JPEEiH7sPa7R4keNOuzWNyb0H6Nt5Z1M2FjfUVmwEmFLd1mel6gE/XRuLfY+
+5SoAwK4BU8/0eBcK7XGqf3Z61EXWe5cS1ajFdn/iv8LqwkFnGTqHnctQPXzuOmTU
+A4mMcmpgJjVi562tyzLyLWIq423d835WnHigK4y058ZZmEYZFt+EhFP40yBM1maK
+RsQ8wsMT2M6P4WzHk8Xlg8MsccK4CmCVAaI3AkjmAAAyveAyjN9Ls3JSTfqQpHvH
+S3honbMFjIt5V6UYYrA9lzPaxkuCOk/PuW+G7GiaBuJMGhlmoozl951Gkent/bsa
+GGAHZ3EwMt+ktHHLTk2xqhgCFndAiWWU4L+x0gPvoEkVtFOfjIvIasrJZnogziGY
+tFCNhdCjOPxANfj1JDjKAqSvrsHbnNM9maAyRZzEylnx+qSsoQiajehwHMFhLiLc
+zRr/Ql0glGij2opf5IkiH0jY2S4slUz3RWsdQvL82n4UayHTXa7MfjYR9qhGlAfg
+kn5hTJSdpZTVhYY/8Yz2+D4F1jPpG3/Ew/Ash+R5tsYpFqrfbuypSKZ61GEXGHJt
+0JUsXDK/4A+FZ3mxgmfGcB7182DrjEuM6wo+2mnRX+Fw5U3+rT8=
+=X7U0
+-----END PGP SIGNATURE-----
+
+--nextPart4422994.DVKcslHcio--
+
+
+
