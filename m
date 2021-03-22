@@ -2,114 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 586B53451CB
-	for <lists+linux-man@lfdr.de>; Mon, 22 Mar 2021 22:30:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7674034524A
+	for <lists+linux-man@lfdr.de>; Mon, 22 Mar 2021 23:10:51 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229591AbhCVV3x (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 22 Mar 2021 17:29:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55472 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229764AbhCVV3p (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Mar 2021 17:29:45 -0400
-Received: from frotz.zork.net (frotz.zork.net [IPv6:2600:3c00:e000:35f::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7FB56C061574
-        for <linux-man@vger.kernel.org>; Mon, 22 Mar 2021 14:29:45 -0700 (PDT)
-Received: by frotz.zork.net (Postfix, from userid 1008)
-        id D1E981199E; Mon, 22 Mar 2021 21:29:44 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 frotz.zork.net D1E981199E
-Date:   Mon, 22 Mar 2021 14:29:44 -0700
-From:   Seth David Schoen <schoen@loyalty.org>
-To:     Florian Weimer <fw@deneb.enyo.de>
-Cc:     linux-man@vger.kernel.org, gnu@toad.com
-Subject: Re: [PATCH 1/1] ip.7: Add "special and reserved addresses" section
-Message-ID: <20210322212944.GB10062@frotz.zork.net>
-References: <20210320002041.GZ2289@frotz.zork.net>
- <87ft0pzjtk.fsf@mid.deneb.enyo.de>
- <20210322175815.GX10062@frotz.zork.net>
+        id S229730AbhCVWKJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 22 Mar 2021 18:10:09 -0400
+Received: from 10.mo177.mail-out.ovh.net ([46.105.73.133]:48322 "EHLO
+        10.mo177.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230289AbhCVWJn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Mar 2021 18:09:43 -0400
+X-Greylist: delayed 1796 seconds by postgrey-1.27 at vger.kernel.org; Mon, 22 Mar 2021 18:09:43 EDT
+Received: from player687.ha.ovh.net (unknown [10.108.4.98])
+        by mo177.mail-out.ovh.net (Postfix) with ESMTP id 4013B15B222
+        for <linux-man@vger.kernel.org>; Mon, 22 Mar 2021 22:32:06 +0100 (CET)
+Received: from sk2.org (82-65-25-201.subs.proxad.net [82.65.25.201])
+        (Authenticated sender: steve@sk2.org)
+        by player687.ha.ovh.net (Postfix) with ESMTPSA id 9B8361C47A591;
+        Mon, 22 Mar 2021 21:31:59 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass (GARM-106R006966245d9-6aa9-4837-8d8e-e1c1413ba974,
+                    42D814DD661CBCB8911BCE7CED7A5A479C85926C) smtp.auth=steve@sk2.org
+X-OVh-ClientIp: 82.65.25.201
+Date:   Mon, 22 Mar 2021 22:31:52 +0100
+From:   Stephen Kitt <steve@sk2.org>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Christian Brauner <christian.brauner@ubuntu.com>,
+        Giuseppe Scrivano <gscrivan@redhat.com>,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6] close_range.2: new page documenting close_range(2)
+Message-ID: <20210322223152.29a543dc@heffalump.sk2.org>
+In-Reply-To: <4eb789d0-5914-23ae-3ab9-cbfa9b6b9622@gmail.com>
+References: <20210123161154.29332-1-steve@sk2.org>
+        <e761f00d-751f-f782-9af1-c5f868d52df0@gmail.com>
+        <20210309205309.7e2568c9@heffalump.sk2.org>
+        <4eb789d0-5914-23ae-3ab9-cbfa9b6b9622@gmail.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210322175815.GX10062@frotz.zork.net>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ boundary="Sig_/t/+JjWWje8.QJpY66lDRcYW"; protocol="application/pgp-signature"
+X-Ovh-Tracer-Id: 924926777643584893
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduledrudeggedgudehtdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvuffkjghfofggtgesghdtreerredtjeenucfhrhhomhepufhtvghphhgvnhcumfhithhtuceoshhtvghvvgesshhkvddrohhrgheqnecuggftrfgrthhtvghrnhepveelvdeufedvieevffdtueegkeevteehffdtffetleehjeekjeejudffieduteeknecukfhppedtrddtrddtrddtpdekvddrieehrddvhedrvddtudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehplhgrhigvrheikeejrdhhrgdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepshhtvghvvgesshhkvddrohhrghdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Seth David Schoen writes:
+--Sig_/t/+JjWWje8.QJpY66lDRcYW
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-> Both things you noted are true: you can change broadcast addresses with
-> ifconfig or ip (e.g. ip addr add x/y broadcast z dev d), and /31 subnets
-> indeed don't have them.  This is defined at
-> 
-> https://github.com/torvalds/linux/blob/master/net/ipv4/fib_frontend.c#L1125
+On Sun, 21 Mar 2021 16:38:59 +0100, "Michael Kerrisk (man-pages)"
+<mtk.manpages@gmail.com> wrote:
+> On 3/9/21 8:53 PM, Stephen Kitt wrote:
+> > On Thu, 28 Jan 2021 21:50:23 +0100, "Michael Kerrisk (man-pages)"
+> > <mtk.manpages@gmail.com> wrote: =20
+> >> Thanks for your patch revision. I've merged it, and have
+> >> done some light editing, but I still have a question: =20
+> >=20
+> > Does this need anything more? I don=E2=80=99t see it in the man-pages r=
+epo. =20
+>=20
+> Sorry, Stephen. It's just me being slow. I've made a few edits,
+> replaced the example program with another that more clearly allows
+> the user to see what's going on, and pushed to Git.
 
-I would like to add to this by noting that the automatic definition
-of the lowest and highest addresses as broadcast is run here
-_unconditionally_, whether or not the user specifies an explicit
-broadcast address.
+Thanks, your example program is indeed much better!
 
-So, if you run something like
+Regards,
 
-ip link set eno1 up
-ip addr add 192.168.17.17/24 broadcast 192.168.17.23 dev eno1
+Stephen
 
-then "ifconfig eno1" will show
+--Sig_/t/+JjWWje8.QJpY66lDRcYW
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
-[...]
-inet 192.168.17.17  netmask 255.255.255.0  broadcast 192.168.17.23
-[...]
+-----BEGIN PGP SIGNATURE-----
 
-and "ip addr show eno1" will show
+iQIzBAEBCgAdFiEEnPVX/hPLkMoq7x0ggNMC9Yhtg5wFAmBZDMgACgkQgNMC9Yht
+g5yOLQ//TQqhNpOGPnpJca45rS1Wiok5m/AdLmZ27vgsGvxvWUwPD4ORmRzoS9Ix
+YqUSmN9xpunLgAaH4msJx6787IrC5p1IoxprUigrHXnb616XU+IHyQO6+0q6UnB5
+9308jYAglLFN0ImtUYODwRvAj4pF3RfgF4vh3ETlHN7Ydvpum59Ki+WBKKgpGkLq
+q/3g9lPT/GUxRcvAHho0j6cxGi/51G4J6UddBBAPssk1yLHSnWo1Qf3ISsk77zBl
+jdz+CfdytIwvm2lRrtovXUH0jhqaBomjO/3ZTx+uOTeZQdJic15tzkkY0vn+F7Ar
+ZXEsOFn9fr4KwjO0fAXrPRCTjwJqLgZX7A4rld8GdwwJNiC3hqy/vhRE1vbFw5JS
+A/8R5ce7Tj4Sgm/Ivnnu6pSLBYSdCE6bcI3YbW1iK/vRiRiBh2G3Id3CG3OCghwm
+j/3wiY9BhEsh6frZlOeUAzHvqFiPdUzCM85tRM/hZoUX1oywyDvDR7go+XgmUmTc
+W42CHvLM58LHzwup0GmMxIQKzYaXGlR0RO8EciJ2/bP/tt4LHfrtFkT2aAJ6Q/ut
+E87DbBgM1dUyRwEHoxKoYQrPNEPM7DKu65RIFAfMQOgEJw8FH2T0vCwtQ9tXbifn
+c6Px+4ilwvWPQ8dmp9TaK5155Zo71MkYq/jUxor1MtbJiLLBVFI=
+=qTB9
+-----END PGP SIGNATURE-----
 
-[...]
-inet 192.168.17.17/24 brd 192.168.17.23 scope global eno1
-[...]
-
-However, even though 192.168.17.23 is indicated as "the" broadcast
-address, both 192.168.17.0 and 192.168.17.255 are still designated as
-broadcast addresses on this link by the kernel!
-
-$ ping 192.168.17.0
-ping: Do you want to ping broadcast? Then -b. If not, check your local firewall rules
-$ ping 192.168.17.23
-ping: Do you want to ping broadcast? Then -b. If not, check your local firewall rules
-$ ping 192.168.17.255
-ping: Do you want to ping broadcast? Then -b. If not, check your local firewall rules
-$ ping 192.168.17.17
-PING 192.168.17.17 (192.168.17.17) 56(84) bytes of data.
-64 bytes from 192.168.17.17: icmp_seq=1 ttl=64 time=0.065 ms
-[...]
-
-I'm unaware that there's even any way to _remove_ that designation via
-existing userspace interfaces.  If not, we can't, in fact, "change" a
-broadcast address so much as designate an additional one.  You can
-attempt to retroactively mark a broadcast-capable interface as
-non-broadcast capable with "ifconfig eno1 -broadcast", but it appears to
-me that the kernel refuses to accept this (maybe this behavior does
-depend on the interface type).
-
-$ sudo ifconfig eno1 -broadcast
-Warning: Interface eno1 still in BROADCAST mode.
-
-One might argue that setting the default broadcast addresses in addition
-to the broadcast address requested by the user is a kernel bug.  I think
-this is a somewhat complicated question, but it doesn't necessarily need
-to be resolved, in part because there are almost no practical applications
-for setting an additional non-default broadcast address manually.  (You
-could conceivably use it to simulate the behavior of IPv4 or IPv6 multicast
-groups on a local network segment, in an awkward way where you would
-probably be better off using actual multicast instead.)
-
-I think a slight change to the language in my previous message would
-capture this, like
-
-On any locally-attached IP subnet that contains more than two IP
-addresses, the lowest-numbered address and highest-numbered address
-(e.g., the .0 and .255 addresses on a subnet with netmask 255.255.255.0)
-are both automatically designated as broadcast addresses by the kernel.
-These cannot usefully be assigned to an interface, and can only be addressed
-with a socket on which the
-.B SO_BROADCAST
-option has been explicitly enabled.
-
--- and of course I'm happy for any corrections if I've missed or
-misdescribed any subtleties here.
+--Sig_/t/+JjWWje8.QJpY66lDRcYW--
