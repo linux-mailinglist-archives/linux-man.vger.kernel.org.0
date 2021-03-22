@@ -2,97 +2,101 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7674034524A
-	for <lists+linux-man@lfdr.de>; Mon, 22 Mar 2021 23:10:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 01F90345233
+	for <lists+linux-man@lfdr.de>; Mon, 22 Mar 2021 23:07:28 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229730AbhCVWKJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 22 Mar 2021 18:10:09 -0400
-Received: from 10.mo177.mail-out.ovh.net ([46.105.73.133]:48322 "EHLO
-        10.mo177.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230289AbhCVWJn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Mar 2021 18:09:43 -0400
-X-Greylist: delayed 1796 seconds by postgrey-1.27 at vger.kernel.org; Mon, 22 Mar 2021 18:09:43 EDT
-Received: from player687.ha.ovh.net (unknown [10.108.4.98])
-        by mo177.mail-out.ovh.net (Postfix) with ESMTP id 4013B15B222
-        for <linux-man@vger.kernel.org>; Mon, 22 Mar 2021 22:32:06 +0100 (CET)
-Received: from sk2.org (82-65-25-201.subs.proxad.net [82.65.25.201])
-        (Authenticated sender: steve@sk2.org)
-        by player687.ha.ovh.net (Postfix) with ESMTPSA id 9B8361C47A591;
-        Mon, 22 Mar 2021 21:31:59 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass (GARM-106R006966245d9-6aa9-4837-8d8e-e1c1413ba974,
-                    42D814DD661CBCB8911BCE7CED7A5A479C85926C) smtp.auth=steve@sk2.org
-X-OVh-ClientIp: 82.65.25.201
-Date:   Mon, 22 Mar 2021 22:31:52 +0100
-From:   Stephen Kitt <steve@sk2.org>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        Christian Brauner <christian.brauner@ubuntu.com>,
-        Giuseppe Scrivano <gscrivan@redhat.com>,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6] close_range.2: new page documenting close_range(2)
-Message-ID: <20210322223152.29a543dc@heffalump.sk2.org>
-In-Reply-To: <4eb789d0-5914-23ae-3ab9-cbfa9b6b9622@gmail.com>
-References: <20210123161154.29332-1-steve@sk2.org>
-        <e761f00d-751f-f782-9af1-c5f868d52df0@gmail.com>
-        <20210309205309.7e2568c9@heffalump.sk2.org>
-        <4eb789d0-5914-23ae-3ab9-cbfa9b6b9622@gmail.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+        id S229730AbhCVWGu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 22 Mar 2021 18:06:50 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124]:49911 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S229673AbhCVWGn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Mar 2021 18:06:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1616450803;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=F0xmtxsbrSY/EqwRbgt4RPB4j15Yx4zHQ1t04X/H0aY=;
+        b=ZbHfY9Cy1pjTpqMY+9RcTceYU9hwZ+YUlg2tBjSvVloVJD0Tpk22FjfLtMF6C8Zkho8UtU
+        Ryau3ThyvMVIrbQLonP7i/bqnDWwyEDTxqrWEtKP3EzLk8bb+ZzsfsAxg26dLl53CT9fCr
+        2GIoKWdvGTGUK8sqyjcni9s2XMDSXT0=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-268-9wMfhOAfOA2oUEnB_eAXBQ-1; Mon, 22 Mar 2021 18:06:39 -0400
+X-MC-Unique: 9wMfhOAfOA2oUEnB_eAXBQ-1
+Received: by mail-qk1-f200.google.com with SMTP id v136so557625qkb.9
+        for <linux-man@vger.kernel.org>; Mon, 22 Mar 2021 15:06:39 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=F0xmtxsbrSY/EqwRbgt4RPB4j15Yx4zHQ1t04X/H0aY=;
+        b=AVAOJJd/6YvcpvxotUFj+KE24D9abCn5a/5ycWrXYvk8f7vM1w0DsylG/5FUE3bIfB
+         9hNYfve3uDbCNHjPVUBL1mE35jujqYBEWxubRKrlzIZM11tX5F+HVGqkL9hVu/NyzzRB
+         J1AYYvp9ZH9fcrKZuj9mI2LSUWChre6knoZOF32FHbzjk3ZoEOeL8C6rDREs6iG1r5uX
+         HT5zFobuxlxT4zg5Lbvx3OCeI084mzYWMmS/+XEenObJhDC6z/V6d5GAJCg6me67JB7q
+         /AmJEVx2MqwjybKqXtwt0Gdc0QvI5vkQJUbEyhuz3uYrIvcfdrEJ15A5p+V0BY27o20h
+         x86Q==
+X-Gm-Message-State: AOAM532r1uoz7OoibuDHYQ059f+O0j0jt4nlzMh3wFZGkrThEbsXcEGR
+        BVipOhrSVLsYu+XJ/Lj9zjxRTgn1iyooA0L8zc1ei3LN4Z/Nral29TRRmZnwG2qps4D7A7DFQQA
+        xJBDROAnJNIAXPaONkf83
+X-Received: by 2002:a05:620a:13a6:: with SMTP id m6mr2400192qki.64.1616450798823;
+        Mon, 22 Mar 2021 15:06:38 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyBNVJY3fOU+3jm44Dl1dmP6P13HIl+FnxCKWahujf02BY3Hnwz4gLC5NeCUL7ioqbJgIVFxw==
+X-Received: by 2002:a05:620a:13a6:: with SMTP id m6mr2400163qki.64.1616450798573;
+        Mon, 22 Mar 2021 15:06:38 -0700 (PDT)
+Received: from xz-x1 (bras-base-toroon474qw-grc-82-174-91-135-175.dsl.bell.ca. [174.91.135.175])
+        by smtp.gmail.com with ESMTPSA id 85sm12351357qkf.58.2021.03.22.15.06.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 Mar 2021 15:06:37 -0700 (PDT)
+Date:   Mon, 22 Mar 2021 18:06:36 -0400
+From:   Peter Xu <peterx@redhat.com>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, Andrea Arcangeli <aarcange@redhat.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Axel Rasmussen <axelrasmussen@google.com>,
+        linux-kernel@vger.kernel.org,
+        Linux MM Mailing List <linux-mm@kvack.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Nadav Amit <nadav.amit@gmail.com>,
+        Mike Rapoport <rppt@linux.vnet.ibm.com>
+Subject: Re: [PATCH v3 4/4] ioctl_userfaultfd.2: Add write-protect mode docs
+Message-ID: <20210322220636.GI16645@xz-x1>
+References: <20210310222300.200054-1-peterx@redhat.com>
+ <20210310222300.200054-5-peterx@redhat.com>
+ <5c533ba3-f335-0681-223f-bf2202a9b72a@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- boundary="Sig_/t/+JjWWje8.QJpY66lDRcYW"; protocol="application/pgp-signature"
-X-Ovh-Tracer-Id: 924926777643584893
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduledrudeggedgudehtdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvuffkjghfofggtgesghdtreerredtjeenucfhrhhomhepufhtvghphhgvnhcumfhithhtuceoshhtvghvvgesshhkvddrohhrgheqnecuggftrfgrthhtvghrnhepveelvdeufedvieevffdtueegkeevteehffdtffetleehjeekjeejudffieduteeknecukfhppedtrddtrddtrddtpdekvddrieehrddvhedrvddtudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehplhgrhigvrheikeejrdhhrgdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepshhtvghvvgesshhkvddrohhrghdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <5c533ba3-f335-0681-223f-bf2202a9b72a@gmail.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
---Sig_/t/+JjWWje8.QJpY66lDRcYW
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On Fri, Mar 19, 2021 at 11:37:20PM +0100, Alejandro Colomar (man-pages) wrote:
+> Hi Peter,
 
-On Sun, 21 Mar 2021 16:38:59 +0100, "Michael Kerrisk (man-pages)"
-<mtk.manpages@gmail.com> wrote:
-> On 3/9/21 8:53 PM, Stephen Kitt wrote:
-> > On Thu, 28 Jan 2021 21:50:23 +0100, "Michael Kerrisk (man-pages)"
-> > <mtk.manpages@gmail.com> wrote: =20
-> >> Thanks for your patch revision. I've merged it, and have
-> >> done some light editing, but I still have a question: =20
-> >=20
-> > Does this need anything more? I don=E2=80=99t see it in the man-pages r=
-epo. =20
->=20
-> Sorry, Stephen. It's just me being slow. I've made a few edits,
-> replaced the example program with another that more clearly allows
-> the user to see what's going on, and pushed to Git.
+Hi, Alex,
 
-Thanks, your example program is indeed much better!
+> > +generate another write-protect userfault message.
+> > +This is only used in conjunction with write-protect mode when both missing and
+> 
+> "when both missing"
+> 
+> both what?
 
-Regards,
+I modified it to:
 
-Stephen
+        This is only used when both
+        .B UFFDIO_REGISTER_MODE_MISSING
+        and
+        .B UFFDIO_REGISTER_MODE_WP
+        modes are enabled for the registered range.
 
---Sig_/t/+JjWWje8.QJpY66lDRcYW
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+And I fixed all the rest, including all the comments in patch 3.
 
------BEGIN PGP SIGNATURE-----
+Thanks for looking, I'll repost shortly.
 
-iQIzBAEBCgAdFiEEnPVX/hPLkMoq7x0ggNMC9Yhtg5wFAmBZDMgACgkQgNMC9Yht
-g5yOLQ//TQqhNpOGPnpJca45rS1Wiok5m/AdLmZ27vgsGvxvWUwPD4ORmRzoS9Ix
-YqUSmN9xpunLgAaH4msJx6787IrC5p1IoxprUigrHXnb616XU+IHyQO6+0q6UnB5
-9308jYAglLFN0ImtUYODwRvAj4pF3RfgF4vh3ETlHN7Ydvpum59Ki+WBKKgpGkLq
-q/3g9lPT/GUxRcvAHho0j6cxGi/51G4J6UddBBAPssk1yLHSnWo1Qf3ISsk77zBl
-jdz+CfdytIwvm2lRrtovXUH0jhqaBomjO/3ZTx+uOTeZQdJic15tzkkY0vn+F7Ar
-ZXEsOFn9fr4KwjO0fAXrPRCTjwJqLgZX7A4rld8GdwwJNiC3hqy/vhRE1vbFw5JS
-A/8R5ce7Tj4Sgm/Ivnnu6pSLBYSdCE6bcI3YbW1iK/vRiRiBh2G3Id3CG3OCghwm
-j/3wiY9BhEsh6frZlOeUAzHvqFiPdUzCM85tRM/hZoUX1oywyDvDR7go+XgmUmTc
-W42CHvLM58LHzwup0GmMxIQKzYaXGlR0RO8EciJ2/bP/tt4LHfrtFkT2aAJ6Q/ut
-E87DbBgM1dUyRwEHoxKoYQrPNEPM7DKu65RIFAfMQOgEJw8FH2T0vCwtQ9tXbifn
-c6Px+4ilwvWPQ8dmp9TaK5155Zo71MkYq/jUxor1MtbJiLLBVFI=
-=qTB9
------END PGP SIGNATURE-----
+-- 
+Peter Xu
 
---Sig_/t/+JjWWje8.QJpY66lDRcYW--
