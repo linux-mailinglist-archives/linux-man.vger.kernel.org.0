@@ -2,89 +2,140 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A8AE9345912
-	for <lists+linux-man@lfdr.de>; Tue, 23 Mar 2021 08:50:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E4A803459AD
+	for <lists+linux-man@lfdr.de>; Tue, 23 Mar 2021 09:28:28 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229464AbhCWHtl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 23 Mar 2021 03:49:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46986 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229730AbhCWHtP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 23 Mar 2021 03:49:15 -0400
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com [IPv6:2a00:1450:4864:20::532])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C94F4C061574
-        for <linux-man@vger.kernel.org>; Tue, 23 Mar 2021 00:49:12 -0700 (PDT)
-Received: by mail-ed1-x532.google.com with SMTP id dm8so22333700edb.2
-        for <linux-man@vger.kernel.org>; Tue, 23 Mar 2021 00:49:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ska-ac-za.20150623.gappssmtp.com; s=20150623;
-        h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
-        bh=AipmUsGW6FfmfSUU27X8f4Y5KaWRTVjRABybZ9TG6Uk=;
-        b=aU3AEUeOOk6GnHRr1PjaRuLwRl5R4fLXDvKAlMzlYTjsQWbNqjD6Ng4w0qf+mCYLFS
-         r+gLPifXsyYQ/Y/bjSzRiPLWZx43qpumKrF5pEMIa7qKNGxSuIIievHRxh40Ik/3hGWE
-         vuSnX1zZbLTKSgxyePoRp4EnJ6Jr5doPiJR1Fgns2ufhm0hKui19q8pswR1I0CeHMXe2
-         TNoCh8m7LGf5UkxY/AgLwfsRaVR5pxJkVS7kgFaf3UsoonXBMJ4uCt/NoJGfwgofHKTH
-         nrxI4a+wkAjRBcIv2wdAVya0N3cbD2pV95rdqp8pKZfH3vDai+/LC6T/RzNvSszPLu41
-         BdkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
-         :content-disposition;
-        bh=AipmUsGW6FfmfSUU27X8f4Y5KaWRTVjRABybZ9TG6Uk=;
-        b=nf/x7l3Ugjwr9M8iirUMETIeZIezo29D+ZQjc5jcr0k/v2C0CTy2dctwjMh9eqv/v/
-         g6EfM6WSwnI8kM9V5/ktRh1Hfk3K2NHxlP4F529JFR0l3D44WTGRFytDja8iHQJy39gl
-         kyzwSJcPn2g7SzYvVUU9eOPv/d1LfiSW7mA5jWcIdOzD9gv5EE095HrTksZARFmImRjy
-         bl0/opbD2TyddTJnFSiOZrOllHQtWw2M1EHcVg4Ce9VvaT9rdFUMv5eAR89vPn6Znnsq
-         OYUo7hufHDD9n7wY8e0r0SJ1vCmxzw4IJH7WyGlHX6hYE1SRJwqGftPpDGiJp5JkOMiF
-         p8tQ==
-X-Gm-Message-State: AOAM533meRYnszuRnN4CrUmVPvyhYD3Z9SOCDoY4Vb/OXJj+55605WSY
-        ZAytC0Ieb+7xz14c5ntFZHtWudluy/2TscEC
-X-Google-Smtp-Source: ABdhPJxh87HBh1TGFoMdMzYO0t/nkzo95hx91hQ0Bw7i/ey2HH2BnIBXObL60jhMZMQQXc+pZepdPw==
-X-Received: by 2002:a05:6402:1713:: with SMTP id y19mr3344871edu.52.1616485751271;
-        Tue, 23 Mar 2021 00:49:11 -0700 (PDT)
-Received: from kryton.kat.ac.za (102-182-203-66.ip.afrihost.co.za. [102.182.203.66])
-        by smtp.gmail.com with ESMTPSA id u24sm12269638edt.85.2021.03.23.00.49.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Mar 2021 00:49:10 -0700 (PDT)
-Date:   Tue, 23 Mar 2021 09:48:31 +0200
-From:   Bruce Merry <bmerry@ska.ac.za>
-To:     linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-mm@kvack.org
-Subject: [patch] Clarify that MAP_POPULATE is best-effort
-Message-ID: <20210323074831.GA7535@kryton.kat.ac.za>
+        id S229669AbhCWI14 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 23 Mar 2021 04:27:56 -0400
+Received: from mx0a-001b2d01.pphosted.com ([148.163.156.1]:25496 "EHLO
+        mx0a-001b2d01.pphosted.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S229500AbhCWI1q (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 23 Mar 2021 04:27:46 -0400
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+        by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id 12N84K52024266;
+        Tue, 23 Mar 2021 04:27:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=date : from : to : cc :
+ subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=pp1; bh=LUgqbQvwR+sfvIaSMzft1kWLvPHosRvGCoObmhMnUQI=;
+ b=qFGu+AfuXUtFzCsz3Byw9cxakJDw09yyFf7HfvGRn6NiouNUxMVdqcJ0bVCLDdW7Uux/
+ QNDUKrloYEVyBN/zasCuBi999pHHPIv6rhrToZFHZOSBLtERt6tKefKsaboI322W/Ufq
+ QIMsHeidwaqIxh66mgYlC7BJWumgs5BlNhy4avIZmkSS3tVyNqiH8VmjCJ81KfjX4X1n
+ c0cZrl2QtegzfOBWxMuyecu7W/kx2NtB8wLooM2gd17vCH3gKp/i6V1+VhdBkURSCsDz
+ aQ9+nahI39S3qax8rllWWoeGOk62KgTddqiBZoQFufzAivWVvN9bFakYFNuILAErwvFX EQ== 
+Received: from pps.reinject (localhost [127.0.0.1])
+        by mx0a-001b2d01.pphosted.com with ESMTP id 37dxjwk124-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Tue, 23 Mar 2021 04:27:43 -0400
+Received: from m0098409.ppops.net (m0098409.ppops.net [127.0.0.1])
+        by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 12N85ZGS029957;
+        Tue, 23 Mar 2021 04:27:43 -0400
+Received: from ppma06fra.de.ibm.com (48.49.7a9f.ip4.static.sl-reverse.com [159.122.73.72])
+        by mx0a-001b2d01.pphosted.com with ESMTP id 37dxjwk111-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Tue, 23 Mar 2021 04:27:42 -0400
+Received: from pps.filterd (ppma06fra.de.ibm.com [127.0.0.1])
+        by ppma06fra.de.ibm.com (8.16.0.43/8.16.0.43) with SMTP id 12N8RLdn001885;
+        Tue, 23 Mar 2021 08:27:40 GMT
+Received: from b06avi18626390.portsmouth.uk.ibm.com (b06avi18626390.portsmouth.uk.ibm.com [9.149.26.192])
+        by ppma06fra.de.ibm.com with ESMTP id 37d9a61mrh-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Tue, 23 Mar 2021 08:27:40 +0000
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com (b06wcsmtp001.portsmouth.uk.ibm.com [9.149.105.160])
+        by b06avi18626390.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 12N8RJAX36372978
+        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Tue, 23 Mar 2021 08:27:20 GMT
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+        by IMSVA (Postfix) with ESMTP id BBBCBA405B;
+        Tue, 23 Mar 2021 08:27:37 +0000 (GMT)
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+        by IMSVA (Postfix) with ESMTP id 7700DA405C;
+        Tue, 23 Mar 2021 08:27:36 +0000 (GMT)
+Received: from linux.ibm.com (unknown [9.145.165.64])
+        by b06wcsmtp001.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+        Tue, 23 Mar 2021 08:27:36 +0000 (GMT)
+Date:   Tue, 23 Mar 2021 10:27:34 +0200
+From:   Mike Rapoport <rppt@linux.ibm.com>
+To:     Peter Xu <peterx@redhat.com>
+Cc:     linux-man@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-mm@kvack.org, Andrea Arcangeli <aarcange@redhat.com>,
+        Mike Rapoport <rppt@linux.vnet.ibm.com>,
+        Axel Rasmussen <axelrasmussen@google.com>,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Nadav Amit <nadav.amit@gmail.com>,
+        Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH v4 1/4] userfaultfd.2: Add UFFD_FEATURE_THREAD_ID docs
+Message-ID: <YFmmdklW9wvs4ep3@linux.ibm.com>
+References: <20210322220848.52162-1-peterx@redhat.com>
+ <20210322220848.52162-2-peterx@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20210322220848.52162-2-peterx@redhat.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369,18.0.761
+ definitions=2021-03-23_02:2021-03-22,2021-03-23 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxlogscore=999 spamscore=0
+ impostorscore=0 phishscore=0 adultscore=0 lowpriorityscore=0
+ suspectscore=0 malwarescore=0 mlxscore=0 bulkscore=0 priorityscore=1501
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2103230057
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-As discussed on linux-mm
-(https://marc.info/?l=linux-mm&m=161528594100612&w=2), MAP_POPULATE can
-fail silently if the hugetlb cgroup settings allow huge page reservation
-but prevents huge pages being allocated.
+On Mon, Mar 22, 2021 at 06:08:45PM -0400, Peter Xu wrote:
+> UFFD_FEATURE_THREAD_ID is supported since Linux 4.14.
+> 
+> Signed-off-by: Peter Xu <peterx@redhat.com>
+> ---
+>  man2/userfaultfd.2 | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/man2/userfaultfd.2 b/man2/userfaultfd.2
+> index e7dc9f813..555e37409 100644
+> --- a/man2/userfaultfd.2
+> +++ b/man2/userfaultfd.2
+> @@ -77,6 +77,13 @@ When the last file descriptor referring to a userfaultfd object is closed,
+>  all memory ranges that were registered with the object are unregistered
+>  and unread events are flushed.
+>  .\"
+> +.PP
+> +Since Linux 4.14, userfaultfd page fault message can selectively embed faulting
+> +thread ID information into the fault message.
+> +One needs to enable this feature explicitly using the
+> +.BR UFFD_FEATURE_THREAD_ID
+> +feature bit when initializing the userfaultfd context.
+> +By default, thread ID reporting is diabled.
 
-Closes https://bugzilla.kernel.org/show_bug.cgi?id=212153.
----
- man2/mmap.2 | 5 +++++
- 1 file changed, 5 insertions(+)
+				     ^ disabled :)
+>  .SS Usage
+>  The userfaultfd mechanism is designed to allow a thread in a multithreaded
+>  program to perform user-space paging for the other threads in the process.
+> @@ -229,6 +236,9 @@ struct uffd_msg {
+>          struct {
+>              __u64 flags;    /* Flags describing fault */
+>              __u64 address;  /* Faulting address */
+> +            union {
+> +                __u32 ptid; /* Thread ID of the fault */
+> +            } feat;
+>          } pagefault;
+> 
+>          struct {            /* Since Linux 4.11 */
+> @@ -358,6 +368,9 @@ otherwise it is a read fault.
+>  .\" UFFD_PAGEFAULT_FLAG_WP is not yet supported.
+>  .RE
+>  .TP
+> +.I pagefault.feat.pid
+> +The thread ID that triggered the page fault.
+> +.TP
+>  .I fork.ufd
+>  The file descriptor associated with the userfault object
+>  created for the child created by
+> -- 
+> 2.26.2
+> 
 
-diff --git a/man2/mmap.2 b/man2/mmap.2
-index 164ba196e..03f2eeb2c 100644
---- a/man2/mmap.2
-+++ b/man2/mmap.2
-@@ -400,6 +400,11 @@ private writable mappings.
- Populate (prefault) page tables for a mapping.
- For a file mapping, this causes read-ahead on the file.
- This will help to reduce blocking on page faults later.
-+The
-+.BR mmap ()
-+call doesn't fail if the mapping cannot be populated (for example, due
-+to limitations on the number of mapped huge pages when using
-+.BR MAP_HUGETLB ).
- .BR MAP_POPULATE
- is supported for private mappings only since Linux 2.6.23.
- .TP
 -- 
-2.25.1
+Sincerely yours,
+Mike.
