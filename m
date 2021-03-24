@@ -2,110 +2,91 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0513F34804D
-	for <lists+linux-man@lfdr.de>; Wed, 24 Mar 2021 19:20:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D751E3481C5
+	for <lists+linux-man@lfdr.de>; Wed, 24 Mar 2021 20:19:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237514AbhCXST4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 24 Mar 2021 14:19:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43770 "EHLO
+        id S237836AbhCXTTZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 24 Mar 2021 15:19:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56762 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237443AbhCXSTr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Mar 2021 14:19:47 -0400
-Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com [IPv6:2607:f8b0:4864:20::436])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B9CD6C061763
-        for <linux-man@vger.kernel.org>; Wed, 24 Mar 2021 11:19:47 -0700 (PDT)
-Received: by mail-pf1-x436.google.com with SMTP id l123so17939424pfl.8
-        for <linux-man@vger.kernel.org>; Wed, 24 Mar 2021 11:19:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=h6/N9RKyPBRNOVZ37cEWW9zTuEIoX2xnbZOjaOF1618=;
-        b=N+EKaAQEXXgiUxNvRAiol+RrgqrODC9uXsgU+i8Bi/rCr+JlD8myl0AWgArOqRRD3M
-         H8AAgZ58mzh7menY/d3rwcd15WDtX1wBAhjko52EJYmGRvQM9eD7XDqsyPcyQhykoRPS
-         YEdJgt6avflkEqL6Kx48atGuPQsXr7U03nhl0OtzTUHUPvoRf7WLJCMqPiyONU0KMU84
-         kY7OvO28pfla5qY2TeRlFXx7A0M7i/srxrodAtLzdRu/gXlZX76U75IZr5k9Vd7FGnkt
-         Yh3vahmmVb3n7KLm+hikrYxdSjpi6PlGCa/JwSnoyRx7BJt5JfzumvDRFWyIwTY9gWw5
-         VGhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=h6/N9RKyPBRNOVZ37cEWW9zTuEIoX2xnbZOjaOF1618=;
-        b=VHrQVOzfWNj6RpgvsVqgLtdIGJl1QYDDnZ+KP0R3D9SVdX3TULq8TmaJRWw/dFZvoC
-         0LnjaGw4ctmHG3V4dgZcaDRI1Bf8mdDFvtzlmX0CP2KEx4hvReWuhzfgUZYYVX+p9KnQ
-         1/6UjkCIoyXIuDX0yz2Y1MM5woIHVLzI2xBDaeNIbuCYqXxnortu1D/LS4z/TFZvfkko
-         2kjqexZ2tNM0U8GctJBsmDZWXy/Z4erINQrE92+f1z0HD+ZOxdckxDoGa1aV+yDocwbi
-         RzBQey0UDWnxN9rBoKGyl+HGRyrb+kBShHkezrTJZNCJJp0j+Ve+5SpabX09GPFdzotg
-         PnpA==
-X-Gm-Message-State: AOAM531UpSEHlgMzchvWmb1FcdPL+LDnlW9djisdKWcV9vKs1PNBy9cH
-        lqQiI0OY085ml+1CXOz2D6dTYF4HzG0Kri0BqJ8=
-X-Google-Smtp-Source: ABdhPJy04AAMY8GEkEfprYA+oAEEC9A4SosVI+ulXOLqFMYy80EbAUM/cdZ9S2+jXbVuH5mV45u/S9LmA0bIB6GCZLE=
-X-Received: by 2002:a62:e404:0:b029:1f1:5cea:afbd with SMTP id
- r4-20020a62e4040000b02901f15ceaafbdmr4390885pfh.5.1616609987184; Wed, 24 Mar
- 2021 11:19:47 -0700 (PDT)
+        with ESMTP id S237934AbhCXTTC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Mar 2021 15:19:02 -0400
+Received: from frotz.zork.net (frotz.zork.net [IPv6:2600:3c00:e000:35f::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1393EC061763
+        for <linux-man@vger.kernel.org>; Wed, 24 Mar 2021 12:19:00 -0700 (PDT)
+Received: by frotz.zork.net (Postfix, from userid 1008)
+        id 9E739119A8; Wed, 24 Mar 2021 19:18:58 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 frotz.zork.net 9E739119A8
+Date:   Wed, 24 Mar 2021 12:18:58 -0700
+From:   Seth David Schoen <schoen@loyalty.org>
+To:     Florian Weimer <fw@deneb.enyo.de>
+Cc:     linux-man@vger.kernel.org, gnu@toad.com
+Subject: Re: [PATCH 1/1] ip.7: Add "special and reserved addresses" section
+Message-ID: <20210324191858.GP10062@frotz.zork.net>
+References: <20210320002041.GZ2289@frotz.zork.net>
+ <87ft0pzjtk.fsf@mid.deneb.enyo.de>
+ <20210322175815.GX10062@frotz.zork.net>
+ <87blb9q7ok.fsf@mid.deneb.enyo.de>
 MIME-Version: 1.0
-References: <2836850.zfUPAMbaDK@opensuse>
-In-Reply-To: <2836850.zfUPAMbaDK@opensuse>
-From:   Stefan Puiu <stefan.puiu@gmail.com>
-Date:   Wed, 24 Mar 2021 20:19:35 +0200
-Message-ID: <CACKs7VBDD1DNdapvJSXBgVc3vP7Yi9Et9BeEwcBB6s1Ao=4spA@mail.gmail.com>
-Subject: Re: /proc/<pid>/stat file documentation
-To:     =?UTF-8?B?U3rFkXRzIMOBa29z?= <szotsaki@gmail.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        lnx-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <87blb9q7ok.fsf@mid.deneb.enyo.de>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi =C3=81kos,
+Florian Weimer writes:
 
-On Mon, Mar 22, 2021 at 10:50 AM Sz=C5=91ts =C3=81kos <szotsaki@gmail.com> =
-wrote:
->
-> Dear Michael,
->
-> I found a documentation deficiency on [1] in /proc/<pid>/stat file (Table
-> 1-4). May I ask you to indicate in this table that ESP and EIP have non-z=
-ero
-> values only when the process is exiting or dumping core and the calling
-> process has the permission for PTRACE_MODE_READ_FSCREDS | PTRACE_MODE_NOA=
-UDIT.
-> For implementation reference see [2].
+> * Seth David Schoen:
+> 
+> > Both things you noted are true: you can change broadcast addresses with
+> > ifconfig or ip (e.g. ip addr add x/y broadcast z dev d), and /31 subnets
+> > indeed don't have them.  This is defined at
+> 
+> There is also the questions of netmask that aren't in the CIDR style
+> (so 255.255.0.255 instead of 255.255.255.0).  Are they still
+> supported?
 
-You're pointing to the in-kernel documentation (link [1]). As far as I
-know, that's not maintained by the man-pages project, so they might
-not be able to help with changing that.
+Nope -- I tried setting such a mask with ifconfig and got EINVAL back
+from the kernel, while iproute2 doesn't even allow specifying a netmask
+as opposed to a prefix length.
 
-The man page for proc is here though:
-https://man7.org/linux/man-pages/man5/procfs.5.html, maybe the info
-can be added there?
+This EINVAL comes from here
 
->
-> Please, also note that for many of the reported numbers in this table the
-> aforementioned permissions are needed to be displayed correctly (as non-
-> zeroes). They are start_code, end_code, start_stack, esp, eip, wchan,
-> start_data, end_data, start_brk, arg_start, arg_end, env_start, env_end, =
-and
-> exit_code.
->
-> A small addition: I also observed that on [3] the "blog" points to 404.
+https://github.com/torvalds/linux/blob/4ee998b0ef8b6d7b1267cd4d953182224929abba/net/ipv4/devinet.c#L1214
 
-I get an SSL error in Firefox ("Secure Connection Failed" and
-"PR_END_OF_FILE_ERROR") when trying to click the blog link
-(https://blog.man7.org/).
+where the bad_mask() macro is checked to see if the mask is valid.  (I
+haven't reasoned about the way bad_mask() is implemented, but the purpose
+of the check seems to be whether the requested mask is CIDR-valid.)
 
-Stefan.
+> > I'm not familiar with a way in which it depends on the network device
+> > other than the /31 issue.  At least, this particular logic isn't
+> > affected by other aspects of the network device type.
+> 
+> Are there network devices that are neither point-to-point, nor do they
+> have broadcast support?
 
->
-> Thank you and all the best,
->
-> =C3=81kos
->
-> [1]: https://www.kernel.org/doc/html/latest/filesystems/proc.html
-> [2]: https://github.com/torvalds/linux/blob/master/fs/proc/array.c#L481-L=
-502
-> [3]: https://www.kernel.org/doc/man-pages/maintaining.html
+We've talked about this question a bit in our project before.  I don't
+believe so, but I can look into it further.  It's logically conceivable
+that there could be such devices.
+
+> > Could you suggest a way that these details could usefully be described
+> > here?  The ability to change the broadcast address is very little-used,
+> > so I'm not sure many readers would benefit from details about it here,
+> > but I also wouldn't want to mislead them about that.  Maybe just
+> > changing it to "are both designated, by default, as broadcast
+> > addresses"?
+> 
+> My main concern is that the language should not imply that something
+> cannot happen if it actually can.  Otherwise programmers will end up
+> using this guidance and create software that won't work in such
+> configurations.
+
+That makes sense.  Are you OK with the "are both designated, by default,
+as broadcast addresses" or similar language?
+
+-- 
+Seth David Schoen <schoen@loyalty.org>      |  Qué empresa fácil no pensar
+     http://www.loyalty.org/~schoen/        |  en un tigre, reflexioné.
+                                            |        -- Borges, "El Zahir"
