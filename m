@@ -2,58 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C8E4234722B
-	for <lists+linux-man@lfdr.de>; Wed, 24 Mar 2021 08:14:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7994034739A
+	for <lists+linux-man@lfdr.de>; Wed, 24 Mar 2021 09:27:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231976AbhCXHNo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 24 Mar 2021 03:13:44 -0400
-Received: from 75-101-100-43.dsl.static.fusionbroadband.com ([75.101.100.43]:56058
-        "EHLO hop.toad.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235784AbhCXHNa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Mar 2021 03:13:30 -0400
-X-Greylist: delayed 320 seconds by postgrey-1.27 at vger.kernel.org; Wed, 24 Mar 2021 03:13:30 EDT
-Received: from hop.toad.com (localhost [127.0.0.1])
-        by hop.toad.com (8.12.9/8.12.9) with ESMTP id 12O77bRl024496;
-        Wed, 24 Mar 2021 00:07:37 -0700
+        id S233464AbhCXI0g (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 24 Mar 2021 04:26:36 -0400
+Received: from albireo.enyo.de ([37.24.231.21]:54744 "EHLO albireo.enyo.de"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S233469AbhCXI0L (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 24 Mar 2021 04:26:11 -0400
+Received: from [172.17.203.2] (port=44687 helo=deneb.enyo.de)
+        by albireo.enyo.de ([172.17.140.2]) with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+        id 1lOyq3-0006lb-IF; Wed, 24 Mar 2021 08:26:03 +0000
+Received: from fw by deneb.enyo.de with local (Exim 4.92)
+        (envelope-from <fw@deneb.enyo.de>)
+        id 1lOyq3-0006MN-Dp; Wed, 24 Mar 2021 09:26:03 +0100
+From:   Florian Weimer <fw@deneb.enyo.de>
 To:     Seth David Schoen <schoen@loyalty.org>
-cc:     Florian Weimer <fw@deneb.enyo.de>, linux-man@vger.kernel.org,
-        gnu@toad.com
-Subject: Re: [PATCH 1/1] ip.7: Add "special and reserved addresses" section 
-In-reply-to: <20210322212944.GB10062@frotz.zork.net> 
-References: <20210320002041.GZ2289@frotz.zork.net> <87ft0pzjtk.fsf@mid.deneb.enyo.de> <20210322175815.GX10062@frotz.zork.net> <20210322212944.GB10062@frotz.zork.net>
-Comments: In-reply-to Seth David Schoen <schoen@loyalty.org>
-   message dated "Mon, 22 Mar 2021 14:29:44 -0700."
-Date:   Wed, 24 Mar 2021 00:07:37 -0700
-Message-ID: <24495.1616569657@hop.toad.com>
-From:   John Gilmore <gnu@toad.com>
+Cc:     linux-man@vger.kernel.org, gnu@toad.com
+Subject: Re: [PATCH 1/1] ip.7: Add "special and reserved addresses" section
+References: <20210320002041.GZ2289@frotz.zork.net>
+        <87ft0pzjtk.fsf@mid.deneb.enyo.de>
+        <20210322175815.GX10062@frotz.zork.net>
+Date:   Wed, 24 Mar 2021 09:26:03 +0100
+In-Reply-To: <20210322175815.GX10062@frotz.zork.net> (Seth David Schoen's
+        message of "Mon, 22 Mar 2021 10:58:15 -0700")
+Message-ID: <87blb9q7ok.fsf@mid.deneb.enyo.de>
+MIME-Version: 1.0
+Content-Type: text/plain
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Perhaps the reason there is an interface for setting the broadcast
-address is so that it can be explicitly set to the lowest address (e.g.
-for compatability with 4.2BSD)?  The ability to set an arbitrary
-broadcast address does seem rather useless otherwise.
+* Seth David Schoen:
 
-Sounds like a good email discussion to pull some historical info out of
-netdev participants and/or the Internet-History mailing list.
+> Both things you noted are true: you can change broadcast addresses with
+> ifconfig or ip (e.g. ip addr add x/y broadcast z dev d), and /31 subnets
+> indeed don't have them.  This is defined at
 
-Hmm -- after our patch, when the lowest address is no longer reserved
-for broadcast, you can still make the lowest address into a second
-broadcast address by setting it with ifconfig!  That actually argues
-that our patch is even more innocuous; if anybody in the world actually
-needs the lowest address to be broadcast, they already have a userspace
-way to specify that.
+There is also the questions of netmask that aren't in the CIDR style
+(so 255.255.0.255 instead of 255.255.255.0).  Are they still
+supported?
 
-(By the way, the kernel code looks to me that if the interface broadcast
-address is set to 255.255.255.255 then it is NOT enabled, so only the
-default broadcast addresses are enabled.  That doesn't seem to be
-documented either.)
+> I'm not familiar with a way in which it depends on the network device
+> other than the /31 issue.  At least, this particular logic isn't
+> affected by other aspects of the network device type.
 
-I don't know that the documentation that we added about how Linux
-support for reserved addresses varies from the RFCs needs to wait for
-these broadcast-related questions to be resolved.  We can further
-improve that documentation once we know if and when "setting the
-broadcast address on an interface" has or used to have any usefulness.
+Are there network devices that are neither point-to-point, nor do they
+have broadcast support?
 
-	John
+> Could you suggest a way that these details could usefully be described
+> here?  The ability to change the broadcast address is very little-used,
+> so I'm not sure many readers would benefit from details about it here,
+> but I also wouldn't want to mislead them about that.  Maybe just
+> changing it to "are both designated, by default, as broadcast
+> addresses"?
+
+My main concern is that the language should not imply that something
+cannot happen if it actually can.  Otherwise programmers will end up
+using this guidance and create software that won't work in such
+configurations.
