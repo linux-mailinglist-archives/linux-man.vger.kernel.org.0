@@ -2,91 +2,110 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D751E3481C5
-	for <lists+linux-man@lfdr.de>; Wed, 24 Mar 2021 20:19:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3324734879C
+	for <lists+linux-man@lfdr.de>; Thu, 25 Mar 2021 04:48:26 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237836AbhCXTTZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 24 Mar 2021 15:19:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56762 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237934AbhCXTTC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Mar 2021 15:19:02 -0400
-Received: from frotz.zork.net (frotz.zork.net [IPv6:2600:3c00:e000:35f::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1393EC061763
-        for <linux-man@vger.kernel.org>; Wed, 24 Mar 2021 12:19:00 -0700 (PDT)
-Received: by frotz.zork.net (Postfix, from userid 1008)
-        id 9E739119A8; Wed, 24 Mar 2021 19:18:58 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 frotz.zork.net 9E739119A8
-Date:   Wed, 24 Mar 2021 12:18:58 -0700
-From:   Seth David Schoen <schoen@loyalty.org>
-To:     Florian Weimer <fw@deneb.enyo.de>
-Cc:     linux-man@vger.kernel.org, gnu@toad.com
-Subject: Re: [PATCH 1/1] ip.7: Add "special and reserved addresses" section
-Message-ID: <20210324191858.GP10062@frotz.zork.net>
-References: <20210320002041.GZ2289@frotz.zork.net>
- <87ft0pzjtk.fsf@mid.deneb.enyo.de>
- <20210322175815.GX10062@frotz.zork.net>
- <87blb9q7ok.fsf@mid.deneb.enyo.de>
+        id S229572AbhCYDrr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 24 Mar 2021 23:47:47 -0400
+Received: from wout3-smtp.messagingengine.com ([64.147.123.19]:33473 "EHLO
+        wout3-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S229448AbhCYDrU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Mar 2021 23:47:20 -0400
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+        by mailout.west.internal (Postfix) with ESMTP id 0605AF82;
+        Wed, 24 Mar 2021 23:47:18 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute1.internal (MEProxy); Wed, 24 Mar 2021 23:47:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alyssa.is; h=
+        from:to:cc:subject:in-reply-to:references:date:message-id
+        :mime-version:content-type; s=fm2; bh=z/JKRkD8vbbkFE1Mk++F+i3GwX
+        y6qI+x0zPT5hDQo3Q=; b=K+a0Pk+UtdIsCC82S42B8mk0to4zS2xHb5zr7dhSLH
+        iystPLuVdIjVqG9mLSRZk7eozOgEs7Pw/DvdnNv1oHhBmLjplMgmoKw85Y9HSSA9
+        yZU0ax5VYU/+aH1wFyHq7JstjTGKtrDHZSgxMTyD/FGDQLWLvP2VQ7K39pBtlAw1
+        pIOD61xBjSS21m6PqPDgXBPDJcugLlFyOEsqELY9cTba4zA4Nzm8yXq3D3+obfiS
+        artP4SRbJU3dpzyDnKVSK6ayWXQLF71AdqE/lmv+5n5nm3/4k8cv6zLOVR1OOdAU
+        vbBCB2Zrc19rGouD1HbHRXomXVXcAI18RnPszo/bOZug==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:content-type:date:from:in-reply-to
+        :message-id:mime-version:references:subject:to:x-me-proxy
+        :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=z/JKRk
+        D8vbbkFE1Mk++F+i3GwXy6qI+x0zPT5hDQo3Q=; b=dx9wTDuJSaAMYPwk9ER3kb
+        WGDA9cwrUd126gdb9ZL86TZ/lo3pxrhsYXapD0+QnY3FV56qZYtRF5N1JVsZN8ij
+        WOimntHWMfDbrVtzwDylEFw8BAHF0ymv7BYcJaKOGHX+xoLFliw3d7iPC0zd7lu0
+        s/cwhcmBfiS8KrO66i5z1jmbJYAdgB3GPSxAfsaEoqqDGgkrIeG5334isFv+efj+
+        nuPTbd9nuiD5gkQF6LrRkQh2RiYc1oGJ8r62UNAYiIXmUz8t45SreESZnUoBLlk5
+        qpd77kiv3AJ+pvu0fVTsmwHPj1ZBhxmFf18aglrYfN8wpfCsZeJPjTjGlN/cKqXg
+        ==
+X-ME-Sender: <xms:xgdcYF89vVd5DLN_YKMykikfitFZqPhi7LPA5SIo-I3BA_AimPdmEA>
+    <xme:xgdcYJuXQJ6wPpTIf_9qkXZ3Ng_9izhAmJusP3IpLZS_WjOy3XneVHcXTBdGu-FEV
+    KIbU561ADnkuCEgxA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudegledgiedvucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhephffvufgjfhffkfggtgesghdtreertddttdenucfhrhhomheptehlhihsshgr
+    ucftohhsshcuoehhihesrghlhihsshgrrdhisheqnecuggftrfgrthhtvghrnhepvdeuvd
+    eivdehhfeikedtvddvhefgheffleevueeigffgtdffffeujedujeejkeejnecukfhppeek
+    gedrudekgedrvdeftddrvdduleenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmh
+    epmhgrihhlfhhrohhmpehhihesrghlhihsshgrrdhish
+X-ME-Proxy: <xmx:xgdcYDAn-o3S--PlVzuAdfX0kKpnnwftalq9Rzd8MgJ4lGCNY-4eBw>
+    <xmx:xgdcYJc72zdVuuUUFcLCuZnStwG4_JmTqy2wFbEzYw5-kUcXgg1awA>
+    <xmx:xgdcYKPNWd3_C0HOTzBwPLtpVLYP6p9gVKq-fw_doK2qImONes-sLw>
+    <xmx:xgdcYEX60k2fzvYCN3PAmPq-A1eO09ppfcEfbnXXrg4X32bQgwUyOA>
+Received: from x220.qyliss.net (p54b8e6db.dip0.t-ipconnect.de [84.184.230.219])
+        by mail.messagingengine.com (Postfix) with ESMTPA id 23654108005C;
+        Wed, 24 Mar 2021 23:47:18 -0400 (EDT)
+Received: by x220.qyliss.net (Postfix, from userid 1000)
+        id A9FD1771; Thu, 25 Mar 2021 03:47:15 +0000 (UTC)
+From:   Alyssa Ross <hi@alyssa.is>
+To:     linux-man@vger.kernel.org
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Subject: Re: [PATCH] vsock.7: ioctls are on /dev/vsock, not sockets
+In-Reply-To: <20210324140503.27580-1-hi@alyssa.is>
+References: <20210324140503.27580-1-hi@alyssa.is>
+Date:   Thu, 25 Mar 2021 03:47:09 +0000
+Message-ID: <87zgyr6gjm.fsf@alyssa.is>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <87blb9q7ok.fsf@mid.deneb.enyo.de>
+Content-Type: multipart/signed; boundary="=-=-=";
+        micalg=pgp-sha256; protocol="application/pgp-signature"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Florian Weimer writes:
+--=-=-=
+Content-Type: text/plain
 
-> * Seth David Schoen:
-> 
-> > Both things you noted are true: you can change broadcast addresses with
-> > ifconfig or ip (e.g. ip addr add x/y broadcast z dev d), and /31 subnets
-> > indeed don't have them.  This is defined at
-> 
-> There is also the questions of netmask that aren't in the CIDR style
-> (so 255.255.0.255 instead of 255.255.255.0).  Are they still
-> supported?
+Alyssa Ross <hi@alyssa.is> writes:
 
-Nope -- I tried setting such a mask with ifconfig and got EINVAL back
-from the kernel, while iproute2 doesn't even allow specifying a netmask
-as opposed to a prefix length.
+> ---
+> When I discovered /dev/vsock, I had a look for a vsock(4), but there's
+> no such page.  I suppose there isn't really anything to document there
+> that isn't already covered there.
+>
+>  man7/vsock.7 | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 
-This EINVAL comes from here
+Signed-off-by: Alyssa Ross <hi@alyssa.is>
 
-https://github.com/torvalds/linux/blob/4ee998b0ef8b6d7b1267cd4d953182224929abba/net/ipv4/devinet.c#L1214
+Just realised I forgot. :)
 
-where the bad_mask() macro is checked to see if the mask is valid.  (I
-haven't reasoned about the way bad_mask() is implemented, but the purpose
-of the check seems to be whether the requested mask is CIDR-valid.)
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> > I'm not familiar with a way in which it depends on the network device
-> > other than the /31 issue.  At least, this particular logic isn't
-> > affected by other aspects of the network device type.
-> 
-> Are there network devices that are neither point-to-point, nor do they
-> have broadcast support?
+-----BEGIN PGP SIGNATURE-----
 
-We've talked about this question a bit in our project before.  I don't
-believe so, but I can look into it further.  It's logically conceivable
-that there could be such devices.
-
-> > Could you suggest a way that these details could usefully be described
-> > here?  The ability to change the broadcast address is very little-used,
-> > so I'm not sure many readers would benefit from details about it here,
-> > but I also wouldn't want to mislead them about that.  Maybe just
-> > changing it to "are both designated, by default, as broadcast
-> > addresses"?
-> 
-> My main concern is that the language should not imply that something
-> cannot happen if it actually can.  Otherwise programmers will end up
-> using this guidance and create software that won't work in such
-> configurations.
-
-That makes sense.  Are you OK with the "are both designated, by default,
-as broadcast addresses" or similar language?
-
--- 
-Seth David Schoen <schoen@loyalty.org>      |  Qué empresa fácil no pensar
-     http://www.loyalty.org/~schoen/        |  en un tigre, reflexioné.
-                                            |        -- Borges, "El Zahir"
+iQIzBAEBCAAdFiEEH9wgcxqlHM/ARR3h+dvtSFmyccAFAmBcB8EACgkQ+dvtSFmy
+ccBbfhAAh9aT+lmQrOAma63xbwNyQmMOjX7xPUgOBkt84gcN2fqeQOaJ+Fiih2Hb
+J3LgeW+3YsczbeRmYfXbeSzDhM3e9QX5JIjhXiu+Tvey86aAl8CyK2ZlmSP5X2HL
+M+ee5FzsPsq3I6k6XmOuodHSbV83HHFVU8DCtglAY9Ph7othLLnwAP7bSPBpZL/Y
+IyQAwWbDpsHylbD3o4YvSZVeP+0gxXb1tyWObof0VBlyioeHVK8V+Eisge+d6JYB
+c8IkfjlQOoNULFmsTcQo+jJGdVnc/DQ9FbsZera+VCMFCjdXX44/gJKMYmMCQyCS
+ndRLS6x+1Iafisqekm0Sz9wWymYrwbjw79ajsvvO2fcbUfoWK93ZbFKsAhK7qm3Z
+8HljfU9/2xMYW/HQI2xGsCrkCUKuOLNZBlQluwLxcJVVzrhQgodQ2SbfTtm+cRXr
+sOadeCDyOhtY+gcJmEBfXACCoNfpPt3TKWl5VrNffoBbZc8CPMfubpkl9UctFCDy
+GJbRw/Pa6GDpZezI0xLGJ4vcvEkUOY8TznDXJJB3/IF+/9Kx/gntLWq2PTmU/MFR
+c8+1rseRs4qJgoaAQ94Bje3Q0Db7h2jsfRsqzW3gB2dgL5YTv2gl77VqCT5//pcg
+M6lJH8HP+QT7SMUaItGy1Z8OsTDguDRyxwVu+FwP5sj0X5cSPEs=
+=2SIR
+-----END PGP SIGNATURE-----
+--=-=-=--
