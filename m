@@ -2,70 +2,81 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 10477349CDD
-	for <lists+linux-man@lfdr.de>; Fri, 26 Mar 2021 00:24:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4744634B253
+	for <lists+linux-man@lfdr.de>; Fri, 26 Mar 2021 23:54:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231273AbhCYXYM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 25 Mar 2021 19:24:12 -0400
-Received: from 3.mo51.mail-out.ovh.net ([188.165.32.156]:54088 "EHLO
-        3.mo51.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231262AbhCYXXo (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 25 Mar 2021 19:23:44 -0400
-X-Greylist: delayed 4605 seconds by postgrey-1.27 at vger.kernel.org; Thu, 25 Mar 2021 19:23:43 EDT
-Received: from mxplan6.mail.ovh.net (unknown [10.108.16.173])
-        by mo51.mail-out.ovh.net (Postfix) with ESMTPS id DB69B2786E5;
-        Thu, 25 Mar 2021 23:06:56 +0100 (CET)
-Received: from jwilk.net (37.59.142.104) by DAG4EX2.mxp6.local (172.16.2.32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Thu, 25 Mar
- 2021 23:06:56 +0100
-Authentication-Results: garm.ovh; auth=pass (GARM-104R0051b4be3a5-a04d-43f6-9563-1199ff9ce64f,
-                    B0DFA5BD14842729F4276F05A1062110D9D7BB61) smtp.auth=jwilk@jwilk.net
-X-OVh-ClientIp: 5.173.106.156
-Date:   Thu, 25 Mar 2021 23:06:55 +0100
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-CC:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        <linux-man@vger.kernel.org>
-Subject: Re: Makefile: Use standard variables and locations
-Message-ID: <20210325220655.egwiilcs6pf7eher@jwilk.net>
-References: <b4cf925a-ac73-33bd-a6eb-514c69e82d51@gmail.com>
+        id S230423AbhCZWxj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 26 Mar 2021 18:53:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47350 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230240AbhCZWxJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 26 Mar 2021 18:53:09 -0400
+Received: from frotz.zork.net (frotz.zork.net [IPv6:2600:3c00:e000:35f::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5AA94C0613AA
+        for <linux-man@vger.kernel.org>; Fri, 26 Mar 2021 15:53:09 -0700 (PDT)
+Received: by frotz.zork.net (Postfix, from userid 1008)
+        id 1A2871198B; Fri, 26 Mar 2021 22:53:05 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 frotz.zork.net 1A2871198B
+Date:   Fri, 26 Mar 2021 15:53:05 -0700
+From:   Seth David Schoen <schoen@loyalty.org>
+To:     Florian Weimer <fw@deneb.enyo.de>
+Cc:     linux-man@vger.kernel.org, gnu@toad.com
+Subject: Re: [PATCH 1/1] ip.7: Add "special and reserved addresses" section
+Message-ID: <20210326225305.GB10062@frotz.zork.net>
+References: <20210320002041.GZ2289@frotz.zork.net>
+ <87ft0pzjtk.fsf@mid.deneb.enyo.de>
+ <20210322175815.GX10062@frotz.zork.net>
+ <87blb9q7ok.fsf@mid.deneb.enyo.de>
+ <20210324191858.GP10062@frotz.zork.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <b4cf925a-ac73-33bd-a6eb-514c69e82d51@gmail.com>
-User-Agent: NeoMutt/20180716
-X-Originating-IP: [37.59.142.104]
-X-ClientProxiedBy: DAG1EX1.mxp6.local (172.16.2.1) To DAG4EX2.mxp6.local
- (172.16.2.32)
-X-Ovh-Tracer-GUID: 107f7927-237a-497d-9261-257364c29949
-X-Ovh-Tracer-Id: 684547144956041181
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduledrudehtddgudeiudcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhepfffhvffukfhfgggtuggjfghisehttdertddtredvnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpefhfedvfeehvefhkeeltdejgeelteefvdefvdduvdefgfduueeitdeitedvtdehgfenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddruddtgeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210324191858.GP10062@frotz.zork.net>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Alejandro Colomar <alx.manpages@gmail.com>, 2021-03-20, 22:03:
->- Is '|| exit $$?' really needed?  AFAIK, make exits on error.
+Seth David Schoen writes:
 
-Make catches errors, but shell doesn't by default. So if a recipe 
-contains more than a simple command, you need to care of error handling 
-yourself. For example:
+> > Are there network devices that are neither point-to-point, nor do they
+> > have broadcast support?
+> 
+> We've talked about this question a bit in our project before.  I don't
+> believe so, but I can look into it further.  It's logically conceivable
+> that there could be such devices.
 
-   $ printf 'all:\n\tfalse; echo moo\n' > Makefile
+I found that there are several address family and/or interface types in the
+Linux kernel now that always refuse the SIOCSIFBRDADDR ioctl (with EINVAL).
+However, none of them are IPv4 and so they're all outside the scope of the
+ip(7) man page.  (They are x25, ax25, rose, netrom, and qrtr, each of
+which has its own address family instead of AF_INET, namely AF_X25,
+AF_AX25, AF_ROSE, AF_NETROM, and AF_QIPCRTR.)
 
-   $ make
-   false; echo moo
-   moo
+I haven't found anywhere else in the kernel where setting a broadcast
+address will be rejected as inapplicable.  That is, you can always at
+least complete the ioctl, so if it doesn't work because it's
+inapplicable at a lower layer, that seems like a bug.
 
-   $ echo $?
-   0
+The existing man page for ip-link(8) seems to assume that an IP link is
+either broadcast-capable or marked point-to-point:
 
->- Specify SHELL = /bin/sh
+       broadcast LLADDRESS
 
-This is the default on Unix-like systems.
+       brd LLADDRESS
+
+       peer LLADDRESS
+              change the link layer broadcast address or the peer address when
+              the interface is POINTOPOINT.
+
+(These two cases seem to be taken as exhaustive and mutually exclusive
+here.)
+
+The more complete answer that I'm looking into now will depend on
+whether you can get an interface that can run IPv4 but that has neither
+IFF_BROADCAST nor IFF_POINTOPOINT in its flags.
 
 -- 
-Jakub Wilk
+Seth David Schoen <schoen@loyalty.org>      |  Qué empresa fácil no pensar
+     http://www.loyalty.org/~schoen/        |  en un tigre, reflexioné.
+                                            |        -- Borges, "El Zahir"
