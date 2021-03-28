@@ -2,86 +2,105 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 63A1134B352
-	for <lists+linux-man@lfdr.de>; Sat, 27 Mar 2021 01:22:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D57D334BC3F
+	for <lists+linux-man@lfdr.de>; Sun, 28 Mar 2021 13:57:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231172AbhC0AWK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 26 Mar 2021 20:22:10 -0400
-Received: from frotz.zork.net ([69.164.197.204]:39184 "EHLO frotz.zork.net"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S230236AbhC0AWD (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 26 Mar 2021 20:22:03 -0400
-X-Greylist: delayed 5335 seconds by postgrey-1.27 at vger.kernel.org; Fri, 26 Mar 2021 20:22:03 EDT
-Received: by frotz.zork.net (Postfix, from userid 1008)
-        id 7289E1198B; Sat, 27 Mar 2021 00:22:02 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 frotz.zork.net 7289E1198B
-Date:   Fri, 26 Mar 2021 17:22:02 -0700
-From:   Seth David Schoen <schoen@loyalty.org>
-To:     John Gilmore <gnu@toad.com>
-Cc:     Florian Weimer <fw@deneb.enyo.de>, linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/1] ip.7: Add "special and reserved addresses" section
-Message-ID: <20210327002202.GC10062@frotz.zork.net>
-References: <20210320002041.GZ2289@frotz.zork.net>
- <87ft0pzjtk.fsf@mid.deneb.enyo.de>
- <20210322175815.GX10062@frotz.zork.net>
- <87blb9q7ok.fsf@mid.deneb.enyo.de>
- <20210324191858.GP10062@frotz.zork.net>
- <20210326225305.GB10062@frotz.zork.net>
- <23508.1616802338@hop.toad.com>
+        id S229955AbhC1L50 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 28 Mar 2021 07:57:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40822 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229950AbhC1L5L (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 28 Mar 2021 07:57:11 -0400
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 872C2C061762
+        for <linux-man@vger.kernel.org>; Sun, 28 Mar 2021 04:57:10 -0700 (PDT)
+Received: by mail-wm1-x334.google.com with SMTP id d191so5186276wmd.2
+        for <linux-man@vger.kernel.org>; Sun, 28 Mar 2021 04:57:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=PgTPz5ITgg00ApK1KintDCM18vIRH5DwOkC74KOyQO0=;
+        b=e6GdiKcC0hYC6uNDGmPruMC2e1IX4/Kx5iu88rIFAMVGm62DWYjmHLql4ssbKLv8Wg
+         GSSHnRSXR91OpxrH53BWy3fnLphHhqd32BALikS1jmHXQFe2GoTXeH+yC78SKydGB3dk
+         F1pOaagZCEmn+9KkQpeWZxpfBE0OUhbb481kOiWAYVyZerQ4mEKR6e/q2cR03b28J8Jj
+         cCIMszgwTU+4WuymRYLFLd9kYLBfrmip+SwbwaEuKsOlpk54eVPT8lRALvL2V8uusFSk
+         bx2DAnpvtd++cWGwmalKxe85TByITvGU5WrFfiqNOvgQCMrhamtAHUDsQICHIhXDmeDI
+         fUMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=PgTPz5ITgg00ApK1KintDCM18vIRH5DwOkC74KOyQO0=;
+        b=JV30qAplLWHOxDvYV+UyzVPId/7GIdZaAIP3IdkzpChlNj+jLFq9mrcGBZ80CtXB47
+         sGD9Ld7bV6TKvC/h3AddXQ7pQgQT8NGrlDMSQG0jea4uquQlNW3JuCWWL2g4pfomu8Do
+         KZ4Dp09VGD4QM3bqJqKqLuxbKv9aDUWRQ204cbxvLp2IBSJkyeTMyV81OSAo5jm4A9ub
+         YyIDwPBLz6riIbQbZy1a7DVU9XOn79rkNOnD+WVjgy3fv7DvgGu37TBVZ9E6aE0z2kiw
+         Ysk35T0JAbcdotVunMcgpcYBRNC+KxWfcM6SiOeqCm/2iwDHys0PAwSS1PoFsqNMxDrZ
+         cb/A==
+X-Gm-Message-State: AOAM533+cQ8z1vh0x1cL15wp+VBQbxUSswkjWHetIr8PnqQha8uMXRbu
+        bWISYTMVO5sl958F0QWzkvF1MmnFkLc=
+X-Google-Smtp-Source: ABdhPJwU8VEm64+e/LKUxDF8sxRZuF6RYqvv6A8ktXzsJEES+Ts2VOCp/E3GxNqgu7XePQkuNktThQ==
+X-Received: by 2002:a7b:c38d:: with SMTP id s13mr20485352wmj.44.1616932629068;
+        Sun, 28 Mar 2021 04:57:09 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id u4sm24609339wrm.24.2021.03.28.04.57.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 28 Mar 2021 04:57:08 -0700 (PDT)
+Subject: Re: Makefile: Use standard variables and locations
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
+References: <b4cf925a-ac73-33bd-a6eb-514c69e82d51@gmail.com>
+ <20210325220655.egwiilcs6pf7eher@jwilk.net>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <5015ca93-b9f2-0c19-2029-939c7aa9b1a7@gmail.com>
+Date:   Sun, 28 Mar 2021 13:57:07 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <23508.1616802338@hop.toad.com>
+In-Reply-To: <20210325220655.egwiilcs6pf7eher@jwilk.net>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-John Gilmore writes:
+Hi Jakub,
 
-> > > > Are there network devices that are neither point-to-point, nor do they
-> > > > have broadcast support?
+On 3/25/21 11:06 PM, Jakub Wilk wrote:
+> * Alejandro Colomar <alx.manpages@gmail.com>, 2021-03-20, 22:03:
+>> - Is '|| exit $$?' really needed?  AFAIK, make exits on error.
 > 
-> It seems to me that cellular radio systems are neither point-to-point,
-> nor do they support broadcast.  And they keep moving further and further
-> toward being IP-based (e.g. phone calls on your LTE phone use SIP over
-> UDP over IP over cellular!).  But given the proprietary nature of most
-> cellphone radio chips and their firmware, it's possible that Linux has
-> never built a fully capable network interface to talk to them.  I don't
-> think we should attempt to rule it out, though.
+> Make catches errors, but shell doesn't by default. So if a recipe
+> contains more than a simple command, you need to care of error handling
+> yourself. For example:
+> 
+>   $ printf 'all:\n\tfalse; echo moo\n' > Makefile
+> 
+>   $ make
+>   false; echo moo
+>   moo
+> 
+>   $ echo $?
+>   0
 
-I found in include/uapi/linux/if_link.h the following classification
-about this:
+Ahh, I see.
 
-   IFF_LOOPBACK, IFF_BROADCAST and IFF_POINTOPOINT are
-   more not changeable by user. They describe link media
-   characteristics and set by device driver.
+> 
+>> - Specify SHELL = /bin/sh
+> 
+> This is the default on Unix-like systems.
 
-   Comments:
-   - Combination IFF_BROADCAST|IFF_POINTOPOINT is invalid
-   - If neither of these three flags are set;
-     the interface is NBMA.
+Humm, yes, it feels better to not specify it.  I was just following GNU
+recommendations, but this one doesn't make much sense.  I'll remove it.
 
-https://en.wikipedia.org/wiki/Non-broadcast_multiple-access_network
+Thanks,
 
-The likeliest example there in terms of running IP directly over such a
-network would presumably be ATM, which had a whole series of RFCs about
-how to make this work, and which is supported by the Linux kernel (e.g.
-net/atm/clip.c, for "Classical IP over ATM" following RFC 1577).  That
-includes, for example, a non-broadcast-based ARP mechanism!
+Alex
 
-I'll try to figure out what a Linux ATM interface does about IP broadcasts.
-It seems like the RFC 1577 instruction is to still allow IP broadcasts
-but accept that they won't be mapped onto link-layer broadcasts:
-
-   ATM does not support broadcast addressing, therefore there are no
-   mappings available from IP broadcast addresses to ATM broadcast
-   services. Note: this lack of mapping does not restrict members from
-   transmitting or receiving IP datagrams specifying any of the four
-   standard IP broadcast address forms as described in [8].  Members,
-   upon receiving an IP broadcast or IP subnet broadcast for their LIS,
-   MUST process the packet as if addressed to that station.
-
-In other IP-over-ATM methods it appears that broadcasting is emulated by
-a lower layer.
-
-https://www.cse.wustl.edu/~jain/cis788-97/ftp/ip_over_atm/index.html#3
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
