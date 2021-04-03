@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6E4A135355E
+	by mail.lfdr.de (Postfix) with ESMTP id B94FA35355F
 	for <lists+linux-man@lfdr.de>; Sat,  3 Apr 2021 21:41:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236768AbhDCTmA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S236778AbhDCTmA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sat, 3 Apr 2021 15:42:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54946 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54948 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236736AbhDCTl7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Apr 2021 15:41:59 -0400
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B50F4C0613E6
-        for <linux-man@vger.kernel.org>; Sat,  3 Apr 2021 12:41:56 -0700 (PDT)
-Received: by mail-wr1-x435.google.com with SMTP id f6so1393843wrv.12
-        for <linux-man@vger.kernel.org>; Sat, 03 Apr 2021 12:41:56 -0700 (PDT)
+        with ESMTP id S236736AbhDCTmA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Apr 2021 15:42:00 -0400
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5EF43C0613E6
+        for <linux-man@vger.kernel.org>; Sat,  3 Apr 2021 12:41:57 -0700 (PDT)
+Received: by mail-wr1-x432.google.com with SMTP id x16so7479209wrn.4
+        for <linux-man@vger.kernel.org>; Sat, 03 Apr 2021 12:41:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=EpXhDfjANekpqRoKyHYo29H6mLCXF+4mapysiZHKSf0=;
-        b=bWjhE2A7218Y349FhyJmodAJwg6OTrjneXRNiAOVS117qKAxjhgCNxCsirZCkxSGfv
-         UpRoEpTOtwQ0LOeBm8kPxWcScayFF4bhUj1sCIYlcKp5TyGHS+eaDKOu3NOM1dus8OW/
-         050hH/RewO00g6Hhy5DdQWYShuWVvfXaBLZ9rXs5nhX/35sDTjctzXeM7TJfeMqhUSWP
-         RWulqUXp/shnm7LMTHhXAnMZx+1i9xk/pOipBYclEWlCT8N9whgtoDs2TemmDun0Unbp
-         G1EPVbAwoe5FfbyCTncRgOt0QW6yQN8/ajHwHUm+n+zz4xs9S8Gtht5T10644IxIWCz3
-         fv4g==
+        bh=TV1ZaGzpzoXjid5LXMYW52L7tDzb+jhqCC6Ks0Q7om8=;
+        b=RNbAlXI9UhVW2lnXrabHL1safb7YQ7OUlpssbWeTlaHzulnukIu/PAOedX7dznRYtZ
+         s4fun+nP7vHGW6uD4Nh8Bw1y/V30mKxXqLclcGYC9JtG10lQhu3ZfYvoSKjfK2WZFbsC
+         u7qh2f7DsvRD+7xI4jJWBciBoEtq+5bk8KXvUHuLEAugH5Wo5l8rj2aCZq1OBpXWlChI
+         GohyJGu8bSxdn68ainjvoF7j4PqyDTP6C83MENIq5Nn2a64qKSbW6+q2m/TSEB+GLWYA
+         2DpBsTRhnd+wKB5GVL2EtRYQPANx4EAy4T/PvPzYbRtWYp73w6vMIEpuwjBWMVIOqYOp
+         w+dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=EpXhDfjANekpqRoKyHYo29H6mLCXF+4mapysiZHKSf0=;
-        b=S72hwziUklKy+ypimiEdvRIMedf+laBLm8w86yeKA5IvhjMyhk0ZtJG23Bgzg7TXrL
-         7lJ1MhKIuxslAqovQ5oZwz7vafhi1yLTAl7F9wSV1b6l5kcBvFoE/TLpB2IO/M5V8fBl
-         7uuNmWMYJ1MhFCnTwzUdb0dhTDr4kmQbIoUiwK95dHhgdedEhgyNefTc+IrFBynWFoPC
-         BVguvBwgmwplhhWbuap3XYLaUCPETfD2V1z1sBZVCjUzKCQMuCFk4KpObbRfhotUUu+u
-         69hB1K6sw9t8NSi43gST5Fqm1y3yK6PdFVqfyqEtu1QRT14XzgR7Hzv+8bgr8z0QEOuC
-         QKdQ==
-X-Gm-Message-State: AOAM530jAGwz/7mqJurzfCMzR68i1lxsUppsgzfkjS85iaUcg8qN5lc9
-        I0OfVwol3bKsCQOY6u/E0nc=
-X-Google-Smtp-Source: ABdhPJy41U8XiJjHK95H389nPVcIFu2uaXQ7SkV6lQVZJJDYCSVP02Od9i1SkQd/FkfXd8wL1/c3jQ==
-X-Received: by 2002:adf:e5c8:: with SMTP id a8mr21799355wrn.352.1617478915559;
-        Sat, 03 Apr 2021 12:41:55 -0700 (PDT)
+        bh=TV1ZaGzpzoXjid5LXMYW52L7tDzb+jhqCC6Ks0Q7om8=;
+        b=b+kwlwFEaJC9eRiJSaV64xNgEaJElm3kjmh1oQysnQExTpBaPSt8eMbs/SAVPM+7uu
+         7rGMIvPNgD5C+UKkwKmvcF6En42BusmlVyEimAurQdq5RedUJr44Sc1WkQEgw4zFQxPm
+         GYtJAMELkuHYEvgawRgeeCJbdCF1IHlNjg4xzzumWmeOg8MgTZlxFZ5evw8kfaktaDfV
+         CxJy09iMU6DC5RTkTQOsFjRjdd1GkDhZTmP9bT3RPdPXjGzWYoFhsD86Q0Vay9R2VhO2
+         IO3EYR3QufyTA+dz02anHssX0K+oW2lOtiDeWRoWEUshEzDxFYWxBfMiXXY68mxwHCb0
+         p2Zg==
+X-Gm-Message-State: AOAM530f7hZlcOB35gekKnc6WGIZLQcOm69FueLoQeNXojYEHdvTtNVH
+        ImChPpd4IxrRiBNLmMU/o1c=
+X-Google-Smtp-Source: ABdhPJxc+JMRjSHdkwCgDMUqJf+SW9syuxKbgmiRTchlLNpKo+p5d7u/VRugpx0zrX7jlmle3m/Etw==
+X-Received: by 2002:adf:ea12:: with SMTP id q18mr21290409wrm.238.1617478916196;
+        Sat, 03 Apr 2021 12:41:56 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id n1sm25211056wro.36.2021.04.03.12.41.54
+        by smtp.googlemail.com with ESMTPSA id n1sm25211056wro.36.2021.04.03.12.41.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sat, 03 Apr 2021 12:41:55 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH v4 11/35] clone.2: Use syscall(SYS_...); for system calls without a wrapper
-Date:   Sat,  3 Apr 2021 21:40:03 +0200
-Message-Id: <20210403194026.102818-12-alx.manpages@gmail.com>
+Subject: [PATCH v4 12/35] delete_module.2: Add missing include
+Date:   Sat,  3 Apr 2021 21:40:04 +0200
+Message-Id: <20210403194026.102818-13-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210403194026.102818-1-alx.manpages@gmail.com>
 References: <20210403194026.102818-1-alx.manpages@gmail.com>
@@ -63,57 +63,24 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The CLONE_* constants seem to be available from either
-<linux/sched.h> or <sched.h>, and since clone3() already
-includes <linux/sched.h> for 'struct clone_args', <sched.h>
-is not really needed, AFAICS; however, to avoid confussion,
-I also included <sched.h> for clone3() for consistency:
-
-clone() is getting CLONE_* from <sched.h>, and it would confuse
-the reader if clone3() got the same CLONE_* constants from a
-different header.
-
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/clone.2 | 17 ++++++-----------
- 1 file changed, 6 insertions(+), 11 deletions(-)
+ man2/delete_module.2 | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/man2/clone.2 b/man2/clone.2
-index fa7d1103e..f455c97d8 100644
---- a/man2/clone.2
-+++ b/man2/clone.2
-@@ -56,13 +56,13 @@ clone, __clone2, clone3 \- create a child process
+diff --git a/man2/delete_module.2 b/man2/delete_module.2
+index bb0a812a6..174ef04d2 100644
+--- a/man2/delete_module.2
++++ b/man2/delete_module.2
+@@ -27,6 +27,8 @@
+ delete_module \- unload a kernel module
+ .SH SYNOPSIS
+ .nf
++.BR "#include <fcntl.h>" "            /* Definition of " O_* " constants */"
++.PP
+ .BI "int delete_module(const char *" name ", unsigned int " flags );
+ .fi
  .PP
- /* For the prototype of the raw clone() system call, see NOTES */
- .PP
--.BI "long clone3(struct clone_args *" cl_args ", size_t " size );
--.fi
-+.BR "#include <linux/sched.h>" "    /* Definition of " "struct clone_args" " */"
-+.BR "#include <sched.h>" "          /* Definition of " CLONE_* " constants */"
-+.BR "#include <sys/syscall.h>" "    /* Definition of " SYS_* " constants */"
-+.B #include <unistd.h>
- .PP
--.IR Note :
--There is no glibc wrapper for
--.BR clone3 ();
--see NOTES.
-+.BI "long syscall(SYS_clone3, struct clone_args *" cl_args ", size_t " size );
-+.fi
- .SH DESCRIPTION
- These system calls
- create a new ("child") process, in a manner similar to
-@@ -1541,11 +1541,6 @@ One use of these systems calls
- is to implement threads: multiple flows of control in a program that
- run concurrently in a shared address space.
- .PP
--Glibc does not provide a wrapper for
--.BR clone3 ();
--call it using
--.BR syscall (2).
--.PP
- Note that the glibc
- .BR clone ()
- wrapper function makes some changes
 -- 
 2.31.0
 
