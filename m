@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3135A353557
+	by mail.lfdr.de (Postfix) with ESMTP id CA64435355B
 	for <lists+linux-man@lfdr.de>; Sat,  3 Apr 2021 21:41:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236731AbhDCTl4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 3 Apr 2021 15:41:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54920 "EHLO
+        id S236747AbhDCTl5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 3 Apr 2021 15:41:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54922 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236727AbhDCTlz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Apr 2021 15:41:55 -0400
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A7E9DC0613E6
-        for <linux-man@vger.kernel.org>; Sat,  3 Apr 2021 12:41:52 -0700 (PDT)
-Received: by mail-wm1-x336.google.com with SMTP id j4-20020a05600c4104b029010c62bc1e20so3804472wmi.3
-        for <linux-man@vger.kernel.org>; Sat, 03 Apr 2021 12:41:52 -0700 (PDT)
+        with ESMTP id S236736AbhDCTl5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Apr 2021 15:41:57 -0400
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5395DC0613E6
+        for <linux-man@vger.kernel.org>; Sat,  3 Apr 2021 12:41:53 -0700 (PDT)
+Received: by mail-wm1-x32e.google.com with SMTP id r14-20020a05600c35ceb029010fe0f81519so2297606wmq.0
+        for <linux-man@vger.kernel.org>; Sat, 03 Apr 2021 12:41:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=05/KP7vJhvkE2Vr+ZV4ZGftwCp2ksqL5BUThcW4yjm8=;
-        b=Qkts8vG1c/0m0VifsUbAV3L0oRVMReueYKkvaklZ7EQg18LJhOEmHO4n4ikcROMkAw
-         AYL0xaMN3X8+aLHluIxU9UKoFRdMzwGYgUgI6SHKN7piQCq1cOsAfBJJK8F+rKh6kH+D
-         pZETtpNIXYb8Y6vODMoHOd7gsXnPJJgPwHJRqsZkZQ5Ou/LBhLzACctG1YyXk1Nf4d3Q
-         5wSvGfHoAQPjziCkqe5HyOmuAgd5kAYwd90UYhiNJnozbOsGSXZaz0sOD+bYce1wlNp5
-         q2FS85WRNIQ78VEUrA6/4cRQAFQpNnAtLfdHFwfO5uWSovf1YbM3bcwQDoWOIKtllvES
-         ilQg==
+        bh=q7IOiVrQjHRTRmbdVaEa4LKpd5wHcjiuSaqgIJt7lkc=;
+        b=f7Wx+mRyAoi0DwNgBnOydOXtQekLgzData8C17UBoKVU5tiuJAWEItAWB/r8aBIWfc
+         i7HNGfutOZj6QmMLRPhA2nW9UwVSg1g11aUlW7F8hgTTbOiKoIdDJ6JFI/oTok1tpEaW
+         bYzaMJNWFXNa9YWdd8zQiHz/w3hOR7sGZaBh7b9iE8BqoZeLF0MUBNQgXPFYKVvd186N
+         /dvt6ET8LPh6+igrrmBGkdgIZJ1IC+sHtDwlDvOxCQvkhMUi9S4nfi+luA7XmGMPe/HK
+         MGgVGOVFiDSH7m/GwOxPj3fqWUzkO7x0yBm1Z0NfVKjt57KR+Amylgpx5ig8/VcAQmzb
+         HIBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=05/KP7vJhvkE2Vr+ZV4ZGftwCp2ksqL5BUThcW4yjm8=;
-        b=hfzmRvRUv2hANTs6eg4LXM1Oud14INlEOEBmF4CLt4hvNfeDYfsa7zj+fv2dJvOkQS
-         tWmhBAnWC8WK/3aiAXFNDw1zPHkRbUoC349P0M8HadXhWPKx53Eg0+fPrXu+EdL5ge0M
-         u4a/8lmg8mO2hEzA687vOglF/JsirapHn3aDoLtA74z4zp8y6f3HdrpXKOUNa+N5eNSV
-         /1Gv5DgTZXzVaouFblVugB5LT3OEMzDUgDquQU/dt//vl9DS8DVuN1qsdgqcxrcqqNOv
-         LKe+c0ly58UiMd5+1kuUojKq9PdjAJV+iW9R+x1gdsdeNXiJ0ek7JMR4F+KGId8Pn/a+
-         AXNQ==
-X-Gm-Message-State: AOAM531FUx6wg6uqpTWakZoOPsecYZZ6AzxfWK21pVFmo0cBHcSfAthr
-        OdvyPQbmPLzCmEEmYUd30rnejZ6Ink8=
-X-Google-Smtp-Source: ABdhPJw+1kfTp8GmC/kI2SOUEPBF/W7d28/M/aPxf14OzuSpyFFYTQRVy0JTBFalCIIM3mX39q+2bw==
-X-Received: by 2002:a05:600c:2cd8:: with SMTP id l24mr17890018wmc.88.1617478911506;
-        Sat, 03 Apr 2021 12:41:51 -0700 (PDT)
+        bh=q7IOiVrQjHRTRmbdVaEa4LKpd5wHcjiuSaqgIJt7lkc=;
+        b=Fa8lywsfziLrICNZfwoT1RZg1mSdl/2tW2HQfYNz5mxiktHH4Oeq9dsUZb/O4gorNY
+         dcnnu2PY0jUeGkGpAqi01OKo+tFDITYcW0jL3azT3f3QQFS9WF3qwFf9vEjo4k+79CS4
+         zADu2fY5IeKNACE2dL1St0/fY9k2VUjqwYYgm/GpvQbGq0Kd5hzfWfqxe6AnoB1eM0mS
+         x7mMur+qGDNqbpJmeOtzW7OYKZZaAboW9GG6uqHZfwMhU6V4hIOGE9N16Kmhh8XEZLpC
+         OeR98u9hr0kymvtmfb16UT1OovMHPBqoquu6Dw5Z73B3kWKPDqdyuhou7lx/6zhTSRHK
+         xYGA==
+X-Gm-Message-State: AOAM531enO3okmZMP/lhNxj06b2/nKRpYgvPhx4/uerE3MBmsKLuOnTI
+        PKsyzhudIPXLdznUeuzhrn3PZUX+kU0=
+X-Google-Smtp-Source: ABdhPJxhYsS2siJ8/778XjpVtskjH0W/ZgqP1J8AoHyNRKY2PtmMuw6TcQv3zmGxgyNPleh+wWiP9A==
+X-Received: by 2002:a1c:4b0e:: with SMTP id y14mr6638380wma.26.1617478912142;
+        Sat, 03 Apr 2021 12:41:52 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id n1sm25211056wro.36.2021.04.03.12.41.50
+        by smtp.googlemail.com with ESMTPSA id n1sm25211056wro.36.2021.04.03.12.41.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sat, 03 Apr 2021 12:41:51 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH v4 05/35] access.2: Use syscall(SYS_...); for system calls without a wrapper
-Date:   Sat,  3 Apr 2021 21:39:57 +0200
-Message-Id: <20210403194026.102818-6-alx.manpages@gmail.com>
+Subject: [PATCH v4 06/35] add_key.2: Remove unused include
+Date:   Sat,  3 Apr 2021 21:39:58 +0200
+Message-Id: <20210403194026.102818-7-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210403194026.102818-1-alx.manpages@gmail.com>
 References: <20210403194026.102818-1-alx.manpages@gmail.com>
@@ -63,39 +63,27 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+<sys/types.h> was only needed for size_t, AFAIK.  That is already
+(and more precisely) documented in system_data_types(7).  Let's
+remove it here, as it's not really needed for calling add_key().
+
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/access.2 | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ man2/add_key.2 | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/man2/access.2 b/man2/access.2
-index 4a6e28db3..f24a73161 100644
---- a/man2/access.2
-+++ b/man2/access.2
-@@ -49,15 +49,20 @@ access, faccessat, faccessat2 \- check user's permissions for a file
+diff --git a/man2/add_key.2 b/man2/add_key.2
+index f3d803adf..dca44b8e7 100644
+--- a/man2/add_key.2
++++ b/man2/add_key.2
+@@ -14,7 +14,6 @@
+ add_key \- add a key to the kernel's key management facility
+ .SH SYNOPSIS
+ .nf
+-.B #include <sys/types.h>
+ .B #include <keyutils.h>
  .PP
- .BI "int access(const char *" pathname ", int " mode );
- .PP
--.BR "#include <fcntl.h>           " "/* Definition of AT_* constants */"
-+.BR "#include <fcntl.h>" "            /* Definition of " AT_* " constants */"
- .B #include <unistd.h>
- .PP
- .BI "int faccessat(int " dirfd ", const char *" pathname ", int " \
- mode ", int " flags );
-                 /* But see C library/kernel differences, below */
- .PP
--.BI "int faccessat2(int " dirfd ", const char *" pathname ", int " \
--mode ", int " flags );
-+.BR "#include <fcntl.h>" "            /* Definition of " AT_* " constants */"
-+.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
-+.B #include <unistd.h>
-+.PP
-+.BI "int syscall(SYS_faccessat2,"
-+.BI "            int " dirfd ", const char *" pathname ", int " mode \
-+", int " flags );
- .fi
- .PP
- .RS -4
+ .BI "key_serial_t add_key(const char *" type ", const char *" description ,
 -- 
 2.31.0
 
