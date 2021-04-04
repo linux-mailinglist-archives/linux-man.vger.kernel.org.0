@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 62D1A3537F2
-	for <lists+linux-man@lfdr.de>; Sun,  4 Apr 2021 13:59:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DA3EE3537F1
+	for <lists+linux-man@lfdr.de>; Sun,  4 Apr 2021 13:59:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230418AbhDDL7v (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S230424AbhDDL7v (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 4 Apr 2021 07:59:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37836 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37838 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
         with ESMTP id S230410AbhDDL7v (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 4 Apr 2021 07:59:51 -0400
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 13465C0613E6
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ED262C061756
         for <linux-man@vger.kernel.org>; Sun,  4 Apr 2021 04:59:46 -0700 (PDT)
-Received: by mail-wm1-x32d.google.com with SMTP id o6so1558374wmq.3
+Received: by mail-wm1-x32f.google.com with SMTP id j20-20020a05600c1914b029010f31e15a7fso6344603wmq.1
         for <linux-man@vger.kernel.org>; Sun, 04 Apr 2021 04:59:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=8sXcJxfoGscdez3mIIgG0Vwgw6xUHy5fJqoPTId1UhU=;
-        b=YK5VxIyUKUCu9sogiRKAs2ZBF4QlLyamG+W9Ihcj2AS1jA5zQ1UQ/s8WfGkKFtU8KX
-         Eonb/Nv7mWD4Hpsft8yIaxU/Obr7ziECxTquxbpHdak+C7P33DTHXJH4ALY1vKlE6xlD
-         YujjIlclnucK1GFL3J0QUwuifTGntjaazMotXNPFG4v7SXzecUxkiMFOKzjp6X9c7QRq
-         aiICeouBUT0gL7DyZv6L0VzrNKpfGA+1i5OaY5UX8J+w8Pylt5WC8EySiw2uorDN07Pt
-         E66ioyA3JlkX01ynCMYLpmPb5rfADAgz06Oh1bQl/n9JBZQXFhPP81NOKng66nciPvlD
-         lDwQ==
+        bh=fwhwr6f7qb06ZDUqOxxmDfgFb3kytZmjcBLKXopOTrs=;
+        b=Y+wsm87kF2x5dlWkMF5PYsKEqZ041wM1YsOC337kOHzaQXbdagIyI13NmcaY4rp2aK
+         JSjm6H5TbKWLvlqOaAYhssme+u9o2qwAlHEOXEkqumTWSK2qXcqo6OoWUeqjaPp0c+9N
+         E8cMxrIJg4ZsDd6aIihYbNdxfkAYZ/YenrOuZYvs0GgdPdfz6DbTsqb3YN4x1b6sJXNB
+         T8PucOAGgX2WIDwGJz2PwA6RI0QC0Zg8dWdS6kRgOf5mBIyV9QmtnLRclP1u4frGwQoB
+         N8JcHxHIF6Gei8b4qdCZbibg6tG/1J/bo0kl+Y9cxYkR0psxHav1NB5btpB63WU/hi/D
+         hXTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=8sXcJxfoGscdez3mIIgG0Vwgw6xUHy5fJqoPTId1UhU=;
-        b=EFJs6gvm+IR6jH+Imwhyg1SlOBtyqIJCHkquzJXViURBaOWPAVSGKP/o9guxyd83Db
-         arxlCvathAe0Sw7feJo5HIp+4N3/Ge+oDgjVI/3pfnzGe/hAKH/1hW2kJPtzBmXbreSW
-         caoDeBNtzWW28u/a35CNECFTZOMF8dQT6JWRcNSomzygTZCx4K/uvGfELzl6ZWHFiVX+
-         e+LzZhDY8zwRUiNRawhf6cTnF+ubcLL7aULrqPnVzozX2LMOZ/h5CnZ6l7saDgYzk9ug
-         fhyIhoSu276L8rLrs09SeUo02g78PNKB/Jy10B4mbM5vk2ldPC/+c4FWmIzW/7XRtASI
-         cVLw==
-X-Gm-Message-State: AOAM533n10jA+xmkfdczLSf0kaAMVnSAlJy8Bln+UGIjp/wjDDQYafED
-        42ak+fcHOE69MU5uLzijxh8=
-X-Google-Smtp-Source: ABdhPJzdRz+CM5ro9+pp4d2luvYFDlOKM+G1vhEe9V8r6xOe9UoXW5HlhzpcIOmgdshlBQIwK9z+FQ==
-X-Received: by 2002:a1c:a501:: with SMTP id o1mr1745841wme.37.1617537584875;
-        Sun, 04 Apr 2021 04:59:44 -0700 (PDT)
+        bh=fwhwr6f7qb06ZDUqOxxmDfgFb3kytZmjcBLKXopOTrs=;
+        b=HnTE5a6ZjdFVztUz66D1HdHvvzLWw2MyvfEbbNwlPPVhWOps9xiI39mDbVJ3y4mJ+S
+         yV+n6cVl8kWntqo7klQtvsxAMPx70ug645CjIIl4p5rvhP08OL2v516NcGNZg35Vw91G
+         ORqWG4FNQZXnJFOTIw9i2/++w8NgW4D/mk5B7srcrG0aPCcMHsp7gCDnt+56uce9WCVb
+         Ca2YJxpou33gLc2c83bIOYpsdrdoVIZJyflhmgogzpEjp/r+vDokVQ8wkA67vw3yIqhc
+         iiIc2+kYO8zjzuP867uyjcCzsGudFS2ulZWaj1N5ED/feOKIJFKkejIuyr9sEu1y2+UD
+         NNyQ==
+X-Gm-Message-State: AOAM533LHzLGtCwQhossen5H9vqVMPSxp1P6dTryq5lmLjw1nBtxfSXQ
+        oHoGpBXB1sEPZT5MNFGFkOs9cEsKumY=
+X-Google-Smtp-Source: ABdhPJzvEFZDWYgSNQUpGev3ogVMk1MTmtLnUNszMvBrDWoTuIZgJZ+2figrGKrLZ3jNDNUJleuT4g==
+X-Received: by 2002:a05:600c:4fd0:: with SMTP id o16mr20839741wmq.123.1617537585586;
+        Sun, 04 Apr 2021 04:59:45 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
         by smtp.googlemail.com with ESMTPSA id u2sm23786967wrp.12.2021.04.04.04.59.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Apr 2021 04:59:44 -0700 (PDT)
+        Sun, 04 Apr 2021 04:59:45 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH v5 17/35] fanotify_init.2: Add comment: why more than one include is needed
-Date:   Sun,  4 Apr 2021 13:58:30 +0200
-Message-Id: <20210404115847.78166-18-alx.manpages@gmail.com>
+Subject: [PATCH v5 18/35] fcntl.2: Remove unused include
+Date:   Sun,  4 Apr 2021 13:58:31 +0200
+Message-Id: <20210404115847.78166-19-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210403194026.102818-1-alx.manpages@gmail.com>
 References: <20210403194026.102818-1-alx.manpages@gmail.com>
@@ -63,24 +63,27 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+I couldn't find a reason for including <unistd.h>.  All the macros
+used by fcntl() are defined in <fcntl.h>.  For comparison, FreeBSD
+and OpenBSD don't specify <unistd.h> in their manual pages.
+
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/fanotify_init.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man2/fcntl.2 | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/man2/fanotify_init.2 b/man2/fanotify_init.2
-index 2418bbdd2..2b44fc6ec 100644
---- a/man2/fanotify_init.2
-+++ b/man2/fanotify_init.2
-@@ -26,7 +26,7 @@
- fanotify_init \- create and initialize fanotify group
+diff --git a/man2/fcntl.2 b/man2/fcntl.2
+index de87eec1f..7b5604e3a 100644
+--- a/man2/fcntl.2
++++ b/man2/fcntl.2
+@@ -69,7 +69,6 @@
+ fcntl \- manipulate file descriptor
  .SH SYNOPSIS
  .nf
--.B #include <fcntl.h>
-+.BR "#include <fcntl.h>" "            /* Definition of " O_* " constants */"
- .B #include <sys/fanotify.h>
+-.B #include <unistd.h>
+ .B #include <fcntl.h>
  .PP
- .BI "int fanotify_init(unsigned int " flags ", unsigned int " event_f_flags );
+ .BI "int fcntl(int " fd ", int " cmd ", ... /* " arg " */ );"
 -- 
 2.31.0
 
