@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4318E3537E9
+	by mail.lfdr.de (Postfix) with ESMTP id E274E3537EA
 	for <lists+linux-man@lfdr.de>; Sun,  4 Apr 2021 13:59:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230381AbhDDL7q (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 4 Apr 2021 07:59:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37798 "EHLO
+        id S230377AbhDDL7r (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 4 Apr 2021 07:59:47 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37806 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230366AbhDDL7q (ORCPT
+        with ESMTP id S230378AbhDDL7q (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 4 Apr 2021 07:59:46 -0400
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 73A52C061756
-        for <linux-man@vger.kernel.org>; Sun,  4 Apr 2021 04:59:40 -0700 (PDT)
-Received: by mail-wm1-x32d.google.com with SMTP id w203-20020a1c49d40000b029010c706d0642so6468022wma.0
-        for <linux-man@vger.kernel.org>; Sun, 04 Apr 2021 04:59:40 -0700 (PDT)
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2F813C0613E6
+        for <linux-man@vger.kernel.org>; Sun,  4 Apr 2021 04:59:41 -0700 (PDT)
+Received: by mail-wr1-x430.google.com with SMTP id j18so8597935wra.2
+        for <linux-man@vger.kernel.org>; Sun, 04 Apr 2021 04:59:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=lKHL7xxGpUL+d+UpVuRwD2E0iUbd5YaO2mOPwYyxNBg=;
-        b=CLV0DjlUbBSranfJIVYpRAE8u8NRDnaENFLXoQHIYovWJpnux/A7ac7Xpdrd+DV1Iy
-         2L313dgK7OcSKKJ/+LRScBdgQlG9ldn3XwQINwR6KG5nGnAr2YpABIZ1ikmeaBt4mQBF
-         g9/qVR475qTkTfX6BcqdXFILYxHz24lWU51rMvRgmyanMpuwkBWSMLUh5Mru1fnGUDH9
-         wiX+FcXXKUQbaXBy+qfMuyD/PDFkhgwViVMptvOXyqOP2Nze9cjz+Mrhc2qHFGx8cuOL
-         9eMEDSTW/n+QLvbAW2dciu9yi7n/ZQI+iGsAeGGRkfvZMsKPRI+yoPUNZ1E4DYXu8EuV
-         GllA==
+        bh=95FmrA4H8nqvZ9OQeG4Dh0kLkA1VLnSc6nqAgxvFvvI=;
+        b=EoUJpT8Ga4avxDBGtLG/lczbeZ6TDZWiJZvhwqIBR3X4yrmdezip7jue2pnntjgHP6
+         KTMHRkLFLIwq8UI8n87IZrSW9Vtl+i8w+xt66m8rd2fA18WhnmFFUGFtRG4K/EqxODdz
+         IfoZ7gqjrjnuC7aBSHB6fqf7ErxYrLIXqhS3CQzKyRFOlzOOMemybm02rND40EmlzkHl
+         D2rYyct5ZQl94ZKgoJ0HbComLY6kxeWMKrFsdeCPX5UrIvDLlwO3I0ITJmZjjEGxJ8nG
+         gSvSifPiASpRP9DAlUAD4P9mQha9avjH1uMqee77AfZm74Y326LVYT33/FuFlvUXfJea
+         JHsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=lKHL7xxGpUL+d+UpVuRwD2E0iUbd5YaO2mOPwYyxNBg=;
-        b=jfUDE57lqB85sxDiMouOK27+uwg4Vh2YUOA2sDM8TipzVVkuOsAhGtU7tYsE7aXwHh
-         FT8+r9xz2VvpM42YYLnULIdhNj/wjFaZW8ct3n8Ec+A0z62G9vevBy5dSeH5u54M9d8d
-         Xqw/uHO8wtVPg+ucsN3/Zx1aaFgGyipqWPEThrrpSQ3zfLYp2WCS4uFjU0L3CGbw3oJf
-         x7T4uENmNC+nOmvcKm1d08pPS2Emdk//Xp6vdF6ByFhFk0A2wvQew6/Vgwyhm35YMEPu
-         ef3u67WLdQLO/cJIcXjH8+D+P+0YwVGZeVo+Md+1gKMuR/l9CvNPr+mf68Ll7Cw6RKky
-         k5Yw==
-X-Gm-Message-State: AOAM531xzMs3I79IKUPeah6vqC+P8sNJov395HtxEaEfPLjoEEhJ82Aq
-        4FN2sl8JK7epf5L+t7DcavE=
-X-Google-Smtp-Source: ABdhPJxQ17YUM/UXDPRP/R6W+dcKYWJC1NIkUs/ILyUOLWI3AFzcs9gsg4TKmkZj3o9rQ4JzTMNkCg==
-X-Received: by 2002:a1c:f605:: with SMTP id w5mr20934122wmc.66.1617537579230;
+        bh=95FmrA4H8nqvZ9OQeG4Dh0kLkA1VLnSc6nqAgxvFvvI=;
+        b=udUbHe9rhATlmrO7fEho0vdkvEzJ7A8ifM49a00LlFxRdoJWEmW/UmfW6SXYxWLgJG
+         sl1eBMhcn0ENS7S2gEXkl2JgsnpdO3fCts+6OuR3HkLJxrDZ/vtAyWFjcEmYzh5a9qbO
+         /GYjHcncL8gJnT3RDIfDHnvOrdaIDdWaMZUC9MtpYrJo0FW5biqTkObNXPx8kafn18cT
+         Cvof+8EwUXGqXAbx+MQFBEmqZfa9gPR1c43ToB0c3xgGJn6V2sNbRRmDpeirTL/3ruvH
+         cIj20PNCFKRSrEOwdZwVWd7si4seiyDx8Lzz28s5uLnsbPzsA26kox0Ms84wY5Xvvlqb
+         kgIg==
+X-Gm-Message-State: AOAM532D/L6Pv4qy6zBigTy9z20GNmLYO3IHmYMDhVoa86j8ly4ovBmb
+        +P9cL+ePFzz5KmLv8De/Jdn6olq73FU=
+X-Google-Smtp-Source: ABdhPJyvbO4yONKoyUpdS704mo0DFIqui10+fZomkO4SKovukKKeLVQmdbdpBDQcrMjtIvAKc6DZtg==
+X-Received: by 2002:a5d:58e8:: with SMTP id f8mr24534317wrd.102.1617537579970;
         Sun, 04 Apr 2021 04:59:39 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id u2sm23786967wrp.12.2021.04.04.04.59.38
+        by smtp.googlemail.com with ESMTPSA id u2sm23786967wrp.12.2021.04.04.04.59.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Apr 2021 04:59:38 -0700 (PDT)
+        Sun, 04 Apr 2021 04:59:39 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH v5 09/35] arch_prctl.2: SYNOPSIS: Remove unused includes
-Date:   Sun,  4 Apr 2021 13:58:22 +0200
-Message-Id: <20210404115847.78166-10-alx.manpages@gmail.com>
+Subject: [PATCH v5 10/35] capget.2: Use syscall(SYS_...); for system calls without a wrapper
+Date:   Sun,  4 Apr 2021 13:58:23 +0200
+Message-Id: <20210404115847.78166-11-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210403194026.102818-1-alx.manpages@gmail.com>
 References: <20210403194026.102818-1-alx.manpages@gmail.com>
@@ -63,28 +63,58 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-AFAICS, there's no reason to include that.
-All of the macros that this function uses
-are already defined in the other headers.
-
-Cc: glibc <libc-alpha@sourceware.org>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/arch_prctl.2 | 1 -
- 1 file changed, 1 deletion(-)
+ man2/capget.2 | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/man2/arch_prctl.2 b/man2/arch_prctl.2
-index f8073d625..7ae5b350c 100644
---- a/man2/arch_prctl.2
-+++ b/man2/arch_prctl.2
-@@ -28,7 +28,6 @@ arch_prctl \- set architecture-specific thread state
+diff --git a/man2/capget.2 b/man2/capget.2
+index 6de51b72c..a2d897cc7 100644
+--- a/man2/capget.2
++++ b/man2/capget.2
+@@ -18,14 +18,17 @@
+ capget, capset \- set/get capabilities of thread(s)
  .SH SYNOPSIS
  .nf
- .BR "#include <asm/prctl.h>" "        /* Definition of " ARCH_* " constants */"
--.B #include <sys/prctl.h>
- .BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
- .B #include <unistd.h>
+-.B #include <sys/capability.h>
++.RB "         /* Definition of " CAP_* " and " \
++_LINUX_CAPABILITY_* " constants */"
++.B #include <linux/capability.h>
++.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
++.B #include <unistd.h>
  .PP
+-.BI "int capget(cap_user_header_t " hdrp ", cap_user_data_t " datap );
+-.BI "int capset(cap_user_header_t " hdrp ", const cap_user_data_t " datap );
++.BI "int syscall(SYS_capget, cap_user_header_t " hdrp ,
++.BI "            cap_user_data_t " datap );
++.BI "int syscall(SYS_capset, cap_user_header_t " hdrp ,
++.BI "            const cap_user_data_t " datap );
+ .fi
+-.PP
+-.IR Note :
+-There are no glibc wrappers for these system calls; see NOTES.
+ .SH DESCRIPTION
+ These two system calls are the raw kernel interface for getting and
+ setting thread capabilities.
+@@ -40,7 +43,7 @@ The portable interfaces are
+ .BR cap_set_proc (3)
+ and
+ .BR cap_get_proc (3);
+-if possible, you should use those interfaces in applications.
++if possible, you should use those interfaces in applications; see NOTES.
+ .\"
+ .SS Current details
+ Now that you have been warned, some current kernel details.
+@@ -239,9 +242,6 @@ No such thread.
+ .SH CONFORMING TO
+ These system calls are Linux-specific.
+ .SH NOTES
+-Glibc does not provide a wrapper for this system call; call it using
+-.BR syscall (2).
+-.PP
+ The portable interface to the capability querying and setting
+ functions is provided by the
+ .I libcap
 -- 
 2.31.0
 
