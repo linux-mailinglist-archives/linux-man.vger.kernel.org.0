@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B1A0F3537F4
-	for <lists+linux-man@lfdr.de>; Sun,  4 Apr 2021 13:59:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0B3833537F5
+	for <lists+linux-man@lfdr.de>; Sun,  4 Apr 2021 13:59:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230410AbhDDL7x (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 4 Apr 2021 07:59:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37850 "EHLO
+        id S230448AbhDDL7y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 4 Apr 2021 07:59:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37858 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230435AbhDDL7x (ORCPT
+        with ESMTP id S230447AbhDDL7x (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 4 Apr 2021 07:59:53 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C7991C061788
-        for <linux-man@vger.kernel.org>; Sun,  4 Apr 2021 04:59:48 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id e18so8598151wrt.6
-        for <linux-man@vger.kernel.org>; Sun, 04 Apr 2021 04:59:48 -0700 (PDT)
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7459AC061756
+        for <linux-man@vger.kernel.org>; Sun,  4 Apr 2021 04:59:49 -0700 (PDT)
+Received: by mail-wr1-x42b.google.com with SMTP id x16so8597491wrn.4
+        for <linux-man@vger.kernel.org>; Sun, 04 Apr 2021 04:59:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=28zBalVKo2kS79bb6WX7Y54TEzZgkL3eEQgmpO+rtvk=;
-        b=MtucsjlJDlYLMlXawh756mlNN31V1Lzy9c9wjRhJQdT+DqAWKlY+0VL5PiHuFJzyoM
-         CRU/BUtzj/3Ix6HQxSM66agpNhyxs6gzNKFc0zFkXKxHZlOrpTV4GYaTEzrl8OjfnsN9
-         GzdfSCC62aSh46zKaFYpkkI4p0NR/2Ecne2Bkek2ve9MuXl8QElANTSl3pelOW/pa2r8
-         xD6tzfjmbrnV3uzYzIFVz7JbxH58SAFbxIKJzEFG7GlurkbGV9sGsbDq2+ebWHnyDwuk
-         cQmDWWNZaYO5j4goL8++v9GTgdvasydHdB5smjmZDn8zFRBMmaEEpE62qAelSmXXzO8m
-         nfWQ==
+        bh=4RUXZNNPRHFOrslSAajMyr/oneUNBsE8l+hRPjLljlU=;
+        b=RQ3FGdNYxPaE6d49eat0Xle32ukQfV1F5Q6hzxZiLwm+i9+ix59ImeYrbSHAglKEhs
+         RnjkL37xa00rkJYqKMc/a0a/OpUl+VexZ8GgRcdQxeDstocdRsd7VTqJKnjiRx6UfeJB
+         ZKHCSPWEcz7NCozpSRMVONSYSWeqF+nHjWApvA+HHko04cFT9LiNF1T0zAvD0CudnLN0
+         eA5jwGWqZMpr/21lloKWQfDIpmwOsPaO0TOLFVxAC/FTeXB664VHf1M7Pp5GGdVbVi8K
+         w9ipKfjZ2FjFE+IofTYKQCQCmHbeydf5FMe8znqnRy2SEcYsJENF0MI1QfEB89fa4FQi
+         b8JA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=28zBalVKo2kS79bb6WX7Y54TEzZgkL3eEQgmpO+rtvk=;
-        b=ZwxvoHr+oJHBxRe4pI/KONGC1UHO+rVTfF2upxPc03podQM+W/U9Qk5hZ43xmXCQWw
-         jJ1+Qckg/unBasyO9dx91LjNcIy4qlTgv6IJz+IN/Ei6Oi32uPYf8QBf8gk98QvhN3z5
-         BlGQq2F9AfUxFu1XzkuQDJc/UdDlWz6j7wJl/9Ga+OyCDpNoT7B1XtHI0XH6QAYOAFyg
-         pr3eoiu2v+wGAkB0EN0PmPAaKxu8Km8mO94aZbmVHLtd5mP31jy2nQnvpjzUQTBo4g/x
-         CfG6qLrapzxIS1E55R8udovHt+yRBlZZ+OiUp7ijajQn7PFLTGkFHYuAKsfSVvWJGc0r
-         XIyw==
-X-Gm-Message-State: AOAM5315rEG1w2GNNWS6fx66Op8UOm5067NnM6yUCetUkLkkWJ7zVb4e
-        kZqVrp3MCY8GNkbDV0BX6XXm+iGf3JM=
-X-Google-Smtp-Source: ABdhPJzql4Xd8AYMyEcLYgGdAATPAcz63d+Yn5Bs/rhJL1+ChrrbabTvY7vgith2z1rBvbMTyyv1BA==
-X-Received: by 2002:adf:ee0a:: with SMTP id y10mr23392421wrn.177.1617537587651;
-        Sun, 04 Apr 2021 04:59:47 -0700 (PDT)
+        bh=4RUXZNNPRHFOrslSAajMyr/oneUNBsE8l+hRPjLljlU=;
+        b=dy1kxDVMvE1jfabUhoy5/SDtarnu5KfHfcf4pM/dBZnYZs9HYCr4XzeCe522z2G7te
+         AO6kyYZhg1sr8Td3+CZQ7k76pf9jnc62g80Zwk5PTdchLHKONJlCqe1KwYals3a2FHc9
+         Bk0e3+z7xtzH2wPHH00UfCcvi11GVXq99I7xfXKm2tgX/zD8s9QrbcLpE1EZOPStX/FG
+         6FqcBbFfU0/qwhkgDj9C8ucGQxmqbHRAJxYCNhcOTyEXgV1KYF9QkHP3i+dztu49E3tQ
+         hBWf/T10BAQv+5HRQhBRpQOW3Vz2XP2GonRI7mZeifgbvAeoAULTylNhMSKztnhAFqlG
+         laAg==
+X-Gm-Message-State: AOAM533VZ4BDhOmEhewfQBxF+xHG7DtgonaMk7tp5dJxfzbVr0im416a
+        O10LYRR53gcrOOZgN17Arja/93G6VBE=
+X-Google-Smtp-Source: ABdhPJwmxNYd03/hXEz4G+xHqACI+y481rN5LNbHGCYciZkNiqFd9RhfRGfct12W2aFhanucD6lPYQ==
+X-Received: by 2002:a5d:4bcb:: with SMTP id l11mr25167639wrt.390.1617537588323;
+        Sun, 04 Apr 2021 04:59:48 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
         by smtp.googlemail.com with ESMTPSA id u2sm23786967wrp.12.2021.04.04.04.59.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Apr 2021 04:59:47 -0700 (PDT)
+        Sun, 04 Apr 2021 04:59:48 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH v5 21/35] getdents.2: Use syscall(SYS_...); for system calls without a wrapper
-Date:   Sun,  4 Apr 2021 13:58:34 +0200
-Message-Id: <20210404115847.78166-22-alx.manpages@gmail.com>
+Subject: [PATCH v5 22/35] getpriority.2: Remove unused include
+Date:   Sun,  4 Apr 2021 13:58:35 +0200
+Message-Id: <20210404115847.78166-23-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210403194026.102818-1-alx.manpages@gmail.com>
 References: <20210403194026.102818-1-alx.manpages@gmail.com>
@@ -63,41 +63,47 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+<sys/time.h> is not needed to get the function declaration nor any
+constant used by the function.  It was only needed (before
+POSIX.1) to get 'struct timeval', but that information would be
+more suited for system_data_types(7), and not for this page.
+
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/getdents.2 | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ man2/getpriority.2 | 13 -------------
+ 1 file changed, 13 deletions(-)
 
-diff --git a/man2/getdents.2 b/man2/getdents.2
-index ec00a73ba..6a9f4e04c 100644
---- a/man2/getdents.2
-+++ b/man2/getdents.2
-@@ -33,7 +33,11 @@
- getdents, getdents64 \- get directory entries
+diff --git a/man2/getpriority.2 b/man2/getpriority.2
+index e3d518028..d6744989d 100644
+--- a/man2/getpriority.2
++++ b/man2/getpriority.2
+@@ -47,7 +47,6 @@
+ getpriority, setpriority \- get/set program scheduling priority
  .SH SYNOPSIS
  .nf
--.BI "long getdents(unsigned int " fd ", struct linux_dirent *" dirp ,
-+.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
-+.B #include <unistd.h>
-+.PP
-+.BI "long syscall(SYS_getdents, unsigned int " fd \
-+", struct linux_dirent *" dirp ,
- .BI "             unsigned int " count );
+-.B #include <sys/time.h>
+ .B #include <sys/resource.h>
  .PP
- .BR "#define _GNU_SOURCE" "        /* See feature_test_macros(7) */"
-@@ -43,9 +47,9 @@ getdents, getdents64 \- get directory entries
- .fi
- .PP
- .IR Note :
--There is no glibc wrapper for
--.BR getdents ();
--see NOTES.
-+There is no definition of
-+.B struct linux_dirent
-+in glibc; see NOTES.
- .SH DESCRIPTION
- These are not the interfaces you are interested in.
- Look at
+ .BI "int getpriority(int " which ", id_t " who );
+@@ -209,18 +208,6 @@ the real or effective user ID of the process \fIwho\fP.
+ All BSD-like systems (SunOS 4.1.3, Ultrix 4.2,
+ 4.3BSD, FreeBSD 4.3, OpenBSD-2.5, ...) behave in the same
+ manner as Linux 2.6.12 and later.
+-.PP
+-Including
+-.I <sys/time.h>
+-is not required these days, but increases portability.
+-(Indeed,
+-.I <sys/resource.h>
+-defines the
+-.I rusage
+-structure with fields of type
+-.I struct timeval
+-defined in
+-.IR <sys/time.h> .)
+ .\"
+ .SS C library/kernel differences
+ Within the kernel, nice values are actually represented
 -- 
 2.31.0
 
