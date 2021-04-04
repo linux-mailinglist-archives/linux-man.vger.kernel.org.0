@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3E7BB3537EC
-	for <lists+linux-man@lfdr.de>; Sun,  4 Apr 2021 13:59:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6F4173537ED
+	for <lists+linux-man@lfdr.de>; Sun,  4 Apr 2021 13:59:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230378AbhDDL7r (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 4 Apr 2021 07:59:47 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37812 "EHLO
+        id S230399AbhDDL7s (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 4 Apr 2021 07:59:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37818 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230388AbhDDL7r (ORCPT
+        with ESMTP id S230397AbhDDL7r (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 4 Apr 2021 07:59:47 -0400
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7C2F5C061756
-        for <linux-man@vger.kernel.org>; Sun,  4 Apr 2021 04:59:42 -0700 (PDT)
-Received: by mail-wm1-x32d.google.com with SMTP id j20-20020a05600c1914b029010f31e15a7fso6344548wmq.1
-        for <linux-man@vger.kernel.org>; Sun, 04 Apr 2021 04:59:42 -0700 (PDT)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3016EC061756
+        for <linux-man@vger.kernel.org>; Sun,  4 Apr 2021 04:59:43 -0700 (PDT)
+Received: by mail-wm1-x331.google.com with SMTP id 5-20020a05600c0245b029011a8273f85eso251539wmj.1
+        for <linux-man@vger.kernel.org>; Sun, 04 Apr 2021 04:59:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=TV1ZaGzpzoXjid5LXMYW52L7tDzb+jhqCC6Ks0Q7om8=;
-        b=DLEYe3LlcWZ5U5Iq4iyWxL768erlWuYgObVAc5l7jtxfww31FpfxSU/3xMrh19KPz7
-         IMy9pZGuEN0qJS/f+fJDAF7wE5u6W1GeSjfokMGYq3+j/fdnUZ5jgMAdzoTznvQsorYK
-         ABAGs6bNelrlqXFDhqNuJGD72UK3k0VIB8pIkUGra0avAPj3L3zf5T917NwdYvNKwidX
-         FfkZY6OWg1WJsHYvDqTXn8QdvvXhU/wMiVmqssUW/tsW7X7BsVn1mgtqkFeJNwR0slWZ
-         qLuymHZQ/lamsJPStCXjij/1wYu34KFJqUd+Hf8l81BZ6zqC0X45MVgrapDDdgmkB+0y
-         VezQ==
+        bh=ch5eqq1avqKbROCSo5D535aJuRy/ICKQTAFg9B9mLAY=;
+        b=s5Lrg1T5mr5QtEqA4ypusRrHwTUv5K8UZ/mcAAZAlYm3EnAnXCI4A1qSuBsHZ1c45h
+         KOBnSytAQsVLpkkfzfPN2Mfzzx8Q1CWw0/KR+ZTWRIkZyMXseUtmd7ehJm82W/bgcGM+
+         mlA/3RrDHPY/4T+VVyJyOOs14xInKVwfMg7A6bgWyhuNsPssaBd1T4YAZQJ7dkw9Ib4n
+         NO42Gc3GaBpl+H1HdocRc++pYlqAyHqBFZW4+8KcKuB2k45Kk/csJaDUA165QVp0Qp7F
+         8vMPSsl/66iowDQrgEzA7chWL6c78GpKIpVDayE2VS7DlJ9XolTVudLzwnDsPsunj1Wc
+         9tbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=TV1ZaGzpzoXjid5LXMYW52L7tDzb+jhqCC6Ks0Q7om8=;
-        b=cxaT5puYtOz+BQ+4zo7uSHeOEAgeylsdZQWZlBiE2bBqcBIbqPqSasY8DckSfVRSWN
-         iQv7jbq8wJA2jO7qcBE1LZBxjDRm23KRu6XlUZCj54Ii3chuWqd1ZoTw2jX9MGaIdRb4
-         U+qlZZyypeDsbor7cEynvbjocIVMEeF0KxTTbhEGoRpofvGNtdd6lJFvMvJ9xcb6KrJe
-         pjvRPJvyYh9HbYFA3rrT1UsksDfPoavqrCUs1Ye7J/Z1vyA3lDHx1DHaeFzAFkYiE3R/
-         rCB9nv7QXL/BUc+T0cdJU0cVX46J0gLWXs3b1zJEwEVeeBITOIclKNqXGIkGTFPR/5it
-         l+/Q==
-X-Gm-Message-State: AOAM53349AMzvzqLL9LhtCB8W7wJpf9srwCgzk371IqPeh3SZ/J4EbZ7
-        DPypkiZrdcvLGV28eKszPfc=
-X-Google-Smtp-Source: ABdhPJwctxf/O4qvDJ/7yqsVBP1rOLw41pdoqoolcQTb84vbG+OlAvHlQCNNQbPFDhPX1fIWY+v8bA==
-X-Received: by 2002:a1c:a958:: with SMTP id s85mr21534620wme.4.1617537581340;
+        bh=ch5eqq1avqKbROCSo5D535aJuRy/ICKQTAFg9B9mLAY=;
+        b=mfsC/u1DkK/ubqU+SlpYCrAhzfcERA+fQSFRwlqCc1oI5QEFfXWjW/iV1eMw1peZZe
+         0S1JzNh3hON2flQc49jSoUKBIEANGCfEMVYVrz8Lc3jsbpbd3DMfJBZcZIn/2limi/cZ
+         0MnaLP/SbqKd0mf7Yb4/05YIMQ6aU6ktmLGbA86X4BKc33nWxPxW84qn7vdd9NOWq3p+
+         W9KOO7O8WXiUbsV7xFAeqvNdtNpxarkE0Da3q89V4G9GJf5LDrNSMydSCZaC3FSJinKV
+         Z+pP4GqDEhgbsheWkUrL5zd2tJx0gMoSfrBIxP9bOfzbmZoQYT8aUlK9zTAdDhBcxT1H
+         2rEQ==
+X-Gm-Message-State: AOAM530MjF3bOE0a+uNvLG2FNguaoKnzD+c1+1+TPlPuatBaNyhgaR5U
+        y5xN6MZ1YkomZ94BdKbmhCA=
+X-Google-Smtp-Source: ABdhPJxl3heZBrMZLjHZrEq9al4rg00Xa8kiebHCfl042S95vNrTvWsYZ890brVwhHEGzfMxThkCXA==
+X-Received: by 2002:a1c:5455:: with SMTP id p21mr20863087wmi.138.1617537581991;
         Sun, 04 Apr 2021 04:59:41 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id u2sm23786967wrp.12.2021.04.04.04.59.40
+        by smtp.googlemail.com with ESMTPSA id u2sm23786967wrp.12.2021.04.04.04.59.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sun, 04 Apr 2021 04:59:41 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH v5 12/35] delete_module.2: Add missing include
-Date:   Sun,  4 Apr 2021 13:58:25 +0200
-Message-Id: <20210404115847.78166-13-alx.manpages@gmail.com>
+Subject: [PATCH v5 13/35] dup.2: SYNOPSIS: Use consistent comments through pages
+Date:   Sun,  4 Apr 2021 13:58:26 +0200
+Message-Id: <20210404115847.78166-14-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210403194026.102818-1-alx.manpages@gmail.com>
 References: <20210403194026.102818-1-alx.manpages@gmail.com>
@@ -65,22 +65,22 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/delete_module.2 | 2 ++
- 1 file changed, 2 insertions(+)
+ man2/dup.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man2/delete_module.2 b/man2/delete_module.2
-index bb0a812a6..174ef04d2 100644
---- a/man2/delete_module.2
-+++ b/man2/delete_module.2
-@@ -27,6 +27,8 @@
- delete_module \- unload a kernel module
- .SH SYNOPSIS
- .nf
-+.BR "#include <fcntl.h>" "            /* Definition of " O_* " constants */"
-+.PP
- .BI "int delete_module(const char *" name ", unsigned int " flags );
- .fi
+diff --git a/man2/dup.2 b/man2/dup.2
+index 725b9d7d5..b9e0828b0 100644
+--- a/man2/dup.2
++++ b/man2/dup.2
+@@ -45,7 +45,7 @@ dup, dup2, dup3 \- duplicate a file descriptor
+ .BI "int dup2(int " oldfd ", int " newfd );
  .PP
+ .BR "#define _GNU_SOURCE" "             /* See feature_test_macros(7) */"
+-.BR "#include <fcntl.h>" "              /* Obtain O_* constant definitions */"
++.BR "#include <fcntl.h>" "              /* Definition of " O_* " constants */"
+ .B #include <unistd.h>
+ .PP
+ .BI "int dup3(int " oldfd ", int " newfd ", int " flags );
 -- 
 2.31.0
 
