@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BB7CB3537E3
-	for <lists+linux-man@lfdr.de>; Sun,  4 Apr 2021 13:59:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DEDB93537E5
+	for <lists+linux-man@lfdr.de>; Sun,  4 Apr 2021 13:59:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229483AbhDDL7l (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 4 Apr 2021 07:59:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37780 "EHLO
+        id S230209AbhDDL7n (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 4 Apr 2021 07:59:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37782 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230209AbhDDL7l (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 4 Apr 2021 07:59:41 -0400
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E1F67C061756
-        for <linux-man@vger.kernel.org>; Sun,  4 Apr 2021 04:59:36 -0700 (PDT)
-Received: by mail-wr1-x42e.google.com with SMTP id v4so8574492wrp.13
-        for <linux-man@vger.kernel.org>; Sun, 04 Apr 2021 04:59:36 -0700 (PDT)
+        with ESMTP id S230122AbhDDL7m (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 4 Apr 2021 07:59:42 -0400
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 94657C061756
+        for <linux-man@vger.kernel.org>; Sun,  4 Apr 2021 04:59:37 -0700 (PDT)
+Received: by mail-wr1-x429.google.com with SMTP id x16so8597155wrn.4
+        for <linux-man@vger.kernel.org>; Sun, 04 Apr 2021 04:59:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=2GlcMmH2kWCQoDG3vdgebvruVwKjcTNBhMWoT9Wxodw=;
-        b=ius7lg8VNP8Vj4o7Smt6GCGMonFKznsCDsGEL/qXjjcfqthOSEYwAozQZXQG5hFvt7
-         +nQdPiNGwrb83lVOAs1dRGglXJ6eFSxryes6/lJXOfmWIxfTT5Ol2wPkS9PvKUdfGDKb
-         t4reRsM0/iH1S+ZyZvnW+PWiSTKEDmT0r+LVvrjpMfOMO2XGLzXq5pdGoGQTOHb7OMSg
-         4+3j8+hCsbst/Ikd+8SVI2QU42zaXSGlkC2WAx+w5gmvBEgrKn0OQiKKRmRp1ci4fXXM
-         hKtC4b7vRFX5eRbWPNXilm7YkysWRlT7OAvMnwLub1h5yYt4b4WK+SClFKlEWqpyZBHO
-         Ip1A==
+        bh=05/KP7vJhvkE2Vr+ZV4ZGftwCp2ksqL5BUThcW4yjm8=;
+        b=oTHfTNjCPEl4ANBJtOnge1e2MruVYzkpAEhKZ1rNGpC8fb1VsEHbt9jdA8yLwZ79za
+         v0/hB7LHB9XSPQDKIKEPIJidsy3MKqTZEYvr9c8h/83IQ/pg0DHBB8272xi3YPq4DK02
+         eSIAKspOaOexIgJEzYWfeJsGpEW18gTRNTC1a7l+z9eppG8gYB7sxaL5t/1tEvJXPpOJ
+         AsNpYakLitYgZadcLHdXxTYyeaLXjg/+iJH9+r8h7oNz8X3AynRZshVKbpI8e+VM+iwL
+         j0mXcMhFTrWvzOJ+jNup19YUKfNSU8ac1HPX0D6MvRD3YULEVcjdWGyvuYf/azbNOFCl
+         aeSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=2GlcMmH2kWCQoDG3vdgebvruVwKjcTNBhMWoT9Wxodw=;
-        b=qpweZQKMmSLO0nxe8J8gJTOwcHBjjsPtN/8SKOxXktIpuNwA3j47L6auz4a6sCvuii
-         Uk/nUJWvYyKtBXOZJrE2BlSI++mTIVLjK1uI1W6RwJwUEOOFrCDYRWqUqgRksiu7wUdK
-         sEeHgPEZ1Wy15BPE9xjxGiwY0Zs8RurWqSvZGfcxoyMFf9yKoyxLmLBviJ4VQm/Ci0CD
-         ufvBE21RRu8gHokHlfsvjkD96zOCAY5NfsbksMPbOkqawV5bNCCvsE2K2Ldtw9r+v08R
-         gXxn4t1iBrNdz+TiNa2oBDt4i00mqxnNYT/jq3LG7JNXsID/kybwbzSjTzkOjX2CTxSj
-         4EGA==
-X-Gm-Message-State: AOAM53131tM/VC/piCPhy4+8/8MvS0D32J3wo0P7LY5+HAkmY04nutH/
-        eOyFu09pyj2zMpH/21U+vhepcV6G2ls=
-X-Google-Smtp-Source: ABdhPJwF24bdcXhXduuoABj5mXFaKEhDzWvWCxgL5zqqRZqyooZtDIM7kcL6ny7ijI3OiUuAriMCSQ==
-X-Received: by 2002:a5d:4905:: with SMTP id x5mr24255934wrq.201.1617537575745;
-        Sun, 04 Apr 2021 04:59:35 -0700 (PDT)
+        bh=05/KP7vJhvkE2Vr+ZV4ZGftwCp2ksqL5BUThcW4yjm8=;
+        b=lUqr5iwjiTOlymARmTSKPkFLJKFbu0ecJz/7cDlpXKaPm/tk81C93OCTYNTjjfgeRN
+         r2N/ScH9HsYxOfWCqt4lzSaGBVqcVxBDzXjqsSX7JATU7SeyFT+nlMrwildsZmWhbsC9
+         Cxek92vxyBIMkyZN8x3tCHov35eNSUAGKCkBE5ubuoFNIwVoch/qZhzMY0qzbyV348Ka
+         FrFpFEdo+P2p3pINQMmZ0z89DknX8aeYZC4hhDyl4HeZGTx9qQGASh22gur2JkX8I3IW
+         QXbUJKhnRuAanA83Lr/5Ns9o9D4cLh3HH6Tb9POyCnMCNicKYSygESW8ADWiUxfuza7G
+         cbJQ==
+X-Gm-Message-State: AOAM531OdS4w/CFjOLevssd7Odz2g9MF6TTwyLRj2aEisYZ6JZB+QDkl
+        TMxV2Rm1rs5k2dwAYB3diF8=
+X-Google-Smtp-Source: ABdhPJxy5rISy9sztUqf6n9fU87Z4VMV+h82xLJFBoIQwRTEIu27vfg3EaDM5XwW0sFXavfbiVIbsQ==
+X-Received: by 2002:a5d:6b50:: with SMTP id x16mr23941507wrw.379.1617537576460;
+        Sun, 04 Apr 2021 04:59:36 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
         by smtp.googlemail.com with ESMTPSA id u2sm23786967wrp.12.2021.04.04.04.59.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Apr 2021 04:59:35 -0700 (PDT)
+        Sun, 04 Apr 2021 04:59:36 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH v5 04/35] socklen_t.3: New link to system_data_types(7)
-Date:   Sun,  4 Apr 2021 13:58:17 +0200
-Message-Id: <20210404115847.78166-5-alx.manpages@gmail.com>
+Subject: [PATCH v5 05/35] access.2: Use syscall(SYS_...); for system calls without a wrapper
+Date:   Sun,  4 Apr 2021 13:58:18 +0200
+Message-Id: <20210404115847.78166-6-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210403194026.102818-1-alx.manpages@gmail.com>
 References: <20210403194026.102818-1-alx.manpages@gmail.com>
@@ -65,17 +65,37 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/socklen_t.3 | 1 +
- 1 file changed, 1 insertion(+)
- create mode 100644 man3/socklen_t.3
+ man2/access.2 | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/man3/socklen_t.3 b/man3/socklen_t.3
-new file mode 100644
-index 000000000..db50c0f09
---- /dev/null
-+++ b/man3/socklen_t.3
-@@ -0,0 +1 @@
-+.so man7/system_data_types.7
+diff --git a/man2/access.2 b/man2/access.2
+index 4a6e28db3..f24a73161 100644
+--- a/man2/access.2
++++ b/man2/access.2
+@@ -49,15 +49,20 @@ access, faccessat, faccessat2 \- check user's permissions for a file
+ .PP
+ .BI "int access(const char *" pathname ", int " mode );
+ .PP
+-.BR "#include <fcntl.h>           " "/* Definition of AT_* constants */"
++.BR "#include <fcntl.h>" "            /* Definition of " AT_* " constants */"
+ .B #include <unistd.h>
+ .PP
+ .BI "int faccessat(int " dirfd ", const char *" pathname ", int " \
+ mode ", int " flags );
+                 /* But see C library/kernel differences, below */
+ .PP
+-.BI "int faccessat2(int " dirfd ", const char *" pathname ", int " \
+-mode ", int " flags );
++.BR "#include <fcntl.h>" "            /* Definition of " AT_* " constants */"
++.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
++.B #include <unistd.h>
++.PP
++.BI "int syscall(SYS_faccessat2,"
++.BI "            int " dirfd ", const char *" pathname ", int " mode \
++", int " flags );
+ .fi
+ .PP
+ .RS -4
 -- 
 2.31.0
 
