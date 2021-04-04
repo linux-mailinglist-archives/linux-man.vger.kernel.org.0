@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DA3EE3537F1
-	for <lists+linux-man@lfdr.de>; Sun,  4 Apr 2021 13:59:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DCA7A3537F3
+	for <lists+linux-man@lfdr.de>; Sun,  4 Apr 2021 13:59:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230424AbhDDL7v (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 4 Apr 2021 07:59:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37838 "EHLO
+        id S230444AbhDDL7x (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 4 Apr 2021 07:59:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37844 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230410AbhDDL7v (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 4 Apr 2021 07:59:51 -0400
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ED262C061756
-        for <linux-man@vger.kernel.org>; Sun,  4 Apr 2021 04:59:46 -0700 (PDT)
-Received: by mail-wm1-x32f.google.com with SMTP id j20-20020a05600c1914b029010f31e15a7fso6344603wmq.1
-        for <linux-man@vger.kernel.org>; Sun, 04 Apr 2021 04:59:46 -0700 (PDT)
+        with ESMTP id S230410AbhDDL7x (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 4 Apr 2021 07:59:53 -0400
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 74303C061756
+        for <linux-man@vger.kernel.org>; Sun,  4 Apr 2021 04:59:47 -0700 (PDT)
+Received: by mail-wr1-x429.google.com with SMTP id x7so8588821wrw.10
+        for <linux-man@vger.kernel.org>; Sun, 04 Apr 2021 04:59:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=fwhwr6f7qb06ZDUqOxxmDfgFb3kytZmjcBLKXopOTrs=;
-        b=Y+wsm87kF2x5dlWkMF5PYsKEqZ041wM1YsOC337kOHzaQXbdagIyI13NmcaY4rp2aK
-         JSjm6H5TbKWLvlqOaAYhssme+u9o2qwAlHEOXEkqumTWSK2qXcqo6OoWUeqjaPp0c+9N
-         E8cMxrIJg4ZsDd6aIihYbNdxfkAYZ/YenrOuZYvs0GgdPdfz6DbTsqb3YN4x1b6sJXNB
-         T8PucOAGgX2WIDwGJz2PwA6RI0QC0Zg8dWdS6kRgOf5mBIyV9QmtnLRclP1u4frGwQoB
-         N8JcHxHIF6Gei8b4qdCZbibg6tG/1J/bo0kl+Y9cxYkR0psxHav1NB5btpB63WU/hi/D
-         hXTQ==
+        bh=V5uiLR+ON/9jELwFRyhOf85vS9zd2T+icii+8Xp6azA=;
+        b=OE7c+WvmeQbYooaG5hbEWh0xF6wZ2WstdMgv2bMeVdzVQ3HDrLUIbhfSyqK4WJ9Knu
+         A9DUiDfv3CWxfnL/H077FuGbnk/OI8DiwC32wyQuxWfqtRmtaDIjMSiEfLzq6AvIchpK
+         vdxi6yF/D6qKKPNHqvL1Y5dxfGRKucJCUcbbLtz9+aS6AaFq4gMOqWDZ86nirhZF/b9Y
+         HQzCJW2InUBEIbQmpEec4e5PP0/KXS62INTXRUHV44MXPbPAaJUCOgEUf5qMDpcpsXpA
+         l2u9iRSKLBSOESuP000hkLhPwJCy6X0IoQfwiEaeGCpQ3fuT2zWykuQNvu/rxpwP8jP2
+         fmfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=fwhwr6f7qb06ZDUqOxxmDfgFb3kytZmjcBLKXopOTrs=;
-        b=HnTE5a6ZjdFVztUz66D1HdHvvzLWw2MyvfEbbNwlPPVhWOps9xiI39mDbVJ3y4mJ+S
-         yV+n6cVl8kWntqo7klQtvsxAMPx70ug645CjIIl4p5rvhP08OL2v516NcGNZg35Vw91G
-         ORqWG4FNQZXnJFOTIw9i2/++w8NgW4D/mk5B7srcrG0aPCcMHsp7gCDnt+56uce9WCVb
-         Ca2YJxpou33gLc2c83bIOYpsdrdoVIZJyflhmgogzpEjp/r+vDokVQ8wkA67vw3yIqhc
-         iiIc2+kYO8zjzuP867uyjcCzsGudFS2ulZWaj1N5ED/feOKIJFKkejIuyr9sEu1y2+UD
-         NNyQ==
-X-Gm-Message-State: AOAM533LHzLGtCwQhossen5H9vqVMPSxp1P6dTryq5lmLjw1nBtxfSXQ
-        oHoGpBXB1sEPZT5MNFGFkOs9cEsKumY=
-X-Google-Smtp-Source: ABdhPJzvEFZDWYgSNQUpGev3ogVMk1MTmtLnUNszMvBrDWoTuIZgJZ+2figrGKrLZ3jNDNUJleuT4g==
-X-Received: by 2002:a05:600c:4fd0:: with SMTP id o16mr20839741wmq.123.1617537585586;
-        Sun, 04 Apr 2021 04:59:45 -0700 (PDT)
+        bh=V5uiLR+ON/9jELwFRyhOf85vS9zd2T+icii+8Xp6azA=;
+        b=qiom7/iyN5HcD+uwlZItHbd7PLUArJNRsLzDb7Icq2zAs7f6viXzdtQESDwU6LazL9
+         3f2FX57/kljhGq7tpe/Or0I8oQLSPO2PGOT0eliK1C/kBruv6haipF+qu7Th3gdXtW+p
+         W4YMf3CodB436R80mijr/ldX5nTW49/rIPh5+xu/BHKXpZGIOBqwuElpRRnJFtwdB1sV
+         djhlG9P7h21XixLlRKrEGTu51EON1BcyzbLWn5OtrgHc6RXLj2FCwuEO4Dejk7eN19PY
+         C/LCwoL8CeAUzFji6zN6IxhAbPW6IqJXBZYyl/kXRAxFK+XZi1s927rgQ3g0Nx2X/nxt
+         6HLQ==
+X-Gm-Message-State: AOAM530aCP308tsEz53NlsYBmQV5y/GUggkep92j3k9rCR6gyOBDZ1nP
+        HUmf27kFO2VfEbQtuEoRJZ0=
+X-Google-Smtp-Source: ABdhPJzpfASbk5Hxn5VCqFI8LgBMV6FWfOF01rtYyhUvqsThAhR8SN4RNs1L++LirA+vv8DMRRHupA==
+X-Received: by 2002:a5d:5586:: with SMTP id i6mr2564455wrv.372.1617537586284;
+        Sun, 04 Apr 2021 04:59:46 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id u2sm23786967wrp.12.2021.04.04.04.59.44
+        by smtp.googlemail.com with ESMTPSA id u2sm23786967wrp.12.2021.04.04.04.59.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Apr 2021 04:59:45 -0700 (PDT)
+        Sun, 04 Apr 2021 04:59:46 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH v5 18/35] fcntl.2: Remove unused include
-Date:   Sun,  4 Apr 2021 13:58:31 +0200
-Message-Id: <20210404115847.78166-19-alx.manpages@gmail.com>
+Subject: [PATCH v5 19/35] futex.2: Use syscall(SYS_...); for system calls without a wrapper
+Date:   Sun,  4 Apr 2021 13:58:32 +0200
+Message-Id: <20210404115847.78166-20-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210403194026.102818-1-alx.manpages@gmail.com>
 References: <20210403194026.102818-1-alx.manpages@gmail.com>
@@ -63,27 +63,72 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-I couldn't find a reason for including <unistd.h>.  All the macros
-used by fcntl() are defined in <fcntl.h>.  For comparison, FreeBSD
-and OpenBSD don't specify <unistd.h> in their manual pages.
+At the same time, document only headers that are required
+for calling the function, or those that are specific to the
+function:
+
+<unistd.h> is required for the syscall() prototype.
+<sys/syscall.h> is required for the syscall name SYS_xxx.
+<linux/futex.h> is specific to this syscall.
+
+However, uint32_t is generic enough that it shouldn't be
+documented here.  The system_data_types(7) page already documents
+it, and is more precise about it.  The same goes for timespec.
+
+As a general rule a man[23] page should document the header that
+includes the prototype, and all of the headers that define macros
+that should be used with the call.  However, the information about
+types should be restricted to system_data_types(7) (and that page
+should probably be improved by adding types), except for types
+that are very specific to the call.  Otherwise, we're duplicating
+info and it's then harder to maintain, and probably outdated in
+the future.
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/fcntl.2 | 1 -
- 1 file changed, 1 deletion(-)
+ man2/futex.2 | 19 +++++++------------
+ 1 file changed, 7 insertions(+), 12 deletions(-)
 
-diff --git a/man2/fcntl.2 b/man2/fcntl.2
-index de87eec1f..7b5604e3a 100644
---- a/man2/fcntl.2
-+++ b/man2/fcntl.2
-@@ -69,7 +69,6 @@
- fcntl \- manipulate file descriptor
+diff --git a/man2/futex.2 b/man2/futex.2
+index 389c25224..7a19e50d2 100644
+--- a/man2/futex.2
++++ b/man2/futex.2
+@@ -25,18 +25,16 @@ futex \- fast user-space locking
  .SH SYNOPSIS
  .nf
--.B #include <unistd.h>
- .B #include <fcntl.h>
  .PP
- .BI "int fcntl(int " fd ", int " cmd ", ... /* " arg " */ );"
+-.B #include <linux/futex.h>
+-.B #include <stdint.h>
+-.B #include <sys/time.h>
++.BR "#include <linux/futex.h>" "      /* Definition of " FUTEX_* " constants */"
++.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
++.B #include <unistd.h>
+ .PP
+-.BI "long futex(uint32_t *" uaddr ", int " futex_op ", uint32_t " val ,
+-.BI "          const struct timespec *" timeout , \
++.BI "long syscall(SYS_futex, uint32_t *" uaddr ", int " futex_op \
++", uint32_t " val ,
++.BI "             const struct timespec *" timeout , \
+ " \fR  /* or: \fBuint32_t \fIval2\fP */"
+-.BI "          uint32_t *" uaddr2 ", uint32_t " val3 );
++.BI "             uint32_t *" uaddr2 ", uint32_t " val3 );
+ .fi
+-.PP
+-.IR Note :
+-There is no glibc wrapper for this system call; see NOTES.
+ .SH DESCRIPTION
+ The
+ .BR futex ()
+@@ -1695,9 +1693,6 @@ and a sixth argument was added in Linux 2.6.7.
+ .SH CONFORMING TO
+ This system call is Linux-specific.
+ .SH NOTES
+-Glibc does not provide a wrapper for this system call; call it using
+-.BR syscall (2).
+-.PP
+ Several higher-level programming abstractions are implemented via futexes,
+ including POSIX semaphores and
+ various POSIX threads synchronization mechanisms
 -- 
 2.31.0
 
