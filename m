@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 954603537E8
+	by mail.lfdr.de (Postfix) with ESMTP id 6BD7C3537E7
 	for <lists+linux-man@lfdr.de>; Sun,  4 Apr 2021 13:59:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230307AbhDDL7o (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S230122AbhDDL7o (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 4 Apr 2021 07:59:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37792 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37794 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230366AbhDDL7n (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 4 Apr 2021 07:59:43 -0400
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 086CCC0613E6
+        with ESMTP id S230378AbhDDL7o (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 4 Apr 2021 07:59:44 -0400
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AA29EC061756
         for <linux-man@vger.kernel.org>; Sun,  4 Apr 2021 04:59:39 -0700 (PDT)
-Received: by mail-wr1-x431.google.com with SMTP id k8so8610871wrc.3
-        for <linux-man@vger.kernel.org>; Sun, 04 Apr 2021 04:59:38 -0700 (PDT)
+Received: by mail-wm1-x329.google.com with SMTP id o6so1558313wmq.3
+        for <linux-man@vger.kernel.org>; Sun, 04 Apr 2021 04:59:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=jk79jF3k9E6vfPguSO5Yh2Y/ohCtW/UIxIkavyhEbp4=;
-        b=DcrpK/lR44ouhKmMeljlaxBWI3cFHkFvQ+4nUJh7Sst5HiL4heobjxgrRGRgQBnjvQ
-         5nfNcKLngd83JXcWj2aOXhL+gxZjPwZlM0gTUeyJCTSh671DeTcrx1ISrawGM9bYKejy
-         CltQplE4cokxJyu/5WTZ6Rmmc2EQARgppvFvGwM5JRlXDaTcj/ebMQEC1gKmxo1xZwli
-         91jnBp6loBxmu5dRXF3oopmkHEEcScAyApTb+lbbWEfhtsf5XRav1b0WapCgdDxJZGtx
-         7u6WSMUsy0kUGwzFRyNxtUKxBFescCpd7JWGyFDAKjY3jzw3p4H354weW4Cd2IKPEFP/
-         TJuQ==
+        bh=mrkfk1quWdjBX9VDibOMAzdhIk8NhlqMcKJaPgXG5vw=;
+        b=FMoHXnYrXpBblzn1bwF16UVNeSTuQ2iMUSfActlIoKWUuo/UawjYm44CuNZGHgfcHS
+         3mO7k2yWWP1wLgfb2blwMgst88V/qbIjwt2dqHvIe3xvOqlsENvXa6QQzg7J6DxtlPZF
+         2QUPW9LUmGfTcwqmtu93hK0z6OXwzH991X7bIVSCKiMUMiIDGFc6Px05BukoikCBq15Z
+         JzcgQn3BlDZkKb49LnWJ1K5G+wOoakBaEepG+1127Go6P1BXjzvvY0JvcjIgYZ+gMxSG
+         qXc9e0Uzz/QYMslI0nadDTpl2pVCNIfZ9xvj4d/2ZI2Inu+46Ysvk4V7AI2zZfE1MZt4
+         fl/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=jk79jF3k9E6vfPguSO5Yh2Y/ohCtW/UIxIkavyhEbp4=;
-        b=DZ3n+TzlWkTbgMBEqScUex4Fr6MZ3dErhj9weETK7B06IfzfqwCiTA/DP77FJnLeQp
-         EBCzC2JcTZZlMy36rOQLyanInFkggHgNnM7D+UF7PtAFdmJPl8zrKVxhNlmGVnaPHPT8
-         LMuJQd8MZ/jwUkWgtTNrO4VqUrJTrM7Xx+hf3u8eaVqU//h98On2NX6fBwGacdQ3EhZj
-         uBllB+twCOrLEyIJD0oAzGiYkJZ2moT3bd1CiLHWF5HxQSgM/Ipw0GZorDQ5tYuHIjsp
-         5uGKdd/ZspU9/RApnPXj/kXgZE7eEjNTFhKehWBjQFnO6/v7ZxyW4XoNM1PtRvAqHDY/
-         LpiQ==
-X-Gm-Message-State: AOAM532mNQ81A6QPg75llNFVM20309chEE6QFehwnCkntGI8IpsmOTjh
-        1wjOH3TcKPrre3kyljAjW1hEjIbwQOc=
-X-Google-Smtp-Source: ABdhPJzCuQ5x+/u9Yu5Xmdr88Krcd32mAkrwfGti6ynE9poooQJkFXYDsjSWwOncRgU/X7woVEaW/g==
-X-Received: by 2002:a5d:65ca:: with SMTP id e10mr1281426wrw.331.1617537577828;
-        Sun, 04 Apr 2021 04:59:37 -0700 (PDT)
+        bh=mrkfk1quWdjBX9VDibOMAzdhIk8NhlqMcKJaPgXG5vw=;
+        b=a4DXzF4ox4/zTBFrkdEduBdOLXiXKplc8g95VAFeDOkBL4LQ7X5jKZ2GFzU25KPBEi
+         CCAKP9cUDmCV2xPhrsayApBvjkQ/pKnxwnsPgs4Wh/ppQzUZQ30c/B3qJLTCeuUVNjKc
+         H8jfD9P89biTQ34oK129Z1W6dWtFFEegP1cIp6aiwRLiemdtt1uiJoYtFNHYxHhjspvZ
+         gxuPL4XCsZbg4ulEjc5lDMQxqS8GIo7xb2MCRhCwo0fiL2YCaZhIjY7pBIm0+P4IUd0v
+         R02oKjICGfw0Y+EDfaMKOHvUT2sxqPo4IjmT3dJCeoDqyjFqd/fhGRg5UlzQWtn9iNGX
+         dGiw==
+X-Gm-Message-State: AOAM530HwkhOT7hQjxoXd3BapWvib9lDqusPENHyS5kiBelgec2IfbVm
+        xSW/XAR8Xy0IxkYeYRUgPuFmVHylASo=
+X-Google-Smtp-Source: ABdhPJxG+SOFZJR7Bk04BCZO77MXxTTD7ZvJLFBIfXRv7y4L3E5zFGllTnT3SZzCuTAsOUgHelpWtQ==
+X-Received: by 2002:a05:600c:4242:: with SMTP id r2mr2256700wmm.77.1617537578545;
+        Sun, 04 Apr 2021 04:59:38 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
         by smtp.googlemail.com with ESMTPSA id u2sm23786967wrp.12.2021.04.04.04.59.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Apr 2021 04:59:37 -0700 (PDT)
+        Sun, 04 Apr 2021 04:59:38 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH v5 07/35] alloc_hugepages.2: Use syscall(SYS_...); for system calls without a wrapper
-Date:   Sun,  4 Apr 2021 13:58:20 +0200
-Message-Id: <20210404115847.78166-8-alx.manpages@gmail.com>
+Subject: [PATCH v5 08/35] arch_prctl.2: Use syscall(SYS_...); for system calls without a wrapper
+Date:   Sun,  4 Apr 2021 13:58:21 +0200
+Message-Id: <20210404115847.78166-9-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210403194026.102818-1-alx.manpages@gmail.com>
 References: <20210403194026.102818-1-alx.manpages@gmail.com>
@@ -63,35 +63,46 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The page didn't specify includes, and the syscalls are extint, so
-instead of adding incomplete information about includes, just
-leave it without any includes.
-
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/alloc_hugepages.2 | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ man2/arch_prctl.2 | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/man2/alloc_hugepages.2 b/man2/alloc_hugepages.2
-index 07193c542..cc76fc495 100644
---- a/man2/alloc_hugepages.2
-+++ b/man2/alloc_hugepages.2
-@@ -27,11 +27,12 @@
- alloc_hugepages, free_hugepages \- allocate or free huge pages
+diff --git a/man2/arch_prctl.2 b/man2/arch_prctl.2
+index 1ddeca595..f8073d625 100644
+--- a/man2/arch_prctl.2
++++ b/man2/arch_prctl.2
+@@ -27,15 +27,14 @@
+ arch_prctl \- set architecture-specific thread state
  .SH SYNOPSIS
  .nf
--.BI "void *alloc_hugepages(int " key ", void *" addr ", size_t " len ,
--.BI "                      int " prot ", int " flag );
-+.BI "void *syscall(SYS_alloc_hugepages, int " key ", void *" addr \
-+", size_t " len ,
-+.BI "              int " prot ", int " flag );
- .\" asmlinkage unsigned long sys_alloc_hugepages(int key, unsigned long addr,
- .\" unsigned long len, int prot, int flag);
--.BI "int free_hugepages(void *" addr );
-+.BI "int syscall(SYS_free_hugepages, void *" addr );
- .\" asmlinkage int sys_free_hugepages(unsigned long addr);
+-.B #include <asm/prctl.h>
++.BR "#include <asm/prctl.h>" "        /* Definition of " ARCH_* " constants */"
+ .B #include <sys/prctl.h>
++.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
++.B #include <unistd.h>
+ .PP
+-.BI "int arch_prctl(int " code ", unsigned long " addr );
+-.BI "int arch_prctl(int " code ", unsigned long *" addr );
++.BI "int syscall(SYS_arch_prctl, int " code ", unsigned long " addr );
++.BI "int syscall(SYS_arch_prctl, int " code ", unsigned long *" addr );
  .fi
+-.PP
+-.IR Note :
+-There is no glibc wrapper for this system call; see NOTES.
  .SH DESCRIPTION
+ .BR arch_prctl ()
+ sets architecture-specific process or thread state.
+@@ -177,9 +176,6 @@ and
+ in the same thread is dangerous, as they may overwrite each other's
+ TLS entries.
+ .PP
+-Glibc does not provide a wrapper for this system call; call it using
+-.BR syscall (2).
+-.PP
+ .I FS
+ may be already used by the threading library.
+ Programs that use
 -- 
 2.31.0
 
