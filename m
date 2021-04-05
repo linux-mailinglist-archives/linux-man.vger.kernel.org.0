@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E8EB135419B
-	for <lists+linux-man@lfdr.de>; Mon,  5 Apr 2021 13:39:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 657283541A4
+	for <lists+linux-man@lfdr.de>; Mon,  5 Apr 2021 13:41:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232597AbhDELjr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 5 Apr 2021 07:39:47 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60202 "EHLO
+        id S234141AbhDELlW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 5 Apr 2021 07:41:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60562 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232569AbhDELjr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 5 Apr 2021 07:39:47 -0400
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com [IPv6:2a00:1450:4864:20::52b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CE5EAC061756
-        for <linux-man@vger.kernel.org>; Mon,  5 Apr 2021 04:39:39 -0700 (PDT)
-Received: by mail-ed1-x52b.google.com with SMTP id x21so12233375eds.4
-        for <linux-man@vger.kernel.org>; Mon, 05 Apr 2021 04:39:39 -0700 (PDT)
+        with ESMTP id S232755AbhDELlW (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 5 Apr 2021 07:41:22 -0400
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com [IPv6:2a00:1450:4864:20::62d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 648E8C061756
+        for <linux-man@vger.kernel.org>; Mon,  5 Apr 2021 04:41:16 -0700 (PDT)
+Received: by mail-ej1-x62d.google.com with SMTP id u17so10132294ejk.2
+        for <linux-man@vger.kernel.org>; Mon, 05 Apr 2021 04:41:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=cEr6QthVIV45qE318vd3NhPg70iB+aRiDjMbUj7GiB8=;
-        b=MEXRzt1U/XRXDihsOzhQg6Ejn8ubzyqLk9B+0R4jj+ZEAdnRpTD+tGkRYSmNPrCB+g
-         gw1EqRbp/CzkpGcWphzxggbjOqkGS+h2AVisU/qsqVziYkmeXB15D5KVnWicNIuKuMxL
-         y0J/ZkihuEF1MwJ3M6SeRMkieUGqd7UcS+fh84LFFcLpuMlA5Is32tPNgSBeiuft9qAA
-         ejX0+3AmZx/hwDfNFGflXzBkjje1kJuybdpcLEaHtPrslDts2/4/lWY69fktn8bbVvg1
-         RSiCVlUuWdZLUX0dXp7WV+wzZ2xZMgxXKIv3xo9rVP1XnjCaGiMLXAPYdDymJBWEomrF
-         QlKQ==
+        bh=ZgLsOVAf4AqzKY5QFPr6KQcLoJB0BlxYi6Sr7ULLWqI=;
+        b=Lc7i0gjT6ZPU5lnOGr1thcP8YMGpV1181SkWIPWd6c03G2Cf3mMUGfq0eKtGF+cm/t
+         gQPnQZb+Q0xRjS2+rFBPd4c99ddnOXA0MNQs57HQ5gMtKHd3fB/vStbsrG4Zkk4dfZTw
+         2qwdx8K6z9lHhuF47da6mzTHZQLrPUUT24tgJ72eoehEL8FOjIN/yHy0zotrLjWyz7ch
+         vDWiBWfcQ348MHmQ5Rh3Z/78lslsn3iBOtFSDAZWpZkiXnqUFpUoydemfbglQxBPZzMM
+         lnZAG6GPX6d0dr4OUIIcKQyVOUMbpX14ecGQAUlBeXsbkUFdCWLsEtyAkr1Ja5bAm06x
+         m4GQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=cEr6QthVIV45qE318vd3NhPg70iB+aRiDjMbUj7GiB8=;
-        b=mTfFNAF800AM4SHTxp3lf/tDM/35BPTfVwtikWvS5k7IcsbwHCCSGZYHktPwSNO8os
-         ZKABAdrR3CKaUNnGuJH+E9dNG+p1i8lB6MycmbmTfMJ5QOk9r49o93//RRWYjnsi/evm
-         3uKbtKoqLxKnd5z8HgY+rRfqFXR++q/NOepadk5hfqvwRssTbNe0BeEmLr5BJds9NB16
-         ONwSAXqcoMaUapKGDRi7SaubZVnE8D+hY8jrkhGV22td7qWGUsc0gLlFQJBQ0lGe3zcn
-         P4CmXtcAbYp6nmpXxh6cj5Bs7hmqu97a2cg+J6PTR8IIgIRk1xPB2F6sWmTCmq2hfsaK
-         ch1A==
-X-Gm-Message-State: AOAM532VUCOShiIz8Jxcdjpc66wPMwi5JC7HKq9jUtOv1kO1cFliYQ9+
-        JBZZqJd02FOqQJwVfS742xg=
-X-Google-Smtp-Source: ABdhPJw9Og1g5nBb/KaELvuQmVpFoPibTEFzX59MDvsfPdzA1onaWVVuzVTlBI5AIRRplmlxRHGgqQ==
-X-Received: by 2002:a05:6402:1857:: with SMTP id v23mr4804837edy.362.1617622778627;
-        Mon, 05 Apr 2021 04:39:38 -0700 (PDT)
+        bh=ZgLsOVAf4AqzKY5QFPr6KQcLoJB0BlxYi6Sr7ULLWqI=;
+        b=G0qYQQicTDI/IOsVtbUKyWds2Cty922UNUFZO1fcJzceGS7Fj9Ge0DLdOE1E2gZVT/
+         Xkt75fTPZ3B/jRyhH+t96mIbSMOiKjhi8zrSJHC2xN0cDzYqT0x/yRlYwvWJYjKVhIq1
+         XJmNPa8k8Vb4/v2R8gG7ui7Knrw54OBXGkySzNJsM3Kaj78HSpllu86uKfgerInCmjYO
+         FdpyJ9xXxC0oXSMA6JmVV/69kmR/i38+IeS/aVj0/hrkm5h8MYYO44/ngBfHNF/ceQNg
+         7mHzQYA8MuPwnnrQ52XlFgNzK29yNUkRUKt4nxQwXfiWx8Xbh5lgsx2crnviiWafvVdW
+         Fnpw==
+X-Gm-Message-State: AOAM532PBlbUsbUhxjwv+DV72nDXVnvEYshRsFbQfFbuy7KLSteZVm+3
+        4LJLKfSD8e8i9kyMsOjNYP8=
+X-Google-Smtp-Source: ABdhPJzZ6zZflFnmeYBEkmiScXrOoSweg/c5z9lRRZ2+DZQ4cCRJ7UjeMFZPuHmQswgcD5mkvxqQgA==
+X-Received: by 2002:a17:907:1b19:: with SMTP id mp25mr5386155ejc.154.1617622875156;
+        Mon, 05 Apr 2021 04:41:15 -0700 (PDT)
 Received: from ?IPv6:2001:a61:2553:a401:cfc6:2039:a9ec:21ff? ([2001:a61:2553:a401:cfc6:2039:a9ec:21ff])
-        by smtp.gmail.com with ESMTPSA id dh27sm1084744edb.28.2021.04.05.04.39.37
+        by smtp.gmail.com with ESMTPSA id h8sm10681562ede.25.2021.04.05.04.41.14
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Apr 2021 04:39:38 -0700 (PDT)
+        Mon, 05 Apr 2021 04:41:14 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         libc-alpha@sourceware.org
-Subject: Re: [PATCH v5 25/35] get_robust_list.2: Use syscall(SYS_...); for
+Subject: Re: [PATCH v5 26/35] delete_module.2: Use syscall(SYS_...); for
  system calls without a wrapper
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 References: <20210403194026.102818-1-alx.manpages@gmail.com>
- <20210404115847.78166-26-alx.manpages@gmail.com>
+ <20210404115847.78166-27-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <c2aa4722-4f99-0d26-48cf-aa08caed8483@gmail.com>
-Date:   Mon, 5 Apr 2021 13:39:37 +0200
+Message-ID: <e02a78e6-3f13-1659-907b-7f45fa4248b8@gmail.com>
+Date:   Mon, 5 Apr 2021 13:41:13 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <20210404115847.78166-26-alx.manpages@gmail.com>
+In-Reply-To: <20210404115847.78166-27-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -74,8 +74,8 @@ Hi ALex,
 On 4/4/21 1:58 PM, Alejandro Colomar wrote:
 > Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 > ---
->  man2/get_robust_list.2 | 19 ++++++++-----------
->  1 file changed, 8 insertions(+), 11 deletions(-)
+>  man2/delete_module.2 | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
 
 Patch applied.
 
@@ -84,45 +84,26 @@ Thanks,
 Michael
 
 
-> diff --git a/man2/get_robust_list.2 b/man2/get_robust_list.2
-> index dd43cded2..b1368ddd3 100644
-> --- a/man2/get_robust_list.2
-> +++ b/man2/get_robust_list.2
-> @@ -32,16 +32,16 @@
->  get_robust_list, set_robust_list \- get/set list of robust futexes
+> diff --git a/man2/delete_module.2 b/man2/delete_module.2
+> index 174ef04d2..21c9e9d8d 100644
+> --- a/man2/delete_module.2
+> +++ b/man2/delete_module.2
+> @@ -28,12 +28,11 @@ delete_module \- unload a kernel module
 >  .SH SYNOPSIS
 >  .nf
-> -.B #include <linux/futex.h>
-> -.B #include <syscall.h>
-> +.BR "#include <linux/futex.h>" \
-> +"    /* Definition of " "struct robust_list_head" " */"
-> +.BR "#include <sys/syscall.h>" "    /* Definition of " SYS_* " constants */"
-> +.B #include <unistd.h>
+>  .BR "#include <fcntl.h>" "            /* Definition of " O_* " constants */"
+> +.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
+> +.BR "#include <unistd.h>
 >  .PP
-> -.BI "long get_robust_list(int " pid ", struct robust_list_head **" head_ptr ,
-> -.BI "                     size_t *" len_ptr );
-> -.BI "long set_robust_list(struct robust_list_head *" head ", size_t " len );
-> +.BI "long syscall(SYS_get_robust_list, int " pid ,
-> +.BI "             struct robust_list_head **" head_ptr ", size_t *" len_ptr );
-> +.BI "long syscall(SYS_set_robust_list,"
-> +.BI "             struct robust_list_head *" head ", size_t " len );
+> -.BI "int delete_module(const char *" name ", unsigned int " flags );
+> +.BI "int syscall(SYS_delete_module, const char *" name ", unsigned int " flags );
 >  .fi
 > -.PP
 > -.IR Note :
-> -There are no glibc wrappers for these system calls; see NOTES.
+> -There is no glibc wrapper for this system call; see NOTES.
 >  .SH DESCRIPTION
->  These system calls deal with per-thread robust futex lists.
->  These lists are managed in user space:
-> @@ -138,9 +138,6 @@ could be found.
->  These system calls were added in Linux 2.6.17.
->  .SH NOTES
->  These system calls are not needed by normal applications.
-> -No support for them is provided in glibc.
-> -In the unlikely event that you want to call them directly, use
-> -.BR syscall (2).
->  .PP
->  A thread can have only one robust futex list;
->  therefore applications that wish
+>  The
+>  .BR delete_module ()
 > 
 
 
