@@ -2,92 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 40429354E53
-	for <lists+linux-man@lfdr.de>; Tue,  6 Apr 2021 10:10:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 775E8354E63
+	for <lists+linux-man@lfdr.de>; Tue,  6 Apr 2021 10:19:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232398AbhDFIK5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 6 Apr 2021 04:10:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44592 "EHLO
+        id S233251AbhDFITQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 6 Apr 2021 04:19:16 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46374 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232131AbhDFIK5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Apr 2021 04:10:57 -0400
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com [IPv6:2607:f8b0:4864:20::236])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CD59BC06174A
-        for <linux-man@vger.kernel.org>; Tue,  6 Apr 2021 01:10:49 -0700 (PDT)
-Received: by mail-oi1-x236.google.com with SMTP id x207so14261941oif.1
-        for <linux-man@vger.kernel.org>; Tue, 06 Apr 2021 01:10:49 -0700 (PDT)
+        with ESMTP id S232355AbhDFITP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Apr 2021 04:19:15 -0400
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6E9C3C06174A
+        for <linux-man@vger.kernel.org>; Tue,  6 Apr 2021 01:19:06 -0700 (PDT)
+Received: by mail-wm1-x335.google.com with SMTP id w203-20020a1c49d40000b029010c706d0642so608966wma.0
+        for <linux-man@vger.kernel.org>; Tue, 06 Apr 2021 01:19:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=tZuLs+YxxRB+uAvmlR/bp//31Hg7J005HZNBPnbdNws=;
-        b=Hdzly1Fe51EtcYVWpjNI3ZHY9CLXedfb3JY1v0395Nl/P+FLEeA2oBjxownRQb+/RR
-         Yb7PlzMNkQNi7ceteXw0nOVehVcwVTrFg21W7AVeqxfyqYSnZfuEEfdk1vhQ6hIxbj5l
-         3t0ijVYJkztTCwxdPnWxnuaIZW+nHr9guVztddcAVWqTfZbG6a9tnhJvtr+pN7rP1nOK
-         w4BQQu3lfK7UPDV+s/aTVQhmq1mjclYBWRStJsl8jYc5CsM6MfRq73FK/HPMjZYo+wF6
-         u6KzSJ4ZEteFqKFLzRHJGEoXEGcJ8ierRZYo2ovuk45Paq+UMFRQj4SItWeofdpI8M4s
-         qdcQ==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=G2hG7r4jVUJ9TMnRYmqslAmHqCT5tPqgaOV0ALR76J4=;
+        b=fdY43MeI9Y2Ye4HD+I/7g4mEjH+D+cdf6kTCx0EWzl0J8q//yo8Qg2Dhw2T3E2bugW
+         hG/QRK+XYgToUX/O77s2GMCSxhDw8JiDCBdWlN7yC6t3UY91pOCmYQwN6g/CEcUwV/Vn
+         T2XgCnJsd141sm0mT1/SV3VgV2U5HgFAiQ0zkb5ktVghKY/ixYTcrxELezBuzUWhzZDI
+         ApMX9d94cSHq0kjn/17mkT3N8Y6uAMI7obqY0nTrdI48wJuOst8QSDCG/mLKc02/rn83
+         f6vosea8L37ZXugyjeifkvvqqE0tkWQMVtB1fbgda9ehZSqx9QnJcuI2uOIT8EULk6xS
+         JzsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=tZuLs+YxxRB+uAvmlR/bp//31Hg7J005HZNBPnbdNws=;
-        b=Wh5RokXAMn5p96VkQ99urvFCU3GQbJAXhSykBcK5Dg8rTMEiUaBEheU5dvqf8lq9mY
-         vvWzzznHoRXFbNTCVBRtrGCXqN3jP16YEQGvPjsd/kketRnBFdovwxC/BSeJSGdiUvr3
-         q1zRYQ07y98oiZOc1fZiA8xGFdj2gT0iSd8b7J3KpHHHWGDhaqcK4UM4zwMI/OEkAyu8
-         aUwc02eujI5Z6E6j079+RCk6A0V/CevmOqMFTDHQFy+2XcFGKUSsEAi1UZAVKFJRHrJG
-         UgH3n+qRPd6s2k3uxR4HnC6XxX9btyWdFiopQPGH+iSnlNM2kV0q7mfL3yzBJRkFCs0p
-         FOYw==
-X-Gm-Message-State: AOAM5301eMSmdVk7CgsV2/iqqHKfY/zgtgPGykjaF9NggW2ipzRAIGMT
-        bI0vwKSWcOAYJV43T0shVRBcL1jrwgFs/fKrQJkQ3BKOTa8=
-X-Google-Smtp-Source: ABdhPJyGuoZucq3LFMmItAn4UZ4/3YJtGv9h2yHwUooSR/Tlz2Cm15uf+QQBwC4509AUtQTJUvOwxMX8JtAeWlCUqPU=
-X-Received: by 2002:aca:b48a:: with SMTP id d132mr2392254oif.159.1617696649340;
- Tue, 06 Apr 2021 01:10:49 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210405131307.2892-1-alx.manpages@gmail.com>
-In-Reply-To: <20210405131307.2892-1-alx.manpages@gmail.com>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=G2hG7r4jVUJ9TMnRYmqslAmHqCT5tPqgaOV0ALR76J4=;
+        b=j95JuyW431ldFQkHFJTyVX7Ed5bjx9Ohd9aO1BwQf2+uJH/PY0JEXhg8hYE9ESCEhc
+         AndA6kZoZZ4Z03kz69zGE8nkWm3akcZmd35B68b0+x92qcwNdy4PXlS5LYwn30efI2k9
+         OqTToEplsR85ZsqGIKKF0yuB+0PBva+VHLVCq+i09CeeSy77+eyQP289v2ONfxXYL5Iv
+         hfstcEjeVZKgaYL7KdhkPu2DyNJaL5my19XYKgWeKeCHxJT7klpTZ9ibFoXdKByZ3P+Q
+         3Sve2ZXq5HtNxfERLEd64ZRGpEQU7vnqTdx8VGSriCOMadJ0TOjvO6Or2agvsgym/yVl
+         Fx0g==
+X-Gm-Message-State: AOAM532fD+HsPF88fQ+wNhyQZOAGAlhzfUUDWaLc3BfBwP1CEJvwcFJF
+        WY7C9sOXqe/JSwsl1cy5AwGjjeZKZbc=
+X-Google-Smtp-Source: ABdhPJzM6M4kS3nUcihyaN8kiU21IdfhjoGbDr4Vo3tAhFfwuXllDISWQUh+8Rh6WP2TXKEZk/e3Hw==
+X-Received: by 2002:a7b:c316:: with SMTP id k22mr2920532wmj.176.1617697145242;
+        Tue, 06 Apr 2021 01:19:05 -0700 (PDT)
+Received: from ?IPv6:2001:a61:2553:a401:cfc6:2039:a9ec:21ff? ([2001:a61:2553:a401:cfc6:2039:a9ec:21ff])
+        by smtp.gmail.com with ESMTPSA id n4sm1857849wmq.40.2021.04.06.01.19.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Apr 2021 01:19:04 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com,
+        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Subject: Re: [PATCH] vsock.7: ioctls are on /dev/vsock, not sockets
+To:     Alyssa Ross <hi@alyssa.is>, linux-man@vger.kernel.org
+References: <20210324140503.27580-1-hi@alyssa.is> <87zgyr6gjm.fsf@alyssa.is>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Tue, 6 Apr 2021 10:10:38 +0200
-Message-ID: <CAKgNAkh4b6RpAy9QcLWyKPnLOAaKbJ_Gixto9dQSQAkWbN2VGw@mail.gmail.com>
-Subject: Re: [PATCH 0/5] Merged patches from others
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <be5a217f-1d30-4023-3d6b-24d0bb3e9bfa@gmail.com>
+Date:   Tue, 6 Apr 2021 10:19:01 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
+MIME-Version: 1.0
+In-Reply-To: <87zgyr6gjm.fsf@alyssa.is>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, 5 Apr 2021 at 15:13, Alejandro Colomar <alx.manpages@gmail.com> wrote:
->
-> Hi Michael,
->
-> These are the patches I have merged from others.
+Hi Alyssa,
 
-Thanks, Alex! All merged and pushed now.
+On 3/25/21 4:47 AM, Alyssa Ross wrote:
+> Alyssa Ross <hi@alyssa.is> writes:
+> 
+>> ---
+>> When I discovered /dev/vsock, I had a look for a vsock(4), but there's
+>> no such page.  I suppose there isn't really anything to document there
+>> that isn't already covered there.
+>>
+>>  man7/vsock.7 | 5 ++++-
+>>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> Signed-off-by: Alyssa Ross <hi@alyssa.is>
+> 
+> Just realised I forgot. :)
+
+Thanks. Patch applied.
 
 Cheers,
 
 Michael
-
-> Alyssa Ross (1):
->   scanf.3: clarify that %n supports type modifiers
->
-> Peter Xu (4):
->   userfaultfd.2: Add UFFD_FEATURE_THREAD_ID docs
->   userfaultfd.2: Add write-protect mode
->   ioctl_userfaultfd.2: Add UFFD_FEATURE_THREAD_ID docs
->   ioctl_userfaultfd.2: Add write-protect mode docs
->
->  man2/ioctl_userfaultfd.2 |  91 ++++++++++++++++++++++++++++-
->  man2/userfaultfd.2       | 121 +++++++++++++++++++++++++++++++++++++--
->  man3/scanf.3             |   4 +-
->  3 files changed, 208 insertions(+), 8 deletions(-)
->
-> --
-> 2.31.0
->
-
 
 -- 
 Michael Kerrisk
