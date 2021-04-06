@@ -2,116 +2,87 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C2C163551EF
-	for <lists+linux-man@lfdr.de>; Tue,  6 Apr 2021 13:21:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1144E35525C
+	for <lists+linux-man@lfdr.de>; Tue,  6 Apr 2021 13:34:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S245471AbhDFLWC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 6 Apr 2021 07:22:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58284 "EHLO
+        id S243033AbhDFLez (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 6 Apr 2021 07:34:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32880 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S241465AbhDFLWB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Apr 2021 07:22:01 -0400
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6C2CEC06174A
-        for <linux-man@vger.kernel.org>; Tue,  6 Apr 2021 04:21:53 -0700 (PDT)
-Received: by mail-wr1-x435.google.com with SMTP id u11so1376235wrp.4
-        for <linux-man@vger.kernel.org>; Tue, 06 Apr 2021 04:21:53 -0700 (PDT)
+        with ESMTP id S245753AbhDFLee (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Apr 2021 07:34:34 -0400
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A8725C06174A
+        for <linux-man@vger.kernel.org>; Tue,  6 Apr 2021 04:34:26 -0700 (PDT)
+Received: by mail-wr1-x430.google.com with SMTP id e18so13842536wrt.6
+        for <linux-man@vger.kernel.org>; Tue, 06 Apr 2021 04:34:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=KSNumPPLc+SWN2lj2Fgzzha5LdqmvrpPmKDlUDLq3Ko=;
-        b=ZVSclN/BH0FpSZ60ZC1hF1KxrKXUNu4aaPoOQYb9ePzN0D7Dqod75pCx4lmI+SQoV1
-         o6jfVW5r1Kv3ELVRkjf+UOL6V6xCQwCLL4WQGHpgjRFRrXc1qdMmb0R3aESN3tRC8StM
-         CsQi2/QwO9L28OSNnn3jX3duWK4FUgJN6XiNE9bLYE8o1AvGKzgMd7GjMFOTcAg+xm7K
-         RmvpTIphZ/J8YT3KuCcmv2cF9toodjsFks249yOHl2fla7BwKIpBgmhucpMpOBMkF3O0
-         HrgzCxJN5OmFEHvbncOY4G3cm39XQcgkOxwvF5qQXt8f6iQyPD1c3HSZzV5hlS3nT8h1
-         c/nQ==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=PsRlMClDvCUeU95FJFPygU/UNiiJ+XB2rftmgXSezOA=;
+        b=WL0f7AR4Riwwyjw59YgDOoaKWyLKVtukQ5T/Z57V2mjTv8EdZADL37bcggCJHfSOLF
+         7qLYKSNt4qScaIs86SVpHbU4gbkuB0Uwjqa4isl+YYnyNonSzz8Aly/BS7Uj0qMbOW8z
+         fqh72shOPqyr60Ii6eCJW8RpwjFIs6ItKmJouoWIHhHWrfyR0xufW/JX6KxTSnpYWwWo
+         sFK5Wl6EJFK9LLYmCBas2I/+SQ17/+DyNV/tCRKaI+BhE54DPORIuG4kA8+2Xek/HaXP
+         CBqE5O5LRwniP5rrQkIY/U+fJ1XQQt4fAJNPPEZuTSU9LCaF9wXflxf0VgPv8+O7MLZw
+         AtFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=KSNumPPLc+SWN2lj2Fgzzha5LdqmvrpPmKDlUDLq3Ko=;
-        b=S789WDdTE8/DH/H5U0gGt65szQA2Jc1Jhl4HJlJmRPAvMV7LYR5ejxqe/l8aELSYrY
-         vfWGcLh/F9gTG3hr4xxCgpIi65b+vulUVPG9M+P6qdixvy6jgDz5bwdamoBaxLbkKszX
-         +UCdocGkVu7bghPs4Svv0qsQqtbXUJrF/Q860RZaTq/QLN1cf8p6liDo166V/DETKuFB
-         gPlSVWpfwSwbzN4Om/1+bEfEig12aPLKbh5aZfsc6R62kYq9PoMXC5GS4wCYFnH9Retk
-         /5b2yGen4yRnABPVR3J5KxL53JlHaKgY1cZN246zfOyDqgFlRB0lbsGgT29JMYANSFud
-         BFkw==
-X-Gm-Message-State: AOAM531lYC5lC+XkONe6WGOhj7JagwGdw2mR80H+PNc4CrIomCvTI09g
-        wv0hyfPOIHLX4j+xYdTZj4E=
-X-Google-Smtp-Source: ABdhPJyFIu/3zNSoYuTcbaJb4fd7Un0opjgOSdhh8TAm4kHUKSyGFCJH5vY8BrHBJx+aCTtNz3uR5w==
-X-Received: by 2002:adf:e907:: with SMTP id f7mr17413482wrm.225.1617708112286;
-        Tue, 06 Apr 2021 04:21:52 -0700 (PDT)
-Received: from [10.8.0.194] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id w7sm6820979wrt.15.2021.04.06.04.21.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Apr 2021 04:21:51 -0700 (PDT)
-Subject: Re: [PATCH v4 3/3] .gitignore: Add file
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=PsRlMClDvCUeU95FJFPygU/UNiiJ+XB2rftmgXSezOA=;
+        b=ttg/MrEXGTdEg3n8PxznuHtGaCvPQ+YND17OTsjbd6FJd6IrHYrZjQ/CHV9DnbOSmr
+         UBHpvki9ltKzwORqf+4/SXrGGiDi8VDS98rSXtaBSjs1zdWeqWzcmv7pwkx1a+wa5DUx
+         h2tMUQuXhd5rQ/hQax1PWNLMWLcY57HXNWpMZcvhEwzt8JSJgqPUeSf9gRwq9s8L6J+H
+         7jfa3NpN+EI8VMPL0OVoJvcgPWiYu6/p2415cDEyG544wwVSYUAykDKFWZ4KBn6C4T+C
+         A4J0flQ0Ua4rp/9CMj6eBpWc1OQ2RpjZmb9SQRH+VZPiYUpM/z0UC95InpkCtt1kEHqb
+         O83g==
+X-Gm-Message-State: AOAM53326vIycsYJHQNh0GOQI0FqRwvtbl3gRKrVnr+14B5rGI9BZYO/
+        wHnLSH1s5Ia0jCbVPZSkKTcSKiDqD/s=
+X-Google-Smtp-Source: ABdhPJxIj8ym+nj2CwyAgU/JgSayFDCj8eCl1II6i/7hAhcySukFnqUm+nOnKDBiF/YHDP56hFeogg==
+X-Received: by 2002:a5d:5688:: with SMTP id f8mr8577683wrv.158.1617708865538;
+        Tue, 06 Apr 2021 04:34:25 -0700 (PDT)
+Received: from sqli.sqli.com ([195.53.121.100])
+        by smtp.googlemail.com with ESMTPSA id 187sm4408030wma.0.2021.04.06.04.34.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Apr 2021 04:34:25 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>,
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>,
         Debian man-pages <manpages@packages.debian.org>,
         "Dr . Tobias Quathamer" <toddy@debian.org>
-References: <20210328190601.68165-1-alx.manpages@gmail.com>
- <20210406111448.20392-4-alx.manpages@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <14d257e4-6384-f258-aae9-dd9d0282ec76@gmail.com>
-Date:   Tue, 6 Apr 2021 13:21:50 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+Subject: [PATCH v5 0/3] Use standard features in the Makefile
+Date:   Tue,  6 Apr 2021 13:34:08 +0200
+Message-Id: <20210406113410.22384-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.31.0
+In-Reply-To: <20210406111448.20392-1-alx.manpages@gmail.com>
+References: <20210406111448.20392-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20210406111448.20392-4-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+v4:
+	- .gitignore: ignore everything new by default,
+	  instead of ignoring specific things.
 
-On 4/6/21 1:14 PM, Alejandro Colomar wrote:
-> Ignore everything new by default.
-> 
-> This avoids having to update the .gitignore when we need to ignore
-> something new.  It also avoids accidents that may add an unwanted
-> temporary file.
-> 
-> Cc: Debian man-pages <manpages@packages.debian.org>
-> Cc: Dr. Tobias Quathamer <toddy@debian.org>
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> ---
->   .gitignore | 9 +++++++++
->   1 file changed, 9 insertions(+)
->   create mode 100644 .gitignore
-> 
-> diff --git a/.gitignore b/.gitignore
-> new file mode 100644
-> index 000000000..9c58a2718
-> --- /dev/null
-> +++ b/.gitignore
-> @@ -0,0 +1,9 @@
-> +*/**
-> +!Changes*
-> +!CONTRIBUTING
-> +!MAINTAINER_NOTES
-> +!Makefile
-> +!man?/*.?
-> +!man-pages*
-> +!README
-> +!scripts/
-> 
+v5:
+	- .gitignore: Add .gitignore exception
+	- .gitignore: */** ==> *  Ignore absolutely everything new.
 
-I forgot to add the .gitignore to the .gitignore exceptions :-P
+Alejandro Colomar (3):
+  Makefile: Use standard features (IMPORTANT: default prefix changed)
+  Makefile: Fix bug when running in parallel
+  .gitignore: Add file
 
-Please add it.
-
-Thanks,
-
-Alex
+ .gitignore |   8 ++++
+ Makefile   | 116 ++++++++++++++++++++++++++++++++++++++++++-----------
+ 2 files changed, 100 insertions(+), 24 deletions(-)
+ create mode 100644 .gitignore
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.31.0
+
