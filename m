@@ -2,100 +2,166 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1F31D35525F
-	for <lists+linux-man@lfdr.de>; Tue,  6 Apr 2021 13:34:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0248835594C
+	for <lists+linux-man@lfdr.de>; Tue,  6 Apr 2021 18:36:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S245619AbhDFLe7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 6 Apr 2021 07:34:59 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32908 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1343492AbhDFLej (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Apr 2021 07:34:39 -0400
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1B12CC06175F
-        for <linux-man@vger.kernel.org>; Tue,  6 Apr 2021 04:34:30 -0700 (PDT)
-Received: by mail-wm1-x332.google.com with SMTP id o20-20020a05600c4fd4b0290114265518afso4319600wmq.4
-        for <linux-man@vger.kernel.org>; Tue, 06 Apr 2021 04:34:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=Y7aoOdBIK3onnnGG0rMX7NTwOGkYju9lwF+jl+5KjlI=;
-        b=swi/tvRPmThgHxGKnIXkCTCRrP1OHCi/TxklAf8rRyH5juIuygIqRQhdAc31m6FywN
-         FKen+XVsVYDSF0Rpz5Cjy3V//3F3qs5IwMvX9SsyoMHfzOKu+ngupOxsfdMOq8KRwFAu
-         pwKqVhooXNK4AEB8mW3jlYyExq7/jvGktCeutq/GdCcpWxJUoeAxYzTj88/BiWG0H/GG
-         4vPFlmYVnLoziaoFaZ/EB5PE3IvLL8cz15u78xfXtD5Vq6BSFVZlRDet14wuTQXO1E2+
-         o+PFzkroBUBgPwUIOWZhuv4JM2iZSi5cgGFmQzUXwKZxNmzSZHtXU8L5yDbDyDya+WLj
-         SMXQ==
+        id S243911AbhDFQgW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 6 Apr 2021 12:36:22 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([63.128.21.124]:34332 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S232063AbhDFQgV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Apr 2021 12:36:21 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1617726973;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=FyE+dJT18bAcsTbW0EFehw0R17xNa24l8uyejjq61hI=;
+        b=Fu3psMq3rnik5fAP9aUzoYy7NIt648rAZsxiCpm9ZZLNkKRvmaXpJMV1C+aXx7jOcukNUF
+        7RRRXgx2UUiUViLnCa4qxP1G/KgLn7w8gPzKujsaASPUV0sNjRGkWOcNE41fCe015rE8Z4
+        r1P2sLo0d+iJt+LB5cLMWvWH1geRm4E=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-544-86tQekAZMIK1dUzmNhInkw-1; Tue, 06 Apr 2021 12:36:11 -0400
+X-MC-Unique: 86tQekAZMIK1dUzmNhInkw-1
+Received: by mail-qt1-f197.google.com with SMTP id v18so10509429qtx.0
+        for <linux-man@vger.kernel.org>; Tue, 06 Apr 2021 09:36:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=Y7aoOdBIK3onnnGG0rMX7NTwOGkYju9lwF+jl+5KjlI=;
-        b=Gp5HGY1q3PhgaiUrc8Jd0EK46FrWYYZz1oB2PxuVm7pRt5e+X06OULLX8mg/0uESwo
-         iJDLMLAhKEevpdVwb7+MOmI7vyvpNGbyoRxPChoZBoFb6xTl1ZGEuQtDgkgu2oPS38RY
-         gaSZ0d6juWXTy5iuTdw5vdWPbCz83um9JutPAumO3G7sDul9RegMtkV1RGyF3RfhE34h
-         VEZ/iUkolxENGIw2CpOuw5QluS5RtJmjYBMNZGhjcuyuYFYReKKXbBN56cuWi/6khgwx
-         TOZXYpFkuEmpM/hLIDwDsVdGLWBNIVpFoqZwcTtDdHtE4GZ3fme6YA2fq+CruJ2GQ8gr
-         /Z5w==
-X-Gm-Message-State: AOAM533azT4cgnY6vTjEQcDlVy1zqtmuGtWDAi/3rrtD0mzlaqOog74Z
-        i4T0hZSI83zu1/5oq934UOs=
-X-Google-Smtp-Source: ABdhPJwpyKoOBdrprdmn6viDk8gCPksxcNEGeyqsq545UDmY2q8ZUpdczTvYZz+V8GGvXdslyc0QTg==
-X-Received: by 2002:a7b:c409:: with SMTP id k9mr3681367wmi.151.1617708868892;
-        Tue, 06 Apr 2021 04:34:28 -0700 (PDT)
-Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id 187sm4408030wma.0.2021.04.06.04.34.28
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=FyE+dJT18bAcsTbW0EFehw0R17xNa24l8uyejjq61hI=;
+        b=HFgM+0t74YkZWAhyNEC4z0F7UPHu/oJpLvHzvYSFObr6kXuITMcjO3XjHB0Wkdk2ga
+         6kn20kuz153sg2QCUua6DhP0AOmwy1VvVse6uheuWUDVcfLYAjlbHKdB5i+2VK4PKGIp
+         wwT17YCH7mTfFolSWzbJ5EzPXTKxRg41EUs2xJe33YG7fpZEoWpFWv7Wh0if8E8mJ4IG
+         cpHFd6JWnzppHZ3BeGwF+oYOAyjplyxrWeOlNwa7VN23oQEgKrk7L9DhkT21AVQKZfrD
+         xMLML87d1fqThSbPRSpXqj9rocW6xCRkcfsQMaSX2hYm11o6R0H6xxyLZRssDi0f9J/S
+         BtZw==
+X-Gm-Message-State: AOAM530Xluy6yo0KzJUhTdYo0FEztWw+ftVGubPx6WcAN64XW8uOiyfQ
+        P5A4WgccbDgjF/3vgmHBgPwMfSlumMhR2DTMnqJeQDgmLohJzT0x7jw+zaL7ituD9f9ps8whaqg
+        z8wiJAW2iGAxC3zlpVQ0a
+X-Received: by 2002:a05:620a:205e:: with SMTP id d30mr29264262qka.380.1617726970766;
+        Tue, 06 Apr 2021 09:36:10 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJz73rRe5W73n/MGuwPEvTxjL2ZqvABhaJh3aEztgIikqOunQ8lyrPxaEATFEWl2G5//+PEDEw==
+X-Received: by 2002:a05:620a:205e:: with SMTP id d30mr29264240qka.380.1617726970506;
+        Tue, 06 Apr 2021 09:36:10 -0700 (PDT)
+Received: from xz-x1 (bras-base-toroon474qw-grc-82-174-91-135-175.dsl.bell.ca. [174.91.135.175])
+        by smtp.gmail.com with ESMTPSA id g74sm16500236qke.3.2021.04.06.09.36.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Apr 2021 04:34:28 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
+        Tue, 06 Apr 2021 09:36:09 -0700 (PDT)
+Date:   Tue, 6 Apr 2021 12:36:08 -0400
+From:   Peter Xu <peterx@redhat.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>,
-        Debian man-pages <manpages@packages.debian.org>,
-        "Dr . Tobias Quathamer" <toddy@debian.org>
-Subject: [PATCH v5 3/3] .gitignore: Add file
-Date:   Tue,  6 Apr 2021 13:34:11 +0200
-Message-Id: <20210406113410.22384-4-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210406111448.20392-1-alx.manpages@gmail.com>
-References: <20210406111448.20392-1-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org, Mike Rapoport <rppt@linux.vnet.ibm.com>
+Subject: Re: [PATCH 3/5] userfaultfd.2: Add write-protect mode
+Message-ID: <20210406163608.GH628002@xz-x1>
+References: <20210405131307.2892-1-alx.manpages@gmail.com>
+ <20210405131307.2892-4-alx.manpages@gmail.com>
+ <f7496c55-600d-9ac0-fe6c-7fcc75dc6955@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <f7496c55-600d-9ac0-fe6c-7fcc75dc6955@gmail.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Ignore everything new by default.
+On Mon, Apr 05, 2021 at 11:13:14PM +0200, Michael Kerrisk (man-pages) wrote:
+> Hello Alex, Peter,
 
-This avoids having to update the .gitignore when we need to ignore
-something new.  It also avoids accidents that may add an unwanted
-temporary file.
+Hi, Michael,
 
-Cc: Debian man-pages <manpages@packages.debian.org>
-Cc: Dr. Tobias Quathamer <toddy@debian.org>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- .gitignore | 11 +++++++++++
- 1 file changed, 11 insertions(+)
- create mode 100644 .gitignore
+[...]
 
-diff --git a/.gitignore b/.gitignore
-new file mode 100644
-index 000000000..7caf4c49f
---- /dev/null
-+++ b/.gitignore
-@@ -0,0 +1,11 @@
-+*
-+.*
-+.gitignore
-+!Changes*
-+!CONTRIBUTING
-+!MAINTAINER_NOTES
-+!Makefile
-+!man?/*.?
-+!man-pages*
-+!README
-+!scripts/
+> > @@ -144,6 +170,17 @@ single threaded non-cooperative userfaultfd manager implementations.
+> >  .\" and limitations remaining in 4.11
+> >  .\" Maybe it's worth adding a dedicated sub-section...
+> >  .\"
+> > +.PP
+> > +Since Linux 5.7, userfaultfd is able to do
+> > +synchronous page dirty tracking using the new write-protect register mode.
+> > +One should check against the feature bit
+> > +.B UFFD_FEATURE_PAGEFAULT_FLAG_WP
+> > +before using this feature.
+> > +Similar to the original userfaultfd missing mode, the write-protect mode will
+> > +generate an userfaultfd message when the protected page is written.
+> > +The user needs to resolve the page fault by unprotecting the faulted page and
+> 
+> You use "user-space" elsewhere, but "the user" here. What is the difference?
+
+I wanted to mean the same idea of user-space indeed.
+
+> 
+> More generally, What is "the user" in this context? I think you 
+> really mean  something like "the trap-handling thread"" or something
+> like that? The same statement applies for various pieces below.
+
+Yes, it's just a more general wording since the trap-handling thread in the
+userfaultfd world belongs to the user, or the user-space.
+
+> 
+> > +kick the faulted thread to continue.
+> 
+> What does "kick" mean here. This should be explained.
+
+Sorry about that, "kick" is a very frequently used wording for developers but
+probably confusing for manpage readers, it means "wake up".
+
+> 
+> > +For more information, please refer to "Userfaultfd write-protect mode" section.
+> >  .SS Userfaultfd operation
+> >  After the userfaultfd object is created with
+> >  .BR userfaultfd (),
+> > @@ -179,7 +216,7 @@ or
+> >  .BR ioctl (2)
+> >  operations to resolve the page fault.
+> >  .PP
+> > -Starting from Linux 4.14, if the application sets the
+> > +Since Linux 4.14, if the application sets the
+> >  .B UFFD_FEATURE_SIGBUS
+> >  feature bit using the
+> >  .B UFFDIO_API
+> > @@ -219,6 +256,65 @@ userfaultfd can be used only with anonymous private memory mappings.
+> >  Since Linux 4.11,
+> >  userfaultfd can be also used with hugetlbfs and shared memory mappings.
+> >  .\"
+> > +.SS Userfaultfd write-protect mode (since 5.7)
+> > +Since Linux 5.7, userfaultfd supports write-protect mode.
+> > +The user needs to first check availability of this feature using
+> > +.B UFFDIO_API
+> > +ioctl against the feature bit
+> > +.B UFFD_FEATURE_PAGEFAULT_FLAG_WP
+> > +before using this feature.
+> > +.PP
+> > +To register with userfaultfd write-protect mode, the user needs to initiate the
+> 
+> You use "user-space" elsewhere, but "the user" here. What is the difference?
+
+(I'm skipping same questions)
+
+[...]
+
+> > +.B UFFDIO_REGISTER
+> > +with the mode set to
+> > +.BR "UFFDIO_REGISTER_MODE_MISSING | UFFDIO_REGISTER_MODE_WP" .
+> > +When there is only
+> > +.B UFFDIO_REGISTER_MODE_WP
+> > +registered, the userspace will
+> > +.I not
+> > +receive any message when a missing page is written.
+> > +Instead, the userspace will only receive a write-protect page fault message
+> > +when an existing but write-protected page got written.
+> 
+> The wording here is a bit off. What does it mean: "an existing but 
+> write-protected page"?
+
+I wanted to emphasize the fact that this write-protect message won't be
+generated if the page does not exist at all.  That belongs to the missing page
+fault even if a memory write triggerred the page fault.
+
+Thanks,
+
 -- 
-2.31.0
+Peter Xu
 
