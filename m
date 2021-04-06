@@ -2,95 +2,81 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 775E8354E63
-	for <lists+linux-man@lfdr.de>; Tue,  6 Apr 2021 10:19:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A5E163551A8
+	for <lists+linux-man@lfdr.de>; Tue,  6 Apr 2021 13:15:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233251AbhDFITQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 6 Apr 2021 04:19:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46374 "EHLO
+        id S236271AbhDFLPH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 6 Apr 2021 07:15:07 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56688 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232355AbhDFITP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Apr 2021 04:19:15 -0400
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6E9C3C06174A
-        for <linux-man@vger.kernel.org>; Tue,  6 Apr 2021 01:19:06 -0700 (PDT)
-Received: by mail-wm1-x335.google.com with SMTP id w203-20020a1c49d40000b029010c706d0642so608966wma.0
-        for <linux-man@vger.kernel.org>; Tue, 06 Apr 2021 01:19:06 -0700 (PDT)
+        with ESMTP id S231347AbhDFLPG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Apr 2021 07:15:06 -0400
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 16BACC06174A
+        for <linux-man@vger.kernel.org>; Tue,  6 Apr 2021 04:14:57 -0700 (PDT)
+Received: by mail-wm1-x32c.google.com with SMTP id a76so3960376wme.0
+        for <linux-man@vger.kernel.org>; Tue, 06 Apr 2021 04:14:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=G2hG7r4jVUJ9TMnRYmqslAmHqCT5tPqgaOV0ALR76J4=;
-        b=fdY43MeI9Y2Ye4HD+I/7g4mEjH+D+cdf6kTCx0EWzl0J8q//yo8Qg2Dhw2T3E2bugW
-         hG/QRK+XYgToUX/O77s2GMCSxhDw8JiDCBdWlN7yC6t3UY91pOCmYQwN6g/CEcUwV/Vn
-         T2XgCnJsd141sm0mT1/SV3VgV2U5HgFAiQ0zkb5ktVghKY/ixYTcrxELezBuzUWhzZDI
-         ApMX9d94cSHq0kjn/17mkT3N8Y6uAMI7obqY0nTrdI48wJuOst8QSDCG/mLKc02/rn83
-         f6vosea8L37ZXugyjeifkvvqqE0tkWQMVtB1fbgda9ehZSqx9QnJcuI2uOIT8EULk6xS
-         JzsA==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=Fa8CzNOQabFqkuWBFxJqduxblvQKIjFQuvNcyEyu9pA=;
+        b=X7KICwjY1mviXvifGBbNoEDUUQuPBJs2xUxye7CyaqiWWlg18XGWHDlmidZhq/amA1
+         RfPWZ0nE13vP9ZLL0iM1K1x6xwsdlaoM0HAGDUhMGG9RRkFd5jAPCOQoN7wIPMMl+0qg
+         O2FGGXeuXK4QJypQtvw5xHg6gcIviVjpJswHG2OAdDz5zbIQK12/yW0Cl4ASD3vxdI0l
+         hIq8A8Z619EJ/hagPMWqOkTndUhxXlCNgzWD9dCMP+tumWpM3JRDkwyjhrKCzy9czEiz
+         WIVhzftzGml6wNprqL4v68v9GutR8GIwsfiJph9VjHdtWKnw9wKP9/VanPOvylXt7CBn
+         hOCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=G2hG7r4jVUJ9TMnRYmqslAmHqCT5tPqgaOV0ALR76J4=;
-        b=j95JuyW431ldFQkHFJTyVX7Ed5bjx9Ohd9aO1BwQf2+uJH/PY0JEXhg8hYE9ESCEhc
-         AndA6kZoZZ4Z03kz69zGE8nkWm3akcZmd35B68b0+x92qcwNdy4PXlS5LYwn30efI2k9
-         OqTToEplsR85ZsqGIKKF0yuB+0PBva+VHLVCq+i09CeeSy77+eyQP289v2ONfxXYL5Iv
-         hfstcEjeVZKgaYL7KdhkPu2DyNJaL5my19XYKgWeKeCHxJT7klpTZ9ibFoXdKByZ3P+Q
-         3Sve2ZXq5HtNxfERLEd64ZRGpEQU7vnqTdx8VGSriCOMadJ0TOjvO6Or2agvsgym/yVl
-         Fx0g==
-X-Gm-Message-State: AOAM532fD+HsPF88fQ+wNhyQZOAGAlhzfUUDWaLc3BfBwP1CEJvwcFJF
-        WY7C9sOXqe/JSwsl1cy5AwGjjeZKZbc=
-X-Google-Smtp-Source: ABdhPJzM6M4kS3nUcihyaN8kiU21IdfhjoGbDr4Vo3tAhFfwuXllDISWQUh+8Rh6WP2TXKEZk/e3Hw==
-X-Received: by 2002:a7b:c316:: with SMTP id k22mr2920532wmj.176.1617697145242;
-        Tue, 06 Apr 2021 01:19:05 -0700 (PDT)
-Received: from ?IPv6:2001:a61:2553:a401:cfc6:2039:a9ec:21ff? ([2001:a61:2553:a401:cfc6:2039:a9ec:21ff])
-        by smtp.gmail.com with ESMTPSA id n4sm1857849wmq.40.2021.04.06.01.19.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Apr 2021 01:19:04 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com,
-        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Subject: Re: [PATCH] vsock.7: ioctls are on /dev/vsock, not sockets
-To:     Alyssa Ross <hi@alyssa.is>, linux-man@vger.kernel.org
-References: <20210324140503.27580-1-hi@alyssa.is> <87zgyr6gjm.fsf@alyssa.is>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <be5a217f-1d30-4023-3d6b-24d0bb3e9bfa@gmail.com>
-Date:   Tue, 6 Apr 2021 10:19:01 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=Fa8CzNOQabFqkuWBFxJqduxblvQKIjFQuvNcyEyu9pA=;
+        b=Z517U0ZvmJoM7+vMEDXo7dSeUXtCVBNtBAJLj5G8W8DkK/sYUVOllcCtlvkGDJWmyA
+         qeBTbXWRbpQpJJEuhw+e9/lRHfJB+HEm6EDX5vNvkIajKeC0K/ZY7EDbavja6+7Bb4Ma
+         0GU1WF1a4ZNSQKvfbVUrroN0D3PZozGNXVUIZRqdpKSsnDFY/TQ/LrAu3/C295n5tgYX
+         4osJRAU7C5fC8fTVWegNIxBGmQrWmz1eoJ6MQ6mAbYg1eHGRwhEOuYWB0tlYc5osXw3p
+         XM5FIg87CwG/fABOS9jCVkHCAh12dUe02DI2/Xk2HHvSMVcw685IGdZUNqtIwt4RxDjH
+         mvEw==
+X-Gm-Message-State: AOAM53048TEtsH6baSkpZ5o8mCJkXMDtjrp/bUwJ5OylXD2aFw09/imI
+        KOvsWeVpGrXgW633WHAggI7AGtDs7S0=
+X-Google-Smtp-Source: ABdhPJzX1QYsE+HTqKlu9weoJguzja5LWYcoD8exIZigkK7ByMU9lCYQt3RxoCUuUiD29LPueI/rJQ==
+X-Received: by 2002:a1c:f715:: with SMTP id v21mr3681240wmh.187.1617707695823;
+        Tue, 06 Apr 2021 04:14:55 -0700 (PDT)
+Received: from sqli.sqli.com ([195.53.121.100])
+        by smtp.googlemail.com with ESMTPSA id r11sm16552920wrp.70.2021.04.06.04.14.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Apr 2021 04:14:55 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
+Subject: [PATCH v4 0/3] Use standard features in the Makefile
+Date:   Tue,  6 Apr 2021 13:14:46 +0200
+Message-Id: <20210406111448.20392-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.31.0
+In-Reply-To: <20210328190601.68165-1-alx.manpages@gmail.com>
+References: <20210328190601.68165-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <87zgyr6gjm.fsf@alyssa.is>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alyssa,
+v4:
+	- .gitignore: ignore everything new by default,
+	  instead of ignoring specific things.
 
-On 3/25/21 4:47 AM, Alyssa Ross wrote:
-> Alyssa Ross <hi@alyssa.is> writes:
-> 
->> ---
->> When I discovered /dev/vsock, I had a look for a vsock(4), but there's
->> no such page.  I suppose there isn't really anything to document there
->> that isn't already covered there.
->>
->>  man7/vsock.7 | 5 ++++-
->>  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> Signed-off-by: Alyssa Ross <hi@alyssa.is>
-> 
-> Just realised I forgot. :)
+Alejandro Colomar (3):
+  Makefile: Use standard features (IMPORTANT: default prefix changed)
+  Makefile: Fix bug when running in parallel
+  .gitignore: Add file
 
-Thanks. Patch applied.
-
-Cheers,
-
-Michael
+ .gitignore |   8 ++++
+ Makefile   | 116 ++++++++++++++++++++++++++++++++++++++++++-----------
+ 2 files changed, 100 insertions(+), 24 deletions(-)
+ create mode 100644 .gitignore
 
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.31.0
+
