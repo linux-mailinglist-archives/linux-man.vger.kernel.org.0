@@ -2,123 +2,138 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A04A0357F05
-	for <lists+linux-man@lfdr.de>; Thu,  8 Apr 2021 11:21:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D241F359E6C
+	for <lists+linux-man@lfdr.de>; Fri,  9 Apr 2021 14:13:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229603AbhDHJVu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 8 Apr 2021 05:21:50 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40710 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229600AbhDHJVu (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 8 Apr 2021 05:21:50 -0400
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BE87DC061760
-        for <linux-man@vger.kernel.org>; Thu,  8 Apr 2021 02:21:37 -0700 (PDT)
-Received: by mail-wr1-x435.google.com with SMTP id s7so1203098wru.6
-        for <linux-man@vger.kernel.org>; Thu, 08 Apr 2021 02:21:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=48RBpJ2PBd9TTuhH+PfJmRqOc52i+gMehnRhf2AUjqY=;
-        b=ACRQdXiZQscPOzNvzm4EK1EulSl5S/kx1JQndX5Z9m6x7QtArbjKo3XLDB4bYfdFQr
-         giqe0FrCCp9dfTZj08dNoqXeolKCIuTU8lepqoc6iswb32hVbNJOrfR3FYmtsqf21/+o
-         X5TIU9PXtOjLV1fq5+P18KWZcxExl80gAMD/Tz7FLG2X22AiW9yGAnXQ7FC32d1aoz5o
-         tJlMN0d7CfTYuU7rxdLkAsX9fGKwBu1xTfQ7IaFx53wN5DkEOwl55aOgVVGtQzt/0zQ4
-         n5q26ScuTyOZ0VLVELsd1dDJnoh8nvevtU6vEzNjF1jhCvjokda5lsyxvLE7YAGp6Znv
-         AWSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=48RBpJ2PBd9TTuhH+PfJmRqOc52i+gMehnRhf2AUjqY=;
-        b=YLsMCPT9SwYtv9C5CEN+FRtehe6kMusCFFdz5GrscyiJFoor+Sj6eGgj2jaBhrrB1s
-         LW6QcrDPt4JHVLuBpONhV4vjh6cx8cqTb1pKo7y8CJnuFPT2qrh6p/rXneedhXbW0k6j
-         LHtzbXxSu9HhnnTvpYtP56zT14rrbt1tH2ms7tn94Xaf2KVbX2F7RCD5KLUyx13I5s6Z
-         huXv30FV1qXXCNf3PGjFGPT/Jc77BGf/Zk4JyYYYfKLh2wX3vEy+/EAWDCN6yYcN68Jk
-         eQdYUdIvykY0j1shKrZ3//K4FZT9MEAQl+EgOZbDsuXAuagT2Gn7np2j3709PgB6AR2M
-         rN3g==
-X-Gm-Message-State: AOAM531B2dY4iFTqZekvlPrQFgb5eKb7QjIfGioDQsiaZUhVjR/2on2J
-        Kou2M7ueQA51n4CreWdjPBU=
-X-Google-Smtp-Source: ABdhPJwmqrrCpH0ZfYDnCtJ03LMdEonaCtkijrN/V+leIo2IXzo/Q/pIqnAyZNIU1gWH0Qh1SzUudg==
-X-Received: by 2002:adf:e64e:: with SMTP id b14mr9536694wrn.226.1617873696530;
-        Thu, 08 Apr 2021 02:21:36 -0700 (PDT)
-Received: from [10.8.0.194] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id y4sm13597279wmc.2.2021.04.08.02.21.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Apr 2021 02:21:36 -0700 (PDT)
-Subject: Re: [PATCH v6 3/3] .gitignore: Add file
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>,
-        Debian man-pages <manpages@packages.debian.org>,
-        "Dr . Tobias Quathamer" <toddy@debian.org>
-References: <20210406111448.20392-1-alx.manpages@gmail.com>
- <20210408085713.7093-4-alx.manpages@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <cdaac78a-53a8-4f8f-3ecc-6218d56747fb@gmail.com>
-Date:   Thu, 8 Apr 2021 11:21:34 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+        id S233505AbhDIMNf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 9 Apr 2021 08:13:35 -0400
+Received: from de-smtp-delivery-102.mimecast.com ([62.140.7.102]:38725 "EHLO
+        de-smtp-delivery-102.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S232690AbhDIMNf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 9 Apr 2021 08:13:35 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+        t=1617970401;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=GmoIUx6okKo8fv5MfCPjE4a9WGKuOXMXpAW+OGkKb3U=;
+        b=VP8xhpeJ2ytKmFJkZETvn5nXO8Lq/ShWUiSz9SOcUBtXO4wHNw8fQ5TnWpfsUuA+VKnTGa
+        hwghAVnAQgvYGMQvAAvEMj9NmjwSK2BdD5YAlExzDkVWBsnInpdz++BvKRN8r2JELx6EIA
+        zKn5VZf3gyp8X8yuIqOjT4+znAJ/+cc=
+Received: from EUR02-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur02lp2057.outbound.protection.outlook.com [104.47.5.57]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-12-c0llpcEvN4-w8HlvhtCfJQ-1; Fri, 09 Apr 2021 14:13:05 +0200
+X-MC-Unique: c0llpcEvN4-w8HlvhtCfJQ-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JnN3IQj8h3997qcbHDnxDkejRYrP3buU22Fy8NzjpnV5tRr0Xzo4j/qmMurYLMnF7hSq/34LgY1eZxhpSz76GiQCIe49Pfz5ClE0HjJUnVpJ9mXhiM9fPnPddl/yVj3QzFaZNNIPOtZIMQJk1NAMhzCEHJN3dqSzvkOJv+CI05sBu+wQMrGB7y1KS+YGkyReYp4uiIRS2tXdLoc/bNYaAlXlFOhTrLih2sHwDiRSo6KlioA7aaYRVF/h4qTnsUCEhRaXZEDuNows/0c3krE4/bweboSRYkv7oMhPJDMvHfxax25CDf7K4bAbTazSlIXr3iI9L5UhXzGv3qe7rtyagA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GmoIUx6okKo8fv5MfCPjE4a9WGKuOXMXpAW+OGkKb3U=;
+ b=ndEZQsOncw4diZyyCuuTXrNgb56wBVA4KLHp7Jh4sYApue6iFkegHEAduN9RB0GWyqGltxXTit1Yy45cIMDBiUsx4Rk3s/M2n9QOG+5c02TSYikenYf+ZEyjxl3nidtP7A2MQAllD0fE487ck7hw/RyPJy+6Z3xJZeTcA/xIiAcRF7kNOfwFLYYci7xnAmk05Pb/+QeLi9cuHBSRfH/TLE+tP3S+qjJUlszOx2BjIK77pFE3sNRmtg9UbW6sAtx3XJlbVDhx41hkqaZXodU1rNIzknkheFWOiEUZwoN1XB+/lPnWdBh5WBtwr+SWEDu0ECCA51zb55JkedUPEfzbdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=suse.com;
+Received: from VI1PR0402MB3359.eurprd04.prod.outlook.com (2603:10a6:803:3::28)
+ by VI1PR04MB6928.eurprd04.prod.outlook.com (2603:10a6:803:12e::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.18; Fri, 9 Apr
+ 2021 12:13:03 +0000
+Received: from VI1PR0402MB3359.eurprd04.prod.outlook.com
+ ([fe80::3c87:7c9e:2597:4d94]) by VI1PR0402MB3359.eurprd04.prod.outlook.com
+ ([fe80::3c87:7c9e:2597:4d94%5]) with mapi id 15.20.3999.035; Fri, 9 Apr 2021
+ 12:13:03 +0000
+From:   =?utf-8?Q?Aur=C3=A9lien?= Aptel <aaptel@suse.com>
+To:     Pavel Shilovsky <piastryyy@gmail.com>, Tom Talpey <tom@talpey.com>
+Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        Steve French <smfrench@gmail.com>,
+        linux-cifs <linux-cifs@vger.kernel.org>,
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH v5] flock.2: add CIFS details
+In-Reply-To: <20210322143024.13930-1-aaptel@suse.com>
+References: <CAKywueQkELXyRjihtD2G=vswVuaeoeyMjrDfqTQeVF_NoRVm6A@mail.gmail.com>
+ <20210322143024.13930-1-aaptel@suse.com>
+Date:   Fri, 09 Apr 2021 14:13:00 +0200
+Message-ID: <87wntb3bcj.fsf@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [2003:fa:705:3046:69ee:cad4:97e6:ea8f]
+X-ClientProxiedBy: ZR0P278CA0159.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:41::8) To VI1PR0402MB3359.eurprd04.prod.outlook.com
+ (2603:10a6:803:3::28)
 MIME-Version: 1.0
-In-Reply-To: <20210408085713.7093-4-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost (2003:fa:705:3046:69ee:cad4:97e6:ea8f) by ZR0P278CA0159.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:41::8) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.29 via Frontend Transport; Fri, 9 Apr 2021 12:13:02 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a6f349f2-bdb5-484b-b98a-08d8fb50d307
+X-MS-TrafficTypeDiagnostic: VI1PR04MB6928:
+X-Microsoft-Antispam-PRVS: <VI1PR04MB6928D6C8D7FC103EF6911D0CA8739@VI1PR04MB6928.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: STP51MXM3taMSP9f2PAs0KS2uk1rnZtz923+4+WoqJF8JYAn1ztLN+08PTAfQ3JhBTRObcAbDhC7VkG2azJgttNgynxAF5f4/TNGnSlAcwBsZbOYKyXSo+/fo0KQVzfdII4fDSnznGv+r4UPGN0M9U8q5U0XyLqqGBL5QiIMtCmTlV3HBZ8XmIw3SJjbCyvHiXjUUdOvBMUidBXSQ5m6av/wALVfDHExTaBYmEjVA5/mxiepYbbn+fIZc3btok29omIO9ZtQCuRGWycRO/NLIQ/+E4B5gWU/SFJZ3MLA1BFphPuUb2BGWojoD5ICKj1CTzokWAp/cO5HVITkwKWd0vJKGWNDRcqfJsXduFEAt0jHwBrca0LUCIv2i3oX5uhS8X9IuVLj+ARqC46NMlTqSg7DzLovuw0MJQ6nS0Sis9ZDKStWi19Zy6ZeEm9bc1p7aWsdnP8Rb92SvKhpH0fYyEgHMMdjMBxyIVVz7rcn9tmgW0WA9EItAwYXHxxsPcb9HExe7081Gveb00Ld38iizC/aAPOLyYaWPrYKzBoEH7fX+TUDvMyDsp/hG8i9eatapjAlAclJIyRYTFK7Yh19R1nrI0YT9QINmsLariAI/iHOBZQkQjmOMLfMBGE7vB+l/tYUqcfMwaz4pfNFfgLNnA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR0402MB3359.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(366004)(39860400002)(376002)(136003)(396003)(66556008)(6496006)(2906002)(66946007)(38100700001)(66476007)(558084003)(52116002)(2616005)(6486002)(86362001)(36756003)(54906003)(110136005)(186003)(8936002)(478600001)(16526019)(5660300002)(316002)(8676002)(4326008);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?eWFJMXJJOTA4bVFKZnJOR1Z6WUVxT0ZtR3RodmxiYytCNVZKYjZ3YWNXaENV?=
+ =?utf-8?B?VGJjQXdkSmc2UXB2QlM2MWIrY0NHdVNJaEdwaDdQMzIwQzk0UUN2QkRtMmgv?=
+ =?utf-8?B?dk1sUnJIOXhGeE9MSzkwcFBPRW1tWWNiYVNyRzdFQXZ4Z1lvS2lrMGluUU14?=
+ =?utf-8?B?TnFhcnBVcHFuLzFibHFCd0o3d0Yvb1h6ZERoS1lYdnZWckNFVzBUQXcvem1h?=
+ =?utf-8?B?blE2NmJUUUw3T3NBdDZtZHYwak9XR2NNSWZFQjJqT1o3NTg5OEZUcFJva2VW?=
+ =?utf-8?B?OW51a0Irb0V3UEtjNnRFMnQvTkwybzVjU1FwSWZXRDNUY0xsamFmamx6L3lQ?=
+ =?utf-8?B?TE0wZXEvSG9kcG5aY2J4V1I3dDZiYkFJa255bkFYNlREL3V5dHYxbUVseUFL?=
+ =?utf-8?B?bitoc1lsTGlFYlNrY1pxNmpxZi9OSDU3SGFYWDNlSjRvQjN5MEN6NXAweXNT?=
+ =?utf-8?B?Rzh2LzVHRXZObDJKWUUvamtlYlVod0RjbFV6ZElFYkNWVThSa201SjZGTEdJ?=
+ =?utf-8?B?Y0hGd3lMRm5EWWZyaXIyMmFjSFdNOGhEVzg4QWltbERoMGw3NjhxL2t0Z0ti?=
+ =?utf-8?B?MmY3VXBWVmU0aUl4bmhQQjlZcmsyTjlEMG5GdVVMZ1hLYnM3bHMvV21IZUdJ?=
+ =?utf-8?B?dW5CRGpiNnJuRmNBZ1dEVVZudlNxbG9wWlRqaEowY1Q4Wkw0dUt2M3VnajNH?=
+ =?utf-8?B?eTBnNjRwaEhwZXBhenNORTA0c3FFaWhTU0JORGRURW1PK1ZqU1BjcUlmQnFs?=
+ =?utf-8?B?dDZGRVBXd0w2UmVneUp2ZlpadzFmY1UrcFBXZ0JBNm9ObG05bmQ5K2RpUHJF?=
+ =?utf-8?B?YXlBWHAzYUVFVjdXZ0lHaTVzaHRjOW5KYXpYUE1FTzYyMnpqQUhBUUZUaTRu?=
+ =?utf-8?B?OFFwOGZma3VjSlZMWmN0ZTVIZDFPellxbEQwVUZ5WXJPbEhFRkxDMTVQZkhr?=
+ =?utf-8?B?VFhsOWVRWERlTXRMYzhKNzJCMnpqU1NadTA4QXd6V1p0UE12bDhuWVdCK01s?=
+ =?utf-8?B?ajZQZGthZFpOall4dHpkV1lzOWtibHhNVzBXUE8zV2NPU0NnQ1VxU1FlamJY?=
+ =?utf-8?B?MkNRL00yV3NDeVN5K3R0c3JSTkJDZ0VROXVaQ2h2dGNIUlpkdkRJVFVHQ2lx?=
+ =?utf-8?B?eExUcnFLRGpvaGdUN1FnZ1pQT0JURjRQcmZ5dDF4d3dJUnk4WDlmdlg0MU95?=
+ =?utf-8?B?NVdVMXZUVC9aWENMUHNPOWVha0dhSDZqdml2MCtaMnJYZ3czcWJtZHloV3NB?=
+ =?utf-8?B?RTBZcVBqSnAxUTc3eXpUN2RscG5lcHhaZ2FkZW1iK1dROHNrNGJNdnpjY2Mv?=
+ =?utf-8?B?WWgxVUlhMnEwYnJROVZUcXArWWJnaDU2M2pZc2ZPL1cyUHRwc1BNZ0hhUlZF?=
+ =?utf-8?B?bnMzdE1JdStmMjB2WlJWMFRRczhjWDFHSkcvN05MWldtWDlVWWlrUHQrZDFq?=
+ =?utf-8?B?c2R2MWo5NGIvVTB5MDQrejBRMjlNZE9rL1ZXVkN2Z1p1NVNGZzRvdTNJODJZ?=
+ =?utf-8?B?alNRV0ZKSGMxK3FPamZsZGV2Tzd0dUJBMElKZllWTVFCaFk3TnRlR0pxYmo0?=
+ =?utf-8?B?NDZZM3kvd2lrN29zMno5bjcvYlpOMTN0aS95OXBmNjF2YjlTMi9JSm9uV0Jr?=
+ =?utf-8?B?eUFxd3NaaHR6RnZRbFBmRTVIdkZNTVFSWGx4WjVOREpBM3lTSmhjSVpZSXBX?=
+ =?utf-8?B?YnFMZXlQbGVpNkx2Qm8remMwek10Q0dwMnVUNGVIMGM3Q0UxcExUakcvcmoy?=
+ =?utf-8?B?S2g5RDRDay84UGlBYVFsNDNsQzNSZ1FkUFZyYTRLdlE5L0Q2NHpXbFdZa0c4?=
+ =?utf-8?B?YXN0VDBHY2IrVVhMc0lLMVk5UmJ5WWQ2Y3RtTStNRURPa2JtNWFmMDk1Y01B?=
+ =?utf-8?Q?O+x15KKEdzyH7?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a6f349f2-bdb5-484b-b98a-08d8fb50d307
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR0402MB3359.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2021 12:13:03.0818
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1rsD9nmEfqcfykcgBr4NOkkr4CCu2aO3xXDsOKO9TkwsujYt0ej1P+Vx07rQo2Pk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6928
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
 
-Please see a few cosmetic changes below.
+Friendly ping to the man page maintainers
 
-Thanks,
+Cheers,
+--=20
+Aur=C3=A9lien Aptel / SUSE Labs Samba Team
+GPG: 1839 CB5F 9F5B FB9B AA97  8C99 03C8 A49B 521B D5D3
+SUSE Software Solutions Germany GmbH, Maxfeldstr. 5, 90409 N=C3=BCrnberg, D=
+E
+GF: Felix Imend=C3=B6rffer, Mary Higgins, Sri Rasiah HRB 247165 (AG M=C3=BC=
+nchen)
 
-Alex
-
-On 4/8/21 10:57 AM, Alejandro Colomar wrote:
-> Ignore everything new by default.
-> 
-> This avoids adding to git unwanted temporary files.
-> 
-> Cc: Debian man-pages <manpages@packages.debian.org>
-> Cc: Dr. Tobias Quathamer <toddy@debian.org>
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> ---
->   .gitignore | 13 +++++++++++++
->   1 file changed, 13 insertions(+)
->   create mode 100644 .gitignore
-> 
-> diff --git a/.gitignore b/.gitignore
-> new file mode 100644
-> index 000000000..866012df4
-> --- /dev/null
-> +++ b/.gitignore
-> @@ -0,0 +1,13 @@
-> +# Ignore everything new by default
-> +/*
-> +
-> +# Ignore everything in man?/ that doesn't follow conventions (e.g., tmp files)
-> +!/man?
-
-Please add a trailing / here (not needed, but for symmetry).
-
-> +/man?/**
-> +!/man?/**.?
-> +
-> +# These files change name in each release
-> +!/man-pages*.Announce
-> +!/man-pages*.lsm
-> +
-> +!/scripts
-
-Please add a trailing / here (not needed, but for symmetry).
-
-> 
-
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
