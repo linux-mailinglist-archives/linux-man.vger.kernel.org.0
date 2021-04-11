@@ -2,114 +2,99 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0220135B6C2
-	for <lists+linux-man@lfdr.de>; Sun, 11 Apr 2021 21:30:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 32D4B35B726
+	for <lists+linux-man@lfdr.de>; Mon, 12 Apr 2021 00:14:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235882AbhDKTaV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 11 Apr 2021 15:30:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33368 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235618AbhDKTaV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 11 Apr 2021 15:30:21 -0400
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 549C9C061574
-        for <linux-man@vger.kernel.org>; Sun, 11 Apr 2021 12:30:04 -0700 (PDT)
-Received: by mail-wr1-x430.google.com with SMTP id j5so9746198wrn.4
-        for <linux-man@vger.kernel.org>; Sun, 11 Apr 2021 12:30:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:from:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=slkxDl8IRxKF3zuF883SVhwtrEr/ovRH2Iuxng4IIVU=;
-        b=quXHLk3HLNs/8UqU0O7iU4buvkGrGsBI30+rNcr5VxJqSgfHsayozZ67wz0CLYCSOo
-         Y/0f7j5E2lFyeL6HusVjYl/yQd24fX8zj8uqU+pOfPjwZUYha7YSWQIEfF9d+JRn3WBq
-         xCgax0c4qYhNoR3rv/9kDKJSisQWhd9QkojcSAhBBY6L+usMUCAU9Ds97EbvoeeVwx1j
-         /vQIqnfWW0L49HNXLt0Qc+qSmUA6/M7VUA0TOuSNJp2nbfSnLwAKaYu9AOE9ghGIZZDb
-         4mlEX71EV9B/UT1JsXHfIPqYrL66ST6ba3/kfHooG6TBJeWxyaesOBb4NnrpKc6bAuRR
-         APJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=slkxDl8IRxKF3zuF883SVhwtrEr/ovRH2Iuxng4IIVU=;
-        b=XXLRV8pUyNV1/FH4czITTWBfJIXhZdnOVbqXiRSoAg/aIixq6H0skTZ5lg+joaqxnv
-         BeEy2q1eWjvDzZFRYENsq7s1zGbdVqIoLX0nOlK+dmiNF4nGaSxxbzF2ZPxnXI6448tk
-         RWjAHUiNq+cCeirsmPzx70CygwmMXcpxBGlCkKX4LaD5WCnwFSzITahP0zrtg2rrgRkG
-         zvsds6DXUe0BJ+1OfCU/jv/Grr9aFNLM/kye3JpfKBoOo1iPFASlIGDsbEHR/jUYqIMY
-         aNcmllYr01Pc2hqwjJSXmvfxmHbvqNCNR/rsi80PS+nbkqZ6KnVJHSN9pYK5HGI5NKB6
-         7zHw==
-X-Gm-Message-State: AOAM531Op4Cg24KLR0Blz3S6mUA3uKcxaRLrKH7Tv6ZeGbyP+7ok8xug
-        2Mf167XkkaSiCBIsPmCYFZy1jzbHPkI=
-X-Google-Smtp-Source: ABdhPJx9aoeutPsullidSrPwkIhomp4KDeOK4Zy5vF4SHwxFRAxkTHAwQmawGMgdrfLqLymGs8U59w==
-X-Received: by 2002:a5d:4f82:: with SMTP id d2mr1301287wru.228.1618169403102;
-        Sun, 11 Apr 2021 12:30:03 -0700 (PDT)
-Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id e11sm2783127wrt.41.2021.04.11.12.30.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 11 Apr 2021 12:30:02 -0700 (PDT)
-Subject: Re: [PATCH v5 00/35] SYNOPSIS: Use syscall(SYS_...); and fix
- '#include's
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org
-References: <20210403194026.102818-1-alx.manpages@gmail.com>
- <20210404115847.78166-1-alx.manpages@gmail.com>
- <4298cc3c-8f24-5a3c-3c54-b24ca804d373@gmail.com>
- <7750fa83-c252-7a60-bddc-34fb7ebed0bf@gmail.com>
-Message-ID: <f48a1f0f-a1cd-2dfb-6dc9-12165b5687be@gmail.com>
-Date:   Sun, 11 Apr 2021 21:30:02 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
-MIME-Version: 1.0
-In-Reply-To: <7750fa83-c252-7a60-bddc-34fb7ebed0bf@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+        id S235817AbhDKWOR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 11 Apr 2021 18:14:17 -0400
+Received: from out1-smtp.messagingengine.com ([66.111.4.25]:59049 "EHLO
+        out1-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S235718AbhDKWOQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 11 Apr 2021 18:14:16 -0400
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+        by mailout.nyi.internal (Postfix) with ESMTP id 7A88C5C00A4;
+        Sun, 11 Apr 2021 18:13:59 -0400 (EDT)
+Received: from imap35 ([10.202.2.85])
+  by compute7.internal (MEProxy); Sun, 11 Apr 2021 18:13:59 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aliddell.com; h=
+        mime-version:message-id:in-reply-to:references:date:from:to:cc
+        :subject:content-type; s=fm2; bh=Kw/oKoydPAt0K64TWIJ/DbnmKsZ9UFM
+        NA5Bai+hvwoc=; b=l6CabT7ucu+Um/fjkSkZqjhr8yerjsQqCkvfPkxEkTRDvKY
+        dUJujBcE2zZ8G+/UfFrw7X2dVW4F7vYKU4Vlr+v2ouiKn64o1Dq0KoReihVd22S4
+        TAJYESrXYs7wcFiF9MYjtlCRdSoqO3bwk4lMPOtna879dON0dFUui3qhcw2Y4tzl
+        oA6PAzc3euUmEi1jR/IKfsbpevOUoMaDmOtqoOdRKnjIqEMkCTsrv2KEy1R2Plck
+        w7za36/7olob/J9GSxEe370sQBl9O9GOtBMdPpOh4arCeoijvj1/LEAEAQqymntQ
+        vWeft/mN8bVcCtaCYon50sHRmm//I8iITPliq8A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:content-type:date:from:in-reply-to
+        :message-id:mime-version:references:subject:to:x-me-proxy
+        :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=Kw/oKo
+        ydPAt0K64TWIJ/DbnmKsZ9UFMNA5Bai+hvwoc=; b=J8TpAPcfvpiQvvw/8UDkOy
+        sqSFkpm37er3OpwDOfp57cOrNJqChKu7flyfKw6cutuMjWiMqWPZsqt+1iNqTTJy
+        f00ctwkqlMTbMTCp3ZBYO/1Slg3BilSmwbqC5Yq1rrsypvlTPZVTkGyWVLPAiZ9q
+        71GZSFxkQvXJ9SE140cM8alK9OPTVhox0Be+vSdwULUisfYos0pefSBseUtUso4W
+        Wfkl3JVVhUwjBCoZK8teczu1rYvRBhTe1I0BfpoIRn1SCwdBshQ9rMUfOmBEVhHf
+        Hef/B1Plh+zbfPJZkViUT/biS6IJxqWYO9hBEWO+8t4sDsNaxxmfXH15FOoi8LOA
+        ==
+X-ME-Sender: <xms:p3RzYAjlRP2eo0UgGmItZs-OW3tQ3AExgWcMkKvFj13wGmx_BnSngA>
+    <xme:p3RzYJDQcBc9JS_Dfp1v3zE50wk7W_sIpxAGUwp9yC2v5ELpHjN8B5N1PMBJYXwIk
+    QLx6nUZxCXi0jYViQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudekiedgtdegucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucenucfjughrpefofgggkfgjfhffhffvufgtsehttd
+    ertderredtnecuhfhrohhmpedftegurghmucfnihguuggvlhhlfdcuoehmlhdokhgvrhhn
+    vghlrdhorhhgsegrlhhiugguvghllhdrtghomheqnecuggftrfgrthhtvghrnhepfeeigf
+    dttddtieelkefhgfeiheekuedvffetgeeuieevveektddvledvkeejgeegnecuvehluhhs
+    thgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhhlodhkvghrnhgvlh
+    drohhrghesrghlihguuggvlhhlrdgtohhm
+X-ME-Proxy: <xmx:p3RzYIGFinIeioa6tl0ymqX80Ssejb8Z-PE9u8KoEphMXWcwWIq9rg>
+    <xmx:p3RzYBQqvG6lJwaBg-VJANxsC0TZ0zxYF544A1s4N2ZxX_yPJXX_HA>
+    <xmx:p3RzYNymn5IUK6iU5Jed1CVaUiGFs14EhM4TDM-JoxA_kVKhOqLWrg>
+    <xmx:p3RzYLZxuF8Xps_Y82F-bHVcy9nU14tk0FCM_fs70WZTyTSGQhBtRw>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+        id DC2F815A0064; Sun, 11 Apr 2021 18:13:58 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.5.0-alpha0-273-g8500d2492d-fm-20210323.002-g8500d249
+Mime-Version: 1.0
+Message-Id: <0fed7f03-605b-430b-bdfc-47a67af3f083@www.fastmail.com>
+In-Reply-To: <6bbb488b-bee2-4ddb-873b-983973984c70@www.fastmail.com>
+References: <6bbb488b-bee2-4ddb-873b-983973984c70@www.fastmail.com>
+Date:   Sun, 11 Apr 2021 22:13:25 +0000
+From:   "Adam Liddell" <ml+kernel.org@aliddell.com>
+To:     mtk.manpages@gmail.com, alx.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: Re: arp(7) description of gc_stale_time
+Content-Type: text/plain
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 4/11/21 9:23 PM, Alejandro Colomar (man-pages) wrote:
-> Hi Michael,
+Hi,
+
+Any opinion on this?
+
+Adam
+
+On Tue, 16 Feb 2021, at 17:00, Adam Liddell wrote:
+> Hi,
 > 
-> On 4/5/21 1:49 PM, Michael Kerrisk (man-pages) wrote:
->> So, I think I'm okay with the syscall() changes in the SYNOPSIS.
->> It might just take me a moment to get used to them. However, I do
->> wonder if it is worth retaining a comment in the SYSNOPSIS,
->> something like:
->>
->>     SYNOPSIS
->>         #include <asm/prctl.h>        /* Definition of ARCH_* 
->> constants */
->>         #include <sys/syscall.h>      /* Definition of SYS_* constants */
->>         #include <unistd.h>
->>
->>         int syscall(SYS_arch_prctl, int code, unsigned long addr);
->>         int syscall(SYS_arch_prctl, int code, unsigned long *addr);
->>
->>         Note: glibc provides no wrapper for arch_prctl(), necessitating
->>         the use of syscall(2).
-
-I'm not sure what text to write in cases such as faccessat2(2).  Could 
-you have a look at that?
-
-There's actually a wrapper, but it's faccessat(2).
-
->>
->> Without something like this, the reader may be puzzled at the use of
->> syscall().
->>
->> What do you think?
+> The arp(7) page's description of gc_stale_time doesn't quite describe 
+> the behaviour correctly, at least as I understand it.
 > 
-> Yes.  I had doubts, and you confirmed them.  I'll add that.
+> The current description suggests this is the time interval at which a 
+> loop will look for stale entries. However, this field is the threshold 
+> for marking an entry dead for removal, based on when it was last used 
+> (see net/core/neighbour.c lines 935-942) and whether the table is over 
+> gc_thresh1. How often this check is done appears to be determined by 
+> base_reachable_time (/2) and the third option gc_interval is not 
+> involved in this process as far as I can tell, despite its name.
 > 
-
-Thanks,
-
-Alex
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+> Perhaps a draft alternate description could be something along the lines of:
+> 
+> Determines the threshold for removing a cache entry after it was last 
+> used and when the cache is larger than gc_thresh1. Defaults to 60 
+> seconds.
+> 
+> Thanks,
+> Adam
+>
