@@ -2,92 +2,102 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A9B5B35B6B4
-	for <lists+linux-man@lfdr.de>; Sun, 11 Apr 2021 21:12:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 04D8C35B6BC
+	for <lists+linux-man@lfdr.de>; Sun, 11 Apr 2021 21:23:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235496AbhDKTMl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 11 Apr 2021 15:12:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57828 "EHLO
+        id S235758AbhDKTXh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 11 Apr 2021 15:23:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60152 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235323AbhDKTMk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 11 Apr 2021 15:12:40 -0400
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6862AC061574;
-        Sun, 11 Apr 2021 12:12:22 -0700 (PDT)
-Received: by mail-wr1-x434.google.com with SMTP id a4so10700201wrr.2;
-        Sun, 11 Apr 2021 12:12:22 -0700 (PDT)
+        with ESMTP id S235323AbhDKTXh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 11 Apr 2021 15:23:37 -0400
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 75876C061574
+        for <linux-man@vger.kernel.org>; Sun, 11 Apr 2021 12:23:20 -0700 (PDT)
+Received: by mail-wr1-x42e.google.com with SMTP id b9so10717332wrs.1
+        for <linux-man@vger.kernel.org>; Sun, 11 Apr 2021 12:23:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=AF6snEhVCyxzYu1PPelm+nQ7qDiQ7Lsm9VpsRbHiZS4=;
-        b=sT7ASHAec+MFmaGuM77Zzbqxo1mSWWoGKV4KvXlCUwHaeshS/hA0agmQHu3Y6CUa/P
-         AcfgHopR/bvEEHVQdcMwW9s+ngb6VDWi1pHn5BkrMWliU/0uyQuOn/ziNHTo0utMnVzw
-         3/DIajFO5f+qo6cU//eShA5Wwx4rxLyqOJtQT+8e02xzdV/4C33ExfdKNou2w7m+aDFU
-         s6SrhciRDEwITGiRw7eKZyw5nHUDByRcf4dJvmJZcqlpphx1rfRO0qBvcipD4Ql0ftQN
-         8xXqN94IpSeIQ8Gnz/mhW/VyVrtH6ptlBtwAa3r13sZrorDJIcdDUyFxoGKOS7OC7yR7
-         OTqw==
+        bh=ZY4SwBgi/tjHyUGLDPGpwuTBPJvHgwyp9ogpnox3Hzc=;
+        b=IG/1XbakAHPxphIOyvoP/e9a0w/znOCExklaS5ZZg1bfKUieDsvePK6r2podLani5n
+         QfxA8WkV6/44i5jc5sOQ7ttHJDi7qSsxNFuw9iMsV45A3novzuXsXtcx5TEWGhHo38JR
+         Xdeeiad4CS4MTZ93QuAeqagX6JYaY4wHuofIv4lQg6srA+SI0Q7QXuFc+2vpOuN+Q13Z
+         fNs8PB+8xrefg5Sal+8RliRGMmqJd9LR9M4eRvFmOjyspaWn8glEqsUsORgGVTLKyO3H
+         XcPjgl+GaaXjmpKFft9q5su9GIwS73Caj8PEVw4zBBothFgOZA4I6etCZZipxonL9x53
+         r4og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=AF6snEhVCyxzYu1PPelm+nQ7qDiQ7Lsm9VpsRbHiZS4=;
-        b=VBn5dOc/7Fh3ZH3yD+95o/3pJvXz2jciqvo1azD/UfCndcwQFiqK9fxBEou51/8rjv
-         xippuLFVcWSJzma/qVi0kZ75i9b8Vw9zVvLOBPN+x5r0lGe3ucifdajJr5dqcyQC/KFz
-         Gaz6jqr2NcyokPW76wkk0Dl/h85WfGyY7UYbCpi8POmcUxH1UQsQ2vRLN7xH8zLDxP+G
-         UEoKe91qdkhGOVbjQQ5Y28RtCynAFtq89Qd3M1MG2cseJWuRm3DeoTvDX+rlFqiLqmw+
-         E9IzOuZ6/ILPBQdWnrLJzUwKiKfqBlyXB+jfBG7txlexbgxGzJgawc2/UslEG11FE6P6
-         eJzg==
-X-Gm-Message-State: AOAM532Yk+QgHIJg9O7wwqIjoJKAQaOp9mwXzB8qShu0jeQOmpeoQ2Cg
-        IA8ymWy2vOctmYXSXkzw7HU=
-X-Google-Smtp-Source: ABdhPJw7JPAV20DFaWBopQIxv4XlQwXWq5XZCEgJpQ6TLlsEJN6R10DQT8f4woYazfKa5CisdSD4Ow==
-X-Received: by 2002:adf:cc8d:: with SMTP id p13mr28456843wrj.50.1618168340406;
-        Sun, 11 Apr 2021 12:12:20 -0700 (PDT)
+        bh=ZY4SwBgi/tjHyUGLDPGpwuTBPJvHgwyp9ogpnox3Hzc=;
+        b=TRRmdMfBmws8ShZ3k9n+dqN6Q9yNIYdtMRYSQBWyNlQewC8dzyfqKAR21zaZv6pv+J
+         zuSjwt1UlKmz/xiCwnjSLCAzsML7Xy13nzsSDqhfEt8xZmoNK/ycDNtGSzELMBwk0eMf
+         Dik+3zEkjGF9l4D1GGQCQJMjZ1skIYW6UHIIVlT/6C5kFLr7IT0KW69HTJoPPxneXdwy
+         zF5FnI0RRvEEXyHHF24JVqJ137x+O/35R1YTOsifNPexwdu+Ura6TBcUdlu7QOuA+l/l
+         CaPqUt5zPdZeNvzSb0hHP0Gz5PUJG7CiIJlsLb8y9BDdRoo86E9ZECJN+jqlqSEp1xQu
+         4+pA==
+X-Gm-Message-State: AOAM531LMQc2Y+7Jt8c9XEMXXtnAtPL/a0FrXuo/WJFM54HFAuSDvA1/
+        BM9kUeNBPzQOH7+4qCuIru8=
+X-Google-Smtp-Source: ABdhPJyFzCsHqT412jB2INJbo2VyzOwPfps3RSvMCWtjF1EYHtXVWpcKrWIY4E87dhyqY/Yqz41mbA==
+X-Received: by 2002:a5d:650d:: with SMTP id x13mr15021687wru.264.1618168999321;
+        Sun, 11 Apr 2021 12:23:19 -0700 (PDT)
 Received: from [192.168.1.143] ([170.253.51.130])
-        by smtp.gmail.com with ESMTPSA id x15sm7069863wmi.41.2021.04.11.12.12.19
+        by smtp.gmail.com with ESMTPSA id m25sm12128818wmi.33.2021.04.11.12.23.18
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 11 Apr 2021 12:12:19 -0700 (PDT)
-Subject: Re: [PATCH v5] flock.2: add CIFS details
-To:     =?UTF-8?Q?Aur=c3=a9lien_Aptel?= <aaptel@suse.com>,
-        mtk.manpages@gmail.com
-Cc:     Steve French <smfrench@gmail.com>,
-        linux-cifs <linux-cifs@vger.kernel.org>,
-        Tom Talpey <tom@talpey.com>,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        linux-man@vger.kernel.org, Pavel Shilovsky <piastryyy@gmail.com>
-References: <CAKywueQkELXyRjihtD2G=vswVuaeoeyMjrDfqTQeVF_NoRVm6A@mail.gmail.com>
- <20210322143024.13930-1-aaptel@suse.com> <87wntb3bcj.fsf@suse.com>
+        Sun, 11 Apr 2021 12:23:18 -0700 (PDT)
+Subject: Re: [PATCH v5 00/35] SYNOPSIS: Use syscall(SYS_...); and fix
+ '#include's
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org
+References: <20210403194026.102818-1-alx.manpages@gmail.com>
+ <20210404115847.78166-1-alx.manpages@gmail.com>
+ <4298cc3c-8f24-5a3c-3c54-b24ca804d373@gmail.com>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <8d0cc17a-7757-5438-e59f-2b22906d757d@gmail.com>
-Date:   Sun, 11 Apr 2021 21:12:18 +0200
+Message-ID: <7750fa83-c252-7a60-bddc-34fb7ebed0bf@gmail.com>
+Date:   Sun, 11 Apr 2021 21:23:18 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.9.0
 MIME-Version: 1.0
-In-Reply-To: <87wntb3bcj.fsf@suse.com>
+In-Reply-To: <4298cc3c-8f24-5a3c-3c54-b24ca804d373@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Aurélien,
+Hi Michael,
 
-On 4/9/21 2:13 PM, Aurélien Aptel wrote:
+On 4/5/21 1:49 PM, Michael Kerrisk (man-pages) wrote:
+> So, I think I'm okay with the syscall() changes in the SYNOPSIS.
+> It might just take me a moment to get used to them. However, I do
+> wonder if it is worth retaining a comment in the SYSNOPSIS,
+> something like:
 > 
-> Friendly ping to the man page maintainers
+>     SYNOPSIS
+>         #include <asm/prctl.h>        /* Definition of ARCH_* constants */
+>         #include <sys/syscall.h>      /* Definition of SYS_* constants */
+>         #include <unistd.h>
 > 
-> Cheers,
+>         int syscall(SYS_arch_prctl, int code, unsigned long addr);
+>         int syscall(SYS_arch_prctl, int code, unsigned long *addr);
 > 
+>         Note: glibc provides no wrapper for arch_prctl(), necessitating
+>         the use of syscall(2).
+> 
+> Without something like this, the reader may be puzzled at the use of
+> syscall().
+> 
+> What do you think?
 
-Sorry for the delay and thanks for the ping!
-Patch applied.
+Yes.  I had doubts, and you confirmed them.  I'll add that.
 
-Cheers,
+Thanks,
 
 Alex
-
 
 -- 
 Alejandro Colomar
