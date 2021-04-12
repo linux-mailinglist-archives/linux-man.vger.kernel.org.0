@@ -2,70 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 08A5F35C072
-	for <lists+linux-man@lfdr.de>; Mon, 12 Apr 2021 11:21:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 919A835C190
+	for <lists+linux-man@lfdr.de>; Mon, 12 Apr 2021 11:31:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S239794AbhDLJNW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 12 Apr 2021 05:13:22 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40774 "EHLO
+        id S239390AbhDLJbb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 12 Apr 2021 05:31:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44048 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S240683AbhDLJKv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Apr 2021 05:10:51 -0400
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 910EAC06138C
-        for <linux-man@vger.kernel.org>; Mon, 12 Apr 2021 02:09:29 -0700 (PDT)
-Received: by mail-wr1-x432.google.com with SMTP id s7so11975187wru.6
-        for <linux-man@vger.kernel.org>; Mon, 12 Apr 2021 02:09:29 -0700 (PDT)
+        with ESMTP id S240921AbhDLJYy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Apr 2021 05:24:54 -0400
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8FD69C061362
+        for <linux-man@vger.kernel.org>; Mon, 12 Apr 2021 02:22:35 -0700 (PDT)
+Received: by mail-wm1-x334.google.com with SMTP id k128so6366684wmk.4
+        for <linux-man@vger.kernel.org>; Mon, 12 Apr 2021 02:22:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=subject:to:references:cc:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=3L1/Qk0XOrLijW1jS9s9c/f3cAhpbUfQYtzi4gabE8U=;
-        b=a3OyVCPuuwCWvWM8jJThStF0Vmwey3SHkwFE+5KvEa5eEtyh5zNOPmNVZkHpEpdFNu
-         tZp5HgEHs1jI08piNilRF78LSx0TC3fMw71fUwFlHOTfDz6YB0dYB2P0WlCkRy6LpDHB
-         oY89YgO0euGtMsX2o4fKzIqvhVT6ap/MWlAPSwqifh0iZuywj66z4aa0t5UIzW+jy96I
-         4eSPNAc6osL5USgBIvvu09HkBETn2Hbv6jO0v4Ixy3k/gKCHiEKrMRUzsiNkvAa1tU/E
-         jtz+jq17A+Ot/7oguU54JgvRngXUv80U/1uAJRw7j3e2FGZFJszdK0Or8hG5XcN4aL11
-         zjvQ==
+        bh=74mo/JJMqYIM4+zo2xRZtsFarloF4M+a197YqTM6bL0=;
+        b=SdQuSNfllzHlMem6kcTpvzuI8hiMa0LJDn49V9OgZ44StFhm9Z9IQldGMUHPfmgMvp
+         yGCApJVJ0g35pG6aj3lOZknHWJVvHnUAiHMbLNyFxMSXYLAX7huvcuwYBxeZ8J/RHDhM
+         FZSSeG0vL0/HFrnNMxN69I1Gso5EE+ruaNP/uPfTu5ndTXgf//Ey8TTiXYuI7df3WpFV
+         +FLkjTZ9uphu2XijUau7TuYUNHpyAHYQ70VUHuDoZpfFMOpRiAr4kDoQNXkxQPUGIGHU
+         5F0iNbYb8PkOAh0SLEYZEeXtoA6Vs9IxpMEaMf5UJla681t1mEPwp7Wbstb1QvwDAG1q
+         4ilw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:subject:to:references:cc:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=3L1/Qk0XOrLijW1jS9s9c/f3cAhpbUfQYtzi4gabE8U=;
-        b=YehDUADLtZH27Nt1lLyZHxDpQglohvphZZu/tM4YRSYFv2H2O4Gjr6VeIuWwrmtOev
-         3TULwefIVL7taFcIPAt/tG9QvsgNvbIM8BLrP22ouX6kEHos4bl3yzpJxC1iHuxgzUoa
-         E4QuG2dGPNGQRT7WPCZz7QHPTxQ+VOrN4ADgn16E7KEIJ+9Nk//q4KjMFjytBNjZj28m
-         f4zg1QNniNRkxa7TtLaCFleirvvdQz69JhgKVyJADMvRbZT4VikWjTz3TuR8kiownddI
-         e5m+FE+Nmj12Y9R9R+s+u/bAgIjCx1HAqLms1OmbRQ3Dp6vNwRyBadHqxsnCIGede6eM
-         NyYQ==
-X-Gm-Message-State: AOAM531xi6fQ8hi+uExl5KKFJoZ1SmNDSLh0GoX7WHR7Fsb6INnOsM/c
-        HzDdd0DW8MIJ3i2+fRshdnq5NaQpCWI=
-X-Google-Smtp-Source: ABdhPJxcR2Rv6JX15/s9/1R0ChQ2nX7BhMMtbGCC/V/rUI9mXXrKUhDYfJ0nHletYLeJlfIm+XB/DA==
-X-Received: by 2002:a05:6000:1816:: with SMTP id m22mr2493572wrh.260.1618218568252;
-        Mon, 12 Apr 2021 02:09:28 -0700 (PDT)
+        bh=74mo/JJMqYIM4+zo2xRZtsFarloF4M+a197YqTM6bL0=;
+        b=GuaSTud8UwDBdj5wFJxas9PJVmtUsqccxxG0tUz5zhpk8PBjvShOHYC2Dw5heZgJOC
+         wBBwmiyp8xa2gFC+KMgEONuEhFLk8g/814S89sCUVUm8lPslH6RmCfx3GzPPrpJN3FQh
+         2kyGmGUTyB4o+DUeu+C048KSkSCrnOC5bBVSuomlX5ixePYSZHWjqsWo3IlHtutA5zZ3
+         NbA3MYan9uz4atD2PEgS0/+rA42buc7zC8AWCYM0u+uiNmX6Pl8dKxXAP/SpDExdiOdS
+         XTtLfpg3nFO6dlGv+1ZlJoF/gxfzWc8MmodsN0s1LX5qlse6Vk0TZMYg1GpDyNRrC8OZ
+         RL9w==
+X-Gm-Message-State: AOAM531KJ7ih74U1udPkMtn3ZoFaspCUKAlHYVYNBVhdMY6BDjp2CVVq
+        Agj3u+l1y8VhT+wg/dC7HHEKk0U7zyA=
+X-Google-Smtp-Source: ABdhPJw5Sc91U5AM37rRJkYOo8/zGpT6WgNmMV+RWBN6fcHA801LtL9wwnVOpzYBoaq56E9eR/p9cg==
+X-Received: by 2002:a7b:cd07:: with SMTP id f7mr1056894wmj.119.1618219354365;
+        Mon, 12 Apr 2021 02:22:34 -0700 (PDT)
 Received: from [10.8.0.194] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id h13sm14092413wmq.29.2021.04.12.02.09.26
+        by smtp.gmail.com with ESMTPSA id z15sm16559199wrw.38.2021.04.12.02.22.32
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Apr 2021 02:09:27 -0700 (PDT)
-Subject: Re: [PATCH v5 00/35] SYNOPSIS: Use syscall(SYS_...); and fix
- '#include's
-To:     Florian Weimer <fweimer@redhat.com>,
-        "Michael Kerrisk (man-pages) via Libc-alpha" 
-        <libc-alpha@sourceware.org>, Jakub Wilk <jwilk@jwilk.net>
+        Mon, 12 Apr 2021 02:22:34 -0700 (PDT)
+Subject: Re: [PATCH] setbuf.3: fix the error in section BUGS
+To:     Zhiheng Li <phoenix_lzh@sina.com>
+References: <20210412074443.15363-1-phoenix_lzh@sina.com>
 Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-References: <20210403194026.102818-1-alx.manpages@gmail.com>
- <20210404115847.78166-1-alx.manpages@gmail.com>
- <4298cc3c-8f24-5a3c-3c54-b24ca804d373@gmail.com>
- <87y2doni1m.fsf@oldenburg.str.redhat.com>
+        linux-man <linux-man@vger.kernel.org>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <365dc717-eb20-4549-9b6a-09eeadcfc89d@gmail.com>
-Date:   Mon, 12 Apr 2021 11:09:24 +0200
+Message-ID: <67c8cd43-4a0e-570a-4e4d-7539a3cd3ec8@gmail.com>
+Date:   Mon, 12 Apr 2021 11:22:31 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <87y2doni1m.fsf@oldenburg.str.redhat.com>
+In-Reply-To: <20210412074443.15363-1-phoenix_lzh@sina.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -73,73 +67,50 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Florian,
-
-On 4/12/21 8:17 AM, Florian Weimer wrote:
-> * Michael Kerrisk via Libc-alpha:
+On 4/12/21 9:44 AM, Zhiheng Li wrote:
+> ---
+>   man3/setbuf.3 | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
 > 
->> So, I think I'm okay with the syscall() changes in the SYNOPSIS.
->> It might just take me a moment to get used to them. However, I do
->> wonder if it is worth retaining a comment in the SYSNOPSIS,
->> something like:
->>
->>     SYNOPSIS
->>         #include <asm/prctl.h>        /* Definition of ARCH_* constants */
->>         #include <sys/syscall.h>      /* Definition of SYS_* constants */
->>         #include <unistd.h>
->>
->>         int syscall(SYS_arch_prctl, int code, unsigned long addr);
->>         int syscall(SYS_arch_prctl, int code, unsigned long *addr);
->>
->>         Note: glibc provides no wrapper for arch_prctl(), necessitating
->>         the use of syscall(2).
->>
->> Without something like this, the reader may be puzzled at the use of
->> syscall().
->>
->> What do you think?
+> diff --git a/man3/setbuf.3 b/man3/setbuf.3
+> index 5e5d57f89..e6d41b2a9 100644
+> --- a/man3/setbuf.3
+> +++ b/man3/setbuf.3
+> @@ -224,14 +224,15 @@ For example, the following is invalid:
+>   .PP
+>   .EX
+>   #include <stdio.h>
+> +#include <unistd.h>
+>   
+>   int
+>   main(void)
+>   {
+>       char buf[BUFSIZ];
+> -    setbuf(stdin, buf);
+> +    setbuf(stdout, buf);
+>       printf("Hello, world!\en");
+> -    return 0;
+> +    _exit(0);
+>   }
+>   .EE
+>   .SH SEE ALSO
 > 
-> Would it be possible to use real C syntax?
-> 
->    int code;
->    unsigned long addr;
->    int result;
->    result = syscall (SYS_arch_prctl, code, addr);
->    result = syscall (SYS_arch_prctl, code, &addr);
 
-I think that adds too many lines, and doesn't add much value.  Yes, it 
-provides pure C syntax, which might be a bit easier to understand, but 
-is it worth it?
+Hello Zhiheng Li,
 
-I followed the syntax already used by some manual pages such as the 
-ioctl_*(2) pages (see ioctl_fat(2) for example), although I must admit 
-it was a bit rare the first time I saw it; but I think it's a good 
-compromise between being short and providing information.
+I never used setbuf(3), so I don't know much about this example and why 
+it is "invalid", and therefore also don't know why it is wrong in being 
+invalid.
 
-I think the EXAMPLES section can better clarify how to use the function 
-if there're any doubts.
+As far as I can see, 'stdin' just seems to be a typo because it's not 
+being used, and probably 'stdout' was meant instead, as you point out.
 
-> 
-> Or perhaps omit the result variable:
-> 
->    int code;
->    unsigned long addr;
->    syscall (SYS_arch_prctl, code, addr);
+What about _exit(0)?  Why _exit(2) and not return (or equivalently 
+exit(3))?  Could you explain that a bit more?
 
-That wouldn't provide the reader with the info about which type should 
-he expect as return; the most important part being the signedness of the 
-type.
-
-On 4/12/21 8:39 AM, Jakub Wilk wrote:
- >>
- >
- > Or, more succinctly, put the types in comments:
- >
- >    syscall(SYS_arch_prctl, /* int */ code, /* unsigned long */ addr);
-
-I'm not sure.  I see the point in doing this, but I think I prefer my 
-version, because it has less noise.  But I might be a bit biased :)
-
+BTW, Could you please use a mailer that allows you to write plain text 
+emails?  Mozilla Thunderbird may be easy to use for you, and it comes 
+with most Linux distros.
 
 Thanks,
 
