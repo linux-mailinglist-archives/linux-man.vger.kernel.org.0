@@ -2,65 +2,84 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2083935F34C
-	for <lists+linux-man@lfdr.de>; Wed, 14 Apr 2021 14:16:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5218335FB21
+	for <lists+linux-man@lfdr.de>; Wed, 14 Apr 2021 20:59:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232983AbhDNMQ6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 14 Apr 2021 08:16:58 -0400
-Received: from mail.skyhub.de ([5.9.137.197]:39480 "EHLO mail.skyhub.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S232412AbhDNMQ5 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 14 Apr 2021 08:16:57 -0400
-Received: from zn.tnic (p200300ec2f0e8f000d8b3334e5756a5b.dip0.t-ipconnect.de [IPv6:2003:ec:2f0e:8f00:d8b:3334:e575:6a5b])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 945441EC0258;
-        Wed, 14 Apr 2021 14:16:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
-        t=1618402595;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:
-         content-transfer-encoding:content-transfer-encoding:in-reply-to:
-         references; bh=YhKDDgHiv9rxK05BxM0e6UZsfpIL0YSWJyUfLdVEHz8=;
-        b=hPx6GRbIRHzY3z9uHplyB/MNhkkeIoFDsioYqmLX5DrTKCBReqGab1UM7GB0Ea/U7+Z2xE
-        lTl4Mu1dHc16m+x8A5rvNeiBm0Oce15+upVA3/Ehqnh5F61IJCji+QNm1DodPKQ6vd1DQB
-        sXxTb25+rqguRfxJVMACMl0HFKAm0Ug=
-From:   Borislav Petkov <bp@alien8.de>
-To:     linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: [PATCH] sigaltstack.2: tfix
-Date:   Wed, 14 Apr 2021 14:16:30 +0200
-Message-Id: <20210414121630.16201-1-bp@alien8.de>
-X-Mailer: git-send-email 2.29.2
+        id S1346882AbhDNSxO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 14 Apr 2021 14:53:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35728 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1346834AbhDNSxN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 14 Apr 2021 14:53:13 -0400
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EE7C3C061574
+        for <linux-man@vger.kernel.org>; Wed, 14 Apr 2021 11:52:51 -0700 (PDT)
+Received: by mail-wm1-x333.google.com with SMTP id z24-20020a1cf4180000b029012463a9027fso11061438wma.5
+        for <linux-man@vger.kernel.org>; Wed, 14 Apr 2021 11:52:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flodin-me.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=n/H+/7try0aKVZk43SO2tGw5voDARm0xCmWbU8F/KtQ=;
+        b=lvrFso1t5urBFTfRX7kPcgZD6hoinTxkUS+OmVBJX+tB1MByiok/5ENILAnsUAbaHe
+         QWq/n0Vq4mntMHxY4RDTDSIGA+u1cZFUa4KTR5yV29UJGLKXW5CgX5hHsb6aluPFMkL6
+         CzGWvfVjr4jUvmMCoyTnM25RUEouSlahZWyyc76JtJM2VxqzVYifV6uj/6QfXXTduKtV
+         9OTtA4BPHLsaFRxpB4xnrzcxPgLh8NgCzde+0w/utPE9LALBLMNoAsDEK25/ysoq2dJu
+         D2Dz9i8aVmYbzjVpK6V22RP8ih08+7ijiO4SHGQ+HBKeQFWzC4lwZvS5XAohpMiGzYri
+         MlxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=n/H+/7try0aKVZk43SO2tGw5voDARm0xCmWbU8F/KtQ=;
+        b=W5j+15YU4fwPtG4ajlhblev+HTP8OrZWxg6ChtmWIjnr9i9ldxGKkCEPnoU2qPIPTm
+         2YugpxYbb4zZNYEEe5bOnqO867OzTWGBUva8xz6G1OKu5hVgV69gVkbPMc2AduKD29Yv
+         GaJgArhAw3jQpXs591okYbn1SRzt+QF4OzCD2yHsTUk7yI8nEF/lkMI8H7jFMITusVtg
+         7gju93zID1eURnmE+GvQfRo5lio79uFGpftUZFP+qdA+6sDqLdrUmNjX02B7kDHW5f2x
+         QamRVEgWLKW18nCeJDAe8H0ZrhwHZyoU0jzqBUxVN3QsrolhsynvQQIcYW46AkkL8y1q
+         VBKg==
+X-Gm-Message-State: AOAM533cTJd47KBSuM+2xw0uA0vvQ1K3X0Jnv666LkTAj0omFtY+1pOZ
+        inlSph/d0EJM1jCnt5xjr/FyPS/0D4dvnUgq12nYfw==
+X-Google-Smtp-Source: ABdhPJxzIWCi5AgAXwSPTC+4GLC68C8Wl3ZEPDU3e27jexmfFIkUgwi7ySQiDB2dJCfdC4ZMIHZuQtjRD8vBEq+uXy4=
+X-Received: by 2002:a1c:750d:: with SMTP id o13mr4317669wmc.76.1618426370773;
+ Wed, 14 Apr 2021 11:52:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAAMKmof+Y+qrro7Ohd9FSw1bf+-tLMPzaTba-tVniAMY0zwTOQ@mail.gmail.com>
+ <b0a534b3-9bdf-868e-1f28-8e32d31013a2@gmail.com>
+In-Reply-To: <b0a534b3-9bdf-868e-1f28-8e32d31013a2@gmail.com>
+From:   Erik Flodin <erik@flodin.me>
+Date:   Wed, 14 Apr 2021 20:52:39 +0200
+Message-ID: <CAAMKmodhSsckMxH9jLKKwXN_B76RoLmDttbq5X9apE-eCo0hag@mail.gmail.com>
+Subject: Re: netdevice.7 SIOCGIFFLAGS/SIOCSIFFLAGS
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Stefan Rompf <stefan@loplof.de>,
+        "David S. Miller" <davem@davemloft.net>,
+        Fredrik Arnerup <fredrik.arnerup@edgeware.tv>,
+        John Dykstra <john.dykstra1@gmail.com>,
+        Oliver Hartkopp <oliver.hartkopp@volkswagen.de>,
+        Urs Thuermann <urs.thuermann@volkswagen.de>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Borislav Petkov <bp@suse.de>
+Hi,
 
-Add a missing "to" in an "in order to" formulation.
+On Fri, 19 Mar 2021 at 20:53, Alejandro Colomar (man-pages)
+<alx.manpages@gmail.com> wrote:
+> On 3/17/21 3:12 PM, Erik Flodin wrote:
+> > The documentation for SIOCGIFFLAGS/SIOCSIFFLAGS in netdevice.7 lists
+> > IFF_LOWER_UP, IFF_DORMANT and IFF_ECHO, but those can't be set in
+> > ifr_flags as it is only a short and the flags start at 1<<16.
+> >
+> > See also https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=746e6ad23cd6fec2edce056e014a0eabeffa838c
+> >
+>
+> I don't know what's the history of that.
 
-Signed-off-by: Borislav Petkov <bp@suse.de>
----
- man2/sigaltstack.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Judging from commit message in the commit linked above it was added by
+mistake. As noted the flags are accessible via netlink, just not via
+SIOCGIFFLAGS.
 
-diff --git a/man2/sigaltstack.2 b/man2/sigaltstack.2
-index c8d5c184f3ab..53268ccbea96 100644
---- a/man2/sigaltstack.2
-+++ b/man2/sigaltstack.2
-@@ -111,7 +111,7 @@ Clear the alternate signal stack settings on entry to the signal handler.
- When the signal handler returns,
- the previous alternate signal stack settings are restored.
- .IP
--This flag was added in order make it safe
-+This flag was added in order to make it safe
- to switch away from the signal handler with
- .BR swapcontext (3).
- Without this flag, a subsequently handled signal will corrupt
--- 
-2.29.2
-
+// Erik
