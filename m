@@ -2,84 +2,106 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5218335FB21
-	for <lists+linux-man@lfdr.de>; Wed, 14 Apr 2021 20:59:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0597735FBE3
+	for <lists+linux-man@lfdr.de>; Wed, 14 Apr 2021 21:51:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1346882AbhDNSxO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 14 Apr 2021 14:53:14 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35728 "EHLO
+        id S238322AbhDNTwL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 14 Apr 2021 15:52:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48586 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1346834AbhDNSxN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 14 Apr 2021 14:53:13 -0400
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EE7C3C061574
-        for <linux-man@vger.kernel.org>; Wed, 14 Apr 2021 11:52:51 -0700 (PDT)
-Received: by mail-wm1-x333.google.com with SMTP id z24-20020a1cf4180000b029012463a9027fso11061438wma.5
-        for <linux-man@vger.kernel.org>; Wed, 14 Apr 2021 11:52:51 -0700 (PDT)
+        with ESMTP id S234955AbhDNTwH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 14 Apr 2021 15:52:07 -0400
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2E43EC061574
+        for <linux-man@vger.kernel.org>; Wed, 14 Apr 2021 12:51:45 -0700 (PDT)
+Received: by mail-wr1-x436.google.com with SMTP id a4so21017301wrr.2
+        for <linux-man@vger.kernel.org>; Wed, 14 Apr 2021 12:51:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flodin-me.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=n/H+/7try0aKVZk43SO2tGw5voDARm0xCmWbU8F/KtQ=;
-        b=lvrFso1t5urBFTfRX7kPcgZD6hoinTxkUS+OmVBJX+tB1MByiok/5ENILAnsUAbaHe
-         QWq/n0Vq4mntMHxY4RDTDSIGA+u1cZFUa4KTR5yV29UJGLKXW5CgX5hHsb6aluPFMkL6
-         CzGWvfVjr4jUvmMCoyTnM25RUEouSlahZWyyc76JtJM2VxqzVYifV6uj/6QfXXTduKtV
-         9OTtA4BPHLsaFRxpB4xnrzcxPgLh8NgCzde+0w/utPE9LALBLMNoAsDEK25/ysoq2dJu
-         D2Dz9i8aVmYbzjVpK6V22RP8ih08+7ijiO4SHGQ+HBKeQFWzC4lwZvS5XAohpMiGzYri
-         MlxQ==
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=KVcofknTELEABjqCnd/BNhjMP1Hg1oOmCiu4ds2YFGs=;
+        b=ULiJc6I230muaEcJ4HV+hqllOknsQOWftUQ3WfvxQZ7eAda1B/FBmC6Hc7/3oPtsGX
+         QwlHb3Nds3oUcsOtex3ZdLvFTJc/W8wsx4TJ+5sDed8WcbYY6hFycWbz06JI9WOw9e0u
+         DLr4I5Qn/a/Fe4AtlFVIIFodhxCk+1J4hzX1Jh42f2d6V0MY7beShtgPfJBQNltBpzFe
+         HzisFbZfOgtwwNbo6jkbbOs7aXZB+VrBTgXJb1fW65EAFUKnWd/eFPFHl9+XOKsW8EbF
+         2sb+vANqcRApgtSfqtnKmqa0YcGQ7Mx8CJYnZvg9SQ3YX/G50QwCJfqCx3A8eWeE0HVx
+         kbrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=n/H+/7try0aKVZk43SO2tGw5voDARm0xCmWbU8F/KtQ=;
-        b=W5j+15YU4fwPtG4ajlhblev+HTP8OrZWxg6ChtmWIjnr9i9ldxGKkCEPnoU2qPIPTm
-         2YugpxYbb4zZNYEEe5bOnqO867OzTWGBUva8xz6G1OKu5hVgV69gVkbPMc2AduKD29Yv
-         GaJgArhAw3jQpXs591okYbn1SRzt+QF4OzCD2yHsTUk7yI8nEF/lkMI8H7jFMITusVtg
-         7gju93zID1eURnmE+GvQfRo5lio79uFGpftUZFP+qdA+6sDqLdrUmNjX02B7kDHW5f2x
-         QamRVEgWLKW18nCeJDAe8H0ZrhwHZyoU0jzqBUxVN3QsrolhsynvQQIcYW46AkkL8y1q
-         VBKg==
-X-Gm-Message-State: AOAM533cTJd47KBSuM+2xw0uA0vvQ1K3X0Jnv666LkTAj0omFtY+1pOZ
-        inlSph/d0EJM1jCnt5xjr/FyPS/0D4dvnUgq12nYfw==
-X-Google-Smtp-Source: ABdhPJxzIWCi5AgAXwSPTC+4GLC68C8Wl3ZEPDU3e27jexmfFIkUgwi7ySQiDB2dJCfdC4ZMIHZuQtjRD8vBEq+uXy4=
-X-Received: by 2002:a1c:750d:: with SMTP id o13mr4317669wmc.76.1618426370773;
- Wed, 14 Apr 2021 11:52:50 -0700 (PDT)
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=KVcofknTELEABjqCnd/BNhjMP1Hg1oOmCiu4ds2YFGs=;
+        b=UR2//FUAN+X/ETN8/IvUb5lOFwyTYgwaSAqzWzbasGDP0S+wUERGjbQDY1C192BgOS
+         /FMTgY6bo2OISpE5yF9x1c9TsliWrqOBH+nuva9j9GSxiBu7rt0HBbFNCAL4KK5IbEw8
+         7iww1BKKgGS8Fmhbz5WS6XCYb6YcJr2cmi9mbT2B6ORZW5A9gIqZ8L7AnXYZ7MNsu5J8
+         eqHVTeEr2+Cx4YeUqQHCC8LXRZXPLGxIy7+znApm+T5Uq6wDsB1YR7JKnlS1NJS3MUa0
+         Oc+GARbMDCerYoWnvqvhuaGz7HJ1BKMmtnuX7Gpugra9oYIr95BFyWleIIXsyKZp9LBs
+         Ly9Q==
+X-Gm-Message-State: AOAM5322HKNGeppfz1B1gp6e9mgxRwPKRhn/Dly5n7rPdfy1E4gBi8GA
+        iCo1nsNFDa8vLqPLFBDHNZA7V7Cjrds=
+X-Google-Smtp-Source: ABdhPJxHHiG9M52lOFLjdPxpB8RO5X2K7XSZx6bc0p1EfeDd9R3qlL2Mp/mqUB1qAhFnD3b88svxrA==
+X-Received: by 2002:adf:f944:: with SMTP id q4mr40595183wrr.281.1618429903960;
+        Wed, 14 Apr 2021 12:51:43 -0700 (PDT)
+Received: from [10.8.0.194] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id k11sm312548wmj.1.2021.04.14.12.51.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Apr 2021 12:51:43 -0700 (PDT)
+Subject: Re: [PATCH] sigaltstack.2: tfix
+To:     Borislav Petkov <bp@alien8.de>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
+References: <20210414121630.16201-1-bp@alien8.de>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <c5b41732-6df8-8cd6-7779-91a9b4b8f938@gmail.com>
+Date:   Wed, 14 Apr 2021 21:51:42 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-References: <CAAMKmof+Y+qrro7Ohd9FSw1bf+-tLMPzaTba-tVniAMY0zwTOQ@mail.gmail.com>
- <b0a534b3-9bdf-868e-1f28-8e32d31013a2@gmail.com>
-In-Reply-To: <b0a534b3-9bdf-868e-1f28-8e32d31013a2@gmail.com>
-From:   Erik Flodin <erik@flodin.me>
-Date:   Wed, 14 Apr 2021 20:52:39 +0200
-Message-ID: <CAAMKmodhSsckMxH9jLKKwXN_B76RoLmDttbq5X9apE-eCo0hag@mail.gmail.com>
-Subject: Re: netdevice.7 SIOCGIFFLAGS/SIOCSIFFLAGS
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Stefan Rompf <stefan@loplof.de>,
-        "David S. Miller" <davem@davemloft.net>,
-        Fredrik Arnerup <fredrik.arnerup@edgeware.tv>,
-        John Dykstra <john.dykstra1@gmail.com>,
-        Oliver Hartkopp <oliver.hartkopp@volkswagen.de>,
-        Urs Thuermann <urs.thuermann@volkswagen.de>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20210414121630.16201-1-bp@alien8.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi,
+Hello Borislav,
 
-On Fri, 19 Mar 2021 at 20:53, Alejandro Colomar (man-pages)
-<alx.manpages@gmail.com> wrote:
-> On 3/17/21 3:12 PM, Erik Flodin wrote:
-> > The documentation for SIOCGIFFLAGS/SIOCSIFFLAGS in netdevice.7 lists
-> > IFF_LOWER_UP, IFF_DORMANT and IFF_ECHO, but those can't be set in
-> > ifr_flags as it is only a short and the flags start at 1<<16.
-> >
-> > See also https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=746e6ad23cd6fec2edce056e014a0eabeffa838c
-> >
->
-> I don't know what's the history of that.
+On 4/14/21 2:16 PM, Borislav Petkov wrote:
+> From: Borislav Petkov <bp@suse.de>
+> 
+> Add a missing "to" in an "in order to" formulation.
+> 
+> Signed-off-by: Borislav Petkov <bp@suse.de>
 
-Judging from commit message in the commit linked above it was added by
-mistake. As noted the flags are accessible via netlink, just not via
-SIOCGIFFLAGS.
+Patch applied.
 
-// Erik
+Thanks,
+
+Alex
+
+> ---
+>   man2/sigaltstack.2 | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/man2/sigaltstack.2 b/man2/sigaltstack.2
+> index c8d5c184f3ab..53268ccbea96 100644
+> --- a/man2/sigaltstack.2
+> +++ b/man2/sigaltstack.2
+> @@ -111,7 +111,7 @@ Clear the alternate signal stack settings on entry to the signal handler.
+>   When the signal handler returns,
+>   the previous alternate signal stack settings are restored.
+>   .IP
+> -This flag was added in order make it safe
+> +This flag was added in order to make it safe
+>   to switch away from the signal handler with
+>   .BR swapcontext (3).
+>   Without this flag, a subsequently handled signal will corrupt
+> 
+
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
