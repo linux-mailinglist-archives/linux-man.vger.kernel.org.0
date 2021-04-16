@@ -2,86 +2,105 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8B5F7361DA2
-	for <lists+linux-man@lfdr.de>; Fri, 16 Apr 2021 12:09:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E5C61361DA9
+	for <lists+linux-man@lfdr.de>; Fri, 16 Apr 2021 12:09:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S242223AbhDPKA3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 16 Apr 2021 06:00:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39906 "EHLO
+        id S240663AbhDPKCg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 16 Apr 2021 06:02:36 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40380 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S240445AbhDPKA1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 16 Apr 2021 06:00:27 -0400
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4BB3BC061756
-        for <linux-man@vger.kernel.org>; Fri, 16 Apr 2021 03:00:02 -0700 (PDT)
-Received: by mail-wr1-x42d.google.com with SMTP id k26so9682903wrc.8
-        for <linux-man@vger.kernel.org>; Fri, 16 Apr 2021 03:00:02 -0700 (PDT)
+        with ESMTP id S234291AbhDPKCg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 16 Apr 2021 06:02:36 -0400
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 14AAAC061574
+        for <linux-man@vger.kernel.org>; Fri, 16 Apr 2021 03:02:10 -0700 (PDT)
+Received: by mail-wr1-x42c.google.com with SMTP id m9so13354301wrx.3
+        for <linux-man@vger.kernel.org>; Fri, 16 Apr 2021 03:02:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=3L4UrgcmePmpUNup52YBFga2g6wyWrgmQBEugywPEsw=;
-        b=Lmjw76+deYCKkz7dUy25unxR6mP2cswGFl1CLrksfj4R+VdWAf4laBPkEorzWkVBih
-         TjYEnIQemxWvfUVJ/DuNji5R0im1Eo+7ZLKBdlZoVO0mB6hrJ1AfI09xWbzAfPpF7jPE
-         lLArOzyzZ7tX/hFSen79MYoNWYg1abgLBBorknoOuHIUpmZQR8lFlm7U9T7WqrS4RpT8
-         FOSltGBwGFsf0YTxxu1xM21pfd5ZXHDKmU1etA+Vgst/n4cd4zAuYoibmalkMBkiSPqy
-         XbJKfJ7wAU+NMtCRAlacbCM1kKVOqsirG9SD6Rv8BYbmWpKlmiu9XPYHUoK0xKiloBLG
-         5Yvg==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=GKKdAl8sTCjyD3h49fD8H/B9Xtr5BUqLVnYWey2xHkk=;
+        b=c81xgmPX84L1rkhHt6dCoaVYo1SVdRqvaQIBjVJIWcRSfFQ0DGa9VWBJ/DOR5j/gxg
+         uWauO2fTa19WwMoHwJQSGHAJ3FAW3JhrmAdu7n4zwrJtZ4zN2NS8PtcPLgHF5kT6hyBg
+         nLXv5HZqCFdWxHHJywJK+YXOAmk+Nh32ukBpCmqhpmXBd1xBJG09Ggw7METoqv4tPjyL
+         Rmm0516gfp8gqhXwJJWogHPHCqDFLvv5YFoAV5UTlAmhZEpg/N5KAwnHkI1qHj505/b2
+         7yYXdzhsPiXqkRrNBINX8wSAVFmbffwjGTdIaJxQvgwgOKOUPe3Mh2asErrcv3gk+/GP
+         43xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=3L4UrgcmePmpUNup52YBFga2g6wyWrgmQBEugywPEsw=;
-        b=C1nTGP0ArubNBdzL/bBvb8ssqvXOaCad7YK74PbM1paw6yLw+24vJ2BpNPrQ9DhrC9
-         +vHpgodyRYA4tTAEXdvO0zWkgyA1eNSqGp6btY/mGQg3nRZd+T1VDnzjtsrAntKnSHNR
-         lVDIDWne5vUgzd3IHkrirszE+KeTZD2lZzizgM8zqPo0xAsFZ3LhvGwhPuCWGzV+/Hyq
-         hn2rASAdmeSplxs6NNCOYobEnO5yfVCzxSXm6U9VMLCjniDzXBPCyCmIKICo6PzyNK/p
-         /yARgHLVaPsHlNvmJrxh/I0u+rs6gasEh+owddlCPDqZ75wJNXe+nbPdm8PnwvsoDVVy
-         GSUg==
-X-Gm-Message-State: AOAM533YW66OSoqVTu2xk3HJ0fo+hASqaDWjqQUqjogQONZi6k3PvBpU
-        mFKF/Vw/PZ3Ch3AHP4/N02o=
-X-Google-Smtp-Source: ABdhPJzh6TctCgc8CFI+aU/opR0Xl0TmpAR0OLMhGom8AkG8mbL4nD+4IznMpLaM92PT3jqlrUpeIw==
-X-Received: by 2002:adf:ee0b:: with SMTP id y11mr8160389wrn.75.1618567201110;
-        Fri, 16 Apr 2021 03:00:01 -0700 (PDT)
-Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id t4sm10655089wrz.27.2021.04.16.03.00.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Apr 2021 03:00:00 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, Zhiheng Li <phoenix_lzh@sina.com>
-Subject: [PATCH 3/3] setbuf.3: tfix
-Date:   Fri, 16 Apr 2021 11:58:56 +0200
-Message-Id: <20210416095853.6188-3-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210416095853.6188-1-alx.manpages@gmail.com>
-References: <20210416095853.6188-1-alx.manpages@gmail.com>
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=GKKdAl8sTCjyD3h49fD8H/B9Xtr5BUqLVnYWey2xHkk=;
+        b=QQfuIwBZDsNuFbc3qmKrCHHDqeXFiisbatCnvAwnt7OBsQDk15vmXFybUFwuOS+ONK
+         J2Aq4FzOj1g+TWuDEwH2JQ3+qQ9lklZNFPcb+tbQgCbPpAN1UunTxjEA90MIzdRHmRWc
+         A0mlIGEKTOaQ6GpgrcoJlAqA8VBgkXr92J8p67xYJkmuKWG4+Oaz4TA9dDUMno/w8JwH
+         IJ1AanP2xa9fxbJ7yKbhpZfi+xUbeCD0WIdamLKMNVMaugJFSled07HYrq5poMK0ECKO
+         27Q0PV36+RYpHibHlNDTPsuq+IOqEdPEpb4qgRkhHENqminuCBZit+xnyb8i0Zs2wt0f
+         qw8A==
+X-Gm-Message-State: AOAM532epmZm0xn6Yx6wjjAVFd37oI3pjgqCcGsbOLQXJfxiysWxB1Uq
+        jysbaISQNtkw2KByPCXrJuiUQahddfU=
+X-Google-Smtp-Source: ABdhPJxiFvBtWm2/ITce5aCbM6gITr1Uag6hw+XA/WlzlYsZHBmJtQdFUmszgmxgl3UrcbZ1JVg9bA==
+X-Received: by 2002:adf:9042:: with SMTP id h60mr8099786wrh.362.1618567328865;
+        Fri, 16 Apr 2021 03:02:08 -0700 (PDT)
+Received: from [10.8.0.194] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id l5sm9030224wro.4.2021.04.16.03.02.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Apr 2021 03:02:08 -0700 (PDT)
+Subject: Re: [PATCH] setbuf.3: fix the error in section BUGS
+To:     Zhiheng Li <phoenix_lzh@sina.com>,
+        Stefan Puiu <stefan.puiu@gmail.com>
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>
+References: <20210412074443.15363-1-phoenix_lzh@sina.com>
+ <67c8cd43-4a0e-570a-4e4d-7539a3cd3ec8@gmail.com>
+ <37c86142-a8a1-55ec-de3c-0fe48876860b@sina.com>
+ <CACKs7VDhYRbGAvuvr3C_2nyBD1QR--9XCcjDzXucbv-=VYFgaQ@mail.gmail.com>
+ <4fcc0db7-f9b9-a6ec-992b-84205e301618@sina.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <ecd9f370-40d2-e2a0-400e-068a6029dcba@gmail.com>
+Date:   Fri, 16 Apr 2021 12:02:07 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
 MIME-Version: 1.0
+In-Reply-To: <4fcc0db7-f9b9-a6ec-992b-84205e301618@sina.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Reported-by: Zhiheng Li <phoenix_lzh@sina.com>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man3/setbuf.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hi Zhiheng,
 
-diff --git a/man3/setbuf.3 b/man3/setbuf.3
-index 5e5d57f89..0d7cca8f9 100644
---- a/man3/setbuf.3
-+++ b/man3/setbuf.3
-@@ -229,7 +229,7 @@ int
- main(void)
- {
-     char buf[BUFSIZ];
--    setbuf(stdin, buf);
-+    setbuf(stdout, buf);
-     printf("Hello, world!\en");
-     return 0;
- }
+On 4/16/21 11:28 AM, Zhiheng Li wrote:
+> Hi Stefan
+> 
+> After doing some tests, I also found that the buffer was flushed out of 
+> main. Thank you for telling me that.
+> Even if the following program can print "Hello, world!"(Just replace 100 
+> with BUFSIZ in your example), it is illegal. Because buf is used outside 
+> the scope of buf when fulshing.
+> #include <stdio.h>
+> int main(void)
+> {
+>      char buf[BUFSIZ];
+>      setbuf(stdout, buf);
+>      printf("Hello, world!\n");
+>      return 0;
+> }
+> So there is only a typo of 'stdout' in man pages. Could you fix it? Thanks.
+> 
+
+Sure!  Fixed.  Thanks for the report :)
+
+Cheers,
+
+Alex
+
+
 -- 
-2.31.0
-
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
