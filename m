@@ -2,106 +2,123 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A93523625D1
-	for <lists+linux-man@lfdr.de>; Fri, 16 Apr 2021 18:39:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 656D33631F4
+	for <lists+linux-man@lfdr.de>; Sat, 17 Apr 2021 21:20:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235809AbhDPQjr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 16 Apr 2021 12:39:47 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44888 "EHLO
+        id S236212AbhDQTUn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 17 Apr 2021 15:20:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53522 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233976AbhDPQjq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 16 Apr 2021 12:39:46 -0400
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com [IPv6:2607:f8b0:4864:20::62a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0072FC061574
-        for <linux-man@vger.kernel.org>; Fri, 16 Apr 2021 09:39:20 -0700 (PDT)
-Received: by mail-pl1-x62a.google.com with SMTP id u7so12466516plr.6
-        for <linux-man@vger.kernel.org>; Fri, 16 Apr 2021 09:39:20 -0700 (PDT)
+        with ESMTP id S235234AbhDQTUm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 17 Apr 2021 15:20:42 -0400
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 49B02C061574
+        for <linux-man@vger.kernel.org>; Sat, 17 Apr 2021 12:20:15 -0700 (PDT)
+Received: by mail-wm1-x336.google.com with SMTP id y124-20020a1c32820000b029010c93864955so18283732wmy.5
+        for <linux-man@vger.kernel.org>; Sat, 17 Apr 2021 12:20:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:subject:references:date:in-reply-to:message-id:user-agent
-         :mime-version;
-        bh=/LkUrB0Ul/Puf1uaVf0pnpXLtAlk7n8qRcgr8YE2KII=;
-        b=fPVnUDVKroeXoSqlu83oZSCfcpDrvlkAsv+6TawET0PWO+zljNXcGLUN+qv0aeweLD
-         JcU36lM/+CgxDHsFsstKJKHqPrWccMHPEYt26odabmgyKrdyFdFYnlvMM/qlJh4CrBK1
-         E6nPMVmavhrvyI1ru35W11iYDthwj4XyjAAiPoxFJKp+KdbzMIWC/E2HJYrKjC+A14WY
-         E0SvWKCBOarvFAZNPQRQefouEIFvb1Vvp6iq+0a2oVZze0tZ1ajTHofkAEItxAnve03g
-         D6h5RsMXa2upRchJD3zsdBtsO+D7HmCT8gCuGD5yERrWKtJhTGoTOsXrrGvsSw6UJnva
-         pNWg==
+        h=subject:to:references:cc:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=lhULlnqcCiqBKtqWy0x+9PH1Y1o28fsrZkIgKUwa8ds=;
+        b=p29j6lakjHq8GRbB7M8I0py61UIJf+F9lWv3U8lTnmc9bVMYe+fi44QR9aQ7rFXsWY
+         AHCRaSsh+Z3hJ0wV7Grg8c/XS/RxPEo8YhSJdRUAVA5kN+m0HlUxfFQEB32X8wQgIzZe
+         vJ6+OgtQ2H4kD2Ehkh74jB83NFYgQoVyBStafoXzYbGafJqdMrSX1ag9DFNaT1fQ7wyp
+         JnGzV8O/TqNAWxNTfWVUtYQipfiTzOO9f8DwyN8O5P1gfnTwqIqzH2/zVTRH63p6H0SF
+         XJzi89U//4MjX0tfgdLFzmwsus5sAt1eXWFTwZeOWdzTZoH3wtMp4VlX973Xhx8TkS3/
+         yEnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:references:date:in-reply-to
-         :message-id:user-agent:mime-version;
-        bh=/LkUrB0Ul/Puf1uaVf0pnpXLtAlk7n8qRcgr8YE2KII=;
-        b=fu3qAjus92m6Dw6FxJyyLTyB7fkRaxGPwxW8qCsOWP7nQJXOjQRIxvSXnPhwVgKmMg
-         Za8wSKQYwlhkF4qFuqFZR+Q+KLgZSnkBgg4w1wVFhwDumUDAdhIAfGijfzKozOvYKUQw
-         zCHN2O3gb1wu0yeeryUdkfZH//QjxArCekcAxFrwNyhIZe7Bokg9z1I2SjWx8cSv/osR
-         BNFoJ8bpqDiffZDvL/hW7JxD4tfiCtJDIMPAdsHZ5Xl2A3wY2vU4phqAJoHSiZuKZGur
-         /9iQHFKqWVyQslFI6u8/qKeR8D1ygGhQSwMnD4QRXtJmnU3VQOYvBtgrXDBj9Wv7yKh/
-         jI8g==
-X-Gm-Message-State: AOAM531Vbzgz0/45JUUp7OGl/CP1cw4DiYiy12/YPg5GcSX899wFQxP7
-        vcBdokCyx2Ulb95IOJra+10=
-X-Google-Smtp-Source: ABdhPJxzOyppt3RLchaSFwvvaHT3V1zwvZnwTt0qNdMdVIA7ZVX20C1rAST8ImFYxGDPwZkqgyWi0g==
-X-Received: by 2002:a17:902:b210:b029:eb:535f:852 with SMTP id t16-20020a170902b210b02900eb535f0852mr10338023plr.80.1618591160510;
-        Fri, 16 Apr 2021 09:39:20 -0700 (PDT)
-Received: from localhost ([45.251.50.123])
-        by smtp.gmail.com with ESMTPSA id t10sm6008837pjy.16.2021.04.16.09.39.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Apr 2021 09:39:19 -0700 (PDT)
-From:   Utkarsh Singh <utkarsh190601@gmail.com>
-To:     Walter Harms <wharms@bfs.de>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "alx.manpages@gmail.com" <alx.manpages@gmail.com>,
-        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
+        h=x-gm-message-state:subject:to:references:cc:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=lhULlnqcCiqBKtqWy0x+9PH1Y1o28fsrZkIgKUwa8ds=;
+        b=WrZ7e2mBSpQNg0a4PKJbQ3d7sgkwUCOxVdO7qlo8za1vPFixWSNeeTkvhyttB8M4+y
+         LGpjvPZrobH1AqFzWJEWbStx4UB/PkdV0t/cVtxoV8SY2e0v4mGMrd+ZWcVziSuhYHYf
+         MwlKZAfCsqW4SIFwxkv1Phv89pc2hum2DWHOr514ykfr3vhVsfbfCmWSH81ezbOFZXL9
+         uaceHukkr+DIF7dKWMKTRM2Qw8/vchgcPLSVoWjELc6R5p3vyji3Ke7locJ1+YVLwaCm
+         CAT9m8ZjGrCuJXkmST/3Ed6inwxtY9p6zES4BpoHmFCOMV3lCs0jWnb/RQoZy6xoVSgS
+         NZCQ==
+X-Gm-Message-State: AOAM530MmQXwW0YyClGGhk2qKSOEw09rDYeb7WTo7zeSOqFYLc4xuLiW
+        7bZnSg5OtcQTL1ciBlC6WgLAolfxnc8=
+X-Google-Smtp-Source: ABdhPJyNMMjSCxLqLQapMBCwxLFfjciDiIshUXkX7zHlSEy+cTTCe/jaDG/AAb+kaNoSLPtIEtL0mQ==
+X-Received: by 2002:a1c:f608:: with SMTP id w8mr8977583wmc.44.1618687214036;
+        Sat, 17 Apr 2021 12:20:14 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id v4sm12943415wme.14.2021.04.17.12.20.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 17 Apr 2021 12:20:13 -0700 (PDT)
 Subject: Re: AW: umask.1p: Can we add a table for octal and symbolic notation?
+To:     Walter Harms <wharms@bfs.de>,
+        Utkarsh Singh <utkarsh190601@gmail.com>
 References: <878s6cbmm1.fsf@gmail.com>
-        <747334490ab842f7b7816bad09a6d2fd@bfs.de>
-Date:   Fri, 16 Apr 2021 22:09:20 +0530
-In-Reply-To: <747334490ab842f7b7816bad09a6d2fd@bfs.de> (Walter Harms's message
-        of "Fri, 16 Apr 2021 15:46:32 +0000")
-Message-ID: <878s5ichfr.fsf@gmail.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.0.50 (gnu/linux)
+ <747334490ab842f7b7816bad09a6d2fd@bfs.de>
+Cc:     "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>,
+        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <5702b8d2-165b-b5eb-c84e-1518a5da94a8@gmail.com>
+Date:   Sat, 17 Apr 2021 21:20:11 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
 MIME-Version: 1.0
-Content-Type: text/plain
+In-Reply-To: <747334490ab842f7b7816bad09a6d2fd@bfs.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 2021-04-16, 15:46 +0000, Walter Harms <wharms@bfs.de> wrote:
+Hello Walter, Utkarsh,
 
+On 4/16/21 5:46 PM, Walter Harms wrote:
 > Hello everybody,
 > i did no see any answer. 
->
+> 
 > How is maintaining the posix-pages organized ? 
+Thanks for the ping.
 
-There some misunderstanding from my side on how POSIX manual pages are
-'distributed' with Linux man-page project.  Here is message posted on
-this mailing list some time ago.
+Well, we only have a script to transform the original HTML POSIX manual
+pages into actual man pages.  We maintain the script, and apply minor
+fixes to the resulting pages when the script fails, but other than that,
+the Open Group is responsible for the content; I guess (but I don't know
+for sure; Michael will know better) the permission to redistribute the
+pages is to redistribute them without changes.
 
-Message from Michael Kerrisk on Wed, 22 Jan 2014 16:56:48 +0100:
+> 
+> re,
+>  wh
+> ________________________________________
+> Von: Utkarsh Singh <utkarsh190601@gmail.com>
+> Gesendet: Mittwoch, 24. März 2021 16:24
+> An: linux-man@vger.kernel.org; alx.manpages@gmail.com; mtk.manpages@gmail.com
+> Betreff: umask.1p: Can we add a table for octal and symbolic notation?
+> 
+> WARNUNG: Diese E-Mail kam von außerhalb der Organisation. Klicken Sie nicht auf Links oder öffnen Sie keine Anhänge, es sei denn, Sie kennen den/die Absender*in und wissen, dass der Inhalt sicher ist.
+> 
+> 
+> Hi,
+> 
+> The POSIX.1 standard man page for umask is a really well written
+> document but lacks some notes for beginners.
+> 
+> For example comparing umask.1p to <https://en.wikipedia.org/wiki/Umask>
+> I really liked how Wikipedia added table for showing octal digits in umask
+> command to their corresponding action.
+> 
+> Can we do a similar thing for umask.1p or how can I contact The Open
+> Group to make changes into their manual?
 
-> In 2004, the IEEE and The Open Group decided to grant permission to the 
-> Linux man-pages project to distribute parts of the then-current version
-> of POSIX.1 in manual page format. That decision provided an extremely
-> valuable resource for Linux programmers who wanted to write applications
-> that are portable across UNIX systems. Evidence of that value has been
-> demonstrated by regular requests in the last few years that the project
-> should update its copy of the POSIX manual pages to the latest
-> version provided by The Austin Group (the umbrella group that works
-> on development of the POSIX.1 standard).
+I don't know how to contact the Open Group.  Michael probably knows.  I
+tried some time ago, but their website is a bit complicated for me and I
+get lost.
 
-This means that Linux man-page project only distribute standards in
-forms accessible offline using man command and doesn't edit them.
+Thanks,
 
-Confusion aside, you can always download Wikipedia pages or in fact any
-HTML pages using wget or curl command.  For ex:
+Alex
 
-$ wget https://en.wikipedia.org/wiki/Umask
-
-You can use a graphical browser like Firefox or a text browser like lynx
-to view them.  For ex:
-
-$ lynx Umask.html
 
 -- 
-Utkarsh Singh
-http://utkarshsingh.xyz
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
