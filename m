@@ -2,73 +2,109 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 465DC3664F2
-	for <lists+linux-man@lfdr.de>; Wed, 21 Apr 2021 07:41:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 83C073669C7
+	for <lists+linux-man@lfdr.de>; Wed, 21 Apr 2021 13:17:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231354AbhDUFlr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 21 Apr 2021 01:41:47 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124]:34912 "EHLO
-        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S230343AbhDUFlp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 21 Apr 2021 01:41:45 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1618983671;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=T/kiZljSzseCOseU1CDKm7De1GtlVg0MiHPJ52rRNnQ=;
-        b=hPwpUW6839i8tdSoEFTtXKL7NIayhFDOIAv4Y8ibo0u3iEy9xVZPxN8mtBaYH52OzVDKQC
-        TLXlNnEKRh20wh0RlumUf+BMcvC/dybAz0+4y6RAtLR6jvOgyV3O9JgnTcHFe7f5i1koEq
-        IjU1rO7+drtxNpHImTHOIc3wIIP8Dvc=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-290-2HadNEnHMrWoea-AdMi8Dg-1; Wed, 21 Apr 2021 01:41:09 -0400
-X-MC-Unique: 2HadNEnHMrWoea-AdMi8Dg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A2BB0189DF51;
-        Wed, 21 Apr 2021 05:40:53 +0000 (UTC)
-Received: from oldenburg.str.redhat.com (ovpn-113-20.ams2.redhat.com [10.36.113.20])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id DE08F5D9D0;
-        Wed, 21 Apr 2021 05:40:51 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     "Michael Kerrisk (man-pages) via Libc-alpha" 
-        <libc-alpha@sourceware.org>, Jakub Wilk <jwilk@jwilk.net>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH v5 00/35] SYNOPSIS: Use syscall(SYS_...); and fix
- '#include's
-References: <20210403194026.102818-1-alx.manpages@gmail.com>
-        <20210404115847.78166-1-alx.manpages@gmail.com>
-        <4298cc3c-8f24-5a3c-3c54-b24ca804d373@gmail.com>
-        <87y2doni1m.fsf@oldenburg.str.redhat.com>
-        <365dc717-eb20-4549-9b6a-09eeadcfc89d@gmail.com>
-Date:   Wed, 21 Apr 2021 07:41:07 +0200
-In-Reply-To: <365dc717-eb20-4549-9b6a-09eeadcfc89d@gmail.com> (Alejandro
-        Colomar's message of "Mon, 12 Apr 2021 11:09:24 +0200")
-Message-ID: <87pmyoqjnw.fsf@oldenburg.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.2 (gnu/linux)
+        id S235052AbhDULSS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 21 Apr 2021 07:18:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43010 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S234131AbhDULSR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 21 Apr 2021 07:18:17 -0400
+Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com [IPv6:2607:f8b0:4864:20::529])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D0A60C06174A
+        for <linux-man@vger.kernel.org>; Wed, 21 Apr 2021 04:17:44 -0700 (PDT)
+Received: by mail-pg1-x529.google.com with SMTP id s22so8376170pgk.6
+        for <linux-man@vger.kernel.org>; Wed, 21 Apr 2021 04:17:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:mime-version:content-disposition
+         :user-agent;
+        bh=k5PU94LPGj2tzpdMrXUrvG5gjJe2gbYodYDAeHiNCAY=;
+        b=FmoUH4GY3dKzmr+hj0LkE0vjG94wiygIYsiuPNenBWju0OoOUECU5Nio2xiC8aaQfq
+         DfPsIrqdd1I+b2i4dFSfFvtXrZ8P4lMcN3BIPu8XKYufMxIfVWZF+JVFdHiaK4GHsGF4
+         dSuR6QwXrreRURanIth6lEuaKA3TGjfHIVEN7iurJRCuaHmT0fRmputSAYThF7cV+QEV
+         awrUVFSeGSqw8vASpDYxDiUt2QbzpoUUd43O61cUfCBsYVH8EPPuQVCZmOd0IeSWPbMo
+         diw3u9Qk71jfCjKIU9a8mMOq5qH7mITJlrxE/NnUwV9qvX8vNVramuYxWCoMyHvzUVfG
+         ZLWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+         :content-disposition:user-agent;
+        bh=k5PU94LPGj2tzpdMrXUrvG5gjJe2gbYodYDAeHiNCAY=;
+        b=gll8AB1aw029LtmGCYM0mPvEKncmpRVddmAMpHvXqHKYjgV4apwLTJ6MMCibPnHmwa
+         ddWzoAmtfZFw1c0cVXnurT9JcG9wfcfZymwTe1uurblCed0TJJ6WYiYQcFIyx+SovVOk
+         +L34CM/C9GbigvmXdPHZLiyjrm3OfpveYCjrOpIBAdbZJxZzfm8i0e0vGmKixXJtqGKE
+         htrcW1ElGIik4KTFrBR19mcUTxh0vkbQIXw3e+6Lg4BnFQOsOYy0RY8ZH5JnxhPjzufV
+         KdrA47XV6EQfeWQGcmSufn64wo49GROeKcEFcg3MswoBnzAEsGLBPnckyhRDJMweiXci
+         WTjQ==
+X-Gm-Message-State: AOAM533xSvpXrH29BcNKzRk/UFjjEZjSO4CmubYCiDPNcwhR7lcP5Gss
+        tubB40wvTiZ96VIm26ifyJSnXSAvSJU=
+X-Google-Smtp-Source: ABdhPJzftBiP0B7SlFlm0oIEtN5BFZjLv78bhb52GVHMz/A67VzPpPR2+DH0vIDtSJ1oleZHMu9Yfg==
+X-Received: by 2002:a63:2211:: with SMTP id i17mr8855172pgi.431.1619003864428;
+        Wed, 21 Apr 2021 04:17:44 -0700 (PDT)
+Received: from localhost.localdomain ([1.129.154.221])
+        by smtp.gmail.com with ESMTPSA id z188sm1531922pgb.89.2021.04.21.04.17.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Apr 2021 04:17:44 -0700 (PDT)
+Date:   Wed, 21 Apr 2021 21:17:39 +1000
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, groff@gnu.org
+Subject: Does man7.org require customizations to groff?
+Message-ID: <20210421111738.wprqquhpfylydw2c@localhost.localdomain>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="oegatg4r3iqzf4ix"
+Content-Disposition: inline
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Alejandro Colomar:
 
->> Or, more succinctly, put the types in comments:
->>
->>    syscall(SYS_arch_prctl, /* int */ code, /* unsigned long */ addr);
->
-> I'm not sure.  I see the point in doing this, but I think I prefer my
-> version, because it has less noise.  But I might be a bit biased :)
+--oegatg4r3iqzf4ix
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Not everyone is deeply familiar with C syntax.  Anyone who uses the
-example literally will be disappointed.
+Hi Michael,
 
-Thanks,
-Florian
+I've noticed that recently man7.org no longer seems to be hosting stock
+versions of groff project man pages[1]; instead, it appears that some
+kind of local changes are being applied and the pages regenerated.
+Perhaps the changes are not to page text per se, but to a macro package.
 
+This isn't a _problem_ (groff is free as in freedom!), but I am curious
+about specifics of the changes you're making and wondering if there is
+anything groff can be doing upstream to ease things on your side.
+
+Can I help?
+
+Regards,
+Branden
+
+[1] e.g., https://man7.org/linux/man-pages/man7/groff_man.7.html and
+    scroll to the bottom for the left-hand page footer
+
+--oegatg4r3iqzf4ix
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmCACcoACgkQ0Z6cfXEm
+bc4SBxAAlVSM+QCCdMjvl0KpFn9qAOcYWOsS0daUVpMhbY3sVGLKIVElDXIPJAP3
+7U8AHrlluGY2OXLAdFz3OSaFL3ILFTiHBWd335fPyO/MKwdHNVtEIwh6aJiWJFFT
+5ICIfJ1IKG1P9eKtOuvdxdu6Bf+4QhAWm0d0N0SFxFKoDS0tWGMIRuhzXi1twNEZ
+Rj1ANlS+sOEoMWk3cVNIzXHUqx7ft7X7Aw6HD9uzLfFfo/saDKJlmXAIGG9zpQo0
+DCFx/1mkma7qvqW9aOl/Y3imNUMX7L9VgQgzaCEf7n1CozyM9VuN/VrhIFkkervI
+iKBMLdrTyImc3r0y92iT6CywKY5w4f+MjSD8AS/X87D7LNzo3VM+0pDoY7/lQLnE
+vFfqRMI1Y+8/GXRgekq65W0Mwz6QQoGJz23GqYxX32yhlrCYQeF5sQrQxih4j4rX
+2rVFA/5I6144+or90dkn1YH7q1Nsr6fcCbicJS30JMJ6OC6xF0oTEXE4El5Y50kM
+Iy2BC70sTa3toxfauI4d/krGondi818HINLHlXeeUe+jsjCh7Q1sBJve2Z6b+nmW
+9EyBYzApN8mFvF8lMOJbYutja2Nr23lWf+bJakt4Aaj4KiDWxXjuaA/ZIEfUUO3/
+N8+CxKP9otbrZ3OyvjqU01+hOX0LMX9LlxgpWgiP+rSBN3eORIc=
+=YvRH
+-----END PGP SIGNATURE-----
+
+--oegatg4r3iqzf4ix--
