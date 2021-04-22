@@ -2,91 +2,87 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 61AEF36754D
-	for <lists+linux-man@lfdr.de>; Thu, 22 Apr 2021 00:45:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 94B3E368842
+	for <lists+linux-man@lfdr.de>; Thu, 22 Apr 2021 22:53:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235004AbhDUWqB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 21 Apr 2021 18:46:01 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54458 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235190AbhDUWqB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 21 Apr 2021 18:46:01 -0400
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 53D42C06138B
-        for <linux-man@vger.kernel.org>; Wed, 21 Apr 2021 15:45:26 -0700 (PDT)
-Received: by mail-wr1-x430.google.com with SMTP id g9so26845474wrx.0
-        for <linux-man@vger.kernel.org>; Wed, 21 Apr 2021 15:45:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=TBV3lzdeBKywsP3oOhk/jWWDiZqdQXkgjglV+hJqsE4=;
-        b=UYCX0vUIrKehMk3Vse3UPyVynhWIrw59G4na7H7z6NPH7Da3rXJ0uzq5ItUhTwJlDX
-         FPTll3JXk7dOqxXt940UIT8w63Zad20kIXGQj6b9GIrDlKXXasAEpcmzKcDJnqTeOcrR
-         i1M18Usb2KR7R6Uc0pqlvm32i1lFqngQLJZEQmhEyEiJR4QRaOfgkmavjTEh0648gC6a
-         6lX775MKZ2rnmN9qUq2uBdlPMmf4auZVPvcnxgDljUNkztCGe7vJXf6xfQHPltNGKM6B
-         O3QQg4QjQA1AYTECoVYz2fTd1orG8TTdOlJ7cb/s5X30NGfjU9AeeUEpASZXBPkcUWeX
-         eT8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=TBV3lzdeBKywsP3oOhk/jWWDiZqdQXkgjglV+hJqsE4=;
-        b=pZlrgBWyJ8uQ6gRDKaNdM3ufXVqEVvf26e9wVfnLFKBHL4/uFzf/LoIsjeoPFXJm3z
-         qDZnVBe8Zl0ctsx2QCjfL2RiTcYoynGMVnUApOAmeRcl8kyKXRY7VsLoDwfKEr2fmkFO
-         ot0eufbXgJmj4v9dcMJ6qw+viaLf4r6btGXoCsqIVlQmHLs+Ze87fnAge2WDeai5dc8D
-         TtnqpHIX/zJ4zW75xTyOabco0SyLxAlZ+rRFGQpZxzlPo5FJGKHTTLFzpnBd9IqtAyfV
-         m2+dpTt6YoFHe3VVMllJAEJZMvu2gSlqe6Me/fwcf8+9T6GwF/M6CDsNcmF8HlJjkqas
-         uLbA==
-X-Gm-Message-State: AOAM532b0ScycQXyn6SSQ+ifBXKDI3TvobQaJTi/VB+xLXuEsm0QNsLT
-        kmhyfH+Y6StpjM9l60w5tSc=
-X-Google-Smtp-Source: ABdhPJzAkq1+A4BK6bEFwkEKZnCcncbKGhnSO18pjKhzL4neqqYf8xzgVu8eE/vLVif1ir3C+iUKeQ==
-X-Received: by 2002:a5d:51cf:: with SMTP id n15mr438914wrv.30.1619045125056;
-        Wed, 21 Apr 2021 15:45:25 -0700 (PDT)
-Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id l13sm781800wrt.14.2021.04.21.15.45.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Apr 2021 15:45:24 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 3/3] open.2: Remove unused <sys/stat.h>
-Date:   Thu, 22 Apr 2021 00:44:19 +0200
-Message-Id: <20210421224418.143065-3-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210421224418.143065-1-alx.manpages@gmail.com>
-References: <20210421224418.143065-1-alx.manpages@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+        id S236877AbhDVUy1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 22 Apr 2021 16:54:27 -0400
+Received: from wout4-smtp.messagingengine.com ([64.147.123.20]:42497 "EHLO
+        wout4-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S236851AbhDVUy1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 22 Apr 2021 16:54:27 -0400
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+        by mailout.west.internal (Postfix) with ESMTP id 661EB20EE;
+        Thu, 22 Apr 2021 16:53:51 -0400 (EDT)
+Received: from imap36 ([10.202.2.86])
+  by compute7.internal (MEProxy); Thu, 22 Apr 2021 16:53:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dimebar.com; h=
+        mime-version:message-id:date:from:to:subject:content-type; s=
+        fm2; bh=X+IXlJzRtsZ499lxOjCLCrYwkMMyMFzEaHpPV4AZJM0=; b=q06BvkfZ
+        6VjL0Kws0a2K5YnnL7FPggUNyMRrUjGpc+MvP2sY02myYg0Bw2vlBoD1dLp1j4BD
+        K5Q7KrrsqW0T/zgwxfRhQeq9AqG+zOSdaq3Ieu880E7WujQtOPuZTfUMGbnAluzS
+        JOurHKtOElO+ERSRyjTCc25rT/qcKQrzc/DcTi4hNuVrJSl+OPcEsJryzRE1hAYu
+        hT1dChnkx2gBt97BqERRXVnYOJRX/ZadjOuY31EQyzDSrEhOje4pyiUjGOy0kcqe
+        /WLQ5SzYhOr+pXdQjGT+AIIBqzdn4jM/Ad2eQXnF99QXtm7n6epI20FN6J6CHdhv
+        XW+JiMWK+8dOGA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=content-type:date:from:message-id
+        :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
+        :x-me-sender:x-sasl-enc; s=fm2; bh=X+IXlJzRtsZ499lxOjCLCrYwkMMyM
+        FzEaHpPV4AZJM0=; b=n8CTTXUTLdrR8bXK6q0Mk8iP5N/3ywvV2Q96ZnlqsWHK/
+        RMVeCuBlyVLzm2sz8sk1aQU26gb/+p8P5ETjOnFfAkv46dh8K/fQB6t4sWrGcNW3
+        dC4ELLgmZt622xTqPAgbCCz42dOD+IdAW/vOvBxnu58lFUtc8faLEJESHjhib5Ow
+        z+it5gf4lnIl5hoT1WDVFCa1RNnWNt43hSVW3AaDg8a3sMxScpQSfbFuM0cFvEe2
+        oojanUksophGVqaRpiZ8Ky8MDeZbUENtDgddtQBs69JSvp2kEPhOcyCpXIr5yCap
+        7vV2QjGq2CzUeGDmPfCsDyoFHhmlaLitr43kKVoXA==
+X-ME-Sender: <xms:XuKBYNye0wbUgHAAW6f-muil0pS9xK34-KrbV_ZamkVDfuJE353pQg>
+    <xme:XuKBYNRnmovWxVAmJ8XsJDImgiDdgnkhRBW9LTg3jmhrSvH7zCVNb8WTPYvltFpQM
+    4jnNrnprOaOQWl9>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvddutddgudehgecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecunecujfgurhepofgfggfkfffhvffutgesthdtre
+    dtreertdenucfhrhhomhepfdfrhhhilhhiphcutfhofihlrghnughsfdcuoehlihhnuhig
+    qdhkvghrnhgvlhesughimhgvsggrrhdrtghomheqnecuggftrfgrthhtvghrnhepheeuvd
+    ejfeetleekffdvudetkedtveelvdekgfelleevudekhfevuedtiefhtddunecuffhomhgr
+    ihhnpehsohhurhgtvgifrghrvgdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurf
+    grrhgrmhepmhgrihhlfhhrohhmpehlihhnuhigqdhkvghrnhgvlhesughimhgvsggrrhdr
+    tghomh
+X-ME-Proxy: <xmx:XuKBYHUF17CRyOOOPbtjf82YTklRby2taj6MB38Amu9dyK529iRU8g>
+    <xmx:XuKBYPjcMz2f5mNduaOE5acmGso4iMOr1eK8FXusEKpFPXetadpgIg>
+    <xmx:XuKBYPCpf6jEDBER_fiAVEJ-C65uKOiLMhl8_-x72eiZu8s3K06Kaw>
+    <xmx:X-KBYC9BzAIMfN7XeR6fVlIznsQUe4tpj5haP6CPoyxr7hZNt_Qvag>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+        id 7124010E0089; Thu, 22 Apr 2021 16:53:50 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.5.0-alpha0-403-gbc3c488b23-fm-20210419.005-gbc3c488b
+Mime-Version: 1.0
+Message-Id: <470867e7-94d6-49a1-95d4-16cee0264b4e@www.fastmail.com>
+Date:   Thu, 22 Apr 2021 21:53:24 +0100
+From:   "Philip Rowlands" <linux-kernel@dimebar.com>
+To:     "Michael Kerrisk" <mtk.manpages@gmail.com>,
+        "Alejandro Colomar" <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: getent hosts address family
+Content-Type: text/plain
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-I can't see a reason to include it.  <fcntl.h> provides O_*
-constants for 'flags', S_* constants for 'mode', and mode_t.
+man1/getent.1 currently includes:
 
-Probably a long time ago, some of those weren't defined in
-<fcntl.h>, and both headers needed to be included, or maybe it's
-a historical error.
+"""
+When one or more key arguments are provided, pass each key to gethostbyaddr(3) or gethostbyname2(3), depending on whether a call to inet_pton(3) indicates that the key is an IPv6 or IPv4 address or not, and display the result.
+"""
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man2/open.2 | 1 -
- 1 file changed, 1 deletion(-)
+Please append the following clarification:
 
-diff --git a/man2/open.2 b/man2/open.2
-index bac1ee806..1bcd995f4 100644
---- a/man2/open.2
-+++ b/man2/open.2
-@@ -53,7 +53,6 @@
- open, openat, creat \- open and possibly create a file
- .SH SYNOPSIS
- .nf
--.B #include <sys/stat.h>
- .B #include <fcntl.h>
- .PP
- .BI "int open(const char *" pathname ", int " flags );
--- 
-2.31.0
+"""
+For symbolic hostnames, getent hosts always tries an AF_INET6 lookup first, even when the system is not otherwise configured to use IPv6.
+"""
 
+The reason is to explain to the user why AAAA DNS queries appear as a result of running "getent hosts example.com" on an IPv4-only system. The code is here if you'd like to confirm:
+https://sourceware.org/git/?p=glibc.git;a=blob;f=nss/getent.c#l294
+
+
+Thanks,
+Phil
