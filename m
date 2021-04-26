@@ -2,104 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5194036B8E2
-	for <lists+linux-man@lfdr.de>; Mon, 26 Apr 2021 20:27:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8843A36B91A
+	for <lists+linux-man@lfdr.de>; Mon, 26 Apr 2021 20:39:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234230AbhDZS1v (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 26 Apr 2021 14:27:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44016 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233842AbhDZS1u (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 26 Apr 2021 14:27:50 -0400
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 54749C061574
-        for <linux-man@vger.kernel.org>; Mon, 26 Apr 2021 11:27:08 -0700 (PDT)
-Received: by mail-wm1-x330.google.com with SMTP id 26-20020a05600c22dab029013efd7879b8so3790353wmg.0
-        for <linux-man@vger.kernel.org>; Mon, 26 Apr 2021 11:27:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=uals1PlYqm+6R8Zkr4V02D4HppyoqdTrOrCLJmbEMJQ=;
-        b=nzZzSqnNonzz3ym9XsSVWeAg9zAcpIh4UaX0u8BnDKQs5otBfZEX9vfm28fZVd3CK7
-         4yxFi+4zHcxwTE5nSJYAqZEKIyA2UQjwhIkvVpm/O0Nr/ZCt77dr44z45Lpfi8BspKdy
-         dHrxxCzUQgf7HmOcB4BlIbncTFSTrJ2mmiTZaJxWWkObBl9Kp86u5W6o7AnD8gILWh/T
-         ZDeExebctAUxKL+OeWfI1ANybWPBcCcIeUf+UnUpGBfsNdgE055zRKOSGhw0jGFjSqNJ
-         Y+gjd8RukZPJjw1l0jOjtgqtwM+ifLaoZDXkD02JXf8Gqxpgrujzx3+PaeIGH+Li7wY5
-         Eiwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=uals1PlYqm+6R8Zkr4V02D4HppyoqdTrOrCLJmbEMJQ=;
-        b=eymuOqWBNK7BoV/DflDwkEd0eg0/3LGI9JqwgDUNDBnQl88ea7JesL+zUWe9kq6uwT
-         AP0E4p0tL/41znyMZSefKddv9mFKQM+nWenJqybW2HDZOHs9hILgIWF0701naPzxF47y
-         1qeurDlB5aiCgnhmWyqLXnKxrzDMZ4S29B8SuFSYpUOvDZ7LN66J633a9qanMUr7zoBk
-         KsgJ/Q0k21MHeLx3svJPYrMdtt4HyZzsAUPgQoklfrbFXszfTKktgmUWJCJtq2rMgqsc
-         bY+ZIdZyHQ/2iXMkhDP2ikp2GCGVNZ8WevnWSPSpDBeSQpY/OWqxFz8JQq8xlWsqyTRi
-         j9Lw==
-X-Gm-Message-State: AOAM533uUBSSCUOrQ+qpc2N2M7Z+9Ejdg9hVfYzKK395DBE+djRaRFAw
-        Ig74VyW8eMDpt+MKJ/Hzr5aBJGQnIUo=
-X-Google-Smtp-Source: ABdhPJx1OwDEYl7SvYHEF0AIaEIXei62Nk1x8ANpjPg2O7uGdcSbXYFsPsWEnDsrRuDEA+N/HS2Y8g==
-X-Received: by 2002:a1c:3b44:: with SMTP id i65mr354516wma.31.1619461627133;
-        Mon, 26 Apr 2021 11:27:07 -0700 (PDT)
-Received: from [10.8.0.106] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id w22sm296135wmc.13.2021.04.26.11.27.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Apr 2021 11:27:06 -0700 (PDT)
-Sender: Alejandro Colomar <alx.mailinglists@gmail.com>
-Subject: Re: [PATCH] move_pages.2: ffix
-To:     "Dmitry V. Levin" <ldv@altlinux.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
+        id S236294AbhDZSkT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 26 Apr 2021 14:40:19 -0400
+Received: from vmicros1.altlinux.org ([194.107.17.57]:51218 "EHLO
+        vmicros1.altlinux.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S238623AbhDZSkL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 26 Apr 2021 14:40:11 -0400
+Received: from mua.local.altlinux.org (mua.local.altlinux.org [192.168.1.14])
+        by vmicros1.altlinux.org (Postfix) with ESMTP id 1EBC372C8B0;
+        Mon, 26 Apr 2021 21:39:28 +0300 (MSK)
+Received: by mua.local.altlinux.org (Postfix, from userid 508)
+        id 126D67CC8A7; Mon, 26 Apr 2021 21:39:28 +0300 (MSK)
+Date:   Mon, 26 Apr 2021 21:39:28 +0300
+From:   "Dmitry V. Levin" <ldv@altlinux.org>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-References: <20210424200000.GA14829@altlinux.org>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <62656709-1edb-f2c5-f3aa-7780cbfae1b7@gmail.com>
-Date:   Mon, 26 Apr 2021 20:27:04 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
+Subject: [PING v1] [PATCH] ptrace.2: mention PTRACE_GET_SYSCALL_INFO in
+ RETURN VALUE section
+Message-ID: <20210426183927.GA11060@altlinux.org>
+References: <20210222164256.GA1943@altlinux.org>
 MIME-Version: 1.0
-In-Reply-To: <20210424200000.GA14829@altlinux.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210222164256.GA1943@altlinux.org>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Dmitry,
+Ping?
 
-On 4/24/21 10:00 PM, Dmitry V. Levin wrote:
+On Mon, Feb 22, 2021 at 07:42:57PM +0300, Dmitry V. Levin wrote:
+> Mirror the wording about PTRACE_GET_SYSCALL_INFO return value semantics
+> from "DESCRIPTION" section to "RETURN VALUE" section.
+> 
+> Reported-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> Complements: fc91449cb "ptrace.2: Document PTRACE_GET_SYSCALL_INFO"
 > Signed-off-by: Dmitry V. Levin <ldv@altlinux.org>
-
-Patch applied.
-
-Thanks,
-
-Alex
-
 > ---
->   man2/move_pages.2 | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>  man2/ptrace.2 | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 > 
-> diff --git a/man2/move_pages.2 b/man2/move_pages.2
-> index 279de7568..69c182f95 100644
-> --- a/man2/move_pages.2
-> +++ b/man2/move_pages.2
-> @@ -24,7 +24,7 @@ move_pages \- move individual pages of a process to another node
->   .nf
->   .B #include <numaif.h>
->   .PP
-> -.BI "long move_pages(int " pid ", unsigned long count, void **" pages ,
-> +.BI "long move_pages(int " pid ", unsigned long " count ", void **" pages ,
->   .BI "                const int *" nodes ", int *" status ", int " flags );
->   .fi
->   .PP
-> 
-
+> diff --git a/man2/ptrace.2 b/man2/ptrace.2
+> index 5245338ba..c5e75c274 100644
+> --- a/man2/ptrace.2
+> +++ b/man2/ptrace.2
+> @@ -2327,8 +2327,11 @@ On success, the
+>  requests return the requested data (but see NOTES),
+>  the
+>  .B PTRACE_SECCOMP_GET_FILTER
+> -request returns the number of instructions in the BPF program, and
+> -other requests return zero.
+> +request returns the number of instructions in the BPF program,
+> +the
+> +.B PTRACE_GET_SYSCALL_INFO
+> +request returns the number of bytes available to be written by the kernel,
+> +and other requests return zero.
+>  .PP
+>  On error, all requests return \-1, and
+>  .I errno
+> -- 
+> ldv
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+ldv
