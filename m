@@ -2,68 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EE7D736C031
-	for <lists+linux-man@lfdr.de>; Tue, 27 Apr 2021 09:35:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8E6FF36C05A
+	for <lists+linux-man@lfdr.de>; Tue, 27 Apr 2021 09:43:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230062AbhD0HgQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 27 Apr 2021 03:36:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47672 "EHLO
+        id S230255AbhD0Ho2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 27 Apr 2021 03:44:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49558 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234856AbhD0HgO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 27 Apr 2021 03:36:14 -0400
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E02F2C061574
-        for <linux-man@vger.kernel.org>; Tue, 27 Apr 2021 00:35:26 -0700 (PDT)
-Received: by mail-wm1-x32f.google.com with SMTP id a22-20020a05600c2256b0290142870824e9so574442wmm.0
-        for <linux-man@vger.kernel.org>; Tue, 27 Apr 2021 00:35:26 -0700 (PDT)
+        with ESMTP id S230461AbhD0Ho2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 27 Apr 2021 03:44:28 -0400
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2FADFC061574
+        for <linux-man@vger.kernel.org>; Tue, 27 Apr 2021 00:43:45 -0700 (PDT)
+Received: by mail-wm1-x32c.google.com with SMTP id y124-20020a1c32820000b029010c93864955so6458160wmy.5
+        for <linux-man@vger.kernel.org>; Tue, 27 Apr 2021 00:43:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=sender:subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=azlU8VNmxU7b947vaQdIBUVQUfdlVZ/EkEG95TamVN8=;
-        b=awgoMVDfItUwbbaGdUQV8gh7Hqb9E4QXfxzvkSDJ1AwQRZGQZwzZkEMarvV64ItBZc
-         FW5/iQd0tOqLVChckhM0ZES30OHmUw/8peISa0rSNq+ac+B7KPB+nwzProD5XfKpfbad
-         xyUXcmc/TijSMo7/hWrGwqUGSZf1yW6yQAM6RUurqmG6pcR/ylBJo4L2hLA8drPtSFgu
-         rhTh/8DDihfS7TY67MUuBuqtaNhOFArA4dc/cxJywivIvdpUNt6FYpvwKaop3LIVMzxF
-         5v/jfRMDRDTsJHODmzS60CLmbCFHcmB7/8XlkhWzGO4GXRoJgTcT12s9RM/imqU6oc2j
-         +qiA==
+        bh=Xr0xW185bQow0sszVhygfq7939g4AaovrhmrGqq+BjM=;
+        b=WhVaOImpCxObvjikbjT+BG6ljGOgciAqfBLRrs+GgZesW4RrtRnVGp2f4gAFvzojf+
+         cxgHBCLbFHPSLRiJg0fKcdqkTUXL8OYgUivsbx4yErxb+HHViyESxMWWMMFTk7kZhLUK
+         vKNb9BXTahdDXSyXr9g784YBCJB9auTxfhwpMnX0lO7RrJ5ZOmIHv2vl8L1txC4NeXJr
+         7ssEZfcZboYJHWWyK91i3ffXmBSPUdM7EnzqxIf6SEBIyTRtgeH6Vv+XzqVm40PYFQhB
+         vHHOe+OHYtFhDagVhhKjhx1GHfUsIjClrtWOx3xuRTh8nP+3x+MPBshUnZwse+M4vqN9
+         Grdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=azlU8VNmxU7b947vaQdIBUVQUfdlVZ/EkEG95TamVN8=;
-        b=O1nnGLHts0RcN4ecAIVpxcNVhyxiL3gOZKjE3p/5ouSDStRCOhS/RGFqDNH/pF1vXN
-         M6Zk5WBu+V5p8bY/J17zjLMG8OrXRiqGW7Lq3hJ22Uyy+eSbK6rpBG2l+SdIy2d1Ck6L
-         wTBL7INhuoXRxXLJqod0Vz2tqsM2y8tMguUcD9L1XD8BKrhiMY9quZ5/+h68bu4zAbJb
-         5qs8F/1Gxpea+kuKGICMT0nLqn1TNi/jkuo3Rt4Ntlakc4dpIbP/lC1UsDxfHJR8Tf6C
-         wiW4Ci1AVsEyOg2zOqnpwNTkEogDo5dF0gewiVsH2EqON2CePb7CGPSIKe+UsShBttJI
-         horA==
-X-Gm-Message-State: AOAM530xQE5BNm6AQaB5PRbKSBWiJ6BwGwwDMqKlgGO8bova9btCEhpZ
-        g+NTEZwRMZU47vXuvKusvJVud9tnzDk=
-X-Google-Smtp-Source: ABdhPJzQU+dRZdXbKAYYTgb3WvK/Nn+oKBphapZCjklBNuaiRC2rD527YxerNPLxzi2rjBRkhLInBA==
-X-Received: by 2002:a05:600c:4e90:: with SMTP id f16mr1579526wmq.81.1619508925635;
-        Tue, 27 Apr 2021 00:35:25 -0700 (PDT)
+        bh=Xr0xW185bQow0sszVhygfq7939g4AaovrhmrGqq+BjM=;
+        b=k8DToLz6qjoffbTQaXv/5aUfAeDhC1U8rGngLQW6WbEpNKbwqwkaac7ScXoXI4BLUj
+         NEI6zTC1DZSuE1GE/pWgGE/jR3SeMI+j7CB8l42gehq+gpZl/L6wNZvyWQHd8KgUhb96
+         NRqGJ9t33C3wYN4KInmwHgTPIa+4ZH4GI5TNmq9cIgq/K/ffBByOe7t6r42hIsNdhFnf
+         G14WdhEeBLSUtkkXqvmWFFkhs24vqSFQiJcjDqDvMzYZTCtpe9dLKQ3YQmhrCvGOr9vF
+         VgT63fRqJ98OgMkP8Simah/GgG9OXa6ZU/IDRtMRYJafP0uahlgqktlHHxKAmCmRQClc
+         bOlg==
+X-Gm-Message-State: AOAM533MXmU86zADhN8qSLNNUTKNLCvxREtapu9dFnTlLRUcpBAghKDN
+        Do3s+l84xPNVE/ByAkOaXSu5IZltyqE=
+X-Google-Smtp-Source: ABdhPJwdzysiwr5mAcFshqvpXbvn28lZ1C1NIFsxCfMjh2qwIvoSLciBc1Wpxia1baExirml3xCTAA==
+X-Received: by 2002:a1c:f20f:: with SMTP id s15mr2934792wmc.61.1619509424036;
+        Tue, 27 Apr 2021 00:43:44 -0700 (PDT)
 Received: from [10.8.0.106] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id y16sm2704792wrp.78.2021.04.27.00.35.24
+        by smtp.gmail.com with ESMTPSA id z18sm2920682wrh.16.2021.04.27.00.43.42
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Apr 2021 00:35:25 -0700 (PDT)
+        Tue, 27 Apr 2021 00:43:43 -0700 (PDT)
 Sender: Alejandro Colomar <alx.mailinglists@gmail.com>
-Subject: Re: [PATCH 1/2] Changes.old: tfix
+Subject: Re: [PATCH 2/2] exit_group.2, getunwind.2: tfix
 To:     Jakub Wilk <jwilk@jwilk.net>,
         Michael Kerrisk <mtk.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
 References: <20210426185813.3952-1-jwilk@jwilk.net>
+ <20210426185813.3952-2-jwilk@jwilk.net>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <b52bb922-7767-c306-f88c-bbf5092018a6@gmail.com>
-Date:   Tue, 27 Apr 2021 09:35:22 +0200
+Message-ID: <81c80583-c217-08b8-09ad-e36d9fd0857d@gmail.com>
+Date:   Tue, 27 Apr 2021 09:43:40 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210426185813.3952-1-jwilk@jwilk.net>
+In-Reply-To: <20210426185813.3952-2-jwilk@jwilk.net>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
@@ -73,45 +74,41 @@ Hi Jakub,
 On 4/26/21 8:58 PM, Jakub Wilk wrote:
 > Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
 
-Patch applied. Thanks,
+Patch applied.  Thanks again,
 
 Alex
 
 > ---
->   Changes.old | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
+>   man2/exit_group.2 | 2 +-
+>   man2/getunwind.2  | 2 +-
+>   2 files changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/Changes.old b/Changes.old
-> index f863583b1..067fce382 100644
-> --- a/Changes.old
-> +++ b/Changes.old
-> @@ -53581,7 +53581,7 @@ Various pages
->               Generally, place '||' at start of a line, rather than the end of
->               the previous line.
->   
-> -            Rationale: this placement clearly indicates that that each piece
-> +            Rationale: this placement clearly indicates that each piece
->               is an alternative.
->   
->   Various pages
-> @@ -54119,7 +54119,7 @@ system.3
->   environ.7
->       Bastien Roucariès
->           Reorder the text
-> -            Move the the text describing how to set environment variable before
-> +            Move the text describing how to set environment variable before
->               the list(s) of variables in order to improve readability.
->       Bastien Roucariès
->           Document convention of string in environ
-> @@ -54152,7 +54152,7 @@ man-pages.7
->       Michael Kerrisk
->           Add a FORMATTING AND WORDING CONVENTIONS section
->               In man-pages-5.11, a large number of pages were edited to achieve
-> -            greater consistency in the SYNOPIS, RETURN VALUE and ATTRIBUTES
-> +            greater consistency in the SYNOPSIS, RETURN VALUE and ATTRIBUTES
->               sections. To avoid future inconsistencies, try to capture some of
->               the preferred conventions in text in man-pages(7).
->       Michael Kerrisk
+> diff --git a/man2/exit_group.2 b/man2/exit_group.2
+> index b512927d4..d197f1f2e 100644
+> --- a/man2/exit_group.2
+> +++ b/man2/exit_group.2
+> @@ -28,7 +28,7 @@ exit_group \- exit all threads in a process
+>   .SH SYNOPSIS
+>   .nf
+>   .BR "#include <sys/syscall.h>" "       /* Definition of " SYS_* " constants */"
+> -.B #inlcude <unistd.h>
+> +.B #include <unistd.h>
+>   .PP
+>   .BI "noreturn void syscall(SYS_exit_group, int " status );
+>   .fi
+> diff --git a/man2/getunwind.2 b/man2/getunwind.2
+> index 2c44506c7..403bd7770 100644
+> --- a/man2/getunwind.2
+> +++ b/man2/getunwind.2
+> @@ -31,7 +31,7 @@ getunwind \- copy the unwind data to caller's buffer
+>   .nf
+>   .B #include <linux/unwind.h>
+>   .BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
+> -.B #inlcude <unistd.h>
+> +.B #include <unistd.h>
+>   .PP
+>   .BI "long syscall(SYS_getunwind, void " *buf ", size_t " buf_size );
+>   .fi
 > 
 
 
