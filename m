@@ -2,128 +2,227 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 302C136DFFC
-	for <lists+linux-man@lfdr.de>; Wed, 28 Apr 2021 21:56:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 95D2A36E032
+	for <lists+linux-man@lfdr.de>; Wed, 28 Apr 2021 22:20:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238325AbhD1T5L (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 28 Apr 2021 15:57:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50224 "EHLO
+        id S241853AbhD1UV3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 28 Apr 2021 16:21:29 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55550 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232291AbhD1T5K (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Apr 2021 15:57:10 -0400
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6D677C061573
-        for <linux-man@vger.kernel.org>; Wed, 28 Apr 2021 12:56:25 -0700 (PDT)
-Received: by mail-wm1-x336.google.com with SMTP id o21-20020a1c4d150000b029012e52898006so9493392wmh.0
-        for <linux-man@vger.kernel.org>; Wed, 28 Apr 2021 12:56:25 -0700 (PDT)
+        with ESMTP id S240761AbhD1UV1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Apr 2021 16:21:27 -0400
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 65E97C061573
+        for <linux-man@vger.kernel.org>; Wed, 28 Apr 2021 13:20:40 -0700 (PDT)
+Received: by mail-wm1-x32d.google.com with SMTP id i21-20020a05600c3555b029012eae2af5d4so9991081wmq.4
+        for <linux-man@vger.kernel.org>; Wed, 28 Apr 2021 13:20:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=sender:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=p39zB22XsWpm++4POtJc6FYMSKGXTrWs97DD1V86SPg=;
-        b=d8g49tagIwi1O6XTy/RjpiTGOUKbB8v6gKg46n33oVyxOvv6EYXH/Xcc7Uhuhkrv3S
-         SC+CEV3BnsFvwTxsefVvN6UQcXumJS8swdxi/SdZ0j1VKDWt5htOLG5KI7CiyzlVvn7K
-         qFcTiduAjGDMaUpuXnRZJEYy257UI7VGDTAci+HHxAKh0VeRTBqMwtjDREpvT7+1JD6Z
-         bBF9OuVCbW3tWVcry2UabdzeTyGyWYQhpOFkj1xYd885Uy6Fn2qdlHQ1ZCNWogEfKWgb
-         kSpWNpzsEYXco0aSgtScUXjYUlgOCyLdGi9rD/bKnecq/ma1Dbv50+jeOkWE4ZXLyntJ
-         gF4A==
+        bh=8SighOM1IJCIPj0hJdUQHRjqbev/6WMCLBHsnUeqaMo=;
+        b=FAMwmTPmAa3YOmdcTEZ+IEf+cd0XpeoPGe+KwVeGA4hPt1kkaaHdd68+2uvBV1d/a5
+         CK+jJBJ89uaUwmpl4at+gR0jMm8pJ3uOJRCNUKrI97gh+VtWGRQoBXaH25pjjYtwdcvA
+         pImVitDWHbe8BNTEpbfd2Y+fgsnQy5OYURpkmca8r4GUYDuwUPILwq6f1gCryqP9BKM0
+         J1a9P/Sl1S21xuQlopJ3wCKKRQ1veuDmN9Te4Ag4zt4dAeJQd7UeMet/FZWHxhJFJIgO
+         G2/iG6qt6z2qB86w8S1MqHmW+8hK2ZrmCDK9UBk9MZWL9SwVvoJUvNFh30PIK/yCQo1M
+         Jf6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:sender:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=p39zB22XsWpm++4POtJc6FYMSKGXTrWs97DD1V86SPg=;
-        b=NQ1tVZJfvQoJlvCi70H0n8lz86Il8+PUEWbsDHKiKehkno/BzlqLAQ6l1T67YpdePF
-         cb+fHpAeSAR/8fjbIROddea82/E90gljfKPROvgF3sxs/qgQJYQISPtU2uDyZRmGEEQG
-         2Bx/D9HodV5q8M/yUprJvnMu4vfz3b5InJW4MvoxHP5plAepkAaqVv6UsygPVgqzCW3x
-         +EnkNdjrbbhR6PdhoqfaM0uNsAOUMJIgLGQNZMdKmzxNufik+6g7FUWcKdSlhkR7ts5U
-         y154y53KNQdpjcTXGqVJsxRBPYtBpcDurKhD+jIXg2X0NGm8LfOf5Foh/KiViBd7CfYH
-         wvUA==
-X-Gm-Message-State: AOAM5334bKo0Z+jAH1PY7pVyjZX+Af0U8IqrkljrgQ3aAADjj8A1aPQG
-        CbHHSG6gaDDN7nQiJ2G1Yo4=
-X-Google-Smtp-Source: ABdhPJxbQgfuE6nwPAjgkQvhdyMT4nJ71125L1+Q9z7j7wO/+GHYu+RqTL3LZHVkL/SAx553H2znuA==
-X-Received: by 2002:a1c:5454:: with SMTP id p20mr6485636wmi.187.1619639784142;
-        Wed, 28 Apr 2021 12:56:24 -0700 (PDT)
+        bh=8SighOM1IJCIPj0hJdUQHRjqbev/6WMCLBHsnUeqaMo=;
+        b=sIvO9YCmslvo2o7RjEGQGEXJjrh0W/MsGDK3I5biC2TceSVJEpyV+OcaE4OnPGQWXA
+         DyV6yRqOTfp+SvtuDseoOcDOfcPgUFyMs0YqTf18uZWz0OGHxzKFG0c1If8+xG52wAiW
+         xHAvcIAwRo3AqCz6r/d4JSJm5n70YUCxBNeLBR4ejHGLGW40rmu5m2hLvqlv2bkMxFAs
+         vSM0MwAllA9c2Gg3uhB34QB85Qh6wo42cbYUOBP5KVPKCYXlx0woEHScii7muhrhdK2a
+         4/pIcu+6jZyIBqriN4bGsqO7xn6fiHtQ8lOC2WVFHzPDLQqy7C97r/hNMqxL3I56sqGO
+         BQWw==
+X-Gm-Message-State: AOAM530UDX9Gga5dTRvRaEmcf/jBgkEPoaxtfNZUc+iWMJhtGBx8l8Ph
+        k2NPwxaTAcIlfuPqvkNBZFg3xsUVIRI=
+X-Google-Smtp-Source: ABdhPJyFxsOPygeDivevMakf6JBc5aJn9YvqLFNBxeFON+a/8qhXkrNVXmMSZ6E9RoxqXo/vEgeSDQ==
+X-Received: by 2002:a1c:9a95:: with SMTP id c143mr33209076wme.143.1619641239184;
+        Wed, 28 Apr 2021 13:20:39 -0700 (PDT)
 Received: from [10.8.0.106] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id e38sm5898909wmp.21.2021.04.28.12.56.23
+        by smtp.gmail.com with ESMTPSA id u17sm7084492wmq.30.2021.04.28.13.20.37
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Apr 2021 12:56:23 -0700 (PDT)
-Subject: Re: Grammar issue in sigwaitinfo(2)
-To:     Chris Keilbart <keilbartchris@gmail.com>
-Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
-References: <8DBC5BC7-77BC-4439-AFC4-008490D8B107@hxcore.ol>
+        Wed, 28 Apr 2021 13:20:38 -0700 (PDT)
+Sender: Alejandro Colomar <alx.mailinglists@gmail.com>
+Subject: Re: timespec_get() part of C11
+To:     Walter Harms <wharms@bfs.de>,
+        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+References: <f79cbb6ecda24a1e90fb3c242d97c218@bfs.de>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <736a987e-9880-b594-9632-c2b364842aa2@gmail.com>
-Date:   Wed, 28 Apr 2021 21:56:22 +0200
+Message-ID: <4e07ad86-e943-e2b7-9487-11b63d8b9fa3@gmail.com>
+Date:   Wed, 28 Apr 2021 22:20:37 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <8DBC5BC7-77BC-4439-AFC4-008490D8B107@hxcore.ol>
+In-Reply-To: <f79cbb6ecda24a1e90fb3c242d97c218@bfs.de>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Chris,
+Hi Walter,
 
-On 4/28/21 9:19 PM, Chris Keilbart wrote:
-> Hi,
-> 
-> I’ve noticed a small grammar issue in the sigwaitinfo(2) errors list, 
-> specifically in EAGAIN. I’ve seen this on the online page: 
-> https://man7.org/linux/man-pages/man2/sigwaitinfo.2.html 
-> <https://man7.org/linux/man-pages/man2/sigwaitinfo.2.html>.
-> 
-> It says:
-> 
-> No signal in set /was became/ pending within the timeout
-> 
->                period specified to sigtimedwait().
-> 
-> It doesn’t make sense to use “was became”, so one of those words should 
-> be removed. I suggest dropping the “was”.
-
-Thanks for the report!
-Fixed.  I applied the following patch.
+Thanks for the page!  Please see some comments below (I'll tell you more 
+in the next iteration).
 
 Cheers,
 
 Alex
 
-P.S.: Please send plain text email next time.  The mailing list rejected 
-your mail for using HTML.
+P.S.: How's it going with the other page you were working on? :)
 
---->8
-sigwaitinfo.2: tfix
+On 4/24/21 7:41 PM, Walter Harms wrote:
+> .\" Copyright (c) 2021 wharms
+> .\" %%%LICENSE_START(VERBATIM)
+> .\" Permission is granted to make and distribute verbatim copies of this
+> .\" manual provided the copyright notice and this permission notice are
+> .\" preserved on all copies.
+> .\"
+> .\" Permission is granted to copy and distribute modified versions of this
+> .\" manual under the conditions for verbatim copying, provided that the
+> .\" entire resulting derived work is distributed under the terms of a
+> .\" permission notice identical to this one.
+> .\"
+> .\" Since the Linux kernel and libraries are constantly changing, this
+> .\" manual page may be incorrect or out-of-date.  The author(s) assume no
+> .\" responsibility for errors or omissions, or for damages resulting from
+> .\" the use of the information contained herein.  The author(s) may not
+> .\" have taken the same level of care in the production of this manual,
+> .\" which is licensed free of charge, as they might when working
+> .\" professionally.
+> .\"
+> .\" Formatted or processed versions of this manual, if unaccompanied by
+> .\" the source, must acknowledge the copyright and authors of this work.
+> .\" %%%LICENSE_END
+> .\"
+> .ds N1 The example is simplified code and not production ready.
+> .de N2
+> .SH COLOPHON
+> This page is part of release 4.16 of the Linux
 
-Fix wording issue introduced in commit
-bf1298c9e5053f55dea43e74255dae5ec57f251e.
+4.16? :)
 
-Reported-by: Chris Keilbart <keilbartchris@gmail.com>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
-  man2/sigwaitinfo.2 | 2 +-
-  1 file changed, 1 insertion(+), 1 deletion(-)
+> .I man-pages
+> project.
+> A description of the project,
+> information about reporting bugs,
+> and the latest version of this page,
+> can be found at
+> \%https://www.kernel.org/doc/man\-pages/.
+> ..
 
-diff --git a/man2/sigwaitinfo.2 b/man2/sigwaitinfo.2
-index 5cd88c557..00bc50485 100644
---- a/man2/sigwaitinfo.2
-+++ b/man2/sigwaitinfo.2
-@@ -120,7 +120,7 @@ set to indicate the error.
-  .B EAGAIN
-  No signal in
-  .I set
--was became pending within the
-+became pending within the
-  .I timeout
-  period specified to
-  .BR sigtimedwait ().
--- 
-2.31.1
+You can remove the COLOPHON.   It is automatically created at release time.
 
+> 
+> .TH timespec_get  1 "2021-04-20" Linux "User Manuals"
+
+Please, see `man 7 man-pages`, subsection 'Title line'.
+
+> .SH NAME
+> timespec_get  \- get time in high resolution
+
+"high resolution" is relative.  It's like when you call Y is the "new 
+X"... until it gets old.  I'd prefer expressing something like "get time 
+in seconds and nanoseconds", don't you?
+
+> .SH SYNOPSIS
+> .B #include <time.h>
+> .PP
+> .BI "int timespec_get( struct timespec *"ts ", int " base  ");"
+
+Don't add extra spaces inside the parentheses '( xxx', just like you'd 
+do in normal english.
+If there are no spaces, there's no need for using quotes: '");"' == ');'.
+Also, use spaces to separate arguments to '.BI' always.
+
+.BI "int timespec_get(struct timespec *" ts ", int " base );
+
+> .SH DESCRIPTION
+> The function
+> .B timespec_get()
+> will fill
+
+No need to use future here.  'fills' is simpler.
+
+> .I ts
+> wth the current time. The argument is a
+
+'The argument': I think I prefer to mention the argument name.
+
+s/The argument /\n.I ts\n/?
+
+> .I struct timespec
+> what is specified like:
+> .nf
+
+Please, see `man 7 man-pages`, subsection 'Indentation of structure 
+definitions, shell session logs, and so on'.
+
+> struct timespec
+> {
+>     time_t tv_sec;     /* Seconds.  */
+>     long tv_nsec;   /* Nanoseconds.  */
+
+Please, align comments.
+
+> };
+> .fi
+> The elements of the struct hold the seconds and nanoseconds since epoch.
+> The system clock will round the nanosecond argument.
+> .PP
+> The second argument
+> .B base
+> indicate the time base.  POSIX requieres
+> .I TIME_UTC
+> only.  All  others are implementation defined.
+> .SH RETURN VALUE
+> The function will return
+> .I base
+> or 0 for failure.
+> .SH EXAMPLE
+> The example program will show the current time
+> in YYYY-MM-DD hh:mm:ss and then the nanoseconds .
+> .EX
+> /* compile with:
+>   *  gcc timespec.c -o timespec
+>   */
+> #include <stdio.h>
+> #include <time.h>
+>   
+> int main(void)
+> {
+>      struct timespec ts;
+>      char buf[30];
+>      timespec_get(&ts, TIME_UTC);
+>      strftime(buf, sizeof(buf), "%F %T", gmtime(&ts.tv_sec));
+>      printf("Current time: %s ", buf);
+>      printf("UTC and %ld nsec\\n", ts.tv_nsec);
+>      return (0);
+> }
+> .EE
+> \*(N1
+> .SH NOTE
+> This function is equal to the POSIX function
+> .BR "clock_gettime(CLOCK_REALTIME, ts)" .
+> .PP
+> The ts.tv_sec is equal to the return value of
+> .BR time(NULL) .
+> .SH "CONFORMING TO"
+> The function is a C11 requirement and appears first time in
+> .BR "glibc 2.16 " .
+> .SH "SEE ALSO"
+> .BR clock_gettime(3) ,
+> .BR time (2),
+> .BR time (7)
+> \*(N2
+> 
 
 
 -- 
