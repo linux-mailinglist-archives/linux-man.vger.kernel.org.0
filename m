@@ -2,114 +2,128 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8E6FF36C05A
-	for <lists+linux-man@lfdr.de>; Tue, 27 Apr 2021 09:43:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 302C136DFFC
+	for <lists+linux-man@lfdr.de>; Wed, 28 Apr 2021 21:56:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230255AbhD0Ho2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 27 Apr 2021 03:44:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49558 "EHLO
+        id S238325AbhD1T5L (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 28 Apr 2021 15:57:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50224 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230461AbhD0Ho2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 27 Apr 2021 03:44:28 -0400
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2FADFC061574
-        for <linux-man@vger.kernel.org>; Tue, 27 Apr 2021 00:43:45 -0700 (PDT)
-Received: by mail-wm1-x32c.google.com with SMTP id y124-20020a1c32820000b029010c93864955so6458160wmy.5
-        for <linux-man@vger.kernel.org>; Tue, 27 Apr 2021 00:43:45 -0700 (PDT)
+        with ESMTP id S232291AbhD1T5K (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Apr 2021 15:57:10 -0400
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6D677C061573
+        for <linux-man@vger.kernel.org>; Wed, 28 Apr 2021 12:56:25 -0700 (PDT)
+Received: by mail-wm1-x336.google.com with SMTP id o21-20020a1c4d150000b029012e52898006so9493392wmh.0
+        for <linux-man@vger.kernel.org>; Wed, 28 Apr 2021 12:56:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+        h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=Xr0xW185bQow0sszVhygfq7939g4AaovrhmrGqq+BjM=;
-        b=WhVaOImpCxObvjikbjT+BG6ljGOgciAqfBLRrs+GgZesW4RrtRnVGp2f4gAFvzojf+
-         cxgHBCLbFHPSLRiJg0fKcdqkTUXL8OYgUivsbx4yErxb+HHViyESxMWWMMFTk7kZhLUK
-         vKNb9BXTahdDXSyXr9g784YBCJB9auTxfhwpMnX0lO7RrJ5ZOmIHv2vl8L1txC4NeXJr
-         7ssEZfcZboYJHWWyK91i3ffXmBSPUdM7EnzqxIf6SEBIyTRtgeH6Vv+XzqVm40PYFQhB
-         vHHOe+OHYtFhDagVhhKjhx1GHfUsIjClrtWOx3xuRTh8nP+3x+MPBshUnZwse+M4vqN9
-         Grdw==
+        bh=p39zB22XsWpm++4POtJc6FYMSKGXTrWs97DD1V86SPg=;
+        b=d8g49tagIwi1O6XTy/RjpiTGOUKbB8v6gKg46n33oVyxOvv6EYXH/Xcc7Uhuhkrv3S
+         SC+CEV3BnsFvwTxsefVvN6UQcXumJS8swdxi/SdZ0j1VKDWt5htOLG5KI7CiyzlVvn7K
+         qFcTiduAjGDMaUpuXnRZJEYy257UI7VGDTAci+HHxAKh0VeRTBqMwtjDREpvT7+1JD6Z
+         bBF9OuVCbW3tWVcry2UabdzeTyGyWYQhpOFkj1xYd885Uy6Fn2qdlHQ1ZCNWogEfKWgb
+         kSpWNpzsEYXco0aSgtScUXjYUlgOCyLdGi9rD/bKnecq/ma1Dbv50+jeOkWE4ZXLyntJ
+         gF4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=Xr0xW185bQow0sszVhygfq7939g4AaovrhmrGqq+BjM=;
-        b=k8DToLz6qjoffbTQaXv/5aUfAeDhC1U8rGngLQW6WbEpNKbwqwkaac7ScXoXI4BLUj
-         NEI6zTC1DZSuE1GE/pWgGE/jR3SeMI+j7CB8l42gehq+gpZl/L6wNZvyWQHd8KgUhb96
-         NRqGJ9t33C3wYN4KInmwHgTPIa+4ZH4GI5TNmq9cIgq/K/ffBByOe7t6r42hIsNdhFnf
-         G14WdhEeBLSUtkkXqvmWFFkhs24vqSFQiJcjDqDvMzYZTCtpe9dLKQ3YQmhrCvGOr9vF
-         VgT63fRqJ98OgMkP8Simah/GgG9OXa6ZU/IDRtMRYJafP0uahlgqktlHHxKAmCmRQClc
-         bOlg==
-X-Gm-Message-State: AOAM533MXmU86zADhN8qSLNNUTKNLCvxREtapu9dFnTlLRUcpBAghKDN
-        Do3s+l84xPNVE/ByAkOaXSu5IZltyqE=
-X-Google-Smtp-Source: ABdhPJwdzysiwr5mAcFshqvpXbvn28lZ1C1NIFsxCfMjh2qwIvoSLciBc1Wpxia1baExirml3xCTAA==
-X-Received: by 2002:a1c:f20f:: with SMTP id s15mr2934792wmc.61.1619509424036;
-        Tue, 27 Apr 2021 00:43:44 -0700 (PDT)
+        bh=p39zB22XsWpm++4POtJc6FYMSKGXTrWs97DD1V86SPg=;
+        b=NQ1tVZJfvQoJlvCi70H0n8lz86Il8+PUEWbsDHKiKehkno/BzlqLAQ6l1T67YpdePF
+         cb+fHpAeSAR/8fjbIROddea82/E90gljfKPROvgF3sxs/qgQJYQISPtU2uDyZRmGEEQG
+         2Bx/D9HodV5q8M/yUprJvnMu4vfz3b5InJW4MvoxHP5plAepkAaqVv6UsygPVgqzCW3x
+         +EnkNdjrbbhR6PdhoqfaM0uNsAOUMJIgLGQNZMdKmzxNufik+6g7FUWcKdSlhkR7ts5U
+         y154y53KNQdpjcTXGqVJsxRBPYtBpcDurKhD+jIXg2X0NGm8LfOf5Foh/KiViBd7CfYH
+         wvUA==
+X-Gm-Message-State: AOAM5334bKo0Z+jAH1PY7pVyjZX+Af0U8IqrkljrgQ3aAADjj8A1aPQG
+        CbHHSG6gaDDN7nQiJ2G1Yo4=
+X-Google-Smtp-Source: ABdhPJxbQgfuE6nwPAjgkQvhdyMT4nJ71125L1+Q9z7j7wO/+GHYu+RqTL3LZHVkL/SAx553H2znuA==
+X-Received: by 2002:a1c:5454:: with SMTP id p20mr6485636wmi.187.1619639784142;
+        Wed, 28 Apr 2021 12:56:24 -0700 (PDT)
 Received: from [10.8.0.106] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id z18sm2920682wrh.16.2021.04.27.00.43.42
+        by smtp.gmail.com with ESMTPSA id e38sm5898909wmp.21.2021.04.28.12.56.23
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Apr 2021 00:43:43 -0700 (PDT)
-Sender: Alejandro Colomar <alx.mailinglists@gmail.com>
-Subject: Re: [PATCH 2/2] exit_group.2, getunwind.2: tfix
-To:     Jakub Wilk <jwilk@jwilk.net>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <20210426185813.3952-1-jwilk@jwilk.net>
- <20210426185813.3952-2-jwilk@jwilk.net>
+        Wed, 28 Apr 2021 12:56:23 -0700 (PDT)
+Subject: Re: Grammar issue in sigwaitinfo(2)
+To:     Chris Keilbart <keilbartchris@gmail.com>
+Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
+References: <8DBC5BC7-77BC-4439-AFC4-008490D8B107@hxcore.ol>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <81c80583-c217-08b8-09ad-e36d9fd0857d@gmail.com>
-Date:   Tue, 27 Apr 2021 09:43:40 +0200
+Message-ID: <736a987e-9880-b594-9632-c2b364842aa2@gmail.com>
+Date:   Wed, 28 Apr 2021 21:56:22 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210426185813.3952-2-jwilk@jwilk.net>
+In-Reply-To: <8DBC5BC7-77BC-4439-AFC4-008490D8B107@hxcore.ol>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Jakub,
+Hi Chris,
 
-On 4/26/21 8:58 PM, Jakub Wilk wrote:
-> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+On 4/28/21 9:19 PM, Chris Keilbart wrote:
+> Hi,
+> 
+> I’ve noticed a small grammar issue in the sigwaitinfo(2) errors list, 
+> specifically in EAGAIN. I’ve seen this on the online page: 
+> https://man7.org/linux/man-pages/man2/sigwaitinfo.2.html 
+> <https://man7.org/linux/man-pages/man2/sigwaitinfo.2.html>.
+> 
+> It says:
+> 
+> No signal in set /was became/ pending within the timeout
+> 
+>                period specified to sigtimedwait().
+> 
+> It doesn’t make sense to use “was became”, so one of those words should 
+> be removed. I suggest dropping the “was”.
 
-Patch applied.  Thanks again,
+Thanks for the report!
+Fixed.  I applied the following patch.
+
+Cheers,
 
 Alex
 
-> ---
->   man2/exit_group.2 | 2 +-
->   man2/getunwind.2  | 2 +-
->   2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/man2/exit_group.2 b/man2/exit_group.2
-> index b512927d4..d197f1f2e 100644
-> --- a/man2/exit_group.2
-> +++ b/man2/exit_group.2
-> @@ -28,7 +28,7 @@ exit_group \- exit all threads in a process
->   .SH SYNOPSIS
->   .nf
->   .BR "#include <sys/syscall.h>" "       /* Definition of " SYS_* " constants */"
-> -.B #inlcude <unistd.h>
-> +.B #include <unistd.h>
->   .PP
->   .BI "noreturn void syscall(SYS_exit_group, int " status );
->   .fi
-> diff --git a/man2/getunwind.2 b/man2/getunwind.2
-> index 2c44506c7..403bd7770 100644
-> --- a/man2/getunwind.2
-> +++ b/man2/getunwind.2
-> @@ -31,7 +31,7 @@ getunwind \- copy the unwind data to caller's buffer
->   .nf
->   .B #include <linux/unwind.h>
->   .BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
-> -.B #inlcude <unistd.h>
-> +.B #include <unistd.h>
->   .PP
->   .BI "long syscall(SYS_getunwind, void " *buf ", size_t " buf_size );
->   .fi
-> 
+P.S.: Please send plain text email next time.  The mailing list rejected 
+your mail for using HTML.
+
+--->8
+sigwaitinfo.2: tfix
+
+Fix wording issue introduced in commit
+bf1298c9e5053f55dea43e74255dae5ec57f251e.
+
+Reported-by: Chris Keilbart <keilbartchris@gmail.com>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+  man2/sigwaitinfo.2 | 2 +-
+  1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/man2/sigwaitinfo.2 b/man2/sigwaitinfo.2
+index 5cd88c557..00bc50485 100644
+--- a/man2/sigwaitinfo.2
++++ b/man2/sigwaitinfo.2
+@@ -120,7 +120,7 @@ set to indicate the error.
+  .B EAGAIN
+  No signal in
+  .I set
+-was became pending within the
++became pending within the
+  .I timeout
+  period specified to
+  .BR sigtimedwait ().
+-- 
+2.31.1
+
 
 
 -- 
