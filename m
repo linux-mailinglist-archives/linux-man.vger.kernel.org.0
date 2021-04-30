@@ -2,149 +2,170 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C403637014B
-	for <lists+linux-man@lfdr.de>; Fri, 30 Apr 2021 21:32:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 31A393701B5
+	for <lists+linux-man@lfdr.de>; Fri, 30 Apr 2021 22:05:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231864AbhD3Tdq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 30 Apr 2021 15:33:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58090 "EHLO
+        id S234780AbhD3UDn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 30 Apr 2021 16:03:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36526 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231809AbhD3Tdq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Apr 2021 15:33:46 -0400
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9272BC06138B;
-        Fri, 30 Apr 2021 12:32:56 -0700 (PDT)
-Received: by mail-wr1-x42a.google.com with SMTP id z6so10498718wrm.4;
-        Fri, 30 Apr 2021 12:32:56 -0700 (PDT)
+        with ESMTP id S233448AbhD3UDm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Apr 2021 16:03:42 -0400
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2AD31C06174A
+        for <linux-man@vger.kernel.org>; Fri, 30 Apr 2021 13:02:54 -0700 (PDT)
+Received: by mail-wm1-x333.google.com with SMTP id o26-20020a1c4d1a0000b0290146e1feccdaso2392574wmh.0
+        for <linux-man@vger.kernel.org>; Fri, 30 Apr 2021 13:02:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=YGxJur6BpkCaw3OzABXrg+qG7M6lysHFEiPjPM8O8jM=;
-        b=XbBK4VfeB5HSc9VnsPbCGaLMOUGma5aINBFJEeaHajUizyf/o35ykT8yudbK0WOGRs
-         7EbWBY9Y0f16Et0zoxlGpoDFxWbUapu0El35CKgPAXRHwtRVvkQLgtar//qiWYhxKNz4
-         39l2EMmUMRIhPnK9jjQxB1YPA/YgzjHRe5QMBCLNeLk4460d1NOwtPiLTAQqObmdSUxq
-         uB/wFVzfVbRAxW84BGVd/NwRSCgz8TWy7JVXgvNKDeNFh/yWZVMIk6vcuUVD3jsM6fMT
-         QPjev0ngvs7RqRqiNU61+km8kxYP9M2ieCHzn5mOmlUJAq3znWycBeDb46OJgDuuUPU5
-         MmMg==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=tQCCp5NLH9EaKhPJlIU1ayCjNS6N+ik1afl09QkFC/Y=;
+        b=TfAqJQ42D4pGaLlcCizXjGTLg3i18rggnDFVxyBqJValAd8bhyNlqv2iZ3LauwzfaZ
+         I2KatiUBrDpv1lCvYdeuCw1x+QtKzu8ruISUq5B8/Z9jdcxy7kG6zv5vZsfkGVXeuaHA
+         hNxVtCBDrSXK+QlPXDdF0Z8XNKMVzmVHAthUXJApIhKJRU/OEIN2LYJh3WmIUbgNN0zS
+         DGn+x72bLqkrw4cptf7BqY2AICXLEM+ff4020DG4o1LU0SZKlyJ3t0Ar6sjW1YSMAKG5
+         IiGSJkbC7gR/Ac4rI0SIhB41XuqvnmRnkg21cFWx7i+wCbf+aFgmn1QVMpTwOAEOfKxH
+         /5GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=YGxJur6BpkCaw3OzABXrg+qG7M6lysHFEiPjPM8O8jM=;
-        b=REfJ54hxvYNUc9owpfZV+eDSiPuO+08p/owZc3c4H0KYY/SD3qFjUUk0S5Jfs8OuB7
-         L6mJ4Qv/1+vFEBLvS4/NJCxirqloo4m3z6aMjwDvA1lpgAwNno79rw/flPaSGYkqBTMw
-         6aMg/CFgtQxk2Cub/8244esZN4mdrHaOiyeC9F6T/Uxnz3v1wExEc+lt3kK/ZfVlSQMB
-         EnTZHCLlxd6zzGOaizy55F79y7ctD3VqHsvPiTPDmdvAI7rrbcNBntacYo0umvF56NJ4
-         KPSezAb9EYM3NP7zhqVHwXpOenU2YATfkfsvxrtBcmg32eCtmgM5If5TgRVMVovJbgIU
-         yKfQ==
-X-Gm-Message-State: AOAM53294UVyAjo48N0zwni7soHi4gTfSOJf0J4rBs3MCoEyCmdjKViv
-        mGkVjdwoefW9QwVp+vyuq1871vO4YqEYXQ==
-X-Google-Smtp-Source: ABdhPJyhTths+KvVLUS8knCdFfcch3pczopIQyF+cUUbjW4A7vhF++ZfvubKihT1guzh9Wvy0oBFMw==
-X-Received: by 2002:adf:dfcd:: with SMTP id q13mr9248597wrn.363.1619811174183;
-        Fri, 30 Apr 2021 12:32:54 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id m2sm13348394wmq.15.2021.04.30.12.32.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Apr 2021 12:32:53 -0700 (PDT)
-Subject: Re: netdevice.7 SIOCGIFFLAGS/SIOCSIFFLAGS
-To:     Erik Flodin <erik@flodin.me>, mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, Stefan Rompf <stefan@loplof.de>,
-        "David S. Miller" <davem@davemloft.net>,
-        John Dykstra <john.dykstra1@gmail.com>, netdev@vger.kernel.org,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <CAAMKmof+Y+qrro7Ohd9FSw1bf+-tLMPzaTba-tVniAMY0zwTOQ@mail.gmail.com>
- <b0a534b3-9bdf-868e-1f28-8e32d31013a2@gmail.com>
- <CAAMKmodhSsckMxH9jLKKwXN_B76RoLmDttbq5X9apE-eCo0hag@mail.gmail.com>
- <1cde5a72-033e-05e7-be58-b1b2ef95c80f@gmail.com>
- <CAAMKmoe8rUuoxFK2gKZL4um79gmtn-__-1ZDWuBgGTqfqPjZdw@mail.gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <ec0d0a2d-235c-a71f-92bc-45e1156bff9e@gmail.com>
-Date:   Fri, 30 Apr 2021 21:32:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
+        bh=tQCCp5NLH9EaKhPJlIU1ayCjNS6N+ik1afl09QkFC/Y=;
+        b=VErXZ+plQ8mJlX7FN994yV/trfTLQNOjXHtKyMQUN5v0UL9x50PGBOiPB431QaJ8um
+         vKEhstdI/SAWsozp+5S8ji2uXmR/VGRm3fTqbWxPgNkIjEuiI0opBUJMa1mG7cFcuCSY
+         J8bNEU9awyXiZPX6ZoVf7/ntE34vXqthfDB4/vXwouLKxoqOENZWHME+jfIu1Uc6VRac
+         WN9pOc6oodjOOwPLwHOybX0AX4Jh8dQlfb4Ucz6pqfrPvvZWhigoQemsqDbdW1irfdFA
+         ND6s1hYFMNmerZ0kMnoIwHDod7cTBzammDZpXo3qgGX0LGSWYZq+1FROuGxQA4FZYba/
+         eG6Q==
+X-Gm-Message-State: AOAM532HXoqlRW0jsn9YhTW8KhYGdXJSgC4u8tGTcD6yRUelsoz812G1
+        EIs4QNICENAoE/PnDbZS6pj20+9HV6Hk3Q==
+X-Google-Smtp-Source: ABdhPJxC9G8wYVC6GcZwcOz2iPonelAGdFwqrdzKNUGxWScKN7AE6YbsKCav46hSgo+D1UNbRmmUhQ==
+X-Received: by 2002:a1c:b7c4:: with SMTP id h187mr7731462wmf.178.1619812972956;
+        Fri, 30 Apr 2021 13:02:52 -0700 (PDT)
+Received: from localhost.localdomain ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id o1sm3493509wrm.66.2021.04.30.13.02.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Apr 2021 13:02:52 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     linux-man@vger.kernel.org
+Cc:     "James O. D. Hunt" <jamesodhunt@gmail.com>, alx.manpages@gmail.com
+Subject: [BUG 212887] [PATCH] getopt.3: Clarify behaviour
+Date:   Fri, 30 Apr 2021 22:00:13 +0200
+Message-Id: <20210430200012.5032-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.31.0
 MIME-Version: 1.0
-In-Reply-To: <CAAMKmoe8rUuoxFK2gKZL4um79gmtn-__-1ZDWuBgGTqfqPjZdw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-[PING mtk, netdev@]
-[CC += linux-kernel]
+From: "James O. D. Hunt" <jamesodhunt@gmail.com>
 
-Hi Erik,
+Improved the `getopt(3)` man page in the following ways:
 
-On 4/29/21 9:45 PM, Erik Flodin wrote:
-> On Wed, 14 Apr 2021 at 21:56, Alejandro Colomar (man-pages)
-> <alx.manpages@gmail.com> wrote:
->>
->> [CC += netdev]
->>
->> Hi Erik,
->>
->> On 4/14/21 8:52 PM, Erik Flodin wrote:
->>> Hi,
->>>
->>> On Fri, 19 Mar 2021 at 20:53, Alejandro Colomar (man-pages)
->>> <alx.manpages@gmail.com> wrote:
->>>> On 3/17/21 3:12 PM, Erik Flodin wrote:
->>>>> The documentation for SIOCGIFFLAGS/SIOCSIFFLAGS in netdevice.7 lists
->>>>> IFF_LOWER_UP, IFF_DORMANT and IFF_ECHO, but those can't be set in
->>>>> ifr_flags as it is only a short and the flags start at 1<<16.
->>>>>
->>>>> See also https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=746e6ad23cd6fec2edce056e014a0eabeffa838c
->>>>>
->>>>
->>>> I don't know what's the history of that.
->>>
->>> Judging from commit message in the commit linked above it was added by
->>> mistake. As noted the flags are accessible via netlink, just not via
->>> SIOCGIFFLAGS.
->>>
->>> // Erik
->>>
->>
->> I should have CCd netdev@ before.  Thanks for the update.  Let's see if
->> anyone there can comment.
->>
->> Thanks,
->>
->> Alex
->>
+1) Defined the existing term "legitimate option character".
+2) Added an additional NOTE stressing that arguments are parsed in strict
+   order and the implications of this when numeric options are utilised.
+3) Added a new WARNINGS section that alerts the reader to the fact they
+   should:
+   - Validate all option argument.
+   - Take care if mixing numeric options and arguments accepting numeric
+     values.
 
-> Hi again,
-> 
-> Have there been any updates on this one?
+Signed-off-by: James O. D. Hunt <jamesodhunt@gmail.com>
+Bugzilla: <https://bugzilla.kernel.org/show_bug.cgi?id=212887>
+---
 
-No, Noone from the kernel answered.  And I'm sorry, but I'm not sure
-what is going on in the code, so I don't want to close this here by just
-removing those flags from the manual page, because I worry that the
-actual code may be wrong or something.  So I prefer that when Michael
-has some time he can maybe review this and say something.  Ideally,
-someone from the kernel would also respond, but they haven't.  I've CCd
-the LKML; let's see if someone reads this and can help.
+I'm only forwarding the patch to the list to better discuss it.
 
-Thanks,
+ man3/getopt.3 | 59 ++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 58 insertions(+), 1 deletion(-)
 
-Alex
-
-P.S.:  Please, if we haven't responded in a month from now, ping us
-again.  Thanks again.
-
-> 
-> // Erik
-> 
->>
->> --
->> Alejandro Colomar
->> Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
->> http://www.alejandro-colomar.es/
-
+diff --git a/man3/getopt.3 b/man3/getopt.3
+index 921e747f8..ec3a5640f 100644
+--- a/man3/getopt.3
++++ b/man3/getopt.3
+@@ -125,7 +125,13 @@ Then \fIoptind\fP is the index in \fIargv\fP of the first
+ \fIargv\fP-element that is not an option.
+ .PP
+ .I optstring
+-is a string containing the legitimate option characters.
++is a string containing the legitimate option characters. A legitimate
++option character is any visible one byte
++.BR ascii (7)
++character (for which
++.BR isgraph (3)
++would return nonzero) that is not the null byte (\(aq\e0\(aq),
++dash (\(aq-\(aq) or colon (\(aq:\(aq).
+ If such a
+ character is followed by a colon, the option requires an argument, so
+ .BR getopt ()
+@@ -402,6 +408,22 @@ routine that rechecks
+ .B POSIXLY_CORRECT
+ and checks for GNU extensions in
+ .IR optstring .)
++
++Command-line arguments are parsed in strict order meaning that an option requiring
++an argument will consume the next argument, regardless of whether that
++argument is the correctly specified option argument or simply the next option
++(in the scenario the user mis-specifies the command-line). For example, if
++.IR optstring
++is specified as "1n:"
++and the user incorrectly specifies the command-line arguments as
++\(aqprog\ -n\ -1\(aq, the
++.IR \-n
++option will be given the
++.BR optarg
++value \(aq\-1\(aq, and the
++.IR \-1
++option will be considered to have not been specified.
++
+ .SH EXAMPLES
+ .SS getopt()
+ The following trivial example program uses
+@@ -542,6 +564,41 @@ main(int argc, char **argv)
+     exit(EXIT_SUCCESS);
+ }
+ .EE
++
++.SH WARNINGS
++Since
++.BR getopt ()
++allows users to provide values to the program, every care should be taken to
++validate every option value specified by the user calling the program.
++.BR getopt ()
++itself provides no validation so the programmer should perform boundary value
++checks on
++.ft I
++every
++.ft
++argument to minimise the risk of bad input data being accepted by the program.
++String values should be checked to ensure they are not empty (unless
++permitted), sanitized appropriately and that internal buffers used to
++store the string values returned in \fIoptarg\fP are large enough to hold
++pathologically long values. Numeric values should be verified to ensure they
++are within the expected permissible range of values.
++
++Further, since
++.BR getopt ()
++can handle numeric options (such as \(aq-1\(aq or \(aq-2 foo\(aq), care should be
++taken when writing  a program that accepts both a numeric flag option and an option
++accepting a numeric argument. Specifically, the program should sanity check the numeric
++\fIoptarg\fP value carefully to protect against the case where a user
++mis-specifies the command-line which chould result in a numeric option flag
++being specified as the \fIoptarg\fP value for the numeric option by mistake.
++For example, if
++.IR optstring
++is specified as "1n:" and the \(aqn\(aq option accepts a numeric value, if the
++command-line is specified accidentally as \(aqprog\ -n\ -1\(aq, care needs to
++be taken to ensure the program does not try to convert the \(aq-1\(aq passed
++to the \(aqn\(aq option into an unsigned numeric value since that would result
++in it being set to the largest possible integer value for the type used to
++encode it.
+ .SH SEE ALSO
+ .BR getopt (1),
+ .BR getsubopt (3)
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.31.0
+
