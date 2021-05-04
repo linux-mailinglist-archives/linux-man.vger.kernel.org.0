@@ -2,172 +2,107 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A24D5372966
-	for <lists+linux-man@lfdr.de>; Tue,  4 May 2021 13:05:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 814F6372B60
+	for <lists+linux-man@lfdr.de>; Tue,  4 May 2021 15:53:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230015AbhEDLGm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 4 May 2021 07:06:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41216 "EHLO
+        id S231240AbhEDNyD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 4 May 2021 09:54:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49816 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229903AbhEDLGl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 4 May 2021 07:06:41 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BF01BC061574;
-        Tue,  4 May 2021 04:05:45 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id x5so8889332wrv.13;
-        Tue, 04 May 2021 04:05:45 -0700 (PDT)
+        with ESMTP id S231216AbhEDNyC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 4 May 2021 09:54:02 -0400
+Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com [IPv6:2607:f8b0:4864:20::d29])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E33E2C061574
+        for <linux-man@vger.kernel.org>; Tue,  4 May 2021 06:53:07 -0700 (PDT)
+Received: by mail-io1-xd29.google.com with SMTP id t3so1948864iol.5
+        for <linux-man@vger.kernel.org>; Tue, 04 May 2021 06:53:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=jBexOv/slXZrUqoBk/6dME5LyTQkC5h8UHzK8vFSGV0=;
-        b=bGw0TUolt0fr1Mj/tO4Z5l3OL2UgcNPGr5SjtE9TQZdOFF6P1HHwvvcuDxmHzR7TWH
-         25W1zF8pIkB+Tkn8NFWnS2mumdQfeYiE83ef8+GV09LsjFxmkE2Ypc8k4c+PhM6xSDea
-         ffdmjvsvJeyiPxeZb9Zg9sGhG/JnI2i+vsv8mFYq5UiDBfSSBqccXMb7ItNFnzrb3BOB
-         CES3h4j4wznLfngqRZpc0k5hOcRV0bOLLgaqhE347rqF/49d06QkPgD559LR1boDmBSz
-         V5Z5KTrUAtDbV99yQXkpEBJyT7Gjc/EwVTm3iwwIKtDJtAocjgFSXqsEfZwT11+TDXgq
-         bBbw==
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=SdJrMfKDIYtutzVFDzChcKgjwYDHSmc18Roqrbc0wLg=;
+        b=OA3JcpQ6gS1qAZ9ly3OX/JDtZY+rL8hnyx7oRDk1WKPiOrtXbIgvidi75wMLguKSh/
+         zzZQpySqSW8JOn69W3pCMa5/a/HJKTWjJQ9GCDii6ectjxuRtCFznvinzj0HunRQRzg7
+         R8oWyPSG0kWAsuVD96aSjguPaoaLYrcEacwFcnDv7yxtyiu/3NRmQcbI8l7blL9VXJU7
+         zx54F/6GIuQFce05KZ91Qvdp4PHRxd29S+5B1ab5yyO5XwXy028qroGy77z7ShdYJsxF
+         I5p3C7TkjVikjGwU7/b3d9BuK52WYWCSDYT8jqonQCX2kZFMKJ97muAobV1IU/NjxWGq
+         EL2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=jBexOv/slXZrUqoBk/6dME5LyTQkC5h8UHzK8vFSGV0=;
-        b=TAbQojzZrSrbHGTKYjv/6YgN9gW60wHp38iERkT3YBuJ04AfTkBwO/HfZ9piQMaVs7
-         cnn697ZiiF6HMhZHSVGbd9dN15UOncjpyLrJQj+9QYisM0n8+hXWsDKbAFEsuWd8sq3V
-         G/8p+elDyDkmrbvgLYEJ44yb3iTDahXgG1yrl+HVMRzrFqy3djWJDhlLxQqxBlYMLjhY
-         c7MVaNaBv1SWBAXRR+QTzk7PNRTpWRjl/WHEG2Qc6fR945QHfAyk0wo6cHU49JJBpKnK
-         ZlaiXsgjbXlBP3UIX3g6vx+uzs+oSb6v3tN97PqukYVIhIjOUadCzuJmLy5eCalQ967b
-         mAEQ==
-X-Gm-Message-State: AOAM530rrNWNMn+vOxL1aG1g8ceG0xFsrKJ2UvB4en6mvaCJGmP00ngR
-        ah5M1/WzP6r5UUyJA1sXBfM=
-X-Google-Smtp-Source: ABdhPJw47QkoJpJSP1YPM0MC+fPhs/05hHrWzAdxeUw5qEExJJXq+uqU1z5Qjad2cZ6BA+EyTVcMTw==
-X-Received: by 2002:adf:e811:: with SMTP id o17mr14669020wrm.71.1620126344302;
-        Tue, 04 May 2021 04:05:44 -0700 (PDT)
-Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id o17sm16769939wrs.48.2021.05.04.04.05.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 May 2021 04:05:43 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        LKML <linux-kernel@vger.kernel.org>,
-        glibc <libc-alpha@sourceware.org>, GCC <gcc-patches@gcc.gnu.org>,
-        Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-        bpf <bpf@vger.kernel.org>,
-        David Laight <David.Laight@ACULAB.COM>,
-        Zack Weinberg <zackw@panix.com>,
-        Joseph Myers <joseph@codesourcery.com>
-Subject: [RFC v2] bpf.2: Use standard types and attributes
-Date:   Tue,  4 May 2021 13:05:20 +0200
-Message-Id: <20210504110519.16097-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210423230609.13519-1-alx.manpages@gmail.com>
-References: <20210423230609.13519-1-alx.manpages@gmail.com>
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=SdJrMfKDIYtutzVFDzChcKgjwYDHSmc18Roqrbc0wLg=;
+        b=KTwsUIraQ80fuz09U350ega5Qj/BZ9tp/+7EaTdESi7Vfy8p9l2xTkjGuBQnu32Ft0
+         Iabysoc/DwJzgaW2INULcX+MP1TfSd7hpDb4T4XWg04aLIc8X8NchOsf+sdDmCfTtce6
+         w340rWU9JW9SD0NcSvFMORNEVwyBpaLXYfBHs7KyIrXeGJo+nYEXz5Fpb2CW22Ibt+0L
+         VeSOg81KLkgvfR39M9Yiq6kkjO3boJqYaRk28DVftaiIGpOybcX6lMzmGaac7bc8lbnq
+         kIJH/WQXcUS2CHRyznSAPxkoxhJgSLjXqH0lJOLyqWkxysUmT8Oaysi1q6GZqAJk4rYG
+         u7qw==
+X-Gm-Message-State: AOAM532IsE5pdsipYZN4Ur4kn5IOHqwWzKQrbmjXXD20t5HTwKn0S0sE
+        LRE16apYVeOXkwOV+CKUF451JESsn96MxGkpGQyNTokeJt4=
+X-Google-Smtp-Source: ABdhPJyVPiTdYuRg030WztZgdH//nThT54x75N+YZQ8E9JGKd2hoaqQNLa6k4N4AEfckj+g3H20W7BA515/eqzxg0qo=
+X-Received: by 2002:a02:b698:: with SMTP id i24mr15076856jam.121.1620136387049;
+ Tue, 04 May 2021 06:53:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From:   "Vishwajith.K" <vishuvikas1996@gmail.com>
+Date:   Tue, 4 May 2021 19:22:30 +0530
+Message-ID: <CAN2tbMWSHJ=BXe70ygXg9NpCWhB+3V-CpZEWCTtOynJr_QODbw@mail.gmail.com>
+Subject: [patch] shmop.2: tfix
+To:     linux-man@vger.kernel.org
+Cc:     alx.manpages@gmail.com, mtk.manpages@gmail.com
+Content-Type: multipart/mixed; boundary="000000000000d7112605c18165a5"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Some manual pages are already using C99 syntax for integral
-types 'uint32_t', but some aren't.  There are some using kernel
-syntax '__u32'.  Fix those.
+--000000000000d7112605c18165a5
+Content-Type: text/plain; charset="UTF-8"
 
-Some pages also document attributes, using GNU syntax
-'__attribute__((xxx))'.  Update those to use the shorter and more
-portable C11 keywords such as 'alignas()' when possible, and C2x
-syntax '[[gnu::xxx]]' elsewhere, which hasn't been standardized
-yet, but is already implemented in GCC, and available through
-either --std=c2x or any of the --std=gnu... options.
+From 8f678998296fab3d68b3637f5334d8ded37f3c99 Mon Sep 17 00:00:00 2001
+From: Vishwajith K <vishuvikas1996@gmail.com>
+Date: Tue, 4 May 2021 10:09:11 -0400
+Subject: [PATCH] tfix: shmop.2 example code
 
-The standard isn't very clear on how to use alignas() or
-[[]]-style attributes, so the following link is useful in the case
-of 'alignas()' and '[[gnu::aligned()]]':
-<https://stackoverflow.com/q/67271825/6872717>
-
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-Cc: LKML <linux-kernel@vger.kernel.org>
-Cc: glibc <libc-alpha@sourceware.org>
-Cc: GCC <gcc-patches@gcc.gnu.org>
-Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: bpf <bpf@vger.kernel.org>
-Cc: David Laight <David.Laight@ACULAB.COM>
-Cc: Zack Weinberg <zackw@panix.com>
-Cc: Joseph Myers <joseph@codesourcery.com>
 ---
- man2/bpf.2 | 49 ++++++++++++++++++++++++-------------------------
- 1 file changed, 24 insertions(+), 25 deletions(-)
+ man2/shmop.2 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/man2/bpf.2 b/man2/bpf.2
-index 6e1ffa198..04b8fbcef 100644
---- a/man2/bpf.2
-+++ b/man2/bpf.2
-@@ -186,41 +186,40 @@ commands:
- .PP
- .in +4n
- .EX
--union bpf_attr {
-+union [[gnu::aligned(8)]] bpf_attr {
-     struct {    /* Used by BPF_MAP_CREATE */
--        __u32         map_type;
--        __u32         key_size;    /* size of key in bytes */
--        __u32         value_size;  /* size of value in bytes */
--        __u32         max_entries; /* maximum number of entries
--                                      in a map */
-+        uint32_t    map_type;
-+        uint32_t    key_size;    /* size of key in bytes */
-+        uint32_t    value_size;  /* size of value in bytes */
-+        uint32_t    max_entries; /* maximum number of entries
-+                                    in a map */
-     };
- 
--    struct {    /* Used by BPF_MAP_*_ELEM and BPF_MAP_GET_NEXT_KEY
--                   commands */
--        __u32         map_fd;
--        __aligned_u64 key;
-+    struct {    /* Used by BPF_MAP_*_ELEM and BPF_MAP_GET_NEXT_KEY commands */
-+        uint32_t            map_fd;
-+        uint64_t alignas(8) key;
-         union {
--            __aligned_u64 value;
--            __aligned_u64 next_key;
-+            uint64_t alignas(8) value;
-+            uint64_t alignas(8) next_key;
-         };
--        __u64         flags;
-+        uint64_t            flags;
-     };
- 
-     struct {    /* Used by BPF_PROG_LOAD */
--        __u32         prog_type;
--        __u32         insn_cnt;
--        __aligned_u64 insns;      /* \(aqconst struct bpf_insn *\(aq */
--        __aligned_u64 license;    /* \(aqconst char *\(aq */
--        __u32         log_level;  /* verbosity level of verifier */
--        __u32         log_size;   /* size of user buffer */
--        __aligned_u64 log_buf;    /* user supplied \(aqchar *\(aq
--                                     buffer */
--        __u32         kern_version;
--                                  /* checked when prog_type=kprobe
--                                     (since Linux 4.1) */
-+        uint32_t            prog_type;
-+        uint32_t            insn_cnt;
-+        uint64_t alignas(8) insns;     /* \(aqconst struct bpf_insn *\(aq */
-+        uint64_t alignas(8) license;   /* \(aqconst char *\(aq */
-+        uint32_t            log_level; /* verbosity level of verifier */
-+        uint32_t            log_size;  /* size of user buffer */
-+        uint64_t alignas(8) log_buf;   /* user supplied \(aqchar *\(aq
-+                                          buffer */
-+        uint32_t            kern_version;
-+                                       /* checked when prog_type=kprobe
-+                                          (since Linux 4.1) */
- .\"                 commit 2541517c32be2531e0da59dfd7efc1ce844644f5
-     };
--} __attribute__((aligned(8)));
-+};
- .EE
- .in
- .\"
+diff --git a/man2/shmop.2 b/man2/shmop.2
+index 3a6c908ee..c7e66af0e 100644
+--- a/man2/shmop.2
++++ b/man2/shmop.2
+@@ -387,8 +387,8 @@ main(int argc, char *argv[])
+         errExit("shmget");
+
+     semid = semget(IPC_PRIVATE, 1, IPC_CREAT | 0600);
+-    if (shmid == \-1)
+-        errExit("shmget");
++    if (semid == \-1)
++        errExit("semget");
+
+     /* Attach shared memory into our address space. */
+
 -- 
-2.31.1
+2.27.0
 
+--000000000000d7112605c18165a5
+Content-Type: application/octet-stream; 
+	name="0001-tfix-shmop.2-example-code.patch"
+Content-Disposition: attachment; 
+	filename="0001-tfix-shmop.2-example-code.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_koa3bp9b0>
+X-Attachment-Id: f_koa3bp9b0
+
+RnJvbSA4ZjY3ODk5ODI5NmZhYjNkNjhiMzYzN2Y1MzM0ZDhkZWQzN2YzYzk5IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBWaXNod2FqaXRoIEsgPHZpc2h1dmlrYXMxOTk2QGdtYWlsLmNv
+bT4KRGF0ZTogVHVlLCA0IE1heSAyMDIxIDEwOjA5OjExIC0wNDAwClN1YmplY3Q6IFtQQVRDSF0g
+dGZpeDogc2htb3AuMiBleGFtcGxlIGNvZGUKCi0tLQogbWFuMi9zaG1vcC4yIHwgNCArKy0tCiAx
+IGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdp
+dCBhL21hbjIvc2htb3AuMiBiL21hbjIvc2htb3AuMgppbmRleCAzYTZjOTA4ZWUuLmM3ZTY2YWYw
+ZSAxMDA2NDQKLS0tIGEvbWFuMi9zaG1vcC4yCisrKyBiL21hbjIvc2htb3AuMgpAQCAtMzg3LDgg
+KzM4Nyw4IEBAIG1haW4oaW50IGFyZ2MsIGNoYXIgKmFyZ3ZbXSkKICAgICAgICAgZXJyRXhpdCgi
+c2htZ2V0Iik7CiAKICAgICBzZW1pZCA9IHNlbWdldChJUENfUFJJVkFURSwgMSwgSVBDX0NSRUFU
+IHwgMDYwMCk7Ci0gICAgaWYgKHNobWlkID09IFwtMSkKLSAgICAgICAgZXJyRXhpdCgic2htZ2V0
+Iik7CisgICAgaWYgKHNlbWlkID09IFwtMSkKKyAgICAgICAgZXJyRXhpdCgic2VtZ2V0Iik7CiAK
+ICAgICAvKiBBdHRhY2ggc2hhcmVkIG1lbW9yeSBpbnRvIG91ciBhZGRyZXNzIHNwYWNlLiAqLwog
+Ci0tIAoyLjI3LjAKCg==
+--000000000000d7112605c18165a5--
