@@ -2,107 +2,120 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 814F6372B60
-	for <lists+linux-man@lfdr.de>; Tue,  4 May 2021 15:53:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 30EE9372BBC
+	for <lists+linux-man@lfdr.de>; Tue,  4 May 2021 16:12:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231240AbhEDNyD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 4 May 2021 09:54:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49816 "EHLO
+        id S231476AbhEDONL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 4 May 2021 10:13:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54218 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231216AbhEDNyC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 4 May 2021 09:54:02 -0400
-Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com [IPv6:2607:f8b0:4864:20::d29])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E33E2C061574
-        for <linux-man@vger.kernel.org>; Tue,  4 May 2021 06:53:07 -0700 (PDT)
-Received: by mail-io1-xd29.google.com with SMTP id t3so1948864iol.5
-        for <linux-man@vger.kernel.org>; Tue, 04 May 2021 06:53:07 -0700 (PDT)
+        with ESMTP id S231393AbhEDONK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 4 May 2021 10:13:10 -0400
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com [IPv6:2a00:1450:4864:20::133])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DF305C061574;
+        Tue,  4 May 2021 07:12:14 -0700 (PDT)
+Received: by mail-lf1-x133.google.com with SMTP id c3so9443444lfs.7;
+        Tue, 04 May 2021 07:12:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to:cc;
-        bh=SdJrMfKDIYtutzVFDzChcKgjwYDHSmc18Roqrbc0wLg=;
-        b=OA3JcpQ6gS1qAZ9ly3OX/JDtZY+rL8hnyx7oRDk1WKPiOrtXbIgvidi75wMLguKSh/
-         zzZQpySqSW8JOn69W3pCMa5/a/HJKTWjJQ9GCDii6ectjxuRtCFznvinzj0HunRQRzg7
-         R8oWyPSG0kWAsuVD96aSjguPaoaLYrcEacwFcnDv7yxtyiu/3NRmQcbI8l7blL9VXJU7
-         zx54F/6GIuQFce05KZ91Qvdp4PHRxd29S+5B1ab5yyO5XwXy028qroGy77z7ShdYJsxF
-         I5p3C7TkjVikjGwU7/b3d9BuK52WYWCSDYT8jqonQCX2kZFMKJ97muAobV1IU/NjxWGq
-         EL2Q==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=QTDqIV7/k9DScfd/QwCSAXbGgOt4/aGNOklhhuChvNM=;
+        b=AGnjSPU5vDFxQnP8n3dvBczS1CaaMqkCegNn25+aOcgU4QpTmICPVDdvKTeZJ6jWWH
+         +WMoy1CGZRZvKA1ikD3Bil0OWgQWEHLezy0CKQu6uS3CK43m6h0u9jZiG7HEp0be0nc+
+         B72MtZmPSNnBNk5S9QaZJ0Vs092yUmcvClwaIxWBVtrcxLson1ZAdKj/opFc/m3g+ycD
+         wZChMvdDXsN9kFQADbEil59mFFjAixQZ1QkirXOGCd0zbHgrqdhTKVzd8epAp7eJB2EU
+         U8o9Y96Dy7AQnU1zL+Np1A/ZEuukct3tJPkQDPP2G2dj/uSgOQCSlRcSDW0T6V46QuzO
+         1U5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
-        bh=SdJrMfKDIYtutzVFDzChcKgjwYDHSmc18Roqrbc0wLg=;
-        b=KTwsUIraQ80fuz09U350ega5Qj/BZ9tp/+7EaTdESi7Vfy8p9l2xTkjGuBQnu32Ft0
-         Iabysoc/DwJzgaW2INULcX+MP1TfSd7hpDb4T4XWg04aLIc8X8NchOsf+sdDmCfTtce6
-         w340rWU9JW9SD0NcSvFMORNEVwyBpaLXYfBHs7KyIrXeGJo+nYEXz5Fpb2CW22Ibt+0L
-         VeSOg81KLkgvfR39M9Yiq6kkjO3boJqYaRk28DVftaiIGpOybcX6lMzmGaac7bc8lbnq
-         kIJH/WQXcUS2CHRyznSAPxkoxhJgSLjXqH0lJOLyqWkxysUmT8Oaysi1q6GZqAJk4rYG
-         u7qw==
-X-Gm-Message-State: AOAM532IsE5pdsipYZN4Ur4kn5IOHqwWzKQrbmjXXD20t5HTwKn0S0sE
-        LRE16apYVeOXkwOV+CKUF451JESsn96MxGkpGQyNTokeJt4=
-X-Google-Smtp-Source: ABdhPJyVPiTdYuRg030WztZgdH//nThT54x75N+YZQ8E9JGKd2hoaqQNLa6k4N4AEfckj+g3H20W7BA515/eqzxg0qo=
-X-Received: by 2002:a02:b698:: with SMTP id i24mr15076856jam.121.1620136387049;
- Tue, 04 May 2021 06:53:07 -0700 (PDT)
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=QTDqIV7/k9DScfd/QwCSAXbGgOt4/aGNOklhhuChvNM=;
+        b=QmOOZODvaqhfxVKvEUC+lX6JSTdURm/OuH5K8G5myKRq3hDTdqTkNaaYWTrFlv9DRM
+         bI67Cy7BVS+A+OqxsErgzygiI6HinjwgXFuzcYtLvFhkyf1YvW546MwVGUUU0c11ryBo
+         TOxJUhHEW/NOXtl8l4pngiZkUwEoGdIaiCLUCnzUxDZRd09kM+176NmuUZS+VPOOKoFe
+         7HcMKWMNY50km3ttaAsSejXsm0Rmytg0SeOW+4o08DY2B/iySh+wbYUMlDiWq+Lmbcmx
+         oMxs0uonGAVVPixFkPQlExA06NTGfvxSf6CDgGPBEtuU+ySaE9p8Q+SFc9trPpnC7BkN
+         R2kQ==
+X-Gm-Message-State: AOAM530frRiQGxt/SSYc++k7UyMpghEVCXsmDO9pJcr1LEQ4c975zGmZ
+        GTEI8hxISp32qKbbBuvsUFJfARw0xnEteouhsFk=
+X-Google-Smtp-Source: ABdhPJxQFkUhvT82spmdlrtrb+tk7HQF+yOJcDpm93nb5OLIvaQOCU9vjN7QJ8uZh4g1UFv1A19bsALcRpiHSZY9B7Q=
+X-Received: by 2002:ac2:5b1a:: with SMTP id v26mr4491543lfn.534.1620137532998;
+ Tue, 04 May 2021 07:12:12 -0700 (PDT)
 MIME-Version: 1.0
-From:   "Vishwajith.K" <vishuvikas1996@gmail.com>
-Date:   Tue, 4 May 2021 19:22:30 +0530
-Message-ID: <CAN2tbMWSHJ=BXe70ygXg9NpCWhB+3V-CpZEWCTtOynJr_QODbw@mail.gmail.com>
-Subject: [patch] shmop.2: tfix
-To:     linux-man@vger.kernel.org
-Cc:     alx.manpages@gmail.com, mtk.manpages@gmail.com
-Content-Type: multipart/mixed; boundary="000000000000d7112605c18165a5"
+References: <20210423230609.13519-1-alx.manpages@gmail.com> <20210504110519.16097-1-alx.manpages@gmail.com>
+In-Reply-To: <20210504110519.16097-1-alx.manpages@gmail.com>
+From:   Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Date:   Tue, 4 May 2021 07:12:01 -0700
+Message-ID: <CAADnVQLdW=jH1CUP02jokEu3Sh+=xKsCXvjA19kfz7KOn9mzkA@mail.gmail.com>
+Subject: Re: [RFC v2] bpf.2: Use standard types and attributes
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        LKML <linux-kernel@vger.kernel.org>,
+        glibc <libc-alpha@sourceware.org>, GCC <gcc-patches@gcc.gnu.org>,
+        bpf <bpf@vger.kernel.org>,
+        David Laight <David.Laight@aculab.com>,
+        Zack Weinberg <zackw@panix.com>,
+        Joseph Myers <joseph@codesourcery.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
---000000000000d7112605c18165a5
-Content-Type: text/plain; charset="UTF-8"
+On Tue, May 4, 2021 at 4:05 AM Alejandro Colomar <alx.manpages@gmail.com> wrote:
+>
+> Some manual pages are already using C99 syntax for integral
+> types 'uint32_t', but some aren't.  There are some using kernel
+> syntax '__u32'.  Fix those.
+>
+> Some pages also document attributes, using GNU syntax
+> '__attribute__((xxx))'.  Update those to use the shorter and more
+> portable C11 keywords such as 'alignas()' when possible, and C2x
+> syntax '[[gnu::xxx]]' elsewhere, which hasn't been standardized
+> yet, but is already implemented in GCC, and available through
+> either --std=c2x or any of the --std=gnu... options.
+>
+> The standard isn't very clear on how to use alignas() or
+> [[]]-style attributes, so the following link is useful in the case
+> of 'alignas()' and '[[gnu::aligned()]]':
+> <https://stackoverflow.com/q/67271825/6872717>
+>
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> Cc: LKML <linux-kernel@vger.kernel.org>
+> Cc: glibc <libc-alpha@sourceware.org>
+> Cc: GCC <gcc-patches@gcc.gnu.org>
+> Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+> Cc: bpf <bpf@vger.kernel.org>
+> Cc: David Laight <David.Laight@ACULAB.COM>
+> Cc: Zack Weinberg <zackw@panix.com>
+> Cc: Joseph Myers <joseph@codesourcery.com>
+> ---
+>  man2/bpf.2 | 49 ++++++++++++++++++++++++-------------------------
+>  1 file changed, 24 insertions(+), 25 deletions(-)
+>
+> diff --git a/man2/bpf.2 b/man2/bpf.2
+> index 6e1ffa198..04b8fbcef 100644
+> --- a/man2/bpf.2
+> +++ b/man2/bpf.2
+> @@ -186,41 +186,40 @@ commands:
+>  .PP
+>  .in +4n
+>  .EX
+> -union bpf_attr {
+> +union [[gnu::aligned(8)]] bpf_attr {
+>      struct {    /* Used by BPF_MAP_CREATE */
+> -        __u32         map_type;
+> -        __u32         key_size;    /* size of key in bytes */
+> -        __u32         value_size;  /* size of value in bytes */
+> -        __u32         max_entries; /* maximum number of entries
+> -                                      in a map */
+> +        uint32_t    map_type;
+> +        uint32_t    key_size;    /* size of key in bytes */
+> +        uint32_t    value_size;  /* size of value in bytes */
+> +        uint32_t    max_entries; /* maximum number of entries
+> +                                    in a map */
 
-From 8f678998296fab3d68b3637f5334d8ded37f3c99 Mon Sep 17 00:00:00 2001
-From: Vishwajith K <vishuvikas1996@gmail.com>
-Date: Tue, 4 May 2021 10:09:11 -0400
-Subject: [PATCH] tfix: shmop.2 example code
-
----
- man2/shmop.2 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/man2/shmop.2 b/man2/shmop.2
-index 3a6c908ee..c7e66af0e 100644
---- a/man2/shmop.2
-+++ b/man2/shmop.2
-@@ -387,8 +387,8 @@ main(int argc, char *argv[])
-         errExit("shmget");
-
-     semid = semget(IPC_PRIVATE, 1, IPC_CREAT | 0600);
--    if (shmid == \-1)
--        errExit("shmget");
-+    if (semid == \-1)
-+        errExit("semget");
-
-     /* Attach shared memory into our address space. */
-
--- 
-2.27.0
-
---000000000000d7112605c18165a5
-Content-Type: application/octet-stream; 
-	name="0001-tfix-shmop.2-example-code.patch"
-Content-Disposition: attachment; 
-	filename="0001-tfix-shmop.2-example-code.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_koa3bp9b0>
-X-Attachment-Id: f_koa3bp9b0
-
-RnJvbSA4ZjY3ODk5ODI5NmZhYjNkNjhiMzYzN2Y1MzM0ZDhkZWQzN2YzYzk5IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBWaXNod2FqaXRoIEsgPHZpc2h1dmlrYXMxOTk2QGdtYWlsLmNv
-bT4KRGF0ZTogVHVlLCA0IE1heSAyMDIxIDEwOjA5OjExIC0wNDAwClN1YmplY3Q6IFtQQVRDSF0g
-dGZpeDogc2htb3AuMiBleGFtcGxlIGNvZGUKCi0tLQogbWFuMi9zaG1vcC4yIHwgNCArKy0tCiAx
-IGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdp
-dCBhL21hbjIvc2htb3AuMiBiL21hbjIvc2htb3AuMgppbmRleCAzYTZjOTA4ZWUuLmM3ZTY2YWYw
-ZSAxMDA2NDQKLS0tIGEvbWFuMi9zaG1vcC4yCisrKyBiL21hbjIvc2htb3AuMgpAQCAtMzg3LDgg
-KzM4Nyw4IEBAIG1haW4oaW50IGFyZ2MsIGNoYXIgKmFyZ3ZbXSkKICAgICAgICAgZXJyRXhpdCgi
-c2htZ2V0Iik7CiAKICAgICBzZW1pZCA9IHNlbWdldChJUENfUFJJVkFURSwgMSwgSVBDX0NSRUFU
-IHwgMDYwMCk7Ci0gICAgaWYgKHNobWlkID09IFwtMSkKLSAgICAgICAgZXJyRXhpdCgic2htZ2V0
-Iik7CisgICAgaWYgKHNlbWlkID09IFwtMSkKKyAgICAgICAgZXJyRXhpdCgic2VtZ2V0Iik7CiAK
-ICAgICAvKiBBdHRhY2ggc2hhcmVkIG1lbW9yeSBpbnRvIG91ciBhZGRyZXNzIHNwYWNlLiAqLwog
-Ci0tIAoyLjI3LjAKCg==
---000000000000d7112605c18165a5--
+For the same reasons as explained earlier:
+Nacked-by: Alexei Starovoitov <ast@kernel.org>
