@@ -2,105 +2,117 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DE8AE372E0E
-	for <lists+linux-man@lfdr.de>; Tue,  4 May 2021 18:28:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0332B372FD4
+	for <lists+linux-man@lfdr.de>; Tue,  4 May 2021 20:37:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231694AbhEDQ3i (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 4 May 2021 12:29:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56786 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231849AbhEDQ3e (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 4 May 2021 12:29:34 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C9522C06174A
-        for <linux-man@vger.kernel.org>; Tue,  4 May 2021 09:28:38 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id m9so10144773wrx.3
-        for <linux-man@vger.kernel.org>; Tue, 04 May 2021 09:28:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:references:cc:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=lUcVtbQoFiGgc49LZTX/ZCKydQJ6qx5tGwTD1L0ROWg=;
-        b=YQjSKBgERoF6aB43spiK91+a7j9CUYB02KD31yLCWJzoAZWeAefNPqt5uVYJERtkKV
-         ObqDirpgWpYl3RVq8E5fPWDaA36nLQKclN1akc7tSTwNLrH/9kjSTSfprkW1BN6okw1S
-         U6A0KepKI8SMhfm09vLvVZ1V6PAAj3PvlGeY2VFRS5S1iUxJPN1r5DoLHiEKAyWf7NPf
-         gDohJ+njCovyRJQjtWEj6pq1d577RbYt8Z0cv3KN0M+7e/NCiLBNmuNnB8wcA7b7o+MW
-         hzGLPHRqU965ceXnSJRc88i3ZN+zIFzsDgEVlvv9fK2tIIuDtyzhynp4XMDknIUKRe3s
-         OVng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:cc:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=lUcVtbQoFiGgc49LZTX/ZCKydQJ6qx5tGwTD1L0ROWg=;
-        b=pUCSSwfPQYdaWjZmgnf1fO5fQ8HPRsuOX7fArECdzMQOYwMzVjdiKkI1bnZvXOBoD9
-         DhVHcctHhp8ES/VpvnTzH1qA5KGNoaZ0sLjBBspN2yy+e9wxu3Y8bEf01cc9aU3/Wzu4
-         Qa/CaPa3TlGzQe8GA7KpQ1si0UZLHLnZtNiyAAKEsn/o2lJ9KsVsMFu+iNofIPMCLH/g
-         GInHw9kkl5wK6KUNmjo1MjUTiq9Ebs1YheFM/LnBZPCH5vWUTMdQWEb6r5l6ujHfx4U3
-         LE6K2EF7eAHkUDgFEzZqLOPN0lnfPgumiV9gSdqDkFUFzOa3IfSuotsPasTj8FgrkfKt
-         qI+A==
-X-Gm-Message-State: AOAM533xs1hLvsiu2qFttI+vsLgR10yaA8rwxaujyKcDGdJZjxWe3jLn
-        Dwr79cnJHauCAax6pe8cAw1+RpvlKqg=
-X-Google-Smtp-Source: ABdhPJzFxsE32Cukf6tCkjuh9IG9wF53J3UbC5RFfojHTS+h2TyEY3dPj4sLQizpbUPJweDTc2chLA==
-X-Received: by 2002:a5d:6085:: with SMTP id w5mr33849112wrt.14.1620145717630;
-        Tue, 04 May 2021 09:28:37 -0700 (PDT)
-Received: from [10.8.0.106] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id u2sm3993810wmm.5.2021.05.04.09.28.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 04 May 2021 09:28:37 -0700 (PDT)
-Subject: Re: [PATCH] execve.2: tfix
-To:     =?UTF-8?B?xaB0xJtww6FuIE7Em21lYw==?= <stepnem@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-References: <20210504160231.2688063-1-stepnem@gmail.com>
-Cc:     linux-man@vger.kernel.org
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <663597d5-d5f7-2c23-3e6d-54238d49dec2@gmail.com>
-Date:   Tue, 4 May 2021 18:28:35 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+        id S230379AbhEDSi3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 4 May 2021 14:38:29 -0400
+Received: from mailbackend.panix.com ([166.84.1.89]:33091 "EHLO
+        mailbackend.panix.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230086AbhEDSi2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 4 May 2021 14:38:28 -0400
+Received: from mail-yb1-f177.google.com (mail-yb1-f177.google.com [209.85.219.177])
+        by mailbackend.panix.com (Postfix) with ESMTPSA id 4FZT981qdjz23wL;
+        Tue,  4 May 2021 14:37:32 -0400 (EDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=panix.com; s=panix;
+        t=1620153452; bh=6hZEbCz9pLVG1Juo29+y3XUezTwzfWrbH9RvIsLfcoo=;
+        h=References:In-Reply-To:From:Date:Subject:To:Cc;
+        b=LquIxEHA/iFAS5hUtC8wK8rXXjzTNILhmxmXsNbWhp/zOwnSlfIDLuUAJRDxn7E8Q
+         TkzRiehkjUpwkXiKG6V4xMMQ4ulHB6gy/lS+fGAJZWRYBqTwcSIzofySvcUE8f+rt1
+         P1QN4Mn71eW9jBDkBeBTgnPAnnOyjFRyjyRzx4yQ=
+Received: by mail-yb1-f177.google.com with SMTP id r8so13471020ybb.9;
+        Tue, 04 May 2021 11:37:32 -0700 (PDT)
+X-Gm-Message-State: AOAM531qF5cIiYnwvnUhhOkLFDnA19oeR6Yc5kK4NfLO+l/oiFMUhWrZ
+        8FZQLm5hKhEPoreBsYr3MuXVQVX4r3Ij+vRKewY=
+X-Google-Smtp-Source: ABdhPJzAtel3Wjk4eFZrc/WMEdVxWLfDG8PgEo5dUpee4xL8hswSsjwHJ7QmuV+aRCkJcqQx4KVXGIYAeHMUaO2Go6Y=
+X-Received: by 2002:a25:7355:: with SMTP id o82mr37025773ybc.368.1620153451776;
+ Tue, 04 May 2021 11:37:31 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210504160231.2688063-1-stepnem@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <20210423230609.13519-1-alx.manpages@gmail.com>
+ <20210504110519.16097-1-alx.manpages@gmail.com> <CAADnVQLdW=jH1CUP02jokEu3Sh+=xKsCXvjA19kfz7KOn9mzkA@mail.gmail.com>
+ <YJFZHW2afbAMVOmE@kroah.com> <69fb22e0-84bd-47fb-35b5-537a7d39c692@gmail.com> <YJFxArfp8wN3ILJb@kroah.com>
+In-Reply-To: <YJFxArfp8wN3ILJb@kroah.com>
+From:   Zack Weinberg <zackw@panix.com>
+Date:   Tue, 4 May 2021 14:37:20 -0400
+X-Gmail-Original-Message-ID: <CAKCAbMg_eRCsD-HYmryL8XEuZcaM1Qdfp4XD85QKT6To+h3QcQ@mail.gmail.com>
+Message-ID: <CAKCAbMg_eRCsD-HYmryL8XEuZcaM1Qdfp4XD85QKT6To+h3QcQ@mail.gmail.com>
+Subject: Re: [RFC v2] bpf.2: Use standard types and attributes
+To:     Greg KH <gregkh@linuxfoundation.org>
+Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        LKML <linux-kernel@vger.kernel.org>,
+        glibc <libc-alpha@sourceware.org>, GCC <gcc-patches@gcc.gnu.org>,
+        bpf <bpf@vger.kernel.org>,
+        David Laight <David.Laight@aculab.com>,
+        Joseph Myers <joseph@codesourcery.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Štěpán,
+On Tue, May 4, 2021 at 12:06 PM Greg KH <gregkh@linuxfoundation.org> wrote:
+> On Tue, May 04, 2021 at 05:53:29PM +0200, Alejandro Colomar (man-pages) wrote:
+> > On 5/4/21 4:24 PM, Greg KH wrote:
+> > > I agree, the two are not the same type at all, this change should not be
+> > > accepted.
+> >
+> > I get that in the kernel you don't use the standard fixed-width types (with
+> > some exceptions), probably not to mess with code that relies on <stdint.h>
+> > not being included (I hope there's not much code that relies on this in
+> > 2021, but who knows).
+> >
+> > But, there is zero difference between these types, from the point of view of
+> > the compiler.  There's 100% compatibility between those types, and you're
+> > able to mix'n'match them.  See some example below.
+...
+> There's a very old post from Linus where he describes the difference
+> between things like __u32 and uint32_t.  They are not the same, they
+> live in different namespaces, and worlds, and can not always be swapped
+> out for each other on all arches.
+>
+> Dig it up if you are curious, but for user/kernel apis you HAVE to use
+> the __uNN and can not use uintNN_t variants, so don't try to mix/match
+> them, it's good to just follow the kernel standard please.
+...
+> Nacked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-On 5/4/21 6:02 PM, Štěpán Němec wrote:
-> Signed-off-by: Štěpán Němec <stepnem@gmail.com>
+Speaking from the C library's perspective, I'm going to push back
+pretty hard on this NAK, for several reasons.
 
-Patch applied.
+First, this is a proposed change to the manpages, not the headers
+themselves.  Manpage documentation of C structs is *not* expected to
+match the actual declaration in the headers.  The documented field
+type is usually assignment-compatible with the actual type, but not
+always.  There's no guarantee whatsoever that the fields are in the
+same order as the header, or that the listed set of fields is
+complete.
 
-Thanks,
+I would say that as long as any value of type __u32 can be stored in a
+variable of type uint32_t without data loss, and vice versa, there is
+no reason why manpages should *have to* use __u32 in preference to
+uint32_t, and that in the absence of such a reason, the standard type
+should be used.
 
-Alex
+Second, it's true that __u32 and uint32_t are in different namespaces,
+and it may well be necessary for uapi <linux/*.h> headers to use the
+__uNN names in order to preserve the C standard's distinction between
+the program and the implementation, but that's *not* a reason for
+documentation aimed at writers of user-space programs to use the
+__uNN names.  In fact, it is exactly the opposite!  User space program
+authors should, all else equal, be *discouraged* from using the __uNN
+names, and avoiding their use in manpages is one way to do that.
 
-> ---
->   man2/execve.2 | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man2/execve.2 b/man2/execve.2
-> index 1609bce04a54..c18ca54124fc 100644
-> --- a/man2/execve.2
-> +++ b/man2/execve.2
-> @@ -141,7 +141,7 @@ similarly, the effective group ID is copied to the saved set-group-ID.
->   This copying takes place after any effective ID changes that occur
->   because of the set-user-ID and set-group-ID mode bits.
->   .PP
-> -The process's real UID and real GID, as well its supplementary group IDs,
-> +The process's real UID and real GID, as well as its supplementary group IDs,
->   are unchanged by a call to
->   .BR execve ().
->   .PP
-> 
-> base-commit: 2673a70a57adb0acfe39416de245b357e7f1bcd4
-> 
+Third, if there does in fact exist a situation where __uNN and
+uintNN_t are *not* assignment compatible, THAT IS A BUG IN THE KERNEL.
+Frankly, it would be such a catastrophic bug that I think Linus has to
+have been *wrong*.  We would have noticed the problems long ago if he
+were right.
 
+I'm going to have to ask you to produce hard evidence for your claim
+that __uNN and uintNN_t are not (always) assignment compatible, and
+hard evidence why that can't be fixed within the kernel, or else
+withdraw your objection.
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+zw
