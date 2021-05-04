@@ -2,152 +2,172 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 10543371430
-	for <lists+linux-man@lfdr.de>; Mon,  3 May 2021 13:21:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A24D5372966
+	for <lists+linux-man@lfdr.de>; Tue,  4 May 2021 13:05:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229823AbhECLWU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 3 May 2021 07:22:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35842 "EHLO
+        id S230015AbhEDLGm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 4 May 2021 07:06:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41216 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229811AbhECLWT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 3 May 2021 07:22:19 -0400
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 66833C06174A
-        for <linux-man@vger.kernel.org>; Mon,  3 May 2021 04:21:26 -0700 (PDT)
-Received: by mail-wm1-x32f.google.com with SMTP id i21-20020a05600c3555b029012eae2af5d4so5568434wmq.4
-        for <linux-man@vger.kernel.org>; Mon, 03 May 2021 04:21:26 -0700 (PDT)
+        with ESMTP id S229903AbhEDLGl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 4 May 2021 07:06:41 -0400
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BF01BC061574;
+        Tue,  4 May 2021 04:05:45 -0700 (PDT)
+Received: by mail-wr1-x42c.google.com with SMTP id x5so8889332wrv.13;
+        Tue, 04 May 2021 04:05:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:references:cc:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=TRj3/BzLgwnCM8sqETvj3Y4ClP1XIayUn/H+fNvhtTU=;
-        b=NN1h7G9MUnO3/XoGtJuxCPHcGCC0BnLmcR/JOYD9sxhZDllIpU+c1hi0QnMxWBa23i
-         rn4BsbTeBEWlN2fM/GglDsmXHGiJHweSFMEH2ZTbOJKtTG3wvBj77SAcFXg5mAXVQk5z
-         fWpsc5/p7hEJZIrAI5rellH5VUWWa2WevWlZSVzCuNAbsBukcBup3OGovh6A0KxI5aAP
-         +meZEGxOAAYdWplUFVtuV3iQHQ1VA8D+z2LUYLDZn5dzTgQ1kZe+RIdAKX+kWEuRiSFd
-         74/fx3YhZb8nh9Z181SoWgIWlmbR9r9FoVfe/LHE6BZwZlxler2mvPkMKSHA7VInjpGD
-         nZew==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=jBexOv/slXZrUqoBk/6dME5LyTQkC5h8UHzK8vFSGV0=;
+        b=bGw0TUolt0fr1Mj/tO4Z5l3OL2UgcNPGr5SjtE9TQZdOFF6P1HHwvvcuDxmHzR7TWH
+         25W1zF8pIkB+Tkn8NFWnS2mumdQfeYiE83ef8+GV09LsjFxmkE2Ypc8k4c+PhM6xSDea
+         ffdmjvsvJeyiPxeZb9Zg9sGhG/JnI2i+vsv8mFYq5UiDBfSSBqccXMb7ItNFnzrb3BOB
+         CES3h4j4wznLfngqRZpc0k5hOcRV0bOLLgaqhE347rqF/49d06QkPgD559LR1boDmBSz
+         V5Z5KTrUAtDbV99yQXkpEBJyT7Gjc/EwVTm3iwwIKtDJtAocjgFSXqsEfZwT11+TDXgq
+         bBbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:cc:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=TRj3/BzLgwnCM8sqETvj3Y4ClP1XIayUn/H+fNvhtTU=;
-        b=eyfmOuoJA6RSI+yNxL4q8U+s4oVu9v4hKY9dLiUhhL357vUB5ttRTazC2JW9I6rhp6
-         ShcItf2wiHkRySQRMf78/qE8YMJJODwmmqDVBlQfbOZrfoRcaRKyE+uY5ufkdDxV8qqj
-         TMfmNpdHGl6vY+0Lpq5vBg9eQ/I3fvYms0boSVOkZXSl4wbeExpu6DnzYXhmqz/2bss4
-         /UIfoB3GVMVb4F/RwFPcDSpOvIsyqH9tHtB9CRkCZjnB25/XTeElV09lDV+kg8xeulnc
-         yXsd1P398Mr5zaoCQunW67F5qUwwHG9L3vsnB3K7sRcj3Js+vBgsI0JIWPS4Mp12lYNY
-         183Q==
-X-Gm-Message-State: AOAM532mu0QolGcSSaJ2dOywW+dJiDvEP4cyGDD8+9PvmPHgYzUphp1P
-        lpumP+Y+NWkK5ve5uKRt8Zk=
-X-Google-Smtp-Source: ABdhPJzc2JfXiYMMlmkOdyGvmGFfWT180MljONyIUqptqIAR+RgH5ZUGD9NTu8TOHkawBaHOv+sINQ==
-X-Received: by 2002:a05:600c:c7:: with SMTP id u7mr5603166wmm.156.1620040885081;
-        Mon, 03 May 2021 04:21:25 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id d9sm3116883wrp.47.2021.05.03.04.21.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 03 May 2021 04:21:24 -0700 (PDT)
-Subject: Re: [Bug 212887] Clarify getopt.3 behaviour
-To:     "James O. D. Hunt" <jamesodhunt@gmail.com>
-References: <bug-212887-216477@https.bugzilla.kernel.org/>
- <bug-212887-216477-EPnMb5Wk1j@https.bugzilla.kernel.org/>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        bugzilla-daemon@bugzilla.kernel.org
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <09dbc287-e506-08ff-ac65-5b30cc293e52@gmail.com>
-Date:   Mon, 3 May 2021 13:21:23 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=jBexOv/slXZrUqoBk/6dME5LyTQkC5h8UHzK8vFSGV0=;
+        b=TAbQojzZrSrbHGTKYjv/6YgN9gW60wHp38iERkT3YBuJ04AfTkBwO/HfZ9piQMaVs7
+         cnn697ZiiF6HMhZHSVGbd9dN15UOncjpyLrJQj+9QYisM0n8+hXWsDKbAFEsuWd8sq3V
+         G/8p+elDyDkmrbvgLYEJ44yb3iTDahXgG1yrl+HVMRzrFqy3djWJDhlLxQqxBlYMLjhY
+         c7MVaNaBv1SWBAXRR+QTzk7PNRTpWRjl/WHEG2Qc6fR945QHfAyk0wo6cHU49JJBpKnK
+         ZlaiXsgjbXlBP3UIX3g6vx+uzs+oSb6v3tN97PqukYVIhIjOUadCzuJmLy5eCalQ967b
+         mAEQ==
+X-Gm-Message-State: AOAM530rrNWNMn+vOxL1aG1g8ceG0xFsrKJ2UvB4en6mvaCJGmP00ngR
+        ah5M1/WzP6r5UUyJA1sXBfM=
+X-Google-Smtp-Source: ABdhPJw47QkoJpJSP1YPM0MC+fPhs/05hHrWzAdxeUw5qEExJJXq+uqU1z5Qjad2cZ6BA+EyTVcMTw==
+X-Received: by 2002:adf:e811:: with SMTP id o17mr14669020wrm.71.1620126344302;
+        Tue, 04 May 2021 04:05:44 -0700 (PDT)
+Received: from sqli.sqli.com ([195.53.121.100])
+        by smtp.googlemail.com with ESMTPSA id o17sm16769939wrs.48.2021.05.04.04.05.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 May 2021 04:05:43 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        LKML <linux-kernel@vger.kernel.org>,
+        glibc <libc-alpha@sourceware.org>, GCC <gcc-patches@gcc.gnu.org>,
+        Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+        bpf <bpf@vger.kernel.org>,
+        David Laight <David.Laight@ACULAB.COM>,
+        Zack Weinberg <zackw@panix.com>,
+        Joseph Myers <joseph@codesourcery.com>
+Subject: [RFC v2] bpf.2: Use standard types and attributes
+Date:   Tue,  4 May 2021 13:05:20 +0200
+Message-Id: <20210504110519.16097-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210423230609.13519-1-alx.manpages@gmail.com>
+References: <20210423230609.13519-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <bug-212887-216477-EPnMb5Wk1j@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi James,
+Some manual pages are already using C99 syntax for integral
+types 'uint32_t', but some aren't.  There are some using kernel
+syntax '__u32'.  Fix those.
 
-On 5/2/21 5:16 PM, bugzilla-daemon@bugzilla.kernel.org wrote:
-> https://bugzilla.kernel.org/show_bug.cgi?id=212887
-> 
-> --- Comment #8 from James Hunt (jamesodhunt@gmail.com) ---
-> Hi Alex,
-> 
-> Thanks for reviewing again. I've updated the patch to v3 which now only
-> includes the first two changes.
+Some pages also document attributes, using GNU syntax
+'__attribute__((xxx))'.  Update those to use the shorter and more
+portable C11 keywords such as 'alignas()' when possible, and C2x
+syntax '[[gnu::xxx]]' elsewhere, which hasn't been standardized
+yet, but is already implemented in GCC, and available through
+either --std=c2x or any of the --std=gnu... options.
 
-Okay, I'll have a look at it.
+The standard isn't very clear on how to use alignas() or
+[[]]-style attributes, so the following link is useful in the case
+of 'alignas()' and '[[gnu::aligned()]]':
+<https://stackoverflow.com/q/67271825/6872717>
 
-> 
-> I agree - I was in two minds about the WARNINGS section myself...
-> 
-> # Validating input
-> 
-> Good programmers should know to do this. But given that `getopt` is a primary
-> interface to a program (which might be running `SUID-root` for example), I
-> wonder if it needs to be "called out" more strongly? There are lots of other
-> syscalls and library calls that might deserve similar treatment of course. In
-> fact, I wonder a new "security` man page might be an interesting project, since
-> that could summarise expectations, security + safety advice to programmers, and
-> refer to man pages like `getopt(3)`. that would also avoid cluttering the main
-> man pages as the details could be provided in the security one.
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+Cc: LKML <linux-kernel@vger.kernel.org>
+Cc: glibc <libc-alpha@sourceware.org>
+Cc: GCC <gcc-patches@gcc.gnu.org>
+Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: bpf <bpf@vger.kernel.org>
+Cc: David Laight <David.Laight@ACULAB.COM>
+Cc: Zack Weinberg <zackw@panix.com>
+Cc: Joseph Myers <joseph@codesourcery.com>
+---
+ man2/bpf.2 | 49 ++++++++++++++++++++++++-------------------------
+ 1 file changed, 24 insertions(+), 25 deletions(-)
 
-I like that idea.  Could you draft such a page?  I know it's asking a
-very hard work, but maybe start with some basic ideas.
-
-Also, security is a very broad thing.  Maybe small pages restricted to a
-specific context are easier to handle.  For example, one page dedicated
-to security in the context of user input in programs, which could treat
-things like getopt(3), scanf(3), fgets(3), and their families of
-functions (and maybe some others)
-
-If you would like to do this, could you please start a new thread by
-writing a new email, and CC the mailing list <linux-man@vger.kernel.org>
-(and any other lists that may be interested, such as probably
-<libc-alpha@sourceware.org>, please?.
-
-> 
-> # Numeric options
-> 
-> Yes, the user is responsible for a well formed command line. However, I was
-> trying to raise the fact that the programmer needs to be even more careful in
-> the case of the program using getopt to support numeric options which doesn't
-> seem to be that common, but could lead to unexpected trouble if a programmer
-> decides to use that feature of getopt.
-> 
-
-getopt(3) just gets strings (it does something more, but let's
-simplify).  In that sense it's very similar to fgets(3) as an interface
-(even safer, as it doesn't write to a buffer).  It's strtol(3) or
-whatever function that will convert the input into a number the one that
-has to take care of the input limits.
-
-Also,
-
-As long as the user uses the options correctly, numeric options are just
-another character.  They're treated exactly in the same way.  And in the
-case of long options, everything is a string, even if it has numbers in it.
-
-The only valid case where a number is treated as a number is in an
-option argument (in the case that the option has a numeric argument).
-But in this case, it is still a string at the time of getopt(3).  And in
-this case, the programmer already expects a number, so I don't think any
-warning applies.
-
-It is only when the user inputs options in the wrong order that numbers
-and options may be mixed and unexpected things may happen, but invalid
-input resulting in undefined behavior is not an issue.
-
-
-
-Thanks,
-
-Alex
-
+diff --git a/man2/bpf.2 b/man2/bpf.2
+index 6e1ffa198..04b8fbcef 100644
+--- a/man2/bpf.2
++++ b/man2/bpf.2
+@@ -186,41 +186,40 @@ commands:
+ .PP
+ .in +4n
+ .EX
+-union bpf_attr {
++union [[gnu::aligned(8)]] bpf_attr {
+     struct {    /* Used by BPF_MAP_CREATE */
+-        __u32         map_type;
+-        __u32         key_size;    /* size of key in bytes */
+-        __u32         value_size;  /* size of value in bytes */
+-        __u32         max_entries; /* maximum number of entries
+-                                      in a map */
++        uint32_t    map_type;
++        uint32_t    key_size;    /* size of key in bytes */
++        uint32_t    value_size;  /* size of value in bytes */
++        uint32_t    max_entries; /* maximum number of entries
++                                    in a map */
+     };
+ 
+-    struct {    /* Used by BPF_MAP_*_ELEM and BPF_MAP_GET_NEXT_KEY
+-                   commands */
+-        __u32         map_fd;
+-        __aligned_u64 key;
++    struct {    /* Used by BPF_MAP_*_ELEM and BPF_MAP_GET_NEXT_KEY commands */
++        uint32_t            map_fd;
++        uint64_t alignas(8) key;
+         union {
+-            __aligned_u64 value;
+-            __aligned_u64 next_key;
++            uint64_t alignas(8) value;
++            uint64_t alignas(8) next_key;
+         };
+-        __u64         flags;
++        uint64_t            flags;
+     };
+ 
+     struct {    /* Used by BPF_PROG_LOAD */
+-        __u32         prog_type;
+-        __u32         insn_cnt;
+-        __aligned_u64 insns;      /* \(aqconst struct bpf_insn *\(aq */
+-        __aligned_u64 license;    /* \(aqconst char *\(aq */
+-        __u32         log_level;  /* verbosity level of verifier */
+-        __u32         log_size;   /* size of user buffer */
+-        __aligned_u64 log_buf;    /* user supplied \(aqchar *\(aq
+-                                     buffer */
+-        __u32         kern_version;
+-                                  /* checked when prog_type=kprobe
+-                                     (since Linux 4.1) */
++        uint32_t            prog_type;
++        uint32_t            insn_cnt;
++        uint64_t alignas(8) insns;     /* \(aqconst struct bpf_insn *\(aq */
++        uint64_t alignas(8) license;   /* \(aqconst char *\(aq */
++        uint32_t            log_level; /* verbosity level of verifier */
++        uint32_t            log_size;  /* size of user buffer */
++        uint64_t alignas(8) log_buf;   /* user supplied \(aqchar *\(aq
++                                          buffer */
++        uint32_t            kern_version;
++                                       /* checked when prog_type=kprobe
++                                          (since Linux 4.1) */
+ .\"                 commit 2541517c32be2531e0da59dfd7efc1ce844644f5
+     };
+-} __attribute__((aligned(8)));
++};
+ .EE
+ .in
+ .\"
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.31.1
+
