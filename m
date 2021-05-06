@@ -2,115 +2,111 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7EAD6374B4F
-	for <lists+linux-man@lfdr.de>; Thu,  6 May 2021 00:37:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1BA3E374DA1
+	for <lists+linux-man@lfdr.de>; Thu,  6 May 2021 04:38:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233535AbhEEWid (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 5 May 2021 18:38:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34456 "EHLO
+        id S231499AbhEFCjg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 5 May 2021 22:39:36 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59236 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232579AbhEEWid (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 5 May 2021 18:38:33 -0400
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1C671C061574
-        for <linux-man@vger.kernel.org>; Wed,  5 May 2021 15:37:36 -0700 (PDT)
-Received: by mail-wm1-x332.google.com with SMTP id k4-20020a7bc4040000b02901331d89fb83so1980606wmi.5
-        for <linux-man@vger.kernel.org>; Wed, 05 May 2021 15:37:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:references:cc:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=5dEB9Z2zZYTfdqGRWJlt3JaluxTYG6GMlv3TLOLN944=;
-        b=c8Bc1Edc9gdw44zzRK1odFKKKoRkV8oeigzHxrdvs5jmMz1yeBUkBMNu4AUehwjXHf
-         Y4Oc7hDRsFBcAh/dmQYLCVP6D/NIJw3NHhmFuA1yYL5whojl50V9KamPbbLm0cQRGqN+
-         KV7V1Cr1sX5HBtrOYiI0gzV8s5u4MuyTz5usr+bReDPKbloW8AZHL1os+gMsAcOFxguN
-         Bn0LOax56Vyp6633hx0bfYHBxDuwlAq0PuE3bIvj+NU/MuM5Zq+6ZpGyQXly+qotLDjy
-         jh+TeYOCZnP6zAJYdZLQifAoHBWxbxEknpn+pJbZ3FztmR3/nJBSz95QYIDk9VFtJlw+
-         gxZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:cc:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=5dEB9Z2zZYTfdqGRWJlt3JaluxTYG6GMlv3TLOLN944=;
-        b=hvhTPgNGKc92ri0gEVYs6JLPQtnJ59/KYKdGKXL9RbGlhkH8SKb5FT0sWoSCMdFerh
-         eViiRpiO4WsmeYOYtKoYc7CFrXmmUYnS920k0agDgjaoAXQIxq6KP7FdgDmh7X8fzgPo
-         8ztYklEhptXUB/MO7ck9YVB4DA45UVlWWSvEqUALS63Sxew2AOcvc+YHSKaCvnE+A1e1
-         RyO0aYKdXJdW3ZbtesCZDmdCkNDmXCl/SFIP6pUhvrwJKE1qK2v85sJyyvcn++fMfJsG
-         eAeCad9DxzSHcGtNm2LzI8Hnmu0UakhNrl2luL/faCV7kQe/U1GlT+cQxpCZnmJH0XGr
-         Ddlw==
-X-Gm-Message-State: AOAM533NlW5cHr43LUyGpkrk34bGMg/UlOgFhOMR+5Hnkze9zHNvkOVN
-        ghGbfE9FIwnWXVZqxzsIsEE=
-X-Google-Smtp-Source: ABdhPJzweVBRjEnVvetk6Fx9qPdKgbkCE/GPUlYEMAjA7rMo5Fzfpw5GGZ5d52DzxKvU6Mx03GQopw==
-X-Received: by 2002:a1c:c385:: with SMTP id t127mr842988wmf.169.1620254254919;
-        Wed, 05 May 2021 15:37:34 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id m13sm919114wrw.86.2021.05.05.15.37.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 05 May 2021 15:37:34 -0700 (PDT)
-Subject: Re: Bug reporting
-To:     Dave Chupreev <cdn.dev@yandex.ru>
-References: <1621111620246345@mail.yandex.ru>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        GNU C Library <libc-alpha@sourceware.org>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Roland McGrath <roland@hack.frob.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <9068beb3-70a7-ad96-e260-f53a886d622c@gmail.com>
-Date:   Thu, 6 May 2021 00:37:33 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
+        with ESMTP id S231473AbhEFCjg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 5 May 2021 22:39:36 -0400
+X-Greylist: delayed 90 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 05 May 2021 19:38:38 PDT
+Received: from frotz.zork.net (frotz.zork.net [IPv6:2600:3c00:e000:35f::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DD647C061574
+        for <linux-man@vger.kernel.org>; Wed,  5 May 2021 19:38:38 -0700 (PDT)
+Received: by frotz.zork.net (Postfix, from userid 1008)
+        id CB4DD1198B; Thu,  6 May 2021 02:37:07 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 frotz.zork.net CB4DD1198B
+Date:   Wed, 5 May 2021 19:37:07 -0700
+From:   Seth David Schoen <schoen@loyalty.org>
+To:     linux-man@vger.kernel.org
+Cc:     Florian Weimer <fw@deneb.enyo.de>, gnu@toad.com
+Subject: [RESEND PATCH v2] ip.7: Add "special and reserved addresses" section
+Message-ID: <20210506023707.GU2734@frotz.zork.net>
+References: <20210320002041.GZ2289@frotz.zork.net>
+ <87ft0pzjtk.fsf@mid.deneb.enyo.de>
+ <20210322175815.GX10062@frotz.zork.net>
+ <87blb9q7ok.fsf@mid.deneb.enyo.de>
+ <20210324191858.GP10062@frotz.zork.net>
+ <20210326225305.GB10062@frotz.zork.net>
+ <20210330032140.GR10062@frotz.zork.net>
 MIME-Version: 1.0
-In-Reply-To: <1621111620246345@mail.yandex.ru>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210330032140.GR10062@frotz.zork.net>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-[ added a few CCs ]
+Add a more detailed description of the IP addresses that have
+a special meaning in Internet standards, and how these affect
+Linux.
 
-Hello Dave,
+This revision notes details that network devices may not support
+broadcasting at the link layer (and how to check).
 
-On 5/5/21 10:30 PM, Dave Chupreev wrote:
-> Hello, Alejandro.
->  
-> On page 138
+Signed-off-by: Seth David Schoen <schoen@loyalty.org>
+---
+ man7/ip.7 | 39 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-I guess you refer to TLPI, written by Michael.
-
-> 
->      1.
-> 
->         Your version of /unsetenv() /should check to see whether there
->         are multiple definitions of an environment variable, and remove
->         them all.
-> 
-> How can I add such variables which have many definitions? According to
-> *putenv* and *setenv* functions, variables with the same names are
-> replaced if encountered.
-
-I haven't read that part of the book yet, so I ignore the context.  But
-AFAIK, that can't happen on Linux, as you pointed out (probably neither
-on Unix systems in general, but I don't know for sure, probably Michael
-does).  I guess the only possibility is if an attacker somehow modified
-your environment and inserted multiple copies of an env variable.
-
-The book (TLPI) states that glibc does check that, so I digged into the
-sources and found that in <stdlib/setenv.c>, around line 290
-(<https://sourceware.org/git?p=glibc.git;a=blob;f=stdlib/setenv.c;h=893f081af6b5a21b999a4056757fd69d1386c0d4;hb=HEAD#l290>).
- That behavior was introduced by Roland in commit
-196980f5117c8d38f10d64bf67eeb0924651675f
-(<https://sourceware.org/git/?p=glibc.git;a=commit;h=196980f5117c8d38f10d64bf67eeb0924651675f>),
-so maybe he can better explain the reasons behind the change (the commit
-msg is quite unexplicative) if he still remembers (that goes back to 1995).
-
-Regards,
-
-Alex
-
+diff --git a/man7/ip.7 b/man7/ip.7
+index 7eee2811e..27df71ba4 100644
+--- a/man7/ip.7
++++ b/man7/ip.7
+@@ -233,6 +233,7 @@ on the number that is assigned to a port.
+ All address/port manipulation
+ functions in the standard library work in network byte order.
+ .PP
++.SS Special and reserved addresses
+ There are several special addresses:
+ .B INADDR_LOOPBACK
+ (127.0.0.1)
+@@ -245,6 +246,44 @@ means any address for binding;
+ means any host and has the same effect on bind as
+ .B INADDR_ANY
+ for historical reasons.
++.PP
++Internet standards have also traditionally reserved various
++addresses for particular uses. The addresses
++in the ranges 0.0.0.0 through 0.255.255.255 and 240.0.0.0 through
++255.255.255.254 (0/8 and 240/4 in CIDR notation) are reserved globally
++(but Linux permits addresses within these ranges, other than 0.0.0.0, to
++be assigned to an interface and used like other unicast addresses).
++All addresses in 127.0.0.0 through 127.255.255.255 ("127/8")
++are treated as loopback addresses akin to the standardized local
++loopback address 127.0.0.1, while addresses in 224.0.0.0 through
++239.255.255.255 ("224/4") are dedicated to multicast use.
++.PP
++On any locally-attached IP subnet that contains more than two IP
++addresses, the lowest-numbered address and highest-numbered address
++(e.g., the .0 and .255 addresses on a subnet with netmask 255.255.255.0)
++are both designated as broadcast addresses by default. These cannot
++usefully be assigned to an interface as its own address, and can only
++be addressed with a socket on which the
++.B SO_BROADCAST
++option has been explicitly enabled. The ability to actually send and
++receive broadcasts at the link layer is available on most transports
++(like Ethernet), but may not be implemented on some non-broadcast
++multiple access (NBMA) networks, such as some methods of sending IP
++over ATM. Individual network interfaces (see
++.BR netdevice (7))
++are designated as
++.BR IFF_LOOPBACK ,
++.BR IFF_BROADCAST ,
++.BR IFF_POINTOPOINT ,
++or, more rarely, none of these three (NBMA); only those designated
++.B IFF_BROADCAST
++possess the ability to send and receive broadcasts at the link
++layer. These flags can be accessed with
++.BR getifaddrs (3)
++or viewed with
++.BR ip-link (8)
++or
++.BR ifconfig (8).
+ .SS Socket options
+ IP supports some protocol-specific socket options that can be set with
+ .BR setsockopt (2)
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.25.1
