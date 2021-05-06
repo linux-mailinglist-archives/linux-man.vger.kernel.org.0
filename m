@@ -2,111 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1BA3E374DA1
-	for <lists+linux-man@lfdr.de>; Thu,  6 May 2021 04:38:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8656E37531F
+	for <lists+linux-man@lfdr.de>; Thu,  6 May 2021 13:42:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231499AbhEFCjg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 5 May 2021 22:39:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59236 "EHLO
+        id S234735AbhEFLnM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 6 May 2021 07:43:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37840 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231473AbhEFCjg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 5 May 2021 22:39:36 -0400
-X-Greylist: delayed 90 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 05 May 2021 19:38:38 PDT
-Received: from frotz.zork.net (frotz.zork.net [IPv6:2600:3c00:e000:35f::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DD647C061574
-        for <linux-man@vger.kernel.org>; Wed,  5 May 2021 19:38:38 -0700 (PDT)
-Received: by frotz.zork.net (Postfix, from userid 1008)
-        id CB4DD1198B; Thu,  6 May 2021 02:37:07 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 frotz.zork.net CB4DD1198B
-Date:   Wed, 5 May 2021 19:37:07 -0700
-From:   Seth David Schoen <schoen@loyalty.org>
-To:     linux-man@vger.kernel.org
-Cc:     Florian Weimer <fw@deneb.enyo.de>, gnu@toad.com
-Subject: [RESEND PATCH v2] ip.7: Add "special and reserved addresses" section
-Message-ID: <20210506023707.GU2734@frotz.zork.net>
-References: <20210320002041.GZ2289@frotz.zork.net>
- <87ft0pzjtk.fsf@mid.deneb.enyo.de>
- <20210322175815.GX10062@frotz.zork.net>
- <87blb9q7ok.fsf@mid.deneb.enyo.de>
- <20210324191858.GP10062@frotz.zork.net>
- <20210326225305.GB10062@frotz.zork.net>
- <20210330032140.GR10062@frotz.zork.net>
+        with ESMTP id S234603AbhEFLnM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 6 May 2021 07:43:12 -0400
+Received: from mail-vs1-xe31.google.com (mail-vs1-xe31.google.com [IPv6:2607:f8b0:4864:20::e31])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1FB2AC061574
+        for <linux-man@vger.kernel.org>; Thu,  6 May 2021 04:42:14 -0700 (PDT)
+Received: by mail-vs1-xe31.google.com with SMTP id t6so276418vsp.13
+        for <linux-man@vger.kernel.org>; Thu, 06 May 2021 04:42:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=ceQSpzTsx3ixWgZPKSyjiM2AFsgLeIr1ZItjbLNrz0Q=;
+        b=aE9taOusTFlup+1IGY+RlCTD6MBS9lmMx7+9TZ4xK4q7IcuukGgE/LHMJOihGSV3h+
+         OlofcH3idvyJAmdTFgAwAnnG358TGEuB+FERmyx1b4vs8pwOvNTMFIE0zBRh6yK6mJLS
+         6NnjJwFuLtTfDsg3Nu64r024/Us8DSjTiDxbgAceCEodt+m/WfJJ6WD/HkpMl1hrqbNC
+         kXKI/VoiH0JjzDmMgTkR2TWMEtOZxzowDz7U8lgnfV1XdVIGC/tI+Tq3Y6d/cBLcxRBw
+         EzjNqCvkybLdpELCXJtbIui8nb4+mNymI65od2lH4uSwEmg1bAOn8hEmqTcv/u5qsXcs
+         wolQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=ceQSpzTsx3ixWgZPKSyjiM2AFsgLeIr1ZItjbLNrz0Q=;
+        b=cwET2jAFG0aJZzNxPrXlGvJujFfOuteyIC01iNcdPqtLpu92q7KkUj1tc4QPOB4F2G
+         PG5HoEXVeiU9UEQiefBls5DfiPlyWAc6ecZYMg4yuKLSYdZ8zN3KtntlMy1or8v6hS0F
+         1OSSQZP24eGm5TC7b/RJV5kkKiHHonb2j16UHaKvBGLGKFVQEHkkPErHvN8ggS1rJVtM
+         54RUK997vmFUQ4S4KBimgas67S3ADgG6y2kfXnszxWvLvjU9U1zLM8hCScJTtVXkWZEA
+         M6uqSP342uNTxsYVUo/53WDYXI3tFPRPc1ZpXuBaK5BzudHfnmEFGYqk1VPI0eP7Q4Kh
+         Tyfg==
+X-Gm-Message-State: AOAM532xm+y+omIw1rsGHFNrAiolnbp9O9wu81f9iyvtCQQPv4fsuL5b
+        MLXR68aHChrJnxXNK/9mIAo6Njd014rYk5nadgAOctDwh6qM9A==
+X-Google-Smtp-Source: ABdhPJy867gzL0Ag1Tn4wjwJVQSnZ223qWfguikjsFpOlSjodZoPa4abgn95xF91KNUAxfSfimUeZR99UHAQd8Qz7xk=
+X-Received: by 2002:a67:ef82:: with SMTP id r2mr2795271vsp.27.1620301332965;
+ Thu, 06 May 2021 04:42:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210330032140.GR10062@frotz.zork.net>
+From:   Akihiro Motoki <amotoki@gmail.com>
+Date:   Thu, 6 May 2021 20:43:31 +0900
+Message-ID: <CALhU9tm0xfJOKu1Zpn7ckQ6jV61vBh9eB6vwycgAsm5-4qedvA@mail.gmail.com>
+Subject: [patch] move_pages.2: ffix
+To:     linux-man@vger.kernel.org
+Cc:     alx.manpages@gmail.com,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Add a more detailed description of the IP addresses that have
-a special meaning in Internet standards, and how these affect
-Linux.
-
-This revision notes details that network devices may not support
-broadcasting at the link layer (and how to check).
-
-Signed-off-by: Seth David Schoen <schoen@loyalty.org>
----
- man7/ip.7 | 39 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
-
-diff --git a/man7/ip.7 b/man7/ip.7
-index 7eee2811e..27df71ba4 100644
---- a/man7/ip.7
-+++ b/man7/ip.7
-@@ -233,6 +233,7 @@ on the number that is assigned to a port.
- All address/port manipulation
- functions in the standard library work in network byte order.
- .PP
-+.SS Special and reserved addresses
- There are several special addresses:
- .B INADDR_LOOPBACK
- (127.0.0.1)
-@@ -245,6 +246,44 @@ means any address for binding;
- means any host and has the same effect on bind as
- .B INADDR_ANY
- for historical reasons.
-+.PP
-+Internet standards have also traditionally reserved various
-+addresses for particular uses. The addresses
-+in the ranges 0.0.0.0 through 0.255.255.255 and 240.0.0.0 through
-+255.255.255.254 (0/8 and 240/4 in CIDR notation) are reserved globally
-+(but Linux permits addresses within these ranges, other than 0.0.0.0, to
-+be assigned to an interface and used like other unicast addresses).
-+All addresses in 127.0.0.0 through 127.255.255.255 ("127/8")
-+are treated as loopback addresses akin to the standardized local
-+loopback address 127.0.0.1, while addresses in 224.0.0.0 through
-+239.255.255.255 ("224/4") are dedicated to multicast use.
-+.PP
-+On any locally-attached IP subnet that contains more than two IP
-+addresses, the lowest-numbered address and highest-numbered address
-+(e.g., the .0 and .255 addresses on a subnet with netmask 255.255.255.0)
-+are both designated as broadcast addresses by default. These cannot
-+usefully be assigned to an interface as its own address, and can only
-+be addressed with a socket on which the
-+.B SO_BROADCAST
-+option has been explicitly enabled. The ability to actually send and
-+receive broadcasts at the link layer is available on most transports
-+(like Ethernet), but may not be implemented on some non-broadcast
-+multiple access (NBMA) networks, such as some methods of sending IP
-+over ATM. Individual network interfaces (see
-+.BR netdevice (7))
-+are designated as
-+.BR IFF_LOOPBACK ,
-+.BR IFF_BROADCAST ,
-+.BR IFF_POINTOPOINT ,
-+or, more rarely, none of these three (NBMA); only those designated
-+.B IFF_BROADCAST
-+possess the ability to send and receive broadcasts at the link
-+layer. These flags can be accessed with
-+.BR getifaddrs (3)
-+or viewed with
-+.BR ip-link (8)
-+or
-+.BR ifconfig (8).
- .SS Socket options
- IP supports some protocol-specific socket options that can be set with
- .BR setsockopt (2)
--- 
-2.25.1
+diff --git a/man2/move_pages.2 b/man2/move_pages.2
+index 279de7568..8350b699c 100644
+--- a/man2/move_pages.2
++++ b/man2/move_pages.2
+@@ -180,6 +180,7 @@ The number of nonmigrated pages if they were the
+result of nonfatal
+ reasons (since
+ .\" commit a49bd4d7163707de377aee062f17befef6da891b
+ Linux 4.17).
++.TP
+ .B E2BIG
+ Too many pages to move.
+ Since Linux 2.6.29,
