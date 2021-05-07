@@ -2,92 +2,81 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 55F693753DB
-	for <lists+linux-man@lfdr.de>; Thu,  6 May 2021 14:29:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5C453376CAE
+	for <lists+linux-man@lfdr.de>; Sat,  8 May 2021 00:26:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229854AbhEFMai (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 6 May 2021 08:30:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48352 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229777AbhEFMai (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 6 May 2021 08:30:38 -0400
-Received: from mail-ua1-x92e.google.com (mail-ua1-x92e.google.com [IPv6:2607:f8b0:4864:20::92e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 04786C061574
-        for <linux-man@vger.kernel.org>; Thu,  6 May 2021 05:29:40 -0700 (PDT)
-Received: by mail-ua1-x92e.google.com with SMTP id a12so1643917uak.6
-        for <linux-man@vger.kernel.org>; Thu, 06 May 2021 05:29:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=GvDuiiwEiNbXZT6QIoFJ5Ha5KpSTKjThRqoVDFCYd1s=;
-        b=byxKRUkh30sH92J4ku6OcS5uQPXfOLCmQNbyIyvbC15XkSjiq53fPbNTLy3KADUBxa
-         Ln12T5iydPq0vqk6XDWcCy5AHd6bLR7nxbmEGg3lOzDPPgtPeiwE8O4HFMe/WkQLV9mr
-         0CVlww4h4X/7NdsINNO15P7goARsIQFgV3AqWgbAZGSQkogEsjpO9VvZ3E3wNFZve/Wk
-         LlZQ+be0T0WuS7KDV0K6D4cNBUFjzBWYvI2iRxl6fWukfvRFE3tekz4e168jGoWUNZZq
-         xF0sUnYY4vyb7T/t4UDAtTVrvIdNp9OocQssMDu99cJ6gABgvbkW7hYfMtkQRnOsZO/a
-         U/5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=GvDuiiwEiNbXZT6QIoFJ5Ha5KpSTKjThRqoVDFCYd1s=;
-        b=QazzYG0fC65EjIu9OIttUAsAPsqtvXkEwxr6W8FHwCIpdn1DyPeallXhAxoRjfrX5g
-         4HYguYT99G40c1HeUthl37u0QSZMG1Tj2ed4EmG5dWSyFcKvGMfbU1NcEIxkIRYXF5oP
-         P0MHHfllsjbLKGGfEY6bhExi4qhgJC1oHDJMiBRplyzp/iNxg6BPLQR6SqUZJu8UMCvC
-         aAHxVgu2r2w0F6ZYwoHqs6sjZlwJBWDepG8CYmj5eNz6Xr5YjFHGzWkLWmvxhZGnf4fs
-         d5RHGjmozP7X2XLsdYZdrZb+Pq0SWDBdaF/FmMsSLM+6q+5glowhBMOGvRwLr9KdAiCe
-         jYMw==
-X-Gm-Message-State: AOAM530mj/ikHb/DD3ojMkUswi9R/WwN2jSY/vGr6VuZb2N8uilAlbwW
-        nMalZUahzUR7L0pREPX6KUVxTznDTYiGhbtOQvI=
-X-Google-Smtp-Source: ABdhPJx5c3zb1Mr80eRoFCeCd84n+DWRqeoEulhU5Y7KywWMddP/ZM0U+sDjxTcHdyqJJHjh9MhNpTK4sVgtYF7j36Y=
-X-Received: by 2002:a9f:2334:: with SMTP id 49mr3149928uae.69.1620304178456;
- Thu, 06 May 2021 05:29:38 -0700 (PDT)
+        id S230078AbhEGW1j (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 7 May 2021 18:27:39 -0400
+Received: from bosmailout01.eigbox.net ([66.96.190.1]:36027 "EHLO
+        bosmailout01.eigbox.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229470AbhEGW1h (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 7 May 2021 18:27:37 -0400
+X-Greylist: delayed 1929 seconds by postgrey-1.27 at vger.kernel.org; Fri, 07 May 2021 18:27:30 EDT
+Received: from bosmailscan09.eigbox.net ([10.20.15.9])
+        by bosmailout01.eigbox.net with esmtp (Exim)
+        id 1lf8QO-00068o-JJ; Fri, 07 May 2021 17:54:20 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+        d=godsofu4.com; s=dkim; h=Sender:Content-Transfer-Encoding:Content-Type:
+        Message-ID:Reply-To:Subject:To:From:Date:MIME-Version:Cc:Content-ID:
+        Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+        :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+        List-Subscribe:List-Post:List-Owner:List-Archive;
+        bh=aM9bUFGSTpfnep8zAVAJMnojqhcwpuHDFPgQnPqW4M4=; b=bjgKomV6NO5Eg5D3qsCBps1llx
+        tj4k2teSfIdfo/duBtOSoC/FW1+C1nXiYJbrvf2JDobx8fDCsgnxHFoPWOCb5eI+OJOIgvnnfKlpl
+        ZqidIuDnjEPTMao1vFwrg6M9FUKU/cz6TT5/KN4ccsk+aQli3Wgs3G1cQz5vdbC1Y2SXULFY8Mu2t
+        1PShwmiDRn71EPzgUHUVu0GG39z6uSTEuRgOXhiNl9ekuZ5QXUAEykoocvC5/DkORRmERAA91o1HY
+        Sl76pPWw9UBVGbuFbfdVPfVcFxJM5xZDrmgt6uCf9J+dn/n7LFOSOxBaL9svxxYdhOkJwdz4uh075
+        2gI+xJSw==;
+Received: from [10.115.3.32] (helo=bosimpout12)
+        by bosmailscan09.eigbox.net with esmtp (Exim)
+        id 1lf8QO-0003aD-AI; Fri, 07 May 2021 17:54:20 -0400
+Received: from boswebmail06.eigbox.net ([10.20.16.6])
+        by bosimpout12 with 
+        id 1xuH2500407qujN01xuLVi; Fri, 07 May 2021 17:54:20 -0400
+X-EN-SP-DIR: OUT
+X-EN-SP-SQ: 1
+Received: from [127.0.0.1] (helo=homestead)
+        by boswebmail06.eigbox.net with esmtp (Exim)
+        id 1lf8QL-0006fx-UG; Fri, 07 May 2021 17:54:17 -0400
+Received: from [197.239.81.229]
+ by emailmg.homestead.com
+ with HTTP (HTTP/1.1 POST); Fri, 07 May 2021 17:54:17 -0400
 MIME-Version: 1.0
-References: <CALhU9tkuovaHEhB6u6iL=V7+B51FYWEuBgRuekSojiibXnUzOw@mail.gmail.com>
- <cf2e3ee0-1ecc-8eb2-cd1e-df2568aefe8e@gmail.com> <CALhU9tmOLL=JuYLpDD7OCEK9+mSfq5DvWLaMVSQKZA3x9j18FA@mail.gmail.com>
- <b7e3e750-70fe-ef9b-9d87-23f3a4257045@gmail.com>
-In-Reply-To: <b7e3e750-70fe-ef9b-9d87-23f3a4257045@gmail.com>
-From:   Akihiro Motoki <amotoki@gmail.com>
-Date:   Thu, 6 May 2021 21:30:56 +0900
-Message-ID: <CALhU9tkJwz5a5gXP5tKdQHXFzzRvh743cpNnE92H75gn9GG84Q@mail.gmail.com>
-Subject: Re: [patch] fanotify.7: ffix
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Date:   Fri, 07 May 2021 21:54:17 +0000
+From:   Mrs Suzara Maling Wan <fast65@godsofu4.com>
+To:     undisclosed-recipients:;
+Subject: URGENT REPLY NEEDED
+Reply-To: suzara2017malingwan@gmail.com
+Mail-Reply-To: suzara2017malingwan@gmail.com
+Message-ID: <36acfe805efde59f3f399df1324ce6b9@godsofu4.com>
+X-Sender: fast65@godsofu4.com
+User-Agent: Roundcube Webmail/1.3.14
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-EN-AuthUser: fast65@godsofu4.com
+Sender:  Mrs Suzara Maling Wan <fast65@godsofu4.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Sorry for the inconvenience.
-In this case, my mailer automatically wrapped long lines.
-Thanks for pointing this out.
-I will check my mailer configuration and also try the direct usage of
-"git" command.
 
-Thanks,
-Akihiro
 
-On Thu, May 6, 2021 at 9:16 PM Alejandro Colomar (man-pages)
-<alx.manpages@gmail.com> wrote:
->
-> Hi Akihiro,
->
-> On 5/6/21 2:04 PM, Akihiro Motoki wrote:
-> > I just posted an output of "git diff". Is the output of git am preferred?
->
-> The preferred way is using `git send-mail` (after `git format-patch`).
-> Nevertheless, could you please tell me how to apply those patches?  I
-> tried `git am` and `git apply`, and both failed.  I don't know if
-> they're malformed due to the mailer, or if I just don't know how to
-> apply them.
->
-> Thanks,
->
-> Alex
->
-> --
-> Alejandro Colomar
-> Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-> http://www.alejandro-colomar.es/
+My names are Mrs Suzara Maling Wan, I am a Nationality of the Republic
+of the Philippine presently base in West Africa B/F, dealing with
+exportation of Gold, I was diagnose of blood Causal decease, and my
+doctor have announce to me that I have few days to leave due to the
+condition of my sickness.
+
+I have a desire to build an orphanage home in your country of which i
+cannot execute the project myself due to my present health condition,
+I am willing to hand over the project under your care for you to help
+me fulfill my dreams and desire of building an orphanage home in your
+country.
+
+Reply in you are will to help so that I can direct you to my bank for
+the urgent transfer of the fund/money require for the project to your
+account as I have already made the fund/money available.
+
+With kind regards
+Mrs Suzara Maling Wan
