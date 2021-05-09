@@ -2,103 +2,116 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D66883777E1
-	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 19:58:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 28EFB3777E8
+	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 20:10:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229840AbhEIR7S (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 9 May 2021 13:59:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47070 "EHLO
+        id S229666AbhEISLD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 9 May 2021 14:11:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49622 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229650AbhEIR7R (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 13:59:17 -0400
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com [IPv6:2607:f8b0:4864:20::32b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6803EC061573
-        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 10:58:13 -0700 (PDT)
-Received: by mail-ot1-x32b.google.com with SMTP id q7-20020a9d57870000b02902a5c2bd8c17so12438398oth.5
-        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 10:58:13 -0700 (PDT)
+        with ESMTP id S229662AbhEISLD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 14:11:03 -0400
+Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com [IPv6:2607:f8b0:4864:20::529])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B53A5C061573
+        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 11:09:59 -0700 (PDT)
+Received: by mail-pg1-x529.google.com with SMTP id m124so11657032pgm.13
+        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 11:09:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=aSnjE5JveMCTeQALKDidQ4r7GgKoFbXKo7Vp+H2wO8Q=;
-        b=ml/dY624AczGQA6G9JAYY3rknW/6yJuJcovNg6jt95Ki8e9aTCStjgrbPDM46AAtZE
-         soivx33xSMQDVNBos4tkc89OSOJlKiIPFQwy3B2S13XIthnrpNVFT55WnVfkI8/8KXof
-         bfQNB6e0srZzeQ0Lvv+HwMxQxycYwnom1E6FLjrWHH1NzesbbaOL90zuUwP6jJJs6Kaz
-         +L9UAh3wqXUHo0svM4w2DA2m7HV4YxDjIRSGnQEGX2TRiUhcGnzMN4fzS00YvTNAzIBg
-         XxNp88flWUci6LsMzHiBq8dx/eZ9NclhYlSB6LDdw3qaF+VpN7y6vyKvJHhAEkV0+Jqn
-         DoKg==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=DLSguyH460zQoMU5VIFMqWH5TJKsDaTFx54sIlPXXmc=;
+        b=rG1pX16eFG/2YY266NwazFiikZ3DFx4twgI07XlSlN5+smKRvbdKe4Sg0kLQV0aCsy
+         Fom9I5I4+Lu5/heX4KEQdz9NG+c6aBifBrJ4nVAhKkEMzf9+tDQyyctSvk3koa1WCEJs
+         MRsntX6ccxQ73P5RddBuoySoQAEIOmyeVZs54yx8WwU6qxsw1yJe86Dk5We6TZ3xsdsk
+         GthhbxJJNAdtAm5lNiW6BRI0sZS06IVWUBXz/4rYPKDuz68e5KFwdSXXL8aqDiMyIJKw
+         uu636VGeuMKx6SVmgh0B0g9K2GclQLoGsp7tgMTaj7RW1IffYs4Owz42Eskj9gkXKFKn
+         HtDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=aSnjE5JveMCTeQALKDidQ4r7GgKoFbXKo7Vp+H2wO8Q=;
-        b=CwyEl3wGEMFgTtjOf7sToWKD4Qkh9cJbSkn8/NVBvl9A5hNUcTlyINdAAjhbL5p4j9
-         fzUP4ODnEugwPV7Mcrj+ajfcR7fei5X+X5yFujjQhx+2jGlopTKPFAV9cS6r0+WGJouQ
-         Fwy2CfM+f+5DExpznuTBlI7F7XEu5ZZ9wKmWPGDfjS4QcA0rxxk7r6NCzz/Sst3w3Jgy
-         fVeMFUFQd79mFxTpkzIpCnHQRgxfYFfMd+HwSPeD+VG+ii09rFUqBdssNHO7GbUUW56o
-         H7bjQVElt8mOfTZGNpoptbiOT3rDWb/epW7fm9qlUntbpAdOPvyFSa/71qH2uE+uxfmk
-         VLBw==
-X-Gm-Message-State: AOAM532kP9LlVZtiuGUHgADJuWmW3Rmu3S5FMl99N4S2NxZ6RCdvo99/
-        XlMoMRIfoUxauCIfLCqiyaDq4lRuTKwEd8PkmEM=
-X-Google-Smtp-Source: ABdhPJzFBKRONpXDsrs+bK/JNVqWP0EYPTQkWUKNOkVGzhdZ1MUCTk8SZWiM45dBBITF28W32bysYFYycgam96VS5Rg=
-X-Received: by 2002:a05:6830:a:: with SMTP id c10mr8166387otp.114.1620583092848;
- Sun, 09 May 2021 10:58:12 -0700 (PDT)
-MIME-Version: 1.0
-References: <1621111620246345@mail.yandex.ru> <9068beb3-70a7-ad96-e260-f53a886d622c@gmail.com>
- <1492841620310804@mail.yandex.ru> <CAKgNAkgbJBM5yiOtq9X-Ber+ns_8xcp-8jr7rSYLanz+HnQWXw@mail.gmail.com>
- <alpine.LNX.2.20.13.2105092008010.5297@monopod.intra.ispras.ru>
-In-Reply-To: <alpine.LNX.2.20.13.2105092008010.5297@monopod.intra.ispras.ru>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=DLSguyH460zQoMU5VIFMqWH5TJKsDaTFx54sIlPXXmc=;
+        b=RrLKNemV2iMaDC5J4rUAmmwdPd5kOCky1CTj1BLoRdf3I7IWp9kUh7A6w93q1sbLbA
+         x/GPzOiKiX/g1tGb5B1DhfZkk/2+i2CV9JOd4lTLYM9bU9zAdrt0690Vvp+9+C2VWd8Z
+         +wYklqtRNfhqDtDQk0fEvUCAfPLW9CC8+piNdjMaLpbvN9Jes/38TLHVD8iN5VBD/lwj
+         VE9kH1lQVEjVvwe+aLFt2MGaPcxpph5+aT7503SkZN4LfdJIZuXiTz+r1kZkQWU1l4US
+         zNusMtdbvAkIh6d8Gc4Z2AqDdFzB27vy4oztWHz+TVbJLyE8AkNVBn2UEYe4RHKh16+C
+         gprw==
+X-Gm-Message-State: AOAM530tVt6ozeLVaDgHbhJYlY9TARklOraU4qVOs3OqnHTK3crHY55e
+        p2kKbZNCnSOVa3jUDtBVeaKWfvFsP8s=
+X-Google-Smtp-Source: ABdhPJwxo5gGOclbDTI4d6YUWsR4nWoufdW3nP8eBSBhm/4MOGgVVWZzkRXRNa78fnpiKbIzz2uXnA==
+X-Received: by 2002:a65:6705:: with SMTP id u5mr21842151pgf.418.1620583798993;
+        Sun, 09 May 2021 11:09:58 -0700 (PDT)
+Received: from [192.168.192.21] (47-72-82-130.dsl.dyn.ihug.co.nz. [47.72.82.130])
+        by smtp.gmail.com with ESMTPSA id h24sm216155pfn.180.2021.05.09.11.09.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 09 May 2021 11:09:58 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
+Subject: Re: perfmonctl.2: Is it up to date?
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+References: <fdec43d3-bb0e-cbcc-8d65-db26222f6a0a@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 10 May 2021 05:58:01 +1200
-Message-ID: <CAKgNAkhFQ_p98zBusCS5ycxrKjvzmGbdGw0fuTybWz2JaL239w@mail.gmail.com>
-Subject: Re: Bug reporting
-To:     Alexander Monakov <amonakov@ispras.ru>
-Cc:     Dave Chupreev <cdn.dev@yandex.ru>,
-        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        GNU C Library <libc-alpha@sourceware.org>,
-        Roland McGrath <roland@hack.frob.com>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <be24029d-ebe8-06c5-2f94-a3b50b3052a0@gmail.com>
+Date:   Mon, 10 May 2021 06:09:54 +1200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
+MIME-Version: 1.0
+In-Reply-To: <fdec43d3-bb0e-cbcc-8d65-db26222f6a0a@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello ALexander,
+Hello Alex,
 
-On Mon, 10 May 2021 at 05:20, Alexander Monakov <amonakov@ispras.ru> wrote:
->
->
->
-> On Mon, 10 May 2021, Michael Kerrisk (man-pages) via Libc-alpha wrote:
->
-> > Hello,
-> >
-> > On Fri, 7 May 2021 at 02:21, Dave Chupreev <cdn.dev@yandex.ru> wrote:
-> > >
-> > > Well I see, I've tried on Linux and yea I didn't find any option to insert multiple definitions.
-> >
-> > I think the only way to insert multiple definitions is by direct
-> > manipulation of 'extern char **environ'.
->
-> You can cause a program to start with multiple definitions, because it is
-> possible to pass arbitrarily funny stuff as 'envp' argument to execve, such as:
->
-> - duplicated entries
-> - entries without a '='
-> - entries starting with '='
-> - empty strings
-> - "2 x 2 = 4"
->
-> All of that will be present in the exec'd program's environment array.
+On 4/23/21 10:31 PM, Alejandro Colomar (man-pages) wrote:
+> Hi Michael,
+> 
+> I haven't found any of the constants (PFM_*) used by this function in 
+> glibc.  Also not in the kernel, although in the kernel I found other 
+> PFM_* constants different from the ones in the manual page.
+> 
+> I checked that this page hasn't received any patches in a very long time 
+> (except for "Various pages" patches), so I suspect it may be out of date.
+> 
+> Also, does <perfmon.h> really exist?  I couldn't find it either.
 
-Yes. I was too focussed on thinking about what an already running
-program can do to its current environment. Thanks for reminding me of
-the above.
+It's certainly not up to date! In fact, this system call was removed
+in Linux 5.10. I have applied the patch below.
 
-Thanks,
+Cheers,
 
 Michael
+
+diff --git a/man2/perfmonctl.2 b/man2/perfmonctl.2
+index b376126a1..319712e6d 100644
+--- a/man2/perfmonctl.2
++++ b/man2/perfmonctl.2
+@@ -196,12 +196,18 @@ On error, \-1 is returned and
+ is set to indicate the error.
+ .SH VERSIONS
+ .BR perfmonctl ()
+-is available since Linux 2.4.
++was added in Linux 2.4;
++.\" commit ecf5b72d5f66af843f189dfe9ce31598c3e48ad7
++it was removed in Linux 5.10.
+ .SH CONFORMING TO
+ .BR perfmonctl ()
+ is Linux-specific and is available only on the IA-64 architecture.
+ .SH NOTES
+-Glibc does not provide a wrapper for this system call; call it using
++This system call was broken for many years,
++and ultimately removed in Linux 5.10.
++.PP
++Glibc does not provide a wrapper for this system call;
++on kernels where it exists, call it using
+ .BR syscall (2).
+ .SH SEE ALSO
+ .BR gprof (1)
 
 
 -- 
