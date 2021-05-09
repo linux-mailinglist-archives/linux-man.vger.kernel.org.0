@@ -2,92 +2,131 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AC11B377794
-	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 18:28:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7F03F3777A3
+	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 18:40:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229866AbhEIQ3t (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 9 May 2021 12:29:49 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56048 "EHLO
+        id S229864AbhEIQlf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 9 May 2021 12:41:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58592 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229864AbhEIQ3t (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 12:29:49 -0400
-Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com [IPv6:2607:f8b0:4864:20::436])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DD3EBC061573
-        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 09:28:44 -0700 (PDT)
-Received: by mail-pf1-x436.google.com with SMTP id q2so11906563pfh.13
-        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 09:28:44 -0700 (PDT)
+        with ESMTP id S229862AbhEIQle (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 12:41:34 -0400
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com [IPv6:2607:f8b0:4864:20::235])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 51233C061573
+        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 09:40:31 -0700 (PDT)
+Received: by mail-oi1-x235.google.com with SMTP id v24so13657814oiv.9
+        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 09:40:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=PEI8Pf46zejht9lD87H5WDVYiU5XN3USqmEnJ0jgsKQ=;
-        b=G6iO1geXIjOCeTWbjrb/2rRNs5sFVnth/iaMQlkMipf4hb/m6BloY3LAi7flsz/q6I
-         segdXV5G8AjfbYQhiht163j2fEYtTJjbjZG/iuxhC+MYsvUGrHMaKmIouOdcf1tAsfQD
-         YAc4rpzolAsgv+nkBPp43HDichUiGyjr7FGGBqgMVyxMkniJOhPmidPngDQQ2U3G3AXk
-         q5u/t8odlLp896uzKm1KdxTPavPW2Y8rbXDNE0Gugze7BwNP76As3SXEFMYPb+ZGYSpB
-         IV+CaXLnFEDhVuHqvNLGV6AQOW9XDoKYNSoXTshYiIfHob2ElTQslZEmwFJWHKuBzxEY
-         uOUQ==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=AVXD0R2cKhMcWy4q3MDYPhkeDnWCKsvIJ6k6M3U343g=;
+        b=OR8uD7LsXmSfqk3FhgHYAqKgw0vKCeBgNmvSqGLEbwcMljXvY+nWnMksjmv7m4rLvf
+         DYjrBESTq2h2qSkv91R+ItJhIyYgQ/Bf/ORDvnxCgsUG2+17LuGH6ScTP+Zj6Hy9gzst
+         mFFQpmxfs7YdD1tap3kr+c+hPT6ExXU0OeeVqXCrHOCAKrXTgZubc4DJnE0B/iRJK+XJ
+         ZxEu0kOW90Wii8Ej7UIbtiu4oKddCRjVikc/ABu06E/iknB5Q2x/x7TjlpT0XYTnyrb8
+         lHTpNBeuyl3BccSFxvy6AZmJJ44AurDUEj00LucaJOJcEoB/XcDE1xPYesVZZplVJx1D
+         XNJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=PEI8Pf46zejht9lD87H5WDVYiU5XN3USqmEnJ0jgsKQ=;
-        b=qjh3YLTShxy8LrQ9atTdEveUyAyEEkWtEHSwUCL/zZoZamv/xHxtHRm3WbQuZxuCEX
-         Hwgg6SDmTd6oiQBgPu6hDFN3lNT/cDB1rw+R47FVFv1T9UEwLSVnkapkGvtr2SD4FdiD
-         BxzQ2Dz/Ep5KlAGUZqqmuqSbxy235eSWbqa/ozveyoox7emSjb+D2YVwcA8wgBUgqAKy
-         GDHMihsVeLjXsrI/3I317hv7jwBaiGWEKR43Z+tr4Yuee12LiWgnNorRFUN626RKGLyt
-         g+uayIXWaGQe9jHnO4YUL1X46deUpWGdSIUJ2Q0zq0B7OIt9fvdTgWLU3yYgQYj40GIg
-         QkTg==
-X-Gm-Message-State: AOAM530vf1b5aFaKUK6yLzerYrOJXHVNYedwOjmmteDnrgrMxmzzeBzY
-        k50yWMCoCq+IK/OKU+HEbxz64uNwMYM=
-X-Google-Smtp-Source: ABdhPJwaunQhIvtfZQMl3bRCao9L8w5U2b25TZCM8q1ZYIpoijBh+jns0ybMypN4QRMa+5o6kIbXDA==
-X-Received: by 2002:a63:9d4e:: with SMTP id i75mr20459441pgd.443.1620577724119;
-        Sun, 09 May 2021 09:28:44 -0700 (PDT)
-Received: from [192.168.192.21] (47-72-82-130.dsl.dyn.ihug.co.nz. [47.72.82.130])
-        by smtp.gmail.com with ESMTPSA id h1sm8952815pfo.200.2021.05.09.09.28.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 09 May 2021 09:28:43 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com
-Subject: Re: [patch] shm_overview.7: ffix
-To:     Akihiro Motoki <amotoki@gmail.com>, linux-man@vger.kernel.org
-References: <CALhU9tnH9QU-3oU3rhiPnH4TrEMOpQrLbbc-V6kzhdEuXw0Djw@mail.gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <3f6f4fe9-76f6-0ea5-d627-93f8f5df5d10@gmail.com>
-Date:   Mon, 10 May 2021 04:28:39 +1200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=AVXD0R2cKhMcWy4q3MDYPhkeDnWCKsvIJ6k6M3U343g=;
+        b=Jxnl1B0iYYAEwA9Q1E/QXNSIvgdhKq3RlzZq4blwh0QUiSayvOYMT2qDnW5BoyHM0h
+         ZxOSKRhPOAmuT869SRtbUjGX31jmFDKyjBqODZPVwjWXFHJqDly0NgKPYs0juTHAe7j2
+         fki+BvdUSRTw/SApQlor0cNJ8CXqn7Cx85s3yAmmcaB3vfk3ai61Nsb2H57JpUBxOsKL
+         YLo/rwThJ8cAcM9dY55aThqxJDJIoNucSJCVRuwEbQfzoOzwclSbRjVP1IFaAjw3JxfE
+         AMxd4dX6moMZ4y+OADfFRyaYLBe5Fn3jHVZfxIdbjbHJBPcLQ6AB5e+Kj2U7bH3im9UW
+         Q9ZA==
+X-Gm-Message-State: AOAM533xW2OOg9vXCh47gJAaelA2QwoxNV2h6RKsBEJ/5QWGWzLWqhUc
+        LLVrVTWBcn8OpOKMMowx/56F+e5nQCZgqaO5gEY=
+X-Google-Smtp-Source: ABdhPJy9cNGCRNaAhXFgbBYVwJo26/L5D4JKFVoLzIg/AVdny5OSkM2mmgJ5VL1/fy828LFscxjHl4A9iN6TcFH40Yw=
+X-Received: by 2002:aca:1906:: with SMTP id l6mr14912569oii.148.1620578430550;
+ Sun, 09 May 2021 09:40:30 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CALhU9tnH9QU-3oU3rhiPnH4TrEMOpQrLbbc-V6kzhdEuXw0Djw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <1621111620246345@mail.yandex.ru> <9068beb3-70a7-ad96-e260-f53a886d622c@gmail.com>
+ <1492841620310804@mail.yandex.ru>
+In-Reply-To: <1492841620310804@mail.yandex.ru>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Mon, 10 May 2021 04:40:19 +1200
+Message-ID: <CAKgNAkgbJBM5yiOtq9X-Ber+ns_8xcp-8jr7rSYLanz+HnQWXw@mail.gmail.com>
+Subject: Re: Bug reporting
+To:     Dave Chupreev <cdn.dev@yandex.ru>
+Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        GNU C Library <libc-alpha@sourceware.org>,
+        Roland McGrath <roland@hack.frob.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Akihiro,
+Hello,
 
-On 5/6/21 11:49 PM, Akihiro Motoki wrote:
-> diff --git a/man7/shm_overview.7 b/man7/shm_overview.7
-> index 9c6ac7923..60e7b71d3 100644
-> --- a/man7/shm_overview.7
-> +++ b/man7/shm_overview.7
-> @@ -92,7 +92,7 @@ to link against the real-time library,
->  .IR librt .
->  .SS Accessing shared memory objects via the filesystem
->  On Linux, shared memory objects are created in a
-> -.RI ( tmpfs (5))
-> +.RB ( tmpfs (5))
->  virtual filesystem, normally mounted under
->  .IR /dev/shm .
->  Since kernel 2.6.19, Linux supports the use of access control lists (ACLs)
+On Fri, 7 May 2021 at 02:21, Dave Chupreev <cdn.dev@yandex.ru> wrote:
+>
+> Well I see, I've tried on Linux and yea I didn't find any option to insert multiple definitions.
 
-Thank you. Patch applied.
+I think the only way to insert multiple definitions is by direct
+manipulation of 'extern char **environ'.
 
-Cheers,
+Thanks,
 
 Michael
+
+
+> 06.05.2021, 01:37, "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>:
+>
+> [ added a few CCs ]
+>
+> Hello Dave,
+>
+> On 5/5/21 10:30 PM, Dave Chupreev wrote:
+>
+>  Hello, Alejandro.
+>
+>  On page 138
+>
+>
+> I guess you refer to TLPI, written by Michael.
+>
+>
+>       1.
+>
+>          Your version of /unsetenv() /should check to see whether there
+>          are multiple definitions of an environment variable, and remove
+>          them all.
+>
+>  How can I add such variables which have many definitions? According to
+>  *putenv* and *setenv* functions, variables with the same names are
+>  replaced if encountered.
+>
+>
+> I haven't read that part of the book yet, so I ignore the context. But
+> AFAIK, that can't happen on Linux, as you pointed out (probably neither
+> on Unix systems in general, but I don't know for sure, probably Michael
+> does). I guess the only possibility is if an attacker somehow modified
+> your environment and inserted multiple copies of an env variable.
+>
+> The book (TLPI) states that glibc does check that, so I digged into the
+> sources and found that in <stdlib/setenv.c>, around line 290
+> (<https://sourceware.org/git?p=glibc.git;a=blob;f=stdlib/setenv.c;h=893f081af6b5a21b999a4056757fd69d1386c0d4;hb=HEAD#l290>).
+>  That behavior was introduced by Roland in commit
+> 196980f5117c8d38f10d64bf67eeb0924651675f
+> (<https://sourceware.org/git/?p=glibc.git;a=commit;h=196980f5117c8d38f10d64bf67eeb0924651675f>),
+> so maybe he can better explain the reasons behind the change (the commit
+> msg is quite unexplicative) if he still remembers (that goes back to 1995).
+>
+> Regards,
+>
+> Alex
+>
+> --
+> Alejandro Colomar
+> Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+> http://www.alejandro-colomar.es/
+
 
 
 -- 
