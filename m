@@ -2,63 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2C93537786D
+	by mail.lfdr.de (Postfix) with ESMTP id 98B8337786E
 	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 22:20:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230047AbhEIUVS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S230063AbhEIUVS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 9 May 2021 16:21:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49512 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49514 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230059AbhEIUVQ (ORCPT
+        with ESMTP id S230055AbhEIUVQ (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 16:21:16 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7E436C061574
-        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 13:20:09 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id v12so14428477wrq.6
-        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 13:20:09 -0700 (PDT)
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 34DE4C061760
+        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 13:20:10 -0700 (PDT)
+Received: by mail-wm1-x32c.google.com with SMTP id j3-20020a05600c4843b02901484662c4ebso9992202wmo.0
+        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 13:20:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=KMWFAtOrPbtAShTYwwuGzlOQvNzIB0NugSOWoHeugfs=;
-        b=GjRXilFxLYD/9ssOda40WDG9wbZs3m6J4mvuxJhKDieRigfWwtzESjPiHp7kxuRYcb
-         zbdE3fu9BIF3JDc9yLrE5OKTNgjO7KumB6PP3QejVQKIpwEC4eWTn0Kat1rYoxChfNab
-         v4fF9HTwe67Y7v4tT7iWR9D9ox/vtO65/8QFCr5yeb0j2uzBaq7ExzHIuMjQwxVFqhwF
-         CjvMcjy+iSoYHfa02nwPcqrdd0pDyZSO6Xgc841Qb5/hwQy89Vj7LQ8n31zYrMKF3oy/
-         xfE7Ofb4CrlVVVCwKoGhqLLYUhaHsJlY8Q28Pvkk107Rou+izPmDfiie8ciN1m2htPzu
-         d4CQ==
+        bh=3Fs2+TkNSjJ9gwCu11Z4zc0i5DUKhPqRMT9EYfwSGR4=;
+        b=OnviCZ9k9jdFmf8syk5Xmvtcr/fAf7U7KCu/dsNOs1lOzBD0Cv47gG8ti+z9OK7Irk
+         T0vA2aOAODmmk+rk0Q7SJnoeSetLLlMquVd5W82IXWrp9SHerZEZGg66oHT4iwF5XLdq
+         eD+kGo4/Y2B0NdNd+gJelWfR9xU6H1YFPeCg/pytPyVCjBcVO5A/Ri/BEBlNLeMDQlvf
+         70aQHrJ3vaa0JUnBUvtGP4sPPUujDke0+99y0hdk4U22xPYBlXyWSyaKgPRKL3nXW/4q
+         Wh+RMd1F2bRJdRXf/N2Dgu1h+1H1TDrvHSKcIepx0ZIF4g9zEsfSo6WXzzwXx+VhWnNF
+         fl2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=KMWFAtOrPbtAShTYwwuGzlOQvNzIB0NugSOWoHeugfs=;
-        b=G49GmfJ1PobNKA0IyL8I17ne2e/nO3L2LhT1/wgXltf20v7ULigE66+teHIlainSdo
-         +xqeANe2n+2GWHQgmJCCt0G7x9FfZkZAgcfhrNwG4M7SP9RXLgVTJo7oIa4mle2bQVpB
-         I7WSU9fMbW12rxGoA9Mck4LLj2ThPSH8rJ4ZFZ/eKVhqywQuAi+Xr1hwwgrc6ItM/QIO
-         boAtusrpdyXvMzPhzVTnd4TPg3oxJVU5il5rEt5V1Jwin9lsHh9bGL/3LasUtDzkxwc0
-         ag1qN6bCXrK8+zwp/kcrlI6wYpxuVWjSMI5kAzO42rufVviv2t3fuTu7N6Ry72ahM92r
-         jNsQ==
-X-Gm-Message-State: AOAM532YcODLI/xlr5xn1JC0CVFWFaSXs3xdpT0whEwh/41zBYHZJs4B
-        1mIsCrClgToCMCWSJvdVlIs=
-X-Google-Smtp-Source: ABdhPJw24Y56i1S5l7n6dnFeTS+tQVMd2ZLmsiX7mdpjjLlKoYciZ7V1ucv/HcDr92UZsgVUylPpfA==
-X-Received: by 2002:adf:8046:: with SMTP id 64mr26051310wrk.176.1620591608307;
-        Sun, 09 May 2021 13:20:08 -0700 (PDT)
+        bh=3Fs2+TkNSjJ9gwCu11Z4zc0i5DUKhPqRMT9EYfwSGR4=;
+        b=M+z1kr91nhqzx/16uSAMFdcUP5opyOGxSj9wO7CWAxdpSnuLnhJOHK/AxrAlNm3myr
+         wxHHXX5DDtK0Y8y3RBEqBlT8klqiWSlrR3prhhdUzpEDPFT2Egtt65PINaR4rFzrvKgg
+         r/+/PNnt4an50jhoyFzGqiGU3On45XkOzCm82GnfcYNVk6em0qhjzy/ZgugqzGBe/WGX
+         wozX5kl/gnelfG6NyOJ1rgra4o2XbwjHHfqIOQWvUMkSgL+u/SGWUfP1rZablGZnV2zW
+         y180Ve0X4juKFinLMX/tSYnOGnuQH8sZXd+mzV8hbByQglwpWqQx3XifppgChYMzr9PA
+         ESUw==
+X-Gm-Message-State: AOAM531JochSO9VnArIh77eNDMZI2n4SI/pZmXixt6uu/yVJjPxtlwhS
+        DDrHv65WvPLkR2jQtu5DLuE=
+X-Google-Smtp-Source: ABdhPJyJOoI25Dbk7yOFPvxcYpxdewEDSfVoyMzxSHNbw4j/HoKa4alvAX4L1YKwtH96A1GBap6iKA==
+X-Received: by 2002:a1c:2:: with SMTP id 2mr22654057wma.113.1620591609020;
+        Sun, 09 May 2021 13:20:09 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id b10sm22591346wrr.27.2021.05.09.13.20.07
+        by smtp.googlemail.com with ESMTPSA id b10sm22591346wrr.27.2021.05.09.13.20.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sun, 09 May 2021 13:20:08 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Jakub Wilk <jwilk@jwilk.net>, linux-man@vger.kernel.org,
         Alejandro Colomar <alx.manpages@gmail.com>
-Subject: [PATCH 07/17] Changes.old: tfix
-Date:   Sun,  9 May 2021 22:19:40 +0200
-Message-Id: <20210509201949.90495-8-alx.manpages@gmail.com>
+Subject: [PATCH 08/17] exit_group.2, getunwind.2: tfix
+Date:   Sun,  9 May 2021 22:19:41 +0200
+Message-Id: <20210509201949.90495-9-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210509201949.90495-1-alx.manpages@gmail.com>
 References: <20210509201949.90495-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -69,40 +68,36 @@ From: Jakub Wilk <jwilk@jwilk.net>
 Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- Changes.old | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ man2/exit_group.2 | 2 +-
+ man2/getunwind.2  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Changes.old b/Changes.old
-index f863583b1..067fce382 100644
---- a/Changes.old
-+++ b/Changes.old
-@@ -53581,7 +53581,7 @@ Various pages
-             Generally, place '||' at start of a line, rather than the end of
-             the previous line.
- 
--            Rationale: this placement clearly indicates that that each piece
-+            Rationale: this placement clearly indicates that each piece
-             is an alternative.
- 
- Various pages
-@@ -54119,7 +54119,7 @@ system.3
- environ.7
-     Bastien Roucariès
-         Reorder the text
--            Move the the text describing how to set environment variable before
-+            Move the text describing how to set environment variable before
-             the list(s) of variables in order to improve readability.
-     Bastien Roucariès
-         Document convention of string in environ
-@@ -54152,7 +54152,7 @@ man-pages.7
-     Michael Kerrisk
-         Add a FORMATTING AND WORDING CONVENTIONS section
-             In man-pages-5.11, a large number of pages were edited to achieve
--            greater consistency in the SYNOPIS, RETURN VALUE and ATTRIBUTES
-+            greater consistency in the SYNOPSIS, RETURN VALUE and ATTRIBUTES
-             sections. To avoid future inconsistencies, try to capture some of
-             the preferred conventions in text in man-pages(7).
-     Michael Kerrisk
+diff --git a/man2/exit_group.2 b/man2/exit_group.2
+index b512927d4..d197f1f2e 100644
+--- a/man2/exit_group.2
++++ b/man2/exit_group.2
+@@ -28,7 +28,7 @@ exit_group \- exit all threads in a process
+ .SH SYNOPSIS
+ .nf
+ .BR "#include <sys/syscall.h>" "       /* Definition of " SYS_* " constants */"
+-.B #inlcude <unistd.h>
++.B #include <unistd.h>
+ .PP
+ .BI "noreturn void syscall(SYS_exit_group, int " status );
+ .fi
+diff --git a/man2/getunwind.2 b/man2/getunwind.2
+index 2c44506c7..403bd7770 100644
+--- a/man2/getunwind.2
++++ b/man2/getunwind.2
+@@ -31,7 +31,7 @@ getunwind \- copy the unwind data to caller's buffer
+ .nf
+ .B #include <linux/unwind.h>
+ .BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
+-.B #inlcude <unistd.h>
++.B #include <unistd.h>
+ .PP
+ .BI "long syscall(SYS_getunwind, void " *buf ", size_t " buf_size );
+ .fi
 -- 
 2.31.1
 
