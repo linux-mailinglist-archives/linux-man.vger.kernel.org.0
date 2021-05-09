@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8D15D3778C1
-	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 23:44:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3B1FE3778C4
+	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 23:44:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229973AbhEIVpD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 9 May 2021 17:45:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39508 "EHLO
+        id S229953AbhEIVpF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 9 May 2021 17:45:05 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39510 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229955AbhEIVpD (ORCPT
+        with ESMTP id S229968AbhEIVpD (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 17:45:03 -0400
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7542BC06175F
-        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 14:43:59 -0700 (PDT)
-Received: by mail-wr1-x42b.google.com with SMTP id n2so14605835wrm.0
-        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 14:43:59 -0700 (PDT)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 126C8C061760
+        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 14:44:00 -0700 (PDT)
+Received: by mail-wr1-x42e.google.com with SMTP id x5so14536747wrv.13
+        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 14:44:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=Ta9ln0wh8y1lBiX/r2zviEBmO6Qh6qgdOXUn7bI13ig=;
-        b=tdCHuJe466pauw95zxBmH15L+/kYwJevpdI8fv3dozpKBVoJuJQDaE7ra6r8GXwjpl
-         g0umyqVLiv5+f+drZF4kVNhiSGmRC/LiNiO020MzUeP4ktAXqAsxgrckzhdB2cqqdcdV
-         4siRU8N9N4omrNW8Tk4jmfhlIGPW+H2Tz4EbF890e28MeebFHqPMMyaQKRg/l1sQSr93
-         1pm4jZKOYeP/o/2rlmkePTBgJhL2jnq8u9KhCagaBwstsMQD6j26LTI7H9gAkDksPxJT
-         g2AqGN9KSeN5whLrHfcjg6EJYcLexftt8pAP0RI3RiVlhzsy749k1hWRnuH2Oz4wDSDI
-         DylA==
+        bh=G+5RlmWesv0WW+xgVvqXIPhEsXBMEsGR98Ol6MLerSw=;
+        b=dHRqmIQ7wX+8n6TbYoW42NLZil4pK9q9GMMGZFmd+iZ3Dq1P18quKmQab+qnuQuBPw
+         xeOkJ31pEevRAvqmQzU0UipPfOIRKymQA3biNxuwmx9fxCGvPP07Wohuwdv6Yh9SCJxQ
+         fwGWRLEllIuUfb7z3P8CuxTbJ6HJMzqCS9JfOgRvmhqN0AHZcZID87up8aCtSnueo61g
+         qdLGDuF6JM80B59NjwKSeM/bPLxypPF8SLsV2gVPmm8h8L7n/S902/2EInVSMIiHZvS/
+         ZKwZrjArILSBJSuXJSkQtIOlisjiJXSV4lxsVR8oIGsCyRbRb7eQM/07HFQFH6/51PNT
+         NRLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Ta9ln0wh8y1lBiX/r2zviEBmO6Qh6qgdOXUn7bI13ig=;
-        b=PysQwFLHLLjVLAmZedhkrhzEut6NQBWkgWxG9Ru8V9wM7dDOhk+G/NBBIfI/cKN2yb
-         L0152h4Rs8FHGC7O5142rAjHO30eS6GrSs5YlZqkoNk+FEl7UcnCy8XLlM/D0QxmYAPp
-         PCyKaTaReudRy8i+ait4LGEFwPUsCmDBESO6xNWAKLiTKqGvqAvPF/CaKo4/+WEXBYvg
-         YTFSlksCDlzqYxAxI90+pJnc3aOG6071wPEOKu0KIPCYlhZCSxl0yg7L5Lb0fUpORG0p
-         kXW1lOyjtvm7dWNDbXMcaHXyJu2TQZM5QNJK4SQ7vH/cwa+dOeS5ligUSsXWbGqyNQtd
-         cj4w==
-X-Gm-Message-State: AOAM5301B2+oPqVjLdKoVd2Lknr6GJTl4041IG3uZThgGM16l+K6xlUH
-        /LK1XwCsg+tmXc6krhHnvxVqk51/fsLoSQ==
-X-Google-Smtp-Source: ABdhPJy9RnNcUWPUbBAs4xlfGMVBZvIvThV1t6et4ZFOp/2i+bWkcpLxeiMnVHidZIwGwAvRN/y+Tg==
-X-Received: by 2002:adf:f751:: with SMTP id z17mr26251355wrp.175.1620596638261;
+        bh=G+5RlmWesv0WW+xgVvqXIPhEsXBMEsGR98Ol6MLerSw=;
+        b=Av7TBYNKBNhicnQylDTyRvkTrEyjn/M0pDKdtP1Wpfh3ftPtMZ+Sruo/k8et8Ci3Br
+         jf4fRzJ5Y7MremVcB214gp7AwEk0XMld0TDmP0V8tV94H2Z8Wy7ZwM9IlvUVEpFnjYL1
+         ubmRkED8BCRLaa/H5ODm5NI4iTEQRHeMZtq3f/oo0C3BmvvlPyPBLbNQl8SPfjrhMlLt
+         IxNO9D4qouUDt1kBJQ8h0J1VcYnLLFh7KDb9XVbGTjoWEzs/jouyicJrqkNjzu517kHe
+         TiCzPcF/iu/H1VT2O8Uy2+0VRZdA5NVxREJ6d/HJlEdnHgNDyZL1/SrzH2dZsYBEuTqX
+         TaSg==
+X-Gm-Message-State: AOAM533OsdHNf7Gv7LCUyNCVe4hHyEFLvqxtFrJLQRJ5VmOBWD+pYgz/
+        /AzXX7az97jFkDTuaWqPuf8=
+X-Google-Smtp-Source: ABdhPJw+9gXXJDbIOlJyYjVlQcw23aeU+7ynqul0XpC9Eou+8CnIKlJ/trqJXsE8nto2khZNuu6C8Q==
+X-Received: by 2002:a5d:5351:: with SMTP id t17mr26955492wrv.83.1620596638867;
         Sun, 09 May 2021 14:43:58 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id u6sm16495530wml.6.2021.05.09.14.43.57
+        by smtp.googlemail.com with ESMTPSA id u6sm16495530wml.6.2021.05.09.14.43.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sun, 09 May 2021 14:43:58 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
-Subject: [PATCH] scripts/bash_aliases: man_gitstaged(): Script around a porcelain git command
-Date:   Sun,  9 May 2021 23:38:57 +0200
-Message-Id: <20210509213930.94120-3-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org
+Subject: [PATCH] basename.3: SYNOPSIS: Add missing 'const'
+Date:   Sun,  9 May 2021 23:38:58 +0200
+Message-Id: <20210509213930.94120-4-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210509213930.94120-1-alx.manpages@gmail.com>
 References: <20210509213930.94120-1-alx.manpages@gmail.com>
@@ -63,41 +63,34 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The output of 'git status' is not stable.
+Glibc uses 'const' for the basename() parameter.
+Fix the prototype.
 
-The more stable 'git status --porcelain' is more complex,
-and scripting around it would be more complex.
+......
 
-However, 'git diff --staged --name-only' produces
-the output that we were lookiong for.
+.../glibc$ grep_glibc_prototype basename
+string/string.h:511:
+extern char *basename (const char *__filename) __THROW __nonnull ((1));
+.../glibc$
 
-Reported-by: Jakub Wilk <jwilk@jwilk.net>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- scripts/bash_aliases | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ man3/basename.3 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/scripts/bash_aliases b/scripts/bash_aliases
-index 8cedc4efc..d9b6047d1 100644
---- a/scripts/bash_aliases
-+++ b/scripts/bash_aliases
-@@ -153,13 +153,11 @@ function pdfman()
- 
- function man_gitstaged()
- {
--	git status							\
--	|sed "/Changes not staged for commit:/q"			\
--	|grep -E "^\s*(modified|deleted|new file):"			\
--	|sed "s/^.*:\s*/, /"						\
-+	git diff --staged --name-only					\
-+	|sed "s/$/, /"							\
- 	|sed "s%man[1-9]/%%"						\
- 	|tr -d '\n'							\
--	|sed "s/^, //"
-+	|sed "s/, $//"
- }
- 
- ########################################################################
+diff --git a/man3/basename.3 b/man3/basename.3
+index 65a14e8cb..51825eca4 100644
+--- a/man3/basename.3
++++ b/man3/basename.3
+@@ -32,7 +32,7 @@ basename, dirname \- parse pathname components
+ .B #include <libgen.h>
+ .PP
+ .BI "char *dirname(char *" path );
+-.BI "char *basename(char *" path );
++.BI "char *basename(const char *" path );
+ .fi
+ .SH DESCRIPTION
+ Warning: there are two different functions
 -- 
 2.31.1
 
