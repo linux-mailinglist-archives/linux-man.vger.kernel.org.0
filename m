@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3C39B3778DB
+	by mail.lfdr.de (Postfix) with ESMTP id A89103778DC
 	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 23:44:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229898AbhEIVp1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 9 May 2021 17:45:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39602 "EHLO
+        id S229956AbhEIVp2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 9 May 2021 17:45:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39610 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230034AbhEIVpS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 17:45:18 -0400
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 084ACC061761
+        with ESMTP id S230040AbhEIVpT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 17:45:19 -0400
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C1F81C061760
         for <linux-man@vger.kernel.org>; Sun,  9 May 2021 14:44:14 -0700 (PDT)
-Received: by mail-wm1-x32f.google.com with SMTP id l18-20020a1ced120000b029014c1adff1edso10025804wmh.4
-        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 14:44:13 -0700 (PDT)
+Received: by mail-wm1-x32e.google.com with SMTP id o127so8059244wmo.4
+        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 14:44:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=wHHTNdAVNsCz8Qefx5zQHCXyZDPaqSda42HheDrjHzk=;
-        b=uDY+jfRceX1cyxL62dKiI6J2UcYsg0IJNyQa4p5LlZmJkoz1pok+jy+LmYczy1nUSB
-         /zVWBaRmiygUE4Ax41OnGvsiAhCcHu2JBjjBN7/pSaH5WopTLGa0BdZvJiKjLDrAKvNa
-         Y6bWALDc8OmawfCwxxwEaC2NNUw1+GkODY4ZcagpBng6G0MonLK06467ZA8ku2yx9iid
-         6VE21CECLP9Hgq7k+FfnWJNECZ78Yg7ubIBgO10W8/XbqF+h9y8+Q1TgSkqcO+0iI7CV
-         OKHJZdPf3gdPWwakIz/NLw9xe2/7VVM9VtkPRXd9H5kHxGCQibspqbZe224VpSljy2Qi
-         Jk6Q==
+        bh=qE+j8aI25jomSDCsRi5kLSRs+rGk7Hv03HXX6ezwg7g=;
+        b=oz35RZv6d+7W9sH1yfsChfq6ppkh/iCj82VgrBa/H7bRQzYZN1WrOXPUBWZn6SWE6V
+         iv90k4X/wYrPaPh4Xrs2BvCQMgqtNh/wNhHTR6RTvaSM5pD9wiWEluRZrlVdWH4LTlkl
+         oLiieOv7EElxSodpp022XOY623awvHWY8fp00Vxij+sIYORz7IGCrrkJ4I6TqHu3RP0F
+         QsUAQ0JjNqGSF20aWpDwah5FKOQ5hf2KdYTBncP62kvl7lp+KzJ+X3m025El2bsvxjE3
+         XsSXwGY+cssk2TB12/+uKgP9t8QFIrvRE6Jp3ZgEjuKMadtGixbed0wSs34OAGB/yrG2
+         Hpxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=wHHTNdAVNsCz8Qefx5zQHCXyZDPaqSda42HheDrjHzk=;
-        b=KjLT380XmaINaI/R+Kc+5wVWR0YRmzV2+ETF0ni9EJ5dfL+a1vz/CtL0Gzs4zFZB22
-         WswhcDUMaSg3IoeTwpAN00YPnWDApRljUTebsv6L0DhrVHE/ec7/w6hulzuuz3WDhQAz
-         b3vO2ttbU+gpSrfrwPH4k+Avnvw+Br5l8PMMXe5mc+UqIKglYNh9EKoFXo0FW8Cs5UFi
-         cBrzCZC7JY1FWx0/RzBTAq6kUqg0+guh39Gl+VSoKcFIWDseVP0Ka08C0FiUQTJcWriQ
-         WijmjDIlwLqXweweshipnk4Y2KhOjv/F46XQa0A18xY4EoRzMqW02OIr8721JSJpM8ag
-         xUIA==
-X-Gm-Message-State: AOAM5301AESzhpWkTqLvsHtvosJJKlO8P3Cd7XTa7hCbY8uve8V43P96
-        +KiJF+g8cgXc0J4Yq0USDYA=
-X-Google-Smtp-Source: ABdhPJzz52Zq4O+pyMMaSAvXCQI4TnM4++5PUcWOYC0dfqEgQxZ2ksNrvEKhCJut/brEOxLLP7y/6g==
-X-Received: by 2002:a7b:cc83:: with SMTP id p3mr22381847wma.170.1620596652877;
-        Sun, 09 May 2021 14:44:12 -0700 (PDT)
+        bh=qE+j8aI25jomSDCsRi5kLSRs+rGk7Hv03HXX6ezwg7g=;
+        b=FQ0m7FwRKJMiuLUfmAKGlCx2guUkm3y3ChkDskXRDJrXYgSdDnlFCR9E8ry1535Y4R
+         +10mqHjrZmqV1X9ENO4xH4Un+fdFweTpf1FK8vUYCztIs4rOPvPW6P+OofnhXBITIzRb
+         BtvBAfKsl6JDYlqRxKOTJfZoZRCJULr5FTAztgBm+cbFLV194JB7b4LKZ/TgPmn+acrX
+         eK3OkT9OT/LHwqWThomTTAZqzYV6cr+mtOsLiYPXmwRGI+mi7UwNixrT50q47htzkEyf
+         oUQ/6yAxtTprdLLWj2Z5u5zPQ1XAK2u+Ji/OPUQHmybMy/B77Bh3ofzLbgpHzIwGhadx
+         j2+A==
+X-Gm-Message-State: AOAM533v1D+Ure+doXB+xVGD9vJCqcpyQ52b1K3tos09388EC3xiOHcA
+        SqcoJR/FwVb2DSA3/7Qerax5i1DUY+UAfQ==
+X-Google-Smtp-Source: ABdhPJztX3j4VJUQNlOFnJjQ6oUQ/C0CvuWcvsWoKnRqY49gkMhrNXfgWbM00n2ptOtotxEqV10DVA==
+X-Received: by 2002:a05:600c:3592:: with SMTP id p18mr4194888wmq.44.1620596653592;
+        Sun, 09 May 2021 14:44:13 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
         by smtp.googlemail.com with ESMTPSA id u6sm16495530wml.6.2021.05.09.14.44.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 May 2021 14:44:12 -0700 (PDT)
+        Sun, 09 May 2021 14:44:13 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH] tzset.3: ffix
-Date:   Sun,  9 May 2021 23:39:18 +0200
-Message-Id: <20210509213930.94120-24-alx.manpages@gmail.com>
+Subject: [PATCH] xdr.3: SYNOPSIS: Fix prototype types
+Date:   Sun,  9 May 2021 23:39:19 +0200
+Message-Id: <20210509213930.94120-25-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210509213930.94120-1-alx.manpages@gmail.com>
 References: <20210509213930.94120-1-alx.manpages@gmail.com>
@@ -63,24 +63,35 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Use the same types glibc uses, and add a missing 'const'.
+
+.../glibc$ grep_glibc_prototype xdr_union
+sunrpc/rpc/xdr.h:315:
+extern bool_t xdr_union (XDR *__xdrs, enum_t *__dscmp, char *__unp,
+			 const struct xdr_discrim *__choices,
+			 xdrproc_t __dfault) __THROW;
+.../glibc$
+
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/tzset.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man3/xdr.3 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/man3/tzset.3 b/man3/tzset.3
-index e4660be8b..c80da53f8 100644
---- a/man3/tzset.3
-+++ b/man3/tzset.3
-@@ -37,7 +37,7 @@ tzset, tzname, timezone, daylight \- initialize time conversion information
+diff --git a/man3/xdr.3 b/man3/xdr.3
+index ea6359787..83f668dc9 100644
+--- a/man3/xdr.3
++++ b/man3/xdr.3
+@@ -460,8 +460,8 @@ integers and their external representations.
+ This routine returns one if it succeeds, zero otherwise.
+ .PP
  .nf
- .B #include <time.h>
- .PP
--.B void tzset (void);
-+.B void tzset(void);
- .PP
- .BI "extern char *" tzname [2];
- .BI "extern long " timezone ;
+-.BI "bool_t xdr_union(XDR *" xdrs ", int *" dscmp ", char *" unp ,
+-.BI "                 struct xdr_discrim *" choices ,
++.BI "bool_t xdr_union(XDR *" xdrs ", enum_t *" dscmp ", char *" unp ,
++.BI "                 const struct xdr_discrim *" choices ,
+ .BI "                 xdrproc_t " defaultarm ");     /* may equal NULL */"
+ .fi
+ .IP
 -- 
 2.31.1
 
