@@ -2,132 +2,133 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6AB1A377866
+	by mail.lfdr.de (Postfix) with ESMTP id D6A84377867
 	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 22:20:50 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229977AbhEIUVJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 9 May 2021 16:21:09 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49482 "EHLO
+        id S230045AbhEIUVK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 9 May 2021 16:21:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49484 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230032AbhEIUVJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 16:21:09 -0400
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 93D3FC061573
-        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 13:20:04 -0700 (PDT)
-Received: by mail-wr1-x432.google.com with SMTP id t18so14447657wry.1
-        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 13:20:04 -0700 (PDT)
+        with ESMTP id S230040AbhEIUVK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 16:21:10 -0400
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3D16BC061574
+        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 13:20:05 -0700 (PDT)
+Received: by mail-wr1-x42b.google.com with SMTP id v12so14428342wrq.6
+        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 13:20:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=7LEORuvKQ3wjweMFUBriDWwF+B6jEL2tbRqlB9YQsxQ=;
-        b=GV29abp1arfdz82baVruR2e2TV5g8PhGMywm6ETwZFSpmyqYvLIg8eX4t6RCfM1ZwD
-         z9D+66/mxtv9vbbJNtnbUq/ve+RHTuuhrOJWVqBHtuDG7PMf281BWs/xXqa1UhZvwjAe
-         E1hwoq4XnUsRCs2EUCimrYUz11g4p3VE0+k6klpkSdi6WiWnFPepanCNsjaO5lN337OX
-         4RC2CeBKpiUlnijflaz9VXjZpVMWMYLL5s0LKkH+M2ojrllJ3+exRh3Ux/qyfd+yXCyK
-         2gjqntSwfT+22LH9KJ3pnC2gY6660Sxa3rWSNN16FarMh3CpOX4TuiYypQ3gtT2+K8I0
-         nISg==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=9N9VXsAlaMNSNv/sDJq91hQIb0JTMoPAOhxWHUsFLjA=;
+        b=ghz+G4hjdV25SDdr5TUUWKcKoi+F/pNXg5lGGgSgUsg0F3QH14pdmy0DaDjJKv7JyM
+         qjCUtTCP/x73bHC6BpBtQMIEPrzNMzmeC+ft88uRUi8q0c4xWdgDMlh6P7FpHyLD/E1U
+         D7DTXAonzlFXu5smp7PFq9R1+OSLVF0C0+DhSlhK+6WGehFVWTK9DX7G5r13sjqhHd2Q
+         /RZ255boIAGbdV9+Y97TPxcGNQVJeRdOranufT/wr+mdbQF7n3toFt+ag3GcUg2v063l
+         lMV6gLJdDg7V5/StL1TZiWkUInqfPSTpuOls7w6uy3VjrzBC9rL2yUhh/6V4dZkjDwxZ
+         axyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=7LEORuvKQ3wjweMFUBriDWwF+B6jEL2tbRqlB9YQsxQ=;
-        b=PNhMI6Mf/fAevw/EtEvf/zGdCJgmvKDt55ez2J+ReOTU4Iiz7XCQ6L9xGNkHPcBDdk
-         7pZBTZzXlCFMjGRqj4g0FeQtUfhu7H3/o7di+1sUOqijURRONmLwcImodvsX+Ss/TaSF
-         DIRv1jkU50vQlRQ0w7HO1ZVoY6JQAJVPnvOF769g39sDXR8ddOUn9VPorwTWJ/c19u63
-         42v2gqkyz2UOMNtYSdLf177NJCsAfZc86WrnVSvOKOXB8avJ5d0Klp1wN8QU/UN9cI99
-         tkkOgr/zFzbyYz8QtVbQ/CLh8DShoNzGqBgq8wcB2e/AxvW85oJnUWNFB1OQmOePN6xn
-         oC+A==
-X-Gm-Message-State: AOAM5307k7GlT66/6jQGI8UPUqv2A9CwcXn0hrCjs6FO9YZF//ij9knL
-        QC/L3ezsapaZxguWGiLjnR3Kbz/peQJMGg==
-X-Google-Smtp-Source: ABdhPJxhnjbd/dapH9sV42lmLBdrfEg6/dzhigEbER2cxNJ6CMJyQfsAjxjc2511hUyQucYA4YmDZg==
-X-Received: by 2002:a5d:6a52:: with SMTP id t18mr27553229wrw.361.1620591603349;
-        Sun, 09 May 2021 13:20:03 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=9N9VXsAlaMNSNv/sDJq91hQIb0JTMoPAOhxWHUsFLjA=;
+        b=Lg+/2NcHwtlpEf5I27zn3if0kg1AOyoc3u9pYDjYWr1k5UfFcdmCKCJpc8v5Vkt+9l
+         +DKt/H4x6RTcYO6KxFgzYZKORByJ5GtNCIQuyuP9h7RNaAYpAKOaWdyuJIpxRSTyokUm
+         NuHENHDQoOU57kNRYyhmr1sPCEdifeQ3Gzo5jb8nc3wmpaPpmq5PXK2wiiCJ/HfY+Hao
+         89pBIm8yfU6dpOwOywkue4x7jaoQRpxgKMx/os+n2sJG3/3MYcgKPFRf5JACU2kJrw0G
+         V1vz6fIkIs+cGpBWp125M7+lqOQFgQIwwIzgMHOmxwP+mJxbjRuOPQtLLWvobCfVFcNp
+         LM8Q==
+X-Gm-Message-State: AOAM531PoafHT9fsLOqkO/rXrr/Xq2Bxg3GOegbAKMEdleiO4b1oZ7H+
+        ijlceTgp1rIcZoFqRPnvfwM=
+X-Google-Smtp-Source: ABdhPJwsevpsskQgy/LZCUCvicDXu+nRWOMVR+Q8ePJ4495BlyOdt7LPayRCthvog5wR2/DEnilEjA==
+X-Received: by 2002:a05:6000:1143:: with SMTP id d3mr26940186wrx.404.1620591604015;
+        Sun, 09 May 2021 13:20:04 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id b10sm22591346wrr.27.2021.05.09.13.20.02
+        by smtp.googlemail.com with ESMTPSA id b10sm22591346wrr.27.2021.05.09.13.20.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sun, 09 May 2021 13:20:03 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH 00/17] Patches from others
-Date:   Sun,  9 May 2021 22:19:33 +0200
-Message-Id: <20210509201949.90495-1-alx.manpages@gmail.com>
+Cc:     Aurelien Aptel <aaptel@suse.com>, linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>
+Subject: [PATCH 01/17] flock.2: add CIFS details
+Date:   Sun,  9 May 2021 22:19:34 +0200
+Message-Id: <20210509201949.90495-2-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210509201949.90495-1-alx.manpages@gmail.com>
+References: <20210509201949.90495-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+From: Aurelien Aptel <aaptel@suse.com>
 
-Hello Michael,
+CIFS flock() locks behave differently than the standard. Give overview
+of those differences.
 
-These are the patches that I have merged from others.
+Here is the rendered text:
 
-Cheers,
+CIFS details
+  In Linux kernels up to 5.4, flock() is not propagated over SMB.  A file
+  with such locks will not appear locked for remote clients.
 
-Alex
+  Since Linux 5.5, flock() locks are emulated with SMB  byte-range  locks
+  on  the  entire  file.   Similarly to NFS, this means that fcntl(2) and
+  flock() locks interact with one another.  Another important side-effect
+  is  that  the  locks  are not advisory anymore: any IO on a locked file
+  will always fail with EACCES when done from a separate file descriptor.
+  This  difference  originates from the design of locks in the SMB proto-
+  col, which provides mandatory locking semantics.
 
+  Remote and mandatory locking semantics  may  vary  with  SMB  protocol,
+  mount options and server type.  See mount.cifs(8) for additional infor-
+  mation.
+
+Signed-off-by: Aurelien Aptel <aaptel@suse.com>
+Discussion: linux-man <https://lore.kernel.org/linux-man/20210302154831.17000-1-aaptel@suse.com/>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
+ man2/flock.2 | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-Akihiro Motoki (4):
-  move_pages.2: ffix
-  semctl.2: ffix
-  fanotify.7: ffix
-  signalfd.2: tfix
-
-Alejandro Colomar (3):
-  setbuf.3: tfix
-  sigwaitinfo.2: tfix
-  getopt.3: Minor tweaks to James' patch
-
-Aurelien Aptel (1):
-  flock.2: add CIFS details
-
-Borislav Petkov (1):
-  sigaltstack.2: tfix
-
-Dmitry V. Levin (2):
-  move_pages.2: ffix
-  ptrace.2: mention PTRACE_GET_SYSCALL_INFO in RETURN VALUE section
-
-Jakub Wilk (2):
-  Changes.old: tfix
-  exit_group.2, getunwind.2: tfix
-
-James O. D. Hunt (1):
-  getopt.3: Clarify behaviour
-
-Johannes Berg (1):
-  clone.2: tfix
-
-Vishwajith K (1):
-  shmop.2: tfix
-
-Štěpán Němec (1):
-  execve.2: tfix
-
- Changes.old        |  6 +++---
- man2/clone.2       |  2 +-
- man2/execve.2      |  2 +-
- man2/exit_group.2  |  2 +-
- man2/flock.2       | 25 +++++++++++++++++++++++++
- man2/getunwind.2   |  2 +-
- man2/move_pages.2  |  3 ++-
- man2/ptrace.2      |  7 +++++--
- man2/semctl.2      |  2 +-
- man2/shmop.2       |  4 ++--
- man2/sigaltstack.2 |  2 +-
- man2/signalfd.2    |  2 +-
- man2/sigwaitinfo.2 |  2 +-
- man3/getopt.3      | 23 +++++++++++++++++++++++
- man3/setbuf.3      |  2 +-
- man7/fanotify.7    |  2 +-
- 16 files changed, 70 insertions(+), 18 deletions(-)
-
+diff --git a/man2/flock.2 b/man2/flock.2
+index 328377365..61822c9bc 100644
+--- a/man2/flock.2
++++ b/man2/flock.2
+@@ -239,6 +239,31 @@ see the discussion of the
+ .I "local_lock"
+ option in
+ .BR nfs (5).
++.SS CIFS details
++In Linux kernels up to 5.4,
++.BR flock ()
++is not propagated over SMB.
++A file with such locks will not appear locked for remote clients.
++.PP
++Since Linux 5.5,
++.BR flock ()
++locks are emulated with SMB byte-range locks on the entire file.
++Similarly to NFS, this means that
++.BR fcntl (2)
++and
++.BR flock ()
++locks interact with one another.
++Another important side-effect is that the locks are not advisory anymore:
++any IO on a locked file will always fail with
++.BR EACCES
++when done from a separate file descriptor.
++This difference originates from the design of locks in the SMB protocol,
++which provides mandatory locking semantics.
++.PP
++Remote and mandatory locking semantics may vary with SMB protocol, mount options and server type.
++See
++.BR mount.cifs (8)
++for additional information.
+ .SH SEE ALSO
+ .BR flock (1),
+ .BR close (2),
 -- 
 2.31.1
 
