@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7592D3778DA
-	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 23:44:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B0EFA3778D9
+	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 23:44:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230032AbhEIVp1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 9 May 2021 17:45:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39598 "EHLO
+        id S230079AbhEIVp0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 9 May 2021 17:45:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39574 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229898AbhEIVpR (ORCPT
+        with ESMTP id S230032AbhEIVpR (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 17:45:17 -0400
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C85EDC061573
-        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 14:44:12 -0700 (PDT)
-Received: by mail-wm1-x32d.google.com with SMTP id l18-20020a1ced120000b029014c1adff1edso10025787wmh.4
-        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 14:44:12 -0700 (PDT)
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 64FA5C06175F
+        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 14:44:13 -0700 (PDT)
+Received: by mail-wm1-x32b.google.com with SMTP id y124-20020a1c32820000b029010c93864955so10034273wmy.5
+        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 14:44:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=xPeDWUGwiDDiwjSco6aRs59SmR6ELVl+p0pt4Qab1M0=;
-        b=OF7u9d4RbLX7cz7nYNPHdKaCop4Hhh/D8bIcRcZ47LblJmIvhpnOhBcSptwBfnFezF
-         I2Lhz09H/gQunSeDq5St50ZuaS6WfgLC8dxTvwAPnEF5g2jWZCCrovPjWsU4lA5XrDNl
-         3Q8c0M+U0ucfkR6jter3Bnc92gVuAzfeh+5u6/lyKq4CKSX8bBQ3F4CKRHpj944sLHHi
-         TtGl/t4kZs3FUcff4HLi+HCKUoMzt9r8jKj7DoMsQb0q9RAAio0s3eSmNETYEpjZiEF2
-         kC8ktHkoAxfXbg+2q70y9pzw6IE+EzBJ2q4KZDsBuP4TOFIPtPKxoiBa3oj2BcLAPJHU
-         BTow==
+        bh=k9fRv+/QE6CkquKbt73Z9OREHmLuuuzw/sGHGyv5Im4=;
+        b=exMBH3jEXQul4LYrgotd6xpUP45LTQd+PFdd3IXc0jpIbbnp9JtYKYHj7EDwATg+I8
+         0z1zVgNnH6lw3tCmjJickzinbJVYYC4niP0T3TVZF1BXpg1eSHum0rkt6IhHkYpGe2n7
+         1xGf+LdTOq67MJij6sZg8ZhYSzBAY9K0gTfhs2OTH932Q6xNLMQPWrjCRDByoV3n7ioT
+         VStYUY6CuWts4qm/0m/wmFFQAeEZVS8bwb7bNtceBUaSw9SE32mLF9SFB/OTAGD1bs4J
+         AjRMKJr4P6ucL/fpZslRyov1lbDwmrfMqQIEQkkM3fG7WZn9zIimUWJ3nnJcxR5g3prx
+         FHgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=xPeDWUGwiDDiwjSco6aRs59SmR6ELVl+p0pt4Qab1M0=;
-        b=gEtLc9z51tS+zJ6cmanhy5HZECih8jx/UXFaqWs0B/y9lZtyqsRS6L+pX+NqfOYyva
-         5v9x1b1ZOGPw7JV8AvGnquPRVz250LZv0+AQCIDnBBsIp6ST5Vt1YjaimEDkH5+lYdsq
-         bwCFujf5Z/TVAIflz7Tjc0fxxMvY4x/xi5ygRzARd5b+mRhiJAxvEluzuqxYJfOB7xxj
-         U1OSWPWZmUmhURmhsR3zbKGklkj/9oKPcjptXsC2S56kIS9o9V7IM/vGUYuUyHr4ZE22
-         SQaF5NeizwIEHRmaLrX1eeo4JM3SvK6DWHHwDOteVHuB/kTJMKAM+YxEYCWoEJijMD1y
-         +ySg==
-X-Gm-Message-State: AOAM530PtYvrIPYUqN9crDbu46zta5zQFS+dEjPyKyXb1oR3sdPM6Ajd
-        9YCMV6gs0jJF51oJ1vdOMvGNhH4LvJ2VFg==
-X-Google-Smtp-Source: ABdhPJxHSlLS/QWyfo64hsZVlolFN0cc3WpGPZaQu3OocBRcrAPAoM2EH6A0WKT7vgB8/vyviYawhQ==
-X-Received: by 2002:a05:600c:4152:: with SMTP id h18mr33669139wmm.155.1620596651619;
-        Sun, 09 May 2021 14:44:11 -0700 (PDT)
+        bh=k9fRv+/QE6CkquKbt73Z9OREHmLuuuzw/sGHGyv5Im4=;
+        b=uKp5c0Woj88ddca3LbgZ2UFYMfuUARW2YhE+vJVjb0Bc2vTfI4BKRY49ytcuU00TmU
+         vqLjWtt6SNl/NJOrgQ+rnkNQfskiTVgB1q1llpHxxaiz43M774m7XUhLAn5xjQrv1fuT
+         qG7cgNexlxoP59V9NOyYPmEuIJH94LRkr36aZxxmx9I50tQsypAod4dA+Lb4Y6wIWIv/
+         R+leVLlBtzFjxK4V7kT8yGgQqIr0l9UTebLFbnM71iSn30GAzXs2+IPR9va7pocX5MAa
+         NDVhxJoQG88/TbCZpqjLFTlZ59zp5WeNTPbH44/U0K2BellLY/JlywdYbGzluCysXQb7
+         JhRQ==
+X-Gm-Message-State: AOAM530gtCJxT1eZNQ7V3DOkY04noEHPfrLk3were2iCHHpVRVwhe24x
+        xSJtfO1zxH1Kuub/x3VgJRD0ZdUbK1newg==
+X-Google-Smtp-Source: ABdhPJxllMv8IvfKDGuRzHMjpO/RY1rCg4gbSV93YzWxz/Gcd9gSV5Z0c0SHUkbWmQxW34YBqGZywQ==
+X-Received: by 2002:a05:600c:3644:: with SMTP id y4mr33894429wmq.132.1620596652265;
+        Sun, 09 May 2021 14:44:12 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
         by smtp.googlemail.com with ESMTPSA id u6sm16495530wml.6.2021.05.09.14.44.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 May 2021 14:44:11 -0700 (PDT)
+        Sun, 09 May 2021 14:44:12 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH] pthread_getattr_default_np.3: SYNOPSIS: Add missing 'const'
-Date:   Sun,  9 May 2021 23:39:16 +0200
-Message-Id: <20210509213930.94120-22-alx.manpages@gmail.com>
+Subject: [PATCH] pthread_mutexattr_setrobust.3: SYNOPSIS: Remove incorrect 'const'
+Date:   Sun,  9 May 2021 23:39:17 +0200
+Message-Id: <20210509213930.94120-23-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210509213930.94120-1-alx.manpages@gmail.com>
 References: <20210509213930.94120-1-alx.manpages@gmail.com>
@@ -63,33 +63,39 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-glibc uses 'const' in pthread_setattr_default_np().
-Let's use it here too.
+Neither POSIX or glibc use 'const' in
+pthread_mutexattr_setrobust().
+Remove it.
 
-.../glibc$ grep_glibc_prototype pthread_setattr_default_np
-sysdeps/nptl/pthread.h:406:
-extern int pthread_setattr_default_np (const pthread_attr_t *__attr)
+.../glibc$ grep_glibc_prototype pthread_mutexattr_setrobust
+sysdeps/htl/pthread.h:355:
+extern int pthread_mutexattr_setrobust (pthread_mutexattr_t *__attr,
+					int __robustness)
+     __THROW __nonnull ((1));
+sysdeps/nptl/pthread.h:888:
+extern int pthread_mutexattr_setrobust (pthread_mutexattr_t *__attr,
+					int __robustness)
      __THROW __nonnull ((1));
 .../glibc$
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/pthread_getattr_default_np.3 | 2 +-
+ man3/pthread_mutexattr_setrobust.3 | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man3/pthread_getattr_default_np.3 b/man3/pthread_getattr_default_np.3
-index 903d5095a..5973af5ec 100644
---- a/man3/pthread_getattr_default_np.3
-+++ b/man3/pthread_getattr_default_np.3
-@@ -32,7 +32,7 @@ get or set default thread-creation attributes
- .B #include <pthread.h>
+diff --git a/man3/pthread_mutexattr_setrobust.3 b/man3/pthread_mutexattr_setrobust.3
+index dbf429c48..86aab88ed 100644
+--- a/man3/pthread_mutexattr_setrobust.3
++++ b/man3/pthread_mutexattr_setrobust.3
+@@ -33,7 +33,7 @@ pthread_mutexattr_getrobust, pthread_mutexattr_setrobust
  .PP
- .BI "int pthread_getattr_default_np(pthread_attr_t *" attr );
--.BI "int pthread_setattr_default_np(pthread_attr_t *" attr );
-+.BI "int pthread_setattr_default_np(const pthread_attr_t *" attr );
- .PP
- Compile and link with \fI\-pthread\fP.
+ .BI "int pthread_mutexattr_getrobust(const pthread_mutexattr_t *" attr ,
+ .BI "                                int *" robustness ");"
+-.BI "int pthread_mutexattr_setrobust(const pthread_mutexattr_t *" attr ,
++.BI "int pthread_mutexattr_setrobust(pthread_mutexattr_t *" attr ,
+ .BI "                                int " robustness ");"
  .fi
+ .PP
 -- 
 2.31.1
 
