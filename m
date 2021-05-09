@@ -2,87 +2,101 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5873A377877
-	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 22:20:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AD3E9377893
+	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 23:02:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230078AbhEIUVW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 9 May 2021 16:21:22 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49550 "EHLO
+        id S229815AbhEIVDQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 9 May 2021 17:03:16 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58618 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229994AbhEIUVV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 16:21:21 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C515FC061574
-        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 13:20:16 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id m9so14454310wrx.3
-        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 13:20:16 -0700 (PDT)
+        with ESMTP id S229683AbhEIVDQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 17:03:16 -0400
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com [IPv6:2607:f8b0:4864:20::1033])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 02330C061573
+        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 14:02:12 -0700 (PDT)
+Received: by mail-pj1-x1033.google.com with SMTP id b14-20020a17090a6e0eb0290155c7f6a356so7166372pjk.0
+        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 14:02:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=PJxmCil5JLATqu5MiWMHHgYjfp0m/JaIbtYZLmULKcA=;
-        b=GLNksMupemK/Xs8m3XOa+UqB/OUilD23RXmV/oldbAoL500dDYtA/17eDDbi9L+sz6
-         2OTRNklDdhDfdQhwbWm/fSq4PXhaZT748ifbH8XApiT0Smq+1y0C0OduX8VTLFJPJjNk
-         UE2AJOqZzi50/60a+08EDP6/Vn89PVTKS3M98uBOB+Edf8bQ5Xu+wdFA+fmKsTlenxei
-         gyaCfw26Vr6nmk2gOcuix/6JZFREKM+IfroX0w3Y4xc5bnSpAHSZSe3SRtO8lCiYCOui
-         mCcwQqwtINEshuy6U77K49PatH5HhFcRKsi8N6vbPQFXw74eikQjOKrWtlVORbWJcio4
-         stbQ==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=C190HiF6QzF/9NFkScIIx7pxd+rHIcPOWpMfgzNvY/4=;
+        b=fyZiEOoO4TaigJcFWD9jG0gjYa3ZteJYTTxhEvBt0girRlE0UweRtz/OzM9Jdm7mB3
+         CABM/CJcpkILegXCoCYUlUPXjX9IHgFnyZJLa+30pVkA1qTIpNrds+4jOXJFx2brkyPE
+         qcalIF7pNNDEAq8FXGaeIZFV0052erxEgRl3YPJxKBXgKnETJHa/T8jt/eefva1JHD97
+         Ru+9jKTQaXylEPwtgrHWKy2UFKRD1OHX3oOwr59/aX6C2kkX7J8gl5errg2jiAGfSH/c
+         XR/EzBCDgCtrNw++l6e/ghT8qDDsqKDvUn7YngVjIoN+bxAMV+nl/R5+CHVXNL6VQW/C
+         xV6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=PJxmCil5JLATqu5MiWMHHgYjfp0m/JaIbtYZLmULKcA=;
-        b=tVIpZd+IsMMtZ7d5kdu0Jd8aH0Z9vinT3MGPziCfBIV1rGHjJi1sudTNoRP1SMhLh4
-         tIhem3q2V7p6kmzugzQlVoUnwBjBmVxSTbyYpDusgY+boK5wEMDp6O7QIoBsk5OZ2QhX
-         9JSDsS3HfGPod7PWZjUDbT3nOrNRzVW5z8xnRZ1j3sLi+OHWxV/sQtgJecMW636SuFu2
-         xwn2uouSWOUyCrfSWWPPgXUHDiEIFjyNZVf6/fhaMqa9D+AbGZhqEHA97JH5uzJn2mT5
-         2TDKZuOi+eGSiLhItyiOckG6e1Oe1OA0D5gYDWp8kQ6zw45+SFb1JrrQtgGxEc4XgHyl
-         EOpA==
-X-Gm-Message-State: AOAM530xiM/T41YnUIf1htH0vzRdANsCKdt2cH5nmwlNVyVvBkdYEkIf
-        b6jweFwaiXcaYH5pRh+7/hg=
-X-Google-Smtp-Source: ABdhPJz3FjQAorjN9HnG3YIv/8ynv984MRaX6hZViOVWFHpSLeY1uYdcgM9zlf4JlP/OqYHNdvVnRA==
-X-Received: by 2002:a5d:47a9:: with SMTP id 9mr26664571wrb.298.1620591615660;
-        Sun, 09 May 2021 13:20:15 -0700 (PDT)
-Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id b10sm22591346wrr.27.2021.05.09.13.20.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 May 2021 13:20:15 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Akihiro Motoki <amotoki@gmail.com>, linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Subject: [PATCH 17/17] signalfd.2: tfix
-Date:   Sun,  9 May 2021 22:19:50 +0200
-Message-Id: <20210509201949.90495-18-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210509201949.90495-1-alx.manpages@gmail.com>
-References: <20210509201949.90495-1-alx.manpages@gmail.com>
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=C190HiF6QzF/9NFkScIIx7pxd+rHIcPOWpMfgzNvY/4=;
+        b=HQwjpwzo7qZBxSktxzivyWCBVZ9P7K7p4HrdOYfLhhidpVw2ZAMeOfAymNOwQH19wd
+         UYyioAklo8b+bet9974nB8GQwN4RksJyaQTbZeasnxVs6jfhMnOH2vEbR0Uda8kVUGkJ
+         iyIL20XBV9/y0jpA2MbwWgXwcbP1qZD4jlhfeCsFboDr32QYdpd6l5JyaaHx6mF6todm
+         zHzulhBUliXktC5LtxBvg4ktQ+9JJ2h960pQ8NbgvM0WSSh9L4O6n3GeSc7spC4fOxV3
+         DTVrS+zNSbKEiABF7lUsIDKhwrOcsbNTfiNQZMojkyqnBb6o0cb+vZY4B3tJzsiWrZ8v
+         iHhw==
+X-Gm-Message-State: AOAM533wiVfKKk5X0bwmQHWA4O69nYCeM1nCJMo07vhXKOvB/pnxt4/R
+        W9DarfHlnMmPOj5xjNKfpKK+5nRN1cw=
+X-Google-Smtp-Source: ABdhPJyGReReCGwiIT2+vUvvWtmlAtm1FSwraFmudVY0Gyjyq2seh2qwdIdG0AXVaCpsNca1PNvCjA==
+X-Received: by 2002:a17:90b:3891:: with SMTP id mu17mr23946102pjb.151.1620594132409;
+        Sun, 09 May 2021 14:02:12 -0700 (PDT)
+Received: from [192.168.192.21] (47-72-82-130.dsl.dyn.ihug.co.nz. [47.72.82.130])
+        by smtp.gmail.com with ESMTPSA id g16sm3424128pfq.157.2021.05.09.14.02.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 09 May 2021 14:02:12 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Jakub Wilk <jwilk@jwilk.net>
+Subject: Re: [PATCH v6 0/3] Use standard features in the Makefile
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+References: <20210406111448.20392-1-alx.manpages@gmail.com>
+ <20210408085713.7093-1-alx.manpages@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <b7e20ce5-3bf1-5c03-9492-418ab4ea9131@gmail.com>
+Date:   Mon, 10 May 2021 09:02:08 +1200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210408085713.7093-1-alx.manpages@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Akihiro Motoki <amotoki@gmail.com>
+Hi Alex,
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man2/signalfd.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 4/8/21 8:57 PM, Alejandro Colomar wrote:
+> Hi Michael,
+> 
+> I was probably a bit distracted when I sent v5.  The .gitignore I sent had
+> many issues.  I rewrote it from scratch and did some thorough testing this time.
+> 
+> Alejandro Colomar (3):
+>   Makefile: Use standard features (IMPORTANT: default prefix changed)
+>   Makefile: Fix bug when running in parallel
+>   .gitignore: Add file
+> 
+>  .gitignore |  12 ++++++
+>  Makefile   | 116 ++++++++++++++++++++++++++++++++++++++++++-----------
+>  2 files changed, 104 insertions(+), 24 deletions(-)
+>  create mode 100644 .gitignore
 
-diff --git a/man2/signalfd.2 b/man2/signalfd.2
-index e362d1f72..102679c0d 100644
---- a/man2/signalfd.2
-+++ b/man2/signalfd.2
-@@ -196,7 +196,7 @@ struct signalfd_siginfo {
-     uint64_t ssi_addr;     /* Address that generated signal
-                               (for hardware\-generated signals) */
-     uint16_t ssi_addr_lsb; /* Least significant bit of address
--                              (SIGBUS; since Linux 2.6.37)
-+                              (SIGBUS; since Linux 2.6.37) */
- .\" ssi_addr_lsb: commit b8aeec34175fc8fe8b0d40efea4846dfc1ba663e
-     uint8_t  pad[\fIX\fP];       /* Pad size to 128 bytes (allow for
-                               additional fields in the future) */
+None of the patches in this series applies. Did I miss some prerequisite
+patches?
+
+Thanks,
+
+Michael
+
+
+
+
 -- 
-2.31.1
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
