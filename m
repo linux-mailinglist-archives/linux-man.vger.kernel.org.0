@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E0496377876
+	by mail.lfdr.de (Postfix) with ESMTP id 740B1377875
 	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 22:20:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230076AbhEIUVV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S230073AbhEIUVV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 9 May 2021 16:21:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49536 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49538 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229994AbhEIUVU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 16:21:20 -0400
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 61C48C061573
-        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 13:20:15 -0700 (PDT)
-Received: by mail-wr1-x42b.google.com with SMTP id v12so14428618wrq.6
-        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 13:20:15 -0700 (PDT)
+        with ESMTP id S230076AbhEIUVT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 16:21:19 -0400
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2896AC06175F
+        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 13:20:16 -0700 (PDT)
+Received: by mail-wm1-x331.google.com with SMTP id a10-20020a05600c068ab029014dcda1971aso7859529wmn.3
+        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 13:20:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=Fjxi2IbIGbHBsZxCkXvnRm1kDrEfnVDq9rW8zK71QXo=;
-        b=kRCgf7Rsli8b5az/YjLEDh0nw0hzJW8kXKdtF+Sf28u2Qv8PNoPSpMlT3WnbDbm5hs
-         OqsjBXpQ5E2F4iemZGL9lMcnmqdng+vCWNY4mwkGfIWysvoViYy2ndPnXuOVAf6ukny3
-         LbD3vmg5x2bp9ry7KDTJWDfAi6gN09FwvT7vZFqjXxD2tqz2/S9qFNa3OQXUq7eEwg7e
-         45cSWwu0Pp4BTIbiX1NpUbeqapRIMFQ8iCimX4otTBUBf5Y4m76CqmrD4szbtEZXjRZk
-         0mWGfKvUFh5gpqoYuDmy0AUbYjojhjg1+syoUc4evVE9ffpDVlDgGBMFnCzrP2Cb6TMb
-         2tEw==
+        bh=XNV+mujRIwmogCC8rdnl6Zic0qZS5d1woQZddzVQPvc=;
+        b=Y4XqKjPkEubNuWUC+ezS5NG0URdvaFBPvgC3dNhnH6NlyetkyvUJR+4aRGbgTJ+5Ar
+         6kqKE+GzXUtVifSVRIxJthWFUiJy3y3S1W8dXgf6UvCPYp3b6zvoR5z7KSLVLYvXKaZx
+         5xJAaIoLLKL8VDkg8c14iAJ21SocYHIB/73mtjLLMCMDcAREwRsJTsGLOgEcxT7kvOoA
+         LsXkPq8uvq0alLK+2e/DbwdyU+av5XRrnbEi5YXrfl8kN6a2wfyf8vDvk45yZAV4xyub
+         C2ucMUuhWfreMV1zj1NWsVXpAvjauske9YWrRMiVbOPHO3gD+mik1css5nRPuQ39zi1+
+         Degw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Fjxi2IbIGbHBsZxCkXvnRm1kDrEfnVDq9rW8zK71QXo=;
-        b=qGUzqMsaA2iAvkpryPkEdorDDFVbbnmokeI5UO8T8Q8pCwRFewg+xc41kxnVDHwnLa
-         IMvpwYxuYzdpYTx5XKkpo7Ek1DbPGjSkIEI5hjQ8LFGA5dV13ZV7H7o0hGeFceeEFZM7
-         YiyXpozlHdhHA9c19RNYfbsCp05Bk2isPedek8nK830L/o9qCUsW8c4CtnVyOADoZceV
-         KLwpGa6+zdk0mUWLKt+sB7KzB0IjGc0fUp539l1FfWEIDvytIu6L3LnvdgBG9j1YXADa
-         NsPtQl+KYTKYXIMI8f/58pFPX0tpwwtUkM6gmPR4h42eFGMUFXMvVErpnTrlT0JjwdyI
-         yUFw==
-X-Gm-Message-State: AOAM531BmTRVGu/f6itqFZ1dqSyW/W0k8ZQ0uMpr1eAv96acWGjWoI9w
-        psqFPwrS+/QlYXio2DQ9Woo=
-X-Google-Smtp-Source: ABdhPJwkCbJpSQ1wJlL2RRRX2PV4ihYCGV9/wfw8KhMDOzf1UCeHZfTMIGZjgfVoUYMy8Xl7WdWkMw==
-X-Received: by 2002:a5d:4ac6:: with SMTP id y6mr26462717wrs.414.1620591614254;
+        bh=XNV+mujRIwmogCC8rdnl6Zic0qZS5d1woQZddzVQPvc=;
+        b=TzgTCoIcgGEj24IHuti7oy1lhgZSRFpt7sqzAH/VA18/VoZTUyEBZPngZoK34FrUqi
+         FzOBwpZ6SYVeoWzeQqsB4U4xRqMwCxBek+PlsLRzK6p1MAQWy5gIJ7ip6gzpJTV/jH1Y
+         4ILTvlcP+46cVZO3+xi2rcjJbJEYa54bXBSMA5tgXbNO3enpDBGvmREwRS8xZnNwscYF
+         KWHoFFP851ahCRJeFeJX6RgsnpLJ9jmPZIGrpgqAhI5kIeUy31Vs/NEzW8dIVahrFxwJ
+         YzClGPviMFCoBr3WjXUpNJqs/zyOR4TsH3fag1Q6V9Gtj5W49dkCRCKRDeiryTmXs1vE
+         tgsw==
+X-Gm-Message-State: AOAM531Xf6NpppAkrpabHqOQS/NkEPsMXa3eutid8fKONYND4DjJTqqq
+        3NMTHi08g3nnrxBzfdMmeeosBm1rUllQwA==
+X-Google-Smtp-Source: ABdhPJyZHOFjtGRyHShrz4tUkHK0jbd5eZZ3fEm0Hd6g7G4UNNE7nNxI9w593r8c3rD+llnaujF01Q==
+X-Received: by 2002:a05:600c:41d4:: with SMTP id t20mr34102644wmh.46.1620591614921;
         Sun, 09 May 2021 13:20:14 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id b10sm22591346wrr.27.2021.05.09.13.20.13
+        by smtp.googlemail.com with ESMTPSA id b10sm22591346wrr.27.2021.05.09.13.20.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sun, 09 May 2021 13:20:14 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Akihiro Motoki <amotoki@gmail.com>, linux-man@vger.kernel.org,
         Alejandro Colomar <alx.manpages@gmail.com>
-Subject: [PATCH 15/17] semctl.2: ffix
-Date:   Sun,  9 May 2021 22:19:48 +0200
-Message-Id: <20210509201949.90495-16-alx.manpages@gmail.com>
+Subject: [PATCH 16/17] fanotify.7: ffix
+Date:   Sun,  9 May 2021 22:19:49 +0200
+Message-Id: <20210509201949.90495-17-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210509201949.90495-1-alx.manpages@gmail.com>
 References: <20210509201949.90495-1-alx.manpages@gmail.com>
@@ -67,22 +67,22 @@ From: Akihiro Motoki <amotoki@gmail.com>
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/semctl.2 | 2 +-
+ man7/fanotify.7 | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man2/semctl.2 b/man2/semctl.2
-index ac8bd906d..23729bf79 100644
---- a/man2/semctl.2
-+++ b/man2/semctl.2
-@@ -377,7 +377,7 @@ the semaphore set.
- .TP
- .B SETVAL
- Set the semaphore value
--.BR ( semval )
-+.RB ( semval )
- to
- .I arg.val
- for the
+diff --git a/man7/fanotify.7 b/man7/fanotify.7
+index ebe5c1d7f..6a7e70d75 100644
+--- a/man7/fanotify.7
++++ b/man7/fanotify.7
+@@ -147,7 +147,7 @@ influences what data structures are returned to the event listener for each
+ event.
+ Events reported to a group initialized with one of these flags will
+ use file handles to identify filesystem objects instead of file descriptors.
+-.TP
++.PP
+ After a successful
+ .BR read (2),
+ the read buffer contains one or more of the following structures:
 -- 
 2.31.1
 
