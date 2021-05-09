@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B0EFA3778D9
-	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 23:44:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3C39B3778DB
+	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 23:44:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230079AbhEIVp0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 9 May 2021 17:45:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39574 "EHLO
+        id S229898AbhEIVp1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 9 May 2021 17:45:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39602 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230032AbhEIVpR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 17:45:17 -0400
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 64FA5C06175F
-        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 14:44:13 -0700 (PDT)
-Received: by mail-wm1-x32b.google.com with SMTP id y124-20020a1c32820000b029010c93864955so10034273wmy.5
+        with ESMTP id S230034AbhEIVpS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 17:45:18 -0400
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 084ACC061761
+        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 14:44:14 -0700 (PDT)
+Received: by mail-wm1-x32f.google.com with SMTP id l18-20020a1ced120000b029014c1adff1edso10025804wmh.4
         for <linux-man@vger.kernel.org>; Sun, 09 May 2021 14:44:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=k9fRv+/QE6CkquKbt73Z9OREHmLuuuzw/sGHGyv5Im4=;
-        b=exMBH3jEXQul4LYrgotd6xpUP45LTQd+PFdd3IXc0jpIbbnp9JtYKYHj7EDwATg+I8
-         0z1zVgNnH6lw3tCmjJickzinbJVYYC4niP0T3TVZF1BXpg1eSHum0rkt6IhHkYpGe2n7
-         1xGf+LdTOq67MJij6sZg8ZhYSzBAY9K0gTfhs2OTH932Q6xNLMQPWrjCRDByoV3n7ioT
-         VStYUY6CuWts4qm/0m/wmFFQAeEZVS8bwb7bNtceBUaSw9SE32mLF9SFB/OTAGD1bs4J
-         AjRMKJr4P6ucL/fpZslRyov1lbDwmrfMqQIEQkkM3fG7WZn9zIimUWJ3nnJcxR5g3prx
-         FHgA==
+        bh=wHHTNdAVNsCz8Qefx5zQHCXyZDPaqSda42HheDrjHzk=;
+        b=uDY+jfRceX1cyxL62dKiI6J2UcYsg0IJNyQa4p5LlZmJkoz1pok+jy+LmYczy1nUSB
+         /zVWBaRmiygUE4Ax41OnGvsiAhCcHu2JBjjBN7/pSaH5WopTLGa0BdZvJiKjLDrAKvNa
+         Y6bWALDc8OmawfCwxxwEaC2NNUw1+GkODY4ZcagpBng6G0MonLK06467ZA8ku2yx9iid
+         6VE21CECLP9Hgq7k+FfnWJNECZ78Yg7ubIBgO10W8/XbqF+h9y8+Q1TgSkqcO+0iI7CV
+         OKHJZdPf3gdPWwakIz/NLw9xe2/7VVM9VtkPRXd9H5kHxGCQibspqbZe224VpSljy2Qi
+         Jk6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=k9fRv+/QE6CkquKbt73Z9OREHmLuuuzw/sGHGyv5Im4=;
-        b=uKp5c0Woj88ddca3LbgZ2UFYMfuUARW2YhE+vJVjb0Bc2vTfI4BKRY49ytcuU00TmU
-         vqLjWtt6SNl/NJOrgQ+rnkNQfskiTVgB1q1llpHxxaiz43M774m7XUhLAn5xjQrv1fuT
-         qG7cgNexlxoP59V9NOyYPmEuIJH94LRkr36aZxxmx9I50tQsypAod4dA+Lb4Y6wIWIv/
-         R+leVLlBtzFjxK4V7kT8yGgQqIr0l9UTebLFbnM71iSn30GAzXs2+IPR9va7pocX5MAa
-         NDVhxJoQG88/TbCZpqjLFTlZ59zp5WeNTPbH44/U0K2BellLY/JlywdYbGzluCysXQb7
-         JhRQ==
-X-Gm-Message-State: AOAM530gtCJxT1eZNQ7V3DOkY04noEHPfrLk3were2iCHHpVRVwhe24x
-        xSJtfO1zxH1Kuub/x3VgJRD0ZdUbK1newg==
-X-Google-Smtp-Source: ABdhPJxllMv8IvfKDGuRzHMjpO/RY1rCg4gbSV93YzWxz/Gcd9gSV5Z0c0SHUkbWmQxW34YBqGZywQ==
-X-Received: by 2002:a05:600c:3644:: with SMTP id y4mr33894429wmq.132.1620596652265;
+        bh=wHHTNdAVNsCz8Qefx5zQHCXyZDPaqSda42HheDrjHzk=;
+        b=KjLT380XmaINaI/R+Kc+5wVWR0YRmzV2+ETF0ni9EJ5dfL+a1vz/CtL0Gzs4zFZB22
+         WswhcDUMaSg3IoeTwpAN00YPnWDApRljUTebsv6L0DhrVHE/ec7/w6hulzuuz3WDhQAz
+         b3vO2ttbU+gpSrfrwPH4k+Avnvw+Br5l8PMMXe5mc+UqIKglYNh9EKoFXo0FW8Cs5UFi
+         cBrzCZC7JY1FWx0/RzBTAq6kUqg0+guh39Gl+VSoKcFIWDseVP0Ka08C0FiUQTJcWriQ
+         WijmjDIlwLqXweweshipnk4Y2KhOjv/F46XQa0A18xY4EoRzMqW02OIr8721JSJpM8ag
+         xUIA==
+X-Gm-Message-State: AOAM5301AESzhpWkTqLvsHtvosJJKlO8P3Cd7XTa7hCbY8uve8V43P96
+        +KiJF+g8cgXc0J4Yq0USDYA=
+X-Google-Smtp-Source: ABdhPJzz52Zq4O+pyMMaSAvXCQI4TnM4++5PUcWOYC0dfqEgQxZ2ksNrvEKhCJut/brEOxLLP7y/6g==
+X-Received: by 2002:a7b:cc83:: with SMTP id p3mr22381847wma.170.1620596652877;
         Sun, 09 May 2021 14:44:12 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id u6sm16495530wml.6.2021.05.09.14.44.11
+        by smtp.googlemail.com with ESMTPSA id u6sm16495530wml.6.2021.05.09.14.44.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sun, 09 May 2021 14:44:12 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH] pthread_mutexattr_setrobust.3: SYNOPSIS: Remove incorrect 'const'
-Date:   Sun,  9 May 2021 23:39:17 +0200
-Message-Id: <20210509213930.94120-23-alx.manpages@gmail.com>
+Subject: [PATCH] tzset.3: ffix
+Date:   Sun,  9 May 2021 23:39:18 +0200
+Message-Id: <20210509213930.94120-24-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210509213930.94120-1-alx.manpages@gmail.com>
 References: <20210509213930.94120-1-alx.manpages@gmail.com>
@@ -63,39 +63,24 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Neither POSIX or glibc use 'const' in
-pthread_mutexattr_setrobust().
-Remove it.
-
-.../glibc$ grep_glibc_prototype pthread_mutexattr_setrobust
-sysdeps/htl/pthread.h:355:
-extern int pthread_mutexattr_setrobust (pthread_mutexattr_t *__attr,
-					int __robustness)
-     __THROW __nonnull ((1));
-sysdeps/nptl/pthread.h:888:
-extern int pthread_mutexattr_setrobust (pthread_mutexattr_t *__attr,
-					int __robustness)
-     __THROW __nonnull ((1));
-.../glibc$
-
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/pthread_mutexattr_setrobust.3 | 2 +-
+ man3/tzset.3 | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man3/pthread_mutexattr_setrobust.3 b/man3/pthread_mutexattr_setrobust.3
-index dbf429c48..86aab88ed 100644
---- a/man3/pthread_mutexattr_setrobust.3
-+++ b/man3/pthread_mutexattr_setrobust.3
-@@ -33,7 +33,7 @@ pthread_mutexattr_getrobust, pthread_mutexattr_setrobust
+diff --git a/man3/tzset.3 b/man3/tzset.3
+index e4660be8b..c80da53f8 100644
+--- a/man3/tzset.3
++++ b/man3/tzset.3
+@@ -37,7 +37,7 @@ tzset, tzname, timezone, daylight \- initialize time conversion information
+ .nf
+ .B #include <time.h>
  .PP
- .BI "int pthread_mutexattr_getrobust(const pthread_mutexattr_t *" attr ,
- .BI "                                int *" robustness ");"
--.BI "int pthread_mutexattr_setrobust(const pthread_mutexattr_t *" attr ,
-+.BI "int pthread_mutexattr_setrobust(pthread_mutexattr_t *" attr ,
- .BI "                                int " robustness ");"
- .fi
+-.B void tzset (void);
++.B void tzset(void);
  .PP
+ .BI "extern char *" tzname [2];
+ .BI "extern long " timezone ;
 -- 
 2.31.1
 
