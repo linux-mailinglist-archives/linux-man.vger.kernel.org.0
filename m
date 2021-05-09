@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 49F2C3778C7
-	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 23:44:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8BA573778C8
+	for <lists+linux-man@lfdr.de>; Sun,  9 May 2021 23:44:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229992AbhEIVpJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 9 May 2021 17:45:09 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39538 "EHLO
+        id S229996AbhEIVpL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 9 May 2021 17:45:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39540 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229994AbhEIVpH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 17:45:07 -0400
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6BACDC061763
-        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 14:44:03 -0700 (PDT)
-Received: by mail-wm1-x335.google.com with SMTP id l24-20020a7bc4580000b029014ac3b80020so10051769wmi.1
+        with ESMTP id S229969AbhEIVpI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 17:45:08 -0400
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 101ADC061573
+        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 14:44:04 -0700 (PDT)
+Received: by mail-wr1-x42f.google.com with SMTP id t18so14561001wry.1
         for <linux-man@vger.kernel.org>; Sun, 09 May 2021 14:44:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=Dxrip1DriFG4mNty1fFibeeBdt/qTPXSz05eCLUPgGM=;
-        b=UPS/S0M3/l67QP2DNhRVpm8/dktlEIUkVR5+T8rnC+C+Jt3IpzV6868hUKMcEQHXMa
-         BBHUvlr31yxi+mPuZrUNFBfV8ri9ZMFJVO8/LcK1Gr4M7aWEYKFcT7/Uf7oMY2TRi25o
-         bjYpimHggzG4JJAI02Z0MyS90oQ2MRbLLWFBb8f/N3vrUL7xCVC9gxRoWK4TEL+CxgVX
-         zA61+DFVpz2nOngGt3ZPTF2I5IVU2Fa7r5uiLj3opfaq2ARpBvyLR73UUOuSH61vHW40
-         FahUsjbeknjCy64x5qTya2EfEdpjGz1Ny6owr0O9Z6sTXEpiXERp4gTDSpvp3MXU4/Hb
-         6QpQ==
+        bh=yscD37x6LQPiGkNmU2OL1pgTWKpTZ9XmieDFuSsb8Dg=;
+        b=sc+NbO++04rUtwa4zkFrLMUAedrG/T29xyYZLf7DhxLX0EyX5fvX3n8ZHdsPR6FEVY
+         zk/l+a2VLO9ADuvv334U2E4xFN8S8KuMHuVPLQgeedDKFTFw2FJu0zt/DS5xURXuZvPO
+         z30DyLVvE4BLA1JQbpEZ2U5ucZtE1RIjiR9FfisAVngYhSKb40ZhJi8q2AVvX+FSRVLK
+         xoipBDv9P8MPuTqKRVikrMDAWJJLv+zLhAIPu7msof9QEkS/G1XGFk1tT1bU3VzkV8X0
+         XvNXzqYpwoMmA1LXnmKy2w5QsPr9C2KHgpGd/mWcUxiETIz5TGv/rKja+nt0gmVucwN8
+         6Rug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Dxrip1DriFG4mNty1fFibeeBdt/qTPXSz05eCLUPgGM=;
-        b=SQqQBu3FoBhWCRK4xahFiuYd4yJiXsObGma19fYfIxsu4zfLLhajvSthbNgrf4O/k2
-         T11vIhiV7Yhd7pfZr+lCqI7q/luRJ8c/rBafP2uOVWN8tg5ihdFceaW9N0DMgJ+FdbFI
-         /eLNkIokb2DvJmEFjtPuAXwpW1EvBrlvsjyrLyT/+VpuewvRPBX1BUzghpG0azT8W1rX
-         6R1LB1opTSX89gjowBM1CmRQ11egxhEwB7rXLkGqmk0ac2o0tfBwpnCbOGJevBm2wiSc
-         DXHn5pI72+lh2RacrWlDvrvDvqO/22iH5E+ZXHev4ZBpzkd/gQdftgStb7x4dxxmqgJR
-         LAkg==
-X-Gm-Message-State: AOAM533KEwk3sfFoKkB/mpgwx1ZjNxbko5qn7pseqLjq2PZxBoVzI55F
-        wOcx4wudd6zeVI4ofvqVeV0=
-X-Google-Smtp-Source: ABdhPJzbYB5+WNCqDM72wGZ8zsOnBR+hRKLRfa69IsukuI3yiS+Q5AjHj28iJEXPV/PulOQu3wn04g==
-X-Received: by 2002:a05:600c:3542:: with SMTP id i2mr19585726wmq.171.1620596642215;
+        bh=yscD37x6LQPiGkNmU2OL1pgTWKpTZ9XmieDFuSsb8Dg=;
+        b=ckMfdPUkRc1aw10bxb/7jw4dSU+leERQY3GYdGChrA5LKac1Ewt6ble1VSFFS6OqTF
+         gCCeSaGhvU6eXsCz1oCJ0qb6aO/i+CNCwPV3ktpXZomCICMotZH05s6ilb4/14Jg/v2i
+         KdQcXlEbrAhal9fl4I9i09tgzruozjznEgB7Cpjq4Qw84c8HGHY7qeFABCBntC+TvxJP
+         rRzdNztrMrI8gyaiB8TgneVwbmEBswGXJo8YSGf+sKBToU5A41aKEF/rjdX4bBo4h1+s
+         srSFULyQCN230FQB5QZESRTHpmM3TBds4FLJsrk0dDtCtNvU8A90DnNY4DLRwgkfDmk5
+         2GnQ==
+X-Gm-Message-State: AOAM530FqQbFDWQ6B2ooXJj1BADYYnltAqFDF6EQ/wZrjfFyIzJjLfrI
+        F8UVNKOTuIIjSNiqXLXXNoKLQRK3NWaJaA==
+X-Google-Smtp-Source: ABdhPJyQBejrUtfBMou721CkSJXiahNuW0v4n8/KQsJCkdRG698ya5i2xxhoOxgneZg2iVdV4jHtoA==
+X-Received: by 2002:adf:ed4b:: with SMTP id u11mr26694141wro.293.1620596642864;
         Sun, 09 May 2021 14:44:02 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id u6sm16495530wml.6.2021.05.09.14.44.01
+        by smtp.googlemail.com with ESMTPSA id u6sm16495530wml.6.2021.05.09.14.44.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 May 2021 14:44:01 -0700 (PDT)
+        Sun, 09 May 2021 14:44:02 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH] getutmp.3: ffix
-Date:   Sun,  9 May 2021 23:39:03 +0200
-Message-Id: <20210509213930.94120-9-alx.manpages@gmail.com>
+Subject: [PATCH] on_exit.3: ffix
+Date:   Sun,  9 May 2021 23:39:04 +0200
+Message-Id: <20210509213930.94120-10-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210509213930.94120-1-alx.manpages@gmail.com>
 References: <20210509213930.94120-1-alx.manpages@gmail.com>
@@ -65,24 +65,22 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/getutmp.3 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ man3/on_exit.3 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man3/getutmp.3 b/man3/getutmp.3
-index e5e85aced..012cfdf6f 100644
---- a/man3/getutmp.3
-+++ b/man3/getutmp.3
-@@ -31,8 +31,8 @@ getutmp, getutmpx \- copy utmp structure to utmpx, and vice versa
- .BR "#define _GNU_SOURCE" "             /* See feature_test_macros(7) */"
- .B #include <utmpx.h>
+diff --git a/man3/on_exit.3 b/man3/on_exit.3
+index afcd9f9ed..7997b601e 100644
+--- a/man3/on_exit.3
++++ b/man3/on_exit.3
+@@ -35,7 +35,7 @@ on_exit \- register a function to be called at normal process termination
+ .nf
+ .B #include <stdlib.h>
  .PP
--.BI " void getutmp(const struct utmpx *" ux ", struct utmp *" u );
--.BI " void getutmpx(const struct utmp *" u ", struct utmpx *" ux );
-+.BI "void getutmp(const struct utmpx *" ux ", struct utmp *" u );
-+.BI "void getutmpx(const struct utmp *" u ", struct utmpx *" ux );
+-.BI "int on_exit(void (*" function ")(int , void *), void *" arg );
++.BI "int on_exit(void (*" function ")(int, void *), void *" arg );
  .fi
- .SH DESCRIPTION
- The
+ .PP
+ .RS -4
 -- 
 2.31.1
 
