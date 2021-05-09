@@ -2,64 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 19B42377956
-	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 01:46:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 107D7377959
+	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 01:49:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230014AbhEIXrX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 9 May 2021 19:47:23 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37756 "EHLO
+        id S229898AbhEIXuT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 9 May 2021 19:50:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38382 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229964AbhEIXrX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 19:47:23 -0400
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com [IPv6:2607:f8b0:4864:20::102b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C794EC061573
-        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 16:46:19 -0700 (PDT)
-Received: by mail-pj1-x102b.google.com with SMTP id l10-20020a17090a850ab0290155b06f6267so9012579pjn.5
-        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 16:46:19 -0700 (PDT)
+        with ESMTP id S229882AbhEIXuS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 19:50:18 -0400
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com [IPv6:2607:f8b0:4864:20::631])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4CC04C061573
+        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 16:49:14 -0700 (PDT)
+Received: by mail-pl1-x631.google.com with SMTP id s20so8226533plr.13
+        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 16:49:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=CtUOqTXhAs5mibL1NM25PjhMP3yi8kyLTRT6Dp0ptmo=;
-        b=ZKXsunQdkXTH8CLWBmJn3HYmyK5DxtMPSjtULf76M/Ft62O7silFSOpDEfJRnj6zJa
-         hokRW5mk6J8LMYEy1O/QFNmnbTMG9fkxFZPqpIXZrU9xWvNQt5ElY9JNwx/fIx8ZvJ3Q
-         C1WDgCB4xR15I8//gbFIt1ZsyZiYeWB5LrYLpDFCgdp0x8Muc+b0D1vqBNo8zHDHKUbp
-         t0nCJKIzRO/h07wroSoQyIBs1h1LRZrLy7oz2GAdkpKsBNpLqRavtp/oC0Th+B9t+Z2p
-         /4HDZ6pzkdJVCn0mOcjvIpOKeklu+aZvNo6T+qQTmzCCXHPn9hTHQegA/FjEAAiVFNDa
-         Xjeg==
+        bh=VK+GAOfpZb2H49meLe8ZF6427EgJ1Ek38Gv4gmh7M6o=;
+        b=eLUjhZl7XRxAQu0wet9Q+rP4WOyecUhWyumbcFFb3R3WtKeWlmfeWBptx8T5VqJLm9
+         /CrPmuiywmAdPZ6havUXN8yGqTHy2kCnWNh82zLrNSrt/0Qo3uUQaGTPYT/7k8Gnsxo+
+         Rkc+GRxy2ZpMYW8gxGYv+UHNPjD0jP3oblqME+y3a7W3qDSqBwyoLO8N6hAvrSA01HrV
+         fPPPTMb93CfpIRtozRaFufbm+bOG2BLfkg1FBxe5AmWkFgRNuaQjMKkrH966tAM8Gw9T
+         3Q94Ip0VNlEL6C2TWyy4RRt3N99JofPGCnZiYY/zdd7gVQUdBjxuAwnfsZRLRFvAwIMN
+         9ybg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=CtUOqTXhAs5mibL1NM25PjhMP3yi8kyLTRT6Dp0ptmo=;
-        b=eMDb97pq5FlAB96n6vmIy3pegSLy/mj8XnBJdkxQZdtfwXzxwiElzsca7W5st80/d6
-         +ifE2tNidh1xw3xB+eOobwQG9NFVNKovgZ5S5JKtAv9KBWlu7hlb3KacOPCGsn1GNUyR
-         jPQ6YKLWh4obvbqSH5/fI2eaXVPNAvmsBkC2NUNsHsGf+Wnxsj3MRVP4XobUkKqxPLyX
-         NlHkTdncWM4JpyKUpvc2CMi3ndqAdJK0IbNWAIZuMKeH0ale0G5nQiFpypsUEI85Yn6x
-         u1FVhkU27xBeGN0/1DfSERVmd2kSlm1pv7zxf+L+fFi0Cv2IXM4Qdj+IufsZv75CkBlB
-         YqBg==
-X-Gm-Message-State: AOAM531k3CAlF1t+GQkxtP8c+j3n2ByAQNw04VkDNgbRGu3eehxkhtEE
-        wkloWKK7vDj8xdoqWAIp26zSg98U4i8=
-X-Google-Smtp-Source: ABdhPJw+Sup4qjk1umpZcN0jZql3CKURQ5t7BnLXcr0wu2ewHy0QnInl7g9em3uJpR4HxNMw75shVg==
-X-Received: by 2002:a17:90a:d255:: with SMTP id o21mr2180870pjw.136.1620603979094;
-        Sun, 09 May 2021 16:46:19 -0700 (PDT)
+        bh=VK+GAOfpZb2H49meLe8ZF6427EgJ1Ek38Gv4gmh7M6o=;
+        b=V8MW1MN3NTcP/HtZ2Ih+vBIqMMOvDZqUM0bZxU3Slj/mBYUjQe+8/vek4E5K8W5lVV
+         UmhWMkXiFtAvKIhhe8NrWTK2AUbsjVxh61jDCXMmHjMb9u3YuRF2U0UPScy4EIlnnOyJ
+         cRUwLc1nbcKbuu1m29DRJDYxTeQeWfc/n7PPoXexRA6YMf7IpF5pYYzr0e6n0crixNqe
+         JoCGZZTtfvf2Xy+5GgWX5HXVIwPG2LrllQ+gkDf7H53mqQUC/eQQRc+aPIARg/Dr0FYT
+         07B5W113NeztSL+kCxCNxjo7grvQf5o/6Vefa4Hl17E1Uvnbrzx+1ZLaM25mjhyqheji
+         EA1w==
+X-Gm-Message-State: AOAM530OWy2QluVsnMgKsXc/JahtEPswjCcAA+hTWHQw4gPP4eD+f208
+        uaUT+N+KrQjfzKqg+X0VPkVr1U1FpcM=
+X-Google-Smtp-Source: ABdhPJy1Ch3NyCRKjvieM6n0Ls0ZQ3e3OoIZaDY4yMFtyRrjZayv98yPRYnUhcSK3k4qQg2NuSFAOA==
+X-Received: by 2002:a17:90a:6289:: with SMTP id d9mr24316348pjj.84.1620604153748;
+        Sun, 09 May 2021 16:49:13 -0700 (PDT)
 Received: from [192.168.192.21] (47-72-82-130.dsl.dyn.ihug.co.nz. [47.72.82.130])
-        by smtp.gmail.com with ESMTPSA id b21sm9291899pfl.82.2021.05.09.16.46.16
+        by smtp.gmail.com with ESMTPSA id h1sm9343335pfo.200.2021.05.09.16.49.11
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 09 May 2021 16:46:18 -0700 (PDT)
+        Sun, 09 May 2021 16:49:13 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] system_data_types.7: tfix
+Subject: Re: [PATCH] cpow.3: Use 'complex' after the type consistently
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 References: <20210509213930.94120-1-alx.manpages@gmail.com>
- <20210509213930.94120-36-alx.manpages@gmail.com>
+ <20210509213930.94120-30-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <f8f1e644-1fb6-dc65-fc8c-5af22617e418@gmail.com>
-Date:   Mon, 10 May 2021 11:46:15 +1200
+Message-ID: <20353b65-6aed-1270-7286-20cb7ae18aaa@gmail.com>
+Date:   Mon, 10 May 2021 11:49:10 +1200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210509213930.94120-36-alx.manpages@gmail.com>
+In-Reply-To: <20210509213930.94120-30-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -70,11 +70,7 @@ X-Mailing-List: linux-man@vger.kernel.org
 Hi Alex,
 
 On 5/10/21 9:39 AM, Alejandro Colomar wrote:
-> Those pages didn't exist.  Fix the section number.
-> I noticed the typo thanks to the HTML pages on man7.org.
-> 
 > Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-
 
 Applied.
 
@@ -83,42 +79,28 @@ Thanks,
 Michael
 
 
-
 > ---
->  man7/system_data_types.7 | 6 +++---
+>  man3/cpow.3 | 6 +++---
 >  1 file changed, 3 insertions(+), 3 deletions(-)
 > 
-> diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-> index e038aab1e..ddabefd16 100644
-> --- a/man7/system_data_types.7
-> +++ b/man7/system_data_types.7
-> @@ -374,7 +374,7 @@ POSIX.1-2001 and later.
->  .BR getegid (2),
->  .BR getgroups (2),
->  .BR getresgid (2),
-> -.BR getgrnam (2),
-> +.BR getgrnam (3),
->  .BR credentials (7)
->  .RE
->  .\"------------------------------------- id_t -------------------------/
-> @@ -675,7 +675,7 @@ C11 and later; POSIX.1-2001 and later.
->  .IR "See also" :
->  .BR setlocale (3),
->  .BR localeconv (3),
-> -.BR charsets (5),
-> +.BR charsets (7),
->  .BR locale (7)
->  .RE
->  .\"------------------------------------- ldiv_t -----------------------/
-> @@ -1534,7 +1534,7 @@ POSIX.1-2001 and later.
->  .BR getuid (2),
->  .BR geteuid (2),
->  .BR getresuid (2),
-> -.BR getpwnam (2),
-> +.BR getpwnam (3),
->  .BR credentials (7)
->  .RE
->  .\"------------------------------------- uintmax_t --------------------/
+> diff --git a/man3/cpow.3 b/man3/cpow.3
+> index 494b88f74..be93bff74 100644
+> --- a/man3/cpow.3
+> +++ b/man3/cpow.3
+> @@ -11,10 +11,10 @@ cpow, cpowf, cpowl \- complex power function
+>  .nf
+>  .B #include <complex.h>
+>  .PP
+> -.BI "double complex cpow(double complex " x ", complex double " z ");"
+> -.BI "float complex cpowf(float complex " x ", complex float " z ");"
+> +.BI "double complex cpow(double complex " x ", double complex " z );
+> +.BI "float complex cpowf(float complex " x ", float complex " z );
+>  .BI "long double complex cpowl(long double complex " x ,
+> -.BI "                          complex long double " z ");"
+> +.BI "                          long double complex " z );
+>  .PP
+>  Link with \fI\-lm\fP.
+>  .fi
 > 
 
 
