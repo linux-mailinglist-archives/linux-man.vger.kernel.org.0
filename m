@@ -2,101 +2,86 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E9159377CFA
-	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 09:15:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 57697378F8A
+	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 15:53:50 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230002AbhEJHQa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 10 May 2021 03:16:30 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51070 "EHLO
+        id S236798AbhEJNmQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 10 May 2021 09:42:16 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44888 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229863AbhEJHQ3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 10 May 2021 03:16:29 -0400
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 31836C061573
-        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 00:15:25 -0700 (PDT)
-Received: by mail-wr1-x429.google.com with SMTP id z6so15422118wrm.4
-        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 00:15:25 -0700 (PDT)
+        with ESMTP id S235833AbhEJNFQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 10 May 2021 09:05:16 -0400
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4915BC061760
+        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 06:04:11 -0700 (PDT)
+Received: by mail-wr1-x435.google.com with SMTP id v12so16540575wrq.6
+        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 06:04:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=biEVHGIAsk/PN/b/D/Tv33XewqSmycS3fB8myNpyJAw=;
-        b=fDD+byyDDV/TwOZX4m2FqOiCWTz3w8vZmRUFz9BOFOQLHTCynuN1ASYuxnjLcBznLg
-         yML0c6YSZHtJKTfmLCRZB+PZYg3XGZ6QYbIs85I/9k5PTO7+HcNc8bd6qGSO9290tPV+
-         fn0ufQIWntCtHEbIU81SJoNSVbn3CnlKx7X3n0c2YRPwugO/VAZznRSDdtkBeq+wlH73
-         jxXTSkikqyGp6sz7g9A3PNuneg9cFxtZzxBReCHI6SC8mZkYgQdxuJ3qz6eyqoWrsooW
-         +j9TXfTvtjgikfA3KlNDq6bNAID0rXbvhG+A98CiL1BCuQ5Q3hh7wOVgB6YAbe/BiSah
-         lD4g==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=nEinNU2nC4AIhGUdQMLeYJNZ0vUkBA38/+bD7iNKrxk=;
+        b=sihev2leabfgjsOGSmJowjQRO00MRjmkmPae71tz7eB1N11UJKq1nXv1OD3BP1z3Z/
+         hTXJa8KBZUDb02+qKEQkMEeFS1l2qlpPpRZKq8vLFYmYUM46sdqd9N5DGrZLQMwkTFxf
+         2qW4UHKIrU45hSlimJRKEI9pxJyTYg7gH6H0LKzzROUDEUY4MDNY84uzuBNhYr+dAMe7
+         UinM9M644PZ6p6zBeH/vKnuIni3mcBT7/zPhTFwxNCOI/Nak5Gxcna9+OmjTZUDfOu7b
+         W7jAASpoeVGaeB7F/shsyU/+T0F/MJ8sV6pI6GP4Ia0gMKZofDaqdwgKIPqLasYMiolS
+         0xbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=biEVHGIAsk/PN/b/D/Tv33XewqSmycS3fB8myNpyJAw=;
-        b=LJ1M556tEr8PzJhcN8JmePuLcUJFI+K22t7fF22mUDMjYAkoSVKTpv81WdR6Jb+MT2
-         fMh1JtGcSDYTrbsHEcoyI+ltR9rwglREGF8BqBReWNzK2Pno2vsEB8UmtFEiQoIclzno
-         VKylKnst/U/zaXZAeaqgDH+fDZqdj9gpRtndMXyOelXgdU4DSaejtN2oSwZoshRabI/B
-         XWiWujc0whM5cD2ISyTfz/d0IxQhxuXu31TAyTiCLpj9j/bvHhlgpJniajMLBbtgLTTn
-         t8OLx+QeF2rE1tcX0iDfbFyZ8bqMDNbSpD27Uke8QLshhSnuFB7+5c46Vjii40/+eq0i
-         +LNg==
-X-Gm-Message-State: AOAM531LWMZkwraC8zint0FMxhr8Q2Xjo1Di3e1he0dQBDOfGOlIg3Ee
-        ZOAFx3tH9UG7TSDYQLS7Re8=
-X-Google-Smtp-Source: ABdhPJz6d60CbYfQ5TjKS/WKDEMB4hlPhzlDVfChRhwsySJ02PLSHdNRmQ0AC1VAKVLOAakOkXq1Xw==
-X-Received: by 2002:a5d:525c:: with SMTP id k28mr28494120wrc.158.1620630924045;
-        Mon, 10 May 2021 00:15:24 -0700 (PDT)
-Received: from [192.168.0.237] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id c14sm21788461wrt.77.2021.05.10.00.15.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 May 2021 00:15:23 -0700 (PDT)
-Subject: Re: [PATCH] .gitignore: Add file
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org,
-        Debian man-pages <manpages@packages.debian.org>,
-        "Dr . Tobias Quathamer" <toddy@debian.org>
-References: <20210509213930.94120-1-alx.manpages@gmail.com>
- <20210509213930.94120-35-alx.manpages@gmail.com>
- <ada1af82-0d46-6d84-c175-02755fef5968@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <50647a51-2f01-34a6-9f04-1a350663539f@gmail.com>
-Date:   Mon, 10 May 2021 09:15:22 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+        bh=nEinNU2nC4AIhGUdQMLeYJNZ0vUkBA38/+bD7iNKrxk=;
+        b=Tnu7/wg5blrAUK06sAcoWZoijCXFLzLnIBAcj4/vz1aHVYs3XdzZB+0clFA265THOK
+         Nc7Pbs205HUP18SA5iS7ZP6PSzPTwkQIEGJt7bhFYlUhr7V0G9MLhXmhvbOxfKnL8obS
+         qsz+Hwa5AYe/mFQ2QGL03bi3r7/3khDgF4KpzAnPVWQ1kfWFmaJutbELHw1hy0LWpONd
+         ANc6ZpPvKHBjy+XMhdnrIMCIvIn3TChSAHg/UVx1mz6Vrl+QZpyPkEfXnkLtkLQS+0dp
+         pbU57e0+pCb6iCownAFmYQzBtjDoTWD8zMh24bKfnmxq2BxTjK80iVZH0KOiJgwHcap7
+         Hung==
+X-Gm-Message-State: AOAM530CHjD8Pxwt9eYgGtGMROt5GuJSMra0/bEmL3omg6FTWLUiIg4F
+        C9jlRXNfV8SrjNQdOBAlImE=
+X-Google-Smtp-Source: ABdhPJy6DoQeJVbDkr9YM99d6r11sE7DbtuTDe2joZOApw2y6kMx5AzClzEOYSnVeUmhblA8sIhdzw==
+X-Received: by 2002:a5d:64e5:: with SMTP id g5mr31004557wri.30.1620651850073;
+        Mon, 10 May 2021 06:04:10 -0700 (PDT)
+Received: from sqli.sqli.com ([195.53.121.100])
+        by smtp.googlemail.com with ESMTPSA id m11sm22659805wri.44.2021.05.10.06.04.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 May 2021 06:04:08 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: [PATCH] execveat.2: Remove unused include
+Date:   Mon, 10 May 2021 15:02:10 +0200
+Message-Id: <20210510130209.4578-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <ada1af82-0d46-6d84-c175-02755fef5968@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+This complements commit e3eba861bd966911b38b7ebc572f0c092ca7bdee.
 
-On 5/10/21 3:02 AM, Michael Kerrisk (man-pages) wrote:
->> diff --git a/.gitignore b/.gitignore
->> new file mode 100644
->> index 000000000..9eb9fc096
->> --- /dev/null
->> +++ b/.gitignore
->> @@ -0,0 +1,13 @@
->> +# Ignore everything new by default
->> +/*
->> +
->> +# Ignore everything in man?/ that doesn't follow conventions (e.g., tmp files)
->> +!/man?/
->> +/man?/**
->> +!/man?/**.?
-> 
-> Why '**'? Is '*' not sufficient in both of the above?
+Since we don't need syscall(2) anymore, we don't need SYS_* definitions.
 
-You're right.  '*' is sufficient.  Please fix it yourself :)
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+ man2/execveat.2 | 1 -
+ 1 file changed, 1 deletion(-)
 
-Thanks,
-
-Alex
-
-
+diff --git a/man2/execveat.2 b/man2/execveat.2
+index 11ae04a9f..495617b09 100644
+--- a/man2/execveat.2
++++ b/man2/execveat.2
+@@ -29,7 +29,6 @@ execveat \- execute program relative to a directory file descriptor
+ .SH SYNOPSIS
+ .nf
+ .BR "#include <linux/fcntl.h>" "      /* Definition of " AT_* " constants */"
+-.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
+ .B #include <unistd.h>
+ .PP
+ .BI "int execveat(int " dirfd ", const char *" pathname ,
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.31.1
+
