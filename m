@@ -2,59 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EA239379699
-	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 19:56:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id ED3B837969A
+	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 19:56:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233238AbhEJR5n (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S233250AbhEJR5n (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Mon, 10 May 2021 13:57:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54392 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54394 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233216AbhEJR5m (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 10 May 2021 13:57:42 -0400
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AA7AAC06175F
-        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:36 -0700 (PDT)
-Received: by mail-wm1-x329.google.com with SMTP id p14-20020a05600c358eb029015c01f207d7so3661606wmq.5
-        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:36 -0700 (PDT)
+        with ESMTP id S233244AbhEJR5n (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 10 May 2021 13:57:43 -0400
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3A595C061574
+        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:38 -0700 (PDT)
+Received: by mail-wm1-x32c.google.com with SMTP id b19-20020a05600c06d3b029014258a636e8so9396471wmn.2
+        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=1C07pbVfBci82UwrAObKhnILR5DtdOchkev/ZB7utXg=;
-        b=c/5eeEpYJ11tyS9GySni7P03eNju/fbeaVQj1PqrZFHK7dq4EGHF6fWCAKfI8Wy2eG
-         fFBoqdE/zOVr9zEhZVpzxOZ52RxmjQtti/yrGikJIRBmu9AV/27x7qsFghj7U49HHXQD
-         JkI/yjby5v+qo5m88DZelIlFBqo/G+Kaqnti38NSm9W7z7i3rWc0jVbzOdKegYZXNKqN
-         +Oa+sHUUSYK+GDsbpw52xUBkJUnHDRLf2Ef04qqssjeyL2SOP5YpUQhijhecItZk9EZJ
-         po5kxN51Jwb+laqdy8olPSAlZ8/nPnoH6Dcz7owiYB8lt+s/WMas/5VLLqJPytymM+cz
-         Y+bQ==
+        bh=q6SqwAQCYmMULxt8LPPcAncAaNBX03J1Z11J3WZfLSI=;
+        b=cbNAU+7zHy/xx0m2hHuQCnSYUd8gXj4VJTax3nyNGqqlj8MBaH64oJ5A2CiKnGG30U
+         B7T77iT2prVkVtRJ0POIMQfLaKKmhaLGGja6rWH/za4wXt0Ib2IBGR1+wLaEn0rgtmq1
+         7+E9B+yO3FMt2zvsiv1kQOz7NK/n+xZW/l67VAZXpuRcXbEKy5KaUqQ5ZqZjZxBr4QWX
+         hQE2AGi3GBU8FjYPk/0r13Y1yduzfZQvKIG7DjaatDSkDahsqcBpZzgLutd6GnuoiYZp
+         0vZN9XowNWxje4ILpcsKti37pnNTxF0C8FE3GBIVItdwwhBSUtUjSmsgQ9Cxz/+iDMnI
+         gqyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=1C07pbVfBci82UwrAObKhnILR5DtdOchkev/ZB7utXg=;
-        b=Syr/Y+qSwrXCjN2rcsxPGy8oh8uiRoNtub1xj0dKBx57Y7bgBlciiOdVq+qIpjhrzO
-         qqGBw0N8F0hVF2n0zyIua6BTmddJSPC5wR4EJWm97n0AIAAQiMSKTzva03bhwBwQzuJt
-         sg9pGurZegGGp/2VJ3w2cnqn/0711MAoDz86iotkSGLAjpLQ0R2IkMMCYuMmK+j/vov+
-         plxByHWW2OVFtU2kkQEjMiUsO3L0PiYwEoHXbT79ANLtx7n9uP0e0gGos35QYY26fjZY
-         4FjR4MXV4/M1lNrozq0JJDARjVaPzEdVAu4KcJhFdNPHPuugSiCc5QrkG0NDhfzqdKJd
-         mbUw==
-X-Gm-Message-State: AOAM533sorSIyYBzGLSAGCsHOYmg1Zebyk2E8LJ3vSMk2egRuKGXSj8S
-        XBCKCeI1MRhi0sVNBEqT6S0=
-X-Google-Smtp-Source: ABdhPJz/sHuprn/NSrqA6hjwON4cmTD5ktxZbpMQdvPDL08v36+xQpW3B8tfMtxiqOS6cWlnjOzRBw==
-X-Received: by 2002:a05:600c:35d2:: with SMTP id r18mr16885113wmq.23.1620669395491;
-        Mon, 10 May 2021 10:56:35 -0700 (PDT)
+        bh=q6SqwAQCYmMULxt8LPPcAncAaNBX03J1Z11J3WZfLSI=;
+        b=AeloMimyLT+UH/Py1Dlk5S7eWTRLj8bPszfsrQOPrv+zDaWdYJP7r6g3jHzBawTJYq
+         /FbgscN52I2MDUMXeG/jlR85bfTt7ihOgYLQHHLATRXzNIu1XKk3I9Tce7rBA5f1vv+7
+         dc3x5cryZN9NV2VKcLjrUI7hb0f+p8qDlh12x7lDpMhG+W8PrEmdMd9ppFd4iD/3mD15
+         Joz3EOegHAWXu5TRYEcMVJ1MWrGtJEexqBa4+00gObR85xu/6KCnRe4viG+5hUvMYZX5
+         R6ABNPnDX8Of3A1l+uDBO1krwWyLVn5H8/qddOQRyj6hbzXfxEHkkKftQK4oLtL0xUdD
+         zZjQ==
+X-Gm-Message-State: AOAM5300pEfDdnHjYweF/MAwUt6u6yYTBJe1Qta5KsMoPClIzRujxkEa
+        FPI37Jl0Za7ShN/PlXJCud/neC1lj+U=
+X-Google-Smtp-Source: ABdhPJzY5hDNh4X7/Seh9B/fXxLHg55dsILR1o6l02A0spTvCF6QSVahq0a6leTpoT3yV4j9yIsPog==
+X-Received: by 2002:a05:600c:1909:: with SMTP id j9mr22170283wmq.100.1620669397036;
+        Mon, 10 May 2021 10:56:37 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id m13sm24318830wrw.86.2021.05.10.10.56.34
+        by smtp.googlemail.com with ESMTPSA id m13sm24318830wrw.86.2021.05.10.10.56.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 May 2021 10:56:35 -0700 (PDT)
+        Mon, 10 May 2021 10:56:36 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Florian Weimer <fweimer@redhat.com>, Jakub Wilk <jwilk@jwilk.net>,
         Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 13/39] kexec_load.2: Use syscall(SYS_...); for system calls without a wrapper
-Date:   Mon, 10 May 2021 19:55:22 +0200
-Message-Id: <20210510175546.28445-14-alx.manpages@gmail.com>
+Subject: [PATCH 14/39] scripts/bash_aliases: man_lsfunc(): Extract syscall name from syscall(SYS_...)
+Date:   Mon, 10 May 2021 19:55:23 +0200
+Message-Id: <20210510175546.28445-15-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210510175546.28445-1-alx.manpages@gmail.com>
 References: <20210510175546.28445-1-alx.manpages@gmail.com>
@@ -66,55 +66,21 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/kexec_load.2 | 24 +++++++++++++-----------
- 1 file changed, 13 insertions(+), 11 deletions(-)
+ scripts/bash_aliases | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/man2/kexec_load.2 b/man2/kexec_load.2
-index 62a3e2006..74f142355 100644
---- a/man2/kexec_load.2
-+++ b/man2/kexec_load.2
-@@ -29,18 +29,23 @@
- kexec_load, kexec_file_load \- load a new kernel for later execution
- .SH SYNOPSIS
- .nf
--.B #include <linux/kexec.h>
-+.BR "#include <linux/kexec.h>" "      /* Definition of " KEXEC_* " constants */"
-+.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
-+.B #include <unistd.h>
- .PP
--.BI "long kexec_load(unsigned long " entry ", unsigned long " nr_segments ,
--.BI "                struct kexec_segment *" segments ,
--.BI "                unsigned long " flags );
--.BI "long kexec_file_load(int " kernel_fd ", int " initrd_fd ,
--.BI "                unsigned long " cmdline_len ", const char *" cmdline ,
--.BI "                unsigned long " flags );
-+.BI "long syscall(SYS_kexec_load, unsigned long " entry ,
-+.BI "             unsigned long " nr_segments \
-+", struct kexec_segment *" segments ,
-+.BI "             unsigned long " flags );
-+.BI "long syscall(SYS_kexec_file_load, int " kernel_fd ", int " initrd_fd ,
-+.BI "             unsigned long " cmdline_len ", const char *" cmdline ,
-+.BI "             unsigned long " flags );
- .fi
- .PP
- .IR Note :
--There are no glibc wrappers for these system calls; see NOTES.
-+glibc provides no wrappers for these system calls,
-+necessitating the use of
-+.BR syscall (2).
- .SH DESCRIPTION
- The
- .BR kexec_load ()
-@@ -332,9 +337,6 @@ The
- system call first appeared in Linux 3.17.
- .SH CONFORMING TO
- These system calls are Linux-specific.
--.SH NOTES
--Glibc does not provide a wrapper for these system calls; call them using
--.BR syscall (2).
- .SH SEE ALSO
- .BR reboot (2),
- .BR syscall (2),
+diff --git a/scripts/bash_aliases b/scripts/bash_aliases
+index 358e2f37a..102c458d7 100644
+--- a/scripts/bash_aliases
++++ b/scripts/bash_aliases
+@@ -136,6 +136,7 @@ function man_lsfunc()
+ 	|sed_rm_ccomments \
+ 	|pcregrep -Mn '(?s)^ [\w ]+ \**\w+\([\w\s(,)[\]*]+?(...)?\s*\); *$' \
+ 	|grep '^[0-9]' \
++	|sed    's/syscall(SYS_\(\w*\),/\1(/' \
+ 	|sed -E 's/^[^(]+ \**(\w+)\(.*/\1/' \
+ 	|uniq;
+ }
 -- 
 2.31.1
 
