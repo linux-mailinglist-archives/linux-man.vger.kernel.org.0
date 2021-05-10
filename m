@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id F2D9537798E
-	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 02:50:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8F83C377998
+	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 03:02:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230034AbhEJAvU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 9 May 2021 20:51:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51620 "EHLO
+        id S230073AbhEJBDk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 9 May 2021 21:03:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54272 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229973AbhEJAvU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 20:51:20 -0400
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com [IPv6:2607:f8b0:4864:20::102c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 730D3C061573
-        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 17:50:16 -0700 (PDT)
-Received: by mail-pj1-x102c.google.com with SMTP id fa21-20020a17090af0d5b0290157eb6b590fso9284553pjb.5
-        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 17:50:16 -0700 (PDT)
+        with ESMTP id S229941AbhEJBDk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 21:03:40 -0400
+Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com [IPv6:2607:f8b0:4864:20::531])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 230C2C061573
+        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 18:02:36 -0700 (PDT)
+Received: by mail-pg1-x531.google.com with SMTP id m37so12107114pgb.8
+        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 18:02:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=GcpdigAzMBE0iQy/a+aL4SjU+0K2wcpmuxizKmUZVFA=;
-        b=n350CpEJtZWephSYG1HA0sg7dQvOul1w1ZIVHbf0SNeQGAuLR0xSdTHnLwoh9TWx51
-         Gwxsu805BkodNjZuUezpt1vlCHzSi9LD/k5m+2c5+QvEI7vHIU0IWAqVkhPIFiJizb1y
-         IwRpUO6YkKD7R5n1RuE1aW+lwHksKGV4AEQeJxhbdMe+roiyrK9cMyH/kTAeCLYIPM6P
-         HmgbX8Xn8ogGgxAjvyCx6xAmBwLRuCnMiJJ6MUR7MNCNHKvZ1YrRC8ue75BXIvQiKIli
-         hSSjr9CzUVflvFANkGHWEbHXg1ex0sRFaxmEhcNfzUJIueyDKOOV0gRb0dniSfeqhird
-         WF6A==
+        bh=/izs4QAVmwQrLa+bGXcdxKq0aRxKksP1Kv/mMZfL8cs=;
+        b=BYUA+ZLFvzPvh67UzHDz8GKpRPvVn0ltDlDChpbeS0vC/NflI7ifYHSXp3NwmDXTqB
+         yayr3exiC0vghLCBR+wZGIXr+SkNyvTCiCk7j8T14evRKWa+pIcHziCR+mzqLKg9gbRG
+         NBUDdV85oDFDyV6i67PWINWWa7gRPRNhEL7jEmMq0EbBEQZajAzPqWBktjcA13n8Dcis
+         aupwGC9bHm3/0NAQvKn6ipMStIDWyjZJcGn5JaVAAFCL+ld95tuiecUolKP/A2e5AcSb
+         4fXttQJ1HYgGQMXcJcuMeMmOpvXjeoU8OGp5trxBAOvYrCeJPKwUMcZ1becnxZ8UhRk3
+         SN2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=GcpdigAzMBE0iQy/a+aL4SjU+0K2wcpmuxizKmUZVFA=;
-        b=Z0qGnl+44OScRlsvTp6U64KbKRSAa4mEJ/u8xwLrDu1W2WFfIKvJZ3Idx9VUuJAB33
-         aof82Y1jliGXsOFC2jiFVtWqSpxZqNPK4yJ7OROUuXLC3dhak6yKy11sWS/k81fYfnR/
-         ERlTtmNvvJovNApLARXyGvZchhC+LNBwDjq3jHKE0BrdXbwTINr14B0pYFHH+NXxLCZv
-         xE/m/E+t8at2Uo31Gh/ST3eZD0wgj+GaIHB5BWhm6H6e08zv6PZSkRNNnVjO7YIfZZdl
-         QACpS8eKC8gE6iFEMU1WzrSs4e9wjUv+YsJQMXQBRlEw3tuWtaCw3u4Lcw8wWT/7JrnD
-         szMg==
-X-Gm-Message-State: AOAM531J93y6nm1tk2qVk//nYkkIVuixRB69FmfWqoiDO4TWy7eAzgsi
-        Jn4q79L3NGWQV/PXNL3LbEI=
-X-Google-Smtp-Source: ABdhPJwLoo6DrsZhSwpfHUhQxqMlMFFqn87p8I37fN/jis5bm7fgy80D55KfHicE8FQQMLeBtAeftQ==
-X-Received: by 2002:a17:90a:4282:: with SMTP id p2mr12372032pjg.21.1620607815938;
-        Sun, 09 May 2021 17:50:15 -0700 (PDT)
+        bh=/izs4QAVmwQrLa+bGXcdxKq0aRxKksP1Kv/mMZfL8cs=;
+        b=eBV8FCkg2H58E9YMKHZuUYjIv3nWHazcQCB6Q5oAcbQH6mYM90tjMVgqVebYtK5DGC
+         C6lDB3/dvT7EG69SoDzGL1/o1/A3XF2sTAV/TvnHW2b6S13B8W8tkRWm/X17f8LGQqml
+         qOL75utUZScnNpBclylWjLU0EeCBXeKFEE+LbpWlFr0r112MgsvstxP+myOZI+JfNbjN
+         Yjed6I5zsRuWMY4PVm5dDkxtuNaFTIDycKN0SERErdRoYG2Yz8EVvBDs93zxFQKlYy7d
+         K96gEf2eYboGkTWZ1m59/ZSAxgKPzUiRP/m9SS3KhuNlKDlKKHrvw44FK2qDrA/JRVct
+         gREg==
+X-Gm-Message-State: AOAM533t/p4lv1WzHGa/kvo0M7sZhTDzToE5Q64+5UGyEbP6rxP/twSR
+        /j9FS/x4vdJunuiKWgPqZbc=
+X-Google-Smtp-Source: ABdhPJwyVwO9RPrlIoy8pdjw/QHXbhU/RLcjuU5lpodKDbpPq+Ci8b0iwQJWdLAUcrAm5Evp8yYF1Q==
+X-Received: by 2002:a63:4a4b:: with SMTP id j11mr22092496pgl.451.1620608555656;
+        Sun, 09 May 2021 18:02:35 -0700 (PDT)
 Received: from [192.168.192.21] (47-72-82-130.dsl.dyn.ihug.co.nz. [47.72.82.130])
-        by smtp.gmail.com with ESMTPSA id a20sm9606011pfn.23.2021.05.09.17.50.12
+        by smtp.gmail.com with ESMTPSA id k69sm9959887pgc.45.2021.05.09.18.02.32
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 09 May 2021 17:50:15 -0700 (PDT)
+        Sun, 09 May 2021 18:02:35 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Walter Harms <wharms@bfs.de>, Theodore Ts'o <tytso@mit.edu>,
-        Adam Borowski <kilobyte@angband.pl>
-Subject: Re: [PATCH] open.2: Fix bug in linkat(2) call example
+        Debian man-pages <manpages@packages.debian.org>,
+        "Dr . Tobias Quathamer" <toddy@debian.org>
+Subject: Re: [PATCH] .gitignore: Add file
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 References: <20210509213930.94120-1-alx.manpages@gmail.com>
- <20210509213930.94120-6-alx.manpages@gmail.com>
+ <20210509213930.94120-35-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <ebf17ada-9086-d2de-1995-70572238f9a4@gmail.com>
-Date:   Mon, 10 May 2021 12:50:10 +1200
+Message-ID: <ada1af82-0d46-6d84-c175-02755fef5968@gmail.com>
+Date:   Mon, 10 May 2021 13:02:31 +1200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210509213930.94120-6-alx.manpages@gmail.com>
+In-Reply-To: <20210509213930.94120-35-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,54 +69,49 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi ALex,
+Hi Alex,
 
 On 5/10/21 9:39 AM, Alejandro Colomar wrote:
-> AT_EMPTY_PATH works with empty strings (""), but not with NULL
-> (or at least it's not obvious).
+> Ignore everything new by default.
 > 
-> The relevant kernel code is the following:
+> This avoids having to update the .gitignore when we need to ignore
+> something new.  It also avoids accidents that may add an unwanted
+> temporary file.
 > 
-> linux$ sed -n 189,198p fs/namei.c
-> 	result->refcnt = 1;
-> 	/* The empty path is special. */
-> 	if (unlikely(!len)) {
-> 		if (empty)
-> 			*empty = 1;
-> 		if (!(flags & LOOKUP_EMPTY)) {
-> 			putname(result);
-> 			return ERR_PTR(-ENOENT);
-> 		}
-> 	}
-> 
-> Reported-by: Walter Harms <wharms@bfs.de>
-> Cc: Theodore Ts'o <tytso@mit.edu>
-> Cc: Adam Borowski <kilobyte@angband.pl>
+> Cc: Debian man-pages <manpages@packages.debian.org>
+> Cc: Dr. Tobias Quathamer <toddy@debian.org>
 > Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
+>  .gitignore | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>  create mode 100644 .gitignore
+> 
+> diff --git a/.gitignore b/.gitignore
+> new file mode 100644
+> index 000000000..9eb9fc096
+> --- /dev/null
+> +++ b/.gitignore
+> @@ -0,0 +1,13 @@
+> +# Ignore everything new by default
+> +/*
+> +
+> +# Ignore everything in man?/ that doesn't follow conventions (e.g., tmp files)
+> +!/man?/
+> +/man?/**
+> +!/man?/**.?
 
-Thanks. Patch applied.
+Why '**'? Is '*' not sufficient in both of the above?
 
-Cheers,
+Thanks,
 
 Michael
 
-> ---
->  man2/open.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man2/open.2 b/man2/open.2
-> index 6360636af..bac1ee806 100644
-> --- a/man2/open.2
-> +++ b/man2/open.2
-> @@ -824,7 +824,7 @@ fd = open("/path/to/dir", O_TMPFILE | O_RDWR,
->  
->  /* File I/O on \(aqfd\(aq... */
->  
-> -linkat(fd, NULL, AT_FDCWD, "/path/for/file", AT_EMPTY_PATH);
-> +linkat(fd, "", AT_FDCWD, "/path/for/file", AT_EMPTY_PATH);
->  
->  /* If the caller doesn\(aqt have the CAP_DAC_READ_SEARCH
->     capability (needed to use AT_EMPTY_PATH with linkat(2)),
+> +
+> +# These files change name in each release
+> +!/man-pages*.Announce
+> +!/man-pages*.lsm
+> +
+> +!/scripts/
 > 
 
 
