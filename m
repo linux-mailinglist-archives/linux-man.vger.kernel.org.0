@@ -2,188 +2,101 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 209DB379174
-	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 16:54:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DDD983791C3
+	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 16:59:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S239406AbhEJOzV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 10 May 2021 10:55:21 -0400
-Received: from mail.kernel.org ([198.145.29.99]:46720 "EHLO mail.kernel.org"
+        id S237211AbhEJPAk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 10 May 2021 11:00:40 -0400
+Received: from mga18.intel.com ([134.134.136.126]:9298 "EHLO mga18.intel.com"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S240259AbhEJOxr (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 10 May 2021 10:53:47 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 47A4561285;
-        Mon, 10 May 2021 14:52:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1620658361;
-        bh=wvCtPiG4DUjaMhc2IQ+bK/Ksak8Pcm3gw+tCQA74m3k=;
-        h=From:To:Cc:Subject:Date:From;
-        b=CbmHRFpJa7KHrFH+00tG0uJL3xF1rzAWxEt3zbom8ARPJoIN4dyDq2iVHav0qfOQB
-         dLz4K+sDD5E1K4T8NNniik9i1FbbdW2VVBxxTVdPF/PhvKZkMkVjVRjTwwh2Y2NnRw
-         i8SzPnSyaLQULSav4lYx+UtZglGj36pG8ksBDnNAKZnhtT1kbseIWc/atg2aawqQ0f
-         LiaS2bBaYXQJMwu6QLq+pCVCskvujIrkXV0aSqINb70UqoJ7NxwbihWZjTRfNhBbel
-         SalHPbX6eE1gu2hmZE6TJNZP9qAR6HQzstiMr+FkgRS5IMeKQQ7EhLJfO1NS34OFfv
-         UlkUuaBT8v2Tg==
-From:   Jarkko Sakkinen <jarkko@kernel.org>
-To:     mtk.manpages@gmail.com
+        id S239306AbhEJO7y (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 10 May 2021 10:59:54 -0400
+IronPort-SDR: s4iFd6h//2oTygU8XGccYCIP/iPXvAUTU7hvuXb3NsVqVp2Xz/K082dynjzJpu9Xt6rJ+yEFoc
+ 2hwjX3gChwlA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9980"; a="186657643"
+X-IronPort-AV: E=Sophos;i="5.82,287,1613462400"; 
+   d="scan'208";a="186657643"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 May 2021 07:58:30 -0700
+IronPort-SDR: mkNJj3NCe2GWNVScN00wf3jNlnSMMqF1aDT9LXqxION8rEjwHEgrgY0XJhc7epxALybL6a7MWp
+ O1fruJrioE8w==
+X-IronPort-AV: E=Sophos;i="5.82,287,1613462400"; 
+   d="scan'208";a="454436772"
+Received: from jlmille3-mobl1.amr.corp.intel.com (HELO [10.212.177.136]) ([10.212.177.136])
+  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 May 2021 07:58:30 -0700
+Subject: Re: [PATCH v5] sgx.7: New page with overview of Software Guard
+ eXtensions (SGX)
+To:     Jarkko Sakkinen <jarkko@kernel.org>, mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org, linux-sgx@vger.kernel.org,
-        dave.hansen@linux.intel.com, Jarkko Sakkinen <jarkko@kernel.org>
-Subject: [PATCH v5] sgx.7: New page with overview of Software Guard eXtensions (SGX)
-Date:   Mon, 10 May 2021 17:52:35 +0300
-Message-Id: <20210510145235.8056-1-jarkko@kernel.org>
-X-Mailer: git-send-email 2.31.1
+        dave.hansen@linux.intel.com
+References: <20210510145235.8056-1-jarkko@kernel.org>
+From:   Dave Hansen <dave.hansen@intel.com>
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+ z5cecg==
+Message-ID: <3072f586-4200-a0a1-8c85-fca0102e7913@intel.com>
+Date:   Mon, 10 May 2021 07:58:27 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <20210510145235.8056-1-jarkko@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
----
+On 5/10/21 7:52 AM, Jarkko Sakkinen wrote:
+> +This can lead to reserving a large region than required by the payload,
+> +but the address space can be obviously trimmed after the enclave has been
+> +constructed on,
+> +with a sequence of
+> +.BR mmap(MAP_FIXED)
+> +calls.
 
-v5:
-* Taking away hardware concepts and focusing more on the interface.
-v4:
-* Did a heavy edit trying to streamline the story a bit and focus on
-  stuff important to the user (e.g. lighten up x86 details).
-v3:
-* Overhaul based on Michael's comments. Most likely needs to be refined
-  in various places but this is at least a small step forward for sure.
-v2:
-* Fixed the semantic newlines convention and various style errors etc.
-  that were reported by Alenjandro and Michael.
-* SGX was merged to v5.
+Sorry if I missed this previously.
 
- man7/sgx.7 | 121 +++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 121 insertions(+)
- create mode 100644 man7/sgx.7
-
-diff --git a/man7/sgx.7 b/man7/sgx.7
-new file mode 100644
-index 000000000..b93b0510e
---- /dev/null
-+++ b/man7/sgx.7
-@@ -0,0 +1,121 @@
-+.\" Copyright (C) 2021 Intel Corporation
-+.\"
-+.\" %%%LICENSE_START(VERBATIM)
-+.\" Permission is granted to make and distribute verbatim copies of this
-+.\" manual provided the copyright notice and this permission notice are
-+.\" preserved on all copies.
-+.\"
-+.\" Permission is granted to copy and distribute modified versions of this
-+.\" manual under the conditions for verbatim copying, provided that the
-+.\" entire resulting derived work is distributed under the terms of a
-+.\" permission notice identical to this one.
-+.\"
-+.\" Since the Linux kernel and libraries are constantly changing, this
-+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
-+.\" responsibility for errors or omissions, or for damages resulting from
-+.\" the use of the information contained herein.  The author(s) may not
-+.\" have taken the same level of care in the production of this manual,
-+.\" which is licensed free of charge, as they might when working
-+.\" professionally.
-+.\"
-+.\" Formatted or processed versions of this manual, if unaccompanied by
-+.\" the source, must acknowledge the copyright and authors of this work.
-+.\" %%%LICENSE_END
-+.\"
-+.TH SGX 7 2021\-02\-02 "Linux" "Linux Programmer's Manual"
-+.PP
-+sgx - overview of Software Guard eXtensions
-+.SH DESCRIPTION
-+.SS Overview
-+Intel Software Guard eXtensions (SGX) allow applications to host
-+protected executable objects in memory,
-+also known as
-+.I enclaves.
-+They are constructed with
-+.BR mmap (2)
-+and
-+.BR ioctl (2)
-+applied to
-+.I /dev/sgx_enclave.
-+The details of enclave's memory structure can be found in
-+the Intel Software Developers Manual.
-+.PP
-+SGX must be enabled in BIOS.
-+If SGX appears to be unsupported on a system having hardware support,
-+ensure that SGX is enabled in the BIOS.
-+If a BIOS presents a choice between
-+.I Enabled
-+and
-+.I Software Enabled
-+modes for SGX,
-+choose
-+.I Enabled.
-+.PP
-+SGX is available only if the kernel was configured and built with the
-+.B CONFIG_X86_SGX
-+option.
-+You can determine whether both the kernel and hardware together support SGX by
-+checking whether "sgx" appears in the
-+.I flags
-+field in
-+.IR /proc/cpuinfo .
-+.SS Construction
-+A process can create an enclave by using the
-+.BR ioctl (2)
-+interface provided and documented by
-+.IR <asm/sgx.h>
-+to
-+.I /dev/sgx_enclave.
-+.PP
-+An enclave's base address is fixed during the build time:
-+it is given to
-+.B SGX_IOC_ENCLAVE_CREATE,
-+which initiates the whole enclave build process.
-+.PP
-+As a consequence,
-+.BR mmap (2)
-+must be used to reserve a reasonable piece of the process address space,
-+before the build process can begin.
-+There is a hardware constraint that the enclave size must be a power of two,
-+and the base address must be a multiple of the size.
-+This can lead to reserving a large region than required by the payload,
-+but the address space can be obviously trimmed after the enclave has been
-+constructed on,
-+with a sequence of
-+.BR mmap(MAP_FIXED)
-+calls.
-+.PP
-+A process can access enclave by entering into its address space through
-+a set of entry points,
-+which must be defined during the construction process.
-+This requires a complex sequence of CPU instructions,
-+and kernel assisted exception handling,
-+encapsulated into
-+.BR vsgx_enter_enclave
-+vDSO interface,
-+provided and documented by
-+.IR <asm/sgx.h>.
-+.SS Permissions
-+In order to build an enclave, a process must be able to call
-+.IR mmap (2)
-+with
-+.IR PROT_EXEC
-+set.
-+Like for any other type of executable,
-+the page permissions must be set appropriately.
-+For this reason,
-+.I /dev/sgx_enclave
-+must reside in a partition,
-+which is not mounted as no-exec,
-+in order to be usable,
-+as
-+.IR mmap(2)
-+denies
-+.IR PROT_EXEC
-+otherwise.
-+.SH VERSIONS
-+The SGX feature was added in Linux 5.11.
-+.SH SEE ALSO
-+.BR ioctl (2),
-+.BR mmap() (2),
-+.BR mprotect (2)
--- 
-2.31.1
-
+But, do we really intend to suggest the use of mmap(MAP_FIXED) for this?
+ What's the harm in leaving a non-populated piece of address space of
+mmap()'d /dev/sgx_enclave?
