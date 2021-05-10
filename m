@@ -2,66 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8F83C377998
-	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 03:02:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BFDB8377999
+	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 03:03:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230073AbhEJBDk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 9 May 2021 21:03:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54272 "EHLO
+        id S230073AbhEJBEk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 9 May 2021 21:04:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54478 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229941AbhEJBDk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 21:03:40 -0400
-Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com [IPv6:2607:f8b0:4864:20::531])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 230C2C061573
-        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 18:02:36 -0700 (PDT)
-Received: by mail-pg1-x531.google.com with SMTP id m37so12107114pgb.8
-        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 18:02:36 -0700 (PDT)
+        with ESMTP id S229941AbhEJBEk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 9 May 2021 21:04:40 -0400
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com [IPv6:2607:f8b0:4864:20::102a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AB494C061573
+        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 18:03:35 -0700 (PDT)
+Received: by mail-pj1-x102a.google.com with SMTP id t2-20020a17090a0242b0290155433387beso7331743pje.1
+        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 18:03:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=/izs4QAVmwQrLa+bGXcdxKq0aRxKksP1Kv/mMZfL8cs=;
-        b=BYUA+ZLFvzPvh67UzHDz8GKpRPvVn0ltDlDChpbeS0vC/NflI7ifYHSXp3NwmDXTqB
-         yayr3exiC0vghLCBR+wZGIXr+SkNyvTCiCk7j8T14evRKWa+pIcHziCR+mzqLKg9gbRG
-         NBUDdV85oDFDyV6i67PWINWWa7gRPRNhEL7jEmMq0EbBEQZajAzPqWBktjcA13n8Dcis
-         aupwGC9bHm3/0NAQvKn6ipMStIDWyjZJcGn5JaVAAFCL+ld95tuiecUolKP/A2e5AcSb
-         4fXttQJ1HYgGQMXcJcuMeMmOpvXjeoU8OGp5trxBAOvYrCeJPKwUMcZ1becnxZ8UhRk3
-         SN2Q==
+        bh=gbgadjvxJ4aSkRRri6FxJ7fJqTuMv0QUUicWS6B4eMU=;
+        b=kWKu1BPYwsv6y8emAlAVRj47TwMfmga103rsW53qMwcNaZxX7N+kVB+QnPQZMCJjoe
+         ay5mjAAatodOvEqwfPHTcpqLt0fTw3k2vNSjSHR4OdmFIFgvc4gdS28gbdXJe+blE/Jo
+         ucOboDW+9g14tmNoHXt3KF63WrekeFwvZwZpzAOcSFzbLzSIvPidUW2F7ed74hBiHrl8
+         tEKEFBXDBnRt9JPCiQRymgcfcY/jqh2xpECkag1P1oUjXL0gRep5RKw1Nwb57ssi0x/I
+         g3/qBLrkLRZ6S9H1SpcVZtGOo8+rBd0MRuie5QMBXcKVjwwjFWc7Mi+aPo+xEUOWEDGq
+         UJwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=/izs4QAVmwQrLa+bGXcdxKq0aRxKksP1Kv/mMZfL8cs=;
-        b=eBV8FCkg2H58E9YMKHZuUYjIv3nWHazcQCB6Q5oAcbQH6mYM90tjMVgqVebYtK5DGC
-         C6lDB3/dvT7EG69SoDzGL1/o1/A3XF2sTAV/TvnHW2b6S13B8W8tkRWm/X17f8LGQqml
-         qOL75utUZScnNpBclylWjLU0EeCBXeKFEE+LbpWlFr0r112MgsvstxP+myOZI+JfNbjN
-         Yjed6I5zsRuWMY4PVm5dDkxtuNaFTIDycKN0SERErdRoYG2Yz8EVvBDs93zxFQKlYy7d
-         K96gEf2eYboGkTWZ1m59/ZSAxgKPzUiRP/m9SS3KhuNlKDlKKHrvw44FK2qDrA/JRVct
-         gREg==
-X-Gm-Message-State: AOAM533t/p4lv1WzHGa/kvo0M7sZhTDzToE5Q64+5UGyEbP6rxP/twSR
-        /j9FS/x4vdJunuiKWgPqZbc=
-X-Google-Smtp-Source: ABdhPJwyVwO9RPrlIoy8pdjw/QHXbhU/RLcjuU5lpodKDbpPq+Ci8b0iwQJWdLAUcrAm5Evp8yYF1Q==
-X-Received: by 2002:a63:4a4b:: with SMTP id j11mr22092496pgl.451.1620608555656;
-        Sun, 09 May 2021 18:02:35 -0700 (PDT)
+        bh=gbgadjvxJ4aSkRRri6FxJ7fJqTuMv0QUUicWS6B4eMU=;
+        b=SqZRwFNmSNaNuJdOpt1SQjiBibUF+xDSqPDXMcEuVzUwJIE6A8EJfrFzh1LlH/mcTy
+         VX8wB6qhk0iUaICCy208B/XHM/AXrwlY2GXZ64NsUQ+HRZqpUfOub56CMmDJzJkDGZvd
+         qfds/vuo1V92PHf3X7Ykn0x81CJ4FzyrYtE2m6fbcL6IbTQ4U50WAwHUZ1xIrnkrSpxv
+         BuD/CYJkNpuY8PMpwMILDDVFQuU/6HauJ5meaHpbSrGrDuiE6ra0nrTEapC17nIinYcr
+         Zf+7NV9/cDmdY2QPAW/M3D3ICyeuHlVjR0hvkCzxPlaglhlZaoQG8FMeOv6+63AKznza
+         PdhA==
+X-Gm-Message-State: AOAM531So5r6KUo+ywr04ENJ1Wx1QPfyoyXPHMGtCtl82dqMCiYIxhcS
+        E3c88aqAwMj5NLlPhsynaEzkHMd73Oc=
+X-Google-Smtp-Source: ABdhPJwlvGy6kkH4cQ/x0xNdhADrX40ux2gyPX7L0FZcmbME6bphKGjkmS1WfonfZiJ+AlqVTp706w==
+X-Received: by 2002:a17:903:228b:b029:ee:daa8:eca6 with SMTP id b11-20020a170903228bb02900eedaa8eca6mr21741315plh.38.1620608614800;
+        Sun, 09 May 2021 18:03:34 -0700 (PDT)
 Received: from [192.168.192.21] (47-72-82-130.dsl.dyn.ihug.co.nz. [47.72.82.130])
-        by smtp.gmail.com with ESMTPSA id k69sm9959887pgc.45.2021.05.09.18.02.32
+        by smtp.gmail.com with ESMTPSA id a16sm9626648pfc.37.2021.05.09.18.03.32
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 09 May 2021 18:02:35 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Debian man-pages <manpages@packages.debian.org>,
-        "Dr . Tobias Quathamer" <toddy@debian.org>
-Subject: Re: [PATCH] .gitignore: Add file
+        Sun, 09 May 2021 18:03:34 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] fflush.3: SEE ALSO: Add fpurge(3)
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 References: <20210509213930.94120-1-alx.manpages@gmail.com>
- <20210509213930.94120-35-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <ada1af82-0d46-6d84-c175-02755fef5968@gmail.com>
-Date:   Mon, 10 May 2021 13:02:31 +1200
+Message-ID: <66f4f252-81f4-f091-956d-0fa14aadaf9f@gmail.com>
+Date:   Mon, 10 May 2021 13:03:31 +1200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210509213930.94120-35-alx.manpages@gmail.com>
+In-Reply-To: <20210509213930.94120-1-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -71,47 +68,51 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Alex,
 
-On 5/10/21 9:39 AM, Alejandro Colomar wrote:
-> Ignore everything new by default.
+On 5/10/21 9:38 AM, Alejandro Colomar wrote:
+> fpurge(i_stream) does the same as fflush(i_stream), AFAIK.
 > 
-> This avoids having to update the .gitignore when we need to ignore
-> something new.  It also avoids accidents that may add an unwanted
-> temporary file.
-> 
-> Cc: Debian man-pages <manpages@packages.debian.org>
-> Cc: Dr. Tobias Quathamer <toddy@debian.org>
 > Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+
+Thanks. Patch applied.
+
 > ---
->  .gitignore | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
->  create mode 100644 .gitignore
 > 
-> diff --git a/.gitignore b/.gitignore
-> new file mode 100644
-> index 000000000..9eb9fc096
-> --- /dev/null
-> +++ b/.gitignore
-> @@ -0,0 +1,13 @@
-> +# Ignore everything new by default
-> +/*
-> +
-> +# Ignore everything in man?/ that doesn't follow conventions (e.g., tmp files)
-> +!/man?/
-> +/man?/**
-> +!/man?/**.?
+> Hi Michael,
+> 
+> This is the first of many separate patches that I had pending for you.
+> Some of them I already sent you, and you should ignore the old versions.
+> Some of them are new.
+> Please review them thoroughly, as I may have sent some patch that wasn't
+> ready.  In theory I have reviewed them enough, but there are a lot, and
+> I might have overlooked something.
 
-Why '**'? Is '*' not sufficient in both of the above?
+Some I looked at more closely. Others (e.g., patches to the scripts),
+I've taken on trust.
 
-Thanks,
+> When you review this "set", I'll send you another one about the SYNOPSIS.
+
+Okay.
+
+Cheers,
 
 Michael
 
-> +
-> +# These files change name in each release
-> +!/man-pages*.Announce
-> +!/man-pages*.lsm
-> +
-> +!/scripts/
+
+>  man3/fflush.3 | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/man3/fflush.3 b/man3/fflush.3
+> index 138c9bcfe..a600da2ae 100644
+> --- a/man3/fflush.3
+> +++ b/man3/fflush.3
+> @@ -133,6 +133,7 @@ or
+>  .BR sync (2),
+>  .BR write (2),
+>  .BR fclose (3),
+> +.BR fpurge (3),
+>  .BR fileno (3),
+>  .BR fopen (3),
+>  .BR setbuf (3),
 > 
 
 
