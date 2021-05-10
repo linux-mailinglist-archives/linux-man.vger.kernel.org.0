@@ -2,188 +2,138 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 38DEB37968B
-	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 19:56:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8CE7837968C
+	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 19:56:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232102AbhEJR5I (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 10 May 2021 13:57:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54218 "EHLO
+        id S231301AbhEJR50 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 10 May 2021 13:57:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54298 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231827AbhEJR5I (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 10 May 2021 13:57:08 -0400
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 69C00C061574
-        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:02 -0700 (PDT)
-Received: by mail-wr1-x431.google.com with SMTP id h4so17508294wrt.12
-        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:02 -0700 (PDT)
+        with ESMTP id S231827AbhEJR5Y (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 10 May 2021 13:57:24 -0400
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DAF85C061574
+        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:18 -0700 (PDT)
+Received: by mail-wm1-x32e.google.com with SMTP id y124-20020a1c32820000b029010c93864955so11656988wmy.5
+        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=qtL5V/SEFLwFzfyp8nQ8Gs6MzQRj4Vr2z6nayYWpGhE=;
-        b=nFQxjyeO/XDGkHg355c2bmMpu7FvpUOMTzPD//d7z5xUuyGcoya4qQlPZhAdZJD7RJ
-         lZ03HjdU+33kD5rV0CDH7/p6pMAlTrDidzux+YRa31MFIPAhDxvviYJ87kltKX2/7akS
-         A17gBdxStXJTLvAiDOkecJDSFiVeMEHqP71dj0QCUX/1qv3ZpK+OjJBhCzDADwuWbntL
-         DzjwGW7aIsytqvy3UlqbKvZWIr5KauUqQLQ96RuXFYbwVIB0aFp8vFjOlT2ZCgIGYjA1
-         0nHvBgpPihJZsuWakf4InVSug8hIzK+mLOhy0rj6kI5M3+nYc2tN9nEBaaoBd/ATRLtB
-         2FnQ==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=PyVoAYNT9D6Z7Sj/FgFphnsjcqRuTK3M36+LOKWAPbc=;
+        b=KOI+v+8TJoBe/oSByD6C4y46Rp785ZFqQxKNZ2wdxDwhWTy4zshdkVXMC2WcMcvkj5
+         c0xK+JlTGmLOwvyoZVGdvsfzinNqvZivZlPTsWUsHWYH18ZRXmfHS4QnU7Y7b9eThxdp
+         ooAYT9R6ZdjOsLlLI2ZXA9MIIBoFQ98gJnc3eBHFi7XWE+KuiWTaXn98YpHjsdceA5xa
+         SdTgvcsmD0iwjuAv1CsBQiry2hbb8hKPxozDJ5YoECgIheh+qO7++4eec3xkcnfb7sQG
+         fqR73+kLp86kC7DvJ/v2DPMBTJ/NQW32dMcfq4ZhbReG+ox5dCUzfUNfDU1pv/hyBQGP
+         AT6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=qtL5V/SEFLwFzfyp8nQ8Gs6MzQRj4Vr2z6nayYWpGhE=;
-        b=uKCnIVufI0FbUAP0j0qvmUZjWp3VGQGyEyVAQ2FZm58l2hfabI2HDwtJboQer7Bpdq
-         1H9toGjbkxe4NjU3gdgZzk3y7CSZAZInemNYHHXqwa8BnXqkqTMqGRMPbm5wac7fjxcK
-         BBMt6mHC8gc/Fdd1OYaIDGEXriArKz5cYsN4OyM1slGgXAaaGSYGGFtwm3h2PTzLv/l3
-         dsjJ2COUa8lB1kYyDOg6YzYfu/cnd4O21qP9o4eZvSsPVcog0uSL/bad5BFKKLzdD5Gk
-         3ycIIMNIrmxbQWkFsGxxVtvDqmQ7sTIlaQoL1m8D+DL7lE2X5IjdX8IoladEpf5/6bUH
-         kQHw==
-X-Gm-Message-State: AOAM531e+CbcRn4yUGeRSMYwHLvpG/kycts4shcLU3K7DbThVkGTLVFF
-        BxMsHOqTJ8+iEAsOOkvz4X0=
-X-Google-Smtp-Source: ABdhPJwFBvKx80I7gKF3D4OQbtfEqQIcGtBCIDM7SE/2mxDj6ky1WaCob7Hjod9i/jwHIUY0rb5+pA==
-X-Received: by 2002:a5d:6e06:: with SMTP id h6mr32047089wrz.201.1620669361156;
-        Mon, 10 May 2021 10:56:01 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=PyVoAYNT9D6Z7Sj/FgFphnsjcqRuTK3M36+LOKWAPbc=;
+        b=maax5p7Zw1wNlymheuZCHcGTKRAwxmo76uSqP4sJd8BZ46lEt6EBBMs9Imq/vSiAen
+         sqTIgMsHlJgEsedHQpsUL5LO2GH00IqjGd0byNZwKEbG3juOcbTmyV+vOgwt6XIjp5d9
+         PJpdAvV6rTsLRKpeUAQGyQCUVBqS4ZBH5XI8JBLtLdAaaK+Sgp9Z1YNb3xB8iiBCNanI
+         qXjJal/UDXv9nB14l0oDOFeHGxyrWULOmsZ2b+QFzd57hiW7ypcbLKJLF/7ymT9ukRg+
+         Fr/SJD7Rv/tHvuXCLp2VE9gyteb8hFxxDylTFDOfyXQ3b2zSpnhsJShGy+dH23P2fmlp
+         Bdrg==
+X-Gm-Message-State: AOAM531pU6fHaS/PEiEc1WUw5YJWRl9Lss5eRjpBfwcxOYJfch2W5pGq
+        0zJL0y+U/UWf7OAPFIemELM=
+X-Google-Smtp-Source: ABdhPJyi3XnFvyZbL65mzsCyIu7SLEyCdz9QCGXgBm6kBOYoica4tGpMMlQNyI3rB0PbmuuDCeekNg==
+X-Received: by 2002:a1c:4382:: with SMTP id q124mr27331306wma.63.1620669377667;
+        Mon, 10 May 2021 10:56:17 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id m13sm24318830wrw.86.2021.05.10.10.55.59
+        by smtp.googlemail.com with ESMTPSA id m13sm24318830wrw.86.2021.05.10.10.56.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 May 2021 10:56:00 -0700 (PDT)
+        Mon, 10 May 2021 10:56:17 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Florian Weimer <fweimer@redhat.com>, Jakub Wilk <jwilk@jwilk.net>,
         Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 00/39] man2: SYNOPSIS: Fix headers, use syscall(), and other fixes
-Date:   Mon, 10 May 2021 19:55:08 +0200
-Message-Id: <20210510175546.28445-1-alx.manpages@gmail.com>
+Subject: [PATCH 01/39] futex.2: Use syscall(SYS_...); for system calls without a wrapper
+Date:   Mon, 10 May 2021 19:55:10 +0200
+Message-Id: <20210510175546.28445-2-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210510175546.28445-1-alx.manpages@gmail.com>
+References: <20210510175546.28445-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+At the same time, document only headers that are required
+for calling the function, or those that are specific to the
+function:
 
-Hi Michael,
+<unistd.h> is required for the syscall() prototype.
+<sys/syscall.h> is required for the syscall name SYS_xxx.
+<linux/futex.h> is specific to this syscall.
 
-This is the second set of SYNOPSIS fixes, mostly about fixing the includes,
-giving reasons why they are being included, and using syscall(SYS_...) when
-needed.  Other minor fixes that I have noticed while doing this are also
-included in this set.
+However, uint32_t is generic enough that it shouldn't be
+documented here.  The system_data_types(7) page already documents
+it, and is more precise about it.  The same goes for timespec.
 
-After this set, about a 60% of man2 will be fixed.
+As a general rule a man[23] page should document the header that
+includes the prototype, and all of the headers that define macros
+that should be used with the call.  However, the information about
+types should be restricted to system_data_types(7) (and that page
+should probably be improved by adding types), except for types
+that are very specific to the call.  Otherwise, we're duplicating
+info and it's then harder to maintain, and probably outdated in
+the future.
 
-As with the previous patch set, please review thoroughly.  I might have
-overlooked something.  It looks good, but it's been a long time...
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+ man2/futex.2 | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
-I must notice that there are a few discrepancies (see the last mails there):
-<https://lore.kernel.org/linux-man/3d6feff0-f65b-f086-aa2a-be21ff90ccfe@gmail.com/T/#u>.
-
-Cheers,
-
-Alex
-
-
-
-Alejandro Colomar (39):
-  futex.2: Use syscall(SYS_...); for system calls without a wrapper
-  getdents.2: Use syscall(SYS_...); for system calls without a wrapper
-  ioctl_tty.2: Fix includes
-  ioctl_userfaultfd.2: SYNOPSIS: Add <linux/userfaultfd.h>
-  io_destroy.2: Use syscall(SYS_...); for system calls without a wrapper
-  io_getevents.2: Use syscall(SYS_...); for system calls without a
-    wrapper
-  ioperm.2: Remove obvious comment
-  ioprio_set.2: Use syscall(SYS_...); for system calls without a wrapper
-  ipc.2: Use syscall(SYS_...); for system calls without a wrapper
-  ipc.2: Add needed include
-  kcmp.2: Use syscall(SYS_...); for system calls without a wrapper
-  kcmp.2: tfix
-  kexec_load.2: Use syscall(SYS_...); for system calls without a wrapper
-  scripts/bash_aliases: man_lsfunc(): Extract syscall name from
-    syscall(SYS_...)
-  keyctl.2: Use syscall(SYS_...); for system calls without a glibc
-    wrapper
-  link.2: ffix
-  llseek.2: Use syscall(SYS_...); for system calls without a wrapper
-  lookup_dcookie.2: Use syscall(SYS_...); for system calls without a
-    wrapper
-  membarrier.2: Use syscall(SYS_...); for system calls without a wrapper
-  mincore.2: Remove unused include
-  mknod.2: Remove unused includes
-  mmap2.2: Use syscall(SYS_...); for system calls without a wrapper
-  modify_ldt.2: Use syscall(SYS_...); for system calls without a wrapper
-  mq_getsetattr.2: Use syscall(SYS_...); for system calls without a
-    wrapper
-  alloc_hugepages.2, arch_prctl.2, capget.2, clone.2, delete_module.2,
-    exit_group.2, get_robust_list.2, getunwind.2, init_module.2: Add
-    note about the use of syscall(2)
-  open.2: Remove unused <sys/stat.h>
-  openat2.2: Use syscall(SYS_...); for system calls without a wrapper;
-    fix includes too
-  perf_event_open.2: Use syscall(SYS_...); for system calls without a
-    wrapper
-  pidfd_getfd.2: Use syscall(SYS_...); for system calls without a
-    wrapper
-  pidfd_open.2: Use syscall(SYS_...); for system calls without a wrapper
-  pidfd_send_signal.2: Use syscall(SYS_...); for system calls without a
-    wrapper. Fix includes too
-  pipe.2: wfix
-  pivot_root.2: Use syscall(SYS_...); for system calls without a wrapper
-  poll.2: Remove <signal.h>
-  process_madvise.2: Use syscall(SYS_...); for system calls without a
-    wrapper. Fix includes too.
-  quotactl.2: Better detail why <xfs/xqm.h> is included
-  readdir.2: Use syscall(SYS_...); for system calls without a wrapper
-  readlink.2: ffix
-  reboot.2: Use syscall(SYS_...); for system calls without a wrapper
-
- man2/alloc_hugepages.2   |  5 +++++
- man2/arch_prctl.2        |  6 ++++++
- man2/capget.2            |  5 +++++
- man2/clone.2             |  6 ++++++
- man2/delete_module.2     |  6 ++++++
- man2/exit_group.2        |  6 ++++++
- man2/futex.2             | 21 +++++++++++----------
- man2/get_robust_list.2   |  5 +++++
- man2/getdents.2          | 20 +++++++++++++++-----
- man2/getunwind.2         |  6 ++++++
- man2/init_module.2       |  5 +++++
- man2/io_destroy.2        | 16 +++++++++-------
- man2/io_getevents.2      | 21 +++++++++++----------
- man2/ioctl_tty.2         |  6 +++---
- man2/ioctl_userfaultfd.2 |  1 +
- man2/ioperm.2            |  2 +-
- man2/ioprio_set.2        | 15 +++++++++------
- man2/ipc.2               | 19 ++++++++++++-------
- man2/kcmp.2              | 18 ++++++++++--------
- man2/kexec_load.2        | 24 +++++++++++++-----------
- man2/keyctl.2            | 17 +++++++----------
- man2/link.2              |  2 +-
- man2/llseek.2            | 13 +++++++------
- man2/lookup_dcookie.2    | 14 +++++++++-----
- man2/membarrier.2        | 16 ++++++++++------
- man2/mincore.2           |  1 -
- man2/mknod.2             |  2 --
- man2/mmap2.2             | 10 ++++++----
- man2/modify_ldt.2        | 15 ++++++++++-----
- man2/mq_getsetattr.2     | 15 ++++++---------
- man2/open.2              |  1 -
- man2/openat2.2           | 20 +++++++++++---------
- man2/perf_event_open.2   | 21 +++++++++++----------
- man2/pidfd_getfd.2       | 14 +++++++++-----
- man2/pidfd_open.2        | 13 ++++++++-----
- man2/pidfd_send_signal.2 | 16 ++++++++++------
- man2/pipe.2              |  4 ++--
- man2/pivot_root.2        | 14 +++++++++-----
- man2/poll.2              |  3 +--
- man2/process_madvise.2   | 20 ++++++++++++--------
- man2/quotactl.2          |  4 +++-
- man2/readdir.2           | 12 +++++++-----
- man2/readlink.2          |  2 +-
- man2/reboot.2            | 12 +++++++-----
- scripts/bash_aliases     |  1 +
- 45 files changed, 293 insertions(+), 182 deletions(-)
-
+diff --git a/man2/futex.2 b/man2/futex.2
+index 389c25224..ada96c517 100644
+--- a/man2/futex.2
++++ b/man2/futex.2
+@@ -25,18 +25,22 @@ futex \- fast user-space locking
+ .SH SYNOPSIS
+ .nf
+ .PP
+-.B #include <linux/futex.h>
+-.B #include <stdint.h>
+-.B #include <sys/time.h>
++.BR "#include <linux/futex.h>" "      /* Definition of " FUTEX_* " constants */"
++.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
++.B #include <unistd.h>
+ .PP
+-.BI "long futex(uint32_t *" uaddr ", int " futex_op ", uint32_t " val ,
+-.BI "          const struct timespec *" timeout , \
++.BI "long syscall(SYS_futex, uint32_t *" uaddr ", int " futex_op \
++", uint32_t " val ,
++.BI "             const struct timespec *" timeout , \
+ " \fR  /* or: \fBuint32_t \fIval2\fP */"
+-.BI "          uint32_t *" uaddr2 ", uint32_t " val3 );
++.BI "             uint32_t *" uaddr2 ", uint32_t " val3 );
+ .fi
+ .PP
+ .IR Note :
+-There is no glibc wrapper for this system call; see NOTES.
++glibc provides no wrapper for
++.BR futex (),
++necessitating the use of
++.BR syscall (2).
+ .SH DESCRIPTION
+ The
+ .BR futex ()
+@@ -1695,9 +1699,6 @@ and a sixth argument was added in Linux 2.6.7.
+ .SH CONFORMING TO
+ This system call is Linux-specific.
+ .SH NOTES
+-Glibc does not provide a wrapper for this system call; call it using
+-.BR syscall (2).
+-.PP
+ Several higher-level programming abstractions are implemented via futexes,
+ including POSIX semaphores and
+ various POSIX threads synchronization mechanisms
 -- 
 2.31.1
 
