@@ -2,59 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8CB9A379696
-	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 19:56:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A1DB4379697
+	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 19:56:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233197AbhEJR5i (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 10 May 2021 13:57:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54364 "EHLO
+        id S233228AbhEJR5j (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 10 May 2021 13:57:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54374 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233228AbhEJR5h (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 10 May 2021 13:57:37 -0400
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4573EC061574
-        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:32 -0700 (PDT)
-Received: by mail-wr1-x435.google.com with SMTP id m9so17548055wrx.3
-        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:32 -0700 (PDT)
+        with ESMTP id S233216AbhEJR5j (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 10 May 2021 13:57:39 -0400
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0C8E0C061574
+        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:34 -0700 (PDT)
+Received: by mail-wr1-x430.google.com with SMTP id d4so17520851wru.7
+        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=tCTG34hdZboLuFGiSMahTg8ehQUvLx/up9jZ2mFNHYQ=;
-        b=AHY5EVa2ZHA6IkqmqiANcHxAOYVP8U9FIN7ms8RxyiqtFyyVTeH2aKtNm9YwJBGibo
-         wX6ZmEm2da3XrnL0HFWE2A93HLsHQl0qeYvSYCgjW7qIlN429zfHHL6Hl6Dt9+qUr6/l
-         +aHluFDtPZLDRoTnUITK6ggRHVtAUnjiURvQHLNx8ver9nmjfGe+UjISXv474XNHEzjp
-         bIcl25gEkZKoP1tI1qBPsdxnzKU/kCtCL3UdkFz73LySywMmVxoDcj7lLMHJdQ60pxOz
-         Us2666JsviOo20ITWNkZMerbt0Y1MXE+KMnY4qLvd3FkcMh43+ujVeqtiXU4ncQZwk5U
-         Ismg==
+        bh=SnUiudXLqLGUXWxfTqP+91+DkoZGHPr6kchEeZQJTNs=;
+        b=HglVEjuaiocY5I2rHHPLniXAPQJ4iRtMGvANpGTGcrd+OjLhxwVNwkwi2C3/ONum+9
+         YVCJ8ceEbcMoEjVESXbCOkUSe66EgJ4QmGRlf737V+G9xjVpbVkyaGUtm+cBKD8QSIAL
+         P437qv+WGRQD6UhDuxXwPVo3YbeauJOCc7cULF+HnxRgjLGqSOjfNlwbId06kshqOh5G
+         gRarFlh7T4P9KqF9G1E8e75BuyZ2i4MjC3xj+W2VRfKT4/7s5e+5zp/J9AydXHNx4XGf
+         YW9MhigzzaemwTeRDJ3jTSXZ/ujlO8AOeNLu6AnS0mXm1TXq6oD0u6oSi3/Two17pQ0a
+         s8nA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=tCTG34hdZboLuFGiSMahTg8ehQUvLx/up9jZ2mFNHYQ=;
-        b=SVKwYx451BWzenbiiGRGmwDC5a5ZykWoaxKcjRtOsDs4OKrc6v5eSSpfD4G/nDcFkF
-         sJAvh6C5TTBZ53iETfNzQ7byJK1ZXf6ATWbfDQsZPLeod3qZmj9dgK6E5m1SJkcEbLX7
-         bC/ysm3tCvwP00qw68+VzztEppJ6BTgLoOGLbkrnLH5ZVtq06KdOZwwQAjSB0Ok6GJOo
-         LAlZ4CB8qMPp7alu4nIx477x2hlltIDyrflGIrLrXxTAA+HRoqzRPqqA1aiz1HZ/n8Vw
-         ibtLCooMFMhMY5eeBUoqjxJIPxlASpsouKpwJQcb3xMlTfEfbAeLiaHEsdt/1Pt+xlT2
-         SX/A==
-X-Gm-Message-State: AOAM532pDLDyNVVwi7m9zlPwyYcsA+LLZ2MC6Ez+4vEdIek3+3oa6t67
-        rwd2X38jj7fNGoiceUnwmVs=
-X-Google-Smtp-Source: ABdhPJxR7yEL96C7ouoKk4I4Xkjx4q+xdtiInk8plO8F/8RwwJL68qRovf4LPOsMsY8XkR9W90hnxg==
-X-Received: by 2002:adf:ec82:: with SMTP id z2mr31888681wrn.214.1620669391090;
-        Mon, 10 May 2021 10:56:31 -0700 (PDT)
+        bh=SnUiudXLqLGUXWxfTqP+91+DkoZGHPr6kchEeZQJTNs=;
+        b=R5qwi8Imdxe+po3pGZuQvF6NriW/p1Z2Gi6XmWlVR7mdZOhN8u1hp/XT+pcvhYnZKO
+         dGKDQM0Rp6WQCbGeqCVk1MJRA7QIGriwMcLS3EvoVBw7YC7CcGk48u4lk3vLw5e0q2b+
+         XI2/2BcosLDW2qgstSLobDgn9Sg1QNMUNUzfu14Ae3+fTKz/2KLv0WfJBDv/KMa2zmFo
+         QX0om+t3NPiAu23Q1ZW9CZKC/i8InOLHqpDGLfducarGlROOBTtxS1cOcoR1fJYkr617
+         27P6bjz0wnff54najrnSsoRCdXP0Ws33QhspdmvOlBiL0t4YA75sqiGkKiHZEy9gI7qO
+         ZVxw==
+X-Gm-Message-State: AOAM533rrznooLU8DGYMOrYYyv9AlOzNt0wvlEqXA9ycJJ/1nu+MkC9j
+        vtbC1w8+mmKWP5USBEzN4Gc=
+X-Google-Smtp-Source: ABdhPJzclYY2wEsgT2IAwSBpHWtXuGO53l1sVL+jOMpSwTMmnhZUiRLdprTmzB5wJPgkmt6jjV7zXQ==
+X-Received: by 2002:a5d:5745:: with SMTP id q5mr33147642wrw.250.1620669392795;
+        Mon, 10 May 2021 10:56:32 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id m13sm24318830wrw.86.2021.05.10.10.56.29
+        by smtp.googlemail.com with ESMTPSA id m13sm24318830wrw.86.2021.05.10.10.56.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 May 2021 10:56:30 -0700 (PDT)
+        Mon, 10 May 2021 10:56:32 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Florian Weimer <fweimer@redhat.com>, Jakub Wilk <jwilk@jwilk.net>,
         Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 10/39] ipc.2: Add needed include
-Date:   Mon, 10 May 2021 19:55:19 +0200
-Message-Id: <20210510175546.28445-11-alx.manpages@gmail.com>
+Subject: [PATCH 11/39] kcmp.2: Use syscall(SYS_...); for system calls without a wrapper
+Date:   Mon, 10 May 2021 19:55:20 +0200
+Message-Id: <20210510175546.28445-12-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210510175546.28445-1-alx.manpages@gmail.com>
 References: <20210510175546.28445-1-alx.manpages@gmail.com>
@@ -64,27 +64,49 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The constants needed for using this function are defined in
-<linux/ipc.h>.  Add the include, even when those constants are not
-mentioned in this manual page.
-
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/ipc.2 | 1 +
- 1 file changed, 1 insertion(+)
+ man2/kcmp.2 | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/man2/ipc.2 b/man2/ipc.2
-index f505fa1c9..4ce29ca69 100644
---- a/man2/ipc.2
-+++ b/man2/ipc.2
-@@ -27,6 +27,7 @@
- ipc \- System V IPC system calls
+diff --git a/man2/kcmp.2 b/man2/kcmp.2
+index 3cc7f7d6f..b0994758a 100644
+--- a/man2/kcmp.2
++++ b/man2/kcmp.2
+@@ -30,14 +30,19 @@
+ kcmp \- compare two processes to determine if they share a kernel resource
  .SH SYNOPSIS
  .nf
-+.BR "#include <linux/ipc.h>" "        /* Definition of needed constants */"
- .BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
- .B #include <unistd.h>
+-.B #include <linux/kcmp.h>
++.BR "#include <linux/kcmp.h>" "       /* Definition of " KCMP_* " constants */"
++.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
++.B #include <unistd.h>
  .PP
+-.BI "int kcmp(pid_t " pid1 ", pid_t " pid2 ", int " type ,
+-.BI "         unsigned long " idx1 ", unsigned long "  idx2 );
++.BI "int syscall(SYS_kcmp, pid_t " pid1 ", pid_t " pid2 ", int " type ,
++.BI "            unsigned long " idx1 ", unsigned long "  idx2 );
+ .fi
+ .PP
+ .IR Note :
+-There is no glibc wrapper for this system call; see NOTES.
++glibc provides no wrapper for
++.BR kcmp (),
++necessitating the use of
++.BR syscall (2).
+ .SH DESCRIPTION
+ The
+ .BR kcmp ()
+@@ -303,9 +308,6 @@ system call first appeared in Linux 3.5.
+ .BR kcmp ()
+ is Linux-specific and should not be used in programs intended to be portable.
+ .SH NOTES
+-Glibc does not provide a wrapper for this system call; call it using
+-.BR syscall (2).
+-.PP
+ Before Linux 5.12,
+ this system call is available only if the kernel is configured with
+ .BR CONFIG_CHECKPOINT_RESTORE ,
 -- 
 2.31.1
 
