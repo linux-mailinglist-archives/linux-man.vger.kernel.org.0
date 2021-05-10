@@ -2,109 +2,122 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4C870377B33
-	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 06:26:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A1030377C87
+	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 08:53:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229936AbhEJE1v (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 10 May 2021 00:27:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42310 "EHLO
+        id S230002AbhEJGzC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 10 May 2021 02:55:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46202 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229569AbhEJE1u (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 10 May 2021 00:27:50 -0400
-Received: from mail-il1-x131.google.com (mail-il1-x131.google.com [IPv6:2607:f8b0:4864:20::131])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7FDB2C061573;
-        Sun,  9 May 2021 21:26:46 -0700 (PDT)
-Received: by mail-il1-x131.google.com with SMTP id w13so792706ilv.11;
-        Sun, 09 May 2021 21:26:46 -0700 (PDT)
+        with ESMTP id S229863AbhEJGzB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 10 May 2021 02:55:01 -0400
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 51433C061573
+        for <linux-man@vger.kernel.org>; Sun,  9 May 2021 23:53:56 -0700 (PDT)
+Received: by mail-wm1-x32a.google.com with SMTP id s5-20020a7bc0c50000b0290147d0c21c51so8200230wmh.4
+        for <linux-man@vger.kernel.org>; Sun, 09 May 2021 23:53:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=vrW6spNhSrHQfksBCubidylUZF4PsPIbB3rPZO64ujI=;
-        b=maMV82VdZ+6NVY1H1vUwxTqXy0nXFpllHSIJ/tyCXiwj9kE0LCybDNLh4PhzoP7aVE
-         YoOi2jEd7ZfhUFyLEa2yiFCg2G0lnQ52DEOXXYCtn+JOxlrmUytOXJxIbXydU8ixOHvl
-         q1XrwslzrWDiizvyPzeB4pwn9kb6bKR0zDi4/3ued811MlgT5DJwX8fqzElF7rEmEiIN
-         JC1UvngquTTbQYaZNe00U3qPgFxpW3hvPUDuPWo14ZnNrUuGRfh0RtTx+nHEP5F8Ehwz
-         cmCrTFy6AKYWTdpWHwxxlGQrBH6jXLvfNog9Itvgv9e4VJR0tF3D+Qr2sN4gbzL9V/MQ
-         DjIw==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=J4gPTCO7pqd3oyrnzTDKsbqjpnIHokUwN7/TGT9AKK0=;
+        b=AIT7iELh2/jvubRb/6NZzOoOITgRSF8xuuPSvqi/HPu4YMVZbLwS+C4hxBv934uGpP
+         vDMkjUD4TAsVAhvrS3gk4c76aZpLNkQK/VTIufE+C+PhK8I4RpMar4Q4CxbaPxWTb/xW
+         ZUCabzSoKnG2Hy7MytS0CI6QO+t9weQLEmhOagyAYbBmxsp8ikIbIvMBOU3rOM5RDTOp
+         wK7GJccwcUG7BtOw4XO6W9ymjcL1vLNS8EGAZ5BjcQxbCPK6DKK9tm+d/VCxspiPX7mz
+         Te1kNaS0qK2ukNVqiM90LRqZsob6BQDFp5U5V7SXKmSICA+PqYR+4lKjenUUrwgAFXMP
+         Jy/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=vrW6spNhSrHQfksBCubidylUZF4PsPIbB3rPZO64ujI=;
-        b=MrOPpdZ5wANG5RnpxJLylN6Mm4toHi2jkJracIDxw1maW/t5STCrufNo1joPikN0ei
-         bbkohS8pe6eW/glliM635/VuUZ+Kf1TkPINZPqmM+1Gkv0BOWuC7D+6PvYdr3WHbrIyM
-         2geS80O9JfPcd9FyXTqOnhdU0GbckIl03D80sJ+LXHh8jjqidqSNYE3P+GuvOKCWYr1U
-         IlddQHaQKx2bO8bM0CwNYOGUcYB1415hzeDR16UqAm5c7zSL422fBWoslOTJisuK9TlT
-         zFVp8PEBipp/wlWGEv/TO/tXAxekMjlYfeEbfIBRGYddcNOmwEfTp4bBezD1B879K1t4
-         m+nA==
-X-Gm-Message-State: AOAM533kkS1afMP1RqTZRF+ekS6EK0axVodxt/GZRqbax3oJsXAspWv6
-        q57MBJyw5EKbPU/YjHap4qIc0KtlgRy+TRJ0KXc=
-X-Google-Smtp-Source: ABdhPJxrhdp8bUdHz5FwO47aZSX+yN3CdPcXDTAW/eIBd6hg2GtSC8JJuxS00T9WmDG2mjyZ7CDbKZl2xrtx3BZ15gU=
-X-Received: by 2002:a92:de0c:: with SMTP id x12mr20195626ilm.275.1620620806016;
- Sun, 09 May 2021 21:26:46 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210509213930.94120-1-alx.manpages@gmail.com>
- <20210509213930.94120-12-alx.manpages@gmail.com> <a95d7a31-2345-8e1e-78d7-a1a8f7161565@gmail.com>
-In-Reply-To: <a95d7a31-2345-8e1e-78d7-a1a8f7161565@gmail.com>
-From:   Amir Goldstein <amir73il@gmail.com>
-Date:   Mon, 10 May 2021 07:26:35 +0300
-Message-ID: <CAOQ4uxgB+sZ08jB+mFXuPJfTSJUV+Re5XKQ=hN7A4xfYo0dj6A@mail.gmail.com>
-Subject: Re: [PATCH] copy_file_range.2: Update cross-filesystem support for 5.12
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=J4gPTCO7pqd3oyrnzTDKsbqjpnIHokUwN7/TGT9AKK0=;
+        b=ox1L9POBj+i017zEZWpvfQ7eoc9lBDLUqQWSRdA+J7vO53IsW5RzNwY5ZVzPNCyIpz
+         Cdb34zksKB+witQsp4djkoZ+tmrTlg/jMOjlEnKOULH8NcZx9kdhEdaigBXVh15LxULe
+         mTjV86Kxc7WE8us8cCC7RzqYUgDOlXDPfdbGgPsfrux42nJDbDL+hUGGZohGdts+ScHE
+         QLJpyVfpTKPHmTCeMaamjE5Uh7N+hejFNelsLRcB/m+Dtflnsw6T+x/tuUp0ys6oA0ax
+         NzryaYLaGItOCVkhmUWrRn2WLk3VNBEr5+2pKTCM1Nd6BOUlVlhV1+WqDJEaWPoagMLJ
+         v9ew==
+X-Gm-Message-State: AOAM5320OZc89skWrNSMaDQMehumUTUbjJYa9LMrDzI0U+wIFHMFXAtO
+        mDLH9+gEFlzM3rWjKNfi8Bg=
+X-Google-Smtp-Source: ABdhPJynBZMC1riYg7/w59o5uvApzp2OXEmORyNEwDOVSkqsZY7cDIcWhD1sLyVqcnNlYE3rpO8jbw==
+X-Received: by 2002:a1c:6485:: with SMTP id y127mr20621470wmb.181.1620629634947;
+        Sun, 09 May 2021 23:53:54 -0700 (PDT)
+Received: from [192.168.0.237] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id x17sm24270705wmc.11.2021.05.09.23.53.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 09 May 2021 23:53:54 -0700 (PDT)
+Subject: Re: [PATCH] Makefile: Simplify error handling
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Luis Henriques <lhenriques@suse.de>,
-        Greg KH <gregkh@linuxfoundation.org>,
-        Anna Schumaker <anna.schumaker@netapp.com>,
-        Jeff Layton <jlayton@kernel.org>,
-        Steve French <sfrench@samba.org>,
-        Miklos Szeredi <miklos@szeredi.hu>,
-        Trond Myklebust <trond.myklebust@hammerspace.com>,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        "Darrick J. Wong" <darrick.wong@oracle.com>,
-        Dave Chinner <dchinner@redhat.com>,
-        Nicolas Boichat <drinkcat@chromium.org>,
-        Ian Lance Taylor <iant@google.com>,
-        Luis Lozano <llozano@chromium.org>,
-        Andreas Dilger <adilger@dilger.ca>,
-        Olga Kornievskaia <aglo@umich.edu>,
-        Christoph Hellwig <hch@infradead.org>,
-        ceph-devel <ceph-devel@vger.kernel.org>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        CIFS <linux-cifs@vger.kernel.org>,
-        samba-technical <samba-technical@lists.samba.org>,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        Linux NFS Mailing List <linux-nfs@vger.kernel.org>,
-        Walter Harms <wharms@bfs.de>
-Content-Type: text/plain; charset="UTF-8"
+Cc:     linux-man@vger.kernel.org,
+        "Dr. Tobias Quathamer" <toddy@debian.org>,
+        Matthias Klose <doko@debian.org>,
+        Andrej Shadura <andrewsh@debian.org>
+References: <20210509213930.94120-1-alx.manpages@gmail.com>
+ <20210509213930.94120-37-alx.manpages@gmail.com>
+ <daae8bd2-bfd4-548a-7b28-5744676f27e2@gmail.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <90fd4c9b-5470-93e9-496a-0d0cdc2f17d4@gmail.com>
+Date:   Mon, 10 May 2021 08:53:53 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
+MIME-Version: 1.0
+In-Reply-To: <daae8bd2-bfd4-548a-7b28-5744676f27e2@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, May 10, 2021 at 3:01 AM Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
->
+[CC += Tobias, Mathias, Andrej]
+
+Hi Michael,
+
+On 5/10/21 1:45 AM, Michael Kerrisk (man-pages) wrote:
 > Hi Alex,
->
+> 
 > On 5/10/21 9:39 AM, Alejandro Colomar wrote:
-> > Linux 5.12 fixes a regression.
+>> Instead of having to write '|| exit $$?' all the time,
+>> use the shell's '-Eeuo pipefail' options, which handle
+>> errors even better.  However, pipefail needs bash,
+>> so POSIX sh (default) is not valid.
+>>
+>> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+>> ---
+>>
+>> Hi Michael,
+>>
+>> I'm not sure how much POSIX sh compatibility is needed for the man pages
+>> Makefile.  There are probably projects out there that don't have bash,
+>> and still want to use it.  So maybe we should't apply this.  I don't know.
+>> Up to you.
+> 
+> I think I'll skip this one. I'm not sure if it might cause some
+> problem for Debian, where the default shall is dash(1), I believe.
 
-Nope.
-That never happened:
-https://lore.kernel.org/linux-fsdevel/8735v4tcye.fsf@suse.de/
+Debian has dash(1) as the default _non-interactive_ shell, but also has 
+bash(1) as the default _interactive_ shell.  See 
+<https://wiki.debian.org/Shell>.
 
-> >
-> > Cross-filesystem (introduced in 5.3) copies were buggy.
-> >
-> > Move the statements documenting cross-fs to BUGS.
-> > Kernels 5.3..5.11 should be patched soon.
-> >
-> > State version information for some errors related to this.
->
-> Thanks. Patch applied.
+I can confirm that using Debian (sid) myself (and having not installed 
+bash(1) myself) I'm using this Makefile without any issue.
 
-I guess that would need to be reverted...
+However, it's true that other smaller distros might not come with bash(1).
+
+So still up to you :)
+
+I forgot to CC the Debian maintainer of manpages in this patch this 
+time; fixed.  I also CCed the bash(1) and dash(1) Debian maintainers, 
+just in case they have any comments.
 
 Thanks,
-Amir.
+
+Alex
+
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
