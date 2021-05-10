@@ -2,59 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CB2833796A7
-	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 19:56:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D85883796A8
+	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 19:57:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233289AbhEJR6E (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 10 May 2021 13:58:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54496 "EHLO
+        id S233297AbhEJR6F (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 10 May 2021 13:58:05 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54508 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232654AbhEJR6E (ORCPT
+        with ESMTP id S233295AbhEJR6E (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Mon, 10 May 2021 13:58:04 -0400
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B1D1DC061574
-        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:57 -0700 (PDT)
-Received: by mail-wr1-x42b.google.com with SMTP id d4so17521853wru.7
-        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:57 -0700 (PDT)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0C6D7C06175F
+        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:59 -0700 (PDT)
+Received: by mail-wr1-x435.google.com with SMTP id l14so17542276wrx.5
+        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=ZnGiNPpnl4zTiZh46oCJ46cAdiY6iB3b5ES3yuphXmw=;
-        b=HnH4Um83rr97Psdr2bbGtg0jwCCZu1EjsAR59JvPGgCAw+7/KdAf3p+F9mkwNZ83HB
-         MtO4E3hVG3IZgs5ercmBJPcIwbvIJAKDA904OrDsJMHrsqcsoJxmgnpXoN9cVrKY7q7D
-         zShU3DMnFJwlo1jyinEmigL2dEN15a9bm/ZODh93USmoJYhza10iZshkGasBTXmzfOMk
-         fnvOSnBERDZOyUOHOnqmx9RPcX/c2jE1aMB93YGCvVcDbNRwXIVE7zwjHAP543/iVd5c
-         w8+bpKhSHiW4AzTGA2NiUjr4jyiV85pd4+L5kcF1dIsG8Xn1ET02EvtZGbgVKNbm0XbJ
-         JWIw==
+        bh=pPRtGR1hem9DTNvLYgsA1Kk8tWymNQKzo15ovBiFWnQ=;
+        b=flw88RzzwjVhH8zh+c/GuWv2/5BeMc1m8k6OxW4UHkau514z3/yLOxGLZM+OZTBBQb
+         cOZV4RIhbeXJ5jDtj9aKhj67ap0aS3oA41bz25an9wWxVqJd3rRMVh8pd+08ph3ymncy
+         q8OHiaTEuGNhXsPHX+gouQx4isXBNqUs5EfAjoXKxHeLVX0zYCR2UxKMHcw17csz/2/0
+         VB4q6iIdZ6OA/PmzKDCchsgQq0lnn4HRcGvtEokzx4YP86zs+2iXlQ4sk748uEseneDT
+         xtmnnN2xxmr/vBSsQuZ26nB4BmPIsxtGVvc92he/JdgMaTjmzujtumfwUOdxgEec/gQk
+         xedw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=ZnGiNPpnl4zTiZh46oCJ46cAdiY6iB3b5ES3yuphXmw=;
-        b=a3xEXWufWKgmKy7xzFi/wxjV6+3HPtYHOKi/3xJUSjNxS9wOypTs7Q45/xTuuhDCpr
-         haZAhfZdJXNPwtmB13V8LtawiquSgv8Jm49Krho4tx+cv0UoSlHaVMfXKcM7qbopCYhR
-         sBtN/bWnpQRbU6ChIpmAHkjAWrbdBm/MG300vHBoyloBqG6m+KLRkmySmFDnPSOQNQQk
-         jnyK6cHpl81tTO1hboh6zqoRZPT3XOV28y09Y+0D5XtBTYGD/L6dCQvhHClAkvqTwf9L
-         S9ryqatD2GcR8grZd77DEWSebS25a3AmTEOJYb+LQORNVQk20hFooiP9iraXd9CLeaXQ
-         rvKg==
-X-Gm-Message-State: AOAM532Uz2QS7mkbK4qRHMW6me753uXWaTRXzOTtnJI1A09sve1JkrhI
-        7gHwFF5bk/OvM7WZn04MrvA=
-X-Google-Smtp-Source: ABdhPJwyGr7OyzsFfX/JK8zc2alJi0004ZSOOG0pjjwxF/13irhXX+HI78z2K4MjDBA+u1nyByDiGw==
-X-Received: by 2002:adf:ec82:: with SMTP id z2mr31890967wrn.214.1620669416525;
-        Mon, 10 May 2021 10:56:56 -0700 (PDT)
+        bh=pPRtGR1hem9DTNvLYgsA1Kk8tWymNQKzo15ovBiFWnQ=;
+        b=IRy/IMQ2mkSx88BldnKXZDE+05gOBCD+2sTV3vMpUiULvhrvIDtqXCRJ3Tv9AAZ2di
+         kX3mrf/mrJUb4iZl2vgqGtuDWK4V49pr4Lwm68nHpNOYRxz7qByZgnFDqMuagRH7SLpc
+         lo491efTniz0PXSj+rjcpHRpByqZH4DL1Ah/8wcJiTN0yC+AYQ9oCCsjPaRmk3xXTtEA
+         48XT7fDrNxQt+m8bmeDH72r7HShqNStQnKq1c3qeB0bOPeG1jiY+jejv2O4LoH2WzOTv
+         cR3YAH5ryjp10tEmt9NJ6n2yhEW4i0OdgVpkq4MOGYQTAOuCeX0G5BnV8Zo8fV2lyiPA
+         wOgw==
+X-Gm-Message-State: AOAM530t8kpjT62R+rFaF/yvE2YsGd+jUuTofysfX8WEKseUu/ztt0/J
+        H+whIFZge6bA6uJNHL8XfDY=
+X-Google-Smtp-Source: ABdhPJwOsI+99Xtdq7PrJvJ62oqOHrBffOMw8R8sfjI1QnRbjRgQSMSnkKF95g5IZgp/tGLRPHLPsw==
+X-Received: by 2002:adf:dfd1:: with SMTP id q17mr31283976wrn.177.1620669417804;
+        Mon, 10 May 2021 10:56:57 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id m13sm24318830wrw.86.2021.05.10.10.56.55
+        by smtp.googlemail.com with ESMTPSA id m13sm24318830wrw.86.2021.05.10.10.56.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 May 2021 10:56:56 -0700 (PDT)
+        Mon, 10 May 2021 10:56:57 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Florian Weimer <fweimer@redhat.com>, Jakub Wilk <jwilk@jwilk.net>,
         Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 27/39] openat2.2: Use syscall(SYS_...); for system calls without a wrapper; fix includes too
-Date:   Mon, 10 May 2021 19:55:36 +0200
-Message-Id: <20210510175546.28445-28-alx.manpages@gmail.com>
+Subject: [PATCH 28/39] perf_event_open.2: Use syscall(SYS_...); for system calls without a wrapper
+Date:   Mon, 10 May 2021 19:55:37 +0200
+Message-Id: <20210510175546.28445-29-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210510175546.28445-1-alx.manpages@gmail.com>
 References: <20210510175546.28445-1-alx.manpages@gmail.com>
@@ -66,51 +66,52 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/openat2.2 | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+ man2/perf_event_open.2 | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
-diff --git a/man2/openat2.2 b/man2/openat2.2
-index 1662bd066..efa840206 100644
---- a/man2/openat2.2
-+++ b/man2/openat2.2
-@@ -26,16 +26,21 @@
- openat2 \- open and possibly create a file (extended)
+diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
+index 1d5d1aada..3bfc7c103 100644
+--- a/man2/perf_event_open.2
++++ b/man2/perf_event_open.2
+@@ -29,16 +29,21 @@
+ perf_event_open \- set up performance monitoring
  .SH SYNOPSIS
  .nf
--.B #include <sys/stat.h>
--.B #include <fcntl.h>
--.B #include <linux/openat2.h>
-+.BR "#include <fcntl.h>" \
-+"          /* Definition of " O_* " and " S_* " constants */"
-+.BR "#include <linux/openat2.h>" "  /* Definition of " RESOLVE_* " constants */"
-+.BR "#include <sys/syscall.h>" "    /* Definition of " SYS_* " constants */"
+-.B #include <linux/perf_event.h>
+-.B #include <linux/hw_breakpoint.h>
++.BR "#include <linux/perf_event.h>" "    /* Definition of " PERF_* " constants */"
++.BR "#include <linux/hw_breakpoint.h>" " /* Definition of " HW_* " constants */"
++.BR "#include <sys/syscall.h>" "         /* Definition of " SYS_* " constants */"
 +.B #include <unistd.h>
  .PP
--.BI "long openat2(int " dirfd ", const char *" pathname ,
--.BI "            struct open_how *" how ", size_t " size );
-+.BI "long syscall(SYS_openat2, int " dirfd ", const char *" pathname ,
-+.BI "             struct open_how *" how ", size_t " size );
+-.BI "int perf_event_open(struct perf_event_attr *" attr ,
+-.BI "                    pid_t " pid ", int " cpu ", int " group_fd ,
+-.BI "                    unsigned long " flags  );
++.BI "int syscall(SYS_perf_event_open, struct perf_event_attr *" attr ,
++.BI "            pid_t " pid ", int " cpu ", int " group_fd \
++", unsigned long " flags  );
  .fi
  .PP
  .IR Note :
 -There is no glibc wrapper for this system call; see NOTES.
 +glibc provides no wrapper for
-+.BR openat2 (),
++.BR perf_event_open (),
 +necessitating the use of
 +.BR syscall (2).
  .SH DESCRIPTION
- The
- .BR openat2 ()
-@@ -494,9 +499,6 @@ The semantics of
- were modeled after FreeBSD's
- .BR O_BENEATH .
+ Given a list of parameters,
+ .BR perf_event_open ()
+@@ -3641,10 +3646,6 @@ This
+ system call Linux-specific
+ and should not be used in programs intended to be portable.
  .SH NOTES
 -Glibc does not provide a wrapper for this system call; call it using
 -.BR syscall (2).
--.\"
- .SS Extensibility
- In order to allow for future extensibility,
- .BR openat2 ()
+-See the example below.
+-.PP
+ The official way of knowing if
+ .BR perf_event_open ()
+ support is enabled is checking
 -- 
 2.31.1
 
