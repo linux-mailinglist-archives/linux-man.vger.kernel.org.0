@@ -2,59 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5CFB5379694
-	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 19:56:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1FC7B379695
+	for <lists+linux-man@lfdr.de>; Mon, 10 May 2021 19:56:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233136AbhEJR5f (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 10 May 2021 13:57:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54352 "EHLO
+        id S232947AbhEJR5i (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 10 May 2021 13:57:38 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54362 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232947AbhEJR5f (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 10 May 2021 13:57:35 -0400
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 92D09C061574
-        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:29 -0700 (PDT)
-Received: by mail-wm1-x332.google.com with SMTP id g65so9694791wmg.2
-        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:29 -0700 (PDT)
+        with ESMTP id S233197AbhEJR5h (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 10 May 2021 13:57:37 -0400
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D2951C06175F
+        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:30 -0700 (PDT)
+Received: by mail-wm1-x32b.google.com with SMTP id l18-20020a1ced120000b029014c1adff1edso11643223wmh.4
+        for <linux-man@vger.kernel.org>; Mon, 10 May 2021 10:56:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=1AJWufCrkVXWZOOZCDdsOIRBksNWYtEU13pLODmBf3U=;
-        b=NEeM/7tEkGcgJbupHh78PntlYEj8lAZvZQAe8cNX0S/JaocC80HVhKfFcUE4cfoaPy
-         p64t3YnxwvZbqMC0M8rspB2M12lVRE/2/qioWSvsr3K4AINPFDp06vl1Vg30QYRVpwjf
-         g+5FDTMjH0Icn2SnLGYLeOUG3sNAyseLO2XU2xsBA/ay/HdTNkynGG5e/Pc2W+53wdog
-         mQyub3F7VOkgvL9udb0iuPQegWNpiKM8B00aUWLwLilrz7eE9bFVMo6E8xReq9cEAoex
-         Xflw/fWZ/J0PzXIFPyXf35O06Uj3rZMcmAKufesOrl4jFgUsr7IWZ5iK0OXXnkflQJDY
-         IaWw==
+        bh=XKdpBKSMuiZJDGlYuAWIvkxYovN6rRDYr0Mh9rQWVBw=;
+        b=BuZ9u+vC50qOS/v4cqfbLabbsg8Q3nY8ZKYrJ9Dz0OSw2f8Gzyhp/L/tAmcm2xIsPR
+         JWvRXGdRqSWaciGVsI+4qijPNBhywH1x3UcPnzziTswlQsGLTbSG4RMfpXDTt/+a8Sw1
+         rBAxUYO5lmyr9sfOYNWSNQxM7yEwEq2tBsbIlNJa3WMdEeko/UV7Mp9ZcgJsCWB915OD
+         38KtZFG79/e/NC5CGj+bUAGE1+MZd72S1kbwOfBHLiVpODk/ki+2Hbfp7S9zAdVtm/H9
+         hYIVSKR1/qyGwMjAIPc8OARphSY6+bjRQ789SIrx+l33FJjk33hxCqLNnxW65uB/NP2Z
+         Ikfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=1AJWufCrkVXWZOOZCDdsOIRBksNWYtEU13pLODmBf3U=;
-        b=p+lwsCSupd4wvx3G0KgL4PQl5jC4V32GcyHKy7T0+JD4RwI8pN+ZZ3h7ZNwvyZTbZM
-         9OOKRpSNFW6bftFVu7SQN3wdE60ynWH6jOMx08AzJgz4UmA6YG28mbJ6mh/nnAJQuCHI
-         9VPs9jUm6uuXKslrsGdkUdetr03qI0bWOtGm0BDgDgnDiYllxJ4g/oSQJKr6qoxRMk9K
-         ZhvqeSkKPlk7jll1kNWttEJFho7rAVRE3IYzz3Iq4AOt5X1YUXVz2foSruCdI5SO1GPQ
-         NhIiHfzuaTWjTKior0DMU2TpE5eFfRwGw4Y25KjW6BH5bJ67KM84ndMl6cmDl+d+eQ4+
-         wa+A==
-X-Gm-Message-State: AOAM530AErsR3i7Rn5LTwIX26NLUVBN3ctdWHuGyufJ7RS0AIhn3/pZW
-        Oe/IeKyi2EKkkAG4BZPUKIA=
-X-Google-Smtp-Source: ABdhPJy0pT+FCZcCouB+LMY1ikpGqHgiaiT3R+knl33nNk+bKl0Gh0b4aTKWv4x5zLHufu+rPfXj3g==
-X-Received: by 2002:a1c:b783:: with SMTP id h125mr378168wmf.182.1620669388398;
-        Mon, 10 May 2021 10:56:28 -0700 (PDT)
+        bh=XKdpBKSMuiZJDGlYuAWIvkxYovN6rRDYr0Mh9rQWVBw=;
+        b=ZZeGseqgijw+9i1VayP0157iyvkYPkhz8C/TFsHelpfz/rfpi62jhDO0RcTQ8UdlpG
+         X3yP+vb2xJ0Id2TLopncS0RgLFQfFAmQEH/0uA31zFVe5i0Yj3nKI2twN2pCMDDkxzi0
+         BhJ4ZX1RKVbA5WAMixDhc0V7yELwiXnon43q/PYw3TBOKFosHpxHBTwXFyLac35orP3H
+         YnZhuTv1IulMxxuJQmWy9Fn4obB/DwmkqIGxR7ZoJ6lvlpRW3CdjQo+OGC/jIPrRXxpK
+         9Z9aTzk0/IIJslQSqdyKpulnqHaqV2Cc6o3KgL6bLIYTtNZvDMHKThuEPuo9lFh43YdC
+         Uvew==
+X-Gm-Message-State: AOAM532660hVkUIpeATeM5/Z2gG8fy5RvtYQ3sziIUKhTJDFjjkkKxcE
+        Ynk6w56HLFcxe6zcDXXagSE=
+X-Google-Smtp-Source: ABdhPJyc6dFrnFU41NB7YSeoELCfSOH+MqnZyYftnsEo+xHQm4X71uf3a/kBk2k35sExJ8RRTD+Jbg==
+X-Received: by 2002:a05:600c:26c9:: with SMTP id 9mr376673wmv.176.1620669389657;
+        Mon, 10 May 2021 10:56:29 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id m13sm24318830wrw.86.2021.05.10.10.56.27
+        by smtp.googlemail.com with ESMTPSA id m13sm24318830wrw.86.2021.05.10.10.56.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 May 2021 10:56:28 -0700 (PDT)
+        Mon, 10 May 2021 10:56:29 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Florian Weimer <fweimer@redhat.com>, Jakub Wilk <jwilk@jwilk.net>,
         Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 08/39] ioprio_set.2: Use syscall(SYS_...); for system calls without a wrapper
-Date:   Mon, 10 May 2021 19:55:17 +0200
-Message-Id: <20210510175546.28445-9-alx.manpages@gmail.com>
+Subject: [PATCH 09/39] ipc.2: Use syscall(SYS_...); for system calls without a wrapper
+Date:   Mon, 10 May 2021 19:55:18 +0200
+Message-Id: <20210510175546.28445-10-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210510175546.28445-1-alx.manpages@gmail.com>
 References: <20210510175546.28445-1-alx.manpages@gmail.com>
@@ -66,45 +66,48 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/ioprio_set.2 | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ man2/ipc.2 | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
-diff --git a/man2/ioprio_set.2 b/man2/ioprio_set.2
-index 91ec03f3b..c110725f0 100644
---- a/man2/ioprio_set.2
-+++ b/man2/ioprio_set.2
-@@ -26,12 +26,18 @@
- ioprio_get, ioprio_set \- get/set I/O scheduling class and priority
+diff --git a/man2/ipc.2 b/man2/ipc.2
+index c0ba4651f..f505fa1c9 100644
+--- a/man2/ipc.2
++++ b/man2/ipc.2
+@@ -27,12 +27,20 @@
+ ipc \- System V IPC system calls
  .SH SYNOPSIS
  .nf
--.BI "int ioprio_get(int " which ", int " who );
--.BI "int ioprio_set(int " which ", int " who ", int " ioprio );
-+.BR "#include <linux/ioprio.h>    " "/* Definition of " IOPRIO_* " constants */"
-+.BR "#include <sys/syscall.h>     " "/* Definition of " SYS_* " constants */"
+-.BI "int ipc(unsigned int " call ", int " first ", unsigned long " second ,
+-.BI "        unsigned long " third ", void *" ptr ", long " fifth );
++.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
 +.B #include <unistd.h>
 +.PP
-+.BI "int syscall(SYS_ioprio_get, int " which ", int " who );
-+.BI "int syscall(SYS_ioprio_set, int " which ", int " who ", int " ioprio );
++.BI "int syscall(SYS_ipc, unsigned int " call ", int " first ,
++.BI "            unsigned long " second ", unsigned long " third \
++", void *" ptr ,
++.BI "            long " fifth );
  .fi
  .PP
  .IR Note :
--There are no glibc wrappers for these system calls; see NOTES.
-+glibc provides no wrappers for these system calls,
+-There is no glibc wrapper for this system call; see NOTES.
++glibc provides no wrapper for
++.BR ipc (),
 +necessitating the use of
 +.BR syscall (2).
  .SH DESCRIPTION
- The
- .BR ioprio_get ()
-@@ -199,9 +205,6 @@ kernel 2.6.13.
- .SH CONFORMING TO
- These system calls are Linux-specific.
- .SH NOTES
--Glibc does not provide a wrapper for these system calls; call them using
--.BR syscall (2).
+ .BR ipc ()
+ is a common kernel entry point for the System\ V IPC calls
+@@ -56,10 +64,6 @@ system call; instead,
+ .BR semctl (2),
+ .BR shmctl (2),
+ and so on really are implemented as separate system calls.
 -.PP
- Two or more processes or threads can share an I/O context.
- This will be the case when
- .BR clone (2)
+-Glibc does not provide a wrapper for this system call;
+-in the unlikely event that you want to call it directly, you can do so using
+-.BR syscall (2).
+ .SH SEE ALSO
+ .BR msgctl (2),
+ .BR msgget (2),
 -- 
 2.31.1
 
