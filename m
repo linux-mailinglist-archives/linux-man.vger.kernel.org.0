@@ -2,106 +2,82 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7BA4737A0E2
-	for <lists+linux-man@lfdr.de>; Tue, 11 May 2021 09:34:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 309A437A396
+	for <lists+linux-man@lfdr.de>; Tue, 11 May 2021 11:27:06 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229924AbhEKHfv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 11 May 2021 03:35:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39494 "EHLO
+        id S231278AbhEKJ2L (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 11 May 2021 05:28:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36870 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229637AbhEKHfu (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 11 May 2021 03:35:50 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7366AC061574
-        for <linux-man@vger.kernel.org>; Tue, 11 May 2021 00:34:43 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id s8so19060406wrw.10
-        for <linux-man@vger.kernel.org>; Tue, 11 May 2021 00:34:43 -0700 (PDT)
+        with ESMTP id S230493AbhEKJ2L (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 11 May 2021 05:28:11 -0400
+Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com [IPv6:2607:f8b0:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9A27BC061574
+        for <linux-man@vger.kernel.org>; Tue, 11 May 2021 02:27:04 -0700 (PDT)
+Received: by mail-pf1-x42d.google.com with SMTP id h127so15622248pfe.9
+        for <linux-man@vger.kernel.org>; Tue, 11 May 2021 02:27:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=HKWKDg24ecRxcfkgLzlLS7GSbPuoRjHk4Z2wwF/ghFg=;
-        b=HAepbMzyt0A2yPpMcwxOL3wBkYyFv6DgsLmta6/Kzy5aBAbUK1jYQs4aVoAD0m4sZ7
-         1pnzcajHS6YMJomP7/VWsyN5srDPSZZMzzUGLegOrUcsbDWbvCezPgNVbpwW6V59+udT
-         UVGz4K+Mi+GTT+axMXuQF+gXSoyc5UiCTAnmEf6CEyPN9rqDzQ30rGrZiz02P43wkKVD
-         ARwPgBQSLlENe+BfeVgx4WJIb6JduAiZ5smHCHSO5cGDIwXYz861LLmTunaNSRQf689N
-         SKX6CXQlEsqF8AeGabuEl4AmT8rUBSGe8fO6onnJVUsBSeoajuhp8C0tbHdaip6Dn9pB
-         MjeQ==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=3bfosfsT8isD5uZ3/uWquHARDJxW6K97DfSD1wXdD+0=;
+        b=X9THyzTCQuB4nSisZYGdZg33vPWouELE5mPGmmqtQYghclVbIEDsU20EM4b5mgH1Mh
+         tf+U3eFwSYlvlln8Fmnd9/IkcLC0k9jLIEyl1at1ZIR+sjnfHYDnXh4J/Or98M0uNNPB
+         W79PWrC6xeNJXy94FoYTDYEt4rlxnv7HUPmQV0J061xd4GedAS4wEUYmjMICcrrMczUG
+         4ZLYGtZMSJKTG3RBx9obC1riKLiWWYPcK2TyCdOTu5rYphLvSsXe/1+ueSINr5LjYzQg
+         V6J+UC9o4yHyTZX8R5e6hqRAjog2j89Gtn/I7o17rSo+AQXw1CFSif0LL3lAVAKvfewE
+         55EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=HKWKDg24ecRxcfkgLzlLS7GSbPuoRjHk4Z2wwF/ghFg=;
-        b=KxAuuKT8yyIpfpoNSnnJsUWlIYF7/c6jLnsv4m+aevARPfzfYSGfzU4S2+Z6bLYFu6
-         jia7eFn6AIllPMYf+YnXPcgzMhn/mp+en2lCWO4q/yz0zdpzWeSJdfyzYU/UUM+huXJF
-         8pm1XyJPD6gdIvVxUvlBxWFi1uerqlJidIxNahPV7S9xFqfDw3HA1C3KfdjzefbQTyo/
-         kKytQOXCLHJXITxpYOpfDdLtg1WoA5bG+TgIhLxTVnGMoeFOJV8OhmtkMkjkkz57+5K8
-         56Oj5XbuzheE11qUX6qrQqhEk7kn3bpg+vVqp/YwAaE7W5amC4DiHA7l99WxZXB40dca
-         DuNg==
-X-Gm-Message-State: AOAM532lFIAIgvbGiY1YUmc9YfNSP4HPOB/NZIiihK7asI+aqz9/h9S/
-        8gRONd6ZkUrLrYqaFq/CkDIlh9Gn9QU=
-X-Google-Smtp-Source: ABdhPJxMEyzGOuYuAwXxnCdTwTkq7h3QK5WAbj3/AQffR1RSIsWnItkIEWCGLV5PtNYMcoTPMAYAvg==
-X-Received: by 2002:adf:f60d:: with SMTP id t13mr36871024wrp.189.1620718482309;
-        Tue, 11 May 2021 00:34:42 -0700 (PDT)
-Received: from [10.8.0.106] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id b6sm2583870wmj.2.2021.05.11.00.34.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 May 2021 00:34:42 -0700 (PDT)
-Subject: Re: [PATCH] basename.3: SYNOPSIS: Add missing 'const'
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <20210509213930.94120-1-alx.manpages@gmail.com>
- <20210509213930.94120-4-alx.manpages@gmail.com>
- <797047d7-00a6-5633-43c7-35d7fd709cb9@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <9daadf21-54f2-4f2b-20cd-4ee7ad1c2590@gmail.com>
-Date:   Tue, 11 May 2021 09:34:40 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+        bh=3bfosfsT8isD5uZ3/uWquHARDJxW6K97DfSD1wXdD+0=;
+        b=R/tOYqShPcExVcevVdnU63f2VxTrzm9UbXG8zhykhfKbjPPYbMyFl2qRq9jr+F3tsA
+         W4OSwTcN1yj+JeMDerD9CnS6DjpYjP+s5hl3QWVgg7OsGHvluuDiS2GjP6zSAHAP28LV
+         NpJQS/LA2r1WW0Kx9sp0KPrVEY6t+XOIWjo3PUHJilzngR09euhA7gkKTxnp6mYiDhFm
+         fIDDidt4h/SGmHxGUlRblhHcPB4vrymuRVLC1e0qGxYgHl1NbyC5y0HWkPt2RZDjb78D
+         wTUIM80PGNqhTW/9Jzdq/d1mMWJ7ClqZB0Agb6JvWh3qQh6SPamwMGsn1R7VsNFyNJRk
+         zOIw==
+X-Gm-Message-State: AOAM533qk4s75o13dsU7B+UL8kn29muZiGBIJL8FYVx6iS3ikLURDowB
+        HNqwWnM74vaWTzM6H9UGGs83foWv4RsMghOF
+X-Google-Smtp-Source: ABdhPJyW+7m12ZEpGfaOafNokbcVrIUwjX+lhxq+oRS9Ra8kZtJSKsEPUxcN9Trlm+3hzlhqF4ABRg==
+X-Received: by 2002:a63:5158:: with SMTP id r24mr5403572pgl.41.1620725224026;
+        Tue, 11 May 2021 02:27:04 -0700 (PDT)
+Received: from localhost.localdomain (sp49-106-215-222.msf.spmode.ne.jp. [49.106.215.222])
+        by smtp.gmail.com with ESMTPSA id w127sm9827093pfw.4.2021.05.11.02.27.01
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 11 May 2021 02:27:03 -0700 (PDT)
+From:   Akihiro Motoki <amotoki@gmail.com>
+To:     linux-man@vger.kernel.org
+Cc:     mtk.manpages@gmail.com, alx.manpages@gmail.com,
+        Akihiro Motoki <amotoki@gmail.com>
+Subject: [PATCH 1/5] tgamma.3: tfix
+Date:   Tue, 11 May 2021 18:28:46 +0900
+Message-Id: <20210511092846.98095-1-amotoki@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <797047d7-00a6-5633-43c7-35d7fd709cb9@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+Signed-off-by: Akihiro Motoki <amotoki@gmail.com>
+---
+ man3/tgamma.3 | 1 -
+ 1 file changed, 1 deletion(-)
 
-On 5/10/21 1:59 AM, Michael Kerrisk (man-pages) wrote:
-> Hi Alex,
-> 
-> On 5/10/21 9:38 AM, Alejandro Colomar wrote:
->> Glibc uses 'const' for the basename() parameter.
->> Fix the prototype.
-> 
-> Yes, but see basename(3p):
-> 
->      SYNOPSIS
->         #include <libgen.h>
-> 
->         char *basename(char *path);
-> 
->         ...
-> 
->         The basename() function may modify the string pointed to by  path,
->         and may return a pointer to internal storage. The returned pointer
->         might be invalidated or the storage might be overwritten by a sub‐
->         sequent  call  to  basename().  The returned pointer might also be
->         invalidated if the calling thread is terminated.
-> 
-> I'll skip this patch.
-
-It's POSIX that states that, so yes, I'll drop it.
-
-Cheers,
-
-Alex
-
-
+diff --git a/man3/tgamma.3 b/man3/tgamma.3
+index ae3f24ece..5cd58f251 100644
+--- a/man3/tgamma.3
++++ b/man3/tgamma.3
+@@ -203,7 +203,6 @@ the glibc implementation of these functions did not set
+ to
+ .B ERANGE
+ on an underflow range error.
+-.I x
+ .PP
+ .\"
+ In glibc versions 2.3.3 and earlier,
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.25.1
+
