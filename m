@@ -2,109 +2,116 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C54BA37AC7D
-	for <lists+linux-man@lfdr.de>; Tue, 11 May 2021 18:54:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8DB5737B00C
+	for <lists+linux-man@lfdr.de>; Tue, 11 May 2021 22:22:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231269AbhEKQz3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 11 May 2021 12:55:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53738 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230315AbhEKQz2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 11 May 2021 12:55:28 -0400
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com [IPv6:2607:f8b0:4864:20::636])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 34461C061574
-        for <linux-man@vger.kernel.org>; Tue, 11 May 2021 09:54:22 -0700 (PDT)
-Received: by mail-pl1-x636.google.com with SMTP id z18so7527581plg.8
-        for <linux-man@vger.kernel.org>; Tue, 11 May 2021 09:54:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=LUU06tbQg1/Xwivl3dC13zmIgSDyZNRPu7iIVwwgz6w=;
-        b=PFcn3UIdfjpIWm+/os3GU5x9h+WSyItDI/Gy4Zl8ArOCChPY66pXQstX6AuQL7KMEO
-         1/4v81YFxBO05KM3jXej9enwTCMg8Q/b7NESTprTjZykLG6r0Tdngso+MBfv/N3yLmQr
-         tJ3Tlwvw6SIIzlyuDWko92eRyshVevih2pWBGTIYCv87ApxvWLnOan1auJhToVmvpNdW
-         fzH/M/gFlPQ0ufmVoZ3c/o35bt+VTQpDzyq7Z0WrW+caBTWsm/6cL+/uDYKxprr7OBMN
-         Ko2dlEtFqG5qx9JhQ8XTlInIhHP9WS5n19kegr/ZM66gN9ea6LkEc6NwkXXK/pI+FuKl
-         rn6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=LUU06tbQg1/Xwivl3dC13zmIgSDyZNRPu7iIVwwgz6w=;
-        b=n3UBwVPApyvHukPbVI//hqNzW+wflVsTVDif6zUdNlOJFSpQ6g0vCtg8LkMsihXlMj
-         kZ1ixKIiwREQVI85q2WHEvxBUa590uvWn30CW8awm5Ot3+MrmMmB9CDxJBpLfTNjWqBT
-         gCLw008tvUL6JQEwinYq7GVCPuAa9WtrFswANE4hG+DeWdKJ/bX/N7vMBpU4vcAqOfKS
-         ukhfjH33io7D5m6o/ZI5huiCeZEQotHMc9fcdB12RnnwDHeVgXxpCSz7KpYjSJhDP6kf
-         Mt8TvXGhRC9wU9WxmLLNYuWa1paZfFcgdEVg48jPMPoRpchOl2C+Z4nt77aKVyjfvTbU
-         slpg==
-X-Gm-Message-State: AOAM532WjcGBlgstN/jcDFLAQdO7R59XJVx425cLDDJpIHHHC7OA8P9d
-        GTEsZZn5z1s1abnVexOaDoFdCDEpf6Q=
-X-Google-Smtp-Source: ABdhPJyAcidPN4v8hB0zgV2Y+k7B0ZkuP6orJ8RByCm6wJFalXMmTNGxS2GSxaFotkJxEDnovRqxHg==
-X-Received: by 2002:a17:90b:1bc3:: with SMTP id oa3mr6251043pjb.159.1620752061528;
-        Tue, 11 May 2021 09:54:21 -0700 (PDT)
-Received: from [192.168.192.21] (47-72-82-130.dsl.dyn.ihug.co.nz. [47.72.82.130])
-        by smtp.gmail.com with ESMTPSA id b23sm14251656pjo.26.2021.05.11.09.54.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 May 2021 09:54:20 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] README: Update installation path
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20210511065259.8556-1-alx.manpages@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <42a50b25-add4-14c4-126f-31ccfb1858aa@gmail.com>
-Date:   Wed, 12 May 2021 04:54:17 +1200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+        id S229900AbhEKUXX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 11 May 2021 16:23:23 -0400
+Received: from mga09.intel.com ([134.134.136.24]:39584 "EHLO mga09.intel.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S229548AbhEKUXV (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 11 May 2021 16:23:21 -0400
+IronPort-SDR: rdFXUdc+eMIqEJp5kt4wIoRX2ZzCVIKoUgKdHue7KuRbdr0927Nj9/kvAuS117bhCTWmV+LtSL
+ cR4bIuquIGzA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9981"; a="199602897"
+X-IronPort-AV: E=Sophos;i="5.82,291,1613462400"; 
+   d="scan'208";a="199602897"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 May 2021 13:22:11 -0700
+IronPort-SDR: P/vh1OHrEYTZYJZ+0Bs+YAv0LKrg+VjRlPEcA49dRKaf139zst6pC60YZisWtD2gVdEIz+TGHD
+ rSNUQExFKgcg==
+X-IronPort-AV: E=Sophos;i="5.82,291,1613462400"; 
+   d="scan'208";a="436826429"
+Received: from rchatre-mobl3.amr.corp.intel.com (HELO [10.255.230.234]) ([10.255.230.234])
+  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 May 2021 13:22:11 -0700
+Subject: Re: [PATCH v5] sgx.7: New page with overview of Software Guard
+ eXtensions (SGX)
+To:     Jarkko Sakkinen <jarkko@kernel.org>, mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, linux-sgx@vger.kernel.org,
+        dave.hansen@linux.intel.com
+References: <20210510145235.8056-1-jarkko@kernel.org>
+From:   Reinette Chatre <reinette.chatre@intel.com>
+Message-ID: <7ea35a75-a75d-4071-cbf7-f43c672a5a45@intel.com>
+Date:   Tue, 11 May 2021 13:22:10 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-In-Reply-To: <20210511065259.8556-1-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <20210510145235.8056-1-jarkko@kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+Hi Jarkko,
 
-On 5/11/21 6:53 PM, Alejandro Colomar wrote:
-> The installation path was changed recently (See 'prefix' in the
-> Makefile).  I forgot to update the README with those changes.
-> Fix it.
+On 5/10/2021 7:52 AM, Jarkko Sakkinen wrote:
+
+...
+
+> +There is a hardware constraint that the enclave size must be a power of two,
+> +and the base address must be a multiple of the size.
+> +This can lead to reserving a large region than required by the payload,
+
+a large region than required -> a larger region than required ?
+
+> +but the address space can be obviously trimmed after the enclave has been
+
+can be obviously trimmed -> can be trimmed ?
+
+> +constructed on,
+
+constructed on -> constructed ?
+
+> +with a sequence of
+> +.BR mmap(MAP_FIXED)
+> +calls.
+> +.PP
+> +A process can access enclave by entering into its address space through
+> +a set of entry points,
+> +which must be defined during the construction process.
+> +This requires a complex sequence of CPU instructions,
+> +and kernel assisted exception handling,
+> +encapsulated into
+> +.BR vsgx_enter_enclave
+> +vDSO interface,
+> +provided and documented by
+> +.IR <asm/sgx.h>.
+
+This is not clear to me. This is written as though vsgx_enter_enclave is 
+something very specific that is documented in <asm/sgx.h>. Should it 
+perhaps be vdso_sgx_enter_enclave_t instead? Am I missing where 
+vsgx_enter_enclave is defined? I expect a reader of this man page may 
+want to search for the term "vsgx_enter_enclave" after reading the above.
+
+> +.SS Permissions
+> +In order to build an enclave, a process must be able to call
+> +.IR mmap (2)
+> +with
+> +.IR PROT_EXEC
+> +set.
+> +Like for any other type of executable,
+> +the page permissions must be set appropriately.
+> +For this reason,
+> +.I /dev/sgx_enclave
+> +must reside in a partition,
+> +which is not mounted as no-exec,
+> +in order to be usable,
+> +as
+> +.IR mmap(2)
+> +denies
+> +.IR PROT_EXEC
+> +otherwise.
+> +.SH VERSIONS
+> +The SGX feature was added in Linux 5.11.
+> +.SH SEE ALSO
+> +.BR ioctl (2),
+> +.BR mmap() (2),
+
+mmap() (2) -> mmap (2) ?
+
+> +.BR mprotect (2)
 > 
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 
-Patch applied.
-
-Cheers,
-
-Michael
-
-> ---
->  README | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/README b/README
-> index da36ce9ce..6598170c0 100644
-> --- a/README
-> +++ b/README
-> @@ -17,9 +17,9 @@ For further information on contributing, see the CONTRIBUTING file.
->  
->  Installing and uninstalling
->  ===========================
-> -"make install" will copy these man pages to /usr/share/man/man[1-8].
-> +"make install" will copy these man pages to /usr/local/share/man/man[1-8].
->  
-> -To install to a path different from /usr, use
-> +To install to a path different from /usr/local, use
->  "make install prefix=/install/path".
->  
->  "make remove" or "make uninstall" will remove any man page in this
-> 
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Reinette
