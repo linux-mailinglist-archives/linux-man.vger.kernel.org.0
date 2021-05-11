@@ -2,88 +2,105 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E10F537A45A
-	for <lists+linux-man@lfdr.de>; Tue, 11 May 2021 12:11:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5992637AC7B
+	for <lists+linux-man@lfdr.de>; Tue, 11 May 2021 18:53:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231267AbhEKKNE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 11 May 2021 06:13:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46928 "EHLO
+        id S231220AbhEKQyf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 11 May 2021 12:54:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53530 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231177AbhEKKNE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 11 May 2021 06:13:04 -0400
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AFBB6C06175F
-        for <linux-man@vger.kernel.org>; Tue, 11 May 2021 03:11:56 -0700 (PDT)
-Received: by mail-wm1-x331.google.com with SMTP id o26-20020a1c4d1a0000b0290146e1feccdaso924396wmh.0
-        for <linux-man@vger.kernel.org>; Tue, 11 May 2021 03:11:56 -0700 (PDT)
+        with ESMTP id S230315AbhEKQye (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 11 May 2021 12:54:34 -0400
+Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com [IPv6:2607:f8b0:4864:20::530])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4F6D6C061574
+        for <linux-man@vger.kernel.org>; Tue, 11 May 2021 09:53:25 -0700 (PDT)
+Received: by mail-pg1-x530.google.com with SMTP id m37so16176435pgb.8
+        for <linux-man@vger.kernel.org>; Tue, 11 May 2021 09:53:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=m2rYDGcdfpcA96GIjRuc0Lwi6sSrWTRvmgPwq6Ga2Po=;
-        b=SaapT3M8fOIb37Z8E0Ot1NaR9dc3LWy3NIWu1HMCxOn3K5Vxn8kTatlkC/jQOCbWUN
-         plwmtUL8SRjshgUVYrGcqvJ97k6YEFz6eauaUNEYzWheY5JGxwoBT1aAL6GJq0fSW114
-         3C20x58yo3OIwV1ztbP01xeVkmwmZLlXhmezpTgzsueiMYwrl6NynD102/LdVhXU71oM
-         q/DESaRrtGDnX18gqCq4sPc0GHbpq1MKV8memTf2HR2Swmq7MeXxKEu8Z9Fi3nUFrr1a
-         ovGz2cQdoHgE5FSU6qMxWbClO4SZgkOZMds/SVzQmfbz3p/navkkRgmoMofUhlma2Fyy
-         F41Q==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=33uDna7aeMAqcbDBr3C1mo3h0wPtDLENeIFfugax+fk=;
+        b=D2xyvcf6e2yURiNlAQtJFqXLxEM4drb0DukQoJ4RSLRpq/6CF79ZzNiOHCja+olvjO
+         YOlbTLRdPyy2L7r4k9ktB5Gzhr20A8Oqh4reF9GxQ1U+8v5DCdXOw3BiyVUBwR1ui14S
+         MoTUKYHrk7RKiT0fh69gF3o/552iaEfaeuGjdSY0mmafUH50lnaa4DEH1D4aQU2uN8qQ
+         rSK99kXPo+Ogw4HJ0IVwqX9CF/o6hWcWLgdeuGS9Z3RnjdwaMHB087YN1SAMLj5HQSCw
+         ffQ2ijIvhGLSmEtzFCvvqoHWPaYI2gtGw0rdLLjvSqdwCqr+86yqCdxs+z2wp1LG+hiD
+         Ou9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=m2rYDGcdfpcA96GIjRuc0Lwi6sSrWTRvmgPwq6Ga2Po=;
-        b=NKYg7ufm0kKy4+y7mcar1bbYXX5Xl978KMyXwRnP16kzlbn0hTzG3dD0BAnfEk8v2w
-         HbE5Zraei7dSZmkgBW/SYXePG2jJ3yTVgGYydfsf7A5gts3lsGXACAtuXeTvOsf8impC
-         gJp8HfBAALZFiRj5UBXkmxyNZw3bRzvCXBzf5hZ8CreWMATsY7GmT6GJ4F50eKyWtcMh
-         ag+tf1B4taFeOmykzElsYPHwOwiCvNHR7PWJC2ApZMJximtLoWrKLODT/PiX8PfAeDXu
-         CGKmqWn30rM1rJpPCpps1iiYfqezNO/UmCu+zrVbxscMpLdzhDptsLNQaoSZjeO7W43t
-         pk2Q==
-X-Gm-Message-State: AOAM530aOIqKjr6BOTxN3L6dVbdtLnc3JhmJmyu3ZZOwu7BHLdPtyW0/
-        7Y9vh9/nj1rZKgVqklXElZo=
-X-Google-Smtp-Source: ABdhPJx9vDQCISAmyZtV/EhNrxelFESKuR9bn+Dg8wO0KrKcNmOaMBZtKLhBB+pQbrcnyIZG8+nRxA==
-X-Received: by 2002:a1c:f717:: with SMTP id v23mr4414996wmh.32.1620727915440;
-        Tue, 11 May 2021 03:11:55 -0700 (PDT)
-Received: from msi.alejandro-colomar.es ([46.222.232.120])
-        by smtp.googlemail.com with ESMTPSA id g25sm3171338wmk.43.2021.05.11.03.11.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 May 2021 03:11:55 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Akihiro Motoki <amotoki@gmail.com>, linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Subject: [PATCH 5/5] expm1.3: tfix
-Date:   Tue, 11 May 2021 12:11:47 +0200
-Message-Id: <20210511101147.24399-5-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.31.1.498.g6c1eba8ee3d
-In-Reply-To: <20210511101147.24399-1-alx.manpages@gmail.com>
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=33uDna7aeMAqcbDBr3C1mo3h0wPtDLENeIFfugax+fk=;
+        b=IHEsfRT9dnbzlVWlXknupnM/CyCOZyBjKXVBXb1FMCLDAUTmF0ja1tecS6i7D6QQbi
+         g1UTz8BfZ3/RZQVRmTcacwYwdZvFIZYJO/nlRJZE3njRFt6FfRbgdJBexLDuPi6/i1S7
+         OxLSvuHppMVX4yUk1yZbk1VkI5Rk0K0yoN6SPkK9fEufRIX26jFRHmYwz9NrQtSnN+A6
+         RLSWLYxuVBB3ZkS9QNug7peU/UsD0Q0ld7yQ94GNo/8Hv7vijsL8fFK+v6x7FLkyIVn3
+         /OOmyukPflv82lSOGSPFjWC5de7VYuZVrCRT1/9l5K3BQcLZxf2n/hOCZ7LZPkDApjAi
+         JstQ==
+X-Gm-Message-State: AOAM53149W1NL0CO83XfsjB34c9ehtuuiVZ4DNxgqxxspkc9c8X4BNnB
+        P6/GrMS9oXY8LMyUFhjg071lZ/L6et0=
+X-Google-Smtp-Source: ABdhPJxmI0Zqs3PgjTHfj1DWoF1GWvt945l31aAzdb7VSF5O8iLU+Xxv5FGasbSIe5zmrTGSxCJhBA==
+X-Received: by 2002:a05:6a00:1685:b029:2b3:fca1:886e with SMTP id k5-20020a056a001685b02902b3fca1886emr17277089pfc.35.1620752004625;
+        Tue, 11 May 2021 09:53:24 -0700 (PDT)
+Received: from [192.168.192.21] (47-72-82-130.dsl.dyn.ihug.co.nz. [47.72.82.130])
+        by smtp.gmail.com with ESMTPSA id i14sm14448529pgk.77.2021.05.11.09.53.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 11 May 2021 09:53:23 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, Akihiro Motoki <amotoki@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/5] tgamma.3: tfix
+To:     Alejandro Colomar <alx.manpages@gmail.com>
 References: <20210511101147.24399-1-alx.manpages@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <a67acb2a-9ada-c5f8-f12b-01169249bc99@gmail.com>
+Date:   Wed, 12 May 2021 04:53:19 +1200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210511101147.24399-1-alx.manpages@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Akihiro Motoki <amotoki@gmail.com>
+Hi Alex, Akihiro,
 
-Signed-off-by: Akihiro Motoki <amotoki@gmail.com>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man3/expm1.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 5/11/21 10:11 PM, Alejandro Colomar wrote:
+> From: Akihiro Motoki <amotoki@gmail.com>
+> 
+> Signed-off-by: Akihiro Motoki <amotoki@gmail.com>
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 
-diff --git a/man3/expm1.3 b/man3/expm1.3
-index 54b0315d3..2d3bef375 100644
---- a/man3/expm1.3
-+++ b/man3/expm1.3
-@@ -154,7 +154,7 @@ on certain architectures (e.g., x86, but not x86_64)
- raised a bogus underflow floating-point exception
- for some large negative
- .I x
--values (where the function result approaches \-1),
-+values (where the function result approaches \-1).
- .PP
- Before approximately glibc version 2.11,
- .\" http://sources.redhat.com/bugzilla/show_bug.cgi?id=6814
+I have applied all 5 patches in this series.
+
+Cheers,
+
+Michael
+
+> ---
+>  man3/tgamma.3 | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/man3/tgamma.3 b/man3/tgamma.3
+> index ae3f24ece..5cd58f251 100644
+> --- a/man3/tgamma.3
+> +++ b/man3/tgamma.3
+> @@ -203,7 +203,6 @@ the glibc implementation of these functions did not set
+>  to
+>  .B ERANGE
+>  on an underflow range error.
+> -.I x
+>  .PP
+>  .\"
+>  In glibc versions 2.3.3 and earlier,
+> 
+
+
 -- 
-2.31.1.498.g6c1eba8ee3d
-
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
