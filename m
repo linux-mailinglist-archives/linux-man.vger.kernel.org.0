@@ -2,95 +2,209 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 730B437EE8D
-	for <lists+linux-man@lfdr.de>; Thu, 13 May 2021 00:59:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 101F537EE8F
+	for <lists+linux-man@lfdr.de>; Thu, 13 May 2021 00:59:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229491AbhELVwc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 12 May 2021 17:52:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36610 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1390223AbhELVFQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 12 May 2021 17:05:16 -0400
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 49CE6C061378
-        for <linux-man@vger.kernel.org>; Wed, 12 May 2021 13:59:19 -0700 (PDT)
-Received: by mail-wm1-x332.google.com with SMTP id o6-20020a05600c4fc6b029015ec06d5269so3701667wmq.0
-        for <linux-man@vger.kernel.org>; Wed, 12 May 2021 13:59:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=yOB0gw7EwSb9SFYtB613jqPSOMZFCk4bHevBL+4HlQg=;
-        b=vMG1dTplZmPPSfGrIoZTxb5e5yG5kqwVqrDmYZAXxh5tXQ9hUZ/kS6xE7VCBNJihmJ
-         BsrjhcQ3IwPOzFdXFSkR+NULTqsmmhiPlPphfPCFfvmI6bXuE9X5comj8nTCbhETPtLi
-         bnjsUqHyJxOp9gxHamXuVJngOtve2Oh3PvEaKBqQa4RsDeAjoNgwxhFGRZV/dJTo+3hL
-         IJSx4qo1ckVEr3F/B2Fc7HLTi9JSKCMM1IrfZHGGVhIMVl+yffIBx/8pLaY9XlJs/eEj
-         Xx9GaKg8OC5w/y/lT70SvDAvpfKm/OQAEQVO6sl7U3ZMvfCkeYxwXHYpFFMu/6ErA8i4
-         rpYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=yOB0gw7EwSb9SFYtB613jqPSOMZFCk4bHevBL+4HlQg=;
-        b=o68S4vJSur5SLmmaagTlcP/zIWRcOP3ZQGHcexymNyZhV0UAov2nUXWeV4elRxXf+J
-         t5iwWXoQFdJ5hG3YvaMzF1vXVKgQlw5OTvk2IVCdJjlylt1c3372wBFSc0DkeZKG7ZIK
-         hHInN3+ZbZOC7wuWeGqi44r+/NPy91lq0X37++MSitQghiyCzcXZrJeqKrWJKEUdoWPh
-         NLqR84NCNEcJs6pBDa9FwRTP+cyDy0Qniyp81QvxKx5qfm/nVYZiVhkL1t4BtO/6ndLg
-         0jpOuMsMiVZWDLi+f/l/SVJ8kjBAMMeyo8jnhy5O1Q6DD/0p1eVr3Wh05gHJbS3LAvY6
-         PPhg==
-X-Gm-Message-State: AOAM5305EVaiQyJJXTENhb+HpuKmz7Ev++3UeJBQfdvjPZmmWMgPItiH
-        mSciZdJ6LTBZIHmMoLzn/QrbMudsD70KBw==
-X-Google-Smtp-Source: ABdhPJyIs7HajzV/E7LTIMHHt2wQbIzsHvWxtW/NYOq11D4HBC8hh/8kY7s6Seo4BivKcyB7rSqc1Q==
-X-Received: by 2002:a05:600c:8a9:: with SMTP id l41mr329064wmp.73.1620853158066;
-        Wed, 12 May 2021 13:59:18 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id t8sm660705wmb.2.2021.05.12.13.59.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 12 May 2021 13:59:17 -0700 (PDT)
-Subject: Re: [PATCH v2] MAX.3, MIN.3: New page (and link page) to document
- MAX() and MIN()
+        id S230121AbhELVwm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 12 May 2021 17:52:42 -0400
+Received: from mail.kernel.org ([198.145.29.99]:43602 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1346845AbhELVOZ (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 12 May 2021 17:14:25 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BCF50610A5;
+        Wed, 12 May 2021 21:13:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1620853993;
+        bh=+MUHXqbKBiqOfWGQHHiGYB2oo/WHwsUUQl/ypr5XLiI=;
+        h=From:To:Cc:Subject:Date:From;
+        b=oNo5W+LRJVcmsnWWAWOBelPquw+YBLtbt+ytscxIRI06COakbhUwL9qR7t92naEIx
+         fAK5acLXomqP25STlyF8L3YXOF+/PIwxpo7o6IbopOjtZHQsDYIj41QizZgUhjEG/e
+         KfCjOoTB0zqFFrpbhuFiyNuo+SBFH+a/RHx+8/XG3JQw+gR9JA0dboTZNHFBAITi18
+         wvbIEJ3ZqFF6b7FePMMBweDoRsM5j4jlcHumM3bjoldzsB5mRz40N53ukxXjD10MFA
+         aCn0LWe/FOr4bgeSVwEtLMpCSRkQx9UMptXjsc/e255JUcl9giAkMdgKoRrewQN5g7
+         FAqTOlQaHBsfg==
+From:   Jarkko Sakkinen <jarkko@kernel.org>
 To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org
-References: <20210512204311.19399-1-alx.manpages@gmail.com>
- <20210512205615.19985-1-alx.manpages@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <a073e182-6876-f28a-ff81-0148272d3bbb@gmail.com>
-Date:   Wed, 12 May 2021 22:59:16 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+Cc:     linux-man@vger.kernel.org, linux-sgx@vger.kernel.org,
+        dave.hansen@linux.intel.com,
+        Reinette Chatre <reinette.chatre@intel.com>,
+        Jarkko Sakkinen <jarkko@kernel.org>
+Subject: [PATCH v6] sgx.7: New page with overview of Software Guard eXtensions (SGX)
+Date:   Thu, 13 May 2021 00:13:07 +0300
+Message-Id: <20210512211307.416184-1-jarkko@kernel.org>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <20210512205615.19985-1-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
+v6:
+* Small fixes based on Dave's and Reinette's feedback.
+* Extended the "Permissions" section to cover mmap()
+v5:
+* Taking away hardware concepts and focusing more on the interface.
+v4:
+* Did a heavy edit trying to streamline the story a bit and focus on
+  stuff important to the user (e.g. lighten up x86 details).
+v3:
+* Overhaul based on Michael's comments. Most likely needs to be refined
+  in various places but this is at least a small step forward for sure.
+v2:
+* Fixed the semantic newlines convention and various style errors etc.
+  that were reported by Alenjandro and Michael.
+* SGX was merged to v5.
 
-On 5/12/21 10:56 PM, Alejandro Colomar wrote:
-> +.SH DESCRIPTION
-> +These macros return the maximum or minimum of
-> +.I a
-> +and
-> +.IR b .
-> +.PP
-> +If any of the arguments is of a floating-point type,
-> +you might prefer to use
-> +.BR fmax (3)
-> +or
-> +.BR fmin (3),
-> +which can handle NaN.
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+ man7/sgx.7 | 138 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 138 insertions(+)
+ create mode 100644 man7/sgx.7
 
-Would you move this to a NOTES section?
-
-Thanks,
-
-Alex
-
+diff --git a/man7/sgx.7 b/man7/sgx.7
+new file mode 100644
+index 000000000..b5bd1327e
+--- /dev/null
++++ b/man7/sgx.7
+@@ -0,0 +1,138 @@
++.\" Copyright (C) 2021 Intel Corporation
++.\"
++.\" %%%LICENSE_START(VERBATIM)
++.\" Permission is granted to make and distribute verbatim copies of this
++.\" manual provided the copyright notice and this permission notice are
++.\" preserved on all copies.
++.\"
++.\" Permission is granted to copy and distribute modified versions of this
++.\" manual under the conditions for verbatim copying, provided that the
++.\" entire resulting derived work is distributed under the terms of a
++.\" permission notice identical to this one.
++.\"
++.\" Since the Linux kernel and libraries are constantly changing, this
++.\" manual page may be incorrect or out-of-date.  The author(s) assume no
++.\" responsibility for errors or omissions, or for damages resulting from
++.\" the use of the information contained herein.  The author(s) may not
++.\" have taken the same level of care in the production of this manual,
++.\" which is licensed free of charge, as they might when working
++.\" professionally.
++.\"
++.\" Formatted or processed versions of this manual, if unaccompanied by
++.\" the source, must acknowledge the copyright and authors of this work.
++.\" %%%LICENSE_END
++.\"
++.TH SGX 7 2021\-02\-02 "Linux" "Linux Programmer's Manual"
++.PP
++sgx - overview of Software Guard eXtensions
++.SH DESCRIPTION
++.SS Overview
++Intel Software Guard eXtensions (SGX) allow applications to host
++protected executable objects in memory,
++also known as
++.I enclaves.
++They are constructed with
++.BR mmap (2)
++and
++.BR ioctl (2)
++applied to
++.I /dev/sgx_enclave.
++The details of enclave's memory structure can be found in
++the Intel Software Developers Manual.
++.PP
++SGX must be enabled in BIOS.
++If SGX appears to be unsupported on a system having hardware support,
++ensure that SGX is enabled in the BIOS.
++If a BIOS presents a choice between
++.I Enabled
++and
++.I Software Enabled
++modes for SGX,
++choose
++.I Enabled.
++.PP
++SGX is available only if the kernel was configured and built with the
++.B CONFIG_X86_SGX
++option.
++You can determine whether both the kernel and hardware together support SGX by
++checking whether "sgx" appears in the
++.I flags
++field in
++.IR /proc/cpuinfo .
++.SS Construction
++A process can build an enclave by applying the
++.BR ioctl (2)
++interface provided by
++.IR <asm/sgx.h>
++to
++.I /dev/sgx_enclave.
++.PP
++An enclave's base address is fixed during the build time:
++it is given to
++.BR ioctl(SGX_IOC_ENCLAVE_CREATE),
++which initiates the whole enclave build process.
++.PP
++As a consequence,
++.BR mmap (2)
++must be used to reserve a reasonable piece of the process address space,
++before the build process can begin.
++There is a hardware constraint that the enclave size must be a power of two,
++and the base address must be a multiple of the size.
++This often leads to reserving a larger region than required by the payload.
++If the address space size is an issue,
++it can be obviously trimmed with
++.BR mmap(MAP_FIXED)
++calls,
++after the enclave has been constructed.
++.PP
++A process can access enclave by entering into its address space through
++a set of entry points,
++which must be defined during the construction process.
++This requires a complex sequence of CPU instructions,
++and kernel assisted exception handling.
++For these reasons,
++it is encapsulated into
++vDSO interface,
++provided by
++.BR vdso_sgx_enter_enclave_t,
++which is located in
++.IR <asm/sgx.h>.
++.SS Permissions
++In order to build an enclave, a process must be able to call
++.IR mmap (2)
++with
++.IR PROT_EXEC
++set,
++because like for any other type of executable,
++the page table permissions must be set appropriately.
++Therefore,
++.I /dev/sgx_enclave
++must reside in a partition,
++which is not mounted with
++.B noexec
++set in the mount options.
++.PP
++During the build process each enclave page is assigned protection bits,
++as part of
++.BR ioctl(SGX_IOC_ENCLAVE_ADD_PAGES).
++These permissions are also the maximum permissions to which the page can be be mapped.
++If
++.BR mmap (2)
++is called with surpassing permissions,
++it will return
++.B -EACCES.
++If
++.BR ioctl(SGX_IOC_ENCLAVE_ADD_PAGES)
++is called after
++.BR mmap (2)
++with lower permissions,
++the process will eventually receive a
++.BR SIGBUS
++signal,
++once it accesses the page for the first time.
++.SH VERSIONS
++The SGX feature was added in Linux 5.11.
++.SH SEE ALSO
++.BR ioctl (2),
++.BR mmap (2),
++.BR mprotect (2)
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.31.1
+
