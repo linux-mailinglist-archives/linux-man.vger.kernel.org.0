@@ -2,36 +2,36 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 101F537EE8F
+	by mail.lfdr.de (Postfix) with ESMTP id B8ED437EE91
 	for <lists+linux-man@lfdr.de>; Thu, 13 May 2021 00:59:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230121AbhELVwm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 12 May 2021 17:52:42 -0400
-Received: from mail.kernel.org ([198.145.29.99]:43602 "EHLO mail.kernel.org"
+        id S231700AbhELVwu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 12 May 2021 17:52:50 -0400
+Received: from mail.kernel.org ([198.145.29.99]:43944 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1346845AbhELVOZ (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 12 May 2021 17:14:25 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BCF50610A5;
-        Wed, 12 May 2021 21:13:12 +0000 (UTC)
+        id S1385221AbhELVPb (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 12 May 2021 17:15:31 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 32B8D610CA;
+        Wed, 12 May 2021 21:14:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1620853993;
-        bh=+MUHXqbKBiqOfWGQHHiGYB2oo/WHwsUUQl/ypr5XLiI=;
+        s=k20201202; t=1620854060;
+        bh=tpPd1GAWy99yDPj1UmWZAV6cslrdAU7/bxDhl731x7M=;
         h=From:To:Cc:Subject:Date:From;
-        b=oNo5W+LRJVcmsnWWAWOBelPquw+YBLtbt+ytscxIRI06COakbhUwL9qR7t92naEIx
-         fAK5acLXomqP25STlyF8L3YXOF+/PIwxpo7o6IbopOjtZHQsDYIj41QizZgUhjEG/e
-         KfCjOoTB0zqFFrpbhuFiyNuo+SBFH+a/RHx+8/XG3JQw+gR9JA0dboTZNHFBAITi18
-         wvbIEJ3ZqFF6b7FePMMBweDoRsM5j4jlcHumM3bjoldzsB5mRz40N53ukxXjD10MFA
-         aCn0LWe/FOr4bgeSVwEtLMpCSRkQx9UMptXjsc/e255JUcl9giAkMdgKoRrewQN5g7
-         FAqTOlQaHBsfg==
+        b=PJsI+5RgvbCPoHAtzVbVDnu06//tx4dgqlnQJqKk01Gm7SQhZJ8aZgQw8LhPOlf6f
+         sJHcwbTveCW+CuOSlcw67BIhB0BPv9pwRK4s3Cf/9qvYS7F39kL53Y65tI1tb3K5yf
+         efbo5+sI0i0KtbFIwXyDi6PYdKOpyZ+zjj0Tk1Tjp0sU5DejEqR5HgxyMeoUgBOk8y
+         YTx46Yjq+KhIbYmIot3IcWm5Afpxyzz132I8ZeFpkT7nwLtQMsVgoxe+QWY9bRxKkq
+         cFoxDjzJymPXjxupVUu5Ou/pCmoeMp3E1lAGVfRkgSK+VZpHZ1nQv/gbxJmbOi5ZDJ
+         85oX1kzsLWCsw==
 From:   Jarkko Sakkinen <jarkko@kernel.org>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org, linux-sgx@vger.kernel.org,
         dave.hansen@linux.intel.com,
         Reinette Chatre <reinette.chatre@intel.com>,
         Jarkko Sakkinen <jarkko@kernel.org>
-Subject: [PATCH v6] sgx.7: New page with overview of Software Guard eXtensions (SGX)
-Date:   Thu, 13 May 2021 00:13:07 +0300
-Message-Id: <20210512211307.416184-1-jarkko@kernel.org>
+Subject: [PATCH v6, RESEND] sgx.7: New page with overview of Software Guard eXtensions (SGX)
+Date:   Thu, 13 May 2021 00:14:14 +0300
+Message-Id: <20210512211414.416860-1-jarkko@kernel.org>
 X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -39,10 +39,15 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+
 v6:
+* Oops, sorry, forgot to move the log over here. That's the reason for
+  resend.
 * Small fixes based on Dave's and Reinette's feedback.
 * Extended the "Permissions" section to cover mmap()
-v5:
+5:
 * Taking away hardware concepts and focusing more on the interface.
 v4:
 * Did a heavy edit trying to streamline the story a bit and focus on
@@ -55,8 +60,6 @@ v2:
   that were reported by Alenjandro and Michael.
 * SGX was merged to v5.
 
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
----
  man7/sgx.7 | 138 +++++++++++++++++++++++++++++++++++++++++++++++++++++
  1 file changed, 138 insertions(+)
  create mode 100644 man7/sgx.7
