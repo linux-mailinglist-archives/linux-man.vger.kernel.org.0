@@ -2,121 +2,100 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 17A6037B358
-	for <lists+linux-man@lfdr.de>; Wed, 12 May 2021 03:16:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BDD7637B45E
+	for <lists+linux-man@lfdr.de>; Wed, 12 May 2021 05:06:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229920AbhELBRh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 11 May 2021 21:17:37 -0400
-Received: from mail.kernel.org ([198.145.29.99]:60746 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S229736AbhELBRg (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 11 May 2021 21:17:36 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3C9356190A;
-        Wed, 12 May 2021 01:16:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1620782189;
-        bh=E039wsw66f7QgXI0C1OyQuv4VacGIgu8a8ckxigM6AY=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=Q5odwE1pHnfzy4+RDp5lsykzlE9V/5gplXnVwd12XayfGEXFkoaCzCOZd3OtNiwtB
-         s15sMYIr4B9dTCWnWRnvWBY6gw38kGi2vWqTe6mL+rfrI5Lh2NiYfgHqxYU1Wftdct
-         oGEi1sIFujV1kEO1SLE1cP9HARxi4QZgFR/0v0R2JYZ6O7Lvoaey3K4gnyvThLZPCP
-         ygVfkvRwvxB50wyc9uKyr9VyVeg5+WAPwSOswWyjOKF3df9j2GmTEr480CWKhBG22n
-         PogvkDnhtKPEozZ/x9DDTO6QSp9B+4+BE+vlJwNswFGH4oNzjJCm/FKTV58po2qcYE
-         BM3ISiqqnExyg==
-Date:   Wed, 12 May 2021 04:16:27 +0300
-From:   Jarkko Sakkinen <jarkko@kernel.org>
-To:     Reinette Chatre <reinette.chatre@intel.com>
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        linux-sgx@vger.kernel.org, dave.hansen@linux.intel.com
-Subject: Re: [PATCH v5] sgx.7: New page with overview of Software Guard
- eXtensions (SGX)
-Message-ID: <YJssa9DyboM8nWXL@kernel.org>
-References: <20210510145235.8056-1-jarkko@kernel.org>
- <7ea35a75-a75d-4071-cbf7-f43c672a5a45@intel.com>
+        id S229934AbhELDHu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 11 May 2021 23:07:50 -0400
+Received: from mail1.bemta25.messagelabs.com ([195.245.230.5]:61507 "EHLO
+        mail1.bemta25.messagelabs.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S229932AbhELDHu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 11 May 2021 23:07:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+        s=170520fj; t=1620788802; i=@fujitsu.com;
+        bh=rs6Fla0UBOAH1Ua6SU4zEi5JScmkOlaLA9u0j/CrrFg=;
+        h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
+        b=OtFg/ZEjy11as+a9igjz7NHRxAV4gleCknT1lLAIe7Hm7e4JWMFEoN2ymNIsPTn8S
+         hbOz5BeNb/UTsa6ECe+CosmnPgktJbwW5VsPQwkcokYLWje6F1ysNYmAmj1unLu7/+
+         +vPvZYKoRkmYP1wFA1gutMCrZvwKR7zLrAEJZ8bJI0dE/kWkUsYi/b0KEOdR3q2scW
+         IKDZ2fsXWERkCmA9hAtXPCO5WUC4Ml4Md6Z9HXvTGSj4+/JYcfmF1rkhWcowT7/FUy
+         9Cy5TqIO57TO5X4tsVPICGOKSLfphNR+RhYxVu+Ulg1+ETXoJYlJsciyZfSSGxoG6k
+         lM5zxVLYiKgcg==
+Received: from [100.112.193.211] (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256 bits))
+        by server-5.bemta.az-a.eu-west-1.aws.symcld.net id A8/D4-01834-1464B906; Wed, 12 May 2021 03:06:41 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprKIsWRWlGSWpSXmKPExsViZ8MxVdfRbXa
+  CwdQ7vBZr1s9gd2D0+LxJLoAxijUzLym/IoE1o/fjJfaCf6wVN3ecYGtgbGbtYuTiEBLoZpKY
+  fqqREcLZzShxaOE15i5GTg42AU2JZ50LwGwRAXmJNXsWMILYzALqEssn/WLqYuTgEBawkTiwO
+  hEkzCKgKjF3+jawEl4BD4ldO++CtUoIKEhMefieGSIuKHFy5hMWiDESEgdfvICqUZS41PGNEc
+  KukJgxYxvbBEbeWUhaZiFpWcDItIrRPKkoMz2jJDcxM0fX0MBA19DQSNfQ0kjXxEQvsUo3US+
+  1VLc8tbhE11AvsbxYr7gyNzknRS8vtWQTIzC0UgoO6Oxg/Pnqg94hRkkOJiVR3j/MsxKE+JLy
+  UyozEosz4otKc1KLDzHKcHAoSfCuc5mdICRYlJqeWpGWmQMMc5i0BAePkgjvKVegNG9xQWJuc
+  WY6ROoUo6KUOG8TSJ8ASCKjNA+uDRZblxhlpYR5GRkYGIR4ClKLcjNLUOVfMYpzMCoJ804Gmc
+  KTmVcCN/0V0GImoMU3ps8CWVySiJCSamAqEgvk/zxro/r2pO/2WVo3p1+7WuNy+GrBXJfTx7y
+  Pm6+SOX7u9i7Wy7djC9/NfnDVl1W0Nj3db1ZYKDvLHp5fXNltBrMYrsuwqxUrTb4dvM6i5uaE
+  zo3dpssOs3yd8/j0ApNv287W/LgTK/ahlkf8cvC8aPnqOQ+CrvaJVFtM/T7Xh8GW4+6sWIY9e
+  km32d9dOzXxptEltivv//Nq3Ir44jCXtWTyxOP3d2j87P9hsqNCQu0ph/idhIwDf5n7ezs0u3
+  2UIq/I1GbZ/p4361ucyrOFnmanS9/dUn/Qdfq1v+i31lUPZ6co6Sy2/7y4iIH9t8312OsiRSd
+  nuZd3zb0T/iDpZc2zM2wGp6emG7yoUmIpzkg01GIuKk4EAMQWDC0oAwAA
+X-Env-Sender: xuyang2018.jy@fujitsu.com
+X-Msg-Ref: server-12.tower-267.messagelabs.com!1620788800!51099!1
+X-Originating-IP: [62.60.8.149]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.75.3; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 12192 invoked from network); 12 May 2021 03:06:41 -0000
+Received: from unknown (HELO mailhost2.uk.fujitsu.com) (62.60.8.149)
+  by server-12.tower-267.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384 encrypted SMTP; 12 May 2021 03:06:41 -0000
+Received: from R01UKEXCASM126.r01.fujitsu.local ([10.183.43.178])
+        by mailhost2.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 14C36Zl2017826
+        (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
+        for <linux-man@vger.kernel.org>; Wed, 12 May 2021 04:06:40 +0100
+Received: from localhost.localdomain (10.167.220.84) by
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 12 May 2021 04:06:33 +0100
+From:   Yang Xu <xuyang2018.jy@fujitsu.com>
+To:     <linux-man@vger.kernel.org>
+CC:     Yang Xu <xuyang2018.jy@fujitsu.com>
+Subject: [PATCH] man2/shmget.2: Remove unexisted EPERM error
+Date:   Wed, 12 May 2021 11:06:52 +0800
+Message-ID: <1620788812-2361-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7ea35a75-a75d-4071-cbf7-f43c672a5a45@intel.com>
+Content-Type: text/plain
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD09.g08.fujitsu.local (10.167.33.85) To
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, May 11, 2021 at 01:22:10PM -0700, Reinette Chatre wrote:
-> Hi Jarkko,
-> 
-> On 5/10/2021 7:52 AM, Jarkko Sakkinen wrote:
-> 
-> ...
-> 
-> > +There is a hardware constraint that the enclave size must be a power of two,
-> > +and the base address must be a multiple of the size.
-> > +This can lead to reserving a large region than required by the payload,
-> 
-> a large region than required -> a larger region than required ?
-> 
-> > +but the address space can be obviously trimmed after the enclave has been
-> 
-> can be obviously trimmed -> can be trimmed ?
-> 
-> > +constructed on,
-> 
-> constructed on -> constructed ?
-> 
-> > +with a sequence of
-> > +.BR mmap(MAP_FIXED)
-> > +calls.
-> > +.PP
-> > +A process can access enclave by entering into its address space through
-> > +a set of entry points,
-> > +which must be defined during the construction process.
-> > +This requires a complex sequence of CPU instructions,
-> > +and kernel assisted exception handling,
-> > +encapsulated into
-> > +.BR vsgx_enter_enclave
-> > +vDSO interface,
-> > +provided and documented by
-> > +.IR <asm/sgx.h>.
-> 
-> This is not clear to me. This is written as though vsgx_enter_enclave is
-> something very specific that is documented in <asm/sgx.h>. Should it perhaps
-> be vdso_sgx_enter_enclave_t instead? Am I missing where vsgx_enter_enclave
-> is defined? I expect a reader of this man page may want to search for the
-> term "vsgx_enter_enclave" after reading the above.
+I have seen kernel ipc/shm.c code, I don't see shmget has EPERM error
+when using SHM_HUGETLB. So remove it.
 
-Yeah, it's now incorrect. I'll fix this. Thanks for pointing out.
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+---
+ man2/shmget.2 | 7 -------
+ 1 file changed, 7 deletions(-)
 
-> 
-> > +.SS Permissions
-> > +In order to build an enclave, a process must be able to call
-> > +.IR mmap (2)
-> > +with
-> > +.IR PROT_EXEC
-> > +set.
-> > +Like for any other type of executable,
-> > +the page permissions must be set appropriately.
-> > +For this reason,
-> > +.I /dev/sgx_enclave
-> > +must reside in a partition,
-> > +which is not mounted as no-exec,
-> > +in order to be usable,
-> > +as
-> > +.IR mmap(2)
-> > +denies
-> > +.IR PROT_EXEC
-> > +otherwise.
-> > +.SH VERSIONS
-> > +The SGX feature was added in Linux 5.11.
-> > +.SH SEE ALSO
-> > +.BR ioctl (2),
-> > +.BR mmap() (2),
-> 
-> mmap() (2) -> mmap (2) ?
-> 
-> > +.BR mprotect (2)
-> > 
-> 
-> Reinette
+diff --git a/man2/shmget.2 b/man2/shmget.2
+index 757b7b7f1..f10ba7a1f 100644
+--- a/man2/shmget.2
++++ b/man2/shmget.2
+@@ -267,13 +267,6 @@ or allocating a segment of the requested
+ .I size
+ would cause the system to exceed the system-wide limit on shared memory
+ .RB ( SHMALL ).
+-.TP
+-.B EPERM
+-The
+-.B SHM_HUGETLB
+-flag was specified, but the caller was not privileged (did not have the
+-.B CAP_IPC_LOCK
+-capability).
+ .SH CONFORMING TO
+ POSIX.1-2001, POSIX.1-2008, SVr4.
+ .\" SVr4 documents an additional error condition EEXIST.
+-- 
+2.23.0
 
-Also, other remarks make sense to me, thanks.
-
-/Jarkko
