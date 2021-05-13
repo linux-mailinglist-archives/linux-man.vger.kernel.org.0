@@ -2,68 +2,103 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D36CE37F9CD
-	for <lists+linux-man@lfdr.de>; Thu, 13 May 2021 16:37:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2C3CE37FA9A
+	for <lists+linux-man@lfdr.de>; Thu, 13 May 2021 17:23:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234540AbhEMOjC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 13 May 2021 10:39:02 -0400
-Received: from beige.elm.relay.mailchannels.net ([23.83.212.16]:20443 "EHLO
-        beige.elm.relay.mailchannels.net" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S234575AbhEMOi5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 13 May 2021 10:38:57 -0400
-X-Sender-Id: instrampxe0y3a|x-authsender|calestyo@scientia.net
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-        by relay.mailchannels.net (Postfix) with ESMTP id DFF4C1037B0;
-        Thu, 13 May 2021 14:31:49 +0000 (UTC)
-Received: from mailgw-02.dd24.net (100-105-161-122.trex.outbound.svc.cluster.local [100.105.161.122])
-        (Authenticated sender: instrampxe0y3a)
-        by relay.mailchannels.net (Postfix) with ESMTPA id 0567310376C;
-        Thu, 13 May 2021 14:31:39 +0000 (UTC)
-X-Sender-Id: instrampxe0y3a|x-authsender|calestyo@scientia.net
-Received: from mailgw-02.dd24.net (mailgw-02.dd24.net [193.46.215.43])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384)
-        by 100.105.161.122 (trex/6.2.1);
-        Thu, 13 May 2021 14:31:49 +0000
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: instrampxe0y3a|x-authsender|calestyo@scientia.net
-X-MailChannels-Auth-Id: instrampxe0y3a
-X-Befitting-Soft: 6eabd825538af9b4_1620916301987_3396631696
-X-MC-Loop-Signature: 1620916301987:3707098194
-X-MC-Ingress-Time: 1620916301987
-Received: from heisenberg.fritz.box (ppp-46-244-246-192.dynamic.mnet-online.de [46.244.246.192])
-        (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        (Authenticated sender: calestyo@scientia.net)
-        by smtp.dd24.net (Postfix) with ESMTPSA id 218F55FC25;
-        Thu, 13 May 2021 14:31:35 +0000 (UTC)
-Message-ID: <f795fae3da8d6f8bd527fe66023fa9486ac4acda.camel@scientia.net>
-Subject: possible spelling error in console_codes(4)
-From:   Christoph Anton Mitterer <calestyo@scientia.net>
-To:     mtk.manpages@gmail.com, alx.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Date:   Thu, 13 May 2021 16:31:34 +0200
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.38.3-1 
+        id S234784AbhEMPYG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 13 May 2021 11:24:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55400 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S234877AbhEMPXy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 13 May 2021 11:23:54 -0400
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8C6ECC061574
+        for <linux-man@vger.kernel.org>; Thu, 13 May 2021 08:22:42 -0700 (PDT)
+Received: by mail-wm1-x32d.google.com with SMTP id j3-20020a05600c4843b02901484662c4ebso33793wmo.0
+        for <linux-man@vger.kernel.org>; Thu, 13 May 2021 08:22:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=cAOX3hOxTBgRK6oOmJ5gUx9SeySTZAp/pRFBqBvIuZU=;
+        b=Eia4VFEdgOOC3ucieWlwpB98KzrnUEG8Ujj4VKpe6QOpGmlpAnMdUiXB89zryQXnSG
+         CFQepByl+7nFoZsSzgzRLjbq+6GrakccuC+ntTbL7W/2qJrEPVV9Ck84ew/LvaVkSL5p
+         9Fl06G27tETVV5alV/6gC0i4wp8Hyo3BcyAeOW/1gMsbuXpQJPMcIMT8IR/Led1CiKD/
+         lW4JPGak4uGXBzF9dHxaacIli5mYsrh1micQLjdqqV/wXoE+ixjWTENYpsh3NnaEclvK
+         xV/sfBzGVoxSCkEh8OZXsXJOKtMwO5qq7M6S3RKYlK3q7jnKQgI2hqR4ZAbj5EzUhzSn
+         WSwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=cAOX3hOxTBgRK6oOmJ5gUx9SeySTZAp/pRFBqBvIuZU=;
+        b=f644o5lf2zV9rX+Tq9ZJlqBrEX5v1mAWWqqXwPgmAo39W+XZwA6XUQzNDRhzC3xdpw
+         nxlRt84jWJWBHZAKONSlrYXHHoup4Rpsr1ma3KThNxhHkEPG4eVcyfFFrL2e3ax9RPAI
+         1tUrVOrtAIb4JLkUNlfIGlGoZAGr7fKK2M1Ufgsnvm+aV2WWXMmJsoNLK0ULfNbrH4Ds
+         2mmiegdzltSdnscSMr1kpba+D6Vy01X/3FdtZmdt66udkTMlzZ0tL51n8jBhIwO67/Ps
+         qBwVJC4JhiAavTUnsquf8GC8I9N7xTM47IcZJzhXfhoM62NPGbJ8eZQpuS4jUPIwHrYx
+         5YFQ==
+X-Gm-Message-State: AOAM530qznDQq2Re8R3XglFkhSNQ2B6zFtk+B4k1Q7JHjqZHbHjIsKJg
+        4PeF6WwBKkR6f3DG8ASJWNQ=
+X-Google-Smtp-Source: ABdhPJxwtVz66D4MDESr6QB/li2wWEhiq+eRAXp43xX02jLl4hxRaBjoUwGdYcF49EnbEYtEcGYFww==
+X-Received: by 2002:a05:600c:19cb:: with SMTP id u11mr551411wmq.185.1620919361320;
+        Thu, 13 May 2021 08:22:41 -0700 (PDT)
+Received: from sqli.sqli.com ([195.53.121.100])
+        by smtp.googlemail.com with ESMTPSA id s5sm2555542wmh.37.2021.05.13.08.22.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 13 May 2021 08:22:41 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org,
+        Christoph Anton Mitterer <calestyo@scientia.net>
+Subject: [PATCH] console_codes.4: tfix
+Date:   Thu, 13 May 2021 17:21:55 +0200
+Message-Id: <20210513152154.114888-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <f795fae3da8d6f8bd527fe66023fa9486ac4acda.camel@scientia.net>
+References: <f795fae3da8d6f8bd527fe66023fa9486ac4acda.camel@scientia.net>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hey there
+The correct meaning of SGR is "Select Graphic Rendition".
 
-In console_codes(4) it says:
-> ECMA-48 Set Graphics Rendition
+See:
+<https://www.ecma-international.org/wp-content/uploads/ECMA-48_5th_edition_june_1991.pdf>
+<https://nvlpubs.nist.gov/nistpubs/Legacy/FIPS/fipspub86.pdf>
+<https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters>
 
-but I think this should be:
-Select Graphic Rendition
+Reported-by: Christoph Anton Mitterer <calestyo@scientia.net>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
 
-see e.g.:
-https://www.ecma-international.org/wp-content/uploads/ECMA-48_5th_edition_june_1991.pdf
-https://nvlpubs.nist.gov/nistpubs/Legacy/FIPS/fipspub86.pdf
-https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters
+Hi Christoph,
 
+Yes, it seems you're right.
 
-Cheers,
-Chris.
+Thanks,
+
+Alex
+
+ man4/console_codes.4 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/man4/console_codes.4 b/man4/console_codes.4
+index 690a2cd82..31c9e0c4a 100644
+--- a/man4/console_codes.4
++++ b/man4/console_codes.4
+@@ -298,7 +298,7 @@ T}
+ .TE
+ .ad
+ .PP
+-.B ECMA-48 Set Graphics Rendition
++.B ECMA-48 Select Graphic Rendition
+ .PP
+ The ECMA-48 SGR sequence ESC [ \fIparameters\fP m sets display
+ attributes.
+-- 
+2.31.1
 
