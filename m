@@ -2,178 +2,133 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3B116380A52
-	for <lists+linux-man@lfdr.de>; Fri, 14 May 2021 15:20:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7ECFC380A57
+	for <lists+linux-man@lfdr.de>; Fri, 14 May 2021 15:22:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231264AbhENNVU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 14 May 2021 09:21:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36966 "EHLO
+        id S231340AbhENNXK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 14 May 2021 09:23:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37366 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230075AbhENNVT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 14 May 2021 09:21:19 -0400
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 76CD6C061574
-        for <linux-man@vger.kernel.org>; Fri, 14 May 2021 06:20:07 -0700 (PDT)
-Received: by mail-wm1-x334.google.com with SMTP id p14-20020a05600c358eb029015c01f207d7so1440796wmq.5
-        for <linux-man@vger.kernel.org>; Fri, 14 May 2021 06:20:07 -0700 (PDT)
+        with ESMTP id S230075AbhENNXK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 14 May 2021 09:23:10 -0400
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E65A1C061574
+        for <linux-man@vger.kernel.org>; Fri, 14 May 2021 06:21:58 -0700 (PDT)
+Received: by mail-wr1-x42b.google.com with SMTP id v12so29996392wrq.6
+        for <linux-man@vger.kernel.org>; Fri, 14 May 2021 06:21:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=x+gj6nynLK8poKhjnpYNwfx28wZPfMuaJf4J8Awezoo=;
-        b=KYo6jBvwRffuHfp+ihVMwDl4Q9txL1yls7BDkloXU4p4dawr2AfJhJbFFmQFmoogXN
-         Mki9XWmK+qckbfhpV97FO93JaFn9zmIYByXa4rNTUfQ4dqMTElwuvqEGQN6D8OoSVR31
-         pei46khHiKIvMoVdVO/x2LOsuNhaof1ttJVtyyM4G9tytd2107m/bpLKPd/T6Mc01jh2
-         3GUqjAH277F+dGPJF0sWOsY7CYiMtlA/8WjeYHlfGzeuL5e59Rc7EE+dSox0rIEi+nN/
-         NzSYPhraccwHDPPA4xCGGFMB0Gnkjpsmk8Sfcg0yfKEoPOYK4VP3Ka3xmeldqcG89gMe
-         /Amw==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=P2Z2L2vXaq2N3vv2XNt/9TaLSn2VfZMPMdO6WDXp23U=;
+        b=XmMVshzxNjCyrretUTiv/CXeTJVwVXjGDJfbDUiasjztwRNXzzDM0j85cNXgcOYfja
+         AyBMcyxfs2ZGbkCApcvp7sMc59vU/Z95vkUPUSQF1QqNfA9LB/wDVRCXG4tFuT4zKMVI
+         1jY1SNklvoWS9/V+K0NCaJzo3PpUzEHwxdkX79MOs3VuTQLOCTIRYQsuvk8Qid92sNMn
+         VBiz9vUVZmyrUMpsUh/TC/zVRp9/3AL3/vy8vFsD9Nv/aOiclhirBsjKsF7UfQcwLg/j
+         CJzpBklwzRGggCTmYpOtBwJI7WYKBioP2dZNPftrebzaNvYl4JE0h20YC+hcxxo2/3R4
+         sUFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=x+gj6nynLK8poKhjnpYNwfx28wZPfMuaJf4J8Awezoo=;
-        b=F4eLMTA14zQatHCwJuzcOBx/9aLtSfHnGwag+SSlHSBRRgmsN8MseAb4M5BqtwICOk
-         wHkLS19jo6RV7zBOG5/+BJQSuCS09FTrxEX+3wANVLxkZIV7esJBeMR3a/kCcp+joW0h
-         vw1mFCCL1BYIpdkNPoAmz4MbLO8tugkWdbjoskWkHZyGWFyKTtSbxvZtnoYhbOcuWZbk
-         l7qzdD8XWRWAn/0dGt6wunEfhdZREAMuUgryKIfKVFI51UlfqNEt9eI6FWZhdpj+2XzU
-         ljABQE3rQI4IECYabodPjrB7y5tbv6qV+DCeCWa8UvN3MaQRvYxLYO7NogkMFWekX3h3
-         jLXg==
-X-Gm-Message-State: AOAM5333JhjM/n+xbTeTixK+NICY/GI+224fEV6yj91XxeQvA5mYrlUP
-        c1FLWtiSTkA1sB6A98OonPQ=
-X-Google-Smtp-Source: ABdhPJwfoAy58B/NxPFE6ICnJU8ZU5Q1gFSqp2D8/632wgbesmyj+wiT78/mif0ro6UbcrbWGXmIqw==
-X-Received: by 2002:a1c:7711:: with SMTP id t17mr50524798wmi.6.1620998406222;
-        Fri, 14 May 2021 06:20:06 -0700 (PDT)
-Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id w25sm5311336wmk.25.2021.05.14.06.20.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 May 2021 06:20:05 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
+        bh=P2Z2L2vXaq2N3vv2XNt/9TaLSn2VfZMPMdO6WDXp23U=;
+        b=ZiMHjTI7pFgGn6VwZ5UpM104SLOOqMRotk/GnDshjzSXAqy9serACjujriqx/VNNqN
+         ik+gElKNaW2fpXoRiTXfkvY1wXuK7QIalufxuS19jUsVlllXkQOGNMhn4QHsUWSh9jt4
+         rTbzMr+LBGlRQ78GN6U20c5C3stqO3exJSbyXHo2yOk41BLfKmp/Usku/gsGPnCj/GIl
+         BXl3/1monaEucHDBMnt6FZ2jTZrFbwVBtT0F0ainC1SRiW2k7Sm1zgBImUR812Ltg3Ws
+         g9XqLAqf0N/Waa9PosKar3F0ozWDNlMZ00nAVPP7aKuO++sK+X4U5ZErZdOHkG31gprb
+         plog==
+X-Gm-Message-State: AOAM533dry1rA/pb1vubuXu4Kk9bt1eAFHqKGOx08h5knuT9TqTwAy2d
+        +S4LcHEv+YfqiEWKTDx4dM3q1QLeiac=
+X-Google-Smtp-Source: ABdhPJwjvKny9IrxykATWQ6Zrm7LFGfGWKgn8PKC98bLjgIyOFoxOgkWIt++Qg6703Lwg4TqDH5AKw==
+X-Received: by 2002:adf:d084:: with SMTP id y4mr59419896wrh.0.1620998517753;
+        Fri, 14 May 2021 06:21:57 -0700 (PDT)
+Received: from [10.8.0.106] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id 61sm7216225wrm.52.2021.05.14.06.21.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 14 May 2021 06:21:57 -0700 (PDT)
+Subject: Re: [PATCH] getaddrinfo.3: Fix includes
 To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, jwakely@redhat.com
-Subject: [PATCH] getaddrinfo.3: Fix includes
-Date:   Fri, 14 May 2021 15:11:58 +0200
-Message-Id: <20210514131158.16904-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.31.1
+Cc:     linux-man@vger.kernel.org, jwakely@redhat.com
+References: <20210514131158.16904-1-alx.manpages@gmail.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <499d96ce-cc52-e463-7bd2-86f7bea7e260@gmail.com>
+Date:   Fri, 14 May 2021 15:21:54 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210514131158.16904-1-alx.manpages@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-- Remove unnecessary includes
-- Add a comment about why each include is needed
-- Sort alphabetically
+On 5/14/21 3:11 PM, Alejandro Colomar wrote:
+> - Remove unnecessary includes
+> - Add a comment about why each include is needed
+> - Sort alphabetically
+> 
+> All this has been done using iwyu(1):
+> 
+> $ iwyu getaddrinfo_server.c 2>&1 \
+>    | sed -e '\,^#,s,//,/*,' -e '\,^#,s,$, */,' \
+>    | sed '/^#/s/\w*\.\.\./.../';
+> 
+> getaddrinfo_client.c should add these lines:
+> 
+> getaddrinfo_client.c should remove these lines:
+> - #include <sys/types.h>  // lines 1-1
+> 
+> The full include-list for getaddrinfo_client.c:
+>   #include <netdb.h>       /* for addrinfo, freeaddrinfo, gai_strerror, ... */
+>   #include <stdio.h>       /* for fprintf, stderr, perror, printf, NULL, size_t */
+>   #include <stdlib.h>      /* for exit, EXIT_FAILURE, EXIT_SUCCESS */
+>   #include <string.h>      /* for memset, strlen */
+>   #include <sys/socket.h>  /* for connect, socket, AF_UNSPEC, SOCK_DGRAM */
+>   #include <unistd.h>      /* for close, read, write, ssize_t */
 
-All this has been done using iwyu(1):
+Oops, the above should be:
 
-$ iwyu getaddrinfo_server.c 2>&1 \
-  | sed -e '\,^#,s,//,/*,' -e '\,^#,s,$, */,' \
-  | sed '/^#/s/\w*\.\.\./.../';
+getaddrinfo_server.c should add these lines:
 
-getaddrinfo_client.c should add these lines:
-
-getaddrinfo_client.c should remove these lines:
+getaddrinfo_server.c should remove these lines:
 - #include <sys/types.h>  // lines 1-1
 
-The full include-list for getaddrinfo_client.c:
- #include <netdb.h>       /* for addrinfo, freeaddrinfo, gai_strerror, ... */
- #include <stdio.h>       /* for fprintf, stderr, perror, printf, NULL, size_t */
- #include <stdlib.h>      /* for exit, EXIT_FAILURE, EXIT_SUCCESS */
- #include <string.h>      /* for memset, strlen */
- #include <sys/socket.h>  /* for connect, socket, AF_UNSPEC, SOCK_DGRAM */
- #include <unistd.h>      /* for close, read, write, ssize_t */
-$ iwyu getaddrinfo_client.c 2>&1 \
-  | sed -e '\,^#,s,//,/*,' -e '\,^#,s,$, */,' \
-  | sed '/^#/s/\w*\.\.\./.../';
-
-getaddrinfo_client.c should add these lines:
-
-getaddrinfo_client.c should remove these lines:
-- #include <sys/types.h>  // lines 1-1
-
-The full include-list for getaddrinfo_client.c:
- #include <netdb.h>       /* for addrinfo, freeaddrinfo, gai_strerror, ... */
- #include <stdio.h>       /* for fprintf, stderr, perror, printf, NULL, size_t */
- #include <stdlib.h>      /* for exit, EXIT_FAILURE, EXIT_SUCCESS */
- #include <string.h>      /* for memset, strlen */
- #include <sys/socket.h>  /* for connect, socket, AF_UNSPEC, SOCK_DGRAM */
- #include <unistd.h>      /* for close, read, write, ssize_t */
-$
-
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
-
-Hi Michael,
-
-Today I met this tool for checking the includes.  I like its output very
-much, so I used it directly (with a few tweaks) to update the includes
-in our EXAMPLES.  I kept the comments about why each one is needed,
-because I think that info might be useful, but id you prefer, we can
-remove it and keep it only in the commit msg.
-
-When we update an example, it will be easier to see if we should remove
-an include or add a new one (ideally we would rerun iwyu(1)).
-
-Hi Jonathan,
-
-I CCd you because of the recent discussion in
-<https://lore.kernel.org/linux-man/cb10752b-3036-67d3-41c5-b9ef0954f7f9@gmail.com/T/>.
-You might find this tool useful :)
+The full include-list for getaddrinfo_server.c:
+  #include <netdb.h>       /* for addrinfo, gai_strerror, freeaddrinfo, 
+... */
+  #include <stdio.h>       /* for fprintf, NULL, stderr, printf */
+  #include <stdlib.h>      /* for exit, EXIT_FAILURE */
+  #include <string.h>      /* for memset */
+  #include <sys/socket.h>  /* for bind, recvfrom, sendto, socket, ... */
+  #include <unistd.h>      /* for close, ssize_t */
 
 
-Cheers,
+The code contents are correct.
 
-Alex
+> $ iwyu getaddrinfo_client.c 2>&1 \
+>    | sed -e '\,^#,s,//,/*,' -e '\,^#,s,$, */,' \
+>    | sed '/^#/s/\w*\.\.\./.../';
+> 
+> getaddrinfo_client.c should add these lines:
+> 
+> getaddrinfo_client.c should remove these lines:
+> - #include <sys/types.h>  // lines 1-1
+> 
+> The full include-list for getaddrinfo_client.c:
+>   #include <netdb.h>       /* for addrinfo, freeaddrinfo, gai_strerror, ... */
+>   #include <stdio.h>       /* for fprintf, stderr, perror, printf, NULL, size_t */
+>   #include <stdlib.h>      /* for exit, EXIT_FAILURE, EXIT_SUCCESS */
+>   #include <string.h>      /* for memset, strlen */
+>   #include <sys/socket.h>  /* for connect, socket, AF_UNSPEC, SOCK_DGRAM */
+>   #include <unistd.h>      /* for close, read, write, ssize_t */
+> $
+> 
 
-
- man3/getaddrinfo.3 | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
-
-diff --git a/man3/getaddrinfo.3 b/man3/getaddrinfo.3
-index 35071b733..aa3b81165 100644
---- a/man3/getaddrinfo.3
-+++ b/man3/getaddrinfo.3
-@@ -660,13 +660,12 @@ The programs are an echo server and client for UDP datagrams.
- .SS Server program
- \&
- .EX
--#include <sys/types.h>
--#include <stdio.h>
--#include <stdlib.h>
--#include <unistd.h>
--#include <string.h>
--#include <sys/socket.h>
--#include <netdb.h>
-+#include <netdb.h>       /* for addrinfo, gai_strerror, freeaddrinfo, ... */
-+#include <stdio.h>       /* for fprintf, NULL, stderr, printf */
-+#include <stdlib.h>      /* for exit, EXIT_FAILURE */
-+#include <string.h>      /* for memset */
-+#include <sys/socket.h>  /* for bind, recvfrom, sendto, socket, ... */
-+#include <unistd.h>      /* for close, ssize_t */
- 
- #define BUF_SIZE 500
- 
-@@ -755,13 +754,12 @@ main(int argc, char *argv[])
- .SS Client program
- \&
- .EX
--#include <sys/types.h>
--#include <sys/socket.h>
--#include <netdb.h>
--#include <stdio.h>
--#include <stdlib.h>
--#include <unistd.h>
--#include <string.h>
-+#include <netdb.h>       /* for addrinfo, freeaddrinfo, gai_strerror, ... */
-+#include <stdio.h>       /* for fprintf, stderr, perror, printf, NULL, size_t */
-+#include <stdlib.h>      /* for exit, EXIT_FAILURE, EXIT_SUCCESS */
-+#include <string.h>      /* for memset, strlen */
-+#include <sys/socket.h>  /* for connect, socket, AF_UNSPEC, SOCK_DGRAM */
-+#include <unistd.h>      /* for close, read, write, ssize_t */
- 
- #define BUF_SIZE 500
- 
 -- 
-2.31.1
-
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
