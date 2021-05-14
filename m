@@ -2,61 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1EECC380A5F
-	for <lists+linux-man@lfdr.de>; Fri, 14 May 2021 15:26:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5D9D0380A62
+	for <lists+linux-man@lfdr.de>; Fri, 14 May 2021 15:29:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230125AbhENN1y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 14 May 2021 09:27:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38402 "EHLO
+        id S230259AbhENNaS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 14 May 2021 09:30:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38914 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230075AbhENN1y (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 14 May 2021 09:27:54 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A5FF4C061574
-        for <linux-man@vger.kernel.org>; Fri, 14 May 2021 06:26:42 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id n2so30112095wrm.0
-        for <linux-man@vger.kernel.org>; Fri, 14 May 2021 06:26:42 -0700 (PDT)
+        with ESMTP id S230075AbhENNaS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 14 May 2021 09:30:18 -0400
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 03D99C061574
+        for <linux-man@vger.kernel.org>; Fri, 14 May 2021 06:29:05 -0700 (PDT)
+Received: by mail-wr1-x42a.google.com with SMTP id r12so4447837wrp.1
+        for <linux-man@vger.kernel.org>; Fri, 14 May 2021 06:29:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=YagRrgJ08sLqt39s0bZPcckaHamBMhjebC0Qr1w281w=;
-        b=UA6/OJhCezPLasHXoIOjyJxNWdXrYPTSYLde+/1QbHBpn7INf68EDZojutxaXfq7TH
-         2m6oqxrHT8Dx0prndkdPPZYxEFr4hfdtImMdQEm/k0UfSqHuDLirRIe/XvAhryYXp5tP
-         vCn/Tf3HhAMdctoDyaTIgPejhjaSfp9BqTRlwDU8zS8RN4vPYcWkspgeez/Rhwar9Tx6
-         2KZy7B8YRGp5zhv5LMDCo/ewZ35GanZ2AYYD0tHbwoLENvmtFYJ6AOswSkDMIOh0FknI
-         j8puO7Fw3UiK6oghkhIjwPoYDL/gcchwBg+Qoj2HpvTywODZ285hI5LaMpB+dz/MqoS4
-         bUCA==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=c0hJKky65bfC05JCm4s1qyCNCNfM/Z3GokwGfA2X4GY=;
+        b=KNav0w0wxgf07f+bk6pg6Bwj8t7ECdP8YsXbV1HZVzzi/yYwFg1I8DeEZjJzdO5mGe
+         ZL/K08ywt7TwUtR6a92nvmGk2hUTEOgnsApoqxFeuSLvI+jS5MGtTq6forqmAOldpTXt
+         PfkomQf1K5xgkSCebu1BBPkC0YJ4B9c8hc5IF7M+T0cldkwRjqAxx+yCjFE0Ih2TRx4F
+         ErOxSnfCy2C337feGWm1KOP/aVXsV9yQ5eGFw0AmxVcCQoRhbI+tBgtefTi95i+0MQeX
+         tyudg/GbFl0pK7MWfiXTy8iCTv0Y/un1r2To3pqDVtw/4aypcMHnJ3DX9fdMv/MzuYJA
+         S2zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=YagRrgJ08sLqt39s0bZPcckaHamBMhjebC0Qr1w281w=;
-        b=mKrNHm3O6mQUMor+MzuqerxZfbLB3zIYM8/mPTizl/uK0dRsju/vgJQaDomGBJbSqS
-         b0p/fOXjLI1w6/mItQzJGlbAA8Shcatx4SdeApBxb850ngsozE3hJZbogAk64zivbjiw
-         muG6gA1wf9UwaE5Ng/61Ycxi/abwk2BIoyeBU6QyM+5B2FhZRb67fJA5PJ3tnFJCcKff
-         LbzXaFFAWkCHBnVBUQOd6j+bVBJYw98T6z4gZhRw993/X2cjQtIozFIHqFGGu6tYYU/G
-         WE1Ic5s1y7f7umP9wQtPKG3n7xJQb53wCj1xNspJEuU1XeFmXD1d8kmy7bsnfpbKQb3j
-         9QmA==
-X-Gm-Message-State: AOAM530bMqSZZv2wtM+AqECNPVXMeBDFBEVdvdoQ74Bv6WeYCfzp1joA
-        b5Shzn8pKyACgL6PiZIVuuY=
-X-Google-Smtp-Source: ABdhPJykYoSAMsyZOcHY2aI4cbpcuIR3uHe9e87aKRUhGH/1dOzSaD++XigEoTqTMBzx2HBv8Pwz7Q==
-X-Received: by 2002:adf:e4c4:: with SMTP id v4mr16291513wrm.346.1620998800208;
-        Fri, 14 May 2021 06:26:40 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=c0hJKky65bfC05JCm4s1qyCNCNfM/Z3GokwGfA2X4GY=;
+        b=JI0A/250U25tx8TGL57CwMyk32jEF6P1byF2tSid+7Q8QbO0H4c9dKpgy92lAYEXcv
+         0mlsK9BINcbmRMeAGuO3OH++APUvndfqtQ2quWZ0iiwebyU2N2nz9VA07grWn4FrxmvH
+         7P2NiBFHdhGFq0gTAidGmRzV84y4Rw+C1LLC/BQpyWuhAkC0dHOxay3KmW2nJ2vutbeC
+         NbEN7aKFoyvMBbrghqWEfDseNWFmMSaQlYjMdTzpAvlzL8ILq1UORHR5Rmd+9NXbsqSr
+         2Smhfg2kR4F9GCa5fVM5F1FkIjJAIqMLJJ7m2ziRQJWWuvsm+DDo9ErVWA9Hh31Ow/eu
+         cmUA==
+X-Gm-Message-State: AOAM5330/uLK3xrF06NoXRSrByVi6J4mEYD39UUSZbVT8LU3932JUaqS
+        6kuPlf9mLMBCpKNEkS5FFzI=
+X-Google-Smtp-Source: ABdhPJx/sqS4Z2t8jsNz901pCwNCvBbxHX0asa+c4Sp8mY9OOunnYKtxWaQmszS16u0gqhC04bgy5A==
+X-Received: by 2002:adf:fc11:: with SMTP id i17mr58953417wrr.368.1620998944605;
+        Fri, 14 May 2021 06:29:04 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id p20sm6460843wmq.10.2021.05.14.06.26.38
+        by smtp.googlemail.com with ESMTPSA id h14sm3911614wmb.1.2021.05.14.06.29.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 May 2021 06:26:39 -0700 (PDT)
+        Fri, 14 May 2021 06:29:04 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org, jwakely@redhat.com
-Subject: [PATCH v2] getaddrinfo.3: Fix includes
-Date:   Fri, 14 May 2021 15:26:35 +0200
-Message-Id: <20210514132635.17844-1-alx.manpages@gmail.com>
+Subject: [PATCH v3] getaddrinfo.3: Fix includes
+Date:   Fri, 14 May 2021 15:28:58 +0200
+Message-Id: <20210514132857.18104-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <499d96ce-cc52-e463-7bd2-86f7bea7e260@gmail.com>
-References: <499d96ce-cc52-e463-7bd2-86f7bea7e260@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -79,12 +77,12 @@ getaddrinfo_server.c should remove these lines:
 - #include <sys/types.h>  // lines 1-1
 
 The full include-list for getaddrinfo_server.c:
-#include <netdb.h>       /* for addrinfo, gai_strerror, freeaddrinfo, ... */
-#include <stdio.h>       /* for fprintf, NULL, stderr, printf */
-#include <stdlib.h>      /* for exit, EXIT_FAILURE */
-#include <string.h>      /* for memset */
-#include <sys/socket.h>  /* for bind, recvfrom, sendto, socket, ... */
-#include <unistd.h>      /* for close, ssize_t */
+ #include <netdb.h>       /* for addrinfo, gai_strerror, freeaddrinfo, ... */
+ #include <stdio.h>       /* for fprintf, NULL, stderr, printf */
+ #include <stdlib.h>      /* for exit, EXIT_FAILURE */
+ #include <string.h>      /* for memset */
+ #include <sys/socket.h>  /* for bind, recvfrom, sendto, socket, ... */
+ #include <unistd.h>      /* for close, ssize_t */
 $ iwyu getaddrinfo_client.c 2>&1 \
   | sed -e '\,^#,s,//,/*,' -e '\,^#,s,$, */,' \
   | sed '/^#/s/\w*\.\.\./.../';
@@ -105,6 +103,9 @@ $
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
+
+v2: fix commit msg
+v3: ffix commit msg (lines starting with # may be removed by git)
 
  man3/getaddrinfo.3 | 26 ++++++++++++--------------
  1 file changed, 12 insertions(+), 14 deletions(-)
