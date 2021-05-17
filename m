@@ -2,84 +2,116 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 58623383A83
-	for <lists+linux-man@lfdr.de>; Mon, 17 May 2021 18:50:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8B6BC383CC4
+	for <lists+linux-man@lfdr.de>; Mon, 17 May 2021 20:56:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S241500AbhEQQvj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 17 May 2021 12:51:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43914 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S239133AbhEQQvZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 17 May 2021 12:51:25 -0400
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com [IPv6:2a00:1450:4864:20::236])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 594F3C06129E
-        for <linux-man@vger.kernel.org>; Mon, 17 May 2021 09:38:14 -0700 (PDT)
-Received: by mail-lj1-x236.google.com with SMTP id p20so8018842ljj.8
-        for <linux-man@vger.kernel.org>; Mon, 17 May 2021 09:38:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-         :cc;
-        bh=NxbmURHmcXi1qRcY/aOXbFu+jbJxYzjaEu4gXGQLKx4=;
-        b=eECzA33M8JU6tIPkoqOpeurw5qUEarai3KcLpFahE4nIoW7toJBMrm+4GylF8KUKDU
-         syP5zr3Ii6mjy3FGJgLNwGr4kdrMycRNnnbpc85X2BQb9UiS+l/JywEcdo7ujUURw1PL
-         H8qCxG8RDd4XAC84bIE1DAQDZT7hd8fVmxK0NDEq4Mp4DvLINiVodgfo98+XoZTS/Klb
-         iFJWqWI8sloKJ7DcI5ULlZ6qG0mEk37x2ZE9IkiiufiT2FA2JEz3LtUqwhI9U7NEFES4
-         Cr3OTpUlhn9vhhQuoHagjyAJEAiooWBuBVJ+1+uERUdzXxNcibMcsP3IvFEbgf4hutyw
-         YvEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-         :message-id:subject:to:cc;
-        bh=NxbmURHmcXi1qRcY/aOXbFu+jbJxYzjaEu4gXGQLKx4=;
-        b=fZxEDCRMzvCdX4466wyB3GIpL46S3ObMqPmBQEmla97uoGBRW66DTppuRB19zIrB1F
-         t94hfNyyD15DUauQHTY0k6V6z116vcdC6Y2IQHeEulx9ULezTaVB3PGhm1wqYDh9SvSW
-         mm5Uml/0ru9YfIXsDLsEagbwivv8++Dx7Os6ZMO8L+mONPfd4NSg4nr7TmXmp72LFZUG
-         UCLusyVaI8200956gIL+eS7UE5MEJyWmak87YG5OCszOmLsFj5hCby+7/IFMFVFURB73
-         ffXUVr8v1jSR8wF96VD2Q0/NW6wc82BX6HvzKJ1eeYVZQ6+fqSk6xy/OB44RLDqqWQfW
-         Ajzw==
-X-Gm-Message-State: AOAM530jeldDiehqPFrlnB6pj7PWxuDVhvKT+/lIgfa3ptqZpEMA2o8D
-        WDd6IHdPfVuO0JpNRnokel//BFw7U5zoN5oRpiQ/+omxfqg=
-X-Google-Smtp-Source: ABdhPJyeEpFuaMLKC9WCXkv0nhLbFei27ftv0Nz2S7uVnTCQA7R5eNbytmdK4bvv19Zpkxcbt632eP9dXIVy4sFkWPs=
-X-Received: by 2002:a2e:91d1:: with SMTP id u17mr64846ljg.279.1621269493038;
- Mon, 17 May 2021 09:38:13 -0700 (PDT)
+        id S234681AbhEQS5w (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 17 May 2021 14:57:52 -0400
+Received: from www62.your-server.de ([213.133.104.62]:58014 "EHLO
+        www62.your-server.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S234049AbhEQS5t (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 17 May 2021 14:57:49 -0400
+Received: from sslproxy05.your-server.de ([78.46.172.2])
+        by www62.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+        (Exim 4.92.3)
+        (envelope-from <daniel@iogearbox.net>)
+        id 1liiPn-000Dy4-8H; Mon, 17 May 2021 20:56:31 +0200
+Received: from [85.7.101.30] (helo=linux.home)
+        by sslproxy05.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+        (Exim 4.92)
+        (envelope-from <daniel@iogearbox.net>)
+        id 1liiPm-000Oqz-VD; Mon, 17 May 2021 20:56:30 +0200
+Subject: Re: [PATCH v3] bpf.2: Use standard types and attributes
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Zack Weinberg <zackw@panix.com>,
+        LKML <linux-kernel@vger.kernel.org>,
+        glibc <libc-alpha@sourceware.org>, GCC <gcc-patches@gcc.gnu.org>,
+        bpf <bpf@vger.kernel.org>,
+        David Laight <David.Laight@ACULAB.COM>,
+        Joseph Myers <joseph@codesourcery.com>,
+        Florian Weimer <fweimer@redhat.com>
+References: <6740a229-842e-b368-86eb-defc786b3658@gmail.com>
+ <20210515190116.188362-1-alx.manpages@gmail.com>
+ <9df36138-f622-49a6-8310-85ff0470ccd6@gmail.com>
+From:   Daniel Borkmann <daniel@iogearbox.net>
+Message-ID: <521cd198-fea2-c2a8-ed96-5848ae39b6f2@iogearbox.net>
+Date:   Mon, 17 May 2021 20:56:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.2
 MIME-Version: 1.0
-Received: by 2002:a05:6504:122:0:0:0:0 with HTTP; Mon, 17 May 2021 09:38:11
- -0700 (PDT)
-In-Reply-To: <20210517025022.wgjbt6esup7crgbo@localhost.localdomain>
-References: <CACRhBXNqafUZm_Tk4+GyK4hrEnmS8F_e=s_kwVMeX0utvOHkzQ@mail.gmail.com>
- <20210517025022.wgjbt6esup7crgbo@localhost.localdomain>
-From:   Dave Kemper <saint.snit@gmail.com>
-Date:   Mon, 17 May 2021 11:38:11 -0500
-Message-ID: <CACRhBXNpg8JTwQJdQnSo+X-+0BPsFrdttL9B7GTN16XUpECPLg@mail.gmail.com>
-Subject: Re: getting more out of man pages with less(1) (was: [bug #59962]
- soelim(1) man page uses pic diagram--should it?)
-To:     groff@gnu.org, linux-man@vger.kernel.org
-Cc:     Helge Kreutzmann <debian@helgefjell.de>,
-        =?UTF-8?Q?Mario_Bl=C3=A4ttermann?= <mario.blaettermann@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <9df36138-f622-49a6-8310-85ff0470ccd6@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Authenticated-Sender: daniel@iogearbox.net
+X-Virus-Scanned: Clear (ClamAV 0.103.2/26173/Mon May 17 13:11:33 2021)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 5/16/21, G. Branden Robinson <g.branden.robinson@gmail.com> wrote:
-> At 2021-05-16T20:29:30-0500, Dave Kemper wrote:
->> less's default is for searches to be case-sensitive.  Its -i option
->> (which can be given on the command line or while less is running) is
->> what activates the behavior described above.  A user or a distro might
->> make -i the default in their environment (I do) through the $LESS
->> environment variable or an alias, but that isn't less's out-of-the-box
->> behavior.
->
-> On my Debian buster-based system, less(1) behaves that way, but $LESS is
-> not defined in my environment and I don't have a shell alias or function
-> set up.  Checking the source package, I don't see patches to turn -i on
-> by default.  Baffling!
+On 5/16/21 11:16 AM, Alejandro Colomar (man-pages) wrote:
+> On 5/15/21 9:01 PM, Alejandro Colomar wrote:
+>> Some manual pages are already using C99 syntax for integral
+>> types 'uint32_t', but some aren't.  There are some using kernel
+>> syntax '__u32'.  Fix those.
+>>
+>> Both the kernel and the standard types are 100% binary compatible,
+>> and the source code differences between them are very small, and
+>> not important in a manual page:
+>>
+>> - Some of them are implemented with different underlying types
+>>    (e.g., s64 is always long long, while int64_t may be long long
+>>    or long, depending on the arch).  This causes the following
+>>    differences.
+>>
+>> - length modifiers required by printf are different, resulting in
+>>    a warning ('-Wformat=').
+>>
+>> - pointer assignment causes a warning:
+>>    ('-Wincompatible-pointer-types'), but there aren't any pointers
+>>    in this page.
+>>
+>> But, AFAIK, all of those warnings can be safely ignored, due to
+>> the binary compatibility between the types.
+>>
+>> ...
+>>
+>> Some pages also document attributes, using GNU syntax
+>> '__attribute__((xxx))'.  Update those to use the shorter and more
+>> portable C11 keywords such as 'alignas()' when possible, and C2x
+>> syntax '[[gnu::xxx]]' elsewhere, which hasn't been standardized
+>> yet, but is already implemented in GCC, and available through
+>> either --std=c2x or any of the --std=gnu... options.
+>>
+>> The standard isn't very clear on how to use alignas() or
+>> [[]]-style attributes, and the GNU documentation isn't better, so
+>> the following link is a useful experiment about the different
+>> alignment syntaxes:
+>> __attribute__((aligned())), alignas(), and [[gnu::aligned()]]:
+>> <https://stackoverflow.com/q/67271825/6872717>
+>>
+>> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> Discussion: <https://lore.kernel.org/linux-man/6740a229-842e-b368-86eb-defc786b3658@gmail.com/T/>
+>> Nacked-by: Alexei Starovoitov <ast@kernel.org>
+>> Nacked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-Maybe less's build system has a switch to compile in a different
-default?  Maybe this is a recent change?  Maybe I'm completely wrong?
-I haven't looked at the source or built it myself from github; I'm
-going by the behavior on my systems, behavior I've observed on other
-systems, and the wording of the man page (which documents "-i" to
-invoke case-mostly-insensitive searches rather than an option to
-switch to case-sensitive ones).
+You forgot to retain my ...
+
+Nacked-by: Daniel Borkmann <daniel@iogearbox.net>
+
+>> Acked-by: Zack Weinberg <zackw@panix.com>
+>> Cc: LKML <linux-kernel@vger.kernel.org>
+>> Cc: glibc <libc-alpha@sourceware.org>
+>> Cc: GCC <gcc-patches@gcc.gnu.org>
+>> Cc: bpf <bpf@vger.kernel.org>
+>> Cc: David Laight <David.Laight@ACULAB.COM>
+>> Cc: Joseph Myers <joseph@codesourcery.com>
+>> Cc: Florian Weimer <fweimer@redhat.com>
+>> Cc: Daniel Borkmann <daniel@iogearbox.net>
+>> ---
+>>   man2/bpf.2 | 49 ++++++++++++++++++++++++-------------------------
+>>   1 file changed, 24 insertions(+), 25 deletions(-)
+>>
