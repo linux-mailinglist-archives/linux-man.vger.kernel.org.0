@@ -2,183 +2,261 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 926E63822E3
-	for <lists+linux-man@lfdr.de>; Mon, 17 May 2021 04:50:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 71A2938232B
+	for <lists+linux-man@lfdr.de>; Mon, 17 May 2021 05:49:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229661AbhEQCvp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 16 May 2021 22:51:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53186 "EHLO
+        id S232331AbhEQDu3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 16 May 2021 23:50:29 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37706 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233907AbhEQCvp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 16 May 2021 22:51:45 -0400
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com [IPv6:2607:f8b0:4864:20::635])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2B43FC061573
-        for <linux-man@vger.kernel.org>; Sun, 16 May 2021 19:50:29 -0700 (PDT)
-Received: by mail-pl1-x635.google.com with SMTP id t4so2319677plc.6
-        for <linux-man@vger.kernel.org>; Sun, 16 May 2021 19:50:29 -0700 (PDT)
+        with ESMTP id S229661AbhEQDu3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 16 May 2021 23:50:29 -0400
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com [IPv6:2607:f8b0:4864:20::632])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 241F3C061573
+        for <linux-man@vger.kernel.org>; Sun, 16 May 2021 20:49:14 -0700 (PDT)
+Received: by mail-pl1-x632.google.com with SMTP id t4so2376820plc.6
+        for <linux-man@vger.kernel.org>; Sun, 16 May 2021 20:49:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=+7UamVS59Z36MWYzx4Xo2ITRe1J2M6qBRY7dB2Z5QgU=;
-        b=gJKfJvFrVLNze0cEobM+kaSHUDmDbF4soR3H5aqYRAAjELI4uVEiCXakoEkyQK2d5R
-         yvw0Athf4N12rJYtztlxnY9nacWXSl+IYb6KeHgd36RHcIgyfgJjsYsUKrzAL7Rwf/LB
-         dqjS1Jwa3TtYmhJj8y1eKUCr0Ggtf5t8Oe+G0QBI9CKyy9mFD3VV0uYZ+V8ZmWwBLCqc
-         RiObsrVFTCr63p2r32i52GeXMChDgYc7Ku+xHmI4iSTixozl1/WOzW2Q/6Un/Twck4kx
-         OqbqNrmBbECnRlPUGj4GBt19k9Xw3eXtXZsP0nVpI/AFplV4YsNKL9U8Gvu1Fat698VX
-         RBow==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=wUVr2zrM38N/oRWTgFDjtJL4TfFkTUG5HvuMbxjH3ac=;
+        b=jXfF1Mdm6/Xij5AyPhIbefbpHieLimPWwpm85T08fcSMOatS4uNL5WHbEKabwkdjy+
+         N923YlY85/uKgVLPtLWT1j7UmqSnD+OV0p016keEYuLOxFB9kg+ryuCPLy53zojJ19TF
+         RRy6riOYJt8HEptJZiuLd692MVK17L5E9Yyu9BDsR2LctJAPFuJ9z+dwAzTm0oH4jO1w
+         uFlpiE5paU0rzQuPC9YSVz7++OshTscej4yDslw0hf2sUq5tsBU9q0rA7kiPGUSc7Qx0
+         PMDIbBilZwtnlziBw/9DzlbFDY7WyNxtHw4Q6kE6Tq4KNN+ZVr8NEzDgNRW1KirSxotL
+         hZ1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=+7UamVS59Z36MWYzx4Xo2ITRe1J2M6qBRY7dB2Z5QgU=;
-        b=ZfFdM7yYef+uiMkrvbCfRrqclIp/l4uoriJ+0W0t0LEfBNDfdE9+HjfMLLUHV0GkJw
-         LuFd3lswld72j1BCLc2vB4jB6McwIgJRSOL8BfOzIKcnLvlr5qI3ElTg6DPqJz/pcBBA
-         aL7O8Qt9BpUa8kx63QTjHJh0wnigZU7Y06+ePnqvg9zLEDouqU/4LatkoNMNjLatAPzP
-         kFmKtKZRtDWKowYVoKX98kfGplfHaP6v14KtHg5DaD8kVdx8bOIJ4QooeLzComVj99Yk
-         KJ0usUS0cJfeFIEgVpcdgbNosNErfAIjn8RbExnb19JWvjvlV8yq9DLF6/0KQGcJP6Me
-         szmw==
-X-Gm-Message-State: AOAM533OtadE7suwG6MYEDBWSkBBWNrJDQbsQuy82pEORX85mc7uJp5H
-        eTelYvILykv/9X0znUMyQig=
-X-Google-Smtp-Source: ABdhPJxEmYMKw0sQR7e5KBRtsoAl0WaLJQML5JYqDltUWPCexzZ+x20BzJjGj6sxGW2lRF+xUrldrQ==
-X-Received: by 2002:a17:902:9342:b029:f0:cc10:3f with SMTP id g2-20020a1709029342b02900f0cc10003fmr7645151plp.72.1621219828611;
-        Sun, 16 May 2021 19:50:28 -0700 (PDT)
-Received: from localhost.localdomain ([1.145.37.123])
-        by smtp.gmail.com with ESMTPSA id 63sm378975pfz.26.2021.05.16.19.50.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 16 May 2021 19:50:28 -0700 (PDT)
-Date:   Mon, 17 May 2021 12:50:24 +1000
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     groff@gnu.org, linux-man@vger.kernel.org
-Cc:     Helge Kreutzmann <debian@helgefjell.de>,
-        Mario =?utf-8?Q?Bl=C3=A4ttermann?= <mario.blaettermann@gmail.com>
-Subject: getting more out of man pages with less(1) (was: [bug #59962]
- soelim(1) man page uses pic diagram--should it?)
-Message-ID: <20210517025022.wgjbt6esup7crgbo@localhost.localdomain>
-References: <CACRhBXNqafUZm_Tk4+GyK4hrEnmS8F_e=s_kwVMeX0utvOHkzQ@mail.gmail.com>
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=wUVr2zrM38N/oRWTgFDjtJL4TfFkTUG5HvuMbxjH3ac=;
+        b=eF9o9p6cBrYkOmt/YfLhlGarVnKgetLIKv2Q2TT2YVSdEp97d6ouzPdiTuyui4foC5
+         xL7W+5ZMKwLNm8lAHOQN/cSaqTtYgz9cSR5/36yz0XAobFyLoKsBcs1zYeIo5Naz5wpG
+         Wz3TwBToU/A+tNqymQLySqYuxxio6bTRVN0LFw61flIzvpw1jaiLyZL32CtGy5boiYCV
+         43IEILWvnhY8Ivk9MoxtL5PK/CliaZM8od/IkpAiDD/HxVC1CRBIipjFxKQ6Fnh4G9L5
+         ryz+Q0C3uTerFEmAkW5tg4nxMFSpPIIP3K93C7uQGOOcMXGFJ1ZWKee9WFHneHzCXvXm
+         XV/g==
+X-Gm-Message-State: AOAM530SuE4sRvo4Vifoo10Mq33o6SxF9+Grj0b677X6hGLqSF8GG/WA
+        cdmlEQsfis2vEq1C0dyWbH4=
+X-Google-Smtp-Source: ABdhPJwvP5U8t7QBFBuCUBPbkNWAFNG63/cV4HIlnpsjsMJI4PATOISrxdR+rWN+JSekpTcN6yX4oQ==
+X-Received: by 2002:a17:90b:1bd2:: with SMTP id oa18mr65473951pjb.72.1621223352632;
+        Sun, 16 May 2021 20:49:12 -0700 (PDT)
+Received: from [192.168.192.21] (47-72-82-130.dsl.dyn.ihug.co.nz. [47.72.82.130])
+        by smtp.gmail.com with ESMTPSA id i5sm4799452pgr.43.2021.05.16.20.49.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 16 May 2021 20:49:11 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com
+Subject: Re: [PATCH v2] man2/shmget2: Add details about EPERM error
+To:     Yang Xu <xuyang2018.jy@fujitsu.com>, linux-man@vger.kernel.org
+References: <1620816794-8503-1-git-send-email-xuyang2018.jy@fujitsu.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <a1f57e98-581f-cfa8-fabe-9d0a6ee2f0a0@gmail.com>
+Date:   Mon, 17 May 2021 15:49:07 +1200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="gqau3j4qas3jj6cy"
-Content-Disposition: inline
-In-Reply-To: <CACRhBXNqafUZm_Tk4+GyK4hrEnmS8F_e=s_kwVMeX0utvOHkzQ@mail.gmail.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <1620816794-8503-1-git-send-email-xuyang2018.jy@fujitsu.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hello Yang Xu,
 
---gqau3j4qas3jj6cy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 5/12/21 10:53 PM, Yang Xu wrote:
+> hugetlb_shm_group contains group id that is allowed to create SysV shared
+> memory segment using hugetlb page. To meet EPERM error, we also
+> need to make group id be not in this proc file.
+> 
+> Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+> ---
+>  man2/shmget.2 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/man2/shmget.2 b/man2/shmget.2
+> index 757b7b7f1..29799b9b8 100644
+> --- a/man2/shmget.2
+> +++ b/man2/shmget.2
+> @@ -273,7 +273,7 @@ The
+>  .B SHM_HUGETLB
+>  flag was specified, but the caller was not privileged (did not have the
+>  .B CAP_IPC_LOCK
+> -capability).
+> +capability and group id doesn't be contained in hugetlb_shm_group proc file).
+>  .SH CONFORMING TO
+>  POSIX.1-2001, POSIX.1-2008, SVr4.
+>  .\" SVr4 documents an additional error condition EEXIST.
 
-[looping in linux-man@ because issues of user education and topics that
-fall between project/man page stools come up below]
+Thanks for spotting this. The story is more complex, as far as I can
+tell. For example, the same error also occurs for mmap(2) and 
+memfd_create(2)
 
-At 2021-05-16T20:29:30-0500, Dave Kemper wrote:
-> This stuff about less(1) is only tangential to groff, but it did come
-> up in the context of viewing man pages, so I'm keeping the groff list
-> in the cc.
+Instead of your patch, I applied the diff below (not yet pushed), 
+based on my reading of fs/hugetlbfs/inode.c, in particular:
+    
+    static int can_do_hugetlb_shm(void)
+    {
+            kgid_t shm_group;
+            shm_group = make_kgid(&init_user_ns, sysctl_hugetlb_shm_group);
+            return capable(CAP_IPC_LOCK) || in_group_p(shm_group);
+    }
+    
+    ...
+    
+    struct file *hugetlb_file_setup(const char *name, size_t size,
+                                    vm_flags_t acctflag, struct user_struct **user,
+                                    int creat_flags, int page_size_log)
+    {
+            ...
+            if (creat_flags == HUGETLB_SHMFS_INODE && !can_do_hugetlb_shm()) {
+                    *user = current_user();
+                    if (user_shm_lock(size, *user)) {
+                            task_lock(current);
+                            pr_warn_once("%s (%d): Using mlock ulimits for SHM_HUGETLB is deprecated\n",
+                                    current->comm, current->pid);
+                            task_unlock(current);
+                    } else {
+                            *user = NULL;
+                            return ERR_PTR(-EPERM);
+                    }
+            }
+            ...
+    }
 
-Good idea.  I've further changed the Subject: to reflect the flow of the
-discussion.
+As a deprecated feature, it appears that the RLIMIT_MEMLOCK
+can also be used to permit huge page allocation, but I have
+chose not to document that for now.
 
-> On 5/12/21, G. Branden Robinson <g.branden.robinson@gmail.com> wrote:
-> > One thing I would mention is that less(1) supports regex searches
-> > within its buffer.  On my system, the searches are even
-> > case-insensitive by default if the search pattern is all lowercase,
-> > and not otherwise.
->=20
-> less's default is for searches to be case-sensitive.  Its -i option
-> (which can be given on the command line or while less is running) is
-> what activates the behavior described above.  A user or a distro might
-> make -i the default in their environment (I do) through the $LESS
-> environment variable or an alias, but that isn't less's out-of-the-box
-> behavior.
+Please let me know if the patch makes sense to you.
 
-On my Debian buster-based system, less(1) behaves that way, but $LESS is
-not defined in my environment and I don't have a shell alias or function
-set up.  Checking the source package, I don't see patches to turn -i on
-by default.  Baffling!
+With best regards,
 
-> > In fact, to leap among sections you can do
-> >
-> > /^[a-z]
-> >
-> > regardless of the lettercase convention, and after doing the above
-> > once you can type simply
-> >
-> > /
-> >
-> > to repeat the search or
-> >
-> > ?
-> >
-> > to repeat it in the backwards direction.
->=20
-> Or to save yourself a keypress (since those methods require a "Return"
-> after the "/" or "?") you can use "n" and "N" respectively.  Longtime
-> vi users will do this without even thinking about it.
+Michael
 
-Yup, you caught me.  :D
+--- a/man2/memfd_create.2
++++ b/man2/memfd_create.2
+@@ -201,6 +201,19 @@ The
+ .BR memfd_create ()
+ system call first appeared in Linux 3.17;
+ glibc support was added in version 2.27.
++.TP
++.B EPERM
++The
++.B MFD_HUGETLB
++flag was specified, but the caller was not privileged (did not have the
++.B CAP_IPC_LOCK
++capability)
++and is not a member of the
++.I sysctl_hugetlb_shm_group
++group; see the description of
++.I /proc/sys/vm/sysctl_hugetlb_shm_group
++in
++.BR proc (5).
+ .SH CONFORMING TO
+ The
+ .BR memfd_create ()
+diff --git a/man2/mmap.2 b/man2/mmap.2
+index 03f2eeb2c..4ee2f4f96 100644
+--- a/man2/mmap.2
++++ b/man2/mmap.2
+@@ -628,6 +628,18 @@ was mounted no-exec.
+ The operation was prevented by a file seal; see
+ .BR fcntl (2).
+ .TP
++.B EPERM
++The
++.B MAP_HUGETLB
++flag was specified, but the caller was not privileged (did not have the
++.B CAP_IPC_LOCK
++capability)
++and is not a member of the
++.I sysctl_hugetlb_shm_group
++group; see the description of
++.I /proc/sys/vm/sysctl_hugetlb_shm_group
++in
++.TP
+ .B ETXTBSY
+ .B MAP_DENYWRITE
+ was set but the object specified by
+diff --git a/man2/shmget.2 b/man2/shmget.2
+index 757b7b7f1..6e9995e81 100644
+--- a/man2/shmget.2
++++ b/man2/shmget.2
+@@ -273,7 +273,13 @@ The
+ .B SHM_HUGETLB
+ flag was specified, but the caller was not privileged (did not have the
+ .B CAP_IPC_LOCK
+-capability).
++capability)
++and is not a member of the
++.I sysctl_hugetlb_shm_group
++group; see the description of
++.I /proc/sys/vm/sysctl_hugetlb_shm_group
++in
++.BR proc (5).
+ .SH CONFORMING TO
+ POSIX.1-2001, POSIX.1-2008, SVr4.
+ .\" SVr4 documents an additional error condition EEXIST.
+diff --git a/man5/proc.5 b/man5/proc.5
+index a28dbdcc7..888535449 100644
+--- a/man5/proc.5
++++ b/man5/proc.5
+@@ -5603,6 +5603,19 @@ user should run
+ .BR sync (1)
+ first.
+ .TP
++.IR  /proc/sys/vm/sysctl_hugetlb_shm_group " (since Linux 2.6.7)"
++This writable file contains a group ID that is allowed
++to allocate memory using huge pages.
++If a process has a filesystem group ID or any supplememtary group ID that
++matches this group ID,
++then it can make huge-page allocations without holding the
++.BR CAP_IPC_LOCK
++capability; see
++.BR memfd_create (2),
++.BR mmap (2),
++and
++.BR shmget (2).
++.TP
+ .IR /proc/sys/vm/legacy_va_layout " (since Linux 2.6.9)"
+ .\" The following is from Documentation/filesystems/proc.txt
+ If nonzero, this disables the new 32-bit memory-mapping layout;
+diff --git a/man7/capabilities.7 b/man7/capabilities.7
+index 7e79b2fb6..cf9dc190f 100644
+--- a/man7/capabilities.7
++++ b/man7/capabilities.7
+@@ -205,11 +205,21 @@ the filesystem or any of the supplementary GIDs of the calling process.
+ .B CAP_IPC_LOCK
+ .\" FIXME . As at Linux 3.2, there are some strange uses of this capability
+ .\" in other places; they probably should be replaced with something else.
++.PD 0
++.RS
++.IP * 2
+ Lock memory
+ .RB ( mlock (2),
+ .BR mlockall (2),
+ .BR mmap (2),
++.BR shmctl (2));
++.IP *
++Allocate memory using huge pages
++.RB ( memfd_create (2)
++.BR mmap (2),
+ .BR shmctl (2)).
++.PD 0
++.RE
+ .TP
+ .B CAP_IPC_OWNER
+ Bypass permission checks for operations on System V IPC objects.
+$ 
 
-I don't think it's ever too soon to teach a user who has seen man pages
-how to get more out of them, and that includes the pager interface.
-It's frustrating because man(1), less(1), and man(7), formally
-considered, can all disclaim responsibility for communicating this
-knowledge.  less(1) can page all sorts of text files, not just man
-pages, and its own man page is huge and talks about all kinds of stuff.
-man(1) is also big, and that program definitely is not the pager.
-man(7) documents the macro package[1], which is a man page _writer's_
-interface, not primarily one for the reader.
 
-I find myself wishing that intro(1) from the Linux man-pages project
-said more about this, either directly in that page or maybe in the
-man(7) they provide, with a conspicuous pointer there from the former.
 
-Maybe Michael or Alejandro can advise regarding where they think a good
-place for a man page utilization tutorial would be.
-
-I also wonder if the pager wars are basically over and less(1) won them.
-I haven't heard anyone mention most(1) in a long time[2], and the, uh,
-simple elegance of more(1)'s inability to seek its stream (meaning: no
-backwards searching) seems to have driven many people to less(1) even if
-they have reservations about the length of its feature list.
-
-Regards,
-Branden
-
-[1] Michael Kerrisk can correct me, I hope, but as far as I know the
-    Linux man-pages man(7) page arose because, back in the '90s, the GNU
-    roff project refused to supply one, in keeping with the GNU "no
-    documentation at all if not Texinfo" philosophy--Susan G.  Kleinmann
-    of Debian had to write one, which I guess escaped the notice of the
-    (Red Hat-using?) man-pages maintainer(s) of the time.  By 1999, the
-    rigor of groff's fealty to that principle had slackened, and,
-    judging by groff's CVS-to-Git history, it looks like I can credit
-    Werner Lemberg with adopting and revising her work as groff_man(7).
-
-[2] a fate that seems to have inexorably claimed any project that
-    hitched its horses to S-Lang's wagon
-
---gqau3j4qas3jj6cy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmCh2ckACgkQ0Z6cfXEm
-bc6dJw/+IkbxM9+O5DmEpkwGPj/qB5oTzNCpGhaLvKuftmfIw7XfwAjcwVDgnegq
-hi5tf0zNLzt0nsDlbS8JQftaOK1iGLy5U9uz7iSOH/tUENCtATfPCaTVACKfIr9z
-BxTDF94B5sz30ObpM5porhHfRON4ZOjsghVEpXSNYtk3nroxp4AHLY/GAcTV3N0H
-VQ/k7jo69cpACaTeYRdYr/MZ6LlP7+t3e0BND49HF1FELUamyKQlqePpLFpkUQQV
-ySBKIlKfrmAWjCG7QmgoJq9G8HhNIAxI0Mnz8hd6Sy+8diLj0aUSzk44p7Y5fUjC
-cRok+ZY5IDiTYStDrWuuIi9nAiAqftjr5gkEZxjH+QAvlkwwqTrvEHjaGtzx1fB8
-4c013khApBY6isVR/qyOWdvNkpVQhH/u0GcD3iqkiAf7I+biWojLRce1OlrTZu1c
-m1eY9F1LSDl7G4PTmvPUvVXPNQ98sDbeoHqPIBwtfJc636+jxqseWfO4PMF0vctB
-s/nj9/WpgJSxRj6WIsHrhqJ+W7LzwYWovben2AqqQYGEe8StuDFqrPEPtmeajhSO
-5ra68qsSnBfDRdWh+hLGKDvtOPbFr1yeXUBEKC57///6iDLp0wlrSSu41tvVP/B+
-+JAIqlSHDxC5ujeEKwTkF4aNt8E8Y62rdOoJdi6P+1Q9nVoUUeI=
-=8YHV
------END PGP SIGNATURE-----
-
---gqau3j4qas3jj6cy--
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
