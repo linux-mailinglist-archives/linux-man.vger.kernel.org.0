@@ -2,192 +2,235 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4F5F8382355
-	for <lists+linux-man@lfdr.de>; Mon, 17 May 2021 06:24:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C928238238D
+	for <lists+linux-man@lfdr.de>; Mon, 17 May 2021 06:48:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231858AbhEQEZ4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 17 May 2021 00:25:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45404 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230148AbhEQEZ4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 17 May 2021 00:25:56 -0400
-Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com [IPv6:2607:f8b0:4864:20::530])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 81238C061573
-        for <linux-man@vger.kernel.org>; Sun, 16 May 2021 21:24:40 -0700 (PDT)
-Received: by mail-pg1-x530.google.com with SMTP id l70so3786110pga.1
-        for <linux-man@vger.kernel.org>; Sun, 16 May 2021 21:24:40 -0700 (PDT)
+        id S231874AbhEQEuB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 17 May 2021 00:50:01 -0400
+Received: from esa15.fujitsucc.c3s2.iphmx.com ([68.232.156.107]:53181 "EHLO
+        esa15.fujitsucc.c3s2.iphmx.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S233104AbhEQEuB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 17 May 2021 00:50:01 -0400
+X-Greylist: delayed 428 seconds by postgrey-1.27 at vger.kernel.org; Mon, 17 May 2021 00:50:00 EDT
+IronPort-SDR: uLqipY3l04S6/LKRFCaHT8IIOGdBy5LP43B6YvvUZVOsd2WBWz1ZPMhM1aPjn687Fo7c2M/7hy
+ CxBTLHei92LrN8gP1Oo5GZYnfJge0T/rIzW6nHMJyJG7mUooD2CzrJA3zCYyFpx8cKJYrn3Eoc
+ N3ZuK9Lb9EA5Srba1c9twFRLiki3kkv9LbCQAcNLI6tN+arbfR6S5BjCtrywl2rJuJBTBubOkY
+ F7rcgKHjrvK5krRIaRd5JUtBMHQJQS1L3a3OvxsZ2TAQ8IWkmnjxOJWQUNYJGgoSSN6BuzvsX9
+ Nrs=
+X-IronPort-AV: E=McAfee;i="6200,9189,9986"; a="31289278"
+X-IronPort-AV: E=Sophos;i="5.82,306,1613401200"; 
+   d="scan'208";a="31289278"
+Received: from mail-hk2apc01lp2054.outbound.protection.outlook.com (HELO APC01-HK2-obe.outbound.protection.outlook.com) ([104.47.124.54])
+  by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 May 2021 13:41:34 +0900
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UhT/CNTayFzF0jsfiNMJo4Pb4z0EY/uvPunmIvE8DIGiDxXbt23TuKm8QJ5EtAQwqqWFt0p3AT3rc5KK3kuLr2/5zrnnduKlm0XUFOqr+rTdnK8j4qL/CKheuytQDWCNUESUBZ7dvPDfqDokC/zqL3nguxg92OCVzjCELJxK9pnal8rUvJOOG9MV5haq7aPYcY2VmU/InLnPlCgDpWXVZxDBwqdcJ50OwROjM/B3TbZfhQBmmud6bbK1tJYhlS3im737YPbiRQ4YIS6PP3BU+UrMV/Uq7dGqTWwLRQvdUIuGFLg8mM4mYctcaLCr6oNOnUJbFv66uhuuY3tIvXo7zQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JABhAWqoGZQS3J2Jse8u0plCewv5qUMQcrkrERGhtfw=;
+ b=Sjc8S58p5SCwdK+LiQdodXCZbYLCucpHnRuKb1P7vN4CxntN/kN9cwWLvxmctCtf24ZgG1MiS+nOTxHS1vd7t9QImphWM3p3M2qjE5SCzbC/Y6R+Jts2HPv5NFsDacGiQIPBMjTjMoXAJMu32I0Us1iDs20V6tXPk5XSgA8Ss0rH3UfHSajqd71YNGMh6CARJqr3K5oj7inh5PVUij9tn0/yXjKhQSYjWvUWpWAOD3txb05QXUTt2+r7j8ujSR2BxvaX+JOo5xwrpUkL2wi9vjGoS3qZdWVTmAzRO9nx1uWqkVp1fYqwDzi+kqSm8dhrq8oV3Kp73QFDiwV/LQe4UQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
+ dkim=pass header.d=fujitsu.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=VKTrGXzw9OyDIlKQV69t+h/Y5b4mThEbtpqni2VKVrw=;
-        b=A1vH/7ji9euuWeQvng4qVSh3d8y9Ltb61b5plp3v4kUOthP2cPZAaFBwpWbjxml6ot
-         btGJ3kFi6hysaTeNcU2cTw9pAjfhIf3FjSEpqm5NIcxLIliakQJrc0D2Mhd88AXVhSGB
-         Ee86TRp1X/BrfVdb05sud+fGvufe1OobhBNtKbsBsA2bgBl/IxjPp7K7ClyBpuYY02zg
-         TaTn7+BDDtbTh6MWMqb7xCKJfJN+4ZjdTKH8slByqxKBKS4I697/wt1ca5Ip/V7NL2i0
-         P/N2c8QW6Jdps03y2A5CbXXBeE4MGFu2KgF4Cq/wOuoZauP02unsWNHkwuQsTaGjFc53
-         6qKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=VKTrGXzw9OyDIlKQV69t+h/Y5b4mThEbtpqni2VKVrw=;
-        b=CxO95zG3HMIuWxU622bTc4rUte9k9JfRBpvEcuv/SuPK6RpbQk/JTVTb7Q3mTOqqQt
-         KkJOW6zdZvN480GTXCrEbvc7OjqCj7BpdPW7LGtYnGCHRQOjiY63XXgUG9+HNijXYFIO
-         S3KmYQ8ps3JxHJE0W4/YpRd1YG4zx5wT22YhaV9ByfEkRosFDOGSfvVlkItJ6LsENrrx
-         db1UrPpDFznPMJuOev9Bwko2C+iR3lusZ96TeS5qsEIMkPbdQCsfflfdW3Io5PmvLycV
-         AW9KSBihRn8coQlaKMhwvxMBSm6PNaGfjaFENqNQIJqrIBNwnhR223t9fEEi96d8AKOD
-         J3sQ==
-X-Gm-Message-State: AOAM531Bkkl9VDphzE1nlu5J6FiFZLtSL5Duc7lhssuE6OAw948CMAGj
-        8tLUcj29sYwyY+VO+adxnHQ=
-X-Google-Smtp-Source: ABdhPJxeRmY4eByzUzbpQa2Qx5diSjHxqN6kQAXumYSdrhSt0qWzljqxpgJXYvkd3S8pDoSjcwThcA==
-X-Received: by 2002:a62:e704:0:b029:2c4:b81e:d1a7 with SMTP id s4-20020a62e7040000b02902c4b81ed1a7mr35768276pfh.31.1621225479524;
-        Sun, 16 May 2021 21:24:39 -0700 (PDT)
-Received: from [192.168.192.21] (47-72-82-130.dsl.dyn.ihug.co.nz. [47.72.82.130])
-        by smtp.gmail.com with ESMTPSA id i7sm207941pgv.93.2021.05.16.21.24.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 16 May 2021 21:24:39 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Helge Kreutzmann <debian@helgefjell.de>,
-        =?UTF-8?Q?Mario_Bl=c3=a4ttermann?= <mario.blaettermann@gmail.com>
-Subject: Re: getting more out of man pages with less(1) (was: [bug #59962]
- soelim(1) man page uses pic diagram--should it?)
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        groff@gnu.org, linux-man@vger.kernel.org
-References: <CACRhBXNqafUZm_Tk4+GyK4hrEnmS8F_e=s_kwVMeX0utvOHkzQ@mail.gmail.com>
- <20210517025022.wgjbt6esup7crgbo@localhost.localdomain>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <f21251ae-a136-8b09-af72-b5ad95f2b4cc@gmail.com>
-Date:   Mon, 17 May 2021 16:24:34 +1200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-MIME-Version: 1.0
-In-Reply-To: <20210517025022.wgjbt6esup7crgbo@localhost.localdomain>
-Content-Type: text/plain; charset=windows-1252
+ d=fujitsu.onmicrosoft.com; s=selector2-fujitsu-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JABhAWqoGZQS3J2Jse8u0plCewv5qUMQcrkrERGhtfw=;
+ b=C0NlZVRcAEdiB7WaX7r7e2sedIZt79SrmBN4XCVgF3HVJUdUkJb30yOXY81/mKdVyl0gnh/FPJJm8fxF7mKPn/5KcVCjT/Z2g6pNT9J8h36FuLr1CFFXPHn8wBMiHS0fT2W5ynuZmC9UQoXF/rg6OuhTT0kaH0mTeHrQo8RPI7c=
+Received: from TYCPR01MB6544.jpnprd01.prod.outlook.com (2603:1096:400:98::6)
+ by TY2PR01MB3561.jpnprd01.prod.outlook.com (2603:1096:404:d1::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25; Mon, 17 May
+ 2021 04:41:31 +0000
+Received: from TYCPR01MB6544.jpnprd01.prod.outlook.com
+ ([fe80::31b3:92cf:6a2b:3531]) by TYCPR01MB6544.jpnprd01.prod.outlook.com
+ ([fe80::31b3:92cf:6a2b:3531%6]) with mapi id 15.20.4129.031; Mon, 17 May 2021
+ 04:41:31 +0000
+From:   "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Subject: Re: [PATCH v2] man2/shmget2: Add details about EPERM error
+Thread-Topic: [PATCH v2] man2/shmget2: Add details about EPERM error
+Thread-Index: AQHXRx0Au69NOUjZYkqP+buEzQjXu6rnEPKAgAAOxgA=
+Date:   Mon, 17 May 2021 04:41:31 +0000
+Message-ID: <60A1F418.9020300@fujitsu.com>
+References: <1620816794-8503-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ <a1f57e98-581f-cfa8-fabe-9d0a6ee2f0a0@gmail.com>
+In-Reply-To: <a1f57e98-581f-cfa8-fabe-9d0a6ee2f0a0@gmail.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=fujitsu.com;
+x-originating-ip: [223.111.68.150]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: b40f3b2c-6700-4f55-8c6b-08d918ee0b2f
+x-ms-traffictypediagnostic: TY2PR01MB3561:
+x-microsoft-antispam-prvs: <TY2PR01MB356103F0E3ADCD2DF0091F75FD2D9@TY2PR01MB3561.jpnprd01.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 2T0FWGSzcvnMprRfP3zE6t7DWFBkJMwvBFFXberL3OSC5Z1B0EGj+ARZm2zNMGdzF6CH8v7LYr7jg1Zkg5k70SUrOl5XMHQ55iNmH+Qpbi89/w0ZX2MK9GtEZa2GiqGRC7kYp0pX70oyjGGgFUVz8T8jFu1zri1u2B9MeTue6uyi68PC/LzzFpO2FT1hRaGTayceawyachjmfzYRDejRVak64SgCShljCPHxZ0/097nnZHhQWdVbpwA/F8tly2doXWemLF8O6t+onpJ3ca5ib2QlKacwr/VARtOGlH8QUXBp+C5sSVQITWKCOdqI3y/eLRKzbQTN/pkBMc1b++q/QPGVYa/azTgtkGdY//maka6c7alAtY6EWvDozKnUOb1c+FPhbjOhgVvD9uUdfXTdybltP63w127cUyRhO7xgXHhI/hvKzQRCk2bftNBcP72gybUcJvx0bqZklXr/xue/qhMxgRVzVuksRba/DTv5bHiu8xFxk4/SkjJ3X+WbtavoO01354r8mw3Bqz/PKRuWLeEOMu1NnsjGZe9yQoOqsf4bCMc7ammpgVtv+Xy7KoRN3XwQBd+F31/8qDpJN58Wq3yehNQUjd9FkG42OHYA7OM=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB6544.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(396003)(376002)(39860400002)(366004)(136003)(186003)(5660300002)(85182001)(2906002)(66446008)(91956017)(76116006)(6512007)(6486002)(66946007)(122000001)(38100700002)(2616005)(64756008)(36756003)(6916009)(86362001)(478600001)(8936002)(316002)(8676002)(26005)(6506007)(53546011)(87266011)(4326008)(66556008)(71200400001)(33656002)(66476007)(83380400001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata: =?utf-8?B?U2F3TWZLYjRhdlRuMW85L3YvREFsdU1VTjRvbG4rejhtU2lZVERidjZCQWN3?=
+ =?utf-8?B?WWJxMWtFblAweXdqNFNNUlhpZUQzQUlPcUZibWlkWWJwYndxdXp3OGMycDdq?=
+ =?utf-8?B?THNnWDduUk5URzcrT2hQYjJ0KzJaZkhtNHlqdnY2d2ZpcFJja1p1QnhOVDI3?=
+ =?utf-8?B?WGxHaFoyZTJHV000YlArRWlHUjZBaVZLYTg2MnNCYnNMb1E2UlBOYi9oSWl6?=
+ =?utf-8?B?YTFEbUZaY2V0ZnZFY0xOQWNqNWNBc0c2Z1B0bDhvNGdWNml1NDV5ajlkS1hB?=
+ =?utf-8?B?c2dRYjB2NUw0REhGT2FKY2NoM3RwS2FEVmc5cnVmZTZpaEFnRmJjZGZoeWo4?=
+ =?utf-8?B?NDF1eEdNMERUdldyV1BPUHNucHBHUUpZR1RVTHF2bVU5c1EySFNwNVlwM3dN?=
+ =?utf-8?B?MHhFM01Nem83UnRWWHowVU1JZEtqcGFaUGUveXhKSnducmZWOWcyWDgycC80?=
+ =?utf-8?B?aDErSWsvUDNmWWZtUmJBSEdYcnowSXZtc0g2QWZJVUJyZnRrNjVGRkh3V1gz?=
+ =?utf-8?B?KzdMZUoydHl5ZXFFaXNhRWF4SndLeWtOT3JLanIwa1NyQVgvcDM4Wmc1NW9x?=
+ =?utf-8?B?eW0yVm5haHpuVnMzTmdpN2dhaE9HNDVQQ3ZXUWRMR1ZSaTFrNVgxRm13NnA4?=
+ =?utf-8?B?bis2UG05Rk9icVBmR2ZSV3E0NCsxZTJyN0pobDIrVU1PcUMzRVRlTVRycDJa?=
+ =?utf-8?B?MFJQM3NHamc2ODZ3NTBNZnh2WmFXc2pZZGlYUHl3RVNDRzNyWFZuRzBwK3pS?=
+ =?utf-8?B?VElyd2p3U0lmRURCTVcxRFRvZWM1QnFLMFJ1VmxTdUN0NlRlRGE3eDMzbW02?=
+ =?utf-8?B?dlo4UE04WWd3Y3JabHpkaWE3NVF5b1ZKNVRXSUpoNGFUemlxUUtGazZjQXh5?=
+ =?utf-8?B?azFJM3NpMFdsU2dSZzkyeUd3YXBmYWNUV2gzYjRyTHJFOEk1RC9kY1VWZDh6?=
+ =?utf-8?B?U1N4U2hLWWp1Y0dYZVcyUFF6VTh3dlgzMWFaM0lHYmtiYkFRYnR5b2hBenlw?=
+ =?utf-8?B?eHV2K2ZzblVpeUUzbXRLZ0c1YUFjR2hEYVBZUTltd1hYTUVKNjJHTkZ3L2tN?=
+ =?utf-8?B?MlJaMmRkZWpPNjFuRks2Y250MFFWa0J0aUd5RTR2eE9aZ0ltNmpMT2RJbGRs?=
+ =?utf-8?B?R204RHRsZThReTlpTHhBSGs5ZC9lbk9aNzRyVldvRzhNbkhHUVFVbDZZR0tr?=
+ =?utf-8?B?VUFUbXE2bWd2TkhyNlZudlpwaG1SMnkvVFRCVHlMcVhua1VHdVA0TXZiN1Bx?=
+ =?utf-8?B?U2VnQkRoZG1LNnp2TWhsU3diZ3gxTmNGOHpMMXdGSTBLZGNpS2M3M2pVR1RL?=
+ =?utf-8?B?Mi9RV0FwWFpBOUxLU3hod2FpL0NLQ1l6T2pNL0JPRWtCczhEd0NJdDVxMGRJ?=
+ =?utf-8?B?SDNSdWxaKzN2anBXWklhVytaNjBaN092NmswdmNMbnFyYVJhVHowQTVYZ09x?=
+ =?utf-8?B?N1VjcHZpMTZPb1F6dWVzMUU4VGpVL2FIaFNNeHpNN1NjVEhlcjRtV0dtT0RG?=
+ =?utf-8?B?VmJnbUZZVW01U0czVGUvMXIyQ0NiY1hMckFrZFhDNDZVTXdraFYzY3RvUFAx?=
+ =?utf-8?B?bnZZcmtFQjEwTnI5NGpPbUJjUDdNRGVkbU5RejVIMmo1cGtrVHZBNWErRitG?=
+ =?utf-8?B?VXY2L2FJMFRDSTNoZVhoelMyM0NqTVRhL2hvUTBFK2ZuS2xLN2F0aTZLNmFO?=
+ =?utf-8?B?RHJiemRLQjBFLzFGL3MraW9saE1FTk1uS1l2akR5TkVzT3g4QTZGTXFWSG5i?=
+ =?utf-8?Q?u2aBYJz87+ImcsifGA1pJeU5AC5rTZF6rrtQPRb?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <2F23493D2A4F134494FEA40653B7D73B@jpnprd01.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: fujitsu.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB6544.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b40f3b2c-6700-4f55-8c6b-08d918ee0b2f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 May 2021 04:41:31.7359
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2zewOaVU02NY0ir9VqhOctP1IORIj3qX1WJp7oUc5niYfU12jKIcToL1EY54Vm3eOTVuy+BGA8hryZ6CdXaQOjRruqF1zd+SZc8wQDzHKGU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY2PR01MB3561
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Branden,
-
-On 5/17/21 2:50 PM, G. Branden Robinson wrote:
-> [looping in linux-man@ because issues of user education and topics that
-> fall between project/man page stools come up below]
-> 
-> At 2021-05-16T20:29:30-0500, Dave Kemper wrote:
->> This stuff about less(1) is only tangential to groff, but it did come
->> up in the context of viewing man pages, so I'm keeping the groff list
->> in the cc.
-> 
-> Good idea.  I've further changed the Subject: to reflect the flow of the
-> discussion.
-> 
->> On 5/12/21, G. Branden Robinson <g.branden.robinson@gmail.com> wrote:
->>> One thing I would mention is that less(1) supports regex searches
->>> within its buffer.  On my system, the searches are even
->>> case-insensitive by default if the search pattern is all lowercase,
->>> and not otherwise.
->>
->> less's default is for searches to be case-sensitive.  Its -i option
->> (which can be given on the command line or while less is running) is
->> what activates the behavior described above.  A user or a distro might
->> make -i the default in their environment (I do) through the $LESS
->> environment variable or an alias, but that isn't less's out-of-the-box
->> behavior.
-> 
-> On my Debian buster-based system, less(1) behaves that way, but $LESS is
-> not defined in my environment and I don't have a shell alias or function
-> set up.  Checking the source package, I don't see patches to turn -i on
-> by default.  Baffling!
-> 
->>> In fact, to leap among sections you can do
->>>
->>> /^[a-z]
->>>
->>> regardless of the lettercase convention, and after doing the above
->>> once you can type simply
->>>
->>> /
->>>
->>> to repeat the search or
->>>
->>> ?
->>>
->>> to repeat it in the backwards direction.
->>
->> Or to save yourself a keypress (since those methods require a "Return"
->> after the "/" or "?") you can use "n" and "N" respectively.  Longtime
->> vi users will do this without even thinking about it.
-> 
-> Yup, you caught me.  :D
-> 
-> I don't think it's ever too soon to teach a user who has seen man pages
-> how to get more out of them, and that includes the pager interface.
-> It's frustrating because man(1), less(1), and man(7), formally
-> considered, can all disclaim responsibility for communicating this
-> knowledge.  less(1) can page all sorts of text files, not just man
-> pages, and its own man page is huge and talks about all kinds of stuff.
-> man(1) is also big, and that program definitely is not the pager.
-> man(7) documents the macro package[1], which is a man page _writer's_
-> interface, not primarily one for the reader.
-> 
-> I find myself wishing that intro(1) from the Linux man-pages project
-> said more about this, either directly in that page or maybe in the
-> man(7) they provide, with a conspicuous pointer there from the former.
->
-> Maybe Michael or Alejandro can advise regarding where they think a good
-> place for a man page utilization tutorial would be.
-
-If any place, I think intro(1) would be most appropriate, or,
-failing that, an initial sentence that points the reader at another
-page (that could be added in man-pages). My guiding principle would
-be that the guidance given should be simple (introductory and not
-comprehensive), finishing with pointers to man(1) and/or less(1)
-for further details.
-
-The current intro(1) is an odd page though. Andries Brouwer made
-some steps to turning into a general "intro to Linux" page, but that
-was, to my mind, always going to be an impossibly huge scope. I'm
-not a huge fan of what is there.
-
-> I also wonder if the pager wars are basically over and less(1) won them.
-
-That's certainly what I thought...
-
-> I haven't heard anyone mention most(1) in a long time[2], and the, uh,
-> simple elegance of more(1)'s inability to seek its stream (meaning: no
-> backwards searching) seems to have driven many people to less(1) even if
-> they have reservations about the length of its feature list.
-
-I actually saw someone use more(1) the other day. I was surprised!
-(Okay, that person had been around UNIX for a _long_ time...)
-
-> [1] Michael Kerrisk can correct me, I hope, but as far as I know the
->     Linux man-pages man(7) page arose because, back in the '90s, the GNU
->     roff project refused to supply one, in keeping with the GNU "no
->     documentation at all if not Texinfo" philosophy--Susan G.  Kleinmann
->     of Debian had to write one, which I guess escaped the notice of the
->     (Red Hat-using?) man-pages maintainer(s) of the time.  By 1999, the
->     rigor of groff's fealty to that principle had slackened, and,
->     judging by groff's CVS-to-Git history, it looks like I can credit
->     Werner Lemberg with adopting and revising her work as groff_man(7).
-
-man(7) predates my involvement in the project. It written by the first
-maintainer, Rik Faith, and was part of the very first man-pages
-release, back in 1993! I do not know the rationale for its creation.
-
-Cheers,
-
-Michael
-
-> [2] a fate that seems to have inexorably claimed any project that
->     hitched its horses to S-Lang's wagon
-> 
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+SGkgTWljaGFlbA0KWW91ciBwYXRjaCBpcyBtb3JlIGNsZWFyLCBpdCBsb29rcyBnb29kIHRvIG1l
+Lg0KDQpCZXN0IFJlZ2FyZHMNCllhbmcgWHUNCj4gSGVsbG8gWWFuZyBYdSwNCj4NCj4gT24gNS8x
+Mi8yMSAxMDo1MyBQTSwgWWFuZyBYdSB3cm90ZToNCj4+IGh1Z2V0bGJfc2htX2dyb3VwIGNvbnRh
+aW5zIGdyb3VwIGlkIHRoYXQgaXMgYWxsb3dlZCB0byBjcmVhdGUgU3lzViBzaGFyZWQNCj4+IG1l
+bW9yeSBzZWdtZW50IHVzaW5nIGh1Z2V0bGIgcGFnZS4gVG8gbWVldCBFUEVSTSBlcnJvciwgd2Ug
+YWxzbw0KPj4gbmVlZCB0byBtYWtlIGdyb3VwIGlkIGJlIG5vdCBpbiB0aGlzIHByb2MgZmlsZS4N
+Cj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBZYW5nIFh1PHh1eWFuZzIwMTguanlAZnVqaXRzdS5jb20+
+DQo+PiAtLS0NCj4+ICAgbWFuMi9zaG1nZXQuMiB8IDIgKy0NCj4+ICAgMSBmaWxlIGNoYW5nZWQs
+IDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL21hbjIv
+c2htZ2V0LjIgYi9tYW4yL3NobWdldC4yDQo+PiBpbmRleCA3NTdiN2I3ZjEuLjI5Nzk5YjliOCAx
+MDA2NDQNCj4+IC0tLSBhL21hbjIvc2htZ2V0LjINCj4+ICsrKyBiL21hbjIvc2htZ2V0LjINCj4+
+IEBAIC0yNzMsNyArMjczLDcgQEAgVGhlDQo+PiAgIC5CIFNITV9IVUdFVExCDQo+PiAgIGZsYWcg
+d2FzIHNwZWNpZmllZCwgYnV0IHRoZSBjYWxsZXIgd2FzIG5vdCBwcml2aWxlZ2VkIChkaWQgbm90
+IGhhdmUgdGhlDQo+PiAgIC5CIENBUF9JUENfTE9DSw0KPj4gLWNhcGFiaWxpdHkpLg0KPj4gK2Nh
+cGFiaWxpdHkgYW5kIGdyb3VwIGlkIGRvZXNuJ3QgYmUgY29udGFpbmVkIGluIGh1Z2V0bGJfc2ht
+X2dyb3VwIHByb2MgZmlsZSkuDQo+PiAgIC5TSCBDT05GT1JNSU5HIFRPDQo+PiAgIFBPU0lYLjEt
+MjAwMSwgUE9TSVguMS0yMDA4LCBTVnI0Lg0KPj4gICAuXCIgU1ZyNCBkb2N1bWVudHMgYW4gYWRk
+aXRpb25hbCBlcnJvciBjb25kaXRpb24gRUVYSVNULg0KPg0KPiBUaGFua3MgZm9yIHNwb3R0aW5n
+IHRoaXMuIFRoZSBzdG9yeSBpcyBtb3JlIGNvbXBsZXgsIGFzIGZhciBhcyBJIGNhbg0KPiB0ZWxs
+LiBGb3IgZXhhbXBsZSwgdGhlIHNhbWUgZXJyb3IgYWxzbyBvY2N1cnMgZm9yIG1tYXAoMikgYW5k
+DQo+IG1lbWZkX2NyZWF0ZSgyKQ0KPg0KPiBJbnN0ZWFkIG9mIHlvdXIgcGF0Y2gsIEkgYXBwbGll
+ZCB0aGUgZGlmZiBiZWxvdyAobm90IHlldCBwdXNoZWQpLA0KPiBiYXNlZCBvbiBteSByZWFkaW5n
+IG9mIGZzL2h1Z2V0bGJmcy9pbm9kZS5jLCBpbiBwYXJ0aWN1bGFyOg0KPg0KPiAgICAgIHN0YXRp
+YyBpbnQgY2FuX2RvX2h1Z2V0bGJfc2htKHZvaWQpDQo+ICAgICAgew0KPiAgICAgICAgICAgICAg
+a2dpZF90IHNobV9ncm91cDsNCj4gICAgICAgICAgICAgIHNobV9ncm91cCA9IG1ha2Vfa2dpZCgm
+aW5pdF91c2VyX25zLCBzeXNjdGxfaHVnZXRsYl9zaG1fZ3JvdXApOw0KPiAgICAgICAgICAgICAg
+cmV0dXJuIGNhcGFibGUoQ0FQX0lQQ19MT0NLKSB8fCBpbl9ncm91cF9wKHNobV9ncm91cCk7DQo+
+ICAgICAgfQ0KPg0KPiAgICAgIC4uLg0KPg0KPiAgICAgIHN0cnVjdCBmaWxlICpodWdldGxiX2Zp
+bGVfc2V0dXAoY29uc3QgY2hhciAqbmFtZSwgc2l6ZV90IHNpemUsDQo+ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICB2bV9mbGFnc190IGFjY3RmbGFnLCBzdHJ1Y3QgdXNlcl9z
+dHJ1Y3QgKip1c2VyLA0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW50
+IGNyZWF0X2ZsYWdzLCBpbnQgcGFnZV9zaXplX2xvZykNCj4gICAgICB7DQo+ICAgICAgICAgICAg
+ICAuLi4NCj4gICAgICAgICAgICAgIGlmIChjcmVhdF9mbGFncyA9PSBIVUdFVExCX1NITUZTX0lO
+T0RFJiYgICFjYW5fZG9faHVnZXRsYl9zaG0oKSkgew0KPiAgICAgICAgICAgICAgICAgICAgICAq
+dXNlciA9IGN1cnJlbnRfdXNlcigpOw0KPiAgICAgICAgICAgICAgICAgICAgICBpZiAodXNlcl9z
+aG1fbG9jayhzaXplLCAqdXNlcikpIHsNCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0
+YXNrX2xvY2soY3VycmVudCk7DQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcHJfd2Fy
+bl9vbmNlKCIlcyAoJWQpOiBVc2luZyBtbG9jayB1bGltaXRzIGZvciBTSE1fSFVHRVRMQiBpcyBk
+ZXByZWNhdGVkXG4iLA0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY3Vy
+cmVudC0+Y29tbSwgY3VycmVudC0+cGlkKTsNCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICB0YXNrX3VubG9jayhjdXJyZW50KTsNCj4gICAgICAgICAgICAgICAgICAgICAgfSBlbHNlIHsN
+Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAqdXNlciA9IE5VTEw7DQo+ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIEVSUl9QVFIoLUVQRVJNKTsNCj4gICAgICAgICAg
+ICAgICAgICAgICAgfQ0KPiAgICAgICAgICAgICAgfQ0KPiAgICAgICAgICAgICAgLi4uDQo+ICAg
+ICAgfQ0KPg0KPiBBcyBhIGRlcHJlY2F0ZWQgZmVhdHVyZSwgaXQgYXBwZWFycyB0aGF0IHRoZSBS
+TElNSVRfTUVNTE9DSw0KPiBjYW4gYWxzbyBiZSB1c2VkIHRvIHBlcm1pdCBodWdlIHBhZ2UgYWxs
+b2NhdGlvbiwgYnV0IEkgaGF2ZQ0KPiBjaG9zZSBub3QgdG8gZG9jdW1lbnQgdGhhdCBmb3Igbm93
+Lg0KPg0KPiBQbGVhc2UgbGV0IG1lIGtub3cgaWYgdGhlIHBhdGNoIG1ha2VzIHNlbnNlIHRvIHlv
+dS4NCj4NCj4gV2l0aCBiZXN0IHJlZ2FyZHMsDQo+DQo+IE1pY2hhZWwNCj4NCj4gLS0tIGEvbWFu
+Mi9tZW1mZF9jcmVhdGUuMg0KPiArKysgYi9tYW4yL21lbWZkX2NyZWF0ZS4yDQo+IEBAIC0yMDEs
+NiArMjAxLDE5IEBAIFRoZQ0KPiAgIC5CUiBtZW1mZF9jcmVhdGUgKCkNCj4gICBzeXN0ZW0gY2Fs
+bCBmaXJzdCBhcHBlYXJlZCBpbiBMaW51eCAzLjE3Ow0KPiAgIGdsaWJjIHN1cHBvcnQgd2FzIGFk
+ZGVkIGluIHZlcnNpb24gMi4yNy4NCj4gKy5UUA0KPiArLkIgRVBFUk0NCj4gK1RoZQ0KPiArLkIg
+TUZEX0hVR0VUTEINCj4gK2ZsYWcgd2FzIHNwZWNpZmllZCwgYnV0IHRoZSBjYWxsZXIgd2FzIG5v
+dCBwcml2aWxlZ2VkIChkaWQgbm90IGhhdmUgdGhlDQo+ICsuQiBDQVBfSVBDX0xPQ0sNCj4gK2Nh
+cGFiaWxpdHkpDQo+ICthbmQgaXMgbm90IGEgbWVtYmVyIG9mIHRoZQ0KPiArLkkgc3lzY3RsX2h1
+Z2V0bGJfc2htX2dyb3VwDQo+ICtncm91cDsgc2VlIHRoZSBkZXNjcmlwdGlvbiBvZg0KPiArLkkg
+L3Byb2Mvc3lzL3ZtL3N5c2N0bF9odWdldGxiX3NobV9ncm91cA0KPiAraW4NCj4gKy5CUiBwcm9j
+ICg1KS4NCj4gICAuU0ggQ09ORk9STUlORyBUTw0KPiAgIFRoZQ0KPiAgIC5CUiBtZW1mZF9jcmVh
+dGUgKCkNCj4gZGlmZiAtLWdpdCBhL21hbjIvbW1hcC4yIGIvbWFuMi9tbWFwLjINCj4gaW5kZXgg
+MDNmMmVlYjJjLi40ZWUyZjRmOTYgMTAwNjQ0DQo+IC0tLSBhL21hbjIvbW1hcC4yDQo+ICsrKyBi
+L21hbjIvbW1hcC4yDQo+IEBAIC02MjgsNiArNjI4LDE4IEBAIHdhcyBtb3VudGVkIG5vLWV4ZWMu
+DQo+ICAgVGhlIG9wZXJhdGlvbiB3YXMgcHJldmVudGVkIGJ5IGEgZmlsZSBzZWFsOyBzZWUNCj4g
+ICAuQlIgZmNudGwgKDIpLg0KPiAgIC5UUA0KPiArLkIgRVBFUk0NCj4gK1RoZQ0KPiArLkIgTUFQ
+X0hVR0VUTEINCj4gK2ZsYWcgd2FzIHNwZWNpZmllZCwgYnV0IHRoZSBjYWxsZXIgd2FzIG5vdCBw
+cml2aWxlZ2VkIChkaWQgbm90IGhhdmUgdGhlDQo+ICsuQiBDQVBfSVBDX0xPQ0sNCj4gK2NhcGFi
+aWxpdHkpDQo+ICthbmQgaXMgbm90IGEgbWVtYmVyIG9mIHRoZQ0KPiArLkkgc3lzY3RsX2h1Z2V0
+bGJfc2htX2dyb3VwDQo+ICtncm91cDsgc2VlIHRoZSBkZXNjcmlwdGlvbiBvZg0KPiArLkkgL3By
+b2Mvc3lzL3ZtL3N5c2N0bF9odWdldGxiX3NobV9ncm91cA0KPiAraW4NCj4gKy5UUA0KPiAgIC5C
+IEVUWFRCU1kNCj4gICAuQiBNQVBfREVOWVdSSVRFDQo+ICAgd2FzIHNldCBidXQgdGhlIG9iamVj
+dCBzcGVjaWZpZWQgYnkNCj4gZGlmZiAtLWdpdCBhL21hbjIvc2htZ2V0LjIgYi9tYW4yL3NobWdl
+dC4yDQo+IGluZGV4IDc1N2I3YjdmMS4uNmU5OTk1ZTgxIDEwMDY0NA0KPiAtLS0gYS9tYW4yL3No
+bWdldC4yDQo+ICsrKyBiL21hbjIvc2htZ2V0LjINCj4gQEAgLTI3Myw3ICsyNzMsMTMgQEAgVGhl
+DQo+ICAgLkIgU0hNX0hVR0VUTEINCj4gICBmbGFnIHdhcyBzcGVjaWZpZWQsIGJ1dCB0aGUgY2Fs
+bGVyIHdhcyBub3QgcHJpdmlsZWdlZCAoZGlkIG5vdCBoYXZlIHRoZQ0KPiAgIC5CIENBUF9JUENf
+TE9DSw0KPiAtY2FwYWJpbGl0eSkuDQo+ICtjYXBhYmlsaXR5KQ0KPiArYW5kIGlzIG5vdCBhIG1l
+bWJlciBvZiB0aGUNCj4gKy5JIHN5c2N0bF9odWdldGxiX3NobV9ncm91cA0KPiArZ3JvdXA7IHNl
+ZSB0aGUgZGVzY3JpcHRpb24gb2YNCj4gKy5JIC9wcm9jL3N5cy92bS9zeXNjdGxfaHVnZXRsYl9z
+aG1fZ3JvdXANCj4gK2luDQo+ICsuQlIgcHJvYyAoNSkuDQo+ICAgLlNIIENPTkZPUk1JTkcgVE8N
+Cj4gICBQT1NJWC4xLTIwMDEsIFBPU0lYLjEtMjAwOCwgU1ZyNC4NCj4gICAuXCIgU1ZyNCBkb2N1
+bWVudHMgYW4gYWRkaXRpb25hbCBlcnJvciBjb25kaXRpb24gRUVYSVNULg0KPiBkaWZmIC0tZ2l0
+IGEvbWFuNS9wcm9jLjUgYi9tYW41L3Byb2MuNQ0KPiBpbmRleCBhMjhkYmRjYzcuLjg4ODUzNTQ0
+OSAxMDA2NDQNCj4gLS0tIGEvbWFuNS9wcm9jLjUNCj4gKysrIGIvbWFuNS9wcm9jLjUNCj4gQEAg
+LTU2MDMsNiArNTYwMywxOSBAQCB1c2VyIHNob3VsZCBydW4NCj4gICAuQlIgc3luYyAoMSkNCj4g
+ICBmaXJzdC4NCj4gICAuVFANCj4gKy5JUiAgL3Byb2Mvc3lzL3ZtL3N5c2N0bF9odWdldGxiX3No
+bV9ncm91cCAiIChzaW5jZSBMaW51eCAyLjYuNykiDQo+ICtUaGlzIHdyaXRhYmxlIGZpbGUgY29u
+dGFpbnMgYSBncm91cCBJRCB0aGF0IGlzIGFsbG93ZWQNCj4gK3RvIGFsbG9jYXRlIG1lbW9yeSB1
+c2luZyBodWdlIHBhZ2VzLg0KPiArSWYgYSBwcm9jZXNzIGhhcyBhIGZpbGVzeXN0ZW0gZ3JvdXAg
+SUQgb3IgYW55IHN1cHBsZW1lbXRhcnkgZ3JvdXAgSUQgdGhhdA0KPiArbWF0Y2hlcyB0aGlzIGdy
+b3VwIElELA0KPiArdGhlbiBpdCBjYW4gbWFrZSBodWdlLXBhZ2UgYWxsb2NhdGlvbnMgd2l0aG91
+dCBob2xkaW5nIHRoZQ0KPiArLkJSIENBUF9JUENfTE9DSw0KPiArY2FwYWJpbGl0eTsgc2VlDQo+
+ICsuQlIgbWVtZmRfY3JlYXRlICgyKSwNCj4gKy5CUiBtbWFwICgyKSwNCj4gK2FuZA0KPiArLkJS
+IHNobWdldCAoMikuDQo+ICsuVFANCj4gICAuSVIgL3Byb2Mvc3lzL3ZtL2xlZ2FjeV92YV9sYXlv
+dXQgIiAoc2luY2UgTGludXggMi42LjkpIg0KPiAgIC5cIiBUaGUgZm9sbG93aW5nIGlzIGZyb20g
+RG9jdW1lbnRhdGlvbi9maWxlc3lzdGVtcy9wcm9jLnR4dA0KPiAgIElmIG5vbnplcm8sIHRoaXMg
+ZGlzYWJsZXMgdGhlIG5ldyAzMi1iaXQgbWVtb3J5LW1hcHBpbmcgbGF5b3V0Ow0KPiBkaWZmIC0t
+Z2l0IGEvbWFuNy9jYXBhYmlsaXRpZXMuNyBiL21hbjcvY2FwYWJpbGl0aWVzLjcNCj4gaW5kZXgg
+N2U3OWIyZmI2Li5jZjlkYzE5MGYgMTAwNjQ0DQo+IC0tLSBhL21hbjcvY2FwYWJpbGl0aWVzLjcN
+Cj4gKysrIGIvbWFuNy9jYXBhYmlsaXRpZXMuNw0KPiBAQCAtMjA1LDExICsyMDUsMjEgQEAgdGhl
+IGZpbGVzeXN0ZW0gb3IgYW55IG9mIHRoZSBzdXBwbGVtZW50YXJ5IEdJRHMgb2YgdGhlIGNhbGxp
+bmcgcHJvY2Vzcy4NCj4gICAuQiBDQVBfSVBDX0xPQ0sNCj4gICAuXCIgRklYTUUgLiBBcyBhdCBM
+aW51eCAzLjIsIHRoZXJlIGFyZSBzb21lIHN0cmFuZ2UgdXNlcyBvZiB0aGlzIGNhcGFiaWxpdHkN
+Cj4gICAuXCIgaW4gb3RoZXIgcGxhY2VzOyB0aGV5IHByb2JhYmx5IHNob3VsZCBiZSByZXBsYWNl
+ZCB3aXRoIHNvbWV0aGluZyBlbHNlLg0KPiArLlBEIDANCj4gKy5SUw0KPiArLklQICogMg0KPiAg
+IExvY2sgbWVtb3J5DQo+ICAgLlJCICggbWxvY2sgKDIpLA0KPiAgIC5CUiBtbG9ja2FsbCAoMiks
+DQo+ICAgLkJSIG1tYXAgKDIpLA0KPiArLkJSIHNobWN0bCAoMikpOw0KPiArLklQICoNCj4gK0Fs
+bG9jYXRlIG1lbW9yeSB1c2luZyBodWdlIHBhZ2VzDQo+ICsuUkIgKCBtZW1mZF9jcmVhdGUgKDIp
+DQo+ICsuQlIgbW1hcCAoMiksDQo+ICAgLkJSIHNobWN0bCAoMikpLg0KPiArLlBEIDANCj4gKy5S
+RQ0KPiAgIC5UUA0KPiAgIC5CIENBUF9JUENfT1dORVINCj4gICBCeXBhc3MgcGVybWlzc2lvbiBj
+aGVja3MgZm9yIG9wZXJhdGlvbnMgb24gU3lzdGVtIFYgSVBDIG9iamVjdHMuDQo+ICQNCj4NCj4N
+Cj4NCg==
