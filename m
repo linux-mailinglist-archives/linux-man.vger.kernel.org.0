@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 90A8638D1EC
+	by mail.lfdr.de (Postfix) with ESMTP id B397938D1ED
 	for <lists+linux-man@lfdr.de>; Sat, 22 May 2021 01:26:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230147AbhEUX12 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S229989AbhEUX12 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Fri, 21 May 2021 19:27:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50272 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50276 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229989AbhEUX12 (ORCPT
+        with ESMTP id S230146AbhEUX12 (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Fri, 21 May 2021 19:27:28 -0400
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3FB5DC061574
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F0D19C0613ED
         for <linux-man@vger.kernel.org>; Fri, 21 May 2021 16:26:03 -0700 (PDT)
-Received: by mail-wm1-x32a.google.com with SMTP id f20-20020a05600c4e94b0290181f6edda88so1337653wmq.2
+Received: by mail-wr1-x42a.google.com with SMTP id v12so22496522wrq.6
         for <linux-man@vger.kernel.org>; Fri, 21 May 2021 16:26:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=FK2FJre8vILwhNXMojdE2+KuMV59lDpxDXryppDgiHM=;
-        b=XXlCgnOYS7jx2s+ica3mLfRvyltkLi2SeygoKn+kjAvFj28YfI6DNV7YWadCkO9ewD
-         SVOqOPbwU8Ov1mF5UUj/rxaPlZqfUgKwqw8n6njIJdwXq8VrSWyrUuXcXwlBFMbn6aK/
-         tL+yBP76FN/U+nQ/grLvJ1bbV8k9nGbFyibhLEv5KjeOzcJ4JdbGhJJyt5IffAC0DVKK
-         0D9QUYQA8K8si0CIQCHfM/zWz3LzIpciQ6/khW/dpwuKHgMBsonnOMlWecl44IvOxuBK
-         +rpDAEs2kH8artVIvKRAp7TnpMF/QO+fWC0pViPjJi08sCN/btvK4UaQeyZxyBLegU4S
-         neEg==
+        bh=Ps54vMIeUZmfEsgXPmAphxNoO3rLyIfowTpP7pEhGu4=;
+        b=ieDM1jagd0+AtmRTMrxvjAbSEJ8vhEdGTwAil3MM9WmFg47mgOOqFNjn/nGeg0fXE2
+         0haijDbqGwmxZBNjEfq4S+nchAWA26gOaWWLpiMWzrq93KmWFlGCEHh7nxTbsiaro8n1
+         eXtmi2J9Ifo+2msOkPpQdeEvT2RYbFuYHXo018BPPPxxUCopNAdEhEpR/j8gTfhGebON
+         kcVdoQ0YUH3X/aQXbsOG32G8yv8cR+KdPwGp7pp1IGI9jC7xyHPPp/gnmYk0AP4Zp/pW
+         GA8bt7iAdCiYg0CxPTAQIaRLFYtJz9vRuIt0aLVc4f5CgViMWzcCNC6J5LNGYGwcngzm
+         elfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=FK2FJre8vILwhNXMojdE2+KuMV59lDpxDXryppDgiHM=;
-        b=eCLzFkp1EbXhTGQjVNK8zgmYcmBJ3kVgYPVUPJhAY7IQUx9CqQm51JdzjbdurA+7HX
-         Aa1P+i/jx4JPv3vbPuJoJ0Jj/UhcjuYNT1hzWsyD6fdMsxks8t0F0smF/7IbrPFNb+7D
-         VbDvGjCi7omh/tQ0qEY3mnxkd7Uge01wnNXO9lSRuIyQA05RXZfq6OTANASRISV2zBvw
-         8/r5wCOt5gnDIgxhNa3h64/bfXHNvffpQyIYiKPtUE1DPaxTDKSXg5RN16A8SROqRbO1
-         vlAAG5k3+JZdC/BWMR7wX2mgF6A1KDvPPKWsAbmUlSJiiWRrda5XSXtVMKnUmcsWeQJo
-         lO5A==
-X-Gm-Message-State: AOAM53202ouWzFWBHr+wfFRz/IMoUo0tkcmzFpZGZdKP1MEWL40SHssq
-        o69QdiigqNeIBfr0wPDJXTuSy0NFPvP87w==
-X-Google-Smtp-Source: ABdhPJyaX2BNpfmTBaawBTktp1bNKxf7Nxzn4Ps/0qoeuFUVmnwur/RUMHGNi9CuiWE1ZkLOzwf25w==
-X-Received: by 2002:a7b:c444:: with SMTP id l4mr10701324wmi.36.1621639561880;
-        Fri, 21 May 2021 16:26:01 -0700 (PDT)
+        bh=Ps54vMIeUZmfEsgXPmAphxNoO3rLyIfowTpP7pEhGu4=;
+        b=NtBqGaoR1YSpvC0hIaK9jqss+49dvLfHbYurK7yuPZcpxCQ8kaLvTM3kEXAHeR54AA
+         /Ruz65rC30EcwrQRQAfHEpJqNNVGu6ck3BUnxWYCYNaJguNsqVaDrsgwlE3iPcaN1x42
+         yPwACQ52BSKv7zYNeMlKLJLvhpNdhW8VKa4zuCqF32vBzwTq3+eEsX5dm4R86ig+Z+Kx
+         QQxXV2i/2asc9jTD8msoWSAcVJU1VeeK2xkQOid9GHF0ruwUdQml4ux+Q12cJQMGOq32
+         072MXym2KOfxRxbfMHbec4iILGZYW56O6gMzaXAUaNEA+qMJYERUR6WCJwQpNZBDXQaD
+         YVAg==
+X-Gm-Message-State: AOAM530ouX7YJmweIaMNY0oOT9+RryO4Scf8Bckjmxs8QPsoHc4rmwh4
+        523wpuciyPtVUg9LVwpXboA=
+X-Google-Smtp-Source: ABdhPJwLoDEucgwdVM4qPdeht2xxRAZwveMj9CKoY/axITGbaL90uxVkPfrgJBkGGYkpYDFhIVEloA==
+X-Received: by 2002:adf:f142:: with SMTP id y2mr11465009wro.426.1621639562662;
+        Fri, 21 May 2021 16:26:02 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id z12sm1150639wmc.5.2021.05.21.16.26.01
+        by smtp.googlemail.com with ESMTPSA id z12sm1150639wmc.5.2021.05.21.16.26.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 May 2021 16:26:01 -0700 (PDT)
+        Fri, 21 May 2021 16:26:02 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 06/10] set_tid_address.2: Use syscall(SYS_...); for system calls without a wrapper
-Date:   Sat, 22 May 2021 01:25:49 +0200
-Message-Id: <20210521232553.161080-6-alx.manpages@gmail.com>
+Subject: [PATCH 07/10] sgetmask.2: Use syscall(SYS_...); for system calls without a wrapper
+Date:   Sat, 22 May 2021 01:25:50 +0200
+Message-Id: <20210521232553.161080-7-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210521232553.161080-1-alx.manpages@gmail.com>
 References: <20210521232553.161080-1-alx.manpages@gmail.com>
@@ -65,44 +65,45 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/set_tid_address.2 | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ man2/sgetmask.2 | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
-diff --git a/man2/set_tid_address.2 b/man2/set_tid_address.2
-index 258c9b9ef..4b81865dc 100644
---- a/man2/set_tid_address.2
-+++ b/man2/set_tid_address.2
-@@ -27,13 +27,17 @@
- set_tid_address \- set pointer to thread ID
+diff --git a/man2/sgetmask.2 b/man2/sgetmask.2
+index 7563b57ff..59b58ceaf 100644
+--- a/man2/sgetmask.2
++++ b/man2/sgetmask.2
+@@ -27,12 +27,17 @@
+ sgetmask, ssetmask \- manipulation of signal mask (obsolete)
  .SH SYNOPSIS
  .nf
--.B #include <linux/unistd.h>
+-.B "long sgetmask(void);"
+-.BI "long ssetmask(long " newmask );
 +.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
 +.B #include <unistd.h>
- .PP
--.BI "pid_t set_tid_address(int *" tidptr );
-+.BI "pid_t syscall(SYS_set_tid_address, int *" tidptr );
++.PP
++.B "long syscall(SYS_sgetmask, void);"
++.BI "long syscall(SYS_ssetmask, long " newmask );
  .fi
  .PP
  .IR Note :
--There is no glibc wrapper for this system call; see NOTES.
-+glibc provides no wrapper for
-+.BR set_tid_address (2),
+-There are no glibc wrappers for these system calls; see NOTES.
++glibc provides no wrappers for these functions,
 +necessitating the use of
 +.BR syscall (2).
  .SH DESCRIPTION
- For each thread, the kernel maintains two attributes (addresses) called
- .I set_child_tid
-@@ -99,9 +103,6 @@ This call is present since Linux 2.5.48.
- Details as given here are valid since Linux 2.5.49.
+ These system calls are obsolete.
+ .IR "Do not use them" ;
+@@ -73,10 +78,6 @@ option.
  .SH CONFORMING TO
- This system call is Linux-specific.
--.SH NOTES
--Glibc does not provide a wrapper for this system call; call it using
+ These system calls are Linux-specific.
+ .SH NOTES
+-Glibc does not provide wrappers for these obsolete system calls;
+-in the unlikely event that you want to call them, use
 -.BR syscall (2).
- .SH SEE ALSO
- .BR clone (2),
- .BR futex (2),
+-.PP
+ These system calls are unaware of signal numbers greater than 31
+ (i.e., real-time signals).
+ .PP
 -- 
 2.31.1
 
