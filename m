@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1D91338CFB5
-	for <lists+linux-man@lfdr.de>; Fri, 21 May 2021 23:17:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8C99138CFB4
+	for <lists+linux-man@lfdr.de>; Fri, 21 May 2021 23:17:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229595AbhEUVSf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S229623AbhEUVSf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Fri, 21 May 2021 17:18:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49506 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49508 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229634AbhEUVSf (ORCPT
+        with ESMTP id S229595AbhEUVSf (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Fri, 21 May 2021 17:18:35 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A6238C0613CE
-        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 14:17:10 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id i17so22279701wrq.11
-        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 14:17:10 -0700 (PDT)
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 52E75C061574
+        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 14:17:11 -0700 (PDT)
+Received: by mail-wr1-x434.google.com with SMTP id n2so22390481wrm.0
+        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 14:17:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=EZdSMgwMplJ7HT3Qz0jbXMYjNtG0inE1M4UvREXJEII=;
-        b=i/7JTZ7sSIBI4fuWjCGh0PrlLg4MGJFIs+SP35eRMt5c/PK4EY4kajQWBMl5Im6HYw
-         9p1fy8xhCjzuPJ4YkATwbjeszmn3yYFNDoGdTsoUKSGK2gGgcBj76mTtvCC++WsQWbcS
-         bFCLXArpPwcti2kxwM/DgzHrxJuXS5xFo/LzPtzESHBQa3bopUausWZjLYKfga8WLhtQ
-         4yUxjo48oZablzYdP4O43GMbbGQNIn0OiWD6rYK0ZDkNMWylZpNUI1m0KBRVPKyO/LVx
-         gDFMAe84LcMRJG8bW7HBiygGOHg2NKNXSZ7578aPkcQXmm5xgDPBMpnI3L4Fwk9EWX4J
-         RfSg==
+        bh=ya0zmu/qS1M3iRoKVBQ3NWAOQDCebtmtnFH1xvgql0A=;
+        b=iHEVcqxbnkR8bmImC9zXg77z2v1WoSOLxUcHBthkTTwKaZrNj0eoN9CfF8XpU8BN9k
+         ro9s/pKQ591n8/R0INTVnz6rTVNSe3U6GZ18KGbxTeVdvS/f56QJruWJRz6RFVJGFT6A
+         hUpX7LVZ6SUpOV5drVo6Pt8ZDm4vo0SGg8Tc1Rkv/t8fCHSoZlO/l2FH/RPyH6a3NiBs
+         mtZXmepijdaK3SgHj/veDrABe850SD37EfQyLPPSgmNX4d8PY+ceM6yI+6w+rMweg70p
+         SiHz7DC//3XsejeuQAzdwPRqGX4735FjSNOjQavbauF7WbkwdECQXxmr+c+bRbxI+k8s
+         BVOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=EZdSMgwMplJ7HT3Qz0jbXMYjNtG0inE1M4UvREXJEII=;
-        b=o6x37ZjYOG9xaYl1xmY2Ij4WK40CgF+ia22kFOQQ2iGZ/Ktq0PpqkEFDPd0FmV1QhO
-         4b0iK49KRRvj0SzY/VBA59nl/fT0gdCItqG0Lt+TeuFnXLTB5FsaB8bLt8N9PMTa3zyc
-         CvqXOGAfIMTyXKEvbtw/LioWMGFOHatiWSihqU81V9ZLlTnELHhG7qZq3QmkdyZ4qzDX
-         rjsBXuTvsuiRPYpcSz6affiTeaAKviAkUmaDSEAeSqUY7l6DBaK+/hR15lJ/2quKNSCb
-         xaVdP0KDLZXXP7Thpze/fx32w0GbdQSJQ6chEX/pZmNHgWcamAEnvQGLWgdZLanIpPJ7
-         0/5g==
-X-Gm-Message-State: AOAM533URf8pXIBb8g7OiwCKnPcLGBTsua0gcISu9uqKHmm0n3D5W6R7
-        yXuQ0LayD1+0pf4KIlLjnOo=
-X-Google-Smtp-Source: ABdhPJzmZiV1rIPrlUSjzUo85c7pbFY8ZWyKugRSLS4z3pwPOv2YbVuqUSi7JNAX29g+Er2d6uXDSg==
-X-Received: by 2002:a5d:50c7:: with SMTP id f7mr11743292wrt.189.1621631829296;
-        Fri, 21 May 2021 14:17:09 -0700 (PDT)
+        bh=ya0zmu/qS1M3iRoKVBQ3NWAOQDCebtmtnFH1xvgql0A=;
+        b=eFVKu3pKHjw9HTDveAJjwtcFne1DrFe49WAd3U9FkB2mv9PbvlRcuxxco6Ukl6+frd
+         woBUHdQcW5CpJVdTnZv1aNv5MgcGDyyQ2I0NrVzSRUeuU1oBjneL1wIVgZBsw8mZQz0F
+         tqPyPX8qAOkVJrOTzJbYa22inRsidK89aQKnUR0BtMGOXHPCZiPjNGYpYwtvWmF4t2VZ
+         fvAc1YkyrUg3GeiJPO8ty9Xqi9am4DgqMWPfwiB+XSz7dEtOcJxKDB5eQ8LSCJ3/Yuhx
+         soLOZkhVN9+ST+QlSTXbW3ZkrUSewFLSwNA2X3qjEWqMNy4+LLPHv17a62lFbntlja8q
+         aCbg==
+X-Gm-Message-State: AOAM533tAfG9xjrFtMNg1gT+HjOzuql375x8/Qa05YglNgzTeXOO3mCa
+        YqswPtu50e27JK7G/gG4N9DIfy9K5tizAQ==
+X-Google-Smtp-Source: ABdhPJz9+2ul+HsmpsLncwcZHJQD+dIEYFHJ5ZA6HeaRsbEU/FTQtq9OdABoQP7gM4esn9hHpcbifQ==
+X-Received: by 2002:adf:b64b:: with SMTP id i11mr11481330wre.157.1621631830000;
+        Fri, 21 May 2021 14:17:10 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id v10sm3944489wrq.0.2021.05.21.14.17.08
+        by smtp.googlemail.com with ESMTPSA id v10sm3944489wrq.0.2021.05.21.14.17.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 May 2021 14:17:08 -0700 (PDT)
+        Fri, 21 May 2021 14:17:09 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 3/4] gamma.3: Add LIBRARY section
-Date:   Fri, 21 May 2021 23:16:53 +0200
-Message-Id: <20210521211652.49949-4-alx.manpages@gmail.com>
+Subject: [PATCH 4/4] request_key.2: Add LIBRARY section
+Date:   Fri, 21 May 2021 23:16:54 +0200
+Message-Id: <20210521211652.49949-5-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210521211652.49949-1-alx.manpages@gmail.com>
 References: <20210521211652.49949-1-alx.manpages@gmail.com>
@@ -65,32 +65,49 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/gamma.3 | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ man2/request_key.2 | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
 
-diff --git a/man3/gamma.3 b/man3/gamma.3
-index 003964158..49f66427b 100644
---- a/man3/gamma.3
-+++ b/man3/gamma.3
-@@ -9,6 +9,9 @@
- .TH GAMMA 3 2021-03-22 "GNU" "Linux Programmer's Manual"
+diff --git a/man2/request_key.2 b/man2/request_key.2
+index ea23e7ed5..c49d05e46 100644
+--- a/man2/request_key.2
++++ b/man2/request_key.2
+@@ -12,17 +12,17 @@
+ .TH REQUEST_KEY 2 2021-03-22 Linux "Linux Key Management Calls"
  .SH NAME
- gamma, gammaf, gammal \- (logarithm of the) gamma function
+ request_key \- request a key from the kernel's key management facility
 +.SH LIBRARY
-+glibc - math library
-+.RI ( libm ", " -lm )
++libkeyutils
++.RI ( libkeyutils ", " -lkeyutils )
  .SH SYNOPSIS
  .nf
- .B #include <math.h>
-@@ -18,8 +21,6 @@ gamma, gammaf, gammal \- (logarithm of the) gamma function
- .BI "long double gammal(long double " x ");"
- .fi
+ .B #include <keyutils.h>
  .PP
--Link with \fI\-lm\fP.
+ .BI "key_serial_t request_key(const char *" type ", const char *" description ,
+ .BI "                         const char *" callout_info ,
+-.BI "                         key_serial_t " dest_keyring ");"
++.BI "                         key_serial_t " dest_keyring );
+ .fi
 -.PP
- .RS -4
- Feature Test Macro Requirements for glibc (see
- .BR feature_test_macros (7)):
+-.IR Note :
+-There is no glibc wrapper for this system call; see NOTES.
+ .SH DESCRIPTION
+ .BR request_key ()
+ attempts to find a key of the given
+@@ -437,13 +437,6 @@ The ability to instantiate keys upon request was added
+ in Linux 2.6.13.
+ .SH CONFORMING TO
+ This system call is a nonstandard Linux extension.
+-.SH NOTES
+-Glibc does not provide a wrapper for this system call.
+-A wrapper is provided in the
+-.IR libkeyutils
+-package.
+-When employing the wrapper in that library, link with
+-.IR \-lkeyutils .
+ .SH EXAMPLES
+ The program below demonstrates the use of
+ .BR request_key ().
 -- 
 2.31.1
 
