@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B397938D1ED
-	for <lists+linux-man@lfdr.de>; Sat, 22 May 2021 01:26:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3B5C238D1EE
+	for <lists+linux-man@lfdr.de>; Sat, 22 May 2021 01:26:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229989AbhEUX12 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 21 May 2021 19:27:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50276 "EHLO
+        id S230150AbhEUX13 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 21 May 2021 19:27:29 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50286 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230146AbhEUX12 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 21 May 2021 19:27:28 -0400
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F0D19C0613ED
-        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 16:26:03 -0700 (PDT)
-Received: by mail-wr1-x42a.google.com with SMTP id v12so22496522wrq.6
-        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 16:26:03 -0700 (PDT)
+        with ESMTP id S230146AbhEUX13 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 21 May 2021 19:27:29 -0400
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A8AAAC0613CE
+        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 16:26:04 -0700 (PDT)
+Received: by mail-wr1-x433.google.com with SMTP id i17so22485087wrq.11
+        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 16:26:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=Ps54vMIeUZmfEsgXPmAphxNoO3rLyIfowTpP7pEhGu4=;
-        b=ieDM1jagd0+AtmRTMrxvjAbSEJ8vhEdGTwAil3MM9WmFg47mgOOqFNjn/nGeg0fXE2
-         0haijDbqGwmxZBNjEfq4S+nchAWA26gOaWWLpiMWzrq93KmWFlGCEHh7nxTbsiaro8n1
-         eXtmi2J9Ifo+2msOkPpQdeEvT2RYbFuYHXo018BPPPxxUCopNAdEhEpR/j8gTfhGebON
-         kcVdoQ0YUH3X/aQXbsOG32G8yv8cR+KdPwGp7pp1IGI9jC7xyHPPp/gnmYk0AP4Zp/pW
-         GA8bt7iAdCiYg0CxPTAQIaRLFYtJz9vRuIt0aLVc4f5CgViMWzcCNC6J5LNGYGwcngzm
-         elfg==
+        bh=oF1TEvbD66/8tVHjsVVnvpp05Ez5xIjETe7glax1kt4=;
+        b=tCgnxZyx+EmGObZiLohX/TXDJonD5e1NEHGULGcfyi6YtI/CdWEpX5J0/RjBwZbJc3
+         sOA/KvtceA7ngX0oU0cfDEvtXoLyCq/2RrPVCVXwcpUOS/0BwjDyd7KaTSeqZRFtS38V
+         77cjjiS3ROOdLCiRY/DxffH7yVoWSloK3cR5NstV9Crlg3ixB26N4UJlJokNo7giyB5Y
+         7vhYfobPX2sSCshcqeL76uX7k3qJxF5hXpCLz1tgXeOgh5ehSog5Z4ejYnMLuZIhThnp
+         P1ywChBoWKf/hB5yF8lOB5AdmXgu/M33xxxizoDSBPgJISp4v1U7ariWoVcbE0wtvHfA
+         eg/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Ps54vMIeUZmfEsgXPmAphxNoO3rLyIfowTpP7pEhGu4=;
-        b=NtBqGaoR1YSpvC0hIaK9jqss+49dvLfHbYurK7yuPZcpxCQ8kaLvTM3kEXAHeR54AA
-         /Ruz65rC30EcwrQRQAfHEpJqNNVGu6ck3BUnxWYCYNaJguNsqVaDrsgwlE3iPcaN1x42
-         yPwACQ52BSKv7zYNeMlKLJLvhpNdhW8VKa4zuCqF32vBzwTq3+eEsX5dm4R86ig+Z+Kx
-         QQxXV2i/2asc9jTD8msoWSAcVJU1VeeK2xkQOid9GHF0ruwUdQml4ux+Q12cJQMGOq32
-         072MXym2KOfxRxbfMHbec4iILGZYW56O6gMzaXAUaNEA+qMJYERUR6WCJwQpNZBDXQaD
-         YVAg==
-X-Gm-Message-State: AOAM530ouX7YJmweIaMNY0oOT9+RryO4Scf8Bckjmxs8QPsoHc4rmwh4
-        523wpuciyPtVUg9LVwpXboA=
-X-Google-Smtp-Source: ABdhPJwLoDEucgwdVM4qPdeht2xxRAZwveMj9CKoY/axITGbaL90uxVkPfrgJBkGGYkpYDFhIVEloA==
-X-Received: by 2002:adf:f142:: with SMTP id y2mr11465009wro.426.1621639562662;
-        Fri, 21 May 2021 16:26:02 -0700 (PDT)
+        bh=oF1TEvbD66/8tVHjsVVnvpp05Ez5xIjETe7glax1kt4=;
+        b=Ify3fU/X57m2z8IYWvdonrzLS82OQl4a/99CEfVNUka7bF8V/1rwZEZTC32PuTchsT
+         A8CXiP5vg7bsgbX0N1G/pGJXdoJuEsqS9ibJ1JJGCBeiVLVcQuqsrc97snp/0as7QQ35
+         6Ycr7ORGOLon4bxdxP4s98Z4wpvSlECiDOazmDsCNcVvMMmjzm2bRcAZPF2UBb+oK9G1
+         O4VN/ACBEBdpsHL9BtTdcC8XkLDZHpE30QNhqAeKwpBA0ELn0lYcfcVH2oqYpcnpdz7r
+         vm2gmoKhZIqrtBWiof9DoetdocurJHGRsFQxsWC+WGuE8U3K1VnytTFyCmCNGEOSAo4Y
+         83Ow==
+X-Gm-Message-State: AOAM532XZhlXtZdtZnyij5wyC/dJ8P/QEDpj3FcYlrsxorehaHUjnzwq
+        20pk3gSR6LFYsSVEUhcACHk=
+X-Google-Smtp-Source: ABdhPJzOdjINDq9I5YzbN9ojXiXdKbFPYKzIYPe6lIaa8lYq9G2f67AekzVmTeNEAbX21zY+TRSE6g==
+X-Received: by 2002:a05:6000:52:: with SMTP id k18mr11597861wrx.419.1621639563397;
+        Fri, 21 May 2021 16:26:03 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
         by smtp.googlemail.com with ESMTPSA id z12sm1150639wmc.5.2021.05.21.16.26.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 May 2021 16:26:02 -0700 (PDT)
+        Fri, 21 May 2021 16:26:03 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 07/10] sgetmask.2: Use syscall(SYS_...); for system calls without a wrapper
-Date:   Sat, 22 May 2021 01:25:50 +0200
-Message-Id: <20210521232553.161080-7-alx.manpages@gmail.com>
+Subject: [PATCH 08/10] shmop.2: Remove unused include
+Date:   Sat, 22 May 2021 01:25:51 +0200
+Message-Id: <20210521232553.161080-8-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210521232553.161080-1-alx.manpages@gmail.com>
 References: <20210521232553.161080-1-alx.manpages@gmail.com>
@@ -65,45 +65,21 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/sgetmask.2 | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ man2/shmop.2 | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/man2/sgetmask.2 b/man2/sgetmask.2
-index 7563b57ff..59b58ceaf 100644
---- a/man2/sgetmask.2
-+++ b/man2/sgetmask.2
-@@ -27,12 +27,17 @@
- sgetmask, ssetmask \- manipulation of signal mask (obsolete)
+diff --git a/man2/shmop.2 b/man2/shmop.2
+index c7e66af0e..52baed96c 100644
+--- a/man2/shmop.2
++++ b/man2/shmop.2
+@@ -42,7 +42,6 @@
+ shmat, shmdt \- System V shared memory operations
  .SH SYNOPSIS
  .nf
--.B "long sgetmask(void);"
--.BI "long ssetmask(long " newmask );
-+.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
-+.B #include <unistd.h>
-+.PP
-+.B "long syscall(SYS_sgetmask, void);"
-+.BI "long syscall(SYS_ssetmask, long " newmask );
- .fi
+-.B #include <sys/types.h>
+ .B #include <sys/shm.h>
  .PP
- .IR Note :
--There are no glibc wrappers for these system calls; see NOTES.
-+glibc provides no wrappers for these functions,
-+necessitating the use of
-+.BR syscall (2).
- .SH DESCRIPTION
- These system calls are obsolete.
- .IR "Do not use them" ;
-@@ -73,10 +78,6 @@ option.
- .SH CONFORMING TO
- These system calls are Linux-specific.
- .SH NOTES
--Glibc does not provide wrappers for these obsolete system calls;
--in the unlikely event that you want to call them, use
--.BR syscall (2).
--.PP
- These system calls are unaware of signal numbers greater than 31
- (i.e., real-time signals).
- .PP
+ .BI "void *shmat(int " shmid ", const void *" shmaddr ", int " shmflg );
 -- 
 2.31.1
 
