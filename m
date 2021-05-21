@@ -2,160 +2,131 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1D2DB38C8EE
-	for <lists+linux-man@lfdr.de>; Fri, 21 May 2021 16:08:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 52D4138C977
+	for <lists+linux-man@lfdr.de>; Fri, 21 May 2021 16:47:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233556AbhEUOKF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 21 May 2021 10:10:05 -0400
-Received: from mx01-sz.bfs.de ([194.94.69.67]:9768 "EHLO mx01-sz.bfs.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S232170AbhEUOKF (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 21 May 2021 10:10:05 -0400
-Received: from SRVEX01-SZ.bfs.intern (exchange-sz.bfs.de [10.129.90.31])
-        by mx01-sz.bfs.de (Postfix) with ESMTPS id 23F2A20655;
-        Fri, 21 May 2021 16:08:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bfs.de; s=dkim201901;
-        t=1621606121;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=m0KBNvFtJO6NXDKZV6z6PKytEDf0WPO9H0CTy0gHsD4=;
-        b=kYCN3fZLoUN2W46uyqxT10Fc/RzDHnAM0wTc+KOSXwdJgsM0prDS7Gp2jSnwnCpesC0rej
-        BML7yimzFUscf0ANaFInjW/6ZbBO9s0e/bkbJdiAUZb3UJFK1NyZ9kDktw7SWFocaYbRK3
-        JhDdhPN9BwOol5bN3hfARg5alrUCmrrfsg4d2OP1/R0YnRYnl1mECoieODlQXZ/iuEOeUg
-        hA2aF4+QEl2KkM2IPf4q7+e30mtQa/ImmLm9ZWvFMOYymiKcRENzgPR8ozgh0ZhwnS8d1r
-        WEmvVHL+OcAZxEInKiqhI2Dm2RThOlID+Ep1aIWTQWjeyEK3iM6x4GvkHeP4mg==
-Received: from SRVEX01-SZ.bfs.intern (10.129.90.31) by SRVEX01-SZ.bfs.intern
- (10.129.90.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2242.4; Fri, 21 May
- 2021 16:08:40 +0200
-Received: from SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a]) by
- SRVEX01-SZ.bfs.intern ([fe80::7d2d:f9cb:2761:d24a%13]) with mapi id
- 15.01.2242.008; Fri, 21 May 2021 16:08:40 +0200
-From:   Walter Harms <wharms@bfs.de>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        id S231966AbhEUOs7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 21 May 2021 10:48:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45868 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231538AbhEUOs7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 21 May 2021 10:48:59 -0400
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C9054C061574
+        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 07:47:34 -0700 (PDT)
+Received: by mail-wm1-x32d.google.com with SMTP id l18-20020a1ced120000b029014c1adff1edso7556110wmh.4
+        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 07:47:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=el51XJPWwonRH5c8F2it1RfWIixzTZYpxho1Br8YkHk=;
+        b=rQrpNoIhqwk1HwsOKG9YvkdVud5ek/+PunwcV7lCoBuHOjSQmJzFoZRtO8DUL1NN2l
+         uCTQeZoVKaAtVt2fKcYTh6jIzsrXOdjUN5P8YezWBAHiVPww59lYrsBbU9wNaRa/Mn3d
+         /kPaqY8A2eWaUnXf7/a+2gG3Hh/q7GZW2G7gkT5HaTNDwF2s3QVB2ujnO4eRj9mFbCrs
+         EDryQ/QXenW2nT2hz5WFqJcgUltoO0Fen1isgMxmtoG7RFFZY3baIzwRRYqhrW4uLMaw
+         xuh6ZZe9X9jOzp2xhjfY8x7zlxJI9qhsiipYR6jCJb/3pCbEhReqvYlraJMiO/hT9SPw
+         oufA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=el51XJPWwonRH5c8F2it1RfWIixzTZYpxho1Br8YkHk=;
+        b=GfRnV8WygFh6gpxAJqSFoNgOUJK6Ocu5+7lcFE5LrDibPzz55//O89atTm5hu+rH+3
+         ecEJP7+PpdSRWpfXPDlYodj3bb4GMqpcfsBWl/jVURrz2gmoPa1JB1Ia1RpkBrwCWZKy
+         Viwsbe9aK5JGKh2Qcv+QZX74BXB23n0L8cJfWfyCuaZSMBBxuDBmjISmuRqOZOZ29+ie
+         lP2sXdSOSjtZy1qb3TsZqwqDKUC8E8Ld4BPXguTKru/B4tuXzb0kNMxWvmKIkd0rbcAY
+         hRqI6AIbozeDzYdKqRA7RJHBsPFHDCOs58f4+SGmkX9RdUbPCDmmYGKCIvNb8eGVtnH9
+         fn1g==
+X-Gm-Message-State: AOAM530cEOQnH8SazlwE0asicXGaF93/mymGTYsabjVr4VUkc2uYiG0O
+        vTFGC1wPEJ65ZW5aKsbuTT8=
+X-Google-Smtp-Source: ABdhPJwLD+TxObOYh8xf7UCxaUn6xJWGL7aFBHlDHj4gn/ZDq7mJW6X/VF0GiJujNmh+r4oYV8v8kQ==
+X-Received: by 2002:a05:600c:4f44:: with SMTP id m4mr9163590wmq.50.1621608453422;
+        Fri, 21 May 2021 07:47:33 -0700 (PDT)
+Received: from [10.8.0.106] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id t11sm2382575wrz.57.2021.05.21.07.47.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 21 May 2021 07:47:32 -0700 (PDT)
+Subject: Re: gamma(3)
+To:     Walter Harms <wharms@bfs.de>
+Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
         "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Subject: AW: AW: Re:
-Thread-Topic: AW: Re:
-Thread-Index: AQHXTPMWVIcs2d4EfEKcaQoC4sfWeqrtpqiAgAA6BXz//+6JAIAAJiPX
-Date:   Fri, 21 May 2021 14:08:40 +0000
-Message-ID: <904f79501b114346a3e7bd84efb13a6a@bfs.de>
 References: <60a57e3a.lbqA81rLGmtH2qoy%Radisson97@gmx.de>
  <6d2849cd-d8af-0539-e579-3201daed6ab1@gmail.com>
- <9baa6f3ac0dd45b4b75a11044dd0f0ed@bfs.de>,<763071ea-e70d-ef89-8455-da7662e67518@gmail.com>
-In-Reply-To: <763071ea-e70d-ef89-8455-da7662e67518@gmail.com>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.137.16.40]
-x-tm-as-product-ver: SMEX-14.0.0.3080-8.6.1012-26172.000
-x-tm-as-result: No-10--3.218200-5.000000
-x-tmase-matchedrid: 1S6u5QTQd1vRubRCcrbc5grcxrzwsv5u3dCmvEa6IiGoLZarzrrPmUYj
-        NK+Q6GZAMYarc+woSczVeptTRKjYpdSefNlpHYemF3wQ0cu1bTMzTATDGmcD/j+B/tp8itBTpai
-        fMRbHH7mrLIIv7em00K5svhqHJ8Su+TcmArI4kFrc+EHoN3gzlyBP+xe0Zet/Y4zJvUjGrxWLa/
-        0H8DRDQZ0Ag7ACu4P/dqQQIhr5j4vfkJeYYItMRTkWEAXjjR2RnnjOyk87HN98YCCIGSc4tfFnz
-        pYjk62hAfQ5bTA9gjWPWx38Q1qIm/iaJZQRpNA+194/5X9VfCwiJN3aXuV/oVEPmF4mfG4ru+Ub
-        Xqs0HDcDCvV3UwP6eNRkgfXwQXSR7GX0c1UlalyVjmqvt/p8cjXN9+/4/e70lwV2iaAfSWeDGx/
-        OQ1GV8t0H8LFZNFG7doMssNsUwYX2pH88br2lQAWphomgN7PjVLyDG+34W+5xqRKs5yxY0FYSqY
-        XZTfrLEGaWAtDHqNsFIeOmxHSEY8j8Qji4Huh5jyEn4YaUvO/e4R8pXaDytwntx4SzZN2w0zUHR
-        QIpp96lf7LKrFw+x9Tq6WfhLX2j
-x-tm-as-user-approved-sender: No
-x-tm-as-user-blocked-sender: No
-x-tmase-result: 10--3.218200-5.000000
-x-tmase-version: SMEX-14.0.0.3080-8.6.1012-26172.000
-x-tm-snts-smtp: E9E00CCC6579601C64DAA9DF18BF4668AE3610475AEAC8DFD6D977157E6A13E22000:9
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ <9baa6f3ac0dd45b4b75a11044dd0f0ed@bfs.de>
+ <763071ea-e70d-ef89-8455-da7662e67518@gmail.com>
+ <904f79501b114346a3e7bd84efb13a6a@bfs.de>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <509d34ee-4616-81e7-28a6-73a7e024dbeb@gmail.com>
+Date:   Fri, 21 May 2021 16:47:29 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-Authentication-Results: mx01-sz.bfs.de;
-        none
-X-Spamd-Result: default: False [-15.00 / 7.00];
-         ARC_NA(0.00)[];
-         TO_DN_EQ_ADDR_SOME(0.00)[];
-         HAS_XOIP(0.00)[];
-         FROM_HAS_DN(0.00)[];
-         RCPT_COUNT_THREE(0.00)[3];
-         FREEMAIL_ENVRCPT(0.00)[gmail.com];
-         TO_MATCH_ENVRCPT_ALL(0.00)[];
-         TAGGED_RCPT(0.00)[];
-         MIME_GOOD(-0.10)[text/plain];
-         TO_DN_SOME(0.00)[];
-         BAYES_HAM(-0.00)[21.24%];
-         DKIM_SIGNED(0.00)[bfs.de:s=dkim201901];
-         WHITELIST_LOCAL_IP(-15.00)[10.129.90.31];
-         NEURAL_HAM(-0.00)[-1.000];
-         FREEMAIL_TO(0.00)[gmail.com];
-         RCVD_NO_TLS_LAST(0.10)[];
-         FROM_EQ_ENVFROM(0.00)[];
-         MIME_TRACE(0.00)[0:+];
-         FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com];
-         RCVD_COUNT_TWO(0.00)[2];
-         MID_RHS_MATCH_FROM(0.00)[]
-X-Spam-Status: No, score=-15.00
+In-Reply-To: <904f79501b114346a3e7bd84efb13a6a@bfs.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-(before we misunderstand each other i do not insists on that patch)
+On 5/21/21 4:08 PM, Walter Harms wrote:
+> (before we misunderstand each other i do not insists on that patch)
 
-The function is available and that should be documented.
-They seem available for some time, but glibc says: These functions=20
-exist for compatibility reasons.
+No problem about it.  You could insist on if you wanted to :p
 
-What is about a merger with lgamma() ?
+I'm not sure yet about what we should do.
 
-adding to the notes section something like that:
-   glibc version
-       Glibc  has  a  gamma() function (and _r) that is equivalent to=20
-       lgamma(3) and computes the natural logarithm of the Gamma function.
-       That function is deprecated and should not be used in newer programs=
-.=20
+> 
+> The function is available and that should be documented.
 
+I tend to agree with that.
 
-re,
- wh
+> They seem available for some time, but glibc says: These functions
+> exist for compatibility reasons.
 
-________________________________________
-Von: Alejandro Colomar (man-pages) <alx.manpages@gmail.com>
-Gesendet: Freitag, 21. Mai 2021 15:29
-An: Walter Harms
-Cc: linux-man@vger.kernel.org; Michael Kerrisk (man-pages)
-Betreff: Re: AW: Re:
+Exactly.  But that means it exists for old code to still work.  New code 
+should not use these.  So the manual page should serve 2 purposes:
 
-WARNUNG: Diese E-Mail kam von au=DFerhalb der Organisation. Klicken Sie nic=
-ht auf Links oder =F6ffnen Sie keine Anh=E4nge, es sei denn, Sie kennen den=
-/die Absender*in und wissen, dass der Inhalt sicher ist.
+*) discourage its use
+*) help migrating from gamma(3) to lgamma(3)
 
+The first one is already clear.  For the second one, I think that the 
+SYNOPSIS and ATTRIBUTES is enough.
 
-Hi Walter,
+> 
+> What is about a merger with lgamma() ?
 
-On 5/21/21 3:11 PM, Walter Harms wrote:
-> I will not argue that the function is deprecated.
->
-> NTL i added the gamma_r function that are missing
-> and changed the wording for the description. I think
-> it is better than in lgamma especially  for signgam.
-> I noticed that it should be more obvious.
->
+I like it separated (as is).  It serves the purpose of redirecting to 
+either lgamma or tgamma depending on what the reader wants.
+
+> 
+> adding to the notes section something like that:
+>     glibc version
+>         Glibc  has  a  gamma() function (and _r) that is equivalent to
+>         lgamma(3) and computes the natural logarithm of the Gamma function.
+>         That function is deprecated and should not be used in newer programs.
+> 
+> 
 > re,
 >   wh
 
-I never used these functions, so I don know for sure.  Isn't gamma_r(3)
-just an (obsolete) alias for lgamma_r(3)?
+I think that to document those, but keep it to a minimum, I'd add the 
+functions to the sections NAME and SYNOPSIS, and nothing more.  The rest 
+is very generic and mainly says "don't use this".  The only thing that 
+would maybe need an update is the ATTRIBUTES section, but I wouldn't 
+mind if we left it as is.
 
-If so, lgamma_r(3) is already documented, and the gamma(3) manual page
-already points to it.  I don't see why gamma_r(3), which is obsolete,
-should be documented.
 
-Thanks,
+What do you think?
+
+Cheers,
 
 Alex
 
 
---
+-- 
 Alejandro Colomar
 Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
 http://www.alejandro-colomar.es/
