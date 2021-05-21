@@ -2,119 +2,117 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5892338C572
-	for <lists+linux-man@lfdr.de>; Fri, 21 May 2021 13:11:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F3A7F38C579
+	for <lists+linux-man@lfdr.de>; Fri, 21 May 2021 13:12:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234052AbhEULMj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 21 May 2021 07:12:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53172 "EHLO
+        id S234121AbhEULNy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 21 May 2021 07:13:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53450 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229457AbhEULMi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 21 May 2021 07:12:38 -0400
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5FE52C061574
-        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 04:11:14 -0700 (PDT)
-Received: by mail-wr1-x42d.google.com with SMTP id v12so20668702wrq.6
-        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 04:11:14 -0700 (PDT)
+        with ESMTP id S233569AbhEULNy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 21 May 2021 07:13:54 -0400
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 35C66C061574;
+        Fri, 21 May 2021 04:12:30 -0700 (PDT)
+Received: by mail-wm1-x335.google.com with SMTP id f75-20020a1c1f4e0000b0290171001e7329so6934084wmf.1;
+        Fri, 21 May 2021 04:12:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:references:cc:from:message-id:date:user-agent
+        h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=M8kAV1VYgJ7YPGtmnmEaWDtMYXJyD8NqO59+yTOh6bQ=;
-        b=sI+YXE4O6TkdYYxhApgD/dEYFZGQ48PoiSP9dfSMiO2mg4zEJbIxSEO0HyZJkBf02X
-         YN+brgPgJ208cSMbBGexWgFYlY9rnpxfuPCPDKIfwxDEK/cCbo8KITnpnRDks3EYZV8V
-         ARYB0vcl+oSqV+VjR3ASpSP8pb2yqmj0E4rGCz7wsQ6AFDaYKacau4q482zfgfsIJ55o
-         kFG36issLImj8SWfw/yv6QcHEMSnnRMQl5m1FsG9Co7LI/isN4Q3/39A2N6sG7DfWsyK
-         4EDGLEFyvBYuJmKzLakQH/knyfBWkvzjp6SU3lKmIcjr0O5bq0DsN8uIF5d5rTyxL0Ir
-         nC4w==
+        bh=n8fWTjwngjiSk3H/kdYOG+eQP4cKieGjb3pqjd4aMnE=;
+        b=E4wn+gV8v4Ko1F8GmJsyTwtr9xh66WZDX+5D97cv7T+0Bk0FyKNuk/JswU24XlIN7K
+         0cE/fqPFFoeHfylUkHqBz12yvUzU6rbFzEE1zk73/+rEiY0y5xtNlGM2vduWe9eqIcJH
+         oXK6zaPNT4HZ4PhzhqUm9WBLtgOFq6ocgeMrr8ObNhiXekdtfmRLfl/dmOPNlIr3fidT
+         WVsqEdxSZvVAx/Wa7clHCP4peXhw+0jD09l8D8tN4hnbhEL8ECq2V0iyMfFNfXKxWt1c
+         HN1ImVpkSZmO9LqTPZUb+DgeXTelzCFiRpQl9A9PCyHEOcklN7Wf4pDnN/IgnuUIR70A
+         MEfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:cc:from:message-id:date
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=M8kAV1VYgJ7YPGtmnmEaWDtMYXJyD8NqO59+yTOh6bQ=;
-        b=j8pStq0DL1w9nYACZ44vuVY66AaQFwE7FPASKoz8RQ+E9aC4gqwLlxJRtz+UZpRzW3
-         TVS4BQ97Oy5ZqujoDeQfMsGG/ozu/0KP5v1KkV1QaBm9G7FaZ16C7Uc+3hw3iwvuhqax
-         owDIMKHSN4E39Xu4P4mnKBEqUec+Z6NlRdHMdPeXMPv7C1b5MgpdRypOFcGifivUqJHb
-         RD+DZFcwEH9NFEMAJd6AnnQWfisPbAKaiRYEoTHBmPzlbJhIOOg4HOi2SkfKPct6jfNI
-         EqTH8wrZniyckT1b2fS/u5dHuxvF4t6cRPVt7SfBNTMkQeH3K0Awq8wQ4UrxMIyCkaG8
-         9yAg==
-X-Gm-Message-State: AOAM531QEZGmwNIA02ZKCPve/bdoxUDW3Q4pzbXqY2qk/YzVR21JQnL1
-        g/PNILyriNtEw9Mdx6eKXyo=
-X-Google-Smtp-Source: ABdhPJx0Jt9Czh98l2rCzV/jrkL2J+LkSv+aEN6LARGlRH7EE1PFvRE2E1fDXGSJZ69mwTaDrTpUdA==
-X-Received: by 2002:a5d:64cf:: with SMTP id f15mr8737379wri.327.1621595473097;
-        Fri, 21 May 2021 04:11:13 -0700 (PDT)
+        bh=n8fWTjwngjiSk3H/kdYOG+eQP4cKieGjb3pqjd4aMnE=;
+        b=OO2w8H3FxzIvAvEam/YhwuwkPZojbKz4vVz4t/Y+CT/zpjhafAXQV/G8GSja+TPzPJ
+         4skfW4EjqGDKBM2WsSZZuYc2DqdwcRZ7Equ6NToml/v83FYWsEpU++eeOuu8EwQSSJEu
+         hQ2x/OTwJsaLD6JkFC5yyrVb7V5vqtd+pZKGEizLOfZWSYVO2rwGJln7N3AzAOzx2G/K
+         4ZK84vY6r7p276UERVOUZxT6jp9IIJc4/t7vMA9eZ6RgobkosC4zC/r76mohA6d2N7Tw
+         rneGbL3QUTXljIQKKA3ziDoB1ikDqV+NhW5sujWsONICpdoJXalqw8BOV6YLFDRqNa2/
+         bktQ==
+X-Gm-Message-State: AOAM532Nw4L6AUdxxPWv2XwoZ/mbrbbdXBvAEkuUipDc2SkyxL2hVuoK
+        BVm2QL8BxDTJu/cgmnq9IWE=
+X-Google-Smtp-Source: ABdhPJybP6O5484MyiP/NQzPPYoJgE+bRR5MtrjEoKprcszbr9E8WsD+qysLidQPe9jm/L2M0r4jew==
+X-Received: by 2002:a7b:c93a:: with SMTP id h26mr8593158wml.141.1621595548880;
+        Fri, 21 May 2021 04:12:28 -0700 (PDT)
 Received: from [192.168.43.70] ([46.222.120.224])
-        by smtp.gmail.com with ESMTPSA id z6sm5860920wml.29.2021.05.21.04.11.12
+        by smtp.gmail.com with ESMTPSA id i5sm1804932wrw.29.2021.05.21.04.12.26
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 21 May 2021 04:11:12 -0700 (PDT)
-Subject: Re: [PATCH] sigalstack.2: Mention the need for separate signal stacks
- for threads
-To:     Florian Weimer <fweimer@redhat.com>
-References: <87h7iz4vy1.fsf@oldenburg.str.redhat.com>
-Cc:     linux-man@vger.kernel.org,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <b69d7180-77f6-f7e3-0344-507a26517288@gmail.com>
-Date:   Fri, 21 May 2021 13:11:11 +0200
+        Fri, 21 May 2021 04:12:28 -0700 (PDT)
+Subject: Re: [PATCH v3] bpf.2: Use standard types and attributes
+To:     Daniel Borkmann <daniel@iogearbox.net>,
+        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Zack Weinberg <zackw@panix.com>,
+        LKML <linux-kernel@vger.kernel.org>,
+        glibc <libc-alpha@sourceware.org>, GCC <gcc-patches@gcc.gnu.org>,
+        bpf <bpf@vger.kernel.org>,
+        David Laight <David.Laight@ACULAB.COM>,
+        Joseph Myers <joseph@codesourcery.com>,
+        Florian Weimer <fweimer@redhat.com>
+References: <6740a229-842e-b368-86eb-defc786b3658@gmail.com>
+ <20210515190116.188362-1-alx.manpages@gmail.com>
+ <9df36138-f622-49a6-8310-85ff0470ccd6@gmail.com>
+ <521cd198-fea2-c2a8-ed96-5848ae39b6f2@iogearbox.net>
+From:   Alejandro Colomar <alx.mailinglists@gmail.com>
+Message-ID: <c2d0c73e-20d8-f624-8d72-8b00e9309463@gmail.com>
+Date:   Fri, 21 May 2021 13:12:24 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <87h7iz4vy1.fsf@oldenburg.str.redhat.com>
+In-Reply-To: <521cd198-fea2-c2a8-ed96-5848ae39b6f2@iogearbox.net>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-[CC += mtk]
+Hello Daniel,
 
-Hi Florian,
-
-On 5/18/21 10:40 PM, Florian Weimer wrote:
-> Signed-off-by: Florian Weimer <fweimer@redhat.com>
+On 5/17/21 8:56 PM, Daniel Borkmann wrote:
+> On 5/16/21 11:16 AM, Alejandro Colomar (man-pages) wrote:
+>>>
+>>> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+>> Discussion: 
+>> <https://lore.kernel.org/linux-man/6740a229-842e-b368-86eb-defc786b3658@gmail.com/T/> 
+>>
+>>> Nacked-by: Alexei Starovoitov <ast@kernel.org>
+>>> Nacked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 > 
+> You forgot to retain my ...
+> 
+> Nacked-by: Daniel Borkmann <daniel@iogearbox.net>
 
-I don't understand how this works, so I'll CC Michael so that he merges it.
+Yup! Sorry, I forgot :)
 
 Thanks,
 
 Alex
 
-> ---
->   man2/sigaltstack.2 | 7 +++++--
->   1 file changed, 5 insertions(+), 2 deletions(-)
 > 
-> diff --git a/man2/sigaltstack.2 b/man2/sigaltstack.2
-> index 53268ccbe..1510a98ab 100644
-> --- a/man2/sigaltstack.2
-> +++ b/man2/sigaltstack.2
-> @@ -54,7 +54,10 @@ alternate signal stack.
->   An alternate signal stack is used during the
->   execution of a signal handler if the establishment of that handler (see
->   .BR sigaction (2))
-> -requested it.
-> +requested it using the
-> +.B SA_ONSTACK
-> +flag.  Each thread that can execute such signal handlers needs its own
-> +separate alternate signal stack.
->   .PP
->   The normal sequence of events for using an alternate signal stack
->   is the following:
-> @@ -67,7 +70,7 @@ signal stack.
->   Use
->   .BR sigaltstack ()
->   to inform the system of the existence and
-> -location of the alternate signal stack.
-> +location of the alternate signal stack for the current thread.
->   .TP
->   3.
->   When establishing a signal handler using
-> 
+>>> Acked-by: Zack Weinberg <zackw@panix.com>
+>>> Cc: LKML <linux-kernel@vger.kernel.org>
+>>> Cc: glibc <libc-alpha@sourceware.org>
+>>> Cc: GCC <gcc-patches@gcc.gnu.org>
+>>> Cc: bpf <bpf@vger.kernel.org>
+>>> Cc: David Laight <David.Laight@ACULAB.COM>
+>>> Cc: Joseph Myers <joseph@codesourcery.com>
+>>> Cc: Florian Weimer <fweimer@redhat.com>
+>>> Cc: Daniel Borkmann <daniel@iogearbox.net>
+>>> ---
+>>>   man2/bpf.2 | 49 ++++++++++++++++++++++++-------------------------
+>>>   1 file changed, 24 insertions(+), 25 deletions(-)
+>>>
 
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-Senior SW Engineer; http://www.alejandro-colomar.es/
