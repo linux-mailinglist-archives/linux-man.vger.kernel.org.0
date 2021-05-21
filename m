@@ -2,114 +2,124 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B9E0438D14C
-	for <lists+linux-man@lfdr.de>; Sat, 22 May 2021 00:19:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B2A9B38D1E7
+	for <lists+linux-man@lfdr.de>; Sat, 22 May 2021 01:26:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229534AbhEUWVP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 21 May 2021 18:21:15 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35536 "EHLO
+        id S229952AbhEUX1Y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 21 May 2021 19:27:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50254 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229503AbhEUWVO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 21 May 2021 18:21:14 -0400
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0BB5EC061574
-        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 15:19:51 -0700 (PDT)
-Received: by mail-wm1-x333.google.com with SMTP id z19-20020a7bc7d30000b029017521c1fb75so8205358wmk.0
-        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 15:19:50 -0700 (PDT)
+        with ESMTP id S229937AbhEUX1X (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 21 May 2021 19:27:23 -0400
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 18C71C061574
+        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 16:25:59 -0700 (PDT)
+Received: by mail-wm1-x332.google.com with SMTP id o127so11917630wmo.4
+        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 16:25:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:from:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=h/f/qiFYbLBK5JkervWFA402A8BSCO47nndLtV5qOHM=;
-        b=HWpqbShehYKzxeOEqt6drKRcY7XoJOXEECNYhQnWcGnXqISP4jdd0uTyKdww1QV9Qb
-         ZLWDPqK3jrLqCQYpwuEX+12EIApypPT+oGNn2h+bpxrvByjvHwNx19B2GZvPNxvpIPVT
-         U0dgyB3KUenfFMbT0ML1O6BRrg+KV48TPBSdgq/pBJqC/Sy6jseMmrfyUg2kpRCxBWe+
-         w0GMnKVQvdBlobMjhGvQfa8YDwf9AEN4VSS7cP15W13joFjnt/SG6ABXz5rbfV+BIT/3
-         j1a/J9B9/++v0vUA/k54XZyjcVWbUZSzYWBkHx0OAlstPGMPBmVm6YK+ZeGzGkHuTJWR
-         Y3aA==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=L3HaiuV5FA6T7jwBru+c0uAHWt+ofRfQy8yGyIb7B0Y=;
+        b=RlgbuiiHrdbJgPs+1BqM42t4V04VQxjJ9+GaUuA7Jx/I8XgYjJ1mp4wBPDYlqx7cJM
+         fDECBkBBO7TkXD9aQk78s6D6r3xAkwvLaiASnWhfRupIjIBzLrAyge7BG4DxdE98ReYo
+         gw3kijHhlhtV/+Usuvfogu6yIr7f/HnKoLwl7XHovAr9G1jdIvBKDXSKCUxMKlqGulAm
+         GEgIT6JDh0/maRD3XzPyfN60a+wzIruXl/k4wvps6sHmEF4JMVk7gmx4RceTakRqF5hM
+         0PLvr8ALG63K4RwcLtVCjmCwQjmYsI0pSQvB40ekKJFl8sXph2CUqoXqDc3qWqaRvbha
+         l4Kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=h/f/qiFYbLBK5JkervWFA402A8BSCO47nndLtV5qOHM=;
-        b=asBmP5nzE1Kt7csEbr1W3a2/8E+n+/CRikkwp1O+8j94IYqsDIdxMdUlF49KG2q3M5
-         PzczleLcUYrIUlNmpiYGAb1gG6Miey9ZatbAf3BdLB+rDK0T8N2ytwlIVK1AfOkerK8B
-         BU14ffrJBsCfVj7mQUlrnBdUeMrCkjHHvkFHaDD20vpgQyTrHWRHnimVESbbKp6m6uej
-         C9P6nxHe0SOzQb+X9yeQMg4xncEA/Aznw4pxqZe8X1jTwgGOp5uYj7SlWYeGuCJzu4PC
-         JEUFezLWcl8lQVWFjjuG0jEdNJ486k6gYUqBELZKniqkOpfV/BlcVKDkg5ZxS52xBQY+
-         GrZA==
-X-Gm-Message-State: AOAM530QiqiGpWty/NSleGLUWXmnqpIkl9bhfBu8HB9F5XSND2l0j9Gi
-        sUasAO5UTJlHk1ZvHq+D+2rzqGvTIdKnAw==
-X-Google-Smtp-Source: ABdhPJwqGGd9mFqq6vmiIxW0bz6qlYZz7MAXw3RTstihKwUFg7DRJ/OWR2WHWvY+m8E0c0p+OMjRBQ==
-X-Received: by 2002:a05:600c:4f8b:: with SMTP id n11mr10619324wmq.180.1621635588634;
-        Fri, 21 May 2021 15:19:48 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id t7sm3298130wrs.87.2021.05.21.15.19.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 21 May 2021 15:19:48 -0700 (PDT)
-Subject: Ping: Consistent parameter names
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-References: <548683d1-4a39-5f1f-2459-36c95844a0a8@gmail.com>
-Message-ID: <e7814c4e-fcd8-8e7e-742a-f35cda31848a@gmail.com>
-Date:   Sat, 22 May 2021 00:19:47 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+        bh=L3HaiuV5FA6T7jwBru+c0uAHWt+ofRfQy8yGyIb7B0Y=;
+        b=SiWnumGT87S26irgwWMqYPcxKH7T/5ITFl9LOwgQ67OrQK84knDYj2XV2I8HWlb4El
+         1cnmdqiSQhDCQvaNJbRzl3TruH7kNUkGqgncmRo2NPErjFd3vZVJ2ddGsMw0OQfJRtSe
+         UAXmfoGmM8YuD61HJJAS6FU/6dR4fKNqdD3PnvCznL9/5tai8kLVgKLG1MENMo32vmrZ
+         7y77N7vBzbDmnphgppN9xt/IvxSHbBI4Ai8W+t+erVwqJb6+AUufe3oTRvZPuERfayA+
+         66//eNEW5CBelTai64Sx9VZ8ED0GOmTmA7yxdPU+q+1KBwumOzOil+yR+hxTbiG1ip3I
+         t6Ag==
+X-Gm-Message-State: AOAM531kAnw+3GDOB8tP1ckNl7qhiucDCnpArRcdhjejyZeAHf81+p6+
+        yf4yfDU1NjbQ6Q/gTfzENbw=
+X-Google-Smtp-Source: ABdhPJwZ542PfLquZ9r86RSnanT/6f5nAoWNtQyfhnhyxNWHxhr6JKTC75A5+ZR9mHYGR6C0WaVC1A==
+X-Received: by 2002:a05:600c:4f0f:: with SMTP id l15mr10978556wmq.143.1621639557718;
+        Fri, 21 May 2021 16:25:57 -0700 (PDT)
+Received: from localhost.localdomain ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id z12sm1150639wmc.5.2021.05.21.16.25.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 21 May 2021 16:25:57 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: [PATCH 00/10] man2: SYNOPSIS: Use syscall, and fix includes.
+Date:   Sat, 22 May 2021 01:25:44 +0200
+Message-Id: <20210521232553.161080-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <548683d1-4a39-5f1f-2459-36c95844a0a8@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Ping.
+Hi Michael,
 
-On 3/4/21 3:50 PM, Alejandro Colomar (man-pages) wrote:
-> Hello Michael,
-> 
-> I found different terms for parameters that refer to a same thing
-> in different functions (usually a '[const] char *'):
->      - filename
->      - file
->      - path
->      - pathname
->      - Maybe others; I don't know
-> 
-> For 'FILE *' we have more or less the same,
-> although this one is much more consistent (>90% use 'stream'):
->      - stream
->      - streamp
->      - s
->      - fp
->      - file
->      - filehandle
->      - A few others in specific cases
-> 
-> Also for strings, there are
->     - s
->     - str
->     - string
->     - maybe others
-> 
-> There are probably other cases with the same problem.
-> I think these parameters should have a more consistent naming.
-> But which names should we use?
-> 
-> I tend to use short names such as fname, fd, s, ...
-> but I don't know if you may prefer longer names for documentation purposes.
-> 
-> What would you do about it?
-> 
-> Thanks,
-> 
-> Alex
-> 
+Almost finished these:
+$ man_lsfunc man2 | sed -n '/socketcall/,$p' | wc -l
+67
+$ man_lsfunc man2 | wc -l
+401
+$
+
+A remainder for myself of commands needed to do this:
+
+.../man-pages$ man_section man2 SYNOPSIS 'CONFORMING TO' NOTES \
+               | sed -n '/SOCKETCALL/,$p' \
+               | sponge | less;
+
+
+.../glibc$ man_lsfunc ../../linux/man-pages/man2 \
+           | while read -r syscall; do \
+                   echo "=============================  ${syscall}"; \
+                   grep_glibc_prototype ${syscall}; \
+           done \
+           | sed -e 's/\bextern //' -e 's/\b_*//g' \
+           | sed -n '/socketcall/,$p' \
+           | sponge | less;
+
+Kind regards,
+
+Alex
+
+
+Alejandro Colomar (10):
+  open.2: Remove unused <sys/stat.h>
+  rt_sigqueueinfo.2: Use syscall(SYS_...); for system calls without a
+    wrapper
+  seccomp.2: Document why each header is needed
+	(not sending this one; already sent last week)
+	<https://lore.kernel.org/linux-man/20210515182254.186607-1-alx.manpages@gmail.com/T/#u>
+  seccomp.2: Use syscall(SYS_...); for system calls without a wrapper
+	(depends on the previous one)
+  set_thread_area.2: Use syscall(SYS_...); for system calls without a
+    wrapper
+  set_tid_address.2: Use syscall(SYS_...); for system calls without a
+    wrapper
+  sgetmask.2: Use syscall(SYS_...); for system calls without a wrapper
+  shmop.2: Remove unused include
+  sigprocmask.2: Use syscall(SYS_...); for raw system calls
+  socketcall.2: Use syscall(SYS_...); for system calls without a wrapper
+
+ man2/open.2            |  1 -
+ man2/rt_sigqueueinfo.2 | 11 ++++++++---
+ man2/seccomp.2         | 24 +++++++++++++-----------
+ man2/set_thread_area.2 | 24 ++++++++++++------------
+ man2/set_tid_address.2 | 13 +++++++------
+ man2/sgetmask.2        | 15 ++++++++-------
+ man2/shmop.2           |  1 -
+ man2/sigprocmask.2     |  8 ++++++--
+ man2/socketcall.2      | 15 ++++++++-------
+ 9 files changed, 62 insertions(+), 50 deletions(-)
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.31.1
+
