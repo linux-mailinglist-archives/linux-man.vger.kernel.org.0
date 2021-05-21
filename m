@@ -2,100 +2,116 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 27E2638C56B
-	for <lists+linux-man@lfdr.de>; Fri, 21 May 2021 13:07:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5892338C572
+	for <lists+linux-man@lfdr.de>; Fri, 21 May 2021 13:11:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234000AbhEULJT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 21 May 2021 07:09:19 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52432 "EHLO
+        id S234052AbhEULMj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 21 May 2021 07:12:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53172 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233908AbhEULJR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 21 May 2021 07:09:17 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2E023C061574
-        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 04:07:53 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id i17so20637991wrq.11
-        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 04:07:53 -0700 (PDT)
+        with ESMTP id S229457AbhEULMi (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 21 May 2021 07:12:38 -0400
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5FE52C061574
+        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 04:11:14 -0700 (PDT)
+Received: by mail-wr1-x42d.google.com with SMTP id v12so20668702wrq.6
+        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 04:11:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:references:cc:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=lW2VSI3nJ4Vddi+1kKuQZ4/qJ4a3Vtk+nDPAraB5sxw=;
-        b=bI7Adm555dFoAu3vvdcplE93r70Ps4TyxC+IL4jp+JtEMqvaqcJt/pLs1fKHNNxYnV
-         Rp6SNh7ecqAre+8Xe4BAqK2sjh+/B9d6MgmpFBPmDtOHpeM7zLvNlbGVmIWnKQVyOZrL
-         fmPVyM9m1QsvMzibHJm/dl2NVFV3iupgtN8GmSoDAFP+Ujd9Awsr4bUaOU8He3qwap5W
-         qpBRTEjLWTq72jAPjQUgr97ONW2MjOmhgrCkzbW5IplNYwGBuePBEE2dmhDXsxCyCyrT
-         0J52XtzfpzsPBkSG5MuxJHPVL5YtVjZN3bgg7TodtGgt+F8DEu955Xf8WewZKHc9Fs6i
-         V1HA==
+        bh=M8kAV1VYgJ7YPGtmnmEaWDtMYXJyD8NqO59+yTOh6bQ=;
+        b=sI+YXE4O6TkdYYxhApgD/dEYFZGQ48PoiSP9dfSMiO2mg4zEJbIxSEO0HyZJkBf02X
+         YN+brgPgJ208cSMbBGexWgFYlY9rnpxfuPCPDKIfwxDEK/cCbo8KITnpnRDks3EYZV8V
+         ARYB0vcl+oSqV+VjR3ASpSP8pb2yqmj0E4rGCz7wsQ6AFDaYKacau4q482zfgfsIJ55o
+         kFG36issLImj8SWfw/yv6QcHEMSnnRMQl5m1FsG9Co7LI/isN4Q3/39A2N6sG7DfWsyK
+         4EDGLEFyvBYuJmKzLakQH/knyfBWkvzjp6SU3lKmIcjr0O5bq0DsN8uIF5d5rTyxL0Ir
+         nC4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:references:cc:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=lW2VSI3nJ4Vddi+1kKuQZ4/qJ4a3Vtk+nDPAraB5sxw=;
-        b=pJssl0SzSG+BpqDR+ViBAZOWSVfnh/Itnv2+nwRNgN+iAuc41KOikL5p82osrM2vXX
-         NdcXayvzvEVhwkKibuAsiJY7M9gzXtdugeqaWqe5YDEDIrlTA/PuUGdrTuqHp8ZWMncV
-         bxYPGQmUvMhM0dgjghU5pOLH2f64xlRdjmdkhJXcq4gXIFEO3MSlS6r+cXgLlEWvZhmQ
-         WG/29dhBqalu5nw1Myd5kAm8Dkaa0hrRTIaq6i9PF4yCZFqVOZ1UrRohb1A3twCNMYLV
-         mmojBBYN0w8YK9klr+iEj4OE3shzMzT3kwAi7258Kq6wr3/LZYVEn6cYtt1winI4+Lrk
-         ONpw==
-X-Gm-Message-State: AOAM532rR2H7sbmVDezCLOENcoULt7tZjMLhSx0M1pZRfpJzWPEojMur
-        67c2FL76NbHLbbUdtCiniz1p+08vfzo=
-X-Google-Smtp-Source: ABdhPJxTtMOqA/3LGZOrqqMOgkZS+Ow6XpS3jp5Nm/KavHNmGhdUBrsIyQ3PZx2Xm2i7HANnn6UeEg==
-X-Received: by 2002:adf:f341:: with SMTP id e1mr7524821wrp.352.1621595271866;
-        Fri, 21 May 2021 04:07:51 -0700 (PDT)
+        bh=M8kAV1VYgJ7YPGtmnmEaWDtMYXJyD8NqO59+yTOh6bQ=;
+        b=j8pStq0DL1w9nYACZ44vuVY66AaQFwE7FPASKoz8RQ+E9aC4gqwLlxJRtz+UZpRzW3
+         TVS4BQ97Oy5ZqujoDeQfMsGG/ozu/0KP5v1KkV1QaBm9G7FaZ16C7Uc+3hw3iwvuhqax
+         owDIMKHSN4E39Xu4P4mnKBEqUec+Z6NlRdHMdPeXMPv7C1b5MgpdRypOFcGifivUqJHb
+         RD+DZFcwEH9NFEMAJd6AnnQWfisPbAKaiRYEoTHBmPzlbJhIOOg4HOi2SkfKPct6jfNI
+         EqTH8wrZniyckT1b2fS/u5dHuxvF4t6cRPVt7SfBNTMkQeH3K0Awq8wQ4UrxMIyCkaG8
+         9yAg==
+X-Gm-Message-State: AOAM531QEZGmwNIA02ZKCPve/bdoxUDW3Q4pzbXqY2qk/YzVR21JQnL1
+        g/PNILyriNtEw9Mdx6eKXyo=
+X-Google-Smtp-Source: ABdhPJx0Jt9Czh98l2rCzV/jrkL2J+LkSv+aEN6LARGlRH7EE1PFvRE2E1fDXGSJZ69mwTaDrTpUdA==
+X-Received: by 2002:a5d:64cf:: with SMTP id f15mr8737379wri.327.1621595473097;
+        Fri, 21 May 2021 04:11:13 -0700 (PDT)
 Received: from [192.168.43.70] ([46.222.120.224])
-        by smtp.gmail.com with ESMTPSA id g10sm1772723wrq.12.2021.05.21.04.07.51
+        by smtp.gmail.com with ESMTPSA id z6sm5860920wml.29.2021.05.21.04.11.12
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 21 May 2021 04:07:51 -0700 (PDT)
-Subject: Re: ioprio_get(2) outdated
-To:     Tycho Kirchner <tychokirchner@mail.de>
-References: <f959ce98-f47b-bbb0-8159-b84a84bdf3eb@mail.de>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
+        Fri, 21 May 2021 04:11:12 -0700 (PDT)
+Subject: Re: [PATCH] sigalstack.2: Mention the need for separate signal stacks
+ for threads
+To:     Florian Weimer <fweimer@redhat.com>
+References: <87h7iz4vy1.fsf@oldenburg.str.redhat.com>
+Cc:     linux-man@vger.kernel.org,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <e1905f65-18c8-57dc-cb2a-c8f0d3b970b3@gmail.com>
-Date:   Fri, 21 May 2021 13:07:50 +0200
+Message-ID: <b69d7180-77f6-f7e3-0344-507a26517288@gmail.com>
+Date:   Fri, 21 May 2021 13:11:11 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.10.0
 MIME-Version: 1.0
-In-Reply-To: <f959ce98-f47b-bbb0-8159-b84a84bdf3eb@mail.de>
+In-Reply-To: <87h7iz4vy1.fsf@oldenburg.str.redhat.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Tycho,
+[CC += mtk]
 
-On 5/20/21 12:30 PM, Tycho Kirchner wrote:
-> Hi,
-> please update ioprio_get(2) to the today more common Multi-Queue Block 
-> IO Queueing Mechanism (blk-mq). In particular:
-> 
->> These system calls have an effect only when used in conjunction
->> with an I/O scheduler that supports I/O priorities.  As at kernel
->> 2.6.17 the only such scheduler is the Completely Fair Queuing
->> (CFQ) I/O scheduler.
-> 
-> As far as I know BFQ is the only mq-iosched which supports (read-) 
-> priorities. See also [1]. The kernel Documentation/block/ioprio.txt is 
-> outdated as well, I guess I'll send an email there too.
-> 
-> Thanks and kind regards
-> Tycho Kirchner
+Hi Florian,
 
-Okay, I don't know much about it, so I'll CC Michael.
+On 5/18/21 10:40 PM, Florian Weimer wrote:
+> Signed-off-by: Florian Weimer <fweimer@redhat.com>
+> 
+
+I don't understand how this works, so I'll CC Michael so that he merges it.
 
 Thanks,
 
 Alex
 
+> ---
+>   man2/sigaltstack.2 | 7 +++++--
+>   1 file changed, 5 insertions(+), 2 deletions(-)
 > 
+> diff --git a/man2/sigaltstack.2 b/man2/sigaltstack.2
+> index 53268ccbe..1510a98ab 100644
+> --- a/man2/sigaltstack.2
+> +++ b/man2/sigaltstack.2
+> @@ -54,7 +54,10 @@ alternate signal stack.
+>   An alternate signal stack is used during the
+>   execution of a signal handler if the establishment of that handler (see
+>   .BR sigaction (2))
+> -requested it.
+> +requested it using the
+> +.B SA_ONSTACK
+> +flag.  Each thread that can execute such signal handlers needs its own
+> +separate alternate signal stack.
+>   .PP
+>   The normal sequence of events for using an alternate signal stack
+>   is the following:
+> @@ -67,7 +70,7 @@ signal stack.
+>   Use
+>   .BR sigaltstack ()
+>   to inform the system of the existence and
+> -location of the alternate signal stack.
+> +location of the alternate signal stack for the current thread.
+>   .TP
+>   3.
+>   When establishing a signal handler using
 > 
-> 
-> [1]: https://www.kernel.org/doc/html/latest/block/bfq-iosched.html
 
 
 -- 
