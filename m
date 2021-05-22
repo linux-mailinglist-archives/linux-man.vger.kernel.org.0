@@ -2,109 +2,88 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EDC7838D1F4
-	for <lists+linux-man@lfdr.de>; Sat, 22 May 2021 01:26:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 153D438D677
+	for <lists+linux-man@lfdr.de>; Sat, 22 May 2021 18:17:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230148AbhEUX1b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 21 May 2021 19:27:31 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50294 "EHLO
+        id S231250AbhEVQTU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 22 May 2021 12:19:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45126 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230157AbhEUX1a (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 21 May 2021 19:27:30 -0400
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 294EAC0613CE
-        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 16:26:06 -0700 (PDT)
-Received: by mail-wm1-x331.google.com with SMTP id u5-20020a7bc0450000b02901480e40338bso7517265wmc.1
-        for <linux-man@vger.kernel.org>; Fri, 21 May 2021 16:26:06 -0700 (PDT)
+        with ESMTP id S231249AbhEVQTT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 22 May 2021 12:19:19 -0400
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com [IPv6:2a00:1450:4864:20::62c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C16BCC061574
+        for <linux-man@vger.kernel.org>; Sat, 22 May 2021 09:17:54 -0700 (PDT)
+Received: by mail-ej1-x62c.google.com with SMTP id f18so4874166ejq.10
+        for <linux-man@vger.kernel.org>; Sat, 22 May 2021 09:17:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=jMbaKiI/1KV/Brx27wIUBZB3avCJW+j6chZMAmom+Lw=;
-        b=ELu4s/6/nCJ1SNITYJBhvDx3Wh3F98hCeTnS33tr5akbJaUCodwbFf3QoWSEYwHN/A
-         cnNHxjyX2B5e3i4vsHN8TOOdTIB8odgQTfoz5eCOe980c6Z3EfuoGvox9MHXpI2FJr+c
-         rOq9Nt+arFYcjNmLDgypRCF8mYVFgB/a/YX1BRDErXr3tsCSx7VeCq6SCCh0R3XHq7lJ
-         0Fh56lyH9+bfVfmeMvi0dIrGSRz+HR1UmBiVLRmJ747QyrdMOmtNn9upIh3D0edApH/e
-         zWq0wQYiazl7LGO+qqTl9wrdhce9J/ZD2EDjk7mo8KbFYVkvvALMPaw9BZ0ExhE+vXb7
-         WYSw==
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=yi2GU1of8ZE7El36iFGvnCt/towoSaMVhhfAH9xUTcc=;
+        b=FsM2N/qrO5vY9OkydBreO+nPS3wH4ruYL7k4mjITX2FZTjSeVrVPPUZkspVsRYtawY
+         c1LuEC3eP1eqWgKIwjUmCs8xMEQl9xkFGQF1Z4PKXDe1K3jc3lyN5IlegqzhhH8gxjzo
+         CK/Ls9nrYADnBfyKOaOWT6ewF91JlnG7PE+ZWCOHZSnBd1dZC5CkY8cb8vz2q+HwUpn2
+         s/xaGsxyfrkC8Z6FmHtFxzBR1Jzw71+M328eUmtw+2xIuPxmmnngaQYq+Rp76vcI9J30
+         howGv2d2FKTzsDrUsdfChAc2ePJdUodhVmw5cBGzxSvi75/3CDEMKrIEOJqFrCSk7mUk
+         PgnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=jMbaKiI/1KV/Brx27wIUBZB3avCJW+j6chZMAmom+Lw=;
-        b=ktiYv5ijs/4CwnBzDWPsb9mt2UlNEEgHxsFizZEjAdX6Vie0lRZWnb39JYAV/UkmrM
-         FDPt/LPtmAXBz0dKgETIfbrgganXmK7evhHNDXzfXcjgSD8xhsV63P0GOI0B8NmCgBx1
-         hDmOjIXsStnW91knf6p7w1KZhm6lA2226Z1cOcM2UWdKX4G3QCdrE5BFwA8U/flKx1Ul
-         Z67tBtMAmijFZJwd/PD+FpgteuvYApJLpWlkiF7Y/qlf1move51PW/dlDpHCCAIpbTvA
-         ZtfBNGTNWzCh2AXNgWLIfAQ8SfdLcwSfQnzXZJfGRoRcB2oTWr/AJjKAKA0RVojyAENc
-         /LeA==
-X-Gm-Message-State: AOAM531CDNpqkIVQeAvTSGQvsq99l+jUs3O9qijqtfnY73Ut5zoBx30w
-        18XUbZwdzcMKkVj0XxUhx/U=
-X-Google-Smtp-Source: ABdhPJyP25l+NQmONKZfUjCLdKZqyma/xTxfDVUnvTeN+dmJvk4wMtLMDMaznCTSeF1AG7lFLh9H2g==
-X-Received: by 2002:a1c:6a08:: with SMTP id f8mr10838824wmc.143.1621639564843;
-        Fri, 21 May 2021 16:26:04 -0700 (PDT)
-Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id z12sm1150639wmc.5.2021.05.21.16.26.04
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=yi2GU1of8ZE7El36iFGvnCt/towoSaMVhhfAH9xUTcc=;
+        b=EeeNcSKTc/4pWgxDFeByw0AT+rdJHDw8N6nhj7urmXaytok8UtS/fs0e9toscOvAZo
+         fQKhJh3UW/mYqP9j2N+qfVaXZKCDXceUZ1CW3Kxdlfyk4rYEvtKDtbl/WnbZ6y3Hr8+h
+         ekDvpjvi+TedDLv+AcXUAr+GU0PxOnzjrjChUhiBqo8+g+kHB7hxeUVYgvG/qplc68uK
+         1uOw/dsDDrD5ucy7UYybXikjY6/dTUH0sXKqc7XUxzz0ZEj7T1OxfcjN9Qmyp8Cjdffi
+         WCBIoINzSSS5a778AzHf1jQHIB6+5gx4t1Mu8J9iFQ72cPM6TYjZkVh2S4JXNUsZtdsK
+         D1yA==
+X-Gm-Message-State: AOAM531aEeVGo0oAsv/rK1PNiqKG26ql3sdveXZLpEdnRCOg0pyj9hWO
+        u4+Stto9O7CpBakvrH8kSz3FXonWzRw=
+X-Google-Smtp-Source: ABdhPJwsZMi6lWp9UODYkLKVpu9OuOY45i/BYhNm03Hij55vi6b6cNT0E87exLE8D0sL/iCW+3Gz8w==
+X-Received: by 2002:a17:906:c352:: with SMTP id ci18mr15119545ejb.149.1621700272663;
+        Sat, 22 May 2021 09:17:52 -0700 (PDT)
+Received: from localhost ([185.112.167.54])
+        by smtp.gmail.com with ESMTPSA id l18sm5737243ejc.103.2021.05.22.09.17.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 May 2021 16:26:04 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH 10/10] socketcall.2: Use syscall(SYS_...); for system calls without a wrapper
-Date:   Sat, 22 May 2021 01:25:53 +0200
-Message-Id: <20210521232553.161080-10-alx.manpages@gmail.com>
+        Sat, 22 May 2021 09:17:51 -0700 (PDT)
+From:   =?UTF-8?q?=C5=A0t=C4=9Bp=C3=A1n=20N=C4=9Bmec?= <stepnem@gmail.com>
+To:     linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: [PATCH] strcmp.3: tfix
+Date:   Sat, 22 May 2021 18:17:50 +0200
+Message-Id: <20210522161750.2756568-1-stepnem@gmail.com>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210521232553.161080-1-alx.manpages@gmail.com>
-References: <20210521232553.161080-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man2/socketcall.2 | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+With a single backslash, '\0' ended up as ' ' in the man output.
 
-diff --git a/man2/socketcall.2 b/man2/socketcall.2
-index 8ef3d65d3..f632ba011 100644
---- a/man2/socketcall.2
-+++ b/man2/socketcall.2
-@@ -27,13 +27,18 @@
- socketcall \- socket system calls
- .SH SYNOPSIS
- .nf
--.B #include <linux/net.h>
-+.BR "#include <linux/net.h>" "        /* Definition of " SYS_* " constants */"
-+.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_socketcall " */"
-+.B #include <unistd.h>
- .PP
--.BI "int socketcall(int " call ", unsigned long *" args );
-+.BI "int syscall(SYS_socketcall, int " call ", unsigned long *" args );
- .fi
- .PP
- .IR Note :
--There is no glibc wrapper for this system call; see NOTES.
-+glibc provides no wrapper for
-+.BR socketcall (2),
-+necessitating the use of
-+.BR syscall (2).
- .SH DESCRIPTION
- .BR socketcall ()
- is a common kernel entry point for the socket system calls.
-@@ -156,10 +161,6 @@ T}
- This call is specific to Linux, and should not be used in programs
- intended to be portable.
- .SH NOTES
--Glibc does not provide a wrapper for this system call;
--in the unlikely event that you want to call it directly, do so using
--.BR syscall (2).
--.PP
- On some architectures\(emfor example, x86-64 and ARM\(emthere is no
- .BR socketcall ()
- system call; instead
+Signed-off-by: Štěpán Němec <stepnem@gmail.com>
+---
+ man3/strcmp.3 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/man3/strcmp.3 b/man3/strcmp.3
+index c1992c18427c..469c9b6947d1 100644
+--- a/man3/strcmp.3
++++ b/man3/strcmp.3
+@@ -143,7 +143,7 @@ First, some examples using
+ .EX
+ $ \fB./string_comp ABC ABC\fP
+ <str1> and <str2> are equal
+-$ \fB./string_comp ABC AB\fP      # \(aqC\(aq is ASCII 67; \(aqC\(aq \- \(aq\0\(aq = 67
++$ \fB./string_comp ABC AB\fP      # \(aqC\(aq is ASCII 67; \(aqC\(aq \- \(aq\\0\(aq = 67
+ <str1> is greater than <str2> (67)
+ $ \fB./string_comp ABA ABZ\fP     # \(aqA\(aq is ASCII 65; \(aqZ\(aq is ASCII 90
+ <str1> is less than <str2> (\-25)
+
+base-commit: 65dfda3dd16da5cff236c4a84532ec40d7533578
 -- 
 2.31.1
 
