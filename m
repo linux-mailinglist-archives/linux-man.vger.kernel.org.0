@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 30B2838DB0B
+	by mail.lfdr.de (Postfix) with ESMTP id A7D8F38DB0C
 	for <lists+linux-man@lfdr.de>; Sun, 23 May 2021 13:22:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231709AbhEWLYD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S231719AbhEWLYD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sun, 23 May 2021 07:24:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40370 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40380 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231719AbhEWLYB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 23 May 2021 07:24:01 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6D11FC06138A
-        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 04:22:34 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id x8so25497550wrq.9
-        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 04:22:34 -0700 (PDT)
+        with ESMTP id S231720AbhEWLYC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 23 May 2021 07:24:02 -0400
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 01D6CC06138B
+        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 04:22:36 -0700 (PDT)
+Received: by mail-wm1-x32f.google.com with SMTP id u133so13427698wmg.1
+        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 04:22:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=N80hYyMxmmRhj+ID6odN9guyWuxLpdDHgHGgcgWdS24=;
-        b=fqAdHIFS3+J1ZK2KtTbxumlpuH6V+KXO5HU36ApNcQTvGWCVanRLCAIwEs9G4ElxG6
-         OjQTul4CU5IhQk3f9senWmJwNljuQIfqVemJDYJGfojkrOMetBSoFqEtQuoCbkZdU1Ub
-         5VnPR9JqE8Y5cbcuUN7hgWnrBXQGuCFY+YkXwopEp2c66CnQZ/UZ5cGEB6VabS7ccK8A
-         1U5CnUUMqXgJ6FDGG0Hr738sEnwEC97xHTJTxO/1PxM1vWnFEKGrtz5+BwUF31RncLcx
-         QCgKyRNvWuOBwfVnJtVF48y2YF91jLEBWgv0fyjlIw/lZcG/8C7anCvp4bCNm7Cw3Kct
-         dOYg==
+        bh=mLL2pDRpnn+0bZR0H61AXkA5usgVDNwA9eYa3eZMdXA=;
+        b=S+rB4wxeB8l4GnRNQNFt96a6OqAxOzm5N+hPnZcvaGt69AzM+wW0iRBW5a5OZzq+WM
+         7s/yQoHhSNiyXqCr958Bi7brYtdmdBrj7JGOFUdKPLmZngrbBABaBMD7MVXMTm34Z4kX
+         ifcknPjOTzejltqqCEHPNW1ZzTSicDAe6NRXgb/GySCkS7Bo5IB2cMzsBU60t0vmcx5V
+         6v0kwhJC1hL1ukRsLckbf1DYBFHEVTIl2m7VExwNRUfYqA9RXp1titRGjk+KqPOFqhwH
+         dxvDnNMJBGAhfPjxIKyYbvzObclbII5AShJSW+VRSLJnPRuT207/jbob3O8dRAQW5lgZ
+         L25w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=N80hYyMxmmRhj+ID6odN9guyWuxLpdDHgHGgcgWdS24=;
-        b=exgfTEdKc8gkIseGbJyqDaoUgVusZqpck9i0U4+8qXemhEjifycPdlMR4ld0maU40K
-         Cy02it5iqluZeA6/1YmLJQ+CwYEt86hJf2jA45Hg0ZOCOAYgDrUi33po2yJSx1x/U+O2
-         a2XeMp8df9AQ+uB5IZhJ8FWE8zTIwO2LYt506MiiNbpp55Oqd3haXMgfAj6x49QLzm5+
-         Z6vlgP+EODkKuCiipwFJJwgz79MVtncU/znANZWstVCkHL5OWl4aLwZM0TqqHkRpvrnZ
-         5FKy+BoZELHYB+ZNkU706NeaPWc5JLLYyT2wO1sM4OhL/0WYvImC+Dvrpe3a0c/oNPY9
-         Z5uw==
-X-Gm-Message-State: AOAM532fLcjiqS4mUcw1THlm05DDJzg/hIqooat7BB3cb4bRLw3li9ib
-        0iR2kERG7hXdi0JlsIk5bDHq8dAOsqY=
-X-Google-Smtp-Source: ABdhPJxddP7eVyNM/6pOXplXL+0MPtAzmCL6eVfsPoaTYjNmFpZITxdvimdtuhNCugFMFLGVvt9tMQ==
-X-Received: by 2002:adf:e6c2:: with SMTP id y2mr17395273wrm.384.1621768953119;
-        Sun, 23 May 2021 04:22:33 -0700 (PDT)
+        bh=mLL2pDRpnn+0bZR0H61AXkA5usgVDNwA9eYa3eZMdXA=;
+        b=oGQoHYiU9+FLjHaYG42srgvPAaqQsdVGpXXcBj5Klumu8/O7CZnxbQki4wRt1kSDMw
+         GIniQyXEO7ugklZAZts78YNhlpqIG3sXB7xevCxgYnljBrMzNVeHrVXoJu93T3kYKlG0
+         USlBFCQx5Atyoz0bXu5LCIZud0ZrUAX+CL40fQfX6srW4NbDUxUfK+VjsdPE+zqLoixW
+         acRPu2gI71QFg2U1LqWujcy8TklyUInhGmoUt2GdblxHHEkbx/GvAyab8sZRrJ2hZgUD
+         Q4365M4EKslS40gt8Ww2/MDaKVOK4RDT+5tuXQMgwXVl0lx5KVN+jDGln1G3PYU19Jto
+         TxmA==
+X-Gm-Message-State: AOAM530Brr07m4dtQYAyPy5B//LAtySCGIcUnO0vHQgHr+TGd7uXMM6z
+        3Pkqz2eXvmXp74jrLwvSV3I=
+X-Google-Smtp-Source: ABdhPJwVQ3vkGYFd1mBXhksPoXPDDVBqHUBr5SbslpQKQk+KkEg5pKnaAETpsIo8l5YweE4Ob/Tq+Q==
+X-Received: by 2002:a1c:2645:: with SMTP id m66mr15814269wmm.145.1621768954618;
+        Sun, 23 May 2021 04:22:34 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id x10sm8273921wrt.65.2021.05.23.04.22.31
+        by smtp.googlemail.com with ESMTPSA id x10sm8273921wrt.65.2021.05.23.04.22.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 23 May 2021 04:22:32 -0700 (PDT)
+        Sun, 23 May 2021 04:22:34 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 6/8] blksize_t.3: New link to system_data_types(7)
-Date:   Sun, 23 May 2021 13:22:11 +0200
-Message-Id: <20210523112213.170202-6-alx.manpages@gmail.com>
+Subject: [PATCH 7/8] system_data_types.7: Add 'mode_t'
+Date:   Sun, 23 May 2021 13:22:12 +0200
+Message-Id: <20210523112213.170202-7-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210523112213.170202-1-alx.manpages@gmail.com>
 References: <20210523112213.170202-1-alx.manpages@gmail.com>
@@ -65,17 +65,49 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/blksize_t.3 | 1 +
- 1 file changed, 1 insertion(+)
- create mode 100644 man3/blksize_t.3
+ man7/system_data_types.7 | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/man3/blksize_t.3 b/man3/blksize_t.3
-new file mode 100644
-index 000000000..db50c0f09
---- /dev/null
-+++ b/man3/blksize_t.3
-@@ -0,0 +1 @@
-+.so man7/system_data_types.7
+diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
+index 7544ef25f..6f6f8a095 100644
+--- a/man7/system_data_types.7
++++ b/man7/system_data_types.7
+@@ -781,6 +781,35 @@ C99 and later; POSIX.1-2001 and later.
+ .IR "See also" :
+ .BR lldiv (3)
+ .RE
++.\"------------------------------------- mode_t -----------------------/
++.TP
++.I mode_t
++.RS
++.IR Include :
++.IR <sys/types.h> .
++Alternatively,
++.IR <fcntl.h> ,
++.IR <ndbm.h> ,
++.IR <spawn.h> ,
++.IR <sys/ipc.h> ,
++.IR <sys/mman.h> ,
++or
++.IR <sys/stat.h> .
++.PP
++Used for some file attributes.
++According to POSIX,
++it shall be an integer type.
++.PP
++.IR "Conforming to" :
++POSIX.1-2001 and later.
++.PP
++.IR "See also" :
++.BR chmod (2),
++.BR mkdir (2),
++.BR open (2),
++.BR stat (2),
++.BR umask (2)
++.RE
+ .\"------------------------------------- off64_t ----------------------/
+ .TP
+ .I off64_t
 -- 
 2.31.1
 
