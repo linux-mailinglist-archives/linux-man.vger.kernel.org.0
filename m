@@ -2,88 +2,100 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 45D1938DB04
-	for <lists+linux-man@lfdr.de>; Sun, 23 May 2021 13:12:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9F4E338DB07
+	for <lists+linux-man@lfdr.de>; Sun, 23 May 2021 13:22:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231697AbhEWLN0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 23 May 2021 07:13:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38072 "EHLO
+        id S231715AbhEWLXw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 23 May 2021 07:23:52 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40326 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231687AbhEWLN0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 23 May 2021 07:13:26 -0400
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com [IPv6:2a00:1450:4864:20::529])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E0E8EC061574
-        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 04:11:58 -0700 (PDT)
-Received: by mail-ed1-x529.google.com with SMTP id g7so16386636edm.4
-        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 04:11:58 -0700 (PDT)
+        with ESMTP id S231709AbhEWLXv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 23 May 2021 07:23:51 -0400
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6D033C061574
+        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 04:22:25 -0700 (PDT)
+Received: by mail-wr1-x42c.google.com with SMTP id x8so25497289wrq.9
+        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 04:22:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:in-reply-to:references:user-agent:date
-         :message-id:mime-version:content-transfer-encoding;
-        bh=1lmWMpkTeEO97f6iBlIFU88foGnzgL5sXO44NukiROw=;
-        b=pc9+mj7jZsZsoPib1VdbvQQl1S/Xz30cTe+WIK0sPOSoXWp5q1LmcLFD2tlFAVNRLN
-         6BfVS4tekvRMsS7U0I3mWfqi/qqrSKnAKx6whw8fTnsdzmuTuye88RHscfDTlwDw+djN
-         ChBIiEe+qvFFBAn9q0ioU4uQSu+6AnALn4a9S7kzO3Rio/L7ru+mtKp7dU1xM2P/X0KO
-         hUvTWEk2UNzw05IHPu6ybm48jU0nIP5exLEKpC6inmGj+EOEpjDguRrsDBfFuDqucARa
-         siyQEgkffLe2036tGPI7hlX3hfPnDSB7pSr9aej6C4A6eD/OOWVv2m4zMPVxNPr6XPSy
-         eFyg==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Wh2qrXBYkt2MJvmYXQFs+5nnVxQB2zkIXPCdTYSpC0c=;
+        b=KPeVZ13giZ6/YimSX1kEJ6qcogXpD/9aFcLq3hjPvDBFO3VGiuMZH1jujZ5DwvmSxK
+         mzOqa4h02ZJJMs4fxhKcqeTOeqEoWR7sDKP6Xql0PgtCecYtJnITX3T9IZK8ZzEYN2U8
+         U6apKXYFrmkixBklT1aOTx3a5lSwpXK0Xtp0I9hMnLuH2aKt7wZq2WNVnZkRLk3wWInY
+         EvHGlk7Bmew9E6sqM1HHo085yqa9P7WAwjBZ1iznBtmldCYZSOHtNW0egqtge+MPDG41
+         E38csmRHl5ztw/sqLZK5JmBYGoHd3jqbLfObcfZtUCdu8eu3zqaFbSK942Y8QV105V0m
+         wM5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:in-reply-to:references
-         :user-agent:date:message-id:mime-version:content-transfer-encoding;
-        bh=1lmWMpkTeEO97f6iBlIFU88foGnzgL5sXO44NukiROw=;
-        b=amj4m7dQ4J5KKRT3A79P9eA2y3L1zWi8OqB+pQIa8AVcpqxP7sJeOK/AgJqgegBiZY
-         JSn9UPfg6G/AyFFCn0QFiLWabpYRfq+KI7Ssuvy/oRHMoGFHqumhIgJotECrJObmLM6F
-         zn+ZSSbqQQZ+6RaQM5IKxDIYI0heICHC2f8pA0MswhGabhpRDzAd1sN9q8ZnzeawjAjR
-         /XqhXoVHRuBJhywW74+iSqZiE2tz9mlAhRbatvWlAMbQncMxSmXmtxMpuAoM9oATelxU
-         6DJz4zD9NCQN3KGXXi+DN5lr1bZXfqkSiDpdRciWn1dbdsCbmjXcM866NnDxZC/Y/SxK
-         ZW1A==
-X-Gm-Message-State: AOAM5335TECOJuHYb2HoxX6Sg/oBa7XqCXYQ6D756gi0q0WqalE0wJ3K
-        Kh3aLiBTV+Efqc/3GIXj5ik=
-X-Google-Smtp-Source: ABdhPJxU6ZaIixKcCIPI51O03ZrdmeeFJmw9Vv+OKOa7MH5pWRERFJEkvCoAcZGOnkf8eq1iLKTDBQ==
-X-Received: by 2002:a05:6402:cb8:: with SMTP id cn24mr20058728edb.325.1621768317021;
-        Sun, 23 May 2021 04:11:57 -0700 (PDT)
-Received: from localhost ([185.112.167.54])
-        by smtp.gmail.com with ESMTPSA id m19sm3426110edj.64.2021.05.23.04.11.56
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Wh2qrXBYkt2MJvmYXQFs+5nnVxQB2zkIXPCdTYSpC0c=;
+        b=HcgTDGldrduOPu52nDLaFwfP9nTwN/h+30b7HfCKFsvttWJMW+JMVTjhPKaT5T5rTy
+         EgIjrDyf2X7cppnc1DENm+URGuThwM4qoOQguvWQd+kjW0uYNbw2fzZq+y/ZvKurm2zR
+         TSYseNPWIWVdgvHiEMg6E/4zbfUr77JmzPYGegCZbrJ7V6bDjXXIJj5e9bB3pgQUUEdd
+         b71CksKMD7GHEBeQYMoGxgMHKB9FLtEoGr7qwMH86MfHOMyAMf3fEvBThRxaQfEFlDsj
+         F0Ynh1wqR86gmVXrFKPh9tRxF/Xqpza+oi9Pih73qDd4G+GkyRgwtVvehMu0B9NHELKC
+         zMrw==
+X-Gm-Message-State: AOAM533VI8QPoZuKDUADiitxvCACFRyPJRzkb52IBn27H89isoibUovw
+        JS+25BSOj24Q+Hdbn++By14=
+X-Google-Smtp-Source: ABdhPJxri7T8bxHiohnKcnXnVbG4HOjD4xeQKfZv27avc+OucmuA3U8waxfaBSZv80RbLBs6KOKsHQ==
+X-Received: by 2002:a5d:5388:: with SMTP id d8mr16881276wrv.423.1621768944138;
+        Sun, 23 May 2021 04:22:24 -0700 (PDT)
+Received: from sqli.sqli.com ([195.53.121.100])
+        by smtp.googlemail.com with ESMTPSA id x10sm8273921wrt.65.2021.05.23.04.22.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 23 May 2021 04:11:56 -0700 (PDT)
-From:   =?utf-8?B?xaB0xJtww6FuIE7Em21lYw==?= <stepnem@gmail.com>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: Re: [PATCH] strcmp.3: tfix
-In-Reply-To: <6ecdf243-c546-752b-7cf7-f6f190e5d5b4@gmail.com>
-References: <20210522161750.2756568-1-stepnem@gmail.com>
- <017191f8-1cb5-c02c-b4d6-c09b7461d348@gmail.com>
- <6ecdf243-c546-752b-7cf7-f6f190e5d5b4@gmail.com>
-User-Agent: Notmuch/0.31.3 (https://notmuchmail.org) Emacs/28.0.50
- (x86_64-pc-linux-gnu)
-Date:   Sun, 23 May 2021 13:11:55 +0200
-Message-ID: <20210523131155+0200.538314-stepnem@gmail.com>
+        Sun, 23 May 2021 04:22:23 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: [PATCH 1/8] system_data_types.7: Add 'blkcnt_t'
+Date:   Sun, 23 May 2021 13:22:06 +0200
+Message-Id: <20210523112213.170202-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sun, 23 May 2021 12:50:21 +0200
-Alejandro Colomar wrote:
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+ man7/system_data_types.7 | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
->> On 5/22/21 6:17 PM, =C5=A0t=C4=9Bp=C3=A1n N=C4=9Bmec wrote:
->>> With a single backslash, '\0' ended up as ' ' in the man output.
->>=20
->> Patch applied.
->
-> D'oh, I forgot.  We use \e to specify the escape character (see commit=20
-> message of d1a719857b7eb68f5e5c1c965089038dee683240).
+diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
+index ddabefd16..fc9893e41 100644
+--- a/man7/system_data_types.7
++++ b/man7/system_data_types.7
+@@ -85,6 +85,25 @@ POSIX.1-2001 and later.
+ .BR aio_write (3),
+ .BR lio_listio (3)
+ .RE
++.\"------------------------------------- blkcnt_t ---------------------/
++.TP
++.I blkcnt_t
++.RS
++.IR Include :
++.IR <sys/types.h> .
++Alternatively,
++.IR <sys/stat.h> .
++.PP
++Used for file block counts.
++According to POSIX,
++it shall be a signed integer type.
++.PP
++.IR "Conforming to" :
++POSIX.1-2001 and later.
++.PP
++.IR "See also" :
++.BR stat (2)
++.RE
+ .\"------------------------------------- clock_t ----------------------/
+ .TP
+ .I clock_t
+-- 
+2.31.1
 
-Oh, I should have noticed the usage in the very same man page...
-
-Thank you for the reference, too.
-
-> I dropped the patch and applied the following:
-
-Thanks!
-
---=20
-=C5=A0t=C4=9Bp=C3=A1n
