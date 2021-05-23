@@ -2,111 +2,129 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7148538DD08
-	for <lists+linux-man@lfdr.de>; Sun, 23 May 2021 23:04:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BCA6E38DD95
+	for <lists+linux-man@lfdr.de>; Mon, 24 May 2021 00:42:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231967AbhEWVFq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 23 May 2021 17:05:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54026 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231956AbhEWVFo (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 23 May 2021 17:05:44 -0400
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EAC02C061574
-        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 14:04:16 -0700 (PDT)
-Received: by mail-wr1-x42d.google.com with SMTP id p7so22712978wru.10
-        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 14:04:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:from:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=I/PV3bP4V2YOOVXCm2b7VxOcgBruXCX0mTsZeEmLupQ=;
-        b=Md9sa8yAg8bawwI1zEsEP//UFqt70HN3T36twi8wpIcMWxK/VlsajVDgexWLgXFuyd
-         rgNIqFXoAIfgxKyKsLlFPDf1cgQPCQibSExXViSZNKdNOnoEPcyV3BbK6Z2m+2tD+xnP
-         bHeCtiZGCK3A69JLev/43rLsNiQft7t+mYpA6sexjdVmh/j6u2YsO18kbMBWazysPsCa
-         ehUKKBxJUCG50+VZajsT3joPQPJO8WzrCL/vJtG/1g5Q45qNA+pK7KufQd5HGRu0cgnw
-         xIucxcgws0zL6ZvWIBmKFpQN2ozSVjw/738m4J3VgF3IQKlkM0Fkm9s/lihB3jzFWITo
-         9xZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=I/PV3bP4V2YOOVXCm2b7VxOcgBruXCX0mTsZeEmLupQ=;
-        b=Dw9B4pN4vbrtWkNN8bemnQb0OZgHl9FK4la2pA4E/Qfyw135jHDLXDel31L1WQS6pM
-         Yq/Q1wBK9gGbuHOgj2LK4L1hPnNnFGSWbI3whEjMhL7KpHW+ZbGj5/tV2wJAKqoGBVs7
-         IoNO6F6P+CUb3Utzte28lXT0J/Rnd1jMy5nAbs2jI1CJHG75ijn4FjwEaoDsstcT55RY
-         P/PwtXNnkXkvMmNIYjo94g+CvBGqCwCpSLeAyEG/ErdXirD/iqQ1bqJUwEEOnnVlBPYj
-         etNxWnV3ssEuAUmQGU2VLjowhoLhNY4HBvMq5VCXmhQssrgQvaZ1ORCt3aHB9y+Za7B/
-         Md+g==
-X-Gm-Message-State: AOAM533OibxbZNpi5VBTvUtVzu6N8yPSqcxK9wRPZ8r1SpCuzlOOcTyW
-        CKBU0qpzIlNccLY5bj6q6Qhyo3Ux0uU=
-X-Google-Smtp-Source: ABdhPJwtgavUfW8AQd/pqHsjBb9DwA/Y+CjbNFJQoU8HJj0Wa6SwTgIA9nje26u0Hn0zGg/BhkW3eA==
-X-Received: by 2002:a05:6000:148:: with SMTP id r8mr5038905wrx.311.1621803855493;
-        Sun, 23 May 2021 14:04:15 -0700 (PDT)
-Received: from [10.8.0.106] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id a11sm9851908wrr.48.2021.05.23.14.04.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 23 May 2021 14:04:14 -0700 (PDT)
-Subject: Re: Adding struct-xxx link pages for structures
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-References: <5872e635-1b61-6193-55fa-0a26e59afbca@gmail.com>
- <20210523142610.vycmifmrznf7oqlk@localhost.localdomain>
- <5b95386d-f616-e524-f161-89eeb3103358@gmail.com>
-Message-ID: <943e5523-4bc9-ca71-561c-1f172aec622e@gmail.com>
-Date:   Sun, 23 May 2021 23:04:12 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+        id S231976AbhEWWoH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 23 May 2021 18:44:07 -0400
+Received: from mo4-p00-ob.smtp.rzone.de ([85.215.255.25]:26149 "EHLO
+        mo4-p00-ob.smtp.rzone.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231967AbhEWWoH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 23 May 2021 18:44:07 -0400
+X-Greylist: delayed 356 seconds by postgrey-1.27 at vger.kernel.org; Sun, 23 May 2021 18:44:07 EDT
+ARC-Seal: i=1; a=rsa-sha256; t=1621809399; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=QHlOY6ZKGPhxCUTR/n5IT6qADTpT4Uw0i+0VImOUXhRuvYuWItP3bU7WWVAloxHw5f
+    HsArQfp0YL1immQTjkvESWBeHiQUGJuMdm6rGtaulurS6qU+WWCDqKfJeJloKItt49ac
+    nCii2s6JwL/2rjL9IMlIDYI/I2Q9n2MiceW/OomoVdpWbRkwe8MKVgkFe9/PNCq466BL
+    ijuszqdfjDthRHuMYiCaYxskaPPb5b8iPsGrSUKWA2qLtQ0jr5Ktvn0D3Txfz3GE72Dc
+    Sg1xo8oj09sTaskYXeSKdld5NNBy4nC56FDKREc84AZrAklkcZOt+rmiIEk+u+SD9rF2
+    nGsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1621809399;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Date:Subject:To:From:Cc:Date:From:Subject:Sender;
+    bh=SvElhZVWeYDTlOUXApGTKC3c7fiIc5NR4UdV81pq9II=;
+    b=YEqwhg3iyljmP68MGbKu2OoavhbtMZ+ZekZGACCNMZxvYYM93vPEbrjBwSEuSpVn2h
+    XsBNRciNB4QUim0VgGmd7Uiqhh3j0aNXEy958A9jcBICsesTZ65s8CiQ+WQk2ktHOJhk
+    xsGZst0fpTnNjjnRP4deazA1mZ9GDwX78eURjv/u7CyxmUcpiVPmjg+B1dm5/9OO8nai
+    cbRSN0qpWI1fGIRk9JyfegGFkaJE9afyM+ODG7bCe17QEQEX+sfoW8cz6ggqlLmDEjhR
+    rE3Ldi3fdzVAQ7TVO+hR87k8EVcS05P8mujpXSFKnlrZv2sp/vCa6llyCLteCIa+DzyU
+    b8rA==
+ARC-Authentication-Results: i=1; strato.com;
+    dkim=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1621809399;
+    s=strato-dkim-0002; d=clisp.org;
+    h=Message-ID:Date:Subject:To:From:Cc:Date:From:Subject:Sender;
+    bh=SvElhZVWeYDTlOUXApGTKC3c7fiIc5NR4UdV81pq9II=;
+    b=fqUuOx9Ldr9jtu5xYyA6Q0q10wykzAmoSY8lUFJbcBORkA+sdtQ5JsTGfHu6/n8n/0
+    nIgGVEicf5PU3zECQZDiJfPcU2Mn3HCvmRaATiq7eeTT0HkQudkhF5EIurT6FqENiXbN
+    vxMjUav6ksI5n9DP/ICxb4q8GBGcIwOfwogch6PCMPzGsvrDDrwgAdF70mzumveI2HDH
+    fmR4OwYXn+jvZRTG2uehmnwky3uQiZNZQ7lgWTq2o3pW7PuIVOOGjUZ+7/TwlitkqyNW
+    u1VS6nVSq7oFFHRgDgaT3u1J96zhi5faprFncnbDZOrjw3KWgC63JyeBqoscMpySPDde
+    uFxg==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":Ln4Re0+Ic/6oZXR1YgKryK8brlshOcZlIWs+iCP5vnk6shH+AHjwLuWOHqf3z5NW"
+X-RZG-CLASS-ID: mo00
+Received: from bruno.haible.de
+    by smtp.strato.de (RZmta 47.26.1 DYNA|AUTH)
+    with ESMTPSA id Z0bd4cx4NMad6h0
+        (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+        (Client did not present a certificate);
+    Mon, 24 May 2021 00:36:39 +0200 (CEST)
+From:   Bruno Haible <bruno@clisp.org>
+To:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: [patch] getrlimit.2: RLIMIT_STACK
+Date:   Sun, 23 May 2021 23:44:03 +0200
+Message-ID: <2409395.251dEh2nii@omega>
+User-Agent: KMail/5.1.3 (Linux/4.4.0-210-generic; KDE/5.18.0; x86_64; ; )
 MIME-Version: 1.0
-In-Reply-To: <5b95386d-f616-e524-f161-89eeb3103358@gmail.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="nextPart2159812.5nxgHG3bFv"
+Content-Transfer-Encoding: 7Bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 5/23/21 10:53 PM, Alejandro Colomar (man-pages) wrote:
- >> The use of a dash/minus as a separator "feels" unorthodox to me, but
- >> perhaps that is just the pull of blind tradition.  I think it's actually
- >> a better choice than an underscore because of course "-" is not valid in
- >> a C identifier, and "_" is, so ambiguity is avoided.
- >
- > I used struct-foo because man has the ability to allow either
- > 'man struct-foo' or 'man struct foo', and the latter looks very
- > intuitive from a C-syntax perspective (I learnt this from the git manual
- > pages, where you can do 'man git log' or 'man git-log').  'man man'
- > doesn't specify this behavior, so I'll read the source code and try to
- > confirm how it works.
+This is a multi-part message in MIME format.
 
-I would need some time to understand the code, but perhaps it's around
-lines 1303 or 1396
+--nextPart2159812.5nxgHG3bFv
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-.../man-db$ grep -rn "'-'" src/man.c;
-1013:	if (dbfilters && (dbfilters[0] != '-') && !preprocessors) {
-1303:			case '-':
-1396:			if (*pp_string == ' ' || *pp_string == '-')
-2921:		if (*source->pointer != '-')
-3222:	if (*in->pointer != '-')
-.../man-db$ grep -rn "' '" src/man.c;
-797:			case ' ':
-810:				if (*(manopt + 1) == ' ')
-1302:			case ' ':
-1396:			if (*pp_string == ' ' || *pp_string == '-')
-2415:					putchar (' ');
-4051:		} else if (cmd[i] == '\t' || cmd[i] == ' ' || cmd[i] == '\n' ||
-$
+Hi,
 
- >
- > Regards,
- >
- > Alex
- >
+The getrlimit(2) page says the RLIMIT_STACK applies to "the process stack".
+However, in a multithreaded app, each thread has a stack. And RLIMIT_STACK
+determines the size of the thread's stack (unless overridden by the
+program).
 
+I verified this through a test program on Linux/i386 and Linux/x86_64.
+
+The code which implements this is in
+  - glibc/nptl/nptl-init.c for Linux,
+  - glibc/htl/pt-create.c for the Hurd.
+
+Patch attached.
+
+--nextPart2159812.5nxgHG3bFv
+Content-Disposition: attachment; filename="0001-getrlimit.2-RLIMIT_STACK-applies-to-each-thread-s-st.patch"
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/x-patch; charset="UTF-8"; name="0001-getrlimit.2-RLIMIT_STACK-applies-to-each-thread-s-st.patch"
+
+From 563e660d8cb46b566ea716d250cca4136a0ba88e Mon Sep 17 00:00:00 2001
+From: Bruno Haible <bruno@clisp.org>
+Date: Sun, 23 May 2021 23:37:12 +0200
+Subject: [PATCH] getrlimit.2: RLIMIT_STACK applies to each thread's stack.
+
+---
+ man2/getrlimit.2 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/man2/getrlimit.2 b/man2/getrlimit.2
+index 648fd3c..e8a123a 100644
+--- a/man2/getrlimit.2
++++ b/man2/getrlimit.2
+@@ -61,7 +61,7 @@
+ .\" 2008-05-07, mtk / Peter Zijlstra, Added description of RLIMIT_RTTIME
+ .\" 2010-11-06, mtk: Added documentation of prlimit()
+ .\"
+-.TH GETRLIMIT 2 2021-03-22 "Linux" "Linux Programmer's Manual"
++.TH GETRLIMIT 2 2021-05-23 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+ getrlimit, setrlimit, prlimit \- get/set resource limits
+ .SH SYNOPSIS
+@@ -427,7 +427,7 @@ queued to the process.
+ .\" that was present in kernels <= 2.6.7.  MTK Dec 04
+ .TP
+ .B RLIMIT_STACK
+-This is the maximum size of the process stack, in bytes.
++This is the maximum size of the stack of each thread, in bytes.
+ Upon reaching this limit, a
+ .B SIGSEGV
+ signal is generated.
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.7.4
+
+
+--nextPart2159812.5nxgHG3bFv--
+
