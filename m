@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D638138DB08
-	for <lists+linux-man@lfdr.de>; Sun, 23 May 2021 13:22:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AFE9F38DB09
+	for <lists+linux-man@lfdr.de>; Sun, 23 May 2021 13:22:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231716AbhEWLXy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 23 May 2021 07:23:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40340 "EHLO
+        id S231718AbhEWLX4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 23 May 2021 07:23:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40344 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231709AbhEWLXx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 23 May 2021 07:23:53 -0400
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 86795C061574
-        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 04:22:27 -0700 (PDT)
-Received: by mail-wm1-x332.google.com with SMTP id y184-20020a1ce1c10000b02901769b409001so9516738wmg.3
-        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 04:22:27 -0700 (PDT)
+        with ESMTP id S231709AbhEWLX4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 23 May 2021 07:23:56 -0400
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F3142C061574
+        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 04:22:28 -0700 (PDT)
+Received: by mail-wr1-x42a.google.com with SMTP id v12so25501879wrq.6
+        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 04:22:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=xqA1e/VnD3ortqYhgulCm0Ib25TC9DIXQFys8mdh1CM=;
-        b=Ss2x/lhDMv/kXyzleWpLLgma6Sz2lm2XVr+IybGqeLxRS3KB8CXIGlBLPNHVLUxxYD
-         pZDAe0x51yE+LMYu6qo4aLJNA6i4UmtPS41fNU4vZuC5Ev9ITSvgH9PnciNgQPHyWA+2
-         gq9bU8UIKBr3H7O+jmhgPMlqEBqRTL2w6zKsowFOv4rX6VUo8rfMt3x00U1kqvtlDlCm
-         2JuEjaXENjCBRJmvA0bpkQq4cFyHGsSjfDDL0lTCaO+ahGeR1lTkB+fcYYZqa1qoFer5
-         HdG+Z0M4aX8BN20+we7aJVbGZCCn5wQ8ktlisS21BUq2emKXMbXkMhmI2oDt0MlMO0Iw
-         FgMg==
+        bh=jRSnLAD1m0up/pdufl3JkEwp6ccXPU1uxh7aQU4povk=;
+        b=OM4quTdj24sXpTYh755akz0iBiHhUq8mXocZFZ+skhjz0SOu9M9tbnttX8HeuQ/KUS
+         Zt026SOgjFbJYmQehQpLstqTGbocq9Ej+S8fwhaDtLxbKadKZ2bi0tgVcEEfxXm3SjNI
+         EeVoGSqYs3lqCpCDl+yckSrz2+OwOz99AAvq3XIXD5jWHpGYIw3kOHlTf/UfIFy1S+tP
+         QXSYIicpquTZEtpCT4Ry60slXE3jBSQduDeDE/hb7Bl/sW9CN0xmprs5sx5WZMEmlmQK
+         A2/mAoSjgF7HGW76/+B9pOZiIJmlreipJx2Owd/4/uEZTwz8s35d81yHMgmyyUx9HXHN
+         uPDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=xqA1e/VnD3ortqYhgulCm0Ib25TC9DIXQFys8mdh1CM=;
-        b=Wjs8j3S3EbyLXi8Shttgy2hd99C1z+DHaeSEhCusxT30RcocluDZ0bbbe4LegEgEtR
-         yKwvqkZHu97n6IIS1FSy9tTmxvRNf1QiTm80lpjNFBsYUHeDDar9ODnTvG8Kx8XDI7xl
-         9SzsQbGk73LOiaSxh/H0ylnclWNLNMK06UK+eAlTBdGGJ5/PXWr/HEyOgdjAP/zRzbo+
-         WM4dNuxTfZ/Oo9bA0fPk2KYo4/HVfhK4rels3qTKLgTZVkbM4+bh+gKhSsh4M4SCm/SB
-         inO2fqdYry8476nizx4x7+KXiZfboWrCyZEi63uukAMeEkkDb1LyR/0hVKzRsLQjLbbn
-         dN8A==
-X-Gm-Message-State: AOAM531xO31ccnOFXn9yTG9JeXfK8cAjqYoff4K3SGjFz3/izxVI3f+e
-        LgIUX1GQv1X11avM9shRuow=
-X-Google-Smtp-Source: ABdhPJxBgAwmKIYO6Iah8aTI7dMPFRU4uuAFUiuZuzws9yKhejbafbVzC6Pteh0tvG/5S6wfiO3g0Q==
-X-Received: by 2002:a1c:8016:: with SMTP id b22mr2195646wmd.43.1621768946217;
-        Sun, 23 May 2021 04:22:26 -0700 (PDT)
+        bh=jRSnLAD1m0up/pdufl3JkEwp6ccXPU1uxh7aQU4povk=;
+        b=ZmQ/sf8P8U/AT6CR1r78Vv2kQhIgnkuzjHrZzwEg19wkcXXx4j/CmhA0xFBzvn61h8
+         eoQktA6XHnOcR67+V99uuUvTf5Hu3xx8ckK3dlZXI9W1ThcrfMjbxi3eb7gwuATixVsa
+         oJy9Kzrm0P7BJaMhiLoTBvfGyKIVwu0H0TjYZd/6U78VOfcVabXX1RZChLqTeWGkXz+z
+         WOhCEIPQ8V6cquSvvThVNBK0yTK8UtGy6GJ0t8OH8QL7GfStVKxqkpK2s6M0eM8jMGMB
+         wMrQI3udoRTfXCHTc3SqQgOHe5hQ3pjvEeAdH/R0tK0DHWMQAmuZd5ZxM5ZqaLdxJIGX
+         TtBA==
+X-Gm-Message-State: AOAM532C/A0fBygJ0TtZGMpAkQvovKoD7zknx/MBpc+qS9eDjKL7AWby
+        X3+uFz4n2jZpCzexJumF7Ro=
+X-Google-Smtp-Source: ABdhPJxdl7D8La7eec28lPXU0oLm9CAneUDe7gRZdyVZ7d4XBj7s1N3k509MKdlCx3WffhI6jZHBnA==
+X-Received: by 2002:a05:6000:1189:: with SMTP id g9mr17314340wrx.385.1621768947595;
+        Sun, 23 May 2021 04:22:27 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id x10sm8273921wrt.65.2021.05.23.04.22.24
+        by smtp.googlemail.com with ESMTPSA id x10sm8273921wrt.65.2021.05.23.04.22.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 23 May 2021 04:22:25 -0700 (PDT)
+        Sun, 23 May 2021 04:22:27 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 2/8] blkcnt_t.3: New link to system_data_types(7)
-Date:   Sun, 23 May 2021 13:22:07 +0200
-Message-Id: <20210523112213.170202-2-alx.manpages@gmail.com>
+Subject: [PATCH 3/8] system_data_types.7: Add 'cc_t'
+Date:   Sun, 23 May 2021 13:22:08 +0200
+Message-Id: <20210523112213.170202-3-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210523112213.170202-1-alx.manpages@gmail.com>
 References: <20210523112213.170202-1-alx.manpages@gmail.com>
@@ -65,17 +65,37 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/blkcnt_t.3 | 1 +
- 1 file changed, 1 insertion(+)
- create mode 100644 man3/blkcnt_t.3
+ man7/system_data_types.7 | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/man3/blkcnt_t.3 b/man3/blkcnt_t.3
-new file mode 100644
-index 000000000..db50c0f09
---- /dev/null
-+++ b/man3/blkcnt_t.3
-@@ -0,0 +1 @@
-+.so man7/system_data_types.7
+diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
+index fc9893e41..c8e6961da 100644
+--- a/man7/system_data_types.7
++++ b/man7/system_data_types.7
+@@ -104,6 +104,23 @@ POSIX.1-2001 and later.
+ .IR "See also" :
+ .BR stat (2)
+ .RE
++.\"------------------------------------- cc_t -------------------------/
++.TP
++.I cc_t
++.RS
++.IR Include :
++.IR <termios.h> .
++.PP
++Used for terminal special characters.
++According to POSIX,
++it shall be an unsigned integer type.
++.PP
++.IR "Conforming to" :
++POSIX.1-2001 and later.
++.PP
++.IR "See also" :
++.BR termios (3)
++.RE
+ .\"------------------------------------- clock_t ----------------------/
+ .TP
+ .I clock_t
 -- 
 2.31.1
 
