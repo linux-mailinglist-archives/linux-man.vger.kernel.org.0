@@ -2,80 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 17AF038DB0D
-	for <lists+linux-man@lfdr.de>; Sun, 23 May 2021 13:22:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EE1A538DB5C
+	for <lists+linux-man@lfdr.de>; Sun, 23 May 2021 16:03:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231728AbhEWLYE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 23 May 2021 07:24:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40390 "EHLO
+        id S231761AbhEWOFE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 23 May 2021 10:05:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47032 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231720AbhEWLYE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 23 May 2021 07:24:04 -0400
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 06542C061574
-        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 04:22:38 -0700 (PDT)
-Received: by mail-wr1-x433.google.com with SMTP id p7so21791573wru.10
-        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 04:22:37 -0700 (PDT)
+        with ESMTP id S231758AbhEWOFD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 23 May 2021 10:05:03 -0400
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4C55AC061574
+        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 07:03:36 -0700 (PDT)
+Received: by mail-wr1-x429.google.com with SMTP id i17so25744057wrq.11
+        for <linux-man@vger.kernel.org>; Sun, 23 May 2021 07:03:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=96iE4OOI49D+EVz777RdyvGuAzHPoma4F3HuMlksDew=;
-        b=EbGP8Lf6ip1SPxV+I7fxys6NDvy5Kgv2IeXw/4TsbZCVJVOxTrmPBEwHsH1G++YmRg
-         IfFSxdLoYvfw3kkPdnrok9LOo5UT2SbY5ziDcnzCEJAdNGSn+Qeyr5hfu+pmHrKToBDW
-         BguVKNf9+/Lmf3eKyk6NixaYEsLR1NuPkurQa/0xBG8iPsikYT8jR/I6HuzGgK5+8tEq
-         loAVeG1pyWVtwliTPfgQt6cInbkfq30H/NYWAgEvSiSbA6BE+jI3tsGNDacldvRz3p41
-         ItS7JiwaWO283U7PNoOhgZ3RN190G7T8O/UZ3LAxNeQsVyFcIC7V+/JeGRq8KIssR0K+
-         MnhA==
+        h=to:cc:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=hj19LL4Z9Q1eJK5hJgHOG35v8KEGcXZYMkK8ZcqUYMw=;
+        b=IIqbGFo5wa3M4RkcF0Ia8dKgE9LYSjrwVKgBD+051m+Bzkc0kDjF70kFfO63Ldukno
+         px+9vNoHdgIVJ4B5Gqs+t2NGpODAycyYBu2sBT15JHSxq+4bUsDldB+hlHR6BzqPD2kO
+         mb7Ck/bCg1GlsXFigQoXKO2LFMOa8aoEeRH70V67r1ZyG8IBdk1ylAc2KjKRA9OT0oDb
+         G2ZTh7yIYDwOF8LjzPB0Ip9+hzuuz2iSX0gJF/ace5MeM2eM6Qrw+sfAlj2As3X198sj
+         ZUtzex5VNRLXwqq448UhOojEbBnPV3TOoN8qxnKLo6er6ipQe9vufpCifQ84H/8LvlGZ
+         VIiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=96iE4OOI49D+EVz777RdyvGuAzHPoma4F3HuMlksDew=;
-        b=mdUXQ/PxomO9w4y7zbsUtb60WcnzV5ji8kf1Vmvn8Rc5Egw1qvOBaOz4RgpsUcdIuJ
-         L6hcw0hpZiHT2xhM9fo70YBpyJDFL9exOZWWzIEoD7zlzv675eaBAakIpu3HqQTi3P2w
-         7sCnedS6Zrk4ZhmmHaTHKJgNz9H0Lz28xwGFhxlKn+8pjRytU2BmypMzzOjV+zL+IIZq
-         QDhaFh6gunQtyKorQ5+Lb/2RUWLAgYF4NQR+5pcDkDGslUzS1d51H2SwFlH7HVPfp6oj
-         IQYCAWBh8tolUbIG9KHrLzu653rSCcF2zWn9pIRemh/pf+8Jd8jwQtJOP6dQ2kosqQ3A
-         +UgQ==
-X-Gm-Message-State: AOAM530tCuhHsPPSmdCifu83jFvWbKlm3I7I5PyO7PtubFEFexQ3kDKz
-        PgpXmnX8mpFMDVUJ1nbnhls=
-X-Google-Smtp-Source: ABdhPJyYOxZ+j/2s5dvp0qjxOqlTF5c0OkgGtWxaUFPS/PjxfQsu3ckhqAt2qTq3FjNJXd/1PGJR5Q==
-X-Received: by 2002:a5d:6c6f:: with SMTP id r15mr17165318wrz.79.1621768956733;
-        Sun, 23 May 2021 04:22:36 -0700 (PDT)
-Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id x10sm8273921wrt.65.2021.05.23.04.22.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 23 May 2021 04:22:36 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH 8/8] mode_t.3: New link to system_data_types(7)
-Date:   Sun, 23 May 2021 13:22:13 +0200
-Message-Id: <20210523112213.170202-8-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210523112213.170202-1-alx.manpages@gmail.com>
-References: <20210523112213.170202-1-alx.manpages@gmail.com>
+        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=hj19LL4Z9Q1eJK5hJgHOG35v8KEGcXZYMkK8ZcqUYMw=;
+        b=RjhdfR+cOAuOlMwtyP1PWfgAfzCz+UqwuO2QQfdZf5Tdr0e6zwBN5oxih8/g5JYB5C
+         ca9JRWlhSt+MvoqfvrWis8InAiEcqPF2bX9dpjGdcoMmLMKYoe5x1l7gLZ3R09OEkA2h
+         MfoXw3P7L3lKdo98VoydjDMfdhSs/hgqREjDEusj9xd98xQvcvMdZzZXnZEe6b/kpuoL
+         oqhi3obrRdcdNBr7MDRp6KwhHNQsGqxnxhuJctqf45llpr0QXKI5WfgKI+2I6Asm3uIz
+         CD/T1nh+Sse/Ic8y9ZLW+qUdBd/3BMGMJdPncOn98cW8u6IfYPn8ZKQsA70vffntEC/3
+         wang==
+X-Gm-Message-State: AOAM531SxjLe3EJOCawGVfUQRNkSbg9mb1cGRMdyipl86lybsPKUBFTV
+        ef61vbyCEJos7nGZRRfgSrrRTO5xY9Q=
+X-Google-Smtp-Source: ABdhPJxl+xoaUTdjKyDqS4nxy4J5py3Yfh9REKo+FQFscGHamlAqHiW9N8ByQSU7Dy+oM0bKcvf0pQ==
+X-Received: by 2002:adf:dcd2:: with SMTP id x18mr17676531wrm.202.1621778614926;
+        Sun, 23 May 2021 07:03:34 -0700 (PDT)
+Received: from [10.8.0.106] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id b8sm9022739wrx.15.2021.05.23.07.03.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 23 May 2021 07:03:34 -0700 (PDT)
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Subject: Adding struct-xxx link pages for structures
+Message-ID: <5872e635-1b61-6193-55fa-0a26e59afbca@gmail.com>
+Date:   Sun, 23 May 2021 16:03:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man3/mode_t.3 | 1 +
- 1 file changed, 1 insertion(+)
- create mode 100644 man3/mode_t.3
+Hi Michael,
 
-diff --git a/man3/mode_t.3 b/man3/mode_t.3
-new file mode 100644
-index 000000000..db50c0f09
---- /dev/null
-+++ b/man3/mode_t.3
-@@ -0,0 +1 @@
-+.so man7/system_data_types.7
+We have some structures defined in system_data_types(7) for which we 
+don't have a link page, because it would have shadowed other more 
+important pages.
+
+I've been documenting 'struct stat', and it happens the same: I'd shadow 
+stat(2) with stat(3).
+
+But I need to refer to stat(3) (or whatever link page we decide to have) 
+from stat(2).  So I need one (referring to system_data_types(7) isn't 
+very informative).
+
+How about adding struct-stat(2)?
+
+However, that means that we should also add struct-xxx(3) / union-xxx(3) 
+for all of the structs/unions we have documented there (one might 
+reasonably expect to be able to find struct-aiocb(3) or union-sigval(3) 
+if there's a struct-stat(3)).
+
+What do you think about it?
+
+Thanks,
+
+Alex
+
+
 -- 
-2.31.1
-
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
