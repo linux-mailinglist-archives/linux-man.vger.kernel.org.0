@@ -2,114 +2,107 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DBB2638F2E1
-	for <lists+linux-man@lfdr.de>; Mon, 24 May 2021 20:20:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7E0EE38F37A
+	for <lists+linux-man@lfdr.de>; Mon, 24 May 2021 21:09:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233637AbhEXSVc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 24 May 2021 14:21:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56868 "EHLO
+        id S233165AbhEXTKp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 24 May 2021 15:10:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39706 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233729AbhEXSVc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 24 May 2021 14:21:32 -0400
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AD536C061756
-        for <linux-man@vger.kernel.org>; Mon, 24 May 2021 11:20:03 -0700 (PDT)
-Received: by mail-wr1-x42d.google.com with SMTP id y14so27408637wrm.13
-        for <linux-man@vger.kernel.org>; Mon, 24 May 2021 11:20:03 -0700 (PDT)
+        with ESMTP id S232983AbhEXTKp (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 24 May 2021 15:10:45 -0400
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D5673C061574
+        for <linux-man@vger.kernel.org>; Mon, 24 May 2021 12:09:15 -0700 (PDT)
+Received: by mail-wr1-x431.google.com with SMTP id z17so29613151wrq.7
+        for <linux-man@vger.kernel.org>; Mon, 24 May 2021 12:09:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=bbag5TiTRreoMleUEqblQv561cKsd06tpIDWjJxFxbk=;
-        b=F1JOFvro/j4yHvsg/VKKyknTE1aoO+lhT0l31+c54kxqrVfNgYNcb1pmsj6eltBUFQ
-         8JZteG9xfGzv7aFa+oty9zZo33DbP6+AWqKv2C2IjEMldLOEp4YE4P31AzR+TwQeOJM9
-         OVPcnbAH1tl3wWl5n3CvTZUckm3eR9tLxHFvERi2yIoqH2MQNkWgykPkL4+IagF+JFqQ
-         5G8lcYc2TzQA6a7MjhTqDP20dCcbIb42G93fkP+6Fr71e35z1URQnEh9TAnYtUZDjQyM
-         xRz4NqvLfvR2xVySYgy9Ypz+BrMcIE95VgiCCgLIn/P7P8RxAybpANHhL9w1UVlKfPZY
-         2XSg==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=GkSd1KiFxqxyJzhiR9O6tuZGU6SAkWcm65jbAOm4R7w=;
+        b=sZdx1zHYinOaww7ZUeEF7xZ2k2u8Z8gCkzPVPMPc1fk1uzDb8SKi9hn5fglEna5QP4
+         LTbClbs7sdyRcbVq0peMnKLb9P1h4sqxwQj50yL9z1sJFdYJ+OngYit5dUyjxfhoYCox
+         sJCHZrjkZdLkEaohHMOoq8x4Y2iBLOvFsuLBhUtn6uWJ6s9ZgjmA012o5lAsk6LBWTWR
+         ftrlq44nthkRbyqcva1PG+8cVAMrrA4K2NRtTDg+0la9uhXaveOBwGpebq7OWv2+eQzi
+         29ft89PiBfchhoZ234YTuhIDO+ACfsX9e4CxXbTIDohzQ8RJUdVLOM8SpcLMn1I4hh8d
+         bGWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=bbag5TiTRreoMleUEqblQv561cKsd06tpIDWjJxFxbk=;
-        b=NLHaCHKoSHKPhuAfSi34uqcJYGbZtfkP/1Ed/fo20HhDIjc2/aaS/O94sd8FsRM+Mb
-         rQuvh1WidvuzcTWa0//WjvkVLURbFsyEPCXWjaDOS6fIftdTVkIj586++HCRjKqOweTs
-         YLoiyHSq+C7o0F/pDdZ1/JLJc3TZTbUTW8itEvH9a4P42FRKHY9NLwVIV6HFJWVUF7oh
-         8eO0A55776ja3p8j6PY566/4O6wrOVQNRgkakf7D5/PXIDj5TmGMyak4ryzcdATuPU9s
-         9lQgD0CAwLg40IgA7E6XRo0bIj7JdoyvS5fzg48YE7S37a5YRsZiDFB7vhGbXX5O3G8V
-         mArA==
-X-Gm-Message-State: AOAM5306ZfNHUl12IbwDw1jdcgGtm7/PyoNHZzI93WkpWCYBubZ7JdOG
-        LUTPnZs+/VH5ctceQ8t8CQI=
-X-Google-Smtp-Source: ABdhPJySfHfwieQBr7tXyIxgi4uXhNUwzZQI114AoIHI12QHOSuXPCUExyuwXJ/0CCsg3g+Pv+iwdQ==
-X-Received: by 2002:adf:db42:: with SMTP id f2mr23423683wrj.5.1621880402347;
-        Mon, 24 May 2021 11:20:02 -0700 (PDT)
-Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id z18sm13522038wro.33.2021.05.24.11.20.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 May 2021 11:20:02 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=GkSd1KiFxqxyJzhiR9O6tuZGU6SAkWcm65jbAOm4R7w=;
+        b=M/zK7SYC5kzn3WH5EufkB0EptP/9bOCeW0kyY1UezkShAgpYWR7iDD7dniG309OrwI
+         tmRN3eI7BE7Msic7odJIiuLb53o2/hsX31cZWTqIGMZGBd7jUnvwcBVjUfXtaXMNaFkG
+         nD5lAQXamC9g1kV1rQ89rE0UPCx6+1855Hrl8qI2xpZN1bU0GslEyItSlHWHvrr36J/r
+         O7QHM9WhAzTBRTpYBCnvjXReLb2kIVGahOuljDG1M1YcETFfV/G+nTMfPrpOs3anqzOs
+         yY5lgUD4P+5+OvMKfgD4Epzf26dcwkagCwiDmZax2IkWpVY6JQpKaAK6in0RdyM4/82L
+         TU5g==
+X-Gm-Message-State: AOAM532/Djt1Pz2McaLh32j+4SixEi/l4qa4HnfyfCJrUfc47Swjx0mE
+        lu7detKjNHhcW84FvYA+kj0dOsMz7hA=
+X-Google-Smtp-Source: ABdhPJzqPhCeLt5N6MoCKYFsslEQOFGDva1agsKstuxVHFO1uhVKYxag/MtVPlhKOpapj4lqpwcIDw==
+X-Received: by 2002:a5d:62c7:: with SMTP id o7mr23503651wrv.372.1621883354487;
+        Mon, 24 May 2021 12:09:14 -0700 (PDT)
+Received: from [10.8.0.106] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id u17sm3621818wrt.61.2021.05.24.12.09.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 24 May 2021 12:09:13 -0700 (PDT)
+Subject: Re: [PATCH 00/10] man2: SYNOPSIS: Use syscall, and fix includes.
 To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH v2 10/10] socketcall.2: Use syscall(SYS_...); for system calls without a wrapper
-Date:   Mon, 24 May 2021 20:19:47 +0200
-Message-Id: <20210524181947.459437-10-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210521232553.161080-10-alx.manpages@gmail.com>
-References: <20210521232553.161080-10-alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+References: <20210521232553.161080-1-alx.manpages@gmail.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <ddc30879-c7c1-d66e-2eed-443319f3186b@gmail.com>
+Date:   Mon, 24 May 2021 21:09:10 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210521232553.161080-1-alx.manpages@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man2/socketcall.2 | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+Hi Michael,
 
-diff --git a/man2/socketcall.2 b/man2/socketcall.2
-index 8ef3d65d3..883c2aafe 100644
---- a/man2/socketcall.2
-+++ b/man2/socketcall.2
-@@ -27,13 +27,18 @@
- socketcall \- socket system calls
- .SH SYNOPSIS
- .nf
--.B #include <linux/net.h>
-+.BR "#include <linux/net.h>" "        /* Definition of " SYS_* " constants */"
-+.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_socketcall " */"
-+.B #include <unistd.h>
- .PP
--.BI "int socketcall(int " call ", unsigned long *" args );
-+.BI "int syscall(SYS_socketcall, int " call ", unsigned long *" args );
- .fi
- .PP
- .IR Note :
--There is no glibc wrapper for this system call; see NOTES.
-+glibc provides no wrapper for
-+.BR socketcall (),
-+necessitating the use of
-+.BR syscall (2).
- .SH DESCRIPTION
- .BR socketcall ()
- is a common kernel entry point for the socket system calls.
-@@ -156,10 +161,6 @@ T}
- This call is specific to Linux, and should not be used in programs
- intended to be portable.
- .SH NOTES
--Glibc does not provide a wrapper for this system call;
--in the unlikely event that you want to call it directly, do so using
--.BR syscall (2).
--.PP
- On some architectures\(emfor example, x86-64 and ARM\(emthere is no
- .BR socketcall ()
- system call; instead
-@@ -198,3 +199,4 @@ and also provides a (very) small performance improvement.
- .BR shutdown (2),
- .BR socket (2),
- .BR socketpair (2)
-+
+On 5/22/21 1:25 AM, Alejandro Colomar wrote:
+> Hi Michael,
+> 
+> Almost finished these:
+> $ man_lsfunc man2 | sed -n '/socketcall/,$p' | wc -l
+> 67
+> $ man_lsfunc man2 | wc -l
+> 401
+> $
+
+Right now I have around 20-30 more patches about this pending, and 
+that's all; I've finished.
+
+I'll hold them until you apply (or reject) the various patch sets that 
+are pending to avoid creating conflicts.
+
+After that, I think we should release v5.12 :).
+
+And after the release, I have 4 branches to develop a few things for 
+5.13/14 (some of them depending on what we decide about some RFCs):
+  - library: Use LIBRARY section (similar to FreeBSD)
+  - stdint: Use standard (<stdint.h>) types, as well as standard attributes.
+  - system_data_types: Document more types (I was documenting those you 
+mark in TLPI as important).
+  - examples: Fix the includes in the EXAMPLES sections to use the 
+minimum number of includes, by using iwyu(1).
+
+
+
+Cheers,
+
+Alex
+
+
 -- 
-2.31.1
-
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
