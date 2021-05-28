@@ -2,108 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3382A39284B
-	for <lists+linux-man@lfdr.de>; Thu, 27 May 2021 09:14:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9C3173947FF
+	for <lists+linux-man@lfdr.de>; Fri, 28 May 2021 22:36:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234279AbhE0HPv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 27 May 2021 03:15:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33150 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235012AbhE0HPg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 27 May 2021 03:15:36 -0400
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5EA64C0613CE
-        for <linux-man@vger.kernel.org>; Thu, 27 May 2021 00:14:02 -0700 (PDT)
-Received: by mail-wm1-x334.google.com with SMTP id n17-20020a7bc5d10000b0290169edfadac9so1936616wmk.1
-        for <linux-man@vger.kernel.org>; Thu, 27 May 2021 00:14:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=NEKIGVtxy4b6kzHwc/HyYZT95DWgW6RLBdjjBL/Lpjs=;
-        b=PJ4ECg2/lgau9M0+TS6JOfbAIPKeKQFpqOM0U+euStubbMujRYpC5IX0jjB8KeNTlu
-         dJujZaeoycRBttkV2VzxIAobOv2UFRw9T5vx17kJ1zLkxIR8bdWgjKHqbwj+FhJlfT49
-         W5dXpmjojrbKIz4MxS4sxcji3w1h19L2SbbHEaS7i/RRo8Db5+jZY8cyS4Pu+eNAEQU8
-         sLV10Xi/l10IDCE5/qNBz/9UjYelOm2n1iKfkfm9cUFBW2U660d8GgF6+QdHK7ZHVovf
-         DTBX7XJdL1/REox81s+QoW8MZ5pHgdFLKYSIVjwjTT7azEruIawgGHZdjnuQU9mmCjK0
-         q3Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=NEKIGVtxy4b6kzHwc/HyYZT95DWgW6RLBdjjBL/Lpjs=;
-        b=FO3I2JxHGkF+izxHTLA3k2q1Q5JrFounmwufRvs02hf12vBBkoCSS8mSSw1pTFcUiJ
-         vqeRl7/E1yhVdfCt1kImk50PRWTw93+DfzTQ8Pm5RtvK5MZHAmj+2RlucjRDs6CLiYNn
-         WDz6DIu5zzP5eBtk6ctqx+YC1NhUO7Iqo4p0ZrjijADnCS1qAoc6oST0/viS7m045Ncd
-         bT8E/qf5t2cxL6bkhywd0W1U1qplqdC8vIss3ETrmMkGd/LHapGyqmFkj/Mz5ji9X7Pr
-         4QVp+UDqkTzsSCajLUAUVC8vA4kOocRq7V9ZW4YaOSRVppAH3lAjjDk+BvntmnBvkQpZ
-         /RVA==
-X-Gm-Message-State: AOAM533ezNLDyk4JCTk3WaQwFi4xFMj62/ww24xlo0eZzKkaT7YwH4Jq
-        hmZJtB9sVB5BedRLdAbQ7j0=
-X-Google-Smtp-Source: ABdhPJxTsl44gny8sCgMSdBvBdfcdoLTEafOumF06ZZAVPzD9xkc1nNm4Mc2SwXIAFGs3F/G+UUF7Q==
-X-Received: by 2002:a1c:c90f:: with SMTP id f15mr6896200wmb.142.1622099641022;
-        Thu, 27 May 2021 00:14:01 -0700 (PDT)
-Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id r4sm1826040wre.84.2021.05.27.00.13.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 May 2021 00:14:00 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     dann frazier <dann.frazier@canonical.com>,
-        linux-man@vger.kernel.org,
-        Heinrich Schuchardt <xypron.glpk@gmx.de>,
-        David Howells <dhowells@redhat.com>,
-        Pedro Principeza <pedro.principeza@canonical.com>,
-        Randy Dunlap <rdunlap@infradead.org>,
-        Kyle McMartin <kyle@redhat.com>,
-        Matthew Garrett <mjg59@google.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Subject: [PATCH] kernel_lockdown.7: Remove description of lifting via SysRq (not upstream)
-Date:   Thu, 27 May 2021 09:13:42 +0200
-Message-Id: <20210527071341.5764-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.31.1
+        id S229492AbhE1UiN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 28 May 2021 16:38:13 -0400
+Received: from mout.gmx.net ([212.227.17.21]:48507 "EHLO mout.gmx.net"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S229482AbhE1UiN (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 28 May 2021 16:38:13 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+        s=badeba3b8450; t=1622234197;
+        bh=eCUaW1If6ueVa3BJe4YgN8Y28HcXg6zXUf0A5plLKio=;
+        h=X-UI-Sender-Class:Date:From:To:Subject;
+        b=e5uKIxASF54ubS6RkKs36ei9o1shzvik8x0kM2g8tcndbiFZUvZhwO0hLMe5z9Mqy
+         guTR3Q1K4nnS4a+7QSv/c2g8Fk4YqPXgxy6zZLjZRIgtpPdG8N8xRKE3T3MNeGEy0Y
+         jKj5wTn4qd45p4AhDRJ8yv4bV4+fWVjigzROlqpQ=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from linux-ff1t ([109.42.2.28]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1N7R1J-1lL2xl3l1R-017kG8 for
+ <linux-man@vger.kernel.org>; Fri, 28 May 2021 22:36:37 +0200
+Date:   Fri, 28 May 2021 22:36:35 +0200
+From:   Radisson97@gmx.de
+To:     linux-man@vger.kernel.org
+Subject: patch lgamma.3:Better explain the use signgam
+Message-ID: <60b15453.qEgmtj2ngLDAHsrs%Radisson97@gmx.de>
+User-Agent: Heirloom mailx 12.5 7/5/10
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:URXoShMyRM+9om8UB2/2DuzeMyg1sl41XldRuXH9GA3Cs+EzwA8
+ kHL0oyz3MDEmEHAdG4fiu6USDDzqnRFxQrACpHUty4t+6Ohthg+s9ko4bpzVoMZa/nQzBNW
+ qEqWbJewLMBEWZxfSLVY0C3NbXrXuMYwGy09R59vWC0ybpvN5qSSNO4UYJ9RbzkpVkT0MIU
+ fNW/rnKX23UTe6ZMUzkQg==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:syB4Ir10BhA=:zOX6nSxUcqUVNmhC4BRcK3
+ Osd0p+mBIEpyNMiy02w/3ntpzTQPMf3UEH7gcpsSDEMOKSqq7zko3UrCWqL0kKRXjH0d9B8Om
+ g8QfNADNZJj5bYAmB4Dgp1bAcLlVj5BjerLRrfiETNympNBqaJ8IPNe/6Xei0F/AH8t9304g5
+ 6kgdbwpFyXge1Jyk9lamDxCS0slGim6a9qZm0Y0Hjq9SyDoQZAg3gikmznhoAPTfm7MDe0/cT
+ qKfSXlUp+NZ+UqU1P7d5BevsF1sOGGW6pFKXCgBv+qvBobDIoRihGG+5VOotdTfNkN1tWKjKF
+ kavJiH//lTP2lcW/tgEoUvRIRKCJTnJctf7C/r7akpQLjhbU3F+3twvkJ4fcyAKP8Gs9apsL4
+ dFB6CIIHcIqwtG5rkmk5KoenxNqCoMowhdGpdpkEDoyLgTyg63UE3iWav0lK0YfyuKlAYkcBi
+ AARQJu+lZB66AJvs2NVqJ41Vw3hKltTALwwTxTa85dDThmEgRGPdNofKDZV/PoGNSjSvnFBhx
+ mZlYAWwakw73UPweOlTZrbc/cXskkxpMJ+HpDkQ3R4PcCoZndnFRzuAXZjYJ0+8abweYPlRfq
+ 52cTGV+B21uA39lfYRrt4Aq9rH5/bAdj3h7AyuFanIfWl+OfFoGr34RkMt3tbjUIHOrCEcaeS
+ LrI+FhOl9zKz2G11q4FvvrccrBRd8zvGr3TTz9KjsQZIDQFWVl3HhZXxl8dpo+Q4O+lM6ede+
+ H68bhR0MHjZ9iD/fDpm23K9D91aDcjAWtdzyJbY6o7DOrn18zkPQA5qabE+STUCq5cCUDOhOc
+ M0gyLAYcovBPwS1udpN98EJIbVzW1Z0yvZv8bkgFC2UzliN+0jOPOx/ssOc0yesBqw3dolvon
+ 84/5r13xmqr69uBRIPgKgb8Vy1FteSzeBKrd3Hxv+Iz4CSBNXIkWIMyJB+v+uD7BItb7clkKN
+ d3T4X8ytNTkhclCFF2pISrL1wOTm8osSH3qimx+toKqBwvwl31lSKeAZ7vJEHonVNoh3A7wEi
+ 9sJNewJcyLwGBFAOTk+ip9anm7OWPwYGfYFicpzKJfrfBTm5++BJz0ASVS97bnIIozH8n2sTM
+ Se0+9FWrsJmno45UFkgiKHNyrL9BiA1SST8U+ufcHZCYR7kXCGUH05imhCcUqZPowxnOEM7Pq
+ ZpaSOAjGl7keXxxJ10Au45mcASr5W7rghdQ2AIiyRpfqDz1ygFS9D6nqEAB5k9dseqk+E=
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: dann frazier <dann.frazier@canonical.com>
+Better explain the use signgam
 
-The patch that implemented lockdown lifting via SysRq ended up getting
-dropped[*] before the feature was merged upstream. Having the feature
-documented but unsupported has caused some confusion for our users.
-
-[*] http://archive.lwn.net:8080/linux-kernel/CACdnJuuxAM06TcnczOA6NwxhnmQUeqqm3Ma8btukZpuCS+dOqg@mail.gmail.com/
-
-Signed-off-by: dann frazier <dann.frazier@canonical.com>
-Cc: Heinrich Schuchardt <xypron.glpk@gmx.de>
-Cc: David Howells <dhowells@redhat.com>
-Cc: Pedro Principeza <pedro.principeza@canonical.com>
-Cc: Randy Dunlap <rdunlap@infradead.org>
-Cc: Kyle McMartin <kyle@redhat.com>
-Cc: Matthew Garrett <mjg59@google.com>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+Signed-off-by: Harms <wharms@bfs.de>
 ---
- man7/kernel_lockdown.7 | 5 -----
- 1 file changed, 5 deletions(-)
 
-diff --git a/man7/kernel_lockdown.7 b/man7/kernel_lockdown.7
-index 30863de62..b0442b3b6 100644
---- a/man7/kernel_lockdown.7
-+++ b/man7/kernel_lockdown.7
-@@ -33,11 +33,6 @@ where X indicates the process name and Y indicates what is restricted.
- .PP
- On an EFI-enabled x86 or arm64 machine, lockdown will be automatically enabled
- if the system boots in EFI Secure Boot mode.
+diff --git a/man3/lgamma.3 b/man3/lgamma.3
+index 81f530074..5820a62f5 100644
+--- a/man3/lgamma.3
++++ b/man3/lgamma.3
+@@ -24,16 +24,19 @@ lgamma, lgammaf, lgammal, lgamma_r, lgammaf_r, lgammal_r \- log gamma function
+ .sp
+ Compile with -std=c99; link with \-lm.
+ .SH DESCRIPTION
+-For the definition of the Gamma function, see
+-.BR tgamma (3).
 -.PP
--If the kernel is appropriately configured, lockdown may be lifted by typing
--the appropriate sequence on a directly attached physical keyboard.
--For x86 machines, this is
--.IR SysRq+x .
- .\"
- .SS Coverage
- When lockdown is in effect, a number of features are disabled or have their
--- 
-2.31.1
-
+ The \fBlgamma()\fP function returns the natural logarithm of
+ the absolute value of the Gamma function.
+ The sign of the Gamma function is returned in the
+ external integer \fIsigngam\fP declared in
+ .IR <math.h> .
+-It is 1 when the Gamma function is positive or zero, \-1
+-when it is negative.
++The real gamma function can be computed as:
++.PP
++.RS
++gam  = signgam * exp(gamma(x));
++.RE
++.PP
++For the definition of the Gamma function, see
++.BR tgamma (3).
+ .PP
+ Since using a constant location
+ .I signgam
