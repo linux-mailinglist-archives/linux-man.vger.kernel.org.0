@@ -2,93 +2,81 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9C3173947FF
-	for <lists+linux-man@lfdr.de>; Fri, 28 May 2021 22:36:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3CFE0395A46
+	for <lists+linux-man@lfdr.de>; Mon, 31 May 2021 14:17:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229492AbhE1UiN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 28 May 2021 16:38:13 -0400
-Received: from mout.gmx.net ([212.227.17.21]:48507 "EHLO mout.gmx.net"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S229482AbhE1UiN (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 28 May 2021 16:38:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
-        s=badeba3b8450; t=1622234197;
-        bh=eCUaW1If6ueVa3BJe4YgN8Y28HcXg6zXUf0A5plLKio=;
-        h=X-UI-Sender-Class:Date:From:To:Subject;
-        b=e5uKIxASF54ubS6RkKs36ei9o1shzvik8x0kM2g8tcndbiFZUvZhwO0hLMe5z9Mqy
-         guTR3Q1K4nnS4a+7QSv/c2g8Fk4YqPXgxy6zZLjZRIgtpPdG8N8xRKE3T3MNeGEy0Y
-         jKj5wTn4qd45p4AhDRJ8yv4bV4+fWVjigzROlqpQ=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from linux-ff1t ([109.42.2.28]) by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N7R1J-1lL2xl3l1R-017kG8 for
- <linux-man@vger.kernel.org>; Fri, 28 May 2021 22:36:37 +0200
-Date:   Fri, 28 May 2021 22:36:35 +0200
-From:   Radisson97@gmx.de
-To:     linux-man@vger.kernel.org
-Subject: patch lgamma.3:Better explain the use signgam
-Message-ID: <60b15453.qEgmtj2ngLDAHsrs%Radisson97@gmx.de>
-User-Agent: Heirloom mailx 12.5 7/5/10
+        id S231331AbhEaMSp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 31 May 2021 08:18:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42652 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231327AbhEaMSo (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 31 May 2021 08:18:44 -0400
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [IPv6:2001:67c:2050::465:101])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BA293C061574
+        for <linux-man@vger.kernel.org>; Mon, 31 May 2021 05:17:04 -0700 (PDT)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [80.241.60.240])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+        (No client certificate requested)
+        by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4FtvRc0PdnzQjmb
+        for <linux-man@vger.kernel.org>; Mon, 31 May 2021 14:17:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mailbox.org; h=
+        content-transfer-encoding:content-type:content-type:mime-version
+        :subject:subject:message-id:from:from:date:date:received; s=
+        mail20150812; t=1622463416; bh=1cMOoBInh35mGkDYN4W9KCK/tfqO+2lb7
+        esMm/sOIVk=; b=D1n+6Ftn3aqQcrCAAMol9sLgZsOGTf2VtBpwSajJMmC9ukcrW
+        G9+1bt7JwjYJeu3FCpE+CD25KcJfZIx0pkYT1mUVja4Mp6qIEOpHx7YJ8CbcRV2q
+        04aS/iOM/1PPaHeXP56ZAPJqC0/QKugHQrMzCvBQIjRtT7YsEm7vVI7DORQd3Rcy
+        +cSzaRZvFvKUnqEoGsE1C4WVKiR5mGDXqrGfPcUvRnVlgXCJya9F0myjBypc6u2V
+        06C0UdLvr/eKvjYhc8We1K1YvDWCTEE7ujJis4C/t6DjGEjuwP7NYYnQuJLw7e4u
+        wVCHBd29938vWXg+u9woLyjLMP9CMnheZGYNw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+        t=1622463418;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding;
+        bh=FKNySZvVIollm/KXfIFAoXht7LbOEM2/suSp+iRRfRo=;
+        b=RPakmCjEUHexkHDsfyfmceGTmM527KnSUmWiae3xUCi1Mwzp5MZtRH/SClk3/dYjUKLe9k
+        AC4p24Bbs5lbb5EI9nYGU5uV8/gY5sy++sAamlJo9hG+v2tfxsa1/GnGg/e55pRJrq5oaA
+        WGFYtgYxJ1d/d0mk79wDzBIwHa41I5Q3BB1xFw6OC11UN7MP6EaB1ndPEHKqOMBxj1k/9/
+        gs38do1igcbWDmAc1WbV/gGgxzP6DCYK+z8GeLSYN0HktkLvoxQWhBWgyLJyjYiWOrXUVl
+        n195RQHnKAxIn8wmadnVd1foogakyAerG2ygcmv3dKIvJBG4XZuq17UeEnyKqw==
+X-Virus-Scanned: amavisd-new at heinlein-support.de
+Received: from smtp1.mailbox.org ([80.241.60.240])
+        by spamfilter06.heinlein-hosting.de (spamfilter06.heinlein-hosting.de [80.241.56.125]) (amavisd-new, port 10030)
+        with ESMTP id jXgkiiiWd3LS for <linux-man@vger.kernel.org>;
+        Mon, 31 May 2021 14:16:56 +0200 (CEST)
+Date:   Mon, 31 May 2021 14:16:56 +0200 (CEST)
+From:   =?UTF-8?Q?Fausto_N=C3=BA=C3=B1ez_Alberro?= 
+        <fausto.nunez@mailbox.org>
+To:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Message-ID: <303038690.122505.1622463416745@office.mailbox.org>
+Subject: Potential undocumented functionality of brk when called with NULL
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:URXoShMyRM+9om8UB2/2DuzeMyg1sl41XldRuXH9GA3Cs+EzwA8
- kHL0oyz3MDEmEHAdG4fiu6USDDzqnRFxQrACpHUty4t+6Ohthg+s9ko4bpzVoMZa/nQzBNW
- qEqWbJewLMBEWZxfSLVY0C3NbXrXuMYwGy09R59vWC0ybpvN5qSSNO4UYJ9RbzkpVkT0MIU
- fNW/rnKX23UTe6ZMUzkQg==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:syB4Ir10BhA=:zOX6nSxUcqUVNmhC4BRcK3
- Osd0p+mBIEpyNMiy02w/3ntpzTQPMf3UEH7gcpsSDEMOKSqq7zko3UrCWqL0kKRXjH0d9B8Om
- g8QfNADNZJj5bYAmB4Dgp1bAcLlVj5BjerLRrfiETNympNBqaJ8IPNe/6Xei0F/AH8t9304g5
- 6kgdbwpFyXge1Jyk9lamDxCS0slGim6a9qZm0Y0Hjq9SyDoQZAg3gikmznhoAPTfm7MDe0/cT
- qKfSXlUp+NZ+UqU1P7d5BevsF1sOGGW6pFKXCgBv+qvBobDIoRihGG+5VOotdTfNkN1tWKjKF
- kavJiH//lTP2lcW/tgEoUvRIRKCJTnJctf7C/r7akpQLjhbU3F+3twvkJ4fcyAKP8Gs9apsL4
- dFB6CIIHcIqwtG5rkmk5KoenxNqCoMowhdGpdpkEDoyLgTyg63UE3iWav0lK0YfyuKlAYkcBi
- AARQJu+lZB66AJvs2NVqJ41Vw3hKltTALwwTxTa85dDThmEgRGPdNofKDZV/PoGNSjSvnFBhx
- mZlYAWwakw73UPweOlTZrbc/cXskkxpMJ+HpDkQ3R4PcCoZndnFRzuAXZjYJ0+8abweYPlRfq
- 52cTGV+B21uA39lfYRrt4Aq9rH5/bAdj3h7AyuFanIfWl+OfFoGr34RkMt3tbjUIHOrCEcaeS
- LrI+FhOl9zKz2G11q4FvvrccrBRd8zvGr3TTz9KjsQZIDQFWVl3HhZXxl8dpo+Q4O+lM6ede+
- H68bhR0MHjZ9iD/fDpm23K9D91aDcjAWtdzyJbY6o7DOrn18zkPQA5qabE+STUCq5cCUDOhOc
- M0gyLAYcovBPwS1udpN98EJIbVzW1Z0yvZv8bkgFC2UzliN+0jOPOx/ssOc0yesBqw3dolvon
- 84/5r13xmqr69uBRIPgKgb8Vy1FteSzeBKrd3Hxv+Iz4CSBNXIkWIMyJB+v+uD7BItb7clkKN
- d3T4X8ytNTkhclCFF2pISrL1wOTm8osSH3qimx+toKqBwvwl31lSKeAZ7vJEHonVNoh3A7wEi
- 9sJNewJcyLwGBFAOTk+ip9anm7OWPwYGfYFicpzKJfrfBTm5++BJz0ASVS97bnIIozH8n2sTM
- Se0+9FWrsJmno45UFkgiKHNyrL9BiA1SST8U+ufcHZCYR7kXCGUH05imhCcUqZPowxnOEM7Pq
- ZpaSOAjGl7keXxxJ10Au45mcASr5W7rghdQ2AIiyRpfqDz1ygFS9D6nqEAB5k9dseqk+E=
+X-Priority: 3
+Importance: Normal
+X-MBO-SPAM-Probability: 
+X-Rspamd-Score: -3.80 / 15.00 / 15.00
+X-Rspamd-Queue-Id: 15B761867
+X-Rspamd-UID: be8555
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Better explain the use signgam
+Hello,
 
-Signed-off-by: Harms <wharms@bfs.de>
----
+Reading the man-pages entry for brk, I found that there's a specific bit of behavior that is explicitly documented for sbrk, however not for brk:
 
-diff --git a/man3/lgamma.3 b/man3/lgamma.3
-index 81f530074..5820a62f5 100644
---- a/man3/lgamma.3
-+++ b/man3/lgamma.3
-@@ -24,16 +24,19 @@ lgamma, lgammaf, lgammal, lgamma_r, lgammaf_r, lgammal_r \- log gamma function
- .sp
- Compile with -std=c99; link with \-lm.
- .SH DESCRIPTION
--For the definition of the Gamma function, see
--.BR tgamma (3).
--.PP
- The \fBlgamma()\fP function returns the natural logarithm of
- the absolute value of the Gamma function.
- The sign of the Gamma function is returned in the
- external integer \fIsigngam\fP declared in
- .IR <math.h> .
--It is 1 when the Gamma function is positive or zero, \-1
--when it is negative.
-+The real gamma function can be computed as:
-+.PP
-+.RS
-+gam  = signgam * exp(gamma(x));
-+.RE
-+.PP
-+For the definition of the Gamma function, see
-+.BR tgamma (3).
- .PP
- Since using a constant location
- .I signgam
+RETURN VALUE
+       On success, brk() returns zero.  On error, -1 is returned, and errno is set to ENOMEM.
+
+       On success, sbrk() returns the previous program break.  (If the break was increased, then this value is a pointer to the start of the newly allocated memory).  On error, (void *) -1 is returned, and errno is set to ENOMEM.
+
+Here, it's stated that brk() returns zero on success and -1 on error. Some programs, though, use brk(NULL). This returns neither zero nor -1. Instead, it returns a pointer to the program break, suggesting that this functionality should be documented for brk as well.
+
+I have made sure to read the man-pages repository as of its latest commit 65dfda3dd.
+
+Thank you very much for your time,
+Fausto
