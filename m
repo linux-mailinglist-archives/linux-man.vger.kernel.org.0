@@ -2,366 +2,367 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E0D5239C0DD
-	for <lists+linux-man@lfdr.de>; Fri,  4 Jun 2021 21:57:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 270CB39C1B0
+	for <lists+linux-man@lfdr.de>; Fri,  4 Jun 2021 22:54:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230352AbhFDT7d (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 4 Jun 2021 15:59:33 -0400
-Received: from mail-yb1-f201.google.com ([209.85.219.201]:47913 "EHLO
-        mail-yb1-f201.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230256AbhFDT7c (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Jun 2021 15:59:32 -0400
-Received: by mail-yb1-f201.google.com with SMTP id d4-20020a25b5c40000b02904f8e3c8c6c9so13069784ybg.14
-        for <linux-man@vger.kernel.org>; Fri, 04 Jun 2021 12:57:33 -0700 (PDT)
+        id S229982AbhFDU41 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Jun 2021 16:56:27 -0400
+Received: from mail-wr1-f49.google.com ([209.85.221.49]:38875 "EHLO
+        mail-wr1-f49.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229906AbhFDU40 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Jun 2021 16:56:26 -0400
+Received: by mail-wr1-f49.google.com with SMTP id c9so1841953wrt.5
+        for <linux-man@vger.kernel.org>; Fri, 04 Jun 2021 13:54:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20161025;
-        h=date:message-id:mime-version:subject:from:to:cc;
-        bh=WnPagf26OWdwQb5LXQhta12h+qhGjx2PcreReVGXCeo=;
-        b=hpz+AqKJE8ngJhA5Wm8aOueDvuhKlrf5ud0y7nE8MAbai96Y1SI/WTH6Vx97AQnfew
-         0oe34wyic4uKfD0tFs8z+dmuj0dzVSM6AGsx+15baZbD1pmISnEgBTS3h7vUn2v3J3yp
-         W6kOQEP0Kw/do7UwSGxvVEJRqVijGOMegAIFSb9/UF2g1ZqLG6hKyljzY27/6pjfHclB
-         icqDIauyBqUttVv/7jHjvtCFi1bJLhGq4Tj51LGQTXKO0PiQTEFtYIB3r3Levu6dGRRo
-         ozf4rsoTTV5OXgAk2Ra763oX79oDvo5XKOB4/q3OsTspSerALoP3yA8QrM4NbSjpb4FS
-         r9gQ==
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=4lXRhHJTSIa4BIYpFyO5kEq6CDCYPaqNuGtoadbTeYw=;
+        b=RA5vsJ1PHyTUnZZp2M1eu5a3m+ws6Ue245uwxSVtq+KGPWu7fEabRSbx/6K3ldUi+0
+         kF+VId2uOOvjVG/7lJLK1pwYrtT6FBDbtJ9B0h7elPKshw+YOnryox50UJHJW3n4gPoM
+         g8qdabhGe97pUC8QFCTpJz+8jIxxiWbT19yIaoCnTqc2jQokqbUAol/djIOAsqFlt2AQ
+         lJ83sb+LfVGplOieJhshCsPdQ6QZ2goBg74Iuoo7+0ftZ2EDyYtVjxQ32V516bk5Jwvv
+         qez+o6K+ENlqisiSJo2Xn8EAIKzzHPPFbMQXbB6a3uWaHPB51n/ccMAbKJ/u5mt3wb9j
+         XySA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
-        bh=WnPagf26OWdwQb5LXQhta12h+qhGjx2PcreReVGXCeo=;
-        b=qsNx4Z5uFaY1mZYBa1z5Bg2fP082lnk3MPN1LGsi15lNlpCJ803NJVXJ3tieHssu+g
-         ZVxJoiHRArOaVK51zfL5GWqvaN+ijTXA8V3VziAGH7J5VQQfnx+Cik8dNy+dySZEOwtW
-         q/Neiz8xlsA9Fs0ip+Vv2DRL831uzy5ZKpIHdisHXrVKF072FXCtKmYgAAs5nc4BZlPp
-         WcXNvC9e6UktggoamcZ3fpebFL8oCMvtLA633Jzti1QQ/AIP8Ee3cUwY08auxgsiyZIl
-         GIZHRn8YYsTFhbEblUOzCX76FwUTjmBtzRyChiDMne8td3Nfhw4l6E3LG28yXOs+bwR9
-         cNmw==
-X-Gm-Message-State: AOAM533so43D7/hi4IO644cWUVjZbm6c8ciE/sy4kVZNaZ7fGzNhPhRC
-        +GIiq9wWYUsIamjFqNaA/YbiVK9J9IOrNKhjLKTx
-X-Google-Smtp-Source: ABdhPJykffaXJ4ldrV/N8M8LAhc59pRdH3WwGqKEERTe/NFie2IyyTRlFsySPXtOh7OLV1lWyzUGDQcI7cIarMg49/eY
-X-Received: from ajr0.svl.corp.google.com ([2620:15c:2cd:203:a513:d22b:d6ad:e903])
- (user=axelrasmussen job=sendgmr) by 2002:a5b:c83:: with SMTP id
- i3mr7780659ybq.453.1622836593174; Fri, 04 Jun 2021 12:56:33 -0700 (PDT)
-Date:   Fri,  4 Jun 2021 12:56:22 -0700
-Message-Id: <20210604195622.1249588-1-axelrasmussen@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.32.0.rc1.229.g3e70b5a671-goog
-Subject: [PATCH v2] ioctl_userfaultfd.2, userfaultfd.2: add minor fault mode
-From:   Axel Rasmussen <axelrasmussen@google.com>
-To:     Andrea Arcangeli <aarcange@redhat.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Hugh Dickins <hughd@google.com>,
-        Mike Kravetz <mike.kravetz@oracle.com>,
-        Peter Xu <peterx@redhat.com>
-Cc:     linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
-        linux-mm@kvack.org, Axel Rasmussen <axelrasmussen@google.com>
-Content-Type: text/plain; charset="UTF-8"
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=4lXRhHJTSIa4BIYpFyO5kEq6CDCYPaqNuGtoadbTeYw=;
+        b=EsO5Zp6yW8aiMo0hwM6y68WzX56KCRJmA8tV/639boOEtwP4doO2eoZ7sVFi56JZzh
+         9hlk650tpG5k8GeJEvBxcm9YzRz9J5IfEp0N3CESgfClzlXPmxmOwnRdArUnSqyU82/R
+         kQ/zL8uSVOm/cSi3ifKGZ/alXpq+lnRw2rHD+1MUX84cmt+AwaX+z+BXmUv9lRF4wnGe
+         Gn6rxtHWf3n83QzXzfeKfYTEbvX5/Vwg/CqU0/+w+yo4TTKCsuRuh15zzkzMSu444fjf
+         vIXQul6zJOHcGdjrD/otxDU0jt6Ig7A8Ug9x5W79rqHwJsGMTDDbWAEcg/xpV91mG9Ar
+         Ek3g==
+X-Gm-Message-State: AOAM532WySwNuUiaR27JnwjrYZDiUzwIFeI9gDat/903+VNityh5YwJD
+        c/s+uirEmwYECP1fquqd6u4=
+X-Google-Smtp-Source: ABdhPJxIIRkbjxDCj9LVTxwKsg3vcdHNjzqkMn++DhWBV9cLi+2+86jx6F9RE+eG/AdJ47UTbuMdmA==
+X-Received: by 2002:adf:a1d2:: with SMTP id v18mr5563687wrv.280.1622840002870;
+        Fri, 04 Jun 2021 13:53:22 -0700 (PDT)
+Received: from sqli.sqli.com ([195.53.121.100])
+        by smtp.googlemail.com with ESMTPSA id p10sm7342466wrr.58.2021.06.04.13.53.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Jun 2021 13:53:22 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org,
+        "Dr . Tobias Quathamer" <toddy@debian.org>
+Subject: [PATCH] Makefile, README: Break installation into a target for each mandir
+Date:   Fri,  4 Jun 2021 22:53:19 +0200
+Message-Id: <20210604205319.154059-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.31.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Userfaultfd minor fault mode is supported starting from Linux 5.13.
+Instead of having a monolithic 'make install', break it into
+multiple targets such as 'make install-man3'.  This simplifies
+packaging, for example in Debian, where they break this project
+into several packages: 'manpages' and 'manpages-dev', each
+containinng different mandirs.
 
-This commit adds a description of the new mode, as well as the new ioctl
-used to resolve such faults. The two go hand-in-hand: one can't resolve
-a minor fault without continue, and continue can't be used to resolve
-any other kind of fault.
+The above allows for multithread installation: 'make -j8'
 
-This patch covers just the hugetlbfs implementation (in 5.13). Support
-for shmem is forthcoming, but as it has not yet made it into a kernel
-release candidate, it will be added in a future commit.
+Also, don't overwrite files that don't need to be overwritten, by
+having a target for files, which makes use of make's timestamp
+comparison.
 
-Signed-off-by: Axel Rasmussen <axelrasmussen@google.com>
+This allows much faster installation times (although, it's a bit
+slower to do a full clean install).
+
+Now that the installation overwrites target files when needed,
+'make [all]' is aliased to 'make install', as an uninstall is
+almost never needed (unless you specifically want to test a clean
+install, in which case you can run 'make uninstall; make install').
+
+Also,
+I replaced = by ?=, because eventhough user input overrides any of
+those, I don't trust make to not start a subshell for every
+submake, in the cases where I invoke a shell.  I want the shell to
+be invoked only in the main make process in variable assignments.
+
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/ioctl_userfaultfd.2 | 125 ++++++++++++++++++++++++++++++++++++---
- man2/userfaultfd.2       |  79 ++++++++++++++++++++-----
- 2 files changed, 182 insertions(+), 22 deletions(-)
+ Makefile | 217 +++++++++++++++++++++++++++++++++++++++++++------------
+ README   |   8 +-
+ 2 files changed, 176 insertions(+), 49 deletions(-)
 
-diff --git a/man2/ioctl_userfaultfd.2 b/man2/ioctl_userfaultfd.2
-index 504f61d4b..7b990c24a 100644
---- a/man2/ioctl_userfaultfd.2
-+++ b/man2/ioctl_userfaultfd.2
-@@ -214,6 +214,10 @@ memory accesses to the regions registered with userfaultfd.
- If this feature bit is set,
- .I uffd_msg.pagefault.feat.ptid
- will be set to the faulted thread ID for each page-fault message.
-+.TP
-+.BR UFFD_FEATURE_MINOR_HUGETLBFS " (since Linux 5.13)"
-+If this feature bit is set, the kernel supports registering userfaultfd ranges
-+in minor mode on hugetlbfs-backed memory areas.
- .PP
- The returned
- .I ioctls
-@@ -240,6 +244,11 @@ operation is supported.
- The
- .B UFFDIO_WRITEPROTECT
- operation is supported.
-+.TP
-+.B 1 << _UFFDIO_CONTINUE
-+The
-+.B UFFDIO_CONTINUE
-+operation is supported.
- .PP
- This
- .BR ioctl (2)
-@@ -278,14 +287,8 @@ by the current kernel version.
- (Since Linux 4.3.)
- Register a memory address range with the userfaultfd object.
- The pages in the range must be "compatible".
--.PP
--Up to Linux kernel 4.11,
--only private anonymous ranges are compatible for registering with
--.BR UFFDIO_REGISTER .
--.PP
--Since Linux 4.11,
--hugetlbfs and shared memory ranges are also compatible with
--.BR UFFDIO_REGISTER .
-+Please refer to the list of register modes below for the compatible memory
-+backends for each mode.
- .PP
- The
- .I argp
-@@ -324,9 +327,16 @@ the specified range:
- .TP
- .B UFFDIO_REGISTER_MODE_MISSING
- Track page faults on missing pages.
-+Since Linux 4.3, only private anonymous ranges are compatible.
-+Since Linux 4.11, hugetlbfs and shared memory ranges are also compatible.
- .TP
- .B UFFDIO_REGISTER_MODE_WP
- Track page faults on write-protected pages.
-+Since Linux 5.7, only private anonymous ranges are compatible.
-+.TP
-+.B UFFDIO_REGISTER_MODE_MINOR
-+Track minor page faults.
-+Since Linux 5.13, only hugetlbfs ranges are compatible.
- .PP
- If the operation is successful, the kernel modifies the
- .I ioctls
-@@ -735,6 +745,105 @@ or not registered with userfaultfd write-protect mode.
- .TP
- .B EFAULT
- Encountered a generic fault during processing.
-+.\"
-+.SS UFFDIO_CONTINUE
-+(Since Linux 5.13.)
-+Resolve a minor page fault by installing page table entries for existing pages
-+in the page cache.
-+.PP
-+The
-+.I argp
-+argument is a pointer to a
-+.I uffdio_continue
-+structure as shown below:
-+.PP
-+.in +4n
-+.EX
-+struct uffdio_continue {
-+    struct uffdio_range range; /* Range to install PTEs for and continue */
-+    __u64 mode;                /* Flags controlling the behavior of continue */
-+    __s64 mapped;              /* Number of bytes mapped, or negated error */
-+};
-+.EE
-+.in
-+.PP
-+The following value may be bitwise ORed in
-+.IR mode
-+to change the behavior of the
-+.B UFFDIO_CONTINUE
-+operation:
-+.TP
-+.B UFFDIO_CONTINUE_MODE_DONTWAKE
-+Do not wake up the thread that waits for page-fault resolution.
-+.PP
-+The
-+.I mapped
-+field is used by the kernel to return the number of bytes
-+that were actually mapped, or an error in the same manner as
-+.BR UFFDIO_COPY .
-+If the value returned in the
-+.I mapped
-+field doesn't match the value that was specified in
-+.IR range.len ,
-+the operation fails with the error
-+.BR EAGAIN .
-+The
-+.I mapped
-+field is output-only;
-+it is not read by the
-+.B UFFDIO_CONTINUE
-+operation.
-+.PP
-+This
-+.BR ioctl (2)
-+operation returns 0 on success.
-+In this case, the entire area was mapped.
-+On error, \-1 is returned and
-+.I errno
-+is set to indicate the error.
-+Possible errors include:
-+.TP
-+.B EAGAIN
-+The number of bytes mapped (i.e., the value returned in the
-+.I mapped
-+field) does not equal the value that was specified in the
-+.I range.len
-+field.
-+.TP
-+.B EINVAL
-+Either
-+.I range.start
-+or
-+.I range.len
-+was not a multiple of the system page size; or
-+.I range.len
-+was zero; or the range specified was invalid.
-+.TP
-+.B EINVAL
-+An invalid bit was specified in the
-+.IR mode
-+field.
-+.TP
-+.B EEXIST
-+One or more pages were already mapped in the given range.
-+.TP
-+.B ENOENT
-+The faulting process has changed its virtual memory layout simultaneously with
-+an outstanding
-+.B UFFDIO_CONTINUE
-+operation.
-+.TP
-+.B ENOMEM
-+Allocating memory needed to setup the page table mappings failed.
-+.TP
-+.B EFAULT
-+No existing page could be found in the page cache for the given range.
-+.TP
-+.BR ESRCH
-+The faulting process has exited at the time of a
-+.B UFFDIO_CONTINUE
-+operation.
-+.\"
- .SH RETURN VALUE
- See descriptions of the individual operations, above.
- .SH ERRORS
-diff --git a/man2/userfaultfd.2 b/man2/userfaultfd.2
-index 593c189d8..07f53c6ff 100644
---- a/man2/userfaultfd.2
-+++ b/man2/userfaultfd.2
-@@ -78,7 +78,7 @@ all memory ranges that were registered with the object are unregistered
- and unread events are flushed.
- .\"
- .PP
--Userfaultfd supports two modes of registration:
-+Userfaultfd supports three modes of registration:
- .TP
- .BR UFFDIO_REGISTER_MODE_MISSING " (since 4.10)"
- When registered with
-@@ -92,6 +92,18 @@ or an
- .B UFFDIO_ZEROPAGE
- ioctl.
- .TP
-+.BR UFFDIO_REGISTER_MODE_MINOR " (since 5.13)"
-+When registered with
-+.B UFFDIO_REGISTER_MODE_MINOR
-+mode, user-space will receive a page-fault notification
-+when a minor page fault occurs.
-+That is, when a backing page is in the page cache, but
-+page table entries don't yet exist.
-+The faulted thread will be stopped from execution until the page fault is
-+resolved from user-space by an
-+.B UFFDIO_CONTINUE
-+ioctl.
-+.TP
- .BR UFFDIO_REGISTER_MODE_WP " (since 5.7)"
- When registered with
- .B UFFDIO_REGISTER_MODE_WP
-@@ -212,9 +224,10 @@ a page fault occurring in the requested memory range, and satisfying
- the mode defined at the registration time, will be forwarded by the kernel to
- the user-space application.
- The application can then use the
--.B UFFDIO_COPY
-+.B UFFDIO_COPY ,
-+.B UFFDIO_ZEROPAGE ,
- or
--.B UFFDIO_ZEROPAGE
-+.B UFFDIO_CONTINUE
- .BR ioctl (2)
- operations to resolve the page fault.
- .PP
-@@ -318,6 +331,43 @@ should have the flag
- cleared upon the faulted page or range.
- .PP
- Write-protect mode supports only private anonymous memory.
-+.\"
-+.SS Userfaultfd minor fault mode (since 5.13)
-+Since Linux 5.13, userfaultfd supports minor fault mode.
-+In this mode, fault messages are produced not for major faults (where the
-+page was missing), but rather for minor faults, where a page exists in the page
-+cache, but the page table entries are not yet present.
-+The user needs to first check availability of this feature using
-+.B UFFDIO_API
-+ioctl against the feature bit
-+.B UFFD_FEATURE_MINOR_HUGETLBFS
-+before using this feature.
-+.PP
-+To register with userfaultfd minor fault mode, the user needs to initiate the
-+.B UFFDIO_REGISTER
-+ioctl with mode
-+.B UFFD_REGISTER_MODE_MINOR
-+set.
-+.PP
-+When a minor fault occurs, user-space will receive a page-fault notification
-+whose
-+.I uffd_msg.pagefault.flags
-+will have the
-+.B UFFD_PAGEFAULT_FLAG_MINOR
-+flag set.
-+.PP
-+To resolve a minor page fault, the handler should decide whether or not the
-+existing page contents need to be modified first.
-+If so, this should be done in-place via a second, non-userfaultfd-registered
-+mapping to the same backing page (e.g., by mapping the hugetlbfs file twice).
-+Once the page is considered "up to date", the fault can be resolved by
-+initiating an
-+.B UFFDIO_CONTINUE
-+ioctl, which installs the page table entries and (by default) wakes up the
-+faulting thread(s).
-+.PP
-+Minor fault mode supports only hugetlbfs-backed memory.
-+.\"
- .SS Reading from the userfaultfd structure
- Each
- .BR read (2)
-@@ -456,19 +506,20 @@ For
- the following flag may appear:
- .RS
- .TP
--.B UFFD_PAGEFAULT_FLAG_WRITE
--If the address is in a range that was registered with the
--.B UFFDIO_REGISTER_MODE_MISSING
--flag (see
--.BR ioctl_userfaultfd (2))
--and this flag is set, this a write fault;
--otherwise it is a read fault.
-+.B UFFD_PAGEFAULT_FLAG_WP
-+If this flag is set, then the fault was a write-protect fault.
- .TP
-+.B UFFD_PAGEFAULT_FLAG_MINOR
-+If this flag is set, then the fault was a minor fault.
-+.TP
-+.B UFFD_PAGEFAULT_FLAG_WRITE
-+If this flag is set, then the fault was a write fault.
-+.HP
-+If neither
- .B UFFD_PAGEFAULT_FLAG_WP
--If the address is in a range that was registered with the
--.B UFFDIO_REGISTER_MODE_WP
--flag, when this bit is set, it means it is a write-protect fault.
--Otherwise it is a page-missing fault.
-+nor
-+.B UFFD_PAGEFAULT_FLAG_MINOR
-+are set, then the fault was a missing fault.
- .RE
- .TP
- .I pagefault.feat.pid
+diff --git a/Makefile b/Makefile
+index 78d953f3c..159b2fe78 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,28 +1,178 @@
+ SHELL = /bin/bash -Eeuo pipefail
+ 
+-# Do not print "Entering directory ..."
+ MAKEFLAGS += --no-print-directory
++MAKEFLAGS += --silent
++
++htmlbuilddir ?= $(CURDIR)/.html
++HTOPTS ?=
++
++DESTDIR ?=
++prefix ?= /usr/local
++datarootdir ?= $(prefix)/share
++docdir ?= $(datarootdir)/doc
++MANDIR ?= $(CURDIR)
++mandir ?= $(datarootdir)/man
++MAN1DIR ?= $(CURDIR)/man1
++MAN2DIR ?= $(CURDIR)/man2
++MAN3DIR ?= $(CURDIR)/man3
++MAN4DIR ?= $(CURDIR)/man4
++MAN5DIR ?= $(CURDIR)/man5
++MAN6DIR ?= $(CURDIR)/man6
++MAN7DIR ?= $(CURDIR)/man7
++MAN8DIR ?= $(CURDIR)/man8
++man1dir ?= $(mandir)/man1
++man2dir ?= $(mandir)/man2
++man3dir ?= $(mandir)/man3
++man4dir ?= $(mandir)/man4
++man5dir ?= $(mandir)/man5
++man6dir ?= $(mandir)/man6
++man7dir ?= $(mandir)/man7
++man8dir ?= $(mandir)/man8
++htmldir ?= $(docdir)
++htmldir_ ?= $(htmldir)/man
++htmlext ?= .html
++
++INSTALL ?= install
++INSTALL_DATA ?= $(INSTALL) -m 644
++INSTALL_DIR ?= $(INSTALL) -m 755 -d
++RMDIR ?= rmdir --ignore-fail-on-non-empty
+ 
+-htmlbuilddir = $(CURDIR)/.html
+-HTOPTS =
+ 
+-DESTDIR =
+-prefix = /usr/local
+-datarootdir = $(prefix)/share
+-docdir = $(datarootdir)/doc
+-mandir = $(datarootdir)/man
+-htmldir = $(docdir)
+-htmldir_ = $(htmldir)/man
+-htmlext = .html
++.PHONY: all
++all: install
+ 
+-INSTALL = install
+-INSTALL_DATA = $(INSTALL) -m 644
+-INSTALL_DIR = $(INSTALL) -m 755 -d
+ 
+-.PHONY: all
+-all:
+-	$(MAKE) uninstall;
+-	$(MAKE) install;
++%/:
++	@echo '	INSTALL	$@';
++	$(INSTALL_DIR) $@;
++
++
++.PHONY: install
++install: install-man
++
++.PHONY: uninstall remove
++uninstall remove: uninstall-man
++
++.PHONY: installdirs
++installdirs: installdirs-man
++installdirs: installdirs-man1
++installdirs: installdirs-man2
++installdirs: installdirs-man3
++installdirs: installdirs-man4
++installdirs: installdirs-man5
++installdirs: installdirs-man6
++installdirs: installdirs-man7
++installdirs: installdirs-man8
++
++.PHONY: clean
++clean:
++	find man?/ -type f \
++	|while read f; do \
++		rm -f "$(htmlbuilddir)/$$f".*; \
++	done;
++
++################################################################################
++# man
++
++MAN1PAGES ?= $(shell find $(MAN1DIR) -type f | grep '$(man1ext)$$')
++MAN2PAGES ?= $(shell find $(MAN2DIR) -type f | grep '$(man2ext)$$')
++MAN3PAGES ?= $(shell find $(MAN3DIR) -type f | grep '$(man3ext)$$')
++MAN4PAGES ?= $(shell find $(MAN4DIR) -type f | grep '$(man4ext)$$')
++MAN5PAGES ?= $(shell find $(MAN5DIR) -type f | grep '$(man5ext)$$')
++MAN6PAGES ?= $(shell find $(MAN6DIR) -type f | grep '$(man6ext)$$')
++MAN7PAGES ?= $(shell find $(MAN7DIR) -type f | grep '$(man7ext)$$')
++MAN8PAGES ?= $(shell find $(MAN8DIR) -type f | grep '$(man8ext)$$')
++MANPAGES  ?= $(MAN1PAGES) \
++            $(MAN2PAGES) \
++            $(MAN3PAGES) \
++            $(MAN4PAGES) \
++            $(MAN5PAGES) \
++            $(MAN6PAGES) \
++            $(MAN7PAGES) \
++            $(MAN8PAGES)
++man1pages ?= $(addprefix $(DESTDIR)$(man1dir)/,$(notdir $(MAN1PAGES)))
++man2pages ?= $(addprefix $(DESTDIR)$(man2dir)/,$(notdir $(MAN2PAGES)))
++man3pages ?= $(addprefix $(DESTDIR)$(man3dir)/,$(notdir $(MAN3PAGES)))
++man4pages ?= $(addprefix $(DESTDIR)$(man4dir)/,$(notdir $(MAN4PAGES)))
++man5pages ?= $(addprefix $(DESTDIR)$(man5dir)/,$(notdir $(MAN5PAGES)))
++man6pages ?= $(addprefix $(DESTDIR)$(man6dir)/,$(notdir $(MAN6PAGES)))
++man7pages ?= $(addprefix $(DESTDIR)$(man7dir)/,$(notdir $(MAN7PAGES)))
++man8pages ?= $(addprefix $(DESTDIR)$(man8dir)/,$(notdir $(MAN8PAGES)))
++manpages  ?= $(man1pages) \
++            $(man2pages) \
++            $(man3pages) \
++            $(man4pages) \
++            $(man5pages) \
++            $(man6pages) \
++            $(man7pages) \
++            $(man8pages)
++
++
++$(manpages): $(DESTDIR)$(mandir)/%: $(MANDIR)/%
++	@echo '	INSTALL	$@';
++	$(INSTALL_DATA) -T "$(MANDIR)/$*" $@;
++
++
++INSTALLDIRS_MANN ?= installdirs-man1 \
++                    installdirs-man2 \
++                    installdirs-man3 \
++                    installdirs-man4 \
++                    installdirs-man5 \
++                    installdirs-man6 \
++                    installdirs-man7 \
++                    installdirs-man8
++.PHONY: $(INSTALLDIRS_MANN)
++$(INSTALLDIRS_MANN): installdirs-%: $(DESTDIR)$(mandir)/%/ | installdirs-man
++	@:;
++.PHONY: installdirs-man
++installdirs-man:  $(DESTDIR)$(mandir)/
++	@:;
++
++INSTALL_MANN ?= install-man1 \
++                install-man2 \
++                install-man3 \
++                install-man4 \
++                install-man5 \
++                install-man6 \
++                install-man7 \
++                install-man8
++.PHONY: install-man
++install-man: $(INSTALL_MANN) | $(INSTALLDIRS_MANN)
++	@:;
++
++.PHONY: $(INSTALL_MANN)
++$(INSTALL_MANN): install-%: | installdirs-%
++	@echo '	INSTALL    $(DESTDIR)$(mandir)/$*/';
++	find $(MANDIR)/$*/ -type f \
++	| grep '.[0-9]$$' \
++	| sed 's,$(MANDIR)/$*/,$(DESTDIR)$(mandir)/$*/,' \
++	| xargs $(MAKE);
++
++UNINSTALL_MANN ?= uninstall-man1 \
++                  uninstall-man2 \
++                  uninstall-man3 \
++                  uninstall-man4 \
++                  uninstall-man5 \
++                  uninstall-man6 \
++                  uninstall-man7 \
++                  uninstall-man8 
++
++.PHONY: $(UNINSTALL_MANN)
++$(UNINSTALL_MANN): uninstall-%:
++	@echo '	UNINSTALL  $(DESTDIR)$(mandir)/$*/';
++	find $(MANDIR)/$*/ -type f \
++	| grep '.[0-9]$$' \
++	| sed 's,$(MANDIR)/$*/,$(DESTDIR)$(mandir)/$*/,' \
++	| xargs rm -f;
++	$(RMDIR) $(DESTDIR)$(mandir)/$*/ 2>/dev/null ||:;
++.PHONY: uninstall-man
++uninstall-man: $(UNINSTALL_MANN)
++	@echo '	UNINSTALL	$(DESTDIR)$(mandir)/';
++	$(RMDIR) $(DESTDIR)$(mandir)/ ||:;
++
++
++################################################################################
++# html
+ 
+ # Use with
+ #  make HTOPTS=whatever html
+@@ -58,28 +208,6 @@ installdirs-html:
+ 		$(INSTALL_DIR) "$(DESTDIR)$(htmldir_)/$$d"; \
+ 	done;
+ 
+-.PHONY: install
+-install: | installdirs
+-	find man?/ -type f \
+-	|while read f; do \
+-		$(INSTALL_DATA) -T "$$f" "$(DESTDIR)$(mandir)/$$f"; \
+-	done;
+-
+-.PHONY: installdirs
+-installdirs:
+-	find man?/ -type d \
+-	|while read d; do \
+-		$(INSTALL_DIR) "$(DESTDIR)$(mandir)/$$d"; \
+-	done;
+-
+-.PHONY: uninstall remove
+-uninstall remove:
+-	find man?/ -type f \
+-	|while read f; do \
+-		rm -f "$(DESTDIR)$(mandir)/$$f"; \
+-		rm -f "$(DESTDIR)$(mandir)/$$f".*; \
+-	done;
+-
+ .PHONY: uninstall-html
+ uninstall-html:
+ 	find man?/ -type f \
+@@ -87,12 +215,9 @@ uninstall-html:
+ 		rm -f "$(DESTDIR)$(htmldir_)/$$f".*; \
+ 	done;
+ 
+-.PHONY: clean
+-clean:
+-	find man?/ -type f \
+-	|while read f; do \
+-		rm -f "$(htmlbuilddir)/$$f".*; \
+-	done;
++
++################################################################################
++# tests
+ 
+ # Check if groff reports warnings (may be words of sentences not displayed)
+ # from https://lintian.debian.org/tags/groff-message.html
+diff --git a/README b/README
+index 6598170c0..b8c7d6edc 100644
+--- a/README
++++ b/README
+@@ -17,7 +17,8 @@ For further information on contributing, see the CONTRIBUTING file.
+ 
+ Installing and uninstalling
+ ===========================
+-"make install" will copy these man pages to /usr/local/share/man/man[1-8].
++"make", "make all", or "make install" will copy these man pages to
++/usr/local/share/man/man[1-8].
+ 
+ To install to a path different from /usr/local, use
+ "make install prefix=/install/path".
+@@ -26,8 +27,9 @@ To install to a path different from /usr/local, use
+ distribution from its destination.  Use with caution, and remember to
+ use "prefix" if desired, as with the "install" target.
+ 
+-"make" or "make all" will perform "make uninstall" followed by "make
+-install".
++To install only a specific man section (mandir) such as man3, use
++"make install-man3".  Similar syntax can be used to uninstall a
++specific man section, such as man7: "make uninstall-man7".
+ 
+ Copyrights
+ ==========
 -- 
-2.32.0.rc1.229.g3e70b5a671-goog
+2.31.1
 
