@@ -2,59 +2,56 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DCB9D39E48B
-	for <lists+linux-man@lfdr.de>; Mon,  7 Jun 2021 18:52:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4D62239E648
+	for <lists+linux-man@lfdr.de>; Mon,  7 Jun 2021 20:14:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231465AbhFGQxo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 7 Jun 2021 12:53:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56784 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230306AbhFGQxn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Jun 2021 12:53:43 -0400
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BD17CC061766
-        for <linux-man@vger.kernel.org>; Mon,  7 Jun 2021 09:51:38 -0700 (PDT)
-Received: by mail-wr1-x42a.google.com with SMTP id y7so13775390wrh.7
-        for <linux-man@vger.kernel.org>; Mon, 07 Jun 2021 09:51:38 -0700 (PDT)
+        id S230256AbhFGSPu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 7 Jun 2021 14:15:50 -0400
+Received: from mail-wm1-f49.google.com ([209.85.128.49]:56191 "EHLO
+        mail-wm1-f49.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230212AbhFGSPu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Jun 2021 14:15:50 -0400
+Received: by mail-wm1-f49.google.com with SMTP id g204so218435wmf.5
+        for <linux-man@vger.kernel.org>; Mon, 07 Jun 2021 11:13:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=z9URxp4wFDKgsE6BW4iY/a0pAA8ZiYHxahh3VHQh/0w=;
-        b=OWWMiSS8+2UedFoITNwA6MyxBXAuY7bpFHTFAoBgMFu4GzNsATQcohqLWphG2uC8W4
-         RtxchLspZikWFK2fTGeFdxaJz53CAo0GAtule2GIXt5L1qr3Til8gx+OUow689ds9dyQ
-         FqbDdEZnblEeeR7Q52QXgq2RSN73OCUe+j7ItwNcFHsCOQOYeZtCOQj/sws1ovB95icx
-         kJhFy+zGAzuhILS/3ZUFrXzrj2F82k+FQx9A8wm0VseOTpMPdPqufepcN8iuD2uNXtlh
-         KFAiDMOPpo5jbPwaheWzEBuU6NfbPtGZbmSAKhX0QjrACLNpr1+ivmAOKM61FrKWw7sB
-         eDFw==
+        bh=JJoymliPI8o2OkPKYPGGYpneB+Dl2ZWehpg81LEh3t0=;
+        b=GZMO4zyo3ENEwI7OCef6XUR9fozRvbFpFbwrph6/O7SmHmGqLKW8IC0eA27pa2psvJ
+         wFbl0Rw3T/7De1CV1ISoFy3qBPQPeWESVS2j+9ktekHV0v9hWTP+ifyWhmGpPxpSNVx3
+         fXtkNge4LzdhFW6j1+f110s5irzOUSc2l1hznKAMdjOkHDbHFQOljP93TIH1bVqRvSok
+         oMHs6T0IvUy9S63fcNQHUHaVGnAm5MGSC+zqlFwQsCmzvLAoplHZrr3nME8SHSjqENKX
+         XWmzDnMZEStdbWWsS6PLaJfN0kSB2nnSCi3xj7p4gPfSFUJbvNVQ84c89PE0UF/LsWKJ
+         wuOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=z9URxp4wFDKgsE6BW4iY/a0pAA8ZiYHxahh3VHQh/0w=;
-        b=Bgngjw9SIjEAuOgNr5piFStKl3BA7ox/taXuH8feC0HymeA/qVrlfCGbV4/5IzBiuc
-         PcRRPy+ji0PrmBZLsWZ3zyPsgoxGDRUwpkC1FgmIJdXJxfbagF1GPG91FfeDxYJ25jsL
-         ODGU8ttDMch/DaCklMLca23c3oQUMYe+nzaRXWjjx5LZdzdS7hyhjJeiNUsJ6dPvz4DE
-         hkp7TXx+RXqGeNn5jM+gNQ6ot4CKp2zh64na+iOl1ckN3+CTfRM9gEB2L7cO5NnfLbhM
-         1lC1ts+LtnwiFW3lXlD0Y/Rol0gmOf1v9Px+sB5ldE0NVaL24id/lE/frCunXzpa4RJ/
-         mQaw==
-X-Gm-Message-State: AOAM5333rsu8Sn9JutfiDVcGT4UoyKEDlmKR1OWcXLQfODkengXJ/zbp
-        F6rY0HgRPNRI2fMV8QkpQqI=
-X-Google-Smtp-Source: ABdhPJy/QRtKqg4rZVCdV2j3M33NrArg0j89wiQ3v6Ew/biJSzSMAOZmdrBkuR9iDgabAROoRQEflw==
-X-Received: by 2002:a5d:664c:: with SMTP id f12mr17809644wrw.206.1623084697333;
-        Mon, 07 Jun 2021 09:51:37 -0700 (PDT)
+        bh=JJoymliPI8o2OkPKYPGGYpneB+Dl2ZWehpg81LEh3t0=;
+        b=qdWLsG+zkAQweIaB76b2mJ9ovoHXsHLR8d21MYdi5XRu/jX7gWc1jhzOqyxBwSsg0p
+         zHu/mCKNRCH8mS9sSqma1MSjURnOAaS396J/Z95DhM7baQzIOeo8kjpDb36URFO4K03l
+         6KU/vCmdc69cfMsc2lwNeiuNoZmcT46ga0PzfCXESs82I5++dGVvyvYK/opMsxnHuA9m
+         qiD2e7rjW6HdRASYsayjbMtFzkhlVYZoRacOJSy4KM9Dci6rLDgm22T3m0NItQY9Bcyc
+         QvvrBueNAcT8V23SZvO2VkW6eF1EWt0zvFihoEBZXcOzVbxZJ2QEWPo8ymSK6utIMTJB
+         j0bw==
+X-Gm-Message-State: AOAM531+joPPOgosmwHNov4aWbk0fGpRneIBhQPY4lkn6il1NuLlTX25
+        b9SXZJcjFlfQwjA4u1WD2pw=
+X-Google-Smtp-Source: ABdhPJx1kikttwfEB6Ledd4kZhcnstnHcoj7O5KqzIBFxxjf7FNo0Y/igzgSmZd33uLfcdl0HePLDA==
+X-Received: by 2002:a05:600c:2199:: with SMTP id e25mr18089987wme.140.1623089561651;
+        Mon, 07 Jun 2021 11:12:41 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id n18sm3775853wmq.41.2021.06.07.09.51.36
+        by smtp.googlemail.com with ESMTPSA id n12sm17115865wrs.19.2021.06.07.11.12.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Jun 2021 09:51:36 -0700 (PDT)
+        Mon, 07 Jun 2021 11:12:41 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org,
         "Dr . Tobias Quathamer" <toddy@debian.org>
-Subject: [PATCH v19] Makefile, README: Break installation into a target for each mandir
-Date:   Mon,  7 Jun 2021 18:49:19 +0200
-Message-Id: <20210607164918.2129333-1-alx.manpages@gmail.com>
+Subject: [PATCH v20] Makefile, README: Break installation into a target for each mandir
+Date:   Mon,  7 Jun 2021 20:12:38 +0200
+Message-Id: <20210607181238.2143983-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210604205319.154059-1-alx.manpages@gmail.com>
 References: <20210604205319.154059-1-alx.manpages@gmail.com>
@@ -116,7 +113,7 @@ New Makefile (full clean install):
 	but since when we are working with the man pages there
 	aren't many pages involved, times will be even better.
 
-	Here are some times with a single page changed:
+	Here are some times with a single page changed (touched):
 
 New Makefile (one page touched):
 	~/src/linux/man-pages$ touch man2/membarrier.2
@@ -222,13 +219,19 @@ v19: - Remove `;` and `'` to avoid calling unnecessary shells.
      - Add installdirs again.
      - srcfix: reduce LOC
 
+v20: - Workaround a bug in make 3.81 where a trailing slash is ignored.
+       See <https://ismail.badawi.io/blog/automatic-directory-creation-in-make/>
+       That helps workaround some ambiguity in the rules, wher a rule
+       to uninstall a dir also matched the pattern rule to install that
+       dir.
+
 
  Makefile | 235 ++++++++++++++++++++++++++++++++++++++++++++-----------
  README   |   8 ++
  2 files changed, 199 insertions(+), 44 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 609009715..f491a0197 100644
+index 609009715..5919d0fc0 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1,26 +1,198 @@
@@ -303,7 +306,7 @@ index 609009715..f491a0197 100644
 +	$(MAKE) install
 +
 +
-+%/:
++%/.:
 +	$(info -	INSTALL	$@)
 +	$(INSTALL_DIR) $@
 +
@@ -348,7 +351,7 @@ index 609009715..f491a0197 100644
 +man8pages := $(filter %$(man8ext),$(manpages))
 +
 +.SECONDEXPANSION:
-+$(manpages): $(DESTDIR)$(mandir)/%: $(MANDIR)/% | $$(@D)/
++$(manpages): $(DESTDIR)$(mandir)/%: $(MANDIR)/% | $$(@D)/.
 +	$(info -	INSTALL	$@)
 +	$(INSTALL_DATA) -T $(MANDIR)/$* $@
 +
@@ -389,7 +392,7 @@ index 609009715..f491a0197 100644
 +                    installdirs-man8
 +
 +.PHONY: $(INSTALLDIRS_MANn)
-+$(INSTALLDIRS_MANn): installdirs-%: $(DESTDIR)$(mandir)/%/ | $(DESTDIR)$(mandir)/
++$(INSTALLDIRS_MANn): installdirs-%: $(DESTDIR)$(mandir)/%/. | $(DESTDIR)$(mandir)/.
 +	@:
 +
 +.PHONY: installdirs-man
