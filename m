@@ -2,59 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6557939E656
-	for <lists+linux-man@lfdr.de>; Mon,  7 Jun 2021 20:18:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 13F2E39E926
+	for <lists+linux-man@lfdr.de>; Mon,  7 Jun 2021 23:36:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230306AbhFGSUJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 7 Jun 2021 14:20:09 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47862 "EHLO
+        id S230411AbhFGViU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 7 Jun 2021 17:38:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34778 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230212AbhFGSUJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Jun 2021 14:20:09 -0400
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BF7D8C061787
-        for <linux-man@vger.kernel.org>; Mon,  7 Jun 2021 11:18:17 -0700 (PDT)
-Received: by mail-wr1-x431.google.com with SMTP id r9so1978203wrz.10
-        for <linux-man@vger.kernel.org>; Mon, 07 Jun 2021 11:18:17 -0700 (PDT)
+        with ESMTP id S230359AbhFGViU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Jun 2021 17:38:20 -0400
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 108E9C061574
+        for <linux-man@vger.kernel.org>; Mon,  7 Jun 2021 14:36:14 -0700 (PDT)
+Received: by mail-wr1-x433.google.com with SMTP id r9so2514438wrz.10
+        for <linux-man@vger.kernel.org>; Mon, 07 Jun 2021 14:36:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=kQ+VzKjuzZO+QWvE44bd2ySXlxFVvGaklgYnAwTCVU4=;
-        b=MF/OgEzaUFF8R2/sdNZsDvU8wpGtl5qgNgrJb4qd2NWUhHaAGgaApU5+NBufVZYvoW
-         8H0cGC/j0QoSkiHb1HBrMqqBtqMryJPWz/elbbl2Oo2ZsMyI6OCnbjbbiRq5xoW0QANf
-         KfezHK+/KWJja/1QMTzGSs0czto0riSyjYopfqmRcSCPIu1899q+ChJjuPoESg8Zw7TX
-         VhZwzaVwt9ygm8maIgjKisiEUnYd8ywzJxsgNEWdr7qbyeTHuOmdhBmXPAssabIPg8Jk
-         bAfkWlFcb+q22xmPJ4c7Aw+8g0DF/G9ZLlhH3hfl2rRG0oRjFCwidNhgImK4XjboWHrM
-         uOJw==
+        bh=bMy4qAJ/BM4vW07VL0iv+SYLZM7yov03tm5kegokpec=;
+        b=PWWhpCJ9r+gShW2BOHXOSWOwIlLvafEehIUmGkv2gXHdd1YfwkGYqc6uOvdCT1fGaJ
+         vmEHfTk1+yEFQEy/H3vrGotF7ueAA3GnYfTV8PdiqW3OH3vX3Rmr5opVweP7h6RJGEi2
+         9QHw6p3+AbWwERymjCMX+nANi5KroEmPWj93leL3lpR3Er94HBvEtc0BiAu7Zz+fOvYy
+         k0tkxOpq+0g+LGxVDIp/dVDykkV1TnIeqFUclxNERG9mUTbn5pfSGughq5h/3+HfW7lq
+         Z9q6W8i6W63Yw+5ad/EGV+cbxUK+nViMznY+iJAOvQlENHRSruJpZdPdxUDTppD6gmfu
+         01Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=kQ+VzKjuzZO+QWvE44bd2ySXlxFVvGaklgYnAwTCVU4=;
-        b=moqZpQ3w7OCdTCbhip+qEmYuacnDuZwdEOjMTaQKjK68K5aELoCsT08w+gVZNgX6dy
-         zN6v27MsD2MhbixDDGzQsEhqB6HcYdWlwgPpPN61DqoQgMq1v6BDPsE45Prmnf6O1u9J
-         ZyS1xLG7LdcTn/GunrmrOhBeBrPUM0dUbsCg3fX2KsGYx0m/oljKXjjqCpfJIKFfRVCi
-         Qq/vMrFBAnmSWS43EBrtU+WbxGd+ZoVL4psWYtm2KVaY0p9HxyiRMuNSOqs+MlGzyYg4
-         gbbJlIoM6BfiC6CYjviOeMn8FmoHkDK+kYZt4Mm+ZF/IxRaox7sIQTfuMuwOgxtVFnKj
-         vsXw==
-X-Gm-Message-State: AOAM533vNN+xCycNoPrgmaeV9snXG1NeE+LnpOuEozD85wBGgCdviAiT
-        /svRPnTjkbXXF6UIDnPDGPM=
-X-Google-Smtp-Source: ABdhPJz0onERPRxmSFG4vFyZO0+G+/8TxgY+ljk3Ww86wDCY700k50SDDM/kH9wJCK2sS8lKj+3nIw==
-X-Received: by 2002:adf:f1cb:: with SMTP id z11mr18897570wro.2.1623089894395;
-        Mon, 07 Jun 2021 11:18:14 -0700 (PDT)
+        bh=bMy4qAJ/BM4vW07VL0iv+SYLZM7yov03tm5kegokpec=;
+        b=S4REupPTi3zAGSEyQ9dAdEsUiqgQVd2/PCTO40v4a6zbDWAcfOv3g/fx8VUb13MjKC
+         ngyKzngO8Ej4cJCkt8Cgr93cmLpF9GKAYyk8XCoGxM3T4mDbN4bS+Iy1hN+vUa/bGJ5u
+         uEmxtHWDjsY5vUdFz7YxsFZDNFMLL4rqDPiDr8L7xUL9xaz318Vpz1LhmXZqt47+Bp6T
+         2okn4sLmh7R8hGjfIUMLDnslq+NpeNUEVky8tStjsxacXuVvmJ7XlMVwD2EJuko5Bj8p
+         vnesBNIiJ8vt0AFgGjTQtWzBu+YkWUmnTrAq2HDcaRoy+OXq4e4TNCmDhncHfeeORGsB
+         yj4w==
+X-Gm-Message-State: AOAM533w6ehQXXkXIDWbAN9YfMb4KGuzslkYlGrcsn+2KKIq3H21RFSi
+        d1a+Mfsu6H5ZG96h+M6R/c8=
+X-Google-Smtp-Source: ABdhPJyTCynBsinj75zF3xuukK6RSdCKPxkz5j5ZZr9LPu2X444QQBXoj8dPjWxI7mBOex/rtI2SBg==
+X-Received: by 2002:adf:f346:: with SMTP id e6mr18631401wrp.179.1623101772535;
+        Mon, 07 Jun 2021 14:36:12 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id k5sm2195004wmk.11.2021.06.07.11.18.13
+        by smtp.googlemail.com with ESMTPSA id q3sm17818724wrz.71.2021.06.07.14.36.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Jun 2021 11:18:14 -0700 (PDT)
+        Mon, 07 Jun 2021 14:36:12 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org,
         "Dr . Tobias Quathamer" <toddy@debian.org>
-Subject: [PATCH v21] Makefile, README: Break installation into a target for each mandir
-Date:   Mon,  7 Jun 2021 20:18:04 +0200
-Message-Id: <20210607181803.2154443-1-alx.manpages@gmail.com>
+Subject: [PATCH v22] Makefile, README: Break installation into a target for each mandir
+Date:   Mon,  7 Jun 2021 23:36:09 +0200
+Message-Id: <20210607213609.90785-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210604205319.154059-1-alx.manpages@gmail.com>
 References: <20210604205319.154059-1-alx.manpages@gmail.com>
@@ -138,6 +138,12 @@ Also, modify the output of the make install and uninstall commands
 so that a line is output for each file or directory that is
 installed, similarly to the kernel's Makefile.  This doesn't apply
 to html targets, which haven't been changed in this commit.
+
+Also, make sure that for each invokation of $(INSTALL_DIR), no
+parents are created, (i.e., avoid `mkdir -p` behavior).  The GNU
+make manual states that it can create race conditions.  Instead,
+declare as a prerequisite for each directory its parent directory,
+and let make resolve the order of creation.
 
 Also, use ':=' instead of '=' to improve performance, by
 evaluating each assignment only once.
@@ -230,16 +236,21 @@ v20: - Workaround a bug in make 3.81 where a trailing slash is ignored.
 
 v21: - ffix
 
+v22: - Avoid race conditions, by avoiding `mkdir -p` behavior.
+     - Reduce LOCs by using make's `$(foreach ...)` and `.SECONDEXPANSION:`.
+     - Add an empty recipe for each target that does nothing but declare
+       dependencies, to avoid implicit rules.
 
- Makefile | 235 ++++++++++++++++++++++++++++++++++++++++++++-----------
- README   |   8 ++
- 2 files changed, 199 insertions(+), 44 deletions(-)
+
+ Makefile | 203 +++++++++++++++++++++++++++++++++++++++++++------------
+ README   |   8 +++
+ 2 files changed, 167 insertions(+), 44 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 609009715..16ddd4f01 100644
+index 609009715..b5ff7e237 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1,26 +1,198 @@
+@@ -1,26 +1,166 @@
 -# Do not print "Entering directory ..."
  MAKEFLAGS += --no-print-directory
 +MAKEFLAGS += --silent
@@ -298,6 +309,8 @@ index 609009715..16ddd4f01 100644
 +INSTALL_DIR := $(INSTALL) -m 755 -d
 +RM := rm -f
 +RMDIR := rmdir --ignore-fail-on-non-empty
++
++MAN_SECTIONS := 1 2 3 4 5 6 7 8
  
 -INSTALL = install
 -INSTALL_DATA = $(INSTALL) -m 644
@@ -311,19 +324,22 @@ index 609009715..16ddd4f01 100644
 +	$(MAKE) install
 +
 +
-+%/.:
++%/.: $(dir %).
 +	$(info -	INSTALL	$*/)
 +	$(INSTALL_DIR) $*/
 +
 +
 +.PHONY: install
 +install: install-man | installdirs
++	@:
 +
 +.PHONY: installdirs
 +installdirs: | installdirs-man
++	@:
 +
 +.PHONY: uninstall remove
 +uninstall remove: uninstall-man
++	@:
 +
 +.PHONY: clean
 +clean:
@@ -361,25 +377,10 @@ index 609009715..16ddd4f01 100644
 +	$(INSTALL_DATA) -T $(MANDIR)/$* $@
 +
 +
-+INSTALL_MANn := install-man1 \
-+                install-man2 \
-+                install-man3 \
-+                install-man4 \
-+                install-man5 \
-+                install-man6 \
-+                install-man7 \
-+                install-man8
++INSTALL_MANn := $(foreach i,$(MAN_SECTIONS),install-man$(i))
 +
 +.PHONY: $(INSTALL_MANn)
-+install-man1: $(man1pages)
-+install-man2: $(man2pages)
-+install-man3: $(man3pages)
-+install-man4: $(man4pages)
-+install-man5: $(man5pages)
-+install-man6: $(man6pages)
-+install-man7: $(man7pages)
-+install-man8: $(man8pages)
-+$(INSTALL_MANn): install-%: | installdirs-%
++$(INSTALL_MANn): install-%: $$(%pages) | installdirs-%
 +	@:
 +
 +.PHONY: install-man
@@ -387,14 +388,7 @@ index 609009715..16ddd4f01 100644
 +	@:
 +
 +
-+INSTALLDIRS_MANn := installdirs-man1 \
-+                    installdirs-man2 \
-+                    installdirs-man3 \
-+                    installdirs-man4 \
-+                    installdirs-man5 \
-+                    installdirs-man6 \
-+                    installdirs-man7 \
-+                    installdirs-man8
++INSTALLDIRS_MANn := $(foreach i,$(MAN_SECTIONS),installdirs-man$(i))
 +
 +.PHONY: $(INSTALLDIRS_MANn)
 +$(INSTALLDIRS_MANn): installdirs-%: $(DESTDIR)$(mandir)/%/. | $(DESTDIR)$(mandir)/.
@@ -421,25 +415,10 @@ index 609009715..16ddd4f01 100644
 +	$(RM) $*
 +
 +
-+UNINSTALL_MANn := uninstall-man1 \
-+                  uninstall-man2 \
-+                  uninstall-man3 \
-+                  uninstall-man4 \
-+                  uninstall-man5 \
-+                  uninstall-man6 \
-+                  uninstall-man7 \
-+                  uninstall-man8
++UNINSTALL_MANn := $(foreach i,$(MAN_SECTIONS),uninstall-man$(i))
 +
 +.PHONY: $(UNINSTALL_MANn)
-+uninstall-man1: $(uninstall_man1pages)
-+uninstall-man2: $(uninstall_man2pages)
-+uninstall-man3: $(uninstall_man3pages)
-+uninstall-man4: $(uninstall_man4pages)
-+uninstall-man5: $(uninstall_man5pages)
-+uninstall-man6: $(uninstall_man6pages)
-+uninstall-man7: $(uninstall_man7pages)
-+uninstall-man8: $(uninstall_man8pages)
-+$(UNINSTALL_MANn): uninstall-%:
++$(UNINSTALL_MANn): uninstall-%: $$(uninstall_%pages)
 +	$(info -	RMDIR	$(DESTDIR)$(mandir)/$*/)
 +	$(RMDIR) $(DESTDIR)$(mandir)/$*/ 2>/dev/null ||:
 +
@@ -454,7 +433,7 @@ index 609009715..16ddd4f01 100644
  
  # Use with
  #  make HTOPTS=whatever html
-@@ -57,28 +229,6 @@ installdirs-html:
+@@ -57,28 +197,6 @@ installdirs-html:
  		$(INSTALL_DIR) "$(DESTDIR)$(htmldir_)/$$d" || exit $$?; \
  	done;
  
@@ -483,7 +462,7 @@ index 609009715..16ddd4f01 100644
  .PHONY: uninstall-html
  uninstall-html:
  	find man?/ -type f \
-@@ -86,12 +236,9 @@ uninstall-html:
+@@ -86,12 +204,9 @@ uninstall-html:
  		rm -f "$(DESTDIR)$(htmldir_)/$$f".* || exit $$?; \
  	done;
  
