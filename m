@@ -2,56 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4D62239E648
-	for <lists+linux-man@lfdr.de>; Mon,  7 Jun 2021 20:14:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6557939E656
+	for <lists+linux-man@lfdr.de>; Mon,  7 Jun 2021 20:18:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230256AbhFGSPu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 7 Jun 2021 14:15:50 -0400
-Received: from mail-wm1-f49.google.com ([209.85.128.49]:56191 "EHLO
-        mail-wm1-f49.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230212AbhFGSPu (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Jun 2021 14:15:50 -0400
-Received: by mail-wm1-f49.google.com with SMTP id g204so218435wmf.5
-        for <linux-man@vger.kernel.org>; Mon, 07 Jun 2021 11:13:42 -0700 (PDT)
+        id S230306AbhFGSUJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 7 Jun 2021 14:20:09 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47862 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230212AbhFGSUJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Jun 2021 14:20:09 -0400
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BF7D8C061787
+        for <linux-man@vger.kernel.org>; Mon,  7 Jun 2021 11:18:17 -0700 (PDT)
+Received: by mail-wr1-x431.google.com with SMTP id r9so1978203wrz.10
+        for <linux-man@vger.kernel.org>; Mon, 07 Jun 2021 11:18:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=JJoymliPI8o2OkPKYPGGYpneB+Dl2ZWehpg81LEh3t0=;
-        b=GZMO4zyo3ENEwI7OCef6XUR9fozRvbFpFbwrph6/O7SmHmGqLKW8IC0eA27pa2psvJ
-         wFbl0Rw3T/7De1CV1ISoFy3qBPQPeWESVS2j+9ktekHV0v9hWTP+ifyWhmGpPxpSNVx3
-         fXtkNge4LzdhFW6j1+f110s5irzOUSc2l1hznKAMdjOkHDbHFQOljP93TIH1bVqRvSok
-         oMHs6T0IvUy9S63fcNQHUHaVGnAm5MGSC+zqlFwQsCmzvLAoplHZrr3nME8SHSjqENKX
-         XWmzDnMZEStdbWWsS6PLaJfN0kSB2nnSCi3xj7p4gPfSFUJbvNVQ84c89PE0UF/LsWKJ
-         wuOQ==
+        bh=kQ+VzKjuzZO+QWvE44bd2ySXlxFVvGaklgYnAwTCVU4=;
+        b=MF/OgEzaUFF8R2/sdNZsDvU8wpGtl5qgNgrJb4qd2NWUhHaAGgaApU5+NBufVZYvoW
+         8H0cGC/j0QoSkiHb1HBrMqqBtqMryJPWz/elbbl2Oo2ZsMyI6OCnbjbbiRq5xoW0QANf
+         KfezHK+/KWJja/1QMTzGSs0czto0riSyjYopfqmRcSCPIu1899q+ChJjuPoESg8Zw7TX
+         VhZwzaVwt9ygm8maIgjKisiEUnYd8ywzJxsgNEWdr7qbyeTHuOmdhBmXPAssabIPg8Jk
+         bAfkWlFcb+q22xmPJ4c7Aw+8g0DF/G9ZLlhH3hfl2rRG0oRjFCwidNhgImK4XjboWHrM
+         uOJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=JJoymliPI8o2OkPKYPGGYpneB+Dl2ZWehpg81LEh3t0=;
-        b=qdWLsG+zkAQweIaB76b2mJ9ovoHXsHLR8d21MYdi5XRu/jX7gWc1jhzOqyxBwSsg0p
-         zHu/mCKNRCH8mS9sSqma1MSjURnOAaS396J/Z95DhM7baQzIOeo8kjpDb36URFO4K03l
-         6KU/vCmdc69cfMsc2lwNeiuNoZmcT46ga0PzfCXESs82I5++dGVvyvYK/opMsxnHuA9m
-         qiD2e7rjW6HdRASYsayjbMtFzkhlVYZoRacOJSy4KM9Dci6rLDgm22T3m0NItQY9Bcyc
-         QvvrBueNAcT8V23SZvO2VkW6eF1EWt0zvFihoEBZXcOzVbxZJ2QEWPo8ymSK6utIMTJB
-         j0bw==
-X-Gm-Message-State: AOAM531+joPPOgosmwHNov4aWbk0fGpRneIBhQPY4lkn6il1NuLlTX25
-        b9SXZJcjFlfQwjA4u1WD2pw=
-X-Google-Smtp-Source: ABdhPJx1kikttwfEB6Ledd4kZhcnstnHcoj7O5KqzIBFxxjf7FNo0Y/igzgSmZd33uLfcdl0HePLDA==
-X-Received: by 2002:a05:600c:2199:: with SMTP id e25mr18089987wme.140.1623089561651;
-        Mon, 07 Jun 2021 11:12:41 -0700 (PDT)
+        bh=kQ+VzKjuzZO+QWvE44bd2ySXlxFVvGaklgYnAwTCVU4=;
+        b=moqZpQ3w7OCdTCbhip+qEmYuacnDuZwdEOjMTaQKjK68K5aELoCsT08w+gVZNgX6dy
+         zN6v27MsD2MhbixDDGzQsEhqB6HcYdWlwgPpPN61DqoQgMq1v6BDPsE45Prmnf6O1u9J
+         ZyS1xLG7LdcTn/GunrmrOhBeBrPUM0dUbsCg3fX2KsGYx0m/oljKXjjqCpfJIKFfRVCi
+         Qq/vMrFBAnmSWS43EBrtU+WbxGd+ZoVL4psWYtm2KVaY0p9HxyiRMuNSOqs+MlGzyYg4
+         gbbJlIoM6BfiC6CYjviOeMn8FmoHkDK+kYZt4Mm+ZF/IxRaox7sIQTfuMuwOgxtVFnKj
+         vsXw==
+X-Gm-Message-State: AOAM533vNN+xCycNoPrgmaeV9snXG1NeE+LnpOuEozD85wBGgCdviAiT
+        /svRPnTjkbXXF6UIDnPDGPM=
+X-Google-Smtp-Source: ABdhPJz0onERPRxmSFG4vFyZO0+G+/8TxgY+ljk3Ww86wDCY700k50SDDM/kH9wJCK2sS8lKj+3nIw==
+X-Received: by 2002:adf:f1cb:: with SMTP id z11mr18897570wro.2.1623089894395;
+        Mon, 07 Jun 2021 11:18:14 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id n12sm17115865wrs.19.2021.06.07.11.12.40
+        by smtp.googlemail.com with ESMTPSA id k5sm2195004wmk.11.2021.06.07.11.18.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Jun 2021 11:12:41 -0700 (PDT)
+        Mon, 07 Jun 2021 11:18:14 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org,
         "Dr . Tobias Quathamer" <toddy@debian.org>
-Subject: [PATCH v20] Makefile, README: Break installation into a target for each mandir
-Date:   Mon,  7 Jun 2021 20:12:38 +0200
-Message-Id: <20210607181238.2143983-1-alx.manpages@gmail.com>
+Subject: [PATCH v21] Makefile, README: Break installation into a target for each mandir
+Date:   Mon,  7 Jun 2021 20:18:04 +0200
+Message-Id: <20210607181803.2154443-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210604205319.154059-1-alx.manpages@gmail.com>
 References: <20210604205319.154059-1-alx.manpages@gmail.com>
@@ -225,13 +228,15 @@ v20: - Workaround a bug in make 3.81 where a trailing slash is ignored.
        to uninstall a dir also matched the pattern rule to install that
        dir.
 
+v21: - ffix
+
 
  Makefile | 235 ++++++++++++++++++++++++++++++++++++++++++++-----------
  README   |   8 ++
  2 files changed, 199 insertions(+), 44 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 609009715..5919d0fc0 100644
+index 609009715..16ddd4f01 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1,26 +1,198 @@
@@ -307,8 +312,8 @@ index 609009715..5919d0fc0 100644
 +
 +
 +%/.:
-+	$(info -	INSTALL	$@)
-+	$(INSTALL_DIR) $@
++	$(info -	INSTALL	$*/)
++	$(INSTALL_DIR) $*/
 +
 +
 +.PHONY: install
