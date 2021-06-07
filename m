@@ -2,59 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 13F2E39E926
-	for <lists+linux-man@lfdr.de>; Mon,  7 Jun 2021 23:36:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8C06739E932
+	for <lists+linux-man@lfdr.de>; Mon,  7 Jun 2021 23:49:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230411AbhFGViU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 7 Jun 2021 17:38:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34778 "EHLO
+        id S230394AbhFGVvS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 7 Jun 2021 17:51:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37590 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230359AbhFGViU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Jun 2021 17:38:20 -0400
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 108E9C061574
-        for <linux-man@vger.kernel.org>; Mon,  7 Jun 2021 14:36:14 -0700 (PDT)
-Received: by mail-wr1-x433.google.com with SMTP id r9so2514438wrz.10
-        for <linux-man@vger.kernel.org>; Mon, 07 Jun 2021 14:36:13 -0700 (PDT)
+        with ESMTP id S231200AbhFGVvR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Jun 2021 17:51:17 -0400
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 397B1C061574
+        for <linux-man@vger.kernel.org>; Mon,  7 Jun 2021 14:49:25 -0700 (PDT)
+Received: by mail-wm1-x331.google.com with SMTP id k5-20020a05600c1c85b02901affeec3ef8so654564wms.0
+        for <linux-man@vger.kernel.org>; Mon, 07 Jun 2021 14:49:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=bMy4qAJ/BM4vW07VL0iv+SYLZM7yov03tm5kegokpec=;
-        b=PWWhpCJ9r+gShW2BOHXOSWOwIlLvafEehIUmGkv2gXHdd1YfwkGYqc6uOvdCT1fGaJ
-         vmEHfTk1+yEFQEy/H3vrGotF7ueAA3GnYfTV8PdiqW3OH3vX3Rmr5opVweP7h6RJGEi2
-         9QHw6p3+AbWwERymjCMX+nANi5KroEmPWj93leL3lpR3Er94HBvEtc0BiAu7Zz+fOvYy
-         k0tkxOpq+0g+LGxVDIp/dVDykkV1TnIeqFUclxNERG9mUTbn5pfSGughq5h/3+HfW7lq
-         Z9q6W8i6W63Yw+5ad/EGV+cbxUK+nViMznY+iJAOvQlENHRSruJpZdPdxUDTppD6gmfu
-         01Iw==
+        bh=tauOGlKVEv3TQpaBJY8/AdBTDqUE941LyPozzNMol40=;
+        b=HA88scmd1lRjGA0mLxewBZ0SGlT1jFfFS2LYs7Tka0NJk00L0yLxcXVyUsfgrakTpM
+         KwqKY+VDMlARUycOFNkrLmElAQWFFthA6D4gSL1jVjqXgq6cDC4dsLUaptdIgcJw06yA
+         QFSo/xrisw9O1TalOPd8DY0x5oVV34HAtnT8mYsJatlzTVpteHcOJMBDGNIy3anwdUrt
+         uGo6yxSE2+QJtsg0CQU7iK1kAIasXMkwUQwMjGdQ6IJBTO9ksASNs9Y7Qu5FyCpq7m1F
+         J8DzhywEf2O1usyyTlp8HduhQ+rv0GoiA8KdfwD+zQNtBCfdpWw01yVzS+kozEI68XeC
+         sdGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=bMy4qAJ/BM4vW07VL0iv+SYLZM7yov03tm5kegokpec=;
-        b=S4REupPTi3zAGSEyQ9dAdEsUiqgQVd2/PCTO40v4a6zbDWAcfOv3g/fx8VUb13MjKC
-         ngyKzngO8Ej4cJCkt8Cgr93cmLpF9GKAYyk8XCoGxM3T4mDbN4bS+Iy1hN+vUa/bGJ5u
-         uEmxtHWDjsY5vUdFz7YxsFZDNFMLL4rqDPiDr8L7xUL9xaz318Vpz1LhmXZqt47+Bp6T
-         2okn4sLmh7R8hGjfIUMLDnslq+NpeNUEVky8tStjsxacXuVvmJ7XlMVwD2EJuko5Bj8p
-         vnesBNIiJ8vt0AFgGjTQtWzBu+YkWUmnTrAq2HDcaRoy+OXq4e4TNCmDhncHfeeORGsB
-         yj4w==
-X-Gm-Message-State: AOAM533w6ehQXXkXIDWbAN9YfMb4KGuzslkYlGrcsn+2KKIq3H21RFSi
-        d1a+Mfsu6H5ZG96h+M6R/c8=
-X-Google-Smtp-Source: ABdhPJyTCynBsinj75zF3xuukK6RSdCKPxkz5j5ZZr9LPu2X444QQBXoj8dPjWxI7mBOex/rtI2SBg==
-X-Received: by 2002:adf:f346:: with SMTP id e6mr18631401wrp.179.1623101772535;
-        Mon, 07 Jun 2021 14:36:12 -0700 (PDT)
+        bh=tauOGlKVEv3TQpaBJY8/AdBTDqUE941LyPozzNMol40=;
+        b=RYCtM9vG6rMfxzkX/7ijlFsn/GBEOTRACyfRELPaqNBHSZbyUmTSvNIJrlAFKqOHHb
+         CTlq09DaHkGh5nF0QoxoQJiMJEJAOWZrRc71PwHQ/k6FN5zfAK86BK2cPomVyi29M3bC
+         4tDd9B9Mh+yE7DNR8zOyMnq+lB6Yp3uF06HFGPrmdq8HSKWuKx2rZvCA5LqGfNWT+MCf
+         J+xcmWcmotRvjF5/Y8ru0S2v4FUvH2xe1OHwhzZ3IFf9lJ9OFHOpHufRa+UalImS6ujB
+         W883vPSFhDfiHiF4VjpuWtVU8N9hnaEJBAUnAa/DvmoYMbS4jcxXF6muOszjKxUQNK7c
+         JHtQ==
+X-Gm-Message-State: AOAM531RDToBFjUZwKOk327TbozizxUiPs6vTMh4YFfNfYuPGb77CmmG
+        iLjMV/uh1sM+zvquYW+ABz0=
+X-Google-Smtp-Source: ABdhPJw84pqUQMXF8/Ct7uUbU9TCtz7+MtUdkZrDuQx4s/W1kCotPNl33b4oOXq3o7zKdJ4+8wdTXw==
+X-Received: by 2002:a1c:c911:: with SMTP id f17mr19013230wmb.60.1623102563618;
+        Mon, 07 Jun 2021 14:49:23 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id q3sm17818724wrz.71.2021.06.07.14.36.11
+        by smtp.googlemail.com with ESMTPSA id f5sm20343403wrf.22.2021.06.07.14.49.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Jun 2021 14:36:12 -0700 (PDT)
+        Mon, 07 Jun 2021 14:49:23 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org,
         "Dr . Tobias Quathamer" <toddy@debian.org>
-Subject: [PATCH v22] Makefile, README: Break installation into a target for each mandir
-Date:   Mon,  7 Jun 2021 23:36:09 +0200
-Message-Id: <20210607213609.90785-1-alx.manpages@gmail.com>
+Subject: [PATCH v23] Makefile, README: Break installation into a target for each mandir
+Date:   Mon,  7 Jun 2021 23:49:19 +0200
+Message-Id: <20210607214919.91463-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210604205319.154059-1-alx.manpages@gmail.com>
 References: <20210604205319.154059-1-alx.manpages@gmail.com>
@@ -241,16 +241,18 @@ v22: - Avoid race conditions, by avoiding `mkdir -p` behavior.
      - Add an empty recipe for each target that does nothing but declare
        dependencies, to avoid implicit rules.
 
+v23: - Remove unused variables
 
- Makefile | 203 +++++++++++++++++++++++++++++++++++++++++++------------
+
+ Makefile | 194 ++++++++++++++++++++++++++++++++++++++++++-------------
  README   |   8 +++
- 2 files changed, 167 insertions(+), 44 deletions(-)
+ 2 files changed, 158 insertions(+), 44 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 609009715..b5ff7e237 100644
+index 609009715..4632d904c 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1,26 +1,166 @@
+@@ -1,26 +1,157 @@
 -# Do not print "Entering directory ..."
  MAKEFLAGS += --no-print-directory
 +MAKEFLAGS += --silent
@@ -352,15 +354,6 @@ index 609009715..b5ff7e237 100644
 +# man
 +
 +MANPAGES  := $(shell find $(MANDIR)/man?/ -type f | grep '$(manext)$$' | sort)
-+MAN1PAGES := $(filter %$(man1ext),$(MANPAGES))
-+MAN2PAGES := $(filter %$(man2ext),$(MANPAGES))
-+MAN3PAGES := $(filter %$(man3ext),$(MANPAGES))
-+MAN4PAGES := $(filter %$(man4ext),$(MANPAGES))
-+MAN5PAGES := $(filter %$(man5ext),$(MANPAGES))
-+MAN6PAGES := $(filter %$(man6ext),$(MANPAGES))
-+MAN7PAGES := $(filter %$(man7ext),$(MANPAGES))
-+MAN8PAGES := $(filter %$(man8ext),$(MANPAGES))
-+
 +manpages  := $(patsubst $(MANDIR)/%,$(DESTDIR)$(mandir)/%,$(MANPAGES))
 +man1pages := $(filter %$(man1ext),$(manpages))
 +man2pages := $(filter %$(man2ext),$(manpages))
@@ -433,7 +426,7 @@ index 609009715..b5ff7e237 100644
  
  # Use with
  #  make HTOPTS=whatever html
-@@ -57,28 +197,6 @@ installdirs-html:
+@@ -57,28 +188,6 @@ installdirs-html:
  		$(INSTALL_DIR) "$(DESTDIR)$(htmldir_)/$$d" || exit $$?; \
  	done;
  
@@ -462,7 +455,7 @@ index 609009715..b5ff7e237 100644
  .PHONY: uninstall-html
  uninstall-html:
  	find man?/ -type f \
-@@ -86,12 +204,9 @@ uninstall-html:
+@@ -86,12 +195,9 @@ uninstall-html:
  		rm -f "$(DESTDIR)$(htmldir_)/$$f".* || exit $$?; \
  	done;
  
