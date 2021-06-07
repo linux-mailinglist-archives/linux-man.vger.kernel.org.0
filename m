@@ -2,497 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8C06739E932
-	for <lists+linux-man@lfdr.de>; Mon,  7 Jun 2021 23:49:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 70DBC39E975
+	for <lists+linux-man@lfdr.de>; Tue,  8 Jun 2021 00:19:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230394AbhFGVvS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 7 Jun 2021 17:51:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37590 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231200AbhFGVvR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Jun 2021 17:51:17 -0400
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 397B1C061574
-        for <linux-man@vger.kernel.org>; Mon,  7 Jun 2021 14:49:25 -0700 (PDT)
-Received: by mail-wm1-x331.google.com with SMTP id k5-20020a05600c1c85b02901affeec3ef8so654564wms.0
-        for <linux-man@vger.kernel.org>; Mon, 07 Jun 2021 14:49:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=tauOGlKVEv3TQpaBJY8/AdBTDqUE941LyPozzNMol40=;
-        b=HA88scmd1lRjGA0mLxewBZ0SGlT1jFfFS2LYs7Tka0NJk00L0yLxcXVyUsfgrakTpM
-         KwqKY+VDMlARUycOFNkrLmElAQWFFthA6D4gSL1jVjqXgq6cDC4dsLUaptdIgcJw06yA
-         QFSo/xrisw9O1TalOPd8DY0x5oVV34HAtnT8mYsJatlzTVpteHcOJMBDGNIy3anwdUrt
-         uGo6yxSE2+QJtsg0CQU7iK1kAIasXMkwUQwMjGdQ6IJBTO9ksASNs9Y7Qu5FyCpq7m1F
-         J8DzhywEf2O1usyyTlp8HduhQ+rv0GoiA8KdfwD+zQNtBCfdpWw01yVzS+kozEI68XeC
-         sdGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=tauOGlKVEv3TQpaBJY8/AdBTDqUE941LyPozzNMol40=;
-        b=RYCtM9vG6rMfxzkX/7ijlFsn/GBEOTRACyfRELPaqNBHSZbyUmTSvNIJrlAFKqOHHb
-         CTlq09DaHkGh5nF0QoxoQJiMJEJAOWZrRc71PwHQ/k6FN5zfAK86BK2cPomVyi29M3bC
-         4tDd9B9Mh+yE7DNR8zOyMnq+lB6Yp3uF06HFGPrmdq8HSKWuKx2rZvCA5LqGfNWT+MCf
-         J+xcmWcmotRvjF5/Y8ru0S2v4FUvH2xe1OHwhzZ3IFf9lJ9OFHOpHufRa+UalImS6ujB
-         W883vPSFhDfiHiF4VjpuWtVU8N9hnaEJBAUnAa/DvmoYMbS4jcxXF6muOszjKxUQNK7c
-         JHtQ==
-X-Gm-Message-State: AOAM531RDToBFjUZwKOk327TbozizxUiPs6vTMh4YFfNfYuPGb77CmmG
-        iLjMV/uh1sM+zvquYW+ABz0=
-X-Google-Smtp-Source: ABdhPJw84pqUQMXF8/Ct7uUbU9TCtz7+MtUdkZrDuQx4s/W1kCotPNl33b4oOXq3o7zKdJ4+8wdTXw==
-X-Received: by 2002:a1c:c911:: with SMTP id f17mr19013230wmb.60.1623102563618;
-        Mon, 07 Jun 2021 14:49:23 -0700 (PDT)
-Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id f5sm20343403wrf.22.2021.06.07.14.49.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Jun 2021 14:49:23 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org,
-        "Dr . Tobias Quathamer" <toddy@debian.org>
-Subject: [PATCH v23] Makefile, README: Break installation into a target for each mandir
-Date:   Mon,  7 Jun 2021 23:49:19 +0200
-Message-Id: <20210607214919.91463-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210604205319.154059-1-alx.manpages@gmail.com>
-References: <20210604205319.154059-1-alx.manpages@gmail.com>
+        id S230291AbhFGWVp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 7 Jun 2021 18:21:45 -0400
+Received: from youngberry.canonical.com ([91.189.89.112]:36621 "EHLO
+        youngberry.canonical.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230261AbhFGWVp (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Jun 2021 18:21:45 -0400
+Received: from 2.general.dannf.us.vpn ([10.172.65.1] helo=localhost)
+        by youngberry.canonical.com with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+        (Exim 4.93)
+        (envelope-from <dann.frazier@canonical.com>)
+        id 1lqNb5-0000Hj-U1; Mon, 07 Jun 2021 22:19:52 +0000
+From:   dann frazier <dann.frazier@canonical.com>
+To:     linux-man@vger.kernel.org,
+        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        David Howells <dhowells@redhat.com>,
+        Heinrich Schuchardt <xypron.glpk@gmx.de>
+Cc:     linux-kernel@vger.kernel.org,
+        Pedro Principeza <pedro.principeza@canonical.com>
+Subject: [PATCH] kernel_lockdown.7: Remove additional text alluding to lifting via SysRq
+Date:   Mon,  7 Jun 2021 16:19:43 -0600
+Message-Id: <20210607221943.78414-1-dann.frazier@canonical.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Instead of having a monolithic 'make install', break it into
-multiple targets such as 'make install-man3'.  This simplifies
-packaging, for example in Debian, where they break this project
-into several packages: 'manpages' and 'manpages-dev', each
-containinng different mandirs.
+My previous patch intended to drop the docs for the lockdown lift SysRq,
+but it missed this other section that refers to lifting it via a keyboard -
+an allusion to that same SysRq.
 
-The above allows for multithread installation: 'make -j8'
-
-Also, don't overwrite files that don't need to be overwritten, by
-having a target for files, which makes use of make's timestamp
-comparison.
-
-This allows for much faster installation times.
-
-For comparison, on my laptop (i7-8850H; 6C/12T):
-
-Old Makefile:
-	~/src/linux/man-pages$ time sudo make >/dev/null
-
-	real	0m7.509s
-	user	0m5.269s
-	sys	0m2.614s
-
-	The times with the old makefile, varied a lot, between
-	5 and 10 seconds.  The times after applying this patch
-	are much more consistent.  BTW, I compared these times to
-	the very old Makefile of man-pages-5-09, and those were
-	around 3.5 s, so it was a bit of my fault to have such a
-	slow Makefile, when I changed the Makefile some weeks ago.
-
-New Makefile (full clean install):
-	~/src/linux/man-pages$ time sudo make >/dev/null
-
-	real	0m5.072s
-	user	0m4.356s
-	sys	0m0.980s
-	~/src/linux/man-pages$ time sudo make -j2 >/dev/null
-
-	real	0m1.688s
-	user	0m2.616s
-	sys	0m0.283s
-	~/src/linux/man-pages$ time sudo make -j >/dev/null
-
-	real	0m1.468s
-	user	0m2.579s
-	sys	0m0.289s
-
-	Here we can see that 'make -j' drops times drastically,
-	compared to the old monolithic Makefile.  Not only that,
-	but since when we are working with the man pages there
-	aren't many pages involved, times will be even better.
-
-	Here are some times with a single page changed (touched):
-
-New Makefile (one page touched):
-	~/src/linux/man-pages$ touch man2/membarrier.2
-	~/src/linux/man-pages$ time sudo make install
-	-	INSTALL	/usr/local/share/man/man2/membarrier.2
-
-	real	0m0.976s
-	user	0m0.952s
-	sys	0m0.027s
-	~/src/linux/man-pages$ touch man2/membarrier.2
-	~/src/linux/man-pages$ time sudo make -j install
-	-	INSTALL	/usr/local/share/man/man2/membarrier.2
-
-	real	0m0.967s
-	user	0m0.964s
-	sys	0m0.007s
-
-Also, modify the output of the make install and uninstall commands
-so that a line is output for each file or directory that is
-installed, similarly to the kernel's Makefile.  This doesn't apply
-to html targets, which haven't been changed in this commit.
-
-Also, make sure that for each invokation of $(INSTALL_DIR), no
-parents are created, (i.e., avoid `mkdir -p` behavior).  The GNU
-make manual states that it can create race conditions.  Instead,
-declare as a prerequisite for each directory its parent directory,
-and let make resolve the order of creation.
-
-Also, use ':=' instead of '=' to improve performance, by
-evaluating each assignment only once.
-
-Ensure than the shell is not called when not needed, by removing
-all ";" and quotes in the commands.
-
-See also: <https://stackoverflow.com/q/67862417/6872717>
-
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+Signed-off-by: dann frazier <dann.frazier@canonical.com>
 ---
+ man7/kernel_lockdown.7 | 3 ---
+ 1 file changed, 3 deletions(-)
 
-
-v2:  - Revert changes to 'make [all]', as it might break existing
-       scripts.
-
-v3:  - Remove unnecessary target installdirs (its functionality has been
-       superseeded by installdirs-man).
-
-v4:  - srcfix
-
-v5:  - wsfix
-     - Remove duplicate echo
-
-v6:  - Add paragraph to commit msg.
-
-v7:  - Output which files are removed (one RM line for each file)
-     - Add manext variable, to avoid repeating the \.[0-9] regex.
-     - Don't use ?=.  It's ugly, and makes no tangible effects
-       (I tested that the times are the same).
-
-v8:  - wsfix
-     - Replace small shell scripts by proper Makefile dependencies
-       and helper targets.
-
-v9:  - wsfix
-     - Sort files, so that the installation is more predictable, and
-       thus, one can guess the progress of the install by the filenames
-       in the log.
-
-v10: - srcfix: use patsubst instead of addprefix + notdir, to be more
-       clear.
-
-v11: - Reorder things a bit to make it easier to read.
-     - Remove an unnecessary dependency.
-
-v12: - tfix
-
-v13: - Remove unused variable: manext
-     - Define undefined variables: man[1-8]ext
-     - A few minor srcfix
-     - Add times comparison and output examples to commit msg.
-
-v14: - Replace '=' with ':=' to improve performance.
-       Times in commit msg updated for this change.
-     - Add a note in the README that installation should use
-       multiple threads for performance reasons.
-
-v15: - Move some code into variables (times didn't change considerably).
-
-v16: - Add missing .PHONY: $(uninstall_manpages)
-
-v17: - Replace *_MANN by *_MANn, which is more readable.
-
-v18: - Don't use bash(1).  We don't need pipefail now that I simplified
-       the targets to have simple separate commands.  make(1) will
-       now break installation if anything fails.  This cut times by
-       around 40%.
-     - Don't call echo(1).  Invoking a shell just to call echo(1) for
-       every file is too expensive.  Use make(1)'s $(info ...) function.
-       This cut times by another 40%.
-     - Update the commit msg to reflect the times after these changes.
-       For a single thread, it's using around a third of the time that
-       v17 needed.
-     - v18 applies on top of mtk's tree, unlike previous revisions,
-       which applied on top of another patch of mine, which I dropped.
-
-v19: - Remove `;` and `'` to avoid calling unnecessary shells.
-     - The above improved performance by another 50% or so; update the
-       commit msg with the new times.
-     - Fix some dependencies.
-     - Add installdirs again.
-     - srcfix: reduce LOC
-
-v20: - Workaround a bug in make 3.81 where a trailing slash is ignored.
-       See <https://ismail.badawi.io/blog/automatic-directory-creation-in-make/>
-       That helps workaround some ambiguity in the rules, wher a rule
-       to uninstall a dir also matched the pattern rule to install that
-       dir.
-
-v21: - ffix
-
-v22: - Avoid race conditions, by avoiding `mkdir -p` behavior.
-     - Reduce LOCs by using make's `$(foreach ...)` and `.SECONDEXPANSION:`.
-     - Add an empty recipe for each target that does nothing but declare
-       dependencies, to avoid implicit rules.
-
-v23: - Remove unused variables
-
-
- Makefile | 194 ++++++++++++++++++++++++++++++++++++++++++-------------
- README   |   8 +++
- 2 files changed, 158 insertions(+), 44 deletions(-)
-
-diff --git a/Makefile b/Makefile
-index 609009715..4632d904c 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1,26 +1,157 @@
--# Do not print "Entering directory ..."
- MAKEFLAGS += --no-print-directory
-+MAKEFLAGS += --silent
- 
--htmlbuilddir = $(CURDIR)/.html
--HTOPTS =
-+ROOTDIR := $(CURDIR)
-+htmlbuilddir := $(ROOTDIR)/.html
-+HTOPTS :=
- 
--DESTDIR =
--prefix = /usr/local
--datarootdir = $(prefix)/share
--docdir = $(datarootdir)/doc
--mandir = $(datarootdir)/man
--htmldir = $(docdir)
--htmldir_ = $(htmldir)/man
--htmlext = .html
-+DESTDIR :=
-+prefix := /usr/local
-+datarootdir := $(prefix)/share
-+docdir := $(datarootdir)/doc
-+MANDIR := $(ROOTDIR)
-+mandir := $(datarootdir)/man
-+MAN1DIR := $(MANDIR)/man1
-+MAN2DIR := $(MANDIR)/man2
-+MAN3DIR := $(MANDIR)/man3
-+MAN4DIR := $(MANDIR)/man4
-+MAN5DIR := $(MANDIR)/man5
-+MAN6DIR := $(MANDIR)/man6
-+MAN7DIR := $(MANDIR)/man7
-+MAN8DIR := $(MANDIR)/man8
-+man1dir := $(mandir)/man1
-+man2dir := $(mandir)/man2
-+man3dir := $(mandir)/man3
-+man4dir := $(mandir)/man4
-+man5dir := $(mandir)/man5
-+man6dir := $(mandir)/man6
-+man7dir := $(mandir)/man7
-+man8dir := $(mandir)/man8
-+manext := \.[0-9]
-+man1ext := .1
-+man2ext := .2
-+man3ext := .3
-+man4ext := .4
-+man5ext := .5
-+man6ext := .6
-+man7ext := .7
-+man8ext := .8
-+htmldir := $(docdir)
-+htmldir_ := $(htmldir)/man
-+htmlext := .html
-+
-+INSTALL := install
-+INSTALL_DATA := $(INSTALL) -m 644
-+INSTALL_DIR := $(INSTALL) -m 755 -d
-+RM := rm -f
-+RMDIR := rmdir --ignore-fail-on-non-empty
-+
-+MAN_SECTIONS := 1 2 3 4 5 6 7 8
- 
--INSTALL = install
--INSTALL_DATA = $(INSTALL) -m 644
--INSTALL_DIR = $(INSTALL) -m 755 -d
- 
- .PHONY: all
- all:
--	$(MAKE) uninstall;
--	$(MAKE) install;
-+	$(MAKE) uninstall
-+	$(MAKE) install
-+
-+
-+%/.: $(dir %).
-+	$(info -	INSTALL	$*/)
-+	$(INSTALL_DIR) $*/
-+
-+
-+.PHONY: install
-+install: install-man | installdirs
-+	@:
-+
-+.PHONY: installdirs
-+installdirs: | installdirs-man
-+	@:
-+
-+.PHONY: uninstall remove
-+uninstall remove: uninstall-man
-+	@:
-+
-+.PHONY: clean
-+clean:
-+	find man?/ -type f \
-+	|while read f; do \
-+		rm -f "$(htmlbuilddir)/$$f".*; \
-+	done;
-+
-+################################################################################
-+# man
-+
-+MANPAGES  := $(shell find $(MANDIR)/man?/ -type f | grep '$(manext)$$' | sort)
-+manpages  := $(patsubst $(MANDIR)/%,$(DESTDIR)$(mandir)/%,$(MANPAGES))
-+man1pages := $(filter %$(man1ext),$(manpages))
-+man2pages := $(filter %$(man2ext),$(manpages))
-+man3pages := $(filter %$(man3ext),$(manpages))
-+man4pages := $(filter %$(man4ext),$(manpages))
-+man5pages := $(filter %$(man5ext),$(manpages))
-+man6pages := $(filter %$(man6ext),$(manpages))
-+man7pages := $(filter %$(man7ext),$(manpages))
-+man8pages := $(filter %$(man8ext),$(manpages))
-+
-+.SECONDEXPANSION:
-+$(manpages): $(DESTDIR)$(mandir)/%: $(MANDIR)/% | $$(@D)/.
-+	$(info -	INSTALL	$@)
-+	$(INSTALL_DATA) -T $(MANDIR)/$* $@
-+
-+
-+INSTALL_MANn := $(foreach i,$(MAN_SECTIONS),install-man$(i))
-+
-+.PHONY: $(INSTALL_MANn)
-+$(INSTALL_MANn): install-%: $$(%pages) | installdirs-%
-+	@:
-+
-+.PHONY: install-man
-+install-man: $(INSTALL_MANn)
-+	@:
-+
-+
-+INSTALLDIRS_MANn := $(foreach i,$(MAN_SECTIONS),installdirs-man$(i))
-+
-+.PHONY: $(INSTALLDIRS_MANn)
-+$(INSTALLDIRS_MANn): installdirs-%: $(DESTDIR)$(mandir)/%/. | $(DESTDIR)$(mandir)/.
-+	@:
-+
-+.PHONY: installdirs-man
-+installdirs-man: $(INSTALL_MANn)
-+	@:
-+
-+
-+uninstall_manpages  := $(addprefix uninstall-,$(wildcard $(manpages)))
-+uninstall_man1pages := $(filter %$(man1ext),$(uninstall_manpages))
-+uninstall_man2pages := $(filter %$(man2ext),$(uninstall_manpages))
-+uninstall_man3pages := $(filter %$(man3ext),$(uninstall_manpages))
-+uninstall_man4pages := $(filter %$(man4ext),$(uninstall_manpages))
-+uninstall_man5pages := $(filter %$(man5ext),$(uninstall_manpages))
-+uninstall_man6pages := $(filter %$(man6ext),$(uninstall_manpages))
-+uninstall_man7pages := $(filter %$(man7ext),$(uninstall_manpages))
-+uninstall_man8pages := $(filter %$(man8ext),$(uninstall_manpages))
-+
-+.PHONY: $(uninstall_manpages)
-+$(uninstall_manpages): uninstall-%:
-+	$(info -	RM	$*)
-+	$(RM) $*
-+
-+
-+UNINSTALL_MANn := $(foreach i,$(MAN_SECTIONS),uninstall-man$(i))
-+
-+.PHONY: $(UNINSTALL_MANn)
-+$(UNINSTALL_MANn): uninstall-%: $$(uninstall_%pages)
-+	$(info -	RMDIR	$(DESTDIR)$(mandir)/$*/)
-+	$(RMDIR) $(DESTDIR)$(mandir)/$*/ 2>/dev/null ||:
-+
-+.PHONY: uninstall-man
-+uninstall-man: $(UNINSTALL_MANn)
-+	$(info -	RMDIR	$(DESTDIR)$(mandir)/)
-+	$(RMDIR) $(DESTDIR)$(mandir)/ ||:
-+
-+
-+################################################################################
-+# html
- 
- # Use with
- #  make HTOPTS=whatever html
-@@ -57,28 +188,6 @@ installdirs-html:
- 		$(INSTALL_DIR) "$(DESTDIR)$(htmldir_)/$$d" || exit $$?; \
- 	done;
- 
--.PHONY: install
--install: | installdirs
--	find man?/ -type f \
--	|while read f; do \
--		$(INSTALL_DATA) -T "$$f" "$(DESTDIR)$(mandir)/$$f" || exit $$?; \
--	done;
--
--.PHONY: installdirs
--installdirs:
--	find man?/ -type d \
--	|while read d; do \
--		$(INSTALL_DIR) "$(DESTDIR)$(mandir)/$$d" || exit $$?; \
--	done;
--
--.PHONY: uninstall remove
--uninstall remove:
--	find man?/ -type f \
--	|while read f; do \
--		rm -f "$(DESTDIR)$(mandir)/$$f" || exit $$?; \
--		rm -f "$(DESTDIR)$(mandir)/$$f".* || exit $$?; \
--	done;
--
- .PHONY: uninstall-html
- uninstall-html:
- 	find man?/ -type f \
-@@ -86,12 +195,9 @@ uninstall-html:
- 		rm -f "$(DESTDIR)$(htmldir_)/$$f".* || exit $$?; \
- 	done;
- 
--.PHONY: clean
--clean:
--	find man?/ -type f \
--	|while read f; do \
--		rm -f "$(htmlbuilddir)/$$f".* || exit $$?; \
--	done;
-+
-+################################################################################
-+# tests
- 
- # Check if groff reports warnings (may be words of sentences not displayed)
- # from https://lintian.debian.org/tags/groff-message.html
-diff --git a/README b/README
-index 6598170c0..484151773 100644
---- a/README
-+++ b/README
-@@ -26,9 +26,17 @@ To install to a path different from /usr/local, use
- distribution from its destination.  Use with caution, and remember to
- use "prefix" if desired, as with the "install" target.
- 
-+To install only a specific man section (mandir) such as man3, use
-+"make install-man3".  Similar syntax can be used to uninstall a
-+specific man section, such as man7: "make uninstall-man7".
-+
- "make" or "make all" will perform "make uninstall" followed by "make
- install".
- 
-+Consider using multiple threads (at least 2) when installing
-+these man pages, as the Makefile is optimized for multiple threads:
-+"make -j install".
-+
- Copyrights
- ==========
- See the 'man-pages-x.y.Announce' file.
+diff --git a/man7/kernel_lockdown.7 b/man7/kernel_lockdown.7
+index b0442b3b6..0c0a9500d 100644
+--- a/man7/kernel_lockdown.7
++++ b/man7/kernel_lockdown.7
+@@ -19,9 +19,6 @@ modification of the kernel image and to prevent access to security and
+ cryptographic data located in kernel memory, whilst still permitting driver
+ modules to be loaded.
+ .PP
+-Lockdown is typically enabled during boot and may be terminated, if configured,
+-by typing a special key combination on a directly attached physical keyboard.
+-.PP
+ If a prohibited or restricted feature is accessed or used, the kernel will emit
+ a message that looks like:
+ .PP
 -- 
-2.31.1
+2.32.0
 
