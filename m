@@ -2,56 +2,56 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9950D39F288
-	for <lists+linux-man@lfdr.de>; Tue,  8 Jun 2021 11:35:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id ADBF739FCDE
+	for <lists+linux-man@lfdr.de>; Tue,  8 Jun 2021 18:52:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229507AbhFHJhY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 8 Jun 2021 05:37:24 -0400
-Received: from mail-wm1-f52.google.com ([209.85.128.52]:56132 "EHLO
-        mail-wm1-f52.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229724AbhFHJhX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 8 Jun 2021 05:37:23 -0400
-Received: by mail-wm1-f52.google.com with SMTP id g204so1379353wmf.5
-        for <linux-man@vger.kernel.org>; Tue, 08 Jun 2021 02:35:15 -0700 (PDT)
+        id S233081AbhFHQyi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 8 Jun 2021 12:54:38 -0400
+Received: from mail-wr1-f44.google.com ([209.85.221.44]:36768 "EHLO
+        mail-wr1-f44.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231503AbhFHQyh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 8 Jun 2021 12:54:37 -0400
+Received: by mail-wr1-f44.google.com with SMTP id e11so12137818wrg.3
+        for <linux-man@vger.kernel.org>; Tue, 08 Jun 2021 09:52:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=wf8+INZNGWCholUheC3jhbL/0vCS22yGL0/bVt8meOI=;
-        b=bSTpKW+f7LkQ+iT0VEoi91Ucv3PqDtuqvjBWbSLFog513+bgh8oNjQ3qU/W2BZSqwf
-         Kp1SslClErpsR3aguWmpE99zcmFWmWsAwPVIsFBbRLNOEWfoOQFQDAq+iFk8Qvx9bUgw
-         c0yb7zq6/evQlQvZAF9O6I3RjJJieIcCLzXpjXZ6bswNiXhYRFFmpYIeP6zTEpuNqU8p
-         Xz91FcWwQNg9ya3/zTBjM+j42UnKjN25Pig5LDOpA1XHcve4ODftfNkm8PgH3Ys0y+X4
-         Vy/fA4NJyp1qhoxgRLtuxFE7ExBciHD9eby6dDuypxiV55sPgNib2xbiPvvu9mg0C94c
-         wztw==
+        bh=0dVWmDAeifB5VousZN8e9eHsS/MmEL2WItMAkwpT2/A=;
+        b=UfSM+S6LOBvfOX28KmrZb5f5P9YTEFklHEDBy9+uKcL6tUk80djvf+pfWIxkAZ2TfX
+         AfyfT6gWD0MjW68yZJYWJRHAG7q35X+5Tkb0nG3V+MhIeJ1AAEIrS++qBrKgk8a4CAdl
+         Gc6GgUbTxfV91nF5NiKx7JA/gJPaZd+LJmd0Kv4DhCRwd9HWbzKI0BXXIYr2MmXZmsy5
+         ic+CFhLn4Y1o5u4xb2h9hX4qXcSc8zpo5FRoAGg206RV3gasJT0dl3KmLAqqP90uk1o2
+         aYix3GX4I0FS9U3y4nOAc8wUPVwDvtnfQD10nFg9Llb9xPec5trcSSBKPVJhw057lvTy
+         GMjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=wf8+INZNGWCholUheC3jhbL/0vCS22yGL0/bVt8meOI=;
-        b=jRFVv2SjZKHdyxbdJnIsuQD1M9oStjM5TY4uAtOEDMn/beGQ1ACgPoXqpVC17vfzoc
-         XUMhZVpJFiXrfxbvcgVdT4yS/Dn2pyIoh7OBs4esB4XrlPZMshcOB9RV8CL6BCInE0N1
-         1DtsQaukleeWjdy+n18Qfeue3FxlnXM4IACfRU4or2dMEunR0s4EfjGiPB8pX3I6rUYn
-         A8u1Bzox7Yi7WUtF2neof/HGGELLHLhy5GlRHH7G8wN5FEyV3/YUUlEHIZpx1k435Rtn
-         D0i9IDgHTFDK7Gs0k0as+Z+MdKWPZ31gj1oA+0v+0jBwMLSFYaTNkoPEfvTFOKW4PSNi
-         RhjA==
-X-Gm-Message-State: AOAM530EBAw/i76xi04m9QrJ2cIoUSnIbwDbwLA7AkBl2oLXwEcxgqsR
-        TlWw2J16UbmoqQMLp9C58GY=
-X-Google-Smtp-Source: ABdhPJx5pR7iYOJH82e0CM0wGckSn06LH4RY7uSEKpFs5nDciJZmQnfk7nWuh+vPuStef4ojLUR3QQ==
-X-Received: by 2002:a1c:7218:: with SMTP id n24mr3232854wmc.104.1623144854433;
-        Tue, 08 Jun 2021 02:34:14 -0700 (PDT)
+        bh=0dVWmDAeifB5VousZN8e9eHsS/MmEL2WItMAkwpT2/A=;
+        b=CKeEsmRyLXJ8/tyhVVeaVZwglCeONlPE6qrOi1Us/Jd4BesJ+8ljSWE13I1Rh2R+Kz
+         k8rJzC1AzFAQu6PNE7au2CJ3PhXS0OuRK+OybTMXPVu141ri6SbwQAmxglZKxRCqxp8f
+         8KHp7wZeEaajFEMZroZCp7035HLRwvBZv+YfZHioqsf9xVb0A6e0rXtdtfpYura34eRV
+         Te/aCPiLOviU0G5j1jyCTWgkOKbD+0rzmjYv7hPh+u854GBcGRejb+JCQgoYoGySehPG
+         BmYd3NnY3hupSkO9JbwyQFsBvEMxnl5j6/F/IfGNpSVUSuP1jgCD6atofrS++BNg/+tA
+         wL8g==
+X-Gm-Message-State: AOAM531UMdXgMfF274iN27Gx6YClADdb/JJ2kPKWcfUtfGAe9exIq3a1
+        croZboOVKUNxIex80RWBPi4=
+X-Google-Smtp-Source: ABdhPJzuYK9lXO39bvWfcMl/GENHCSF1NF3QYBZq2IVmHBcRPsLinqI6MmUjmsJLGFvIbZudg6UYpg==
+X-Received: by 2002:adf:eed2:: with SMTP id a18mr23418358wrp.147.1623171104042;
+        Tue, 08 Jun 2021 09:51:44 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id o11sm3539486wmq.1.2021.06.08.02.34.13
+        by smtp.googlemail.com with ESMTPSA id z5sm12276406wrv.67.2021.06.08.09.51.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Jun 2021 02:34:13 -0700 (PDT)
+        Tue, 08 Jun 2021 09:51:43 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org,
         "Dr . Tobias Quathamer" <toddy@debian.org>
-Subject: [PATCH v24] Makefile, README: Break installation into a target for each mandir
-Date:   Tue,  8 Jun 2021 11:34:11 +0200
-Message-Id: <20210608093411.229249-1-alx.manpages@gmail.com>
+Subject: [PATCH v25] Makefile, README: Break installation into a target for each mandir
+Date:   Tue,  8 Jun 2021 18:51:40 +0200
+Message-Id: <20210608165140.373122-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210604205319.154059-1-alx.manpages@gmail.com>
 References: <20210604205319.154059-1-alx.manpages@gmail.com>
@@ -246,16 +246,22 @@ v24: - Improve readability
        but they dropped to 10% for a single page, having times of
        around 0.1 s!  Update commit msg.
 
+v25: - Workaround some problems with make:
+       - Instead of using a prefix in pattern rules, use a suffix.
+       - Instead of using .PHONY for implicit rules, use FORCE.
+     - Improve readability
+     - Use make's $(sort ...) instead of sort(1).
 
- Makefile | 210 +++++++++++++++++++++++++++++++++++++++++++------------
+
+ Makefile | 215 +++++++++++++++++++++++++++++++++++++++++++------------
  README   |   8 +++
- 2 files changed, 174 insertions(+), 44 deletions(-)
+ 2 files changed, 179 insertions(+), 44 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 609009715..58b01b7a4 100644
+index 609009715..9eb439abc 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1,26 +1,173 @@
+@@ -1,26 +1,175 @@
 -# Do not print "Entering directory ..."
  MAKEFLAGS += --no-print-directory
 +MAKEFLAGS += --silent
@@ -330,8 +336,8 @@ index 609009715..58b01b7a4 100644
 +
 +
 +%/.:
-+	$(info -	INSTALL	$*/)
-+	$(INSTALL_DIR) $*/
++	$(info -	INSTALL	$(@D))
++	$(INSTALL_DIR) $(@D)
 +
 +.SECONDEXPANSION:
 +%$(man1ext) \
@@ -343,15 +349,15 @@ index 609009715..58b01b7a4 100644
 +%$(man7ext) \
 +%$(man8ext): | $$(@D)/.
 +	$(info -	INSTALL	$@)
-+	$(INSTALL_DATA) -T $^ $@
++	$(INSTALL_DATA) -T $< $@
 +
-+rm-/%:
-+	$(info -	RM	/$*)
-+	$(RM) /$*
++%-rm:
++	$(info -	RM	$*)
++	$(RM) $*
 +
-+rmdir-/%:
-+	$(info -	RMDIR	/$*)
-+	$(RMDIR) /$* 2>/dev/null ||:
++%-rmdir:
++	$(info -	RMDIR	$(@D))
++	$(RMDIR) $(@D) 2>/dev/null ||:
 +
 +
 +.PHONY: install
@@ -373,10 +379,10 @@ index 609009715..58b01b7a4 100644
 +		rm -f "$(htmlbuilddir)/$$f".*; \
 +	done;
 +
-+################################################################################
++########################################################################
 +# man
 +
-+MANPAGES  := $(shell find $(MANDIR)/man?/ -type f | grep '$(manext)$$' | sort)
++MANPAGES  := $(sort $(shell find $(MANDIR)/man?/ -type f | grep '$(manext)$$'))
 +manpages  := $(patsubst $(MANDIR)/%,$(DESTDIR)$(mandir)/%,$(MANPAGES))
 +man1pages := $(filter %$(man1ext),$(manpages))
 +man2pages := $(filter %$(man2ext),$(manpages))
@@ -387,10 +393,33 @@ index 609009715..58b01b7a4 100644
 +man7pages := $(filter %$(man7ext),$(manpages))
 +man8pages := $(filter %$(man8ext),$(manpages))
 +
-+$(manpages): $(DESTDIR)$(mandir)/%: $(MANDIR)/%
++MANDIRS := $(sort $(shell find $(MANDIR)/man? -type d))
++mandirs := $(patsubst $(MANDIR)/%,$(DESTDIR)$(mandir)/%/.,$(MANDIRS))
++
++rm_manpages  := $(addsuffix -rm,$(wildcard $(manpages)))
++rm_man1pages := $(filter %$(man1ext)-rm,$(rm_manpages))
++rm_man2pages := $(filter %$(man2ext)-rm,$(rm_manpages))
++rm_man3pages := $(filter %$(man3ext)-rm,$(rm_manpages))
++rm_man4pages := $(filter %$(man4ext)-rm,$(rm_manpages))
++rm_man5pages := $(filter %$(man5ext)-rm,$(rm_manpages))
++rm_man6pages := $(filter %$(man6ext)-rm,$(rm_manpages))
++rm_man7pages := $(filter %$(man7ext)-rm,$(rm_manpages))
++rm_man8pages := $(filter %$(man8ext)-rm,$(rm_manpages))
++
++rmdir_mandirs := $(addsuffix -rmdir,$(wildcard $(mandirs)))
++
++install_manX     := $(foreach x,$(MAN_SECTIONS),install-man$(x))
++installdirs_manX := $(foreach x,$(MAN_SECTIONS),installdirs-man$(x))
++uninstall_manX   := $(foreach x,$(MAN_SECTIONS),uninstall-man$(x))
 +
 +
-+install_manX := $(foreach x,$(MAN_SECTIONS),install-man$(x))
++$(manpages): $(DESTDIR)$(mandir)/%: $(MANDIR)/% FORCE
++
++$(mandirs): %/.: FORCE | $$(dir %). $(mandir)
++
++$(rmdir_mandirs): $(DESTDIR)$(mandir)/%/.-rmdir: $$(rm_%pages) FORCE
++$(DESTDIR)$(mandir)/.-rmdir: $(uninstall_manX) FORCE
++
 +
 +.PHONY: $(install_manX)
 +$(install_manX): install-%: $$(%pages) | installdirs-%
@@ -401,14 +430,6 @@ index 609009715..58b01b7a4 100644
 +	@:
 +
 +
-+MANDIRS := $(shell find $(MANDIR)/man? -type d)
-+mandirs := $(patsubst $(MANDIR)/%,$(DESTDIR)$(mandir)/%/,$(MANDIRS))
-+
-+$(mandirs:=.): %/.: | $$(dir %). $(mandir)
-+
-+
-+installdirs_manX := $(foreach x,$(MAN_SECTIONS),installdirs-man$(x))
-+
 +.PHONY: $(installdirs_manX)
 +$(installdirs_manX): installdirs-%: $(DESTDIR)$(mandir)/%/. | $(DESTDIR)$(mandir)/.
 +	@:
@@ -418,34 +439,21 @@ index 609009715..58b01b7a4 100644
 +	@:
 +
 +
-+rm_manpages  := $(addprefix rm-,$(wildcard $(manpages)))
-+rm_man1pages := $(filter %$(man1ext),$(rm_manpages))
-+rm_man2pages := $(filter %$(man2ext),$(rm_manpages))
-+rm_man3pages := $(filter %$(man3ext),$(rm_manpages))
-+rm_man4pages := $(filter %$(man4ext),$(rm_manpages))
-+rm_man5pages := $(filter %$(man5ext),$(rm_manpages))
-+rm_man6pages := $(filter %$(man6ext),$(rm_manpages))
-+rm_man7pages := $(filter %$(man7ext),$(rm_manpages))
-+rm_man8pages := $(filter %$(man8ext),$(rm_manpages))
-+
-+
-+uninstall_manX := $(foreach x,$(MAN_SECTIONS),uninstall-man$(x))
-+
 +.PHONY: $(uninstall_manX)
-+$(uninstall_manX): uninstall-%: $$(rm_%pages)
-+	$(MAKE) rmdir-$(DESTDIR)$(mandir)/$*/
++$(uninstall_manX): uninstall-%: $(DESTDIR)$(mandir)/%/.-rmdir $$(rm_%pages)
++	@:
 +
 +.PHONY: uninstall-man
-+uninstall-man: $(uninstall_manX)
-+	$(MAKE) rmdir-$(DESTDIR)$(mandir)/
++uninstall-man: $(DESTDIR)$(mandir)/.-rmdir $(uninstall_manX)
++	@:
 +
 +
-+################################################################################
++########################################################################
 +# html
  
  # Use with
  #  make HTOPTS=whatever html
-@@ -57,28 +204,6 @@ installdirs-html:
+@@ -57,28 +206,6 @@ installdirs-html:
  		$(INSTALL_DIR) "$(DESTDIR)$(htmldir_)/$$d" || exit $$?; \
  	done;
  
@@ -474,7 +482,7 @@ index 609009715..58b01b7a4 100644
  .PHONY: uninstall-html
  uninstall-html:
  	find man?/ -type f \
-@@ -86,12 +211,9 @@ uninstall-html:
+@@ -86,12 +213,9 @@ uninstall-html:
  		rm -f "$(DESTDIR)$(htmldir_)/$$f".* || exit $$?; \
  	done;
  
@@ -485,11 +493,18 @@ index 609009715..58b01b7a4 100644
 -		rm -f "$(htmlbuilddir)/$$f".* || exit $$?; \
 -	done;
 +
-+################################################################################
++########################################################################
 +# tests
  
  # Check if groff reports warnings (may be words of sentences not displayed)
  # from https://lintian.debian.org/tags/groff-message.html
+@@ -109,3 +233,6 @@ check-groff-warnings:
+ 
+ # someone might also want to look at /var/catman/cat2 or so ...
+ # a problem is that the location of cat pages varies a lot
++
++########################################################################
++FORCE:
 diff --git a/README b/README
 index 6598170c0..484151773 100644
 --- a/README
