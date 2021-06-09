@@ -2,65 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3933F3A1FFE
-	for <lists+linux-man@lfdr.de>; Thu, 10 Jun 2021 00:26:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9C11E3A2002
+	for <lists+linux-man@lfdr.de>; Thu, 10 Jun 2021 00:27:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229557AbhFIW1y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 9 Jun 2021 18:27:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59596 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229542AbhFIW1y (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 9 Jun 2021 18:27:54 -0400
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com [IPv6:2607:f8b0:4864:20::62e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A0B27C061574
-        for <linux-man@vger.kernel.org>; Wed,  9 Jun 2021 15:25:42 -0700 (PDT)
-Received: by mail-pl1-x62e.google.com with SMTP id e1so2075596plh.8
-        for <linux-man@vger.kernel.org>; Wed, 09 Jun 2021 15:25:42 -0700 (PDT)
+        id S229542AbhFIW3M (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 9 Jun 2021 18:29:12 -0400
+Received: from mail-pj1-f47.google.com ([209.85.216.47]:40652 "EHLO
+        mail-pj1-f47.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229526AbhFIW3M (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 9 Jun 2021 18:29:12 -0400
+Received: by mail-pj1-f47.google.com with SMTP id mp5-20020a17090b1905b029016dd057935fso2515234pjb.5
+        for <linux-man@vger.kernel.org>; Wed, 09 Jun 2021 15:27:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=PIXs0lbWsgPJqKv4COXrYxpWHjP5TLAX5E0wmKJTcKM=;
-        b=KOYg0AZqatiGHZXlkC7/2vLq4q3SdfZZb3hCKXdBFJ58i5+IQmOZZH/YbDhC63kZfO
-         rLXFnTQ+AelXV8fmGnXw9r49y9Kolt2xwUT2krkok/0hWE9qXYHMMQ5WlbQW3i2V1PND
-         Fo9k8HkPKCmzX0jVQ9Jq7XexWDzUEzLICQoOwdpA3XM2oYkNyUnFUbzNZH1K7/HG7PLk
-         1JEpmtns5lBLRNftP4ySbsV+2C2Y0INLVFYU4S9ifLYGLYEaNsXf5F8zGwpRvg5haffR
-         8DL5AU3QZRY9TPFZJ5Q8UCNmcNUkd+DTFQtNCrCRiSnFUHyQ+PdnScyQcEmb71I/hqUW
-         xyhQ==
+        bh=8JHujZZwkfMbOcEkhkPD47EkbAEPWt+rD+tU+VPPn9o=;
+        b=Gof48W8SYyoeiOow7vn9OKHzv8CDucPl4til2Sb+I6y+oI/2+0W/hcQAe61EPbq8m+
+         Jb8vuYthc/T3RIjtQ0kqqQyqtfHtM2kBfYEeewPeT1PTt82XfpjUYMTsnKbl/4OLcouk
+         qExwnsH7zQ2xgYdSIbrMTdtomSAU01mxzogUGxD3mUmdpLl3nEDWkTj4KKEGNy1afKwg
+         tETKOxecYjDYSF7uSr2AOe4g+ITFXGM1yJ0TGE7bTPUeR1doYAzYEf0uQaBBaWm3mzZl
+         KgMVqz+08vbdXLrIgQritVcBQMvydsgsPlS5pobJCog+CvHUMmTfWMSZ5oQH8yd+5BeH
+         lBBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=PIXs0lbWsgPJqKv4COXrYxpWHjP5TLAX5E0wmKJTcKM=;
-        b=OpoJvhkViKCTvQ2EGPLEMp5u1G2VGumLCBCH1qtLcgcX8TItGItzfJsWRgece1/10n
-         ggctObTHBqEZUN5S8NUmJ1WuujedyW9Of1KGvZnuYWqs7N9cw7T6DAoCfNEUnOt1jTox
-         Q7KaWQERUDW56YBojn/Yv92RDi71DA9LVP0qAFh1WDEaSSXXOB+Buv9aoX+wE2kbSitp
-         1O2I2V1nLSg/FxrzvJjenB0ovy9J2Ek08XMxDRiiO2IodBf7JNlNPWPllcs79IamwXYg
-         awWzMcWaPRUWX3KQiUr5ET0BzYFoUWW/7MGv65w+AM2X5BS/VivY8y4NnAZcdUcsr2fA
-         KWzg==
-X-Gm-Message-State: AOAM532JO9akZgRa5EagNXSnft41Hx6Q8gUxbyVSOdzBh7IzI4kLYxKn
-        shfq/X+dPbuTF0vS8FgQhGmba7d+LPI=
-X-Google-Smtp-Source: ABdhPJxAvKF4xRTgfnSFqHglgj25PYjzTnLvMvtiUi3nhJ0A5mRT45Knm2paKY7KLJNoHvPC6xOYLQ==
-X-Received: by 2002:a17:902:be0d:b029:f9:c913:821f with SMTP id r13-20020a170902be0db02900f9c913821fmr1736234pls.2.1623277541983;
-        Wed, 09 Jun 2021 15:25:41 -0700 (PDT)
+        bh=8JHujZZwkfMbOcEkhkPD47EkbAEPWt+rD+tU+VPPn9o=;
+        b=hGHEeUd9sfYuN0i39wP7Dw+sCYdKKEyIAoVVqZo1HoYiS5A9Y4ymjjn4E9OGzIV5Ir
+         ZZAh8fm2HpV3xSsjRr+vi5CxR8xKk4/zsx7lDGnah7SeuGtaMok6IhiVlwaAwfD1yk/W
+         JPisNcT10e24+DIddkoQanUVnJ2kFpMLv7VSSRZBc7YdErU3sh+Xo4S3cMAr7sE2hUDA
+         9CvWSbCIiyS+qctKZTJzBDh1mM/ohlhuHVCGHbELl2M6xZgZZxnsm64xcbXAjacp/iSh
+         xj9C+Wk2cZ8blpJqHDgwzo2fmvhACYPzUJ4PNta/653HBeD2yoMPl4uJCiDywvZ9NFjv
+         QfMQ==
+X-Gm-Message-State: AOAM531hDg02U4z5lQ1PMJUF0K4gRpcTAmMKg1y/iyvGIUgRbtN9u7nZ
+        MpSjibndF9kw4eGgtQ0Fypa32VFLcfU=
+X-Google-Smtp-Source: ABdhPJzQHko6hwJxe/X7GrayJdDq8UMSQDFo0kiT2fFEydag0mFLVg8m01ksofe14NrzRGHaOUu0Ow==
+X-Received: by 2002:a17:90a:ab96:: with SMTP id n22mr1847360pjq.92.1623277562155;
+        Wed, 09 Jun 2021 15:26:02 -0700 (PDT)
 Received: from [192.168.1.70] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id l5sm466295pff.20.2021.06.09.15.25.40
+        by smtp.gmail.com with ESMTPSA id 125sm449327pfg.52.2021.06.09.15.26.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Jun 2021 15:25:41 -0700 (PDT)
+        Wed, 09 Jun 2021 15:26:01 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 07/10] sgetmask.2: Use syscall(SYS_...); for system
- calls without a wrapper
+Subject: Re: [PATCH v2 08/10] shmop.2: Remove unused include
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 References: <20210521232553.161080-10-alx.manpages@gmail.com>
- <20210524181947.459437-7-alx.manpages@gmail.com>
+ <20210524181947.459437-8-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <f71544ba-5196-40fb-acfb-5ae35ffcd299@gmail.com>
-Date:   Thu, 10 Jun 2021 10:25:36 +1200
+Message-ID: <6eb44d20-8583-1c10-d56b-2fb17cfbdd03@gmail.com>
+Date:   Thu, 10 Jun 2021 10:25:58 +1200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210524181947.459437-7-alx.manpages@gmail.com>
+In-Reply-To: <20210524181947.459437-8-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -81,45 +77,21 @@ Michael
 
 
 > ---
->  man2/sgetmask.2 | 15 ++++++++-------
->  1 file changed, 8 insertions(+), 7 deletions(-)
+>  man2/shmop.2 | 1 -
+>  1 file changed, 1 deletion(-)
 > 
-> diff --git a/man2/sgetmask.2 b/man2/sgetmask.2
-> index 7563b57ff..59b58ceaf 100644
-> --- a/man2/sgetmask.2
-> +++ b/man2/sgetmask.2
-> @@ -27,12 +27,17 @@
->  sgetmask, ssetmask \- manipulation of signal mask (obsolete)
+> diff --git a/man2/shmop.2 b/man2/shmop.2
+> index c7e66af0e..52baed96c 100644
+> --- a/man2/shmop.2
+> +++ b/man2/shmop.2
+> @@ -42,7 +42,6 @@
+>  shmat, shmdt \- System V shared memory operations
 >  .SH SYNOPSIS
 >  .nf
-> -.B "long sgetmask(void);"
-> -.BI "long ssetmask(long " newmask );
-> +.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
-> +.B #include <unistd.h>
-> +.PP
-> +.B "long syscall(SYS_sgetmask, void);"
-> +.BI "long syscall(SYS_ssetmask, long " newmask );
->  .fi
+> -.B #include <sys/types.h>
+>  .B #include <sys/shm.h>
 >  .PP
->  .IR Note :
-> -There are no glibc wrappers for these system calls; see NOTES.
-> +glibc provides no wrappers for these functions,
-> +necessitating the use of
-> +.BR syscall (2).
->  .SH DESCRIPTION
->  These system calls are obsolete.
->  .IR "Do not use them" ;
-> @@ -73,10 +78,6 @@ option.
->  .SH CONFORMING TO
->  These system calls are Linux-specific.
->  .SH NOTES
-> -Glibc does not provide wrappers for these obsolete system calls;
-> -in the unlikely event that you want to call them, use
-> -.BR syscall (2).
-> -.PP
->  These system calls are unaware of signal numbers greater than 31
->  (i.e., real-time signals).
->  .PP
+>  .BI "void *shmat(int " shmid ", const void *" shmaddr ", int " shmflg );
 > 
 
 
