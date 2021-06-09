@@ -2,62 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0B4D33A1FFD
-	for <lists+linux-man@lfdr.de>; Thu, 10 Jun 2021 00:25:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D52513A1FFF
+	for <lists+linux-man@lfdr.de>; Thu, 10 Jun 2021 00:26:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229578AbhFIW1s (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 9 Jun 2021 18:27:48 -0400
-Received: from mail-pl1-f173.google.com ([209.85.214.173]:39632 "EHLO
-        mail-pl1-f173.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229542AbhFIW1r (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 9 Jun 2021 18:27:47 -0400
-Received: by mail-pl1-f173.google.com with SMTP id v11so5014806ply.6
-        for <linux-man@vger.kernel.org>; Wed, 09 Jun 2021 15:25:40 -0700 (PDT)
+        id S229626AbhFIW2W (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 9 Jun 2021 18:28:22 -0400
+Received: from mail-pf1-f179.google.com ([209.85.210.179]:38906 "EHLO
+        mail-pf1-f179.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229542AbhFIW2V (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 9 Jun 2021 18:28:21 -0400
+Received: by mail-pf1-f179.google.com with SMTP id z26so19728256pfj.5
+        for <linux-man@vger.kernel.org>; Wed, 09 Jun 2021 15:26:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=MBm7UIGhQjp/trWSSQZZBqIsXVilQ9v/jatCtK1xjlo=;
-        b=OyMLvVit8ejgh4otFsYxozMKbFUuAjUPC092ZOtpOopgWKe/Pjfpo7RyNu3RM7O6/x
-         GNy2KnmzIIyYY2SS0SaM/OEHHZjS6rateorp4SGAtAyr0ECYlB5PtA7PnI5GiAKXZM8M
-         5LucPi2gQ28yBGOF/t+BU5NHqVj27iijuo3rhm4JYwsfjUJqk1ofETlSJ2hUyZcdwwG5
-         RkK5+phJgfx7V5ON2jb2Mzun/sVW+DJFc8OVfxk7UN3XAUkwAkN2onEaT2+Yxsk1pf+p
-         sFNmaIp2VCyfzTRll+oY5szbgwxp1wm/tFwxw7c7xeG4wrhpGCQWMcmeP5SzFkzby5AN
-         37wA==
+        bh=ciXvT8fQvRJfGE0fqiqIXkq9JqMRGZ7Hm7giIOtZKbM=;
+        b=ouQY4huQ6qTcreh4dS66BGOuFBKrNCWJ+ovPWv/TOy4Mk2yPXiKClP1RVt3I3aquwh
+         YjazVZWOgWNEK2sctouOAiuJSs65ioQN3E+w54wGkScydoeKtQfOI0IUKo8NTZWnjiP2
+         SJWJQfDkklop3p8ykQk+pYWrVxs5utyHXd4UNAYW9Sa4tZGawl9jXXEVVJBzTnSZ4wtK
+         s8ZaLVS1ERgYSpogSWIJoGJm9eDkMIf/pYG6aqi8QskkwSCHpw1l3fK6hSlr15NCa+i/
+         wAst9W5Q7nM61v8PFFafPsn+zUU3xMuCjVcvYXgEwsM1bx1CUvr4+B4cMRwiqHyYhWqo
+         HWgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=MBm7UIGhQjp/trWSSQZZBqIsXVilQ9v/jatCtK1xjlo=;
-        b=CE7cOiX9Bd1xPvCATtKvNfjtkL50ma7yj4xr7KvRUPG64X/Ojqgu3xcBaLRwxDsiL/
-         idfzLkrdpnlh1sU32LY0bkaq36nSq2VKBOxTB76Ov659GJYtAOmBH78iYt6+WIGKuYmC
-         DQIwnj6qGOk08cH9VpeVpGkuPXGVBGHJW6bhJlHuKLLGJTwiw8lOSSHY+v+3dVaHN3Pw
-         laC9u6J25RQHK+fzhlMH9tWZr7mWph85GNNi2gLYOzVJsLLtbcWi0oQZ1Rv07Pi4CiQV
-         o2msAI/cfx5vUitclc9SuFyomuL0zRc5noYVxETejAnyk4CFASg+nK9x95S08SVZ7fqD
-         oPRg==
-X-Gm-Message-State: AOAM533qj82dV7lpIJa6QVyY6B9JCurqLEVNii9OKQZ/eeYn0I7zKR3z
-        AzUUAu7KJhPfMdO0BP5Fn33sBr83xK0=
-X-Google-Smtp-Source: ABdhPJzdeF9La8NXLQL9iegIKT47iRFSUnlThMtA/4Z8tXNSrvD1BsjqbBGf/NITXjC6ZdzNiJ1ahQ==
-X-Received: by 2002:a17:90a:b008:: with SMTP id x8mr1887972pjq.160.1623277480076;
-        Wed, 09 Jun 2021 15:24:40 -0700 (PDT)
+        bh=ciXvT8fQvRJfGE0fqiqIXkq9JqMRGZ7Hm7giIOtZKbM=;
+        b=qs9XFMMQVexqKg4bV4u/SZdPKpnmJml+gGt1+YtC+vgJbPpdpRmuJ9zWaz76hZVihS
+         LhsuQVFJ21/HMTWUU/ZPYOi71i8hq9bJjXFLvi2rD3E6ef/gXSmLcGotkru4JOysENe7
+         vQXoOu1HPcpiwgT8wPNXUV6rcAnyC8SLRrkRoIWV6Ki5q29I8RtLIUzTEL35i117XNe6
+         T9vsZVBv4ngDblAX8qyjutJZrd8kzA5GrLrjTJuJlYx5C9qT9ImDbV07OkxkmGZXj3Vy
+         jBLLPCTkI6OaCicX8o0xv4ldH3WTAY/ylz6j6olcoJzCdoSRNWkVtCv7uHKHJUD4K0I9
+         UfTQ==
+X-Gm-Message-State: AOAM5325tEbwos0FprtzW1j9cHKoinIAgmDLwN/U8KdmdTxm7DsoaXpk
+        dZ+Mv8/0TrM9B1ceiqubzCekOgYgnDw=
+X-Google-Smtp-Source: ABdhPJyEuo2MrFqMMn9mGoHSh1JAXCFnRM6bmPn0WBrpQMqnYiacPUbAo6+W8VlrEaXK/x7KetaUXA==
+X-Received: by 2002:a63:5511:: with SMTP id j17mr1876979pgb.191.1623277508885;
+        Wed, 09 Jun 2021 15:25:08 -0700 (PDT)
 Received: from [192.168.1.70] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id p14sm711754pgb.2.2021.06.09.15.24.37
+        by smtp.gmail.com with ESMTPSA id g11sm640401pgh.24.2021.06.09.15.25.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Jun 2021 15:24:39 -0700 (PDT)
+        Wed, 09 Jun 2021 15:25:08 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 05/10] set_thread_area.2: Use syscall(SYS_...); for
+Subject: Re: [PATCH v2 06/10] set_tid_address.2: Use syscall(SYS_...); for
  system calls without a wrapper
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 References: <20210521232553.161080-10-alx.manpages@gmail.com>
- <20210524181947.459437-5-alx.manpages@gmail.com>
+ <20210524181947.459437-6-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <874ba77c-e350-39b4-7b29-dd589eab5f96@gmail.com>
-Date:   Thu, 10 Jun 2021 10:24:36 +1200
+Message-ID: <f23e53a8-88db-f7d9-871b-b89d26c18dad@gmail.com>
+Date:   Thu, 10 Jun 2021 10:25:05 +1200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210524181947.459437-5-alx.manpages@gmail.com>
+In-Reply-To: <20210524181947.459437-6-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,9 +69,6 @@ Hi Alex,
 
 On 5/25/21 6:19 AM, Alejandro Colomar wrote:
 > Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> ---
->  man2/set_thread_area.2 | 24 ++++++++++++------------
->  1 file changed, 12 insertions(+), 12 deletions(-)
 
 Applied.
 
@@ -80,62 +77,45 @@ Thanks,
 Michael
 
 
-> diff --git a/man2/set_thread_area.2 b/man2/set_thread_area.2
-> index 284dea390..43f3009f7 100644
-> --- a/man2/set_thread_area.2
-> +++ b/man2/set_thread_area.2
-> @@ -11,28 +11,31 @@
->  get_thread_area, set_thread_area \- manipulate thread-local storage information
+> ---
+>  man2/set_tid_address.2 | 13 +++++++------
+>  1 file changed, 7 insertions(+), 6 deletions(-)
+> 
+> diff --git a/man2/set_tid_address.2 b/man2/set_tid_address.2
+> index 258c9b9ef..65b4931eb 100644
+> --- a/man2/set_tid_address.2
+> +++ b/man2/set_tid_address.2
+> @@ -27,13 +27,17 @@
+>  set_tid_address \- set pointer to thread ID
 >  .SH SYNOPSIS
 >  .nf
 > -.B #include <linux/unistd.h>
-> +.BR "#include <sys/syscall.h>" "     /* Definition of " SYS_* " constants */"
+> +.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
 > +.B #include <unistd.h>
 >  .PP
->  .B #if defined __i386__ || defined __x86_64__
-> -.B # include <asm/ldt.h>
-> +.BR "# include <asm/ldt.h>" "        /* Definition of " "struct user_desc" " */"
->  .PP
-> -.BI "int get_thread_area(struct user_desc *" u_info );
-> -.BI "int set_thread_area(struct user_desc *" u_info );
-> +.BI "int syscall(SYS_get_thread_area, struct user_desc *" u_info );
-> +.BI "int syscall(SYS_set_thread_area, struct user_desc *" u_info );
->  .PP
->  .B #elif defined __m68k__
->  .PP
-> -.B "int get_thread_area(void);"
-> -.BI "int set_thread_area(unsigned long " tp );
-> +.B "int syscall(SYS_get_thread_area);"
-> +.BI "int syscall(SYS_set_thread_area, unsigned long " tp );
->  .PP
->  .B #elif defined __mips__
->  .PP
-> -.BI "int set_thread_area(unsigned long " addr );
-> +.BI "int syscall(SYS_set_thread_area, unsigned long " addr );
->  .PP
->  .B #endif
+> -.BI "pid_t set_tid_address(int *" tidptr );
+> +.BI "pid_t syscall(SYS_set_tid_address, int *" tidptr );
 >  .fi
 >  .PP
 >  .IR Note :
-> -There are no glibc wrappers for these system calls; see NOTES.
-> +glibc provides no wrappers for these system calls,
+> -There is no glibc wrapper for this system call; see NOTES.
+> +glibc provides no wrapper for
+> +.BR set_tid_address (),
 > +necessitating the use of
 > +.BR syscall (2).
 >  .SH DESCRIPTION
->  These calls provide architecture-specific support for a thread-local storage
->  implementation.
-> @@ -172,10 +175,7 @@ and
->  are Linux-specific and should not be used in programs that are intended
->  to be portable.
->  .SH NOTES
-> -Glibc does not provide wrappers for these system calls,
-> -since they are generally intended for use only by threading libraries.
-> -In the unlikely event that you want to call them directly, use
+>  For each thread, the kernel maintains two attributes (addresses) called
+>  .I set_child_tid
+> @@ -99,9 +103,6 @@ This call is present since Linux 2.5.48.
+>  Details as given here are valid since Linux 2.5.49.
+>  .SH CONFORMING TO
+>  This system call is Linux-specific.
+> -.SH NOTES
+> -Glibc does not provide a wrapper for this system call; call it using
 > -.BR syscall (2).
-> +These system calls are generally intended for use only by threading libraries.
->  .PP
->  .BR arch_prctl (2)
->  can interfere with
+>  .SH SEE ALSO
+>  .BR clone (2),
+>  .BR futex (2),
 > 
 
 
