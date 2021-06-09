@@ -2,61 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5F5063A1FFC
-	for <lists+linux-man@lfdr.de>; Thu, 10 Jun 2021 00:25:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B44F03A1FFB
+	for <lists+linux-man@lfdr.de>; Thu, 10 Jun 2021 00:24:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229548AbhFIW1J (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 9 Jun 2021 18:27:09 -0400
-Received: from mail-pj1-f52.google.com ([209.85.216.52]:54804 "EHLO
-        mail-pj1-f52.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229542AbhFIW1I (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 9 Jun 2021 18:27:08 -0400
-Received: by mail-pj1-f52.google.com with SMTP id g24so2442640pji.4
-        for <linux-man@vger.kernel.org>; Wed, 09 Jun 2021 15:24:59 -0700 (PDT)
+        id S229557AbhFIW0W (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 9 Jun 2021 18:26:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59264 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229548AbhFIW0W (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 9 Jun 2021 18:26:22 -0400
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com [IPv6:2607:f8b0:4864:20::102e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DFDE1C061574
+        for <linux-man@vger.kernel.org>; Wed,  9 Jun 2021 15:24:10 -0700 (PDT)
+Received: by mail-pj1-x102e.google.com with SMTP id 22-20020a17090a0c16b0290164a5354ad0so2524964pjs.2
+        for <linux-man@vger.kernel.org>; Wed, 09 Jun 2021 15:24:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=z08oa60jn+e7+Q6KXS8a2FRl3/X17m2ffxaI/II+6aI=;
-        b=QiytfqJSRW2NLGD/AOHnPdV703gDZ2EbUf20sV/HpyRELBq+JnovMkFQaVAzf8Vhjs
-         o0PvtGPDzTZNQo9Rfu5NnaYKsH/xWCaGv4NnxOfQOT79qwwS0DH4Tt1/Q3s1dks8x9YR
-         688ENC4fXTqDqJ7I0CUSeq2IOuIAX8icSeEJZUvek1kxw/RiWmuPoglx/vIEmQ9QZyhD
-         VGbP/d/+jVkvW3Yck4f1IBSx1Lag29sKhCTjaTFmLTbfQ3g1hJh9d2dTwxoOkxX6R4qy
-         c7PU/9BCSTMfSMuyyDosdmm7Uo0+nzT43ZAhC1CcmLLYigaB2egoC4ej82bywEzxW6bd
-         WQRQ==
+        bh=FeyZgGAWVnoZllvbTZOCi7Rzjy5Bf638JuHCKGyyKiA=;
+        b=UzPpPp61fWk8x0mlwrT4MZs1Tc675jy7tvIjWCXX3c04KXkbxgJLgMA0bi2azsWyqo
+         WP6YTsn136rRA40D9W0QwAZkiV4a3W6nmP7Hck/Ky4Wai2GEyCo3NktCy3zxMY5V9ZfQ
+         GUZk6nFZbPnBp2Miv0x2uuTcWlXjj2HzBIwypOUODO6ponwAGrgvZXp91Km+ShHOpl+r
+         Ny8QxbL2whWekYSJLJ4VLmajeAft0GkOm2qfmygkwcK0JHCoT9cHs1rm60/PpzekFHs1
+         I+RU+kcyWSYE8yOUVKhk04dWGgdNgyOX6J1RI/Blpe61po2T43xe+tfB2oU5tLKf1R76
+         Yw3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=z08oa60jn+e7+Q6KXS8a2FRl3/X17m2ffxaI/II+6aI=;
-        b=gwv6ywFnybo3BLxx5PJo5cn14jlWEa+EBxTkloizGxMhKj4OyzcO27mfHzXoNF88su
-         GiRXx1o0Axqsg2UQBU7O+5L0z+Hdyy0vxDvYuOLD+X2IN7nn94UAo7Z6GnHO5ywCKSm3
-         TIl5YhparlxiYBXLkd2p40+HgUjogqFRwZqQYtiTR+iGb9o6tbjLuHIJHPGyGL5KhMGT
-         rnd8JhKN/MhePg4sMDCWsy8NsZHjGmHIIBzqQeotI2L/LWKDgpzzj032r4XPcW6VB8Xj
-         hZkYCytIBiYye2cZPrrbAGNT0egwQUP+tjxjqoI8B6QEQl/GuBuklkg+t8afMH/lMHNI
-         M8UQ==
-X-Gm-Message-State: AOAM531W2KPgF5HmA2HlYjeqbrshepuiIvluX3+/M88RSHJ54PPmLIzh
-        2o2IjCkNKMIRE+2M+nukWvljqteYWts=
-X-Google-Smtp-Source: ABdhPJzv73DmrF0T4rxoRzi5sBbkCiK7d0j/UfgTbifhp7b4AkkQIIEqO8QLWy6YCT93GwPek6nO4A==
-X-Received: by 2002:a17:902:b10b:b029:113:7af5:a8bb with SMTP id q11-20020a170902b10bb02901137af5a8bbmr1894767plr.41.1623277439019;
-        Wed, 09 Jun 2021 15:23:59 -0700 (PDT)
+        bh=FeyZgGAWVnoZllvbTZOCi7Rzjy5Bf638JuHCKGyyKiA=;
+        b=hAxz4ASXY5WfLzIxI/iLeREMmdtJPorvKD0PBzwRvUdG9I/x5AnjEbfQjgij7pDAik
+         F3F6dvOf3qrMz3mgBRn9pgvgUHcNRPhtYDLbCtQvLiCNHm4IiWvNJlY+MU9h6nTDsH48
+         CzzMjGbhKS9OAVeF6cEdretnY4SN2FXChN60e6Lx1OlShTeRQ0y38qmoDFx1EaN3Ts63
+         90SZsPawTtMPZ1mYl5Ul8jZxFdF6MJBZZ6AB+qXDntdKKrZJ5XDPg7pWs4Q7v6GtV7uw
+         9VISyj2UNUaYRyFVCmSNNKHlTf1ikTp6Yb9TpA+xOR2dnhDUaA/E6sRd1k5HEvqBCsuF
+         0iwg==
+X-Gm-Message-State: AOAM530IdGPB5fTjbTLeu9+XIXQC+y2EzunTQP/x5L6CMKBkSs4A9slL
+        cwyJLehVGhJglGa9FpbEDcWVD9sJ+gg=
+X-Google-Smtp-Source: ABdhPJzB8PRpvwUvK/nBr+IidyGPlPTxgM+V+CBdVzBCH76wO1MZiHSo56aAorRnCifjCqCy+W3Lpw==
+X-Received: by 2002:a17:90a:1441:: with SMTP id j59mr12643346pja.152.1623277450272;
+        Wed, 09 Jun 2021 15:24:10 -0700 (PDT)
 Received: from [192.168.1.70] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id 11sm664185pge.57.2021.06.09.15.23.56
+        by smtp.gmail.com with ESMTPSA id d3sm5790268pjk.16.2021.06.09.15.24.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Jun 2021 15:23:58 -0700 (PDT)
+        Wed, 09 Jun 2021 15:24:09 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 01/10] open.2: Remove unused <sys/stat.h>
+Subject: Re: [PATCH v2 02/10] rt_sigqueueinfo.2: Use syscall(SYS_...); for
+ system calls without a wrapper
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 References: <20210521232553.161080-10-alx.manpages@gmail.com>
- <20210524181947.459437-1-alx.manpages@gmail.com>
+ <20210524181947.459437-2-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <25854109-bd8a-e6a6-8a99-c0443e9b085f@gmail.com>
-Date:   Thu, 10 Jun 2021 10:23:53 +1200
+Message-ID: <ddaf00cc-4785-4b97-c8b9-d8a11532b0eb@gmail.com>
+Date:   Thu, 10 Jun 2021 10:24:06 +1200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210524181947.459437-1-alx.manpages@gmail.com>
+In-Reply-To: <20210524181947.459437-2-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -67,13 +71,7 @@ X-Mailing-List: linux-man@vger.kernel.org
 Hi Alex,
 
 On 5/25/21 6:19 AM, Alejandro Colomar wrote:
-> I can't see a reason to include it.  <fcntl.h> provides O_*
-> constants for 'flags', S_* constants for 'mode', and mode_t.
-> 
-> Probably a long time ago, some of those weren't defined in
-> <fcntl.h>, and both headers needed to be included, or maybe it's
-> a historical error.
-> 
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 
 Applied.
 
@@ -82,23 +80,32 @@ Thanks,
 Michael
 
 
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 > ---
->  man2/open.2 | 1 -
->  1 file changed, 1 deletion(-)
+>  man2/rt_sigqueueinfo.2 | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
 > 
-> diff --git a/man2/open.2 b/man2/open.2
-> index bac1ee806..1bcd995f4 100644
-> --- a/man2/open.2
-> +++ b/man2/open.2
-> @@ -53,7 +53,6 @@
->  open, openat, creat \- open and possibly create a file
+> diff --git a/man2/rt_sigqueueinfo.2 b/man2/rt_sigqueueinfo.2
+> index 2dd1a5877..d48ecbdcd 100644
+> --- a/man2/rt_sigqueueinfo.2
+> +++ b/man2/rt_sigqueueinfo.2
+> @@ -27,9 +27,14 @@
+>  rt_sigqueueinfo, rt_tgsigqueueinfo \- queue a signal and data
 >  .SH SYNOPSIS
 >  .nf
-> -.B #include <sys/stat.h>
->  .B #include <fcntl.h>
+> -.BI "int rt_sigqueueinfo(pid_t " tgid ", int " sig ", siginfo_t *" info );
+> -.BI "int rt_tgsigqueueinfo(pid_t " tgid ", pid_t " tid ", int " sig \
+> -", siginfo_t *" info );
+> +.BR "#include <linux/signal.h>" "     /* Definition of " SI_* " constants */"
+> +.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
+> +.B #include <unistd.h>
+> +.PP
+> +.BI "int syscall(SYS_rt_sigqueueinfo, pid_t " tgid ,
+> +.BI "            int " sig ", siginfo_t *" info );
+> +.BI "int syscall(SYS_rt_tgsigqueueinfo, pid_t " tgid ", pid_t " tid ,
+> +.BI "            int " sig ", siginfo_t *" info );
+>  .fi
 >  .PP
->  .BI "int open(const char *" pathname ", int " flags );
+>  .IR Note :
 > 
 
 
